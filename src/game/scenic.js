@@ -39,7 +39,20 @@ export function updateView(game, dt) {
     c.x = game.player.x + 11; c.y = game.player.y + 1; c.face = -1;
     if (!v.said) { v.said = true; const L = tg.lines[c.id] || tg.lines.default, ph = phase(game).id, a = L[ph] || tg.lines.default[ph]; game.say(c.npc.name, a[Math.floor(Math.random() * a.length)], 4); }
   }
+  lantern(game, v, two && c);
   if ((v.q = (v.q || 0) + dt) >= 1) { v.q -= 1; game.gainQi(game.data.config.meditate.qi_per_sec * C(game).qi_mul * (two ? tg.qi_mul : 1) * meditateMul(game) * game.eventMul('qi'), game.player.x, game.player.y, true); }
+}
+
+// Thả hoa đăng mỗi tối một lần: đèn trôi từ biển mây lên trời, đạo lữ ngồi cạnh nói một câu ước
+function lantern(game, v, comp) {
+  const L = C(game).lantern, s = game.save, day = new Date().toDateString();
+  if (v.t < L.after || s.lantern === day || phase(game).id !== L.phase) return;
+  s.lantern = day; game.persist();
+  const p = game.player, now = performance.now() / 1000;
+  game.lanterns = Array.from({ length: L.n }, (_, i) => ({ x: p.x + (i - (L.n - 1) / 2) * 14 + Math.random() * 6, y: p.y + 30 + Math.random() * 20, born: now + i * 0.7, life: L.life, sway: Math.random() * 6 }));
+  game.sfx('chime', 0.8);
+  if (comp) { const a = L.lines[comp.id] || L.lines.default; game.say(comp.npc.name, a[Math.floor(Math.random() * a.length)], 5); }
+  else game.toast(L.toast, 4);
 }
 
 // Máy quay khi đang ngắm: nhìn xuống phía biển mây

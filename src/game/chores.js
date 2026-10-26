@@ -83,7 +83,8 @@ function wants(game) {
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
   if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
   const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
-  if (pilotOpt(game, 'ngam') && !game.view && s.sunset !== new Date().toDateString() && phase(game).id === ss.phase) out.push({ view: true });
+  const day = new Date().toDateString(), ph = phase(game).id, ln = game.data.scenic.lantern;   // tối: ra đá thả hoa đăng
+  if (pilotOpt(game, 'ngam') && !game.view && ((s.sunset !== day && ph === ss.phase) || (s.lantern !== day && ph === ln.phase))) out.push({ view: true });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
   if (pilotOpt(game, 'vuot') && game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
   return out;
