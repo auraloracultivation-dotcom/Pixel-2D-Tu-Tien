@@ -21,6 +21,7 @@ import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
+import { updateArena, arenaFail, arenaGoal } from './arena.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { ensureStats, countKill, checkAchv } from './achieve.js';
@@ -54,7 +55,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
-  game.goals = () => [game.res && resGoal(game), game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
+  game.goals = () => [game.res && resGoal(game), arenaGoal(game), game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -232,7 +233,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   function respawn() {
     if (game.trib.active) game.trib.fail();
-    else if (!towerFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
     game.bullets = [];
@@ -293,6 +294,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateSpawners(dt);
     game.dungeon?.update();
     updateTower(game, dt);
+    updateArena(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateRes(game, dt);
     updateWorldBoss(game, dt);

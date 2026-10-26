@@ -1,5 +1,5 @@
 {
- "_note": "Lực chiến (power: hệ số mỗi chỉ số), hào quang theo cảnh giới (auras, chỉ số = cảnh giới, null là không có), thành tựu và danh hiệu. Thành tựu: need.type là realm, kills, bosses, rares, tower, coins (Linh Thạch tích luỹ), pets, techs, comps, power, flag. Xong thì nhận thưởng (give, như daily) và mở danh hiệu (title).",
+ "_note": "Lực chiến (power: hệ số mỗi chỉ số), hào quang theo cảnh giới (auras, chỉ số = cảnh giới, null là không có), thành tựu và danh hiệu. Thành tựu: need.type là realm, kills, bosses, rares, tower, arena (hạng cao nhất, số nhỏ là cao), coins (Linh Thạch tích luỹ), pets, techs, comps, power, flag. Xong thì nhận thưởng (give, như daily) và mở danh hiệu (title).",
  "power": {"maxHp": 1, "atk": 9, "def": 14, "crit": 1600, "critMult": 450, "cdr": 1400, "lifesteal": 1800, "thorns": 700, "regen": 25, "speedMul": 350},
  "auras": [
   null,
@@ -22,6 +22,7 @@
   "san-vuong": {"name": "Kẻ Săn Vương", "color": "#ff9a3a"},
   "di-chung": {"name": "Mắt Tinh Dị Chủng", "color": "#7ae08a"},
   "leo-thap": {"name": "Chinh Phục Tháp", "color": "#7a8af0"},
+  "vo-vuong": {"name": "Luận Võ Đệ Nhất", "color": "#ff9a3a"},
   "phu-ong": {"name": "Phú Ông Tu Tiên", "color": "#ffd24a"},
   "ngu-thu": {"name": "Ngự Thú Sư", "color": "#5fd07a"},
   "cong-phap": {"name": "Bác Học Công Pháp", "color": "#5ab8f0"},
@@ -39,6 +40,8 @@
   {"id": "ba-boss", "name": "Hạ boss", "need": {"type": "bosses", "n": 3}, "text": "Hạ 3 boss", "give": {"stones": 3}},
   {"id": "muoi-boss", "name": "Săn vương", "need": {"type": "bosses", "n": 20}, "text": "Hạ 20 boss", "give": {"item": "dia"}, "title": "san-vuong"},
   {"id": "di-chung", "name": "Dị chủng", "need": {"type": "rares", "n": 10}, "text": "Hạ 10 quái dị chủng", "give": {"gem": 1}, "title": "di-chung"},
+  {"id": "vo-5", "name": "Danh chấn luận võ", "need": {"type": "arena", "n": 5}, "text": "Lên hạng 5 Luận Võ Đài", "give": {"stones": 4, "gem": 1}},
+  {"id": "vo-1", "name": "Đệ nhất luận võ", "need": {"type": "arena", "n": 1}, "text": "Lên hạng 1 Luận Võ Đài", "give": {"item": "dia"}, "title": "vo-vuong"},
   {"id": "thap-10", "name": "Leo tháp", "need": {"type": "tower", "n": 10}, "text": "Qua tầng 10 Tháp Thử Thách", "give": {"stones": 4}},
   {"id": "thap-30", "name": "Đỉnh tháp", "need": {"type": "tower", "n": 30}, "text": "Qua tầng 30 Tháp Thử Thách", "give": {"item": "dia", "gem": 1}, "title": "leo-thap"},
   {"id": "phu-ong", "name": "Phú ông", "need": {"type": "coins", "n": 10000}, "text": "Tích luỹ 10000 Linh Thạch", "give": {"gem": 2}, "title": "phu-ong"},

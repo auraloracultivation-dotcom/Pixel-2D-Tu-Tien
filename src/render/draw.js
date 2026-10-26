@@ -62,7 +62,11 @@ function drawMob(ctx, m, t) {
   shadow(ctx, m.x, m.y + 1, r);
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
-  if (m.def.shadow) {   // tâm ma: bóng đen hình người, mắt tím
+  if (m.def.person) {   // đấu sĩ luận võ: hình người, đai màu
+    drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
+    ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
+    if (wind) { ctx.strokeStyle = '#ff4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(m.x, m.y - 6, 9, 0, Math.PI * 2); ctx.stroke(); }
+  } else if (m.def.shadow) {   // tâm ma: bóng đen hình người, mắt tím
     ctx.globalAlpha = 0.85 + 0.15 * Math.sin(t * 6);
     drawPerson(ctx, m, m.def.color, '#120a1a', t, m.flash > 0, null);
     ctx.globalAlpha = 1; ctx.fillStyle = '#d0a0ff';

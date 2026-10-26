@@ -57,7 +57,7 @@ export function createHud(audio) {
     const gt = game.goals();
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
-    const boss = game.mobs.find(m => m.def.ai === 'boss' && !m.dead);
+    const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);
     $('boss').hidden = !boss;
     if (boss) { $('boss-name').textContent = boss.def.name; $('boss-fill').style.width = boss.hp / boss.maxHp * 100 + '%'; }
 

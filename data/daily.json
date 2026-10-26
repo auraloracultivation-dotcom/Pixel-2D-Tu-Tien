@@ -8,6 +8,7 @@
   {"id": "giet-hoa-lang", "type": "kill", "mob": "hoa-lang", "n": 12, "need": "ngu-kiem", "text": "Hạ {n} hỏa lang", "reward": {"contrib": 25, "stones": 2}},
   {"id": "giet-ma-binh", "type": "kill", "mob": "ma-binh", "n": 5, "need": "tran-hoa-lang", "text": "Hạ {n} ma binh", "reward": {"contrib": 30, "stones": 2}},
   {"id": "bi-canh-tn", "type": "res", "n": 2, "need": "mo-bi-canh", "text": "Vào bí cảnh tài nguyên {n} lần", "reward": {"contrib": 25, "stones": 1}},
+  {"id": "luan-vo", "type": "arena", "n": 2, "need": "mo-bi-canh", "text": "Luận võ {n} trận", "reward": {"contrib": 25, "coins": 80}},
   {"id": "leo-thap", "type": "tower", "n": 3, "need": "mo-bi-canh", "text": "Qua {n} tầng Tháp Thử Thách", "reward": {"contrib": 30, "stones": 2}},
   {"id": "di-chung", "type": "rare", "n": 1, "need": "nguThu", "text": "Hạ {n} quái dị chủng", "reward": {"contrib": 40, "gem": 1}},
   {"id": "da-toa", "type": "meditate", "n": 60, "text": "Đả tọa {n} giây", "reward": {"contrib": 15, "qi": 60}},
