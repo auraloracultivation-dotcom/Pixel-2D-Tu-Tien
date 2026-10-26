@@ -2,6 +2,7 @@
 import { createDialog } from './dialog.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
+import { toggleAuto } from '../game/auto.js';
 
 const $ = id => document.getElementById(id);
 
@@ -24,6 +25,13 @@ export function createHud(audio) {
   mute.addEventListener('pointerdown', e => { e.stopPropagation(); audio.toggle(); paintMute(); });
   paintMute();
 
+  // Nút Menu: mở/thu danh sách bảng; chạm một bảng thì thu lại
+  const menu = $('hud-menu');
+  $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); menu.hidden = !menu.hidden; });
+  menu.addEventListener('pointerdown', () => { setTimeout(() => { menu.hidden = true; }); }, true);
+  let gameRef = null;
+  $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) toggleAuto(gameRef); });
+
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 
 
@@ -31,6 +39,7 @@ export function createHud(audio) {
   ui.update = game => {
     if (!game.save || !game.player) return;
     const p = game.player, s = game.save, d = game.data;
+    gameRef = game;
     const need = qiNeed(s, d.realms);
     const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield)].join();
     if (key !== last) {
@@ -62,6 +71,8 @@ export function createHud(audio) {
     $('skills-badge').hidden = !game.newSkills;
     $('pets-badge').hidden = !game.newPets;
     $('daily-badge').hidden = !game.newDaily;
+    $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily);
+    $('btn-auto').classList.toggle('on', !!game.auto);
     const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
     pb.hidden = !pn;
     if (pn) {
