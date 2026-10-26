@@ -1,10 +1,11 @@
 // Tháp Thử Thách (data/tower.json): mỗi tầng một đợt quái mạnh dần, tầng boss theo mốc; qua tầng mới lần đầu nhận thưởng.
-import { grant, dailyEvent } from './daily.js';
+import { grant, dailyEvent, ensureDaily, taskDef } from './daily.js';
 import { scaleReward } from './events.js';
 
 const C = game => game.data.tower;
 const tierOf = (cfg, floor) => cfg.tiers.filter(t => floor >= t.from).pop();
 const isBoss = (cfg, floor) => floor % cfg.boss_every === 0;
+const towerTaskLeft = game => ensureDaily(game).tasks.some(t => { const d = taskDef(game, t.id); return d?.type === 'tower' && t.n < d.n; });
 
 // Thưởng lần đầu qua tầng: đá tẩy luyện, linh khí; tầng boss thêm một món đồ theo mốc
 export function floorReward(cfg, floor) {
@@ -48,7 +49,7 @@ export async function talkTower(game, npc) {
   const opts = [{ id: next, label: `Leo tầng ${next}`, desc: `Lần đầu qua: ${nr.stones} Tẩy Luyện Thạch, ${nr.qi} linh khí${nr.item ? ', một món đồ' : ''}` }];
   if (best >= 1) opts.push({ id: 1, label: 'Leo lại từ tầng 1', desc: 'Luyện tay, không có thưởng tới khi vượt tầng cao nhất' });
   opts.push({ id: 0, label: 'Để sau', desc: '' });
-  const pick = await game.dialog.choose(`${name}: Tháp có vô số tầng, cứ ${C(game).boss_every} tầng có một trấn thủ. Cao nhất ngươi đã qua: tầng ${best}.`, opts);
+  const pick = game.pilot ? 1 : await game.dialog.choose(`${name}: Tháp có vô số tầng, cứ ${C(game).boss_every} tầng có một trấn thủ. Cao nhất ngươi đã qua: tầng ${best}.`, opts);
   if (pick) await enter(game, pick);
 }
 
@@ -76,7 +77,8 @@ async function cleared(game) {
   dailyEvent(game, 'tower');
   game.sfx('levelup'); game.persist();
   const p = game.player; p.hp = Math.min(p.maxHp, p.hp + p.maxHp * 0.3);
-  const go = await game.dialog.choose(msg, [
+  const daily = game.pilot && towerTaskLeft(game);   // tự hành: leo tiếp cho xong việc hằng ngày rồi ra
+  const go = game.pilot ? (daily ? 'up' : 'out') : await game.dialog.choose(msg, [
     { id: 'up', label: `Leo tầng ${t.floor + 1}`, desc: 'Hồi 30% máu giữa các tầng' },
     { id: 'out', label: 'Rời tháp', desc: 'Giữ tầng cao nhất, lần sau leo tiếp' },
   ]);
