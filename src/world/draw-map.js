@@ -1,6 +1,6 @@
 // Vẽ bản đồ bằng hình khối đơn giản (bản tạm). Hình pixel thật thay vào ở bước 3.
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
-import { plotGrowth } from '../game/cave.js';
+import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
 import { drawWindTile } from './draw-wind.js';
 import { drawForestTile } from './draw-forest.js';
@@ -113,7 +113,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
     else if ('wiYOjk'.includes(ch)) drawIceTile(ctx, ch, px, py, T, hash(tx, ty), t, map.at(tx, ty - 1));
     else if ('dVUe'.includes(ch)) drawWindTile(ctx, ch, px, py, T, hash(tx, ty), t);
     else if ('mnZlWQrX'.includes(ch)) drawForestTile(ctx, ch, px, py, T, hash(tx, ty), t, map.at(tx, ty - 1));
-    else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty));
+    else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty), cropOf(game, plotIndex(game, tx, ty)));
     else if (ch === 'q' && hash(tx, ty) > 0.82) {
       ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);
     } else if (ch === 'D' && map.locked.has(tx + ',' + ty)) {

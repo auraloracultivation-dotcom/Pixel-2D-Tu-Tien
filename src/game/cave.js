@@ -106,34 +106,3 @@ export function forge(game, recipeId, slot) {
   game.persist();
   return it;
 }
-
-// Linh điền: mỗi ô G một luống. Lưu thời điểm gieo, đủ giờ thì chín.
-const now = () => Date.now();
-export function plotKey(x, y) { return x + ',' + y; }
-export function plotGrowth(game, x, y) {
-  const g = game.save.garden, k = plotKey(x, y), ms = caveLevel(game).grow_min * 60000;
-  if (!g[k]) g[k] = now();
-  return Math.min(1, (now() - g[k]) / ms);
-}
-
-export function harvest(game) {
-  const { map, data, save } = game, cfg = data.cave.garden;
-  let n = 0;
-  for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
-    if (map.at(x, y) !== 'G' || plotGrowth(game, x, y) < 1) continue;
-    n += caveLevel(game).yield; save.garden[plotKey(x, y)] = now();
-  }
-  if (n) { addMat(save, cfg.herb, n); dailyEvent(game, 'harvest'); game.persist(); }
-  return n;
-}
-
-// Phút còn lại tới luống chín sớm nhất
-export function nextRipe(game) {
-  const { map, data } = game;
-  let best = Infinity;
-  for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
-    if (map.at(x, y) !== 'G') continue;
-    best = Math.min(best, (1 - plotGrowth(game, x, y)) * caveLevel(game).grow_min);
-  }
-  return Math.ceil(best);
-}

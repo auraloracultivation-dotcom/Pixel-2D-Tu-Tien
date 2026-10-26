@@ -2,6 +2,7 @@
 import { brew, brewRate, usePill, forge, costText, canPay, matInfo } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
+import { renderGarden } from './garden-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -27,6 +28,7 @@ export function createCavePanel(game) {
     top.innerHTML = ''; list.innerHTML = '';
     top.hidden = tab !== 'ren';
     if (tab === 'phu') { renderCave(list); return; }
+    if (tab === 'vuon') { renderGarden(game, list, m => { last = m; game.sfx('pickup'); }, render); return; }
     if (tab === 'dan') {
       for (const [id, p] of Object.entries(data.cave.pills)) {
         const c = el('div', 'skill-card');
