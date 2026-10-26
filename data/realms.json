@@ -24,7 +24,25 @@
   "dmg_pct": 0.16,
   "grow": 0.04,
   "extra": 1,
-  "fail_qi": 0.3
+  "fail_qi": 0.3,
+  "_note_kinds": "by_realm[cảnh giới hiện tại] = kiểu kiếp để lên cảnh giới kế. set: sét giáng vào chỗ đứng. loi: sét kèm hàng sét quét ngang/dọc. hoa: lửa trời, vòng to hơn, nhiều hơn. tam-ma: đánh bóng của chính mình (máu = máu tối đa × hp, công = công × atk), sét nhẹ vẫn giáng. mix: mỗi đợt ngẫu nhiên set/loi/hoa và có tâm ma. waves, extra, grow ghi đè số chung.",
+  "kinds": {
+   "set": {"name": "Lôi kiếp", "color": "#bff4ff", "intro": "Mây đen tụ lại trên đầu... Lôi kiếp sắp giáng xuống!", "tip": "Chạy né vòng sáng. Trụ hết các đạo sét để đột phá."},
+   "loi": {"name": "Cửu Tiêu Lôi Kiếp", "color": "#9ad8ff", "intro": "Sấm rền chín tầng trời. Kim Đan phải chịu sét thành hàng!", "tip": "Sét giáng cả hàng ngang và dọc. Nhìn vạch báo mà né."},
+   "tam-ma": {"name": "Tâm Ma Kiếp", "color": "#b08ad0", "intro": "Trời không đổ sét. Trong lòng bạn, một bóng đen đứng dậy... là chính bạn.", "tip": "Hạ tâm ma (bóng của chính mình) để đột phá. Sét nhẹ vẫn giáng.", "hp": 2.2, "atk": 0.45},
+   "hoa": {"name": "Thiên Hỏa Kiếp", "color": "#ff9a3a", "intro": "Bầu trời đỏ rực. Lửa trời trút xuống như mưa!", "tip": "Vòng lửa to và nhiều hơn sét. Chạy liên tục."},
+   "mix": {"name": "Hỗn Nguyên Kiếp", "color": "#f2c94c", "intro": "Sét, lửa và tâm ma cùng kéo tới. Đây là kiếp của bậc đại năng!", "tip": "Né sét lửa, hạ tâm ma, trụ hết các đợt.", "hp": 2.6, "atk": 0.5}
+  },
+  "by_realm": [
+   {"kind": "set"},
+   {"kind": "loi", "waves": 10, "grow": 0.05},
+   {"kind": "tam-ma", "waves": 6},
+   {"kind": "hoa", "waves": 10, "extra": 2, "grow": 0.05},
+   {"kind": "mix", "waves": 10, "extra": 2, "grow": 0.06},
+   {"kind": "mix", "waves": 11, "extra": 2, "grow": 0.07},
+   {"kind": "mix", "waves": 12, "extra": 3, "grow": 0.08},
+   {"kind": "mix", "waves": 14, "extra": 3, "grow": 0.1}
+  ]
  },
  "roots": {
   "_note": "Phẩm linh căn, tung lúc thức tỉnh. qi: nhân tốc độ tu luyện. Chênh lệch nhỏ theo ý chủ dự án; nâng phẩm bằng đan hiếm (luyện đan).",
