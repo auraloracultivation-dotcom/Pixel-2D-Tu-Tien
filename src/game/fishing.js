@@ -1,6 +1,7 @@
 // Câu cá (data/fishing.json): đứng ở mép đảo cạnh biển mây, thả câu, chờ cá cắn rồi bấm kéo cần kịp lúc.
 import { dailyEvent } from './daily.js';
 import { outdoor } from './daynight.js';
+import { daoLu } from './affinity.js';
 
 const C = game => game.data.fishing;
 
@@ -39,7 +40,19 @@ export function fishAct(game, dir) {
   s.mats[id] = (s.mats[id] || 0) + 1;
   game.number(game.player.x, game.player.y - 20, `+1 ${m.name}`, m.color);
   game.toast(`Câu được ${m.name}!`, 1.6); game.sfx('pickup');
-  dailyEvent(game, 'fish'); game.persist();
+  dailyEvent(game, 'fish');
+  together(game, id, m);
+  game.persist();
+}
+
+// Đạo lữ đứng gần thì thỉnh thoảng câu thêm được một con, nói một câu
+function together(game, id, m) {
+  const tg = C(game).together, c = game.comp, p = game.player;
+  if (!c || c.id !== daoLu(game) || Math.hypot(c.x - p.x, c.y - p.y) > tg.range || Math.random() >= tg.chance) return;
+  game.save.mats[id] += 1;
+  game.number(c.x, c.y - 20, `+1 ${m.name}`, m.color);
+  const L = tg.lines[c.id] || tg.lines.default;
+  game.say(c.npc.name, L[Math.floor(Math.random() * L.length)], 3.5);
 }
 
 export function updateFishing(game, dt) {

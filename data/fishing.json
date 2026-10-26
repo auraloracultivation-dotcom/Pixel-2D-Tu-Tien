@@ -2,6 +2,7 @@
  "_note": "Câu cá ở mép đảo (cạnh biển mây), ngoài trời. wait: số giây chờ cá cắn (ngẫu nhiên trong khoảng), window: số giây để kéo cần. fish: cá là nguyên liệu trong cave.json, w là độ dễ gặp, realm cảnh giới cần, maps chỉ có ở những đảo đó (không ghi là đảo nào cũng có), night chỉ cắn câu ban đêm.",
  "wait": [3, 8],
  "window": 1.3,
+ "together": {"_note": "Đạo lữ đang đi cùng đứng gần (range px): mỗi lần câu được, chance cũng câu thêm một con giống vậy và nói một câu (lines theo người, thiếu thì default).", "range": 70, "chance": 0.3, "lines": {"default": ["Con này mình câu được đó, tặng bạn luôn.", "Cá ở đây hiền ghê, cắn câu mà như chào nhau.", "Ngồi câu với nhau thế này, chẳng cần câu được gì cũng vui.", "Xem này, mình câu giỏi hơn bạn rồi nhé.", "Gió êm, nước lặng, có người bên cạnh. Đủ rồi."], "lac-tuyet": ["Ta cũng được một con. Đệ cầm lấy.", "Ngồi yên một chỗ, lòng cũng yên theo.", "Gió hôm nay hiền. Câu thêm một lúc nữa đi.", "Tối nay ta nướng cá, đệ nhóm lửa."], "ho-linh": ["Ta câu được rồi! Con của ta to hơn nhé!", "Hì hì, cá thích ta hơn ngươi đó.", "Câu thêm đi, ta còn đói lắm."]}},
  "fish": {
   "linh-ngu": {"w": 60},
   "van-ngu": {"w": 28, "realm": 1},
