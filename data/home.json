@@ -2,6 +2,7 @@
  "_note": "Song tu ở nhà (song_tu): người chơi đả tọa trong tầm range của đạo lữ đang ngồi ở nhà thì linh khí nhân thêm mul, có vệt linh quang nối hai người. Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
  "map": "dong-phu",
  "at": [11, 5],
+ "zither": {"_note": "Đêm đàn: lúc phase, đang song tu với đạo lữ ở nhà thì cứ every[0]..every[1] giây đạo lữ gảy một câu đàn tranh (tiếng pluck, nốt nhạc bay lên màu color). Câu đầu mỗi đêm đạo lữ nói một lời (lines theo người, thiếu thì default).", "phase": "dem", "every": [25, 55], "color": "#fff1b8", "lines": {"lac-tuyet": ["Sư phụ dạy ta kiếm, không dạy đàn. Bài này ta tự học. Đệ nghe thử.", "Đêm yên thế này, kiếm cũng muốn nghỉ. Ta gảy một bài."], "ho-linh": ["Ta gảy đàn cho ngươi nghe! Sai nốt cũng không được cười.", "Bài này ở Hồ tộc ai cũng biết. Ngươi ngồi yên mà nghe."], "default": ["Đêm nay để mình gảy một bài cho bạn nghe.", "Ngồi tu mà có tiếng đàn, linh khí cũng êm hơn."]}},
  "song_tu": {
   "range": 44,
   "mul": 1.5,

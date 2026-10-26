@@ -6,6 +6,7 @@ import { grant } from './daily.js';
 import { bump } from './achieve.js';
 import { setCompanion } from './companion.js';
 import { comfort, hasDecor } from './decor.js';
+import { addFx } from './combat.js';
 
 const C = game => game.data.home;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -66,10 +67,24 @@ export function updateHome(game, dt) {
   if (hs && (hs.t -= dt) <= 0) { game.homeSay = null; const n = game.npcs.find(x => x.id === hs.id); if (n) { n.bubble = { text: hs.text, t: 0 }; game.say(n.def.name, hs.text, 3); } }
   const n = songTuNpc(game), was = game.songTu, st = C(game).song_tu;
   game.songTu = n;
+  if (n) zither(game, n, dt);
   if (n && was === n && game.songTuSay > 0 && (game.songTuSay -= dt) <= 0) game.say(n.def.name, pick(st.lines[n.id] || st.lines.default), 3.2);
   if (!n || was) return;
   game.toast(st.start.replace('{name}', n.def.name), 2.6);
   game.songTuSay = 2.8;
+}
+
+// Đêm đàn: đang song tu lúc đêm thì đạo lữ thỉnh thoảng gảy đàn tranh, nốt nhạc bay lên; câu đầu mỗi đêm nói một lời
+function zither(game, n, dt) {
+  const z = C(game).zither, s = game.save, day = new Date().toDateString();
+  if (phase(game).id !== z.phase) return;
+  if ((game.zitherT = (game.zitherT ?? 6) - dt) > 0) return;
+  game.zitherT = z.every[0] + Math.random() * (z.every[1] - z.every[0]);
+  game.sfx('pluck');
+  for (let i = 0; i < 3; i++) addFx(game, { type: 'note', x: n.x + (i - 1) * 6, y: n.y - i * 2, color: z.color, life: 1.6 + i * 0.4 });
+  if (s.zither === day) return;
+  s.zither = day; game.persist();
+  game.say(n.def.name, pick(z.lines[n.id] || z.lines.default), 4);
 }
 
 // Có chuông gió thì thỉnh thoảng leng keng khi đang ở động phủ
