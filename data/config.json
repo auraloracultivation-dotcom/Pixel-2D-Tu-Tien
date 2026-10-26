@@ -17,7 +17,7 @@
   "hac-phong-dong",
   "dao-moc",
   "lang-tinh-linh",
-  "co-thu-tam", "re-mau-thu", "dao-thien-kim", "kiem-trung", "dao-hau-tho", "dia-cung"
+  "co-thu-tam", "re-mau-thu", "dao-thien-kim", "kiem-trung", "dao-hau-tho", "dia-cung", "vet-nut-ngoai", "hu-khong-lao"
  ],
  "server_save": false,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},

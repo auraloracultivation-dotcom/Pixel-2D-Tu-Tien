@@ -55,6 +55,9 @@
   "I": {"name": "cột đá", "solid": true, "color": "#b07a4a"},
   "z": {"name": "nhà đất", "solid": true, "color": "#b07a4a"},
   "E": {"name": "vách núi", "solid": true, "color": "#3a2618"},
-  "v": {"name": "nền địa cung", "color": "#4a3424"}
+  "v": {"name": "nền địa cung", "color": "#4a3424"},
+  "p": {"name": "đá hư không", "color": "#4a3a5a"},
+  "f": {"name": "khe hư không", "solid": true, "low": true, "color": "#120820"},
+  "*": {"name": "tinh thể tím", "solid": true, "color": "#4a3a5a"}
  }
 }

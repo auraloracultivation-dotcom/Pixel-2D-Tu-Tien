@@ -10,7 +10,8 @@
   "hac-phong-dao": "phong-yeu-vuong",
   "dao-moc": "co-thu-yeu-vuong",
   "dao-thien-kim": "kim-giap-vuong",
-  "dao-hau-tho": "nham-giap-thu"
+  "dao-hau-tho": "nham-giap-thu",
+  "vet-nut-ngoai": "hu-khong-cu-thu"
  },
  "intro": "Mặt đất rung chuyển... {name} xuất hiện!"
 }

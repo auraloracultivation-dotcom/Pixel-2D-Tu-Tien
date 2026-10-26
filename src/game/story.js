@@ -44,6 +44,7 @@ export function createStory(game) {
     else if (a.npc_add) g.addNpc(a.npc_add, a.near_player ? null : a.at);
     else if (a.npc_remove) g.npcs = g.npcs.filter(n => n.id !== a.npc_remove);
     else if (a.flag) g.save.flags[a.flag] = true;
+    else if (a.unflag) delete g.save.flags[a.unflag];
     else if (a.shake) g.screen.shake(a.shake, 0.6);
     else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); g.checkUnlocks(); }
     else if (a.gear) g.giveGear(a.gear);

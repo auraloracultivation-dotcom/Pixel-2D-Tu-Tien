@@ -61,6 +61,12 @@
   "tho-ma-ve": [["tinh-thiet", 1, 2], ["yeu-huyet", 1, 2]],
   "toai-son-ma-tuong": [["tinh-thiet", 1, 18], ["yeu-huyet", 1, 10], ["khoa-linh-thach", 0.55], ["yeu-vuong-dan", 0.22]],
   "nham-giap-thu": [["tinh-thiet", 1, 14], ["khoa-linh-thach", 0.45], ["yeu-vuong-dan", 0.16]],
+  "hu-khong-ma": [["yeu-huyet", 0.5], ["tinh-thiet", 0.3]],
+  "u-minh-phap": [["yeu-huyet", 0.6]],
+  "hu-anh": [["yeu-huyet", 0.5]],
+  "u-minh-ve": [["tinh-thiet", 1, 3], ["yeu-huyet", 1, 2]],
+  "hu-khong-nguc-chu": [["tinh-thiet", 1, 20], ["yeu-huyet", 1, 12], ["khoa-linh-thach", 0.6], ["yeu-vuong-dan", 0.25]],
+  "hu-khong-cu-thu": [["yeu-huyet", 1, 14], ["khoa-linh-thach", 0.5], ["yeu-vuong-dan", 0.18]],
   "co-thu-yeu-vuong": [["linh-thao", 1, 10], ["tinh-thiet", 1, 8], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.14]]
  },
  "salvage_iron": {

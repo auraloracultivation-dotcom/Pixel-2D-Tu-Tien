@@ -19,6 +19,8 @@
   {"id": "kiem-hon", "text": "Hạ {n} kiếm hồn ở bãi mộ kiếm Đảo Thiên Kim", "mob": "kiem-hon", "n": 10, "need": "dao-kim", "reward": {"stones": 8, "qi": 2600, "gem": 0.7}},
   {"id": "van-kiem-ma-tuong", "text": "Vào Kiếm Trủng hạ Vạn Kiếm Ma Tướng", "mob": "van-kiem-ma-tuong", "n": 1, "need": "cuu-thiet-lan", "reward": {"stones": 16, "qi": 5200, "gem": 1, "item": "dia"}},
   {"id": "tho-khoi", "text": "Hạ {n} thổ khôi ở Đảo Hậu Thổ", "mob": "tho-khoi", "n": 10, "need": "dao-tho", "reward": {"stones": 9, "qi": 4200, "gem": 0.8}},
-  {"id": "toai-son-ma-tuong", "text": "Vào Địa Cung hạ Toái Sơn Ma Tướng", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "reward": {"stones": 18, "qi": 8400, "gem": 1, "item": "dia"}}
+  {"id": "toai-son-ma-tuong", "text": "Vào Địa Cung hạ Toái Sơn Ma Tướng", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "reward": {"stones": 18, "qi": 8400, "gem": 1, "item": "dia"}},
+  {"id": "hu-khong-ma", "text": "Hạ {n} hư không ma ở Ngoại Vực", "mob": "hu-khong-ma", "n": 10, "need": "vet-nut", "reward": {"stones": 10, "qi": 7000, "gem": 0.9}},
+  {"id": "hu-khong-nguc-chu", "text": "Vào Hư Không Lao hạ Ngục Chủ", "mob": "hu-khong-nguc-chu", "n": 1, "need": "cuu-lac-tuyet", "reward": {"stones": 20, "qi": 14000, "gem": 1, "item": "dia"}}
  ]
 }
