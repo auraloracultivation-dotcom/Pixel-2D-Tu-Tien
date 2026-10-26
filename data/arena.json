@@ -1,0 +1,33 @@
+{
+ "_note": "Luận Võ Đài: đấu với bản sao các tu sĩ (chưa có máy chủ). Bảng xếp hạng 10 người, thắng người ngay trên thì lên hạng đó. Máu, công của đối thủ theo máu tối đa và công của người chơi nhân hp, atk. base là mẫu quái trong mobs.json (cận chiến, đánh xa, kiểu boss). realm: cảnh giới tối thiểu để khiêu chiến. first: thưởng lần đầu đánh bại. daily: thưởng mỗi ngày theo hạng cao nhất (chỉ số = hạng - 1). per_day: số lượt luận võ mỗi ngày.",
+ "npc": "luan-vo-su",
+ "map": "luan-vo-dai",
+ "need": "mo-bi-canh",
+ "per_day": 5,
+ "time_limit": 90,
+ "back": {"map": "thien-kiem-phong", "spawn": "tu-luan-vo"},
+ "rivals": [
+  {"id": "tran-binh", "rank": 10, "name": "Trần Bình", "robe": "#8a9ab0", "hair": "#3a2a1a", "base": "dau-si", "hp": 1.0, "atk": 0.22, "realm": 0, "line": "Đệ tử ngoại môn cũng có chí lớn!", "first": {"coins": 60, "stones": 1}},
+  {"id": "lieu-oanh", "rank": 9, "name": "Liễu Oanh", "robe": "#e08ab0", "hair": "#2a1a2a", "base": "dau-si-xa", "hp": 0.9, "atk": 0.26, "realm": 0, "line": "Kiếm khí của ta bay xa lắm đấy.", "first": {"coins": 80, "stones": 1}},
+  {"id": "ma-thiet", "rank": 8, "name": "Mã Thiết", "robe": "#7a5a3a", "hair": "#1a1a1a", "base": "dau-si", "hp": 1.4, "atk": 0.28, "realm": 1, "line": "Thân thể ta luyện như sắt!", "first": {"coins": 120, "stones": 2}},
+  {"id": "van-tu", "rank": 7, "name": "Vân Tú", "robe": "#5ab8f0", "hair": "#e8e8f0", "base": "dau-si-xa", "hp": 1.2, "atk": 0.32, "realm": 1, "line": "Phong vân tụ tán, ngươi né được không?", "first": {"coins": 160, "stones": 2}},
+  {"id": "hoang-pha", "rank": 6, "name": "Hoàng Phá", "robe": "#d06a3a", "hair": "#5a1a0a", "base": "dau-si", "hp": 1.7, "atk": 0.36, "realm": 2, "line": "Một quyền phá núi!", "first": {"coins": 220, "stones": 3, "gem": 1}},
+  {"id": "bach-lien", "rank": 5, "name": "Bạch Liên", "robe": "#f0f0f8", "hair": "#c8c0e0", "base": "dau-si-xa", "hp": 1.5, "atk": 0.4, "realm": 2, "line": "Sen trắng nở, máu đỏ rơi.", "first": {"coins": 300, "stones": 3, "item": "huyen"}},
+  {"id": "doan-kiem", "rank": 4, "name": "Đoạn Kiếm", "robe": "#4a4a6a", "hair": "#0a0a1a", "base": "dau-si-ba", "hp": 2.0, "atk": 0.42, "realm": 2, "line": "Kiếm gãy vẫn chém được người.", "first": {"coins": 400, "stones": 4, "gem": 1}},
+  {"id": "tu-ngoc", "rank": 3, "name": "Tử Ngọc", "robe": "#9a4ad0", "hair": "#2a0a3a", "base": "dau-si-ba", "hp": 2.3, "atk": 0.46, "realm": 3, "line": "Đệ tam Luận Võ Đài, không dễ lay đâu.", "first": {"coins": 550, "stones": 5, "item": "huyen"}},
+  {"id": "long-uyen", "rank": 2, "name": "Long Uyên", "robe": "#2a8a6a", "hair": "#0a2a1a", "base": "dau-si-ba", "hp": 2.7, "atk": 0.5, "realm": 3, "line": "Rồng nằm dưới vực, hôm nay ngẩng đầu.", "first": {"coins": 750, "stones": 6, "gem": 2}},
+  {"id": "kiem-thanh", "rank": 1, "name": "Kiếm Thánh Vô Danh", "robe": "#f2c94c", "hair": "#f0f0f0", "base": "dau-si-ba", "hp": 3.2, "atk": 0.55, "realm": 4, "line": "Muốn ngồi ghế này, bước qua ta trước.", "first": {"coins": 1200, "stones": 8, "item": "dia"}}
+ ],
+ "daily": [
+  {"coins": 600, "stones": 4},
+  {"coins": 450, "stones": 3},
+  {"coins": 350, "stones": 3},
+  {"coins": 280, "stones": 2},
+  {"coins": 220, "stones": 2},
+  {"coins": 170, "stones": 2},
+  {"coins": 130, "stones": 1},
+  {"coins": 100, "stones": 1},
+  {"coins": 70, "stones": 1},
+  {"coins": 50, "stones": 1}
+ ]
+}

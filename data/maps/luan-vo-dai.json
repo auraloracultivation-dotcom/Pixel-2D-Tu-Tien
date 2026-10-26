@@ -1,0 +1,28 @@
+{
+ "id": "luan-vo-dai",
+ "name": "Luận Võ Đài",
+ "sky": "#1a1428",
+ "dark": 0.18,
+ "ground": "#4a3e30",
+ "indoor": true,
+ "no_trib": true,
+ "arena": true,
+ "grid": [
+  "#################",
+  "#xxkxxxxxxxxxkxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#xxkxxxxxxxxxkxx#",
+  "#xxxxxxxxxxxxxxx#",
+  "#################"
+ ],
+ "spawns": {"vao": [8, 8]},
+ "portals": [],
+ "npcs": [],
+ "spawners": [],
+ "rooms": []
+}

@@ -18,6 +18,7 @@
  "trai-truong": {"name": "Trại Trưởng Tán Tu", "color": "#7a6a5a", "hair": "#3a3030", "lines": ["Gió đen thổi suốt ngày đêm. Ở lâu là ho ra máu.", "Trại này dựng ba lần, đổ ba lần rồi."]},
  "van-bao": {"name": "Chưởng Quỹ Vạn Bảo Lâu", "color": "#c9a46a", "hair": "#3a2a1a", "lines": ["Có Linh Thạch là có tất cả. Mua gì cứ nói."]},
  "quan-bi-canh": {"name": "Quản Bí Cảnh", "color": "#6a8ab0", "hair": "#e8e0c8", "lines": ["Bí cảnh tài nguyên mỗi ngày mở ba lượt mỗi loại. Đừng tham."]},
+ "luan-vo-su": {"name": "Luận Võ Trưởng Lão", "color": "#8a3a2a", "hair": "#e0d8c8", "lines": ["Luận võ là để học nhau, không phải để giết nhau. Nhưng thua thì vẫn đau."]},
  "thu-thap": {"name": "Thủ Tháp Lão Nhân", "color": "#6a5a8a", "hair": "#d8d0e8", "lines": ["Tháp này do tổ sư dựng để đệ tử thử sức. Tầng càng cao, ma ảnh càng mạnh."]},
  "quan-binh-kho": {"name": "Quản Binh Khố", "color": "#8a8aa0", "hair": "#2a2a3a", "lines": ["Kiếm tông dạy kiếm, nhưng binh khố có đủ cả. Muốn thử loại nào cứ lấy."]}
 }

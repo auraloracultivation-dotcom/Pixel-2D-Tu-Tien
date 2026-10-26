@@ -9,6 +9,7 @@ import { pickMode } from './dun-mode.js';
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
 import { talkTower } from './tower.js';
+import { talkArena } from './arena.js';
 import { talkShop } from './shop.js';
 import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
@@ -51,6 +52,7 @@ export function updateInteract(game) {
     if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
     if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
     if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
+    if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
     if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
     if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
     if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
