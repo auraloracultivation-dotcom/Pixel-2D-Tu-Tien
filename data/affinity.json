@@ -47,7 +47,7 @@
   "realm": 2,
   "meditate_mul": 1.3,
   "combo": {"name": "Song Kiếm Hợp Bích", "cd": 18, "radius": 52, "dmg": 4, "color": "#ffb0d0"},
-  "ask": "Kết làm đạo lữ",
+  "anniv": {"_note": "Kỷ niệm: đủ days ngày kể từ lúc kết đạo lữ, lần tới về động phủ có đạo lữ ở nhà thì tặng gift (như daily) và nói một câu (lines theo người, thiếu thì default; {days} là số ngày). Mốc lỡ lúc vắng thì gộp vào mốc lớn nhất.", "days": [1, 7, 30, 100, 365], "gift": {"coins": 300, "stones": 3, "gem": 1}, "toast": "Kỷ niệm {days} ngày kết đạo lữ. Nhận: {got}", "lines": {"lac-tuyet": ["{days} ngày rồi đấy. Ta đếm, không phải vì ta để ý đâu.", "Đệ còn nhớ hôm nay là ngày gì không? {days} ngày. Cầm lấy, quà của ta.", "Kiếm của ta, {days} ngày nay cũng là kiếm của đệ. Chưa hối hận lần nào."], "ho-linh": ["Hôm nay tròn {days} ngày đó! Ngươi quên thì ta cắn!", "{days} ngày rồi. Quà của ta nè, ngươi phải giữ cho kỹ.", "Ở bên ngươi {days} ngày, ta béo lên một chút. Tại ngươi hết."], "default": ["Tròn {days} ngày rồi. Cảm ơn vì đã ở bên.", "{days} ngày. Mong còn nhiều ngày nữa."]}}, "ask": "Kết làm đạo lữ",
   "vows": {
    "lac-tuyet": [["lac-tuyet", "...Đạo lữ? Đệ biết đạo lữ nghĩa là gì không? Là cùng tu, cùng sống, cùng chết."], ["lac-tuyet", "Được. Kiếm của ta từ giờ cũng là kiếm của đệ."]],
    "ho-linh": [["ho-linh", "Cuối cùng ngươi cũng chịu nói! Ta chờ câu này lâu lắm rồi đó."], ["ho-linh", "Từ giờ ta song tu cùng ngươi. Đả tọa sẽ nhanh hơn nhiều."]]

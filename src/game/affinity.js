@@ -58,7 +58,7 @@ export const canPropose = (game, id) => {
 };
 export function propose(game, id) {
   if (!canPropose(game, id)) return null;
-  game.save.daoLu = id; game.persist();
+  game.save.daoLu = id; game.save.daoLuAt = Date.now(); game.persist();
   return A(game).dao_lu.vows[id];
 }
 export const songTuMul = game => daoLu(game) ? A(game).dao_lu.meditate_mul : 1;

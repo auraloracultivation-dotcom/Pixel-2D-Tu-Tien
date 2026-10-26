@@ -34,6 +34,7 @@ import { updateStroll } from './stroll.js';
 import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
+import { updateAnniv } from './anniv.js';
 import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
@@ -328,6 +329,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateKyNgo(game, dt);
     updatePilotLog(game);
     updateEta(game, dt);
+    updateAnniv(game, dt);
     updatePetFetch(game, dt);
     updateFishing(game, dt);
     updateView(game, dt);
