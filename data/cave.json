@@ -17,10 +17,25 @@
   "ma-binh": [["yeu-huyet", 0.5], ["tinh-thiet", 0.2]],
   "ma-phap": [["yeu-huyet", 0.5], ["hoa-linh-chi", 0.2]],
   "huyet-nha": [["yeu-huyet", 1, 3]],
-  "huyet-nha-that": [["yeu-huyet", 1, 5], ["hoa-linh-chi", 1, 3], ["tinh-thiet", 1, 4]]
+  "huyet-nha-that": [["yeu-huyet", 1, 5], ["hoa-linh-chi", 1, 3], ["tinh-thiet", 1, 4]],
+  "tuyet-lang": [["yeu-huyet", 0.3]],
+  "bang-tinh": [["linh-thao", 0.5]],
+  "ma-bang-tien": [["yeu-huyet", 0.4]],
+  "han-ma-ve": [["tinh-thiet", 0.35], ["yeu-huyet", 0.4]],
+  "han-hon-ma-tuong": [["tinh-thiet", 1, 6], ["yeu-huyet", 1, 5]]
  },
- "salvage_iron": {"pham": 1, "linh": 2, "huyen": 3, "dia": 5, "thien": 8},
- "garden": {"grow_min": 15, "yield": 1, "herb": "linh-thao"},
+ "salvage_iron": {
+  "pham": 1,
+  "linh": 2,
+  "huyen": 3,
+  "dia": 5,
+  "thien": 8
+ },
+ "garden": {
+  "grow_min": 15,
+  "yield": 1,
+  "herb": "linh-thao"
+ },
  "pill_button": "hoi-xuan-dan",
  "pills": {
   "hoi-xuan-dan": {"name": "Hồi Xuân Đan", "color": "#ff7a8a", "desc": "Hồi ngay 40% máu. Dùng bằng nút Đan khi đánh.", "use": {"heal": 0.4}, "cd": 8, "recipe": {"linh-thao": 2}, "make": 2},

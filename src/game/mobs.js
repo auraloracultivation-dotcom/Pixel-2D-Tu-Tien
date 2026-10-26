@@ -141,9 +141,9 @@ function bossThink(game, m, d, dt) {
 // Lửa rơi: một quả vào chỗ người chơi đứng, các quả khác rải quanh
 function meteor(game, m) {
   const mt = m.def.meteor, p = game.player;
-  game.say(m.def.name, 'Thiêu rụi hết đi!', 1.2);
+  game.say(m.def.name, m.def.meteor.line || 'Thiêu rụi hết đi!', 1.2);
   for (let i = 0; i < mt.n; i++) {
     const a = Math.random() * Math.PI * 2, d = i ? 20 + Math.random() * 60 : 0;
-    addStrike(game, { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: mt.r, delay: mt.delay + i * 0.12, dmg: m.def.atk * mt.dmg, kind: 'meteor', color: '#ff7a3a' });
+    addStrike(game, { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: mt.r, delay: mt.delay + i * 0.12, dmg: m.def.atk * mt.dmg, kind: 'meteor', color: mt.color || '#ff7a3a' });
   }
 }

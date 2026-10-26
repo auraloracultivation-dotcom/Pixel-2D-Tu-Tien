@@ -1,5 +1,5 @@
 // Chạy kịch bản data/story.json: mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
-import { rollRoot, rootOf } from './stats.js';
+import { rollRoot, rootOf, totalLayer } from './stats.js';
 export function createStory(game) {
   const steps = game.data.story.steps;
   const st = { busy: false, counters: {}, events: {} };
@@ -67,6 +67,7 @@ export function createStory(game) {
     if (u.collect) return (st.counters[u.collect] || 0) >= u.n;
     if (u.kill) return (st.counters['kill:' + u.kill] || 0) >= u.n;
     if (u.realm) return g.save.realm >= u.realm;
+    if (u.total) return totalLayer(g.save, g.data.realms) >= u.total;
     if (u.kill_all) return !g.mobs.some(m => m.story && !m.dead);
     if (u.hp_below) return p.hp / p.maxHp < u.hp_below;
     if (u.talk) return !!st.events['talk:' + u.talk];

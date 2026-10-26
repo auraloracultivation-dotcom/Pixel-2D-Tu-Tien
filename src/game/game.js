@@ -120,7 +120,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
-      if (n.unless && game.save.flags[n.unless]) continue;
+      if ((n.unless && game.save.flags[n.unless]) || (n.need && !game.save.flags[n.need])) continue;
       game.addNpc(n.id, n.at);
     }
     spawnPet(game);

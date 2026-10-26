@@ -2,7 +2,12 @@
  "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống.",
  "npc": "ngu-thu-su",
  "rare_chance": 0.04,
- "rare": {"hp": 3, "atk": 1.5, "qi": 5, "prefix": "Dị chủng "},
+ "rare": {
+  "hp": 3,
+  "atk": 1.5,
+  "qi": 5,
+  "prefix": "Dị chủng "
+ },
  "max_level": 20,
  "exp_base": 40,
  "exp_pow": 1.35,
@@ -13,14 +18,19 @@
   "ma-tieu": {"name": "Tiểu Quỷ", "color": "#7a4ab0", "desc": "Lao vào cào. Cứ 8 giây làm chậm quái quanh mình.", "mult": 0.55, "cd": 0.9, "range": 70, "melee": true, "skill": {"type": "slow", "radius": 34, "dur": 2.5, "cd": 8}},
   "hoa-lang": {"name": "Tiểu Hỏa Lang", "color": "#ff7a3a", "desc": "Lao vào cắn. Cứ 8 giây phun lửa quanh mình.", "mult": 0.65, "cd": 1.0, "range": 70, "melee": true, "skill": {"type": "aoe", "radius": 30, "dmg": 1.6, "cd": 8}, "mount": ["phong-lang", 0.35]},
   "viem-linh": {"name": "Viêm Linh Nhi", "color": "#ffb03a", "desc": "Bắn cầu lửa nổ. Cứ 12 giây tăng 15% công cho chủ 5 giây.", "mult": 0.5, "cd": 1.4, "range": 90, "skill": {"type": "buff", "amount": 0.15, "dur": 5, "cd": 12}},
-  "ma-cung": {"name": "Ma Tiễn Đồng", "color": "#b04a9a", "desc": "Bắn tên xuyên. Cứ 9 giây bắn ba mũi một lúc.", "mult": 0.5, "cd": 1.2, "range": 100, "skill": {"type": "volley", "n": 3, "dmg": 1, "cd": 9}}
+  "ma-cung": {"name": "Ma Tiễn Đồng", "color": "#b04a9a", "desc": "Bắn tên xuyên. Cứ 9 giây bắn ba mũi một lúc.", "mult": 0.5, "cd": 1.2, "range": 100, "skill": {"type": "volley", "n": 3, "dmg": 1, "cd": 9}},
+  "tuyet-lang": {"name": "Tiểu Tuyết Lang", "color": "#dfe8f2", "desc": "Lao vào cắn. Cứ 8 giây hú làm chậm quái quanh mình.", "mult": 0.7, "cd": 0.95, "range": 75, "melee": true, "skill": {"type": "slow", "radius": 38, "dur": 3, "cd": 8}, "mount": ["tuyet-ly", 0.3]},
+  "bang-tinh": {"name": "Băng Tinh Nhi", "color": "#9ad8ff", "desc": "Bắn băng. Cứ 10 giây hồi 8% máu cho chủ.", "mult": 0.55, "cd": 1.2, "range": 90, "skill": {"type": "heal", "amount": 0.08, "cd": 10}}
  },
  "mounts": {
   "bach-loc": {"name": "Bạch Lộc", "color": "#f4efe2", "accent": "#c9a46a", "speed": 0.35, "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%."},
   "phong-lang": {"name": "Phong Lang", "color": "#8a8aa0", "accent": "#ff7a3a", "speed": 0.5, "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%."},
-  "hoa-ky-lan": {"name": "Hỏa Kỳ Lân", "color": "#ff6a3a", "accent": "#ffe27a", "speed": 0.65, "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%."}
+  "hoa-ky-lan": {"name": "Hỏa Kỳ Lân", "color": "#ff6a3a", "accent": "#ffe27a", "speed": 0.65, "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%."},
+  "tuyet-ly": {"name": "Tuyết Ly", "color": "#f4f8fc", "accent": "#9ad8ff", "speed": 0.55, "desc": "Mèo tuyết lớn. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%."}
  },
- "mount_drops": {"huyet-nha-that": ["hoa-ky-lan", 0.25]},
+ "mount_drops": {
+  "huyet-nha-that": ["hoa-ky-lan", 0.25]
+ },
  "starter_pet": "moc-linh",
  "starter_mount": "bach-loc",
  "ride_calm": 2.5

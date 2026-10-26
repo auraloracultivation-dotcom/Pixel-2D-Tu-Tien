@@ -1,6 +1,7 @@
 // Vẽ bản đồ bằng hình khối đơn giản (bản tạm). Hình pixel thật thay vào ở bước 3.
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth } from '../game/cave.js';
+import { drawIceTile } from './draw-ice.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
   h = (h ^ (h >>> 13)) * 1274126177;
@@ -107,6 +108,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
       if (map.at(tx, ty - 1) !== 'B') { ctx.fillStyle = '#3a2a2a'; ctx.fillRect(px - 1, py + 1, T + 2, 4); ctx.fillRect(px + hash(tx, ty) * 8, py - 2, 6, 3); }
     } else if (ch === 'K') drawFurnace(ctx, cx, cy, t);
     else if (ch === 'A') drawAnvil(ctx, cx, cy, t);
+    else if ('wiYOjk'.includes(ch)) drawIceTile(ctx, ch, px, py, T, hash(tx, ty), t, map.at(tx, ty - 1));
     else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty));
     else if (ch === 'q' && hash(tx, ty) > 0.82) {
       ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);
