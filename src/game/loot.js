@@ -1,6 +1,7 @@
 // Đồ rơi khi hạ quái: bật ra quanh xác rồi tự bay vào người chơi.
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
+import { makeRoom } from './autoequip.js';
 
 export function dropLoot(game, m) {
   const d = game.data.items.drops[m.id];
@@ -36,7 +37,10 @@ export function updateLoot(game, dt) {
 function take(game, l) {
   const { data, save } = game;
   if (l.kind === 'item') {
-    if (!addItem(data, save, l.payload)) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
+    if (!addItem(data, save, l.payload)) {
+      if (!game.pilot) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
+      if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành: phân giải món rẻ cho có chỗ
+    }
     const r = rarityOf(data.items, l.payload.rarity);
     game.toast(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, 1.4);
     game.newItems = (game.newItems || 0) + 1;
