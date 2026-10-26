@@ -1,12 +1,13 @@
 // Tự hành chăm dược viên (tùy chọn "vuon"): dư Linh Thạch thì khai thêm luống, rồi nâng đất luống thấp nhất.
-// Luôn chừa lại pilot.garden_keep Linh Thạch và herb_keep mỗi loại nguyên liệu.
+// Luôn chừa lại pilot.garden_keep Linh Thạch (và tiền đang để dành nâng động phủ) và herb_keep mỗi loại nguyên liệu.
 import { herbs, openCost, openPlot, nextLv, upgradePlot, plotLv } from './garden.js';
 import { coins } from './shop.js';
+import { caveSaving } from './autogrow.js';
 
 export function autoGarden(game) {
   const s = game.save, d = game.data, P = d.config.pilot, g = d.garden;
   if (!s.flags['dong-phu']) return;
-  const spare = coins(s) - P.garden_keep, oc = openCost(game);
+  const spare = coins(s) - P.garden_keep - caveSaving(game), oc = openCost(game);
   if (oc != null) {   // còn luống chưa khai: khai trước, chưa đủ tiền thì để dành
     if (spare >= oc && openPlot(game)) game.toast(`Tự khai thêm một luống dược viên (${herbs(game).n} luống).`, 2);
     return;
