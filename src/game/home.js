@@ -26,11 +26,19 @@ const seat = (game, id, at, key) => {
   return n;
 };
 
+// Đạo lữ chào khi mình về nhà (cách nhau ít nhất gap phút)
+function welcome(game, id) {
+  const w = C(game).welcome, s = game.save;
+  if (Date.now() - (s.welcomeAt || 0) < w.gap * 60000) return;
+  s.welcomeAt = Date.now();
+  game.homeSay = { id, t: 2.6, text: pick(w.lines[id] || w.lines.default) };
+}
+
 // Gọi khi vào bản đồ: ở động phủ thì đạo lữ ngồi chờ (trừ khi đang đi cùng), khách hôm nay ngồi bên kia
 export function spawnHome(game) {
   if (game.map.id !== C(game).map) return;
   const id = daoLuHere(game);
-  if (id && game.save.companion !== id) seat(game, id, C(game).at, 'home');
+  if (id && game.save.companion !== id && seat(game, id, C(game).at, 'home')) welcome(game, id);
   const v = visitorToday(game), n = v && seat(game, v, C(game).visit.at, 'visit');
   if (n) game.toast(C(game).visit.toast.replace('{name}', n.def.name), 2.4);
   // Lần đầu về động phủ: Tiểu Linh chào và gợi ý trang trí
@@ -53,6 +61,8 @@ export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (ga
 // Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
 export function updateHome(game, dt) {
   chime(game, dt);
+  const hs = game.homeSay;   // lời chào chờ báo khách ghé chơi hiện xong rồi mới nói
+  if (hs && (hs.t -= dt) <= 0) { game.homeSay = null; const n = game.npcs.find(x => x.id === hs.id); if (n) { n.bubble = { text: hs.text, t: 0 }; game.say(n.def.name, hs.text, 3); } }
   const n = songTuNpc(game), was = game.songTu, st = C(game).song_tu;
   game.songTu = n;
   if (n && was === n && game.songTuSay > 0 && (game.songTuSay -= dt) <= 0) game.say(n.def.name, pick(st.lines[n.id] || st.lines.default), 3.2);
