@@ -28,6 +28,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.persist = () => {
     if (!game.save || !game.map) return;
     writeSave(game.owner, game.save);
+    game.cloud?.save(game.save);
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
@@ -120,6 +121,20 @@ export function createGame(data, screen, input, ui, audio) {
       .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
   }
 
+  // Lưu máy chủ: chỉ khi config bật server_save và đã đăng nhập. Lỗi mạng thì vẫn chơi với bản trong máy.
+  async function loadCloud(session) {
+    game.cloud = null;
+    if (!session || !cfg.server_save) return null;
+    try {
+      const { createCloudSave } = await import('../net/profile.js');
+      game.cloud = createCloudSave({
+        onConflict: () => game.toast('Tài khoản đang chơi ở máy khác. Tải lại game để tiếp tục lưu.', 4),
+        onError: () => game.toast('Chưa lưu được lên máy chủ, sẽ thử lại.', 1.5),
+      });
+      return await game.cloud.load();
+    } catch { return null; }
+  }
+
   game.begin = async ({ fresh, session, owner }) => {
     game.owner = owner;
     if (session) {
@@ -131,7 +146,9 @@ export function createGame(data, screen, input, ui, audio) {
         });
       } catch { game.online = null; }
     }
-    const saved = loadSave(owner);
+    const local = loadSave(owner), remote = await loadCloud(session);
+    if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
+    const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
     ensureInv(game.save);
     game.story = createStory(game);
