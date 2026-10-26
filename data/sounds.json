@@ -2,7 +2,7 @@
  "_note": "Âm thanh tổng hợp bằng WebAudio, không cần file. Mỗi tiếng là danh sách nốt: wave (sine|square|triangle|sawtooth|noise), f (Hz đầu), f2 (Hz cuối), t (giây bắt đầu), d (độ dài), v (âm lượng 0-1), q (lọc thông thấp Hz, tuỳ chọn).",
  "volume": {
   "sfx": 0.5,
-  "music": 0.22
+  "music": 0.35
  },
  "sfx": {
   "swing": [{"wave": "noise", "t": 0, "d": 0.09, "v": 0.35, "q": 2800}, {"wave": "triangle", "f": 520, "f2": 260, "t": 0, "d": 0.08, "v": 0.15}],
@@ -27,8 +27,30 @@
   "meteor": [{"wave": "noise", "t": 0, "d": 0.4, "v": 0.4, "q": 900}, {"wave": "sine", "f": 160, "f2": 50, "t": 0, "d": 0.35, "v": 0.3}]
  },
  "music": {
-  "_note": "Nhạc nền sinh từ thang ngũ cung theo từng bản đồ: notes là bậc trong scale, bpm, root (Hz).",
+  "_note": "Nhạc nền êm: đàn tranh gảy câu ngắn, sáo trúc (lead sao: nửa số câu là sáo), nền trầm, phòng vang. Mỗi đảo: root (Hz nốt chủ), bpm (chậm là êm), mood (sang: ngũ cung sáng, toi: ngũ cung trầm), amb (gio, chim, nuoc, lua). zither, flute, drone: âm lượng từng tiếng. amb: tỉ lệ mỗi phách có chim, nước, lửa và âm lượng gió.",
   "scale": [0, 2, 4, 7, 9],
-  "maps": {"thanh-khe": {"root": 293.66, "bpm": 84, "wave": "triangle", "pad": "sine", "mood": "sang"}, "thien-kiem-phong": {"root": 261.63, "bpm": 72, "wave": "triangle", "pad": "sine", "mood": "sang"}, "bi-canh": {"root": 196.0, "bpm": 96, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "dao-xich-dien": {"root": 220.0, "bpm": 88, "wave": "triangle", "pad": "sawtooth", "mood": "sang"}, "hoa-quat": {"root": 174.61, "bpm": 104, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "dao-han-bang": {"root": 246.94, "bpm": 76, "wave": "sine", "pad": "triangle", "mood": "sang"}, "han-bang-quat": {"root": 164.81, "bpm": 100, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "bi-canh-tai-nguyen": {"root": 233.08, "bpm": 116, "wave": "triangle", "pad": "sine", "mood": "sang"}, "thap-thu-thach": {"root": 185.0, "bpm": 110, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "hac-phong-dao": {"root": 207.65, "bpm": 80, "wave": "triangle", "pad": "sawtooth", "mood": "toi"}, "hac-phong-dong": {"root": 155.56, "bpm": 108, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "dao-moc": {"root": 246.94, "bpm": 76, "wave": "triangle", "pad": "sine", "mood": "sang"}, "lang-tinh-linh": {"root": 329.63, "bpm": 70, "wave": "sine", "pad": "sine", "mood": "sang"}, "co-thu-tam": {"root": 174.61, "bpm": 104, "wave": "square", "pad": "sawtooth", "mood": "toi"}}
+  "zither": 0.16,
+  "flute": 0.09,
+  "drone": 0.05,
+  "reverb": {"sec": 3.2, "wet": 0.45},
+  "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035},
+  "maps": {
+   "thanh-khe": {"root": 293.66, "bpm": 63, "lead": "sao", "amb": ["chim", "nuoc", "gio"], "mood": "sang"},
+   "thien-kiem-phong": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["gio", "chim"], "mood": "sang"},
+   "bi-canh": {"root": 196.0, "bpm": 82, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "dao-xich-dien": {"root": 220.0, "bpm": 66, "lead": "tranh", "amb": ["lua", "gio"], "mood": "sang"},
+   "hoa-quat": {"root": 174.61, "bpm": 88, "lead": "tranh", "amb": ["lua"], "mood": "toi"},
+   "dao-han-bang": {"root": 246.94, "bpm": 57, "lead": "sao", "amb": ["gio", "nuoc"], "mood": "sang"},
+   "han-bang-quat": {"root": 164.81, "bpm": 85, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "bi-canh-tai-nguyen": {"root": 233.08, "bpm": 87, "lead": "tranh", "amb": ["nuoc"], "mood": "sang"},
+   "thap-thu-thach": {"root": 185.0, "bpm": 94, "lead": "tranh", "amb": [], "mood": "toi"},
+   "hac-phong-dao": {"root": 207.65, "bpm": 68, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "hac-phong-dong": {"root": 155.56, "bpm": 92, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "dao-moc": {"root": 246.94, "bpm": 57, "lead": "sao", "amb": ["chim", "gio"], "mood": "sang"},
+   "lang-tinh-linh": {"root": 329.63, "bpm": 52, "lead": "sao", "amb": ["chim", "nuoc"], "mood": "sang"},
+   "co-thu-tam": {"root": 174.61, "bpm": 88, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "dong-phu": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["nuoc"], "mood": "sang"},
+   "luan-vo-dai": {"root": 220.0, "bpm": 78, "lead": "tranh", "amb": ["gio"], "mood": "toi"}
+  }
  }
 }
