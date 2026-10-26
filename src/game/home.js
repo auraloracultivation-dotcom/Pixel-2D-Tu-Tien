@@ -4,6 +4,7 @@ import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { phase } from './daynight.js';
 import { grant } from './daily.js';
 import { setCompanion } from './companion.js';
+import { comfort } from './decor.js';
 
 const C = game => game.data.home;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -40,7 +41,8 @@ export function songTuNpc(game) {
   if (!p.meditating) return null;
   return game.npcs.find(n => n.home && Math.hypot(n.x - p.x, n.y - p.y) < C(game).song_tu.range) || null;
 }
-export const homeMul = game => songTuNpc(game) ? C(game).song_tu.mul : 1;
+// Đả tọa ở nhà: song tu nhân mul, đồ trang trí cộng thêm phần trăm
+export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (game.map.id === C(game).map ? 1 + comfort(game) / 100 : 1);
 
 // Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
 export function updateHome(game, dt) {

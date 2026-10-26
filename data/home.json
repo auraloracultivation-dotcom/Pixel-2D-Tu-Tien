@@ -64,5 +64,21 @@
   "lac-tuyet": ["Cầm lấy. Ta để dành cho đệ.", "Đừng hỏi ta lấy ở đâu. Cứ cầm đi."],
   "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
   "default": ["Cho ngươi."]
+ },
+ "decor": {
+  "_note": "Trang trí động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi món vẽ ở chỗ cố định (at, ô bản đồ; kind là kiểu vẽ trong draw-decor.js) và cộng comfort phần trăm tốc độ đả tọa khi ở động phủ.",
+  "npc": "tieu-linh",
+  "items": {
+   "den-long": {"name": "Đôi đèn lồng", "desc": "Hai chiếc đèn lồng đỏ, tối về ấm cả phòng.", "cost": 300, "comfort": 3, "kind": "lantern", "at": [[7, 3], [11, 3]]},
+   "binh-hoa": {"name": "Bình hoa đào", "desc": "Cành đào cắm bình sứ, cánh hoa rụng nhẹ.", "cost": 400, "comfort": 3, "kind": "vase", "at": [[13, 1]]},
+   "chau-tung": {"name": "Chậu tùng nhỏ", "desc": "Cây tùng uốn dáng, xanh quanh năm.", "cost": 500, "comfort": 4, "kind": "bonsai", "at": [[1, 1]]},
+   "ke-sach": {"name": "Kệ sách cổ", "desc": "Đầy công pháp và truyện vặt.", "cost": 800, "comfort": 5, "kind": "shelf", "at": [[5, 1]]},
+   "tham-do": {"name": "Thảm đỏ bồ đoàn", "desc": "Thảm thêu mây, ngồi đả tọa êm hơn.", "cost": 900, "comfort": 5, "kind": "rug", "at": [[9, 5]]},
+   "chuong-gio": {"name": "Chuông gió", "desc": "Leng keng khi gió lùa qua cửa.", "cost": 600, "comfort": 4, "kind": "chime", "at": [[18, 1]]},
+   "ho-ca": {"name": "Hồ cá nhỏ", "desc": "Mấy con cá chép đỏ bơi quanh đá.", "cost": 1500, "comfort": 6, "kind": "pond", "at": [[16, 10]]}
+  },
+  "full": "Động phủ đã đủ đồ rồi. Đẹp lắm!",
+  "lines": ["Chủ nhân muốn sắm gì cho động phủ?", "Nhà có đẹp thì về mới vui."],
+  "bought": ["Để con bày ngay!", "Đẹp quá! Chủ nhân có mắt nhìn."]
  }
 }

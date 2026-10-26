@@ -18,6 +18,7 @@ import { canInvite, talkCompanion } from './companion.js';
 import { hasSide, talkSide, sideCollect } from './side.js';
 import { talkHome } from './home.js';
 import { canPat, patPet } from './pat.js';
+import { talkDecor } from './decor.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -63,6 +64,7 @@ export function updateInteract(game) {
     if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
     if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
     if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
+    if (npc.id === game.data.home.decor.npc) { talkDecor(game, npc); return; }
     if (npc.home || npc.visit) { talkHome(game, npc); return; }
     if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
     const lines = npc.def.lines;

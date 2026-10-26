@@ -11,6 +11,7 @@ import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
 import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
+import { drawDecor } from './draw-decor.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 
 const INK = '#1b1830';
@@ -210,6 +211,7 @@ export function drawWorld(game, screen, t) {
   screen.worldTransform();
   drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game);
   drawScenic(ctx, game);
+  drawDecor(ctx, game, t);
   for (const k of game.pickups) {
     const q = game.data.items.quest_items[k.item] || {};
     ctx.fillStyle = q.base || '#2f7a44'; circle(ctx, k.x, k.y, 3.5);

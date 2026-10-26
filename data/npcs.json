@@ -17,6 +17,7 @@
  "anh-ma-ton": {"name": "Bóng Ma Tôn", "color": "#1a0a2a", "hair": "#0a0010", "lines": ["..."]},
  "hac-cuc-ma-chung": {"name": "Hắc Cức Ma Chủng", "color": "#1a2a10", "hair": "#0a1a08", "lines": ["..."]},
  "kiem-lao": {"name": "Kiếm Lão", "color": "#8a7a5a", "hair": "#e8e8e0", "lines": ["Mỗi thanh kiếm trong bãi mộ là một đời người. Ta giữ chúng đã sáu mươi năm.", "Kiếm tốt không cần sắc nhất. Kiếm tốt là kiếm biết lúc nào nên nằm yên."]},
+ "tieu-linh": {"name": "Tiểu Linh", "color": "#a8d86a", "hair": "#5a3a2a", "lines": ["Con là linh đồng giữ động phủ. Chủ nhân cần gì cứ gọi.", "Hôm nay con quét sân ba lần rồi đó."]},
  "tieu-dong": {"name": "Tiểu Đồng", "color": "#c86a3a", "hair": "#3a2a1a", "lines": ["Sư tỷ Lan rèn kiếm giỏi nhất làng. Đập một búa là thép tự cong theo ý.", "Cát ở đây có lẫn kim sa, ngồi sàng cả ngày cũng vui."]},
  "thiet-lan": {"name": "Thiết Lan", "color": "#e8d8a0", "hair": "#2a2a30", "lines": ["Ông nội ở Xích Diễm dạy ta cầm búa trước khi cầm đũa.", "Kiếm của ta gãy rồi. Không sao, ta rèn thanh mới, tốt hơn."]},
  "van-kiem-ma-tuong": {"name": "Vạn Kiếm Ma Tướng", "color": "#3a2e1a", "hair": "#0a0806", "lines": ["..."]},
