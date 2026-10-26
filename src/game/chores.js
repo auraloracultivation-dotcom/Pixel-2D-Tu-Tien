@@ -5,6 +5,7 @@ import { dist } from './combat.js';
 import { ensureDaily, taskDef } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
+import { outdoor } from './daynight.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -25,7 +26,21 @@ function spawnerOf(game, mob, routeTo) {
   return gardenJob(game, routeTo);
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { kill: mobId } | { pick: sideId, map }
+// Ô đứng câu cá gần nhất trên đảo này: ô đi được, sát biển mây, không phải cổng
+function fishSpot(game) {
+  const map = game.map, p = game.player;
+  if (!outdoor(game) || map.def.no_fish) return null;
+  const gates = new Set(map.def.portals.map(pt => pt.at.join(',')));
+  let best = null, bd = Infinity;
+  for (let y = 1; y < map.h - 1; y++) for (let x = 1; x < map.w - 1; x++) {
+    if (map.solidTile(x, y) || gates.has(x + ',' + y) || ![[0, 1], [1, 0], [-1, 0], [0, -1]].some(([dx, dy]) => map.at(x + dx, y + dy) === '~')) continue;
+    const c = map.center(x, y), d = Math.hypot(c.x - p.x, c.y - p.y);
+    if (d < bd) { bd = d; best = c; }
+  }
+  return best;
+}
+
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true }
 function wants(game) {
   const s = game.save, out = [];
   for (const [id, q] of Object.entries(game.data.side.quests)) {
@@ -38,6 +53,7 @@ function wants(game) {
   for (const t of ensureDaily(game).tasks) {
     const d = taskDef(game, t.id);
     if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
+    if (d?.type === 'fish' && t.n < d.n) out.push({ fish: true });
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
   if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
@@ -66,6 +82,12 @@ export function choreJob(game, routeTo) {
       if (game.map.id !== w.map) { const j = goPortal(game, routeTo, w.map); if (j) return j; continue; }
       const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (k) return { go: k };
+    } else if (w.fish) {
+      if (game.fish) return { fish: game.fish };   // đang thả câu: đứng yên chờ
+      const at = fishSpot(game);
+      if (at) return { fish: at };
+      const j = goPortal(game, routeTo, 'thien-kiem-phong');
+      if (j) return j;
     } else if (w.kill) {
       const sp = spawnerOf(game, w.kill, routeTo);
       if (!sp) continue;   // chỉ có trong bí cảnh: bỏ qua
