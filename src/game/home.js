@@ -33,6 +33,9 @@ export function spawnHome(game) {
   if (id && game.save.companion !== id) seat(game, id, C(game).at, 'home');
   const v = visitorToday(game), n = v && seat(game, v, C(game).visit.at, 'visit');
   if (n) game.toast(C(game).visit.toast.replace('{name}', n.def.name), 2.4);
+  // Lần đầu về động phủ: Tiểu Linh chào và gợi ý trang trí
+  const tl = !game.save.decorHint && game.npcs.find(x => x.id === C(game).decor.npc);
+  if (tl) { game.save.decorHint = 1; game.say(tl.def.name, C(game).decor.hint, 4); }
 }
 
 // Đạo lữ đang ngồi cùng song tu: người chơi đả tọa gần đạo lữ ở nhà

@@ -68,6 +68,7 @@
  "decor": {
   "_note": "Trang trí động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi món vẽ ở chỗ cố định (at, ô bản đồ; kind là kiểu vẽ trong draw-decor.js) và cộng comfort phần trăm tốc độ đả tọa khi ở động phủ.",
   "npc": "tieu-linh",
+    "hint": "Chủ nhân về rồi! Động phủ còn trống trải lắm, có Linh Thạch thì gọi con mua đồ bày cho ấm nhé.",
   "items": {
    "den-long": {"name": "Đôi đèn lồng", "desc": "Hai chiếc đèn lồng đỏ, tối về ấm cả phòng.", "cost": 300, "comfort": 3, "kind": "lantern", "at": [[7, 3], [11, 3]]},
    "binh-hoa": {"name": "Bình hoa đào", "desc": "Cành đào cắm bình sứ, cánh hoa rụng nhẹ.", "cost": 400, "comfort": 3, "kind": "vase", "at": [[13, 1]]},
