@@ -28,7 +28,7 @@ export function progress(game, need) {
   switch (need.type) {
     case 'realm': return s.realm;
     case 'kills': case 'bosses': case 'rares': case 'coins': return s.stats[need.type] || 0;
-    case 'fish': case 'lantern': case 'pat': case 'tea': case 'sit': return Math.floor(s.stats?.[need.type] || 0);   // việc yên bình; sit tính phút
+    case 'fish': case 'lantern': case 'pat': case 'tea': case 'cook': case 'sit': return Math.floor(s.stats?.[need.type] || 0);   // việc yên bình; sit tính phút
     case 'tower': return s.tower?.best || 0;
     case 'arena': return s.arena?.best && s.arena.best <= need.n ? need.n : 0;   // hạng: số nhỏ là cao
     case 'pets': return Object.keys(s.pets || {}).length;

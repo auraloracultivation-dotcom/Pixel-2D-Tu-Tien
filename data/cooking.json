@@ -1,0 +1,26 @@
+{
+ "_note": "Nấu ăn cùng đạo lữ ở động phủ, mỗi ngày một bữa. Món nấu từ nguyên liệu trong túi (need: id nguyên liệu trong cave.materials và số lượng). Ăn xong thì đả tọa ở đâu cũng nhân buff.qi trong buff.min phút (không cộng dồn với bữa trước, bữa sau thay bữa trước). Khách ghé chơi hôm nay đang ngồi trong nhà thì ăn cùng: thêm guest.min phút và guest.pts thiện cảm với khách. Tự hành chọn món tốt nhất nấu được.",
+ "label": "Nấu ăn cùng nhau",
+ "desc": "Mỗi ngày một bữa, ăn xong đả tọa nhanh hơn",
+ "pick": "Hôm nay nấu món gì?",
+ "back": "Thôi, để sau",
+ "none": "Trong túi chưa đủ nguyên liệu nấu món nào. Câu cá, hái thảo dược rồi về nấu nhé.",
+ "toast": "{dish}: đả tọa nhanh hơn {pct}% trong {min} phút.",
+ "hud": "{dish} {min} phút",
+ "recipes": {
+  "chao-linh-thao": {"name": "Cháo Linh Thảo", "need": {"linh-thao": 5}, "buff": {"qi": 1.1, "min": 30}},
+  "canh-ca-linh": {"name": "Canh cá Linh Ngư", "need": {"linh-ngu": 2, "linh-thao": 2}, "buff": {"qi": 1.15, "min": 40}},
+  "ca-van-nuong": {"name": "Vân Ngư nướng lá sen", "need": {"van-ngu": 2}, "buff": {"qi": 1.15, "min": 60}},
+  "banh-ngoc-lo": {"name": "Bánh Ngọc Lộ", "need": {"ngoc-lo-hoa": 2, "linh-thao": 3}, "buff": {"qi": 1.2, "min": 45}},
+  "lau-hoa-ly": {"name": "Lẩu Hỏa Lý", "need": {"hoa-ly": 2, "hoa-linh-chi": 1}, "buff": {"qi": 1.2, "min": 60}},
+  "goi-bang-ngu": {"name": "Gỏi Băng Ngư", "need": {"bang-ngu": 2, "ngoc-lo-hoa": 1}, "buff": {"qi": 1.25, "min": 50}},
+  "sup-nguyet-ngu": {"name": "Súp Nguyệt Ngư sâm tím", "need": {"nguyet-ngu": 1, "tu-van-sam": 1}, "buff": {"qi": 1.3, "min": 60}}
+ },
+ "lines": {
+  "lac-tuyet": ["Đệ thái rau, ta nhóm lửa. ...Đừng thái vào tay.", "Nêm nhạt thôi. Ta không ăn mặn.", "Ngon. ...Lần sau lại nấu."],
+  "ho-linh": ["Để ta nếm thử trước! ...Thêm chút nữa thôi mà!", "Ngươi nấu ngon hơn ta tưởng đó!", "Ăn no rồi ta muốn ngủ trưa quá..."],
+  "default": ["Thơm quá."]
+ },
+ "guest": {"min": 15, "pts": 3, "toast": "{name} ngồi ăn cùng. Bữa cơm thêm vui, hiệu ứng thêm {min} phút.",
+  "lines": {"default": ["Được ăn cơm nhà thế này, ghé chơi thật không uổng.", "Lần sau ta mang thêm rượu tới!"]}}
+}

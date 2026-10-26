@@ -28,7 +28,7 @@
   "cong-phap": {"name": "Bác Học Công Pháp", "color": "#5ab8f0"},
   "ban-huu": {"name": "Bạn Hữu Bốn Phương", "color": "#ffb0c8"},
   "luc-chien": {"name": "Uy Chấn Tứ Đảo", "color": "#ff6a3a"},
-  "ho-gioi": {"name": "Hộ Giới Chân Tiên", "color": "#e0c0ff"}, "tinh-tam": {"name": "Tâm Tĩnh Như Nước", "color": "#bfe4ff"}, "ngu-ong": {"name": "Ngư Ông Mây Trắng", "color": "#9ad8f0"}, "uoc-nguyen": {"name": "Người Gửi Ước Nguyện", "color": "#ffcf6a"}, "ban-thu": {"name": "Bạn Của Muôn Thú", "color": "#ff8ab8"}, "tri-ky": {"name": "Tri Kỷ Bên Trà", "color": "#b8e0a0"}
+  "ho-gioi": {"name": "Hộ Giới Chân Tiên", "color": "#e0c0ff"}, "tinh-tam": {"name": "Tâm Tĩnh Như Nước", "color": "#bfe4ff"}, "ngu-ong": {"name": "Ngư Ông Mây Trắng", "color": "#9ad8f0"}, "uoc-nguyen": {"name": "Người Gửi Ước Nguyện", "color": "#ffcf6a"}, "ban-thu": {"name": "Bạn Của Muôn Thú", "color": "#ff8ab8"}, "tri-ky": {"name": "Tri Kỷ Bên Trà", "color": "#b8e0a0"}, "bep-am": {"name": "Bếp Lửa Động Phủ", "color": "#ffb060"}
  },
  "achievements": [
   {"id": "nhap-mon", "name": "Bước vào tiên đồ", "need": {"type": "flag", "flag": "ngu-kiem"}, "text": "Học ngự kiếm", "give": {"stones": 1}, "title": "so-nhap"},
@@ -55,6 +55,7 @@
   {"id": "ngu-ong", "name": "Ngư ông", "need": {"type": "fish", "n": 50}, "text": "Câu được 50 con cá", "give": {"coins": 300}, "title": "ngu-ong"},
   {"id": "uoc-nguyen", "name": "Gửi ước nguyện", "need": {"type": "lantern", "n": 7}, "text": "Thả hoa đăng 7 tối", "give": {"gem": 1, "coins": 300}, "title": "uoc-nguyen"},
   {"id": "ban-thu", "name": "Bạn của muôn thú", "need": {"type": "pat", "n": 100}, "text": "Vuốt ve linh thú 100 lần", "give": {"coins": 300}, "title": "ban-thu"},
-  {"id": "tri-ky", "name": "Tri kỷ bên trà", "need": {"type": "tea", "n": 15}, "text": "Uống trà với đạo lữ 15 ngày", "give": {"stones": 3, "coins": 300}, "title": "tri-ky"}
+  {"id": "tri-ky", "name": "Tri kỷ bên trà", "need": {"type": "tea", "n": 15}, "text": "Uống trà với đạo lữ 15 ngày", "give": {"stones": 3, "coins": 300}, "title": "tri-ky"},
+  {"id": "bep-am", "name": "Bếp ấm nhà vui", "need": {"type": "cook", "n": 10}, "text": "Nấu ăn cùng đạo lữ 10 bữa", "give": {"stones": 3, "coins": 300}, "title": "bep-am"}
  ]
 }
