@@ -61,6 +61,7 @@ export function createHud(audio) {
     $('bag-badge').hidden = !game.newItems;
     $('skills-badge').hidden = !game.newSkills;
     $('pets-badge').hidden = !game.newPets;
+    $('daily-badge').hidden = !game.newDaily;
     const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
     pb.hidden = !pn;
     if (pn) {

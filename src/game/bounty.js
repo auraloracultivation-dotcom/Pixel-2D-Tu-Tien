@@ -1,6 +1,7 @@
 // Nhiệm vụ treo thưởng lặp lại (data/quests.json): nhận ở Chấp sự, hạ đủ quái rồi quay lại lãnh thưởng.
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
+import { bountyLeft, useBounty } from './daily.js';
 
 export const BOUNTY_NPC = 'chap-su';
 
@@ -40,11 +41,16 @@ export async function talkBounty(game, npc) {
   const name = npc.def.name, save = game.save, cur = save.bounty, b = cur && def(game, cur.id);
   if (b && cur.n < b.n) { await game.dialog.say([[name, `Việc của ngươi: ${text(b, cur.n)}. Làm xong rồi hẵng quay lại.`]]); return; }
   if (b) {
-    const got = give(game, b.reward);
+    const left = bountyLeft(game);
     save.bounty = null; save.bountyDone = (save.bountyDone || 0) + 1;
-    game.sfx('levelup'); game.refreshStats(); game.persist();
-    await game.dialog.say([[name, `Tốt lắm. Thưởng cho ngươi: ${got.join(', ')}.`]]);
+    if (left > 0) {
+      const got = give(game, b.reward);
+      useBounty(game);
+      game.sfx('levelup'); game.refreshStats(); game.persist();
+      await game.dialog.say([[name, `Tốt lắm. Thưởng cho ngươi: ${got.join(', ')}. Hôm nay còn ${left - 1} lượt thưởng.`]]);
+    } else await game.dialog.say([[name, 'Làm tốt, nhưng hôm nay Nhiệm Vụ Đường đã hết ngân khố thưởng cho ngươi. Mai quay lại.']]);
   }
+  if (bountyLeft(game) <= 0) { if (!b) await game.dialog.say([[name, 'Hôm nay ngươi đã lãnh đủ thưởng. Mai quay lại nhận việc mới.']]); game.persist(); return; }
   const pool = list(game).filter(x => x.id !== b?.id);
   const pick = pool[Math.floor(Math.random() * pool.length)];
   if (!pick) return;
