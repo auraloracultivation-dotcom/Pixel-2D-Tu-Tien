@@ -104,6 +104,7 @@ function plan(game) {
   // Quái đang đánh mình ở gần: đánh trước
   const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
   if (foe) return { fight: foe };
+  if (game.map.def.res) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên: đánh tới hết giờ
   if (!s || u.never || u.realm || u.total || u.layer) return choreJob(game, routeTo) || sit(game);   // chờ tu luyện
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {

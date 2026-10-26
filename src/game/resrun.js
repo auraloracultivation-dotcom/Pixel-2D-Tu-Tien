@@ -20,7 +20,8 @@ export async function talkRes(game, npc) {
     return { id, label: k.name, desc: `${k.desc} Hôm nay còn ${left}/${cfg.runs} lượt.`, color: left > 0 ? '#f2c94c' : '#b8b0c8' };
   });
   opts.push({ id: 'no', label: 'Để sau', desc: '' });
-  const pick = await game.dialog.choose(`${name}: Mỗi lượt ${cfg.dur} giây. Hạ được bao nhiêu, mang về bấy nhiêu.`, opts);
+  const free = Object.keys(cfg.kinds).filter(id => runsLeft(game, id) > 0);
+  const pick = game.pilot ? free[Math.floor(Math.random() * free.length)] : await game.dialog.choose(`${name}: Mỗi lượt ${cfg.dur} giây. Hạ được bao nhiêu, mang về bấy nhiêu.`, opts);   // tự hành tự chọn loại còn lượt
   if (!cfg.kinds[pick]) return;
   if (runsLeft(game, pick) <= 0) { await game.dialog.say([[name, 'Hôm nay hết lượt rồi. Mai quay lại.']]); return; }
   game.save.resRuns[pick] = (game.save.resRuns[pick] || 0) + 1;
