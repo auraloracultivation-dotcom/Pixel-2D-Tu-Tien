@@ -1,4 +1,4 @@
-// Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ.
+// Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ và mời uống trà.
 // Mỗi ngày còn có một người bạn đã thân ghé chơi (visit). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { phase } from './daynight.js';
@@ -44,6 +44,8 @@ export function songTuNpc(game) {
   if (!p.meditating) return null;
   return game.npcs.find(n => n.home && Math.hypot(n.x - p.x, n.y - p.y) < C(game).song_tu.range) || null;
 }
+// Trà với đạo lữ: còn hạn thì đả tọa ở đâu cũng nhanh hơn
+export const teaMul = game => (game.save.teaUntil || 0) > Date.now() ? C(game).tea.mul : 1;
 // Đả tọa ở nhà: song tu nhân mul, đồ trang trí cộng thêm phần trăm
 export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (game.map.id === C(game).map ? 1 + comfort(game) / 100 : 1);
 
@@ -77,14 +79,21 @@ export async function talkHome(game, npc) {
   const id = npc.id, name = npc.def.name, gifted = game.save.homeGift === today();
   const opts = [{ id: 'talk', label: 'Trò chuyện', desc: '' }];
   if (!gifted) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Mỗi ngày một món nhỏ', color: '#ffb0d0' });
+  const tea = C(game).tea, teaOk = game.save.tea !== today();
+  if (teaOk) opts.push({ id: 'tea', label: tea.label, desc: tea.desc, color: '#b8e0a0' });
   opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
-  const ch = game.pilot && !gifted ? 'gift' : await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);   // tự hành: nhận quà luôn
+  const ch = game.pilot && (!gifted || teaOk) ? (gifted ? 'tea' : 'gift') : await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);   // tự hành: nhận quà, uống trà luôn
   if (ch === 'talk') await game.dialog.say([[name, lineOf(game, id)]]);
   else if (ch === 'gift') {
     game.save.homeGift = today();
     const got = grant(game, pick(C(game).gifts));
     game.sfx('levelup');
     await game.dialog.say([[name, pick(C(game).gift_lines[id] || C(game).gift_lines.default)], ['', `Nhận: ${got.join(', ')}.`]]);
+  } else if (ch === 'tea') {
+    game.save.tea = today(); game.save.teaUntil = Date.now() + tea.min * 60000; game.persist();
+    game.sfx('pickup');
+    await game.dialog.say([[name, pick(tea.lines[id] || tea.lines.default)]]);
+    game.toast(tea.toast, 3);
   } else if (ch === 'join') {
     setCompanion(game, id);
     await game.dialog.say([[name, game.data.companions.list[id]?.join || 'Đi thôi.']]);
