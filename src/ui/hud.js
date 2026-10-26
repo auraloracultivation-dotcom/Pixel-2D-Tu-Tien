@@ -2,6 +2,7 @@
 import { createDialog } from './dialog.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
 import { power } from '../game/achieve.js';
+import { createHints } from './hints.js';
 import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 
@@ -31,6 +32,7 @@ export function createHud(audio) {
   $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); menu.hidden = !menu.hidden; });
   menu.addEventListener('pointerdown', () => { setTimeout(() => { menu.hidden = true; }); }, true);
   let gameRef = null;
+  let hints = null;
   $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) toggleAuto(gameRef); });
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
@@ -41,6 +43,7 @@ export function createHud(audio) {
     if (!game.save || !game.player) return;
     const p = game.player, s = game.save, d = game.data;
     gameRef = game;
+    (hints ??= createHints(game))();
     const need = qiNeed(s, d.realms);
     const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield)].join();
     if (key !== last) {
