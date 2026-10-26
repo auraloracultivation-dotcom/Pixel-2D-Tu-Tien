@@ -1,9 +1,10 @@
 // Luận Võ Đài (data/arena.json): đấu với bản sao tu sĩ theo bảng xếp hạng, thắng người ngay trên thì lên hạng.
-import { grant, dailyEvent } from './daily.js';
+import { grant, dailyEvent, ensureDaily, taskDef } from './daily.js';
 
 const C = game => game.data.arena;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 const byRank = (game, r) => C(game).rivals.find(x => x.rank === r);
+const arenaTaskLeft = game => ensureDaily(game).tasks.some(t => { const d = taskDef(game, t.id); return d?.type === 'arena' && t.n < d.n; });
 
 // best: hạng cao nhất (0 = chưa có hạng), left: lượt còn hôm nay, claimed: đã nhận thưởng ngày
 export function arenaState(game) {
@@ -54,7 +55,8 @@ export async function talkArena(game, npc) {
     if (dr && !a.claimed) opts.push({ id: 'claim', label: 'Nhận bổng lộc hôm nay', desc: `Theo hạng ${a.best}: ${dr.coins} ${game.data.shop.name}, ${dr.stones} Tẩy Luyện Thạch` });
     opts.push({ id: 'out', label: 'Để sau', desc: '' });
     const head = a.best ? `Ngươi đang đứng hạng ${a.best}.` : 'Ngươi chưa có tên trên bảng.';
-    const pick = await game.dialog.choose(`${name}: ${head} Thắng người ngay trên thì lên hạng. Mỗi ngày ${C(game).per_day} trận.`, opts);
+    const want = !lock && a.left && arenaTaskLeft(game);   // tự hành: nhận bổng lộc, đánh cho xong việc hằng ngày
+    const pick = game.pilot ? (dr && !a.claimed ? 'claim' : want ? 'fight' : 'out') : await game.dialog.choose(`${name}: ${head} Thắng người ngay trên thì lên hạng. Mỗi ngày ${C(game).per_day} trận.`, opts);
     if (pick === 'claim') { a.claimed = true; game.toast(`Bổng lộc: ${grant(game, dr).join(', ')}`, 2.4); game.sfx('pickup'); continue; }
     if (pick !== 'fight') return;
     if (lock) { await game.dialog.say([[name, 'Cảnh giới chưa tới, lên đài chỉ chuốc nhục.']]); continue; }

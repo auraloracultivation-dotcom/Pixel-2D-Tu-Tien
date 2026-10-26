@@ -89,6 +89,7 @@ async function cleared(game) {
 // Gục trong tháp: ra ngoài, giữ tầng cao nhất
 export function towerFail(game) {
   if (!game.tower) return false;
+  if (game.pilot) game.save.towerGaveUp = new Date().toDateString();   // tự hành gục trong tháp: hôm nay thôi không leo nữa
   leaveTower(game, `Thất bại ở tầng ${game.tower.floor}. Cao nhất: tầng ${game.save.tower?.best || 0}.`);
   return true;
 }

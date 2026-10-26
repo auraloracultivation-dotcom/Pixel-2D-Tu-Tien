@@ -248,7 +248,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   function respawn() {
-    stopPilot(game, 'Tự hành dừng: bạn đã gục. Tu thêm rồi bật lại nhé.');
+    if (!game.tower && !game.arena) stopPilot(game, 'Tự hành dừng: bạn đã gục. Tu thêm rồi bật lại nhé.');   // gục trong tháp, trên đài thì chỉ là thua
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
