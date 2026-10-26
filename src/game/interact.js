@@ -63,7 +63,7 @@ export function updateInteract(game) {
     if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
     if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
     if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
-    if (npc.home) { talkHome(game, npc); return; }
+    if (npc.home || npc.visit) { talkHome(game, npc); return; }
     if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
     const lines = npc.def.lines;
     game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
