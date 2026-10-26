@@ -1,9 +1,10 @@
 // Tự hành (nút Tự hành): nhân vật tự đi làm nhiệm vụ truyện. Tìm đường qua cổng giữa các đảo, đi bộ tới NPC,
 // đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss. Truyện chờ tu luyện thì làm việc vặt (chores.js),
-// hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó.
+// hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó. Nhặt được đồ tốt hơn thì tự mặc (autoequip.js).
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
+import { autoEquip } from './autoequip.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
@@ -130,6 +131,7 @@ const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: 
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
+  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; autoEquip(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.canStart()) { game.input.pressed.add('act'); return none; }
   const job = game.pilot.job = plan(game);
