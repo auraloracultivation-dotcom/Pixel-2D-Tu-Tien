@@ -14,7 +14,9 @@
  "crops": {
   "linh-thao": {"name": "Linh Thảo", "min": 15, "n": 1, "color": "#7af0a0", "flower": "#e8fff0"},
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "min": 35, "n": 1, "seed": {"hoa-linh-chi": 1}, "realm": 1, "color": "#ff9a3a", "flower": "#ffe27a"},
-  "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "min": 45, "n": 1, "seed": {"linh-thao": 3}, "realm": 2, "color": "#b8d8ff", "flower": "#ffffff"}
+  "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "min": 45, "n": 1, "seed": {"linh-thao": 3}, "realm": 2, "color": "#b8d8ff", "flower": "#ffffff"},
+  "tu-van-sam": {"name": "Tử Vân Sâm", "min": 60, "n": 1, "seed": {"linh-thao": 4, "hoa-linh-chi": 1}, "realm": 4, "color": "#9a6ad8", "flower": "#e8c8ff"},
+  "thai-hu-lien": {"name": "Thái Hư Liên", "min": 90, "n": 1, "seed": {"ngoc-lo-hoa": 2}, "realm": 6, "color": "#6a8ab8", "flower": "#f0f4ff"}
  },
  "helper_sec": 60
 }

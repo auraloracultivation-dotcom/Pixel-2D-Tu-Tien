@@ -81,7 +81,7 @@ function sit(game) {
   return pt ? { go: tileOf(game, pt.at) } : { hunt: true };
 }
 
-// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { sit } | null (đứng chờ)
+// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
   // Quái đang đánh mình ở gần: đánh trước
@@ -127,6 +127,11 @@ export function pilotStep(game, ax, dt) {
     const c = tileOf(game, job.sit);
     if (Math.hypot(c.x - p.x, c.y - p.y) > 10) return { ax: walk(game, c.x, c.y, dt), atk: false };
     if (!p.meditating) game.input.pressed.add('act');
+    return none;
+  }
+  if (job.use) {
+    if (Math.hypot(job.use.x - p.x, job.use.y - p.y) > 8) return { ax: walk(game, job.use.x, job.use.y, dt), atk: false };
+    game.input.pressed.add('act');
     return none;
   }
   if (job.hunt) {
