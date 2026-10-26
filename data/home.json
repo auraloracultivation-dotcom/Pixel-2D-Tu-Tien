@@ -2,7 +2,17 @@
  "_note": "Song tu ở nhà (song_tu): người chơi đả tọa trong tầm range của đạo lữ đang ngồi ở nhà thì linh khí nhân thêm mul, có vệt linh quang nối hai người. Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
  "map": "dong-phu",
  "at": [11, 5],
- "song_tu": {"range": 44, "mul": 1.5, "color": "#ffb0dc", "start": "Song tu cùng {name}. Linh khí hai người hòa vào nhau, tu nhanh gấp rưỡi.", "lines": {"lac-tuyet": ["Thở chậm thôi. Theo nhịp của ta.", "Đừng nghĩ gì cả. Có ta ở đây."], "ho-linh": ["Hơi ấm này... là của ngươi hay của ta nhỉ?", "Nhắm mắt lại. Không được ngó ta."], "default": ["Cùng tĩnh tâm nào."]}},
+ "song_tu": {
+  "range": 44,
+  "mul": 1.5,
+  "color": "#ffb0dc",
+  "start": "Song tu cùng {name}. Linh khí hai người hòa vào nhau, tu nhanh gấp rưỡi.",
+  "lines": {
+   "lac-tuyet": ["Thở chậm thôi. Theo nhịp của ta.", "Đừng nghĩ gì cả. Có ta ở đây."],
+   "ho-linh": ["Hơi ấm này... là của ngươi hay của ta nhỉ?", "Nhắm mắt lại. Không được ngó ta."],
+   "default": ["Cùng tĩnh tâm nào."]
+  }
+ },
  "lines": {
   "lac-tuyet": {
    "binh-minh": ["Dậy rồi à? Ta luyện xong một lượt kiếm rồi. Trà còn ấm, uống đi.", "Sương sớm ở động phủ mát thật. Hồi trước ta chưa từng để ý."],
@@ -17,16 +27,39 @@
    "dem": ["Đêm nay ngồi song tu nhé. Đuôi ta ấm lắm.", "Ngủ ngon. Ta canh cho ngươi."]
   },
   "default": {
-   "binh-minh": ["Chào buổi sáng."], "ngay": ["Hôm nay trời đẹp."], "hoang-hon": ["Chiều rồi, nghỉ chút đi."], "dem": ["Khuya rồi, nghỉ thôi."]
+   "binh-minh": ["Chào buổi sáng."],
+   "ngay": ["Hôm nay trời đẹp."],
+   "hoang-hon": ["Chiều rồi, nghỉ chút đi."],
+   "dem": ["Khuya rồi, nghỉ thôi."]
   }
  },
- "gifts": [
-  {"pills": {"hoi-xuan-dan": 2}},
-  {"mats": {"ngoc-lo-hoa": 1}},
-  {"mats": {"linh-thao": 10}},
-  {"pills": {"boi-nguyen-dan": 1}},
-  {"mats": {"van-ngu": 2}}
- ],
+ "visit": {
+  "_note": "Khách ghé chơi: mỗi ngày (theo ngày thật) chọn một bạn đồng hành đã quen, thiện cảm từ pts trở lên, không phải đạo lữ, không đang đi cùng, không vắng mặt theo truyện, tới ngồi ở at trong động phủ. Trò chuyện, nhận quà (mỗi ngày một lần, từ gifts), rủ đi cùng.",
+  "at": [14, 5],
+  "pts": 20,
+  "toast": "{name} ghé động phủ chơi.",
+  "lines": {
+   "tieu-hoa": ["Tớ đi ngang qua thôi! ...Được rồi, tớ nhớ cậu nên ghé.", "Lò đan nhà cậu đẹp ghê. Cho tớ thử nhóm lửa nha?"],
+   "lac-tuyet": ["Đi ngang, ghé xem đệ có lười tu luyện không.", "Chỗ này yên tĩnh. Ngồi một lát rồi ta đi."],
+   "mac-anh": ["Ta mang cá tới. Nướng chung không?", "Ở đây không ai nhìn ta như nhìn ma tộc. Dễ chịu thật."],
+   "ho-linh": ["Ta tới ngửi xem dược viên nhà ngươi có gì ngon.", "Đừng đuổi ta. Ta chỉ nằm phơi nắng một chút thôi."],
+   "thanh-diep": ["Đất ở dược viên của ngươi tốt lắm. Ta gieo thêm mấy hạt nhé.", "Cây mẹ gửi lời hỏi thăm ngươi."],
+   "thiet-lan": ["Lò rèn của ngươi lửa yếu quá. Để ta chỉnh lại cho.", "Ta rèn xong thanh kiếm mới. Đem tới khoe thôi."],
+   "thach-sinh": ["...Ghé chơi.", "Ta mang đá đẹp tới. Đặt ở cửa cho vững."],
+   "default": ["Ghé thăm ngươi một chút."]
+  },
+  "gift_lines": {
+   "tieu-hoa": ["Quà nè! Tớ tự hái đó."],
+   "lac-tuyet": ["Cầm lấy. Đừng hỏi."],
+   "mac-anh": ["Cho ngươi. Ta không cần."],
+   "ho-linh": ["Ta tìm được cái này. Đổi lại cho ta nằm đây thêm chút."],
+   "thanh-diep": ["Quà của rừng."],
+   "thiet-lan": ["Đồ dư ở lò rèn. Ngươi cầm đi."],
+   "thach-sinh": ["...Cho."],
+   "default": ["Chút quà nhỏ."]
+  }
+ },
+ "gifts": [{"pills": {"hoi-xuan-dan": 2}}, {"mats": {"ngoc-lo-hoa": 1}}, {"mats": {"linh-thao": 10}}, {"pills": {"boi-nguyen-dan": 1}}, {"mats": {"van-ngu": 2}}],
  "gift_lines": {
   "lac-tuyet": ["Cầm lấy. Ta để dành cho đệ.", "Đừng hỏi ta lấy ở đâu. Cứ cầm đi."],
   "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
