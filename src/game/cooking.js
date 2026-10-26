@@ -2,6 +2,7 @@
 // Khách ghé chơi hôm nay đang ngồi trong nhà thì ăn cùng: thêm phút và thêm thiện cảm.
 import { bump } from './achieve.js';
 import { addEntry } from './journal.js';
+import { isStranger } from './visitors.js';
 
 const C = game => game.data.cooking;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -43,7 +44,7 @@ export async function cook(game, npc) {
   s.cooked = today(); s.meal = { id, qi: r.buff.qi, until: Date.now() + min * 60000 };
   bump(game, 'cook');
   if (!s.cookOnce) { s.cookOnce = true; addEntry(game, game.data.journal.cook.replace('{name}', npc.def.name).replace('{dish}', r.name)); }
-  if (guest) { s.affinity ??= {}; s.affinity[guest.id] = Math.min(game.data.affinity.max, (s.affinity[guest.id] || 0) + G.pts); }
+  if (guest && !isStranger(game, guest.id)) { s.affinity ??= {}; s.affinity[guest.id] = Math.min(game.data.affinity.max, (s.affinity[guest.id] || 0) + G.pts); }
   game.persist();
   game.sfx('pickup');
   const L = C(game).lines, lines = [[npc.def.name, pick(L[npc.id] || L.default)]];
