@@ -3,8 +3,8 @@ import { grant } from './daily.js';
 
 const C = game => game.data.status;
 
-export function power(game) {
-  const st = game.player?.st, w = C(game).power;
+export function power(game, st = game.player?.st) {
+  const w = C(game).power;
   if (!st) return 0;
   let n = 0;
   for (const [k, v] of Object.entries(w)) n += (k === 'critMult' || k === 'speedMul' ? (st[k] || 1) - 1 : st[k] || 0) * v;
