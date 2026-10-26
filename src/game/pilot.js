@@ -4,6 +4,7 @@
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob } from './chores.js';
+import { daoLuHere } from './affinity.js';
 
 const C = game => game.data.config.pilot;
 
@@ -73,11 +74,13 @@ const nearest = (game, list) => { let b = null, bd = Infinity; for (const e of l
 const alive = game => game.mobs.filter(m => !m.dead);
 const tileOf = (game, at) => game.map.center(at[0], at[1]);
 
-// Việc tu luyện: ngồi bồ đoàn trên đảo này, không có thì về động phủ (hoặc Thiên Kiếm Phong)
+// Việc tu luyện: đạo lữ đang ở nhà thì về động phủ song tu; không thì ngồi bồ đoàn trên đảo này,
+// đảo không có bồ đoàn thì về động phủ (hoặc Thiên Kiếm Phong)
 function sit(game) {
+  const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', d = game.save.flags['dong-phu'] && daoLuHere(game);
   const m = game.map.findTiles('M')[0];
-  if (m) return { sit: m };
-  const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', pt = routeTo(game, home);
+  if (m && (game.map.id === home || !d || game.save.companion === d)) return { sit: m };
+  const pt = routeTo(game, home);
   return pt ? { go: tileOf(game, pt.at) } : { hunt: true };
 }
 

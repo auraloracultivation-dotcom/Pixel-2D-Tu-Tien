@@ -1,7 +1,8 @@
 {
- "_note": "Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
+ "_note": "Song tu ở nhà (song_tu): người chơi đả tọa trong tầm range của đạo lữ đang ngồi ở nhà thì linh khí nhân thêm mul, có vệt linh quang nối hai người. Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
  "map": "dong-phu",
  "at": [11, 5],
+ "song_tu": {"range": 44, "mul": 1.5, "color": "#ffb0dc", "start": "Song tu cùng {name}. Linh khí hai người hòa vào nhau, tu nhanh gấp rưỡi.", "lines": {"lac-tuyet": ["Thở chậm thôi. Theo nhịp của ta.", "Đừng nghĩ gì cả. Có ta ở đây."], "ho-linh": ["Hơi ấm này... là của ngươi hay của ta nhỉ?", "Nhắm mắt lại. Không được ngó ta."], "default": ["Cùng tĩnh tâm nào."]}},
  "lines": {
   "lac-tuyet": {
    "binh-minh": ["Dậy rồi à? Ta luyện xong một lượt kiếm rồi. Trà còn ấm, uống đi.", "Sương sớm ở động phủ mát thật. Hồi trước ta chưa từng để ý."],

@@ -10,6 +10,7 @@ import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
 import { drawWeather } from './draw-weather.js';
+import { drawSongTu } from './draw-songtu.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 
 const INK = '#1b1830';
@@ -218,6 +219,7 @@ export function drawWorld(game, screen, t) {
     ctx.globalAlpha = 0.6; ctx.strokeStyle = z.color; ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.arc(z.x, z.y, z.radius, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.stroke(); ctx.globalAlpha = 1;
   }
+  drawSongTu(ctx, game, t);
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.comp ? [['comp', game.comp]] : [])].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
