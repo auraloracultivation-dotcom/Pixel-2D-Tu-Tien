@@ -8,7 +8,7 @@ import { daoLuHere } from './affinity.js';
 import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
-import { pilotOpt } from './pilotopt.js';
+import { pilotOpt, nightRest } from './pilotopt.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -49,6 +49,18 @@ function fishSpot(game) {
 // Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { view: true } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
   const s = game.save, out = [];
+  // Việc có giờ (hoàng hôn, thả đèn) và việc nhà mỗi ngày làm trước, không để treo thưởng chiếm hết ngày
+  const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
+  const day = new Date().toDateString(), ph = phase(game).id, ln = game.data.scenic.lantern;   // tối: ra đá thả hoa đăng
+  if (pilotOpt(game, 'ngam') && !game.view && ((s.sunset !== day && ph === ss.phase) || (s.lantern !== day && ph === ln.phase))) out.push({ view: true });
+  if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
+    const d = daoLuHere(game);
+    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
+    const v = visitorToday(game);
+    if (v && s.visitGift !== day) out.push({ gift: v });
+  }
+  const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
+  if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
   for (const [id, q] of Object.entries(game.data.side.quests)) {
     const st = s.side?.[id];
     if (st?.state !== 'on') continue;
@@ -70,24 +82,13 @@ function wants(game) {
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
   if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
-  else if (b || (pilotOpt(game, 'viec') && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
+  else if (b || (pilotOpt(game, 'viec') && !nightRest(game) && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
   for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
-    if (pilotOpt(game, 'viec') && !s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
+    if (pilotOpt(game, 'viec') && !nightRest(game) && !s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
   }
-  if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
-    const d = daoLuHere(game), day = new Date().toDateString();
-    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
-    const v = visitorToday(game);
-    if (v && s.visitGift !== day) out.push({ gift: v });
-  }
-  const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
-  if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
   const P = game.data.config.pilot, keep = r => ({ ...r, 'linh-thao': (r['linh-thao'] || 0) + P.herb_keep });   // cá, sâm dư: nấu canh, luyện đan linh khí, chừa linh thảo cho đan hồi máu
   const soup = pilotOpt(game, 'dan') && s.flags['dong-phu'] && P.auto_brew.find(id => canPay(game, keep(game.data.cave.pills[id].recipe)));
   if (soup) out.push({ brew: soup });
-  const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
-  const day = new Date().toDateString(), ph = phase(game).id, ln = game.data.scenic.lantern;   // tối: ra đá thả hoa đăng
-  if (pilotOpt(game, 'ngam') && !game.view && ((s.sunset !== day && ph === ss.phase) || (s.lantern !== day && ph === ln.phase))) out.push({ view: true });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
   if (pilotOpt(game, 'vuot') && game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
   return out;

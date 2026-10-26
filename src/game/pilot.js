@@ -7,7 +7,7 @@ import { choreJob, doBrew } from './chores.js';
 import { autoEquip, autoEnhance } from './autoequip.js';
 import { autoGem } from './autogem.js';
 import { autoPills } from './autopill.js';
-import { pilotOpt } from './pilotopt.js';
+import { pilotOpt, nightRest } from './pilotopt.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
 import { harvestAll, gotText } from './garden.js';
@@ -98,7 +98,7 @@ const tileOf = (game, at) => game.map.center(at[0], at[1]);
 // đảo không có bồ đoàn thì về động phủ (hoặc Thiên Kiếm Phong)
 function sit(game) {
   const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', d = game.save.flags['dong-phu'] && daoLuHere(game);
-  const m = game.map.findTiles('M')[0], night = game.save.flags['dong-phu'] && pilotOpt(game, 'dem') && phase(game).id === 'dem';   // đêm thì về nhà
+  const m = game.map.findTiles('M')[0], night = nightRest(game);   // đêm thì về nhà
   if (m && (game.map.id === home || (!night && (!d || game.save.companion === d)))) return { sit: m };
   const pt = routeTo(game, home);
   return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
