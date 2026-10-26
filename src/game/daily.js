@@ -36,9 +36,17 @@ export function dailyEvent(game, type, id, amount = 1) {
     const d = taskDef(game, t.id);
     if (!d || d.type !== type || (d.mob && d.mob !== id) || t.n >= d.n) continue;
     t.n = Math.min(d.n, t.n + amount);
-    if (t.n >= d.n) game.toast(`Xong việc hằng ngày: ${d.text.replace('{n}', d.n)}. Mở bảng Việc để nhận thưởng.`, 2.2);
+    if (t.n >= d.n && game.pilot) autoClaim(game, dl.tasks.indexOf(t), d);
+    else if (t.n >= d.n) game.toast(`Xong việc hằng ngày: ${d.text.replace('{n}', d.n)}. Mở bảng Việc để nhận thưởng.`, 2.2);
     game.newDaily = true;
   }
+}
+
+// Đang tự hành: xong việc thì nhận thưởng luôn, đủ hết thì mở rương
+function autoClaim(game, idx, d) {
+  const got = claimTask(game, idx), chest = claimChest(game);
+  game.toast(`Xong việc hằng ngày: ${d.text.replace('{n}', d.n)}. Nhận ${got.join(', ')}.`, 2.6);
+  if (chest) setTimeout(() => game.toast(`Xong hết việc hôm nay, mở rương: ${chest.join(', ')}.`, 3), 2800);
 }
 
 // Phát thưởng chung: coins (Linh Thạch), stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills, contrib
