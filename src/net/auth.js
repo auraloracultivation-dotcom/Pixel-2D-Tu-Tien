@@ -1,7 +1,7 @@
 // Đăng nhập bằng TÊN TÀI KHOẢN như game cũ; email chỉ là thứ ẩn bên dưới (hàm máy chủ dang-ky).
 import { supabase } from './client.js';
 
-const HIDDEN_DOMAIN = 'nguoichoi.invalid'; // đồng bộ với hàm dang-ky của game cũ
+const HIDDEN_DOMAIN = 'nguoichoi.invalid'; // đồng bộ với supabase/functions/dang-ky
 const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
 
 const normalize = a => String(a || '').trim().toLowerCase();
