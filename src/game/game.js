@@ -7,6 +7,7 @@ import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
+import { createOthers } from './others.js';
 
 export function createGame(data, screen, input, ui) {
   const cfg = data.config;
@@ -17,11 +18,13 @@ export function createGame(data, screen, input, ui) {
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
     traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
+    owner: 'guest', online: null, others: null,
   };
+  game.others = createOthers(game);
 
   game.persist = () => {
     if (!game.save || !game.map) return;
-    writeSave(game.save);
+    writeSave(game.owner, game.save);
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
@@ -74,6 +77,7 @@ export function createGame(data, screen, input, ui) {
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
     game.save.map = id; game.save.spawn = spawnName || 'vao';
     game.portalLock = 0.8;
+    joinOnline();
     screen.snap(c.x, c.y);
     game.persist();
   }
@@ -89,8 +93,26 @@ export function createGame(data, screen, input, ui) {
     game.story.notify('enter', id);
   };
 
-  game.begin = async (fresh) => {
-    const saved = loadSave();
+  // Bí cảnh là phòng riêng, chưa đồng bộ quái nên không hiện người khác
+  function joinOnline() {
+    if (!game.online) return;
+    const solo = (game.map.def.rooms || []).length > 0;
+    game.online.join(solo ? null : game.map.id, { element: game.save.element, realm: realmLabel(game.save, data.realms) })
+      .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
+  }
+
+  game.begin = async ({ fresh, session, owner }) => {
+    game.owner = owner;
+    if (session) {
+      try {
+        const { createOnline } = await import('../net/online.js');
+        const me = { id: session.user.id, name: session.user.email.split('@')[0] };
+        game.online = createOnline(me, {
+          onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(),
+        });
+      } catch { game.online = null; }
+    }
+    const saved = loadSave(owner);
     game.save = fresh || !saved ? newSave(cfg) : saved;
     game.story = createStory(game);
     loadMap(game.save.map, game.save.spawn);
@@ -178,7 +200,7 @@ export function createGame(data, screen, input, ui) {
     for (const tap of game.input.taps) {
       const w = screen.toWorld(tap.x, tap.y);
       let best = null, bd = cfg.tap_range;
-      for (const e of [...game.npcs, ...game.mobs]) { const d = Math.hypot(e.x - w.x, e.y - 4 - w.y); if (d < bd) { bd = d; best = e; } }
+      for (const e of [...game.npcs, ...game.mobs, ...game.others.visible()]) { const d = Math.hypot(e.x - w.x, e.y - 4 - w.y); if (d < bd) { bd = d; best = e; } }
       if (best) game.peek = { e: best, t: 3 };
     }
     game.input.taps.length = 0;
@@ -197,6 +219,8 @@ export function createGame(data, screen, input, ui) {
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
     updatePlayer(game, dt);
+    game.others.update(dt);
+    game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);
     updateBullets(game, dt);
     updatePickups();

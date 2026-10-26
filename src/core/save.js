@@ -1,5 +1,6 @@
 // Lưu tiến trình bản chơi tạm trong máy (localStorage). Khi có máy chủ, lưu qua RPC ở src/net/.
 const KEY = 'p2d.save.v1';
+const keyOf = owner => `${KEY}:${owner || 'guest'}`; // mỗi tài khoản một bản lưu
 
 export function newSave(cfg) {
   return {
@@ -11,10 +12,13 @@ export function newSave(cfg) {
   };
 }
 
-export function loadSave() {
-  try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; }
+export function loadSave(owner) {
+  try {
+    const old = owner === 'guest' || !owner ? localStorage.getItem(KEY) : null; // bản lưu trước khi có tài khoản
+    return JSON.parse(localStorage.getItem(keyOf(owner)) || old) || null;
+  } catch { return null; }
 }
 
-export function writeSave(s) {
-  try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* chế độ riêng tư: chơi không lưu */ }
+export function writeSave(owner, s) {
+  try { localStorage.setItem(keyOf(owner), JSON.stringify(s)); } catch { /* chế độ riêng tư: chơi không lưu */ }
 }

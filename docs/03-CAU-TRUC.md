@@ -10,7 +10,7 @@ HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -
 | `src/game/` | Vòng chơi (`game.js`), người chơi, quái và boss, trúng đòn và đạn, chiêu, cảnh giới, kịch bản, bí cảnh. |
 | `src/render/` | Vẽ người, quái, hiệu ứng, chỉ đường, cần gạt. |
 | `src/ui/` | Thanh máu và linh khí, nút chiêu, hộp thoại, màn bay, menu (DOM trong `index.html`). |
-| `src/net/` | (chưa có) Nơi duy nhất gọi Supabase. |
+| `src/net/` | Nơi duy nhất gọi Supabase: `client` (khoá publishable, dùng chung dự án với Auralora), `auth` (đăng nhập bằng tên tài khoản như game cũ, đăng ký qua hàm `dang-ky`), `online` (kênh Realtime `p2d:<đảo>`: presence + vị trí, không ghi cơ sở dữ liệu; bí cảnh chơi riêng). Nạp lười: mất mạng vẫn chơi thử được. |
 | `tools/` | `check.mjs` kiểm tra tự động; `art/` vẽ hình pixel bằng code. |
 
 ## Kịch bản (`data/story.json`)
@@ -20,3 +20,11 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 ## Bản đồ (`data/maps/*.json`)
 
 `grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch).
+
+## Điều khiển chiêu
+
+Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: hiện vạch ngắm, thả tay mới ra chiêu theo hướng kéo.
+
+## Lưu tiến trình
+
+Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`). Sẽ chuyển lên máy chủ qua RPC.

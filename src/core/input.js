@@ -7,6 +7,7 @@ const DIRS = {
   KeyA: [-1, 0], ArrowLeft: [-1, 0], KeyD: [1, 0], ArrowRight: [1, 0],
 };
 const JOY_R = 44;
+const AIM_DEAD = 14; // px kéo tối thiểu để tính là tự ngắm
 
 export function createInput(canvas) {
   const inp = { joy: null, taps: [], keys: new Set(), held: new Set(), pressed: new Set() };
@@ -32,8 +33,31 @@ export function createInput(canvas) {
   canvas.addEventListener('pointerup', end);
   canvas.addEventListener('pointercancel', end);
 
+  inp.aim = {};      // hướng ngắm khi thả nút chiêu sau khi kéo (null = tự ngắm)
+  inp.aiming = null; // đang kéo nút chiêu để ngắm: {act, x, y} (đã chuẩn hoá)
   for (const b of document.querySelectorAll('[data-act]')) {
     const act = b.dataset.act;
+    if (act.startsWith('s')) {
+      // Nút chiêu: chạm = tự ngắm quái gần nhất; kéo ra = tự chọn hướng, thả tay mới ra chiêu
+      let st = null;
+      b.addEventListener('pointerdown', e => {
+        e.preventDefault(); e.stopPropagation();
+        st = { id: e.pointerId, ox: e.clientX, oy: e.clientY };
+        b.setPointerCapture?.(e.pointerId); b.classList.add('down');
+      });
+      b.addEventListener('pointermove', e => {
+        if (!st || e.pointerId !== st.id) return;
+        const dx = e.clientX - st.ox, dy = e.clientY - st.oy, d = Math.hypot(dx, dy);
+        inp.aiming = d > AIM_DEAD ? { act, x: dx / d, y: dy / d } : null;
+      });
+      const release = cancel => e => {
+        if (!st || e.pointerId !== st.id) return;
+        if (!cancel) { inp.aim[act] = inp.aiming && inp.aiming.act === act ? { x: inp.aiming.x, y: inp.aiming.y } : null; inp.pressed.add(act); }
+        st = null; inp.aiming = null; b.classList.remove('down');
+      };
+      b.addEventListener('pointerup', release(false)); b.addEventListener('pointercancel', release(true));
+      continue;
+    }
     b.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); inp.pressed.add(act); inp.held.add(act); b.classList.add('down'); });
     const up = () => { inp.held.delete(act); b.classList.remove('down'); };
     b.addEventListener('pointerup', up); b.addEventListener('pointerleave', up); b.addEventListener('pointercancel', up);
@@ -43,7 +67,7 @@ export function createInput(canvas) {
     if (e.repeat) return;
     inp.keys.add(e.code);
     const act = KEYMAP[e.code];
-    if (act) { inp.pressed.add(act); inp.held.add(act); }
+    if (act) { inp.pressed.add(act); inp.held.add(act); if (act.startsWith('s')) inp.aim[act] = null; }
   });
   window.addEventListener('keyup', e => {
     inp.keys.delete(e.code);

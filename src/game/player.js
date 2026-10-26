@@ -32,6 +32,17 @@ function nearestMob(game, range) {
   return best;
 }
 
+// Tự ngắm: hướng về quái gần nhất trong tầm chiêu (không có thì giữ hướng đang nhìn)
+export function autoAim(game, skillId) {
+  const s = game.data.skills[skillId], p = game.player;
+  const reach = s.range || s.dist || ((s.offset || 0) + (s.radius || 0)) || 0;
+  if (!reach) return null;
+  const m = nearestMob(game, reach + 30);
+  if (!m) return null;
+  const a = Math.atan2(m.y - p.y, m.x - p.x);
+  return { x: Math.cos(a), y: Math.sin(a) };
+}
+
 function swing(game) {
   const p = game.player, w = game.data.weapons[game.save.weapon];
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
@@ -85,6 +96,8 @@ export function updatePlayer(game, dt) {
   for (let i = 0; i < 3; i++) {
     if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0) {
       p.meditating = false;
+      const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
+      if (dir) p.face = dir;
       p.skillCd[i] = castSkill(game, slots[i]);
     }
   }
