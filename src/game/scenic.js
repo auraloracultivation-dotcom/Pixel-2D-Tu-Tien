@@ -3,6 +3,7 @@
 import { meditateMul } from './evolve.js';
 import { daoLu } from './affinity.js';
 import { phase } from './daynight.js';
+import { addEntry } from './journal.js';
 
 const C = game => game.data.scenic;
 
@@ -47,7 +48,9 @@ export function updateView(game, dt) {
 function lantern(game, v, comp) {
   const L = C(game).lantern, s = game.save, day = new Date().toDateString();
   if (v.t < L.after || s.lantern === day || phase(game).id !== L.phase) return;
-  s.lantern = day; game.persist();
+  s.lantern = day;
+  if (!s.lanternOnce) { s.lanternOnce = true; const J = game.data.journal; addEntry(game, comp ? J.lantern_with.replace('{name}', comp.npc.name) : J.lantern); }
+  game.persist();
   const p = game.player, now = performance.now() / 1000;
   game.lanterns = Array.from({ length: L.n }, (_, i) => ({ x: p.x + (i - (L.n - 1) / 2) * 14 + Math.random() * 6, y: p.y + 30 + Math.random() * 20, born: now + i * 0.7, life: L.life, sway: Math.random() * 6 }));
   game.sfx('chime', 0.8);
