@@ -1,10 +1,10 @@
 // Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ.
-// Mỗi ngày còn có một người bạn đã thân ghé chơi (visit).
+// Mỗi ngày còn có một người bạn đã thân ghé chơi (visit). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { phase } from './daynight.js';
 import { grant } from './daily.js';
 import { setCompanion } from './companion.js';
-import { comfort } from './decor.js';
+import { comfort, hasDecor } from './decor.js';
 
 const C = game => game.data.home;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -49,12 +49,22 @@ export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (ga
 
 // Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
 export function updateHome(game, dt) {
+  chime(game, dt);
   const n = songTuNpc(game), was = game.songTu, st = C(game).song_tu;
   game.songTu = n;
   if (n && was === n && game.songTuSay > 0 && (game.songTuSay -= dt) <= 0) game.say(n.def.name, pick(st.lines[n.id] || st.lines.default), 3.2);
   if (!n || was) return;
   game.toast(st.start.replace('{name}', n.def.name), 2.6);
   game.songTuSay = 2.8;
+}
+
+// Có chuông gió thì thỉnh thoảng leng keng khi đang ở động phủ
+function chime(game, dt) {
+  const c = C(game).decor.items['chuong-gio'].chime;
+  if (game.map.id !== C(game).map || !hasDecor(game, 'chuong-gio')) return;
+  if ((game.chimeT = (game.chimeT ?? c[0]) - dt) > 0) return;
+  game.chimeT = c[0] + Math.random() * (c[1] - c[0]);
+  game.sfx('chime', 0.8);
 }
 
 const lineOf = (game, id) => {
