@@ -1,4 +1,4 @@
-// Màn đầu: đăng nhập tài khoản chung với game cũ, hoặc chơi thử không mạng.
+// Màn đầu: đăng nhập tài khoản, hoặc chơi thử không mạng.
 // Phần mạng nạp lười: mất mạng thì vẫn chơi thử được.
 import { loadSave } from '../core/save.js';
 

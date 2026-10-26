@@ -1,6 +1,5 @@
 -- Máy chủ 2 (Pixel 2D Tu Tiên): bản lưu nhân vật theo tài khoản.
--- CHƯA ĐẨY LÊN SUPABASE. Chủ dự án duyệt rồi mới áp dụng (dự án dùng chung với Auralora).
--- Mọi bảng mang tiền tố p2d_ để không đụng bảng của game cũ.
+-- Áp dụng cho dự án Supabase Pixel2DTuTien (idiiyxcfzugrehifhhjx). Bảng mang tiền tố p2d_.
 -- Máy khách chỉ đọc dòng của mình; ghi duy nhất qua hàm p2d_luu (kiểm tra trước khi ghi).
 
 create table if not exists public.p2d_nhan_vat (

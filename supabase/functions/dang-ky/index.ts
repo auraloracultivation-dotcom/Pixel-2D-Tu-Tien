@@ -4,7 +4,7 @@
 // Đăng nhập thì máy khách tự ghép lại email ẩn và gọi signInWithPassword như thường.
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const DOMAIN = 'nguoichoi.invalid'; // đồng bộ src/net/auth.js (mang sang từ repo Auralora cũ, đang chạy trên Supabase)
+const DOMAIN = 'nguoichoi.invalid'; // đồng bộ src/net/auth.js
 const cors = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
