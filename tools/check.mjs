@@ -122,6 +122,9 @@ try {
   need(stt.auras.length >= read('realms.json').names.length, 'status.auras: thiếu hào quang cho cảnh giới');
   for (const a of stt.achievements) need(kinds.includes(a.need.type) && (!a.title || stt.titles[a.title]) && (!a.give.item || items.rarities.some(r => r.id === a.give.item)), `status/${a.id}: điều kiện, danh hiệu hoặc thưởng sai`);
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');
+  const pr = read('praise.json');
+  for (const [who, set] of Object.entries(pr.lines)) need(who === 'default' || npcs[who], `praise: "${who}" không phải NPC`);
+  for (const k of [...pr.big, ...pr.small]) need(pr.lines.default[k]?.length, `praise: thiếu câu mặc định cho "${k}"`);
   const ar = read('arena.json');
   need(npcs[ar.npc] && maps[ar.map]?.arena && maps[ar.back.map]?.spawns[ar.back.spawn] && ar.daily.length === ar.rivals.length, 'arena: npc, bản đồ, chỗ về hoặc thưởng ngày sai');
   ar.rivals.forEach((r, i) => need(r.rank === ar.rivals.length - i && mobs[r.base]?.person && (!r.first.item || items.rarities.some(x => x.id === r.first.item)), `arena/${r.id}: hạng, mẫu đấu sĩ hoặc thưởng sai`));
