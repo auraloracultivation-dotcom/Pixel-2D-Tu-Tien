@@ -1,4 +1,4 @@
--- Máy chủ 2 (Pixel 2D Tu Tiên): bản lưu nhân vật theo tài khoản.
+-- Pixel 2D Tu Tiên: bản lưu nhân vật theo tài khoản.
 -- Áp dụng cho dự án Supabase Pixel2DTuTien (idiiyxcfzugrehifhhjx). Bảng mang tiền tố p2d_.
 -- Máy khách chỉ đọc dòng của mình; ghi duy nhất qua hàm p2d_luu (kiểm tra trước khi ghi).
 
@@ -12,7 +12,7 @@ create table if not exists public.p2d_nhan_vat (
   updated_at timestamptz not null default now()
 );
 
-comment on table public.p2d_nhan_vat is 'Máy chủ 2: bản lưu nhân vật (cốt truyện, cảnh giới, túi đồ, ngọc). Ghi qua p2d_luu.';
+comment on table public.p2d_nhan_vat is 'Bản lưu nhân vật (cốt truyện, cảnh giới, túi đồ, ngọc). Ghi qua p2d_luu.';
 
 -- Bảng xếp hạng cảnh giới sau này đọc theo cột này
 create index if not exists p2d_nhan_vat_canh_gioi_idx on public.p2d_nhan_vat (canh_gioi desc, tang desc);
