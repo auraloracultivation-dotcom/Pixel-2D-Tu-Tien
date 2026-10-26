@@ -6,6 +6,7 @@ export function castSkill(game, id) {
   const p = game.player;
   const atk = p.atk;
   const fx = p.face.x, fy = p.face.y;
+  game.sfx({ projectile: 'shoot', aoe: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
   switch (s.type) {
     case 'projectile':
       shoot(game, {

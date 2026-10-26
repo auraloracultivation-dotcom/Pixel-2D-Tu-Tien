@@ -9,7 +9,7 @@ import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
 
-export function createGame(data, screen, input, ui) {
+export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
   const game = {
     data, screen, input, dialog: ui.dialog, ui,
@@ -20,6 +20,7 @@ export function createGame(data, screen, input, ui) {
     traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
     owner: 'guest', online: null, others: null,
   };
+  game.sfx = (name, vol) => audio?.play(name, vol);
   game.others = createOthers(game);
 
   game.persist = () => {
@@ -48,6 +49,7 @@ export function createGame(data, screen, input, ui) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
       game.toast(`Đột phá! ${realmLabel(game.save, data.realms)}`, 2.2);
+      game.sfx('levelup');
       game.screen.shake(3, 0.3);
     } else if (broke === -1 && !game.capWarned) {
       game.capWarned = true;
@@ -78,6 +80,7 @@ export function createGame(data, screen, input, ui) {
     game.save.map = id; game.save.spawn = spawnName || 'vao';
     game.portalLock = 0.8;
     joinOnline();
+    audio?.music(id);
     screen.snap(c.x, c.y);
     game.persist();
   }
@@ -85,6 +88,7 @@ export function createGame(data, screen, input, ui) {
   game.travel = async (id, spawnName, fly, text) => {
     game.traveling = true;
     if (fly) {
+      game.sfx('fly');
       await ui.fly(text || `Ngự kiếm bay tới ${data.maps[id].name}...`, () => loadMap(id, spawnName));
       game.player.hp = game.player.maxHp; // nghỉ ngơi trên đường bay
     }
@@ -180,6 +184,7 @@ export function createGame(data, screen, input, ui) {
       k.taken = true;
       game.story.notify('collect', k.item);
       game.toast('Hái được linh thảo!', 1);
+      game.sfx('pickup');
     }
     game.pickups = game.pickups.filter(k => !k.taken);
   }

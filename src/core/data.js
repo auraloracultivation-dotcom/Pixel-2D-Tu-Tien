@@ -1,5 +1,5 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds'];
 
 async function getJson(path) {
   const r = await fetch(path, { cache: 'no-cache' });
