@@ -7,6 +7,8 @@ import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 import { togglePilot, pilotLabel } from '../game/pilot.js';
 import { teaLeft } from '../game/home.js';
+import { phase } from '../game/daynight.js';
+import { season } from '../game/weather.js';
 
 const $ = id => document.getElementById(id);
 
@@ -82,6 +84,9 @@ export function createHud(audio) {
     $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily || game.newAchv);
     const tl = teaLeft(game), pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}` + (tl ? ` · Trà ${tl} phút` : '');
     if ($('power').textContent !== pw) $('power').textContent = pw;
+    const H = game.data.weather.hud, se = season(game);   // mùa, giờ, trời
+    const sky = [se && H.season.replace('{name}', se.name), phase(game).name, game.raining && H.rain].filter(Boolean).join(' · ');
+    if ($('sky').textContent !== sky) $('sky').textContent = sky;
     $('btn-auto').classList.toggle('on', !!game.auto);
     $('btn-pilot').classList.toggle('on', !!game.pilot);
     const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
