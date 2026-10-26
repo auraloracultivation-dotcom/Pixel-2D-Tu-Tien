@@ -4,6 +4,7 @@ import { skillSlots } from '../game/skills.js';
 import { lootColor } from '../game/loot.js';
 import { weaponId } from '../game/stats.js';
 import { drawWeapon } from './weapon.js';
+import { drawPet, drawMount, drawRareGlow } from './draw-pet.js';
 
 const INK = '#1b1830';
 
@@ -35,6 +36,7 @@ function drawPlayer(ctx, game, t) {
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
+  if (p.riding) { drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t); ctx.save(); ctx.translate(0, -6); }
   if (p.meditating) {
     ctx.strokeStyle = el; ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ctx.lineWidth = 1;
     ctx.beginPath(); ctx.arc(p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
@@ -45,6 +47,7 @@ function drawPlayer(ctx, game, t) {
   if (p.shield > 0) { ctx.strokeStyle = p.shieldColor; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 10, 0, Math.PI * 2); ctx.stroke(); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
+  if (p.riding) ctx.restore();
 }
 
 function drawMob(ctx, m, t) {
@@ -52,6 +55,7 @@ function drawMob(ctx, m, t) {
   const r = m.r, wind = m.state === 'windup';
   shadow(ctx, m.x, m.y + 1, r);
   if (m.tele) drawTele(ctx, m);
+  if (m.rare) drawRareGlow(ctx, m, t);
   ctx.save();
   ctx.translate(m.x, m.y - r);
   ctx.scale(1 + squash, 1 - squash);
@@ -99,7 +103,7 @@ function drawOther(ctx, o, game, t) {
 
 function drawNpc(ctx, n, game, t) {
   drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, { x: 0, y: 1 });
-  if (game.story.wants(n.id)) {
+  if (game.story.wants(n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 20 + Math.sin(t * 5) * 1.5);
   }
@@ -185,11 +189,12 @@ export function drawWorld(game, screen, t) {
     ctx.globalAlpha = 0.6; ctx.strokeStyle = z.color; ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.arc(z.x, z.y, z.radius, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.stroke(); ctx.globalAlpha = 1;
   }
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player]].sort((a, b) => a[1].y - b[1].y);
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : [])].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
     else if (k === 'm') drawMob(ctx, e, t);
     else if (k === 'o') drawOther(ctx, e, game, t);
+    else if (k === 'pet') drawPet(ctx, e, t);
     else drawPlayer(ctx, game, t);
   }
   for (const l of game.loot) {   // đồ rơi: viên lấp lánh theo màu độ hiếm

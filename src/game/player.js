@@ -3,6 +3,7 @@ import { addFx, hitMob, dist, shoot } from './combat.js';
 import { castSkill, skillSlots } from './skills.js';
 import { playerStats, weaponId } from './stats.js';
 import { usePill } from './cave.js';
+import { rideSpeed } from './pets.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -94,7 +95,7 @@ export function updatePlayer(game, dt) {
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   if (p.moving) {
     p.meditating = false;
-    const sp = cfg.player.speed * p.st.speedMul * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
+    const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);
     game.map.move(p, ax.x / d * sp * dt, ax.y / d * sp * dt);
     p.face = { x: ax.x / d, y: ax.y / d };
@@ -106,7 +107,7 @@ export function updatePlayer(game, dt) {
   const slots = skillSlots(game);
   for (let i = 0; i < 3; i++) {
     if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0) {
-      p.meditating = false;
+      p.meditating = false; p.calmT = 0; p.riding = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;
       p.skillCd[i] = castSkill(game, slots[i]) * (1 - p.st.cdr);
