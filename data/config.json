@@ -10,7 +10,8 @@
   "hoa-quat",
   "dong-phu",
   "dao-han-bang",
-  "han-bang-quat"
+  "han-bang-quat",
+  "thap-thu-thach"
  ],
  "server_save": false,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},

@@ -20,6 +20,7 @@ import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
+import { updateTower, towerFail } from './tower.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
@@ -43,7 +44,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
-  game.goals = () => [game.story?.goal()?.text, game.save?.bounty && bountyGoal(game)].filter(Boolean).join('\n');
+  game.goals = () => [game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game)].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -99,6 +100,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   game.onKill = m => {
+    if (m.tower) return; // quái trong tháp chỉ tính qua tầng
     dropLoot(game, m);
     bountyKill(game, m);
     techDrop(game, m);
@@ -210,7 +212,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   function respawn() {
     if (game.trib.active) game.trib.fail();
-    else game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    else if (!towerFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
     game.bullets = [];
@@ -269,6 +271,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePickups(game);
     updateSpawners(dt);
     game.dungeon?.update();
+    updateTower(game, dt);
     updateInteract(game);
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
