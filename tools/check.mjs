@@ -75,7 +75,11 @@ try {
   for (const [mob, l] of Object.entries(cave.mat_drops)) { need(mobs[mob], `cave.mat_drops: quái "${mob}" không có`); for (const [m] of l) need(matOk(m), `cave.mat_drops/${mob}: nguyên liệu "${m}" không có`); }
   for (const [id, p] of Object.entries(cave.pills)) for (const m of Object.keys(p.recipe)) need(matOk(m), `cave.pills/${id}: nguyên liệu "${m}" không có`);
   for (const r of cave.forge) { need(items.rarities.some(x => x.id === r.min_rarity), `cave.forge/${r.id}: độ hiếm không có`); for (const m of Object.keys(r.cost)) need(matOk(m), `cave.forge/${r.id}: nguyên liệu "${m}" không có`); }
-  need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
+  need(cave.pills[cave.pill_button], 'cave: pill_button không có');
+  const gd = read('garden.json');
+  for (const [x, y] of gd.plots) need(maps[gd.map]?.grid[y][x] === 'G', `garden: ô (${x},${y}) không phải linh điền`);
+  need(gd.open_cost.length === gd.plots.length - gd.start, 'garden: open_cost phải đủ cho các luống khai hoang');
+  for (const [id, c] of Object.entries(gd.crops)) need(matOk(id) && Object.keys(c.seed || {}).every(matOk), `garden/${id}: cây hoặc hạt không có trong nguyên liệu`);
   for (const [id, p] of Object.entries(cave.pills)) need((p.rate ?? cave.brew.default) > 0 && (p.rate ?? 0) <= 1, `cave.pills/${id}: tỉ lệ luyện sai`);
   need(matOk(items.reroll_lock.mat), 'items.reroll_lock: nguyên liệu không có');
   const af = read('affinity.json'), cl = read('companions.json').list;

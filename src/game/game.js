@@ -24,6 +24,7 @@ import { updateTower, towerFail } from './tower.js';
 import { updateArena, arenaFail, arenaGoal } from './arena.js';
 import { pilotDialog, stopPilot } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
+import { updateGarden } from './garden.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { ensureStats, countKill, checkAchv } from './achieve.js';
@@ -301,6 +302,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateTower(game, dt);
     updateArena(game, dt);
     updatePraise(game, dt);
+    updateGarden(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateRes(game, dt);
     updateWorldBoss(game, dt);

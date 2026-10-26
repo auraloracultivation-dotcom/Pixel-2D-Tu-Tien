@@ -7,6 +7,7 @@
   "yeu-huyet": {"name": "Yêu Huyết Tinh", "color": "#e0506a", "desc": "Máu đông của ma vật. Rơi từ ma tộc."},
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "color": "#ff9a3a", "desc": "Nấm mọc cạnh dung nham. Rơi từ quái Đảo Xích Diễm và Hỏa Quật."},
   "tinh-thiet": {"name": "Tinh Thiết", "color": "#b8c4d8", "desc": "Sắt đã luyện. Có được khi phân giải đồ."},
+  "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "color": "#b8d8ff", "desc": "Hoa đọng sương ngọc, chỉ nở ở dược viên. Món quà ai cũng thích."},
   "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
  },
  "mat_drops": {
@@ -45,11 +46,6 @@
   "huyen": 3,
   "dia": 5,
   "thien": 8
- },
- "garden": {
-  "grow_min": 15,
-  "yield": 1,
-  "herb": "linh-thao"
  },
  "levels": [
   {"name": "Động phủ sơ khai", "meditate_mul": 2, "grow_min": 15, "yield": 1, "brew_bonus": 0},

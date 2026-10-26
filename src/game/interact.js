@@ -2,7 +2,7 @@
 import { dist } from './combat.js';
 import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
-import { harvest, nextRipe } from './cave.js';
+import { harvestAll, gotText } from './garden.js';
 import { meditateMul } from './evolve.js';
 import { pickMode } from './dun-mode.js';
 
@@ -31,7 +31,7 @@ function nearTile(game, ch, range) {
   return false;
 }
 
-const STATIONS = { K: ['Lò đan', 'dan'], A: ['Lò rèn', 'ren'], G: ['Linh điền', 'dien'] };
+const STATIONS = { K: ['Lò đan', 'dan'], A: ['Lò rèn', 'ren'], G: ['Dược viên', 'dien'] };
 function nearStation(game) {
   for (const [ch, s] of Object.entries(STATIONS)) if (nearTile(game, ch, game.data.config.tile * 1.4)) return s;
   return null;
@@ -62,9 +62,9 @@ export function updateInteract(game) {
   } else if (trib) {
     game.trib.start();
   } else if (st && st[1] === 'dien') {
-    const n = harvest(game);
-    if (n) { game.sfx('pickup'); game.toast(`Thu hoạch ${n} Linh Thảo`, 1.6); }
-    else game.toast(`Linh thảo chưa chín. Còn khoảng ${nextRipe(game)} phút.`, 1.8);
+    const got = harvestAll(game);
+    if (Object.keys(got).length) { game.sfx('pickup'); game.toast(`Thu hoạch ${gotText(got)}`, 1.8); }
+    else game.openCave?.('vuon');
   } else if (st) {
     game.openCave?.(st[1]);
   } else if (med) {

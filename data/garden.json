@@ -1,0 +1,20 @@
+{
+ "_note": "Dược viên trong động phủ. plots: các ô G theo thứ tự mở; có sẵn start luống đầu, luống sau khai hoang bằng Linh Thạch (open_cost theo thứ tự). Mỗi luống nâng cấp riêng (levels: grow_mul nhân thời gian, bonus cộng thêm sản lượng). Cây (crops): min là phút chín ở động phủ sơ khai (động phủ cấp cao rút ngắn theo grow_min của cấp / 15), n là số thu mỗi lần, seed là hạt phải bỏ ra khi gieo, realm là cảnh giới cần. Có đạo lữ thì đạo lữ tự thu hoạch giúp mỗi helper_sec giây.",
+ "map": "dong-phu",
+ "plots": [[2, 8], [3, 8], [5, 8], [6, 8], [2, 9], [3, 9], [5, 9], [6, 9], [12, 8], [13, 8], [12, 9], [13, 9], [2, 10], [3, 10], [5, 10], [6, 10]],
+ "start": 8,
+ "open_cost": [400, 700, 1100, 1600, 2300, 3200, 4400, 6000],
+ "levels": [
+  {"name": "Đất thường", "grow_mul": 1, "bonus": 0},
+  {"name": "Đất tơi", "grow_mul": 0.9, "bonus": 0, "cost": {"coins": 200, "mats": {"linh-thao": 5}}},
+  {"name": "Đất linh", "grow_mul": 0.8, "bonus": 1, "cost": {"coins": 500, "mats": {"linh-thao": 10, "tinh-thiet": 3}}},
+  {"name": "Đất ngọc", "grow_mul": 0.7, "bonus": 1, "cost": {"coins": 1200, "mats": {"hoa-linh-chi": 5, "tinh-thiet": 6}}},
+  {"name": "Đất tiên", "grow_mul": 0.6, "bonus": 2, "cost": {"coins": 3000, "mats": {"yeu-huyet": 10, "khoa-linh-thach": 1}}}
+ ],
+ "crops": {
+  "linh-thao": {"name": "Linh Thảo", "min": 15, "n": 1, "color": "#7af0a0", "flower": "#e8fff0"},
+  "hoa-linh-chi": {"name": "Hỏa Linh Chi", "min": 35, "n": 1, "seed": {"hoa-linh-chi": 1}, "realm": 1, "color": "#ff9a3a", "flower": "#ffe27a"},
+  "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "min": 45, "n": 1, "seed": {"linh-thao": 3}, "realm": 2, "color": "#b8d8ff", "flower": "#ffffff"}
+ },
+ "helper_sec": 60
+}
