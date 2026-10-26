@@ -17,6 +17,8 @@
   {"id": "doc-dang", "text": "Hạ {n} độc đằng ở Rừng Mê", "mob": "doc-dang", "n": 8, "need": "dao-moc", "reward": {"stones": 6, "qi": 850, "item": "linh"}},
   {"id": "thuc-moc-ma-hau", "text": "Vào Cổ Thụ Tâm hạ Thực Mộc Ma Hậu", "mob": "thuc-moc-ma-hau", "n": 1, "need": "cuu-thanh-diep", "reward": {"stones": 14, "qi": 2400, "gem": 1, "item": "huyen"}},
   {"id": "kiem-hon", "text": "Hạ {n} kiếm hồn ở bãi mộ kiếm Đảo Thiên Kim", "mob": "kiem-hon", "n": 10, "need": "dao-kim", "reward": {"stones": 8, "qi": 2600, "gem": 0.7}},
-  {"id": "van-kiem-ma-tuong", "text": "Vào Kiếm Trủng hạ Vạn Kiếm Ma Tướng", "mob": "van-kiem-ma-tuong", "n": 1, "need": "cuu-thiet-lan", "reward": {"stones": 16, "qi": 5200, "gem": 1, "item": "dia"}}
+  {"id": "van-kiem-ma-tuong", "text": "Vào Kiếm Trủng hạ Vạn Kiếm Ma Tướng", "mob": "van-kiem-ma-tuong", "n": 1, "need": "cuu-thiet-lan", "reward": {"stones": 16, "qi": 5200, "gem": 1, "item": "dia"}},
+  {"id": "tho-khoi", "text": "Hạ {n} thổ khôi ở Đảo Hậu Thổ", "mob": "tho-khoi", "n": 10, "need": "dao-tho", "reward": {"stones": 9, "qi": 4200, "gem": 0.8}},
+  {"id": "toai-son-ma-tuong", "text": "Vào Địa Cung hạ Toái Sơn Ma Tướng", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "reward": {"stones": 18, "qi": 8400, "gem": 1, "item": "dia"}}
  ]
 }

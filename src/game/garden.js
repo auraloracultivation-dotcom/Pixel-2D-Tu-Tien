@@ -3,7 +3,7 @@
 import { caveLevel } from './evolve.js';
 import { dailyEvent } from './daily.js';
 import { addCoins, coins } from './shop.js';
-import { daoLu } from './affinity.js';
+import { daoLuHere } from './affinity.js';
 
 const C = game => game.data.garden;
 const now = () => Date.now();
@@ -90,8 +90,8 @@ export function plant(game, i, id) {
 
 // Đạo lữ thu hoạch giúp (mỗi helper_sec giây, ở đâu cũng được)
 export function updateGarden(game, dt) {
-  if (!daoLu(game) || !game.save.flags['dong-phu'] || (game.gardenT = (game.gardenT ?? 5) - dt) > 0) return;
+  if (!daoLuHere(game) || !game.save.flags['dong-phu'] || (game.gardenT = (game.gardenT ?? 5) - dt) > 0) return;
   game.gardenT = C(game).helper_sec;
   const got = harvestAll(game);
-  if (Object.keys(got).length) game.say(game.data.npcs[daoLu(game)].name, `Ta thu hoạch dược viên giúp rồi nhé: ${gotText(got)}.`, 3);
+  if (Object.keys(got).length) game.say(game.data.npcs[daoLuHere(game)].name, `Ta thu hoạch dược viên giúp rồi nhé: ${gotText(got)}.`, 3);
 }

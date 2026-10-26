@@ -4,7 +4,8 @@ import { updateFollower } from './pets.js';
 const C = game => game.data.companions;
 export const compNeed = (data, lv) => Math.round(data.companions.exp_base * Math.pow(lv, data.companions.exp_pow));
 export const compLevel = (game, id = game.save.companion) => game.save.comps?.[id]?.lv || 0;
-export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C(game).list[id].need || C(game).need];
+export const away = (game, id) => !!game.save.flags[C(game).list[id]?.unless];
+export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C(game).list[id].need || C(game).need] && !away(game, id);
 
 export function spawnCompanion(game) {
   const id = game.save.companion, p = game.player;
@@ -13,6 +14,7 @@ export function spawnCompanion(game) {
 
 export function updateCompanion(game, dt) {
   if (!game.comp) return;
+  if (away(game, game.comp.id)) { game.save.companion = null; game.comp = null; return; }
   updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, -C(game).follow, dt);
 }
 

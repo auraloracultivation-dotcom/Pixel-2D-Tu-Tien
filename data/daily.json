@@ -27,7 +27,9 @@
   {"id": "re-mau-thu", "type": "kill", "mob": "hac-cuc-ma-chung", "n": 1, "need": "het-chuong-4", "text": "Hạ Hắc Cức Ma Chủng", "reward": {"contrib": 60, "stones": 4}},
   {"id": "co-thu-tam", "type": "kill", "mob": "thuc-moc-ma-hau", "n": 1, "need": "cuu-thanh-diep", "text": "Hạ Thực Mộc Ma Hậu", "reward": {"contrib": 70, "gem": 1}},
   {"id": "giet-kim-giap", "type": "kill", "mob": "kim-giap-trung", "n": 12, "need": "dao-kim", "text": "Hạ {n} kim giáp trùng", "reward": {"contrib": 45, "stones": 4}},
-  {"id": "kiem-trung", "type": "kill", "mob": "van-kiem-ma-tuong", "n": 1, "need": "cuu-thiet-lan", "text": "Hạ Vạn Kiếm Ma Tướng", "reward": {"contrib": 80, "gem": 1}}
+  {"id": "kiem-trung", "type": "kill", "mob": "van-kiem-ma-tuong", "n": 1, "need": "cuu-thiet-lan", "text": "Hạ Vạn Kiếm Ma Tướng", "reward": {"contrib": 80, "gem": 1}},
+  {"id": "giet-tho-khoi", "type": "kill", "mob": "tho-khoi", "n": 12, "need": "dao-tho", "text": "Hạ {n} thổ khôi", "reward": {"contrib": 50, "stones": 4}},
+  {"id": "dia-cung", "type": "kill", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "text": "Hạ Toái Sơn Ma Tướng", "reward": {"contrib": 90, "gem": 1}}
  ],
  "chest": {
   "contrib": 50,

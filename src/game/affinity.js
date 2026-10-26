@@ -50,6 +50,8 @@ function compExp(game, id, amount) {
 
 // Đạo lữ
 export const daoLu = game => game.save.daoLu || null;
+// Đạo lữ đang ở bên (không bị bắt đi theo truyện): mới khen, viết thư, thu hoạch giúp
+export const daoLuHere = game => { const d = daoLu(game); return d && !game.save.flags[game.data.companions.list[d]?.unless] ? d : null; };
 export const canPropose = (game, id) => {
   const d = A(game).dao_lu;
   return !daoLu(game) && d.can.includes(id) && affinity(game, id) >= d.pts && game.save.realm >= d.realm;

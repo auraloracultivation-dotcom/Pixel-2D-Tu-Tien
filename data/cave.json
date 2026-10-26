@@ -14,6 +14,7 @@
   "bang-ngu": {"name": "Băng Ngư", "color": "#bfe8ff", "desc": "Cá trong suốt ở mây quanh Đảo Hàn Băng."},
   "kim-ly": {"name": "Kim Lý", "color": "#ffd24a", "desc": "Cá chép vàng hiếm, nghe nói mang may mắn. Món quà quý."},
   "kim-tu-ngu": {"name": "Kim Tu Ngư", "color": "#ffe27a", "desc": "Cá vảy vàng như sợi kim tuyến, chỉ có ở mây quanh Đảo Thiên Kim."},
+  "nham-ngu": {"name": "Nham Ngư", "color": "#d8a070", "desc": "Cá da sần như đá, sống ở mây đáy quanh Đảo Hậu Thổ."},
   "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
  },
  "mat_drops": {
@@ -54,6 +55,12 @@
   "kim-ma-ve": [["tinh-thiet", 1, 2], ["yeu-huyet", 0.5]],
   "van-kiem-ma-tuong": [["tinh-thiet", 1, 16], ["yeu-huyet", 1, 8], ["khoa-linh-thach", 0.5], ["yeu-vuong-dan", 0.2]],
   "kim-giap-vuong": [["tinh-thiet", 1, 12], ["khoa-linh-thach", 0.4], ["yeu-vuong-dan", 0.15]],
+  "tho-khoi": [["tinh-thiet", 0.4], ["linh-thao", 0.3]],
+  "nham-xa": [["yeu-huyet", 0.4], ["tinh-thiet", 0.3]],
+  "thach-doi": [["yeu-huyet", 0.5]],
+  "tho-ma-ve": [["tinh-thiet", 1, 2], ["yeu-huyet", 1, 2]],
+  "toai-son-ma-tuong": [["tinh-thiet", 1, 18], ["yeu-huyet", 1, 10], ["khoa-linh-thach", 0.55], ["yeu-vuong-dan", 0.22]],
+  "nham-giap-thu": [["tinh-thiet", 1, 14], ["khoa-linh-thach", 0.45], ["yeu-vuong-dan", 0.16]],
   "co-thu-yeu-vuong": [["linh-thao", 1, 10], ["tinh-thiet", 1, 8], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.14]]
  },
  "salvage_iron": {

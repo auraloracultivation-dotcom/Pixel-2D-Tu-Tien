@@ -1,0 +1,27 @@
+{
+ "id": "dia-cung",
+ "name": "Địa Cung",
+ "sky": "#1a120a",
+ "dark": 0.36,
+ "ground": "#4a3424",
+ "grid": [
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvEvvEvvEEEvvvvvvvvvvEEEvvvvvvvvvEvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvvDvvvvvvvvvvvvvvDvvvvvvvvvvvvDvvvvvvvvvvvvvvvvvvE",
+  "EvPvvvvvvvvvDvvvvvvvvvvvvvvDvvvvvvvvvvvvDvvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvvDvvvvvvvvvvvvvvDvvvvvvvvvvvvDvvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvEvvvvEEEvEEvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EvvvvvvvvvvEEEvvvvvvvvvvvvEEEvvvvvvvvvvEEEvvvvvvvvvvvvvvvvvE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "dao-hau-tho", "spawn": "tu-dia-cung", "label": "Về đền đổ"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "tho-khoi", "n": 4}, {"mob": "nham-xa", "n": 2}]}, {"rect": [14, 1, 12, 11], "door_x": 27, "mobs": [{"mob": "tho-ma-ve", "n": 2}, {"mob": "thach-doi", "n": 3}]}, {"rect": [29, 1, 10, 11], "door_x": 40, "mobs": [{"mob": "tho-ma-ve", "n": 3}, {"mob": "nham-xa", "n": 2}]}, {"rect": [42, 1, 17, 11], "mobs": [{"mob": "toai-son-ma-tuong", "n": 1}], "boss": true}]
+}
