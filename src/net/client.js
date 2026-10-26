@@ -1,9 +1,9 @@
-// Khởi tạo Supabase (dùng chung dự án với game cũ Auralora). Khoá publishable được phép công khai;
-// quyền thật do RLS + RPC ở máy chủ quyết định. Cùng tên miền github.io nên phiên đăng nhập dùng chung.
+// Khởi tạo Supabase (dự án riêng Pixel2DTuTien). Khoá publishable được phép công khai;
+// quyền thật do RLS + RPC ở máy chủ quyết định.
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-export const SUPABASE_URL = 'https://ympsgrghczpzkonfadco.supabase.co';
-export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_xu2slWDBny_GVKzfsc3Z1Q_IIzP3YtN';
+export const SUPABASE_URL = 'https://idiiyxcfzugrehifhhjx.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_FD5ghLVsNfp3-d69NXlz3w_bvOotHYk';
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true },

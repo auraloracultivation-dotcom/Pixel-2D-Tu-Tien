@@ -8,7 +8,7 @@ Luật cứng:
 
 - Máy khách không được ghi trực tiếp vào cơ sở dữ liệu; mọi thao tác ghi qua RPC/Edge Function có kiểm tra.
 - Chỉ số và nội dung nằm trong `data/`, code chỉ tham chiếu ID.
-- Chỉ `src/net/` được gọi Supabase (dùng chung dự án Supabase với game cũ Auralora, chỉ khoá publishable).
+- Chỉ `src/net/` được gọi Supabase (dự án Supabase riêng Pixel2DTuTien, chỉ khoá publishable).
 - Không gom code vào một file (tối đa 400 dòng). Không có logic trong `index.html`.
 - Schema chỉ đổi bằng migration mới trong `supabase/migrations/`.
 - Không đưa secret/service_role key vào repo.

@@ -1,6 +1,6 @@
 # 01. Hướng đi và các quyết định đã chốt
 
-Game 2D pixel thế giới mở MMORPG tu tiên cho Google Play, cảm giác đánh như My Heroes: Dungeon Raid và Soul Knight Prequel. Trong app, đây là "Máy chủ 2", dùng chung tài khoản Supabase với game cũ Auralora (Máy chủ 1, chỉ để tham khảo, sẽ xoá khi Máy chủ 2 ổn và chủ dự án đồng ý).
+Game 2D pixel thế giới mở MMORPG tu tiên cho Google Play, cảm giác đánh như My Heroes: Dungeon Raid và Soul Knight Prequel. Game tu chân cũ Auralora đã bỏ hẳn (2026-10-26); game này có dự án Supabase riêng `Pixel2DTuTien`, tài khoản người chơi bắt đầu lại từ đầu.
 
 Bản cốt truyện đầy đủ (Claude Docs): https://claude.ai/artifact/NsmdqZZLEhUn1rfkXXTN9K
 

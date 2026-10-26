@@ -10,7 +10,7 @@ HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -
 | `src/game/` | Vòng chơi (`game.js`), người chơi, quái và boss, trúng đòn và đạn, chiêu, cảnh giới, kịch bản, bí cảnh, đi đường (`travel`), tương tác (`interact`), đòn từ trời (`strikes`), thiên kiếp (`tribulation`), treo thưởng (`bounty`), trang bị (`items`, `loot`). |
 | `src/render/` | Vẽ người, quái, hiệu ứng, chỉ đường, cần gạt; `flight.js` vẽ cảnh ngự kiếm bay qua biển mây và xoáy truyền tống. |
 | `src/ui/` | Thanh máu và linh khí, nút chiêu, hộp thoại, màn bay, menu (DOM trong `index.html`). |
-| `src/net/` | Nơi duy nhất gọi Supabase: `client` (khoá publishable, dùng chung dự án với Auralora), `auth` (đăng nhập bằng tên tài khoản như game cũ, đăng ký qua hàm `dang-ky`), `online` (kênh Realtime `p2d:<đảo>`: presence + vị trí, không ghi cơ sở dữ liệu; bí cảnh chơi riêng). Nạp lười: mất mạng vẫn chơi thử được. |
+| `src/net/` | Nơi duy nhất gọi Supabase: `client` (khoá publishable, dự án Supabase Pixel2DTuTien), `auth` (đăng nhập bằng tên tài khoản, đăng ký qua hàm `dang-ky` trong `supabase/functions/`), `online` (kênh Realtime `p2d:<đảo>`: presence + vị trí, không ghi cơ sở dữ liệu; bí cảnh chơi riêng). Nạp lười: mất mạng vẫn chơi thử được. |
 | `tools/` | `check.mjs` kiểm tra tự động; `art/` vẽ hình pixel bằng code. |
 
 ## Kịch bản (`data/story.json`)

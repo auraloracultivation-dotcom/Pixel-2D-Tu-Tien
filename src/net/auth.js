@@ -1,4 +1,4 @@
-// Đăng nhập bằng TÊN TÀI KHOẢN như game cũ; email chỉ là thứ ẩn bên dưới (hàm máy chủ dang-ky).
+// Đăng nhập bằng TÊN TÀI KHOẢN ; email chỉ là thứ ẩn bên dưới (hàm máy chủ dang-ky).
 import { supabase } from './client.js';
 
 const HIDDEN_DOMAIN = 'nguoichoi.invalid'; // đồng bộ với supabase/functions/dang-ky
