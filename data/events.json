@@ -1,0 +1,25 @@
+{
+ "_note": "Sự kiện theo giờ máy. Cuối tuần (thứ 7, CN) nhân linh khí từ đánh quái và đả tọa. Mỗi tuần (tính từ thứ 2) một sự kiện trong weekly, xoay vòng. Lễ (festivals) theo ngày: vào game trong khoảng from..to nhận quà một lần, mul cộng thêm trong lễ.",
+ "weekend": {"name": "Cuối tuần linh khí dồi dào", "mul": {"qi": 2}},
+ "weekly": [
+  {"id": "san-yeu", "name": "Tuần Săn Yêu", "desc": "Hạ quái tích điểm săn yêu, đủ mốc nhận thưởng.", "color": "#e0604a",
+   "points": {"mob": 1, "rare": 10, "boss": 30},
+   "milestones": [
+    {"pts": 100, "give": {"stones": 3, "coins": 100}},
+    {"pts": 300, "give": {"gem": 1, "coins": 300}},
+    {"pts": 600, "give": {"item": "huyen", "stones": 5}},
+    {"pts": 1000, "give": {"item": "dia", "gem": 2, "coins": 800}}
+   ]},
+  {"id": "thap", "name": "Tuần Leo Tháp", "desc": "Thưởng qua tầng mới của Tháp Thử Thách nhân đôi.", "color": "#7a8af0", "mul": {"tower": 2}},
+  {"id": "dan", "name": "Tuần Luyện Đan", "desc": "Mỗi lò luyện ra gấp đôi số viên.", "color": "#5fd07a", "mul": {"brew": 2}},
+  {"id": "linh-thach", "name": "Tuần Linh Thạch", "desc": "Quái rơi Linh Thạch gấp đôi.", "color": "#ffd24a", "mul": {"coin": 2}}
+ ],
+ "festivals": [
+  {"id": "tet-2027", "name": "Tết Đinh Mùi", "from": "2027-02-04", "to": "2027-02-14", "color": "#ff4a4a",
+   "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử.", "mul": {"qi": 1.5, "coin": 1.5},
+   "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"}},
+  {"id": "tet-2028", "name": "Tết Mậu Thân", "from": "2028-01-24", "to": "2028-02-03", "color": "#ff4a4a",
+   "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử.", "mul": {"qi": 1.5, "coin": 1.5},
+   "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"}}
+ ]
+}

@@ -36,7 +36,7 @@ export function killMob(game, m) {
   m.dead = true;
   game.sfx('die');
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
-  if (!m.noQi) game.gainQi(m.def.qi, m.x, m.y);
+  if (!m.noQi) game.gainQi(m.def.qi * game.eventMul('qi'), m.x, m.y);
   game.onKill(m);
 }
 

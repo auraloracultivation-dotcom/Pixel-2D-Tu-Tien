@@ -1,6 +1,7 @@
 // Việc hằng ngày, lượt treo thưởng mỗi ngày, cống hiến tông môn, chức vị và đổi thưởng (data/daily.json).
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
+import { addCoins } from './shop.js';
 
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 
@@ -38,9 +39,10 @@ export function dailyEvent(game, type, id, amount = 1) {
   }
 }
 
-// Phát thưởng chung: stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills, contrib
+// Phát thưởng chung: coins (Linh Thạch), stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills, contrib
 export function grant(game, r) {
   const { data, save } = game, got = [];
+  if (r.coins) { addCoins(game, r.coins); got.push(`${r.coins} ${data.shop.name}`); }
   if (r.contrib) { addContrib(game, r.contrib); got.push(`${r.contrib} cống hiến`); }
   if (r.stones) { save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + r.stones; got.push(`${r.stones} Tẩy Luyện Thạch`); }
   for (let i = 0; i < (r.gem || 0); i++) { const g = rollGem(data); save.gems[g] = (save.gems[g] || 0) + 1; got.push(gemInfo(data, g).name); }
