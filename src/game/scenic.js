@@ -69,7 +69,9 @@ function star(game, v, comp, dt) {
   v.star = S.every[0] + Math.random() * (S.every[1] - S.every[0]);
   (game.meteors ||= []).push({ born: performance.now() / 1000, life: S.life, x: 0.35 + Math.random() * 0.55, y: 0.05 + Math.random() * 0.2 });
   if (s.star === day) return;
-  s.star = day; game.persist();
+  s.star = day;
+  if (!s.starOnce) { s.starOnce = true; const J = game.data.journal; addEntry(game, comp ? J.star_with.replace('{name}', comp.npc.name) : J.star); }
+  game.persist();
   game.gainQi(game.data.config.meditate.qi_per_sec * S.qi_sec, game.player.x, game.player.y);
   if (comp) { const a = S.lines[comp.id] || S.lines.default; game.say(comp.npc.name, a[Math.floor(Math.random() * a.length)], 5); }
   else game.toast(S.toast, 4);
