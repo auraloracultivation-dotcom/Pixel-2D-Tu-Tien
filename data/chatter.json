@@ -1,0 +1,32 @@
+{
+ "_note": "Lời nói nhỏ của NPC: thỉnh thoảng một NPC gần người chơi (trong range) nói một câu ngắn hiện thành bong bóng trên đầu, sec giây. every: khoảng giây giữa hai lần (ngẫu nhiên trong khoảng). Câu nên ngắn, dưới 30 chữ cái.",
+ "every": [7, 15],
+ "range": 110,
+ "sec": 3.6,
+ "lines": {
+  "truong-thon": ["Trời hôm nay trong quá.", "Lúa năm nay chắc được mùa.", "Đi đường cẩn thận nhé."],
+  "tieu-hoa": ["Đánh một trận không?", "Ta đói rồi...", "Ngươi lại mạnh hơn rồi đó!"],
+  "van-hac": ["Gió núi hôm nay êm.", "Tâm tĩnh thì kiếm tĩnh.", "Hừm, khá lắm."],
+  "lac-tuyet": ["...Ngươi đến rồi à.", "Đừng lười đả tọa.", "Hôm nay trời đẹp nhỉ."],
+  "ho-linh": ["Hôm nay có gì vui không?", "Bồ đoàn này êm lắm đó!", "Hì hì."],
+  "lao-thiet": ["Búa này nặng thật.", "Thép tốt cần lửa đều.", "Khụ khụ... bụi lò."],
+  "a-moc": ["Anh ơi chơi với em!", "Em bắt được con dế!", "Em muốn học kiếm!"],
+  "chap-su": ["Việc hôm nay còn nhiều.", "Làm xong nhớ báo ta.", "Sổ sách, sổ sách..."],
+  "ngu-thu-su": ["Linh thú cũng biết thương.", "Nhớ cho nó ăn đấy."],
+  "lao-ngu": ["Mây hôm nay nhiều cá.", "Ngồi câu là để nghĩ."],
+  "linh-nhi": ["Mây trên kia mềm không ạ?", "Hoa này thơm lắm!"],
+  "thanh-diep": ["Cây đang hát đó.", "Gió mang tin tốt."],
+  "kiem-lao": ["Kiếm cũng biết nhớ chủ.", "Đi chậm thôi."],
+  "tieu-linh": ["Con quét sân xong rồi!", "Trà pha sẵn rồi ạ.", "Chủ nhân về rồi!"],
+  "tieu-dong": ["Sư tỷ đập búa kêu to lắm.", "Em sắp được cầm búa!"],
+  "thiet-lan": ["Lửa lò hôm nay đẹp.", "Đừng chạm vào phôi nóng."],
+  "thach-ba": ["Đất ấm lên rồi.", "Ăn gì chưa con?"],
+  "a-nham": ["Nắng ấm thật.", "Không phải trốn nữa rồi."],
+  "trai-truong": ["Gió đã bớt đen.", "Khụ... vẫn sống."],
+  "van-bao": ["Hàng mới về đây!", "Mua một tặng... không."],
+  "quan-bi-canh": ["Đừng tham, đừng tham.", "Bí cảnh hôm nay yên."],
+  "luan-vo-su": ["Thắng thua là chuyện nhỏ.", "Thử một trận chứ?"],
+  "thu-thap": ["Tầng trên lạnh lắm.", "Tháp vẫn đứng đó."],
+  "quan-binh-kho": ["Kho vừa lau xong.", "Muốn thử binh khí nào?"]
+ }
+}
