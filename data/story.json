@@ -617,6 +617,7 @@
     {"say": [["thach-sinh", "...Ngươi. Người của cô ấy."], ["thach-sinh", "Cô ấy che cho bọn ta chạy. Cô ấy bị bắt vì bọn ta."], ["thach-sinh", "Ta nợ cô ấy. Ngươi đi cứu cô ấy, ta đi theo."]]},
     {"npc_remove": "thach-sinh"},
     {"flag": "het-chuong-5"},
+    {"flag": "lac-tuyet-vang"},
     {"fly": "dao-hau-tho", "spawn": "vao", "kind": "portal", "text": "Trở lên mặt đất"},
     {"say": [["thach-ba", "Thạch Sinh! Con về rồi! Trai làng về hết rồi!"], ["thach-ba", "Người trên mây... bà không biết lấy gì trả ơn. Đây là Hậu Thổ Quyết của tổ tiên. Đất sẽ đỡ lấy ngươi."]]},
     {"technique": "hau-tho-quyet"},
@@ -626,6 +627,71 @@
     {"say": [["van-hac", "...Vết Nứt. Vậy là thật. Ma Tôn muốn mở cửa giữa giới của hắn và Linh Giới."], ["van-hac", "Lạc Tuyết còn sống. Pha lê đen giữ hồn, không giết người. Hắn cần con bé sống để mở cửa."], ["van-hac", "Con phải tới Đại Thừa mới chịu nổi gió bên trong Vết Nứt. Tu đi. Ta sẽ tìm đường vào."], ["", "Nhận Hậu Thổ Bất Động Quyết, Hậu Thổ Giáp phẩm Địa, 16 Tẩy Luyện Thạch, 3 Khóa Linh Thạch, 1 Yêu Vương Đan."], ["", "Thạch Sinh ở lại Đảo Hậu Thổ. Tới đó có thể mời cậu đi cùng."], ["", "Hết Chương 5. Lạc Tuyết bị đưa vào Vết Nứt. Tu lên Đại Thừa để mở Chương 6."]]}
    ],
    "goal": "Tu lên Đại Thừa để mở Chương 6",
+   "until": {"realm": 7}
+  },
+  {
+   "id": "goi-chuong-6", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Đại Thừa. Linh lực trong người không còn là sông, mà là biển. Bạn nghe được cả tiếng Thiên Mạch rên khẽ trên đỉnh trời."], ["van-hac", "Ta tìm được đường rồi. Vết Nứt mọc ra từ Tầng Trời Rách, trên cả Thiên Kiếm Phong. Quanh nó là một vùng đá trôi, gọi là Ngoại Vực."], ["van-hac", "Lạc Tuyết bị giam trong Hư Không Lao ở rìa Ngoại Vực. Pha lê đen hút linh căn Thủy của con bé để giữ cho vết nứt mở."], ["tieu-hoa", "Lần này đủ cả rồi nhé! Tớ, Thanh Diệp, Thiết Lan, Thạch Sinh. Ai cũng nợ sư tỷ một lần."], ["van-hac", "Năm linh căn thuần là thứ Ma Tôn thèm khát. Cũng là thứ duy nhất khiến hắn sợ. Các con đứng cạnh nhau, hắn không dám động."], ["van-hac", "Mặc Ảnh đã đi trước dò đường. Tới đó tìm cậu ta."]]},
+    {"flag": "vet-nut"},
+    {"fly": "vet-nut-ngoai", "spawn": "vao", "kind": "flight", "text": "Bay lên Tầng Trời Rách"},
+    {"say": [["", "Đá trôi lơ lửng giữa khoảng không tím thẫm. Những khe nứt dưới chân thở ra khói lạnh."], ["", "Xa xa, một ngục tù bằng đá đen treo ngược giữa trời."]]}
+   ],
+   "goal": "Tìm Mặc Ảnh ở rìa Ngoại Vực", "target": [7, 12], "target_map": "vet-nut-ngoai",
+   "until": {"talk": "mac-anh"}
+  },
+  {
+   "id": "mac-anh-dan-duong", "map": "vet-nut-ngoai", "once": true,
+   "do": [
+    {"say": [["mac-anh", "Tới rồi à. Ta chờ ngươi hai ngày, ăn hết cá nướng mang theo rồi."], ["mac-anh", "Hư Không Lao được bốn trận nhãn khóa lại. Mỗi trận nhãn có một bầy hư không ma canh."], ["mac-anh", "Dọn bọn ma đó trước. Bạn bè ngươi sẽ giữ lối lui. Ta đi cùng ngươi tới cửa ngục."], ["tieu-hoa", "Tớ ở đây giữ lửa! Cậu đi đi, nhớ về nhé."]]}
+   ],
+   "goal": "Dọn hư không ma canh trận nhãn ({n}/8)", "target": [18, 10],
+   "until": {"kill": "hu-khong-ma", "n": 8}
+  },
+  {
+   "id": "tran-nhan", "map": "vet-nut-ngoai",
+   "do": [
+    {"say": [["", "Bầy ma tan đi. Bốn đốm sáng tím lộ ra ở bốn góc Ngoại Vực, đập như tim."], ["mac-anh", "Trận nhãn đấy. Phá cả bốn, cửa lao sẽ mở."]]},
+    {"pickups": "tran-nhan", "at": [[10, 4], [36, 5], [36, 20], [9, 21]]}
+   ],
+   "goal": "Phá trận nhãn quanh Ngoại Vực ({n}/4)",
+   "until": {"collect": "tran-nhan", "n": 4}
+  },
+  {
+   "id": "mo-hu-khong-lao", "map": "vet-nut-ngoai", "once": true,
+   "do": [
+    {"say": [["", "Trận nhãn cuối cùng vỡ vụn. Ngục tù đá đen rung lên, rồi chậm rãi hạ xuống, cửa lao mở ra ở rìa phía đông."], ["mac-anh", "Trong đó là Hư Không Ngục Chủ. Hắn giữ chìa khóa pha lê. Ta biết hắn, hắn chưa từng thua."], ["mac-anh", "...Nhưng hắn cũng chưa từng gặp ngươi."]]},
+    {"flag": "mo-hu-khong-lao"}
+   ],
+   "goal": "Vào Hư Không Lao (cổng phía đông)", "target": [43, 13], "target_map": "vet-nut-ngoai",
+   "until": {"map": "hu-khong-lao"}
+  },
+  {
+   "id": "hu-khong-lao", "map": "hu-khong-lao",
+   "do": [
+    {"say": [["", "Hành lang ngục không có trần. Trên đầu là hư không, dưới chân cũng là hư không."], ["", "Ở phòng cuối, có ánh sáng xanh lạnh. Ánh sáng của băng."]]}
+   ],
+   "goal": "Phá Hư Không Lao, hạ Ngục Chủ",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "cuu-lac-tuyet", "map": "hu-khong-lao", "once": true,
+   "do": [
+    {"say": [["hu-khong-nguc-chu", "Không... thể... Ngục này... chưa ai..."], ["", "Ngục Chủ tan thành khói. Khối pha lê đen ở cuối phòng nứt ra từng đường, rồi vỡ tung."]]},
+    {"shake": 5},
+    {"flash": true},
+    {"npc_add": "lac-tuyet", "near_player": true},
+    {"say": [["lac-tuyet", "...Sư đệ?"], ["lac-tuyet", "Ta nghe thấy tiếng đệ đánh nhau từ ngoài cửa. Ta còn tưởng mình nằm mơ."], ["lac-tuyet", "Ta đã dặn đừng tới một mình. Đệ không nghe. ...May mà đệ không nghe."], ["", "Cả ngục rung chuyển. Một giọng nói vang lên từ khắp mọi phía."], ["ma-ton", "Lấy lại được con bé rồi à? Tốt. Ta cũng không cần nữa."], ["ma-ton", "Linh căn Thủy đã mở cửa đủ rộng. Tháng sau, cả giới của ta sẽ đi qua."], ["ma-ton", "Ngươi muốn ngăn thì vào đây. Tới tận cùng Vết Nứt. Ta chờ."]]},
+    {"npc_remove": "lac-tuyet"},
+    {"flag": "cuu-lac-tuyet"},
+    {"unflag": "lac-tuyet-vang"},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Đưa sư tỷ về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "Lạc Tuyết. Con về rồi."], ["lac-tuyet", "Sư phụ. Con xin lỗi. Con đã tự ý đi."], ["van-hac", "Không cần xin lỗi. Ta mới là người phải nói... cảm ơn trời."], ["van-hac", "Nhưng Ma Tôn nói thật. Thiên Mạch đang rách nhanh hơn. Bên trong Vết Nứt, gió hư không xé nát cả nguyên thần."], ["van-hac", "Phải là Độ Kiếp mới chịu nổi. Con tu đi, ta và mọi người sẽ dựng Ngũ Hành trận chờ con."], ["lac-tuyet", "Lần này ta đi cùng đệ. Không ai cấm được ta nữa."], ["", "Nhận Thái Hư Quyết, Thái Hư Giáp phẩm Địa, 18 Tẩy Luyện Thạch, 3 Khóa Linh Thạch, 1 Yêu Vương Đan."], ["", "Lạc Tuyết đã về Thiên Kiếm Phong, lại có thể mời đi cùng."], ["", "Hết Chương 6 phần đầu. Tu lên Độ Kiếp để vào Vết Nứt quyết chiến."]]},
+    {"technique": "thai-hu-quyet"},
+    {"reward": {"base": "thai-hu-giap", "rarity": "dia", "stones": 18}},
+    {"mats": {"khoa-linh-thach": 3, "yeu-vuong-dan": 1}}
+   ],
+   "goal": "Tu lên Độ Kiếp để vào Vết Nứt quyết chiến",
    "until": {"never": true}
   }
  ]

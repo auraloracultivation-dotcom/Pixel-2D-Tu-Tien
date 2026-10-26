@@ -1,0 +1,27 @@
+{
+ "id": "hu-khong-lao",
+ "name": "Hư Không Lao",
+ "sky": "#0e0818",
+ "dark": 0.4,
+ "ground": "#3a2e48",
+ "grid": [
+  "############################################################",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxx#xx#xx###xxxxxxxxxx###xxxxxxxxx#xxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxDxxxxxxxxxxxxxxDxxxxxxxxxxxxDxxxxxxxxxxxxxxxxxx#",
+  "#xPxxxxxxxxxDxxxxxxxxxxxxxxDxxxxxxxxxxxxDxxxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxDxxxxxxxxxxxxxxDxxxxxxxxxxxxDxxxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxx#xxxx###x##xxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxx###xxxxxxxxxx###xxxxxxxxxxxxxxxxx#",
+  "############################################################"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "vet-nut-ngoai", "spawn": "tu-lao", "label": "Về Ngoại Vực"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "hu-khong-ma", "n": 4}, {"mob": "u-minh-phap", "n": 2}]}, {"rect": [14, 1, 12, 11], "door_x": 27, "mobs": [{"mob": "u-minh-ve", "n": 2}, {"mob": "hu-anh", "n": 3}]}, {"rect": [29, 1, 10, 11], "door_x": 40, "mobs": [{"mob": "u-minh-ve", "n": 3}, {"mob": "u-minh-phap", "n": 2}]}, {"rect": [42, 1, 17, 11], "mobs": [{"mob": "hu-khong-nguc-chu", "n": 1}], "boss": true}]
+}

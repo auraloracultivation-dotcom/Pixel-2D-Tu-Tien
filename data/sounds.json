@@ -54,6 +54,8 @@
    "kiem-trung": {"root": 146.83, "bpm": 86, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
    "dao-hau-tho": {"root": 174.61, "bpm": 54, "lead": "sao", "amb": ["gio", "chim"], "mood": "sang"},
    "dia-cung": {"root": 138.59, "bpm": 82, "lead": "tranh", "amb": ["nuoc"], "mood": "toi"},
+   "vet-nut-ngoai": {"root": 155.56, "bpm": 62, "lead": "sao", "amb": ["gio"], "mood": "toi"},
+   "hu-khong-lao": {"root": 130.81, "bpm": 84, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
    "dong-phu": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["nuoc"], "mood": "sang"},
    "luan-vo-dai": {"root": 220.0, "bpm": 78, "lead": "tranh", "amb": ["gio"], "mood": "toi"}
   }

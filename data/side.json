@@ -40,6 +40,16 @@
    "offer": ["Thạch dơi làm tổ trong hang nhà ta. Đêm nào cũng kêu.", "Đuổi giúp ta mười hai con. Ta muốn ngủ một giấc cho ngon."],
    "goal": "Hạ thạch dơi ở đền đổ ({n}/12)",
    "done": ["Yên rồi! Đêm nay ta ngủ được rồi.", "Đây, ta đào được trong hang. Ta không biết dùng, ngươi chắc biết."],
-   "reward": {"mats": {"tinh-thiet": 30, "yeu-huyet": 20, "khoa-linh-thach": 1}, "gem": 1, "contrib": 70}}
+   "reward": {"mats": {"tinh-thiet": 30, "yeu-huyet": 20, "khoa-linh-thach": 1}, "gem": 1, "contrib": 70}},
+  "hu-tinh": {"npc": "tieu-hoa", "need": "vet-nut", "name": "Lửa cho sư tỷ", "kind": "collect", "item": "hu-tinh", "map": "vet-nut-ngoai", "at": [[22, 3], [30, 24], [5, 9]], "n": 3,
+   "offer": ["Tớ đốt mãi mà lửa ở đây cứ tắt. Hư không ăn mất lửa.", "Mặc Ảnh bảo hư tinh cháy được cả ở đây. Cậu nhặt giúp tớ ba viên, tớ giữ lửa cho cậu quay về."],
+   "goal": "Nhặt hư tinh quanh Ngoại Vực ({n}/3)",
+   "done": ["Cháy rồi! Lửa tím, đẹp ghê!", "Cầm lấy cái này. Tớ nhặt được lúc chờ cậu."],
+   "reward": {"stones": 14, "qi": 9000, "item": "dia"}},
+  "u-minh-phap": {"npc": "mac-anh", "need": "vet-nut", "name": "Bịt miệng u minh", "kind": "kill", "mob": "u-minh-phap", "n": 12,
+   "offer": ["Pháp sư u minh đang đọc chú nới rộng vết nứt. Mỗi câu chú, Thiên Mạch rách thêm một chút.", "Ta từng là một trong số chúng. Giờ ta muốn chúng im lặng."],
+   "goal": "Hạ u minh pháp sư ở Ngoại Vực ({n}/12)",
+   "done": ["Im rồi. Gió ở đây nghe dễ chịu hơn hẳn.", "Đây là thứ ta mang theo từ giới bên kia. Ở đây nó có ích hơn."],
+   "reward": {"mats": {"yeu-huyet": 30, "khoa-linh-thach": 2}, "gem": 1, "contrib": 80}}
  }
 }
