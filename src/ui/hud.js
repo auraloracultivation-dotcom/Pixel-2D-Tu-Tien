@@ -1,6 +1,6 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
 import { createDialog } from './dialog.js';
-import { qiNeed, realmLabel } from '../game/stats.js';
+import { qiNeed, realmLabel, rootOf } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
 
 const $ = id => document.getElementById(id);
@@ -35,7 +35,7 @@ export function createHud(audio) {
     const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield)].join();
     if (key !== last) {
       last = key;
-      $('realm').textContent = realmLabel(s, d.realms);
+      $('realm').textContent = realmLabel(s, d.realms) + (s.element ? ` · ${d.elements[s.element].name} căn ${rootOf(s, d).name}` : '');
       $('hp-fill').style.width = Math.max(0, p.hp / p.maxHp * 100) + '%';
       $('hp-text').textContent = `${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
@@ -59,6 +59,7 @@ export function createHud(audio) {
       b.style.setProperty('--cd', cd.toFixed(3));
     }
     $('bag-badge').hidden = !game.newItems;
+    $('skills-badge').hidden = !game.newSkills;
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

@@ -1,0 +1,20 @@
+{
+ "_note": "Công pháp: mang tối đa slots cuốn. Mỗi cấp cộng per_level (cùng tên chỉ số với items.stats; thêm lifesteal % hút máu, thorns % phản đòn, regen máu/giây). Công pháp đang mang nhận kinh nghiệm bằng linh khí người chơi thu được; cấp n cần exp_base × n^exp_pow. Rơi ở quái theo drops (tỉ lệ), boss chắc chắn rơi theo boss_drops.",
+ "slots": 3,
+ "max_level": 10,
+ "exp_base": 40,
+ "exp_pow": 1.6,
+ "list": {
+  "kiem-tong-tam-phap": { "name": "Kiếm Tông Tâm Pháp", "desc": "Tâm pháp nhập môn của Kiếm tông. Tăng công và tốc tu.", "color": "#c8f6ff", "per_level": { "atk_pct": 2, "qi_gain": 2 } },
+  "truong-sinh-quyet": { "name": "Trường Sinh Quyết", "desc": "Dưỡng thân, tăng máu và hồi máu.", "color": "#9af0a8", "per_level": { "hp_pct": 3, "regen": 0.4 } },
+  "kim-chung-trao": { "name": "Kim Chung Tráo", "desc": "Thân như chuông vàng, giảm đòn và phản đòn.", "color": "#f2c94c", "per_level": { "def": 1, "thorns": 4 } },
+  "huyet-ma-kinh": { "name": "Huyết Ma Kinh", "desc": "Công pháp ma tộc: đánh trúng hút máu.", "color": "#c0283a", "per_level": { "lifesteal": 0.6, "atk_pct": 1 } },
+  "loi-am-quyet": { "name": "Lôi Âm Quyết", "desc": "Đòn như sấm, tăng bạo kích.", "color": "#fff3a0", "per_level": { "crit": 1, "crit_dmg": 3 } },
+  "phong-hanh-thuat": { "name": "Phong Hành Thuật", "desc": "Thân pháp như gió, chạy nhanh, hồi chiêu nhanh.", "color": "#9af0c8", "per_level": { "speed": 1.5, "cdr": 0.8 } },
+  "ngu-hanh-quy-nguyen": { "name": "Ngũ Hành Quy Nguyên", "desc": "Hòa năm hệ làm một, chiêu mạnh và hồi nhanh.", "color": "#b070ff", "per_level": { "atk_pct": 1, "cdr": 1 } },
+  "thai-thuong-vong-tinh": { "name": "Thái Thượng Vong Tình", "desc": "Quên hết tạp niệm, tốc tu cực nhanh.", "color": "#e6ebf7", "per_level": { "qi_gain": 4 } }
+ },
+ "drops": { "ma-binh": 0.02, "ma-phap": 0.02, "viem-linh": 0.01, "ma-cung": 0.005 },
+ "boss_drops": { "huyet-nha": ["truong-sinh-quyet", "kim-chung-trao", "phong-hanh-thuat"], "huyet-nha-that": ["huyet-ma-kinh", "loi-am-quyet", "ngu-hanh-quy-nguyen", "thai-thuong-vong-tinh"] },
+ "starter": "kiem-tong-tam-phap"
+}

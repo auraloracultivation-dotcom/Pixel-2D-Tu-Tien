@@ -1,7 +1,7 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
-import { addFx, hitMob, dist } from './combat.js';
+import { addFx, hitMob, dist, shoot } from './combat.js';
 import { castSkill, skillSlots } from './skills.js';
-import { playerStats } from './stats.js';
+import { playerStats, weaponId } from './stats.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -44,12 +44,21 @@ export function autoAim(game, skillId) {
 }
 
 function swing(game) {
-  const p = game.player, w = game.data.weapons[game.save.weapon];
+  const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)];
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
   const target = nearestMob(game, w.range + 24);
   if (target) {
     const a = Math.atan2(target.y - p.y, target.x - p.x);
     p.face = { x: Math.cos(a), y: Math.sin(a) };
+  }
+  if (w.attack === 'shot') {   // đàn, cung: đòn thường là đạn
+    shoot(game, {
+      from: 'player', x: p.x + p.face.x * 6, y: p.y - 4 + p.face.y * 6, vx: p.face.x * w.speed, vy: p.face.y * w.speed,
+      r: w.radius, dmg: p.atk, pierce: !!w.pierce, color: w.color, life: w.range / w.speed,
+    });
+    p.swingT = 0.18;
+    game.sfx('shoot', 0.6);
+    return w.cooldown;
   }
   const ang = Math.atan2(p.face.y, p.face.x), half = w.arc / 2 * Math.PI / 180;
   addFx(game, { type: 'arc', x: p.x, y: p.y - 3, r: w.range, a: ang, half, color: w.color, life: 0.18 });
@@ -105,6 +114,7 @@ export function updatePlayer(game, dt) {
 
   // Hồi máu chậm khi không bị đánh
   if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
+  if (p.st.regen && p.hp < p.maxHp && p.hp > 0) p.hp = Math.min(p.maxHp, p.hp + p.st.regen * dt);
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;

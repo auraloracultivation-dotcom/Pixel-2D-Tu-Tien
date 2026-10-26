@@ -4,7 +4,7 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs } from './mobs.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
-import { addQi, realmLabel, totalLayer } from './stats.js';
+import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
@@ -13,6 +13,9 @@ import { ensureInv, rollItem, addItem, equip } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
+import { updateZones } from './zones.js';
+import { checkUnlocks } from './skills.js';
+import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 
@@ -21,7 +24,7 @@ export function createGame(data, screen, input, ui, audio) {
   const game = {
     data, screen, input, dialog: ui.dialog, ui,
     save: null, map: null, player: null,
-    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [], strikes: [],
+    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [], strikes: [], zones: [],
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
     trip: null, traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
@@ -66,6 +69,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (r.stones) game.save.mats['tay-luyen-thach'] = (game.save.mats['tay-luyen-thach'] || 0) + r.stones;
     game.persist();
   };
+  game.learnTech = id => learnTech(game, id);
   game.addPickup = (item, tx, ty) => {
     const p = game.map.center(tx, ty);
     game.pickups.push({ item, x: p.x, y: p.y });
@@ -74,9 +78,11 @@ export function createGame(data, screen, input, ui, audio) {
   game.gainQi = (amount, x, y, quiet) => {
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * 10) / 10;
     const broke = addQi(game.save, data.realms, amount);
+    gainTechExp(game, amount);
     if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
+      checkUnlocks(game);
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
       game.toast(`Đột phá! ${realmLabel(game.save, data.realms)}`, 2.2);
       game.sfx('levelup');
@@ -91,6 +97,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.onKill = m => {
     dropLoot(game, m);
     bountyKill(game, m);
+    techDrop(game, m);
     game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
@@ -99,7 +106,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile);
-    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = [];
+    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = [];
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
@@ -170,11 +177,17 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
-    ensureInv(game.save);
+    ensureInv(game.save); ensureTech(game.save);
+    if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
+    const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
+    if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
     game.story = createStory(game);
     game.trib = createTribulation(game);
+    game.checkUnlocks = () => checkUnlocks(game);
     loadMap(game.save.map, game.save.spawn);
     game.refreshStats(); game.player.hp = game.player.maxHp;
+    game.checkUnlocks(); // bản lưu cũ: ghi nhận chiêu đã có, không báo
+    if (game.pendingTech) { learnTech(game, game.pendingTech); game.pendingTech = null; }
     ui.showPlay(true);
     await game.story.start();
   };
@@ -231,6 +244,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateMobs(game, dt);
     updateBullets(game, dt);
     updateStrikes(game, dt);
+    updateZones(game, dt);
     game.trib.update(dt);
     updateLoot(game, dt);
     updatePickups(game);

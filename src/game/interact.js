@@ -1,6 +1,7 @@
 // Tương tác trên bản đồ: nút ngữ cảnh (nói chuyện, đả tọa, độ kiếp), cổng, vật nhặt theo nhiệm vụ.
 import { dist } from './combat.js';
 import { BOUNTY_NPC, talkBounty } from './bounty.js';
+import { ARMORY_NPC, talkArmory } from './armory.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -29,6 +30,7 @@ export function updateInteract(game) {
   if (npc) {
     if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
     if (npc.id === BOUNTY_NPC) { talkBounty(game, npc); return; }
+    if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
     const lines = npc.def.lines;
     game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
   } else if (trib) {

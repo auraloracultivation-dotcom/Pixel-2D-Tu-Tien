@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -63,6 +63,11 @@ try {
     for (const s of [...b.pool, ...Object.keys(b.main)]) need(items.stats[s], `items.bases/${id}: chỉ số "${s}" không có`);
   }
   for (const [id, g] of Object.entries(items.gems.types)) need(items.stats[g.stat] && g.values.length === items.gems.max_level, `items.gems/${id}: chỉ số hoặc số cấp sai`);
+  const techStatsOk = new Set([...Object.keys(items.stats), 'lifesteal', 'thorns', 'regen']);
+  for (const [id, t] of Object.entries(techs.list)) for (const s of Object.keys(t.per_level)) need(techStatsOk.has(s), `techniques/${id}: chỉ số "${s}" không có`);
+  for (const id of Object.keys(techs.drops)) need(mobs[id], `techniques.drops: quái "${id}" không có`);
+  for (const [id, l] of Object.entries(techs.boss_drops)) { need(mobs[id], `techniques.boss_drops: quái "${id}" không có`); for (const t of l) need(techs.list[t], `techniques.boss_drops/${id}: công pháp "${t}" không có`); }
+  need(techs.list[techs.starter], 'techniques.starter không có');
   for (const b of quests.bounties) {
     need(mobs[b.mob], `quests/${b.id}: quái "${b.mob}" không có`);
     need(!b.reward.item || items.rarities.some(r => r.id === b.reward.item), `quests/${b.id}: độ hiếm "${b.reward.item}" không có`);
@@ -79,6 +84,7 @@ try {
       if (a.reward?.base) need(items.bases[a.reward.base], `story/${s.id}: phần thưởng "${a.reward.base}" không có`);
       if (a.pickups) need(items.quest_items[a.pickups], `story/${s.id}: vật nhặt "${a.pickups}" chưa có trong items.quest_items`);
       if (a.with) need(npcs[a.with], `story/${s.id}: NPC "${a.with}" không có`);
+      if (a.technique) need(techs.list[a.technique], `story/${s.id}: công pháp "${a.technique}" không có`);
     }
     if (s.until.talk) need(npcs[s.until.talk], `story/${s.id}: NPC "${s.until.talk}" không có`);
     if (s.until.kill) need(mobs[s.until.kill], `story/${s.id}: quái "${s.until.kill}" không có`);

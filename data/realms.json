@@ -25,5 +25,9 @@
   "grow": 0.04,
   "extra": 1,
   "fail_qi": 0.3
+ },
+ "roots": {
+  "_note": "Phẩm linh căn, tung lúc thức tỉnh. qi: nhân tốc độ tu luyện. Chênh lệch nhỏ theo ý chủ dự án; nâng phẩm bằng đan hiếm (luyện đan).",
+  "list": [{"id": "pham", "name": "Phàm", "weight": 50, "qi": 1.0, "color": "#c8c4d0"}, {"id": "linh", "name": "Linh", "weight": 30, "qi": 1.03, "color": "#5fd07a"}, {"id": "huyen", "name": "Huyền", "weight": 14, "qi": 1.06, "color": "#5ab8f0"}, {"id": "dia", "name": "Địa", "weight": 5, "qi": 1.09, "color": "#b070ff"}, {"id": "thien", "name": "Thiên", "weight": 1, "qi": 1.12, "color": "#ffb03a"}]
  }
 }

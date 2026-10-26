@@ -14,7 +14,7 @@
    "do": [
     {"say": [["", "Bạn đặt tay lên đá linh căn. Một luồng ấm chảy vào lòng bàn tay..."]]},
     {"choose_element": true},
-    {"say": [["truong-thon", "Linh căn hệ {element}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]]},
+    {"say": [["truong-thon", "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]]},
     {"pickups": "linh-thao", "at": [[5, 8], [22, 12], [8, 16]]}
    ],
    "goal": "Hái linh thảo ({n}/3)",
@@ -110,7 +110,9 @@
   {
    "id": "phan-than", "map": "thien-kiem-phong",
    "do": [
-    {"say": [["van-hac", "Ta đã xem đám khói đen con mang về. Thứ con đánh chỉ là phân thân. Huyết Nha thật vẫn còn."], ["van-hac", "Ngọc bội của bạn con còn hơi ấm của lửa. Phía tây có Đảo Xích Diễm, hòn đảo lửa. Ta đoán nó từng bị giữ ở đó."], ["van-hac", "Muốn tự bay tới, con phải biết ngự kiếm. Tu tới Luyện Khí tầng 4 rồi đến tìm ta."], ["ho-linh", "Chấp sự Nhiệm Vụ Đường đứng gần đại điện đó. Nhận việc treo thưởng của ông ấy vừa có thưởng vừa có linh khí!"]]}
+    {"say": [["van-hac", "Ta đã xem đám khói đen con mang về. Thứ con đánh chỉ là phân thân. Huyết Nha thật vẫn còn."], ["van-hac", "Ngọc bội của bạn con còn hơi ấm của lửa. Phía tây có Đảo Xích Diễm, hòn đảo lửa. Ta đoán nó từng bị giữ ở đó."], ["van-hac", "Muốn tự bay tới, con phải biết ngự kiếm. Tu tới Luyện Khí tầng 4 rồi đến tìm ta."], ["ho-linh", "Chấp sự Nhiệm Vụ Đường đứng gần đại điện đó. Nhận việc treo thưởng của ông ấy vừa có thưởng vừa có linh khí!"]]},
+    {"say": [["van-hac", "Cầm lấy cuốn Kiếm Tông Tâm Pháp. Mang theo người, linh khí con thu được sẽ làm nó tiến bộ. Ngoài kia còn nhiều bí kíp khác, gặp thì học."]]},
+    {"technique": "kiem-tong-tam-phap"}
    ],
    "goal": "Tu tới Luyện Khí tầng 4 (đả tọa, săn quái, nhận treo thưởng)", "target": [12, 9],
    "until": {"layer": 4}

@@ -29,12 +29,12 @@ canvas#game { position: fixed; inset: 0; display: block; }
 #btn-s2 { right: 4px; bottom: 96px; width: 58px; height: 58px; }
 .act { right: 140px; bottom: 120px; width: auto; height: 38px; border-radius: 19px; padding: 0 14px; background: #f2c94c; font-size: 13px; white-space: nowrap; }
 
-#dialog { position: fixed; left: 8px; right: 8px; bottom: calc(env(safe-area-inset-bottom) + 10px); min-height: 110px; background: rgba(255, 252, 240, .97); border: 2px solid #1b1830; border-radius: 12px; padding: 12px 14px 22px; box-shadow: 0 4px 0 rgba(27, 24, 48, .35); max-width: 640px; margin: 0 auto; }
+#dialog { max-height: 92vh; overflow-y: auto; position: fixed; left: 8px; right: 8px; bottom: calc(env(safe-area-inset-bottom) + 10px); min-height: 110px; background: rgba(255, 252, 240, .97); border: 2px solid #1b1830; border-radius: 12px; padding: 12px 14px 22px; box-shadow: 0 4px 0 rgba(27, 24, 48, .35); max-width: 640px; margin: 0 auto; }
 .who { font-weight: 800; font-size: 14px; color: #8a3a20; margin-bottom: 4px; }
 .who:empty { display: none; }
 .text { font-size: 15px; line-height: 1.45; }
 .hint { position: absolute; right: 12px; bottom: 5px; font-size: 11px; color: #8a8090; }
-.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
 .choices:empty { display: none; }
 .choice { border: 2px solid #1b1830; border-radius: 10px; padding: 8px; text-align: left; background: #fff; font: inherit; }
 .choice b { display: block; font-size: 15px; }
@@ -60,15 +60,15 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .link-btn { background: none; border: 0; text-decoration: underline; font: 600 14px system-ui, sans-serif; color: #1b1830; padding: 6px; }
 #login-msg { min-height: 18px; margin: 0; font-size: 13px; }
 #login-msg.bad { color: #a01828; }
-#btn-mute, #btn-bag { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
+#btn-mute, #btn-bag, #btn-skills { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
 .hud-btns { display: flex; gap: 6px; margin-top: 2px; }
-#btn-bag { width: auto; padding: 0 10px; font: 700 13px system-ui, sans-serif; position: relative; }
-#bag-badge { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #e0484a; border: 1.5px solid #1b1830; }
-#bag { position: fixed; inset: calc(env(safe-area-inset-top) + 8px) 8px calc(env(safe-area-inset-bottom) + 8px); max-width: 560px; margin: 0 auto; background: rgba(255, 252, 240, .98); border: 2px solid #1b1830; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+#btn-bag, #btn-skills { width: auto; padding: 0 10px; font: 700 13px system-ui, sans-serif; position: relative; }
+#bag-badge, #skills-badge { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #e0484a; border: 1.5px solid #1b1830; }
+#bag, .panel { position: fixed; inset: calc(env(safe-area-inset-top) + 8px) 8px calc(env(safe-area-inset-bottom) + 8px); max-width: 560px; margin: 0 auto; background: rgba(255, 252, 240, .98); border: 2px solid #1b1830; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
 .bag-head { display: flex; align-items: center; gap: 10px; }
 .bag-head b { font-size: 17px; }
 #bag-mats { flex: 1; font-size: 12px; color: #2a6a8a; font-weight: 700; }
-#bag-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
+#bag-close, #skills-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
 #bag-equip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .slot { display: flex; flex-direction: column; gap: 3px; }
 .slot-name { font-size: 11px; color: #6a6478; font-weight: 700; }
@@ -99,3 +99,15 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .act-btn { background: #fff7d6; }
 .muted { color: #8a8098; font-size: 12px; margin: 2px 0; }
 .tiny { font-size: 11px; }
+
+.panel-sub { flex: 1; font-size: 12px; color: #4a4458; }
+#skills-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+#skills-slots button { border: 2px solid #1b1830; border-radius: 10px; background: #fff; padding: 6px; font: 700 13px system-ui, sans-serif; min-height: 48px; }
+#skills-slots button.on { background: #f2c94c; box-shadow: 0 0 0 2px #f2c94c; }
+#skills-slots small { display: block; font-weight: 600; font-size: 10px; color: #6a6478; }
+#skills-list { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; align-content: start; }
+.skill-card { text-align: left; border: 2px solid #1b1830; border-left-width: 6px; border-radius: 10px; background: #fff; padding: 6px 8px; font: 600 12px system-ui, sans-serif; }
+.skill-card b { display: block; font-size: 14px; }
+.skill-card small { display: block; color: #4a4458; line-height: 1.3; margin-top: 2px; }
+.skill-card.locked { opacity: .45; }
+.skill-card.using { background: #fff7d6; }
