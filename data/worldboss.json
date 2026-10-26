@@ -1,0 +1,13 @@
+{
+ "_note": "Boss hiếm khi săn: cộng dồn thời gian ở đảo có trong maps (không tính trong nhà, lúc truyện đang chạy). Hết min_min tới max_min phút thì boss của đảo đó hiện gần người chơi. Rời đảo thì boss biến mất, đếm lại từ retry_min phút.",
+ "min_min": 15,
+ "max_min": 20,
+ "retry_min": 3,
+ "maps": {
+  "thien-kiem-phong": "moc-linh-vuong",
+  "dao-xich-dien": "hoa-lang-vuong",
+  "dao-han-bang": "tuyet-lang-vuong",
+  "hac-phong-dao": "phong-yeu-vuong"
+ },
+ "intro": "Mặt đất rung chuyển... {name} xuất hiện!"
+}

@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json'), comps = read('companions.json'), side = read('side.json'), shop = read('shop.json'), rr = read('resrun.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json'), comps = read('companions.json'), side = read('side.json'), shop = read('shop.json'), rr = read('resrun.json'), wb = read('worldboss.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -101,6 +101,7 @@ try {
   const tb = read('realms.json').tribulation;
   for (const b of tb.by_realm) need(tb.kinds[b.kind], `realms.tribulation: kiểu kiếp "${b.kind}" không có`);
   need(tb.by_realm.length >= read('realms.json').names.length - 1 && mobs['tam-ma'], 'realms.tribulation: thiếu kiếp cho cảnh giới hoặc quái tâm ma');
+  for (const [m, id] of Object.entries(wb.maps)) need(maps[m] && mobs[id]?.ai === 'boss', `worldboss: ${m} → ${id} không đúng`);
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');
   for (const t of tower.tiers) { need(mobs[t.boss], `tower: boss "${t.boss}" không có`); for (const m of t.pool) need(mobs[m], `tower: quái "${m}" không có`); }
   for (const r of tower.reward.boss_items) need(items.rarities.some(x => x.id === r), `tower: độ hiếm "${r}" không có`);
