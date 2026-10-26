@@ -1,5 +1,5 @@
 // Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
-// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách,
+// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú,
 // hạ quái cho việc hằng ngày và treo thưởng, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
 import { ensureDaily, taskDef, bountyLeft } from './daily.js';
@@ -45,7 +45,7 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
   const s = game.save, out = [];
   for (const [id, q] of Object.entries(game.data.side.quests)) {
@@ -75,6 +75,8 @@ function wants(game) {
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
   }
+  const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
+  if (game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
   return out;
 }
 
@@ -108,6 +110,8 @@ export function choreJob(game, routeTo) {
       if (game.map.id !== game.data.home.map) { const j = goPortal(game, routeTo, game.data.home.map); if (j) return j; continue; }
       const n = game.npcs.find(n => n.id === w.gift && (n.home || n.visit));
       if (n) return { talk: n };
+    } else if (w.pat) {
+      if (game.pet && !game.pet.target) return { pat: game.pet };
     } else if (w.pick) {
       if (game.map.id !== w.map) { const j = goPortal(game, routeTo, w.map); if (j) return j; continue; }
       const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
