@@ -1,5 +1,5 @@
 {
- "_note": "Góc ngắm cảnh: phiến đá ở mép đảo. Ngồi xuống thì ẩn nút, máy quay lùi ra (zoom) và nhìn xuống biển mây, hiện một câu thơ, linh khí vào chậm (qi_mul lần đả tọa thường). Chạm màn hình để đứng dậy.",
+ "_note": "Góc ngắm cảnh: phiến đá ở mép đảo. Ngồi xuống thì ẩn nút, máy quay lùi ra (zoom) và nhìn xuống biển mây, hiện một câu thơ, linh khí vào chậm (qi_mul lần đả tọa thường). Chạm màn hình để đứng dậy. together: đang có đạo lữ đi cùng thì sau after giây đạo lữ ngồi xuống bên cạnh, nói một câu theo giờ (lines[người][pha], thiếu thì default), linh khí ngắm cảnh nhân qi_mul.",
  "zoom": 0.6,
  "pan": 40,
  "qi_mul": 0.6,
@@ -12,5 +12,14 @@
   {"map": "dao-thien-kim", "at": [22, 25], "name": "Đá Nghe Kiếm", "line": "Gió lùa qua bãi mộ, ngàn thanh kiếm cùng ngân một tiếng. Rồi im."},
   {"map": "dao-hau-tho", "at": [18, 25], "name": "Đá Ngồi Nghe Đất", "line": "Đất không vội. Núi mọc lên một tấc mất nghìn năm, mà chẳng hề than."},
   {"map": "vet-nut-ngoai", "at": [16, 25], "name": "Đá Nhìn Vực", "line": "Dưới chân là cả Linh Giới, nhỏ như bàn cờ. Thứ mình giữ gìn, hóa ra mong manh vậy."}
- ]
+ ],
+ "together": {
+  "after": 3,
+  "qi_mul": 1.5,
+  "lines": {
+   "lac-tuyet": {"ngay": ["Cảnh đẹp thật. Lần sau đi đâu, nhớ gọi ta."], "hoang-hon": ["Ngày trước ta chỉ biết luyện kiếm. Giờ mới biết hoàng hôn đẹp thế này."], "dem": ["Trăng sáng quá. ...Đừng nhìn ta, nhìn trăng đi."], "binh-minh": ["Dậy sớm ngắm mây cũng không tệ."]},
+   "ho-linh": {"ngay": ["Ngồi xích lại đây. Gió lạnh."], "hoang-hon": ["Đẹp không? Ta hỏi cảnh đó. ...Hay ngươi nghĩ ta hỏi gì?"], "dem": ["Hồ ly ngắm trăng là để ước. Ta ước gì thì không nói đâu."], "binh-minh": ["Mặt trời lên rồi. Ta ngủ tiếp trên vai ngươi nhé."]},
+   "default": {"ngay": ["Ngồi với ngươi thế này thật yên."], "hoang-hon": ["Chiều nay đẹp thật."], "dem": ["Trăng đẹp quá."], "binh-minh": ["Sương sớm mát ghê."]}
+  }
+ }
 }
