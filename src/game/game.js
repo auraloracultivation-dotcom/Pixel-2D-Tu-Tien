@@ -23,6 +23,7 @@ import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { updateArena, arenaFail, arenaGoal } from './arena.js';
 import { pilotDialog, stopPilot } from './pilot.js';
+import { praise, updatePraise } from './praise.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { ensureStats, countKill, checkAchv } from './achieve.js';
@@ -116,6 +117,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.onKill = m => {
     if (m.tower) { resKill(game, m); return; } // quái trong tháp, bí cảnh tài nguyên: chỉ tính ở đó
     countKill(game, m);
+    if (m.def.ai === 'boss') praise(game, 'boss', { boss: m.def.name });
     dropLoot(game, m);
     coinDrop(game, m);
     bountyKill(game, m);
@@ -298,6 +300,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dungeon?.update();
     updateTower(game, dt);
     updateArena(game, dt);
+    updatePraise(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateRes(game, dt);
     updateWorldBoss(game, dt);

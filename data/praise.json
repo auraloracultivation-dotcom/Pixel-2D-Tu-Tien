@@ -1,0 +1,50 @@
+{
+ "_note": "Đạo lữ (hoặc bạn đồng hành thân từ min_aff) khen khi bạn đạt được gì đó. big: luôn khen (bạn đồng hành thường chỉ khen với tỉ lệ comp_chance). small: khen với tỉ lệ small_chance, cách nhau ít nhất small_cd giây. Câu riêng theo người trong lines, thiếu thì dùng lines.default. {realm} {boss} {item} {rank} {name} được thay. sec: số giây câu khen hiện.",
+ "big": ["realm", "boss", "rare", "arena", "achv", "tower"],
+ "small": ["layer", "item", "brew", "harvest"],
+ "small_chance": 0.3,
+ "small_cd": 90,
+ "comp_chance": 0.5,
+ "min_aff": 50,
+ "rare_from": "dia",
+ "item_from": "huyen",
+ "sec": 3.2,
+ "lines": {
+  "default": {
+   "realm": ["Lên {realm} rồi! Mình biết bạn làm được mà.", "Đột phá rồi kìa! Khí tức khác hẳn luôn."],
+   "boss": ["{boss} cũng gục dưới tay bạn. Giỏi thật đấy!", "Trận vừa rồi đẹp lắm."],
+   "rare": ["Món {item} này hiếm lắm đó, giữ cẩn thận nha.", "Trời, {item}! Vận khí bạn tốt ghê."],
+   "arena": ["Hạng {rank} Luận Võ Đài! Cả tông môn sẽ biết tên bạn."],
+   "achv": ["Thành tựu {name}! Mình ghi nhớ hết đó."],
+   "tower": ["Tầng {rank} tháp rồi. Cao quá trời!"],
+   "layer": ["Lại lên một tầng. Cứ đều đều vậy là tốt nhất."],
+   "item": ["Được {item} rồi kìa."],
+   "brew": ["Lò đan thơm quá, luyện khéo ghê."],
+   "harvest": ["Vườn thuốc tốt tươi ghê, công chăm có khác."]
+  },
+  "lac-tuyet": {
+   "realm": ["{realm}... Đệ tiến nhanh hơn ta năm xưa nhiều. Ta tự hào về đệ.", "Đột phá rồi. Đừng kiêu, nhưng hôm nay cho phép đệ vui một chút.", "Kiếm ý của đệ sáng hơn rồi. Đúng là đạo lữ của ta."],
+   "boss": ["{boss} ngã rồi. Đường kiếm vừa nãy... ta cũng phải học theo.", "Đệ không bị thương chứ? ...Tốt. Trận này đánh rất đẹp.", "Có đệ đứng trước, ta yên tâm hơn nhiều."],
+   "rare": ["{item}? Đệ đúng là có phúc duyên. Ta mài lại kiếm cho đệ nhé.", "Món {item} này hợp với đệ lắm."],
+   "arena": ["Hạng {rank}. Lúc đệ đứng trên đài, ta không chớp mắt được.", "Hạng {rank} Luận Võ Đài. Sư phụ mà thấy chắc cũng cười."],
+   "achv": ["{name}... Ta sẽ ghi chuyện này vào sổ kiếm của ta."],
+   "tower": ["Tầng {rank}. Lần sau ta leo cùng đệ."],
+   "layer": ["Lại tiến thêm một tầng. Chăm chỉ lắm.", "Linh khí đệ dày lên rồi, ta cảm được."],
+   "item": ["{item}, không tệ. Để ta xem giúp đệ."],
+   "brew": ["Thơm thật. Đệ luyện đan cũng có tay nghề đấy."],
+   "harvest": ["Linh thảo đệ trồng xanh mướt. Ngồi đây ngắm một lát đi."]
+  },
+  "ho-linh": {
+   "realm": ["{realm}! Ngươi giỏi quá đi, lại đây ta xoa đầu nào!", "Đột phá rồi! Hôm nay ta khao, ăn gì cũng được!", "Ta biết mà, đạo lữ của ta là nhất thiên hạ!"],
+   "boss": ["{boss} chạy đâu cho thoát! Ngươi ngầu quá trời!", "Hì, đánh xong rồi thì ôm cái coi. Ngươi có sao không đó?", "Thấy chưa, có ta cổ vũ là thắng liền!"],
+   "rare": ["Oa, {item}! Cho ta sờ thử một cái thôi mà!", "{item} lấp lánh như mắt ngươi lúc vui vậy đó."],
+   "arena": ["Hạng {rank}! Ta hét khản cả cổ dưới đài đó, nghe không?", "Hạng {rank} rồi, đứa nào chê ngươi là ta cắn!"],
+   "achv": ["{name}! Ta treo lên vách động phủ cho ai cũng thấy."],
+   "tower": ["Tầng {rank}! Ngươi leo cao vậy, nhớ quay xuống với ta nha."],
+   "layer": ["Lại lên tầng nữa! Ngươi chăm thế này ta thương ghê.", "Hì, linh khí ngươi ấm áp ghê."],
+   "item": ["Đồ mới! Mặc vào cho ta ngắm coi."],
+   "brew": ["Đan thơm phức! Cho ta một viên được không?"],
+   "harvest": ["Vườn mình đẹp quá ha. Ngồi đây với ta chút đi."]
+  }
+ }
+}
