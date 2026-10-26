@@ -75,7 +75,7 @@
    "chau-tung": {"name": "Chậu tùng nhỏ", "desc": "Cây tùng uốn dáng, xanh quanh năm.", "cost": 500, "comfort": 4, "kind": "bonsai", "at": [[1, 1]]},
    "ke-sach": {"name": "Kệ sách cổ", "desc": "Đầy công pháp và truyện vặt.", "cost": 800, "comfort": 5, "kind": "shelf", "at": [[5, 1]]},
    "tham-do": {"name": "Thảm đỏ bồ đoàn", "desc": "Thảm thêu mây, ngồi đả tọa êm hơn.", "cost": 900, "comfort": 5, "kind": "rug", "at": [[9, 5]]},
-   "chuong-gio": {"name": "Chuông gió", "desc": "Leng keng khi gió lùa qua cửa.", "cost": 600, "comfort": 4, "kind": "chime", "at": [[18, 1]]},
+   "chuong-gio": {"name": "Chuông gió", "desc": "Leng keng khi gió lùa qua cửa.", "cost": 600, "comfort": 4, "chime": [9, 22], "kind": "chime", "at": [[18, 1]]},
    "ho-ca": {"name": "Hồ cá nhỏ", "desc": "Mấy con cá chép đỏ bơi quanh đá.", "cost": 1500, "comfort": 6, "kind": "pond", "at": [[16, 10]]}
   },
   "full": "Động phủ đã đủ đồ rồi. Đẹp lắm!",
