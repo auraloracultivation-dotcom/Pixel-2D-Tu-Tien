@@ -4,6 +4,23 @@
  "range": 110,
  "sec": 3.6,
  "stroll": {"_note": "NPC có stroll (số ô, ở data/npcs.json) thì đi dạo chậm quanh chỗ đứng, tới nơi đứng nghỉ wait giây; người chơi tới gần thì dừng lại.", "speed": 13, "wait": [2, 6], "stop": 26},
+ "verses": {"_note": "Đả tọa liền every giây thì hiện một câu thơ tĩnh tâm (không lặp câu vừa hiện).", "every": 75, "sec": 5, "lines": [
+  "Mây trôi không vội, núi đứng không chờ.",
+  "Một hơi thở vào, trời đất cũng vào.",
+  "Lòng lặng như nước, trăng tự soi về.",
+  "Gió qua rừng trúc, trúc chẳng giữ gió.",
+  "Đường tu dài lắm, cứ đi từng bước.",
+  "Hoa nở chẳng cần ai trông thấy.",
+  "Ngồi yên một khắc, hơn chạy cả ngày.",
+  "Tâm không vướng bận, kiếm tự nhẹ tênh.",
+  "Biển mây dưới chân, chẳng bằng một chén trà.",
+  "Linh khí như suối, chảy về chỗ trũng.",
+  "Mưa rơi trên mái, đếm cũng là tu.",
+  "Trăm năm như gió, một niệm như trăng.",
+  "Đá ngồi nghìn năm, rêu mới xanh được.",
+  "Buông được thì nhẹ, nhẹ được thì bay.",
+  "Sương sớm trên lá, đẹp vì chẳng lâu."
+ ]},
  "comp_every": [25, 50],
  "comp": {
   "tieu-hoa": ["Đi đâu tiếp đây?", "Ta đi trước nhé!", "Đánh nhau vui ghê."],
