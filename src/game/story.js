@@ -110,6 +110,8 @@ export function createStory(game) {
       const n = key ? Math.min(st.counters[key] || 0, s.until.n) : 0;
       return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map) === game.map.id ? s.target : null };
     },
+    // Bước đang chạy và đã tới phần chờ điều kiện chưa (cho tự hành)
+    current() { return game.save.stepDone ? step() : null; },
     // NPC này đang được nhiệm vụ chờ nói chuyện?
     wants(npcId) { const s = step(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
   };

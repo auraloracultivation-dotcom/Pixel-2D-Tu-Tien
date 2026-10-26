@@ -22,6 +22,7 @@ import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { updateArena, arenaFail, arenaGoal } from './arena.js';
+import { pilotDialog, stopPilot } from './pilot.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { ensureStats, countKill, checkAchv } from './achieve.js';
@@ -232,6 +233,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   function respawn() {
+    stopPilot(game, 'Tự hành dừng: bạn đã gục. Tu thêm rồi bật lại nhé.');
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
@@ -273,6 +275,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dark += (game.darkTarget - game.dark) * Math.min(1, dt * 2);
     if (game.trip) { updateTrip(game, dt); return; }
     if (!game.save || game.traveling) return;
+    pilotDialog(game, dt);
     const blocked = game.dialog.open || game.uiOpen;
     game.paused = blocked;
     if (blocked) { game.input.clear(); return; }
