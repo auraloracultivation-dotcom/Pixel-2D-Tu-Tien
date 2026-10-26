@@ -33,6 +33,7 @@ import { updateChatter } from './chatter.js';
 import { updateStroll } from './stroll.js';
 import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
+import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
 import { coinDrop } from './shop.js';
@@ -325,6 +326,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateStroll(game, dt);
     updateKyNgo(game, dt);
     updatePilotLog(game);
+    updatePetFetch(game, dt);
     updateFishing(game, dt);
     updateView(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
