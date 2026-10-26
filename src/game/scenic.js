@@ -4,6 +4,7 @@ import { meditateMul } from './evolve.js';
 import { daoLu } from './affinity.js';
 import { phase } from './daynight.js';
 import { addEntry } from './journal.js';
+import { bump } from './achieve.js';
 
 const C = game => game.data.scenic;
 
@@ -48,7 +49,7 @@ export function updateView(game, dt) {
 function lantern(game, v, comp) {
   const L = C(game).lantern, s = game.save, day = new Date().toDateString();
   if (v.t < L.after || s.lantern === day || phase(game).id !== L.phase) return;
-  s.lantern = day;
+  s.lantern = day; bump(game, 'lantern');
   if (!s.lanternOnce) { s.lanternOnce = true; const J = game.data.journal; addEntry(game, comp ? J.lantern_with.replace('{name}', comp.npc.name) : J.lantern); }
   game.persist();
   const p = game.player, now = performance.now() / 1000;

@@ -122,7 +122,7 @@ try {
   const ev = read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   for (const f of ev.festivals) need(/^\d{4}-\d\d-\d\d$/.test(f.from) && f.from <= f.to && giftOk(f.gift), `events/${f.id}: ngày hoặc quà sai`);
-  const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag'];
+  const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag', 'fish', 'lantern', 'pat', 'tea', 'sit'];
   need(stt.auras.length >= read('realms.json').names.length, 'status.auras: thiếu hào quang cho cảnh giới');
   for (const a of stt.achievements) need(kinds.includes(a.need.type) && (!a.title || stt.titles[a.title]) && (!a.give.item || items.rarities.some(r => r.id === a.give.item)), `status/${a.id}: điều kiện, danh hiệu hoặc thưởng sai`);
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');

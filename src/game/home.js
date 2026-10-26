@@ -3,6 +3,7 @@
 import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { phase } from './daynight.js';
 import { grant } from './daily.js';
+import { bump } from './achieve.js';
 import { setCompanion } from './companion.js';
 import { comfort, hasDecor } from './decor.js';
 
@@ -101,7 +102,7 @@ export async function talkHome(game, npc) {
     game.sfx('levelup');
     await game.dialog.say([[name, pick(C(game).gift_lines[id] || C(game).gift_lines.default)], ['', `Nhận: ${got.join(', ')}.`]]);
   } else if (ch === 'tea') {
-    game.save.tea = today(); game.save.teaUntil = Date.now() + tea.min * 60000; game.persist();
+    game.save.tea = today(); game.save.teaUntil = Date.now() + tea.min * 60000; bump(game, 'tea'); game.persist();
     game.sfx('pickup');
     await game.dialog.say([[name, pick(tea.lines[id] || tea.lines.default)]]);
     game.toast(tea.toast, 3);
