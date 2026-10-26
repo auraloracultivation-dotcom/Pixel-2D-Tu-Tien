@@ -1,5 +1,5 @@
 {
- "_note": "Thời tiết từng đảo (chỉ ngoài trời). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
+ "_note": "Thời tiết từng đảo (chỉ ngoài trời). fireflies: đom đóm bay lượn ban đêm trên các đảo trong maps (trời mưa thì không có). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
  "maps": {
   "thanh-khe": {"kind": "hoa", "rain": 0.25},
   "thien-kiem-phong": {"kind": "hoa", "rain": 0.2},
@@ -12,6 +12,7 @@
   "dao-hau-tho": {"kind": "la", "rain": 0.25},
   "vet-nut-ngoai": {"kind": "hu"}
  },
+ "fireflies": {"maps": ["thanh-khe", "thien-kiem-phong", "dao-moc", "lang-tinh-linh", "dao-hau-tho"], "n": 18, "color": "#eaff8a", "glow": "rgba(230,255,140,0.32)"},
  "kinds": {
   "hoa": {"n": 14, "color": "#ffc8dc", "size": 2.2, "fall": 14, "drift": 18, "shape": "petal"},
   "tuyet": {"n": 40, "color": "#ffffff", "size": 1.6, "fall": 18, "drift": 10, "shape": "flake"},
