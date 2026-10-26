@@ -64,7 +64,7 @@ export function createInput(canvas) {
   }
 
   window.addEventListener('keydown', e => {
-    if (e.repeat) return;
+    if (e.repeat || e.target?.tagName === 'INPUT') return;   // đang gõ chữ trò chuyện
     inp.keys.add(e.code);
     const act = KEYMAP[e.code];
     if (act) { inp.pressed.add(act); inp.held.add(act); if (act.startsWith('s')) inp.aim[act] = null; }

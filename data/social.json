@@ -1,0 +1,14 @@
+{
+ "_note": "Chào hỏi và trò chuyện với người chơi cùng đảo (chỉ khi đăng nhập). Gửi qua kênh Realtime của đảo, không ghi cơ sở dữ liệu. emotes: chỉ gửi id, máy nhận tự tra chữ (fx: tim bay lên màu color). chat: tối đa max_len ký tự, mỗi người gửi cách nhau ít nhất cooldown giây (máy nhận cũng bỏ tin dồn dập hơn min_gap giây), sec giây hiện bong bóng, giữ log dòng gần nhất. bad: từ bậy (so khớp cả từ, không phân biệt hoa thường; bản không dấu phải ghi riêng, tránh từ không dấu dễ nhầm như lon, cac) thay bằng mask, lọc cả lúc gửi lẫn lúc nhận.",
+ "emotes": [
+  {"id": "chao", "label": "Chào", "text": "Chào đạo hữu!"},
+  {"id": "vai", "label": "Vái", "text": "(chắp tay vái chào)"},
+  {"id": "hoa", "label": "Tặng hoa", "text": "Tặng đạo hữu một đóa hoa", "fx": "#ff8ab8"},
+  {"id": "cuoi", "label": "Cười", "text": "Ha ha ha!"},
+  {"id": "cam-on", "label": "Đa tạ", "text": "Đa tạ đạo hữu!"},
+  {"id": "tam-biet", "label": "Tạm biệt", "text": "Hẹn gặp lại!"}
+ ],
+ "chat": {"max_len": 40, "cooldown": 3, "min_gap": 1.5, "sec": 5, "log": 30, "placeholder": "Nói với mọi người trên đảo...", "send": "Gửi", "wait": "Đợi chút rồi nói tiếp nhé.", "offline": "Đăng nhập để chào hỏi, trò chuyện với đạo hữu khác.", "empty": "Chưa ai nói gì. Chào một câu đi!", "here": "Đang có {n} đạo hữu trên đảo."},
+ "bad": ["đm", "dm", "đmm", "dmm", "đcm", "dcm", "vcl", "vkl", "vl", "cc", "clgt", "địt", "dit", "đéo", "lồn", "cặc", "buồi", "đĩ", "đụ", "du ma", "đụ má", "địt mẹ", "dit me", "đéo mẹ", "con chó", "óc chó", "oc cho", "ngu như chó", "fuck", "shit", "bitch"],
+ "mask": "***"
+}

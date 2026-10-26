@@ -36,6 +36,7 @@ import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
 import { updateAnniv } from './anniv.js';
 import { updateCritters } from './critters.js';
+import { onSay, updateSocial } from './social.js';
 import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
@@ -221,7 +222,7 @@ export function createGame(data, screen, input, ui, audio) {
         const { createOnline } = await import('../net/online.js');
         const me = { id: session.user.id, name: session.user.email.split('@')[0] };
         game.online = createOnline(me, {
-          onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(),
+          onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
         });
       } catch { game.online = null; }
     }
@@ -332,6 +333,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateEta(game, dt);
     updateAnniv(game, dt);
     updateCritters(game, dt);
+    updateSocial(game, dt);
     updatePetFetch(game, dt);
     updateFishing(game, dt);
     updateView(game, dt);

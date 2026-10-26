@@ -1,13 +1,13 @@
-// Bong bóng lời nói nhỏ trên đầu NPC và bạn đi cùng (chatter.js): khung trắng bo góc, đuôi nhọn chỉ xuống, hiện dần rồi mờ đi.
+// Bong bóng lời nói nhỏ trên đầu NPC và bạn đi cùng (chatter.js), người chơi và đạo hữu khác (social.js): khung trắng bo góc, đuôi nhọn chỉ xuống, hiện dần rồi mờ đi.
 const INK = '#1b1830';
 
 export function drawBubbles(ctx, game) {
   const sec = game.data.chatter.sec;
   ctx.font = 'bold 6px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  for (const n of [...game.npcs, game.comp]) {
+  for (const n of [...game.npcs, game.comp, game.player, ...game.others.visible()]) {
     const b = n?.bubble;
     if (!b) continue;
-    const a = Math.min(1, b.t * 5, (sec - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
+    const a = Math.min(1, b.t * 5, ((b.sec || sec) - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
     const x = n.x - w / 2, y = n.y - 34 - (1 - Math.min(1, b.t * 5)) * 2;
     ctx.globalAlpha = a * 0.92;
     ctx.fillStyle = '#fffaf0'; ctx.strokeStyle = INK; ctx.lineWidth = 1;

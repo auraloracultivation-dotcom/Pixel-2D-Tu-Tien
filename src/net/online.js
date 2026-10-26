@@ -1,5 +1,6 @@
 // Thấy người chơi khác: mỗi đảo một kênh Realtime "p2d:<đảo>". Presence = ai đang ở đây (tên, hệ, cảnh giới);
-// broadcast "move" = vị trí, gửi tối đa ~8 lần/giây và chỉ khi đã "joined". Không ghi gì vào cơ sở dữ liệu.
+// broadcast "move" = vị trí, gửi tối đa ~8 lần/giây và chỉ khi đã "joined"; broadcast "say" = chào hỏi, trò chuyện
+// (game/social.js lọc chữ). Không ghi gì vào cơ sở dữ liệu.
 import { supabase } from './client.js';
 
 const SEND_MS = 125;
@@ -26,6 +27,7 @@ export function createOnline(me, handlers) {
       handlers.onPresence(list);
     })
       .on('broadcast', { event: 'move' }, ({ payload }) => { if (ch === c) handlers.onMove(payload); })
+      .on('broadcast', { event: 'say' }, ({ payload }) => { if (ch === c) handlers.onSay?.(payload); })
       .subscribe(status => {
         if (status === 'SUBSCRIBED' && ch === c) c.track({ name: me.name, ...profile });
       });
@@ -40,5 +42,11 @@ export function createOnline(me, handlers) {
     ch.send({ type: 'broadcast', event: 'move', payload: { id: me.id, x: Math.round(p.x), y: Math.round(p.y), fx: +p.face.x.toFixed(2), fy: +p.face.y.toFixed(2), ...extra } });
   }
 
-  return { join, leave, send };
+  // Chào hỏi, trò chuyện: { e: id } hoặc { m: chữ }, người gửi gắn id của mình
+  function say(body) {
+    if (!ch || ch.state !== 'joined') return;
+    ch.send({ type: 'broadcast', event: 'say', payload: { id: me.id, ...body } });
+  }
+
+  return { me, join, leave, send, say };
 }
