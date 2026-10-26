@@ -61,15 +61,15 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .link-btn { background: none; border: 0; text-decoration: underline; font: 600 14px system-ui, sans-serif; color: #1b1830; padding: 6px; }
 #login-msg { min-height: 18px; margin: 0; font-size: 13px; }
 #login-msg.bad { color: #a01828; }
-#btn-mute, #btn-menu, #btn-auto, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
+#btn-mute, #btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
 .hud-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; max-width: 240px; }
-#btn-auto.on { background: #f2c94c; }
+#btn-auto.on, #btn-pilot.on { background: #f2c94c; }
 #hud-menu { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 6px; }
 #hud-menu[hidden] { display: none; }
 #hud-menu button { height: 32px !important; min-width: 84px; text-align: left; }
 .glow-hint { animation: hint-glow 1.1s ease-in-out infinite; }
 @keyframes hint-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,210,74,.0); } 50% { box-shadow: 0 0 0 4px rgba(255,210,74,.85); background: #fff6d0; } }
-#btn-menu, #btn-auto, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world { width: auto; padding: 0 9px; white-space: nowrap; font: 700 13px system-ui, sans-serif; position: relative; }
+#btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world { width: auto; padding: 0 9px; white-space: nowrap; font: 700 13px system-ui, sans-serif; position: relative; }
 #menu-badge, #bag-badge, #skills-badge, #pets-badge, #daily-badge, #achv-badge { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #e0484a; border: 1.5px solid #1b1830; }
 #bag, .panel { position: fixed; inset: calc(env(safe-area-inset-top) + 8px) 8px calc(env(safe-area-inset-bottom) + 8px); max-width: 560px; margin: 0 auto; background: rgba(255, 252, 240, .98); border: 2px solid #1b1830; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
 .bag-head { display: flex; align-items: center; gap: 10px; }

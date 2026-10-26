@@ -5,6 +5,7 @@ import { power } from '../game/achieve.js';
 import { createHints } from './hints.js';
 import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
+import { togglePilot } from '../game/pilot.js';
 
 const $ = id => document.getElementById(id);
 
@@ -33,7 +34,8 @@ export function createHud(audio) {
   menu.addEventListener('pointerdown', () => { setTimeout(() => { menu.hidden = true; }); }, true);
   let gameRef = null;
   let hints = null;
-  $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) toggleAuto(gameRef); });
+  $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) { toggleAuto(gameRef); if (gameRef.auto) gameRef.pilot = null; } });
+  $('btn-pilot').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) togglePilot(gameRef); });
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 
@@ -80,6 +82,7 @@ export function createHud(audio) {
     const pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}`;
     if ($('power').textContent !== pw) $('power').textContent = pw;
     $('btn-auto').classList.toggle('on', !!game.auto);
+    $('btn-pilot').classList.toggle('on', !!game.pilot);
     const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
     pb.hidden = !pn;
     if (pn) {

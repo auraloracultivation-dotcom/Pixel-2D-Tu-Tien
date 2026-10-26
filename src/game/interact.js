@@ -81,7 +81,7 @@ export function updatePortals(game, dt) {
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
     const go = () => game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
-    if (!isDungeon(game, pt.to) || game.story.busy) { game.dunMode = 0; go(); return; }
+    if (!isDungeon(game, pt.to) || game.story.busy || game.pilot) { game.dunMode = 0; go(); return; }
     game.portalLock = 99;  // đợi chọn độ khó
     pickMode(game, pt.to).then(ok => { if (ok) go(); else game.portalLock = 2; });
     return;

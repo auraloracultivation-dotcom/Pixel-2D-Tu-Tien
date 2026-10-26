@@ -7,6 +7,7 @@
   "btn-achv": {"after": "nhap-mon", "tip": "Thành tựu: nhận thưởng, mang danh hiệu, đổi thời trang."},
   "btn-pets": {"flag": "nguThu", "tip": "Thú: linh thú đánh cùng, thú cưỡi, bạn đồng hành và tặng quà."},
   "btn-world": {"flag": "ngu-kiem", "tip": "Bản đồ: chạm đảo đã tới để bay ngay."},
-  "btn-auto": {"after": "nhiem-vu-bi-canh", "tip": "Tự đánh: săn quái quanh chỗ đứng. Không tự làm truyện, không đánh boss."}
+  "btn-auto": {"after": "nhiem-vu-bi-canh", "tip": "Tự đánh: săn quái quanh chỗ đứng. Không tự làm truyện, không đánh boss."},
+  "btn-pilot": {"after": "duoc-cuu", "tip": "Tự hành: nhân vật tự đi làm nhiệm vụ, tự bay qua đảo, tự đánh cả boss. Gục thì dừng. Đẩy cần là tự đi tay."}
  }
 }

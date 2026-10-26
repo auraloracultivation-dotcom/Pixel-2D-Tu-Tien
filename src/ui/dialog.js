@@ -36,6 +36,13 @@ export function createDialog(onLine) {
     next = show; show();
   });
 
+  // Lật câu kế (tự hành); đang có lựa chọn thì thôi
+  d.skip = () => {
+    if (choices.childElementCount) return;
+    if (shown < full.length) { shown = full.length; text.textContent = full; clearInterval(timer); }
+    else if (next) next();
+  };
+
   // options: [{id, label, desc, color}]
   d.choose = (title, options) => new Promise(resolve => {
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
