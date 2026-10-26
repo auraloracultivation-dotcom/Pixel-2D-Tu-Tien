@@ -1,6 +1,7 @@
 // Trang trí động phủ (data/home.json → decor): mua đồ ở Tiểu Linh bằng Linh Thạch, bày ở chỗ cố định,
 // mỗi món cộng chút tốc độ đả tọa khi ở động phủ.
 import { coins, addCoins } from './shop.js';
+import { praise } from './praise.js';
 
 const C = game => game.data.home.decor;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -23,4 +24,5 @@ export async function talkDecor(game, npc) {
   (game.save.decor ??= {})[ch] = 1;
   game.persist(); game.sfx('levelup');
   await game.dialog.say([[name, pick(c.bought)], ['', `Đã bày ${d.name}. Đả tọa ở động phủ nhanh thêm ${comfort(game)}%.`]]);
+  praise(game, 'decor', { item: d.name });
 }

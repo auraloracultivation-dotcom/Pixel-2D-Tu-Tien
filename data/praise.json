@@ -1,7 +1,7 @@
 {
  "_note": "Đạo lữ (hoặc bạn đồng hành thân từ min_aff) khen khi bạn đạt được gì đó. big: luôn khen (bạn đồng hành thường chỉ khen với tỉ lệ comp_chance). small: khen với tỉ lệ small_chance, cách nhau ít nhất small_cd giây. Câu riêng theo người trong lines, thiếu thì dùng lines.default. {realm} {boss} {item} {rank} {name} được thay. sec: số giây câu khen hiện.",
- "big": ["realm", "boss", "rare", "arena", "achv", "tower"],
- "small": ["layer", "item", "brew", "harvest"],
+ "big": ["realm", "boss", "rare", "arena", "achv", "tower", "decor"],
+ "small": ["layer", "item", "brew", "harvest", "fish"],
  "small_chance": 0.3,
  "small_cd": 90,
  "comp_chance": 0.5,
@@ -20,7 +20,9 @@
    "layer": ["Lại lên một tầng. Cứ đều đều vậy là tốt nhất."],
    "item": ["Được {item} rồi kìa."],
    "brew": ["Lò đan thơm quá, luyện khéo ghê."],
-   "harvest": ["Vườn thuốc tốt tươi ghê, công chăm có khác."]
+   "harvest": ["Vườn thuốc tốt tươi ghê, công chăm có khác."],
+   "fish": ["Cá to ghê! Tối nay nấu canh nha.", "Câu khéo thật, ngồi kiên nhẫn ghê."],
+   "decor": ["{item} hợp với động phủ ghê. Nhà mình đẹp hơn rồi."]
   },
   "lac-tuyet": {
    "realm": ["{realm}... Đệ tiến nhanh hơn ta năm xưa nhiều. Ta tự hào về đệ.", "Đột phá rồi. Đừng kiêu, nhưng hôm nay cho phép đệ vui một chút.", "Kiếm ý của đệ sáng hơn rồi. Đúng là đạo lữ của ta."],
@@ -32,7 +34,9 @@
    "layer": ["Lại tiến thêm một tầng. Chăm chỉ lắm.", "Linh khí đệ dày lên rồi, ta cảm được."],
    "item": ["{item}, không tệ. Để ta xem giúp đệ."],
    "brew": ["Thơm thật. Đệ luyện đan cũng có tay nghề đấy."],
-   "harvest": ["Linh thảo đệ trồng xanh mướt. Ngồi đây ngắm một lát đi."]
+   "harvest": ["Linh thảo đệ trồng xanh mướt. Ngồi đây ngắm một lát đi."],
+   "fish": ["Câu cá cũng là luyện tâm. Đệ khá lắm.", "Con này to. Tối ta nướng cho."],
+   "decor": ["{item}... Ừ, đẹp. Đệ có mắt chọn đồ đấy."]
   },
   "ho-linh": {
    "realm": ["{realm}! Ngươi giỏi quá đi, lại đây ta xoa đầu nào!", "Đột phá rồi! Hôm nay ta khao, ăn gì cũng được!", "Ta biết mà, đạo lữ của ta là nhất thiên hạ!"],
@@ -44,7 +48,9 @@
    "layer": ["Lại lên tầng nữa! Ngươi chăm thế này ta thương ghê.", "Hì, linh khí ngươi ấm áp ghê."],
    "item": ["Đồ mới! Mặc vào cho ta ngắm coi."],
    "brew": ["Đan thơm phức! Cho ta một viên được không?"],
-   "harvest": ["Vườn mình đẹp quá ha. Ngồi đây với ta chút đi."]
+   "harvest": ["Vườn mình đẹp quá ha. Ngồi đây với ta chút đi."],
+   "fish": ["Cá! Cá! Phần ta con to nhất nhé!", "Ngươi câu giỏi thế, mai câu cho ta nữa nha."],
+   "decor": ["{item}! Nhà mình càng ngày càng giống tổ hồ ly ấm áp rồi!"]
   }
  }
 }
