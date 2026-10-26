@@ -1,5 +1,5 @@
 {
- "_note": "Thời tiết từng đảo (chỉ ngoài trời). fireflies: đom đóm bay lượn ban đêm trên các đảo trong maps (trời mưa thì không có). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
+ "_note": "Thời tiết từng đảo (chỉ ngoài trời). seasons: mùa theo tháng thật, swap đổi loại hạt của đảo (vd thu: hoa và lá thành lá phong), lần đầu vào mùa mới có câu intro. fireflies: đom đóm bay lượn ban đêm trên các đảo trong maps (trời mưa thì không có). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
  "maps": {
   "thanh-khe": {"kind": "hoa", "rain": 0.25},
   "thien-kiem-phong": {"kind": "hoa", "rain": 0.2},
@@ -20,7 +20,13 @@
   "tro": {"n": 18, "color": "#ffb05a", "size": 1.3, "fall": -12, "drift": 10, "shape": "ember"},
   "bui": {"n": 16, "color": "#a8a0b8", "size": 1.2, "fall": 4, "drift": 40, "shape": "dust"},
   "kim": {"n": 14, "color": "#ffe27a", "size": 1.2, "fall": 6, "drift": 24, "shape": "ember"},
+  "phong": {"n": 14, "color": "#e8703a", "size": 2.4, "fall": 15, "drift": 24, "shape": "leaf"},
+  "tuyet-nhe": {"n": 22, "color": "#ffffff", "size": 1.4, "fall": 14, "drift": 12, "shape": "flake"},
   "hu": {"n": 16, "color": "#c06aff", "size": 1.4, "fall": -8, "drift": 8, "shape": "ember"}
  },
+ "seasons": [{"id": "xuan", "name": "Xuân", "months": [2, 3, 4], "swap": {}, "intro": "Mùa xuân tới. Hoa đào nở, cánh hồng bay khắp các đảo."},
+  {"id": "ha", "name": "Hạ", "months": [5, 6, 7], "swap": {"hoa": "la"}, "intro": "Vào hạ. Cây lá xanh mướt, đêm nhiều đom đóm."},
+  {"id": "thu", "name": "Thu", "months": [8, 9, 10], "swap": {"hoa": "phong", "la": "phong"}, "intro": "Mùa thu rồi. Lá phong đỏ rơi khắp các đảo."},
+  {"id": "dong", "name": "Đông", "months": [11, 12, 1], "swap": {"hoa": "tuyet-nhe", "la": "tuyet-nhe"}, "intro": "Đông sang. Tuyết rơi nhẹ, nhớ về động phủ sưởi ấm."}],
  "rain": {"n": 70, "color": "rgba(120,145,195,0.7)", "speed": 260, "dark": 0.2, "start": "Trời đổ mưa. Tiếng mưa rơi lộp độp, rất êm.", "stop": "Mưa tạnh. Đất thơm mùi cỏ."}
 }
