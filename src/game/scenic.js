@@ -11,11 +11,12 @@ export function spotHere(game) {
   return C(game).spots.find(s => s.map === game.map.id && Math.hypot((s.at[0] + 0.5) * T - p.x, (s.at[1] + 0.5) * T - p.y) < T * 0.9) || null;
 }
 
-export function sitView(game, spot) {
+export function sitView(game, spot, keepPilot = false) {
   const T = game.map.T, p = game.player;
   p.x = (spot.at[0] + 0.5) * T; p.y = (spot.at[1] + 0.5) * T; p.face = { x: 0, y: 1 }; p.meditating = false;
   game.view = { spot, t: 0 };
-  game.fish = null; game.auto = false; game.pilot = null;
+  game.fish = null; game.auto = false;
+  if (!keepPilot) game.pilot = null;
   document.body.classList.add('ngam-canh');
   game.screen.zoomTo(C(game).zoom);
   game.toast(`${spot.name}. ${spot.line}`, 5);

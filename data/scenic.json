@@ -13,6 +13,7 @@
   {"map": "dao-hau-tho", "at": [18, 25], "name": "Đá Ngồi Nghe Đất", "line": "Đất không vội. Núi mọc lên một tấc mất nghìn năm, mà chẳng hề than."},
   {"map": "vet-nut-ngoai", "at": [16, 25], "name": "Đá Nhìn Vực", "line": "Dưới chân là cả Linh Giới, nhỏ như bàn cờ. Thứ mình giữ gìn, hóa ra mong manh vậy."}
  ],
+ "sunset": {"_note": "Tự hành: mỗi ngày một lần, lúc hoàng hôn, ra phiến đá ngắm cảnh gần nhất ngồi sec giây rồi làm tiếp.", "phase": "hoang-hon", "sec": 45},
  "together": {
   "after": 3,
   "qi_mul": 1.5,

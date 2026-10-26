@@ -1,11 +1,11 @@
 // Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
-// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú,
+// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú, hoàng hôn ra ngắm cảnh,
 // hạ quái cho việc hằng ngày và treo thưởng, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
 import { ensureDaily, taskDef, bountyLeft } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
-import { outdoor } from './daynight.js';
+import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
 
@@ -45,7 +45,7 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { view: true } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
   const s = game.save, out = [];
   for (const [id, q] of Object.entries(game.data.side.quests)) {
@@ -75,6 +75,8 @@ function wants(game) {
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
   }
+  const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
+  if (!game.view && s.sunset !== new Date().toDateString() && phase(game).id === ss.phase) out.push({ view: true });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
   if (game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
   return out;
@@ -110,6 +112,11 @@ export function choreJob(game, routeTo) {
       if (game.map.id !== game.data.home.map) { const j = goPortal(game, routeTo, game.data.home.map); if (j) return j; continue; }
       const n = game.npcs.find(n => n.id === w.gift && (n.home || n.visit));
       if (n) return { talk: n };
+    } else if (w.view) {
+      const spot = game.data.scenic.spots.find(x => x.map === game.map.id);
+      if (spot) return { view: spot, at: game.map.center(spot.at[0], spot.at[1]) };
+      const j = goPortal(game, routeTo, 'thien-kiem-phong');
+      if (j) return j;
     } else if (w.pat) {
       if (game.pet && !game.pet.target) return { pat: game.pet };
     } else if (w.pick) {

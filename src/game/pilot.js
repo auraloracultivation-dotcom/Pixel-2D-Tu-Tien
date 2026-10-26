@@ -7,6 +7,7 @@ import { choreJob, doBrew } from './chores.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
+import { sitView, standUp, spotHere } from './scenic.js';
 
 const C = game => game.data.config.pilot;
 
@@ -95,7 +96,7 @@ function sit(game) {
   return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
 }
 
-// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { pat } | { sit } | null (đứng chờ)
+// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { pat } | { view, at } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
   // Quái đang đánh mình ở gần: đánh trước
@@ -129,6 +130,7 @@ const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: 
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
+  if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.canStart()) { game.input.pressed.add('act'); return none; }
   const job = game.pilot.job = plan(game);
   if (!job) return none;
@@ -152,6 +154,12 @@ export function pilotStep(game, ax, dt) {
   if (job.brew) {
     if (Math.hypot(job.at.x - p.x, job.at.y - p.y) > 22) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
     if ((game.pilot.brewT = (game.pilot.brewT || 0) - dt) <= 0) { game.pilot.brewT = 1.2; doBrew(game, job.brew); }
+    return none;
+  }
+  if (job.view) {   // ngắm hoàng hôn: tới phiến đá rồi ngồi
+    if (!spotHere(game)) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
+    game.save.sunset = new Date().toDateString();
+    sitView(game, job.view, true);
     return none;
   }
   if (job.pat) {   // vuốt ve linh thú: tới sát rồi vuốt, nghỉ chút giữa hai lần
