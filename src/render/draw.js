@@ -173,6 +173,9 @@ function drawFx(ctx, game) {
     } else if (f.type === 'heart') {   // tim nhỏ bay lên, lắc nhẹ
       const x = Math.round(f.x + Math.sin(k * 9) * 2), y = Math.round(f.y - 14 - 16 * k);
       ctx.fillStyle = f.color; ctx.fillRect(x - 2, y, 2, 2); ctx.fillRect(x + 1, y, 2, 2); ctx.fillRect(x - 2, y + 1, 5, 2); ctx.fillRect(x - 1, y + 3, 3, 1); ctx.fillRect(x, y + 4, 1, 1);
+    } else if (f.type === 'note') {   // nốt nhạc bay lên, lượn nhẹ
+      const x = Math.round(f.x + Math.sin(k * 7) * 3), y = Math.round(f.y - 16 - 20 * k);
+      ctx.fillStyle = f.color; ctx.fillRect(x - 2, y + 4, 3, 2); ctx.fillRect(x, y, 1, 5); ctx.fillRect(x + 1, y, 2, 1); ctx.fillRect(x + 2, y + 1, 1, 1);
     } else if (f.type === 'line') {
       ctx.strokeStyle = f.color; ctx.lineWidth = 5 * (1 - k);
       ctx.beginPath(); ctx.moveTo(f.x, f.y - 5); ctx.lineTo(f.x2, f.y2 - 5); ctx.stroke();
