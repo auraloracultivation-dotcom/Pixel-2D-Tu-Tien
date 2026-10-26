@@ -6,6 +6,7 @@ import { weaponId } from '../game/stats.js';
 import { drawWeapon } from './weapon.js';
 import { drawPet, drawMount, drawRareGlow } from './draw-pet.js';
 import { hasSide } from '../game/side.js';
+import { drawAura, drawTitle } from './draw-aura.js';
 
 const INK = '#1b1830';
 
@@ -42,12 +43,14 @@ function drawPlayer(ctx, game, t) {
     ctx.strokeStyle = el; ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ctx.lineWidth = 1;
     ctx.beginPath(); ctx.arc(p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
   }
+  drawAura(ctx, game, p, t);
   drawPerson(ctx, p, '#e6ebf7', '#3a2e5c', t, p.flash > 0, p.face);
   ctx.fillStyle = el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
   drawWeapon(ctx, p, w);
   if (p.shield > 0) { ctx.strokeStyle = p.shieldColor; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 10, 0, Math.PI * 2); ctx.stroke(); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
+  drawTitle(ctx, game, p);
   if (p.riding) ctx.restore();
 }
 

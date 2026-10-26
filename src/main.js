@@ -13,6 +13,7 @@ import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
 import { createPetsPanel } from './ui/pets-panel.js';
 import { createDailyPanel } from './ui/daily-panel.js';
+import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 
 async function boot() {
@@ -28,6 +29,7 @@ async function boot() {
   createCavePanel(game);
   createPetsPanel(game);
   createDailyPanel(game);
+  createAchvPanel(game);
   createWorldMap(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;

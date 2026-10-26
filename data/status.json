@@ -1,0 +1,50 @@
+{
+ "_note": "Lực chiến (power: hệ số mỗi chỉ số), hào quang theo cảnh giới (auras, chỉ số = cảnh giới, null là không có), thành tựu và danh hiệu. Thành tựu: need.type là realm, kills, bosses, rares, tower, coins (Linh Thạch tích luỹ), pets, techs, comps, power, flag. Xong thì nhận thưởng (give, như daily) và mở danh hiệu (title).",
+ "power": {"maxHp": 1, "atk": 9, "def": 14, "crit": 1600, "critMult": 450, "cdr": 1400, "lifesteal": 1800, "thorns": 700, "regen": 25, "speedMul": 350},
+ "auras": [
+  null,
+  {"color": "#e8f4ff", "r": 11, "alpha": 0.25},
+  {"color": "#ffd24a", "r": 12, "alpha": 0.32},
+  {"color": "#b48aff", "r": 13, "alpha": 0.36, "motes": 4},
+  {"color": "#6ad4ff", "r": 14, "alpha": 0.4, "motes": 6, "ring": true},
+  {"color": "#ff8a5a", "r": 15, "alpha": 0.42, "motes": 6, "ring": true},
+  {"color": "#7affc8", "r": 16, "alpha": 0.45, "motes": 8, "ring": true},
+  {"color": "#fff1a8", "r": 17, "alpha": 0.5, "motes": 10, "ring": true},
+  {"color": "#ffffff", "r": 18, "alpha": 0.55, "motes": 12, "ring": true}
+ ],
+ "titles": {
+  "so-nhap": {"name": "Sơ Nhập Tiên Đồ", "color": "#c8d0e8"},
+  "tru-co": {"name": "Đạo Cơ Vững Chắc", "color": "#e8f4ff"},
+  "kim-dan": {"name": "Kim Đan Chân Nhân", "color": "#ffd24a"},
+  "nguyen-anh": {"name": "Nguyên Anh Lão Tổ", "color": "#b48aff"},
+  "dao-phu": {"name": "Đồ Tể Yêu Thú", "color": "#ff7a5a"},
+  "van-yeu": {"name": "Vạn Yêu Khiếp Sợ", "color": "#ff4a4a"},
+  "san-vuong": {"name": "Kẻ Săn Vương", "color": "#ff9a3a"},
+  "di-chung": {"name": "Mắt Tinh Dị Chủng", "color": "#7ae08a"},
+  "leo-thap": {"name": "Chinh Phục Tháp", "color": "#7a8af0"},
+  "phu-ong": {"name": "Phú Ông Tu Tiên", "color": "#ffd24a"},
+  "ngu-thu": {"name": "Ngự Thú Sư", "color": "#5fd07a"},
+  "cong-phap": {"name": "Bác Học Công Pháp", "color": "#5ab8f0"},
+  "ban-huu": {"name": "Bạn Hữu Bốn Phương", "color": "#ffb0c8"},
+  "luc-chien": {"name": "Uy Chấn Tứ Đảo", "color": "#ff6a3a"}
+ },
+ "achievements": [
+  {"id": "nhap-mon", "name": "Bước vào tiên đồ", "need": {"type": "flag", "flag": "ngu-kiem"}, "text": "Học ngự kiếm", "give": {"stones": 1}, "title": "so-nhap"},
+  {"id": "truc-co", "name": "Trúc Cơ", "need": {"type": "realm", "n": 1}, "text": "Lên Trúc Cơ", "give": {"stones": 2, "coins": 100}, "title": "tru-co"},
+  {"id": "kim-dan", "name": "Kết Kim Đan", "need": {"type": "realm", "n": 2}, "text": "Lên Kim Đan", "give": {"gem": 1, "coins": 300}, "title": "kim-dan"},
+  {"id": "nguyen-anh", "name": "Nguyên Anh xuất thế", "need": {"type": "realm", "n": 3}, "text": "Lên Nguyên Anh", "give": {"item": "dia", "coins": 800}, "title": "nguyen-anh"},
+  {"id": "tram-quai", "name": "Trăm trận", "need": {"type": "kills", "n": 100}, "text": "Hạ 100 quái", "give": {"stones": 2}},
+  {"id": "ngan-quai", "name": "Ngàn trận", "need": {"type": "kills", "n": 1000}, "text": "Hạ 1000 quái", "give": {"gem": 1, "stones": 5}, "title": "dao-phu"},
+  {"id": "van-quai", "name": "Vạn trận", "need": {"type": "kills", "n": 10000}, "text": "Hạ 10000 quái", "give": {"item": "thien"}, "title": "van-yeu"},
+  {"id": "ba-boss", "name": "Hạ boss", "need": {"type": "bosses", "n": 3}, "text": "Hạ 3 boss", "give": {"stones": 3}},
+  {"id": "muoi-boss", "name": "Săn vương", "need": {"type": "bosses", "n": 20}, "text": "Hạ 20 boss", "give": {"item": "dia"}, "title": "san-vuong"},
+  {"id": "di-chung", "name": "Dị chủng", "need": {"type": "rares", "n": 10}, "text": "Hạ 10 quái dị chủng", "give": {"gem": 1}, "title": "di-chung"},
+  {"id": "thap-10", "name": "Leo tháp", "need": {"type": "tower", "n": 10}, "text": "Qua tầng 10 Tháp Thử Thách", "give": {"stones": 4}},
+  {"id": "thap-30", "name": "Đỉnh tháp", "need": {"type": "tower", "n": 30}, "text": "Qua tầng 30 Tháp Thử Thách", "give": {"item": "dia", "gem": 1}, "title": "leo-thap"},
+  {"id": "phu-ong", "name": "Phú ông", "need": {"type": "coins", "n": 10000}, "text": "Tích luỹ 10000 Linh Thạch", "give": {"gem": 2}, "title": "phu-ong"},
+  {"id": "ngu-thu", "name": "Ngự thú", "need": {"type": "pets", "n": 4}, "text": "Có 4 linh thú", "give": {"stones": 3}, "title": "ngu-thu"},
+  {"id": "cong-phap", "name": "Công pháp", "need": {"type": "techs", "n": 4}, "text": "Học 4 công pháp", "give": {"stones": 3}, "title": "cong-phap"},
+  {"id": "ban-huu", "name": "Bạn hữu", "need": {"type": "comps", "n": 2}, "text": "Có 2 bạn đồng hành", "give": {"coins": 500}, "title": "ban-huu"},
+  {"id": "luc-chien", "name": "Uy chấn", "need": {"type": "power", "n": 5000}, "text": "Lực chiến đạt 5000", "give": {"gem": 2, "coins": 1000}, "title": "luc-chien"}
+ ]
+}

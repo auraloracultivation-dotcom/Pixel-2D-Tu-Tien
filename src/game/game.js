@@ -23,6 +23,7 @@ import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
+import { ensureStats, countKill, checkAchv } from './achieve.js';
 import { updateRes, resKill, resGoal } from './resrun.js';
 import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
@@ -111,6 +112,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   game.onKill = m => {
     if (m.tower) { resKill(game, m); return; } // quái trong tháp, bí cảnh tài nguyên: chỉ tính ở đó
+    countKill(game, m);
     dropLoot(game, m);
     coinDrop(game, m);
     bountyKill(game, m);
@@ -204,7 +206,7 @@ export function createGame(data, screen, input, ui, audio) {
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
-    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save);
+    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
@@ -290,6 +292,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateSpawners(dt);
     game.dungeon?.update();
     updateTower(game, dt);
+    if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateRes(game, dt);
     updateWorldBoss(game, dt);
     updateInteract(game);
