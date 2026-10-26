@@ -23,6 +23,6 @@
  ],
  "spawns": {"vao": [10, 10]},
  "portals": [{"at": [10, 11], "to": "thien-kiem-phong", "spawn": "tu-dong-phu", "kind": "portal", "label": "Ra khỏi động phủ"}],
- "npcs": [],
+ "npcs": [{"id": "tieu-linh", "at": [3, 4]}],
  "spawners": []
 }
