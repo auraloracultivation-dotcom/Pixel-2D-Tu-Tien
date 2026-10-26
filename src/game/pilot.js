@@ -4,7 +4,7 @@
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
-import { autoEquip } from './autoequip.js';
+import { autoEquip, autoEnhance } from './autoequip.js';
 import { pilotOpt } from './pilotopt.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
@@ -136,7 +136,7 @@ const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: 
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
-  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); }
+  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.canStart()) {   // độ kiếp thẳng, không bấm nút (đứng cạnh NPC thì nút thành Nói chuyện)
     const pl = game.pilot;
