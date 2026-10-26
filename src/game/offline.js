@@ -3,6 +3,7 @@
 import { qiNeed } from './stats.js';
 import { daoLuHere } from './affinity.js';
 import { comfort } from './decor.js';
+import { awayGifts } from './offgift.js';
 
 // Hệ số bế quan ở nhà: đồ trang trí cộng phần trăm, đạo lữ ở nhà thì song tu
 function homeOffline(game) {
@@ -27,7 +28,7 @@ export async function offlineGains(game, lastSeen) {
   const full = s.layer >= game.data.realms.layers && s.qi >= qiNeed(s, game.data.realms);
   const up = (s.layer !== layer || s.realm !== realm ? ' Tu vi đã tăng tầng!' : '') + (full ? ' Linh khí đã đầy tới đỉnh, cần độ thiên kiếp.' : '');
   const home = mul > 1 ? ` Bế quan ở động phủ nên nhanh gấp ${String(Math.round(mul * 100) / 100).replace('.', ',')}.` : '';
-  await game.dialog.say([['', `Bạn bế quan ${h ? h + ' giờ ' : ''}${m} phút khi vắng mặt${capped}. Linh khí chảy vào người.${home}${up}`]]);
+  await game.dialog.say([['', `Bạn bế quan ${h ? h + ' giờ ' : ''}${m} phút khi vắng mặt${capped}. Linh khí chảy vào người.${home}${up}`], ...awayGifts(game, sec)]);
   await letter(game, away);
 }
 
