@@ -11,6 +11,7 @@ import { noteQi } from './eta.js';
 import { pilotOpt } from './pilotopt.js';
 import { meditateMul } from './evolve.js';
 import { nightMul } from './daynight.js';
+import { rainMul } from './weather.js';
 import { songTuMul } from './affinity.js';
 import { homeMul, teaMul } from './home.js';
 import { bump } from './achieve.js';
@@ -161,6 +162,6 @@ export function updatePlayer(game, dt) {
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; const q = cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * songTuMul(game) * homeMul(game) * teaMul(game) * game.eventMul('qi'); game.gainQi(q, p.x, p.y, true); noteQi(game, q * (p.st.qiMul || 1)); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; const q = cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * rainMul(game) * songTuMul(game) * homeMul(game) * teaMul(game) * game.eventMul('qi'); game.gainQi(q, p.x, p.y, true); noteQi(game, q * (p.st.qiMul || 1)); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }
   }
 }

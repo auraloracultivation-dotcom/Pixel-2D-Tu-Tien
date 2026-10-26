@@ -26,6 +26,9 @@ export function isRaining(game) {
   return rolls(`${d.toDateString()}:${d.getHours()}:${game.map.id}`) < w.rain;
 }
 
+// Nghe mưa đả tọa: đang mưa (chỉ ngoài trời) thì linh khí vào nhanh hơn
+export const rainMul = game => game.raining ? C(game).rain.meditate || 1 : 1;
+
 export function updateWeather(game, dt) {
   if ((game.wxT = (game.wxT || 0) - dt) > 0) return;
   game.wxT = 5;
