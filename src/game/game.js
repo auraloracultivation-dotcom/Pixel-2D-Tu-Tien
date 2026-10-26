@@ -33,6 +33,7 @@ import { updateChatter } from './chatter.js';
 import { updateStroll } from './stroll.js';
 import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
+import { updateEta } from './eta.js';
 import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
@@ -326,6 +327,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateStroll(game, dt);
     updateKyNgo(game, dt);
     updatePilotLog(game);
+    updateEta(game, dt);
     updatePetFetch(game, dt);
     updateFishing(game, dt);
     updateView(game, dt);

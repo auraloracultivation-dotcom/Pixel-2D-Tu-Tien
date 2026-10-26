@@ -7,6 +7,7 @@ import { rideSpeed } from './pets.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
+import { noteQi } from './eta.js';
 import { pilotOpt } from './pilotopt.js';
 import { meditateMul } from './evolve.js';
 import { nightMul } from './daynight.js';
@@ -160,6 +161,6 @@ export function updatePlayer(game, dt) {
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * songTuMul(game) * homeMul(game) * teaMul(game) * game.eventMul('qi'), p.x, p.y, true); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; const q = cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * songTuMul(game) * homeMul(game) * teaMul(game) * game.eventMul('qi'); game.gainQi(q, p.x, p.y, true); noteQi(game, q * (p.st.qiMul || 1)); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }
   }
 }

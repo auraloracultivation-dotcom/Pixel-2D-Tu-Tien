@@ -17,6 +17,7 @@ import { harvestAll, gotText } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
+import { etaText } from './eta.js';
 import { sitView, standUp, spotHere } from './scenic.js';
 
 const C = game => game.data.config.pilot;
@@ -40,7 +41,8 @@ export function pilotLabel(game) {
   if (!k) return '';
   const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
   const kk = k === 'view' && phase(game).id === game.data.scenic.lantern.phase ? 'lantern' : k;   // tối ra đá là để thả đèn
-  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[kk].replace('{name}', name));
+  const eta = k === 'sit' ? etaText(game) : '';
+  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[kk].replace('{name}', name)) + (eta ? ', ' + eta : '');
 }
 
 // Đường qua các đảo: tìm theo cổng (bỏ cổng chưa mở), trả về cổng đầu tiên phải đi
