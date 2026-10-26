@@ -146,7 +146,8 @@ export function updatePlayer(game, dt) {
 
   // Nút Đan: uống đan hồi máu
   p.pillCd = (p.pillCd || 0) - dt;
-  if (inp.consume('pill') && p.pillCd <= 0) {
+  const pid = game.data.cave.pill_button, low = (game.pilot || game.auto) && p.hp < p.maxHp * game.data.config.pilot.pill_hp && (game.save.pills?.[pid] || 0) > 0;   // tự hành, tự đánh: máu thấp thì tự uống đan
+  if ((inp.consume('pill') || low) && p.pillCd <= 0) {
     const id = game.data.cave.pill_button, msg = usePill(game, id);
     if (msg) { p.pillCd = game.data.cave.pills[id].cd; game.number(p.x, p.y - 20, msg, '#9af0a8'); game.sfx('heal'); }
   }
