@@ -33,7 +33,7 @@
   "flute": 0.09,
   "drone": 0.05,
   "reverb": {"sec": 3.2, "wet": 0.45},
-  "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035},
+  "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035, "rain": 0.05},
   "maps": {
    "thanh-khe": {"root": 293.66, "bpm": 63, "lead": "sao", "amb": ["chim", "nuoc", "gio"], "mood": "sang"},
    "thien-kiem-phong": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["gio", "chim"], "mood": "sang"},

@@ -9,6 +9,7 @@ import { hasSide } from '../game/side.js';
 import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
+import { drawWeather } from './draw-weather.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 
 const INK = '#1b1830';
@@ -251,6 +252,7 @@ export function drawWorld(game, screen, t) {
   }
   screen.screenTransform();
   drawDayNight(ctx, game, screen, t);
+  drawWeather(ctx, game, screen, t);
   if (game.dark > 0.01) {
     const pos = screen.toScreen(game.player.x, game.player.y - 6);
     const g = ctx.createRadialGradient(pos.x, pos.y, 30, pos.x, pos.y, Math.max(screen.w, screen.h) * 0.7);

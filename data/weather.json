@@ -1,0 +1,25 @@
+{
+ "_note": "Thời tiết từng đảo (chỉ ngoài trời). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
+ "maps": {
+  "thanh-khe": {"kind": "hoa", "rain": 0.25},
+  "thien-kiem-phong": {"kind": "hoa", "rain": 0.2},
+  "dao-xich-dien": {"kind": "tro"},
+  "dao-han-bang": {"kind": "tuyet"},
+  "hac-phong-dao": {"kind": "bui", "rain": 0.15},
+  "dao-moc": {"kind": "la", "rain": 0.3},
+  "lang-tinh-linh": {"kind": "la", "rain": 0.3},
+  "dao-thien-kim": {"kind": "kim"},
+  "dao-hau-tho": {"kind": "la", "rain": 0.25},
+  "vet-nut-ngoai": {"kind": "hu"}
+ },
+ "kinds": {
+  "hoa": {"n": 14, "color": "#ffc8dc", "size": 2.2, "fall": 14, "drift": 18, "shape": "petal"},
+  "tuyet": {"n": 40, "color": "#ffffff", "size": 1.6, "fall": 18, "drift": 10, "shape": "flake"},
+  "la": {"n": 10, "color": "#8ad06a", "size": 2.4, "fall": 16, "drift": 22, "shape": "leaf"},
+  "tro": {"n": 18, "color": "#ffb05a", "size": 1.3, "fall": -12, "drift": 10, "shape": "ember"},
+  "bui": {"n": 16, "color": "#a8a0b8", "size": 1.2, "fall": 4, "drift": 40, "shape": "dust"},
+  "kim": {"n": 14, "color": "#ffe27a", "size": 1.2, "fall": 6, "drift": 24, "shape": "ember"},
+  "hu": {"n": 16, "color": "#c06aff", "size": 1.4, "fall": -8, "drift": 8, "shape": "ember"}
+ },
+ "rain": {"n": 70, "color": "rgba(120,145,195,0.7)", "speed": 260, "dark": 0.2, "start": "Trời đổ mưa. Tiếng mưa rơi lộp độp, rất êm.", "stop": "Mưa tạnh. Đất thơm mùi cỏ."}
+}
