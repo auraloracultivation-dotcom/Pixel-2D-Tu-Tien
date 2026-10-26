@@ -128,6 +128,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
     game.save.map = id; game.save.spawn = spawnName || 'vao';
+    (game.save.visited ??= {})[id] = true;
     game.portalLock = 0.8;
     joinOnline();
     audio?.music(id);
@@ -191,6 +192,11 @@ export function createGame(data, screen, input, ui, audio) {
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
     ensureDaily(game);
+    if (!game.save.visited) { // bản lưu trước khi có bản đồ thế giới: đảo có cổng đã mở coi như đã tới
+      const v = game.save.visited = { [cfg.start.map]: true };
+      if (game.save.step >= data.story.steps.findIndex(x => x.id === 'nhap-mon')) v['thien-kiem-phong'] = true;
+      for (const m of Object.values(data.maps)) for (const pt of m.portals) if (pt.need && game.save.flags[pt.need]) v[pt.to] = true;
+    }
     game.story = createStory(game);
     game.trib = createTribulation(game);
     game.checkUnlocks = () => checkUnlocks(game);

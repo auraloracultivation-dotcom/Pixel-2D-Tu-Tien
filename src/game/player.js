@@ -94,7 +94,20 @@ export function updatePlayer(game, dt) {
 
   const ax = inp.axis();
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
-  if (p.moving) {
+  // Lướt né: nút riêng, bất tử trong lúc lướt
+  p.dashCd = (p.dashCd || 0) - dt;
+  if (inp.consume('dash') && p.dashCd <= 0) {
+    const dc = cfg.dash, d = p.moving ? Math.hypot(ax.x, ax.y) : 1, dir = p.moving ? { x: ax.x / d, y: ax.y / d } : p.face;
+    p.dashCd = dc.cd; p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
+    p.meditating = false; p.riding = false; p.calmT = 0; p.face = dir;
+    addFx(game, { type: 'ring', x: p.x, y: p.y, r: 8, color: '#e6ebf7', life: 0.25 });
+    game.sfx('dash');
+  }
+  if (p.dashT > 0 && p.dashV) {
+    const sx = p.x, sy = p.y;
+    game.map.move(p, p.dashV.x * dt, p.dashV.y * dt);
+    addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: '#e6ebf7', life: 0.2 });
+  } else if (p.moving) {
     p.meditating = false;
     const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);

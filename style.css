@@ -60,15 +60,15 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .link-btn { background: none; border: 0; text-decoration: underline; font: 600 14px system-ui, sans-serif; color: #1b1830; padding: 6px; }
 #login-msg { min-height: 18px; margin: 0; font-size: 13px; }
 #login-msg.bad { color: #a01828; }
-#btn-mute, #btn-bag, #btn-skills, #btn-pets, #btn-daily { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
-.hud-btns { display: flex; gap: 6px; margin-top: 2px; }
-#btn-bag, #btn-skills, #btn-pets, #btn-daily { width: auto; padding: 0 10px; font: 700 13px system-ui, sans-serif; position: relative; }
+#btn-mute, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-world { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
+.hud-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; max-width: 240px; }
+#btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-world { width: auto; padding: 0 9px; white-space: nowrap; font: 700 13px system-ui, sans-serif; position: relative; }
 #bag-badge, #skills-badge, #pets-badge, #daily-badge { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #e0484a; border: 1.5px solid #1b1830; }
 #bag, .panel { position: fixed; inset: calc(env(safe-area-inset-top) + 8px) 8px calc(env(safe-area-inset-bottom) + 8px); max-width: 560px; margin: 0 auto; background: rgba(255, 252, 240, .98); border: 2px solid #1b1830; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
 .bag-head { display: flex; align-items: center; gap: 10px; }
 .bag-head b { font-size: 17px; }
 #bag-mats { flex: 1; font-size: 12px; color: #2a6a8a; font-weight: 700; }
-#bag-close, #skills-close, #cave-close, #pets-close, #daily-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
+#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #world-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
 #bag-equip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .slot { display: flex; flex-direction: column; gap: 3px; }
 .slot-name { font-size: 11px; color: #6a6478; font-weight: 700; }
@@ -116,3 +116,10 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .card-acts { display: flex; gap: 6px; margin-top: 6px; }
 .card-acts .mini { flex: 1; min-height: 32px; }
 #btn-pill { right: 158px; bottom: 6px; width: 46px; height: 46px; background: rgba(255, 214, 222, .92); font-size: 11px; }
+#btn-dash { right: 140px; bottom: 58px; width: 44px; height: 44px; font-size: 11px; background: rgba(214, 232, 255, .92); }
+#world-sky { position: relative; flex: 1; border-radius: 10px; overflow: hidden; background: linear-gradient(#9fd8f0 0%, #cfe6f5 55%, #6a7aa0 100%); }
+.isle { position: absolute; transform: translate(-50%, -50%); border: 2px solid #1b1830; border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%; padding: 8px 12px 12px; font: 700 12px system-ui, sans-serif; color: #1b1830; box-shadow: 0 4px 0 rgba(27,24,48,.35); }
+.isle small { display: block; font-size: 10px; color: #a0423a; }
+.isle.here { outline: 3px solid #f2c94c; }
+.isle.locked { opacity: .45; }
+.isle-layer { position: absolute; left: 8px; font: 700 11px system-ui, sans-serif; color: rgba(27,24,48,.55); }

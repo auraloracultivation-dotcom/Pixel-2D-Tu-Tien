@@ -69,6 +69,7 @@ export function createHud(audio) {
       if (pb.querySelector('b').textContent !== t) pb.querySelector('b').textContent = t;
       pb.style.setProperty('--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
     }
+    $('btn-dash').style.setProperty('--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;
