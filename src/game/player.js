@@ -6,6 +6,7 @@ import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
+import { meditateMul } from './evolve.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -152,6 +153,6 @@ export function updatePlayer(game, dt) {
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * (game.map.def.meditate_mul || 1) * game.eventMul('qi'), p.x, p.y, true); dailyEvent(game, 'meditate', null, 0.5); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * game.eventMul('qi'), p.x, p.y, true); dailyEvent(game, 'meditate', null, 0.5); }
   }
 }

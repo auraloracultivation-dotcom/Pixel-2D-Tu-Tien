@@ -45,6 +45,13 @@
   "yield": 1,
   "herb": "linh-thao"
  },
+ "levels": [
+  {"name": "Động phủ sơ khai", "meditate_mul": 2, "grow_min": 15, "yield": 1, "brew_bonus": 0},
+  {"name": "Động phủ tinh xá", "meditate_mul": 2.4, "grow_min": 13, "yield": 1, "brew_bonus": 0, "cost": {"tinh-thiet": 10, "linh-thao": 10}, "coins": 300, "realm": 1},
+  {"name": "Động phủ linh mạch", "meditate_mul": 2.8, "grow_min": 11, "yield": 2, "brew_bonus": 0.03, "cost": {"tinh-thiet": 20, "hoa-linh-chi": 8}, "coins": 1000, "realm": 2},
+  {"name": "Động phủ tụ linh trận", "meditate_mul": 3.3, "grow_min": 9, "yield": 2, "brew_bonus": 0.05, "cost": {"tinh-thiet": 35, "yeu-huyet": 20}, "coins": 3000, "realm": 3},
+  {"name": "Động thiên phúc địa", "meditate_mul": 4, "grow_min": 7, "yield": 3, "brew_bonus": 0.08, "cost": {"tinh-thiet": 60, "yeu-vuong-dan": 1}, "coins": 8000, "realm": 4}
+ ],
  "pill_button": "hoi-xuan-dan",
  "brew": {"_note": "rate: tỉ lệ thành của từng đan (mặc định default). Linh căn hệ trong element_bonus cộng thêm. Hỏng thì mất nguyên liệu.", "default": 0.85, "element_bonus": {"hoa": 0.1}},
  "pills": {
