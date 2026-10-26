@@ -19,5 +19,6 @@
  "ma-phong-ve": {"name": "Ma Phong Vệ", "hp": 650, "atk": 40, "speed": 36, "radius": 7, "ai": "chase", "aggro": 120, "reach": 12, "windup": 0.55, "cd": 1.4, "qi": 110, "color": "#2a2a3a"},
  "hac-phong-ma-quan": {"name": "Hắc Phong Ma Quân", "hp": 9000, "atk": 48, "speed": 52, "radius": 12, "ai": "boss", "aggro": 400, "reach": 18, "windup": 0.5, "cd": 0.9, "qi": 1800, "color": "#4a3a6a", "summon": "phong-yeu", "bullet": 110, "shout": "Gió đen, nuốt chửng chúng!", "meteor": {"n": 7, "r": 16, "delay": 1.0, "dmg": 1.1, "color": "#8a7ab0", "line": "Hắc phong cuốn sạch!"}},
  "linh-thach-tinh": {"name": "Linh Thạch Tinh", "hp": 100, "atk": 5, "speed": 40, "radius": 6, "ai": "chase", "aggro": 999, "reach": 9, "windup": 0.4, "cd": 1.2, "qi": 0, "color": "#ffd24a"},
- "linh-thao-tinh": {"name": "Linh Thảo Tinh", "hp": 100, "atk": 5, "speed": 36, "radius": 6, "ai": "chase", "aggro": 999, "reach": 9, "windup": 0.4, "cd": 1.2, "qi": 0, "color": "#7ae08a"}
+ "linh-thao-tinh": {"name": "Linh Thảo Tinh", "hp": 100, "atk": 5, "speed": 36, "radius": 6, "ai": "chase", "aggro": 999, "reach": 9, "windup": 0.4, "cd": 1.2, "qi": 0, "color": "#7ae08a"},
+ "tam-ma": {"name": "Tâm Ma", "hp": 100, "atk": 10, "speed": 70, "radius": 5, "ai": "chase", "aggro": 999, "reach": 10, "windup": 0.32, "cd": 0.8, "qi": 0, "color": "#2a1a3a", "shadow": true}
 }

@@ -1,5 +1,6 @@
-// Thiên kiếp: ở tầng 9 đầy linh khí, người chơi gọi kiếp. Sét giáng từng đợt vào chỗ đang đứng và quanh đó,
-// phải chạy né. Trụ hết các đợt thì lên cảnh giới mới; gục thì thất bại và mất một phần linh khí.
+// Thiên kiếp: ở tầng 9 đầy linh khí, người chơi gọi kiếp. Mỗi cảnh giới một kiểu (data/realms.json → tribulation.by_realm):
+// sét, sét thành hàng, tâm ma (bóng của chính mình), lửa trời, hoặc trộn. Trụ hết các đợt (và hạ tâm ma nếu có) thì lên
+// cảnh giới mới; gục thì thất bại và mất một phần linh khí.
 import { qiNeed, realmLabel } from './stats.js';
 import { addStrike } from './strikes.js';
 import { addFx } from './combat.js';
@@ -9,12 +10,37 @@ export function atPeak(game) {
   return s.layer >= r.layers && s.qi >= qiNeed(s, r) && s.realm < r.names.length - 1;
 }
 
+// Thông số kiếp của cảnh giới hiện tại: số chung đè bởi by_realm
+export function tribOf(game) {
+  const cfg = game.data.realms.tribulation, by = cfg.by_realm[game.save.realm] || cfg.by_realm[cfg.by_realm.length - 1];
+  return { ...cfg, ...by, info: cfg.kinds[by.kind] };
+}
+
 export function createTribulation(game) {
-  const cfg = game.data.realms.tribulation;
   let run = null;
 
-  function strike(x, y, k) {
-    addStrike(game, { x, y, r: cfg.r, delay: cfg.delay, dmg: game.player.maxHp * cfg.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)), kind: 'thunder', color: '#bff4ff' });
+  function strike(x, y, k, kind = 'set') {
+    const c = run.cfg, hoa = kind === 'hoa';
+    addStrike(game, {
+      x, y, r: c.r * (hoa ? 1.35 : 1), delay: c.delay * (hoa ? 1.15 : 1),
+      dmg: game.player.maxHp * c.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)),
+      kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color,
+    });
+  }
+
+  // Một hàng sét ngang hoặc dọc đi qua chỗ đứng
+  function line(p, k) {
+    const horiz = Math.random() < 0.5, step = run.cfg.r * 1.7;
+    for (let i = -3; i <= 3; i++) strike(p.x + (horiz ? i * step : 0), p.y + (horiz ? 0 : i * step), k * 0.8);
+  }
+
+  function spawnShadow() {
+    const p = game.player, c = run.cfg.info, base = game.data.mobs['tam-ma'];
+    const hp = Math.round(p.maxHp * c.hp), def = { ...base, hp, atk: Math.round(p.atk * c.atk * 10) / 10 };
+    const pos = game.map.freeNear(Math.floor(p.x / game.map.T) + 2, Math.floor(p.y / game.map.T), 2, 6);
+    run.shadow = game.spawn('tam-ma', pos.x, pos.y, { def, hp, maxHp: hp, noQi: true, tower: true, aggro: true });
+    addFx(game, { type: 'ring', x: pos.x, y: pos.y, r: 26, color: c.color, life: 0.8, fill: true });
+    game.toast('Tâm ma hiện hình!', 1.6);
   }
 
   return {
@@ -22,25 +48,31 @@ export function createTribulation(game) {
     get wave() { return run ? run.wave : 0; },
     canStart() { return !run && atPeak(game) && !game.dungeon && !game.map.def.no_trib; },
     async start() {
-      await game.dialog.say([['', `Linh khí trong người đã đầy tới đỉnh. Mây đen tụ lại trên đầu... Thiên kiếp ${cfg.waves} đạo sắp giáng xuống!`], ['', 'Chạy né vòng sáng. Trụ hết các đạo sét để đột phá.']]);
-      run = { wave: 0, t: 1 };
-      game.player.meditating = false;
+      const cfg = tribOf(game), info = cfg.info;
+      await game.dialog.say([['', `Linh khí trong người đã đầy tới đỉnh. ${info.intro}`], ['', `${info.name}, ${cfg.waves} đợt. ${info.tip}`]]);
+      run = { wave: 0, t: 1, cfg, shadow: null };
+      game.player.meditating = false; game.auto = false;
       game.darkTarget = 0.55;
       game.sfx('roar');
+      if (cfg.kind === 'tam-ma' || cfg.kind === 'mix') spawnShadow();
     },
     update(dt) {
       if (!run) return;
       run.t -= dt;
       if (run.t > 0) return;
-      if (run.wave >= cfg.waves) { this.finish(); return; }
+      const c = run.cfg, shadowAlive = run.shadow && !run.shadow.dead;
+      if (run.wave >= c.waves) { if (!shadowAlive) this.finish(); else run.t = 0.3; return; }
       run.wave++;
-      run.t = cfg.interval;
-      const p = game.player, extra = cfg.extra + Math.floor(run.wave / 3);
-      const k = 1 + run.wave * cfg.grow;
-      strike(p.x, p.y, k);
+      run.t = c.interval;
+      const p = game.player, k = 1 + run.wave * c.grow;
+      const kind = c.kind === 'mix' ? ['set', 'loi', 'hoa'][Math.floor(Math.random() * 3)] : c.kind;
+      const light = kind === 'tam-ma';          // tâm ma: sét nhẹ và thưa
+      const extra = light ? 0 : c.extra + Math.floor(run.wave / 3) + (kind === 'hoa' ? 1 : 0);
+      strike(p.x, p.y, light ? k * 0.5 : k, kind);
+      if (kind === 'loi' && run.wave % 2 === 0) line(p, k);
       for (let i = 0; i < extra; i++) {
-        const a = Math.random() * Math.PI * 2, d = 18 + Math.random() * 40;
-        strike(p.x + Math.cos(a) * d, p.y + Math.sin(a) * d, k);
+        const a = Math.random() * Math.PI * 2, d = 18 + Math.random() * (kind === 'hoa' ? 60 : 40);
+        strike(p.x + Math.cos(a) * d, p.y + Math.sin(a) * d, k, kind);
       }
     },
     finish() {
@@ -61,10 +93,12 @@ export function createTribulation(game) {
     // Gục giữa kiếp: mất một phần linh khí, phải tích lại rồi thử lần nữa
     fail() {
       if (!run) return;
+      const c = run.cfg;
+      if (run.shadow) run.shadow.dead = true;
       run = null; game.strikes = [];
-      game.save.qi = Math.floor(game.save.qi * (1 - cfg.fail_qi));
+      game.save.qi = Math.floor(game.save.qi * (1 - c.fail_qi));
       game.darkTarget = game.map.def.dark || 0;
-      game.toast(`Độ kiếp thất bại... mất ${Math.round(cfg.fail_qi * 100)}% linh khí. Tu luyện thêm rồi thử lại.`, 3);
+      game.toast(`Độ kiếp thất bại... mất ${Math.round(c.fail_qi * 100)}% linh khí. Tu luyện thêm rồi thử lại.`, 3);
       game.persist();
     },
   };

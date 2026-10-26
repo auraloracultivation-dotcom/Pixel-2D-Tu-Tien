@@ -57,18 +57,25 @@ function drawMob(ctx, m, t) {
   shadow(ctx, m.x, m.y + 1, r);
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
-  ctx.save();
-  ctx.translate(m.x, m.y - r);
-  ctx.scale(1 + squash, 1 - squash);
-  if (wind) ctx.scale(1.15, 0.9);
-  body(ctx, 0, 0, r, m.def.color, m.flash > 0);
-  if (m.flash <= 0) {
-    ctx.fillStyle = m.def.ai === 'passive' ? INK : '#ffe27a';
-    const fx = (m.fx || 0) * r * 0.3;
-    ctx.fillRect(fx - r * 0.45, -r * 0.2, r * 0.22, r * 0.3); ctx.fillRect(fx + r * 0.22, -r * 0.2, r * 0.22, r * 0.3);
-    if (m.def.ai === 'boss') { ctx.fillStyle = '#2a0a12'; ctx.fillRect(-r * 0.8, -r - 2, 3, 5); ctx.fillRect(r * 0.8 - 3, -r - 2, 3, 5); }
+  if (m.def.shadow) {   // tâm ma: bóng đen hình người, mắt tím
+    ctx.globalAlpha = 0.85 + 0.15 * Math.sin(t * 6);
+    drawPerson(ctx, m, m.def.color, '#120a1a', t, m.flash > 0, null);
+    ctx.globalAlpha = 1; ctx.fillStyle = '#d0a0ff';
+    ctx.fillRect(m.x - 1.8, m.y - 11.5, 1.2, 1.4); ctx.fillRect(m.x + 0.8, m.y - 11.5, 1.2, 1.4);
+  } else {
+    ctx.save();
+    ctx.translate(m.x, m.y - r);
+    ctx.scale(1 + squash, 1 - squash);
+    if (wind) ctx.scale(1.15, 0.9);
+    body(ctx, 0, 0, r, m.def.color, m.flash > 0);
+    if (m.flash <= 0) {
+      ctx.fillStyle = m.def.ai === 'passive' ? INK : '#ffe27a';
+      const fx = (m.fx || 0) * r * 0.3;
+      ctx.fillRect(fx - r * 0.45, -r * 0.2, r * 0.22, r * 0.3); ctx.fillRect(fx + r * 0.22, -r * 0.2, r * 0.22, r * 0.3);
+      if (m.def.ai === 'boss') { ctx.fillStyle = '#2a0a12'; ctx.fillRect(-r * 0.8, -r - 2, 3, 5); ctx.fillRect(r * 0.8 - 3, -r - 2, 3, 5); }
+    }
+    ctx.restore();
   }
-  ctx.restore();
   if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - r * 2 - 3 + Math.sin(t * 6 + i * 2), 1); }
   if (m.slowT > 0) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
   if (m.hp < m.maxHp && m.def.ai !== 'boss') {
