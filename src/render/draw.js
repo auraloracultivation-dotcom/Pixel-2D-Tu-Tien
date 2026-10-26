@@ -68,6 +68,14 @@ function drawMob(ctx, m, t) {
     drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
     ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
     if (wind) { ctx.strokeStyle = '#ff4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(m.x, m.y - 6, 9, 0, Math.PI * 2); ctx.stroke(); }
+  } else if (m.def.blade) {   // kiếm hồn: thanh kiếm lơ lửng, mũi hướng về phía lao tới
+    const a = Math.atan2(m.fy || 1, m.fx || 0), bob = Math.sin(t * 5 + m.x) * 1.5;
+    ctx.save(); ctx.translate(m.x, m.y - 8 + bob); ctx.rotate(a + (wind ? Math.sin(t * 40) * 0.3 : 0));
+    ctx.fillStyle = 'rgba(40,20,60,0.35)'; ctx.fillRect(-10, -2.5, 20, 5);   // khói đen quấn quanh
+    ctx.fillStyle = m.flash > 0 ? '#fff' : m.def.color; ctx.fillRect(-3, -1.2, 12, 2.4);
+    ctx.beginPath(); ctx.moveTo(9, -1.2); ctx.lineTo(12, 0); ctx.lineTo(9, 1.2); ctx.fill();
+    ctx.fillStyle = '#7a5a2a'; ctx.fillRect(-4, -3.5, 1.6, 7); ctx.fillRect(-8, -0.8, 4, 1.6);
+    ctx.restore();
   } else if (m.def.shadow) {   // tâm ma: bóng đen hình người, mắt tím
     ctx.globalAlpha = 0.85 + 0.15 * Math.sin(t * 6);
     drawPerson(ctx, m, m.def.color, '#120a1a', t, m.flash > 0, null);

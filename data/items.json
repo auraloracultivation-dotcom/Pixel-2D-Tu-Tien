@@ -57,7 +57,11 @@
   "thanh-moc-bao": {"name": "Thanh Mộc Bào", "slot": "giap", "set": "thanh-moc", "main": {"hp": 75}, "pool": ["hp", "hp_pct", "def", "qi_gain"]},
   "thanh-moc-hai": {"name": "Thanh Mộc Hài", "slot": "giay", "set": "thanh-moc", "main": {"speed": 6}, "pool": ["speed", "hp_pct", "def"]},
   "thanh-moc-gioi": {"name": "Thanh Mộc Giới", "slot": "nhan", "set": "thanh-moc", "main": {"crit": 5}, "pool": ["crit", "crit_dmg", "hp_pct"]},
-  "thanh-moc-boi": {"name": "Thanh Mộc Bội", "slot": "ngoc-boi", "set": "thanh-moc", "main": {"qi_gain": 6}, "pool": ["qi_gain", "hp_pct", "def"]}
+  "thanh-moc-boi": {"name": "Thanh Mộc Bội", "slot": "ngoc-boi", "set": "thanh-moc", "main": {"qi_gain": 6}, "pool": ["qi_gain", "hp_pct", "def"]},
+  "kim-cang-giap": {"name": "Kim Cang Giáp", "slot": "giap", "set": "kim-cang", "main": {"def": 8}, "pool": ["def", "hp_pct", "atk_pct"]},
+  "kim-cang-hai": {"name": "Kim Cang Hài", "slot": "giay", "set": "kim-cang", "main": {"speed": 6}, "pool": ["speed", "atk_pct", "crit"]},
+  "kim-cang-gioi": {"name": "Kim Cang Giới", "slot": "nhan", "set": "kim-cang", "main": {"crit": 6}, "pool": ["crit", "crit_dmg", "atk_pct"]},
+  "kim-cang-boi": {"name": "Kim Cang Bội", "slot": "ngoc-boi", "set": "kim-cang", "main": {"atk_pct": 6}, "pool": ["atk_pct", "crit_dmg", "cdr"]}
  },
  "gems": {
   "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
@@ -98,14 +102,26 @@
   "ma-tham-tu": {"item": 0.2, "gem": 0.12, "stone": 0.3},
   "thu-moc-ve": {"item": 0.25, "gem": 0.14, "stone": 0.4},
   "thuc-moc-ma-hau": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 14, "min_rarity": "huyen", "set": ["thanh-moc", 0.7]},
-  "co-thu-yeu-vuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 12, "min_rarity": "dia"}
+  "co-thu-yeu-vuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 12, "min_rarity": "dia"},
+  "hac-cuc-mam": {"item": 0.12, "gem": 0.08, "stone": 0.24},
+  "re-ma": {"item": 0.12, "gem": 0.08, "stone": 0.24},
+  "gai-ma-ve": {"item": 0.25, "gem": 0.14, "stone": 0.4},
+  "hac-cuc-ma-chung": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 15, "min_rarity": "huyen", "set": ["thanh-moc", 0.8]},
+  "kim-giap-trung": {"item": 0.12, "gem": 0.08, "stone": 0.25},
+  "sa-ma": {"item": 0.12, "gem": 0.08, "stone": 0.25},
+  "kiem-hon": {"item": 0.13, "gem": 0.09, "stone": 0.26},
+  "kim-ma-ve": {"item": 0.26, "gem": 0.15, "stone": 0.42},
+  "van-kiem-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 16, "min_rarity": "huyen", "set": ["kim-cang", 0.7]},
+  "kim-giap-vuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 13, "min_rarity": "dia"}
  },
  "starter": ["thiet-kiem", "bo-y"],
  "quest_items": {
   "linh-thao": {"name": "linh thảo", "color": "#9af0a8", "base": "#2f7a44"},
   "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}, "bang-tam": {"name": "băng tâm", "color": "#e8f8ff", "base": "#3a7ab8"}, "ngoc-cau-cuu": {"name": "ngọc bài cầu cứu", "color": "#ffe27a", "base": "#6a4a2a"},
   "linh-quang": {"name": "đốm linh quang", "color": "#d8ffb0", "base": "#3a7a2a"},
-  "suong-mai": {"name": "giọt sương mai", "color": "#bff4ff", "base": "#3a6a8a"}
+  "suong-mai": {"name": "giọt sương mai", "color": "#bff4ff", "base": "#3a6a8a"},
+  "manh-kiem": {"name": "mảnh kiếm gãy", "color": "#e8f0ff", "base": "#6a6a7a"},
+  "kim-sa-tinh": {"name": "kim sa tinh", "color": "#ffd24a", "base": "#8a6a2a"}
  },
  "_note_weapon": "Món ở ô Vũ khí có weapon: loại vũ khí quyết định cách đánh thường và chiêu vũ khí."
 }

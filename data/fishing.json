@@ -7,6 +7,7 @@
   "van-ngu": {"w": 28, "realm": 1},
   "hoa-ly": {"w": 14, "maps": ["dao-xich-dien"]},
   "bang-ngu": {"w": 14, "maps": ["dao-han-bang"]},
+  "kim-tu-ngu": {"w": 14, "maps": ["dao-thien-kim"]},
   "kim-ly": {"w": 5}
  }
 }

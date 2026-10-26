@@ -1,0 +1,27 @@
+{
+ "id": "kiem-trung",
+ "name": "Kiếm Trủng",
+ "sky": "#1a1610",
+ "dark": 0.34,
+ "ground": "#3a3226",
+ "grid": [
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuCuuCuuCCCuuuuuuuuuuCCCuuuuuuuuuCuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuuDuuuuuuuuuuuuuuDuuuuuuuuuuuuDuuuuuuuuuuuuuuuuuuC",
+  "CuPuuuuuuuuuDuuuuuuuuuuuuuuDuuuuuuuuuuuuDuuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuuDuuuuuuuuuuuuuuDuuuuuuuuuuuuDuuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuCuuuuCCCuCCuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CuuuuuuuuuuCCCuuuuuuuuuuuuCCCuuuuuuuuuuCCCuuuuuuuuuuuuuuuuuC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "dao-thien-kim", "spawn": "tu-kiem-trung", "label": "Về bãi mộ kiếm"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "kiem-hon", "n": 4}, {"mob": "sa-ma", "n": 2}]}, {"rect": [14, 1, 12, 11], "door_x": 27, "mobs": [{"mob": "kim-ma-ve", "n": 2}, {"mob": "kiem-hon", "n": 3}]}, {"rect": [29, 1, 10, 11], "door_x": 40, "mobs": [{"mob": "kim-ma-ve", "n": 3}, {"mob": "kim-giap-trung", "n": 2}]}, {"rect": [42, 1, 17, 11], "mobs": [{"mob": "van-kiem-ma-tuong", "n": 1}], "boss": true}]
+}
