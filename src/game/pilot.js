@@ -3,7 +3,7 @@
 // hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó.
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
-import { choreJob } from './chores.js';
+import { choreJob, doBrew } from './chores.js';
 import { daoLuHere } from './affinity.js';
 
 const C = game => game.data.config.pilot;
@@ -84,7 +84,7 @@ function sit(game) {
   return pt ? { go: tileOf(game, pt.at) } : { hunt: true };
 }
 
-// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { sit } | null (đứng chờ)
+// Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
   // Quái đang đánh mình ở gần: đánh trước
@@ -136,6 +136,11 @@ export function pilotStep(game, ax, dt) {
     if (game.fish) { if (game.fish.bite) game.input.pressed.add('act'); return none; }
     if (Math.hypot(job.fish.x - p.x, job.fish.y - p.y) > 3) return { ax: walk(game, job.fish.x, job.fish.y, dt), atk: false };
     p.meditating = false; game.input.pressed.add('act');
+    return none;
+  }
+  if (job.brew) {
+    if (Math.hypot(job.at.x - p.x, job.at.y - p.y) > 22) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
+    if ((game.pilot.brewT = (game.pilot.brewT || 0) - dt) <= 0) { game.pilot.brewT = 1.2; doBrew(game, job.brew); }
     return none;
   }
   if (job.use) {

@@ -6,6 +6,7 @@ import { ensureDaily, taskDef } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { outdoor } from './daynight.js';
+import { brew, canPay } from './cave.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -40,7 +41,7 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true }
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
   const s = game.save, out = [];
   for (const [id, q] of Object.entries(game.data.side.quests)) {
@@ -53,7 +54,10 @@ function wants(game) {
   for (const t of ensureDaily(game).tasks) {
     const d = taskDef(game, t.id);
     if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
+    if (d?.type === 'kill' && !d.mob && t.n < d.n) out.push({ any: true });
     if (d?.type === 'fish' && t.n < d.n) out.push({ fish: true });
+    const pill = game.data.cave.pill_button;
+    if (d?.type === 'brew' && t.n < d.n && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
   if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
@@ -61,6 +65,14 @@ function wants(game) {
 }
 
 const goPortal = (game, routeTo, dest) => { const pt = routeTo(game, dest); return pt ? { go: game.map.center(pt.at[0], pt.at[1]) } : null; };
+
+// Tới lò đan thì luyện một mẻ (tự hành gọi)
+export function doBrew(game, id) {
+  const r = brew(game, id), name = game.data.cave.pills[id].name;
+  if (r === false) return;
+  game.sfx(r === 'fail' ? 'hit' : 'levelup');
+  game.toast(r === 'fail' ? `Lò hỏng, mẻ ${name} thất bại.` : `Luyện được ${r} ${name}.`, 1.8);
+}
 
 // Dược viên có luống chín mà không có đạo lữ ở nhà thu giúp: về động phủ, tới luống đầu rồi thu hoạch
 function gardenJob(game, routeTo) {
@@ -82,6 +94,17 @@ export function choreJob(game, routeTo) {
       if (game.map.id !== w.map) { const j = goPortal(game, routeTo, w.map); if (j) return j; continue; }
       const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (k) return { go: k };
+    } else if (w.any) {   // hạ quái bất kỳ: đánh con gần nhất, không có thì tới bãi quái, đảo không có bãi thì về Thiên Kiếm Phong
+      const m = game.mobs.filter(m => !m.dead && m.def.ai !== 'boss').sort((a, b) => dist(a, p) - dist(b, p))[0];
+      if (m) return { fight: m };
+      const sp = game.map.def.spawners.find(s => flagOk(game, s));
+      if (sp) return { go: game.map.center(sp.at[0], sp.at[1]) };
+      const j = goPortal(game, routeTo, 'thien-kiem-phong');
+      if (j) return j;
+    } else if (w.brew) {   // luyện đan: về động phủ, tới lò đan
+      if (game.map.id !== game.data.cave.map) { const j = goPortal(game, routeTo, game.data.cave.map); if (j) return j; continue; }
+      const k = game.map.findTiles('K')[0];
+      if (k) return { brew: w.brew, at: game.map.center(k[0], k[1]) };
     } else if (w.fish) {
       if (game.fish) return { fish: game.fish };   // đang thả câu: đứng yên chờ
       const at = fishSpot(game);
