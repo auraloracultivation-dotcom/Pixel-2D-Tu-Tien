@@ -42,6 +42,24 @@ function nearStation(game) {
   return null;
 }
 
+// Nói chuyện với một NPC: truyện trước, rồi các việc riêng của NPC đó (tự hành gọi thẳng hàm này)
+export function talkTo(game, npc) {
+  if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
+  if (npc.id === BOUNTY_NPC) { talkBounty(game, npc); return; }
+  if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
+  if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
+  if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
+  if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
+  if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
+  if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
+  if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
+  if (npc.id === game.data.home.decor.npc) { talkDecor(game, npc); return; }
+  if (npc.home || npc.visit) { talkHome(game, npc); return; }
+  if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
+  const lines = npc.def.lines;
+  game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
+}
+
 // Nút tương tác theo ngữ cảnh: nói chuyện / độ kiếp (khi đầy tầng 9) / đả tọa / ngắm cảnh / câu cá / vuốt ve linh thú
 export function updateInteract(game) {
   const cfg = game.data.config, p = game.player;
@@ -55,20 +73,7 @@ export function updateInteract(game) {
   game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
-    if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
-    if (npc.id === BOUNTY_NPC) { talkBounty(game, npc); return; }
-    if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
-    if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
-    if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
-    if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
-    if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
-    if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
-    if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
-    if (npc.id === game.data.home.decor.npc) { talkDecor(game, npc); return; }
-    if (npc.home || npc.visit) { talkHome(game, npc); return; }
-    if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
-    const lines = npc.def.lines;
-    game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
+    talkTo(game, npc);
   } else if (trib) {
     game.trib.start();
   } else if (st && st[1] === 'dien') {
