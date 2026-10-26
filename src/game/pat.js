@@ -1,8 +1,10 @@
 // Vuốt ve linh thú (data/pets.json → pat): đứng gần linh thú bấm nút, tim bay lên, mấy lần đầu mỗi ngày cho kinh nghiệm.
+// Linh thú tha đồ về (pets.json → fetch): chủ đả tọa lâu thì thỉnh thoảng nó tha về một món nhỏ.
 import { dist, addFx } from './combat.js';
 import { gainPetExp } from './pets.js';
+import { grant } from './daily.js';
 
-const C = game => game.data.pets.pat;
+const C = game => game.data.pets.pat, F = game => game.data.pets.fetch;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const today = () => new Date().toDateString();
 
@@ -16,4 +18,18 @@ export function patPet(game) {
   game.sfx('pickup');
   if (fresh) { s.pat.n++; gainPetExp(game, c.exp, pet.id); game.persist(); }
   game.toast((fresh ? pick(c.lines) : c.tired).replace('{name}', pet.def.name), 2);
+}
+
+export function updatePetFetch(game, dt) {
+  const pet = game.pet, c = F(game), s = game.save;
+  if (!pet || !game.player.meditating || game.dungeon) { game.fetchT = c.every; return; }
+  if ((game.fetchT = (game.fetchT ?? c.every) - dt) > 0) return;
+  game.fetchT = c.every;
+  if (s.fetch?.day !== today()) s.fetch = { day: today(), n: 0 };
+  if (s.fetch.n >= c.per_day || Math.random() > c.chance) return;
+  s.fetch.n++;
+  const f = pick(c.finds), got = grant(game, f.give);
+  for (let i = 0; i < 2; i++) addFx(game, { type: 'heart', x: pet.x + (i - 0.5) * 6, y: pet.y - i * 3, color: '#ff8ab8', life: 1.2 });
+  game.sfx('pickup');
+  game.toast(`${f.text.replace('{name}', pet.def.name)} (${got.join(', ')})`, 4.5);
 }
