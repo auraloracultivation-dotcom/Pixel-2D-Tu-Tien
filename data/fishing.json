@@ -1,5 +1,5 @@
 {
- "_note": "Câu cá ở mép đảo (cạnh biển mây), ngoài trời. wait: số giây chờ cá cắn (ngẫu nhiên trong khoảng), window: số giây để kéo cần. fish: cá là nguyên liệu trong cave.json, w là độ dễ gặp, realm cảnh giới cần, maps chỉ có ở những đảo đó (không ghi là đảo nào cũng có).",
+ "_note": "Câu cá ở mép đảo (cạnh biển mây), ngoài trời. wait: số giây chờ cá cắn (ngẫu nhiên trong khoảng), window: số giây để kéo cần. fish: cá là nguyên liệu trong cave.json, w là độ dễ gặp, realm cảnh giới cần, maps chỉ có ở những đảo đó (không ghi là đảo nào cũng có), night chỉ cắn câu ban đêm.",
  "wait": [3, 8],
  "window": 1.3,
  "fish": {
@@ -9,6 +9,7 @@
   "bang-ngu": {"w": 14, "maps": ["dao-han-bang"]},
   "kim-tu-ngu": {"w": 14, "maps": ["dao-thien-kim"]},
   "nham-ngu": {"w": 14, "maps": ["dao-hau-tho"]},
-  "kim-ly": {"w": 5}
+  "kim-ly": {"w": 5},
+  "nguyet-ngu": {"w": 10, "night": true}
  }
 }
