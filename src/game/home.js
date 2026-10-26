@@ -7,6 +7,7 @@ import { bump } from './achieve.js';
 import { setCompanion } from './companion.js';
 import { comfort, hasDecor } from './decor.js';
 import { addFx } from './combat.js';
+import { addEntry } from './journal.js';
 
 const C = game => game.data.home;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -83,7 +84,9 @@ function zither(game, n, dt) {
   game.sfx('pluck');
   for (let i = 0; i < 3; i++) addFx(game, { type: 'note', x: n.x + (i - 1) * 6, y: n.y - i * 2, color: z.color, life: 1.6 + i * 0.4 });
   if (s.zither === day) return;
-  s.zither = day; game.persist();
+  s.zither = day;
+  if (!s.zitherOnce) { s.zitherOnce = true; addEntry(game, game.data.journal.zither.replace('{name}', n.def.name)); }
+  game.persist();
   game.say(n.def.name, pick(z.lines[n.id] || z.lines.default), 4);
 }
 
