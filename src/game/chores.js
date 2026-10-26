@@ -80,7 +80,7 @@ function wants(game) {
   return out;
 }
 
-const goPortal = (game, routeTo, dest) => { const pt = routeTo(game, dest); return pt ? { go: game.map.center(pt.at[0], pt.at[1]) } : null; };
+const goPortal = (game, routeTo, dest) => { const pt = routeTo(game, dest); return pt ? { go: game.map.center(pt.at[0], pt.at[1]), to: dest } : null; };
 
 // Tới lò đan thì luyện một mẻ (tự hành gọi)
 export function doBrew(game, id) {
