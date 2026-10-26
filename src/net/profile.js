@@ -1,5 +1,5 @@
 // Lưu nhân vật lên máy chủ qua hai hàm p2d_tai / p2d_luu (supabase/migrations). Chỉ dùng khi
-// data/config.json bật "server_save"; mặc định tắt, game vẫn lưu trong máy cho tới khi chủ dự án duyệt.
+// data/config.json bật "server_save"; mất mạng thì game vẫn chơi với bản lưu trong máy.
 import { supabase } from './client.js';
 
 const WAIT_MS = 4000; // gom nhiều lần lưu liên tiếp thành một lần gửi
