@@ -1,6 +1,8 @@
-// Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương) và tab Tông môn (chức vị, cống hiến, đổi thưởng).
+// Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương), tab Tông môn (chức vị, cống hiến, đổi thưởng),
+// tab Sự kiện và tab Tự hành (bật tắt việc tự hành làm).
 import { ensureDaily, taskDef, taskText, claimTask, claimChest, bountyLeft, rankOf, rankIdx, buy } from '../game/daily.js';
 import { renderEvents } from './event-tab.js';
+import { renderPilotOpts } from './pilot-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -61,6 +63,7 @@ export function createDailyPanel(game) {
     $('daily-msg').textContent = msg;
     if (tab === 'ngay') renderDay(list);
     else if (tab === 'su-kien') renderEvents(game, list, { card, mini, rewardText, say: t => { msg = t; } });
+    else if (tab === 'tu-hanh') renderPilotOpts(game, list, { card, mini });
     else renderSect(list);
   }
 
