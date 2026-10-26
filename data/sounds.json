@@ -49,6 +49,7 @@
    "dao-moc": {"root": 246.94, "bpm": 57, "lead": "sao", "amb": ["chim", "gio"], "mood": "sang"},
    "lang-tinh-linh": {"root": 329.63, "bpm": 52, "lead": "sao", "amb": ["chim", "nuoc"], "mood": "sang"},
    "co-thu-tam": {"root": 174.61, "bpm": 88, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "re-mau-thu": {"root": 164.81, "bpm": 84, "lead": "tranh", "amb": ["nuoc"], "mood": "toi"},
    "dong-phu": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["nuoc"], "mood": "sang"},
    "luan-vo-dai": {"root": 220.0, "bpm": 78, "lead": "tranh", "amb": ["gio"], "mood": "toi"}
   }

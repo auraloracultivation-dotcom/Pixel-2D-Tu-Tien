@@ -31,9 +31,9 @@ export function autoStep(game, ax) {
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };
 
 // Đánh một con: áp sát tới tầm vũ khí, đánh thường, bấm chiêu đã hồi
+export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6) + tgt.r; };
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
-  const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], bd = dist(tgt, p);
-  const reach = w.range * (w.attack === 'shot' ? 0.7 : 0.6) + tgt.r;
+  const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt);
   const slots = skillSlots(game);
   if (bd < reach + 30) for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
   return bd > reach ? { ax: toward(p, tgt.x, tgt.y), atk: false } : { ax, atk: true };
