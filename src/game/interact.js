@@ -5,6 +5,8 @@ import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvest, nextRipe } from './cave.js';
 import { talkBeast } from './pets.js';
 import { talkTower } from './tower.js';
+import { talkShop } from './shop.js';
+import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
 import { hasSide, talkSide, sideCollect } from './side.js';
 
@@ -45,6 +47,8 @@ export function updateInteract(game) {
     if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
     if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
     if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
+    if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
+    if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
     if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
     if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
     const lines = npc.def.lines;

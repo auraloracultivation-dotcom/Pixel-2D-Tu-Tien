@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json'), comps = read('companions.json'), side = read('side.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json'), comps = read('companions.json'), side = read('side.json'), shop = read('shop.json'), rr = read('resrun.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -94,6 +94,10 @@ try {
     need(q.kind === 'kill' ? mobs[q.mob] : maps[q.map] && items.quest_items[q.item] && q.at.length >= q.n, `side/${id}: quái, bản đồ hoặc vật không có`);
     for (const [x, y] of q.at || []) need(!tiles.types[maps[q.map].grid[y][x]]?.solid, `side/${id}: ô ${x},${y} bị chắn`);
   }
+  need(npcs[shop.npc] && npcs[rr.npc] && maps[rr.map]?.res, 'shop/resrun: NPC hoặc bản đồ không có');
+  for (const r of items.rarities) need(shop.sell[r.id] != null, `shop.sell: thiếu giá phẩm "${r.id}"`);
+  for (const x of shop.items) need(x.kind === 'gem' || (x.kind === 'pill' ? cave.pills[x.ref] : matOk(x.ref)), `shop: món "${x.ref}" không có`);
+  for (const [id, k] of Object.entries(rr.kinds)) { need(mobs[k.mob], `resrun/${id}: quái không có`); for (const m of k.mats || []) need(matOk(m), `resrun/${id}: nguyên liệu "${m}" không có`); }
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');
   for (const t of tower.tiers) { need(mobs[t.boss], `tower: boss "${t.boss}" không có`); for (const m of t.pool) need(mobs[m], `tower: quái "${m}" không có`); }
   for (const r of tower.reward.boss_items) need(items.rarities.some(x => x.id === r), `tower: độ hiếm "${r}" không có`);

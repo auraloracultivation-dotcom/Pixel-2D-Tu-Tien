@@ -4,6 +4,7 @@ import {
   gemInfo, rarityOf, itemName, statText, gearStats,
 } from '../game/items.js';
 import { salvageIron, matInfo } from '../game/cave.js';
+import { coins, sell, sellPrice } from '../game/shop.js';
 import { dailyEvent } from '../game/daily.js';
 import { enhance, enhanceCost, setStats } from '../game/enhance.js';
 import { costText } from '../game/cave.js';
@@ -50,7 +51,7 @@ export function createBag(game) {
     $('bag-stats').textContent = Object.keys(g).length
       ? 'Tổng từ đồ: ' + Object.entries(g).map(([s, v]) => statText(data, s, v)).join(' · ')
       : 'Chưa mặc đồ.';
-    $('bag-mats').textContent = Object.entries(save().mats).filter(([, n]) => n > 0).map(([k, n]) => `${matInfo(data, k)?.name || k} ${n}`).join(' · ') || 'Chưa có nguyên liệu';
+    $('bag-mats').textContent = `${data.shop.name} ${coins(save())} · ` + Object.entries(save().mats).filter(([, n]) => n > 0).map(([k, n]) => `${matInfo(data, k)?.name || k} ${n}`).join(' · ') || 'Chưa có nguyên liệu';
   }
 
   function renderList() {
@@ -124,6 +125,7 @@ export function createBag(game) {
     btn(`Tẩy luyện (${cost} thạch)`, () => { if (reroll(data, save(), it.uid)) { game.sfx('heal'); changed(); } }, stones < cost);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
     btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
+    btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, isEq(it.uid));
     box.append(acts);
     if (st.msg) { box.append(el('div', 'd-main', st.msg)); st.msg = ''; }
   }

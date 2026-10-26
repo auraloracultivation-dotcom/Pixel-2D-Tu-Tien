@@ -13,7 +13,7 @@ export function createWorldMap(game) {
 
   // Đang ở bí cảnh, đang độ kiếp hay truyện đang chạy thì không bay
   const blocked = () => (game.map.def.rooms || []).length ? 'Đang ở bí cảnh, ra cổng trước đã.'
-    : game.map.def.tower ? 'Đang trong tháp, ra cổng trước đã.'
+    : game.map.def.tower || game.map.def.res ? 'Đang trong tháp hoặc bí cảnh, ra cổng trước đã.'
     : game.trib.active ? 'Đang độ kiếp!' : game.story.busy ? 'Đang có chuyện, đợi xong đã.' : null;
 
   function render() {
