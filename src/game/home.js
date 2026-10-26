@@ -16,6 +16,24 @@ export function spawnHome(game) {
   game.npcs[game.npcs.length - 1].home = true;
 }
 
+// Đạo lữ đang ngồi cùng song tu: người chơi đả tọa gần đạo lữ ở nhà
+export function songTuNpc(game) {
+  const p = game.player;
+  if (!p.meditating) return null;
+  return game.npcs.find(n => n.home && Math.hypot(n.x - p.x, n.y - p.y) < C(game).song_tu.range) || null;
+}
+export const homeMul = game => songTuNpc(game) ? C(game).song_tu.mul : 1;
+
+// Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
+export function updateHome(game, dt) {
+  const n = songTuNpc(game), was = game.songTu, st = C(game).song_tu;
+  game.songTu = n;
+  if (n && was === n && game.songTuSay > 0 && (game.songTuSay -= dt) <= 0) game.say(n.def.name, pick(st.lines[n.id] || st.lines.default), 3.2);
+  if (!n || was) return;
+  game.toast(st.start.replace('{name}', n.def.name), 2.6);
+  game.songTuSay = 2.8;
+}
+
 const lineOf = (game, id) => {
   const L = C(game).lines, ph = phase(game).id;
   return pick(L[id]?.[ph] || L.default[ph] || L.default.ngay);
