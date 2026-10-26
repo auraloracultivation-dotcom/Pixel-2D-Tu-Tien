@@ -1,4 +1,5 @@
 // Chạy kịch bản data/story.json: mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
+import { rollRoot, rootOf } from './stats.js';
 export function createStory(game) {
   const steps = game.data.story.steps;
   const st = { busy: false, counters: {}, events: {} };
@@ -27,7 +28,7 @@ export function createStory(game) {
       const els = g.data.elements;
       const id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:',
         Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color })));
-      g.save.element = id; g.checkUnlocks(); g.persist();
+      g.save.element = id; g.save.root = rollRoot(g.data); g.refreshStats(); g.checkUnlocks(); g.persist();
     }
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
@@ -53,7 +54,7 @@ export function createStory(game) {
 
   function fill(text) {
     const el = game.save.element ? game.data.elements[game.save.element].name : '';
-    return text.replace('{element}', el);
+    return text.replace('{element}', el).replace('{root}', rootOf(game.save, game.data).name);
   }
 
   function check(u) {

@@ -4,7 +4,7 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs } from './mobs.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
-import { addQi, realmLabel, totalLayer } from './stats.js';
+import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
@@ -174,6 +174,7 @@ export function createGame(data, screen, input, ui, audio) {
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
     ensureInv(game.save);
+    if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     game.story = createStory(game);
     game.trib = createTribulation(game);
     game.checkUnlocks = () => checkUnlocks(game);

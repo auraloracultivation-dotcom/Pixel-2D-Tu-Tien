@@ -14,7 +14,7 @@
    "do": [
     {"say": [["", "Bạn đặt tay lên đá linh căn. Một luồng ấm chảy vào lòng bàn tay..."]]},
     {"choose_element": true},
-    {"say": [["truong-thon", "Linh căn hệ {element}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]]},
+    {"say": [["truong-thon", "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]]},
     {"pickups": "linh-thao", "at": [[5, 8], [22, 12], [8, 16]]}
    ],
    "goal": "Hái linh thảo ({n}/3)",

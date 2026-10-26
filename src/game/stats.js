@@ -12,6 +12,19 @@ export function realmLabel(save, realms) {
   return `${realms.names[save.realm]} tầng ${save.layer}`;
 }
 
+// Phẩm linh căn (realms.roots), tung một lần lúc thức tỉnh
+export function rootOf(save, data) {
+  const list = data.realms.roots.list;
+  return list.find(r => r.id === save.root) || list[0];
+}
+
+export function rollRoot(data) {
+  const list = data.realms.roots.list, total = list.reduce((s, r) => s + r.weight, 0);
+  let x = Math.random() * total;
+  for (const r of list) { x -= r.weight; if (x <= 0) return r.id; }
+  return list[0].id;
+}
+
 // Loại vũ khí đang dùng: theo món mặc ở ô Vũ khí, chưa mặc thì theo cốt truyện (save.weapon)
 export function weaponId(save, data) {
   const it = save.bag?.find(i => i.uid === save.equip?.['vu-khi']);
@@ -32,7 +45,7 @@ export function playerStats(save, data) {
     cdr: v('cdr') / 100,
     def: v('def'),
     speedMul: 1 + v('speed') / 100,
-    qiMul: 1 + v('qi_gain') / 100,
+    qiMul: (1 + v('qi_gain') / 100) * rootOf(save, data).qi,
   };
 }
 
