@@ -14,7 +14,8 @@
   {"from": 26, "pool": ["hac-cuc-mam", "re-ma", "gai-ma-ve"], "boss": "hac-cuc-ma-chung"},
   {"from": 31, "pool": ["kim-giap-trung", "sa-ma", "kiem-hon", "kim-ma-ve"], "boss": "van-kiem-ma-tuong"},
   {"from": 36, "pool": ["tho-khoi", "nham-xa", "thach-doi", "tho-ma-ve"], "boss": "toai-son-ma-tuong"},
-  {"from": 41, "pool": ["hu-khong-ma", "u-minh-phap", "hu-anh", "u-minh-ve"], "boss": "hu-khong-nguc-chu"}
+  {"from": 41, "pool": ["hu-khong-ma", "u-minh-phap", "hu-anh", "u-minh-ve"], "boss": "hu-khong-nguc-chu"},
+  {"from": 46, "pool": ["hu-khong-ma", "u-minh-phap", "hu-anh", "u-minh-ve", "kim-ma-ve", "tho-ma-ve"], "boss": "ma-ton"}
  ],
  "boss_hp": 0.5,
  "reward": {"stones_per": 0.25, "qi_per": 60, "boss_items": ["linh", "linh", "huyen", "huyen", "dia", "dia"]}

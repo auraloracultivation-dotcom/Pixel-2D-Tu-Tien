@@ -31,7 +31,8 @@
   {"id": "giet-tho-khoi", "type": "kill", "mob": "tho-khoi", "n": 12, "need": "dao-tho", "text": "Hạ {n} thổ khôi", "reward": {"contrib": 50, "stones": 4}},
   {"id": "dia-cung", "type": "kill", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "text": "Hạ Toái Sơn Ma Tướng", "reward": {"contrib": 90, "gem": 1}},
   {"id": "giet-hu-khong", "type": "kill", "mob": "hu-khong-ma", "n": 12, "need": "vet-nut", "text": "Hạ {n} hư không ma", "reward": {"contrib": 55, "stones": 5}},
-  {"id": "hu-khong-lao", "type": "kill", "mob": "hu-khong-nguc-chu", "n": 1, "need": "cuu-lac-tuyet", "text": "Hạ Hư Không Ngục Chủ", "reward": {"contrib": 100, "gem": 1}}
+  {"id": "hu-khong-lao", "type": "kill", "mob": "hu-khong-nguc-chu", "n": 1, "need": "cuu-lac-tuyet", "text": "Hạ Hư Không Ngục Chủ", "reward": {"contrib": 100, "gem": 1}},
+  {"id": "vet-nut", "type": "kill", "mob": "ma-ton", "n": 1, "need": "het-game", "text": "Đánh lại Ma Tôn trong Lòng Vết Nứt", "reward": {"contrib": 150, "gem": 2}}
  ],
  "chest": {
   "contrib": 50,

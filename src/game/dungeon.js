@@ -27,6 +27,7 @@ export function createDungeon(game) {
         r.mobs.push(m);
       }
     }
+    if (r.intro) { game.toast(r.intro, 2.4); game.sfx('roar'); }
     if (r.boss) { game.toast(`${r.mobs[0].def.name} xuất hiện!${game.dunMode ? ` (${modeOf(game).name})` : ''}`); game.sfx('roar'); }
   }
 

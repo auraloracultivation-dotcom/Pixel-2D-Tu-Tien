@@ -21,6 +21,7 @@
   {"id": "tho-khoi", "text": "Hạ {n} thổ khôi ở Đảo Hậu Thổ", "mob": "tho-khoi", "n": 10, "need": "dao-tho", "reward": {"stones": 9, "qi": 4200, "gem": 0.8}},
   {"id": "toai-son-ma-tuong", "text": "Vào Địa Cung hạ Toái Sơn Ma Tướng", "mob": "toai-son-ma-tuong", "n": 1, "need": "het-chuong-5", "reward": {"stones": 18, "qi": 8400, "gem": 1, "item": "dia"}},
   {"id": "hu-khong-ma", "text": "Hạ {n} hư không ma ở Ngoại Vực", "mob": "hu-khong-ma", "n": 10, "need": "vet-nut", "reward": {"stones": 10, "qi": 7000, "gem": 0.9}},
-  {"id": "hu-khong-nguc-chu", "text": "Vào Hư Không Lao hạ Ngục Chủ", "mob": "hu-khong-nguc-chu", "n": 1, "need": "cuu-lac-tuyet", "reward": {"stones": 20, "qi": 14000, "gem": 1, "item": "dia"}}
+  {"id": "hu-khong-nguc-chu", "text": "Vào Hư Không Lao hạ Ngục Chủ", "mob": "hu-khong-nguc-chu", "n": 1, "need": "cuu-lac-tuyet", "reward": {"stones": 20, "qi": 14000, "gem": 1, "item": "dia"}},
+  {"id": "ma-ton", "text": "Vào Lòng Vết Nứt đánh lại Ma Tôn", "mob": "ma-ton", "n": 1, "need": "het-game", "reward": {"stones": 30, "qi": 30000, "gem": 2, "item": "thien"}}
  ]
 }

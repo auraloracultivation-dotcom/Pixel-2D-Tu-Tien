@@ -35,6 +35,7 @@
   "ba-tieu-phien": {"name": "Ba Tiêu Phiến", "slot": "vu-khi", "weapon": "quat", "main": {"atk": 3}, "pool": ["atk", "atk_pct", "cdr", "qi_gain", "crit", "hp_pct"]},
   "moc-cam": {"name": "Mộc Cầm", "slot": "vu-khi", "weapon": "dan", "main": {"atk": 3}, "pool": ["atk_pct", "cdr", "qi_gain", "crit", "hp", "def"]},
   "truc-cung": {"name": "Trúc Cung", "slot": "vu-khi", "weapon": "cung", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "cdr"]},
+  "thien-mach-kiem": {"name": "Thiên Mạch Kiếm", "slot": "vu-khi", "weapon": "kiem", "main": {"atk": 7}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "qi_gain"]},
   "bo-hai": {"name": "Bố Hài", "slot": "giay", "main": {"speed": 3}, "pool": ["speed", "hp", "def", "cdr", "qi_gain"]},
   "van-van-ngoa": {"name": "Vân Văn Ngoa", "slot": "giay", "main": {"speed": 4}, "pool": ["speed", "crit", "atk", "hp_pct", "cdr"]},
   "thiet-gioi": {"name": "Thiết Giới", "slot": "nhan", "main": {"crit": 2}, "pool": ["crit", "crit_dmg", "atk", "atk_pct", "def"]},
@@ -132,7 +133,12 @@
   "hu-anh": {"item": 0.14, "gem": 0.1, "stone": 0.28},
   "u-minh-ve": {"item": 0.28, "gem": 0.17, "stone": 0.48},
   "hu-khong-nguc-chu": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 20, "min_rarity": "dia", "set": ["thai-hu", 0.7]},
-  "hu-khong-cu-thu": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 16, "min_rarity": "dia"}
+  "hu-khong-cu-thu": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 16, "min_rarity": "dia"},
+  "tan-hon-huyet-nha": {"item": 1, "gem": 1, "stone": 1, "stones": 6, "min_rarity": "huyen"},
+  "tan-hon-han-hon": {"item": 1, "gem": 1, "stone": 1, "stones": 6, "min_rarity": "huyen"},
+  "tan-hon-hac-phong": {"item": 1, "gem": 1, "stone": 1, "stones": 6, "min_rarity": "huyen"},
+  "tan-hon-thuc-moc": {"item": 1, "gem": 1, "stone": 1, "stones": 6, "min_rarity": "huyen"},
+  "ma-ton": {"item": 1, "items": 4, "gem": 3, "stone": 1, "stones": 30, "min_rarity": "dia", "set": ["thai-hu", 0.8]}
  },
  "starter": ["thiet-kiem", "bo-y"],
  "quest_items": {
