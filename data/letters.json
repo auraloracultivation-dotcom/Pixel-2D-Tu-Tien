@@ -1,0 +1,18 @@
+{
+ "_note": "Thư đạo lữ: vào lại game sau khi vắng ít nhất min_minutes phút, đạo lữ để lại một lá thư ngắn (chọn ngẫu nhiên). {time} là khoảng thời gian vắng. Chưa có đạo lữ thì không có thư.",
+ "min_minutes": 30,
+ "lines": {
+  "lac-tuyet": [
+   "Đệ đi {time}. Ta luyện kiếm ở vách đá phía tây, chém rụng ba trăm chiếc lá. Lần sau đệ về sớm hơn, ta dạy đệ chiêu mới.",
+   "Ta đã tưới dược viên, lau lại bồ đoàn cho đệ. Trà để trên bàn, nguội rồi thì hâm lại.",
+   "Đêm qua trăng sáng lắm. Ta ngồi đả tọa một mình, nghĩ nếu có đệ ngồi cạnh chắc linh khí cũng ấm hơn.",
+   "{time} không gặp. Ta không nhớ đệ đâu. ...Chỉ là kiếm hôm nay hơi nặng tay."
+  ],
+  "ho-linh": [
+   "Ngươi đi đâu mà {time} mới về hả! Ta ngồi đếm mây chán chê luôn. Phạt ngươi ở lại chơi với ta lâu lâu.",
+   "Ta lén hái một bông hoa ở dược viên cài lên tóc. Đẹp không? Ngươi phải khen nha!",
+   "Hồi nãy có con chim nhỏ đậu lên vai ta, ta đặt tên nó theo tên ngươi đó. Hì.",
+   "Ta nấu canh linh thảo rồi, hơi mặn. Ngươi về ăn thử, chê là ta giận đó!"
+  ]
+ }
+}
