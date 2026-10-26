@@ -135,7 +135,12 @@ export function pilotStep(game, ax, dt) {
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
   if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
-  if (game.trib.canStart()) { game.input.pressed.add('act'); return none; }
+  if (game.trib.canStart()) {   // độ kiếp thẳng, không bấm nút (đứng cạnh NPC thì nút thành Nói chuyện)
+    const pl = game.pilot;
+    if (pl.trib > 0 && !game.dialog.open) pl.trib -= dt;   // chờ lời dẫn độ kiếp xong; lỡ bị hội thoại khác chen thì thử lại
+    if (!(pl.trib > 0) && !game.dialog.open) { pl.trib = 3; game.trib.start(); }
+    return none;
+  }
   const job = game.pilot.job = plan(game);
   if (!job) return none;
   if (job.fight) { p.meditating = false; return engage(game, job.fight, dt); }
