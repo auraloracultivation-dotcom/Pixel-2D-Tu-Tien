@@ -1,6 +1,6 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
 const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests', 'techniques', 'cave', 'pets', 'daily', 'gear', 'tower', 'companions', 'side', 'shop', 'resrun', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'arena', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'scenic', 'home', 'weather', 'journal'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests', 'techniques', 'cave', 'pets', 'daily', 'gear', 'tower', 'companions', 'side', 'shop', 'resrun', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'arena', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'scenic', 'home', 'weather', 'journal', 'chatter'];
 
 async function getJson(path) {
   const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });

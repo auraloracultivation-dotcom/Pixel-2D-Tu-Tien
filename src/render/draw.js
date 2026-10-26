@@ -13,6 +13,7 @@ import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
+import { drawBubbles } from './draw-bubble.js';
 
 const INK = '#1b1830';
 
@@ -252,6 +253,7 @@ export function drawWorld(game, screen, t) {
     ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y);
   }
   ctx.globalAlpha = 1;
+  drawBubbles(ctx, game);
   if (game.peek) {   // tên chỉ hiện khi chạm vào
     const e = game.peek.e, name = e.def.name;
     ctx.font = 'bold 7px system-ui'; ctx.textAlign = 'center';
