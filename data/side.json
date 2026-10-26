@@ -10,6 +10,16 @@
    "offer": ["Cánh hắc điệp tán ra làm thuốc giải ma khí. Dân trên đảo hít gió đen lâu ngày, ho ra máu cả rồi.", "Hạ giúp ta tám con ở phía nam đảo. Ta sẽ luyện thuốc cho họ."],
    "goal": "Hạ hắc điệp lấy cánh ({n}/8)",
    "done": ["Đủ rồi. Ta chia thuốc cho dân, còn lại đây là phần của cậu.", "Đừng nói với Lạc Tuyết là ma tộc biết luyện đan. Nàng sẽ không tin đâu."],
-   "reward": {"pills": {"hoi-xuan-dan": 4, "boi-nguyen-dan": 1}, "contrib": 40}}
+   "reward": {"pills": {"hoi-xuan-dan": 4, "boi-nguyen-dan": 1}, "contrib": 40}},
+  "suong-mai": {"npc": "linh-nhi", "need": "mo-lang", "name": "Sương mai cho cây mẹ", "kind": "collect", "item": "suong-mai", "map": "dao-moc", "at": [[9, 5], [37, 17], [21, 23]], "n": 3,
+   "offer": ["Cây mẹ khát lắm. Rễ độc của ma tộc hút hết nước rồi.", "Trong Rừng Mê có ba chỗ đọng sương mai. Anh chị lấy giúp em được không?"],
+   "goal": "Lấy giọt sương mai trong Rừng Mê ({n}/3)",
+   "done": ["Cây mẹ uống rồi! Lá non mọc ra kìa!", "Em không có gì nhiều, cái này cây mẹ cho em, giờ em cho anh chị."],
+   "reward": {"stones": 8, "qi": 1600, "item": "huyen"}},
+  "doc-dang-chan-loi": {"npc": "truong-lao-moc", "need": "cuu-thanh-diep", "name": "Dọn độc đằng", "kind": "kill", "mob": "doc-dang", "n": 10,
+   "offer": ["Độc đằng là rễ ma tộc cắm xuống đất ta. Chúng mọc lan ra, cây con chết hết.", "Hạ giúp lão mười gốc. Lão sẽ dạy ngươi cách trồng lại rừng."],
+   "goal": "Hạ độc đằng ở Rừng Mê ({n}/10)",
+   "done": ["Đất thở lại được rồi. Tinh linh nợ ngươi.", "Nhận lấy, đây là hạt giống linh thảo quý của làng."],
+   "reward": {"mats": {"linh-thao": 20, "hoa-linh-chi": 6}, "gem": 1, "contrib": 50}}
  }
 }

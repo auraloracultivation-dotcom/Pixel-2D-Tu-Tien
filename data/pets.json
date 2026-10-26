@@ -21,6 +21,7 @@
   "viem-linh": {"name": "Viêm Linh Nhi", "evo": "Viêm Hoàng Tiên Tử", "color": "#ffb03a", "desc": "Bắn cầu lửa nổ. Cứ 12 giây tăng 15% công cho chủ 5 giây.", "mult": 0.5, "cd": 1.4, "range": 90, "skill": {"type": "buff", "amount": 0.15, "dur": 5, "cd": 12}},
   "ma-cung": {"name": "Ma Tiễn Đồng", "evo": "U Minh Tiễn Thần", "color": "#b04a9a", "desc": "Bắn tên xuyên. Cứ 9 giây bắn ba mũi một lúc.", "mult": 0.5, "cd": 1.2, "range": 100, "skill": {"type": "volley", "n": 3, "dmg": 1, "cd": 9}},
   "tuyet-lang": {"name": "Tiểu Tuyết Lang", "evo": "Băng Nguyên Lang Vương", "color": "#dfe8f2", "desc": "Lao vào cắn. Cứ 8 giây hú làm chậm quái quanh mình.", "mult": 0.7, "cd": 0.95, "range": 75, "melee": true, "skill": {"type": "slow", "radius": 38, "dur": 3, "cd": 8}, "mount": ["tuyet-ly", 0.3]},
+  "moc-yeu": {"name": "Tiểu Thụ Yêu", "evo": "Cổ Mộc Thần Thụ", "color": "#7ab05a", "desc": "Lao vào quật cành. Cứ 10 giây hồi 6% máu cho chủ.", "mult": 0.7, "cd": 1.1, "range": 75, "melee": true, "skill": {"type": "heal", "amount": 0.06, "cd": 10}},
   "phong-yeu": {"name": "Tiểu Phong Yêu", "evo": "Cuồng Phong Yêu Hoàng", "color": "#a8b8d0", "desc": "Lao vào cào nhanh. Cứ 9 giây cuốn gió quanh mình gây sát thương.", "mult": 0.75, "cd": 0.8, "range": 80, "melee": true, "skill": {"type": "aoe", "radius": 34, "dmg": 1.8, "cd": 9}},
   "bang-tinh": {"name": "Băng Tinh Nhi", "evo": "Hàn Băng Tinh Hậu", "color": "#9ad8ff", "desc": "Bắn băng. Cứ 10 giây hồi 8% máu cho chủ.", "mult": 0.55, "cd": 1.2, "range": 90, "skill": {"type": "heal", "amount": 0.08, "cd": 10}}
  },
@@ -35,5 +36,6 @@
  },
  "starter_pet": "moc-linh",
  "starter_mount": "bach-loc",
+ "fly_realm": 3,
  "ride_calm": 2.5
 }

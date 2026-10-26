@@ -1,0 +1,27 @@
+{
+ "id": "co-thu-tam",
+ "name": "Cổ Thụ Tâm",
+ "sky": "#14200f",
+ "dark": 0.32,
+ "ground": "#3a2a1e",
+ "grid": [
+  "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "XrrrrrrrnrrXXXrrrrrrrrrrrrrrXXXnrrrrrrrrrrrrrrrrX",
+  "XrrrrrrrrrrXXXrrnrXrrrrrXrrrXXXrrrrrrrrnrrrrrrrrX",
+  "XnrrrrrrrrrXXXrrrrrrrrrrnrrrXXXrrrrXrrrrrrrXrrrnX",
+  "XrrrrrrrrnrXXXrrrrrrrrrrrrrrXXXrnrrrrrrrrrrrrrrrX",
+  "XrrrrrrrrrrrDrrrrnrrrrrrrrrrrDrrrrrrrrrrnrrrrrrrX",
+  "XrPrrrrrrrrrDrrrrrrrrXrrrnrrrDrrrrrrrrrrrrrrrrrrX",
+  "XrrrrrrrrrnrDrrrrrrrrrrrrrrrrDrrrnrrrrrrrrrrrrrrX",
+  "XrrrrrrrrrrXXXrrrrnrrrrrrrrrXXXrrrrrrrrrrnrrrrrrX",
+  "XrrnrrrrrrrXXXrrrrXrrrrrXrnrXXXrrrrXrrrrrrrXrrrrX",
+  "XrrrrrrrrrrXXXrrrrrrrrrrrrrrXXXrrrnrrrrrrrrrrrrrX",
+  "XrrrrrrrrrrXXXrrrrrnrrrrrrrrXXXrrrrrrrrrrrnrrrrrX",
+  "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "lang-tinh-linh", "spawn": "tu-co-thu", "label": "Về Làng Tinh Linh"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "moc-yeu", "n": 4}, {"mob": "doc-dang", "n": 2}]}, {"rect": [14, 1, 14, 11], "door_x": 29, "mobs": [{"mob": "thu-moc-ve", "n": 2}, {"mob": "doc-dang", "n": 2}, {"mob": "ma-tham-tu", "n": 1}]}, {"rect": [31, 1, 17, 11], "mobs": [{"mob": "thuc-moc-ma-hau", "n": 1}], "boss": true}]
+}

@@ -20,7 +20,9 @@
   {"id": "giet-tuyet-lang", "type": "kill", "mob": "tuyet-lang", "n": 12, "need": "han-bang", "text": "Hạ {n} tuyết lang", "reward": {"contrib": 30, "stones": 2}},
   {"id": "bang-quat", "type": "kill", "mob": "han-hon-ma-tuong", "n": 1, "need": "gap-tieu-hoa", "text": "Hạ Hàn Hồn Ma Tướng", "reward": {"contrib": 50, "gem": 1}},
   {"id": "giet-phong-yeu", "type": "kill", "mob": "phong-yeu", "n": 12, "need": "hac-phong", "text": "Hạ {n} phong yêu", "reward": {"contrib": 35, "stones": 3}},
-  {"id": "hac-phong-dong", "type": "kill", "mob": "hac-phong-ma-quan", "n": 1, "need": "cuu-tieu-hoa", "text": "Hạ Hắc Phong Ma Quân", "reward": {"contrib": 60, "gem": 1}}
+  {"id": "hac-phong-dong", "type": "kill", "mob": "hac-phong-ma-quan", "n": 1, "need": "cuu-tieu-hoa", "text": "Hạ Hắc Phong Ma Quân", "reward": {"contrib": 60, "gem": 1}},
+  {"id": "giet-moc-yeu", "type": "kill", "mob": "moc-yeu", "n": 12, "need": "dao-moc", "text": "Hạ {n} mộc yêu", "reward": {"contrib": 40, "stones": 3}},
+  {"id": "co-thu-tam", "type": "kill", "mob": "thuc-moc-ma-hau", "n": 1, "need": "cuu-thanh-diep", "text": "Hạ Thực Mộc Ma Hậu", "reward": {"contrib": 70, "gem": 1}}
  ],
  "chest": {
   "contrib": 50,

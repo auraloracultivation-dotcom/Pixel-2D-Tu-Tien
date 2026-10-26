@@ -9,7 +9,8 @@
   {"from": 1, "pool": ["ma-tieu", "ma-cung", "moc-linh"], "boss": "huyet-nha"},
   {"from": 6, "pool": ["hoa-lang", "ma-phap", "ma-binh"], "boss": "huyet-nha-that"},
   {"from": 11, "pool": ["tuyet-lang", "ma-bang-tien", "han-ma-ve"], "boss": "han-hon-ma-tuong"},
-  {"from": 16, "pool": ["phong-yeu", "hac-diep", "ma-phong-ve"], "boss": "hac-phong-ma-quan"}
+  {"from": 16, "pool": ["phong-yeu", "hac-diep", "ma-phong-ve"], "boss": "hac-phong-ma-quan"},
+  {"from": 21, "pool": ["moc-yeu", "doc-dang", "ma-tham-tu", "thu-moc-ve"], "boss": "thuc-moc-ma-hau"}
  ],
  "boss_hp": 0.5,
  "reward": {"stones_per": 0.25, "qi_per": 60, "boss_items": ["linh", "linh", "huyen", "huyen", "dia"]}

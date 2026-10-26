@@ -14,7 +14,10 @@
   "bi-canh-tai-nguyen",
   "thap-thu-thach",
   "hac-phong-dao",
-  "hac-phong-dong"
+  "hac-phong-dong",
+  "dao-moc",
+  "lang-tinh-linh",
+  "co-thu-tam"
  ],
  "server_save": false,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},

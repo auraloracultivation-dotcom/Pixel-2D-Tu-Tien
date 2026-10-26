@@ -15,7 +15,8 @@
   "thai-thuong-vong-tinh": {"name": "Thái Thượng Vong Tình", "desc": "Quên hết tạp niệm, tốc tu cực nhanh.", "color": "#e6ebf7", "per_level": {"qi_gain": 4}},
   "huyen-bang-quyet": {"name": "Huyền Băng Quyết", "desc": "Thân như băng nghìn năm: giảm đòn, tăng máu.", "color": "#9ad8ff", "per_level": {"def": 1.5, "hp_pct": 2}},
   "han-phong-bo": {"name": "Hàn Phong Bộ", "desc": "Bước chân gió lạnh: chạy nhanh, bạo kích.", "color": "#dfe8f2", "per_level": {"speed": 1.2, "crit": 0.8}},
-  "hac-phong-quyet": {"name": "Hắc Phong Quyết", "desc": "Mượn gió đen của ma tộc: hồi chiêu nhanh, tăng công.", "color": "#8a7ab0", "per_level": {"cdr": 1, "atk_pct": 1.2}}
+  "hac-phong-quyet": {"name": "Hắc Phong Quyết", "desc": "Mượn gió đen của ma tộc: hồi chiêu nhanh, tăng công.", "color": "#8a7ab0", "per_level": {"cdr": 1, "atk_pct": 1.2}},
+  "thanh-moc-truong-xuan": {"name": "Thanh Mộc Trường Xuân Công", "desc": "Công pháp của tinh linh cây: máu dồi dào, hồi máu đều, tu nhanh.", "color": "#5fd07a", "per_level": {"hp_pct": 2.5, "regen": 0.6, "qi_gain": 1.5}}
  },
  "drops": {
   "ma-binh": 0.02,
@@ -23,13 +24,15 @@
   "viem-linh": 0.01,
   "ma-cung": 0.005,
   "han-ma-ve": 0.03,
-  "ma-bang-tien": 0.015, "ma-phong-ve": 0.03, "hac-diep": 0.015
+  "ma-bang-tien": 0.015, "ma-phong-ve": 0.03, "hac-diep": 0.015,
+  "ma-tham-tu": 0.03, "thu-moc-ve": 0.03, "doc-dang": 0.015
  },
  "boss_drops": {
   "huyet-nha": ["truong-sinh-quyet", "kim-chung-trao", "phong-hanh-thuat"],
   "huyet-nha-that": ["huyet-ma-kinh", "loi-am-quyet", "ngu-hanh-quy-nguyen", "thai-thuong-vong-tinh"],
   "han-hon-ma-tuong": ["huyen-bang-quyet", "han-phong-bo", "truong-sinh-quyet"],
-  "hac-phong-ma-quan": ["hac-phong-quyet", "loi-am-quyet", "kim-chung-trao"]
+  "hac-phong-ma-quan": ["hac-phong-quyet", "loi-am-quyet", "kim-chung-trao"],
+  "thuc-moc-ma-hau": ["thanh-moc-truong-xuan", "huyet-ma-kinh", "truong-sinh-quyet"]
  },
  "starter": "kiem-tong-tam-phap"
 }

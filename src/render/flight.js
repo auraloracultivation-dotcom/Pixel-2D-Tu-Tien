@@ -1,6 +1,7 @@
 // Cảnh đi đường (vẽ theo toạ độ màn hình): ngự kiếm bay qua biển mây giữa các đảo,
 // hoặc xoáy truyền tống khi ra vào bí cảnh. Trạng thái nằm ở game.trip (src/game/travel.js).
 import { drawPerson } from './draw.js';
+import { drawMount } from './draw-pet.js';
 import { circle } from '../world/draw-map.js';
 
 const INK = '#1b1830';
@@ -135,6 +136,12 @@ function drawFlight(ctx, screen, game, trip) {
     const npc = game.data.npcs[trip.with];
     rider(ctx, 1, px + 8 * S, py, S * 1.15, t, npc.color, npc.hair || '#5a4a86', null, 30);
     rider(ctx, 0, px - 9 * S, py + 1.5 * S, S, t, '#e6ebf7', '#3a2e5c', el, 0); // đứng sau trưởng lão, chung một thanh kiếm
+  } else if (game.save.realm >= game.data.pets.fly_realm && game.save.mount) {
+    // Từ Nguyên Anh: cưỡi thú bay qua biển mây thay cho kiếm
+    ctx.save(); ctx.translate(px, py + 6 * S); ctx.scale(S, S);
+    drawMount(ctx, { x: 0, y: 0, face: { x: 1 }, moving: true, walkT: t }, game.data.pets.mounts[game.save.mount], t);
+    ctx.restore();
+    rider(ctx, 0, px, py, S, t, '#e6ebf7', '#3a2e5c', el, 0);
   } else rider(ctx, 0, px, py, S, t, '#e6ebf7', '#3a2e5c', el, 24);
 
   cloudLayer(ctx, w, h, t, 9, 2, 420, h * 0.55, h * 0.95, 50, 80, 'rgba(255,255,255,0.9)');
