@@ -2,6 +2,7 @@
 import { addFx, hitMob, dist, shoot } from './combat.js';
 import { castSkill, skillSlots } from './skills.js';
 import { playerStats, weaponId } from './stats.js';
+import { usePill } from './cave.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -112,12 +113,19 @@ export function updatePlayer(game, dt) {
     }
   }
 
+  // Nút Đan: uống đan hồi máu
+  p.pillCd = (p.pillCd || 0) - dt;
+  if (inp.consume('pill') && p.pillCd <= 0) {
+    const id = game.data.cave.pill_button, msg = usePill(game, id);
+    if (msg) { p.pillCd = game.data.cave.pills[id].cd; game.number(p.x, p.y - 20, msg, '#9af0a8'); game.sfx('heal'); }
+  }
+
   // Hồi máu chậm khi không bị đánh
   if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
   if (p.st.regen && p.hp < p.maxHp && p.hp > 0) p.hp = Math.min(p.maxHp, p.hp + p.st.regen * dt);
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5, p.x, p.y, true); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * (game.map.def.meditate_mul || 1), p.x, p.y, true); }
   }
 }

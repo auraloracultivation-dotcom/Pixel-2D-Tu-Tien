@@ -7,7 +7,8 @@
   "thien-kiem-phong",
   "bi-canh",
   "dao-xich-dien",
-  "hoa-quat"
+  "hoa-quat",
+  "dong-phu"
  ],
  "server_save": false,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},

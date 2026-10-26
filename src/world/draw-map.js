@@ -1,4 +1,6 @@
 // Vẽ bản đồ bằng hình khối đơn giản (bản tạm). Hình pixel thật thay vào ở bước 3.
+import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
+import { plotGrowth } from '../game/cave.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
   h = (h ^ (h >>> 13)) * 1274126177;
@@ -17,7 +19,7 @@ export function drawSky(ctx, screen, map, t) {
   const g = ctx.createLinearGradient(0, 0, 0, screen.h);
   g.addColorStop(0, shade(sky, 0.8)); g.addColorStop(1, shade(sky, 1.1));
   ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
-  if ((map.def.dark || 0) > 0.3) return;
+  if ((map.def.dark || 0) > 0.3 || map.def.indoor) return;
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
   for (let i = 0; i < 9; i++) {
     const y = (hash(i, 7) * 1.2 - 0.1) * screen.h;
@@ -103,6 +105,11 @@ export function drawMap(ctx, map, tiles, view, t, game) {
       ctx.fillStyle = '#5a4a44'; ctx.fillRect(px, py + 4, T, T - 4);
       ctx.fillStyle = '#2a1e1e'; ctx.fillRect(px + 2 + hash(tx, ty) * 6, py + 6, 5, 6);
       if (map.at(tx, ty - 1) !== 'B') { ctx.fillStyle = '#3a2a2a'; ctx.fillRect(px - 1, py + 1, T + 2, 4); ctx.fillRect(px + hash(tx, ty) * 8, py - 2, 6, 3); }
+    } else if (ch === 'K') drawFurnace(ctx, cx, cy, t);
+    else if (ch === 'A') drawAnvil(ctx, cx, cy, t);
+    else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty));
+    else if (ch === 'q' && hash(tx, ty) > 0.82) {
+      ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);
     } else if (ch === 'D' && map.locked.has(tx + ',' + ty)) {
       ctx.fillStyle = '#5a1a28'; ctx.fillRect(px, py, T, T);
       ctx.fillStyle = '#c0283a';

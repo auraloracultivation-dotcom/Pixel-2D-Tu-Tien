@@ -2,6 +2,7 @@
 import { dist } from './combat.js';
 import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
+import { harvest, nextRipe } from './cave.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -9,14 +10,20 @@ function nearestNpc(game, range) {
   return best;
 }
 
-function onMeditateSpot(game) {
-  const cfg = game.data.config;
-  const T = cfg.tile, p = game.player;
+// Đứng gần ô loại ch (bồ đoàn, lò đan, lò rèn, linh điền)?
+function nearTile(game, ch, range) {
+  const T = game.data.config.tile, p = game.player;
   const tx = Math.floor(p.x / T), ty = Math.floor(p.y / T);
   for (let y = ty - 1; y <= ty + 1; y++) for (let x = tx - 1; x <= tx + 1; x++) {
-    if (game.map.at(x, y) === 'M') { const c = game.map.center(x, y); if (Math.hypot(c.x - p.x, c.y - p.y) < cfg.meditate.range) return true; }
+    if (game.map.at(x, y) === ch) { const c = game.map.center(x, y); if (Math.hypot(c.x - p.x, c.y - p.y) < range) return true; }
   }
   return false;
+}
+
+const STATIONS = { K: ['Lò đan', 'dan'], A: ['Lò rèn', 'ren'], G: ['Linh điền', 'dien'] };
+function nearStation(game) {
+  for (const [ch, s] of Object.entries(STATIONS)) if (nearTile(game, ch, game.data.config.tile * 1.4)) return s;
+  return null;
 }
 
 // Nút tương tác theo ngữ cảnh: nói chuyện / độ kiếp (khi đầy tầng 9) / đả tọa
@@ -24,8 +31,9 @@ export function updateInteract(game) {
   const cfg = game.data.config, p = game.player;
   const npc = nearestNpc(game, cfg.interact_range);
   const trib = !npc && game.trib.canStart();
-  const med = !npc && !trib && onMeditateSpot(game);
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : null;
+  const st = !npc && !trib && nearStation(game);
+  const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
@@ -35,9 +43,15 @@ export function updateInteract(game) {
     game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
   } else if (trib) {
     game.trib.start();
+  } else if (st && st[1] === 'dien') {
+    const n = harvest(game);
+    if (n) { game.sfx('pickup'); game.toast(`Thu hoạch ${n} Linh Thảo`, 1.6); }
+    else game.toast(`Linh thảo chưa chín. Còn khoảng ${nextRipe(game)} phút.`, 1.8);
+  } else if (st) {
+    game.openCave?.(st[1]);
   } else if (med) {
     p.meditating = !p.meditating;
-    if (p.meditating) game.toast('Đả tọa... linh khí chảy vào người', 1.4);
+    if (p.meditating) game.toast(game.map.def.meditate_mul ? `Bồ đoàn động phủ: tu nhanh gấp ${game.map.def.meditate_mul}` : 'Đả tọa... linh khí chảy vào người', 1.4);
   }
 }
 
@@ -48,7 +62,7 @@ export function updatePortals(game, dt) {
     const c = game.map.center(pt.at[0], pt.at[1]);
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
-    game.travel(pt.to, pt.spawn, true, { text: pt.label });
+    game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
     return;
   }
 }

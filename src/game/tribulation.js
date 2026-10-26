@@ -14,7 +14,7 @@ export function createTribulation(game) {
   let run = null;
 
   function strike(x, y, k) {
-    addStrike(game, { x, y, r: cfg.r, delay: cfg.delay, dmg: game.player.maxHp * cfg.dmg_pct * k, kind: 'thunder', color: '#bff4ff' });
+    addStrike(game, { x, y, r: cfg.r, delay: cfg.delay, dmg: game.player.maxHp * cfg.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)), kind: 'thunder', color: '#bff4ff' });
   }
 
   return {
@@ -46,7 +46,7 @@ export function createTribulation(game) {
     finish() {
       run = null;
       const s = game.save;
-      s.realm += 1; s.layer = 1; s.qi = 0;
+      s.realm += 1; s.layer = 1; s.qi = 0; delete s.flags.thanhTam;
       game.capWarned = false;
       game.darkTarget = game.map.def.dark || 0;
       game.refreshStats(); game.player.hp = game.player.maxHp;

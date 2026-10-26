@@ -1,0 +1,27 @@
+{
+ "id": "dong-phu",
+ "name": "Động phủ",
+ "sky": "#1a1426",
+ "dark": 0.12,
+ "ground": "#6a5e7a",
+ "meditate_mul": 2, "indoor": true,
+ "grid": [
+  "####################",
+  "#qqqqqqqqqqqqqqqqqq#",
+  "#qqKqqqqqqqqqqqqAqq#",
+  "#qqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqq_qqqqqqqqq#",
+  "#qqqqqqq_M_qqqqqqqq#",
+  "#qqqqqqqq_qqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqq#",
+  "#qGGqGGqqqqqqqqRqqq#",
+  "#qGGqGGqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqPqqqqqqqq#",
+  "####################"
+ ],
+ "spawns": {"vao": [10, 10]},
+ "portals": [{"at": [10, 11], "to": "thien-kiem-phong", "spawn": "tu-dong-phu", "kind": "portal", "label": "Ra khỏi động phủ"}],
+ "npcs": [],
+ "spawners": []
+}
