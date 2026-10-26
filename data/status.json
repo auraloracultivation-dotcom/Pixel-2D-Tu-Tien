@@ -27,7 +27,8 @@
   "ngu-thu": {"name": "Ngự Thú Sư", "color": "#5fd07a"},
   "cong-phap": {"name": "Bác Học Công Pháp", "color": "#5ab8f0"},
   "ban-huu": {"name": "Bạn Hữu Bốn Phương", "color": "#ffb0c8"},
-  "luc-chien": {"name": "Uy Chấn Tứ Đảo", "color": "#ff6a3a"}
+  "luc-chien": {"name": "Uy Chấn Tứ Đảo", "color": "#ff6a3a"},
+  "ho-gioi": {"name": "Hộ Giới Chân Tiên", "color": "#e0c0ff"}
  },
  "achievements": [
   {"id": "nhap-mon", "name": "Bước vào tiên đồ", "need": {"type": "flag", "flag": "ngu-kiem"}, "text": "Học ngự kiếm", "give": {"stones": 1}, "title": "so-nhap"},
@@ -48,6 +49,7 @@
   {"id": "ngu-thu", "name": "Ngự thú", "need": {"type": "pets", "n": 4}, "text": "Có 4 linh thú", "give": {"stones": 3}, "title": "ngu-thu"},
   {"id": "cong-phap", "name": "Công pháp", "need": {"type": "techs", "n": 4}, "text": "Học 4 công pháp", "give": {"stones": 3}, "title": "cong-phap"},
   {"id": "ban-huu", "name": "Bạn hữu", "need": {"type": "comps", "n": 2}, "text": "Có 2 bạn đồng hành", "give": {"coins": 500}, "title": "ban-huu"},
-  {"id": "luc-chien", "name": "Uy chấn", "need": {"type": "power", "n": 5000}, "text": "Lực chiến đạt 5000", "give": {"gem": 2, "coins": 1000}, "title": "luc-chien"}
+  {"id": "luc-chien", "name": "Uy chấn", "need": {"type": "power", "n": 5000}, "text": "Lực chiến đạt 5000", "give": {"gem": 2, "coins": 1000}, "title": "luc-chien"},
+  {"id": "va-thien-mach", "name": "Vá Thiên Mạch", "need": {"type": "flag", "flag": "het-game"}, "text": "Hạ Ma Tôn, vá Thiên Mạch", "give": {"item": "thien", "gem": 3}, "title": "ho-gioi"}
  ]
 }

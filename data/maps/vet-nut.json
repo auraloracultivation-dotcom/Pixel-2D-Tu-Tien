@@ -1,0 +1,33 @@
+{
+ "id": "vet-nut",
+ "name": "Lòng Vết Nứt",
+ "sky": "#0a0412",
+ "dark": 0.42,
+ "ground": "#4a3a5a",
+ "grid": [
+  "#############################################################################",
+  "#ppppp*pppp###ppppppppppp###ppppppppppp###pppppppp*pp###pppp*pppppppppppppfp#",
+  "#pppppppppp###ppppppppppp###ppp*ppppppp###p*ppppppppp###ppppppppppppppppppfp#",
+  "#pppppppppp###ppppppppppp###ppppppppppp###ppppppppppp###ppppppppppppppppppfp#",
+  "#pppppppppp###ppppppppppp###ppppppppppp###ppppppppppp###ppppppppppppppppppfp#",
+  "#pppppppppppDpppppppppppppDpppppppppppppDpppppppppppppDppppppppppppppppppppp#",
+  "#pPpppppppppDpppppppppppppDpppppppppppppDpppppppppppppDppppppppppppppppppppp#",
+  "#pppppppppppDpppppppppppppDpppppppppppppDpppppppppppppDppppppppppppppppppppp#",
+  "#pppppppppp###ppppppppppp###ppppppppppp###ppppppppppp###ppppppppppppppppppfp#",
+  "#pppppppppp###ppppppppppp###ppppppppppp###ppppppppppp###ppppppppppppppppppfp#",
+  "#p*pppppppp###ppppppppp*p###ppppppppppp###ppppppppppp###ppppppppppppppppppfp#",
+  "#pppppppppp###ppppppp*ppp###ppppp*ppppp###ppppppppppp###pppppppppppppppp*pfp#",
+  "#############################################################################"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "vet-nut-ngoai", "spawn": "tu-vet-nut", "label": "Ra Ngoại Vực"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [
+  {"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "tan-hon-huyet-nha", "n": 1}, {"mob": "hu-khong-ma", "n": 2}], "intro": "Tàn hồn Huyết Nha gào lên trong hư không!"},
+  {"rect": [14, 1, 11, 11], "door_x": 26, "mobs": [{"mob": "tan-hon-han-hon", "n": 1}, {"mob": "u-minh-phap", "n": 2}], "intro": "Tàn hồn Hàn Hồn Ma Tướng đông cứng cả căn phòng!"},
+  {"rect": [28, 1, 11, 11], "door_x": 40, "mobs": [{"mob": "tan-hon-hac-phong", "n": 1}, {"mob": "hu-anh", "n": 2}], "intro": "Tàn hồn Hắc Phong Ma Quân cuốn gió đen tới!"},
+  {"rect": [42, 1, 11, 11], "door_x": 54, "mobs": [{"mob": "tan-hon-thuc-moc", "n": 1}, {"mob": "u-minh-ve", "n": 1}], "intro": "Tàn hồn Thực Mộc Ma Hậu mọc lên từ đá!"},
+  {"rect": [56, 1, 20, 11], "mobs": [{"mob": "ma-ton", "n": 1}], "boss": true}
+ ]
+}

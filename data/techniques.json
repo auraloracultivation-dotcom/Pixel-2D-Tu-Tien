@@ -41,7 +41,8 @@
   "thuc-moc-ma-hau": ["thanh-moc-truong-xuan", "huyet-ma-kinh", "truong-sinh-quyet"],
   "van-kiem-ma-tuong": ["canh-kim-kiem-quyet", "kim-chung-trao", "loi-am-quyet"],
   "toai-son-ma-tuong": ["hau-tho-quyet", "kim-chung-trao", "truong-sinh-quyet"],
-  "hu-khong-nguc-chu": ["thai-hu-quyet", "huyet-ma-kinh", "loi-am-quyet"]
+  "hu-khong-nguc-chu": ["thai-hu-quyet", "huyet-ma-kinh", "loi-am-quyet"],
+  "ma-ton": ["thai-hu-quyet", "huyet-ma-kinh", "ngu-hanh-quy-nguyen", "thai-thuong-vong-tinh"]
  },
  "starter": "kiem-tong-tam-phap"
 }

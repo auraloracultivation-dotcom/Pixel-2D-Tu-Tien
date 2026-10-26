@@ -692,6 +692,44 @@
     {"mats": {"khoa-linh-thach": 3, "yeu-vuong-dan": 1}}
    ],
    "goal": "Tu lên Độ Kiếp để vào Vết Nứt quyết chiến",
+   "until": {"realm": 8}
+  },
+  {
+   "id": "goi-chuong-6b", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Độ Kiếp. Sấm sét chín tầng trời đi qua người bạn mà không để lại vết. Bạn đứng vững, và nhìn thấy rõ vết rách trên Thiên Mạch."], ["van-hac", "Tới lúc rồi. Ngũ Hành trận đã dựng quanh Ngoại Vực. Trận giữ cho vết nứt không rộng thêm, nhưng không vá được."], ["van-hac", "Muốn vá, phải có người vào tận lòng Vết Nứt, hạ Ma Tôn, rồi làm mắt trận từ bên trong."], ["tieu-hoa", "Tớ giữ góc Hỏa! Cậu cứ đánh, đừng lo phía sau!"], ["thanh-diep", "Góc Mộc có ta. Rễ cây mẹ đã cắm tới tận đây rồi."], ["thiet-lan", "Góc Kim. Kiếm ta cắm xuống, trời sập cũng không rút."], ["thach-sinh", "...Thổ. Ta giữ."], ["lac-tuyet", "Còn góc Thủy... ta đi theo đệ vào trong. Trận vẫn nối được qua ta."], ["mac-anh", "Bên trong, Ma Tôn sẽ gọi tàn hồn của những kẻ ngươi từng hạ. Đừng sợ. Ngươi đã thắng chúng một lần rồi."], ["ho-linh", "Đi đi. Về sớm, ta còn chờ ngươi đả tọa cùng."]]},
+    {"flag": "vao-vet-nut"},
+    {"fly": "vet-nut", "spawn": "vao", "kind": "portal", "text": "Lao vào lòng Vết Nứt"}
+   ],
+   "goal": "Vào lòng Vết Nứt",
+   "until": {"map": "vet-nut"}
+  },
+  {
+   "id": "vet-nut", "map": "vet-nut",
+   "do": [
+    {"say": [["", "Bên trong Vết Nứt không có trên dưới. Chỉ có một hành lang đá trôi, và tiếng cười vọng lại từ tận cùng."], ["ma-ton", "Vào được tới đây. Giỏi. Để ta xem ngươi còn nhớ mặt những người quen cũ không."], ["lac-tuyet", "Sư đệ, tiến lên. Ta ở ngay sau lưng."]]}
+   ],
+   "goal": "Vượt qua tàn hồn tứ tướng, hạ Ma Tôn",
+   "until": {"kill": "ma-ton", "n": 1}
+  },
+  {
+   "id": "het-game", "map": "vet-nut", "once": true,
+   "do": [
+    {"say": [["ma-ton", "Năm linh căn thuần... đứng cùng một phía... Ta đã đếm sai."], ["ma-ton", "Ở giới của ta, không ai đứng cạnh ai cả..."], ["", "Ma Tôn tan ra như mực loang trong nước. Vết Nứt gào lên, rung chuyển, bắt đầu khép lại... rồi dừng giữa chừng."]]},
+    {"shake": 6},
+    {"say": [["lac-tuyet", "Nó không tự khép! Thiên Mạch rách sâu quá rồi!"], ["", "Từ bên ngoài, bốn luồng sáng xuyên qua khe nứt: đỏ của Tiểu Hỏa, xanh lá của Thanh Diệp, vàng của Thiết Lan, nâu của Thạch Sinh. Và luồng thứ năm, xanh băng, ngay bên cạnh bạn."], ["van-hac", "Con là mắt trận! Linh căn {element} thuần của con nối năm hệ lại. Khâu nó lại đi!"], ["", "Bạn giơ tay. Năm màu sáng quấn vào nhau như sợi chỉ, chạy dọc vết nứt, khâu từng mũi một."]]},
+    {"flash": true},
+    {"shake": 8},
+    {"flash": true},
+    {"say": [["", "Thiên Mạch liền lại. Lần đầu tiên sau mười năm, biển mây im lặng."]]},
+    {"flag": "het-game"},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Trở về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "Thiên Mạch đã vá. Ma tộc không qua được nữa. Con làm được rồi."], ["van-hac", "Ngày ta nhặt con từ làng Thanh Khê, ta chỉ mong con sống sót. Ta không ngờ con lại cứu cả Linh Giới."], ["tieu-hoa", "Ăn mừng! Tớ nướng cá cho cả đảo luôn!"], ["thanh-diep", "Cây mẹ gửi lời cảm ơn. Năm nay rừng sẽ ra hoa sớm."], ["thiet-lan", "Thanh kiếm ta rèn xong rồi. Của ngươi đấy. Đừng làm gãy."], ["thach-sinh", "...Cảm ơn. Thật đấy."], ["mac-anh", "Ta ở lại đây. Giới bên kia không còn gì đáng nhớ. Ở đây có cá nướng."], ["ho-linh", "Giờ thì ngồi đả tọa cùng ta được rồi chứ? Không còn ai đuổi theo ngươi nữa đâu."], ["lac-tuyet", "Sư đệ. Hôm nay mây đẹp. Đi ngắm cùng ta không?"]]},
+    {"reward": {"base": "thien-mach-kiem", "rarity": "thien", "stones": 30}},
+    {"mats": {"khoa-linh-thach": 5, "yeu-vuong-dan": 2, "ngoc-lo-hoa": 5}},
+    {"say": [["", "Nhận Thiên Mạch Kiếm phẩm Thiên, 30 Tẩy Luyện Thạch, 5 Khóa Linh Thạch, 2 Yêu Vương Đan, 5 Ngọc Lộ Hoa."], ["", "Hết truyện chính. Cảm ơn bạn đã đồng hành tới đây."], ["", "Linh Giới vẫn còn đó: dược viên chờ thu hoạch, mây chờ người ngắm, cá chờ người câu. Tháp, bí cảnh, Luận Võ Đài vẫn mở, và Lòng Vết Nứt vẫn có thể vào để đánh lại Ma Tôn."]]}
+   ],
+   "goal": "Tự do tu tiên: dược viên, câu cá, ngắm cảnh, tháp và bí cảnh",
    "until": {"never": true}
   }
  ]

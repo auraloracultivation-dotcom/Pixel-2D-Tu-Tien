@@ -14,7 +14,7 @@
   "~~~~~~~~~~ppppppp*pppppppppppfppppppp~~~~~~~~~",
   "~~~~~~~~~ppppppppppppppppppppfp*pppppp~~~~~~~~",
   "~~~~~ppp*ppppppppppppppppppppppppppppp~~~~~~~~",
-  "~~~~~ppppppppppppppppppppppppppppppppppppp~~~~",
+  "~~~~~pppppppppppppppppppppppppPppppppppppp~~~~",
   "~~~~~pppppppppppppppppppppppfppppppppppppp~~~~",
   "~~~~~ppppppppp*ppppppppppppfpppppppppp*ppp~~~~",
   "~pppppppppppppppppppppppppfppppppppppppppp~~~~",
@@ -36,9 +36,11 @@
   "~~~~~~~~~~~~~~~~~~~~pp~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {"vao": [4, 13], "tu-lao": [41, 13]},
- "portals": [{"at": [2, 13], "to": "thien-kiem-phong", "spawn": "tu-vet-nut", "label": "Ngự kiếm về Thiên Kiếm Phong"}, {"at": [43, 13], "to": "hu-khong-lao", "spawn": "vao", "need": "mo-hu-khong-lao", "kind": "portal", "label": "Hư Không Lao"}],
+ "spawns": {"vao": [4, 13], "tu-lao": [41, 13], "tu-vet-nut": [30, 8]},
+ "portals": [{"at": [2, 13], "to": "thien-kiem-phong", "spawn": "tu-vet-nut", "label": "Ngự kiếm về Thiên Kiếm Phong"}, {"at": [43, 13], "to": "hu-khong-lao", "spawn": "vao", "need": "mo-hu-khong-lao", "kind": "portal", "label": "Hư Không Lao"}, {"at": [30, 7], "to": "vet-nut", "spawn": "vao", "need": "vao-vet-nut", "kind": "portal", "label": "Lòng Vết Nứt"}],
  "npcs": [{"id": "mac-anh", "at": [7, 12], "need": "vet-nut"}, {"id": "tieu-hoa", "at": [9, 15], "need": "vet-nut"}],
  "spawners": [{"mob": "hu-khong-ma", "at": [18, 10], "n": 4, "spread": 3, "respawn": 7}, {"mob": "u-minh-phap", "at": [20, 18], "n": 3, "spread": 3, "respawn": 8}, {"mob": "hu-khong-ma", "at": [12, 16], "n": 2, "spread": 2, "respawn": 7}, {"mob": "hu-anh", "at": [34, 9], "n": 3, "spread": 2, "respawn": 7}, {"mob": "hu-anh", "at": [36, 17], "n": 3, "spread": 2, "respawn": 7}],
- "rooms": []
+ "rooms": [
+
+ ]
 }
