@@ -53,7 +53,8 @@ export async function talkBounty(game, npc) {
   }
   if (bountyLeft(game) <= 0) { if (!b) await game.dialog.say([[name, 'Hôm nay ngươi đã lãnh đủ thưởng. Mai quay lại nhận việc mới.']]); game.persist(); return; }
   const pool = list(game).filter(x => x.id !== b?.id && (!game.pilot || outdoorMob(game, x.mob)));   // tự hành chỉ nhận việc đánh được ngoài trời
-  const pick = pool[Math.floor(Math.random() * pool.length)];
+  const near = pool.filter(x => game.map.def.spawners.some(s => s.mob === x.mob));   // tự hành: thường chọn việc ngay trên đảo này cho đỡ bay
+  const from = game.pilot && near.length && Math.random() < 0.7 ? near : pool, pick = from[Math.floor(Math.random() * from.length)];
   if (!pick) return;
   if (game.pilot) { save.bounty = { id: pick.id, n: 0 }; game.persist(); await game.dialog.say([[name, `Có việc mới: ${pick.text.replace('{n}', pick.n)}. Đi đi.`]]); return; }   // tự hành tự nhận
   const ok = await game.dialog.choose(`${name}: Có việc mới: ${pick.text.replace('{n}', pick.n)}. Nhận không?`, [
