@@ -8,7 +8,7 @@
  "comp": "{name} lần đầu đi cùng ta.",
  "pet": "Thu phục linh thú {name}.",
  "fish": "Câu được {name}. Hôm ấy trời rất đẹp.",
- "rare_fish": ["kim-ly"],
+ "rare_fish": ["kim-ly", "nguyet-ngu"],
  "flags": {
   "mat-tieu-hoa": "Làng Thanh Khê cháy. Tiểu Hỏa bị bắt đi. Kiếm tông cứu ta.",
   "ngu-kiem": "Lần đầu ngự kiếm bay qua biển mây.",

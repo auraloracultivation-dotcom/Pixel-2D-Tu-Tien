@@ -17,7 +17,7 @@ export function waterDir(game) {
 }
 
 function roll(game) {
-  const s = game.save, list = Object.entries(C(game).fish).filter(([, f]) => s.realm >= (f.realm || 0) && (!f.maps || f.maps.includes(game.map.id)));
+  const s = game.save, list = Object.entries(C(game).fish).filter(([, f]) => s.realm >= (f.realm || 0) && (!f.maps || f.maps.includes(game.map.id)) && (!f.night || game.isNight));
   let r = Math.random() * list.reduce((a, [, f]) => a + f.w, 0);
   for (const [id, f] of list) if ((r -= f.w) <= 0) return id;
   return list[0][0];
