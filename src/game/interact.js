@@ -4,6 +4,9 @@ import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvest, nextRipe } from './cave.js';
 import { meditateMul } from './evolve.js';
+import { pickMode } from './dun-mode.js';
+
+const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
 import { talkTower } from './tower.js';
 import { talkShop } from './shop.js';
@@ -75,7 +78,10 @@ export function updatePortals(game, dt) {
     const c = game.map.center(pt.at[0], pt.at[1]);
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
-    game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
+    const go = () => game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
+    if (!isDungeon(game, pt.to) || game.story.busy) { game.dunMode = 0; go(); return; }
+    game.portalLock = 99;  // đợi chọn độ khó
+    pickMode(game, pt.to).then(ok => { if (ok) go(); else game.portalLock = 2; });
     return;
   }
 }

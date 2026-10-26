@@ -1,0 +1,12 @@
+{
+ "_note": "Độ khó bí cảnh. Qua bí cảnh một lần ở độ khó trước thì mở độ khó sau. hp, atk, qi nhân chỉ số quái. reward phát khi hạ boss, tối đa per_day lần mỗi độ khó mỗi ngày (như daily: item là độ hiếm thấp nhất).",
+ "per_day": 3,
+ "story_step": {"_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường.", "bi-canh": "bi-canh", "hoa-quat": "hoa-quat", "han-bang-quat": "bang-quat", "hac-phong-dong": "hac-phong-dong"},
+ "modes": [
+  {"id": "thuong", "name": "Thường", "color": "#5fd07a", "hp": 1, "atk": 1, "qi": 1, "desc": "Như lần đầu."},
+  {"id": "kho", "name": "Khó", "color": "#ffb03a", "hp": 2.5, "atk": 1.6, "qi": 2, "desc": "Quái máu x2.5, công x1.6. Boss rơi đồ Huyền trở lên.",
+   "reward": {"item": "huyen", "stones": 3, "coins": 300}},
+  {"id": "ac-mong", "name": "Ác mộng", "color": "#e0484a", "hp": 6, "atk": 2.5, "qi": 4, "desc": "Quái máu x6, công x2.5. Boss rơi đồ Địa trở lên và Khóa Linh Thạch.",
+   "reward": {"item": "dia", "gem": 1, "coins": 1000, "mats": {"khoa-linh-thach": 1}}}
+ ]
+}
