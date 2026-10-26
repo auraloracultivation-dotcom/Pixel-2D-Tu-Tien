@@ -62,9 +62,10 @@
   "types": {"hong-ngoc": {"name": "Hồng Ngọc", "color": "#e8453c", "stat": "atk", "values": [2, 5, 9, 15, 24]}, "lam-ngoc": {"name": "Lam Ngọc", "color": "#4a86e8", "stat": "hp", "values": [15, 35, 65, 110, 170]}, "hoang-ngoc": {"name": "Hoàng Ngọc", "color": "#f2c94c", "stat": "crit", "values": [1, 2, 4, 6, 9]}, "luc-ngoc": {"name": "Lục Ngọc", "color": "#5fd07a", "stat": "def", "values": [1, 2, 4, 6, 9]}}
  },
  "materials": {
-  "tay-luyen-thach": {"name": "Tẩy Luyện Thạch", "color": "#bff4ff", "desc": "Tẩy luyện: quay lại toàn bộ dòng chỉ số của một món đồ (giữ độ hiếm)."}
+  "tay-luyen-thach": {"name": "Tẩy Luyện Thạch", "color": "#bff4ff", "desc": "Tẩy luyện: quay lại toàn bộ dòng chỉ số của một món đồ (giữ độ hiếm)."}, "khoa-linh-thach": {"name": "Khóa Linh Thạch", "color": "#ff9ad8", "desc": "Hiếm. Khi tẩy luyện, giữ nguyên một dòng đã chọn. Rơi từ boss, bán ở Vạn Bảo Lâu."}
  },
  "reroll_cost": 2,
+ "reroll_lock": {"mat": "khoa-linh-thach", "n": 1},
  "drops": {
   "ma-tieu": {"item": 0.07, "gem": 0.04, "stone": 0.12},
   "ma-cung": {"item": 0.09, "gem": 0.05, "stone": 0.14},

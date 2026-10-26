@@ -76,6 +76,8 @@ try {
   for (const [id, p] of Object.entries(cave.pills)) for (const m of Object.keys(p.recipe)) need(matOk(m), `cave.pills/${id}: nguyên liệu "${m}" không có`);
   for (const r of cave.forge) { need(items.rarities.some(x => x.id === r.min_rarity), `cave.forge/${r.id}: độ hiếm không có`); for (const m of Object.keys(r.cost)) need(matOk(m), `cave.forge/${r.id}: nguyên liệu "${m}" không có`); }
   need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
+  for (const [id, p] of Object.entries(cave.pills)) need((p.rate ?? cave.brew.default) > 0 && (p.rate ?? 0) <= 1, `cave.pills/${id}: tỉ lệ luyện sai`);
+  need(matOk(items.reroll_lock.mat), 'items.reroll_lock: nguyên liệu không có');
   need(npcs[pets.npc] && pets.pets[pets.starter_pet] && pets.mounts[pets.starter_mount], 'pets: npc, starter_pet hoặc starter_mount không có');
   for (const [id, p] of Object.entries(pets.pets)) { need(mobs[id], `pets/${id}: quái "${id}" không có`); need(!p.mount || pets.mounts[p.mount[0]], `pets/${id}: thú cưỡi không có`); }
   for (const [id, [m]] of Object.entries(pets.mount_drops)) need(mobs[id] && pets.mounts[m], `pets.mount_drops/${id}: quái hoặc thú cưỡi không có`);

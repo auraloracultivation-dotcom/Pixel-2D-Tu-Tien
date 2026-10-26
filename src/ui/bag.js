@@ -97,7 +97,13 @@ export function createBag(game) {
       const t = el('div', 'd-line', `${sd.name} (đang mặc ${n}): ` + Object.entries(sd.bonus).map(([need, b]) => `${need} món: ` + Object.entries(b).map(([s, v]) => bonusText(s, v) || statText(data, s, v)).join(', ')).join(' · '));
       t.style.color = sd.color; box.append(t);
     }
-    for (const l of it.lines) box.append(el('div', 'd-line', '◆ ' + statText(data, l.s, l.v)));
+    if (st.lockUid !== it.uid) { st.lockUid = it.uid; st.lock = null; }
+    it.lines.forEach((l, idx) => {
+      const on = st.lock === idx, d = el('div', 'd-line lockable' + (on ? ' locked' : ''), (on ? '🔒 ' : '◆ ') + statText(data, l.s, l.v));
+      d.onclick = () => { st.lock = on ? null : idx; renderDetail(); };
+      box.append(d);
+    });
+    if (it.lines.length > 1) box.append(el('div', 'muted tiny', `Chạm một dòng để khoá khi tẩy luyện (tốn ${data.items.reroll_lock.n} ${data.items.materials[data.items.reroll_lock.mat].name}, có ${save().mats[data.items.reroll_lock.mat] || 0}).`));
     if (it.sockets.length) {
       const row = el('div', 'd-sockets');
       it.sockets.forEach((g, idx) => {
@@ -122,7 +128,8 @@ export function createBag(game) {
       }, !can);
     }
     const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost;
-    btn(`Tẩy luyện (${cost} thạch)`, () => { if (reroll(data, save(), it.uid)) { game.sfx('heal'); changed(); } }, stones < cost);
+    const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save().mats[lk.mat] || 0) >= lk.n;
+    btn(`Tẩy luyện (${cost} thạch${locking ? `, khoá 1 dòng` : ''})`, () => { if (reroll(data, save(), it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
     btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
     btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, isEq(it.uid));

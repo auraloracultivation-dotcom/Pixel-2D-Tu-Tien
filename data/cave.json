@@ -6,7 +6,8 @@
   "linh-thao": {"name": "Linh Thảo", "color": "#9af0a8", "desc": "Cỏ thuốc thường. Mọc ở linh điền, rơi từ mộc linh."},
   "yeu-huyet": {"name": "Yêu Huyết Tinh", "color": "#e0506a", "desc": "Máu đông của ma vật. Rơi từ ma tộc."},
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "color": "#ff9a3a", "desc": "Nấm mọc cạnh dung nham. Rơi từ quái Đảo Xích Diễm và Hỏa Quật."},
-  "tinh-thiet": {"name": "Tinh Thiết", "color": "#b8c4d8", "desc": "Sắt đã luyện. Có được khi phân giải đồ."}
+  "tinh-thiet": {"name": "Tinh Thiết", "color": "#b8c4d8", "desc": "Sắt đã luyện. Có được khi phân giải đồ."},
+  "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
  },
  "mat_drops": {
   "moc-linh": [["linh-thao", 0.45]],
@@ -16,21 +17,21 @@
   "viem-linh": [["hoa-linh-chi", 0.4]],
   "ma-binh": [["yeu-huyet", 0.5], ["tinh-thiet", 0.2]],
   "ma-phap": [["yeu-huyet", 0.5], ["hoa-linh-chi", 0.2]],
-  "huyet-nha": [["yeu-huyet", 1, 3]],
-  "huyet-nha-that": [["yeu-huyet", 1, 5], ["hoa-linh-chi", 1, 3], ["tinh-thiet", 1, 4]],
+  "huyet-nha": [["yeu-huyet", 1, 3], ["khoa-linh-thach", 0.2], ["yeu-vuong-dan", 0.05]],
+  "huyet-nha-that": [["yeu-huyet", 1, 5], ["hoa-linh-chi", 1, 3], ["tinh-thiet", 1, 4], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.08]],
   "tuyet-lang": [["yeu-huyet", 0.3]],
   "bang-tinh": [["linh-thao", 0.5]],
   "ma-bang-tien": [["yeu-huyet", 0.4]],
   "han-ma-ve": [["tinh-thiet", 0.35], ["yeu-huyet", 0.4]],
-  "han-hon-ma-tuong": [["tinh-thiet", 1, 6], ["yeu-huyet", 1, 5]],
+  "han-hon-ma-tuong": [["tinh-thiet", 1, 6], ["yeu-huyet", 1, 5], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.08]],
   "phong-yeu": [["yeu-huyet", 0.35]],
   "hac-diep": [["yeu-huyet", 0.4], ["linh-thao", 0.3]],
   "ma-phong-ve": [["tinh-thiet", 0.4], ["yeu-huyet", 0.5]],
-  "moc-linh-vuong": [["linh-thao", 1, 6]],
-  "hoa-lang-vuong": [["hoa-linh-chi", 1, 4], ["yeu-huyet", 1, 3]],
-  "tuyet-lang-vuong": [["tinh-thiet", 1, 5], ["yeu-huyet", 1, 4]],
-  "phong-yeu-vuong": [["tinh-thiet", 1, 7], ["yeu-huyet", 1, 5]],
-  "hac-phong-ma-quan": [["tinh-thiet", 1, 8], ["yeu-huyet", 1, 6], ["hoa-linh-chi", 1, 3]]
+  "moc-linh-vuong": [["linh-thao", 1, 6], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
+  "hoa-lang-vuong": [["hoa-linh-chi", 1, 4], ["yeu-huyet", 1, 3], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
+  "tuyet-lang-vuong": [["tinh-thiet", 1, 5], ["yeu-huyet", 1, 4], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
+  "phong-yeu-vuong": [["tinh-thiet", 1, 7], ["yeu-huyet", 1, 5], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
+  "hac-phong-ma-quan": [["tinh-thiet", 1, 8], ["yeu-huyet", 1, 6], ["hoa-linh-chi", 1, 3], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.1]]
  },
  "salvage_iron": {
   "pham": 1,
@@ -45,11 +46,13 @@
   "herb": "linh-thao"
  },
  "pill_button": "hoi-xuan-dan",
+ "brew": {"_note": "rate: tỉ lệ thành của từng đan (mặc định default). Linh căn hệ trong element_bonus cộng thêm. Hỏng thì mất nguyên liệu.", "default": 0.85, "element_bonus": {"hoa": 0.1}},
  "pills": {
-  "hoi-xuan-dan": {"name": "Hồi Xuân Đan", "color": "#ff7a8a", "desc": "Hồi ngay 40% máu. Dùng bằng nút Đan khi đánh.", "use": {"heal": 0.4}, "cd": 8, "recipe": {"linh-thao": 2}, "make": 2},
+  "hoi-xuan-dan": {"name": "Hồi Xuân Đan", "color": "#ff7a8a", "desc": "Hồi ngay 40% máu. Dùng bằng nút Đan khi đánh.", "use": {"heal": 0.4}, "cd": 8, "recipe": {"linh-thao": 2}, "make": 2, "rate": 0.95},
   "tu-khi-dan": {"name": "Tụ Khí Đan", "color": "#bff4ff", "desc": "Nhận ngay linh khí bằng 20% tầng hiện tại.", "use": {"qi": 0.2}, "recipe": {"linh-thao": 3, "yeu-huyet": 1}, "make": 1},
-  "boi-nguyen-dan": {"name": "Bồi Nguyên Đan", "color": "#f2c94c", "desc": "Vĩnh viễn +6 máu tối đa. Mỗi người dùng tối đa 10 viên.", "use": {"hp": 6, "cap": 10}, "recipe": {"linh-thao": 4, "yeu-huyet": 2, "hoa-linh-chi": 1}, "make": 1},
-  "thanh-tam-dan": {"name": "Thanh Tâm Đan", "color": "#c8b8ff", "desc": "Lần độ kiếp tới, sét đánh nhẹ đi 30%.", "use": {"trib": 0.3}, "recipe": {"linh-thao": 3, "hoa-linh-chi": 2}, "make": 1}
+  "boi-nguyen-dan": {"name": "Bồi Nguyên Đan", "color": "#f2c94c", "desc": "Vĩnh viễn +6 máu tối đa. Mỗi người dùng tối đa 10 viên.", "use": {"hp": 6, "cap": 10}, "recipe": {"linh-thao": 4, "yeu-huyet": 2, "hoa-linh-chi": 1}, "make": 1, "rate": 0.7},
+  "thanh-tam-dan": {"name": "Thanh Tâm Đan", "color": "#c8b8ff", "desc": "Lần độ kiếp tới, sét đánh nhẹ đi 30%.", "use": {"trib": 0.3}, "recipe": {"linh-thao": 3, "hoa-linh-chi": 2}, "make": 1, "rate": 0.75},
+  "tay-tuy-dan": {"name": "Tẩy Tủy Đan", "color": "#ff5ad8", "desc": "Nâng phẩm linh căn lên một bậc (tới Thiên). Cần Yêu Vương Đan rơi từ boss.", "use": {"root": 1}, "recipe": {"yeu-vuong-dan": 1, "linh-thao": 6, "hoa-linh-chi": 3}, "make": 1, "rate": 0.5}
  },
  "forge": [
   {"id": "ren-thuong", "name": "Rèn thường", "desc": "Rèn một món theo ô đã chọn, ít nhất phẩm Linh.", "cost": {"tinh-thiet": 4}, "min_rarity": "linh"},

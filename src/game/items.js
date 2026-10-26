@@ -78,12 +78,19 @@ export function salvage(data, save, uid) {
 }
 
 // Tẩy luyện: quay lại toàn bộ dòng phụ, giữ độ hiếm, cấp và chỉ số chính
-export function reroll(data, save, uid, rnd = Math.random) {
-  const it = save.bag.find(x => x.uid === uid);
-  const cost = data.items.reroll_cost;
+// Tẩy luyện; lock: chỉ số dòng giữ lại (tốn thêm Khóa Linh Thạch, các dòng mới không trùng chỉ số dòng giữ)
+export function reroll(data, save, uid, rnd = Math.random, lock = null) {
+  const it = save.bag.find(x => x.uid === uid), lk = data.items.reroll_lock;
+  const cost = data.items.reroll_cost, keep = lock != null ? it?.lines[lock] : null;
   if (!it || (save.mats['tay-luyen-thach'] || 0) < cost) return false;
+  if (lock != null && (!keep || (save.mats[lk.mat] || 0) < lk.n)) return false;
   save.mats['tay-luyen-thach'] -= cost;
-  it.lines = rollLines(data.items, data.items.bases[it.base], rarityOf(data.items, it.rarity), it.lvl, rnd);
+  const base = data.items.bases[it.base], rar = rarityOf(data.items, it.rarity);
+  if (!keep) { it.lines = rollLines(data.items, base, rar, it.lvl, rnd); return true; }
+  save.mats[lk.mat] -= lk.n;
+  const lines = rollLines(data.items, { ...base, pool: base.pool.filter(s => s !== keep.s) }, { ...rar, lines: rar.lines - 1 }, it.lvl, rnd);
+  lines.splice(lock, 0, keep);
+  it.lines = lines;
   return true;
 }
 

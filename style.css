@@ -97,6 +97,8 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .d-title { font-weight: 800; font-size: 15px; }
 .d-main { font-weight: 700; margin-top: 4px; }
 .d-line { color: #2a5a8a; }
+.d-line.lockable { cursor: pointer; border-radius: 6px; padding: 1px 4px; margin-left: -4px; }
+.d-line.locked { background: #ffe3f4; color: #a0306a; font-weight: 700; }
 .d-sockets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 .socket { border-style: dashed; }
 .socket.full { border-style: solid; }
