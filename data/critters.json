@@ -1,0 +1,19 @@
+{
+ "_note": "Linh cầm nuôi ở động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi con đi lững thững trong pen (ô x, y, rộng, cao trên bản đồ map), cứ every_h giờ thật làm ra một phần give (như daily), tích tối đa cap phần, kể cả lúc vắng mặt. Người chơi đi tới gần (range px) là tự nhặt, hiện text ({got} là món nhận). kind là kiểu vẽ trong draw-critter.js, speed px/giây.",
+ "npc": "tieu-linh",
+ "map": "dong-phu",
+ "pen": [12, 6, 7, 2],
+ "cap": 2,
+ "range": 16,
+ "ask": "Chủ nhân muốn làm gì?",
+ "menu": {"decor": "Bày đồ trang trí", "decor_desc": "Mỗi món làm đả tọa ở nhà nhanh hơn", "buy": "Nuôi linh cầm", "buy_desc": "Thả trong động phủ, thỉnh thoảng làm ra quà nhỏ", "out": "Để sau"},
+ "lines": ["Linh cầm ngoan lắm, chủ nhân nuôi một con cho vui nhà nhé.", "Con chọn kỹ rồi, con nào cũng khỏe mạnh."],
+ "bought": ["Nó quen chỗ ngay rồi kìa, chủ nhân!", "Con sẽ cho nó ăn mỗi ngày, chủ nhân yên tâm."],
+ "full": "Động phủ đủ linh cầm rồi, thêm nữa chật lắm chủ nhân ơi.",
+ "poor": "Linh Thạch chưa đủ rồi chủ nhân ơi.",
+ "list": {
+  "linh-ke": {"name": "Linh Kê", "desc": "Gà lông vàng, sáng nào cũng gáy.", "cost": 500, "every_h": 3, "give": {"coins": 80}, "text": "Linh Kê đẻ một quả trứng vàng, Tiểu Linh đem đổi được {got}.", "kind": "chicken", "speed": 12},
+  "ngoc-tho": {"name": "Ngọc Thố", "desc": "Thỏ trắng như ngọc, hay đào bới góc vườn.", "cost": 900, "every_h": 5, "give": {"mats": {"linh-thao": 2, "ngoc-lo-hoa": 1}}, "text": "Ngọc Thố đào bới một hồi, tha về {got}.", "kind": "rabbit", "speed": 18},
+  "tieu-hac": {"name": "Tiểu Hạc", "desc": "Hạc con chân dài, sáng bay đi chiều bay về.", "cost": 1800, "every_h": 8, "give": {"stones": 2, "qi": 300}, "text": "Tiểu Hạc bay về, ngậm theo {got}.", "kind": "crane", "speed": 10}
+ }
+}
