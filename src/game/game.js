@@ -56,6 +56,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
   game.rain = on => audio?.rain(on);
+  game.night = on => audio?.night(on);
   game.others = createOthers(game);
 
   game.persist = () => {

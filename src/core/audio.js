@@ -9,7 +9,7 @@ export function createAudio(cfg) {
   let muted = false;
   try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch { /* không có bộ nhớ: mặc định bật tiếng */ }
   const lastPlay = {};
-  let want = null, music = null, wantRain = false;
+  let want = null, music = null, wantRain = false, wantNight = false;
 
   function init() {
     if (ac) return;
@@ -25,7 +25,7 @@ export function createAudio(cfg) {
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     music = createMusic(ac, musicGain, noise, cfg.music);
     if (want) music.play(want);
-    music.rain(wantRain);
+    music.rain(wantRain); music.night(wantNight);
   }
   for (const ev of ['pointerdown', 'keydown']) window.addEventListener(ev, () => { init(); if (ac?.state === 'suspended') ac.resume(); }, { capture: true });
 
@@ -62,6 +62,7 @@ export function createAudio(cfg) {
     play,
     music: id => { want = id; music?.play(id); },
     rain: on => { if (on === wantRain) return; wantRain = on; music?.rain(on); },
+    night: on => { wantNight = on; music?.night(on); },
     get muted() { return muted; },
     toggle() {
       muted = !muted;
