@@ -6,6 +6,7 @@ import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
 import { autoEquip, autoEnhance } from './autoequip.js';
 import { autoGem } from './autogem.js';
+import { autoPills } from './autopill.js';
 import { pilotOpt } from './pilotopt.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
@@ -137,12 +138,12 @@ const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: 
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
-  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); }
+  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); if (pilotOpt(game, 'dan')) autoPills(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.canStart()) {   // độ kiếp thẳng, không bấm nút (đứng cạnh NPC thì nút thành Nói chuyện)
     const pl = game.pilot;
     if (pl.trib > 0 && !game.dialog.open) pl.trib -= dt;   // chờ lời dẫn độ kiếp xong; lỡ bị hội thoại khác chen thì thử lại
-    if (!(pl.trib > 0) && !game.dialog.open) { pl.trib = 3; game.trib.start(); }
+    if (!(pl.trib > 0) && !game.dialog.open) { pl.trib = 3; if (pilotOpt(game, 'dan')) autoPills(game); game.trib.start(); }
     return none;
   }
   const job = game.pilot.job = plan(game);
