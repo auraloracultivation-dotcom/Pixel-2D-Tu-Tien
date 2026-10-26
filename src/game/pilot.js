@@ -6,6 +6,9 @@ import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
 import { autoEquip } from './autoequip.js';
 import { pilotOpt } from './pilotopt.js';
+import { waterDir, fishAct } from './fishing.js';
+import { talkTo } from './interact.js';
+import { harvestAll, gotText } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
@@ -145,19 +148,20 @@ export function pilotStep(game, ax, dt) {
   if (!job) return none;
   if (job.fight) { p.meditating = false; return engage(game, job.fight, dt); }
   if (job.talk) {
-    if (dist(job.talk, p) < game.data.config.interact_range * 0.8) { game.input.pressed.add('act'); return none; }
+    if (dist(job.talk, p) < game.data.config.interact_range * 0.8) { if ((game.pilot.talkT = (game.pilot.talkT || 0) - dt) <= 0) { game.pilot.talkT = 0.8; talkTo(game, job.talk); } return none; }   // nói thẳng với đúng người, không qua nút
     return { ax: walk(game, job.talk.x, job.talk.y, dt), atk: false };
   }
   if (job.sit) {
     const c = tileOf(game, job.sit);
     if (Math.hypot(c.x - p.x, c.y - p.y) > 10) return { ax: walk(game, c.x, c.y, dt), atk: false };
-    if (!p.meditating) game.input.pressed.add('act');
+    if (!p.meditating) { p.meditating = true; game.toast('Đả tọa... linh khí chảy vào người', 1.4); }   // ngồi thẳng, không bấm nút (cạnh NPC thì nút thành Nói chuyện)
     return none;
   }
   if (job.fish) {   // câu cá: tới mép đảo, thả câu, cá cắn thì kéo
-    if (game.fish) { if (game.fish.bite) game.input.pressed.add('act'); return none; }
+    if (game.fish) { if (game.fish.bite) fishAct(game, game.fish.dir); return none; }
     if (Math.hypot(job.fish.x - p.x, job.fish.y - p.y) > 3) return { ax: walk(game, job.fish.x, job.fish.y, dt), atk: false };
-    p.meditating = false; game.input.pressed.add('act');
+    const dir = waterDir(game);
+    p.meditating = false; if (dir) fishAct(game, dir);
     return none;
   }
   if (job.brew) {
@@ -178,7 +182,8 @@ export function pilotStep(game, ax, dt) {
   }
   if (job.use) {
     if (Math.hypot(job.use.x - p.x, job.use.y - p.y) > 8) return { ax: walk(game, job.use.x, job.use.y, dt), atk: false };
-    game.input.pressed.add('act');
+    const got = harvestAll(game);   // thu hoạch thẳng, không bấm nút
+    if (Object.keys(got).length) { game.sfx('pickup'); game.toast(`Thu hoạch ${gotText(got)}`, 1.8); }
     return none;
   }
   if (job.hunt) {
