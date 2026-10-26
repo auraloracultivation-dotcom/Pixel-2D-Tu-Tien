@@ -2,6 +2,7 @@
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
 import { bountyLeft, useBounty } from './daily.js';
+import { outdoorMob } from './chores.js';
 
 export const BOUNTY_NPC = 'chap-su';
 
@@ -51,9 +52,10 @@ export async function talkBounty(game, npc) {
     } else await game.dialog.say([[name, 'Làm tốt, nhưng hôm nay Nhiệm Vụ Đường đã hết ngân khố thưởng cho ngươi. Mai quay lại.']]);
   }
   if (bountyLeft(game) <= 0) { if (!b) await game.dialog.say([[name, 'Hôm nay ngươi đã lãnh đủ thưởng. Mai quay lại nhận việc mới.']]); game.persist(); return; }
-  const pool = list(game).filter(x => x.id !== b?.id);
+  const pool = list(game).filter(x => x.id !== b?.id && (!game.pilot || outdoorMob(game, x.mob)));   // tự hành chỉ nhận việc đánh được ngoài trời
   const pick = pool[Math.floor(Math.random() * pool.length)];
   if (!pick) return;
+  if (game.pilot) { save.bounty = { id: pick.id, n: 0 }; game.persist(); await game.dialog.say([[name, `Có việc mới: ${pick.text.replace('{n}', pick.n)}. Đi đi.`]]); return; }   // tự hành tự nhận
   const ok = await game.dialog.choose(`${name}: Có việc mới: ${pick.text.replace('{n}', pick.n)}. Nhận không?`, [
     { id: 'yes', label: 'Nhận việc', desc: 'Hiện ở góc phải màn hình' },
     { id: 'no', label: 'Để sau', desc: '' },

@@ -1,8 +1,8 @@
-// Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận,
+// Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
+// nhận và trả treo thưởng,
 // hạ quái cho việc hằng ngày và treo thưởng, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
-// Không tự nhận việc mới, không tự lãnh treo thưởng (những việc đó có lựa chọn, để người chơi quyết).
 import { dist } from './combat.js';
-import { ensureDaily, taskDef } from './daily.js';
+import { ensureDaily, taskDef, bountyLeft } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { outdoor } from './daynight.js';
@@ -15,6 +15,9 @@ function npcMap(game, id) {
   for (const m of Object.values(game.data.maps)) if (m.npcs.some(n => n.id === id && flagOk(game, n))) return m.id;
   return null;
 }
+
+// Có bãi quái ngoài trời của loài này (tự hành chỉ nhận treo thưởng đánh được ngoài trời)
+export const outdoorMob = (game, mob) => Object.values(game.data.maps).some(m => m.spawners.some(s => s.mob === mob && flagOk(game, s)));
 
 // Bãi quái ngoài trời của loài này: ưu tiên đảo đang đứng, sau đó đảo đi tới được
 function spawnerOf(game, mob, routeTo) {
@@ -61,6 +64,10 @@ function wants(game) {
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
   if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
+  else if (b || (bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
+  for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
+    if (!s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
+  }
   return out;
 }
 
