@@ -1,0 +1,20 @@
+{
+ "_note": "Kỳ ngộ nhỏ khi đi ngoài trời: cứ every giây ngoài trời (không trong bí cảnh, không đang đánh boss) thì có chance được một kỳ ngộ, tối đa per_day lần mỗi ngày. Mỗi kỳ ngộ: text (câu báo), give (thưởng như daily: coins, qi, stones, mats, pills), phase (chỉ xảy ra trong pha ngày đêm này, bỏ trống là lúc nào cũng được), season (chỉ mùa này).",
+ "every": 150,
+ "chance": 0.35,
+ "per_day": 4,
+ "list": [
+  {"text": "Một quả linh đào chín rơi trúng đầu. Ngọt lịm, linh khí tràn ra.", "give": {"qi": 80}},
+  {"text": "Bên vệ đường có một khóm linh thảo mọc hoang. Hái vài cọng mang về.", "give": {"mats": {"linh-thao": 3}}},
+  {"text": "Một con chim nhỏ đậu lên vai, thả xuống viên đá lấp lánh rồi bay mất.", "give": {"stones": 2}},
+  {"text": "Nhặt được túi Linh Thạch ai đánh rơi. Chờ mãi không thấy ai tìm.", "give": {"coins": 60}},
+  {"text": "Gió thổi qua, mang theo mùi hoa. Lòng nhẹ hẳn đi.", "give": {"qi": 50}},
+  {"text": "Sương sớm đọng trên lá thành mấy giọt Ngọc Lộ. Hứng được một ít.", "give": {"mats": {"ngoc-lo-hoa": 1}}, "phase": "binh-minh"},
+  {"text": "Ánh trăng rọi xuống một tảng đá, đá ấm lên như có linh khí. Ngồi tựa một lúc.", "give": {"qi": 120}, "phase": "dem"},
+  {"text": "Hoàng hôn đỏ rực. Đứng ngắm một lúc, quên cả đường về.", "give": {"qi": 70}, "phase": "hoang-hon"},
+  {"text": "Một cánh hoa đào bay vào tay. Mùa xuân thật rồi.", "give": {"qi": 60}, "season": "xuan"},
+  {"text": "Trời nóng, gặp một gốc cây to tỏa bóng mát. Nghỉ chân chút, người khoẻ hẳn.", "give": {"qi": 60}, "season": "ha"},
+  {"text": "Lá vàng rơi đầy lối. Dưới lá có một cây nấm linh chi nhỏ.", "give": {"mats": {"hoa-linh-chi": 1}}, "season": "thu"},
+  {"text": "Tuyết rơi nhẹ. Trong tuyết có một bông hoa trắng chưa tàn.", "give": {"qi": 90}, "season": "dong"}
+ ]
+}
