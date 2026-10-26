@@ -19,6 +19,7 @@ import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
+import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
@@ -80,6 +81,7 @@ export function createGame(data, screen, input, ui, audio) {
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * 10) / 10;
     const broke = addQi(game.save, data.realms, amount);
     gainTechExp(game, amount);
+    gainPetExp(game, amount);
     if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
@@ -100,6 +102,7 @@ export function createGame(data, screen, input, ui, audio) {
     bountyKill(game, m);
     techDrop(game, m);
     matDrop(game, m);
+    petKill(game, m);
     game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
@@ -117,6 +120,7 @@ export function createGame(data, screen, input, ui, audio) {
       if (n.unless && game.save.flags[n.unless]) continue;
       game.addNpc(n.id, n.at);
     }
+    spawnPet(game);
     game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
@@ -179,7 +183,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
-    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save);
+    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save);
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
@@ -213,7 +217,8 @@ export function createGame(data, screen, input, ui, audio) {
       if (s.timer > 0) continue;
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
-      s.alive.push(game.spawn(s.mob, p.x, p.y));
+      const m = game.spawn(s.mob, p.x, p.y);
+      maybeRare(game, m); s.alive.push(m);
     }
   }
 
@@ -241,6 +246,8 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
     updatePlayer(game, dt);
+    updateRide(game, dt);
+    updatePet(game, dt);
     game.others.update(dt);
     game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);

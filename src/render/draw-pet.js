@@ -1,0 +1,35 @@
+// Linh thú đi theo, thú cưỡi dưới chân người chơi, vầng sáng quanh quái dị chủng (hình khối tạm).
+const INK = '#1b1830';
+const circle = (ctx, x, y, r) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
+
+export function drawPet(ctx, pet, t) {
+  const hop = pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : Math.sin(t * 3) * 0.5, y = pet.y - hop;
+  ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = INK; circle(ctx, pet.x, y - 4, 4.6);
+  ctx.fillStyle = pet.def.color; circle(ctx, pet.x, y - 4, 3.8);
+  // tai nhỏ và mắt nhìn theo hướng đi
+  ctx.fillRect(pet.x - 3.5, y - 9.5, 2, 3); ctx.fillRect(pet.x + 1.5, y - 9.5, 2, 3);
+  ctx.fillStyle = INK; const f = pet.face * 1.2;
+  ctx.fillRect(pet.x - 1.8 + f, y - 5, 1, 1.4); ctx.fillRect(pet.x + 0.8 + f, y - 5, 1, 1.4);
+}
+
+// Thú cưỡi: thân dài, bốn chân bước, đầu theo hướng mặt
+export function drawMount(ctx, p, m, t) {
+  const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
+  ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = INK;
+  for (const [lx, ph] of [[-6, 1], [-3, -1], [3, 1], [6, -1]]) ctx.fillRect(p.x + lx - 0.5, p.y - 4 + step * ph * 0.5, 2, 5);
+  ctx.beginPath(); ctx.ellipse(p.x, p.y - 5, 9, 4.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = m.color; ctx.beginPath(); ctx.ellipse(p.x, p.y - 5, 8, 3.6, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = INK; circle(ctx, p.x + dir * 9, p.y - 9, 3.6);
+  ctx.fillStyle = m.color; circle(ctx, p.x + dir * 9, p.y - 9, 2.8);
+  ctx.fillStyle = m.accent; ctx.fillRect(p.x + dir * 8 - 1, p.y - 14, 2, 3); ctx.fillRect(p.x - dir * 9, p.y - 7, 2, 2);
+  ctx.fillStyle = INK; ctx.fillRect(p.x + dir * 10, p.y - 10, 1, 1.2);
+}
+
+export function drawRareGlow(ctx, m, t) {
+  ctx.strokeStyle = `rgba(255,216,74,${0.55 + 0.35 * Math.sin(t * 5)})`; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(m.x, m.y - m.r, m.r + 3 + Math.sin(t * 3), 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#ffe27a';
+  for (let i = 0; i < 3; i++) { const a = t * 2 + i * 2.1; ctx.fillRect(m.x + Math.cos(a) * (m.r + 5), m.y - m.r + Math.sin(a) * (m.r + 5), 1.5, 1.5); }
+}

@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -74,6 +74,9 @@ try {
   for (const [id, p] of Object.entries(cave.pills)) for (const m of Object.keys(p.recipe)) need(matOk(m), `cave.pills/${id}: nguyên liệu "${m}" không có`);
   for (const r of cave.forge) { need(items.rarities.some(x => x.id === r.min_rarity), `cave.forge/${r.id}: độ hiếm không có`); for (const m of Object.keys(r.cost)) need(matOk(m), `cave.forge/${r.id}: nguyên liệu "${m}" không có`); }
   need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
+  need(npcs[pets.npc] && pets.pets[pets.starter_pet] && pets.mounts[pets.starter_mount], 'pets: npc, starter_pet hoặc starter_mount không có');
+  for (const [id, p] of Object.entries(pets.pets)) { need(mobs[id], `pets/${id}: quái "${id}" không có`); need(!p.mount || pets.mounts[p.mount[0]], `pets/${id}: thú cưỡi không có`); }
+  for (const [id, [m]] of Object.entries(pets.mount_drops)) need(mobs[id] && pets.mounts[m], `pets.mount_drops/${id}: quái hoặc thú cưỡi không có`);
   for (const b of quests.bounties) {
     need(mobs[b.mob], `quests/${b.id}: quái "${b.mob}" không có`);
     need(!b.reward.item || items.rarities.some(r => r.id === b.reward.item), `quests/${b.id}: độ hiếm "${b.reward.item}" không có`);

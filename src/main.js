@@ -11,6 +11,7 @@ import { createAudio } from './core/audio.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
+import { createPetsPanel } from './ui/pets-panel.js';
 
 async function boot() {
   const canvas = document.getElementById('game');
@@ -23,6 +24,7 @@ async function boot() {
   createBag(game);
   createSkillsPanel(game);
   createCavePanel(game);
+  createPetsPanel(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 
