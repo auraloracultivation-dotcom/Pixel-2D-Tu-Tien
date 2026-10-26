@@ -1,0 +1,19 @@
+{
+ "_note": "Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được).",
+ "types": {
+  "~": { "name": "biển mây", "solid": true, "void": true },
+  ".": { "name": "cỏ", "color": "#7cc46a" },
+  ",": { "name": "đường đất", "color": "#c9a46a" },
+  "F": { "name": "hoa", "color": "#7cc46a" },
+  "_": { "name": "nền đá", "color": "#d8d2c4" },
+  "x": { "name": "nền bí cảnh", "color": "#3a2e48" },
+  "#": { "name": "vách đá", "solid": true, "color": "#1f1830" },
+  "T": { "name": "cây", "solid": true, "color": "#7cc46a" },
+  "H": { "name": "nhà", "solid": true, "color": "#7cc46a" },
+  "R": { "name": "đá", "solid": true, "color": "#7cc46a" },
+  "S": { "name": "đá linh căn", "solid": true, "color": "#d8d2c4" },
+  "M": { "name": "bồ đoàn đả tọa", "color": "#d8d2c4" },
+  "P": { "name": "cổng truyền tống", "color": "#d8d2c4" },
+  "D": { "name": "cửa bí cảnh", "color": "#3a2e48" }
+ }
+}

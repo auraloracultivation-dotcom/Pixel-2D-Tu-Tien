@@ -1,0 +1,214 @@
+{
+ "_note": "Sinh bằng tools/art/build.py — không sửa tay. Mỗi hình 1× (1 art px), nhiều khung xếp ngang.",
+ "sprites": {
+  "decal.dirt": {
+   "file": "assets/art/decal-dirt.png",
+   "w": 48,
+   "h": 32,
+   "frames": 3,
+   "anchor": [
+    24,
+    16
+   ],
+   "note": "vùng đất mép cỏ, 3 dáng"
+  },
+  "decal.flowers": {
+   "file": "assets/art/decal-flowers.png",
+   "w": 7,
+   "h": 5,
+   "frames": 3,
+   "anchor": [
+    3,
+    2
+   ],
+   "note": "hoa nhỏ trắng / vàng / hồng"
+  },
+  "fx.puff": {
+   "file": "assets/art/fx-puff.png",
+   "w": 16,
+   "h": 16,
+   "frames": 5,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "khói tan khi quái chết, 5 khung"
+  },
+  "fx.slash": {
+   "file": "assets/art/fx-slash.png",
+   "w": 56,
+   "h": 48,
+   "frames": 7,
+   "anchor": [
+    18,
+    24
+   ],
+   "note": "vệt chém đánh thường, 7 khung; tâm cung tại neo"
+  },
+  "fx.spark": {
+   "file": "assets/art/fx-spark.png",
+   "w": 11,
+   "h": 11,
+   "frames": 4,
+   "anchor": [
+    5,
+    5
+   ],
+   "note": "tia lửa khi trúng, 4 khung"
+  },
+  "hero.kiem-tu": {
+   "file": "assets/art/hero-kiem-tu.png",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Kiếm Tu — khung: đứng, nhún, bước A, bước B"
+  },
+  "item.kiem": {
+   "file": "assets/art/item-kiem.png",
+   "w": 13,
+   "h": 13,
+   "frames": 1,
+   "anchor": [
+    2,
+    10
+   ],
+   "note": "kiếm bay cạnh nhân vật, chĩa lên phải"
+  },
+  "mob.hoa-linh": {
+   "file": "assets/art/mob-hoa-linh.png",
+   "w": 18,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    9,
+    14
+   ],
+   "note": "Hỏa Linh: đứng, bẹt khi nảy"
+  },
+  "mob.moc-linh": {
+   "file": "assets/art/mob-moc-linh.png",
+   "w": 18,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    9,
+    14
+   ],
+   "note": "Mộc Linh: đứng, bẹt khi nảy"
+  },
+  "npc.bang-co": {
+   "file": "assets/art/npc-bang-co.png",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Băng Cơ — khung: đứng, nhún, bước A, bước B"
+  },
+  "npc.hoa-dong": {
+   "file": "assets/art/npc-hoa-dong.png",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Hỏa Đồng — khung: đứng, nhún, bước A, bước B"
+  },
+  "npc.linh-ho": {
+   "file": "assets/art/npc-linh-ho.png",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Linh Hồ — khung: đứng, nhún, bước A, bước B"
+  },
+  "npc.ma-tu": {
+   "file": "assets/art/npc-ma-tu.png",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Ma Tu — khung: đứng, nhún, bước A, bước B"
+  },
+  "prop.bush": {
+   "file": "assets/art/prop-bush.png",
+   "w": 16,
+   "h": 11,
+   "frames": 2,
+   "anchor": [
+    8,
+    10
+   ],
+   "note": "bụi cây, có / không hoa"
+  },
+  "prop.rock": {
+   "file": "assets/art/prop-rock.png",
+   "w": 14,
+   "h": 11,
+   "frames": 1,
+   "anchor": [
+    7,
+    10
+   ],
+   "note": "đá"
+  },
+  "prop.tree": {
+   "file": "assets/art/prop-tree.png",
+   "w": 30,
+   "h": 38,
+   "frames": 2,
+   "anchor": [
+    15,
+    36
+   ],
+   "note": "cây tán tròn, 2 dáng"
+  },
+  "tile.grass": {
+   "file": "assets/art/tile-grass.png",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "4 biến thể cỏ, ghép liền"
+  },
+  "ui.digits": {
+   "file": "assets/art/ui-digits.png",
+   "w": 5,
+   "h": 7,
+   "frames": 10,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "số 0–9 trắng"
+  },
+  "ui.digits-crit": {
+   "file": "assets/art/ui-digits-crit.png",
+   "w": 5,
+   "h": 7,
+   "frames": 10,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "số 0–9 vàng (bạo kích)"
+  }
+ }
+}
