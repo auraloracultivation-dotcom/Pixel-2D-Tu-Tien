@@ -46,12 +46,12 @@ canvas#game { position: fixed; inset: 0; display: block; }
 
 body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important; }
 
-#menu { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(#7ab8f0, #dff0ff); text-align: center; padding: 20px; }
+#menu { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(rgba(122,184,240,.45), rgba(223,240,255,.6)), url(assets/icon/splash.jpg) center / cover; text-align: center; padding: 20px; }
 #menu h1 { margin: 0; font-size: 30px; color: #fff; text-shadow: 0 2px 0 #1b1830, 0 0 12px #5ab8f0; }
 .sub { margin: 0 0 14px; color: #1b1830; opacity: .7; }
 .menu-btn { width: 220px; padding: 12px; font: 800 17px system-ui, sans-serif; border: 2px solid #1b1830; border-radius: 12px; background: #fff7d6; box-shadow: 0 3px 0 #1b1830; }
 .help { font-size: 12px; opacity: .7; max-width: 300px; }
-#loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #9fd8f0; font-weight: 700; }
+#loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #9fd8f0 url(assets/icon/splash.jpg) center / cover; font-weight: 700; color: #fff; text-shadow: 0 2px 0 #1b1830; }
 #menu input { width: 240px; padding: 11px 12px; font: 600 16px system-ui, sans-serif; border: 2px solid #1b1830; border-radius: 10px; margin-bottom: 8px; display: block; }
 #login-form .row, #play-buttons { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 #login-form .row { flex-direction: row; width: 240px; }
