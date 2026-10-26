@@ -11,7 +11,9 @@
   "dong-phu",
   "dao-han-bang",
   "han-bang-quat",
-  "thap-thu-thach"
+  "thap-thu-thach",
+  "hac-phong-dao",
+  "hac-phong-dong"
  ],
  "server_save": false,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},

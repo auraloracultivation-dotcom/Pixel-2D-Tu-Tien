@@ -9,6 +9,9 @@
   {"id": "huyet-nha-that", "text": "Vào Hỏa Quật hạ Huyết Nha", "mob": "huyet-nha-that", "n": 1, "need": "ha-huyet-nha", "reward": {"stones": 8, "qi": 300, "gem": 1, "item": "huyen"}},
   {"id": "tuyet-lang", "text": "Hạ {n} tuyết lang ở Đảo Hàn Băng", "mob": "tuyet-lang", "n": 10, "need": "han-bang", "reward": {"stones": 4, "qi": 220, "gem": 0.6}},
   {"id": "ma-bang-tien", "text": "Hạ {n} ma băng tiễn ở đông bắc Đảo Hàn Băng", "mob": "ma-bang-tien", "n": 5, "need": "tim-bang-tam", "reward": {"stones": 4, "qi": 260, "item": "linh"}},
-  {"id": "han-hon-ma-tuong", "text": "Vào Băng Quật hạ Hàn Hồn Ma Tướng", "mob": "han-hon-ma-tuong", "n": 1, "need": "gap-tieu-hoa", "reward": {"stones": 10, "qi": 700, "gem": 1, "item": "huyen"}}
+  {"id": "han-hon-ma-tuong", "text": "Vào Băng Quật hạ Hàn Hồn Ma Tướng", "mob": "han-hon-ma-tuong", "n": 1, "need": "gap-tieu-hoa", "reward": {"stones": 10, "qi": 700, "gem": 1, "item": "huyen"}},
+  {"id": "phong-yeu", "text": "Hạ {n} phong yêu ở Hắc Phong Đảo", "mob": "phong-yeu", "n": 10, "need": "hac-phong", "reward": {"stones": 5, "qi": 420, "gem": 0.6}},
+  {"id": "hac-diep", "text": "Hạ {n} hắc điệp ở phía nam Hắc Phong Đảo", "mob": "hac-diep", "n": 8, "need": "hac-phong", "reward": {"stones": 5, "qi": 460, "item": "linh"}},
+  {"id": "hac-phong-ma-quan", "text": "Vào Hắc Phong Động hạ Hắc Phong Ma Quân", "mob": "hac-phong-ma-quan", "n": 1, "need": "cuu-tieu-hoa", "reward": {"stones": 12, "qi": 1300, "gem": 1, "item": "huyen"}}
  ]
 }

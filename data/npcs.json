@@ -1,6 +1,6 @@
 {
  "truong-thon": {"name": "Trưởng thôn", "color": "#c9a46a", "lines": ["Linh căn là trời cho, đường tu là tự mình đi.", "Làng Thanh Khê nhỏ, nhưng lòng người không nhỏ."]},
- "tieu-hoa": {"name": "Tiểu Hỏa", "color": "#ff7a3a", "lines": ["Nhanh lên! Linh thảo mọc nhiều ở mép đảo đó.", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem!"]},
+ "tieu-hoa": {"name": "Tiểu Hỏa", "color": "#ff7a3a", "lines": ["Nhanh lên! Linh thảo mọc nhiều ở mép đảo đó.", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem!", "Lần này tớ không để ai bắt nữa đâu. Cho tớ đi cùng đi!"]},
  "van-hac": {"name": "Trưởng lão Vân Hạc", "color": "#e6ebf7", "hair": "#f4f4fa", "lines": ["Kiếm nhanh không bằng tâm vững.", "Đả tọa đều đặn. Linh khí không tự chảy vào người lười đâu."]},
  "lac-tuyet": {"name": "Sư tỷ Lạc Tuyết", "color": "#7ad0ff", "lines": ["Đừng nhìn ta. Đi luyện kiếm đi.", "Bãi tập phía nam có mộc linh, đánh chúng để quen tay."]},
  "ho-linh": {"name": "Hồ Linh", "color": "#ffc2d6", "lines": ["Bồ đoàn bên cạnh ta là chỗ đả tọa tốt nhất đảo!", "Ta ngửi thấy mùi ma khí ở phía đông..."]},
@@ -11,6 +11,7 @@
  "ngu-thu-su": {"name": "Ngự Thú Sư", "color": "#7a9a5a", "hair": "#e8e0c8", "lines": ["Quái có ánh vàng quanh người là dị chủng. Hạ được thì thu phục được.", "Linh thú lớn theo chủ. Ngươi tu bao nhiêu, nó lớn bấy nhiêu.", "Hỏa lang dị chủng có khi kéo theo cả bầy Phong Lang. Thuần được một con là cưỡi được."]},
  "lao-ngu": {"name": "Lão Ngư (trưởng làng)", "color": "#5a7a9a", "hair": "#e8eef4", "lines": ["Biển mây đóng băng thì thuyền không ra được. Dân làng sống nhờ cá mây đấy.", "Tuyết lang trước kia hiền lắm. Từ khi Băng Quật có ma khí, chúng mới dữ lên."]},
  "mac-anh": {"name": "Mặc Ảnh", "color": "#4a3a5a", "hair": "#c8c0e0", "lines": ["Đừng nhìn ta như vậy. Không phải ma tộc nào cũng muốn đánh nhau.", "Ta nợ cậu bé tóc đỏ một bát canh cá. Cậu ấy chia cho ta khi bị xích."]},
+ "trai-truong": {"name": "Trại Trưởng Tán Tu", "color": "#7a6a5a", "hair": "#3a3030", "lines": ["Gió đen thổi suốt ngày đêm. Ở lâu là ho ra máu.", "Trại này dựng ba lần, đổ ba lần rồi."]},
  "thu-thap": {"name": "Thủ Tháp Lão Nhân", "color": "#6a5a8a", "hair": "#d8d0e8", "lines": ["Tháp này do tổ sư dựng để đệ tử thử sức. Tầng càng cao, ma ảnh càng mạnh."]},
  "quan-binh-kho": {"name": "Quản Binh Khố", "color": "#8a8aa0", "hair": "#2a2a3a", "lines": ["Kiếm tông dạy kiếm, nhưng binh khố có đủ cả. Muốn thử loại nào cứ lấy."]}
 }

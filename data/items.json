@@ -49,7 +49,11 @@
   "han-bang-giap": {"name": "Hàn Băng Giáp", "slot": "giap", "set": "han-bang", "main": {"def": 4}, "pool": ["hp", "hp_pct", "def", "cdr"]},
   "han-bang-hai": {"name": "Hàn Băng Hài", "slot": "giay", "set": "han-bang", "main": {"speed": 4}, "pool": ["speed", "def", "hp"]},
   "han-bang-gioi": {"name": "Hàn Băng Giới", "slot": "nhan", "set": "han-bang", "main": {"crit": 3}, "pool": ["crit", "cdr", "hp_pct"]},
-  "han-bang-boi": {"name": "Hàn Băng Bội", "slot": "ngoc-boi", "set": "han-bang", "main": {"hp_pct": 6}, "pool": ["hp_pct", "def", "qi_gain"]}
+  "han-bang-boi": {"name": "Hàn Băng Bội", "slot": "ngoc-boi", "set": "han-bang", "main": {"hp_pct": 6}, "pool": ["hp_pct", "def", "qi_gain"]},
+  "hac-phong-giap": {"name": "Hắc Phong Giáp", "slot": "giap", "set": "hac-phong", "main": {"hp": 60}, "pool": ["hp", "speed", "cdr", "atk_pct"]},
+  "hac-phong-hai": {"name": "Hắc Phong Hài", "slot": "giay", "set": "hac-phong", "main": {"speed": 5}, "pool": ["speed", "cdr", "crit"]},
+  "hac-phong-gioi": {"name": "Hắc Phong Giới", "slot": "nhan", "set": "hac-phong", "main": {"crit": 4}, "pool": ["crit", "crit_dmg", "cdr"]},
+  "hac-phong-boi": {"name": "Hắc Phong Bội", "slot": "ngoc-boi", "set": "hac-phong", "main": {"cdr": 4}, "pool": ["cdr", "atk_pct", "qi_gain"]}
  },
  "gems": {
   "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
@@ -75,12 +79,16 @@
   "bang-tinh": {"item": 0.08, "gem": 0.08, "stone": 0.18},
   "ma-bang-tien": {"item": 0.12, "gem": 0.07, "stone": 0.2},
   "han-ma-ve": {"item": 0.18, "gem": 0.1, "stone": 0.3},
-  "han-hon-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 10, "min_rarity": "huyen", "set": ["han-bang", 0.7]}
+  "han-hon-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 10, "min_rarity": "huyen", "set": ["han-bang", 0.7]},
+  "phong-yeu": {"item": 0.1, "gem": 0.07, "stone": 0.2},
+  "hac-diep": {"item": 0.1, "gem": 0.08, "stone": 0.2},
+  "ma-phong-ve": {"item": 0.22, "gem": 0.12, "stone": 0.35},
+  "hac-phong-ma-quan": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 12, "min_rarity": "huyen", "set": ["hac-phong", 0.7]}
  },
  "starter": ["thiet-kiem", "bo-y"],
  "quest_items": {
   "linh-thao": {"name": "linh thảo", "color": "#9af0a8", "base": "#2f7a44"},
-  "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}, "bang-tam": {"name": "băng tâm", "color": "#e8f8ff", "base": "#3a7ab8"}
+  "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}, "bang-tam": {"name": "băng tâm", "color": "#e8f8ff", "base": "#3a7ab8"}, "ngoc-cau-cuu": {"name": "ngọc bài cầu cứu", "color": "#ffe27a", "base": "#6a4a2a"}
  },
  "_note_weapon": "Món ở ô Vũ khí có weapon: loại vũ khí quyết định cách đánh thường và chiêu vũ khí."
 }

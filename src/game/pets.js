@@ -71,25 +71,28 @@ function nearestMob(game, from, range) {
 }
 
 export function updatePet(game, dt) {
-  const pet = game.pet, p = game.player;
-  if (!pet) return;
-  const def = pet.def, mul = petMul(game);
-  pet.cd -= dt; pet.skillCd -= dt; pet.hop += dt * 8;
+  if (game.pet) updateFollower(game, game.pet, petMul(game), P(game).follow, dt);
+}
+
+// Kẻ đi theo (linh thú, bạn đồng hành): theo sau chủ, tự đánh quái gần, có một chiêu hồi theo giây
+export function updateFollower(game, f, mul, follow, dt) {
+  const p = game.player, def = f.def;
+  f.cd -= dt; f.skillCd -= dt; f.hop += dt * 8; f.walkT = (f.walkT || 0) + dt;
   const tgt = nearestMob(game, p, def.range);
   // Đi theo chủ, hoặc lao tới quái nếu đánh gần
-  let gx = p.x - (p.face.x || 0) * P(game).follow, gy = p.y - (p.face.y || 0) * P(game).follow + 2;
-  if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - pet.x) * (tgt.r + 4); gy = tgt.y; }
-  const dx = gx - pet.x, dy = gy - pet.y, d = Math.hypot(dx, dy);
-  if (d > 160) { pet.x = gx; pet.y = gy; }
-  else if (d > 2) { const s = Math.min(d, (60 + d * 1.5) * dt); pet.x += dx / d * s; pet.y += dy / d * s; if (Math.abs(dx) > 1) pet.face = Math.sign(dx); }
-  pet.moving = d > 3;
+  let gx = p.x - (p.face.x || 0) * follow, gy = p.y - (p.face.y || 0) * follow + 2;
+  if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - f.x) * (tgt.r + 4); gy = tgt.y; }
+  const dx = gx - f.x, dy = gy - f.y, d = Math.hypot(dx, dy);
+  if (d > 160) { f.x = gx; f.y = gy; }
+  else if (d > 2) { const s = Math.min(d, (60 + d * 1.5) * dt); f.x += dx / d * s; f.y += dy / d * s; if (Math.abs(dx) > 1) f.face = Math.sign(dx); }
+  f.moving = d > 3;
   if (!tgt) return;
   const dmg = p.atk * def.mult * mul;
-  if (pet.cd <= 0) {
-    if (def.melee && dist(pet, tgt) < tgt.r + 10) { pet.cd = def.cd; hitMob(game, tgt, dmg, { soft: true, canCrit: false, color: def.color, fromX: pet.x, fromY: pet.y }); }
-    else if (!def.melee) { pet.cd = def.cd; fire(game, pet, tgt, dmg, def.color); }
+  if (f.cd <= 0) {
+    if (def.melee && dist(f, tgt) < tgt.r + 10) { f.cd = def.cd; hitMob(game, tgt, dmg, { soft: true, canCrit: false, color: def.color, fromX: f.x, fromY: f.y }); }
+    else if (!def.melee) { f.cd = def.cd; fire(game, f, tgt, dmg, def.color); }
   }
-  if (pet.skillCd <= 0) { pet.skillCd = def.skill.cd; petSkill(game, pet, tgt, dmg); }
+  if (f.skillCd <= 0) { f.skillCd = def.skill.cd; petSkill(game, f, tgt, dmg); }
 }
 
 function fire(game, pet, tgt, dmg, color, spread = 0) {

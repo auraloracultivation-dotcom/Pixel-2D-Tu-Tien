@@ -1,0 +1,15 @@
+{
+ "_note": "Nhiệm vụ phụ mỗi đảo (1 đến 2 việc). Nhận ở npc khi có cờ need. kind kill: hạ n quái mob. kind collect: nhặt vật item ở các ô at trên bản đồ map. Xong quay lại npc lãnh reward (cùng dạng thưởng hằng ngày), mỗi việc làm một lần.",
+ "quests": {
+  "nguoi-song-sot": {"npc": "trai-truong", "need": "hac-phong", "name": "Người sống sót", "kind": "collect", "item": "ngoc-cau-cuu", "map": "hac-phong-dao", "at": [[27, 6], [6, 17], [29, 18]], "n": 3,
+   "offer": ["Ba sư đệ của ta bị gió đen cuốn đi khi dựng trại. Mỗi người mang một ngọc bài cầu cứu.", "Ngọc bài còn sáng là người còn sống. Tìm giúp ta, ngọc bài sẽ dẫn họ về trại."],
+   "goal": "Tìm ngọc bài cầu cứu ({n}/3) quanh Hắc Phong Đảo",
+   "done": ["Cả ba ngọc bài đều sáng... Họ đang lần theo ánh sáng về đây. Đa tạ tu sĩ!", "Chút lòng thành của tán tu bọn ta, xin nhận cho."],
+   "reward": {"stones": 6, "qi": 900, "item": "huyen"}},
+  "canh-hac-diep": {"npc": "mac-anh", "need": "cuu-tieu-hoa", "name": "Cánh hắc điệp", "kind": "kill", "mob": "hac-diep", "n": 8,
+   "offer": ["Cánh hắc điệp tán ra làm thuốc giải ma khí. Dân trên đảo hít gió đen lâu ngày, ho ra máu cả rồi.", "Hạ giúp ta tám con ở phía nam đảo. Ta sẽ luyện thuốc cho họ."],
+   "goal": "Hạ hắc điệp lấy cánh ({n}/8)",
+   "done": ["Đủ rồi. Ta chia thuốc cho dân, còn lại đây là phần của cậu.", "Đừng nói với Lạc Tuyết là ma tộc biết luyện đan. Nàng sẽ không tin đâu."],
+   "reward": {"pills": {"hoi-xuan-dan": 4, "boi-nguyen-dan": 1}, "contrib": 40}}
+ }
+}

@@ -28,6 +28,10 @@
   "Y": {"name": "tùng tuyết", "solid": true, "color": "#e4eef6"},
   "O": {"name": "hồ băng nứt", "solid": true, "low": true, "color": "#7ab8e0"},
   "j": {"name": "nền băng quật", "color": "#3a5470"},
-  "k": {"name": "trụ băng", "solid": true, "color": "#3a5470"}
+  "k": {"name": "trụ băng", "solid": true, "color": "#3a5470"},
+  "d": {"name": "đá đen", "color": "#5e566a"},
+  "V": {"name": "cây khô", "solid": true, "color": "#5e566a"},
+  "U": {"name": "trụ đá đen", "solid": true, "color": "#3a3446"},
+  "e": {"name": "nền hắc phong động", "color": "#2e2838"}
  }
 }

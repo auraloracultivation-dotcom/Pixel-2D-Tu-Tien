@@ -293,6 +293,60 @@
     {"say": [["", "Nhận Huyền Giáp phẩm Huyền và 4 Tẩy Luyện Thạch (mở Túi để mặc)."], ["", "Hết Chương 2. Tu lên Kim Đan (độ thiên kiếp ở Trúc Cơ tầng 9) để đuổi theo Tiểu Hỏa tới Hắc Phong Đảo ở Chương 3. Đảo Hàn Băng và Băng Quật vẫn mở để cày đồ."]]}
    ],
    "goal": "Tu lên Kim Đan để tới Hắc Phong Đảo (Chương 3)",
+   "until": {"realm": 2}
+  },
+  {
+   "id": "goi-chuong-3", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Ngọc bội của Tiểu Hỏa lại nóng lên. Lần này ánh đỏ yếu ớt, chập chờn như sắp tắt."], ["van-hac", "Kim Đan rồi. Gió đen ở tầng Mây Sâu không xé nổi con nữa."], ["van-hac", "Hắc Phong Đảo là sào huyệt của Hắc Phong Ma Quân, một trong tứ tướng dưới trướng Ma Tôn. Đừng liều."], ["lac-tuyet", "Ta đi cùng. Lần này không để ai bị kéo đi trước mặt ta nữa."]]},
+    {"flag": "hac-phong"},
+    {"fly": "hac-phong-dao", "spawn": "vao", "kind": "flight", "with": "lac-tuyet", "text": "Xuyên qua gió đen xuống tầng Mây Sâu"},
+    {"say": [["lac-tuyet", "Gió ở đây có ma khí... Phía trước có trại đổ nát, hình như có người."]]}
+   ],
+   "goal": "Tới trại đổ nát xem ai ở đó", "target": [10, 10], "target_map": "hac-phong-dao",
+   "until": {"talk": "mac-anh"}
+  },
+  {
+   "id": "trai-do-nat", "map": "hac-phong-dao", "once": true,
+   "do": [
+    {"say": [["mac-anh", "Các người tới rồi. Ta đi trước ba ngày, dò được đường."], ["mac-anh", "Cậu bé tóc đỏ bị nhốt trong Hắc Phong Động phía bắc. Cửa động có trận gió do ba Ma Phong Vệ giữ."], ["mac-anh", "Hạ cả ba, trận gió tan, cửa động mở."], ["lac-tuyet", "Ngươi là ma tộc. Vì sao giúp bọn ta tới mức này?"], ["mac-anh", "Vì bát canh cá. Ta nói rồi mà."], ["", "Ba bóng giáp đen hiện ra quanh cửa động phía bắc."]]},
+    {"flag": "pha-tran-gio"},
+    {"spawn": "ma-phong-ve", "n": 3, "at": [18, 6], "spread": 2}
+   ],
+   "goal": "Hạ Ma Phong Vệ giữ trận gió ({n}/3)", "target": [18, 5], "target_map": "hac-phong-dao",
+   "until": {"kill": "ma-phong-ve", "n": 3}
+  },
+  {
+   "id": "mo-hac-phong-dong", "map": "hac-phong-dao", "once": true,
+   "do": [
+    {"say": [["", "Ma Phong Vệ cuối cùng gục xuống. Gió đen quanh cửa động tan dần."], ["mac-anh", "Cửa mở rồi. Ta không vào được, Ma Quân ngửi thấy mùi ta từ xa. Ta trông lối ra cho."], ["lac-tuyet", "Đi thôi sư đệ."]]},
+    {"flag": "mo-hac-phong-dong"}
+   ],
+   "goal": "Vào Hắc Phong Động", "target": [18, 2], "target_map": "hac-phong-dao",
+   "until": {"map": "hac-phong-dong"}
+  },
+  {
+   "id": "hac-phong-dong", "map": "hac-phong-dong",
+   "do": [
+    {"say": [["lac-tuyet", "Gió trong động còn mạnh hơn ngoài kia..."], ["", "Từ sâu trong động vọng ra một tiếng gọi khàn khàn: \"Ở đây!\""]]}
+   ],
+   "goal": "Dọn Hắc Phong Động, hạ Hắc Phong Ma Quân",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "cuu-tieu-hoa", "map": "hac-phong-dong", "once": true,
+   "do": [
+    {"say": [["", "Hắc Phong Ma Quân gầm lên rồi tan thành một luồng gió đen, vụt qua khe đá biến mất."], ["", "Sau lưng hắn là một lồng gió xoáy. Lồng gió tắt dần."]]},
+    {"npc_add": "tieu-hoa", "near_player": true},
+    {"say": [["tieu-hoa", "Cậu tới thật rồi! Lần này không ai kéo tớ đi được nữa đâu."], ["tieu-hoa", "Tớ nghe lỏm được: Ma Tôn cần đủ năm linh căn thuần, mỗi hệ một người, để đốt thủng Thiên Mạch."], ["tieu-hoa", "Tớ là Hỏa. Bọn chúng còn đang tìm Mộc, Thủy, Kim, Thổ."], ["lac-tuyet", "Năm người... Phải báo sư phụ ngay."], ["tieu-hoa", "Từ giờ tớ đi theo cậu. Tớ cũng biết đánh mà, cậu cứ xem!"]]},
+    {"npc_remove": "tieu-hoa"},
+    {"flag": "cuu-tieu-hoa"},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "with": "tieu-hoa", "text": "Đưa Tiểu Hỏa về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "Về được là tốt rồi, con bé."], ["van-hac", "Năm linh căn thuần... Ma Tôn tính chuyện lớn. Ta sẽ gửi thư cho các tông môn trên những đảo khác."], ["van-hac", "Đảo Mộc ở tầng mây xa nhất về phía đông có một linh căn Mộc thuần. Khi con lên Nguyên Anh, hãy tới đó trước ma tộc."], ["", "Mở Bạn đồng hành: nói chuyện với Tiểu Hỏa, Lạc Tuyết hoặc Mặc Ảnh rồi chọn \"Mời đi cùng\". Mỗi lần mang một người, họ đánh cùng, có chiêu riêng và lên cấp theo bạn."]]},
+    {"reward": {"base": "hac-phong-giap", "rarity": "huyen", "stones": 6}},
+    {"say": [["", "Nhận Hắc Phong Giáp phẩm Huyền và 6 Tẩy Luyện Thạch (mở Túi để mặc)."], ["", "Hết Chương 3. Tu lên Nguyên Anh để tới Đảo Mộc ở Chương 4. Hắc Phong Đảo và Hắc Phong Động vẫn mở để cày đồ."]]}
+   ],
+   "goal": "Tu lên Nguyên Anh để tới Đảo Mộc (Chương 4)",
    "until": {"never": true}
   }
  ]
