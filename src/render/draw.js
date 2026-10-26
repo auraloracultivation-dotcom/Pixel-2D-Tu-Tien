@@ -62,6 +62,17 @@ function drawPlayer(ctx, game, t) {
   if (p.riding) ctx.restore();
 }
 
+// Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo
+function drawComp(ctx, e, t) {
+  const calm = e.sleep && !e.moving;
+  if (calm) {
+    ctx.strokeStyle = e.npc.color; ctx.globalAlpha = 0.3 + 0.2 * Math.sin(t * 2.4 + 1); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(e.x, e.y - 6, 10 + Math.sin(t * 1.6) * 1.5, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  drawPerson(ctx, e, e.npc.color, e.npc.hair || '#5a4a86', t, false, calm ? { x: 0, y: -1 } : { x: e.face, y: 0.3 });
+  if (calm) { ctx.fillStyle = INK; ctx.fillRect(e.x - 2, e.y - 10.4, 1.4, 0.7); ctx.fillRect(e.x + 0.6, e.y - 10.4, 1.4, 0.7); }   // mắt nhắm
+}
+
 function drawMob(ctx, m, t) {
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
@@ -232,7 +243,7 @@ export function drawWorld(game, screen, t) {
     else if (k === 'm') drawMob(ctx, e, t);
     else if (k === 'o') drawOther(ctx, e, game, t);
     else if (k === 'pet') drawPet(ctx, e, t);
-    else if (k === 'comp') drawPerson(ctx, e, e.npc.color, e.npc.hair || '#5a4a86', t, false, { x: e.face, y: 0.3 });
+    else if (k === 'comp') drawComp(ctx, e, t);
     else drawPlayer(ctx, game, t);
   }
   for (const l of game.loot) {   // đồ rơi: viên lấp lánh theo màu độ hiếm
