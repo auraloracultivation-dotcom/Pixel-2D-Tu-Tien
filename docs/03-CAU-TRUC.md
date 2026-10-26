@@ -27,4 +27,13 @@ Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì 
 
 ## Lưu tiến trình
 
-Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`). Sẽ chuyển lên máy chủ qua RPC.
+Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`).
+
+Lưu máy chủ đã viết sẵn nhưng **chưa đẩy lên Supabase** (chủ dự án duyệt mới áp dụng):
+
+- `supabase/migrations/20261026000000_p2d_luu_nhan_vat.sql`: bảng `p2d_nhan_vat` (RLS chỉ đọc dòng của mình, không ai ghi thẳng), hàm `p2d_tai()` và `p2d_luu(data, phien_ban)`. Hàm lưu kiểm tra kích thước, khung dữ liệu, cảnh giới hợp lệ và không nhảy quá 3 tầng mỗi lần lưu, túi tối đa 40 món, độ hiếm hợp lệ, và số phiên bản để hai máy cùng tài khoản không ghi đè nhau.
+- `src/net/profile.js`: gọi hai hàm trên, gom lưu 4 giây một lần, lỗi mạng thì thử lại.
+- Bật bằng `"server_save": true` trong `data/config.json`. Máy mới chưa có bản lưu sẽ tự lấy bản trên máy chủ.
+- Còn tin máy khách: dòng chỉ số đồ rơi và tẩy luyện vẫn tung ở máy. Muốn chống gian lận đồ thật thì bước sau chuyển việc tung đồ vào hàm máy chủ.
+
+Các bước áp dụng khi được duyệt: chạy migration trên dự án Supabase, đổi `server_save` thành `true`, mở PR.
