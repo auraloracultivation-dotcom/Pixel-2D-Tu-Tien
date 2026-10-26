@@ -22,6 +22,12 @@
   "q": {"name": "nền động phủ", "color": "#6a5e7a"},
   "K": {"name": "lò đan", "solid": true, "color": "#6a5e7a"},
   "A": {"name": "lò rèn", "solid": true, "color": "#6a5e7a"},
-  "G": {"name": "linh điền", "color": "#5a3e2a"}
+  "G": {"name": "linh điền", "color": "#5a3e2a"},
+  "w": {"name": "tuyết", "color": "#e4eef6"},
+  "i": {"name": "mặt băng", "color": "#bfe0f2"},
+  "Y": {"name": "tùng tuyết", "solid": true, "color": "#e4eef6"},
+  "O": {"name": "hồ băng nứt", "solid": true, "low": true, "color": "#7ab8e0"},
+  "j": {"name": "nền băng quật", "color": "#3a5470"},
+  "k": {"name": "trụ băng", "solid": true, "color": "#3a5470"}
  }
 }

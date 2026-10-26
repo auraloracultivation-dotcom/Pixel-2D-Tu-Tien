@@ -29,12 +29,6 @@
  "music": {
   "_note": "Nhạc nền sinh từ thang ngũ cung theo từng bản đồ: notes là bậc trong scale, bpm, root (Hz).",
   "scale": [0, 2, 4, 7, 9],
-  "maps": {
-   "thanh-khe": {"root": 293.66, "bpm": 84, "wave": "triangle", "pad": "sine", "mood": "sang"},
-   "thien-kiem-phong": {"root": 261.63, "bpm": 72, "wave": "triangle", "pad": "sine", "mood": "sang"},
-   "bi-canh": {"root": 196.0, "bpm": 96, "wave": "square", "pad": "sawtooth", "mood": "toi"},
-   "dao-xich-dien": {"root": 220.0, "bpm": 88, "wave": "triangle", "pad": "sawtooth", "mood": "sang"},
-   "hoa-quat": {"root": 174.61, "bpm": 104, "wave": "square", "pad": "sawtooth", "mood": "toi"}
-  }
+  "maps": {"thanh-khe": {"root": 293.66, "bpm": 84, "wave": "triangle", "pad": "sine", "mood": "sang"}, "thien-kiem-phong": {"root": 261.63, "bpm": 72, "wave": "triangle", "pad": "sine", "mood": "sang"}, "bi-canh": {"root": 196.0, "bpm": 96, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "dao-xich-dien": {"root": 220.0, "bpm": 88, "wave": "triangle", "pad": "sawtooth", "mood": "sang"}, "hoa-quat": {"root": 174.61, "bpm": 104, "wave": "square", "pad": "sawtooth", "mood": "toi"}, "dao-han-bang": {"root": 246.94, "bpm": 76, "wave": "sine", "pad": "triangle", "mood": "sang"}, "han-bang-quat": {"root": 164.81, "bpm": 100, "wave": "square", "pad": "sawtooth", "mood": "toi"}}
  }
 }

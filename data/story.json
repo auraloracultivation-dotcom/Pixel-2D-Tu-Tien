@@ -214,9 +214,85 @@
     {"say": [["ho-linh", "Oa, rộng ghê! Lò đan góc trái, lò rèn góc phải, linh điền phía dưới."], ["ho-linh", "Linh thảo trong linh điền tự mọc, 15 phút một lứa, kể cả lúc cậu không chơi. Ghé qua bấm Linh điền để thu."], ["ho-linh", "Lò đan luyện Hồi Xuân Đan để uống lúc đánh nhau (nút Đan), còn có đan tăng linh khí, tăng máu vĩnh viễn, đan giúp độ kiếp."], ["ho-linh", "Lò rèn dùng Tinh Thiết. Phân giải đồ thừa trong Túi là ra Tinh Thiết."], ["", "Trưởng lão Vân Hạc gửi quà: 6 Linh Thảo, 2 Yêu Huyết Tinh, 6 Tinh Thiết và 3 viên Hồi Xuân Đan."]]},
     {"mats": {"linh-thao": 6, "yeu-huyet": 2, "tinh-thiet": 6}},
     {"pills": {"hoi-xuan-dan": 3}},
-    {"say": [["", "Hết Chương 1. Bạn vẫn có thể về động phủ luyện đan, rèn đồ, nhận treo thưởng, vào lại bí cảnh và Hỏa Quật để cày đồ, tu luyện lên Trúc Cơ tầng cao hơn. Chương 2 sẽ mở đường tới tầng Mây Giữa."]]}
+    {"say": [["", "Hết Chương 1. Tu tới Trúc Cơ tầng 5, Trưởng lão Vân Hạc sẽ gọi bạn đi tầng Mây Giữa (Chương 2). Trong lúc chờ: luyện đan, rèn đồ ở động phủ, nhận treo thưởng, vào lại bí cảnh và Hỏa Quật."]]}
    ],
-   "goal": "Tự do tu luyện, luyện đan, rèn đồ, nhận treo thưởng",
+   "goal": "Tu tới Trúc Cơ tầng 5 (luyện đan, rèn đồ, săn quái, việc hằng ngày)",
+   "until": {"total": 13}
+  },
+  {
+   "id": "goi-chuong-2", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Ngọc bội của Tiểu Hỏa bỗng nóng rực, ánh đỏ chỉ thẳng xuống tầng mây phía dưới."], ["van-hac", "Con lên Trúc Cơ tầng 5 rồi. Đủ sức bay xuống tầng Mây Giữa."], ["van-hac", "Đảo gần nhất là Đảo Hàn Băng. Từ ngày ma khí tràn vào, đảo ấy đóng băng cả biển mây."], ["lac-tuyet", "Để ta đi cùng. Ta hệ Thủy, băng tuyết không làm khó được ta."], ["lac-tuyet", "Đừng hiểu lầm. Ta chỉ không muốn sư đệ chết cóng giữa đường."]]},
+    {"flag": "han-bang"},
+    {"fly": "dao-han-bang", "spawn": "vao", "kind": "flight", "with": "lac-tuyet", "text": "Theo sư tỷ Lạc Tuyết bay xuống tầng Mây Giữa"},
+    {"say": [["lac-tuyet", "Tới rồi. Lạnh thật... Làng chài ở phía tây, đi hỏi trưởng làng xem chuyện gì."]]}
+   ],
+   "goal": "Hỏi chuyện Lão Ngư, trưởng làng chài", "target": [10, 10], "target_map": "dao-han-bang",
+   "until": {"talk": "lao-ngu"}
+  },
+  {
+   "id": "lang-chai", "map": "dao-han-bang", "once": true,
+   "do": [
+    {"say": [["lao-ngu", "Tu sĩ Kiếm tông? Trời phật phù hộ!"], ["lao-ngu", "Mười ngày trước, một tên ma tướng mặc giáp băng kéo theo một đứa nhỏ tóc đỏ, bị xích tay, đi vào Băng Quật phía bắc."], ["lao-ngu", "Từ đó biển mây đông cứng, tuyết lang thì phát cuồng, cắn chết cả người đi kiếm củi."], ["lac-tuyet", "Tóc đỏ... là Tiểu Hỏa. Sư đệ, dẹp bầy tuyết lang trước, dân làng mới dám ra khỏi nhà."]]}
+   ],
+   "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [24, 13],
+   "until": {"kill": "tuyet-lang", "n": 8}
+  },
+  {
+   "id": "bong-den", "map": "dao-han-bang", "once": true,
+   "do": [
+    {"say": [["lao-ngu", "Đa tạ! Còn chuyện này... đêm nào cũng có bóng đen lẻn vào kho cá ở bờ đông."], ["lao-ngu", "Người ta bảo là ma tộc. Ta già rồi, không dám tới gần."], ["lac-tuyet", "Ma tộc ở ngay cạnh làng? Đi xem."]]},
+    {"flag": "gap-mac-anh"},
+    {"npc_add": "mac-anh", "at": [29, 16]}
+   ],
+   "goal": "Tới kho cá bờ đông xem bóng đen", "target": [29, 16],
+   "until": {"talk": "mac-anh"}
+  },
+  {
+   "id": "mac-anh", "map": "dao-han-bang", "once": true,
+   "do": [
+    {"say": [["mac-anh", "Khoan! Đừng rút kiếm. Ta không đánh nhau."], ["mac-anh", "Ta là Mặc Ảnh, lính hậu cần của Hàn Hồn Ma Tướng. Ta bỏ trốn rồi. Ta chỉ lấy cá để sống qua mùa đông."], ["lac-tuyet", "Ma tộc mà biết đói? Nói dối thì nói khéo một chút."], ["mac-anh", "Tin hay không tùy cô. Nhưng ta biết cậu bé tóc đỏ. Cậu ấy bị xích trong Băng Quật mà vẫn chia cho ta nửa bát canh."], ["mac-anh", "Cửa Băng Quật bị phong ấn bằng ba khối băng tâm. Ma Tướng giấu chúng ở bờ đông bắc, có ma băng tiễn canh."], ["mac-anh", "Phá phong ấn đi. Ta... muốn trả cậu ấy bát canh đó."]]},
+    {"flag": "tim-bang-tam"},
+    {"pickups": "bang-tam", "at": [[26, 6], [30, 8], [28, 4]]},
+    {"spawn": "ma-bang-tien", "n": 3, "at": [28, 6], "spread": 2}
+   ],
+   "goal": "Lấy băng tâm ở bờ đông bắc ({n}/3)", "target": [28, 6],
+   "until": {"collect": "bang-tam", "n": 3}
+  },
+  {
+   "id": "mo-bang-quat", "map": "dao-han-bang", "once": true,
+   "do": [
+    {"say": [["", "Ba khối băng tâm rung lên rồi vỡ vụn. Từ phía bắc vang lên tiếng nứt như sấm."], ["mac-anh", "Phong ấn mở rồi. Ta không vào được, lính canh nhận ra ta. Ta ở đây trông làng giúp các người."], ["lac-tuyet", "Sư đệ, vào Băng Quật. Ta đi sau lưng đệ."]]},
+    {"flag": "mo-bang-quat"}
+   ],
+   "goal": "Vào Băng Quật (phía bắc đảo)", "target": [18, 2],
+   "until": {"map": "han-bang-quat"}
+  },
+  {
+   "id": "bang-quat", "map": "han-bang-quat",
+   "do": [
+    {"say": [["lac-tuyet", "Lạnh thấu xương... Ma khí đặc như sương. Cẩn thận."]]}
+   ],
+   "goal": "Dọn Băng Quật, hạ Hàn Hồn Ma Tướng",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "gap-tieu-hoa", "map": "han-bang-quat", "once": true,
+   "do": [
+    {"say": [["", "Hàn Hồn Ma Tướng gục xuống, giáp băng vỡ tan. Sau lưng hắn là một cột băng, trong đó có người."]]},
+    {"npc_add": "tieu-hoa", "near_player": true},
+    {"say": [["tieu-hoa", "...Là cậu thật à? Tớ biết ngọc bội sẽ dẫn cậu tới mà!"], ["tieu-hoa", "Tớ ổn. Bọn chúng không dám làm gì tớ. Ma Tôn cần linh căn của tớ còn nguyên vẹn."], ["lac-tuyet", "Linh căn hỏa thuần như vậy... chúng muốn dùng để đốt thủng Thiên Mạch."], ["", "Đột nhiên mặt đất rung chuyển. Một khe nứt đen ngòm mở ra dưới chân Tiểu Hỏa."]]},
+    {"shake": 6},
+    {"flash": true},
+    {"say": [["", "Một bàn tay khổng lồ bằng khói đen vươn lên, quấn lấy Tiểu Hỏa."], ["tieu-hoa", "Đừng đuổi theo! Cậu còn yếu lắm! Lên Kim Đan rồi hẵng tới Hắc Phong Đảo... tớ chờ được!"], ["", "Khe nứt khép lại. Chỉ còn lại tiếng gió rít trong hang băng."]]},
+    {"npc_remove": "tieu-hoa"},
+    {"flag": "gap-tieu-hoa"},
+    {"fly": "dao-han-bang", "spawn": "tu-bang-quat", "kind": "portal", "text": "Ra khỏi Băng Quật"},
+    {"say": [["mac-anh", "Ta thấy rồi. Đó là Hắc Thủ của Ma Tôn. Hắc Phong Đảo ở tầng mây sâu hơn nữa."], ["mac-anh", "Tu sĩ Trúc Cơ bay xuống đó là bị gió đen xé xác. Cậu bé nói đúng, phải lên Kim Đan."], ["lac-tuyet", "...Ta sẽ báo lại với sư phụ. Sư đệ, chuyện này không phải lỗi của đệ."], ["lac-tuyet", "Cầm lấy cái này. Áo giáp hàn băng ta luyện lâu rồi, chưa có dịp dùng."]]},
+    {"reward": {"base": "huyen-giap", "rarity": "huyen", "stones": 4}},
+    {"say": [["", "Nhận Huyền Giáp phẩm Huyền và 4 Tẩy Luyện Thạch (mở Túi để mặc)."], ["", "Hết Chương 2. Tu lên Kim Đan (độ thiên kiếp ở Trúc Cơ tầng 9) để đuổi theo Tiểu Hỏa tới Hắc Phong Đảo ở Chương 3. Đảo Hàn Băng và Băng Quật vẫn mở để cày đồ."]]}
+   ],
+   "goal": "Tu lên Kim Đan để tới Hắc Phong Đảo (Chương 3)",
    "until": {"never": true}
   }
  ]

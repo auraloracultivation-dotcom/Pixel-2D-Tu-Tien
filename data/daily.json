@@ -14,9 +14,16 @@
   {"id": "ren-do", "type": "forge", "n": 1, "need": "dong-phu", "text": "Rèn {n} món ở lò rèn", "reward": {"contrib": 25, "mats": {"tinh-thiet": 3}}},
   {"id": "linh-dien", "type": "harvest", "n": 1, "need": "dong-phu", "text": "Thu hoạch linh điền {n} lần", "reward": {"contrib": 15, "mats": {"yeu-huyet": 1}}},
   {"id": "phan-giai", "type": "salvage", "n": 3, "text": "Phân giải {n} món đồ", "reward": {"contrib": 15, "stones": 1}},
-  {"id": "bi-canh", "type": "kill", "mob": "huyet-nha", "n": 1, "need": "mo-bi-canh", "text": "Hạ Phân thân Huyết Nha", "reward": {"contrib": 35, "gem": 1}}
+  {"id": "bi-canh", "type": "kill", "mob": "huyet-nha", "n": 1, "need": "mo-bi-canh", "text": "Hạ Phân thân Huyết Nha", "reward": {"contrib": 35, "gem": 1}},
+  {"id": "giet-tuyet-lang", "type": "kill", "mob": "tuyet-lang", "n": 12, "need": "han-bang", "text": "Hạ {n} tuyết lang", "reward": {"contrib": 30, "stones": 2}},
+  {"id": "bang-quat", "type": "kill", "mob": "han-hon-ma-tuong", "n": 1, "need": "gap-tieu-hoa", "text": "Hạ Hàn Hồn Ma Tướng", "reward": {"contrib": 50, "gem": 1}}
  ],
- "chest": {"contrib": 50, "stones": 3, "item": "linh", "gem": 1},
+ "chest": {
+  "contrib": 50,
+  "stones": 3,
+  "item": "linh",
+  "gem": 1
+ },
  "ranks": [
   {"id": "ngoai-mon", "name": "Đệ tử ngoại môn", "need": 0},
   {"id": "noi-mon", "name": "Đệ tử nội môn", "need": 300, "gift": {"stones": 5, "item": "huyen"}},

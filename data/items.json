@@ -52,12 +52,17 @@
   "viem-linh": {"item": 0.07, "gem": 0.06, "stone": 0.16},
   "ma-binh": {"item": 0.14, "gem": 0.08, "stone": 0.25},
   "ma-phap": {"item": 0.12, "gem": 0.07, "stone": 0.2},
-  "huyet-nha-that": {"item": 1, "items": 3, "gem": 1, "stone": 1, "stones": 8, "min_rarity": "huyen"}
+  "huyet-nha-that": {"item": 1, "items": 3, "gem": 1, "stone": 1, "stones": 8, "min_rarity": "huyen"},
+  "tuyet-lang": {"item": 0.09, "gem": 0.06, "stone": 0.16},
+  "bang-tinh": {"item": 0.08, "gem": 0.08, "stone": 0.18},
+  "ma-bang-tien": {"item": 0.12, "gem": 0.07, "stone": 0.2},
+  "han-ma-ve": {"item": 0.18, "gem": 0.1, "stone": 0.3},
+  "han-hon-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 10, "min_rarity": "huyen"}
  },
  "starter": ["thiet-kiem", "bo-y"],
  "quest_items": {
   "linh-thao": {"name": "linh thảo", "color": "#9af0a8", "base": "#2f7a44"},
-  "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}
+  "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}, "bang-tam": {"name": "băng tâm", "color": "#e8f8ff", "base": "#3a7ab8"}
  },
  "_note_weapon": "Món ở ô Vũ khí có weapon: loại vũ khí quyết định cách đánh thường và chiêu vũ khí."
 }
