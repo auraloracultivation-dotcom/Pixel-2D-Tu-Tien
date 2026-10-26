@@ -5,6 +5,7 @@
  "dark": 0.12,
  "ground": "#6a5e7a",
  "meditate_mul": 2, "indoor": true,
+ "world": {"x": 64, "y": 24, "layer": "Tầng Mây Cao"},
  "grid": [
   "####################",
   "#qqqqqqqqqqqqqqqqqq#",

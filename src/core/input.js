@@ -1,6 +1,6 @@
 // Điều khiển: cần gạt ảo (nửa trái), nút bấm (DOM, data-act), bàn phím, chạm để xem tên.
 const KEYMAP = {
-  KeyJ: 'atk', Space: 'atk', KeyK: 's0', KeyL: 's1', KeyI: 's2', KeyE: 'act', Enter: 'act',
+  KeyJ: 'atk', Space: 'atk', KeyK: 's0', KeyL: 's1', KeyI: 's2', KeyE: 'act', Enter: 'act', ShiftLeft: 'dash', KeyU: 'dash',
 };
 const DIRS = {
   KeyW: [0, -1], ArrowUp: [0, -1], KeyS: [0, 1], ArrowDown: [0, 1],
