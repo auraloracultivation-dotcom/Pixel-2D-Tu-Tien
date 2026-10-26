@@ -20,6 +20,16 @@
    "offer": ["Độc đằng là rễ ma tộc cắm xuống đất ta. Chúng mọc lan ra, cây con chết hết.", "Hạ giúp lão mười gốc. Lão sẽ dạy ngươi cách trồng lại rừng."],
    "goal": "Hạ độc đằng ở Rừng Mê ({n}/10)",
    "done": ["Đất thở lại được rồi. Tinh linh nợ ngươi.", "Nhận lấy, đây là hạt giống linh thảo quý của làng."],
-   "reward": {"mats": {"linh-thao": 20, "hoa-linh-chi": 6}, "gem": 1, "contrib": 50}}
+   "reward": {"mats": {"linh-thao": 20, "hoa-linh-chi": 6}, "gem": 1, "contrib": 50}},
+  "kim-sa": {"npc": "tieu-dong", "need": "dao-kim", "name": "Sàng kim sa", "kind": "collect", "item": "kim-sa-tinh", "map": "dao-thien-kim", "at": [[20, 4], [26, 23], [13, 5]], "n": 3,
+   "offer": ["Lò rèn tắt lửa ba ngày rồi. Không có kim sa tinh thì không nhóm lại được.", "Ngoài đồi cát có ba chỗ cát óng ánh. Anh chị nhặt giúp em nhé, sâu trùng hay cắn lắm."],
+   "goal": "Nhặt kim sa tinh ngoài đồi cát ({n}/3)",
+   "done": ["Lửa lên rồi! Nghe tiếng búa đầu tiên kìa!", "Đây, em rèn hỏng mấy cái, nhưng cái này thì được."],
+   "reward": {"stones": 10, "qi": 3200, "item": "huyen"}},
+  "an-tang-kiem": {"npc": "kiem-lao", "need": "cuu-thiet-lan", "name": "An táng kiếm hồn", "kind": "kill", "mob": "kiem-hon", "n": 12,
+   "offer": ["Ma Tướng chết rồi, nhưng vài kiếm hồn vẫn chưa tỉnh. Chúng bay lạc ngoài bãi mộ.", "Hạ chúng xuống nhẹ tay thôi. Ta sẽ chôn lại từng thanh."],
+   "goal": "Hạ kiếm hồn còn lạc ở bãi mộ ({n}/12)",
+   "done": ["Bãi mộ yên rồi. Sáu mươi năm, chưa bao giờ ta thấy nó yên như đêm nay.", "Nhận lấy. Kiếm tu đã khuất cũng muốn cảm ơn ngươi."],
+   "reward": {"mats": {"tinh-thiet": 30, "khoa-linh-thach": 1}, "gem": 1, "contrib": 60}}
  }
 }

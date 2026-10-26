@@ -8,6 +8,7 @@
   {"map": "thien-kiem-phong", "at": [16, 22], "name": "Vọng Vân Thạch", "line": "Biển mây dưới chân, trời cao trên đầu. Kiếm để bên, lòng để yên."},
   {"map": "dao-xich-dien", "at": [14, 22], "name": "Đá Ngắm Hoàng Hôn", "line": "Lửa núi đỏ rực, mây chiều đỏ theo. Có những lúc nóng cũng đẹp."},
   {"map": "dao-han-bang", "at": [18, 22], "name": "Đá Nghe Tuyết", "line": "Tuyết rơi không tiếng. Nghe kỹ thì nghe được cả lòng mình."},
-  {"map": "hac-phong-dao", "at": [18, 22], "name": "Đá Đón Gió", "line": "Gió đen thổi mãi rồi cũng có lúc dừng. Người cũng vậy."}
+  {"map": "hac-phong-dao", "at": [18, 22], "name": "Đá Đón Gió", "line": "Gió đen thổi mãi rồi cũng có lúc dừng. Người cũng vậy."},
+  {"map": "dao-thien-kim", "at": [22, 25], "name": "Đá Nghe Kiếm", "line": "Gió lùa qua bãi mộ, ngàn thanh kiếm cùng ngân một tiếng. Rồi im."}
  ]
 }

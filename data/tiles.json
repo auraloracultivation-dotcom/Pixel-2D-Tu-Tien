@@ -40,6 +40,14 @@
   "W": {"name": "nhà trên cây", "solid": true, "color": "#6ab060"},
   "Q": {"name": "đèn lồng", "solid": true, "color": "#6ab060"},
   "r": {"name": "nền rễ", "color": "#3a2a1e"},
-  "X": {"name": "vách rễ", "solid": true, "color": "#241a12"}
+  "X": {"name": "vách rễ", "solid": true, "color": "#241a12"},
+  "s": {"name": "cát vàng", "color": "#e0c070"},
+  "g": {"name": "nền bãi mộ kiếm", "color": "#a8987a"},
+  "h": {"name": "kiếm gãy", "color": "#a8987a"},
+  "J": {"name": "mộ kiếm", "solid": true, "color": "#a8987a"},
+  "N": {"name": "nhà rèn", "solid": true, "color": "#e0c070"},
+  "b": {"name": "kim thạch", "solid": true, "color": "#e0c070"},
+  "C": {"name": "vách đồng", "solid": true, "color": "#2a2418"},
+  "u": {"name": "nền kiếm trủng", "color": "#3a3226"}
  }
 }

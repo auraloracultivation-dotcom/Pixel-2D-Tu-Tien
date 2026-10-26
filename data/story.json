@@ -492,6 +492,71 @@
     {"say": [["van-hac", "Bóng Ma Tôn... đã dám hiện ra ngay dưới gốc cây mẹ. Hắn sắp ra tay thật rồi."], ["van-hac", "Thủy thuần ở ngay bên cạnh con... Ta sợ là ta biết hắn nói ai."], ["lac-tuyet", "...Sư phụ, đừng nhìn con như thế. Con biết linh căn của con là gì từ lâu rồi."], ["lac-tuyet", "Nếu hắn muốn tới, cứ để hắn tới. Kiếm của ta đã chờ ngày này."], ["", "Nhận Thanh Mộc Bào phẩm Địa, 12 Tẩy Luyện Thạch, 3 Ngọc Lộ Hoa, 2 Khóa Linh Thạch."], ["", "Hết Chương 4. Ma Tôn đã nhắm tới Lạc Tuyết. Tu lên Luyện Hư để mở Chương 5: hai đảo Kim và Thổ."]]}
    ],
    "goal": "Tu lên Luyện Hư để mở Chương 5",
+   "until": {"realm": 5}
+  },
+  {
+   "id": "goi-chuong-5", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Linh lực dâng lên như thủy triều rồi lắng xuống, trong vắt. Luyện Hư. Bạn thấy được những sợi linh khí mảnh như tơ nối các đảo với nhau."], ["van-hac", "Luyện Hư rồi. Giờ con bay được xuống tầng Mây Sâu phía tây."], ["van-hac", "Lão Thiết ở Xích Diễm vừa gửi thư. Cháu gái lão, Thiết Lan, theo học kiếm ở Đảo Thiên Kim. Ba ngày nay không có tin."], ["van-hac", "Con bé mang linh căn Kim thuần. Ta không tin đó là chuyện tình cờ."], ["lac-tuyet", "Để con đi cùng sư đệ."], ["van-hac", "Không. Bóng Ma Tôn đã nhắc tới con. Con ở lại trong đại trận hộ sơn cho ta yên lòng."], ["lac-tuyet", "...Vâng, sư phụ."], ["lac-tuyet", "Sư đệ. Đi nhanh, về nhanh."]]},
+    {"flag": "dao-kim"},
+    {"fly": "dao-thien-kim", "spawn": "vao", "kind": "flight", "text": "Bay xuống tầng Mây Sâu phía tây"},
+    {"say": [["", "Gió trên đảo mang theo tiếng kim loại ngân khẽ, như có ngàn thanh kiếm cùng thở."], ["", "Làng rèn ở ngay bến đáp. Lò nào cũng tắt lửa."]]}
+   ],
+   "goal": "Tìm Kiếm Lão ở làng rèn", "target": [8, 12], "target_map": "dao-thien-kim",
+   "until": {"talk": "kiem-lao"}
+  },
+  {
+   "id": "kiem-lao", "map": "dao-thien-kim", "once": true,
+   "do": [
+    {"say": [["kiem-lao", "Người của Vân Hạc? Lão Thiết nói sẽ có người tới. Ngươi tới muộn ba ngày rồi."], ["kiem-lao", "Con bé Lan nghe tiếng kiếm khóc dưới Kiếm Trủng. Nó bảo kiếm hồn tổ tiên đang gọi. Nó đi một mình, rồi không về."], ["kiem-lao", "Từ đêm đó, kiếm trong bãi mộ tự rút khỏi đất, bay lượn như có ai giật dây. Không ai tới gần được."], ["kiem-lao", "Kiếm tu đã khuất không bao giờ hại người sống. Có kẻ đang làm ô uế họ. Hạ kiếm xuống giúp ta, nhẹ tay thôi."]]}
+   ],
+   "goal": "Hạ kiếm hồn bị điều khiển ở bãi mộ kiếm ({n}/8)", "target": [34, 12],
+   "until": {"kill": "kiem-hon", "n": 8}
+  },
+  {
+   "id": "manh-kiem", "map": "dao-thien-kim",
+   "do": [
+    {"say": [["", "Thanh kiếm hồn cuối cùng rơi xuống cát, run lên rồi nằm im. Giữa những ngôi mộ có vài mảnh thép sáng lấp lánh."], ["kiem-lao", "Kiếm của con Lan đấy! Gãy rồi... Nhặt hết lại giúp ta. Kiếm gãy vẫn nhớ đường về với chủ."]]},
+    {"pickups": "manh-kiem", "at": [[31, 6], [41, 10], [34, 21]]}
+   ],
+   "goal": "Nhặt mảnh kiếm gãy của Thiết Lan ({n}/3)",
+   "until": {"collect": "manh-kiem", "n": 3}
+  },
+  {
+   "id": "mo-kiem-trung", "map": "dao-thien-kim", "once": true,
+   "do": [
+    {"say": [["", "Ba mảnh kiếm ghép lại trong tay bạn, rung lên, cùng chỉ về phía đông bãi mộ."], ["kiem-lao", "Kiếm Trủng. Nơi chôn kiếm của các đời chưởng môn. Cửa niêm phong sáu mươi năm nay."], ["kiem-lao", "Ta mở cửa cho ngươi. Ở dưới đó, ta nghe thấy tiếng của một thứ không phải người."]]},
+    {"flag": "mo-kiem-trung"}
+   ],
+   "goal": "Vào Kiếm Trủng (cổng phía đông bãi mộ)", "target": [43, 13], "target_map": "dao-thien-kim",
+   "until": {"map": "kiem-trung"}
+  },
+  {
+   "id": "kiem-trung", "map": "kiem-trung",
+   "do": [
+    {"say": [["", "Hành lang đồng tối om. Trên vách cắm đầy kiếm, chuôi nào cũng quấn một sợi khói đen."], ["", "Từ sâu bên trong vọng ra tiếng búa đập. Đều đặn. Như có người vẫn đang rèn."]]}
+   ],
+   "goal": "Phá Kiếm Trủng, hạ Vạn Kiếm Ma Tướng",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "cuu-thiet-lan", "map": "kiem-trung", "once": true,
+   "do": [
+    {"say": [["van-kiem-ma-tuong", "Khụ... Con nhóc đó... không chịu rèn cho ta một thanh ma kiếm... nên ta lấy kiếm của tổ tiên nó..."], ["van-kiem-ma-tuong", "Ngươi cứu được nó hôm nay. Nhưng Ma Tôn có năm cái tên trong sổ. Bốn cái... đã có người canh rồi."], ["", "Ma Tướng tan thành bụi sắt. Ngàn thanh kiếm trên vách cùng rơi xuống, cắm thẳng vào đất, nằm yên."]]},
+    {"shake": 4},
+    {"npc_add": "thiet-lan", "near_player": true},
+    {"say": [["thiet-lan", "...Ngươi là ai? Người của Kiếm Tông à? Ông nội ta chắc lo lắm."], ["thiet-lan", "Hắn nhốt ta dưới này, bắt ta rèn ma kiếm. Ta đập gãy kiếm của chính mình, ném qua khe cửa. Mong là có người nhặt được."], ["thiet-lan", "Và người nhặt được là ngươi. Cảm ơn."]]},
+    {"npc_remove": "thiet-lan"},
+    {"flag": "cuu-thiet-lan"},
+    {"fly": "dao-thien-kim", "spawn": "vao", "kind": "portal", "text": "Trở lên làng rèn"},
+    {"say": [["kiem-lao", "Con bé về rồi. Lò rèn sẽ đỏ lửa lại thôi."], ["kiem-lao", "Đây là Canh Kim Kiếm Quyết, kiếm quyết của đảo. Sáu mươi năm ta chưa dạy ai. Hôm nay ta dạy ngươi."], ["thiet-lan", "Còn đây là thứ ta rèn trong lúc bị nhốt. Ta không nộp cho hắn. Ta để dành cho người tới cứu ta."]]},
+    {"technique": "canh-kim-kiem-quyet"},
+    {"reward": {"base": "kim-cang-gioi", "rarity": "dia", "stones": 14}},
+    {"mats": {"tinh-thiet": 20, "khoa-linh-thach": 2}},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "Thiết Lan an toàn. Tốt. Lão Thiết sẽ ngủ được rồi."], ["van-hac", "Nhưng lời Ma Tướng làm ta lo. Đảo Thổ ở dưới đáy biển mây, đã ba tháng không có thuyền nào về."], ["lac-tuyet", "Sư phụ, để con đi dò đường. Con đi một mình, ẩn khí tức, không đánh, chỉ xem."], ["van-hac", "...Con biết ta sẽ nói không."], ["lac-tuyet", "Con biết. Nhưng sư đệ chưa tới Hợp Thể, chưa xuống được tầng đó. Ngoài con ra còn ai?"], ["van-hac", "Ba ngày. Quá ba ngày không có tin, ta tự xuống tìm."], ["lac-tuyet", "Sư đệ, tu cho nhanh. Ta đợi ngươi ở Đảo Thổ."], ["", "Nhận Canh Kim Kiếm Quyết, Kim Cang Giới phẩm Địa, 14 Tẩy Luyện Thạch, 20 Tinh Thiết, 2 Khóa Linh Thạch."], ["", "Thiết Lan ở lại làng rèn Đảo Thiên Kim. Tới đó có thể mời nàng đi cùng."], ["", "Hết Chương 5 phần đầu. Tu lên Hợp Thể để tới Đảo Thổ."]]}
+   ],
+   "goal": "Tu lên Hợp Thể để tới Đảo Thổ",
    "until": {"never": true}
   }
  ]

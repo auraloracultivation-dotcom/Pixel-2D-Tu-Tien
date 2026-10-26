@@ -27,12 +27,12 @@
   "~~~~~T......R........R....T~~~~~",
   "~~~~~~T..................T~~~~~~",
   "~~~~~~~TT......F......TTT~~~~~~~",
-  "~~~~~~~~~TTT.P.....TTT~~~~~~~~~~",
+  "~~~~~~~~~TTT.P....PTTT~~~~~~~~~~",
   "~~~~~~~~~~~~~T.P.T~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {"vao": [16, 13], "tu-bi-canh": [24, 13], "tu-xich-dien": [5, 12], "tu-dong-phu": [6, 10], "tu-han-bang": [13, 20], "tu-thap": [24, 6], "tu-bi-canh-tn": [24, 12], "tu-hac-phong": [15, 21], "tu-dao-moc": [26, 9], "tu-luan-vo": [9, 18]},
- "portals": [{"at": [26, 13], "to": "bi-canh", "spawn": "vao", "need": "mo-bi-canh", "label": "Bí cảnh Huyết Nha"}, {"at": [3, 12], "to": "dao-xich-dien", "spawn": "vao", "need": "ngu-kiem", "label": "Ngự kiếm tới Đảo Xích Diễm"}, {"at": [6, 9], "to": "dong-phu", "spawn": "vao", "need": "dong-phu", "kind": "portal", "label": "Vào động phủ"}, {"at": [13, 21], "to": "dao-han-bang", "spawn": "vao", "need": "han-bang", "label": "Ngự kiếm tới Đảo Hàn Băng"}, {"at": [15, 22], "to": "hac-phong-dao", "spawn": "vao", "need": "hac-phong", "label": "Ngự kiếm tới Hắc Phong Đảo"}, {"at": [27, 9], "to": "dao-moc", "spawn": "vao", "need": "dao-moc", "label": "Bay tới Đảo Mộc"}],
+ "spawns": {"vao": [16, 13], "tu-bi-canh": [24, 13], "tu-xich-dien": [5, 12], "tu-dong-phu": [6, 10], "tu-han-bang": [13, 20], "tu-thap": [24, 6], "tu-bi-canh-tn": [24, 12], "tu-hac-phong": [15, 21], "tu-dao-moc": [26, 9], "tu-luan-vo": [9, 18], "tu-thien-kim": [17, 20]},
+ "portals": [{"at": [26, 13], "to": "bi-canh", "spawn": "vao", "need": "mo-bi-canh", "label": "Bí cảnh Huyết Nha"}, {"at": [3, 12], "to": "dao-xich-dien", "spawn": "vao", "need": "ngu-kiem", "label": "Ngự kiếm tới Đảo Xích Diễm"}, {"at": [6, 9], "to": "dong-phu", "spawn": "vao", "need": "dong-phu", "kind": "portal", "label": "Vào động phủ"}, {"at": [13, 21], "to": "dao-han-bang", "spawn": "vao", "need": "han-bang", "label": "Ngự kiếm tới Đảo Hàn Băng"}, {"at": [15, 22], "to": "hac-phong-dao", "spawn": "vao", "need": "hac-phong", "label": "Ngự kiếm tới Hắc Phong Đảo"}, {"at": [27, 9], "to": "dao-moc", "spawn": "vao", "need": "dao-moc", "label": "Bay tới Đảo Mộc"}, {"at": [18, 21], "to": "dao-thien-kim", "spawn": "vao", "need": "dao-kim", "label": "Bay tới Đảo Thiên Kim"}],
  "npcs": [{"id": "van-hac", "at": [16, 5]}, {"id": "lac-tuyet", "at": [20, 9]}, {"id": "ho-linh", "at": [9, 10]}, {"id": "chap-su", "at": [12, 9]}, {"id": "quan-binh-kho", "at": [20, 13]}, {"id": "ngu-thu-su", "at": [10, 16]}, {"id": "thu-thap", "at": [24, 5], "need": "mo-bi-canh"}, {"id": "luan-vo-su", "at": [8, 17], "need": "mo-bi-canh"}, {"id": "van-bao", "at": [22, 16]}, {"id": "quan-bi-canh", "at": [24, 11], "need": "mo-bi-canh"}, {"id": "tieu-hoa", "at": [17, 11], "need": "cuu-tieu-hoa"}],
  "spawners": [{"mob": "moc-linh", "at": [15, 18], "n": 4, "spread": 4, "respawn": 6}],
  "rooms": []
