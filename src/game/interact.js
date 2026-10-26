@@ -17,6 +17,7 @@ import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
 import { hasSide, talkSide, sideCollect } from './side.js';
 import { talkHome } from './home.js';
+import { canPat, patPet } from './pat.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -40,7 +41,7 @@ function nearStation(game) {
   return null;
 }
 
-// Nút tương tác theo ngữ cảnh: nói chuyện / độ kiếp (khi đầy tầng 9) / đả tọa
+// Nút tương tác theo ngữ cảnh: nói chuyện / độ kiếp (khi đầy tầng 9) / đả tọa / ngắm cảnh / câu cá / vuốt ve linh thú
 export function updateInteract(game) {
   const cfg = game.data.config, p = game.player;
   const npc = nearestNpc(game, cfg.interact_range);
@@ -49,7 +50,8 @@ export function updateInteract(game) {
   const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
   const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
   const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : fish ? fishLabel(game) : null;
+  const pat = !npc && !trib && !st && !med && !view && !fish && !game.view && canPat(game);
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
@@ -77,6 +79,8 @@ export function updateInteract(game) {
     sitView(game, view);
   } else if (fish) {
     fishAct(game, fish);
+  } else if (pat) {
+    patPet(game);
   } else if (med) {
     p.meditating = !p.meditating;
     if (p.meditating) game.toast(meditateMul(game) > 1 ? `Bồ đoàn động phủ: tu nhanh gấp ${meditateMul(game)}` : 'Đả tọa... linh khí chảy vào người', 1.4);
