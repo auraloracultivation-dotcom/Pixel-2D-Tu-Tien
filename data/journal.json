@@ -1,0 +1,27 @@
+{
+ "_note": "Nhật ký tu tiên: tự ghi lại những dấu mốc (đột phá, lần đầu tới đảo, cờ truyện, đạo lữ, linh thú, bạn đồng hành, cá hiếm). Xem ở bảng Thành tựu, tab Nhật ký. max: số dòng giữ lại. {realm}, {map}, {name} được thay bằng tên thật.",
+ "max": 300,
+ "start": "Ngày thức tỉnh linh căn ở làng Thanh Khê. Mọi chuyện bắt đầu từ đây.",
+ "realm": "Đột phá lên {realm}.",
+ "visit": "Lần đầu đặt chân tới {map}.",
+ "dao_lu": "Kết làm đạo lữ với {name}. Từ nay đả tọa không còn một mình.",
+ "comp": "{name} lần đầu đi cùng ta.",
+ "pet": "Thu phục linh thú {name}.",
+ "fish": "Câu được {name}. Hôm ấy trời rất đẹp.",
+ "rare_fish": ["kim-ly"],
+ "flags": {
+  "mat-tieu-hoa": "Làng Thanh Khê cháy. Tiểu Hỏa bị bắt đi. Kiếm tông cứu ta.",
+  "ngu-kiem": "Lần đầu ngự kiếm bay qua biển mây.",
+  "ha-huyet-nha": "Hạ Huyết Nha trong Hỏa Quật.",
+  "dong-phu": "Được ban động phủ. Có một chỗ để gọi là nhà.",
+  "gap-mac-anh": "Gặp Mặc Ảnh, một ma tộc không giống ma tộc.",
+  "gap-tieu-hoa": "Gặp lại Tiểu Hỏa trong Hàn Băng Quật, rồi lại để mất.",
+  "cuu-tieu-hoa": "Cứu được Tiểu Hỏa ở Hắc Phong Động. Lần này giữ được rồi.",
+  "cuu-thanh-diep": "Cứu Thanh Diệp. Biết ra mình mang linh căn thuần thứ năm.",
+  "het-chuong-4": "Bóng Ma Tôn hiện ra dưới gốc cây mẹ.",
+  "cuu-thiet-lan": "Cứu Thiết Lan khỏi Kiếm Trủng.",
+  "het-chuong-5": "Lạc Tuyết bị đưa vào Vết Nứt. Thạch Sinh được cứu.",
+  "cuu-lac-tuyet": "Phá Hư Không Lao, đưa Lạc Tuyết về nhà.",
+  "het-game": "Hạ Ma Tôn, cùng mọi người vá lại Thiên Mạch. Biển mây im lặng."
+ }
+}

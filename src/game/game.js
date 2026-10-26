@@ -27,6 +27,7 @@ import { praise, updatePraise } from './praise.js';
 import { updateGarden } from './garden.js';
 import { updateDayNight } from './daynight.js';
 import { updateWeather } from './weather.js';
+import { updateJournal } from './journal.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
 import { coinDrop } from './shop.js';
@@ -312,6 +313,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);
+    updateJournal(game, dt);
     updateFishing(game, dt);
     updateView(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
