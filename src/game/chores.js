@@ -8,6 +8,7 @@ import { daoLuHere } from './affinity.js';
 import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
+import { bestRecipe } from './cooking.js';
 import { anyReady } from './critters.js';
 import { pilotOpt, nightRest } from './pilotopt.js';
 
@@ -56,7 +57,7 @@ function wants(game) {
   if (pilotOpt(game, 'ngam') && !game.view && ((s.sunset !== day && ph === ss.phase) || (s.lantern !== day && ph === ln.phase))) out.push({ view: true });
   if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
     const d = daoLuHere(game);
-    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
+    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day || (s.cooked !== day && bestRecipe(game)))) out.push({ gift: d });
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
     if (anyReady(game)) out.push({ critter: true });   // linh cầm có quà: về nhà nhặt

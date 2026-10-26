@@ -7,6 +7,7 @@ import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 import { togglePilot, pilotLabel } from '../game/pilot.js';
 import { teaLeft } from '../game/home.js';
+import { mealHud } from '../game/cooking.js';
 import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 
@@ -96,7 +97,7 @@ export function createHud(audio) {
     $('daily-badge').hidden = !game.newDaily;
     $('achv-badge').hidden = !game.newAchv;
     $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily || game.newAchv);
-    const tl = teaLeft(game), pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}` + (tl ? ` · Trà ${tl} phút` : '');
+    const tl = teaLeft(game), pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}` + (tl ? ` · Trà ${tl} phút` : '') + (mealHud(game) ? ` · ${mealHud(game)}` : '');
     if ($('power').textContent !== pw) $('power').textContent = pw;
     const H = game.data.weather.hud, se = season(game);   // mùa, giờ, trời
     const sky = [se && H.season.replace('{name}', se.name), phase(game).name, game.raining && H.rain.replace('{pct}', Math.round((d.weather.rain.meditate - 1) * 100))].filter(Boolean).join(' · ');
