@@ -9,7 +9,7 @@
  "pet": "Thu phục linh thú {name}.",
  "fish": "Câu được {name}. Hôm ấy trời rất đẹp.",
  "lantern": "Lần đầu thả hoa đăng. Đèn trôi lên tới tận sao.",
- "lantern_with": "Lần đầu thả hoa đăng cùng {name}. Người ấy ước gì, ta không hỏi.", "star": "Lần đầu thấy sao băng. Kịp ước một điều, giữ trong lòng.", "star_with": "Lần đầu ngắm sao băng cùng {name}. Hai người ước cùng lúc, không ai nói ra.", "zither": "Đêm đầu tiên {name} gảy đàn tranh cho ta nghe. Tiếng đàn theo linh khí chảy vào người.",
+ "lantern_with": "Lần đầu thả hoa đăng cùng {name}. Người ấy ước gì, ta không hỏi.", "anniv": "Tròn {days} ngày kết đạo lữ với {name}.", "star": "Lần đầu thấy sao băng. Kịp ước một điều, giữ trong lòng.", "star_with": "Lần đầu ngắm sao băng cùng {name}. Hai người ước cùng lúc, không ai nói ra.", "zither": "Đêm đầu tiên {name} gảy đàn tranh cho ta nghe. Tiếng đàn theo linh khí chảy vào người.",
  "rare_fish": ["kim-ly", "nguyet-ngu"],
  "flags": {
   "mat-tieu-hoa": "Làng Thanh Khê cháy. Tiểu Hỏa bị bắt đi. Kiếm tông cứu ta.",
