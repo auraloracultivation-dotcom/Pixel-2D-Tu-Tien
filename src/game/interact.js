@@ -5,6 +5,8 @@ import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvestAll, gotText } from './garden.js';
 import { meditateMul } from './evolve.js';
 import { pickMode } from './dun-mode.js';
+import { waterDir, fishAct, fishLabel } from './fishing.js';
+import { spotHere, sitView } from './scenic.js';
 
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
@@ -44,7 +46,9 @@ export function updateInteract(game) {
   const trib = !npc && game.trib.canStart();
   const st = !npc && !trib && nearStation(game);
   const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : null;
+  const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
+  const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : fish ? fishLabel(game) : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
@@ -67,6 +71,10 @@ export function updateInteract(game) {
     else game.openCave?.('vuon');
   } else if (st) {
     game.openCave?.(st[1]);
+  } else if (view) {
+    sitView(game, view);
+  } else if (fish) {
+    fishAct(game, fish);
   } else if (med) {
     p.meditating = !p.meditating;
     if (p.meditating) game.toast(meditateMul(game) > 1 ? `Bồ đoàn động phủ: tu nhanh gấp ${meditateMul(game)}` : 'Đả tọa... linh khí chảy vào người', 1.4);

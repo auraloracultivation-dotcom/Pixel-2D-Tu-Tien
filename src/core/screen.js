@@ -2,7 +2,7 @@
 export function createScreen(canvas, cfg) {
   const s = {
     canvas, ctx: canvas.getContext('2d'),
-    w: 0, h: 0, dpr: 1, zoom: 1,
+    w: 0, h: 0, dpr: 1, zoom: 1, base: 1, mul: 1, mulT: 1,
     camX: 0, camY: 0, shakeT: 0, shakeA: 0, sx: 0, sy: 0,
   };
 
@@ -11,15 +11,19 @@ export function createScreen(canvas, cfg) {
     s.w = window.innerWidth; s.h = window.innerHeight;
     canvas.width = Math.round(s.w * s.dpr); canvas.height = Math.round(s.h * s.dpr);
     canvas.style.width = s.w + 'px'; canvas.style.height = s.h + 'px';
-    s.zoom = Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles);
+    s.base = Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles); s.zoom = s.base * s.mul;
   }
   window.addEventListener('resize', resize);
   resize();
 
   s.shake = (amount, time = 0.18) => { s.shakeA = Math.max(s.shakeA, amount); s.shakeT = Math.max(s.shakeT, time); };
 
+  // Lùi, tiến máy quay mượt (ngắm cảnh)
+  s.zoomTo = k => { s.mulT = k; };
+
   s.follow = (x, y, dt, map) => {
     const k = 1 - Math.exp(-dt * 8);
+    if (s.mul !== s.mulT) { s.mul += (s.mulT - s.mul) * (1 - Math.exp(-dt * 1.2)); if (Math.abs(s.mul - s.mulT) < 0.002) s.mul = s.mulT; s.zoom = s.base * s.mul; }
     s.camX += (x - s.camX) * k; s.camY += (y - s.camY) * k;
     if (map) {
       const hw = s.w / s.zoom / 2, hh = s.h / s.zoom / 2;

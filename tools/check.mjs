@@ -129,6 +129,8 @@ try {
   for (const who of Object.keys(read('letters.json').lines)) need(npcs[who], `letters: "${who}" không phải NPC`);
   const dn = read('daynight.json').phases;
   need(dn[0].from === 0 && dn.every((p, i) => !i || p.from > dn[i - 1].from), 'daynight: pha phải bắt đầu từ 0 giờ và tăng dần');
+  for (const s of read('scenic.json').spots) { const g = maps[s.map]?.grid; need(g && !tiles.types[g[s.at[1]][s.at[0]]].solid && g[s.at[1] + 1]?.[s.at[0]] === '~', `scenic: "${s.name}" phải ở ô đi được, sát biển mây phía nam`); }
+  for (const [id, f] of Object.entries(read('fishing.json').fish)) need(cave.materials[id] && (f.maps || []).every(m => maps[m]), `fishing/${id}: cá hoặc đảo không có`);
   const pr = read('praise.json');
   for (const [who, set] of Object.entries(pr.lines)) need(who === 'default' || npcs[who], `praise: "${who}" không phải NPC`);
   for (const k of [...pr.big, ...pr.small]) need(pr.lines.default[k]?.length, `praise: thiếu câu mặc định cho "${k}"`);
