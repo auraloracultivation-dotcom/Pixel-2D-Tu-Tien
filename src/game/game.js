@@ -4,22 +4,27 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs } from './mobs.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
-import { addQi, realmLabel } from './stats.js';
+import { addQi, realmLabel, totalLayer } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip } from './items.js';
+import { startTrip, updateTrip } from './travel.js';
+import { updateInteract, updatePortals, updatePickups } from './interact.js';
+import { updateStrikes } from './strikes.js';
+import { createTribulation } from './tribulation.js';
+import { bountyKill, bountyGoal } from './bounty.js';
 
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
   const game = {
     data, screen, input, dialog: ui.dialog, ui,
     save: null, map: null, player: null,
-    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [],
+    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [], strikes: [],
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
-    traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
+    trip: null, traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
     owner: 'guest', online: null, others: null,
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
@@ -31,6 +36,8 @@ export function createGame(data, screen, input, ui, audio) {
     game.cloud?.save(game.save);
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
+  // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
+  game.goals = () => [game.story?.goal()?.text, game.save?.bounty && bountyGoal(game)].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -50,6 +57,15 @@ export function createGame(data, screen, input, ui, audio) {
     }
     game.refreshStats(); game.persist();
   };
+  // Phần thưởng cốt truyện: một món đồ định sẵn phẩm chất (r.base, r.rarity) và/hoặc đá tẩy luyện
+  game.giveReward = r => {
+    if (r.base) {
+      const it = rollItem(data, game.save, { base: r.base, rarity: r.rarity, lvl: totalLayer(game.save, data.realms) });
+      if (addItem(data, game.save, it)) game.newItems = (game.newItems || 0) + 1;
+    }
+    if (r.stones) game.save.mats['tay-luyen-thach'] = (game.save.mats['tay-luyen-thach'] || 0) + r.stones;
+    game.persist();
+  };
   game.addPickup = (item, tx, ty) => {
     const p = game.map.center(tx, ty);
     game.pickups.push({ item, x: p.x, y: p.y });
@@ -67,13 +83,15 @@ export function createGame(data, screen, input, ui, audio) {
       game.screen.shake(3, 0.3);
     } else if (broke === -1 && !game.capWarned) {
       game.capWarned = true;
-      game.toast('Đã tới đỉnh cảnh giới. Cần độ thiên kiếp (sắp có).', 2.5);
+      game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
     game.persist();
   };
 
   game.onKill = m => {
     dropLoot(game, m);
+    bountyKill(game, m);
+    game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
 
@@ -81,7 +99,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile);
-    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = [];
+    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = [];
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
@@ -101,11 +119,13 @@ export function createGame(data, screen, input, ui, audio) {
     game.persist();
   }
 
-  game.travel = async (id, spawnName, fly, text) => {
+  // fly: đi bằng cảnh bay/truyền tống; opts.text là chữ hiện trên đường, opts.with là NPC chở người chơi
+  game.travel = async (id, spawnName, fly, opts = {}) => {
     game.traveling = true;
     if (fly) {
-      game.sfx('fly');
-      await ui.fly(text || `Ngự kiếm bay tới ${data.maps[id].name}...`, () => loadMap(id, spawnName));
+      ui.tripMode(true);
+      await startTrip(game, id, { ...opts, text: opts.text || `Ngự kiếm bay tới ${data.maps[id].name}` }, () => loadMap(id, spawnName));
+      ui.tripMode(false);
       game.player.hp = game.player.maxHp; // nghỉ ngơi trên đường bay
     }
     else loadMap(id, spawnName);
@@ -152,6 +172,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     ensureInv(game.save);
     game.story = createStory(game);
+    game.trib = createTribulation(game);
     loadMap(game.save.map, game.save.spawn);
     game.refreshStats(); game.player.hp = game.player.maxHp;
     ui.showPlay(true);
@@ -159,7 +180,8 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   function respawn() {
-    game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    if (game.trib.active) game.trib.fail();
+    else game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
     game.bullets = [];
@@ -167,63 +189,9 @@ export function createGame(data, screen, input, ui, audio) {
     screen.snap(c.x, c.y);
   }
 
-  function nearestNpc(range) {
-    let best = null, bd = range;
-    for (const n of game.npcs) { const d = dist(n, game.player); if (d < bd) { bd = d; best = n; } }
-    return best;
-  }
-
-  function onMeditateSpot() {
-    const T = cfg.tile, p = game.player;
-    const tx = Math.floor(p.x / T), ty = Math.floor(p.y / T);
-    for (let y = ty - 1; y <= ty + 1; y++) for (let x = tx - 1; x <= tx + 1; x++) {
-      if (game.map.at(x, y) === 'M') { const c = game.map.center(x, y); if (Math.hypot(c.x - p.x, c.y - p.y) < cfg.meditate.range) return true; }
-    }
-    return false;
-  }
-
-  // Nút tương tác theo ngữ cảnh: nói chuyện / đả tọa
-  function updateInteract() {
-    const npc = nearestNpc(cfg.interact_range);
-    const med = !npc && onMeditateSpot();
-    game.actLabel = npc ? `Nói chuyện` : med ? (game.player.meditating ? 'Dừng đả tọa' : 'Đả tọa') : null;
-    if (!game.input.consume('act')) return;
-    if (npc) {
-      if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
-      const lines = npc.def.lines;
-      game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
-    } else if (med) {
-      game.player.meditating = !game.player.meditating;
-      if (game.player.meditating) game.toast('Đả tọa... linh khí chảy vào người', 1.4);
-    }
-  }
-
-  function updatePortals(dt) {
-    game.portalLock -= dt;
-    if (game.portalLock > 0) return;
-    for (const pt of game.map.def.portals) {
-      const c = game.map.center(pt.at[0], pt.at[1]);
-      if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
-      if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
-      game.travel(pt.to, pt.spawn, true, `Bay tới ${pt.label}...`);
-      return;
-    }
-  }
-
-  function updatePickups() {
-    const p = game.player;
-    for (const k of game.pickups) {
-      if (k.taken || dist(k, p) > 12) continue;
-      k.taken = true;
-      game.story.notify('collect', k.item);
-      game.toast('Hái được linh thảo!', 1);
-      game.sfx('pickup');
-    }
-    game.pickups = game.pickups.filter(k => !k.taken);
-  }
-
   function updateSpawners(dt) {
     for (const s of game.spawners) {
+      if (s.need && !game.save.flags[s.need]) continue;
       s.alive = s.alive.filter(m => !m.dead);
       if (s.alive.length >= s.n) continue;
       s.timer -= dt;
@@ -250,6 +218,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateFx(game, dt);
     game.flashT -= dt;
     game.dark += (game.darkTarget - game.dark) * Math.min(1, dt * 2);
+    if (game.trip) { updateTrip(game, dt); return; }
     if (!game.save || game.traveling) return;
     const blocked = game.dialog.open || game.uiOpen;
     game.paused = blocked;
@@ -261,12 +230,14 @@ export function createGame(data, screen, input, ui, audio) {
     game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);
     updateBullets(game, dt);
+    updateStrikes(game, dt);
+    game.trib.update(dt);
     updateLoot(game, dt);
-    updatePickups();
+    updatePickups(game);
     updateSpawners(dt);
     game.dungeon?.update();
-    updateInteract();
-    updatePortals(dt);
+    updateInteract(game);
+    updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
     game.story.update();
     if (game.player.hp <= 0) respawn();

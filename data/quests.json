@@ -1,0 +1,11 @@
+{
+ "_note": "Nhiệm vụ treo thưởng lặp lại, nhận ở Chấp sự Nhiệm Vụ Đường (Thiên Kiếm Phong). need: cờ cốt truyện cần có. reward: stones (Tẩy Luyện Thạch), qi, gem (tỉ lệ ra 1 ngọc), item (độ hiếm thấp nhất của 1 món).",
+ "bounties": [
+  { "id": "moc-linh", "text": "Hạ {n} mộc linh ở bãi tập phía nam", "mob": "moc-linh", "n": 6, "reward": { "stones": 2, "qi": 30, "gem": 0.3 } },
+  { "id": "huyet-nha", "text": "Vào bí cảnh hạ Phân thân Huyết Nha", "mob": "huyet-nha", "n": 1, "need": "mo-bi-canh", "reward": { "stones": 4, "qi": 60, "gem": 1 } },
+  { "id": "hoa-lang", "text": "Hạ {n} hỏa lang ở Đảo Xích Diễm", "mob": "hoa-lang", "n": 8, "need": "ngu-kiem", "reward": { "stones": 3, "qi": 90, "gem": 0.5 } },
+  { "id": "viem-linh", "text": "Hạ {n} viêm linh ở Đảo Xích Diễm", "mob": "viem-linh", "n": 6, "need": "ngu-kiem", "reward": { "stones": 3, "qi": 90, "item": "linh" } },
+  { "id": "ma-binh", "text": "Hạ {n} ma binh gần miệng núi lửa", "mob": "ma-binh", "n": 3, "need": "tran-hoa-lang", "reward": { "stones": 4, "qi": 140, "item": "huyen" } },
+  { "id": "huyet-nha-that", "text": "Vào Hỏa Quật hạ Huyết Nha", "mob": "huyet-nha-that", "n": 1, "need": "ha-huyet-nha", "reward": { "stones": 8, "qi": 300, "gem": 1, "item": "huyen" } }
+ ]
+}

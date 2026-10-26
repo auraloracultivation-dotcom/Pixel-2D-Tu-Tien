@@ -11,7 +11,7 @@ canvas#game { position: fixed; inset: 0; display: block; }
 .bar.hp i { background: linear-gradient(#ff8a8a, #e0484a); }
 .bar.qi i { background: linear-gradient(#bff4ff, #5ab8f0); }
 .bar span { position: absolute; inset: 0; font-size: 9px; line-height: 10px; text-align: center; color: #fff; font-weight: 700; text-shadow: 0 1px 1px #1b1830; }
-.goal { position: absolute; right: 10px; top: calc(env(safe-area-inset-top) + 8px); max-width: 52%; background: rgba(27, 24, 48, .7); color: #fff7d6; font-size: 12px; padding: 6px 9px; border-radius: 8px; border-left: 3px solid #f2c94c; }
+.goal { position: absolute; right: 10px; top: calc(env(safe-area-inset-top) + 8px); max-width: 52%; background: rgba(27, 24, 48, .7); color: #fff7d6; font-size: 12px; padding: 6px 9px; border-radius: 8px; border-left: 3px solid #f2c94c; white-space: pre-line; }
 .goal:empty { display: none; }
 .boss { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top) + 64px); width: 70%; text-align: center; color: #fff; font-weight: 700; font-size: 12px; text-shadow: 0 1px 2px #000; }
 .boss .bar { height: 10px; margin-top: 2px; }
@@ -42,11 +42,7 @@ canvas#game { position: fixed; inset: 0; display: block; }
 
 #toast { position: fixed; left: 50%; top: 32%; transform: translateX(-50%); background: rgba(27, 24, 48, .85); color: #fff7d6; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 14px; text-align: center; pointer-events: none; max-width: 86%; }
 
-#fly { position: fixed; inset: 0; background: linear-gradient(#7ab8f0, #e8f4ff); display: flex; align-items: center; justify-content: center; animation: fly-in 1.8s ease both; }
-#fly .cloud { position: absolute; inset: 0; background: radial-gradient(ellipse 30% 12% at 20% 30%, #fff 60%, transparent 62%), radial-gradient(ellipse 25% 10% at 75% 60%, #fff 60%, transparent 62%), radial-gradient(ellipse 35% 12% at 40% 85%, #fff 60%, transparent 62%); animation: cloud-pass 1.8s linear both; }
-.fly-text { position: relative; font-weight: 800; font-size: 18px; color: #1b1830; }
-@keyframes fly-in { 0% { opacity: 0; } 15%, 85% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes cloud-pass { from { transform: translateY(40%); } to { transform: translateY(-40%); } }
+body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important; }
 
 #menu { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(#7ab8f0, #dff0ff); text-align: center; padding: 20px; }
 #menu h1 { margin: 0; font-size: 30px; color: #fff; text-shadow: 0 2px 0 #1b1830, 0 0 12px #5ab8f0; }

@@ -1,5 +1,6 @@
-// Quái: lang thang, đuổi, bắn xa, và boss Huyết Nha (chém, lao, triệu hồi, vòng đạn).
+// Quái: lang thang, đuổi, bắn xa, và boss (chém, lao, triệu hồi, vòng đạn, gọi lửa rơi nếu có meteor).
 import { addFx, hitPlayer, shoot, dist } from './combat.js';
+import { addStrike } from './strikes.js';
 
 export function spawnMob(game, id, x, y, extra = {}) {
   const def = game.data.mobs[id];
@@ -89,7 +90,7 @@ function bossThink(game, m, d, dt) {
   const hpf = m.hp / m.maxHp;
   if (m.summoned < 2 && hpf < (m.summoned === 0 ? 0.7 : 0.35)) {
     m.summoned++;
-    game.say('Huyết Nha', 'Lũ nhãi, lên!', 1.6);
+    if (def.shout) game.say(def.name, def.shout, 1.6);
     for (let i = 0; i < 3; i++) {
       const a = Math.random() * Math.PI * 2;
       const s = game.spawn(def.summon, m.x + Math.cos(a) * 30, m.y + Math.sin(a) * 30, { noQi: true });
@@ -99,9 +100,10 @@ function bossThink(game, m, d, dt) {
   if (m.state === 'idle') {
     moveToward(game, m, p.x, p.y, def.speed, dt);
     if (m.cd <= 0) {
-      const pick = m.phase++ % (hpf < 0.5 ? 3 : 2);
+      const pick = m.phase++ % (hpf < 0.5 ? (def.meteor ? 4 : 3) : 2);
       m.t = 0;
-      if (pick === 0 && d < 60) { m.state = 'slash'; }
+      if (pick === 3) { meteor(game, m); m.cd = def.cd; }
+      else if (pick === 0 && d < 60) { m.state = 'slash'; }
       else if (pick === 2) { m.state = 'nova'; }
       else { m.state = 'charge'; m.ca = Math.atan2(p.y - m.y, p.x - m.x); game.sfx('warn'); }
     }
@@ -133,5 +135,15 @@ function bossThink(game, m, d, dt) {
         shoot(game, { from: 'mob', x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
       }
     }
+  }
+}
+
+// Lửa rơi: một quả vào chỗ người chơi đứng, các quả khác rải quanh
+function meteor(game, m) {
+  const mt = m.def.meteor, p = game.player;
+  game.say(m.def.name, 'Thiêu rụi hết đi!', 1.2);
+  for (let i = 0; i < mt.n; i++) {
+    const a = Math.random() * Math.PI * 2, d = i ? 20 + Math.random() * 60 : 0;
+    addStrike(game, { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: mt.r, delay: mt.delay + i * 0.12, dmg: m.def.atk * mt.dmg, kind: 'meteor', color: '#ff7a3a' });
   }
 }

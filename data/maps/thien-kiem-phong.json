@@ -3,6 +3,7 @@
  "name": "Thiên Kiếm Phong",
  "sky": "#b8d8f8",
  "dark": 0,
+ "island": {"top": "#9cd08a", "under": "#8a7a6a", "hall": true},
  "grid": [
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~TTHHHHHHHHHHTT~~~~~~~~~",
@@ -16,7 +17,7 @@
   "~~T..._......______.........T~~~",
   "~~T..._M_....______.....,,,,T~~~",
   "~~T..._......______....,....T~~~",
-  "~~T..........______...,.....T~~~",
+  "~~TP.........______...,.....T~~~",
   "~~~T..F.......____...,....P.T~~~",
   "~~~T..........____..,.......T~~~",
   "~~~~T...,,,,,,____,,........T~~~",
@@ -29,17 +30,9 @@
   "~~~~~~~~~~~~~T...T~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": { "vao": [16, 13], "tu-bi-canh": [24, 13] },
- "portals": [
-  { "at": [26, 13], "to": "bi-canh", "spawn": "vao", "need": "mo-bi-canh", "label": "Bí cảnh Huyết Nha" }
- ],
- "npcs": [
-  { "id": "van-hac", "at": [16, 5] },
-  { "id": "lac-tuyet", "at": [20, 9] },
-  { "id": "ho-linh", "at": [9, 10] }
- ],
- "spawners": [
-  { "mob": "moc-linh", "at": [15, 18], "n": 4, "spread": 4, "respawn": 6 }
- ],
+ "spawns": {"vao": [16, 13], "tu-bi-canh": [24, 13], "tu-xich-dien": [5, 12]},
+ "portals": [{"at": [26, 13], "to": "bi-canh", "spawn": "vao", "need": "mo-bi-canh", "label": "Bí cảnh Huyết Nha"}, {"at": [3, 12], "to": "dao-xich-dien", "spawn": "vao", "need": "ngu-kiem", "label": "Ngự kiếm tới Đảo Xích Diễm"}],
+ "npcs": [{"id": "van-hac", "at": [16, 5]}, {"id": "lac-tuyet", "at": [20, 9]}, {"id": "ho-linh", "at": [9, 10]}, {"id": "chap-su", "at": [12, 9]}],
+ "spawners": [{"mob": "moc-linh", "at": [15, 18], "n": 4, "spread": 4, "respawn": 6}],
  "rooms": []
 }

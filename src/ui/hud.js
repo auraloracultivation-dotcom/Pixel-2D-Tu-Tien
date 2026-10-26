@@ -17,14 +17,7 @@ export function createHud(audio) {
     toastTimer = setTimeout(() => { t.hidden = true; }, sec * 1000);
   };
 
-  ui.fly = (text, midway) => new Promise(resolve => {
-    const f = $('fly');
-    $('fly-text').textContent = text;
-    f.hidden = false;
-    f.style.animation = 'none'; void f.offsetWidth; f.style.animation = '';
-    setTimeout(midway, 800);
-    setTimeout(() => { f.hidden = true; resolve(); }, 1800);
-  });
+  ui.tripMode = on => document.body.classList.toggle('trip', on); // ẩn nút khi đang bay
 
   const mute = $('btn-mute');
   const paintMute = () => { mute.textContent = audio.muted ? '🔇' : '🔊'; };
@@ -48,8 +41,7 @@ export function createHud(audio) {
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}`;
     }
-    const goal = game.story.goal();
-    const gt = goal ? goal.text : '';
+    const gt = game.goals();
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => m.def.ai === 'boss' && !m.dead);

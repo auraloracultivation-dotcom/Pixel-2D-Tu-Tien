@@ -4,6 +4,7 @@ import { createScreen } from './core/screen.js';
 import { createInput } from './core/input.js';
 import { createGame } from './game/game.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
+import { drawTrip } from './render/flight.js';
 import { createHud } from './ui/hud.js';
 import { createLogin } from './ui/login.js';
 import { createAudio } from './core/audio.js';
@@ -29,8 +30,8 @@ async function boot() {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     game.update(dt);
-    drawWorld(game, screen, now / 1000);
-    drawOverlay(game, screen, input);
+    if (game.trip) drawTrip(game, screen);
+    else { drawWorld(game, screen, now / 1000); drawOverlay(game, screen, input); }
     ui.update(game);
     requestAnimationFrame(frame);
   }
