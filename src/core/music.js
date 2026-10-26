@@ -11,7 +11,7 @@ export function createMusic(ac, out, noise, cfg) {
   verb.buffer = ir; wet.gain.value = cfg.reverb.wet; dry.gain.value = 1 - cfg.reverb.wet * 0.5;
   const bus = ac.createGain(); bus.connect(dry); bus.connect(verb); verb.connect(wet); dry.connect(out); wet.connect(out);
 
-  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [] };
+  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null };
 
   // Một nốt: a (giây lên), d (độ dài), vib (rung Hz), q (lọc), pan
   function voice(n, at) {
@@ -110,7 +110,25 @@ export function createMusic(ac, out, noise, cfg) {
     st.amb = [];
   }
 
+  // Tiếng mưa: hai lớp nhiễu (mưa xa trầm, hạt gần trong), lên xuống từ từ
+  function rain(on) {
+    if (on && !st.rain) {
+      const g = ac.createGain(); g.gain.setValueAtTime(0.0001, ac.currentTime); g.gain.exponentialRampToValueAtTime(cfg.amb.rain || 0.05, ac.currentTime + 3);
+      const srcs = [[900, 0.6], [4200, 0.9]].map(([fq, q]) => {
+        const s = ac.createBufferSource(), f = ac.createBiquadFilter();
+        s.buffer = noise; s.loop = true; f.type = 'bandpass'; f.frequency.value = fq; f.Q.value = q;
+        s.connect(f); f.connect(g); s.start(0, Math.random()); return s;
+      });
+      g.connect(out); st.rain = { g, srcs };
+    } else if (!on && st.rain) {
+      const r = st.rain; st.rain = null;
+      r.g.gain.setTargetAtTime(0.0001, ac.currentTime, 1);
+      for (const s of r.srcs) s.stop(ac.currentTime + 4);
+    }
+  }
+
   return {
+    rain,
     play(id) {
       if (id === st.id && st.timer) return;
       stop();

@@ -9,7 +9,7 @@ export function createAudio(cfg) {
   let muted = false;
   try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch { /* không có bộ nhớ: mặc định bật tiếng */ }
   const lastPlay = {};
-  let want = null, music = null;
+  let want = null, music = null, wantRain = false;
 
   function init() {
     if (ac) return;
@@ -25,6 +25,7 @@ export function createAudio(cfg) {
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     music = createMusic(ac, musicGain, noise, cfg.music);
     if (want) music.play(want);
+    music.rain(wantRain);
   }
   for (const ev of ['pointerdown', 'keydown']) window.addEventListener(ev, () => { init(); if (ac?.state === 'suspended') ac.resume(); }, { capture: true });
 
@@ -60,6 +61,7 @@ export function createAudio(cfg) {
   const api = {
     play,
     music: id => { want = id; music?.play(id); },
+    rain: on => { if (on === wantRain) return; wantRain = on; music?.rain(on); },
     get muted() { return muted; },
     toggle() {
       muted = !muted;
