@@ -1,0 +1,111 @@
+{
+ "_note": "Kịch bản bản chơi tạm, chạy lần lượt. Mỗi bước: map (bản đồ cần ở), do (việc làm khi vào bước), until (điều kiện qua bước), goal (chữ nhiệm vụ), target (ô chỉ đường). {element} = tên hệ người chơi chọn.",
+ "steps": [
+  {
+   "id": "le-thuc-tinh", "map": "thanh-khe",
+   "do": [
+    { "say": [["", "Đảo Thanh Khê, sáng ngày lễ thức tỉnh linh căn."], ["truong-thon", "Con tới rồi à? Mau tới đá linh căn giữa làng, cả làng đang chờ đó."]] }
+   ],
+   "goal": "Tới đá linh căn giữa làng", "target": [13, 10],
+   "until": { "reach": [13, 10], "r": 2 }
+  },
+  {
+   "id": "chon-he", "map": "thanh-khe",
+   "do": [
+    { "say": [["", "Bạn đặt tay lên đá linh căn. Một luồng ấm chảy vào lòng bàn tay..."]] },
+    { "choose_element": true },
+    { "say": [["truong-thon", "Linh căn hệ {element}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]] },
+    { "pickups": "linh-thao", "at": [[5, 8], [22, 12], [8, 16]] }
+   ],
+   "goal": "Hái linh thảo ({n}/3)",
+   "until": { "collect": "linh-thao", "n": 3 }
+  },
+  {
+   "id": "ma-toc-toi", "map": "thanh-khe",
+   "do": [
+    { "dark": 0.45 },
+    { "say": [["tieu-hoa", "Ơ... sao trời tối sầm lại vậy?"], ["truong-thon", "Ma khí! Ma tộc leo lên từ biển mây! Các con cầm gậy lên!"]] },
+    { "spawn": "ma-tieu", "n": 3, "at": [21, 5], "spread": 2 }
+   ],
+   "goal": "Đánh lui ma tộc",
+   "until": { "kill_all": true }
+  },
+  {
+   "id": "bi-vay", "map": "thanh-khe",
+   "do": [
+    { "nodeath": true },
+    { "say": [["tieu-hoa", "Còn nhiều nữa kìa! Chúng bò lên từ khắp nơi!"]] },
+    { "spawn": "ma-tieu", "n": 5, "at": [6, 13], "spread": 3 },
+    { "spawn": "ma-cung", "n": 2, "at": [20, 14], "spread": 2 }
+   ],
+   "goal": "Cầm cự!",
+   "until": { "any": [{ "hp_below": 0.45 }, { "kill_all": true }] }
+  },
+  {
+   "id": "duoc-cuu", "map": "thanh-khe",
+   "do": [
+    { "flash": true },
+    { "kill_all": true },
+    { "npc_add": "van-hac", "near_player": true },
+    { "say": [["van-hac", "Đứa nhỏ này chịu được tới giờ, cũng có cốt cách."]] },
+    { "shake": 6 },
+    { "say": [["", "Mặt đất rung chuyển. Mép làng nứt toác, trôi dần xuống biển mây đen."], ["tieu-hoa", "Cứu tớ vớiiii!"], ["", "Một bàn tay ma khí kéo Tiểu Hỏa xuống Ma Vân."]] },
+    { "npc_remove": "tieu-hoa" },
+    { "flag": "mat-tieu-hoa" },
+    { "dark": 0.2 },
+    { "say": [["van-hac", "Ta không kịp... Nhưng bạn con chưa chết. Ma tộc bắt người sống."], ["van-hac", "Theo ta về Thiên Kiếm Phong. Muốn cứu nó, con phải mạnh lên."]] },
+    { "nodeath": false },
+    { "fly": "thien-kiem-phong", "spawn": "vao", "text": "Ngự kiếm bay lên Thiên Kiếm Phong..." }
+   ],
+   "goal": "",
+   "until": { "map": "thien-kiem-phong" }
+  },
+  {
+   "id": "nhap-mon", "map": "thien-kiem-phong",
+   "do": [
+    { "dark": 0 },
+    { "say": [["van-hac", "Từ nay con là đệ tử Kiếm tông. Cầm lấy thanh kiếm này."]] },
+    { "weapon": "kiem" },
+    { "say": [["", "Nhận Thanh Phong Kiếm. Mở khóa chiêu Kiếm Khí."], ["lac-tuyet", "Sư đệ mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]] }
+   ],
+   "goal": "Ngồi lên bồ đoàn, bấm Đả tọa tới Luyện Khí tầng 2", "target": [7, 10],
+   "until": { "layer": 2 }
+  },
+  {
+   "id": "nhiem-vu-bi-canh", "map": "thien-kiem-phong",
+   "do": [
+    { "say": [["ho-linh", "Đột phá rồi! Đi gặp sư tỷ Lạc Tuyết đi, sư tỷ đang tìm người đó."]] }
+   ],
+   "goal": "Nói chuyện với sư tỷ Lạc Tuyết", "target": [20, 9],
+   "until": { "talk": "lac-tuyet" }
+  },
+  {
+   "id": "vao-bi-canh", "map": "thien-kiem-phong",
+   "do": [
+    { "say": [["lac-tuyet", "Dưới chân núi có một bí cảnh đầy ma khí. Kẻ cầm đầu tên là Huyết Nha, chính hắn đánh làng con."], ["lac-tuyet", "Luyện tay với mộc linh ở bãi tập phía nam trước đã. Khi sẵn sàng, đi qua cổng truyền tống phía đông."]] },
+    { "flag": "mo-bi-canh" }
+   ],
+   "goal": "Vào Bí cảnh Huyết Nha (cổng phía đông)", "target": [26, 13],
+   "until": { "map": "bi-canh" }
+  },
+  {
+   "id": "bi-canh", "map": "bi-canh",
+   "do": [
+    { "say": [["ho-linh", "Ta theo con vào đây! Cửa mỗi phòng chỉ mở khi dọn sạch ma tộc."]] }
+   ],
+   "goal": "Dọn từng phòng, hạ Huyết Nha",
+   "until": { "boss_dead": true }
+  },
+  {
+   "id": "ngoc-boi", "map": "bi-canh",
+   "do": [
+    { "say": [["", "Huyết Nha tan thành khói đen. Một miếng ngọc bội rơi xuống."], ["ho-linh", "Ngọc bội của Tiểu Hỏa! Hắn giữ nó... nghĩa là cậu ấy còn sống ở đâu đó dưới Ma Vân."]] },
+    { "item": "ngoc-boi-tieu-hoa" },
+    { "fly": "thien-kiem-phong", "spawn": "tu-bi-canh", "text": "Trở về Thiên Kiếm Phong..." },
+    { "say": [["van-hac", "Con làm tốt. Đường xuống Ma Vân còn xa. Tu luyện tiếp đi."], ["", "Hết bản chơi thử. Chương 1 sẽ tiếp tục. Bạn vẫn có thể đả tọa, luyện ở bãi tập và vào lại bí cảnh."]] }
+   ],
+   "goal": "Tự do tu luyện",
+   "until": { "never": true }
+  }
+ ]
+}

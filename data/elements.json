@@ -1,0 +1,8 @@
+{
+ "_note": "5 hệ linh căn. Mỗi hệ cho 2 chiêu (vũ khí cho đòn đánh thường + 1 chiêu).",
+ "moc": { "name": "Mộc", "color": "#5fd07a", "desc": "Sinh trưởng, trói buộc và hồi phục.", "skills": ["dang-phuoc", "hoi-xuan"] },
+ "hoa": { "name": "Hỏa", "color": "#ff7a3a", "desc": "Sát thương lớn, thiêu rụi xung quanh.", "skills": ["hoa-cau", "liet-diem"] },
+ "thuy": { "name": "Thủy", "color": "#5ab8f0", "desc": "Làm chậm kẻ địch, che chắn bản thân.", "skills": ["bang-truy", "thuy-thuan"] },
+ "kim": { "name": "Kim", "color": "#f2c94c", "desc": "Lao tới chém xuyên, tăng sức đánh.", "skills": ["kim-quang-tram", "kim-cuong-the"] },
+ "tho": { "name": "Thổ", "color": "#c08850", "desc": "Choáng diện rộng, giáp đá chịu đòn.", "skills": ["dia-chan", "thach-giap"] }
+}

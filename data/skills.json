@@ -1,0 +1,14 @@
+{
+ "_note": "type: projectile | aoe | heal | shield | buff | dash. mult nhân với sức đánh. Thời gian tính bằng giây, khoảng cách bằng đơn vị thế giới (1 ô = 16).",
+ "kiem-khi": { "name": "Kiếm Khí", "type": "projectile", "cd": 3, "mult": 2.2, "speed": 170, "range": 150, "radius": 6, "pierce": true, "color": "#c8f6ff" },
+ "dang-phuoc": { "name": "Đằng Phược", "type": "aoe", "cd": 6, "mult": 1.3, "radius": 34, "offset": 22, "slow": 2.5, "color": "#5fd07a" },
+ "hoi-xuan": { "name": "Hồi Xuân", "type": "heal", "cd": 12, "amount": 0.35, "color": "#9af0a8" },
+ "hoa-cau": { "name": "Hỏa Cầu", "type": "projectile", "cd": 4, "mult": 2.4, "speed": 140, "range": 140, "radius": 5, "explode": 22, "color": "#ff7a3a" },
+ "liet-diem": { "name": "Liệt Diễm", "type": "aoe", "cd": 8, "mult": 2.0, "radius": 38, "offset": 0, "color": "#ffb03a" },
+ "bang-truy": { "name": "Băng Trùy", "type": "projectile", "cd": 3.5, "mult": 1.8, "speed": 180, "range": 150, "radius": 4, "slow": 2, "color": "#5ab8f0" },
+ "thuy-thuan": { "name": "Thủy Thuẫn", "type": "shield", "cd": 12, "amount": 0.4, "dur": 6, "color": "#7ad0ff" },
+ "kim-quang-tram": { "name": "Kim Quang Trảm", "type": "dash", "cd": 5, "mult": 2.2, "dist": 64, "color": "#f2c94c" },
+ "kim-cuong-the": { "name": "Kim Cương Thể", "type": "buff", "cd": 14, "amount": 0.5, "dur": 6, "color": "#ffe27a" },
+ "dia-chan": { "name": "Địa Chấn", "type": "aoe", "cd": 7, "mult": 1.6, "radius": 40, "offset": 0, "stun": 1.2, "color": "#c08850" },
+ "thach-giap": { "name": "Thạch Giáp", "type": "shield", "cd": 12, "amount": 0.5, "dur": 6, "color": "#d0a070" }
+}

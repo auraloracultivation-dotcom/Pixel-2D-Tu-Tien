@@ -1,0 +1,91 @@
+{
+ "id": "bi-canh",
+ "name": "Bí cảnh Huyết Nha",
+ "sky": "#140c1e",
+ "dark": 0.35,
+ "grid": [
+  "###############################################",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxx#xxxxxxxx###xxxx#xxxxxx#xxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxDxxxxxxxxxxxxxxxDxxxxxxxxxxxxxxxxx#",
+  "#xPxxxxxxxxxDxxxxxxxxxxxxxxxDxxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxDxxxxxxxxxxxxxxxDxxxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxx#xxxx###xxxx#xxxxxx#xxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "#xxxxxxxxxx###xxxxxxxxxxxxx###xxxxxxxxxxxxxxxx#",
+  "###############################################"
+ ],
+ "spawns": {
+  "vao": [
+   4,
+   6
+  ]
+ },
+ "portals": [
+  {
+   "at": [
+    2,
+    6
+   ],
+   "to": "thien-kiem-phong",
+   "spawn": "tu-bi-canh",
+   "label": "Về Thiên Kiếm Phong"
+  }
+ ],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [
+  {
+   "rect": [
+    1,
+    1,
+    10,
+    11
+   ],
+   "door_x": 12,
+   "mobs": [
+    {
+     "mob": "ma-tieu",
+     "n": 3
+    }
+   ]
+  },
+  {
+   "rect": [
+    14,
+    1,
+    13,
+    11
+   ],
+   "door_x": 28,
+   "mobs": [
+    {
+     "mob": "ma-tieu",
+     "n": 4
+    },
+    {
+     "mob": "ma-cung",
+     "n": 2
+    }
+   ]
+  },
+  {
+   "rect": [
+    30,
+    1,
+    16,
+    11
+   ],
+   "mobs": [
+    {
+     "mob": "huyet-nha",
+     "n": 1
+    }
+   ],
+   "boss": true
+  }
+ ]
+}
