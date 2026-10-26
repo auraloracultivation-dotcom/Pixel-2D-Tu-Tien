@@ -1,5 +1,6 @@
 // Bảng Thành tựu: tab Thành tựu (tiến độ, nhận thưởng) và tab Danh hiệu (chọn danh hiệu hiện trên đầu).
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
+import { owned, buyOutfit, wear, howToGet } from '../game/fashion.js';
 
 const $ = id => document.getElementById(id);
 
@@ -47,12 +48,26 @@ export function createAchvPanel(game) {
     }
   }
 
+  // Thời trang: mặc bộ đã có, mua bộ bán bằng Linh Thạch
+  function renderFashion(list) {
+    const F = data.fashion.list, s = game.save, cur = s.outfit || 'dong-phuc';
+    $('achv-sub').textContent = `${Object.keys(F).filter(id => owned(game, id)).length}/${Object.keys(F).length} bộ · chỉ đổi dáng vẻ`;
+    for (const [id, f] of Object.entries(F)) {
+      const own = owned(game, id), on = cur === id;
+      const btn = on ? mini('Đang mặc', () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
+        : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id)) { wear(game, id); msg = `Mua và mặc ${f.name}.`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
+      const c = card(f.robe, f.name, [own ? 'Đã có' : howToGet(game, f)], btn);
+      const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
+      c.prepend(sw); list.append(c);
+    }
+  }
+
   function render() {
     const list = $('achv-list');
     for (const b of document.querySelectorAll('#achv-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
     $('achv-msg').textContent = msg;
-    if (tab === 'thanh-tuu') renderAchv(list); else renderTitles(list);
+    if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else renderTitles(list);
   }
 
   function open() {

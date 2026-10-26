@@ -82,6 +82,8 @@ try {
   for (const g of af.gifts) need(g.kind === 'coins' || (g.kind === 'pill' ? cave.pills[g.id] : matOk(g.id)), `affinity.gifts: món "${g.id}" không có`);
   for (const [id, g] of Object.entries(af.likes)) need(cl[id] && af.gifts.some(x => x.id === g), `affinity.likes/${id}: người hoặc quà không có`);
   for (const id of [...Object.keys(af.scenes), ...af.dao_lu.can]) need(cl[id] && npcs[id], `affinity: "${id}" không phải bạn đồng hành`);
+  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
+  for (const [id, h] of Object.entries(read('hints.json').buttons)) need(h.flag || story.steps.some(x => x.id === h.after), `hints/${id}: bước truyện không có`);
   const dun = read('dungeon.json');
   for (const m of dun.modes) need(!m.reward || ((!m.reward.item || items.rarities.some(r => r.id === m.reward.item)) && Object.keys(m.reward.mats || {}).every(matOk)), `dungeon/${m.id}: thưởng sai`);
   for (const [mp, st] of Object.entries(dun.story_step)) if (mp !== '_note') need(maps[mp]?.rooms?.length && story.steps.some(x => x.id === st), `dungeon.story_step/${mp}: bản đồ hoặc bước truyện sai`);

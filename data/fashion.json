@@ -1,0 +1,13 @@
+{
+ "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ). Không cộng chỉ số.",
+ "list": {
+  "dong-phuc": {"name": "Đồng phục Kiếm tông", "robe": "#e6ebf7", "hair": "#3a2e5c", "from": {"start": true}},
+  "thanh-sam": {"name": "Thanh sam thư sinh", "robe": "#bfe0d8", "hair": "#2a2a3a", "from": {"shop": 800}},
+  "hac-y": {"name": "Hắc y dạ hành", "robe": "#3a3446", "hair": "#c8c0e0", "sash": "#8a7ab0", "from": {"shop": 1500}},
+  "hong-y": {"name": "Hồng y hoa đào", "robe": "#ffc2d6", "hair": "#5a2a3a", "from": {"shop": 1500}},
+  "kim-bao": {"name": "Kim bào Kim Đan", "robe": "#ffe8a0", "hair": "#4a3a20", "sash": "#ffb03a", "from": {"achv": "kim-dan"}},
+  "tu-bao": {"name": "Tử bào Nguyên Anh", "robe": "#d8c4ff", "hair": "#2a1a4a", "sash": "#b48aff", "from": {"achv": "nguyen-anh"}},
+  "huyet-giap": {"name": "Huyết giáp săn yêu", "robe": "#c0505a", "hair": "#1a1a1a", "sash": "#ffd24a", "from": {"achv": "ngan-quai"}},
+  "tet-do": {"name": "Áo Tết đỏ thắm", "robe": "#ff4a4a", "hair": "#2a1a1a", "sash": "#ffd24a", "from": {"fest": "tet-2027"}}
+ }
+}
