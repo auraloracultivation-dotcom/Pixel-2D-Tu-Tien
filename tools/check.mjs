@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -57,10 +57,12 @@ try {
   for (const [id, e] of Object.entries(elements)) if (!id.startsWith('_')) for (const s of e.skills) need(skills[s], `elements/${id}: chiêu "${s}" không có`);
   for (const [id, w] of Object.entries(weapons)) need(!w.skill || skills[w.skill], `weapons/${id}: chiêu "${w.skill}" không có`);
   need(weapons[cfg.start.weapon] && maps[cfg.start.map], 'config.start: vũ khí hoặc bản đồ khởi đầu không có');
-  for (const id of Object.keys(items.drops)) need(mobs[id], `items.drops: quái "${id}" không có`);
+  for (const [id, d] of Object.entries(items.drops)) { need(mobs[id], `items.drops: quái "${id}" không có`); need(!d.set || gear.sets[d.set[0]], `items.drops/${id}: bộ không có`); }
   for (const [id, b] of Object.entries(items.bases)) {
     need(items.slots[b.slot], `items.bases/${id}: ô "${b.slot}" không có`);
     for (const s of [...b.pool, ...Object.keys(b.main)]) need(items.stats[s], `items.bases/${id}: chỉ số "${s}" không có`);
+    need(!b.art || skills[b.art], `items.bases/${id}: chiêu pháp bảo "${b.art}" không có`);
+    need(!b.set || gear.sets[b.set], `items.bases/${id}: bộ "${b.set}" không có`);
   }
   for (const [id, g] of Object.entries(items.gems.types)) need(items.stats[g.stat] && g.values.length === items.gems.max_level, `items.gems/${id}: chỉ số hoặc số cấp sai`);
   const techStatsOk = new Set([...Object.keys(items.stats), 'lifesteal', 'thorns', 'regen']);
@@ -86,6 +88,9 @@ try {
   for (const r of daily.ranks) if (r.gift) rewardOk(r.gift, `daily.ranks/${r.id}`);
   for (const it of daily.shop) { rewardOk(it.give, `daily.shop/${it.id}`); need(!it.rank || daily.ranks.some(r => r.id === it.rank), `daily.shop/${it.id}: chức vị không có`); }
   rewardOk(daily.chest, 'daily.chest');
+  const e = gear.enhance;
+  need(['iron', 'stones', 'rate'].every(k => e[k].length === e.max), 'gear.enhance: iron/stones/rate phải đủ max phần tử');
+  for (const [id, s] of Object.entries(gear.sets)) for (const b of Object.values(s.bonus)) for (const k of Object.keys(b)) need(techStatsOk.has(k), `gear.sets/${id}: chỉ số "${k}" không có`);
   for (const b of quests.bounties) {
     need(mobs[b.mob], `quests/${b.id}: quái "${b.mob}" không có`);
     need(!b.reward.item || items.rarities.some(r => r.id === b.reward.item), `quests/${b.id}: độ hiếm "${b.reward.item}" không có`);

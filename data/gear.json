@@ -1,0 +1,16 @@
+{
+ "_note": "Cường hóa và bộ đồ. Cường hóa +1 tới max: chỉ số chính nhân (1 + cấp × main_per). Lần lên cấp n tốn tinh-thiet iron[n-1] và tay-luyen-thach stones[n-1], tỉ lệ thành công rate[n-1]. Hỏng ở cấp ≥ drop_from thì có drop_chance tụt 1 cấp. Bộ đồ: món có set; mặc đủ số món trong bonus thì cộng chỉ số (có lifesteal, thorns, regen như công pháp).",
+ "enhance": {
+  "max": 10,
+  "main_per": 0.1,
+  "iron": [1, 2, 3, 4, 5, 6, 8, 10, 12, 15],
+  "stones": [0, 0, 0, 0, 1, 1, 2, 2, 3, 4],
+  "rate": [1, 1, 0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25],
+  "drop_from": 7,
+  "drop_chance": 0.5
+ },
+ "sets": {
+  "xich-diem": {"name": "Bộ Xích Diễm", "color": "#ff7a3a", "bonus": {"2": {"atk_pct": 8}, "4": {"lifesteal": 3, "crit_dmg": 20}}},
+  "han-bang": {"name": "Bộ Hàn Băng", "color": "#9ad8ff", "bonus": {"2": {"def": 5}, "4": {"hp_pct": 15, "thorns": 12}}}
+ }
+}

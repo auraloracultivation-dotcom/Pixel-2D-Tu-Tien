@@ -13,6 +13,10 @@ export function dropLoot(game, m) {
   const times = (p, n = 1) => { let k = 0; for (let i = 0; i < n; i++) if (Math.random() < p) k++; return k; };
   for (let i = times(d.item, d.items || 1); i > 0; i--) spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity }));
   for (let i = times(d.gem); i > 0; i--) spawn('gem', rollGem(game.data));
+  if (d.set && Math.random() < d.set[1]) {   // boss rơi một món bộ đồ của đảo
+    const bs = Object.keys(game.data.items.bases).filter(k => game.data.items.bases[k].set === d.set[0]);
+    spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity, base: bs[Math.floor(Math.random() * bs.length)] }));
+  }
   const st = times(d.stone);
   if (st) spawn('stone', d.stones || 1);
 }

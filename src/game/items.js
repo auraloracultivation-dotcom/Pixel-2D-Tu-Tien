@@ -28,7 +28,7 @@ function rollLines(items, base, rar, lvl, rnd) {
 export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, rnd = Math.random } = {}) {
   ensureInv(save);
   const items = data.items;
-  const baseKeys = Object.keys(items.bases);
+  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set); // đồ bộ chỉ rơi ở boss
   const id = baseId || baseKeys[Math.floor(rnd() * baseKeys.length)];
   const base = items.bases[id];
   const minIdx = minRarity ? items.rarities.findIndex(r => r.id === minRarity) : 0;
@@ -46,7 +46,7 @@ export function addItem(data, save, item) {
 }
 
 export function itemName(data, item) {
-  return `${data.items.bases[item.base].name}`;
+  return `${data.items.bases[item.base].name}${item.plus ? ' +' + item.plus : ''}`;
 }
 
 export function equipped(save) {
@@ -130,7 +130,8 @@ export function gearStats(data, save) {
   const sum = {};
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
-    for (const [s, v] of Object.entries(it.main)) add(s, v);
+    const k = 1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0);
+    for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
     for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); add(gi.stat, gi.value); }
   }

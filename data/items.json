@@ -6,7 +6,10 @@
  "slots": {
   "vu-khi": "Vũ khí",
   "giap": "Giáp",
-  "ngoc-boi": "Ngọc bội"
+  "ngoc-boi": "Ngọc bội",
+  "giay": "Giày",
+  "nhan": "Nhẫn",
+  "phap-bao": "Pháp bảo"
  },
  "rarities": [{"id": "pham", "name": "Phàm", "color": "#c8c4d0", "weight": 60, "lines": 1, "sockets": 0, "mult": 1.0, "salvage": 1}, {"id": "linh", "name": "Linh", "color": "#5fd07a", "weight": 28, "lines": 2, "sockets": 1, "mult": 1.2, "salvage": 2}, {"id": "huyen", "name": "Huyền", "color": "#5ab8f0", "weight": 9, "lines": 3, "sockets": 1, "mult": 1.45, "salvage": 3}, {"id": "dia", "name": "Địa", "color": "#b070ff", "weight": 2.6, "lines": 4, "sockets": 2, "mult": 1.75, "salvage": 6}, {"id": "thien", "name": "Thiên", "color": "#ffb03a", "weight": 0.4, "lines": 5, "sockets": 3, "mult": 2.1, "salvage": 12}],
  "stats": {
@@ -31,7 +34,22 @@
   "thiet-thuong": {"name": "Thiết Thương", "slot": "vu-khi", "weapon": "thuong", "main": {"atk": 5}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "hp"]},
   "ba-tieu-phien": {"name": "Ba Tiêu Phiến", "slot": "vu-khi", "weapon": "quat", "main": {"atk": 3}, "pool": ["atk", "atk_pct", "cdr", "qi_gain", "crit", "hp_pct"]},
   "moc-cam": {"name": "Mộc Cầm", "slot": "vu-khi", "weapon": "dan", "main": {"atk": 3}, "pool": ["atk_pct", "cdr", "qi_gain", "crit", "hp", "def"]},
-  "truc-cung": {"name": "Trúc Cung", "slot": "vu-khi", "weapon": "cung", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "cdr"]}
+  "truc-cung": {"name": "Trúc Cung", "slot": "vu-khi", "weapon": "cung", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "cdr"]},
+  "bo-hai": {"name": "Bố Hài", "slot": "giay", "main": {"speed": 3}, "pool": ["speed", "hp", "def", "cdr", "qi_gain"]},
+  "van-van-ngoa": {"name": "Vân Văn Ngoa", "slot": "giay", "main": {"speed": 4}, "pool": ["speed", "crit", "atk", "hp_pct", "cdr"]},
+  "thiet-gioi": {"name": "Thiết Giới", "slot": "nhan", "main": {"crit": 2}, "pool": ["crit", "crit_dmg", "atk", "atk_pct", "def"]},
+  "linh-ngoc-gioi": {"name": "Linh Ngọc Giới", "slot": "nhan", "main": {"crit_dmg": 10}, "pool": ["crit", "crit_dmg", "qi_gain", "hp_pct", "cdr"]},
+  "kim-luan": {"name": "Kim Luân", "slot": "phap-bao", "art": "phap-kim-luan", "main": {"atk": 3}, "pool": ["atk", "atk_pct", "cdr", "crit"]},
+  "tran-yeu-thap": {"name": "Trấn Yêu Tháp", "slot": "phap-bao", "art": "phap-tran-yeu", "main": {"hp": 30}, "pool": ["hp", "hp_pct", "def", "cdr"]},
+  "hoa-hon-linh": {"name": "Hỏa Hồn Linh", "slot": "phap-bao", "art": "phap-hoa-hon", "main": {"atk_pct": 4}, "pool": ["atk_pct", "crit_dmg", "cdr", "qi_gain"]},
+  "xich-diem-giap": {"name": "Xích Diễm Giáp", "slot": "giap", "set": "xich-diem", "main": {"hp": 40}, "pool": ["hp", "hp_pct", "def", "atk_pct"]},
+  "xich-diem-hai": {"name": "Xích Diễm Hài", "slot": "giay", "set": "xich-diem", "main": {"speed": 4}, "pool": ["speed", "atk", "crit"]},
+  "xich-diem-gioi": {"name": "Xích Diễm Giới", "slot": "nhan", "set": "xich-diem", "main": {"crit": 3}, "pool": ["crit", "crit_dmg", "atk_pct"]},
+  "xich-diem-boi": {"name": "Xích Diễm Bội", "slot": "ngoc-boi", "set": "xich-diem", "main": {"atk_pct": 5}, "pool": ["atk_pct", "crit_dmg", "qi_gain"]},
+  "han-bang-giap": {"name": "Hàn Băng Giáp", "slot": "giap", "set": "han-bang", "main": {"def": 4}, "pool": ["hp", "hp_pct", "def", "cdr"]},
+  "han-bang-hai": {"name": "Hàn Băng Hài", "slot": "giay", "set": "han-bang", "main": {"speed": 4}, "pool": ["speed", "def", "hp"]},
+  "han-bang-gioi": {"name": "Hàn Băng Giới", "slot": "nhan", "set": "han-bang", "main": {"crit": 3}, "pool": ["crit", "cdr", "hp_pct"]},
+  "han-bang-boi": {"name": "Hàn Băng Bội", "slot": "ngoc-boi", "set": "han-bang", "main": {"hp_pct": 6}, "pool": ["hp_pct", "def", "qi_gain"]}
  },
  "gems": {
   "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
@@ -52,12 +70,12 @@
   "viem-linh": {"item": 0.07, "gem": 0.06, "stone": 0.16},
   "ma-binh": {"item": 0.14, "gem": 0.08, "stone": 0.25},
   "ma-phap": {"item": 0.12, "gem": 0.07, "stone": 0.2},
-  "huyet-nha-that": {"item": 1, "items": 3, "gem": 1, "stone": 1, "stones": 8, "min_rarity": "huyen"},
+  "huyet-nha-that": {"item": 1, "items": 3, "gem": 1, "stone": 1, "stones": 8, "min_rarity": "huyen", "set": ["xich-diem", 0.7]},
   "tuyet-lang": {"item": 0.09, "gem": 0.06, "stone": 0.16},
   "bang-tinh": {"item": 0.08, "gem": 0.08, "stone": 0.18},
   "ma-bang-tien": {"item": 0.12, "gem": 0.07, "stone": 0.2},
   "han-ma-ve": {"item": 0.18, "gem": 0.1, "stone": 0.3},
-  "han-hon-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 10, "min_rarity": "huyen"}
+  "han-hon-ma-tuong": {"item": 1, "items": 3, "gem": 2, "stone": 1, "stones": 10, "min_rarity": "huyen", "set": ["han-bang", 0.7]}
  },
  "starter": ["thiet-kiem", "bo-y"],
  "quest_items": {

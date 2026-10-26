@@ -5,8 +5,12 @@ import {
 } from '../game/items.js';
 import { salvageIron, matInfo } from '../game/cave.js';
 import { dailyEvent } from '../game/daily.js';
+import { enhance, enhanceCost, setStats } from '../game/enhance.js';
+import { costText } from '../game/cave.js';
 
 const $ = id => document.getElementById(id);
+
+const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây` })[s] || null;
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -84,7 +88,14 @@ export function createBag(game) {
     const r = rarityOf(data.items, it.rarity), base = data.items.bases[it.base];
     const title = el('div', 'd-title', `[${r.name}] ${itemName(data, it)}`); title.style.color = r.color;
     box.append(title, el('div', 'muted', `${data.items.slots[base.slot]} · cấp ${it.lvl}`));
-    for (const [s, v] of Object.entries(it.main)) box.append(el('div', 'd-main', statText(data, s, v)));
+    const k = 1 + (it.plus || 0) * data.gear.enhance.main_per;
+    for (const [s, v] of Object.entries(it.main)) box.append(el('div', 'd-main', statText(data, s, Math.round(v * k))));
+    if (base.art) box.append(el('div', 'd-line', `Chiêu pháp bảo ${data.skills[base.art].name}: ${data.skills[base.art].desc}`));
+    if (base.set) {
+      const sd = data.gear.sets[base.set], n = setStats(data, save()).count[base.set] || 0;
+      const t = el('div', 'd-line', `${sd.name} (đang mặc ${n}): ` + Object.entries(sd.bonus).map(([need, b]) => `${need} món: ` + Object.entries(b).map(([s, v]) => bonusText(s, v) || statText(data, s, v)).join(', ')).join(' · '));
+      t.style.color = sd.color; box.append(t);
+    }
     for (const l of it.lines) box.append(el('div', 'd-line', '◆ ' + statText(data, l.s, l.v)));
     if (it.sockets.length) {
       const row = el('div', 'd-sockets');
@@ -100,11 +111,21 @@ export function createBag(game) {
     const btn = (t, fn, off) => { const b = el('button', 'act-btn', t); b.disabled = !!off; b.onclick = fn; acts.append(b); };
     if (isEq(it.uid)) btn('Tháo', () => { unequip(save(), base.slot); changed(); });
     else btn('Mặc', () => { equip(save(), data, it.uid); game.sfx('shield'); changed(); });
+    const ec = enhanceCost(data, it);
+    if (ec) {
+      const can = Object.entries(ec.cost).every(([m, n]) => (save().mats[m] || 0) >= n);
+      btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}, ${Math.round(ec.rate * 100)}%)`, () => {
+        const r = enhance(game, it.uid);
+        st.msg = r === 'up' ? `Thành công! +${it.plus}` : r === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
+        game.sfx(r === 'up' ? 'levelup' : 'hurt'); changed();
+      }, !can);
+    }
     const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost;
     btn(`Tẩy luyện (${cost} thạch)`, () => { if (reroll(data, save(), it.uid)) { game.sfx('heal'); changed(); } }, stones < cost);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
     btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
     box.append(acts);
+    if (st.msg) { box.append(el('div', 'd-main', st.msg)); st.msg = ''; }
   }
 
   function render() {
