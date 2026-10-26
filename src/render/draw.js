@@ -1,5 +1,5 @@
 // Vẽ thế giới bằng hình khối đơn giản (bản tạm): người, quái, đạn, hiệu ứng, chỉ đường, cần gạt.
-import { drawLanterns } from './draw-lantern.js';
+import { drawLanterns, drawMeteors } from './draw-lantern.js';
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
 import { lootColor } from '../game/loot.js';
@@ -274,6 +274,7 @@ export function drawWorld(game, screen, t) {
   screen.screenTransform();
   drawDayNight(ctx, game, screen, t);
   drawWeather(ctx, game, screen, t);
+  drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);
   if (game.dark > 0.01) {
     const pos = screen.toScreen(game.player.x, game.player.y - 6);
