@@ -19,7 +19,7 @@
   "lang-tinh-linh",
   "co-thu-tam", "re-mau-thu", "dao-thien-kim", "kiem-trung", "dao-hau-tho", "dia-cung", "vet-nut-ngoai", "hu-khong-lao", "vet-nut"
  ],
- "server_save": false,
+ "server_save": true,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},
  "player": {"hp": 100, "speed": 72, "radius": 5, "regen": 1.5, "invuln": 0.45, "crit": 0.12, "crit_mult": 1.7},
  "meditate": {"qi_per_sec": 5, "range": 20},
