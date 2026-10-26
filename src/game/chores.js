@@ -1,6 +1,6 @@
 // Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
 // nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú, hoàng hôn ra ngắm cảnh,
-// hạ quái cho việc hằng ngày và treo thưởng, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
+// hạ quái cho việc hằng ngày và treo thưởng, rảnh thì câu vài con cá, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
 import { ensureDaily, taskDef, bountyLeft } from './daily.js';
 import { nextRipe } from './garden.js';
@@ -91,6 +91,11 @@ function wants(game) {
   if (soup) out.push({ brew: soup });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
   if (pilotOpt(game, 'vuot') && game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
+  if (pilotOpt(game, 'cau') && !nightRest(game)) {   // rảnh thì câu vài con mỗi ngày (cá để nấu canh) rồi mới về đả tọa
+    const n = s.stats?.fish || 0;
+    if (s.idleFish?.day !== day) s.idleFish = { day, base: n };
+    if (n - s.idleFish.base < P.idle_fish) out.push({ fish: true });
+  }
   return out;
 }
 
