@@ -1,6 +1,7 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
 import { createDialog } from './dialog.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
+import { power } from '../game/achieve.js';
 import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 
@@ -71,7 +72,10 @@ export function createHud(audio) {
     $('skills-badge').hidden = !game.newSkills;
     $('pets-badge').hidden = !game.newPets;
     $('daily-badge').hidden = !game.newDaily;
-    $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily);
+    $('achv-badge').hidden = !game.newAchv;
+    $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily || game.newAchv);
+    const pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}`;
+    if ($('power').textContent !== pw) $('power').textContent = pw;
     $('btn-auto').classList.toggle('on', !!game.auto);
     const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
     pb.hidden = !pn;

@@ -3,7 +3,10 @@ import { rollGem, gemInfo, isEquipped } from './items.js';
 
 const C = game => game.data.shop;
 export const coins = save => save.lingshi || 0;
-export function addCoins(game, n) { game.save.lingshi = coins(game.save) + n; }
+export function addCoins(game, n) {
+  game.save.lingshi = coins(game.save) + n;
+  if (n > 0 && game.save.stats) game.save.stats.coins += n;
+}
 
 export function coinDrop(game, m) {
   const d = C(game).drop, boss = m.def.ai === 'boss';
