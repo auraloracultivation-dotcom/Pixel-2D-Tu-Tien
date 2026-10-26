@@ -63,7 +63,8 @@ function wants(game) {
     if (d?.type === 'fish' && t.n < d.n) out.push({ fish: true });
     const R = game.data.resrun;   // việc vào bí cảnh tài nguyên: tới Quản Bí Cảnh, tự chọn loại còn lượt
     if (d?.type === 'res' && t.n < d.n && s.flags[R.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: R.npc });
-    if (d?.type === 'tower' && t.n < d.n && (!d.need || s.flags[d.need]) && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.tower.npc });   // leo tháp: leo lại từ tầng 1
+    if (d?.type === 'arena' && t.n < d.n && s.flags[game.data.arena.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.arena.npc });   // luận võ
+    if (d?.type === 'tower' && t.n < d.n && s.towerGaveUp !== new Date().toDateString() && (!d.need || s.flags[d.need]) && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.tower.npc });   // leo tháp: leo lại từ tầng 1
     const pill = game.data.cave.pill_button;
     if (d?.type === 'brew' && t.n < d.n && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
   }
