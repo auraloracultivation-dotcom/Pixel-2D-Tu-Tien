@@ -3,6 +3,7 @@
 import { dist, addFx } from './combat.js';
 import { gainPetExp } from './pets.js';
 import { grant } from './daily.js';
+import { bump } from './achieve.js';
 
 const C = game => game.data.pets.pat, F = game => game.data.pets.fetch;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -15,7 +16,7 @@ export function patPet(game) {
   if (s.pat?.day !== today()) s.pat = { day: today(), n: 0 };
   const fresh = s.pat.n < c.per_day;
   for (let i = 0; i < 3; i++) addFx(game, { type: 'heart', x: pet.x + (i - 1) * 5, y: pet.y - i * 3, color: '#ff8ab8', life: 1 + i * 0.2 });
-  game.sfx('pickup');
+  game.sfx('pickup'); bump(game, 'pat');
   if (fresh) { s.pat.n++; gainPetExp(game, c.exp, pet.id); game.persist(); }
   game.toast((fresh ? pick(c.lines) : c.tired).replace('{name}', pet.def.name), 2);
 }

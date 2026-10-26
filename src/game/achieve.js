@@ -13,6 +13,9 @@ export function power(game, st = game.player?.st) {
 
 export function ensureStats(save) { save.stats ??= { kills: 0, bosses: 0, rares: 0, coins: 0 }; save.achv ??= {}; }
 
+// Đếm việc yên bình (câu cá, thả đèn, vuốt ve, uống trà, phút đả tọa) cho thành tựu
+export function bump(game, key, n = 1) { ensureStats(game.save); game.save.stats[key] = (game.save.stats[key] || 0) + n; }
+
 export function countKill(game, m) {
   const s = game.save.stats;
   s.kills++;
@@ -25,6 +28,7 @@ export function progress(game, need) {
   switch (need.type) {
     case 'realm': return s.realm;
     case 'kills': case 'bosses': case 'rares': case 'coins': return s.stats[need.type] || 0;
+    case 'fish': case 'lantern': case 'pat': case 'tea': case 'sit': return Math.floor(s.stats?.[need.type] || 0);   // việc yên bình; sit tính phút
     case 'tower': return s.tower?.best || 0;
     case 'arena': return s.arena?.best && s.arena.best <= need.n ? need.n : 0;   // hạng: số nhỏ là cao
     case 'pets': return Object.keys(s.pets || {}).length;

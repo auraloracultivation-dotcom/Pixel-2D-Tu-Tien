@@ -2,6 +2,7 @@
 import { dailyEvent } from './daily.js';
 import { outdoor } from './daynight.js';
 import { daoLu } from './affinity.js';
+import { bump } from './achieve.js';
 
 const C = game => game.data.fishing;
 
@@ -40,7 +41,7 @@ export function fishAct(game, dir) {
   s.mats[id] = (s.mats[id] || 0) + 1;
   game.number(game.player.x, game.player.y - 20, `+1 ${m.name}`, m.color);
   game.toast(`Câu được ${m.name}!`, 1.6); game.sfx('pickup');
-  dailyEvent(game, 'fish');
+  dailyEvent(game, 'fish'); bump(game, 'fish');
   together(game, id, m);
   game.persist();
 }
