@@ -22,6 +22,8 @@ import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { stamp, offlineGains } from './offline.js';
+import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
+import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
@@ -46,7 +48,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
-  game.goals = () => [game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game)].filter(Boolean).join('\n');
+  game.goals = () => [game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -86,6 +88,7 @@ export function createGame(data, screen, input, ui, audio) {
     const broke = addQi(game.save, data.realms, amount);
     gainTechExp(game, amount);
     gainPetExp(game, amount);
+    gainCompExp(game, amount);
     if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
@@ -105,6 +108,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (m.tower) return; // quái trong tháp chỉ tính qua tầng
     dropLoot(game, m);
     bountyKill(game, m);
+    sideKill(game, m);
     techDrop(game, m);
     matDrop(game, m);
     petKill(game, m);
@@ -125,9 +129,10 @@ export function createGame(data, screen, input, ui, audio) {
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
       if ((n.unless && game.save.flags[n.unless]) || (n.need && !game.save.flags[n.need])) continue;
+      if (n.id === game.save.companion && !game.story.wants(n.id) && !hasSide(game, n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game);
+    spawnPet(game); spawnCompanion(game); spawnSidePickups(game);
     game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
@@ -264,6 +269,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePlayer(game, dt);
     updateRide(game, dt);
     updatePet(game, dt);
+    updateCompanion(game, dt);
     game.others.update(dt);
     game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);

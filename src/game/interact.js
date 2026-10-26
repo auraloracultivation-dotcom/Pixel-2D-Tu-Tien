@@ -5,6 +5,8 @@ import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvest, nextRipe } from './cave.js';
 import { talkBeast } from './pets.js';
 import { talkTower } from './tower.js';
+import { canInvite, talkCompanion } from './companion.js';
+import { hasSide, talkSide, sideCollect } from './side.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -43,6 +45,8 @@ export function updateInteract(game) {
     if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
     if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
     if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
+    if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
+    if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
     const lines = npc.def.lines;
     game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
   } else if (trib) {
@@ -76,7 +80,7 @@ export function updatePickups(game) {
   for (const k of game.pickups) {
     if (k.taken || dist(k, p) > 12) continue;
     k.taken = true;
-    game.story.notify('collect', k.item);
+    if (k.side) sideCollect(game, k); else game.story.notify('collect', k.item);
     game.toast(`Nhặt được ${game.data.items.quest_items[k.item]?.name || k.item}!`, 1);
     game.sfx('pickup');
   }

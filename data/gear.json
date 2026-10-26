@@ -11,6 +11,7 @@
  },
  "sets": {
   "xich-diem": {"name": "Bộ Xích Diễm", "color": "#ff7a3a", "bonus": {"2": {"atk_pct": 8}, "4": {"lifesteal": 3, "crit_dmg": 20}}},
-  "han-bang": {"name": "Bộ Hàn Băng", "color": "#9ad8ff", "bonus": {"2": {"def": 5}, "4": {"hp_pct": 15, "thorns": 12}}}
+  "han-bang": {"name": "Bộ Hàn Băng", "color": "#9ad8ff", "bonus": {"2": {"def": 5}, "4": {"hp_pct": 15, "thorns": 12}}},
+  "hac-phong": {"name": "Bộ Hắc Phong", "color": "#8a7ab0", "bonus": {"2": {"speed": 6, "crit": 4}, "4": {"cdr": 10, "atk_pct": 10}}}
  }
 }

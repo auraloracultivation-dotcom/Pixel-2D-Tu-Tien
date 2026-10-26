@@ -34,7 +34,7 @@
  ],
  "spawns": {"vao": [5, 12], "tu-bang-quat": [18, 4]},
  "portals": [{"at": [3, 12], "to": "thien-kiem-phong", "spawn": "tu-han-bang", "label": "Ngự kiếm về Thiên Kiếm Phong"}, {"at": [18, 2], "to": "han-bang-quat", "spawn": "vao", "need": "mo-bang-quat", "label": "Băng Quật"}],
- "npcs": [{"id": "lao-ngu", "at": [10, 10]}, {"id": "lac-tuyet", "at": [8, 12], "need": "han-bang"}, {"id": "mac-anh", "at": [29, 16], "need": "gap-mac-anh"}],
+ "npcs": [{"id": "lao-ngu", "at": [10, 10]}, {"id": "lac-tuyet", "at": [8, 12], "need": "han-bang"}, {"id": "mac-anh", "at": [29, 16], "need": "gap-mac-anh", "unless": "hac-phong"}],
  "spawners": [{"mob": "tuyet-lang", "at": [24, 13], "n": 4, "spread": 3, "respawn": 5}, {"mob": "bang-tinh", "at": [12, 18], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-bang-tien", "at": [28, 7], "n": 2, "spread": 2, "respawn": 8, "need": "tim-bang-tam"}],
  "rooms": []
 }

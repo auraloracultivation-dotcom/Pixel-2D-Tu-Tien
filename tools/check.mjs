@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), tower = read('tower.json'), comps = read('companions.json'), side = read('side.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -88,6 +88,12 @@ try {
   for (const r of daily.ranks) if (r.gift) rewardOk(r.gift, `daily.ranks/${r.id}`);
   for (const it of daily.shop) { rewardOk(it.give, `daily.shop/${it.id}`); need(!it.rank || daily.ranks.some(r => r.id === it.rank), `daily.shop/${it.id}: chức vị không có`); }
   rewardOk(daily.chest, 'daily.chest');
+  for (const id of Object.keys(comps.list)) need(npcs[id], `companions: NPC "${id}" không có`);
+  for (const [id, q] of Object.entries(side.quests)) {
+    need(npcs[q.npc], `side/${id}: NPC "${q.npc}" không có`); rewardOk(q.reward, `side/${id}`);
+    need(q.kind === 'kill' ? mobs[q.mob] : maps[q.map] && items.quest_items[q.item] && q.at.length >= q.n, `side/${id}: quái, bản đồ hoặc vật không có`);
+    for (const [x, y] of q.at || []) need(!tiles.types[maps[q.map].grid[y][x]]?.solid, `side/${id}: ô ${x},${y} bị chắn`);
+  }
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');
   for (const t of tower.tiers) { need(mobs[t.boss], `tower: boss "${t.boss}" không có`); for (const m of t.pool) need(mobs[m], `tower: quái "${m}" không có`); }
   for (const r of tower.reward.boss_items) need(items.rarities.some(x => x.id === r), `tower: độ hiếm "${r}" không có`);

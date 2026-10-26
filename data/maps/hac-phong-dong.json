@@ -1,0 +1,27 @@
+{
+ "id": "hac-phong-dong",
+ "name": "Hắc Phong Động",
+ "sky": "#140f1c",
+ "dark": 0.38,
+ "ground": "#2e2838",
+ "grid": [
+  "#################################################",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeee###eeeeUeeeeeUeee###eeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeUeeeeeeeUeeee#",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeeeeDeeeeeeeeeeeeeeeeDeeeeeeeeeeeeeeeeee#",
+  "#ePeeeeeeeeeDeeeeeeeeUeeeeeeeDeeeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeeeeDeeeeeeeeeeeeeeeeDeeeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeee###eeeeUeeeeeUeee###eeeeUeeeeeeeUeeee#",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeeeeeeeeeeeeee#",
+  "#eeeeeeeeee###eeeeeeeeeeeeee###eeeeeeeeeeeeeeeee#",
+  "#################################################"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "hac-phong-dao", "spawn": "tu-hac-phong-dong", "label": "Về Hắc Phong Đảo"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "phong-yeu", "n": 4}, {"mob": "hac-diep", "n": 2}]}, {"rect": [14, 1, 14, 11], "door_x": 29, "mobs": [{"mob": "ma-phong-ve", "n": 2}, {"mob": "hac-diep", "n": 2}, {"mob": "phong-yeu", "n": 2}]}, {"rect": [31, 1, 17, 11], "mobs": [{"mob": "hac-phong-ma-quan", "n": 1}], "boss": true}]
+}
