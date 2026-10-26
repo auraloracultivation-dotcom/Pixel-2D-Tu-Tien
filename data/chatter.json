@@ -3,6 +3,7 @@
  "every": [7, 15],
  "range": 110,
  "sec": 3.6,
+ "stroll": {"_note": "NPC có stroll (số ô, ở data/npcs.json) thì đi dạo chậm quanh chỗ đứng, tới nơi đứng nghỉ wait giây; người chơi tới gần thì dừng lại.", "speed": 13, "wait": [2, 6], "stop": 26},
  "comp_every": [25, 50],
  "comp": {
   "tieu-hoa": ["Đi đâu tiếp đây?", "Ta đi trước nhé!", "Đánh nhau vui ghê."],
