@@ -21,6 +21,7 @@ import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
+import { stamp, offlineGains } from './offline.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
@@ -39,6 +40,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   game.persist = () => {
     if (!game.save || !game.map) return;
+    stamp(game.save);
     writeSave(game.owner, game.save);
     game.cloud?.save(game.save);
   };
@@ -189,6 +191,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
+    const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save);
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
@@ -207,6 +210,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.checkUnlocks(); // bản lưu cũ: ghi nhận chiêu đã có, không báo
     if (game.pendingTech) { learnTech(game, game.pendingTech); game.pendingTech = null; }
     ui.showPlay(true);
+    await offlineGains(game, lastSeen);
     await game.story.start();
   };
 
@@ -277,6 +281,7 @@ export function createGame(data, screen, input, ui, audio) {
     for (const n of game.npcs) n.bob += dt * 3;
     game.story.update();
     if (game.player.hp <= 0) respawn();
+    if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
     screen.follow(game.player.x, game.player.y - 4, dt, game.map);
   };
 

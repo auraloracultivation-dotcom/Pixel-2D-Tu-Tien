@@ -17,6 +17,7 @@
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},
  "player": {"hp": 100, "speed": 72, "radius": 5, "regen": 1.5, "invuln": 0.45, "crit": 0.12, "crit_mult": 1.7},
  "meditate": {"qi_per_sec": 5, "range": 20},
+ "offline": {"_note": "Bế quan khi vắng mặt: linh khí = qi_per_sec của đả tọa × rate × số giây, tối đa max_hours, chỉ tính khi vắng ít nhất min_minutes.", "rate": 0.5, "max_hours": 8, "min_minutes": 5},
  "feel": {"hitstop": 0.045, "shake": 2.5, "knockback": 90, "flash": 0.09},
  "travel": {"flight": {"dur": 4.2}, "portal": {"dur": 1.6}},
  "dash": {"dist": 52, "time": 0.16, "cd": 2},
