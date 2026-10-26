@@ -2,6 +2,7 @@
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
 import { makeRoom } from './autoequip.js';
+import { pilotOpt } from './pilotopt.js';
 
 export function dropLoot(game, m) {
   const d = game.data.items.drops[m.id];
@@ -38,7 +39,7 @@ function take(game, l) {
   const { data, save } = game;
   if (l.kind === 'item') {
     if (!addItem(data, save, l.payload)) {
-      if (!game.pilot) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
+      if (!game.pilot || !pilotOpt(game, 'phan-giai')) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
       if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành: phân giải món rẻ cho có chỗ
     }
     const r = rarityOf(data.items, l.payload.rarity);

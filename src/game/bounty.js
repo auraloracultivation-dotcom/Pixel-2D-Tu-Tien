@@ -3,6 +3,7 @@ import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items
 import { totalLayer } from './stats.js';
 import { bountyLeft, useBounty } from './daily.js';
 import { outdoorMob } from './chores.js';
+import { pilotOpt } from './pilotopt.js';
 
 export const BOUNTY_NPC = 'chap-su';
 
@@ -55,7 +56,7 @@ export async function talkBounty(game, npc) {
   const pool = list(game).filter(x => x.id !== b?.id && (!game.pilot || outdoorMob(game, x.mob)));   // tự hành chỉ nhận việc đánh được ngoài trời
   const near = pool.filter(x => game.map.def.spawners.some(s => s.mob === x.mob));   // tự hành: thường chọn việc ngay trên đảo này cho đỡ bay
   const from = game.pilot && near.length && Math.random() < 0.7 ? near : pool, pick = from[Math.floor(Math.random() * from.length)];
-  if (!pick) return;
+  if (!pick || (game.pilot && !pilotOpt(game, 'viec'))) return;
   if (game.pilot) { save.bounty = { id: pick.id, n: 0 }; game.persist(); await game.dialog.say([[name, `Có việc mới: ${pick.text.replace('{n}', pick.n)}. Đi đi.`]]); return; }   // tự hành tự nhận
   const ok = await game.dialog.choose(`${name}: Có việc mới: ${pick.text.replace('{n}', pick.n)}. Nhận không?`, [
     { id: 'yes', label: 'Nhận việc', desc: 'Hiện ở góc phải màn hình' },

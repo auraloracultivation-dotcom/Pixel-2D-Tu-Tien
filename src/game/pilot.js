@@ -5,6 +5,7 @@ import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
 import { autoEquip } from './autoequip.js';
+import { pilotOpt } from './pilotopt.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
@@ -91,7 +92,7 @@ const tileOf = (game, at) => game.map.center(at[0], at[1]);
 // đảo không có bồ đoàn thì về động phủ (hoặc Thiên Kiếm Phong)
 function sit(game) {
   const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', d = game.save.flags['dong-phu'] && daoLuHere(game);
-  const m = game.map.findTiles('M')[0], night = game.save.flags['dong-phu'] && phase(game).id === 'dem';   // đêm thì về nhà
+  const m = game.map.findTiles('M')[0], night = game.save.flags['dong-phu'] && pilotOpt(game, 'dem') && phase(game).id === 'dem';   // đêm thì về nhà
   if (m && (game.map.id === home || (!night && (!d || game.save.companion === d)))) return { sit: m };
   const pt = routeTo(game, home);
   return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
@@ -131,7 +132,7 @@ const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: 
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
-  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; autoEquip(game); }
+  if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.canStart()) { game.input.pressed.add('act'); return none; }
   const job = game.pilot.job = plan(game);

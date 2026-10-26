@@ -8,6 +8,7 @@ import { daoLuHere } from './affinity.js';
 import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
+import { pilotOpt } from './pilotopt.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -65,22 +66,22 @@ function wants(game) {
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
   if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
-  else if (b || (bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
+  else if (b || (pilotOpt(game, 'viec') && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
   for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
-    if (!s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
+    if (pilotOpt(game, 'viec') && !s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
   }
-  if (s.flags['dong-phu']) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
+  if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
     const d = daoLuHere(game), day = new Date().toDateString();
     if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
-  if (s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
+  if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
   const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
-  if (!game.view && s.sunset !== new Date().toDateString() && phase(game).id === ss.phase) out.push({ view: true });
+  if (pilotOpt(game, 'ngam') && !game.view && s.sunset !== new Date().toDateString() && phase(game).id === ss.phase) out.push({ view: true });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
-  if (game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
+  if (pilotOpt(game, 'vuot') && game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
   return out;
 }
 
