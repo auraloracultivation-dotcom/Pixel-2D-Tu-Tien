@@ -123,3 +123,8 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .isle.here { outline: 3px solid #f2c94c; }
 .isle.locked { opacity: .45; }
 .isle-layer { position: absolute; left: 8px; font: 700 11px system-ui, sans-serif; color: rgba(27,24,48,.55); }
+#btn-art { right: 10px; bottom: 162px; width: 46px; height: 46px; font-size: 10px; background: rgba(255, 236, 190, .92); }
+#bag { overflow-y: auto; }
+#bag > * { flex-shrink: 0; }
+#bag #bag-list { flex: none; overflow: visible; }
+#bag #bag-detail { max-height: none; overflow: visible; }

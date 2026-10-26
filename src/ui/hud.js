@@ -1,6 +1,6 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
 import { createDialog } from './dialog.js';
-import { qiNeed, realmLabel, rootOf } from '../game/stats.js';
+import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
 
 const $ = id => document.getElementById(id);
@@ -68,6 +68,12 @@ export function createHud(audio) {
       const t = `Đan ${pn}`;
       if (pb.querySelector('b').textContent !== t) pb.querySelector('b').textContent = t;
       pb.style.setProperty('--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
+    }
+    const art = artSkill(s, d), ab = $('btn-art');
+    ab.hidden = !art;
+    if (art) {
+      if (ab.querySelector('b').textContent !== d.skills[art].name) ab.querySelector('b').textContent = d.skills[art].name;
+      ab.style.setProperty('--cd', (Math.max(0, p.artCd || 0) / (d.skills[art].cd * (1 - p.st.cdr))).toFixed(3));
     }
     $('btn-dash').style.setProperty('--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
     const act = $('btn-act');

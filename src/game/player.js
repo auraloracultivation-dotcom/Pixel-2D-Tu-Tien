@@ -1,7 +1,7 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
 import { addFx, hitMob, dist, shoot } from './combat.js';
 import { castSkill, skillSlots } from './skills.js';
-import { playerStats, weaponId } from './stats.js';
+import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
 import { dailyEvent } from './daily.js';
@@ -126,6 +126,16 @@ export function updatePlayer(game, dt) {
       if (dir) p.face = dir;
       p.skillCd[i] = castSkill(game, slots[i]) * (1 - p.st.cdr);
     }
+  }
+
+  // Nút pháp bảo: chiêu riêng của pháp bảo đang mặc
+  p.artCd = (p.artCd || 0) - dt;
+  const art = artSkill(game.save, game.data);
+  if (inp.consume('art') && art && p.artCd <= 0) {
+    p.meditating = false; p.calmT = 0; p.riding = false;
+    const dir = autoAim(game, art);
+    if (dir) p.face = dir;
+    p.artCd = castSkill(game, art) * (1 - p.st.cdr);
   }
 
   // Nút Đan: uống đan hồi máu
