@@ -6,6 +6,7 @@ import { fightStep, toward, reachOf } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
 import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
+import { phase } from './daynight.js';
 
 const C = game => game.data.config.pilot;
 
@@ -84,12 +85,12 @@ const nearest = (game, list) => { let b = null, bd = Infinity; for (const e of l
 const alive = game => game.mobs.filter(m => !m.dead);
 const tileOf = (game, at) => game.map.center(at[0], at[1]);
 
-// Việc tu luyện: đạo lữ đang ở nhà thì về động phủ song tu; không thì ngồi bồ đoàn trên đảo này,
+// Việc tu luyện: đạo lữ đang ở nhà, hoặc trời đã tối, thì về động phủ; không thì ngồi bồ đoàn trên đảo này,
 // đảo không có bồ đoàn thì về động phủ (hoặc Thiên Kiếm Phong)
 function sit(game) {
   const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', d = game.save.flags['dong-phu'] && daoLuHere(game);
-  const m = game.map.findTiles('M')[0];
-  if (m && (game.map.id === home || !d || game.save.companion === d)) return { sit: m };
+  const m = game.map.findTiles('M')[0], night = game.save.flags['dong-phu'] && phase(game).id === 'dem';   // đêm thì về nhà
+  if (m && (game.map.id === home || (!night && (!d || game.save.companion === d)))) return { sit: m };
   const pt = routeTo(game, home);
   return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
 }
