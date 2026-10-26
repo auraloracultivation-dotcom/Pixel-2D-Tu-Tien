@@ -3,6 +3,16 @@
  "every": [7, 15],
  "range": 110,
  "sec": 3.6,
+ "comp_every": [25, 50],
+ "comp": {
+  "tieu-hoa": ["Đi đâu tiếp đây?", "Ta đi trước nhé!", "Đánh nhau vui ghê."],
+  "lac-tuyet": ["...Đi chậm thôi.", "Ta ở đây.", "Gió hôm nay dễ chịu."],
+  "mac-anh": ["Trời này hợp đi dạo.", "Đừng nhìn ta."],
+  "ho-linh": ["Đi đâu cũng vui!", "Kể chuyện gì đi!", "Hì hì."],
+  "thanh-diep": ["Cây cỏ đang chào ngươi.", "Nghe tiếng gió kìa."],
+  "thiet-lan": ["Kiếm ngươi cần mài rồi.", "Đi tiếp thôi."],
+  "thach-sinh": ["...", "Đất dưới chân vững lắm."]
+ },
  "lines": {
   "truong-thon": ["Trời hôm nay trong quá.", "Lúa năm nay chắc được mùa.", "Đi đường cẩn thận nhé."],
   "tieu-hoa": ["Đánh một trận không?", "Ta đói rồi...", "Ngươi lại mạnh hơn rồi đó!"],
