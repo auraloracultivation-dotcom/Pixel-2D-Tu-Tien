@@ -22,6 +22,16 @@
   "Sương sớm trên lá, đẹp vì chẳng lâu."
  ]},
  "comp_every": [25, 50],
+ "comp_sky": {"_note": "Câu của bạn đồng hành theo trời: mua (đang mưa), pha ngày đêm (dem, binh-minh, hoang-hon), mùa (xuan, ha, thu, dong). Mỗi lần nói có chance dùng câu theo trời nếu có (theo người, thiếu thì default).", "chance": 0.5,
+  "mua": {"lac-tuyet": ["Mưa rồi. Đứng gần ta, áo đệ ướt hết.", "Tiếng mưa dễ nghe nhỉ."], "ho-linh": ["Ướt lông ta rồi! Hức.", "Mưa thế này phải ôm nhau cho ấm."], "default": ["Mưa rồi, đi chậm thôi.", "Mưa mát ghê."]},
+  "dem": {"lac-tuyet": ["Trăng lên rồi.", "Đêm yên quá."], "ho-linh": ["Đêm là giờ của hồ ly đó.", "Sao nhiều ghê!"], "default": ["Trời tối rồi.", "Nhìn kìa, đom đóm."]},
+  "binh-minh": {"lac-tuyet": ["Sương sớm. Hợp luyện kiếm."], "ho-linh": ["Buồn ngủ quá... ngáp."], "default": ["Sáng sớm trong lành ghê."]},
+  "hoang-hon": {"lac-tuyet": ["Trời đỏ như lửa."], "ho-linh": ["Chiều rồi, đói bụng rồi."], "default": ["Hoàng hôn đẹp quá."]},
+  "xuan": {"default": ["Hoa đào nở rồi kìa.", "Gió xuân thơm ghê."]},
+  "ha": {"default": ["Nắng hè chói quá.", "Ve kêu râm ran."]},
+  "thu": {"lac-tuyet": ["Lá phong rơi. Đẹp."], "default": ["Lá đỏ hết rồi.", "Gió thu mát ghê."]},
+  "dong": {"lac-tuyet": ["Tuyết. Giống Tuyết Sơn quê ta."], "ho-linh": ["Lạnh! Cho ta chui vào tay áo với."], "default": ["Lạnh quá, đi nhanh thôi.", "Tuyết rơi kìa."]}
+ },
  "comp": {
   "tieu-hoa": ["Đi đâu tiếp đây?", "Ta đi trước nhé!", "Đánh nhau vui ghê."],
   "lac-tuyet": ["...Đi chậm thôi.", "Ta ở đây.", "Gió hôm nay dễ chịu."],
