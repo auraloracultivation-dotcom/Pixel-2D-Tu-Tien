@@ -65,6 +65,8 @@
   "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
   "default": ["Cho ngươi."]
  },
+ "tea": {"_note": "Uống trà với đạo lữ ở nhà, mỗi ngày một lần: min phút sau đó đả tọa ở đâu cũng nhân mul.", "min": 20, "mul": 1.2, "label": "Uống trà", "desc": "Đả tọa nhanh hơn 20% trong 20 phút", "toast": "Trà ấm lòng. Đả tọa nhanh hơn 20% trong 20 phút.",
+  "lines": {"lac-tuyet": ["Trà Tuyết Sơn. Uống chậm thôi.", "...Ngồi xuống đi. Trà nguội mất.", "Hôm nay đệ đi đâu? Kể ta nghe."], "ho-linh": ["Trà hoa đào ta tự hái đó! Ngon không?", "Uống xong rồi kể chuyện cho ta nghe nha.", "Thổi cho nguội đã, nóng lắm!"], "default": ["Mời trà."]}},
  "decor": {
   "_note": "Trang trí động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi món vẽ ở chỗ cố định (at, ô bản đồ; kind là kiểu vẽ trong draw-decor.js) và cộng comfort phần trăm tốc độ đả tọa khi ở động phủ.",
   "npc": "tieu-linh",

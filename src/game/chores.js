@@ -71,7 +71,7 @@ function wants(game) {
   }
   if (s.flags['dong-phu']) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
     const d = daoLuHere(game), day = new Date().toDateString();
-    if (d && s.companion !== d && s.homeGift !== day) out.push({ gift: d });
+    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
   }
