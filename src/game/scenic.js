@@ -5,6 +5,7 @@ import { daoLu } from './affinity.js';
 import { phase } from './daynight.js';
 import { addEntry } from './journal.js';
 import { bump } from './achieve.js';
+import { isRaining } from './weather.js';
 
 const C = game => game.data.scenic;
 
@@ -42,6 +43,7 @@ export function updateView(game, dt) {
     if (!v.said) { v.said = true; const L = tg.lines[c.id] || tg.lines.default, ph = phase(game).id, a = L[ph] || tg.lines.default[ph]; game.say(c.npc.name, a[Math.floor(Math.random() * a.length)], 4); }
   }
   lantern(game, v, two && c);
+  star(game, v, two && c, dt);
   if ((v.q = (v.q || 0) + dt) >= 1) { v.q -= 1; game.gainQi(game.data.config.meditate.qi_per_sec * C(game).qi_mul * (two ? tg.qi_mul : 1) * meditateMul(game) * game.eventMul('qi'), game.player.x, game.player.y, true); }
 }
 
@@ -57,6 +59,20 @@ function lantern(game, v, comp) {
   game.sfx('chime', 0.8);
   if (comp) { const a = L.lines[comp.id] || L.lines.default; game.say(comp.npc.name, a[Math.floor(Math.random() * a.length)], 5); }
   else game.toast(L.toast, 4);
+}
+
+// Sao băng (scenic.json → star): đêm trời quang, ngồi ngắm thì thỉnh thoảng có sao vụt qua; sao đầu mỗi đêm là một điều ước
+function star(game, v, comp, dt) {
+  const S = C(game).star, s = game.save, day = new Date().toDateString();
+  if (phase(game).id !== S.phase || isRaining(game)) return;
+  if ((v.star = (v.star ?? S.first) - dt) > 0) return;
+  v.star = S.every[0] + Math.random() * (S.every[1] - S.every[0]);
+  (game.meteors ||= []).push({ born: performance.now() / 1000, life: S.life, x: 0.35 + Math.random() * 0.55, y: 0.05 + Math.random() * 0.2 });
+  if (s.star === day) return;
+  s.star = day; game.persist();
+  game.gainQi(game.data.config.meditate.qi_per_sec * S.qi_sec, game.player.x, game.player.y);
+  if (comp) { const a = S.lines[comp.id] || S.lines.default; game.say(comp.npc.name, a[Math.floor(Math.random() * a.length)], 5); }
+  else game.toast(S.toast, 4);
 }
 
 // Máy quay khi đang ngắm: nhìn xuống phía biển mây
