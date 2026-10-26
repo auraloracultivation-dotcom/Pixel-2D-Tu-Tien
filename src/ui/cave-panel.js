@@ -1,5 +1,5 @@
 // Bảng động phủ: tab Lò đan (luyện và dùng đan) và tab Lò rèn (chọn ô, rèn đồ mới). Mở khi đứng cạnh lò.
-import { brew, usePill, forge, costText, canPay, matInfo } from '../game/cave.js';
+import { brew, brewRate, usePill, forge, costText, canPay, matInfo } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
 
 const $ = id => document.getElementById(id);
@@ -30,10 +30,15 @@ export function createCavePanel(game) {
         const c = el('div', 'skill-card');
         c.style.borderLeftColor = p.color;
         const have = s.pills[id] || 0;
-        c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Cần: ${costText(data, p.recipe)} → ${p.make} viên`));
+        c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Cần: ${costText(data, p.recipe)} → ${p.make} viên · thành ${Math.round(brewRate(game, id) * 100)}%`));
         const row = el('div', 'card-acts');
         row.append(
-          mini('Luyện', () => { const n = brew(game, id); if (n) { game.sfx('heal'); last = `Luyện thành ${n} ${p.name}!`; } render(); }, !canPay(game, p.recipe)),
+          mini('Luyện', () => {
+            const n = brew(game, id);
+            if (n === 'fail') { game.sfx('hurt'); last = `Lò nổ! Luyện ${p.name} thất bại, mất nguyên liệu.`; }
+            else if (n) { game.sfx('heal'); last = `Luyện thành ${n} ${p.name}!`; }
+            render();
+          }, !canPay(game, p.recipe)),
           mini('Dùng', () => { const m = usePill(game, id); last = m ? `${p.name}: ${m}` : 'Lúc này dùng không có tác dụng.'; if (m) game.sfx('levelup'); render(); }, !have),
         );
         c.append(row); list.append(c);

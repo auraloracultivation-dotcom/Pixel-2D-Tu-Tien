@@ -29,13 +29,21 @@ export function salvageIron(game, rarity) {
   return n;
 }
 
-export function brew(game, id) {
+// Tỉ lệ luyện thành: theo đan, cộng thêm nếu linh căn hợp (Hỏa)
+export function brewRate(game, id) {
+  const b = game.data.cave.brew, pill = game.data.cave.pills[id];
+  return Math.min(1, (pill.rate ?? b.default) + (b.element_bonus[game.save.element] || 0));
+}
+
+// Trả về số viên luyện được, 'fail' nếu lò hỏng (mất nguyên liệu), false nếu không đủ nguyên liệu
+export function brew(game, id, rnd = Math.random) {
   const pill = game.data.cave.pills[id], s = game.save;
   if (!pill || !has(s, pill.recipe)) return false;
   pay(s, pill.recipe);
+  dailyEvent(game, 'brew');
+  if (rnd() >= brewRate(game, id)) { game.persist(); return 'fail'; }
   const n = Math.round(pill.make * game.eventMul('brew'));
   s.pills[id] = (s.pills[id] || 0) + n;
-  dailyEvent(game, 'brew');
   game.persist();
   return n;
 }
@@ -59,6 +67,11 @@ export function usePill(game, id) {
     if (save.flags.boiNguyen >= u.cap) return null;
     save.flags.boiNguyen++;
     msg = `Máu tối đa +${u.hp} (${save.flags.boiNguyen}/${u.cap})`;
+  } else if (u.root) {
+    const list = data.realms.roots.list, i = list.findIndex(r => r.id === save.root);
+    if (i < 0 || i >= list.length - 1) return null;
+    save.root = list[Math.min(list.length - 1, i + u.root)].id;
+    msg = `Linh căn lên phẩm ${list.find(r => r.id === save.root).name}! Tu luyện nhanh hơn`;
   } else if (u.trib) {
     if (save.flags.thanhTam) return null;
     save.flags.thanhTam = u.trib;

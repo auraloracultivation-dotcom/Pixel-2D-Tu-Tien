@@ -12,6 +12,7 @@
   {"kind": "mat", "ref": "tinh-thiet", "n": 2, "price": 35, "need": "dong-phu"},
   {"kind": "mat", "ref": "hoa-linh-chi", "n": 1, "price": 45, "need": "ngu-kiem"},
   {"kind": "mat", "ref": "tay-luyen-thach", "n": 1, "price": 40},
+  {"kind": "mat", "ref": "khoa-linh-thach", "n": 1, "price": 400, "need": "mo-bi-canh"},
   {"kind": "gem", "n": 1, "price": 120}
  ]
 }
