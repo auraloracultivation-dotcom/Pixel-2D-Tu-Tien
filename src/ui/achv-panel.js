@@ -1,6 +1,7 @@
-// Bảng Thành tựu: tab Thành tựu (tiến độ, nhận thưởng) và tab Danh hiệu (chọn danh hiệu hiện trên đầu).
+// Bảng Thành tựu: tab Thành tựu (tiến độ, nhận thưởng), Danh hiệu (chọn danh hiệu hiện trên đầu), Thời trang, Nhật ký.
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
 import { owned, buyOutfit, wear, howToGet } from '../game/fashion.js';
+import { journal } from '../game/journal.js';
 
 const $ = id => document.getElementById(id);
 
@@ -62,12 +63,20 @@ export function createAchvPanel(game) {
     }
   }
 
+  // Nhật ký: dấu mốc tự ghi, mới nhất trên cùng
+  function renderJournal(list) {
+    const j = journal(game);
+    $('achv-sub').textContent = `${j.length} dòng nhật ký`;
+    if (!j.length) list.append(card('#c8c4d0', 'Trang giấy còn trắng', ['Những dấu mốc trên đường tu tiên sẽ tự ghi vào đây.']));
+    for (const e of j) list.append(card('#b8a0e0', new Date(e.t).toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }), [e.text]));
+  }
+
   function render() {
     const list = $('achv-list');
     for (const b of document.querySelectorAll('#achv-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
     $('achv-msg').textContent = msg;
-    if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else renderTitles(list);
+    if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else if (tab === 'nhat-ky') renderJournal(list); else renderTitles(list);
   }
 
   function open() {
