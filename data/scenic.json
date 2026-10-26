@@ -14,6 +14,7 @@
   {"map": "vet-nut-ngoai", "at": [16, 25], "name": "Đá Nhìn Vực", "line": "Dưới chân là cả Linh Giới, nhỏ như bàn cờ. Thứ mình giữ gìn, hóa ra mong manh vậy."}
  ],
  "sunset": {"_note": "Tự hành: mỗi ngày một lần, lúc hoàng hôn, ra phiến đá ngắm cảnh gần nhất ngồi sec giây rồi làm tiếp.", "phase": "hoang-hon", "sec": 45},
+ "lantern": {"_note": "Thả hoa đăng: ngồi ngắm cảnh lúc phase, sau after giây thả n chiếc đèn trôi lên trời trong life giây, mỗi ngày một lần. Có đạo lữ đi cùng thì nói một câu ước (lines theo người, thiếu thì default), không thì hiện toast. Tự hành cũng ra đá thả đèn mỗi tối.", "phase": "dem", "after": 4, "n": 7, "life": 16, "toast": "Đèn hoa đăng trôi lên trời. Một điều ước gửi theo gió.", "lines": {"lac-tuyet": ["Ước gì à? ...Ước năm sau vẫn ngồi đây, cùng đệ.", "Đèn bay cao thế. Như kiếm ý của ta vậy. Đùa thôi."], "ho-linh": ["Ta ước ngày nào cũng được ăn cá nướng! Với lại... thôi, bí mật.", "Đèn của ta bay cao hơn của ngươi kìa!"], "default": ["Mong mọi người đều bình an.", "Ước gì cũng được, miễn là thật lòng."]}},
  "together": {
   "after": 3,
   "qi_mul": 1.5,
