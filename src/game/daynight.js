@@ -7,6 +7,8 @@ export const outdoor = game => !game.map.def.indoor && !(game.map.def.rooms || [
 export const nightMul = game => outdoor(game) || game.map.id === game.data.cave.map ? phase(game).meditate : 1;
 
 export function updateDayNight(game, dt) {
+  const night = phase(game).id === 'dem' && outdoor(game);
+  if (night !== game.isNight) { game.isNight = night; game.night?.(night); }   // nhạc đêm: dế, câu thưa
   if ((game.dnT = (game.dnT || 0) - dt) > 0) return;
   game.dnT = 20;
   const p = phase(game), was = game.dnPhase;

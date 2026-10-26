@@ -1,5 +1,5 @@
 // Nhạc nền êm (data/sounds.json → music): đàn tranh gảy từng câu ngắn, sáo trúc ngân dài, nền trầm, tiếng vang,
-// xen tiếng gió, chim, nước, lửa theo từng đảo. Tất cả tổng hợp bằng WebAudio, không cần file.
+// xen tiếng gió, chim (đêm thì dế), nước, lửa theo từng đảo. Tất cả tổng hợp bằng WebAudio, không cần file.
 const DARK = [0, 3, 5, 7, 10];
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
@@ -11,7 +11,7 @@ export function createMusic(ac, out, noise, cfg) {
   verb.buffer = ir; wet.gain.value = cfg.reverb.wet; dry.gain.value = 1 - cfg.reverb.wet * 0.5;
   const bus = ac.createGain(); bus.connect(dry); bus.connect(verb); verb.connect(wet); dry.connect(out); wet.connect(out);
 
-  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null };
+  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null, night: false };
 
   // Một nốt: a (giây lên), d (độ dài), vib (rung Hz), q (lọc), pan
   function voice(n, at) {
@@ -58,7 +58,12 @@ export function createMusic(ac, out, noise, cfg) {
   // Tiếng thiên nhiên: chim hót, giọt nước, lửa lách tách (rải ngẫu nhiên mỗi phách)
   function ambience(m, at) {
     const a = m.amb || [];
-    if (a.includes('chim') && Math.random() < cfg.amb.bird) {
+    if (a.includes('chim') && st.night) {   // đêm: tiếng dế rả rích thay tiếng chim
+      if (Math.random() < cfg.amb.cricket) {
+        const f0 = 4200 + Math.random() * 900, n = 3 + Math.floor(Math.random() * 3), pan = Math.random() * 1.4 - 0.7;
+        for (let i = 0; i < n; i++) voice({ wave: 'sine', f: f0, a: 0.004, d: 0.035, v: 0.012, q: 8000, pan }, at + i * 0.06);
+      }
+    } else if (a.includes('chim') && Math.random() < cfg.amb.bird) {
       const f0 = 2200 + Math.random() * 1600, n = 2 + Math.floor(Math.random() * 3), pan = Math.random() * 1.6 - 0.8;
       for (let i = 0; i < n; i++) voice({ wave: 'sine', from: f0 * 0.8, f: f0 * (1 + Math.random() * 0.15), a: 0.01, d: 0.09, v: 0.025, q: 6000, pan }, at + i * 0.13);
     }
@@ -100,7 +105,7 @@ export function createMusic(ac, out, noise, cfg) {
         pluck(f, at);
         if (n.len === 0.5 && st.phrase.length) pluck(freq(m, st.phrase.shift().step), at + beat / 2);
       }
-      if (!st.phrase.length) st.rest = 2 + Math.floor(Math.random() * 4);
+      if (!st.phrase.length) st.rest = 2 + Math.floor(Math.random() * 4) + (st.night ? cfg.night_rest : 0);
     } else if (--st.rest <= 0) st.phrase = makePhrase();
   }
 
@@ -129,6 +134,7 @@ export function createMusic(ac, out, noise, cfg) {
 
   return {
     rain,
+    night(on) { st.night = on; },
     play(id) {
       if (id === st.id && st.timer) return;
       stop();

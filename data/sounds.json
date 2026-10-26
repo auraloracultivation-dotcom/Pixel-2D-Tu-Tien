@@ -27,13 +27,13 @@
   "meteor": [{"wave": "noise", "t": 0, "d": 0.4, "v": 0.4, "q": 900}, {"wave": "sine", "f": 160, "f2": 50, "t": 0, "d": 0.35, "v": 0.3}]
  },
  "music": {
-  "_note": "Nhạc nền êm: đàn tranh gảy câu ngắn, sáo trúc (lead sao: nửa số câu là sáo), nền trầm, phòng vang. Mỗi đảo: root (Hz nốt chủ), bpm (chậm là êm), mood (sang: ngũ cung sáng, toi: ngũ cung trầm), amb (gio, chim, nuoc, lua). zither, flute, drone: âm lượng từng tiếng. amb: tỉ lệ mỗi phách có chim, nước, lửa và âm lượng gió.",
+  "_note": "Nhạc nền êm: đàn tranh gảy câu ngắn, sáo trúc (lead sao: nửa số câu là sáo), nền trầm, phòng vang. Mỗi đảo: root (Hz nốt chủ), bpm (chậm là êm), mood (sang: ngũ cung sáng, toi: ngũ cung trầm), amb (gio, chim, nuoc, lua). zither, flute, drone: âm lượng từng tiếng. amb: tỉ lệ mỗi phách có chim, nước, lửa, dế và âm lượng gió, mưa. Đêm ngoài trời: chim thay bằng dế, câu nhạc thưa hơn (nghỉ thêm night_rest phách).",
   "scale": [0, 2, 4, 7, 9],
   "zither": 0.16,
   "flute": 0.09,
   "drone": 0.05,
   "reverb": {"sec": 3.2, "wet": 0.45},
-  "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035, "rain": 0.05},
+  "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035, "rain": 0.05, "cricket": 0.35}, "night_rest": 2,
   "maps": {
    "thanh-khe": {"root": 293.66, "bpm": 63, "lead": "sao", "amb": ["chim", "nuoc", "gio"], "mood": "sang"},
    "thien-kiem-phong": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["gio", "chim"], "mood": "sang"},
