@@ -4,7 +4,7 @@ import { updateFollower } from './pets.js';
 const C = game => game.data.companions;
 export const compNeed = (data, lv) => Math.round(data.companions.exp_base * Math.pow(lv, data.companions.exp_pow));
 export const compLevel = (game, id = game.save.companion) => game.save.comps?.[id]?.lv || 0;
-export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C(game).need];
+export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C(game).list[id].need || C(game).need];
 
 export function spawnCompanion(game) {
   const id = game.save.companion, p = game.player;

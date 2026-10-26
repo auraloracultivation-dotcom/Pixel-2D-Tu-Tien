@@ -7,7 +7,8 @@
   "thien-kiem-phong": "moc-linh-vuong",
   "dao-xich-dien": "hoa-lang-vuong",
   "dao-han-bang": "tuyet-lang-vuong",
-  "hac-phong-dao": "phong-yeu-vuong"
+  "hac-phong-dao": "phong-yeu-vuong",
+  "dao-moc": "co-thu-yeu-vuong"
  },
  "intro": "Mặt đất rung chuyển... {name} xuất hiện!"
 }

@@ -241,7 +241,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   function updateSpawners(dt) {
     for (const s of game.spawners) {
-      if (s.need && !game.save.flags[s.need]) continue;
+      if ((s.need && !game.save.flags[s.need]) || (s.unless && game.save.flags[s.unless])) continue;
       s.alive = s.alive.filter(m => !m.dead);
       if (s.alive.length >= s.n) continue;
       s.timer -= dt;

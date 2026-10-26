@@ -32,6 +32,14 @@
   "d": {"name": "đá đen", "color": "#5e566a"},
   "V": {"name": "cây khô", "solid": true, "color": "#5e566a"},
   "U": {"name": "trụ đá đen", "solid": true, "color": "#3a3446"},
-  "e": {"name": "nền hắc phong động", "color": "#2e2838"}
+  "e": {"name": "nền hắc phong động", "color": "#2e2838"},
+  "m": {"name": "rêu rừng", "color": "#4f8a4a"},
+  "n": {"name": "nấm phát sáng", "color": "#4f8a4a"},
+  "Z": {"name": "cổ thụ", "solid": true, "color": "#3e7a3e"},
+  "l": {"name": "sàn gỗ", "color": "#b08a5a"},
+  "W": {"name": "nhà trên cây", "solid": true, "color": "#6ab060"},
+  "Q": {"name": "đèn lồng", "solid": true, "color": "#6ab060"},
+  "r": {"name": "nền rễ", "color": "#3a2a1e"},
+  "X": {"name": "vách rễ", "solid": true, "color": "#241a12"}
  }
 }

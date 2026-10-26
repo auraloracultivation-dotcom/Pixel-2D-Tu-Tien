@@ -31,7 +31,13 @@
   "hoa-lang-vuong": [["hoa-linh-chi", 1, 4], ["yeu-huyet", 1, 3], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
   "tuyet-lang-vuong": [["tinh-thiet", 1, 5], ["yeu-huyet", 1, 4], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
   "phong-yeu-vuong": [["tinh-thiet", 1, 7], ["yeu-huyet", 1, 5], ["khoa-linh-thach", 0.3], ["yeu-vuong-dan", 0.12]],
-  "hac-phong-ma-quan": [["tinh-thiet", 1, 8], ["yeu-huyet", 1, 6], ["hoa-linh-chi", 1, 3], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.1]]
+  "hac-phong-ma-quan": [["tinh-thiet", 1, 8], ["yeu-huyet", 1, 6], ["hoa-linh-chi", 1, 3], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.1]],
+  "moc-yeu": [["linh-thao", 0.5]],
+  "doc-dang": [["linh-thao", 0.4], ["yeu-huyet", 0.2]],
+  "ma-tham-tu": [["yeu-huyet", 0.5], ["tinh-thiet", 0.3]],
+  "thu-moc-ve": [["tinh-thiet", 0.5], ["linh-thao", 1, 2]],
+  "thuc-moc-ma-hau": [["tinh-thiet", 1, 10], ["linh-thao", 1, 8], ["yeu-huyet", 1, 6], ["khoa-linh-thach", 0.4], ["yeu-vuong-dan", 0.12]],
+  "co-thu-yeu-vuong": [["linh-thao", 1, 10], ["tinh-thiet", 1, 8], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.14]]
  },
  "salvage_iron": {
   "pham": 1,
