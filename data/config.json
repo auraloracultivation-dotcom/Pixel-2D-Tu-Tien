@@ -20,6 +20,7 @@
  "feel": {"hitstop": 0.045, "shake": 2.5, "knockback": 90, "flash": 0.09},
  "travel": {"flight": {"dur": 4.2}, "portal": {"dur": 1.6}},
  "dash": {"dist": 52, "time": 0.16, "cd": 2},
+ "auto": {"_note": "Tự đánh: chỉ đuổi quái thường cách chỗ bật tối đa radius.", "radius": 110},
  "interact_range": 22,
  "tap_range": 14
 }

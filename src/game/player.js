@@ -5,6 +5,7 @@ import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
 import { dailyEvent } from './daily.js';
+import { autoStep } from './auto.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -92,7 +93,7 @@ export function updatePlayer(game, dt) {
     if (Math.abs(p.kx) + Math.abs(p.ky) < 2) { p.kx = 0; p.ky = 0; }
   }
 
-  const ax = inp.axis();
+  const auto = autoStep(game, inp.axis()), ax = auto.ax;
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
@@ -116,7 +117,7 @@ export function updatePlayer(game, dt) {
     p.walkT += dt;
   }
 
-  if (inp.held.has('atk') && p.atkCd <= 0) { p.meditating = false; p.atkCd = swing(game); }
+  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = swing(game); }
 
   const slots = skillSlots(game);
   for (let i = 0; i < 3; i++) {
