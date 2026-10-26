@@ -36,7 +36,8 @@ export function pilotLabel(game) {
   const k = j && Object.keys(L).find(k => j[k]);
   if (!k) return '';
   const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
-  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[k].replace('{name}', name));
+  const kk = k === 'view' && phase(game).id === game.data.scenic.lantern.phase ? 'lantern' : k;   // tối ra đá là để thả đèn
+  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[kk].replace('{name}', name));
 }
 
 // Đường qua các đảo: tìm theo cổng (bỏ cổng chưa mở), trả về cổng đầu tiên phải đi
