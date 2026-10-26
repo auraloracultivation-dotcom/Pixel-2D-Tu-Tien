@@ -6,6 +6,7 @@ import { createHints } from './hints.js';
 import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 import { togglePilot, pilotLabel } from '../game/pilot.js';
+import { teaLeft } from '../game/home.js';
 
 const $ = id => document.getElementById(id);
 
@@ -79,7 +80,7 @@ export function createHud(audio) {
     $('daily-badge').hidden = !game.newDaily;
     $('achv-badge').hidden = !game.newAchv;
     $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily || game.newAchv);
-    const pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}`;
+    const tl = teaLeft(game), pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}` + (tl ? ` · Trà ${tl} phút` : '');
     if ($('power').textContent !== pw) $('power').textContent = pw;
     $('btn-auto').classList.toggle('on', !!game.auto);
     $('btn-pilot').classList.toggle('on', !!game.pilot);

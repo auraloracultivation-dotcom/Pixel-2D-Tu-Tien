@@ -46,6 +46,7 @@ export function songTuNpc(game) {
 }
 // Trà với đạo lữ: còn hạn thì đả tọa ở đâu cũng nhanh hơn
 export const teaMul = game => (game.save.teaUntil || 0) > Date.now() ? C(game).tea.mul : 1;
+export const teaLeft = game => Math.max(0, Math.ceil(((game.save.teaUntil || 0) - Date.now()) / 60000));   // phút
 // Đả tọa ở nhà: song tu nhân mul, đồ trang trí cộng thêm phần trăm
 export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (game.map.id === C(game).map ? 1 + comfort(game) / 100 : 1);
 
