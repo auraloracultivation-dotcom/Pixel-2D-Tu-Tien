@@ -114,6 +114,7 @@ export function updatePlayer(game, dt) {
 
   // Hồi máu chậm khi không bị đánh
   if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
+  if (p.st.regen && p.hp < p.maxHp && p.hp > 0) p.hp = Math.min(p.maxHp, p.hp + p.st.regen * dt);
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;

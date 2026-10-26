@@ -1,5 +1,6 @@
 // Cảnh giới, linh khí, chỉ số người chơi. Công thức lấy số từ data/realms.json.
 import { gearStats } from './items.js';
+import { techStats } from './techniques.js';
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
 }
@@ -35,7 +36,8 @@ export function weaponId(save, data) {
 export function playerStats(save, data) {
   const n = totalLayer(save, data.realms);
   const w = data.weapons[weaponId(save, data)], pc = data.config.player;
-  const g = gearStats(data, save);
+  const g = gearStats(data, save), tg = techStats(save, data);
+  for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   const v = s => g[s] || 0;
   return {
     maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp')) * (1 + v('hp_pct') / 100)),
@@ -46,6 +48,9 @@ export function playerStats(save, data) {
     def: v('def'),
     speedMul: 1 + v('speed') / 100,
     qiMul: (1 + v('qi_gain') / 100) * rootOf(save, data).qi,
+    lifesteal: v('lifesteal') / 100,
+    thorns: v('thorns') / 100,
+    regen: v('regen'),
   };
 }
 

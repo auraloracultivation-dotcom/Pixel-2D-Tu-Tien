@@ -16,6 +16,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (p.buffT > 0) dmg *= 1 + p.buffAmt;
   dmg = Math.max(1, Math.round(dmg * (0.9 + Math.random() * 0.2)));
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
+  if (p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
   const kb = opt.soft ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi
   m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
@@ -50,6 +51,7 @@ export function hitPlayer(game, dmg, from) {
   if (dmg > 0) {
     p.hp -= dmg;
     game.sfx('hurt');
+    if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;

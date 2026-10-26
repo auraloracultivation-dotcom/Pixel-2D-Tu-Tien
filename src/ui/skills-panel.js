@@ -1,6 +1,8 @@
-// Bảng Chiêu: 3 ô chiêu đang mang, danh sách chiêu đã mở và chưa mở (kèm mốc cảnh giới).
+// Bảng Chiêu: tab Chiêu (3 ô chiêu đang mang, chiêu đã mở và chưa mở) và tab Công pháp (3 cuốn đang mang, cấp, kinh nghiệm).
 import { unlockedSkills, skillSlots, setSlot } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
+import { setTechSlot, techNeed } from '../game/techniques.js';
+import { statText } from '../game/items.js';
 
 const $ = id => document.getElementById(id);
 
@@ -13,12 +15,52 @@ function el(tag, cls, text) {
 
 export function createSkillsPanel(game) {
   const { data } = game;
-  let slot = 0;
+  let slot = 0, tab = 'chieu';
 
   // Mốc mở chiêu: tổng tầng → "Trúc Cơ tầng 1"
   const need = n => `${data.realms.names[Math.floor(n / data.realms.layers)]} tầng ${n % data.realms.layers + 1}`;
 
   function render() {
+    for (const b of document.querySelectorAll('#skills-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
+    $('skills-sub').textContent = tab === 'chieu' ? 'Chọn ô rồi chạm chiêu để mang' : 'Chọn ô rồi chạm công pháp để mang';
+    if (tab === 'chieu') renderSkills(); else renderTechs();
+  }
+
+  // Một dòng hiệu ứng công pháp: "Công +6% · Tốc tu +6%"
+  const effText = (t, lv) => Object.entries(t.per_level).map(([k, v]) => {
+    const n = Math.round(v * lv * 10) / 10;
+    if (k === 'lifesteal') return `Hút máu ${n}%`;
+    if (k === 'thorns') return `Phản đòn ${n}%`;
+    if (k === 'regen') return `Hồi ${n} máu/giây`;
+    return statText(data, k, n);
+  }).join(' · ');
+
+  function renderTechs() {
+    const T = data.techniques, sl = game.save.techSlots;
+    const box = $('skills-slots'); box.innerHTML = '';
+    for (let i = 0; i < T.slots; i++) {
+      const id = sl[i], b = el('button', i === slot ? 'on' : '', id ? T.list[id].name : 'Trống');
+      b.append(el('small', null, id ? `tầng ${game.save.techs[id].lv}` : `Ô ${i + 1}`));
+      b.onclick = () => { slot = i; render(); };
+      box.append(b);
+    }
+    const list = $('skills-list'); list.innerHTML = '';
+    const known = Object.keys(game.save.techs);
+    if (!known.length) list.append(el('p', 'muted', 'Chưa có công pháp. Bí kíp rơi từ boss và quái mạnh.'));
+    for (const id of known) {
+      const t = T.list[id], st = game.save.techs[id], max = st.lv >= T.max_level;
+      const c = el('button', 'skill-card' + (sl.includes(id) ? ' using' : ''));
+      c.style.borderLeftColor = t.color;
+      c.append(el('b', null, `${t.name} · tầng ${st.lv}/${T.max_level}`),
+        el('small', null, effText(t, st.lv)),
+        el('small', null, max ? 'Đã viên mãn.' : `Kinh nghiệm ${Math.floor(st.exp)}/${techNeed(data, st.lv)} (mang theo để tu)`),
+        el('small', null, t.desc));
+      c.onclick = () => { setTechSlot(game, slot, id); slot = (slot + 1) % T.slots; game.sfx('pickup'); render(); };
+      list.append(c);
+    }
+  }
+
+  function renderSkills() {
     const lo = skillSlots(game), open = unlockedSkills(game);
     const box = $('skills-slots'); box.innerHTML = '';
     lo.forEach((id, i) => {
@@ -51,6 +93,7 @@ export function createSkillsPanel(game) {
   function close() { game.uiOpen = false; $('skills').hidden = true; }
 
   $('skills-close').onclick = close;
+  for (const b of document.querySelectorAll('#skills-tabs [data-tab]')) b.onclick = () => { tab = b.dataset.tab; slot = 0; render(); };
   $('btn-skills').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   return { open, close };
 }
