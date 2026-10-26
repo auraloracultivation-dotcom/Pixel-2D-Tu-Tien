@@ -194,9 +194,29 @@
     {"say": [["huyet-nha", "Khụ... Kiếm tông... lại là Kiếm tông..."], ["huyet-nha", "Thằng nhóc lửa đó à? Ma Tôn để mắt tới linh căn của nó. Nó bị đưa xuống tận đáy Ma Vân rồi."], ["huyet-nha", "Các ngươi... không với tới đâu..."], ["", "Huyết Nha tan thành tro. Ngọc bội của Tiểu Hỏa bỗng sáng lên, ấm như một bàn tay."], ["tieu-hoa", "...Này... có nghe tớ không... Tớ vẫn ổn. Đừng làm chuyện ngốc nghếch đấy..."], ["ho-linh", "Là giọng Tiểu Hỏa! Cậu ấy còn sống!"]]},
     {"flag": "ha-huyet-nha"},
     {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Ngự kiếm về Thiên Kiếm Phong"},
-    {"say": [["van-hac", "Ma Tôn... Chuyện lớn hơn ta tưởng."], ["van-hac", "Đường xuống Ma Vân phải qua các đảo tầng Mây Giữa, nơi chỉ tu sĩ Kim Đan mới bay tới."], ["van-hac", "Tu luyện cho vững. Ngày con đủ sức, ta sẽ cùng con đi."], ["", "Hết Chương 1. Bạn vẫn có thể nhận treo thưởng, vào lại bí cảnh và Hỏa Quật để cày đồ, tu luyện lên Trúc Cơ tầng cao hơn. Chương 2 sẽ mở đường tới tầng Mây Giữa."]]}
+    {"say": [["van-hac", "Ma Tôn... Chuyện lớn hơn ta tưởng."], ["van-hac", "Đường xuống Ma Vân phải qua các đảo tầng Mây Giữa, nơi chỉ tu sĩ Kim Đan mới bay tới."], ["van-hac", "Tu luyện cho vững. Ngày con đủ sức, ta sẽ cùng con đi."]]}
    ],
-   "goal": "Tự do tu luyện, cày đồ, nhận treo thưởng",
+   "goal": "Về Thiên Kiếm Phong",
+   "until": {"map": "thien-kiem-phong"}
+  },
+  {
+   "id": "ban-dong-phu", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["van-hac", "Còn một chuyện. Con hạ được Huyết Nha, tông môn ghi công lớn."], ["van-hac", "Ta ban cho con một động phủ ở chân núi phía tây, ngay sau bồ đoàn. Trong đó có lò đan, lò rèn và một mảnh linh điền."], ["ho-linh", "Động phủ riêng! Bồ đoàn trong động phủ tu nhanh gấp đôi đó!"]]},
+    {"flag": "dong-phu"}
+   ],
+   "goal": "Vào động phủ (cổng phía tây, cạnh bồ đoàn)", "target": [6, 9],
+   "until": {"map": "dong-phu"}
+  },
+  {
+   "id": "dong-phu", "once": true,
+   "do": [
+    {"say": [["ho-linh", "Oa, rộng ghê! Lò đan góc trái, lò rèn góc phải, linh điền phía dưới."], ["ho-linh", "Linh thảo trong linh điền tự mọc, 15 phút một lứa, kể cả lúc cậu không chơi. Ghé qua bấm Linh điền để thu."], ["ho-linh", "Lò đan luyện Hồi Xuân Đan để uống lúc đánh nhau (nút Đan), còn có đan tăng linh khí, tăng máu vĩnh viễn, đan giúp độ kiếp."], ["ho-linh", "Lò rèn dùng Tinh Thiết. Phân giải đồ thừa trong Túi là ra Tinh Thiết."], ["", "Trưởng lão Vân Hạc gửi quà: 6 Linh Thảo, 2 Yêu Huyết Tinh, 6 Tinh Thiết và 3 viên Hồi Xuân Đan."]]},
+    {"mats": {"linh-thao": 6, "yeu-huyet": 2, "tinh-thiet": 6}},
+    {"pills": {"hoi-xuan-dan": 3}},
+    {"say": [["", "Hết Chương 1. Bạn vẫn có thể về động phủ luyện đan, rèn đồ, nhận treo thưởng, vào lại bí cảnh và Hỏa Quật để cày đồ, tu luyện lên Trúc Cơ tầng cao hơn. Chương 2 sẽ mở đường tới tầng Mây Giữa."]]}
+   ],
+   "goal": "Tự do tu luyện, luyện đan, rèn đồ, nhận treo thưởng",
    "until": {"never": true}
   }
  ]

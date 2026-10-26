@@ -60,6 +60,13 @@ export function createHud(audio) {
     }
     $('bag-badge').hidden = !game.newItems;
     $('skills-badge').hidden = !game.newSkills;
+    const pid = d.cave.pill_button, pn = s.pills?.[pid] || 0, pb = $('btn-pill');
+    pb.hidden = !pn;
+    if (pn) {
+      const t = `Đan ${pn}`;
+      if (pb.querySelector('b').textContent !== t) pb.querySelector('b').textContent = t;
+      pb.style.setProperty('--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
+    }
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

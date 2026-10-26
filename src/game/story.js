@@ -49,6 +49,8 @@ export function createStory(game) {
     else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
     else if (a.reward) g.giveReward(a.reward);
+    else if (a.mats) for (const [k, n] of Object.entries(a.mats)) g.save.mats[k] = (g.save.mats[k] || 0) + n;
+    else if (a.pills) for (const [k, n] of Object.entries(a.pills)) g.save.pills[k] = (g.save.pills[k] || 0) + n;
     else if (a.technique) { if (!g.save.techs[a.technique]) g.learnTech(a.technique); }
     g.persist();
   }

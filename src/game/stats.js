@@ -1,6 +1,7 @@
 // Cảnh giới, linh khí, chỉ số người chơi. Công thức lấy số từ data/realms.json.
 import { gearStats } from './items.js';
 import { techStats } from './techniques.js';
+import { pillHp } from './cave.js';
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
 }
@@ -40,7 +41,7 @@ export function playerStats(save, data) {
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   const v = s => g[s] || 0;
   return {
-    maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp')) * (1 + v('hp_pct') / 100)),
+    maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)),
     atk: Math.round((w.atk + n * data.realms.atk_per_layer + v('atk')) * (1 + v('atk_pct') / 100)),
     crit: pc.crit + v('crit') / 100,
     critMult: pc.crit_mult + v('crit_dmg') / 100,

@@ -18,6 +18,10 @@
   "a": {"name": "đất tro", "color": "#a88a74"},
   "c": {"name": "nền hang lửa", "color": "#4a2e28"},
   "L": {"name": "dung nham", "solid": true, "low": true, "color": "#e0502a"},
-  "B": {"name": "nhà cháy", "solid": true, "color": "#a88a74"}
+  "B": {"name": "nhà cháy", "solid": true, "color": "#a88a74"},
+  "q": {"name": "nền động phủ", "color": "#6a5e7a"},
+  "K": {"name": "lò đan", "solid": true, "color": "#6a5e7a"},
+  "A": {"name": "lò rèn", "solid": true, "color": "#6a5e7a"},
+  "G": {"name": "linh điền", "color": "#5a3e2a"}
  }
 }

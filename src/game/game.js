@@ -18,6 +18,7 @@ import { checkUnlocks } from './skills.js';
 import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
+import { ensureCave, matDrop } from './cave.js';
 
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
@@ -98,6 +99,7 @@ export function createGame(data, screen, input, ui, audio) {
     dropLoot(game, m);
     bountyKill(game, m);
     techDrop(game, m);
+    matDrop(game, m);
     game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
@@ -177,7 +179,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = remote || local;
     game.save = fresh || !saved ? newSave(cfg) : saved;
-    ensureInv(game.save); ensureTech(game.save);
+    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save);
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp

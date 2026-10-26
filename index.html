@@ -26,6 +26,7 @@
     <button class="btn skill" id="btn-s0" data-act="s0"><span class="cd"></span><b></b></button>
     <button class="btn skill" id="btn-s1" data-act="s1"><span class="cd"></span><b></b></button>
     <button class="btn skill" id="btn-s2" data-act="s2"><span class="cd"></span><b></b></button>
+    <button class="btn pill" id="btn-pill" data-act="pill" hidden><span class="cd"></span><b>Đan</b></button>
     <button class="btn atk" id="btn-atk" data-act="atk"><b>Đánh</b></button>
   </div>
 
@@ -50,6 +51,14 @@
     <div class="bag-tabs" id="skills-tabs"><button data-tab="chieu">Chiêu</button><button data-tab="cong-phap">Công pháp</button></div>
     <div id="skills-slots"></div>
     <div id="skills-list"></div>
+  </div>
+
+  <div id="cave" class="panel" hidden>
+    <div class="bag-head"><b>Động phủ</b><span class="panel-sub" id="cave-mats"></span><button id="cave-close" class="close-x" aria-label="Đóng">✕</button></div>
+    <div class="bag-tabs" id="cave-tabs"><button data-tab="dan">Lò đan</button><button data-tab="ren">Lò rèn</button></div>
+    <div id="cave-slots"></div>
+    <div id="cave-msg"></div>
+    <div id="cave-list"></div>
   </div>
 
   <div id="toast" hidden></div>

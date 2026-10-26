@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json');
+  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -68,6 +68,12 @@ try {
   for (const id of Object.keys(techs.drops)) need(mobs[id], `techniques.drops: quái "${id}" không có`);
   for (const [id, l] of Object.entries(techs.boss_drops)) { need(mobs[id], `techniques.boss_drops: quái "${id}" không có`); for (const t of l) need(techs.list[t], `techniques.boss_drops/${id}: công pháp "${t}" không có`); }
   need(techs.list[techs.starter], 'techniques.starter không có');
+  const matOk = id => cave.materials[id] || items.materials[id];
+  need(maps[cave.map], `cave.map: bản đồ "${cave.map}" không có`);
+  for (const [mob, l] of Object.entries(cave.mat_drops)) { need(mobs[mob], `cave.mat_drops: quái "${mob}" không có`); for (const [m] of l) need(matOk(m), `cave.mat_drops/${mob}: nguyên liệu "${m}" không có`); }
+  for (const [id, p] of Object.entries(cave.pills)) for (const m of Object.keys(p.recipe)) need(matOk(m), `cave.pills/${id}: nguyên liệu "${m}" không có`);
+  for (const r of cave.forge) { need(items.rarities.some(x => x.id === r.min_rarity), `cave.forge/${r.id}: độ hiếm không có`); for (const m of Object.keys(r.cost)) need(matOk(m), `cave.forge/${r.id}: nguyên liệu "${m}" không có`); }
+  need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
   for (const b of quests.bounties) {
     need(mobs[b.mob], `quests/${b.id}: quái "${b.mob}" không có`);
     need(!b.reward.item || items.rarities.some(r => r.id === b.reward.item), `quests/${b.id}: độ hiếm "${b.reward.item}" không có`);
@@ -84,6 +90,8 @@ try {
       if (a.reward?.base) need(items.bases[a.reward.base], `story/${s.id}: phần thưởng "${a.reward.base}" không có`);
       if (a.pickups) need(items.quest_items[a.pickups], `story/${s.id}: vật nhặt "${a.pickups}" chưa có trong items.quest_items`);
       if (a.with) need(npcs[a.with], `story/${s.id}: NPC "${a.with}" không có`);
+      for (const m of Object.keys(a.mats || {})) need(cave.materials[m] || items.materials[m], `story/${s.id}: nguyên liệu "${m}" không có`);
+      for (const m of Object.keys(a.pills || {})) need(cave.pills[m], `story/${s.id}: đan "${m}" không có`);
       if (a.technique) need(techs.list[a.technique], `story/${s.id}: công pháp "${a.technique}" không có`);
     }
     if (s.until.talk) need(npcs[s.until.talk], `story/${s.id}: NPC "${s.until.talk}" không có`);
