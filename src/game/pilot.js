@@ -21,6 +21,15 @@ export function stopPilot(game, text) {
   if (text) game.toast(text, 2.6);
 }
 
+// Chữ báo việc tự hành đang làm, hiện dưới mục tiêu
+export function pilotLabel(game) {
+  const j = game.pilot?.job, L = C(game).labels;
+  const k = j && Object.keys(L).find(k => j[k]);
+  if (!k) return '';
+  const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
+  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[k].replace('{name}', name));
+}
+
 // Đường qua các đảo: tìm theo cổng (bỏ cổng chưa mở), trả về cổng đầu tiên phải đi
 function routeTo(game, dest) {
   const maps = game.data.maps, flags = game.save.flags, seen = new Set([game.map.id]);
@@ -82,7 +91,7 @@ function sit(game) {
   const m = game.map.findTiles('M')[0];
   if (m && (game.map.id === home || !d || game.save.companion === d)) return { sit: m };
   const pt = routeTo(game, home);
-  return pt ? { go: tileOf(game, pt.at) } : { hunt: true };
+  return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
 }
 
 // Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { pat } | { sit } | null (đứng chờ)
@@ -95,9 +104,9 @@ function plan(game) {
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
-    return pt ? { go: tileOf(game, pt.at) } : sit(game);
+    return pt ? { go: tileOf(game, pt.at), to: dest } : sit(game);
   }
-  if (u.map) { const pt = routeTo(game, u.map); return pt ? { go: tileOf(game, pt.at) } : null; }
+  if (u.map) { const pt = routeTo(game, u.map); return pt ? { go: tileOf(game, pt.at), to: u.map } : null; }
   if (u.talk) { const n = game.npcs.find(n => n.id === u.talk); return n ? { talk: n } : s.target ? { go: tileOf(game, s.target) } : null; }
   if (u.reach) return { go: tileOf(game, u.reach) };
   if (u.collect) { const k = nearest(game, game.pickups.filter(k => k.item === u.collect)); if (k) return { go: k }; }

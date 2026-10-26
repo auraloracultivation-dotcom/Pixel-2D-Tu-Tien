@@ -5,7 +5,7 @@ import { power } from '../game/achieve.js';
 import { createHints } from './hints.js';
 import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
-import { togglePilot } from '../game/pilot.js';
+import { togglePilot, pilotLabel } from '../game/pilot.js';
 
 const $ = id => document.getElementById(id);
 
@@ -56,7 +56,7 @@ export function createHud(audio) {
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}`;
     }
-    const gt = game.goals();
+    const pl = pilotLabel(game), gt = [game.goals(), pl].filter(Boolean).join('\n');
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);
