@@ -1,6 +1,6 @@
 // Nhiệm vụ phụ mỗi đảo (data/side.json): nhận ở NPC, hạ quái hoặc nhặt vật, quay lại lãnh thưởng một lần.
 import { grant } from './daily.js';
-import { pilotOpt } from './pilotopt.js';
+import { pilotOpt, nightRest } from './pilotopt.js';
 
 const Q = game => game.data.side.quests;
 const st = (game, id) => (game.save.side ??= {})[id];
@@ -22,7 +22,7 @@ export async function talkSide(game, npc) {
   }
   if (s) { await game.dialog.say([[name, q.goal.replace('{n}', s.n) + '. Xong rồi quay lại nhé.']]); return; }
   await game.dialog.say(q.offer.map(l => [name, l]));
-  const ok = game.pilot && pilotOpt(game, 'viec') ? 'yes' : await game.dialog.choose(`Việc phụ: ${q.name}`, [   // tự hành thì tự nhận
+  const ok = game.pilot ? (pilotOpt(game, 'viec') && !nightRest(game) ? 'yes' : 'no') : await game.dialog.choose(`Việc phụ: ${q.name}`, [   // tự hành thì tự nhận, tối thì để mai
     { id: 'yes', label: 'Nhận việc', desc: 'Hiện ở góc phải màn hình' },
     { id: 'no', label: 'Để sau', desc: '' },
   ]);
