@@ -11,5 +11,6 @@
  "ngu-thu-su": {"name": "Ngự Thú Sư", "color": "#7a9a5a", "hair": "#e8e0c8", "lines": ["Quái có ánh vàng quanh người là dị chủng. Hạ được thì thu phục được.", "Linh thú lớn theo chủ. Ngươi tu bao nhiêu, nó lớn bấy nhiêu.", "Hỏa lang dị chủng có khi kéo theo cả bầy Phong Lang. Thuần được một con là cưỡi được."]},
  "lao-ngu": {"name": "Lão Ngư (trưởng làng)", "color": "#5a7a9a", "hair": "#e8eef4", "lines": ["Biển mây đóng băng thì thuyền không ra được. Dân làng sống nhờ cá mây đấy.", "Tuyết lang trước kia hiền lắm. Từ khi Băng Quật có ma khí, chúng mới dữ lên."]},
  "mac-anh": {"name": "Mặc Ảnh", "color": "#4a3a5a", "hair": "#c8c0e0", "lines": ["Đừng nhìn ta như vậy. Không phải ma tộc nào cũng muốn đánh nhau.", "Ta nợ cậu bé tóc đỏ một bát canh cá. Cậu ấy chia cho ta khi bị xích."]},
+ "thu-thap": {"name": "Thủ Tháp Lão Nhân", "color": "#6a5a8a", "hair": "#d8d0e8", "lines": ["Tháp này do tổ sư dựng để đệ tử thử sức. Tầng càng cao, ma ảnh càng mạnh."]},
  "quan-binh-kho": {"name": "Quản Binh Khố", "color": "#8a8aa0", "hair": "#2a2a3a", "lines": ["Kiếm tông dạy kiếm, nhưng binh khố có đủ cả. Muốn thử loại nào cứ lấy."]}
 }

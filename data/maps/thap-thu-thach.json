@@ -1,0 +1,28 @@
+{
+ "id": "thap-thu-thach",
+ "name": "Tháp Thử Thách",
+ "sky": "#120c1e",
+ "dark": 0.32,
+ "ground": "#3a2e48",
+ "indoor": true,
+ "no_trib": true,
+ "tower": true,
+ "grid": [
+  "###############",
+  "#xxxxxxxxxxxxx#",
+  "#xxkxxxxxxxkxx#",
+  "#xxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxx#",
+  "#xxxxxxxxxxxxx#",
+  "#xxkxxxxxxxkxx#",
+  "#xxxxxxxxxxxxx#",
+  "#xxxxxxPxxxxxx#",
+  "###############"
+ ],
+ "spawns": {"vao": [7, 8]},
+ "portals": [{"at": [7, 9], "to": "thien-kiem-phong", "spawn": "tu-thap", "kind": "portal", "label": "Rời tháp"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": []
+}

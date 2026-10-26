@@ -4,6 +4,7 @@ import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvest, nextRipe } from './cave.js';
 import { talkBeast } from './pets.js';
+import { talkTower } from './tower.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -41,6 +42,7 @@ export function updateInteract(game) {
     if (npc.id === BOUNTY_NPC) { talkBounty(game, npc); return; }
     if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
     if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
+    if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
     const lines = npc.def.lines;
     game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
   } else if (trib) {
