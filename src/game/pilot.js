@@ -1,7 +1,9 @@
 // Tự hành (nút Tự hành): nhân vật tự đi làm nhiệm vụ truyện. Tìm đường qua cổng giữa các đảo, đi bộ tới NPC,
-// đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss; việc tu luyện thì ngồi bồ đoàn hoặc săn quái quanh đó.
+// đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss. Truyện chờ tu luyện thì làm việc vặt (chores.js),
+// hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó.
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf } from './auto.js';
+import { choreJob } from './chores.js';
 
 const C = game => game.data.config.pilot;
 
@@ -82,11 +84,11 @@ function sit(game) {
 // Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
-  if (!s || u.never) return sit(game);
-  const dest = u.map || s.target_map || s.map || game.map.id;
   // Quái đang đánh mình ở gần: đánh trước
   const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
   if (foe) return { fight: foe };
+  if (!s || u.never || u.realm || u.total || u.layer) return choreJob(game, routeTo) || sit(game);   // chờ tu luyện
+  const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
     return pt ? { go: tileOf(game, pt.at) } : sit(game);
