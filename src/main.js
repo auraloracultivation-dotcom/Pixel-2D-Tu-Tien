@@ -2,10 +2,10 @@
 import { loadData } from './core/data.js';
 import { createScreen } from './core/screen.js';
 import { createInput } from './core/input.js';
-import { loadSave } from './core/save.js';
 import { createGame } from './game/game.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
 import { createHud } from './ui/hud.js';
+import { createLogin } from './ui/login.js';
 
 async function boot() {
   const canvas = document.getElementById('game');
@@ -17,7 +17,8 @@ async function boot() {
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 
-  ui.menu(!!loadSave(), fresh => { game.begin(fresh); });
+  const login = createLogin(opts => game.begin(opts));
+  login.start();
 
   let last = performance.now();
   function frame(now) {

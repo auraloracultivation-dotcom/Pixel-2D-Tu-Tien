@@ -28,13 +28,6 @@ export function createHud() {
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 
-  ui.menu = (hasSave, onPick) => {
-    $('menu').hidden = false;
-    $('menu-continue').hidden = !hasSave;
-    $('menu-new').textContent = hasSave ? 'Chơi lại từ đầu' : 'Bắt đầu';
-    $('menu-continue').onclick = () => onPick(false);
-    $('menu-new').onclick = () => onPick(true);
-  };
 
   let last = '';
   ui.update = game => {

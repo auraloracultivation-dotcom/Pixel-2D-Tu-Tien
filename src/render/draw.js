@@ -1,5 +1,6 @@
 // Vẽ thế giới bằng hình khối đơn giản (bản tạm): người, quái, đạn, hiệu ứng, chỉ đường, cần gạt.
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
+import { skillSlots } from '../game/skills.js';
 
 const INK = '#1b1830';
 
@@ -85,6 +86,17 @@ function drawTele(ctx, m) {
   }
 }
 
+function drawOther(ctx, o, game, t) {
+  const el = o.element ? game.data.elements[o.element]?.color : null;
+  drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
+  if (el) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
+  if (o.swingT > 0) {
+    const a = Math.atan2(o.face.y, o.face.x);
+    ctx.strokeStyle = '#c8f6ff'; ctx.lineWidth = 2; ctx.globalAlpha = o.swingT / 0.18;
+    ctx.beginPath(); ctx.arc(o.x, o.y - 3, 22, a - 1.1, a + 1.1); ctx.stroke(); ctx.globalAlpha = 1;
+  }
+}
+
 function drawNpc(ctx, n, game, t) {
   drawPerson(ctx, n, n.def.color, '#5a4a86', t, false, { x: 0, y: 1 });
   if (game.story.wants(n.id)) {
@@ -138,10 +150,11 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
     ctx.fillStyle = '#9af0a8'; circle(ctx, k.x, k.y - 2 + Math.sin(t * 4) * 1, 2.2);
   }
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ['p', game.player]].sort((a, b) => a[1].y - b[1].y);
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player]].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
     else if (k === 'm') drawMob(ctx, e, t);
+    else if (k === 'o') drawOther(ctx, e, game, t);
     else drawPlayer(ctx, game, t);
   }
   drawBullets(ctx, game);
@@ -167,6 +180,28 @@ export function drawWorld(game, screen, t) {
   if (game.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${game.flashT / 0.35})`; ctx.fillRect(0, 0, screen.w, screen.h); }
 }
 
+// Vạch ngắm khi kéo nút chiêu: dài theo tầm chiêu, vòng tròn cho chiêu diện rộng
+function drawAim(ctx, game, screen, aim) {
+  const id = skillSlots(game)[Number(aim.act.slice(1))];
+  if (!id) return;
+  const s = game.data.skills[id], p = game.player, z = screen.zoom;
+  const o = screen.toScreen(p.x, p.y - 5);
+  ctx.save();
+  ctx.strokeStyle = s.color; ctx.fillStyle = s.color; ctx.lineWidth = 3; ctx.globalAlpha = 0.7;
+  if (s.type === 'aoe') {
+    const c = { x: o.x + aim.x * (s.offset || 0) * z, y: o.y + aim.y * (s.offset || 0) * z };
+    ctx.globalAlpha = 0.25; ctx.beginPath(); ctx.arc(c.x, c.y, s.radius * z, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 0.8; ctx.stroke();
+  } else {
+    const len = (s.range || s.dist || 40) * z;
+    ctx.setLineDash([8, 6]);
+    ctx.beginPath(); ctx.moveTo(o.x, o.y); ctx.lineTo(o.x + aim.x * len, o.y + aim.y * len); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(o.x + aim.x * len, o.y + aim.y * len, 5, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+
 export function drawOverlay(game, screen, input) {
   const ctx = screen.ctx;
   screen.screenTransform();
@@ -187,6 +222,7 @@ export function drawOverlay(game, screen, input) {
       ctx.fillStyle = '#f2c94c'; ctx.beginPath(); ctx.arc(s.x, s.y - 18 + Math.sin(game.time * 5) * 3, 4, 0, Math.PI * 2); ctx.fill();
     }
   }
+  if (input.aiming) drawAim(ctx, game, screen, input.aiming);
   if (input.joy) {
     const j = input.joy;
     ctx.fillStyle = 'rgba(255,255,255,0.18)'; ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 2;
