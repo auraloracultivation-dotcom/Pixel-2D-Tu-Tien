@@ -1,5 +1,5 @@
 // Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
-// nhận và trả treo thưởng,
+// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách,
 // hạ quái cho việc hằng ngày và treo thưởng, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
 import { ensureDaily, taskDef, bountyLeft } from './daily.js';
@@ -7,6 +7,7 @@ import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { outdoor } from './daynight.js';
 import { brew, canPay } from './cave.js';
+import { visitorToday } from './home.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -27,7 +28,7 @@ function spawnerOf(game, mob, routeTo) {
     const s = m.spawners.find(s => s.mob === mob && flagOk(game, s));
     if (s && routeTo(game, m.id)) return { map: m.id, s };
   }
-  return gardenJob(game, routeTo);
+  return null;
 }
 
 // Ô đứng câu cá gần nhất trên đảo này: ô đi được, sát biển mây, không phải cổng
@@ -44,7 +45,7 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
   const s = game.save, out = [];
   for (const [id, q] of Object.entries(game.data.side.quests)) {
@@ -67,6 +68,12 @@ function wants(game) {
   else if (b || (bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
   for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
     if (!s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
+  }
+  if (s.flags['dong-phu']) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
+    const d = daoLuHere(game), day = new Date().toDateString();
+    if (d && s.companion !== d && s.homeGift !== day) out.push({ gift: d });
+    const v = visitorToday(game);
+    if (v && s.visitGift !== day) out.push({ gift: v });
   }
   return out;
 }
@@ -97,6 +104,10 @@ export function choreJob(game, routeTo) {
       if (n) return { talk: n };
       const m = npcMap(game, w.talk), j = m && goPortal(game, routeTo, m);
       if (j) return j;
+    } else if (w.gift) {   // quà ở động phủ: về nhà, tới chỗ người đang ngồi chờ
+      if (game.map.id !== game.data.home.map) { const j = goPortal(game, routeTo, game.data.home.map); if (j) return j; continue; }
+      const n = game.npcs.find(n => n.id === w.gift && (n.home || n.visit));
+      if (n) return { talk: n };
     } else if (w.pick) {
       if (game.map.id !== w.map) { const j = goPortal(game, routeTo, w.map); if (j) return j; continue; }
       const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
