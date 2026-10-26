@@ -30,7 +30,7 @@ export const taskText = (t, n) => t.text.replace('{n}', t.n) + ` (${Math.floor(M
 // Ghi tiến độ: type theo pool (kill, rare, meditate, bounty, brew, forge, harvest, salvage)
 export function dailyEvent(game, type, id, amount = 1) {
   if (!game.save) return;
-  if (type === 'brew' || type === 'harvest') praise(game, type);
+  if (type === 'brew' || type === 'harvest' || type === 'fish') praise(game, type);
   const dl = ensureDaily(game);
   for (const t of dl.tasks) {
     const d = taskDef(game, t.id);
