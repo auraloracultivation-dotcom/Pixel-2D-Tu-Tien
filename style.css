@@ -152,5 +152,13 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #social-log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; font-size: 13px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; }
 #social-log b { color: #6a4ab8; margin-right: 4px; }
 #social-log .empty { color: #8a8498; }
+#social-rank { flex: 1; display: flex; flex-direction: column; gap: 6px; min-height: 0; }
+#rank-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; font-size: 13px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; }
+#rank-list div { display: flex; gap: 8px; padding: 3px 4px; border-radius: 6px; }
+#rank-list div.me { background: #fff2c0; font-weight: 700; }
+#rank-list b { width: 26px; text-align: right; color: #6a4ab8; }
+#rank-list span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#rank-list .empty { color: #8a8498; }
+#rank-note { color: #4a4458; }
 #social-form { display: flex; gap: 6px; }
 #social-input { flex: 1; min-width: 0; border: 2px solid #1b1830; border-radius: 9px; padding: 6px 9px; font: 14px system-ui, sans-serif; }

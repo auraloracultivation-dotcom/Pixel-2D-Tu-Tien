@@ -59,7 +59,11 @@ export function claimAchv(game, id) {
   return grant(game, a.give);
 }
 
-export const titles = game => C(game).achievements.filter(a => a.title && game.save.achv[a.id]).map(a => a.title);
-export const titleOf = game => C(game).titles[game.save.title] || null;
+// Danh hiệu thành tựu giữ mãi; danh hiệu xếp hạng tuần (weekly) chỉ có khi đang ở top 10 tuần trước (game/rank.js)
+export const titles = game => [...C(game).achievements.filter(a => a.title && game.save.achv[a.id]).map(a => a.title), ...(game.rankTitles || [])];
+export function titleOf(game) {
+  const t = C(game).titles[game.save.title];
+  return t && (!t.weekly || game.rankTitles?.includes(game.save.title)) ? t : null;
+}
 export function setTitle(game, id) { game.save.title = game.save.title === id ? null : id; game.persist(); }
 export const achvText = (game, a) => `${a.text} (${Math.min(progress(game, a.need), target(a.need))}/${target(a.need)})`;
