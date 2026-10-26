@@ -1,6 +1,7 @@
 // Vẽ thế giới bằng hình khối đơn giản (bản tạm): người, quái, đạn, hiệu ứng, chỉ đường, cần gạt.
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
+import { lootColor } from '../game/loot.js';
 
 const INK = '#1b1830';
 
@@ -156,6 +157,14 @@ export function drawWorld(game, screen, t) {
     else if (k === 'm') drawMob(ctx, e, t);
     else if (k === 'o') drawOther(ctx, e, game, t);
     else drawPlayer(ctx, game, t);
+  }
+  for (const l of game.loot) {   // đồ rơi: viên lấp lánh theo màu độ hiếm
+    const c = lootColor(game, l), bob = Math.sin(t * 8 + l.x) * 1;
+    ctx.globalAlpha = 0.35; ctx.fillStyle = c; circle(ctx, l.x, l.y + bob, 5); ctx.globalAlpha = 1;
+    ctx.fillStyle = INK;
+    ctx.beginPath(); ctx.moveTo(l.x, l.y - 4 + bob); ctx.lineTo(l.x + 3.5, l.y + bob); ctx.lineTo(l.x, l.y + 4 + bob); ctx.lineTo(l.x - 3.5, l.y + bob); ctx.fill();
+    ctx.fillStyle = c;
+    ctx.beginPath(); ctx.moveTo(l.x, l.y - 3 + bob); ctx.lineTo(l.x + 2.5, l.y + bob); ctx.lineTo(l.x, l.y + 3 + bob); ctx.lineTo(l.x - 2.5, l.y + bob); ctx.fill();
   }
   drawBullets(ctx, game);
   drawFx(ctx, game);

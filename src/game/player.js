@@ -8,7 +8,7 @@ export function createPlayer(game, x, y) {
   const st = playerStats(game.save, game.data);
   return {
     x, y, r: cfg.radius, face: { x: 0, y: 1 }, moving: false, walkT: 0,
-    hp: st.maxHp, maxHp: st.maxHp, atk: st.atk,
+    hp: st.maxHp, maxHp: st.maxHp, atk: st.atk, st,
     atkCd: 0, swingT: 0, skillCd: [0, 0, 0],
     invT: 0, flash: 0, kx: 0, ky: 0, dashT: 0,
     shield: 0, shieldT: 0, buffT: 0, buffAmt: 0,
@@ -19,7 +19,7 @@ export function createPlayer(game, x, y) {
 export function refreshStats(game) {
   const p = game.player, st = playerStats(game.save, game.data);
   const grow = st.maxHp - p.maxHp;
-  p.maxHp = st.maxHp; p.atk = st.atk; p.hp = Math.min(p.maxHp, p.hp + Math.max(0, grow));
+  p.maxHp = st.maxHp; p.atk = st.atk; p.st = st; p.hp = Math.min(p.maxHp, p.hp + Math.max(0, grow));
 }
 
 function nearestMob(game, range) {
@@ -84,7 +84,7 @@ export function updatePlayer(game, dt) {
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   if (p.moving) {
     p.meditating = false;
-    const sp = cfg.player.speed * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
+    const sp = cfg.player.speed * p.st.speedMul * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);
     game.map.move(p, ax.x / d * sp * dt, ax.y / d * sp * dt);
     p.face = { x: ax.x / d, y: ax.y / d };
@@ -99,7 +99,7 @@ export function updatePlayer(game, dt) {
       p.meditating = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;
-      p.skillCd[i] = castSkill(game, slots[i]);
+      p.skillCd[i] = castSkill(game, slots[i]) * (1 - p.st.cdr);
     }
   }
 

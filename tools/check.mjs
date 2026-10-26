@@ -42,6 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
+  const items = read('items.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
@@ -56,6 +57,12 @@ try {
   for (const [id, e] of Object.entries(elements)) if (!id.startsWith('_')) for (const s of e.skills) need(skills[s], `elements/${id}: chiêu "${s}" không có`);
   for (const [id, w] of Object.entries(weapons)) need(!w.skill || skills[w.skill], `weapons/${id}: chiêu "${w.skill}" không có`);
   need(weapons[cfg.start.weapon] && maps[cfg.start.map], 'config.start: vũ khí hoặc bản đồ khởi đầu không có');
+  for (const id of Object.keys(items.drops)) need(mobs[id], `items.drops: quái "${id}" không có`);
+  for (const [id, b] of Object.entries(items.bases)) {
+    need(items.slots[b.slot], `items.bases/${id}: ô "${b.slot}" không có`);
+    for (const s of [...b.pool, ...Object.keys(b.main)]) need(items.stats[s], `items.bases/${id}: chỉ số "${s}" không có`);
+  }
+  for (const [id, g] of Object.entries(items.gems.types)) need(items.stats[g.stat] && g.values.length === items.gems.max_level, `items.gems/${id}: chỉ số hoặc số cấp sai`);
   for (const s of story.steps) {
     need(!s.map || maps[s.map], `story/${s.id}: bản đồ "${s.map}" không có`);
     for (const a of s.do || []) {
@@ -64,6 +71,7 @@ try {
       if (a.fly) need(maps[a.fly], `story/${s.id}: bản đồ "${a.fly}" không có`);
       if (a.weapon) need(weapons[a.weapon], `story/${s.id}: vũ khí "${a.weapon}" không có`);
       if (a.npc_add) need(npcs[a.npc_add], `story/${s.id}: NPC "${a.npc_add}" không có`);
+      for (const b of a.gear || []) need(items.bases[b], `story/${s.id}: trang bị "${b}" không có`);
     }
     if (s.until.talk) need(npcs[s.until.talk], `story/${s.id}: NPC "${s.until.talk}" không có`);
   }

@@ -1,0 +1,56 @@
+{
+ "_note": "Trang bị chỉ số ngẫu nhiên (ý chủ dự án: đa số đồ random, cày ngọc để khảm, tẩy luyện lại dòng). Giá trị dòng = ngẫu nhiên(min,max) × (1 + cấp × line_per_lvl) × hệ số độ hiếm. Cấp đồ = tổng tầng cảnh giới lúc rơi.",
+ "bag_size": 40,
+ "line_per_lvl": 0.08,
+ "main_per_lvl": 0.12,
+ "slots": { "vu-khi": "Vũ khí", "giap": "Giáp", "ngoc-boi": "Ngọc bội" },
+ "rarities": [
+  { "id": "pham", "name": "Phàm", "color": "#c8c4d0", "weight": 60, "lines": 1, "sockets": 0, "mult": 1.0, "salvage": 1 },
+  { "id": "linh", "name": "Linh", "color": "#5fd07a", "weight": 28, "lines": 2, "sockets": 1, "mult": 1.2, "salvage": 2 },
+  { "id": "huyen", "name": "Huyền", "color": "#5ab8f0", "weight": 9, "lines": 3, "sockets": 1, "mult": 1.45, "salvage": 3 },
+  { "id": "dia", "name": "Địa", "color": "#b070ff", "weight": 2.6, "lines": 4, "sockets": 2, "mult": 1.75, "salvage": 6 },
+  { "id": "thien", "name": "Thiên", "color": "#ffb03a", "weight": 0.4, "lines": 5, "sockets": 3, "mult": 2.1, "salvage": 12 }
+ ],
+ "stats": {
+  "atk": { "name": "Công", "min": 2, "max": 6 },
+  "atk_pct": { "name": "Công", "min": 3, "max": 8, "pct": true },
+  "hp": { "name": "Máu", "min": 10, "max": 30 },
+  "hp_pct": { "name": "Máu", "min": 4, "max": 10, "pct": true },
+  "def": { "name": "Phòng ngự", "min": 1, "max": 4 },
+  "crit": { "name": "Tỉ lệ bạo kích", "min": 2, "max": 5, "pct": true, "cap": 60 },
+  "crit_dmg": { "name": "Sát thương bạo kích", "min": 8, "max": 20, "pct": true },
+  "cdr": { "name": "Giảm hồi chiêu", "min": 2, "max": 6, "pct": true, "cap": 40 },
+  "speed": { "name": "Tốc độ chạy", "min": 2, "max": 5, "pct": true, "cap": 30 },
+  "qi_gain": { "name": "Hấp thu linh khí", "min": 4, "max": 10, "pct": true }
+ },
+ "bases": {
+  "thiet-kiem": { "name": "Thiết Kiếm", "slot": "vu-khi", "main": { "atk": 4 }, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "speed"] },
+  "thanh-van-kiem": { "name": "Thanh Vân Kiếm", "slot": "vu-khi", "main": { "atk": 5 }, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "qi_gain"] },
+  "bo-y": { "name": "Bố Y Đạo Bào", "slot": "giap", "main": { "hp": 20 }, "pool": ["hp", "hp_pct", "def", "speed", "cdr", "qi_gain"] },
+  "huyen-giap": { "name": "Huyền Thiết Giáp", "slot": "giap", "main": { "def": 2 }, "pool": ["hp", "hp_pct", "def", "crit", "atk"] },
+  "ngoc-boi-tho": { "name": "Ngọc Bội Thô", "slot": "ngoc-boi", "main": { "crit": 2 }, "pool": ["atk_pct", "hp_pct", "crit", "crit_dmg", "qi_gain", "cdr"] },
+  "linh-phu": { "name": "Linh Phù", "slot": "ngoc-boi", "main": { "qi_gain": 5 }, "pool": ["qi_gain", "cdr", "speed", "hp", "atk"] }
+ },
+ "gems": {
+  "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
+  "max_level": 5,
+  "merge": 3,
+  "types": {
+   "hong-ngoc": { "name": "Hồng Ngọc", "color": "#e8453c", "stat": "atk", "values": [2, 5, 9, 15, 24] },
+   "lam-ngoc": { "name": "Lam Ngọc", "color": "#4a86e8", "stat": "hp", "values": [15, 35, 65, 110, 170] },
+   "hoang-ngoc": { "name": "Hoàng Ngọc", "color": "#f2c94c", "stat": "crit", "values": [1, 2, 4, 6, 9] },
+   "luc-ngoc": { "name": "Lục Ngọc", "color": "#5fd07a", "stat": "def", "values": [1, 2, 4, 6, 9] }
+  }
+ },
+ "materials": {
+  "tay-luyen-thach": { "name": "Tẩy Luyện Thạch", "color": "#bff4ff", "desc": "Tẩy luyện: quay lại toàn bộ dòng chỉ số của một món đồ (giữ độ hiếm)." }
+ },
+ "reroll_cost": 2,
+ "drops": {
+  "ma-tieu": { "item": 0.07, "gem": 0.04, "stone": 0.12 },
+  "ma-cung": { "item": 0.09, "gem": 0.05, "stone": 0.14 },
+  "moc-linh": { "item": 0.05, "gem": 0.03, "stone": 0.1 },
+  "huyet-nha": { "item": 1, "items": 2, "gem": 1, "stone": 1, "stones": 4, "min_rarity": "linh" }
+ },
+ "starter": ["thiet-kiem", "bo-y"]
+}

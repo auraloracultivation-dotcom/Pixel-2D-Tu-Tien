@@ -46,11 +46,13 @@ export function createLogin(onPlay0) {
   return {
     async start() {
       render();
-      $('login-form').hidden = true; msg('Đang kết nối máy chủ...');
+      $('login-form').hidden = false; msg('Đang kết nối máy chủ...');
+      for (const id of ['btn-login', 'btn-signup']) $(id).disabled = true;
       try {
         auth = await withTimeout(import('../net/auth.js'), NET_TIMEOUT);
         session = await withTimeout(auth.getSession(), NET_TIMEOUT);
         msg('');
+        for (const id of ['btn-login', 'btn-signup']) $(id).disabled = false;
       } catch {
         auth = null;
         msg('Không kết nối được máy chủ. Bạn vẫn chơi thử được (không mạng).', true);

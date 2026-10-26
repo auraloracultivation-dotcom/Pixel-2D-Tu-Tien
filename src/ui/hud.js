@@ -63,9 +63,10 @@ export function createHud(audio) {
       const name = id ? d.skills[id].name : '—';
       const lbl = b.querySelector('b');
       if (lbl.textContent !== name) lbl.textContent = name;
-      const cd = id ? Math.max(0, p.skillCd[i]) / d.skills[id].cd : 0;
+      const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
       b.style.setProperty('--cd', cd.toFixed(3));
     }
+    $('bag-badge').hidden = !game.newItems;
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;
