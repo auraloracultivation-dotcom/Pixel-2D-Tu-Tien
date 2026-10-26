@@ -26,6 +26,10 @@
   "phong-yeu": [["yeu-huyet", 0.35]],
   "hac-diep": [["yeu-huyet", 0.4], ["linh-thao", 0.3]],
   "ma-phong-ve": [["tinh-thiet", 0.4], ["yeu-huyet", 0.5]],
+  "moc-linh-vuong": [["linh-thao", 1, 6]],
+  "hoa-lang-vuong": [["hoa-linh-chi", 1, 4], ["yeu-huyet", 1, 3]],
+  "tuyet-lang-vuong": [["tinh-thiet", 1, 5], ["yeu-huyet", 1, 4]],
+  "phong-yeu-vuong": [["tinh-thiet", 1, 7], ["yeu-huyet", 1, 5]],
   "hac-phong-ma-quan": [["tinh-thiet", 1, 8], ["yeu-huyet", 1, 6], ["hoa-linh-chi", 1, 3]]
  },
  "salvage_iron": {

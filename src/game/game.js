@@ -23,6 +23,7 @@ import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { coinDrop } from './shop.js';
 import { updateRes, resKill, resGoal } from './resrun.js';
+import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
 import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
 import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
@@ -118,7 +119,7 @@ export function createGame(data, screen, input, ui, audio) {
     dailyEvent(game, 'kill', m.id);
     if (m.rare) dailyEvent(game, 'rare', m.id);
     game.story.notify('kill', m.id);
-    if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
+    if (m.def.ai === 'boss') { if (!m.wb) game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
 
   function loadMap(id, spawnName) {
@@ -286,6 +287,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dungeon?.update();
     updateTower(game, dt);
     updateRes(game, dt);
+    updateWorldBoss(game, dt);
     updateInteract(game);
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
