@@ -1,7 +1,7 @@
 // Thi triển chiêu theo kiểu trong data/skills.json; chiêu đã mở và 3 ô chiêu người chơi chọn mang.
 import { addFx, hitMob, shoot, dist } from './combat.js';
 import { addZone } from './zones.js';
-import { totalLayer } from './stats.js';
+import { totalLayer, weaponId } from './stats.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -84,7 +84,7 @@ function segDist(pt, x1, y1, x2, y2) {
 // Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock)
 export function unlockedSkills(game) {
   const { save, data } = game, out = [];
-  const w = data.weapons[save.weapon];
+  const w = data.weapons[weaponId(save, data)];
   if (w.skill) out.push(w.skill);
   const el = save.element ? data.elements[save.element] : null;
   if (el) {
@@ -97,7 +97,12 @@ export function unlockedSkills(game) {
 // 3 ô chiêu đang mang (save.loadout). Chưa chọn thì mặc định chiêu vũ khí + 2 chiêu hệ đầu.
 export function skillSlots(game) {
   const open = unlockedSkills(game), lo = game.save.loadout;
-  if (lo) return lo.map(id => (open.includes(id) ? id : null));
+  if (lo) {
+    // Đổi loại vũ khí: ô đang mang chiêu vũ khí cũ tự thay bằng chiêu của vũ khí mới
+    const wSkills = Object.values(game.data.weapons).map(w => w.skill).filter(Boolean);
+    const cur = game.data.weapons[weaponId(game.save, game.data)].skill;
+    return lo.map(id => (open.includes(id) ? id : wSkills.includes(id) && cur && !lo.includes(cur) ? cur : null));
+  }
   return [open[0] || null, open[1] || null, open[2] || null];
 }
 

@@ -7,5 +7,6 @@
  "lao-thiet": {"name": "Lão Thiết (thợ rèn)", "color": "#8a5a3a", "hair": "#c8c4d0", "lines": ["Lò rèn cháy rồi, nhưng tay lão vẫn còn.", "Hỏa tinh thạch tốt nhất mọc ở chỗ dung nham nguội."]},
  "a-moc": {"name": "A Mộc", "color": "#7cc46a", "lines": ["Anh có thấy anh tóc đỏ không? Anh ấy đánh ma tộc giỏi lắm!", "Em không sợ đâu... chỉ hơi run thôi."]},
  "chap-su": {"name": "Chấp sự Nhiệm Vụ Đường", "color": "#c9a46a", "hair": "#3a2e2e", "lines": ["Có việc thì nhận, xong việc thì lãnh thưởng.", "Đệ tử chăm làm nhiệm vụ thì không thiếu Tẩy Luyện Thạch."]},
- "huyet-nha": {"name": "Huyết Nha", "color": "#9a1020", "lines": ["..."]}
+ "huyet-nha": {"name": "Huyết Nha", "color": "#9a1020", "lines": ["..."]},
+ "quan-binh-kho": {"name": "Quản Binh Khố", "color": "#8a8aa0", "hair": "#2a2a3a", "lines": ["Kiếm tông dạy kiếm, nhưng binh khố có đủ cả. Muốn thử loại nào cứ lấy."]}
 }

@@ -1,5 +1,6 @@
 // Bảng Chiêu: 3 ô chiêu đang mang, danh sách chiêu đã mở và chưa mở (kèm mốc cảnh giới).
 import { unlockedSkills, skillSlots, setSlot } from '../game/skills.js';
+import { weaponId } from '../game/stats.js';
 
 const $ = id => document.getElementById(id);
 
@@ -28,7 +29,7 @@ export function createSkillsPanel(game) {
     });
     const list = $('skills-list'); list.innerHTML = '';
     const all = [];
-    const w = data.weapons[game.save.weapon];
+    const w = data.weapons[weaponId(game.save, data)];
     if (w.skill) all.push({ id: w.skill, from: w.name });
     const e = game.save.element ? data.elements[game.save.element] : null;
     if (e) e.skills.forEach((id, i) => all.push({ id, from: `Hệ ${e.name}`, at: data.elements._unlock[i] }));

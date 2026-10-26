@@ -12,10 +12,16 @@ export function realmLabel(save, realms) {
   return `${realms.names[save.realm]} tầng ${save.layer}`;
 }
 
+// Loại vũ khí đang dùng: theo món mặc ở ô Vũ khí, chưa mặc thì theo cốt truyện (save.weapon)
+export function weaponId(save, data) {
+  const it = save.bag?.find(i => i.uid === save.equip?.['vu-khi']);
+  return data.items.bases[it?.base]?.weapon || save.weapon;
+}
+
 // Chỉ số cuối = gốc theo cảnh giới + vũ khí + trang bị và ngọc khảm
 export function playerStats(save, data) {
   const n = totalLayer(save, data.realms);
-  const w = data.weapons[save.weapon], pc = data.config.player;
+  const w = data.weapons[weaponId(save, data)], pc = data.config.player;
   const g = gearStats(data, save);
   const v = s => g[s] || 0;
   return {

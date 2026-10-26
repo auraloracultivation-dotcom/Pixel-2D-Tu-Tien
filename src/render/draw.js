@@ -2,6 +2,8 @@
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
 import { lootColor } from '../game/loot.js';
+import { weaponId } from '../game/stats.js';
+import { drawWeapon } from './weapon.js';
 
 const INK = '#1b1830';
 
@@ -31,7 +33,7 @@ export function drawPerson(ctx, e, color, hair, t, flash, face) {
 
 function drawPlayer(ctx, game, t) {
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
-  const w = game.data.weapons[game.save.weapon];
+  const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
   if (p.meditating) {
     ctx.strokeStyle = el; ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ctx.lineWidth = 1;
@@ -39,10 +41,7 @@ function drawPlayer(ctx, game, t) {
   }
   drawPerson(ctx, p, '#e6ebf7', '#3a2e5c', t, p.flash > 0, p.face);
   ctx.fillStyle = el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
-  // vũ khí cầm tay
-  ctx.strokeStyle = w.color; ctx.lineWidth = 1.6;
-  const a = Math.atan2(p.face.y, p.face.x);
-  ctx.beginPath(); ctx.moveTo(p.x + Math.cos(a) * 4, p.y - 5 + Math.sin(a) * 4); ctx.lineTo(p.x + Math.cos(a) * 11, p.y - 5 + Math.sin(a) * 11); ctx.stroke();
+  drawWeapon(ctx, p, w);
   if (p.shield > 0) { ctx.strokeStyle = p.shieldColor; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 10, 0, Math.PI * 2); ctx.stroke(); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;

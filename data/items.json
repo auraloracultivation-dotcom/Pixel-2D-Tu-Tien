@@ -22,12 +22,16 @@
   "qi_gain": {"name": "Hấp thu linh khí", "min": 4, "max": 10, "pct": true}
  },
  "bases": {
-  "thiet-kiem": {"name": "Thiết Kiếm", "slot": "vu-khi", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "speed"]},
-  "thanh-van-kiem": {"name": "Thanh Vân Kiếm", "slot": "vu-khi", "main": {"atk": 5}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "qi_gain"]},
+  "thiet-kiem": {"name": "Thiết Kiếm", "slot": "vu-khi", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "speed"], "weapon": "kiem"},
+  "thanh-van-kiem": {"name": "Thanh Vân Kiếm", "slot": "vu-khi", "main": {"atk": 5}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "cdr", "qi_gain"], "weapon": "kiem"},
   "bo-y": {"name": "Bố Y Đạo Bào", "slot": "giap", "main": {"hp": 20}, "pool": ["hp", "hp_pct", "def", "speed", "cdr", "qi_gain"]},
   "huyen-giap": {"name": "Huyền Thiết Giáp", "slot": "giap", "main": {"def": 2}, "pool": ["hp", "hp_pct", "def", "crit", "atk"]},
   "ngoc-boi-tho": {"name": "Ngọc Bội Thô", "slot": "ngoc-boi", "main": {"crit": 2}, "pool": ["atk_pct", "hp_pct", "crit", "crit_dmg", "qi_gain", "cdr"]},
-  "linh-phu": {"name": "Linh Phù", "slot": "ngoc-boi", "main": {"qi_gain": 5}, "pool": ["qi_gain", "cdr", "speed", "hp", "atk"]}
+  "linh-phu": {"name": "Linh Phù", "slot": "ngoc-boi", "main": {"qi_gain": 5}, "pool": ["qi_gain", "cdr", "speed", "hp", "atk"]},
+  "thiet-thuong": {"name": "Thiết Thương", "slot": "vu-khi", "weapon": "thuong", "main": {"atk": 5}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "hp"]},
+  "ba-tieu-phien": {"name": "Ba Tiêu Phiến", "slot": "vu-khi", "weapon": "quat", "main": {"atk": 3}, "pool": ["atk", "atk_pct", "cdr", "qi_gain", "crit", "hp_pct"]},
+  "moc-cam": {"name": "Mộc Cầm", "slot": "vu-khi", "weapon": "dan", "main": {"atk": 3}, "pool": ["atk_pct", "cdr", "qi_gain", "crit", "hp", "def"]},
+  "truc-cung": {"name": "Trúc Cung", "slot": "vu-khi", "weapon": "cung", "main": {"atk": 4}, "pool": ["atk", "atk_pct", "crit", "crit_dmg", "speed", "cdr"]}
  },
  "gems": {
   "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
@@ -54,5 +58,6 @@
  "quest_items": {
   "linh-thao": {"name": "linh thảo", "color": "#9af0a8", "base": "#2f7a44"},
   "hoa-tinh-thach": {"name": "hỏa tinh thạch", "color": "#ffb03a", "base": "#8a2a1a"}
- }
+ },
+ "_note_weapon": "Món ở ô Vũ khí có weapon: loại vũ khí quyết định cách đánh thường và chiêu vũ khí."
 }
