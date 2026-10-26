@@ -1,0 +1,10 @@
+{
+ "_note": "Ngày đêm theo giờ thật của máy. phases: from giờ bắt đầu (0-24, theo thứ tự), tint màu phủ màn hình ngoài trời (trong nhà, bí cảnh không phủ), stars và moon vẽ sao, trăng, flies đom đóm. meditate: hệ số đả tọa trong pha đó. intro: câu báo khi chuyển pha lúc đang chơi.",
+ "phases": [
+  {"id": "dem", "from": 0, "name": "Đêm", "tint": [14, 20, 64, 0.6], "stars": true, "moon": true, "flies": 10, "meditate": 1.2},
+  {"id": "binh-minh", "from": 5, "name": "Bình minh", "tint": [255, 170, 110, 0.16], "meditate": 1.1, "intro": "Bình minh. Sương sớm đọng trên lá, linh khí trong lành."},
+  {"id": "ngay", "from": 7, "name": "Ban ngày", "tint": null, "meditate": 1},
+  {"id": "hoang-hon", "from": 17, "name": "Hoàng hôn", "tint": [255, 110, 80, 0.24], "meditate": 1, "intro": "Hoàng hôn buông. Mây ngả màu cam."},
+  {"id": "dem", "from": 19, "name": "Đêm", "tint": [14, 20, 64, 0.6], "stars": true, "moon": true, "flies": 10, "meditate": 1.2, "intro": "Trăng lên. Đả tọa dưới trăng nhanh hơn 20%."}
+ ]
+}

@@ -8,6 +8,7 @@ import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
 import { meditateMul } from './evolve.js';
+import { nightMul } from './daynight.js';
 import { songTuMul } from './affinity.js';
 
 export function createPlayer(game, x, y) {
@@ -155,6 +156,6 @@ export function updatePlayer(game, dt) {
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * songTuMul(game) * game.eventMul('qi'), p.x, p.y, true); dailyEvent(game, 'meditate', null, 0.5); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; game.gainQi(cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * songTuMul(game) * game.eventMul('qi'), p.x, p.y, true); dailyEvent(game, 'meditate', null, 0.5); }
   }
 }
