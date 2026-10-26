@@ -1,7 +1,7 @@
 // Tự hành (nút Tự hành): nhân vật tự đi làm nhiệm vụ truyện. Tìm đường qua cổng giữa các đảo, đi bộ tới NPC,
 // đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss; việc tu luyện thì ngồi bồ đoàn hoặc săn quái quanh đó.
 import { dist } from './combat.js';
-import { fightStep, toward } from './auto.js';
+import { fightStep, toward, reachOf } from './auto.js';
 
 const C = game => game.data.config.pilot;
 
@@ -39,6 +39,7 @@ function findPath(game, tx, ty) {
   const sx = Math.floor(p.x / T), sy = Math.floor(p.y / T), W = map.w;
   const prev = new Map([[sy * W + sx, -1]]), q = [[sx, sy]];
   const goal = (x, y) => Math.abs(x - tx) + Math.abs(y - ty) <= (map.solidTile(tx, ty) ? 1 : 0);
+  const gates = new Set(map.def.portals.filter(pt => pt.at[0] !== tx || pt.at[1] !== ty).map(pt => pt.at[1] * W + pt.at[0]));   // không giẫm nhầm cổng khác
   for (let i = 0; i < q.length && q.length < 6000; i++) {
     const [x, y] = q[i];
     if (goal(x, y)) {
@@ -48,7 +49,7 @@ function findPath(game, tx, ty) {
     }
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const nx = x + dx, ny = y + dy, k = ny * W + nx;
-      if (prev.has(k) || map.solidTile(nx, ny)) continue;
+      if (prev.has(k) || gates.has(k) || map.solidTile(nx, ny)) continue;
       prev.set(k, y * W + x); q.push([nx, ny]);
     }
   }
@@ -105,8 +106,8 @@ function plan(game) {
   return sit(game);
 }
 
-// Xa thì đi theo đường (vòng qua dung nham, tường), gần thì đánh
-const engage = (game, m, dt) => dist(m, game.player) > 48 ? { ax: walk(game, m.x, m.y, dt), atk: false } : fightStep(game, m);
+// Chưa tới tầm thì đi theo đường (vòng qua dung nham, tường), tới tầm thì đánh
+const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: walk(game, m.x, m.y, dt), atk: false } : fightStep(game, m);
 
 // Gọi mỗi khung từ player khi đang tự hành: trả về hướng đi và có đánh thường không
 export function pilotStep(game, ax, dt) {

@@ -43,6 +43,10 @@
   "ma-tham-tu": [["yeu-huyet", 0.5], ["tinh-thiet", 0.3]],
   "thu-moc-ve": [["tinh-thiet", 0.5], ["linh-thao", 1, 2]],
   "thuc-moc-ma-hau": [["tinh-thiet", 1, 10], ["linh-thao", 1, 8], ["yeu-huyet", 1, 6], ["khoa-linh-thach", 0.4], ["yeu-vuong-dan", 0.12]],
+  "hac-cuc-mam": [["linh-thao", 0.4], ["yeu-huyet", 0.3]],
+  "re-ma": [["yeu-huyet", 0.5], ["tinh-thiet", 0.3]],
+  "gai-ma-ve": [["tinh-thiet", 0.6], ["yeu-huyet", 1, 2]],
+  "hac-cuc-ma-chung": [["tinh-thiet", 1, 12], ["linh-thao", 1, 10], ["yeu-huyet", 1, 8], ["khoa-linh-thach", 0.5], ["yeu-vuong-dan", 0.18]],
   "co-thu-yeu-vuong": [["linh-thao", 1, 10], ["tinh-thiet", 1, 8], ["khoa-linh-thach", 0.35], ["yeu-vuong-dan", 0.14]]
  },
  "salvage_iron": {

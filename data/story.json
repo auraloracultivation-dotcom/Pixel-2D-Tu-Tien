@@ -440,6 +440,58 @@
     {"say": [["", "Nhận Thanh Mộc Bào phẩm Huyền, 8 Tẩy Luyện Thạch và công pháp Thanh Mộc Trường Xuân Công."], ["", "Hết phần đầu Chương 4. Hỏa và Mộc đã an toàn. Ma Tôn còn tìm Thủy, Kim, Thổ... và bạn. Tu lên Hóa Thần để đi tiếp."]]}
    ],
    "goal": "Tu lên Hóa Thần để đi tiếp Chương 4",
+   "until": {"realm": 4}
+  },
+  {
+   "id": "goi-chuong-4b", "once": true,
+   "do": [
+    {"say": [["", "Chiếc lá ngọc Thanh Diệp tặng bỗng rung lên trong túi áo. Tiếng nàng vọng ra, đứt quãng."], ["thanh-diep", "...Cây mẹ... đang héo. Lá rụng giữa mùa xuân. Có thứ gì đó... ăn rễ của người."], ["thanh-diep", "Mộc Trưởng Lão bảo... chỉ người có linh căn thuần mới xuống được tận gốc. Xin người... tới nhanh."]]},
+    {"flag": "mau-thu-heo"}
+   ],
+   "goal": "Tới Làng Tinh Linh, cây mẹ đang héo", "target": [16, 6], "target_map": "lang-tinh-linh",
+   "until": {"talk": "truong-lao-moc"}
+  },
+  {
+   "id": "mau-thu-heo", "map": "lang-tinh-linh", "once": true,
+   "do": [
+    {"say": [["", "Cả làng chìm trong màu vàng úa. Những sợi gai đen mọc lên từ kẽ đá, quấn lấy chân nhà."], ["truong-lao-moc", "Ngươi tới rồi. Ngươi nhớ bụi gai đen Ma Hậu hoá thành chứ? Nó rơi xuống kẽ rễ, rồi nảy mầm."], ["truong-lao-moc", "Lão gọi nó là Hắc Cức. Mỗi mầm là một cái miệng hút nhựa cây mẹ. Nhổ hết mầm trên mặt đất trước đã."], ["thanh-diep", "Ta dẫn đường. Gai mọc ở đâu, cây mẹ đau ở đó, ta cảm được."]]}
+   ],
+   "goal": "Nhổ mầm Hắc Cức quanh làng ({n}/6)", "target": [16, 12],
+   "until": {"kill": "hac-cuc-mam", "n": 6}
+  },
+  {
+   "id": "mo-re", "map": "lang-tinh-linh", "once": true,
+   "do": [
+    {"say": [["", "Mầm gai cuối cùng khô quắt lại. Nhưng mặt đất vẫn rung khẽ, như có tim đập dưới sâu."], ["thanh-diep", "Gốc của nó ở dưới rễ cây mẹ. Ta mở lối phía nam làng. Người đi trước, ta giữ cây mẹ ở trên này."], ["truong-lao-moc", "Cẩn thận. Thứ đã nuốt nhựa cây mẹ mấy tháng nay... không còn là mầm nữa."]]},
+    {"flag": "mo-re-mau-thu"}
+   ],
+   "goal": "Xuống Rễ Mẫu Thụ (lối phía nam làng)", "target": [16, 18], "target_map": "lang-tinh-linh",
+   "until": {"map": "re-mau-thu"}
+  },
+  {
+   "id": "re-mau-thu", "map": "re-mau-thu",
+   "do": [
+    {"say": [["", "Dưới đất là cả một thế giới rễ. Nấm phát sáng soi những đường gân đen chạy ngược về một hướng."], ["", "Có tiếng thở. Rất chậm. Rất to."]]}
+   ],
+   "goal": "Dọn Rễ Mẫu Thụ, hạ Hắc Cức Ma Chủng",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "het-chuong-4", "map": "re-mau-thu", "once": true,
+   "do": [
+    {"say": [["hac-cuc-ma-chung", "Khà... Ma Hậu chết... nhưng hạt giống của Ngài... không chết..."], ["", "Ma Chủng vỡ ra. Từ đám nhựa đen, một cái bóng cao lớn đứng dậy. Không có mặt, chỉ có hai đốm tím."]]},
+    {"shake": 5},
+    {"flash": true},
+    {"say": [["anh-ma-ton", "Linh căn {element} thuần. Cuối cùng ta cũng được nhìn tận mắt."], ["anh-ma-ton", "Đừng vội. Đây chỉ là cái bóng. Ta không tới để đánh, ta tới để xem món đồ của ta lớn tới đâu rồi."], ["anh-ma-ton", "Hỏa, Mộc các ngươi giữ được. Còn Thủy... ở ngay bên cạnh ngươi mỗi ngày, ngươi có biết không?"], ["anh-ma-ton", "Lần sau gặp, sẽ không phải là bóng nữa."], ["", "Cái bóng tan như khói. Rễ cây mẹ khẽ rùng mình, rồi nhựa trong vắt chảy trở lại."]]},
+    {"flag": "het-chuong-4"},
+    {"fly": "lang-tinh-linh", "spawn": "tu-re", "kind": "portal", "text": "Trở lên Làng Tinh Linh"},
+    {"say": [["thanh-diep", "Cây mẹ xanh lại rồi. Người nghe không, lá đang hát."], ["truong-lao-moc", "Làng Tinh Linh nợ ngươi hai lần. Nhận lấy món quà của cây mẹ. Nó sẽ che chở ngươi."]]},
+    {"reward": {"base": "thanh-moc-bao", "rarity": "dia", "stones": 12}},
+    {"mats": {"ngoc-lo-hoa": 3, "khoa-linh-thach": 2}},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "Bóng Ma Tôn... đã dám hiện ra ngay dưới gốc cây mẹ. Hắn sắp ra tay thật rồi."], ["van-hac", "Thủy thuần ở ngay bên cạnh con... Ta sợ là ta biết hắn nói ai."], ["lac-tuyet", "...Sư phụ, đừng nhìn con như thế. Con biết linh căn của con là gì từ lâu rồi."], ["lac-tuyet", "Nếu hắn muốn tới, cứ để hắn tới. Kiếm của ta đã chờ ngày này."], ["", "Nhận Thanh Mộc Bào phẩm Địa, 12 Tẩy Luyện Thạch, 3 Ngọc Lộ Hoa, 2 Khóa Linh Thạch."], ["", "Hết Chương 4. Ma Tôn đã nhắm tới Lạc Tuyết. Tu lên Luyện Hư để mở Chương 5: hai đảo Kim và Thổ."]]}
+   ],
+   "goal": "Tu lên Luyện Hư để mở Chương 5",
    "until": {"never": true}
   }
  ]
