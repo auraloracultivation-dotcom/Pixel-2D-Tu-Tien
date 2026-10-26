@@ -1,7 +1,8 @@
-// Bảng Thú: tab Linh thú (con đang mang, cấp, kinh nghiệm, đổi con) và tab Thú cưỡi (chọn con để cưỡi).
+// Bảng Thú: tab Linh thú (con đang mang, cấp, kinh nghiệm, đổi con), Thú cưỡi (chọn con để cưỡi), Đồng hành (comp-tab.js).
 import { petNeed, setPet, setMount } from '../game/pets.js';
 import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
+import { renderComps } from './comp-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -66,7 +67,9 @@ export function createPetsPanel(game) {
     const s = game.save, list = $('pets-list');
     for (const b of document.querySelectorAll('#pets-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
-    if (tab === 'linh-thu') renderPets(s, list); else renderMounts(s, list);
+    if (tab === 'linh-thu') renderPets(s, list);
+    else if (tab === 'dong-hanh') renderComps(game, list, { render, close, sub: t => { $('pets-sub').textContent = t; } });
+    else renderMounts(s, list);
   }
 
   function open() {

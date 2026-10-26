@@ -122,6 +122,10 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 #cave-msg, #daily-msg, #achv-msg { min-height: 16px; font: 700 13px system-ui, sans-serif; color: #2a6a8a; }
 .card-acts { display: flex; gap: 6px; margin-top: 6px; }
 .card-acts .mini { flex: 1; min-height: 32px; }
+.card-acts.wrap { flex-wrap: wrap; align-items: center; }
+.card-acts.wrap .mini { flex: 0 1 auto; white-space: nowrap; }
+.gift-lbl { font-weight: 700; margin-left: 4px; }
+.wide-card { grid-column: 1 / -1; }
 #btn-pill { right: 158px; bottom: 6px; width: 46px; height: 46px; background: rgba(255, 214, 222, .92); font-size: 11px; }
 #btn-dash { right: 140px; bottom: 58px; width: 44px; height: 44px; font-size: 11px; background: rgba(214, 232, 255, .92); }
 #world-sky { position: relative; flex: 1; border-radius: 10px; overflow: hidden; background: linear-gradient(#9fd8f0 0%, #cfe6f5 55%, #6a7aa0 100%); }

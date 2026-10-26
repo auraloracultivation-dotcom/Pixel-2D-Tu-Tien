@@ -29,6 +29,7 @@ import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
 import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
 import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
+import { updateCombo } from './affinity.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
@@ -279,7 +280,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePlayer(game, dt);
     updateRide(game, dt);
     updatePet(game, dt);
-    updateCompanion(game, dt);
+    updateCompanion(game, dt); updateCombo(game, dt);
     game.others.update(dt);
     game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);
