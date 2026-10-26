@@ -7,8 +7,8 @@ export function buildMap(def, tiles, T) {
   map.at = (tx, ty) => (ty < 0 || ty >= map.h || tx < 0 || tx >= w) ? '~' : g[ty][tx];
   map.type = (tx, ty) => tiles.types[map.at(tx, ty)] || tiles.types['~'];
   map.solidTile = (tx, ty) => map.type(tx, ty).solid || map.locked.has(tx + ',' + ty);
-  // Đạn bay qua biển mây nhưng vỡ khi chạm tường, cây, nhà
-  map.wallTile = (tx, ty) => (map.type(tx, ty).solid && !map.type(tx, ty).void) || map.locked.has(tx + ',' + ty);
+  // Đạn bay qua biển mây và dung nham nhưng vỡ khi chạm tường, cây, nhà
+  map.wallTile = (tx, ty) => { const k = map.type(tx, ty); return (k.solid && !k.void && !k.low) || map.locked.has(tx + ',' + ty); };
 
   map.blocked = (x, y, r) => {
     const x0 = Math.floor((x - r) / T), x1 = Math.floor((x + r) / T);

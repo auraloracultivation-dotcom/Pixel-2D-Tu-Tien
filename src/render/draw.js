@@ -15,7 +15,7 @@ function body(ctx, x, y, r, color, flash) {
   ctx.fillStyle = flash ? '#fff' : color; circle(ctx, x, y, r);
 }
 
-function drawPerson(ctx, e, color, hair, t, flash, face) {
+export function drawPerson(ctx, e, color, hair, t, flash, face) {
   const bob = e.moving ? Math.abs(Math.sin(e.walkT * 12)) * 1.5 : Math.sin(t * 2.5 + (e.bob || 0)) * 0.5;
   const y = e.y - bob;
   shadow(ctx, e.x, e.y + 1, 5);
@@ -99,7 +99,7 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  drawPerson(ctx, n, n.def.color, '#5a4a86', t, false, { x: 0, y: 1 });
+  drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, { x: 0, y: 1 });
   if (game.story.wants(n.id)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 20 + Math.sin(t * 5) * 1.5);
@@ -132,6 +132,33 @@ function drawFx(ctx, game) {
   ctx.globalAlpha = 1;
 }
 
+// Đòn từ trời: vòng báo trên đất, rồi tia sét / quả cầu lửa rơi xuống ở nhịp cuối
+function drawStrikeMarks(ctx, game) {
+  for (const s of game.strikes) {
+    if (s.hit) continue;
+    const k = Math.min(1, s.t / s.delay);
+    const c = s.kind === 'thunder' ? '120,220,255' : '255,90,40';
+    ctx.fillStyle = `rgba(${c},0.22)`; ctx.strokeStyle = `rgba(${c},${0.6 + 0.4 * Math.sin(s.t * 20)})`; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = `rgba(${c},0.45)`; circle(ctx, s.x, s.y, s.r * k);
+  }
+}
+
+function drawStrikeFalls(ctx, game) {
+  for (const s of game.strikes) {
+    const left = s.delay - s.t;
+    if (s.kind === 'thunder' && (left < 0.12 && left > -0.15)) {
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(s.x, s.y);
+      for (let i = 1; i <= 6; i++) ctx.lineTo(s.x + (i % 2 ? 5 : -5) * Math.random(), s.y - i * 22);
+      ctx.stroke(); ctx.strokeStyle = '#bff4ff'; ctx.lineWidth = 6; ctx.globalAlpha = 0.35; ctx.stroke(); ctx.globalAlpha = 1;
+    } else if (s.kind === 'meteor' && left > 0 && left < 0.35) {
+      const h = left / 0.35 * 120;
+      ctx.fillStyle = '#ffb03a'; circle(ctx, s.x + h * 0.4, s.y - h, 5);
+      ctx.fillStyle = '#fff3c0'; circle(ctx, s.x + h * 0.4, s.y - h, 2.5);
+    }
+  }
+}
+
 function drawBullets(ctx, game) {
   for (const b of game.bullets) {
     ctx.fillStyle = b.color;
@@ -148,9 +175,11 @@ export function drawWorld(game, screen, t) {
   screen.worldTransform();
   drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game);
   for (const k of game.pickups) {
-    ctx.fillStyle = '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
-    ctx.fillStyle = '#9af0a8'; circle(ctx, k.x, k.y - 2 + Math.sin(t * 4) * 1, 2.2);
+    const q = game.data.items.quest_items[k.item] || {};
+    ctx.fillStyle = q.base || '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
+    ctx.fillStyle = q.color || '#9af0a8'; circle(ctx, k.x, k.y - 2 + Math.sin(t * 4) * 1, 2.2);
   }
+  drawStrikeMarks(ctx, game);
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player]].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
@@ -167,6 +196,7 @@ export function drawWorld(game, screen, t) {
     ctx.beginPath(); ctx.moveTo(l.x, l.y - 3 + bob); ctx.lineTo(l.x + 2.5, l.y + bob); ctx.lineTo(l.x, l.y + 3 + bob); ctx.lineTo(l.x - 2.5, l.y + bob); ctx.fill();
   }
   drawBullets(ctx, game);
+  drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
   for (const n of game.numbers) {
     ctx.globalAlpha = Math.min(1, (0.75 - n.t) * 4);

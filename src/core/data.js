@@ -1,6 +1,6 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
 const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests'];
 
 async function getJson(path) {
   const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });

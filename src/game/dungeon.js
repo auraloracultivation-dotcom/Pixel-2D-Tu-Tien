@@ -25,7 +25,7 @@ export function createDungeon(game) {
         r.mobs.push(m);
       }
     }
-    if (r.boss) { game.toast('Huyết Nha xuất hiện!'); game.sfx('roar'); }
+    if (r.boss) { game.toast(`${r.mobs[0].def.name} xuất hiện!`); game.sfx('roar'); }
   }
 
   return {

@@ -1,32 +1,40 @@
 {
  "_note": "Âm thanh tổng hợp bằng WebAudio, không cần file. Mỗi tiếng là danh sách nốt: wave (sine|square|triangle|sawtooth|noise), f (Hz đầu), f2 (Hz cuối), t (giây bắt đầu), d (độ dài), v (âm lượng 0-1), q (lọc thông thấp Hz, tuỳ chọn).",
- "volume": { "sfx": 0.5, "music": 0.22 },
+ "volume": {
+  "sfx": 0.5,
+  "music": 0.22
+ },
  "sfx": {
-  "swing": [{ "wave": "noise", "t": 0, "d": 0.09, "v": 0.35, "q": 2800 }, { "wave": "triangle", "f": 520, "f2": 260, "t": 0, "d": 0.08, "v": 0.15 }],
-  "hit": [{ "wave": "square", "f": 180, "f2": 70, "t": 0, "d": 0.08, "v": 0.3 }, { "wave": "noise", "t": 0, "d": 0.05, "v": 0.3, "q": 1800 }],
-  "crit": [{ "wave": "square", "f": 240, "f2": 60, "t": 0, "d": 0.12, "v": 0.35 }, { "wave": "triangle", "f": 1200, "f2": 1800, "t": 0.02, "d": 0.1, "v": 0.2 }],
-  "hurt": [{ "wave": "sawtooth", "f": 220, "f2": 110, "t": 0, "d": 0.15, "v": 0.25, "q": 1200 }],
-  "die": [{ "wave": "noise", "t": 0, "d": 0.25, "v": 0.3, "q": 900 }, { "wave": "triangle", "f": 300, "f2": 80, "t": 0, "d": 0.2, "v": 0.2 }],
-  "shoot": [{ "wave": "triangle", "f": 900, "f2": 1500, "t": 0, "d": 0.12, "v": 0.22 }, { "wave": "noise", "t": 0, "d": 0.1, "v": 0.15, "q": 4000 }],
-  "boom": [{ "wave": "noise", "t": 0, "d": 0.35, "v": 0.45, "q": 700 }, { "wave": "sine", "f": 120, "f2": 40, "t": 0, "d": 0.3, "v": 0.4 }],
-  "heal": [{ "wave": "sine", "f": 660, "t": 0, "d": 0.15, "v": 0.2 }, { "wave": "sine", "f": 880, "t": 0.1, "d": 0.15, "v": 0.2 }, { "wave": "sine", "f": 1100, "t": 0.2, "d": 0.25, "v": 0.18 }],
-  "shield": [{ "wave": "triangle", "f": 400, "f2": 800, "t": 0, "d": 0.25, "v": 0.22 }, { "wave": "sine", "f": 1200, "t": 0.15, "d": 0.2, "v": 0.12 }],
-  "dash": [{ "wave": "noise", "t": 0, "d": 0.18, "v": 0.35, "q": 3000 }, { "wave": "sawtooth", "f": 300, "f2": 900, "t": 0, "d": 0.12, "v": 0.12, "q": 2500 }],
-  "pickup": [{ "wave": "square", "f": 880, "t": 0, "d": 0.06, "v": 0.12, "q": 3000 }, { "wave": "square", "f": 1320, "t": 0.06, "d": 0.1, "v": 0.12, "q": 3000 }],
-  "levelup": [{ "wave": "triangle", "f": 523, "t": 0, "d": 0.18, "v": 0.25 }, { "wave": "triangle", "f": 659, "t": 0.12, "d": 0.18, "v": 0.25 }, { "wave": "triangle", "f": 784, "t": 0.24, "d": 0.18, "v": 0.25 }, { "wave": "triangle", "f": 1047, "t": 0.36, "d": 0.5, "v": 0.3 }],
-  "talk": [{ "wave": "square", "f": 700, "t": 0, "d": 0.03, "v": 0.06, "q": 2000 }],
-  "fly": [{ "wave": "noise", "t": 0, "d": 1.4, "v": 0.25, "q": 1200 }, { "wave": "sine", "f": 300, "f2": 600, "t": 0, "d": 1.2, "v": 0.1 }],
-  "door": [{ "wave": "sawtooth", "f": 90, "f2": 60, "t": 0, "d": 0.4, "v": 0.25, "q": 500 }],
-  "roar": [{ "wave": "sawtooth", "f": 110, "f2": 60, "t": 0, "d": 0.7, "v": 0.35, "q": 700 }, { "wave": "noise", "t": 0, "d": 0.6, "v": 0.2, "q": 500 }],
-  "warn": [{ "wave": "square", "f": 440, "t": 0, "d": 0.08, "v": 0.12, "q": 1500 }, { "wave": "square", "f": 440, "t": 0.14, "d": 0.08, "v": 0.12, "q": 1500 }]
+  "swing": [{"wave": "noise", "t": 0, "d": 0.09, "v": 0.35, "q": 2800}, {"wave": "triangle", "f": 520, "f2": 260, "t": 0, "d": 0.08, "v": 0.15}],
+  "hit": [{"wave": "square", "f": 180, "f2": 70, "t": 0, "d": 0.08, "v": 0.3}, {"wave": "noise", "t": 0, "d": 0.05, "v": 0.3, "q": 1800}],
+  "crit": [{"wave": "square", "f": 240, "f2": 60, "t": 0, "d": 0.12, "v": 0.35}, {"wave": "triangle", "f": 1200, "f2": 1800, "t": 0.02, "d": 0.1, "v": 0.2}],
+  "hurt": [{"wave": "sawtooth", "f": 220, "f2": 110, "t": 0, "d": 0.15, "v": 0.25, "q": 1200}],
+  "die": [{"wave": "noise", "t": 0, "d": 0.25, "v": 0.3, "q": 900}, {"wave": "triangle", "f": 300, "f2": 80, "t": 0, "d": 0.2, "v": 0.2}],
+  "shoot": [{"wave": "triangle", "f": 900, "f2": 1500, "t": 0, "d": 0.12, "v": 0.22}, {"wave": "noise", "t": 0, "d": 0.1, "v": 0.15, "q": 4000}],
+  "boom": [{"wave": "noise", "t": 0, "d": 0.35, "v": 0.45, "q": 700}, {"wave": "sine", "f": 120, "f2": 40, "t": 0, "d": 0.3, "v": 0.4}],
+  "heal": [{"wave": "sine", "f": 660, "t": 0, "d": 0.15, "v": 0.2}, {"wave": "sine", "f": 880, "t": 0.1, "d": 0.15, "v": 0.2}, {"wave": "sine", "f": 1100, "t": 0.2, "d": 0.25, "v": 0.18}],
+  "shield": [{"wave": "triangle", "f": 400, "f2": 800, "t": 0, "d": 0.25, "v": 0.22}, {"wave": "sine", "f": 1200, "t": 0.15, "d": 0.2, "v": 0.12}],
+  "dash": [{"wave": "noise", "t": 0, "d": 0.18, "v": 0.35, "q": 3000}, {"wave": "sawtooth", "f": 300, "f2": 900, "t": 0, "d": 0.12, "v": 0.12, "q": 2500}],
+  "pickup": [{"wave": "square", "f": 880, "t": 0, "d": 0.06, "v": 0.12, "q": 3000}, {"wave": "square", "f": 1320, "t": 0.06, "d": 0.1, "v": 0.12, "q": 3000}],
+  "levelup": [{"wave": "triangle", "f": 523, "t": 0, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 659, "t": 0.12, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 784, "t": 0.24, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 1047, "t": 0.36, "d": 0.5, "v": 0.3}],
+  "talk": [{"wave": "square", "f": 700, "t": 0, "d": 0.03, "v": 0.06, "q": 2000}],
+  "fly": [{"wave": "noise", "t": 0, "d": 4, "v": 0.22, "q": 900}, {"wave": "sine", "f": 300, "f2": 600, "t": 0, "d": 0.9, "v": 0.1}, {"wave": "triangle", "f": 784, "t": 0.2, "d": 0.3, "v": 0.08}, {"wave": "triangle", "f": 1047, "t": 0.4, "d": 0.5, "v": 0.08}],
+  "portal": [{"wave": "sine", "f": 200, "f2": 900, "t": 0, "d": 1.2, "v": 0.18}, {"wave": "noise", "t": 0, "d": 1.2, "v": 0.15, "q": 2200}],
+  "door": [{"wave": "sawtooth", "f": 90, "f2": 60, "t": 0, "d": 0.4, "v": 0.25, "q": 500}],
+  "roar": [{"wave": "sawtooth", "f": 110, "f2": 60, "t": 0, "d": 0.7, "v": 0.35, "q": 700}, {"wave": "noise", "t": 0, "d": 0.6, "v": 0.2, "q": 500}],
+  "warn": [{"wave": "square", "f": 440, "t": 0, "d": 0.08, "v": 0.12, "q": 1500}, {"wave": "square", "f": 440, "t": 0.14, "d": 0.08, "v": 0.12, "q": 1500}],
+  "thunder": [{"wave": "noise", "t": 0, "d": 0.6, "v": 0.5, "q": 1500}, {"wave": "sawtooth", "f": 90, "f2": 40, "t": 0, "d": 0.5, "v": 0.3, "q": 600}],
+  "meteor": [{"wave": "noise", "t": 0, "d": 0.4, "v": 0.4, "q": 900}, {"wave": "sine", "f": 160, "f2": 50, "t": 0, "d": 0.35, "v": 0.3}]
  },
  "music": {
   "_note": "Nhạc nền sinh từ thang ngũ cung theo từng bản đồ: notes là bậc trong scale, bpm, root (Hz).",
   "scale": [0, 2, 4, 7, 9],
   "maps": {
-   "thanh-khe": { "root": 293.66, "bpm": 84, "wave": "triangle", "pad": "sine", "mood": "sang" },
-   "thien-kiem-phong": { "root": 261.63, "bpm": 72, "wave": "triangle", "pad": "sine", "mood": "sang" },
-   "bi-canh": { "root": 196.0, "bpm": 96, "wave": "square", "pad": "sawtooth", "mood": "toi" }
+   "thanh-khe": {"root": 293.66, "bpm": 84, "wave": "triangle", "pad": "sine", "mood": "sang"},
+   "thien-kiem-phong": {"root": 261.63, "bpm": 72, "wave": "triangle", "pad": "sine", "mood": "sang"},
+   "bi-canh": {"root": 196.0, "bpm": 96, "wave": "square", "pad": "sawtooth", "mood": "toi"},
+   "dao-xich-dien": {"root": 220.0, "bpm": 88, "wave": "triangle", "pad": "sawtooth", "mood": "sang"},
+   "hoa-quat": {"root": 174.61, "bpm": 104, "wave": "square", "pad": "sawtooth", "mood": "toi"}
   }
  }
 }

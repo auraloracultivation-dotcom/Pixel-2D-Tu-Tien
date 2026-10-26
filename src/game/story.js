@@ -21,7 +21,7 @@ export function createStory(game) {
 
   async function act(a) {
     const g = game;
-    if (a.fly) await g.travel(a.fly, a.spawn, true, a.text);
+    if (a.fly) await g.travel(a.fly, a.spawn, true, { text: a.text, with: a.with, kind: a.kind });
     else if (a.say) await g.dialog.say(a.say.map(([who, text]) => [who ? (g.data.npcs[who]?.name || who) : '', fill(text)]));
     else if (a.choose_element) {
       const els = g.data.elements;
@@ -47,6 +47,7 @@ export function createStory(game) {
     else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); }
     else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
+    else if (a.reward) g.giveReward(a.reward);
     g.persist();
   }
 
@@ -60,6 +61,8 @@ export function createStory(game) {
     if (u.any) return u.any.some(check);
     if (u.reach) { const c = g.map.center(u.reach[0], u.reach[1]); return Math.hypot(p.x - c.x, p.y - c.y) < (u.r || 1) * g.map.T; }
     if (u.collect) return (st.counters[u.collect] || 0) >= u.n;
+    if (u.kill) return (st.counters['kill:' + u.kill] || 0) >= u.n;
+    if (u.realm) return g.save.realm >= u.realm;
     if (u.kill_all) return !g.mobs.some(m => m.story && !m.dead);
     if (u.hp_below) return p.hp / p.maxHp < u.hp_below;
     if (u.talk) return !!st.events['talk:' + u.talk];
@@ -76,10 +79,10 @@ export function createStory(game) {
   }
 
   return {
-    // Mở lại game: làm lại bước đang dở từ đầu (trừ bước cuối là chơi tự do)
+    // Mở lại game: làm lại bước đang dở từ đầu (trừ bước chơi tự do và bước "once" đã làm: có thưởng, không phát lại)
     start() {
       const s = step();
-      if (s && !s.until.never) game.save.stepDone = false;
+      if (s && !s.until.never && !s.once) game.save.stepDone = false;
       return runStep();
     },
     get busy() { return st.busy; },
@@ -90,6 +93,7 @@ export function createStory(game) {
     },
     notify(type, id) {
       if (type === 'collect') st.counters[id] = (st.counters[id] || 0) + 1;
+      else if (type === 'kill') st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1;
       else st.events[type + (id ? ':' + id : '')] = true;
       if (type === 'boss') st.events.boss_dead = true;
     },
@@ -97,8 +101,9 @@ export function createStory(game) {
     goal() {
       const s = step();
       if (!s || !game.save.stepDone || !s.goal) return null;
-      const n = s.until.collect ? (st.counters[s.until.collect] || 0) : 0;
-      return { text: s.goal.replace('{n}', n), target: s.map === game.map.id ? s.target : null };
+      const key = s.until.collect || (s.until.kill && 'kill:' + s.until.kill);
+      const n = key ? Math.min(st.counters[key] || 0, s.until.n) : 0;
+      return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map) === game.map.id ? s.target : null };
     },
     // NPC này đang được nhiệm vụ chờ nói chuyện?
     wants(npcId) { const s = step(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
