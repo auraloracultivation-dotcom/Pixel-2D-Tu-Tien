@@ -14,6 +14,20 @@ Bản cốt truyện đầy đủ (Claude Docs): https://claude.ai/artifact/Nsmd
 6. Đủ 9 cảnh giới: Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh, Hóa Thần, Luyện Hư, Hợp Thể, Đại Thừa, Độ Kiếp; mỗi cảnh giới 9 tầng, cuối cảnh giới độ thiên kiếp.
 7. Mỗi ngày: săn quái và nhiệm vụ ngoài đảo, bí cảnh nhóm đánh boss, đả tọa ở động phủ.
 
+## Yên bình, tự tại (chủ dự án chốt tối 26/10/2026)
+
+Game là nơi người ta muốn vào để tu tiên yên bình mà tự tại. Các quyết định:
+
+1. Tự hành trước, cày tay sau. Tự hành là nhân vật tự đi làm (đi bộ, bay qua cổng, đánh, nói chuyện), không phải bấm là xong ngay. Dòng "Tự hành: ..." dưới mục tiêu cho biết đang làm gì.
+2. Gặp boss truyện khi đang tự hành thì nhân vật tự đánh; thua thì tự hành dừng.
+3. Đạo lữ hay khen người chơi: việc lớn (lên cảnh giới, qua kiếp, xong chương, bày đồ mới...) luôn khen, việc nhỏ (thu hoạch, luyện đan, câu cá) thỉnh thoảng (`data/praise.json`).
+4. Nhạc êm: đàn tranh, sáo trúc, tiếng gió; đêm có tiếng dế; mưa có tiếng mưa (`data/sounds.json` → music).
+5. Dược viên: khai thêm luống và nâng cấp từng luống riêng.
+
+Tự hành hiện làm được khi truyện đang chờ tu luyện (`src/game/chores.js`, thứ tự ưu tiên): việc phụ đang nhận, việc hằng ngày (đánh quái, câu cá, luyện đan), treo thưởng (tự nhận, tự trả), tự nhận việc phụ mới, về nhà nhận quà của đạo lữ và khách, hoàng hôn ra đá ngắm cảnh, vuốt ve linh thú, thu hoạch dược viên. Xong việc hằng ngày thì tự nhận thưởng và mở rương. Hết việc thì đả tọa; đạo lữ ở nhà hoặc trời tối thì về động phủ ngồi song tu.
+
+Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn mùa, mưa, đom đóm, ngắm cảnh (đạo lữ ngồi cạnh), động phủ trang trí được (Tiểu Linh bán đồ, mỗi món tăng tốc đả tọa ở nhà), khách quen ghé chơi mỗi ngày, chuông gió, thư đạo lữ khi vắng lâu, bế quan khi vắng mặt (ở nhà nhanh hơn), nhật ký tu tiên.
+
 ## Trang bị và kiếm tiền
 
 - Max cấp sớm, sau đó người chơi tập trung làm sao mạnh hơn.
