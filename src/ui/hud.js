@@ -14,14 +14,28 @@ const $ = id => document.getElementById(id);
 
 export function createHud(audio) {
   const dialog = createDialog(() => audio.play('talk'));
-  let toastTimer = null;
-  const ui = { dialog };
+  let toastTimer = null, nextTimer = null, shownAt = 0;
+  const ui = { dialog }, queue = [], MIN = 1400, MAXQ = 4;
 
-  ui.toast = (text, sec = 1.6) => {
+  // Dòng báo: dòng đang hiện chưa đủ MIN ms thì dòng mới xếp hàng (tối đa MAXQ, bỏ dòng cũ nhất), để việc tự hành báo dồn không che mất nhau
+  const show = (text, sec) => {
     const t = $('toast');
-    t.textContent = text; t.hidden = false;
+    t.textContent = text; t.hidden = false; shownAt = performance.now();
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.hidden = true; }, sec * 1000);
+  };
+  const drain = () => {
+    nextTimer = null;
+    const q = queue.shift();
+    if (q) show(q.text, q.sec);
+    if (queue.length) nextTimer = setTimeout(drain, MIN);
+  };
+  ui.toast = (text, sec = 1.6) => {
+    const t = $('toast'), age = performance.now() - shownAt;
+    if (!queue.length && (t.hidden || age >= MIN)) { show(text, sec); return; }
+    if ((!t.hidden && t.textContent === text) || queue.some(q => q.text === text)) return;
+    queue.push({ text, sec }); if (queue.length > MAXQ) queue.shift();
+    nextTimer ??= setTimeout(drain, Math.max(0, MIN - age));
   };
 
   ui.tripMode = on => document.body.classList.toggle('trip', on); // ẩn nút khi đang bay
