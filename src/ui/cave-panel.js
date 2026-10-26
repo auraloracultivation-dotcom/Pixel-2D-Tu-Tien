@@ -33,7 +33,7 @@ export function createCavePanel(game) {
         c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Cần: ${costText(data, p.recipe)} → ${p.make} viên`));
         const row = el('div', 'card-acts');
         row.append(
-          mini('Luyện', () => { if (brew(game, id)) { game.sfx('heal'); last = `Luyện thành ${p.make} ${p.name}!`; } render(); }, !canPay(game, p.recipe)),
+          mini('Luyện', () => { const n = brew(game, id); if (n) { game.sfx('heal'); last = `Luyện thành ${n} ${p.name}!`; } render(); }, !canPay(game, p.recipe)),
           mini('Dùng', () => { const m = usePill(game, id); last = m ? `${p.name}: ${m}` : 'Lúc này dùng không có tác dụng.'; if (m) game.sfx('levelup'); render(); }, !have),
         );
         c.append(row); list.append(c);

@@ -22,6 +22,7 @@ import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { coinDrop } from './shop.js';
+import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { updateRes, resKill, resGoal } from './resrun.js';
 import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
@@ -81,6 +82,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.persist();
   };
   game.learnTech = id => learnTech(game, id);
+  game.eventMul = k => eventMul(game, k);
   game.addPickup = (item, tx, ty) => {
     const p = game.map.center(tx, ty);
     game.pickups.push({ item, x: p.x, y: p.y });
@@ -116,6 +118,7 @@ export function createGame(data, screen, input, ui, audio) {
     techDrop(game, m);
     matDrop(game, m);
     petKill(game, m);
+    eventKill(game, m);
     dailyEvent(game, 'kill', m.id);
     if (m.rare) dailyEvent(game, 'rare', m.id);
     game.story.notify('kill', m.id);
@@ -220,6 +223,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.pendingTech) { learnTech(game, game.pendingTech); game.pendingTech = null; }
     ui.showPlay(true);
     await offlineGains(game, lastSeen);
+    eventToast(game); checkFestival(game);
     await game.story.start();
   };
 

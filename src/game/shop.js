@@ -8,7 +8,7 @@ export function addCoins(game, n) { game.save.lingshi = coins(game.save) + n; }
 export function coinDrop(game, m) {
   const d = C(game).drop, boss = m.def.ai === 'boss';
   if (m.noQi || !m.def.qi || (!boss && Math.random() >= d.chance)) return;
-  const n = Math.max(1, Math.round(m.def.qi * d.per_qi * (boss ? d.boss_mul : 1) * (0.7 + Math.random() * 0.6)));
+  const n = Math.max(1, Math.round(m.def.qi * d.per_qi * (boss ? d.boss_mul : 1) * (0.7 + Math.random() * 0.6) * game.eventMul('coin')));
   addCoins(game, n);
   game.number(m.x, m.y - 26, `+${n} ${C(game).name}`, '#ffd24a');
 }

@@ -1,5 +1,6 @@
 // Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương) và tab Tông môn (chức vị, cống hiến, đổi thưởng).
 import { ensureDaily, taskDef, taskText, claimTask, claimChest, bountyLeft, rankOf, rankIdx, buy } from '../game/daily.js';
+import { renderEvents } from './event-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -15,7 +16,7 @@ export function createDailyPanel(game) {
   let tab = 'ngay', msg = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; return b; };
-  const rewardText = r => [r.contrib && `${r.contrib} cống hiến`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
+  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.contrib && `${r.contrib} cống hiến`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
 
   function card(color, title, lines, btn) {
     const c = el('div', 'skill-card');
@@ -58,7 +59,9 @@ export function createDailyPanel(game) {
     for (const b of document.querySelectorAll('#daily-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
     $('daily-msg').textContent = msg;
-    if (tab === 'ngay') renderDay(list); else renderSect(list);
+    if (tab === 'ngay') renderDay(list);
+    else if (tab === 'su-kien') renderEvents(game, list, { card, mini, rewardText, say: t => { msg = t; } });
+    else renderSect(list);
   }
 
   function open() {

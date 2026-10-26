@@ -1,5 +1,6 @@
 // Tháp Thử Thách (data/tower.json): mỗi tầng một đợt quái mạnh dần, tầng boss theo mốc; qua tầng mới lần đầu nhận thưởng.
 import { grant, dailyEvent } from './daily.js';
+import { scaleReward } from './events.js';
 
 const C = game => game.data.tower;
 const tierOf = (cfg, floor) => cfg.tiers.filter(t => floor >= t.from).pop();
@@ -70,7 +71,7 @@ async function cleared(game) {
   let msg = `Qua tầng ${t.floor}!`;
   if (t.floor > s.tower.best) {
     s.tower.best = t.floor;
-    msg += ` Thưởng: ${grant(game, floorReward(cfg, t.floor)).join(', ')}.`;
+    msg += ` Thưởng: ${grant(game, scaleReward(floorReward(cfg, t.floor), game.eventMul('tower'))).join(', ')}.`;
   }
   dailyEvent(game, 'tower');
   game.sfx('levelup'); game.persist();

@@ -33,10 +33,11 @@ export function brew(game, id) {
   const pill = game.data.cave.pills[id], s = game.save;
   if (!pill || !has(s, pill.recipe)) return false;
   pay(s, pill.recipe);
-  s.pills[id] = (s.pills[id] || 0) + pill.make;
+  const n = Math.round(pill.make * game.eventMul('brew'));
+  s.pills[id] = (s.pills[id] || 0) + n;
   dailyEvent(game, 'brew');
   game.persist();
-  return true;
+  return n;
 }
 
 // Dùng một viên; trả về chữ báo hoặc null nếu không dùng được
