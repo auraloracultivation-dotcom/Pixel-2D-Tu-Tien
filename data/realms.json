@@ -1,5 +1,5 @@
 {
- "_note": "9 cảnh giới, mỗi cảnh giới 9 tầng. Linh khí cần cho tầng thứ n (đếm từ 0 trên toàn bộ) = qi_base * qi_growth^n. Hết tầng 9 phải độ thiên kiếp (tribulation): waves đạo sét, cách nhau interval giây, vòng báo trước delay giây, bán kính r, sát thương = máu tối đa × dmg_pct × (1 + đợt × grow), extra sét phụ quanh người, fail_qi: phần linh khí mất khi thất bại.",
+ "_note": "9 cảnh giới, mỗi cảnh giới 9 tầng. Linh khí cần cho tầng thứ n (đếm từ 0 trên toàn bộ) = qi_base * qi_growth^n; từ tầng qi_soft_from trở đi (hết Kim Đan) mỗi tầng chỉ tăng qi_soft_growth để lên tới đỉnh trong vài tuần chứ không phải hàng nghìn giờ. Hết tầng 9 phải độ thiên kiếp (tribulation): waves đạo sét, cách nhau interval giây, vòng báo trước delay giây, bán kính r, sát thương = máu tối đa × dmg_pct × (1 + đợt × grow), extra sét phụ quanh người, fail_qi: phần linh khí mất khi thất bại.",
  "names": [
   "Luyện Khí",
   "Trúc Cơ",
@@ -14,6 +14,8 @@
  "layers": 9,
  "qi_base": 40,
  "qi_growth": 1.3,
+ "qi_soft_from": 27,
+ "qi_soft_growth": 1.03,
  "hp_per_layer": 12,
  "atk_per_layer": 2,
  "tribulation": {

@@ -8,7 +8,8 @@ export function totalLayer(save, realms) {
 }
 
 export function qiNeed(save, realms) {
-  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, totalLayer(save, realms)));
+  const n = totalLayer(save, realms), soft = realms.qi_soft_from ?? Infinity;
+  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, Math.min(n, soft)) * Math.pow(realms.qi_soft_growth || 1, Math.max(0, n - soft)));
 }
 
 export function realmLabel(save, realms) {
