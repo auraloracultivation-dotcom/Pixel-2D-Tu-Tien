@@ -133,7 +133,7 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, { x: 0, y: 1 });
+  drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 20 + Math.sin(t * 5) * 1.5);
