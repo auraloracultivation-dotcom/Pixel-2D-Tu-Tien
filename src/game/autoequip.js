@@ -1,9 +1,11 @@
 // Tự mặc đồ khi đang tự hành: món mới nhặt được mà mặc vào lực chiến cao hơn thì thay luôn.
 // Vũ khí chỉ thay bằng cùng loại đang dùng; pháp bảo đổi chiêu nên để người chơi tự chọn.
+// Tự cường hóa: món đang mặc cấp thấp nhất, chỉ tới dưới mốc có thể tụt cấp, luôn chừa enhance_keep Tinh Thiết.
 // Túi đầy khi đang tự hành: phân giải món Phàm, Linh cũ nhất không mặc để nhặt món mới, thay vì để mất.
 import { playerStats } from './stats.js';
 import { power } from './achieve.js';
-import { equip, itemName, rarityOf, salvage, isEquipped } from './items.js';
+import { equip, itemName, rarityOf, salvage, isEquipped, equipped } from './items.js';
+import { enhance, enhanceCost } from './enhance.js';
 import { salvageIron } from './cave.js';
 import { dailyEvent } from './daily.js';
 
@@ -45,4 +47,13 @@ export function makeRoom(game, item) {
   if (!old) return false;
   s.bag.push(item);
   return true;
+}
+
+export function autoEnhance(game) {
+  const s = game.save, d = game.data, keep = d.config.pilot.enhance_keep;
+  const it = equipped(s).filter(i => (i.plus || 0) < d.gear.enhance.drop_from).sort((a, b) => (a.plus || 0) - (b.plus || 0))[0];
+  const c = it && enhanceCost(d, it);
+  if (!c || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;
+  const r = enhance(game, it.uid);
+  if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8);
 }
