@@ -180,6 +180,12 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = q.color || '#9af0a8'; circle(ctx, k.x, k.y - 2 + Math.sin(t * 4) * 1, 2.2);
   }
   drawStrikeMarks(ctx, game);
+  for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp
+    const k = 1 - Math.max(0, z.next) / z.tick;
+    ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); ctx.fillStyle = z.color; circle(ctx, z.x, z.y, z.radius);
+    ctx.globalAlpha = 0.6; ctx.strokeStyle = z.color; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(z.x, z.y, z.radius, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.stroke(); ctx.globalAlpha = 1;
+  }
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player]].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);

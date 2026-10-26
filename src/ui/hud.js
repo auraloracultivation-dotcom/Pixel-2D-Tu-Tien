@@ -59,6 +59,7 @@ export function createHud(audio) {
       b.style.setProperty('--cd', cd.toFixed(3));
     }
     $('bag-badge').hidden = !game.newItems;
+    $('skills-badge').hidden = !game.newSkills;
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

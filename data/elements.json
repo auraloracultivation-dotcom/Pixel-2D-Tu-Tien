@@ -1,8 +1,9 @@
 {
- "_note": "5 hệ linh căn. Mỗi hệ cho 2 chiêu (vũ khí cho đòn đánh thường + 1 chiêu).",
- "moc": { "name": "Mộc", "color": "#5fd07a", "desc": "Sinh trưởng, trói buộc và hồi phục.", "skills": ["dang-phuoc", "hoi-xuan"] },
- "hoa": { "name": "Hỏa", "color": "#ff7a3a", "desc": "Sát thương lớn, thiêu rụi xung quanh.", "skills": ["hoa-cau", "liet-diem"] },
- "thuy": { "name": "Thủy", "color": "#5ab8f0", "desc": "Làm chậm kẻ địch, che chắn bản thân.", "skills": ["bang-truy", "thuy-thuan"] },
- "kim": { "name": "Kim", "color": "#f2c94c", "desc": "Lao tới chém xuyên, tăng sức đánh.", "skills": ["kim-quang-tram", "kim-cuong-the"] },
- "tho": { "name": "Thổ", "color": "#c08850", "desc": "Choáng diện rộng, giáp đá chịu đòn.", "skills": ["dia-chan", "thach-giap"] }
+ "_note": "5 hệ linh căn. Mỗi hệ 6 chiêu mở dần theo tổng tầng tu luyện (_unlock, đếm từ 0: 9 = Trúc Cơ tầng 1, 18 = Kim Đan tầng 1). Người chơi chọn mang 3 chiêu (cả chiêu vũ khí) trong bảng Chiêu.",
+ "moc": {"name": "Mộc", "color": "#5fd07a", "desc": "Sinh trưởng, trói buộc và hồi phục.", "skills": ["dang-phuoc", "hoi-xuan", "van-moc-cham", "thanh-moc-vuc", "luc-dang-long", "truong-xuan"]},
+ "hoa": {"name": "Hỏa", "color": "#ff7a3a", "desc": "Sát thương lớn, thiêu rụi xung quanh.", "skills": ["hoa-cau", "liet-diem", "liet-hoa-tran", "phan-thien", "hoa-long", "phuong-hoang"]},
+ "thuy": {"name": "Thủy", "color": "#5ab8f0", "desc": "Làm chậm kẻ địch, che chắn bản thân.", "skills": ["bang-truy", "thuy-thuan", "thuy-long", "han-bang-vuc", "bang-phong", "bang-phach"]},
+ "kim": {"name": "Kim", "color": "#f2c94c", "desc": "Lao tới chém xuyên, tăng sức đánh.", "skills": ["kim-quang-tram", "kim-cuong-the", "van-kiem", "kim-luan", "loi-dinh", "kim-than"]},
+ "tho": {"name": "Thổ", "color": "#c08850", "desc": "Choáng diện rộng, giáp đá chịu đòn.", "skills": ["dia-chan", "thach-giap", "thach-chuy", "luu-sa", "son-nhac", "dai-dia"]},
+ "_unlock": [0, 0, 9, 13, 18, 22]
 }

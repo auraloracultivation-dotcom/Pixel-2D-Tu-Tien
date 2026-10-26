@@ -17,15 +17,17 @@ export function hitMob(game, m, dmg, opt = {}) {
   dmg = Math.max(1, Math.round(dmg * (0.9 + Math.random() * 0.2)));
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
-  const kb = m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback;
+  const kb = opt.soft ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi
   m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
   if (opt.slow) m.slowT = Math.max(m.slowT, opt.slow);
   if (opt.stun && m.def.ai !== 'boss') m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : '#fff', crit);
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
-  game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
-  game.screen.shake(crit ? feel.shake * 1.5 : feel.shake * 0.6, 0.12);
+  if (!opt.soft) {
+    game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
+    game.screen.shake(crit ? feel.shake * 1.5 : feel.shake * 0.6, 0.12);
+  }
   if (m.hp <= 0) killMob(game, m);
 }
 
@@ -72,7 +74,7 @@ export function updateBullets(game, dt) {
       for (const m of game.mobs) {
         if (m.dead || b.hit.has(m) || dist(b, m) > m.r + b.r) continue;
         b.hit.add(m);
-        hitMob(game, m, b.dmg, { slow: b.slow, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy });
+        hitMob(game, m, b.dmg, { slow: b.slow, stun: b.stun, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy });
         if (!b.pierce) { b.life = 0; burst(game, b); break; }
       }
     } else if (dist(b, game.player) < game.player.r + b.r) {

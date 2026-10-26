@@ -13,6 +13,8 @@ import { ensureInv, rollItem, addItem, equip } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
+import { updateZones } from './zones.js';
+import { checkUnlocks } from './skills.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 
@@ -21,7 +23,7 @@ export function createGame(data, screen, input, ui, audio) {
   const game = {
     data, screen, input, dialog: ui.dialog, ui,
     save: null, map: null, player: null,
-    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [], strikes: [],
+    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [], strikes: [], zones: [],
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
     trip: null, traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
@@ -77,6 +79,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
+      checkUnlocks(game);
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
       game.toast(`Đột phá! ${realmLabel(game.save, data.realms)}`, 2.2);
       game.sfx('levelup');
@@ -99,7 +102,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile);
-    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = [];
+    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = [];
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
@@ -173,8 +176,10 @@ export function createGame(data, screen, input, ui, audio) {
     ensureInv(game.save);
     game.story = createStory(game);
     game.trib = createTribulation(game);
+    game.checkUnlocks = () => checkUnlocks(game);
     loadMap(game.save.map, game.save.spawn);
     game.refreshStats(); game.player.hp = game.player.maxHp;
+    game.checkUnlocks(); // bản lưu cũ: ghi nhận chiêu đã có, không báo
     ui.showPlay(true);
     await game.story.start();
   };
@@ -231,6 +236,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateMobs(game, dt);
     updateBullets(game, dt);
     updateStrikes(game, dt);
+    updateZones(game, dt);
     game.trib.update(dt);
     updateLoot(game, dt);
     updatePickups(game);

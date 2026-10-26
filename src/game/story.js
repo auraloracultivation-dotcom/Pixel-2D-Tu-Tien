@@ -27,7 +27,7 @@ export function createStory(game) {
       const els = g.data.elements;
       const id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:',
         Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color })));
-      g.save.element = id; g.persist();
+      g.save.element = id; g.checkUnlocks(); g.persist();
     }
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
@@ -44,7 +44,7 @@ export function createStory(game) {
     else if (a.npc_remove) g.npcs = g.npcs.filter(n => n.id !== a.npc_remove);
     else if (a.flag) g.save.flags[a.flag] = true;
     else if (a.shake) g.screen.shake(a.shake, 0.6);
-    else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); }
+    else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); g.checkUnlocks(); }
     else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
     else if (a.reward) g.giveReward(a.reward);
