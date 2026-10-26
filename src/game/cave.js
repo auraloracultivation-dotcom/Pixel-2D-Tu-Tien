@@ -1,6 +1,7 @@
 // Động phủ (data/cave.json): nguyên liệu, luyện đan, dùng đan, rèn đồ, linh điền mọc theo giờ thật.
 import { rollItem, addItem } from './items.js';
 import { totalLayer, qiNeed, weaponId } from './stats.js';
+import { dailyEvent } from './daily.js';
 
 export function ensureCave(save) { save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {}; }
 
@@ -33,6 +34,7 @@ export function brew(game, id) {
   if (!pill || !has(s, pill.recipe)) return false;
   pay(s, pill.recipe);
   s.pills[id] = (s.pills[id] || 0) + pill.make;
+  dailyEvent(game, 'brew');
   game.persist();
   return true;
 }
@@ -84,6 +86,7 @@ export function forge(game, recipeId, slot) {
   const it = rollItem(data, save, { base, minRarity: r.min_rarity, lvl: totalLayer(save, data.realms) });
   if (!addItem(data, save, it)) return 'full';
   pay(save, r.cost);
+  dailyEvent(game, 'forge');
   game.newItems = (game.newItems || 0) + 1;
   game.persist();
   return it;
@@ -105,7 +108,7 @@ export function harvest(game) {
     if (map.at(x, y) !== 'G' || plotGrowth(game, x, y) < 1) continue;
     n += cfg.yield; save.garden[plotKey(x, y)] = now();
   }
-  if (n) { addMat(save, cfg.herb, n); game.persist(); }
+  if (n) { addMat(save, cfg.herb, n); dailyEvent(game, 'harvest'); game.persist(); }
   return n;
 }
 

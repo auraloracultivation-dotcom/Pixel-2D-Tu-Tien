@@ -12,6 +12,7 @@ import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
 import { createPetsPanel } from './ui/pets-panel.js';
+import { createDailyPanel } from './ui/daily-panel.js';
 
 async function boot() {
   const canvas = document.getElementById('game');
@@ -25,6 +26,7 @@ async function boot() {
   createSkillsPanel(game);
   createCavePanel(game);
   createPetsPanel(game);
+  createDailyPanel(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 

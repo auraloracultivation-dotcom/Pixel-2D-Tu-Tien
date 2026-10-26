@@ -4,6 +4,7 @@ import {
   gemInfo, rarityOf, itemName, statText, gearStats,
 } from '../game/items.js';
 import { salvageIron, matInfo } from '../game/cave.js';
+import { dailyEvent } from '../game/daily.js';
 
 const $ = id => document.getElementById(id);
 
@@ -102,7 +103,7 @@ export function createBag(game) {
     const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost;
     btn(`Tẩy luyện (${cost} thạch)`, () => { if (reroll(data, save(), it.uid)) { game.sfx('heal'); changed(); } }, stones < cost);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
-    btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) salvageIron(game, it.rarity); st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
+    btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
     box.append(acts);
   }
 

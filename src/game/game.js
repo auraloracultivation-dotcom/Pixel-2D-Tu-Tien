@@ -19,6 +19,7 @@ import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
+import { ensureDaily, dailyEvent } from './daily.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
 export function createGame(data, screen, input, ui, audio) {
@@ -103,6 +104,8 @@ export function createGame(data, screen, input, ui, audio) {
     techDrop(game, m);
     matDrop(game, m);
     petKill(game, m);
+    dailyEvent(game, 'kill', m.id);
+    if (m.rare) dailyEvent(game, 'rare', m.id);
     game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
@@ -187,6 +190,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
+    ensureDaily(game);
     game.story = createStory(game);
     game.trib = createTribulation(game);
     game.checkUnlocks = () => checkUnlocks(game);
