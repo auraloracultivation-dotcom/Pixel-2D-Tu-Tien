@@ -1,6 +1,6 @@
 // Bế quan khi vắng mặt: lúc vào lại game, cộng linh khí theo thời gian rời đi (data/config.json → offline).
 import { qiNeed } from './stats.js';
-import { daoLu } from './affinity.js';
+import { daoLuHere } from './affinity.js';
 
 export const stamp = save => { save.lastSeen = Date.now(); };
 
@@ -21,7 +21,7 @@ export async function offlineGains(game, lastSeen) {
 
 // Thư đạo lữ để lại khi vắng lâu (data/letters.json)
 async function letter(game, away) {
-  const L = game.data.letters, who = daoLu(game), set = who && L.lines[who];
+  const L = game.data.letters, who = daoLuHere(game), set = who && L.lines[who];
   if (!set || away < L.min_minutes * 60) return;
   const h = Math.floor(away / 3600), time = h >= 24 ? `${Math.floor(h / 24)} ngày` : h ? `${h} giờ` : `${Math.floor(away / 60)} phút`;
   await game.dialog.say([[`Thư của ${game.data.npcs[who].name}`, set[Math.floor(Math.random() * set.length)].replace('{time}', time)]]);

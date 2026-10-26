@@ -1,5 +1,5 @@
 {
- "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Mời ở NPC sau khi có cờ need.",
+ "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Mời ở NPC sau khi có cờ need. unless: cờ truyện bật thì người đó vắng mặt (bị bắt), không mời được, không khen, không viết thư.",
  "need": "cuu-tieu-hoa",
  "share": 0.4,
  "max_level": 30,
@@ -9,10 +9,11 @@
  "follow": 24,
  "list": {
   "tieu-hoa": {"desc": "Hệ Hỏa. Bắn cầu lửa. Cứ 9 giây nổ lửa quanh mình.", "mult": 0.6, "cd": 1.1, "range": 95, "color": "#ff7a3a", "skill": {"type": "aoe", "radius": 34, "dmg": 2, "cd": 9}, "join": "Đi thôi! Tớ đốt cháy hết cho cậu xem!"},
-  "lac-tuyet": {"desc": "Hệ Thủy. Phóng kiếm băng. Cứ 11 giây hồi 10% máu cho bạn.", "mult": 0.5, "cd": 1.2, "range": 100, "color": "#7ad0ff", "skill": {"type": "heal", "amount": 0.1, "cd": 11}, "join": "Được. Đừng để ta phải cứu đệ quá nhiều lần."},
+  "lac-tuyet": {"desc": "Hệ Thủy. Phóng kiếm băng. Cứ 11 giây hồi 10% máu cho bạn.", "mult": 0.5, "cd": 1.2, "range": 100, "color": "#7ad0ff", "skill": {"type": "heal", "amount": 0.1, "cd": 11}, "join": "Được. Đừng để ta phải cứu đệ quá nhiều lần.", "unless": "het-chuong-5"},
   "mac-anh": {"desc": "Ma tộc. Lao vào chém. Cứ 8 giây trói bóng làm chậm quái quanh mình.", "mult": 0.75, "cd": 0.9, "range": 80, "melee": true, "color": "#b08ad0", "skill": {"type": "slow", "radius": 38, "dur": 3, "cd": 8}, "join": "Ta theo. Có cá nướng là được."},
   "ho-linh": {"desc": "Hồ ly tu tiên. Phóng hồ hỏa. Cứ 12 giây thổi khí tiên, tăng 20% công cho bạn 5 giây.", "mult": 0.55, "cd": 1.15, "range": 95, "color": "#ffc2d6", "skill": {"type": "buff", "amount": 0.2, "dur": 5, "cd": 12}, "join": "Đi chơi à? Đợi ta chải lông đã... đùa thôi, đi nào!"},
   "thanh-diep": {"desc": "Mộc linh căn thuần. Bắn hạt gai. Cứ 9 giây gọi rễ trói quái quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "color": "#5fd07a", "skill": {"type": "slow", "radius": 46, "dur": 3.5, "cd": 9}, "join": "Ta đi cùng. Cây mẹ bảo ta ra ngoài nhìn thế giới.", "need": "cuu-thanh-diep"},
-  "thiet-lan": {"desc": "Kim linh căn thuần. Lao vào chém. Cứ 9 giây phóng kiếm khí quanh mình.", "mult": 0.8, "cd": 0.85, "range": 80, "melee": true, "color": "#ffd24a", "skill": {"type": "aoe", "radius": 40, "dmg": 2.4, "cd": 9}, "join": "Đi thôi. Có gì cần chém, cứ để ta.", "need": "cuu-thiet-lan"}
+  "thiet-lan": {"desc": "Kim linh căn thuần. Lao vào chém. Cứ 9 giây phóng kiếm khí quanh mình.", "mult": 0.8, "cd": 0.85, "range": 80, "melee": true, "color": "#ffd24a", "skill": {"type": "aoe", "radius": 40, "dmg": 2.4, "cd": 9}, "join": "Đi thôi. Có gì cần chém, cứ để ta.", "need": "cuu-thiet-lan"},
+  "thach-sinh": {"desc": "Thổ linh căn thuần. Lao vào đấm. Cứ 10 giây dựng tường đá, tăng 25% công cho bạn 5 giây.", "mult": 0.75, "cd": 1.0, "range": 75, "melee": true, "color": "#c8a070", "skill": {"type": "buff", "amount": 0.25, "dur": 5, "cd": 10}, "join": "...Đi.", "need": "het-chuong-5"}
  }
 }

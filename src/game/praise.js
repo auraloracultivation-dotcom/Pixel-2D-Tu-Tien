@@ -1,12 +1,12 @@
 // Đạo lữ khen (data/praise.json): đột phá, hạ boss, được đồ hiếm, lên hạng... thì đạo lữ (hoặc bạn đồng hành thân) nói vài câu.
-import { daoLu, affinity } from './affinity.js';
+import { daoLuHere, affinity } from './affinity.js';
 
 const C = game => game.data.praise;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
 // Ai khen: đạo lữ; chưa có thì bạn đồng hành đang đi cùng đủ thân
 function speaker(game) {
-  const d = daoLu(game);
+  const d = daoLuHere(game);
   if (d) return { id: d, close: true };
   const c = game.comp?.id;
   return c && affinity(game, c) >= C(game).min_aff ? { id: c, close: false } : null;

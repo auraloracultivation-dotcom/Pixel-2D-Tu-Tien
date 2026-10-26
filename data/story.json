@@ -557,6 +557,75 @@
     {"say": [["van-hac", "Thiết Lan an toàn. Tốt. Lão Thiết sẽ ngủ được rồi."], ["van-hac", "Nhưng lời Ma Tướng làm ta lo. Đảo Thổ ở dưới đáy biển mây, đã ba tháng không có thuyền nào về."], ["lac-tuyet", "Sư phụ, để con đi dò đường. Con đi một mình, ẩn khí tức, không đánh, chỉ xem."], ["van-hac", "...Con biết ta sẽ nói không."], ["lac-tuyet", "Con biết. Nhưng sư đệ chưa tới Hợp Thể, chưa xuống được tầng đó. Ngoài con ra còn ai?"], ["van-hac", "Ba ngày. Quá ba ngày không có tin, ta tự xuống tìm."], ["lac-tuyet", "Sư đệ, tu cho nhanh. Ta đợi ngươi ở Đảo Thổ."], ["", "Nhận Canh Kim Kiếm Quyết, Kim Cang Giới phẩm Địa, 14 Tẩy Luyện Thạch, 20 Tinh Thiết, 2 Khóa Linh Thạch."], ["", "Thiết Lan ở lại làng rèn Đảo Thiên Kim. Tới đó có thể mời nàng đi cùng."], ["", "Hết Chương 5 phần đầu. Tu lên Hợp Thể để tới Đảo Thổ."]]}
    ],
    "goal": "Tu lên Hợp Thể để tới Đảo Thổ",
+   "until": {"realm": 6}
+  },
+  {
+   "id": "goi-chuong-5b", "map": "thien-kiem-phong", "once": true,
+   "do": [
+    {"say": [["", "Hợp Thể. Thân và đạo hòa làm một. Bạn nghe được tiếng đất thở ở tận đáy biển mây."], ["", "Cùng lúc đó, một tiếng vỡ rất khẽ vang lên trong đại điện."], ["van-hac", "...Ngọc bài hồn của Lạc Tuyết. Vỡ rồi."], ["van-hac", "Con bé chưa chết. Ngọc bài vỡ là khi chủ của nó bị phong ấn. Nhưng nếu muộn thêm..."], ["van-hac", "Ta đã hứa quá ba ngày sẽ tự xuống. Nhưng đại trận hộ sơn không thể thiếu ta lúc này. Ma Tôn đang chờ đúng điều đó."], ["van-hac", "Con đi đi. Tầng Mây Đáy, Đảo Hậu Thổ. Đem con bé về."]]},
+    {"flag": "dao-tho"},
+    {"fly": "dao-hau-tho", "spawn": "vao", "kind": "flight", "text": "Lao xuống tầng Mây Đáy"},
+    {"say": [["", "Ruộng bậc thang khô nứt. Nhà đất đóng cửa im lìm. Những hình nhân bằng đất đi lại chậm chạp giữa đồng."], ["", "Trong một ngôi nhà, có ánh lửa nhỏ."]]}
+   ],
+   "goal": "Tìm người còn ở lại làng", "target": [8, 12], "target_map": "dao-hau-tho",
+   "until": {"talk": "thach-ba"}
+  },
+  {
+   "id": "thach-ba", "map": "dao-hau-tho", "once": true,
+   "do": [
+    {"say": [["thach-ba", "Người trên mây xuống à? Vào đây, vào đây, đừng để bọn đất kia thấy."], ["thach-ba", "Ba tháng trước ma tộc tới. Chúng nặn đất thành người, bắt hết trai tráng xuống Địa Cung đào một thứ gì đó."], ["thach-ba", "Thằng cháu bà, Thạch Sinh, cũng bị bắt. Nó mang linh căn Thổ thuần. Bà biết chúng tới vì nó."], ["thach-ba", "Hôm qua có một cô gái áo trắng, kiếm băng. Cô ấy đánh một mình với cả trăm thổ khôi, rồi bị kéo xuống đất."], ["thach-ba", "Muốn xuống Địa Cung thì phải qua đền đổ. Bọn đất đứng chắn đầy đường."]]}
+   ],
+   "goal": "Dẹp thổ khôi chắn đường ({n}/8)", "target": [19, 12],
+   "until": {"kill": "tho-khoi", "n": 8}
+  },
+  {
+   "id": "bang-hoa", "map": "dao-hau-tho",
+   "do": [
+    {"say": [["", "Thổ khôi cuối cùng vỡ thành một đống bùn. Gió thổi qua, mang theo hơi lạnh."], ["", "Trên nền đền đổ có vài bông hoa băng chưa tan. Giữa nắng đất thế này, chỉ có một người làm được."], ["", "Sư tỷ để lại dấu. Đi theo băng hoa."]]},
+    {"pickups": "bang-hoa", "at": [[33, 6], [40, 10], [35, 20]]}
+   ],
+   "goal": "Lần theo băng hoa Lạc Tuyết để lại ({n}/3)",
+   "until": {"collect": "bang-hoa", "n": 3}
+  },
+  {
+   "id": "mo-dia-cung", "map": "dao-hau-tho", "once": true,
+   "do": [
+    {"say": [["", "Bông băng hoa cuối cùng nằm ngay trước cột đá giữa đền. Trên cột có vết kiếm, xếp thành chữ."], ["", "\"Ở dưới. Đừng tới một mình.\""], ["", "...Sư tỷ thì vẫn vậy. Bạn đặt tay lên cột đá. Mặt đất tách ra, lộ cầu thang đá đi xuống."]]},
+    {"flag": "mo-dia-cung"}
+   ],
+   "goal": "Xuống Địa Cung (cổng phía đông đền đổ)", "target": [43, 13], "target_map": "dao-hau-tho",
+   "until": {"map": "dia-cung"}
+  },
+  {
+   "id": "dia-cung", "map": "dia-cung",
+   "do": [
+    {"say": [["", "Địa Cung rộng như một thành phố chôn vùi. Tiếng cuốc đá vọng lại từ mọi phía."], ["", "Trên vách có những vết băng còn mới. Sư tỷ đã đánh tới đây."]]}
+   ],
+   "goal": "Phá Địa Cung, hạ Toái Sơn Ma Tướng",
+   "until": {"boss_dead": true}
+  },
+  {
+   "id": "het-chuong-5", "map": "dia-cung", "once": true,
+   "do": [
+    {"say": [["toai-son-ma-tuong", "Khà khà... Muộn rồi, kiếm tông. Cái ta đào... đã đào xong."], ["toai-son-ma-tuong", "Không phải kho báu. Là một cái cửa."], ["", "Ma Tướng sụp xuống thành đá vụn. Phía sau hắn, giữa vách đất, có một vết nứt đen dài, lặng lẽ thở ra khói tím."]]},
+    {"shake": 6},
+    {"flash": true},
+    {"npc_add": "anh-ma-ton", "near_player": true},
+    {"say": [["anh-ma-ton", "Ta đã nói lần sau gặp sẽ không còn là bóng nữa. Ta nói dối. Vẫn là bóng. Nhưng lần này ta có quà."], ["", "Sau lưng cái bóng là một khối pha lê đen. Bên trong, Lạc Tuyết nhắm mắt, tay vẫn nắm chặt kiếm."], ["anh-ma-ton", "Bốn linh căn kia ta không cần nữa. Thủy thuần là đủ mở Vết Nứt."], ["anh-ma-ton", "Còn ngươi, linh căn {element} thuần... ta để dành cho cuối cùng. Lớn thêm chút nữa đi."], ["", "Cái bóng và khối pha lê chìm vào vết nứt. Vết nứt khép lại, chỉ còn một đường mảnh như sợi tóc."]]},
+    {"npc_remove": "anh-ma-ton"},
+    {"npc_add": "thach-sinh", "near_player": true},
+    {"say": [["thach-sinh", "...Ngươi. Người của cô ấy."], ["thach-sinh", "Cô ấy che cho bọn ta chạy. Cô ấy bị bắt vì bọn ta."], ["thach-sinh", "Ta nợ cô ấy. Ngươi đi cứu cô ấy, ta đi theo."]]},
+    {"npc_remove": "thach-sinh"},
+    {"flag": "het-chuong-5"},
+    {"fly": "dao-hau-tho", "spawn": "vao", "kind": "portal", "text": "Trở lên mặt đất"},
+    {"say": [["thach-ba", "Thạch Sinh! Con về rồi! Trai làng về hết rồi!"], ["thach-ba", "Người trên mây... bà không biết lấy gì trả ơn. Đây là Hậu Thổ Quyết của tổ tiên. Đất sẽ đỡ lấy ngươi."]]},
+    {"technique": "hau-tho-quyet"},
+    {"reward": {"base": "hau-tho-giap", "rarity": "dia", "stones": 16}},
+    {"mats": {"khoa-linh-thach": 3, "yeu-vuong-dan": 1}},
+    {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Về Thiên Kiếm Phong"},
+    {"say": [["van-hac", "...Vết Nứt. Vậy là thật. Ma Tôn muốn mở cửa giữa giới của hắn và Linh Giới."], ["van-hac", "Lạc Tuyết còn sống. Pha lê đen giữ hồn, không giết người. Hắn cần con bé sống để mở cửa."], ["van-hac", "Con phải tới Đại Thừa mới chịu nổi gió bên trong Vết Nứt. Tu đi. Ta sẽ tìm đường vào."], ["", "Nhận Hậu Thổ Bất Động Quyết, Hậu Thổ Giáp phẩm Địa, 16 Tẩy Luyện Thạch, 3 Khóa Linh Thạch, 1 Yêu Vương Đan."], ["", "Thạch Sinh ở lại Đảo Hậu Thổ. Tới đó có thể mời cậu đi cùng."], ["", "Hết Chương 5. Lạc Tuyết bị đưa vào Vết Nứt. Tu lên Đại Thừa để mở Chương 6."]]}
+   ],
+   "goal": "Tu lên Đại Thừa để mở Chương 6",
    "until": {"never": true}
   }
  ]

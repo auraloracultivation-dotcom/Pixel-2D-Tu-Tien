@@ -48,6 +48,13 @@
   "N": {"name": "nhà rèn", "solid": true, "color": "#e0c070"},
   "b": {"name": "kim thạch", "solid": true, "color": "#e0c070"},
   "C": {"name": "vách đồng", "solid": true, "color": "#2a2418"},
-  "u": {"name": "nền kiếm trủng", "color": "#3a3226"}
+  "u": {"name": "nền kiếm trủng", "color": "#3a3226"},
+  "t": {"name": "đất hậu thổ", "color": "#b07a4a"},
+  "o": {"name": "đường đá lát", "color": "#c8b49a"},
+  "y": {"name": "ruộng bậc thang", "color": "#8a9a4a"},
+  "I": {"name": "cột đá", "solid": true, "color": "#b07a4a"},
+  "z": {"name": "nhà đất", "solid": true, "color": "#b07a4a"},
+  "E": {"name": "vách núi", "solid": true, "color": "#3a2618"},
+  "v": {"name": "nền địa cung", "color": "#4a3424"}
  }
 }

@@ -30,6 +30,16 @@
    "offer": ["Ma Tướng chết rồi, nhưng vài kiếm hồn vẫn chưa tỉnh. Chúng bay lạc ngoài bãi mộ.", "Hạ chúng xuống nhẹ tay thôi. Ta sẽ chôn lại từng thanh."],
    "goal": "Hạ kiếm hồn còn lạc ở bãi mộ ({n}/12)",
    "done": ["Bãi mộ yên rồi. Sáu mươi năm, chưa bao giờ ta thấy nó yên như đêm nay.", "Nhận lấy. Kiếm tu đã khuất cũng muốn cảm ơn ngươi."],
-   "reward": {"mats": {"tinh-thiet": 30, "khoa-linh-thach": 1}, "gem": 1, "contrib": 60}}
+   "reward": {"mats": {"tinh-thiet": 30, "khoa-linh-thach": 1}, "gem": 1, "contrib": 60}},
+  "linh-nhuong": {"npc": "thach-ba", "need": "dao-tho", "name": "Đất cho ruộng khoai", "kind": "collect", "item": "linh-nhuong", "map": "dao-hau-tho", "at": [[20, 3], [27, 24], [12, 6]], "n": 3,
+   "offer": ["Ruộng bậc thang khô cằn hết rồi. Ma tộc hút linh khí trong đất.", "Còn ba chỗ đất tốt quanh đảo. Ngươi đem về giúp bà, mùa sau có khoai ăn."],
+   "goal": "Lấy linh nhưỡng quanh đảo ({n}/3)",
+   "done": ["Đất này thơm lắm. Khoai mọc nhanh thôi.", "Bà không có gì quý. Cái này của ông nhà để lại, ngươi cầm lấy."],
+   "reward": {"stones": 12, "qi": 5400, "item": "dia"}},
+  "thach-doi-hang": {"npc": "a-nham", "need": "het-chuong-5", "name": "Đuổi dơi khỏi hang", "kind": "kill", "mob": "thach-doi", "n": 12,
+   "offer": ["Thạch dơi làm tổ trong hang nhà ta. Đêm nào cũng kêu.", "Đuổi giúp ta mười hai con. Ta muốn ngủ một giấc cho ngon."],
+   "goal": "Hạ thạch dơi ở đền đổ ({n}/12)",
+   "done": ["Yên rồi! Đêm nay ta ngủ được rồi.", "Đây, ta đào được trong hang. Ta không biết dùng, ngươi chắc biết."],
+   "reward": {"mats": {"tinh-thiet": 30, "yeu-huyet": 20, "khoa-linh-thach": 1}, "gem": 1, "contrib": 70}}
  }
 }
