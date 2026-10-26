@@ -26,6 +26,8 @@ import { pilotDialog, stopPilot } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
 import { updateGarden } from './garden.js';
 import { updateDayNight } from './daynight.js';
+import { updateFishing } from './fishing.js';
+import { updateView, viewPan, standUp } from './scenic.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
 import { ensureStats, countKill, checkAchv } from './achieve.js';
@@ -152,6 +154,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
+    standUp(game); game.fish = null;
     game.save.map = id; game.save.spawn = spawnName || 'vao';
     (game.save.visited ??= {})[id] = true;
     game.portalLock = 0.8;
@@ -305,6 +308,8 @@ export function createGame(data, screen, input, ui, audio) {
     updatePraise(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
+    updateFishing(game, dt);
+    updateView(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateRes(game, dt);
     updateWorldBoss(game, dt);
@@ -314,7 +319,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.story.update();
     if (game.player.hp <= 0) respawn();
     if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
-    screen.follow(game.player.x, game.player.y - 4, dt, game.map);
+    screen.follow(game.player.x, game.player.y - 4 + viewPan(game), dt, game.map);
   };
 
   return game;

@@ -82,6 +82,8 @@ export function updateFollower(game, f, mul, follow, dt) {
   const tgt = nearestMob(game, p, def.range);
   // Đi theo chủ, hoặc lao tới quái nếu đánh gần
   let gx = p.x - (p.face.x || 0) * follow, gy = p.y - (p.face.y || 0) * follow + 2;
+  f.sleep = p.meditating && !tgt;   // chủ đả tọa: cuộn tròn ngủ cạnh bồ đoàn
+  if (f.sleep) { gx = p.x + (follow > 0 ? 11 : -11); gy = p.y + 3; }
   if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - f.x) * (tgt.r + 4); gy = tgt.y; }
   const dx = gx - f.x, dy = gy - f.y, d = Math.hypot(dx, dy);
   if (d > 160) { f.x = gx; f.y = gy; }

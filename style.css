@@ -142,3 +142,7 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 #bag > * { flex-shrink: 0; }
 #bag #bag-list { flex: none; overflow: visible; }
 #bag #bag-detail { max-height: none; overflow: visible; }
+
+/* Ngắm cảnh: ẩn nút, chỉ còn cảnh */
+body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none; transition: opacity 1.2s; }
+#hud, #buttons { transition: opacity .4s; }

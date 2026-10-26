@@ -10,7 +10,8 @@
   {"id": "hoi-xuan-dan", "kind": "pill", "n": 1, "pts": 4},
   {"id": "boi-nguyen-dan", "kind": "pill", "n": 1, "pts": 10},
   {"id": "linh-thach", "kind": "coins", "n": 300, "pts": 5},
-  {"id": "ngoc-lo-hoa", "kind": "mat", "n": 1, "pts": 7}
+  {"id": "ngoc-lo-hoa", "kind": "mat", "n": 1, "pts": 7},
+  {"id": "kim-ly", "kind": "mat", "n": 1, "pts": 10}
  ],
  "likes": {"tieu-hoa": "hoa-linh-chi", "lac-tuyet": "boi-nguyen-dan", "mac-anh": "hoi-xuan-dan", "thanh-diep": "linh-thao", "ho-linh": "linh-thach"},
  "tiers": [

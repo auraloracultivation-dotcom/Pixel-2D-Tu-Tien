@@ -1,0 +1,13 @@
+{
+ "_note": "Góc ngắm cảnh: phiến đá ở mép đảo. Ngồi xuống thì ẩn nút, máy quay lùi ra (zoom) và nhìn xuống biển mây, hiện một câu thơ, linh khí vào chậm (qi_mul lần đả tọa thường). Chạm màn hình để đứng dậy.",
+ "zoom": 0.6,
+ "pan": 40,
+ "qi_mul": 0.6,
+ "spots": [
+  {"map": "thanh-khe", "at": [14, 20], "name": "Đá Ngắm Suối", "line": "Suối chảy về đâu, mây trôi về đâu. Ngồi đây thì chẳng cần biết."},
+  {"map": "thien-kiem-phong", "at": [16, 22], "name": "Vọng Vân Thạch", "line": "Biển mây dưới chân, trời cao trên đầu. Kiếm để bên, lòng để yên."},
+  {"map": "dao-xich-dien", "at": [14, 22], "name": "Đá Ngắm Hoàng Hôn", "line": "Lửa núi đỏ rực, mây chiều đỏ theo. Có những lúc nóng cũng đẹp."},
+  {"map": "dao-han-bang", "at": [18, 22], "name": "Đá Nghe Tuyết", "line": "Tuyết rơi không tiếng. Nghe kỹ thì nghe được cả lòng mình."},
+  {"map": "hac-phong-dao", "at": [18, 22], "name": "Đá Đón Gió", "line": "Gió đen thổi mãi rồi cũng có lúc dừng. Người cũng vậy."}
+ ]
+}

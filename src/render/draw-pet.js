@@ -15,6 +15,7 @@ export function drawPet(ctx, pet, t) {
 }
 
 function drawBody(ctx, pet, t) {
+  if (pet.sleep && !pet.moving) { drawSleep(ctx, pet, t); return; }
   const hop = pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : Math.sin(t * 3) * 0.5, y = pet.y - hop;
   ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = INK; circle(ctx, pet.x, y - 4, 4.6);
@@ -23,6 +24,18 @@ function drawBody(ctx, pet, t) {
   ctx.fillRect(pet.x - 3.5, y - 9.5, 2, 3); ctx.fillRect(pet.x + 1.5, y - 9.5, 2, 3);
   ctx.fillStyle = INK; const f = pet.face * 1.2;
   ctx.fillRect(pet.x - 1.8 + f, y - 5, 1, 1.4); ctx.fillRect(pet.x + 0.8 + f, y - 5, 1, 1.4);
+}
+
+// Ngủ: thân dẹt, mắt nhắm, chữ z bay lên
+function drawSleep(ctx, pet, t) {
+  const br = Math.sin(t * 2) * 0.4;
+  ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 5, 2, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = INK; ctx.beginPath(); ctx.ellipse(pet.x, pet.y - 2.5, 5.6 + br, 3.6 + br, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = pet.def.color; ctx.beginPath(); ctx.ellipse(pet.x, pet.y - 2.5, 4.8 + br, 2.8 + br, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = INK; ctx.fillRect(pet.x - 2.5, pet.y - 3, 1.6, 0.8); ctx.fillRect(pet.x + 1, pet.y - 3, 1.6, 0.8);
+  const k = (t * 0.6) % 1;
+  ctx.globalAlpha = 1 - k; ctx.fillStyle = '#e8f0ff'; ctx.font = 'bold 5px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('z', pet.x + 4 + k * 4, pet.y - 7 - k * 8); ctx.globalAlpha = 1;
 }
 
 // Thú cưỡi: thân dài, bốn chân bước, đầu theo hướng mặt

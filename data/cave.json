@@ -8,6 +8,11 @@
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "color": "#ff9a3a", "desc": "Nấm mọc cạnh dung nham. Rơi từ quái Đảo Xích Diễm và Hỏa Quật."},
   "tinh-thiet": {"name": "Tinh Thiết", "color": "#b8c4d8", "desc": "Sắt đã luyện. Có được khi phân giải đồ."},
   "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "color": "#b8d8ff", "desc": "Hoa đọng sương ngọc, chỉ nở ở dược viên. Món quà ai cũng thích."},
+  "linh-ngu": {"name": "Linh Ngư", "color": "#9ad8f0", "desc": "Cá nhỏ sống trong biển mây. Nấu Linh Ngư Thang."},
+  "van-ngu": {"name": "Vân Ngư", "color": "#e8f0ff", "desc": "Cá trắng như mây, thịt ngọt. Nấu Vân Ngư Thang."},
+  "hoa-ly": {"name": "Hỏa Lý", "color": "#ff7a3a", "desc": "Cá chép đỏ ở mây quanh Đảo Xích Diễm, ấm tay."},
+  "bang-ngu": {"name": "Băng Ngư", "color": "#bfe8ff", "desc": "Cá trong suốt ở mây quanh Đảo Hàn Băng."},
+  "kim-ly": {"name": "Kim Lý", "color": "#ffd24a", "desc": "Cá chép vàng hiếm, nghe nói mang may mắn. Món quà quý."},
   "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
  },
  "mat_drops": {
@@ -61,6 +66,8 @@
   "tu-khi-dan": {"name": "Tụ Khí Đan", "color": "#bff4ff", "desc": "Nhận ngay linh khí bằng 20% tầng hiện tại.", "use": {"qi": 0.2}, "recipe": {"linh-thao": 3, "yeu-huyet": 1}, "make": 1},
   "boi-nguyen-dan": {"name": "Bồi Nguyên Đan", "color": "#f2c94c", "desc": "Vĩnh viễn +6 máu tối đa. Mỗi người dùng tối đa 10 viên.", "use": {"hp": 6, "cap": 10}, "recipe": {"linh-thao": 4, "yeu-huyet": 2, "hoa-linh-chi": 1}, "make": 1, "rate": 0.7},
   "thanh-tam-dan": {"name": "Thanh Tâm Đan", "color": "#c8b8ff", "desc": "Lần độ kiếp tới, sét đánh nhẹ đi 30%.", "use": {"trib": 0.3}, "recipe": {"linh-thao": 3, "hoa-linh-chi": 2}, "make": 1, "rate": 0.75},
+  "linh-ngu-thang": {"name": "Linh Ngư Thang", "color": "#9ad8f0", "desc": "Canh cá ấm bụng. Nhận ngay linh khí bằng 12% tầng hiện tại.", "use": {"qi": 0.12}, "recipe": {"linh-ngu": 2, "linh-thao": 1}, "make": 2, "rate": 0.95},
+  "van-ngu-thang": {"name": "Vân Ngư Thang", "color": "#e8f0ff", "desc": "Canh cá mây, thanh và ngọt. Nhận ngay linh khí bằng 25% tầng hiện tại.", "use": {"qi": 0.25}, "recipe": {"van-ngu": 2, "hoa-ly": 1, "bang-ngu": 1}, "make": 2, "rate": 0.9},
   "tay-tuy-dan": {"name": "Tẩy Tủy Đan", "color": "#ff5ad8", "desc": "Nâng phẩm linh căn lên một bậc (tới Thiên). Cần Yêu Vương Đan rơi từ boss.", "use": {"root": 1}, "recipe": {"yeu-vuong-dan": 1, "linh-thao": 6, "hoa-linh-chi": 3}, "make": 1, "rate": 0.5}
  },
  "forge": [

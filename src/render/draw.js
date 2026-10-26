@@ -9,6 +9,7 @@ import { hasSide } from '../game/side.js';
 import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
+import { drawFishing, drawScenic } from './draw-fish.js';
 
 const INK = '#1b1830';
 
@@ -195,6 +196,7 @@ export function drawWorld(game, screen, t) {
   drawSky(ctx, screen, game.map, t);
   screen.worldTransform();
   drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game);
+  drawScenic(ctx, game);
   for (const k of game.pickups) {
     const q = game.data.items.quest_items[k.item] || {};
     ctx.fillStyle = q.base || '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
@@ -227,6 +229,7 @@ export function drawWorld(game, screen, t) {
   drawBullets(ctx, game);
   drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
+  drawFishing(ctx, game, t);
   for (const n of game.numbers) {
     ctx.globalAlpha = Math.min(1, (0.75 - n.t) * 4);
     ctx.font = `bold ${n.big ? 11 : 8}px system-ui`; ctx.textAlign = 'center';
