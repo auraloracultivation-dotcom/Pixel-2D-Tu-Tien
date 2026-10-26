@@ -65,6 +65,8 @@
   "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
   "default": ["Cho ngươi."]
  },
+ "welcome": {"_note": "Về động phủ mà đạo lữ đang ở nhà thì đạo lữ chào một câu (cách nhau ít nhất gap phút).", "gap": 20,
+  "lines": {"lac-tuyet": ["Về rồi à. ...Ngồi xuống nghỉ đi.", "Đệ về muộn đấy.", "Ta pha trà rồi.", "Không bị thương chứ?"], "ho-linh": ["Về rồi! Ta đợi mãi!", "Hôm nay có mang gì về cho ta không?", "Ngồi đây, ta xoa vai cho!", "Ta nhớ ngươi đó."], "default": ["Về rồi à."]}},
  "tea": {"_note": "Uống trà với đạo lữ ở nhà, mỗi ngày một lần: min phút sau đó đả tọa ở đâu cũng nhân mul.", "min": 20, "mul": 1.2, "label": "Uống trà", "desc": "Đả tọa nhanh hơn 20% trong 20 phút", "toast": "Trà ấm lòng. Đả tọa nhanh hơn 20% trong 20 phút.",
   "lines": {"lac-tuyet": ["Trà Tuyết Sơn. Uống chậm thôi.", "...Ngồi xuống đi. Trà nguội mất.", "Hôm nay đệ đi đâu? Kể ta nghe."], "ho-linh": ["Trà hoa đào ta tự hái đó! Ngon không?", "Uống xong rồi kể chuyện cho ta nghe nha.", "Thổi cho nguội đã, nóng lắm!"], "default": ["Mời trà."]}},
  "decor": {
