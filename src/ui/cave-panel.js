@@ -1,6 +1,7 @@
-// Bảng động phủ: tab Lò đan (luyện và dùng đan) và tab Lò rèn (chọn ô, rèn đồ mới). Mở khi đứng cạnh lò.
+// Bảng động phủ: tab Lò đan (luyện và dùng đan), Lò rèn (chọn ô, rèn đồ mới), Động phủ (nâng cấp). Mở khi đứng cạnh lò.
 import { brew, brewRate, usePill, forge, costText, canPay, matInfo } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
+import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 
 const $ = id => document.getElementById(id);
 
@@ -25,6 +26,7 @@ export function createCavePanel(game) {
     const top = $('cave-slots'), list = $('cave-list');
     top.innerHTML = ''; list.innerHTML = '';
     top.hidden = tab !== 'ren';
+    if (tab === 'phu') { renderCave(list); return; }
     if (tab === 'dan') {
       for (const [id, p] of Object.entries(data.cave.pills)) {
         const c = el('div', 'skill-card');
@@ -63,6 +65,22 @@ export function createCavePanel(game) {
       }, !canPay(game, r.cost)));
       c.append(row); list.append(c);
     }
+  }
+
+  // Nâng cấp động phủ: cấp hiện tại và cấp tới
+  function renderCave(list) {
+    const L = data.cave.levels, cur = caveLevel(game), n = caveNext(game);
+    const info = l => [`Đả tọa x${l.meditate_mul}`, `Linh thảo chín sau ${l.grow_min} phút, mỗi luống ${l.yield}`, l.brew_bonus ? `Luyện đan +${Math.round(l.brew_bonus * 100)}%` : ''].filter(Boolean);
+    const c = el('div', 'skill-card'); c.style.borderLeftColor = '#5fd07a';
+    c.append(el('b', null, `${cur.name} · cấp ${caveLv(game.save) + 1}/${L.length}`), ...info(cur).map(t => el('small', null, t)));
+    list.append(c);
+    if (!n) { list.append(el('p', 'muted', 'Động phủ đã tới cấp cao nhất.')); return; }
+    const d = el('div', 'skill-card'); d.style.borderLeftColor = n.ok ? '#ffb03a' : '#c8c4d0';
+    d.append(el('b', null, `Lên ${n.name}`), ...info(n).map(t => el('small', null, t)),
+      el('small', null, `Cần: ${costText(data, n.cost)}, ${n.coins} ${data.shop.name}, cảnh giới ${game.data.realms.names[n.realm]}`));
+    const row = el('div', 'card-acts');
+    row.append(mini('Nâng cấp', () => { if (upgradeCave(game)) last = `Động phủ thành ${caveLevel(game).name}!`; render(); }, !n.ok));
+    d.append(row); list.append(d);
   }
 
   function open(t) {

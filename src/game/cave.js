@@ -2,6 +2,7 @@
 import { rollItem, addItem } from './items.js';
 import { totalLayer, qiNeed, weaponId } from './stats.js';
 import { dailyEvent } from './daily.js';
+import { caveLevel } from './evolve.js';
 
 export function ensureCave(save) { save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {}; }
 
@@ -32,7 +33,7 @@ export function salvageIron(game, rarity) {
 // Tỉ lệ luyện thành: theo đan, cộng thêm nếu linh căn hợp (Hỏa)
 export function brewRate(game, id) {
   const b = game.data.cave.brew, pill = game.data.cave.pills[id];
-  return Math.min(1, (pill.rate ?? b.default) + (b.element_bonus[game.save.element] || 0));
+  return Math.min(1, (pill.rate ?? b.default) + (b.element_bonus[game.save.element] || 0) + caveLevel(game).brew_bonus);
 }
 
 // Trả về số viên luyện được, 'fail' nếu lò hỏng (mất nguyên liệu), false nếu không đủ nguyên liệu
@@ -110,7 +111,7 @@ export function forge(game, recipeId, slot) {
 const now = () => Date.now();
 export function plotKey(x, y) { return x + ',' + y; }
 export function plotGrowth(game, x, y) {
-  const g = game.save.garden, k = plotKey(x, y), ms = game.data.cave.garden.grow_min * 60000;
+  const g = game.save.garden, k = plotKey(x, y), ms = caveLevel(game).grow_min * 60000;
   if (!g[k]) g[k] = now();
   return Math.min(1, (now() - g[k]) / ms);
 }
@@ -120,7 +121,7 @@ export function harvest(game) {
   let n = 0;
   for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
     if (map.at(x, y) !== 'G' || plotGrowth(game, x, y) < 1) continue;
-    n += cfg.yield; save.garden[plotKey(x, y)] = now();
+    n += caveLevel(game).yield; save.garden[plotKey(x, y)] = now();
   }
   if (n) { addMat(save, cfg.herb, n); dailyEvent(game, 'harvest'); game.persist(); }
   return n;
@@ -132,7 +133,7 @@ export function nextRipe(game) {
   let best = Infinity;
   for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
     if (map.at(x, y) !== 'G') continue;
-    best = Math.min(best, (1 - plotGrowth(game, x, y)) * data.cave.garden.grow_min);
+    best = Math.min(best, (1 - plotGrowth(game, x, y)) * caveLevel(game).grow_min);
   }
   return Math.ceil(best);
 }

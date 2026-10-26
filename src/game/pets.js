@@ -1,6 +1,7 @@
 // Linh thú (data/pets.json): thu phục từ quái dị chủng, đi theo đánh cùng, lên cấp bằng linh khí.
 // Thú cưỡi: tự lên khi đi trên đảo lúc yên, đánh nhau thì xuống.
 import { hitMob, shoot, addFx, dist } from './combat.js';
+import { petDef, petMax } from './evolve.js';
 
 export function ensurePets(save) { save.pets ??= {}; save.mounts ??= {}; }
 
@@ -47,12 +48,12 @@ export function gainMount(game, id) {
 
 // Linh thú hưởng một nửa linh khí chủ thu được
 export function gainPetExp(game, amount, only) {
-  const s = game.save, id = only || s.pet, st = s.pets[id], max = P(game).max_level;
+  const s = game.save, id = only || s.pet, st = s.pets[id], max = petMax(game.data, s, id);
   if (!st || st.lv >= max) return;
   st.exp += only ? amount : amount * 0.5;
   while (st.lv < max && st.exp >= petNeed(game.data, st.lv)) {
     st.exp -= petNeed(game.data, st.lv); st.lv++;
-    game.toast(`${P(game).pets[id].name} lên cấp ${st.lv}!`, 1.6);
+    game.toast(`${petDef(game.data, s, id).name} lên cấp ${st.lv}!`, 1.6);
   }
 }
 
@@ -61,7 +62,7 @@ export function setMount(game, id) { game.save.mount = id; game.player.riding = 
 
 export function spawnPet(game) {
   const id = game.save.pet, p = game.player;
-  game.pet = id && p ? { id, def: P(game).pets[id], x: p.x - 10, y: p.y + 4, cd: 1, skillCd: 3, hop: 0, target: null, face: 1 } : null;
+  game.pet = id && p ? { id, def: petDef(game.data, game.save, id), x: p.x - 10, y: p.y + 4, cd: 1, skillCd: 3, hop: 0, target: null, face: 1 } : null;
 }
 
 function nearestMob(game, from, range) {

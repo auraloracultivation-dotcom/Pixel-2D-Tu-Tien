@@ -78,6 +78,8 @@ try {
   need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
   for (const [id, p] of Object.entries(cave.pills)) need((p.rate ?? cave.brew.default) > 0 && (p.rate ?? 0) <= 1, `cave.pills/${id}: tỉ lệ luyện sai`);
   need(matOk(items.reroll_lock.mat), 'items.reroll_lock: nguyên liệu không có');
+  for (const l of cave.levels.slice(1)) need(Object.keys(l.cost).every(matOk) && l.realm != null, `cave.levels/${l.name}: nguyên liệu hoặc cảnh giới sai`);
+  need(Object.values(read('pets.json').pets).every(p => p.evo) && Object.keys(read('pets.json').evolve.cost).every(matOk), 'pets.evolve: thiếu tên tiến hóa hoặc nguyên liệu sai');
   need(npcs[pets.npc] && pets.pets[pets.starter_pet] && pets.mounts[pets.starter_mount], 'pets: npc, starter_pet hoặc starter_mount không có');
   for (const [id, p] of Object.entries(pets.pets)) { need(mobs[id], `pets/${id}: quái "${id}" không có`); need(!p.mount || pets.mounts[p.mount[0]], `pets/${id}: thú cưỡi không có`); }
   for (const [id, [m]] of Object.entries(pets.mount_drops)) need(mobs[id] && pets.mounts[m], `pets.mount_drops/${id}: quái hoặc thú cưỡi không có`);

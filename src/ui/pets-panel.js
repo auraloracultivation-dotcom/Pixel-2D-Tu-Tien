@@ -1,5 +1,7 @@
 // Bảng Thú: tab Linh thú (con đang mang, cấp, kinh nghiệm, đổi con) và tab Thú cưỡi (chọn con để cưỡi).
 import { petNeed, setPet, setMount } from '../game/pets.js';
+import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
+import { costText } from '../game/cave.js';
 
 const $ = id => document.getElementById(id);
 
@@ -27,15 +29,26 @@ export function createPetsPanel(game) {
     const ids = Object.keys(s.pets);
     if (!ids.length) list.append(el('p', 'muted', 'Chưa có linh thú. Gặp Ngự Thú Sư ở Thiên Kiếm Phong, hoặc hạ quái dị chủng (có ánh vàng).'));
     for (const id of ids) {
-      const d = P.pets[id], st = s.pets[id], max = st.lv >= P.max_level;
-      list.append(card(d.color, `${d.name} · cấp ${st.lv}${s.pet === id ? ' · đang mang' : ''}`, [
+      const d = petDef(data, s, id), st = s.pets[id], max = st.lv >= petMax(data, s, id);
+      list.append(card(d.color, `${d.evo ? '★ ' : ''}${d.name} · cấp ${st.lv}${s.pet === id ? ' · đang mang' : ''}`, [
         d.desc,
         `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * 100)}% công của bạn`,
         max ? 'Đã tối đa.' : `Kinh nghiệm ${Math.floor(st.exp)}/${petNeed(data, st.lv)}`,
       ], s.pet === id, () => setPet(game, id)));
     }
+    // Tiến hóa: con nào đủ cấp thì hiện thẻ riêng
+    const E = P.evolve;
+    for (const id of ids.filter(i => canEvolve(game, i) && canEvolve(game, i) !== 'level')) {
+      const d = P.pets[id], ok = canEvolve(game, id) === 'ok';
+      const c = card(ok ? '#ffb03a' : '#c8c4d0', `Tiến hóa ${d.name} thành ${d.evo}`, [
+        `Sát thương x${E.mult}, chiêu hồi nhanh hơn, mở tới cấp ${E.max_level}.`,
+        `Cần: ${costText(data, E.cost)}, ${E.coins} ${data.shop.name}${ok ? '' : ' (chưa đủ)'}`,
+      ], false, () => evolvePet(game, id));
+      c.disabled = !ok; list.append(c);
+    }
     const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
     if (missing.length) list.append(el('p', 'muted', 'Chưa thu phục: ' + missing.join(', ') + '.'));
+    list.append(el('p', 'muted', `Linh thú cấp ${E.level} có thể tiến hóa.`));
   }
 
   function renderMounts(s, list) {

@@ -3,6 +3,7 @@ import { dist } from './combat.js';
 import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvest, nextRipe } from './cave.js';
+import { meditateMul } from './evolve.js';
 import { talkBeast } from './pets.js';
 import { talkTower } from './tower.js';
 import { talkShop } from './shop.js';
@@ -63,7 +64,7 @@ export function updateInteract(game) {
     game.openCave?.(st[1]);
   } else if (med) {
     p.meditating = !p.meditating;
-    if (p.meditating) game.toast(game.map.def.meditate_mul ? `Bồ đoàn động phủ: tu nhanh gấp ${game.map.def.meditate_mul}` : 'Đả tọa... linh khí chảy vào người', 1.4);
+    if (p.meditating) game.toast(meditateMul(game) > 1 ? `Bồ đoàn động phủ: tu nhanh gấp ${meditateMul(game)}` : 'Đả tọa... linh khí chảy vào người', 1.4);
   }
 }
 

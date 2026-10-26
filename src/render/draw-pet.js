@@ -3,6 +3,18 @@ const INK = '#1b1830';
 const circle = (ctx, x, y, r) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
 
 export function drawPet(ctx, pet, t) {
+  // linh thú tiến hóa: to hơn, có vầng sáng
+  if (pet.def.evo) {
+    ctx.save(); ctx.translate(pet.x, pet.y); ctx.scale(1.4, 1.4); ctx.translate(-pet.x, -pet.y);
+    ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 3); ctx.fillStyle = pet.def.color; circle(ctx, pet.x, pet.y - 4, 7); ctx.globalAlpha = 1;
+    drawBody(ctx, pet, t);
+    ctx.fillStyle = '#ffe27a'; ctx.fillRect(pet.x - 2, pet.y - 12 - (pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : 0), 4, 1.5);
+    ctx.restore(); return;
+  }
+  drawBody(ctx, pet, t);
+}
+
+function drawBody(ctx, pet, t) {
   const hop = pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : Math.sin(t * 3) * 0.5, y = pet.y - hop;
   ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = INK; circle(ctx, pet.x, y - 4, 4.6);
