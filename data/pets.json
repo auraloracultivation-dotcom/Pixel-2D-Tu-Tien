@@ -37,6 +37,7 @@
  "mount_drops": {
   "huyet-nha-that": ["hoa-ky-lan", 0.25]
  },
+ "pat": {"_note": "Vuốt ve linh thú đang đi theo: đứng gần (range) bấm nút. Mỗi ngày per_day lần đầu cho exp kinh nghiệm linh thú, sau đó chỉ còn tim bay.", "range": 22, "exp": 40, "per_day": 5, "lines": ["{name} dụi đầu vào tay ngươi, kêu khe khẽ.", "{name} lăn ra cho ngươi gãi bụng.", "{name} nheo mắt, trông rất hài lòng.", "{name} quẫy đuôi một vòng rồi nhảy lên vai ngươi."], "tired": "{name} đã được vuốt ve đủ rồi, nằm ngủ ngon lành."},
  "starter_pet": "moc-linh",
  "starter_mount": "bach-loc",
  "fly_realm": 3,

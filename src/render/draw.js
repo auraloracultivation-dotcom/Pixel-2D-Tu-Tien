@@ -156,6 +156,9 @@ function drawFx(ctx, game) {
       for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; circle(ctx, f.x + Math.cos(a) * 6 * k, f.y - 4 + Math.sin(a) * 6 * k, 1.3); }
     } else if (f.type === 'puff') {
       ctx.fillStyle = '#e6e1f0'; circle(ctx, f.x, f.y - 4, f.r * (0.5 + k));
+    } else if (f.type === 'heart') {   // tim nhỏ bay lên, lắc nhẹ
+      const x = Math.round(f.x + Math.sin(k * 9) * 2), y = Math.round(f.y - 14 - 16 * k);
+      ctx.fillStyle = f.color; ctx.fillRect(x - 2, y, 2, 2); ctx.fillRect(x + 1, y, 2, 2); ctx.fillRect(x - 2, y + 1, 5, 2); ctx.fillRect(x - 1, y + 3, 3, 1); ctx.fillRect(x, y + 4, 1, 1);
     } else if (f.type === 'line') {
       ctx.strokeStyle = f.color; ctx.lineWidth = 5 * (1 - k);
       ctx.beginPath(); ctx.moveTo(f.x, f.y - 5); ctx.lineTo(f.x2, f.y2 - 5); ctx.stroke();
