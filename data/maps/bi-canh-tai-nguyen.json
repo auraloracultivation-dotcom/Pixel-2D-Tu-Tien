@@ -1,0 +1,28 @@
+{
+ "id": "bi-canh-tai-nguyen",
+ "name": "Bí Cảnh Tài Nguyên",
+ "sky": "#1a1408",
+ "dark": 0.2,
+ "ground": "#4a3e28",
+ "indoor": true,
+ "no_trib": true,
+ "res": true,
+ "grid": [
+  "###############",
+  "#ccccccccccccc#",
+  "#ccRcccccccRcc#",
+  "#ccccccccccccc#",
+  "#ccccccccccccc#",
+  "#ccccccccccccc#",
+  "#ccccccccccccc#",
+  "#ccRcccccccRcc#",
+  "#ccccccccccccc#",
+  "#ccccccPcccccc#",
+  "###############"
+ ],
+ "spawns": {"vao": [7, 8]},
+ "portals": [{"at": [7, 9], "to": "thien-kiem-phong", "spawn": "tu-bi-canh-tn", "kind": "portal", "label": "Rời bí cảnh"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": []
+}

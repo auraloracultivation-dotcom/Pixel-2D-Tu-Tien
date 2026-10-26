@@ -21,6 +21,8 @@ import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
+import { coinDrop } from './shop.js';
+import { updateRes, resKill, resGoal } from './resrun.js';
 import { stamp, offlineGains } from './offline.js';
 import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
 import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
@@ -48,7 +50,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
-  game.goals = () => [game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
+  game.goals = () => [game.res && resGoal(game), game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -105,8 +107,9 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   game.onKill = m => {
-    if (m.tower) return; // quái trong tháp chỉ tính qua tầng
+    if (m.tower) { resKill(game, m); return; } // quái trong tháp, bí cảnh tài nguyên: chỉ tính ở đó
     dropLoot(game, m);
+    coinDrop(game, m);
     bountyKill(game, m);
     sideKill(game, m);
     techDrop(game, m);
@@ -282,6 +285,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateSpawners(dt);
     game.dungeon?.update();
     updateTower(game, dt);
+    updateRes(game, dt);
     updateInteract(game);
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;

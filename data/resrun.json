@@ -1,0 +1,15 @@
+{
+ "_note": "Bí cảnh tài nguyên hằng ngày: mỗi loại runs lượt/ngày. Vào đấu trường dur giây, quái tài nguyên mọc liên tục (tối đa alive con). Máu quái = công người chơi × hp, công quái = máu tối đa người chơi × atk. Mỗi con hạ được: linh-thach cho Linh Thạch = base × (1 + tổng tầng × per_layer); nguyen-lieu cho ngẫu nhiên một trong mats.",
+ "npc": "quan-bi-canh",
+ "map": "bi-canh-tai-nguyen",
+ "need": "mo-bi-canh",
+ "runs": 3,
+ "dur": 60,
+ "alive": 6,
+ "hp": 5,
+ "atk": 0.05,
+ "kinds": {
+  "linh-thach": {"name": "Bí cảnh Linh Thạch", "mob": "linh-thach-tinh", "desc": "Hạ Linh Thạch Tinh lấy Linh Thạch.", "base": 6, "per_layer": 0.12},
+  "nguyen-lieu": {"name": "Bí cảnh Nguyên Liệu", "mob": "linh-thao-tinh", "desc": "Hạ Linh Thảo Tinh lấy nguyên liệu luyện đan, rèn đồ.", "mats": ["linh-thao", "linh-thao", "yeu-huyet", "tinh-thiet", "hoa-linh-chi", "tay-luyen-thach"]}
+ }
+}

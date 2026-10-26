@@ -12,6 +12,8 @@
  "lao-ngu": {"name": "Lão Ngư (trưởng làng)", "color": "#5a7a9a", "hair": "#e8eef4", "lines": ["Biển mây đóng băng thì thuyền không ra được. Dân làng sống nhờ cá mây đấy.", "Tuyết lang trước kia hiền lắm. Từ khi Băng Quật có ma khí, chúng mới dữ lên."]},
  "mac-anh": {"name": "Mặc Ảnh", "color": "#4a3a5a", "hair": "#c8c0e0", "lines": ["Đừng nhìn ta như vậy. Không phải ma tộc nào cũng muốn đánh nhau.", "Ta nợ cậu bé tóc đỏ một bát canh cá. Cậu ấy chia cho ta khi bị xích."]},
  "trai-truong": {"name": "Trại Trưởng Tán Tu", "color": "#7a6a5a", "hair": "#3a3030", "lines": ["Gió đen thổi suốt ngày đêm. Ở lâu là ho ra máu.", "Trại này dựng ba lần, đổ ba lần rồi."]},
+ "van-bao": {"name": "Chưởng Quỹ Vạn Bảo Lâu", "color": "#c9a46a", "hair": "#3a2a1a", "lines": ["Có Linh Thạch là có tất cả. Mua gì cứ nói."]},
+ "quan-bi-canh": {"name": "Quản Bí Cảnh", "color": "#6a8ab0", "hair": "#e8e0c8", "lines": ["Bí cảnh tài nguyên mỗi ngày mở ba lượt mỗi loại. Đừng tham."]},
  "thu-thap": {"name": "Thủ Tháp Lão Nhân", "color": "#6a5a8a", "hair": "#d8d0e8", "lines": ["Tháp này do tổ sư dựng để đệ tử thử sức. Tầng càng cao, ma ảnh càng mạnh."]},
  "quan-binh-kho": {"name": "Quản Binh Khố", "color": "#8a8aa0", "hair": "#2a2a3a", "lines": ["Kiếm tông dạy kiếm, nhưng binh khố có đủ cả. Muốn thử loại nào cứ lấy."]}
 }

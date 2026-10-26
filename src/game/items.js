@@ -62,7 +62,7 @@ export function equip(save, data, uid) {
 
 export function unequip(save, slot) { delete save.equip[slot]; }
 
-const isEquipped = (save, uid) => Object.values(save.equip).includes(uid);
+export const isEquipped = (save, uid) => Object.values(save.equip).includes(uid);
 
 // Phân giải: đổi món đồ (không đang mặc) lấy Tẩy Luyện Thạch; ngọc đang khảm trả về túi
 export function salvage(data, save, uid) {

@@ -3,7 +3,7 @@ import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
 import { weaponId } from './stats.js';
 
-export const autoAllowed = game => !(game.map.def.rooms || []).length && !game.map.def.tower && !game.map.def.indoor && !game.trib.active;
+export const autoAllowed = game => !(game.map.def.rooms || []).length && !game.map.def.tower && !game.map.def.res && !game.map.def.indoor && !game.trib.active;
 
 export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
