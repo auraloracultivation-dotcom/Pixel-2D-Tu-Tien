@@ -1,0 +1,34 @@
+{
+ "_note": "Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
+ "map": "dong-phu",
+ "at": [11, 5],
+ "lines": {
+  "lac-tuyet": {
+   "binh-minh": ["Dậy rồi à? Ta luyện xong một lượt kiếm rồi. Trà còn ấm, uống đi.", "Sương sớm ở động phủ mát thật. Hồi trước ta chưa từng để ý."],
+   "ngay": ["Đệ cứ đi đâu thì đi. Tối về là được.", "Ta vừa tưới dược viên. Ngọc Lộ Hoa sắp nở rồi."],
+   "hoang-hon": ["Mây chiều nay đỏ giống hồi ở làng ta. ...Không có gì, chỉ là nhớ một chút.", "Ngồi xuống đây. Hôm nay đệ vất vả rồi."],
+   "dem": ["Khuya rồi. Đả tọa với ta một lúc rồi ngủ.", "Trăng sáng quá. Ta không ngủ được, nên ngồi chờ đệ về."]
+  },
+  "ho-linh": {
+   "binh-minh": ["Ưm... sớm thế? Hồ ly ngủ nướng là chuyện bình thường nhé.", "Ta pha trà hoa đào. Uống thử xem, ta tu năm trăm năm mới pha ngon thế này đấy."],
+   "ngay": ["Ngươi đi chơi đâu đó? Nhớ mang quà về cho ta.", "Ta vừa nằm phơi nắng ngoài dược viên. Đừng cười."],
+   "hoang-hon": ["Hoàng hôn là lúc hồ ly đẹp nhất. Nhìn ta đi chứ, nhìn mây làm gì.", "Hôm nay ngươi có nghĩ tới ta không? Ta nghĩ tới ngươi ba lần."],
+   "dem": ["Đêm nay ngồi song tu nhé. Đuôi ta ấm lắm.", "Ngủ ngon. Ta canh cho ngươi."]
+  },
+  "default": {
+   "binh-minh": ["Chào buổi sáng."], "ngay": ["Hôm nay trời đẹp."], "hoang-hon": ["Chiều rồi, nghỉ chút đi."], "dem": ["Khuya rồi, nghỉ thôi."]
+  }
+ },
+ "gifts": [
+  {"pills": {"hoi-xuan-dan": 2}},
+  {"mats": {"ngoc-lo-hoa": 1}},
+  {"mats": {"linh-thao": 10}},
+  {"pills": {"boi-nguyen-dan": 1}},
+  {"mats": {"van-ngu": 2}}
+ ],
+ "gift_lines": {
+  "lac-tuyet": ["Cầm lấy. Ta để dành cho đệ.", "Đừng hỏi ta lấy ở đâu. Cứ cầm đi."],
+  "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
+  "default": ["Cho ngươi."]
+ }
+}

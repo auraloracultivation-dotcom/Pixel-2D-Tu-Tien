@@ -35,6 +35,7 @@ import { updateRes, resKill, resGoal } from './resrun.js';
 import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
 import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
+import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
 import { updateCombo } from './affinity.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
@@ -150,7 +151,7 @@ export function createGame(data, screen, input, ui, audio) {
       if (n.id === game.save.companion && !game.story.wants(n.id) && !hasSide(game, n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnSidePickups(game);
+    spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game);
     game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
