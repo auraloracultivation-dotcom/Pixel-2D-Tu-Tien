@@ -33,6 +33,9 @@ export function spawnHome(game) {
   if (id && game.save.companion !== id) seat(game, id, C(game).at, 'home');
   const v = visitorToday(game), n = v && seat(game, v, C(game).visit.at, 'visit');
   if (n) game.toast(C(game).visit.toast.replace('{name}', n.def.name), 2.4);
+  // Lần đầu về động phủ: Tiểu Linh chào và gợi ý trang trí
+  const tl = !game.save.decorHint && game.npcs.find(x => x.id === C(game).decor.npc);
+  if (tl) { game.save.decorHint = 1; game.say(tl.def.name, C(game).decor.hint, 4); }
 }
 
 // Đạo lữ đang ngồi cùng song tu: người chơi đả tọa gần đạo lữ ở nhà
@@ -65,7 +68,7 @@ export async function talkHome(game, npc) {
   const opts = [{ id: 'talk', label: 'Trò chuyện', desc: '' }];
   if (!gifted) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Mỗi ngày một món nhỏ', color: '#ffb0d0' });
   opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
-  const ch = await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);
+  const ch = game.pilot && !gifted ? 'gift' : await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);   // tự hành: nhận quà luôn
   if (ch === 'talk') await game.dialog.say([[name, lineOf(game, id)]]);
   else if (ch === 'gift') {
     game.save.homeGift = today();
@@ -84,7 +87,7 @@ async function talkVisit(game, npc) {
   const opts = [{ id: 'talk', label: 'Trò chuyện', desc: '' }];
   if (game.save.visitGift !== today()) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Khách mang tới', color: '#ffb0d0' });
   opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
-  const ch = await game.dialog.choose(`${name}: ${line()}`, opts);
+  const ch = game.pilot && game.save.visitGift !== today() ? 'gift' : await game.dialog.choose(`${name}: ${line()}`, opts);
   if (ch === 'talk') await game.dialog.say([[name, line()]]);
   else if (ch === 'gift') {
     game.save.visitGift = today();
