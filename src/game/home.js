@@ -1,5 +1,5 @@
 // Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ và mời uống trà.
-// Mỗi ngày còn có một người bạn đã thân ghé chơi (visit). Có chuông gió thì thỉnh thoảng nghe leng keng.
+// Mỗi ngày còn có một người bạn đã thân hoặc một khách phương xa ghé chơi (visit, game/visitors.js). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { phase } from './daynight.js';
 import { grant } from './daily.js';
@@ -9,13 +9,20 @@ import { comfort, hasDecor } from './decor.js';
 import { addFx } from './combat.js';
 import { addEntry } from './journal.js';
 import { cook, cookedToday, bestRecipe } from './cooking.js';
+import { strangerToday, isStranger, talkVisit } from './visitors.js';
 
 const C = game => game.data.home;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const today = () => new Date().toDateString();
 
-// Khách hôm nay: chọn theo ngày trong số bạn đã quen đủ thân, không phải đạo lữ, không đang đi cùng, không vắng mặt
+// Khách hôm nay: bạn quen (friendToday), cách vài ngày hoặc khi chưa có bạn quen thì khách phương xa
 export function visitorToday(game) {
+  const f = friendToday(game);
+  return strangerToday(game, f) || f;
+}
+
+// Bạn quen: chọn theo ngày trong số bạn đã quen đủ thân, không phải đạo lữ, không đang đi cùng, không vắng mặt
+function friendToday(game) {
   const v = C(game).visit, s = game.save, list = game.data.companions.list;
   const ok = Object.keys(s.comps || {}).filter(id => list[id] && id !== daoLu(game) && id !== s.companion && affinity(game, id) >= v.pts && !s.flags[list[id].unless]);
   if (!ok.length) return null;
@@ -44,7 +51,7 @@ export function spawnHome(game) {
   const id = daoLuHere(game);
   if (id && game.save.companion !== id && seat(game, id, C(game).at, 'home')) welcome(game, id);
   const v = visitorToday(game), n = v && seat(game, v, C(game).visit.at, 'visit');
-  if (n) game.toast(C(game).visit.toast.replace('{name}', n.def.name), 2.4);
+  if (n) game.toast((isStranger(game, v) ? game.data.visitors.toast : C(game).visit.toast).replace('{name}', n.def.name), 2.4);
   // Lần đầu về động phủ: Tiểu Linh chào và gợi ý trang trí
   const tl = !game.save.decorHint && game.npcs.find(x => x.id === C(game).decor.npc);
   if (tl) { game.save.decorHint = 1; game.say(tl.def.name, C(game).decor.hint, 4); }
@@ -130,25 +137,6 @@ export async function talkHome(game, npc) {
     game.toast(tea.toast, 3);
   } else if (ch === 'cook') await cook(game, npc);
   else if (ch === 'join') {
-    setCompanion(game, id);
-    await game.dialog.say([[name, game.data.companions.list[id]?.join || 'Đi thôi.']]);
-  }
-}
-
-// Khách ghé chơi: trò chuyện, quà mỗi ngày một lần, rủ đi cùng
-async function talkVisit(game, npc) {
-  const v = C(game).visit, id = npc.id, name = npc.def.name, line = () => pick(v.lines[id] || v.lines.default);
-  const opts = [{ id: 'talk', label: 'Trò chuyện', desc: '' }];
-  if (game.save.visitGift !== today()) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Khách mang tới', color: '#ffb0d0' });
-  opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
-  const ch = game.pilot && game.save.visitGift !== today() ? 'gift' : await game.dialog.choose(`${name}: ${line()}`, opts);
-  if (ch === 'talk') await game.dialog.say([[name, line()]]);
-  else if (ch === 'gift') {
-    game.save.visitGift = today();
-    const got = grant(game, pick(C(game).gifts));
-    game.sfx('levelup');
-    await game.dialog.say([[name, pick(v.gift_lines[id] || v.gift_lines.default)], ['', `Nhận: ${got.join(', ')}.`]]);
-  } else if (ch === 'join') {
     setCompanion(game, id);
     await game.dialog.say([[name, game.data.companions.list[id]?.join || 'Đi thôi.']]);
   }
