@@ -25,7 +25,7 @@ export function createDungeon(game) {
         r.mobs.push(m);
       }
     }
-    if (r.boss) game.toast('Huyết Nha xuất hiện!');
+    if (r.boss) { game.toast('Huyết Nha xuất hiện!'); game.sfx('roar'); }
   }
 
   return {
@@ -42,6 +42,7 @@ export function createDungeon(game) {
             if (r.door_x != null) {
               for (const [x, y] of doors) if (x === r.door_x) map.locked.delete(x + ',' + y);
               game.toast('Cửa đã mở!');
+              game.sfx('door');
             }
           }
         }

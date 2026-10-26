@@ -103,7 +103,7 @@ function bossThink(game, m, d, dt) {
       m.t = 0;
       if (pick === 0 && d < 60) { m.state = 'slash'; }
       else if (pick === 2) { m.state = 'nova'; }
-      else { m.state = 'charge'; m.ca = Math.atan2(p.y - m.y, p.x - m.x); }
+      else { m.state = 'charge'; m.ca = Math.atan2(p.y - m.y, p.x - m.x); game.sfx('warn'); }
     }
   } else if (m.state === 'slash') {
     m.tele = { type: 'circle', r: def.reach + m.r + 10, k: m.t / def.windup };

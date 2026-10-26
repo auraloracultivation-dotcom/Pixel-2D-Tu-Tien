@@ -22,6 +22,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (opt.slow) m.slowT = Math.max(m.slowT, opt.slow);
   if (opt.stun && m.def.ai !== 'boss') m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : '#fff', crit);
+  game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
   game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
   game.screen.shake(crit ? feel.shake * 1.5 : feel.shake * 0.6, 0.12);
@@ -30,6 +31,7 @@ export function hitMob(game, m, dmg, opt = {}) {
 
 export function killMob(game, m) {
   m.dead = true;
+  game.sfx('die');
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
   if (!m.noQi) game.gainQi(m.def.qi, m.x, m.y);
   game.onKill(m);
@@ -45,6 +47,7 @@ export function hitPlayer(game, dmg, from) {
   }
   if (dmg > 0) {
     p.hp -= dmg;
+    game.sfx('hurt');
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;

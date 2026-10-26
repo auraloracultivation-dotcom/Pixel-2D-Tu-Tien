@@ -1,5 +1,5 @@
 // Hộp thoại kể chuyện và chọn lựa. Chạm để hiện hết chữ / sang câu tiếp.
-export function createDialog() {
+export function createDialog(onLine) {
   const box = document.getElementById('dialog');
   const who = document.getElementById('dlg-who');
   const text = document.getElementById('dlg-text');
@@ -31,7 +31,7 @@ export function createDialog() {
     const show = () => {
       if (i >= lines.length) { next = null; d.open = false; box.hidden = true; resolve(); return; }
       const [n, s] = lines[i++];
-      who.textContent = n; type(s);
+      who.textContent = n; type(s); onLine?.();
     };
     next = show; show();
   });

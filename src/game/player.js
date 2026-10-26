@@ -62,6 +62,7 @@ function swing(game) {
     if (Math.abs(da) <= half || d < m.r + p.r + 2) hitMob(game, m, p.atk, { color: w.color });
   }
   p.swingT = 0.18;
+  game.sfx('swing', 0.8);
   return w.cooldown;
 }
 

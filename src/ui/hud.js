@@ -5,8 +5,8 @@ import { skillSlots } from '../game/skills.js';
 
 const $ = id => document.getElementById(id);
 
-export function createHud() {
-  const dialog = createDialog();
+export function createHud(audio) {
+  const dialog = createDialog(() => audio.play('talk'));
   let toastTimer = null;
   const ui = { dialog };
 
@@ -25,6 +25,11 @@ export function createHud() {
     setTimeout(midway, 800);
     setTimeout(() => { f.hidden = true; resolve(); }, 1800);
   });
+
+  const mute = $('btn-mute');
+  const paintMute = () => { mute.textContent = audio.muted ? '🔇' : '🔊'; };
+  mute.addEventListener('pointerdown', e => { e.stopPropagation(); audio.toggle(); paintMute(); });
+  paintMute();
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 

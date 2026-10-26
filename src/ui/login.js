@@ -9,13 +9,15 @@ function withTimeout(p, ms) {
   return Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('Hết thời gian chờ máy chủ.')), ms))]);
 }
 
-export function createLogin(onPlay) {
-  let auth = null, session = null;
+export function createLogin(onPlay0) {
+  let auth = null, session = null, played = false;
+  const onPlay = o => { played = true; onPlay0(o); };
 
   const msg = (t, bad) => { $('login-msg').textContent = t || ''; $('login-msg').classList.toggle('bad', !!bad); };
   const busy = on => { for (const b of document.querySelectorAll('#menu button, #menu input')) b.disabled = on; };
 
   function render() {
+    if (played) return; // đã vào game: kết nối xong muộn cũng không hiện lại màn đầu
     $('menu').hidden = false;
     $('login-form').hidden = !!session;
     $('logged').hidden = !session;
@@ -54,7 +56,7 @@ export function createLogin(onPlay) {
         msg('Không kết nối được máy chủ. Bạn vẫn chơi thử được (không mạng).', true);
       }
       render();
-      if (!auth) { $('login-form').hidden = true; $('logged').hidden = true; }
+      if (!auth && !played) { $('login-form').hidden = true; $('logged').hidden = true; }
     },
   };
 }
