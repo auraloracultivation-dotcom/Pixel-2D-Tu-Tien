@@ -8,13 +8,15 @@ import { addQi, realmLabel } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
+import { dropLoot, updateLoot, collectAll } from './loot.js';
+import { ensureInv, rollItem, addItem, equip } from './items.js';
 
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
   const game = {
     data, screen, input, dialog: ui.dialog, ui,
     save: null, map: null, player: null,
-    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [],
+    mobs: [], npcs: [], pickups: [], bullets: [], fx: [], numbers: [], loot: [],
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
     traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
@@ -37,12 +39,23 @@ export function createGame(data, screen, input, ui, audio) {
     const p = at ? game.map.center(at[0], at[1]) : game.map.freeNear(Math.floor(game.player.x / cfg.tile) + 1, Math.floor(game.player.y / cfg.tile) - 1, 1, 6);
     game.npcs.push({ id, def: data.npcs[id], x: p.x, y: p.y, r: 6, bob: Math.random() * 6 });
   };
+  // Trang bị khởi đầu (Phàm) và tự mặc vào
+  game.giveGear = bases => {
+    if (game.save.flags.starterGear) return; // làm lại bước truyện không nhận thêm
+    game.save.flags.starterGear = true;
+    for (const b of bases) {
+      const it = rollItem(data, game.save, { base: b, rarity: 'pham' });
+      if (addItem(data, game.save, it)) equip(game.save, data, it.uid);
+    }
+    game.refreshStats(); game.persist();
+  };
   game.addPickup = (item, tx, ty) => {
     const p = game.map.center(tx, ty);
     game.pickups.push({ item, x: p.x, y: p.y });
   };
 
   game.gainQi = (amount, x, y, quiet) => {
+    amount = Math.round(amount * (game.player?.st.qiMul || 1) * 10) / 10;
     const broke = addQi(game.save, data.realms, amount);
     if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
     if (broke > 0) {
@@ -59,13 +72,15 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   game.onKill = m => {
+    dropLoot(game, m);
     if (m.def.ai === 'boss') { game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
 
   function loadMap(id, spawnName) {
+    if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile);
-    game.mobs = []; game.bullets = []; game.pickups = []; game.npcs = []; game.fx = []; game.numbers = [];
+    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = [];
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
@@ -118,6 +133,7 @@ export function createGame(data, screen, input, ui, audio) {
     }
     const saved = loadSave(owner);
     game.save = fresh || !saved ? newSave(cfg) : saved;
+    ensureInv(game.save);
     game.story = createStory(game);
     loadMap(game.save.map, game.save.spawn);
     game.refreshStats(); game.player.hp = game.player.maxHp;
@@ -218,7 +234,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.flashT -= dt;
     game.dark += (game.darkTarget - game.dark) * Math.min(1, dt * 2);
     if (!game.save || game.traveling) return;
-    const blocked = game.dialog.open;
+    const blocked = game.dialog.open || game.uiOpen;
     game.paused = blocked;
     if (blocked) { game.input.clear(); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
@@ -228,6 +244,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
     updateMobs(game, dt);
     updateBullets(game, dt);
+    updateLoot(game, dt);
     updatePickups();
     updateSpawners(dt);
     game.dungeon?.update();

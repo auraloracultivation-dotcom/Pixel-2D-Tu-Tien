@@ -1,8 +1,9 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds'];
+const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items'];
 
 async function getJson(path) {
-  const r = await fetch(path, { cache: 'no-cache' });
+  const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });
   if (!r.ok) throw new Error(`không tải được ${path}`);
   return r.json();
 }

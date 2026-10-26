@@ -12,7 +12,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   const feel = game.data.config.feel;
   const p = game.player;
   let crit = false;
-  if (opt.canCrit !== false && Math.random() < game.data.config.player.crit) { dmg *= game.data.config.player.crit_mult; crit = true; }
+  if (opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (p.buffT > 0) dmg *= 1 + p.buffAmt;
   dmg = Math.max(1, Math.round(dmg * (0.9 + Math.random() * 0.2)));
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
@@ -40,7 +40,7 @@ export function killMob(game, m) {
 export function hitPlayer(game, dmg, from) {
   const p = game.player;
   if (p.invT > 0 || p.dashT > 0 || game.paused) return;
-  dmg = Math.round(dmg);
+  dmg = Math.max(1, Math.round(dmg - p.st.def));
   if (p.shield > 0) {
     const a = Math.min(p.shield, dmg); p.shield -= a; dmg -= a;
     addNumber(game, p.x, p.y - 14, a, '#7ad0ff');

@@ -7,6 +7,7 @@ import { drawWorld, drawOverlay } from './render/draw.js';
 import { createHud } from './ui/hud.js';
 import { createLogin } from './ui/login.js';
 import { createAudio } from './core/audio.js';
+import { createBag } from './ui/bag.js';
 
 async function boot() {
   const canvas = document.getElementById('game');
@@ -16,6 +17,7 @@ async function boot() {
   const audio = createAudio(data.sounds);
   const ui = createHud(audio);
   const game = createGame(data, screen, input, ui, audio);
+  createBag(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 

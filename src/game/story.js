@@ -45,6 +45,7 @@ export function createStory(game) {
     else if (a.flag) g.save.flags[a.flag] = true;
     else if (a.shake) g.screen.shake(a.shake, 0.6);
     else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); }
+    else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
     g.persist();
   }
