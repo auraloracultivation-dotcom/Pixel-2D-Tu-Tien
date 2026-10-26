@@ -78,6 +78,10 @@ try {
   need(cave.pills[cave.pill_button] && matOk(cave.garden.herb), 'cave: pill_button hoặc garden.herb không có');
   for (const [id, p] of Object.entries(cave.pills)) need((p.rate ?? cave.brew.default) > 0 && (p.rate ?? 0) <= 1, `cave.pills/${id}: tỉ lệ luyện sai`);
   need(matOk(items.reroll_lock.mat), 'items.reroll_lock: nguyên liệu không có');
+  const af = read('affinity.json'), cl = read('companions.json').list;
+  for (const g of af.gifts) need(g.kind === 'coins' || (g.kind === 'pill' ? cave.pills[g.id] : matOk(g.id)), `affinity.gifts: món "${g.id}" không có`);
+  for (const [id, g] of Object.entries(af.likes)) need(cl[id] && af.gifts.some(x => x.id === g), `affinity.likes/${id}: người hoặc quà không có`);
+  for (const id of [...Object.keys(af.scenes), ...af.dao_lu.can]) need(cl[id] && npcs[id], `affinity: "${id}" không phải bạn đồng hành`);
   const dun = read('dungeon.json');
   for (const m of dun.modes) need(!m.reward || ((!m.reward.item || items.rarities.some(r => r.id === m.reward.item)) && Object.keys(m.reward.mats || {}).every(matOk)), `dungeon/${m.id}: thưởng sai`);
   for (const [mp, st] of Object.entries(dun.story_step)) if (mp !== '_note') need(maps[mp]?.rooms?.length && story.steps.some(x => x.id === st), `dungeon.story_step/${mp}: bản đồ hoặc bước truyện sai`);

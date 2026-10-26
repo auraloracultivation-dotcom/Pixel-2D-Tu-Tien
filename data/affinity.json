@@ -1,0 +1,47 @@
+{
+ "_note": "Thiện cảm với bạn đồng hành (0 tới max). Tặng quà mỗi người tối đa per_day lần mỗi ngày; món người đó thích (likes) được gấp like_mul điểm. Mỗi điểm cho exp_per_pt kinh nghiệm bạn đồng hành. Đủ mốc tiers thì mở cảnh riêng (scenes). Đạo lữ: chỉ người trong dao_lu.can, đủ điểm và cảnh giới; song tu nhân linh khí đả tọa, khi đi cùng có chiêu hợp kích.",
+ "max": 100,
+ "per_day": 3,
+ "like_mul": 2,
+ "exp_per_pt": 40,
+ "gifts": [
+  {"id": "linh-thao", "kind": "mat", "n": 5, "pts": 3},
+  {"id": "hoa-linh-chi", "kind": "mat", "n": 2, "pts": 5},
+  {"id": "hoi-xuan-dan", "kind": "pill", "n": 1, "pts": 4},
+  {"id": "boi-nguyen-dan", "kind": "pill", "n": 1, "pts": 10},
+  {"id": "linh-thach", "kind": "coins", "n": 300, "pts": 5}
+ ],
+ "likes": {"tieu-hoa": "hoa-linh-chi", "lac-tuyet": "boi-nguyen-dan", "mac-anh": "hoi-xuan-dan", "thanh-diep": "linh-thao", "ho-linh": "linh-thach"},
+ "tiers": [
+  {"pts": 20, "name": "Quen biết"},
+  {"pts": 50, "name": "Thân thiết"},
+  {"pts": 80, "name": "Tri kỷ"},
+  {"pts": 100, "name": "Tâm đầu ý hợp"}
+ ],
+ "scenes": {
+  "tieu-hoa": {"50": [["tieu-hoa", "Hồi ở làng, tớ hay trèo lên mái nhà ngắm mây. Giờ thì được bay giữa mây thật rồi."], ["tieu-hoa", "Cảm ơn cậu đã tới cứu tớ. Hai lần lận."]],
+               "100": [["tieu-hoa", "Từ giờ ai đụng vào cậu thì phải qua tớ trước. Lửa của tớ không đùa đâu!"]]},
+  "lac-tuyet": {"50": [["lac-tuyet", "...Hồi nhỏ ta cũng ở một làng ven biển. Ma tộc tới, chỉ mình ta sống sót."], ["lac-tuyet", "Sư phụ nhặt ta về. Từ đó ta chỉ biết luyện kiếm."]],
+                "80": [["lac-tuyet", "Đệ tiến bộ nhanh hơn ta nghĩ. Nhanh hơn cả ta năm đó."], ["lac-tuyet", "Đừng có cười. Ta khen thật đấy."]],
+                "100": [["lac-tuyet", "Nếu một ngày ta bị bắt đi... đệ có tới tìm ta không?"], ["lac-tuyet", "...Không cần trả lời. Ta biết rồi."]]},
+  "mac-anh": {"50": [["mac-anh", "Ở giới bên kia, ma tộc ăn đá đen và uống sương độc. Cá nướng ở đây ngon hơn nhiều."]],
+              "100": [["mac-anh", "Ta đã chọn đứng về phía này. Có chết cũng không hối hận."]]},
+  "thanh-diep": {"50": [["thanh-diep", "Cây mẹ nói ngươi có mùi nắng. Ta cũng thấy vậy."]],
+                 "100": [["thanh-diep", "Ta gieo một hạt giống trong động phủ của ngươi rồi. Khi nó nở hoa, ta sẽ về thăm."]]},
+  "ho-linh": {"50": [["ho-linh", "Ngươi biết không, ta là hồ ly đấy. Tu năm trăm năm mới hoá được hình người."], ["ho-linh", "Đừng sợ. Ta chỉ cắn người ta ghét thôi."]],
+              "80": [["ho-linh", "Ta ngồi đả tọa cạnh bồ đoàn này cả trăm năm. Từ khi ngươi tới, ngày trôi nhanh hơn hẳn."]],
+              "100": [["ho-linh", "Hồ ly một khi đã chọn ai thì chọn cả đời. Ngươi hiểu ý ta chứ?"]]}
+ },
+ "dao_lu": {
+  "can": ["lac-tuyet", "ho-linh"],
+  "pts": 100,
+  "realm": 2,
+  "meditate_mul": 1.3,
+  "combo": {"name": "Song Kiếm Hợp Bích", "cd": 18, "radius": 52, "dmg": 4, "color": "#ffb0d0"},
+  "ask": "Kết làm đạo lữ",
+  "vows": {
+   "lac-tuyet": [["lac-tuyet", "...Đạo lữ? Đệ biết đạo lữ nghĩa là gì không? Là cùng tu, cùng sống, cùng chết."], ["lac-tuyet", "Được. Kiếm của ta từ giờ cũng là kiếm của đệ."]],
+   "ho-linh": [["ho-linh", "Cuối cùng ngươi cũng chịu nói! Ta chờ câu này lâu lắm rồi đó."], ["ho-linh", "Từ giờ ta song tu cùng ngươi. Đả tọa sẽ nhanh hơn nhiều."]]
+  }
+ }
+}
