@@ -21,7 +21,7 @@ export async function talkSide(game, npc) {
   }
   if (s) { await game.dialog.say([[name, q.goal.replace('{n}', s.n) + '. Xong rồi quay lại nhé.']]); return; }
   await game.dialog.say(q.offer.map(l => [name, l]));
-  const ok = await game.dialog.choose(`Việc phụ: ${q.name}`, [
+  const ok = game.pilot ? 'yes' : await game.dialog.choose(`Việc phụ: ${q.name}`, [   // tự hành thì tự nhận
     { id: 'yes', label: 'Nhận việc', desc: 'Hiện ở góc phải màn hình' },
     { id: 'no', label: 'Để sau', desc: '' },
   ]);
