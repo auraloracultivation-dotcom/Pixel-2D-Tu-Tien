@@ -15,6 +15,7 @@ import { createPetsPanel } from './ui/pets-panel.js';
 import { createDailyPanel } from './ui/daily-panel.js';
 import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
+import { createSocialPanel } from './ui/social-panel.js';
 
 async function boot() {
   const canvas = document.getElementById('game');
@@ -31,6 +32,7 @@ async function boot() {
   createDailyPanel(game);
   createAchvPanel(game);
   createWorldMap(game);
+  createSocialPanel(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 
