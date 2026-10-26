@@ -27,7 +27,7 @@
  "feel": {"hitstop": 0.045, "shake": 2.5, "knockback": 90, "flash": 0.09},
  "travel": {"flight": {"dur": 4.2}, "portal": {"dur": 1.6}},
  "dash": {"dist": 52, "time": 0.16, "cd": 2},
- "pilot": {"_note": "Tự hành: repath giây tính lại đường, line giây tự lật một câu thoại, guard khoảng cách quái đánh mình thì đánh trước, pill_hp máu dưới tỉ lệ này thì tự uống đan hồi máu (cả Tự đánh), labels chữ báo việc đang làm (hiện dưới mục tiêu).", "repath": 0.6, "line": 2.2, "guard": 60, "pill_hp": 0.35, "labels": {"fight": "đánh {name}", "talk": "đi gặp {name}", "go": "đang đi đường", "to": "đi tới {name}", "use": "thu hoạch dược viên", "fish": "câu cá", "brew": "luyện đan", "pat": "vuốt ve {name}", "sit": "đả tọa", "view": "ngắm hoàng hôn", "hunt": "săn quái quanh đây"}},
+ "pilot": {"_note": "Tự hành: repath giây tính lại đường, line giây tự lật một câu thoại, guard khoảng cách quái đánh mình thì đánh trước, pill_hp máu dưới tỉ lệ này thì tự uống đan hồi máu (cả Tự đánh), pill_keep còn ít hơn số viên này thì tự hành về động phủ luyện thêm, labels chữ báo việc đang làm (hiện dưới mục tiêu).", "repath": 0.6, "line": 2.2, "guard": 60, "pill_hp": 0.35, "pill_keep": 3, "labels": {"fight": "đánh {name}", "talk": "đi gặp {name}", "go": "đang đi đường", "to": "đi tới {name}", "use": "thu hoạch dược viên", "fish": "câu cá", "brew": "luyện đan", "pat": "vuốt ve {name}", "sit": "đả tọa", "view": "ngắm hoàng hôn", "hunt": "săn quái quanh đây"}},
  "auto": {"_note": "Tự đánh: chỉ đuổi quái thường cách chỗ bật tối đa radius.", "radius": 110},
  "interact_range": 22,
  "tap_range": 14

@@ -75,6 +75,8 @@ function wants(game) {
     const v = visitorToday(game);
     if (v && s.visitGift !== day) out.push({ gift: v });
   }
+  const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
+  if (s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
   const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
   if (!game.view && s.sunset !== new Date().toDateString() && phase(game).id === ss.phase) out.push({ view: true });
   const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
