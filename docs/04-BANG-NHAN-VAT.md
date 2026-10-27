@@ -19,4 +19,4 @@ Người chuẩn để so: **NPC cao 1m80, nặng 70kg** (trong game ~24 đơn v
 | Ảnh mẫu (nếu có) | |
 | Số động tác cần (đứng, đi, mấy nhát đánh...) | |
 
-Sau khi điền: chiều cao, cân nặng vào `data/heroes.json` (`cm`, `kg`), đo `body` (số điểm ảnh thân người trong hình). Việc tốn credit SpriteCook phải báo số credit dự tính và chờ đồng ý.
+Sau khi điền: chiều cao, cân nặng vào `data/heroes.json` (`cm`, `kg`), đo `body` (số điểm ảnh thân người trong hình). SpriteCook đang tạm dừng (27/10/2026): vẽ và làm chuyển động bằng code trong `tools/art/`.
