@@ -50,7 +50,7 @@ export function killMob(game, m) {
 export function hitPlayer(game, dmg, from) {
   const p = game.player;
   if (p.invT > 0 || p.dashT > 0 || game.paused) return;
-  dmg = Math.max(1, Math.round(dmg - p.st.def));
+  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def)));   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn
   if (p.shield > 0) {
     const a = Math.min(p.shield, dmg); p.shield -= a; dmg -= a;
     addNumber(game, p.x, p.y - 14, a, '#7ad0ff');
