@@ -11,6 +11,8 @@ import { autoGarden } from './autogarden.js';
 import { autoClaim } from './autoclaim.js';
 import { autoGrow } from './autogrow.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
+import { digJob, farmJob } from './farmjob.js';
+import { startDig } from './gather.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
 import { harvestAll, gotText } from './garden.js';
@@ -131,11 +133,12 @@ function sit(game) {
 // Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { pat } | { view, at } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
+  if (game.dig) return { dig: game.dig.v };   // đang đào dở: đào cho xong rồi mới làm việc khác (1–2 giây)
   // Quái đang đánh mình ở gần: đánh trước
   const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
   if (foe) return { fight: foe };
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
-  if (waiting(game)) return choreJob(game, routeTo) || sit(game);   // chờ tu luyện
+  if (waiting(game)) return choreJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
@@ -200,6 +203,12 @@ export function pilotStep(game, ax, dt) {
   if (job.pat) {   // vuốt ve linh thú: tới sát rồi vuốt, nghỉ chút giữa hai lần
     if (!canPat(game)) return { ax: walk(game, job.pat.x, job.pat.y, dt), atk: false };
     if ((game.pilot.patT = (game.pilot.patT || 0) - dt) <= 0) { game.pilot.patT = 2.2; p.meditating = false; patPet(game); }
+    return none;
+  }
+  if (job.dig) {   // đào linh khoáng: tới cạnh mạch, bấm đào, đứng yên chờ xong
+    if (game.dig) return none;
+    if (dist(job.dig, p) > game.data.gather.range * 0.8) return { ax: walk(game, job.dig.x, job.dig.y, dt), atk: false };
+    p.meditating = false; startDig(game, job.dig);
     return none;
   }
   if (job.use) {

@@ -31,6 +31,8 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 **Công cụ, khai linh khoáng** (`data/gather.json`, `src/game/gather.js`, vẽ ở `src/render/draw-vein.js`): mỗi tinh cầu 6 mạch linh khoáng ở vùng mới (chọn cố định theo mã bản đồ). Đứng cạnh bấm "Đào linh khoáng", đứng yên 1,6 giây được 2–4 Tinh Thiết (nhân theo cấp Linh Cuốc), may thì Tẩy Luyện Thạch, Khóa Linh Thạch; mạch cạn 30 phút thật (`save.veins`). Linh Cuốc (`save.tool`, cấp 1–10) nâng ở lò rèn động phủ bằng Linh Thạch, giá nhân 1,6 mỗi cấp; mỗi cấp +15% sản lượng, đào nhanh hơn 6%.
 
+**Tự hành rảnh tay** (`src/game/farmjob.js`): khi truyện chờ tu luyện mà hết việc vặt, tự hành đào mạch linh khoáng còn trên bản đồ (tùy chọn `dao`, đào dở thì đào cho xong rồi mới đánh), rồi tới bãi treo máy vừa sức nhất (tùy chọn `treo`): bãi mạnh nhất mà `foeRatio` (cùng công thức màu gợi ý cổng bí cảnh) vẫn từ mức vừa trở lên; bản đồ không có bãi thì bay tới tinh cầu đã tới có `realm` cao nhất không quá cảnh giới. Khuya (tùy chọn `dem`) thì thôi, về động phủ.
+
 **Bãi treo máy** (chủ dự án 28/10/2026): spawner có `farm: true` lấy số con, tốc hồi ở `data/planets.json` → farm (5 con, chết hồi sau 2,5 giây) để Tự đánh chém, tung chiêu liên tục; đồ, nguyên liệu, Linh Thạch rơi chỉ bằng `farm.loot` (0,4) lần quái thường (`m.lootMul` ở `loot.js`, `cave.js`, `shop.js`), linh khí giữ nguyên. Mỗi tinh cầu có quái 9 bãi: 4 bãi thường, 5 bãi vòng ngoài nhiễm ma khí.
 
 ## Tinh đồ (`data/starmap.json`)
