@@ -1,0 +1,84 @@
+// Nền đảo bằng hình pixel (tools/art/world.py → data/art.json). Cỏ, đường đất, nền đá, mép cỏ, vách đảo vẽ một lần
+// vào tấm đệm riêng của từng bản đồ; nhà, cây, đá, hoa vẽ theo từng ô. Hình chưa tải xong thì trả false để vẽ hình khối như cũ.
+import { spriteImage } from '../render/sprites.js';
+
+const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
+const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
+const WALL = { L: 12, M: 13, R: 14, door: 15, win: 16 };   // khung tường trong tile.house, sau 12 khung mái
+let cache = { map: null, cv: null };
+
+function sheet(game, id) {
+  const s = game.data.art.sprites[id], im = s && spriteImage(s);
+  return im ? { s, im } : null;
+}
+
+function put(ctx, sp, f, x, y) {
+  ctx.drawImage(sp.im, f * sp.s.w, 0, sp.s.w, sp.s.h, x, y, sp.s.w, sp.s.h);
+}
+
+function build(game, map, tiles, hash, baseTile) {
+  const sp = {};
+  for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff']) if (!(sp[id] = sheet(game, id))) return null;
+  const T = map.T, cv = document.createElement('canvas');
+  cv.width = map.w * T; cv.height = map.h * T;
+  const c = cv.getContext('2d');
+  c.imageSmoothingEnabled = false;
+  for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
+    const ch = map.at(tx, ty), k = tiles.types[ch] || {}, px = tx * T, py = ty * T, h = hash(tx, ty);
+    if (k.void) {   // vách đảo: hai hàng dưới đất liền
+      if (!map.type(tx, ty - 1).void) put(c, sp['tile.cliff'], Math.floor(h * 3), px, py);
+      else if (!map.type(tx, ty - 2).void) put(c, sp['tile.cliff'], 3 + Math.floor(h * 3), px, py);
+      continue;
+    }
+    if (ch === ',') put(c, sp['tile.path'], Math.floor(h * 4), px, py);
+    else if (ch === '_') put(c, sp['tile.stone'], Math.floor(h * 4), px, py);
+    else if (GRASSY.includes(ch) && !(k.solid && map.def.ground)) put(c, sp['tile.grass'], Math.floor(h * 4), px, py);
+    else if ('PMS'.includes(ch)) {   // cổng, bồ đoàn, đá linh căn: nền đá nếu cạnh nền đá, không thì cỏ
+      const onStone = EDGES.some(([dx, dy]) => map.at(tx + dx, ty + dy) === '_');
+      put(c, sp[onStone ? 'tile.stone' : 'tile.grass'], Math.floor(h * 4), px, py);
+    }
+    else baseTile(c, map, tiles, tx, ty);
+    if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
+  }
+  return cv;
+}
+
+// Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
+export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
+  if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) return false; cache = { map, cv }; }
+  const T = map.T, x0 = Math.max(0, Math.floor(view.x0)), y0 = Math.max(0, Math.floor(view.y0));
+  const w = Math.min(map.w * T, Math.ceil(view.x1)) - x0, h = Math.min(map.h * T, Math.ceil(view.y1)) - y0;
+  if (w <= 0 || h <= 0) return true;
+  ctx.save(); ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(cache.cv, x0, y0, w, h, x0, y0, w, h);
+  ctx.restore();
+  return true;
+}
+
+// Một khối nhà chữ nhật gồm các ô H: hàng dưới là tường (cửa ở giữa, cửa sổ xen kẽ), các hàng trên là mái.
+function housePiece(map, tx, ty) {
+  let x0 = tx, y0 = ty;
+  while (map.at(x0 - 1, ty) === 'H') x0--;
+  while (map.at(tx, y0 - 1) === 'H') y0--;
+  let w = 1, h = 1;
+  while (map.at(x0 + w, y0) === 'H') w++;
+  while (map.at(x0, y0 + h) === 'H') h++;
+  const c = tx - x0, r = ty - y0, pos = c === 0 ? 0 : c === w - 1 ? 2 : 1;
+  if (r === h - 1) return h === 1 ? WALL.M : pos !== 1 ? WALL[pos ? 'R' : 'L'] : c === Math.floor((w - 1) / 2) ? WALL.door : c % 2 ? WALL.win : WALL.M;
+  const kind = h === 2 ? 3 : r === 0 ? 0 : r === h - 2 ? 2 : 1;   // nóc, giữa, mép, nhà thấp (nóc + mép)
+  return kind * 3 + pos;
+}
+
+// Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
+export function drawProp(ctx, game, map, ch, tx, ty, h) {
+  const id = { T: 'prop.tree', R: 'prop.rock', F: 'decal.flowers', H: 'tile.house' }[ch], sp = id && sheet(game, id);
+  if (!sp) return false;
+  const T = map.T, px = tx * T, py = ty * T, a = sp.s.anchor;
+  ctx.save(); ctx.imageSmoothingEnabled = false;
+  if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
+  else if (ch === 'R') put(ctx, sp, h < 0.5 ? 0 : 1, px + 8 - a[0], py + 13 - a[1]);
+  else if (ch === 'H') put(ctx, sp, housePiece(map, tx, ty), px, py);
+  else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
+  ctx.restore();
+  return true;
+}

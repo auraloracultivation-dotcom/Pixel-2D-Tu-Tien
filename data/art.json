@@ -15,13 +15,13 @@
   },
   "decal.flowers": {
    "file": "assets/art/decal-flowers.png",
-   "v": "1a822968",
+   "v": "93e365c4",
    "w": 7,
-   "h": 5,
+   "h": 6,
    "frames": 3,
    "anchor": [
     3,
-    2
+    3
    ],
    "note": "hoa nhỏ trắng / vàng / hồng"
   },
@@ -217,45 +217,45 @@
    ],
    "note": "Ma Tu — khung: đứng, nhún, bước A, bước B"
   },
-  "prop.bush": {
-   "file": "assets/art/prop-bush.png",
-   "v": "ff0a1384",
+  "prop.rock": {
+   "file": "assets/art/prop-rock.png",
+   "v": "878f148c",
    "w": 16,
-   "h": 11,
+   "h": 12,
    "frames": 2,
    "anchor": [
     8,
-    10
+    11
    ],
-   "note": "bụi cây, có / không hoa"
-  },
-  "prop.rock": {
-   "file": "assets/art/prop-rock.png",
-   "v": "0fc402de",
-   "w": 14,
-   "h": 11,
-   "frames": 1,
-   "anchor": [
-    7,
-    10
-   ],
-   "note": "đá"
+   "note": "đá, đá có rêu"
   },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
-   "v": "bf5d0de3",
+   "v": "0c71d21b",
    "w": 30,
    "h": 38,
-   "frames": 2,
+   "frames": 3,
    "anchor": [
     15,
     36
    ],
-   "note": "cây tán tròn, 2 dáng"
+   "note": "cây: quả đỏ, tán tròn, hoa đào"
   },
-  "tile.grass": {
-   "file": "assets/art/tile-grass.png",
-   "v": "77d06b03",
+  "tile.cliff": {
+   "file": "assets/art/tile-cliff.png",
+   "v": "77b41011",
+   "w": 16,
+   "h": 16,
+   "frames": 6,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách đảo: 3 khung hàng ngay dưới đất, 3 khung hàng thứ hai"
+  },
+  "tile.edge": {
+   "file": "assets/art/tile-edge.png",
+   "v": "d1879da9",
    "w": 16,
    "h": 16,
    "frames": 4,
@@ -263,7 +263,55 @@
     0,
     0
    ],
-   "note": "4 biến thể cỏ, ghép liền"
+   "note": "mép cỏ phủ lên đường / đá: cỏ ở cạnh trên, phải, dưới, trái"
+  },
+  "tile.grass": {
+   "file": "assets/art/tile-grass.png",
+   "v": "f949c9fc",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "cỏ, 4 biến thể ghép liền"
+  },
+  "tile.house": {
+   "file": "assets/art/tile-house.png",
+   "v": "be600df9",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà mái ngói: mái nóc/giữa/mép/thấp × trái/giữa/phải, rồi tường trái, giữa, phải, cửa, cửa sổ"
+  },
+  "tile.path": {
+   "file": "assets/art/tile-path.png",
+   "v": "000e6556",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "đường đất, 4 biến thể"
+  },
+  "tile.stone": {
+   "file": "assets/art/tile-stone.png",
+   "v": "0b59b0e7",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đá lát, 4 biến thể"
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",
