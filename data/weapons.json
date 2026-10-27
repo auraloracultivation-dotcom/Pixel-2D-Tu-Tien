@@ -1,10 +1,10 @@
 {
  "gay-go": {"name": "Gậy gỗ", "atk": 7, "range": 20, "arc": 120, "cooldown": 0.42, "color": "#e8d8b0", "skill": null, "attack": "arc", "look": "stick"},
  "kiem": {"name": "Thanh Phong Kiếm", "atk": 13, "range": 24, "arc": 140, "cooldown": 0.38, "color": "#c8f6ff", "skill": "kiem-khi", "attack": "arc", "look": "sword", "desc": "Chém vòng cung cân bằng."},
- "_note": "Loại vũ khí. attack: arc (chém vòng cung: range, arc độ) | shot (bắn đạn: speed, range, radius, pierce). look: hình cầm tay. fx: hình đạn bay proj.<fx> (đàn: sóng âm, cung: mũi tên). Loại vũ khí lấy theo món đang mặc ở ô Vũ khí (items.bases.*.weapon), chưa mặc thì theo cốt truyện.",
+ "_note": "Loại vũ khí. slash: vệt chém vẽ thêm khi đánh (cả nhân vật bằng hình), to theo range. more: chiêu vũ khí thêm [id, tổng tầng tu luyện mở]. attack: arc (chém vòng cung: range, arc độ) | shot (bắn đạn: speed, range, radius, pierce). look: hình cầm tay. fx: hình đạn bay proj.<fx> (đàn: sóng âm, cung: mũi tên). Loại vũ khí lấy theo món đang mặc ở ô Vũ khí (items.bases.*.weapon), chưa mặc thì theo cốt truyện.",
  "thuong": {"name": "Thương", "atk": 15, "attack": "arc", "range": 36, "arc": 50, "cooldown": 0.5, "color": "#e0e0f0", "look": "spear", "skill": "long-thuong", "desc": "Đâm xa theo một đường hẹp."},
  "quat": {"name": "Quạt", "atk": 11, "attack": "arc", "range": 22, "arc": 220, "cooldown": 0.42, "color": "#9af0c8", "look": "fan", "skill": "cuong-phong", "desc": "Quạt rộng gần như quanh người."},
  "dan": {"name": "Đàn", "atk": 11, "attack": "shot", "range": 95, "speed": 160, "radius": 4, "pierce": true, "cooldown": 0.55, "color": "#d8b0ff", "look": "zither", "fx": "sound", "skill": "that-huyen", "desc": "Bắn sóng âm xuyên thấu từ xa."},
- "liem": {"name": "Liềm", "atk": 14, "attack": "arc", "range": 30, "arc": 170, "cooldown": 0.48, "color": "#b89af0", "look": "scythe", "skill": "tu-nguyet-liem", "desc": "Vung liềm lớn quét rộng trước mặt."},
+ "liem": {"name": "Liềm", "atk": 14, "attack": "arc", "range": 44, "arc": 150, "cooldown": 0.48, "color": "#b89af0", "look": "scythe", "slash": "fx.liem", "skill": "tu-nguyet-liem", "more": [["song-nguyet-tram", 4], ["tu-nguyet-luan", 18]], "desc": "Vung liềm lớn quét xa trước mặt."},
  "cung": {"name": "Cung", "atk": 12, "attack": "shot", "range": 140, "speed": 240, "radius": 3, "cooldown": 0.5, "color": "#f0d090", "look": "bow", "fx": "arrow", "skill": "lien-chau", "desc": "Bắn tên xa và nhanh."}
 }

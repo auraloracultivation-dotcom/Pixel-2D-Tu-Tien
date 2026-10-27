@@ -140,3 +140,23 @@ def fit(frames):
         cv.a[:] = big[k, ys[0]:y1, xs[0]:xs[-1] + 1]
         out.append(cv)
     return out
+
+
+def picture(name, size, ink):
+    """Hình món đồ vẽ sẵn (tools/art/nguon/<name>.png, nền trong suốt) → Canvas size×size: cắt sát, đặt giữa ô vuông,
+    thu nhỏ rồi đưa mỗi điểm về màu gần nhất của bảng màu gốc, alpha chỉ 0/255, viền mực ink 1 px như hình vẽ code."""
+    im = Image.open(SRC / f'{name}.png').convert('RGBA')
+    im = im.crop(im.getbbox())
+    s = max(im.size)
+    sq = Image.new('RGBA', (s, s))
+    sq.paste(im, ((s - im.width) // 2, (s - im.height) // 2))
+    src = np.array(sq)
+    pal = np.unique(src[src[..., 3] > 127][:, :3], axis=0).astype(int)
+    small = np.array(sq.resize((size - 2, size - 2), Image.BOX)).astype(int)
+    cv = Canvas(size, size)
+    solid = small[..., 3] > 110
+    for y, x in zip(*np.where(solid)):
+        rgb = small[y, x, :3] * 255 // max(small[y, x, 3], 1)   # bỏ nhân alpha của BOX ở mép
+        cv.a[y + 1, x + 1, :3] = pal[np.abs(pal - rgb).sum(axis=1).argmin()]
+        cv.a[y + 1, x + 1, 3] = 255
+    return cv.outline(ink)

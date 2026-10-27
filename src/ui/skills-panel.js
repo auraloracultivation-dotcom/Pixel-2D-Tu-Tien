@@ -1,5 +1,5 @@
 // Bảng Chiêu: tab Chiêu (3 ô chiêu đang mang, chiêu đã mở và chưa mở) và tab Công pháp (3 cuốn đang mang, cấp, kinh nghiệm).
-import { unlockedSkills, skillSlots, setSlot } from '../game/skills.js';
+import { unlockedSkills, skillSlots, setSlot, weaponSkills } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
 import { setTechSlot, techNeed } from '../game/techniques.js';
 import { statText } from '../game/items.js';
@@ -74,7 +74,7 @@ export function createSkillsPanel(game) {
     const list = $('skills-list'); list.innerHTML = '';
     const all = [];
     const w = data.weapons[weaponId(game.save, data)];
-    if (w.skill) all.push({ id: w.skill, from: w.name });
+    for (const [id, at] of weaponSkills(w)) all.push({ id, from: w.name, at });
     const e = game.save.element ? data.elements[game.save.element] : null;
     if (e) e.skills.forEach((id, i) => all.push({ id, from: `Hệ ${e.name}`, at: data.elements._unlock[i] }));
     for (const { id, from, at } of all) {

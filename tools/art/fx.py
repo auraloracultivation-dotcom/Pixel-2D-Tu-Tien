@@ -48,10 +48,13 @@ def spark0():
 KEYS = [(-100, -55, 4, 0.0), (-100, 25, 7, 0.0), (-85, 90, 9, 0.0), (-20, 100, 7, 0.3), (30, 105, 5, 0.55), (70, 110, 3, 0.8)]
 
 
-def slash_frames():
+MOON = [hx('#6a4a9a'), hx('#a88ad8'), hx('#dccbf6'), hx('#ffffff')]  # vệt liềm tím (vũ khí Liềm)
+
+
+def slash_frames(tones=TONES):
     out = [spark0()]
     for a0, a1, wmax, dis in KEYS:
-        t = TONES if dis < 0.5 else [TONES[0], TONES[0], TONES[1], TONES[2]]
+        t = tones if dis < 0.5 else [tones[0], tones[0], tones[1], tones[2]]
         out.append(slash(a0, a1, wmax, t, dis))
     return out
 

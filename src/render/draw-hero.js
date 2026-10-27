@@ -16,7 +16,7 @@ function anim(game, p, look, t) {
   p.heroSw = p.swingT;
   if (p.heroAtk0 != null) {
     const name = look.attacks[p.heroAtkN % look.attacks.length], i = Math.floor((t - p.heroAtk0) * look.fps[name]);
-    if (i >= 0 && i < look.anims[name].length) return [name, i];
+    if (i >= 0 && i < look.anims[name].length) return [name, i, i / look.anims[name].length];
     p.heroAtk0 = null;
   }
   const name = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';   // cưỡi thú: đứng yên trên lưng thú, không bước chân
@@ -28,7 +28,7 @@ export function drawHero(ctx, game, p, t, flash) {
   const look = heroLook(game), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;
-  const [name, i] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
+  const [name, i, atk] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống
   ctx.fillStyle = 'rgba(27,24,48,0.25)';   // bóng dưới chân
@@ -38,7 +38,8 @@ export function drawHero(ctx, game, p, t, flash) {
   const m = ctx.getTransform(), want = look.height / spr.h * m.d;
   const n = want >= 0.75 ? Math.max(1, Math.round(want)) : want;
   ctx.save();
-  ctx.setTransform(n * (p.lookX || 1), 0, 0, n, Math.round(m.a * p.x + m.e), Math.round(m.d * p.y + m.f));
+  const dx = atk != null && look.lunge ? (p.lookX || 1) * look.lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
+  ctx.setTransform(n * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
   ctx.imageSmoothingEnabled = n < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
