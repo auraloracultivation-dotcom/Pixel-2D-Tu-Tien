@@ -19,7 +19,9 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 ## Bản đồ (`data/maps/*.json`)
 
-`grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà), `world: true` (bay tới được từ tinh đồ).
+`grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà), `world: true` (bay tới được từ tinh đồ), `planet` (đã phóng thành tinh cầu tròn: đường kính `d`, gốc đảo cũ `origin`).
+
+**Tinh cầu tròn** (`data/planets.json`, `tools/planetize.py`, chạy một lần: `python3 -I tools/planetize.py`): mỗi đảo ngoài trời thành đĩa tròn đường kính 38–62 ô trôi giữa trời sao (`drawSky` vẽ trời sao khi bản đồ có `planet`). Đảo cũ nằm giữa, vùng mới rải vật cản thành cụm, bốn đường mòn toả từ tâm ra mép, mép đĩa luôn trống để câu cá, đá ngắm cảnh ở mép nam. Bãi quái vòng ngoài: spawner có `mul` thì quái mạnh gấp `mul` lần, không hiện số, có vòng tím "nhiễm ma khí", linh khí chỉ nhích `dungeon.reward_tier` mỗi lần gấp đôi (`scaleMobBy` ở `src/game/mobs.js`). Công cụ đã dịch mọi toạ độ trỏ vào các bản đồ này (story, side, scenic, events); thêm toạ độ mới thì viết theo lưới mới.
 
 ## Tinh đồ (`data/starmap.json`)
 

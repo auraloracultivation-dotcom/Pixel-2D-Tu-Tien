@@ -4,14 +4,14 @@
  "pan": 40,
  "qi_mul": 0.6,
  "spots": [
-  {"map": "thanh-khe", "at": [14, 20], "name": "Đá Ngắm Suối", "line": "Suối chảy về đâu, mây trôi về đâu. Ngồi đây thì chẳng cần biết."},
-  {"map": "thien-kiem-phong", "at": [16, 22], "name": "Vọng Vân Thạch", "line": "Biển mây dưới chân, trời cao trên đầu. Kiếm để bên, lòng để yên."},
-  {"map": "dao-xich-dien", "at": [14, 22], "name": "Đá Ngắm Hoàng Hôn", "line": "Lửa núi đỏ rực, mây chiều đỏ theo. Có những lúc nóng cũng đẹp."},
-  {"map": "dao-han-bang", "at": [18, 22], "name": "Đá Nghe Tuyết", "line": "Tuyết rơi không tiếng. Nghe kỹ thì nghe được cả lòng mình."},
-  {"map": "hac-phong-dao", "at": [18, 22], "name": "Đá Đón Gió", "line": "Gió đen thổi mãi rồi cũng có lúc dừng. Người cũng vậy."},
-  {"map": "dao-thien-kim", "at": [22, 25], "name": "Đá Nghe Kiếm", "line": "Gió lùa qua bãi mộ, ngàn thanh kiếm cùng ngân một tiếng. Rồi im."},
-  {"map": "dao-hau-tho", "at": [18, 25], "name": "Đá Ngồi Nghe Đất", "line": "Đất không vội. Núi mọc lên một tấc mất nghìn năm, mà chẳng hề than."},
-  {"map": "vet-nut-ngoai", "at": [16, 25], "name": "Đá Nhìn Vực", "line": "Dưới chân là cả Linh Giới, nhỏ như bàn cờ. Thứ mình giữ gìn, hóa ra mong manh vậy."}
+  {"map": "thanh-khe", "at": [19, 36], "name": "Đá Ngắm Suối", "line": "Suối chảy về đâu, mây trôi về đâu. Ngồi đây thì chẳng cần biết."},
+  {"map": "thien-kiem-phong", "at": [23, 44], "name": "Vọng Vân Thạch", "line": "Trời sao dưới chân, Linh Nhật trên đầu. Kiếm để bên, lòng để yên."},
+  {"map": "dao-xich-dien", "at": [23, 44], "name": "Đá Ngắm Hoàng Hôn", "line": "Lửa núi đỏ rực, mây chiều đỏ theo. Có những lúc nóng cũng đẹp."},
+  {"map": "dao-han-bang", "at": [24, 46], "name": "Đá Nghe Tuyết", "line": "Tuyết rơi không tiếng. Nghe kỹ thì nghe được cả lòng mình."},
+  {"map": "hac-phong-dao", "at": [25, 48], "name": "Đá Đón Gió", "line": "Gió đen thổi mãi rồi cũng có lúc dừng. Người cũng vậy."},
+  {"map": "dao-thien-kim", "at": [29, 56], "name": "Đá Nghe Kiếm", "line": "Gió lùa qua bãi mộ, ngàn thanh kiếm cùng ngân một tiếng. Rồi im."},
+  {"map": "dao-hau-tho", "at": [30, 58], "name": "Đá Ngồi Nghe Đất", "line": "Đất không vội. Núi mọc lên một tấc mất nghìn năm, mà chẳng hề than."},
+  {"map": "vet-nut-ngoai", "at": [31, 60], "name": "Đá Nhìn Vực", "line": "Dưới chân là cả Linh Giới, nhỏ như bàn cờ. Thứ mình giữ gìn, hóa ra mong manh vậy."}
  ],
  "sunset": {"_note": "Tự hành: mỗi ngày một lần, lúc hoàng hôn, ra phiến đá ngắm cảnh gần nhất ngồi sec giây rồi làm tiếp.", "phase": "hoang-hon", "sec": 45},
  "star": {"_note": "Sao băng: ngồi ngắm cảnh lúc phase, trời không mưa, sau first giây rồi cứ every[0]..every[1] giây có một vệt sao vụt qua trong life giây. Sao đầu tiên mỗi đêm là điều ước: cộng linh khí bằng qi_sec giây đả tọa, đạo lữ ngồi cạnh nói một câu (lines theo người, thiếu thì default), không thì hiện toast.", "phase": "dem", "first": 9, "every": [14, 30], "life": 1.4, "qi_sec": 60, "toast": "Một ngôi sao băng vụt qua. Kịp ước một điều.", "lines": {"lac-tuyet": ["Sao băng... Đệ ước gì? Ta ước kiếm của ta đủ nhanh để giữ những người bên cạnh.", "Ta không tin ước nguyện. Nhưng hôm nay thử một lần cũng được."], "ho-linh": ["Sao băng kìa! Ta ước trước, ngươi ước sau!", "Ta ước xong rồi, nhưng không nói đâu. Nói ra là mất linh."], "default": ["Sao băng kìa! Mau ước đi.", "Trời trong thế này, ước gì cũng thành."]}},

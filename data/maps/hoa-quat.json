@@ -22,7 +22,7 @@
  "spawns": {
   "vao": [4, 6]
  },
- "portals": [{"at": [2, 6], "to": "dao-xich-dien", "spawn": "tu-hoa-quat", "label": "Về Đảo Xích Diễm"}],
+ "portals": [{"at": [2, 6], "to": "dao-xich-dien", "spawn": "tu-hoa-quat", "label": "Về Xích Diễm Tinh"}],
  "npcs": [],
  "spawners": [],
  "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "hoa-lang", "n": 4}]}, {"rect": [14, 1, 13, 11], "door_x": 28, "mobs": [{"mob": "ma-binh", "n": 2}, {"mob": "ma-phap", "n": 2}, {"mob": "hoa-lang", "n": 2}]}, {"rect": [30, 1, 16, 11], "mobs": [{"mob": "huyet-nha-that", "n": 1}], "boss": true}]

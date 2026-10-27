@@ -1,9 +1,9 @@
 {
  "truong-thon": {"name": "Trưởng thôn", "color": "#c9a46a", "lines": ["Linh căn là trời cho, đường tu là tự mình đi.", "Làng Thanh Khê nhỏ, nhưng lòng người không nhỏ."]},
- "tieu-hoa": {"art": {"style": "spiky"}, "name": "Tiểu Hỏa", "color": "#ff7a3a", "lines": ["Nhanh lên! Linh thảo mọc nhiều ở mép đảo đó.", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem!", "Lần này tớ không để ai bắt nữa đâu. Cho tớ đi cùng đi!"]},
+ "tieu-hoa": {"art": {"style": "spiky"}, "name": "Tiểu Hỏa", "color": "#ff7a3a", "lines": ["Nhanh lên! Linh thảo mọc nhiều ở mép tinh cầu đó.", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem!", "Lần này tớ không để ai bắt nữa đâu. Cho tớ đi cùng đi!"]},
  "van-hac": {"name": "Trưởng lão Vân Hạc", "color": "#e6ebf7", "hair": "#f4f4fa", "lines": ["Kiếm nhanh không bằng tâm vững.", "Đả tọa đều đặn. Linh khí không tự chảy vào người lười đâu."]},
  "lac-tuyet": {"art": {"style": "long"}, "name": "Sư tỷ Lạc Tuyết", "color": "#7ad0ff", "lines": ["Đừng nhìn ta. Đi luyện kiếm đi.", "Bãi tập phía nam có mộc linh, đánh chúng để quen tay."]},
- "ho-linh": {"art": {"style": "long", "acc": ["fox-ears", "mark"]}, "name": "Hồ Linh", "color": "#ffc2d6", "lines": ["Bồ đoàn bên cạnh ta là chỗ đả tọa tốt nhất đảo!", "Ta ngửi thấy mùi ma khí ở phía đông..."]},
+ "ho-linh": {"art": {"style": "long", "acc": ["fox-ears", "mark"]}, "name": "Hồ Linh", "color": "#ffc2d6", "lines": ["Bồ đoàn bên cạnh ta là chỗ đả tọa tốt nhất tinh cầu!", "Ta ngửi thấy mùi ma khí ở phía đông..."]},
  "lao-thiet": {"name": "Lão Thiết (thợ rèn)", "color": "#8a5a3a", "hair": "#c8c4d0", "lines": ["Lò rèn cháy rồi, nhưng tay lão vẫn còn.", "Hỏa tinh thạch tốt nhất mọc ở chỗ dung nham nguội."]},
  "a-moc": {"art": {"style": "spiky"}, "stroll": 2, "name": "A Mộc", "color": "#7cc46a", "lines": ["Anh có thấy anh tóc đỏ không? Anh ấy đánh ma tộc giỏi lắm!", "Em không sợ đâu... chỉ hơi run thôi."]},
  "chap-su": {"name": "Chấp sự Nhiệm Vụ Đường", "color": "#c9a46a", "hair": "#3a2e2e", "lines": ["Có việc thì nhận, xong việc thì lãnh thưởng.", "Đệ tử chăm làm nhiệm vụ thì không thiếu Tẩy Luyện Thạch."]},

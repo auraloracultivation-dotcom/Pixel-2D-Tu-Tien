@@ -6,8 +6,8 @@
    "do": [
     {"say": [["", "Đảo Thanh Khê, sáng ngày lễ thức tỉnh linh căn."], ["truong-thon", "Con tới rồi à? Mau tới đá linh căn giữa làng, cả làng đang chờ đó."]]}
    ],
-   "goal": "Tới đá linh căn giữa làng", "target": [13, 10],
-   "until": {"reach": [13, 10], "r": 2}
+   "goal": "Tới đá linh căn giữa làng", "target": [17, 18],
+   "until": {"reach": [17, 18], "r": 2}
   },
   {
    "id": "chon-he", "map": "thanh-khe",
@@ -15,7 +15,7 @@
     {"say": [["", "Bạn đặt tay lên đá linh căn. Một luồng ấm chảy vào lòng bàn tay..."]]},
     {"choose_element": true},
     {"say": [["truong-thon", "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."], ["tieu-hoa", "Ê! Đi hái linh thảo ăn mừng đi! Mép đảo mọc nhiều lắm."]]},
-    {"pickups": "linh-thao", "at": [[5, 8], [22, 12], [8, 16]]}
+    {"pickups": "linh-thao", "at": [[9, 16], [26, 20], [12, 24]]}
    ],
    "goal": "Hái linh thảo ({n}/3)",
    "until": {"collect": "linh-thao", "n": 3}
@@ -25,7 +25,7 @@
    "do": [
     {"dark": 0.45},
     {"say": [["tieu-hoa", "Ơ... sao trời tối sầm lại vậy?"], ["truong-thon", "Ma khí! Ma tộc leo lên từ biển mây! Các con cầm gậy lên!"]]},
-    {"spawn": "ma-tieu", "n": 3, "at": [21, 5], "spread": 2}
+    {"spawn": "ma-tieu", "n": 3, "at": [25, 13], "spread": 2}
    ],
    "goal": "Đánh lui ma tộc",
    "until": {"kill_all": true}
@@ -35,8 +35,8 @@
    "do": [
     {"nodeath": true},
     {"say": [["tieu-hoa", "Còn nhiều nữa kìa! Chúng bò lên từ khắp nơi!"]]},
-    {"spawn": "ma-tieu", "n": 5, "at": [6, 13], "spread": 3},
-    {"spawn": "ma-cung", "n": 2, "at": [20, 14], "spread": 2}
+    {"spawn": "ma-tieu", "n": 5, "at": [10, 21], "spread": 3},
+    {"spawn": "ma-cung", "n": 2, "at": [24, 22], "spread": 2}
    ],
    "goal": "Cầm cự!",
    "until": {"any": [{"hp_below": 0.45}, {"kill_all": true}]}
@@ -69,7 +69,7 @@
     {"gear": ["thiet-kiem", "bo-y"]},
     {"say": [["", "Nhận Thanh Phong Kiếm. Mở khóa chiêu Kiếm Khí. Nhận thêm Thiết Kiếm và Bố Y Đạo Bào (mở Túi để xem)."], ["lac-tuyet", "Sư đệ mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]]}
    ],
-   "goal": "Ngồi lên bồ đoàn, bấm Đả tọa tới Luyện Khí tầng 2", "target": [7, 10],
+   "goal": "Ngồi lên bồ đoàn, bấm Đả tọa tới Luyện Khí tầng 2", "target": [14, 21],
    "until": {"layer": 2}
   },
   {
@@ -77,7 +77,7 @@
    "do": [
     {"say": [["ho-linh", "Đột phá rồi! Đi gặp sư tỷ Lạc Tuyết đi, sư tỷ đang tìm người đó."]]}
    ],
-   "goal": "Nói chuyện với sư tỷ Lạc Tuyết", "target": [20, 9],
+   "goal": "Nói chuyện với sư tỷ Lạc Tuyết", "target": [27, 20],
    "until": {"talk": "lac-tuyet"}
   },
   {
@@ -86,7 +86,7 @@
     {"say": [["lac-tuyet", "Dưới chân núi có một bí cảnh đầy ma khí. Kẻ cầm đầu tên là Huyết Nha, chính hắn đánh làng con."], ["lac-tuyet", "Luyện tay với mộc linh ở bãi tập phía nam trước đã. Khi sẵn sàng, đi qua cổng truyền tống phía đông."]]},
     {"flag": "mo-bi-canh"}
    ],
-   "goal": "Vào Bí cảnh Huyết Nha (cổng phía đông)", "target": [26, 13],
+   "goal": "Vào Bí cảnh Huyết Nha (cổng phía đông)", "target": [33, 24],
    "until": {"map": "bi-canh"}
   },
   {
@@ -114,7 +114,7 @@
     {"say": [["van-hac", "Cầm lấy cuốn Kiếm Tông Tâm Pháp. Mang theo người, linh khí con thu được sẽ làm nó tiến bộ. Ngoài kia còn nhiều bí kíp khác, gặp thì học."]]},
     {"technique": "kiem-tong-tam-phap"}
    ],
-   "goal": "Tu tới Luyện Khí tầng 4 (đả tọa, săn quái, nhận treo thưởng)", "target": [12, 9],
+   "goal": "Tu tới Luyện Khí tầng 4 (đả tọa, săn quái, nhận treo thưởng)", "target": [19, 20],
    "until": {"layer": 4}
   },
   {
@@ -122,7 +122,7 @@
    "do": [
     {"say": [["ho-linh", "Tầng 4 rồi! Mau đi gặp trưởng lão học ngự kiếm!"]]}
    ],
-   "goal": "Gặp trưởng lão Vân Hạc", "target": [16, 5],
+   "goal": "Gặp trưởng lão Vân Hạc", "target": [23, 16],
    "until": {"talk": "van-hac"}
   },
   {
@@ -132,7 +132,7 @@
     {"flag": "ngu-kiem"},
     {"say": [["van-hac", "Bến kiếm ở mép tây đảo. Từ đó con bay sang Đảo Xích Diễm. Ở đó toàn lửa và ma tộc, đừng liều."]]}
    ],
-   "goal": "Tới bến kiếm phía tây, ngự kiếm sang Đảo Xích Diễm", "target": [3, 12],
+   "goal": "Tới bến kiếm phía tây, ngự kiếm sang Đảo Xích Diễm", "target": [10, 23],
    "until": {"map": "dao-xich-dien"}
   },
   {
@@ -140,7 +140,7 @@
    "do": [
     {"say": [["", "Đảo Xích Diễm. Khói còn bốc lên từ những mái nhà cháy đen."], ["ho-linh", "Làng này... cũng bị như làng Thanh Khê."], ["lao-thiet", "Lại một đứa nhóc Kiếm tông à? Tới muộn rồi."], ["lao-thiet", "Tháng trước ma tộc kéo tới. Có một thằng bé tóc đỏ, linh căn hệ Hỏa, liều mạng chặn chúng để dân làng chạy."], ["lao-thiet", "Chúng lôi nó về phía miệng núi lửa. Từ hôm đó lũ hỏa lang cứ lảng vảng ngoài làng."], ["", "Tiểu Hỏa... cậu ấy đã ở đây."]]}
    ],
-   "goal": "Đánh lui hỏa lang phía đông làng ({n}/6)", "target": [26, 10],
+   "goal": "Đánh lui hỏa lang phía đông làng ({n}/6)", "target": [32, 20],
    "until": {"kill": "hoa-lang", "n": 6}
   },
   {
@@ -148,7 +148,7 @@
    "do": [
     {"flag": "tran-hoa-lang"},
     {"say": [["lao-thiet", "Khá đấy. Giờ giúp lão một việc: lò rèn cần hỏa tinh thạch, thứ đá đỏ mọc cạnh dung nham."], ["a-moc", "Em thấy mấy viên ở gần hồ lửa! Nhưng có viêm linh với ma binh canh..."]]},
-    {"pickups": "hoa-tinh-thach", "at": [[12, 6], [24, 8], [27, 16]]}
+    {"pickups": "hoa-tinh-thach", "at": [[18, 16], [30, 18], [33, 26]]}
    ],
    "goal": "Nhặt hỏa tinh thạch cạnh dung nham ({n}/3)",
    "until": {"collect": "hoa-tinh-thach", "n": 3}
@@ -158,7 +158,7 @@
    "do": [
     {"say": [["ho-linh", "Đủ ba viên rồi, mang về cho Lão Thiết thôi!"]]}
    ],
-   "goal": "Mang đá về cho Lão Thiết", "target": [10, 11],
+   "goal": "Mang đá về cho Lão Thiết", "target": [16, 21],
    "until": {"talk": "lao-thiet"}
   },
   {
@@ -177,7 +177,7 @@
     {"say": [["", "Sấm tan. Linh khí trong người cuộn chảy như sông. Bạn đã là tu sĩ Trúc Cơ."], ["ho-linh", "Giờ vào Hỏa Quật được rồi! Cổng ở miệng núi lửa phía bắc Đảo Xích Diễm."]]},
     {"flag": "mo-hoa-quat"}
    ],
-   "goal": "Vào Hỏa Quật (miệng núi lửa phía bắc Đảo Xích Diễm)", "target": [17, 3], "target_map": "dao-xich-dien",
+   "goal": "Vào Hỏa Quật (miệng núi lửa phía bắc Đảo Xích Diễm)", "target": [23, 13], "target_map": "dao-xich-dien",
    "until": {"map": "hoa-quat"}
   },
   {
@@ -205,7 +205,7 @@
     {"say": [["van-hac", "Còn một chuyện. Con hạ được Huyết Nha, tông môn ghi công lớn."], ["van-hac", "Ta ban cho con một động phủ ở chân núi phía tây, ngay sau bồ đoàn. Trong đó có lò đan, lò rèn và một mảnh linh điền."], ["ho-linh", "Động phủ riêng! Bồ đoàn trong động phủ tu nhanh gấp đôi đó!"]]},
     {"flag": "dong-phu"}
    ],
-   "goal": "Vào động phủ (cổng phía tây, cạnh bồ đoàn)", "target": [6, 9],
+   "goal": "Vào động phủ (cổng phía tây, cạnh bồ đoàn)", "target": [13, 20],
    "until": {"map": "dong-phu"}
   },
   {
@@ -227,7 +227,7 @@
     {"fly": "dao-han-bang", "spawn": "vao", "kind": "flight", "with": "lac-tuyet", "text": "Theo sư tỷ Lạc Tuyết bay xuống tầng Mây Giữa"},
     {"say": [["lac-tuyet", "Tới rồi. Lạnh thật... Làng chài ở phía tây, đi hỏi trưởng làng xem chuyện gì."]]}
    ],
-   "goal": "Hỏi chuyện Lão Ngư, trưởng làng chài", "target": [10, 10], "target_map": "dao-han-bang",
+   "goal": "Hỏi chuyện Lão Ngư, trưởng làng chài", "target": [16, 22], "target_map": "dao-han-bang",
    "until": {"talk": "lao-ngu"}
   },
   {
@@ -235,7 +235,7 @@
    "do": [
     {"say": [["lao-ngu", "Tu sĩ Kiếm tông? Trời phật phù hộ!"], ["lao-ngu", "Mười ngày trước, một tên ma tướng mặc giáp băng kéo theo một đứa nhỏ tóc đỏ, bị xích tay, đi vào Băng Quật phía bắc."], ["lao-ngu", "Từ đó biển mây đông cứng, tuyết lang thì phát cuồng, cắn chết cả người đi kiếm củi."], ["lac-tuyet", "Tóc đỏ... là Tiểu Hỏa. Sư đệ, dẹp bầy tuyết lang trước, dân làng mới dám ra khỏi nhà."]]}
    ],
-   "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [24, 13],
+   "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [30, 25],
    "until": {"kill": "tuyet-lang", "n": 8}
   },
   {
@@ -243,9 +243,9 @@
    "do": [
     {"say": [["lao-ngu", "Đa tạ! Còn chuyện này... đêm nào cũng có bóng đen lẻn vào kho cá ở bờ đông."], ["lao-ngu", "Người ta bảo là ma tộc. Ta già rồi, không dám tới gần."], ["lac-tuyet", "Ma tộc ở ngay cạnh làng? Đi xem."]]},
     {"flag": "gap-mac-anh"},
-    {"npc_add": "mac-anh", "at": [29, 16]}
+    {"npc_add": "mac-anh", "at": [35, 28]}
    ],
-   "goal": "Tới kho cá bờ đông xem bóng đen", "target": [29, 16],
+   "goal": "Tới kho cá bờ đông xem bóng đen", "target": [35, 28],
    "until": {"talk": "mac-anh"}
   },
   {
@@ -253,10 +253,10 @@
    "do": [
     {"say": [["mac-anh", "Khoan! Đừng rút kiếm. Ta không đánh nhau."], ["mac-anh", "Ta là Mặc Ảnh, lính hậu cần của Hàn Hồn Ma Tướng. Ta bỏ trốn rồi. Ta chỉ lấy cá để sống qua mùa đông."], ["lac-tuyet", "Ma tộc mà biết đói? Nói dối thì nói khéo một chút."], ["mac-anh", "Tin hay không tùy cô. Nhưng ta biết cậu bé tóc đỏ. Cậu ấy bị xích trong Băng Quật mà vẫn chia cho ta nửa bát canh."], ["mac-anh", "Cửa Băng Quật bị phong ấn bằng ba khối băng tâm. Ma Tướng giấu chúng ở bờ đông bắc, có ma băng tiễn canh."], ["mac-anh", "Phá phong ấn đi. Ta... muốn trả cậu ấy bát canh đó."]]},
     {"flag": "tim-bang-tam"},
-    {"pickups": "bang-tam", "at": [[26, 6], [30, 8], [28, 4]]},
-    {"spawn": "ma-bang-tien", "n": 3, "at": [28, 6], "spread": 2}
+    {"pickups": "bang-tam", "at": [[32, 18], [36, 20], [34, 16]]},
+    {"spawn": "ma-bang-tien", "n": 3, "at": [34, 18], "spread": 2}
    ],
-   "goal": "Lấy băng tâm ở bờ đông bắc ({n}/3)", "target": [28, 6],
+   "goal": "Lấy băng tâm ở bờ đông bắc ({n}/3)", "target": [34, 18],
    "until": {"collect": "bang-tam", "n": 3}
   },
   {
@@ -265,7 +265,7 @@
     {"say": [["", "Ba khối băng tâm rung lên rồi vỡ vụn. Từ phía bắc vang lên tiếng nứt như sấm."], ["mac-anh", "Phong ấn mở rồi. Ta không vào được, lính canh nhận ra ta. Ta ở đây trông làng giúp các người."], ["lac-tuyet", "Sư đệ, vào Băng Quật. Ta đi sau lưng đệ."]]},
     {"flag": "mo-bang-quat"}
    ],
-   "goal": "Vào Băng Quật (phía bắc đảo)", "target": [18, 2],
+   "goal": "Vào Băng Quật (phía bắc đảo)", "target": [24, 14],
    "until": {"map": "han-bang-quat"}
   },
   {
@@ -303,7 +303,7 @@
     {"fly": "hac-phong-dao", "spawn": "vao", "kind": "flight", "with": "lac-tuyet", "text": "Xuyên qua gió đen xuống tầng Mây Sâu"},
     {"say": [["lac-tuyet", "Gió ở đây có ma khí... Phía trước có trại đổ nát, hình như có người."]]}
    ],
-   "goal": "Tới trại đổ nát xem ai ở đó", "target": [10, 10], "target_map": "hac-phong-dao",
+   "goal": "Tới trại đổ nát xem ai ở đó", "target": [17, 23], "target_map": "hac-phong-dao",
    "until": {"talk": "mac-anh"}
   },
   {
@@ -311,9 +311,9 @@
    "do": [
     {"say": [["mac-anh", "Các người tới rồi. Ta đi trước ba ngày, dò được đường."], ["mac-anh", "Cậu bé tóc đỏ bị nhốt trong Hắc Phong Động phía bắc. Cửa động có trận gió do ba Ma Phong Vệ giữ."], ["mac-anh", "Hạ cả ba, trận gió tan, cửa động mở."], ["lac-tuyet", "Ngươi là ma tộc. Vì sao giúp bọn ta tới mức này?"], ["mac-anh", "Vì bát canh cá. Ta nói rồi mà."], ["", "Ba bóng giáp đen hiện ra quanh cửa động phía bắc."]]},
     {"flag": "pha-tran-gio"},
-    {"spawn": "ma-phong-ve", "n": 3, "at": [18, 6], "spread": 2}
+    {"spawn": "ma-phong-ve", "n": 3, "at": [25, 19], "spread": 2}
    ],
-   "goal": "Hạ Ma Phong Vệ giữ trận gió ({n}/3)", "target": [18, 5], "target_map": "hac-phong-dao",
+   "goal": "Hạ Ma Phong Vệ giữ trận gió ({n}/3)", "target": [25, 18], "target_map": "hac-phong-dao",
    "until": {"kill": "ma-phong-ve", "n": 3}
   },
   {
@@ -322,7 +322,7 @@
     {"say": [["", "Ma Phong Vệ cuối cùng gục xuống. Gió đen quanh cửa động tan dần."], ["mac-anh", "Cửa mở rồi. Ta không vào được, Ma Quân ngửi thấy mùi ta từ xa. Ta trông lối ra cho."], ["lac-tuyet", "Đi thôi sư đệ."]]},
     {"flag": "mo-hac-phong-dong"}
    ],
-   "goal": "Vào Hắc Phong Động", "target": [18, 2], "target_map": "hac-phong-dao",
+   "goal": "Vào Hắc Phong Động", "target": [25, 15], "target_map": "hac-phong-dao",
    "until": {"map": "hac-phong-dong"}
   },
   {
@@ -363,7 +363,7 @@
   {
    "id": "ao-tran", "map": "dao-moc",
    "do": [
-    {"pickups": "linh-quang", "at": [[15, 2], [3, 14], [30, 24]]}
+    {"pickups": "linh-quang", "at": [[21, 15], [9, 27], [36, 37]]}
    ],
    "goal": "Tìm đốm linh quang để phá ảo trận ({n}/3)",
    "until": {"collect": "linh-quang", "n": 3}
@@ -373,9 +373,9 @@
    "do": [
     {"say": [["", "Ba đốm linh quang bay lên, hợp thành một con đom đóm lớn rồi lao về phía đông."], ["", "Cây cối rẽ ra hai bên. Ảo trận tan."], ["tieu-hoa", "Có người ở kia! Áo đen... ma tộc!"], ["", "Mấy bóng áo đen chặn lối vào làng. Trên áo thêu hình rễ cây đỏ."]]},
     {"flag": "pha-ao-lam"},
-    {"spawn": "ma-tham-tu", "n": 3, "at": [35, 11], "spread": 2}
+    {"spawn": "ma-tham-tu", "n": 3, "at": [41, 24], "spread": 2}
    ],
-   "goal": "Hạ Ma Thám Tử chặn lối vào làng ({n}/3)", "target": [35, 11], "target_map": "dao-moc",
+   "goal": "Hạ Ma Thám Tử chặn lối vào làng ({n}/3)", "target": [41, 24], "target_map": "dao-moc",
    "until": {"kill": "ma-tham-tu", "n": 3}
   },
   {
@@ -384,7 +384,7 @@
     {"say": [["tieu-hoa", "Tên cuối cùng gọi \"Ma Hậu\" trước khi tan thành khói..."], ["", "Phía đông, giữa những rễ cây khổng lồ, có một cánh cổng dây leo đang từ từ mở."]]},
     {"flag": "mo-lang"}
    ],
-   "goal": "Vào Làng Tinh Linh (phía đông Rừng Mê)", "target": [39, 11], "target_map": "dao-moc",
+   "goal": "Vào Làng Tinh Linh (phía đông Rừng Mê)", "target": [45, 24], "target_map": "dao-moc",
    "until": {"map": "lang-tinh-linh"}
   },
   {
@@ -392,7 +392,7 @@
    "do": [
     {"say": [["", "Làng Tinh Linh. Nhà làm trong thân cây, đèn lồng treo trên rễ. Nhưng lá trên cây mẹ đang úa vàng."], ["linh-nhi", "Người... người trên mây! Trưởng lão ơi!"]]}
    ],
-   "goal": "Gặp Mộc Trưởng Lão dưới gốc cây mẹ", "target": [16, 6], "target_map": "lang-tinh-linh",
+   "goal": "Gặp Mộc Trưởng Lão dưới gốc cây mẹ", "target": [20, 16], "target_map": "lang-tinh-linh",
    "until": {"talk": "truong-lao-moc"}
   },
   {
@@ -404,7 +404,7 @@
     {"say": [["", "Rễ độc gào lên rồi vặn mình thành những hình người bằng gỗ."]]},
     {"flag": "dot-re-doc"}
    ],
-   "goal": "Hạ Thụ Mộc Vệ giữ cửa Cổ Thụ Tâm ({n}/2)", "target": [16, 4], "target_map": "lang-tinh-linh",
+   "goal": "Hạ Thụ Mộc Vệ giữ cửa Cổ Thụ Tâm ({n}/2)", "target": [20, 14], "target_map": "lang-tinh-linh",
    "until": {"kill": "thu-moc-ve", "n": 2}
   },
   {
@@ -413,7 +413,7 @@
     {"say": [["", "Thụ Mộc Vệ đổ xuống, hoá lại thành rễ khô rồi vỡ vụn."], ["truong-lao-moc", "Cửa mở rồi. Cổ Thụ Tâm ở ngay trong thân cây mẹ. Cứu con bé giúp lão."], ["tieu-hoa", "Đi thôi! Tớ đốt đường cho."]]},
     {"flag": "mo-co-thu"}
    ],
-   "goal": "Vào Cổ Thụ Tâm (cửa phía bắc làng)", "target": [16, 2], "target_map": "lang-tinh-linh",
+   "goal": "Vào Cổ Thụ Tâm (cửa phía bắc làng)", "target": [20, 12], "target_map": "lang-tinh-linh",
    "until": {"map": "co-thu-tam"}
   },
   {
@@ -448,7 +448,7 @@
     {"say": [["", "Chiếc lá ngọc Thanh Diệp tặng bỗng rung lên trong túi áo. Tiếng nàng vọng ra, đứt quãng."], ["thanh-diep", "...Cây mẹ... đang héo. Lá rụng giữa mùa xuân. Có thứ gì đó... ăn rễ của người."], ["thanh-diep", "Mộc Trưởng Lão bảo... chỉ người có linh căn thuần mới xuống được tận gốc. Xin người... tới nhanh."]]},
     {"flag": "mau-thu-heo"}
    ],
-   "goal": "Tới Làng Tinh Linh, cây mẹ đang héo", "target": [16, 6], "target_map": "lang-tinh-linh",
+   "goal": "Tới Làng Tinh Linh, cây mẹ đang héo", "target": [20, 16], "target_map": "lang-tinh-linh",
    "until": {"talk": "truong-lao-moc"}
   },
   {
@@ -456,7 +456,7 @@
    "do": [
     {"say": [["", "Cả làng chìm trong màu vàng úa. Những sợi gai đen mọc lên từ kẽ đá, quấn lấy chân nhà."], ["truong-lao-moc", "Ngươi tới rồi. Ngươi nhớ bụi gai đen Ma Hậu hoá thành chứ? Nó rơi xuống kẽ rễ, rồi nảy mầm."], ["truong-lao-moc", "Lão gọi nó là Hắc Cức. Mỗi mầm là một cái miệng hút nhựa cây mẹ. Nhổ hết mầm trên mặt đất trước đã."], ["thanh-diep", "Ta dẫn đường. Gai mọc ở đâu, cây mẹ đau ở đó, ta cảm được."]]}
    ],
-   "goal": "Nhổ mầm Hắc Cức quanh làng ({n}/6)", "target": [16, 12],
+   "goal": "Nhổ mầm Hắc Cức quanh làng ({n}/6)", "target": [20, 22],
    "until": {"kill": "hac-cuc-mam", "n": 6}
   },
   {
@@ -465,7 +465,7 @@
     {"say": [["", "Mầm gai cuối cùng khô quắt lại. Nhưng mặt đất vẫn rung khẽ, như có tim đập dưới sâu."], ["thanh-diep", "Gốc của nó ở dưới rễ cây mẹ. Ta mở lối phía nam làng. Người đi trước, ta giữ cây mẹ ở trên này."], ["truong-lao-moc", "Cẩn thận. Thứ đã nuốt nhựa cây mẹ mấy tháng nay... không còn là mầm nữa."]]},
     {"flag": "mo-re-mau-thu"}
    ],
-   "goal": "Xuống Rễ Mẫu Thụ (lối phía nam làng)", "target": [16, 18], "target_map": "lang-tinh-linh",
+   "goal": "Xuống Rễ Mẫu Thụ (lối phía nam làng)", "target": [20, 28], "target_map": "lang-tinh-linh",
    "until": {"map": "re-mau-thu"}
   },
   {
@@ -502,7 +502,7 @@
     {"fly": "dao-thien-kim", "spawn": "vao", "kind": "flight", "text": "Bay xuống tầng Mây Sâu phía tây"},
     {"say": [["", "Gió trên đảo mang theo tiếng kim loại ngân khẽ, như có ngàn thanh kiếm cùng thở."], ["", "Làng rèn ở ngay bến đáp. Lò nào cũng tắt lửa."]]}
    ],
-   "goal": "Tìm Kiếm Lão ở làng rèn", "target": [8, 12], "target_map": "dao-thien-kim",
+   "goal": "Tìm Kiếm Lão ở làng rèn", "target": [14, 27], "target_map": "dao-thien-kim",
    "until": {"talk": "kiem-lao"}
   },
   {
@@ -510,14 +510,14 @@
    "do": [
     {"say": [["kiem-lao", "Người của Vân Hạc? Lão Thiết nói sẽ có người tới. Ngươi tới muộn ba ngày rồi."], ["kiem-lao", "Con bé Lan nghe tiếng kiếm khóc dưới Kiếm Trủng. Nó bảo kiếm hồn tổ tiên đang gọi. Nó đi một mình, rồi không về."], ["kiem-lao", "Từ đêm đó, kiếm trong bãi mộ tự rút khỏi đất, bay lượn như có ai giật dây. Không ai tới gần được."], ["kiem-lao", "Kiếm tu đã khuất không bao giờ hại người sống. Có kẻ đang làm ô uế họ. Hạ kiếm xuống giúp ta, nhẹ tay thôi."]]}
    ],
-   "goal": "Hạ kiếm hồn bị điều khiển ở bãi mộ kiếm ({n}/8)", "target": [34, 12],
+   "goal": "Hạ kiếm hồn bị điều khiển ở bãi mộ kiếm ({n}/8)", "target": [40, 27],
    "until": {"kill": "kiem-hon", "n": 8}
   },
   {
    "id": "manh-kiem", "map": "dao-thien-kim",
    "do": [
     {"say": [["", "Thanh kiếm hồn cuối cùng rơi xuống cát, run lên rồi nằm im. Giữa những ngôi mộ có vài mảnh thép sáng lấp lánh."], ["kiem-lao", "Kiếm của con Lan đấy! Gãy rồi... Nhặt hết lại giúp ta. Kiếm gãy vẫn nhớ đường về với chủ."]]},
-    {"pickups": "manh-kiem", "at": [[31, 6], [41, 10], [34, 21]]}
+    {"pickups": "manh-kiem", "at": [[37, 21], [47, 25], [40, 36]]}
    ],
    "goal": "Nhặt mảnh kiếm gãy của Thiết Lan ({n}/3)",
    "until": {"collect": "manh-kiem", "n": 3}
@@ -528,7 +528,7 @@
     {"say": [["", "Ba mảnh kiếm ghép lại trong tay bạn, rung lên, cùng chỉ về phía đông bãi mộ."], ["kiem-lao", "Kiếm Trủng. Nơi chôn kiếm của các đời chưởng môn. Cửa niêm phong sáu mươi năm nay."], ["kiem-lao", "Ta mở cửa cho ngươi. Ở dưới đó, ta nghe thấy tiếng của một thứ không phải người."]]},
     {"flag": "mo-kiem-trung"}
    ],
-   "goal": "Vào Kiếm Trủng (cổng phía đông bãi mộ)", "target": [43, 13], "target_map": "dao-thien-kim",
+   "goal": "Vào Kiếm Trủng (cổng phía đông bãi mộ)", "target": [49, 28], "target_map": "dao-thien-kim",
    "until": {"map": "kiem-trung"}
   },
   {
@@ -567,7 +567,7 @@
     {"fly": "dao-hau-tho", "spawn": "vao", "kind": "flight", "text": "Lao xuống tầng Mây Đáy"},
     {"say": [["", "Ruộng bậc thang khô nứt. Nhà đất đóng cửa im lìm. Những hình nhân bằng đất đi lại chậm chạp giữa đồng."], ["", "Trong một ngôi nhà, có ánh lửa nhỏ."]]}
    ],
-   "goal": "Tìm người còn ở lại làng", "target": [8, 12], "target_map": "dao-hau-tho",
+   "goal": "Tìm người còn ở lại làng", "target": [15, 28], "target_map": "dao-hau-tho",
    "until": {"talk": "thach-ba"}
   },
   {
@@ -575,14 +575,14 @@
    "do": [
     {"say": [["thach-ba", "Người trên mây xuống à? Vào đây, vào đây, đừng để bọn đất kia thấy."], ["thach-ba", "Ba tháng trước ma tộc tới. Chúng nặn đất thành người, bắt hết trai tráng xuống Địa Cung đào một thứ gì đó."], ["thach-ba", "Thằng cháu bà, Thạch Sinh, cũng bị bắt. Nó mang linh căn Thổ thuần. Bà biết chúng tới vì nó."], ["thach-ba", "Hôm qua có một cô gái áo trắng, kiếm băng. Cô ấy đánh một mình với cả trăm thổ khôi, rồi bị kéo xuống đất."], ["thach-ba", "Muốn xuống Địa Cung thì phải qua đền đổ. Bọn đất đứng chắn đầy đường."]]}
    ],
-   "goal": "Dẹp thổ khôi chắn đường ({n}/8)", "target": [19, 12],
+   "goal": "Dẹp thổ khôi chắn đường ({n}/8)", "target": [26, 28],
    "until": {"kill": "tho-khoi", "n": 8}
   },
   {
    "id": "bang-hoa", "map": "dao-hau-tho",
    "do": [
     {"say": [["", "Thổ khôi cuối cùng vỡ thành một đống bùn. Gió thổi qua, mang theo hơi lạnh."], ["", "Trên nền đền đổ có vài bông hoa băng chưa tan. Giữa nắng đất thế này, chỉ có một người làm được."], ["", "Sư tỷ để lại dấu. Đi theo băng hoa."]]},
-    {"pickups": "bang-hoa", "at": [[33, 6], [40, 10], [35, 20]]}
+    {"pickups": "bang-hoa", "at": [[40, 22], [47, 26], [42, 36]]}
    ],
    "goal": "Lần theo băng hoa Lạc Tuyết để lại ({n}/3)",
    "until": {"collect": "bang-hoa", "n": 3}
@@ -593,7 +593,7 @@
     {"say": [["", "Bông băng hoa cuối cùng nằm ngay trước cột đá giữa đền. Trên cột có vết kiếm, xếp thành chữ."], ["", "\"Ở dưới. Đừng tới một mình.\""], ["", "...Sư tỷ thì vẫn vậy. Bạn đặt tay lên cột đá. Mặt đất tách ra, lộ cầu thang đá đi xuống."]]},
     {"flag": "mo-dia-cung"}
    ],
-   "goal": "Xuống Địa Cung (cổng phía đông đền đổ)", "target": [43, 13], "target_map": "dao-hau-tho",
+   "goal": "Xuống Địa Cung (cổng phía đông đền đổ)", "target": [50, 29], "target_map": "dao-hau-tho",
    "until": {"map": "dia-cung"}
   },
   {
@@ -637,7 +637,7 @@
     {"fly": "vet-nut-ngoai", "spawn": "vao", "kind": "flight", "text": "Bay lên Tầng Trời Rách"},
     {"say": [["", "Đá trôi lơ lửng giữa khoảng không tím thẫm. Những khe nứt dưới chân thở ra khói lạnh."], ["", "Xa xa, một ngục tù bằng đá đen treo ngược giữa trời."]]}
    ],
-   "goal": "Tìm Mặc Ảnh ở rìa Ngoại Vực", "target": [7, 12], "target_map": "vet-nut-ngoai",
+   "goal": "Tìm Mặc Ảnh ở rìa Ngoại Vực", "target": [15, 29], "target_map": "vet-nut-ngoai",
    "until": {"talk": "mac-anh"}
   },
   {
@@ -645,14 +645,14 @@
    "do": [
     {"say": [["mac-anh", "Tới rồi à. Ta chờ ngươi hai ngày, ăn hết cá nướng mang theo rồi."], ["mac-anh", "Hư Không Lao được bốn trận nhãn khóa lại. Mỗi trận nhãn có một bầy hư không ma canh."], ["mac-anh", "Dọn bọn ma đó trước. Bạn bè ngươi sẽ giữ lối lui. Ta đi cùng ngươi tới cửa ngục."], ["tieu-hoa", "Tớ ở đây giữ lửa! Cậu đi đi, nhớ về nhé."]]}
    ],
-   "goal": "Dọn hư không ma canh trận nhãn ({n}/8)", "target": [18, 10],
+   "goal": "Dọn hư không ma canh trận nhãn ({n}/8)", "target": [26, 27],
    "until": {"kill": "hu-khong-ma", "n": 8}
   },
   {
    "id": "tran-nhan", "map": "vet-nut-ngoai",
    "do": [
     {"say": [["", "Bầy ma tan đi. Bốn đốm sáng tím lộ ra ở bốn góc Ngoại Vực, đập như tim."], ["mac-anh", "Trận nhãn đấy. Phá cả bốn, cửa lao sẽ mở."]]},
-    {"pickups": "tran-nhan", "at": [[10, 4], [36, 5], [36, 20], [9, 21]]}
+    {"pickups": "tran-nhan", "at": [[18, 21], [44, 22], [44, 37], [17, 38]]}
    ],
    "goal": "Phá trận nhãn quanh Ngoại Vực ({n}/4)",
    "until": {"collect": "tran-nhan", "n": 4}
@@ -663,7 +663,7 @@
     {"say": [["", "Trận nhãn cuối cùng vỡ vụn. Ngục tù đá đen rung lên, rồi chậm rãi hạ xuống, cửa lao mở ra ở rìa phía đông."], ["mac-anh", "Trong đó là Hư Không Ngục Chủ. Hắn giữ chìa khóa pha lê. Ta biết hắn, hắn chưa từng thua."], ["mac-anh", "...Nhưng hắn cũng chưa từng gặp ngươi."]]},
     {"flag": "mo-hu-khong-lao"}
    ],
-   "goal": "Vào Hư Không Lao (cổng phía đông)", "target": [43, 13], "target_map": "vet-nut-ngoai",
+   "goal": "Vào Hư Không Lao (cổng phía đông)", "target": [51, 30], "target_map": "vet-nut-ngoai",
    "until": {"map": "hu-khong-lao"}
   },
   {

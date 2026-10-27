@@ -1,7 +1,7 @@
 {
  "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được.",
  "types": {
-  "~": {"name": "biển mây", "solid": true, "void": true},
+  "~": {"name": "tinh không", "solid": true, "void": true},
   ".": {"name": "cỏ", "color": "#7cc46a"},
   ",": {"name": "đường đất", "color": "#c9a46a"},
   "F": {"name": "hoa", "color": "#7cc46a"},

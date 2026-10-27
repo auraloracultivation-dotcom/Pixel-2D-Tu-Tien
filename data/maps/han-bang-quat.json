@@ -20,7 +20,7 @@
   "#################################################"
  ],
  "spawns": {"vao": [4, 6]},
- "portals": [{"at": [2, 6], "to": "dao-han-bang", "spawn": "tu-bang-quat", "label": "Về Đảo Hàn Băng"}],
+ "portals": [{"at": [2, 6], "to": "dao-han-bang", "spawn": "tu-bang-quat", "label": "Về Hàn Băng Tinh"}],
  "npcs": [],
  "spawners": [],
  "rooms": [{"rect": [1, 1, 10, 11], "door_x": 12, "mobs": [{"mob": "tuyet-lang", "n": 4}, {"mob": "bang-tinh", "n": 1}]}, {"rect": [14, 1, 14, 11], "door_x": 29, "mobs": [{"mob": "han-ma-ve", "n": 2}, {"mob": "ma-bang-tien", "n": 2}, {"mob": "tuyet-lang", "n": 2}]}, {"rect": [31, 1, 17, 11], "mobs": [{"mob": "han-hon-ma-tuong", "n": 1}], "boss": true}]

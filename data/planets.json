@@ -1,0 +1,18 @@
+{
+ "_note": "Phóng đảo thành tinh cầu tròn (tools/planetize.py, chạy một lần; bản đồ đã phóng có trường planet nên chạy lại không phóng thêm). d: đường kính đĩa (ô), đảo cũ đặt giữa, mọi toạ độ trong data/ dịch theo. fill: nền vùng mới. scatter: ký tự vật cản rải thành cụm, số là phần trăm diện tích vùng mới. path: ký tự đường mòn; bốn đường mòn toả từ tâm ra mép, cắt qua cây, đá (soft) nhưng không qua nhà, cổng, NPC. rings: bãi quái mới quanh vòng (r phần bán kính, n bãi), mul: quái mạnh gấp mấy lần (luật 7 → 14 → 28: vòng ngoài ×2, ẩn số); thưởng nhân dungeon.reward_tier mỗi lần gấp đôi. Mép đĩa luôn là nền trống để câu cá; đá ngắm cảnh dời ra mép nam nhìn ra trời sao.",
+ "soft": "TRZYVUbIk*OLfXEC#",
+ "rings": [{"r": 0.66, "n": 4, "mul": 1}, {"r": 0.86, "n": 5, "mul": 2}],
+ "spawner": {"n": 3, "spread": 3, "respawn": 8},
+ "maps": {
+  "thanh-khe": {"d": 38, "fill": ".", "scatter": {"T": 7, "R": 1.5, "F": 3}, "path": ","},
+  "thien-kiem-phong": {"d": 46, "fill": ".", "scatter": {"T": 7, "R": 1.5, "F": 2}, "path": ","},
+  "dao-xich-dien": {"d": 46, "fill": "a", "scatter": {"R": 3, "L": 3}, "path": ","},
+  "dao-han-bang": {"d": 48, "fill": "w", "scatter": {"Y": 6, "O": 2, "i": 5}, "path": ","},
+  "hac-phong-dao": {"d": 50, "fill": "d", "scatter": {"V": 5, "U": 3}, "path": ","},
+  "lang-tinh-linh": {"d": 42, "fill": ".", "scatter": {"Z": 6, "F": 3}, "path": "l"},
+  "dao-moc": {"d": 54, "fill": "m", "scatter": {"Z": 9, "n": 4}, "path": "m"},
+  "dao-thien-kim": {"d": 58, "fill": "s", "scatter": {"b": 3, "J": 2, "h": 2}, "path": ","},
+  "dao-hau-tho": {"d": 60, "fill": "t", "scatter": {"I": 3, "y": 5}, "path": "o"},
+  "vet-nut-ngoai": {"d": 62, "fill": "p", "scatter": {"*": 3, "f": 2}, "path": "p"}
+ }
+}

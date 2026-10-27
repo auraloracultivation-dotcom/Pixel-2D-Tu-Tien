@@ -91,6 +91,7 @@ function drawMob(ctx, m, t, game) {
   shadow(ctx, m.x, m.y + 1, r);
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
+  if (m.elite) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
   if (m.def.look && drawMobSprite(ctx, game, m, t, wind)) {   // quái đã có hình pixel (tools/art/mobs.py)
   } else if (m.def.person) {   // đấu sĩ luận võ: hình người, đai màu theo đối thủ
     drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
