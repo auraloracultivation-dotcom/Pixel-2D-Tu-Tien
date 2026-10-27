@@ -673,6 +673,18 @@
    ],
    "note": "Trúc Cung"
   },
+  "gear.tu-nguyet-liem": {
+   "file": "assets/art/gear-tu-nguyet-liem.png",
+   "v": "9d8c3a20",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Tử Nguyệt Liềm"
+  },
   "gear.van-van-ngoa": {
    "file": "assets/art/gear-van-van-ngoa.png",
    "v": "a30774ef",
@@ -1011,15 +1023,15 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "5e47ee9a",
-   "w": 118,
-   "h": 118,
-   "frames": 56,
+   "v": "4e28c4ed",
+   "w": 171,
+   "h": 174,
+   "frames": 48,
    "anchor": [
-    61,
-    116
+    100,
+    172
    ],
-   "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
+   "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém vòng, quét ngang, bổ dọc, hất lên; mỗi động tác 8 khung"
   },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",
@@ -1092,6 +1104,18 @@
     8
    ],
    "note": "biểu tượng chiêu ice"
+  },
+  "icon.liem": {
+   "file": "assets/art/icon-liem.png",
+   "v": "9d8c3a20",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu liem"
   },
   "icon.orb": {
    "file": "assets/art/icon-orb.png",
@@ -2868,6 +2892,18 @@
     3
    ],
    "note": "mũi băng bay, 2 khung lấp lánh"
+  },
+  "proj.liem": {
+   "file": "assets/art/proj-liem.png",
+   "v": "c1a7cc57",
+   "w": 17,
+   "h": 17,
+   "frames": 3,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "lưỡi liềm tím xoay (Tử Nguyệt Liềm), game cho xoay tròn"
   },
   "proj.rock": {
    "file": "assets/art/proj-rock.png",
