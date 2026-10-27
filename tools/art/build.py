@@ -20,11 +20,12 @@ for sid, spec in CHARS.items():
 
 # ---------------------------------------------------------------- nhân vật chính dùng tạm từ ảnh chủ dự án (data/heroes.json)
 # chuyển động SpriteCook, mỗi động tác 8 khung, xếp nối nhau: thứ tự khung ở data/heroes.json
-_f = sheet('nam-dung') + sheet('nam-di', drop=[(0x7f, 0x80, 0x80)]) + sheet('nam-chem')   # đi: xoá khói xám lẫn vào quầng
-save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng ×8, đi ×8, chém ×8')
+_SMOKE = [(0x7f, 0x80, 0x80), (0x7e, 0x80, 0x80)]   # khói xám SpriteCook lẫn vào quầng
+_f = sheet('nam-dung') + sheet('nam-di', drop=_SMOKE) + sheet('nam-chem') + sheet('nam-bo', drop=_SMOKE) + sheet('nam-hat', drop=_SMOKE) + sheet('nam-ngang')
+save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
 _f = sheet('nu-dung')
-_f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
-save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng ×8, đi ×8, đâm ×8, chém ×8')
+_f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem') + sheet('nu-bo') + sheet('nu-hat') + sheet('nu-ngang')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
+save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
 
 # ---------------------------------------------------------------- nền 16×16
 G = {k: hx(v) for k, v in dict(d='#245a3c', b='#3a8a52', l='#4fa463', t='#7cc96a').items()}
