@@ -59,6 +59,27 @@ export function createLogin(onPlay0) {
       later(`Đã nhận yêu cầu xoá. Tài khoản sẽ bị xoá vào ${han ? han.toLocaleDateString('vi-VN') : '7 ngày nữa'}. Đăng nhập lại trước ngày đó là huỷ.`);
     });
   };
+  // Mã khôi phục: tạo khi còn nhớ mật khẩu, dùng ở "Quên mật khẩu?" (mã dùng một lần, tạo mã mới thì mã cũ hết)
+  $('btn-recovery').onclick = () => act(async () => {
+    if (await withTimeout(auth.hasRecoveryCode(), NET_TIMEOUT) && !confirm('Bạn đã có mã khôi phục. Tạo mã mới thì mã cũ hết hiệu lực. Tạo mã mới?')) return;
+    const code = await withTimeout(auth.makeRecoveryCode(), NET_TIMEOUT);
+    prompt('Mã khôi phục của bạn (chép và cất kỹ, chỉ hiện lần này). Quên mật khẩu thì bấm "Quên mật khẩu?" ở màn đầu và nhập mã này:', code);
+    later('Đã tạo mã khôi phục. Cất kỹ, đừng đưa cho ai.');
+  });
+  $('btn-forgot').onclick = () => {
+    if (!auth) { msg('Chưa kết nối được máy chủ, thử lại sau.', true); return; }
+    const acc = prompt('Tên tài khoản:', $('acc').value || '');
+    if (!acc) return;
+    const code = prompt('Mã khôi phục (dạng XXXX-XXXX-XXXX-XXXX):');
+    if (!code) return;
+    const pwd = prompt('Mật khẩu mới (8–72 ký tự):');
+    if (!pwd) return;
+    act(async () => {
+      await withTimeout(auth.recover(acc, code, pwd), NET_TIMEOUT);
+      $('acc').value = acc; $('pwd').value = '';
+      later('Đã đổi mật khẩu. Đăng nhập bằng mật khẩu mới, rồi tạo mã khôi phục mới nhé.');
+    });
+  };
   $('btn-guest').onclick = () => {
     onPlay({ fresh: false, session: null, owner: 'guest' });
   };

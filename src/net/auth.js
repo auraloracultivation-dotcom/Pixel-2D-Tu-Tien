@@ -73,3 +73,31 @@ export async function cancelDelete() {
   if (error) throw error;
   return !!data;
 }
+
+// Mã khôi phục (supabase/migrations/20261028090000_p2d_ma_khoi_phuc.sql, supabase/functions/khoi-phuc)
+export async function makeRecoveryCode() {
+  const { data, error } = await supabase.rpc('p2d_tao_ma_khoi_phuc');
+  if (error) throw translate(error);
+  return data;
+}
+export async function hasRecoveryCode() {
+  const { data, error } = await supabase.rpc('p2d_co_ma_khoi_phuc');
+  if (error) throw translate(error);
+  return !!data;
+}
+// Quên mật khẩu: tên tài khoản + mã khôi phục + mật khẩu mới
+export async function recover(account, code, password) {
+  const username = normalize(account);
+  if (password.length < 8 || password.length > 72) throw new Error('Mật khẩu mới cần 8–72 ký tự.');
+  const { data, error } = await supabase.functions.invoke('khoi-phuc', { body: { username, code, password } });
+  if (error) {
+    let c = '';
+    try { c = (await error.context.json()).error; } catch { /* không đọc được thân lỗi */ }
+    if (c === 'CODE_WRONG' || c === 'CODE_INVALID') throw new Error('Sai tên tài khoản hoặc mã khôi phục (mỗi mã chỉ dùng được một lần).');
+    if (c === 'USERNAME_INVALID') throw new Error('Tài khoản gồm 3–20 ký tự: chữ không dấu, số hoặc _.');
+    if (c === 'TOO_MANY') throw new Error('Thử sai nhiều lần, đợi một giờ rồi thử lại.');
+    throw new Error('Chưa đổi được mật khẩu, thử lại sau.');
+  }
+  if (!data?.ok) throw new Error('Chưa đổi được mật khẩu, thử lại sau.');
+  return true;
+}
