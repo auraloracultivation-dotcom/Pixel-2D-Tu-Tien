@@ -8,6 +8,7 @@ import { daoLuHere } from './affinity.js';
 import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
+import { visitJob } from './visitors.js';
 import { bestRecipe } from './cooking.js';
 import { anyReady } from './critters.js';
 import { pilotOpt, nightRest } from './pilotopt.js';
@@ -59,7 +60,7 @@ function wants(game) {
     const d = daoLuHere(game);
     if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day || (s.cooked !== day && bestRecipe(game)))) out.push({ gift: d });
     const v = visitorToday(game);
-    if (v && s.visitGift !== day) out.push({ gift: v });
+    if (v && visitJob(game, v)) out.push({ gift: v });
     if (anyReady(game)) out.push({ critter: true });   // linh cầm có quà: về nhà nhặt
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
