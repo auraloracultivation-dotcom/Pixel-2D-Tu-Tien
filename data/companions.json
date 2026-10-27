@@ -1,5 +1,5 @@
 {
- "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Mời ở NPC sau khi có cờ need. unless: cờ truyện bật thì người đó vắng mặt (bị bắt), không mời được, không khen, không viết thư.",
+ "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Mời ở NPC sau khi có cờ need. unless: cờ truyện bật thì người đó vắng mặt (bị bắt), không mời được, không khen, không viết thư. follow: đứng lùi sau lưng bấy nhiêu đơn vị, lift: lệch lên phía sau để không che hình nhân vật.",
  "need": "cuu-tieu-hoa",
  "share": 0.4,
  "max_level": 30,
@@ -7,6 +7,7 @@
  "exp_pow": 1.4,
  "lv_bonus": 0.06,
  "follow": 24,
+ "lift": 10,
  "list": {
   "tieu-hoa": {"desc": "Hệ Hỏa. Bắn cầu lửa. Cứ 9 giây nổ lửa quanh mình.", "mult": 0.6, "cd": 1.1, "range": 95, "color": "#ff7a3a", "skill": {"type": "aoe", "radius": 34, "dmg": 2, "cd": 9}, "join": "Đi thôi! Tớ đốt cháy hết cho cậu xem!"},
   "lac-tuyet": {"desc": "Hệ Thủy. Phóng kiếm băng. Cứ 11 giây hồi 10% máu cho bạn.", "mult": 0.5, "cd": 1.2, "range": 100, "color": "#7ad0ff", "skill": {"type": "heal", "amount": 0.1, "cd": 11}, "join": "Được. Đừng để ta phải cứu đệ quá nhiều lần.", "unless": "lac-tuyet-vang"},

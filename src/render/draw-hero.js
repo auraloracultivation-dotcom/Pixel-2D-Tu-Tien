@@ -23,6 +23,13 @@ function anim(game, p, look, t) {
   return [name, Math.floor(t * (look.fps[name] || 1))];
 }
 
+// Bề ngang so với NPC theo kg/cm² (căn bậc hai cho đỡ gắt); lệch dưới 10% thì 1 cho khỏi méo vì lệch nhỏ
+function build(H, look) {
+  if (!look.kg || !look.cm) return 1;
+  const r = Math.sqrt((look.kg / look.cm ** 2) / (H.npc_kg / H.npc_cm ** 2));
+  return Math.abs(r - 1) < 0.1 ? 1 : r;
+}
+
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
 export function drawHero(ctx, game, p, t, flash) {
   const look = heroLook(game), spr = look.sprite && game.data.art.sprites[look.sprite];
@@ -35,12 +42,14 @@ export function drawHero(ctx, game, p, t, flash) {
   ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
-  const m = ctx.getTransform(), want = look.height / spr.h * m.d;
-  const n = want >= 0.75 ? Math.max(1, Math.round(want)) : want;
+  // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
+  // để 1m75 vẫn thấp hơn NPC một xíu dù làm tròn (lệch vài phần trăm, điểm ảnh gần như vẫn vuông)
+  const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
+  const n0 = want >= 0.75 ? Math.max(1, Math.round(want)) : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
   ctx.save();
   const dx = atk != null && look.lunge ? (p.lookX || 1) * look.lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
-  ctx.setTransform(n * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
-  ctx.imageSmoothingEnabled = n < 0.75;
+  ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
+  ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
   return true;
