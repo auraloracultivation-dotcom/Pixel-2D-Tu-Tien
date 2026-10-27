@@ -67,16 +67,27 @@
    ],
    "note": "Kiếm Tu — khung: đứng, nhún, bước A, bước B"
   },
+  "hero.nam": {
+   "file": "assets/art/hero-nam.png",
+   "w": 64,
+   "h": 64,
+   "frames": 24,
+   "anchor": [
+    31,
+    62
+   ],
+   "note": "nam kiếm tu (SpriteCook): đứng ×8, đi ×8, chém ×8"
+  },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "w": 90,
-   "h": 102,
-   "frames": 6,
+   "w": 118,
+   "h": 118,
+   "frames": 16,
    "anchor": [
-    47,
-    100
+    61,
+    116
    ],
-   "note": "nữ tóc trắng cầm giáo (ảnh chủ dự án): đứng, đi ×3, đâm, ngã"
+   "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng ×8, đi ×8, đâm ×8, chém ×8"
   },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",

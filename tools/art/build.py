@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noqa: E402
 from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
-from heroes import strip  # noqa: E402
+from heroes import sheet, foot, trim_above  # noqa: E402
 
 clean()
 
@@ -18,8 +18,12 @@ for sid, spec in CHARS.items():
     save(sid, [draw(spec, f) for f in range(4)], (11, 23), f"{spec['name']} — khung: đứng, nhún, bước A, bước B")
 
 # ---------------------------------------------------------------- nhân vật chính dùng tạm từ ảnh chủ dự án (data/heroes.json)
-_f, _a = strip('nu-day', 6)
-save('hero.nu', _f, _a, 'nữ tóc trắng cầm giáo (ảnh chủ dự án): đứng, đi ×3, đâm, ngã')
+# chuyển động SpriteCook, mỗi động tác 8 khung, xếp nối nhau: thứ tự khung ở data/heroes.json
+_f = sheet('nam-dung') + sheet('nam-di', drop=[(0x7f, 0x80, 0x80)]) + sheet('nam-chem')   # đi: xoá khói xám lẫn vào quầng
+save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng ×8, đi ×8, chém ×8')
+_f = sheet('nu-dung')
+_f = trim_above(_f, _f[0]) + sheet('nu-di')   # đứng: xoá giọt đỏ nhỏ lên trên quầng + sheet('nu-dam') + sheet('nu-chem')
+save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng ×8, đi ×8, đâm ×8, chém ×8')
 
 # ---------------------------------------------------------------- nền 16×16
 G = {k: hx(v) for k, v in dict(d='#245a3c', b='#3a8a52', l='#4fa463', t='#7cc96a').items()}
