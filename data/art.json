@@ -687,7 +687,7 @@
   },
   "gear.tu-nguyet-liem": {
    "file": "assets/art/gear-tu-nguyet-liem.png",
-   "v": "10cfff32",
+   "v": "b829d2f6",
    "w": 64,
    "h": 64,
    "frames": 1,
@@ -1035,13 +1035,13 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "680a6ad0",
-   "w": 177,
-   "h": 173,
+   "v": "40ba7e0f",
+   "w": 106,
+   "h": 104,
    "frames": 48,
    "anchor": [
-    104,
-    171
+    62,
+    102
    ],
    "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất, bổ xuống trước mặt; mỗi động tác 8 khung, mọi đòn vung về phía trước"
   },

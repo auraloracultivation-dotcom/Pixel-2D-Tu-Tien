@@ -21,7 +21,7 @@
   "nu": {
    "name": "Nữ · liềm tu",
    "sprite": "hero.nu",
-   "height": 47,
+   "height": 49,
    "lunge": 5,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],

@@ -156,7 +156,23 @@ def picture(name, size, ink):
     cv = Canvas(size, size)
     solid = small[..., 3] > 110
     for y, x in zip(*np.where(solid)):
-        rgb = small[y, x, :3] * 255 // max(small[y, x, 3], 1)   # bỏ nhân alpha của BOX ở mép
-        cv.a[y + 1, x + 1, :3] = pal[np.abs(pal - rgb).sum(axis=1).argmin()]
+        cv.a[y + 1, x + 1, :3] = pal[np.abs(pal - small[y, x, :3]).sum(axis=1).argmin()]   # Pillow đã khử nhân alpha khi thu
         cv.a[y + 1, x + 1, 3] = 255
     return cv.outline(ink)
+
+
+def shrink(frames, k):
+    """Thu mọi khung theo hệ số k (<1), đưa mỗi điểm về màu gần nhất trong bảng màu gốc, alpha 0/255. Dùng để điểm ảnh
+    và thân người to bằng nhân vật nam (thân ~46 px): hai nhân vật làm tròn điểm màn hình giống nhau, cao thấp cân nhau."""
+    pal = np.unique(np.concatenate([cv.a[cv.a[..., 3] > 0][:, :3] for cv in frames]), axis=0).astype(int)
+    w, h = round(frames[0].w * k), round(frames[0].h * k)
+    out = []
+    for cv in frames:
+        im = Image.fromarray(cv.a, 'RGBA').resize((w, h), Image.BOX)
+        a = np.array(im).astype(int)
+        sm = Canvas(w, h)
+        for y, x in zip(*np.where(a[..., 3] > 110)):
+            sm.a[y, x, :3] = pal[np.abs(pal - a[y, x, :3]).sum(axis=1).argmin()]   # Pillow đã khử nhân alpha khi thu
+            sm.a[y, x, 3] = 255
+        out.append(sm)
+    return out

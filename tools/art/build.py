@@ -14,7 +14,7 @@ from fx_nature import vine_frames, rock_frames, wind_frames  # noqa: E402
 from fx_aura import heal_frames, shield_frames, buff_frames  # noqa: E402
 from fx_proj import proj_sprites  # noqa: E402
 from icons import icon_sprites  # noqa: E402
-from heroes import sheet, foot, fit, picture  # noqa: E402
+from heroes import sheet, foot, fit, shrink, picture  # noqa: E402
 import world as W  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
@@ -34,7 +34,7 @@ for sid, spec in CHARS.items():
 _SMOKE = [(0x7f, 0x80, 0x80), (0x7e, 0x80, 0x80)]   # khói xám SpriteCook lẫn vào quầng
 _f = sheet('nam-dung') + sheet('nam-di', drop=_SMOKE) + sheet('nam-chem') + sheet('nam-bo', drop=_SMOKE) + sheet('nam-hat', drop=_SMOKE) + sheet('nam-ngang')
 save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
-_f = fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-cheo') + sheet('liem-ngang') + sheet('liem-moc') + sheet('liem-bo'))
+_f = shrink(fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-cheo') + sheet('liem-ngang') + sheet('liem-moc') + sheet('liem-bo')), 0.6)   # thân ~46 px như nam
 save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất, bổ xuống trước mặt; mỗi động tác 8 khung, mọi đòn vung về phía trước')
 
 # ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
