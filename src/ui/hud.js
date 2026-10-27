@@ -87,7 +87,7 @@ export function createHud(audio) {
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';
       const lbl = b.querySelector('b');
-      if (lbl.textContent !== name) lbl.textContent = name;
+      if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); }
       const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
       b.style.setProperty('--cd', cd.toFixed(3));
     }
@@ -123,4 +123,12 @@ export function createHud(audio) {
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;
   };
   return ui;
+}
+
+// Biểu tượng pixel của chiêu (data/art.json icon.<loại>): theo fx của chiêu, không có fx thì theo kiểu chiêu.
+function skillIcon(d, id) {
+  const s = id && d.skills[id];
+  if (!s) return '';
+  const spr = d.art.sprites['icon.' + (s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];
+  return spr ? `url("${spr.file}?v=${spr.v}")` : '';
 }

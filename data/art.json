@@ -217,6 +217,150 @@
    ],
    "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
   },
+  "icon.bolt": {
+   "file": "assets/art/icon-bolt.png",
+   "v": "f3871a7d",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu bolt"
+  },
+  "icon.buff": {
+   "file": "assets/art/icon-buff.png",
+   "v": "42582ba6",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu buff"
+  },
+  "icon.fire": {
+   "file": "assets/art/icon-fire.png",
+   "v": "4c40eeaa",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu fire"
+  },
+  "icon.heal": {
+   "file": "assets/art/icon-heal.png",
+   "v": "5343dc3d",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu heal"
+  },
+  "icon.ice": {
+   "file": "assets/art/icon-ice.png",
+   "v": "fa7baf90",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu ice"
+  },
+  "icon.orb": {
+   "file": "assets/art/icon-orb.png",
+   "v": "e3759019",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu orb"
+  },
+  "icon.rock": {
+   "file": "assets/art/icon-rock.png",
+   "v": "70f3662b",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu rock"
+  },
+  "icon.shield": {
+   "file": "assets/art/icon-shield.png",
+   "v": "4c2229bc",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu shield"
+  },
+  "icon.shield-earth": {
+   "file": "assets/art/icon-shield-earth.png",
+   "v": "e692ca13",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu shield-earth"
+  },
+  "icon.slash": {
+   "file": "assets/art/icon-slash.png",
+   "v": "ec2bdbba",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu slash"
+  },
+  "icon.vine": {
+   "file": "assets/art/icon-vine.png",
+   "v": "89f58522",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu vine"
+  },
+  "icon.wind": {
+   "file": "assets/art/icon-wind.png",
+   "v": "9a8fb1c4",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu wind"
+  },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
    "v": "5d65df70",

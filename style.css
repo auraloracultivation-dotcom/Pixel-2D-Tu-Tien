@@ -25,6 +25,8 @@ canvas#game { position: fixed; inset: 0; display: block; }
 .btn b { position: relative; z-index: 1; display: block; padding: 0 4px; line-height: 1.1; }
 .btn .cd { position: absolute; inset: 0; background: rgba(27, 24, 48, .6); transform-origin: bottom; transform: scaleY(var(--cd, 0)); }
 .btn.off { opacity: .35; }
+#btn-s0, #btn-s1, #btn-s2 { background-repeat: no-repeat; background-position: center 9px; background-size: 24px 24px; image-rendering: pixelated; }
+#btn-s0 b, #btn-s1 b, #btn-s2 b { font-size: 9px; padding-top: 30px; }
 .atk { right: 0; bottom: 0; width: 84px; height: 84px; font-size: 15px; background: rgba(255, 247, 214, .92); }
 #btn-s0 { right: 92px; bottom: 2px; width: 58px; height: 58px; }
 #btn-s1 { right: 76px; bottom: 70px; width: 58px; height: 58px; }
