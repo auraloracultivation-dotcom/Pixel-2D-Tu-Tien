@@ -73,10 +73,11 @@
   "thai-hu-boi": {"name": "Thái Hư Bội", "slot": "ngoc-boi", "set": "thai-hu", "main": {"cdr": 5}, "pool": ["cdr", "atk_pct", "qi_gain"]}
  },
  "gems": {
-  "_note": "Ngọc khảm: 5 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên.",
-  "max_level": 5,
+  "_note": "Ngọc khảm: 10 cấp; ghép 3 viên cùng loại cùng cấp thành 1 viên cấp trên, tốn thêm Linh Thạch merge_fee: base × r^(cấp − 1). Viên cấp 10 bằng 19.683 viên cấp 1 mà chỉ số chỉ gấp khoảng 90 lần: chi cấp số nhân, mạnh cấp số cộng (chủ dự án chốt 28/10/2026). Chí mạng tăng chậm sau cấp 5 vì quá 100% là thừa. Tự hành tự ghép nhưng luôn chừa config.pilot.garden_keep Linh Thạch.",
+  "max_level": 10,
   "merge": 3,
-  "types": {"hong-ngoc": {"name": "Hồng Ngọc", "color": "#e8453c", "stat": "atk", "values": [2, 5, 9, 15, 24]}, "lam-ngoc": {"name": "Lam Ngọc", "color": "#4a86e8", "stat": "hp", "values": [15, 35, 65, 110, 170]}, "hoang-ngoc": {"name": "Hoàng Ngọc", "color": "#f2c94c", "stat": "crit", "values": [1, 2, 4, 6, 9]}, "luc-ngoc": {"name": "Lục Ngọc", "color": "#5fd07a", "stat": "def", "values": [1, 2, 4, 6, 9]}}
+  "merge_fee": {"base": 30, "r": 2.5},
+  "types": {"hong-ngoc": {"name": "Hồng Ngọc", "color": "#e8453c", "stat": "atk", "values": [2, 5, 9, 15, 24, 36, 54, 81, 122, 183]}, "lam-ngoc": {"name": "Lam Ngọc", "color": "#4a86e8", "stat": "hp", "values": [15, 35, 65, 110, 170, 255, 383, 574, 861, 1292]}, "hoang-ngoc": {"name": "Hoàng Ngọc", "color": "#f2c94c", "stat": "crit", "values": [1, 2, 4, 6, 9, 11, 13, 15, 17, 20]}, "luc-ngoc": {"name": "Lục Ngọc", "color": "#5fd07a", "stat": "def", "values": [1, 2, 4, 6, 9, 14, 20, 30, 46, 68]}}
  },
  "materials": {
   "tay-luyen-thach": {"name": "Tẩy Luyện Thạch", "color": "#bff4ff", "desc": "Tẩy luyện: quay lại toàn bộ dòng chỉ số của một món đồ (giữ độ hiếm)."}, "khoa-linh-thach": {"name": "Khóa Linh Thạch", "color": "#ff9ad8", "desc": "Hiếm. Khi tẩy luyện, giữ nguyên một dòng đã chọn. Rơi từ boss, bán ở Vạn Bảo Lâu."}

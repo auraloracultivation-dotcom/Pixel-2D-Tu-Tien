@@ -141,10 +141,15 @@ export function unsocket(save, uid, idx) {
   return true;
 }
 
-export function mergeGems(data, save, key) {
-  const { type, lv } = gemInfo(data, key), need = data.items.gems.merge;
-  if (lv >= data.items.gems.max_level || (save.gems[key] || 0) < need) return false;
+// Phí Linh Thạch ghép ngọc cấp lv lên lv + 1 (items.gems.merge_fee)
+export const gemMergeFee = (data, lv) => { const f = data.items.gems.merge_fee; return Math.round(f.base * f.r ** (lv - 1)); };
+
+// keep: số Linh Thạch luôn chừa lại (tự hành)
+export function mergeGems(data, save, key, keep = 0) {
+  const { type, lv } = gemInfo(data, key), need = data.items.gems.merge, fee = gemMergeFee(data, lv);
+  if (lv >= data.items.gems.max_level || (save.gems[key] || 0) < need || (save.lingshi || 0) - fee < keep) return false;
   save.gems[key] -= need; if (!save.gems[key]) delete save.gems[key];
+  save.lingshi -= fee;
   const up = `${type}:${lv + 1}`;
   save.gems[up] = (save.gems[up] || 0) + 1;
   return true;
