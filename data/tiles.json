@@ -58,6 +58,8 @@
   "v": {"name": "nền địa cung", "color": "#4a3424", "tex": "speckle"},
   "p": {"name": "đá hư không", "color": "#4a3a5a", "tex": "slab"},
   "f": {"name": "khe hư không", "solid": true, "low": true, "color": "#120820"},
-  "*": {"name": "tinh thể tím", "solid": true, "color": "#4a3a5a"}
+  "*": {"name": "tinh thể tím", "solid": true, "color": "#4a3a5a"},
+  "^": {"name": "núi", "solid": true, "color": "#8a8070"},
+  "=": {"name": "nước", "solid": true, "low": true, "color": "#3a7ac0"}
  }
 }

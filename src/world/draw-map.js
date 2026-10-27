@@ -8,6 +8,7 @@ import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
 import { drawGround, drawProp } from './draw-ground.js';
+import { drawMountain, drawWater } from './draw-terrain.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
   h = (h ^ (h >>> 13)) * 1274126177;
@@ -140,6 +141,8 @@ export function drawMap(ctx, map, tiles, view, t, game) {
     else if ('sghJNbCu'.includes(ch)) drawMetalTile(ctx, ch, px, py, T, hash(tx, ty), t, map.at(tx, ty - 1));
     else if ('toyIzEv'.includes(ch)) drawEarthTile(ctx, ch, px, py, T, hash(tx, ty), t, map.at(tx, ty - 1));
     else if ('pf*'.includes(ch)) drawVoidTile(ctx, ch, px, py, T, hash(tx, ty), t);
+    else if (ch === '^') drawMountain(ctx, map, tx, ty, T, hash(tx, ty));
+    else if (ch === '=') drawWater(ctx, map, tx, ty, T, hash(tx, ty), t);
     else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty), cropOf(game, plotIndex(game, tx, ty)));
     else if (ch === 'q' && hash(tx, ty) > 0.82) {
       ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);

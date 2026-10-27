@@ -124,7 +124,7 @@ def planetize(mid, cfg, P, tiles):
                 for x in range(spot[0] - 1, spot[0] + 2):
                     if (x, y) in freeset and solid(new[y][x]):
                         new[y][x] = fill
-            sp = {'mob': mobs[(i + len(added)) % len(mobs)], 'at': list(spot), **P['spawner']}
+            sp = {'mob': mobs[(i + len(added)) % len(mobs)], 'at': list(spot), 'farm': True}
             if ring['mul'] != 1:
                 sp['mul'] = ring['mul']
             added.append(sp)

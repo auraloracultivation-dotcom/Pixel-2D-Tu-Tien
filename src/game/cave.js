@@ -18,7 +18,7 @@ export function addMat(save, id, n = 1) { save.mats[id] = (save.mats[id] || 0) +
 export function matDrop(game, m) {
   if (m.noQi) return;
   for (const [id, p, n = 1] of game.data.cave.mat_drops[m.id] || []) {
-    if (Math.random() >= p) continue;
+    if (Math.random() >= p * (m.lootMul ?? 1)) continue;
     addMat(game.save, id, n);
     game.number(m.x, m.y - 24, `+${n} ${matInfo(game.data, id).name}`, matInfo(game.data, id).color);
   }
