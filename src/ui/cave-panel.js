@@ -3,6 +3,7 @@ import { brew, brewRate, usePill, forge, costText, canPay, matInfo } from '../ga
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
+import { toolLv, toolCost, upgradeTool } from '../game/gather.js';
 
 const $ = id => document.getElementById(id);
 
@@ -53,6 +54,16 @@ export function createCavePanel(game) {
       const b = el('button', id === slot ? 'on' : '', name);
       b.onclick = () => { slot = id; render(); };
       top.append(b);
+    }
+    { // Linh Cuốc: công cụ đào linh khoáng (data/gather.json → tool)
+      const G = data.gather, T = G.texts, lv = toolLv(game), max = lv >= G.tool.max, cost = toolCost(game);
+      const c = el('div', 'skill-card'), row = el('div', 'card-acts');
+      c.append(el('b', null, T.card.replace('{name}', G.tool.name).replace('{lv}', lv)), el('small', null, T.card_desc));
+      row.append(mini(max ? T.max : T.up.replace('{lv}', lv + 1).replace('{coins}', cost.toLocaleString('vi-VN')).replace('{coin}', data.shop.name), () => {
+        if (upgradeTool(game)) { last = T.upped.replace('{name}', G.tool.name).replace('{lv}', toolLv(game)); game.sfx('levelup'); }
+        render();
+      }, max || (game.save.lingshi || 0) < cost));
+      c.append(row); list.append(c);
     }
     for (const r of data.cave.forge) {
       const c = el('div', 'skill-card');
