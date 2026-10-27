@@ -2017,6 +2017,18 @@
    ],
    "note": "Bà Bí Ngô: đứng, nhún, bước A, bước B"
   },
+  "npc.ba-do-den": {
+   "file": "assets/art/npc-ba-do-den.png",
+   "v": "1a060af0",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Bà Đồ Đen: đứng, nhún, bước A, bước B"
+  },
   "npc.bang-co": {
    "file": "assets/art/npc-bang-co.png",
    "v": "04b135cc",
@@ -2028,6 +2040,18 @@
     23
    ],
    "note": "Băng Cơ — khung: đứng, nhún, bước A, bước B"
+  },
+  "npc.be-la": {
+   "file": "assets/art/npc-be-la.png",
+   "v": "f1b9b0fb",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Bé Lá: đứng, nhún, bước A, bước B"
   },
   "npc.chap-su": {
    "file": "assets/art/npc-chap-su.png",
@@ -2041,6 +2065,18 @@
    ],
    "note": "Chấp sự Nhiệm Vụ Đường: đứng, nhún, bước A, bước B"
   },
+  "npc.chi-ganh-da": {
+   "file": "assets/art/npc-chi-ganh-da.png",
+   "v": "1be48098",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Chị Gánh Đá: đứng, nhún, bước A, bước B"
+  },
   "npc.chu-cho": {
    "file": "assets/art/npc-chu-cho.png",
    "v": "2797976e",
@@ -2052,6 +2088,18 @@
     23
    ],
    "note": "Chủ Chợ Phiên: đứng, nhún, bước A, bước B"
+  },
+  "npc.co-ban-nuoc": {
+   "file": "assets/art/npc-co-ban-nuoc.png",
+   "v": "1f8ebdac",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Cô Bán Nước: đứng, nhún, bước A, bước B"
   },
   "npc.du-tang": {
    "file": "assets/art/npc-du-tang.png",
@@ -2185,6 +2233,30 @@
    ],
    "note": "Lão Ngư Ông: đứng, nhún, bước A, bước B"
   },
+  "npc.lao-nong": {
+   "file": "assets/art/npc-lao-nong.png",
+   "v": "aa4a8a9b",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Lão Nông Thổ: đứng, nhún, bước A, bước B"
+  },
+  "npc.lao-than": {
+   "file": "assets/art/npc-lao-than.png",
+   "v": "bf1d3649",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Lão Than: đứng, nhún, bước A, bước B"
+  },
   "npc.lao-thiet": {
    "file": "assets/art/npc-lao-thiet.png",
    "v": "ee0620a4",
@@ -2305,6 +2377,30 @@
    ],
    "note": "Ông Già Tuyết: đứng, nhún, bước A, bước B"
   },
+  "npc.ong-hai-nam": {
+   "file": "assets/art/npc-ong-hai-nam.png",
+   "v": "d4c88f72",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Ông Hái Nấm: đứng, nhún, bước A, bước B"
+  },
+  "npc.phong-thach": {
+   "file": "assets/art/npc-phong-thach.png",
+   "v": "96d35f16",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Anh Phong Thạch: đứng, nhún, bước A, bước B"
+  },
   "npc.quan-bi-canh": {
    "file": "assets/art/npc-quan-bi-canh.png",
    "v": "4205b030",
@@ -2376,6 +2472,18 @@
     23
    ],
    "note": "Thiết Lan: đứng, nhún, bước A, bước B"
+  },
+  "npc.tho-kim-sa": {
+   "file": "assets/art/npc-tho-kim-sa.png",
+   "v": "11cc30f9",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Thợ Rèn Kim Sa: đứng, nhún, bước A, bước B"
   },
   "npc.thu-thap": {
    "file": "assets/art/npc-thu-thap.png",
@@ -2449,6 +2557,30 @@
    ],
    "note": "Tiểu Linh: đứng, nhún, bước A, bước B"
   },
+  "npc.tieu-moc-linh": {
+   "file": "assets/art/npc-tieu-moc-linh.png",
+   "v": "aba9e438",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Tiểu Mộc Linh: đứng, nhún, bước A, bước B"
+  },
+  "npc.tieu-phu": {
+   "file": "assets/art/npc-tieu-phu.png",
+   "v": "523b6c44",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Bác Tiều Phu: đứng, nhún, bước A, bước B"
+  },
   "npc.to-doi": {
    "file": "assets/art/npc-to-doi.png",
    "v": "fdfc5164",
@@ -2508,6 +2640,18 @@
     23
    ],
    "note": "Trưởng thôn: đứng, nhún, bước A, bước B"
+  },
+  "npc.tuyet-nhi": {
+   "file": "assets/art/npc-tuyet-nhi.png",
+   "v": "116aae9f",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Cô Tuyết Nhi: đứng, nhún, bước A, bước B"
   },
   "npc.van-bao": {
    "file": "assets/art/npc-van-bao.png",

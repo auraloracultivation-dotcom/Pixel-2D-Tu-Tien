@@ -69,7 +69,8 @@
  ],
  "spawns": {"vao": [10, 28], "tu-kiem-trung": [47, 28]},
  "portals": [{"at": [8, 28], "to": "thien-kiem-phong", "spawn": "tu-thien-kim", "label": "Truyền tống về Thiên Kiếm Tinh"}, {"at": [49, 28], "to": "kiem-trung", "spawn": "vao", "need": "mo-kiem-trung", "kind": "portal", "label": "Kiếm Trủng"}],
- "npcs": [{"id": "kiem-lao", "at": [14, 27], "need": "dao-kim"}, {"id": "tieu-dong", "at": [18, 29], "need": "dao-kim"}, {"id": "thiet-lan", "at": [16, 23], "need": "cuu-thiet-lan"}],
+ "npcs": [{"id": "kiem-lao", "at": [14, 27], "need": "dao-kim"}, {"id": "tieu-dong", "at": [18, 29], "need": "dao-kim"}, {"id": "thiet-lan", "at": [16, 23], "need": "cuu-thiet-lan"}, {"id": "tho-kim-sa", "at": [38, 51]}, {"id": "co-ban-nuoc", "at": [37, 9]}],
  "spawners": [{"mob": "kim-giap-trung", "at": [25, 26], "n": 4, "spread": 3, "respawn": 7}, {"mob": "sa-ma", "at": [29, 32], "n": 3, "spread": 3, "respawn": 8}, {"mob": "kim-giap-trung", "at": [22, 23], "n": 2, "spread": 2, "respawn": 7}, {"mob": "kiem-hon", "at": [40, 25], "n": 3, "spread": 2, "respawn": 7}, {"mob": "kiem-hon", "at": [42, 33], "n": 3, "spread": 2, "respawn": 7}, {"mob": "kim-giap-trung", "at": [28, 47], "farm": true}, {"mob": "kim-giap-trung", "at": [7, 27], "farm": true}, {"mob": "kiem-hon", "at": [29, 10], "farm": true}, {"mob": "sa-ma", "at": [50, 27], "farm": true}, {"mob": "kiem-hon", "at": [46, 12], "farm": true, "mul": 2}, {"mob": "sa-ma", "at": [50, 40], "farm": true, "mul": 2}, {"mob": "kiem-hon", "at": [24, 53], "farm": true, "mul": 2}, {"mob": "kim-giap-trung", "at": [4, 32], "farm": true, "mul": 2}, {"mob": "kim-giap-trung", "at": [18, 6], "farm": true, "mul": 2}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[38, 51], [37, 9]]
 }

@@ -59,7 +59,8 @@
  ],
  "spawns": {"vao": [11, 24], "tu-bang-quat": [24, 16]},
  "portals": [{"at": [9, 24], "to": "thien-kiem-phong", "spawn": "tu-han-bang", "label": "Truyền tống về Thiên Kiếm Tinh"}, {"at": [24, 14], "to": "han-bang-quat", "spawn": "vao", "need": "mo-bang-quat", "label": "Băng Quật"}],
- "npcs": [{"id": "lao-ngu", "at": [16, 22]}, {"id": "lac-tuyet", "at": [14, 24], "need": "han-bang", "unless": "lac-tuyet-vang"}, {"id": "mac-anh", "at": [35, 28], "need": "gap-mac-anh", "unless": "hac-phong"}],
+ "npcs": [{"id": "lao-ngu", "at": [16, 22]}, {"id": "lac-tuyet", "at": [14, 24], "need": "han-bang", "unless": "lac-tuyet-vang"}, {"id": "mac-anh", "at": [35, 28], "need": "gap-mac-anh", "unless": "hac-phong"}, {"id": "tuyet-nhi", "at": [15, 41]}],
  "spawners": [{"mob": "tuyet-lang", "at": [30, 25], "n": 4, "spread": 3, "respawn": 5}, {"mob": "bang-tinh", "at": [18, 30], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-bang-tien", "at": [34, 19], "n": 2, "spread": 2, "respawn": 8, "need": "tim-bang-tam"}, {"mob": "tuyet-lang", "at": [26, 8], "farm": true}, {"mob": "tuyet-lang", "at": [39, 26], "farm": true}, {"mob": "tuyet-lang", "at": [21, 39], "farm": true}, {"mob": "tuyet-lang", "at": [8, 21], "farm": true}, {"mob": "tuyet-lang", "at": [44, 21], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [32, 42], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [9, 37], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [6, 14], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [27, 4], "farm": true, "mul": 2}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[15, 41]]
 }

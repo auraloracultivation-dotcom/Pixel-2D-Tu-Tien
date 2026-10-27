@@ -27,6 +27,8 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 **Nhà cửa, cây cối** (`tools/settle.py`, số ở `data/planets.json` → settle, chạy một lần, bản đồ đã làm có `planet.settle`): xóm nhỏ ở vùng mới (sân và một tới ba căn nhà quay cửa ra sân, đường mòn nối về tâm, nhà theo tinh cầu: nhà ngói, nhà cháy, nhà trên cây, nhà rèn, nhà đất) và lùm cây (cây theo tinh cầu: cây xanh, cây khô, tùng tuyết, cổ thụ, tinh thể tím). Vùng mới hẹp vì đảo cũ chiếm giữa nên có tinh cầu chỉ xây được một xóm.
 
+**Người, thú vật**: 12 dân làng mới (`data/npcs.json`, hình chibi do `tools/art/npcs.py` vẽ) đứng đi dạo ở sân các xóm mới (`hamlets` trong bản đồ, `tools/settle.py` ghi), nói chuyện về tinh cầu, ma khí, bãi treo máy. Thú hiền (`data/wildlife.json`, `src/game/wildlife.js`, vẽ bằng `drawWild` ở `src/render/draw-critter.js`): thỏ, nai, chim, hạc, vịt, mèo đi dạo khắp tinh cầu; người chơi đi tới gần thì chạy, chim bay vụt đi rồi đáp chỗ khác; đứng yên một lúc thì con gần nhất lại dụi đầu, hiện tim. Không lưu, không đánh.
+
 **Bãi treo máy** (chủ dự án 28/10/2026): spawner có `farm: true` lấy số con, tốc hồi ở `data/planets.json` → farm (5 con, chết hồi sau 2,5 giây) để Tự đánh chém, tung chiêu liên tục; đồ, nguyên liệu, Linh Thạch rơi chỉ bằng `farm.loot` (0,4) lần quái thường (`m.lootMul` ở `loot.js`, `cave.js`, `shop.js`), linh khí giữ nguyên. Mỗi tinh cầu có quái 9 bãi: 4 bãi thường, 5 bãi vòng ngoài nhiễm ma khí.
 
 ## Tinh đồ (`data/starmap.json`)

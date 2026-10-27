@@ -138,6 +138,8 @@ try {
     for (const m of [b, ...(b.moons || [])]) if (m.map) { need(!smMaps.has(m.map) && maps[m.map] && sm.kinds[m.kind], `starmap/${m.map}: trùng hoặc không có`); smMaps.add(m.map); }
   }
   for (const [id, m] of Object.entries(maps)) need(!m.world || smMaps.has(id), `maps/${id}: có world nhưng không có trên tinh đồ (starmap.json)`);
+  const wl = read('wildlife.json');
+  for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
   const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   for (const f of ev.festivals) need(/^\d{4}-\d\d-\d\d$/.test(f.from) && f.from <= f.to && giftOk(f.gift), `events/${f.id}: ngày hoặc quà sai`);

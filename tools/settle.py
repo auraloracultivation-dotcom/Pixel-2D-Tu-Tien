@@ -39,7 +39,7 @@ def settle(mid, cfg, S, tiles):
     house = S['house'].get(mid, 'H')
     tree = S['tree'].get(mid, 'T')
     zone = [(x, y) for y in range(D) for x in range(D) if plain(x, y) and 0.3 * R < math.hypot(x + 0.5 - c, y + 0.5 - c) < 0.9 * R]
-    built, w, h, pr = 0, S['w'], S['h'], S['plaza']
+    built, w, h, pr, plazas = 0, S['w'], S['h'], S['plaza'], []
     for _ in range(S['hamlets'] if house else 0):
         # Tìm chỗ đủ rộng cho sân và dãy nhà phía bắc sân (thử nhiều nhà trước, chật thì ít nhà)
         found = None
@@ -57,6 +57,7 @@ def settle(mid, cfg, S, tiles):
         if not found:
             continue
         n, hx, hy, x0 = found
+        plazas.append([hx, hy])
         for y in range(hy - pr, hy + pr + 1):
             for x in range(hx - pr, hx + pr + 1):
                 g[y][x] = pch if pch != fill else fill
@@ -105,6 +106,8 @@ def settle(mid, cfg, S, tiles):
                 lost += 1
     m['grid'] = [''.join(r) for r in g]
     pl['settle'] = 1
+    if plazas:
+        m['hamlets'] = plazas   # sân các xóm mới: lớp người, thú đặt dân làng ở đây
     save_map(path, m)
     print(f'{mid}: {built} căn nhà ({house}), {trees} cây ({tree}), lấp {lost} ô kín')
     return True

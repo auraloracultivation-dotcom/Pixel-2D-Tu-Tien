@@ -1,0 +1,24 @@
+{
+ "_note": "Thú hiền chạy quanh tinh cầu cho vui mắt (chủ dự án 28/10/2026: vào game chạy lòng vòng, con vật linh tinh chạy, đi dạo thôi cũng chill). maps: mỗi bản đồ một danh sách [kiểu, số con], thả ở ô trống ngẫu nhiên. kinds: speed px/giây khi đi dạo, run khi chạy, flee người chơi đang đi tới gần trong khoảng này (px) thì chạy, fly chim bay vụt đi rồi đáp chỗ khác. Người chơi đứng yên still giây thì thú quanh đó hết sợ, con gần nhất lại gần dụi đầu, hiện tim (pet). Không đánh, không rơi đồ, không lưu. Kiểu vẽ ở src/render/draw-critter.js.",
+ "kinds": {
+  "rabbit": {"speed": 14, "run": 60, "flee": 36},
+  "deer": {"speed": 10, "run": 55, "flee": 44},
+  "bird": {"speed": 9, "run": 80, "flee": 30, "fly": true},
+  "crane": {"speed": 8, "run": 70, "flee": 40, "fly": true},
+  "duck": {"speed": 8, "run": 40, "flee": 28},
+  "cat": {"speed": 12, "run": 55, "flee": 30}
+ },
+ "still": 2.5,
+ "pet": {"range": 60, "near": 12, "heart": 1.6},
+ "maps": {
+  "thanh-khe": [["rabbit", 3], ["bird", 4], ["duck", 2]],
+  "thien-kiem-phong": [["crane", 3], ["rabbit", 3], ["bird", 4], ["deer", 2]],
+  "dao-xich-dien": [["bird", 3], ["cat", 2]],
+  "dao-han-bang": [["rabbit", 4], ["crane", 2], ["bird", 2]],
+  "hac-phong-dao": [["bird", 3], ["cat", 2]],
+  "lang-tinh-linh": [["deer", 3], ["rabbit", 3], ["bird", 4], ["crane", 2]],
+  "dao-moc": [["deer", 3], ["rabbit", 3], ["bird", 5]],
+  "dao-thien-kim": [["bird", 3], ["cat", 3]],
+  "dao-hau-tho": [["rabbit", 3], ["duck", 3], ["bird", 3]]
+ }
+}
