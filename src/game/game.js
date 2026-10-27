@@ -31,6 +31,7 @@ import { updateWeather } from './weather.js';
 import { updateJournal } from './journal.js';
 import { updateHome } from './home.js';
 import { updateChatter } from './chatter.js';
+import { updateSnack } from './snack.js';
 import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
 import { updateStroll } from './stroll.js';
@@ -358,7 +359,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateWeather(game, dt);
     updateJournal(game, dt);
     updateHome(game, dt);
-    updateChatter(game, dt);
+    updateChatter(game, dt); updateSnack(game);
     updateStroll(game, dt); updateWild(game, dt); updateDig(game, dt);
     updateKyNgo(game, dt);
     updatePilotLog(game);

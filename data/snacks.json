@@ -1,0 +1,22 @@
+{
+ "_note": "Linh thực (lớp đồ dùng đời sống: thực phẩm chức năng, chủ dự án 28/10/2026): mỗi tinh cầu một món đặc sản bán ở xóm (npc là dân làng bán). Chạm người bán → mua bằng Linh Thạch, ăn ngay, min phút cộng chỉ số nhỏ (stats như dòng trang bị, tính theo phần trăm: atk_pct, hp_pct, crit, crit_dmg, speed, cdr). Chỉ một món có hiệu lực, món sau thay món trước. Khác bữa nấu với đạo lữ (cooking.json: tăng linh khí đả tọa) và đan dược (cave.json). Tự hành bật treo máy: hết món mà dư Linh Thạch (ít nhất keep lần giá) thì ghé người bán trên tinh cầu đang đứng mua một phần trước khi treo.",
+ "min": 20,
+ "keep": 10,
+ "buy": "Mua {name} · {price} Linh Thạch",
+ "eff_label": "{eff} trong {min} phút",
+ "no": "Thôi, để lúc khác",
+ "poor": "Chưa đủ Linh Thạch.",
+ "toast": "Ăn {name}: {eff} trong {min} phút.",
+ "hud": "{name} {min} phút",
+ "stat_names": {"atk_pct": "công", "hp_pct": "máu", "crit": "bạo kích", "crit_dmg": "sát thương bạo", "speed": "tốc chạy", "cdr": "hồi chiêu"},
+ "list": {
+  "khoai-nuong": {"name": "Khoai nướng than củi", "map": "thien-kiem-phong", "npc": "tieu-phu", "price": 40, "stats": {"hp_pct": 6}, "line": "Khoai nướng bằng củi linh mộc đây, nóng hổi, ăn vào chắc bụng mà đánh lâu."},
+  "xien-hoa-lang": {"name": "Xiên thịt hỏa lang", "map": "dao-xich-dien", "npc": "lao-than", "price": 80, "stats": {"atk_pct": 5}, "line": "Thịt hỏa lang nướng trên đá nóng, cay xé lưỡi. Ăn xong tay cầm kiếm cũng nóng theo."},
+  "che-tuyet-lien": {"name": "Chè tuyết liên", "map": "dao-han-bang", "npc": "tuyet-nhi", "price": 140, "stats": {"hp_pct": 6, "cdr": 3}, "line": "Chè hạt sen tuyết, mát tới tận đan điền. Uống vào đầu óc tỉnh, ra chiêu cũng nhanh hơn."},
+  "tra-hac-diep": {"name": "Trà cánh hắc điệp", "map": "hac-phong-dao", "npc": "ba-do-den", "price": 220, "stats": {"speed": 6}, "line": "Trà ủ cánh hắc điệp, uống vào nhẹ người như gió đen. Bà pha cho cháu một chén nhé."},
+  "canh-nam-sang": {"name": "Canh nấm soi đêm", "map": "dao-moc", "npc": "ong-hai-nam", "price": 340, "stats": {"hp_pct": 10}, "line": "Nấm phát sáng thì không ăn được, nhưng nấm mọc cạnh nó nấu canh thì bổ lắm. Ông nấu sẵn rồi đây."},
+  "mat-hoa-tinh-linh": {"name": "Mật hoa tinh linh", "map": "lang-tinh-linh", "npc": "tieu-moc-linh", "price": 360, "stats": {"crit": 4}, "line": "Mật hoa cây mẹ cho đấy. Uống một thìa, mắt sáng như sao, chém đâu trúng đó."},
+  "nuoc-gieng-kim-sa": {"name": "Nước giếng kim sa", "map": "dao-thien-kim", "npc": "co-ban-nuoc", "price": 500, "stats": {"crit": 4, "crit_dmg": 10}, "line": "Nước giếng lọc qua cát vàng, uống vào ngọt lịm. Người ta bảo kiếm khách uống nước này đánh đau hơn."},
+  "com-bac-thang": {"name": "Cơm gạo ruộng bậc thang", "map": "dao-hau-tho", "npc": "lao-nong", "price": 750, "stats": {"atk_pct": 6, "hp_pct": 6}, "line": "Gạo ruộng bậc thang, đất biết thở thì hạt mới thơm thế này. Ăn một bát rồi ra ngoài kia mà đánh."}
+ }
+}

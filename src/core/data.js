@@ -1,6 +1,6 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
 const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests', 'techniques', 'cave', 'pets', 'daily', 'gear', 'tower', 'companions', 'side', 'shop', 'resrun', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'arena', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'scenic', 'home', 'weather', 'journal', 'chatter', 'kyngo', 'critters', 'social', 'cooking', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'gather', 'demon', 'gender'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests', 'techniques', 'cave', 'pets', 'daily', 'gear', 'tower', 'companions', 'side', 'shop', 'resrun', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'arena', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'scenic', 'home', 'weather', 'journal', 'chatter', 'kyngo', 'critters', 'social', 'cooking', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'gather', 'demon', 'gender', 'snacks'];
 
 async function getJson(path) {
   const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });

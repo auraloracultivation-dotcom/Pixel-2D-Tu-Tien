@@ -150,6 +150,9 @@ try {
   const ga = read('gather.json'), matIn = id => read('cave.json').materials[id] || items.materials[id];
   need(matIn(ga.yield[0]) && ga.rare.every(([id, p, n]) => matIn(id) && p > 0 && p < 1 && n > 0) && ga.per_map > 0 && ga.min_r < ga.max_r && ga.max_r < 1, 'gather: nguyên liệu hoặc số sai');
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(!f.from.elite || (maps[f.from.elite.map]?.spawners.some(sp => sp.mul > 1) && f.from.elite.n > 0), `fashion/${id}: tinh cầu không có bãi quái nhiễm ma khí`);
+  const sn = read('snacks.json'), statIds = Object.keys(items.stats);   // linh thực: người bán đứng trên đúng tinh cầu, chỉ số có thật
+  for (const [id, d] of Object.entries(sn.list)) need(maps[d.map]?.npcs.some(n => n.id === d.npc) && npcs[d.npc] && d.price > 0 && Object.keys(d.stats).length && Object.keys(d.stats).every(s => statIds.includes(s) && sn.stat_names[s]), `snacks/${id}: tinh cầu, người bán, giá hoặc chỉ số sai`);
+  need(new Set(Object.values(sn.list).map(d => d.npc)).size === Object.keys(sn.list).length && sn.min > 0 && sn.keep > 0, 'snacks: mỗi người bán một món, min và keep phải dương');
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');

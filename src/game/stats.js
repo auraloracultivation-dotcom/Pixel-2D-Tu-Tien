@@ -3,6 +3,7 @@ import { gearStats } from './items.js';
 import { techStats } from './techniques.js';
 import { pillHp } from './cave.js';
 import { setStats } from './enhance.js';
+import { snackStats } from './snack.js';
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
 }
@@ -48,6 +49,7 @@ export function playerStats(save, data) {
   const g = gearStats(data, save), tg = techStats(save, data);
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(setStats(data, save).stats)) g[s] = (g[s] || 0) + x;
+  for (const [s, x] of Object.entries(snackStats(save, data))) g[s] = (g[s] || 0) + x;   // linh thực đang ăn
   const v = s => g[s] || 0;
   return {
     maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)),

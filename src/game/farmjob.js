@@ -3,6 +3,7 @@
 import { dist } from './combat.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 import { veinReady } from './gather.js';
+import { snackJob } from './snack.js';
 
 // Sức mình so một con quái (máu, công gấp mul lần): giống màu gợi ý ở cổng bí cảnh (dungeon.json → hint). >= hard là đánh được
 export function foeRatio(game, def, mul = 1) {
@@ -44,6 +45,8 @@ export function farmJob(game, routeTo) {
   if (!pilotOpt(game, 'treo') || nightRest(game)) return null;
   const camp = bestCamp(game), p = game.player;
   if (camp) {
+    const sj = snackJob(game);   // hết linh thực mà dư Linh Thạch: ghé xóm mua một phần rồi mới treo
+    if (sj) return sj;
     const m = camp.alive.filter(m => !m.dead).sort((a, b) => dist(a, p) - dist(b, p))[0];
     return m ? { fight: m } : { go: game.map.center(camp.at[0], camp.at[1]) };   // chờ quái hồi ngay tại bãi
   }
