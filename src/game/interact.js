@@ -57,6 +57,7 @@ export function talkTo(game, npc) {
   if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
   if (festNpc(game, npc.id)) { talkFest(game, npc); return; }
+  if (npc.id === game.data.market.npc) { game.openMarket?.(); return; }
   if (npc.id === game.data.home.decor.npc) { talkTieuLinh(game, npc); return; }
   if (npc.home || npc.visit) { talkHome(game, npc); return; }
   if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
