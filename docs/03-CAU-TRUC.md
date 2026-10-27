@@ -61,3 +61,7 @@ Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh 
 ## Sao lưu hằng đêm
 
 `supabase/migrations/20261028030000_p2d_sao_luu_dem.sql`: pg_cron chạy `p2d_sao_luu_dem()` lúc 2 giờ 17 sáng giờ Việt Nam (job `p2d-sao-luu-dem`), chép nguyên dòng `p2d_nhan_vat` (cột `ban` = `to_jsonb` cả dòng) vào `p2d_sao_luu` theo ngày, giữ 7 ngày gần nhất. Máy khách không đọc, không gọi được. Khôi phục là việc tay, cần chủ dự án đồng ý: đọc `ban` của ngày cần rồi ghi lại vào `p2d_nhan_vat`.
+
+## Nhật ký lỗi máy khách
+
+`src/core/catch-errors.js` bắt lỗi JavaScript (`error`, `unhandledrejection`) trên máy người chơi, bỏ lỗi mạng và lỗi không có thông tin, mỗi lỗi một lần mỗi phiên, tối đa 10; khi đã đăng nhập thì gửi qua `src/net/errlog.js` → `p2d_ghi_loi` (`supabase/migrations/20261028040000_p2d_nhat_ky_loi.sql`). Máy chủ gộp lỗi trùng trong ngày (cột `lan`), mỗi người tối đa 20 dòng mới mỗi giờ, cả máy chủ 5000 dòng mỗi ngày, giữ 14 ngày (job `p2d-don-loi`). Chủ dự án xem bảng `p2d_loi` trong Supabase.
