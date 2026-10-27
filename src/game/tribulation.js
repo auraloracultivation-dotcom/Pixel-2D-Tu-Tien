@@ -1,5 +1,5 @@
 // Thiên kiếp: ở tầng 9 đầy linh khí, người chơi gọi kiếp. Mỗi cảnh giới một kiểu (data/realms.json → tribulation.by_realm):
-// sét, sét thành hàng, tâm ma (bóng của chính mình), lửa trời, hoặc trộn. Trụ hết các đợt (và hạ tâm ma nếu có) thì lên
+// sét, sét thành hàng, tâm ma (bóng của chính mình, máu theo cả máu lẫn công của người chơi), lửa trời, hoặc trộn. Trụ hết các đợt (và hạ tâm ma nếu có) thì lên
 // cảnh giới mới; gục thì thất bại và mất một phần linh khí.
 import { qiNeed, realmLabel } from './stats.js';
 import { addStrike } from './strikes.js';
@@ -36,7 +36,7 @@ export function createTribulation(game) {
 
   function spawnShadow() {
     const p = game.player, c = run.cfg.info, base = game.data.mobs['tam-ma'];
-    const hp = Math.round(p.maxHp * c.hp), def = { ...base, hp, atk: Math.round(p.atk * c.atk * 10) / 10 };
+    const hp = Math.round(Math.max(p.maxHp * c.hp, p.atk * (c.hp_atk || 0))), def = { ...base, hp, atk: Math.round(p.atk * c.atk * 10) / 10 };
     const pos = game.map.freeNear(Math.floor(p.x / game.map.T) + 2, Math.floor(p.y / game.map.T), 2, 6);
     run.shadow = game.spawn('tam-ma', pos.x, pos.y, { def, hp, maxHp: hp, noQi: true, tower: true, aggro: true });
     addFx(game, { type: 'ring', x: pos.x, y: pos.y, r: 26, color: c.color, life: 0.8, fill: true });
