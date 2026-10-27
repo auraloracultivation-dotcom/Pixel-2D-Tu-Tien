@@ -12,3 +12,15 @@ jobs:
         with:
           node-version: 22
       - run: node tools/check.mjs
+  choi-thu:
+    # Người mới chơi thử 150 giây với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save playwright@1.63.0
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/playtest.mjs
