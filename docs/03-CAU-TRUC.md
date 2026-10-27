@@ -17,6 +17,16 @@ HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -
 
 Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `spawn`, `dark`, `nodeath`, `flash`, `kill_all`, `npc_add`, `npc_remove`, `flag`, `shake`, `weapon`, `item`, `gear`, `reward`, `fly` (kèm `with` để NPC chở, `kind` để ép cảnh bay)) và `until` (điều kiện qua bước: `reach`, `collect`, `kill`, `kill_all`, `hp_below`, `talk`, `layer`, `realm`, `map`, `boss_dead`, `any`, `never`). Bước có `once` không phát lại khi mở lại game (dùng cho bước có thưởng). Thêm truyện = thêm bước, không sửa code.
 
+## Nam, nữ và đạo lữ (`data/gender.json`)
+
+Tạo nhân vật mới thì hỏi nam hay nữ trước khi vào truyện; bản lưu cũ chưa chọn được hỏi một lần lúc vào game (`src/game/gender.js` → `askGender`, lưu ở `save.gioi`). Chọn xong đặt hình mặc định theo hai nhân vật đã có hình (`look`: nam kiếm tu tóc đen, nữ liềm tu tóc trắng), đổi hình vẫn ở Thời trang. Chữ trong data viết `{dạng nam|dạng nữ}`, ví dụ `{sư đệ|sư muội}`, `{Anh|Chị}`: `applyWords` thay một lượt khi vào game theo giới tính (giữ chữ gốc nên đổi tài khoản thay lại được). Đạo lữ theo giới tính ở `affinity.dao_lu.can` (`nam`: Lạc Tuyết, Hồ Linh; `nu`: Mặc Ảnh). Đạo lữ đã kết từ trước giữ nguyên. Kiểm tra tự động bắt chữ `{...|...}` viết sai.
+
+Người đang đi cùng cổ vũ lúc đánh (`src/game/cheer.js`, số ở `data/praise.json` → fight): hạ ba con trong ba giây, hạ quái tinh anh, thắng khi máu dưới 25%, mỗi 50 con không gục, máu tụt dưới 30% thì nhắc, đang có quái quanh mình thì thỉnh thoảng hô một câu. Hiện thành bong bóng trên đầu; đạo lữ nói thường hơn bạn đồng hành. Câu theo người ở `praise.lines`, thiếu thì `default`.
+
+## Linh thực (`data/snacks.json`)
+
+Lớp đồ dùng đời sống, thực phẩm chức năng: mỗi tinh cầu một món đặc sản bán ở xóm, người bán là dân làng ở đó (Khoai nướng ở Thiên Kiếm Tinh, Xiên hỏa lang ở Xích Diễm, Chè tuyết liên ở Hàn Băng, Trà hắc điệp ở Hắc Phong, Canh nấm ở Thanh Mộc, Mật hoa ở Làng Tinh Linh, Nước giếng kim sa ở Thiên Kim, Cơm bậc thang ở Hậu Thổ). Chạm người bán → mua bằng Linh Thạch, ăn ngay, 20 phút cộng chỉ số nhỏ theo phần trăm (công, máu, bạo kích, sát thương bạo, tốc chạy, hồi chiêu), một món một lúc (`src/game/snack.js`, cộng vào `playerStats` ở `stats.js`, hiện ở dòng Lực chiến). Khác bữa nấu với đạo lữ (tăng linh khí đả tọa) và đan dược. Tự hành treo máy: hết món mà còn ít nhất 10 lần giá thì ghé người bán trên tinh cầu đang đứng mua một phần rồi mới treo.
+
 ## Bản đồ (`data/maps/*.json`)
 
 `grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà), `world: true` (bay tới được từ tinh đồ), `planet` (đã phóng thành tinh cầu tròn: đường kính `d`, gốc đảo cũ `origin`).

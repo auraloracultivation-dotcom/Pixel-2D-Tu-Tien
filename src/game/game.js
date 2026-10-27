@@ -32,6 +32,8 @@ import { updateJournal } from './journal.js';
 import { updateHome } from './home.js';
 import { updateChatter } from './chatter.js';
 import { updateSnack } from './snack.js';
+import { applyWords, askGender } from './gender.js';
+import { cheerKill, updateCheer } from './cheer.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
@@ -145,7 +147,7 @@ export function createGame(data, screen, input, ui, audio) {
     countKill(game, m);
     if (m.def.ai === 'boss') praise(game, 'boss', { boss: m.def.name });
     dropLoot(game, m);
-    coinDrop(game, m); eliteKill(game, m);
+    coinDrop(game, m); eliteKill(game, m); cheerKill(game, m);
     bountyKill(game, m);
     sideKill(game, m);
     techDrop(game, m);
@@ -255,6 +257,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
+    applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
@@ -276,10 +279,12 @@ export function createGame(data, screen, input, ui, audio) {
     await offlineGains(game, lastSeen);
     eventToast(game); checkFestival(game);
     if (game.cloudDown) game.toast('Máy chủ đang chậm: đang chơi bằng bản lưu trong máy, chưa lưu lên máy chủ.', 4);
+    await askGender(game);   // tạo nhân vật mới, hoặc bản lưu cũ chưa chọn: hỏi nam hay nữ một lần
     await game.story.start();
   }
 
   function respawn() {
+    game.cheer = null;   // gục thì chuỗi hạ quái tính lại
     if (!game.tower && !game.arena) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
@@ -348,7 +353,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateParty(game, dt);
     updateTower(game, dt);
     updateArena(game, dt);
-    updatePraise(game, dt);
+    updatePraise(game, dt); updateCheer(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);

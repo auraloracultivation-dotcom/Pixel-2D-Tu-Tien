@@ -2,7 +2,7 @@
  "_note": "Song tu ở nhà (song_tu): người chơi đả tọa trong tầm range của đạo lữ đang ngồi ở nhà thì linh khí nhân thêm mul, có vệt linh quang nối hai người. Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
  "map": "dong-phu",
  "at": [11, 5],
- "zither": {"_note": "Đêm đàn: lúc phase, đang song tu với đạo lữ ở nhà thì cứ every[0]..every[1] giây đạo lữ gảy một câu đàn tranh (tiếng pluck, nốt nhạc bay lên màu color). Câu đầu mỗi đêm đạo lữ nói một lời (lines theo người, thiếu thì default).", "phase": "dem", "every": [25, 55], "color": "#fff1b8", "lines": {"lac-tuyet": ["Sư phụ dạy ta kiếm, không dạy đàn. Bài này ta tự học. Đệ nghe thử.", "Đêm yên thế này, kiếm cũng muốn nghỉ. Ta gảy một bài."], "ho-linh": ["Ta gảy đàn cho ngươi nghe! Sai nốt cũng không được cười.", "Bài này ở Hồ tộc ai cũng biết. Ngươi ngồi yên mà nghe."], "default": ["Đêm nay để mình gảy một bài cho bạn nghe.", "Ngồi tu mà có tiếng đàn, linh khí cũng êm hơn."]}},
+ "zither": {"_note": "Đêm đàn: lúc phase, đang song tu với đạo lữ ở nhà thì cứ every[0]..every[1] giây đạo lữ gảy một câu đàn tranh (tiếng pluck, nốt nhạc bay lên màu color). Câu đầu mỗi đêm đạo lữ nói một lời (lines theo người, thiếu thì default).", "phase": "dem", "every": [25, 55], "color": "#fff1b8", "lines": {"lac-tuyet": ["Sư phụ dạy ta kiếm, không dạy đàn. Bài này ta tự học. {Đệ|Muội} nghe thử.", "Đêm yên thế này, kiếm cũng muốn nghỉ. Ta gảy một bài."], "mac-anh": ["Ma tộc không có đàn. Ta học lỏm của dân làng. Đừng cười.", "Đêm yên thế này, bóng ta cũng muốn nghỉ. Nghe một bài nhé."], "ho-linh": ["Ta gảy đàn cho ngươi nghe! Sai nốt cũng không được cười.", "Bài này ở Hồ tộc ai cũng biết. Ngươi ngồi yên mà nghe."], "default": ["Đêm nay để mình gảy một bài cho bạn nghe.", "Ngồi tu mà có tiếng đàn, linh khí cũng êm hơn."]}},
  "song_tu": {
   "range": 44,
   "mul": 1.5,
@@ -10,6 +10,7 @@
   "start": "Song tu cùng {name}. Linh khí hai người hòa vào nhau, tu nhanh gấp rưỡi.",
   "lines": {
    "lac-tuyet": ["Thở chậm thôi. Theo nhịp của ta.", "Đừng nghĩ gì cả. Có ta ở đây."],
+   "mac-anh": ["Ma khí trong ta... gần nàng thì dịu lại.", "Thở chậm thôi. Ta theo nhịp của nàng."],
    "ho-linh": ["Hơi ấm này... là của ngươi hay của ta nhỉ?", "Nhắm mắt lại. Không được ngó ta."],
    "default": ["Cùng tĩnh tâm nào."]
   }
@@ -17,9 +18,15 @@
  "lines": {
   "lac-tuyet": {
    "binh-minh": ["Dậy rồi à? Ta luyện xong một lượt kiếm rồi. Trà còn ấm, uống đi.", "Sương sớm ở động phủ mát thật. Hồi trước ta chưa từng để ý."],
-   "ngay": ["Đệ cứ đi đâu thì đi. Tối về là được.", "Ta vừa tưới dược viên. Ngọc Lộ Hoa sắp nở rồi."],
-   "hoang-hon": ["Mây chiều nay đỏ giống hồi ở làng ta. ...Không có gì, chỉ là nhớ một chút.", "Ngồi xuống đây. Hôm nay đệ vất vả rồi."],
-   "dem": ["Khuya rồi. Đả tọa với ta một lúc rồi ngủ.", "Trăng sáng quá. Ta không ngủ được, nên ngồi chờ đệ về."]
+   "ngay": ["{Đệ|Muội} cứ đi đâu thì đi. Tối về là được.", "Ta vừa tưới dược viên. Ngọc Lộ Hoa sắp nở rồi."],
+   "hoang-hon": ["Mây chiều nay đỏ giống hồi ở làng ta. ...Không có gì, chỉ là nhớ một chút.", "Ngồi xuống đây. Hôm nay {đệ|muội} vất vả rồi."],
+   "dem": ["Khuya rồi. Đả tọa với ta một lúc rồi ngủ.", "Trăng sáng quá. Ta không ngủ được, nên ngồi chờ {đệ|muội} về."]
+  },
+  "mac-anh": {
+   "binh-minh": ["Sáng rồi. Ta canh cửa cả đêm, không có gì lạ.", "Sương sớm ở đây không độc. Ta vẫn chưa quen."],
+   "ngay": ["Ngươi cứ đi. Động phủ có ta giữ.", "Ta vừa đuổi một con chim trộm dược viên. ...Nó chạy rồi."],
+   "hoang-hon": ["Ở bên kia, trời đỏ là có chiến tranh. Ở đây chỉ là đẹp.", "Ngồi xuống đây. Hôm nay ngươi đánh nhiều rồi."],
+   "dem": ["Đêm là giờ của bóng. Ngủ đi, ta canh.", "Ta không ngủ được. Ngồi với ta một lát."]
   },
   "ho-linh": {
    "binh-minh": ["Ưm... sớm thế? Hồ ly ngủ nướng là chuyện bình thường nhé.", "Ta pha trà hoa đào. Uống thử xem, ta tu năm trăm năm mới pha ngon thế này đấy."],
@@ -41,7 +48,7 @@
   "toast": "{name} ghé động phủ chơi.",
   "lines": {
    "tieu-hoa": ["Tớ đi ngang qua thôi! ...Được rồi, tớ nhớ cậu nên ghé.", "Lò đan nhà cậu đẹp ghê. Cho tớ thử nhóm lửa nha?"],
-   "lac-tuyet": ["Đi ngang, ghé xem đệ có lười tu luyện không.", "Chỗ này yên tĩnh. Ngồi một lát rồi ta đi."],
+   "lac-tuyet": ["Đi ngang, ghé xem {đệ|muội} có lười tu luyện không.", "Chỗ này yên tĩnh. Ngồi một lát rồi ta đi."],
    "mac-anh": ["Ta mang cá tới. Nướng chung không?", "Ở đây không ai nhìn ta như nhìn ma tộc. Dễ chịu thật."],
    "ho-linh": ["Ta tới ngửi xem dược viên nhà ngươi có gì ngon.", "Đừng đuổi ta. Ta chỉ nằm phơi nắng một chút thôi."],
    "thanh-diep": ["Đất ở dược viên của ngươi tốt lắm. Ta gieo thêm mấy hạt nhé.", "Cây mẹ gửi lời hỏi thăm ngươi."],
@@ -62,17 +69,18 @@
  },
  "gifts": [{"pills": {"hoi-xuan-dan": 2}}, {"mats": {"ngoc-lo-hoa": 1}}, {"mats": {"linh-thao": 10}}, {"pills": {"boi-nguyen-dan": 1}}, {"mats": {"van-ngu": 2}}],
  "gift_lines": {
-  "lac-tuyet": ["Cầm lấy. Ta để dành cho đệ.", "Đừng hỏi ta lấy ở đâu. Cứ cầm đi."],
+  "lac-tuyet": ["Cầm lấy. Ta để dành cho {đệ|muội}.", "Đừng hỏi ta lấy ở đâu. Cứ cầm đi."],
+  "mac-anh": ["Cho nàng. Ta nhặt ở rìa vết nứt. Lau sạch rồi.", "Đừng hỏi. Cứ cầm đi."],
   "ho-linh": ["Quà của hồ ly đấy, phải giữ cẩn thận!", "Ta giấu cái này dưới gối cả tuần nay. Cho ngươi."],
   "default": ["Cho ngươi."]
  },
  "welcome": {"_note": "Về động phủ mà đạo lữ đang ở nhà thì đạo lữ chào một câu (cách nhau ít nhất gap phút).", "gap": 20,
-  "lines": {"lac-tuyet": ["Về rồi à. ...Ngồi xuống nghỉ đi.", "Đệ về muộn đấy.", "Ta pha trà rồi.", "Không bị thương chứ?"], "ho-linh": ["Về rồi! Ta đợi mãi!", "Hôm nay có mang gì về cho ta không?", "Ngồi đây, ta xoa vai cho!", "Ta nhớ ngươi đó."], "default": ["Về rồi à."]}},
+  "lines": {"lac-tuyet": ["Về rồi à. ...Ngồi xuống nghỉ đi.", "{Đệ|Muội} về muộn đấy.", "Ta pha trà rồi.", "Không bị thương chứ?"], "mac-anh": ["Về rồi.", "Không bị thương chứ?", "Ta nướng cá rồi.", "...Muộn đấy."], "ho-linh": ["Về rồi! Ta đợi mãi!", "Hôm nay có mang gì về cho ta không?", "Ngồi đây, ta xoa vai cho!", "Ta nhớ ngươi đó."], "default": ["Về rồi à."]}},
  "greet": {"_note": "Đạo lữ ở nhà chúc ngủ ngon (giờ trong night, tính cả sau nửa đêm) và chào buổi sáng (giờ trong morning), mỗi loại một lần mỗi ngày, khi người chơi ở gần (range).", "range": 40,
-  "night": {"hours": [22, 5], "lines": {"lac-tuyet": ["Khuya rồi. ...Ngủ ngon.", "Đừng thức nữa. Mai còn tu luyện."], "ho-linh": ["Ngủ ngon nha! Mơ thấy ta đó!", "Khuya rồi, ta ngáp mấy lần rồi nè..."], "default": ["Ngủ ngon nhé."]}},
-  "morning": {"hours": [5, 9], "lines": {"lac-tuyet": ["Dậy rồi à. Sương sớm tốt cho đả tọa.", "Trà sáng ta pha rồi."], "ho-linh": ["Chào buổi sáng! Hôm nay ta muốn ăn cá!", "Dậy đi dậy đi, mặt trời lên rồi!"], "default": ["Chào buổi sáng."]}}},
+  "night": {"hours": [22, 5], "lines": {"lac-tuyet": ["Khuya rồi. ...Ngủ ngon.", "Đừng thức nữa. Mai còn tu luyện."], "mac-anh": ["Ngủ đi. Ta canh.", "Khuya rồi. Đừng thức nữa."], "ho-linh": ["Ngủ ngon nha! Mơ thấy ta đó!", "Khuya rồi, ta ngáp mấy lần rồi nè..."], "default": ["Ngủ ngon nhé."]}},
+  "morning": {"hours": [5, 9], "lines": {"lac-tuyet": ["Dậy rồi à. Sương sớm tốt cho đả tọa.", "Trà sáng ta pha rồi."], "mac-anh": ["Sáng rồi. Đêm qua yên.", "Ta pha trà rồi. Không ngon bằng của dân làng."], "ho-linh": ["Chào buổi sáng! Hôm nay ta muốn ăn cá!", "Dậy đi dậy đi, mặt trời lên rồi!"], "default": ["Chào buổi sáng."]}}},
  "tea": {"_note": "Uống trà với đạo lữ ở nhà, mỗi ngày một lần: min phút sau đó đả tọa ở đâu cũng nhân mul.", "min": 20, "mul": 1.2, "label": "Uống trà", "desc": "Đả tọa nhanh hơn 20% trong 20 phút", "toast": "Trà ấm lòng. Đả tọa nhanh hơn 20% trong 20 phút.",
-  "lines": {"lac-tuyet": ["Trà Tuyết Sơn. Uống chậm thôi.", "...Ngồi xuống đi. Trà nguội mất.", "Hôm nay đệ đi đâu? Kể ta nghe."], "ho-linh": ["Trà hoa đào ta tự hái đó! Ngon không?", "Uống xong rồi kể chuyện cho ta nghe nha.", "Thổi cho nguội đã, nóng lắm!"], "default": ["Mời trà."]}},
+  "lines": {"lac-tuyet": ["Trà Tuyết Sơn. Uống chậm thôi.", "...Ngồi xuống đi. Trà nguội mất.", "Hôm nay {đệ|muội} đi đâu? Kể ta nghe."], "mac-anh": ["Ta chưa hiểu sao người thích thứ đắng này. Nhưng uống với nàng thì được.", "Hôm nay đi đâu? Kể ta nghe.", "Uống chậm thôi. Nóng."], "ho-linh": ["Trà hoa đào ta tự hái đó! Ngon không?", "Uống xong rồi kể chuyện cho ta nghe nha.", "Thổi cho nguội đã, nóng lắm!"], "default": ["Mời trà."]}},
  "decor": {
   "_note": "Trang trí động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi món vẽ ở chỗ cố định (at, ô bản đồ; kind là kiểu vẽ trong draw-decor.js) và cộng comfort phần trăm tốc độ đả tọa khi ở động phủ.",
   "npc": "tieu-linh",

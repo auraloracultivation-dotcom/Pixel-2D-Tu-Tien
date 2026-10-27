@@ -3,6 +3,7 @@
 import { compNeed } from './companion.js';
 import { coins, addCoins } from './shop.js';
 import { hitMob, addFx, dist } from './combat.js';
+import { daoLuCan } from './gender.js';
 
 const A = game => game.data.affinity;
 const today = () => new Date().toDateString();
@@ -54,7 +55,7 @@ export const daoLu = game => game.save.daoLu || null;
 export const daoLuHere = game => { const d = daoLu(game); return d && !game.save.flags[game.data.companions.list[d]?.unless] ? d : null; };
 export const canPropose = (game, id) => {
   const d = A(game).dao_lu;
-  return !daoLu(game) && d.can.includes(id) && affinity(game, id) >= d.pts && game.save.realm >= d.realm;
+  return !daoLu(game) && daoLuCan(game).includes(id) && affinity(game, id) >= d.pts && game.save.realm >= d.realm;
 };
 export function propose(game, id) {
   if (!canPropose(game, id)) return null;
