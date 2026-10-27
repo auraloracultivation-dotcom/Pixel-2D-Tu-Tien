@@ -96,7 +96,8 @@ try {
     need(a && Object.values(h.anims).flat().every(f => f >= 0 && f < a.frames), `heroes/${id}: khung động tác vượt quá số khung của ${h.sprite}`);
     need((h.attacks || []).every(k => h.anims[k] && h.fps[k]), `heroes/${id}: động tác đánh thiếu khung hoặc fps`);
   }
-  for (const [id, s] of Object.entries(skills)) need(!s.fx || art['fx.' + s.fx], `skills/${id}: hiệu ứng fx.${s.fx} không có`);
+  for (const [id, s] of Object.entries(skills)) need(!s.fx || art['fx.' + s.fx] || art['proj.' + s.fx], `skills/${id}: hiệu ứng fx.${s.fx} không có`);
+  for (const [id, w] of Object.entries(weapons)) need(!w.fx || art['proj.' + w.fx], `weapons/${id}: hình đạn proj.${w.fx} không có`);
   for (const [id, h] of Object.entries(read('hints.json').buttons)) need(h.flag || story.steps.some(x => x.id === h.after), `hints/${id}: bước truyện không có`);
   const dun = read('dungeon.json');
   for (const m of dun.modes) need(!m.reward || ((!m.reward.item || items.rarities.some(r => r.id === m.reward.item)) && Object.keys(m.reward.mats || {}).every(matOk)), `dungeon/${m.id}: thưởng sai`);
