@@ -55,6 +55,11 @@ export function createSocialPanel(game) {
       b.onclick = () => { sendEmote(game, e.id); close(); };
       em.append(b);
     }
+    if (on && game.cloud) {   // tên hiển thị (người khác thấy tên này, không thấy tên đăng nhập)
+      const N = S.name, b = el('button', 'mini', N.btn.replace('{name}', game.online.me.name));
+      b.onclick = () => rename(N);
+      em.append(b);
+    }
     const log = $('social-log'); log.innerHTML = '';
     const L = game.chatLog || [];
     if (!L.length) log.append(el('div', 'empty', c.empty));
@@ -62,6 +67,18 @@ export function createSocialPanel(game) {
     log.scrollTop = log.scrollHeight;
     $('social-input').disabled = $('social-send').disabled = !on;
     game.chatNew = false;
+  }
+
+  async function rename(N) {
+    const t = prompt(N.ask, game.online.me.name);
+    if (t == null || !t.trim()) return;
+    try {
+      const { setDisplayName } = await import('../net/profile.js');
+      const name = await setDisplayName(t);
+      game.cloud.name = name; game.online.rename(name);
+      note = N.ok.replace('{name}', name);
+    } catch (e) { const m = String(e?.message || ''); note = N.err[Object.keys(N.err).find(k => m.includes(k))] || N.err.other; }
+    render();
   }
 
   function open() {

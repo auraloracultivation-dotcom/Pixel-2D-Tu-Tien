@@ -136,6 +136,23 @@ try {
   const tp = read('topup.json'), fl = read('fashion.json').list;
   for (const x of tp.shop) need(x.tn > 0 && (x.outfit ? fl[x.outfit]?.from.tn === x.tn : giftOk(x.give)), `topup/${x.id}: giá, thời trang hoặc quà sai`);
   need(tp.card.days > 0 && giftOk(tp.card.daily.give) && tp.packs.every(p => p.tn > 0 && p.vnd > 0), 'topup: thẻ tháng hoặc gói nạp sai');
+  // Số máy chủ phải khớp data/: giá Tiên Ngọc, quà, ngưỡng chỉ số trang bị, độ hiếm, thuế chợ (migration mới nhất có câu insert/hàm đó)
+  const migs = readdirSync('supabase/migrations').filter(f => f.endsWith('.sql')).sort().map(f => readFileSync(join('supabase/migrations', f), 'utf8'));
+  const lastWith = re => [...migs].reverse().find(t => re.test(t)) || '';
+  const tuples = (sql, table) => { const m = sql.match(new RegExp(`insert into public\\.${table} [^;]*?values([\\s\\S]*?)on conflict`)); return m ? [...m[1].matchAll(/\(([^()]*)\)/g)].map(x => x[1].split(',').map(v => v.trim().replace(/^'|'$/g, ''))) : []; };
+  const tnRows = Object.fromEntries(tuples(lastWith(/insert into public\.p2d_tn_gia/), 'p2d_tn_gia').map(([k, v]) => [k, +v]));
+  for (const x of tp.shop) need(tnRows[x.id] === x.tn, `topup/${x.id}: giá ${x.tn} khác giá trên máy chủ (p2d_tn_gia: ${tnRows[x.id]})`);
+  need(tnRows._qua_ra_mat === tp.starter && tnRows._the_ngay === tp.card.daily.tn && tnRows._the_ngay_lt === (tp.card.daily.give.coins || 0), 'topup: quà ra mắt / quà thẻ tháng khác số trên máy chủ (p2d_tn_gia)');
+  const csRows = Object.fromEntries(tuples(lastWith(/insert into public\.p2d_chi_so/), 'p2d_chi_so').map(([k, a, b, c]) => [k, [+a, +b, c === 'true']]));
+  for (const [k, d] of Object.entries(items.stats)) {
+    const main = Math.max(0, ...Object.values(items.bases).map(b => b.main[k] || 0));
+    need(csRows[k] && csRows[k][0] === main && csRows[k][1] === d.max && csRows[k][2] === !!d.pct, `items.stats/${k}: ngưỡng trên máy chủ (p2d_chi_so) không khớp: cần (${main}, ${d.max}, ${!!d.pct})`);
+  }
+  const phRows = Object.fromEntries(tuples(lastWith(/insert into public\.p2d_pham/), 'p2d_pham').map(([k, m, l, s]) => [k, [+m, +l, +s]]));
+  for (const r of items.rarities) need(phRows[r.id] && phRows[r.id][0] === r.mult && phRows[r.id][1] === r.lines && phRows[r.id][2] === r.sockets, `items.rarities/${r.id}: hệ số, dòng, lỗ khảm khác máy chủ (p2d_pham)`);
+  need(items.main_per_lvl === 0.12 && items.line_per_lvl === 0.08 && gear.enhance.max === 10 && items.bag_size === 40, 'items: main_per_lvl/line_per_lvl/gear.max/bag_size đổi thì sửa cả p2d_mon_hop_le, p2d_luu (supabase/migrations)');
+  const muaSql = lastWith(/function public\.p2d_mua/), tax = (muaSql.match(/ceil\(v_c\.gia \* ([0-9.]+)\)/) || [])[1];
+  need(+tax === read('market.json').tax, `market.tax ${read('market.json').tax} khác thuế trong hàm p2d_mua (${tax})`);
   const pt = read('party.json');
   need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');
   const mk = read('market.json');

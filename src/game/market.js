@@ -1,6 +1,5 @@
-// Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao và hòm thư; máy này trừ đồ khi rao,
-// trừ Linh Thạch khi mua, rồi nhận thư (hàng mua, tiền bán, hàng trả về) vào túi. Lưu lên máy chủ trước mỗi lần gọi
-// để máy chủ kiểm tra theo bản mới nhất.
+// Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
+// trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
 import { addItem, isEquipped, unsocket, itemName, rarityOf } from './items.js';
 import { addMat, matInfo } from './cave.js';
@@ -22,19 +21,15 @@ export function goodsName(game, loai, mon) {
   return { name: `${m?.name || mon.id} ×${mon.n}`, sub: 'Nguyên liệu' };
 }
 
-async function syncSave(game) {
-  game.persist();
-  await game.cloud.flush();
-}
-
-// Đẩy bản lưu rồi gọi; máy chủ chưa thấy món mới nhặt thì đợi một nhịp và thử lại một lần
-async function withSync(game, fn) {
-  await syncSave(game);
-  try { return await fn(); }
+// Lệnh chợ chạy qua game.cloud.run: đẩy bản lưu mới nhất, gọi hàm máy chủ (máy chủ tự trừ đồ, trừ tiền, cộng thư
+// vào bản lưu trên máy chủ và trả phien_ban mới), rồi sửa bản lưu trong máy y như vậy.
+// Máy chủ chưa thấy món mới nhặt thì đợi một nhịp và thử lại một lần.
+async function onServer(game, fn, mirror) {
+  try { return await game.cloud.run(fn, mirror); }
   catch (e) {
     if (!String(e?.message).includes('khong_co')) throw e;
-    await sleep(1500); await syncSave(game);
-    return fn();
+    await sleep(1500);
+    return game.cloud.run(fn, mirror);
   }
 }
 
@@ -42,27 +37,25 @@ export async function sellItem(game, uid, price) {
   const s = game.save, it = s.bag.find(x => x.uid === uid);
   if (!it || isEquipped(s, uid)) throw new Error('khong_co');
   (it.sockets || []).forEach((_, i) => unsocket(s, uid, i));   // ngọc khảm trả về túi, không bán theo đồ
+  game.persist();
   const { postListing } = await net();
-  await withSync(game, () => postListing('mon', it, price));
-  s.bag = s.bag.filter(x => x.uid !== uid);
-  game.refreshStats(); game.persist();
+  await onServer(game, () => postListing('mon', { uid }, price), () => {
+    s.bag = s.bag.filter(x => x.uid !== uid);
+    game.refreshStats(); game.persist();
+  });
 }
 
 export async function sellMat(game, id, n, price) {
   const s = game.save;
   if ((s.mats[id] || 0) < n || n < 1) throw new Error('khong_co');
   const { postListing } = await net();
-  await withSync(game, () => postListing('nl', { id, n }, price));
-  s.mats[id] -= n;
-  game.persist();
+  await onServer(game, () => postListing('nl', { id, n }, price), () => { s.mats[id] -= n; game.persist(); });
 }
 
 export async function buy(game, row) {
   if (coins(game.save) < row.gia) throw new Error('thieu_tien');
   const { buyListing } = await net();
-  await withSync(game, () => buyListing(row.id));
-  addCoins(game, -row.gia);
-  game.persist();
+  await onServer(game, () => buyListing(row.id), () => { addCoins(game, -row.gia); game.persist(); });
   return claimMail(game);
 }
 
@@ -72,7 +65,8 @@ export async function cancel(game, id) {
   return claimMail(game);
 }
 
-// Nhận thư còn chỗ trong túi (trang bị cần ô trống); trả về các dòng chữ đã nhận
+// Nhận thư còn chỗ trong túi (trang bị cần ô trống); máy chủ cộng vào bản lưu, máy này cộng y như vậy
+// (món nhận được mang mã số máy chủ cấp, bắt đầu từ chỗ máy này giữ sẵn). Trả về các dòng chữ đã nhận.
 export async function claimMail(game) {
   if (!canTrade(game)) return [];
   const { peekMail, takeMail } = await net();
@@ -81,13 +75,16 @@ export async function claimMail(game) {
   const ids = mail.filter(m => !m.noi_dung.item || free-- > 0).map(m => m.id);
   if (!ids.length) return [];
   const got = [];
-  for (const m of await takeMail(ids)) {
-    const d = m.noi_dung, head = M(game).mail[m.ly_do] || '';
-    if (d.coins) { addCoins(game, d.coins); got.push(`${head}: +${d.coins} ${game.data.shop.name}`); }
-    if (d.item && game.data.items.bases[d.item.base]) { const it = { ...d.item, uid: s.nextUid++ }; addItem(game.data, s, it); got.push(`${head}: ${itemName(game.data, it)}`); }
-    if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); got.push(`${head}: ${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
-  }
-  game.refreshStats(); game.persist();
+  await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
+    for (const m of r.thu || []) {
+      const d = m.noi_dung, head = M(game).mail[m.ly_do] || '';
+      if (d.coins) { addCoins(game, d.coins); got.push(`${head}: +${d.coins} ${game.data.shop.name}`); }
+      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); got.push(`${head}: ${itemName(game.data, d.item)}`); }
+      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); got.push(`${head}: ${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
+    }
+    s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
+    game.refreshStats(); game.persist();
+  });
   return got;
 }
 

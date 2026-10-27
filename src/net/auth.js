@@ -13,7 +13,7 @@ function toEmail(account) {
   return `${a}@${HIDDEN_DOMAIN}`;
 }
 
-// Tên hiển thị: phần trước @ của email ẩn
+// Tên đăng nhập (chỉ hiện ở màn đầu cho chính mình; người khác thấy tên hiển thị đặt ở bảng Đạo hữu)
 export function displayName(session) {
   const email = session?.user?.email || '';
   return email.split('@')[0] || 'Đạo hữu';
@@ -34,14 +34,15 @@ export async function signUp(account, password) {
   const username = normalize(account);
   if (username.includes('@')) throw new Error('Đăng ký bằng tên tài khoản, không cần email.');
   toEmail(username);
-  if (password.length < 6) throw new Error('Mật khẩu cần ít nhất 6 ký tự.');
+  if (password.length < 8) throw new Error('Mật khẩu cần ít nhất 8 ký tự.');   // tài khoản cũ 6–7 ký tự vẫn đăng nhập được
   const { data, error } = await supabase.functions.invoke('dang-ky', { body: { username, password } });
   if (error) {
     let code = '';
     try { code = (await error.context.json()).error; } catch { /* không đọc được thân lỗi */ }
     if (code === 'USERNAME_TAKEN') throw new Error('Tên tài khoản đã có người dùng.');
     if (code === 'USERNAME_INVALID') throw new Error('Tài khoản gồm 3–20 ký tự: chữ không dấu, số hoặc _.');
-    if (code === 'PASSWORD_INVALID') throw new Error('Mật khẩu cần 6–72 ký tự.');
+    if (code === 'PASSWORD_INVALID') throw new Error('Mật khẩu cần 8–72 ký tự.');
+    if (code === 'TOO_MANY') throw new Error('Mạng này vừa tạo nhiều tài khoản, đợi một lát rồi thử lại.');
     throw new Error('Không tạo được tài khoản, thử lại sau.');
   }
   if (!data?.ok) throw new Error('Không tạo được tài khoản, thử lại sau.');
@@ -56,6 +57,6 @@ function translate(error) {
   const m = (error.message || '').toLowerCase();
   if (m.includes('invalid login')) return new Error('Sai tài khoản hoặc mật khẩu.');
   if (m.includes('rate limit')) return new Error('Thử quá nhiều lần, đợi một lát rồi thử lại.');
-  if (m.includes('password')) return new Error('Mật khẩu cần ít nhất 6 ký tự.');
+  if (m.includes('password')) return new Error('Mật khẩu không hợp lệ.');
   return new Error(error.message);
 }

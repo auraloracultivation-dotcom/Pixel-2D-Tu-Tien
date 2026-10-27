@@ -13,7 +13,7 @@ export const partyGuest = game => inPartyRun(game) && !isHost(game);
 export const partyHostRun = game => inPartyRun(game) && isHost(game);
 export const partyGhosts = game => inPartyRun(game) ? game.others.visible() : [];
 export const partySize = game => game.party?.roster.length || 1;
-const send = (game, body) => game.party?.net.send(body);
+const send = (game, body) => game.party?.net?.send(body);
 
 // Thành viên đánh trúng quái của đội trưởng: gom lại gửi theo nhịp
 export function partyHit(game, m, dmg, opt) {
@@ -65,20 +65,31 @@ function applySnap(game, msg) {
   for (const [x, y, vx, vy, r, color, life] of msg.b || []) game.bullets.push({ from: 'see', x, y, vx, vy, r, color, life, hit: new Set() });
 }
 
+// Tin quyết định (trạng thái quái, hạ quái, mở cửa, qua ải, kết thúc, quái đánh trúng mình) chỉ nhận từ đội trưởng.
+// Đòn trúng mình bị kẹp tối đa HURT_MAX máu tối đa và cách nhau ít nhất HURT_GAP giây, để máy khác sửa code
+// cũng không một đòn giết được đồng đội.
+const HURT_MAX = 0.8, HURT_GAP = 0.15;
 export function onPartyMsg(game, msg) {
   const p = game.party;
-  if (!p) return;
-  if (msg.t === 'start' && msg.from === p.roster[0]?.id) { beginRun(game, { map: msg.map, mode: msg.mode, n: msg.n }); return; }
+  if (!p || !msg || typeof msg !== 'object') return;
+  const fromHost = msg.from === p.roster[0]?.id && msg.from !== p.me;
+  if (msg.t === 'start' && fromHost) { beginRun(game, { map: msg.map, mode: msg.mode, n: msg.n }); return; }
   if (!inPartyRun(game)) return;
-  if (msg.pos) game.others.move({ id: msg.from, ...msg.pos });
-  if (msg.t === 'snap' && !isHost(game)) applySnap(game, msg);
+  if (msg.pos && msg.from !== p.me) game.others.move({ ...msg.pos, id: msg.from });
+  if (msg.t === 'snap' && !isHost(game) && fromHost) applySnap(game, msg);
   else if (msg.t === 'pos' && isHost(game)) {
     const o = game.others.list.get(msg.from);
     for (const [u, d, sl, st] of msg.hits || []) {
       const m = game.mobs.find(k => k.uid === u && !k.dead);
-      if (m) hitMob(game, m, d, { remote: true, slow: sl, stun: st, fromX: o?.x, fromY: o?.y });
+      if (m && Number.isFinite(d) && d > 0) hitMob(game, m, d, { remote: true, slow: sl, stun: st, fromX: o?.x, fromY: o?.y });
     }
-  } else if (msg.t === 'hurt' && msg.to === p.me) hitPlayer(game, msg.d, { x: msg.x, y: msg.y });
+  } else if (!fromHost) return;
+  else if (msg.t === 'hurt' && msg.to === p.me && Number.isFinite(msg.d)) {
+    const now = performance.now() / 1000, S0 = S(game);
+    if (now - (S0.hurtT || 0) < HURT_GAP) return;
+    S0.hurtT = now;
+    hitPlayer(game, Math.min(Math.max(0, msg.d), game.player.maxHp * HURT_MAX), { x: msg.x, y: msg.y });
+  }
   else if (msg.t === 'kill') { const m = game.mobs.find(k => k.uid === msg.u && !k.dead); if (m) killMob(game, m); }
   else if (msg.t === 'door') { for (const [x, y] of game.map.findTiles('D')) if (x === msg.x) game.map.locked.delete(x + ',' + y); game.toast('Cửa đã mở!'); game.sfx('door'); }
   else if (msg.t === 'done') dungeonDone(game);

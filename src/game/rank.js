@@ -1,10 +1,15 @@
 // Bảng xếp hạng 3 tab (data/social.json rank): tải từ máy chủ, nhớ tạm 30 giây mỗi tab.
 // Top 10 tuần trước được danh hiệu tuần (data/status.json titles có weekly), chỉ để trưng.
-const cache = {};
+// Bấm tab liên tục khi mạng chậm chỉ gửi một lệnh: các lần bấm sau chờ chung lệnh đang chạy.
+const cache = {}, inflight = {};
 
-export async function loadRank(game, kind, force) {
+export function loadRank(game, kind, force) {
   const c = cache[kind];
-  if (!force && c && Date.now() - c.at < 30000) return c.data;
+  if (!force && c && Date.now() - c.at < 30000) return Promise.resolve(c.data);
+  return inflight[kind] ??= fetchFresh(game, kind).finally(() => { delete inflight[kind]; });
+}
+
+async function fetchFresh(game, kind) {
   const { fetchRank } = await import('../net/rank.js');
   const data = await fetchRank(kind);
   cache[kind] = { at: Date.now(), data };
