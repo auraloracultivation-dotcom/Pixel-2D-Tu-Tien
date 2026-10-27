@@ -42,3 +42,14 @@ export function whyNot(game, b) {
   if (!def.world) return t.moon.replace('{parent}', b.parent?.name || '');
   return null;
 }
+
+// Thiên thể của một bản đồ (mặt trăng có parent) và vòng quỹ đạo của nó (mặt trăng tính theo tinh cầu mẹ)
+export function bodyOfMap(sm, id) {
+  for (const b of sm.bodies) {
+    if (b.map === id) return b;
+    const m = (b.moons || []).find(x => x.map === id);
+    if (m) return { ...m, parent: b };
+  }
+  return null;
+}
+export function orbitOf(sm, id) { const b = bodyOfMap(sm, id); return b ? b.orbit || b.parent?.orbit : null; }
