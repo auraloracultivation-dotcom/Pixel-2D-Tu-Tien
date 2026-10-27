@@ -1,6 +1,7 @@
 // Chào hỏi, trò chuyện với người chơi cùng đảo (data/social.json): gửi qua net/online.js, hiện bong bóng trên đầu, giữ log ngắn.
 // Lọc từ bậy cả lúc gửi lẫn lúc nhận, nên máy khác có sửa code cũng không hiện được chữ bậy ở máy mình.
 import { addFx } from './combat.js';
+import { md5 } from '../core/md5.js';
 
 const C = game => game.data.social;
 const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -55,9 +56,16 @@ function showEmote(game, who, e, name) {
 }
 
 // Nhận từ người khác: tra người nói trong danh sách cùng đảo, bỏ tin dồn dập
+// Người đã chặn (save.blocked giữ mã chat 12 ký tự): tính mã từ mã tài khoản giống p2d_chat_key ở máy chủ
+const chatKey = uid => md5('chat:' + uid).slice(0, 12);
+function blockedHere(game, o, uid) {
+  const L = game.save?.blocked;
+  return !!L?.length && L.some(b => b.k === (o.chatK ??= chatKey(uid)));
+}
+
 export function onSay(game, p) {
   const o = game.others.list.get(p.id), c = C(game);
-  if (!o || o.x === null) return;
+  if (!o || o.x === null || blockedHere(game, o, p.id)) return;   // người đã chặn: không hiện bong bóng, biểu cảm
   const now = Date.now() / 1000;
   if (now - (o.sayT || 0) < c.chat.min_gap) return;
   o.sayT = now;
