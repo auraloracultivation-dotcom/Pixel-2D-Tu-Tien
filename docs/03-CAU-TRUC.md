@@ -37,11 +37,19 @@ Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì 
 
 Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`).
 
-Lưu máy chủ đã viết sẵn nhưng **chưa đẩy lên Supabase** (chủ dự án duyệt mới áp dụng):
+Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi `p2d_tai()` / `p2d_luu(data, phien_ban)`, gom lưu 4 giây một lần, lỗi mạng thì thử lại; máy mới chưa có bản lưu tự lấy bản trên máy chủ.
 
-- `supabase/migrations/20261026000000_p2d_luu_nhan_vat.sql`: bảng `p2d_nhan_vat` (RLS chỉ đọc dòng của mình, không ai ghi thẳng), hàm `p2d_tai()` và `p2d_luu(data, phien_ban)`. Hàm lưu kiểm tra kích thước, khung dữ liệu, cảnh giới hợp lệ và không nhảy quá 3 tầng mỗi lần lưu, túi tối đa 40 món, độ hiếm hợp lệ, và số phiên bản để hai máy cùng tài khoản không ghi đè nhau.
-- `src/net/profile.js`: gọi hai hàm trên, gom lưu 4 giây một lần, lỗi mạng thì thử lại.
-- Bật bằng `"server_save": true` trong `data/config.json`. Máy mới chưa có bản lưu sẽ tự lấy bản trên máy chủ.
-- Còn tin máy khách: dòng chỉ số đồ rơi và tẩy luyện vẫn tung ở máy. Muốn chống gian lận đồ thật thì bước sau chuyển việc tung đồ vào hàm máy chủ.
+**Chống gian lận** (`supabase/migrations/20261027140000_p2d_chong_gian_lan.sql`, chủ dự án duyệt 27/10/2026). Game vẫn tính ở máy người chơi (tự hành, đánh quái, rơi đồ), nên máy chủ không tính lại được mọi thứ; máy chủ chặn những chỗ ảnh hưởng người khác và những cú gian lận lộ liễu:
 
-Các bước áp dụng khi được duyệt: chạy migration trên dự án Supabase, đổi `server_save` thành `true`, mở PR.
+- `p2d_luu`: Linh Thạch và nguyên liệu chỉ tăng trong "thùng hạn mức" đầy dần theo thời gian thật và cảnh giới (rộng gấp nhiều lần tốc độ đánh nhanh nhất); vượt thì cắt về mức cho phép. Lực chiến có trần theo cảnh giới (6000 × 1,6^cảnh giới), tầng tháp mỗi tầng ít nhất 5 giây. Món đã đem rao không quay lại túi được. Món mới quá hiếm hoặc chỉ số vượt mức tung được (`p2d_mon_hop_le`, ngưỡng ở bảng `p2d_chi_so`, `p2d_pham`) thì ghi nghi vấn.
+- Mọi lần cắt, mọi điều lạ ghi vào `p2d_nghi_van` và cộng `p2d_nhan_vat.nghi_van`; từ 10 trở lên thì không lên bảng xếp hạng, không vào chợ. Chủ dự án xem bảng `p2d_nghi_van` trong Supabase.
+- Tiên Ngọc, quà ra mắt, thẻ tháng do máy chủ giữ (cột `tien_ngoc`, `tn_qua`, `the_den`, `the_nhan`; hàm `p2d_qua_tn`, `p2d_doi_tn`, `p2d_nhan_the`; giá ở bảng `p2d_tn_gia`).
+- Chợ: rao bán chỉ gửi mã số món, máy chủ tự lấy món trong bản lưu trên máy chủ và kiểm tra chỉ số; rao, mua trừ đồ và tiền ngay trên máy chủ; nhận thư máy chủ tự cộng vào bản lưu. Khoá dòng nhân vật nên bấm dồn không lách được.
+- Lệnh nào sửa bản lưu ở máy chủ thì tăng `phien_ban` và trả về; máy khách gọi qua `cloud.run()` (đợi lần lưu đang gửi, đẩy bản mới nhất, gọi lệnh, làm theo kết quả) để không bao giờ gửi bản lưu cũ.
+- Lỗi luôn dùng mã thường (22023, 42501, 54000, P0001), **không dùng 40001**: PostgREST tự chạy lại giao dịch khi gặp 40001, sáng 27/10 làm máy chủ treo 5 tiếng.
+- Tên hiển thị tách khỏi tên đăng nhập (`p2d_dat_ten`, nút ✎ ở bảng Đạo hữu); người mới tên "Đạo hữu XXXX".
+- Kênh online và tổ đội là kênh Realtime riêng tư, chỉ người đã đăng nhập vào được; tin quyết định trong tổ đội chỉ nhận từ đội trưởng, đòn trúng mình bị kẹp tối đa 80% máu.
+- Đăng ký (`supabase/functions/dang-ky`): mỗi địa chỉ mạng tối đa 3 tài khoản / giờ, 10 / ngày; chỉ trang game gọi được từ trình duyệt; mật khẩu mới 8–72 ký tự.
+- `tools/check.mjs` so số trong migration với `data/` (giá Tiên Ngọc, quà, ngưỡng chỉ số, độ hiếm, thuế chợ): đổi số trong `data/` thì phải thêm migration mới.
+
+Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh khí. Muốn chặn hết thì chuyển việc tung đồ và tính linh khí vào hàm máy chủ (việc lớn, làm sau).

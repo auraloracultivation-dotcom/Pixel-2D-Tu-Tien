@@ -1,5 +1,5 @@
 {
- "_note": "Chợ trao đổi giữa người chơi (game/market.js, ui/market-panel.js, hàm máy chủ ở supabase/migrations/20261027110000_p2d_cho.sql). tax phải khớp số trong hàm p2d_mua. price: giá gợi ý ban đầu (trang bị theo phẩm, nguyên liệu mỗi cái).",
+ "_note": "Chợ trao đổi giữa người chơi (game/market.js, ui/market-panel.js, hàm máy chủ ở supabase/migrations: 20261027110000_p2d_cho.sql, 20261027140000_p2d_chong_gian_lan.sql). tax phải khớp số trong hàm p2d_mua. price: giá gợi ý ban đầu (trang bị theo phẩm, nguyên liệu mỗi cái).",
  "npc": "chu-cho",
  "tax": 0.1,
  "max_list": 10,
@@ -26,7 +26,7 @@
   "da_ban": "Món này vừa có người mua mất rồi.",
   "cua_minh": "Đây là hàng của bạn.",
   "chua_luu": "Bản lưu chưa lên máy chủ. Chơi thêm chút rồi thử lại.",
-  "gia_sai": "Giá không hợp lệ.",
+  "gia_sai": "Giá không hợp lệ.", "mon_sai": "Món này có chỉ số lạ, chợ không nhận.", "bi_khoa": "Tài khoản đang bị tạm khoá chợ vì dữ liệu bất thường.", "phien_ban_cu": "Tài khoản đang chơi ở máy khác. Tải lại game rồi thử lại.",
   "other": "Chợ đang bận, thử lại sau nhé."
  },
  "mail": {"mua": "Nhận hàng đã mua", "ban": "Bán được hàng", "huy": "Thu hàng về", "het_han": "Hàng hết hạn trả về"},

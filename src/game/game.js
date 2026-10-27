@@ -230,7 +230,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (session) {
       try {
         const { createOnline } = await import('../net/online.js');
-        const me = { id: session.user.id, name: session.user.email.split('@')[0] };
+        const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
         });
@@ -240,6 +240,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (session && msg) { msg.classList.remove('bad'); msg.textContent = 'Đang tải bản lưu...'; }
     game.cloudDown = false;
     const local = loadSave(owner), remote = await loadCloud(session);
+    if (game.online && game.cloud?.name) game.online.me.name = game.cloud.name;
     if (game.cloudDown && !local && !fresh) {   // máy này chưa có bản lưu, máy chủ không trả lời: đừng mở game trống
       if (msg) { msg.classList.add('bad'); msg.textContent = 'Máy chủ đang chậm, chưa tải được bản lưu. Bấm lại sau ít phút.'; }
       return;

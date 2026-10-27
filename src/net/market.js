@@ -1,4 +1,5 @@
-// Chợ trao đổi và hòm thư: chỉ gọi các hàm p2d_* có kiểm tra (supabase/migrations/20261027110000_p2d_cho.sql).
+// Chợ trao đổi và hòm thư: chỉ gọi các hàm p2d_* có kiểm tra (supabase/migrations: p2d_cho, p2d_chong_gian_lan).
+// Rao bán chỉ gửi mã số món (máy chủ tự lấy món trong bản lưu trên máy chủ); các lệnh sửa bản lưu trả phien_ban mới.
 import { supabase } from './client.js';
 
 async function call(fn, args) {
@@ -12,4 +13,4 @@ export const postListing = (loai, mon, gia) => call('p2d_dang_ban', { p_loai: lo
 export const cancelListing = id => call('p2d_huy_ban', { p_id: id });
 export const buyListing = id => call('p2d_mua', { p_id: id });
 export const peekMail = () => call('p2d_xem_thu');
-export const takeMail = ids => call('p2d_nhan_thu', { p_ids: ids });
+export const takeMail = (ids, uidFrom) => call('p2d_nhan_thu', { p_ids: ids, p_uid_tu: uidFrom ?? null });

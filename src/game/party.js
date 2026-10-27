@@ -17,7 +17,8 @@ async function open(game, code) {
   const { joinParty } = await import('../net/party.js');
   const me = { id: game.online.me.id, name: game.online.me.name, realm: realmLabel(game.save, game.data.realms) };
   const party = { code, me: me.id, roster: [], run: null };
-  party.net = joinParty(me, code, {
+  game.party = party;   // đặt trước khi chờ vào kênh để bấm hai lần không mở hai đội
+  party.net = await joinParty(me, code, {
     onRoster: list => {
       party.roster = list.sort((a, b) => a.joined - b.joined);
       if (party.roster.length > P(game).max && party.roster.findIndex(r => r.id === me.id) >= P(game).max) { game.toast(P(game).full, 2); leaveParty(game); }
@@ -25,15 +26,14 @@ async function open(game, code) {
     onMsg: msg => onPartyMsg(game, msg),
     onError: () => game.toast(P(game).lost, 2),
   });
-  game.party = party;
 }
 
 export async function leaveParty(game) {
   const p = game.party;
   if (!p) return;
-  if (inPartyRun(game) && isHost(game)) p.net.send({ t: 'end' });
+  if (inPartyRun(game) && isHost(game)) p.net?.send({ t: 'end' });
   game.party = null; resetSync(game);
-  await p.net.leave();
+  await p.net?.leave();
 }
 
 const names = game => game.party.roster.map(r => r.name).join(', ') || '...';
@@ -48,7 +48,7 @@ async function startRun(game) {
   const mi = await game.dialog.choose(d.maps[id].name, [...modes.map((m, i) => ({ id: String(i), label: m.name, desc: m.desc, color: m.color })), { id: 'back', label: P(game).back, desc: '' }]);
   if (!modes[+mi] || mi === 'back') return;
   const run = { map: id, mode: +mi, n: game.party.roster.length };
-  game.party.net.send({ t: 'start', ...run });
+  game.party.net?.send({ t: 'start', ...run });
   beginRun(game, run);
 }
 

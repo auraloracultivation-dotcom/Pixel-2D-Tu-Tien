@@ -1,9 +1,10 @@
 // Tổ đội bí cảnh: một kênh Realtime "p2d-to:<mã>" cho cả đội. Presence = ai trong đội (tên, cảnh giới, lúc vào);
-// broadcast "p" = mọi tin của đội (bắt đầu, vị trí, quái, đòn đánh). Không ghi gì vào cơ sở dữ liệu.
-import { supabase } from './client.js';
+// broadcast "p" = mọi tin của đội (bắt đầu, vị trí, quái, đòn đánh). Không ghi gì vào cơ sở dữ liệu. Kênh riêng tư (đã đăng nhập).
+import { supabase, realtimeAuth } from './client.js';
 
-export function joinParty(me, code, handlers) {
-  const ch = supabase.channel(`p2d-to:${code}`, { config: { presence: { key: me.id }, broadcast: { self: false } } });
+export async function joinParty(me, code, handlers) {
+  await realtimeAuth();
+  const ch = supabase.channel(`p2d-to:${code}`, { config: { private: true, presence: { key: me.id }, broadcast: { self: false } } });
   const joined = Date.now();
   ch.on('presence', { event: 'sync' }, () => {
     const list = Object.entries(ch.presenceState()).map(([id, metas]) => ({ id, ...metas[metas.length - 1] }));

@@ -1,12 +1,13 @@
 // Thấy người chơi khác: mỗi đảo một kênh Realtime "p2d:<đảo>". Presence = ai đang ở đây (tên, hệ, cảnh giới);
 // broadcast "move" = vị trí, gửi tối đa ~8 lần/giây và chỉ khi đã "joined"; broadcast "say" = chào hỏi, trò chuyện
 // (game/social.js lọc chữ). Không ghi gì vào cơ sở dữ liệu.
-import { supabase } from './client.js';
+// Kênh riêng tư: chỉ người đã đăng nhập vào được (chính sách realtime.messages trong migration p2d_chong_gian_lan).
+import { supabase, realtimeAuth } from './client.js';
 
 const SEND_MS = 125;
 
 export function createOnline(me, handlers) {
-  let ch = null, mapId = null, lastSend = 0, lastPos = '';
+  let ch = null, mapId = null, lastSend = 0, lastPos = '', prof = {};
 
   async function leave() {
     if (ch) { const old = ch; ch = null; await supabase.removeChannel(old); }
@@ -14,11 +15,14 @@ export function createOnline(me, handlers) {
   }
 
   async function join(id, profile) {
+    prof = profile || prof;
     if (id === mapId && ch) return;
     await leave();
     mapId = id;
     if (!id) return;
-    const c = supabase.channel(`p2d:${id}`, { config: { presence: { key: me.id }, broadcast: { self: false } } });
+    await realtimeAuth();
+    if (mapId !== id) return;   // đã đổi đảo trong lúc chờ
+    const c = supabase.channel(`p2d:${id}`, { config: { private: true, presence: { key: me.id }, broadcast: { self: false } } });
     ch = c;
     c.on('presence', { event: 'sync' }, () => {
       if (ch !== c) return;
@@ -29,7 +33,7 @@ export function createOnline(me, handlers) {
       .on('broadcast', { event: 'move' }, ({ payload }) => { if (ch === c) handlers.onMove(payload); })
       .on('broadcast', { event: 'say' }, ({ payload }) => { if (ch === c) handlers.onSay?.(payload); })
       .subscribe(status => {
-        if (status === 'SUBSCRIBED' && ch === c) c.track({ name: me.name, ...profile });
+        if (status === 'SUBSCRIBED' && ch === c) c.track({ name: me.name, ...prof });
       });
   }
 
@@ -48,5 +52,11 @@ export function createOnline(me, handlers) {
     ch.send({ type: 'broadcast', event: 'say', payload: { id: me.id, ...body } });
   }
 
-  return { me, join, leave, send, say };
+  // Đổi tên hiển thị: báo lại cho người cùng đảo
+  function rename(name) {
+    me.name = name;
+    if (ch && ch.state === 'joined') ch.track({ name, ...prof });
+  }
+
+  return { me, join, leave, send, say, rename };
 }

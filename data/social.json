@@ -12,6 +12,7 @@
  "bad": ["đm", "dm", "đmm", "dmm", "đcm", "dcm", "vcl", "vkl", "vl", "cc", "clgt", "địt", "dit", "đéo", "lồn", "cặc", "buồi", "đĩ", "đụ", "du ma", "đụ má", "địt mẹ", "dit me", "đéo mẹ", "con chó", "óc chó", "oc cho", "ngu như chó", "fuck", "shit", "bitch"],
  "mask": "***",
  "world": {"tab": "Thế giới", "max_len": 120, "cooldown": 5, "poll": 5, "keep": 80, "placeholder": "Nói với cả máy chủ...", "wait": "Đợi vài giây rồi nói tiếp nhé.", "error": "Chưa kết nối được kênh thế giới, thử lại sau.", "offline": "Đăng nhập để trò chuyện với cả máy chủ.", "empty": "Kênh thế giới còn yên ắng. Chào một câu đi!", "sub": "Kênh chung của mọi đạo hữu, tin giữ 7 ngày."},
+ "name": {"btn": "✎ Tên: {name}", "ask": "Tên hiển thị mới (2–16 ký tự, mỗi ngày đổi một lần):", "ok": "Đã đổi tên thành {name}.", "err": {"ten_sai": "Tên cần 2–16 ký tự và không bắt đầu bằng \"Đạo hữu\".", "ten_trung": "Tên này đã có người dùng.", "doi_ten_nhanh": "Mỗi ngày chỉ đổi tên một lần.", "chua_luu": "Chơi thêm chút để bản lưu lên máy chủ rồi đổi tên.", "other": "Chưa đổi được tên, thử lại sau."}},
  "rank": {"_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng.",
   "tab": "Xếp hạng", "chat_tab": "Trò chuyện",
   "tabs": [{"id": "luc_chien", "label": "Lực chiến"}, {"id": "canh_gioi", "label": "Cảnh giới"}, {"id": "thap", "label": "Tháp"}],
