@@ -1,5 +1,5 @@
 // Hiệu ứng bằng hình pixel (addFx type 'sprite', xem src/game/skill-fx.js): chạy hết các khung trong thời gian sống,
-// hoặc lặp theo fps; bám vùng chiêu (on) nếu có; xoay theo hướng (rot) hoặc quay đều (spin); grow: bung to dần lúc đầu.
+// hoặc lặp theo fps; bám vùng chiêu (on) nếu có; xoay theo hướng (rot) hoặc quay đều (spin).
 import { spriteImage } from './sprites.js';
 
 export function drawSpriteFx(ctx, game, f, k) {
@@ -13,8 +13,7 @@ export function drawSpriteFx(ctx, game, f, k) {
   ctx.globalAlpha = f.fade ? Math.min(1, (1 - k) * 4) : 1;
   ctx.translate(x, y);
   ctx.rotate((f.rot || 0) + (f.spin || 0) * f.t);
-  const s = (f.s || 1) * (f.grow ? 0.5 + 0.5 * Math.min(1, f.t * 8) : 1);
-  ctx.scale(s, s);
+  ctx.scale(f.s || 1, f.s || 1);
   ctx.imageSmoothingEnabled = false;
   ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.globalCompositeOperation = 'lighter';   // quầng sáng cộng nhẹ
