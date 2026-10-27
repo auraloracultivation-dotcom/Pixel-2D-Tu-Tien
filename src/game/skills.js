@@ -7,7 +7,7 @@ import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 export function castSkill(game, id) {
   const s = game.data.skills[id];
   const p = game.player;
-  const atk = p.atk;
+  const K = game.data.config.combat, atk = p.atk * (s.type === 'multi' ? K.multi : K.skill);   // chiêu mạnh hơn đánh thường (config.combat)
   const fx = p.face.x, fy = p.face.y;
   if (!['heal', 'shield', 'buff'].includes(s.type)) p.swingT = 0.18;   // nhân vật làm động tác đánh
   game.sfx({ projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
