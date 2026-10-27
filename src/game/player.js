@@ -83,8 +83,8 @@ function swing(game) {
   }
   const ang = Math.atan2(p.face.y, p.face.x), half = w.arc / 2 * Math.PI / 180;
   const H = game.data.heroes, look = H.list[game.save.look] || H.list[H.default];
-  // Nhân vật bằng hình đã có vệt chém vẽ sẵn trong khung đánh (quét từ dưới lên qua đầu): không chồng thêm vệt khác
-  if (!look.sprite) addFx(game, { type: 'sprite', id: 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: ang, life: 0.24 });
+  // Nhân vật bằng hình đã có vệt chém vẽ sẵn trong khung đánh: không chồng thêm vệt, trừ vũ khí có vệt riêng (w.slash, vd. liềm vươn xa)
+  if (!look.sprite || w.slash) addFx(game, { type: 'sprite', id: w.slash || 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: ang, life: 0.24 });
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);

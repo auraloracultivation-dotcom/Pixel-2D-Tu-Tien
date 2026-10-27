@@ -85,6 +85,18 @@
    ],
    "note": "gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng"
   },
+  "fx.liem": {
+   "file": "assets/art/fx-liem.png",
+   "v": "139ccf73",
+   "w": 56,
+   "h": 48,
+   "frames": 7,
+   "anchor": [
+    18,
+    24
+   ],
+   "note": "vệt liềm tím vươn xa trước mặt (vũ khí Liềm, chiêu liềm trúng), 7 khung; tâm cung tại neo"
+  },
   "fx.puff": {
    "file": "assets/art/fx-puff.png",
    "v": "4eab0d60",
@@ -771,15 +783,15 @@
   },
   "gear.tu-nguyet-liem": {
    "file": "assets/art/gear-tu-nguyet-liem.png",
-   "v": "9d8c3a20",
-   "w": 16,
-   "h": 16,
+   "v": "b829d2f6",
+   "w": 64,
+   "h": 64,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    32,
+    32
    ],
-   "note": "Tử Nguyệt Liềm"
+   "note": "Tử Nguyệt Liềm (SpriteCook theo liềm mẫu)"
   },
   "gear.van-van-ngoa": {
    "file": "assets/art/gear-van-van-ngoa.png",
@@ -1131,15 +1143,15 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "4e28c4ed",
-   "w": 171,
-   "h": 174,
-   "frames": 48,
+   "v": "a2908d24",
+   "w": 106,
+   "h": 77,
+   "frames": 40,
    "anchor": [
-    100,
-    172
+    62,
+    75
    ],
-   "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém vòng, quét ngang, bổ dọc, hất lên; mỗi động tác 8 khung"
+   "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất; mỗi động tác 8 khung, mọi đòn vung về phía trước"
   },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",

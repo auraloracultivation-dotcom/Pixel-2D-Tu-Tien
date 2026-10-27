@@ -57,6 +57,7 @@ try {
   for (const [id, e] of Object.entries(elements)) if (!id.startsWith('_')) for (const s of e.skills) need(skills[s], `elements/${id}: chiêu "${s}" không có`);
   need(!elements._reroot || (read('npcs.json')[elements._reroot.npc] && Object.keys(elements._reroot.cost.mats).every(m => read('cave.json').materials[m])), 'elements._reroot: npc hoặc nguyên liệu sai');
   for (const [id, w] of Object.entries(weapons)) need(!w.skill || skills[w.skill], `weapons/${id}: chiêu "${w.skill}" không có`);
+  for (const [id, w] of Object.entries(weapons)) for (const [sid, at] of w.more || []) need(skills[sid] && at >= 0, `weapons/${id}: chiêu thêm "${sid}" không có hoặc tầng mở sai`);
   need(weapons[cfg.start.weapon] && maps[cfg.start.map], 'config.start: vũ khí hoặc bản đồ khởi đầu không có');
   for (const [id, d] of Object.entries(items.drops)) { need(mobs[id], `items.drops: quái "${id}" không có`); need(!d.set || gear.sets[d.set[0]], `items.drops/${id}: bộ không có`); }
   for (const [id, b] of Object.entries(items.bases)) {
@@ -98,6 +99,7 @@ try {
   }
   for (const [id, s] of Object.entries(skills)) need(!s.fx || art['fx.' + s.fx] || art['proj.' + s.fx], `skills/${id}: hiệu ứng fx.${s.fx} không có`);
   for (const [id, w] of Object.entries(weapons)) need(!w.fx || art['proj.' + w.fx], `weapons/${id}: hình đạn proj.${w.fx} không có`);
+  for (const [id, w] of Object.entries(weapons)) need(!w.slash || art[w.slash], `weapons/${id}: vệt chém ${w.slash} không có`);
   for (const [id, h] of Object.entries(read('hints.json').buttons)) need(h.flag || story.steps.some(x => x.id === h.after), `hints/${id}: bước truyện không có`);
   const dun = read('dungeon.json');
   for (const m of dun.modes) need(!m.reward || ((!m.reward.item || items.rarities.some(r => r.id === m.reward.item)) && Object.keys(m.reward.mats || {}).every(matOk)), `dungeon/${m.id}: thưởng sai`);

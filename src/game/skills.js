@@ -95,16 +95,18 @@ function segDist(pt, x1, y1, x2, y2) {
   return dist(pt, { x: x1 + dx * t, y: y1 + dy * t });
 }
 
+// Chiêu vũ khí: chiêu chính + chiêu thêm (weapons.*.more: [id, tổng tầng mở])
+export function weaponSkills(w) {
+  return [...(w.skill ? [[w.skill, 0]] : []), ...(w.more || [])];
+}
+
 // Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock)
 export function unlockedSkills(game) {
   const { save, data } = game, out = [];
-  const w = data.weapons[weaponId(save, data)];
-  if (w.skill) out.push(w.skill);
+  const w = data.weapons[weaponId(save, data)], n = totalLayer(save, data.realms);
+  for (const [id, at] of weaponSkills(w)) if (n >= at) out.push(id);
   const el = save.element ? data.elements[save.element] : null;
-  if (el) {
-    const n = totalLayer(save, data.realms);
-    el.skills.forEach((id, i) => { if (n >= data.elements._unlock[i]) out.push(id); });
-  }
+  if (el) el.skills.forEach((id, i) => { if (n >= data.elements._unlock[i]) out.push(id); });
   return out;
 }
 
@@ -113,7 +115,7 @@ export function skillSlots(game) {
   const open = unlockedSkills(game), lo = game.save.loadout;
   if (lo) {
     // Đổi loại vũ khí: ô đang mang chiêu vũ khí cũ tự thay bằng chiêu của vũ khí mới
-    const wSkills = Object.values(game.data.weapons).map(w => w.skill).filter(Boolean);
+    const wSkills = Object.values(game.data.weapons).flatMap(w => weaponSkills(w).map(([id]) => id));
     const cur = game.data.weapons[weaponId(game.save, game.data)].skill;
     return lo.map(id => (open.includes(id) ? id : wSkills.includes(id) && cur && !lo.includes(cur) ? cur : null));
   }

@@ -8,13 +8,13 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noqa: E402
 from chars import CHARS, draw  # noqa: E402
-from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
+from fx import slash_frames, spark_frames, puff_frames, MOON  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from fx_nature import vine_frames, rock_frames, wind_frames  # noqa: E402
 from fx_aura import heal_frames, shield_frames, buff_frames  # noqa: E402
 from fx_proj import proj_sprites  # noqa: E402
 from icons import icon_sprites  # noqa: E402
-from heroes import sheet, foot, fit  # noqa: E402
+from heroes import sheet, foot, fit, shrink, picture  # noqa: E402
 import world as W  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
@@ -34,8 +34,8 @@ for sid, spec in CHARS.items():
 _SMOKE = [(0x7f, 0x80, 0x80), (0x7e, 0x80, 0x80)]   # khói xám SpriteCook lẫn vào quầng
 _f = sheet('nam-dung') + sheet('nam-di', drop=_SMOKE) + sheet('nam-chem') + sheet('nam-bo', drop=_SMOKE) + sheet('nam-hat', drop=_SMOKE) + sheet('nam-ngang')
 save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
-_f = fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-chem') + sheet('liem-ngang') + sheet('liem-bo') + sheet('liem-hat'))
-save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém vòng, quét ngang, bổ dọc, hất lên; mỗi động tác 8 khung')
+_f = shrink(fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-cheo') + sheet('liem-ngang') + sheet('liem-moc')), 0.6)   # thân ~46 px như nam
+save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất; mỗi động tác 8 khung, mọi đòn vung về phía trước')
 
 # ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
 save('tile.grass', [W.grass(s) for s in range(4)], (0, 0), 'cỏ, 4 biến thể ghép liền')
@@ -157,6 +157,7 @@ save('item.kiem', [sword()], (2, 10), 'kiếm bay cạnh nhân vật, chĩa lên
 
 # ---------------------------------------------------------------- hiệu ứng nhỏ (pixel + quầng sáng, docs/02)
 save('fx.slash', slash_frames(), (18, 24), 'vệt chém đánh thường, 7 khung; tâm cung tại neo')
+save('fx.liem', slash_frames(MOON), (18, 24), 'vệt liềm tím vươn xa trước mặt (vũ khí Liềm, chiêu liềm trúng), 7 khung; tâm cung tại neo')
 save('fx.spark', spark_frames(), (5, 5), 'tia lửa khi trúng, 4 khung')
 save('fx.puff', puff_frames(), (8, 8), 'khói tan khi quái chết, 5 khung')
 save('fx.fire', fire_frames(), (12, 31), 'ngọn lửa lặp 8 khung (chiêu hệ hỏa); neo ở chân lửa')
@@ -180,6 +181,8 @@ for _id, _c in icon_sprites().items():
 _items, _gear = (json.loads((Path(__file__).resolve().parents[2] / 'data' / f).read_text(encoding='utf-8')) for f in ('items.json', 'gear.json'))
 for _id, _b in _items['bases'].items():
     save('gear.' + _id, [gear_icon(_b, _gear['sets'])], (8, 8), _b['name'])
+# món có hình vẽ sẵn (SpriteCook theo mẫu chủ dự án) thay biểu tượng vẽ code; túi đồ hiện mọi biểu tượng ở ô 32 px
+save('gear.tu-nguyet-liem', [picture('liem-vu-khi', 64, hx('#1b1830'))], (32, 32), 'Tử Nguyệt Liềm (SpriteCook theo liềm mẫu)')
 
 # ---------------------------------------------------------------- chữ số pixel 3×5 (+viền) cho số sát thương
 DIG = ['111101101101111', '010110010010111', '111001111100111', '111001111001111', '101101111001001',
