@@ -1,4 +1,4 @@
-// Vũ khí cầm tay theo hình (weapons.*.look): gậy, kiếm, thương, quạt, đàn, cung.
+// Vũ khí cầm tay theo hình (weapons.*.look): gậy, kiếm, thương, liềm, quạt, đàn, cung.
 const INK = '#1b1830';
 
 export function drawWeapon(ctx, p, w) {
@@ -10,6 +10,11 @@ export function drawWeapon(ctx, p, w) {
       ctx.strokeStyle = '#8a5a3a'; ctx.beginPath(); ctx.moveTo(-4, 0); ctx.lineTo(13, 0); ctx.stroke();
       ctx.fillStyle = w.color; ctx.beginPath(); ctx.moveTo(13, -2); ctx.lineTo(18, 0); ctx.lineTo(13, 2); ctx.fill();
       ctx.fillStyle = '#c0283a'; ctx.fillRect(11, -1.5, 1.5, 3);
+      break;
+    case 'scythe':
+      ctx.strokeStyle = '#4a3060'; ctx.beginPath(); ctx.moveTo(-4, 0); ctx.lineTo(14, 0); ctx.stroke();
+      ctx.fillStyle = w.color; ctx.beginPath(); ctx.arc(10, 6, 7, -1.75, -0.35); ctx.arc(11, 7.5, 5.5, -0.4, -1.7, true); ctx.fill();
+      ctx.fillStyle = '#f2c94c'; ctx.fillRect(12.5, -1, 2, 2);
       break;
     case 'fan':
       ctx.fillStyle = INK; ctx.beginPath(); ctx.moveTo(3, 0); ctx.arc(3, 0, 8.5, -0.8, 0.8); ctx.fill();

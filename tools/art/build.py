@@ -14,7 +14,7 @@ from fx_nature import vine_frames, rock_frames, wind_frames  # noqa: E402
 from fx_aura import heal_frames, shield_frames, buff_frames  # noqa: E402
 from fx_proj import proj_sprites  # noqa: E402
 from icons import icon_sprites  # noqa: E402
-from heroes import sheet, foot, trim_above  # noqa: E402
+from heroes import sheet, foot, fit  # noqa: E402
 import world as W  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
@@ -34,9 +34,8 @@ for sid, spec in CHARS.items():
 _SMOKE = [(0x7f, 0x80, 0x80), (0x7e, 0x80, 0x80)]   # khói xám SpriteCook lẫn vào quầng
 _f = sheet('nam-dung') + sheet('nam-di', drop=_SMOKE) + sheet('nam-chem') + sheet('nam-bo', drop=_SMOKE) + sheet('nam-hat', drop=_SMOKE) + sheet('nam-ngang')
 save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
-_f = sheet('nu-dung')
-_f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem') + sheet('nu-bo') + sheet('nu-hat') + sheet('nu-ngang')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
-save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
+_f = fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-chem') + sheet('liem-ngang') + sheet('liem-bo') + sheet('liem-hat'))
+save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém vòng, quét ngang, bổ dọc, hất lên; mỗi động tác 8 khung')
 
 # ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
 save('tile.grass', [W.grass(s) for s in range(4)], (0, 0), 'cỏ, 4 biến thể ghép liền')

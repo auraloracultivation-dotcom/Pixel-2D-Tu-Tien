@@ -80,16 +80,6 @@ def _despeckle(a, min_area):
                 a[y, x, 3] = 0
 
 
-def trim_above(frames, ref, margin=2):
-    """Xoá điểm nằm cao hơn đỉnh của khung ref quá margin hàng (từng cột): giọt, vệt bắn lên trên quầng."""
-    a = ref.a[..., 3] > 0
-    top = np.where(a.any(axis=0), a.argmax(axis=0), ref.h) - margin
-    rows = np.arange(ref.h)[:, None]
-    for cv in frames:
-        cv.a[rows < top, 3] = 0
-    return frames
-
-
 def recolor(frames, red_hue=None, hair=None):
     """Đổi bảng màu, giữ nét: red_hue (độ) thay sắc đỏ (hào quang, giáo, mắt) bằng sắc khác, giữ độ sáng/đậm;
     hair = (sắc, độ đậm, sáng thấp, sáng cao) tô lại vùng xám sáng (tóc trắng) theo dải sáng mới."""
@@ -130,4 +120,23 @@ def _hsv(h, s, v):
     for k, (r, g, b) in enumerate(table):
         sel = i == k
         out[sel] = np.stack([r[sel], g[sel], b[sel]], axis=1)
+    return out
+
+
+def fit(frames):
+    """Gộp khung khác cỡ (SpriteCook thêm lề khác nhau mỗi động tác): đặt chung đáy, chung giữa, rồi cắt bỏ phần trống
+    chung quanh mọi khung. Lề SpriteCook chỉ thêm ở hai bên và trên nên đáy khung là mặt đất."""
+    w, h = max(cv.w for cv in frames), max(cv.h for cv in frames)
+    big = np.zeros((len(frames), h, w, 4), np.uint8)
+    for k, cv in enumerate(frames):
+        x0 = (w - cv.w) // 2
+        big[k, h - cv.h:, x0:x0 + cv.w] = cv.a
+    solid = big[..., 3].any(axis=0)
+    ys, xs = np.where(solid.any(axis=1))[0], np.where(solid.any(axis=0))[0]
+    y1 = h   # giữ đáy khung để chân đứng đúng mặt đất
+    out = []
+    for k in range(len(frames)):
+        cv = Canvas(int(xs[-1] + 1 - xs[0]), int(y1 - ys[0]))
+        cv.a[:] = big[k, ys[0]:y1, xs[0]:xs[-1] + 1]
+        out.append(cv)
     return out

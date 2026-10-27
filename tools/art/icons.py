@@ -5,6 +5,7 @@ from px import Canvas, hx
 from fx_skill import FIRE, ICE, BOLT
 from fx_nature import WOOD, EARTH, WIND
 from fx_aura import HEAL, SHIELD, SHIELD_EARTH, GOLD
+from gear import liem as gear_liem
 
 INK = hx('#1b1830')
 STEEL = [hx(c) for c in ['#4a5a8a', '#8fa8d8', '#c8e0ff', '#eef6ff', '#ffffff']]
@@ -174,10 +175,14 @@ def sound():
     return c
 
 
+def liem():   # cùng dáng biểu tượng vũ khí liềm trong túi
+    return gear_liem(None)
+
+
 def icon_sprites():
     out = {}
     for name, fn in dict(fire=fire, ice=ice, bolt=bolt, slash=slash, vine=vine, rock=rock, wind=wind, heal=heal,
-                         shield=shield, buff=buff, orb=orb, arrow=arrow, sound=sound).items():
+                         shield=shield, buff=buff, orb=orb, arrow=arrow, sound=sound, liem=liem).items():
         out['icon.' + name] = fn().outline(INK)
     out['icon.shield-earth'] = shield_earth().outline(INK)
     return out

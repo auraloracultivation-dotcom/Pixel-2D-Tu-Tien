@@ -29,6 +29,8 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 **Người, thú vật**: 12 dân làng mới (`data/npcs.json`, hình chibi do `tools/art/npcs.py` vẽ) đứng đi dạo ở sân các xóm mới (`hamlets` trong bản đồ, `tools/settle.py` ghi), nói chuyện về tinh cầu, ma khí, bãi treo máy. Thú hiền (`data/wildlife.json`, `src/game/wildlife.js`, vẽ bằng `drawWild` ở `src/render/draw-critter.js`): thỏ, nai, chim, hạc, vịt, mèo đi dạo khắp tinh cầu; người chơi đi tới gần thì chạy, chim bay vụt đi rồi đáp chỗ khác; đứng yên một lúc thì con gần nhất lại dụi đầu, hiện tim. Không lưu, không đánh.
 
+**Công cụ, khai linh khoáng** (`data/gather.json`, `src/game/gather.js`, vẽ ở `src/render/draw-vein.js`): mỗi tinh cầu 6 mạch linh khoáng ở vùng mới (chọn cố định theo mã bản đồ). Đứng cạnh bấm "Đào linh khoáng", đứng yên 1,6 giây được 2–4 Tinh Thiết (nhân theo cấp Linh Cuốc), may thì Tẩy Luyện Thạch, Khóa Linh Thạch; mạch cạn 30 phút thật (`save.veins`). Linh Cuốc (`save.tool`, cấp 1–10) nâng ở lò rèn động phủ bằng Linh Thạch, giá nhân 1,6 mỗi cấp; mỗi cấp +15% sản lượng, đào nhanh hơn 6%.
+
 **Bãi treo máy** (chủ dự án 28/10/2026): spawner có `farm: true` lấy số con, tốc hồi ở `data/planets.json` → farm (5 con, chết hồi sau 2,5 giây) để Tự đánh chém, tung chiêu liên tục; đồ, nguyên liệu, Linh Thạch rơi chỉ bằng `farm.loot` (0,4) lần quái thường (`m.lootMul` ở `loot.js`, `cave.js`, `shop.js`), linh khí giữ nguyên. Mỗi tinh cầu có quái 9 bãi: 4 bãi thường, 5 bãi vòng ngoài nhiễm ma khí.
 
 ## Tinh đồ (`data/starmap.json`)
