@@ -81,9 +81,9 @@ export function createSocialPanel(game) {
     render();
   }
 
-  function open() {
+  function open(to) {   // to: mở thẳng một tab (nút Xếp hạng ở menu mở tab rank)
     if (!game.save || game.dialog.open || game.trip) return;
-    note = ''; game.uiOpen = true; $('social').hidden = false; showTab(tab);
+    note = ''; game.uiOpen = true; $('social').hidden = false; showTab(to || tab);
   }
   function close() { game.uiOpen = false; $('social').hidden = true; $('social-input').blur(); }
 
@@ -109,6 +109,8 @@ export function createSocialPanel(game) {
     b.onclick = () => showTab(b.dataset.tab);
   }
   $('btn-social').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
+  $('btn-rank').textContent = S.rank.tab;
+  $('btn-rank').addEventListener('pointerdown', ev => { ev.stopPropagation(); open('rank'); });
   setInterval(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
     $('social-badge').hidden = !game.chatNew || !$('social').hidden;
     if (!$('social').hidden && game.chatNew && tab === 'chat') render();
