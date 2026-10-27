@@ -9,8 +9,8 @@ async function call(fn, args) {
 }
 
 export const listMarket = loai => call('p2d_xem_cho', { p_loai: loai || null });
-export const postListing = (loai, mon, gia) => call('p2d_dang_ban', { p_loai: loai, p_mon: mon, p_gia: gia });
+export const postListing = (loai, mon, gia) => call('p2d_rao_ban', { p_loai: loai, p_mon: mon, p_gia: gia });
 export const cancelListing = id => call('p2d_huy_ban', { p_id: id });
-export const buyListing = id => call('p2d_mua', { p_id: id });
+export const buyListing = id => call('p2d_mua_hang', { p_id: id });
 export const peekMail = () => call('p2d_xem_thu');
-export const takeMail = (ids, uidFrom) => call('p2d_nhan_thu', { p_ids: ids, p_uid_tu: uidFrom ?? null });
+export const takeMail = (ids, uidFrom) => call('p2d_nhan_thu_moi', { p_ids: ids, p_uid_tu: uidFrom ?? null });

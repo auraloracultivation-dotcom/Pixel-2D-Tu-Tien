@@ -494,8 +494,8 @@ $$;
 
 -- ===================== 5. Chợ =====================
 -- Rao bán: lấy món từ bản lưu trên máy chủ theo mã số (bỏ qua mọi chỉ số máy khách gửi), trừ đồ ngay.
-drop function if exists public.p2d_dang_ban(text, jsonb, integer);
-create function public.p2d_dang_ban(p_loai text, p_mon jsonb, p_gia integer)
+-- Hàm mới tên mới (đổi kiểu trả về); hàm cũ p2d_dang_ban, p2d_mua, p2d_nhan_thu bị khoá ở cuối mục này.
+create or replace function public.p2d_rao_ban(p_loai text, p_mon jsonb, p_gia integer)
 returns jsonb
 language plpgsql
 security definer
@@ -552,8 +552,7 @@ end;
 $$;
 
 -- Mua: trừ Linh Thạch trong bản lưu máy chủ ngay; hàng và tiền chuyển qua hòm thư
-drop function if exists public.p2d_mua(bigint);
-create function public.p2d_mua(p_id bigint)
+create or replace function public.p2d_mua_hang(p_id bigint)
 returns jsonb
 language plpgsql
 security definer
@@ -588,8 +587,7 @@ $$;
 
 -- Nhận thư: máy chủ tự cộng tiền, đồ (mã số mới bắt đầu từ p_uid_tu do máy khách giữ chỗ), nguyên liệu vào bản lưu.
 -- Đồ chỉ nhận khi túi còn chỗ. Trả về thư đã nhận (đồ kèm mã số mới), phien_ban mới, mã số món kế tiếp.
-drop function if exists public.p2d_nhan_thu(bigint[]);
-create function public.p2d_nhan_thu(p_ids bigint[], p_uid_tu bigint default null)
+create or replace function public.p2d_nhan_thu_moi(p_ids bigint[], p_uid_tu bigint default null)
 returns jsonb
 language plpgsql
 security definer
@@ -640,6 +638,15 @@ begin
   return jsonb_build_object('thu', v_ra, 'phien_ban', v_nv.phien_ban, 'next_uid', v_next);
 end;
 $$;
+
+-- Hàm chợ cũ: máy khách cũ gọi thì báo cập nhật game (không còn đường lách)
+create or replace function public.p2d_dang_ban(p_loai text, p_mon jsonb, p_gia integer)
+returns bigint language plpgsql security definer set search_path = '' as $$ begin raise exception 'cap_nhat_game' using errcode = '22023'; end; $$;
+create or replace function public.p2d_mua(p_id bigint)
+returns jsonb language plpgsql security definer set search_path = '' as $$ begin raise exception 'cap_nhat_game' using errcode = '22023'; end; $$;
+create or replace function public.p2d_nhan_thu(p_ids bigint[])
+returns jsonb language plpgsql security definer set search_path = '' as $$ begin raise exception 'cap_nhat_game' using errcode = '22023'; end; $$;
+revoke all on function public.p2d_dang_ban(text, jsonb, integer), public.p2d_mua(bigint), public.p2d_nhan_thu(bigint[]) from public, anon, authenticated;
 
 -- ===================== 6. Bảng xếp hạng =====================
 create or replace function public.p2d_xep(p_loai text, p_gioi_han integer)
@@ -747,11 +754,9 @@ end;
 $$;
 
 -- ===================== 8. Realtime: kênh riêng tư cho người đã đăng nhập =====================
-drop policy if exists p2d_rt_nhan on realtime.messages;
 create policy p2d_rt_nhan on realtime.messages
   for select to authenticated
   using ((select realtime.topic()) like 'p2d:%' or (select realtime.topic()) like 'p2d-to:%');
-drop policy if exists p2d_rt_gui on realtime.messages;
 create policy p2d_rt_gui on realtime.messages
   for insert to authenticated
   with check ((select realtime.topic()) like 'p2d:%' or (select realtime.topic()) like 'p2d-to:%');
@@ -759,9 +764,159 @@ create policy p2d_rt_gui on realtime.messages
 -- ===================== 9. Quyền gọi hàm =====================
 revoke all on function public.p2d_luu(jsonb, integer), public.p2d_tai(), public.p2d_dat_ten(text),
   public.p2d_qua_tn(), public.p2d_doi_tn(text), public.p2d_nhan_the(),
-  public.p2d_dang_ban(text, jsonb, integer), public.p2d_mua(bigint), public.p2d_nhan_thu(bigint[], bigint),
+  public.p2d_rao_ban(text, jsonb, integer), public.p2d_mua_hang(bigint), public.p2d_nhan_thu_moi(bigint[], bigint),
   public.p2d_bxh(text), public.p2d_gui_chat(text, text) from public, anon;
 grant execute on function public.p2d_luu(jsonb, integer), public.p2d_tai(), public.p2d_dat_ten(text),
   public.p2d_qua_tn(), public.p2d_doi_tn(text), public.p2d_nhan_the(),
-  public.p2d_dang_ban(text, jsonb, integer), public.p2d_mua(bigint), public.p2d_nhan_thu(bigint[], bigint),
+  public.p2d_rao_ban(text, jsonb, integer), public.p2d_mua_hang(bigint), public.p2d_nhan_thu_moi(bigint[], bigint),
   public.p2d_bxh(text), public.p2d_gui_chat(text, text) to authenticated;
+
+-- ===================== 10. Tự kiểm tra =====================
+-- Chạy thử các cách gian lận trên chính dữ liệu thật trong một giao dịch con rồi hoàn tác phần thử
+-- (không để lại người chơi thử, tin chat hay hàng chợ nào). Có bài trượt thì báo lỗi → cả migration hoàn tác.
+do $kt$
+declare
+  v_ok    integer := 0;
+  v_hong  text := '';
+  a uuid := '00000000-0000-4000-8000-0000000000aa';
+  b uuid := '00000000-0000-4000-8000-0000000000bb';
+  r record; v integer; d jsonb; pb integer; lid bigint; it jsonb; t text; x jsonb; n numeric;
+begin
+  begin
+    insert into auth.users (id, email, aud, role) values
+      (a, 'kiem_tra_aa@nguoichoi.invalid', 'authenticated', 'authenticated'),
+      (b, 'kiem_tra_bb@nguoichoi.invalid', 'authenticated', 'authenticated');
+
+    -- 0. Mọi người chơi thật lưu lại đúng bản lưu của họ, rồi tiến bộ nhỏ: phải qua, không bị nghi vấn, dữ liệu giữ nguyên
+    for r in select user_id, data, phien_ban, nghi_van from public.p2d_nhan_vat where user_id not in (a, b) loop
+      perform set_config('request.jwt.claims', json_build_object('sub', r.user_id, 'role', 'authenticated')::text, true);
+      begin
+        v := public.p2d_luu(r.data, r.phien_ban);
+        select data into d from public.p2d_nhan_vat where user_id = r.user_id;
+        if (d - 'tn' - 'tnStarter' - 'card') <> (r.data - 'tn' - 'tnStarter' - 'card') then v_hong := v_hong || ' | đổi dữ liệu ' || left(r.user_id::text, 6); end if;
+        d := jsonb_set(d, '{lingshi}', to_jsonb(coalesce((d ->> 'lingshi')::numeric, 0) + 500));
+        d := jsonb_set(d, '{mats}', coalesce(d -> 'mats', '{}'::jsonb) || jsonb_build_object('linh-thao', coalesce((d -> 'mats' ->> 'linh-thao')::numeric, 0) + 10));
+        v := public.p2d_luu(d, v);
+        if (select nghi_van from public.p2d_nhan_vat where user_id = r.user_id) <> r.nghi_van then v_hong := v_hong || ' | nghi oan ' || left(r.user_id::text, 6); else v_ok := v_ok + 1; end if;
+      exception when others then v_hong := v_hong || ' | lưu lỗi ' || left(r.user_id::text, 6) || ': ' || sqlerrm; end;
+    end loop;
+
+    -- 1. Lần lưu đầu bình thường / khai gian
+    perform set_config('request.jwt.claims', json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    v := public.p2d_luu('{"realm":0,"layer":1,"qi":0,"step":0,"lingshi":50,"bag":[],"nextUid":1,"power":700}', 0);
+    if v <> 1 then v_hong := v_hong || ' | lưu đầu'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', b, 'role', 'authenticated')::text, true);
+    v := public.p2d_luu('{"realm":0,"layer":1,"qi":0,"step":0,"lingshi":1000000000,"power":100000000,"tower":{"best":99999},"tn":99999,"tnStarter":true,"bag":[],"mats":{"tinh-thiet":99999}}', 0);
+    select data into d from public.p2d_nhan_vat where user_id = b;
+    if (d ->> 'lingshi')::numeric > 2000 then v_hong := v_hong || ' | lưu đầu 1 tỉ: ' || (d ->> 'lingshi'); end if;
+    if (d ->> 'tn')::int <> 0 or (d ->> 'tnStarter')::boolean then v_hong := v_hong || ' | lưu đầu Tiên Ngọc'; end if;
+    if (d -> 'mats' ->> 'tinh-thiet')::numeric > 300 then v_hong := v_hong || ' | lưu đầu nguyên liệu'; end if;
+    if (select luc_chien from public.p2d_nhan_vat where user_id = b) > 6000 then v_hong := v_hong || ' | lực chiến'; end if;
+    if (select thap from public.p2d_nhan_vat where user_id = b) > 1 then v_hong := v_hong || ' | tháp'; end if;
+    if (select nghi_van from public.p2d_nhan_vat where user_id = b) <> 1 or not exists (select 1 from public.p2d_nghi_van where user_id = b) then v_hong := v_hong || ' | ghi nghi vấn'; end if;
+
+    -- 2. Đang chơi sửa Linh Thạch 1 tỉ; gửi lại liên tục; bản lưu cũ → P0001
+    perform set_config('request.jwt.claims', json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    update public.p2d_nhan_vat set luu_luc = now() - interval '10 seconds' where user_id = a;
+    select data, phien_ban into d, pb from public.p2d_nhan_vat where user_id = a;
+    v := public.p2d_luu(jsonb_set(d, '{lingshi}', '1000000000'), pb);
+    v := public.p2d_luu(jsonb_set(d, '{lingshi}', '1000000000'), v);
+    select data into d from public.p2d_nhan_vat where user_id = a;
+    if (d ->> 'lingshi')::numeric >= 30000 then v_hong := v_hong || ' | bơm Linh Thạch: ' || (d ->> 'lingshi'); end if;
+    begin
+      v := public.p2d_luu(d, pb);
+      v_hong := v_hong || ' | bản lưu cũ lọt';
+    exception when others then if sqlerrm <> 'phien_ban_cu' or sqlstate <> 'P0001' then v_hong := v_hong || ' | bản lưu cũ: ' || sqlstate; end if; end;
+
+    -- 3. Chợ
+    it := '{"uid":5,"base":"thiet-kiem","rarity":"linh","lvl":3,"main":{"atk":5},"lines":[{"s":"atk","v":7},{"s":"crit","v":5}],"sockets":[null]}';
+    update public.p2d_nhan_vat set data = data || jsonb_build_object('bag', jsonb_build_array(it,
+        '{"uid":6,"base":"thiet-kiem","rarity":"thien","lvl":3,"main":{"atk":99999},"lines":[],"sockets":[]}'::jsonb),
+        'mats', '{"tinh-thiet":10}'::jsonb, 'equip', '{}'::jsonb, 'nextUid', 7) where user_id = a;
+    if not public.p2d_mon_hop_le(it) then v_hong := v_hong || ' | món thật bị coi là sai'; end if;
+    begin perform public.p2d_rao_ban('mon', '{"uid":6}', 100); v_hong := v_hong || ' | rao món giả lọt';
+    exception when others then if sqlerrm <> 'mon_sai' then v_hong := v_hong || ' | rao món giả: ' || sqlerrm; end if; end;
+    x := public.p2d_rao_ban('mon', '{"uid":5,"rarity":"thien","lvl":81,"main":{"atk":99999}}', 500);
+    lid := (x ->> 'id')::bigint;
+    if (select mon from public.p2d_cho where id = lid) <> it then v_hong := v_hong || ' | món rao không phải món thật'; end if;
+    select data, phien_ban into d, pb from public.p2d_nhan_vat where user_id = a;
+    if exists (select 1 from jsonb_array_elements(d -> 'bag') e where e -> 'uid' = '5') or pb <> (x ->> 'phien_ban')::int then v_hong := v_hong || ' | rao chưa trừ đồ'; end if;
+    perform public.p2d_luu(jsonb_set(d, '{bag}', (d -> 'bag') || jsonb_build_array(it)), pb);
+    if exists (select 1 from jsonb_array_elements((select data -> 'bag' from public.p2d_nhan_vat where user_id = a)) e where e -> 'uid' = '5') then v_hong := v_hong || ' | nhân bản món đã rao'; end if;
+    begin perform public.p2d_rao_ban('mon', '{"uid":5}', 500); v_hong := v_hong || ' | rao lại lọt';
+    exception when others then if sqlerrm <> 'khong_co' then v_hong := v_hong || ' | rao lại: ' || sqlerrm; end if; end;
+    begin perform public.p2d_rao_ban('nl', '{"id":"tinh-thiet","n":20}', 50); v_hong := v_hong || ' | rao quá nguyên liệu lọt';
+    exception when others then if sqlerrm <> 'khong_co' then v_hong := v_hong || ' | rao quá nguyên liệu: ' || sqlerrm; end if; end;
+    perform public.p2d_rao_ban('nl', '{"id":"tinh-thiet","n":4}', 40);
+    if (select (data -> 'mats' ->> 'tinh-thiet')::int from public.p2d_nhan_vat where user_id = a) <> 6 then v_hong := v_hong || ' | rao nguyên liệu chưa trừ'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', b, 'role', 'authenticated')::text, true);
+    update public.p2d_nhan_vat set data = jsonb_set(data, '{lingshi}', '100') where user_id = b;
+    begin perform public.p2d_mua_hang(lid); v_hong := v_hong || ' | mua thiếu tiền lọt';
+    exception when others then if sqlerrm <> 'thieu_tien' then v_hong := v_hong || ' | mua thiếu tiền: ' || sqlerrm; end if; end;
+    update public.p2d_nhan_vat set data = jsonb_set(data, '{lingshi}', '1000') where user_id = b;
+    x := public.p2d_mua_hang(lid);
+    if (select (data ->> 'lingshi')::int from public.p2d_nhan_vat where user_id = b) <> 500 or not (x ? 'phien_ban') then v_hong := v_hong || ' | mua chưa trừ tiền'; end if;
+    begin perform public.p2d_mua_hang(lid); v_hong := v_hong || ' | mua lại lọt';
+    exception when others then if sqlerrm <> 'da_ban' then v_hong := v_hong || ' | mua lại: ' || sqlerrm; end if; end;
+    x := public.p2d_nhan_thu_moi(array(select id from public.p2d_hom_thu where user_id = b and nhan_luc is null), 42);
+    if not exists (select 1 from jsonb_array_elements((select data -> 'bag' from public.p2d_nhan_vat where user_id = b)) e where e -> 'uid' = '42' and e ->> 'base' = 'thiet-kiem')
+       or (x ->> 'next_uid')::int <> 43 or jsonb_array_length(x -> 'thu') <> 1 then v_hong := v_hong || ' | nhận thư: ' || x::text; end if;
+    x := public.p2d_nhan_thu_moi(array(select id from public.p2d_hom_thu where user_id = b), 50);
+    if jsonb_array_length(x -> 'thu') <> 0 then v_hong := v_hong || ' | nhận thư hai lần'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    select (data ->> 'lingshi')::numeric into n from public.p2d_nhan_vat where user_id = a;
+    perform public.p2d_nhan_thu_moi(array(select id from public.p2d_hom_thu where user_id = a and nhan_luc is null), null);
+    if (select (data ->> 'lingshi')::numeric from public.p2d_nhan_vat where user_id = a) <> n + 450 then v_hong := v_hong || ' | người bán chưa nhận 450'; end if;
+    update public.p2d_nhan_vat set nghi_van = 10 where user_id = a;
+    begin perform public.p2d_rao_ban('nl', '{"id":"tinh-thiet","n":1}', 10); v_hong := v_hong || ' | khoá chợ lọt';
+    exception when others then if sqlerrm <> 'bi_khoa' then v_hong := v_hong || ' | khoá chợ: ' || sqlerrm; end if; end;
+
+    -- 4. Tiên Ngọc
+    perform set_config('request.jwt.claims', json_build_object('sub', b, 'role', 'authenticated')::text, true);
+    x := public.p2d_qua_tn(); if (x ->> 'tn')::int <> 100 then v_hong := v_hong || ' | quà ra mắt'; end if;
+    x := public.p2d_qua_tn(); if (x ->> 'them')::int <> 0 then v_hong := v_hong || ' | quà ra mắt hai lần'; end if;
+    x := public.p2d_doi_tn('da-tay'); if (x ->> 'tn')::int <> 40 then v_hong := v_hong || ' | đổi Tiên Ngọc'; end if;
+    begin perform public.p2d_doi_tn('ngoc-3'); v_hong := v_hong || ' | đổi thiếu Tiên Ngọc lọt';
+    exception when others then if sqlerrm <> 'thieu_tn' then v_hong := v_hong || ' | đổi thiếu: ' || sqlerrm; end if; end;
+    begin perform public.p2d_doi_tn('_qua_ra_mat'); v_hong := v_hong || ' | đổi mã nội bộ lọt';
+    exception when others then if sqlerrm <> 'ma_sai' then v_hong := v_hong || ' | mã nội bộ: ' || sqlerrm; end if; end;
+    begin perform public.p2d_nhan_the(); v_hong := v_hong || ' | quà thẻ khi chưa có thẻ lọt';
+    exception when others then if sqlerrm <> 'khong_co_the' then v_hong := v_hong || ' | quà thẻ: ' || sqlerrm; end if; end;
+
+    -- 5. Tên, chat, bảng xếp hạng, quyền
+    if (select ten from public.p2d_nhan_vat where user_id = b) not like 'Đạo hữu %' then v_hong := v_hong || ' | tên mặc định'; end if;
+    perform public.p2d_gui_chat('the-gioi', 'chào' || chr(8203) || ' mọi người');
+    if (select noi_dung from public.p2d_chat where user_id = b order by id desc limit 1) <> 'chào mọi người' then v_hong := v_hong || ' | chat ký tự vô hình'; end if;
+    begin perform public.p2d_gui_chat('the-gioi', 'lần hai'); v_hong := v_hong || ' | chat dồn lọt';
+    exception when others then if sqlerrm <> 'nhanh_qua' then v_hong := v_hong || ' | chat dồn: ' || sqlerrm; end if; end;
+    begin perform public.p2d_dat_ten('Đạo hữu Giả'); v_hong := v_hong || ' | tên giả dạng lọt';
+    exception when others then if sqlerrm <> 'ten_sai' then v_hong := v_hong || ' | tên giả dạng: ' || sqlerrm; end if; end;
+    t := public.p2d_dat_ten('  Kiếm   Tâm '); if t <> 'Kiếm Tâm' then v_hong := v_hong || ' | đặt tên: ' || t; end if;
+    begin perform public.p2d_dat_ten('Vô Danh'); v_hong := v_hong || ' | đổi tên hai lần lọt';
+    exception when others then if sqlerrm <> 'doi_ten_nhanh' then v_hong := v_hong || ' | đổi tên hai lần: ' || sqlerrm; end if; end;
+    perform set_config('request.jwt.claims', json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    update public.p2d_nhan_vat set nghi_van = 0 where user_id = a;
+    begin perform public.p2d_dat_ten('kiếm tâm'); v_hong := v_hong || ' | tên trùng lọt';
+    exception when others then if sqlerrm <> 'ten_trung' then v_hong := v_hong || ' | tên trùng: ' || sqlerrm; end if; end;
+    update public.p2d_bxh_nho set luc = now() - interval '1 hour' where loai = 'luc_chien';
+    x := public.p2d_bxh('luc_chien');
+    if exists (select 1 from jsonb_array_elements(x -> 'top') e where e ? 'u') or not exists (select 1 from jsonb_array_elements(x -> 'top') e where e ? 'la_toi')
+       or x -> 'toi' is null or x -> 'toi' = 'null'::jsonb then v_hong := v_hong || ' | bảng xếp hạng'; end if;
+    update public.p2d_nhan_vat set nghi_van = 10 where user_id = a;
+    update public.p2d_bxh_nho set luc = now() - interval '1 hour' where loai = 'luc_chien';
+    x := public.p2d_bxh('luc_chien');
+    if x -> 'toi' is not null and x -> 'toi' <> 'null'::jsonb then v_hong := v_hong || ' | nghi vấn vẫn lên bảng'; end if;
+    if has_function_privilege('anon', 'public.p2d_luu(jsonb,integer)', 'execute') or has_function_privilege('anon', 'public.p2d_mua_hang(bigint)', 'execute')
+       or has_function_privilege('anon', 'public.p2d_doi_tn(text)', 'execute') or not has_function_privilege('authenticated', 'public.p2d_nhan_thu_moi(bigint[],bigint)', 'execute')
+       or has_function_privilege('authenticated', 'public.p2d_mon_hop_le(jsonb,integer)', 'execute')
+       or has_function_privilege('authenticated', 'public.p2d_mua(bigint)', 'execute') then v_hong := v_hong || ' | quyền gọi hàm'; end if;
+    if (select count(*) from pg_policies where schemaname = 'realtime' and policyname like 'p2d_rt_%') <> 2 then v_hong := v_hong || ' | chính sách Realtime'; end if;
+
+    raise exception using errcode = 'P0001', message = 'p2d_hoan_tac_thu';   -- hoàn tác mọi thứ đã thử
+  exception when others then
+    if sqlerrm <> 'p2d_hoan_tac_thu' then v_hong := v_hong || ' | lỗi bất ngờ: ' || sqlerrm; end if;
+  end;
+  if v_hong <> '' then raise exception 'Tự kiểm tra chống gian lận TRƯỢT (đã hoàn tác cả migration):%', v_hong; end if;
+  raise notice 'Tự kiểm tra chống gian lận: đạt hết, % người chơi thật lưu bình thường', v_ok;
+end
+$kt$;
