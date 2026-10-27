@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noqa: E402
 from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
+from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 
 clean()
@@ -22,7 +23,7 @@ for sid, spec in CHARS.items():
 _f = sheet('nam-dung') + sheet('nam-di', drop=[(0x7f, 0x80, 0x80)]) + sheet('nam-chem')   # đi: xoá khói xám lẫn vào quầng
 save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng ×8, đi ×8, chém ×8')
 _f = sheet('nu-dung')
-_f = trim_above(_f, _f[0]) + sheet('nu-di')   # đứng: xoá giọt đỏ nhỏ lên trên quầng + sheet('nu-dam') + sheet('nu-chem')
+_f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
 save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng ×8, đi ×8, đâm ×8, chém ×8')
 
 # ---------------------------------------------------------------- nền 16×16
@@ -202,6 +203,10 @@ save('item.kiem', [sword()], (2, 10), 'kiếm bay cạnh nhân vật, chĩa lên
 save('fx.slash', slash_frames(), (18, 24), 'vệt chém đánh thường, 7 khung; tâm cung tại neo')
 save('fx.spark', spark_frames(), (5, 5), 'tia lửa khi trúng, 4 khung')
 save('fx.puff', puff_frames(), (8, 8), 'khói tan khi quái chết, 5 khung')
+save('fx.fire', fire_frames(), (12, 31), 'ngọn lửa lặp 8 khung (chiêu hệ hỏa); neo ở chân lửa')
+save('fx.ice', ice_frames(), (24, 33), 'gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng')
+_f, _a = bolt_frames()
+save('fx.bolt', _f, _a, 'sét đánh xuống: mồi, đánh, đổi hình, mảnh, cháy xém ×3 (chiêu lôi); neo ở chỗ chạm đất')
 
 # ---------------------------------------------------------------- chữ số pixel 3×5 (+viền) cho số sát thương
 DIG = ['111101101101111', '010110010010111', '111001111100111', '111001111001111', '101101111001001',

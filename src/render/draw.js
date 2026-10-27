@@ -17,6 +17,7 @@ import { drawCritters } from './draw-critter.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
+import { drawSpriteFx } from './draw-sprite-fx.js';
 
 const INK = '#1b1830';
 
@@ -180,6 +181,8 @@ function drawFx(ctx, game) {
     } else if (f.type === 'note') {   // nốt nhạc bay lên, lượn nhẹ
       const x = Math.round(f.x + Math.sin(k * 7) * 3), y = Math.round(f.y - 16 - 20 * k);
       ctx.fillStyle = f.color; ctx.fillRect(x - 2, y + 4, 3, 2); ctx.fillRect(x, y, 1, 5); ctx.fillRect(x + 1, y, 2, 1); ctx.fillRect(x + 2, y + 1, 1, 1);
+    } else if (f.type === 'sprite') {
+      drawSpriteFx(ctx, game, f, k);
     } else if (f.type === 'line') {
       ctx.strokeStyle = f.color; ctx.lineWidth = 5 * (1 - k);
       ctx.beginPath(); ctx.moveTo(f.x, f.y - 5); ctx.lineTo(f.x2, f.y2 - 5); ctx.stroke();
