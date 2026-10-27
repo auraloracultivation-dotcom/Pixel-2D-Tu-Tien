@@ -1,5 +1,5 @@
 {
- "_note": "Tháp thử thách: mỗi tầng một đợt quái mạnh dần (hp, atk nhân 1 + tầng × grow), tầng chia hết cho boss_every là boss. Quái theo bậc: tầng ≥ from thì dùng pool đó. Qua tầng mới lần đầu nhận thưởng; giữ tầng cao nhất. Quái trong tháp không cho linh khí, không rơi đồ.",
+ "_note": "Tháp thử thách: mỗi tầng một đợt quái mạnh dần (hp, atk nhân 1 + tầng × grow; từ bậc cuối theo endless), tầng chia hết cho boss_every là boss. Quái theo bậc: tầng ≥ from thì dùng pool đó. Qua tầng mới lần đầu nhận thưởng; giữ tầng cao nhất. Quái trong tháp không cho linh khí, không rơi đồ.",
  "npc": "thu-thap",
  "map": "thap-thu-thach",
  "grow": 0.14,
@@ -17,6 +17,7 @@
   {"from": 41, "pool": ["hu-khong-ma", "u-minh-phap", "hu-anh", "u-minh-ve"], "boss": "hu-khong-nguc-chu"},
   {"from": 46, "pool": ["hu-khong-ma", "u-minh-phap", "hu-anh", "u-minh-ve", "kim-ma-ve", "tho-ma-ve"], "boss": "ma-ton"}
  ],
+ "endless": {"_note": "Từ bậc quái cuối trở đi (tầng 46+), thay vì cộng grow mỗi tầng: cứ step tầng quái mạnh gấp mul lần, không có đỉnh (chủ dự án chốt 28/10/2026).", "mul": 2, "step": 10},
  "boss_hp": 0.5,
  "reward": {"stones_per": 0.25, "qi_per": 60, "boss_items": ["linh", "linh", "huyen", "huyen", "dia", "dia"]}
 }

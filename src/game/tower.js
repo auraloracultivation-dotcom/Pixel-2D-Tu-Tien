@@ -16,7 +16,8 @@ export function floorReward(cfg, floor) {
 
 function spawnWave(game) {
   const cfg = C(game), floor = game.tower.floor, tier = tierOf(cfg, floor);
-  const mul = 1 + (floor - tier.from) * cfg.grow;
+  const last = tier === cfg.tiers.at(-1), E = cfg.endless;   // hết bậc quái: cứ endless.step tầng quái mạnh gấp endless.mul (luật 7 → 14 → 28)
+  const mul = last && E ? E.mul ** ((floor - tier.from) / E.step) : 1 + (floor - tier.from) * cfg.grow;
   const make = (id, hpMul, x, y, r) => {
     const base = game.data.mobs[id], def = { ...base, hp: Math.round(base.hp * hpMul), atk: Math.round(base.atk * mul * 10) / 10 };
     const p = game.map.freeNear(x, y, r, 6);

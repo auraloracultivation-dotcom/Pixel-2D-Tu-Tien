@@ -1,5 +1,5 @@
 // Bí cảnh: các phòng nối nhau, cửa khoá tới khi dọn sạch phòng, phòng cuối có boss. Độ khó ở dun-mode.js.
-import { scaleMob, dungeonDone, modeOf } from './dun-mode.js';
+import { scaleMob, dungeonDone, levelName } from './dun-mode.js';
 import { partyGuest, partyHostRun, partyGhosts, partySize, partyDoor, partyDone } from './party-sync.js';
 
 export function createDungeon(game) {
@@ -30,7 +30,7 @@ export function createDungeon(game) {
       }
     }
     if (r.intro) { game.toast(r.intro, 2.4); game.sfx('roar'); }
-    if (r.boss) { game.toast(`${r.mobs[0].def.name} xuất hiện!${game.dunMode ? ` (${modeOf(game).name})` : ''}`); game.sfx('roar'); }
+    if (r.boss) { game.toast(`${r.mobs[0].def.name} xuất hiện!${game.dunMode ? ` (${levelName(game, game.dunMode)})` : ''}`); game.sfx('roar'); }
   }
 
   return {
