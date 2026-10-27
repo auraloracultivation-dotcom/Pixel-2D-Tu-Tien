@@ -11,6 +11,7 @@ from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
+import world as W  # noqa: E402
 
 clean()
 
@@ -27,29 +28,18 @@ _f = sheet('nu-dung')
 _f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem') + sheet('nu-bo') + sheet('nu-hat') + sheet('nu-ngang')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
 save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
 
-# ---------------------------------------------------------------- nền 16×16
+# ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
+save('tile.grass', [W.grass(s) for s in range(4)], (0, 0), 'cỏ, 4 biến thể ghép liền')
+save('tile.path', [W.path(s) for s in range(4)], (0, 0), 'đường đất, 4 biến thể')
+save('tile.stone', [W.stone(s) for s in range(4)], (0, 0), 'nền đá lát, 4 biến thể')
+save('tile.edge', W.edge(), (0, 0), 'mép cỏ phủ lên đường / đá: cỏ ở cạnh trên, phải, dưới, trái')
+save('tile.cliff', [W.cliff(s) for s in range(3)] + [W.cliff(s, True) for s in range(3)], (0, 0), 'vách đảo: 3 khung hàng ngay dưới đất, 3 khung hàng thứ hai')
+save('tile.house', W.house_frames(), (0, 0), 'nhà mái ngói: mái nóc/giữa/mép/thấp × trái/giữa/phải, rồi tường trái, giữa, phải, cửa, cửa sổ')
+save('prop.tree', [W.tree(s) for s in range(3)], (15, 36), 'cây: quả đỏ, tán tròn, hoa đào')
+save('prop.rock', [W.rock(s) for s in range(2)], (8, 11), 'đá, đá có rêu')
+save('decal.flowers', [W.flowers(s) for s in range(3)], (3, 3), 'hoa nhỏ trắng / vàng / hồng')
 G = {k: hx(v) for k, v in dict(d='#245a3c', b='#3a8a52', l='#4fa463', t='#7cc96a').items()}
 D = {k: hx(v) for k, v in dict(d='#6e5a3e', b='#8f7754', l='#a88f68', c='#5b4831', lip='#3e3122').items()}
-
-
-def grass(seed):
-    rnd = random.Random(seed)
-    c = Canvas(16, 16); c.a[:, :] = G['b']
-    for _ in range(5):  # túm cỏ hình chữ v
-        x, y = rnd.randrange(1, 15), rnd.randrange(2, 15)
-        c.px(x, y, G['d']); c.px(x - 1, y - 1, G['d']); c.px(x + 1, y - 1, G['d'])
-        c.px(x, y - 1, G['l'])
-    for _ in range(3):
-        c.px(rnd.randrange(16), rnd.randrange(16), G['l'])
-    if seed % 4 == 3:  # một biến thể có đốm cỏ sáng
-        x, y = rnd.randrange(3, 13), rnd.randrange(3, 13)
-        for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1)):
-            c.px(x + dx, y + dy, G['l'])
-        c.px(x, y, G['t'])
-    return c
-
-
-save('tile.grass', [grass(s) for s in range(4)], (0, 0), '4 biến thể cỏ, ghép liền')
 
 
 def dirt_patch(w, h, seed):
@@ -88,48 +78,6 @@ def dirt_patch(w, h, seed):
 save('decal.dirt', [dirt_patch(48, 32, s) for s in (3, 11, 19)], (24, 16), 'vùng đất mép cỏ, 3 dáng')
 
 # ---------------------------------------------------------------- đồ trang trí
-def tree(seed):
-    w, h = 30, 38
-    c = Canvas(w, h)
-    T = dict(d=hx('#4a2f22'), b=hx('#6e4630'), l=hx('#8a5a3a'))
-    for y in range(26, 36):  # thân
-        for x in range(13, 17):
-            c.px(x, y, T['l'] if x == 13 else T['d'] if x == 16 else T['b'])
-    c.px(12, 35, T['d']); c.px(17, 35, T['d'])
-    L = [hx('#1d4a33'), hx('#2e6d43'), hx('#45935a'), hx('#6fbf6a')]
-    rnd = random.Random(seed)
-    blobs = [(15, 13, 10), (8, 18, 7), (22, 18, 7), (11, 9, 6), (19, 8, 6), (15, 22, 7)]
-    for y in range(h):
-        for x in range(w):
-            best = None
-            for bx, by, r in blobs:
-                d = math.hypot(x - bx, (y - by) * 1.1)
-                if d <= r:
-                    lit = ((bx - x) + (by - y)) / r  # sáng phía trên-trái của từng chùm
-                    v = 1 + (1 if lit > 0.55 else 0) - (1 if lit < -0.45 or d > r - 1.2 and lit < 0 else 0)
-                    best = v if best is None else max(best, v)
-            if best is not None:
-                c.px(x, y, L[max(0, min(3, best))])
-    for _ in range(6):  # đốm sáng lá
-        x, y = rnd.randrange(6, 24), rnd.randrange(4, 16)
-        if c.get(x, y)[:3] == L[2][:3]:
-            c.px(x, y, L[3])
-    return c.outline(hx('#10261a'))
-
-
-def rock(seed, w=14, h=11):
-    c = Canvas(w, h)
-    R = [hx('#4a4458'), hx('#6b6580'), hx('#8f88a4'), hx('#b4aec6')]
-    for y in range(h):
-        for x in range(w):
-            e = ((x - w / 2 + 0.5) / (w / 2 - 1)) ** 2 + ((y - h / 2 - 0.5) / (h / 2 - 1)) ** 2
-            if e < 1:
-                lit = -(x - w / 2) * 0.6 - (y - h / 2) * 1.0
-                c.px(x, y, R[3] if lit > 3.5 else R[2] if lit > 0.5 else R[1] if lit > -2.5 else R[0])
-    c.px(w // 2 + 1, h // 2, R[0]); c.px(w // 2 + 2, h // 2 + 1, R[0])  # vết nứt
-    return c.outline(hx('#221d2e'))
-
-
 def bush(seed):
     c = Canvas(16, 11)
     L = [hx('#1d4a33'), hx('#2e6d43'), hx('#45935a'), hx('#6fbf6a')]
@@ -146,19 +94,6 @@ def bush(seed):
             c.px(x, y, hx('#f2c94c'))
     return c.outline(hx('#10261a'))
 
-
-def flowers(seed):
-    c = Canvas(7, 5)
-    col = [hx('#f2ecff'), hx('#f2c94c'), hx('#ff9ac0')][seed % 3]
-    for x, y in ((1, 1), (5, 2), (3, 3)):
-        c.px(x, y, col); c.px(x, y + 1, G['d'])
-    return c
-
-
-save('prop.tree', [tree(s) for s in (1, 2)], (15, 36), 'cây tán tròn, 2 dáng')
-save('prop.rock', [rock(s) for s in (1,)], (7, 10), 'đá')
-save('prop.bush', [bush(s) for s in (0, 1)], (8, 10), 'bụi cây, có / không hoa')
-save('decal.flowers', [flowers(s) for s in range(3)], (3, 2), 'hoa nhỏ trắng / vàng / hồng')
 
 # ---------------------------------------------------------------- quái: Mộc Linh (đốm sinh khí), 2 khung đứng / bẹt
 def slime(pal, squash=False):
