@@ -100,6 +100,9 @@ def bush(seed):
     return c.outline(hx('#10261a'))
 
 
+save('prop.bush', [bush(0), bush(1)], (8, 10), 'bụi cây thấp: xanh, có hoa vàng; rải trên cỏ')
+
+
 # ---------------------------------------------------------------- quái (tools/art/mobs.py): mỗi quái có "look" trong data/mobs.json
 for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.json').read_text(encoding='utf-8')).items():
     if isinstance(_d, dict) and _d.get('look'):
