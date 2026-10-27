@@ -20,8 +20,26 @@ function shade(hex, k) {
   return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`;
 }
 
+// Tinh cầu trôi trong không gian: quanh mép đĩa là trời sao, ánh Linh Nhật ở góc, sao trôi chậm theo máy quay
+function spaceSky(ctx, screen, map, t) {
+  const g = ctx.createLinearGradient(0, 0, 0, screen.h);
+  g.addColorStop(0, '#0a0918'); g.addColorStop(1, shade(map.def.sky || '#241a4a', 0.35));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
+  const sun = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(screen.w, screen.h) * 0.7);
+  sun.addColorStop(0, 'rgba(255,220,130,.28)'); sun.addColorStop(1, 'rgba(255,220,130,0)');
+  ctx.fillStyle = sun; ctx.fillRect(0, 0, screen.w, screen.h);
+  const W = screen.w + 40, H = screen.h + 40;
+  for (let i = 0; i < 90; i++) {
+    const k = 0.03 + hash(i, 5) * 0.06;
+    const x = ((hash(i, 1) * W - screen.camX * k * screen.zoom) % W + W) % W - 20, y = ((hash(i, 2) * H - screen.camY * k * screen.zoom) % H + H) % H - 20;
+    ctx.fillStyle = `rgba(235,240,255,${(0.3 + 0.5 * Math.abs(Math.sin(t * (0.5 + hash(i, 4)) + i))).toFixed(2)})`;
+    const z = hash(i, 3) > 0.9 ? 2 : 1; ctx.fillRect(Math.round(x), Math.round(y), z, z);
+  }
+}
+
 export function drawSky(ctx, screen, map, t) {
   screen.screenTransform();
+  if (map.def.planet) { spaceSky(ctx, screen, map, t); return; }
   const sky = map.def.sky || '#9fd8f0';
   const g = ctx.createLinearGradient(0, 0, 0, screen.h);
   g.addColorStop(0, shade(sky, 0.8)); g.addColorStop(1, shade(sky, 1.1));

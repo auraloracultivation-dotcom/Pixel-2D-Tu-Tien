@@ -2,7 +2,7 @@
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
-import { spawnMob, updateMobs } from './mobs.js';
+import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
@@ -296,6 +296,7 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
+      if (s.mul > 1) scaleMobBy(game, m, s.mul);
       maybeRare(game, m); s.alive.push(m);
     }
   }

@@ -139,7 +139,7 @@
         4
       ],
       "swap": {},
-      "intro": "Mùa xuân tới. Hoa đào nở, cánh hồng bay khắp các đảo."
+      "intro": "Mùa xuân tới. Hoa đào nở, cánh hồng bay khắp các tinh cầu."
     },
     {
       "id": "ha",
@@ -166,7 +166,7 @@
         "hoa": "phong",
         "la": "phong"
       },
-      "intro": "Mùa thu rồi. Lá phong đỏ rơi khắp các đảo."
+      "intro": "Mùa thu rồi. Lá phong đỏ rơi khắp các tinh cầu."
     },
     {
       "id": "dong",
