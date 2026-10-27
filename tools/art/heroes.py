@@ -88,3 +88,46 @@ def trim_above(frames, ref, margin=2):
     for cv in frames:
         cv.a[rows < top, 3] = 0
     return frames
+
+
+def recolor(frames, red_hue=None, hair=None):
+    """Đổi bảng màu, giữ nét: red_hue (độ) thay sắc đỏ (hào quang, giáo, mắt) bằng sắc khác, giữ độ sáng/đậm;
+    hair = (sắc, độ đậm, sáng thấp, sáng cao) tô lại vùng xám sáng (tóc trắng) theo dải sáng mới."""
+    for cv in frames:
+        a = cv.a
+        rgb = a[..., :3].astype(float) / 255
+        mx, mn = rgb.max(axis=2), rgb.min(axis=2)
+        v, s = mx, np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+        hue = _hue(rgb, mx, mn)
+        solid = a[..., 3] > 0
+        out = rgb.copy()
+        if red_hue is not None:
+            m = solid & (s > 0.4) & ((hue > 320) | (hue < 15))
+            out[m] = _hsv(np.full(m.sum(), red_hue / 360), s[m], v[m])
+        if hair is not None:
+            h, sat, lo, hi = hair
+            m = solid & (s < 0.15) & (v >= 0.45)
+            t = (v[m] - 0.45) / 0.55
+            out[m] = _hsv(np.full(m.sum(), h / 360), np.full(m.sum(), sat) * (1.15 - 0.3 * t), lo + (hi - lo) * t)
+        a[..., :3] = np.round(out * 255).astype(np.uint8)
+    return frames
+
+
+def _hue(rgb, mx, mn):
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    d = np.maximum(mx - mn, 1e-6)
+    h = np.where(mx == r, (g - b) / d % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4))
+    return h * 60
+
+
+def _hsv(h, s, v):
+    s = np.clip(s, 0, 1)
+    i = np.floor(h * 6).astype(int) % 6
+    f = h * 6 - np.floor(h * 6)
+    p, q, t = v * (1 - s), v * (1 - f * s), v * (1 - (1 - f) * s)
+    table = [(v, t, p), (q, v, p), (p, v, t), (p, q, v), (t, p, v), (v, p, q)]
+    out = np.zeros((len(h), 3))
+    for k, (r, g, b) in enumerate(table):
+        sel = i == k
+        out[sel] = np.stack([r[sel], g[sel], b[sel]], axis=1)
+    return out
