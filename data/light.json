@@ -1,0 +1,9 @@
+{
+  "_note": "Hầm ngục, bí cảnh về đêm (src/render/draw-light.js). maps: bản đồ được phủ tối và treo đuốc. ambient: độ tối phủ cả màn hình, color: màu bóng tối (tím đêm). Đuốc treo trên mặt vách sát nền đi được, cứ every ô một cây; quầng sáng theo dải bands (tỉ lệ bán kính, càng ra ngoài càng tối) như bài pixel-lessons, lập loè theo flicker. warm: màu lửa hắt lên nền. player: quầng sáng quanh người chơi. lava: dung nham cũng toả sáng nhẹ.",
+  "maps": ["bi-canh", "co-thu-tam", "dia-cung", "hac-phong-dong", "han-bang-quat", "hoa-quat", "hu-khong-lao", "kiem-trung", "re-mau-thu", "vet-nut", "bi-canh-tai-nguyen", "thap-thu-thach"],
+  "ambient": 0.72,
+  "color": "10,6,22",
+  "torch": { "every": 5, "radius": 50, "bands": [0.4, 0.7, 1], "flicker": 0.06, "warm": "255,150,60", "warm_alpha": 0.14 },
+  "player": { "radius": 40, "bands": [0.5, 1] },
+  "lava": { "radius": 22, "warm_alpha": 0.1 }
+}

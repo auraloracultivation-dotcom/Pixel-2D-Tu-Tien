@@ -2497,6 +2497,18 @@
    ],
    "note": "đá, đá có rêu"
   },
+  "prop.torch": {
+   "file": "assets/art/prop-torch.png",
+   "v": "0f70a079",
+   "w": 10,
+   "h": 18,
+   "frames": 4,
+   "anchor": [
+    5,
+    17
+   ],
+   "note": "đuốc treo vách, 4 khung lửa nhảy"
+  },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
    "v": "0c71d21b",
@@ -2520,6 +2532,30 @@
     0
    ],
    "note": "vách đảo: 3 khung hàng ngay dưới đất, 3 khung hàng thứ hai"
+  },
+  "tile.dfloor": {
+   "file": "assets/art/tile-dfloor.png",
+   "v": "4b6ed640",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể"
+  },
+  "tile.dwall": {
+   "file": "assets/art/tile-dwall.png",
+   "v": "2fe2ce17",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp phủ vách: 2 khung mặt gạch, 2 khung đỉnh vách"
   },
   "tile.edge": {
    "file": "assets/art/tile-edge.png",

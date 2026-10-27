@@ -26,7 +26,7 @@ export function drawSky(ctx, screen, map, t) {
   const g = ctx.createLinearGradient(0, 0, 0, screen.h);
   g.addColorStop(0, shade(sky, 0.8)); g.addColorStop(1, shade(sky, 1.1));
   ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
-  if ((map.def.dark || 0) > 0.3 || map.def.indoor) return;
+  if ((map.def.dark || 0) >= 0.3 || map.def.indoor) return;
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
   for (let i = 0; i < 9; i++) {
     const y = (hash(i, 7) * 1.2 - 0.1) * screen.h;
