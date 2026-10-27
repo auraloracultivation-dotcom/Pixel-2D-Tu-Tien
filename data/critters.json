@@ -14,6 +14,11 @@
  "list": {
   "linh-ke": {"name": "Linh Kê", "desc": "Gà lông vàng, sáng nào cũng gáy.", "cost": 500, "every_h": 3, "give": {"coins": 80}, "text": "Linh Kê đẻ một quả trứng vàng, Tiểu Linh đem đổi được {got}.", "kind": "chicken", "speed": 12},
   "ngoc-tho": {"name": "Ngọc Thố", "desc": "Thỏ trắng như ngọc, hay đào bới góc vườn.", "cost": 900, "every_h": 5, "give": {"mats": {"linh-thao": 2, "ngoc-lo-hoa": 1}}, "text": "Ngọc Thố đào bới một hồi, tha về {got}.", "kind": "rabbit", "speed": 18},
-  "tieu-hac": {"name": "Tiểu Hạc", "desc": "Hạc con chân dài, sáng bay đi chiều bay về.", "cost": 1800, "every_h": 8, "give": {"stones": 2, "qi": 300}, "text": "Tiểu Hạc bay về, ngậm theo {got}.", "kind": "crane", "speed": 10}
- }
+  "tieu-hac": {"name": "Tiểu Hạc", "desc": "Hạc con chân dài, sáng bay đi chiều bay về.", "cost": 1800, "every_h": 8, "give": {"stones": 2, "qi": 300}, "text": "Tiểu Hạc bay về, ngậm theo {got}.", "kind": "crane", "speed": 10},
+  "bach-ap": {"name": "Bạch Áp", "desc": "Vịt trắng lạch bạch, thích lội vũng nước sau mưa.", "cost": 700, "every_h": 4, "give": {"mats": {"linh-ngu": 2}}, "text": "Bạch Áp lạch bạch đi về, mỏ ngậm {got}.", "kind": "duck", "speed": 11},
+  "hoa-ly": {"name": "Hỏa Ly", "desc": "Mèo lửa lông cam, ngủ cả ngày cạnh lò đan.", "cost": 1200, "every_h": 6, "give": {"mats": {"hoa-linh-chi": 1}, "coins": 60}, "text": "Hỏa Ly vươn vai, tha từ góc lò ra {got}.", "kind": "cat", "speed": 14},
+  "kim-tuoc": {"name": "Kim Tước", "desc": "Chim sẻ vàng hót suốt buổi sáng, nghe mà lòng nhẹ hẳn.", "cost": 1000, "every_h": 4, "give": {"qi": 200}, "text": "Kim Tước hót một khúc, linh khí trong sân dồn về: {got}.", "kind": "bird", "speed": 16},
+  "linh-loc": {"name": "Linh Lộc", "desc": "Hươu sao nhỏ, gạc mọc linh chi. Hiền và nhút nhát.", "cost": 2500, "every_h": 10, "give": {"stones": 2, "mats": {"ngoc-lo-hoa": 2}}, "text": "Linh Lộc cọ gạc vào cột, rụng xuống {got}.", "kind": "deer", "speed": 9}
+ },
+ "name": {"menu": "Đặt tên linh cầm", "menu_desc": "Gọi tên cho từng con", "pick": "Chủ nhân muốn đặt tên cho con nào?", "ask": "Đặt tên cho {name}", "placeholder": "Tên (tối đa 12 chữ)", "ok": "Đặt tên", "cancel": "Thôi", "done": "Từ nay {kind} tên là {name}. Nó mừng lắm kìa!", "none": "Chủ nhân chưa nuôi con nào."}
 }

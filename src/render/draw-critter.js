@@ -17,6 +17,33 @@ const KINDS = {
     R(ctx, '#ffb0c8', x + 1 * f, y - 11 - b, 1 * f, 2); R(ctx, '#2a2238', x + 3 * f, y - 7 - b, 1, 1);
     R(ctx, '#ffffff', x - 5 * f, y - 4 - b, 2 * f, 2); R(ctx, '#d8d4e4', x - 3, y - 1 - b, 5, 1);
   },
+  duck(ctx, x, y, f, t, moving) {
+    const b = moving ? Math.abs(Math.sin(t * 10)) : 0;
+    R(ctx, '#e8a03a', x - 2, y - 1, 2, 1); R(ctx, '#e8a03a', x + 1, y - 1, 2, 1);
+    R(ctx, '#f4f2f8', x - 4, y - 5 - b, 8, 4); R(ctx, '#dcd8e8', x - 3, y - 4 - b, 4, 1);
+    R(ctx, '#f4f2f8', x + 2 * f, y - 9 - b, 3 * f, 4); R(ctx, '#2a2238', x + 3 * f, y - 8 - b, 1, 1);
+    R(ctx, '#f0a03a', x + 5 * f, y - 7 - b, 2 * f, 1); R(ctx, '#f4f2f8', x - 5 * f, y - 6 - b, 2 * f, 2);
+  },
+  cat(ctx, x, y, f, t, moving) {
+    const b = moving ? Math.abs(Math.sin(t * 11)) : 0, tail = Math.sin(t * 3) > 0 ? 1 : 0;
+    R(ctx, '#e8783a', x - 4, y - 5 - b, 8, 4); R(ctx, '#ffc890', x - 2, y - 2 - b, 4, 1);
+    R(ctx, '#e8783a', x + 2 * f, y - 9 - b, 4 * f, 4); R(ctx, '#e8783a', x + 2 * f, y - 10 - b, 1 * f, 1); R(ctx, '#e8783a', x + 5 * f, y - 10 - b, 1 * f, 1);
+    R(ctx, '#2a2238', x + 4 * f, y - 8 - b, 1, 1); R(ctx, '#ffd84a', x - 6 * f, y - 8 - tail - b, 1 * f, 4);
+    R(ctx, '#c85a2a', x - 3, y - 1, 1, 1); R(ctx, '#c85a2a', x + 2, y - 1, 1, 1);
+  },
+  bird(ctx, x, y, f, t, moving) {
+    const hop = moving ? Math.abs(Math.sin(t * 14)) * 2 : 0, wing = moving && Math.sin(t * 30) > 0 ? 1 : 0;
+    R(ctx, '#2a2238', x - 1, y - 1, 1, 1); R(ctx, '#2a2238', x + 1, y - 1, 1, 1);
+    R(ctx, '#f2c94c', x - 2, y - 5 - hop, 5, 4); R(ctx, '#c8962a', x - 2 * f, y - 5 - hop - wing, 3 * f, 2);
+    R(ctx, '#f2c94c', x + 1 * f, y - 7 - hop, 3 * f, 3); R(ctx, '#2a2238', x + 2 * f, y - 6 - hop, 1, 1); R(ctx, '#e8783a', x + 4 * f, y - 6 - hop, 1 * f, 1);
+  },
+  deer(ctx, x, y, f, t, moving) {
+    const s = moving ? Math.sin(t * 9) : 0;
+    R(ctx, '#8a5a3a', x - 3 + s, y - 4, 1, 4); R(ctx, '#8a5a3a', x + 2 - s, y - 4, 1, 4);
+    R(ctx, '#c88a5a', x - 4, y - 8, 8, 4); R(ctx, '#fff2e0', x - 2, y - 7, 1, 1); R(ctx, '#fff2e0', x + 1, y - 7, 1, 1);
+    R(ctx, '#c88a5a', x + 3 * f, y - 12, 3 * f, 4); R(ctx, '#2a2238', x + 5 * f, y - 11, 1, 1);
+    R(ctx, '#8ad870', x + 3 * f, y - 15, 1 * f, 3); R(ctx, '#8ad870', x + 5 * f, y - 15, 1 * f, 3); R(ctx, '#ff8a6a', x + 3 * f, y - 16, 1, 1);
+  },
   crane(ctx, x, y, f, t, moving) {
     const s = moving ? Math.sin(t * 8) : 0;
     R(ctx, '#2a2238', x - 1 + s, y - 5, 1, 5); R(ctx, '#2a2238', x + 1 - s, y - 5, 1, 5);
@@ -32,6 +59,8 @@ export function drawCritters(ctx, game, t) {
     const d = game.data.critters.list[k.id], x = Math.round(k.x), y = Math.round(k.y);
     ctx.globalAlpha = 0.25; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, y, 4, 1.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
     KINDS[d.kind]?.(ctx, x, y, k.face, t, !k.wait || k.wait <= 0);
+    const nm = game.save.critters?.[k.id]?.name, p = game.player;   // tên riêng, hiện khi đứng gần
+    if (nm && Math.hypot(k.x - p.x, k.y - p.y) < 40) { ctx.font = '600 6px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#1b1830'; ctx.fillText(nm, x, y - 19); }
     if (k.ready) { const g = 0.6 + 0.4 * Math.sin(t * 5 + x); ctx.globalAlpha = g; R(ctx, '#ffd84a', x - 1, y - 22 + Math.sin(t * 3) * 1.5, 3, 3); R(ctx, '#fff6c8', x, y - 21 + Math.sin(t * 3) * 1.5, 1, 1); ctx.globalAlpha = 1; }
   }
 }

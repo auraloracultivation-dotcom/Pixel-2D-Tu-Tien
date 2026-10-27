@@ -5,6 +5,7 @@ import { grant } from './daily.js';
 import { addFx } from './combat.js';
 import { praise } from './praise.js';
 import { talkDecor } from './decor.js';
+import { cleanText } from './social.js';
 
 const C = game => game.data.critters;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -17,6 +18,20 @@ export const readyOf = (game, id) => {
   return st ? Math.min(c.cap, Math.floor((Date.now() - st.t) / (c.list[id].every_h * H))) : 0;
 };
 export const anyReady = game => ownedCritters(game).some(id => readyOf(game, id) > 0);
+// Tên gọi: loài kèm tên riêng nếu đã đặt
+export const critterName = (game, id) => { const nm = game.save.critters?.[id]?.name, d = C(game).list[id]; return nm ? `${d.name} ${nm}` : d.name; };
+
+async function nameCritter(game, npc) {
+  const N = C(game).name, own = ownedCritters(game), who = npc.def.name;
+  if (!own.length) { await game.dialog.say([[who, N.none]]); return; }
+  const id = await game.dialog.choose(`${who}: ${N.pick}`, [...own.map(k => ({ id: k, label: critterName(game, k), desc: C(game).list[k].desc })), { id: 'thoi', label: N.cancel, desc: '' }]);
+  if (!C(game).list[id]) return;
+  const raw = await game.dialog.ask(N.ask.replace('{name}', critterName(game, id)), N.placeholder, 12, N.ok, N.cancel);
+  const nm = cleanText(game, raw || '').slice(0, 12).trim();
+  if (!nm) return;
+  game.save.critters[id].name = nm; game.persist(); game.sfx('pickup');
+  await game.dialog.say([[who, N.done.replace('{kind}', C(game).list[id].name).replace('{name}', nm)]]);
+}
 
 // Ô ngẫu nhiên trong sân, đổi ra toạ độ px
 function spot(game) {
@@ -54,7 +69,7 @@ function collect(game, k) {
   const got = grant(game, give);
   for (let i = 0; i < 2; i++) addFx(game, { type: 'heart', x: k.x + (i - 0.5) * 6, y: k.y - i * 3, color: '#ffd27a', life: 1.1 });
   game.sfx('pickup');
-  game.toast(d.text.replace('{got}', got.join(', ')), 3);
+  game.toast(d.text.replace(d.name, critterName(game, k.id)).replace('{got}', got.join(', ')), 3);
 }
 
 // Mua một con (cả tự hành dùng): trừ tiền, bắt đầu đếm giờ
@@ -74,9 +89,11 @@ export async function talkTieuLinh(game, npc) {
   const ch = await game.dialog.choose(`${name}: ${c.ask}`, [
     { id: 'decor', label: M.decor, desc: M.decor_desc },
     { id: 'buy', label: M.buy, desc: M.buy_desc },
+    { id: 'name', label: c.name.menu, desc: c.name.menu_desc },
     { id: 'out', label: M.out, desc: '' },
   ]);
   if (ch === 'decor') { await talkDecor(game, npc); return; }
+  if (ch === 'name') { await nameCritter(game, npc); return; }
   if (ch !== 'buy') return;
   const left = Object.entries(c.list).filter(([id]) => !game.save.critters?.[id]);
   if (!left.length) { await game.dialog.say([[name, c.full]]); return; }

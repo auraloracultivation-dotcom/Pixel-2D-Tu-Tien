@@ -62,5 +62,24 @@ export function createDialog(onLine) {
       choices.append(b);
     }
   });
+  // Hỏi một dòng chữ (đặt tên...): trả về chữ đã gõ, hoặc null nếu bấm thôi
+  d.ask = (title, placeholder, max, ok, cancel) => new Promise(resolve => {
+    d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
+    full = title; shown = title.length; text.textContent = title; clearInterval(timer);
+    choices.innerHTML = '';
+    const inp = document.createElement('input');
+    inp.className = 'dlg-input'; inp.maxLength = max; inp.placeholder = placeholder; inp.autocomplete = 'off';
+    const done = v => { choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(v); };
+    const mk = (label, v) => {
+      const b = document.createElement('button'); b.className = 'choice';
+      const l = document.createElement('b'); l.textContent = label; b.append(l);
+      b.addEventListener('pointerdown', e => { e.stopPropagation(); e.preventDefault(); done(v()); });
+      return b;
+    };
+    inp.addEventListener('pointerdown', e => e.stopPropagation());
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') done(inp.value); });
+    choices.append(inp, mk(ok, () => inp.value), mk(cancel, () => null));
+    setTimeout(() => inp.focus(), 50);
+  });
   return d;
 }
