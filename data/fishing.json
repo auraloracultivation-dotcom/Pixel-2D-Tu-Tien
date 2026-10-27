@@ -12,6 +12,19 @@
   "kim-tu-ngu": {"w": 14, "maps": ["dao-thien-kim"]},
   "nham-ngu": {"w": 14, "maps": ["dao-hau-tho"]},
   "kim-ly": {"w": 5},
-  "nguyet-ngu": {"w": 10, "night": true}
+  "nguyet-ngu": {"w": 10, "night": true},
+  "dao-hoa-ngu": {"w": 12, "season": "xuan"},
+  "ha-quang-ngu": {"w": 12, "season": "ha"},
+  "phong-ngu": {"w": 12, "season": "thu"},
+  "tuyet-ngu": {"w": 12, "season": "dong"},
+  "vu-ngu": {"w": 16, "rain": true}
+ },
+ "book": {
+  "_note": "Sổ sưu tập cá: mỗi loại lần đầu câu được nhận first; đủ số loại thì nhận thưởng mốc (tự nhận). Xem ở bảng Thành tựu, tab Sổ cá. Cá có season chỉ cắn câu mùa đó, rain chỉ khi đảo đang mưa.",
+  "first": {"coins": 100},
+  "milestones": [{"n": 4, "give": {"coins": 500, "stones": 2}}, {"n": 8, "give": {"coins": 1000, "gem": 1}}, {"n": 13, "give": {"coins": 3000, "item": "dia"}}],
+  "hint": {"maps": "Chỉ có ở {maps}", "night": "Cắn câu ban đêm", "realm": "Từ {realm}", "season": "Chỉ mùa {season}", "rain": "Chỉ khi trời mưa", "any": "Đảo nào cũng có"},
+  "new": "Sổ cá: loại mới {name}! +{got}",
+  "done": "Sổ cá đủ {n} loại! Nhận {got}."
  }
 }
