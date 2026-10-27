@@ -86,6 +86,12 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 7. Người chơi thích treo máy cày (chém, tung chiêu liên tục không bị ngắt): mỗi tinh cầu có vài bãi quái treo máy, quái chết hồi nhanh giữ đủ số con, nhưng tài nguyên rơi ít (`data/planets.json` → farm).
 8. Ma Vương tuần ở vòng ma khí (`data/demon.json`): mỗi tuần Ma Tổ sinh một Ma Vương trấn Phương Thiên Địa, mở từ Đại Thừa; hạ con nào thì con sau mạnh gấp đôi, thưởng chỉ nhích; hạ xong tịnh hoá tới tuần sau. Đây là nội dung cuối game cho người đã lên đỉnh.
 
+## Nam, nữ và đạo lữ (chủ dự án chốt sáng 28/10/2026)
+
+1. Tạo nhân vật được chọn nam hoặc nữ; hai nhân vật đã có hình là hình mặc định. Tài khoản cũ được hỏi một lần.
+2. Người chơi nữ thì đạo lữ là nam (hiện có Mặc Ảnh), người chơi nam thì đạo lữ là nữ (Lạc Tuyết, Hồ Linh). Lời thoại gọi người chơi đổi theo giới tính (sư đệ / sư muội).
+3. Đạo lữ là người trong tab Đồng hành, mang theo thì đi cùng đánh quái; vừa hỗ trợ đánh vừa trò chuyện, khen người chơi thường xuyên.
+
 ## Lộ trình
 
 1. Cốt truyện và nội dung: xong.

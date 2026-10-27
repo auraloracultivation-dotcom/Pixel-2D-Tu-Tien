@@ -87,7 +87,11 @@ try {
   const af = read('affinity.json'), cl = read('companions.json').list;
   for (const g of af.gifts) need(g.kind === 'coins' || (g.kind === 'pill' ? cave.pills[g.id] : matOk(g.id)), `affinity.gifts: món "${g.id}" không có`);
   for (const [id, g] of Object.entries(af.likes)) need(cl[id] && af.gifts.some(x => x.id === g), `affinity.likes/${id}: người hoặc quà không có`);
-  for (const id of [...Object.keys(af.scenes), ...af.dao_lu.can]) need(cl[id] && npcs[id], `affinity: "${id}" không phải bạn đồng hành`);
+  for (const id of [...Object.keys(af.scenes), ...Object.values(af.dao_lu.can).flat()]) need(cl[id] && npcs[id], `affinity: "${id}" không phải bạn đồng hành`);
+  { const G = read('gender.json'), hl = read('heroes.json').list;   // nam / nữ: hình mặc định và đạo lữ theo giới tính
+    need(G.list[G.default] && Object.entries(G.list).every(([k, g]) => hl[g.look] && af.dao_lu.can[k]?.length), 'gender: giới tính mặc định, hình (look) hoặc đạo lữ theo giới tính sai');
+    const bad = readdirSync('data').filter(f => f.endsWith('.json') && f !== 'art.json').flatMap(f => (readFileSync(`data/${f}`, 'utf8').match(/\{[^{}"]*\|[^{}"]*\}/g) || []).filter(x => x.split('|').length !== 2).map(x => `${f}: ${x}`));
+    need(!bad.length, `chữ {nam|nữ} viết sai: ${bad.slice(0, 3).join(', ')}`); }
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
   for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
@@ -204,6 +208,8 @@ try {
   const pr = read('praise.json');
   for (const [who, set] of Object.entries(pr.lines)) need(who === 'default' || npcs[who], `praise: "${who}" không phải NPC`);
   for (const k of [...pr.big, ...pr.small]) need(pr.lines.default[k]?.length, `praise: thiếu câu mặc định cho "${k}"`);
+  for (const k of ['multi', 'elite', 'clutch', 'streak', 'hurt', 'fight']) need(pr.lines.default[k]?.length, `praise.fight: thiếu câu mặc định cho "${k}"`);
+  need(pr.fight.multi.n > 1 && pr.fight.streak_every > 0 && pr.fight.fight_every > 0 && pr.fight.cd.dao_lu > 0 && pr.fight.cd.comp > 0, 'praise.fight: số sai');
   const ar = read('arena.json');
   need(npcs[ar.npc] && maps[ar.map]?.arena && maps[ar.back.map]?.spawns[ar.back.spawn] && ar.daily.length === ar.rivals.length, 'arena: npc, bản đồ, chỗ về hoặc thưởng ngày sai');
   ar.rivals.forEach((r, i) => need(r.rank === ar.rivals.length - i && mobs[r.base]?.person && (!r.first.item || items.rarities.some(x => x.id === r.first.item)), `arena/${r.id}: hạng, mẫu đấu sĩ hoặc thưởng sai`));

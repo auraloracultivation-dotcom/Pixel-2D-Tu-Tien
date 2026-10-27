@@ -7,7 +7,7 @@
  "none": "Trong túi chưa đủ nguyên liệu nấu món nào. Câu cá, hái thảo dược rồi về nấu nhé.",
  "toast": "{dish}: đả tọa nhanh hơn {pct}% trong {min} phút.",
  "away": {"_note": "Vắng từ hours giờ trở lên mà về động phủ có đạo lữ ở nhà: đạo lữ nấu sẵn món dish (không tốn nguyên liệu, không tính là bữa nấu hôm nay).", "hours": 4, "dish": "chao-linh-thao",
-  "lines": {"lac-tuyet": ["Ta nấu cháo rồi. Ăn đi rồi hẵng tu luyện.", "...Cháo còn ấm. Đừng để nguội."], "ho-linh": ["Ta nấu cháo đó! Hơi khét một chút... nhưng ngon!", "Đợi ngươi lâu quá, ta nấu cháo luôn rồi nè."], "default": ["Mình nấu sẵn cháo rồi, ăn cho ấm bụng nhé."]}},
+  "lines": {"lac-tuyet": ["Ta nấu cháo rồi. Ăn đi rồi hẵng tu luyện.", "...Cháo còn ấm. Đừng để nguội."], "mac-anh": ["Cháo đây. Lần thứ ba ta mới nấu không khét.", "Ăn đi. Ta ăn rồi. ...Thật mà."], "ho-linh": ["Ta nấu cháo đó! Hơi khét một chút... nhưng ngon!", "Đợi ngươi lâu quá, ta nấu cháo luôn rồi nè."], "default": ["Mình nấu sẵn cháo rồi, ăn cho ấm bụng nhé."]}},
  "hud": "{dish} {min} phút",
  "recipes": {
   "chao-linh-thao": {"name": "Cháo Linh Thảo", "need": {"linh-thao": 5}, "buff": {"qi": 1.1, "min": 30}},
@@ -26,7 +26,8 @@
   "sup-nguyet-ngu": {"name": "Súp Nguyệt Ngư sâm tím", "need": {"nguyet-ngu": 1, "tu-van-sam": 1}, "buff": {"qi": 1.3, "min": 60}}
  },
  "lines": {
-  "lac-tuyet": ["Đệ thái rau, ta nhóm lửa. ...Đừng thái vào tay.", "Nêm nhạt thôi. Ta không ăn mặn.", "Ngon. ...Lần sau lại nấu."],
+  "lac-tuyet": ["{Đệ|Muội} thái rau, ta nhóm lửa. ...Đừng thái vào tay.", "Nêm nhạt thôi. Ta không ăn mặn.", "Ngon. ...Lần sau lại nấu."],
+  "mac-anh": ["Ta lo cá, ngươi lo rau. Đừng tranh.", "Bên kia ta chưa từng ăn món có lửa.", "...Ngon. Mai nấu nữa được không?"],
   "ho-linh": ["Để ta nếm thử trước! ...Thêm chút nữa thôi mà!", "Ngươi nấu ngon hơn ta tưởng đó!", "Ăn no rồi ta muốn ngủ trưa quá..."],
   "default": ["Thơm quá."]
  },
