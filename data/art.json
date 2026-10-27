@@ -241,6 +241,18 @@
    ],
    "note": "Băng tinh (slime): đứng, bước"
   },
+  "mob.bi-ngo-yeu": {
+   "file": "assets/art/mob-bi-ngo-yeu.png",
+   "v": "5e227dec",
+   "w": 20,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    10,
+    20
+   ],
+   "note": "Bí ngô yêu (pumpkin): đứng, bước"
+  },
   "mob.co-thu-yeu-vuong": {
    "file": "assets/art/mob-co-thu-yeu-vuong.png",
    "v": "e606a6db",
@@ -373,6 +385,18 @@
    ],
    "note": "Hỏa Lang Vương (wolf): đứng, bước"
   },
+  "mob.hu-anh": {
+   "file": "assets/art/mob-hu-anh.png",
+   "v": "ebbeba26",
+   "w": 22,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    11,
+    22
+   ],
+   "note": "Hư ảnh (shade): đứng, bước"
+  },
   "mob.hu-khong-cu-thu": {
    "file": "assets/art/mob-hu-khong-cu-thu.png",
    "v": "829dac10",
@@ -433,6 +457,18 @@
    ],
    "note": "Huyết Nha (lord): đứng, bước"
   },
+  "mob.kiem-hon": {
+   "file": "assets/art/mob-kiem-hon.png",
+   "v": "589f22d7",
+   "w": 30,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    15,
+    21
+   ],
+   "note": "Kiếm hồn (blade): đứng, bước"
+  },
   "mob.kim-giap-trung": {
    "file": "assets/art/mob-kim-giap-trung.png",
    "v": "a6b6bff9",
@@ -456,6 +492,18 @@
     37
    ],
    "note": "Kim Giáp Trùng Vương (beetle): đứng, bước"
+  },
+  "mob.kim-ma-ve": {
+   "file": "assets/art/mob-kim-ma-ve.png",
+   "v": "b57478e0",
+   "w": 26,
+   "h": 28,
+   "frames": 2,
+   "anchor": [
+    13,
+    27
+   ],
+   "note": "Kim Ma Vệ (person): đứng, bước"
   },
   "mob.linh-thach-tinh": {
    "file": "assets/art/mob-linh-thach-tinh.png",
@@ -613,6 +661,18 @@
    ],
    "note": "Mộc yêu (plant): đứng, bước"
   },
+  "mob.nguoi-tuyet-yeu": {
+   "file": "assets/art/mob-nguoi-tuyet-yeu.png",
+   "v": "589ab02a",
+   "w": 20,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    10,
+    22
+   ],
+   "note": "Người tuyết yêu (snowman): đứng, bước"
+  },
   "mob.nham-giap-thu": {
    "file": "assets/art/mob-nham-giap-thu.png",
    "v": "001e2750",
@@ -684,6 +744,18 @@
     22
    ],
    "note": "Sa ma (mage): đứng, bước"
+  },
+  "mob.tam-ma": {
+   "file": "assets/art/mob-tam-ma.png",
+   "v": "bfd6d414",
+   "w": 20,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    10,
+    20
+   ],
+   "note": "Tâm Ma (shade): đứng, bước"
   },
   "mob.tan-hon-hac-phong": {
    "file": "assets/art/mob-tan-hon-hac-phong.png",
@@ -757,6 +829,18 @@
    ],
    "note": "Thổ khôi (golem): đứng, bước"
   },
+  "mob.tho-ma-ve": {
+   "file": "assets/art/mob-tho-ma-ve.png",
+   "v": "502dabb9",
+   "w": 26,
+   "h": 28,
+   "frames": 2,
+   "anchor": [
+    13,
+    27
+   ],
+   "note": "Thổ Ma Vệ (person): đứng, bước"
+  },
   "mob.thu-moc-ve": {
    "file": "assets/art/mob-thu-moc-ve.png",
    "v": "319b9016",
@@ -828,6 +912,18 @@
     22
    ],
    "note": "U minh pháp sư (mage): đứng, bước"
+  },
+  "mob.u-minh-ve": {
+   "file": "assets/art/mob-u-minh-ve.png",
+   "v": "3b6821ac",
+   "w": 26,
+   "h": 28,
+   "frames": 2,
+   "anchor": [
+    13,
+    27
+   ],
+   "note": "U Minh Vệ (person): đứng, bước"
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",

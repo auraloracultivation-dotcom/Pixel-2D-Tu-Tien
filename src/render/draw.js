@@ -88,7 +88,8 @@ function drawMob(ctx, m, t, game) {
   shadow(ctx, m.x, m.y + 1, r);
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
-  if (m.def.person) {   // đấu sĩ luận võ: hình người, đai màu
+  if (m.def.look && drawMobSprite(ctx, game, m, t, wind)) {   // quái đã có hình pixel (tools/art/mobs.py)
+  } else if (m.def.person) {   // đấu sĩ luận võ: hình người, đai màu theo đối thủ
     drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
     ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
     if (wind) { ctx.strokeStyle = '#ff4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(m.x, m.y - 6, 9, 0, Math.PI * 2); ctx.stroke(); }
@@ -105,7 +106,7 @@ function drawMob(ctx, m, t, game) {
     drawPerson(ctx, m, m.def.color, '#120a1a', t, m.flash > 0, null);
     ctx.globalAlpha = 1; ctx.fillStyle = '#d0a0ff';
     ctx.fillRect(m.x - 1.8, m.y - 11.5, 1.2, 1.4); ctx.fillRect(m.x + 0.8, m.y - 11.5, 1.2, 1.4);
-  } else if (!drawMobSprite(ctx, game, m, t, wind)) {
+  } else {
     ctx.save();
     ctx.translate(m.x, m.y - r);
     ctx.scale(1 + squash, 1 - squash);
