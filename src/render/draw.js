@@ -11,6 +11,7 @@ import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
 import { drawClouds } from './draw-clouds.js';
+import { drawLamps, drawGlow } from './draw-glow.js';
 import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -253,6 +254,7 @@ export function drawWorld(game, screen, t) {
   drawTorches(ctx, game, screen.viewRect(), t);
   drawScenic(ctx, game);
   drawDecor(ctx, game, t);
+  drawLamps(ctx, game, t);
   drawCritters(ctx, game, t);
   drawWild(ctx, game, t);
   drawVeins(ctx, game, t);
@@ -300,6 +302,7 @@ export function drawWorld(game, screen, t) {
   }
   screen.screenTransform();
   drawDayNight(ctx, game, screen, t);
+  drawGlow(ctx, game, screen, t);
   drawWeather(ctx, game, screen, t);
   drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);

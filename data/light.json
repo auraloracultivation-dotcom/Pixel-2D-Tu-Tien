@@ -5,5 +5,6 @@
   "color": "10,6,22",
   "torch": { "every": 5, "radius": 50, "bands": [0.4, 0.7, 1], "flicker": 0.06, "warm": "255,150,60", "warm_alpha": 0.14 },
   "player": { "radius": 40, "bands": [0.5, 1] },
-  "lava": { "radius": 22, "warm_alpha": 0.1 }
+  "lava": { "radius": 22, "warm_alpha": 0.1 },
+ "night": {"_note": "Ánh đèn ban đêm ngoài trời (src/render/draw-glow.js): ô có trong tiles hắt quầng sáng (r điểm ảnh thế giới, c màu r,g,b) lên lớp tối đêm, trời càng tối càng rõ; edge: chỉ hàng dưới cùng của khối (nhà); every: cứ mấy ô một quầng (dung nham, nước). lamp: cột đèn lồng ở sân mỗi xóm mới (hamlets).", "tiles": {"H": {"r": 30, "c": "255,190,110", "edge": true, "dy": 4, "every": 2}, "W": {"r": 30, "c": "255,200,120", "edge": true, "every": 2}, "N": {"r": 30, "c": "255,170,90", "edge": true, "every": 2}, "z": {"r": 28, "c": "255,180,100", "edge": true, "every": 2}, "Q": {"r": 44, "c": "255,170,90"}, "K": {"r": 40, "c": "255,140,60"}, "A": {"r": 34, "c": "255,140,60"}, "P": {"r": 34, "c": "140,200,255"}, "M": {"r": 26, "c": "255,210,140"}, "L": {"r": 26, "c": "255,110,50", "every": 2}, "n": {"r": 18, "c": "150,255,190", "every": 2}, "*": {"r": 24, "c": "200,120,255"}, "S": {"r": 30, "c": "190,240,255"}}, "lamp": {"r": 52, "c": "255,180,100"}}
 }
