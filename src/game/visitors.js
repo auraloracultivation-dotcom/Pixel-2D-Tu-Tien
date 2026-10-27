@@ -17,6 +17,16 @@ export function strangerToday(game, friend) {
   return ok.length ? ok[seed % ok.length] : null;
 }
 export const isStranger = (game, id) => !!V(game).strangers[id];
+const freshStory = (game, id) => { const st = V(game).strangers[id]; return !!st && (game.save.stories?.[id] || 0) < st.stories.length; };
+
+// Tự hành: việc còn làm được với khách hôm nay (quà, nghe chuyện mới, ván cờ), theo thứ tự đó
+export function visitJob(game, id) {
+  const s = game.save, day = today();
+  if (s.visitGift !== day) return 'gift';
+  if (freshStory(game, id) && s.storyDay !== day) return 'talk';
+  if (s.chess !== day) return 'chess';
+  return null;
+}
 
 // Ván cờ ba nước kiểu oẳn tù tì: tấn công thắng bày thế, bày thế thắng phòng thủ, phòng thủ thắng tấn công
 async function chess(game, npc) {
@@ -59,7 +69,8 @@ export async function talkVisit(game, npc) {
   if (s.chess !== today()) opts.push({ id: 'chess', label: V(game).chess.label, desc: V(game).chess.desc, color: '#c8b080' });
   if (st?.trade && s.trade !== today()) opts.push({ id: 'trade', label: st.trade.label, desc: '', color: '#ffd24a' });
   if (!st) opts.push({ id: 'join', label: 'Rủ đi cùng', desc: s.companion ? `${game.data.npcs[s.companion].name} sẽ về nghỉ` : '' });
-  const ch = game.pilot && s.visitGift !== today() ? 'gift' : await game.dialog.choose(`${name}: ${line()}`, opts);
+  const auto = game.pilot && visitJob(game, id);   // tự hành: nhận quà, nghe chuyện mới (mỗi ngày một chuyện), đánh cờ
+  const ch = auto || await game.dialog.choose(`${name}: ${line()}`, opts);
   if (ch === 'talk') await story(game, npc, st, line);
   else if (ch === 'gift') {
     s.visitGift = today();
@@ -78,7 +89,7 @@ export async function talkVisit(game, npc) {
 async function story(game, npc, st, line) {
   if (!st) { await game.dialog.say([[npc.def.name, line()]]); return; }
   const s = game.save, heard = s.stories ??= {}, i = (heard[npc.id] || 0) % st.stories.length, fresh = (heard[npc.id] || 0) < st.stories.length;
-  heard[npc.id] = (heard[npc.id] || 0) + 1;
+  heard[npc.id] = (heard[npc.id] || 0) + 1; s.storyDay = today();
   await game.dialog.say([[npc.def.name, st.stories[i]]]);
   if (fresh) { game.gainQi(V(game).story_qi, game.player.x, game.player.y); game.toast(`Nghe chuyện, ngộ ra chút đạo lý. +${V(game).story_qi} linh khí`, 2.4); }
   game.persist();
