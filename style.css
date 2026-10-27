@@ -183,6 +183,7 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #topup-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; font-size: 13px; }
 .tp-head { margin-top: 6px; color: #2a6a8a; }
 .tp-note { color: #8a8498; }
+.tp-odds { display: block; margin: -2px 0 6px; color: #6a6478; font-size: 11px; line-height: 1.35; }
 /* Bảng Tông môn (ui/guild-panel.js) */
 #guild-list.chat { display: flex; flex-direction: column; gap: 3px; font-size: 13px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; }
 #guild-list.chat b { color: #6a4ab8; margin-right: 4px; }
