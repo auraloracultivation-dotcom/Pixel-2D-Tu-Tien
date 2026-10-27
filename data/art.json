@@ -193,6 +193,18 @@
    ],
    "note": "Ba Tiêu Phiến"
   },
+  "gear.bo-can": {
+   "file": "assets/art/gear-bo-can.png",
+   "v": "390056a1",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Bố Cân"
+  },
   "gear.bo-hai": {
    "file": "assets/art/gear-bo-hai.png",
    "v": "a30774ef",
@@ -265,6 +277,18 @@
    ],
    "note": "Hắc Phong Hài"
   },
+  "gear.hac-phong-quan": {
+   "file": "assets/art/gear-hac-phong-quan.png",
+   "v": "93df3284",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Hắc Phong Quan"
+  },
   "gear.han-bang-boi": {
    "file": "assets/art/gear-han-bang-boi.png",
    "v": "51aaa83f",
@@ -313,6 +337,18 @@
    ],
    "note": "Hàn Băng Hài"
   },
+  "gear.han-bang-quan": {
+   "file": "assets/art/gear-han-bang-quan.png",
+   "v": "957c3046",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Hàn Băng Quan"
+  },
   "gear.hau-tho-boi": {
    "file": "assets/art/gear-hau-tho-boi.png",
    "v": "cd706c9e",
@@ -360,6 +396,18 @@
     8
    ],
    "note": "Hậu Thổ Hài"
+  },
+  "gear.hau-tho-quan": {
+   "file": "assets/art/gear-hau-tho-quan.png",
+   "v": "25890a52",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Hậu Thổ Khôi"
   },
   "gear.hoa-hon-linh": {
    "file": "assets/art/gear-hoa-hon-linh.png",
@@ -432,6 +480,18 @@
     8
    ],
    "note": "Kim Cang Hài"
+  },
+  "gear.kim-cang-quan": {
+   "file": "assets/art/gear-kim-cang-quan.png",
+   "v": "8ce153c6",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Kim Cang Khôi"
   },
   "gear.kim-luan": {
    "file": "assets/art/gear-kim-luan.png",
@@ -541,6 +601,18 @@
    ],
    "note": "Thái Hư Hài"
   },
+  "gear.thai-hu-quan": {
+   "file": "assets/art/gear-thai-hu-quan.png",
+   "v": "f8aaf16e",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Thái Hư Quan"
+  },
   "gear.thanh-moc-bao": {
    "file": "assets/art/gear-thanh-moc-bao.png",
    "v": "447818b1",
@@ -589,6 +661,18 @@
    ],
    "note": "Thanh Mộc Hài"
   },
+  "gear.thanh-moc-quan": {
+   "file": "assets/art/gear-thanh-moc-quan.png",
+   "v": "56e10f6e",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Thanh Mộc Trâm"
+  },
   "gear.thanh-van-kiem": {
    "file": "assets/art/gear-thanh-van-kiem.png",
    "v": "56beff71",
@@ -624,6 +708,18 @@
     8
    ],
    "note": "Thiết Giới"
+  },
+  "gear.thiet-khoi": {
+   "file": "assets/art/gear-thiet-khoi.png",
+   "v": "390056a1",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Thiết Khôi"
   },
   "gear.thiet-kiem": {
    "file": "assets/art/gear-thiet-kiem.png",
@@ -732,6 +828,18 @@
     8
    ],
    "note": "Xích Diễm Hài"
+  },
+  "gear.xich-diem-quan": {
+   "file": "assets/art/gear-xich-diem-quan.png",
+   "v": "f2334f33",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Xích Diễm Quan"
   },
   "ground.a": {
    "file": "assets/art/ground-a.png",

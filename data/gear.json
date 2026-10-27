@@ -11,6 +11,8 @@
   "drop_from": 7,
   "drop_chance": 0.5
  },
+ "refine": {"_note": "Luyện pháp bảo (chủ dự án 28/10/2026: phân giải pháp bảo được mảnh, nâng càng cao càng tốn): phân giải một pháp bảo được salvage mảnh theo độ hiếm (mat); luyện từ bậc n lên n + 1 tốn ceil(base × r^n) mảnh, tối đa max bậc. Mỗi bậc chỉ số chính của pháp bảo thêm per, chiêu pháp bảo mạnh thêm skill (luật trọng điểm: giá nhân lên, sức mạnh cộng ít). Bậc lưu ở món (pb), không đổi chỉ số đã lưu nên máy chủ vẫn nhận.", "mat": "manh-phap-bao", "max": 20, "base": 3, "r": 1.35, "per": 0.06, "skill": 0.05,
+  "salvage": {"pham": 1, "linh": 2, "huyen": 4, "dia": 8, "thien": 16}},
  "sets": {
   "xich-diem": {"name": "Bộ Xích Diễm", "color": "#ff7a3a", "bonus": {"2": {"atk_pct": 8}, "4": {"lifesteal": 3, "crit_dmg": 20}}},
   "han-bang": {"name": "Bộ Hàn Băng", "color": "#9ad8ff", "bonus": {"2": {"def": 5}, "4": {"hp_pct": 15, "thorns": 12}}},

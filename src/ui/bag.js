@@ -8,6 +8,7 @@ import { coins, sell, sellPrice } from '../game/shop.js';
 import { dailyEvent } from '../game/daily.js';
 import { enhance, enhanceCost, setStats } from '../game/enhance.js';
 import { costText } from '../game/cave.js';
+import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
 
 const $ = id => document.getElementById(id);
 
@@ -130,11 +131,13 @@ export function createBag(game) {
         game.sfx(r === 'up' ? 'levelup' : 'hurt'); changed();
       }, !can);
     }
+    const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
+    if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save().mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save().mats[rm] || 0) < rc);
     const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save(), it);
     const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save().mats[lk.mat] || 0) >= lk.n;
     btn(`Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name}${locking ? `, khoá 1 dòng` : ''})`, () => { if (reroll(data, save(), it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk || (save().lingshi || 0) < fee);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
-    btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
+    btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
     btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, isEq(it.uid));
     box.append(acts);
     if (st.msg) { box.append(el('div', 'd-main', st.msg)); st.msg = ''; }

@@ -1,5 +1,5 @@
 """Biểu tượng trang bị 16×16 cho túi đồ: mỗi món gốc trong data/items.json bases một hình gear.<id>.
-Dáng theo ô đồ (vũ khí theo loại: kiếm, thương, quạt, đàn, cung; giáp, giày, nhẫn, ngọc bội, pháp bảo theo chiêu),
+Dáng theo ô đồ (vũ khí theo loại: kiếm, thương, quạt, đàn, cung; mũ, giáp, giày, nhẫn, ngọc bội, pháp bảo theo chiêu),
 màu theo bộ đồ (data/gear.json sets color), không thuộc bộ thì màu mặc định của ô. Viền mực, sáng trên trái."""
 import math
 from px import Canvas, hx
@@ -8,7 +8,7 @@ from mobs import tones, ell, rect, tri
 INK = hx('#1b1830')
 WOOD = [hx('#5a3a1a'), hx('#8a5a2a'), hx('#b07a3a'), hx('#d8a060'), hx('#f0c890')]
 GOLD = [hx('#8a5a10'), hx('#c8963a'), hx('#f2c94c'), hx('#fff0a0'), hx('#ffffff')]
-DEFAULT = {'vu-khi': '#c8d4ee', 'giap': '#8a7a6a', 'giay': '#7a5a3a', 'nhan': '#c8c8d8', 'ngoc-boi': '#6fd0a0', 'phap-bao': '#f2c94c'}
+DEFAULT = {'vu-khi': '#c8d4ee', 'mu': '#6a7a9a', 'giap': '#8a7a6a', 'giay': '#7a5a3a', 'nhan': '#c8c8d8', 'ngoc-boi': '#6fd0a0', 'phap-bao': '#f2c94c'}
 
 
 def _blade(c, P, x0, y0, n, w=1):
@@ -71,6 +71,19 @@ def cung(P):
     for x in range(2, 15):
         c.px(x, 8, P[2])   # mũi tên
     tri(c, 13, 6, 13, 10, 15, 8, P[3])
+    return c
+
+
+def mu(P):
+    c = Canvas(16, 16)
+    for y in range(4, 12):   # mũ quan: chỏm tròn, vành rộng
+        for x in range(16):
+            r = math.hypot(x + 0.5 - 8, (y + 0.5 - 11) * 1.3)
+            if r <= 6.2 and y < 11:
+                c.px(x, y, P[3] if x < 7 and y < 8 else P[2] if x < 10 else P[1])
+    rect(c, 2, 11, 13, 12, P[1]); rect(c, 2, 11, 12, 11, P[2])   # vành
+    rect(c, 5, 9, 10, 9, GOLD[2])   # đai vàng
+    rect(c, 7, 1, 8, 3, GOLD[2]); c.px(7, 1, GOLD[3])   # chóp
     return c
 
 
@@ -153,5 +166,5 @@ def gear_icon(base, sets):
     elif slot == 'phap-bao':
         c = phap_bao(P, base.get('art'))
     else:
-        c = {'giap': giap, 'giay': giay, 'nhan': nhan, 'ngoc-boi': ngoc_boi}[slot](P)
+        c = {'mu': mu, 'giap': giap, 'giay': giay, 'nhan': nhan, 'ngoc-boi': ngoc_boi}[slot](P)
     return c.outline(INK)
