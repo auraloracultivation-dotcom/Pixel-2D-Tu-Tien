@@ -153,6 +153,8 @@ try {
   const sn = read('snacks.json'), statIds = Object.keys(items.stats);   // linh thực: người bán đứng trên đúng tinh cầu, chỉ số có thật
   for (const [id, d] of Object.entries(sn.list)) need(maps[d.map]?.npcs.some(n => n.id === d.npc) && npcs[d.npc] && d.price > 0 && Object.keys(d.stats).length && Object.keys(d.stats).every(s => statIds.includes(s) && sn.stat_names[s]), `snacks/${id}: tinh cầu, người bán, giá hoặc chỉ số sai`);
   need(new Set(Object.values(sn.list).map(d => d.npc)).size === Object.keys(sn.list).length && sn.min > 0 && sn.keep > 0, 'snacks: mỗi người bán một món, min và keep phải dương');
+  const fa = read('fair.json');   // hội đèn: 7 ngày, tinh cầu có xóm, giờ hợp lệ
+  need(fa.days.length === 7 && fa.days.every(id => maps[id]?.hamlets?.length) && fa.hours[0] < fa.hours[1] && fa.hours[1] <= 24 && fa.qi >= 1 && fa.snack_price > 0 && fa.lines.length, 'fair: ngày, tinh cầu (phải có xóm), giờ hoặc số sai');
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');

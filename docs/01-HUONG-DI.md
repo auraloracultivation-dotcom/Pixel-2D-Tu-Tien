@@ -98,5 +98,5 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 2. Bản chơi tạm hình khối đơn giản: xong phần lớn (làng, Thiên Kiếm Phong, bí cảnh, đả tọa, online, chợ, tổ đội, tông môn).
 3. Ngay bây giờ: chiêu mạnh hơn, trọng điểm bồi dưỡng phần 1, cấp khó ×2 cho tháp và phó bản đang có; song song các việc bắt buộc trước CH Play.
 4. Ngay bây giờ (sáng 28/10): làm từ vĩ mô đến vi mô theo mục "Tinh hệ". Đã có tinh đồ; tiếp theo bay truyền tống, phóng mọi đảo thành tinh cầu tròn, rồi địa hình.
-5. Chill và hình: đèn ngoài trời, thú hiền, trận pháp sáng, lễ hội nhẹ; rồi hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
+5. Chill và hình: đèn ngoài trời, thú hiền, trận pháp sáng, lễ hội nhẹ (đã có đèn đêm, thú hiền, hội đèn mỗi tối một tinh cầu, linh thực ở xóm); rồi hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
 6. Lên CH Play, rồi ra nội dung theo mùa.

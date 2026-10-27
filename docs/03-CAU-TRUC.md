@@ -27,6 +27,10 @@ Người đang đi cùng cổ vũ lúc đánh (`src/game/cheer.js`, số ở `da
 
 Lớp đồ dùng đời sống, thực phẩm chức năng: mỗi tinh cầu một món đặc sản bán ở xóm, người bán là dân làng ở đó (Khoai nướng ở Thiên Kiếm Tinh, Xiên hỏa lang ở Xích Diễm, Chè tuyết liên ở Hàn Băng, Trà hắc điệp ở Hắc Phong, Canh nấm ở Thanh Mộc, Mật hoa ở Làng Tinh Linh, Nước giếng kim sa ở Thiên Kim, Cơm bậc thang ở Hậu Thổ). Chạm người bán → mua bằng Linh Thạch, ăn ngay, 20 phút cộng chỉ số nhỏ theo phần trăm (công, máu, bạo kích, sát thương bạo, tốc chạy, hồi chiêu), một món một lúc (`src/game/snack.js`, cộng vào `playerStats` ở `stats.js`, hiện ở dòng Lực chiến). Khác bữa nấu với đạo lữ (tăng linh khí đả tọa) và đan dược. Tự hành treo máy: hết món mà còn ít nhất 10 lần giá thì ghé người bán trên tinh cầu đang đứng mua một phần rồi mới treo.
 
+## Hội đèn (`data/fair.json`)
+
+Lễ hội nhẹ cho phần chill, cũng là chỗ người chơi gặp nhau buổi tối: mỗi tối 19 tới 23 giờ (giờ máy) một tinh cầu theo thứ trong tuần mở hội ở sân xóm đầu tiên (Chủ nhật Thiên Kiếm Tinh, thứ Hai Xích Diễm, rồi Hàn Băng, Hắc Phong, Thanh Mộc, Thiên Kim, thứ Bảy Hậu Thổ). Đứng trong 8 ô quanh sân: linh khí đánh quái và đả tọa x1,2 (`fairQi` nhân vào `eventMul('qi')`); linh thực tinh cầu đó nửa giá, ăn lâu gấp đôi. Dây đèn lồng quanh sân, quầng đèn ban đêm, từ 20 giờ có pháo hoa (`src/render/draw-fair.js`); dân làng gần đó nói câu hội. Bảng sự kiện và thẻ tinh cầu trên tinh đồ báo hội tối nay (`src/game/fair.js`).
+
 ## Bản đồ (`data/maps/*.json`)
 
 `grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà), `world: true` (bay tới được từ tinh đồ), `planet` (đã phóng thành tinh cầu tròn: đường kính `d`, gốc đảo cũ `origin`).
