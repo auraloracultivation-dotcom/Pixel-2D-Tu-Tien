@@ -57,8 +57,15 @@ export function autoAim(game, skillId) {
   return { x: Math.cos(a), y: Math.sin(a) };
 }
 
+// Hệ số đánh thường (config.combat): mang càng nhiều chiêu tấn công thì đánh thường càng nhẹ, chưa có chiêu thì giữ nguyên
+export function basicMul(game) {
+  const C = game.data.config.combat, S = game.data.skills;
+  const n = skillSlots(game).filter(id => id && S[id]?.mult).length;
+  return 1 - (1 - C.basic) * Math.min(1, n / C.basic_full);
+}
+
 function swing(game) {
-  const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)];
+  const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], dmg = p.atk * basicMul(game);
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
   const target = nearestMob(game, w.range + 24);
   if (target) {
@@ -68,7 +75,7 @@ function swing(game) {
   if (w.attack === 'shot') {   // đàn, cung: đòn thường là đạn
     shoot(game, {
       from: 'player', x: p.x + p.face.x * 6, y: p.y - 4 + p.face.y * 6, vx: p.face.x * w.speed, vy: p.face.y * w.speed,
-      r: w.radius, dmg: p.atk, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx,
+      r: w.radius, dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx,
     });
     p.swingT = 0.18;
     game.sfx('shoot', 0.6);
@@ -84,7 +91,7 @@ function swing(game) {
     if (d > w.range + m.r) continue;
     let da = Math.atan2(m.y - p.y, m.x - p.x) - ang;
     da = Math.atan2(Math.sin(da), Math.cos(da));
-    if (Math.abs(da) <= half || d < m.r + p.r + 2) hitMob(game, m, p.atk, { color: w.color });
+    if (Math.abs(da) <= half || d < m.r + p.r + 2) hitMob(game, m, dmg, { color: w.color });
   }
   p.swingT = 0.18;
   game.sfx('swing', 0.8);
