@@ -71,7 +71,7 @@ export function festSpawn(game, def) {
 
 function festKill(game, m) {
   const f = festival(game);
-  if (!f?.candy || m.id !== f.mob) return;
+  if (!f?.candy || (f.mob ? m.id !== f.mob : m.noQi || Math.random() >= f.drop_p)) return;   // quái lễ, hoặc mọi quái theo tỉ lệ
   const [lo, hi] = f.drop, n = lo + Math.floor(Math.random() * (hi - lo + 1));
   addMat(game.save, f.candy, n);
   game.number(m.x, m.y - 24, `+${n} ${game.data.cave.materials[f.candy].name}`, f.color);

@@ -26,9 +26,27 @@
     {"cost": 40, "label": "Rương trang bị Huyền phẩm", "give": {"item": "huyen"}}
    ]},
   {"id": "dong-chi-2026", "name": "Đông Chí", "from": "2026-12-21", "to": "2026-12-23", "color": "#bfe4ff", "greet": "Đông Chí, đêm dài nhất năm. Tông môn nấu chè trôi nước, ai cũng có phần.", "mul": {"qi": 1.3}, "gift": {"coins": 200, "qi": 300}},
+  {"id": "giang-sinh-2026", "name": "Đêm Tuyết Lành", "from": "2026-12-24", "to": "2026-12-28", "color": "#e8f4ff",
+   "greet": "Đêm Tuyết Lành! Người tuyết yêu lăn ra khắp các đảo, đánh tan là rơi kẹo gậy. Ông Già Tuyết ở Thiên Kiếm Phong đổi kẹo lấy quà.", "mul": {"qi": 1.3}, "gift": {"coins": 400, "stones": 3},
+   "mob": "nguoi-tuyet-yeu", "mob_n": 3, "candy": "keo-gay", "drop": [1, 2],
+   "npc": "ong-gia-tuyet", "npc_map": "thien-kiem-phong", "npc_at": [14, 17],
+   "swap": [
+    {"cost": 10, "label": "Túi Linh Thạch", "give": {"coins": 700}},
+    {"cost": 15, "label": "Ba viên Tẩy Luyện Thạch", "give": {"stones": 3}},
+    {"cost": 25, "label": "Một viên ngọc khảm", "give": {"gem": 1}},
+    {"cost": 45, "label": "Rương trang bị Địa phẩm", "give": {"item": "dia"}}
+   ]},
   {"id": "tet-2027", "name": "Tết Đinh Mùi", "from": "2027-02-04", "to": "2027-02-14", "color": "#ff4a4a",
-   "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử.", "mul": {"qi": 1.5, "coin": 1.5},
-   "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"}},
+   "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử. Quái khắp nơi rơi bao lì xì, mang tới Ông Đồ ở Thiên Kiếm Phong đổi lộc.", "mul": {"qi": 1.5, "coin": 1.5},
+   "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"},
+   "candy": "bao-li-xi", "drop_p": 0.12, "drop": [1, 1],
+   "npc": "ong-do", "npc_map": "thien-kiem-phong", "npc_at": [14, 17],
+   "swap": [
+    {"cost": 8, "label": "Lộc Linh Thạch", "give": {"coins": 888}},
+    {"cost": 16, "label": "Lộc Tẩy Luyện Thạch", "give": {"stones": 4}},
+    {"cost": 24, "label": "Lộc ngọc khảm", "give": {"gem": 2}},
+    {"cost": 50, "label": "Lộc đầu năm: rương Địa phẩm", "give": {"item": "dia"}}
+   ]},
   {"id": "tet-2028", "name": "Tết Mậu Thân", "from": "2028-01-24", "to": "2028-02-03", "color": "#ff4a4a",
    "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử.", "mul": {"qi": 1.5, "coin": 1.5},
    "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"}},
