@@ -2,6 +2,7 @@
 // Đạn thường (quái, linh thú, chiêu chưa có hình) vẫn là chấm tròn màu.
 import { circle } from '../world/draw-map.js';
 import { spriteImage } from './sprites.js';
+import { drawDragon } from './draw-ult.js';
 
 function drawShape(ctx, b) {
   ctx.fillStyle = b.color;
@@ -13,6 +14,7 @@ function drawShape(ctx, b) {
 export function drawBullets(ctx, game, t) {
   const sprites = game.data.art.sprites;
   for (const b of game.bullets) {
+    if (b.ult === 'dragon') { drawDragon(ctx, b, t); continue; }
     const spr = b.fx && sprites['proj.' + b.fx], im = spr && spriteImage(spr);
     if (!im) { drawShape(ctx, b); continue; }
     const i = Math.floor(t * 12) % spr.frames, s = Math.max(0.6, b.r / 4.5);

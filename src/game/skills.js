@@ -16,7 +16,7 @@ export function castSkill(game, id) {
       shoot(game, {
         from: 'player', x: p.x + fx * 6, y: p.y - 4 + fy * 6, vx: fx * s.speed, vy: fy * s.speed,
         r: s.radius, dmg: atk * s.mult, pierce: !!s.pierce, slow: s.slow, stun: s.stun, explode: s.explode,
-        color: s.color, life: s.range / s.speed, trail: true, fx: s.fx,
+        color: s.color, life: s.range / s.speed, trail: true, fx: s.fx, ult: s.ult,
       });
       break;
     case 'multi': {
@@ -27,7 +27,7 @@ export function castSkill(game, id) {
         shoot(game, {
           from: 'player', x: p.x + Math.cos(a) * 6, y: p.y - 4 + Math.sin(a) * 6, vx: Math.cos(a) * s.speed, vy: Math.sin(a) * s.speed,
           r: s.radius, dmg: atk * s.mult, pierce: !!s.pierce, slow: s.slow, explode: s.explode,
-          color: s.color, life: s.range / s.speed, trail: true, fx: s.fx,
+          color: s.color, life: s.range / s.speed, trail: true, fx: s.fx, ult: s.ult,
         });
       }
       break;
@@ -72,6 +72,7 @@ export function castSkill(game, id) {
       for (let i = 0; i < steps; i++) game.map.move(p, fx * s.dist / steps, fy * s.dist / steps);
       addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: s.color, life: 0.3 });
       p.dashT = 0.15;
+      if (s.ult) addFx(game, { type: 'ult', kind: s.ult, x: sx, y: sy, x2: p.x, y2: p.y, color: s.color, life: 0.6 });
       if (s.fx) burstFx(game, s.fx, p.x, p.y, 18, Math.atan2(fy, fx));
       for (const m of game.mobs) {
         if (m.dead) continue;
