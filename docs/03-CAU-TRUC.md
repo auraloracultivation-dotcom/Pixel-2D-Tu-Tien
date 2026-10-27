@@ -25,6 +25,8 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 **Địa hình** (`tools/terrain.py`, số ở `data/planets.json` → terrain, chạy một lần, bản đồ đã làm có `planet.terrain`): dãy núi `^`, một hồ hoặc biển, hai sông chảy từ chân núi ra mép (cứ vài ô có chỗ lội, qua đường mòn thành cầu); nước theo tinh cầu (`=` nước, `L` dung nham ở Xích Diễm, `O` băng nứt ở Hàn Băng, `f` khe hư không ở Vết Nứt). Không đặt lên đảo cũ, mép đĩa, bãi quái, cổng, NPC. Vẽ ở `src/world/draw-terrain.js`. Câu cá được cả ở bờ sông, hồ. Mây mờ trôi trên tinh cầu, có bóng dưới đất (`src/render/draw-clouds.js`).
 
+**Nhà cửa, cây cối** (`tools/settle.py`, số ở `data/planets.json` → settle, chạy một lần, bản đồ đã làm có `planet.settle`): xóm nhỏ ở vùng mới (sân và một tới ba căn nhà quay cửa ra sân, đường mòn nối về tâm, nhà theo tinh cầu: nhà ngói, nhà cháy, nhà trên cây, nhà rèn, nhà đất) và lùm cây (cây theo tinh cầu: cây xanh, cây khô, tùng tuyết, cổ thụ, tinh thể tím). Vùng mới hẹp vì đảo cũ chiếm giữa nên có tinh cầu chỉ xây được một xóm.
+
 **Bãi treo máy** (chủ dự án 28/10/2026): spawner có `farm: true` lấy số con, tốc hồi ở `data/planets.json` → farm (5 con, chết hồi sau 2,5 giây) để Tự đánh chém, tung chiêu liên tục; đồ, nguyên liệu, Linh Thạch rơi chỉ bằng `farm.loot` (0,4) lần quái thường (`m.lootMul` ở `loot.js`, `cave.js`, `shop.js`), linh khí giữ nguyên. Mỗi tinh cầu có quái 9 bãi: 4 bãi thường, 5 bãi vòng ngoài nhiễm ma khí.
 
 ## Tinh đồ (`data/starmap.json`)
