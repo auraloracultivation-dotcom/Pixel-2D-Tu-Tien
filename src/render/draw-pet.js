@@ -1,23 +1,37 @@
-// Linh thú đi theo, thú cưỡi dưới chân người chơi, vầng sáng quanh quái dị chủng (hình khối tạm).
+// Linh thú đi theo, thú cưỡi dưới chân người chơi, vầng sáng quanh quái dị chủng.
+// Linh thú, thú cưỡi có hình pixel pet.<id>, mount.<id> (tools/art/pets.py); chưa có hình thì vẽ hình khối như cũ.
+import { spriteImage } from './sprites.js';
+
 const INK = '#1b1830';
+
+// Vẽ khung f của hình id, chân ở (x, y), dir: 1 nhìn phải, -1 lật trái, k: cỡ. Trả false nếu chưa có hình.
+function sprite(ctx, art, id, f, x, y, dir, k = 1) {
+  const spr = art && art.sprites[id], im = spr && spriteImage(spr);
+  if (!im) return false;
+  ctx.save(); ctx.translate(Math.round(x), Math.round(y)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(im, (f % spr.frames) * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  ctx.restore();
+  return true;
+}
 const circle = (ctx, x, y, r) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
 
-export function drawPet(ctx, pet, t) {
+export function drawPet(ctx, pet, t, art) {
   // linh thú tiến hóa: to hơn, có vầng sáng
   if (pet.def.evo) {
     ctx.save(); ctx.translate(pet.x, pet.y); ctx.scale(1.4, 1.4); ctx.translate(-pet.x, -pet.y);
     ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 3); ctx.fillStyle = pet.def.color; circle(ctx, pet.x, pet.y - 4, 7); ctx.globalAlpha = 1;
-    drawBody(ctx, pet, t);
+    drawBody(ctx, pet, t, art);
     ctx.fillStyle = '#ffe27a'; ctx.fillRect(pet.x - 2, pet.y - 12 - (pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : 0), 4, 1.5);
     ctx.restore(); return;
   }
-  drawBody(ctx, pet, t);
+  drawBody(ctx, pet, t, art);
 }
 
-function drawBody(ctx, pet, t) {
+function drawBody(ctx, pet, t, art) {
   if (pet.sleep && !pet.moving) { drawSleep(ctx, pet, t); return; }
   const hop = pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : Math.sin(t * 3) * 0.5, y = pet.y - hop;
   ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
+  if (sprite(ctx, art, 'pet.' + pet.id, pet.moving ? Math.floor(pet.hop / Math.PI) : Math.floor(t * 2), pet.x, y + 1, pet.face < 0 ? -1 : 1, 0.7)) return;   // linh thú nhỏ hơn quái cùng loài
   ctx.fillStyle = INK; circle(ctx, pet.x, y - 4, 4.6);
   ctx.fillStyle = pet.def.color; circle(ctx, pet.x, y - 4, 3.8);
   // tai nhỏ và mắt nhìn theo hướng đi
@@ -39,9 +53,11 @@ function drawSleep(ctx, pet, t) {
 }
 
 // Thú cưỡi: thân dài, bốn chân bước, đầu theo hướng mặt
-export function drawMount(ctx, p, m, t) {
+// Trả về độ cao chỗ người cưỡi ngồi (để nâng người lên trên lưng thú).
+export function drawMount(ctx, p, m, t, art, id) {
   const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
   ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
+  if (sprite(ctx, art, 'mount.' + id, p.moving ? Math.floor(p.walkT * 8) : 0, p.x, p.y + 1, dir)) return 11;
   ctx.fillStyle = INK;
   for (const [lx, ph] of [[-6, 1], [-3, -1], [3, 1], [6, -1]]) ctx.fillRect(p.x + lx - 0.5, p.y - 4 + step * ph * 0.5, 2, 5);
   ctx.beginPath(); ctx.ellipse(p.x, p.y - 5, 9, 4.5, 0, 0, Math.PI * 2); ctx.fill();
@@ -50,6 +66,7 @@ export function drawMount(ctx, p, m, t) {
   ctx.fillStyle = m.color; circle(ctx, p.x + dir * 9, p.y - 9, 2.8);
   ctx.fillStyle = m.accent; ctx.fillRect(p.x + dir * 8 - 1, p.y - 14, 2, 3); ctx.fillRect(p.x - dir * 9, p.y - 7, 2, 2);
   ctx.fillStyle = INK; ctx.fillRect(p.x + dir * 10, p.y - 10, 1, 1.2);
+  return 6;
 }
 
 export function drawRareGlow(ctx, m, t) {

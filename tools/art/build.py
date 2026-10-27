@@ -17,6 +17,7 @@ from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
 from npcs import npc_frames  # noqa: E402
+from pets import pet_frames, mount_frames  # noqa: E402
 
 clean()
 
@@ -108,6 +109,17 @@ for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.
     if isinstance(_d, dict) and _d.get('look'):
         _f, _a = mob_frames(_d)
         save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): đứng, bước")
+
+
+# ---------------------------------------------------------------- linh thú, thú cưỡi (tools/art/pets.py)
+_root = Path(__file__).resolve().parents[2] / 'data'
+_pets, _mobs = (json.loads((_root / f).read_text(encoding='utf-8')) for f in ('pets.json', 'mobs.json'))
+for _id, _d in _pets['pets'].items():
+    _f, _a = pet_frames(_d, _mobs.get(_id, {}))
+    save('pet.' + _id, _f, _a, f"{_d['name']}: đứng, bước")
+for _id, _d in _pets['mounts'].items():
+    _f, _a = mount_frames(_d)
+    save('mount.' + _id, _f, _a, f"{_d['name']}: đứng, bước; người cưỡi ngồi trên yên")
 
 
 # ---------------------------------------------------------------- NPC chibi (tools/art/npcs.py): mỗi NPC trong data/npcs.json một tấm
