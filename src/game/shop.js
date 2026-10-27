@@ -53,9 +53,11 @@ export async function talkShop(game, npc) {
   for (;;) {
     const list = C(game).items.filter(x => !x.need || game.save.flags[x.need]);
     const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${x.price} ${C(game).name}`, color: coins(game.save) >= x.price ? '#f2c94c' : '#b8b0c8' }));
+    opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);
     if (!pick || pick === 'out') return;
+    if (pick === 'tn') { game.openTopup?.(); return; }
     const got = buy(game, list[+pick]);
     msg = got ? `Mua được ${got}.` : 'Không đủ Linh Thạch.';
     game.sfx(got ? 'pickup' : 'hurt');

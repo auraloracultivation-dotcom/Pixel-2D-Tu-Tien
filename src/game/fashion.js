@@ -27,4 +27,5 @@ export function outfit(game) {
 }
 
 export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
-  : f.from.achv ? `Thành tựu: ${game.data.status.achievements.find(a => a.id === f.from.achv)?.name}` : f.from.fest ? 'Quà lễ Tết' : '';
+  : f.from.achv ? `Thành tựu: ${game.data.status.achievements.find(a => a.id === f.from.achv)?.name}` : f.from.fest ? 'Quà lễ Tết'
+  : f.from.tn ? `${f.from.tn} ${game.data.topup.name} (Quầy Tiên Ngọc)` : '';

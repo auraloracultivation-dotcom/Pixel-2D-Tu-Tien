@@ -1,0 +1,33 @@
+{
+ "_note": "Tiên Ngọc và thẻ tháng (khung, chưa thu tiền thật). open false: gói nạp và thẻ tháng hiện giá nhưng chưa bấm mua được. Khi mở nạp thật phải chuyển Tiên Ngọc sang máy chủ (bảng sổ cái, nạp qua Google Play Billing, máy chủ xác minh hóa đơn), không cộng ở máy khách. starter: quà ra mắt một lần để thử quầy. shop: món đổi bằng Tiên Ngọc (give như phần thưởng việc hằng ngày, outfit là id thời trang có from.tn).",
+ "name": "Tiên Ngọc",
+ "color": "#7ae0ff",
+ "open": false,
+ "closed": "Chưa mở nạp. Khi game lên CH Play bản chính thức sẽ mở.",
+ "starter": 100,
+ "starter_text": "Quà ra mắt quầy Tiên Ngọc: +{n} Tiên Ngọc.",
+ "packs": [
+  {"id": "goi-1", "tn": 60, "bonus": 0, "vnd": 20000},
+  {"id": "goi-2", "tn": 300, "bonus": 30, "vnd": 99000},
+  {"id": "goi-3", "tn": 980, "bonus": 150, "vnd": 299000},
+  {"id": "goi-4", "tn": 1980, "bonus": 400, "vnd": 599000}
+ ],
+ "card": {"name": "Thẻ Tháng", "days": 30, "vnd": 59000, "now": 300, "daily": {"tn": 100, "give": {"coins": 300}},
+  "desc": "Nhận ngay {now} Tiên Ngọc, rồi mỗi ngày vào quầy nhận {tn} Tiên Ngọc và {coins} Linh Thạch trong {days} ngày.",
+  "left": "Thẻ còn {d} ngày.", "claim": "Nhận quà hôm nay", "claimed": "Hôm nay đã nhận."},
+ "shop": [
+  {"id": "da-tay", "label": "10 Tẩy Luyện Thạch", "tn": 60, "give": {"stones": 10}},
+  {"id": "ngoc-3", "label": "3 viên ngọc khảm", "tn": 90, "give": {"gem": 3}},
+  {"id": "ruong-dia", "label": "Rương trang bị Địa phẩm", "tn": 180, "give": {"item": "dia"}},
+  {"id": "ao-tien-nhan", "label": "Thời trang Tiên Nhân Bạch Y", "tn": 300, "outfit": "tien-nhan"},
+  {"id": "ao-hoang-kim", "label": "Thời trang Hoàng Kim Long Bào", "tn": 600, "outfit": "hoang-kim"}
+ ],
+ "title": "Quầy Tiên Ngọc",
+ "packs_head": "Gói nạp",
+ "shop_head": "Đổi Tiên Ngọc",
+ "buy": "Đổi",
+ "owned": "Đã có",
+ "soon": "Sắp mở",
+ "poor": "Chưa đủ Tiên Ngọc.",
+ "got": "Nhận: {got}."
+}
