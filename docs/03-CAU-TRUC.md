@@ -53,3 +53,7 @@ Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi 
 - `tools/check.mjs` so số trong migration với `data/` (giá Tiên Ngọc, quà, ngưỡng chỉ số, độ hiếm, thuế chợ): đổi số trong `data/` thì phải thêm migration mới.
 
 Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh khí. Muốn chặn hết thì chuyển việc tung đồ và tính linh khí vào hàm máy chủ (việc lớn, làm sau).
+
+## Tông môn người chơi
+
+`supabase/migrations/20261028010000_p2d_tong_mon.sql` (bảng `p2d_bang`, `p2d_bang_tv`, `p2d_bang_xin`, số ở `p2d_bang_cfg` khớp `data/guild.json`). Hàm `p2d_bang_*`: lập (Kim Đan + 20.000 Linh Thạch, trừ trên máy chủ), tìm, xin vào (tông môn mở thì vào thẳng), duyệt, đổi chức (Tông chủ, Phó tông chủ, Trưởng lão, Đệ tử), mời ra, nhường chức, rời, giải tán, điểm danh, góp Linh Thạch, nhận thưởng mốc tuần (mỗi người mỗi mốc một lần mỗi tuần, ghi ở `p2d_nhan_vat.bang_thuong`). Đồng môn được gọi bằng mã băm 12 ký tự, không lộ mã tài khoản. Chat tông môn là kênh `bang:<id>` của `p2d_chat`. Máy khách: `src/net/guild.js`, `src/game/guild.js` (lệnh đụng Linh Thạch chạy qua `cloud.run`), `src/ui/guild-panel.js`, `src/ui/guild-view.js`; chat theo kênh ở `src/game/world-chat.js`.

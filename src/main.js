@@ -20,6 +20,7 @@ import { initPwa, recoverStale } from './core/pwa.js';
 import { createMarketPanel } from './ui/market-panel.js';
 import { startMailCheck } from './game/market.js';
 import { createTopupPanel } from './ui/topup-panel.js';
+import { createGuildPanel } from './ui/guild-panel.js';
 
 async function boot() {
   initPwa(document.getElementById('btn-install'));
@@ -40,6 +41,7 @@ async function boot() {
   createSocialPanel(game);
   createMarketPanel(game); startMailCheck(game);
   createTopupPanel(game);
+  createGuildPanel(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }

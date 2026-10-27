@@ -154,6 +154,11 @@ try {
   need(items.main_per_lvl === 0.12 && items.line_per_lvl === 0.08 && gear.enhance.max === 10 && items.bag_size === 40, 'items: main_per_lvl/line_per_lvl/gear.max/bag_size đổi thì sửa cả p2d_mon_hop_le, p2d_luu (supabase/migrations)');
   const muaSql = lastWith(/function public\.p2d_mua/), tax = (muaSql.match(/ceil\(v_c\.gia \* ([0-9.]+)\)/) || [])[1];
   need(+tax === read('market.json').tax, `market.tax ${read('market.json').tax} khác thuế trong hàm p2d_mua (${tax})`);
+  // Tông môn: số trong data/guild.json phải khớp bảng p2d_bang_cfg trên máy chủ
+  const gdd = read('guild.json'), gm = lastWith(/insert into public\.p2d_bang_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/);
+  const gcfg = gm ? JSON.parse(gm[1]) : null, gkeys = ['need_realm', 'cost', 'max', 'max_pho', 'max_lao', 'checkin', 'donate', 'min_pts', 'leave_hours', 'milestones'];
+  need(gcfg && gkeys.every(k => JSON.stringify(gcfg[k]) === JSON.stringify(gdd[k])), `guild: số khác bảng p2d_bang_cfg trên máy chủ (${gkeys.filter(k => !gcfg || JSON.stringify(gcfg[k]) !== JSON.stringify(gdd[k])).join(', ')}); đổi số thì thêm migration mới`);
+  need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');
   const pt = read('party.json');
   need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');
   const mk = read('market.json');
