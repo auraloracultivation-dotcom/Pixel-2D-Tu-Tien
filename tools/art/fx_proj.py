@@ -7,6 +7,7 @@ from fx_nature import WOOD, EARTH
 STEEL = [hx(c) for c in ['#4a5a8a', '#8fa8d8', '#c8e0ff', '#eef6ff', '#ffffff']]
 SHAFT = [hx(c) for c in ['#5a3a20', '#8a5a30', '#c89a5a', '#f0d090']]
 SOUND = [hx(c) for c in ['#5a3a8a', '#9a6ad8', '#d8b0ff', '#f4e8ff', '#ffffff']]
+MOON = [hx(c) for c in ['#3a2458', '#6a4a9a', '#a88ad8', '#dccbf6', '#ffffff']]
 
 
 # ---------------------------------------------------------------- cầu lửa: đầu tròn, đuôi lửa bập bùng (4 khung lặp)
@@ -69,6 +70,24 @@ def crescent(frame):
         for x in range(4):
             if c.filled(x + 3, y) and BAYER4[y % 4][(x + frame) % 4] < 5:
                 c.px(x, y, STEEL[1])
+    return c
+
+
+# ---------------------------------------------------------------- lưỡi liềm tím xoay tròn (Tử Nguyệt Liềm): game cho xoay, 3 khung vệt tím mờ dần
+def scythe_blade(frame):
+    c = Canvas(17, 17)
+    cx = cy = 8
+    for y in range(17):
+        for x in range(17):
+            d1 = math.hypot(x - cx, y - cy)
+            d2 = math.hypot(x - cx - 2.6, y - cy + 1.2)
+            a = math.atan2(y - cy, x - cx)
+            if 4.5 < d1 <= 8 and d2 > 6 and not (-0.6 < a < 1.1):   # trăng khuyết, hở phía phải
+                edge = 8 - d1
+                c.px(x, y, MOON[4] if edge < 0.9 else MOON[3] if edge < 2 else MOON[2])
+            elif 5 < d1 <= 7.5 and -0.6 < a < 1.1 and BAYER4[y % 4][(x + frame) % 4] < 3:
+                c.px(x, y, MOON[1])   # vệt xoay sau lưỡi
+    c.px(cx, cy, hx('#f2c94c')); c.px(cx - 1, cy, hx('#c8963a')); c.px(cx, cy - 1, MOON[2])   # chắn vàng, ngọc tím giữa
     return c
 
 
@@ -143,5 +162,6 @@ def proj_sprites():
         'proj.vine': ([needle(f) for f in range(2)], (8, 3), 'kim gỗ có lá non ở đuôi, 2 khung'),
         'proj.rock': ([stone()], (4, 4), 'tảng đá ném, game cho xoay tròn'),
         'proj.arrow': ([arrow(f) for f in range(2)], (15, 3), 'mũi tên cung, lông đuôi, vệt gió 2 khung'),
+        'proj.liem': ([scythe_blade(f) for f in range(3)], (8, 8), 'lưỡi liềm tím xoay (Tử Nguyệt Liềm), game cho xoay tròn'),
         'proj.sound': ([sound_wave(f) for f in range(3)], (8, 8), 'sóng âm đàn: ba vòng cung loang ra, nốt nhạc nhỏ, 3 khung'),
     }

@@ -1,5 +1,5 @@
 """Biểu tượng trang bị 16×16 cho túi đồ: mỗi món gốc trong data/items.json bases một hình gear.<id>.
-Dáng theo ô đồ (vũ khí theo loại: kiếm, thương, quạt, đàn, cung; giáp, giày, nhẫn, ngọc bội, pháp bảo theo chiêu),
+Dáng theo ô đồ (vũ khí theo loại: kiếm, thương, quạt, đàn, cung, liềm; giáp, giày, nhẫn, ngọc bội, pháp bảo theo chiêu),
 màu theo bộ đồ (data/gear.json sets color), không thuộc bộ thì màu mặc định của ô. Viền mực, sáng trên trái."""
 import math
 from px import Canvas, hx
@@ -141,7 +141,29 @@ def phap_bao(P, art):
     return c
 
 
-SHAPES = dict(kiem=kiem, thuong=thuong, quat=quat, dan=dan, cung=cung)
+VIOLET = [hx('#3a2458'), hx('#6a4a9a'), hx('#a88ad8'), hx('#dccbf6'), hx('#ffffff')]
+SHAFT = [hx('#3a2450'), hx('#6a4a8a')]
+
+
+def liem(P):
+    c = Canvas(16, 16)
+    for i in range(12):   # cán tím sẫm chéo, chuôi nhọn vàng
+        c.px(2 + i, 14 - i, SHAFT[1] if i % 3 else SHAFT[0])
+    c.px(1, 15, GOLD[2]); c.px(4, 12, GOLD[2]); c.px(8, 8, GOLD[2])
+    for y in range(9):   # lưỡi liềm trăng khuyết cong sang trái rồi rủ xuống
+        for x in range(16):
+            d1 = math.hypot(x + 0.5 - 9, (y + 0.5 - 7.5) * 1.15)
+            d2 = math.hypot(x + 0.5 - 9.5, (y + 0.5 - 9.2) * 1.15)
+            if 4.5 < d1 <= 7.5 and d2 > 6 and x < 12:
+                edge = 7.5 - d1
+                c.px(x, y, VIOLET[4] if edge < 0.8 else VIOLET[3] if edge < 1.8 else VIOLET[2])
+    for x, y in ((11, 2), (13, 2), (12, 1), (12, 3)):
+        c.px(x, y, GOLD[2])   # chắn hình sao vàng
+    c.px(12, 2, VIOLET[1]); c.px(13, 3, GOLD[1])   # ngọc tím giữa
+    return c
+
+
+SHAPES = dict(kiem=kiem, thuong=thuong, quat=quat, dan=dan, cung=cung, liem=liem)
 
 
 def gear_icon(base, sets):

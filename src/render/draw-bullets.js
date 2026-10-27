@@ -23,7 +23,7 @@ export function drawBullets(ctx, game, t) {
     ctx.globalAlpha = 0.3; ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r + 2);
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
     ctx.translate(b.x, b.y);
-    ctx.rotate(b.fx === 'rock' ? t * 12 : Math.atan2(b.vy, b.vx));
+    ctx.rotate(b.fx === 'rock' || b.fx === 'liem' ? t * (b.fx === 'liem' ? 18 : 12) : Math.atan2(b.vy, b.vx));   // đá, lưỡi liềm xoay tròn
     ctx.scale(s, s);
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
