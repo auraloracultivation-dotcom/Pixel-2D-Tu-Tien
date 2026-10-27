@@ -84,6 +84,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 5. Chơi dọc là chính: nhiều người lười xoay ngang điện thoại, nên app khoá màn dọc (`manifest.webmanifest` → orientation portrait) và mọi giao diện thiết kế cho màn dọc trước. Tinh đồ mặc định thấy trọn hệ tròn. Chủ dự án thích chữ kiểu game, màu ấm, pixel; không thích kiểu hiện đại, máy móc.
 6. Lời thoại đã đổi theo tinh hệ: đảo thành tinh cầu, biển mây thành trời sao hoặc tinh hải (cá câu ở mép tinh cầu là cá tinh hải), Ma Vân là mây ma khí ở rìa tinh hệ, "xuống tầng mây" thành "bay ra vòng ngoài".
 7. Người chơi thích treo máy cày (chém, tung chiêu liên tục không bị ngắt): mỗi tinh cầu có vài bãi quái treo máy, quái chết hồi nhanh giữ đủ số con, nhưng tài nguyên rơi ít (`data/planets.json` → farm).
+8. Ma Vương tuần ở vòng ma khí (`data/demon.json`): mỗi tuần Ma Tổ sinh một Ma Vương trấn Phương Thiên Địa, mở từ Đại Thừa; hạ con nào thì con sau mạnh gấp đôi, thưởng chỉ nhích; hạ xong tịnh hoá tới tuần sau. Đây là nội dung cuối game cho người đã lên đỉnh.
 
 ## Lộ trình
 
