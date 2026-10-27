@@ -57,7 +57,7 @@ export function createMarketPanel(game) {
   function renderSell(box) {
     const s = game.save, list = [];
     for (const it of s.bag.filter(i => !isEquipped(s, i.uid) && !game.data.items.bases[i.base]?.dv)) list.push({ key: `i${it.uid}`, loai: 'mon', it, g: goodsName(game, 'mon', it), price: M.price.item[it.rarity] });
-    for (const [id, n] of Object.entries(s.mats)) if (n > 0 && matInfo(game.data, id)) list.push({ key: `m${id}`, loai: 'nl', id, n, g: { name: `${matInfo(game.data, id).name} ×${n}`, sub: 'Nguyên liệu' }, price: M.price.mat });
+    for (const [id, n] of Object.entries(s.mats)) if (n > 0 && matInfo(game.data, id) && id !== game.data.daovan.reroll.mat) list.push({ key: `m${id}`, loai: 'nl', id, n, g: { name: `${matInfo(game.data, id).name} ×${n}`, sub: 'Nguyên liệu' }, price: M.price.mat });
     if (!list.length) box.append(el('div', 'empty', M.empty_sell));
     for (const x of list) {
       const r = goodsRow(x.g, null, null);
