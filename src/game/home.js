@@ -1,7 +1,7 @@
 // Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ và mời uống trà.
 // Mỗi ngày còn có một người bạn đã thân hoặc một khách phương xa ghé chơi (visit, game/visitors.js). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
-import { phase } from './daynight.js';
+import { phase, hourNow } from './daynight.js';
 import { grant } from './daily.js';
 import { bump } from './achieve.js';
 import { setCompanion } from './companion.js';
@@ -72,6 +72,7 @@ export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (ga
 // Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
 export function updateHome(game, dt) {
   chime(game, dt);
+  greet(game);
   const hs = game.homeSay;   // lời chào chờ báo khách ghé chơi hiện xong rồi mới nói
   if (hs && (hs.t -= dt) <= 0) { game.homeSay = null; const n = game.npcs.find(x => x.id === hs.id); if (n) { n.bubble = { text: hs.text, t: 0 }; game.say(n.def.name, hs.text, 3); } }
   const n = songTuNpc(game), was = game.songTu, st = C(game).song_tu;
@@ -96,6 +97,20 @@ function zither(game, n, dt) {
   if (!s.zitherOnce) { s.zitherOnce = true; addEntry(game, game.data.journal.zither.replace('{name}', n.def.name)); }
   game.persist();
   game.say(n.def.name, pick(z.lines[n.id] || z.lines.default), 4);
+}
+
+// Đạo lữ chúc ngủ ngon lúc khuya, chào buổi sáng lúc sớm (mỗi loại một lần mỗi ngày)
+const inHours = (h, [a, b]) => a < b ? h >= a && h < b : h >= a || h < b;
+function greet(game) {
+  const g = C(game).greet, s = game.save, p = game.player, h = hourNow(game);
+  const n = game.homeSay ? null : game.npcs.find(x => x.home && Math.hypot(x.x - p.x, x.y - p.y) < g.range);
+  if (!n) return;
+  const key = inHours(h, g.night.hours) ? 'night' : inHours(h, g.morning.hours) ? 'morning' : null;
+  const day = new Date(Date.now() - (key === 'night' && h < g.night.hours[1] ? 86400000 : 0)).toDateString();   // sau nửa đêm vẫn tính là đêm hôm trước
+  if (!key || s.greet?.[key] === day) return;
+  (s.greet ??= {})[key] = day;
+  const text = pick(g[key].lines[n.id] || g[key].lines.default);
+  n.bubble = { text, t: 0 }; game.say(n.def.name, text, 3.2);
 }
 
 // Có chuông gió thì thỉnh thoảng leng keng khi đang ở động phủ

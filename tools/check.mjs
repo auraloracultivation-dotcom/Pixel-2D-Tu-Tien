@@ -128,6 +128,8 @@ try {
   const ck = read('cooking.json'), cmats = read('cave.json').materials;
   for (const [id, r] of Object.entries(ck.recipes)) need(Object.keys(r.need).every(m => cmats[m]) && r.buff.qi > 1 && r.buff.min > 0, `cooking/${id}: nguyên liệu hoặc hiệu ứng sai`);
   need(!ck.away || ck.recipes[ck.away.dish], 'cooking.away: món không có');
+  const gr = read('home.json').greet;
+  need(gr && ['night', 'morning'].every(k => gr[k].hours.length === 2 && gr[k].lines.default?.length), 'home.greet: thiếu giờ hoặc câu mặc định');
   const vis = read('visitors.json'), vnpc = read('npcs.json'), vmat = read('cave.json').materials;
   for (const [id, v] of Object.entries(vis.strangers)) need(vnpc[id] && v.stories.length && (!v.trade || Object.keys(v.trade.mats).every(m => vmat[m])), `visitors/${id}: thiếu NPC, chuyện kể hoặc hàng sai`);
   need(npcs[tower.npc] && maps[tower.map]?.tower, 'tower: npc hoặc bản đồ tháp không có');
