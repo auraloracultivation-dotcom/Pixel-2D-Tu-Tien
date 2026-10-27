@@ -1,6 +1,7 @@
 // Sự kiện theo giờ máy (data/events.json): cuối tuần nhân linh khí, mỗi tuần một sự kiện xoay vòng, lễ Tết nhận quà.
 import { grant } from './daily.js';
 import { addMat } from './cave.js';
+import { fairQi, fairEvent } from './fair.js';
 
 const C = game => game.data.events;
 const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -16,6 +17,7 @@ export function activeEvents(game, d = new Date()) {
   const cfg = C(game), list = [weekly(game, d)];
   if (isWeekend(d)) list.push({ id: 'cuoi-tuan', ...cfg.weekend, color: '#bff4ff', desc: `Linh khí từ đánh quái và đả tọa x${cfg.weekend.mul.qi}.` });
   const f = festival(game, d); if (f) list.push(f);
+  const h = fairEvent(game); if (h) list.push(h);   // hội đèn: chỉ báo, nhân linh khí khi đứng trong sân (fairQi)
   return list;
 }
 
@@ -23,7 +25,7 @@ export function activeEvents(game, d = new Date()) {
 export function eventMul(game, kind) {
   let k = 1;
   for (const e of activeEvents(game)) k *= e.mul?.[kind] || 1;
-  return k;
+  return kind === 'qi' ? k * fairQi(game) : k;
 }
 
 // Điểm săn yêu của tuần này (đổi tuần thì làm lại)

@@ -1,0 +1,28 @@
+{
+ "_note": "Hội đèn ở xóm (chill, lễ hội nhẹ; cũng là chỗ người chơi gặp nhau buổi tối): mỗi tối từ hours[0] tới trước hours[1] giờ (giờ máy), một tinh cầu theo thứ trong tuần mở hội ở sân xóm đầu tiên (days[0] là Chủ nhật). Đứng trong r ô quanh sân: linh khí đánh quái và đả tọa nhân qi; linh thực của tinh cầu đó giá nhân snack_price, ăn được lâu gấp snack_min. Dây đèn lồng giăng quanh sân (garland: n đèn trên vòng bán kính r ô). Từ fireworks.from giờ cứ every giây bắn một quả pháo hoa. Dân làng gần người chơi thỉnh thoảng nói câu hội (lines, cách nhau talk giây).",
+ "hours": [19, 23],
+ "days": ["thien-kiem-phong", "dao-xich-dien", "dao-han-bang", "hac-phong-dao", "dao-moc", "dao-thien-kim", "dao-hau-tho"],
+ "r": 8,
+ "qi": 1.2,
+ "snack_price": 0.5,
+ "snack_min": 2,
+ "garland": {"n": 12, "r": 3, "colors": ["#e0484a", "#ffb347", "#ffd27a", "#ff8ab8", "#e0484a", "#7ad0ff"]},
+ "fireworks": {"from": 20, "every": [5, 12], "height": [60, 95], "sparks": 26, "colors": ["255,200,90", "255,120,140", "140,220,255", "200,160,255", "255,240,200"]},
+ "talk": [8, 16],
+ "texts": {
+  "enter": "Hội đèn ở {map} tối nay! Ra sân xóm: linh khí x{qi}, linh thực nửa giá, ăn được lâu gấp đôi.",
+  "card": "Hội đèn tối nay (19 tới 23 giờ) ở sân xóm.",
+  "event": "Hội đèn ở {map}",
+  "event_desc": "Tối nay 19 tới 23 giờ. Đứng ở sân xóm: linh khí x{qi}, linh thực nửa giá."
+ },
+ "lines": [
+  "Tối nay có hội, ra sân xem đèn đi!",
+  "Pháo hoa sắp bắn rồi đó.",
+  "Quán xóm hôm nay nửa giá đấy.",
+  "Ma khí gần thì gần, hội vẫn phải mở.",
+  "Đèn này ta tự dán đó, đẹp không?",
+  "Đứng gần đèn mà đả tọa, ấm lắm.",
+  "Có hội là người khắp tinh hệ ghé chơi.",
+  "Ước một điều đi, đèn sẽ mang lên trời."
+ ]
+}

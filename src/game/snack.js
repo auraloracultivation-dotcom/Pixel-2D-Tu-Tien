@@ -1,6 +1,7 @@
 // Linh thực (data/snacks.json): mỗi tinh cầu một món đặc sản bán ở xóm. Mua bằng Linh Thạch, ăn ngay,
 // min phút cộng chỉ số nhỏ (tính trong stats.js); một món một lúc, món sau thay món trước.
 import { coins, addCoins } from './shop.js';
+import { fairSnack } from './fair.js';
 
 const S = game => game.data.snacks;
 const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '');
@@ -24,20 +25,20 @@ export function snackHud(game) {
 }
 
 export function buySnack(game, id) {
-  const d = S(game).list[id], T = S(game);
-  if (!d || coins(game.save) < d.price) return false;
-  addCoins(game, -d.price);
-  game.save.snack = { id, until: Date.now() + T.min * 60000 };
+  const d = S(game).list[id], T = S(game), k = d && fairSnack(game, d);   // tinh cầu đang có hội đèn: rẻ hơn, ăn lâu hơn
+  if (!d || coins(game.save) < k.price) return false;
+  addCoins(game, -k.price);
+  game.save.snack = { id, until: Date.now() + T.min * k.mul * 60000 };
   game.refreshStats(); game.persist(); game.sfx('pickup');
-  game.toast(fill(T.toast, { name: d.name, eff: effText(game, d), min: T.min }), 2.4);
+  game.toast(fill(T.toast, { name: d.name, eff: effText(game, d), min: T.min * k.mul }), 2.4);
   return true;
 }
 
 // Chạm người bán: chọn mua hay thôi
 export async function talkSnack(game, npc) {
-  const [id, d] = snackOf(game.data, npc.id), T = S(game);
+  const [id, d] = snackOf(game.data, npc.id), T = S(game), k = fairSnack(game, d);
   const pick = await game.dialog.choose(`${npc.def.name}: ${d.line}`, [
-    { id: 'buy', label: fill(T.buy, { name: d.name, price: d.price }), desc: fill(T.eff_label, { eff: effText(game, d), min: T.min }), color: '#f2a14a' },
+    { id: 'buy', label: fill(T.buy, { name: d.name, price: k.price }), desc: fill(T.eff_label, { eff: effText(game, d), min: T.min * k.mul }), color: '#f2a14a' },
     { id: 'no', label: T.no },
   ]);
   if (pick === 'buy' && !buySnack(game, id)) game.toast(T.poor, 1.6);
@@ -53,7 +54,7 @@ export function updateSnack(game) {
 export function snackJob(game) {
   if (activeSnack(game.save)) return null;
   const e = snackHere(game);
-  if (!e || coins(game.save) < e[1].price * S(game).keep) return null;
+  if (!e || coins(game.save) < fairSnack(game, e[1]).price * S(game).keep) return null;
   const n = game.npcs.find(x => x.id === e[1].npc);
   return n ? { snack: e[0], at: n } : null;
 }

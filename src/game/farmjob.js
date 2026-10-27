@@ -4,6 +4,7 @@ import { dist } from './combat.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 import { veinReady } from './gather.js';
 import { snackJob } from './snack.js';
+import { fairMap } from './fair.js';
 
 // Sức mình so một con quái (máu, công gấp mul lần): giống màu gợi ý ở cổng bí cảnh (dungeon.json → hint). >= hard là đánh được
 export function foeRatio(game, def, mul = 1) {
@@ -39,6 +40,16 @@ function farmPlanet(game, routeTo) {
   const ok = sm.bodies.filter(b => b.map && b.realm != null && b.realm <= realm && game.data.maps[b.map]?.spawners.some(s => s.farm) && game.save.visited?.[b.map]);
   ok.sort((a, b) => b.realm - a.realm || b.orbit - a.orbit);
   return ok.find(b => b.map === game.map.id || routeTo(game, b.map))?.map || null;
+}
+
+// Tối có hội đèn ở tinh cầu đã tới (tùy chọn "hoi"): ra sân xóm ngồi đả tọa, linh khí x1,2 và gặp người chơi khác
+export function fairJob(game, routeTo) {
+  if (!pilotOpt(game, 'hoi') || nightRest(game)) return null;
+  const id = fairMap(game);
+  if (!id || !game.save.visited?.[id]) return null;
+  if (game.map.id !== id) { const pt = routeTo(game, id); return pt ? { go: game.map.center(pt.at[0], pt.at[1]), to: id } : null; }
+  const hm = game.map.def.hamlets?.[0];
+  return hm ? { fair: true, sit: [hm[0], hm[1] + 1] } : null;
 }
 
 export function farmJob(game, routeTo) {

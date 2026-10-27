@@ -24,6 +24,7 @@ import { talkTieuLinh } from './critters.js';
 import { festNpc, talkFest } from './events.js';
 import { talkParty } from './party.js';
 import { snackOf, talkSnack } from './snack.js';
+import { inFair } from './fair.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -76,7 +77,7 @@ export function updateInteract(game) {
   const npc = nearestNpc(game, cfg.interact_range);
   const trib = !npc && game.trib.canStart();
   const st = !npc && !trib && nearStation(game);
-  const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
+  const med = !npc && !trib && !st && (nearTile(game, 'M', cfg.meditate.range) || inFair(game));   // sân hội đèn ngồi đả tọa được
   const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
   const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
   const vein = !npc && !trib && !st && !med && !view && !game.view && !game.fish && !game.dig && nearVein(game);   // mạch linh khoáng

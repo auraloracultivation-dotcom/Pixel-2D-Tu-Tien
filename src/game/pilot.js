@@ -11,7 +11,7 @@ import { autoGarden } from './autogarden.js';
 import { autoClaim } from './autoclaim.js';
 import { autoGrow } from './autogrow.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
-import { digJob, farmJob } from './farmjob.js';
+import { digJob, farmJob, fairJob } from './farmjob.js';
 import { buySnack } from './snack.js';
 import { startDig } from './gather.js';
 import { waterDir, fishAct } from './fishing.js';
@@ -139,7 +139,7 @@ function plan(game) {
   const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
   if (foe) return { fight: foe };
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
-  if (waiting(game)) return choreJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
+  if (waiting(game)) return choreJob(game, routeTo) || fairJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
