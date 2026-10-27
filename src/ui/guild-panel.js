@@ -4,6 +4,7 @@
 import { canGuild, guildState, loadMine, loadList, guildErr, guildAct, createGuild, guildChat, pullGuildChat, sendGuildChat } from '../game/guild.js';
 import { coins } from '../game/shop.js';
 import { renderHome, renderMembers } from './guild-view.js';
+import { chatLines } from './chat-line.js';
 
 const $ = id => document.getElementById(id);
 
@@ -75,13 +76,9 @@ export function createGuildPanel(game) {
   function renderChat(list, m) {
     if (!m) { list.append(el('div', 'empty', T.none)); return; }
     list.classList.add('chat');
-    const s = guildChat(game), names = game.data.realms.names;
+    const s = guildChat(game);
     if (!s.list.length) list.append(el('div', 'empty', s.err || T.chat_empty));
-    for (const x of s.list) {
-      const d = el('div', x.la_toi ? 'me' : null);
-      if (x.canh_gioi != null) d.append(el('small', null, `[${names[x.canh_gioi]}] `));
-      d.append(el('b', null, x.ten), x.chu); list.append(d);
-    }
+    chatLines(game, list, s.list, t => { msg = t; $('guild-msg').textContent = t; }, render);   // chạm tin người khác: chặn, báo cáo
     list.scrollTop = list.scrollHeight;
     $('guild-form').hidden = false;
   }

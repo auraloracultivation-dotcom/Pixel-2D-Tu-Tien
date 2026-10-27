@@ -2,7 +2,8 @@
 // tab Thế giới (chat chung cả máy chủ, game/world-chat.js) và tab Xếp hạng (ui/rank-view.js).
 import { sendEmote, sendChat } from '../game/social.js';
 import { createRankView } from './rank-view.js';
-import { worldState, pullWorld, sendWorld } from '../game/world-chat.js';
+import { worldState, pullWorld, sendWorld, unblockAll } from '../game/world-chat.js';
+import { chatLines } from './chat-line.js';
 
 const $ = id => document.getElementById(id);
 
@@ -31,16 +32,12 @@ export function createSocialPanel(game) {
   }
 
   function renderWorld() {
-    const on = !!game.online, s = worldState(game), names = game.data.realms.names;
+    const on = !!game.online, s = worldState(game);
     $('social-sub').textContent = note || (on ? s.err || w.sub : w.offline);
     const log = $('social-log'), atEnd = log.scrollTop + log.clientHeight >= log.scrollHeight - 8;
     log.innerHTML = '';
     if (!s.list.length) log.append(el('div', 'empty', on ? w.empty : w.offline));
-    for (const m of s.list) {
-      const d = el('div', m.la_toi ? 'me' : null);
-      if (m.canh_gioi != null) d.append(el('small', null, `[${names[m.canh_gioi]}] `));
-      d.append(el('b', null, m.ten), m.chu); log.append(d);
-    }
+    chatLines(game, log, s.list, t => { note = t; $('social-sub').textContent = t; }, renderWorld);   // chạm tin người khác: chặn, báo cáo
     if (atEnd) log.scrollTop = log.scrollHeight;
     $('social-input').disabled = $('social-send').disabled = !on;
   }
@@ -60,6 +57,8 @@ export function createSocialPanel(game) {
       b.onclick = () => rename(N);
       em.append(b);
     }
+    const nb = (game.save.blocked || []).length;
+    if (nb) { const b = el('button', 'mini', game.data.social.mod.unblock_all.replace('{n}', nb)); b.onclick = () => { unblockAll(game); render(); }; em.append(b); }
     const log = $('social-log'); log.innerHTML = '';
     const L = game.chatLog || [];
     if (!L.length) log.append(el('div', 'empty', c.empty));

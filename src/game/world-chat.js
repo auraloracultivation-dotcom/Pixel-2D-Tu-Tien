@@ -1,7 +1,7 @@
 // Chat lưu trên máy chủ theo kênh (data/social.json → world): kênh thế giới và kênh tông môn. Đọc lại mỗi vài giây khi đang mở tab, lọc từ bậy khi gửi và khi hiện.
 import { cleanText } from './social.js';
 
-const W = game => game.data.social.world;
+const W = game => game.data.social.world, M = game => game.data.social.mod;
 
 // Mỗi kênh một hàng tin: "the-gioi" (cả máy chủ), "bang:<id>" (tông môn, game/guild.js)
 export function chanState(game, kenh) {
@@ -37,7 +37,27 @@ export async function sendChan(game, kenh, text) {
   try {
     const { sendChat } = await import('../net/chat.js');
     await sendChat(kenh, t);
-  } catch (e) { return String(e?.message).includes('nhanh_qua') ? w.wait : w.error; }
+  } catch (e) { const m = String(e?.message); return m.includes('nhanh_qua') ? w.wait : m.includes('bi_cam') ? M(game).muted : w.error; }
   await pullChan(game, kenh);
   return '';
+}
+
+// Chặn: lưu mã người gửi (k, băm ở máy chủ) trong bản lưu; tin của người bị chặn ẩn ở mọi kênh
+export const isBlocked = (game, k) => !!k && (game.save.blocked || []).some(b => b.k === k);
+export function block(game, k, ten) {
+  if (!k || isBlocked(game, k)) return;
+  const L = (game.save.blocked ??= []);
+  L.push({ k, ten: String(ten || '').slice(0, 24) });
+  if (L.length > M(game).max) L.shift();
+  game.persist();
+}
+export function unblockAll(game) { game.save.blocked = []; game.persist(); }
+
+// Báo cáo một tin: trả về lời báo cho người chơi
+export async function report(game, id, reason) {
+  try {
+    const { reportChat } = await import('../net/chat.js');
+    await reportChat(id, reason);
+    return M(game).reported;
+  } catch (e) { return String(e?.message).includes('bao_nhieu') ? M(game).report_many : M(game).report_fail; }
 }
