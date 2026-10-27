@@ -30,7 +30,7 @@
   "kim-ly": {"name": "Kim Lý", "color": "#ffd24a", "desc": "Cá chép vàng hiếm, nghe nói mang may mắn. Món quà quý."},
   "kim-tu-ngu": {"name": "Kim Tu Ngư", "color": "#ffe27a", "desc": "Cá vảy vàng như sợi kim tuyến, chỉ có ở tinh hải quanh Thiên Kim Tinh."},
   "nham-ngu": {"name": "Nham Ngư", "color": "#d8a070", "desc": "Cá da sần như đá, sống ở tinh hải quanh Hậu Thổ Tinh."},
-  "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
+  "dao-van-thach": {"name": "Đạo Vận Thạch", "color": "#ffd27a", "desc": "Đá kết từ đạo vận. Đổi hệ một món Đạo Vận (Túi → chọn món → Đổi hệ). Có ở Con Đường Đạo Vận, không bán."}, "yeu-vuong-dan": {"name": "Yêu Vương Đan", "color": "#ff5ad8", "desc": "Rất hiếm. Nội đan của boss, dùng luyện Tẩy Tủy Đan."}
  },
  "mat_drops": {
   "moc-linh": [["linh-thao", 0.45]],

@@ -14,6 +14,7 @@
  ],
  "titles": {
   "so-nhap": {"name": "Sơ Nhập Tiên Đồ", "color": "#c8d0e8"},
+  "dao-van": {"name": "Đạo Vận Sơ Thành", "color": "#ffd27a"},
   "tru-co": {"name": "Đạo Cơ Vững Chắc", "color": "#e8f4ff"},
   "kim-dan": {"name": "Kim Đan Chân Nhân", "color": "#ffd24a"},
   "nguyen-anh": {"name": "Nguyên Anh Lão Tổ", "color": "#b48aff"},
@@ -57,6 +58,7 @@
   {"id": "uoc-nguyen", "name": "Gửi ước nguyện", "need": {"type": "lantern", "n": 7}, "text": "Thả hoa đăng 7 tối", "give": {"gem": 1, "coins": 300}, "title": "uoc-nguyen"},
   {"id": "ban-thu", "name": "Bạn của muôn thú", "need": {"type": "pat", "n": 100}, "text": "Vuốt ve linh thú 100 lần", "give": {"coins": 300}, "title": "ban-thu"},
   {"id": "tri-ky", "name": "Tri kỷ bên trà", "need": {"type": "tea", "n": 15}, "text": "Uống trà với đạo lữ 15 ngày", "give": {"stones": 3, "coins": 300}, "title": "tri-ky"},
+  {"id": "dao-van", "name": "Đạo vận sơ thành", "need": {"type": "flag", "flag": "dao-van-xong"}, "text": "Đi hết Con Đường Đạo Vận", "give": {"stones": 5, "coins": 1000}, "title": "dao-van"},
   {"id": "bep-am", "name": "Bếp ấm nhà vui", "need": {"type": "cook", "n": 10}, "text": "Nấu ăn cùng đạo lữ 10 bữa", "give": {"stones": 3, "coins": 300}, "title": "bep-am"}
  ]
 }

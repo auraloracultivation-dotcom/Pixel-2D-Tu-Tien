@@ -1,9 +1,10 @@
 // Cảnh giới, linh khí, chỉ số người chơi. Công thức lấy số từ data/realms.json.
-import { gearStats } from './items.js';
+import { gearStats, artOf } from './items.js';
 import { techStats } from './techniques.js';
 import { pillHp } from './cave.js';
 import { setStats } from './enhance.js';
 import { snackStats } from './snack.js';
+import { daoVanStats } from './daovan.js';
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
 }
@@ -33,7 +34,7 @@ export function rollRoot(data) {
 // Chiêu của pháp bảo đang mặc (ô phap-bao), không có thì null
 export function artSkill(save, data) {
   const it = save.bag?.find(i => i.uid === save.equip?.['phap-bao']);
-  return data.items.bases[it?.base]?.art || null;
+  return artOf(data, it);
 }
 
 // Loại vũ khí đang dùng: theo món mặc ở ô Vũ khí, chưa mặc thì theo cốt truyện (save.weapon)
@@ -50,6 +51,7 @@ export function playerStats(save, data) {
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(setStats(data, save).stats)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(snackStats(save, data))) g[s] = (g[s] || 0) + x;   // linh thực đang ăn
+  for (const [s, x] of Object.entries(daoVanStats(save, data))) g[s] = (g[s] || 0) + x;   // thưởng bộ Đạo Vận hợp hệ
   const v = s => g[s] || 0;
   return {
     maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)),

@@ -1,8 +1,9 @@
 // Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương), tab Tông môn (chức vị, cống hiến, đổi thưởng),
-// tab Sự kiện và tab Tự hành (bật tắt việc tự hành làm).
+// tab Đạo Vận (Con Đường Đạo Vận, bộ hợp hệ), tab Sự kiện và tab Tự hành (bật tắt việc tự hành làm).
 import { ensureDaily, taskDef, taskText, claimTask, claimChest, bountyLeft, rankOf, rankIdx, buy } from '../game/daily.js';
 import { renderEvents } from './event-tab.js';
 import { renderPilotOpts } from './pilot-tab.js';
+import { renderDaoVan } from './daovan-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -64,6 +65,7 @@ export function createDailyPanel(game) {
     if (tab === 'ngay') renderDay(list);
     else if (tab === 'su-kien') renderEvents(game, list, { card, mini, rewardText, say: t => { msg = t; } });
     else if (tab === 'tu-hanh') renderPilotOpts(game, list, { card, mini });
+    else if (tab === 'dao-van') renderDaoVan(game, list, { card, mini, say: t => { msg = t; } });
     else renderSect(list);
   }
 

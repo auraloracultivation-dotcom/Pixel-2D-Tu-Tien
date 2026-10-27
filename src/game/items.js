@@ -31,7 +31,7 @@ function rollLines(items, base, rar, lvl, rnd) {
 export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, rnd = Math.random } = {}) {
   ensureInv(save);
   const items = data.items;
-  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set); // đồ bộ chỉ rơi ở boss
+  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận
   const id = baseId || baseKeys[Math.floor(rnd() * baseKeys.length)];
   const base = items.bases[id];
   const minIdx = minRarity ? items.rarities.findIndex(r => r.id === minRarity) : 0;
@@ -49,7 +49,13 @@ export function addItem(data, save, item) {
 }
 
 export function itemName(data, item) {
-  return `${data.items.bases[item.base].name}${item.plus ? ' +' + item.plus : ''}${item.pb ? ' ★' + item.pb : ''}`;
+  return `${data.items.bases[item.base].name}${item.el ? ' · ' + (data.elements[item.el]?.name || '') : ''}${item.plus ? ' +' + item.plus : ''}${item.pb ? ' ★' + item.pb : ''}`;
+}
+
+// Chiêu của một pháp bảo (Đạo Vận Ấn: theo hệ của món)
+export function artOf(data, it) {
+  const b = data.items.bases[it?.base];
+  return b?.art_by_el?.[it.el] || b?.art || null;
 }
 
 export function equipped(save) {
@@ -171,7 +177,8 @@ export function gearStats(data, save) {
   const sum = {};
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
-    const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (data.items.bases[it.base]?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0));   // cường hoá × bậc luyện pháp bảo
+    const b = data.items.bases[it.base], dv = b?.dv && it.el && it.el === save.element ? 1 + (data.daovan?.match_main || 0) : 1;   // món Đạo Vận hợp hệ linh căn: chỉ số chính mạnh thêm
+    const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
     for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); add(gi.stat, gi.value); }

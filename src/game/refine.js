@@ -1,5 +1,6 @@
 // Luyện pháp bảo (data/gear.json → refine): phân giải pháp bảo ra mảnh, dùng mảnh nâng bậc pháp bảo (it.pb).
 // Bậc nhân chỉ số chính của pháp bảo và sức chiêu pháp bảo; không sửa chỉ số đã lưu trong món.
+import { artOf } from './items.js';
 const R = data => data.gear.refine;
 
 export const isArt = (data, it) => data.items.bases[it?.base]?.slot === 'phap-bao';
@@ -31,5 +32,5 @@ export function salvageArt(game, it) {
 // Chiêu pháp bảo mạnh thêm theo bậc của pháp bảo đang mặc
 export function artSkillMul(game, id) {
   const s = game.save, it = s?.bag?.find(i => i.uid === s.equip?.['phap-bao']);
-  return it && game.data.items.bases[it.base]?.art === id ? 1 + (it.pb || 0) * R(game.data).skill : 1;
+  return it && artOf(game.data, it) === id ? 1 + (it.pb || 0) * R(game.data).skill : 1;
 }
