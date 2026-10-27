@@ -1,19 +1,31 @@
 {
- "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao nhân vật trong thế giới (đơn vị bản đồ). anims: danh sách khung, fps: khung mỗi giây.",
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng). anims: danh sách khung, fps: khung mỗi giây. attacks: các động tác đánh, mỗi đòn chạy hết một lượt, lần lượt thay nhau.",
  "default": "nam",
  "list": {
   "nam": {
    "name": "Nam · kiếm tu",
-   "sprite": null,
-   "note": "Chờ tải chuyển động SpriteCook (đứng, đi, chém); tạm vẽ hình khối."
+   "sprite": "hero.nam",
+   "height": 28,
+   "anims": {
+    "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+    "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+    "chem": [16, 17, 18, 19, 20, 21, 22, 23]
+   },
+   "fps": { "idle": 7, "walk": 11, "chem": 22 },
+   "attacks": ["chem"]
   },
   "nu": {
    "name": "Nữ · thương tu",
    "sprite": "hero.nu",
-   "height": 34,
-   "anims": { "idle": [0], "walk": [1, 2, 3, 2], "attack": [4], "down": [5] },
-   "fps": { "idle": 1, "walk": 8, "attack": 1, "down": 1 },
-   "bob": 0.6
+   "height": 40,
+   "anims": {
+    "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+    "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+    "dam": [16, 18, 19, 20, 21, 22, 23],
+    "chem": [24, 25, 26, 27, 28, 29, 30, 31]
+   },
+   "fps": { "idle": 7, "walk": 11, "dam": 20, "chem": 22 },
+   "attacks": ["chem", "dam"]
   }
  }
 }
