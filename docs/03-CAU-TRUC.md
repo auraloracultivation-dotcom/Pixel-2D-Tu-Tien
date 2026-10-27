@@ -8,7 +8,7 @@ HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -
 | `src/core/` | Nạp dữ liệu, khung vẽ và máy quay, điều khiển (cần gạt, nút, bàn phím), lưu tiến trình trong máy. |
 | `src/world/` | Bản đồ: tra ô, va chạm, vẽ nền. |
 | `src/game/` | Vòng chơi (`game.js`), người chơi, quái và boss, trúng đòn và đạn, chiêu, cảnh giới, kịch bản, bí cảnh, đi đường (`travel`), tương tác (`interact`), đòn từ trời (`strikes`), thiên kiếp (`tribulation`), treo thưởng (`bounty`), trang bị (`items`, `loot`). |
-| `src/render/` | Vẽ người, quái, hiệu ứng, chỉ đường, cần gạt; `flight.js` vẽ cảnh ngự kiếm bay qua biển mây và xoáy truyền tống. |
+| `src/render/` | Vẽ người, quái, hiệu ứng, chỉ đường, cần gạt; `flight.js` vẽ người bay và xoáy truyền tống, `draw-space.js` cảnh bay truyền tống giữa các tinh cầu, `draw-starmap.js` tinh đồ. |
 | `src/ui/` | Thanh máu và linh khí, nút chiêu, hộp thoại, màn bay, menu (DOM trong `index.html`). |
 | `src/net/` | Nơi duy nhất gọi Supabase: `client` (khoá publishable, dự án Supabase Pixel2DTuTien), `auth` (đăng nhập bằng tên tài khoản, đăng ký qua hàm `dang-ky` trong `supabase/functions/`), `online` (kênh Realtime `p2d:<đảo>`: presence + vị trí, không ghi cơ sở dữ liệu; bí cảnh chơi riêng). Nạp lười: mất mạng vẫn chơi thử được. |
 | `tools/` | `check.mjs` kiểm tra tự động; `art/` vẽ hình pixel bằng code. |
@@ -27,7 +27,7 @@ Nút Bản đồ mở tinh đồ Thiên Kiếm Tinh Hệ: Linh Nhật ở giữa
 
 ## Đi đường
 
-Đảo sang đảo: cảnh ngự kiếm 4 giây (bay lên, mây và đảo trôi qua, đảo đích lớn dần, đáp xuống). Ra vào bí cảnh: xoáy truyền tống. Chạm màn hình sau 1 giây để bỏ qua. Số giây ở `config.travel`.
+Tinh cầu sang tinh cầu: bay truyền tống qua không gian sao (`src/game/space-trip.js`, vẽ ở `src/render/draw-space.js`), dài 5 giây cộng 0,9 giây mỗi vòng quỹ đạo cách nhau trên tinh đồ, tối đa 12 giây. Tinh cầu vừa rời lùi dần, cổng trận pháp lướt qua, tinh cầu đến lớn dần. Kéo nửa trái màn để lượn nhặt sao linh khí (mỗi sao một phần nhỏ linh khí của tầng đang tu, đôi khi có sao vàng cho Linh Thạch); không chạm thì nhân vật tự lượn. Va mảnh vỡ hư không chỉ chậm lại, không bao giờ thua. Chạm nửa phải sau 1 giây để bỏ qua. Ra vào bí cảnh: xoáy truyền tống (chạm đâu cũng bỏ qua được). Số ở `config.travel`.
 
 ## Thiên kiếp
 
