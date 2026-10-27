@@ -5,7 +5,7 @@ Bản chơi tạm hiện vẽ hình khối đơn giản. Khi sang bước 3, hì
 - Pixel thật: vẽ thế giới ra khung độ phân giải gốc, phóng nguyên lần bằng nearest neighbor, không làm mịn. 1 điểm ảnh hình = 2 đơn vị thế giới.
 - Viền 1 px tối cùng tông (hoặc mực #1b1830), bóng 3 tông đổi sắc, sáng từ trên trái, không khử răng cưa.
 - Hiệu ứng: không viền, lõi trắng, quầng sáng cộng; tan bằng dither Bayer 4×4.
-- Nhịp đánh: lấy đà → vệt chém nhanh (40 ms) → giữ đỉnh (70 ms) → tan. Trúng: khung chớp trắng, ám đỏ, đẩy lùi. Đứng yên: nhún 1 px.
+- Nhịp đánh: lấy đà → vệt chém nhanh (40 ms) → giữ đỉnh (70 ms) → tan. Trúng: khung chớp trắng, ám đỏ, đẩy lùi. Đứng yên: nhún 1 px. Đã làm (27/10/2026): `drawHitFrame` trong `src/render/sprites.js` vẽ nửa đầu thời gian chớp bằng bóng trắng, nửa sau ám đỏ mờ dần, cho cả quái và nhân vật chính. Không dùng `ctx.filter` vì Safari iPhone cũ không hỗ trợ.
 - Ánh sáng: hạ nền tối, dải sáng theo bậc, nhân màu ấm, viền sáng, bóng đổ.
 - Hình vẽ bằng code ở `tools/art/` (Python), xuất `assets/art/*.png` và `data/art.json`. Chạy: `python3 -I tools/art/build.py`. Bản nháp chưa dùng: 4 NPC chibi 22×26, bụi cây, vùng đất, số sát thương.
 - Quái đã có hình (27/10/2026): mỗi quái trong `data/mobs.json` có `look` (dáng: slime, imp, mage, wolf, wing, plant, beetle, golem, snake, lord) và `crown` (vua quái) thì `tools/art/mobs.py` vẽ riêng một tấm `mob.<id>` theo màu và cỡ của nó, 2 khung, nhìn phải. Game vẽ ở `src/render/draw-mob-sprite.js`. Quái hình người (luận võ, ma vệ), kiếm hồn, tâm ma, người tuyết, bí ngô vẫn vẽ hình khối.

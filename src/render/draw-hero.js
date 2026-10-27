@@ -1,5 +1,5 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
-import { spriteImage } from './sprites.js';
+import { spriteImage, drawHitFrame } from './sprites.js';
 
 export function heroLook(game) {
   const H = game.data.heroes;
@@ -40,8 +40,7 @@ export function drawHero(ctx, game, p, t, flash) {
   ctx.save();
   ctx.setTransform(n * (p.lookX || 1), 0, 0, n, Math.round(m.a * p.x + m.e), Math.round(m.d * p.y + m.f));
   ctx.imageSmoothingEnabled = n < 0.75;
-  if (flash) ctx.filter = 'brightness(3)';
-  ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
   return true;
 }
