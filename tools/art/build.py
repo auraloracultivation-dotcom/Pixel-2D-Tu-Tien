@@ -34,8 +34,8 @@ for sid, spec in CHARS.items():
 _SMOKE = [(0x7f, 0x80, 0x80), (0x7e, 0x80, 0x80)]   # khói xám SpriteCook lẫn vào quầng
 _f = sheet('nam-dung') + sheet('nam-di', drop=_SMOKE) + sheet('nam-chem') + sheet('nam-bo', drop=_SMOKE) + sheet('nam-hat', drop=_SMOKE) + sheet('nam-ngang')
 save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
-_f = shrink(fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-cheo') + sheet('liem-ngang') + sheet('liem-moc') + sheet('liem-bo')), 0.6)   # thân ~46 px như nam
-save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất, bổ xuống trước mặt; mỗi động tác 8 khung, mọi đòn vung về phía trước')
+_f = shrink(fit(sheet('liem-dung') + sheet('liem-di') + sheet('liem-cheo') + sheet('liem-ngang') + sheet('liem-moc')), 0.6)   # thân ~46 px như nam
+save('hero.nu', _f, foot(_f[0]), 'nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất; mỗi động tác 8 khung, mọi đòn vung về phía trước')
 
 # ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
 save('tile.grass', [W.grass(s) for s in range(4)], (0, 0), 'cỏ, 4 biến thể ghép liền')

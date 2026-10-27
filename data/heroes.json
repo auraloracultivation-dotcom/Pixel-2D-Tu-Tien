@@ -21,18 +21,17 @@
   "nu": {
    "name": "Nữ · liềm tu",
    "sprite": "hero.nu",
-   "height": 49,
+   "height": 36,
    "lunge": 5,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
     "cheo": [17, 18, 19, 20, 21, 22, 23],
     "ngang": [25, 26, 27, 28, 29, 30, 31],
-    "moc": [33, 34, 35, 36, 37, 38, 39],
-    "bo": [41, 42, 43, 44, 45, 46, 47]
+    "moc": [33, 34, 35, 36, 37, 38, 39]
    },
-   "fps": { "idle": 7, "walk": 11, "cheo": 14, "ngang": 14, "moc": 14, "bo": 14 },
-   "attacks": ["cheo", "ngang", "moc", "bo"]
+   "fps": { "idle": 7, "walk": 11, "cheo": 14, "ngang": 14, "moc": 14 },
+   "attacks": ["cheo", "ngang", "moc"]
   }
  }
 }

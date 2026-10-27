@@ -1035,15 +1035,15 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "40ba7e0f",
+   "v": "a2908d24",
    "w": 106,
-   "h": 104,
-   "frames": 48,
+   "h": 77,
+   "frames": 40,
    "anchor": [
     62,
-    102
+    75
    ],
-   "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất, bổ xuống trước mặt; mỗi động tác 8 khung, mọi đòn vung về phía trước"
+   "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất; mỗi động tác 8 khung, mọi đòn vung về phía trước"
   },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",
