@@ -11,7 +11,6 @@ from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
-import goddess  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
 
@@ -29,15 +28,6 @@ save('hero.nam', _f, foot(_f[0]), 'nam kiếm tu (SpriteCook): đứng, đi, ch�
 _f = sheet('nu-dung')
 _f = trim_above(_f, _f[0]) + sheet('nu-di') + sheet('nu-dam') + sheet('nu-chem') + sheet('nu-bo') + sheet('nu-hat') + sheet('nu-ngang')   # đứng: xoá giọt đỏ nhỏ lên trên quầng
 save('hero.nu', _f, foot(_f[0]), 'nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung')
-
-# sáu nữ thần theo hệ (ảnh chủ dự án gửi, chơi thử để chọn phong cách): hình tĩnh, nhún bằng code; thứ tự khung theo goddess.ORDER
-for _sid, _name, _k, _note in [('hero.than', 'nu-than-6', 5, 'chi tiết'), ('hero.than-don', 'nu-than-6-don-gian', 7, 'pixel khối to')]:
-    _f = goddess.same_size(list(goddess.heroes(_name, _k).values()))
-    save(_sid, _f, (_f[0].w // 2, _f[0].h - 2), f'sáu nữ thần ({_note}): Quang, Lôi, Băng, Thủy, Ám, Thời gian; mỗi khung một cô')
-_f = goddess.same_size(list(goddess.items('vu-khi').values()), middle=True)
-save('wpn.than', _f, (_f[0].w * 3 // 10, _f[0].h * 7 // 10), 'vũ khí sáu nữ thần, cán chéo xuống trái; neo ở chỗ cầm')
-_f = goddess.same_size(list(goddess.items('hieu-ung').values()), middle=True)
-save('fx.than', _f, (_f[0].w // 2, _f[0].h // 2), 'hiệu ứng chiêu sáu nữ thần, neo giữa')
 
 # ---------------------------------------------------------------- nền đảo 16×16 (tools/art/world.py, vẽ ở src/world/draw-ground.js)
 save('tile.grass', [W.grass(s) for s in range(4)], (0, 0), 'cỏ, 4 biến thể ghép liền')

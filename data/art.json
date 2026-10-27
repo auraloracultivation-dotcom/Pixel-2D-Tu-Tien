@@ -97,18 +97,6 @@
    ],
    "note": "tia lửa khi trúng, 4 khung"
   },
-  "fx.than": {
-   "file": "assets/art/fx-than.png",
-   "v": "643a9cfa",
-   "w": 46,
-   "h": 49,
-   "frames": 6,
-   "anchor": [
-    23,
-    24
-   ],
-   "note": "hiệu ứng chiêu sáu nữ thần, neo giữa"
-  },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",
    "v": "56fdf82d",
@@ -144,30 +132,6 @@
     116
    ],
    "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
-  },
-  "hero.than": {
-   "file": "assets/art/hero-than.png",
-   "v": "931ad50c",
-   "w": 78,
-   "h": 97,
-   "frames": 6,
-   "anchor": [
-    39,
-    95
-   ],
-   "note": "sáu nữ thần (chi tiết): Quang, Lôi, Băng, Thủy, Ám, Thời gian; mỗi khung một cô"
-  },
-  "hero.than-don": {
-   "file": "assets/art/hero-than-don.png",
-   "v": "f4518ee9",
-   "w": 59,
-   "h": 71,
-   "frames": 6,
-   "anchor": [
-    29,
-    69
-   ],
-   "note": "sáu nữ thần (pixel khối to): Quang, Lôi, Băng, Thủy, Ám, Thời gian; mỗi khung một cô"
   },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
@@ -972,18 +936,6 @@
     0
    ],
    "note": "số 0–9 vàng (bạo kích)"
-  },
-  "wpn.than": {
-   "file": "assets/art/wpn-than.png",
-   "v": "1c73bb16",
-   "w": 43,
-   "h": 52,
-   "frames": 6,
-   "anchor": [
-    12,
-    36
-   ],
-   "note": "vũ khí sáu nữ thần, cán chéo xuống trái; neo ở chỗ cầm"
   }
  }
 }
