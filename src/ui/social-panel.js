@@ -4,6 +4,8 @@ import { sendEmote, sendChat } from '../game/social.js';
 import { createRankView } from './rank-view.js';
 import { worldState, pullWorld, sendWorld, unblockAll } from '../game/world-chat.js';
 import { chatLines } from './chat-line.js';
+import { renderWhisper } from './whisper-view.js';
+import { whisperState, pullWhisper, sendWhisper, unreadCount } from '../game/whisper.js';
 
 const $ = id => document.getElementById(id);
 
@@ -16,7 +18,7 @@ function el(tag, cls, text) {
 
 export function createSocialPanel(game) {
   const S = game.data.social, c = S.chat, w = S.world;
-  let note = '', tab = 'chat', pullT = 0;
+  let note = '', tab = 'chat', pullT = 0, wPullT = 0;
   const rank = createRankView(game);
 
   function showTab(id) {
@@ -27,6 +29,7 @@ export function createSocialPanel(game) {
     $('social-rank').hidden = id !== 'rank';
     $('social-input').maxLength = id === 'world' ? w.max_len : c.max_len;
     $('social-input').placeholder = id === 'world' ? w.placeholder : c.placeholder;
+    if (id === 'whisper') { wPullT = Date.now(); pullWhisper(game).then(() => tab === 'whisper' && render()); }
     if (id === 'rank') rank.render(); else render();
     if (id === 'world') { pullT = Date.now(); pullWorld(game).then(() => tab === 'world' && render()); }
   }
@@ -44,6 +47,7 @@ export function createSocialPanel(game) {
 
   function render() {
     if (tab === 'world') { renderWorld(); return; }
+    if (tab === 'whisper') { renderWhisper(game, { log: $('social-log'), sub: $('social-sub'), input: $('social-input'), send: $('social-send'), note, redraw: render }); note = ''; return; }
     const on = !!game.online;
     $('social-sub').textContent = note || (on ? c.here.replace('{n}', game.others.visible().length) : c.offline);
     const em = $('social-emotes'); em.innerHTML = '';
@@ -93,6 +97,12 @@ export function createSocialPanel(game) {
   $('social-form').onsubmit = async ev => {
     ev.preventDefault();
     const inp = $('social-input');
+    if (tab === 'whisper') {
+      const text = inp.value; inp.value = '';
+      note = await sendWhisper(game, whisperState(game).with, text);
+      if (note) inp.value = text;
+      render(); return;
+    }
     if (tab === 'world') {
       const text = inp.value; inp.value = '';
       note = await sendWorld(game, text);
@@ -104,16 +114,20 @@ export function createSocialPanel(game) {
     render();
   };
   for (const b of document.querySelectorAll('#social-tabs [data-tab]')) {
-    b.textContent = { chat: S.rank.chat_tab, world: w.tab, rank: S.rank.tab }[b.dataset.tab];
+    b.textContent = { chat: S.rank.chat_tab, world: w.tab, whisper: S.whisper.tab, rank: S.rank.tab }[b.dataset.tab];
     b.onclick = () => showTab(b.dataset.tab);
   }
   $('btn-social').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   $('btn-rank').textContent = S.rank.tab;
   $('btn-rank').addEventListener('pointerdown', ev => { ev.stopPropagation(); open('rank'); });
   setInterval(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
-    $('social-badge').hidden = !game.chatNew || !$('social').hidden;
+    $('social-badge').hidden = !(game.chatNew || unreadCount(game)) || !$('social').hidden;
+    const wOpen = !$('social').hidden && tab === 'whisper';   // truyền âm: đọc tin mới định kỳ (mở tab thì nhanh hơn)
+    if (game.online && Date.now() - wPullT > S.whisper[wOpen ? 'open_poll' : 'poll'] * 1000) { wPullT = Date.now(); pullWhisper(game).then(n => n && wOpen && tab === 'whisper' && render()); }
     if (!$('social').hidden && game.chatNew && tab === 'chat') render();
     if (!$('social').hidden && tab === 'world' && Date.now() - pullT > w.poll * 1000) { pullT = Date.now(); pullWorld(game).then(n => n && tab === 'world' && render()); }
   }, 500);
+  // Nhắn riêng một người (chạm tin ở kênh Thế giới, tông môn → Truyền âm)
+  game.openWhisper = (k, ten) => { const s = whisperState(game); s.with = k; s.withName = ten; if ($('guild')) $('guild').hidden = true; if ($('social').hidden) { game.uiOpen = false; open('whisper'); } else showTab('whisper'); };
   return { open, close };
 }

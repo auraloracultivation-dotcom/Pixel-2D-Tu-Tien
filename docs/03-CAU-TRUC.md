@@ -87,6 +87,10 @@ Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh 
 
 `supabase/migrations/20261028050000_p2d_bao_cao_chat.sql`: mỗi tin `p2d_doc_chat` có thêm `k` (mã người gửi, `p2d_chat_key`, băm 12 ký tự). `p2d_bao_cao_chat(tin, lý do)` ghi `p2d_bao_cao` kèm nội dung tin; mỗi người 10 báo cáo mỗi ngày, mỗi tin một lần; 3 người khác nhau báo một người trong 24 giờ thì người đó vào `p2d_cam_chat` 24 giờ và `p2d_gui_chat` trả `bi_cam`. Máy khách: `src/ui/chat-line.js` (chạm tin người khác hiện Chặn, Báo cáo; dùng ở kênh thế giới và tông môn), danh sách chặn ở `save.blocked` (`src/game/world-chat.js`), nút bỏ chặn ở tab Trò chuyện. Chữ ở `data/social.json` → `mod`. Chủ dự án xem `p2d_bao_cao`, gỡ khoá bằng cách sửa `p2d_cam_chat.den` về quá khứ.
 
+## Truyền âm (nhắn riêng)
+
+`supabase/migrations/20261028100000_p2d_truyen_am.sql`: bảng `p2d_truyen_am` (người gửi, người nhận, nội dung tối đa 200 ký tự, đã đọc), chỉ đọc ghi qua hàm. `p2d_gui_truyen_am(mã chat, nội dung)`: người nhận gọi bằng mã chat 12 ký tự (`p2d_chat_key`, không lộ mã tài khoản), không tự gửi, người đang bị khoá chat không gửi được, 30 tin mỗi giờ. `p2d_doc_truyen_am(sau id)`: tin gửi và nhận trong 14 ngày, kèm mã và tên người bên kia. `p2d_da_doc_truyen_am(mã chat)`: đánh dấu đã đọc. Job `p2d-don-truyen-am` (2 giờ 47 sáng giờ Việt Nam) xoá tin quá 14 ngày; xoá tài khoản thì tin xoá theo khoá ngoại. Máy khách: `src/net/whisper.js`, `src/game/whisper.js` (gom theo người, đếm chưa đọc, lọc từ bậy, ẩn tin người bị chặn), tab Truyền âm ở bảng Đạo hữu (`src/ui/whisper-view.js`); chạm tin một người ở kênh Thế giới hoặc tông môn → Truyền âm. Có tin mới thì chấm đỏ ở nút Đạo hữu (đọc lại mỗi 30 giây, đang mở tab thì 5 giây). Chữ ở `data/social.json` → whisper.
+
 ## Chính sách, điều khoản, xoá tài khoản
 
 Trang tĩnh `privacy.html`, `terms.html`, `xoa-tai-khoan.html` (chung `legal.css`), có đường dẫn ở màn đầu cùng dòng cảnh báo sức khoẻ 180 phút. Đổi cách thu, giữ dữ liệu thì sửa bảng ở `privacy.html` cho khớp.
