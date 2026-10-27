@@ -17,12 +17,14 @@ import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 import { createSocialPanel } from './ui/social-panel.js';
 import { initPwa, recoverStale } from './core/pwa.js';
+import { catchErrors } from './core/catch-errors.js';
 import { createMarketPanel } from './ui/market-panel.js';
 import { startMailCheck } from './game/market.js';
 import { createTopupPanel } from './ui/topup-panel.js';
 import { createGuildPanel } from './ui/guild-panel.js';
 
 async function boot() {
+  catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
   initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
   const data = await loadData();
