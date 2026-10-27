@@ -11,3 +11,10 @@ export async function readChat(kenh, after = 0) {
   if (error) throw error;
   return data || [];
 }
+
+// Báo cáo một tin (p2d_bao_cao_chat): trả về { ok, cam }
+export async function reportChat(id, reason) {
+  const { data, error } = await supabase.rpc('p2d_bao_cao_chat', { p_tin: id, p_ly_do: reason });
+  if (error) throw error;
+  return data;
+}

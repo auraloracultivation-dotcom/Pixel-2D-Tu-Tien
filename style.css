@@ -197,3 +197,7 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #guild-form { display: flex; gap: 6px; }
 #guild-form[hidden] { display: none; }
 #guild-form .guild-input { margin-top: 0; flex: 1; }
+.chat-msg { cursor: pointer; }
+.chat-act { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin: 2px 0 6px 8px; }
+.chat-act small { width: 100%; color: #6a6478; }
+.chat-hidden { color: #8a8498; font-size: 11px; font-style: italic; margin: 4px 0; }
