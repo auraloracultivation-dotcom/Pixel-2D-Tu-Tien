@@ -65,7 +65,8 @@
  ],
  "spawns": {"vao": [10, 25], "tu-lang": [43, 24]},
  "portals": [{"at": [8, 25], "to": "thien-kiem-phong", "spawn": "tu-dao-moc", "label": "Truyền tống về Thiên Kiếm Tinh"}, {"at": [45, 24], "to": "lang-tinh-linh", "spawn": "vao", "need": "mo-lang", "label": "Làng Tinh Linh"}],
- "npcs": [],
+ "npcs": [{"id": "ong-hai-nam", "at": [21, 46]}, {"id": "be-la", "at": [20, 49]}],
  "spawners": [{"mob": "moc-yeu", "at": [22, 26], "n": 4, "spread": 3, "respawn": 6}, {"mob": "doc-dang", "at": [34, 19], "n": 3, "spread": 2, "respawn": 8}, {"mob": "moc-yeu", "at": [33, 32], "n": 3, "spread": 3, "respawn": 6}, {"mob": "doc-dang", "at": [17, 36], "n": 2, "spread": 3, "respawn": 8}, {"mob": "ma-tham-tu", "at": [39, 27], "n": 2, "spread": 2, "respawn": 20, "need": "pha-ao-lam"}, {"mob": "moc-yeu", "at": [22, 10], "farm": true}, {"mob": "moc-yeu", "at": [44, 20], "farm": true}, {"mob": "moc-yeu", "at": [31, 43], "farm": true}, {"mob": "moc-yeu", "at": [8, 32], "farm": true}, {"mob": "moc-yeu", "at": [48, 20], "farm": true, "mul": 2}, {"mob": "moc-yeu", "at": [39, 45], "farm": true, "mul": 2}, {"mob": "moc-yeu", "at": [12, 44], "farm": true, "mul": 2}, {"mob": "moc-yeu", "at": [5, 19], "farm": true, "mul": 2}, {"mob": "moc-yeu", "at": [27, 4], "farm": true, "mul": 2}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[21, 46], [20, 49]]
 }

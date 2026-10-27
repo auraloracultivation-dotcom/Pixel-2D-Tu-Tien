@@ -57,7 +57,8 @@
  ],
  "spawns": {"vao": [11, 23], "tu-hoa-quat": [23, 15]},
  "portals": [{"at": [9, 23], "to": "thien-kiem-phong", "spawn": "tu-xich-dien", "label": "Truyền tống về Thiên Kiếm Tinh"}, {"at": [23, 13], "to": "hoa-quat", "spawn": "vao", "need": "mo-hoa-quat", "label": "Hỏa Quật"}],
- "npcs": [{"id": "lao-thiet", "at": [16, 21]}, {"id": "a-moc", "at": [22, 25]}],
+ "npcs": [{"id": "lao-thiet", "at": [16, 21]}, {"id": "a-moc", "at": [22, 25]}, {"id": "lao-than", "at": [28, 41]}],
  "spawners": [{"mob": "hoa-lang", "at": [32, 20], "n": 4, "spread": 3, "respawn": 5}, {"mob": "viem-linh", "at": [26, 29], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-binh", "at": [28, 14], "n": 1, "spread": 1, "respawn": 12, "need": "tran-hoa-lang"}, {"mob": "hoa-lang", "at": [15, 35], "farm": true}, {"mob": "hoa-lang", "at": [10, 15], "farm": true}, {"mob": "hoa-lang", "at": [30, 10], "farm": true}, {"mob": "hoa-lang", "at": [35, 30], "farm": true}, {"mob": "hoa-lang", "at": [15, 40], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [3, 21], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [18, 4], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [39, 13], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [37, 35], "farm": true, "mul": 2}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[28, 41]]
 }

@@ -61,7 +61,8 @@
  ],
  "spawns": {"vao": [12, 25], "tu-hac-phong-dong": [25, 17]},
  "portals": [{"at": [10, 25], "to": "thien-kiem-phong", "spawn": "tu-hac-phong", "label": "Truyền tống về Thiên Kiếm Tinh"}, {"at": [25, 15], "to": "hac-phong-dong", "spawn": "vao", "need": "mo-hac-phong-dong", "label": "Hắc Phong Động"}],
- "npcs": [{"id": "mac-anh", "at": [17, 23], "need": "hac-phong"}, {"id": "trai-truong", "at": [20, 24], "need": "hac-phong"}, {"id": "lac-tuyet", "at": [15, 25], "need": "hac-phong", "unless": "cuu-tieu-hoa"}],
+ "npcs": [{"id": "mac-anh", "at": [17, 23], "need": "hac-phong"}, {"id": "trai-truong", "at": [20, 24], "need": "hac-phong"}, {"id": "lac-tuyet", "at": [15, 25], "need": "hac-phong", "unless": "cuu-tieu-hoa"}, {"id": "phong-thach", "at": [15, 9]}, {"id": "ba-do-den", "at": [36, 10]}],
  "spawners": [{"mob": "phong-yeu", "at": [31, 26], "n": 4, "spread": 3, "respawn": 5}, {"mob": "hac-diep", "at": [19, 31], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-phong-ve", "at": [25, 19], "n": 3, "spread": 2, "respawn": 20, "need": "pha-tran-gio"}, {"mob": "phong-yeu", "at": [25, 41], "farm": true}, {"mob": "phong-yeu", "at": [8, 25], "farm": true}, {"mob": "phong-yeu", "at": [24, 8], "farm": true}, {"mob": "phong-yeu", "at": [41, 24], "farm": true}, {"mob": "phong-yeu", "at": [40, 39], "farm": true, "mul": 2}, {"mob": "phong-yeu", "at": [15, 43], "farm": true, "mul": 2}, {"mob": "phong-yeu", "at": [4, 22], "farm": true, "mul": 2}, {"mob": "phong-yeu", "at": [21, 4], "farm": true, "mul": 2}, {"mob": "phong-yeu", "at": [43, 15], "farm": true, "mul": 2}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[15, 9], [36, 10]]
 }

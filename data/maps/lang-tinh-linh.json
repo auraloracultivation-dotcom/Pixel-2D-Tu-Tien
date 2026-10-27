@@ -52,7 +52,8 @@
  ],
  "spawns": {"vao": [8, 21], "tu-co-thu": [20, 14], "tu-re": [20, 27]},
  "portals": [{"at": [6, 21], "to": "dao-moc", "spawn": "tu-lang", "label": "Về Rừng Mê"}, {"at": [20, 12], "to": "co-thu-tam", "spawn": "vao", "need": "mo-co-thu", "kind": "portal", "label": "Cổ Thụ Tâm"}, {"at": [20, 28], "to": "re-mau-thu", "spawn": "vao", "need": "mo-re-mau-thu", "kind": "portal", "label": "Rễ Mẫu Thụ"}],
- "npcs": [{"id": "truong-lao-moc", "at": [20, 16], "need": "dao-moc"}, {"id": "linh-nhi", "at": [15, 23], "need": "dao-moc"}, {"id": "thanh-diep", "at": [23, 19], "need": "cuu-thanh-diep"}],
+ "npcs": [{"id": "truong-lao-moc", "at": [20, 16], "need": "dao-moc"}, {"id": "linh-nhi", "at": [15, 23], "need": "dao-moc"}, {"id": "thanh-diep", "at": [23, 19], "need": "cuu-thanh-diep"}, {"id": "tieu-moc-linh", "at": [17, 7]}],
  "spawners": [{"mob": "thu-moc-ve", "at": [20, 14], "n": 2, "spread": 1, "respawn": 6, "need": "dot-re-doc", "unless": "mo-co-thu"}, {"mob": "hac-cuc-mam", "at": [20, 22], "n": 4, "spread": 6, "respawn": 5, "need": "mau-thu-heo", "unless": "mo-re-mau-thu"}],
- "rooms": []
+ "rooms": [],
+ "hamlets": [[17, 7]]
 }

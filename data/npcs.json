@@ -42,5 +42,17 @@
  "lao-ngu-ong": {"name": "Lão Ngư Ông", "color": "#6a8aa0", "hair": "#e8e8e8", "lines": ["Nước trong thì cá tự tới."]},
  "hoa-su": {"name": "Họa sư Mặc Vân", "color": "#3a3a4a", "hair": "#1b1830", "lines": ["Đứng yên một chút, tại hạ đang vẽ."]},
  "thuong-nhan": {"name": "Thương nhân Kim Bảo", "color": "#d8a040", "hair": "#4a2a1a", "lines": ["Hàng tốt giá phải chăng!"]},
- "du-tang": {"name": "Đạo sĩ Thanh Phong", "color": "#c8c0a0", "hair": "#8a8a8a", "lines": ["Vân du bốn bể, đâu cũng là nhà."]}
+ "du-tang": {"name": "Đạo sĩ Thanh Phong", "color": "#c8c0a0", "hair": "#8a8a8a", "lines": ["Vân du bốn bể, đâu cũng là nhà."]},
+ "tieu-phu": {"art": {"style": "spiky"}, "stroll": 3, "name": "Bác Tiều Phu", "color": "#8a6a3a", "hair": "#5a5a5a", "lines": ["Củi trên tinh cầu này cháy lâu lắm, nhờ linh khí từ Linh Nhật đấy.", "Kiếm tông ở ngay kia che chở, nên xóm nhỏ này yên lắm."]},
+ "lao-than": {"art": {}, "stroll": 3, "name": "Lão Than", "color": "#6a4a44", "hair": "#d8d2c4", "lines": ["Nhà cháy hết rồi, nhưng đất ở đây ấm, ta không đi đâu cả.", "Hỏa lang ngoài kia chết là hồi lại ngay, cứ đứng đó mà luyện tay."]},
+ "tuyet-nhi": {"art": {"style": "long"}, "stroll": 3, "name": "Cô Tuyết Nhi", "color": "#cfe2f0", "hair": "#f4f6fa", "lines": ["Ban đêm tinh hải đóng băng lấp lánh như ngàn ngôi sao nhỏ.", "Ra mép tinh cầu câu cá đi, cá băng ngọt lắm."]},
+ "phong-thach": {"art": {"style": "spiky"}, "stroll": 3, "name": "Anh Phong Thạch", "color": "#5e566a", "hair": "#2a2238", "lines": ["Gió đen thổi từ phía ma khí. Càng ra xa, quái càng dữ.", "Thấy con quái có vòng tím chưa? Quái nhiễm ma khí đấy, mạnh gấp đôi."]},
+ "ba-do-den": {"art": {"style": "long"}, "stroll": 2, "name": "Bà Đồ Đen", "color": "#3a3446", "hair": "#c8c2d4", "lines": ["Bà dệt áo bằng lông hắc điệp, mặc vào gió đen không lùa được.", "Cháu ngồi nghỉ chút đi, đánh mãi cũng mỏi tay."]},
+ "tieu-moc-linh": {"art": {"style": "long", "acc": ["mark"]}, "stroll": 3, "name": "Tiểu Mộc Linh", "color": "#9ad86a", "hair": "#4a7a2a", "lines": ["Cây mẹ nói tinh hệ đang ốm, ma khí như nấm mốc ăn dần vỏ cây.", "Thỏ và nai ở đây không sợ người đâu, anh chị cứ đi dạo."]},
+ "ong-hai-nam": {"art": {}, "stroll": 3, "name": "Ông Hái Nấm", "color": "#6a8a4a", "hair": "#e8e4d4", "lines": ["Nấm phát sáng không ăn được, nhưng soi đường ban đêm thì tuyệt.", "Rừng già này đẹp nhất lúc hoàng hôn, cháu thử ngắm xem."]},
+ "be-la": {"art": {"style": "spiky"}, "stroll": 3, "name": "Bé Lá", "color": "#7cc46a", "hair": "#6a4a2a", "lines": ["Anh chị có thấy con nai con chạy qua đây không?", "Lớn lên em cũng muốn tu tiên giống anh chị!"]},
+ "tho-kim-sa": {"art": {"style": "spiky"}, "stroll": 2, "name": "Thợ Rèn Kim Sa", "color": "#a8987a", "hair": "#3a3226", "lines": ["Kim sa đem rèn kiếm thì sắc lắm, nhưng gió cát mài mòn cả tay người.", "Kiếm hồn ngoài bãi hồi liên tục, luyện kiếm thì tốt nhưng chẳng rơi mấy thứ đâu."]},
+ "co-ban-nuoc": {"art": {"style": "long"}, "stroll": 3, "name": "Cô Bán Nước", "color": "#e0c070", "hair": "#4a3424", "lines": ["Nước giếng mát đây, uống một ngụm rồi đi tiếp nhé đạo hữu.", "Đêm ở sa mạc thấy rõ cả vòng ma khí tím ở chân trời."]},
+ "lao-nong": {"art": {}, "stroll": 3, "name": "Lão Nông Thổ", "color": "#8a9a4a", "hair": "#d8d2c4", "lines": ["Ruộng bậc thang này ta cày bốn mươi năm rồi. Đất ở đây biết thở.", "Hậu Thổ Tinh gần ma khí, đêm nào cũng nghe tiếng gầm từ phía ngoài."]},
+ "chi-ganh-da": {"art": {"style": "long"}, "stroll": 3, "name": "Chị Gánh Đá", "color": "#b07a4a", "hair": "#3a2618", "lines": ["Đá ở đây nặng mà chắc, xây tường chắn ma khí là tốt nhất.", "Gánh đá mỏi vai thì ngồi ngắm trời sao một lát là khỏe."]}
 }

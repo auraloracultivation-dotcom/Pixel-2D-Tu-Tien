@@ -64,3 +64,14 @@ export function drawCritters(ctx, game, t) {
     if (k.ready) { const g = 0.6 + 0.4 * Math.sin(t * 5 + x); ctx.globalAlpha = g; R(ctx, '#ffd84a', x - 1, y - 22 + Math.sin(t * 3) * 1.5, 3, 3); R(ctx, '#fff6c8', x, y - 21 + Math.sin(t * 3) * 1.5, 1, 1); ctx.globalAlpha = 1; }
   }
 }
+
+// Thú hiền trên tinh cầu (src/game/wildlife.js): bóng dưới đất, chim bay thì vẽ cao lên, dụi đầu thì hiện tim
+export function drawWild(ctx, game, t) {
+  if (!game.wild?.length) return;
+  for (const a of game.wild) {
+    const x = Math.round(a.x), y = Math.round(a.y), h = Math.round(a.h || 0);
+    ctx.globalAlpha = 0.25; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, y, 4 - h / 12, 1.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+    KINDS[a.kind]?.(ctx, x, y - h, a.face, t, a.moving || h > 0);
+    if (a.heart > 0) { const k = a.heart, hy = y - 16 - (1.6 - k) * 8; ctx.globalAlpha = Math.min(1, k); R(ctx, '#ff6a8a', x - 2, hy, 2, 2); R(ctx, '#ff6a8a', x + 1, hy, 2, 2); R(ctx, '#ff6a8a', x - 2, hy + 1, 5, 2); R(ctx, '#ff6a8a', x - 1, hy + 3, 3, 1); R(ctx, '#ff6a8a', x, hy + 4, 1, 1); ctx.globalAlpha = 1; }
+  }
+}
