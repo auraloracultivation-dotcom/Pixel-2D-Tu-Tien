@@ -30,3 +30,18 @@ export function drawBullets(ctx, game, t) {
     ctx.restore();
   }
 }
+
+// Lửa rơi của boss, thiên kiếp hỏa: cầu lửa pixel lao chéo xuống chỗ vòng báo. h: độ cao còn lại.
+export function drawMeteor(ctx, game, x, y, h, t) {
+  const spr = game.data.art.sprites['proj.fire'], im = spr && spriteImage(spr);
+  if (!im) return false;
+  ctx.save();
+  ctx.translate(x + h * 0.4, y - h);
+  ctx.rotate(Math.atan2(1, -0.4));
+  ctx.scale(1.4, 1.4);
+  ctx.imageSmoothingEnabled = false;
+  const i = Math.floor(t * 12) % spr.frames;
+  ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  ctx.restore();
+  return true;
+}
