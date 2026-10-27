@@ -1,4 +1,4 @@
-// Tự hành (nút Tự hành): nhân vật tự đi làm nhiệm vụ truyện. Tìm đường qua cổng giữa các đảo, đi bộ tới NPC,
+// Tự hành (nút Tự hành): nhân vật tự đi làm nhiệm vụ truyện. Linh khí đầy thì không tự độ kiếp, chỉ nhắc người chơi. Tìm đường qua cổng giữa các đảo, đi bộ tới NPC,
 // đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss. Truyện chờ tu luyện thì làm việc vặt (chores.js),
 // hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó. Nhặt được đồ tốt hơn thì tự mặc (autoequip.js).
 import { dist } from './combat.js';
@@ -10,7 +10,7 @@ import { autoPills } from './autopill.js';
 import { autoGarden } from './autogarden.js';
 import { autoClaim } from './autoclaim.js';
 import { autoGrow } from './autogrow.js';
-import { pilotOpt, nightRest } from './pilotopt.js';
+import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
 import { harvestAll, gotText } from './garden.js';
@@ -34,8 +34,27 @@ export function stopPilot(game, text) {
   if (text) game.toast(text, 2.6);
 }
 
+// Đang chờ tu luyện (truyện cần lên tầng, cảnh giới): tự hành làm việc vặt
+const waiting = game => { const u = game.story.current()?.until; return !u || u.never || u.realm || u.total || u.layer; };
+
+// Gục khi đang tự hành (game.js gọi lúc hồi sinh): đang làm việc vặt ở đảo ngoài trời thì tạm tránh loài vừa hạ mình rồi làm tiếp;
+// gục trong truyện (boss truyện), bí cảnh, thiên kiếp, hoặc gục nhiều lần liền thì dừng (data/config.json → pilot.death)
+export function pilotDied(game) {
+  const pl = game.pilot, D = C(game).death, now = Date.now(), def = game.map.def, last = game.lastHit;
+  game.lastHit = null;
+  if (!pl) return;
+  pl.deaths = (pl.deaths || []).filter(t => now - t < D.window * 1000).concat(now);
+  const out = !(def.rooms || []).length && !def.res && !def.tower && !def.arena && !def.indoor;
+  if (!waiting(game) || !out || game.trib.active || pl.deaths.length >= D.max) { stopPilot(game, D.stop); return; }
+  const m = pl.job?.fight || last;   // con đang đánh, không thì con vừa đánh trúng mình
+  if (m?.id) (pl.avoid ??= {})[m.id] = now + D.avoid * 1000;
+  pl.path = null; pl.key = '';
+  game.toast(D.keep.replace('{name}', m?.def?.name || 'quái'), 2.6);
+}
+
 // Chữ báo việc tự hành đang làm, hiện dưới mục tiêu
 export function pilotLabel(game) {
+  if (game.pilot && game.trib.canStart()) return 'Tự hành: ' + C(game).peak.label;
   const j = game.pilot?.job, L = C(game).labels;
   const k = j && Object.keys(L).find(k => j[k]);
   if (!k) return '';
@@ -116,7 +135,7 @@ function plan(game) {
   const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
   if (foe) return { fight: foe };
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
-  if (!s || u.never || u.realm || u.total || u.layer) return choreJob(game, routeTo) || sit(game);   // chờ tu luyện
+  if (waiting(game)) return choreJob(game, routeTo) || sit(game);   // chờ tu luyện
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
@@ -146,12 +165,7 @@ export function pilotStep(game, ax, dt) {
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
   if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); if (pilotOpt(game, 'dan')) autoPills(game); if (pilotOpt(game, 'nang')) autoGrow(game); if (pilotOpt(game, 'vuon')) autoGarden(game); autoClaim(game); }
   if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
-  if (game.trib.canStart()) {   // độ kiếp thẳng, không bấm nút (đứng cạnh NPC thì nút thành Nói chuyện)
-    const pl = game.pilot;
-    if (pl.trib > 0 && !game.dialog.open) pl.trib -= dt;   // chờ lời dẫn độ kiếp xong; lỡ bị hội thoại khác chen thì thử lại
-    if (!(pl.trib > 0) && !game.dialog.open) { pl.trib = 3; if (pilotOpt(game, 'dan')) autoPills(game); game.trib.start(); }
-    return none;
-  }
+  if (game.trib.active) { game.pilot.job = null; return none; }   // người chơi tự độ kiếp: tự hành đứng yên, nhường người chơi né
   const job = game.pilot.job = plan(game);
   if (!job) return none;
   if (job.fight) { p.meditating = false; return engage(game, job.fight, dt); }
@@ -195,7 +209,7 @@ export function pilotStep(game, ax, dt) {
     return none;
   }
   if (job.hunt) {
-    const m = nearest(game, alive(game).filter(m => m.def.qi));
+    const m = nearest(game, alive(game).filter(m => m.def.qi && !avoided(game, m.id)));
     return m && dist(m, p) < 220 ? engage(game, m, dt) : none;
   }
   p.meditating = false;

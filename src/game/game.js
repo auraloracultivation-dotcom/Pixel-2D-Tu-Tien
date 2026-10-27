@@ -23,7 +23,7 @@ import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { updateArena, arenaFail, arenaGoal } from './arena.js';
-import { pilotDialog, stopPilot } from './pilot.js';
+import { pilotDialog, pilotDied } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
 import { updateGarden } from './garden.js';
 import { updateDayNight } from './daynight.js';
@@ -276,7 +276,7 @@ export function createGame(data, screen, input, ui, audio) {
   }
 
   function respawn() {
-    if (!game.tower && !game.arena) stopPilot(game, 'Tự hành dừng: bạn đã gục. Tu thêm rồi bật lại nhé.');   // gục trong tháp, trên đài thì chỉ là thua
+    if (!game.tower && !game.arena) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
