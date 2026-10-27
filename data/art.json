@@ -733,6 +733,258 @@
    ],
    "note": "Xích Diễm Hài"
   },
+  "ground.a": {
+   "file": "assets/art/ground-a.png",
+   "v": "ef56ab29",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đất tro (speckle), 4 biến thể"
+  },
+  "ground.c": {
+   "file": "assets/art/ground-c.png",
+   "v": "5f77e848",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền hang lửa (speckle), 4 biến thể"
+  },
+  "ground.d": {
+   "file": "assets/art/ground-d.png",
+   "v": "dab34320",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đá đen (speckle), 4 biến thể"
+  },
+  "ground.e": {
+   "file": "assets/art/ground-e.png",
+   "v": "bbea1e7c",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền hắc phong động (slab), 4 biến thể"
+  },
+  "ground.g": {
+   "file": "assets/art/ground-g.png",
+   "v": "7e29cb75",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền bãi mộ kiếm (slab), 4 biến thể"
+  },
+  "ground.i": {
+   "file": "assets/art/ground-i.png",
+   "v": "f921a6c6",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền mặt băng (ice), 4 biến thể"
+  },
+  "ground.j": {
+   "file": "assets/art/ground-j.png",
+   "v": "1381ac0e",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền băng quật (slab), 4 biến thể"
+  },
+  "ground.l": {
+   "file": "assets/art/ground-l.png",
+   "v": "8801f007",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền sàn gỗ (plank), 4 biến thể"
+  },
+  "ground.m": {
+   "file": "assets/art/ground-m.png",
+   "v": "68af9986",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền rêu rừng (moss), 4 biến thể"
+  },
+  "ground.n": {
+   "file": "assets/art/ground-n.png",
+   "v": "68af9986",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nấm phát sáng (moss), 4 biến thể"
+  },
+  "ground.o": {
+   "file": "assets/art/ground-o.png",
+   "v": "79b0d97d",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đường đá lát (slab), 4 biến thể"
+  },
+  "ground.p": {
+   "file": "assets/art/ground-p.png",
+   "v": "bcfb108d",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đá hư không (slab), 4 biến thể"
+  },
+  "ground.q": {
+   "file": "assets/art/ground-q.png",
+   "v": "d3639ae1",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền động phủ (slab), 4 biến thể"
+  },
+  "ground.r": {
+   "file": "assets/art/ground-r.png",
+   "v": "3550fa94",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền rễ (speckle), 4 biến thể"
+  },
+  "ground.s": {
+   "file": "assets/art/ground-s.png",
+   "v": "f96ea2e4",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền cát vàng (speckle), 4 biến thể"
+  },
+  "ground.t": {
+   "file": "assets/art/ground-t.png",
+   "v": "a1ff516e",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền đất hậu thổ (speckle), 4 biến thể"
+  },
+  "ground.u": {
+   "file": "assets/art/ground-u.png",
+   "v": "9d34888a",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền kiếm trủng (slab), 4 biến thể"
+  },
+  "ground.v": {
+   "file": "assets/art/ground-v.png",
+   "v": "7c5326a5",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền địa cung (speckle), 4 biến thể"
+  },
+  "ground.w": {
+   "file": "assets/art/ground-w.png",
+   "v": "8fef69ff",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền tuyết (speckle), 4 biến thể"
+  },
+  "ground.x": {
+   "file": "assets/art/ground-x.png",
+   "v": "14f69f05",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền nền bí cảnh (slab), 4 biến thể"
+  },
+  "ground.y": {
+   "file": "assets/art/ground-y.png",
+   "v": "f8302401",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền ruộng bậc thang (speckle), 4 biến thể"
+  },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",
    "v": "56fdf82d",

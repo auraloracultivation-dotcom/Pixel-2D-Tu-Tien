@@ -19,6 +19,13 @@ function put(ctx, sp, f, x, y) {
 function build(game, map, tiles, hash, baseTile) {
   const sp = {};
   for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff', 'decal.dirt', 'prop.bush']) if (!(sp[id] = sheet(game, id))) return null;
+  const lit = game.data.light.maps.includes(map.def.id);
+  // Nền pixel theo kiểu "tex" của ô (tools/art/ground.py); ô cây, đá, nhà đứng trên nền màu đất của đảo thì lấy nền ô cùng màu
+  const tex = {}, under = map.def.ground && Object.keys(tiles.types).find(k => tiles.types[k].tex && tiles.types[k].color === map.def.ground);
+  const texOf = (ch, k) => lit ? null : tex[ch] ??= sheet(game, 'ground.' + (k.solid ? under : ch)) || false;
+  // Hình nền riêng của bản đồ này chưa tải xong thì chờ (trả null, khung sau dựng lại), kẻo nền phẳng mãi
+  const need = lit ? ['tile.dfloor'] : [...new Set((under || '') + map.def.grid.join(''))].map(ch => 'ground.' + ch);
+  for (const id of need) if (game.data.art.sprites[id] && !sheet(game, id)) return null;
   const T = map.T, cv = document.createElement('canvas');
   cv.width = map.w * T; cv.height = map.h * T;
   const c = cv.getContext('2d');
@@ -37,10 +44,11 @@ function build(game, map, tiles, hash, baseTile) {
       const onStone = EDGES.some(([dx, dy]) => map.at(tx + dx, ty + dy) === '_');
       put(c, sp[onStone ? 'tile.stone' : 'tile.grass'], Math.floor(h * 4), px, py);
     }
+    else if (texOf(ch, k)) put(c, tex[ch], Math.floor(h * 4), px, py);
     else baseTile(c, map, tiles, tx, ty);
     if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
   }
-  const floor = game.data.light.maps.includes(map.def.id) && sheet(game, 'tile.dfloor');   // hầm ngục về đêm: phủ phiến đá lên nền
+  const floor = lit && sheet(game, 'tile.dfloor');   // hầm ngục về đêm: phủ phiến đá lên nền
   if (floor) for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
     const k = map.type(tx, ty);
     if (!k.solid && !k.void && map.at(tx, ty) !== 'P') put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
