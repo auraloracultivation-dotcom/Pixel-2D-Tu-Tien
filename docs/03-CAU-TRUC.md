@@ -85,3 +85,7 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 - Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
 - Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).
 - Cấp khó bí cảnh: `data/dungeon.json` (4 cấp × 10 bậc, `tier_mul` 2), `src/game/dun-mode.js` (`save.dunLv`, màu gợi ý `hintOf`). Tháp từ tầng 46: `data/tower.json` → `endless`.
+
+## Mã khôi phục (quên mật khẩu)
+
+Tài khoản dùng email ẩn nên không gửi thư được. Người chơi đã đăng nhập bấm "Mã khôi phục" ở màn đầu: `p2d_tao_ma_khoi_phuc` sinh mã 16 ký tự (bỏ I, O, 0, 1), máy chủ chỉ giữ mã băm (`p2d_khoi_phuc`); tạo mã mới thì mã cũ hết. Quên mật khẩu: nút "Quên mật khẩu?" hỏi tài khoản, mã, mật khẩu mới rồi gọi Edge Function `supabase/functions/khoi-phuc` (verify_jwt tắt, chỉ nhận từ trang game) → `p2d_dung_ma_khoi_phuc` (chỉ service_role; sai quá 5 lần mỗi giờ / 20 lần mỗi ngày trên một địa chỉ mạng thì chặn; đúng thì xoá mã, dùng một lần) → đặt mật khẩu mới. Migration `20261028090000_p2d_ma_khoi_phuc.sql`.
