@@ -1,5 +1,5 @@
 {
- "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao mong muốn của một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng); khi vẽ làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: chuỗi đòn (combo), mỗi lần đánh (cả khi dùng chiêu) ra đòn kế tiếp và chạy hết một lượt; ngừng đánh quá combo_reset giây thì về đòn đầu; bỏ khung đầu giống lúc đứng để thấy rõ động tác.",
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao mong muốn của một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng); khi vẽ làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: chuỗi đòn (combo), mỗi lần đánh (cả khi dùng chiêu) ra đòn kế tiếp và chạy hết một lượt; ngừng đánh quá combo_reset giây thì về đòn đầu; bỏ khung đầu giống lúc đứng để thấy rõ động tác. still: hình tĩnh, code tự nhún/thở/nhào tới. weapon: [mục art, khung] vũ khí cầm tay vẽ đè lên (weapon_size: cao bao nhiêu đơn vị bản đồ, mặc định 15). fx: [mục art, khung] hiệu ứng riêng khi đánh thường và khi dùng chiêu, thay hiệu ứng của chiêu.",
  "default": "nam",
  "combo_reset": 1.2,
  "list": {
@@ -33,6 +33,138 @@
    },
    "fps": { "idle": 7, "walk": 11, "dam": 16, "chem": 14, "bo": 14, "hat": 14, "ngang": 14 },
    "attacks": ["bo", "ngang", "hat", "dam"]
+  },
+  "than-quang": {
+   "name": "Thần nữ Diệu Quang · chi tiết",
+   "note": "Hệ Quang. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [0], "walk": [0] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 0],
+   "fx": ["fx.than", 0]
+  },
+  "than-loi": {
+   "name": "Thần nữ Tử Lôi · chi tiết",
+   "note": "Hệ Lôi. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [1], "walk": [1] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 1],
+   "fx": ["fx.than", 1]
+  },
+  "than-bang": {
+   "name": "Thần nữ Hàn Băng · chi tiết",
+   "note": "Hệ Băng. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [2], "walk": [2] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 2],
+   "fx": ["fx.than", 2]
+  },
+  "than-thuy": {
+   "name": "Thần nữ Bích Thủy · chi tiết",
+   "note": "Hệ Thủy. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [3], "walk": [3] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 3],
+   "fx": ["fx.than", 3]
+  },
+  "than-am": {
+   "name": "Thần nữ U Minh · chi tiết",
+   "note": "Hệ Ám. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [4], "walk": [4] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 4],
+   "fx": ["fx.than", 4]
+  },
+  "than-thoi": {
+   "name": "Thần nữ Thời Luân · chi tiết",
+   "note": "Hệ Thời gian. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [5], "walk": [5] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 5],
+   "fx": ["fx.than", 5]
+  },
+  "than-quang-don": {
+   "name": "Thần nữ Diệu Quang · pixel khối",
+   "note": "Hệ Quang. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [0], "walk": [0] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 0],
+   "fx": ["fx.than", 0]
+  },
+  "than-loi-don": {
+   "name": "Thần nữ Tử Lôi · pixel khối",
+   "note": "Hệ Lôi. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [1], "walk": [1] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 1],
+   "fx": ["fx.than", 1]
+  },
+  "than-bang-don": {
+   "name": "Thần nữ Hàn Băng · pixel khối",
+   "note": "Hệ Băng. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [2], "walk": [2] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 2],
+   "fx": ["fx.than", 2]
+  },
+  "than-thuy-don": {
+   "name": "Thần nữ Bích Thủy · pixel khối",
+   "note": "Hệ Thủy. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [3], "walk": [3] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 3],
+   "fx": ["fx.than", 3]
+  },
+  "than-am-don": {
+   "name": "Thần nữ U Minh · pixel khối",
+   "note": "Hệ Ám. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [4], "walk": [4] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 4],
+   "fx": ["fx.than", 4]
+  },
+  "than-thoi-don": {
+   "name": "Thần nữ Thời Luân · pixel khối",
+   "note": "Hệ Thời gian. Hình tĩnh để chơi thử, chưa có chuyển động.",
+   "sprite": "hero.than-don",
+   "height": 38,
+   "still": true,
+   "anims": { "idle": [5], "walk": [5] },
+   "fps": { "idle": 1, "walk": 1 },
+   "weapon": ["wpn.than", 5],
+   "fx": ["fx.than", 5]
   }
  }
 }

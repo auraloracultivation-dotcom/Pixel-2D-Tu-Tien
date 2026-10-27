@@ -78,6 +78,10 @@ function swing(game) {
   const H = game.data.heroes, look = H.list[game.save.look] || H.list[H.default];
   // Nhân vật bằng hình đã có vệt chém vẽ sẵn trong khung đánh (quét từ dưới lên qua đầu): không chồng thêm vệt khác
   if (!look.sprite) addFx(game, { type: 'sprite', id: 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: ang, life: 0.24 });
+  else if (look.fx) {   // nhân vật hình tĩnh (nữ thần): hiệu ứng hệ bung ở phía trước
+    const [id, frame] = look.fx, spr = game.data.art.sprites[id], d = w.range * 0.6;
+    if (spr) addFx(game, { type: 'sprite', id, frames: [frame], x: p.x + Math.cos(ang) * d, y: p.y - 4 + Math.sin(ang) * d, s: w.range / spr.w, life: 0.3, grow: true, fade: true });
+  }
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
