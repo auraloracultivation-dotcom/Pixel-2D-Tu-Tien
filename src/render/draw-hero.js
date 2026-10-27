@@ -19,7 +19,7 @@ function anim(game, p, look, t) {
     if (i >= 0 && i < look.anims[name].length) return [name, i];
     p.heroAtk0 = null;
   }
-  const name = p.moving && !p.meditating ? 'walk' : 'idle';
+  const name = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';   // cưỡi thú: đứng yên trên lưng thú, không bước chân
   return [name, Math.floor(t * (look.fps[name] || 1))];
 }
 
