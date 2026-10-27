@@ -5,4 +5,4 @@ Game 2D thế giới mở tu tiên. Hiện là **bản chơi tạm** bằng hìn
 - Chơi: https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/
 - Chạy trong máy: `python3 -m http.server` rồi mở http://localhost:8000
 - Kiểm tra: `node tools/check.mjs`
-- Tài liệu: `docs/01-HUONG-DI.md` (hướng đi, quyết định), `docs/02-CHUAN-PIXEL.md`, `docs/03-CAU-TRUC.md`
+- Tài liệu: `docs/01-HUONG-DI.md` (hướng đi, quyết định), `docs/02-CHUAN-PIXEL.md`, `docs/03-CAU-TRUC.md`, `docs/04-BANG-NHAN-VAT.md` (bảng chỉ số khi tạo nhân vật)

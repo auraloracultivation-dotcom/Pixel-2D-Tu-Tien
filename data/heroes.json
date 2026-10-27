@@ -1,6 +1,8 @@
 {
- "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. char_height: chiều cao thân người trong thế giới (đơn vị bản đồ), bằng NPC (hình 1 điểm ảnh = 1 đơn vị, đỉnh đầu đến chân ~24) — LUẬT: mọi nhân vật cao bằng nhau, không đứa to đứa nhỏ. body: số điểm ảnh thân người trong hình (đỉnh tóc đến chân, không tính sừng, quầng, vũ khí), đo một lần khi thêm hình; game tự thu phóng để thân cao đúng char_height, làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: chuỗi đòn (combo), mỗi lần đánh (cả khi dùng chiêu) ra đòn kế tiếp và chạy hết một lượt; ngừng đánh quá combo_reset giây thì về đòn đầu; bỏ khung đầu giống lúc đứng để thấy rõ động tác. lunge: lúc đánh người nhún tới trước bấy nhiêu đơn vị rồi lùi về (không đổi chỗ đứng thật).",
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. char_height: chiều cao thân NPC trong thế giới (đơn vị bản đồ; NPC vẽ 1 điểm ảnh = 1 đơn vị, đỉnh đầu đến chân ~24), coi là người chuẩn npc_cm / npc_kg. cm, kg: chỉ số chủ dự án điền cho từng nhân vật; thân cao = char_height × cm / npc_cm (1m75 thấp hơn NPC một xíu), bề ngang theo độ đậm người (kg/cm² so với NPC, lệch dưới 10% thì giữ nguyên để khỏi méo điểm ảnh). body: số điểm ảnh thân người trong hình (đỉnh tóc đến chân, không tính sừng, quầng, vũ khí), đo một lần khi thêm hình; game tự thu phóng để thân cao đúng char_height, làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: chuỗi đòn (combo), mỗi lần đánh (cả khi dùng chiêu) ra đòn kế tiếp và chạy hết một lượt; ngừng đánh quá combo_reset giây thì về đòn đầu; bỏ khung đầu giống lúc đứng để thấy rõ động tác. lunge: lúc đánh người nhún tới trước bấy nhiêu đơn vị rồi lùi về (không đổi chỗ đứng thật).",
  "char_height": 24,
+ "npc_cm": 180,
+ "npc_kg": 70,
  "default": "nam",
  "combo_reset": 1.2,
  "list": {
@@ -8,6 +10,8 @@
    "name": "Nam · kiếm tu",
    "sprite": "hero.nam",
    "body": 45,
+   "cm": 180,
+   "kg": 70,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
@@ -23,6 +27,8 @@
    "name": "Nữ · liềm tu",
    "sprite": "hero.nu",
    "body": 43,
+   "cm": 175,
+   "kg": 58,
    "lunge": 5,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
