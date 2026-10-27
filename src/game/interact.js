@@ -21,6 +21,7 @@ import { canPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
 import { talkTieuLinh } from './critters.js';
 import { festNpc, talkFest } from './events.js';
+import { talkParty } from './party.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -57,6 +58,7 @@ export function talkTo(game, npc) {
   if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
   if (festNpc(game, npc.id)) { talkFest(game, npc); return; }
+  if (npc.id === game.data.party.npc) { talkParty(game, npc); return; }
   if (npc.id === game.data.market.npc) { game.openMarket?.(); return; }
   if (npc.id === game.data.home.decor.npc) { talkTieuLinh(game, npc); return; }
   if (npc.home || npc.visit) { talkHome(game, npc); return; }

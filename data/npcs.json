@@ -32,6 +32,7 @@
  "ong-gia-tuyet": {"name": "Ông Già Tuyết", "color": "#e04a4a", "hair": "#f4f4fa", "lines": ["Hô hô! Năm nay con có ngoan không?", "Tuyết rơi dày thì kẹo cũng nhiều. Đi đánh người tuyết đi con."]},
  "ong-do": {"name": "Ông Đồ", "color": "#c04a3a", "hair": "#dcdcdc", "lines": ["Đầu năm xin chữ Phúc, cả năm bình an.", "Bao lì xì đỏ là lộc trời cho, đừng phung phí."]},
  "ba-bi-ngo": {"name": "Bà Bí Ngô", "color": "#ff9a3a", "hair": "#4a2a5a", "lines": ["Kẹo đâu, kẹo đâu? Không có kẹo là bà trêu đấy nhé.", "Bí ngô năm nay mọc tròn lắm. Đánh nhẹ tay thôi kẻo vỡ hết kẹo."]},
+ "to-doi": {"name": "Sứ Giả Tổ Đội", "color": "#8ab0e0", "hair": "#2a3a5a", "lines": ["Một người đi nhanh, nhiều người đi xa. Bí cảnh cũng vậy."]},
  "chu-cho": {"name": "Chủ Chợ Phiên", "color": "#d8b070", "hair": "#5a3a1a", "lines": ["Chợ phiên mở cả ngày. Có hàng thì bày, có tiền thì mua."]},
  "van-bao": {"name": "Chưởng Quỹ Vạn Bảo Lâu", "color": "#c9a46a", "hair": "#3a2a1a", "lines": ["Có Linh Thạch là có tất cả. Mua gì cứ nói."]},
  "quan-bi-canh": {"name": "Quản Bí Cảnh", "color": "#6a8ab0", "hair": "#e8e0c8", "lines": ["Bí cảnh tài nguyên mỗi ngày mở ba lượt mỗi loại. Đừng tham."]},

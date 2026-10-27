@@ -8,6 +8,7 @@ import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
+import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
@@ -322,6 +323,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePickups(game);
     updateSpawners(dt);
     game.dungeon?.update();
+    updateParty(game, dt);
     updateTower(game, dt);
     updateArena(game, dt);
     updatePraise(game, dt);

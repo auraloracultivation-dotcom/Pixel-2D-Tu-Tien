@@ -7,4 +7,5 @@ export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_FD5ghLVsNfp3-d69NXlz3w_b
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true },
+  realtime: { params: { eventsPerSecond: 20 } },   // tổ đội gửi trạng thái quái và vị trí khoảng 7 lần mỗi giây
 });

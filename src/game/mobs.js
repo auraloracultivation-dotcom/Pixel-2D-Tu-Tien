@@ -1,11 +1,14 @@
 // Quái: lang thang, đuổi, bắn xa, và boss (chém, lao, triệu hồi, vòng đạn, gọi lửa rơi nếu có meteor).
 import { addFx, hitPlayer, shoot, dist } from './combat.js';
 import { addStrike } from './strikes.js';
+import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
+
+let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
 export function spawnMob(game, id, x, y, extra = {}) {
   const def = game.data.mobs[id];
   const m = {
-    id, def, x, y, r: def.radius, hp: def.hp, maxHp: def.hp,
+    id, uid: ++UID, def, x, y, r: def.radius, hp: def.hp, maxHp: def.hp,
     hx: x, hy: y, kx: 0, ky: 0, flash: 0, slowT: 0, stunT: 0,
     state: 'idle', t: Math.random() * 2, cd: 0.6 + Math.random(), wx: x, wy: y,
     aggro: def.ai === 'chase' || def.ai === 'ranged' || def.ai === 'boss',
@@ -25,11 +28,25 @@ function moveToward(game, m, tx, ty, speed, dt) {
   return d;
 }
 
+// Quái đánh trúng mục tiêu: mình thì trừ máu, đồng đội thì báo qua kênh đội
+function strike(game, m, dmg) {
+  if (!m.tgt || m.tgt === game.player) hitPlayer(game, dmg, m);
+  else partyHurt(game, m.tgt.id, dmg, m);
+}
+function mobShoot(game, b) { shoot(game, b); partyShot(game, b); }
+
 export function updateMobs(game, dt) {
-  const p = game.player;
+  const host = partyHostRun(game);
   for (const m of game.mobs) {
     if (m.dead) continue;
     m.flash -= dt; m.slowT -= dt; m.stunT -= dt; m.t += dt; m.cd -= dt; m.hop += dt * 6;
+    if (m.remote) {   // quái của đội trưởng: chỉ trượt tới vị trí được báo
+      const dx = (m.tx ?? m.x) - m.x, dy = (m.ty ?? m.y) - m.y, k = Math.min(1, dt * 10);
+      if (Math.abs(dx) + Math.abs(dy) > 0.5) { m.fx = Math.sign(dx); m.fy = Math.sign(dy); }
+      m.x += dx * k; m.y += dy * k;
+      continue;
+    }
+    const p = m.tgt = host ? nearestTarget(game, m) : game.player;
     if (m.kx || m.ky) {
       game.map.move(m, m.kx * dt, m.ky * dt);
       m.kx *= Math.exp(-dt * 14); m.ky *= Math.exp(-dt * 14);
@@ -56,12 +73,12 @@ function wander(game, m, dt) {
 }
 
 function meleeThink(game, m, d, dt) {
-  const p = game.player, reach = m.r + p.r + m.def.reach;
+  const p = m.tgt || game.player, reach = m.r + p.r + m.def.reach;
   if (m.state === 'windup') {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;
       addFx(game, { type: 'bite', x: m.x + (m.fx || 0) * m.r, y: m.y + (m.fy || 0) * m.r, life: 0.15, color: m.def.color });
-      if (dist(m, p) < reach + 4) hitPlayer(game, m.def.atk, m);
+      if (dist(m, p) < reach + 4) strike(game, m, m.def.atk);
     }
     return;
   }
@@ -70,12 +87,12 @@ function meleeThink(game, m, d, dt) {
 }
 
 function rangedThink(game, m, d, dt) {
-  const p = game.player, want = m.def.range * 0.75;
+  const p = m.tgt || game.player, want = m.def.range * 0.75;
   if (m.state === 'windup') {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;
       const a = Math.atan2(p.y - m.y, p.x - m.x);
-      shoot(game, { from: 'mob', x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: '#e070ff', life: 2 });
+      mobShoot(game, { from: 'mob', x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: '#e070ff', life: 2 });
     }
     return;
   }
@@ -86,7 +103,7 @@ function rangedThink(game, m, d, dt) {
 
 // Boss: xoay vòng chém → lao → (dưới 50% máu) vòng đạn; triệu hồi ở 70% và 35% máu
 function bossThink(game, m, d, dt) {
-  const p = game.player, def = m.def;
+  const p = m.tgt || game.player, def = m.def;
   const hpf = m.hp / m.maxHp;
   if (m.summoned < 2 && hpf < (m.summoned === 0 ? 0.7 : 0.35)) {
     m.summoned++;
@@ -112,7 +129,7 @@ function bossThink(game, m, d, dt) {
     if (m.t >= def.windup) {
       m.tele = null; m.state = 'idle'; m.cd = def.cd;
       addFx(game, { type: 'ring', x: m.x, y: m.y, r: def.reach + m.r + 10, color: '#ff4a5a', life: 0.25, fill: true });
-      if (dist(m, p) < def.reach + m.r + 10 + p.r) hitPlayer(game, def.atk, m);
+      if (dist(m, p) < def.reach + m.r + 10 + p.r) strike(game, m, def.atk);
     }
   } else if (m.state === 'charge') {
     const tele = 0.75;
@@ -121,7 +138,7 @@ function bossThink(game, m, d, dt) {
     const s = 230 * dt, bx = m.x, by = m.y;
     game.map.move(m, Math.cos(m.ca) * s, Math.sin(m.ca) * s);
     const stuck = Math.hypot(m.x - bx, m.y - by) < s * 0.5;
-    if (dist(m, p) < m.r + p.r + 2) hitPlayer(game, def.atk * 1.3, m);
+    if (dist(m, p) < m.r + p.r + 2) strike(game, m, def.atk * 1.3);
     if (stuck || m.t > tele + 0.55) {
       m.state = 'idle'; m.cd = def.cd * 1.2;
       if (stuck) { game.screen.shake(4, 0.2); m.stunT = 0.6; }
@@ -132,7 +149,7 @@ function bossThink(game, m, d, dt) {
       m.tele = null; m.state = 'idle'; m.cd = def.cd;
       for (let i = 0; i < 14; i++) {
         const a = i / 14 * Math.PI * 2 + m.phase * 0.3;
-        shoot(game, { from: 'mob', x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
+        mobShoot(game, { from: 'mob', x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
       }
     }
   }

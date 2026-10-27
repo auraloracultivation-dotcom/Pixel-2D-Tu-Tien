@@ -141,6 +141,8 @@ try {
   const tp = read('topup.json'), fl = read('fashion.json').list;
   for (const x of tp.shop) need(x.tn > 0 && (x.outfit ? fl[x.outfit]?.from.tn === x.tn : giftOk(x.give)), `topup/${x.id}: giá, thời trang hoặc quà sai`);
   need(tp.card.days > 0 && giftOk(tp.card.daily.give) && tp.packs.every(p => p.tn > 0 && p.vnd > 0), 'topup: thẻ tháng hoặc gói nạp sai');
+  const pt = read('party.json');
+  need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');
   const mk = read('market.json');
   need(read('npcs.json')[mk.npc] && Object.values(maps).some(m => m.npcs.some(n => n.id === mk.npc)) && mk.tax > 0 && mk.tax < 1 && items.rarities.every(r => mk.price.item[r.id] > 0), 'market: npc, thuế hoặc giá gợi ý sai');
   const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag', 'fish', 'lantern', 'pat', 'tea', 'cook', 'sit'];

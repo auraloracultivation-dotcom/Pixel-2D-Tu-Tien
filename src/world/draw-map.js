@@ -1,4 +1,4 @@
-// Vẽ bản đồ bằng hình khối đơn giản (bản tạm). Hình pixel thật thay vào ở bước 3.
+// Vẽ bản đồ. Nền đảo, nhà, cây, đá, hoa đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
@@ -7,6 +7,7 @@ import { drawForestTile } from './draw-forest.js';
 import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
+import { drawGround, drawProp } from './draw-ground.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
   h = (h ^ (h >>> 13)) * 1274126177;
@@ -38,36 +39,38 @@ export function drawSky(ctx, screen, map, t) {
   }
 }
 
+// Lớp nền một ô bằng hình khối (bản tạm, và cho ô chưa có hình pixel).
+function baseTile(ctx, map, tiles, tx, ty) {
+  const T = map.T, ch = map.at(tx, ty), ty_ = tiles.types[ch] || {};
+  const px = tx * T, py = ty * T;
+  if (ty_.void) {
+    // Vách đảo: ô mây ngay dưới đất liền
+    if (!map.type(tx, ty - 1).void) {
+      ctx.fillStyle = '#8a6a48'; ctx.fillRect(px, py, T, 6);
+      ctx.fillStyle = '#6a4e36'; ctx.fillRect(px, py + 6, T, 3);
+      ctx.fillStyle = 'rgba(106,78,54,0.5)'; ctx.fillRect(px + 3, py + 9, T - 6, 3);
+    }
+    return;
+  }
+  const base = (ty_.solid && map.def.ground) || ty_.color || '#7cc46a'; // nền dưới cây, đá, nhà theo màu đất của đảo
+  ctx.fillStyle = shade(base, 0.96 + hash(tx, ty) * 0.08);
+  ctx.fillRect(px, py, T, T);
+  if (ch === '.' && hash(tx, ty + 99) > 0.7) {
+    ctx.fillStyle = shade(base, 1.15);
+    ctx.fillRect(px + 3 + hash(tx, ty) * 8, py + 4 + hash(ty, tx) * 7, 2, 3);
+  }
+  if (ch === '_') { ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.6; ctx.strokeRect(px + 0.3, py + 0.3, T - 0.6, T - 0.6); }
+}
+
 export function drawMap(ctx, map, tiles, view, t, game) {
   const T = map.T;
   const x0 = Math.max(0, Math.floor(view.x0 / T)), x1 = Math.min(map.w - 1, Math.floor(view.x1 / T));
   const y0 = Math.max(0, Math.floor(view.y0 / T)), y1 = Math.min(map.h - 1, Math.floor(view.y1 / T));
-  // Lớp nền
-  for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
-    const ch = map.at(tx, ty), ty_ = tiles.types[ch] || {};
-    const px = tx * T, py = ty * T;
-    if (ty_.void) {
-      // Vách đảo: ô mây ngay dưới đất liền
-      const above = map.type(tx, ty - 1);
-      if (!above.void) {
-        ctx.fillStyle = '#8a6a48'; ctx.fillRect(px, py, T, 6);
-        ctx.fillStyle = '#6a4e36'; ctx.fillRect(px, py + 6, T, 3);
-        ctx.fillStyle = 'rgba(106,78,54,0.5)'; ctx.fillRect(px + 3, py + 9, T - 6, 3);
-      }
-      continue;
-    }
-    const base = (ty_.solid && map.def.ground) || ty_.color || '#7cc46a'; // nền dưới cây, đá, nhà theo màu đất của đảo
-    ctx.fillStyle = shade(base, 0.96 + hash(tx, ty) * 0.08);
-    ctx.fillRect(px, py, T, T);
-    if (ch === '.' && hash(tx, ty + 99) > 0.7) {
-      ctx.fillStyle = shade(base, 1.15);
-      ctx.fillRect(px + 3 + hash(tx, ty) * 8, py + 4 + hash(ty, tx) * 7, 2, 3);
-    }
-    if (ch === '_') { ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.6; ctx.strokeRect(px + 0.3, py + 0.3, T - 0.6, T - 0.6); }
-  }
+  if (!drawGround(ctx, game, map, tiles, view, hash, baseTile)) for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) baseTile(ctx, map, tiles, tx, ty);
   // Vật trên nền
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const ch = map.at(tx, ty), px = tx * T, py = ty * T, cx = px + T / 2, cy = py + T / 2;
+    if ('TRFH'.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty))) continue;
     if (ch === 'F') {
       for (let i = 0; i < 3; i++) {
         ctx.fillStyle = ['#fff', '#ffe27a', '#ffb0d0'][Math.floor(hash(tx + i, ty) * 3)];
