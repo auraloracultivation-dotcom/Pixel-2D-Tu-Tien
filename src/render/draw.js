@@ -18,7 +18,7 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
-import { drawBullets } from './draw-bullets.js';
+import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite } from './draw-mob-sprite.js';
 
@@ -228,6 +228,7 @@ function drawStrikeFalls(ctx, game) {
       ctx.stroke(); ctx.strokeStyle = '#bff4ff'; ctx.lineWidth = 6; ctx.globalAlpha = 0.35; ctx.stroke(); ctx.globalAlpha = 1;
     } else if (s.kind === 'meteor' && left > 0 && left < 0.35) {
       const h = left / 0.35 * 120;
+      if (drawMeteor(ctx, game, s.x, s.y, h, s.t)) continue;
       ctx.fillStyle = '#ffb03a'; circle(ctx, s.x + h * 0.4, s.y - h, 5);
       ctx.fillStyle = '#fff3c0'; circle(ctx, s.x + h * 0.4, s.y - h, 2.5);
     }
