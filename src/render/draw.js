@@ -23,6 +23,7 @@ import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite } from './draw-mob-sprite.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
+import { drawTorches, drawDarkness } from './draw-light.js';
 
 const INK = '#1b1830';
 
@@ -246,6 +247,7 @@ export function drawWorld(game, screen, t) {
   drawSky(ctx, screen, game.map, t);
   screen.worldTransform();
   drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game);
+  drawTorches(ctx, game, screen.viewRect(), t);
   drawScenic(ctx, game);
   drawDecor(ctx, game, t);
   drawCritters(ctx, game, t);
@@ -295,7 +297,7 @@ export function drawWorld(game, screen, t) {
   drawWeather(ctx, game, screen, t);
   drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);
-  if (game.dark > 0.01) {
+  if (!drawDarkness(ctx, game, screen, t) && game.dark > 0.01) {
     const pos = screen.toScreen(game.player.x, game.player.y - 6);
     const g = ctx.createRadialGradient(pos.x, pos.y, 30, pos.x, pos.y, Math.max(screen.w, screen.h) * 0.7);
     g.addColorStop(0, `rgba(20,8,30,${game.dark * 0.3})`); g.addColorStop(1, `rgba(20,8,30,${game.dark})`);

@@ -40,6 +40,11 @@ function build(game, map, tiles, hash, baseTile) {
     else baseTile(c, map, tiles, tx, ty);
     if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
   }
+  const floor = game.data.light.maps.includes(map.def.id) && sheet(game, 'tile.dfloor');   // hầm ngục về đêm: phủ phiến đá lên nền
+  if (floor) for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
+    const k = map.type(tx, ty);
+    if (!k.solid && !k.void && map.at(tx, ty) !== 'P') put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
+  }
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
   return cv;
 }
