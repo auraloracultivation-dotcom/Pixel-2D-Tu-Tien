@@ -1,5 +1,5 @@
 {
- "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao mong muốn của một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng); khi vẽ làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: các động tác đánh, mỗi đòn chạy hết một lượt, lần lượt thay nhau.",
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao mong muốn của một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng); khi vẽ làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: các động tác đánh, mỗi đòn (cả khi dùng chiêu) chạy hết một lượt, lần lượt thay nhau; bỏ khung đầu giống lúc đứng để thấy rõ động tác.",
  "default": "nam",
  "list": {
   "nam": {
@@ -9,9 +9,9 @@
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
-    "chem": [16, 17, 18, 19, 20, 21, 22, 23]
+    "chem": [17, 18, 19, 20, 21, 22, 23]
    },
-   "fps": { "idle": 7, "walk": 11, "chem": 22 },
+   "fps": { "idle": 7, "walk": 11, "chem": 18 },
    "attacks": ["chem"]
   },
   "nu": {
@@ -21,10 +21,10 @@
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
-    "dam": [16, 18, 19, 20, 21, 22, 23],
-    "chem": [24, 25, 26, 27, 28, 29, 30, 31]
+    "dam": [18, 19, 20, 21, 22, 23],
+    "chem": [25, 26, 27, 28, 29, 30, 31]
    },
-   "fps": { "idle": 7, "walk": 11, "dam": 20, "chem": 22 },
+   "fps": { "idle": 7, "walk": 11, "dam": 16, "chem": 18 },
    "attacks": ["chem", "dam"]
   }
  }

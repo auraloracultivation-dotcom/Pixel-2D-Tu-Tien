@@ -1,14 +1,5 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
-const imgs = {};
-
-// file?v=<mã nội dung>: đổi hình là đổi đường dẫn, máy không dùng lại tấm cũ còn lưu tạm (cắt sai khung).
-// Tấm tải về không đúng cỡ data/art.json thì coi như chưa có.
-function image(spr) {
-  const src = spr.v ? `${spr.file}?v=${spr.v}` : spr.file;
-  if (!imgs[src]) { const im = new Image(); im.src = src; imgs[src] = im; }
-  const im = imgs[src];
-  return im.complete && im.naturalWidth === spr.w * spr.frames && im.naturalHeight === spr.h ? im : null;
-}
+import { spriteImage } from './sprites.js';
 
 export function heroLook(game) {
   const H = game.data.heroes;
@@ -34,7 +25,7 @@ function anim(p, look, t) {
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
 export function drawHero(ctx, game, p, t, flash) {
   const look = heroLook(game), spr = look.sprite && game.data.art.sprites[look.sprite];
-  const im = spr && image(spr);
+  const im = spr && spriteImage(spr);
   if (!im) return false;
   const [name, i] = anim(p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];

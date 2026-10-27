@@ -1,4 +1,5 @@
 // Trúng đòn, đạn, hiệu ứng, số sát thương. Cảm giác đánh: chớp trắng, đẩy lùi, khựng hình, rung màn hình.
+import { burstFx } from './skill-fx.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -77,6 +78,7 @@ export function updateBullets(game, dt) {
         if (m.dead || b.hit.has(m) || dist(b, m) > m.r + b.r) continue;
         b.hit.add(m);
         hitMob(game, m, b.dmg, { slow: b.slow, stun: b.stun, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy });
+        if (b.fx) burstFx(game, b.fx, m.x, m.y, b.explode || 10, Math.atan2(b.vy, b.vx));
         if (!b.pierce) { b.life = 0; burst(game, b); break; }
       }
     } else if (dist(b, game.player) < game.player.r + b.r) {
@@ -88,6 +90,7 @@ export function updateBullets(game, dt) {
 
 function burst(game, b) {
   if (!b.explode) return;
+  if (b.fx) burstFx(game, b.fx, b.x, b.y, b.explode, Math.atan2(b.vy, b.vx));
   addFx(game, { type: 'ring', x: b.x, y: b.y, r: b.explode, color: b.color, life: 0.3 });
   for (const m of game.mobs) if (!m.dead && !b.hit.has(m) && dist(b, m) < b.explode + m.r) hitMob(game, m, b.dmg * 0.6, { color: b.color, fromX: b.x, fromY: b.y });
 }

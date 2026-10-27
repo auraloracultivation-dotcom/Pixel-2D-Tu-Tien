@@ -25,6 +25,42 @@
    ],
    "note": "hoa nhỏ trắng / vàng / hồng"
   },
+  "fx.bolt": {
+   "file": "assets/art/fx-bolt.png",
+   "v": "df84db55",
+   "w": 40,
+   "h": 56,
+   "frames": 7,
+   "anchor": [
+    21,
+    47
+   ],
+   "note": "sét đánh xuống: mồi, đánh, đổi hình, mảnh, cháy xém ×3 (chiêu lôi); neo ở chỗ chạm đất"
+  },
+  "fx.fire": {
+   "file": "assets/art/fx-fire.png",
+   "v": "dbd80b6d",
+   "w": 24,
+   "h": 34,
+   "frames": 8,
+   "anchor": [
+    12,
+    31
+   ],
+   "note": "ngọn lửa lặp 8 khung (chiêu hệ hỏa); neo ở chân lửa"
+  },
+  "fx.ice": {
+   "file": "assets/art/fx-ice.png",
+   "v": "3bb00540",
+   "w": 48,
+   "h": 40,
+   "frames": 10,
+   "anchor": [
+    24,
+    33
+   ],
+   "note": "gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng"
+  },
   "fx.puff": {
    "file": "assets/art/fx-puff.png",
    "v": "4eab0d60",
@@ -87,10 +123,10 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "d521e0d4",
+   "v": "0784fe98",
    "w": 118,
    "h": 118,
-   "frames": 16,
+   "frames": 32,
    "anchor": [
     61,
     116

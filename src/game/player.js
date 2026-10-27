@@ -75,7 +75,7 @@ function swing(game) {
     return w.cooldown;
   }
   const ang = Math.atan2(p.face.y, p.face.x), half = w.arc / 2 * Math.PI / 180;
-  addFx(game, { type: 'arc', x: p.x, y: p.y - 3, r: w.range, a: ang, half, color: w.color, life: 0.18 });
+  addFx(game, { type: 'sprite', id: 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: ang, life: 0.24 });   // vệt chém pixel (tools/art/fx.py)
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
