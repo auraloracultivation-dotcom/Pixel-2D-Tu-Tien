@@ -164,3 +164,13 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #social-input { flex: 1; min-width: 0; border: 2px solid #1b1830; border-radius: 9px; padding: 6px 9px; font: 14px system-ui, sans-serif; }
 #social-log small { color: #8a8498; }
 #social-log .me b { color: #2a8a5a; }
+#market-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; font-size: 13px; }
+#market-list .empty { color: #8a8498; }
+.mk-row { display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 8px; border: 1px solid #e4dfd0; }
+.mk-row.sel { background: #fff3c4; border-color: #f2c94c; }
+.mk-row > div { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.mk-row small { color: #6a6478; }
+.mk-price { font-weight: 700; color: #a07a10; }
+#market-form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+#market-form input { width: 110px; padding: 6px; border: 2px solid #1b1830; border-radius: 9px; font: 600 14px system-ui, sans-serif; }
+#market-form small { width: 100%; color: #4a4458; }

@@ -17,6 +17,8 @@ import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 import { createSocialPanel } from './ui/social-panel.js';
 import { initPwa } from './core/pwa.js';
+import { createMarketPanel } from './ui/market-panel.js';
+import { startMailCheck } from './game/market.js';
 
 async function boot() {
   initPwa(document.getElementById('btn-install'));
@@ -35,6 +37,7 @@ async function boot() {
   createAchvPanel(game);
   createWorldMap(game);
   createSocialPanel(game);
+  createMarketPanel(game); startMailCheck(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
 

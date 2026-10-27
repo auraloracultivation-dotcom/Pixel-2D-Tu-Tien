@@ -98,6 +98,13 @@
     <form id="social-form"><input id="social-input" autocomplete="off" enterkeyhint="send"><button class="mini" id="social-send"></button></form>
   </div>
 
+  <div id="market" class="panel" hidden>
+    <div class="bag-head"><b id="market-title"></b><span class="panel-sub" id="market-sub"></span><button id="market-close" aria-label="Đóng">✕</button></div>
+    <div class="bag-tabs" id="market-tabs"><button data-tab="buy"></button><button data-tab="sell"></button><button data-tab="mine"></button></div>
+    <div id="market-list"></div>
+    <form id="market-form" hidden><input id="market-n" type="number" min="1" inputmode="numeric"><input id="market-price" type="number" min="1" inputmode="numeric"><button class="mini" id="market-send"></button><small id="market-get"></small></form>
+  </div>
+
   <div id="world" class="panel" hidden>
     <div class="bag-head"><b>Bản đồ</b><span class="panel-sub" id="world-sub"></span><button id="world-close" aria-label="Đóng">✕</button></div>
     <div id="world-sky"></div>
