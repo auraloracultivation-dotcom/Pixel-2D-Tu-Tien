@@ -41,6 +41,7 @@
   "gem": 1,
   "mats": {"bi-kip-chieu": 2}
  },
+ "weekly": {"_note": "Việc tuần (chủ dự án ghi: 1 chính tuyến, 1 việc ngày, 1 việc tuần, 1 sự kiện): mỗi tuần từ thứ Hai (giờ máy) mấy việc lớn tính từ đầu tuần (need như thành tựu: kills, bosses, sit phút, fish), xong từng việc nhận reward, đủ hết mở chest. Rương tuần có Đạo Vận Thạch để đổi hệ món Đạo Vận sau khi đi hết con đường.", "tasks": [{"id": "tuan-quai", "text": "Hạ {n} quái", "need": {"type": "kills", "n": 1500}, "reward": {"coins": 800, "stones": 3, "contrib": 80}}, {"id": "tuan-boss", "text": "Hạ {n} boss", "need": {"type": "bosses", "n": 10}, "reward": {"gem": 1, "stones": 3, "contrib": 80}}, {"id": "tuan-toa", "text": "Đả tọa {n} phút", "need": {"type": "sit", "n": 300}, "reward": {"coins": 500, "mats": {"bi-kip-chieu": 2}, "contrib": 60}}, {"id": "tuan-ca", "text": "Câu {n} cá", "need": {"type": "fish", "n": 25}, "reward": {"coins": 400, "mats": {"linh-ngu": 3}, "contrib": 60}}], "chest": {"stones": 5, "gem": 2, "item": "huyen", "mats": {"dao-van-thach": 3, "bi-kip-chieu": 3}}, "title": "Việc tuần", "chest_name": "Rương tuần", "reset": "Làm mới mỗi thứ Hai."},
  "ranks": [
   {"id": "ngoai-mon", "name": "Đệ tử ngoại môn", "need": 0},
   {"id": "noi-mon", "name": "Đệ tử nội môn", "need": 300, "gift": {"stones": 5, "item": "huyen"}},
