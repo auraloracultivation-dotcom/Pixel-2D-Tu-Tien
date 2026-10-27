@@ -153,10 +153,31 @@ def orb():
     return c
 
 
+def arrow():
+    c = Canvas(16, 16)
+    for ox in (-3, 0, 3):   # ba mũi tên song song bay chéo lên phải
+        for i in range(8):
+            c.px(3 + i + ox, 12 - i + ox, STEEL[3] if i > 5 else (200, 154, 90, 255))
+        hx_, hy = 11 + ox, 4 + ox
+        c.px(hx_, hy, STEEL[4]); c.px(hx_ - 1, hy, STEEL[2]); c.px(hx_, hy + 1, STEEL[2])
+        c.px(3 + ox, 13 + ox, (240, 208, 144, 255))
+    return c
+
+
+def sound():
+    c = Canvas(16, 16)
+    for r, col in ((4, ORB[4]), (8, ORB[3]), (12, ORB[2])):   # sóng âm loang từ góc dưới trái
+        for y in range(16):
+            for x in range(16):
+                if abs(math.hypot(x - 2, y - 13) - r) < 0.75:
+                    c.px(x, y, col)
+    return c
+
+
 def icon_sprites():
     out = {}
     for name, fn in dict(fire=fire, ice=ice, bolt=bolt, slash=slash, vine=vine, rock=rock, wind=wind, heal=heal,
-                         shield=shield, buff=buff, orb=orb).items():
+                         shield=shield, buff=buff, orb=orb, arrow=arrow, sound=sound).items():
         out['icon.' + name] = fn().outline(INK)
     out['icon.shield-earth'] = shield_earth().outline(INK)
     return out

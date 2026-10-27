@@ -33,8 +33,8 @@
  "dai-dia": {"fx": "shield-earth", "name": "Đại Địa Chi Tâm", "type": "shield", "cd": 22, "amount": 1.0, "dur": 8, "heal": 0.3, "color": "#e0b080", "desc": "Tuyệt kỹ: khiên bằng 100% máu và hồi 30% máu."},
  "long-thuong": {"ult": "spear", "fx": "slash", "name": "Long Thương Đột", "type": "dash", "cd": 5, "mult": 2.6, "dist": 76, "color": "#e0e0f0", "desc": "Cầm thương lao tới đâm xuyên."},
  "cuong-phong": {"fx": "wind", "name": "Cuồng Phong", "type": "aoe", "cd": 6, "mult": 1.6, "radius": 46, "offset": 0, "stun": 0.5, "color": "#9af0c8", "desc": "Quạt một trận gió lớn quanh người, quái bị choáng ngắn."},
- "that-huyen": {"name": "Thất Huyền Âm", "type": "multi", "cd": 7, "mult": 1.1, "count": 10, "spread": 360, "speed": 150, "range": 100, "radius": 4, "pierce": true, "color": "#d8b0ff", "desc": "Gảy bảy dây, sóng âm tỏa tứ phía."},
- "lien-chau": {"name": "Liên Châu Tiễn", "type": "multi", "cd": 4, "mult": 1.5, "count": 3, "spread": 16, "speed": 260, "range": 160, "radius": 3, "pierce": true, "color": "#f0d090", "desc": "Ba mũi tên xuyên liền nhau."},
+ "that-huyen": {"fx": "sound", "name": "Thất Huyền Âm", "type": "multi", "cd": 7, "mult": 1.1, "count": 10, "spread": 360, "speed": 150, "range": 100, "radius": 4, "pierce": true, "color": "#d8b0ff", "desc": "Gảy bảy dây, sóng âm tỏa tứ phía."},
+ "lien-chau": {"fx": "arrow", "name": "Liên Châu Tiễn", "type": "multi", "cd": 4, "mult": 1.5, "count": 3, "spread": 16, "speed": 260, "range": 160, "radius": 3, "pierce": true, "color": "#f0d090", "desc": "Ba mũi tên xuyên liền nhau."},
  "phap-kim-luan": {"fx": "slash", "name": "Kim Luân", "type": "multi", "cd": 8, "mult": 1.4, "count": 8, "spread": 360, "speed": 150, "range": 90, "radius": 4, "pierce": true, "color": "#f2c94c", "desc": "Tám vòng kim luân bay ra bốn phía."},
  "phap-tran-yeu": {"fx": "shield-earth", "name": "Trấn Yêu Tháp", "type": "shield", "cd": 16, "amount": 0.5, "dur": 6, "color": "#c9a46a", "desc": "Tháp vàng hạ xuống, chắn 50% máu."},
  "phap-hoa-hon": {"fx": "fire", "name": "Hỏa Hồn Linh", "type": "aoe", "cd": 10, "mult": 3.0, "radius": 40, "offset": 0, "color": "#ff7a3a", "desc": "Chuông lửa nổ quanh mình."}

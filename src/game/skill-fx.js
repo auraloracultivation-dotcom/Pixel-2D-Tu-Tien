@@ -1,4 +1,4 @@
-// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash | vine | rock | wind; tự thân: heal | shield | shield-earth | buff). Vẽ ở src/render/draw-sprite-fx.js.
+// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash | vine | rock | wind | arrow | sound (chỉ có hình đạn bay); tự thân: heal | shield | shield-earth | buff). Vẽ ở src/render/draw-sprite-fx.js.
 import { addFx } from './combat.js';
 
 // Nổ một lần tại (x, y), r: bán kính vùng trúng; ang: hướng chém (slash)

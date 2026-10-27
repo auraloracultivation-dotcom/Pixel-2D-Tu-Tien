@@ -68,7 +68,7 @@ function swing(game) {
   if (w.attack === 'shot') {   // đàn, cung: đòn thường là đạn
     shoot(game, {
       from: 'player', x: p.x + p.face.x * 6, y: p.y - 4 + p.face.y * 6, vx: p.face.x * w.speed, vy: p.face.y * w.speed,
-      r: w.radius, dmg: p.atk, pierce: !!w.pierce, color: w.color, life: w.range / w.speed,
+      r: w.radius, dmg: p.atk, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx,
     });
     p.swingT = 0.18;
     game.sfx('shoot', 0.6);

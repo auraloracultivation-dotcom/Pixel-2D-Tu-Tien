@@ -1021,6 +1021,18 @@
    ],
    "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
   },
+  "icon.arrow": {
+   "file": "assets/art/icon-arrow.png",
+   "v": "53211337",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu arrow"
+  },
   "icon.bolt": {
    "file": "assets/art/icon-bolt.png",
    "v": "f3871a7d",
@@ -1140,6 +1152,18 @@
     8
    ],
    "note": "biểu tượng chiêu slash"
+  },
+  "icon.sound": {
+   "file": "assets/art/icon-sound.png",
+   "v": "d056a65c",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu sound"
   },
   "icon.vine": {
    "file": "assets/art/icon-vine.png",
@@ -2665,6 +2689,18 @@
    ],
    "note": "Viêm Linh Nhi: đứng, bước"
   },
+  "proj.arrow": {
+   "file": "assets/art/proj-arrow.png",
+   "v": "67b2fb05",
+   "w": 17,
+   "h": 7,
+   "frames": 2,
+   "anchor": [
+    15,
+    3
+   ],
+   "note": "mũi tên cung, lông đuôi, vệt gió 2 khung"
+  },
   "proj.fire": {
    "file": "assets/art/proj-fire.png",
    "v": "aad09e4a",
@@ -2712,6 +2748,18 @@
     10
    ],
    "note": "kiếm khí lưỡi liềm, lõi trắng, game tô quầng theo màu chiêu"
+  },
+  "proj.sound": {
+   "file": "assets/art/proj-sound.png",
+   "v": "abcdb0dd",
+   "w": 12,
+   "h": 17,
+   "frames": 3,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "sóng âm đàn: ba vòng cung loang ra, nốt nhạc nhỏ, 3 khung"
   },
   "proj.vine": {
    "file": "assets/art/proj-vine.png",
