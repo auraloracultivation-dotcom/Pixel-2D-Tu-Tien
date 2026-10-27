@@ -69,3 +69,9 @@ Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh 
 ## Chặn và báo cáo chat
 
 `supabase/migrations/20261028050000_p2d_bao_cao_chat.sql`: mỗi tin `p2d_doc_chat` có thêm `k` (mã người gửi, `p2d_chat_key`, băm 12 ký tự). `p2d_bao_cao_chat(tin, lý do)` ghi `p2d_bao_cao` kèm nội dung tin; mỗi người 10 báo cáo mỗi ngày, mỗi tin một lần; 3 người khác nhau báo một người trong 24 giờ thì người đó vào `p2d_cam_chat` 24 giờ và `p2d_gui_chat` trả `bi_cam`. Máy khách: `src/ui/chat-line.js` (chạm tin người khác hiện Chặn, Báo cáo; dùng ở kênh thế giới và tông môn), danh sách chặn ở `save.blocked` (`src/game/world-chat.js`), nút bỏ chặn ở tab Trò chuyện. Chữ ở `data/social.json` → `mod`. Chủ dự án xem `p2d_bao_cao`, gỡ khoá bằng cách sửa `p2d_cam_chat.den` về quá khứ.
+
+## Chính sách, điều khoản, xoá tài khoản
+
+Trang tĩnh `privacy.html`, `terms.html`, `xoa-tai-khoan.html` (chung `legal.css`), có đường dẫn ở màn đầu cùng dòng cảnh báo sức khoẻ 180 phút. Đổi cách thu, giữ dữ liệu thì sửa bảng ở `privacy.html` cho khớp.
+
+Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): nút "Xoá tài khoản" ở màn đầu (bấm hai lần) gọi `p2d_xin_xoa_tk` rồi đăng xuất; mỗi lần đăng nhập máy khách gọi `p2d_huy_xoa_tk` (đang chờ thì huỷ và báo). Job `p2d-xoa-tai-khoan` (3 giờ 37 sáng giờ Việt Nam) chạy `p2d_xoa_het_han`: quá 7 ngày thì `p2d_xoa_mot` nhường Tông chủ cho người vào lâu nhất (hoặc giải tán), xoá bản sao, nhật ký lỗi, khoá chat, báo cáo về người đó, bỏ tên khỏi báo cáo họ gửi, rồi xoá `auth.users` (bảng khác xoá theo khoá ngoại). Cùng job bỏ mã băm địa chỉ mạng đăng ký cũ hơn 2 ngày.

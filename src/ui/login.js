@@ -34,9 +34,31 @@ export function createLogin(onPlay0) {
     busy(false); render();
   }
 
-  $('btn-login').onclick = () => act(async () => { session = await withTimeout(auth.signIn($('acc').value, $('pwd').value), NET_TIMEOUT); });
+  // Đăng nhập lại là huỷ yêu cầu xoá tài khoản đang chờ (nếu có)
+  async function welcomeBack() {
+    try { if (await withTimeout(auth.cancelDelete(), NET_TIMEOUT)) return 'Đã huỷ yêu cầu xoá tài khoản. Chào mừng đạo hữu trở lại!'; } catch { /* mạng chập chờn: lần đăng nhập sau huỷ */ }
+    return '';
+  }
+  const later = t => t && setTimeout(() => msg(t), 0);
+
+  $('btn-login').onclick = () => act(async () => { session = await withTimeout(auth.signIn($('acc').value, $('pwd').value), NET_TIMEOUT); later(await welcomeBack()); });
   $('btn-signup').onclick = () => act(async () => { session = await withTimeout(auth.signUp($('acc').value, $('pwd').value), NET_TIMEOUT); });
   $('btn-logout').onclick = () => act(async () => { await auth.signOut(); session = null; });
+  // Xoá tài khoản: bấm hai lần (lần đầu chỉ báo hậu quả), gửi yêu cầu rồi đăng xuất
+  let armT = 0;
+  $('btn-delete').onclick = () => {
+    if (Date.now() - armT > 10000) {
+      armT = Date.now(); $('btn-delete').textContent = 'Bấm lần nữa để xoá tài khoản';
+      msg('Tài khoản và mọi tiến trình sẽ bị xoá hẳn sau 7 ngày. Trong 7 ngày đó, đăng nhập lại là huỷ.', true);
+      return;
+    }
+    armT = 0; $('btn-delete').textContent = 'Xoá tài khoản';
+    act(async () => {
+      const han = await withTimeout(auth.requestDelete(), NET_TIMEOUT);
+      await auth.signOut(); session = null;
+      later(`Đã nhận yêu cầu xoá. Tài khoản sẽ bị xoá vào ${han ? han.toLocaleDateString('vi-VN') : '7 ngày nữa'}. Đăng nhập lại trước ngày đó là huỷ.`);
+    });
+  };
   $('btn-guest').onclick = () => {
     onPlay({ fresh: false, session: null, owner: 'guest' });
   };
@@ -51,7 +73,7 @@ export function createLogin(onPlay0) {
       try {
         auth = await withTimeout(import('../net/auth.js'), NET_TIMEOUT);
         session = await withTimeout(auth.getSession(), NET_TIMEOUT);
-        msg('');
+        msg(session ? await welcomeBack() : '');
         for (const id of ['btn-login', 'btn-signup']) $(id).disabled = false;
       } catch {
         auth = null;

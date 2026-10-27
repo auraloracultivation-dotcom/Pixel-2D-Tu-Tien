@@ -60,3 +60,16 @@ function translate(error) {
   if (m.includes('password')) return new Error('Mật khẩu không hợp lệ.');
   return new Error(error.message);
 }
+
+// Xoá tài khoản (supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql): chờ 7 ngày, đăng nhập lại là huỷ
+export async function requestDelete() {
+  const { data, error } = await supabase.rpc('p2d_xin_xoa_tk');
+  if (error) throw error;
+  return data?.het_han ? new Date(data.het_han) : null;
+}
+// Trả về true nếu vừa huỷ một yêu cầu xoá đang chờ
+export async function cancelDelete() {
+  const { data, error } = await supabase.rpc('p2d_huy_xoa_tk');
+  if (error) throw error;
+  return !!data;
+}
