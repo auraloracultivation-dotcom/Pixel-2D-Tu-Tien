@@ -40,7 +40,7 @@
                  "100": [["thach-sinh", "Ngươi ấm. Như đá phơi nắng."]]},
   "ho-linh": {"50": [["ho-linh", "Ngươi biết không, ta là hồ ly đấy. Tu năm trăm năm mới hoá được hình người."], ["ho-linh", "Đừng sợ. Ta chỉ cắn người ta ghét thôi."]],
               "80": [["ho-linh", "Ta ngồi đả tọa cạnh bồ đoàn này cả trăm năm. Từ khi ngươi tới, ngày trôi nhanh hơn hẳn."]],
-              "100": [["ho-linh", "Hồ ly một khi đã chọn ai thì chọn cả đời. Ngươi hiểu ý ta chứ?"]]}
+              "100": [["ho-linh", "{Hồ ly một khi đã chọn ai thì chọn cả đời. Ngươi hiểu ý ta chứ?|Hồ ly một khi đã nhận ai làm bạn thì nhận cả đời. Ngươi nhớ đấy nhé.}"]]}
  },
  "dao_lu": {
   "can": {"nam": ["lac-tuyet", "ho-linh"], "nu": ["mac-anh"]},
