@@ -6,6 +6,8 @@
  "back": "Thôi, để sau",
  "none": "Trong túi chưa đủ nguyên liệu nấu món nào. Câu cá, hái thảo dược rồi về nấu nhé.",
  "toast": "{dish}: đả tọa nhanh hơn {pct}% trong {min} phút.",
+ "away": {"_note": "Vắng từ hours giờ trở lên mà về động phủ có đạo lữ ở nhà: đạo lữ nấu sẵn món dish (không tốn nguyên liệu, không tính là bữa nấu hôm nay).", "hours": 4, "dish": "chao-linh-thao",
+  "lines": {"lac-tuyet": ["Ta nấu cháo rồi. Ăn đi rồi hẵng tu luyện.", "...Cháo còn ấm. Đừng để nguội."], "ho-linh": ["Ta nấu cháo đó! Hơi khét một chút... nhưng ngon!", "Đợi ngươi lâu quá, ta nấu cháo luôn rồi nè."], "default": ["Mình nấu sẵn cháo rồi, ăn cho ấm bụng nhé."]}},
  "hud": "{dish} {min} phút",
  "recipes": {
   "chao-linh-thao": {"name": "Cháo Linh Thảo", "need": {"linh-thao": 5}, "buff": {"qi": 1.1, "min": 30}},
