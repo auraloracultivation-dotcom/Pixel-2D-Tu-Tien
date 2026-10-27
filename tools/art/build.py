@@ -17,6 +17,7 @@ from icons import icon_sprites  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 import dungeon as DG  # noqa: E402
+from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
 from npcs import npc_frames  # noqa: E402
 from gear import gear_icon  # noqa: E402
@@ -52,6 +53,11 @@ save('decal.flowers', [W.flowers(s) for s in range(3)], (3, 3), 'hoa nhỏ trắ
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')
 save('tile.dwall', [DG.wall(True, s) for s in range(2)] + [DG.wall(False, s) for s in range(2)], (0, 0), 'lớp phủ vách: 2 khung mặt gạch, 2 khung đỉnh vách')
 save('prop.torch', [DG.torch(f) for f in range(4)], (5, 17), 'đuốc treo vách, 4 khung lửa nhảy')
+
+# ---------------------------------------------------------------- nền các đảo theo hệ, hang động (tools/art/ground.py): ô có "tex" trong data/tiles.json
+for _ch, _t in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'tiles.json').read_text())['types'].items():
+    if 'tex' in _t:
+        save(f'ground.{_ch}', ground_frames(_t['color'], _t['tex']), (0, 0), f"nền {_t['name']} ({_t['tex']}), 4 biến thể")
 G = {k: hx(v) for k, v in dict(d='#245a3c', b='#3a8a52', l='#4fa463', t='#7cc96a').items()}
 D = {k: hx(v) for k, v in dict(d='#6e5a3e', b='#8f7754', l='#a88f68', c='#5b4831', lip='#3e3122').items()}
 

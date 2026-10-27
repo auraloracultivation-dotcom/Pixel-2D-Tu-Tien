@@ -3,7 +3,7 @@
 import { spriteImage } from './sprites.js';
 
 let cache = { map: null, torches: [], lava: [] };
-let shade = null;
+let shade = null, warm = null;
 
 export const isLit = game => game.data.light.maps.includes(game.map.id);
 
@@ -58,36 +58,43 @@ function hole(c, x, y, r, bands) {
   }
 }
 
+// Tấm vẽ nhỏ: mỗi điểm = một điểm ảnh thế giới (vừa nhẹ máy, vừa cho mép quầng sáng răng cưa đúng kiểu pixel)
+function layer(cv, w, h) {
+  cv ||= document.createElement('canvas');
+  if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+  return cv;
+}
+
 // Lớp tối (toạ độ màn hình). Trả false nếu bản đồ này không phủ tối, để draw.js dùng lớp tối cũ.
 export function drawDarkness(ctx, game, screen, t) {
   if (!isLit(game)) return false;
   if (cache.map !== game.map) scan(game);
-  const L = game.data.light, z = screen.zoom, w = Math.ceil(screen.w), h = Math.ceil(screen.h);
-  shade ||= document.createElement('canvas');
-  if (shade.width !== w || shade.height !== h) { shade.width = w; shade.height = h; }
-  const c = shade.getContext('2d');
+  const L = game.data.light, k = 1 / screen.zoom, w = Math.ceil(screen.w * k), h = Math.ceil(screen.h * k);
+  shade = layer(shade, w, h); warm = layer(warm, w, h);
+  const c = shade.getContext('2d'), g = warm.getContext('2d');
   c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
-  c.clearRect(0, 0, w, h);
+  c.clearRect(0, 0, w, h); g.clearRect(0, 0, w, h);
   c.fillStyle = `rgba(${L.color},${L.ambient})`; c.fillRect(0, 0, w, h);
   c.globalCompositeOperation = 'destination-out'; c.fillStyle = '#000';
-  const on = p => p.x > -80 && p.x < w + 80 && p.y > -80 && p.y < h + 80;
-  const lit = [];
+  g.fillStyle = `rgb(${L.torch.warm})`;
+  const at = (x, y) => { const p = screen.toScreen(x, y); return { x: p.x * k, y: p.y * k }; };
+  const on = p => p.x > -60 && p.x < w + 60 && p.y > -60 && p.y < h + 60;
+  const glow = (p, r, a) => { g.globalAlpha = a; g.beginPath(); g.ellipse(p.x, p.y, r * 0.55, r * 0.43, 0, 0, Math.PI * 2); g.fill(); };   // ánh lửa hắt lên nền
   for (const o of cache.torches) {
-    const p = screen.toScreen(o.x, o.y - 8);
+    const p = at(o.x, o.y - 8);
     if (!on(p)) continue;
-    const r = L.torch.radius * z * (1 + Math.sin(t * 9 + o.ph * 1.7) * L.torch.flicker + Math.sin(t * 23 + o.ph) * L.torch.flicker * 0.5);
-    hole(c, p.x, p.y, r, L.torch.bands); lit.push([p, r, L.torch.warm_alpha]);
+    const r = L.torch.radius * (1 + Math.sin(t * 9 + o.ph * 1.7) * L.torch.flicker + Math.sin(t * 23 + o.ph) * L.torch.flicker * 0.5);
+    hole(c, p.x, p.y, r, L.torch.bands); glow(p, r, L.torch.warm_alpha);
   }
   for (const o of cache.lava) {
-    const p = screen.toScreen(o.x, o.y);
-    if (on(p)) { hole(c, p.x, p.y, L.lava.radius * z, [1]); lit.push([p, L.lava.radius * z, L.lava.warm_alpha]); }
+    const p = at(o.x, o.y);
+    if (on(p)) { hole(c, p.x, p.y, L.lava.radius, [1]); glow(p, L.lava.radius, L.lava.warm_alpha); }
   }
-  const pp = screen.toScreen(game.player.x, game.player.y - 6);
-  hole(c, pp.x, pp.y, L.player.radius * z, L.player.bands);
-  c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-  ctx.drawImage(shade, 0, 0, screen.w, screen.h);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgb(${L.torch.warm})`;   // ánh lửa hắt lên nền
-  for (const [p, r, a] of lit) { ctx.globalAlpha = a; ctx.beginPath(); ctx.ellipse(p.x, p.y, r * 0.55, r * 0.43, 0, 0, Math.PI * 2); ctx.fill(); }
+  const pp = at(game.player.x, game.player.y - 6);
+  hole(c, pp.x, pp.y, L.player.radius, L.player.bands);
+  ctx.save(); ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(shade, 0, 0, w / k, h / k);
+  ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(warm, 0, 0, w / k, h / k);
   ctx.restore();
   return true;
 }
