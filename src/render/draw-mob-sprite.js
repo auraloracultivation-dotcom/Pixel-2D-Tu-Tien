@@ -1,6 +1,6 @@
 // Quái bằng hình pixel (data/mobs.json → look, tools/art/mobs.py). Hình gốc nhìn phải, quay trái lật gương;
 // 2 khung luân phiên khi đi (quái hiền nảy thì theo nhịp nảy). Trả false nếu chưa có hình để vẽ hình khối như cũ.
-import { spriteImage } from './sprites.js';
+import { spriteImage, drawHitFrame } from './sprites.js';
 
 export function drawMobSprite(ctx, game, m, t, wind) {
   const spr = m.def.look && game.data.art.sprites['mob.' + m.id], im = spr && spriteImage(spr);
@@ -13,8 +13,7 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   ctx.scale(m.lookX || 1, 1);
   if (wind) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh
   ctx.imageSmoothingEnabled = false;
-  if (m.flash > 0) ctx.filter = 'brightness(3)';
-  ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
 }
