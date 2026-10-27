@@ -1,0 +1,30 @@
+// Đạn bay: chiêu có fx thì vẽ hình pixel proj.<fx> xoay theo hướng bay (tools/art/fx_proj.py), quầng màu chiêu cộng nhẹ phía dưới.
+// Đạn thường (quái, linh thú, chiêu chưa có hình) vẫn là chấm tròn màu.
+import { circle } from '../world/draw-map.js';
+import { spriteImage } from './sprites.js';
+
+function drawShape(ctx, b) {
+  ctx.fillStyle = b.color;
+  if (b.trail) { ctx.globalAlpha = 0.35; circle(ctx, b.x - b.vx * 0.03, b.y - b.vy * 0.03, b.r * 0.8); ctx.globalAlpha = 1; }
+  circle(ctx, b.x, b.y, b.r);
+  ctx.fillStyle = '#fff'; circle(ctx, b.x, b.y, b.r * 0.45);
+}
+
+export function drawBullets(ctx, game, t) {
+  const sprites = game.data.art.sprites;
+  for (const b of game.bullets) {
+    const spr = b.fx && sprites['proj.' + b.fx], im = spr && spriteImage(spr);
+    if (!im) { drawShape(ctx, b); continue; }
+    const i = Math.floor(t * 12) % spr.frames, s = Math.max(0.6, b.r / 4.5);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = 0.3; ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r + 2);
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    ctx.translate(b.x, b.y);
+    ctx.rotate(b.fx === 'rock' ? t * 12 : Math.atan2(b.vy, b.vx));
+    ctx.scale(s, s);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+    ctx.restore();
+  }
+}
