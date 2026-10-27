@@ -6,7 +6,7 @@
   "description": "Game tu tiên pixel 2D: đánh quái, độ kiếp, tự hành, đời sống yên bình trên đảo.",
   "start_url": "./",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "portrait",
   "background_color": "#a8c4f0",
   "theme_color": "#9fd8f0",
   "icons": [

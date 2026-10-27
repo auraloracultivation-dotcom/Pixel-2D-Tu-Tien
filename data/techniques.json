@@ -17,7 +17,7 @@
   "han-phong-bo": {"name": "Hàn Phong Bộ", "desc": "Bước chân gió lạnh: chạy nhanh, bạo kích.", "color": "#dfe8f2", "per_level": {"speed": 1.2, "crit": 0.8}},
   "hac-phong-quyet": {"name": "Hắc Phong Quyết", "desc": "Mượn gió đen của ma tộc: hồi chiêu nhanh, tăng công.", "color": "#8a7ab0", "per_level": {"cdr": 1, "atk_pct": 1.2}},
   "thanh-moc-truong-xuan": {"name": "Thanh Mộc Trường Xuân Công", "desc": "Công pháp của tinh linh cây: máu dồi dào, hồi máu đều, tu nhanh.", "color": "#5fd07a", "per_level": {"hp_pct": 2.5, "regen": 0.6, "qi_gain": 1.5}},
-  "canh-kim-kiem-quyet": {"name": "Canh Kim Kiếm Quyết", "desc": "Kiếm quyết của Đảo Thiên Kim: kiếm sắc thêm, đòn chí mạng nặng thêm.", "color": "#ffd24a", "per_level": {"atk_pct": 2, "crit": 0.6, "crit_dmg": 2}},
+  "canh-kim-kiem-quyet": {"name": "Canh Kim Kiếm Quyết", "desc": "Kiếm quyết của Thiên Kim Tinh: kiếm sắc thêm, đòn chí mạng nặng thêm.", "color": "#ffd24a", "per_level": {"atk_pct": 2, "crit": 0.6, "crit_dmg": 2}},
   "hau-tho-quyet": {"name": "Hậu Thổ Bất Động Quyết", "desc": "Công pháp của người Hậu Thổ: thân như núi, máu dày, giáp chắc.", "color": "#c8a070", "per_level": {"hp_pct": 2.5, "def": 1, "regen": 0.4}},
   "thai-hu-quyet": {"name": "Thái Hư Quyết", "desc": "Mượn sức hư không mà không nhiễm ma khí: chiêu hồi nhanh, đòn nặng.", "color": "#c06aff", "per_level": {"cdr": 1, "atk_pct": 2, "crit_dmg": 2}}
  },

@@ -81,6 +81,8 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 2. Mỗi đảo thành một tinh cầu tròn; bí cảnh là mặt trăng quay quanh tinh cầu mẹ. Thứ tự vòng quỹ đạo theo truyện: Thiên Kiếm Tinh và Mảnh Vỡ Thanh Khê, Xích Diễm, Hàn Băng, Hắc Phong, Thanh Mộc (Linh tộc, Thế Giới Thụ), Thiên Kim, Hậu Thổ, Ngoại Vực Vết Nứt, rồi vòng ma khí (Phương Thiên Địa Ma Vương, sắp mở). Tên do Claude đặt, chủ dự án sửa sau.
 3. Làm vĩ mô trước, vi mô sau; xong một lớp cho cả thế giới rồi mới sang lớp kế: tinh hệ → tinh cầu → núi, sông, mây, biển, trời đất → nhà cửa, cây cối → người, thú vật → quần áo, công cụ → đồ dùng đời sống (truyền âm, thời trang, đan dược...). Dựng khung thô trước (xấu cũng được), tô dần sau.
 4. Cấp tốc làm xong nội dung và hệ thống trước; CH Play, máy chủ và các việc khác làm sau.
+5. Chơi dọc là chính: nhiều người lười xoay ngang điện thoại, nên app khoá màn dọc (`manifest.webmanifest` → orientation portrait) và mọi giao diện thiết kế cho màn dọc trước. Tinh đồ mặc định thấy trọn hệ tròn. Chủ dự án thích chữ kiểu game, màu ấm, pixel; không thích kiểu hiện đại, máy móc.
+6. Lời thoại đã đổi theo tinh hệ: đảo thành tinh cầu, biển mây thành trời sao hoặc tinh hải (cá câu ở mép tinh cầu là cá tinh hải), Ma Vân là mây ma khí ở rìa tinh hệ, "xuống tầng mây" thành "bay ra vòng ngoài".
 
 ## Lộ trình
 

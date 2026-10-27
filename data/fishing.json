@@ -23,7 +23,7 @@
   "_note": "Sổ sưu tập cá: mỗi loại lần đầu câu được nhận first; đủ số loại thì nhận thưởng mốc (tự nhận). Xem ở bảng Thành tựu, tab Sổ cá. Cá có season chỉ cắn câu mùa đó, rain chỉ khi đảo đang mưa.",
   "first": {"coins": 100},
   "milestones": [{"n": 4, "give": {"coins": 500, "stones": 2}}, {"n": 8, "give": {"coins": 1000, "gem": 1}}, {"n": 13, "give": {"coins": 3000, "item": "dia"}}],
-  "hint": {"maps": "Chỉ có ở {maps}", "night": "Cắn câu ban đêm", "realm": "Từ {realm}", "season": "Chỉ mùa {season}", "rain": "Chỉ khi trời mưa", "any": "Đảo nào cũng có"},
+  "hint": {"maps": "Chỉ có ở {maps}", "night": "Cắn câu ban đêm", "realm": "Từ {realm}", "season": "Chỉ mùa {season}", "rain": "Chỉ khi trời mưa", "any": "Tinh cầu nào cũng có"},
   "new": "Sổ cá: loại mới {name}! +{got}",
   "done": "Sổ cá đủ {n} loại! Nhận {got}."
  }
