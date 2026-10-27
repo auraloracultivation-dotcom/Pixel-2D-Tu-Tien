@@ -111,27 +111,27 @@
   },
   "hero.nam": {
    "file": "assets/art/hero-nam.png",
-   "v": "6428b85f",
+   "v": "3ae62812",
    "w": 64,
    "h": 64,
-   "frames": 24,
+   "frames": 48,
    "anchor": [
     31,
     62
    ],
-   "note": "nam kiếm tu (SpriteCook): đứng ×8, đi ×8, chém ×8"
+   "note": "nam kiếm tu (SpriteCook): đứng, đi, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "0784fe98",
+   "v": "5e47ee9a",
    "w": 118,
    "h": 118,
-   "frames": 32,
+   "frames": 56,
    "anchor": [
     61,
     116
    ],
-   "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng ×8, đi ×8, đâm ×8, chém ×8"
+   "note": "nữ tóc trắng cầm giáo (SpriteCook): đứng, đi, đâm, chém vòng, bổ dọc, hất lên, quét ngang; mỗi động tác 8 khung"
   },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
