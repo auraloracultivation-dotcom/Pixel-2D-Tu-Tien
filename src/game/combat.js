@@ -1,5 +1,6 @@
 // Trúng đòn, đạn, hiệu ứng, số sát thương. Cảm giác đánh: chớp trắng, đẩy lùi, khựng hình, rung màn hình.
 import { burstFx } from './skill-fx.js';
+import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -8,33 +9,38 @@ export function addNumber(game, x, y, text, color = '#fff', big = false) {
   game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0 });
 }
 
+// opt.remote: đòn của đồng đội tổ đội (đã tính bạo kích ở máy họ): không nhân lại, không rung màn hình máy này
 export function hitMob(game, m, dmg, opt = {}) {
   if (m.dead) return;
-  const feel = game.data.config.feel;
+  const feel = game.data.config.feel, own = !opt.remote;
   const p = game.player;
   let crit = false;
-  if (opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
-  if (p.buffT > 0) dmg *= 1 + p.buffAmt;
-  dmg = Math.max(1, Math.round(dmg * (0.9 + Math.random() * 0.2)));
+  if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
+  if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
+  dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
+  if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
-  if (p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
+  if (m.remote) m.hp = Math.max(1, m.hp);
+  if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
-  const kb = opt.soft ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi
+  const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi
   m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
   if (opt.slow) m.slowT = Math.max(m.slowT, opt.slow);
   if (opt.stun && m.def.ai !== 'boss') m.stunT = Math.max(m.stunT, opt.stun);
-  addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : '#fff', crit);
+  addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
+  if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
   if (!opt.soft) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
     game.screen.shake(crit ? feel.shake * 1.5 : feel.shake * 0.6, 0.12);
   }
-  if (m.hp <= 0) killMob(game, m);
+  if (m.hp <= 0 && !m.remote) killMob(game, m);
 }
 
 export function killMob(game, m) {
   m.dead = true;
+  partyKill(game, m);
   game.sfx('die');
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
   if (!m.noQi) game.gainQi(m.def.qi * game.eventMul('qi'), m.x, m.y);
@@ -81,8 +87,12 @@ export function updateBullets(game, dt) {
         if (b.fx) burstFx(game, b.fx, m.x, m.y, b.explode || 10, Math.atan2(b.vy, b.vx));
         if (!b.pierce) { b.life = 0; burst(game, b); break; }
       }
-    } else if (dist(b, game.player) < game.player.r + b.r) {
+    } else if (b.from === 'see') continue;   // đạn quái của đội trưởng, chỉ để nhìn; trúng hay không do máy đội trưởng báo
+    else if (dist(b, game.player) < game.player.r + b.r) {
       hitPlayer(game, b.dmg, { x: b.x - b.vx, y: b.y - b.vy }); b.life = 0;
+    } else {
+      const o = partyGhosts(game).find(g => dist(b, g) < g.r + b.r);
+      if (o) { partyHurt(game, o.id, b.dmg, { x: b.x - b.vx, y: b.y - b.vy }); b.life = 0; }
     }
   }
   game.bullets = game.bullets.filter(b => b.life > 0);
