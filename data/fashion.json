@@ -1,5 +1,5 @@
 {
- "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ). Không cộng chỉ số.",
+ "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số.",
  "list": {
   "dong-phuc": {"name": "Đồng phục Kiếm tông", "robe": "#e6ebf7", "hair": "#3a2e5c", "from": {"start": true}},
   "thanh-sam": {"name": "Thanh sam thư sinh", "robe": "#bfe0d8", "hair": "#2a2a3a", "from": {"shop": 800}},
@@ -13,6 +13,14 @@
   "tien-nhan": {"name": "Tiên Nhân Bạch Y", "robe": "#fbfbff", "hair": "#c8d8f0", "sash": "#7ae0ff", "from": {"tn": 300}},
   "hoang-kim": {"name": "Hoàng Kim Long Bào", "robe": "#ffd24a", "hair": "#2a1a0a", "sash": "#c0302a", "from": {"tn": 600}},
   "tet-do": {"name": "Áo Tết đỏ thắm", "robe": "#ff4a4a", "hair": "#2a1a1a", "sash": "#ffd24a", "from": {"fest": "tet-2027"}},
-  "thien-mach-bao": {"name": "Thiên Mạch bào", "robe": "#f4f0ff", "hair": "#e8e0f8", "sash": "#c06aff", "from": {"achv": "va-thien-mach"}}
+  "thien-mach-bao": {"name": "Thiên Mạch bào", "robe": "#f4f0ff", "hair": "#e8e0f8", "sash": "#c06aff", "from": {"achv": "va-thien-mach"}},
+  "thien-kiem-bao": {"name": "Kiếm bào Thiên Kiếm", "robe": "#dfeaf7", "hair": "#2a2a4a", "sash": "#7ad0ff", "from": {"elite": {"map": "thien-kiem-phong", "n": 200}}},
+  "hoa-bao-xich-diem": {"name": "Hỏa bào Xích Diễm", "robe": "#e0603a", "hair": "#2a1a1a", "sash": "#ffd24a", "from": {"elite": {"map": "dao-xich-dien", "n": 300}}},
+  "bang-y-han-bang": {"name": "Băng y Hàn Băng", "robe": "#cfe8f8", "hair": "#f4f6fa", "sash": "#7ab0d8", "from": {"elite": {"map": "dao-han-bang", "n": 300}}},
+  "phong-bao-hac-phong": {"name": "Phong bào Hắc Phong", "robe": "#4a4258", "hair": "#d8d2e8", "sash": "#8a7ab0", "from": {"elite": {"map": "hac-phong-dao", "n": 300}}},
+  "luc-bao-thanh-moc": {"name": "Lục bào Thanh Mộc", "robe": "#6ab060", "hair": "#3a2a1a", "sash": "#f0e070", "from": {"elite": {"map": "dao-moc", "n": 300}}},
+  "kim-y-thien-kim": {"name": "Kim y Thiên Kim", "robe": "#f0d890", "hair": "#3a2a10", "sash": "#c8963a", "from": {"elite": {"map": "dao-thien-kim", "n": 300}}},
+  "tho-bao-hau-tho": {"name": "Thổ bào Hậu Thổ", "robe": "#b08a5a", "hair": "#2a1a0a", "sash": "#6a8a3a", "from": {"elite": {"map": "dao-hau-tho", "n": 300}}},
+  "hu-khong-tu-y": {"name": "Hư Không Tử Y", "robe": "#3a2458", "hair": "#e8d8ff", "sash": "#c06aff", "from": {"elite": {"map": "vet-nut-ngoai", "n": 300}}}
  }
 }

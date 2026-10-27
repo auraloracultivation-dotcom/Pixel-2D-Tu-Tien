@@ -6,7 +6,7 @@ const F = game => game.data.fashion.list;
 export function owned(game, id) {
   const f = F(game)[id]?.from, s = game.save;
   if (!f) return false;
-  return !!(f.start || s.outfits?.[id] || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]));
+  return !!(f.start || s.outfits?.[id] || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n));
 }
 
 export function buyOutfit(game, id) {
@@ -28,4 +28,12 @@ export function outfit(game) {
 
 export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
   : f.from.achv ? `Thành tựu: ${game.data.status.achievements.find(a => a.id === f.from.achv)?.name}` : f.from.fest ? 'Quà lễ Tết'
-  : f.from.tn ? `${f.from.tn} ${game.data.topup.name} (Quầy Tiên Ngọc)` : '';
+  : f.from.tn ? `${f.from.tn} ${game.data.topup.name} (Quầy Tiên Ngọc)`
+  : f.from.elite ? `Hạ ${f.from.elite.n} quái nhiễm ma khí ở ${game.data.maps[f.from.elite.map]?.name} (${Math.min(f.from.elite.n, game.save.elite?.[f.from.elite.map] || 0)}/${f.from.elite.n})` : '';
+
+// Hạ quái nhiễm ma khí (bãi vòng ngoài tinh cầu): đếm theo tinh cầu, đủ số thì mở bộ thời trang của tinh cầu đó
+export function eliteKill(game, m) {
+  if (!m.elite) return;
+  const s = game.save, id = game.map.id, n = ((s.elite ??= {})[id] = (s.elite[id] || 0) + 1);
+  for (const f of Object.values(F(game))) if (f.from.elite?.map === id && f.from.elite.n === n) game.toast(`Mở thời trang: ${f.name}!`, 2.4);
+}
