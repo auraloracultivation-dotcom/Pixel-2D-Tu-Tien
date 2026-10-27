@@ -1,6 +1,6 @@
 """Quái bằng pixel: mỗi quái trong data/mobs.json có "look" (dáng) thì vẽ một tấm riêng theo màu và cỡ của nó.
 Dáng: slime (giọt), imp (tiểu ma có sừng), mage (pháp sư trùm mũ), wolf (sói), wing (có cánh), plant (cây yêu),
-beetle (giáp trùng), golem (khối đá), snake (xà), lord (ma tướng, áo choàng). "crown": true thêm vương miện (vua quái).
+beetle (giáp trùng), golem (khối đá), snake (xà), lord (ma tướng, áo choàng); thêm person, shade, blade, snowman, pumpkin ở mobs_extra.py. "crown": true thêm vương miện (vua quái).
 Hình gốc nhìn sang phải, 2 khung (đứng / bước, vỗ cánh, nảy). Cỡ theo radius: cao khoảng 2.6 × radius + 4 điểm ảnh."""
 import math
 from px import Canvas, hx
@@ -270,7 +270,11 @@ def mob_frames(d):
     s = d['radius']
     out, anchor = [], None
     for f in range(2):
-        c, anchor = LOOKS[d['look']](P, s, f)
+        if d['look'] in LOOKS:
+            c, anchor = LOOKS[d['look']](P, s, f)
+        else:   # dáng thêm ở mobs_extra.py, cần cả mục quái (tóc, đai)
+            from mobs_extra import EXTRA
+            c, anchor = EXTRA[d['look']](P, s, f, d)
         if d.get('crown'):
             big = Canvas(c.w, c.h + 6); big.paste(c, 0, 6)
             ys = [y for y in range(big.h) if big.a[y, :, 3].any()]
