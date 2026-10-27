@@ -276,7 +276,7 @@ begin
   if v_lt_moi - v_lt_cu > v_xo then
     v_lt_moi := v_lt_cu + floor(v_xo);
     v_data := jsonb_set(v_data, '{lingshi}', to_jsonb(v_lt_moi));
-    v_ly_do := v_ly_do || 'linh_thach';
+    v_ly_do := array_append(v_ly_do, 'linh_thach');
     v_xo := 0;
   elsif v_lt_moi > v_lt_cu then
     v_xo := v_xo - (v_lt_moi - v_lt_cu);
@@ -296,7 +296,7 @@ begin
                                           else n.value end)
         from jsonb_each(v_data -> 'mats') n
         left join jsonb_each(coalesce(v_cu.data -> 'mats', '{}'::jsonb)) o on o.key = n.key and jsonb_typeof(o.value) = 'number'), '{}'::jsonb));
-    v_ly_do := v_ly_do || 'nguyen_lieu';
+    v_ly_do := array_append(v_ly_do, 'nguyen_lieu');
     v_xo_nl := 0;
   else
     v_xo_nl := v_xo_nl - v_tang_nl;
@@ -310,7 +310,7 @@ begin
       from jsonb_array_elements(coalesce(v_data -> 'bag', '[]'::jsonb)) it where not (v_bo @> jsonb_build_array(it -> 'uid'));
     if jsonb_array_length(v_bag) < v_tui then
       v_data := jsonb_set(v_data, '{bag}', v_bag);
-      v_ly_do := v_ly_do || 'do_da_rao';
+      v_ly_do := array_append(v_ly_do, 'do_da_rao');
     end if;
   end if;
   -- mã số món chỉ tăng (không dùng lại mã cũ)
@@ -325,15 +325,15 @@ begin
     into v_thien, v_dia, v_sai
     from jsonb_array_elements(coalesce(v_data -> 'bag', '[]'::jsonb)) n
    where not exists (select 1 from jsonb_array_elements(coalesce(v_cu.data -> 'bag', '[]'::jsonb)) o where o -> 'uid' = n -> 'uid');
-  if v_thien > 2 + v_dt / 600 or v_dia > 4 + v_dt / 120 then v_ly_do := v_ly_do || 'do_hiem'; end if;
-  if v_sai > 0 then v_ly_do := v_ly_do || 'do_sai_chi_so'; end if;
+  if v_thien > 2 + v_dt / 600 or v_dia > 4 + v_dt / 120 then v_ly_do := array_append(v_ly_do, 'do_hiem'); end if;
+  if v_sai > 0 then v_ly_do := array_append(v_ly_do, 'do_sai_chi_so'); end if;
 
   -- (e) Lực chiến: trần theo cảnh giới. Tầng tháp: mỗi tầng ít nhất 5 giây.
   v_tran_luc := 6000 * power(1.6, v_canh_gioi);
   v_luc := least(greatest(coalesce(case when jsonb_typeof(p_data -> 'power') = 'number' then (p_data ->> 'power')::numeric end, 0), 0), 100000000);
-  if v_luc > v_tran_luc then v_luc := v_tran_luc; v_ly_do := v_ly_do || 'luc_chien'; end if;
+  if v_luc > v_tran_luc then v_luc := v_tran_luc; v_ly_do := array_append(v_ly_do, 'luc_chien'); end if;
   v_thap := least(greatest(coalesce(case when jsonb_typeof(p_data -> 'tower' -> 'best') = 'number' then (p_data -> 'tower' ->> 'best')::numeric end, 0), 0), 100000);
-  if v_thap > v_cu.thap + 1 + floor(v_dt / 5) then v_thap := v_cu.thap + 1 + floor(v_dt / 5); v_ly_do := v_ly_do || 'thap'; end if;
+  if v_thap > v_cu.thap + 1 + floor(v_dt / 5) then v_thap := v_cu.thap + 1 + floor(v_dt / 5); v_ly_do := array_append(v_ly_do, 'thap'); end if;
 
   -- (f) Tiên Ngọc, quà ra mắt, thẻ tháng: máy chủ giữ, máy khách gửi gì cũng thay bằng số trên máy chủ
   v_data := (v_data - 'tn' - 'tnStarter' - 'card')
