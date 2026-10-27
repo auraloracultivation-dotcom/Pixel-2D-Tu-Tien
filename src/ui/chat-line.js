@@ -30,6 +30,7 @@ function toggle(game, d, m, onNote, redraw) {
   if (open) return;
   const row = el('div', 'chat-act');
   const btn = (t, fn) => { const b = el('button', 'mini', t); b.onclick = e => { e.stopPropagation(); fn(); }; row.append(b); };
+  if (game.openWhisper) btn(game.data.social.whisper.btn, () => { row.remove(); game.openWhisper(m.k, m.ten); });   // nhắn riêng
   btn(M.block, () => { block(game, m.k, m.ten); onNote(M.blocked.replace('{name}', m.ten)); redraw(); });
   btn(M.report, () => {
     row.innerHTML = ''; row.append(el('small', null, M.ask));
