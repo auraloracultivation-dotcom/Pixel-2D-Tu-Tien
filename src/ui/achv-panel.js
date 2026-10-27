@@ -41,11 +41,12 @@ export function createAchvPanel(game) {
 
   function renderTitles(list) {
     const own = titles(game);
-    $('achv-sub').textContent = `${own.length}/${Object.keys(D.titles).length} danh hiệu`;
+    const keep = id => !D.titles[id].weekly;   // danh hiệu xếp hạng tuần không tính vào tổng
+    $('achv-sub').textContent = `${own.filter(keep).length}/${Object.keys(D.titles).filter(keep).length} danh hiệu`;
     if (!own.length) list.append(card('#c8c4d0', 'Chưa có danh hiệu', ['Hoàn thành thành tựu để mở danh hiệu.']));
     for (const id of own) {
       const t = D.titles[id], on = game.save.title === id;
-      list.append(card(t.color, t.name, [on ? 'Đang dùng, hiện trên đầu.' : 'Chạm để mang.'], mini(on ? 'Bỏ' : 'Mang', () => setTitle(game, id))));
+      list.append(card(t.color, t.name, [(t.weekly ? 'Danh hiệu tuần này. ' : '') + (on ? 'Đang dùng, hiện trên đầu.' : 'Chạm để mang.')], mini(on ? 'Bỏ' : 'Mang', () => setTitle(game, id))));
     }
   }
 

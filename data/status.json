@@ -28,7 +28,8 @@
   "cong-phap": {"name": "Bác Học Công Pháp", "color": "#5ab8f0"},
   "ban-huu": {"name": "Bạn Hữu Bốn Phương", "color": "#ffb0c8"},
   "luc-chien": {"name": "Uy Chấn Tứ Đảo", "color": "#ff6a3a"},
-  "ho-gioi": {"name": "Hộ Giới Chân Tiên", "color": "#e0c0ff"}, "tinh-tam": {"name": "Tâm Tĩnh Như Nước", "color": "#bfe4ff"}, "ngu-ong": {"name": "Ngư Ông Mây Trắng", "color": "#9ad8f0"}, "uoc-nguyen": {"name": "Người Gửi Ước Nguyện", "color": "#ffcf6a"}, "ban-thu": {"name": "Bạn Của Muôn Thú", "color": "#ff8ab8"}, "tri-ky": {"name": "Tri Kỷ Bên Trà", "color": "#b8e0a0"}, "bep-am": {"name": "Bếp Lửa Động Phủ", "color": "#ffb060"}
+  "ho-gioi": {"name": "Hộ Giới Chân Tiên", "color": "#e0c0ff"}, "tinh-tam": {"name": "Tâm Tĩnh Như Nước", "color": "#bfe4ff"}, "ngu-ong": {"name": "Ngư Ông Mây Trắng", "color": "#9ad8f0"}, "uoc-nguyen": {"name": "Người Gửi Ước Nguyện", "color": "#ffcf6a"}, "ban-thu": {"name": "Bạn Của Muôn Thú", "color": "#ff8ab8"}, "tri-ky": {"name": "Tri Kỷ Bên Trà", "color": "#b8e0a0"}, "bep-am": {"name": "Bếp Lửa Động Phủ", "color": "#ffb060"},
+  "bxh-luc-chien": {"name": "Thập Đại Cường Giả", "color": "#ff5a3a", "weekly": true}, "bxh-canh-gioi": {"name": "Thập Đại Tu Sĩ", "color": "#c08aff", "weekly": true}, "bxh-thap": {"name": "Thập Đại Đăng Tháp", "color": "#6a9aff", "weekly": true}
  },
  "achievements": [
   {"id": "nhap-mon", "name": "Bước vào tiên đồ", "need": {"type": "flag", "flag": "ngu-kiem"}, "text": "Học ngự kiếm", "give": {"stones": 1}, "title": "so-nhap"},

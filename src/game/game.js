@@ -42,7 +42,8 @@ import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
-import { ensureStats, countKill, checkAchv } from './achieve.js';
+import { ensureStats, countKill, checkAchv, power } from './achieve.js';
+import { initRank } from './rank.js';
 import { updateRes, resKill, resGoal } from './resrun.js';
 import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
@@ -71,6 +72,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.persist = () => {
     if (!game.save || !game.map) return;
     stamp(game.save);
+    if (game.player) game.save.power = power(game);   // máy chủ đọc để xếp hạng lực chiến
     writeSave(game.owner, game.save);
     game.cloud?.save(game.save);
   };
@@ -249,6 +251,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.checkUnlocks(); // bản lưu cũ: ghi nhận chiêu đã có, không báo
     if (game.pendingTech) { learnTech(game, game.pendingTech); game.pendingTech = null; }
     ui.showPlay(true);
+    initRank(game);
     await offlineGains(game, lastSeen);
     eventToast(game); checkFestival(game);
     await game.story.start();

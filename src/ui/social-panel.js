@@ -1,5 +1,6 @@
-// Bảng Đạo hữu: nút chào hỏi, log trò chuyện cùng đảo, ô gõ chữ (game/social.js gửi và lọc). Chưa đăng nhập thì chỉ hiện lời nhắc.
+// Bảng Đạo hữu: tab Trò chuyện (nút chào hỏi, log trò chuyện cùng đảo, ô gõ chữ (game/social.js gửi và lọc). Chưa đăng nhập thì chỉ hiện lời nhắc) và tab Xếp hạng (ui/rank-view.js).
 import { sendEmote, sendChat } from '../game/social.js';
+import { createRankView } from './rank-view.js';
 
 const $ = id => document.getElementById(id);
 
@@ -12,7 +13,16 @@ function el(tag, cls, text) {
 
 export function createSocialPanel(game) {
   const S = game.data.social, c = S.chat;
-  let note = '';
+  let note = '', tab = 'chat';
+  const rank = createRankView(game);
+
+  function showTab(id) {
+    tab = id;
+    for (const b of document.querySelectorAll('#social-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === id);
+    for (const k of ['social-emotes', 'social-log', 'social-form']) $(k).hidden = id !== 'chat';
+    $('social-rank').hidden = id !== 'rank';
+    if (id === 'rank') rank.render(); else render();
+  }
 
   function render() {
     const on = !!game.online;
@@ -34,7 +44,7 @@ export function createSocialPanel(game) {
 
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
-    note = ''; game.uiOpen = true; $('social').hidden = false; render();
+    note = ''; game.uiOpen = true; $('social').hidden = false; showTab(tab);
   }
   function close() { game.uiOpen = false; $('social').hidden = true; $('social-input').blur(); }
 
@@ -49,11 +59,14 @@ export function createSocialPanel(game) {
     if (!note) inp.value = '';
     render();
   };
-  for (const b of document.querySelectorAll('#social-tabs [data-tab]')) b.classList.add('on');
+  for (const b of document.querySelectorAll('#social-tabs [data-tab]')) {
+    b.textContent = b.dataset.tab === 'chat' ? S.rank.chat_tab : S.rank.tab;
+    b.onclick = () => showTab(b.dataset.tab);
+  }
   $('btn-social').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   setInterval(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
     $('social-badge').hidden = !game.chatNew || !$('social').hidden;
-    if (!$('social').hidden && game.chatNew) render();
+    if (!$('social').hidden && game.chatNew && tab === 'chat') render();
   }, 500);
   return { open, close };
 }
