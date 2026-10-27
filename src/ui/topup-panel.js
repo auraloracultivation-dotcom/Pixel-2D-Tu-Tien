@@ -1,5 +1,6 @@
 // Bảng Quầy Tiên Ngọc (data/topup.json): số dư, thẻ tháng, gói nạp (chưa mở), đổi Tiên Ngọc lấy đồ.
 import { tn, starterGift, cardLeft, cardClaimed, claimCard, buyTn, shopOwned } from '../game/topup.js';
+import { giveOdds } from '../game/odds.js';
 
 const $ = id => document.getElementById(id);
 
@@ -47,6 +48,8 @@ export function createTopupPanel(game) {
         note = got ? T.got.replace('{got}', got.join(', ')) : T.poor;
         game.sfx(got ? 'pickup' : 'hurt');
       }, tn(game) < x.tn)));
+      const odds = x.give ? giveOdds(game.data, x.give) : '';   // món may rủi: hiện tỉ lệ ngay dưới, trước khi bấm đổi
+      if (odds) box.append(el('small', 'tp-odds', odds));
     }
   }
 

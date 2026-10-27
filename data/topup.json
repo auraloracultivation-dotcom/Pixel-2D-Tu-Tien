@@ -29,5 +29,6 @@
  "owned": "Đã có",
  "soon": "Sắp mở",
  "poor": "Chưa đủ Tiên Ngọc.", "busy": "Máy chủ đang bận, thử lại sau nhé.",
+ "odds": {"_note": "Công bố tỉ lệ cho món may rủi đổi bằng Tiên Ngọc (luật CH Play: phải hiện trước khi mua). Số tính từ data/items.json lúc chạy (game/odds.js), không gõ tay.", "head": "Tỉ lệ:", "rarity": "phẩm {list}", "base": "1 trong {n} loại đồ thường, mỗi loại {p}", "lines": "dòng chỉ số ngẫu nhiên theo phẩm", "gem": "mỗi viên là ngọc cấp 1, {list}"},
  "got": "Nhận: {got}."
 }
