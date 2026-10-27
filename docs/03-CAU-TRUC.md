@@ -19,7 +19,11 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 ## Bản đồ (`data/maps/*.json`)
 
-`grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà).
+`grid` là các dòng ký tự (xem `data/tiles.json`). `spawns` là điểm vào, `portals` là cổng (có thể cần cờ `need`), `npcs`, `spawners` (quái hồi sinh), `rooms` (phòng bí cảnh, cửa `D` mở khi dọn sạch), `island` (màu đảo trong cảnh bay), `ground` (màu đất dưới cây, đá, nhà), `world: true` (bay tới được từ tinh đồ).
+
+## Tinh đồ (`data/starmap.json`)
+
+Nút Bản đồ mở tinh đồ Thiên Kiếm Tinh Hệ: Linh Nhật ở giữa, tinh cầu quay chậm trên quỹ đạo theo giờ thật, mặt trăng (bí cảnh, động phủ) quay quanh tinh cầu mẹ, vòng ma khí gợn sóng ở ngoài cùng. Kéo để dời, chụm hai ngón hoặc lăn chuột để phóng (`src/ui/pan-zoom.js`). Chạm thiên thể hiện thẻ: tên, loại, mô tả, màu nguy hiểm so cảnh giới (xanh / vàng / đỏ, màu ở `dungeon.json` → hint, không hiện số), nút Bay tới nếu bản đồ có `world: true` và đã tới. Vị trí và độ nguy hiểm ở `src/game/starmap.js`, vẽ ở `src/render/draw-starmap.js`, bảng ở `src/ui/world-map.js`. Thêm tinh cầu mới: thêm vào `bodies` (bản đồ nào có `world` cũng phải có trên tinh đồ, `tools/check.mjs` kiểm).
 
 ## Đi đường
 

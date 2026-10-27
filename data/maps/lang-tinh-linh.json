@@ -1,6 +1,7 @@
 {
  "id": "lang-tinh-linh",
  "name": "Làng Tinh Linh",
+ "world": true,
  "sky": "#2e4a3a",
  "ground": "#6ab060",
  "island": {"top": "#6ab060", "under": "#2e4a2e", "trees": "#1f5a32"},

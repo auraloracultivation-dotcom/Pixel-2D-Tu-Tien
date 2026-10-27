@@ -39,7 +39,7 @@ async function boot() {
   createPetsPanel(game);
   createDailyPanel(game);
   createAchvPanel(game);
-  createWorldMap(game);
+  game.worldMap = createWorldMap(game);
   createSocialPanel(game);
   createMarketPanel(game); startMailCheck(game);
   createTopupPanel(game);

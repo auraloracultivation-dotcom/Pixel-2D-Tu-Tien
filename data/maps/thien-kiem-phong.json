@@ -4,7 +4,7 @@
  "sky": "#b8d8f8",
  "dark": 0,
  "island": {"top": "#9cd08a", "under": "#8a7a6a", "hall": true},
- "world": {"x": 50, "y": 16, "layer": "Tầng Mây Cao"},
+ "world": true,
  "grid": [
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~TTHHHHHHHHHHTT~~~~~~~~~",

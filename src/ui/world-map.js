@@ -1,4 +1,8 @@
-// Bản đồ thế giới: các đảo đã tới (map có "world"), chạm để bay từ bất cứ đâu ngoài bí cảnh.
+// Tinh đồ (nút Bản đồ): Thiên Kiếm Tinh Hệ vẽ bằng canvas; chạm thiên thể để xem, nơi đã tới thì bay tới (ngoài bí cảnh).
+import { bodiesOf, dangerOf, whyNot } from '../game/starmap.js';
+import { drawStarmap } from '../render/draw-starmap.js';
+import { panZoom } from './pan-zoom.js';
+
 const $ = id => document.getElementById(id);
 
 function el(tag, cls, text) {
@@ -9,41 +13,86 @@ function el(tag, cls, text) {
 }
 
 export function createWorldMap(game) {
-  const { data } = game;
+  const { data } = game, sm = data.starmap, H = data.dungeon.hint;
+  const bodies = bodiesOf(sm, data.maps);
+  const hint = { easy: H.easy_color, fair: H.fair_color, hard: H.hard_color };
+  const hintText = { easy: H.easy_text, fair: H.fair_text, hard: H.hard_text };
+  let canvas = null, ctx = null, raf = 0, pts = [], sel = null, t0 = 0, view = null;
 
   // Đang ở bí cảnh, đang độ kiếp hay truyện đang chạy thì không bay
   const blocked = () => (game.map.def.rooms || []).length ? 'Đang ở bí cảnh, ra cổng trước đã.'
     : game.map.def.tower || game.map.def.res ? 'Đang trong tháp hoặc bí cảnh, ra cổng trước đã.'
     : game.trib.active ? 'Đang độ kiếp!' : game.story.busy ? 'Đang có chuyện, đợi xong đã.' : null;
 
-  function render() {
-    const box = $('world-sky'); box.innerHTML = '';
-    const why = blocked();
-    $('world-sub').textContent = why || 'Chạm đảo đã tới để bay.';
-    for (const [id, m] of Object.entries(data.maps)) {
-      if (!m.world) continue;
-      const seen = game.save.visited?.[id], here = game.map.id === id;
-      const b = el('button', 'isle' + (here ? ' here' : '') + (seen ? '' : ' locked'), seen ? m.name : '???');
-      b.style.left = m.world.x + '%'; b.style.top = m.world.y + '%';
-      b.style.background = m.island?.top || m.ground || '#7cc46a';
-      if (here) b.append(el('small', null, 'Bạn ở đây'));
-      b.disabled = !seen || here || !!why;
-      b.onclick = () => { close(); game.travel(id, 'vao', true, { text: `Ngự kiếm bay tới ${m.name}`, kind: m.indoor ? 'portal' : 'flight' }); };
-      box.append(b);
+  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!game.save.visited?.[b.map];
+
+  function fit() {
+    const box = $('world-sky'), dpr = Math.min(2, window.devicePixelRatio || 1);
+    const w = box.clientWidth, h = box.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w, h };
+  }
+
+  function frame() {
+    if ($('world').hidden) { raf = 0; return; }
+    const { w, h } = fit();
+    pts = drawStarmap(ctx, w, h, sm, bodies, {
+      min: Date.now() / 60000, t: (performance.now() - t0) / 1000, realm: game.save.realm || 0,
+      here: game.map.id, sel: sel?.id, seen, hint, view,
+    });
+    raf = requestAnimationFrame(frame);
+  }
+
+  function card() {
+    const box = $('world-card'); box.innerHTML = '';
+    box.hidden = !sel;
+    if (!sel) return;
+    const b = sel, known = seen(b);
+    box.append(el('b', null, known ? b.name : sm.texts.unknown), el('small', null, sm.kinds[b.kind] || ''));
+    if (known && b.desc) box.append(el('p', null, b.desc));
+    const dg = known && dangerOf(b, game.save.realm || 0);
+    if (dg) { const p = el('p', 'wc-danger', sm.texts.danger + ' '); const s = el('span', null, hintText[dg]); s.style.color = hint[dg]; p.append(s); box.append(p); }
+    if (b.sun || b.kind === 'lost' || b.kind === 'soon') return;
+    const here = game.map.id === b.map, why = here ? sm.texts.here : whyNot(game, b) || blocked();
+    const go = el('button', 'wc-go', why || sm.texts.fly);
+    go.disabled = !!why;
+    go.onclick = () => {
+      const m = data.maps[b.map];
+      close();
+      game.travel(b.map, 'vao', true, { text: sm.texts.trip.replace('{name}', b.name), kind: m.indoor ? 'portal' : 'flight' });
+    };
+    box.append(go);
+  }
+
+  // Chạm: chọn thiên thể gần nhất; chạm chỗ trống thì đóng thẻ
+  function tap(x, y) {
+    let best = null, bd = Infinity;
+    for (const p of pts) {
+      const d = Math.hypot(p.x - x, p.y - y);
+      if (d < Math.max(16, p.r + 8) && d - p.r < bd) { bd = d - p.r; best = p.b; }
     }
-    for (const l of new Set(Object.values(data.maps).filter(m => m.world).map(m => m.world.layer))) {
-      const ys = Object.values(data.maps).filter(m => m.world?.layer === l).map(m => m.world.y);
-      const t = el('span', 'isle-layer', l); t.style.top = Math.min(...ys) - 9 + '%'; box.append(t);
-    }
+    sel = best; card();
   }
 
   function open() {
     if (!game.save || game.dialog.open || game.trip || game.traveling) return;
-    game.uiOpen = true; $('world').hidden = false; render();
+    game.uiOpen = true; $('world').hidden = false;
+    $('world-title').textContent = sm.name;
+    $('world-sub').textContent = blocked() || sm.sub;
+    if (!canvas) {
+      canvas = el('canvas'); ctx = canvas.getContext('2d');
+      view = panZoom(canvas, { max: 3.5, onTap: tap });
+      $('world-sky').prepend(canvas);
+    }
+    sel = null; view.reset(); card();
+    t0 = performance.now();
+    if (!raf) raf = requestAnimationFrame(frame);
   }
   function close() { game.uiOpen = false; $('world').hidden = true; }
 
   $('world-close').onclick = close;
   $('btn-world').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
-  return { open, close };
+  return { open, close, get pts() { return pts; } }; // pts: chỗ vẽ từng thiên thể (kiểm thử tự động chạm theo)
 }
