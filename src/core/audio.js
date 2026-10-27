@@ -27,7 +27,15 @@ export function createAudio(cfg) {
     if (want) music.play(want);
     music.rain(wantRain); music.night(wantNight);
   }
-  for (const ev of ['pointerdown', 'keydown']) window.addEventListener(ev, () => { init(); if (ac?.state === 'suspended') ac.resume(); }, { capture: true });
+  // iPhone: sau khi ra màn hình chính, có cuộc gọi hay khoá máy, AudioContext sang 'interrupted' chứ không phải 'suspended',
+  // nên chạm nào cũng thử bật lại khi chưa 'running'. Loại phiên 'playback' để gạt im lặng không tắt tiếng game (Safari 16.4+).
+  function wake() {
+    init();
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch { /* trình duyệt không hỗ trợ */ }
+    if (ac && ac.state !== 'running' && ac.state !== 'closed') ac.resume().catch(() => {});
+  }
+  for (const ev of ['pointerdown', 'touchend', 'keydown']) window.addEventListener(ev, wake, { capture: true });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && ac) wake(); });
 
   function tone(n, at, out) {
     const t0 = at + (n.t || 0), t1 = t0 + n.d;
