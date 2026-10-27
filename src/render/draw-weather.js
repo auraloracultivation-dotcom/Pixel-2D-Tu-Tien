@@ -1,9 +1,11 @@
 // Hạt thời tiết vẽ trên màn hình: cánh hoa, tuyết, lá, tro, bụi, mưa, đom đóm ban đêm. Vị trí hạt tính từ thời gian, không lưu trạng thái.
 import { weatherOf } from '../game/weather.js';
+import { hourNow, outdoor } from '../game/daynight.js';
 
 const SEED = Array.from({ length: 80 }, (_, i) => ({ x: Math.abs(Math.sin(i * 91.7) * 1e4) % 1, y: Math.abs(Math.sin(i * 47.3) * 1e4) % 1, k: 0.6 + (i % 5) * 0.12 }));
 
 export function drawWeather(ctx, game, screen, t) {
+  drawMist(ctx, game, screen, t);
   const w = weatherOf(game);
   if (!w) return;
   const cfg = game.data.weather, k = cfg.kinds[w.kind], W = screen.w, H = screen.h, z = screen.zoom;
@@ -48,4 +50,21 @@ function drawFireflies(ctx, f, screen, t) {
     ctx.fillStyle = f.color; ctx.fillRect(x - z * 0.8, y - z * 0.8, z * 1.6, z * 1.6);
   }
   ctx.globalAlpha = 1;
+}
+
+// Sương sớm: vài dải sương mờ trôi chậm ngang màn hình, hiện dần từ 5 giờ, đậm nhất lúc 6 giờ, tan hết lúc 8 giờ
+function drawMist(ctx, game, screen, t) {
+  const m = game.data.weather.mist, h = hourNow(game);
+  if (!m || h < m.from || h >= m.to || game.raining || !outdoor(game)) return;
+  const k = h < m.peak ? (h - m.from) / (m.peak - m.from) : 1 - (h - m.peak) / (m.to - m.peak);
+  const W = screen.w, H = screen.h, z = screen.zoom, cam = screen.camX * z * 0.2;
+  for (let i = 0; i < m.bands; i++) {
+    const s = SEED[i * 11], bw = W * (0.6 + s.k * 0.5), bh = H * (0.08 + s.y * 0.06);
+    const x = ((s.x * W + t * (6 + i * 2) * z - cam) % (W + bw) + W + bw) % (W + bw) - bw / 2;
+    const y = H * (0.25 + i / m.bands * 0.65) + Math.sin(t * 0.2 + i) * 6 * z;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, bw / 2);
+    g.addColorStop(0, `rgba(${m.color},${m.alpha * k})`); g.addColorStop(1, `rgba(${m.color},0)`);
+    ctx.save(); ctx.translate(x, y); ctx.scale(1, bh / bw); ctx.translate(-x, -y);
+    ctx.fillStyle = g; ctx.fillRect(x - bw / 2, y - bw / 2, bw, bw); ctx.restore();
+  }
 }
