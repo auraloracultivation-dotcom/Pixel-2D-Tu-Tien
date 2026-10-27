@@ -205,3 +205,5 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #menu .legal { font-size: 12px; opacity: .8; margin: 2px 0; }
 #menu .legal a { color: inherit; }
 .link-btn.danger { color: #c0504a; }
+.skill-up { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -2px 0 8px 10px; }
+.skill-up small { color: #6a6478; }

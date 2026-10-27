@@ -12,9 +12,9 @@
  "texts": {"pick": "{map}: chọn độ khó", "level": "{mode} · bậc {step}", "out": "Thôi", "unlock": "Mở {level}!", "first": "Lần đầu qua {level}", "done": "Qua {map} ({level})! Nhận: {got}.", "full": "Hôm nay đã nhận đủ {n} lần thưởng {mode}."},
  "story_step": {"_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.", "bi-canh": "bi-canh", "hoa-quat": "hoa-quat", "han-bang-quat": "bang-quat", "hac-phong-dong": "hac-phong-dong", "co-thu-tam": "co-thu-tam"},
  "modes": [
-  {"id": "thuong", "name": "Thường", "reward": {"stones": 1, "coins": 150}},
-  {"id": "kho", "name": "Khó", "reward": {"item": "huyen", "stones": 3, "coins": 300}},
-  {"id": "ac-mong", "name": "Ác Mộng", "reward": {"item": "dia", "gem": 1, "coins": 1000, "mats": {"khoa-linh-thach": 1}}},
-  {"id": "dia-nguc", "name": "Địa Ngục", "reward": {"item": "dia", "gem": 1, "stones": 2, "coins": 1150, "mats": {"khoa-linh-thach": 1}}}
+  {"id": "thuong", "name": "Thường", "reward": {"stones": 1, "coins": 150, "mats": {"bi-kip-chieu": 1}}},
+  {"id": "kho", "name": "Khó", "reward": {"item": "huyen", "stones": 3, "coins": 300, "mats": {"bi-kip-chieu": 2}}},
+  {"id": "ac-mong", "name": "Ác Mộng", "reward": {"item": "dia", "gem": 1, "coins": 1000, "mats": {"khoa-linh-thach": 1, "bi-kip-chieu": 3}}},
+  {"id": "dia-nguc", "name": "Địa Ngục", "reward": {"item": "dia", "gem": 1, "stones": 2, "coins": 1150, "mats": {"khoa-linh-thach": 1, "bi-kip-chieu": 4}}}
  ]
 }
