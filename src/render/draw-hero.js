@@ -35,7 +35,7 @@ export function drawHero(ctx, game, p, t, flash) {
   ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
-  const m = ctx.getTransform(), want = look.height / spr.h * m.d;
+  const m = ctx.getTransform(), want = game.data.heroes.char_height / look.body * m.d;   // thân cao bằng NPC (data/heroes.json char_height)
   const n = want >= 0.75 ? Math.max(1, Math.round(want)) : want;
   ctx.save();
   const dx = atk != null && look.lunge ? (p.lookX || 1) * look.lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về

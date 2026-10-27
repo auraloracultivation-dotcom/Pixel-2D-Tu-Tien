@@ -12,6 +12,7 @@ Luật cứng:
 - Không gom code vào một file (tối đa 400 dòng). Không có logic trong `index.html`.
 - Schema chỉ đổi bằng migration mới trong `supabase/migrations/`.
 - Không đưa secret/service_role key vào repo.
+- Mọi nhân vật (nhân vật chính, NPC, bạn đồng hành, sau này cũng vậy) cao bằng nhau, bằng NPC: NPC vẽ 1 điểm ảnh = 1 đơn vị, đỉnh đầu đến chân ~24; nhân vật bằng hình khai `body` (điểm ảnh thân người) trong `data/heroes.json`, game tự thu phóng theo `char_height`. Không đặt cỡ riêng cho từng nhân vật.
 - Hình nhân vật, quái, nền do Claude tự thiết kế bằng code (`tools/art/`), không lấy hình từ game cũ hay ảnh GPT.
 - Làm trên nhánh riêng, mở Pull Request, không đẩy thẳng `main`. Chạy `node tools/check.mjs` trước khi đẩy.
 - Được tự gộp Pull Request khi kiểm tra xanh, TRỪ thay đổi cơ sở dữ liệu thật, xoá nội dung, đổi kiến trúc: những việc đó phải hỏi chủ dự án.
