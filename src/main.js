@@ -16,7 +16,7 @@ import { createDailyPanel } from './ui/daily-panel.js';
 import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 import { createSocialPanel } from './ui/social-panel.js';
-import { initPwa } from './core/pwa.js';
+import { initPwa, recoverStale } from './core/pwa.js';
 import { createMarketPanel } from './ui/market-panel.js';
 import { startMailCheck } from './game/market.js';
 import { createTopupPanel } from './ui/topup-panel.js';
@@ -42,6 +42,7 @@ async function boot() {
   createTopupPanel(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
+  try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 
   const login = createLogin(opts => game.begin(opts));
   login.start();
@@ -59,7 +60,8 @@ async function boot() {
   requestAnimationFrame(frame);
 }
 
-boot().catch(e => {
+boot().catch(async e => {
   console.error(e);
+  if (await recoverStale()) return;
   document.getElementById('loading').textContent = 'Lỗi tải game: ' + e.message;
 });
