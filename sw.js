@@ -11,7 +11,8 @@ self.addEventListener('activate', e => e.waitUntil(
 self.addEventListener('fetch', e => {
   const r = e.request, u = new URL(r.url);
   if (r.method !== 'GET' || (u.origin !== location.origin && u.host !== 'cdn.jsdelivr.net')) return;   // Supabase và chat luôn đi thẳng
-  e.respondWith(fetch(r).then(res => {
+  const net = r.mode === 'navigate' ? fetch(r.url, { cache: 'no-store' }) : fetch(r);   // trang chính luôn lấy bản mới, không dùng bộ nhớ đệm HTTP
+  e.respondWith(net.then(res => {
     if (res.ok) { const c = res.clone(); caches.open(KHO).then(k => k.put(r, c)); }
     return res;
   }).catch(() => caches.match(r).then(x => x || caches.match(r, { ignoreSearch: true })).then(x => x || Response.error())));
