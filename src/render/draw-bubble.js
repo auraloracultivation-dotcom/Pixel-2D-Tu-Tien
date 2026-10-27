@@ -8,7 +8,7 @@ export function drawBubbles(ctx, game) {
     const b = n?.bubble;
     if (!b) continue;
     const a = Math.min(1, b.t * 5, ((b.sec || sec) - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
-    const x = n.x - w / 2, y = n.y - 34 - (1 - Math.min(1, b.t * 5)) * 2;
+    const x = n.x - w / 2, y = n.y - (n.def && game.npcs.includes(n) ? 37 : 34) - (1 - Math.min(1, b.t * 5)) * 2;   // NPC chibi cao hơn
     ctx.globalAlpha = a * 0.92;
     ctx.fillStyle = '#fffaf0'; ctx.strokeStyle = INK; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.roundRect(x, y, w, h, 4); ctx.fill(); ctx.stroke();

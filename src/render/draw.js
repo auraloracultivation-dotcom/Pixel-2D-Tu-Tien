@@ -21,6 +21,7 @@ import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite } from './draw-mob-sprite.js';
+import { drawNpcSprite } from './draw-npc-sprite.js';
 
 const INK = '#1b1830';
 
@@ -165,10 +166,10 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
+  if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
-    ctx.fillText('!', n.x, n.y - 20 + Math.sin(t * 5) * 1.5);
+    ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
   }
 }
 
@@ -287,9 +288,9 @@ export function drawWorld(game, screen, t) {
   ctx.globalAlpha = 1;
   drawBubbles(ctx, game);
   if (game.peek) {   // tên chỉ hiện khi chạm vào
-    const e = game.peek.e, name = e.def.name;
+    const e = game.peek.e, name = e.def.name, ny = e.y - Math.max(22, (e.top || 0) + 4, game.data.art.sprites['npc.' + e.id] ? 28 : 0);   // trên đỉnh hình
     ctx.font = 'bold 7px system-ui'; ctx.textAlign = 'center';
-    ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, e.y - 22); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, e.y - 22);
+    ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, ny); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, ny);
   }
   screen.screenTransform();
   drawDayNight(ctx, game, screen, t);
