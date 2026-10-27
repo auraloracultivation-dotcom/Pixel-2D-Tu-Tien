@@ -1,6 +1,6 @@
 // Túi đồ: ô đang mặc, danh sách đồ và ngọc, chi tiết món đồ với mặc/tháo, tẩy luyện, khảm ngọc, phân giải.
 import {
-  ensureInv, equip, unequip, salvage, reroll, socket, unsocket, mergeGems,
+  ensureInv, equip, unequip, salvage, reroll, rerollFee, socket, unsocket, mergeGems,
   gemInfo, rarityOf, itemName, statText, gearStats,
 } from '../game/items.js';
 import { salvageIron, matInfo } from '../game/cave.js';
@@ -129,9 +129,9 @@ export function createBag(game) {
         game.sfx(r === 'up' ? 'levelup' : 'hurt'); changed();
       }, !can);
     }
-    const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost;
+    const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save(), it);
     const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save().mats[lk.mat] || 0) >= lk.n;
-    btn(`Tẩy luyện (${cost} thạch${locking ? `, khoá 1 dòng` : ''})`, () => { if (reroll(data, save(), it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk);
+    btn(`Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name}${locking ? `, khoá 1 dòng` : ''})`, () => { if (reroll(data, save(), it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk || (save().lingshi || 0) < fee);
     const iron = data.cave.salvage_iron[it.rarity] || 0;
     btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
     btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, isEq(it.uid));

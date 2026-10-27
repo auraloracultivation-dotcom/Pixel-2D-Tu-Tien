@@ -82,6 +82,7 @@
   "tay-luyen-thach": {"name": "Tẩy Luyện Thạch", "color": "#bff4ff", "desc": "Tẩy luyện: quay lại toàn bộ dòng chỉ số của một món đồ (giữ độ hiếm)."}, "khoa-linh-thach": {"name": "Khóa Linh Thạch", "color": "#ff9ad8", "desc": "Hiếm. Khi tẩy luyện, giữ nguyên một dòng đã chọn. Rơi từ boss, bán ở Vạn Bảo Lâu."}
  },
  "reroll_cost": 2,
+ "reroll_fee": {"_note": "Phí Linh Thạch mỗi lần tẩy luyện, cộng thêm Tẩy Luyện Thạch (chủ dự án chốt 28/10/2026): base × realm_mul^cảnh giới × r^k, k = số lần đã tẩy chính món đó (lưu ở món: rr, rrDay), mỗi ngày qua k giảm decay bậc. Người cầu toàn tiêu hết Linh Thạch, người thường tẩy vài lần rồi đợi hôm sau. Cân theo thu nhập đánh quái (linh khí quái tăng khoảng ×1,5 mỗi cảnh giới): lần đầu mỗi ngày bằng chừng 4 phút đánh quái ở cảnh giới đó, lần thứ 11 chừng 1 giờ.", "base": 120, "realm_mul": 1.45, "r": 1.3, "decay": 2},
  "reroll_lock": {"mat": "khoa-linh-thach", "n": 1},
  "drops": {
   "ma-tieu": {"item": 0.07, "gem": 0.04, "stone": 0.12},

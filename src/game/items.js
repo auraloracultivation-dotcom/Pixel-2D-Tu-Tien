@@ -80,14 +80,29 @@ export function salvage(data, save, uid) {
   return n;
 }
 
+// Phí Linh Thạch tẩy luyện (items.reroll_fee): càng tẩy một món nhiều lần càng đắt, mỗi ngày qua rẻ lại vài bậc
+const dayNo = now => Math.floor((now - new Date(now).getTimezoneOffset() * 60000) / 86400000);
+export function rerollCount(data, it, now = Date.now()) {
+  const f = data.items.reroll_fee, d = dayNo(now);
+  return Math.max(0, (it.rr || 0) - f.decay * Math.max(0, d - (it.rrDay ?? d)));
+}
+export function rerollFee(data, save, it, now = Date.now()) {
+  const f = data.items.reroll_fee;
+  return Math.round(f.base * f.realm_mul ** (save.realm || 0) * f.r ** rerollCount(data, it, now));
+}
+
 // Tẩy luyện: quay lại toàn bộ dòng phụ, giữ độ hiếm, cấp và chỉ số chính
 // Tẩy luyện; lock: chỉ số dòng giữ lại (tốn thêm Khóa Linh Thạch, các dòng mới không trùng chỉ số dòng giữ)
-export function reroll(data, save, uid, rnd = Math.random, lock = null) {
+export function reroll(data, save, uid, rnd = Math.random, lock = null, now = Date.now()) {
   const it = save.bag.find(x => x.uid === uid), lk = data.items.reroll_lock;
   const cost = data.items.reroll_cost, keep = lock != null ? it?.lines[lock] : null;
   if (!it || (save.mats['tay-luyen-thach'] || 0) < cost) return false;
+  const fee = rerollFee(data, save, it, now);
+  if ((save.lingshi || 0) < fee) return false;
   if (lock != null && (!keep || (save.mats[lk.mat] || 0) < lk.n)) return false;
   save.mats['tay-luyen-thach'] -= cost;
+  save.lingshi -= fee;
+  it.rr = rerollCount(data, it, now) + 1; it.rrDay = dayNo(now);
   const base = data.items.bases[it.base], rar = rarityOf(data.items, it.rarity);
   if (!keep) { it.lines = rollLines(data.items, base, rar, it.lvl, rnd); return true; }
   save.mats[lk.mat] -= lk.n;
