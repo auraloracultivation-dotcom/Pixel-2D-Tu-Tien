@@ -1,4 +1,4 @@
-// Câu cá (data/fishing.json): đứng ở mép đảo cạnh biển mây, thả câu, chờ cá cắn rồi bấm kéo cần kịp lúc.
+// Câu cá (data/fishing.json): đứng ở mép tinh cầu hoặc bờ sông, hồ, thả câu, chờ cá cắn rồi bấm kéo cần kịp lúc.
 import { dailyEvent } from './daily.js';
 import { outdoor } from './daynight.js';
 import { daoLu } from './affinity.js';
@@ -8,12 +8,12 @@ import { bookCatch } from './fishbook.js';
 
 const C = game => game.data.fishing;
 
-// Ô biển mây sát bên người chơi (trả về hướng tới đó), chỉ ngoài trời
+// Ô tinh không hoặc nước sát bên người chơi (trả về hướng tới đó), chỉ ngoài trời
 export function waterDir(game) {
   if (!outdoor(game) || game.map.def.no_fish) return null;
   const T = game.map.T, p = game.player, tx = Math.floor(p.x / T), ty = Math.floor(p.y / T);
   for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]]) {
-    if (game.map.at(tx + dx, ty + dy) !== '~') continue;
+    if (!'~='.includes(game.map.at(tx + dx, ty + dy))) continue;   // mép tinh cầu hoặc sông, hồ
     const c = game.map.center(tx + dx, ty + dy);
     if (Math.hypot(c.x - p.x, c.y - p.y) < T * 1.3) return { x: dx, y: dy };
   }

@@ -12,7 +12,8 @@ export function dropLoot(game, m) {
     const a = Math.random() * Math.PI * 2, s = 40 + Math.random() * 40;
     game.loot.push({ kind, payload, x: m.x, y: m.y - 4, vx: Math.cos(a) * s, vy: Math.sin(a) * s, t: 0 });
   };
-  const times = (p, n = 1) => { let k = 0; for (let i = 0; i < n; i++) if (Math.random() < p) k++; return k; };
+  const L = m.lootMul ?? 1;   // bãi treo máy rơi ít hơn (data/planets.json → farm.loot)
+  const times = (p, n = 1) => { let k = 0; for (let i = 0; i < n; i++) if (Math.random() < p * L) k++; return k; };
   for (let i = times(d.item, d.items || 1); i > 0; i--) spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity }));
   for (let i = times(d.gem); i > 0; i--) spawn('gem', rollGem(game.data));
   if (d.set && Math.random() < d.set[1]) {   // boss rơi một món bộ đồ của đảo

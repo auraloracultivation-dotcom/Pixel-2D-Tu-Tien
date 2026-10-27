@@ -169,7 +169,7 @@ export function createGame(data, screen, input, ui, audio) {
       game.addNpc(n.id, n.at);
     }
     spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game);
-    game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
+    game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
@@ -297,6 +297,7 @@ export function createGame(data, screen, input, ui, audio) {
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
       if (s.mul > 1) scaleMobBy(game, m, s.mul);
+      if (s.farm) m.lootMul = data.planets.farm.loot;
       maybeRare(game, m); s.alive.push(m);
     }
   }

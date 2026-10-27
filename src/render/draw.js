@@ -10,6 +10,7 @@ import { hasSide } from '../game/side.js';
 import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
+import { drawClouds } from './draw-clouds.js';
 import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -286,6 +287,7 @@ export function drawWorld(game, screen, t) {
   drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
   drawFishing(ctx, game, t);
+  drawClouds(ctx, game, t);
   drawNumbers(ctx, game);
   drawBubbles(ctx, game);
   if (game.peek) {   // tên chỉ hiện khi chạm vào
