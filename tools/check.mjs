@@ -133,6 +133,10 @@ try {
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   for (const f of ev.festivals) need(/^\d{4}-\d\d-\d\d$/.test(f.from) && f.from <= f.to && giftOk(f.gift), `events/${f.id}: ngày hoặc quà sai`);
   for (const f of ev.festivals.filter(x => x.mob)) need(mobs[f.mob] && read('cave.json').materials[f.candy] && f.drop?.length === 2 && read('npcs.json')[f.npc] && maps[f.npc_map] && (f.swap || []).every(x => x.cost > 0 && giftOk(x.give)), `events/${f.id}: quái, kẹo, NPC hoặc quà đổi sai`);
+  const gld = read('guild.json');
+  for (const t of gld.tasks) need(t.goal > 0 && t.cap > 0 && t.cap <= t.goal && giftOk(t.give) && gld.ranks.chu, `guild/${t.id}: mục tiêu, trần hoặc thưởng sai`);
+  const gsql = readFileSync('supabase/migrations/20261027120000_p2d_bang.sql', 'utf8');
+  for (const t of gld.tasks) need(gsql.includes(`('${t.id}', ${t.goal}, ${t.cap})`), `guild/${t.id}: mục tiêu khác hàm p2d_bang_muc`);
   const mk = read('market.json');
   need(read('npcs.json')[mk.npc] && Object.values(maps).some(m => m.npcs.some(n => n.id === mk.npc)) && mk.tax > 0 && mk.tax < 1 && items.rarities.every(r => mk.price.item[r.id] > 0), 'market: npc, thuế hoặc giá gợi ý sai');
   const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag', 'fish', 'lantern', 'pat', 'tea', 'cook', 'sit'];
