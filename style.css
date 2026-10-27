@@ -174,3 +174,4 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #market-form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 #market-form input { width: 110px; padding: 6px; border: 2px solid #1b1830; border-radius: 9px; font: 600 14px system-ui, sans-serif; }
 #market-form small { width: 100%; color: #4a4458; }
+.dlg-input { width: 100%; box-sizing: border-box; border: 2px solid #1b1830; border-radius: 9px; padding: 8px 10px; font: 15px system-ui, sans-serif; }
