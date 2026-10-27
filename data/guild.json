@@ -55,6 +55,7 @@
   "approve": "Nhận",
   "reject": "Từ chối",
   "promote": "Chức vụ",
+  "transfer": "Nhường chức Tông chủ",
   "kick": "Mời ra",
   "kick_ask": "Mời {name} ra khỏi tông môn?",
   "role_ask": "Chức vụ mới cho {name}:",

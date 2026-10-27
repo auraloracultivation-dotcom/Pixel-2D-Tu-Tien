@@ -60,7 +60,7 @@ export function renderMembers(ctx) {
     if (can) {
       const roles = (my === 'chu' ? ['pho', 'lao', 'de'] : ['lao', 'de']).filter(r => r !== x.chuc);
       for (const r of roles) btns.push(mini(R[r], () => run(() => guildAct(game, 'role', x.k, r), '')));
-      if (my === 'chu') btns.push(twice('chu:' + x.k, `${T.promote}: ${R.chu}`, fill(T.transfer_ask, { name: x.ten }), () => run(() => guildAct(game, 'role', x.k, 'chu'), '')));
+      if (my === 'chu') btns.push(twice('chu:' + x.k, T.transfer, fill(T.transfer_ask, { name: x.ten }), () => run(() => guildAct(game, 'role', x.k, 'chu'), '')));
       btns.push(twice('kick:' + x.k, T.kick, fill(T.kick_ask, { name: x.ten }), () => run(() => guildAct(game, 'kick', x.k), '')));
     }
     list.append(card(color, `${x.ten} ${x.la_toi ? T.you : ''}`, [`${R[x.chuc]} · ${realm(x)}`, fill(T.member_pts, { pts: fmt(x.cong_tuan), total: fmt(x.cong_hien) })], ...btns));
