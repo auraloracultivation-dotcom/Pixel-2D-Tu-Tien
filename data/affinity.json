@@ -27,10 +27,11 @@
   "tieu-hoa": {"50": [["tieu-hoa", "Hồi ở làng, tớ hay trèo lên mái nhà ngắm mây. Giờ thì được bay giữa mây thật rồi."], ["tieu-hoa", "Cảm ơn cậu đã tới cứu tớ. Hai lần lận."]],
                "100": [["tieu-hoa", "Từ giờ ai đụng vào cậu thì phải qua tớ trước. Lửa của tớ không đùa đâu!"]]},
   "lac-tuyet": {"50": [["lac-tuyet", "...Hồi nhỏ ta cũng ở một làng ven biển. Ma tộc tới, chỉ mình ta sống sót."], ["lac-tuyet", "Sư phụ nhặt ta về. Từ đó ta chỉ biết luyện kiếm."]],
-                "80": [["lac-tuyet", "Đệ tiến bộ nhanh hơn ta nghĩ. Nhanh hơn cả ta năm đó."], ["lac-tuyet", "Đừng có cười. Ta khen thật đấy."]],
-                "100": [["lac-tuyet", "Nếu một ngày ta bị bắt đi... đệ có tới tìm ta không?"], ["lac-tuyet", "...Không cần trả lời. Ta biết rồi."]]},
+                "80": [["lac-tuyet", "{Đệ|Muội} tiến bộ nhanh hơn ta nghĩ. Nhanh hơn cả ta năm đó."], ["lac-tuyet", "Đừng có cười. Ta khen thật đấy."]],
+                "100": [["lac-tuyet", "Nếu một ngày ta bị bắt đi... {đệ|muội} có tới tìm ta không?"], ["lac-tuyet", "...Không cần trả lời. Ta biết rồi."]]},
   "mac-anh": {"50": [["mac-anh", "Ở giới bên kia, ma tộc ăn đá đen và uống sương độc. Cá nướng ở đây ngon hơn nhiều."]],
-              "100": [["mac-anh", "Ta đã chọn đứng về phía này. Có chết cũng không hối hận."]]},
+              "80": [["mac-anh", "Ma tộc không có chữ \"nhớ\". Ở bên kia, quên nhanh thì sống lâu."], ["mac-anh", "Vậy mà mấy hôm ngươi đi vắng, ta cứ nhìn ra cổng. Lạ thật."]],
+              "100": [["mac-anh", "Ta đã chọn đứng về phía này. Có chết cũng không hối hận."], ["mac-anh", "Không phải vì tông môn. Là vì ngươi."]]},
   "thanh-diep": {"50": [["thanh-diep", "Cây mẹ nói ngươi có mùi nắng. Ta cũng thấy vậy."]],
                  "100": [["thanh-diep", "Ta gieo một hạt giống trong động phủ của ngươi rồi. Khi nó nở hoa, ta sẽ về thăm."]]},
   "thiet-lan": {"50": [["thiet-lan", "Hồi nhỏ ta hay cãi ông nội. Ông bảo kiếm cũng như người, nóng quá thì gãy."]],
@@ -42,14 +43,15 @@
               "100": [["ho-linh", "Hồ ly một khi đã chọn ai thì chọn cả đời. Ngươi hiểu ý ta chứ?"]]}
  },
  "dao_lu": {
-  "can": ["lac-tuyet", "ho-linh"],
+  "can": {"nam": ["lac-tuyet", "ho-linh"], "nu": ["mac-anh"]},
   "pts": 100,
   "realm": 2,
   "meditate_mul": 1.3,
   "combo": {"name": "Song Kiếm Hợp Bích", "cd": 18, "radius": 52, "dmg": 4, "color": "#ffb0d0"},
-  "anniv": {"_note": "Kỷ niệm: đủ days ngày kể từ lúc kết đạo lữ, lần tới về động phủ có đạo lữ ở nhà thì tặng gift (như daily) và nói một câu (lines theo người, thiếu thì default; {days} là số ngày). Mốc lỡ lúc vắng thì gộp vào mốc lớn nhất.", "days": [1, 7, 30, 100, 365], "gift": {"coins": 300, "stones": 3, "gem": 1}, "toast": "Kỷ niệm {days} ngày kết đạo lữ. Nhận: {got}", "lines": {"lac-tuyet": ["{days} ngày rồi đấy. Ta đếm, không phải vì ta để ý đâu.", "Đệ còn nhớ hôm nay là ngày gì không? {days} ngày. Cầm lấy, quà của ta.", "Kiếm của ta, {days} ngày nay cũng là kiếm của đệ. Chưa hối hận lần nào."], "ho-linh": ["Hôm nay tròn {days} ngày đó! Ngươi quên thì ta cắn!", "{days} ngày rồi. Quà của ta nè, ngươi phải giữ cho kỹ.", "Ở bên ngươi {days} ngày, ta béo lên một chút. Tại ngươi hết."], "default": ["Tròn {days} ngày rồi. Cảm ơn vì đã ở bên.", "{days} ngày. Mong còn nhiều ngày nữa."]}}, "ask": "Kết làm đạo lữ",
+  "anniv": {"_note": "Kỷ niệm: đủ days ngày kể từ lúc kết đạo lữ, lần tới về động phủ có đạo lữ ở nhà thì tặng gift (như daily) và nói một câu (lines theo người, thiếu thì default; {days} là số ngày). Mốc lỡ lúc vắng thì gộp vào mốc lớn nhất.", "days": [1, 7, 30, 100, 365], "gift": {"coins": 300, "stones": 3, "gem": 1}, "toast": "Kỷ niệm {days} ngày kết đạo lữ. Nhận: {got}", "lines": {"lac-tuyet": ["{days} ngày rồi đấy. Ta đếm, không phải vì ta để ý đâu.", "{Đệ|Muội} còn nhớ hôm nay là ngày gì không? {days} ngày. Cầm lấy, quà của ta.", "Kiếm của ta, {days} ngày nay cũng là kiếm của {đệ|muội}. Chưa hối hận lần nào."], "ho-linh": ["Hôm nay tròn {days} ngày đó! Ngươi quên thì ta cắn!", "{days} ngày rồi. Quà của ta nè, ngươi phải giữ cho kỹ.", "Ở bên ngươi {days} ngày, ta béo lên một chút. Tại ngươi hết."], "mac-anh": ["{days} ngày. Ma tộc không đếm ngày, nhưng ta đếm.", "Tròn {days} ngày rồi. Quà đây. ...Đừng nhìn ta như vậy.", "{days} ngày không phải chạy trốn. Là nhờ nàng."], "default": ["Tròn {days} ngày rồi. Cảm ơn vì đã ở bên.", "{days} ngày. Mong còn nhiều ngày nữa."]}}, "ask": "Kết làm đạo lữ",
   "vows": {
-   "lac-tuyet": [["lac-tuyet", "...Đạo lữ? Đệ biết đạo lữ nghĩa là gì không? Là cùng tu, cùng sống, cùng chết."], ["lac-tuyet", "Được. Kiếm của ta từ giờ cũng là kiếm của đệ."]],
+   "lac-tuyet": [["lac-tuyet", "...Đạo lữ? {Đệ|Muội} biết đạo lữ nghĩa là gì không? Là cùng tu, cùng sống, cùng chết."], ["lac-tuyet", "Được. Kiếm của ta từ giờ cũng là kiếm của {đệ|muội}."]],
+   "mac-anh": [["mac-anh", "...Đạo lữ? Với một kẻ đào ngũ của ma tộc?"], ["mac-anh", "Được. Bóng của ta từ giờ đi theo nàng. Ai muốn chạm vào nàng, phải bước qua ta trước."]],
    "ho-linh": [["ho-linh", "Cuối cùng ngươi cũng chịu nói! Ta chờ câu này lâu lắm rồi đó."], ["ho-linh", "Từ giờ ta song tu cùng ngươi. Đả tọa sẽ nhanh hơn nhiều."]]
   }
  }

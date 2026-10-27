@@ -9,6 +9,7 @@
  "rare_from": "dia",
  "item_from": "huyen",
  "sec": 3.2,
+ "fight": {"_note": "Người đang đi cùng cổ vũ lúc đánh (src/game/cheer.js), hiện bong bóng trên đầu: multi (hạ n con trong sec giây), elite (hạ quái tinh anh hoặc quái hiếm), clutch (hạ quái khi máu dưới clutch_hp), streak (mỗi streak_every con không gục, câu có {n}), hurt (máu tụt dưới hurt_hp, nhắc một lần mỗi lần tụt), fight (có quái trong range, cứ fight_every giây có thể hô một câu). cd: giây tối thiểu giữa hai câu, chance: tỉ lệ nói khi đủ điều kiện, theo đạo lữ (dao_lu) hay bạn đồng hành thường (comp). quiet: lời nói vu vơ (chatter.comp) đợi ít nhất bấy nhiêu giây sau một câu cổ vũ. Câu theo người trong lines[người][loại], thiếu thì lines.default.", "multi": {"n": 3, "sec": 3}, "clutch_hp": 0.25, "hurt_hp": 0.3, "streak_every": 50, "range": 70, "fight_every": 12, "cd": {"dao_lu": 14, "comp": 30}, "chance": {"dao_lu": 0.8, "comp": 0.45}, "quiet": 10},
  "lines": {
   "default": {
    "realm": ["Lên {realm} rồi! Mình biết bạn làm được mà.", "Đột phá rồi kìa! Khí tức khác hẳn luôn."],
@@ -22,21 +23,53 @@
    "brew": ["Lò đan thơm quá, luyện khéo ghê."],
    "harvest": ["Vườn thuốc tốt tươi ghê, công chăm có khác."],
    "fish": ["Cá to ghê! Tối nay nấu canh nha.", "Câu khéo thật, ngồi kiên nhẫn ghê."],
-   "decor": ["{item} hợp với động phủ ghê. Nhà mình đẹp hơn rồi."]
+   "decor": ["{item} hợp với động phủ ghê. Nhà mình đẹp hơn rồi."],
+   "multi": ["Một lúc mấy con! Giỏi quá!", "Chém đẹp ghê!", "Gọn gàng thật!"],
+   "elite": ["Hạ cả tinh anh luôn!", "Con đó khó lắm, giỏi thật!"],
+   "clutch": ["Hú hồn! May mà thắng.", "Suýt nữa! Uống đan đi."],
+   "streak": ["{n} con rồi! Tay không mỏi à?", "{n} con! Ai cản nổi?"],
+   "hurt": ["Cẩn thận! Máu thấp rồi!", "Lùi lại chút đi!"],
+   "fight": ["Cố lên!", "Để mình yểm trợ!", "Bên kia còn một con!", "Đánh hay lắm!"]
   },
   "lac-tuyet": {
-   "realm": ["{realm}... Đệ tiến nhanh hơn ta năm xưa nhiều. Ta tự hào về đệ.", "Đột phá rồi. Đừng kiêu, nhưng hôm nay cho phép đệ vui một chút.", "Kiếm ý của đệ sáng hơn rồi. Đúng là đạo lữ của ta."],
-   "boss": ["{boss} ngã rồi. Đường kiếm vừa nãy... ta cũng phải học theo.", "Đệ không bị thương chứ? ...Tốt. Trận này đánh rất đẹp.", "Có đệ đứng trước, ta yên tâm hơn nhiều."],
-   "rare": ["{item}? Đệ đúng là có phúc duyên. Ta mài lại kiếm cho đệ nhé.", "Món {item} này hợp với đệ lắm."],
-   "arena": ["Hạng {rank}. Lúc đệ đứng trên đài, ta không chớp mắt được.", "Hạng {rank} Luận Võ Đài. Sư phụ mà thấy chắc cũng cười."],
+   "realm": ["{realm}... {Đệ|Muội} tiến nhanh hơn ta năm xưa nhiều. Ta tự hào về {đệ|muội}.", "Đột phá rồi. Đừng kiêu, nhưng hôm nay cho phép {đệ|muội} vui một chút.", "Kiếm ý của {đệ|muội} sáng hơn rồi. Đúng là đạo lữ của ta."],
+   "boss": ["{boss} ngã rồi. Đường kiếm vừa nãy... ta cũng phải học theo.", "{Đệ|Muội} không bị thương chứ? ...Tốt. Trận này đánh rất đẹp.", "Có {đệ|muội} đứng trước, ta yên tâm hơn nhiều."],
+   "rare": ["{item}? {Đệ|Muội} đúng là có phúc duyên. Ta mài lại kiếm cho {đệ|muội} nhé.", "Món {item} này hợp với {đệ|muội} lắm."],
+   "arena": ["Hạng {rank}. Lúc {đệ|muội} đứng trên đài, ta không chớp mắt được.", "Hạng {rank} Luận Võ Đài. Sư phụ mà thấy chắc cũng cười."],
    "achv": ["{name}... Ta sẽ ghi chuyện này vào sổ kiếm của ta."],
-   "tower": ["Tầng {rank}. Lần sau ta leo cùng đệ."],
-   "layer": ["Lại tiến thêm một tầng. Chăm chỉ lắm.", "Linh khí đệ dày lên rồi, ta cảm được."],
-   "item": ["{item}, không tệ. Để ta xem giúp đệ."],
-   "brew": ["Thơm thật. Đệ luyện đan cũng có tay nghề đấy."],
-   "harvest": ["Linh thảo đệ trồng xanh mướt. Ngồi đây ngắm một lát đi."],
-   "fish": ["Câu cá cũng là luyện tâm. Đệ khá lắm.", "Con này to. Tối ta nướng cho."],
-   "decor": ["{item}... Ừ, đẹp. Đệ có mắt chọn đồ đấy."]
+   "tower": ["Tầng {rank}. Lần sau ta leo cùng {đệ|muội}."],
+   "layer": ["Lại tiến thêm một tầng. Chăm chỉ lắm.", "Linh khí {đệ|muội} dày lên rồi, ta cảm được."],
+   "item": ["{item}, không tệ. Để ta xem giúp {đệ|muội}."],
+   "brew": ["Thơm thật. {Đệ|Muội} luyện đan cũng có tay nghề đấy."],
+   "harvest": ["Linh thảo {đệ|muội} trồng xanh mướt. Ngồi đây ngắm một lát đi."],
+   "fish": ["Câu cá cũng là luyện tâm. {Đệ|Muội} khá lắm.", "Con này to. Tối ta nướng cho."],
+   "decor": ["{item}... Ừ, đẹp. {Đệ|Muội} có mắt chọn đồ đấy."],
+   "multi": ["Một nhát mấy con. Khá.", "Kiếm này gọn. Tốt."],
+   "elite": ["Tinh anh cũng gục. Tốt.", "Tiến bộ rồi đấy."],
+   "clutch": ["Liều quá. Lần sau đừng thế.", "...Suýt nữa. Đừng làm ta sợ."],
+   "streak": ["{n} con. Kiếm chưa cùn chứ?"],
+   "hurt": ["Lùi lại! Để ta.", "Máu thấp rồi. Uống đan!"],
+   "fight": ["Ta ở sau lưng.", "Thở đều. Chém tiếp.", "Bên phải."]
+  },
+  "mac-anh": {
+   "realm": ["{realm}. Khí tức này, ma tướng gặp cũng phải lùi.", "Đột phá rồi. ...Ta không giỏi khen. Nhưng giỏi lắm.", "{realm} rồi. Bóng của ta suýt theo không kịp ngươi."],
+   "boss": ["{boss} gục rồi. Ngươi không bị thương chứ?", "Đánh đẹp. Ở bên kia, kẻ hạ được {boss} sẽ được gọi là tướng.", "Lần sau để ta trói nó trước. Ngươi chỉ việc chém."],
+   "rare": ["{item}... Thứ này ma tộc tranh nhau đến chết. Giữ cho kỹ.", "Vận khí ngươi tốt thật. {item} hợp với ngươi."],
+   "arena": ["Hạng {rank}. Ta đứng dưới đài, không ai dám la ó ngươi."],
+   "achv": ["{name}. Ta nhớ rồi."],
+   "tower": ["Tầng {rank}. Lần sau ta leo cùng, canh lưng cho ngươi."],
+   "layer": ["Linh khí dày thêm rồi. Ta ngửi thấy.", "Lại lên một tầng. Đều tay thật."],
+   "item": ["{item}. Không tệ."],
+   "brew": ["Mùi đan này... dễ chịu hơn sương độc nhiều."],
+   "harvest": ["Ở bên kia không gì mọc nổi. Vườn của ngươi xanh thật."],
+   "fish": ["Cá to. Tối nay ta nướng.", "Câu giỏi đấy. Ta học được rồi."],
+   "decor": ["{item}. Nhà có hơi người hơn rồi."],
+   "multi": ["Gọn. Như ma tướng ra tay.", "Mấy con một lúc. Đẹp."],
+   "elite": ["Tinh anh cũng không trụ nổi.", "Con đó ta còn ngại. Giỏi."],
+   "clutch": ["...Đừng làm vậy nữa. Ta sợ.", "Suýt nữa. Để ta trói chúng."],
+   "streak": ["{n} con. Bóng ta mệt rồi đấy."],
+   "hurt": ["Lùi về sau bóng ta.", "Máu thấp. Uống đan đi."],
+   "fight": ["Ta trói, ngươi chém.", "Sau lưng có ta.", "Chém tiếp đi."]
   },
   "ho-linh": {
    "realm": ["{realm}! Ngươi giỏi quá đi, lại đây ta xoa đầu nào!", "Đột phá rồi! Hôm nay ta khao, ăn gì cũng được!", "Ta biết mà, đạo lữ của ta là nhất thiên hạ!"],
@@ -50,7 +83,13 @@
    "brew": ["Đan thơm phức! Cho ta một viên được không?"],
    "harvest": ["Vườn mình đẹp quá ha. Ngồi đây với ta chút đi."],
    "fish": ["Cá! Cá! Phần ta con to nhất nhé!", "Ngươi câu giỏi thế, mai câu cho ta nữa nha."],
-   "decor": ["{item}! Nhà mình càng ngày càng giống tổ hồ ly ấm áp rồi!"]
+   "decor": ["{item}! Nhà mình càng ngày càng giống tổ hồ ly ấm áp rồi!"],
+   "multi": ["Oa, một phát mấy con!", "Ngầu quá trời ngầu!"],
+   "elite": ["Con to thế mà cũng gục!", "Ngươi là nhất luôn!"],
+   "clutch": ["Hú hồn! Tim ta muốn rớt!", "Suýt chết rồi đó đồ ngốc!"],
+   "streak": ["{n} con rồi! Ta đếm hộ nè!"],
+   "hurt": ["Máu kìa! Lùi lại mau!", "Đừng có liều!"],
+   "fight": ["Cố lên cố lên!", "Ta thổi tiên khí cho nè!", "Bên kia còn một con!"]
   }
  }
 }

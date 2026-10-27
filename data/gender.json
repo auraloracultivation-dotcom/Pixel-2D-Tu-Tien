@@ -1,0 +1,10 @@
+{
+ "_note": "Nam hay nữ (chủ dự án chốt 28/10/2026): chọn khi tạo nhân vật, tài khoản cũ được hỏi một lần lúc vào game. Chọn xong đặt hình mặc định (look: mục trong heroes.list, đổi lại được ở Thời trang). Chữ trong data viết {dạng nam|dạng nữ} (ví dụ {sư đệ|sư muội}) thì game tự chọn theo giới tính. Đạo lữ: người chơi nam kết đạo lữ với người trong affinity.dao_lu.can.nam, người chơi nữ với can.nu. Đổi giới tính không gỡ đạo lữ đã kết.",
+ "default": "nam",
+ "ask": "Đạo hữu là nam hay nữ? Chọn rồi thì không đổi được, chỉ đổi hình ở Thời trang.",
+ "list": {
+  "nam": {"label": "Nam", "desc": "Kiếm tu tóc đen. Đạo lữ sau này là nữ.", "look": "nam", "color": "#4a6ad8"},
+  "nu": {"label": "Nữ", "desc": "Liềm tu tóc trắng. Đạo lữ sau này là nam.", "look": "nu", "color": "#e86a9a"}
+ },
+ "toast": "Đã chọn {label}."
+}

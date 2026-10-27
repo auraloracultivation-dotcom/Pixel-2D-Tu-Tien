@@ -3,10 +3,16 @@
  "min_minutes": 30,
  "lines": {
   "lac-tuyet": [
-   "Đệ đi {time}. Ta luyện kiếm ở vách đá phía tây, chém rụng ba trăm chiếc lá. Lần sau đệ về sớm hơn, ta dạy đệ chiêu mới.",
-   "Ta đã tưới dược viên, lau lại bồ đoàn cho đệ. Trà để trên bàn, nguội rồi thì hâm lại.",
-   "Đêm qua trăng sáng lắm. Ta ngồi đả tọa một mình, nghĩ nếu có đệ ngồi cạnh chắc linh khí cũng ấm hơn.",
-   "{time} không gặp. Ta không nhớ đệ đâu. ...Chỉ là kiếm hôm nay hơi nặng tay."
+   "{Đệ|Muội} đi {time}. Ta luyện kiếm ở vách đá phía tây, chém rụng ba trăm chiếc lá. Lần sau {đệ|muội} về sớm hơn, ta dạy {đệ|muội} chiêu mới.",
+   "Ta đã tưới dược viên, lau lại bồ đoàn cho {đệ|muội}. Trà để trên bàn, nguội rồi thì hâm lại.",
+   "Đêm qua trăng sáng lắm. Ta ngồi đả tọa một mình, nghĩ nếu có {đệ|muội} ngồi cạnh chắc linh khí cũng ấm hơn.",
+   "{time} không gặp. Ta không nhớ {đệ|muội} đâu. ...Chỉ là kiếm hôm nay hơi nặng tay."
+  ],
+  "mac-anh": [
+   "Ngươi đi {time}. Ta canh cửa, đuổi ba con quạ, nướng một con cá. Cá nguội rồi. Ta sẽ nướng con khác.",
+   "Ta học dân làng tưới dược viên. Chết mất hai cây. Đừng giận.",
+   "{time} không gặp. Ma tộc không biết nhớ. ...Vậy cái cảm giác này gọi là gì?",
+   "Đêm qua có ma khí lảng vảng ở cổng. Ta đuổi đi rồi. Nàng cứ yên tâm tu luyện."
   ],
   "ho-linh": [
    "Ngươi đi đâu mà {time} mới về hả! Ta ngồi đếm mây chán chê luôn. Phạt ngươi ở lại chơi với ta lâu lâu.",

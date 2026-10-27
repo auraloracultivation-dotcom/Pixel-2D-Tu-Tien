@@ -67,7 +67,7 @@
     {"say": [["van-hac", "Từ nay con là đệ tử Kiếm tông. Cầm lấy thanh kiếm này."]]},
     {"weapon": "kiem"},
     {"gear": ["thiet-kiem", "bo-y"]},
-    {"say": [["", "Nhận Thanh Phong Kiếm. Mở khóa chiêu Kiếm Khí. Nhận thêm Thiết Kiếm và Bố Y Đạo Bào (mở Túi để xem)."], ["lac-tuyet", "Sư đệ mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]]}
+    {"say": [["", "Nhận Thanh Phong Kiếm. Mở khóa chiêu Kiếm Khí. Nhận thêm Thiết Kiếm và Bố Y Đạo Bào (mở Túi để xem)."], ["lac-tuyet", "{Sư đệ|Sư muội} mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]]}
    ],
    "goal": "Ngồi lên bồ đoàn, bấm Đả tọa tới Luyện Khí tầng 2", "target": [14, 21],
    "until": {"layer": 2}
@@ -222,7 +222,7 @@
   {
    "id": "goi-chuong-2", "map": "thien-kiem-phong", "once": true,
    "do": [
-    {"say": [["", "Ngọc bội của Tiểu Hỏa bỗng nóng rực, ánh đỏ chỉ thẳng ra vòng ngoài tinh hệ."], ["van-hac", "Con lên Trúc Cơ tầng 5 rồi. Đủ sức bay ra vòng giữa."], ["van-hac", "Gần nhất là Hàn Băng Tinh. Từ ngày ma khí tràn vào, cả tinh hải quanh nó đóng băng."], ["lac-tuyet", "Để ta đi cùng. Ta hệ Thủy, băng tuyết không làm khó được ta."], ["lac-tuyet", "Đừng hiểu lầm. Ta chỉ không muốn sư đệ chết cóng giữa đường."]]},
+    {"say": [["", "Ngọc bội của Tiểu Hỏa bỗng nóng rực, ánh đỏ chỉ thẳng ra vòng ngoài tinh hệ."], ["van-hac", "Con lên Trúc Cơ tầng 5 rồi. Đủ sức bay ra vòng giữa."], ["van-hac", "Gần nhất là Hàn Băng Tinh. Từ ngày ma khí tràn vào, cả tinh hải quanh nó đóng băng."], ["lac-tuyet", "Để ta đi cùng. Ta hệ Thủy, băng tuyết không làm khó được ta."], ["lac-tuyet", "Đừng hiểu lầm. Ta chỉ không muốn {sư đệ|sư muội} chết cóng giữa đường."]]},
     {"flag": "han-bang"},
     {"fly": "dao-han-bang", "spawn": "vao", "kind": "flight", "with": "lac-tuyet", "text": "Theo sư tỷ Lạc Tuyết bay ra vòng giữa"},
     {"say": [["lac-tuyet", "Tới rồi. Lạnh thật... Làng chài ở phía tây, đi hỏi trưởng làng xem chuyện gì."]]}
@@ -233,7 +233,7 @@
   {
    "id": "lang-chai", "map": "dao-han-bang", "once": true,
    "do": [
-    {"say": [["lao-ngu", "Tu sĩ Kiếm tông? Trời phật phù hộ!"], ["lao-ngu", "Mười ngày trước, một tên ma tướng mặc giáp băng kéo theo một đứa nhỏ tóc đỏ, bị xích tay, đi vào Băng Quật phía bắc."], ["lao-ngu", "Từ đó tinh hải đông cứng, tuyết lang thì phát cuồng, cắn chết cả người đi kiếm củi."], ["lac-tuyet", "Tóc đỏ... là Tiểu Hỏa. Sư đệ, dẹp bầy tuyết lang trước, dân làng mới dám ra khỏi nhà."]]}
+    {"say": [["lao-ngu", "Tu sĩ Kiếm tông? Trời phật phù hộ!"], ["lao-ngu", "Mười ngày trước, một tên ma tướng mặc giáp băng kéo theo một đứa nhỏ tóc đỏ, bị xích tay, đi vào Băng Quật phía bắc."], ["lao-ngu", "Từ đó tinh hải đông cứng, tuyết lang thì phát cuồng, cắn chết cả người đi kiếm củi."], ["lac-tuyet", "Tóc đỏ... là Tiểu Hỏa. {Sư đệ|Sư muội}, dẹp bầy tuyết lang trước, dân làng mới dám ra khỏi nhà."]]}
    ],
    "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [30, 25],
    "until": {"kill": "tuyet-lang", "n": 8}
@@ -262,7 +262,7 @@
   {
    "id": "mo-bang-quat", "map": "dao-han-bang", "once": true,
    "do": [
-    {"say": [["", "Ba khối băng tâm rung lên rồi vỡ vụn. Từ phía bắc vang lên tiếng nứt như sấm."], ["mac-anh", "Phong ấn mở rồi. Ta không vào được, lính canh nhận ra ta. Ta ở đây trông làng giúp các người."], ["lac-tuyet", "Sư đệ, vào Băng Quật. Ta đi sau lưng đệ."]]},
+    {"say": [["", "Ba khối băng tâm rung lên rồi vỡ vụn. Từ phía bắc vang lên tiếng nứt như sấm."], ["mac-anh", "Phong ấn mở rồi. Ta không vào được, lính canh nhận ra ta. Ta ở đây trông làng giúp các người."], ["lac-tuyet", "{Sư đệ|Sư muội}, vào Băng Quật. Ta đi sau lưng {đệ|muội}."]]},
     {"flag": "mo-bang-quat"}
    ],
    "goal": "Vào Băng Quật (phía bắc tinh cầu)", "target": [24, 14],
@@ -288,7 +288,7 @@
     {"npc_remove": "tieu-hoa"},
     {"flag": "gap-tieu-hoa"},
     {"fly": "dao-han-bang", "spawn": "tu-bang-quat", "kind": "portal", "text": "Ra khỏi Băng Quật"},
-    {"say": [["mac-anh", "Ta thấy rồi. Đó là Hắc Thủ của Ma Tôn. Hắc Phong Tinh ở vòng xa hơn nữa."], ["mac-anh", "Tu sĩ Trúc Cơ bay xuống đó là bị gió đen xé xác. Cậu bé nói đúng, phải lên Kim Đan."], ["lac-tuyet", "...Ta sẽ báo lại với sư phụ. Sư đệ, chuyện này không phải lỗi của đệ."], ["lac-tuyet", "Cầm lấy cái này. Áo giáp hàn băng ta luyện lâu rồi, chưa có dịp dùng."]]},
+    {"say": [["mac-anh", "Ta thấy rồi. Đó là Hắc Thủ của Ma Tôn. Hắc Phong Tinh ở vòng xa hơn nữa."], ["mac-anh", "Tu sĩ Trúc Cơ bay xuống đó là bị gió đen xé xác. Cậu bé nói đúng, phải lên Kim Đan."], ["lac-tuyet", "...Ta sẽ báo lại với sư phụ. {Sư đệ|Sư muội}, chuyện này không phải lỗi của {đệ|muội}."], ["lac-tuyet", "Cầm lấy cái này. Áo giáp hàn băng ta luyện lâu rồi, chưa có dịp dùng."]]},
     {"reward": {"base": "huyen-giap", "rarity": "huyen", "stones": 4}},
     {"say": [["", "Nhận Huyền Giáp phẩm Huyền và 4 Tẩy Luyện Thạch (mở Túi để mặc)."], ["", "Hết Chương 2. Tu lên Kim Đan (độ thiên kiếp ở Trúc Cơ tầng 9) để đuổi theo Tiểu Hỏa tới Hắc Phong Tinh ở Chương 3. Hàn Băng Tinh và Băng Quật vẫn mở để cày đồ."]]}
    ],
@@ -319,7 +319,7 @@
   {
    "id": "mo-hac-phong-dong", "map": "hac-phong-dao", "once": true,
    "do": [
-    {"say": [["", "Ma Phong Vệ cuối cùng gục xuống. Gió đen quanh cửa động tan dần."], ["mac-anh", "Cửa mở rồi. Ta không vào được, Ma Quân ngửi thấy mùi ta từ xa. Ta trông lối ra cho."], ["lac-tuyet", "Đi thôi sư đệ."]]},
+    {"say": [["", "Ma Phong Vệ cuối cùng gục xuống. Gió đen quanh cửa động tan dần."], ["mac-anh", "Cửa mở rồi. Ta không vào được, Ma Quân ngửi thấy mùi ta từ xa. Ta trông lối ra cho."], ["lac-tuyet", "Đi thôi {sư đệ|sư muội}."]]},
     {"flag": "mo-hac-phong-dong"}
    ],
    "goal": "Vào Hắc Phong Động", "target": [25, 15], "target_map": "hac-phong-dao",
@@ -434,7 +434,7 @@
     {"npc_remove": "thanh-diep"},
     {"flag": "cuu-thanh-diep"},
     {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Về Thiên Kiếm Phong báo tin"},
-    {"say": [["van-hac", "...Linh căn thuần thứ năm. Ta đã ngờ từ ngày con thức tỉnh, nhưng không dám tin."], ["van-hac", "Từ giờ Ma Tôn sẽ tìm con. Con phải mạnh lên nhanh hơn chúng."], ["lac-tuyet", "Sư đệ đừng lo. Kiếm tông còn đây, ta còn đây."], ["", "Thanh Diệp ở lại Làng Tinh Linh chăm cây mẹ. Tới đó có thể mời nàng đi cùng."]]},
+    {"say": [["van-hac", "...Linh căn thuần thứ năm. Ta đã ngờ từ ngày con thức tỉnh, nhưng không dám tin."], ["van-hac", "Từ giờ Ma Tôn sẽ tìm con. Con phải mạnh lên nhanh hơn chúng."], ["lac-tuyet", "{Sư đệ|Sư muội} đừng lo. Kiếm tông còn đây, ta còn đây."], ["", "Thanh Diệp ở lại Làng Tinh Linh chăm cây mẹ. Tới đó có thể mời nàng đi cùng."]]},
     {"technique": "thanh-moc-truong-xuan"},
     {"reward": {"base": "thanh-moc-bao", "rarity": "huyen", "stones": 8}},
     {"say": [["", "Nhận Thanh Mộc Bào phẩm Huyền, 8 Tẩy Luyện Thạch và công pháp Thanh Mộc Trường Xuân Công."], ["", "Hết phần đầu Chương 4. Hỏa và Mộc đã an toàn. Ma Tôn còn tìm Thủy, Kim, Thổ... và bạn. Tu lên Hóa Thần để đi tiếp."]]}
@@ -497,7 +497,7 @@
   {
    "id": "goi-chuong-5", "map": "thien-kiem-phong", "once": true,
    "do": [
-    {"say": [["", "Linh lực dâng lên như thủy triều rồi lắng xuống, trong vắt. Luyện Hư. Bạn thấy được những sợi linh khí mảnh như tơ nối các tinh cầu với nhau."], ["van-hac", "Luyện Hư rồi. Giờ con bay được ra vòng ngoài xa hơn."], ["van-hac", "Lão Thiết ở Xích Diễm vừa gửi thư. Cháu gái lão, Thiết Lan, theo học kiếm ở Thiên Kim Tinh. Ba ngày nay không có tin."], ["van-hac", "Con bé mang linh căn Kim thuần. Ta không tin đó là chuyện tình cờ."], ["lac-tuyet", "Để con đi cùng sư đệ."], ["van-hac", "Không. Bóng Ma Tôn đã nhắc tới con. Con ở lại trong đại trận hộ sơn cho ta yên lòng."], ["lac-tuyet", "...Vâng, sư phụ."], ["lac-tuyet", "Sư đệ. Đi nhanh, về nhanh."]]},
+    {"say": [["", "Linh lực dâng lên như thủy triều rồi lắng xuống, trong vắt. Luyện Hư. Bạn thấy được những sợi linh khí mảnh như tơ nối các tinh cầu với nhau."], ["van-hac", "Luyện Hư rồi. Giờ con bay được ra vòng ngoài xa hơn."], ["van-hac", "Lão Thiết ở Xích Diễm vừa gửi thư. Cháu gái lão, Thiết Lan, theo học kiếm ở Thiên Kim Tinh. Ba ngày nay không có tin."], ["van-hac", "Con bé mang linh căn Kim thuần. Ta không tin đó là chuyện tình cờ."], ["lac-tuyet", "Để con đi cùng {sư đệ|sư muội}."], ["van-hac", "Không. Bóng Ma Tôn đã nhắc tới con. Con ở lại trong đại trận hộ sơn cho ta yên lòng."], ["lac-tuyet", "...Vâng, sư phụ."], ["lac-tuyet", "{Sư đệ|Sư muội}. Đi nhanh, về nhanh."]]},
     {"flag": "dao-kim"},
     {"fly": "dao-thien-kim", "spawn": "vao", "kind": "flight", "text": "Bay ra vòng ngoài xa hơn"},
     {"say": [["", "Gió trên tinh cầu mang theo tiếng kim loại ngân khẽ, như có ngàn thanh kiếm cùng thở."], ["", "Làng rèn ở ngay bến đáp. Lò nào cũng tắt lửa."]]}
@@ -554,7 +554,7 @@
     {"reward": {"base": "kim-cang-gioi", "rarity": "dia", "stones": 14}},
     {"mats": {"tinh-thiet": 20, "khoa-linh-thach": 2}},
     {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Về Thiên Kiếm Phong"},
-    {"say": [["van-hac", "Thiết Lan an toàn. Tốt. Lão Thiết sẽ ngủ được rồi."], ["van-hac", "Nhưng lời Ma Tướng làm ta lo. Hậu Thổ Tinh nằm gần ma khí, đã ba tháng không có ai về."], ["lac-tuyet", "Sư phụ, để con đi dò đường. Con đi một mình, ẩn khí tức, không đánh, chỉ xem."], ["van-hac", "...Con biết ta sẽ nói không."], ["lac-tuyet", "Con biết. Nhưng sư đệ chưa tới Hợp Thể, chưa xuống được tầng đó. Ngoài con ra còn ai?"], ["van-hac", "Ba ngày. Quá ba ngày không có tin, ta tự xuống tìm."], ["lac-tuyet", "Sư đệ, tu cho nhanh. Ta đợi ngươi ở Hậu Thổ Tinh."], ["", "Nhận Canh Kim Kiếm Quyết, Kim Cang Giới phẩm Địa, 14 Tẩy Luyện Thạch, 20 Tinh Thiết, 2 Khóa Linh Thạch."], ["", "Thiết Lan ở lại làng rèn Thiên Kim Tinh. Tới đó có thể mời nàng đi cùng."], ["", "Hết Chương 5 phần đầu. Tu lên Hợp Thể để tới Hậu Thổ Tinh."]]}
+    {"say": [["van-hac", "Thiết Lan an toàn. Tốt. Lão Thiết sẽ ngủ được rồi."], ["van-hac", "Nhưng lời Ma Tướng làm ta lo. Hậu Thổ Tinh nằm gần ma khí, đã ba tháng không có ai về."], ["lac-tuyet", "Sư phụ, để con đi dò đường. Con đi một mình, ẩn khí tức, không đánh, chỉ xem."], ["van-hac", "...Con biết ta sẽ nói không."], ["lac-tuyet", "Con biết. Nhưng {sư đệ|sư muội} chưa tới Hợp Thể, chưa xuống được tầng đó. Ngoài con ra còn ai?"], ["van-hac", "Ba ngày. Quá ba ngày không có tin, ta tự xuống tìm."], ["lac-tuyet", "{Sư đệ|Sư muội}, tu cho nhanh. Ta đợi ngươi ở Hậu Thổ Tinh."], ["", "Nhận Canh Kim Kiếm Quyết, Kim Cang Giới phẩm Địa, 14 Tẩy Luyện Thạch, 20 Tinh Thiết, 2 Khóa Linh Thạch."], ["", "Thiết Lan ở lại làng rèn Thiên Kim Tinh. Tới đó có thể mời nàng đi cùng."], ["", "Hết Chương 5 phần đầu. Tu lên Hợp Thể để tới Hậu Thổ Tinh."]]}
    ],
    "goal": "Tu lên Hợp Thể để tới Hậu Thổ Tinh",
    "until": {"realm": 6}
@@ -681,12 +681,12 @@
     {"shake": 5},
     {"flash": true},
     {"npc_add": "lac-tuyet", "near_player": true},
-    {"say": [["lac-tuyet", "...Sư đệ?"], ["lac-tuyet", "Ta nghe thấy tiếng đệ đánh nhau từ ngoài cửa. Ta còn tưởng mình nằm mơ."], ["lac-tuyet", "Ta đã dặn đừng tới một mình. Đệ không nghe. ...May mà đệ không nghe."], ["", "Cả ngục rung chuyển. Một giọng nói vang lên từ khắp mọi phía."], ["ma-ton", "Lấy lại được con bé rồi à? Tốt. Ta cũng không cần nữa."], ["ma-ton", "Linh căn Thủy đã mở cửa đủ rộng. Tháng sau, cả giới của ta sẽ đi qua."], ["ma-ton", "Ngươi muốn ngăn thì vào đây. Tới tận cùng Vết Nứt. Ta chờ."]]},
+    {"say": [["lac-tuyet", "...{Sư đệ|Sư muội}?"], ["lac-tuyet", "Ta nghe thấy tiếng {đệ|muội} đánh nhau từ ngoài cửa. Ta còn tưởng mình nằm mơ."], ["lac-tuyet", "Ta đã dặn đừng tới một mình. {Đệ|Muội} không nghe. ...May mà {đệ|muội} không nghe."], ["", "Cả ngục rung chuyển. Một giọng nói vang lên từ khắp mọi phía."], ["ma-ton", "Lấy lại được con bé rồi à? Tốt. Ta cũng không cần nữa."], ["ma-ton", "Linh căn Thủy đã mở cửa đủ rộng. Tháng sau, cả giới của ta sẽ đi qua."], ["ma-ton", "Ngươi muốn ngăn thì vào đây. Tới tận cùng Vết Nứt. Ta chờ."]]},
     {"npc_remove": "lac-tuyet"},
     {"flag": "cuu-lac-tuyet"},
     {"unflag": "lac-tuyet-vang"},
     {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Đưa sư tỷ về Thiên Kiếm Phong"},
-    {"say": [["van-hac", "Lạc Tuyết. Con về rồi."], ["lac-tuyet", "Sư phụ. Con xin lỗi. Con đã tự ý đi."], ["van-hac", "Không cần xin lỗi. Ta mới là người phải nói... cảm ơn trời."], ["van-hac", "Nhưng Ma Tôn nói thật. Thiên Mạch đang rách nhanh hơn. Bên trong Vết Nứt, gió hư không xé nát cả nguyên thần."], ["van-hac", "Phải là Độ Kiếp mới chịu nổi. Con tu đi, ta và mọi người sẽ dựng Ngũ Hành trận chờ con."], ["lac-tuyet", "Lần này ta đi cùng đệ. Không ai cấm được ta nữa."], ["", "Nhận Thái Hư Quyết, Thái Hư Giáp phẩm Địa, 18 Tẩy Luyện Thạch, 3 Khóa Linh Thạch, 1 Yêu Vương Đan."], ["", "Lạc Tuyết đã về Thiên Kiếm Phong, lại có thể mời đi cùng."], ["", "Hết Chương 6 phần đầu. Tu lên Độ Kiếp để vào Vết Nứt quyết chiến."]]},
+    {"say": [["van-hac", "Lạc Tuyết. Con về rồi."], ["lac-tuyet", "Sư phụ. Con xin lỗi. Con đã tự ý đi."], ["van-hac", "Không cần xin lỗi. Ta mới là người phải nói... cảm ơn trời."], ["van-hac", "Nhưng Ma Tôn nói thật. Thiên Mạch đang rách nhanh hơn. Bên trong Vết Nứt, gió hư không xé nát cả nguyên thần."], ["van-hac", "Phải là Độ Kiếp mới chịu nổi. Con tu đi, ta và mọi người sẽ dựng Ngũ Hành trận chờ con."], ["lac-tuyet", "Lần này ta đi cùng {đệ|muội}. Không ai cấm được ta nữa."], ["", "Nhận Thái Hư Quyết, Thái Hư Giáp phẩm Địa, 18 Tẩy Luyện Thạch, 3 Khóa Linh Thạch, 1 Yêu Vương Đan."], ["", "Lạc Tuyết đã về Thiên Kiếm Phong, lại có thể mời đi cùng."], ["", "Hết Chương 6 phần đầu. Tu lên Độ Kiếp để vào Vết Nứt quyết chiến."]]},
     {"technique": "thai-hu-quyet"},
     {"reward": {"base": "thai-hu-giap", "rarity": "dia", "stones": 18}},
     {"mats": {"khoa-linh-thach": 3, "yeu-vuong-dan": 1}}
@@ -697,7 +697,7 @@
   {
    "id": "goi-chuong-6b", "map": "thien-kiem-phong", "once": true,
    "do": [
-    {"say": [["", "Độ Kiếp. Sấm sét chín tầng trời đi qua người bạn mà không để lại vết. Bạn đứng vững, và nhìn thấy rõ vết rách trên Thiên Mạch."], ["van-hac", "Tới lúc rồi. Ngũ Hành trận đã dựng quanh Ngoại Vực. Trận giữ cho vết nứt không rộng thêm, nhưng không vá được."], ["van-hac", "Muốn vá, phải có người vào tận lòng Vết Nứt, hạ Ma Tôn, rồi làm mắt trận từ bên trong."], ["tieu-hoa", "Tớ giữ góc Hỏa! Cậu cứ đánh, đừng lo phía sau!"], ["thanh-diep", "Góc Mộc có ta. Rễ cây mẹ đã cắm tới tận đây rồi."], ["thiet-lan", "Góc Kim. Kiếm ta cắm xuống, trời sập cũng không rút."], ["thach-sinh", "...Thổ. Ta giữ."], ["lac-tuyet", "Còn góc Thủy... ta đi theo đệ vào trong. Trận vẫn nối được qua ta."], ["mac-anh", "Bên trong, Ma Tôn sẽ gọi tàn hồn của những kẻ ngươi từng hạ. Đừng sợ. Ngươi đã thắng chúng một lần rồi."], ["ho-linh", "Đi đi. Về sớm, ta còn chờ ngươi đả tọa cùng."]]},
+    {"say": [["", "Độ Kiếp. Sấm sét chín tầng trời đi qua người bạn mà không để lại vết. Bạn đứng vững, và nhìn thấy rõ vết rách trên Thiên Mạch."], ["van-hac", "Tới lúc rồi. Ngũ Hành trận đã dựng quanh Ngoại Vực. Trận giữ cho vết nứt không rộng thêm, nhưng không vá được."], ["van-hac", "Muốn vá, phải có người vào tận lòng Vết Nứt, hạ Ma Tôn, rồi làm mắt trận từ bên trong."], ["tieu-hoa", "Tớ giữ góc Hỏa! Cậu cứ đánh, đừng lo phía sau!"], ["thanh-diep", "Góc Mộc có ta. Rễ cây mẹ đã cắm tới tận đây rồi."], ["thiet-lan", "Góc Kim. Kiếm ta cắm xuống, trời sập cũng không rút."], ["thach-sinh", "...Thổ. Ta giữ."], ["lac-tuyet", "Còn góc Thủy... ta đi theo {đệ|muội} vào trong. Trận vẫn nối được qua ta."], ["mac-anh", "Bên trong, Ma Tôn sẽ gọi tàn hồn của những kẻ ngươi từng hạ. Đừng sợ. Ngươi đã thắng chúng một lần rồi."], ["ho-linh", "Đi đi. Về sớm, ta còn chờ ngươi đả tọa cùng."]]},
     {"flag": "vao-vet-nut"},
     {"fly": "vet-nut", "spawn": "vao", "kind": "portal", "text": "Lao vào lòng Vết Nứt"}
    ],
@@ -707,7 +707,7 @@
   {
    "id": "vet-nut", "map": "vet-nut",
    "do": [
-    {"say": [["", "Bên trong Vết Nứt không có trên dưới. Chỉ có một hành lang đá trôi, và tiếng cười vọng lại từ tận cùng."], ["ma-ton", "Vào được tới đây. Giỏi. Để ta xem ngươi còn nhớ mặt những người quen cũ không."], ["lac-tuyet", "Sư đệ, tiến lên. Ta ở ngay sau lưng."]]}
+    {"say": [["", "Bên trong Vết Nứt không có trên dưới. Chỉ có một hành lang đá trôi, và tiếng cười vọng lại từ tận cùng."], ["ma-ton", "Vào được tới đây. Giỏi. Để ta xem ngươi còn nhớ mặt những người quen cũ không."], ["lac-tuyet", "{Sư đệ|Sư muội}, tiến lên. Ta ở ngay sau lưng."]]}
    ],
    "goal": "Vượt qua tàn hồn tứ tướng, hạ Ma Tôn",
    "until": {"kill": "ma-ton", "n": 1}
@@ -724,7 +724,7 @@
     {"say": [["", "Thiên Mạch liền lại. Lần đầu tiên sau mười năm, ma khí lùi xa, trời sao im lặng."]]},
     {"flag": "het-game"},
     {"fly": "thien-kiem-phong", "spawn": "vao", "kind": "flight", "text": "Trở về Thiên Kiếm Phong"},
-    {"say": [["van-hac", "Thiên Mạch đã vá. Ma tộc không qua được nữa. Con làm được rồi."], ["van-hac", "Ngày ta nhặt con từ làng Thanh Khê, ta chỉ mong con sống sót. Ta không ngờ con lại cứu cả Linh Giới."], ["tieu-hoa", "Ăn mừng! Tớ nướng cá cho cả tinh cầu luôn!"], ["thanh-diep", "Cây mẹ gửi lời cảm ơn. Năm nay rừng sẽ ra hoa sớm."], ["thiet-lan", "Thanh kiếm ta rèn xong rồi. Của ngươi đấy. Đừng làm gãy."], ["thach-sinh", "...Cảm ơn. Thật đấy."], ["mac-anh", "Ta ở lại đây. Giới bên kia không còn gì đáng nhớ. Ở đây có cá nướng."], ["ho-linh", "Giờ thì ngồi đả tọa cùng ta được rồi chứ? Không còn ai đuổi theo ngươi nữa đâu."], ["lac-tuyet", "Sư đệ. Hôm nay mây đẹp. Đi ngắm cùng ta không?"]]},
+    {"say": [["van-hac", "Thiên Mạch đã vá. Ma tộc không qua được nữa. Con làm được rồi."], ["van-hac", "Ngày ta nhặt con từ làng Thanh Khê, ta chỉ mong con sống sót. Ta không ngờ con lại cứu cả Linh Giới."], ["tieu-hoa", "Ăn mừng! Tớ nướng cá cho cả tinh cầu luôn!"], ["thanh-diep", "Cây mẹ gửi lời cảm ơn. Năm nay rừng sẽ ra hoa sớm."], ["thiet-lan", "Thanh kiếm ta rèn xong rồi. Của ngươi đấy. Đừng làm gãy."], ["thach-sinh", "...Cảm ơn. Thật đấy."], ["mac-anh", "Ta ở lại đây. Giới bên kia không còn gì đáng nhớ. Ở đây có cá nướng."], ["ho-linh", "Giờ thì ngồi đả tọa cùng ta được rồi chứ? Không còn ai đuổi theo ngươi nữa đâu."], ["lac-tuyet", "{Sư đệ|Sư muội}. Hôm nay mây đẹp. Đi ngắm cùng ta không?"]]},
     {"reward": {"base": "thien-mach-kiem", "rarity": "thien", "stones": 30}},
     {"mats": {"khoa-linh-thach": 5, "yeu-vuong-dan": 2, "ngoc-lo-hoa": 5}},
     {"say": [["", "Nhận Thiên Mạch Kiếm phẩm Thiên, 30 Tẩy Luyện Thạch, 5 Khóa Linh Thạch, 2 Yêu Vương Đan, 5 Ngọc Lộ Hoa."], ["", "Hết truyện chính. Cảm ơn bạn đã đồng hành tới đây."], ["", "Linh Giới vẫn còn đó: dược viên chờ thu hoạch, mây chờ người ngắm, cá chờ người câu. Tháp, bí cảnh, Luận Võ Đài vẫn mở, và Lòng Vết Nứt vẫn có thể vào để đánh lại Ma Tôn."]]}
