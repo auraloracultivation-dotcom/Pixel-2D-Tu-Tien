@@ -57,3 +57,7 @@ Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh 
 ## Tông môn người chơi
 
 `supabase/migrations/20261028010000_p2d_tong_mon.sql` (bảng `p2d_bang`, `p2d_bang_tv`, `p2d_bang_xin`, số ở `p2d_bang_cfg` khớp `data/guild.json`). Hàm `p2d_bang_*`: lập (Kim Đan + 20.000 Linh Thạch, trừ trên máy chủ), tìm, xin vào (tông môn mở thì vào thẳng), duyệt, đổi chức (Tông chủ, Phó tông chủ, Trưởng lão, Đệ tử), mời ra, nhường chức, rời, giải tán, điểm danh, góp Linh Thạch, nhận thưởng mốc tuần (mỗi người mỗi mốc một lần mỗi tuần, ghi ở `p2d_nhan_vat.bang_thuong`). Đồng môn được gọi bằng mã băm 12 ký tự, không lộ mã tài khoản. Chat tông môn là kênh `bang:<id>` của `p2d_chat`. Máy khách: `src/net/guild.js`, `src/game/guild.js` (lệnh đụng Linh Thạch chạy qua `cloud.run`), `src/ui/guild-panel.js`, `src/ui/guild-view.js`; chat theo kênh ở `src/game/world-chat.js`.
+
+## Sao lưu hằng đêm
+
+`supabase/migrations/20261028030000_p2d_sao_luu_dem.sql`: pg_cron chạy `p2d_sao_luu_dem()` lúc 2 giờ 17 sáng giờ Việt Nam (job `p2d-sao-luu-dem`), chép nguyên dòng `p2d_nhan_vat` (cột `ban` = `to_jsonb` cả dòng) vào `p2d_sao_luu` theo ngày, giữ 7 ngày gần nhất. Máy khách không đọc, không gọi được. Khôi phục là việc tay, cần chủ dự án đồng ý: đọc `ban` của ngày cần rồi ghi lại vào `p2d_nhan_vat`.
