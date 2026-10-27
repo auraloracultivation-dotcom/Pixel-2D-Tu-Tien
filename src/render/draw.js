@@ -18,6 +18,7 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
+import { drawBullets } from './draw-bullets.js';
 import { drawMobSprite } from './draw-mob-sprite.js';
 
 const INK = '#1b1830';
@@ -230,15 +231,6 @@ function drawStrikeFalls(ctx, game) {
   }
 }
 
-function drawBullets(ctx, game) {
-  for (const b of game.bullets) {
-    ctx.fillStyle = b.color;
-    if (b.trail) { ctx.globalAlpha = 0.35; circle(ctx, b.x - b.vx * 0.03, b.y - b.vy * 0.03, b.r * 0.8); ctx.globalAlpha = 1; }
-    circle(ctx, b.x, b.y, b.r);
-    ctx.fillStyle = '#fff'; circle(ctx, b.x, b.y, b.r * 0.45);
-  }
-}
-
 export function drawWorld(game, screen, t) {
   const ctx = screen.ctx;
   if (!game.map) return;
@@ -278,7 +270,7 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = c;
     ctx.beginPath(); ctx.moveTo(l.x, l.y - 3 + bob); ctx.lineTo(l.x + 2.5, l.y + bob); ctx.lineTo(l.x, l.y + 3 + bob); ctx.lineTo(l.x - 2.5, l.y + bob); ctx.fill();
   }
-  drawBullets(ctx, game);
+  drawBullets(ctx, game, t);
   drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
   drawFishing(ctx, game, t);

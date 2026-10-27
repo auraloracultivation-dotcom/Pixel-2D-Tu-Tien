@@ -901,6 +901,66 @@
    ],
    "note": "Ma Tu — khung: đứng, nhún, bước A, bước B"
   },
+  "proj.fire": {
+   "file": "assets/art/proj-fire.png",
+   "v": "aad09e4a",
+   "w": 18,
+   "h": 11,
+   "frames": 4,
+   "anchor": [
+    13,
+    5
+   ],
+   "note": "cầu lửa bay, đuôi lửa bập bùng 4 khung"
+  },
+  "proj.ice": {
+   "file": "assets/art/proj-ice.png",
+   "v": "bdcbcc3d",
+   "w": 15,
+   "h": 7,
+   "frames": 2,
+   "anchor": [
+    9,
+    3
+   ],
+   "note": "mũi băng bay, 2 khung lấp lánh"
+  },
+  "proj.rock": {
+   "file": "assets/art/proj-rock.png",
+   "v": "e6fb599e",
+   "w": 9,
+   "h": 9,
+   "frames": 1,
+   "anchor": [
+    4,
+    4
+   ],
+   "note": "tảng đá ném, game cho xoay tròn"
+  },
+  "proj.slash": {
+   "file": "assets/art/proj-slash.png",
+   "v": "eda2a836",
+   "w": 13,
+   "h": 21,
+   "frames": 3,
+   "anchor": [
+    8,
+    10
+   ],
+   "note": "kiếm khí lưỡi liềm, lõi trắng, game tô quầng theo màu chiêu"
+  },
+  "proj.vine": {
+   "file": "assets/art/proj-vine.png",
+   "v": "a98f013d",
+   "w": 13,
+   "h": 7,
+   "frames": 2,
+   "anchor": [
+    8,
+    3
+   ],
+   "note": "kim gỗ có lá non ở đuôi, 2 khung"
+  },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
    "v": "878f148c",

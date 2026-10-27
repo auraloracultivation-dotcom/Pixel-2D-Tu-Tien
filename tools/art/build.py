@@ -12,6 +12,7 @@ from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from fx_nature import vine_frames, rock_frames, wind_frames  # noqa: E402
 from fx_aura import heal_frames, shield_frames, buff_frames  # noqa: E402
+from fx_proj import proj_sprites  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -133,6 +134,8 @@ save('fx.wind', wind_frames(), (18, 22), 'gió xoáy lặp 8 khung (chiêu phong
 save('fx.heal', heal_frames(), (14, 32), 'hồi máu: vòng sáng chân, dấu cộng bay lên, 8 khung; neo ở chân')
 save('fx.shield', shield_frames(), (17, 32), 'khiên nước: nở, chớp, vệt sáng quét, 6 khung; neo ở chân')
 save('fx.shield-earth', shield_frames(True), (17, 32), 'khiên đất / vàng: như khiên nước, tông đất')
+for _id, (_f, _a, _n) in proj_sprites().items():
+    save(_id, _f, _a, _n)
 save('fx.buff', buff_frames(), (15, 32), 'tăng sức: vầng vàng bốc lên quanh người, lặp 8 khung; neo ở chân')
 
 # ---------------------------------------------------------------- chữ số pixel 3×5 (+viền) cho số sát thương
