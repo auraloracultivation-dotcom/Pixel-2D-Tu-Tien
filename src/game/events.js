@@ -1,5 +1,6 @@
 // Sự kiện theo giờ máy (data/events.json): cuối tuần nhân linh khí, mỗi tuần một sự kiện xoay vòng, lễ Tết nhận quà.
 import { grant } from './daily.js';
+import { addMat } from './cave.js';
 
 const C = game => game.data.events;
 const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -33,6 +34,7 @@ export function huntState(game) {
 }
 
 export function eventKill(game, m) {
+  festKill(game, m);
   const e = weekly(game);
   if (!e.points || m.noQi) return;
   const h = huntState(game), p = e.points;
@@ -56,6 +58,41 @@ export function checkFestival(game) {
   s.fest[f.id] = true;
   const got = grant(game, f.gift);
   setTimeout(() => game.dialog.say([['', `${f.name}! ${f.greet}`], ['', `Nhận: ${got.join(', ')}.`]]), 600);
+}
+
+// Lễ có quái riêng (bí ngô yêu...): mọc thêm ở đảo ngoài trời, rơi kẹo; NPC lễ đứng ở một đảo để đổi kẹo lấy quà
+export function festSpawn(game, def) {
+  const f = festival(game);
+  if (!f?.mob) return;
+  const base = (def.rooms || []).length ? null : def.spawners.find(s => !s.need);
+  if (base) game.spawners.push({ mob: f.mob, at: base.at, n: f.mob_n, spread: 5, respawn: 8, alive: [], timer: 0 });
+  if (f.npc && def.id === f.npc_map) game.addNpc(f.npc, f.npc_at);
+}
+
+function festKill(game, m) {
+  const f = festival(game);
+  if (!f?.candy || m.id !== f.mob) return;
+  const [lo, hi] = f.drop, n = lo + Math.floor(Math.random() * (hi - lo + 1));
+  addMat(game.save, f.candy, n);
+  game.number(m.x, m.y - 24, `+${n} ${game.data.cave.materials[f.candy].name}`, f.color);
+}
+
+export const festNpc = (game, id) => festival(game)?.npc === id;
+
+export async function talkFest(game, npc) {
+  const f = festival(game), s = game.save, M = game.data.cave.materials[f.candy], have = s.mats[f.candy] || 0;
+  const ch = await game.dialog.choose(`${npc.def.name}: Con có ${have} ${M.name}. Đổi gì nào?`, [
+    ...f.swap.map((x, i) => ({ id: `s${i}`, label: x.label, desc: `${x.cost} ${M.name}`, color: have >= x.cost ? f.color : '#8a8a8a' })),
+    { id: 'talk', label: 'Trò chuyện', desc: '' },
+  ]);
+  if (ch === 'talk') { await game.dialog.say([[npc.def.name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]); return; }
+  const x = f.swap[+String(ch).slice(1)];
+  if (!String(ch).startsWith('s') || !x) return;
+  if (have < x.cost) { await game.dialog.say([[npc.def.name, `Chưa đủ kẹo đâu con. Cần ${x.cost} ${M.name}.`]]); return; }
+  s.mats[f.candy] -= x.cost;
+  const got = grant(game, x.give);
+  game.sfx('levelup');
+  await game.dialog.say([[npc.def.name, `Của con đây: ${got.join(', ')}.`]]);
 }
 
 // Lời chào khi vào game: sự kiện tuần và cuối tuần

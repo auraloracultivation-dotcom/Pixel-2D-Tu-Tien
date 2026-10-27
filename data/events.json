@@ -15,6 +15,16 @@
   {"id": "linh-thach", "name": "Tuần Linh Thạch", "desc": "Quái rơi Linh Thạch gấp đôi.", "color": "#ffd24a", "mul": {"coin": 2}}
  ],
  "festivals": [
+  {"id": "halloween-2026", "name": "Lễ Hội Bí Ngô", "from": "2026-10-29", "to": "2026-11-02", "color": "#ff9a3a",
+   "greet": "Đêm Bí Ngô! Bí ngô yêu mọc khắp các đảo, đánh vỡ là rơi kẹo. Mang kẹo tới Bà Bí Ngô ở Thiên Kiếm Phong mà đổi quà.", "mul": {"qi": 1.2}, "gift": {"coins": 300, "qi": 300},
+   "mob": "bi-ngo-yeu", "mob_n": 3, "candy": "keo-bi", "drop": [1, 2],
+   "npc": "ba-bi-ngo", "npc_map": "thien-kiem-phong", "npc_at": [14, 17],
+   "swap": [
+    {"cost": 10, "label": "Túi Linh Thạch", "give": {"coins": 600}},
+    {"cost": 15, "label": "Hai viên Tẩy Luyện Thạch", "give": {"stones": 2}},
+    {"cost": 25, "label": "Một viên ngọc khảm", "give": {"gem": 1}},
+    {"cost": 40, "label": "Rương trang bị Huyền phẩm", "give": {"item": "huyen"}}
+   ]},
   {"id": "dong-chi-2026", "name": "Đông Chí", "from": "2026-12-21", "to": "2026-12-23", "color": "#bfe4ff", "greet": "Đông Chí, đêm dài nhất năm. Tông môn nấu chè trôi nước, ai cũng có phần.", "mul": {"qi": 1.3}, "gift": {"coins": 200, "qi": 300}},
   {"id": "tet-2027", "name": "Tết Đinh Mùi", "from": "2027-02-04", "to": "2027-02-14", "color": "#ff4a4a",
    "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử.", "mul": {"qi": 1.5, "coin": 1.5},

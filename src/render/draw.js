@@ -108,8 +108,12 @@ function drawMob(ctx, m, t) {
     ctx.scale(1 + squash, 1 - squash);
     if (wind) ctx.scale(1.15, 0.9);
     body(ctx, 0, 0, r, m.def.color, m.flash > 0);
+    if (m.def.stem) {   // bí ngô: cuống xanh, khía dọc
+      ctx.fillStyle = '#3a8a3a'; ctx.fillRect(-1, -r - 2.5, 2, 3.5); ctx.fillRect(1, -r - 2.5, 2.5, 1.2);
+      ctx.fillStyle = 'rgba(120,40,0,0.35)'; ctx.fillRect(-r * 0.4, -r * 0.8, 1, r * 1.5); ctx.fillRect(r * 0.4 - 1, -r * 0.8, 1, r * 1.5);
+    }
     if (m.flash <= 0) {
-      ctx.fillStyle = m.def.ai === 'passive' ? INK : '#ffe27a';
+      ctx.fillStyle = m.def.ai === 'passive' && !m.def.stem ? INK : '#ffe27a';
       const fx = (m.fx || 0) * r * 0.3;
       ctx.fillRect(fx - r * 0.45, -r * 0.2, r * 0.22, r * 0.3); ctx.fillRect(fx + r * 0.22, -r * 0.2, r * 0.22, r * 0.3);
       if (m.def.ai === 'boss') { ctx.fillStyle = '#2a0a12'; ctx.fillRect(-r * 0.8, -r - 2, 3, 5); ctx.fillRect(r * 0.8 - 3, -r - 2, 3, 5); }
