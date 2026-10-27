@@ -16,8 +16,10 @@ import { createDailyPanel } from './ui/daily-panel.js';
 import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 import { createSocialPanel } from './ui/social-panel.js';
+import { initPwa } from './core/pwa.js';
 
 async function boot() {
+  initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
   const data = await loadData();
   const screen = createScreen(canvas, data.config);

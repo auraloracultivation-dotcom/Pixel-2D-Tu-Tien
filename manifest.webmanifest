@@ -1,6 +1,9 @@
 {
   "name": "Pixel 2D Tu Tiên",
   "short_name": "Tu Tiên",
+  "id": "./",
+  "lang": "vi",
+  "description": "Game tu tiên pixel 2D: đánh quái, độ kiếp, tự hành, đời sống yên bình trên đảo.",
   "start_url": "./",
   "display": "standalone",
   "orientation": "any",

@@ -25,7 +25,7 @@ jobs:
       - name: Gom file chạy game
         run: |
           mkdir -p _site
-          cp -r index.html style.css src data _site/
+          cp -r index.html style.css manifest.webmanifest sw.js src data _site/
           [ -d assets ] && cp -r assets _site/ || true
       - name: Gắn số phiên bản để máy không dùng file cũ trong bộ nhớ đệm
         run: |
@@ -33,6 +33,7 @@ jobs:
           find _site/src -name '*.js' -exec perl -pi -e "s#((?:from\s+|import\()\s*['\"])(\.{1,2}/[^'\"]+?\.js)(['\"])#\$1\$2?v=$V\$3#g" {} +
           perl -pi -e "s#src/main\.js#src/main.js?v=$V#; s#style\.css#style.css?v=$V#" _site/index.html
           sed -i "s#const BUILD = 'dev'#const BUILD = '$V'#" _site/src/core/data.js
+          sed -i "s#const V = 'dev'#const V = '$V'#" _site/sw.js
           grep -c "?v=$V" _site/src/main.js _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
