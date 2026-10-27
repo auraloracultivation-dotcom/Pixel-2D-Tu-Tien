@@ -215,11 +215,17 @@ export function createGame(data, screen, input, ui, audio) {
         onConflict: () => game.toast('Tài khoản đang chơi ở máy khác. Tải lại game để tiếp tục lưu.', 4),
         onError: () => game.toast('Chưa lưu được lên máy chủ, sẽ thử lại.', 1.5),
       });
-      return await game.cloud.load();
-    } catch { return null; }
+      return await Promise.race([game.cloud.load(), new Promise((_, no) => setTimeout(() => no(new Error('cham')), cfg.cloud_timeout_ms || 8000))]);
+    } catch { game.cloud = null; game.cloudDown = true; return null; }   // máy chủ chậm hoặc lỗi: chơi bằng bản trong máy, không lưu lên
   }
 
   game.begin = async ({ fresh, session, owner }) => {
+    if (game.beginning) return;   // bấm nhiều lần lúc đang tải
+    game.beginning = true;
+    try { await beginGame({ fresh, session, owner }); } finally { game.beginning = false; }
+  };
+
+  async function beginGame({ fresh, session, owner }) {
     game.owner = owner;
     if (session) {
       try {
@@ -230,9 +236,17 @@ export function createGame(data, screen, input, ui, audio) {
         });
       } catch { game.online = null; }
     }
+    const msg = document.getElementById('login-msg');
+    if (session && msg) { msg.classList.remove('bad'); msg.textContent = 'Đang tải bản lưu...'; }
+    game.cloudDown = false;
     const local = loadSave(owner), remote = await loadCloud(session);
+    if (game.cloudDown && !local && !fresh) {   // máy này chưa có bản lưu, máy chủ không trả lời: đừng mở game trống
+      if (msg) { msg.classList.add('bad'); msg.textContent = 'Máy chủ đang chậm, chưa tải được bản lưu. Bấm lại sau ít phút.'; }
+      return;
+    }
+    if (msg) msg.textContent = '';
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
-    const saved = remote || local;
+    const saved = remote && local && (local.lastSeen || 0) > (remote.lastSeen || 0) ? local : remote || local;   // bản trong máy mới hơn (chơi lúc máy chủ chậm) thì giữ bản trong máy
     game.save = fresh || !saved ? newSave(cfg) : saved;
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
@@ -256,8 +270,9 @@ export function createGame(data, screen, input, ui, audio) {
     initRank(game);
     await offlineGains(game, lastSeen);
     eventToast(game); checkFestival(game);
+    if (game.cloudDown) game.toast('Máy chủ đang chậm: đang chơi bằng bản lưu trong máy, chưa lưu lên máy chủ.', 4);
     await game.story.start();
-  };
+  }
 
   function respawn() {
     if (!game.tower && !game.arena) stopPilot(game, 'Tự hành dừng: bạn đã gục. Tu thêm rồi bật lại nhé.');   // gục trong tháp, trên đài thì chỉ là thua
