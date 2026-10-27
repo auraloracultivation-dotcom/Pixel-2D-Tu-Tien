@@ -88,6 +88,14 @@ export function rerollEl(game, uid, rnd = Math.random) {
   return it.el;
 }
 
+// Dòng mục tiêu dưới truyện chính (Con Đường Đạo Vận đi song hành): bước đang mở và chưa nhận
+export function dvGoal(game) {
+  const k = game.save && stepInfo(game);
+  if (!k || k.all || !k.open) return null;
+  const T = V(game.data);
+  return k.ready ? T.texts.goal_ready : `${T.texts.goal}: ${T.need_text[k.step.need.type].replace('{n}', k.step.need.n)} (${Math.min(k.have, k.step.need.n)}/${k.step.need.n})`;
+}
+
 // Báo khi bước xong (một lần mỗi bước); tự hành thì tự nhận
 export function updateDaoVan(game, dt) {
   if (!game.save || (game.dvPoll = (game.dvPoll || 0) - dt) > 0) return;

@@ -43,7 +43,9 @@
   "match": "Món hợp hệ: {gear}/7 trang bị, {skills}/2 chiêu hệ, {pet}/1 linh thú",
   "bonus_title": "Thưởng bộ Đạo Vận {el}",
   "reroll": "Đổi hệ ({n} {mat})",
-  "rerolled": "{item}: hệ mới là {el}."
+  "rerolled": "{item}: hệ mới là {el}.",
+  "goal": "Đạo Vận",
+  "goal_ready": "Đạo Vận: xong bước, vào Việc → Đạo Vận nhận thưởng"
  },
  "need_text": {"sit": "Đả tọa {n} phút", "kills": "Hạ {n} quái", "fish": "Câu {n} cá", "bosses": "Hạ {n} boss", "layer": "Lên thêm {n} tầng tu vi", "rares": "Hạ {n} quái hiếm"}
 }
