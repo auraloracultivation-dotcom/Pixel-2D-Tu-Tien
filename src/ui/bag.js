@@ -93,7 +93,7 @@ export function createBag(game) {
     const r = rarityOf(data.items, it.rarity), base = data.items.bases[it.base];
     const title = el('div', 'd-title', `[${r.name}] ${itemName(data, it)}`); title.style.color = r.color;
     box.append(title, el('div', 'muted', `${data.items.slots[base.slot]} · cấp ${it.lvl}`));
-    const k = 1 + (it.plus || 0) * data.gear.enhance.main_per;
+    const k = (1 + (it.plus || 0) * data.gear.enhance.main_per) * (base.dv && it.el === save().element ? 1 + data.daovan.match_main : 1);   // Đạo Vận hợp hệ: chỉ số chính đã cộng
     for (const [s, v] of Object.entries(it.main)) box.append(el('div', 'd-main', statText(data, s, Math.round(v * k))));
     const art = artOf(data, it);
     if (art) box.append(el('div', 'd-line', `Chiêu pháp bảo ${data.skills[art].name}: ${data.skills[art].desc}`));

@@ -5,6 +5,7 @@ import { rollItem, addItem, equipped, itemName } from './items.js';
 import { progress } from './achieve.js';
 import { totalLayer, weaponId } from './stats.js';
 import { addMat } from './cave.js';
+import { skillSlots } from './skills.js';
 
 const V = data => data.daovan;
 const today = () => { const d = new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000); };
@@ -18,7 +19,7 @@ export function matchInfo(save, data) {
   if (!el || !D) return { gear: 0, skills: 0, pet: 0, n: 0, el };
   const gear = equipped(save).filter(it => data.items.bases[it.base]?.dv && it.el === el).length;
   const mine = data.elements[el]?.skills || [];
-  const skills = Math.min(2, save.loadout ? save.loadout.filter(id => mine.includes(id)).length : 2);   // chưa chọn ô chiêu thì mặc định đang mang 2 chiêu hệ
+  const skills = Math.min(2, skillSlots({ save, data }).filter(id => mine.includes(id)).length);   // theo các ô chiêu đang hiện (chưa chọn thì ô mặc định)
   const pet = save.pet && D.pet_el[save.pet] === el ? 1 : 0;
   return { gear, skills, pet, n: gear ? gear + skills + pet : 0, el };
 }
@@ -50,7 +51,9 @@ export function stepInfo(game) {
   const day = today() - st.start, open = day >= step.day;
   if (open && st.base == null) st.base = step.need.abs ? 0 : counter(game, step.need);   // tính từ lúc bước mở, việc làm trước đó không tính
   const have = open ? Math.max(0, Math.floor(counter(game, step.need) - (step.need.abs ? 0 : st.base))) : 0;
-  return { st, step, open, day, have, ready: open && have >= step.need.n };
+  const R = game.data.realms, top = R.names.length * R.layers - 1;   // gần đỉnh tu vi: bước lên tầng chỉ cần tới đỉnh
+  const goal = step.need.type === 'layer' && st.base != null ? Math.max(0, Math.min(step.need.n, top - st.base)) : step.need.n;
+  return { st, step, open, day, have, goal, ready: open && have >= goal };
 }
 
 export function makeDv(game, base, rnd = Math.random) {
@@ -94,7 +97,7 @@ export function dvGoal(game) {
   const k = game.save && stepInfo(game);
   if (!k || k.all || !k.open) return null;
   const T = V(game.data);
-  return k.ready ? T.texts.goal_ready : `${T.texts.goal}: ${T.need_text[k.step.need.type].replace('{n}', k.step.need.n)} (${Math.min(k.have, k.step.need.n)}/${k.step.need.n})`;
+  return k.ready ? T.texts.goal_ready : `${T.texts.goal}: ${T.need_text[k.step.need.type].replace('{n}', k.goal)} (${Math.min(k.have, k.goal)}/${k.goal})`;
 }
 
 // Báo khi bước xong (một lần mỗi bước); tự hành thì tự nhận
