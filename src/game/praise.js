@@ -20,7 +20,8 @@ export function praise(game, kind, vars = {}) {
     if (!who.close || game.time < (game.praiseT || 0) || Math.random() > cfg.small_chance) return;
     game.praiseT = game.time + cfg.small_cd;
   } else if (!who.close && Math.random() > cfg.comp_chance) return;
-  const set = cfg.lines[who.id]?.[kind] || cfg.lines.default[kind];
+  const mine = (cfg.lines[who.id]?.[kind] || []).filter(l => who.close || !l.includes('đạo lữ'));   // chưa kết đạo lữ thì không nói "đạo lữ của ta"
+  const set = mine.length ? mine : cfg.lines.default[kind];
   if (!set) return;
   const text = pick(set).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
   const q = game.praiseQ ??= { list: [], t: 1.6 };   // nói sau thông báo của game một nhịp, từng câu một
