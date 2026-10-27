@@ -2,7 +2,7 @@
 import { addFx, hitMob, shoot, dist } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
-import { burstFx, zoneFx } from './skill-fx.js';
+import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -53,16 +53,19 @@ export function castSkill(game, id) {
       p.hp = Math.min(p.maxHp, p.hp + amt);
       game.number(p.x, p.y - 16, '+' + amt, '#9af0a8');
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 18, color: s.color, life: 0.5 });
+      if (s.fx) selfFx(game, s.fx, p);
       break;
     }
     case 'shield':
       p.shield = Math.round(p.maxHp * s.amount); p.shieldT = s.dur; p.shieldColor = s.color;
       if (s.heal) p.hp = Math.min(p.maxHp, p.hp + Math.round(p.maxHp * s.heal));
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 14, color: s.color, life: 0.4 });
+      if (s.fx) selfFx(game, s.fx, p);
       break;
     case 'buff':
       p.buffT = s.dur; p.buffAmt = s.amount; p.buffColor = s.color;
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 });
+      if (s.fx) selfFx(game, s.fx, p);
       break;
     case 'dash': {
       const sx = p.x, sy = p.y, steps = 16;

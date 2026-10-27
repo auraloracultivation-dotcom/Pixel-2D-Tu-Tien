@@ -47,6 +47,7 @@ Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn m
 9. Có chat chung cả máy chủ bên cạnh chat đảo và chat bang.
 10. Chưa viết Chương 7; làm đời sống yên bình thêm: sổ sưu tập cá, linh cầm thêm loài và đặt tên, tuyết và lá rơi theo mùa, cây nấu ăn ở dược viên.
 11. Đổi hệ ở Kim Đan tốn 3000 Linh Thạch và 10 nguyên liệu, giữ như đang làm.
+12. Việc tiếp theo là hình pixel và hiệu ứng chiêu, làm hiệu ứng chiêu trước. Vẽ đủ mọi chiêu còn thiếu một lượt. Độ rực vừa phải, dễ nhìn: sáng và rung nhẹ, không chớp mạnh.
 
 ## Trang bị và kiếm tiền
 
