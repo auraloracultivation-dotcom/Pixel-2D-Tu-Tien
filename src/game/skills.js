@@ -2,13 +2,14 @@
 import { addFx, hitMob, shoot, dist } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
-import { burstFx, zoneFx } from './skill-fx.js';
+import { burstFx, zoneFx, skillFx } from './skill-fx.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
   const p = game.player;
   const atk = p.atk;
   const fx = p.face.x, fy = p.face.y;
+  const kind = skillFx(game, s);   // hình hiệu ứng chiêu (nhân vật có hiệu ứng riêng thì dùng của nhân vật)
   if (!['heal', 'shield', 'buff'].includes(s.type)) p.swingT = 0.18;   // nhân vật làm động tác đánh
   game.sfx({ projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
   switch (s.type) {
@@ -16,7 +17,7 @@ export function castSkill(game, id) {
       shoot(game, {
         from: 'player', x: p.x + fx * 6, y: p.y - 4 + fy * 6, vx: fx * s.speed, vy: fy * s.speed,
         r: s.radius, dmg: atk * s.mult, pierce: !!s.pierce, slow: s.slow, stun: s.stun, explode: s.explode,
-        color: s.color, life: s.range / s.speed, trail: true, fx: s.fx,
+        color: s.color, life: s.range / s.speed, trail: true, fx: kind,
       });
       break;
     case 'multi': {
@@ -27,19 +28,19 @@ export function castSkill(game, id) {
         shoot(game, {
           from: 'player', x: p.x + Math.cos(a) * 6, y: p.y - 4 + Math.sin(a) * 6, vx: Math.cos(a) * s.speed, vy: Math.sin(a) * s.speed,
           r: s.radius, dmg: atk * s.mult, pierce: !!s.pierce, slow: s.slow, explode: s.explode,
-          color: s.color, life: s.range / s.speed, trail: true, fx: s.fx,
+          color: s.color, life: s.range / s.speed, trail: true, fx: kind,
         });
       }
       break;
     }
     case 'zone':
       addZone(game, { ...s, x: p.x + fx * (s.offset || 0), y: p.y + fy * (s.offset || 0), dmg: atk * s.mult });
-      if (s.fx) zoneFx(game, s.fx, game.zones[game.zones.length - 1]);
+      if (kind) zoneFx(game, kind, game.zones[game.zones.length - 1]);
       break;
     case 'aoe': {
       const cx = p.x + fx * (s.offset || 0), cy = p.y + fy * (s.offset || 0);
       addFx(game, { type: 'ring', x: cx, y: cy, r: s.radius, color: s.color, life: 0.35, fill: true });
-      if (s.fx) burstFx(game, s.fx, cx, cy, s.radius, Math.atan2(fy, fx));
+      if (kind) burstFx(game, kind, cx, cy, s.radius, Math.atan2(fy, fx));
       for (const m of game.mobs) {
         if (!m.dead && Math.hypot(m.x - cx, m.y - cy) < s.radius + m.r) {
           hitMob(game, m, atk * s.mult, { slow: s.slow, stun: s.stun, color: s.color, fromX: cx, fromY: cy });
@@ -69,12 +70,12 @@ export function castSkill(game, id) {
       for (let i = 0; i < steps; i++) game.map.move(p, fx * s.dist / steps, fy * s.dist / steps);
       addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: s.color, life: 0.3 });
       p.dashT = 0.15;
-      if (s.fx) burstFx(game, s.fx, p.x, p.y, 18, Math.atan2(fy, fx));
+      if (kind) burstFx(game, kind, p.x, p.y, 18, Math.atan2(fy, fx));
       for (const m of game.mobs) {
         if (m.dead) continue;
         if (segDist(m, sx, sy, p.x, p.y) < m.r + 8) {
           hitMob(game, m, atk * s.mult, { color: s.color, fromX: sx, fromY: sy });
-          if (s.fx) burstFx(game, s.fx, m.x, m.y, 10, Math.atan2(fy, fx));
+          if (kind) burstFx(game, kind, m.x, m.y, 10, Math.atan2(fy, fx));
         }
       }
       break;
