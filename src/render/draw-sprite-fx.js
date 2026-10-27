@@ -4,7 +4,7 @@ import { spriteImage } from './sprites.js';
 
 export function drawSpriteFx(ctx, game, f, k) {
   const spr = game.data.art.sprites[f.id], im = spr && spriteImage(spr);
-  if (!im) return;
+  if (!im) return false;
   const list = f.frames;
   let i = f.fps ? Math.floor(f.t * f.fps + (f.phase || 0)) : Math.floor(k * (list ? list.length : spr.frames));
   i = list ? list[i % list.length] : f.fps ? i % spr.frames : Math.min(spr.frames - 1, i);
@@ -20,4 +20,5 @@ export function drawSpriteFx(ctx, game, f, k) {
   ctx.globalAlpha *= 0.25;
   ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0] - 1, -spr.anchor[1] - 1, spr.w + 2, spr.h + 2);
   ctx.restore();
+  return true;
 }

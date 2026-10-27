@@ -18,6 +18,7 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
+import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite } from './draw-mob-sprite.js';
@@ -186,6 +187,8 @@ function drawFx(ctx, game) {
       ctx.strokeStyle = f.color; ctx.lineWidth = 2;
       ctx.beginPath(); ctx.arc(f.x, f.y, f.r * (0.4 + 0.6 * k), 0, Math.PI * 2); ctx.stroke();
       if (f.fill) { ctx.fillStyle = f.color; ctx.globalAlpha = (1 - k) * 0.3; ctx.fill(); }
+    } else if (f.type === 'spark' && drawSpriteFx(ctx, game, { ...f, id: 'fx.spark', y: f.y - 4 }, k)) {   // tia lửa pixel
+    } else if (f.type === 'puff' && drawSpriteFx(ctx, game, { ...f, id: 'fx.puff', y: f.y - 4, s: Math.max(0.6, f.r / 10) }, k)) {   // khói tan pixel
     } else if (f.type === 'spark' || f.type === 'bite') {
       ctx.fillStyle = f.color;
       for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; circle(ctx, f.x + Math.cos(a) * 6 * k, f.y - 4 + Math.sin(a) * 6 * k, 1.3); }
@@ -280,12 +283,7 @@ export function drawWorld(game, screen, t) {
   drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
   drawFishing(ctx, game, t);
-  for (const n of game.numbers) {
-    ctx.globalAlpha = Math.min(1, (0.75 - n.t) * 4);
-    ctx.font = `bold ${n.big ? 11 : 8}px system-ui`; ctx.textAlign = 'center';
-    ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y);
-  }
-  ctx.globalAlpha = 1;
+  drawNumbers(ctx, game);
   drawBubbles(ctx, game);
   if (game.peek) {   // tên chỉ hiện khi chạm vào
     const e = game.peek.e, name = e.def.name, ny = e.y - Math.max(22, (e.top || 0) + 4, game.data.art.sprites['npc.' + e.id] ? 28 : 0);   // trên đỉnh hình
