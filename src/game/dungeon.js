@@ -1,5 +1,6 @@
 // Bí cảnh: các phòng nối nhau, cửa khoá tới khi dọn sạch phòng, phòng cuối có boss. Độ khó ở dun-mode.js.
 import { scaleMob, dungeonDone, levelName } from './dun-mode.js';
+import { applyDemon, demonDone } from './demon.js';
 import { partyGuest, partyHostRun, partyGhosts, partySize, partyDoor, partyDone } from './party-sync.js';
 
 export function createDungeon(game) {
@@ -24,7 +25,7 @@ export function createDungeon(game) {
         const cx = r.boss ? x + w * 0.7 : x + w / 2, cy = y + h / 2;
         const p = map.freeNear(Math.floor(cx), Math.floor(cy), r.boss ? 1 : Math.min(w, h) / 2 - 1, 6);
         const m = game.spawn(spec.mob, p.x, p.y);
-        m.aggro = true; m.room = r; scaleMob(game, m);
+        m.aggro = true; m.room = r; if (map.def.demon) applyDemon(game, m); else scaleMob(game, m);   // Phương Thiên Địa: Ma Vương tuần
         if (partyHostRun(game)) m.hp = m.maxHp = Math.round(m.maxHp * (1 + game.data.party.hp_per * (partySize(game) - 1)));   // tổ đội: quái trâu hơn theo số người
         r.mobs.push(m);
       }
@@ -45,7 +46,7 @@ export function createDungeon(game) {
           const summonsLeft = r.boss && game.mobs.some(m => !m.dead);
           if (!r.mobs.length && !summonsLeft) {
             r.cleared = true;
-            if (r.boss) { dungeonDone(game); partyDone(game); }
+            if (r.boss) { if (map.def.demon) demonDone(game); else dungeonDone(game); partyDone(game); }
             if (r.door_x != null) {
               for (const [x, y] of doors) if (x === r.door_x) map.locked.delete(x + ',' + y);
               partyDoor(game, r.door_x);

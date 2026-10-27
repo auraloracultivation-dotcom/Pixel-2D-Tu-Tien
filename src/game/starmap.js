@@ -1,4 +1,6 @@
 // Tinh đồ: vị trí các thiên thể của Thiên Kiếm Tinh Hệ (data/starmap.json) theo giờ thật, độ nguy hiểm, có bay tới được không.
+import { demonWhy } from './demon.js';
+
 const RAD = Math.PI / 180;
 export const REF = 180; // size trong data tính theo điểm ảnh khi nửa bề rộng tinh đồ là 180
 
@@ -38,6 +40,7 @@ export function whyNot(game, b) {
   const sm = game.data.starmap, t = sm.texts, def = game.data.maps[b.map];
   if (b.sun || b.kind === 'lost') return t.lost;
   if (b.kind === 'soon' || !def) return t.soon;
+  if (def.demon) return demonWhy(game);   // Phương Thiên Địa: mở theo cảnh giới, mỗi tuần một lần
   if (!game.save.visited?.[b.map]) return t.locked;
   if (!def.world) return t.moon.replace('{parent}', b.parent?.name || '');
   return null;
