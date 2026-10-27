@@ -3,11 +3,13 @@ import { addFx, hitMob, shoot, dist } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
 import { burstFx, zoneFx, selfFx } from './skill-fx.js';
+import { skillMul } from './skill-level.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
   const p = game.player;
-  const K = game.data.config.combat, atk = p.atk * (s.type === 'multi' ? K.multi : K.skill);   // chiêu mạnh hơn đánh thường (config.combat)
+  const K = game.data.config.combat, lv = skillMul(game, id);   // chiêu mạnh hơn đánh thường (config.combat), mạnh thêm theo cấp chiêu
+  const atk = p.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
   const fx = p.face.x, fy = p.face.y;
   if (!['heal', 'shield', 'buff'].includes(s.type)) p.swingT = 0.18;   // nhân vật làm động tác đánh
   game.sfx({ projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
@@ -49,7 +51,7 @@ export function castSkill(game, id) {
       break;
     }
     case 'heal': {
-      const amt = Math.round(p.maxHp * s.amount);
+      const amt = Math.round(p.maxHp * amount);
       p.hp = Math.min(p.maxHp, p.hp + amt);
       game.number(p.x, p.y - 16, '+' + amt, '#9af0a8');
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 18, color: s.color, life: 0.5 });
@@ -57,13 +59,13 @@ export function castSkill(game, id) {
       break;
     }
     case 'shield':
-      p.shield = Math.round(p.maxHp * s.amount); p.shieldT = s.dur; p.shieldColor = s.color;
+      p.shield = Math.round(p.maxHp * amount); p.shieldT = s.dur; p.shieldColor = s.color;
       if (s.heal) p.hp = Math.min(p.maxHp, p.hp + Math.round(p.maxHp * s.heal));
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 14, color: s.color, life: 0.4 });
       if (s.fx) selfFx(game, s.fx, p);
       break;
     case 'buff':
-      p.buffT = s.dur; p.buffAmt = s.amount; p.buffColor = s.color;
+      p.buffT = s.dur; p.buffAmt = amount; p.buffColor = s.color;
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 });
       if (s.fx) selfFx(game, s.fx, p);
       break;

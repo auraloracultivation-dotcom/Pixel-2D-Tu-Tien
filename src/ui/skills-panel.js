@@ -3,6 +3,8 @@ import { unlockedSkills, skillSlots, setSlot } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
 import { setTechSlot, techNeed } from '../game/techniques.js';
 import { statText } from '../game/items.js';
+import { skillLv, levelCost, levelUp } from '../game/skill-level.js';
+import { coins } from '../game/shop.js';
 
 const $ = id => document.getElementById(id);
 
@@ -83,7 +85,24 @@ export function createSkillsPanel(game) {
       c.disabled = !ok;
       c.onclick = () => { setSlot(game, slot, id); slot = (slot + 1) % 3; game.sfx('pickup'); render(); };
       list.append(c);
+      if (ok) list.append(levelRow(id, s));
     }
+  }
+
+  // Cấp chiêu: dòng dưới mỗi chiêu đã mở (config.skill_lv), nút luyện lên cấp sau
+  function levelRow(id, s) {
+    const c = data.config.skill_lv, lv = skillLv(game, id), row = el('div', 'skill-up');
+    const pct = Math.round((lv - 1) * (s.mult ? c.per : c.per_support) * 100);
+    row.append(el('small', null, `Cấp ${lv}/${c.max}${pct ? ` · ${s.mult ? 'sát thương' : 'hiệu quả'} +${pct}%` : ''}`));
+    if (lv < c.max) {
+      const cost = levelCost(game, lv), have = game.save.mats[c.mat] || 0, mat = data.cave.materials[c.mat].name;
+      const b = el('button', 'mini', `Luyện lên cấp ${lv + 1} (${cost.book} ${mat} · ${cost.coins.toLocaleString('vi-VN')} ${data.shop.name})`);
+      b.disabled = have < cost.book || coins(game.save) < cost.coins;
+      b.title = `Đang có ${have} ${mat}`;
+      b.onclick = () => { if (levelUp(game, id)) { game.sfx('levelup'); render(); } };
+      row.append(b);
+    }
+    return row;
   }
 
   function open() {

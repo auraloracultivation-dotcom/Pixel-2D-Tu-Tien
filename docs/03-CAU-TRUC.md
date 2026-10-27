@@ -76,3 +76,11 @@ Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh 
 Trang tĩnh `privacy.html`, `terms.html`, `xoa-tai-khoan.html` (chung `legal.css`), có đường dẫn ở màn đầu cùng dòng cảnh báo sức khoẻ 180 phút. Đổi cách thu, giữ dữ liệu thì sửa bảng ở `privacy.html` cho khớp.
 
 Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): nút "Xoá tài khoản" ở màn đầu (bấm hai lần) gọi `p2d_xin_xoa_tk` rồi đăng xuất; mỗi lần đăng nhập máy khách gọi `p2d_huy_xoa_tk` (đang chờ thì huỷ và báo). Job `p2d-xoa-tai-khoan` (3 giờ 37 sáng giờ Việt Nam) chạy `p2d_xoa_het_han`: quá 7 ngày thì `p2d_xoa_mot` nhường Tông chủ cho người vào lâu nhất (hoặc giải tán), xoá bản sao, nhật ký lỗi, khoá chat, báo cáo về người đó, bỏ tên khỏi báo cáo họ gửi, rồi xoá `auth.users` (bảng khác xoá theo khoá ngoại). Cùng job bỏ mã băm địa chỉ mạng đăng ký cũ hơn 2 ngày.
+
+## Trọng điểm bồi dưỡng, cấp khó (luật 7 → 14 → 28)
+
+- Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`).
+- Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
+- Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
+- Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).
+- Cấp khó bí cảnh: `data/dungeon.json` (4 cấp × 10 bậc, `tier_mul` 2), `src/game/dun-mode.js` (`save.dunLv`, màu gợi ý `hintOf`). Tháp từ tầng 46: `data/tower.json` → `endless`.

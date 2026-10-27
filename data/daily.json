@@ -38,7 +38,8 @@
   "contrib": 50,
   "stones": 3,
   "item": "linh",
-  "gem": 1
+  "gem": 1,
+  "mats": {"bi-kip-chieu": 2}
  },
  "ranks": [
   {"id": "ngoai-mon", "name": "Đệ tử ngoại môn", "need": 0},
