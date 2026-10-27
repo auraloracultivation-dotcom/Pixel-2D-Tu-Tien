@@ -13,7 +13,8 @@ Luật cứng:
 - Schema chỉ đổi bằng migration mới trong `supabase/migrations/`.
 - Không đưa secret/service_role key vào repo.
 - Cỡ nhân vật theo chỉ số, NPC là người chuẩn **1m80, 70kg** (~24 đơn vị bản đồ): nhân vật 1m75 thấp hơn NPC một xíu, nặng hơn thì bè hơn. Mỗi nhân vật bằng hình khai `body` (điểm ảnh thân người), `cm`, `kg` trong `data/heroes.json`, game tự thu phóng. Không chỉnh cỡ bằng mắt.
-- Khi chủ dự án nhờ tạo nhân vật mới: **đưa bảng điền chỉ số trước** (mẫu ở `docs/04-BANG-NHAN-VAT.md`), chờ điền xong mới làm. Việc tốn credit SpriteCook phải hỏi trước, kèm số credit dự tính.
+- Khi chủ dự án nhờ tạo nhân vật mới: **đưa bảng điền chỉ số trước** (mẫu ở `docs/04-BANG-NHAN-VAT.md`), chờ điền xong mới làm.
+- **Tạm dừng SpriteCook** (chủ dự án chốt 27/10/2026, vì tạo nhiều bản thừa tốn tiền): không gọi bất kỳ công cụ SpriteCook nào, mọi hình và chuyển động làm bằng code. Chỉ dùng lại khi chủ dự án tự nói mở lại; khi đó mỗi lần tốn credit vẫn phải hỏi trước kèm số credit dự tính.
 - Hình nhân vật, quái, nền do Claude tự thiết kế bằng code (`tools/art/`), không lấy hình từ game cũ hay ảnh GPT.
 - Làm trên nhánh riêng, mở Pull Request, không đẩy thẳng `main`. Chạy `node tools/check.mjs` trước khi đẩy.
 - Được tự gộp Pull Request khi kiểm tra xanh, TRỪ thay đổi cơ sở dữ liệu thật, xoá nội dung, đổi kiến trúc: những việc đó phải hỏi chủ dự án.
