@@ -29,7 +29,7 @@ Lớp đồ dùng đời sống, thực phẩm chức năng: mỗi tinh cầu m�
 
 ## Hội đèn (`data/fair.json`)
 
-Lễ hội nhẹ cho phần chill, cũng là chỗ người chơi gặp nhau buổi tối: mỗi tối 19 tới 23 giờ (giờ máy) một tinh cầu theo thứ trong tuần mở hội ở sân xóm đầu tiên (Chủ nhật Thiên Kiếm Tinh, thứ Hai Xích Diễm, rồi Hàn Băng, Hắc Phong, Thanh Mộc, Thiên Kim, thứ Bảy Hậu Thổ). Đứng trong 8 ô quanh sân: linh khí đánh quái và đả tọa x1,2 (`fairQi` nhân vào `eventMul('qi')`); linh thực tinh cầu đó nửa giá, ăn lâu gấp đôi. Dây đèn lồng quanh sân, quầng đèn ban đêm, từ 20 giờ có pháo hoa (`src/render/draw-fair.js`); dân làng gần đó nói câu hội. Bảng sự kiện và thẻ tinh cầu trên tinh đồ báo hội tối nay (`src/game/fair.js`).
+Lễ hội nhẹ cho phần chill, cũng là chỗ người chơi gặp nhau buổi tối: mỗi tối 19 tới 23 giờ (giờ máy) một tinh cầu theo thứ trong tuần mở hội ở sân xóm đầu tiên (Chủ nhật Thiên Kiếm Tinh, thứ Hai Xích Diễm, rồi Hàn Băng, Hắc Phong, Thanh Mộc, Thiên Kim, thứ Bảy Hậu Thổ). Đứng trong 8 ô quanh sân: linh khí đánh quái và đả tọa x1,2 (`fairQi` nhân vào `eventMul('qi')`); linh thực tinh cầu đó nửa giá, ăn lâu gấp đôi. Dây đèn lồng quanh sân, quầng đèn ban đêm, từ 20 giờ có pháo hoa (`src/render/draw-fair.js`); dân làng gần đó nói câu hội. Bảng sự kiện và thẻ tinh cầu trên tinh đồ báo hội tối nay (`src/game/fair.js`). Trong sân ngồi đả tọa được (không cần bồ đoàn). Tự hành (tùy chọn "Tối ra hội đèn", 19 tới 22 giờ): tinh cầu có hội mà đã tới thì bay tới, ra sân ngồi đả tọa (`farmjob.js` → `fairJob`); hết linh thực mà đi treo máy thì ghé quán xóm mua.
 
 ## Bản đồ (`data/maps/*.json`)
 
