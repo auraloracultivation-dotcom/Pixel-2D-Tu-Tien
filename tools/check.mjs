@@ -91,11 +91,14 @@ try {
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
   for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
+  { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
   for (const [id, h] of Object.entries(read('heroes.json').list)) {
     if (!h.sprite) continue;
     const a = art[h.sprite];
     need(a && Object.values(h.anims).flat().every(f => f >= 0 && f < a.frames), `heroes/${id}: khung động tác vượt quá số khung của ${h.sprite}`);
     need((h.attacks || []).every(k => h.anims[k] && h.fps[k]), `heroes/${id}: động tác đánh thiếu khung hoặc fps`);
+    need(h.body > 0 && a && h.body <= a.h && !('height' in h), `heroes/${id}: cần body (điểm ảnh thân người) để tính cỡ theo NPC, không dùng height riêng`);
+    need(h.cm >= 100 && h.cm <= 260 && h.kg >= 25 && h.kg <= 250, `heroes/${id}: cần cm, kg (bảng chỉ số chủ dự án điền)`);
   }
   for (const [id, s] of Object.entries(skills)) need(!s.fx || art['fx.' + s.fx] || art['proj.' + s.fx], `skills/${id}: hiệu ứng fx.${s.fx} không có`);
   for (const [id, w] of Object.entries(weapons)) need(!w.fx || art['proj.' + w.fx], `weapons/${id}: hình đạn proj.${w.fx} không có`);
@@ -143,6 +146,8 @@ try {
   const ga = read('gather.json'), matIn = id => read('cave.json').materials[id] || items.materials[id];
   need(matIn(ga.yield[0]) && ga.rare.every(([id, p, n]) => matIn(id) && p > 0 && p < 1 && n > 0) && ga.per_map > 0 && ga.min_r < ga.max_r && ga.max_r < 1, 'gather: nguyên liệu hoặc số sai');
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(!f.from.elite || (maps[f.from.elite.map]?.spawners.some(sp => sp.mul > 1) && f.from.elite.n > 0), `fashion/${id}: tinh cầu không có bãi quái nhiễm ma khí`);
+  const dm = read('demon.json');
+  need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');
   for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
   const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));

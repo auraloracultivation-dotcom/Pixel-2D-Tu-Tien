@@ -9,13 +9,13 @@ export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C
 
 export function spawnCompanion(game) {
   const id = game.save.companion, p = game.player;
-  game.comp = id && p ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x + 10, y: p.y + 4, cd: 1, skillCd: 4, hop: 0, face: 1 } : null;
+  game.comp = id && p ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x - 10, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null;
 }
 
 export function updateCompanion(game, dt) {
   if (!game.comp) return;
   if (away(game, game.comp.id)) { game.save.companion = null; game.comp = null; return; }
-  updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, -C(game).follow, dt);
+  updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, C(game).follow, dt, C(game).lift);   // đi sau lưng, lệch lên: không chắn trước mặt
 }
 
 // Nhận một phần linh khí người chơi thu được

@@ -1,0 +1,28 @@
+{
+ "id": "phuong-thien-dia",
+ "name": "Phương Thiên Địa",
+ "demon": true,
+ "sky": "#12081e",
+ "dark": 0.35,
+ "ground": "#4a3a5a",
+ "grid": [
+  "######################################################",
+  "#pppppppppppp###pppppppppppp###pppppppppppppppppppppp#",
+  "#pppppppppppp###pppppppppppp###ppppp*pppppppp*ppppppp#",
+  "#pppp*ppppppp###pppp*ppppppp###pppppppppppppppppppppp#",
+  "#pppppppppppp###pppppppppppp###pppppppppppppppppppppp#",
+  "#pppppppppppppDppppppppppppppDppppppppppppppppppppppp#",
+  "#pPpppppppppppDppppppppppppppDppppppppppppppppppppppp#",
+  "#pppppppppppppDppppppppppppppDppppppppppppppppppppppp#",
+  "#pppppppppppp###pppppppppppp###pppppppppppppppppppppp#",
+  "#pppppppp*ppp###pppppppp*ppp###pppppppppppppppppppppp#",
+  "#pppppppppppp###pppppppppppp###ppppppppp*ppppppp*pppp#",
+  "#pppppppppppp###pppppppppppp###pppppppppppppppppppppp#",
+  "######################################################"
+ ],
+ "spawns": {"vao": [4, 6]},
+ "portals": [{"at": [2, 6], "to": "vet-nut-ngoai", "spawn": "vao", "label": "Truyền tống về Ngoại Vực Vết Nứt"}],
+ "npcs": [],
+ "spawners": [],
+ "rooms": [{"rect": [1, 1, 12, 11], "door_x": 14, "mobs": [{"mob": "hu-khong-ma", "n": 4}, {"mob": "u-minh-phap", "n": 2}], "intro": "Ma khí đặc quánh. Hộ vệ của Ma Vương lao tới!"}, {"rect": [16, 1, 12, 11], "door_x": 29, "mobs": [{"mob": "u-minh-ve", "n": 3}, {"mob": "hu-anh", "n": 3}]}, {"rect": [31, 1, 22, 11], "mobs": [{"mob": "hu-khong-nguc-chu", "n": 1}], "boss": true}]
+}

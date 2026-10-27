@@ -63,8 +63,8 @@
    "desc": "Từng có người ở. Ma khí đã nuốt trọn, chỉ còn vỏ đá xám."},
   {"id": "mat-2", "name": "Tinh cầu đã mất", "kind": "lost", "orbit": 9, "angle": 75, "size": 13, "color": "#3e3a48",
    "desc": "Từng có người ở. Ma khí đã nuốt trọn, chỉ còn vỏ đá xám."},
-  {"id": "ma-vuong", "name": "Phương Thiên Địa Ma Vương", "kind": "soon", "orbit": 9, "angle": 165, "size": 14, "color": "#7a2236", "realm": 8,
-   "desc": "Ma Vương trấn giữ một phương thiên địa trong ma khí. Mỗi con hạ xuống, Ma Tổ lại sinh con mới, mạnh gấp đôi."}
+  {"id": "ma-vuong", "map": "phuong-thien-dia", "name": "Phương Thiên Địa Ma Vương", "kind": "boss", "orbit": 9, "angle": 165, "size": 14, "color": "#7a2236", "realm": 8,
+   "desc": "Ma Vương trấn giữ một phương thiên địa trong ma khí. Mỗi tuần Ma Tổ sinh một con; hạ con nào thì con sau mạnh gấp đôi."}
  ],
  "texts": {
   "unknown": "???",

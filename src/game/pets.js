@@ -76,14 +76,15 @@ export function updatePet(game, dt) {
 }
 
 // Kẻ đi theo (linh thú, bạn đồng hành): theo sau chủ, tự đánh quái gần, có một chiêu hồi theo giây
-export function updateFollower(game, f, mul, follow, dt) {
+// lift: đứng lùi lên phía sau (vẽ sau người chơi, không che hình nhân vật); linh thú 0, bạn đồng hành > 0
+export function updateFollower(game, f, mul, follow, dt, lift = 0) {
   const p = game.player, def = f.def;
   f.cd -= dt; f.skillCd -= dt; f.hop += dt * 8; f.walkT = (f.walkT || 0) + dt;
   const tgt = nearestMob(game, p, def.range);
   // Đi theo chủ, hoặc lao tới quái nếu đánh gần
-  let gx = p.x - (p.face.x || 0) * follow, gy = p.y - (p.face.y || 0) * follow + 2;
+  let gx = p.x - (p.face.x || 0) * follow, gy = p.y - (p.face.y || 0) * follow + 2 - lift;
   f.sleep = p.meditating && !tgt;   // chủ đả tọa: cuộn tròn ngủ cạnh bồ đoàn
-  if (f.sleep) { gx = p.x + (follow > 0 ? 11 : -11); gy = p.y + 3; }
+  if (f.sleep) { gx = p.x + (lift ? -11 : 11); gy = p.y + 3; }
   if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - f.x) * (tgt.r + 4); gy = tgt.y; }
   const dx = gx - f.x, dy = gy - f.y, d = Math.hypot(dx, dy);
   if (d > 160) { f.x = gx; f.y = gy; }

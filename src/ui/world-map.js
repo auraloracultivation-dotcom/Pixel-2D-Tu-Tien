@@ -2,6 +2,7 @@
 import { bodiesOf, dangerOf, whyNot } from '../game/starmap.js';
 import { drawStarmap } from '../render/draw-starmap.js';
 import { panZoom } from './pan-zoom.js';
+import { weekLine } from '../game/demon.js';
 
 const $ = id => document.getElementById(id);
 
@@ -24,7 +25,7 @@ export function createWorldMap(game) {
     : game.map.def.tower || game.map.def.res ? 'Đang trong tháp hoặc bí cảnh, ra cổng trước đã.'
     : game.trib.active ? 'Đang độ kiếp!' : game.story.busy ? 'Đang có chuyện, đợi xong đã.' : null;
 
-  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!game.save.visited?.[b.map];
+  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!data.maps[b.map]?.demon || !!game.save.visited?.[b.map];
 
   function fit() {
     const box = $('world-sky'), dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -53,6 +54,7 @@ export function createWorldMap(game) {
     box.append(el('b', null, known ? b.name : sm.texts.unknown), el('small', null, sm.kinds[b.kind] || ''));
     if (known && b.desc) box.append(el('p', null, b.desc));
     const dg = known && dangerOf(b, game.save.realm || 0);
+    if (data.maps[b.map]?.demon) box.append(el('p', 'wc-danger', weekLine(game)));   // Ma Vương tuần này
     if (dg) { const p = el('p', 'wc-danger', sm.texts.danger + ' '); const s = el('span', null, hintText[dg]); s.style.color = hint[dg]; p.append(s); box.append(p); }
     if (b.sun || b.kind === 'lost' || b.kind === 'soon') return;
     const here = game.map.id === b.map, why = here ? sm.texts.here : whyNot(game, b) || blocked();
@@ -61,7 +63,7 @@ export function createWorldMap(game) {
     go.onclick = () => {
       const m = data.maps[b.map];
       close();
-      game.travel(b.map, 'vao', true, { text: sm.texts.trip.replace('{name}', b.name), kind: m.indoor ? 'portal' : 'flight' });
+      game.travel(b.map, 'vao', true, { text: sm.texts.trip.replace('{name}', b.name), kind: m.indoor || m.rooms?.length ? 'portal' : 'flight' });
     };
     box.append(go);
   }

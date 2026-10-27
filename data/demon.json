@@ -1,0 +1,26 @@
+{
+ "_note": "Ma Vương tuần (vòng ma khí, chủ dự án 28/10/2026): Ma Tổ mỗi tuần sinh một Ma Vương trấn Phương Thiên Địa (bản đồ map, đi từ tinh đồ). Tuần tính từ epoch (thứ Hai), Ma Vương tuần n là bosses[n % số con] (hình, đòn của boss mob, đổi tên). Mở khi cảnh giới từ need_realm. Ma Vương lúc đầu có máu, công base; mỗi Ma Vương bạn đã hạ thì con sau mạnh tier_mul lần (luật 7 → 14 → 28, không hiện số), quái hộ vệ cũng mạnh theo; thưởng chỉ nhích reward_tier mỗi bậc (Linh Thạch). Hạ xong thì phương thiên địa được tịnh hoá tới tuần sau (mỗi tuần một lần). Lưu ở save.demon { lv: số Ma Vương đã hạ, week: tuần đã hạ }.",
+ "map": "phuong-thien-dia",
+ "need_realm": 7,
+ "epoch": "2026-10-26",
+ "base": {"hp": 250000, "atk": 170},
+ "tier_mul": 2,
+ "reward_tier": 1.15,
+ "bosses": [
+  {"mob": "hu-khong-nguc-chu", "name": "Hư Không Ma Vương"},
+  {"mob": "huyet-nha-that", "name": "Huyết Nha Ma Vương"},
+  {"mob": "han-hon-ma-tuong", "name": "Hàn Hồn Ma Vương"},
+  {"mob": "hac-phong-ma-quan", "name": "Hắc Phong Ma Vương"},
+  {"mob": "thuc-moc-ma-hau", "name": "Thực Mộc Ma Vương"},
+  {"mob": "van-kiem-ma-tuong", "name": "Vạn Kiếm Ma Vương"},
+  {"mob": "toai-son-ma-tuong", "name": "Toái Sơn Ma Vương"}
+ ],
+ "reward": {"item": "thien", "gem": 2, "stones": 5, "coins": 8000, "mats": {"khoa-linh-thach": 2, "manh-phap-bao": 12, "bi-kip-chieu": 6}},
+ "texts": {
+  "locked": "Lên {realm} mới đủ sức vào Phương Thiên Địa.",
+  "done": "Đã hạ {name} tuần này. Phương thiên địa được tịnh hoá, tuần sau Ma Tổ sinh Ma Vương mới.",
+  "week": "Tuần này: {name} (Ma Vương thứ {n} của bạn)",
+  "appear": "{name} xuất hiện!",
+  "win": "Hạ {name}! Phương thiên địa được tịnh hoá tới tuần sau. Nhận: {got}."
+ }
+}
