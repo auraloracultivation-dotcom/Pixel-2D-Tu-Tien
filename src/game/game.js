@@ -41,7 +41,7 @@ import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
 import { updateView, viewPan, standUp } from './scenic.js';
 import { coinDrop } from './shop.js';
-import { eventMul, eventKill, checkFestival, eventToast } from './events.js';
+import { eventMul, eventKill, checkFestival, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
 import { updateRes, resKill, resGoal } from './resrun.js';
@@ -169,6 +169,7 @@ export function createGame(data, screen, input, ui, audio) {
     }
     spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game);
     game.spawners = def.spawners.map(s => ({ ...s, alive: [], timer: 0 }));
+    festSpawn(game, def);
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
     standUp(game); game.fish = null;

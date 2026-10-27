@@ -5,6 +5,7 @@
  "materials": {
   "linh-thao": {"name": "Linh Thảo", "color": "#9af0a8", "desc": "Cỏ thuốc thường. Mọc ở linh điền, rơi từ mộc linh."},
   "yeu-huyet": {"name": "Yêu Huyết Tinh", "color": "#e0506a", "desc": "Máu đông của ma vật. Rơi từ ma tộc."},
+  "keo-bi": {"name": "Kẹo Bí Ngô", "color": "#ffb04a", "desc": "Kẹo rơi từ bí ngô yêu trong Lễ Hội Bí Ngô. Đổi quà ở Bà Bí Ngô."},
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "color": "#ff9a3a", "desc": "Nấm mọc cạnh dung nham. Rơi từ quái Đảo Xích Diễm và Hỏa Quật."},
   "tinh-thiet": {"name": "Tinh Thiết", "color": "#b8c4d8", "desc": "Sắt đã luyện. Có được khi phân giải đồ."},
   "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "color": "#b8d8ff", "desc": "Hoa đọng sương ngọc, chỉ nở ở dược viên. Món quà ai cũng thích."},
