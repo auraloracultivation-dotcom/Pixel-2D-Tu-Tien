@@ -2,7 +2,7 @@
  "_note": "Động phủ: bồ đoàn tu nhanh, lò đan, lò rèn, linh điền. Nguyên liệu rơi từ quái, phân giải đồ ra Tinh Thiết, linh điền mọc linh thảo theo giờ thật.",
  "map": "dong-phu",
  "meditate_mul": 2,
- "materials": {"bi-kip-chieu": {"name": "Bí Kíp Chiêu", "color": "#e8c070", "desc": "Trang bí kíp rách, dùng để luyện chiêu lên cấp ở bảng Chiêu. Rơi từ boss bí cảnh và rương việc hằng ngày."}, 
+ "materials": {"manh-phap-bao": {"name": "Mảnh Pháp Bảo", "color": "#f2c94c", "desc": "Phân giải pháp bảo mà có. Dùng để luyện pháp bảo lên bậc (Túi → chọn pháp bảo → Luyện)."}, "bi-kip-chieu": {"name": "Bí Kíp Chiêu", "color": "#e8c070", "desc": "Trang bí kíp rách, dùng để luyện chiêu lên cấp ở bảng Chiêu. Rơi từ boss bí cảnh và rương việc hằng ngày."}, 
   "linh-thao": {"name": "Linh Thảo", "color": "#9af0a8", "desc": "Cỏ thuốc thường. Mọc ở linh điền, rơi từ mộc linh."},
   "yeu-huyet": {"name": "Yêu Huyết Tinh", "color": "#e0506a", "desc": "Máu đông của ma vật. Rơi từ ma tộc."},
   "keo-gay": {"name": "Kẹo Gậy", "color": "#ff6a7a", "desc": "Kẹo sọc đỏ trắng rơi từ người tuyết yêu dịp Đêm Tuyết Lành. Đổi quà ở Ông Già Tuyết."},

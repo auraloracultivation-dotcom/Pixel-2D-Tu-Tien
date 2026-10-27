@@ -98,6 +98,8 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 - Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`).
 - Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000).
 - Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
+- Ô Mũ (`data/items.json` → slots `mu`): 2 mũ thường (Bố Cân, Thiết Khôi) và 7 mũ bộ (rơi ở boss như các món bộ khác); biểu tượng vẽ ở `tools/art/gear.py` (`mu`). Trang bị giờ 6 ô (vũ khí, mũ, giáp, ngọc bội, giày, nhẫn) cộng ô pháp bảo.
+- Luyện pháp bảo (`data/gear.json` → refine, `src/game/refine.js`): phân giải pháp bảo ra Mảnh Pháp Bảo theo độ hiếm (cả lúc tự hành phân giải), Túi → chọn pháp bảo → Luyện: bậc n lên n + 1 tốn ceil(3 × 1,35^n) mảnh, tối đa ★20; mỗi bậc chỉ số chính +6%, chiêu pháp bảo +5%. Bậc lưu ở `it.pb`, không đổi chỉ số đã lưu.
 - Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
 - Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).
 - Cấp khó bí cảnh: `data/dungeon.json` (4 cấp × 10 bậc, `tier_mul` 2), `src/game/dun-mode.js` (`save.dunLv`, màu gợi ý `hintOf`). Tháp từ tầng 46: `data/tower.json` → `endless`.

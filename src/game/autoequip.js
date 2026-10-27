@@ -8,6 +8,7 @@ import { equip, itemName, rarityOf, salvage, isEquipped, equipped } from './item
 import { enhance, enhanceCost } from './enhance.js';
 import { salvageIron } from './cave.js';
 import { dailyEvent } from './daily.js';
+import { salvageArt } from './refine.js';
 
 const trial = (game, slot, uid) => {
   const s = game.save, old = s.equip[slot];
@@ -42,7 +43,7 @@ export function makeRoom(game, item) {
   const gone = old || item, name = `[${rarityOf(d.items, gone.rarity).name}] ${itemName(d, gone)}`;
   if (old) salvage(d, s, old.uid);
   else s.mats['tay-luyen-thach'] = (s.mats['tay-luyen-thach'] || 0) + rarityOf(d.items, item.rarity).salvage;
-  salvageIron(game, gone.rarity); dailyEvent(game, 'salvage');
+  salvageIron(game, gone.rarity); salvageArt(game, gone); dailyEvent(game, 'salvage');
   game.toast(`Túi đầy: tự phân giải ${name}`, 1.6);
   if (!old) return false;
   s.bag.push(item);

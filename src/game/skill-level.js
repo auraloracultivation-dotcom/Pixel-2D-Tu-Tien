@@ -1,6 +1,7 @@
 // Cấp chiêu (data/config.json → skill_lv): mỗi chiêu nâng riêng bằng Bí Kíp Chiêu và Linh Thạch, giá nhân lên mỗi cấp.
 // Lưu ở save.skillLv { id: cấp }; chưa có thì cấp 1.
 import { addCoins, coins } from './shop.js';
+import { artSkillMul } from './refine.js';
 
 const L = game => game.data.config.skill_lv;
 
@@ -9,7 +10,7 @@ export const skillLv = (game, id) => Math.max(1, Math.min(L(game).max, game.save
 // Hệ số chiêu theo cấp: chiêu tấn công nhân sát thương, chiêu hồi máu, khiên, tăng lực nhân lượng
 export function skillMul(game, id) {
   const c = L(game), s = game.data.skills[id], lv = skillLv(game, id) - 1;
-  return 1 + lv * (s?.mult ? c.per : c.per_support);
+  return (1 + lv * (s?.mult ? c.per : c.per_support)) * artSkillMul(game, id);   // chiêu pháp bảo mạnh thêm theo bậc luyện
 }
 
 // Giá nâng từ cấp lv lên lv + 1

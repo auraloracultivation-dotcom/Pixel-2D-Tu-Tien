@@ -49,7 +49,7 @@ export function addItem(data, save, item) {
 }
 
 export function itemName(data, item) {
-  return `${data.items.bases[item.base].name}${item.plus ? ' +' + item.plus : ''}`;
+  return `${data.items.bases[item.base].name}${item.plus ? ' +' + item.plus : ''}${item.pb ? ' ★' + item.pb : ''}`;
 }
 
 export function equipped(save) {
@@ -171,7 +171,7 @@ export function gearStats(data, save) {
   const sum = {};
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
-    const k = 1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0);
+    const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (data.items.bases[it.base]?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0));   // cường hoá × bậc luyện pháp bảo
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
     for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); add(gi.stat, gi.value); }
