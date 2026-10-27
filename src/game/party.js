@@ -1,6 +1,6 @@
 // Bí cảnh tổ đội (data/party.json): lập đội, vào đội bằng mã, đội trưởng chọn bí cảnh rồi cả đội cùng vào.
 // Trong bí cảnh, máy đội trưởng điều khiển quái; đồng bộ ở party-sync.js.
-import { cleared } from './dun-mode.js';
+import { cleared, levelOptions, levelName } from './dun-mode.js';
 import { realmLabel } from './stats.js';
 import { onPartyMsg, resetSync } from './party-sync.js';
 
@@ -44,9 +44,9 @@ async function startRun(game) {
   if (!list.length) { await game.dialog.say([['', P(game).none_done]]); return; }
   const id = await game.dialog.choose(P(game).pick, [...list.map(k => ({ id: k, label: d.maps[k].name, desc: '' })), { id: 'back', label: P(game).back, desc: '' }]);
   if (!d.maps[id]) return;
-  const modes = d.dungeon.modes.slice(0, cleared(game, id) + 1);
-  const mi = await game.dialog.choose(d.maps[id].name, [...modes.map((m, i) => ({ id: String(i), label: m.name, desc: m.desc, color: m.color })), { id: 'back', label: P(game).back, desc: '' }]);
-  if (!modes[+mi] || mi === 'back') return;
+  const opts = levelOptions(game, id);   // màu gợi ý theo sức đội trưởng
+  const mi = await game.dialog.choose(d.maps[id].name, [...opts, { id: 'back', label: P(game).back, desc: '' }]);
+  if (!opts.some(o => o.id === mi)) return;
   const run = { map: id, mode: +mi, n: game.party.roster.length };
   game.party.net?.send({ t: 'start', ...run });
   beginRun(game, run);
@@ -54,7 +54,7 @@ async function startRun(game) {
 
 export function beginRun(game, run) {
   game.party.run = run; game.dunMode = run.mode; resetSync(game);
-  game.toast(P(game).going.replace('{map}', game.data.maps[run.map].name).replace('{mode}', game.data.dungeon.modes[run.mode].name), 2.4);
+  game.toast(P(game).going.replace('{map}', game.data.maps[run.map].name).replace('{mode}', levelName(game, run.mode)), 2.4);
   game.travel(run.map, 'vao', true);
 }
 
