@@ -1,4 +1,6 @@
 // Hộp thoại kể chuyện và chọn lựa. Chạm để hiện hết chữ / sang câu tiếp.
+// Hộp thoại xếp hàng: lời chào lễ, thưởng bí cảnh... gọi lúc đang có hộp khác thì đợi hộp đó xong rồi mới hiện.
+// (Trước đây hộp mới đè hộp cũ, lời hứa của hộp cũ không bao giờ xong nên truyện đứng mãi ở bước đó.)
 export function createDialog(onLine) {
   const box = document.getElementById('dialog');
   const who = document.getElementById('dlg-who');
@@ -6,7 +8,8 @@ export function createDialog(onLine) {
   const choices = document.getElementById('dlg-choices');
   const hint = document.getElementById('dlg-hint');
   const d = { open: false };
-  let full = '', shown = 0, timer = null, next = null;
+  let full = '', shown = 0, timer = null, next = null, line = Promise.resolve();
+  const queue = run => { const p = line.then(() => new Promise(run)); line = p.catch(() => {}); return p; };
 
   function type(str) {
     full = str; shown = 0; text.textContent = '';
@@ -25,7 +28,7 @@ export function createDialog(onLine) {
   });
 
   // lines: [[tên, câu], ...]
-  d.say = lines => new Promise(resolve => {
+  d.say = lines => queue(resolve => {
     let i = 0;
     d.open = true; box.hidden = false; choices.innerHTML = ''; hint.hidden = false;
     const show = () => {
@@ -44,7 +47,7 @@ export function createDialog(onLine) {
   };
 
   // options: [{id, label, desc, color}]
-  d.choose = (title, options) => new Promise(resolve => {
+  d.choose = (title, options) => queue(resolve => {
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
     full = title; shown = title.length; text.textContent = title; clearInterval(timer);
     choices.innerHTML = '';
@@ -63,7 +66,7 @@ export function createDialog(onLine) {
     }
   });
   // Hỏi một dòng chữ (đặt tên...): trả về chữ đã gõ, hoặc null nếu bấm thôi
-  d.ask = (title, placeholder, max, ok, cancel) => new Promise(resolve => {
+  d.ask = (title, placeholder, max, ok, cancel) => queue(resolve => {
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
     full = title; shown = title.length; text.textContent = title; clearInterval(timer);
     choices.innerHTML = '';
