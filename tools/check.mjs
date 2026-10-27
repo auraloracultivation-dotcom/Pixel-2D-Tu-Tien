@@ -158,6 +158,8 @@ try {
   const gdd = read('guild.json'), gm = lastWith(/insert into public\.p2d_bang_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/);
   const gcfg = gm ? JSON.parse(gm[1]) : null, gkeys = ['need_realm', 'cost', 'max', 'max_pho', 'max_lao', 'checkin', 'donate', 'min_pts', 'leave_hours', 'milestones'];
   need(gcfg && gkeys.every(k => JSON.stringify(gcfg[k]) === JSON.stringify(gdd[k])), `guild: số khác bảng p2d_bang_cfg trên máy chủ (${gkeys.filter(k => !gcfg || JSON.stringify(gcfg[k]) !== JSON.stringify(gdd[k])).join(', ')}); đổi số thì thêm migration mới`);
+  const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
+  need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');
   const pt = read('party.json');
   need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');
