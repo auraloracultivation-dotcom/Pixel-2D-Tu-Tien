@@ -181,29 +181,629 @@
    ],
    "note": "kiếm bay cạnh nhân vật, chĩa lên phải"
   },
-  "mob.hoa-linh": {
-   "file": "assets/art/mob-hoa-linh.png",
-   "v": "5c4ce9ec",
+  "mob.bang-tinh": {
+   "file": "assets/art/mob-bang-tinh.png",
+   "v": "fc9165a3",
    "w": 18,
-   "h": 15,
+   "h": 18,
    "frames": 2,
    "anchor": [
     9,
-    14
+    17
    ],
-   "note": "Hỏa Linh: đứng, bẹt khi nảy"
+   "note": "Băng tinh (slime): đứng, bước"
+  },
+  "mob.co-thu-yeu-vuong": {
+   "file": "assets/art/mob-co-thu-yeu-vuong.png",
+   "v": "e606a6db",
+   "w": 38,
+   "h": 47,
+   "frames": 2,
+   "anchor": [
+    19,
+    45
+   ],
+   "note": "Cổ Thụ Yêu Vương (plant): đứng, bước"
+  },
+  "mob.doc-dang": {
+   "file": "assets/art/mob-doc-dang.png",
+   "v": "95b55931",
+   "w": 24,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    12,
+    20
+   ],
+   "note": "Độc đằng (plant): đứng, bước"
+  },
+  "mob.gai-ma-ve": {
+   "file": "assets/art/mob-gai-ma-ve.png",
+   "v": "3b1c4382",
+   "w": 28,
+   "h": 27,
+   "frames": 2,
+   "anchor": [
+    14,
+    25
+   ],
+   "note": "Gai Ma Vệ (plant): đứng, bước"
+  },
+  "mob.hac-cuc-ma-chung": {
+   "file": "assets/art/mob-hac-cuc-ma-chung.png",
+   "v": "47ab3996",
+   "w": 38,
+   "h": 47,
+   "frames": 2,
+   "anchor": [
+    19,
+    45
+   ],
+   "note": "Hắc Cức Ma Chủng (plant): đứng, bước"
+  },
+  "mob.hac-cuc-mam": {
+   "file": "assets/art/mob-hac-cuc-mam.png",
+   "v": "a4db9cbf",
+   "w": 24,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    12,
+    20
+   ],
+   "note": "Mầm Hắc Cức (plant): đứng, bước"
+  },
+  "mob.hac-diep": {
+   "file": "assets/art/mob-hac-diep.png",
+   "v": "26f1ea1d",
+   "w": 28,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    14,
+    20
+   ],
+   "note": "Hắc điệp (wing): đứng, bước"
+  },
+  "mob.hac-phong-ma-quan": {
+   "file": "assets/art/mob-hac-phong-ma-quan.png",
+   "v": "be9faac9",
+   "w": 41,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "Hắc Phong Ma Quân (lord): đứng, bước"
+  },
+  "mob.han-hon-ma-tuong": {
+   "file": "assets/art/mob-han-hon-ma-tuong.png",
+   "v": "a7ad1634",
+   "w": 41,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "Hàn Hồn Ma Tướng (lord): đứng, bước"
+  },
+  "mob.han-ma-ve": {
+   "file": "assets/art/mob-han-ma-ve.png",
+   "v": "fd7ad8d5",
+   "w": 22,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    11,
+    22
+   ],
+   "note": "Hàn ma vệ (imp): đứng, bước"
+  },
+  "mob.hoa-lang": {
+   "file": "assets/art/mob-hoa-lang.png",
+   "v": "95ddbe43",
+   "w": 26,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    13,
+    16
+   ],
+   "note": "Hỏa lang (wolf): đứng, bước"
+  },
+  "mob.hoa-lang-vuong": {
+   "file": "assets/art/mob-hoa-lang-vuong.png",
+   "v": "adf01f8c",
+   "w": 51,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    25,
+    38
+   ],
+   "note": "Hỏa Lang Vương (wolf): đứng, bước"
+  },
+  "mob.hu-khong-cu-thu": {
+   "file": "assets/art/mob-hu-khong-cu-thu.png",
+   "v": "829dac10",
+   "w": 62,
+   "h": 48,
+   "frames": 2,
+   "anchor": [
+    31,
+    46
+   ],
+   "note": "Hư Không Cự Thú (wolf): đứng, bước"
+  },
+  "mob.hu-khong-ma": {
+   "file": "assets/art/mob-hu-khong-ma.png",
+   "v": "6798c1ef",
+   "w": 22,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    11,
+    22
+   ],
+   "note": "Hư không ma (imp): đứng, bước"
+  },
+  "mob.hu-khong-nguc-chu": {
+   "file": "assets/art/mob-hu-khong-nguc-chu.png",
+   "v": "d3ddf1d3",
+   "w": 46,
+   "h": 45,
+   "frames": 2,
+   "anchor": [
+    23,
+    44
+   ],
+   "note": "Hư Không Ngục Chủ (lord): đứng, bước"
+  },
+  "mob.huyet-nha": {
+   "file": "assets/art/mob-huyet-nha.png",
+   "v": "2fd338af",
+   "w": 38,
+   "h": 37,
+   "frames": 2,
+   "anchor": [
+    19,
+    36
+   ],
+   "note": "Phân thân Huyết Nha (lord): đứng, bước"
+  },
+  "mob.huyet-nha-that": {
+   "file": "assets/art/mob-huyet-nha-that.png",
+   "v": "01e5ca9d",
+   "w": 41,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "Huyết Nha (lord): đứng, bước"
+  },
+  "mob.kim-giap-trung": {
+   "file": "assets/art/mob-kim-giap-trung.png",
+   "v": "a6b6bff9",
+   "w": 27,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    13,
+    19
+   ],
+   "note": "Kim giáp trùng (beetle): đứng, bước"
+  },
+  "mob.kim-giap-vuong": {
+   "file": "assets/art/mob-kim-giap-vuong.png",
+   "v": "3562e454",
+   "w": 44,
+   "h": 39,
+   "frames": 2,
+   "anchor": [
+    22,
+    37
+   ],
+   "note": "Kim Giáp Trùng Vương (beetle): đứng, bước"
+  },
+  "mob.linh-thach-tinh": {
+   "file": "assets/art/mob-linh-thach-tinh.png",
+   "v": "f7dfe4fa",
+   "w": 24,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    12,
+    19
+   ],
+   "note": "Linh Thạch Tinh (golem): đứng, bước"
+  },
+  "mob.linh-thao-tinh": {
+   "file": "assets/art/mob-linh-thao-tinh.png",
+   "v": "7acc2ba7",
+   "w": 24,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    12,
+    20
+   ],
+   "note": "Linh Thảo Tinh (plant): đứng, bước"
+  },
+  "mob.ma-bang-tien": {
+   "file": "assets/art/mob-ma-bang-tien.png",
+   "v": "dccc291d",
+   "w": 22,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    9,
+    20
+   ],
+   "note": "Ma băng tiễn (mage): đứng, bước"
+  },
+  "mob.ma-binh": {
+   "file": "assets/art/mob-ma-binh.png",
+   "v": "3927ae8b",
+   "w": 22,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    11,
+    22
+   ],
+   "note": "Ma binh (imp): đứng, bước"
+  },
+  "mob.ma-cung": {
+   "file": "assets/art/mob-ma-cung.png",
+   "v": "87b445d9",
+   "w": 22,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    9,
+    20
+   ],
+   "note": "Ma tiễn (mage): đứng, bước"
+  },
+  "mob.ma-phap": {
+   "file": "assets/art/mob-ma-phap.png",
+   "v": "c0213bad",
+   "w": 22,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    9,
+    20
+   ],
+   "note": "Ma pháp sư (mage): đứng, bước"
+  },
+  "mob.ma-phong-ve": {
+   "file": "assets/art/mob-ma-phong-ve.png",
+   "v": "69c64066",
+   "w": 22,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    11,
+    22
+   ],
+   "note": "Ma Phong Vệ (imp): đứng, bước"
+  },
+  "mob.ma-tham-tu": {
+   "file": "assets/art/mob-ma-tham-tu.png",
+   "v": "b88590d3",
+   "w": 20,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    10,
+    20
+   ],
+   "note": "Ma thám tử (imp): đứng, bước"
+  },
+  "mob.ma-tieu": {
+   "file": "assets/art/mob-ma-tieu.png",
+   "v": "a8e49af0",
+   "w": 18,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    9,
+    18
+   ],
+   "note": "Tiểu ma (imp): đứng, bước"
+  },
+  "mob.ma-ton": {
+   "file": "assets/art/mob-ma-ton.png",
+   "v": "8816aae1",
+   "w": 51,
+   "h": 51,
+   "frames": 2,
+   "anchor": [
+    25,
+    50
+   ],
+   "note": "Ma Tôn (lord): đứng, bước"
   },
   "mob.moc-linh": {
    "file": "assets/art/mob-moc-linh.png",
-   "v": "050f60db",
+   "v": "a39bb64b",
    "w": 18,
-   "h": 15,
+   "h": 18,
    "frames": 2,
    "anchor": [
     9,
-    14
+    17
    ],
-   "note": "Mộc Linh: đứng, bẹt khi nảy"
+   "note": "Mộc linh (slime): đứng, bước"
+  },
+  "mob.moc-linh-vuong": {
+   "file": "assets/art/mob-moc-linh-vuong.png",
+   "v": "3c075ac5",
+   "w": 28,
+   "h": 34,
+   "frames": 2,
+   "anchor": [
+    14,
+    33
+   ],
+   "note": "Mộc Linh Vương (slime): đứng, bước"
+  },
+  "mob.moc-yeu": {
+   "file": "assets/art/mob-moc-yeu.png",
+   "v": "1a00096c",
+   "w": 26,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    13,
+    22
+   ],
+   "note": "Mộc yêu (plant): đứng, bước"
+  },
+  "mob.nham-giap-thu": {
+   "file": "assets/art/mob-nham-giap-thu.png",
+   "v": "001e2750",
+   "w": 47,
+   "h": 47,
+   "frames": 2,
+   "anchor": [
+    23,
+    45
+   ],
+   "note": "Nham Giáp Thú (golem): đứng, bước"
+  },
+  "mob.nham-xa": {
+   "file": "assets/art/mob-nham-xa.png",
+   "v": "4979fdb9",
+   "w": 24,
+   "h": 21,
+   "frames": 2,
+   "anchor": [
+    12,
+    19
+   ],
+   "note": "Nham xà (snake): đứng, bước"
+  },
+  "mob.phong-yeu": {
+   "file": "assets/art/mob-phong-yeu.png",
+   "v": "92e7cd45",
+   "w": 32,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    16,
+    22
+   ],
+   "note": "Phong yêu (wing): đứng, bước"
+  },
+  "mob.phong-yeu-vuong": {
+   "file": "assets/art/mob-phong-yeu-vuong.png",
+   "v": "fbec2fc0",
+   "w": 56,
+   "h": 45,
+   "frames": 2,
+   "anchor": [
+    28,
+    44
+   ],
+   "note": "Phong Yêu Vương (wing): đứng, bước"
+  },
+  "mob.re-ma": {
+   "file": "assets/art/mob-re-ma.png",
+   "v": "c83fd7c6",
+   "w": 24,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    12,
+    20
+   ],
+   "note": "Rễ ma (plant): đứng, bước"
+  },
+  "mob.sa-ma": {
+   "file": "assets/art/mob-sa-ma.png",
+   "v": "ac9d36e5",
+   "w": 24,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    10,
+    22
+   ],
+   "note": "Sa ma (mage): đứng, bước"
+  },
+  "mob.tan-hon-hac-phong": {
+   "file": "assets/art/mob-tan-hon-hac-phong.png",
+   "v": "32d995be",
+   "w": 43,
+   "h": 43,
+   "frames": 2,
+   "anchor": [
+    21,
+    42
+   ],
+   "note": "Tàn hồn Hắc Phong Ma Quân (lord): đứng, bước"
+  },
+  "mob.tan-hon-han-hon": {
+   "file": "assets/art/mob-tan-hon-han-hon.png",
+   "v": "7223bffc",
+   "w": 43,
+   "h": 43,
+   "frames": 2,
+   "anchor": [
+    21,
+    42
+   ],
+   "note": "Tàn hồn Hàn Hồn Ma Tướng (lord): đứng, bước"
+  },
+  "mob.tan-hon-huyet-nha": {
+   "file": "assets/art/mob-tan-hon-huyet-nha.png",
+   "v": "1cb9d3ac",
+   "w": 43,
+   "h": 43,
+   "frames": 2,
+   "anchor": [
+    21,
+    42
+   ],
+   "note": "Tàn hồn Huyết Nha (lord): đứng, bước"
+  },
+  "mob.tan-hon-thuc-moc": {
+   "file": "assets/art/mob-tan-hon-thuc-moc.png",
+   "v": "d7411e4a",
+   "w": 38,
+   "h": 47,
+   "frames": 2,
+   "anchor": [
+    19,
+    45
+   ],
+   "note": "Tàn hồn Thực Mộc Ma Hậu (plant): đứng, bước"
+  },
+  "mob.thach-doi": {
+   "file": "assets/art/mob-thach-doi.png",
+   "v": "9bdde85e",
+   "w": 32,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    16,
+    22
+   ],
+   "note": "Thạch dơi (wing): đứng, bước"
+  },
+  "mob.tho-khoi": {
+   "file": "assets/art/mob-tho-khoi.png",
+   "v": "ec6cd475",
+   "w": 30,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    15,
+    24
+   ],
+   "note": "Thổ khôi (golem): đứng, bước"
+  },
+  "mob.thu-moc-ve": {
+   "file": "assets/art/mob-thu-moc-ve.png",
+   "v": "319b9016",
+   "w": 28,
+   "h": 27,
+   "frames": 2,
+   "anchor": [
+    14,
+    25
+   ],
+   "note": "Thụ Mộc Vệ (plant): đứng, bước"
+  },
+  "mob.thuc-moc-ma-hau": {
+   "file": "assets/art/mob-thuc-moc-ma-hau.png",
+   "v": "1cd040b3",
+   "w": 36,
+   "h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    42
+   ],
+   "note": "Thực Mộc Ma Hậu (plant): đứng, bước"
+  },
+  "mob.toai-son-ma-tuong": {
+   "file": "assets/art/mob-toai-son-ma-tuong.png",
+   "v": "75d87b3b",
+   "w": 46,
+   "h": 45,
+   "frames": 2,
+   "anchor": [
+    23,
+    44
+   ],
+   "note": "Toái Sơn Ma Tướng (lord): đứng, bước"
+  },
+  "mob.tuyet-lang": {
+   "file": "assets/art/mob-tuyet-lang.png",
+   "v": "ae8cc081",
+   "w": 29,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    14,
+    18
+   ],
+   "note": "Tuyết lang (wolf): đứng, bước"
+  },
+  "mob.tuyet-lang-vuong": {
+   "file": "assets/art/mob-tuyet-lang-vuong.png",
+   "v": "d6af70eb",
+   "w": 51,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    25,
+    38
+   ],
+   "note": "Tuyết Lang Vương (wolf): đứng, bước"
+  },
+  "mob.u-minh-phap": {
+   "file": "assets/art/mob-u-minh-phap.png",
+   "v": "a367f38d",
+   "w": 24,
+   "h": 23,
+   "frames": 2,
+   "anchor": [
+    10,
+    22
+   ],
+   "note": "U minh pháp sư (mage): đứng, bước"
+  },
+  "mob.van-kiem-ma-tuong": {
+   "file": "assets/art/mob-van-kiem-ma-tuong.png",
+   "v": "0c538e12",
+   "w": 43,
+   "h": 43,
+   "frames": 2,
+   "anchor": [
+    21,
+    42
+   ],
+   "note": "Vạn Kiếm Ma Tướng (lord): đứng, bước"
+  },
+  "mob.viem-linh": {
+   "file": "assets/art/mob-viem-linh.png",
+   "v": "93dbfed0",
+   "w": 18,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "Viêm linh (slime): đứng, bước"
   },
   "npc.bang-co": {
    "file": "assets/art/npc-bang-co.png",

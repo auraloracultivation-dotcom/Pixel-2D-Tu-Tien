@@ -18,6 +18,7 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
+import { drawMobSprite } from './draw-mob-sprite.js';
 
 const INK = '#1b1830';
 
@@ -79,7 +80,7 @@ function drawComp(ctx, e, t) {
   if (calm) { ctx.fillStyle = INK; ctx.fillRect(e.x - 2, e.y - 10.4, 1.4, 0.7); ctx.fillRect(e.x + 0.6, e.y - 10.4, 1.4, 0.7); }   // mắt nhắm
 }
 
-function drawMob(ctx, m, t) {
+function drawMob(ctx, m, t, game) {
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
   shadow(ctx, m.x, m.y + 1, r);
@@ -102,7 +103,7 @@ function drawMob(ctx, m, t) {
     drawPerson(ctx, m, m.def.color, '#120a1a', t, m.flash > 0, null);
     ctx.globalAlpha = 1; ctx.fillStyle = '#d0a0ff';
     ctx.fillRect(m.x - 1.8, m.y - 11.5, 1.2, 1.4); ctx.fillRect(m.x + 0.8, m.y - 11.5, 1.2, 1.4);
-  } else {
+  } else if (!drawMobSprite(ctx, game, m, t, wind)) {
     ctx.save();
     ctx.translate(m.x, m.y - r);
     ctx.scale(1 + squash, 1 - squash);
@@ -126,11 +127,12 @@ function drawMob(ctx, m, t) {
     }
     ctx.restore();
   }
-  if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - r * 2 - 3 + Math.sin(t * 6 + i * 2), 1); }
+  if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - (m.top || r * 2) - 3 + Math.sin(t * 6 + i * 2), 1); }
   if (m.slowT > 0) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
   if (m.hp < m.maxHp && m.def.ai !== 'boss') {
-    ctx.fillStyle = INK; ctx.fillRect(m.x - 7, m.y - r * 2 - 5, 14, 2.5);
-    ctx.fillStyle = '#e0484a'; ctx.fillRect(m.x - 7, m.y - r * 2 - 5, 14 * Math.max(0, m.hp / m.maxHp), 2.5);
+    const hy = m.y - (m.top || r * 2) - 5;
+    ctx.fillStyle = INK; ctx.fillRect(m.x - 7, hy, 14, 2.5);
+    ctx.fillStyle = '#e0484a'; ctx.fillRect(m.x - 7, hy, 14 * Math.max(0, m.hp / m.maxHp), 2.5);
   }
 }
 
@@ -262,7 +264,7 @@ export function drawWorld(game, screen, t) {
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.comp ? [['comp', game.comp]] : [])].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
-    else if (k === 'm') drawMob(ctx, e, t);
+    else if (k === 'm') drawMob(ctx, e, t, game);
     else if (k === 'o') drawOther(ctx, e, game, t);
     else if (k === 'pet') drawPet(ctx, e, t);
     else if (k === 'comp') drawComp(ctx, e, t);

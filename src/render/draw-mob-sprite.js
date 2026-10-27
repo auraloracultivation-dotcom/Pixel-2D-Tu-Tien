@@ -1,0 +1,20 @@
+// Quái bằng hình pixel (data/mobs.json → look, tools/art/mobs.py). Hình gốc nhìn phải, quay trái lật gương;
+// 2 khung luân phiên khi đi (quái hiền nảy thì theo nhịp nảy). Trả false nếu chưa có hình để vẽ hình khối như cũ.
+import { spriteImage } from './sprites.js';
+
+export function drawMobSprite(ctx, game, m, t, wind) {
+  const spr = m.def.look && game.data.art.sprites['mob.' + m.id], im = spr && spriteImage(spr);
+  if (!im) return false;
+  m.top = spr.anchor[1] - 2;   // đỉnh hình: thanh máu, sao choáng đặt trên đó
+  if (Math.abs(m.fx || 0) > 0.2) m.lookX = Math.sign(m.fx);
+  const f = m.def.ai === 'passive' ? (Math.abs(Math.sin(m.hop || 0)) > 0.5 ? 1 : 0) : Math.floor(t * (m.moving === false ? 2.5 : 5) + (m.uid || 0) * 0.37) % 2;
+  ctx.save();
+  ctx.translate(m.x, m.y + 1);
+  ctx.scale(m.lookX || 1, 1);
+  if (wind) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh
+  ctx.imageSmoothingEnabled = false;
+  if (m.flash > 0) ctx.filter = 'brightness(3)';
+  ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  ctx.restore();
+  return true;
+}
