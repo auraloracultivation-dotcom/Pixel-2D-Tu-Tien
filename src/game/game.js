@@ -34,6 +34,7 @@ import { updateChatter } from './chatter.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
+import { eliteKill } from './fashion.js';
 import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
@@ -143,7 +144,7 @@ export function createGame(data, screen, input, ui, audio) {
     countKill(game, m);
     if (m.def.ai === 'boss') praise(game, 'boss', { boss: m.def.name });
     dropLoot(game, m);
-    coinDrop(game, m);
+    coinDrop(game, m); eliteKill(game, m);
     bountyKill(game, m);
     sideKill(game, m);
     techDrop(game, m);

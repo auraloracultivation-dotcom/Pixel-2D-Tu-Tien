@@ -33,6 +33,8 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 **Tự hành rảnh tay** (`src/game/farmjob.js`): khi truyện chờ tu luyện mà hết việc vặt, tự hành đào mạch linh khoáng còn trên bản đồ (tùy chọn `dao`, đào dở thì đào cho xong rồi mới đánh), rồi tới bãi treo máy vừa sức nhất (tùy chọn `treo`): bãi mạnh nhất mà `foeRatio` (cùng công thức màu gợi ý cổng bí cảnh) vẫn từ mức vừa trở lên; bản đồ không có bãi thì bay tới tinh cầu đã tới có `realm` cao nhất không quá cảnh giới. Khuya (tùy chọn `dem`) thì thôi, về động phủ.
 
+**Thời trang theo tinh cầu** (`data/fashion.json`, nguồn `elite`): mỗi tinh cầu một bộ (Kiếm bào Thiên Kiếm, Hỏa bào Xích Diễm, Băng y Hàn Băng, Phong bào Hắc Phong, Lục bào Thanh Mộc, Kim y Thiên Kim, Thổ bào Hậu Thổ, Hư Không Tử Y), mở khi hạ đủ 300 quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu đó (Thiên Kiếm 200). Đếm ở `save.elite` (`eliteKill` ở `src/game/fashion.js`), bảng Thời trang hiện tiến độ. Mục tiêu dài hạn cho người treo máy.
+
 **Bãi treo máy** (chủ dự án 28/10/2026): spawner có `farm: true` lấy số con, tốc hồi ở `data/planets.json` → farm (5 con, chết hồi sau 2,5 giây) để Tự đánh chém, tung chiêu liên tục; đồ, nguyên liệu, Linh Thạch rơi chỉ bằng `farm.loot` (0,4) lần quái thường (`m.lootMul` ở `loot.js`, `cave.js`, `shop.js`), linh khí giữ nguyên. Mỗi tinh cầu có quái 9 bãi: 4 bãi thường, 5 bãi vòng ngoài nhiễm ma khí.
 
 ## Tinh đồ (`data/starmap.json`)

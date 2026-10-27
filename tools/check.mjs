@@ -88,7 +88,7 @@ try {
   for (const g of af.gifts) need(g.kind === 'coins' || (g.kind === 'pill' ? cave.pills[g.id] : matOk(g.id)), `affinity.gifts: món "${g.id}" không có`);
   for (const [id, g] of Object.entries(af.likes)) need(cl[id] && af.gifts.some(x => x.id === g), `affinity.likes/${id}: người hoặc quà không có`);
   for (const id of [...Object.keys(af.scenes), ...af.dao_lu.can]) need(cl[id] && npcs[id], `affinity: "${id}" không phải bạn đồng hành`);
-  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || f.from.tn > 0 || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
+  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
   for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
   { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
@@ -145,6 +145,7 @@ try {
   for (const [id, m] of Object.entries(maps)) need(!m.world || smMaps.has(id), `maps/${id}: có world nhưng không có trên tinh đồ (starmap.json)`);
   const ga = read('gather.json'), matIn = id => read('cave.json').materials[id] || items.materials[id];
   need(matIn(ga.yield[0]) && ga.rare.every(([id, p, n]) => matIn(id) && p > 0 && p < 1 && n > 0) && ga.per_map > 0 && ga.min_r < ga.max_r && ga.max_r < 1, 'gather: nguyên liệu hoặc số sai');
+  for (const [id, f] of Object.entries(read('fashion.json').list)) need(!f.from.elite || (maps[f.from.elite.map]?.spawners.some(sp => sp.mul > 1) && f.from.elite.n > 0), `fashion/${id}: tinh cầu không có bãi quái nhiễm ma khí`);
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');
