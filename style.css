@@ -93,6 +93,7 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .item b { display: block; font-size: 13px; }
 .item small { font-size: 10.5px; color: #6a6478; }
 .item.sel { box-shadow: 0 0 0 2px #1b1830; background: #fff7d6; }
+.item .ico { float: left; width: 32px; height: 32px; margin-right: 6px; background: no-repeat center / 32px 32px; image-rendering: pixelated; }
 .gem-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 13px; }
 .gem-row span { flex: 1; }
 .gem-dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #1b1830; display: inline-block; }

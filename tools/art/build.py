@@ -18,6 +18,7 @@ from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
 from npcs import npc_frames  # noqa: E402
+from gear import gear_icon  # noqa: E402
 from pets import pet_frames, mount_frames  # noqa: E402
 
 clean()
@@ -164,6 +165,10 @@ save('fx.buff', buff_frames(), (15, 32), 'tăng sức: vầng vàng bốc lên q
 # ---------------------------------------------------------------- biểu tượng chiêu 16×16 trên nút chiêu (tools/art/icons.py)
 for _id, _c in icon_sprites().items():
     save(_id, [_c], (8, 8), 'biểu tượng chiêu ' + _id[5:])
+# ---------------------------------------------------------------- biểu tượng trang bị 16×16 trong túi đồ (tools/art/gear.py)
+_items, _gear = (json.loads((Path(__file__).resolve().parents[2] / 'data' / f).read_text(encoding='utf-8')) for f in ('items.json', 'gear.json'))
+for _id, _b in _items['bases'].items():
+    save('gear.' + _id, [gear_icon(_b, _gear['sets'])], (8, 8), _b['name'])
 
 # ---------------------------------------------------------------- chữ số pixel 3×5 (+viền) cho số sát thương
 DIG = ['111101101101111', '010110010010111', '111001111100111', '111001111001111', '101101111001001',

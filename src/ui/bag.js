@@ -33,6 +33,8 @@ export function createBag(game) {
     const r = rarityOf(data.items, it.rarity);
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
     b.style.borderColor = r.color;
+    const spr = data.art.sprites['gear.' + it.base];   // biểu tượng pixel của món gốc (tools/art/gear.py)
+    if (spr) { const ico = el('i', 'ico'); ico.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`; b.append(ico); }
     b.append(el('b', null, itemName(data, it)), el('small', null, `${r.name} · cấp ${it.lvl}${isEq(it.uid) ? ' · đang mặc' : ''}`));
     b.onclick = () => { st.sel = it.uid; st.pickSocket = null; render(); };
     return b;
