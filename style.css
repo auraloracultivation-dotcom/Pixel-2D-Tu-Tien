@@ -66,7 +66,7 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .link-btn { background: none; border: 0; text-decoration: underline; font: 600 14px system-ui, sans-serif; color: #1b1830; padding: 6px; }
 #login-msg { min-height: 18px; margin: 0; font-size: 13px; }
 #login-msg.bad { color: #a01828; }
-#btn-mute, #btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world, #btn-social, #btn-rank { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
+#btn-mute, #btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world, #btn-social, #btn-rank, #btn-guild { pointer-events: auto; width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font-size: 15px; padding: 0; }
 .hud-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; max-width: 240px; }
 #btn-auto.on, #btn-pilot.on { background: #f2c94c; }
 #hud-menu { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 6px; }
@@ -74,13 +74,13 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 #hud-menu button { height: 32px !important; min-width: 84px; text-align: left; }
 .glow-hint { animation: hint-glow 1.1s ease-in-out infinite; }
 @keyframes hint-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,210,74,.0); } 50% { box-shadow: 0 0 0 4px rgba(255,210,74,.85); background: #fff6d0; } }
-#btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world, #btn-social, #btn-rank { width: auto; padding: 0 9px; white-space: nowrap; font: 700 13px system-ui, sans-serif; position: relative; }
+#btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world, #btn-social, #btn-rank, #btn-guild { width: auto; padding: 0 9px; white-space: nowrap; font: 700 13px system-ui, sans-serif; position: relative; }
 #menu-badge, #bag-badge, #skills-badge, #pets-badge, #daily-badge, #achv-badge, #social-badge { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #e0484a; border: 1.5px solid #1b1830; }
 #bag, .panel { position: fixed; inset: calc(env(safe-area-inset-top) + 8px) 8px calc(env(safe-area-inset-bottom) + 8px); max-width: 560px; margin: 0 auto; background: rgba(255, 252, 240, .98); border: 2px solid #1b1830; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
 .bag-head { display: flex; align-items: center; gap: 10px; }
 .bag-head b { font-size: 17px; }
 #bag-mats { flex: 1; font-size: 12px; color: #2a6a8a; font-weight: 700; }
-#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close, #market-close, #topup-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
+#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close, #market-close, #topup-close, #guild-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
 #bag-equip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .slot { display: flex; flex-direction: column; gap: 3px; }
 .slot-name { font-size: 11px; color: #6a6478; font-weight: 700; }
@@ -120,14 +120,14 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 #skills-slots button, #cave-slots button { border: 2px solid #1b1830; border-radius: 10px; background: #fff; padding: 6px; font: 700 13px system-ui, sans-serif; min-height: 48px; }
 #skills-slots button.on, #cave-slots button.on { background: #f2c94c; box-shadow: 0 0 0 2px #f2c94c; }
 #skills-slots small { display: block; font-weight: 600; font-size: 10px; color: #6a6478; }
-#skills-list, #cave-list, #pets-list, #daily-list, #achv-list { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; align-content: start; }
+#skills-list, #cave-list, #pets-list, #daily-list, #achv-list, #guild-list { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; align-content: start; }
 .skill-card { text-align: left; border: 2px solid #1b1830; border-left-width: 6px; border-radius: 10px; background: #fff; padding: 6px 8px; font: 600 12px system-ui, sans-serif; }
 .skill-card b { display: block; font-size: 14px; }
 .skill-card small { display: block; color: #4a4458; line-height: 1.3; margin-top: 2px; }
 .skill-card.locked { opacity: .45; }
 .skill-card.using { background: #fff7d6; }
 #cave-slots[hidden] { display: none; }
-#cave-msg, #daily-msg, #achv-msg { min-height: 16px; font: 700 13px system-ui, sans-serif; color: #2a6a8a; }
+#cave-msg, #daily-msg, #achv-msg, #guild-msg { min-height: 16px; font: 700 13px system-ui, sans-serif; color: #2a6a8a; }
 .card-acts { display: flex; gap: 6px; margin-top: 6px; }
 .card-acts .mini { flex: 1; min-height: 32px; }
 .card-acts.wrap { flex-wrap: wrap; align-items: center; }
@@ -183,3 +183,16 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #topup-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; font-size: 13px; }
 .tp-head { margin-top: 6px; color: #2a6a8a; }
 .tp-note { color: #8a8498; }
+/* Bảng Tông môn (ui/guild-panel.js) */
+#guild-list.chat { display: flex; flex-direction: column; gap: 3px; font-size: 13px; padding: 6px; background: #fff; border: 2px solid #1b1830; border-radius: 10px; }
+#guild-list.chat b { color: #6a4ab8; margin-right: 4px; }
+#guild-list.chat .me b { color: #2a8a5a; }
+#guild-list.chat small { color: #8a8498; }
+#guild-list .empty { color: #8a8498; font-size: 13px; padding: 6px; }
+#guild-list .guild-head { grid-column: 1 / -1; font: 700 13px system-ui, sans-serif; color: #4a4458; }
+#guild-list .guild-find { grid-column: 1 / -1; display: flex; gap: 6px; }
+.guild-input { width: 100%; min-width: 0; border: 2px solid #1b1830; border-radius: 9px; padding: 6px 9px; margin-top: 6px; font: 14px system-ui, sans-serif; box-sizing: border-box; }
+.guild-find .guild-input { margin-top: 0; flex: 1; }
+#guild-form { display: flex; gap: 6px; }
+#guild-form[hidden] { display: none; }
+#guild-form .guild-input { margin-top: 0; flex: 1; }
