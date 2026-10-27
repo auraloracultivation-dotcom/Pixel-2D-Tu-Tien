@@ -4,7 +4,7 @@ HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -
 
 | Thư mục | Việc |
 |---|---|
-| `data/` | Toàn bộ số liệu và nội dung: `config` (số chung), `tiles` (chú giải ô bản đồ), `elements` (5 hệ), `weapons`, `skills`, `mobs`, `npcs`, `realms` (9 cảnh giới), `story` (kịch bản), `items` (trang bị, ngọc, vật nhặt nhiệm vụ), `quests` (treo thưởng), `sounds`, `maps/*` (bản đồ dạng lưới ký tự). |
+| `data/` | Toàn bộ số liệu và nội dung: `config` (số chung), `tiles` (chú giải ô bản đồ), `elements` (5 hệ), `weapons`, `skills`, `mobs`, `npcs`, `realms` (9 cảnh giới), `story` (kịch bản), `items` (trang bị, ngọc, vật nhặt nhiệm vụ), `quests` (treo thưởng), `sounds`, `heroes` (hình nhân vật chính), `art` (do `tools/art/build.py` sinh), `maps/*` (bản đồ dạng lưới ký tự). |
 | `src/core/` | Nạp dữ liệu, khung vẽ và máy quay, điều khiển (cần gạt, nút, bàn phím), lưu tiến trình trong máy. |
 | `src/world/` | Bản đồ: tra ô, va chạm, vẽ nền. |
 | `src/game/` | Vòng chơi (`game.js`), người chơi, quái và boss, trúng đòn và đạn, chiêu, cảnh giới, kịch bản, bí cảnh, đi đường (`travel`), tương tác (`interact`), đòn từ trời (`strikes`), thiên kiếp (`tribulation`), treo thưởng (`bounty`), trang bị (`items`, `loot`). |

@@ -46,7 +46,7 @@ Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn m
 - Vũ khí cho đòn đánh thường + 1 chiêu; hệ linh căn cho 2 chiêu. 5 hệ: Mộc, Hỏa, Thủy, Kim, Thổ.
 - Tên người chơi khác và NPC chỉ hiện khi chạm vào.
 - Hiệu ứng theo cỡ: chiêu lớn mượt kiểu anime; đạn, tia lửa, đòn nhỏ là pixel + quầng sáng mềm.
-- Claude tự vẽ toàn bộ hình bằng code.
+- Claude tự vẽ toàn bộ hình bằng code. Ngoại lệ (chủ dự án chốt 27/10/2026): nhân vật chính dùng tạm hình chibi chủ dự án đưa và chuyển động làm bằng SpriteCook, có cả nam (kiếm tu tóc đen) và nữ (thương tu tóc trắng), chọn ở Thành tựu → Thời trang (`data/heroes.json`).
 
 ## Lộ trình
 

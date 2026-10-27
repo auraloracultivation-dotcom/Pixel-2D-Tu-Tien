@@ -54,6 +54,11 @@ export function createAchvPanel(game) {
   function renderFashion(list) {
     const F = data.fashion.list, s = game.save, cur = s.outfit || 'dong-phuc';
     $('achv-sub').textContent = `${Object.keys(F).filter(id => owned(game, id)).length}/${Object.keys(F).length} bộ · chỉ đổi dáng vẻ`;
+    const H = data.heroes, look = s.look || H.default;   // hình nhân vật: nam hoặc nữ
+    for (const [id, h] of Object.entries(H.list)) {
+      list.append(card('#b8a0e0', `Hình: ${h.name}`, [h.note || (look === id ? 'Đang dùng.' : 'Chạm để đổi.')],
+        mini(look === id ? 'Đang dùng' : 'Chọn', () => { s.look = id; game.persist(); msg = `Đổi hình ${h.name}.`; }, look === id)));
+    }
     for (const [id, f] of Object.entries(F)) {
       const own = owned(game, id), on = cur === id;
       const btn = on ? mini('Đang mặc', () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
