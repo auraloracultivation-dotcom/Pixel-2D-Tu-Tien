@@ -10,6 +10,8 @@ from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noq
 from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
+from fx_nature import vine_frames, rock_frames, wind_frames  # noqa: E402
+from fx_aura import heal_frames, shield_frames, buff_frames  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -125,6 +127,13 @@ save('fx.fire', fire_frames(), (12, 31), 'ngọn lửa lặp 8 khung (chiêu h�
 save('fx.ice', ice_frames(), (24, 33), 'gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng')
 _f, _a = bolt_frames()
 save('fx.bolt', _f, _a, 'sét đánh xuống: mồi, đánh, đổi hình, mảnh, cháy xém ×3 (chiêu lôi); neo ở chỗ chạm đất')
+save('fx.vine', vine_frames(), (20, 30), 'dây leo trồi ×4, đung đưa ×2, héo rụng ×2 (chiêu hệ mộc); neo ở giữa nền đất')
+save('fx.rock', rock_frames(), (24, 32), 'nứt đất, gai đá trồi ×4, vỡ ra bụi ×3 (chiêu hệ thổ); neo ở giữa nền')
+save('fx.wind', wind_frames(), (18, 22), 'gió xoáy lặp 8 khung (chiêu phong); neo dưới tâm xoáy')
+save('fx.heal', heal_frames(), (14, 32), 'hồi máu: vòng sáng chân, dấu cộng bay lên, 8 khung; neo ở chân')
+save('fx.shield', shield_frames(), (17, 32), 'khiên nước: nở, chớp, vệt sáng quét, 6 khung; neo ở chân')
+save('fx.shield-earth', shield_frames(True), (17, 32), 'khiên đất / vàng: như khiên nước, tông đất')
+save('fx.buff', buff_frames(), (15, 32), 'tăng sức: vầng vàng bốc lên quanh người, lặp 8 khung; neo ở chân')
 
 # ---------------------------------------------------------------- chữ số pixel 3×5 (+viền) cho số sát thương
 DIG = ['111101101101111', '010110010010111', '111001111100111', '111001111001111', '101101111001001',

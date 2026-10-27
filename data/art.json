@@ -37,6 +37,18 @@
    ],
    "note": "sét đánh xuống: mồi, đánh, đổi hình, mảnh, cháy xém ×3 (chiêu lôi); neo ở chỗ chạm đất"
   },
+  "fx.buff": {
+   "file": "assets/art/fx-buff.png",
+   "v": "bb1d6271",
+   "w": 30,
+   "h": 38,
+   "frames": 8,
+   "anchor": [
+    15,
+    32
+   ],
+   "note": "tăng sức: vầng vàng bốc lên quanh người, lặp 8 khung; neo ở chân"
+  },
   "fx.fire": {
    "file": "assets/art/fx-fire.png",
    "v": "dbd80b6d",
@@ -48,6 +60,18 @@
     31
    ],
    "note": "ngọn lửa lặp 8 khung (chiêu hệ hỏa); neo ở chân lửa"
+  },
+  "fx.heal": {
+   "file": "assets/art/fx-heal.png",
+   "v": "2b6c26fd",
+   "w": 28,
+   "h": 38,
+   "frames": 8,
+   "anchor": [
+    14,
+    32
+   ],
+   "note": "hồi máu: vòng sáng chân, dấu cộng bay lên, 8 khung; neo ở chân"
   },
   "fx.ice": {
    "file": "assets/art/fx-ice.png",
@@ -73,6 +97,42 @@
    ],
    "note": "khói tan khi quái chết, 5 khung"
   },
+  "fx.rock": {
+   "file": "assets/art/fx-rock.png",
+   "v": "48dec36e",
+   "w": 48,
+   "h": 40,
+   "frames": 8,
+   "anchor": [
+    24,
+    32
+   ],
+   "note": "nứt đất, gai đá trồi ×4, vỡ ra bụi ×3 (chiêu hệ thổ); neo ở giữa nền"
+  },
+  "fx.shield": {
+   "file": "assets/art/fx-shield.png",
+   "v": "932e7003",
+   "w": 34,
+   "h": 36,
+   "frames": 6,
+   "anchor": [
+    17,
+    32
+   ],
+   "note": "khiên nước: nở, chớp, vệt sáng quét, 6 khung; neo ở chân"
+  },
+  "fx.shield-earth": {
+   "file": "assets/art/fx-shield-earth.png",
+   "v": "fbec9f00",
+   "w": 34,
+   "h": 36,
+   "frames": 6,
+   "anchor": [
+    17,
+    32
+   ],
+   "note": "khiên đất / vàng: như khiên nước, tông đất"
+  },
   "fx.slash": {
    "file": "assets/art/fx-slash.png",
    "v": "1ca538f1",
@@ -96,6 +156,30 @@
     5
    ],
    "note": "tia lửa khi trúng, 4 khung"
+  },
+  "fx.vine": {
+   "file": "assets/art/fx-vine.png",
+   "v": "6e2e6fbb",
+   "w": 40,
+   "h": 36,
+   "frames": 8,
+   "anchor": [
+    20,
+    30
+   ],
+   "note": "dây leo trồi ×4, đung đưa ×2, héo rụng ×2 (chiêu hệ mộc); neo ở giữa nền đất"
+  },
+  "fx.wind": {
+   "file": "assets/art/fx-wind.png",
+   "v": "167e1bb2",
+   "w": 36,
+   "h": 28,
+   "frames": 8,
+   "anchor": [
+    18,
+    22
+   ],
+   "note": "gió xoáy lặp 8 khung (chiêu phong); neo dưới tâm xoáy"
   },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",

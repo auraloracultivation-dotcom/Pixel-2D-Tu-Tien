@@ -1,4 +1,4 @@
-// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash). Vẽ ở src/render/draw-sprite-fx.js.
+// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash | vine | rock | wind; tự thân: heal | shield | shield-earth | buff). Vẽ ở src/render/draw-sprite-fx.js.
 import { addFx } from './combat.js';
 
 // Nổ một lần tại (x, y), r: bán kính vùng trúng; ang: hướng chém (slash)
@@ -16,7 +16,23 @@ export function burstFx(game, kind, x, y, r, ang = 0) {
     game.flashT = Math.max(game.flashT || 0, 0.06);
   } else if (kind === 'slash') {
     addFx(game, { type: 'sprite', id: 'fx.slash', x, y: y - 3, s: Math.max(0.5, r / 19), rot: ang, life: 0.25 });
+  } else if (kind === 'vine') {
+    addFx(game, { type: 'sprite', id: 'fx.vine', x, y: y + 2, s: Math.max(0.4, r / 22), life: 0.75 });
+  } else if (kind === 'rock') {   // vùng rộng: gai đá trồi thành vòng, không che người đứng giữa
+    const n = r > 30 ? 5 : 1;
+    for (let i = 0; i < n; i++) {
+      const a = i / n * Math.PI * 2 - Math.PI / 2, d = n > 1 ? r * 0.65 : 0;
+      addFx(game, { type: 'sprite', id: 'fx.rock', x: x + Math.cos(a) * d, y: y + Math.sin(a) * d + 2, s: n > 1 ? 0.55 : Math.max(0.4, r / 26), life: 0.7 });
+    }
+  } else if (kind === 'wind') {
+    addFx(game, { type: 'sprite', id: 'fx.wind', x, y: y + 4, s: Math.max(0.5, r / 20), life: 0.5, fps: 20, fade: true });
   }
+}
+
+// Chiêu tự thân (hồi máu, khiên, tăng sức): hình bám theo người thi triển
+export function selfFx(game, kind, p) {
+  const life = kind === 'buff' ? 1.2 : kind === 'heal' ? 0.8 : 0.45;
+  addFx(game, { type: 'sprite', id: 'fx.' + kind, on: p, ox: 0, oy: 2, s: 1, life, fps: kind === 'buff' ? 14 : 0, fade: kind === 'buff' });
 }
 
 // Vùng chiêu kéo dài: lửa cháy quanh vùng suốt thời gian, kim luân xoay, băng trồi lên một lần
@@ -28,5 +44,13 @@ export function zoneFx(game, kind, z) {
     }
   } else if (kind === 'slash') {
     addFx(game, { type: 'sprite', id: 'fx.slash', on: z, ox: 0, oy: -3, s: z.radius / 19, life: z.dur, spin: 9, fps: 20, frames: [2, 3, 3, 2] });
+  } else if (kind === 'vine') {   // dây leo mọc khắp vùng rồi đung đưa đến hết
+    burstFx(game, kind, z.x, z.y, z.radius * 0.7);
+    for (let i = 0; i < 4; i++) {
+      const a = i / 4 * Math.PI * 2 + 0.6, d = z.radius * 0.55;
+      addFx(game, { type: 'sprite', id: 'fx.vine', on: z, ox: Math.cos(a) * d, oy: Math.sin(a) * d + 2, s: 0.6, life: z.dur, fps: 3, frames: [4, 5], phase: i, fade: true });
+    }
+  } else if (kind === 'wind') {
+    addFx(game, { type: 'sprite', id: 'fx.wind', on: z, ox: 0, oy: 4, s: z.radius / 20, life: z.dur, fps: 16, fade: true });
   } else burstFx(game, kind, z.x, z.y, z.radius);
 }
