@@ -36,10 +36,10 @@ export function drawHero(ctx, game, p, t, flash) {
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
   const m = ctx.getTransform(), want = look.height / spr.h * m.d;
-  const n = want >= 0.75 && !look.still ? Math.max(1, Math.round(want)) : want;   // hình tĩnh: giữ đúng chiều cao, không làm tròn
+  const n = want >= 0.75 ? Math.max(1, Math.round(want)) : want;
   ctx.save();
   ctx.setTransform(n * (p.lookX || 1), 0, 0, n, Math.round(m.a * p.x + m.e), Math.round(m.d * p.y + m.f));
-  ctx.imageSmoothingEnabled = n < 1;
+  ctx.imageSmoothingEnabled = n < 0.75;
   if (flash) ctx.filter = 'brightness(3)';
   ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
