@@ -18,7 +18,7 @@ function put(ctx, sp, f, x, y) {
 
 function build(game, map, tiles, hash, baseTile) {
   const sp = {};
-  for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff']) if (!(sp[id] = sheet(game, id))) return null;
+  for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff', 'decal.dirt', 'prop.bush']) if (!(sp[id] = sheet(game, id))) return null;
   const T = map.T, cv = document.createElement('canvas');
   cv.width = map.w * T; cv.height = map.h * T;
   const c = cv.getContext('2d');
@@ -40,7 +40,19 @@ function build(game, map, tiles, hash, baseTile) {
     else baseTile(c, map, tiles, tx, ty);
     if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
   }
+  scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
   return cv;
+}
+
+// Rải vùng đất trống và bụi cây thấp lên bãi cỏ rộng, cố định theo vị trí ô (vẽ luôn vào tấm đệm, không chắn đường).
+function scatter(c, map, hash, dirt, bush) {
+  const T = map.T;
+  const open = (x0, y0, w, h) => { for (let y = y0; y < y0 + h; y++) for (let x = x0; x < x0 + w; x++) if (map.at(x, y) !== '.') return false; return true; };
+  for (let ty = 1; ty < map.h - 2; ty++) for (let tx = 1; tx < map.w - 3; tx++) {
+    const h = hash(tx * 7 + 3, ty * 5 + 1);
+    if (h < 0.025 && open(tx - 1, ty - 1, 5, 4)) put(c, dirt, Math.floor(hash(ty, tx) * 3), tx * T + 24 - dirt.s.anchor[0], ty * T + 16 - dirt.s.anchor[1]);
+    else if (h > 0.95 && open(tx - 1, ty - 1, 3, 3)) put(c, bush, h > 0.99 ? 1 : 0, tx * T + 8 - bush.s.anchor[0], ty * T + 13 - bush.s.anchor[1]);
+  }
 }
 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.

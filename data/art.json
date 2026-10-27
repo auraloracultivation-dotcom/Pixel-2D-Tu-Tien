@@ -1585,6 +1585,18 @@
    ],
    "note": "kim gỗ có lá non ở đuôi, 2 khung"
   },
+  "prop.bush": {
+   "file": "assets/art/prop-bush.png",
+   "v": "ff0a1384",
+   "w": 16,
+   "h": 11,
+   "frames": 2,
+   "anchor": [
+    8,
+    10
+   ],
+   "note": "bụi cây thấp: xanh, có hoa vàng; rải trên cỏ"
+  },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
    "v": "878f148c",
