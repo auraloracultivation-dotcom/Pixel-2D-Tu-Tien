@@ -14,11 +14,14 @@ function pickWeighted(list, w, rnd) {
 
 export function rarityOf(items, id) { return items.rarities.find(r => r.id === id); }
 
+// Chỉ số phần trăm (bạo kích, công %, ...) không lớn theo cấp đồ, chỉ chỉ số cộng thẳng mới lớn theo cấp
+const grow = (items, s, per, lvl) => items.stats[s]?.pct ? 1 : 1 + lvl * per;
+
 function rollLines(items, base, rar, lvl, rnd) {
   const pool = [...base.pool], lines = [];
   for (let i = 0; i < rar.lines && pool.length; i++) {
     const s = pool.splice(Math.floor(rnd() * pool.length), 1)[0], def = items.stats[s];
-    const v = (def.min + rnd() * (def.max - def.min)) * (1 + lvl * items.line_per_lvl) * rar.mult;
+    const v = (def.min + rnd() * (def.max - def.min)) * grow(items, s, items.line_per_lvl, lvl) * rar.mult;
     lines.push({ s, v: Math.max(1, Math.round(v)) });
   }
   return lines;
@@ -34,7 +37,7 @@ export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity,
   const minIdx = minRarity ? items.rarities.findIndex(r => r.id === minRarity) : 0;
   const rar = rarity ? rarityOf(items, rarity) : pickWeighted(items.rarities.slice(minIdx), r => r.weight, rnd);
   const main = {};
-  for (const [s, v] of Object.entries(base.main)) main[s] = Math.max(1, Math.round(v * (1 + lvl * items.main_per_lvl) * rar.mult));
+  for (const [s, v] of Object.entries(base.main)) main[s] = Math.max(1, Math.round(v * grow(items, s, items.main_per_lvl, lvl) * rar.mult));
   return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines: rollLines(items, base, rar, lvl, rnd), sockets: Array(rar.sockets).fill(null) };
 }
 
@@ -133,6 +136,17 @@ export function mergeGems(data, save, key) {
 }
 
 // Cộng chỉ số từ đồ đang mặc + ngọc đã khảm
+// Đồ cũ từng nhân chỉ số phần trăm theo cấp: kéo về mức trần của độ hiếm (chạy mỗi lần vào game, chạy lại không đổi gì)
+export function fixGearPct(data, save) {
+  const items = data.items;
+  for (const it of save.bag || []) {
+    const rar = rarityOf(items, it.rarity), base = items.bases[it.base];
+    if (!rar || !base) continue;
+    for (const s of Object.keys(it.main || {})) if (items.stats[s]?.pct && base.main[s] != null) it.main[s] = Math.min(it.main[s], Math.max(1, Math.round(base.main[s] * rar.mult)));
+    for (const l of it.lines || []) { const def = items.stats[l.s]; if (def?.pct) l.v = Math.min(l.v, Math.max(1, Math.round(def.max * rar.mult))); }
+  }
+}
+
 export function gearStats(data, save) {
   const sum = {};
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };

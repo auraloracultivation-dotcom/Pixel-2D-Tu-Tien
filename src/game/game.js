@@ -10,7 +10,7 @@ import { createDungeon } from './dungeon.js';
 import { createOthers } from './others.js';
 import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
-import { ensureInv, rollItem, addItem, equip } from './items.js';
+import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
@@ -249,7 +249,7 @@ export function createGame(data, screen, input, ui, audio) {
     const saved = remote && local && (local.lastSeen || 0) > (remote.lastSeen || 0) ? local : remote || local;   // bản trong máy mới hơn (chơi lúc máy chủ chậm) thì giữ bản trong máy
     game.save = fresh || !saved ? newSave(cfg) : saved;
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
-    ensureInv(game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
+    ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
     if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
