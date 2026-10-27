@@ -16,6 +16,13 @@
   "banh-ngoc-lo": {"name": "Bánh Ngọc Lộ", "need": {"ngoc-lo-hoa": 2, "linh-thao": 3}, "buff": {"qi": 1.2, "min": 45}},
   "lau-hoa-ly": {"name": "Lẩu Hỏa Lý", "need": {"hoa-ly": 2, "hoa-linh-chi": 1}, "buff": {"qi": 1.2, "min": 60}},
   "goi-bang-ngu": {"name": "Gỏi Băng Ngư", "need": {"bang-ngu": 2, "ngoc-lo-hoa": 1}, "buff": {"qi": 1.25, "min": 50}},
+  "com-linh-mach": {"name": "Cơm Linh Mạch", "need": {"linh-mach": 3}, "buff": {"qi": 1.12, "min": 45}},
+  "che-linh-dau": {"name": "Chè Linh Đậu hồng quả", "need": {"linh-dau": 3, "hong-qua": 1}, "buff": {"qi": 1.18, "min": 50}},
+  "canh-vu-ngu": {"name": "Canh Vũ Ngư nấu đậu", "need": {"vu-ngu": 2, "linh-dau": 2}, "buff": {"qi": 1.25, "min": 55}},
+  "goi-dao-hoa": {"name": "Gỏi Đào Hoa Ngư", "need": {"dao-hoa-ngu": 2, "hong-qua": 2}, "buff": {"qi": 1.3, "min": 60}},
+  "ha-quang-nuong": {"name": "Hạ Quang Ngư nướng cơm cháy", "need": {"ha-quang-ngu": 2, "linh-mach": 2}, "buff": {"qi": 1.3, "min": 60}},
+  "phong-ngu-kho": {"name": "Phong Ngư kho tiêu", "need": {"phong-ngu": 2, "kim-tieu": 1}, "buff": {"qi": 1.3, "min": 60}},
+  "lau-tuyet-ngu": {"name": "Lẩu Tuyết Ngư cay", "need": {"tuyet-ngu": 2, "kim-tieu": 1, "linh-mach": 2}, "buff": {"qi": 1.35, "min": 70}},
   "sup-nguyet-ngu": {"name": "Súp Nguyệt Ngư sâm tím", "need": {"nguyet-ngu": 1, "tu-van-sam": 1}, "buff": {"qi": 1.3, "min": 60}}
  },
  "lines": {
