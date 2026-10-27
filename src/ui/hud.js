@@ -65,7 +65,7 @@ export function createHud(audio) {
     gameRef = game;
     (hints ??= createHints(game))();
     const need = qiNeed(s, d.realms);
-    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield)].join();
+    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element].join();
     if (key !== last) {
       last = key;
       $('realm').textContent = realmLabel(s, d.realms) + (s.element ? ` · ${d.elements[s.element].name} căn ${rootOf(s, d).name}` : '');

@@ -5,5 +5,10 @@
  "thuy": {"name": "Thủy", "color": "#5ab8f0", "desc": "Làm chậm kẻ địch, che chắn bản thân.", "skills": ["bang-truy", "thuy-thuan", "thuy-long", "han-bang-vuc", "bang-phong", "bang-phach"]},
  "kim": {"name": "Kim", "color": "#f2c94c", "desc": "Lao tới chém xuyên, tăng sức đánh.", "skills": ["kim-quang-tram", "kim-cuong-the", "van-kiem", "kim-luan", "loi-dinh", "kim-than"]},
  "tho": {"name": "Thổ", "color": "#c08850", "desc": "Choáng diện rộng, giáp đá chịu đòn.", "skills": ["dia-chan", "thach-giap", "thach-chuy", "luu-sa", "son-nhac", "dai-dia"]},
- "_unlock": [0, 0, 9, 13, 18, 22]
+ "_unlock": [0, 0, 9, 13, 18, 22],
+ "_reroot": {"_note": "Tẩy linh căn: từ cảnh giới realm, nói chuyện với npc để đổi sang hệ khác, tốn cost (coins là Linh Thạch, mats nguyên liệu). Giữ nguyên phẩm linh căn; ô chiêu về mặc định.", "npc": "van-hac", "realm": 2, "cost": {"coins": 3000, "mats": {"ngoc-lo-hoa": 5, "hoa-linh-chi": 5}},
+  "label": "Tẩy linh căn", "desc": "Đổi sang hệ khác. Tốn {cost}.", "talk": "Trò chuyện",
+  "ask": "Tẩy linh căn là đập đi xây lại. Ngươi muốn đổi sang hệ nào?", "back": "Thôi, giữ hệ cũ",
+  "short": "Chưa đủ: cần {cost}.", "done": "Linh căn hệ {name} đã thành. Chiêu cũ tan đi, chiêu mới theo tu vi mà mở.",
+  "lines": ["Linh căn là trời cho, nhưng đường tu là của ngươi.", "Đổi hệ không đổi được lòng. Nhớ lấy."]}
 }

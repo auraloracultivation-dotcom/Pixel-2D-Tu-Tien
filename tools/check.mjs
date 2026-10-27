@@ -55,6 +55,7 @@ try {
     need(m.spawns.vao, `maps/${id}: thiếu điểm vào "vao"`);
   }
   for (const [id, e] of Object.entries(elements)) if (!id.startsWith('_')) for (const s of e.skills) need(skills[s], `elements/${id}: chiêu "${s}" không có`);
+  need(!elements._reroot || (read('npcs.json')[elements._reroot.npc] && Object.keys(elements._reroot.cost.mats).every(m => read('cave.json').materials[m])), 'elements._reroot: npc hoặc nguyên liệu sai');
   for (const [id, w] of Object.entries(weapons)) need(!w.skill || skills[w.skill], `weapons/${id}: chiêu "${w.skill}" không có`);
   need(weapons[cfg.start.weapon] && maps[cfg.start.map], 'config.start: vũ khí hoặc bản đồ khởi đầu không có');
   for (const [id, d] of Object.entries(items.drops)) { need(mobs[id], `items.drops: quái "${id}" không có`); need(!d.set || gear.sets[d.set[0]], `items.drops/${id}: bộ không có`); }
