@@ -7,9 +7,9 @@ Bản cốt truyện đầy đủ (Claude Docs): https://claude.ai/artifact/Nsmd
 ## Cốt truyện (chủ dự án chọn, 26/10/2026)
 
 1. Không khí: tươi sáng, có lúc sâu lắng.
-2. Ma tộc từ giới khác làm nứt Thiên Mạch (mạch linh khí); đại lục vỡ thành các đảo nổi trên biển mây. Ma tộc ở Ma Vân (mây đen bên dưới).
+2. Ma tộc từ giới khác làm nứt Thiên Mạch (mạch linh khí); đại lục vỡ thành các đảo nổi trên biển mây. Ma tộc ở Ma Vân (mây đen bên dưới). *(Thay bằng mục "Tinh hệ" sáng 28/10/2026: đảo thành tinh cầu, ma khí ăn mòn từ vòng ngoài vào.)*
 3. Người chơi là thiếu niên làng Thanh Khê; đúng ngày thức tỉnh linh căn thì ma tộc đánh tới, Kiếm tông cứu và nhận làm đệ tử. Bạn thân Tiểu Hỏa bị kéo xuống Ma Vân, là động lực chương 1.
-4. Thế giới: đảo nổi theo tầng mây, ngự kiếm bay giữa các đảo. Cảnh giới càng cao bay càng cao.
+4. Thế giới: đảo nổi theo tầng mây, ngự kiếm bay giữa các đảo. Cảnh giới càng cao bay càng cao. *(Thay bằng mục "Tinh hệ": càng tu cao càng đi xa Linh Nhật, càng gần ma khí.)*
 5. Tông môn đầu: Kiếm tông ở Thiên Kiếm Phong (đảo cao nhất tầng Mây Thấp), cũng là thành chính.
 6. Đủ 9 cảnh giới: Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh, Hóa Thần, Luyện Hư, Hợp Thể, Đại Thừa, Độ Kiếp; mỗi cảnh giới 9 tầng, cuối cảnh giới độ thiên kiếp.
 7. Mỗi ngày: săn quái và nhiệm vụ ngoài đảo, bí cảnh nhóm đánh boss, đả tọa ở động phủ.
@@ -75,11 +75,18 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 6. Chiêu mạnh hơn đánh thường: chiêu chiếm khoảng 50–60% sát thương (đang làm, sẽ nằm ở `data/config.json` → combat).
 7. Kiếm tiền chỉ ở phần "tối ưu thêm" (ngọc, dòng đẹp, cường hoá cao, thời trang); không bán cảnh giới, Đạo Vận. Món ngẫu nhiên bán bằng tiền thật phải công bố tỉ lệ trước khi mua.
 
+## Tinh hệ, làm từ vĩ mô đến vi mô (chủ dự án chốt sáng 28/10/2026)
+
+1. Thế giới là **Thiên Kiếm Tinh Hệ** (`data/starmap.json`). Linh Nhật, mặt trời linh khí, ở giữa. Thiên Kiếm Tinh (tông môn) ở vòng gần nhất, động phủ là mặt trăng của nó. Càng ra xa tinh cầu càng lớn, quái và trùm càng mạnh. Vòng ngoài cùng là **ma khí** đen ngòm đang ăn mòn tinh hệ từ ngoài vào; tinh cầu sát ma khí có trùm mạnh nhất, vài tinh cầu đã bị nuốt. Thiên Kiếm Tông chỉ có thể không ngừng mạnh lên để giữ tinh hệ, bảo vệ mọi người.
+2. Mỗi đảo thành một tinh cầu tròn; bí cảnh là mặt trăng quay quanh tinh cầu mẹ. Thứ tự vòng quỹ đạo theo truyện: Thiên Kiếm Tinh và Mảnh Vỡ Thanh Khê, Xích Diễm, Hàn Băng, Hắc Phong, Thanh Mộc (Linh tộc, Thế Giới Thụ), Thiên Kim, Hậu Thổ, Ngoại Vực Vết Nứt, rồi vòng ma khí (Phương Thiên Địa Ma Vương, sắp mở). Tên do Claude đặt, chủ dự án sửa sau.
+3. Làm vĩ mô trước, vi mô sau; xong một lớp cho cả thế giới rồi mới sang lớp kế: tinh hệ → tinh cầu → núi, sông, mây, biển, trời đất → nhà cửa, cây cối → người, thú vật → quần áo, công cụ → đồ dùng đời sống (truyền âm, thời trang, đan dược...). Dựng khung thô trước (xấu cũng được), tô dần sau.
+4. Cấp tốc làm xong nội dung và hệ thống trước; CH Play, máy chủ và các việc khác làm sau.
+
 ## Lộ trình
 
 1. Cốt truyện và nội dung: xong.
 2. Bản chơi tạm hình khối đơn giản: xong phần lớn (làng, Thiên Kiếm Phong, bí cảnh, đả tọa, online, chợ, tổ đội, tông môn).
 3. Ngay bây giờ: chiêu mạnh hơn, trọng điểm bồi dưỡng phần 1, cấp khó ×2 cho tháp và phó bản đang có; song song các việc bắt buộc trước CH Play.
-4. Bản thử tinh cầu, rồi chuyển toàn bộ bản đồ sang vũ trụ nhiều tầng.
+4. Ngay bây giờ (sáng 28/10): làm từ vĩ mô đến vi mô theo mục "Tinh hệ". Đã có tinh đồ; tiếp theo bay truyền tống, phóng mọi đảo thành tinh cầu tròn, rồi địa hình.
 5. Chill và hình: đèn ngoài trời, thú hiền, trận pháp sáng, lễ hội nhẹ; rồi hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
 6. Lên CH Play, rồi ra nội dung theo mùa.

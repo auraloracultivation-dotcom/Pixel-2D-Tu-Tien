@@ -137,12 +137,17 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .swatch { float: right; width: 28px; height: 14px; border: 1.5px solid #1b1830; border-radius: 4px; }
 #btn-pill { right: 158px; bottom: 6px; width: 46px; height: 46px; background: rgba(255, 214, 222, .92); font-size: 11px; }
 #btn-dash { right: 140px; bottom: 58px; width: 44px; height: 44px; font-size: 11px; background: rgba(214, 232, 255, .92); }
-#world-sky { position: relative; flex: 1; border-radius: 10px; overflow: hidden; background: linear-gradient(#9fd8f0 0%, #cfe6f5 55%, #6a7aa0 100%); }
-.isle { position: absolute; transform: translate(-50%, -50%); border: 2px solid #1b1830; border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%; padding: 8px 12px 12px; font: 700 12px system-ui, sans-serif; color: #1b1830; box-shadow: 0 4px 0 rgba(27,24,48,.35); }
-.isle small { display: block; font-size: 10px; color: #a0423a; }
-.isle.here { outline: 3px solid #f2c94c; }
-.isle.locked { opacity: .45; }
-.isle-layer { position: absolute; left: 8px; font: 700 11px system-ui, sans-serif; color: rgba(27,24,48,.55); }
+#world-sky { position: relative; flex: 1; min-height: 220px; border-radius: 10px; overflow: hidden; background: #0a0918; touch-action: none; }
+#world-sky canvas { display: block; }
+#world-card { position: absolute; left: 8px; right: 8px; bottom: 8px; max-width: 360px; margin: 0 auto; padding: 8px 10px; border: 2px solid #1b1830; border-radius: 10px; background: rgba(255, 252, 240, .95); font: 12px system-ui, sans-serif; color: #1b1830; }
+#world-card b { font-size: 14px; margin-right: 6px; }
+#world-card small { color: #6a6478; font-weight: 700; }
+#world-card p { margin: 4px 0 0; }
+#world-card .wc-danger { font-weight: 700; }
+#world-card .wc-danger span { text-shadow: 0 0 1px #1b1830, 0 0 1px #1b1830; }
+.wc-go { display: block; width: 100%; margin-top: 6px; padding: 8px; border: 2px solid #1b1830; border-radius: 10px; background: #f2c94c; font: 700 13px system-ui, sans-serif; }
+@media (orientation: landscape) { #world-card { left: auto; top: 8px; bottom: auto; width: 230px; max-height: calc(100% - 16px); overflow-y: auto; } }
+.wc-go:disabled { background: #ddd8e6; color: #6a6478; }
 #btn-art { right: 10px; bottom: 162px; width: 46px; height: 46px; font-size: 10px; background: rgba(255, 236, 190, .92); }
 #bag { overflow-y: auto; }
 #bag > * { flex-shrink: 0; }

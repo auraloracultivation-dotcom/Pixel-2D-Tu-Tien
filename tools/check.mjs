@@ -130,7 +130,15 @@ try {
   for (const b of tb.by_realm) need(tb.kinds[b.kind], `realms.tribulation: kiểu kiếp "${b.kind}" không có`);
   need(tb.by_realm.length >= read('realms.json').names.length - 1 && mobs['tam-ma'], 'realms.tribulation: thiếu kiếp cho cảnh giới hoặc quái tâm ma');
   for (const [m, id] of Object.entries(wb.maps)) need(maps[m] && mobs[id]?.ai === 'boss', `worldboss: ${m} → ${id} không đúng`);
-  const ev = read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
+  // Tinh đồ: mọi thiên thể trỏ đúng bản đồ, mọi bản đồ bay tới được đều có trên tinh đồ, quỹ đạo nằm trong vòng ma khí
+  const sm = read('starmap.json'), smMaps = new Set(), nRealm = read('realms.json').names.length;
+  need(sm.orbits.first + sm.orbits.step * (Math.max(...sm.bodies.map(b => b.orbit)) - 1) < 1 && sm.makhi.from < 1, 'starmap: quỹ đạo ngoài cùng hoặc ma khí vượt khung');
+  for (const b of sm.bodies) {
+    need(sm.kinds[b.kind] && b.orbit >= 1 && b.size > 0 && (b.map ? maps[b.map] : b.id && b.name) && (b.realm == null || b.realm < nRealm), `starmap/${b.map || b.id}: kiểu, quỹ đạo, bản đồ hoặc cảnh giới sai`);
+    for (const m of [b, ...(b.moons || [])]) if (m.map) { need(!smMaps.has(m.map) && maps[m.map] && sm.kinds[m.kind], `starmap/${m.map}: trùng hoặc không có`); smMaps.add(m.map); }
+  }
+  for (const [id, m] of Object.entries(maps)) need(!m.world || smMaps.has(id), `maps/${id}: có world nhưng không có trên tinh đồ (starmap.json)`);
+  const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   for (const f of ev.festivals) need(/^\d{4}-\d\d-\d\d$/.test(f.from) && f.from <= f.to && giftOk(f.gift), `events/${f.id}: ngày hoặc quà sai`);
   for (const f of ev.festivals.filter(x => x.candy)) need((f.mob ? mobs[f.mob] : f.drop_p > 0) && read('cave.json').materials[f.candy] && f.drop?.length === 2 && read('npcs.json')[f.npc] && maps[f.npc_map] && (f.swap || []).every(x => x.cost > 0 && giftOk(x.give)), `events/${f.id}: quái, kẹo, NPC hoặc quà đổi sai`);

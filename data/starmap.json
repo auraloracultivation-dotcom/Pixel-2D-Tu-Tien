@@ -1,0 +1,80 @@
+{
+ "_note": "Tinh đồ (bản đồ thế giới): Thiên Kiếm Tinh Hệ nhìn nghiêng từ trên (tilt: tỉ lệ cao / rộng khi màn đủ rộng). Linh Nhật ở giữa toả linh khí; ma khí ăn mòn từ vòng ngoài vào, Thiên Kiếm Tông phải không ngừng mạnh lên để giữ tinh hệ (chủ dự án chốt 28/10/2026). orbit: vòng quỹ đạo, bán kính = orbits.first + orbits.step × (orbit − 1) tính theo nửa bề rộng tinh đồ; càng xa càng lớn, càng mạnh. angle: góc lúc đầu (độ). Hành tinh quay chậm theo giờ thật: spin độ mỗi phút ở vòng 1, vòng ngoài chậm hơn (chia orbit^spin_pow). size: bán kính vẽ (điểm ảnh khi tinh đồ rộng 360). map: mã bản đồ; bay tới được khi bản đồ có world và bạn đã tới. moons: bản đồ quay quanh tinh cầu mẹ (dist × size của mẹ, spin riêng); bí cảnh chỉ xem được, vào bằng truyền tống trận trên tinh cầu mẹ. realm: cảnh giới nên có (0 = Luyện Khí); tinh đồ chỉ tô màu xanh / vàng / đỏ so với cảnh giới người chơi (màu ở dungeon.json → hint), không hiện số. kind: chữ ở kinds; lost và soon không bay tới được.",
+ "name": "Thiên Kiếm Tinh Hệ",
+ "sub": "Ma khí đang ăn mòn từ ngoài vào. Chạm một tinh cầu để xem.",
+ "tilt": 0.58,
+ "orbits": {"first": 0.2, "step": 0.088},
+ "spin": 24,
+ "spin_pow": 1.4,
+ "stars": 140,
+ "sun": {"name": "Linh Nhật", "kind": "sun", "size": 10, "color": "#ffe48a", "glow": "#ffb03a", "desc": "Mặt trời linh khí của tinh hệ. Ánh sáng của nó là thứ duy nhất ma khí còn sợ."},
+ "makhi": {"name": "Ma Khí", "desc": "Ma khí từ ngoài kết giới tràn vào, nuốt dần từng tinh cầu. Càng gần nó, ma vật càng mạnh.", "from": 0.9, "wave": 0.022, "color": "#140a1e", "edge": "#7a3aa0", "motes": 26},
+ "kinds": {
+  "sun": "Mặt trời",
+  "tong": "Tông môn · nơi an toàn",
+  "home": "Động phủ của bạn",
+  "fragment": "Mảnh tinh cầu vỡ",
+  "planet": "Tinh cầu",
+  "race": "Thế giới Linh tộc",
+  "dungeon": "Bí cảnh",
+  "forbidden": "Cấm địa ma khí",
+  "boss": "Phương thiên địa · trùm",
+  "lost": "Đã bị ma khí nuốt",
+  "soon": "Chưa mở"
+ },
+ "bodies": [
+  {"map": "thien-kiem-phong", "name": "Thiên Kiếm Tinh", "kind": "tong", "orbit": 1, "angle": 205, "size": 7, "color": "#9cd08a", "realm": 0,
+   "desc": "Tông môn Thiên Kiếm, thành chính. Kiếm tông đứng gần Linh Nhật nhất, giữ ánh sáng cho cả tinh hệ.",
+   "moons": [
+    {"map": "dong-phu", "name": "Động phủ", "kind": "home", "dist": 2.3, "angle": 40, "spin": 90, "size": 3, "color": "#c9c2e0", "desc": "Mặt trăng nhỏ của Thiên Kiếm Tinh, nơi bạn đả tọa, nấu ăn và song tu."},
+    {"map": "bi-canh", "kind": "dungeon", "dist": 3.2, "angle": 210, "spin": 60, "size": 2.4, "color": "#a0423a", "realm": 0}
+   ]},
+  {"map": "thanh-khe", "name": "Mảnh Vỡ Thanh Khê", "kind": "fragment", "orbit": 1, "angle": 25, "size": 4, "color": "#7cc46a", "realm": 0,
+   "desc": "Làng quê của bạn. Ngày ma tộc tràn tới, tinh cầu cũ vỡ, chỉ còn mảnh này trôi gần Linh Nhật."},
+  {"map": "dao-xich-dien", "name": "Xích Diễm Tinh", "kind": "planet", "orbit": 2, "angle": 300, "size": 8, "color": "#c0704a", "realm": 0,
+   "desc": "Tinh cầu lửa đá đỏ, hỏa lang và viêm linh. Nơi bạn học ngự kiếm.",
+   "moons": [{"map": "hoa-quat", "kind": "dungeon", "dist": 2.2, "angle": 120, "spin": 50, "size": 2.6, "color": "#e0603a", "realm": 0}]},
+  {"map": "dao-han-bang", "name": "Hàn Băng Tinh", "kind": "planet", "orbit": 3, "angle": 70, "size": 8.5, "color": "#cfe2f0", "realm": 1,
+   "desc": "Tinh cầu băng tuyết quanh năm, tiếng gió rít qua hang băng.",
+   "moons": [{"map": "han-bang-quat", "kind": "dungeon", "dist": 2.2, "angle": 300, "spin": 45, "size": 2.6, "color": "#7ab0d8", "realm": 1}]},
+  {"map": "hac-phong-dao", "name": "Hắc Phong Tinh", "kind": "planet", "orbit": 4, "angle": 150, "size": 9, "color": "#7a7090", "realm": 2,
+   "desc": "Gió đen không ngừng thổi, trận gió của ma tộc che kín bầu trời.",
+   "moons": [{"map": "hac-phong-dong", "kind": "dungeon", "dist": 2.2, "angle": 30, "spin": 40, "size": 2.7, "color": "#4a4258", "realm": 2}]},
+  {"map": "dao-moc", "name": "Thanh Mộc Tinh", "kind": "planet", "orbit": 5, "angle": 250, "size": 10, "color": "#4f9a4a", "realm": 3,
+   "desc": "Rừng già phủ kín tinh cầu. Quanh nó là thế giới của Linh tộc và Thế Giới Thụ.",
+   "moons": [
+    {"map": "lang-tinh-linh", "kind": "race", "dist": 2.1, "angle": 0, "spin": 30, "size": 4, "color": "#7ac070", "realm": 3},
+    {"map": "co-thu-tam", "kind": "dungeon", "dist": 2.9, "angle": 140, "spin": 26, "size": 2.6, "color": "#6a4a2e", "realm": 3},
+    {"map": "re-mau-thu", "kind": "dungeon", "dist": 3.5, "angle": 250, "spin": 22, "size": 2.8, "color": "#4a3424", "realm": 4}
+   ]},
+  {"map": "dao-thien-kim", "name": "Thiên Kim Tinh", "kind": "planet", "orbit": 6, "angle": 15, "size": 11, "color": "#e0c070", "realm": 5,
+   "desc": "Sa mạc vàng và mộ kiếm cổ, nơi vạn thanh kiếm còn hồn.",
+   "moons": [{"map": "kiem-trung", "kind": "dungeon", "dist": 2.1, "angle": 200, "spin": 24, "size": 3, "color": "#8a7a5a", "realm": 5}]},
+  {"map": "dao-hau-tho", "name": "Hậu Thổ Tinh", "kind": "planet", "orbit": 7, "angle": 115, "size": 12, "color": "#b07a4a", "realm": 6,
+   "desc": "Đất dày núi đá, địa cung sâu dưới lòng tinh cầu.",
+   "moons": [{"map": "dia-cung", "kind": "dungeon", "dist": 2.1, "angle": 330, "spin": 20, "size": 3.2, "color": "#6a4428", "realm": 6}]},
+  {"map": "vet-nut-ngoai", "name": "Ngoại Vực Vết Nứt", "kind": "forbidden", "orbit": 8, "angle": 215, "size": 12.5, "color": "#5a4470", "realm": 7,
+   "desc": "Tinh cầu nằm sát ma khí, đã nứt toác. Cửa ngõ của Ma Tôn.",
+   "moons": [
+    {"map": "hu-khong-lao", "kind": "boss", "dist": 2, "angle": 60, "spin": 18, "size": 3.4, "color": "#6a3a8a", "realm": 7},
+    {"map": "vet-nut", "kind": "boss", "dist": 2.7, "angle": 230, "spin": 14, "size": 3.8, "color": "#8a2a4a", "realm": 8}
+   ]},
+  {"id": "mat-1", "name": "Tinh cầu đã mất", "kind": "lost", "orbit": 9, "angle": 335, "size": 11, "color": "#4a4652",
+   "desc": "Từng có người ở. Ma khí đã nuốt trọn, chỉ còn vỏ đá xám."},
+  {"id": "mat-2", "name": "Tinh cầu đã mất", "kind": "lost", "orbit": 9, "angle": 75, "size": 13, "color": "#3e3a48",
+   "desc": "Từng có người ở. Ma khí đã nuốt trọn, chỉ còn vỏ đá xám."},
+  {"id": "ma-vuong", "name": "Phương Thiên Địa Ma Vương", "kind": "soon", "orbit": 9, "angle": 165, "size": 14, "color": "#7a2236", "realm": 8,
+   "desc": "Ma Vương trấn giữ một phương thiên địa trong ma khí. Mỗi con hạ xuống, Ma Tổ lại sinh con mới, mạnh gấp đôi."}
+ ],
+ "texts": {
+  "unknown": "???",
+  "here": "Bạn ở đây",
+  "fly": "Bay tới",
+  "locked": "Chưa tới nơi này.",
+  "moon": "Vào bằng truyền tống trận trên {parent}.",
+  "lost": "Không còn gì để tới.",
+  "soon": "Sắp mở.",
+  "danger": "Độ nguy hiểm với bạn:",
+  "trip": "Bay tới {name}"
+ }
+}
