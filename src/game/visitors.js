@@ -19,12 +19,14 @@ export function strangerToday(game, friend) {
 export const isStranger = (game, id) => !!V(game).strangers[id];
 const freshStory = (game, id) => { const st = V(game).strangers[id]; return !!st && (game.save.stories?.[id] || 0) < st.stories.length; };
 
-// Tự hành: việc còn làm được với khách hôm nay (quà, nghe chuyện mới, ván cờ), theo thứ tự đó
+// Tự hành: việc còn làm được với khách hôm nay (quà, nghe chuyện mới, ván cờ, mua nguyên liệu nấu ăn khi dư tiền), theo thứ tự đó
 export function visitJob(game, id) {
   const s = game.save, day = today();
   if (s.visitGift !== day) return 'gift';
   if (freshStory(game, id) && s.storyDay !== day) return 'talk';
   if (s.chess !== day) return 'chess';
+  const t = V(game).strangers[id]?.trade;   // mua khi vẫn còn chừa được garden_keep Linh Thạch
+  if (t && s.trade !== day && coins(s) >= t.coins + game.data.config.pilot.garden_keep) return 'trade';
   return null;
 }
 

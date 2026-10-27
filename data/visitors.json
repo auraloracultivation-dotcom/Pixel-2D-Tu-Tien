@@ -1,9 +1,9 @@
 {
- "_note": "Khách phương xa ghé động phủ (game/visitors.js). Mỗi every ngày (theo ngày thật), hoặc hôm nào chưa có bạn quen đủ thân, một khách lạ trong strangers tới thay (chọn theo ngày, cần cảnh giới realm). Khách lạ kể chuyện (stories, mỗi lần một chuyện, nghe xong được qi linh khí), tặng quà (gifts), có người bán hàng (trade: đổi xu lấy nguyên liệu, mỗi ngày một lần). Mọi khách (cả bạn quen) đều chơi cờ được, mỗi ngày một ván (chess).",
+ "_note": "Khách phương xa ghé động phủ (game/visitors.js). Mỗi every ngày (theo ngày thật), hoặc hôm nào chưa có bạn quen đủ thân, một khách lạ trong strangers tới thay (chọn theo ngày, cần cảnh giới realm). Khách lạ kể chuyện (stories, mỗi lần một chuyện, nghe xong được qi linh khí), tặng quà (gifts), có người bán hàng (trade: đổi Linh Thạch lấy nguyên liệu, mỗi ngày một lần). Mọi khách (cả bạn quen) đều chơi cờ được, mỗi ngày một ván (chess).",
  "every": 3,
  "story_qi": 200,
  "strangers": {
-  "lao-ngu-ong": {"realm": 0, "trade": {"mats": {"van-ngu": 2}, "coins": 200, "label": "Mua 2 Vân Ngư (200 xu)"},
+  "lao-ngu-ong": {"realm": 0, "trade": {"mats": {"van-ngu": 2}, "coins": 200, "label": "Mua 2 Vân Ngư (200 Linh Thạch)"},
    "hello": "Lão câu cá ở biển mây đã sáu mươi năm. Nghe nói chỗ này nước trong, ghé xin chén trà.",
    "stories": ["Hồi trẻ lão câu được một con Kim Lý dài bằng người. Nó nhìn lão, lão nhìn nó. Rồi lão thả nó đi. Đến giờ vẫn không hiểu sao.", "Cá ở biển mây không sợ lưỡi câu. Chúng chỉ sợ người câu nóng vội.", "Đêm trăng tròn, Nguyệt Ngư nổi lên gần mặt mây. Ai ngồi yên đủ lâu sẽ thấy."],
    "gift_lines": ["Chút cá khô lão phơi. Đừng chê."]},
@@ -11,7 +11,7 @@
    "hello": "Tại hạ là họa sư đi vẽ khắp các đảo bay. Động phủ này... cho tại hạ ngồi vẽ một lát được không?",
    "stories": ["Tại hạ từng vẽ Thiên Mạch lúc còn lành. Bức đó giờ treo ở một tửu quán nhỏ, chẳng ai biết nó vẽ gì.", "Màu đẹp nhất không phải ở hoa đào. Là ở mây lúc trời vừa tạnh mưa.", "Có người hỏi sao tại hạ không vẽ người. Vì người thay đổi nhanh quá, vẽ chưa xong đã khác."],
    "gift_lines": ["Bức phác này tặng chủ nhà. Vẽ vội, đừng cười."]},
-  "thuong-nhan": {"realm": 1, "trade": {"mats": {"ngoc-lo-hoa": 2}, "coins": 350, "label": "Mua 2 Ngọc Lộ Hoa (350 xu)"},
+  "thuong-nhan": {"realm": 1, "trade": {"mats": {"ngoc-lo-hoa": 2}, "coins": 350, "label": "Mua 2 Ngọc Lộ Hoa (350 Linh Thạch)"},
    "hello": "Hàng tốt giá phải chăng! Ta đi buôn từ đảo này sang đảo khác, hôm nay ghé đây.",
    "stories": ["Mười năm trước một bình Ngọc Lộ đổi được một thanh kiếm. Giờ thì ai cũng tự trồng, hàng rẻ như rau.", "Buôn bán giữa các đảo có một luật: không bao giờ nợ người tu ma. Ta học luật này bằng một cánh tay áo cháy."],
    "gift_lines": ["Hàng mẫu, tặng không. Lần sau mua nhiều nhé!"]},
@@ -28,6 +28,6 @@
   "win": {"text": "Thắng ván cờ!", "give": {"coins": 200}, "pts": 2},
   "lose": {"text": "Thua ván cờ. Vui là chính.", "give": {"coins": 60}, "pts": 1},
   "lines": {"win": ["Hay lắm. Ván sau ta không nhường nữa đâu.", "Ngươi đánh cờ như đánh kiếm, nhanh mà chắc."], "lose": ["Ha, chưa đủ trình đâu.", "Đi cờ phải nhìn ba nước, ngươi mới nhìn một."]}},
- "trade_none": "Không đủ xu rồi.",
+ "trade_none": "Không đủ Linh Thạch rồi.",
  "toast": "Khách phương xa {name} ghé động phủ."
 }
