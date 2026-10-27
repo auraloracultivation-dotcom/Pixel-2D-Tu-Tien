@@ -47,6 +47,8 @@ canvas#game { position: fixed; inset: 0; display: block; }
 #toast { position: fixed; left: 50%; top: 32%; transform: translateX(-50%); background: rgba(27, 24, 48, .85); color: #fff7d6; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 14px; text-align: center; pointer-events: none; max-width: 86%; }
 
 body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important; }
+/* Đang mở bảng thì dòng báo xuống sát đáy, không che tab và nội dung giữa bảng */
+body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top: auto; bottom: 10px; }
 
 #menu { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(rgba(122,184,240,.45), rgba(223,240,255,.6)), url(assets/icon/splash.jpg) center / cover; text-align: center; padding: 20px; }
 #menu h1 { margin: 0; font-size: 30px; color: #fff; text-shadow: 0 2px 0 #1b1830, 0 0 12px #5ab8f0; }
@@ -78,7 +80,7 @@ body.trip #hud, body.trip #buttons, body.trip #toast { display: none !important;
 .bag-head { display: flex; align-items: center; gap: 10px; }
 .bag-head b { font-size: 17px; }
 #bag-mats { flex: 1; font-size: 12px; color: #2a6a8a; font-weight: 700; }
-#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
+#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close, #market-close, #topup-close { width: 34px; height: 34px; border: 2px solid #1b1830; border-radius: 10px; background: #fff; font-size: 16px; }
 #bag-equip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .slot { display: flex; flex-direction: column; gap: 3px; }
 .slot-name { font-size: 11px; color: #6a6478; font-weight: 700; }
