@@ -10,6 +10,8 @@
   "huyet-giap": {"name": "Huyết giáp săn yêu", "robe": "#c0505a", "hair": "#1a1a1a", "sash": "#ffd24a", "from": {"achv": "ngan-quai"}},
   "bi-ngo": {"name": "Áo choàng Bí Ngô", "robe": "#ff8a2a", "hair": "#2a1a2a", "sash": "#5a2a7a", "from": {"fest": "halloween-2026"}},
   "tuyet-lanh": {"name": "Áo lông Tuyết Lành", "robe": "#d84a4a", "hair": "#f4f4fa", "sash": "#ffffff", "from": {"fest": "giang-sinh-2026"}},
+  "tien-nhan": {"name": "Tiên Nhân Bạch Y", "robe": "#fbfbff", "hair": "#c8d8f0", "sash": "#7ae0ff", "from": {"tn": 300}},
+  "hoang-kim": {"name": "Hoàng Kim Long Bào", "robe": "#ffd24a", "hair": "#2a1a0a", "sash": "#c0302a", "from": {"tn": 600}},
   "tet-do": {"name": "Áo Tết đỏ thắm", "robe": "#ff4a4a", "hair": "#2a1a1a", "sash": "#ffd24a", "from": {"fest": "tet-2027"}},
   "thien-mach-bao": {"name": "Thiên Mạch bào", "robe": "#f4f0ff", "hair": "#e8e0f8", "sash": "#c06aff", "from": {"achv": "va-thien-mach"}}
  }
