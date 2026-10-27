@@ -25,7 +25,7 @@ jobs:
       - name: Gom file chạy game
         run: |
           mkdir -p _site
-          cp -r index.html style.css manifest.webmanifest sw.js src data _site/
+          cp -r index.html privacy.html terms.html xoa-tai-khoan.html legal.css style.css manifest.webmanifest sw.js src data _site/
           [ -d assets ] && cp -r assets _site/ || true
       - name: Gắn số phiên bản để máy không dùng file cũ trong bộ nhớ đệm
         run: |

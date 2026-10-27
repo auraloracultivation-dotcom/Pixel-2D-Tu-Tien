@@ -219,6 +219,16 @@ try {
   errors.push(`Kiểm tra tham chiếu lỗi — ${e.message}`);
 }
 
+// Trang, file tĩnh mà các trang HTML trỏ tới phải được chép lên GitHub Pages (.github/workflows/pages.yml)
+{
+  const deploy = readFileSync('.github/workflows/pages.yml', 'utf8').match(/cp -r ([^\n]*) _site\//)?.[1].split(/\s+/) || [];
+  for (const page of ['index.html', ...deploy.filter(f => f.endsWith('.html'))]) {
+    for (const [, f] of readFileSync(page, 'utf8').matchAll(/(?:href|src)="([\w-]+\.(?:html|css))"/g)) {
+      if (!deploy.includes(f)) errors.push(`${page} trỏ tới ${f} nhưng .github/workflows/pages.yml không chép file này lên trang game`);
+    }
+  }
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);
