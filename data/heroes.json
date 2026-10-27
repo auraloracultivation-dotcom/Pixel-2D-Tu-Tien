@@ -1,11 +1,11 @@
 {
- "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng). anims: danh sách khung, fps: khung mỗi giây. attacks: các động tác đánh, mỗi đòn chạy hết một lượt, lần lượt thay nhau.",
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao mong muốn của một khung hình trong thế giới (đơn vị bản đồ, gồm cả quầng sau lưng); khi vẽ làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: các động tác đánh, mỗi đòn chạy hết một lượt, lần lượt thay nhau.",
  "default": "nam",
  "list": {
   "nam": {
    "name": "Nam · kiếm tu",
    "sprite": "hero.nam",
-   "height": 28,
+   "height": 30,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
@@ -17,7 +17,7 @@
   "nu": {
    "name": "Nữ · thương tu",
    "sprite": "hero.nu",
-   "height": 40,
+   "height": 30,
    "anims": {
     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
