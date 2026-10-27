@@ -34,6 +34,20 @@ Tự hành hiện làm được khi truyện đang chờ tu luyện (`src/game/c
 
 Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn mùa, mưa, đom đóm, ngắm cảnh (đạo lữ ngồi cạnh), động phủ trang trí được (Tiểu Linh bán đồ, mỗi món tăng tốc đả tọa ở nhà), khách quen ghé chơi mỗi ngày, chuông gió, thư đạo lữ khi vắng lâu, bế quan khi vắng mặt (ở nhà nhanh hơn), nhật ký tu tiên, uống trà với đạo lữ mỗi ngày (đả tọa nhanh hơn một lúc), NPC và bạn đồng hành nói nhỏ thành bong bóng, vài NPC đi dạo, câu thơ tĩnh tâm khi đả tọa lâu (`data/chatter.json`), đạo lữ đón khi về nhà sau lúc đi xa, kỳ ngộ nhỏ khi đi ngoài trời như nhặt linh thảo, gặp tiên hạc, giọt sương sớm (`data/kyngo.json`). Đạo lữ câu cá cùng và ngồi đả tọa cạnh bên; mỗi tối ra đá ngắm cảnh thả hoa đăng (`data/scenic.json` → lantern); đả tọa lâu thì linh thú tha đồ về (`data/pets.json` → fetch). Khi vắng mặt, linh thú cũng tha đồ về và đạo lữ ở nhà câu cá giùm (`data/fishing.json` → away). Đêm trời quang ngồi ngắm cảnh thì có sao băng, sao đầu mỗi đêm là một điều ước (`data/scenic.json` → star). Đêm song tu ở nhà thì đạo lữ gảy đàn tranh (`data/home.json` → zither). Dòng báo xếp hàng hiện lần lượt, không che mất nhau. Chuồng linh cầm sau nhà (gà, thỏ ngọc, hạc con) đẻ quà theo giờ (`data/critters.json`). Mỗi ngày nấu một bữa cùng đạo lữ từ cá và thảo dược, ăn xong đả tọa nhanh hơn (`data/cooking.json`). Cứ vài ngày có khách phương xa ghé: kể chuyện, tặng quà, bán nguyên liệu; khách nào cũng đánh cờ được (`data/visitors.json`). Vắng lâu về nhà thì đạo lữ nấu sẵn cháo; khuya đạo lữ chúc ngủ ngon, sáng sớm chào buổi sáng (`data/home.json` → greet).
 
+## Quyết định sáng 27/10/2026
+
+1. Tiên ngọc, thẻ tháng, quầy đổi: làm khung trong game, chưa thu tiền thật. Gói nạp hiện "Sắp mở" tới khi lên CH Play bản chính thức (`data/topup.json`).
+2. Chợ Phiên giữa người chơi, thuế 10%, tiền và đồ gửi qua hòm thư (`data/market.json`, bảng `p2d_cho`).
+3. Bí cảnh nhóm 4 người làm ngay: lập tổ đội ở NPC Tổ Đội, chủ phòng điều khiển quái, máu quái tăng theo số người (`data/party.json`).
+4. Tông môn người chơi: lập bang, chức vụ, chat bang, việc bang hằng tuần. Không có kho chung (`data/guild.json`).
+5. Claude được tự áp bảng, cột, hàm mới lên Supabase không cần hỏi. Xoá hoặc sửa dữ liệu cũ vẫn phải hỏi.
+6. Hình pixel thật bắt đầu sau khi xong các việc còn lại; làm trước nhân vật chính, nền đảo, cây, nhà, rồi tới quái.
+7. CH Play: làm bản thử nội bộ ngay với hình khối, gói PWA thành TWA (`docs/06-CAI-DIEN-THOAI.md`).
+8. Sự kiện mùa: Halloween, Giáng Sinh, Tết (`data/events.json`).
+9. Có chat chung cả máy chủ bên cạnh chat đảo và chat bang.
+10. Chưa viết Chương 7; làm đời sống yên bình thêm: sổ sưu tập cá, linh cầm thêm loài và đặt tên, tuyết và lá rơi theo mùa, cây nấu ăn ở dược viên.
+11. Đổi hệ ở Kim Đan tốn 3000 Linh Thạch và 10 nguyên liệu, giữ như đang làm.
+
 ## Trang bị và kiếm tiền
 
 - Max cấp sớm, sau đó người chơi tập trung làm sao mạnh hơn.
