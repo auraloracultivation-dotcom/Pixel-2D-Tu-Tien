@@ -33,6 +33,7 @@ import { updateHome } from './home.js';
 import { updateChatter } from './chatter.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
+import { spawnVeins, updateDig } from './gather.js';
 import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
@@ -169,7 +170,7 @@ export function createGame(data, screen, input, ui, audio) {
       if (n.id === game.save.companion && !game.story.wants(n.id) && !hasSide(game, n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game); spawnWild(game);
+    spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game); spawnWild(game); spawnVeins(game); game.dig = null;
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
@@ -352,7 +353,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateJournal(game, dt);
     updateHome(game, dt);
     updateChatter(game, dt);
-    updateStroll(game, dt); updateWild(game, dt);
+    updateStroll(game, dt); updateWild(game, dt); updateDig(game, dt);
     updateKyNgo(game, dt);
     updatePilotLog(game);
     updateEta(game, dt);

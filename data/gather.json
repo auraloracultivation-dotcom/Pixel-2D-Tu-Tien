@@ -1,0 +1,8 @@
+{
+ "_note": "Khai linh khoáng (lớp công cụ, chủ dự án 28/10/2026): mỗi tinh cầu có per_map mạch linh khoáng ở vùng mới (từ min_r tới max_r bán kính đĩa, chọn cố định theo mã bản đồ, tránh bãi quái, cổng). Đứng cạnh (range px) bấm Đào: đứng yên dig giây thì được yield [nguyên liệu, ít nhất, nhiều nhất] nhân theo cấp Linh Cuốc, may thì thêm rare [nguyên liệu, xác suất, số]; đào xong mạch cạn, respawn_min phút thật sau mới đầy lại (lưu save.veins, kể cả lúc vắng mặt). Linh Cuốc (save.tool) nâng ở lò rèn động phủ: cấp n lên n + 1 tốn coins_base × coins_r^(n − 1) Linh Thạch; mỗi cấp thêm yield_per sản lượng, đào nhanh hơn speed_per. Tài nguyên vừa phải (chủ dự án: đừng cho nhiều quá).",
+ "per_map": 6, "min_r": 0.5, "max_r": 0.9, "range": 22, "dig": 1.6, "respawn_min": 30,
+ "yield": ["tinh-thiet", 2, 4],
+ "rare": [["tay-luyen-thach", 0.15, 1], ["khoa-linh-thach", 0.03, 1]],
+ "tool": {"name": "Linh Cuốc", "max": 10, "coins_base": 400, "coins_r": 1.6, "yield_per": 0.15, "speed_per": 0.06},
+ "texts": {"act": "Đào linh khoáng", "got": "Đào được {got}", "empty": "Mạch đã cạn, khoảng {min} phút nữa đầy lại.", "card": "{name} cấp {lv}", "card_desc": "Đào linh khoáng trên các tinh cầu: cấp càng cao đào càng nhiều, càng nhanh.", "up": "Nâng lên cấp {lv} ({coins} {coin})", "max": "Đã tối đa", "upped": "{name} lên cấp {lv}!"}
+}

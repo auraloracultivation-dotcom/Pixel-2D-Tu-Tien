@@ -7,6 +7,7 @@ import { meditateMul } from './evolve.js';
 import { pickMode } from './dun-mode.js';
 import { waterDir, fishAct, fishLabel } from './fishing.js';
 import { spotHere, sitView } from './scenic.js';
+import { nearVein, startDig } from './gather.js';
 
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
@@ -76,8 +77,9 @@ export function updateInteract(game) {
   const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
   const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
   const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
-  const pat = !npc && !trib && !st && !med && !view && !fish && !game.view && canPat(game);
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
+  const vein = !npc && !trib && !st && !med && !view && !game.view && !game.fish && !game.dig && nearVein(game);   // mạch linh khoáng
+  const pat = !npc && !trib && !st && !med && !view && !fish && !vein && !game.view && canPat(game);
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : vein ? game.data.gather.texts.act : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     talkTo(game, npc);
@@ -91,6 +93,8 @@ export function updateInteract(game) {
     game.openCave?.(st[1]);
   } else if (view) {
     sitView(game, view);
+  } else if (vein) {
+    startDig(game, vein);
   } else if (fish) {
     fishAct(game, fish);
   } else if (pat) {

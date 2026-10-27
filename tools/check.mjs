@@ -138,6 +138,8 @@ try {
     for (const m of [b, ...(b.moons || [])]) if (m.map) { need(!smMaps.has(m.map) && maps[m.map] && sm.kinds[m.kind], `starmap/${m.map}: trùng hoặc không có`); smMaps.add(m.map); }
   }
   for (const [id, m] of Object.entries(maps)) need(!m.world || smMaps.has(id), `maps/${id}: có world nhưng không có trên tinh đồ (starmap.json)`);
+  const ga = read('gather.json'), matIn = id => read('cave.json').materials[id] || items.materials[id];
+  need(matIn(ga.yield[0]) && ga.rare.every(([id, p, n]) => matIn(id) && p > 0 && p < 1 && n > 0) && ga.per_map > 0 && ga.min_r < ga.max_r && ga.max_r < 1, 'gather: nguyên liệu hoặc số sai');
   const wl = read('wildlife.json');
   for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
   const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));

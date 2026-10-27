@@ -15,6 +15,7 @@ import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
 import { drawCritters, drawWild } from './draw-critter.js';
+import { drawVeins } from './draw-vein.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
@@ -254,6 +255,7 @@ export function drawWorld(game, screen, t) {
   drawDecor(ctx, game, t);
   drawCritters(ctx, game, t);
   drawWild(ctx, game, t);
+  drawVeins(ctx, game, t);
   for (const k of game.pickups) {
     const q = game.data.items.quest_items[k.item] || {};
     ctx.fillStyle = q.base || '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
