@@ -1,7 +1,7 @@
 """Vẽ toàn bộ hình của Mốc 1 bằng code → assets/art/*.png (1×) + data/art.json.
 Chạy: python3 -I tools/art/build.py
 Chuẩn: docs/02-CHUAN-PIXEL.md (viền 1 px cùng tông, 3 tông bóng đổi sắc, không anti-alias)."""
-import math, random, sys
+import json, math, random, sys
 from pathlib import Path
 import numpy as np
 
@@ -12,6 +12,7 @@ from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
 from fx_skill import fire_frames, ice_frames, bolt_frames  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
+from mobs import mob_frames  # noqa: E402
 
 clean()
 
@@ -95,31 +96,12 @@ def bush(seed):
     return c.outline(hx('#10261a'))
 
 
-# ---------------------------------------------------------------- quái: Mộc Linh (đốm sinh khí), 2 khung đứng / bẹt
-def slime(pal, squash=False):
-    w, h = 18, 15
-    c = Canvas(w, h)
-    top = 4 if squash else 2
-    hw = 8.5 if squash else 7.5
-    for y in range(top, h - 1):
-        t = (y - top) / (h - 2 - top)
-        half = hw * math.sqrt(max(0, 1 - (1 - t) ** 2 * 0.95)) if t < 1 else hw
-        for x in range(w):
-            if abs(x + 0.5 - w / 2) <= half:
-                lit = -(x - w / 2) * 0.5 - (y - (top + 4)) * 1.0
-                c.px(x, y, pal[3] if lit > 3 else pal[2] if lit > -0.5 else pal[1] if lit > -4 else pal[0])
-    ey = top + 5
-    for ex in (6, 11):  # 2 mắt chấm đặc + má
-        c.px(ex, ey, pal[5]); c.px(ex, ey + 1, pal[5])
-    c.px(5, ey + 2, pal[6]); c.px(12, ey + 2, pal[6])
-    c.px(7, top + 1, pal[4]); c.px(6, top + 2, pal[4])  # điểm bóng sáng
-    return c.outline(pal[0][:3] + (255,) if False else hx(pal[7]))
+# ---------------------------------------------------------------- quái (tools/art/mobs.py): mỗi quái có "look" trong data/mobs.json
+for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.json').read_text(encoding='utf-8')).items():
+    if isinstance(_d, dict) and _d.get('look'):
+        _f, _a = mob_frames(_d)
+        save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): đứng, bước")
 
-
-MOC = [hx('#2f7a4a'), hx('#47a35c'), hx('#6cc96e'), hx('#a6ea8c'), hx('#f2ffe8'), hx('#123020'), hx('#ff9ab0'), '#123020']
-HOA = [hx('#a3352a'), hx('#d4583a'), hx('#f08a4a'), hx('#ffc27a'), hx('#fff3d6'), hx('#3a0f12'), hx('#ffd0a0'), '#3a0f12']
-save('mob.moc-linh', [slime(MOC), slime(MOC, True)], (9, 14), 'Mộc Linh: đứng, bẹt khi nảy')
-save('mob.hoa-linh', [slime(HOA), slime(HOA, True)], (9, 14), 'Hỏa Linh: đứng, bẹt khi nảy')
 
 # ---------------------------------------------------------------- kiếm bay (45°)
 def sword():
