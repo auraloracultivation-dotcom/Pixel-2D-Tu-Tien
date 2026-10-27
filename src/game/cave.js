@@ -94,7 +94,7 @@ export function forge(game, recipeId, slot) {
   const { data, save } = game, r = data.cave.forge.find(x => x.id === recipeId);
   if (!r || !has(save, r.cost)) return null;
   const wt = weaponId(save, data);
-  let bases = Object.entries(data.items.bases).filter(([, b]) => b.slot === slot && !b.set);
+  let bases = Object.entries(data.items.bases).filter(([, b]) => b.slot === slot && !b.set && !b.dv);   // đồ bộ, đồ Đạo Vận không rèn được
   if (slot === 'vu-khi') bases = bases.filter(([, b]) => b.weapon === wt).concat(bases.filter(([, b]) => !b.weapon && wt === 'kiem'));
   if (!bases.length) return null;
   const base = bases[Math.floor(Math.random() * bases.length)][0];

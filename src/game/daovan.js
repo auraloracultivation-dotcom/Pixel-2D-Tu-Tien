@@ -3,7 +3,7 @@
 // Món Đạo Vận giống nhau, hệ ngẫu nhiên lúc nhận (it.el); đổi hệ bằng Đạo Vận Thạch.
 import { rollItem, addItem, equipped, itemName } from './items.js';
 import { progress } from './achieve.js';
-import { totalLayer } from './stats.js';
+import { totalLayer, weaponId } from './stats.js';
 import { addMat } from './cave.js';
 
 const V = data => data.daovan;
@@ -57,6 +57,7 @@ export function makeDv(game, base, rnd = Math.random) {
   const it = rollItem(game.data, game.save, { base, rarity: V(game.data).rarity, lvl: Math.min(81, totalLayer(game.save, game.data.realms)) });
   const els = elList(game.data);
   it.el = els[Math.floor(rnd() * els.length)];
+  if (game.data.items.bases[base].slot === 'vu-khi') it.wt = weaponId(game.save, game.data);   // Đạo Vận Binh theo loại vũ khí đang dùng
   return it;
 }
 

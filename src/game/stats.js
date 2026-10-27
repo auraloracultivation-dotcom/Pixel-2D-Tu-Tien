@@ -40,7 +40,7 @@ export function artSkill(save, data) {
 // Loại vũ khí đang dùng: theo món mặc ở ô Vũ khí, chưa mặc thì theo cốt truyện (save.weapon)
 export function weaponId(save, data) {
   const it = save.bag?.find(i => i.uid === save.equip?.['vu-khi']);
-  return data.items.bases[it?.base]?.weapon || save.weapon;
+  return data.items.bases[it?.base]?.weapon || it?.wt || save.weapon;   // Đạo Vận Binh mang loại vũ khí lúc nhận (it.wt)
 }
 
 // Chỉ số cuối = gốc theo cảnh giới + vũ khí + trang bị và ngọc khảm
