@@ -12,6 +12,7 @@ import { autoClaim } from './autoclaim.js';
 import { autoGrow } from './autogrow.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 import { digJob, farmJob } from './farmjob.js';
+import { buySnack } from './snack.js';
 import { startDig } from './gather.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
@@ -210,6 +211,10 @@ export function pilotStep(game, ax, dt) {
     if (dist(job.dig, p) > game.data.gather.range * 0.8) return { ax: walk(game, job.dig.x, job.dig.y, dt), atk: false };
     p.meditating = false; startDig(game, job.dig);
     return none;
+  }
+  if (job.snack) {   // mua linh thực: tới cạnh người bán rồi mua
+    if (dist(job.at, p) > game.data.config.interact_range * 0.8) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
+    buySnack(game, job.snack); game.pilot.job = null; return none;
   }
   if (job.use) {
     if (Math.hypot(job.use.x - p.x, job.use.y - p.y) > 8) return { ax: walk(game, job.use.x, job.use.y, dt), atk: false };

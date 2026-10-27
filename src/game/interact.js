@@ -23,6 +23,7 @@ import { rerootNpc, talkReroot } from './reroot.js';
 import { talkTieuLinh } from './critters.js';
 import { festNpc, talkFest } from './events.js';
 import { talkParty } from './party.js';
+import { snackOf, talkSnack } from './snack.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -64,6 +65,7 @@ export function talkTo(game, npc) {
   if (npc.id === game.data.home.decor.npc) { talkTieuLinh(game, npc); return; }
   if (npc.home || npc.visit) { talkHome(game, npc); return; }
   if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
+  if (snackOf(game.data, npc.id)) { talkSnack(game, npc); return; }   // người bán linh thực ở xóm
   const lines = npc.def.lines;
   game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
 }
