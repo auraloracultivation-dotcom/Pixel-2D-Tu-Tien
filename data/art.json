@@ -3,6 +3,7 @@
  "sprites": {
   "decal.dirt": {
    "file": "assets/art/decal-dirt.png",
+   "v": "f04d865f",
    "w": 48,
    "h": 32,
    "frames": 3,
@@ -14,6 +15,7 @@
   },
   "decal.flowers": {
    "file": "assets/art/decal-flowers.png",
+   "v": "1a822968",
    "w": 7,
    "h": 5,
    "frames": 3,
@@ -25,6 +27,7 @@
   },
   "fx.puff": {
    "file": "assets/art/fx-puff.png",
+   "v": "4eab0d60",
    "w": 16,
    "h": 16,
    "frames": 5,
@@ -36,6 +39,7 @@
   },
   "fx.slash": {
    "file": "assets/art/fx-slash.png",
+   "v": "1ca538f1",
    "w": 56,
    "h": 48,
    "frames": 7,
@@ -47,6 +51,7 @@
   },
   "fx.spark": {
    "file": "assets/art/fx-spark.png",
+   "v": "2e438de8",
    "w": 11,
    "h": 11,
    "frames": 4,
@@ -58,6 +63,7 @@
   },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",
+   "v": "56fdf82d",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -69,6 +75,7 @@
   },
   "hero.nam": {
    "file": "assets/art/hero-nam.png",
+   "v": "6428b85f",
    "w": 64,
    "h": 64,
    "frames": 24,
@@ -80,6 +87,7 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
+   "v": "d521e0d4",
    "w": 118,
    "h": 118,
    "frames": 16,
@@ -91,6 +99,7 @@
   },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
+   "v": "5d65df70",
    "w": 13,
    "h": 13,
    "frames": 1,
@@ -102,6 +111,7 @@
   },
   "mob.hoa-linh": {
    "file": "assets/art/mob-hoa-linh.png",
+   "v": "5c4ce9ec",
    "w": 18,
    "h": 15,
    "frames": 2,
@@ -113,6 +123,7 @@
   },
   "mob.moc-linh": {
    "file": "assets/art/mob-moc-linh.png",
+   "v": "050f60db",
    "w": 18,
    "h": 15,
    "frames": 2,
@@ -124,6 +135,7 @@
   },
   "npc.bang-co": {
    "file": "assets/art/npc-bang-co.png",
+   "v": "04b135cc",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -135,6 +147,7 @@
   },
   "npc.hoa-dong": {
    "file": "assets/art/npc-hoa-dong.png",
+   "v": "c31fc3c5",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -146,6 +159,7 @@
   },
   "npc.linh-ho": {
    "file": "assets/art/npc-linh-ho.png",
+   "v": "1fada7ca",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -157,6 +171,7 @@
   },
   "npc.ma-tu": {
    "file": "assets/art/npc-ma-tu.png",
+   "v": "639f2d5a",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -168,6 +183,7 @@
   },
   "prop.bush": {
    "file": "assets/art/prop-bush.png",
+   "v": "ff0a1384",
    "w": 16,
    "h": 11,
    "frames": 2,
@@ -179,6 +195,7 @@
   },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
+   "v": "0fc402de",
    "w": 14,
    "h": 11,
    "frames": 1,
@@ -190,6 +207,7 @@
   },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
+   "v": "bf5d0de3",
    "w": 30,
    "h": 38,
    "frames": 2,
@@ -201,6 +219,7 @@
   },
   "tile.grass": {
    "file": "assets/art/tile-grass.png",
+   "v": "77d06b03",
    "w": 16,
    "h": 16,
    "frames": 4,
@@ -212,6 +231,7 @@
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",
+   "v": "d20d3dd1",
    "w": 5,
    "h": 7,
    "frames": 10,
@@ -223,6 +243,7 @@
   },
   "ui.digits-crit": {
    "file": "assets/art/ui-digits-crit.png",
+   "v": "d828595f",
    "w": 5,
    "h": 7,
    "frames": 10,

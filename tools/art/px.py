@@ -1,5 +1,5 @@
 """Bộ công cụ vẽ pixel bằng code: khung RGBA ở độ phân giải gốc (1×), viền tự động, xuất PNG + mục trong data/art.json."""
-import json, math, random
+import hashlib, json, math, random
 from pathlib import Path
 import numpy as np
 from PIL import Image
@@ -92,7 +92,8 @@ def save(sid, frames, anchor, note=''):
         sheet.alpha_composite(f.img(), (i * w, 0))
     name = sid.replace('.', '-') + '.png'
     sheet.save(OUT_DIR / name, optimize=True)
-    MANIFEST[sid] = {'file': f'assets/art/{name}', 'w': w, 'h': h, 'frames': len(frames), 'anchor': list(anchor)}
+    v = hashlib.sha1((OUT_DIR / name).read_bytes()).hexdigest()[:8]   # mã nội dung: đổi hình thì đổi đường dẫn tải
+    MANIFEST[sid] = {'file': f'assets/art/{name}', 'v': v, 'w': w, 'h': h, 'frames': len(frames), 'anchor': list(anchor)}
     if note:
         MANIFEST[sid]['note'] = note
 
