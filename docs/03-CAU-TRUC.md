@@ -39,7 +39,7 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 ## Tinh đồ (`data/starmap.json`)
 
-Nút Bản đồ mở tinh đồ Thiên Kiếm Tinh Hệ: Linh Nhật ở giữa, tinh cầu quay chậm trên quỹ đạo theo giờ thật, mặt trăng (bí cảnh, động phủ) quay quanh tinh cầu mẹ, vòng ma khí gợn sóng ở ngoài cùng. Kéo để dời, chụm hai ngón hoặc lăn chuột để phóng (`src/ui/pan-zoom.js`). Chạm thiên thể hiện thẻ: tên, loại, mô tả, màu nguy hiểm so cảnh giới (xanh / vàng / đỏ, màu ở `dungeon.json` → hint, không hiện số), nút Bay tới nếu bản đồ có `world: true` và đã tới. Vị trí và độ nguy hiểm ở `src/game/starmap.js`, vẽ ở `src/render/draw-starmap.js`, bảng ở `src/ui/world-map.js`. Thêm tinh cầu mới: thêm vào `bodies` (bản đồ nào có `world` cũng phải có trên tinh đồ, `tools/check.mjs` kiểm).
+Nút Bản đồ mở tinh đồ Thiên Kiếm Tinh Hệ: Linh Nhật ở giữa, tinh cầu quay chậm trên quỹ đạo theo giờ thật, mặt trăng (bí cảnh, động phủ) quay quanh tinh cầu mẹ, vòng ma khí gợn sóng ở ngoài cùng. Kéo để dời, chụm hai ngón hoặc lăn chuột để phóng (`src/ui/pan-zoom.js`). Chạm thiên thể hiện thẻ: tên, loại, mô tả, màu nguy hiểm so cảnh giới (xanh / vàng / đỏ, màu ở `dungeon.json` → hint, không hiện số), nút Bay tới nếu bản đồ có `world: true` và đã tới. Vị trí và độ nguy hiểm ở `src/game/starmap.js`, vẽ ở `src/render/draw-starmap.js` kiểu pixel ấm (vẽ lên một tấm nhỏ rồi phóng nguyên lần, mỗi điểm ảnh tinh đồ bằng 2–4 điểm ảnh màn hình; tinh cầu ba tông theo hướng Linh Nhật, viền mực, quỹ đạo chấm vàng nhạt; chữ tên vẽ sau ở độ phân giải thật), bảng ở `src/ui/world-map.js`. Thêm tinh cầu mới: thêm vào `bodies` (bản đồ nào có `world` cũng phải có trên tinh đồ, `tools/check.mjs` kiểm).
 
 ## Đi đường
 
