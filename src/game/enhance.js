@@ -3,20 +3,27 @@ import { equipped } from './items.js';
 
 export const plusMul = (data, it) => 1 + (it.plus || 0) * data.gear.enhance.main_per;
 
-// Giá lần cường hóa tiếp theo của món it
-export function enhanceCost(data, it) {
+// Cấp cường hoá tối đa đang mở theo cảnh giới (gear.enhance.open)
+export function enhanceCap(data, save) {
+  const e = data.gear.enhance, o = e.open;
+  return o ? Math.min(e.max, o.base + o.per_realm * Math.max(0, (save?.realm || 0) - o.from_realm)) : e.max;
+}
+
+// Giá lần cường hóa tiếp theo của món it; locked: cấp sau chưa mở ở cảnh giới hiện tại
+export function enhanceCost(data, it, save) {
   const e = data.gear.enhance, n = it.plus || 0;
   if (n >= e.max) return null;
   const cost = { 'tinh-thiet': e.iron[n] };
   if (e.stones[n]) cost['tay-luyen-thach'] = e.stones[n];
-  return { cost, rate: e.rate[n] };
+  return { cost, coins: e.coins?.[n] || 0, rate: e.rate[n], locked: !!save && n >= enhanceCap(data, save) };
 }
 
-// Trả về 'up' | 'fail' | 'drop' | null (không đủ nguyên liệu / đã tối đa)
+// Trả về 'up' | 'fail' | 'drop' | null (không đủ nguyên liệu / đã tối đa / chưa mở)
 export function enhance(game, uid, rnd = Math.random) {
-  const { data, save } = game, it = save.bag.find(x => x.uid === uid), c = it && enhanceCost(data, it);
-  if (!c || Object.entries(c.cost).some(([k, n]) => (save.mats[k] || 0) < n)) return null;
+  const { data, save } = game, it = save.bag.find(x => x.uid === uid), c = it && enhanceCost(data, it, save);
+  if (!c || c.locked || (save.lingshi || 0) < c.coins || Object.entries(c.cost).some(([k, n]) => (save.mats[k] || 0) < n)) return null;
   for (const [k, n] of Object.entries(c.cost)) save.mats[k] -= n;
+  save.lingshi -= c.coins;
   const e = data.gear.enhance, n = it.plus || 0;
   let res;
   if (rnd() < c.rate) { it.plus = n + 1; res = 'up'; }

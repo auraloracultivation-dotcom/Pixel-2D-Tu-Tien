@@ -151,7 +151,7 @@ try {
   }
   const phRows = Object.fromEntries(tuples(lastWith(/insert into public\.p2d_pham/), 'p2d_pham').map(([k, m, l, s]) => [k, [+m, +l, +s]]));
   for (const r of items.rarities) need(phRows[r.id] && phRows[r.id][0] === r.mult && phRows[r.id][1] === r.lines && phRows[r.id][2] === r.sockets, `items.rarities/${r.id}: hệ số, dòng, lỗ khảm khác máy chủ (p2d_pham)`);
-  need(items.main_per_lvl === 0.12 && items.line_per_lvl === 0.08 && gear.enhance.max === 10 && items.bag_size === 40, 'items: main_per_lvl/line_per_lvl/gear.max/bag_size đổi thì sửa cả p2d_mon_hop_le, p2d_luu (supabase/migrations)');
+  need(items.main_per_lvl === 0.12 && items.line_per_lvl === 0.08 && gear.enhance.max === 20 && ['iron', 'stones', 'coins', 'rate'].every(k => gear.enhance[k].length === 20) && items.bag_size === 40, 'items: main_per_lvl/line_per_lvl/gear.max/bag_size đổi thì sửa cả p2d_mon_hop_le, p2d_luu (supabase/migrations)');
   const muaSql = lastWith(/function public\.p2d_mua/), tax = (muaSql.match(/ceil\(v_c\.gia \* ([0-9.]+)\)/) || [])[1];
   need(+tax === read('market.json').tax, `market.tax ${read('market.json').tax} khác thuế trong hàm p2d_mua (${tax})`);
   // Tông môn: số trong data/guild.json phải khớp bảng p2d_bang_cfg trên máy chủ

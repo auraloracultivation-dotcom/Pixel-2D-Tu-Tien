@@ -52,8 +52,8 @@ export function makeRoom(game, item) {
 export function autoEnhance(game) {
   const s = game.save, d = game.data, keep = d.config.pilot.enhance_keep;
   const it = equipped(s).filter(i => (i.plus || 0) < d.gear.enhance.drop_from).sort((a, b) => (a.plus || 0) - (b.plus || 0))[0];
-  const c = it && enhanceCost(d, it);
-  if (!c || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;
+  const c = it && enhanceCost(d, it, s);
+  if (!c || c.locked || c.coins || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;   // tự hành không tiêu Linh Thạch vào cường hoá
   const r = enhance(game, it.uid);
   if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8);
 }

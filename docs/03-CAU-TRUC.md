@@ -80,6 +80,7 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 ## Trọng điểm bồi dưỡng, cấp khó (luật 7 → 14 → 28)
 
 - Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`).
+- Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000).
 - Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
 - Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
 - Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).

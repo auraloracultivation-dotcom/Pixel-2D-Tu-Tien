@@ -120,10 +120,11 @@ export function createBag(game) {
     const btn = (t, fn, off) => { const b = el('button', 'act-btn', t); b.disabled = !!off; b.onclick = fn; acts.append(b); };
     if (isEq(it.uid)) btn('Tháo', () => { unequip(save(), base.slot); changed(); });
     else btn('Mặc', () => { equip(save(), data, it.uid); game.sfx('shield'); changed(); });
-    const ec = enhanceCost(data, it);
-    if (ec) {
-      const can = Object.entries(ec.cost).every(([m, n]) => (save().mats[m] || 0) >= n);
-      btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}, ${Math.round(ec.rate * 100)}%)`, () => {
+    const ec = enhanceCost(data, it, save());
+    if (ec?.locked) btn(`Cường hóa +${(it.plus || 0) + 1}: mở ở ${data.realms.names[Math.min(data.realms.names.length - 1, data.gear.enhance.open.from_realm + Math.ceil(((it.plus || 0) + 1 - data.gear.enhance.open.base) / data.gear.enhance.open.per_realm))]}`, () => {}, true);
+    else if (ec) {
+      const can = Object.entries(ec.cost).every(([m, n]) => (save().mats[m] || 0) >= n) && (save().lingshi || 0) >= ec.coins;
+      btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}${ec.coins ? `, ${ec.coins.toLocaleString('vi-VN')} ${data.shop.name}` : ''}, ${Math.round(ec.rate * 100)}%)`, () => {
         const r = enhance(game, it.uid);
         st.msg = r === 'up' ? `Thành công! +${it.plus}` : r === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
         game.sfx(r === 'up' ? 'levelup' : 'hurt'); changed();

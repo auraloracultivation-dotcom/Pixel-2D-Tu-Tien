@@ -1,11 +1,13 @@
 {
  "_note": "Cường hóa và bộ đồ. Cường hóa +1 tới max: chỉ số chính nhân (1 + cấp × main_per). Lần lên cấp n tốn tinh-thiet iron[n-1] và tay-luyen-thach stones[n-1], tỉ lệ thành công rate[n-1]. Hỏng ở cấp ≥ drop_from thì có drop_chance tụt 1 cấp. Bộ đồ: món có set; mặc đủ số món trong bonus thì cộng chỉ số (có lifesteal, thorns, regen như công pháp).",
  "enhance": {
-  "max": 10,
+  "max": 20,
+  "open": {"_note": "Cấp cường hoá tối đa mở dần theo cảnh giới: base, từ cảnh giới from_realm (Kim Đan = 2) mỗi cảnh giới thêm per_realm, tối đa max. Kim Đan +10, Nguyên Anh +12 ... Đại Thừa +20 (chủ dự án chốt 28/10/2026).", "base": 10, "from_realm": 2, "per_realm": 2},
   "main_per": 0.1,
-  "iron": [1, 2, 3, 4, 5, 6, 8, 10, 12, 15],
-  "stones": [0, 0, 0, 0, 1, 1, 2, 2, 3, 4],
-  "rate": [1, 1, 0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25],
+  "iron": [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18, 21, 25, 30, 36, 43, 51, 61, 73, 87],
+  "stones": [0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 20],
+  "coins": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000, 2700, 3600, 4900, 6600, 8900, 12000, 16200, 21900, 29500],
+  "rate": [1, 1, 0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25, 0.22, 0.2, 0.18, 0.16, 0.14, 0.12, 0.11, 0.1, 0.09, 0.08],
   "drop_from": 7,
   "drop_chance": 0.5
  },
