@@ -3,6 +3,8 @@ import { dailyEvent } from './daily.js';
 import { outdoor } from './daynight.js';
 import { daoLu } from './affinity.js';
 import { bump } from './achieve.js';
+import { season } from './weather.js';
+import { bookCatch } from './fishbook.js';
 
 const C = game => game.data.fishing;
 
@@ -18,8 +20,14 @@ export function waterDir(game) {
   return null;
 }
 
+// Cá cắn được ở đây, lúc này (cảnh giới, đảo, đêm, mùa, mưa)
+export function fishOk(game, f) {
+  return game.save.realm >= (f.realm || 0) && (!f.maps || f.maps.includes(game.map.id)) && (!f.night || game.isNight)
+    && (!f.season || season(game)?.id === f.season) && (!f.rain || game.raining);
+}
+
 function roll(game) {
-  const s = game.save, list = Object.entries(C(game).fish).filter(([, f]) => s.realm >= (f.realm || 0) && (!f.maps || f.maps.includes(game.map.id)) && (!f.night || game.isNight));
+  const list = Object.entries(C(game).fish).filter(([, f]) => fishOk(game, f));
   let r = Math.random() * list.reduce((a, [, f]) => a + f.w, 0);
   for (const [id, f] of list) if ((r -= f.w) <= 0) return id;
   return list[0][0];
@@ -41,7 +49,7 @@ export function fishAct(game, dir) {
   s.mats[id] = (s.mats[id] || 0) + 1;
   game.number(game.player.x, game.player.y - 20, `+1 ${m.name}`, m.color);
   game.toast(`Câu được ${m.name}!`, 1.6); game.sfx('pickup');
-  dailyEvent(game, 'fish'); bump(game, 'fish');
+  dailyEvent(game, 'fish'); bump(game, 'fish'); bookCatch(game, id);
   together(game, id, m);
   game.persist();
 }
