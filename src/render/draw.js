@@ -54,7 +54,7 @@ function drawPlayer(ctx, game, t) {
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
-  if (p.riding) { drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t); ctx.save(); ctx.translate(0, -6); }
+  if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); ctx.save(); ctx.translate(0, -lift); }
   if (p.meditating) {
     ctx.strokeStyle = el; ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ctx.lineWidth = 1;
     ctx.beginPath(); ctx.arc(p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
@@ -267,7 +267,7 @@ export function drawWorld(game, screen, t) {
     if (k === 'n') drawNpc(ctx, e, game, t);
     else if (k === 'm') drawMob(ctx, e, t, game);
     else if (k === 'o') drawOther(ctx, e, game, t);
-    else if (k === 'pet') drawPet(ctx, e, t);
+    else if (k === 'pet') drawPet(ctx, e, t, game.data.art);
     else if (k === 'comp') drawComp(ctx, e, t);
     else drawPlayer(ctx, game, t);
   }

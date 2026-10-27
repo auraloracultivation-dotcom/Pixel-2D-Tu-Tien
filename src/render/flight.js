@@ -140,7 +140,7 @@ function drawFlight(ctx, screen, game, trip) {
   } else if (game.save.realm >= game.data.pets.fly_realm && game.save.mount) {
     // Từ Nguyên Anh: cưỡi thú bay qua biển mây thay cho kiếm
     ctx.save(); ctx.translate(px, py + 6 * S); ctx.scale(S, S);
-    drawMount(ctx, { x: 0, y: 0, face: { x: 1 }, moving: true, walkT: t }, game.data.pets.mounts[game.save.mount], t);
+    drawMount(ctx, { x: 0, y: 0, face: { x: 1 }, moving: true, walkT: t }, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount);
     ctx.restore();
     rider(ctx, 0, px, py, S, t, fit.robe, fit.hair, fit.sash || el, 0);
   } else rider(ctx, 0, px, py, S, t, fit.robe, fit.hair, fit.sash || el, 24);

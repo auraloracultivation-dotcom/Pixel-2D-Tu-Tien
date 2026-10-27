@@ -949,6 +949,54 @@
    ],
    "note": "Viêm linh (slime): đứng, bước"
   },
+  "mount.bach-loc": {
+   "file": "assets/art/mount-bach-loc.png",
+   "v": "df5cddfc",
+   "w": 42,
+   "h": 35,
+   "frames": 2,
+   "anchor": [
+    20,
+    33
+   ],
+   "note": "Bạch Lộc: đứng, bước; người cưỡi ngồi trên yên"
+  },
+  "mount.hoa-ky-lan": {
+   "file": "assets/art/mount-hoa-ky-lan.png",
+   "v": "8e3f9211",
+   "w": 42,
+   "h": 35,
+   "frames": 2,
+   "anchor": [
+    20,
+    33
+   ],
+   "note": "Hỏa Kỳ Lân: đứng, bước; người cưỡi ngồi trên yên"
+  },
+  "mount.phong-lang": {
+   "file": "assets/art/mount-phong-lang.png",
+   "v": "cc2b0416",
+   "w": 42,
+   "h": 35,
+   "frames": 2,
+   "anchor": [
+    20,
+    33
+   ],
+   "note": "Phong Lang: đứng, bước; người cưỡi ngồi trên yên"
+  },
+  "mount.tuyet-ly": {
+   "file": "assets/art/mount-tuyet-ly.png",
+   "v": "cbda413a",
+   "w": 42,
+   "h": 35,
+   "frames": 2,
+   "anchor": [
+    20,
+    33
+   ],
+   "note": "Tuyết Ly: đứng, bước; người cưỡi ngồi trên yên"
+  },
   "npc.a-moc": {
    "file": "assets/art/npc-a-moc.png",
    "v": "909d38e3",
@@ -1524,6 +1572,150 @@
     23
    ],
    "note": "Vạn Kiếm Ma Tướng: đứng, nhún, bước A, bước B"
+  },
+  "pet.bang-tinh": {
+   "file": "assets/art/pet-bang-tinh.png",
+   "v": "3de962d1",
+   "w": 14,
+   "h": 14,
+   "frames": 2,
+   "anchor": [
+    7,
+    13
+   ],
+   "note": "Băng Tinh Nhi: đứng, bước"
+  },
+  "pet.hoa-lang": {
+   "file": "assets/art/pet-hoa-lang.png",
+   "v": "56dee3ee",
+   "w": 22,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    11,
+    13
+   ],
+   "note": "Tiểu Hỏa Lang: đứng, bước"
+  },
+  "pet.hu-anh": {
+   "file": "assets/art/pet-hu-anh.png",
+   "v": "08f12734",
+   "w": 18,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "Tiểu U Ảnh: đứng, bước"
+  },
+  "pet.kiem-hon": {
+   "file": "assets/art/pet-kiem-hon.png",
+   "v": "31326e13",
+   "w": 22,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    11,
+    17
+   ],
+   "note": "Tiểu Kiếm Linh: đứng, bước"
+  },
+  "pet.ma-cung": {
+   "file": "assets/art/pet-ma-cung.png",
+   "v": "2abad59a",
+   "w": 20,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "Ma Tiễn Đồng: đứng, bước"
+  },
+  "pet.ma-tieu": {
+   "file": "assets/art/pet-ma-tieu.png",
+   "v": "24cb1f37",
+   "w": 16,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    8,
+    16
+   ],
+   "note": "Tiểu Quỷ: đứng, bước"
+  },
+  "pet.moc-linh": {
+   "file": "assets/art/pet-moc-linh.png",
+   "v": "94511083",
+   "w": 14,
+   "h": 14,
+   "frames": 2,
+   "anchor": [
+    7,
+    13
+   ],
+   "note": "Tiểu Mộc Linh: đứng, bước"
+  },
+  "pet.moc-yeu": {
+   "file": "assets/art/pet-moc-yeu.png",
+   "v": "ae6d55ab",
+   "w": 20,
+   "h": 16,
+   "frames": 2,
+   "anchor": [
+    10,
+    14
+   ],
+   "note": "Tiểu Thụ Yêu: đứng, bước"
+  },
+  "pet.phong-yeu": {
+   "file": "assets/art/pet-phong-yeu.png",
+   "v": "b1b21203",
+   "w": 24,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    12,
+    17
+   ],
+   "note": "Tiểu Phong Yêu: đứng, bước"
+  },
+  "pet.tho-khoi": {
+   "file": "assets/art/pet-tho-khoi.png",
+   "v": "d0b56023",
+   "w": 19,
+   "h": 16,
+   "frames": 2,
+   "anchor": [
+    9,
+    14
+   ],
+   "note": "Tiểu Thạch Khôi: đứng, bước"
+  },
+  "pet.tuyet-lang": {
+   "file": "assets/art/pet-tuyet-lang.png",
+   "v": "28ed744d",
+   "w": 22,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    11,
+    13
+   ],
+   "note": "Tiểu Tuyết Lang: đứng, bước"
+  },
+  "pet.viem-linh": {
+   "file": "assets/art/pet-viem-linh.png",
+   "v": "4c93c41e",
+   "w": 14,
+   "h": 14,
+   "frames": 2,
+   "anchor": [
+    7,
+    13
+   ],
+   "note": "Viêm Linh Nhi: đứng, bước"
   },
   "proj.fire": {
    "file": "assets/art/proj-fire.png",
