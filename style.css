@@ -162,3 +162,5 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #rank-note { color: #4a4458; }
 #social-form { display: flex; gap: 6px; }
 #social-input { flex: 1; min-width: 0; border: 2px solid #1b1830; border-radius: 9px; padding: 6px 9px; font: 14px system-ui, sans-serif; }
+#social-log small { color: #8a8498; }
+#social-log .me b { color: #2a8a5a; }

@@ -1,6 +1,8 @@
-// Bảng Đạo hữu: tab Trò chuyện (nút chào hỏi, log trò chuyện cùng đảo, ô gõ chữ (game/social.js gửi và lọc). Chưa đăng nhập thì chỉ hiện lời nhắc) và tab Xếp hạng (ui/rank-view.js).
+// Bảng Đạo hữu: tab Trò chuyện (nút chào hỏi, log trò chuyện cùng đảo, ô gõ chữ (game/social.js gửi và lọc). Chưa đăng nhập thì chỉ hiện lời nhắc),
+// tab Thế giới (chat chung cả máy chủ, game/world-chat.js) và tab Xếp hạng (ui/rank-view.js).
 import { sendEmote, sendChat } from '../game/social.js';
 import { createRankView } from './rank-view.js';
+import { worldState, pullWorld, sendWorld } from '../game/world-chat.js';
 
 const $ = id => document.getElementById(id);
 
@@ -12,19 +14,39 @@ function el(tag, cls, text) {
 }
 
 export function createSocialPanel(game) {
-  const S = game.data.social, c = S.chat;
-  let note = '', tab = 'chat';
+  const S = game.data.social, c = S.chat, w = S.world;
+  let note = '', tab = 'chat', pullT = 0;
   const rank = createRankView(game);
 
   function showTab(id) {
     tab = id;
     for (const b of document.querySelectorAll('#social-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === id);
-    for (const k of ['social-emotes', 'social-log', 'social-form']) $(k).hidden = id !== 'chat';
+    $('social-emotes').hidden = id !== 'chat';
+    for (const k of ['social-log', 'social-form']) $(k).hidden = id === 'rank';
     $('social-rank').hidden = id !== 'rank';
+    $('social-input').maxLength = id === 'world' ? w.max_len : c.max_len;
+    $('social-input').placeholder = id === 'world' ? w.placeholder : c.placeholder;
     if (id === 'rank') rank.render(); else render();
+    if (id === 'world') { pullT = Date.now(); pullWorld(game).then(() => tab === 'world' && render()); }
+  }
+
+  function renderWorld() {
+    const on = !!game.online, s = worldState(game), names = game.data.realms.names;
+    $('social-sub').textContent = note || (on ? s.err || w.sub : w.offline);
+    const log = $('social-log'), atEnd = log.scrollTop + log.clientHeight >= log.scrollHeight - 8;
+    log.innerHTML = '';
+    if (!s.list.length) log.append(el('div', 'empty', on ? w.empty : w.offline));
+    for (const m of s.list) {
+      const d = el('div', m.la_toi ? 'me' : null);
+      if (m.canh_gioi != null) d.append(el('small', null, `[${names[m.canh_gioi]}] `));
+      d.append(el('b', null, m.ten), m.chu); log.append(d);
+    }
+    if (atEnd) log.scrollTop = log.scrollHeight;
+    $('social-input').disabled = $('social-send').disabled = !on;
   }
 
   function render() {
+    if (tab === 'world') { renderWorld(); return; }
     const on = !!game.online;
     $('social-sub').textContent = note || (on ? c.here.replace('{n}', game.others.visible().length) : c.offline);
     const em = $('social-emotes'); em.innerHTML = '';
@@ -52,21 +74,28 @@ export function createSocialPanel(game) {
   $('social-input').placeholder = c.placeholder;
   $('social-send').textContent = c.send;
   $('social-close').onclick = close;
-  $('social-form').onsubmit = ev => {
+  $('social-form').onsubmit = async ev => {
     ev.preventDefault();
     const inp = $('social-input');
+    if (tab === 'world') {
+      const text = inp.value; inp.value = '';
+      note = await sendWorld(game, text);
+      if (note) inp.value = text;
+      render(); return;
+    }
     note = sendChat(game, inp.value);
     if (!note) inp.value = '';
     render();
   };
   for (const b of document.querySelectorAll('#social-tabs [data-tab]')) {
-    b.textContent = b.dataset.tab === 'chat' ? S.rank.chat_tab : S.rank.tab;
+    b.textContent = { chat: S.rank.chat_tab, world: w.tab, rank: S.rank.tab }[b.dataset.tab];
     b.onclick = () => showTab(b.dataset.tab);
   }
   $('btn-social').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   setInterval(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
     $('social-badge').hidden = !game.chatNew || !$('social').hidden;
     if (!$('social').hidden && game.chatNew && tab === 'chat') render();
+    if (!$('social').hidden && tab === 'world' && Date.now() - pullT > w.poll * 1000) { pullT = Date.now(); pullWorld(game).then(n => n && tab === 'world' && render()); }
   }, 500);
   return { open, close };
 }
