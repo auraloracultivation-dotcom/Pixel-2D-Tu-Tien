@@ -16,6 +16,7 @@ from fx_proj import proj_sprites  # noqa: E402
 from heroes import sheet, foot, trim_above  # noqa: E402
 import world as W  # noqa: E402
 from mobs import mob_frames  # noqa: E402
+from npcs import npc_frames  # noqa: E402
 
 clean()
 
@@ -104,6 +105,12 @@ for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.
     if isinstance(_d, dict) and _d.get('look'):
         _f, _a = mob_frames(_d)
         save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): đứng, bước")
+
+
+# ---------------------------------------------------------------- NPC chibi (tools/art/npcs.py): mỗi NPC trong data/npcs.json một tấm
+for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'npcs.json').read_text(encoding='utf-8')).items():
+    if isinstance(_d, dict) and _d.get('name'):
+        save('npc.' + _id, npc_frames(_d), (11, 23), f"{_d['name']}: đứng, nhún, bước A, bước B")
 
 
 # ---------------------------------------------------------------- kiếm bay (45°)
