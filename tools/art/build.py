@@ -9,12 +9,17 @@ sys.path.insert(0, str(Path(__file__).parent))
 from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noqa: E402
 from chars import CHARS, draw  # noqa: E402
 from fx import slash_frames, spark_frames, puff_frames  # noqa: E402
+from heroes import strip  # noqa: E402
 
 clean()
 
 # ---------------------------------------------------------------- nhân vật (4 khung: đứng, nhún, bước trái, bước phải)
 for sid, spec in CHARS.items():
     save(sid, [draw(spec, f) for f in range(4)], (11, 23), f"{spec['name']} — khung: đứng, nhún, bước A, bước B")
+
+# ---------------------------------------------------------------- nhân vật chính dùng tạm từ ảnh chủ dự án (data/heroes.json)
+_f, _a = strip('nu-day', 6)
+save('hero.nu', _f, _a, 'nữ tóc trắng cầm giáo (ảnh chủ dự án): đứng, đi ×3, đâm, ngã')
 
 # ---------------------------------------------------------------- nền 16×16
 G = {k: hx(v) for k, v in dict(d='#245a3c', b='#3a8a52', l='#4fa463', t='#7cc96a').items()}

@@ -16,6 +16,7 @@ import { drawDecor } from './draw-decor.js';
 import { drawCritters } from './draw-critter.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
+import { drawHero } from './draw-hero.js';
 
 const INK = '#1b1830';
 
@@ -53,10 +54,12 @@ function drawPlayer(ctx, game, t) {
     ctx.beginPath(); ctx.arc(p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
   }
   drawAura(ctx, game, p, t);
-  const fit = outfit(game);
-  drawPerson(ctx, p, fit.robe, fit.hair, t, p.flash > 0, p.face);
-  ctx.fillStyle = fit.sash || el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
-  drawWeapon(ctx, p, w);
+  if (!drawHero(ctx, game, p, t, p.flash > 0)) {   // chưa có hình thì vẽ hình khối, màu theo thời trang
+    const fit = outfit(game);
+    drawPerson(ctx, p, fit.robe, fit.hair, t, p.flash > 0, p.face);
+    ctx.fillStyle = fit.sash || el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
+    drawWeapon(ctx, p, w);
+  }
   if (p.shield > 0) { ctx.strokeStyle = p.shieldColor; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 10, 0, Math.PI * 2); ctx.stroke(); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;

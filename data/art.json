@@ -67,6 +67,17 @@
    ],
    "note": "Kiếm Tu — khung: đứng, nhún, bước A, bước B"
   },
+  "hero.nu": {
+   "file": "assets/art/hero-nu.png",
+   "w": 90,
+   "h": 102,
+   "frames": 6,
+   "anchor": [
+    47,
+    100
+   ],
+   "note": "nữ tóc trắng cầm giáo (ảnh chủ dự án): đứng, đi ×3, đâm, ngã"
+  },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
    "w": 13,

@@ -1,0 +1,19 @@
+{
+ "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. height: chiều cao nhân vật trong thế giới (đơn vị bản đồ). anims: danh sách khung, fps: khung mỗi giây.",
+ "default": "nam",
+ "list": {
+  "nam": {
+   "name": "Nam · kiếm tu",
+   "sprite": null,
+   "note": "Chờ tải chuyển động SpriteCook (đứng, đi, chém); tạm vẽ hình khối."
+  },
+  "nu": {
+   "name": "Nữ · thương tu",
+   "sprite": "hero.nu",
+   "height": 34,
+   "anims": { "idle": [0], "walk": [1, 2, 3, 2], "attack": [4], "down": [5] },
+   "fps": { "idle": 1, "walk": 8, "attack": 1, "down": 1 },
+   "bob": 0.6
+  }
+ }
+}
