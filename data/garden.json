@@ -1,5 +1,5 @@
 {
- "_note": "Dược viên trong động phủ. plots: các ô G theo thứ tự mở; có sẵn start luống đầu, luống sau khai hoang bằng Linh Thạch (open_cost theo thứ tự). Mỗi luống nâng cấp riêng (levels: grow_mul nhân thời gian, bonus cộng thêm sản lượng). Cây (crops): min là phút chín ở động phủ sơ khai (động phủ cấp cao rút ngắn theo grow_min của cấp / 15), n là số thu mỗi lần, seed là hạt phải bỏ ra khi gieo, realm là cảnh giới cần. Có đạo lữ thì đạo lữ tự thu hoạch giúp mỗi helper_sec giây.",
+ "_note": "Dược viên trong động phủ. plots: các ô G theo thứ tự mở; có sẵn start luống đầu, luống sau khai hoang bằng Linh Thạch (open_cost theo thứ tự). Mỗi luống nâng cấp riêng (levels: grow_mul nhân thời gian, bonus cộng thêm sản lượng). Cây (crops): min là phút chín ở động phủ sơ khai (động phủ cấp cao rút ngắn theo grow_min của cấp / 15), n là số thu mỗi lần, seed là hạt phải bỏ ra khi gieo, realm là cảnh giới cần. Có đạo lữ thì đạo lữ tự thu hoạch giúp mỗi helper_sec giây. cook: cây dùng nấu ăn (data/cooking.json); tự hành gieo cây nấu ăn đang thiếu vào tối đa cook_plots luống, các luống khác giữ cây luyện đan.",
  "map": "dong-phu",
  "plots": [[2, 8], [3, 8], [5, 8], [6, 8], [2, 9], [3, 9], [5, 9], [6, 9], [12, 8], [13, 8], [12, 9], [13, 9], [2, 10], [3, 10], [5, 10], [6, 10]],
  "start": 8,
@@ -16,7 +16,12 @@
   "hoa-linh-chi": {"name": "Hỏa Linh Chi", "min": 35, "n": 1, "seed": {"hoa-linh-chi": 1}, "realm": 1, "color": "#ff9a3a", "flower": "#ffe27a"},
   "ngoc-lo-hoa": {"name": "Ngọc Lộ Hoa", "min": 45, "n": 1, "seed": {"linh-thao": 3}, "realm": 2, "color": "#b8d8ff", "flower": "#ffffff"},
   "tu-van-sam": {"name": "Tử Vân Sâm", "min": 60, "n": 1, "seed": {"linh-thao": 4, "hoa-linh-chi": 1}, "realm": 4, "color": "#9a6ad8", "flower": "#e8c8ff"},
-  "thai-hu-lien": {"name": "Thái Hư Liên", "min": 90, "n": 1, "seed": {"ngoc-lo-hoa": 2}, "realm": 6, "color": "#6a8ab8", "flower": "#f0f4ff"}
+  "thai-hu-lien": {"name": "Thái Hư Liên", "min": 90, "n": 1, "seed": {"ngoc-lo-hoa": 2}, "realm": 6, "color": "#6a8ab8", "flower": "#f0f4ff"},
+  "linh-mach": {"name": "Linh Mạch", "min": 20, "n": 2, "seed": {"linh-thao": 1}, "cook": true, "color": "#e8d070", "flower": "#fff4b0"},
+  "linh-dau": {"name": "Linh Đậu", "min": 25, "n": 2, "seed": {"linh-thao": 1}, "cook": true, "color": "#6ab86a", "flower": "#d8f0a0"},
+  "hong-qua": {"name": "Hồng Quả", "min": 30, "n": 1, "seed": {"linh-thao": 2}, "realm": 1, "cook": true, "color": "#3a9a4a", "flower": "#ff4a4a"},
+  "kim-tieu": {"name": "Kim Tiêu", "min": 40, "n": 1, "seed": {"hoa-linh-chi": 1}, "realm": 2, "cook": true, "color": "#4a8a3a", "flower": "#ffb020"}
  },
- "helper_sec": 60
+ "helper_sec": 60,
+ "cook_plots": 3
 }
