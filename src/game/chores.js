@@ -11,7 +11,7 @@ import { visitorToday } from './home.js';
 import { visitJob } from './visitors.js';
 import { bestRecipe } from './cooking.js';
 import { anyReady } from './critters.js';
-import { pilotOpt, nightRest } from './pilotopt.js';
+import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -149,7 +149,7 @@ export function choreJob(game, routeTo) {
       const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (k) return { go: k };
     } else if (w.any) {   // hạ quái bất kỳ: đánh con gần nhất, không có thì tới bãi quái, đảo không có bãi thì về Thiên Kiếm Phong
-      const m = game.mobs.filter(m => !m.dead && m.def.ai !== 'boss').sort((a, b) => dist(a, p) - dist(b, p))[0];
+      const m = game.mobs.filter(m => !m.dead && m.def.ai !== 'boss' && !avoided(game, m.id)).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (m) return { fight: m };
       const sp = game.map.def.spawners.find(s => flagOk(game, s));
       if (sp) return { go: game.map.center(sp.at[0], sp.at[1]) };
@@ -166,6 +166,7 @@ export function choreJob(game, routeTo) {
       const j = goPortal(game, routeTo, 'thien-kiem-phong');
       if (j) return j;
     } else if (w.kill) {
+      if (avoided(game, w.kill)) continue;   // vừa gục trước loài này: tạm tránh, làm việc khác
       const sp = spawnerOf(game, w.kill, routeTo);
       if (!sp) continue;   // chỉ có trong bí cảnh: bỏ qua
       if (sp.map !== game.map.id) { const j = goPortal(game, routeTo, sp.map); if (j) return j; continue; }

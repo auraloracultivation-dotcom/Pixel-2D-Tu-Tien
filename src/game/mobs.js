@@ -92,7 +92,7 @@ function rangedThink(game, m, d, dt) {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;
       const a = Math.atan2(p.y - m.y, p.x - m.x);
-      mobShoot(game, { from: 'mob', x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: '#e070ff', life: 2 });
+      mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: '#e070ff', life: 2 });
     }
     return;
   }
@@ -149,7 +149,7 @@ function bossThink(game, m, d, dt) {
       m.tele = null; m.state = 'idle'; m.cd = def.cd;
       for (let i = 0; i < 14; i++) {
         const a = i / 14 * Math.PI * 2 + m.phase * 0.3;
-        mobShoot(game, { from: 'mob', x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
+        mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
       }
     }
   }

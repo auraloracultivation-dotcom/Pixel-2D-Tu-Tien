@@ -7,6 +7,8 @@ export const nightRest = game => {
   const [a, b] = game.data.config.pilot.rest, h = hourNow(game);
   return pilotOpt(game, 'dem') && !!game.save.flags['dong-phu'] && (h >= a || h < b);
 };
+// Loài quái tự hành đang tạm tránh (vừa hạ mình, pilot.js → pilotDied)
+export const avoided = (game, id) => (game.pilot?.avoid?.[id] || 0) > Date.now();
 export function togglePilotOpt(game, id) {
   (game.save.pilotOpt ??= {})[id] = !pilotOpt(game, id);
   game.persist();
