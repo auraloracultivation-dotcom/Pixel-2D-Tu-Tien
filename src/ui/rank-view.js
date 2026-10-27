@@ -26,7 +26,12 @@ export function createRankView(game) {
     return d;
   }
 
-  function msg(text) { const L = $('rank-list'); L.innerHTML = ''; L.append(el('div', 'empty', text)); }
+  function msg(text, retry) {
+    const L = $('rank-list'); L.innerHTML = '';
+    const d = el('div', 'empty', text);
+    if (retry) { const b = el('button', null, R.retry); b.onclick = () => render(true); d.append(document.createElement('br'), b); }
+    L.append(d);
+  }
 
   async function render(force) {
     const tabs = $('rank-tabs'); tabs.innerHTML = '';
@@ -40,7 +45,7 @@ export function createRankView(game) {
     msg(R.loading);
     const my = ++ticket;
     let data;
-    try { data = await loadRank(game, kind, force); } catch { if (my === ticket) msg(R.error); return; }
+    try { data = await loadRank(game, kind, force); } catch { if (my === ticket) msg(R.error, true); return; }
     if (my !== ticket) return;
     const L = $('rank-list'); L.innerHTML = '';
     if (!data?.top?.length) return msg(R.empty);

@@ -16,7 +16,7 @@
   "tab": "Xếp hạng", "chat_tab": "Trò chuyện",
   "tabs": [{"id": "luc_chien", "label": "Lực chiến"}, {"id": "canh_gioi", "label": "Cảnh giới"}, {"id": "thap", "label": "Tháp"}],
   "titles": {"luc_chien": "bxh-luc-chien", "canh_gioi": "bxh-canh-gioi", "thap": "bxh-thap"},
-  "loading": "Đang tải bảng xếp hạng...", "error": "Chưa tải được bảng xếp hạng, thử lại sau nhé.",
+  "loading": "Đang tải bảng xếp hạng...", "error": "Chưa tải được bảng xếp hạng.", "retry": "Thử lại",
   "offline": "Đăng nhập để xem bảng xếp hạng.", "empty": "Chưa có ai trên bảng này.",
   "me": "Bạn đang hạng {n}.", "me_none": "Bạn chưa có tên trên bảng này.",
   "note": "Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
