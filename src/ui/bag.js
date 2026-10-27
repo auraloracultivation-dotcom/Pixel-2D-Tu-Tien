@@ -1,6 +1,6 @@
 // Túi đồ: ô đang mặc, danh sách đồ và ngọc, chi tiết món đồ với mặc/tháo, tẩy luyện, khảm ngọc, phân giải.
 import {
-  ensureInv, equip, unequip, salvage, reroll, rerollFee, socket, unsocket, mergeGems,
+  ensureInv, equip, unequip, salvage, reroll, rerollFee, socket, unsocket, mergeGems, gemMergeFee,
   gemInfo, rarityOf, itemName, statText, gearStats,
 } from '../game/items.js';
 import { salvageIron, matInfo } from '../game/cave.js';
@@ -75,8 +75,8 @@ export function createBag(game) {
         b.onclick = () => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.pickSocket = null; st.tab = 'do'; changed(); };
         row.append(b);
       } else if (gi.lv < data.items.gems.max_level) {
-        const b = el('button', 'mini', `Ghép ${data.items.gems.merge}→1`);
-        b.disabled = save().gems[k] < data.items.gems.merge;
+        const fee = gemMergeFee(data, gi.lv), b = el('button', 'mini', `Ghép ${data.items.gems.merge}→1 (${fee.toLocaleString('vi-VN')} ${data.shop.name})`);
+        b.disabled = save().gems[k] < data.items.gems.merge || (save().lingshi || 0) < fee;
         b.onclick = () => { if (mergeGems(data, save(), k)) { game.sfx('levelup'); changed(); } };
         row.append(b);
       }

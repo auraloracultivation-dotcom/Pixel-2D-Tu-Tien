@@ -25,6 +25,6 @@ export function autoGem(game) {
     return;
   }
   if (equipped(s).some(it => it.sockets.includes(null))) return;
-  const k = keys.find(x => mergeGems(d, s, x));
+  const k = keys.find(x => mergeGems(d, s, x, d.config.pilot.garden_keep));   // luôn chừa lại một ít Linh Thạch
   if (k) { game.persist(); game.toast(`Tự ghép ngọc: ${gemInfo(d, k).name} thành cấp ${gemInfo(d, k).lv + 1}`, 1.8); }
 }
