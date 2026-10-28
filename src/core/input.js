@@ -12,26 +12,43 @@ const AIM_DEAD = 14; // px kéo tối thiểu để tính là tự ngắm
 export function createInput(canvas) {
   const inp = { joy: null, taps: [], keys: new Set(), held: new Set(), pressed: new Set() };
 
+  // Cần gạt kẹt chạy một hướng (chủ dự án báo 28/10): khi điện thoại làm rơi sự kiện nhấc tay (bảng, hộp thoại hiện lên dưới ngón,
+  // vuốt ra mép màn, đa chạm), cần gạt cũ còn treo và chặn luôn lần chạm mới. Nên: nhấc tay ở đâu cũng nhận (window), mất giữ con trỏ
+  // thì thả, không còn ngón nào trên màn hoặc ngón vừa nhấc ở đúng chỗ cần gạt thì thả, lần chạm mới khi màn trống thì thay cần gạt cũ.
+  let fingers = 0;   // số ngón đang chạm theo touch events (trước lần chạm đang xử lý)
   canvas.addEventListener('pointerdown', e => {
     e.preventDefault();
+    if (inp.joy && e.pointerType === 'touch' && fingers === 0) inp.joy = null;   // cần gạt treo từ lần chạm trước
     if (!inp.joy && e.clientX < window.innerWidth * 0.6) {
       inp.joy = { id: e.pointerId, ox: e.clientX, oy: e.clientY, x: e.clientX, y: e.clientY, t: performance.now() };
-      canvas.setPointerCapture?.(e.pointerId);
+      try { canvas.setPointerCapture?.(e.pointerId); } catch { /* con trỏ đã nhả trước khi kịp giữ: nhấc tay ở window vẫn thả cần gạt */ }
     } else {
       inp.taps.push({ x: e.clientX, y: e.clientY });
     }
   });
-  canvas.addEventListener('pointermove', e => {
-    if (inp.joy && e.pointerId === inp.joy.id) { inp.joy.x = e.clientX; inp.joy.y = e.clientY; }
-  });
+  window.addEventListener('pointermove', e => {
+    const j = inp.joy;
+    if (!j || e.pointerId !== j.id) return;
+    if (e.pointerType === 'mouse' && e.buttons === 0) { inp.joy = null; return; }   // chuột đã nhả ngoài cửa sổ
+    j.x = e.clientX; j.y = e.clientY;
+  }, true);
   const end = e => {
     const j = inp.joy;
     if (!j || e.pointerId !== j.id) return;
-    if (Math.hypot(j.x - j.ox, j.y - j.oy) < 10 && performance.now() - j.t < 300) inp.taps.push({ x: j.x, y: j.y });
+    if (e.type === 'pointerup' && Math.hypot(j.x - j.ox, j.y - j.oy) < 10 && performance.now() - j.t < 300) inp.taps.push({ x: j.x, y: j.y });
     inp.joy = null;
   };
-  canvas.addEventListener('pointerup', end);
-  canvas.addEventListener('pointercancel', end);
+  window.addEventListener('pointerup', end, true);
+  window.addEventListener('pointercancel', end, true);
+  canvas.addEventListener('lostpointercapture', end);
+  const touches = e => {
+    fingers = e.touches.length;
+    const j = inp.joy;
+    if (!j || e.type === 'touchstart') return;
+    if (!fingers) { inp.joy = null; return; }
+    for (const t of e.changedTouches) if (Math.hypot(t.clientX - j.x, t.clientY - j.y) < 40) { inp.joy = null; return; }
+  };
+  for (const ev of ['touchstart', 'touchend', 'touchcancel']) window.addEventListener(ev, touches, { capture: true, passive: true });
 
   inp.aim = {};      // hướng ngắm khi thả nút chiêu sau khi kéo (null = tự ngắm)
   inp.aiming = null; // đang kéo nút chiêu để ngắm: {act, x, y} (đã chuẩn hoá)
@@ -74,7 +91,9 @@ export function createInput(canvas) {
     const act = KEYMAP[e.code];
     if (act) inp.held.delete(act);
   });
-  window.addEventListener('blur', () => { inp.keys.clear(); inp.held.clear(); inp.joy = null; });
+  const reset = () => { inp.keys.clear(); inp.held.clear(); inp.joy = null; fingers = 0; };
+  window.addEventListener('blur', reset);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
 
   inp.axis = () => {
     let x = 0, y = 0;
