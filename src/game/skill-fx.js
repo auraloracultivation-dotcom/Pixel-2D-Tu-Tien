@@ -1,4 +1,4 @@
-// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash | vine | rock | wind | arrow | sound | liem (chỉ có hình đạn bay; liem trúng thì vệt chém); tự thân: heal | shield | shield-earth | buff). Vẽ ở src/render/draw-sprite-fx.js.
+// Hiệu ứng hình pixel của chiêu (data/skills.json: fx = fire | ice | bolt | slash | vine | rock | wind | arrow | sound | liem (đạn bay có hình; trúng: arrow tia sáng, sound vòng âm ba, liem vệt chém); tự thân: heal | shield | shield-earth | buff). Vẽ ở src/render/draw-sprite-fx.js.
 import { addFx } from './combat.js';
 
 // Nổ một lần tại (x, y), r: bán kính vùng trúng; ang: hướng chém (slash)
@@ -26,6 +26,11 @@ export function burstFx(game, kind, x, y, r, ang = 0) {
     }
   } else if (kind === 'wind') {
     addFx(game, { type: 'sprite', id: 'fx.wind', x, y: y + 4, s: Math.max(0.5, r / 20), life: 0.5, fps: 20, fade: true });
+  } else if (kind === 'arrow') {   // tên cắm: tia sáng nhỏ màu thân tên
+    addFx(game, { type: 'spark', x, y, color: '#f0d090', life: 0.25 });
+  } else if (kind === 'sound') {   // âm ba: vòng tím lan ra, tia trắng ở tâm
+    addFx(game, { type: 'ring', x, y: y - 4, r: Math.max(10, r), color: '#d8b0ff', life: 0.4 });
+    addFx(game, { type: 'spark', x, y, color: '#f4e8ff', life: 0.25 });
   }
 }
 
