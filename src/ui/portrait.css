@@ -1,0 +1,3 @@
+/* Chân dung NPC (src/ui/portrait.js): nhô lên trên mép hộp thoại, bên trái. */
+#dialog { overflow: visible; }
+.npc-portrait { position: absolute; left: 10px; bottom: 100%; margin-bottom: -6px; image-rendering: pixelated; pointer-events: none; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
