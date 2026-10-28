@@ -1,5 +1,6 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; height: 100%; overflow: hidden; background: #9fd8f0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1b1830; user-select: none; -webkit-user-select: none; touch-action: none; }
+button { color: #1b1830; }   /* iPhone tự tô chữ nút màu xanh hệ thống: giữ màu mực ấm của game, không kiểu ứng dụng */
 canvas#game { position: fixed; inset: 0; display: block; }
 [hidden] { display: none !important; }
 
