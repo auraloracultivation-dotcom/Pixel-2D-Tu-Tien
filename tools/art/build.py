@@ -30,6 +30,8 @@ from mobs import mob_frames  # noqa: E402
 from npcs import npc_frames  # noqa: E402
 from gear import gear_icon  # noqa: E402
 from pets import pet_frames, mount_frames  # noqa: E402
+import ai_sprites  # noqa: E402
+from px import MANIFEST  # noqa: E402
 
 clean()
 
@@ -278,6 +280,9 @@ def digit(bits, col):
 
 save('ui.digits', [digit(b, hx('#ffffff')) for b in DIG], (0, 0), 'số 0–9 trắng')
 save('ui.digits-crit', [digit(b, hx('#ffd84a')) for b in DIG], (0, 0), 'số 0–9 vàng (bạo kích)')
+
+# ---------------------------------------------------------------- ảnh Canva thay hình code (tools/art/ai_sprites.py, nguon/ai/sheets.json)
+print('ảnh Canva:', ai_sprites.apply(MANIFEST, save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

@@ -1,0 +1,14 @@
+{
+ "_note": "Chân dung NPC hiện phía trên hộp thoại khi NPC nói (chủ dự án mở luật ảnh AI 28/10/2026). Ảnh tạo bằng Canva, đưa về chuẩn pixel bằng tools/art/ai_import.py (--h 42 --colors 14; câu lệnh \"simple low-resolution 32x32 pixel art ... big chunky pixels, at most 10 colors\", nền phẳng màu hồng / xanh để tách nền dễ; chủ dự án muốn pixel thô, không nét quá), ảnh gốc ở tools/art/nguon/ai/chan-dung/, ảnh dùng ở assets/art/portraits/<id>.png. list: id NPC trong data/npcs.json đã có chân dung. scale: phóng nguyên lần khi hiện. Tên người nói trong hộp thoại so với name của NPC (bỏ phần trong ngoặc).",
+ "scale": 2,
+ "list": [
+  "truong-thon",
+  "tieu-hoa",
+  "van-hac",
+  "lac-tuyet",
+  "tieu-dao",
+  "ho-linh",
+  "lao-thiet",
+  "ma-ton"
+ ]
+}

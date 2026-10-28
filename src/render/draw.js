@@ -35,6 +35,7 @@ import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
 import { drawAim } from './draw-aim.js';
+import { actFrame, drawAct, isAct } from './draw-acts.js';
 
 const INK = '#1b1830';
 
@@ -87,11 +88,13 @@ function drawPlayer(ctx, game, t) {
 }
 
 // Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo
-function drawComp(ctx, e, t) {
+function drawComp(ctx, e, t, art) {
   const calm = e.sleep && !e.moving;
   if (calm) {
     ctx.globalAlpha = 0.3 + 0.2 * Math.sin(t * 2.4 + 1); ring(ctx, e.x, e.y - 6, 10 + Math.sin(t * 1.6) * 1.5, e.npc.color); ctx.globalAlpha = 1;
   }
+  const id = 'comp.' + e.id;   // ảnh 6 động tác (draw-acts.js): đứng, bước, lấy đà, đánh
+  if (isAct(art, id) && drawAct(ctx, art, id, actFrame(art.sprites[id], e, t, e.def.cd), e.x, e.y + 1, e.face < 0 ? -1 : 1)) return;
   drawPerson(ctx, e, e.npc.color, e.npc.hair || '#5a4a86', t, false, calm ? { x: 0, y: -1 } : { x: e.face, y: 0.3 });
   if (calm) { ctx.fillStyle = INK; ctx.fillRect(e.x - 2, e.y - 10.4, 1.4, 0.7); ctx.fillRect(e.x + 0.6, e.y - 10.4, 1.4, 0.7); }   // mắt nhắm
 }
@@ -282,7 +285,7 @@ export function drawWorld(game, screen, t) {
     else if (k === 'c') drawCorpse(ctx, game, e);
     else if (k === 'o') drawOther(ctx, e, game, t);
     else if (k === 'pet') drawPet(ctx, e, t, game.data.art);
-    else if (k === 'comp') drawComp(ctx, e, t);
+    else if (k === 'comp') drawComp(ctx, e, t, game.data.art);
     else drawPlayer(ctx, game, t);
   }
   drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm

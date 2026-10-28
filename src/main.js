@@ -10,6 +10,7 @@ import { createLogin } from './ui/login.js';
 import { createAudio } from './core/audio.js';
 import { clickSounds } from './ui/click-sound.js';
 import { createRecord } from './game/record.js';
+import { createPortraits } from './ui/portrait.js';
 import { createZalo } from './ui/zalo.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
@@ -52,6 +53,7 @@ async function boot() {
   clickSounds(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   createRecord(game, audio).catch(() => {});   // nút quay clip cạnh nút tiếng (data/record.json); lỗi thì game vẫn chạy
+  createPortraits(game).catch(() => {});   // chân dung NPC trên hộp thoại (data/portraits.json)
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }

@@ -1,0 +1,10 @@
+{
+ "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. bo-cu/: bản thử cũ (nhìn ngang, 2 khung) không dùng.",
+ "pet.hoa-lang": {
+  "src": "sheets/pet-hoa-lang.png",
+  "acts": true,
+  "h": 32,
+  "key": "magenta",
+  "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10)"
+ }
+}

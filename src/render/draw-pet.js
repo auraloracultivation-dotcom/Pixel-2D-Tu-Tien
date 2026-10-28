@@ -1,6 +1,7 @@
 // Linh thú đi theo, thú cưỡi dưới chân người chơi, vầng sáng quanh quái dị chủng.
 // Linh thú, thú cưỡi có hình pixel pet.<id>, mount.<id> (tools/art/pets.py); chưa có hình thì vẽ hình khối như cũ.
 import { spriteImage } from './sprites.js';
+import { ACT, actFrame, drawAct, isAct, UNIT_PER_PX } from './draw-acts.js';
 
 const INK = '#1b1830';
 
@@ -28,6 +29,13 @@ export function drawPet(ctx, pet, t, art) {
 }
 
 function drawBody(ctx, pet, t, art) {
+  const id = 'pet.' + pet.id;
+  if (isAct(art, id)) {   // ảnh 6 động tác: ngủ dùng khung nằm, vừa ra đòn thì lấy đà rồi đánh
+    const f = pet.sleep && !pet.moving ? ACT.down : actFrame(art.sprites[id], pet, t, pet.def.cd);
+    ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 7, 2.2, 0, 0, Math.PI * 2); ctx.fill();
+    drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1, f === ACT.idle && Math.sin(t * 3) > 0.6 ? 0.5 : 0);
+    return;
+  }
   if (pet.sleep && !pet.moving) { drawSleep(ctx, pet, t); return; }
   const hop = pet.moving ? Math.abs(Math.sin(pet.hop)) * 2 : Math.sin(t * 3) * 0.5, y = pet.y - hop;
   ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
@@ -57,6 +65,11 @@ function drawSleep(ctx, pet, t) {
 export function drawMount(ctx, p, m, t, art, id) {
   const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
   ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
+  if (isAct(art, 'mount.' + id)) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi theo ~58% chiều cao hình
+    const spr = art.sprites['mount.' + id];
+    drawAct(ctx, art, 'mount.' + id, p.moving ? ACT.walk[Math.floor(p.walkT * 7) % 2] : ACT.idle, p.x, p.y + 1, dir);
+    return Math.round(spr.h * UNIT_PER_PX * 0.58);
+  }
   if (sprite(ctx, art, 'mount.' + id, p.moving ? Math.floor(p.walkT * 8) : 0, p.x, p.y + 1, dir)) return 11;
   ctx.fillStyle = INK;
   for (const [lx, ph] of [[-6, 1], [-3, -1], [3, 1], [6, -1]]) ctx.fillRect(p.x + lx - 0.5, p.y - 4 + step * ph * 0.5, 2, 5);
