@@ -1,6 +1,110 @@
 {
  "_note": "Sinh bằng tools/art/build.py — không sửa tay. Mỗi hình 1× (1 art px), nhiều khung xếp ngang.",
  "sprites": {
+  "comp.ho-linh": {
+   "file": "assets/art/comp-ho-linh.png",
+   "v": "6e2661e4",
+   "w": 43,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    21,
+    42
+   ],
+   "note": "Hồ Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.lac-tuyet": {
+   "file": "assets/art/comp-lac-tuyet.png",
+   "v": "c2eecb4c",
+   "w": 37,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    18,
+    42
+   ],
+   "note": "Sư tỷ Lạc Tuyết (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.mac-anh": {
+   "file": "assets/art/comp-mac-anh.png",
+   "v": "8156f5aa",
+   "w": 38,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    19,
+    42
+   ],
+   "note": "Mặc Ảnh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.thach-sinh": {
+   "file": "assets/art/comp-thach-sinh.png",
+   "v": "6c7db84a",
+   "w": 40,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    20,
+    42
+   ],
+   "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.thanh-diep": {
+   "file": "assets/art/comp-thanh-diep.png",
+   "v": "8559d4fa",
+   "w": 41,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    20,
+    42
+   ],
+   "note": "Thanh Diệp (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.thiet-lan": {
+   "file": "assets/art/comp-thiet-lan.png",
+   "v": "4a914605",
+   "w": 44,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    22,
+    42
+   ],
+   "note": "Thiết Lan (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.tieu-dao": {
+   "file": "assets/art/comp-tieu-dao.png",
+   "v": "bdfb3d3b",
+   "w": 40,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    20,
+    42
+   ],
+   "note": "Sư huynh Tiêu Dao (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
+  "comp.tieu-hoa": {
+   "file": "assets/art/comp-tieu-hoa.png",
+   "v": "f2447ca4",
+   "w": 36,
+   "h": 44,
+   "frames": 6,
+   "anchor": [
+    18,
+    42
+   ],
+   "note": "Tiểu Hỏa (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333
+  },
   "decal.dirt": {
    "file": "assets/art/decal-dirt.png",
    "v": "f04d865f",
@@ -2315,55 +2419,79 @@
   },
   "mount.bach-loc": {
    "file": "assets/art/mount-bach-loc.png",
-   "v": "28a9f6ac",
-   "w": 56,
-   "h": 79,
-   "frames": 4,
+   "v": "6e2056dc",
+   "w": 70,
+   "h": 66,
+   "frames": 6,
    "anchor": [
-    28,
-    77
+    35,
+    64
    ],
-   "note": "Bạch Lộc: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva",
-   "scale": 0.5333
+   "note": "Bạch Lộc (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333,
+   "walk": [
+    1,
+    2,
+    3,
+    4
+   ]
   },
   "mount.hoa-ky-lan": {
    "file": "assets/art/mount-hoa-ky-lan.png",
-   "v": "08f2aef8",
-   "w": 72,
-   "h": 79,
-   "frames": 4,
+   "v": "97d182df",
+   "w": 84,
+   "h": 60,
+   "frames": 6,
    "anchor": [
-    36,
-    77
+    42,
+    58
    ],
-   "note": "Hỏa Kỳ Lân: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva",
-   "scale": 0.5333
+   "note": "Hỏa Kỳ Lân (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333,
+   "walk": [
+    1,
+    2,
+    3,
+    4
+   ]
   },
   "mount.phong-lang": {
    "file": "assets/art/mount-phong-lang.png",
-   "v": "3265f6c1",
-   "w": 91,
-   "h": 79,
-   "frames": 4,
+   "v": "b4b64c4f",
+   "w": 92,
+   "h": 56,
+   "frames": 6,
    "anchor": [
-    45,
-    77
+    46,
+    54
    ],
-   "note": "Phong Lang: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva",
-   "scale": 0.5333
+   "note": "Phong Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333,
+   "walk": [
+    1,
+    2,
+    3,
+    4
+   ]
   },
   "mount.tuyet-ly": {
    "file": "assets/art/mount-tuyet-ly.png",
-   "v": "3ae6e554",
-   "w": 91,
-   "h": 79,
-   "frames": 4,
+   "v": "1734e59d",
+   "w": 83,
+   "h": 56,
+   "frames": 6,
    "anchor": [
-    45,
-    77
+    41,
+    54
    ],
-   "note": "Tuyết Ly: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva",
-   "scale": 0.5333
+   "note": "Tuyết Ly (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "scale": 0.5333,
+   "walk": [
+    1,
+    2,
+    3,
+    4
+   ]
   },
   "npc.a-moc": {
    "file": "assets/art/npc-a-moc.png",
@@ -3099,158 +3227,158 @@
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",
-   "v": "cb955856",
-   "w": 23,
-   "h": 28,
-   "frames": 4,
+   "v": "c663e3ac",
+   "w": 45,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    11,
-    26
+    22,
+    32
    ],
-   "note": "Băng Tinh Nhi: đứng, bước · ảnh Canva",
+   "note": "Băng Tinh Nhi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.hoa-lang": {
    "file": "assets/art/pet-hoa-lang.png",
-   "v": "19b13625",
-   "w": 55,
+   "v": "0e7e6e50",
+   "w": 34,
    "h": 32,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    27,
+    17,
     30
    ],
-   "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10) · ảnh AI 6 động tác",
+   "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.hu-anh": {
    "file": "assets/art/pet-hu-anh.png",
-   "v": "a3caf680",
-   "w": 34,
-   "h": 38,
-   "frames": 4,
+   "v": "bfa71ad4",
+   "w": 47,
+   "h": 30,
+   "frames": 7,
    "anchor": [
-    17,
-    36
+    23,
+    28
    ],
-   "note": "Tiểu U Ảnh: đứng, bước · ảnh Canva",
+   "note": "Tiểu U Ảnh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.kiem-hon": {
    "file": "assets/art/pet-kiem-hon.png",
-   "v": "05b14e42",
-   "w": 60,
-   "h": 38,
-   "frames": 4,
+   "v": "6f6310d0",
+   "w": 50,
+   "h": 36,
+   "frames": 7,
    "anchor": [
-    30,
-    36
+    25,
+    34
    ],
-   "note": "Tiểu Kiếm Linh: đứng, bước · ảnh Canva",
+   "note": "Tiểu Kiếm Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.ma-cung": {
    "file": "assets/art/pet-ma-cung.png",
-   "v": "94826742",
-   "w": 31,
-   "h": 38,
-   "frames": 4,
+   "v": "c75cbdc6",
+   "w": 45,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    15,
-    36
+    22,
+    32
    ],
-   "note": "Ma Tiễn Đồng: đứng, bước · ảnh Canva",
+   "note": "Ma Tiễn Đồng (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.ma-tieu": {
    "file": "assets/art/pet-ma-tieu.png",
-   "v": "cfa171fb",
-   "w": 28,
-   "h": 38,
-   "frames": 4,
+   "v": "76c392e6",
+   "w": 33,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    14,
-    36
+    16,
+    32
    ],
-   "note": "Tiểu Quỷ: đứng, bước · ảnh Canva",
+   "note": "Tiểu Quỷ (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.moc-linh": {
    "file": "assets/art/pet-moc-linh.png",
-   "v": "fb2bfb52",
-   "w": 25,
-   "h": 28,
-   "frames": 4,
+   "v": "1ceffcf3",
+   "w": 34,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    12,
-    26
+    17,
+    32
    ],
-   "note": "Tiểu Mộc Linh: đứng, bước · ảnh Canva",
+   "note": "Tiểu Mộc Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.moc-yeu": {
    "file": "assets/art/pet-moc-yeu.png",
-   "v": "0d371050",
-   "w": 24,
+   "v": "99335e56",
+   "w": 40,
    "h": 34,
-   "frames": 4,
+   "frames": 7,
    "anchor": [
-    12,
+    20,
     32
    ],
-   "note": "Tiểu Thụ Yêu: đứng, bước · ảnh Canva",
+   "note": "Tiểu Thụ Yêu (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.phong-yeu": {
    "file": "assets/art/pet-phong-yeu.png",
-   "v": "acf0ce07",
-   "w": 41,
-   "h": 38,
-   "frames": 4,
+   "v": "9e0b9a88",
+   "w": 45,
+   "h": 32,
+   "frames": 7,
    "anchor": [
-    20,
-    36
+    22,
+    30
    ],
-   "note": "Tiểu Phong Yêu: đứng, bước · ảnh Canva",
+   "note": "Tiểu Phong Yêu (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.tho-khoi": {
    "file": "assets/art/pet-tho-khoi.png",
-   "v": "1d801d35",
-   "w": 29,
-   "h": 34,
-   "frames": 4,
+   "v": "ad6bcf32",
+   "w": 51,
+   "h": 32,
+   "frames": 7,
    "anchor": [
-    14,
-    32
+    25,
+    30
    ],
-   "note": "Tiểu Thạch Khôi: đứng, bước · ảnh Canva",
+   "note": "Tiểu Thạch Khôi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.tuyet-lang": {
    "file": "assets/art/pet-tuyet-lang.png",
-   "v": "75d9e7b3",
-   "w": 31,
+   "v": "60e75c2e",
+   "w": 44,
    "h": 30,
-   "frames": 4,
+   "frames": 7,
    "anchor": [
-    15,
+    22,
     28
    ],
-   "note": "Tiểu Tuyết Lang: đứng, bước · ảnh Canva",
+   "note": "Tiểu Tuyết Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.viem-linh": {
    "file": "assets/art/pet-viem-linh.png",
-   "v": "af2f589b",
-   "w": 22,
-   "h": 28,
-   "frames": 4,
+   "v": "a8fb0f9a",
+   "w": 35,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    11,
-    26
+    17,
+    32
    ],
-   "note": "Viêm Linh Nhi: đứng, bước · ảnh Canva",
+   "note": "Viêm Linh Nhi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "proj.arrow": {

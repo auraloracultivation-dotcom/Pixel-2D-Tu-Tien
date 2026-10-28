@@ -1,146 +1,350 @@
 {
- "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét.",
+ "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét. Ảnh chủ dự án 28/10 (12 linh thú, 4 thú cưỡi, gốc ở goc/): grid chia khung, order xếp ô thành khung (0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu), hop: ảnh 1 dáng thì bước nhảy 1 điểm ảnh, walk: thứ tự khung khi đi (thú cưỡi 4 bước), shadow false: giữ màu tím sẫm.",
  "pet.hoa-lang": {
   "src": "sheets/pet-hoa-lang.png",
   "acts": true,
   "h": 32,
   "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
   "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10)"
  },
  "pet.moc-linh": {
   "src": "sheets/pet-moc-linh.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
-   4,
+   1,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Tiểu Mộc Linh (ảnh chủ dự án gửi 28/10)"
  },
  "pet.ma-tieu": {
   "src": "sheets/pet-ma-tieu.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
-   4,
+   1,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Tiểu Quỷ (ảnh chủ dự án gửi 28/10)",
+  "shadow": false
  },
  "pet.viem-linh": {
   "src": "sheets/pet-viem-linh.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
-   4,
+   1,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Viêm Linh Nhi (ảnh chủ dự án gửi 28/10)"
  },
  "pet.ma-cung": {
   "src": "sheets/pet-ma-cung.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Ma Tiễn Đồng (ảnh chủ dự án gửi 28/10)"
  },
  "pet.tuyet-lang": {
   "src": "sheets/pet-tuyet-lang.png",
+  "acts": true,
+  "h": 30,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu Tuyết Lang (ảnh chủ dự án gửi 28/10)"
  },
  "pet.moc-yeu": {
   "src": "sheets/pet-moc-yeu.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu Thụ Yêu (ảnh chủ dự án gửi 28/10)"
  },
  "pet.kiem-hon": {
   "src": "sheets/pet-kiem-hon.png",
+  "acts": true,
+  "h": 36,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu Kiếm Linh (ảnh chủ dự án gửi 28/10)"
  },
  "pet.tho-khoi": {
   "src": "sheets/pet-tho-khoi.png",
+  "acts": true,
+  "h": 32,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu Thạch Khôi (ảnh chủ dự án gửi 28/10)"
  },
  "pet.hu-anh": {
   "src": "sheets/pet-hu-anh.png",
+  "acts": true,
+  "h": 30,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu U Ảnh (ảnh chủ dự án gửi 28/10)",
+  "shadow": false
  },
  "pet.phong-yeu": {
   "src": "sheets/pet-phong-yeu.png",
+  "acts": true,
+  "h": 32,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Tiểu Phong Yêu (ảnh chủ dự án gửi 28/10)"
  },
  "pet.bang-tinh": {
   "src": "sheets/pet-bang-tinh.png",
+  "acts": true,
+  "h": 34,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.1,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   0,
+   3
+  ],
+  "note": "Băng Tinh Nhi (ảnh chủ dự án gửi 28/10)"
  },
  "mount.bach-loc": {
   "src": "sheets/mount-bach-loc.png",
+  "acts": true,
+  "h": 66,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.2,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   2,
+   3,
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "note": "Bạch Lộc (ảnh chủ dự án gửi 28/10)"
  },
  "mount.phong-lang": {
   "src": "sheets/mount-phong-lang.png",
+  "acts": true,
+  "h": 56,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.2,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   2,
+   3,
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "note": "Phong Lang (ảnh chủ dự án gửi 28/10)"
  },
  "mount.hoa-ky-lan": {
   "src": "sheets/mount-hoa-ky-lan.png",
+  "acts": true,
+  "h": 60,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.2,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   2,
+   3,
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "note": "Hỏa Kỳ Lân (ảnh chủ dự án gửi 28/10)"
  },
  "mount.tuyet-ly": {
   "src": "sheets/mount-tuyet-ly.png",
+  "acts": true,
+  "h": 56,
+  "key": "magenta",
   "grid": [
    4,
    1
   ],
-  "scale": 1.2,
-  "hd": true
+  "order": [
+   0,
+   0,
+   1,
+   2,
+   3,
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "note": "Tuyết Ly (ảnh chủ dự án gửi 28/10)"
  },
  "mob.huyet-nha": {
   "src": "sheets/mob-huyet-nha.png",
@@ -373,5 +577,174 @@
    3
   ],
   "scale": 1.6
+ },
+ "comp.tieu-hoa": {
+  "src": "sheets/comp-tieu-hoa.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Tiểu Hỏa (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.lac-tuyet": {
+  "src": "sheets/comp-lac-tuyet.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Sư tỷ Lạc Tuyết (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.ho-linh": {
+  "src": "sheets/comp-ho-linh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Hồ Linh (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.mac-anh": {
+  "src": "sheets/comp-mac-anh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Mặc Ảnh (ảnh chủ dự án gửi 28/10)",
+  "shadow": false,
+  "colors": 24
+ },
+ "comp.tieu-dao": {
+  "src": "sheets/comp-tieu-dao.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Sư huynh Tiêu Dao (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thanh-diep": {
+  "src": "sheets/comp-thanh-diep.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thanh Diệp (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thiet-lan": {
+  "src": "sheets/comp-thiet-lan.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thiết Lan (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thach-sinh": {
+  "src": "sheets/comp-thach-sinh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
  }
 }

@@ -1,7 +1,7 @@
 // Linh thú đi theo, thú cưỡi dưới chân người chơi, vầng sáng quanh quái dị chủng.
 // Linh thú, thú cưỡi có hình pixel pet.<id>, mount.<id> (tools/art/pets.py); chưa có hình thì vẽ hình khối như cũ.
 import { spriteImage } from './sprites.js';
-import { ACT, actFrame, drawAct, isAct, UNIT_PER_PX } from './draw-acts.js';
+import { ACT, actFrame, drawAct, isAct, walkFrame, UNIT_PER_PX } from './draw-acts.js';
 
 const INK = '#1b1830';
 
@@ -69,7 +69,7 @@ export function drawMount(ctx, p, m, t, art, id) {
   ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
   if (isAct(art, 'mount.' + id)) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
     const spr = art.sprites['mount.' + id];
-    drawAct(ctx, art, 'mount.' + id, p.moving ? ACT.walk[Math.floor(p.walkT * 7) % 2] : ACT.idle, p.x, p.y + 1, dir);
+    drawAct(ctx, art, 'mount.' + id, p.moving ? walkFrame(spr, p.walkT) : ACT.idle, p.x, p.y + 1, dir);
     return Math.round(spr.h * UNIT_PER_PX * 11 / 42);
   }
   if (sprite(ctx, art, 'mount.' + id, p.moving ? Math.floor(p.walkT * 8) : 0, p.x, p.y + 1, dir)) return 11;
