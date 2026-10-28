@@ -207,6 +207,12 @@ for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'npcs.
     if isinstance(_d, dict) and _d.get('name'):
         save('npc.' + _id, npc_frames(_d), (11, 23), f"{_d['name']}: đứng, nhún, bước A, bước B")
 
+# đấu sĩ luận võ (data/arena.json rivals): chibi như NPC theo màu áo, tóc; kiểu tóc xoay vòng, đấu sĩ mạnh (dau-si-ba) có ấn trán
+_STY = ['bun', 'long', 'spiky']
+for _i, _r in enumerate(json.loads((Path(__file__).resolve().parents[2] / 'data' / 'arena.json').read_text(encoding='utf-8'))['rivals']):
+    _d = {'name': _r['name'], 'color': _r['robe'], 'hair': _r['hair'], 'art': {'style': _STY[_i % 3], 'acc': ['mark'] if _r['base'] == 'dau-si-ba' else []}}
+    save('rival.' + _r['id'], npc_frames(_d), (11, 23), f"đấu sĩ {_r['name']} (hạng {_r['rank']}): đứng, nhún, bước A, bước B")
+
 
 # ---------------------------------------------------------------- kiếm bay (45°)
 def sword():

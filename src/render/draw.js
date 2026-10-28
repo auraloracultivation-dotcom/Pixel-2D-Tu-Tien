@@ -28,7 +28,7 @@ import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
-import { drawMobSprite } from './draw-mob-sprite.js';
+import { drawMobSprite, drawRivalSprite } from './draw-mob-sprite.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 
@@ -100,9 +100,11 @@ function drawMob(ctx, m, t, game) {
   if (m.rare) drawRareGlow(ctx, m, t);
   if (m.elite) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
   if (m.def.look && drawMobSprite(ctx, game, m, t, wind)) {   // quái đã có hình pixel (tools/art/mobs.py)
-  } else if (m.def.person) {   // đấu sĩ luận võ: hình người, đai màu theo đối thủ
-    drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
-    ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
+  } else if (m.def.person) {   // đấu sĩ luận võ: chibi pixel theo màu áo tóc (chưa có hình thì hình người, đai màu theo đối thủ)
+    if (!(m.def.rival && drawRivalSprite(ctx, game, m, t, wind))) {
+      drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
+      ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
+    }
     if (wind) { ctx.strokeStyle = '#ff4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(m.x, m.y - 6, 9, 0, Math.PI * 2); ctx.stroke(); }
   } else if (m.def.blade) {   // kiếm hồn: thanh kiếm lơ lửng, mũi hướng về phía lao tới
     const a = Math.atan2(m.fy || 1, m.fx || 0), bob = Math.sin(t * 5 + m.x) * 1.5;
