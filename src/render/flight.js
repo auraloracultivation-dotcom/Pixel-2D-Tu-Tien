@@ -2,6 +2,7 @@
 // hoặc xoáy truyền tống khi ra vào bí cảnh. Trạng thái nằm ở game.trip (src/game/travel.js).
 import { drawPerson } from './draw.js';
 import { drawHero } from './draw-hero.js';
+import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawMount } from './draw-pet.js';
 import { outfit } from '../game/fashion.js';
 import { circle } from '../world/draw-map.js';
@@ -32,7 +33,7 @@ let heroGame = null;
 const FLY = { x: 0, y: 0, face: { x: 1, y: 0.2 }, moving: false, walkT: 0, swingT: 0, lookX: 1 };
 const hero = (ctx, t) => heroGame && drawHero(ctx, heroGame, FLY, t, false);
 
-function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen) {
+function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen, npcId) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
   // vạt áo bay về phía sau
   ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.globalAlpha = 0.85;
@@ -42,7 +43,7 @@ function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen) {
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
-  const own = who === 0 && hero(ctx, t);
+  const own = who === 0 ? hero(ctx, t) : npcId && heroGame && drawNpcSprite(ctx, heroGame, { id: npcId, x: 0, y: 0, face: { x: 1, y: 0 } }, t);   // trưởng lão chở bay: hình NPC thật
   if (!own) drawPerson(ctx, { x: 0, y: 0, moving: false, bob: who }, color, hair, t, false, { x: 1, y: 0.2 });
   if (sash && !own) { ctx.fillStyle = sash; ctx.fillRect(-4, -6, 8, 1.5); }
   ctx.translate(0, 1.5);
@@ -57,7 +58,7 @@ function drawFlight(ctx, screen, game, trip) {
   drawSpace(ctx, screen, game, trip, (c, px, py, S, t) => {
     if (trip.with) {
       const npc = game.data.npcs[trip.with];
-      rider(c, 1, px + 8 * S, py, S * 1.15, t, npc.color, npc.hair || '#5a4a86', null, 30);
+      rider(c, 1, px + 8 * S, py, S * 1.15, t, npc.color, npc.hair || '#5a4a86', null, 30, trip.with);
       rider(c, 0, px - 9 * S, py + 1.5 * S, S, t, fit.robe, fit.hair, fit.sash || el, 0); // đứng sau trưởng lão, chung một thanh kiếm
     } else if (game.save.realm >= game.data.pets.fly_realm && game.save.mount) {
       // Từ Nguyên Anh: cưỡi thú bay thay cho kiếm

@@ -117,7 +117,7 @@ function rimTile(c, map, sp, isBank, tx, ty, px, py) {
 }
 
 // Bãi cỏ loang (chơi thử 28/10: cỏ một màu phẳng lì, nhìn lâu mỏi mắt): nhiễu thô mỗi 5 ô, nội suy ra từng khối 4×4 điểm ảnh,
-// chia 3 bậc (sẫm, thường, sáng ấm) như mảng cỏ dày, cỏ thưa có nắng. Vẽ một lần vào tấm đệm nền.
+// mảng cỏ dày sẫm hơn một bậc, mép lởm chởm theo khối. Vẽ một lần vào tấm đệm nền.
 function meadow(c, map, hash) {
   const T = map.T, S = 5, B = 4, n = (gx, gy) => hash(gx * 13 + 101, gy * 17 + 7);
   for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
@@ -126,9 +126,8 @@ function meadow(c, map, hash) {
       const fx = (tx * T + bx) / (S * T), fy = (ty * T + by) / (S * T), gx = Math.floor(fx), gy = Math.floor(fy), u = fx - gx, v = fy - gy;
       const su = u * u * (3 - 2 * u), sv = v * v * (3 - 2 * v);
       const val = (n(gx, gy) * (1 - su) + n(gx + 1, gy) * su) * (1 - sv) + (n(gx, gy + 1) * (1 - su) + n(gx + 1, gy + 1) * su) * sv;
-      const d = ((bx + by * 3 + tx * 5 + ty * 7) % 4) / 4 * 0.08;   // lệch ngưỡng theo khối: mép mảng răng cưa kiểu pixel, không thành dải
-      if (val + d < 0.36) { c.fillStyle = 'rgba(10,40,30,0.09)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
-      else if (val - d > 0.7) { c.fillStyle = 'rgba(255,230,150,0.05)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
+      const d = (hash(tx * 4 + bx / B + 503, ty * 4 + by / B + 211) - 0.5) * 0.2;   // lệch ngưỡng ngẫu nhiên theo khối: mép mảng lởm chởm như cỏ mọc, không thành cạnh thẳng
+      if (val + d < 0.34) { c.fillStyle = 'rgba(10,40,30,0.08)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
     }
   }
 }
