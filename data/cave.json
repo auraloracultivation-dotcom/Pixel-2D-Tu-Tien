@@ -104,18 +104,19 @@
   {"name": "Động thiên phúc địa", "meditate_mul": 4, "grow_min": 7, "yield": 3, "brew_bonus": 0.08, "cost": {"tinh-thiet": 60, "yeu-vuong-dan": 1}, "coins": 8000, "realm": 4}
  ],
  "pill_button": "hoi-xuan-dan",
+ "qi_pill_day": {"_note": "Đan độc (chủ dự án thấy đan cho linh khí quá nhiều, 28/10/2026): mỗi ngày dùng tối đa n viên đan và canh cho linh khí (gộp mọi loại); đủ rồi thì phải đợi hôm sau. Trước đây một viên Tụ Khí Đan 60 Linh Thạch cho 20% tầng, mua thả cửa thì bỏ qua cả game.", "n": 8, "full": "Đan độc tích tụ: hôm nay đã dùng {n} viên đan linh khí, mai dùng tiếp.", "left": "Hôm nay còn dùng được {n} viên đan linh khí."},
  "brew": {"_note": "rate: tỉ lệ thành của từng đan (mặc định default). Linh căn hệ trong element_bonus cộng thêm. Hỏng thì mất nguyên liệu.", "default": 0.85, "element_bonus": {"hoa": 0.1}},
  "pills": {
   "hoi-xuan-dan": {"name": "Hồi Xuân Đan", "color": "#ff7a8a", "desc": "Hồi ngay 40% máu. Dùng bằng nút Đan khi đánh.", "use": {"heal": 0.4}, "cd": 8, "recipe": {"linh-thao": 2}, "make": 2, "rate": 0.95},
-  "tu-khi-dan": {"name": "Tụ Khí Đan", "color": "#bff4ff", "desc": "Nhận ngay linh khí bằng 20% tầng hiện tại.", "use": {"qi": 0.2}, "recipe": {"linh-thao": 3, "yeu-huyet": 1}, "make": 1},
+  "tu-khi-dan": {"name": "Tụ Khí Đan", "color": "#bff4ff", "desc": "Nhận ngay linh khí bằng 6% tầng hiện tại.", "use": {"qi": 0.06}, "recipe": {"linh-thao": 3, "yeu-huyet": 1}, "make": 1},
   "boi-nguyen-dan": {"name": "Bồi Nguyên Đan", "color": "#f2c94c", "desc": "Vĩnh viễn +6 máu tối đa. Mỗi người dùng tối đa 10 viên.", "use": {"hp": 6, "cap": 10}, "recipe": {"linh-thao": 4, "yeu-huyet": 2, "hoa-linh-chi": 1}, "make": 1, "rate": 0.7},
   "thanh-tam-dan": {"name": "Thanh Tâm Đan", "color": "#c8b8ff", "desc": "Lần độ kiếp tới, sét đánh nhẹ đi 30%.", "use": {"trib": 0.3}, "recipe": {"linh-thao": 3, "hoa-linh-chi": 2}, "make": 1, "rate": 0.75},
-  "linh-ngu-thang": {"name": "Linh Ngư Thang", "color": "#9ad8f0", "desc": "Canh cá ấm bụng. Nhận ngay linh khí bằng 12% tầng hiện tại.", "use": {"qi": 0.12}, "recipe": {"linh-ngu": 2, "linh-thao": 1}, "make": 2, "rate": 0.95},
-  "van-ngu-thang": {"name": "Vân Ngư Thang", "color": "#e8f0ff", "desc": "Canh cá mây, thanh và ngọt. Nhận ngay linh khí bằng 25% tầng hiện tại.", "use": {"qi": 0.25}, "recipe": {"van-ngu": 2, "hoa-ly": 1, "bang-ngu": 1}, "make": 2, "rate": 0.9},
+  "linh-ngu-thang": {"name": "Linh Ngư Thang", "color": "#9ad8f0", "desc": "Canh cá ấm bụng. Nhận ngay linh khí bằng 4% tầng hiện tại.", "use": {"qi": 0.04}, "recipe": {"linh-ngu": 2, "linh-thao": 1}, "make": 2, "rate": 0.95},
+  "van-ngu-thang": {"name": "Vân Ngư Thang", "color": "#e8f0ff", "desc": "Canh cá mây, thanh và ngọt. Nhận ngay linh khí bằng 7% tầng hiện tại.", "use": {"qi": 0.07}, "recipe": {"van-ngu": 2, "hoa-ly": 1, "bang-ngu": 1}, "make": 2, "rate": 0.9},
   "tay-tuy-dan": {"name": "Tẩy Tủy Đan", "color": "#ff5ad8", "desc": "Nâng phẩm linh căn lên một bậc (tới Thiên). Cần Yêu Vương Đan rơi từ boss.", "use": {"root": 1}, "recipe": {"yeu-vuong-dan": 1, "linh-thao": 6, "hoa-linh-chi": 3}, "make": 1, "rate": 0.5},
-  "tu-van-dan": {"name": "Tử Vân Đan", "color": "#c8a0ff", "desc": "Đan tím thơm mùi mây. Nhận ngay linh khí bằng 35% tầng hiện tại.", "use": {"qi": 0.35}, "recipe": {"tu-van-sam": 2, "linh-thao": 2}, "make": 1, "rate": 0.85},
+  "tu-van-dan": {"name": "Tử Vân Đan", "color": "#c8a0ff", "desc": "Đan tím thơm mùi mây. Nhận ngay linh khí bằng 10% tầng hiện tại.", "use": {"qi": 0.1}, "recipe": {"tu-van-sam": 2, "linh-thao": 2}, "make": 1, "rate": 0.85},
   "tinh-lien-dan": {"name": "Tĩnh Liên Đan", "color": "#dce6ff", "desc": "Lòng lặng như mặt hồ sen. Lần độ kiếp tới, sét đánh nhẹ đi 50%.", "use": {"trib": 0.5}, "recipe": {"thai-hu-lien": 2, "ngoc-lo-hoa": 1}, "make": 1, "rate": 0.75},
-  "nguyet-ngu-thang": {"name": "Nguyệt Ngư Thang", "color": "#e8f0ff", "desc": "Canh trong như ánh trăng. Nhận ngay linh khí bằng 30% tầng hiện tại.", "use": {"qi": 0.3}, "recipe": {"nguyet-ngu": 2, "linh-thao": 2}, "make": 2, "rate": 0.9}
+  "nguyet-ngu-thang": {"name": "Nguyệt Ngư Thang", "color": "#e8f0ff", "desc": "Canh trong như ánh trăng. Nhận ngay linh khí bằng 8% tầng hiện tại.", "use": {"qi": 0.08}, "recipe": {"nguyet-ngu": 2, "linh-thao": 2}, "make": 2, "rate": 0.9}
  },
  "forge": [
   {"id": "ren-thuong", "name": "Rèn thường", "desc": "Rèn một món theo ô đã chọn, ít nhất phẩm Linh.", "cost": {"tinh-thiet": 4}, "min_rarity": "linh"},

@@ -72,6 +72,7 @@ export function createTribulation(game) {
     },
     update(dt) {
       if (!run) return;
+      if (run.shadow && !run.shadow.dead && !game.mobs.includes(run.shadow)) spawnShadow();   // đổi bản đồ giữa kiếp: tâm ma cũ mất theo bản đồ, cho hiện lại (trước đây kiếp kẹt mãi)
       keepShadowNear(dt);
       run.t -= dt;
       if (run.t > 0) return;

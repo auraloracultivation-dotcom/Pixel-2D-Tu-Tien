@@ -67,7 +67,7 @@ Tinh cầu sang tinh cầu: chỉ bay bằng Bản đồ (chủ dự án chốt 
 Tới nơi mới (bay, truyền tống, cổng) thì hiện bảng tên 3 giây (`src/game/banner.js`, vẽ ở `src/render/draw-banner.js`): tên lớn, dòng nhỏ là loại nơi theo tinh đồ, độ nguy hiểm so cảnh giới (màu như thẻ tinh đồ) và "Hội đèn tối nay" nếu có.
 ## Thiên kiếp
 
-Đầy linh khí ở tầng 9, nút ngữ cảnh hiện "Độ thiên kiếp". Sét giáng từng đợt (vòng báo trước), chạy né cho hết `realms.tribulation.waves` đợt thì lên cảnh giới mới; gục thì mất một phần linh khí.
+Đầy linh khí ở tầng 9, nút ngữ cảnh hiện "Độ thiên kiếp". Sét giáng từng đợt (vòng báo trước), chạy né cho hết `realms.tribulation.waves` đợt thì lên cảnh giới mới; gục thì mất một phần linh khí. Đang độ kiếp thì cổng không đưa đi (né sét lỡ giẫm cổng làm tâm ma ở lại bản đồ cũ); đổi bản đồ giữa kiếp vì lý do khác thì tâm ma hiện lại bên cạnh, kiếp không kẹt mãi (cày thử 28/10/2026 tối).
 
 ## Ngự kiếm (`data/heroes.json` → fly)
 
@@ -111,6 +111,12 @@ Túi đồ, tab Trang bị có nút Bán nhanh (chủ dự án xin 28/10/2026): 
 ## Chơi dọc tua nhanh (`tools/choi-doc.mjs`)
 
 Chạy tay (lâu, không chạy trong CI): người mới bật Tự hành, game được tua bằng cách gọi `game.update` liên tục, tự bấm độ kiếp khi linh khí đầy, trong kiếp né sét và chém tâm ma như người chơi; ghi tiến độ mỗi phút giả lập, báo bước đứng lâu và lỗi JavaScript. `SIM_MIN` số phút giả lập, `GENDER` 0 nam / 1 nữ, `OUT` file ghi nhật ký. Việc tính theo giờ thật (linh thực, hội đèn, việc ngày) không tua theo. Lượt đầu (28/10/2026) tìm ra và đã sửa: tự hành bắn cách hàng cây mãi không trúng, đổi qua lại giữa đánh quái sau cây và đi việc khác rồi đứng rung, quái mọc giữa thân cây khi quanh bãi kín cây, tâm ma kẹt xa làm kiếp không bao giờ xong, treo máy ở bãi yếu khi đã có tinh cầu hợp cảnh giới hơn, quái bãi treo máy chặn việc nhặt đồ của truyện; thêm chặn lỗi trong vòng khung hình (một lỗi không làm đứng hình cả game).
+
+## Cày thử 1 tới max, tốc độ tu luyện (`tools/cay-thu.mjs`)
+
+Chủ dự án thấy người chơi farm quá nhanh, nhiều tiền (28/10/2026 tối). `tools/cay-thu.mjs`: như chơi dọc tua nhanh nhưng chọn hệ (`HE` kim / moc / thuy / hoa / tho), linh căn cố định Phàm, đồng hồ game chạy theo giờ giả lập (việc ngày, vườn, ngày đêm theo kịp), ghi mốc lên từng cảnh giới và linh khí, Linh Thạch, nguyên liệu, đan theo nguồn (file code sinh ra); đứng yên 15 phút giả lập thì ghi trạng thái rồi dừng. Bản trước khi sửa lên đỉnh sau 3,7 tới 5,1 giờ treo (khớp người thật 1,6 tới 5 giờ online), 89% linh khí từ hạ quái, 10% nhặt sao khi bay; Tụ Khí Đan 60 Linh Thạch cho 20% tầng, mua thả cửa thì bỏ qua cả game.
+
+Đã chỉnh (số ở `data/`): linh khí hạ quái nhân theo cảnh giới người chơi (`realms.kill_qi`, Nguyên Anh trở đi 45% tới 10%); nhặt sao `config.space.star_qi` 0,004 → 0,0005; đan linh khí 4 tới 10% tầng và tối đa 8 viên mỗi ngày gộp mọi loại (`cave.qi_pill_day`, đan độc; `qiPillLeft` trong `src/game/cave.js`); Tụ Khí Đan ở Vạn Bảo Lâu 200 Linh Thạch; Linh Thạch quái rơi `shop.drop.per_qi` 0,25 → 0,1. Mục tiêu khoảng 26 giờ treo tới Độ Kiếp tầng 9 (ghi chú `realms._kill_qi`). Máy chủ không đổi: hạn mức chống gian lận vẫn rộng hơn tốc độ mới nhiều lần.
 
 ## Âm thanh (`data/sounds.json`)
 
