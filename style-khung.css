@@ -122,3 +122,15 @@ body[data-le="halloween"] #menu::after {
 @keyframes hw-nhun { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @keyframes hw-chu { 0% { text-shadow: 2px 0 #2a0a3a, -2px 0 #2a0a3a, 0 2px #2a0a3a, 0 -2px #2a0a3a, 0 0 8px rgba(255, 140, 40, .55); } 100% { text-shadow: 2px 0 #2a0a3a, -2px 0 #2a0a3a, 0 2px #2a0a3a, 0 -2px #2a0a3a, 0 0 18px rgba(255, 140, 40, .95); } }
 @media (prefers-reduced-motion: reduce) { body[data-le="halloween"] #menu::after, body[data-le="halloween"] #menu h1, body[data-le="halloween"] #menu h1::before { animation: none; } }
+
+/* ---- cột thông báo nhận được bên trái (src/ui/feed.js): linh khí, Linh Thạch, nhặt đồ; chữ pixel viền mực, nền mờ ---- */
+#feed { position: fixed; left: 8px; top: calc(env(safe-area-inset-top) + 196px); z-index: 6; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; pointer-events: none; max-width: 58%; }
+.feed-line {
+  font: 400 16px var(--f-pixel); line-height: 18px; padding: 1px 8px 1px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  background: linear-gradient(90deg, rgba(14, 8, 20, .72), rgba(14, 8, 20, .35) 80%, transparent); border-left: 2px solid rgba(var(--lamp), .8);
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; transition: opacity .5s, transform .5s; animation: feed-vao .2s ease-out;
+}
+.feed-line.out { opacity: 0; transform: translateX(-10px); }
+.feed-line.bump { transform: scale(1.06); transform-origin: left center; }
+@keyframes feed-vao { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+body:has(.panel:not([hidden])) #feed, body:has(#bag:not([hidden])) #feed { display: none; }

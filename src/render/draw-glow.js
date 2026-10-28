@@ -2,8 +2,9 @@
 // hắt quầng sáng ấm lên lớp tối đêm; mỗi xóm mới có một cột đèn lồng ở sân. Màu, bán kính ở data/light.json → night.
 import { phase, outdoor } from '../game/daynight.js';
 import { glow } from './draw-lights.js';
+import { decorLights } from './draw-den.js';
 
-let cache = { map: null, list: [] };
+let cache = { map: null, list: [], le: null };
 
 function scan(game) {
   const map = game.map, T = map.T, N = game.data.light.night, list = [];
@@ -14,8 +15,9 @@ function scan(game) {
     if (src.every && (x + y) % src.every) continue;
     list.push({ x: (x + 0.5) * T, y: (y + 0.5) * T + (src.dy || 0), r: src.r, c: src.c, ph: (x * 7 + y * 13) % 10 });
   }
+  for (const d of decorLights(game)) list.push(d);   // đèn trang trí (draw-den.js)
   for (const [hx, hy] of map.def.hamlets || []) list.push({ x: (hx + 2.5) * T, y: (hy + 0.2) * T, r: N.lamp.r, c: N.lamp.c, ph: hx % 10, lamp: true });
-  cache = { map, list };
+  cache = { map, list, le: document.body.dataset.le || '' };
 }
 
 // Cột đèn lồng ở sân xóm (vẽ theo toạ độ thế giới, trước người và quái)
@@ -38,7 +40,7 @@ export function drawGlow(ctx, game, screen, t) {
   if (!outdoor(game)) return;
   const p = phase(game), a = p.tint ? p.tint[3] : 0;
   if (a < 0.15) return;
-  if (cache.map !== game.map) scan(game);
+  if (cache.map !== game.map || cache.le !== (document.body.dataset.le || '')) scan(game);
   const z = screen.zoom, k = Math.min(1, a / 0.6);
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = k; ctx.imageSmoothingEnabled = true;   // quầng vẽ sẵn (draw-lights.js → glow), độ đậm theo trời tối
   for (const o of cache.list) {

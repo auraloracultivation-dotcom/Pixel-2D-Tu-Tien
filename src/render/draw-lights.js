@@ -3,6 +3,7 @@
 // lỗ tại đó (cutLights), cuối cùng phủ quầng cộng sáng lên trên tất cả (drawBloom) để màu chiêu rực trên nền tối.
 import { weaponId } from '../game/stats.js';
 import { phase } from '../game/daynight.js';
+import { decorLights } from './draw-den.js';
 
 const rgbOf = hex => {
   if (!hex || hex[0] !== '#') return null;
@@ -39,6 +40,7 @@ export function gatherLights(game, t) {
       } else out.push({ x: f.x, y: f.y - 3, r: f.type === 'spark' ? G.fx.r * 0.6 : Math.max(G.fx.r, (f.r || 10) * 1.2), c, a: fade });
     }
   }
+  if (game.data.light.maps.includes(game.map?.id)) for (const d of decorLights(game)) out.push({ x: d.x, y: d.y, r: d.r, c: d.c, a: 0.75 + 0.15 * Math.sin(t * 6 + d.ph), soft: true });   // đèn trang trí khoét bóng tối hầm
   for (const z of game.zones) {
     const c = rgbOf(z.color);
     if (c) out.push({ x: z.x, y: z.y, r: z.radius * 1.3, c, a: G.zone.a * Math.min(1, (z.dur - z.t) * 2) });
