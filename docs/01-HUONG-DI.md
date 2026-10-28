@@ -96,7 +96,9 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 
 1. Cốt truyện và nội dung: xong.
 2. Bản chơi tạm hình khối đơn giản: xong phần lớn (làng, Thiên Kiếm Phong, bí cảnh, đả tọa, online, chợ, tổ đội, tông môn).
-3. Ngay bây giờ: chiêu mạnh hơn, trọng điểm bồi dưỡng phần 1, cấp khó ×2 cho tháp và phó bản đang có; song song các việc bắt buộc trước CH Play.
-4. Ngay bây giờ (sáng 28/10): làm từ vĩ mô đến vi mô theo mục "Tinh hệ". Đã có tinh đồ; tiếp theo bay truyền tống, phóng mọi đảo thành tinh cầu tròn, rồi địa hình.
-5. Chill và hình: đèn ngoài trời, thú hiền, trận pháp sáng, lễ hội nhẹ (đã có đèn đêm, thú hiền, hội đèn mỗi tối một tinh cầu, linh thực ở xóm); rồi hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
-6. Lên CH Play, rồi ra nội dung theo mùa.
+3. Trọng điểm bồi dưỡng và cấp khó: xong (chiêu mạnh hơn, cấp chiêu, cường hoá +20, ngọc cấp 10, tẩy luyện tăng giá, ô Mũ, luyện pháp bảo, cấp khó ×2 cho tháp và phó bản, bộ Đạo Vận và Con Đường Đạo Vận).
+4. Vĩ mô đến vi mô (sáng 28/10): đã đi đủ một lượt khung thô: tinh hệ, bay truyền tống, tinh cầu tròn, địa hình, nhà cây, người và thú, quần áo và công cụ, truyền âm, thời trang, linh thực. Nhiệm vụ đủ bốn loại: chính tuyến (truyện + Đạo Vận song hành), ngày, tuần, sự kiện.
+5. Chill và hình: đã có đèn đêm, thú hiền, hội đèn mỗi tối một tinh cầu, đồng hành trò chuyện khen khi đánh; tiếp theo là tô hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
+6. Trước CH Play: kiểm tra cấp chiêu ở máy chủ, rà chống gian lận, chính sách và điều khoản, thử trên điện thoại thật; rồi lên CH Play và ra nội dung theo mùa.
+
+Chờ chủ dự án chốt (ghi trong Bản chốt hướng đi, khác chỗ đang làm): tẩy luyện có giảm giá theo ngày hay không reset; người nạp nặng mạnh hơn tối đa bao nhiêu; linh thú có gộp hai con cùng cấp lên một cấp không; đạo lữ nam thứ hai (cần bảng chỉ số).
