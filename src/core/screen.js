@@ -1,5 +1,6 @@
 // Khung vẽ: kích thước theo màn hình, máy quay bám người chơi, rung màn hình.
-export function createScreen(canvas, cfg) {
+// dpr: hàm trả độ phân giải vẽ (src/core/perf.js hạ khi máy yếu); s.resize() vẽ lại khung theo độ phân giải mới
+export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixelRatio || 1, 2)) {
   const s = {
     canvas, ctx: canvas.getContext('2d'),
     w: 0, h: 0, dpr: 1, zoom: 1, base: 1, mul: 1, mulT: 1,
@@ -7,7 +8,7 @@ export function createScreen(canvas, cfg) {
   };
 
   function resize() {
-    s.dpr = Math.min(window.devicePixelRatio || 1, 3);
+    s.dpr = dpr();
     s.w = window.innerWidth; s.h = window.innerHeight;
     canvas.width = Math.round(s.w * s.dpr); canvas.height = Math.round(s.h * s.dpr);
     canvas.style.width = s.w + 'px'; canvas.style.height = s.h + 'px';
@@ -15,6 +16,7 @@ export function createScreen(canvas, cfg) {
   }
   window.addEventListener('resize', resize);
   resize();
+  s.resize = resize;
 
   s.shake = (amount, time = 0.18) => { s.shakeA = Math.max(s.shakeA, amount); s.shakeT = Math.max(s.shakeT, time); };
 
