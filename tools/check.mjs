@@ -164,6 +164,7 @@ try {
     need(dv.steps.filter(s => s.give.dv).length === dvBases.length && matOk(dv.reroll.mat) && items.rarities.some(r => r.id === dv.rarity), 'daovan: con đường phải cho đủ mỗi món một lần, nguyên liệu đổi hệ, độ hiếm phải có'); }
   for (const w of daily.weekly.tasks) need(w.need.n > 0 && ['kills', 'bosses', 'rares', 'sit', 'fish', 'lantern', 'pat', 'tea', 'cook'].includes(w.need.type) && Object.keys(w.reward.mats || {}).every(matOk), `daily.weekly/${w.id}: việc hoặc thưởng sai`);   // việc tuần
   need(Object.keys(daily.weekly.chest.mats || {}).every(matOk), 'daily.weekly.chest: nguyên liệu không có');
+  { const sl = cfg.skill_lv; need(sl.book_base === 1 && sl.book_r === 1.25 && sl.max === 30 && sl.mat === 'bi-kip-chieu', 'config.skill_lv: giá sách / cấp tối đa đổi thì sửa cả p2d_sach_cap, p2d_kiem_cap_chieu (supabase/migrations 20261028120000)'); }
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');
