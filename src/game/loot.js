@@ -44,11 +44,11 @@ function take(game, l) {
       if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành: phân giải món rẻ cho có chỗ
     }
     const r = rarityOf(data.items, l.payload.rarity);
-    game.toast(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, 1.4);
+    if (game.feed) game.feed(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, r.color || '#ffe6a0'); else game.toast(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
     game.newItems = (game.newItems || 0) + 1;
   } else if (l.kind === 'gem') {
     save.gems[l.payload] = (save.gems[l.payload] || 0) + 1;
-    game.toast(`Nhặt ${gemInfo(data, l.payload).name}`, 1.2);
+    if (game.feed) game.feed(`Nhặt ${gemInfo(data, l.payload).name}`, '#9fe8ff'); else game.toast(`Nhặt ${gemInfo(data, l.payload).name}`, 1.2);
   } else {
     save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + l.payload;
     game.number(game.player.x, game.player.y - 20, `+${l.payload} Tẩy Luyện Thạch`, '#bff4ff');
