@@ -160,5 +160,7 @@
   },
   "density": 32,
   "day": 0.45
- }
+ },
+ "_le": "Lễ hội cho khung giao diện (style-khung.css, src/ui/le-hoi.js): from, to là tháng-ngày; from > to là vắt qua năm mới. Tết theo dương lịch gần đúng.",
+ "le": [{"id": "halloween", "from": "10-20", "to": "11-03"}, {"id": "giang-sinh", "from": "12-15", "to": "12-30"}, {"id": "tet", "from": "01-20", "to": "02-20"}]
 }

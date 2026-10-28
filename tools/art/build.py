@@ -32,6 +32,7 @@ from npcs import npc_frames  # noqa: E402
 from gear import gear_icon  # noqa: E402
 from pets import pet_frames, mount_frames  # noqa: E402
 import ai_sprites  # noqa: E402
+import ui_frame  # noqa: E402
 from px import MANIFEST  # noqa: E402
 
 clean()
@@ -311,6 +312,10 @@ for _id, _b in _items['bases'].items():
     _c = Canvas(_s, _s)
     _c.a = np.array(_sq, dtype=np.uint8)
     save('gear.' + _id, [_c], (_s // 2, _s // 2), _b['name'] + ' (cùng hình vũ khí bay fw.' + _b['weapon'] + ')')
+
+# ---------------------------------------------------------------- khung giao diện thắp đèn (tools/art/ui_frame.py, style-khung.css)
+ui_frame.frames(save)
+print('nguồn sáng khung:', ui_frame.lights(save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

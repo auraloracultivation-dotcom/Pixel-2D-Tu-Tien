@@ -1,0 +1,83 @@
+/* Khung giao diện thắp đèn và chữ pixel (chủ dự án 29/10/2026): cung điện ấm, đèn lồng, đuốc, nến, đá phát sáng;
+   ánh sáng là đèn được thắp (không phải ánh sáng tự nhiên), lập lòe bằng CSS. Hình: tools/art/ui_frame.py (khung 9 mảnh vẽ code,
+   nguồn sáng từ ảnh Canva nguon/ai/ui/). Lễ hội (Halloween, Giáng sinh, Tết) đổi đèn theo ngày: body[data-le], src/ui/le-hoi.js.
+   Chữ pixel: GNU Unifont (assets/fonts/, giấy phép UNIFONT-LICENSE.txt) cắt riêng Latin + tiếng Việt, dùng đúng cỡ 16 điểm cho nét sắc;
+   chữ dày đặc nhỏ (mô tả, số liệu) giữ chữ thường cho dễ đọc. Nạp từ đầu style.css (@import). */
+@font-face { font-family: "Unifont VN"; src: url("assets/fonts/unifont-vi.woff") format("woff"); font-display: swap; }
+:root {
+  --f-pixel: "Unifont VN", var(--f-body);
+  --lamp: 255, 170, 80;          /* ánh đèn lồng, đuốc */
+  --ink-pixel: #1a0c06;          /* viền mực quanh chữ pixel */
+}
+
+/* ---- chữ pixel có màu, viền mực bốn phía cho rõ trên mọi nền ---- */
+.bag-head b, .realm, .who, #toast, .atk b, .bag-tabs button, .world-tabs button,
+#btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, #menu h1 {
+  font-family: var(--f-pixel) !important;
+  -webkit-font-smoothing: none; font-smooth: never; letter-spacing: 0;
+}
+.bag-head b, .who {
+  font-size: 16px !important; font-weight: 400 !important; color: #ffd98a;
+  text-shadow: 1px 0 var(--ink-pixel), -1px 0 var(--ink-pixel), 0 1px var(--ink-pixel), 0 -1px var(--ink-pixel), 0 0 8px rgba(var(--lamp), .55);
+}
+.realm { font-size: 16px !important; font-weight: 400; color: #ffe6a0; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000, 0 0 8px rgba(var(--lamp), .45); }
+#toast { font-size: 16px !important; font-weight: 400; color: #fff0c8; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+.bag-tabs button, .world-tabs button { font-size: 16px !important; font-weight: 400 !important; padding: 4px 10px !important; }
+.bag-tabs button.on, .world-tabs button.on { color: #ffcf6a !important; text-shadow: 0 0 6px rgba(var(--lamp), .6); }
+#btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo { font-size: 16px !important; font-weight: 400 !important; }
+.atk b { font-size: 16px !important; font-weight: 400; text-shadow: 1px 0 #3a1404, -1px 0 #3a1404, 0 1px #3a1404, 0 -1px #3a1404 !important; }
+
+/* ---- khung gỗ sơn son nẹp vàng (9 mảnh, cắt 12, mỗi điểm ảnh hình = 1 điểm CSS) ---- */
+#bag, .panel {
+  border: 12px solid transparent !important;
+  border-image: url("assets/art/ui-frame.png") 12 fill / 12px / 0 stretch !important;   /* !important: dòng border ở style.css xoá border-image */
+  border-radius: 0 !important;
+  border-image-outset: 0; image-rendering: pixelated;
+  background-clip: padding-box !important;
+  padding: 6px 8px !important;
+}
+#bag, .panel { background-color: rgba(18, 10, 12, .92); }
+#dialog {
+  border: 12px solid transparent !important;
+  border-image: url("assets/art/ui-frame-thin.png") 12 fill / 12px / 0 stretch !important;
+  border-radius: 0 !important;
+  image-rendering: pixelated; background-clip: padding-box !important; padding: 6px 10px 14px !important;
+  background-color: rgba(18, 10, 12, .94);
+}
+
+/* ---- ánh đèn thắp trong bảng: hai quầng ấm ở hai góc trên, lập lòe nhẹ (không phủ chữ: chỉ cộng sáng) ---- */
+#bag::before, .panel::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; mix-blend-mode: screen;
+  background: radial-gradient(circle at 6% 4%, rgba(var(--lamp), .16), transparent 34%), radial-gradient(circle at 94% 4%, rgba(var(--lamp), .14), transparent 30%);
+  animation: lua-chay 2.6s ease-in-out infinite alternate;
+}
+@keyframes lua-chay { 0% { opacity: .75; } 35% { opacity: 1; } 55% { opacity: .82; } 80% { opacity: .96; } 100% { opacity: .78; } }
+
+/* ---- đèn lồng treo đầu bảng: trước tiêu đề một ngọn, cạnh nút đóng một ngọn; phát sáng, lắc khẽ ---- */
+.bag-head { position: relative; z-index: 1; }
+.bag-head::before, .bag-head::after {
+  content: ''; flex: none; width: 15px; height: 26px; background: url("assets/art/ui-lantern.png") center bottom / auto 26px no-repeat;
+  image-rendering: pixelated; transform-origin: 50% 0; animation: den-lac 3.4s ease-in-out infinite, den-sang 1.7s ease-in-out infinite alternate;
+  margin-top: -4px;
+}
+.bag-head::after { order: 99; background-image: url("assets/art/ui-candles.png"); width: 20px; height: 22px; background-size: auto 22px; animation: den-sang 1.3s ease-in-out infinite alternate; }
+.bag-head > button:last-child { order: 100; }
+@keyframes den-lac { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes den-sang { 0% { filter: drop-shadow(0 0 3px rgba(var(--lamp), .55)); } 100% { filter: drop-shadow(0 0 7px rgba(var(--lamp), .95)); } }
+
+/* hộp thoại: đèn dầu ở góc trên trái */
+#dialog::before {
+  content: ''; position: absolute; left: 4px; top: -14px; width: 30px; height: 16px; pointer-events: none;
+  background: url("assets/art/ui-oillamp.png") center bottom / auto 16px no-repeat; image-rendering: pixelated;
+  animation: den-sang 1.5s ease-in-out infinite alternate;
+}
+
+/* ---- lễ hội: đổi đèn theo ngày (src/ui/le-hoi.js gắn body[data-le]) ---- */
+body[data-le="halloween"] .bag-head::after { background-image: url("assets/art/ui-pumpkin.png"); width: 20px; height: 18px; background-size: auto 18px; }
+body[data-le="halloween"] { --lamp: 255, 140, 40; }
+body[data-le="giang-sinh"] .bag-head::after { background-image: url("assets/art/ui-stonelamp.png"); }
+body[data-le="tet"] .bag-head::before { background-image: url("assets/art/ui-lanterns3.png"); width: 32px; background-size: auto 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bag-head::before, .bag-head::after, #bag::before, .panel::before, #dialog::before { animation: none; }
+}

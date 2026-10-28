@@ -5045,6 +5045,42 @@
    ],
    "note": "bọt ven bờ nước: 4 cạnh rồi 4 góc"
   },
+  "ui.bracket": {
+   "file": "assets/art/ui-bracket.png",
+   "v": "ba9e4eac",
+   "w": 23,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    11,
+    25
+   ],
+   "note": "nguồn sáng khung giao diện: bracket (ảnh Canva den-2.png)"
+  },
+  "ui.candles": {
+   "file": "assets/art/ui-candles.png",
+   "v": "79a85881",
+   "w": 15,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    7,
+    21
+   ],
+   "note": "nguồn sáng khung giao diện: candles (ảnh Canva den-1.png)"
+  },
+  "ui.crystal": {
+   "file": "assets/art/ui-crystal.png",
+   "v": "4ad3a8d2",
+   "w": 14,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    7,
+    19
+   ],
+   "note": "nguồn sáng khung giao diện: crystal (ảnh Canva den-1.png)"
+  },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",
    "v": "d20d3dd1",
@@ -5068,6 +5104,138 @@
     0
    ],
    "note": "số 0–9 vàng (bạo kích)"
+  },
+  "ui.frame": {
+   "file": "assets/art/ui-frame.png",
+   "v": "4860eaa4",
+   "w": 36,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung bảng 36×36 cắt 12 (border-image, style-khung.css): mực, nẹp vàng, gỗ sơn son, góc chạm vàng"
+  },
+  "ui.frame-thin": {
+   "file": "assets/art/ui-frame-thin.png",
+   "v": "28ff1858",
+   "w": 36,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung mảnh 36×36 cắt 12 cho hộp thoại, thông báo: không có ô góc"
+  },
+  "ui.incense": {
+   "file": "assets/art/ui-incense.png",
+   "v": "c9311f97",
+   "w": 16,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    8,
+    19
+   ],
+   "note": "nguồn sáng khung giao diện: incense (ảnh Canva den-2.png)"
+  },
+  "ui.lamppost": {
+   "file": "assets/art/ui-lamppost.png",
+   "v": "6424c5ac",
+   "w": 11,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    5,
+    25
+   ],
+   "note": "nguồn sáng khung giao diện: lamppost (ảnh Canva den-2.png)"
+  },
+  "ui.lantern": {
+   "file": "assets/art/ui-lantern.png",
+   "v": "69934b53",
+   "w": 15,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    7,
+    25
+   ],
+   "note": "nguồn sáng khung giao diện: lantern (ảnh Canva den-1.png)"
+  },
+  "ui.lanterns3": {
+   "file": "assets/art/ui-lanterns3.png",
+   "v": "c91ea200",
+   "w": 23,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    11,
+    19
+   ],
+   "note": "nguồn sáng khung giao diện: lanterns3 (ảnh Canva den-2.png)"
+  },
+  "ui.oillamp": {
+   "file": "assets/art/ui-oillamp.png",
+   "v": "5329bcb3",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    15
+   ],
+   "note": "nguồn sáng khung giao diện: oillamp (ảnh Canva den-2.png)"
+  },
+  "ui.pumpkin": {
+   "file": "assets/art/ui-pumpkin.png",
+   "v": "cd66aef4",
+   "w": 17,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: pumpkin (ảnh Canva den-1.png)"
+  },
+  "ui.stonelamp": {
+   "file": "assets/art/ui-stonelamp.png",
+   "v": "4aac6556",
+   "w": 15,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    7,
+    21
+   ],
+   "note": "nguồn sáng khung giao diện: stonelamp (ảnh Canva den-1.png)"
+  },
+  "ui.torch": {
+   "file": "assets/art/ui-torch.png",
+   "v": "35bc6644",
+   "w": 13,
+   "h": 24,
+   "frames": 1,
+   "anchor": [
+    6,
+    23
+   ],
+   "note": "nguồn sáng khung giao diện: torch (ảnh Canva den-1.png)"
+  },
+  "ui.wisp": {
+   "file": "assets/art/ui-wisp.png",
+   "v": "e509b778",
+   "w": 11,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    5,
+    21
+   ],
+   "note": "nguồn sáng khung giao diện: wisp (ảnh Canva den-2.png)"
   }
  }
 }
