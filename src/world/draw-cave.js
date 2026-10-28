@@ -24,18 +24,22 @@ export function drawAnvil(ctx, cx, cy, t) {
   if ((t * 1.5) % 1 < 0.15) { ctx.fillStyle = '#ffe27a'; ctx.fillRect(cx + 2, cy - 9, 2, 2); ctx.fillRect(cx - 4, cy - 10, 1, 1); }
 }
 
-export function drawPlot(ctx, px, py, T, grow, h, crop) {
+// soil: đất đã vẽ bằng hình pixel (draw-ground.js drawPlotSoil) thì chỉ vẽ cây. Cây vẽ theo điểm nguyên cho sắc nét.
+export function drawPlot(ctx, px, py, T, grow, h, crop, soil) {
   if (grow < 0) {   // đất hoang chưa khai: cỏ dại, đá vụn
+    if (soil) return;
     ctx.fillStyle = '#5a4a3a'; ctx.fillRect(px + 1, py + 1, T - 2, T - 2);
     ctx.fillStyle = '#6a7a4a'; for (let i = 0; i < 4; i++) ctx.fillRect(px + 2 + ((h * 97 * (i + 1)) % 11), py + 4 + i * 3, 2, 2);
     return;
   }
-  ctx.fillStyle = '#4a3020'; ctx.fillRect(px + 1, py + 1, T - 2, T - 2);
-  ctx.fillStyle = '#3a2418';
-  for (let i = 3; i < T; i += 5) ctx.fillRect(px + 1, py + i, T - 2, 1);
+  if (!soil) {
+    ctx.fillStyle = '#4a3020'; ctx.fillRect(px + 1, py + 1, T - 2, T - 2);
+    ctx.fillStyle = '#3a2418';
+    for (let i = 3; i < T; i += 5) ctx.fillRect(px + 1, py + i, T - 2, 1);
+  }
   const n = 3, ripe = grow >= 1;
   for (let i = 0; i < n; i++) {
-    const x = px + 3 + i * 5, y = py + 12, hgt = 2 + grow * 7;
+    const x = px + 3 + i * 5, y = py + 12, hgt = Math.round(2 + grow * 7);
     ctx.fillStyle = ripe ? crop.color : '#4aa860';
     ctx.fillRect(x, y - hgt, 2, hgt);
     if (grow > 0.5) ctx.fillRect(x - 1, y - hgt + 1, 4, 2);
