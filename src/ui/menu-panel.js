@@ -1,7 +1,7 @@
 // Bảng Menu (nút Menu, chủ dự án xin 28/10/2026): mọi chức năng và phó bản chia nhóm, mỗi ô có hình lấy từ hình trong game.
 // Ô và cách mở ở data/menu.json; điều kiện, nói chuyện thẳng với NPC, vào bí cảnh ở src/game/menu-acts.js.
 // Bảng cũ vẫn mở bằng nút cũ (ẩn trong #hud-menu) để khỏi sửa từng bảng; ô có tab thì bấm luôn tab đó.
-import { spriteImage } from '../render/sprites.js';
+import { spriteIcon } from './sprite-icon.js';
 import { itemLock, busyWhy, talkMenu, dungeonList, enterDungeon, enterDemon } from '../game/menu-acts.js';
 
 const $ = id => document.getElementById(id);
@@ -10,22 +10,6 @@ function el(tag, cls, text) {
   if (cls) e.className = cls;
   if (text != null) e.textContent = text;
   return e;
-}
-
-// Hình ô: khung frame của hình id vẽ lên canvas nhỏ, phóng nguyên lần bằng CSS (pixelated). Hình chưa tải thì thử lại sau
-function icon(game, id, frame = 0) {
-  const cv = el('canvas', 'mt-ico'), spr = game.data.art.sprites[id];
-  if (!spr) return cv;
-  cv.width = spr.w; cv.height = spr.h;
-  const paint = (tries = 0) => {
-    const im = spriteImage(spr);
-    if (!im) { if (tries < 20) setTimeout(() => paint(tries + 1), 250); return; }
-    cv.getContext('2d').drawImage(im, Math.min(frame, spr.frames - 1) * spr.w, 0, spr.w, spr.h, 0, 0, spr.w, spr.h);
-  };
-  paint();
-  const k = Math.max(1, Math.floor(34 / Math.max(spr.w, spr.h)));
-  cv.style.width = spr.w * k + 'px'; cv.style.height = spr.h * k + 'px';
-  return cv;
 }
 
 export function createMenuPanel(game) {
@@ -70,7 +54,7 @@ export function createMenuPanel(game) {
       const grid = el('div', 'menu-grid');
       for (const it of g.items) {
         const lock = itemLock(game, it), b = el('button', 'menu-tile' + (lock ? ' locked' : ''));
-        b.append(icon(game, it.icon, it.frame), el('span', null, it.label));
+        b.append(spriteIcon(game, it.icon, it.frame), el('span', null, it.label));
         if (it.badge && $(it.badge) && !$(it.badge).hidden) b.append(el('i', 'menu-dot'));
         if (it.btn && $(it.btn)?.classList.contains('glow-hint')) b.classList.add('glow-hint');
         b.onclick = () => act(it);

@@ -27,6 +27,7 @@ import { startMailCheck } from './game/market.js';
 import { createTopupPanel } from './ui/topup-panel.js';
 import { createGuildPanel } from './ui/guild-panel.js';
 import { createMenuPanel } from './ui/menu-panel.js';
+import { gridCards } from './ui/grid-cards.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -50,6 +51,7 @@ async function boot() {
   createTopupPanel(game);
   createGuildPanel(game);
   createMenuPanel(game);   // nút Menu: mọi chức năng, phó bản (data/menu.json)
+  gridCards(game);   // thẻ trong các bảng hiện thành lưới ô như túi đồ, chạm ô xem chi tiết
   clickSounds(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   createRecord(game, audio).catch(() => {});   // nút quay clip cạnh nút tiếng (data/record.json); lỗi thì game vẫn chạy

@@ -361,3 +361,23 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 .md-info small { font-size: 11px; color: var(--ink-2); }
 .md-info .md-tag { font-weight: 700; }
 .menu-dun .mini { min-width: 64px; min-height: 34px; }
+
+/* ---------------------------------------------------------------- lưới ô trong các bảng (src/ui/grid-cards.js), như túi đồ */
+.gc-on { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
+.gc-hidden { display: none !important; }
+.gc-on > :not(.gc-tile):not(.skill-card):not(.skill-up) { grid-column: 1 / -1; }
+.gc-tile { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 3px; min-height: 84px; padding: 6px 4px 5px; border: 1px solid var(--line); border-left: 3px solid var(--line-hi); border-radius: 8px; background: var(--panel-2); color: var(--ink); font: inherit; text-align: center; text-shadow: none; min-width: 0; }
+.gc-tile:active { border-color: var(--torch); }
+.gc-tile b { font-size: 12px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
+.gc-tile small { font-size: 10px; line-height: 1.25; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.gc-tile.using { background: var(--panel-3); box-shadow: 0 0 0 1px var(--torch), 0 0 10px rgba(242, 164, 67, .3); }
+.gc-tile.locked, .gc-tile.off { opacity: .45; }
+.gc-ico { image-rendering: pixelated; flex: none; }
+.gc-sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 74%; z-index: 2; display: flex; flex-direction: column; background: linear-gradient(rgba(169, 195, 255, .07), transparent 30%), #120f1c; border-top: 1px solid var(--trim); border-radius: 12px 12px var(--r) var(--r); box-shadow: 0 -12px 30px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(226, 192, 122, .3); animation: sheet-up .18s ease-out; text-shadow: none; }
+.gc-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px 4px; }
+.gc-title { flex: 1; min-width: 0; font: 700 15px var(--f-title); line-height: 1.25; }
+.gc-body { overflow-y: auto; padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.gc-card { display: flex; flex-direction: column; gap: 4px; }
+.gc-card small { font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+.gc-card .card-acts { margin-top: 4px; }
+.gc-go { padding: 10px; font-size: 14px; }

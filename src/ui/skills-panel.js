@@ -57,6 +57,7 @@ export function createSkillsPanel(game) {
         el('small', null, effText(t, st.lv)),
         el('small', null, max ? 'Đã viên mãn.' : `Kinh nghiệm ${Math.floor(st.exp)}/${techNeed(data, st.lv)} (mang theo để tu)`),
         el('small', null, t.desc));
+      c.dataset.act = 'Mang vào ô ' + (slot + 1);
       c.onclick = () => { setTechSlot(game, slot, id); slot = (slot + 1) % T.slots; game.sfx('pickup'); render(); };
       list.append(c);
     }
@@ -83,6 +84,8 @@ export function createSkillsPanel(game) {
       c.style.borderLeftColor = s.color;
       c.append(el('b', null, s.name), el('small', null, `${from} · hồi ${s.cd} giây${ok ? '' : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
       c.disabled = !ok;
+      if (data.art.sprites['icon.' + s.fx]) c.dataset.icon = 'icon.' + s.fx;   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)
+      c.dataset.act = 'Mang vào ô ' + (slot + 1);
       c.onclick = () => { setSlot(game, slot, id); slot = (slot + 1) % 3; game.sfx('pickup'); render(); };
       list.append(c);
       if (ok) list.append(levelRow(id, s));
