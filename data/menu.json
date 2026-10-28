@@ -9,7 +9,7 @@
    {"id": "techs", "label": "Công pháp", "icon": "icon.orb", "btn": "btn-skills", "tabs": "skills-tabs", "tab": "cong-phap"},
    {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu", "badge": "pets-badge"},
    {"id": "mounts", "label": "Thú cưỡi", "icon": "mount.bach-loc", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "thu-cuoi"},
-   {"id": "comps", "label": "Đồng hành", "icon": "npc.lac-tuyet", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "dong-hanh"},
+   {"id": "comps", "label": "Đồng hành", "icon": "comp.lac-tuyet", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "dong-hanh"},
    {"id": "fashion", "label": "Thời trang", "icon": "gear.thanh-moc-bao", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thoi-trang"},
    {"id": "titles", "label": "Danh hiệu", "icon": "icon.buff", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "danh-hieu"}
   ]},
