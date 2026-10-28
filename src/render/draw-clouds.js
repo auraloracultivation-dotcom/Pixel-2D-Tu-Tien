@@ -12,9 +12,10 @@ function puff(ctx, x, y, r) {
 export function drawClouds(ctx, game, t) {
   const def = game.map.def;
   if (!def.planet || (def.dark || 0) >= 0.3) return;
-  const W = game.map.w * game.map.T, H = game.map.h * game.map.T, span = W + 400;
+  const W = game.map.w * game.map.T, H = game.map.h * game.map.T, span = W + 400, v = game.screen?.viewRect();
   for (let i = 0; i < 7; i++) {
     const r = 40 + hash(i, 3) * 50, x = ((hash(i, 1) * span + t * (6 + hash(i, 4) * 6)) % span) - 200, y = hash(i, 2) * H;
+    if (v && (x + r * 3 < v.x0 || x - r * 2 > v.x1 || y + r * 2 + 60 < v.y0 || y - r > v.y1)) continue;   // ngoài màn: khỏi vẽ
     ctx.fillStyle = 'rgba(20,16,40,.06)'; puff(ctx, x + 30, y + 60, r);   // bóng mây
     ctx.fillStyle = 'rgba(255,255,255,.16)'; puff(ctx, x, y, r);
   }

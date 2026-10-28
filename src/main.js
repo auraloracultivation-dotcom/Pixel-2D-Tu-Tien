@@ -1,6 +1,7 @@
 // Khởi động: nạp dữ liệu, dựng màn hình, vòng lặp khung hình.
 import { loadData } from './core/data.js';
 import { createScreen } from './core/screen.js';
+import { createPerf } from './core/perf.js';
 import { createInput } from './core/input.js';
 import { createGame } from './game/game.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
@@ -34,7 +35,9 @@ async function boot() {
   initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
   const data = await loadData();
-  const screen = createScreen(canvas, data.config);
+  let screen = null;
+  const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
+  screen = createScreen(canvas, data.config, perf.dpr);
   const input = createInput(canvas);
   const audio = createAudio(data.sounds);
   const ui = createHud(audio);
@@ -63,16 +66,17 @@ async function boot() {
   const login = createLogin(opts => game.begin(opts));
   login.start();
 
-  let last = performance.now(), lastErr = '';
+  let last = performance.now(), lastErr = '', lastUi = 0;
   function frame(now) {
     requestAnimationFrame(frame);   // xếp khung sau trước: một lỗi trong khung này không làm đứng hình cả game
+    if (!perf.tick(now, game)) return;   // màn 120 Hz, đang mở bảng: bỏ bớt khung cho mát máy
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     try {
       game.update(dt);
       if (game.trip) drawTrip(game, screen);
       else { drawWorld(game, screen, now / 1000); drawOverlay(game, screen, input); }
-      ui.update(game);
+      if (now - lastUi >= data.config.perf.hud_ms) { lastUi = now; ui.update(game); }   // chữ, thanh máu HUD: 15 lần mỗi giây là đủ
     } catch (e) {
       if (e.message !== lastErr) { lastErr = e.message; setTimeout(() => { throw e; }); }   // báo một lần (core/catch-errors.js gửi về máy chủ)
     }

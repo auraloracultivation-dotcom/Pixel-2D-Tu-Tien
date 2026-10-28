@@ -47,7 +47,22 @@ export function gatherLights(game, t) {
     out.push({ x: fw.x, y: fw.y, r: fw.act ? G.fly.strike : G.fly.r, c, a: fw.act ? 1 : 0.5 });
     for (const s of fw.trail || []) out.push({ x: s.x, y: s.y, r: G.fly.r, c, a: 0.35 });
   }
-  return out;
+  const max = game.data.config.perf?.max_lights || 40;   // đánh đông quái nhiều chiêu: giữ số quầng vừa phải
+  return out.length > max ? out.slice(0, max) : out;
+}
+
+// Quầng tròn vẽ sẵn một lần (64×64) rồi dán phóng to: trước đây mỗi nguồn sáng tạo một gradient mới mỗi khung, máy yếu nóng
+const sprites = new Map();
+function glow(key, stops) {
+  let cv = sprites.get(key);
+  if (cv) return cv;
+  if (sprites.size > 160) sprites.clear();
+  cv = document.createElement('canvas'); cv.width = cv.height = 64;
+  const g = cv.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  for (const [at, col] of stops) gr.addColorStop(at, col);
+  g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+  sprites.set(key, cv);
+  return cv;
 }
 
 // Khoét lớp tối c (đang vẽ ở toạ độ lớp) tại các nguồn sáng; at(x, y) đổi toạ độ thế giới → lớp, s: điểm lớp / điểm thế giới
@@ -57,9 +72,8 @@ export function cutLights(c, lights, at, s, cut) {
   for (const L of lights) {
     const q = at(L.x, L.y), r = L.r * s, a = Math.min(1, L.a) * cut;
     if (a <= 0.02) continue;
-    const g = c.createRadialGradient(q.x, q.y, 0, q.x, q.y, r);
-    g.addColorStop(0, `rgba(0,0,0,${a})`); g.addColorStop(L.soft ? 0.55 : 0.4, `rgba(0,0,0,${a * 0.7})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-    c.fillStyle = g; c.fillRect(q.x - r, q.y - r, r * 2, r * 2);
+    c.globalAlpha = a;
+    c.drawImage(glow(L.soft ? 'cut-soft' : 'cut', [[0, 'rgba(0,0,0,1)'], [L.soft ? 0.55 : 0.4, 'rgba(0,0,0,0.7)'], [1, 'rgba(0,0,0,0)']]), q.x - r, q.y - r, r * 2, r * 2);
   }
   c.restore();
 }
@@ -70,13 +84,14 @@ export function drawBloom(ctx, game, screen, lights) {
   if (!G) return;
   ctx.save();
   ctx.globalCompositeOperation = 'lighter';
+  const k = G.player.a / G.core;   // người chơi: quầng dịu hơn
   for (const L of lights) {
     const q = screen.toScreen(L.x, L.y), r = L.r * screen.zoom * (L.soft ? 1 : 0.9);
     if (q.x < -r || q.y < -r || q.x > screen.w + r || q.y > screen.h + r) continue;
-    const a = Math.min(1, L.a) * (L.soft ? game.data.light.glow.player.a / G.core : 1);
-    const g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, r);
-    g.addColorStop(0, `rgba(${L.c},${(G.core * a).toFixed(3)})`); g.addColorStop(0.3, `rgba(${L.c},${(G.halo * a).toFixed(3)})`); g.addColorStop(1, `rgba(${L.c},0)`);
-    ctx.fillStyle = g; ctx.fillRect(q.x - r, q.y - r, r * 2, r * 2);
+    const m = L.soft ? k : 1, a = Math.min(1, L.a);
+    if (a <= 0.01) continue;
+    ctx.globalAlpha = a;
+    ctx.drawImage(glow(`${L.c}|${m}`, [[0, `rgba(${L.c},${Math.min(1, G.core * m).toFixed(3)})`], [0.3, `rgba(${L.c},${Math.min(1, G.halo * m).toFixed(3)})`], [1, `rgba(${L.c},0)`]]), q.x - r, q.y - r, r * 2, r * 2);
   }
   ctx.restore();
 }

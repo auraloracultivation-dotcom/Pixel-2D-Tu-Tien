@@ -27,7 +27,7 @@
 html, body { margin: 0; height: 100%; overflow: hidden; background: var(--night); font-family: var(--f-body); color: var(--ink); user-select: none; -webkit-user-select: none; touch-action: none; }
 button { color: var(--ink); font-family: var(--f-body); }   /* iPhone tự tô chữ nút màu xanh hệ thống: giữ màu của game */
 button:focus-visible, input:focus-visible { outline: 2px solid var(--torch); outline-offset: 2px; }
-canvas#game { position: fixed; inset: 0; display: block; }
+canvas#game { position: fixed; inset: 0; display: block; image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; }   /* vẽ ở độ phân giải thấp hơn màn (src/core/perf.js) vẫn sắc nét kiểu pixel */
 [hidden] { display: none !important; }
 
 /* ---------------------------------------------------------------- HUD trên cảnh */
@@ -334,12 +334,11 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
   background: linear-gradient(rgba(24, 20, 36, .42), rgba(10, 8, 18, .62));
   border-color: var(--glass-line);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(226, 192, 122, .14), 0 -8px 26px rgba(0, 0, 0, .3);
-  -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .75);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .75);   /* không nhoè nền (backdrop-filter) vì cảnh chạy liên tục bên dưới, máy yếu rất nóng */
 }
 .bag-head { border-bottom-color: var(--glass-line); }
 .zalo-panel { height: auto; }
-#dialog { max-height: var(--sheet-h); background: linear-gradient(rgba(24, 20, 36, .55), rgba(10, 8, 18, .72)); border-color: var(--glass-line); -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px); text-shadow: 0 1px 1px rgba(0, 0, 0, .75); }
+#dialog { max-height: var(--sheet-h); background: linear-gradient(rgba(24, 20, 36, .55), rgba(10, 8, 18, .72)); border-color: var(--glass-line); text-shadow: 0 1px 1px rgba(0, 0, 0, .75); }
 #bag.sheet-open #bag-list { padding-bottom: 32vh; }
 #world-sky { min-height: 160px; }
 .rec-panel .rec-video { max-height: 22vh; }

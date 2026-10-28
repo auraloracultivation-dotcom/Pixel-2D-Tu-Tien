@@ -22,14 +22,23 @@ function shade(hex, k) {
   return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`;
 }
 
-// Tinh cầu trôi trong không gian: quanh mép đĩa là trời sao, ánh Linh Nhật ở góc, sao trôi chậm theo máy quay
+// Tinh cầu trôi trong không gian: quanh mép đĩa là trời sao, ánh Linh Nhật ở góc, sao trôi chậm theo máy quay.
+// Nền trời (dải màu + ánh Linh Nhật) vẽ sẵn một tấm nhỏ theo bản đồ và cỡ màn rồi dán phóng lên, khỏi tô gradient cả màn mỗi khung
+let skyBg = null;
 function spaceSky(ctx, screen, map, t) {
-  const g = ctx.createLinearGradient(0, 0, 0, screen.h);
-  g.addColorStop(0, '#0a0918'); g.addColorStop(1, shade(map.def.sky || '#241a4a', 0.35));
-  ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
-  const sun = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(screen.w, screen.h) * 0.7);
-  sun.addColorStop(0, 'rgba(255,220,130,.28)'); sun.addColorStop(1, 'rgba(255,220,130,0)');
-  ctx.fillStyle = sun; ctx.fillRect(0, 0, screen.w, screen.h);
+  const key = `${map.id}|${screen.w}x${screen.h}`;
+  if (skyBg?.key !== key) {
+    const cv = document.createElement('canvas'), w = Math.ceil(screen.w / 4), h = Math.ceil(screen.h / 4), c = cv.getContext('2d');
+    cv.width = w; cv.height = h;
+    const g = c.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#0a0918'); g.addColorStop(1, shade(map.def.sky || '#241a4a', 0.35));
+    c.fillStyle = g; c.fillRect(0, 0, w, h);
+    const sun = c.createRadialGradient(0, 0, 0, 0, 0, Math.max(w, h) * 0.7);
+    sun.addColorStop(0, 'rgba(255,220,130,.28)'); sun.addColorStop(1, 'rgba(255,220,130,0)');
+    c.fillStyle = sun; c.fillRect(0, 0, w, h);
+    skyBg = { key, cv };
+  }
+  ctx.save(); ctx.imageSmoothingEnabled = true; ctx.drawImage(skyBg.cv, 0, 0, screen.w, screen.h); ctx.restore();
   const W = screen.w + 40, H = screen.h + 40;
   for (let i = 0; i < 90; i++) {
     const k = 0.03 + hash(i, 5) * 0.06;

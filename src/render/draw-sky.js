@@ -13,15 +13,17 @@ export function drawDayNight(ctx, game, screen, t, lights = []) {
   const p = phase(game);
   if (!p.tint) return;
   const [r, g, b, a] = p.tint, pos = screen.toScreen(game.player.x, game.player.y - 6);
-  tint ||= document.createElement('canvas');
-  if (tint.width !== screen.w || tint.height !== screen.h) { tint.width = screen.w; tint.height = screen.h; }
+  tint ||= document.createElement('canvas');   // lớp phủ mềm: vẽ nửa độ phân giải rồi phóng lên (nhẹ máy, nhìn như nhau)
+  const tw = Math.ceil(screen.w / 2), th = Math.ceil(screen.h / 2);
+  if (tint.width !== tw || tint.height !== th) { tint.width = tw; tint.height = th; }
   const c = tint.getContext('2d');
+  c.setTransform(0.5, 0, 0, 0.5, 0, 0);
   c.clearRect(0, 0, screen.w, screen.h);
   const gr = c.createRadialGradient(pos.x, pos.y, 20, pos.x, pos.y, Math.max(screen.w, screen.h) * 0.6);
   gr.addColorStop(0, `rgba(${r},${g},${b},${a * 0.5})`); gr.addColorStop(1, `rgba(${r},${g},${b},${a})`);
   c.fillStyle = gr; c.fillRect(0, 0, screen.w, screen.h);
   cutLights(c, lights, (x, y) => screen.toScreen(x, y), screen.zoom, game.data.light.glow?.cut ?? 0);
-  ctx.drawImage(tint, 0, 0);
+  ctx.drawImage(tint, 0, 0, screen.w, screen.h);
   if (p.stars) for (const s of STARS) {
     ctx.globalAlpha = 0.35 + 0.35 * Math.sin(t * (1 + s.s) + s.x * 20);
     ctx.fillStyle = '#e8f0ff'; ctx.fillRect(Math.abs(s.x) * screen.w, Math.abs(s.y) * screen.h * 0.5, 1 + s.s * 0.5, 1 + s.s * 0.5);

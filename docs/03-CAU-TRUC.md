@@ -81,6 +81,15 @@ Chủ dự án xin 28/10/2026: bảng nào cũng hiện danh sách dạng lướ
 
 Chủ dự án xin 28/10/2026: mọi chức năng và phó bản đều có trong Menu. Nút Menu mở bảng nửa màn hình chia nhóm (Nhân vật, Tu luyện chế tạo, Phó bản, Nhiệm vụ, Thế giới đạo hữu), mỗi ô có hình lấy từ hình trong game. Luyện đan, luyện khí, dược viên, động phủ mở từ xa ở đâu cũng được (khi đã có động phủ); Tháp Thử Thách, Luận Võ Đài, Bí cảnh tài nguyên, Tổ đội, Tẩy linh căn nói chuyện thẳng với NPC không phải đi tới; ô Bí cảnh liệt kê mọi bí cảnh có cổng trên tinh cầu (đã mở, đã phá, màu nguy hiểm), bấm Vào là vào thẳng (đã qua thì hỏi độ khó như đi cổng); Ma Vương tuần bay thẳng tới Phương Thiên Địa. Ô chưa mở hiện mờ, chạm báo cần gì. Thêm chức năng: thêm ô vào `groups` (cách mở ghi ở `_note`). Bảng ở `src/ui/menu-panel.js`, điều kiện và việc ở `src/game/menu-acts.js`; các bảng cũ vẫn mở bằng nút cũ để trong `#hud-menu` (luôn ẩn).
 
+## Nhẹ máy (`data/config.json` → perf)
+
+Chủ dự án báo 28/10/2026: người chơi nóng máy, tụt pin, giật. Đo trên máy giả lập yếu (CPU chậm 4 lần, màn 3x): game vẽ khung 1170×2532 điểm ảnh mỗi khung, chỉ được 7 khung mỗi giây; thời gian JS mỗi khung chỉ khoảng 10 ms, còn lại là tô điểm ảnh. Đã sửa (`src/core/perf.js`):
+- Độ phân giải vẽ tối đa 2x (trước 3x), canvas phóng lên kiểu pixel nên hình như cũ; máy yếu (ít nhân, ít RAM) bắt đầu 1,5x; khung hình thật chậm hai lượt liền thì tự hạ (2 → 1,5 → 1,25x, mức cuối 30 khung mỗi giây). Vài giây đầu và lúc vừa đổi bản đồ không tính.
+- Giới hạn 60 khung mỗi giây (màn 120 Hz trước vẽ 120); mở bảng, hộp thoại, ngắm cảnh, đả tọa thì 30.
+- HUD (chữ, thanh máu, hồi chiêu) cập nhật 15 lần mỗi giây thay vì mỗi khung.
+- Quầng sáng chiêu (`src/render/draw-lights.js`) dán quầng vẽ sẵn thay vì tạo gradient mỗi nguồn mỗi khung, tối đa `max_lights` nguồn; lớp ngày đêm vẽ nửa độ phân giải; nền trời tinh cầu vẽ sẵn một tấm nhỏ; mây ngoài màn không vẽ; bỏ nhoè nền dưới bảng (backdrop-filter).
+Kết quả trên máy giả lập yếu: 7 → khoảng 25 khung mỗi giây, mỗi khung tô ít hơn khoảng 5 lần điểm ảnh.
+
 ## Bảng nửa màn hình
 
 Chủ dự án chốt 28/10/2026: mọi bảng (`#bag`, `.panel`) và hộp thoại chỉ chiếm nửa dưới màn hình (`--sheet-h` ở cuối `style.css`), nền và viền trong mờ để thấy game phía sau; thẻ đồ, ô trang bị, nút bên trong giữ nền đặc cho nổi. Đang mở bảng thì máy quay đẩy người chơi lên giữa nửa trên (`src/game/camera.js`). Bảng mới cứ dùng class `panel` là theo luật này.
