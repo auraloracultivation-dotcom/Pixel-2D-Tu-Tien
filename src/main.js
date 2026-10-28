@@ -51,15 +51,19 @@ async function boot() {
   const login = createLogin(opts => game.begin(opts));
   login.start();
 
-  let last = performance.now();
+  let last = performance.now(), lastErr = '';
   function frame(now) {
+    requestAnimationFrame(frame);   // xếp khung sau trước: một lỗi trong khung này không làm đứng hình cả game
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    game.update(dt);
-    if (game.trip) drawTrip(game, screen);
-    else { drawWorld(game, screen, now / 1000); drawOverlay(game, screen, input); }
-    ui.update(game);
-    requestAnimationFrame(frame);
+    try {
+      game.update(dt);
+      if (game.trip) drawTrip(game, screen);
+      else { drawWorld(game, screen, now / 1000); drawOverlay(game, screen, input); }
+      ui.update(game);
+    } catch (e) {
+      if (e.message !== lastErr) { lastErr = e.message; setTimeout(() => { throw e; }); }   // báo một lần (core/catch-errors.js gửi về máy chủ)
+    }
   }
   requestAnimationFrame(frame);
 }

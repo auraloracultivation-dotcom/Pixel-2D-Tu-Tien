@@ -37,10 +37,24 @@ export function createTribulation(game) {
   function spawnShadow() {
     const p = game.player, c = run.cfg.info, base = game.data.mobs['tam-ma'];
     const hp = Math.round(Math.max(p.maxHp * c.hp, p.atk * (c.hp_atk || 0))), def = { ...base, hp, atk: Math.round(p.atk * c.atk * 10) / 10 };
-    const pos = game.map.freeNear(Math.floor(p.x / game.map.T) + 2, Math.floor(p.y / game.map.T), 2, 6);
+    const pos = game.map.freeNear(Math.floor(p.x / game.map.T) + 1, Math.floor(p.y / game.map.T), 1, 6);   // sát bên, kẻo mọc sau hàng rào, vách
     run.shadow = game.spawn('tam-ma', pos.x, pos.y, { def, hp, maxHp: hp, noQi: true, tower: true, aggro: true });
     addFx(game, { type: 'ring', x: pos.x, y: pos.y, r: 26, color: c.color, life: 0.8, fill: true });
     game.toast('Tâm ma hiện hình!', 1.6);
+  }
+
+  // Tâm ma kẹt xa (sau cây, vách, không tới được) quá FAR_SEC giây thì hiện lại sát bên người chơi: kiếp chỉ xong khi hạ tâm ma,
+  // trước đây tâm ma kẹt là kiếp không bao giờ kết thúc (chơi thử 28/10: đứng mãi ở Làng Tinh Linh)
+  const FAR = 120, FAR_SEC = 6;
+  function keepShadowNear(dt) {
+    const m = run.shadow, p = game.player;
+    if (!m || m.dead) return;
+    run.far = Math.hypot(m.x - p.x, m.y - p.y) > FAR ? (run.far || 0) + dt : 0;
+    if (run.far < FAR_SEC) return;
+    const T = game.map.T, pos = game.map.freeNear(Math.floor(p.x / T), Math.floor(p.y / T), 1, 6);
+    m.x = pos.x; m.y = pos.y; m.kx = m.ky = 0; run.far = 0;
+    addFx(game, { type: 'ring', x: pos.x, y: pos.y, r: 26, color: run.cfg.info.color, life: 0.8, fill: true });
+    game.toast('Tâm ma đuổi tới sát bên!', 1.4);
   }
 
   return {
@@ -58,6 +72,7 @@ export function createTribulation(game) {
     },
     update(dt) {
       if (!run) return;
+      keepShadowNear(dt);
       run.t -= dt;
       if (run.t > 0) return;
       const c = run.cfg, shadowAlive = run.shadow && !run.shadow.dead;

@@ -75,6 +75,10 @@ Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì 
 
 Túi đồ, tab Trang bị có nút Bán nhanh (chủ dự án xin 28/10/2026): chọn phẩm chất (chọn sẵn ở `quick.pick`), thấy trước số món và Linh Thạch nhận, bấm một lần bán hết. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (`skip_plus`); ngọc đang khảm trả về túi ngọc. Luật ở `quickList`, `quickSell` (`src/game/shop.js`), giao diện ở `src/ui/bag-quick.js`. Bán cho tiệm chỉ đổi Linh Thạch trong bản lưu như bán từng món, máy chủ không giới hạn riêng.
 
+## Chơi dọc tua nhanh (`tools/choi-doc.mjs`)
+
+Chạy tay (lâu, không chạy trong CI): người mới bật Tự hành, game được tua bằng cách gọi `game.update` liên tục, tự bấm độ kiếp khi linh khí đầy, trong kiếp né sét và chém tâm ma như người chơi; ghi tiến độ mỗi phút giả lập, báo bước đứng lâu và lỗi JavaScript. `SIM_MIN` số phút giả lập, `GENDER` 0 nam / 1 nữ, `OUT` file ghi nhật ký. Việc tính theo giờ thật (linh thực, hội đèn, việc ngày) không tua theo. Lượt đầu (28/10/2026) tìm ra và đã sửa: tự hành bắn cách hàng cây mãi không trúng, đổi qua lại giữa đánh quái sau cây và đi việc khác rồi đứng rung, quái mọc giữa thân cây khi quanh bãi kín cây, tâm ma kẹt xa làm kiếp không bao giờ xong, treo máy ở bãi yếu khi đã có tinh cầu hợp cảnh giới hơn, quái bãi treo máy chặn việc nhặt đồ của truyện; thêm chặn lỗi trong vòng khung hình (một lỗi không làm đứng hình cả game).
+
 ## Lưu tiến trình
 
 Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`).
