@@ -1,5 +1,5 @@
 {
- "_note": "Cộng đồng ngoài game. zalo (chủ dự án xin 28/10/2026): nút cạnh nút quay clip mở bảng có link nhóm Zalo để mọi người vào thảo luận; quà tham gia 1 viên ngọc cấp gem_level, người chơi chọn loại, mỗi bản lưu nhận một lần (save.quaZalo). Zalo không cho hỏi ai đã vào nhóm, nên bấm mở link là nhận. on: false thì ẩn nút. Code ở src/ui/zalo.js.",
+ "_note": "Cộng đồng ngoài game. zalo (chủ dự án xin 28/10/2026): nút cạnh nút quay clip mở bảng có link nhóm Zalo để mọi người vào thảo luận; quà tham gia 1 viên ngọc cấp gem_level, người chơi chọn loại, mỗi bản lưu nhận một lần (save.quaZalo). Zalo không cho hỏi ai đã vào nhóm, nên bấm mở link là nhận. on: false thì ẩn nút. Code ở src/ui/zalo.js. feedback (chủ dự án xin 29/10/2026): hai nút Báo lỗi, Đề xuất cạnh nút Zalo; gửi tên + ảnh chứng minh (tự chụp màn game, đổi được ảnh trong máy) + mô tả thêm, máy tự gắn bối cảnh; lưu ở máy chủ (migration 20261029030000_p2d_gop_y), Claude duyệt mỗi giờ. Code ở src/ui/feedback-panel.js, src/ui/feedback-shot.js, src/net/feedback.js.",
  "zalo": {
   "on": true,
   "url": "https://zalo.me/g/d5qjmhtxtfygjsvv40xg",
@@ -17,6 +17,67 @@
    "got": "Nhận {gem}! Hẹn gặp bạn trong nhóm Zalo.",
    "done": "Bạn đã nhận quà tham gia rồi.",
    "close": "Đóng"
+  }
+ },
+ "feedback": {
+  "on": true,
+  "img": {
+   "max": 960,
+   "q": 0.72,
+   "thumb": 320,
+   "thumb_q": 0.55
+  },
+  "kinds": {
+   "loi": {
+    "btn": "🐞",
+    "label": "Báo lỗi",
+    "title": "Báo lỗi",
+    "name": "Tên lỗi",
+    "name_ph": "Ví dụ: Kẹt ở cổng Thiên Kiếm Phong",
+    "desc_ph": "Lỗi xảy ra lúc nào, làm gì thì bị (không bắt buộc)",
+    "info": "Kể ngắn lỗi bạn gặp kèm ảnh chứng minh. Đội làm game đọc mỗi giờ và sửa sớm nhất có thể."
+   },
+   "de_xuat": {
+    "btn": "💡",
+    "label": "Đề xuất",
+    "title": "Đề xuất",
+    "name": "Tên đề xuất",
+    "name_ph": "Ví dụ: Thêm nút bán nhanh đồ Phàm",
+    "desc_ph": "Bạn muốn game thêm hoặc đổi gì, vì sao (không bắt buộc)",
+    "info": "Góp ý tính năng mới hoặc chỗ nên sửa, kèm ảnh minh hoạ. Đề xuất hay sẽ được đưa vào game."
+   }
+  },
+  "text": {
+   "close": "Đóng",
+   "shot": "Ảnh chứng minh (đã tự chụp màn game lúc bấm nút)",
+   "pick": "Chọn ảnh khác trong máy",
+   "need_img": "Cần một ảnh chứng minh.",
+   "need_name": "Tên cần từ 4 tới 80 chữ.",
+   "send": "Gửi",
+   "sending": "Đang gửi...",
+   "sent": "Đã gửi, cảm ơn đạo hữu! Xem trạng thái ở danh sách bên dưới.",
+   "login": "Đăng nhập tài khoản để gửi (chơi thử chưa gửi được).",
+   "mine": "Bạn đã gửi",
+   "none": "Chưa gửi gì.",
+   "bad_img": "Không đọc được ảnh này, chọn ảnh khác nhé.",
+   "errors": {
+    "gui_nhanh_qua": "Gửi nhanh quá, chờ vài phút rồi gửi tiếp nhé.",
+    "het_luot_hom_nay": "Hôm nay bạn đã gửi đủ 15 lần, mai gửi tiếp nhé.",
+    "tieu_de_sai": "Tên cần từ 4 tới 80 chữ.",
+    "mo_ta_dai": "Mô tả tối đa 500 chữ.",
+    "anh_sai": "Ảnh lỗi hoặc quá lớn, chọn ảnh khác nhé.",
+    "chua_dang_nhap": "Đăng nhập tài khoản để gửi.",
+    "net": "Chưa gửi được (mạng yếu?), thử lại sau nhé."
+   },
+   "status": {
+    "moi": "Đã nhận",
+    "dang_xem": "Đang xem",
+    "da_sua": "Đã sửa",
+    "se_lam": "Sẽ làm",
+    "chua_sua_duoc": "Chưa sửa được",
+    "khong_lam": "Không làm",
+    "trung": "Trùng báo cáo khác"
+   }
   }
  }
 }
