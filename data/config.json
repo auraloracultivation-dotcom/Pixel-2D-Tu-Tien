@@ -1,7 +1,10 @@
 {
  "_note": "Số liệu chung của bản chơi tạm. Đổi số ở đây, không sửa trong code.",
  "tile": 16,
- "view_tiles": 13,
+ "view_tiles": 21,
+ "pixel_snap": true,
+ "snap_tol": 0.08,
+ "_view": "view_tiles: số ô thấy theo bề ngang (màn đứng: theo bề ngang, màn ngang: 3/4 bề cao). Chủ dự án thích máy quay xa như lúc ngắm cảnh (29/10/2026): 13 → 21. pixel_snap: nếu số nguyên điểm khung vẽ mỗi đơn vị bản đồ lệch cỡ muốn không quá snap_tol thì lấy số nguyên (src/core/screen.js); máy quay luôn đặt đúng lưới điểm.",
  "maps": [
   "thanh-khe",
   "thien-kiem-phong",
@@ -35,6 +38,8 @@
  "auto": {"_note": "Tự đánh: chỉ đuổi quái thường cách chỗ bật tối đa radius.", "radius": 110},
  "interact_range": 22,
  "tap_range": 14,
+ "focus": {"_note": "Làm rõ trọng tâm khi máy quay xa (chủ dự án xin 29/10/2026; src/render/draw-focus.js): nền (đất, cây, đá, đồ trang trí, thú nhỏ) pha veil (0–1) về màu color (xám tím): nhạt màu và tối đi chút; quái, người, đồ rơi, đồ nhiệm vụ, hiệu ứng vẽ sau nên giữ nguyên màu và nổi lên. text_min_px: chữ vẽ trong thế giới (danh hiệu, tên, lời thoại) không nhỏ hơn số điểm màn này.", "veil": 0.18, "color": "#4a4058", "text_min_px": 9},
+ "slash": {"_note": "Vệt chém (chủ dự án xin 29/10/2026, làm theo bài Vệt chém lưỡi liềm trong trang Xưởng VFX Pixel; src/render/draw-slash.js, src/game/slash-fx.js): vẽ bằng điểm ảnh ở lưới bản đồ mỗi khung. timing: giây của từng khung (0 lóe báo, 1–2 vút, 3 đỉnh, 4–6 tan dither Bayer 25/50/75%); squash độ dẹt cung quanh người (nhìn chéo xuống); độ dày = tầm × w, kẹp w_min…w_max điểm ảnh; max_arc độ cung tối đa; glow độ quầng mềm cộng sáng dưới hình; streak chiều dài tia bong ra mặt trong (lần độ dày); cool phần đuôi nguội đi một tông; color màu mặc định; colors màu theo hiệu ứng chiêu; palettes bảng 4 tông riêng (gần trắng, sáng, gốc, sẫm), không có thì tự tính từ màu.", "timing": [0.06, 0.04, 0.04, 0.07, 0.06, 0.06, 0.06], "squash": 0.82, "w": 0.3, "w_min": 3, "w_max": 10, "max_arc": 330, "glow": 0.55, "streak": 1.1, "cool": 0.3, "color": "#bfe2ff", "colors": {"slash": "#bfe2ff", "liem": "#b98cff"}, "palettes": {"fire": ["#fff3b0", "#efbb0a", "#e88129", "#ea571b"], "ice": ["#dff8f9", "#bed9f6", "#73d2db", "#4c568e"]}},
  "guard": {"_note": "Chống gian lận ở máy (src/core/guard.js, chủ dự án xin 28/10/2026 vì có người dùng GameGuardian): các số trong keys (và nested: object con, \"*\" là mọi khoá) được giấu khi nằm trong bộ nhớ, kèm bẫy số; check_ms: bao lâu kiểm tra bẫy một lần. Lưu máy chủ (src/net/profile.js): lỗi số liệu thì chờ lâu dần từ retry_ms tới retry_max_ms. texts: chữ báo người chơi.", "keys": ["lingshi", "qi", "layer", "realm"], "nested": {"tower": ["best"], "mats": "*", "pills": "*"}, "check_ms": 3000, "retry_ms": 4000, "retry_max_ms": 60000, "texts": {"net": "Chưa lưu được lên máy chủ (mạng chập chờn), sẽ thử lại.", "bad": "Máy chủ chưa nhận bản lưu (số liệu lạ), đã gửi báo lỗi, đang thử lại.", "fix": "Số liệu không hợp lệ đã được khôi phục theo máy chủ.", "conflict": "Tài khoản đang chơi ở máy khác. Tải lại game để tiếp tục lưu."}},
  "perf": {"_note": "Nhẹ máy (src/core/perf.js): fps khung mỗi giây theo mức, fps_ui lúc mở bảng, hộp thoại, ngắm cảnh, đả tọa, dpr điểm ảnh vẽ tối đa mỗi điểm CSS theo mức; máy yếu (cores nhân trở xuống hoặc mem GB RAM trở xuống) bắt đầu mức 1; khung hình trung bình chậm hơn slow_ms ms trong window giây thì hạ một mức (chậm hai lượt liền; warm giây đầu và nửa warm sau khi đổi bản đồ không tính). slack: ms dung sai khi đếm khung.", "fps": [60, 60, 30], "fps_ui": 30, "dpr": [2, 1.5, 1.25], "weak": {"cores": 4, "mem": 3}, "slow_ms": 24, "window": 3, "warm": 6, "slack": 4, "hud_ms": 66, "max_lights": 40}
 }

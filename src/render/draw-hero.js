@@ -58,6 +58,7 @@ export function drawHero(ctx, game, p, t, flash) {
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
   // để 1m75 vẫn thấp hơn NPC một xíu dù làm tròn (lệch vài phần trăm, điểm ảnh gần như vẫn vuông)
   const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
+  p.top = H.char_height * (look.cm || H.npc_cm) / H.npc_cm;   // cao thân (đơn vị bản đồ): danh hiệu đặt trên đầu theo số này
   const n0 = want >= 0.75 ? Math.max(1, Math.round(want)) : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
   ctx.save();
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực

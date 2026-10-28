@@ -1,5 +1,6 @@
 // Hào quang cảnh giới (data/status.json → auras) và danh hiệu trên đầu người chơi.
 import { titleOf } from '../game/achieve.js';
+import { textQ } from './draw-focus.js';
 
 export function drawAura(ctx, game, p, t) {
   const a = game.data.status.auras[game.save.realm];
@@ -26,7 +27,9 @@ export function drawAura(ctx, game, p, t) {
 export function drawTitle(ctx, game, p) {
   const ti = titleOf(game);
   if (!ti) return;
-  ctx.font = 'bold 6px system-ui'; ctx.textAlign = 'center';
-  ctx.lineWidth = 2; ctx.strokeStyle = '#1b1830'; ctx.strokeText(ti.name, p.x, p.y - 22);
-  ctx.fillStyle = ti.color; ctx.fillText(ti.name, p.x, p.y - 22);
+  const y = p.y - (p.top || 24) - (game.data.heroes.title_gap ?? 10);   // tách hẳn khỏi đầu, tóc, vũ khí đeo vai (chủ dự án xin 29/10/2026)
+  const q = textQ(game, 6);   // máy quay xa: chữ không nhỏ quá
+  ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center';
+  ctx.lineWidth = 2 * q; ctx.strokeStyle = '#1b1830'; ctx.strokeText(ti.name, p.x, y);
+  ctx.fillStyle = ti.color; ctx.fillText(ti.name, p.x, y);
 }

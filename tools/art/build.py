@@ -4,6 +4,7 @@ Chuẩn: docs/02-CHUAN-PIXEL.md (viền 1 px cùng tông, 3 tông bóng đổi s
 import json, math, random, sys
 from pathlib import Path
 import numpy as np
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).parent))
 from px import Canvas, hx, save, write_manifest, blob_mask, BAYER4, clean  # noqa: E402
@@ -294,6 +295,22 @@ save('ui.digits-crit', [digit(b, hx('#ffd84a')) for b in DIG], (0, 0), 'số 0�
 
 # ---------------------------------------------------------------- ảnh Canva thay hình code (tools/art/ai_sprites.py, nguon/ai/sheets.json)
 print('ảnh Canva:', ai_sprites.apply(MANIFEST, save))
+
+# ---------------------------------------------------------------- vũ khí trong túi đồ = đúng hình vũ khí bay (đồng bộ 29/10/2026)
+# Lấy khung chĩa lên phải (góc 7/8 vòng) của fw.<loại>, cắt sát, đặt giữa ô vuông; game thu về 32 điểm ảnh trong túi.
+for _id, _b in _items['bases'].items():
+    _fw = MANIFEST.get('fw.' + _b['weapon']) if _b.get('weapon') else None
+    if not _fw:
+        continue
+    _k, _W = _fw['frames'] * 7 // 8, _fw['w']
+    _fr = Image.open(Path(__file__).resolve().parents[2] / _fw['file']).convert('RGBA').crop((_k * _W, 0, _k * _W + _W, _fw['h']))
+    _fr = _fr.crop(_fr.getbbox())
+    _s = max(_fr.size) + 2
+    _sq = Image.new('RGBA', (_s, _s))
+    _sq.alpha_composite(_fr, ((_s - _fr.width) // 2, (_s - _fr.height) // 2))
+    _c = Canvas(_s, _s)
+    _c.a = np.array(_sq, dtype=np.uint8)
+    save('gear.' + _id, [_c], (_s // 2, _s // 2), _b['name'] + ' (cùng hình vũ khí bay fw.' + _b['weapon'] + ')')
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

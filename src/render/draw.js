@@ -24,6 +24,8 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
+import { drawSlashes } from './draw-slash.js';
+import { drawFocus, textQ } from './draw-focus.js';
 import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
@@ -277,6 +279,7 @@ export function drawWorld(game, screen, t) {
   drawCritters(ctx, game, t);
   drawWild(ctx, game, t);
   drawVeins(ctx, game, t);
+  drawFocus(ctx, game, screen.viewRect());   // nền lùi lại: nhạt màu, tối chút; quái, người, đồ, hiệu ứng vẽ sau giữ nguyên màu
   drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
   for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp
@@ -308,8 +311,9 @@ export function drawWorld(game, screen, t) {
   drawBubbles(ctx, game);
   if (game.peek) {   // tên chỉ hiện khi chạm vào
     const e = game.peek.e, name = e.def.name, ny = e.y - Math.max(22, (e.top || 0) + 4, game.data.art.sprites['npc.' + e.id] ? 28 : 0);   // trên đỉnh hình
-    ctx.font = 'bold 7px system-ui'; ctx.textAlign = 'center';
-    ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, ny); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, ny);
+    const q = textQ(game, 7);   // máy quay xa: chữ không nhỏ quá
+    ctx.font = `bold ${7 * q}px system-ui`; ctx.textAlign = 'center';
+    ctx.lineWidth = 2 * q; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, ny); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, ny);
   }
   screen.screenTransform();
   const lights = gatherLights(game, t);   // chiêu, đạn, người chơi: khoét lớp tối rồi phủ quầng sáng cuối cùng
@@ -325,6 +329,7 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
   drawBloom(ctx, game, screen, lights);
+  screen.worldTransform(); drawSlashes(ctx, game); screen.screenTransform();   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
   if (game.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${game.flashT / 0.35})`; ctx.fillRect(0, 0, screen.w, screen.h); }
 }
 
