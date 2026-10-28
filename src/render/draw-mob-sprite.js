@@ -1,6 +1,7 @@
 // Quái bằng hình pixel (data/mobs.json → look, tools/art/mobs.py). Hình gốc nhìn phải, quay trái lật gương;
 // 2 khung luân phiên khi đi (quái hiền nảy thì theo nhịp nảy). Trả false nếu chưa có hình để vẽ hình khối như cũ.
 import { spriteImage, drawHitFrame } from './sprites.js';
+import { drawDissolved } from './dither.js';
 
 export function drawMobSprite(ctx, game, m, t, wind) {
   const spr = m.def.look && game.data.art.sprites['mob.' + m.id], im = spr && spriteImage(spr);
@@ -35,4 +36,22 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
+}
+
+// Quái vừa chết: khung đầu chớp trắng FLASH giây, rồi tan dần bằng dither Bayer trong FADE giây, bốc lên 2 điểm ảnh.
+// Quái chưa có hình pixel thì chỉ có khói (fx.puff) như cũ.
+const FLASH = 0.08, FADE = 0.34;
+export const corpseLife = FLASH + FADE;
+export function drawCorpse(ctx, game, c) {
+  const m = c.m, t = game.time - c.t0;
+  const id = m.def.rival ? 'rival.' + m.def.rival : m.def.look ? 'mob.' + m.id : null;
+  const spr = id && game.data.art.sprites[id], im = spr && spriteImage(spr);
+  if (!im || t > corpseLife) return;
+  const k = t < FLASH ? 0 : (t - FLASH) / FADE, lift = Math.round(k * 2);
+  ctx.save();
+  ctx.translate(Math.round(c.x), Math.round(c.y) + 1 - lift);
+  ctx.scale(m.lookX || 1, 1);
+  ctx.imageSmoothingEnabled = false;
+  drawDissolved(ctx, im, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h, k, t < FLASH);
+  ctx.restore();
 }

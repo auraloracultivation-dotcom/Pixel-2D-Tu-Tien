@@ -2,7 +2,6 @@
 import { drawLanterns, drawMeteors } from './draw-lantern.js';
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
-import { lootColor } from '../game/loot.js';
 import { weaponId } from '../game/stats.js';
 import { drawWeapon } from './weapon.js';
 import { drawPet, drawMount, drawRareGlow } from './draw-pet.js';
@@ -28,7 +27,9 @@ import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
-import { drawMobSprite, drawRivalSprite } from './draw-mob-sprite.js';
+import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
+import { drawLoot, drawQuestPickups } from './draw-loot.js';
+import { ring, disc } from './pixel-shapes.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 
@@ -64,8 +65,7 @@ function drawPlayer(ctx, game, t) {
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
   if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); ctx.save(); ctx.translate(0, -lift); }
   if (p.meditating) {
-    ctx.strokeStyle = el; ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.arc(p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
   }
   drawAura(ctx, game, p, t);
   if (!drawHero(ctx, game, p, t, p.flash > 0)) {   // chưa có hình thì vẽ hình khối, màu theo thời trang
@@ -74,7 +74,7 @@ function drawPlayer(ctx, game, t) {
     ctx.fillStyle = fit.sash || el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
     drawWeapon(ctx, p, w);
   }
-  if (p.shield > 0) { ctx.strokeStyle = p.shieldColor; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 10, 0, Math.PI * 2); ctx.stroke(); }
+  if (p.shield > 0) { ctx.globalAlpha = 0.7; ring(ctx, p.x, p.y - 6, 10, p.shieldColor); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
   drawTitle(ctx, game, p);
@@ -85,8 +85,7 @@ function drawPlayer(ctx, game, t) {
 function drawComp(ctx, e, t) {
   const calm = e.sleep && !e.moving;
   if (calm) {
-    ctx.strokeStyle = e.npc.color; ctx.globalAlpha = 0.3 + 0.2 * Math.sin(t * 2.4 + 1); ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.arc(e.x, e.y - 6, 10 + Math.sin(t * 1.6) * 1.5, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.3 + 0.2 * Math.sin(t * 2.4 + 1); ring(ctx, e.x, e.y - 6, 10 + Math.sin(t * 1.6) * 1.5, e.npc.color); ctx.globalAlpha = 1;
   }
   drawPerson(ctx, e, e.npc.color, e.npc.hair || '#5a4a86', t, false, calm ? { x: 0, y: -1 } : { x: e.face, y: 0.3 });
   if (calm) { ctx.fillStyle = INK; ctx.fillRect(e.x - 2, e.y - 10.4, 1.4, 0.7); ctx.fillRect(e.x + 0.6, e.y - 10.4, 1.4, 0.7); }   // mắt nhắm
@@ -105,7 +104,7 @@ function drawMob(ctx, m, t, game) {
       drawPerson(ctx, m, m.def.color, m.def.hair || '#2a1a1a', t, m.flash > 0, { x: m.fx || 0, y: m.fy || 0 });
       ctx.fillStyle = m.def.sash || '#f2c94c'; ctx.fillRect(m.x - 4, m.y - 6, 8, 1.5);
     }
-    if (wind) { ctx.strokeStyle = '#ff4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(m.x, m.y - 6, 9, 0, Math.PI * 2); ctx.stroke(); }
+    if (wind) ring(ctx, m.x, m.y - 6, 9, '#ff4a5a');
   } else if (m.def.blade) {   // kiếm hồn: thanh kiếm lơ lửng, mũi hướng về phía lao tới
     const a = Math.atan2(m.fy || 1, m.fx || 0), bob = Math.sin(t * 5 + m.x) * 1.5;
     ctx.save(); ctx.translate(m.x, m.y - 8 + bob); ctx.rotate(a + (wind ? Math.sin(t * 40) * 0.3 : 0));
@@ -172,8 +171,7 @@ function drawOther(ctx, o, game, t) {
   if (el) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
   if (o.swingT > 0) {
     const a = Math.atan2(o.face.y, o.face.x);
-    ctx.strokeStyle = '#c8f6ff'; ctx.lineWidth = 2; ctx.globalAlpha = o.swingT / 0.18;
-    ctx.beginPath(); ctx.arc(o.x, o.y - 3, 22, a - 1.1, a + 1.1); ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
   }
 }
 
@@ -190,14 +188,13 @@ function drawFx(ctx, game) {
     const k = f.t / f.life;
     ctx.globalAlpha = 1 - k;
     if (f.type === 'arc') {
-      ctx.strokeStyle = f.color; ctx.lineWidth = 4 * (1 - k) + 1;
-      ctx.beginPath(); ctx.arc(f.x, f.y, f.r * (0.7 + 0.3 * k), f.a - f.half, f.a + f.half); ctx.stroke();
-      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(f.x, f.y, f.r * (0.7 + 0.3 * k) - 1, f.a - f.half * 0.6, f.a + f.half * 0.6); ctx.stroke();
+      const rr = f.r * (0.7 + 0.3 * k);   // cung chém: viền màu dày mỏng dần, lõi trắng
+      ring(ctx, f.x, f.y, rr + 2, f.color, f.a - f.half, f.a + f.half, 4 * (1 - k) + 1);
+      ring(ctx, f.x, f.y, rr - 1, '#fff', f.a - f.half * 0.6, f.a + f.half * 0.6);
     } else if (f.type === 'ring') {
-      ctx.strokeStyle = f.color; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(f.x, f.y, f.r * (0.4 + 0.6 * k), 0, Math.PI * 2); ctx.stroke();
-      if (f.fill) { ctx.fillStyle = f.color; ctx.globalAlpha = (1 - k) * 0.3; ctx.fill(); }
+      const rr = f.r * (0.4 + 0.6 * k);
+      if (f.fill) { ctx.globalAlpha = (1 - k) * 0.3; disc(ctx, f.x, f.y, rr, f.color); ctx.globalAlpha = 1 - k; }
+      ring(ctx, f.x, f.y, rr, f.color, null, null, 2);
     } else if (f.type === 'spark' && drawSpriteFx(ctx, game, { ...f, id: 'fx.spark', y: f.y - 4 }, k)) {   // tia lửa pixel
     } else if (f.type === 'puff' && drawSpriteFx(ctx, game, { ...f, id: 'fx.puff', y: f.y - 4, s: Math.max(0.6, f.r / 10) }, k)) {   // khói tan pixel
     } else if (f.type === 'spark' || f.type === 'bite') {
@@ -229,9 +226,8 @@ function drawStrikeMarks(ctx, game) {
     if (s.hit) continue;
     const k = Math.min(1, s.t / s.delay);
     const c = s.kind === 'thunder' ? '120,220,255' : '255,90,40';
-    ctx.fillStyle = `rgba(${c},0.22)`; ctx.strokeStyle = `rgba(${c},${0.6 + 0.4 * Math.sin(s.t * 20)})`; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = `rgba(${c},0.45)`; circle(ctx, s.x, s.y, s.r * k);
+    disc(ctx, s.x, s.y, s.r, `rgba(${c},0.22)`); ring(ctx, s.x, s.y, s.r, `rgba(${c},${0.6 + 0.4 * Math.sin(s.t * 20)})`, null, null, 2);
+    disc(ctx, s.x, s.y, s.r * k, `rgba(${c},0.45)`);   // vòng trong lớn dần tới lúc giáng
   }
 }
 
@@ -264,36 +260,26 @@ export function drawWorld(game, screen, t) {
   drawCritters(ctx, game, t);
   drawWild(ctx, game, t);
   drawVeins(ctx, game, t);
-  for (const k of game.pickups) {
-    const q = game.data.items.quest_items[k.item] || {};
-    ctx.fillStyle = q.base || '#2f7a44'; circle(ctx, k.x, k.y, 3.5);
-    ctx.fillStyle = q.color || '#9af0a8'; circle(ctx, k.x, k.y - 2 + Math.sin(t * 4) * 1, 2.2);
-  }
+  drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
   for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp
     const k = 1 - Math.max(0, z.next) / z.tick;
-    ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); ctx.fillStyle = z.color; circle(ctx, z.x, z.y, z.radius);
-    ctx.globalAlpha = 0.6; ctx.strokeStyle = z.color; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.arc(z.x, z.y, z.radius, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); disc(ctx, z.x, z.y, z.radius, z.color);
+    ctx.globalAlpha = 0.6; ring(ctx, z.x, z.y, z.radius, z.color, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.globalAlpha = 1;
   }
   drawSongTu(ctx, game, t);
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.comp ? [['comp', game.comp]] : [])].sort((a, b) => a[1].y - b[1].y);
+  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife);
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.comp ? [['comp', game.comp]] : [])].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'n') drawNpc(ctx, e, game, t);
     else if (k === 'm') drawMob(ctx, e, t, game);
+    else if (k === 'c') drawCorpse(ctx, game, e);
     else if (k === 'o') drawOther(ctx, e, game, t);
     else if (k === 'pet') drawPet(ctx, e, t, game.data.art);
     else if (k === 'comp') drawComp(ctx, e, t);
     else drawPlayer(ctx, game, t);
   }
-  for (const l of game.loot) {   // đồ rơi: viên lấp lánh theo màu độ hiếm
-    const c = lootColor(game, l), bob = Math.sin(t * 8 + l.x) * 1;
-    ctx.globalAlpha = 0.35; ctx.fillStyle = c; circle(ctx, l.x, l.y + bob, 5); ctx.globalAlpha = 1;
-    ctx.fillStyle = INK;
-    ctx.beginPath(); ctx.moveTo(l.x, l.y - 4 + bob); ctx.lineTo(l.x + 3.5, l.y + bob); ctx.lineTo(l.x, l.y + 4 + bob); ctx.lineTo(l.x - 3.5, l.y + bob); ctx.fill();
-    ctx.fillStyle = c;
-    ctx.beginPath(); ctx.moveTo(l.x, l.y - 3 + bob); ctx.lineTo(l.x + 2.5, l.y + bob); ctx.lineTo(l.x, l.y + 3 + bob); ctx.lineTo(l.x - 2.5, l.y + bob); ctx.fill();
-  }
+  drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm
   drawBullets(ctx, game, t);
   drawStrikeFalls(ctx, game);
   drawFx(ctx, game);
