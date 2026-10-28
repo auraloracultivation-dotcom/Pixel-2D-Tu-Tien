@@ -29,7 +29,7 @@ export function createHints(game) {
     for (const id of Object.keys(H)) {
       const on = fresh(id), b = $(id);
       if (b && b.classList.contains('glow-hint') !== on) b.classList.toggle('glow-hint', on);
-      if (on && id !== 'btn-auto' && id !== 'btn-pilot') any = true;
+      if (on && !['btn-auto', 'btn-pilot', 'btn-world'].includes(id)) any = true;   // các nút này nằm ngoài Menu
     }
     const m = $('btn-menu');
     if (m.classList.contains('glow-hint') !== any) m.classList.toggle('glow-hint', any);

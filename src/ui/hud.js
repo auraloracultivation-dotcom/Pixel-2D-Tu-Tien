@@ -48,10 +48,7 @@ export function createHud(audio) {
   mute.addEventListener('pointerdown', e => { e.stopPropagation(); audio.toggle(); paintMute(); });
   paintMute();
 
-  // Nút Menu: mở/thu danh sách bảng; chạm một bảng thì thu lại
-  const menu = $('hud-menu');
-  $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); menu.hidden = !menu.hidden; });
-  menu.addEventListener('pointerdown', () => { setTimeout(() => { menu.hidden = true; }); }, true);
+  // Nút Menu mở bảng Menu (src/ui/menu-panel.js); #hud-menu giữ các nút bảng cũ, luôn ẩn, bảng Menu bấm hộ
   let gameRef = null;
   let hints = null;
   $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) { toggleAuto(gameRef); if (gameRef.auto) gameRef.pilot = null; } });
