@@ -20,6 +20,15 @@ export function createStory(game) {
     }
   }
 
+  // Bước nhặt đồ đã chạy xong phần "do" mà vào lại bản đồ (chết, đi rồi về, tải lại trang với bước once): rải lại số món còn
+  // thiếu, kẻo tự hành và người chơi đứng mãi ở chỗ chỉ đường (chơi thử 28/10: kẹt "Lấy băng tâm ở bờ đông bắc" ở Hàn Băng)
+  function restorePickups() {
+    const s = step(), item = s?.until?.collect;
+    if (!item || !game.save.stepDone || (s.target_map || s.map || game.map.id) !== game.map.id || game.pickups.some(k => k.item === item && !k.side)) return;
+    const left = Math.max(0, s.until.n - (st.counters[item] || 0));
+    for (const a of s.do || []) if (a.pickups === item) for (const [x, y] of a.at.slice(0, left)) game.addPickup(item, x, y);
+  }
+
   async function act(a) {
     const g = game;
     if (a.fly) await g.travel(a.fly, a.spawn, true, { text: a.text, with: a.with, kind: a.kind });
@@ -89,7 +98,7 @@ export function createStory(game) {
     start() {
       const s = step();
       if (s && !s.until.never && !s.once) game.save.stepDone = false;
-      return runStep();
+      return runStep().then(restorePickups);
     },
     get busy() { return st.busy; },
     update() {
@@ -102,6 +111,7 @@ export function createStory(game) {
       else if (type === 'kill') st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1;
       else st.events[type + (id ? ':' + id : '')] = true;
       if (type === 'boss') st.events.boss_dead = true;
+      if (type === 'enter') restorePickups();
     },
     // Chữ nhiệm vụ và ô chỉ đường đang hiện
     goal() {

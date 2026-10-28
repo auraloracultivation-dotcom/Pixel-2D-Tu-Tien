@@ -110,7 +110,7 @@ export function updateInteract(game) {
 
 export function updatePortals(game, dt) {
   game.portalLock -= dt;
-  if (game.portalLock > 0) return;
+  if (game.portalLock > 0 || game.story.busy) return;   // truyện đang chạy lời thoại, cảnh: không giẫm cổng đi mất giữa chừng (chơi thử 28/10: bước Mộc Trưởng Lão)
   for (const pt of game.map.def.portals) {
     if (pt.fly) continue;   // nối hai tinh cầu: đi bằng Bản đồ, không còn cổng giẫm phải (chủ dự án chốt 28/10/2026)
     const c = game.map.center(pt.at[0], pt.at[1]);

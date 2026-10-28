@@ -50,7 +50,8 @@ import { updateCritters } from './critters.js';
 import { onSay, updateSocial } from './social.js';
 import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
-import { updateView, viewPan, standUp } from './scenic.js';
+import { updateView, standUp } from './scenic.js';
+import { camFollow } from './camera.js';
 import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
@@ -338,7 +339,7 @@ export function createGame(data, screen, input, ui, audio) {
     pilotDialog(game, dt);
     const blocked = game.dialog.open || game.uiOpen;
     game.paused = blocked;
-    if (blocked) { game.input.clear(); return; }
+    if (blocked) { game.input.clear(); if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
     updatePlayer(game, dt);
@@ -385,7 +386,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.story.update();
     if (game.player.hp <= 0) respawn();
     if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
-    screen.follow(game.player.x, game.player.y - 4 + viewPan(game), dt, game.map);
+    camFollow(game, screen, dt);
   };
 
   return game;

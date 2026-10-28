@@ -1,0 +1,65 @@
+{
+ "_note": "Menu (chủ dự án xin 28/10/2026: \"mọi chức năng và phó bản đều có trong menu, luyện đan, luyện khí, bí cảnh...\"). Bấm nút Menu mở bảng nửa màn hình chia nhóm, mỗi ô một chức năng có hình (icon: id hình trong data/art.json, khung frame). Cách mở (code ở src/ui/menu-panel.js, src/game/menu-acts.js): btn = bấm nút bảng cũ (ẩn trong #hud-menu), tabs + tab = mở thẳng tab đó; cave = bảng động phủ mở ở tab (dan lò đan, ren lò rèn, vuon dược viên, phu động phủ), mở từ xa ở đâu cũng được; talk = nói chuyện thẳng với NPC (tower, arena, res, party, reroot); dungeons = danh sách bí cảnh, vào thẳng (chọn độ khó như đi cổng); demon = Phương Thiên Địa; open = game.open<Tên>. need: cờ truyện phải có mới mở (thiếu thì ô mờ, ghi lock). badge: id chấm đỏ của nút cũ.",
+ "title": "Menu",
+ "sub": "Chạm một ô để mở. Phó bản vào thẳng từ đây.",
+ "groups": [
+  {"name": "Nhân vật", "items": [
+   {"id": "bag", "label": "Túi đồ", "icon": "gear.bo-y", "btn": "btn-bag", "badge": "bag-badge"},
+   {"id": "skills", "label": "Chiêu thức", "icon": "icon.slash", "btn": "btn-skills", "tabs": "skills-tabs", "tab": "chieu", "badge": "skills-badge"},
+   {"id": "techs", "label": "Công pháp", "icon": "icon.orb", "btn": "btn-skills", "tabs": "skills-tabs", "tab": "cong-phap"},
+   {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu", "badge": "pets-badge"},
+   {"id": "mounts", "label": "Thú cưỡi", "icon": "mount.bach-loc", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "thu-cuoi"},
+   {"id": "comps", "label": "Đồng hành", "icon": "npc.lac-tuyet", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "dong-hanh"},
+   {"id": "fashion", "label": "Thời trang", "icon": "gear.thanh-moc-bao", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thoi-trang"},
+   {"id": "titles", "label": "Danh hiệu", "icon": "icon.buff", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "danh-hieu"}
+  ]},
+  {"name": "Tu luyện, chế tạo", "items": [
+   {"id": "dan", "label": "Luyện đan", "icon": "prop.furnace", "cave": "dan", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "ren", "label": "Luyện khí", "icon": "prop.anvil", "cave": "ren", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "vuon", "label": "Dược viên", "icon": "tile.plot", "cave": "vuon", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "phu", "label": "Động phủ", "icon": "prop.cushion", "cave": "phu", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "reroot", "label": "Tẩy linh căn", "icon": "prop.spiritstone", "talk": "reroot", "lock": "Cần cảnh giới cao hơn"}
+  ]},
+  {"name": "Phó bản", "items": [
+   {"id": "dungeons", "label": "Bí cảnh", "icon": "prop.portal", "dungeons": true},
+   {"id": "tower", "label": "Tháp Thử Thách", "icon": "prop.pillar", "talk": "tower", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
+   {"id": "arena", "label": "Luận Võ Đài", "icon": "rival.kiem-thanh", "talk": "arena", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
+   {"id": "res", "label": "Bí cảnh tài nguyên", "icon": "prop.crystal", "talk": "res", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
+   {"id": "party", "label": "Tổ đội", "icon": "npc.to-doi", "talk": "party", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
+   {"id": "demon", "label": "Ma Vương tuần", "icon": "prop.lantern", "demon": true}
+  ]},
+  {"name": "Nhiệm vụ", "items": [
+   {"id": "daily", "label": "Việc hằng ngày", "icon": "icon.bolt", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "ngay", "badge": "daily-badge"},
+   {"id": "daovan", "label": "Đạo Vận", "icon": "gear.dao-van-an", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "dao-van"},
+   {"id": "sect", "label": "Việc tông môn", "icon": "icon.shield", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tong-mon"},
+   {"id": "event", "label": "Sự kiện", "icon": "icon.fire", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "su-kien"},
+   {"id": "pilotset", "label": "Cài tự hành", "icon": "icon.wind", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tu-hanh"},
+   {"id": "achv", "label": "Thành tựu", "icon": "icon.heal", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thanh-tuu", "badge": "achv-badge"},
+   {"id": "journal", "label": "Nhật ký", "icon": "icon.sound", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "nhat-ky"},
+   {"id": "fish", "label": "Sổ cá", "icon": "icon.ice", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "so-ca"}
+  ]},
+  {"name": "Thế giới, đạo hữu", "items": [
+   {"id": "world", "label": "Bản đồ", "icon": "prop.portal", "frame": 2, "open": "world"},
+   {"id": "social", "label": "Đạo hữu", "icon": "npc.ho-linh", "btn": "btn-social", "badge": "social-badge"},
+   {"id": "rank", "label": "Xếp hạng", "icon": "rival.long-uyen", "btn": "btn-rank"},
+   {"id": "guild", "label": "Tông môn", "icon": "npc.van-hac", "btn": "btn-guild"},
+   {"id": "market", "label": "Chợ", "icon": "npc.chu-cho", "open": "market"},
+   {"id": "topup", "label": "Tiên Ngọc", "icon": "icon.orb", "frame": 0, "open": "topup"}
+  ]}
+ ],
+ "dungeon": {
+  "title": "Bí cảnh",
+  "back": "‹ Menu",
+  "go": "Vào",
+  "locked": "Chưa mở",
+  "done": "Đã phá",
+  "from": "Trên {name}",
+  "busy": "Lúc này chưa vào được: {why}"
+ },
+ "busy": {
+  "trib": "đang độ kiếp",
+  "story": "đang có chuyện",
+  "trip": "đang bay",
+  "run": "đang trong tháp, luận võ hoặc bí cảnh tài nguyên"
+ }
+}
