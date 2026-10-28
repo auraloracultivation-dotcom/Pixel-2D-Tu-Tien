@@ -40,6 +40,7 @@ export function hitMob(game, m, dmg, opt = {}) {
 
 export function killMob(game, m) {
   m.dead = true;
+  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
