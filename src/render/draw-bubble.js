@@ -1,4 +1,6 @@
 // Bong bóng lời nói nhỏ trên đầu NPC và bạn đi cùng (chatter.js), người chơi và đạo hữu khác (social.js): khung trắng bo góc, đuôi nhọn chỉ xuống, hiện dần rồi mờ đi.
+import { textQ } from './draw-focus.js';
+
 const INK = '#1b1830';
 
 export function drawBubbles(ctx, game) {
@@ -8,13 +10,16 @@ export function drawBubbles(ctx, game) {
     const b = n?.bubble;
     if (!b) continue;
     const a = Math.min(1, b.t * 5, ((b.sec || sec) - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
-    const x = n.x - w / 2, y = n.y - (n.def && game.npcs.includes(n) ? 37 : 34) - (1 - Math.min(1, b.t * 5)) * 2;   // NPC chibi cao hơn
+    const top = n.y - (n.def && game.npcs.includes(n) ? 37 : 34) + h + 3.5, q = textQ(game, 6);   // máy quay xa: phóng cả bong bóng quanh đuôi
+    ctx.save(); ctx.translate(n.x, top); ctx.scale(q, q); ctx.translate(-n.x, -top);
+    const x = n.x - w / 2, y = top - h - 3.5 - (1 - Math.min(1, b.t * 5)) * 2;   // NPC chibi cao hơn
     ctx.globalAlpha = a * 0.92;
     ctx.fillStyle = '#fffaf0'; ctx.strokeStyle = INK; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.roundRect(x, y, w, h, 4); ctx.fill(); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(n.x - 2.5, y + h - 0.5); ctx.lineTo(n.x, y + h + 3.5); ctx.lineTo(n.x + 2.5, y + h - 0.5); ctx.fill();
     ctx.beginPath(); ctx.moveTo(n.x - 2.5, y + h); ctx.lineTo(n.x, y + h + 3.5); ctx.lineTo(n.x + 2.5, y + h); ctx.stroke();
     ctx.fillStyle = INK; ctx.fillText(b.text, n.x, y + h / 2 + 0.5);
+    ctx.restore();
   }
   ctx.globalAlpha = 1; ctx.textBaseline = 'alphabetic';
 }
