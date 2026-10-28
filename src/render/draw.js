@@ -30,6 +30,7 @@ import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
+import { drawFlyWeapon } from './draw-flyweapon.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 
@@ -68,12 +69,14 @@ function drawPlayer(ctx, game, t) {
     ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
   }
   drawAura(ctx, game, p, t);
+  drawFlyWeapon(ctx, game, 'back');   // ngự kiếm: vũ khí treo sau lưng vẽ trước thân người
   if (!drawHero(ctx, game, p, t, p.flash > 0)) {   // chưa có hình thì vẽ hình khối, màu theo thời trang
     const fit = outfit(game);
     drawPerson(ctx, p, fit.robe, fit.hair, t, p.flash > 0, p.face);
     ctx.fillStyle = fit.sash || el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
     drawWeapon(ctx, p, w);
   }
+  drawFlyWeapon(ctx, game, 'front');
   if (p.shield > 0) { ctx.globalAlpha = 0.7; ring(ctx, p.x, p.y - 6, 10, p.shieldColor); }
   if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;

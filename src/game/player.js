@@ -16,6 +16,7 @@ import { songTuMul } from './affinity.js';
 import { homeMul, teaMul } from './home.js';
 import { mealMul } from './cooking.js';
 import { bump } from './achieve.js';
+import { startStrike, updateFlyWeapon, weaponPoint } from './flyweapon.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -64,6 +65,7 @@ export function basicMul(game) {
   return 1 - (1 - C.basic) * Math.min(1, n / C.basic_full);
 }
 
+// Đánh thường kiểu ngự kiếm (flyweapon.js): người vận lực, vũ khí sau lưng lao ra; sát thương tính lúc vũ khí tới nơi (p.hitQ)
 function swing(game) {
   const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], dmg = p.atk * basicMul(game);
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
@@ -72,30 +74,35 @@ function swing(game) {
     const a = Math.atan2(target.y - p.y, target.x - p.x);
     p.face = { x: Math.cos(a), y: Math.sin(a) };
   }
-  if (w.attack === 'shot') {   // đàn, cung: đòn thường là đạn
-    shoot(game, {
-      from: 'player', x: p.x + p.face.x * 6, y: p.y - 4 + p.face.y * 6, vx: p.face.x * w.speed, vy: p.face.y * w.speed,
-      r: w.radius, dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx,
-    });
-    p.swingT = 0.18;
+  const ang = Math.atan2(p.face.y, p.face.x), shot = w.attack === 'shot', half = shot ? 0 : w.arc / 2 * Math.PI / 180;
+  const t = startStrike(game, shot ? 'shot' : 'arc', ang, w.range, half);
+  p.hitQ = { t, ang, half, w, dmg, move: p.fw.act.move };
+  p.swingT = 0.18;
+  if (!shot) game.sfx('swing', 0.8);   // tiếng vút lúc vũ khí lao ra
+  return w.cooldown;
+}
+
+// Vũ khí lao tới nơi: bắn đạn từ chỗ vũ khí, hoặc chém trúng quái trong cung trước mặt
+function strike(game, q) {
+  const p = game.player, w = q.w, ca = Math.cos(q.ang), sa = Math.sin(q.ang);
+  if (q.move === 'ban') {   // đàn, cung: đạn bay ra từ vũ khí trước mặt
+    const o = weaponPoint(game);
+    shoot(game, { from: 'player', x: o.x, y: o.y, vx: ca * w.speed, vy: sa * w.speed, r: w.radius, dmg: q.dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx });
     game.sfx('shoot', 0.6);
-    return w.cooldown;
+    return;
   }
-  const ang = Math.atan2(p.face.y, p.face.x), half = w.arc / 2 * Math.PI / 180;
-  const H = game.data.heroes, look = H.list[game.save.look] || H.list[H.default];
-  // Nhân vật bằng hình đã có vệt chém vẽ sẵn trong khung đánh: không chồng thêm vệt, trừ vũ khí có vệt riêng (w.slash, vd. liềm vươn xa)
-  if (!look.sprite || w.slash) addFx(game, { type: 'sprite', id: w.slash || 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: ang, life: 0.24 });
+  const cx = p.x, cy = p.y - 8, tip = { x: cx + ca * w.range, y: cy + sa * w.range };
+  if (q.move === 'quet') addFx(game, { type: 'sprite', id: w.slash || 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: q.ang, life: 0.24 });   // quét: vệt cung quanh người
+  else if (q.move === 'bo') { addFx(game, { type: 'ring', x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8, r: 12, color: w.color, life: 0.28 }); addFx(game, { type: 'sprite', id: 'fx.spark', x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8, s: 1.4, life: 0.2 }); }
+  else { addFx(game, { type: 'line', x: cx, y: cy, x2: tip.x, y2: tip.y, color: w.color, life: 0.16 }); addFx(game, { type: 'sprite', id: 'fx.spark', x: tip.x, y: tip.y, s: 1.2, life: 0.2 }); }   // đâm: vệt kiếm khí thẳng
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
     if (d > w.range + m.r) continue;
-    let da = Math.atan2(m.y - p.y, m.x - p.x) - ang;
+    let da = Math.atan2(m.y - p.y, m.x - p.x) - q.ang;
     da = Math.atan2(Math.sin(da), Math.cos(da));
-    if (Math.abs(da) <= half || d < m.r + p.r + 2) hitMob(game, m, dmg, { color: w.color });
+    if (Math.abs(da) <= q.half || d < m.r + p.r + 2) hitMob(game, m, q.dmg, { color: w.color });
   }
-  p.swingT = 0.18;
-  game.sfx('swing', 0.8);
-  return w.cooldown;
 }
 
 export function updatePlayer(game, dt) {
@@ -137,6 +144,8 @@ export function updatePlayer(game, dt) {
   }
 
   if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = swing(game); }
+  if (p.hitQ && (p.hitQ.t -= dt) <= 0) { const q = p.hitQ; p.hitQ = null; strike(game, q); }
+  updateFlyWeapon(game, dt);
 
   const slots = skillSlots(game);
   for (let i = 0; i < 3; i++) {

@@ -1,5 +1,6 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
 import { spriteImage, drawHitFrame } from './sprites.js';
+import { strikeLean } from '../game/flyweapon.js';
 
 export function heroLook(game) {
   const H = game.data.heroes;
@@ -8,6 +9,12 @@ export function heroLook(game) {
 
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
 function anim(game, p, look, t) {
+  const walkName = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';
+  if (game.data.heroes.fly) {   // ngự kiếm: không chạy khung chém sẵn trong hình; có động tác vận lực (cast) thì chạy, không thì đứng/đi
+    const k = strikeLean(game), cast = look.anims.cast;
+    if (k != null && cast) return ['cast', Math.min(cast.length - 1, Math.floor(k * cast.length)), k];
+    return [walkName, Math.floor(t * (look.fps[walkName] || 1)), k ?? undefined];
+  }
   if (p.swingT > (p.heroSw ?? 0) && look.attacks?.length) {   // vừa vung đòn mới: ra đòn kế tiếp trong chuỗi
     const fresh = t - (p.heroAtkLast ?? -99) > (game.data.heroes.combo_reset || 1.2);   // nghỉ lâu thì về đòn đầu
     p.heroAtkN = fresh ? 0 : ((p.heroAtkN ?? -1) + 1) % look.attacks.length;
@@ -47,7 +54,8 @@ export function drawHero(ctx, game, p, t, flash) {
   const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
   const n0 = want >= 0.75 ? Math.max(1, Math.round(want)) : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
   ctx.save();
-  const dx = atk != null && look.lunge ? (p.lookX || 1) * look.lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
+  const fly = game.data.heroes.fly, lunge = fly ? fly.lean : look.lunge;   // ngự kiếm: chỉ nhún nhẹ vận lực, vũ khí bay mới là cái đánh
+  const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
   ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
