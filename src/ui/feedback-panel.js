@@ -3,7 +3,11 @@
 // Gửi qua src/net/feedback.js; dưới bảng là các báo cáo đã gửi kèm trạng thái và lời đáp của đội làm game.
 // Chữ và cỡ ảnh ở data/community.json → feedback. Bảng dựng bằng code (không thêm vào index.html), chữ người chơi gõ chỉ gán textContent.
 import { shotGame, fromFile, context } from './feedback-shot.js';
-import { sendFeedback, myFeedback, loggedIn } from '../net/feedback.js';
+// Phần mạng nạp lười (như màn đăng nhập): mất mạng, không tải được thư viện máy chủ thì game vẫn chạy, chỉ bảng này báo chưa gửi được
+const net = () => import('../net/feedback.js');
+const loggedIn = () => net().then(m => m.loggedIn()).catch(() => false);
+const myFeedback = () => net().then(m => m.myFeedback()).catch(() => []);
+const sendFeedback = f => net().then(m => m.sendFeedback(f)).catch(() => ({ error: 'net' }));
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
