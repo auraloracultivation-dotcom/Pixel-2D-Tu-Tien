@@ -13,6 +13,7 @@ import { drawDayNight } from './draw-sky.js';
 import { drawClouds } from './draw-clouds.js';
 import { drawLamps, drawGlow } from './draw-glow.js';
 import { drawFairWorld, drawFairSky } from './draw-fair.js';
+import { drawStalls } from './draw-stall.js';
 import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -255,7 +256,7 @@ export function drawWorld(game, screen, t) {
   drawTorches(ctx, game, screen.viewRect(), t);
   drawScenic(ctx, game);
   drawDecor(ctx, game, t);
-  drawLamps(ctx, game, t); drawFairWorld(ctx, game, t);   // đèn xóm, dây đèn hội
+  drawLamps(ctx, game, t); drawStalls(ctx, game, t); drawFairWorld(ctx, game, t);   // đèn xóm, quán linh thực, dây đèn hội
   drawCritters(ctx, game, t);
   drawWild(ctx, game, t);
   drawVeins(ctx, game, t);
