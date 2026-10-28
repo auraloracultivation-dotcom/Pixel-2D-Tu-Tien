@@ -2,12 +2,16 @@
 export function drawMetalTile(ctx, ch, px, py, T, h, t, up) {
   const cx = px + T / 2, cy = py + T / 2;
   if (ch === 's') {
-    if (h > 0.6) { ctx.strokeStyle = 'rgba(160,120,50,0.25)'; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(px + 2, py + 6 + h * 6); ctx.quadraticCurveTo(cx, py + 3 + h * 6, px + T - 2, py + 7 + h * 6); ctx.stroke(); }
-    if (h > 0.88) { ctx.fillStyle = `rgba(255,248,200,${0.5 + 0.4 * Math.sin(t * 3 + h * 30)})`; ctx.fillRect(px + h * 13, py + h * 9, 1.2, 1.2); }   // kim sa lấp lánh
+    if (h > 0.6) {   // gợn cát: vệt cong 1 điểm ảnh, giữa nhô lên
+      const y = Math.round(py + 6 + h * 6);
+      ctx.fillStyle = 'rgba(160,120,50,0.3)';
+      ctx.fillRect(px + 2, y, 3, 1); ctx.fillRect(px + 5, y - 1, 6, 1); ctx.fillRect(px + 11, y, 3, 1);
+    }
+    if (h > 0.88) { ctx.fillStyle = `rgba(255,248,200,${0.5 + 0.4 * Math.sin(t * 3 + h * 30)})`; ctx.fillRect(Math.round(px + h * 13), Math.round(py + h * 9), 1, 1); }   // kim sa lấp lánh
   } else if (ch === 'g' || ch === 'u') {
     ctx.strokeStyle = ch === 'g' ? 'rgba(60,50,30,0.18)' : 'rgba(0,0,0,0.25)'; ctx.lineWidth = 0.6;
     ctx.strokeRect(px + 0.3, py + 0.3, T - 0.6, T - 0.6);
-    if (ch === 'u' && h > 0.85) { ctx.fillStyle = `rgba(255,210,74,${0.25 + 0.2 * Math.sin(t * 2 + h * 9)})`; ctx.fillRect(px + h * 12, py + 5, 1.5, 1.5); }
+    if (ch === 'u' && h > 0.85) { ctx.fillStyle = `rgba(255,210,74,${0.25 + 0.2 * Math.sin(t * 2 + h * 9)})`; ctx.fillRect(Math.round(px + h * 12), py + 5, 2, 2); }
     if (ch === 'u' && h < 0.06) drawBroken(ctx, cx, cy, h * 50);
   } else if (ch === 'h') drawBroken(ctx, cx, cy, h * 3);
   else if (ch === 'J') {
