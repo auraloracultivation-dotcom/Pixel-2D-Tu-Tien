@@ -21,6 +21,7 @@ import houses as HS  # noqa: E402
 import props_planet as PP  # noqa: E402
 import props_wild as PW  # noqa: E402
 import props_home as PH  # noqa: E402
+import terrain2 as T2  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -62,6 +63,15 @@ save('fx.lava-bubble', TR.bubble_frames(), (3, 6), 'bọt dung nham phồng, v�
 save('tile.void', TR.void_frames(), (0, 0), 'khe hư không (ô f): đáy đen, mạch tím; tấm 64×64 lặp liền cắt 16 ô')
 save('tile.void-rim', TR.void_rim(), (0, 0), 'bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc')
 save('fx.void-wisp', TR.wisp_frames(), (2, 9), 'khói tím bốc lên khỏi khe hư không: 6 khung')
+
+# ---------------------------------------------------------------- núi, nước tinh cầu (tools/art/terrain2.py, vẽ ở src/world/draw-ground.js)
+save('tile.water', T2.water_frames(), (0, 0), 'nước (ô =): sóng lăn tăn; tấm 64×64 lặp liền cắt 16 ô')
+save('tile.water-rim', T2.water_rim(), (0, 0), 'bọt ven bờ nước: 4 cạnh rồi 4 góc')
+save('fx.water-glint', T2.glint_frames(), (2, 1), 'đốm lấp lánh trên mặt nước: 6 khung')
+_maps = [json.loads(_p.read_text(encoding='utf-8')) for _p in sorted((Path(__file__).resolve().parents[2] / 'data' / 'maps').glob('*.json'))]
+for _g in T2.grounds(_maps):
+    save('prop.peak-' + T2.key(_g), [T2.peak(_g, _s) for _s in range(3)], (12, 29), f"đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất {_g or 'đảo cỏ'}: 3 dáng")
+    save('tile.slope-' + T2.key(_g), [T2.slope(_g, _s) for _s in range(4)], (0, 0), f"sườn đá (ô ^ có núi phía trên), đá theo màu đất {_g or 'đảo cỏ'}: 4 biến thể")
 save('tile.house-burnt', TR.burnt_house_frames(), (0, 0), 'nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng')
 
 # ---------------------------------------------------------------- nhà và vật tinh cầu Kim, Thổ, Mộc (tools/art/houses.py, props_planet.py)

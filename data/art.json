@@ -205,6 +205,18 @@
    ],
    "note": "khói tím bốc lên khỏi khe hư không: 6 khung"
   },
+  "fx.water-glint": {
+   "file": "assets/art/fx-water-glint.png",
+   "v": "e2002a07",
+   "w": 5,
+   "h": 3,
+   "frames": 6,
+   "anchor": [
+    2,
+    1
+   ],
+   "note": "đốm lấp lánh trên mặt nước: 6 khung"
+  },
   "fx.wind": {
    "file": "assets/art/fx-wind.png",
    "v": "167e1bb2",
@@ -3337,6 +3349,114 @@
    ],
    "note": "cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng"
   },
+  "prop.peak-4a3a5a": {
+   "file": "assets/art/prop-peak-4a3a5a.png",
+   "v": "c52987e5",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #4a3a5a: 3 dáng"
+  },
+  "prop.peak-4f8a4a": {
+   "file": "assets/art/prop-peak-4f8a4a.png",
+   "v": "d99e6c31",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #4f8a4a: 3 dáng"
+  },
+  "prop.peak-5e566a": {
+   "file": "assets/art/prop-peak-5e566a.png",
+   "v": "263e6fcc",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #5e566a: 3 dáng"
+  },
+  "prop.peak-6ab060": {
+   "file": "assets/art/prop-peak-6ab060.png",
+   "v": "22af7c6b",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #6ab060: 3 dáng"
+  },
+  "prop.peak-8a8070": {
+   "file": "assets/art/prop-peak-8a8070.png",
+   "v": "f6995b3c",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất đảo cỏ: 3 dáng"
+  },
+  "prop.peak-a88a74": {
+   "file": "assets/art/prop-peak-a88a74.png",
+   "v": "efcea874",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #a88a74: 3 dáng"
+  },
+  "prop.peak-b07a4a": {
+   "file": "assets/art/prop-peak-b07a4a.png",
+   "v": "4570ea29",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #b07a4a: 3 dáng"
+  },
+  "prop.peak-e0c070": {
+   "file": "assets/art/prop-peak-e0c070.png",
+   "v": "a33bc6da",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #e0c070: 3 dáng"
+  },
+  "prop.peak-e4eef6": {
+   "file": "assets/art/prop-peak-e4eef6.png",
+   "v": "67129cb2",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #e4eef6: 3 dáng"
+  },
   "prop.pillar": {
    "file": "assets/art/prop-pillar.png",
    "v": "19eca069",
@@ -3601,6 +3721,114 @@
    ],
    "note": "đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại"
   },
+  "tile.slope-4a3a5a": {
+   "file": "assets/art/tile-slope-4a3a5a.png",
+   "v": "ce063040",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #4a3a5a: 4 biến thể"
+  },
+  "tile.slope-4f8a4a": {
+   "file": "assets/art/tile-slope-4f8a4a.png",
+   "v": "d3551a20",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #4f8a4a: 4 biến thể"
+  },
+  "tile.slope-5e566a": {
+   "file": "assets/art/tile-slope-5e566a.png",
+   "v": "fc9ad99c",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #5e566a: 4 biến thể"
+  },
+  "tile.slope-6ab060": {
+   "file": "assets/art/tile-slope-6ab060.png",
+   "v": "c820d4e7",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #6ab060: 4 biến thể"
+  },
+  "tile.slope-8a8070": {
+   "file": "assets/art/tile-slope-8a8070.png",
+   "v": "d5b75867",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất đảo cỏ: 4 biến thể"
+  },
+  "tile.slope-a88a74": {
+   "file": "assets/art/tile-slope-a88a74.png",
+   "v": "e21704c4",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #a88a74: 4 biến thể"
+  },
+  "tile.slope-b07a4a": {
+   "file": "assets/art/tile-slope-b07a4a.png",
+   "v": "f7f4d716",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #b07a4a: 4 biến thể"
+  },
+  "tile.slope-e0c070": {
+   "file": "assets/art/tile-slope-e0c070.png",
+   "v": "b20d820f",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #e0c070: 4 biến thể"
+  },
+  "tile.slope-e4eef6": {
+   "file": "assets/art/tile-slope-e4eef6.png",
+   "v": "42bf9362",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #e4eef6: 4 biến thể"
+  },
   "tile.snow-rim": {
    "file": "assets/art/tile-snow-rim.png",
    "v": "517374be",
@@ -3660,6 +3888,30 @@
     0
    ],
    "note": "bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc"
+  },
+  "tile.water": {
+   "file": "assets/art/tile-water.png",
+   "v": "e62c0b3d",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nước (ô =): sóng lăn tăn; tấm 64×64 lặp liền cắt 16 ô"
+  },
+  "tile.water-rim": {
+   "file": "assets/art/tile-water-rim.png",
+   "v": "e88f9c33",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bọt ven bờ nước: 4 cạnh rồi 4 góc"
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",
