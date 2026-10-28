@@ -90,6 +90,13 @@ save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô 
 save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
 save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
 
+# ---------------------------------------------------------------- động phủ, cổng truyền tống (tools/art/props_home.py)
+save('prop.portal', [PH.portal(f) for f in range(4)], (10, 7), 'cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung')
+save('prop.cushion', [PH.cushion()], (8, 5), 'bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng')
+save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung')
+save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
+save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
+
 # ---------------------------------------------------------------- hầm ngục, bí cảnh về đêm (tools/art/dungeon.py, vẽ ở src/world/draw-ground.js, src/render/draw-light.js)
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')
 save('tile.dwall', [DG.wall(True, s) for s in range(2)] + [DG.wall(False, s) for s in range(2)], (0, 0), 'lớp phủ vách: 2 khung mặt gạch, 2 khung đỉnh vách')
