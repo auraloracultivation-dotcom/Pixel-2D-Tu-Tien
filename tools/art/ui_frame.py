@@ -50,8 +50,18 @@ def frames(save):
     save('ui.frame-thin', [_frame(False)], (0, 0), 'khung mảnh 36×36 cắt 12 cho hộp thoại, thông báo: không có ô góc')
 
 
+# ảnh một món (huy hiệu màn đăng nhập theo mùa lễ): tên hình, chiều cao
+SINGLE = {'huy-hieu-halloween.png': ('crest-halloween', 56)}
+
+
 def lights(save):
     n = 0
+    for src, (name, h) in SINGLE.items():
+        a = A._key_near(np.array(__import__('PIL.Image', fromlist=['Image']).open(AI / src).convert('RGBA')))
+        f = A._act_frames([A._trim(a)], h, 20)[0]
+        cv = Canvas(f.shape[1], f.shape[0]); cv.a = np.ascontiguousarray(f, dtype=np.uint8)
+        save('ui.' + name, [cv], (f.shape[1] // 2, f.shape[0] - 1), f'huy hiệu màn đăng nhập (ảnh Canva {src})')
+        n += 1
     for src, names in LIGHTS.items():
         a = A._key_near(np.array(__import__('PIL.Image', fromlist=['Image']).open(AI / src).convert('RGBA')))
         cells = A._split_rows(a, per=[3, 3])

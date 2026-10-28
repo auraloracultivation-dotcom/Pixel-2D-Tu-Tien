@@ -81,3 +81,44 @@ body[data-le="tet"] .bag-head::before { background-image: url("assets/art/ui-lan
 @media (prefers-reduced-motion: reduce) {
   .bag-head::before, .bag-head::after, #bag::before, .panel::before, #dialog::before { animation: none; }
 }
+
+/* ---- màn đăng nhập mùa Halloween (chủ dự án 29/10/2026): nền Canva cung điện bay thắp đèn lồng, bí ngô, trăng cam;
+   huy hiệu bí ngô đội mũ phù thủy trên tên game; nút màu bí ngô / tím; tàn lửa bay lên; chỉ thắp đèn, không ánh sáng tự nhiên ---- */
+body[data-le="halloween"] #menu {
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 140, 40, .10), transparent 55%), linear-gradient(rgba(14, 6, 24, .25), rgba(14, 6, 24, .55)),
+    url("assets/icon/splash-halloween.png") center / cover;
+  image-rendering: pixelated;
+}
+body[data-le="halloween"] #menu h1 {
+  font-size: 32px; font-weight: 400; color: #ffb347;
+  text-shadow: 2px 0 #2a0a3a, -2px 0 #2a0a3a, 0 2px #2a0a3a, 0 -2px #2a0a3a, 0 0 14px rgba(255, 140, 40, .8);
+  animation: hw-chu 2.2s ease-in-out infinite alternate;
+}
+body[data-le="halloween"] #menu h1::before {
+  content: ''; display: block; margin: 0 auto 6px; width: 134px; height: 112px;
+  background: url("assets/art/ui-crest-halloween.png") center / contain no-repeat; image-rendering: pixelated;
+  animation: hw-nhun 2.8s ease-in-out infinite, den-sang 1.4s ease-in-out infinite alternate;
+}
+body[data-le="halloween"] #menu .sub { font-family: var(--f-pixel); font-size: 16px; color: #e8c8ff; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+body[data-le="halloween"] #menu .sub::after { content: ' · Lễ hội Bí Ngô'; color: #ffb347; }
+body[data-le="halloween"] #menu .menu-btn {
+  font-family: var(--f-pixel); font-size: 16px; font-weight: 400; border-radius: 0;
+  background: linear-gradient(#ffb04a, #e0671c 60%, #b8460e); color: #2a0a12; border: 2px solid #2a0a3a;
+  box-shadow: 0 0 0 2px #ffcf7a inset, 0 4px 0 #2a0a3a, 0 0 14px rgba(255, 140, 40, .55);
+}
+body[data-le="halloween"] #menu .menu-btn.alt { background: linear-gradient(#5a2a8a, #3a1660); color: #ffe0a8; box-shadow: 0 0 0 2px #9a6ad8 inset, 0 4px 0 #1a0628, 0 0 12px rgba(160, 90, 255, .45); }
+body[data-le="halloween"] #menu .menu-btn:active { transform: translateY(3px); box-shadow: 0 0 0 2px #ffcf7a inset, 0 1px 0 #2a0a3a; }
+body[data-le="halloween"] #menu input { border-radius: 0; border: 2px solid #5a2a8a; background: rgba(20, 8, 32, .9); font-family: var(--f-pixel); font-size: 16px; }
+body[data-le="halloween"] #menu a, body[data-le="halloween"] #menu .legal a { color: #ffb347; }
+body[data-le="halloween"] #menu .health { color: #ffc8a0; text-shadow: 0 1px 2px #000; }
+/* tàn lửa bí ngô bay lên từ đáy màn hình */
+body[data-le="halloween"] #menu::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(2px 2px at 12% 90%, #ffb347, transparent), radial-gradient(2px 2px at 30% 80%, #ff8a2a, transparent),
+    radial-gradient(2px 2px at 55% 95%, #ffd27a, transparent), radial-gradient(2px 2px at 78% 85%, #ff9a3a, transparent), radial-gradient(2px 2px at 90% 92%, #c07aff, transparent);
+  animation: hw-tan 6s linear infinite;
+}
+@keyframes hw-tan { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-60vh); opacity: 0; } }
+@keyframes hw-nhun { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes hw-chu { 0% { text-shadow: 2px 0 #2a0a3a, -2px 0 #2a0a3a, 0 2px #2a0a3a, 0 -2px #2a0a3a, 0 0 8px rgba(255, 140, 40, .55); } 100% { text-shadow: 2px 0 #2a0a3a, -2px 0 #2a0a3a, 0 2px #2a0a3a, 0 -2px #2a0a3a, 0 0 18px rgba(255, 140, 40, .95); } }
+@media (prefers-reduced-motion: reduce) { body[data-le="halloween"] #menu::after, body[data-le="halloween"] #menu h1, body[data-le="halloween"] #menu h1::before { animation: none; } }

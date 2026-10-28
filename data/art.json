@@ -5069,6 +5069,18 @@
    ],
    "note": "nguồn sáng khung giao diện: candles (ảnh Canva den-1.png)"
   },
+  "ui.crest-halloween": {
+   "file": "assets/art/ui-crest-halloween.png",
+   "v": "1f0dde8d",
+   "w": 67,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    33,
+    55
+   ],
+   "note": "huy hiệu màn đăng nhập (ảnh Canva huy-hieu-halloween.png)"
+  },
   "ui.crystal": {
    "file": "assets/art/ui-crystal.png",
    "v": "4ad3a8d2",
