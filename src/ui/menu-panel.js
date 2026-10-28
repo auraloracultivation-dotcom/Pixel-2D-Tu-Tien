@@ -54,7 +54,7 @@ export function createMenuPanel(game) {
       const grid = el('div', 'menu-grid');
       for (const it of g.items) {
         const lock = itemLock(game, it), b = el('button', 'menu-tile' + (lock ? ' locked' : ''));
-        b.append(spriteIcon(game, it.icon, it.frame), el('span', null, it.label));
+        b.append(spriteIcon(game, it.icon, it.frame, 34, 'mt-ico', it.icon.startsWith('comp.')), el('span', null, it.label));   // đồng hành chibi: vừa theo chiều cao
         if (it.badge && $(it.badge) && !$(it.badge).hidden) b.append(el('i', 'menu-dot'));
         if (it.btn && $(it.btn)?.classList.contains('glow-hint')) b.classList.add('glow-hint');
         b.onclick = () => act(it);

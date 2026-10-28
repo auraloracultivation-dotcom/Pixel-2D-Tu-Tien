@@ -5357,6 +5357,438 @@
    ],
    "note": "nguồn sáng khung giao diện: lanterns3 (ảnh Canva den-2.png)"
   },
+  "ui.m-anvil": {
+   "file": "assets/art/ui-m-anvil.png",
+   "v": "877edb3b",
+   "w": 29,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-anvil (ảnh Canva menu-1.png)"
+  },
+  "ui.m-arena": {
+   "file": "assets/art/ui-m-arena.png",
+   "v": "880d6b5e",
+   "w": 31,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-arena (ảnh Canva menu-2.png)"
+  },
+  "ui.m-auto": {
+   "file": "assets/art/ui-m-auto.png",
+   "v": "59e9b3a1",
+   "w": 32,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-auto (ảnh Canva menu-2.png)"
+  },
+  "ui.m-bag": {
+   "file": "assets/art/ui-m-bag.png",
+   "v": "8a28b3e9",
+   "w": 33,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-bag (ảnh Canva menu-1.png)"
+  },
+  "ui.m-banner": {
+   "file": "assets/art/ui-m-banner.png",
+   "v": "b3c15b99",
+   "w": 20,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    10,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-banner (ảnh Canva menu-2.png)"
+  },
+  "ui.m-boots": {
+   "file": "assets/art/ui-m-boots.png",
+   "v": "315ff66b",
+   "w": 35,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-boots (ảnh Canva menu-3.png)"
+  },
+  "ui.m-cauldron": {
+   "file": "assets/art/ui-m-cauldron.png",
+   "v": "093f0f03",
+   "w": 24,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    12,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-cauldron (ảnh Canva menu-1.png)"
+  },
+  "ui.m-cave": {
+   "file": "assets/art/ui-m-cave.png",
+   "v": "0ea009ba",
+   "w": 31,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-cave (ảnh Canva menu-1.png)"
+  },
+  "ui.m-checklist": {
+   "file": "assets/art/ui-m-checklist.png",
+   "v": "1ed66e2c",
+   "w": 28,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-checklist (ảnh Canva menu-2.png)"
+  },
+  "ui.m-chest": {
+   "file": "assets/art/ui-m-chest.png",
+   "v": "2b4d11b4",
+   "w": 29,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-chest (ảnh Canva menu-2.png)"
+  },
+  "ui.m-demon": {
+   "file": "assets/art/ui-m-demon.png",
+   "v": "69afc60c",
+   "w": 26,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    13,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-demon (ảnh Canva menu-2.png)"
+  },
+  "ui.m-diary": {
+   "file": "assets/art/ui-m-diary.png",
+   "v": "e52bfebb",
+   "w": 30,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-diary (ảnh Canva menu-2.png)"
+  },
+  "ui.m-firework": {
+   "file": "assets/art/ui-m-firework.png",
+   "v": "cc7319d0",
+   "w": 25,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    12,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-firework (ảnh Canva menu-2.png)"
+  },
+  "ui.m-fish": {
+   "file": "assets/art/ui-m-fish.png",
+   "v": "71670c39",
+   "w": 23,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    11,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-fish (ảnh Canva menu-2.png)"
+  },
+  "ui.m-flags": {
+   "file": "assets/art/ui-m-flags.png",
+   "v": "029fac35",
+   "w": 35,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-flags (ảnh Canva menu-2.png)"
+  },
+  "ui.m-friends": {
+   "file": "assets/art/ui-m-friends.png",
+   "v": "6941661d",
+   "w": 39,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    19,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-friends (ảnh Canva menu-3.png)"
+  },
+  "ui.m-globe": {
+   "file": "assets/art/ui-m-globe.png",
+   "v": "54222aaa",
+   "w": 40,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    20,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-globe (ảnh Canva menu-3.png)"
+  },
+  "ui.m-herb": {
+   "file": "assets/art/ui-m-herb.png",
+   "v": "f46f5aa5",
+   "w": 23,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    11,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-herb (ảnh Canva menu-1.png)"
+  },
+  "ui.m-jade": {
+   "file": "assets/art/ui-m-jade.png",
+   "v": "d35df1c9",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-jade (ảnh Canva menu-3.png)"
+  },
+  "ui.m-lantern": {
+   "file": "assets/art/ui-m-lantern.png",
+   "v": "9aae5ad2",
+   "w": 20,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    10,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-lantern (ảnh Canva menu-3.png)"
+  },
+  "ui.m-manual": {
+   "file": "assets/art/ui-m-manual.png",
+   "v": "6a32c15a",
+   "w": 29,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-manual (ảnh Canva menu-1.png)"
+  },
+  "ui.m-mapscroll": {
+   "file": "assets/art/ui-m-mapscroll.png",
+   "v": "271bc5db",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-mapscroll (ảnh Canva menu-3.png)"
+  },
+  "ui.m-market": {
+   "file": "assets/art/ui-m-market.png",
+   "v": "e594fb9d",
+   "w": 34,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-market (ảnh Canva menu-3.png)"
+  },
+  "ui.m-medal": {
+   "file": "assets/art/ui-m-medal.png",
+   "v": "ce289035",
+   "w": 24,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    12,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-medal (ảnh Canva menu-1.png)"
+  },
+  "ui.m-pagoda": {
+   "file": "assets/art/ui-m-pagoda.png",
+   "v": "346a4150",
+   "w": 22,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    11,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-pagoda (ảnh Canva menu-1.png)"
+  },
+  "ui.m-palace": {
+   "file": "assets/art/ui-m-palace.png",
+   "v": "fb1f165b",
+   "w": 35,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-palace (ảnh Canva menu-3.png)"
+  },
+  "ui.m-podium": {
+   "file": "assets/art/ui-m-podium.png",
+   "v": "ad3db2f9",
+   "w": 34,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-podium (ảnh Canva menu-3.png)"
+  },
+  "ui.m-portal": {
+   "file": "assets/art/ui-m-portal.png",
+   "v": "d06e59b6",
+   "w": 28,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-portal (ảnh Canva menu-1.png)"
+  },
+  "ui.m-potion": {
+   "file": "assets/art/ui-m-potion.png",
+   "v": "6967cb1b",
+   "w": 27,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    13,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-potion (ảnh Canva menu-3.png)"
+  },
+  "ui.m-robe": {
+   "file": "assets/art/ui-m-robe.png",
+   "v": "8a963937",
+   "w": 23,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    11,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-robe (ảnh Canva menu-1.png)"
+  },
+  "ui.m-root": {
+   "file": "assets/art/ui-m-root.png",
+   "v": "4e6f4c71",
+   "w": 24,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    12,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-root (ảnh Canva menu-1.png)"
+  },
+  "ui.m-star": {
+   "file": "assets/art/ui-m-star.png",
+   "v": "3921c59b",
+   "w": 33,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-star (ảnh Canva menu-3.png)"
+  },
+  "ui.m-sword": {
+   "file": "assets/art/ui-m-sword.png",
+   "v": "c6d4762e",
+   "w": 28,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-sword (ảnh Canva menu-1.png)"
+  },
+  "ui.m-taiji": {
+   "file": "assets/art/ui-m-taiji.png",
+   "v": "dafac518",
+   "w": 30,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-taiji (ảnh Canva menu-2.png)"
+  },
+  "ui.m-tea": {
+   "file": "assets/art/ui-m-tea.png",
+   "v": "337fb4ed",
+   "w": 28,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-tea (ảnh Canva menu-3.png)"
+  },
+  "ui.m-trophy": {
+   "file": "assets/art/ui-m-trophy.png",
+   "v": "fe64422a",
+   "w": 31,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "note": "nguồn sáng khung giao diện: m-trophy (ảnh Canva menu-2.png)"
+  },
   "ui.oillamp": {
    "file": "assets/art/ui-oillamp.png",
    "v": "5329bcb3",
