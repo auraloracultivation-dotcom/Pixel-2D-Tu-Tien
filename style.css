@@ -411,6 +411,10 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 .gc-tile { min-height: 68px; padding: 5px 3px 4px; gap: 2px; }
 .gc-tile b { font-size: 11px; }
 .gc-tile small { font-size: 9.5px; }
+.gc-tile.gc-big { gap: 1px; padding-top: 4px; min-height: 84px; }
+.gc-tile.gc-big > * { flex: none; }   /* chữ không bị ép co lại dưới hình */
+.gc-tile.gc-big b { font-size: 10px; }
+.gc-tile.gc-big small { font-size: 8.5px; -webkit-line-clamp: 1; }
 .menu-tile { min-height: 58px; }
 /* vuốt danh sách chắc chắn được trên Android (html, body đặt touch-action: none cho cần gạt) */
 #bag-list, .panel [id$="-list"], .menu-body, .gc-body, #bag-detail, #world-card { touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }

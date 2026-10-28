@@ -19,7 +19,7 @@ export function renderComps(game, list, { render, close, sub }) {
   const scene = lines => { close(); game.dialog.say(lines.map(([who, t]) => [data.npcs[who]?.name || who, t])); };
   for (const id of ids) {
     const d = data.companions.list[id], npc = data.npcs[id], pts = affinity(game, id), tier = tierOf(game, pts);
-    const c = el('div', 'skill-card wide-card'); c.style.borderLeftColor = d.color; c.dataset.icon = data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id;   // hình ô lưới: cùng hình người đi theo trong game (comp.<id>)
+    const c = el('div', 'skill-card wide-card'); c.style.borderLeftColor = d.color; c.dataset.icon = data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id; c.dataset.iconSize = 46;   // hình ô lưới: cùng hình người đi theo trong game (comp.<id>)
     const dl = daoLu(game) === id ? ' · đạo lữ' : '';
     c.append(el('b', null, `${npc.name} · cấp ${compLevel(game, id) || 1}${s.companion === id ? ' · đang đi cùng' : ''}${dl}`),
       el('small', null, d.desc),

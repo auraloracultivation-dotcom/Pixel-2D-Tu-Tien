@@ -2,7 +2,7 @@
 // bằng CSS (pixelated) cho vừa size điểm ảnh. Hình chưa tải xong thì thử lại vài lần.
 import { spriteImage } from '../render/sprites.js';
 
-export function spriteIcon(game, id, frame = 0, size = 34, cls = 'mt-ico') {
+export function spriteIcon(game, id, frame = 0, size = 34, cls = 'mt-ico', byH = false) {   // byH: nhân vật chibi, khung rộng vì cầu lửa, vệt chém: vừa theo chiều cao
   const cv = document.createElement('canvas'), spr = game.data.art.sprites[id];
   cv.className = cls;
   if (!spr) return cv;
@@ -13,7 +13,7 @@ export function spriteIcon(game, id, frame = 0, size = 34, cls = 'mt-ico') {
     cv.getContext('2d').drawImage(im, Math.min(frame, spr.frames - 1) * spr.w, 0, spr.w, spr.h, 0, 0, spr.w, spr.h);
   };
   paint();
-  const big = Math.max(spr.w, spr.h), k = big <= size ? Math.max(1, Math.floor(size / big)) : size / big;   // hình nhỏ: phóng nguyên lần; hình to: thu cho vừa
+  const big = byH ? spr.h : Math.max(spr.w, spr.h), k = byH ? size / big : big <= size ? Math.max(1, Math.floor(size / big)) : size / big;   // hình nhỏ: phóng nguyên lần; hình to: thu cho vừa
   cv.style.width = Math.round(spr.w * k) + 'px'; cv.style.height = Math.round(spr.h * k) + 'px';
   return cv;
 }
