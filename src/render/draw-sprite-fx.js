@@ -17,7 +17,7 @@ export function drawSpriteFx(ctx, game, f, k) {
   ctx.imageSmoothingEnabled = false;
   ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.globalCompositeOperation = 'lighter';   // quầng sáng cộng nhẹ
-  ctx.globalAlpha *= 0.45;
+  ctx.globalAlpha *= 0.3;
   ctx.drawImage(im, i * spr.w, 0, spr.w, spr.h, -spr.anchor[0] - 1, -spr.anchor[1] - 1, spr.w + 2, spr.h + 2);
   ctx.restore();
   return true;

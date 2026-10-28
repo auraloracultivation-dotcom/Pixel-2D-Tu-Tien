@@ -1,6 +1,7 @@
 // Cảnh đi đường (vẽ theo toạ độ màn hình): bay truyền tống qua không gian sao giữa các tinh cầu,
 // hoặc xoáy truyền tống khi ra vào bí cảnh. Trạng thái nằm ở game.trip (src/game/travel.js).
 import { drawPerson } from './draw.js';
+import { drawHero } from './draw-hero.js';
 import { drawMount } from './draw-pet.js';
 import { outfit } from '../game/fashion.js';
 import { circle } from '../world/draw-map.js';
@@ -26,6 +27,11 @@ function sword(ctx, len, color, t) {
   ctx.fillStyle = '#6a3a2a'; ctx.fillRect(-len * 0.55, -1, len * 0.1, 2);
 }
 
+// Người chơi trên đường bay: vẽ bằng hình nhân vật chính như ngoài bản đồ (chơi thử 28/10: trước đây là người khối, lạ hẳn)
+let heroGame = null;
+const FLY = { x: 0, y: 0, face: { x: 1, y: 0.2 }, moving: false, walkT: 0, swingT: 0, lookX: 1 };
+const hero = (ctx, t) => heroGame && drawHero(ctx, heroGame, FLY, t, false);
+
 function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
   // vạt áo bay về phía sau
@@ -36,8 +42,9 @@ function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen) {
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
-  drawPerson(ctx, { x: 0, y: 0, moving: false, bob: who }, color, hair, t, false, { x: 1, y: 0.2 });
-  if (sash) { ctx.fillStyle = sash; ctx.fillRect(-4, -6, 8, 1.5); }
+  const own = who === 0 && hero(ctx, t);
+  if (!own) drawPerson(ctx, { x: 0, y: 0, moving: false, bob: who }, color, hair, t, false, { x: 1, y: 0.2 });
+  if (sash && !own) { ctx.fillStyle = sash; ctx.fillRect(-4, -6, 8, 1.5); }
   ctx.translate(0, 1.5);
   if (swordLen) sword(ctx, swordLen, '#c8f6ff', t);
   ctx.restore();
@@ -45,6 +52,7 @@ function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen) {
 
 // Bay truyền tống giữa các tinh cầu (src/render/draw-space.js); hàm này chỉ lo vẽ người bay
 function drawFlight(ctx, screen, game, trip) {
+  heroGame = game;
   const el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7', fit = outfit(game);
   drawSpace(ctx, screen, game, trip, (c, px, py, S, t) => {
     if (trip.with) {
@@ -77,8 +85,8 @@ function drawPortal(ctx, screen, game, trip) {
   const S = Math.max(2, Math.min(w, h) / 120) * (0.6 + 0.4 * Math.abs(Math.cos(k * Math.PI)));
   const el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   ctx.save(); ctx.translate(cx, cy + 6 * S); ctx.rotate(Math.sin(t * 6) * 0.3); ctx.scale(S, S);
-  drawPerson(ctx, { x: 0, y: 0, moving: false, bob: 0 }, outfit(game).robe, outfit(game).hair, t, false, { x: 0, y: 1 });
-  ctx.fillStyle = el; ctx.fillRect(-4, -6, 8, 1.5);
+  heroGame = game;
+  if (!hero(ctx, t)) { drawPerson(ctx, { x: 0, y: 0, moving: false, bob: 0 }, outfit(game).robe, outfit(game).hair, t, false, { x: 0, y: 1 }); ctx.fillStyle = el; ctx.fillRect(-4, -6, 8, 1.5); }
   ctx.restore();
   caption(ctx, w, h, trip, k);
   const fade = Math.max(1 - k / 0.15, (k - 0.85) / 0.15);
