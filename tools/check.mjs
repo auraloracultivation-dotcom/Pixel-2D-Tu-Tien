@@ -162,6 +162,8 @@ try {
     need(Object.entries(dv.pet_el).every(([p, e]) => pets.pets[p] && els.includes(e)) && Object.keys(dv.bonus).every(e => els.includes(e)) && Object.values(dv.bonus).every(t => Object.values(t).every(b => Object.keys(b).every(s => items.stats[s] || extra.includes(s)))), 'daovan: linh thú, hệ hoặc chỉ số thưởng bộ sai');
     for (const [i, st] of dv.steps.entries()) need(dv.need_text[st.need.type] && st.need.n > 0 && (!st.give.dv || items.bases[st.give.dv]?.dv) && Object.keys(st.give.mats || {}).every(matOk) && (!st.give.flag || read('status.json').achievements.some(a => a.need.flag === st.give.flag)) && (i === 0 || st.day >= dv.steps[i - 1].day), `daovan.steps[${i}]: việc, thưởng hoặc ngày sai`);
     need(dv.steps.filter(s => s.give.dv).length === dvBases.length && matOk(dv.reroll.mat) && items.rarities.some(r => r.id === dv.rarity), 'daovan: con đường phải cho đủ mỗi món một lần, nguyên liệu đổi hệ, độ hiếm phải có'); }
+  for (const w of daily.weekly.tasks) need(w.need.n > 0 && ['kills', 'bosses', 'rares', 'sit', 'fish', 'lantern', 'pat', 'tea', 'cook'].includes(w.need.type) && Object.keys(w.reward.mats || {}).every(matOk), `daily.weekly/${w.id}: việc hoặc thưởng sai`);   // việc tuần
+  need(Object.keys(daily.weekly.chest.mats || {}).every(matOk), 'daily.weekly.chest: nguyên liệu không có');
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');

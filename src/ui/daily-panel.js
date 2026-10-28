@@ -4,6 +4,7 @@ import { ensureDaily, taskDef, taskText, claimTask, claimChest, bountyLeft, rank
 import { renderEvents } from './event-tab.js';
 import { renderPilotOpts } from './pilot-tab.js';
 import { renderDaoVan } from './daovan-tab.js';
+import { weeklyRows, claimWeekly, claimWeeklyChest } from '../game/weekly.js';
 
 const $ = id => document.getElementById(id);
 
@@ -41,6 +42,18 @@ export function createDailyPanel(game) {
     const all = dl.tasks.every(t => t.got);
     list.append(card('#ffb03a', 'Rương hằng ngày', [`Xong và nhận đủ ${dl.tasks.length} việc để mở. ${rewardText(D.chest)}.`],
       mini(dl.chest ? 'Đã mở' : 'Mở rương', () => { const g = claimChest(game); if (g) { msg = 'Rương: ' + g.join(', '); game.sfx('levelup'); } }, dl.chest || !all)));
+    renderWeek(list);
+  }
+
+  // Việc tuần: tính từ thứ Hai, xong từng việc nhận thưởng, đủ hết mở rương tuần
+  function renderWeek(list) {
+    const W = D.weekly, rows = weeklyRows(game);
+    list.append(el('div', 'muted tiny', `${W.title} · ${W.reset}`));
+    for (const r of rows) list.append(card(r.got ? '#c8c4d0' : r.done ? '#5fd07a' : '#7a8af0', `${r.t.text.replace('{n}', r.t.need.n)} (${r.have}/${r.t.need.n})`, [`Thưởng: ${rewardText(r.t.reward)}`],
+      mini(r.got ? 'Đã nhận' : r.done ? 'Nhận thưởng' : 'Chưa xong', () => { const g = claimWeekly(game, r.t.id); if (g) { msg = 'Nhận: ' + g.join(', '); game.sfx('levelup'); } }, r.got || !r.done)));
+    const wk = game.save.weekly, allW = rows.every(r => r.got);
+    list.append(card('#7a8af0', W.chest_name, [`Nhận đủ ${rows.length} việc tuần để mở. ${rewardText(W.chest)}.`],
+      mini(wk.chest ? 'Đã mở' : 'Mở rương', () => { const g = claimWeeklyChest(game); if (g) { msg = 'Rương tuần: ' + g.join(', '); game.sfx('levelup'); } }, wk.chest || !allW)));
   }
 
   function renderSect(list) {
