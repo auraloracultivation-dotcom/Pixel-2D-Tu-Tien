@@ -1,13 +1,13 @@
 {
  "_note": "Linh Thạch: tiền chung. Quái rơi khi hạ (chance, số = linh khí quái × per_qi, boss chắc chắn và gấp boss_mul). Bán đồ cho tiệm theo độ hiếm (sell). Vạn Bảo Lâu bán đan, nguyên liệu, ngọc cấp 1 theo giá price; need: cờ cần có mới bán.",
  "name": "Linh Thạch",
- "drop": {"chance": 0.35, "per_qi": 0.25, "boss_mul": 3},
+ "drop": {"chance": 0.35, "per_qi": 0.1, "boss_mul": 3},
  "sell": {"pham": 4, "linh": 10, "huyen": 25, "dia": 70, "thien": 180},
  "quick": {"_note": "Bán nhanh trong Túi đồ (chủ dự án xin 28/10): chọn phẩm chất rồi bán hết một lần. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (skip_plus). pick: phẩm chất chọn sẵn.", "pick": ["pham", "linh"], "skip_plus": true},
  "npc": "van-bao",
  "items": [
   {"kind": "pill", "ref": "hoi-xuan-dan", "n": 2, "price": 30},
-  {"kind": "pill", "ref": "tu-khi-dan", "n": 1, "price": 60},
+  {"kind": "pill", "ref": "tu-khi-dan", "n": 1, "price": 200},
   {"kind": "mat", "ref": "linh-thao", "n": 3, "price": 15},
   {"kind": "mat", "ref": "yeu-huyet", "n": 2, "price": 25},
   {"kind": "mat", "ref": "tinh-thiet", "n": 2, "price": 35, "need": "dong-phu"},

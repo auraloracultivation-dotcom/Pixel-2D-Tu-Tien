@@ -5,6 +5,9 @@ import { pillHp } from './cave.js';
 import { setStats } from './enhance.js';
 import { snackStats } from './snack.js';
 import { daoVanStats } from './daovan.js';
+// Linh khí hạ quái nhân theo cảnh giới (data/realms.json → kill_qi): cảnh giới cao hấp thụ linh khí phàm thú chậm hơn
+export const killQiMul = (save, realms) => realms.kill_qi?.[save.realm] ?? 1;
+
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
 }

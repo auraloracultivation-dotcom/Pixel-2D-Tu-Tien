@@ -16,6 +16,8 @@
  "qi_growth": 1.3,
  "qi_soft_from": 27,
  "qi_soft_growth": 1.03,
+ "kill_qi": [1, 1, 1, 0.45, 0.22, 0.18, 0.15, 0.14, 0.12],
+ "_kill_qi": "Linh khí hạ quái nhân theo cảnh giới người chơi (cảnh giới càng cao, linh khí phàm thú càng khó hấp thụ). Chủ dự án thấy farm quá nhanh (28/10/2026, cày thử ở tools/cay-thu.mjs: lên đỉnh mất khoảng 5 giờ treo); mục tiêu khoảng 26 giờ treo tới Độ Kiếp tầng 9: tới Nguyên Anh như cũ (khoảng 1 giờ), rồi Nguyên Anh 1,5 giờ, Hóa Thần 2,5, Luyện Hư 3,5, Hợp Thể 4,5, Đại Thừa 6, Độ Kiếp 7.",
  "hp_per_layer": 12,
  "atk_per_layer": 2,
  "tribulation": {

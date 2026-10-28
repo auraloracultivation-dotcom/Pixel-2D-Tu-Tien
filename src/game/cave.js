@@ -14,6 +14,13 @@ export const canPay = (game, cost) => has(game.save, cost);
 
 export function addMat(save, id, n = 1) { save.mats[id] = (save.mats[id] || 0) + n; }
 
+// Đan độc: số viên đan linh khí còn được dùng hôm nay (data/cave.json → qi_pill_day)
+export function qiPillLeft(game) {
+  const L = game.data.cave.qi_pill_day, q = game.save.qiPill;
+  if (!L) return Infinity;
+  return q?.day === new Date().toDateString() ? Math.max(0, L.n - q.n) : L.n;
+}
+
 // Quái rơi nguyên liệu: [loại, xác suất, số lượng]
 export function matDrop(game, m) {
   if (m.noQi) return;
@@ -59,6 +66,9 @@ export function usePill(game, id) {
     p.hp = Math.min(p.maxHp, p.hp + p.maxHp * u.heal);
     msg = `+${Math.round(p.maxHp * u.heal)} máu`;
   } else if (u.qi) {
+    if (qiPillLeft(game) <= 0) return null;
+    const day = new Date().toDateString();
+    save.qiPill = { day, n: (save.qiPill?.day === day ? save.qiPill.n : 0) + 1 };
     save.pills[id]--;
     game.gainQi(qiNeed(save, data.realms) * u.qi, p.x, p.y);
     game.persist();

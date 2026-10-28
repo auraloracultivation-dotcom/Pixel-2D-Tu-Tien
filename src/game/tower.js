@@ -57,7 +57,7 @@ export async function talkTower(game, npc) {
 // Gọi mỗi khung: sinh đợt quái, xét qua tầng, hỏi leo tiếp hay ra
 export function updateTower(game, dt) {
   const t = game.tower, inTower = game.map.def.tower;
-  if (!inTower) { if (t) game.tower = null; return; }
+  if (!inTower) { if (t && !game.traveling) game.tower = null; return; }   // đang bay vào tháp (Tự hành vào tháp ngay trong khung hình): đừng xoá, kẻo vào tới nơi lại bị đưa ra, vào ra mãi (cày thử 28/10 tối)
   if (!t) { if (!game.traveling) leaveTower(game); return; }  // nạp lại bản lưu đang ở trong tháp
   if (t.busy) return;
   if (t.wait > 0) { if ((t.wait -= dt) <= 0) spawnWave(game); return; }

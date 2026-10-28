@@ -1,7 +1,7 @@
 // Bay truyền tống giữa các tinh cầu: người chơi lượn lên xuống nhặt sao linh khí, va mảnh vỡ hư không chỉ chậm lại.
 // Không bao giờ thua. Toạ độ theo phần màn: x 0..1 (trái → phải), y 0..1 (trên → dưới). Vẽ ở src/render/draw-space.js.
 import { orbitOf } from './starmap.js';
-import { qiNeed } from './stats.js';
+import { qiNeed, killQiMul } from './stats.js';
 import { addCoins } from './shop.js';
 
 export const PX = 0.32;            // chỗ người bay theo chiều ngang
@@ -63,7 +63,7 @@ export function updateSpace(game, tr, dt) {
       const n = c.gold_coins * ((game.save.realm || 0) + 1);
       addCoins(game, n); sp.gold += n; sp.pops.push({ text: c.texts.gold.replace('{n}', n), t: 0, color: '#ffd76a' });
     } else {
-      const n = Math.max(1, Math.round(qiNeed(game.save, game.data.realms) * c.star_qi));
+      const n = Math.max(1, Math.round(qiNeed(game.save, game.data.realms) * c.star_qi * killQiMul(game.save, game.data.realms)));   // giảm theo cảnh giới như linh khí hạ quái, kẻo bay qua lại lợi hơn đánh quái
       game.gainQi(n, 0, 0, true); sp.got++; sp.pops.push({ text: c.texts.qi.replace('{n}', n), t: 0, color: '#bff4ff' });
     }
     game.sfx?.('pickup');
