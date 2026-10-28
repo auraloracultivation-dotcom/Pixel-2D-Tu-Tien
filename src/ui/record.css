@@ -19,3 +19,4 @@
 .rec-gem.on { background: var(--gem); color: #fff; text-shadow: 0 1px 0 #1b1830; }
 .rec-link { font: 14px system-ui, sans-serif; padding: 8px; border: 2px solid #1b1830; border-radius: 9px; min-width: 0; }
 .rec-go { min-height: 36px; background: #ffd86b; }
+.rec-tiktok { min-height: 42px; font-size: 15px; background: #111; color: #fff; border-color: #111; box-shadow: -2px 0 0 #25f4ee, 2px 0 0 #fe2c55; }

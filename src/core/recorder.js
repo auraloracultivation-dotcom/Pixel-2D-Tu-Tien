@@ -31,12 +31,14 @@ export function clipSize(w, h, long) {
   return { w: even(w), h: even(h) };
 }
 
-function drawMark(ctx, w, h, mark) {
+// Chữ góc vẽ sẵn một lần vào tấm riêng, mỗi khung chỉ dán lại (vẽ chữ có viền mỗi khung tốn máy)
+function makeMark(w, h, mark) {
   const s = Math.max(10, Math.round(Math.min(w, h) / 34));
-  ctx.save();
-  ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
-  ctx.lineJoin = 'round';
-  const x = w - s * 0.8, y = h - s * 0.8;
+  const c = document.createElement('canvas');
+  c.width = w; c.height = Math.ceil(s * 2.6);
+  const ctx = c.getContext('2d');
+  ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.lineJoin = 'round';
+  const x = w - s * 0.8, y = c.height - s * 0.3;
   ctx.font = `600 ${Math.round(s * 0.72)}px system-ui, sans-serif`;
   ctx.lineWidth = Math.max(2, s * 0.22); ctx.strokeStyle = 'rgba(27,24,48,.85)'; ctx.fillStyle = 'rgba(255,255,255,.88)';
   ctx.strokeText(mark.sub, x, y); ctx.fillText(mark.sub, x, y);
@@ -44,7 +46,7 @@ function drawMark(ctx, w, h, mark) {
   ctx.font = `800 ${s}px system-ui, sans-serif`;
   ctx.lineWidth = Math.max(3, s * 0.3); ctx.strokeText(mark.title, x, y2);
   ctx.fillStyle = '#ffd86b'; ctx.fillText(mark.title, x, y2);
-  ctx.restore();
+  return { img: c, y: h - c.height - Math.round(s * 0.5) };
 }
 
 // Bắt đầu ghi. src: khung vẽ game; master: nút âm lượng tổng của game (có thể null khi chưa có tiếng).
@@ -59,19 +61,22 @@ export function startRecording(src, master, cfg) {
   const ctx = copy.getContext('2d');
   ctx.imageSmoothingEnabled = false;   // giữ nét pixel khi thu nhỏ
 
-  let raf = 0, live = true;
-  const paint = () => {
+  // Chép đúng cfg.fps lần mỗi giây (không chép mỗi khung 60–120 Hz): đỡ nặng máy nên game và clip đều mượt hơn
+  const mk = makeMark(copy.width, copy.height, cfg.mark), fps = weak ? cfg.fps_weak || cfg.fps : cfg.fps, gap = 1000 / fps;
+  let raf = 0, live = true, next = 0;
+  const paint = now => {
     if (!live) return;
-    if (src.width && src.height) {
-      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, copy.width, copy.height);
-      ctx.drawImage(src, 0, 0, copy.width, copy.height);
-      drawMark(ctx, copy.width, copy.height, cfg.mark);
-    }
     raf = requestAnimationFrame(paint);
+    if (now < next) return;
+    next = Math.max(next + gap, now - gap);
+    if (!src.width || !src.height) return;
+    ctx.drawImage(src, 0, 0, copy.width, copy.height);
+    ctx.drawImage(mk.img, 0, mk.y);
   };
-  paint();
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, copy.width, copy.height);
+  raf = requestAnimationFrame(paint);
 
-  const stream = copy.captureStream(cfg.fps);
+  const stream = copy.captureStream(fps);
   let tap = null;
   if (master?.context?.createMediaStreamDestination) {
     try {
