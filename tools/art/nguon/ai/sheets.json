@@ -1,10 +1,377 @@
 {
- "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. bo-cu/: bản thử cũ (nhìn ngang, 2 khung) không dùng.",
+ "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét.",
  "pet.hoa-lang": {
   "src": "sheets/pet-hoa-lang.png",
   "acts": true,
   "h": 32,
   "key": "magenta",
   "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10)"
+ },
+ "pet.moc-linh": {
+  "src": "sheets/pet-moc-linh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.ma-tieu": {
+  "src": "sheets/pet-ma-tieu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.viem-linh": {
+  "src": "sheets/pet-viem-linh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.ma-cung": {
+  "src": "sheets/pet-ma-cung.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.tuyet-lang": {
+  "src": "sheets/pet-tuyet-lang.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.moc-yeu": {
+  "src": "sheets/pet-moc-yeu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.kiem-hon": {
+  "src": "sheets/pet-kiem-hon.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.tho-khoi": {
+  "src": "sheets/pet-tho-khoi.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.hu-anh": {
+  "src": "sheets/pet-hu-anh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.phong-yeu": {
+  "src": "sheets/pet-phong-yeu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "pet.bang-tinh": {
+  "src": "sheets/pet-bang-tinh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "mount.bach-loc": {
+  "src": "sheets/mount-bach-loc.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.2,
+  "hd": true
+ },
+ "mount.phong-lang": {
+  "src": "sheets/mount-phong-lang.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.2,
+  "hd": true
+ },
+ "mount.hoa-ky-lan": {
+  "src": "sheets/mount-hoa-ky-lan.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.2,
+  "hd": true
+ },
+ "mount.tuyet-ly": {
+  "src": "sheets/mount-tuyet-ly.png",
+  "grid": [
+   4,
+   1
+  ],
+  "scale": 1.2,
+  "hd": true
+ },
+ "mob.huyet-nha": {
+  "src": "sheets/mob-huyet-nha.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.huyet-nha-that": {
+  "src": "sheets/mob-huyet-nha-that.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.han-hon-ma-tuong": {
+  "src": "sheets/mob-han-hon-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.thuc-moc-ma-hau": {
+  "src": "sheets/mob-thuc-moc-ma-hau.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hac-cuc-ma-chung": {
+  "src": "sheets/mob-hac-cuc-ma-chung.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.van-kiem-ma-tuong": {
+  "src": "sheets/mob-van-kiem-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.kim-giap-vuong": {
+  "src": "sheets/mob-kim-giap-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.toai-son-ma-tuong": {
+  "src": "sheets/mob-toai-son-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.nham-giap-thu": {
+  "src": "sheets/mob-nham-giap-thu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hu-khong-nguc-chu": {
+  "src": "sheets/mob-hu-khong-nguc-chu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hu-khong-cu-thu": {
+  "src": "sheets/mob-hu-khong-cu-thu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.tan-hon-huyet-nha": {
+  "src": "sheets/mob-tan-hon-huyet-nha.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.tan-hon-han-hon": {
+  "src": "sheets/mob-tan-hon-han-hon.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.tan-hon-hac-phong": {
+  "src": "sheets/mob-tan-hon-hac-phong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.tan-hon-thuc-moc": {
+  "src": "sheets/mob-tan-hon-thuc-moc.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.ma-ton": {
+  "src": "sheets/mob-ma-ton.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.co-thu-yeu-vuong": {
+  "src": "sheets/mob-co-thu-yeu-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hac-phong-ma-quan": {
+  "src": "sheets/mob-hac-phong-ma-quan.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.moc-linh-vuong": {
+  "src": "sheets/mob-moc-linh-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.tuyet-lang-vuong": {
+  "src": "sheets/mob-tuyet-lang-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.phong-yeu-vuong": {
+  "src": "sheets/mob-phong-yeu-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hoa-lang-vuong": {
+  "src": "sheets/mob-hoa-lang-vuong.png",
+  "grid": [
+   4,
+   2
+  ],
+  "cells": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "scale": 1.15,
+  "hd": true
+ },
+ "mob.hoa-lang": {
+  "src": "sheets/mob-hoa-lang.png",
+  "grid": [
+   3,
+   2
+  ],
+  "cells": [
+   0,
+   1,
+   0,
+   2
+  ],
+  "scale": 1.1,
+  "hd": true
+ },
+ "proj.ice": {
+  "src": "sheets/proj-ice.png",
+  "grid": [
+   6,
+   1
+  ],
+  "mode": "glow",
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.6
  }
 }
