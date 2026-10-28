@@ -71,6 +71,26 @@
    "hurt": ["Lùi về sau bóng ta.", "Máu thấp. Uống đan đi."],
    "fight": ["Ta trói, ngươi chém.", "Sau lưng có ta.", "Chém tiếp đi."]
   },
+  "tieu-dao": {
+   "realm": ["{realm}! Huynh biết mà, {đệ|muội} giỏi nhất tông môn!", "Đột phá rồi! Hôm nay huynh khao, ăn gì cũng được!"],
+   "boss": ["{boss} gục rồi! Ngầu quá, huynh vỗ tay muốn rát tay luôn.", "Trận này đẹp như tranh vẽ!"],
+   "rare": ["{item}! Vận khí {đệ|muội} tốt ghê, chia huynh chút may đi.", "{item} hợp với {đệ|muội} quá trời."],
+   "arena": ["Hạng {rank}! Huynh hét dưới đài khản cả cổ đó."],
+   "achv": ["{name}! Huynh kể cho cả tông môn nghe liền."],
+   "tower": ["Tầng {rank}! Cao quá, huynh leo theo muốn hụt hơi."],
+   "layer": ["Lại lên tầng nữa! Chăm ghê.", "Linh khí dày lên rồi đó."],
+   "item": ["{item}! Mặc vào chắc đẹp lắm."],
+   "brew": ["Đan thơm phức, tay nghề giỏi ghê."],
+   "harvest": ["Vườn xanh mướt, ai trồng mà khéo thế!"],
+   "fish": ["Cá to quá! Tối nay nướng nha.", "Câu giỏi ghê, cá cũng mê."],
+   "decor": ["{item}! Nhà đẹp hẳn lên."],
+   "multi": ["Một lúc mấy con! Đỉnh quá!", "Chém đẹp như múa!"],
+   "elite": ["Hạ cả tinh anh luôn, giỏi ghê!", "Con đó khó lắm đó!"],
+   "clutch": ["Hú hồn! Huynh muốn rớt tim.", "Suýt nữa! Uống đan đi."],
+   "streak": ["{n} con rồi! Tay không mỏi à?"],
+   "hurt": ["Máu thấp rồi! Lùi lại!", "Cẩn thận! Để huynh quạt gió."],
+   "fight": ["Cố lên! Huynh cổ vũ nè!", "Bên trái kìa!", "Đẹp lắm, chém tiếp!"]
+  },
   "ho-linh": {
    "realm": ["{realm}! Ngươi giỏi quá đi, lại đây ta xoa đầu nào!", "Đột phá rồi! Hôm nay ta khao, ăn gì cũng được!", "Ta biết mà, đạo lữ của ta là nhất thiên hạ!"],
    "boss": ["{boss} chạy đâu cho thoát! Ngươi ngầu quá trời!", "Hì, đánh xong rồi thì ôm cái coi. Ngươi có sao không đó?", "Thấy chưa, có ta cổ vũ là thắng liền!"],
