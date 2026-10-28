@@ -1,0 +1,22 @@
+{
+ "_note": "Bảng thông báo (chủ dự án xin 29/10/2026): nút 📢 trên bảng điều khiển, số đỏ là thông báo chưa xem; mỗi ngày tự mở một lần khi có thông báo đang chạy (sau khi vào game, không chen ngang hội thoại; người mới qua bước truyện auto_step mới tự mở, kẻo che phần hướng dẫn đầu game). list: thông báo xếp trên xuống, from/to theo ngày (giờ máy chủ), không có thì luôn hiện; top: nổi bật (khung vàng, nằm trên cùng); act: nút mở chỗ tương ứng (referral: sự kiện giới thiệu, fame: bảng vinh danh góp ý, rank: bảng xếp hạng, feedback: bảng báo lỗi). Thêm thông báo: thêm một mục với id mới (đổi id là người chơi thấy như thông báo mới).",
+ "auto_step": 20,
+ "btn": "📢",
+ "label": "Thông báo",
+ "title": "Bảng thông báo",
+ "close": "Đóng",
+ "empty": "Chưa có thông báo nào.",
+ "list": [
+  {"id": "gioi-thieu-2026-10", "top": true, "color": "#f2c94c", "from": "2026-10-29", "to": "2026-11-12", "title": "🎁 Mời bạn nhận Ngọc cấp 8",
+   "lines": ["Bạn mới vào game bằng mã của bạn, online liên tục 4 tiếng là bạn nhận 1 viên Ngọc cấp 8. Mời bao nhiêu nhận bấy nhiêu!", "Bạn mới nhập mã được tặng 1 viên Ngọc cấp 5.", "Từ 29/10 tới hết 12/11."],
+   "act": "referral", "btn": "Lấy mã mời của tôi"},
+  {"id": "gop-y-thuong", "color": "#7ad0ff", "from": "2026-10-29", "title": "🐞 Báo lỗi, góp ý nhận Ngọc cấp 4",
+   "lines": ["Bấm 🐞 hoặc 💡 cạnh nút Zalo để báo lỗi, đề xuất. Mỗi vấn đề được nhận thưởng 1 viên Ngọc cấp 4.", "Người góp nhiều nhất có tên trên Bảng vinh danh."],
+   "act": "fame", "btn": "Bảng vinh danh"},
+  {"id": "so-tai", "color": "#ff9a7a", "from": "2026-10-29", "to": "2026-11-12", "title": "⚔️ Mới: Hồ sơ và So tài",
+   "lines": ["Bảng xếp hạng: chạm tên ai cũng xem được trang bị, ngọc khảm, chiêu, linh thú của người đó.", "Bấm So tài để đấu với bản sao của họ trên Luận Võ Đài."],
+   "act": "rank", "btn": "Mở bảng xếp hạng"},
+  {"id": "hom-thu", "color": "#9af0a8", "from": "2026-10-29", "to": "2026-11-05", "title": "✉ Mới: Hòm thư",
+   "lines": ["Nút ✉ cạnh Menu gom tin chợ, quà, truyền âm, tông môn, ai nhắc tên bạn ở kênh Thế giới. Đề xuất của đạo hữu tapsu."]}
+ ]
+}
