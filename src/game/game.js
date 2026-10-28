@@ -12,6 +12,7 @@ import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
+import { updateBossMusic } from './boss-music.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
 import { updateZones } from './zones.js';
@@ -75,6 +76,7 @@ export function createGame(data, screen, input, ui, audio) {
     owner: 'guest', online: null, others: null,
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
+  game.music = id => audio?.music(id);   // nhạc nền theo bản đồ, hoặc 'boss' lúc đánh boss, độ kiếp (boss-music.js)
   game.rain = on => audio?.rain(on);
   game.night = on => audio?.night(on);
   game.others = createOthers(game);
@@ -357,7 +359,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateParty(game, dt);
     updateTower(game, dt);
     updateArena(game, dt);
-    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt);
+    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);
