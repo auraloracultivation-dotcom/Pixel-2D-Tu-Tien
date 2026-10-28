@@ -59,6 +59,9 @@ save('tile.icelake', TR.icelake_frames(), (0, 0), 'hồ băng nứt: tấm 64×6
 save('tile.lava-rim', TR.lava_rim(), (0, 0), 'bờ đá bazan quanh dung nham: cạnh trên, phải, dưới, trái, rồi góc trên trái, trên phải, dưới phải, dưới trái (góc trong và bo góc ngoài)')
 save('tile.snow-rim', TR.snow_rim(), (0, 0), 'bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc')
 save('fx.lava-bubble', TR.bubble_frames(), (3, 6), 'bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung')
+save('tile.void', TR.void_frames(), (0, 0), 'khe hư không (ô f): đáy đen, mạch tím; tấm 64×64 lặp liền cắt 16 ô')
+save('tile.void-rim', TR.void_rim(), (0, 0), 'bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc')
+save('fx.void-wisp', TR.wisp_frames(), (2, 9), 'khói tím bốc lên khỏi khe hư không: 6 khung')
 save('tile.house-burnt', TR.burnt_house_frames(), (0, 0), 'nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng')
 
 # ---------------------------------------------------------------- nhà và vật tinh cầu Kim, Thổ, Mộc (tools/art/houses.py, props_planet.py)
@@ -77,6 +80,8 @@ save('prop.lantern', [PW.lantern(f) for f in range(2)], (5, 21), 'đèn lồng g
 save('prop.deadtree', [PW.dead_tree(s) for s in range(2)], (8, 23), 'cây khô (ô V): cành trơ; có quạ đậu')
 save('prop.blackpillar', [PW.black_pillar(s) for s in range(2)], (6, 25), 'trụ đá đen (ô U): phù văn tím; vỡ đỉnh')
 save('prop.crystal', [PW.crystal(s) for s in range(2)], (7, 19), 'tinh thể tím (ô *): cụm cao, cụm thấp')
+save('prop.pine', [PW.pine(s) for s in range(2)], (9, 26), 'tùng phủ tuyết (ô Y): ba tầng tán, tuyết đọng; cây thấp')
+save('prop.icepillar', [PW.ice_pillar(s) for s in range(2)], (6, 25), 'trụ băng (ô k): tinh thể vát nhọn; có nhánh nhỏ')
 
 # ---------------------------------------------------------------- động phủ, cổng truyền tống (tools/art/props_home.py)
 save('prop.portal', [PH.portal(f) for f in range(4)], (10, 7), 'cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung')

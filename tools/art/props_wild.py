@@ -149,3 +149,48 @@ def crystal(seed):
         if c.filled(x, 19):
             c.px(x, 19, P[0])
     return c.outline(hx('#14081e'))
+
+
+def pine(seed):
+    """Tùng phủ tuyết 18×28: ba tầng tán nhọn xanh lục sẫm, tuyết đọng mép trên mỗi tầng, thân nâu; seed 1 thấp, nghiêng tuyết nhiều."""
+    c = Canvas(18, 28)
+    L = [hx('#163a32'), hx('#245a4a'), hx('#2f6a5a'), hx('#3e8070')]
+    S = [hx('#b8cce0'), hx('#e4eef6'), hx('#ffffff')]
+    for y in range(22, 27):
+        c.px(8, y, hx('#6a4a32')); c.px(9, y, hx('#4a3222'))
+    tiers = [(23, 8, 7), (16, 7, 6), (10, 5, 5)] if seed == 0 else [(23, 8, 6), (17, 6, 5), (12, 4, 4)]
+    for base, half, ht in tiers:   # mỗi tầng: tam giác, sáng trái tối phải
+        for k in range(ht + 1):
+            y = base - k
+            w = max(0, half - (k * half) // ht)
+            for x in range(9 - w, 9 + w + 1):
+                c.px(x, y, L[3] if x < 7 and k < ht - 1 else L[2] if x < 9 else L[1] if x < 11 else L[0])
+        for x in range(9 - half, 9 + half + 1):   # tuyết đọng mép dưới tầng
+            if (x + seed) % 3:
+                c.px(x, base - 1, S[1])
+        for k in range(ht - 1, ht + 1):   # tuyết đỉnh tầng
+            y = base - k
+            for x in range(8, 11):
+                if c.filled(x, y):
+                    c.px(x, y, S[2] if x < 10 else S[0])
+    c.px(9, tiers[-1][0] - tiers[-1][2] - 1, S[2])
+    return c.outline(hx('#0e2420'))
+
+
+def ice_pillar(seed):
+    """Trụ băng 12×26: tinh thể băng cao vát nhọn, mặt sáng trái, lõi xanh, chân tuyết; seed 1 có nhánh nhỏ."""
+    c = Canvas(12, 26)
+    I = [hx('#2e5a8a'), hx('#5a8ab8'), hx('#8cc2e8'), hx('#bfe8ff'), hx('#f0fbff')]
+    for y in range(2, 25):
+        half = min(4, (y - 2) // 2 + 1)
+        for x in range(6 - half, 6 + half):
+            lx = x - (6 - half)
+            c.px(x, y, I[4] if lx == 0 and y < 20 else I[3] if lx < half - 1 else I[2] if lx < half + 1 else I[1] if lx < 2 * half - 1 else I[0])
+    if seed % 2:
+        for y in range(12, 24):
+            half = min(2, (y - 12) // 3 + 1)
+            for x in range(10 - half, 10 + half):
+                c.px(x, y, I[3] if x < 10 else I[1])
+    for x in range(1, 12):
+        c.px(x, 25, hx('#e4eef6')); c.px(x, 24, hx('#e4eef6') if x % 3 else I[1])
+    return c.outline(hx('#14284a'))
