@@ -14,7 +14,7 @@ function rest(game, p, t) {
     const q = t * Math.PI * 2 * c.orbit.speed;
     return { x: p.x + Math.cos(q) * c.orbit.r, y: p.y - 8 + Math.sin(q) * c.orbit.r * 0.45, a: q + Math.PI / 2, front: Math.sin(q) > 0 };
   }
-  return { x: p.x + side * c.back[0], y: p.y + c.back[1] + Math.sin(t * 2.2) * c.bob, a: -Math.PI / 2 + side * 0.35, front: false };
+  return { x: p.x + side * c.back[0], y: p.y + c.back[1] + Math.sin(t * 2.2) * c.bob, a: -Math.PI / 2 + side * (c.tilt ?? 0.35), front: false };
 }
 
 // Bắt đầu một đòn. kind: 'arc' (cận chiến) | 'shot' (bắn). Chọn động tác kế tiếp trong chuỗi của nhân vật (p.heroAnim cho

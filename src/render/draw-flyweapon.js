@@ -36,8 +36,8 @@ export function drawFlyWeapon(ctx, game, layer) {
   ctx.save();
   ctx.imageSmoothingEnabled = false;
   fw.trail.forEach((q, i) => { ctx.globalAlpha = 0.45 - i * 0.13; blit(ctx, ws, glow, q.x, q.y, q.a, k); });   // bóng linh lực khi lao
-  ctx.globalAlpha = 0.3 + 0.12 * Math.sin(t * 4);   // quầng linh lực: bản màu linh căn lệch một điểm bốn phía
-  for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) blit(ctx, ws, glow, fw.x + ox, fw.y + oy, fw.a, k);
+  ctx.globalAlpha = (c.halo ?? 0.3) + 0.12 * Math.sin(t * 4);   // quầng linh lực: bản màu linh căn lệch một điểm tám phía, nổi trên tóc tối và cỏ
+  for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) blit(ctx, ws, glow, fw.x + ox, fw.y + oy, fw.a, k);
   ctx.globalAlpha = 1;
   blit(ctx, ws, im, fw.x, fw.y, fw.a, k);
   ctx.fillStyle = el;   // đốm linh khí bay lên quanh vũ khí
