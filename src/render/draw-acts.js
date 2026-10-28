@@ -2,16 +2,22 @@
 // Linh thú, thú cưỡi, bạn đồng hành dùng chung. Hình gốc nhìn phải, quay trái lật gương.
 import { spriteImage } from './sprites.js';
 
-export const ACT = { idle: 0, walk: [1, 2], wind: 3, hit: 4, down: 5 };
+export const ACT = { idle: 0, walk: [1, 2], wind: 3, hit: 4, down: 5, skill: 6 };   // khung 6 (nếu có): tung chiêu riêng
+const SKILL = 0.45;   // giây giữ khung tung chiêu
+
+// Khung bước: hình có spr.walk (thú cưỡi 4 bước) thì đi theo thứ tự đó
+export const walkFrame = (spr, t) => { const w = spr?.walk || ACT.walk; return w[Math.floor(t * 7) % w.length]; };
 const ATTACK = 0.32;   // giây: lấy đà rồi đánh ngay sau mỗi đòn
 
 // Chọn khung: e là thực thể có cd (thời gian chờ đòn kế), def.cd; moving; t là giây trò chơi
 export function actFrame(spr, e, t, cdMax) {
   if (!spr || spr.frames < 6) return null;
   if (e.down) return ACT.down;
+  const sk = e.def?.skill?.cd, since2 = sk && e.skillCd != null ? sk - e.skillCd : 99;
+  if (spr.frames > ACT.skill && since2 > 0 && since2 < SKILL) return ACT.skill;   // linh thú vừa tung chiêu
   const since = cdMax && e.cd != null ? cdMax - e.cd : 99;
-  if (since > 0 && since < ATTACK)   // = 0: vừa sinh ra, chưa đánh return since < ATTACK * 0.35 ? ACT.wind : ACT.hit;
-  if (e.moving) return ACT.walk[Math.floor(t * 7) % 2];
+  if (since > 0 && since < ATTACK) return since < ATTACK * 0.35 ? ACT.wind : ACT.hit;   // = 0: vừa sinh ra, chưa đánh (trước đây chú thích nuốt mất lệnh return)
+  if (e.moving) return walkFrame(spr, t);
   return ACT.idle;
 }
 

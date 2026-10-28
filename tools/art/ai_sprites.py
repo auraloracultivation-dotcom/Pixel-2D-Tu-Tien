@@ -56,11 +56,12 @@ def _trim(c):
     return c
 
 
-def _key(a):
-    """Bỏ nền hồng tím theo màu (cả chỗ kẹp giữa chân mà loang từ mép không tới) và vệt bóng tím sẫm dưới chân."""
+def _key(a, shadow=True):
+    """Bỏ nền hồng tím theo màu (cả chỗ kẹp giữa chân mà loang từ mép không tới) và vệt bóng tím sẫm dưới chân.
+    shadow=False: giữ màu tím sẫm (linh thú bóng tối, cánh dơi tím) vì dễ bị nhầm là bóng."""
     c = a[:, :, :3].astype(int); r, g, b = c[:, :, 0], c[:, :, 1], c[:, :, 2]
     mag = (r - g > 90) & (b - g > 90) & (np.abs(r - b) < 90)
-    shadow = (b >= r - 10) & (g < r) & (b - g > 25) & (r < 170) & (np.arange(a.shape[0])[:, None] > a.shape[0] * 0.55)
+    shadow = shadow & (b >= r - 10) & (g < r) & (b - g > 25) & (r < 170) & (np.arange(a.shape[0])[:, None] > a.shape[0] * 0.55)
     out = a.copy(); out[:, :, 3] = np.where(mag | shadow, 0, a[:, :, 3])
     return out
 
@@ -74,6 +75,20 @@ def _split(a, gap=8):
         p = c
     segs.append((s, p + 1))
     return [a[:, x0:x1] for x0, x1 in segs]
+
+
+def _grid(a, grid):
+    """Chia đều theo lưới [cột, hàng] (ảnh đã xếp mỗi khung một ô, hiệu ứng rời như sóng âm, lấp lánh vẫn ở cùng ô)."""
+    cols, rows = grid
+    h, w = a.shape[:2]
+    out = [a[round(r * h / rows):round((r + 1) * h / rows), round(c * w / cols):round((c + 1) * w / cols)].copy()
+           for r in range(rows) for c in range(cols)]
+    return [c for c in out if _bbox(c)]
+
+
+def _lift(f):
+    g = np.zeros_like(f); g[:-1] = f[1:]
+    return g
 
 
 def _act_frames(cells, h, colors):
@@ -143,11 +158,15 @@ def apply(manifest, save):
             print('bỏ qua (không có hình code cùng id):', sid); continue
         if s.get('acts') and s.get('h'):   # ảnh gốc đầy đủ (chủ dự án gửi): bỏ nền theo màu, tự tách khung, thu về cao h
             a = np.array(Image.open(AI / s['src']).convert('RGBA'))
-            cells = _split(_key(a) if s.get('key') == 'magenta' else remove_bg(a, 60))
+            a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else remove_bg(a, 60)
+            cells = _grid(a, s['grid']) if s.get('grid') else _split(a)
+            if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
             frames = _act_frames(cells, s['h'], s.get('colors', 14))
+            if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
             h, w = frames[0].shape[:2]
-            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + ' · ảnh AI 6 động tác')
+            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + f' · ảnh chủ dự án {len(frames)} khung')
             manifest[sid]['scale'] = HD
+            if s.get('walk'): manifest[sid]['walk'] = s['walk']
             n += 1; continue
         cells = _cells(AI / s['src'], s.get('grid', [1, 1]))
         cells = [cells[i] for i in s.get('cells', range(len(cells)))]
