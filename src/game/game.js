@@ -36,6 +36,7 @@ import { updateFair } from './fair.js';
 import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
 import { updateDaoVan } from './daovan.js';
+import { showBanner } from './banner.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
@@ -202,6 +203,7 @@ export function createGame(data, screen, input, ui, audio) {
     }
     else loadMap(id, spawnName);
     game.traveling = false;
+    showBanner(game);   // bảng tên nơi vừa tới
     game.story.notify('enter', id);
   };
 
