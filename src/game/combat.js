@@ -6,6 +6,20 @@ export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
 
 export function addNumber(game, x, y, text, color = '#fff', big = false) {
+  // "+16 linh khí", "+3 Linh Thạch" liên tục mỗi lần hạ quái: gộp vào dòng cùng loại vừa hiện gần đó (đỡ rối mắt, chơi thử 28/10)
+  const m = /^\+(\d+) (.+)$/.exec(String(text));
+  if (m) {
+    const same = game.numbers.find(n => n.gain === m[2] && n.t < 0.45 && Math.abs(n.x - x) < 40 && Math.abs(n.y - y) < 40);
+    if (same) { same.sum += +m[1]; same.text = `+${same.sum} ${m[2]}`; same.t = Math.min(same.t, 0.1); return; }
+    game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0, gain: m[2], sum: +m[1] });
+    return;
+  }
+  // Chiêu nhiều đòn trúng một con liên tục: cộng vào số vừa hiện trên con đó thay vì chồng hàng chục số (chơi thử 28/10)
+  if (/^\d+$/.test(String(text))) {
+    const same = game.numbers.find(n => !n.gain && n.color === color && /^\d+$/.test(n.text) && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
+    if (same) { same.text = String(+same.text + +text); same.big ||= big; return; }
+  }
+  if (game.numbers.length > 28) game.numbers.shift();   // giữ màn gọn khi đánh đông quái
   game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0 });
 }
 
