@@ -1,5 +1,5 @@
 {
- "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống.",
+ "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người). follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
  "npc": "ngu-thu-su",
  "rare_chance": 0.04,
  "rare": {
@@ -9,39 +9,343 @@
   "prefix": "Dị chủng "
  },
  "max_level": 20,
- "evolve": {"_note": "Đủ cấp level thì tiến hóa: đổi tên (evo của từng con), sát thương x mult, chiêu hồi nhanh hơn (skill_cd), mở cấp tới max_level.", "level": 20, "max_level": 40, "mult": 1.5, "skill_cd": 0.75, "cost": {"yeu-huyet": 12, "tinh-thiet": 8}, "coins": 600},
- "merge": {"_note": "Gộp linh thú (chủ dự án chốt trưa 28/10/2026: 2 con cùng cấp thì lên 1 cấp, chỉ số tăng ít, không giới hạn): bắt thêm dị chủng của loài đã có thì được một bản sao (copies), vẫn cộng kinh nghiệm như cũ. Gộp như ghép đôi: sao n lên n + 1 tốn 2^n bản sao (hai con sao n thành một con sao n + 1), không giới hạn sao; mỗi sao sát thương linh thú + bonus. Giữ nguyên lên cấp và tiến hoá.", "bonus": 0.03, "texts": {"copy": "Bắt thêm một {name}: +1 bản sao để gộp (có {n}).", "line": "Sao ★{star} · bản sao {n}/{cost}", "card": "Gộp {name}: ★{star} → ★{next}", "card_line": "Tốn {cost} bản sao. Sát thương linh thú +{pct}% mỗi sao.", "done": "{name} lên ★{star}!"}},
+ "evolve": {
+  "_note": "Đủ cấp level thì tiến hóa: đổi tên (evo của từng con), sát thương x mult, chiêu hồi nhanh hơn (skill_cd), mở cấp tới max_level.",
+  "level": 20,
+  "max_level": 40,
+  "mult": 1.5,
+  "skill_cd": 0.75,
+  "cost": {
+   "yeu-huyet": 12,
+   "tinh-thiet": 8
+  },
+  "coins": 600
+ },
+ "merge": {
+  "_note": "Gộp linh thú (chủ dự án chốt trưa 28/10/2026: 2 con cùng cấp thì lên 1 cấp, chỉ số tăng ít, không giới hạn): bắt thêm dị chủng của loài đã có thì được một bản sao (copies), vẫn cộng kinh nghiệm như cũ. Gộp như ghép đôi: sao n lên n + 1 tốn 2^n bản sao (hai con sao n thành một con sao n + 1), không giới hạn sao; mỗi sao sát thương linh thú + bonus. Giữ nguyên lên cấp và tiến hoá.",
+  "bonus": 0.03,
+  "texts": {
+   "copy": "Bắt thêm một {name}: +1 bản sao để gộp (có {n}).",
+   "line": "Sao ★{star} · bản sao {n}/{cost}",
+   "card": "Gộp {name}: ★{star} → ★{next}",
+   "card_line": "Tốn {cost} bản sao. Sát thương linh thú +{pct}% mỗi sao.",
+   "done": "{name} lên ★{star}!"
+  }
+ },
  "exp_base": 40,
  "exp_pow": 1.35,
  "lv_bonus": 0.08,
- "follow": 18,
+ "follow": 24,
  "pets": {
-  "moc-linh": {"name": "Tiểu Mộc Linh", "evo": "Thanh Mộc Tinh Quân", "color": "#5fd07a", "desc": "Bắn hạt gỗ. Cứ 10 giây hồi 8% máu cho chủ.", "mult": 0.35, "cd": 1.3, "range": 80, "skill": {"type": "heal", "amount": 0.08, "cd": 10}},
-  "ma-tieu": {"name": "Tiểu Quỷ", "evo": "Ám Dạ Quỷ Vương", "color": "#7a4ab0", "desc": "Lao vào cào. Cứ 8 giây làm chậm quái quanh mình.", "mult": 0.55, "cd": 0.9, "range": 70, "melee": true, "skill": {"type": "slow", "radius": 34, "dur": 2.5, "cd": 8}},
-  "hoa-lang": {"name": "Tiểu Hỏa Lang", "evo": "Liệt Hỏa Lang Vương", "color": "#ff7a3a", "desc": "Lao vào cắn. Cứ 8 giây phun lửa quanh mình.", "mult": 0.65, "cd": 1.0, "range": 70, "melee": true, "skill": {"type": "aoe", "radius": 30, "dmg": 1.6, "cd": 8}, "mount": ["phong-lang", 0.35]},
-  "viem-linh": {"name": "Viêm Linh Nhi", "evo": "Viêm Hoàng Tiên Tử", "color": "#ffb03a", "desc": "Bắn cầu lửa nổ. Cứ 12 giây tăng 15% công cho chủ 5 giây.", "mult": 0.5, "cd": 1.4, "range": 90, "skill": {"type": "buff", "amount": 0.15, "dur": 5, "cd": 12}},
-  "ma-cung": {"name": "Ma Tiễn Đồng", "evo": "U Minh Tiễn Thần", "color": "#b04a9a", "desc": "Bắn tên xuyên. Cứ 9 giây bắn ba mũi một lúc.", "mult": 0.5, "cd": 1.2, "range": 100, "skill": {"type": "volley", "n": 3, "dmg": 1, "cd": 9}},
-  "tuyet-lang": {"name": "Tiểu Tuyết Lang", "evo": "Băng Nguyên Lang Vương", "color": "#dfe8f2", "desc": "Lao vào cắn. Cứ 8 giây hú làm chậm quái quanh mình.", "mult": 0.7, "cd": 0.95, "range": 75, "melee": true, "skill": {"type": "slow", "radius": 38, "dur": 3, "cd": 8}, "mount": ["tuyet-ly", 0.3]},
-  "moc-yeu": {"name": "Tiểu Thụ Yêu", "evo": "Cổ Mộc Thần Thụ", "color": "#7ab05a", "desc": "Lao vào quật cành. Cứ 10 giây hồi 6% máu cho chủ.", "mult": 0.7, "cd": 1.1, "range": 75, "melee": true, "skill": {"type": "heal", "amount": 0.06, "cd": 10}},
-  "kiem-hon": {"name": "Tiểu Kiếm Linh", "evo": "Vạn Kiếm Linh Tôn", "color": "#d8e0f0", "desc": "Phóng kiếm nhỏ. Cứ 8 giây bắn ba thanh kiếm một lúc.", "mult": 0.6, "cd": 1.0, "range": 100, "skill": {"type": "volley", "n": 3, "dmg": 1.1, "cd": 8}},
-  "tho-khoi": {"name": "Tiểu Thạch Khôi", "evo": "Bàn Sơn Thạch Thần", "color": "#a87a4a", "desc": "Lao vào đấm. Cứ 10 giây dậm đất làm chậm quái quanh mình.", "mult": 0.75, "cd": 1.15, "range": 75, "melee": true, "skill": {"type": "slow", "radius": 44, "dur": 3.5, "cd": 10}},
-  "hu-anh": {"name": "Tiểu U Ảnh", "evo": "Thái Hư Ảnh Quân", "color": "#6a4a9a", "desc": "Lướt vào cắn bóng. Cứ 9 giây tăng 20% công cho chủ 5 giây.", "mult": 0.8, "cd": 0.8, "range": 75, "melee": true, "skill": {"type": "buff", "amount": 0.2, "dur": 5, "cd": 9}},
-  "phong-yeu": {"name": "Tiểu Phong Yêu", "evo": "Cuồng Phong Yêu Hoàng", "color": "#a8b8d0", "desc": "Lao vào cào nhanh. Cứ 9 giây cuốn gió quanh mình gây sát thương.", "mult": 0.75, "cd": 0.8, "range": 80, "melee": true, "skill": {"type": "aoe", "radius": 34, "dmg": 1.8, "cd": 9}},
-  "bang-tinh": {"name": "Băng Tinh Nhi", "evo": "Hàn Băng Tinh Hậu", "color": "#9ad8ff", "desc": "Bắn băng. Cứ 10 giây hồi 8% máu cho chủ.", "mult": 0.55, "cd": 1.2, "range": 90, "skill": {"type": "heal", "amount": 0.08, "cd": 10}}
+  "moc-linh": {
+   "name": "Tiểu Mộc Linh",
+   "evo": "Thanh Mộc Tinh Quân",
+   "color": "#5fd07a",
+   "desc": "Bắn hạt gỗ. Cứ 10 giây hồi 8% máu cho chủ.",
+   "mult": 0.35,
+   "cd": 1.3,
+   "range": 80,
+   "skill": {
+    "type": "heal",
+    "amount": 0.08,
+    "cd": 10
+   }
+  },
+  "ma-tieu": {
+   "name": "Tiểu Quỷ",
+   "evo": "Ám Dạ Quỷ Vương",
+   "color": "#7a4ab0",
+   "desc": "Lao vào cào. Cứ 8 giây làm chậm quái quanh mình.",
+   "mult": 0.55,
+   "cd": 0.9,
+   "range": 70,
+   "melee": true,
+   "skill": {
+    "type": "slow",
+    "radius": 34,
+    "dur": 2.5,
+    "cd": 8
+   }
+  },
+  "hoa-lang": {
+   "name": "Tiểu Hỏa Lang",
+   "evo": "Liệt Hỏa Lang Vương",
+   "color": "#ff7a3a",
+   "desc": "Lao vào cắn. Cứ 8 giây phun lửa quanh mình.",
+   "mult": 0.65,
+   "cd": 1.0,
+   "range": 70,
+   "melee": true,
+   "skill": {
+    "type": "aoe",
+    "radius": 30,
+    "dmg": 1.6,
+    "cd": 8
+   },
+   "mount": [
+    "phong-lang",
+    0.35
+   ]
+  },
+  "viem-linh": {
+   "name": "Viêm Linh Nhi",
+   "evo": "Viêm Hoàng Tiên Tử",
+   "color": "#ffb03a",
+   "desc": "Bắn cầu lửa nổ. Cứ 12 giây tăng 15% công cho chủ 5 giây.",
+   "mult": 0.5,
+   "cd": 1.4,
+   "range": 90,
+   "skill": {
+    "type": "buff",
+    "amount": 0.15,
+    "dur": 5,
+    "cd": 12
+   }
+  },
+  "ma-cung": {
+   "name": "Ma Tiễn Đồng",
+   "evo": "U Minh Tiễn Thần",
+   "color": "#b04a9a",
+   "desc": "Bắn tên xuyên. Cứ 9 giây bắn ba mũi một lúc.",
+   "mult": 0.5,
+   "cd": 1.2,
+   "range": 100,
+   "skill": {
+    "type": "volley",
+    "n": 3,
+    "dmg": 1,
+    "cd": 9
+   }
+  },
+  "tuyet-lang": {
+   "name": "Tiểu Tuyết Lang",
+   "evo": "Băng Nguyên Lang Vương",
+   "color": "#dfe8f2",
+   "desc": "Lao vào cắn. Cứ 8 giây hú làm chậm quái quanh mình.",
+   "mult": 0.7,
+   "cd": 0.95,
+   "range": 75,
+   "melee": true,
+   "skill": {
+    "type": "slow",
+    "radius": 38,
+    "dur": 3,
+    "cd": 8
+   },
+   "mount": [
+    "tuyet-ly",
+    0.3
+   ]
+  },
+  "moc-yeu": {
+   "name": "Tiểu Thụ Yêu",
+   "evo": "Cổ Mộc Thần Thụ",
+   "color": "#7ab05a",
+   "desc": "Lao vào quật cành. Cứ 10 giây hồi 6% máu cho chủ.",
+   "mult": 0.7,
+   "cd": 1.1,
+   "range": 75,
+   "melee": true,
+   "skill": {
+    "type": "heal",
+    "amount": 0.06,
+    "cd": 10
+   }
+  },
+  "kiem-hon": {
+   "name": "Tiểu Kiếm Linh",
+   "evo": "Vạn Kiếm Linh Tôn",
+   "color": "#d8e0f0",
+   "desc": "Phóng kiếm nhỏ. Cứ 8 giây bắn ba thanh kiếm một lúc.",
+   "mult": 0.6,
+   "cd": 1.0,
+   "range": 100,
+   "skill": {
+    "type": "volley",
+    "n": 3,
+    "dmg": 1.1,
+    "cd": 8
+   }
+  },
+  "tho-khoi": {
+   "name": "Tiểu Thạch Khôi",
+   "evo": "Bàn Sơn Thạch Thần",
+   "color": "#a87a4a",
+   "desc": "Lao vào đấm. Cứ 10 giây dậm đất làm chậm quái quanh mình.",
+   "mult": 0.75,
+   "cd": 1.15,
+   "range": 75,
+   "melee": true,
+   "skill": {
+    "type": "slow",
+    "radius": 44,
+    "dur": 3.5,
+    "cd": 10
+   }
+  },
+  "hu-anh": {
+   "name": "Tiểu U Ảnh",
+   "evo": "Thái Hư Ảnh Quân",
+   "color": "#6a4a9a",
+   "desc": "Lướt vào cắn bóng. Cứ 9 giây tăng 20% công cho chủ 5 giây.",
+   "mult": 0.8,
+   "cd": 0.8,
+   "range": 75,
+   "melee": true,
+   "skill": {
+    "type": "buff",
+    "amount": 0.2,
+    "dur": 5,
+    "cd": 9
+   }
+  },
+  "phong-yeu": {
+   "name": "Tiểu Phong Yêu",
+   "evo": "Cuồng Phong Yêu Hoàng",
+   "color": "#a8b8d0",
+   "desc": "Lao vào cào nhanh. Cứ 9 giây cuốn gió quanh mình gây sát thương.",
+   "mult": 0.75,
+   "cd": 0.8,
+   "range": 80,
+   "melee": true,
+   "skill": {
+    "type": "aoe",
+    "radius": 34,
+    "dmg": 1.8,
+    "cd": 9
+   }
+  },
+  "bang-tinh": {
+   "name": "Băng Tinh Nhi",
+   "evo": "Hàn Băng Tinh Hậu",
+   "color": "#9ad8ff",
+   "desc": "Bắn băng. Cứ 10 giây hồi 8% máu cho chủ.",
+   "mult": 0.55,
+   "cd": 1.2,
+   "range": 90,
+   "skill": {
+    "type": "heal",
+    "amount": 0.08,
+    "cd": 10
+   }
+  }
  },
  "mounts": {
-  "bach-loc": {"look": "deer", "name": "Bạch Lộc", "color": "#f4efe2", "accent": "#c9a46a", "speed": 0.35, "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%."},
-  "phong-lang": {"look": "wolf", "name": "Phong Lang", "color": "#8a8aa0", "accent": "#ff7a3a", "speed": 0.5, "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%."},
-  "hoa-ky-lan": {"look": "qilin", "name": "Hỏa Kỳ Lân", "color": "#ff6a3a", "accent": "#ffe27a", "speed": 0.65, "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%."},
-  "tuyet-ly": {"look": "lynx", "name": "Tuyết Ly", "color": "#f4f8fc", "accent": "#9ad8ff", "speed": 0.55, "desc": "Hồ ly tuyết nhiều đuôi. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%."}
+  "bach-loc": {
+   "look": "deer",
+   "name": "Bạch Lộc",
+   "color": "#f4efe2",
+   "accent": "#c9a46a",
+   "speed": 0.35,
+   "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%.",
+   "seat": 13
+  },
+  "phong-lang": {
+   "look": "wolf",
+   "name": "Phong Lang",
+   "color": "#8a8aa0",
+   "accent": "#ff7a3a",
+   "speed": 0.5,
+   "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%.",
+   "seat": 11
+  },
+  "hoa-ky-lan": {
+   "look": "qilin",
+   "name": "Hỏa Kỳ Lân",
+   "color": "#ff6a3a",
+   "accent": "#ffe27a",
+   "speed": 0.65,
+   "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%.",
+   "seat": 11
+  },
+  "tuyet-ly": {
+   "look": "lynx",
+   "name": "Tuyết Ly",
+   "color": "#f4f8fc",
+   "accent": "#9ad8ff",
+   "speed": 0.55,
+   "desc": "Hồ ly tuyết nhiều đuôi. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%.",
+   "seat": 10
+  }
  },
  "mount_drops": {
-  "huyet-nha-that": ["hoa-ky-lan", 0.25]
+  "huyet-nha-that": [
+   "hoa-ky-lan",
+   0.25
+  ]
  },
- "fetch": {"_note": "Linh thú tha đồ về: chủ đả tọa đủ every giây liền thì có chance linh thú chạy đi tha về một món nhỏ, tối đa per_day lần mỗi ngày. Khi vắng mặt: cứ away_hours giờ tha về một món, vẫn tính vào per_day. give như daily (qi, coins, stones, mats). {name} là tên linh thú.", "every": 100, "chance": 0.5, "per_day": 3, "away_hours": 2, "finds": [{"text": "{name} lẻn đi một lúc, tha về mấy cọng linh thảo còn dính sương.", "give": {"mats": {"linh-thao": 2}}}, {"text": "{name} ngậm về một viên đá lấp lánh, đặt vào tay ngươi rồi ngồi chờ khen.", "give": {"stones": 1}}, {"text": "{name} đào đâu ra mấy đồng Linh Thạch, vẫy đuôi đắc ý.", "give": {"coins": 30}}, {"text": "{name} mang về một bông Hỏa Linh Chi, cánh hoa hơi bị gặm mất một miếng.", "give": {"mats": {"hoa-linh-chi": 1}}}, {"text": "{name} tha về một con cá nhỏ, vẫn còn quẫy.", "give": {"mats": {"linh-ngu": 1}}}, {"text": "{name} cuộn tròn bên cạnh, hơi ấm của nó làm linh khí chảy êm hơn.", "give": {"qi": 60}}]},
- "pat": {"_note": "Vuốt ve linh thú đang đi theo: đứng gần (range) bấm nút. Mỗi ngày per_day lần đầu cho exp kinh nghiệm linh thú, sau đó chỉ còn tim bay.", "range": 22, "exp": 40, "per_day": 5, "lines": ["{name} dụi đầu vào tay ngươi, kêu khe khẽ.", "{name} lăn ra cho ngươi gãi bụng.", "{name} nheo mắt, trông rất hài lòng.", "{name} quẫy đuôi một vòng rồi nhảy lên vai ngươi."], "tired": "{name} đã được vuốt ve đủ rồi, nằm ngủ ngon lành."},
+ "fetch": {
+  "_note": "Linh thú tha đồ về: chủ đả tọa đủ every giây liền thì có chance linh thú chạy đi tha về một món nhỏ, tối đa per_day lần mỗi ngày. Khi vắng mặt: cứ away_hours giờ tha về một món, vẫn tính vào per_day. give như daily (qi, coins, stones, mats). {name} là tên linh thú.",
+  "every": 100,
+  "chance": 0.5,
+  "per_day": 3,
+  "away_hours": 2,
+  "finds": [
+   {
+    "text": "{name} lẻn đi một lúc, tha về mấy cọng linh thảo còn dính sương.",
+    "give": {
+     "mats": {
+      "linh-thao": 2
+     }
+    }
+   },
+   {
+    "text": "{name} ngậm về một viên đá lấp lánh, đặt vào tay ngươi rồi ngồi chờ khen.",
+    "give": {
+     "stones": 1
+    }
+   },
+   {
+    "text": "{name} đào đâu ra mấy đồng Linh Thạch, vẫy đuôi đắc ý.",
+    "give": {
+     "coins": 30
+    }
+   },
+   {
+    "text": "{name} mang về một bông Hỏa Linh Chi, cánh hoa hơi bị gặm mất một miếng.",
+    "give": {
+     "mats": {
+      "hoa-linh-chi": 1
+     }
+    }
+   },
+   {
+    "text": "{name} tha về một con cá nhỏ, vẫn còn quẫy.",
+    "give": {
+     "mats": {
+      "linh-ngu": 1
+     }
+    }
+   },
+   {
+    "text": "{name} cuộn tròn bên cạnh, hơi ấm của nó làm linh khí chảy êm hơn.",
+    "give": {
+     "qi": 60
+    }
+   }
+  ]
+ },
+ "pat": {
+  "_note": "Vuốt ve linh thú đang đi theo: đứng gần (range) bấm nút. Mỗi ngày per_day lần đầu cho exp kinh nghiệm linh thú, sau đó chỉ còn tim bay.",
+  "range": 22,
+  "exp": 40,
+  "per_day": 5,
+  "lines": [
+   "{name} dụi đầu vào tay ngươi, kêu khe khẽ.",
+   "{name} lăn ra cho ngươi gãi bụng.",
+   "{name} nheo mắt, trông rất hài lòng.",
+   "{name} quẫy đuôi một vòng rồi nhảy lên vai ngươi."
+  ],
+  "tired": "{name} đã được vuốt ve đủ rồi, nằm ngủ ngon lành."
+ },
  "starter_pet": "moc-linh",
  "starter_mount": "bach-loc",
  "fly_realm": 3,
- "ride_calm": 2.5
+ "ride_calm": 2.5,
+ "side": 12,
+ "spread": {
+  "_note": "Tách linh thú, bạn đồng hành, người chơi (src/game/pets.js updateFollower): mỗi kẻ đi theo đứng lệch sang một bên hướng nhìn (side, đơn vị bản đồ; linh thú dương, bạn đồng hành âm) và bị đẩy ra nếu đứng gần người chơi dưới player hoặc gần kẻ đi theo khác dưới other.",
+  "player": 14,
+  "other": 16
+ }
 }

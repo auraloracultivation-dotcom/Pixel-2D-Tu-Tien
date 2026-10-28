@@ -15,7 +15,7 @@ export function spawnCompanion(game) {
 export function updateCompanion(game, dt) {
   if (!game.comp) return;
   if (away(game, game.comp.id)) { game.save.companion = null; game.comp = null; return; }
-  updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, C(game).follow, dt, C(game).lift);   // đi sau lưng, lệch lên: không chắn trước mặt
+  updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, C(game).follow, dt, C(game).lift, C(game).side || 0);   // đi sau lưng, lệch lên: không chắn trước mặt
 }
 
 // Nhận một phần linh khí người chơi thu được
