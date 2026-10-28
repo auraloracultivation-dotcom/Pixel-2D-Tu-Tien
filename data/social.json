@@ -1,27 +1,188 @@
 {
  "_note": "Chào hỏi và trò chuyện với người chơi cùng đảo (chỉ khi đăng nhập). Gửi qua kênh Realtime của đảo, không ghi cơ sở dữ liệu. emotes: chỉ gửi id, máy nhận tự tra chữ (fx: tim bay lên màu color). chat: tối đa max_len ký tự, mỗi người gửi cách nhau ít nhất cooldown giây (máy nhận cũng bỏ tin dồn dập hơn min_gap giây), sec giây hiện bong bóng, giữ log dòng gần nhất. bad: từ bậy (so khớp cả từ, không phân biệt hoa thường; bản không dấu phải ghi riêng, tránh từ không dấu dễ nhầm như lon, cac) thay bằng mask, lọc cả lúc gửi lẫn lúc nhận.",
  "emotes": [
-  {"id": "chao", "label": "Chào", "text": "Chào đạo hữu!"},
-  {"id": "vai", "label": "Vái", "text": "(chắp tay vái chào)"},
-  {"id": "hoa", "label": "Tặng hoa", "text": "Tặng đạo hữu một đóa hoa", "fx": "#ff8ab8"},
-  {"id": "cuoi", "label": "Cười", "text": "Ha ha ha!"},
-  {"id": "cam-on", "label": "Đa tạ", "text": "Đa tạ đạo hữu!"},
-  {"id": "tam-biet", "label": "Tạm biệt", "text": "Hẹn gặp lại!"}
+  {
+   "id": "chao",
+   "label": "Chào",
+   "text": "Chào đạo hữu!"
+  },
+  {
+   "id": "vai",
+   "label": "Vái",
+   "text": "(chắp tay vái chào)"
+  },
+  {
+   "id": "hoa",
+   "label": "Tặng hoa",
+   "text": "Tặng đạo hữu một đóa hoa",
+   "fx": "#ff8ab8"
+  },
+  {
+   "id": "cuoi",
+   "label": "Cười",
+   "text": "Ha ha ha!"
+  },
+  {
+   "id": "cam-on",
+   "label": "Đa tạ",
+   "text": "Đa tạ đạo hữu!"
+  },
+  {
+   "id": "tam-biet",
+   "label": "Tạm biệt",
+   "text": "Hẹn gặp lại!"
+  }
  ],
- "chat": {"max_len": 40, "cooldown": 3, "min_gap": 1.5, "sec": 5, "log": 30, "placeholder": "Nói với mọi người trên tinh cầu...", "send": "Gửi", "wait": "Đợi chút rồi nói tiếp nhé.", "offline": "Đăng nhập để chào hỏi, trò chuyện với đạo hữu khác.", "empty": "Chưa ai nói gì. Chào một câu đi!", "here": "Đang có {n} đạo hữu trên tinh cầu."},
- "bad": ["đm", "dm", "đmm", "dmm", "đcm", "dcm", "vcl", "vkl", "vl", "cc", "clgt", "địt", "dit", "đéo", "lồn", "cặc", "buồi", "đĩ", "đụ", "du ma", "đụ má", "địt mẹ", "dit me", "đéo mẹ", "con chó", "óc chó", "oc cho", "ngu như chó", "fuck", "shit", "bitch"],
+ "chat": {
+  "max_len": 40,
+  "cooldown": 3,
+  "min_gap": 1.5,
+  "sec": 5,
+  "log": 30,
+  "placeholder": "Nói với mọi người trên tinh cầu...",
+  "send": "Gửi",
+  "wait": "Đợi chút rồi nói tiếp nhé.",
+  "offline": "Đăng nhập để chào hỏi, trò chuyện với đạo hữu khác.",
+  "empty": "Chưa ai nói gì. Chào một câu đi!",
+  "here": "Đang có {n} đạo hữu trên tinh cầu."
+ },
+ "bad": [
+  "đm",
+  "dm",
+  "đmm",
+  "dmm",
+  "đcm",
+  "dcm",
+  "vcl",
+  "vkl",
+  "vl",
+  "cc",
+  "clgt",
+  "địt",
+  "dit",
+  "đéo",
+  "lồn",
+  "cặc",
+  "buồi",
+  "đĩ",
+  "đụ",
+  "du ma",
+  "đụ má",
+  "địt mẹ",
+  "dit me",
+  "đéo mẹ",
+  "con chó",
+  "óc chó",
+  "oc cho",
+  "ngu như chó",
+  "fuck",
+  "shit",
+  "bitch"
+ ],
  "mask": "***",
- "world": {"tab": "Thế giới", "max_len": 120, "cooldown": 5, "poll": 5, "keep": 80, "placeholder": "Nói với cả máy chủ...", "wait": "Đợi vài giây rồi nói tiếp nhé.", "error": "Chưa kết nối được kênh thế giới, thử lại sau.", "offline": "Đăng nhập để trò chuyện với cả máy chủ.", "empty": "Kênh thế giới còn yên ắng. Chào một câu đi!", "sub": "Kênh chung của mọi đạo hữu, tin giữ 7 ngày."},
- "whisper": {"_note": "Truyền âm: nhắn riêng hai người (game/whisper.js, hàm máy chủ p2d_gui_truyen_am, p2d_doc_truyen_am, p2d_da_doc_truyen_am). Chạm tin một đạo hữu ở kênh Thế giới hoặc tông môn, chọn Truyền âm. poll giây đọc tin mới khi bảng đóng (để báo chấm đỏ), open_poll khi đang mở tab. Máy chủ: 30 tin mỗi giờ, tin giữ 14 ngày.", "tab": "Truyền âm", "max_len": 200, "poll": 30, "open_poll": 5, "cooldown": 2, "placeholder": "Truyền âm cho {name}...", "pick": "Chạm tin một đạo hữu ở kênh Thế giới hoặc tông môn, chọn Truyền âm để nhắn riêng.", "empty": "Chưa có truyền âm nào.", "offline": "Đăng nhập để truyền âm.", "back": "‹ Danh sách", "sub": "Nhắn riêng, tin giữ 14 ngày.", "with": "Truyền âm với {name}", "error": "Chưa gửi được, thử lại sau.", "wait": "Truyền âm nhanh quá, đợi một lát.", "gone": "Không tìm thấy đạo hữu này.", "btn": "Truyền âm", "unread": "{n} mới"},
- "mod": {"_note": "Chặn và báo cáo tin chat thế giới, tông môn (game/world-chat.js, ui/chat-line.js, hàm máy chủ p2d_bao_cao_chat). Chạm vào tin của người khác để hiện nút. Danh sách chặn lưu ở bản lưu (save.blocked, tối đa max người). Máy chủ: 3 người khác nhau báo một người trong 24 giờ thì người đó bị khoá chat 24 giờ.", "max": 200, "block": "Chặn", "report": "Báo cáo", "cancel": "Thôi", "ask": "Báo cáo tin này vì:", "reasons": ["Chửi bậy, xúc phạm", "Lừa đảo, quảng cáo", "Nội dung người lớn", "Lý do khác"], "reported": "Đã gửi báo cáo. Cảm ơn bạn giữ kênh sạch.", "report_fail": "Chưa gửi được báo cáo, thử lại sau.", "report_many": "Hôm nay bạn đã báo cáo nhiều rồi.", "blocked": "Đã chặn {name}. Tin của người này sẽ ẩn.", "hidden": "Đã ẩn {n} tin của người bị chặn.", "unblock_all": "Bỏ chặn {n} người", "muted": "Bạn đang bị khoá chat vì bị nhiều người báo cáo. Thử lại sau."},
- "name": {"btn": "✎ Tên: {name}", "ask": "Tên hiển thị mới (2–16 ký tự, mỗi ngày đổi một lần):", "ok": "Đã đổi tên thành {name}.", "err": {"ten_sai": "Tên cần 2–16 ký tự và không bắt đầu bằng \"Đạo hữu\".", "ten_trung": "Tên này đã có người dùng.", "doi_ten_nhanh": "Mỗi ngày chỉ đổi tên một lần.", "chua_luu": "Chơi thêm chút để bản lưu lên máy chủ rồi đổi tên.", "other": "Chưa đổi được tên, thử lại sau."}},
- "rank": {"_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng.",
-  "tab": "Xếp hạng", "chat_tab": "Trò chuyện",
-  "tabs": [{"id": "luc_chien", "label": "Lực chiến"}, {"id": "canh_gioi", "label": "Cảnh giới"}, {"id": "thap", "label": "Tháp"}],
-  "titles": {"luc_chien": "bxh-luc-chien", "canh_gioi": "bxh-canh-gioi", "thap": "bxh-thap"},
-  "loading": "Đang tải bảng xếp hạng...", "error": "Chưa tải được bảng xếp hạng.", "retry": "Thử lại",
-  "offline": "Đăng nhập để xem bảng xếp hạng.", "empty": "Chưa có ai trên bảng này.",
-  "me": "Bạn đang hạng {n}.", "me_none": "Bạn chưa có tên trên bảng này.",
+ "world": {
+  "tab": "Thế giới",
+  "max_len": 120,
+  "cooldown": 5,
+  "poll": 5,
+  "keep": 80,
+  "placeholder": "Nói với cả máy chủ...",
+  "wait": "Đợi vài giây rồi nói tiếp nhé.",
+  "error": "Chưa kết nối được kênh thế giới, thử lại sau.",
+  "offline": "Đăng nhập để trò chuyện với cả máy chủ.",
+  "empty": "Kênh thế giới còn yên ắng. Chào một câu đi!",
+  "sub": "Kênh chung của mọi đạo hữu, tin giữ 7 ngày."
+ },
+ "whisper": {
+  "_note": "Truyền âm: nhắn riêng hai người (game/whisper.js, hàm máy chủ p2d_gui_truyen_am, p2d_doc_truyen_am, p2d_da_doc_truyen_am). Chạm tin một đạo hữu ở kênh Thế giới hoặc tông môn, chọn Truyền âm. poll giây đọc tin mới khi bảng đóng (để báo chấm đỏ), open_poll khi đang mở tab. Máy chủ: 30 tin mỗi giờ, tin giữ 14 ngày.",
+  "tab": "Truyền âm",
+  "max_len": 200,
+  "poll": 30,
+  "open_poll": 5,
+  "cooldown": 2,
+  "placeholder": "Truyền âm cho {name}...",
+  "pick": "Chạm tin một đạo hữu ở kênh Thế giới hoặc tông môn, chọn Truyền âm để nhắn riêng.",
+  "empty": "Chưa có truyền âm nào.",
+  "offline": "Đăng nhập để truyền âm.",
+  "back": "‹ Danh sách",
+  "sub": "Nhắn riêng, tin giữ 14 ngày.",
+  "with": "Truyền âm với {name}",
+  "error": "Chưa gửi được, thử lại sau.",
+  "wait": "Truyền âm nhanh quá, đợi một lát.",
+  "gone": "Không tìm thấy đạo hữu này.",
+  "btn": "Truyền âm",
+  "unread": "{n} mới"
+ },
+ "mod": {
+  "_note": "Chặn và báo cáo tin chat thế giới, tông môn (game/world-chat.js, ui/chat-line.js, hàm máy chủ p2d_bao_cao_chat). Chạm vào tin của người khác để hiện nút. Danh sách chặn lưu ở bản lưu (save.blocked, tối đa max người). Máy chủ: 3 người khác nhau báo một người trong 24 giờ thì người đó bị khoá chat 24 giờ.",
+  "max": 200,
+  "block": "Chặn",
+  "report": "Báo cáo",
+  "cancel": "Thôi",
+  "ask": "Báo cáo tin này vì:",
+  "reasons": [
+   "Chửi bậy, xúc phạm",
+   "Lừa đảo, quảng cáo",
+   "Nội dung người lớn",
+   "Lý do khác"
+  ],
+  "reported": "Đã gửi báo cáo. Cảm ơn bạn giữ kênh sạch.",
+  "report_fail": "Chưa gửi được báo cáo, thử lại sau.",
+  "report_many": "Hôm nay bạn đã báo cáo nhiều rồi.",
+  "blocked": "Đã chặn {name}. Tin của người này sẽ ẩn.",
+  "hidden": "Đã ẩn {n} tin của người bị chặn.",
+  "unblock_all": "Bỏ chặn {n} người",
+  "muted": "Bạn đang bị khoá chat vì bị nhiều người báo cáo. Thử lại sau."
+ },
+ "name": {
+  "btn": "✎ Tên: {name}",
+  "ask": "Tên hiển thị mới (2–16 ký tự, mỗi ngày đổi một lần):",
+  "ok": "Đã đổi tên thành {name}.",
+  "err": {
+   "ten_sai": "Tên cần 2–16 ký tự và không bắt đầu bằng \"Đạo hữu\".",
+   "ten_trung": "Tên này đã có người dùng.",
+   "doi_ten_nhanh": "Mỗi ngày chỉ đổi tên một lần.",
+   "chua_luu": "Chơi thêm chút để bản lưu lên máy chủ rồi đổi tên.",
+   "other": "Chưa đổi được tên, thử lại sau."
+  }
+ },
+ "rank": {
+  "_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng. flag: cờ cạnh tên người bị gắn cờ nghi vấn (nghi_van >= 10, máy chủ trả \"co\"); tên tô đỏ, vẫn hiện trên bảng nhưng không nhận danh hiệu tuần.",
+  "tab": "Xếp hạng",
+  "chat_tab": "Trò chuyện",
+  "tabs": [
+   {
+    "id": "luc_chien",
+    "label": "Lực chiến"
+   },
+   {
+    "id": "canh_gioi",
+    "label": "Cảnh giới"
+   },
+   {
+    "id": "thap",
+    "label": "Tháp"
+   }
+  ],
+  "titles": {
+   "luc_chien": "bxh-luc-chien",
+   "canh_gioi": "bxh-canh-gioi",
+   "thap": "bxh-thap"
+  },
+  "loading": "Đang tải bảng xếp hạng...",
+  "error": "Chưa tải được bảng xếp hạng.",
+  "retry": "Thử lại",
+  "offline": "Đăng nhập để xem bảng xếp hạng.",
+  "empty": "Chưa có ai trên bảng này.",
+  "me": "Bạn đang hạng {n}.",
+  "me_none": "Bạn chưa có tên trên bảng này.",
   "note": "Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
-  "value": {"luc_chien": "{v} lực chiến", "thap": "tầng {v}"}}
+  "value": {
+   "luc_chien": "{v} lực chiến",
+   "thap": "tầng {v}"
+  },
+  "flag": "⚑",
+  "flag_title": "Bị hệ thống gắn cờ nghi vấn gian lận",
+  "me_flag": "Tài khoản của bạn đang bị gắn cờ nghi vấn, không nhận danh hiệu tuần."
+ }
 }

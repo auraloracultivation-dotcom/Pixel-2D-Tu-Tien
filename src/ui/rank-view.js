@@ -20,9 +20,12 @@ export function createRankView(game) {
     return R.value[kind].replace('{v}', r.gia_tri.toLocaleString('vi-VN'));
   }
 
+  // Người bị gắn cờ nghi vấn (máy chủ trả co): tên đỏ, cờ cạnh tên
   function row(r) {
-    const d = el('div', r.la_toi ? 'me' : null);
-    d.append(el('b', null, r.hang), el('span', null, r.ten), el('small', null, value(r)));
+    const d = el('div', [r.la_toi ? 'me' : '', r.co ? 'co' : ''].join(' ').trim() || null);
+    const name = el('span', null, r.ten);
+    if (r.co) { const f = el('i', 'flag', R.flag); f.title = R.flag_title; name.prepend(f); d.title = R.flag_title; }
+    d.append(el('b', null, r.hang), name, el('small', null, value(r)));
     return d;
   }
 
@@ -50,7 +53,7 @@ export function createRankView(game) {
     const L = $('rank-list'); L.innerHTML = '';
     if (!data?.top?.length) return msg(R.empty);
     for (const r of data.top) L.append(row(r));
-    $('rank-note').textContent = `${data.toi ? R.me.replace('{n}', data.toi.hang) : R.me_none} ${R.note}`;
+    $('rank-note').textContent = `${data.toi ? R.me.replace('{n}', data.toi.hang) : R.me_none} ${data.toi?.co ? R.me_flag : R.note}`;
   }
 
   return { render };

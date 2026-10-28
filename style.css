@@ -266,6 +266,8 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #rank-list b { width: 26px; text-align: right; color: var(--trim-hi); font-variant-numeric: tabular-nums; }
 #rank-list span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #rank-list .empty { color: var(--muted); }
+#rank-list div.co span { color: var(--blood); }   /* bị gắn cờ nghi vấn gian lận */
+#rank-list .flag { font-style: normal; margin-right: 4px; color: var(--blood); text-shadow: 0 0 6px rgba(226, 82, 90, .6); }
 #rank-note { color: var(--muted); }
 #social-form { display: flex; gap: 6px; }
 #social-input, .dlg-input, .guild-input, #market-form input { background: var(--panel-2); color: var(--ink); border: 1px solid var(--line-hi); border-radius: 6px; font: 14px var(--f-body); }
