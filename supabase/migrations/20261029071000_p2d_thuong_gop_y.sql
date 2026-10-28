@@ -22,11 +22,10 @@ end;
 $$;
 revoke all on function public.p2d_gop_y_thuong() from public, anon, authenticated;
 
-drop trigger if exists p2d_gop_y_thuong on public.p2d_gop_y;
-create trigger p2d_gop_y_thuong before update of trang_thai on public.p2d_gop_y
+create or replace trigger p2d_gop_y_thuong before update of trang_thai on public.p2d_gop_y
   for each row execute function public.p2d_gop_y_thuong();
 
--- Thưởng bù các báo cáo đã được nhận trước khi có luật này
+-- Thưởng bù các báo cáo đã được nhận trước khi có luật này (đã chạy 29/10/2026: tapsu #4, minhavart1 #5)
 update public.p2d_gop_y set trang_thai = trang_thai where trang_thai in ('da_sua', 'se_lam') and thuong_luc is null;
 
 -- Bảng vinh danh người góp ý: top 20 theo số vấn đề được nhận (bằng nhau thì ai được nhận trước đứng trên)
