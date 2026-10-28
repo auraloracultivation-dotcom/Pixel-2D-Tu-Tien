@@ -78,5 +78,4 @@ $$;
 revoke all on function public.p2d_bxh(text) from public, anon;
 grant execute on function public.p2d_bxh(text) to authenticated;
 
--- Bảng đang nhớ tạm theo kiểu cũ (thiếu người bị gắn cờ): cho hết hạn để lần đọc tới dựng lại
-update public.p2d_bxh_nho set luc = now() - interval '1 hour';
+-- Bảng nhớ tạm theo kiểu cũ tự hết hạn sau 60 giây (p2d_bxh dựng lại), không cần xoá tay.
