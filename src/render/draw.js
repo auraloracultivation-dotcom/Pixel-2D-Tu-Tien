@@ -24,6 +24,7 @@ import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
+import { drawSlashes } from './draw-slash.js';
 import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
@@ -318,6 +319,7 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
   drawBloom(ctx, game, screen, lights);
+  screen.worldTransform(); drawSlashes(ctx, game); screen.screenTransform();   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
   if (game.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${game.flashT / 0.35})`; ctx.fillRect(0, 0, screen.w, screen.h); }
 }
 

@@ -67,7 +67,10 @@ export function createHud(audio) {
     const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element].join();
     if (key !== last) {
       last = key;
-      $('realm').textContent = realmLabel(s, d.realms) + (s.element ? ` · ${d.elements[s.element].name} căn ${rootOf(s, d).name}` : '');
+      const R = $('realm');   // cảnh giới dòng trên, linh căn dòng dưới nhỏ hơn (trước gộp một dòng nên bị cắt mất chữ "Thiên")
+      if (R.childElementCount !== 2) { R.textContent = ''; R.append(document.createElement('b'), document.createElement('small')); }
+      R.children[0].textContent = realmLabel(s, d.realms);
+      R.children[1].textContent = s.element ? `${d.elements[s.element].name} căn · ${rootOf(s, d).name}` : '';
       $('hp-fill').style.width = Math.max(0, p.hp / p.maxHp * 100) + '%';
       $('hp-text').textContent = `${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
