@@ -1,0 +1,21 @@
+/* Quay clip (src/game/record.js): nút cạnh nút tiếng và bảng xem lại clip. Nạp riêng để khỏi sửa style.css chung. */
+#btn-rec { pointer-events: auto; position: relative; min-width: 32px; height: 28px; border: 1.5px solid #1b1830; border-radius: 8px; background: rgba(255,255,255,.8); font: 700 13px system-ui, sans-serif; padding: 0 5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+#btn-rec.on { background: #e8453c; color: #fff; border-color: #7a1712; animation: rec-blink 1s steps(2) infinite; }
+#btn-rec.gift::after { content: ''; position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #ffd86b; border: 1.5px solid #1b1830; }
+@keyframes rec-blink { 50% { background: #b8322b; } }
+@media (prefers-reduced-motion: reduce) { #btn-rec.on { animation: none; } }
+
+.rec-panel { overflow-y: auto; }
+.rec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.rec-head b { font-size: 16px; }
+.rec-body { display: flex; flex-direction: column; gap: 8px; }
+.rec-video { width: 100%; max-height: 46vh; background: #000; border-radius: 10px; border: 2px solid #1b1830; image-rendering: pixelated; }
+.rec-info, .rec-hint { color: #6a6478; }
+.rec-note { margin: 0; padding: 6px 8px; border-radius: 8px; background: #fff3c4; border: 1px solid #f2c94c; font-size: 13px; }
+.rec-gift { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 10px; border: 1.5px dashed #b98a1e; background: #fffaf0; }
+.rec-gift small { color: #4a4458; line-height: 1.4; }
+.rec-gems { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.rec-gem { border-color: var(--gem); }
+.rec-gem.on { background: var(--gem); color: #fff; text-shadow: 0 1px 0 #1b1830; }
+.rec-link { font: 14px system-ui, sans-serif; padding: 8px; border: 2px solid #1b1830; border-radius: 9px; min-width: 0; }
+.rec-go { min-height: 36px; background: #ffd86b; }
