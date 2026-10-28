@@ -15,6 +15,6 @@ Luật cứng:
 - Cỡ nhân vật theo chỉ số, NPC là người chuẩn **1m80, 70kg** (~24 đơn vị bản đồ): nhân vật 1m75 thấp hơn NPC một xíu, nặng hơn thì bè hơn. Mỗi nhân vật bằng hình khai `body` (điểm ảnh thân người), `cm`, `kg` trong `data/heroes.json`, game tự thu phóng. Không chỉnh cỡ bằng mắt.
 - Khi chủ dự án nhờ tạo nhân vật mới: **đưa bảng điền chỉ số trước** (mẫu ở `docs/04-BANG-NHAN-VAT.md`), chờ điền xong mới làm.
 - **Tạm dừng SpriteCook** (chủ dự án chốt 27/10/2026, vì tạo nhiều bản thừa tốn tiền): không gọi bất kỳ công cụ SpriteCook nào, mọi hình và chuyển động làm bằng code. Chỉ dùng lại khi chủ dự án tự nói mở lại; khi đó mỗi lần tốn credit vẫn phải hỏi trước kèm số credit dự tính.
-- Hình nhân vật, quái, nền do Claude tự thiết kế bằng code (`tools/art/`), không lấy hình từ game cũ hay ảnh GPT.
+- Hình nhân vật, quái, nền: mặc định Claude vẽ bằng code (`tools/art/`). **Được dùng ảnh AI** tạo qua kết nối Canva / Hugging Face (chủ dự án mở luật 28/10/2026), nhưng phải đưa qua `tools/art/ai_import.py` (bỏ nền, về điểm ảnh thật, gom màu, viền mực) cho đúng `docs/02-CHUAN-PIXEL.md`, ảnh gốc và ảnh đã xử lý để ở `tools/art/nguon/ai/`. Không lấy hình từ game khác, không mô tả theo nhân vật có bản quyền. SpriteCook vẫn tạm dừng.
 - Làm trên nhánh riêng, mở Pull Request, không đẩy thẳng `main`. Chạy `node tools/check.mjs` trước khi đẩy.
 - Được tự gộp Pull Request khi kiểm tra xanh, TRỪ thay đổi cơ sở dữ liệu thật, xoá nội dung, đổi kiến trúc: những việc đó phải hỏi chủ dự án.
