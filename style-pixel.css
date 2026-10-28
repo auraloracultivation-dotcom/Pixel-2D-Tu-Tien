@@ -1,0 +1,65 @@
+/* Giao diện pixel ấm (chủ dự án chọn trưa 28/10/2026: không thích kiểu hiện đại, máy móc; thích ấm, pixel).
+   Nạp sau style.css, chỉ đè màu, góc, bóng: bảng như tờ giấy cũ trong khung gỗ, góc vuông, viền mực, nút nổi bóng pixel, bấm thì lún.
+   Bỏ file này khỏi index.html là về kiểu cũ. */
+:root {
+  --ink: #1b1830;
+  --paper: #f6e6c0;
+  --paper-hi: #fff4d8;
+  --wood: #8a5a32;
+  --wood-hi: #c89a5a;
+  --gold: #f2c94c;
+  --text-soft: #5a4632;
+}
+
+/* Bảng, hộp thoại: giấy cũ, khung gỗ hai lớp, góc vuông, bóng đổ pixel */
+#bag, .panel, #dialog {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 3px var(--wood-hi), inset 0 0 0 5px var(--wood), 0 4px 0 rgba(27, 24, 48, .5);
+}
+#bag, .panel { padding: 12px; }
+.bag-head { background: var(--wood); margin: -7px -7px 0; padding: 6px 8px; border: 2px solid var(--ink); }
+.bag-head b { color: var(--paper-hi); text-shadow: 0 2px 0 var(--ink); letter-spacing: .3px; }
+.bag-head .panel-sub, #bag-mats { color: #f6e0b0; }
+.who { color: #8a3a20; }
+.hint, .muted, .skill-card small, .item small, .slot-name { color: var(--text-soft); }
+
+/* Nút: giấy sáng, viền mực, bóng pixel dưới, bấm lún xuống */
+.mini, .act-btn, .socket, .choice, .menu-btn, .bag-tabs button, .wc-go, #skills-slots button, #cave-slots button,
+#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close, #market-close, #topup-close, #guild-close {
+  background: var(--paper-hi);
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-weight: 800;
+}
+.mini:active:not(:disabled), .act-btn:active:not(:disabled), .choice:active, .menu-btn:active, .bag-tabs button:active, .wc-go:active,
+#skills-slots button:active, #cave-slots button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.mini:disabled, .act-btn:disabled { box-shadow: 0 1px 0 var(--ink); }
+.bag-tabs button.on, #skills-slots button.on, #cave-slots button.on, .wc-go { background: var(--gold); }
+.act-btn { background: #ffe9b0; }
+
+/* Thẻ: giấy sáng trên nền giấy cũ, viền trái màu giữ nguyên */
+.skill-card, .item, #world-card, #social-log, #rank-list, #market-list, #topup-list, #guild-list.chat {
+  background: var(--paper-hi);
+  border-radius: 3px;
+}
+.skill-card { box-shadow: 0 2px 0 rgba(27, 24, 48, .35); }
+.skill-card.using, .item.sel { background: #ffe9b0; }
+
+/* Nút trên màn chơi: góc vuông, giấy sáng */
+#btn-mute, #btn-menu, #btn-auto, #btn-pilot, #btn-bag, #btn-skills, #btn-pets, #btn-daily, #btn-achv, #btn-world, #btn-social, #btn-rank, #btn-guild {
+  background: rgba(255, 244, 216, .92);
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+#btn-auto.on, #btn-pilot.on { background: var(--gold); }
+.goal, #toast { border-radius: 3px; border: 2px solid var(--ink); }
+.goal { border-left: 4px solid var(--gold); }
+#toast { box-shadow: 0 3px 0 rgba(27, 24, 48, .5); }
+.bar { border-radius: 2px; border-width: 2px; }
+
+/* Ô nhập chữ */
+#menu input, .dlg-input, #social-input, #market-form input, .guild-input { border-radius: 3px; background: var(--paper-hi); }
