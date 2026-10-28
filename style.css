@@ -334,16 +334,19 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 @supports (height: 50dvh) { :root { --sheet-h: 50dvh; } }
 #bag, .panel {
   top: auto; height: var(--sheet-h); max-height: var(--sheet-h);
-  background: linear-gradient(rgba(24, 20, 36, .42), rgba(10, 8, 18, .62));
+  background: linear-gradient(rgba(20, 17, 31, .84), rgba(10, 8, 18, .94));   /* đặc hơn để đọc chữ, viền trên vẫn thấy game */
   border-color: var(--glass-line);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(226, 192, 122, .14), 0 -8px 26px rgba(0, 0, 0, .3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, .75);   /* không nhoè nền (backdrop-filter) vì cảnh chạy liên tục bên dưới, máy yếu rất nóng */
 }
 .bag-head { border-bottom-color: var(--glass-line); }
 .zalo-panel { height: auto; }
-#dialog { max-height: var(--sheet-h); background: linear-gradient(rgba(24, 20, 36, .55), rgba(10, 8, 18, .72)); border-color: var(--glass-line); text-shadow: 0 1px 1px rgba(0, 0, 0, .75); }
+#dialog { max-height: var(--sheet-h); background: linear-gradient(rgba(20, 17, 31, .86), rgba(10, 8, 18, .94)); border-color: var(--glass-line); text-shadow: 0 1px 1px rgba(0, 0, 0, .75); }
 #bag.sheet-open #bag-list { padding-bottom: 32vh; }
 #world-sky { min-height: 160px; }
+/* bảng đang mở thì nút đánh, chiêu, lướt nằm dưới bảng: ẩn đi cho khỏi lộ xuyên qua và bấm nhầm */
+body:has(.panel:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill),
+body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill) { visibility: hidden; }
 .rec-panel .rec-video { max-height: 22vh; }
 
 /* ---------------------------------------------------------------- bảng Menu (src/ui/menu-panel.js, data/menu.json) */
@@ -352,7 +355,7 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 .menu-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 .menu-tile { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 64px; padding: 5px 2px; border: 1px solid var(--line-hi); border-radius: 8px; background: radial-gradient(circle at 50% 35%, rgba(169, 195, 255, .1), transparent 70%), var(--panel-2); color: var(--ink); font: 700 11px var(--f-body); line-height: 1.2; text-align: center; text-shadow: none; }
 .menu-tile:active { border-color: var(--torch); background: var(--panel-3); }
-.menu-tile.locked { opacity: .45; }
+.menu-tile.locked { opacity: .62; filter: saturate(.4); }
 .menu-tile .mt-ico { image-rendering: pixelated; max-width: 34px; max-height: 34px; object-fit: contain; }
 .menu-dot { position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--ember); border: 1px solid #000; box-shadow: 0 0 6px var(--torch); }
 .menu-back { align-self: flex-start; }
