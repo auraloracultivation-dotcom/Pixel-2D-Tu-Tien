@@ -64,7 +64,7 @@ async function finish(game) {
 
 export function updateRes(game, dt) {
   const r = game.res, inRes = game.map.def.res;
-  if (!inRes) { if (r) game.res = null; return; }
+  if (!inRes) { if (r && !game.traveling) game.res = null; return; }   // đang bay vào bí cảnh: đừng xoá (như tháp, luận võ)
   if (!r) { if (!game.traveling) game.travel('thien-kiem-phong', 'tu-bi-canh-tn', false); return; }
   if (r.done) return;
   r.t -= dt;

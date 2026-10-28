@@ -12,6 +12,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
 const HE = process.env.HE || 'hoa', GENDER = +(process.env.GENDER || 0), SIM_MIN = +(process.env.SIM_MIN || 900);
+const NIGHT = process.env.NIGHT !== '0';   // NIGHT=0: tắt "tối về nhà" của Tự hành để đo giờ đánh quái liên tục
 const PORT = +(process.env.PORT || 8792), OUT = process.env.OUT || '', START = process.env.START || '2026-11-02T08:00:00+07:00';
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 const server = createServer(async (req, res) => {
@@ -35,7 +36,8 @@ await (await p.$$('#dlg-choices .choice'))[GENDER].dispatchEvent('pointerdown');
 await p.waitForTimeout(500);
 
 // Gắn đo đạc trong trang
-await p.evaluate(async ({ HE, START }) => {
+await p.evaluate(async ({ HE, START, NIGHT }) => {
+  window.__night = NIGHT;
   const g = window.__game, E = window.__eco = { qi: {}, ls: {}, lsOut: {}, mats: {}, matsOut: {}, pills: {}, pillsOut: {}, realmAt: {} };
   g.simT = 0;
   const clk = await import('/src/core/clock.js');
@@ -82,7 +84,7 @@ await p.evaluate(async ({ HE, START }) => {
     if (sh) { const dx = sh.x - pp.x, dy = sh.y - pp.y, d = Math.hypot(dx, dy); g.botAx = d > 12 ? { x: dx / d, y: dy / d } : null; g.input.held.add('atk'); g.input.pressed.add('atk'); }
     else g.botAx = null;
   };
-}, { HE, START });
+}, { HE, START, NIGHT });
 
 const log = [];
 let done = false;
@@ -93,6 +95,7 @@ for (let min = 0; min < SIM_MIN && !done;) {
     const g = window.__game;
     window.__wrapSave();
     if (g.save.element && g.save.root !== 'pham') { g.save.root = 'pham'; g.refreshStats(); }
+    if (!window.__night && g.save.pilotOpt?.dem !== false) g.save.pilotOpt = { ...g.save.pilotOpt, dem: false };
     if (!g.pilot) document.getElementById('btn-pilot')?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
     if (g.uiOpen) for (const id of ['bag', 'skills', 'pets', 'daily', 'achv', 'world', 'social', 'market', 'topup', 'guild']) { if (document.getElementById(id)?.hidden === false) document.getElementById(id + '-close')?.click(); }
     if (g.trib.canStart() && !g.dialog.open && !g.traveling) { g.tribTries = (g.tribTries || 0) + 1; g.trib.start(); }
@@ -119,6 +122,7 @@ for (let min = 0; min < SIM_MIN && !done;) {
     log.stuckSaid = true;
     s.stuck = await p.evaluate(() => { const g = window.__game, P = g.player; return { dialog: g.dialog.open, trib: g.trib.active, canTrib: g.trib.canStart(), tries: g.tribTries, pilot: !!g.pilot, pilotLabel: document.getElementById('btn-pilot')?.textContent, busy: g.story.busy, traveling: !!g.traveling, trip: !!g.trip, ui: g.uiOpen, view: !!g.view, med: P.meditating, hp: Math.round(P.hp), goal: (g.goals() || '').slice(0, 160), at: [Math.round(P.x), Math.round(P.y)], flags: Object.keys(g.save.flags).length, map: g.map.id, mobs: g.mobs.length, tamMa: g.mobs.filter(m => m.id === 'tam-ma').map(m => ({ dead: m.dead, hp: Math.round(m.hp), d: Math.round(Math.hypot(m.x - P.x, m.y - P.y)) })), strikes: (g.strikes || []).length, tripInfo: g.trip && { kind: g.trip.kind, t: Math.round(g.trip.t * 10) / 10, dur: g.trip.dur, to: g.trip.to, loaded: g.trip.loaded }, tower: g.tower && { floor: g.tower.floor, mobs: g.tower.mobs?.length, busy: g.tower.busy } }; });
     s.stuck.errs = [...errs].slice(0, 5);
+    if (OUT) await writeFile(OUT.replace(/\.json$/, '') + '-kẹt.json', await p.evaluate(() => JSON.stringify({ save: window.__game.save, simT: window.__game.simT })));   // bản lưu lúc kẹt để dựng lại
     console.log(`[${HE}] KẸT ở phút ${min}: ${JSON.stringify(s.stuck)}`);
     done = true;   // đứng yên là lỗi: ghi lại rồi dừng, khỏi chạy không
   }
