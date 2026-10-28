@@ -746,5 +746,262 @@
   "hop": true,
   "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10)",
   "colors": 24
+ },
+ "fw.gay-go": {
+  "src": "sheets/fw-gay-go.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay gay-go (ảnh chủ dự án gửi 28/10)"
+ },
+ "fw.kiem": {
+  "src": "sheets/fw-kiem.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay kiem (ảnh chủ dự án gửi 28/10)"
+ },
+ "fw.thuong": {
+  "src": "sheets/fw-thuong.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay thuong (ảnh chủ dự án gửi 28/10)"
+ },
+ "fw.quat": {
+  "src": "sheets/fw-quat.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay quat (ảnh chủ dự án gửi 28/10)",
+  "thick": 0.85
+ },
+ "fw.liem": {
+  "src": "sheets/fw-liem.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay liem (ảnh chủ dự án gửi 28/10)",
+  "thick": 0.7
+ },
+ "fw.dan": {
+  "src": "sheets/fw-dan.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay dan (ảnh chủ dự án gửi 28/10)",
+  "thick": 0.75
+ },
+ "fw.cung": {
+  "src": "sheets/fw-cung.png",
+  "grid": [
+   1,
+   1
+  ],
+  "mode": "rot",
+  "colors": 16,
+  "note": "vũ khí bay cung (ảnh chủ dự án gửi 28/10)",
+  "thick": 0.85
+ },
+ "fx.slash-gay-go": {
+  "src": "sheets/vfx-gay-go.png",
+  "grid": [
+   4,
+   1
+  ],
+  "mode": "glow",
+  "size": [
+   30,
+   44
+  ],
+  "anchor": [
+   2,
+   22
+  ],
+  "note": "vệt quét gậy gỗ (ảnh chủ dự án gửi 28/10)"
+ },
+ "fx.slash-kiem": {
+  "src": "sheets/vfx-kiem.png",
+  "grid": [
+   5,
+   1
+  ],
+  "cells": [
+   0,
+   1,
+   2
+  ],
+  "mode": "glow",
+  "size": [
+   30,
+   44
+  ],
+  "anchor": [
+   2,
+   22
+  ],
+  "note": "vệt chém kiếm (ảnh chủ dự án gửi 28/10)"
+ },
+ "proj.slash": {
+  "src": "sheets/vfx-kiem.png",
+  "grid": [
+   5,
+   1
+  ],
+  "cells": [
+   3,
+   4
+  ],
+  "mode": "glow",
+  "size": [
+   24,
+   10
+  ],
+  "anchor": [
+   12,
+   5
+  ],
+  "note": "kiếm khí bay (ảnh chủ dự án gửi 28/10)"
+ },
+ "fx.slash-thuong": {
+  "src": "sheets/vfx-thuong.png",
+  "grid": [
+   4,
+   1
+  ],
+  "mode": "glow",
+  "size": [
+   48,
+   14
+  ],
+  "anchor": [
+   0,
+   7
+  ],
+  "note": "vệt đâm thương (ảnh chủ dự án gửi 28/10)"
+ },
+ "fx.slash-quat": {
+  "src": "sheets/vfx-quat.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   1,
+   2
+  ],
+  "mode": "glow",
+  "size": [
+   34,
+   44
+  ],
+  "anchor": [
+   4,
+   22
+  ],
+  "note": "gió quạt (ảnh chủ dự án gửi 28/10)"
+ },
+ "fx.liem": {
+  "src": "sheets/vfx-liem.png",
+  "grid": [
+   5,
+   1
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "mode": "glow",
+  "size": [
+   34,
+   46
+  ],
+  "anchor": [
+   3,
+   23
+  ],
+  "note": "vệt liềm tím (ảnh chủ dự án gửi 28/10)"
+ },
+ "proj.liem": {
+  "src": "sheets/vfx-liem.png",
+  "grid": [
+   5,
+   1
+  ],
+  "cells": [
+   1
+  ],
+  "mode": "glow",
+  "size": [
+   17,
+   17
+  ],
+  "anchor": [
+   8,
+   8
+  ],
+  "note": "lưỡi liềm xoay (ảnh chủ dự án gửi 28/10)"
+ },
+ "proj.sound": {
+  "src": "sheets/vfx-dan.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   1,
+   2
+  ],
+  "mode": "glow",
+  "size": [
+   16,
+   22
+  ],
+  "anchor": [
+   8,
+   11
+  ],
+  "note": "sóng âm đàn (ảnh chủ dự án gửi 28/10)"
+ },
+ "proj.arrow": {
+  "src": "sheets/vfx-cung.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "mode": "glow",
+  "size": [
+   20,
+   7
+  ],
+  "anchor": [
+   10,
+   3
+  ],
+  "note": "mũi tên (ảnh chủ dự án gửi 28/10)"
  }
 }

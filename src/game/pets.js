@@ -76,23 +76,40 @@ function nearestMob(game, from, range) {
 }
 
 export function updatePet(game, dt) {
-  if (game.pet) updateFollower(game, game.pet, petMul(game), P(game).follow, dt);
+  if (game.pet) updateFollower(game, game.pet, petMul(game), P(game).follow, dt, 0, P(game).side || 0);
+}
+
+// Giãn cách: đẩy kẻ đi theo ra khỏi người chơi và kẻ đi theo khác nếu đứng quá sát (cả lúc cùng lao vào một con quái)
+function spread(game, f, dt) {
+  const S = P(game).spread;
+  if (!S) return;
+  for (const o of [game.player, game.pet, game.comp]) {
+    if (!o || o === f) continue;
+    const min = o === game.player ? S.player : S.other, ox = f.x - o.x, oy = f.y - o.y, od = Math.hypot(ox, oy);
+    if (od >= min) continue;
+    const k = Math.min(1, dt * 8) * (min - od);
+    if (od < 0.01) { f.x += k; continue; }
+    f.x += ox / od * k; f.y += oy / od * k;
+  }
 }
 
 // Kẻ đi theo (linh thú, bạn đồng hành): theo sau chủ, tự đánh quái gần, có một chiêu hồi theo giây
 // lift: đứng lùi lên phía sau (vẽ sau người chơi, không che hình nhân vật); linh thú 0, bạn đồng hành > 0
-export function updateFollower(game, f, mul, follow, dt, lift = 0) {
+// side: lệch sang một bên hướng nhìn (linh thú một bên, bạn đồng hành bên kia), rồi giãn cách (data/pets.json spread)
+export function updateFollower(game, f, mul, follow, dt, lift = 0, side = 0) {
   const p = game.player, def = f.def;
   f.cd -= dt; f.skillCd -= dt; f.hop += dt * 8; f.walkT = (f.walkT || 0) + dt;
   const tgt = nearestMob(game, p, def.range);
   // Đi theo chủ, hoặc lao tới quái nếu đánh gần
-  let gx = p.x - (p.face.x || 0) * follow, gy = p.y - (p.face.y || 0) * follow + 2 - lift;
+  const fx = p.face.x || 0, fy = p.face.y || 0;
+  let gx = p.x - fx * follow - fy * side, gy = p.y - fy * follow + fx * side + 2 - lift;
   f.sleep = p.meditating && !tgt;   // chủ đả tọa: cuộn tròn ngủ cạnh bồ đoàn
   if (f.sleep) { gx = p.x + (lift ? -11 : 11); gy = p.y + 3; }
   if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - f.x) * (tgt.r + 4); gy = tgt.y; }
   const dx = gx - f.x, dy = gy - f.y, d = Math.hypot(dx, dy);
   if (d > 160) { f.x = gx; f.y = gy; }
   else if (d > 2) { const s = Math.min(d, (60 + d * 1.5) * dt); f.x += dx / d * s; f.y += dy / d * s; if (Math.abs(dx) > 1) f.face = Math.sign(dx); }
+  spread(game, f, dt);
   f.moving = d > 3;
   if (!tgt) return;
   const dmg = p.atk * def.mult * mul;
