@@ -1611,15 +1611,15 @@
   },
   "mob.hac-cuc-ma-chung": {
    "file": "assets/art/mob-hac-cuc-ma-chung.png",
-   "v": "47ab3996",
-   "w": 38,
-   "h": 47,
+   "v": "a92041c8",
+   "w": 44,
+   "h": 45,
    "frames": 2,
    "anchor": [
-    19,
-    45
+    22,
+    43
    ],
-   "note": "Hắc Cức Ma Chủng (plant): đứng, bước"
+   "note": "Hắc Cức Ma Chủng (plant): đứng, bước · ảnh Canva"
   },
   "mob.hac-cuc-mam": {
    "file": "assets/art/mob-hac-cuc-mam.png",
@@ -1659,15 +1659,15 @@
   },
   "mob.han-hon-ma-tuong": {
    "file": "assets/art/mob-han-hon-ma-tuong.png",
-   "v": "a7ad1634",
-   "w": 41,
-   "h": 40,
+   "v": "4bd2b3ed",
+   "w": 47,
+   "h": 37,
    "frames": 2,
    "anchor": [
-    20,
-    39
+    23,
+    36
    ],
-   "note": "Hàn Hồn Ma Tướng (lord): đứng, bước"
+   "note": "Hàn Hồn Ma Tướng (lord): đứng, bước · ảnh Canva"
   },
   "mob.han-ma-ve": {
    "file": "assets/art/mob-han-ma-ve.png",
@@ -1719,15 +1719,15 @@
   },
   "mob.hu-khong-cu-thu": {
    "file": "assets/art/mob-hu-khong-cu-thu.png",
-   "v": "829dac10",
-   "w": 62,
-   "h": 48,
+   "v": "f1f5dfc2",
+   "w": 71,
+   "h": 44,
    "frames": 2,
    "anchor": [
-    31,
-    46
+    36,
+    42
    ],
-   "note": "Hư Không Cự Thú (wolf): đứng, bước"
+   "note": "Hư Không Cự Thú (wolf): đứng, bước · ảnh Canva"
   },
   "mob.hu-khong-ma": {
    "file": "assets/art/mob-hu-khong-ma.png",
@@ -1743,39 +1743,39 @@
   },
   "mob.hu-khong-nguc-chu": {
    "file": "assets/art/mob-hu-khong-nguc-chu.png",
-   "v": "d3ddf1d3",
-   "w": 46,
-   "h": 45,
+   "v": "d56a6b01",
+   "w": 45,
+   "h": 52,
    "frames": 2,
    "anchor": [
-    23,
-    44
+    22,
+    51
    ],
-   "note": "Hư Không Ngục Chủ (lord): đứng, bước"
+   "note": "Hư Không Ngục Chủ (lord): đứng, bước · ảnh Canva"
   },
   "mob.huyet-nha": {
    "file": "assets/art/mob-huyet-nha.png",
-   "v": "2fd338af",
-   "w": 38,
-   "h": 37,
+   "v": "73925738",
+   "w": 43,
+   "h": 43,
    "frames": 2,
    "anchor": [
-    19,
-    36
+    22,
+    42
    ],
-   "note": "Phân thân Huyết Nha (lord): đứng, bước"
+   "note": "Phân thân Huyết Nha (lord): đứng, bước · ảnh Canva"
   },
   "mob.huyet-nha-that": {
    "file": "assets/art/mob-huyet-nha-that.png",
-   "v": "01e5ca9d",
-   "w": 41,
-   "h": 40,
+   "v": "0e528542",
+   "w": 47,
+   "h": 39,
    "frames": 2,
    "anchor": [
-    20,
-    39
+    23,
+    38
    ],
-   "note": "Huyết Nha (lord): đứng, bước"
+   "note": "Huyết Nha (lord): đứng, bước · ảnh Canva"
   },
   "mob.kiem-hon": {
    "file": "assets/art/mob-kiem-hon.png",
@@ -1803,15 +1803,15 @@
   },
   "mob.kim-giap-vuong": {
    "file": "assets/art/mob-kim-giap-vuong.png",
-   "v": "3562e454",
-   "w": 44,
-   "h": 39,
+   "v": "8b1e917e",
+   "w": 51,
+   "h": 38,
    "frames": 2,
    "anchor": [
-    22,
-    37
+    26,
+    36
    ],
-   "note": "Kim Giáp Trùng Vương (beetle): đứng, bước"
+   "note": "Kim Giáp Trùng Vương (beetle): đứng, bước · ảnh Canva"
   },
   "mob.kim-ma-ve": {
    "file": "assets/art/mob-kim-ma-ve.png",
@@ -1935,15 +1935,15 @@
   },
   "mob.ma-ton": {
    "file": "assets/art/mob-ma-ton.png",
-   "v": "8816aae1",
-   "w": 51,
-   "h": 51,
+   "v": "0b1ebdb3",
+   "w": 44,
+   "h": 59,
    "frames": 2,
    "anchor": [
-    25,
-    50
+    22,
+    58
    ],
-   "note": "Ma Tôn (lord): đứng, bước"
+   "note": "Ma Tôn (lord): đứng, bước · ảnh Canva"
   },
   "mob.moc-linh": {
    "file": "assets/art/mob-moc-linh.png",
@@ -1995,15 +1995,15 @@
   },
   "mob.nham-giap-thu": {
    "file": "assets/art/mob-nham-giap-thu.png",
-   "v": "001e2750",
-   "w": 47,
-   "h": 47,
+   "v": "d8651723",
+   "w": 54,
+   "h": 39,
    "frames": 2,
    "anchor": [
-    23,
-    45
+    26,
+    37
    ],
-   "note": "Nham Giáp Thú (golem): đứng, bước"
+   "note": "Nham Giáp Thú (golem): đứng, bước · ảnh Canva"
   },
   "mob.nham-xa": {
    "file": "assets/art/mob-nham-xa.png",
@@ -2079,51 +2079,51 @@
   },
   "mob.tan-hon-hac-phong": {
    "file": "assets/art/mob-tan-hon-hac-phong.png",
-   "v": "32d995be",
-   "w": 43,
-   "h": 43,
+   "v": "1d8b3154",
+   "w": 42,
+   "h": 49,
    "frames": 2,
    "anchor": [
     21,
-    42
+    48
    ],
-   "note": "Tàn hồn Hắc Phong Ma Quân (lord): đứng, bước"
+   "note": "Tàn hồn Hắc Phong Ma Quân (lord): đứng, bước · ảnh Canva"
   },
   "mob.tan-hon-han-hon": {
    "file": "assets/art/mob-tan-hon-han-hon.png",
-   "v": "7223bffc",
-   "w": 43,
+   "v": "2e1d8c13",
+   "w": 49,
    "h": 43,
    "frames": 2,
    "anchor": [
-    21,
+    24,
     42
    ],
-   "note": "Tàn hồn Hàn Hồn Ma Tướng (lord): đứng, bước"
+   "note": "Tàn hồn Hàn Hồn Ma Tướng (lord): đứng, bước · ảnh Canva"
   },
   "mob.tan-hon-huyet-nha": {
    "file": "assets/art/mob-tan-hon-huyet-nha.png",
-   "v": "1cb9d3ac",
-   "w": 43,
-   "h": 43,
+   "v": "1ea16d30",
+   "w": 49,
+   "h": 45,
    "frames": 2,
    "anchor": [
-    21,
-    42
+    24,
+    44
    ],
-   "note": "Tàn hồn Huyết Nha (lord): đứng, bước"
+   "note": "Tàn hồn Huyết Nha (lord): đứng, bước · ảnh Canva"
   },
   "mob.tan-hon-thuc-moc": {
    "file": "assets/art/mob-tan-hon-thuc-moc.png",
-   "v": "d7411e4a",
-   "w": 38,
-   "h": 47,
+   "v": "352233a3",
+   "w": 43,
+   "h": 54,
    "frames": 2,
    "anchor": [
-    19,
-    45
+    22,
+    52
    ],
-   "note": "Tàn hồn Thực Mộc Ma Hậu (plant): đứng, bước"
+   "note": "Tàn hồn Thực Mộc Ma Hậu (plant): đứng, bước · ảnh Canva"
   },
   "mob.thach-doi": {
    "file": "assets/art/mob-thach-doi.png",
@@ -2175,27 +2175,27 @@
   },
   "mob.thuc-moc-ma-hau": {
    "file": "assets/art/mob-thuc-moc-ma-hau.png",
-   "v": "1cd040b3",
+   "v": "7ed756ac",
    "w": 36,
-   "h": 44,
+   "h": 51,
    "frames": 2,
    "anchor": [
     18,
-    42
+    49
    ],
-   "note": "Thực Mộc Ma Hậu (plant): đứng, bước"
+   "note": "Thực Mộc Ma Hậu (plant): đứng, bước · ảnh Canva"
   },
   "mob.toai-son-ma-tuong": {
    "file": "assets/art/mob-toai-son-ma-tuong.png",
-   "v": "75d87b3b",
-   "w": 46,
-   "h": 45,
+   "v": "bb041f8f",
+   "w": 53,
+   "h": 49,
    "frames": 2,
    "anchor": [
-    23,
-    44
+    26,
+    48
    ],
-   "note": "Toái Sơn Ma Tướng (lord): đứng, bước"
+   "note": "Toái Sơn Ma Tướng (lord): đứng, bước · ảnh Canva"
   },
   "mob.tuyet-lang": {
    "file": "assets/art/mob-tuyet-lang.png",
@@ -2247,15 +2247,15 @@
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",
-   "v": "0c538e12",
-   "w": 43,
-   "h": 43,
+   "v": "18ab6ee7",
+   "w": 37,
+   "h": 49,
    "frames": 2,
    "anchor": [
-    21,
-    42
+    18,
+    48
    ],
-   "note": "Vạn Kiếm Ma Tướng (lord): đứng, bước"
+   "note": "Vạn Kiếm Ma Tướng (lord): đứng, bước · ảnh Canva"
   },
   "mob.viem-linh": {
    "file": "assets/art/mob-viem-linh.png",

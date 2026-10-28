@@ -191,5 +191,133 @@
    2
   ],
   "scale": 1.2
+ },
+ "mob.huyet-nha": {
+  "src": "sheets/mob-huyet-nha.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.huyet-nha-that": {
+  "src": "sheets/mob-huyet-nha-that.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.han-hon-ma-tuong": {
+  "src": "sheets/mob-han-hon-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.thuc-moc-ma-hau": {
+  "src": "sheets/mob-thuc-moc-ma-hau.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.hac-cuc-ma-chung": {
+  "src": "sheets/mob-hac-cuc-ma-chung.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.van-kiem-ma-tuong": {
+  "src": "sheets/mob-van-kiem-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.kim-giap-vuong": {
+  "src": "sheets/mob-kim-giap-vuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.toai-son-ma-tuong": {
+  "src": "sheets/mob-toai-son-ma-tuong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.nham-giap-thu": {
+  "src": "sheets/mob-nham-giap-thu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.hu-khong-nguc-chu": {
+  "src": "sheets/mob-hu-khong-nguc-chu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.hu-khong-cu-thu": {
+  "src": "sheets/mob-hu-khong-cu-thu.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.tan-hon-huyet-nha": {
+  "src": "sheets/mob-tan-hon-huyet-nha.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.tan-hon-han-hon": {
+  "src": "sheets/mob-tan-hon-han-hon.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.tan-hon-hac-phong": {
+  "src": "sheets/mob-tan-hon-hac-phong.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.tan-hon-thuc-moc": {
+  "src": "sheets/mob-tan-hon-thuc-moc.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
+ },
+ "mob.ma-ton": {
+  "src": "sheets/mob-ma-ton.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.15
  }
 }
