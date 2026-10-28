@@ -17,9 +17,13 @@ export function createPetsPanel(game) {
   const { data } = game, P = data.pets;
   let tab = 'linh-thu';
 
-  function card(color, title, lines, using, onPick) {
+  // icon, act: hình ô lưới và chữ nút chính trong tấm chi tiết (src/ui/grid-cards.js)
+  function card(color, title, lines, using, onPick, icon, act, used) {
     const c = el('button', 'skill-card' + (using ? ' using' : ''));
     c.style.borderLeftColor = color;
+    if (icon) c.dataset.icon = icon;
+    if (act) c.dataset.act = act;
+    if (used) c.dataset.used = used;
     c.append(el('b', null, title), ...lines.map(l => el('small', null, l)));
     c.onclick = () => { onPick(); game.sfx('pickup'); render(); };
     return c;
@@ -36,11 +40,11 @@ export function createPetsPanel(game) {
         `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * (1 + (st.star || 0) * P.merge.bonus) * 100)}% công của bạn`,
         max ? 'Đã tối đa.' : `Kinh nghiệm ${Math.floor(st.exp)}/${petNeed(data, st.lv)}`,
         M.line.replace('{star}', st.star || 0).replace('{n}', st.copies || 0).replace('{cost}', mergeCost(st)),
-      ], s.pet === id, () => setPet(game, id)));
+      ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang'));
     }
     for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
       const st = s.pets[id], M = P.merge.texts, nm = P.pets[id].name;
-      list.append(card('#ffd27a', M.card.replace('{name}', nm).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1), [M.card_line.replace('{cost}', mergeCost(st)).replace('{pct}', Math.round(P.merge.bonus * 100))], false, () => mergePet(game, id)));
+      list.append(card('#ffd27a', M.card.replace('{name}', nm).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1), [M.card_line.replace('{cost}', mergeCost(st)).replace('{pct}', Math.round(P.merge.bonus * 100))], false, () => mergePet(game, id), 'pet.' + id, 'Gộp'));
     }
     // Tiến hóa: con nào đủ cấp thì hiện thẻ riêng
     const E = P.evolve;
@@ -49,7 +53,7 @@ export function createPetsPanel(game) {
       const c = card(ok ? '#ffb03a' : '#c8c4d0', `Tiến hóa ${d.name} thành ${d.evo}`, [
         `Sát thương x${E.mult}, chiêu hồi nhanh hơn, mở tới cấp ${E.max_level}.`,
         `Cần: ${costText(data, E.cost)}, ${E.coins} ${data.shop.name}${ok ? '' : ' (chưa đủ)'}`,
-      ], false, () => evolvePet(game, id));
+      ], false, () => evolvePet(game, id), 'pet.' + id, 'Tiến hóa');
       c.disabled = !ok; list.append(c);
     }
     const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
@@ -61,7 +65,7 @@ export function createPetsPanel(game) {
     $('pets-sub').textContent = 'Đi trên đảo lúc yên ổn là tự cưỡi. Đánh nhau thì xuống.';
     for (const [id, m] of Object.entries(P.mounts)) {
       const got = s.mounts[id];
-      const c = card(m.color, `${m.name}${s.mount === id ? ' · đang dùng' : got ? '' : ' · chưa có'}`, [m.desc], s.mount === id, () => setMount(game, id));
+      const c = card(m.color, `${m.name}${s.mount === id ? ' · đang dùng' : got ? '' : ' · chưa có'}`, [m.desc], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
       c.disabled = !got;
       if (!got) c.classList.add('locked');
       list.append(c);
