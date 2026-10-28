@@ -11,8 +11,12 @@ const BIG = { L: 'tile.lava', O: 'tile.icelake' };
 const ROW = { y: 'tile.terrace' };
 // Nhà ghép theo khối ô cùng loại, cùng bố cục khung với tile.house
 const HOUSE = { H: 'tile.house', B: 'tile.house-burnt', N: 'tile.house-forge', z: 'tile.house-adobe', W: 'tile.house-tree' };
-// Vật đứng một ô: hình, chân đặt ở điểm (x, y) trong ô
-const PROP = { T: ['prop.tree', 8, 14], R: ['prop.rock', 8, 13], J: ['prop.sword-grave', 8, 15], I: ['prop.pillar', 8, 15], h: ['prop.broken-sword', 8, 8] };
+// Vật đứng một ô: hình, chân đặt ở điểm (x, y) trong ô, true nếu khung chạy theo thời gian (không thì chọn theo hash ô)
+const PROP = {
+  T: ['prop.tree', 8, 14], R: ['prop.rock', 8, 13], J: ['prop.sword-grave', 8, 15], I: ['prop.pillar', 8, 15], h: ['prop.broken-sword', 8, 8],
+  Z: ['prop.oldtree', 8, 15], n: ['prop.mushroom', 8, 13], Q: ['prop.lantern', 8, 15, true], V: ['prop.deadtree', 8, 15],
+  U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15],
+};
 export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + 'F';
 // Mép bờ phủ lên ô: hình, và ô bên cạnh nào thì có bờ
 const RIM = {
@@ -136,13 +140,13 @@ function housePiece(map, tx, ty, ch) {
 }
 
 // Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
-export function drawProp(ctx, game, map, ch, tx, ty, h) {
+export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   const id = HOUSE[ch] || PROP[ch]?.[0] || (ch === 'F' && 'decal.flowers'), sp = id && sheet(game, id);
   if (!sp) return false;
   const T = map.T, px = tx * T, py = ty * T, a = sp.s.anchor;
   ctx.save(); ctx.imageSmoothingEnabled = false;
   if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
-  else if (PROP[ch]) put(ctx, sp, Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);
+  else if (PROP[ch]) put(ctx, sp, PROP[ch][3] ? Math.floor(t * 3 + h * 5) % sp.s.frames : Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);
   else if (HOUSE[ch]) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   ctx.restore();
