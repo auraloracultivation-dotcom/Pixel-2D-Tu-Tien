@@ -1,4 +1,4 @@
-// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
+// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
@@ -90,7 +90,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
   // Vật trên nền
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const ch = map.at(tx, ty), px = tx * T, py = ty * T, cx = px + T / 2, cy = py + T / 2;
-    if (PROP_TILES.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty))) continue;
+    if (PROP_TILES.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty), t)) continue;
     if ('LOigoly'.includes(ch) && groundPainted(ch)) { if (ch === 'L') drawLavaBubble(ctx, game, px, py, hash(tx, ty), t); continue; }   // đã có hình pixel trong tấm đệm
     if (ch === 'F') {
       for (let i = 0; i < 3; i++) {

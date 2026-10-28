@@ -19,6 +19,7 @@ import world as W  # noqa: E402
 import terrain as TR  # noqa: E402
 import houses as HS  # noqa: E402
 import props_planet as PP  # noqa: E402
+import props_wild as PW  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -67,6 +68,14 @@ save('prop.sword-grave', [PP.sword_grave(s) for s in range(2)], (8, 22), 'mộ k
 save('prop.broken-sword', [PP.broken_sword(k) for k in range(3)], (8, 8), 'kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên')
 save('prop.pillar', [PP.pillar(s) for s in range(2)], (6, 24), 'cột đá đất nung (ô I): trơn, có chữ cổ hổ phách')
 save('tile.terrace', [PP.terrace(s) for s in range(4)], (0, 0), 'ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang')
+
+# ---------------------------------------------------------------- cây cỏ, vật hoang tinh cầu Mộc, Phong, Hư Không (tools/art/props_wild.py)
+save('prop.oldtree', [PW.old_tree(s) for s in range(2)], (16, 38), 'cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng')
+save('prop.mushroom', [PW.mushroom(s) for s in range(2)], (8, 11), 'cụm nấm phát sáng (ô n): mũ xanh ngọc; thêm nấm nhỏ')
+save('prop.lantern', [PW.lantern(f) for f in range(2)], (5, 21), 'đèn lồng giấy đỏ treo cột gỗ (ô Q): 2 khung lửa nhảy')
+save('prop.deadtree', [PW.dead_tree(s) for s in range(2)], (8, 23), 'cây khô (ô V): cành trơ; có quạ đậu')
+save('prop.blackpillar', [PW.black_pillar(s) for s in range(2)], (6, 25), 'trụ đá đen (ô U): phù văn tím; vỡ đỉnh')
+save('prop.crystal', [PW.crystal(s) for s in range(2)], (7, 19), 'tinh thể tím (ô *): cụm cao, cụm thấp')
 
 # ---------------------------------------------------------------- hầm ngục, bí cảnh về đêm (tools/art/dungeon.py, vẽ ở src/world/draw-ground.js, src/render/draw-light.js)
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')

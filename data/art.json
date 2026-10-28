@@ -3181,6 +3181,18 @@
    ],
    "note": "kim gỗ có lá non ở đuôi, 2 khung"
   },
+  "prop.blackpillar": {
+   "file": "assets/art/prop-blackpillar.png",
+   "v": "146a006f",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    25
+   ],
+   "note": "trụ đá đen (ô U): phù văn tím; vỡ đỉnh"
+  },
   "prop.broken-sword": {
    "file": "assets/art/prop-broken-sword.png",
    "v": "3f5cb5a6",
@@ -3204,6 +3216,66 @@
     10
    ],
    "note": "bụi cây thấp: xanh, có hoa vàng; rải trên cỏ"
+  },
+  "prop.crystal": {
+   "file": "assets/art/prop-crystal.png",
+   "v": "f3eda993",
+   "w": 14,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    7,
+    19
+   ],
+   "note": "tinh thể tím (ô *): cụm cao, cụm thấp"
+  },
+  "prop.deadtree": {
+   "file": "assets/art/prop-deadtree.png",
+   "v": "20614122",
+   "w": 16,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    8,
+    23
+   ],
+   "note": "cây khô (ô V): cành trơ; có quạ đậu"
+  },
+  "prop.lantern": {
+   "file": "assets/art/prop-lantern.png",
+   "v": "f7425178",
+   "w": 10,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    5,
+    21
+   ],
+   "note": "đèn lồng giấy đỏ treo cột gỗ (ô Q): 2 khung lửa nhảy"
+  },
+  "prop.mushroom": {
+   "file": "assets/art/prop-mushroom.png",
+   "v": "06cc05da",
+   "w": 16,
+   "h": 12,
+   "frames": 2,
+   "anchor": [
+    8,
+    11
+   ],
+   "note": "cụm nấm phát sáng (ô n): mũ xanh ngọc; thêm nấm nhỏ"
+  },
+  "prop.oldtree": {
+   "file": "assets/art/prop-oldtree.png",
+   "v": "5d152876",
+   "w": 32,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    16,
+    38
+   ],
+   "note": "cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng"
   },
   "prop.pillar": {
    "file": "assets/art/prop-pillar.png",
