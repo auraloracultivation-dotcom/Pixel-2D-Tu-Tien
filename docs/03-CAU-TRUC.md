@@ -90,6 +90,8 @@ Chủ dự án báo 28/10/2026: người chơi nóng máy, tụt pin, giật. Đ
 - Quầng sáng chiêu (`src/render/draw-lights.js`) dán quầng vẽ sẵn thay vì tạo gradient mỗi nguồn mỗi khung, tối đa `max_lights` nguồn; lớp ngày đêm vẽ nửa độ phân giải; nền trời tinh cầu vẽ sẵn một tấm nhỏ; mây ngoài màn không vẽ; bỏ nhoè nền dưới bảng (backdrop-filter).
 Kết quả trên máy giả lập yếu: 7 → khoảng 25 khung mỗi giây, mỗi khung tô ít hơn khoảng 5 lần điểm ảnh.
 
+Đợt 2 (29/10/2026, chủ dự án xin "tăng độ mượt, giảm giật lag" sau khi máy quay lùi xa thấy nhiều ô hơn): cây, đá, nhà, vách, núi, hoa đứng yên vẽ luôn vào tấm đệm nền một lần mỗi bản đồ (`src/world/draw-ground.js` → `bakeProps`, `propBaked`; vật động `LIVE` = đèn lồng, cổng, lò, đe, đá linh căn vẫn vẽ mỗi khung; chờ hình vật tải tối đa 3 giây rồi dựng); bỏ cặp save/restore mỗi vật; quầng đèn ban đêm (`src/render/draw-glow.js`) dán quầng vẽ sẵn thay vì tạo gradient mỗi đèn mỗi khung. Mỗi khung: dán hình 177–203 → 79–101 lần, save/restore 170–204 → 64–72, gradient 13–46 → 2–3. CPU chậm 6 lần: thời gian JS mỗi khung 12,4 → 10–11 ms, 16 → 17,5–18 khung mỗi giây; hình y hệt (so ảnh trước, sau).
+
 ## Bảng nửa màn hình
 
 Chủ dự án chốt 28/10/2026: mọi bảng (`#bag`, `.panel`) và hộp thoại chỉ chiếm nửa dưới màn hình (`--sheet-h` ở cuối `style.css`), nền và viền trong mờ để thấy game phía sau; thẻ đồ, ô trang bị, nút bên trong giữ nền đặc cho nổi. Đang mở bảng thì máy quay đẩy người chơi lên giữa nửa trên (`src/game/camera.js`). Bảng mới cứ dùng class `panel` là theo luật này.

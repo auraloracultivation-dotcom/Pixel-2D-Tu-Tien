@@ -31,7 +31,11 @@ const RIM = {
   f: ['tile.void-rim', n => n !== 'f'],
   '=': ['tile.water-rim', n => n !== '='],
 };
-let cache = { map: null, cv: null, painted: new Set() };
+let cache = { map: null, cv: null, painted: new Set(), baked: null };
+// Vật có chuyển động hoặc đổi theo người chơi (đèn lồng, cổng, lò, đe, đá linh căn): vẽ mỗi khung. Vật khác đứng yên nên vẽ luôn
+// vào tấm đệm nền một lần mỗi bản đồ (giảm giật: trước đây mỗi khung dán lại 150–200 cây, đá, nhà, vách).
+const LIVE = 'QPKAS';
+let waitMap = { map: null, t0: 0 };
 
 // Ô loại ch của bản đồ đang vẽ đã có hình pixel trong tấm đệm (draw-map.js khỏi vẽ hình khối đè lên)
 export const groundPainted = ch => cache.painted.has(ch);
@@ -39,6 +43,17 @@ export const groundPainted = ch => cache.painted.has(ch);
 function sheet(game, id) {
   const s = game.data.art.sprites[id], im = s && spriteImage(s);
   return im ? { s, im } : null;
+}
+
+// Hình vật trên bản đồ này cần (để chờ tải đủ rồi mới dựng tấm đệm, kẻo vật thiếu hình phải dán lại mỗi khung)
+function propIds(map) {
+  const ids = new Set(), key = (map.def.ground || '#8a8070').slice(1);
+  for (const ch of new Set(map.def.grid.join(''))) {
+    if (LIVE.includes(ch)) continue;
+    if (HOUSE[ch]) ids.add(HOUSE[ch]); else if (PROP[ch]) ids.add(PROP[ch][0]); else if (WALLS[ch]) ids.add(WALLS[ch]);
+    else if (ch === 'F') ids.add('decal.flowers'); else if (ch === '^') { ids.add('prop.peak-' + key); ids.add('tile.slope-' + key); }
+  }
+  return ids;
 }
 
 function put(ctx, sp, f, x, y) {
@@ -58,6 +73,9 @@ function build(game, map, tiles, hash, baseTile) {
   // Hình nền riêng của bản đồ này chưa tải xong thì chờ (trả null, khung sau dựng lại), kẻo nền phẳng mãi
   const need = lit ? ['tile.dfloor'] : [...new Set(map.def.grid.join(''))].map(ch => 'ground.' + keyOf(ch, tiles.types[ch] || {}));
   for (const id of need) if (game.data.art.sprites[id] && !sheet(game, id)) return null;
+  // hình vật: chờ tối đa 3 giây (hình hỏng thì thôi, vật thiếu hình vẽ mỗi khung như cũ)
+  if (waitMap.map !== map) waitMap = { map, t0: performance.now() };
+  for (const id of propIds(map)) if (game.data.art.sprites[id] && !sheet(game, id) && performance.now() - waitMap.t0 < 3000) return null;
   const big = {}, row = {}, rim = {};
   for (const ch in BIG) if (game.data.art.sprites[BIG[ch]] && !(big[ch] = sheet(game, BIG[ch]))) return null;
   for (const ch in ROW) if (game.data.art.sprites[ROW[ch]] && !(row[ch] = sheet(game, ROW[ch]))) return null;
@@ -102,7 +120,18 @@ function build(game, map, tiles, hash, baseTile) {
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
+  cache.baked = bakeProps(c, game, map, hash);
   return cv;
+}
+
+// Vật đứng yên vẽ vào tấm đệm theo đúng thứ tự từng hàng như lúc vẽ mỗi khung; trả về ô nào đã vẽ
+function bakeProps(c, game, map, hash) {
+  const baked = new Uint8Array(map.w * map.h);
+  for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
+    const ch = map.at(tx, ty);
+    if (PROP_TILES.includes(ch) && !LIVE.includes(ch) && drawProp(c, game, map, ch, tx, ty, hash(tx, ty), 0)) baked[ty * map.w + tx] = 1;
+  }
+  return baked;
 }
 
 // Bờ quanh hồ: cạnh nào giáp bờ thì phủ mép; góc có hai cạnh kề đều là bờ thì bo tròn,
@@ -143,9 +172,12 @@ function scatter(c, map, hash, dirt, bush) {
   }
 }
 
+// Ô có vật đã vẽ sẵn trong tấm đệm nền (draw-map.js khỏi vẽ lại)
+export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty * map.w + tx] === 1;
+
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
 export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
-  if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); return false; } cache = { map, cv, painted: cache.painted }; }
+  if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); cache.baked = null; return false; } cache = { map, cv, painted: cache.painted, baked: cache.baked }; }
   const T = map.T, x0 = Math.max(0, Math.floor(view.x0)), y0 = Math.max(0, Math.floor(view.y0));
   const w = Math.min(cache.cv.width, Math.ceil(view.x1)) - x0, h = Math.min(cache.cv.height, Math.ceil(view.y1)) - y0;
   if (w <= 0 || h <= 0) return true;
@@ -180,12 +212,11 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   // Vật tự nhiên lệch vài điểm ảnh theo ô, nấm dày thì bỏ bớt: trước đây xếp thẳng hàng như ô cờ (chơi thử 28/10 ở Thanh Mộc)
   if (ch === 'n' && (h * 31) % 1 < 0.35) return true;
   const nat = NATURAL.includes(ch), px = tx * T + (nat ? Math.round(((h * 97) % 1 - 0.5) * 6) : 0), py = ty * T + (nat ? Math.round(((h * 53) % 1 - 0.5) * 4) : 0);
-  ctx.save(); ctx.imageSmoothingEnabled = false;
+  ctx.imageSmoothingEnabled = false;
   if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
   else if (PROP[ch]) put(ctx, sp, PROP[ch][3] ? Math.floor(t * 3 + h * 5) % sp.s.frames : Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);
   else if (HOUSE[ch]) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
-  ctx.restore();
   return true;
 }
 

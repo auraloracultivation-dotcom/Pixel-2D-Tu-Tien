@@ -60,7 +60,7 @@ export function gatherLights(game, t) {
 
 // Quầng tròn vẽ sẵn một lần (64×64) rồi dán phóng to: trước đây mỗi nguồn sáng tạo một gradient mới mỗi khung, máy yếu nóng
 const sprites = new Map();
-function glow(key, stops) {
+export function glow(key, stops) {
   let cv = sprites.get(key);
   if (cv) return cv;
   if (sprites.size > 160) sprites.clear();
