@@ -467,15 +467,15 @@
   },
   "gear.ba-tieu-phien": {
    "file": "assets/art/gear-ba-tieu-phien.png",
-   "v": "2da03dfc",
-   "w": 16,
-   "h": 16,
+   "v": "c6bba280",
+   "w": 31,
+   "h": 31,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    15,
+    15
    ],
-   "note": "Ba Tiêu Phiến"
+   "note": "Ba Tiêu Phiến (cùng hình vũ khí bay fw.quat)"
   },
   "gear.bo-can": {
    "file": "assets/art/gear-bo-can.png",
@@ -899,15 +899,15 @@
   },
   "gear.moc-cam": {
    "file": "assets/art/gear-moc-cam.png",
-   "v": "cfae4666",
-   "w": 16,
-   "h": 16,
+   "v": "1c657b1d",
+   "w": 24,
+   "h": 24,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    12,
+    12
    ],
-   "note": "Mộc Cầm"
+   "note": "Mộc Cầm (cùng hình vũ khí bay fw.dan)"
   },
   "gear.ngoc-boi-tho": {
    "file": "assets/art/gear-ngoc-boi-tho.png",
@@ -1043,27 +1043,27 @@
   },
   "gear.thanh-van-kiem": {
    "file": "assets/art/gear-thanh-van-kiem.png",
-   "v": "56beff71",
-   "w": 16,
-   "h": 16,
+   "v": "83beb01f",
+   "w": 24,
+   "h": 24,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    12,
+    12
    ],
-   "note": "Thanh Vân Kiếm"
+   "note": "Thanh Vân Kiếm (cùng hình vũ khí bay fw.kiem)"
   },
   "gear.thien-mach-kiem": {
    "file": "assets/art/gear-thien-mach-kiem.png",
-   "v": "56beff71",
-   "w": 16,
-   "h": 16,
+   "v": "83beb01f",
+   "w": 24,
+   "h": 24,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    12,
+    12
    ],
-   "note": "Thiên Mạch Kiếm"
+   "note": "Thiên Mạch Kiếm (cùng hình vũ khí bay fw.kiem)"
   },
   "gear.thiet-gioi": {
    "file": "assets/art/gear-thiet-gioi.png",
@@ -1091,27 +1091,27 @@
   },
   "gear.thiet-kiem": {
    "file": "assets/art/gear-thiet-kiem.png",
-   "v": "56beff71",
-   "w": 16,
-   "h": 16,
+   "v": "83beb01f",
+   "w": 24,
+   "h": 24,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    12,
+    12
    ],
-   "note": "Thiết Kiếm"
+   "note": "Thiết Kiếm (cùng hình vũ khí bay fw.kiem)"
   },
   "gear.thiet-thuong": {
    "file": "assets/art/gear-thiet-thuong.png",
-   "v": "dd086040",
-   "w": 16,
-   "h": 16,
+   "v": "f873343d",
+   "w": 26,
+   "h": 26,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    13,
+    13
    ],
-   "note": "Thiết Thương"
+   "note": "Thiết Thương (cùng hình vũ khí bay fw.thuong)"
   },
   "gear.tran-yeu-thap": {
    "file": "assets/art/gear-tran-yeu-thap.png",
@@ -1127,27 +1127,27 @@
   },
   "gear.truc-cung": {
    "file": "assets/art/gear-truc-cung.png",
-   "v": "6864f40d",
-   "w": 16,
-   "h": 16,
+   "v": "b875925d",
+   "w": 34,
+   "h": 34,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    17,
+    17
    ],
-   "note": "Trúc Cung"
+   "note": "Trúc Cung (cùng hình vũ khí bay fw.cung)"
   },
   "gear.tu-nguyet-liem": {
    "file": "assets/art/gear-tu-nguyet-liem.png",
-   "v": "b829d2f6",
-   "w": 64,
-   "h": 64,
+   "v": "b8c90ee4",
+   "w": 28,
+   "h": 28,
    "frames": 1,
    "anchor": [
-    32,
-    32
+    14,
+    14
    ],
-   "note": "Tử Nguyệt Liềm (SpriteCook theo liềm mẫu)"
+   "note": "Tử Nguyệt Liềm (cùng hình vũ khí bay fw.liem)"
   },
   "gear.van-van-ngoa": {
    "file": "assets/art/gear-van-van-ngoa.png",
