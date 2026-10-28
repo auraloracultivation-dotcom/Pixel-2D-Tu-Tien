@@ -1018,5 +1018,1132 @@
    3
   ],
   "note": "mũi tên (ảnh chủ dự án gửi 28/10)"
+ },
+ "npc.a-moc": {
+  "src": "nv/a-moc.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "A Mộc: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.a-nham": {
+  "src": "nv/a-nham.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "A Nham: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.anh-ma-ton": {
+  "src": "nv/anh-ma-ton.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Bóng Ma Tôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ba-bi-ngo": {
+  "src": "nv/ba-bi-ngo.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Bà Bí Ngô: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ba-do-den": {
+  "src": "nv/ba-do-den.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Bà Đồ Đen: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.be-la": {
+  "src": "nv/be-la.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Bé Lá: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.chap-su": {
+  "src": "nv/chap-su.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Chấp sự Nhiệm Vụ Đường: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.chi-ganh-da": {
+  "src": "nv/chi-ganh-da.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Chị Gánh Đá: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.chu-cho": {
+  "src": "nv/chu-cho.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Chủ Chợ Phiên: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.co-ban-nuoc": {
+  "src": "nv/co-ban-nuoc.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Cô Bán Nước: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.du-tang": {
+  "src": "nv/du-tang.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Đạo sĩ Thanh Phong: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.hac-cuc-ma-chung": {
+  "src": "nv/hac-cuc-ma-chung.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Hắc Cức Ma Chủng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.hoa-su": {
+  "src": "nv/hoa-su.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Họa sư Mặc Vân: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.hu-khong-nguc-chu": {
+  "src": "nv/hu-khong-nguc-chu.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Hư Không Ngục Chủ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.huyet-nha": {
+  "src": "nv/huyet-nha.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Huyết Nha: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.kiem-lao": {
+  "src": "nv/kiem-lao.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Kiếm Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.lao-ngu-ong": {
+  "src": "nv/lao-ngu-ong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Lão Ngư Ông: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.lao-ngu": {
+  "src": "nv/lao-ngu.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Lão Ngư (trưởng làng): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.lao-nong": {
+  "src": "nv/lao-nong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Lão Nông Thổ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.lao-than": {
+  "src": "nv/lao-than.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Lão Than: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.lao-thiet": {
+  "src": "nv/lao-thiet.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Lão Thiết (thợ rèn): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.linh-nhi": {
+  "src": "nv/linh-nhi.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Linh Nhi: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.luan-vo-su": {
+  "src": "nv/luan-vo-su.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Luận Võ Trưởng Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ma-ton": {
+  "src": "nv/ma-ton.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Ma Tôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ngu-thu-su": {
+  "src": "nv/ngu-thu-su.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Ngự Thú Sư: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ong-do": {
+  "src": "nv/ong-do.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Ông Đồ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ong-gia-tuyet": {
+  "src": "nv/ong-gia-tuyet.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Ông Già Tuyết: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.ong-hai-nam": {
+  "src": "nv/ong-hai-nam.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Ông Hái Nấm: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.phong-thach": {
+  "src": "nv/phong-thach.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Anh Phong Thạch: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.quan-bi-canh": {
+  "src": "nv/quan-bi-canh.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Quản Bí Cảnh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.quan-binh-kho": {
+  "src": "nv/quan-binh-kho.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Quản Binh Khố: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.thach-ba": {
+  "src": "nv/thach-ba.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Thạch Bà: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tho-kim-sa": {
+  "src": "nv/tho-kim-sa.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Thợ Rèn Kim Sa: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.thu-thap": {
+  "src": "nv/thu-thap.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Thủ Tháp Lão Nhân: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.thuc-moc-ma-hau": {
+  "src": "nv/thuc-moc-ma-hau.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Thực Mộc Ma Hậu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.thuong-nhan": {
+  "src": "nv/thuong-nhan.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Thương nhân Kim Bảo: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tieu-dong": {
+  "src": "nv/tieu-dong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Tiểu Đồng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tieu-linh": {
+  "src": "nv/tieu-linh.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Tiểu Linh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tieu-moc-linh": {
+  "src": "nv/tieu-moc-linh.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Tiểu Mộc Linh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tieu-phu": {
+  "src": "nv/tieu-phu.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Bác Tiều Phu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.to-doi": {
+  "src": "nv/to-doi.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Sứ Giả Tổ Đội: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.toai-son-ma-tuong": {
+  "src": "nv/toai-son-ma-tuong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Toái Sơn Ma Tướng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.trai-truong": {
+  "src": "nv/trai-truong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Trại Trưởng Tán Tu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.truong-lao-moc": {
+  "src": "nv/truong-lao-moc.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Mộc Trưởng Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.truong-thon": {
+  "src": "nv/truong-thon.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Trưởng thôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.tuyet-nhi": {
+  "src": "nv/tuyet-nhi.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Cô Tuyết Nhi: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.van-bao": {
+  "src": "nv/van-bao.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Chưởng Quỹ Vạn Bảo Lâu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.van-hac": {
+  "src": "nv/van-hac.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Trưởng lão Vân Hạc: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
+ },
+ "npc.van-kiem-ma-tuong": {
+  "src": "nv/van-kiem-ma-tuong.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Vạn Kiếm Ma Tướng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  }
 }

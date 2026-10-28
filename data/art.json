@@ -2580,63 +2580,68 @@
   },
   "npc.a-moc": {
    "file": "assets/art/npc-a-moc.png",
-   "v": "909d38e3",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "3ff666ef",
+   "w": 52,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    26,
+    42
    ],
-   "note": "A Mộc: đứng, nhún, bước A, bước B"
+   "note": "A Mộc: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.a-nham": {
    "file": "assets/art/npc-a-nham.png",
-   "v": "0e5de5b9",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "b1f4234c",
+   "w": 54,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    27,
+    42
    ],
-   "note": "A Nham: đứng, nhún, bước A, bước B"
+   "note": "A Nham: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.anh-ma-ton": {
    "file": "assets/art/npc-anh-ma-ton.png",
-   "v": "ca3d5499",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "6a93a9a2",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    37,
+    42
    ],
-   "note": "Bóng Ma Tôn: đứng, nhún, bước A, bước B"
+   "note": "Bóng Ma Tôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ba-bi-ngo": {
    "file": "assets/art/npc-ba-bi-ngo.png",
-   "v": "f46d1f1c",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "43d37698",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    37,
+    42
    ],
-   "note": "Bà Bí Ngô: đứng, nhún, bước A, bước B"
+   "note": "Bà Bí Ngô: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ba-do-den": {
    "file": "assets/art/npc-ba-do-den.png",
-   "v": "1a060af0",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "31bd9f16",
+   "w": 88,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    44,
+    42
    ],
-   "note": "Bà Đồ Đen: đứng, nhún, bước A, bước B"
+   "note": "Bà Đồ Đen: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.bang-co": {
    "file": "assets/art/npc-bang-co.png",
@@ -2652,87 +2657,94 @@
   },
   "npc.be-la": {
    "file": "assets/art/npc-be-la.png",
-   "v": "f1b9b0fb",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "5df38163",
+   "w": 78,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    39,
+    42
    ],
-   "note": "Bé Lá: đứng, nhún, bước A, bước B"
+   "note": "Bé Lá: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.chap-su": {
    "file": "assets/art/npc-chap-su.png",
-   "v": "8ddb78ad",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "35699988",
+   "w": 78,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    39,
+    42
    ],
-   "note": "Chấp sự Nhiệm Vụ Đường: đứng, nhún, bước A, bước B"
+   "note": "Chấp sự Nhiệm Vụ Đường: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.chi-ganh-da": {
    "file": "assets/art/npc-chi-ganh-da.png",
-   "v": "1be48098",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "58d1a2ca",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    31,
+    42
    ],
-   "note": "Chị Gánh Đá: đứng, nhún, bước A, bước B"
+   "note": "Chị Gánh Đá: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.chu-cho": {
    "file": "assets/art/npc-chu-cho.png",
-   "v": "2797976e",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "5fc15202",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    31,
+    42
    ],
-   "note": "Chủ Chợ Phiên: đứng, nhún, bước A, bước B"
+   "note": "Chủ Chợ Phiên: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.co-ban-nuoc": {
    "file": "assets/art/npc-co-ban-nuoc.png",
-   "v": "1f8ebdac",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "e0252131",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Cô Bán Nước: đứng, nhún, bước A, bước B"
+   "note": "Cô Bán Nước: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.du-tang": {
    "file": "assets/art/npc-du-tang.png",
-   "v": "237ce788",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "13cf9434",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    31,
+    42
    ],
-   "note": "Đạo sĩ Thanh Phong: đứng, nhún, bước A, bước B"
+   "note": "Đạo sĩ Thanh Phong: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.hac-cuc-ma-chung": {
    "file": "assets/art/npc-hac-cuc-ma-chung.png",
-   "v": "cbe4d6b5",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "643f180d",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    41,
+    42
    ],
-   "note": "Hắc Cức Ma Chủng: đứng, nhún, bước A, bước B"
+   "note": "Hắc Cức Ma Chủng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ho-linh": {
    "file": "assets/art/npc-ho-linh.png",
@@ -2760,51 +2772,55 @@
   },
   "npc.hoa-su": {
    "file": "assets/art/npc-hoa-su.png",
-   "v": "397fd692",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "550d3355",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Họa sư Mặc Vân: đứng, nhún, bước A, bước B"
+   "note": "Họa sư Mặc Vân: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.hu-khong-nguc-chu": {
    "file": "assets/art/npc-hu-khong-nguc-chu.png",
-   "v": "7a1bd083",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "f93edcbb",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Hư Không Ngục Chủ: đứng, nhún, bước A, bước B"
+   "note": "Hư Không Ngục Chủ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.huyet-nha": {
    "file": "assets/art/npc-huyet-nha.png",
-   "v": "ff944898",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "3105280d",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Huyết Nha: đứng, nhún, bước A, bước B"
+   "note": "Huyết Nha: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.kiem-lao": {
    "file": "assets/art/npc-kiem-lao.png",
-   "v": "52020eba",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "8f38a560",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    31,
+    42
    ],
-   "note": "Kiếm Lão: đứng, nhún, bước A, bước B"
+   "note": "Kiếm Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.lac-tuyet": {
    "file": "assets/art/npc-lac-tuyet.png",
@@ -2820,63 +2836,68 @@
   },
   "npc.lao-ngu": {
    "file": "assets/art/npc-lao-ngu.png",
-   "v": "1eb945c1",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "46ecaacc",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    38,
+    42
    ],
-   "note": "Lão Ngư (trưởng làng): đứng, nhún, bước A, bước B"
+   "note": "Lão Ngư (trưởng làng): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.lao-ngu-ong": {
    "file": "assets/art/npc-lao-ngu-ong.png",
-   "v": "fb31443a",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "7540a832",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Lão Ngư Ông: đứng, nhún, bước A, bước B"
+   "note": "Lão Ngư Ông: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.lao-nong": {
    "file": "assets/art/npc-lao-nong.png",
-   "v": "aa4a8a9b",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "b7abfce5",
+   "w": 48,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    24,
+    42
    ],
-   "note": "Lão Nông Thổ: đứng, nhún, bước A, bước B"
+   "note": "Lão Nông Thổ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.lao-than": {
    "file": "assets/art/npc-lao-than.png",
-   "v": "bf1d3649",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "8ac73f3c",
+   "w": 78,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    39,
+    42
    ],
-   "note": "Lão Than: đứng, nhún, bước A, bước B"
+   "note": "Lão Than: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.lao-thiet": {
    "file": "assets/art/npc-lao-thiet.png",
-   "v": "ee0620a4",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "82fbb9ae",
+   "w": 42,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    21,
+    42
    ],
-   "note": "Lão Thiết (thợ rèn): đứng, nhún, bước A, bước B"
+   "note": "Lão Thiết (thợ rèn): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.linh-ho": {
    "file": "assets/art/npc-linh-ho.png",
@@ -2892,39 +2913,42 @@
   },
   "npc.linh-nhi": {
    "file": "assets/art/npc-linh-nhi.png",
-   "v": "ef0091a2",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "fb9e4087",
+   "w": 94,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    47,
+    42
    ],
-   "note": "Linh Nhi: đứng, nhún, bước A, bước B"
+   "note": "Linh Nhi: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.luan-vo-su": {
    "file": "assets/art/npc-luan-vo-su.png",
-   "v": "87f714ae",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "a499ed45",
+   "w": 54,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    27,
+    42
    ],
-   "note": "Luận Võ Trưởng Lão: đứng, nhún, bước A, bước B"
+   "note": "Luận Võ Trưởng Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ma-ton": {
    "file": "assets/art/npc-ma-ton.png",
-   "v": "ca3d5499",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "08f73757",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Ma Tôn: đứng, nhún, bước A, bước B"
+   "note": "Ma Tôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ma-tu": {
    "file": "assets/art/npc-ma-tu.png",
@@ -2952,99 +2976,107 @@
   },
   "npc.ngu-thu-su": {
    "file": "assets/art/npc-ngu-thu-su.png",
-   "v": "93e2365d",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "71e239cf",
+   "w": 100,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    50,
+    42
    ],
-   "note": "Ngự Thú Sư: đứng, nhún, bước A, bước B"
+   "note": "Ngự Thú Sư: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ong-do": {
    "file": "assets/art/npc-ong-do.png",
-   "v": "a0f42197",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "b6a90475",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Ông Đồ: đứng, nhún, bước A, bước B"
+   "note": "Ông Đồ: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ong-gia-tuyet": {
    "file": "assets/art/npc-ong-gia-tuyet.png",
-   "v": "594717a2",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "b9d8c4e2",
+   "w": 86,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    43,
+    42
    ],
-   "note": "Ông Già Tuyết: đứng, nhún, bước A, bước B"
+   "note": "Ông Già Tuyết: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.ong-hai-nam": {
    "file": "assets/art/npc-ong-hai-nam.png",
-   "v": "d4c88f72",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "c9abcfc0",
+   "w": 86,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    43,
+    42
    ],
-   "note": "Ông Hái Nấm: đứng, nhún, bước A, bước B"
+   "note": "Ông Hái Nấm: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.phong-thach": {
    "file": "assets/art/npc-phong-thach.png",
-   "v": "96d35f16",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "30f1681f",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    37,
+    42
    ],
-   "note": "Anh Phong Thạch: đứng, nhún, bước A, bước B"
+   "note": "Anh Phong Thạch: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.quan-bi-canh": {
    "file": "assets/art/npc-quan-bi-canh.png",
-   "v": "4205b030",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "b318a36d",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    34,
+    42
    ],
-   "note": "Quản Bí Cảnh: đứng, nhún, bước A, bước B"
+   "note": "Quản Bí Cảnh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.quan-binh-kho": {
    "file": "assets/art/npc-quan-binh-kho.png",
-   "v": "49414e1f",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "cfe2aba0",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    41,
+    42
    ],
-   "note": "Quản Binh Khố: đứng, nhún, bước A, bước B"
+   "note": "Quản Binh Khố: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.thach-ba": {
    "file": "assets/art/npc-thach-ba.png",
-   "v": "132c1c1c",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "7a03541a",
+   "w": 48,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    24,
+    42
    ],
-   "note": "Thạch Bà: đứng, nhún, bước A, bước B"
+   "note": "Thạch Bà: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.thach-sinh": {
    "file": "assets/art/npc-thach-sinh.png",
@@ -3084,51 +3116,55 @@
   },
   "npc.tho-kim-sa": {
    "file": "assets/art/npc-tho-kim-sa.png",
-   "v": "11cc30f9",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "ca6cc3c1",
+   "w": 56,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    28,
+    42
    ],
-   "note": "Thợ Rèn Kim Sa: đứng, nhún, bước A, bước B"
+   "note": "Thợ Rèn Kim Sa: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.thu-thap": {
    "file": "assets/art/npc-thu-thap.png",
-   "v": "03795c95",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "95261163",
+   "w": 88,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    44,
+    42
    ],
-   "note": "Thủ Tháp Lão Nhân: đứng, nhún, bước A, bước B"
+   "note": "Thủ Tháp Lão Nhân: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.thuc-moc-ma-hau": {
    "file": "assets/art/npc-thuc-moc-ma-hau.png",
-   "v": "1f8102cb",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "dc9e7350",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    36,
+    42
    ],
-   "note": "Thực Mộc Ma Hậu: đứng, nhún, bước A, bước B"
+   "note": "Thực Mộc Ma Hậu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.thuong-nhan": {
    "file": "assets/art/npc-thuong-nhan.png",
-   "v": "9793d71c",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "265e8867",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    41,
+    42
    ],
-   "note": "Thương nhân Kim Bảo: đứng, nhún, bước A, bước B"
+   "note": "Thương nhân Kim Bảo: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.tieu-dao": {
    "file": "assets/art/npc-tieu-dao.png",
@@ -3144,15 +3180,16 @@
   },
   "npc.tieu-dong": {
    "file": "assets/art/npc-tieu-dong.png",
-   "v": "8d1f3ec8",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "97240e64",
+   "w": 52,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    26,
+    42
    ],
-   "note": "Tiểu Đồng: đứng, nhún, bước A, bước B"
+   "note": "Tiểu Đồng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.tieu-hoa": {
    "file": "assets/art/npc-tieu-hoa.png",
@@ -3168,147 +3205,159 @@
   },
   "npc.tieu-linh": {
    "file": "assets/art/npc-tieu-linh.png",
-   "v": "26ae6d4e",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "c7ed7237",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    29,
+    42
    ],
-   "note": "Tiểu Linh: đứng, nhún, bước A, bước B"
+   "note": "Tiểu Linh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.tieu-moc-linh": {
    "file": "assets/art/npc-tieu-moc-linh.png",
-   "v": "aba9e438",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "652c32f8",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    35,
+    42
    ],
-   "note": "Tiểu Mộc Linh: đứng, nhún, bước A, bước B"
+   "note": "Tiểu Mộc Linh: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.tieu-phu": {
    "file": "assets/art/npc-tieu-phu.png",
-   "v": "523b6c44",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "2c70d653",
+   "w": 52,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    26,
+    42
    ],
-   "note": "Bác Tiều Phu: đứng, nhún, bước A, bước B"
+   "note": "Bác Tiều Phu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.to-doi": {
    "file": "assets/art/npc-to-doi.png",
-   "v": "fdfc5164",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "bfac5484",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    33,
+    42
    ],
-   "note": "Sứ Giả Tổ Đội: đứng, nhún, bước A, bước B"
+   "note": "Sứ Giả Tổ Đội: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.toai-son-ma-tuong": {
    "file": "assets/art/npc-toai-son-ma-tuong.png",
-   "v": "a16036f4",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "6cdad1b4",
+   "w": 46,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    23,
+    42
    ],
-   "note": "Toái Sơn Ma Tướng: đứng, nhún, bước A, bước B"
+   "note": "Toái Sơn Ma Tướng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.trai-truong": {
    "file": "assets/art/npc-trai-truong.png",
-   "v": "7e56db55",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "4f3c5272",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    31,
+    42
    ],
-   "note": "Trại Trưởng Tán Tu: đứng, nhún, bước A, bước B"
+   "note": "Trại Trưởng Tán Tu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.truong-lao-moc": {
    "file": "assets/art/npc-truong-lao-moc.png",
-   "v": "64ee6701",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "fdd67a8d",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    34,
+    42
    ],
-   "note": "Mộc Trưởng Lão: đứng, nhún, bước A, bước B"
+   "note": "Mộc Trưởng Lão: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.truong-thon": {
    "file": "assets/art/npc-truong-thon.png",
-   "v": "57d912dc",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "7900dfe2",
+   "w": 60,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    30,
+    42
    ],
-   "note": "Trưởng thôn: đứng, nhún, bước A, bước B"
+   "note": "Trưởng thôn: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.tuyet-nhi": {
    "file": "assets/art/npc-tuyet-nhi.png",
-   "v": "116aae9f",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "9021f8cc",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    38,
+    42
    ],
-   "note": "Cô Tuyết Nhi: đứng, nhún, bước A, bước B"
+   "note": "Cô Tuyết Nhi: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.van-bao": {
    "file": "assets/art/npc-van-bao.png",
-   "v": "7ab33b19",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "4fca23f0",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    37,
+    42
    ],
-   "note": "Chưởng Quỹ Vạn Bảo Lâu: đứng, nhún, bước A, bước B"
+   "note": "Chưởng Quỹ Vạn Bảo Lâu: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.van-hac": {
    "file": "assets/art/npc-van-hac.png",
-   "v": "226bbfb2",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "577a0675",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    35,
+    42
    ],
-   "note": "Trưởng lão Vân Hạc: đứng, nhún, bước A, bước B"
+   "note": "Trưởng lão Vân Hạc: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "npc.van-kiem-ma-tuong": {
    "file": "assets/art/npc-van-kiem-ma-tuong.png",
-   "v": "cc8900db",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "28d75583",
+   "w": 56,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    11,
-    23
+    28,
+    42
    ],
-   "note": "Vạn Kiếm Ma Tướng: đứng, nhún, bước A, bước B"
+   "note": "Vạn Kiếm Ma Tướng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",
