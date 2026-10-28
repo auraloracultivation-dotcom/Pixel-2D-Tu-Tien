@@ -67,6 +67,10 @@ Tới nơi mới (bay, truyền tống, cổng) thì hiện bảng tên 3 giây 
 
 Đầy linh khí ở tầng 9, nút ngữ cảnh hiện "Độ thiên kiếp". Sét giáng từng đợt (vòng báo trước), chạy né cho hết `realms.tribulation.waves` đợt thì lên cảnh giới mới; gục thì mất một phần linh khí.
 
+## Ngự kiếm (`data/heroes.json` → fly)
+
+Chủ dự án chốt 28/10/2026: nhân vật chỉ vận lực, vũ khí luôn bay sau lưng (`src/game/flyweapon.js`). Đánh thường (`swing` ở `src/game/player.js`) gọi `startStrike`: cận chiến xoay vòng chuỗi đâm → quét → bổ (`fly.combo`, nghỉ quá `combo_reset` giây thì về đâm), cung và đàn thì vũ khí ra trước mặt bắn, đạn bay ra từ chỗ vũ khí. Pha lấy đà, lao ra, giữ, bay về theo `fly.times`; sát thương tính lúc vũ khí lao tới nơi (`p.hitQ`), vùng trúng vẫn là cung `arc` trước mặt như cũ. Lúc đả tọa vũ khí lượn vòng quanh người (`fly.orbit`). Nhân vật bằng hình không chạy khung chém vẽ sẵn nữa: có `anims.cast` thì chạy, không thì đứng/đi và nhún nhẹ (`fly.lean`). Hình ở `src/render/draw-flyweapon.js` (vẽ hai lớp quanh thân: sau lưng và phía trước).
+
 ## Điều khiển chiêu
 
 Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: hiện vạch ngắm, thả tay mới ra chiêu theo hướng kéo.

@@ -25,6 +25,90 @@
    ],
    "note": "hoa nhỏ trắng / vàng / hồng"
   },
+  "fw.cung": {
+   "file": "assets/art/fw-cung.png",
+   "v": "e1c44bc5",
+   "w": 31,
+   "h": 31,
+   "frames": 32,
+   "anchor": [
+    15,
+    15
+   ],
+   "note": "vũ khí bay cung: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.dan": {
+   "file": "assets/art/fw-dan.png",
+   "v": "9bc7b1ca",
+   "w": 26,
+   "h": 26,
+   "frames": 32,
+   "anchor": [
+    13,
+    13
+   ],
+   "note": "vũ khí bay dan: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.gay-go": {
+   "file": "assets/art/fw-gay-go.png",
+   "v": "a3eebee5",
+   "w": 27,
+   "h": 27,
+   "frames": 32,
+   "anchor": [
+    13,
+    13
+   ],
+   "note": "vũ khí bay gay-go: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.kiem": {
+   "file": "assets/art/fw-kiem.png",
+   "v": "4f03bb45",
+   "w": 30,
+   "h": 30,
+   "frames": 32,
+   "anchor": [
+    15,
+    15
+   ],
+   "note": "vũ khí bay kiem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.liem": {
+   "file": "assets/art/fw-liem.png",
+   "v": "e06b45a6",
+   "w": 32,
+   "h": 32,
+   "frames": 32,
+   "anchor": [
+    16,
+    16
+   ],
+   "note": "vũ khí bay liem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.quat": {
+   "file": "assets/art/fw-quat.png",
+   "v": "497de18f",
+   "w": 28,
+   "h": 28,
+   "frames": 32,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "vũ khí bay quat: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
+  "fw.thuong": {
+   "file": "assets/art/fw-thuong.png",
+   "v": "b70d9232",
+   "w": 32,
+   "h": 32,
+   "frames": 32,
+   "anchor": [
+    16,
+    16
+   ],
+   "note": "vũ khí bay thuong: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+  },
   "fx.bolt": {
    "file": "assets/art/fx-bolt.png",
    "v": "df84db55",

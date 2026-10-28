@@ -5,6 +5,7 @@
  "npc_kg": 70,
  "default": "nam",
  "combo_reset": 1.2,
+ "fly": {"_note": "Ngự kiếm (chủ dự án chốt 28/10/2026): vũ khí không cầm tay mà luôn bay sau lưng, đánh thường thì người chỉ vận lực (nhún tới lean đơn vị, hoặc chạy động tác cast nếu hình nhân vật có), còn vũ khí từ sau lưng lao ra đâm, quét, bổ (vũ khí cận chiến) hoặc ra trước mặt bắn (cung, đàn), rồi bay về. Hình vũ khí là fw.<loại vũ khí> (tools/art/flyweapons.py, xoay sẵn 32 hướng), loại chưa có hình thì xoay biểu tượng món đang mặc. back [x, y]: chỗ treo sau lưng so với chân (x tính về phía sau lưng); bob: nhấp nhô; follow: tốc độ bám theo (càng lớn càng sát); scale: cỡ hình; times: lấy đà, lao ra, giữ, bay về (giây), sát thương tính lúc lao tới nơi; combo: chuỗi đòn cận chiến đâm / quét / bổ; trail: số bóng mờ phía sau khi lao; orbit: lúc đả tọa vũ khí lượn quanh người (bán kính, vòng mỗi giây); front: khoảng cách vũ khí ra trước mặt khi bắn.", "back": [-11, -27], "bob": 1.5, "follow": 14, "scale": 1.1, "times": {"wind": 0.05, "strike": 0.07, "hold": 0.06, "back": 0.18}, "combo": ["dam", "quet", "bo"], "trail": 3, "orbit": {"r": 14, "speed": 0.35}, "front": 9, "lean": 2},
  "list": {
   "nam": {
    "name": "Nam · kiếm tu",

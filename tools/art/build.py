@@ -23,6 +23,7 @@ import props_wild as PW  # noqa: E402
 import props_home as PH  # noqa: E402
 import terrain2 as T2  # noqa: E402
 import walls as WL  # noqa: E402
+import flyweapons as FWP  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -100,6 +101,11 @@ save('prop.cushion', [PH.cushion()], (8, 5), 'bồ đoàn đả tọa (ô M): đ
 save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung')
 save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
 save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
+
+# ---------------------------------------------------------------- vũ khí bay ngự kiếm (tools/art/flyweapons.py, vẽ ở src/render/draw-flyweapon.js)
+for _id, _fn in FWP.SHAPES.items():
+    _f, _side = FWP.rotations(_fn())
+    save('fw.' + _id, _f, (_side // 2, _side // 2), f'vũ khí bay {_id}: {FWP.DIRS} hướng xoay sẵn, khung i = góc i/{FWP.DIRS} vòng (0 chĩa phải, theo chiều kim đồng hồ)')
 
 # ---------------------------------------------------------------- vách hang theo hệ, đá linh căn, cửa phong ấn (tools/art/walls.py)
 save('tile.wall-root', WL.wall_frames('root'), (0, 0), 'vách rễ (ô X): mặt vách ×2 có rêu mép trên, đỉnh vách ×2')
