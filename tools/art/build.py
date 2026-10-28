@@ -31,6 +31,7 @@ from npcs import npc_frames  # noqa: E402
 from gear import gear_icon  # noqa: E402
 from pets import pet_frames, mount_frames  # noqa: E402
 import ai_sprites  # noqa: E402
+from px import MANIFEST  # noqa: E402
 
 clean()
 
@@ -201,11 +202,11 @@ for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.
 # ---------------------------------------------------------------- linh thú, thú cưỡi (tools/art/pets.py)
 _root = Path(__file__).resolve().parents[2] / 'data'
 _pets, _mobs = (json.loads((_root / f).read_text(encoding='utf-8')) for f in ('pets.json', 'mobs.json'))
-for _id, _d in _pets['pets'].items():   # có ảnh AI (tools/art/ai_sprites.py) thì dùng, không thì vẽ code
-    _f, _a = ai_sprites.frames('pet', _id) or pet_frames(_d, _mobs.get(_id, {}))
+for _id, _d in _pets['pets'].items():
+    _f, _a = pet_frames(_d, _mobs.get(_id, {}))
     save('pet.' + _id, _f, _a, f"{_d['name']}: đứng, bước")
 for _id, _d in _pets['mounts'].items():
-    _f, _a = ai_sprites.frames('mount', _id) or mount_frames(_d)
+    _f, _a = mount_frames(_d)
     save('mount.' + _id, _f, _a, f"{_d['name']}: đứng, bước; người cưỡi ngồi trên yên")
 
 
@@ -279,6 +280,9 @@ def digit(bits, col):
 
 save('ui.digits', [digit(b, hx('#ffffff')) for b in DIG], (0, 0), 'số 0–9 trắng')
 save('ui.digits-crit', [digit(b, hx('#ffd84a')) for b in DIG], (0, 0), 'số 0–9 vàng (bạo kích)')
+
+# ---------------------------------------------------------------- ảnh Canva thay hình code (tools/art/ai_sprites.py, nguon/ai/sheets.json)
+print('ảnh Canva:', ai_sprites.apply(MANIFEST, save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

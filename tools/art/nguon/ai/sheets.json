@@ -1,0 +1,195 @@
+{
+ "_note": "Ảnh Canva (đã xoá nền) thay hình code, xem tools/art/ai_sprites.py.",
+ "pet.hoa-lang": {
+  "src": "sheets/pet-hoa-lang.png",
+  "grid": [
+   4,
+   3
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.moc-linh": {
+  "src": "sheets/pet-moc-linh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.ma-tieu": {
+  "src": "sheets/pet-ma-tieu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.viem-linh": {
+  "src": "sheets/pet-viem-linh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.ma-cung": {
+  "src": "sheets/pet-ma-cung.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.tuyet-lang": {
+  "src": "sheets/pet-tuyet-lang.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.moc-yeu": {
+  "src": "sheets/pet-moc-yeu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.kiem-hon": {
+  "src": "sheets/pet-kiem-hon.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.tho-khoi": {
+  "src": "sheets/pet-tho-khoi.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.hu-anh": {
+  "src": "sheets/pet-hu-anh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.phong-yeu": {
+  "src": "sheets/pet-phong-yeu.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "pet.bang-tinh": {
+  "src": "sheets/pet-bang-tinh.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.1
+ },
+ "mount.bach-loc": {
+  "src": "sheets/mount-bach-loc.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.2
+ },
+ "mount.phong-lang": {
+  "src": "sheets/mount-phong-lang.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.2
+ },
+ "mount.hoa-ky-lan": {
+  "src": "sheets/mount-hoa-ky-lan.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.2
+ },
+ "mount.tuyet-ly": {
+  "src": "sheets/mount-tuyet-ly.png",
+  "grid": [
+   4,
+   1
+  ],
+  "cells": [
+   0,
+   2
+  ],
+  "scale": 1.2
+ }
+}

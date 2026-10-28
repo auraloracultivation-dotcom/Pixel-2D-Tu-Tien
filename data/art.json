@@ -2271,51 +2271,51 @@
   },
   "mount.bach-loc": {
    "file": "assets/art/mount-bach-loc.png",
-   "v": "3a05dfab",
-   "w": 26,
-   "h": 41,
+   "v": "53b36fa8",
+   "w": 30,
+   "h": 42,
    "frames": 2,
    "anchor": [
-    13,
+    14,
     40
    ],
-   "note": "Bạch Lộc: đứng, bước; người cưỡi ngồi trên yên"
+   "note": "Bạch Lộc: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva"
   },
   "mount.hoa-ky-lan": {
    "file": "assets/art/mount-hoa-ky-lan.png",
-   "v": "acf69314",
-   "w": 44,
-   "h": 41,
+   "v": "a79b3550",
+   "w": 38,
+   "h": 42,
    "frames": 2,
    "anchor": [
-    22,
+    18,
     40
    ],
-   "note": "Hỏa Kỳ Lân: đứng, bước; người cưỡi ngồi trên yên"
+   "note": "Hỏa Kỳ Lân: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva"
   },
   "mount.phong-lang": {
    "file": "assets/art/mount-phong-lang.png",
-   "v": "8829e694",
-   "w": 44,
-   "h": 38,
+   "v": "2c72b0d7",
+   "w": 48,
+   "h": 42,
    "frames": 2,
    "anchor": [
-    22,
-    37
+    23,
+    40
    ],
-   "note": "Phong Lang: đứng, bước; người cưỡi ngồi trên yên"
+   "note": "Phong Lang: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva"
   },
   "mount.tuyet-ly": {
    "file": "assets/art/mount-tuyet-ly.png",
-   "v": "282cce20",
-   "w": 43,
-   "h": 41,
+   "v": "efba9c07",
+   "w": 48,
+   "h": 42,
    "frames": 2,
    "anchor": [
-    21,
+    23,
     40
    ],
-   "note": "Tuyết Ly: đứng, bước; người cưỡi ngồi trên yên"
+   "note": "Tuyết Ly: đứng, bước; người cưỡi ngồi trên yên · ảnh Canva"
   },
   "npc.a-moc": {
    "file": "assets/art/npc-a-moc.png",
@@ -3051,147 +3051,147 @@
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",
-   "v": "166f69cb",
-   "w": 15,
-   "h": 19,
+   "v": "8876a3e3",
+   "w": 13,
+   "h": 15,
    "frames": 2,
    "anchor": [
-    7,
-    18
+    6,
+    14
    ],
-   "note": "Băng Tinh Nhi: đứng, bước"
+   "note": "Băng Tinh Nhi: đứng, bước · ảnh Canva"
   },
   "pet.hoa-lang": {
    "file": "assets/art/pet-hoa-lang.png",
-   "v": "33a32046",
+   "v": "c02303f9",
    "w": 17,
-   "h": 19,
-   "frames": 2,
-   "anchor": [
-    8,
-    18
-   ],
-   "note": "Tiểu Hỏa Lang: đứng, bước"
-  },
-  "pet.hu-anh": {
-   "file": "assets/art/pet-hu-anh.png",
-   "v": "511a5cf5",
-   "w": 18,
-   "h": 19,
-   "frames": 2,
-   "anchor": [
-    9,
-    18
-   ],
-   "note": "Tiểu U Ảnh: đứng, bước"
-  },
-  "pet.kiem-hon": {
-   "file": "assets/art/pet-kiem-hon.png",
-   "v": "fa46ca1a",
-   "w": 23,
    "h": 16,
    "frames": 2,
    "anchor": [
-    11,
-    15
+    8,
+    14
    ],
-   "note": "Tiểu Kiếm Linh: đứng, bước"
+   "note": "Tiểu Hỏa Lang: đứng, bước · ảnh Canva"
+  },
+  "pet.hu-anh": {
+   "file": "assets/art/pet-hu-anh.png",
+   "v": "22318fc4",
+   "w": 18,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    9,
+    19
+   ],
+   "note": "Tiểu U Ảnh: đứng, bước · ảnh Canva"
+  },
+  "pet.kiem-hon": {
+   "file": "assets/art/pet-kiem-hon.png",
+   "v": "4361c173",
+   "w": 24,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    12,
+    14
+   ],
+   "note": "Tiểu Kiếm Linh: đứng, bước · ảnh Canva"
   },
   "pet.ma-cung": {
    "file": "assets/art/pet-ma-cung.png",
-   "v": "d728afa4",
+   "v": "c7e06549",
    "w": 16,
-   "h": 19,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    6,
+    19
+   ],
+   "note": "Ma Tiễn Đồng: đứng, bước · ảnh Canva"
+  },
+  "pet.ma-tieu": {
+   "file": "assets/art/pet-ma-tieu.png",
+   "v": "d2ff277a",
+   "w": 15,
+   "h": 20,
    "frames": 2,
    "anchor": [
     8,
     18
    ],
-   "note": "Ma Tiễn Đồng: đứng, bước"
-  },
-  "pet.ma-tieu": {
-   "file": "assets/art/pet-ma-tieu.png",
-   "v": "33adc946",
-   "w": 13,
-   "h": 19,
-   "frames": 2,
-   "anchor": [
-    6,
-    18
-   ],
-   "note": "Tiểu Quỷ: đứng, bước"
+   "note": "Tiểu Quỷ: đứng, bước · ảnh Canva"
   },
   "pet.moc-linh": {
    "file": "assets/art/pet-moc-linh.png",
-   "v": "c22fd713",
-   "w": 15,
-   "h": 19,
-   "frames": 2,
-   "anchor": [
-    7,
-    18
-   ],
-   "note": "Tiểu Mộc Linh: đứng, bước"
-  },
-  "pet.moc-yeu": {
-   "file": "assets/art/pet-moc-yeu.png",
-   "v": "9d6444bc",
+   "v": "a34ec804",
    "w": 13,
-   "h": 19,
+   "h": 15,
    "frames": 2,
    "anchor": [
     6,
-    18
+    14
    ],
-   "note": "Tiểu Thụ Yêu: đứng, bước"
+   "note": "Tiểu Mộc Linh: đứng, bước · ảnh Canva"
+  },
+  "pet.moc-yeu": {
+   "file": "assets/art/pet-moc-yeu.png",
+   "v": "6892ccc4",
+   "w": 13,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    6,
+    16
+   ],
+   "note": "Tiểu Thụ Yêu: đứng, bước · ảnh Canva"
   },
   "pet.phong-yeu": {
    "file": "assets/art/pet-phong-yeu.png",
-   "v": "d47c37f2",
+   "v": "95ce69af",
    "w": 21,
-   "h": 19,
+   "h": 20,
    "frames": 2,
    "anchor": [
     10,
-    18
+    19
    ],
-   "note": "Tiểu Phong Yêu: đứng, bước"
+   "note": "Tiểu Phong Yêu: đứng, bước · ảnh Canva"
   },
   "pet.tho-khoi": {
    "file": "assets/art/pet-tho-khoi.png",
-   "v": "358282a2",
-   "w": 18,
-   "h": 19,
+   "v": "fc903028",
+   "w": 16,
+   "h": 18,
    "frames": 2,
    "anchor": [
-    9,
-    18
+    8,
+    16
    ],
-   "note": "Tiểu Thạch Khôi: đứng, bước"
+   "note": "Tiểu Thạch Khôi: đứng, bước · ảnh Canva"
   },
   "pet.tuyet-lang": {
    "file": "assets/art/pet-tuyet-lang.png",
-   "v": "aed7dcdb",
-   "w": 19,
-   "h": 19,
+   "v": "a28b41d4",
+   "w": 16,
+   "h": 16,
    "frames": 2,
    "anchor": [
-    9,
-    18
+    8,
+    14
    ],
-   "note": "Tiểu Tuyết Lang: đứng, bước"
+   "note": "Tiểu Tuyết Lang: đứng, bước · ảnh Canva"
   },
   "pet.viem-linh": {
    "file": "assets/art/pet-viem-linh.png",
-   "v": "75435fbd",
-   "w": 14,
-   "h": 19,
+   "v": "7536e247",
+   "w": 13,
+   "h": 15,
    "frames": 2,
    "anchor": [
-    7,
-    18
+    6,
+    14
    ],
-   "note": "Viêm Linh Nhi: đứng, bước"
+   "note": "Viêm Linh Nhi: đứng, bước · ảnh Canva"
   },
   "proj.arrow": {
    "file": "assets/art/proj-arrow.png",
