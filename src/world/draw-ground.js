@@ -1,6 +1,7 @@
 // Nền đảo bằng hình pixel (tools/art/world.py → data/art.json). Cỏ, đường đất, nền đá, mép cỏ, vách đảo vẽ một lần
 // vào tấm đệm riêng của từng bản đồ; nhà, cây, đá, hoa vẽ theo từng ô. Hình chưa tải xong thì trả false để vẽ hình khối như cũ.
 import { spriteImage } from '../render/sprites.js';
+import { roundRim } from './draw-rim.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -62,12 +63,13 @@ function build(game, map, tiles, hash, baseTile) {
   for (const ch in RIM) if (game.data.art.sprites[RIM[ch][0]] && !(rim[ch] = sheet(game, RIM[ch][0]))) return null;
   const painted = new Set();
   const T = map.T, cv = document.createElement('canvas');
-  cv.width = map.w * T; cv.height = map.h * T;
+  cv.width = map.w * T; cv.height = map.h * T + (map.def.planet ? T : 0);   // tinh cầu: chừa chỗ vách dưới đáy đĩa
   const c = cv.getContext('2d');
   c.imageSmoothingEnabled = false;
   for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
     const ch = map.at(tx, ty), k = tiles.types[ch] || {}, px = tx * T, py = ty * T, h = hash(tx, ty);
-    if (k.void) {   // vách đảo: hai hàng dưới đất liền
+    if (k.void) {   // vách đảo: hai hàng dưới đất liền (tinh cầu tròn thì vách uốn theo mép đĩa, vẽ ở roundRim)
+      if (map.def.planet) continue;
       if (!map.type(tx, ty - 1).void) put(c, sp['tile.cliff'], Math.floor(h * 3), px, py);
       else if (!map.type(tx, ty - 2).void) put(c, sp['tile.cliff'], 3 + Math.floor(h * 3), px, py);
       continue;
@@ -96,6 +98,7 @@ function build(game, map, tiles, hash, baseTile) {
     if (!k.solid && !k.void) put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
   }
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
+  roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
   return cv;
 }
@@ -126,7 +129,7 @@ function scatter(c, map, hash, dirt, bush) {
 export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
   if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); return false; } cache = { map, cv, painted: cache.painted }; }
   const T = map.T, x0 = Math.max(0, Math.floor(view.x0)), y0 = Math.max(0, Math.floor(view.y0));
-  const w = Math.min(map.w * T, Math.ceil(view.x1)) - x0, h = Math.min(map.h * T, Math.ceil(view.y1)) - y0;
+  const w = Math.min(cache.cv.width, Math.ceil(view.x1)) - x0, h = Math.min(cache.cv.height, Math.ceil(view.y1)) - y0;
   if (w <= 0 || h <= 0) return true;
   ctx.save(); ctx.imageSmoothingEnabled = false;
   ctx.drawImage(cache.cv, x0, y0, w, h, x0, y0, w, h);

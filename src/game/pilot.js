@@ -89,7 +89,7 @@ function findPath(game, tx, ty) {
   const sx = Math.floor(p.x / T), sy = Math.floor(p.y / T), W = map.w;
   const prev = new Map([[sy * W + sx, -1]]), q = [[sx, sy]];
   const goal = (x, y) => Math.abs(x - tx) + Math.abs(y - ty) <= (map.solidTile(tx, ty) ? 1 : 0);
-  const gates = new Set(map.def.portals.filter(pt => pt.at[0] !== tx || pt.at[1] !== ty).map(pt => pt.at[1] * W + pt.at[0]));   // không giẫm nhầm cổng khác
+  const gates = new Set(map.def.portals.filter(pt => !pt.fly && (pt.at[0] !== tx || pt.at[1] !== ty)).map(pt => pt.at[1] * W + pt.at[0]));   // không giẫm nhầm cổng khác
   for (let i = 0; i < q.length && q.length < 6000; i++) {
     const [x, y] = q[i];
     if (goal(x, y)) {
@@ -232,7 +232,18 @@ export function pilotStep(game, ax, dt) {
     return m && dist(m, p) < 220 ? engage(game, m, dt) : none;
   }
   p.meditating = false;
+  const fl = flyLink(game, job.go);
+  if (fl) {   // sang tinh cầu khác: bay luôn như bấm Bản đồ, khỏi đi bộ tới chỗ cổng cũ
+    if (!game.traveling && !game.trip) game.travel(fl.to, fl.spawn, true, { text: game.data.starmap.texts.trip.replace('{name}', game.data.maps[fl.to].name), kind: 'flight' });
+    return none;
+  }
   return { ax: walk(game, job.go.x, job.go.y, dt), atk: false };
+}
+
+// Đường bay giữa hai tinh cầu (data/maps: cổng có "fly": true) nằm ở điểm đích của việc đi, nếu có
+function flyLink(game, go) {
+  const T = game.map.T, tx = Math.floor(go.x / T), ty = Math.floor(go.y / T);
+  return game.map.def.portals.find(pt => pt.fly && pt.at[0] === tx && pt.at[1] === ty) || null;
 }
 
 // Tự lật lời thoại khi đang tự hành (lựa chọn thì vẫn chờ người chơi)

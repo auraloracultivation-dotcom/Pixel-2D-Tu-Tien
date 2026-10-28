@@ -75,6 +75,6 @@
   "lost": "Không còn gì để tới.",
   "soon": "Sắp mở.",
   "danger": "Độ nguy hiểm với bạn:",
-  "trip": "Bay tới {name}"
+  "trip": "Bay tới {name}", "tab_here": "Tinh cầu này", "tab_sys": "Tinh hệ", "hop_hint": "Chạm vào chỗ muốn tới, ngự kiếm bay ngay.", "hop_done": "Ngự kiếm tới {name}", "hop_none": "Chỉ bay trong tinh cầu được.", "hop_busy": "Đang bay.", "camp": "Bãi quái {name}", "gate": "Cổng {name}", "legend_camp": "bãi quái", "legend_gate": "cổng bí cảnh", "legend_goal": "việc truyện", "legend_you": "bạn"
  }
 }

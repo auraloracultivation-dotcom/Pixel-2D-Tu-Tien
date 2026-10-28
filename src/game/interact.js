@@ -112,6 +112,7 @@ export function updatePortals(game, dt) {
   game.portalLock -= dt;
   if (game.portalLock > 0) return;
   for (const pt of game.map.def.portals) {
+    if (pt.fly) continue;   // nối hai tinh cầu: đi bằng Bản đồ, không còn cổng giẫm phải (chủ dự án chốt 28/10/2026)
     const c = game.map.center(pt.at[0], pt.at[1]);
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }

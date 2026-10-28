@@ -1,12 +1,24 @@
 // Bản đồ dạng lưới ký tự (data/maps/*.json, chú giải ở data/tiles.json): tra ô, va chạm, tìm chỗ trống.
+
+// Tinh cầu tròn: mép đĩa vẽ thành vòng tròn điểm ảnh (src/world/draw-rim.js) thay cho bậc thang ô vuông. Bán kính lùi vào
+// trong vòng ô ngoài cùng 0,71 ô nên mọi điểm ảnh trong vòng đều thuộc ô đất; ô có tâm sát mép hơn edge thì coi như vách.
+export function discOf(def, T) {
+  if (!def.planet) return null;
+  const c = def.planet.d * T / 2, r = (def.planet.d / 2 - 1.21) * T;
+  return { cx: c, cy: c, r, edge: r - 4 };
+}
+
 export function buildMap(def, tiles, T) {
   const w = Math.max(...def.grid.map(r => r.length));
   const g = def.grid.map(r => r.padEnd(w, '~'));
   const map = { id: def.id, def, w, h: g.length, g, T, locked: new Set() };
+  const disc = discOf(def, T);
+  const rimOut = (tx, ty) => disc && ((tx + 0.5) * T - disc.cx) ** 2 + ((ty + 0.5) * T - disc.cy) ** 2 > disc.edge * disc.edge;
 
   map.at = (tx, ty) => (ty < 0 || ty >= map.h || tx < 0 || tx >= w) ? '~' : g[ty][tx];
   map.type = (tx, ty) => tiles.types[map.at(tx, ty)] || tiles.types['~'];
-  map.solidTile = (tx, ty) => map.type(tx, ty).solid || map.locked.has(tx + ',' + ty);
+  map.solidTile = (tx, ty) => map.type(tx, ty).solid || map.locked.has(tx + ',' + ty) || rimOut(tx, ty);
+  map.edge = (tx, ty) => map.at(tx, ty) === '~' || !!rimOut(tx, ty);   // mép tinh cầu (câu cá được)
   // Đạn bay qua biển mây và dung nham nhưng vỡ khi chạm tường, cây, nhà
   map.wallTile = (tx, ty) => { const k = map.type(tx, ty); return (k.solid && !k.void && !k.low) || map.locked.has(tx + ',' + ty); };
 
