@@ -2749,6 +2749,18 @@
    ],
    "note": "Thương nhân Kim Bảo: đứng, nhún, bước A, bước B"
   },
+  "npc.tieu-dao": {
+   "file": "assets/art/npc-tieu-dao.png",
+   "v": "aa4d37b1",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Sư huynh Tiêu Dao: đứng, nhún, bước A, bước B"
+  },
   "npc.tieu-dong": {
    "file": "assets/art/npc-tieu-dong.png",
    "v": "8d1f3ec8",

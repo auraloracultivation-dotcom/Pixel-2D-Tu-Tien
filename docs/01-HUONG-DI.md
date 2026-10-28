@@ -89,7 +89,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 ## Nam, nữ và đạo lữ (chủ dự án chốt sáng 28/10/2026)
 
 1. Tạo nhân vật được chọn nam hoặc nữ; hai nhân vật đã có hình là hình mặc định. Tài khoản cũ được hỏi một lần.
-2. Người chơi nữ thì đạo lữ là nam (hiện có Mặc Ảnh), người chơi nam thì đạo lữ là nữ (Lạc Tuyết, Hồ Linh). Lời thoại gọi người chơi đổi theo giới tính (sư đệ / sư muội).
+2. Người chơi nữ thì đạo lữ là nam (Mặc Ảnh, và Sư huynh Tiêu Dao theo bản nháp chủ dự án chọn trưa 28/10), người chơi nam thì đạo lữ là nữ (Lạc Tuyết, Hồ Linh). Lời thoại gọi người chơi đổi theo giới tính (sư đệ / sư muội).
 3. Đạo lữ là người trong tab Đồng hành, mang theo thì đi cùng đánh quái; vừa hỗ trợ đánh vừa trò chuyện, khen người chơi thường xuyên.
 
 ## Lộ trình
