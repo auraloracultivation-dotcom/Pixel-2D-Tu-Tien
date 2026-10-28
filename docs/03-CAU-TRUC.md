@@ -75,6 +75,10 @@ Chủ dự án chốt 28/10/2026: vũ khí luôn bay sau lưng (`src/game/flywea
 
 Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: hiện vạch ngắm, thả tay mới ra chiêu theo hướng kéo.
 
+## Nhóm Zalo (`data/community.json` → zalo)
+
+Chủ dự án xin 28/10/2026: nút Zalo cạnh nút quay clip mở bảng có link nhóm Zalo để người chơi vào thảo luận. Quà tham gia 1 viên ngọc cấp `gem_level` (chọn loại), mỗi bản lưu nhận một lần (`save.quaZalo`). Zalo không cho hỏi ai đã vào nhóm nên bấm mở link là nhận; ngọc nằm trong bản lưu như ngọc rơi, máy chủ không giữ riêng. Đổi link hoặc tắt nút (`on`) trong file dữ liệu. Code ở `src/ui/zalo.js`.
+
 ## Bán nhanh (`data/shop.json` → quick)
 
 Giao diện "đêm hầm ngục" (chủ dự án chốt 28/10/2026): tông tối, âm u, ánh trăng và đèn đuốc để nhân vật, đèn, chiêu sáng nổi. Màu khai một chỗ ở `:root` trong `style.css` (nền đá `--panel`, viền vàng cũ `--trim`, chữ ánh trăng `--ink`/`--moon`, nút chính màu lửa đuốc `--torch`), mọi bảng dùng biến, chữ tiêu đề kiểu chữ có chân (`--f-title`). Ban ngày ngoài trời cũng phủ lam đêm nhẹ (`data/daynight.json`), nên quầng đèn nhà, đèn lồng vẫn hiện nửa độ sáng.
