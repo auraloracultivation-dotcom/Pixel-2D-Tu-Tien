@@ -3,6 +3,7 @@
  "name": "Linh Thạch",
  "drop": {"chance": 0.35, "per_qi": 0.25, "boss_mul": 3},
  "sell": {"pham": 4, "linh": 10, "huyen": 25, "dia": 70, "thien": 180},
+ "quick": {"_note": "Bán nhanh trong Túi đồ (chủ dự án xin 28/10): chọn phẩm chất rồi bán hết một lần. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (skip_plus). pick: phẩm chất chọn sẵn.", "pick": ["pham", "linh"], "skip_plus": true},
  "npc": "van-bao",
  "items": [
   {"kind": "pill", "ref": "hoi-xuan-dan", "n": 2, "price": 30},

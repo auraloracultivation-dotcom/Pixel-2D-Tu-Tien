@@ -71,6 +71,10 @@ Tới nơi mới (bay, truyền tống, cổng) thì hiện bảng tên 3 giây 
 
 Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: hiện vạch ngắm, thả tay mới ra chiêu theo hướng kéo.
 
+## Bán nhanh (`data/shop.json` → quick)
+
+Túi đồ, tab Trang bị có nút Bán nhanh (chủ dự án xin 28/10/2026): chọn phẩm chất (chọn sẵn ở `quick.pick`), thấy trước số món và Linh Thạch nhận, bấm một lần bán hết. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (`skip_plus`); ngọc đang khảm trả về túi ngọc. Luật ở `quickList`, `quickSell` (`src/game/shop.js`), giao diện ở `src/ui/bag-quick.js`. Bán cho tiệm chỉ đổi Linh Thạch trong bản lưu như bán từng món, máy chủ không giới hạn riêng.
+
 ## Lưu tiến trình
 
 Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`).

@@ -29,6 +29,26 @@ export function sell(game, uid) {
   return n;
 }
 
+// Bán nhanh (data/shop.json → quick): các món thuộc phẩm chất đã chọn, trừ đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá
+export function quickList(game, rarities) {
+  const s = game.save, q = C(game).quick, bases = game.data.items.bases;
+  return s.bag.filter(it => rarities.includes(it.rarity) && !isEquipped(s, it.uid) && !bases[it.base]?.dv && !(q.skip_plus && it.plus > 0));
+}
+
+// Bán hết danh sách bán nhanh một lần: ngọc đang khảm trả về túi ngọc. Trả { n: số món, coins: Linh Thạch nhận }
+export function quickSell(game, rarities) {
+  const s = game.save, list = quickList(game, rarities), gone = new Set(list.map(it => it.uid));
+  let got = 0;
+  for (const it of list) {
+    got += sellPrice(game, it);
+    for (const g of it.sockets || []) if (g) s.gems[g] = (s.gems[g] || 0) + 1;
+  }
+  s.bag = s.bag.filter(it => !gone.has(it.uid));
+  if (got) addCoins(game, got);
+  game.persist();
+  return { n: list.length, coins: got };
+}
+
 function label(game, x) {
   const d = game.data;
   if (x.kind === 'gem') return 'Ngọc ngẫu nhiên cấp 1';

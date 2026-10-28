@@ -10,6 +10,7 @@ import { enhance, enhanceCost, setStats } from '../game/enhance.js';
 import { costText } from '../game/cave.js';
 import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
 import { rerollEl } from '../game/daovan.js';
+import { renderQuick } from './bag-quick.js';
 
 const $ = id => document.getElementById(id);
 
@@ -62,6 +63,7 @@ export function createBag(game) {
     const box = $('bag-list'); box.innerHTML = '';
     if (st.tab === 'do') {
       const items = save().bag.filter(i => !isEq(i.uid));
+      if (items.length) renderQuick(game, box, st, full => full ? changed() : render());
       if (!items.length) box.append(el('p', 'muted', 'Túi trống. Hạ quái để nhặt đồ.'));
       for (const it of items) box.append(itemCard(it));
       return;
