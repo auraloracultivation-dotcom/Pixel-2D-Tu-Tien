@@ -86,7 +86,7 @@ export function salvage(data, save, uid) {
   return n;
 }
 
-// Phí Linh Thạch tẩy luyện (items.reroll_fee): càng tẩy một món nhiều lần càng đắt, mỗi ngày qua rẻ lại vài bậc
+// Phí Linh Thạch tẩy luyện (items.reroll_fee): càng tẩy một món nhiều lần càng đắt; decay bậc rẻ lại mỗi ngày (đang 0: không reset)
 const dayNo = now => Math.floor((now - new Date(now).getTimezoneOffset() * 60000) / 86400000);
 export function rerollCount(data, it, now = Date.now()) {
   const f = data.items.reroll_fee, d = dayNo(now);

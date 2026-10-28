@@ -127,7 +127,7 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 
 ## Trọng điểm bồi dưỡng, cấp khó (luật 7 → 14 → 28)
 
-- Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`).
+- Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`); `decay` 0 nên bộ đếm không reset (chủ dự án chốt trưa 28/10/2026).
 - Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000).
 - Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
 - Ô Mũ (`data/items.json` → slots `mu`): 2 mũ thường (Bố Cân, Thiết Khôi) và 7 mũ bộ (rơi ở boss như các món bộ khác); biểu tượng vẽ ở `tools/art/gear.py` (`mu`). Trang bị giờ 6 ô (vũ khí, mũ, giáp, ngọc bội, giày, nhẫn) cộng ô pháp bảo.
