@@ -63,7 +63,7 @@ import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
 import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
 import { spawnHome } from './home.js';
-import { spawnCompanion, updateCompanion, gainCompExp } from './companion.js';
+import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
 import { updateCombo } from './affinity.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 
@@ -296,6 +296,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (!game.tower && !game.arena) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    downFx(game);   // hiệu ứng gục tại chỗ: hồn người chơi bay lên, bạn đồng hành ngã theo (render/draw-act-fx.js)
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
     game.bullets = [];

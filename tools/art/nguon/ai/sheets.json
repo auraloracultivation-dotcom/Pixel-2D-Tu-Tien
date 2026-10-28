@@ -1,5 +1,5 @@
 {
- "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét. Ảnh chủ dự án 28/10 (12 linh thú, 4 thú cưỡi, gốc ở goc/): grid chia khung, order xếp ô thành khung (0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu), hop: ảnh 1 dáng thì bước nhảy 1 điểm ảnh, walk: thứ tự khung khi đi (thú cưỡi 4 bước), shadow false: giữ màu tím sẫm.",
+ "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét. Ảnh chủ dự án 28/10 (12 linh thú, 4 thú cưỡi, gốc ở goc/): grid chia khung, order xếp ô thành khung (0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu), hop: ảnh 1 dáng thì bước nhảy 1 điểm ảnh, walk: thứ tự khung khi đi (thú cưỡi 4 bước), shadow false: giữ màu tím sẫm. Chuẩn 29/10 (nhân vật, nv/): mạng ở đây không tải được ảnh gốc Canva, nên tạo khung vuông 5 dáng 2 hàng (3 trên, 2 dưới) để mỗi dáng cao ~80 điểm ảnh trong bản xem trước, thu về 44 (gấp ~1.8 lần, vẫn rõ mắt mặt). rows: tách hàng rồi tách khung; align feet: căn theo chân (khung đánh có cầu lửa, vệt chém không đẩy người lệch); down rot: khung ngã = khung đứng xoay nằm.",
  "pet.hoa-lang": {
   "src": "sheets/pet-hoa-lang.png",
   "acts": true,
@@ -579,173 +579,188 @@
   "scale": 1.6
  },
  "comp.tieu-hoa": {
-  "src": "sheets/comp-tieu-hoa.png",
+  "src": "nv/tieu-hoa.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Tiểu Hỏa (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Tiểu Hỏa: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.lac-tuyet": {
-  "src": "sheets/comp-lac-tuyet.png",
+  "src": "nv/lac-tuyet.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Sư tỷ Lạc Tuyết (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Lạc Tuyết: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.ho-linh": {
-  "src": "sheets/comp-ho-linh.png",
+  "src": "nv/ho-linh.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Hồ Linh (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Hồ Linh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.mac-anh": {
-  "src": "sheets/comp-mac-anh.png",
+  "src": "nv/mac-anh.png",
   "acts": true,
   "h": 44,
-  "key": "magenta",
-  "grid": [
-   1,
-   1
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Mặc Ảnh (ảnh chủ dự án gửi 28/10)",
-  "shadow": false,
-  "colors": 24
+  "colors": 24,
+  "note": "Mặc Ảnh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.tieu-dao": {
-  "src": "sheets/comp-tieu-dao.png",
+  "src": "nv/tieu-dao.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Sư huynh Tiêu Dao (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Tiêu Dao: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.thanh-diep": {
-  "src": "sheets/comp-thanh-diep.png",
+  "src": "nv/thanh-diep.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Thanh Diệp (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Thanh Diệp: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.thiet-lan": {
-  "src": "sheets/comp-thiet-lan.png",
+  "src": "nv/thiet-lan.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Thiết Lan (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Thiết Lan: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "comp.thach-sinh": {
-  "src": "sheets/comp-thach-sinh.png",
+  "src": "nv/thach-sinh.png",
   "acts": true,
   "h": 44,
   "key": "magenta",
-  "grid": [
-   1,
-   1
+  "rows": [
+   3,
+   2
   ],
+  "align": "feet",
+  "down": "rot",
   "order": [
    0,
-   0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
   ],
-  "hop": true,
-  "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10)",
-  "colors": 24
+  "colors": 24,
+  "note": "Thạch Sinh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm"
  },
  "fw.gay-go": {
   "src": "sheets/fw-gay-go.png",

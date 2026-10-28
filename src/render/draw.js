@@ -35,7 +35,8 @@ import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
 import { drawAim } from './draw-aim.js';
-import { actFrame, drawAct, isAct, walkFrame, ACT } from './draw-acts.js';
+import { actFrame, drawAct, isAct, ACT } from './draw-acts.js';
+import { drawRunDust, drawHitSwoosh, drawDowns } from './draw-act-fx.js';
 
 const INK = '#1b1830';
 
@@ -93,8 +94,15 @@ function drawComp(ctx, e, t, art) {
   if (calm) {
     ctx.globalAlpha = 0.3 + 0.2 * Math.sin(t * 2.4 + 1); ring(ctx, e.x, e.y - 6, 10 + Math.sin(t * 1.6) * 1.5, e.npc.color); ctx.globalAlpha = 1;
   }
-  const id = 'comp.' + e.id;   // ảnh 6 động tác (draw-acts.js): đứng, bước, lấy đà, đánh
-  if (isAct(art, id) && drawAct(ctx, art, id, actFrame(art.sprites[id], e, t, e.def.cd), e.x, e.y + 1, e.face < 0 ? -1 : 1)) return;
+  const id = 'comp.' + e.id;   // ảnh 7 động tác (draw-acts.js): đứng, chạy, lấy đà, đánh, ngã; bụi chạy, vệt đánh (draw-act-fx.js)
+  if (isAct(art, id)) {
+    const f = actFrame(art.sprites[id], e, t, e.def.cd), dir = e.face < 0 ? -1 : 1;
+    if (e.moving) drawRunDust(ctx, e, t, dir);
+    if (drawAct(ctx, art, id, f, e.x, e.y + 1, dir)) {
+      if (f === ACT.hit) drawHitSwoosh(ctx, e, e.npc.color, dir, Math.min(1, (e.def.cd - e.cd) / 0.32));
+      return;
+    }
+  }
   drawPerson(ctx, e, e.npc.color, e.npc.hair || '#5a4a86', t, false, calm ? { x: 0, y: -1 } : { x: e.face, y: 0.3 });
   if (calm) { ctx.fillStyle = INK; ctx.fillRect(e.x - 2, e.y - 10.4, 1.4, 0.7); ctx.fillRect(e.x + 0.6, e.y - 10.4, 1.4, 0.7); }   // mắt nhắm
 }
@@ -184,10 +192,8 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  // Người đồng hành đứng làm NPC (Lạc Tuyết, Mặc Ảnh...): cùng hình comp.<id> như lúc đi theo, cho khớp với bảng Đồng hành
-  const art = game.data.art, cid = 'comp.' + n.id, fr = isAct(art, cid) && (n.moving ? walkFrame(art.sprites[cid], t) : ACT.idle);
-  if (fr != null && fr !== false && drawAct(ctx, art, cid, fr, n.x, n.y + 1, (n.face?.x ?? 1) < 0 ? -1 : 1)) { /* đã vẽ */ }
-  else if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
+  // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>
+  if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
@@ -291,6 +297,7 @@ export function drawWorld(game, screen, t) {
     else if (k === 'comp') drawComp(ctx, e, t, game.data.art);
     else drawPlayer(ctx, game, t);
   }
+  drawDowns(ctx, game);   // lượt gục: khung ngã nhạt dần, hồn bay lên (draw-act-fx.js)
   drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm
   drawBullets(ctx, game, t);
   drawStrikeFalls(ctx, game);

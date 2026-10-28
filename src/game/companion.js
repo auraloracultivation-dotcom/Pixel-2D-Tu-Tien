@@ -50,3 +50,11 @@ export async function talkCompanion(game, npc) {
     await game.dialog.say([[name, d.join]]);
   } else if (pick === 'talk') await game.dialog.say([[name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]);
 }
+
+// Người chơi gục: ghi lượt gục để vẽ tại chỗ (render/draw-act-fx.js): hồn người chơi bay lên, bạn đồng hành ngã theo rồi đứng dậy ở điểm hồi sinh
+export function downFx(game) {
+  const p = game.player, el = game.save.element && game.data.elements[game.save.element]?.color, d = game.downs ||= [];
+  d.push({ id: null, x: p.x, y: p.y, dir: p.lookX || 1, t0: game.time, color: el || '#bff4ff' });
+  const c = game.comp;
+  if (c && game.data.art.sprites['comp.' + c.id]?.frames >= 6) d.push({ id: 'comp.' + c.id, x: c.x, y: c.y, dir: c.face < 0 ? -1 : 1, t0: game.time, color: c.npc.color });
+}
