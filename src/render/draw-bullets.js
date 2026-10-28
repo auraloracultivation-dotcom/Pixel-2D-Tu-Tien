@@ -20,7 +20,7 @@ export function drawBullets(ctx, game, t) {
     const i = Math.floor(t * 12) % spr.frames, s = Math.max(0.6, b.r / 4.5);
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = 0.3; ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r + 2);
+    ctx.globalAlpha = 0.5; ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r + 3);
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
     ctx.translate(b.x, b.y);
     ctx.rotate(b.fx === 'rock' || b.fx === 'liem' ? t * (b.fx === 'liem' ? 18 : 12) : Math.atan2(b.vy, b.vx));   // đá, lưỡi liềm xoay tròn

@@ -1,6 +1,7 @@
 // Hầm ngục, bí cảnh về đêm (data/light.json): phủ tối cả màn hình, khoét quầng sáng theo dải quanh đuốc, dung nham
 // và người chơi (như bài pixel-lessons: tối nền, vũng sáng bậc thang, lửa lập loè), rồi hắt chút ánh lửa ấm lên nền.
 import { spriteImage } from './sprites.js';
+import { cutLights } from './draw-lights.js';
 
 let cache = { map: null, torches: [], lava: [] };
 let shade = null, warm = null;
@@ -66,7 +67,7 @@ function layer(cv, w, h) {
 }
 
 // Lớp tối (toạ độ màn hình). Trả false nếu bản đồ này không phủ tối, để draw.js dùng lớp tối cũ.
-export function drawDarkness(ctx, game, screen, t) {
+export function drawDarkness(ctx, game, screen, t, lights = []) {
   if (!isLit(game)) return false;
   if (cache.map !== game.map) scan(game);
   const L = game.data.light, k = 1 / screen.zoom, w = Math.ceil(screen.w * k), h = Math.ceil(screen.h * k);
@@ -92,6 +93,7 @@ export function drawDarkness(ctx, game, screen, t) {
   }
   const pp = at(game.player.x, game.player.y - 6);
   hole(c, pp.x, pp.y, L.player.radius, L.player.bands);
+  cutLights(c, lights, at, 1, L.glow?.cut ?? 0);   // chiêu, đạn, vệt chém sáng như đèn trong hầm
   ctx.save(); ctx.imageSmoothingEnabled = false;
   ctx.drawImage(shade, 0, 0, w / k, h / k);
   ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(warm, 0, 0, w / k, h / k);

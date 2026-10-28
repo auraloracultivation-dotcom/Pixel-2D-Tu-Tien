@@ -33,6 +33,7 @@ import { ring, disc } from './pixel-shapes.js';
 import { drawFlyWeapon } from './draw-flyweapon.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
+import { gatherLights, drawBloom } from './draw-lights.js';
 
 const INK = '#1b1830';
 
@@ -296,17 +297,19 @@ export function drawWorld(game, screen, t) {
     ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, ny); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, ny);
   }
   screen.screenTransform();
-  drawDayNight(ctx, game, screen, t);
+  const lights = gatherLights(game, t);   // chiêu, đạn, người chơi: khoét lớp tối rồi phủ quầng sáng cuối cùng
+  drawDayNight(ctx, game, screen, t, lights);
   drawGlow(ctx, game, screen, t); drawFairSky(ctx, game, screen, t);
   drawWeather(ctx, game, screen, t);
   drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);
-  if (!drawDarkness(ctx, game, screen, t) && game.dark > 0.01) {
+  if (!drawDarkness(ctx, game, screen, t, lights) && game.dark > 0.01) {
     const pos = screen.toScreen(game.player.x, game.player.y - 6);
     const g = ctx.createRadialGradient(pos.x, pos.y, 30, pos.x, pos.y, Math.max(screen.w, screen.h) * 0.7);
     g.addColorStop(0, `rgba(20,8,30,${game.dark * 0.3})`); g.addColorStop(1, `rgba(20,8,30,${game.dark})`);
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
+  drawBloom(ctx, game, screen, lights);
   if (game.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${game.flashT / 0.35})`; ctx.fillRect(0, 0, screen.w, screen.h); }
 }
 
