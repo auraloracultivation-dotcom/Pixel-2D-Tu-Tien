@@ -31,6 +31,13 @@ export function buildMap(def, tiles, T) {
       const p = map.center(tx + Math.round((rnd() * 2 - 1) * spread), ty + Math.round((rnd() * 2 - 1) * spread));
       if (!map.blocked(p.x, p.y, r)) return p;
     }
+    // Quanh đó kín cây, vách: dò dần ra xa tìm ô trống gần nhất, kẻo quái mọc giữa thân cây (chơi thử 28/10: tự hành đánh mãi
+    // một con Độc đằng kẹt trong hàng cổ thụ ở Rừng Mê)
+    for (let d = 1; d <= 10; d++) for (let dy = -d; dy <= d; dy++) for (let dx = -d; dx <= d; dx++) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) !== d) continue;
+      const p = map.center(tx + dx, ty + dy);
+      if (!map.blocked(p.x, p.y, r)) return p;
+    }
     return map.center(tx, ty);
   };
 

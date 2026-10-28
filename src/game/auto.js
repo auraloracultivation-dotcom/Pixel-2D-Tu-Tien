@@ -18,7 +18,7 @@ export function autoStep(game, ax) {
   if (!game.auto) return { ax, atk: false };
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
-  const home = game.autoHome;
+  const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
   let tgt = null, bd = Infinity;
   for (const m of game.mobs) {
     if (m.dead || m.def.ai === 'boss' || m.story || Math.hypot(m.x - home.x, m.y - home.y) > cfg.radius) continue;
@@ -33,8 +33,20 @@ export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.
 // Đánh một con: áp sát tới tầm vũ khí, đánh thường, bấm chiêu đã hồi
 export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6) + tgt.r; };
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
-  const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt);
+  const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
   const slots = skillSlots(game);
-  if (bd < reach + 30) for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
-  return bd > reach ? { ax: toward(p, tgt.x, tgt.y), atk: false } : { ax, atk: true };
+  if (bd < reach + 30 && see) for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
+  return bd > reach || !see ? { ax: toward(p, tgt.x, tgt.y), atk: false } : { ax, atk: true };
+}
+
+// Có bắn thẳng tới được không: không vướng vách, cây, nhà giữa hai bên (đạn chạm vách là tan, combat.js).
+// Trước đây đứng trong tầm mà cách hàng cây thì tự hành đánh mãi không trúng (chơi thử 28/10: kẹt ở Rừng Mê).
+export function clearShot(game, a, b) {
+  const map = game.map, T = map.T, d = Math.hypot(b.x - a.x, b.y - a.y), n = Math.ceil(d / 4);
+  const bx = Math.floor(b.x / T), by = Math.floor(b.y / T);   // ô của chính mục tiêu không tính (quái lỡ đứng lấn vào cây vẫn đánh được)
+  for (let i = 1; i < n; i++) {
+    const x = Math.floor((a.x + (b.x - a.x) * i / n) / T), y = Math.floor((a.y + (b.y - a.y) * i / n) / T);
+    if ((x !== bx || y !== by) && map.wallTile(x, y)) return false;
+  }
+  return true;
 }

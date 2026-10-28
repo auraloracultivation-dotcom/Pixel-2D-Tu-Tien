@@ -2,7 +2,7 @@
 // đánh đúng quái, nhặt vật phẩm, dọn bí cảnh và đánh boss. Truyện chờ tu luyện thì làm việc vặt (chores.js),
 // hết việc thì ngồi bồ đoàn hoặc săn quái quanh đó. Nhặt được đồ tốt hơn thì tự mặc (autoequip.js).
 import { dist } from './combat.js';
-import { fightStep, toward, reachOf } from './auto.js';
+import { fightStep, toward, reachOf, clearShot } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
 import { autoEquip, autoEnhance } from './autoequip.js';
 import { autoGem } from './autogem.js';
@@ -135,8 +135,12 @@ function sit(game) {
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
   if (game.dig) return { dig: game.dig.v };   // đang đào dở: đào cho xong rồi mới làm việc khác (1–2 giây)
-  // Quái đang đánh mình ở gần: đánh trước
-  const foe = nearest(game, alive(game).filter(m => m.aggro && dist(m, p) < C(game).guard));
+  // Quái đang đánh mình ở gần: đánh trước. Cách hàng cây, vách thì nó không tới được, mình cũng không bắn trúng: bỏ qua,
+  // kẻo đổi qua đổi lại giữa đánh nó và đi việc khác rồi đứng rung tại chỗ (chơi thử 28/10: kẹt trước cổng Làng Tinh Linh)
+  // Đang đi việc truyện (nhặt đồ, gặp người...) thì quái bãi treo máy (hồi 2,5 giây) không chặn lại đánh, trừ khi máu dưới nửa:
+  // trước đây đánh mãi quái bãi, không tới được chỗ nhặt mảnh kiếm (chơi thử 28/10, Thiên Kim Tinh)
+  const errand = !waiting(game) && p.hp > p.maxHp * 0.5;
+  const foe = nearest(game, alive(game).filter(m => m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
   if (foe) return { fight: foe };
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (waiting(game)) return choreJob(game, routeTo) || fairJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
@@ -161,7 +165,8 @@ function plan(game) {
 }
 
 // Chưa tới tầm thì đi theo đường (vòng qua dung nham, tường), tới tầm thì đánh
-const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) ? { ax: walk(game, m.x, m.y, dt), atk: false } : fightStep(game, m);
+// Quá tầm hoặc vướng cây, vách giữa hai bên thì đi theo đường tới gần; không thì đánh
+const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) || !clearShot(game, game.player, m) ? { ax: walk(game, m.x, m.y, dt), atk: false } : fightStep(game, m);
 
 // Gọi mỗi khung từ player khi đang tự hành: trả về hướng đi và có đánh thường không
 export function pilotStep(game, ax, dt) {

@@ -55,6 +55,13 @@ export function fairJob(game, routeTo) {
 export function farmJob(game, routeTo) {
   if (!pilotOpt(game, 'treo') || nightRest(game)) return null;
   const camp = bestCamp(game), p = game.player;
+  // Có tinh cầu hợp cảnh giới hơn tinh cầu đang đứng thì bay sang đó treo (chơi thử 28/10: Hóa Thần vẫn đứng chém Mộc linh
+  // ở bãi tập Thiên Kiếm Phong hàng giờ, linh khí mỗi con quá ít)
+  const better = farmPlanet(game, routeTo), bodyRealm = id => game.data.starmap.bodies.find(b => b.map === id)?.realm ?? -1;
+  if (better && better !== game.map.id && bodyRealm(better) > bodyRealm(game.map.id)) {
+    const pt = routeTo(game, better);
+    if (pt) return { go: game.map.center(pt.at[0], pt.at[1]), to: better };
+  }
   if (camp) {
     const sj = snackJob(game);   // hết linh thực mà dư Linh Thạch: ghé xóm mua một phần rồi mới treo
     if (sj) return sj;
