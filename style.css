@@ -313,6 +313,24 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 /* thanh cuộn tối */
 * { scrollbar-color: var(--line-hi) transparent; scrollbar-width: thin; }
 
+/* ---------------------------------------------------------------- hòm thư (src/ui/inbox-panel.js) */
+.ib-btn { pointer-events: auto; position: relative; width: 30px; height: 26px; padding: 0; border: 1px solid var(--line-hi); border-radius: 5px; background: var(--glass); color: var(--ink); font-size: 14px; line-height: 1; box-shadow: 0 0 0 1px #000, inset 0 1px 0 rgba(169, 195, 255, .15); }
+.ib-badge { position: absolute; top: -6px; right: -6px; min-width: 15px; height: 15px; padding: 0 3px; box-sizing: border-box; border-radius: 8px; background: #d8343c; border: 1px solid #000; color: #fff; font: 700 9.5px/13px system-ui, sans-serif; font-style: normal; text-align: center; }
+.ib-badge[hidden] { display: none; }
+.ib-panel .bag-head b { flex: 1; }
+.ib-tabs { display: flex; gap: 5px; overflow-x: auto; flex-shrink: 0; padding-bottom: 2px; }
+.ib-tab { white-space: nowrap; }
+.ib-tab.on { border-color: var(--trim); color: var(--trim-hi); }
+.ib-list { display: flex; flex-direction: column; gap: 5px; overflow-y: auto; min-height: 0; }
+.ib-list > * { flex-shrink: 0; }
+.ib-row { display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 6px 8px; border-radius: 6px; border: 1px solid transparent; background: var(--panel-2); color: var(--ink-2); font: inherit; }
+.ib-row.new { border-color: var(--line-hi); color: var(--ink); background: linear-gradient(90deg, rgba(216, 52, 60, .14), var(--panel-2) 30%); }
+.ib-top { display: flex; align-items: center; gap: 6px; }
+.ib-title { flex: 1; min-width: 0; font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ib-row:not(.new) .ib-title { font-weight: 600; }
+.ib-ago { font-size: 10.5px; color: var(--ink-2); white-space: nowrap; }
+.ib-text { font-size: 11.5px; line-height: 1.35; color: var(--ink-2); overflow-wrap: anywhere; }
+
 /* ---------------------------------------------------------------- báo lỗi, đề xuất (src/ui/feedback-panel.js) */
 .fb-btn { pointer-events: auto; width: 28px; height: 26px; padding: 0; border: 1px solid var(--line-hi); border-radius: 5px; background: var(--glass); font-size: 13px; line-height: 1; box-shadow: 0 0 0 1px #000, inset 0 1px 0 rgba(169, 195, 255, .15); }
 .fb-panel .bag-head b { flex: 1; }

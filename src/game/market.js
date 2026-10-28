@@ -3,6 +3,7 @@
 import { coins, addCoins } from './shop.js';
 import { addItem, isEquipped, unsocket, itemName, rarityOf } from './items.js';
 import { addMat, matInfo } from './cave.js';
+import { notify } from './inbox.js';
 
 const M = game => game.data.market;
 const net = () => import('../net/market.js');
@@ -77,10 +78,13 @@ export async function claimMail(game) {
   const got = [];
   await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
     for (const m of r.thu || []) {
-      const d = m.noi_dung, head = M(game).mail[m.ly_do] || '';
-      if (d.coins) { addCoins(game, d.coins); got.push(`${head}: +${d.coins} ${game.data.shop.name}`); }
-      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); got.push(`${head}: ${itemName(game.data, d.item)}`); }
-      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); got.push(`${head}: ${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
+      const d = m.noi_dung, head = M(game).mail[m.ly_do] || '', lines = [];
+      if (d.coins) { addCoins(game, d.coins); lines.push(`+${d.coins} ${game.data.shop.name}`); }
+      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
+      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
+      for (const l of lines) got.push(head ? `${head}: ${l}` : l);
+      // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư; đang mở bảng (mua, huỷ ở chợ) thì coi như đã đọc
+      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: M(game).mail[m.ly_do] ? 'market' : '', read: !!game.uiOpen });
     }
     s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
     game.refreshStats(); game.persist();

@@ -1,0 +1,36 @@
+{
+ "_note": "Hòm thư (người chơi tapsu đề xuất qua nút Đề xuất, chủ dự án duyệt 29/10/2026): nút ✉ cạnh Menu gom tin vào một chỗ, có số tin chưa đọc. Nguồn: thư chợ và thư hệ thống (tự nhận, src/game/market.js), truyền âm (game/whisper.js), tông môn (tin trò chuyện mới, người xin vào khi mình là chủ / phó), kênh Thế giới khi có người nhắc tên mình, lời đáp báo lỗi / đề xuất. Lưu trong máy theo tài khoản (không vào bản lưu máy chủ), giữ tối đa keep tin, xoá tin cũ hơn keep_days ngày. poll: giây giữa hai lần đọc từng nguồn khi bảng đóng. Code ở src/game/inbox.js, src/game/inbox-feed.js, src/ui/inbox-panel.js.",
+ "btn": "✉",
+ "label": "Hòm thư",
+ "keep": 80,
+ "keep_days": 14,
+ "poll": {"tick": 5, "world": 60, "guild": 60, "guild_info": 600, "feedback": 600},
+ "kinds": {
+  "cho": {"icon": "💰", "name": "Chợ"},
+  "thu": {"icon": "✉️", "name": "Thư"},
+  "truyen_am": {"icon": "💬", "name": "Truyền âm"},
+  "tong_mon": {"icon": "🏯", "name": "Tông môn"},
+  "the_gioi": {"icon": "🌐", "name": "Thế giới"},
+  "he_thong": {"icon": "📢", "name": "Hệ thống"}
+ },
+ "tabs": [["all", "Tất cả"], ["cho", "Chợ, thư"], ["truyen_am", "Truyền âm"], ["tong_mon", "Tông môn"], ["the_gioi", "Thế giới"], ["he_thong", "Hệ thống"]],
+ "text": {
+  "title": "Hòm thư",
+  "read_all": "Đọc hết",
+  "close": "Đóng",
+  "empty": "Chưa có tin nào.",
+  "login": "Đăng nhập tài khoản để nhận tin chợ, truyền âm, tông môn.",
+  "whisper": "{name} truyền âm",
+  "whisper_n": "{name} truyền âm ({n} tin mới)",
+  "guild_chat": "Tông môn có {n} tin mới",
+  "guild_join": "{name} xin vào tông môn",
+  "guild_join_text": "Mở Tông môn → Thành viên để duyệt.",
+  "mention": "{name} nhắc đến bạn ở kênh Thế giới",
+  "feedback": "Đội làm game trả lời: {title}",
+  "feedback_status": "Trạng thái: {status}",
+  "ago_now": "vừa xong",
+  "ago_min": "{n} phút trước",
+  "ago_hour": "{n} giờ trước",
+  "ago_day": "{n} ngày trước"
+ }
+}

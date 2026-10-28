@@ -15,6 +15,8 @@ import { createRecord } from './game/record.js';
 import { createPortraits } from './ui/portrait.js';
 import { createZalo } from './ui/zalo.js';
 import { createFeedback } from './ui/feedback-panel.js';
+import { createInbox } from './ui/inbox-panel.js';
+import { startInbox } from './game/inbox-feed.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
@@ -65,6 +67,7 @@ async function boot() {
   createPortraits(game).catch(() => {});   // chân dung NPC trên hộp thoại (data/portraits.json)
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)
   createFeedback(game);   // nút Báo lỗi, Đề xuất cạnh nút Zalo (data/community.json → feedback)
+  createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 
