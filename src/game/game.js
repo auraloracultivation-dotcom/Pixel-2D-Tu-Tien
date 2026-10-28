@@ -38,6 +38,7 @@ import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
 import { updateDaoVan } from './daovan.js';
 import { showBanner } from './banner.js';
+import { cloudHooks, startGuard } from './cloud-guard.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
@@ -224,10 +225,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (!session || !cfg.server_save) return null;
     try {
       const { createCloudSave } = await import('../net/profile.js');
-      game.cloud = createCloudSave({
-        onConflict: () => game.toast('Tài khoản đang chơi ở máy khác. Tải lại game để tiếp tục lưu.', 4),
-        onError: () => game.toast('Chưa lưu được lên máy chủ, sẽ thử lại.', 1.5),
-      });
+      game.cloud = createCloudSave(cloudHooks(game));   // báo lỗi lưu, nhận số máy chủ sửa: src/game/cloud-guard.js
       return await Promise.race([game.cloud.load(), new Promise((_, no) => setTimeout(() => no(new Error('cham')), cfg.cloud_timeout_ms || 8000))]);
     } catch { game.cloud = null; game.cloudDown = true; return null; }   // máy chủ chậm hoặc lỗi: chơi bằng bản trong máy, không lưu lên
   }
@@ -262,6 +260,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = remote && local && (local.lastSeen || 0) > (remote.lastSeen || 0) ? local : remote || local;   // bản trong máy mới hơn (chơi lúc máy chủ chậm) thì giữ bản trong máy
     game.save = fresh || !saved ? newSave(cfg) : saved;
+    startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
     applyWords(game);   // lời thoại theo nam / nữ
