@@ -54,7 +54,8 @@ export async function talkCompanion(game, npc) {
 // Người chơi gục: ghi lượt gục để vẽ tại chỗ (render/draw-act-fx.js): hồn người chơi bay lên, bạn đồng hành ngã theo rồi đứng dậy ở điểm hồi sinh
 export function downFx(game) {
   const p = game.player, el = game.save.element && game.data.elements[game.save.element]?.color, d = game.downs ||= [];
-  d.push({ id: null, x: p.x, y: p.y, dir: p.lookX || 1, t0: game.time, color: el || '#bff4ff' });
+  const H = game.data.heroes, key = H.list[game.save.look] ? game.save.look : H.default, hid = `hero.y-${game.save.outfit || 'dong-phuc'}-${key}`;   // trang phục chibi: nhân vật ngã theo khung ngã
+  d.push({ id: game.data.art.sprites[hid]?.frames >= 6 ? hid : null, x: p.x, y: p.y, dir: p.lookX || 1, t0: game.time, color: el || '#bff4ff' });
   const c = game.comp;
   if (c && game.data.art.sprites['comp.' + c.id]?.frames >= 6) d.push({ id: 'comp.' + c.id, x: c.x, y: c.y, dir: c.face < 0 ? -1 : 1, t0: game.time, color: c.npc.color });
 }
