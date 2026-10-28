@@ -73,7 +73,7 @@ Chủ dự án chốt 28/10/2026: vũ khí luôn bay sau lưng (`src/game/flywea
 
 ## Điều khiển chiêu
 
-Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: hiện vạch ngắm, thả tay mới ra chiêu theo hướng kéo.
+Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì bắn theo hướng đang nhìn). Kéo nút chiêu: thả tay mới ra chiêu theo hướng kéo. Giữ hoặc kéo nút chiêu thì mặt đất hiện khung đúng hình và tầm của chiêu (chủ dự án xin 28/10/2026, `src/render/draw-aim.js`): đạn là dải rộng bằng đạn dài bằng tầm, nổ thì có vòng nổ ở cuối; bắn quạt là hình quạt và từng dải đạn; chiêu vòng là hình tròn đúng bán kính ở đúng chỗ nổ; lao tới là dải lao và chỗ đáp. Số lấy từ `data/skills.json` đúng như lúc tính trúng, đổi số chiêu là khung tự đổi theo.
 
 ## Nhóm Zalo (`data/community.json` → zalo)
 
