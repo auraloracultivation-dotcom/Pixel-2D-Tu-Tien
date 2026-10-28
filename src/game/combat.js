@@ -14,6 +14,12 @@ export function addNumber(game, x, y, text, color = '#fff', big = false) {
     game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0, gain: m[2], sum: +m[1] });
     return;
   }
+  // Chiêu nhiều đòn trúng một con liên tục: cộng vào số vừa hiện trên con đó thay vì chồng hàng chục số (chơi thử 28/10)
+  if (/^\d+$/.test(String(text))) {
+    const same = game.numbers.find(n => !n.gain && n.color === color && /^\d+$/.test(n.text) && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
+    if (same) { same.text = String(+same.text + +text); same.big ||= big; return; }
+  }
+  if (game.numbers.length > 28) game.numbers.shift();   // giữ màn gọn khi đánh đông quái
   game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0 });
 }
 
