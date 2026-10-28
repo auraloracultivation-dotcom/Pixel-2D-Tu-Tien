@@ -1,6 +1,8 @@
 {
  "_note": "Hình nhân vật chính (chọn ở bảng Thành tựu → Thời trang). sprite: mục trong data/art.json; null thì vẽ hình khối như cũ. Hình gốc nhìn sang phải, quay trái thì lật gương. char_height: chiều cao thân NPC trong thế giới (đơn vị bản đồ; NPC vẽ 1 điểm ảnh = 1 đơn vị, đỉnh đầu đến chân ~24), coi là người chuẩn npc_cm / npc_kg. cm, kg: chỉ số chủ dự án điền cho từng nhân vật; thân cao = char_height × cm / npc_cm (1m75 thấp hơn NPC một xíu), bề ngang theo độ đậm người (kg/cm² so với NPC, lệch dưới 10% thì giữ nguyên để khỏi méo điểm ảnh). body: số điểm ảnh thân người trong hình (đỉnh tóc đến chân, không tính sừng, quầng, vũ khí), đo một lần khi thêm hình; game tự thu phóng để thân cao đúng char_height, làm tròn để mỗi điểm ảnh hình là số nguyên điểm màn hình. anims: danh sách khung, fps: khung mỗi giây. attacks: chuỗi đòn (combo), mỗi lần đánh (cả khi dùng chiêu) ra đòn kế tiếp và chạy hết một lượt; ngừng đánh quá combo_reset giây thì về đòn đầu; bỏ khung đầu giống lúc đứng để thấy rõ động tác. lunge: lúc đánh người nhún tới trước bấy nhiêu đơn vị rồi lùi về (không đổi chỗ đứng thật).",
  "char_height": 24,
+ "title_gap": 10,
+ "_title_gap": "Danh hiệu trên đầu nhân vật cách đỉnh thân title_gap đơn vị bản đồ (chủ dự án xin 29/10/2026: tách xa đầu một chút, khỏi đè tóc và vũ khí đeo vai).",
  "npc_cm": 180,
  "npc_kg": 70,
  "default": "nam",

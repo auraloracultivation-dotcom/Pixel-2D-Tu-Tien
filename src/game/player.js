@@ -1,5 +1,6 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
 import { addFx, hitMob, dist, shoot } from './combat.js';
+import { weaponSlash } from './slash-fx.js';
 import { castSkill, skillSlots } from './skills.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
@@ -92,11 +93,10 @@ function strike(game, q) {
     return;
   }
   const cx = p.x, cy = p.y - 8, tip = { x: cx + ca * w.range, y: cy + sa * w.range };
-  const H = game.data.heroes, look = H.list[game.save.look] || H.list[H.default];
-  // Nhân vật bằng hình đã có vệt chém vẽ sẵn trong động tác: chỉ thêm vệt riêng của vũ khí (w.slash, vd. liềm); hình khối thì thêm vệt thường
-  if (['quet', 'xoay', 'hat', 'moc'].includes(q.move)) { if (!look.sprite || w.slash) addFx(game, { type: 'sprite', id: w.slash || 'fx.slash', x: p.x, y: p.y - 3, s: w.range / 19, rot: q.ang, life: 0.24 }); }
-  else if (q.move === 'bo') { addFx(game, { type: 'ring', x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8, r: 12, color: w.color, life: 0.28 }); addFx(game, { type: 'sprite', id: 'fx.spark', x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8, s: 1.4, life: 0.2 }); }
-  else { addFx(game, { type: 'line', x: cx, y: cy, x2: tip.x, y2: tip.y, color: w.color, life: 0.16 }); addFx(game, { type: 'sprite', id: 'fx.spark', x: tip.x, y: tip.y, s: 1.2, life: 0.2 }); }   // đâm: vệt kiếm khí thẳng
+  // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
+  const hit = q.move === 'bo' ? { x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8 } : tip;
+  weaponSlash(game, p, w, q.move, q.ang, hit);
+  if (!['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);

@@ -26,7 +26,8 @@ export function drawAura(ctx, game, p, t) {
 export function drawTitle(ctx, game, p) {
   const ti = titleOf(game);
   if (!ti) return;
+  const y = p.y - (p.top || 24) - (game.data.heroes.title_gap ?? 10);   // tách hẳn khỏi đầu, tóc, vũ khí đeo vai (chủ dự án xin 29/10/2026)
   ctx.font = 'bold 6px system-ui'; ctx.textAlign = 'center';
-  ctx.lineWidth = 2; ctx.strokeStyle = '#1b1830'; ctx.strokeText(ti.name, p.x, p.y - 22);
-  ctx.fillStyle = ti.color; ctx.fillText(ti.name, p.x, p.y - 22);
+  ctx.lineWidth = 2; ctx.strokeStyle = '#1b1830'; ctx.strokeText(ti.name, p.x, y);
+  ctx.fillStyle = ti.color; ctx.fillText(ti.name, p.x, y);
 }
