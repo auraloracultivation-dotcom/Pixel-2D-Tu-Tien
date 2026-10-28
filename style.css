@@ -432,3 +432,6 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #toast { top: 20%; font-size: 12.5px; padding: 6px 11px; max-width: 64%; }
 /* Ô chiêu chưa có chiêu: ẩn hẳn, đỡ rối góc màn (chơi thử thấy ba vòng tối trống cạnh nút Đánh) */
 #btn-s0.off, #btn-s1.off, #btn-s2.off { opacity: 0; pointer-events: none; }
+
+/* Hộp thoại luôn nằm trên nút đánh, chiêu (màn ngang: nút Lướt đè lên chữ hộp thoại, chơi thử 28/10) */
+#dialog { z-index: 30; }
