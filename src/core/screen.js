@@ -1,5 +1,14 @@
 // Khung vẽ: kích thước theo màn hình, máy quay bám người chơi, rung màn hình.
 // dpr: hàm trả độ phân giải vẽ (src/core/perf.js hạ khi máy yếu); s.resize() vẽ lại khung theo độ phân giải mới
+// Lưới điểm ảnh chung (chủ dự án xin 29/10/2026 "lấy nét": không nhoè, không vỡ; theo Dungeon Chibi Style Guide "một lưới chung,
+// phóng số nguyên"): cfg.pixel_snap thì mỗi đơn vị bản đồ = số nguyên điểm khung vẽ (chọn số nguyên gần cỡ muốn nhất), máy quay
+// đặt đúng lưới điểm khung vẽ, nên ô đất, quái, nhân vật không lệch nửa điểm, không lấp lánh khi máy quay trôi.
+const snapZ = (cfg, want, dpr) => {
+  const z = want * dpr;
+  if (!cfg.pixel_snap || z < 1.5) return want;
+  const lo = Math.floor(z), hi = Math.ceil(z);
+  return (Math.abs(Math.log(lo / z)) <= Math.abs(Math.log(hi / z)) ? lo : hi) / dpr;
+};
 export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixelRatio || 1, 2)) {
   const s = {
     canvas, ctx: canvas.getContext('2d'),
@@ -12,7 +21,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
     s.w = window.innerWidth; s.h = window.innerHeight;
     canvas.width = Math.round(s.w * s.dpr); canvas.height = Math.round(s.h * s.dpr);
     canvas.style.width = s.w + 'px'; canvas.style.height = s.h + 'px';
-    s.base = Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles); s.zoom = s.base * s.mul;
+    s.base = snapZ(cfg, Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles), s.dpr); s.zoom = s.mul === 1 ? s.base : snapZ(cfg, s.base * s.mul, s.dpr);
   }
   window.addEventListener('resize', resize);
   resize();
@@ -25,7 +34,11 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
 
   s.follow = (x, y, dt, map) => {
     const k = 1 - Math.exp(-dt * 8);
-    if (s.mul !== s.mulT) { s.mul += (s.mulT - s.mul) * (1 - Math.exp(-dt * 1.2)); if (Math.abs(s.mul - s.mulT) < 0.002) s.mul = s.mulT; s.zoom = s.base * s.mul; }
+    if (s.mul !== s.mulT) {   // đang lùi, tiến máy quay: mượt; dừng hẳn thì về đúng lưới điểm
+      s.mul += (s.mulT - s.mul) * (1 - Math.exp(-dt * 1.2));
+      if (Math.abs(s.mul - s.mulT) < 0.002) s.mul = s.mulT;
+      s.zoom = s.mul === s.mulT ? snapZ(cfg, s.base * s.mul, s.dpr) : s.base * s.mul;
+    }
     s.camX += (x - s.camX) * k; s.camY += (y - s.camY) * k;
     if (map) {
       const hw = s.w / s.zoom / 2, hh = s.h / s.zoom / 2;
@@ -45,7 +58,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
   // Toạ độ thế giới → khung vẽ
   s.worldTransform = () => {
     const z = s.zoom * s.dpr;
-    s.ctx.setTransform(z, 0, 0, z, s.w / 2 * s.dpr - (s.camX - s.sx) * z, s.h / 2 * s.dpr - (s.camY - s.sy) * z);
+    s.ctx.setTransform(z, 0, 0, z, Math.round(s.w / 2 * s.dpr - (s.camX - s.sx) * z), Math.round(s.h / 2 * s.dpr - (s.camY - s.sy) * z));
   };
   s.screenTransform = () => s.ctx.setTransform(s.dpr, 0, 0, s.dpr, 0, 0);
 

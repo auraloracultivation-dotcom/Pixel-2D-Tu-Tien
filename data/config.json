@@ -1,7 +1,9 @@
 {
  "_note": "Số liệu chung của bản chơi tạm. Đổi số ở đây, không sửa trong code.",
  "tile": 16,
- "view_tiles": 13,
+ "view_tiles": 21,
+ "pixel_snap": true,
+ "_view": "view_tiles: số ô thấy theo bề ngang (màn đứng: theo bề ngang, màn ngang: 3/4 bề cao). Chủ dự án thích máy quay xa như lúc ngắm cảnh (29/10/2026): 13 → 21. pixel_snap: mỗi đơn vị bản đồ = số nguyên điểm khung vẽ (src/core/screen.js), nên số ô thấy thật lệch chút theo máy (khoảng 18–24).",
  "maps": [
   "thanh-khe",
   "thien-kiem-phong",

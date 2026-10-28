@@ -1,6 +1,6 @@
 {
  "_note": "Góc ngắm cảnh: phiến đá ở mép đảo. Ngồi xuống thì ẩn nút, máy quay lùi ra (zoom) và nhìn xuống biển mây, hiện một câu thơ, linh khí vào chậm (qi_mul lần đả tọa thường). Chạm màn hình để đứng dậy. together: đang có đạo lữ đi cùng thì sau after giây đạo lữ ngồi xuống bên cạnh, nói một câu theo giờ (lines[người][pha], thiếu thì default), linh khí ngắm cảnh nhân qi_mul.",
- "zoom": 0.6,
+ "zoom": 0.8,
  "pan": 40,
  "qi_mul": 0.6,
  "spots": [
