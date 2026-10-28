@@ -1,6 +1,7 @@
 // Ánh đèn ban đêm ngoài trời (chill như lễ hội, chủ dự án 28/10/2026): cửa sổ nhà, đèn lồng, lò, dung nham, truyền tống trận
 // hắt quầng sáng ấm lên lớp tối đêm; mỗi xóm mới có một cột đèn lồng ở sân. Màu, bán kính ở data/light.json → night.
 import { phase, outdoor } from '../game/daynight.js';
+import { glow } from './draw-lights.js';
 
 let cache = { map: null, list: [] };
 
@@ -39,14 +40,12 @@ export function drawGlow(ctx, game, screen, t) {
   if (a < 0.15) return;
   if (cache.map !== game.map) scan(game);
   const z = screen.zoom, k = Math.min(1, a / 0.6);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = k; ctx.imageSmoothingEnabled = true;   // quầng vẽ sẵn (draw-lights.js → glow), độ đậm theo trời tối
   for (const o of cache.list) {
     const s = screen.toScreen(o.x, o.y), r = o.r * z;
     if (s.x < -r || s.y < -r || s.x > screen.w + r || s.y > screen.h + r) continue;
-    const f = 1 + 0.08 * Math.sin(t * 6 + o.ph * 2.1);
-    const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, r * f);
-    g.addColorStop(0, `rgba(${o.c},${(0.42 * k).toFixed(3)})`); g.addColorStop(0.5, `rgba(${o.c},${(0.16 * k).toFixed(3)})`); g.addColorStop(1, `rgba(${o.c},0)`);
-    ctx.fillStyle = g; ctx.fillRect(s.x - r * f, s.y - r * f, r * f * 2, r * f * 2);
+    const f = 1 + 0.08 * Math.sin(t * 6 + o.ph * 2.1), R = r * f;
+    ctx.drawImage(glow('night|' + o.c, [[0, `rgba(${o.c},0.42)`], [0.5, `rgba(${o.c},0.16)`], [1, `rgba(${o.c},0)`]]), s.x - R, s.y - R, R * 2, R * 2);
   }
   ctx.restore();
 }

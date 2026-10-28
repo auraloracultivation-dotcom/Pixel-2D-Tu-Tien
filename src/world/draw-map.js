@@ -7,7 +7,7 @@ import { drawForestTile } from './draw-forest.js';
 import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
-import { drawGround, drawProp, groundPainted, drawPlotSoil, drawSeal, PROP_TILES } from './draw-ground.js';
+import { drawGround, drawProp, propBaked, groundPainted, drawPlotSoil, drawSeal, PROP_TILES } from './draw-ground.js';
 import { drawLavaBubble } from './draw-lava.js';
 import { drawMountain, drawWater } from './draw-terrain.js';
 function hash(x, y) {
@@ -96,10 +96,12 @@ export function drawMap(ctx, map, tiles, view, t, game) {
   const x0 = Math.max(0, Math.floor(view.x0 / T)), x1 = Math.min(map.w - 1, Math.floor(view.x1 / T));
   const y0 = Math.max(0, Math.floor(view.y0 / T)), y1 = Math.min(map.h - 1, Math.floor(view.y1 / T));
   if (!drawGround(ctx, game, map, tiles, view, hash, baseTile)) for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) baseTile(ctx, map, tiles, tx, ty);
-  // Vật trên nền
+  // Vật trên nền (vật đứng yên đã vẽ sẵn trong tấm đệm nền, draw-ground.js → propBaked); hình pixel dán không làm mịn
+  const smooth = ctx.imageSmoothingEnabled;
+  ctx.imageSmoothingEnabled = false;
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const ch = map.at(tx, ty), px = tx * T, py = ty * T, cx = px + T / 2, cy = py + T / 2;
-    if (PROP_TILES.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty), t)) continue;
+    if (PROP_TILES.includes(ch) && (propBaked(map, tx, ty) || drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty), t))) continue;
     if ('LOigolyf='.includes(ch) && groundPainted(ch)) {
       const fx = { L: 'fx.lava-bubble', f: 'fx.void-wisp', '=': 'fx.water-glint' }[ch];
       if (fx) drawLavaBubble(ctx, game, px, py, hash(tx, ty), t, fx);
@@ -170,6 +172,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
       for (let i = 2; i < T; i += 5) ctx.fillRect(px + i, py, 2, T);
     }
   }
+  ctx.imageSmoothingEnabled = smooth;
 }
 
 export function circle(ctx, x, y, r) {
