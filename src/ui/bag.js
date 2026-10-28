@@ -121,6 +121,7 @@ export function createBag(game) {
 
   for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; render(); };
   $('bag-close').onclick = () => close();
+  $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); open(); });
 
   function open() {

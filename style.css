@@ -381,3 +381,37 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 .gc-card small { font-size: 12px; color: var(--ink-2); line-height: 1.4; }
 .gc-card .card-acts { margin-top: 4px; }
 .gc-go { padding: 10px; font-size: 14px; }
+
+/* ---------------------------------------------------------------- túi đồ và ô lưới gọn (người chơi thử báo 28/10/2026: túi không vuốt được, ô to)
+   7 ô trang bị một hàng nhỏ, chỉ số một dòng (chạm để xem hết), ô đồ nhỏ hơn để danh sách còn chỗ vuốt. */
+#bag { padding: 8px; gap: 6px; }
+#bag .bag-head { padding-bottom: 4px; }
+#bag .bag-head b, .panel .bag-head b { font-size: 16px; }
+#bag-close, #skills-close, #cave-close, #pets-close, #daily-close, #achv-close, #world-close, #social-close, #market-close, #topup-close, #guild-close { width: 30px; height: 30px; font-size: 14px; }
+#bag-equip { gap: 4px; }
+@media (max-width: 380px) { #bag-equip { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+#bag-equip .slot { padding: 3px 1px 2px; gap: 1px; border-radius: 6px; }
+#bag-equip .slot .ico { width: 24px; height: 24px; background-size: 24px 24px; }
+#bag-equip .slot small { font-size: 9px; }
+#bag-stats { font-size: 10.5px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+#bag-stats.open { white-space: normal; max-height: 30%; overflow-y: auto; }
+#bag .bag-tabs button { padding: 4px 10px; font-size: 12px; }
+#bag .chip { padding: 3px 9px; font-size: 11px; }
+#bag-list { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 5px; min-height: 120px; }
+#bag .item { min-height: 40px; padding: 4px 5px; }
+#bag .item .ico { width: 24px; height: 24px; background-size: 24px 24px; margin-right: 4px; }
+#bag .item b { font-size: 11.5px; }
+#bag .item small { font-size: 9.5px; }
+.gc-on { grid-template-columns: repeat(auto-fill, minmax(82px, 1fr)) !important; gap: 5px !important; }
+.gc-tile { min-height: 68px; padding: 5px 3px 4px; gap: 2px; }
+.gc-tile b { font-size: 11px; }
+.gc-tile small { font-size: 9.5px; }
+.menu-tile { min-height: 58px; }
+/* vuốt danh sách chắc chắn được trên Android (html, body đặt touch-action: none cho cần gạt) */
+#bag-list, .panel [id$="-list"], .menu-body, .gc-body, #bag-detail, #world-card { touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+#bag .item { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: 4px; row-gap: 2px; align-items: center; }
+#bag .item .ico { float: none; margin: 0; grid-column: 1; grid-row: 1; }
+#bag .item b { grid-column: 2; grid-row: 1; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+#bag .item small { grid-column: 1 / -1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#bag .item:has(em) small { padding-right: 40px; }
+#bag .item em { right: 5px; bottom: 3px; font-size: 9.5px; }
