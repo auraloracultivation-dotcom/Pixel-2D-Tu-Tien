@@ -1,3 +1,4 @@
+@import url("style-khung.css");   /* khung thắp đèn, chữ pixel (29/10/2026) */
 /* Giao diện "đêm hầm ngục" (28/10/2026): nền đá tối, viền vàng cũ, chữ ánh trăng, nút chính màu lửa đuốc.
    Màu chỉ khai ở :root, mọi chỗ khác dùng biến để đổi tông một chỗ. Ghi chú ở docs/03-CAU-TRUC.md (Giao diện). */
 :root {
