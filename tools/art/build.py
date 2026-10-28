@@ -17,6 +17,8 @@ from icons import icon_sprites  # noqa: E402
 from heroes import sheet, foot, fit, shrink, picture  # noqa: E402
 import world as W  # noqa: E402
 import terrain as TR  # noqa: E402
+import houses as HS  # noqa: E402
+import props_planet as PP  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -56,6 +58,15 @@ save('tile.lava-rim', TR.lava_rim(), (0, 0), 'bờ đá bazan quanh dung nham: c
 save('tile.snow-rim', TR.snow_rim(), (0, 0), 'bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc')
 save('fx.lava-bubble', TR.bubble_frames(), (3, 6), 'bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung')
 save('tile.house-burnt', TR.burnt_house_frames(), (0, 0), 'nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng')
+
+# ---------------------------------------------------------------- nhà và vật tinh cầu Kim, Thổ, Mộc (tools/art/houses.py, props_planet.py)
+save('tile.house-forge', HS.frames('forge'), (0, 0), 'nhà rèn (ô N, Thiên Kim): mái đá phiến, tường đá khối, ống khói; cùng thứ tự khung với tile.house')
+save('tile.house-adobe', HS.frames('adobe'), (0, 0), 'nhà đất (ô z, Hậu Thổ): mái rơm, tường đất nện, cửa vòm; cùng thứ tự khung với tile.house')
+save('tile.house-tree', HS.frames('tree'), (0, 0), 'nhà trên cây (ô W, Thanh Mộc, Làng Tinh Linh): mái lá, vách ván; cùng thứ tự khung với tile.house')
+save('prop.sword-grave', [PP.sword_grave(s) for s in range(2)], (8, 22), 'mộ kiếm (ô J): kiếm cắm thẳng, kiếm nghiêng có tua')
+save('prop.broken-sword', [PP.broken_sword(k) for k in range(3)], (8, 8), 'kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên')
+save('prop.pillar', [PP.pillar(s) for s in range(2)], (6, 24), 'cột đá đất nung (ô I): trơn, có chữ cổ hổ phách')
+save('tile.terrace', [PP.terrace(s) for s in range(4)], (0, 0), 'ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang')
 
 # ---------------------------------------------------------------- hầm ngục, bí cảnh về đêm (tools/art/dungeon.py, vẽ ở src/world/draw-ground.js, src/render/draw-light.js)
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')
