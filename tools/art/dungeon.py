@@ -37,9 +37,9 @@ def floor(seed):
             for x in range(x0, x0 + w):
                 lx, ly = x - x0, y - y0
                 if lx == w - 1 or ly == h - 1:
-                    c.px(x, y, _a(DARK, 105))            # mạch vữa (một nét, nhạt)
+                    c.px(x, y, _a(DARK, 34))             # mạch vữa rất nhạt (chủ dự án 29/10: nền gạch rõ rối mắt, thích nền phẳng)
                 elif ly == 0 and 0 < lx < w - 2:
-                    c.px(x, y, _a(LIGHT, 18))            # cạnh trên bắt sáng
+                    c.px(x, y, _a(LIGHT, 6))             # cạnh trên bắt sáng
                 elif shade:
                     c.px(x, y, _a(DARK, shade))
     if seed % 4 == 1:   # vết nứt
