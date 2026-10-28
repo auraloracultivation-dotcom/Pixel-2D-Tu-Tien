@@ -192,11 +192,22 @@ def bush(seed):
 save('prop.bush', [bush(0), bush(1)], (8, 10), 'bụi cây thấp: xanh, có hoa vàng; rải trên cỏ')
 
 
-# ---------------------------------------------------------------- quái (tools/art/mobs.py): mỗi quái có "look" trong data/mobs.json
+# ---------------------------------------------------------------- quái: thế hệ 2 (tools/art/mob_design.py, 4 khung đi, vẽ chi tiết
+# rồi game thu theo "scale"). Quái đã có ảnh Canva (nguon/ai/sheets.json) vẫn dựng bản cũ tools/art/mobs.py trước, vì ai_sprites
+# lấy cỡ bản code cùng id làm cỡ ảnh: giữ nguyên cỡ boss Canva như trước.
+from px import MANIFEST  # noqa: E402
+from mob_design import mob_frames2  # noqa: E402
+_canva = set(json.loads((Path(__file__).parent / 'nguon' / 'ai' / 'sheets.json').read_text(encoding='utf-8')))
 for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'mobs.json').read_text(encoding='utf-8')).items():
     if isinstance(_d, dict) and _d.get('look'):
-        _f, _a = mob_frames(_d)
-        save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): đứng, bước")
+        _r = None if 'mob.' + _id in _canva else mob_frames2(_id, _d)
+        if _r:
+            _f, _a, _sc = _r
+            save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): 4 khung đi")
+            MANIFEST['mob.' + _id]['scale'] = _sc
+        else:
+            _f, _a = mob_frames(_d)
+            save('mob.' + _id, _f, _a, f"{_d['name']} ({_d['look']}): đứng, bước")
 
 
 # ---------------------------------------------------------------- linh thú, thú cưỡi (tools/art/pets.py)

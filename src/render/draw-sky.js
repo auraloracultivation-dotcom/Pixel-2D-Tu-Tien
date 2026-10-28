@@ -12,7 +12,7 @@ export function drawDayNight(ctx, game, screen, t, lights = []) {
   if (!outdoor(game)) return;
   const p = phase(game);
   if (!p.tint) return;
-  const [r, g, b, a] = p.tint, pos = screen.toScreen(game.player.x, game.player.y - 6);
+  const [r, g, b, a0] = p.tint, a = Math.min(0.85, a0 * (game.map.def.tint_mul || 1)), pos = screen.toScreen(game.player.x, game.player.y - 6);
   tint ||= document.createElement('canvas');   // lớp phủ mềm: vẽ nửa độ phân giải rồi phóng lên (nhẹ máy, nhìn như nhau)
   const tw = Math.ceil(screen.w / 2), th = Math.ceil(screen.h / 2);
   if (tint.width !== tw || tint.height !== th) { tint.width = tw; tint.height = th; }

@@ -3,7 +3,7 @@
  "name": "Thiên Kim Tinh",
  "sky": "#e8c88a",
  "dark": 0,
- "ground": "#e0c070",
+ "ground": "#e0c070", "tint_mul": 1.3,
  "island": {"top": "#e0c070", "under": "#8a6a3a", "trees": "#a88a4a"},
  "world": true,
  "planet": {"d": 58, "origin": [6, 15], "terrain": 1, "settle": 1, "open": 1},

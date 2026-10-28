@@ -127,8 +127,8 @@ function meadow(c, map, hash) {
       const su = u * u * (3 - 2 * u), sv = v * v * (3 - 2 * v);
       const val = (n(gx, gy) * (1 - su) + n(gx + 1, gy) * su) * (1 - sv) + (n(gx, gy + 1) * (1 - su) + n(gx + 1, gy + 1) * su) * sv;
       const d = ((bx + by * 3 + tx * 5 + ty * 7) % 4) / 4 * 0.08;   // lệch ngưỡng theo khối: mép mảng răng cưa kiểu pixel, không thành dải
-      if (val + d < 0.36) { c.fillStyle = 'rgba(10,40,30,0.13)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
-      else if (val - d > 0.7) { c.fillStyle = 'rgba(255,230,150,0.07)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
+      if (val + d < 0.36) { c.fillStyle = 'rgba(10,40,30,0.09)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
+      else if (val - d > 0.7) { c.fillStyle = 'rgba(255,230,150,0.05)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
     }
   }
 }
