@@ -1,6 +1,7 @@
 // Bắt lỗi JavaScript trên máy người chơi và gửi về máy chủ qua net/errlog.js (chỉ khi đã đăng nhập).
 // Mỗi lỗi gửi một lần mỗi phiên, tối đa 10 lỗi; bỏ qua lỗi mạng và lỗi không có thông tin (tiện ích trình duyệt, khác nguồn).
-const SKIP = ['Script error', 'ResizeObserver', 'Failed to fetch', 'NetworkError', 'Load failed', 'network', 'AbortError'];
+// zaloJSV2: trình duyệt trong Zalo tự chèn mã gọi hàm của nó vào trang (lỗi ở <anonymous>, không phải mã game), mỗi lần mở game qua Zalo lại báo
+const SKIP = ['Script error', 'ResizeObserver', 'Failed to fetch', 'NetworkError', 'Load failed', 'network', 'AbortError', 'zaloJSV2'];
 const seen = new Set();
 const recent = [];   // lỗi gần nhất (kể cả khi chưa đăng nhập), gắn vào báo lỗi của người chơi (src/ui/feedback-shot.js)
 export const recentErrors = () => recent.slice();
