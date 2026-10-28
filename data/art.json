@@ -85,6 +85,18 @@
    ],
    "note": "gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng"
   },
+  "fx.lava-bubble": {
+   "file": "assets/art/fx-lava-bubble.png",
+   "v": "3d0ea6ab",
+   "w": 7,
+   "h": 7,
+   "frames": 6,
+   "anchor": [
+    3,
+    6
+   ],
+   "note": "bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung"
+  },
   "fx.liem": {
    "file": "assets/art/fx-liem.png",
    "v": "139ccf73",
@@ -180,6 +192,30 @@
     30
    ],
    "note": "dây leo trồi ×4, đung đưa ×2, héo rụng ×2 (chiêu hệ mộc); neo ở giữa nền đất"
+  },
+  "fx.void-wisp": {
+   "file": "assets/art/fx-void-wisp.png",
+   "v": "56ff29f6",
+   "w": 5,
+   "h": 10,
+   "frames": 6,
+   "anchor": [
+    2,
+    9
+   ],
+   "note": "khói tím bốc lên khỏi khe hư không: 6 khung"
+  },
+  "fx.water-glint": {
+   "file": "assets/art/fx-water-glint.png",
+   "v": "e2002a07",
+   "w": 5,
+   "h": 3,
+   "frames": 6,
+   "anchor": [
+    2,
+    1
+   ],
+   "note": "đốm lấp lánh trên mặt nước: 6 khung"
   },
   "fx.wind": {
    "file": "assets/art/fx-wind.png",
@@ -2749,6 +2785,18 @@
    ],
    "note": "Thương nhân Kim Bảo: đứng, nhún, bước A, bước B"
   },
+  "npc.tieu-dao": {
+   "file": "assets/art/npc-tieu-dao.png",
+   "v": "aa4d37b1",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "Sư huynh Tiêu Dao: đứng, nhún, bước A, bước B"
+  },
   "npc.tieu-dong": {
    "file": "assets/art/npc-tieu-dong.png",
    "v": "8d1f3ec8",
@@ -3157,6 +3205,42 @@
    ],
    "note": "kim gỗ có lá non ở đuôi, 2 khung"
   },
+  "prop.anvil": {
+   "file": "assets/art/prop-anvil.png",
+   "v": "5298fc68",
+   "w": 22,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    11,
+    16
+   ],
+   "note": "lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung"
+  },
+  "prop.blackpillar": {
+   "file": "assets/art/prop-blackpillar.png",
+   "v": "146a006f",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    25
+   ],
+   "note": "trụ đá đen (ô U): phù văn tím; vỡ đỉnh"
+  },
+  "prop.broken-sword": {
+   "file": "assets/art/prop-broken-sword.png",
+   "v": "3f5cb5a6",
+   "w": 16,
+   "h": 16,
+   "frames": 3,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên"
+  },
   "prop.bush": {
    "file": "assets/art/prop-bush.png",
    "v": "ff0a1384",
@@ -3169,6 +3253,246 @@
    ],
    "note": "bụi cây thấp: xanh, có hoa vàng; rải trên cỏ"
   },
+  "prop.crystal": {
+   "file": "assets/art/prop-crystal.png",
+   "v": "f3eda993",
+   "w": 14,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    7,
+    19
+   ],
+   "note": "tinh thể tím (ô *): cụm cao, cụm thấp"
+  },
+  "prop.cushion": {
+   "file": "assets/art/prop-cushion.png",
+   "v": "f1aacd8c",
+   "w": 16,
+   "h": 11,
+   "frames": 1,
+   "anchor": [
+    8,
+    5
+   ],
+   "note": "bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng"
+  },
+  "prop.deadtree": {
+   "file": "assets/art/prop-deadtree.png",
+   "v": "20614122",
+   "w": 16,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    8,
+    23
+   ],
+   "note": "cây khô (ô V): cành trơ; có quạ đậu"
+  },
+  "prop.furnace": {
+   "file": "assets/art/prop-furnace.png",
+   "v": "ed8ab60e",
+   "w": 20,
+   "h": 24,
+   "frames": 3,
+   "anchor": [
+    10,
+    22
+   ],
+   "note": "lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung"
+  },
+  "prop.icepillar": {
+   "file": "assets/art/prop-icepillar.png",
+   "v": "9830f45d",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    25
+   ],
+   "note": "trụ băng (ô k): tinh thể vát nhọn; có nhánh nhỏ"
+  },
+  "prop.lantern": {
+   "file": "assets/art/prop-lantern.png",
+   "v": "f7425178",
+   "w": 10,
+   "h": 22,
+   "frames": 2,
+   "anchor": [
+    5,
+    21
+   ],
+   "note": "đèn lồng giấy đỏ treo cột gỗ (ô Q): 2 khung lửa nhảy"
+  },
+  "prop.mushroom": {
+   "file": "assets/art/prop-mushroom.png",
+   "v": "06cc05da",
+   "w": 16,
+   "h": 12,
+   "frames": 2,
+   "anchor": [
+    8,
+    11
+   ],
+   "note": "cụm nấm phát sáng (ô n): mũ xanh ngọc; thêm nấm nhỏ"
+  },
+  "prop.oldtree": {
+   "file": "assets/art/prop-oldtree.png",
+   "v": "5d152876",
+   "w": 32,
+   "h": 40,
+   "frames": 2,
+   "anchor": [
+    16,
+    38
+   ],
+   "note": "cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng"
+  },
+  "prop.peak-4a3a5a": {
+   "file": "assets/art/prop-peak-4a3a5a.png",
+   "v": "c52987e5",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #4a3a5a: 3 dáng"
+  },
+  "prop.peak-4f8a4a": {
+   "file": "assets/art/prop-peak-4f8a4a.png",
+   "v": "d99e6c31",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #4f8a4a: 3 dáng"
+  },
+  "prop.peak-5e566a": {
+   "file": "assets/art/prop-peak-5e566a.png",
+   "v": "263e6fcc",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #5e566a: 3 dáng"
+  },
+  "prop.peak-6ab060": {
+   "file": "assets/art/prop-peak-6ab060.png",
+   "v": "22af7c6b",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #6ab060: 3 dáng"
+  },
+  "prop.peak-8a8070": {
+   "file": "assets/art/prop-peak-8a8070.png",
+   "v": "f6995b3c",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất đảo cỏ: 3 dáng"
+  },
+  "prop.peak-a88a74": {
+   "file": "assets/art/prop-peak-a88a74.png",
+   "v": "efcea874",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #a88a74: 3 dáng"
+  },
+  "prop.peak-b07a4a": {
+   "file": "assets/art/prop-peak-b07a4a.png",
+   "v": "4570ea29",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #b07a4a: 3 dáng"
+  },
+  "prop.peak-e0c070": {
+   "file": "assets/art/prop-peak-e0c070.png",
+   "v": "a33bc6da",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #e0c070: 3 dáng"
+  },
+  "prop.peak-e4eef6": {
+   "file": "assets/art/prop-peak-e4eef6.png",
+   "v": "67129cb2",
+   "w": 24,
+   "h": 30,
+   "frames": 3,
+   "anchor": [
+    12,
+    29
+   ],
+   "note": "đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất #e4eef6: 3 dáng"
+  },
+  "prop.pillar": {
+   "file": "assets/art/prop-pillar.png",
+   "v": "19eca069",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    24
+   ],
+   "note": "cột đá đất nung (ô I): trơn, có chữ cổ hổ phách"
+  },
+  "prop.pine": {
+   "file": "assets/art/prop-pine.png",
+   "v": "4a4ebec3",
+   "w": 18,
+   "h": 28,
+   "frames": 2,
+   "anchor": [
+    9,
+    26
+   ],
+   "note": "tùng phủ tuyết (ô Y): ba tầng tán, tuyết đọng; cây thấp"
+  },
+  "prop.portal": {
+   "file": "assets/art/prop-portal.png",
+   "v": "81a0e39b",
+   "w": 20,
+   "h": 14,
+   "frames": 4,
+   "anchor": [
+    10,
+    7
+   ],
+   "note": "cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung"
+  },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
    "v": "878f148c",
@@ -3180,6 +3504,30 @@
     11
    ],
    "note": "đá, đá có rêu"
+  },
+  "prop.spiritstone": {
+   "file": "assets/art/prop-spiritstone.png",
+   "v": "cd0e2972",
+   "w": 14,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    7,
+    25
+   ],
+   "note": "đá linh căn (ô S): trụ đá khắc, khe giữa để game tô màu linh căn"
+  },
+  "prop.sword-grave": {
+   "file": "assets/art/prop-sword-grave.png",
+   "v": "a9f28d9a",
+   "w": 16,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    8,
+    22
+   ],
+   "note": "mộ kiếm (ô J): kiếm cắm thẳng, kiếm nghiêng có tua"
   },
   "prop.torch": {
    "file": "assets/art/prop-torch.png",
@@ -3204,6 +3552,126 @@
     36
    ],
    "note": "cây: quả đỏ, tán tròn, hoa đào"
+  },
+  "rival.bach-lien": {
+   "file": "assets/art/rival-bach-lien.png",
+   "v": "61c90cd3",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Bạch Liên (hạng 5): đứng, nhún, bước A, bước B"
+  },
+  "rival.doan-kiem": {
+   "file": "assets/art/rival-doan-kiem.png",
+   "v": "0219517a",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Đoạn Kiếm (hạng 4): đứng, nhún, bước A, bước B"
+  },
+  "rival.hoang-pha": {
+   "file": "assets/art/rival-hoang-pha.png",
+   "v": "5e8981bc",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Hoàng Phá (hạng 6): đứng, nhún, bước A, bước B"
+  },
+  "rival.kiem-thanh": {
+   "file": "assets/art/rival-kiem-thanh.png",
+   "v": "b8d63a23",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Kiếm Thánh Vô Danh (hạng 1): đứng, nhún, bước A, bước B"
+  },
+  "rival.lieu-oanh": {
+   "file": "assets/art/rival-lieu-oanh.png",
+   "v": "c83d425c",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Liễu Oanh (hạng 9): đứng, nhún, bước A, bước B"
+  },
+  "rival.long-uyen": {
+   "file": "assets/art/rival-long-uyen.png",
+   "v": "b2747600",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Long Uyên (hạng 2): đứng, nhún, bước A, bước B"
+  },
+  "rival.ma-thiet": {
+   "file": "assets/art/rival-ma-thiet.png",
+   "v": "af091bcf",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Mã Thiết (hạng 8): đứng, nhún, bước A, bước B"
+  },
+  "rival.tran-binh": {
+   "file": "assets/art/rival-tran-binh.png",
+   "v": "07017f76",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Trần Bình (hạng 10): đứng, nhún, bước A, bước B"
+  },
+  "rival.tu-ngoc": {
+   "file": "assets/art/rival-tu-ngoc.png",
+   "v": "21f6644d",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Tử Ngọc (hạng 3): đứng, nhún, bước A, bước B"
+  },
+  "rival.van-tu": {
+   "file": "assets/art/rival-van-tu.png",
+   "v": "9ac3d29b",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Vân Tú (hạng 7): đứng, nhún, bước A, bước B"
   },
   "tile.cliff": {
    "file": "assets/art/tile-cliff.png",
@@ -3277,6 +3745,90 @@
    ],
    "note": "nhà mái ngói: mái nóc/giữa/mép/thấp × trái/giữa/phải, rồi tường trái, giữa, phải, cửa, cửa sổ"
   },
+  "tile.house-adobe": {
+   "file": "assets/art/tile-house-adobe.png",
+   "v": "6744ac1b",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà đất (ô z, Hậu Thổ): mái rơm, tường đất nện, cửa vòm; cùng thứ tự khung với tile.house"
+  },
+  "tile.house-burnt": {
+   "file": "assets/art/tile-house-burnt.png",
+   "v": "32c0d151",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng"
+  },
+  "tile.house-forge": {
+   "file": "assets/art/tile-house-forge.png",
+   "v": "5b09d330",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà rèn (ô N, Thiên Kim): mái đá phiến, tường đá khối, ống khói; cùng thứ tự khung với tile.house"
+  },
+  "tile.house-tree": {
+   "file": "assets/art/tile-house-tree.png",
+   "v": "8927e97b",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà trên cây (ô W, Thanh Mộc, Làng Tinh Linh): mái lá, vách ván; cùng thứ tự khung với tile.house"
+  },
+  "tile.icelake": {
+   "file": "assets/art/tile-icelake.png",
+   "v": "579b0c86",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "hồ băng nứt: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4"
+  },
+  "tile.lava": {
+   "file": "assets/art/tile-lava.png",
+   "v": "55b4a218",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dung nham: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4"
+  },
+  "tile.lava-rim": {
+   "file": "assets/art/tile-lava-rim.png",
+   "v": "b67bfb5e",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ đá bazan quanh dung nham: cạnh trên, phải, dưới, trái, rồi góc trên trái, trên phải, dưới phải, dưới trái (góc trong và bo góc ngoài)"
+  },
   "tile.path": {
    "file": "assets/art/tile-path.png",
    "v": "000e6556",
@@ -3289,6 +3841,150 @@
    ],
    "note": "đường đất, 4 biến thể"
   },
+  "tile.plot": {
+   "file": "assets/art/tile-plot.png",
+   "v": "35ec1c66",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại"
+  },
+  "tile.seal": {
+   "file": "assets/art/tile-seal.png",
+   "v": "88385c78",
+   "w": 16,
+   "h": 16,
+   "frames": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "cửa bí cảnh còn khoá (ô D): màn phong ấn đỏ, bùa vàng; 2 khung vân chạy"
+  },
+  "tile.slope-4a3a5a": {
+   "file": "assets/art/tile-slope-4a3a5a.png",
+   "v": "ce063040",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #4a3a5a: 4 biến thể"
+  },
+  "tile.slope-4f8a4a": {
+   "file": "assets/art/tile-slope-4f8a4a.png",
+   "v": "d3551a20",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #4f8a4a: 4 biến thể"
+  },
+  "tile.slope-5e566a": {
+   "file": "assets/art/tile-slope-5e566a.png",
+   "v": "fc9ad99c",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #5e566a: 4 biến thể"
+  },
+  "tile.slope-6ab060": {
+   "file": "assets/art/tile-slope-6ab060.png",
+   "v": "c820d4e7",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #6ab060: 4 biến thể"
+  },
+  "tile.slope-8a8070": {
+   "file": "assets/art/tile-slope-8a8070.png",
+   "v": "d5b75867",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất đảo cỏ: 4 biến thể"
+  },
+  "tile.slope-a88a74": {
+   "file": "assets/art/tile-slope-a88a74.png",
+   "v": "e21704c4",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #a88a74: 4 biến thể"
+  },
+  "tile.slope-b07a4a": {
+   "file": "assets/art/tile-slope-b07a4a.png",
+   "v": "f7f4d716",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #b07a4a: 4 biến thể"
+  },
+  "tile.slope-e0c070": {
+   "file": "assets/art/tile-slope-e0c070.png",
+   "v": "b20d820f",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #e0c070: 4 biến thể"
+  },
+  "tile.slope-e4eef6": {
+   "file": "assets/art/tile-slope-e4eef6.png",
+   "v": "42bf9362",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "sườn đá (ô ^ có núi phía trên), đá theo màu đất #e4eef6: 4 biến thể"
+  },
+  "tile.snow-rim": {
+   "file": "assets/art/tile-snow-rim.png",
+   "v": "517374be",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc"
+  },
   "tile.stone": {
    "file": "assets/art/tile-stone.png",
    "v": "0b59b0e7",
@@ -3300,6 +3996,102 @@
     0
    ],
    "note": "nền đá lát, 4 biến thể"
+  },
+  "tile.terrace": {
+   "file": "assets/art/tile-terrace.png",
+   "v": "fee1b107",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang"
+  },
+  "tile.void": {
+   "file": "assets/art/tile-void.png",
+   "v": "5030e0f6",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khe hư không (ô f): đáy đen, mạch tím; tấm 64×64 lặp liền cắt 16 ô"
+  },
+  "tile.void-rim": {
+   "file": "assets/art/tile-void-rim.png",
+   "v": "6a954d34",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc"
+  },
+  "tile.wall-copper": {
+   "file": "assets/art/tile-wall-copper.png",
+   "v": "f3633574",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách đồng (ô C): mặt vách ×2 mạch vàng, đỉnh vách ×2"
+  },
+  "tile.wall-earth": {
+   "file": "assets/art/tile-wall-earth.png",
+   "v": "90bc7ceb",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách núi đất (ô E): mặt vách ×2 từng lớp, đỉnh vách ×2"
+  },
+  "tile.wall-root": {
+   "file": "assets/art/tile-wall-root.png",
+   "v": "c3a4eef0",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách rễ (ô X): mặt vách ×2 có rêu mép trên, đỉnh vách ×2"
+  },
+  "tile.water": {
+   "file": "assets/art/tile-water.png",
+   "v": "e62c0b3d",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nước (ô =): sóng lăn tăn; tấm 64×64 lặp liền cắt 16 ô"
+  },
+  "tile.water-rim": {
+   "file": "assets/art/tile-water-rim.png",
+   "v": "e88f9c33",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bọt ven bờ nước: 4 cạnh rồi 4 góc"
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",

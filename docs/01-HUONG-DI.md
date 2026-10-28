@@ -54,7 +54,7 @@ Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn m
 - Max cấp sớm, sau đó người chơi tập trung làm sao mạnh hơn.
 - Nhịp tu luyện (`data/realms.json`): tới hết Kim Đan mỗi tầng cần thêm 30% linh khí (đầu game nhanh), sau đó chỉ thêm 3% mỗi tầng. Ở tốc độ đả tọa tốt (động phủ, song tu, ban đêm, khoảng 38 linh khí/giây) thì Chương 5 sau khoảng 15 giờ đả tọa, đỉnh Độ Kiếp khoảng 47 giờ, chưa tính đánh quái, đan, bế quan.
 - Đa số đồ ra chỉ số ngẫu nhiên (có hồn); tẩy luyện lại được; cày quái lấy ngọc để khảm.
-- ~~Nạp để nhanh hơn: ai cũng cùng mức tối đa.~~ Thay bằng mục "Chốt đêm 28/10/2026" bên dưới: cấp và bộ Đạo Vận max được, trang bị thì không bao giờ max; người nạp nặng nhất mạnh hơn tối đa khoảng 50%.
+- ~~Nạp để nhanh hơn: ai cũng cùng mức tối đa.~~ Thay bằng mục "Chốt đêm 28/10/2026" bên dưới: cấp và bộ Đạo Vận max được, trang bị thì không bao giờ max; người nạp nặng không bị giới hạn cứng, nhưng cân bằng: càng lên càng đắt mà mạnh thêm ít (chủ dự án chốt trưa 28/10/2026).
 
 ## Chiến đấu và giao diện
 
@@ -71,7 +71,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 2. Luật 7 → 14 → 28: mỗi cấp khó quái mạnh gấp đôi, không hiện chỉ số quái, chỉ hiện màu xanh / vàng / đỏ so với lực chiến. Mỗi cấp 10 bậc (mỗi bậc khoảng +7%). Thưởng chỉ hơn 15% mỗi cấp. Áp cho phó bản, tháp, vòng ngoài tinh cầu, cấm địa, phương thiên địa.
 3. Thế giới: vũ trụ nhiều tầng. Đảo thành tinh cầu hình đĩa tròn (đường kính 60–70 ô), cổng đổi tên truyền tống trận, đi qua là một đoạn bay có điều khiển, nhặt sao, không bao giờ thua. Làm bản thử một tinh cầu trước khi xây giao diện. Tên tinh vực, Ma Tổ, các tộc do Claude đặt, chủ dự án sửa sau.
 4. 11 trọng điểm bồi dưỡng: cảnh giới, bộ Đạo Vận (6 món trang bị + pháp bảo + 2 chiêu + linh thú cùng hệ; món giống nhau, hệ ngẫu nhiên ghi sau tên; Con Đường Đạo Vận mở ở Kim Đan, đi song hành truyện chính, 1–2 tuần, không bán; đạt bộ rồi thì ép chỉ số hệ đó lên), dòng chỉ số 6 món, ngọc khảm tới cấp 10 (ghép 3 thành 1), cường hoá tới +20, pháp bảo (tách khỏi ô trang bị, thêm ô Mũ, nâng bằng mảnh), 3 chiêu có cấp, linh thú. Giá mỗi bậc nhân lên, sức mạnh cộng ít.
-5. Tẩy luyện tăng giá ×1,3 mỗi lần tẩy cùng món, mỗi ngày giảm 2 bậc. Cường hoá hỏng chỉ tụt 1 cấp, không bao giờ mất đồ.
+5. Tẩy luyện tăng giá ×1,3 mỗi lần tẩy cùng món, có bộ đếm, không reset (chủ dự án chốt trưa 28/10/2026, trước đó mỗi ngày giảm 2 bậc). Cường hoá hỏng chỉ tụt 1 cấp, không bao giờ mất đồ.
 6. Chiêu mạnh hơn đánh thường: chiêu chiếm khoảng 50–60% sát thương (đang làm, sẽ nằm ở `data/config.json` → combat).
 7. Kiếm tiền chỉ ở phần "tối ưu thêm" (ngọc, dòng đẹp, cường hoá cao, thời trang); không bán cảnh giới, Đạo Vận. Món ngẫu nhiên bán bằng tiền thật phải công bố tỉ lệ trước khi mua.
 
@@ -89,7 +89,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 ## Nam, nữ và đạo lữ (chủ dự án chốt sáng 28/10/2026)
 
 1. Tạo nhân vật được chọn nam hoặc nữ; hai nhân vật đã có hình là hình mặc định. Tài khoản cũ được hỏi một lần.
-2. Người chơi nữ thì đạo lữ là nam (hiện có Mặc Ảnh), người chơi nam thì đạo lữ là nữ (Lạc Tuyết, Hồ Linh). Lời thoại gọi người chơi đổi theo giới tính (sư đệ / sư muội).
+2. Người chơi nữ thì đạo lữ là nam (Mặc Ảnh, và Sư huynh Tiêu Dao theo bản nháp chủ dự án chọn trưa 28/10), người chơi nam thì đạo lữ là nữ (Lạc Tuyết, Hồ Linh). Lời thoại gọi người chơi đổi theo giới tính (sư đệ / sư muội).
 3. Đạo lữ là người trong tab Đồng hành, mang theo thì đi cùng đánh quái; vừa hỗ trợ đánh vừa trò chuyện, khen người chơi thường xuyên.
 
 ## Lộ trình
@@ -98,7 +98,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 2. Bản chơi tạm hình khối đơn giản: xong phần lớn (làng, Thiên Kiếm Phong, bí cảnh, đả tọa, online, chợ, tổ đội, tông môn).
 3. Trọng điểm bồi dưỡng và cấp khó: xong (chiêu mạnh hơn, cấp chiêu, cường hoá +20, ngọc cấp 10, tẩy luyện tăng giá, ô Mũ, luyện pháp bảo, cấp khó ×2 cho tháp và phó bản, bộ Đạo Vận và Con Đường Đạo Vận).
 4. Vĩ mô đến vi mô (sáng 28/10): đã đi đủ một lượt khung thô: tinh hệ, bay truyền tống, tinh cầu tròn, địa hình, nhà cây, người và thú, quần áo và công cụ, truyền âm, thời trang, linh thực. Nhiệm vụ đủ bốn loại: chính tuyến (truyện + Đạo Vận song hành), ngày, tuần, sự kiện.
-5. Chill và hình: đã có đèn đêm, thú hiền, hội đèn mỗi tối một tinh cầu, đồng hành trò chuyện khen khi đánh; tiếp theo là tô hình pixel và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
+5. Chill và hình: đã có đèn đêm, thú hiền, hội đèn mỗi tối một tinh cầu, đồng hành trò chuyện khen khi đánh. Tô hình pixel (chiều 28/10): mọi ô trên các tinh cầu và bí cảnh đã có hình pixel (dung nham, hồ băng, nước, núi, nhà theo hệ, cây cỏ, vách hang, cổng, động phủ), đấu sĩ luận võ có hình chibi; không còn nhân vật hay ô nào vẽ hình khối, trừ hình dự phòng lúc ảnh chưa tải. Tiếp theo: giao diện pixel ấm (chờ chủ dự án duyệt ảnh) và hiệu ứng mượt (chuẩn ở `02-CHUAN-PIXEL.md`).
 6. Trước CH Play: kiểm tra cấp chiêu ở máy chủ, rà chống gian lận, chính sách và điều khoản, thử trên điện thoại thật; rồi lên CH Play và ra nội dung theo mùa.
 
-Chờ chủ dự án chốt (ghi trong Bản chốt hướng đi, khác chỗ đang làm): tẩy luyện có giảm giá theo ngày hay không reset; người nạp nặng mạnh hơn tối đa bao nhiêu; linh thú có gộp hai con cùng cấp lên một cấp không; đạo lữ nam thứ hai (cần bảng chỉ số).
+Chốt trưa 28/10/2026 (chủ dự án chọn): tẩy luyện không reset; người nạp nặng không giới hạn cứng nhưng cân bằng; linh thú thêm cách gộp hai con cùng cấp lên một cấp (không giới hạn, mỗi cấp mạnh thêm ít); đạo lữ nam thứ hai là Sư huynh Tiêu Dao theo bản nháp; giao diện đổi sang pixel ấm; bước lớn tiếp theo là tô hình pixel; kiểm tra cấp chiêu trên máy chủ làm ngay.

@@ -3,7 +3,7 @@ export function drawForestTile(ctx, ch, px, py, T, h, t, up) {
   const cx = px + T / 2, cy = py + T / 2;
   if (ch === 'm' && h > 0.84) {
     const a = 0.35 + 0.35 * Math.sin(t * 2 + h * 20);   // đốm sáng lơ lửng
-    ctx.fillStyle = `rgba(216,255,176,${a})`; ctx.fillRect(px + h * 12, py + 4 + Math.sin(t + h * 9) * 2, 1.5, 1.5);
+    ctx.fillStyle = `rgba(216,255,176,${a})`; ctx.fillRect(Math.round(px + h * 12), Math.round(py + 4 + Math.sin(t + h * 9) * 2), 1, 1);
   } else if (ch === 'n') {
     const a = 0.55 + 0.25 * Math.sin(t * 2.5 + h * 11);
     for (const [dx, s] of [[-3, 1], [3, 0.75]]) {
@@ -29,9 +29,10 @@ export function drawForestTile(ctx, ch, px, py, T, h, t, up) {
     ctx.fillStyle = '#4a3420'; ctx.fillRect(cx - 0.8, cy - 6, 1.6, 12);
     ctx.fillStyle = `rgba(255,200,90,${0.75 + 0.2 * Math.sin(t * 3 + h * 7)})`; ctx.fillRect(cx - 3, cy - 7, 6, 6);
     ctx.fillStyle = 'rgba(255,220,140,0.18)'; ctx.beginPath(); ctx.arc(cx, cy - 4, 9, 0, Math.PI * 2); ctx.fill();
-  } else if (ch === 'r' && h > 0.8) {
-    ctx.strokeStyle = 'rgba(120,90,50,0.45)'; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.moveTo(px, py + 4 + h * 6); ctx.quadraticCurveTo(cx, py + h * 8, px + T, py + 8); ctx.stroke();
+  } else if (ch === 'r' && h > 0.8) {   // rễ nổi trên nền: dải 1 điểm ảnh uốn lên giữa ô
+    const y = Math.round(py + 6 + h * 4);
+    ctx.fillStyle = 'rgba(120,90,50,0.5)';
+    ctx.fillRect(px, y, 4, 1); ctx.fillRect(px + 4, y - 1, 3, 1); ctx.fillRect(px + 7, y - 2, 3, 1); ctx.fillRect(px + 10, y - 1, 3, 1); ctx.fillRect(px + 13, y, 3, 1);
   } else if (ch === 'X') {
     ctx.fillStyle = '#241a12'; ctx.fillRect(px, py, T, T);
     ctx.strokeStyle = '#5a4026'; ctx.lineWidth = 2;

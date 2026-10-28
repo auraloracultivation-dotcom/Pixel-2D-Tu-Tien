@@ -19,7 +19,7 @@ Mỗi bước có `do` (danh sách việc: `say`, `choose_element`, `pickups`, `
 
 ## Nam, nữ và đạo lữ (`data/gender.json`)
 
-Tạo nhân vật mới thì hỏi nam hay nữ trước khi vào truyện; bản lưu cũ chưa chọn được hỏi một lần lúc vào game (`src/game/gender.js` → `askGender`, lưu ở `save.gioi`). Chọn xong đặt hình mặc định theo hai nhân vật đã có hình (`look`: nam kiếm tu tóc đen, nữ liềm tu tóc trắng), đổi hình vẫn ở Thời trang. Chữ trong data viết `{dạng nam|dạng nữ}`, ví dụ `{sư đệ|sư muội}`, `{Anh|Chị}`: `applyWords` thay một lượt khi vào game theo giới tính (giữ chữ gốc nên đổi tài khoản thay lại được). Đạo lữ theo giới tính ở `affinity.dao_lu.can` (`nam`: Lạc Tuyết, Hồ Linh; `nu`: Mặc Ảnh). Đạo lữ đã kết từ trước giữ nguyên. Kiểm tra tự động bắt chữ `{...|...}` viết sai.
+Tạo nhân vật mới thì hỏi nam hay nữ trước khi vào truyện; bản lưu cũ chưa chọn được hỏi một lần lúc vào game (`src/game/gender.js` → `askGender`, lưu ở `save.gioi`). Chọn xong đặt hình mặc định theo hai nhân vật đã có hình (`look`: nam kiếm tu tóc đen, nữ liềm tu tóc trắng), đổi hình vẫn ở Thời trang. Chữ trong data viết `{dạng nam|dạng nữ}`, ví dụ `{sư đệ|sư muội}`, `{Anh|Chị}`: `applyWords` thay một lượt khi vào game theo giới tính (giữ chữ gốc nên đổi tài khoản thay lại được). Đạo lữ theo giới tính ở `affinity.dao_lu.can` (`nam`: Lạc Tuyết, Hồ Linh; `nu`: Mặc Ảnh, Sư huynh Tiêu Dao). Đạo lữ đã kết từ trước giữ nguyên. Sư huynh Tiêu Dao (vui tính, nói nhiều, khen không ngớt, quạt giấy, hệ Mộc) đứng ở sân đá Thiên Kiếm Phong, mời đi cùng sau khi cứu Tiểu Hỏa như các bạn đồng hành khác; hình chibi tóc buộc cao, cầm quạt (`tools/art/chars.py`: kiểu tóc `tail`, phụ kiện `fan`). Kiểm tra tự động bắt chữ `{...|...}` viết sai.
 
 Người đang đi cùng cổ vũ lúc đánh (`src/game/cheer.js`, số ở `data/praise.json` → fight): hạ ba con trong ba giây, hạ quái tinh anh, thắng khi máu dưới 25%, mỗi 50 con không gục, máu tụt dưới 30% thì nhắc, đang có quái quanh mình thì thỉnh thoảng hô một câu. Hiện thành bong bóng trên đầu; đạo lữ nói thường hơn bạn đồng hành. Câu theo người ở `praise.lines`, thiếu thì `default`.
 
@@ -127,18 +127,22 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 
 ## Trọng điểm bồi dưỡng, cấp khó (luật 7 → 14 → 28)
 
-- Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`).
+- Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`); `decay` 0 nên bộ đếm không reset (chủ dự án chốt trưa 28/10/2026).
 - Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000).
 - Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
 - Ô Mũ (`data/items.json` → slots `mu`): 2 mũ thường (Bố Cân, Thiết Khôi) và 7 mũ bộ (rơi ở boss như các món bộ khác); biểu tượng vẽ ở `tools/art/gear.py` (`mu`). Trang bị giờ 6 ô (vũ khí, mũ, giáp, ngọc bội, giày, nhẫn) cộng ô pháp bảo.
 - Luyện pháp bảo (`data/gear.json` → refine, `src/game/refine.js`): phân giải pháp bảo ra Mảnh Pháp Bảo theo độ hiếm (cả lúc tự hành phân giải), Túi → chọn pháp bảo → Luyện: bậc n lên n + 1 tốn ceil(3 × 1,35^n) mảnh, tối đa ★20; mỗi bậc chỉ số chính +6%, chiêu pháp bảo +5%. Bậc lưu ở `it.pb`, không đổi chỉ số đã lưu.
-- Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
+- Cấp chiêu: `data/config.json` → `skill_lv`, `src/game/skill-level.js` (`save.skillLv`), nút luyện ở bảng Chiêu. Máy chủ kiểm tra (migration 20261028120000, trigger `p2d_kiem_cap_chieu`): cấp chiêu tăng phải thấy trừ đủ Bí Kíp Chiêu, phần thiếu lấy từ thùng 60 sách (đầy lại 30 sách mỗi giờ); vượt thì giữ cấp cũ và ghi nghi vấn `cap_chieu`. Bí Kíp Chiêu (`data/cave.json` → materials) rơi từ thưởng bí cảnh và rương việc hằng ngày.
 - Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).
 - Cấp khó bí cảnh: `data/dungeon.json` (4 cấp × 10 bậc, `tier_mul` 2), `src/game/dun-mode.js` (`save.dunLv`, màu gợi ý `hintOf`). Tháp từ tầng 46: `data/tower.json` → `endless`.
 
 ## Việc tuần (`data/daily.json` → weekly)
 
 Chủ dự án ghi bốn loại việc: chính tuyến (truyện + Con Đường Đạo Vận song hành), việc ngày, việc tuần, sự kiện. Việc tuần (`src/game/weekly.js`): bốn việc lớn tính từ thứ Hai (giờ máy): hạ 1.500 quái, hạ 10 boss, đả tọa 300 phút, câu 25 cá; xong từng việc nhận thưởng, đủ hết mở rương tuần (có 3 Đạo Vận Thạch để đổi hệ món Đạo Vận). Hiện ở tab Hằng ngày dưới rương ngày; tự hành tự nhận (rương có trang bị thì chờ túi còn chỗ). Lưu ở `save.weekly` (tuần, mốc đầu tuần, đã nhận).
+
+## Gộp linh thú (`data/pets.json` → merge)
+
+Chủ dự án chốt trưa 28/10/2026: hai con cùng cấp gộp thành một con lên một cấp, không giới hạn, mỗi cấp mạnh thêm ít. Bắt thêm dị chủng của loài đã có thì được một bản sao (vẫn cộng kinh nghiệm như cũ). Sao n lên n + 1 tốn 2^n bản sao (ghép đôi như hai con sao n thành một con sao n + 1); mỗi sao sát thương linh thú +3% (`petMul`). Thẻ "Gộp" hiện ở tab Linh thú khi đủ bản sao; tự hành (tùy chọn nâng) gộp luôn vì không tốn tiền. Lên cấp, tiến hoá giữ nguyên; ✦ trước tên là đã tiến hoá, ★ sau cấp là sao gộp.
 
 ## Bộ Đạo Vận (`data/daovan.json`)
 

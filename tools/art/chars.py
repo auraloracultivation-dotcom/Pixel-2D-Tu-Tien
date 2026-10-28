@@ -75,6 +75,13 @@ def draw(spec, frame=0):
                 if y >= 15 and x in (4, 17):
                     continue
                 c.px(x, y + bob, hl if x <= 3 else hd)
+    elif style == 'tail':  # tóc buộc cao: búi nhỏ trên đỉnh, đuôi tóc rủ ra sau gáy (bên trái vì nhìn phải)
+        for y in range(0, 3):
+            for x in range(9, 12):
+                c.px(x, y + bob, hl if x <= 9 else hb)
+        c.px(12, 2 + bob, spec.get('pin', hx('#6fe0c0')))
+        for x, y in ((8, 1), (7, 1), (6, 2), (5, 2), (4, 3), (3, 4), (3, 5), (2, 6), (2, 7), (2, 8), (3, 9)):
+            c.px(x, y + bob, hb if y < 7 else hd)
     elif style == 'spiky':  # tóc ngắn dựng
         for x, y in ((5, 2), (6, 1), (9, 2), (10, 1), (13, 2), (14, 1), (16, 2)):
             c.px(x, y + bob, hb); c.px(x, y + 1 + bob, hb)
@@ -89,6 +96,13 @@ def draw(spec, frame=0):
                 c.px(x, y + bob, hx('#e8453c'))
         elif a == 'mark':  # ấn trán
             c.px(11, 10 + bob, hx('#e8453c'))
+        elif a == 'fan':  # quạt giấy xoè cầm tay phải: nan xanh, mặt giấy kem
+            paper, rib = hx('#f4ecd0'), hx('#5fae5a')
+            for y in range(13, 19):
+                for x in range(17, 22):
+                    if (x - 17) <= (18 - y) + 1 and (x - 17) >= 0:
+                        c.px(x, y + bob, rib if (x + y) % 3 == 0 else paper)
+            c.px(17, 19 + bob, hx('#8a5a32'))
 
     # chân: 2 khối 2 px dưới vạt áo; bước A nhấc chân trước, bước B nhấc chân sau
     lift = {0: (0, 0), 1: (0, 0), 2: (0, 1), 3: (1, 0)}[frame]

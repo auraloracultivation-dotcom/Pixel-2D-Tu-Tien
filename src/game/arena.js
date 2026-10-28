@@ -26,7 +26,7 @@ export const dailyReward = (game, best) => best ? C(game).daily[best - 1] : null
 export function rivalDef(game, r) {
   const base = game.data.mobs[r.base], p = game.player;
   const hp = Math.round(p.maxHp * r.hp);
-  return { ...base, name: `${r.name} (hạng ${r.rank})`, hp, atk: Math.round(p.atk * r.atk * 10) / 10, color: r.robe, hair: r.hair, sash: r.sash };
+  return { ...base, name: `${r.name} (hạng ${r.rank})`, hp, atk: Math.round(p.atk * r.atk * 10) / 10, color: r.robe, hair: r.hair, sash: r.sash, rival: r.id };
 }
 
 async function enter(game, r) {

@@ -16,6 +16,13 @@ from fx_proj import proj_sprites  # noqa: E402
 from icons import icon_sprites  # noqa: E402
 from heroes import sheet, foot, fit, shrink, picture  # noqa: E402
 import world as W  # noqa: E402
+import terrain as TR  # noqa: E402
+import houses as HS  # noqa: E402
+import props_planet as PP  # noqa: E402
+import props_wild as PW  # noqa: E402
+import props_home as PH  # noqa: E402
+import terrain2 as T2  # noqa: E402
+import walls as WL  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -47,6 +54,66 @@ save('tile.house', W.house_frames(), (0, 0), 'nhà mái ngói: mái nóc/giữa/
 save('prop.tree', [W.tree(s) for s in range(3)], (15, 36), 'cây: quả đỏ, tán tròn, hoa đào')
 save('prop.rock', [W.rock(s) for s in range(2)], (8, 11), 'đá, đá có rêu')
 save('decal.flowers', [W.flowers(s) for s in range(3)], (3, 3), 'hoa nhỏ trắng / vàng / hồng')
+
+# ---------------------------------------------------------------- tinh cầu Hỏa, Băng (tools/art/terrain.py, vẽ ở src/world/draw-ground.js, draw-lava.js)
+save('tile.lava', TR.lava_frames(), (0, 0), 'dung nham: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4')
+save('tile.icelake', TR.icelake_frames(), (0, 0), 'hồ băng nứt: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4')
+save('tile.lava-rim', TR.lava_rim(), (0, 0), 'bờ đá bazan quanh dung nham: cạnh trên, phải, dưới, trái, rồi góc trên trái, trên phải, dưới phải, dưới trái (góc trong và bo góc ngoài)')
+save('tile.snow-rim', TR.snow_rim(), (0, 0), 'bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc')
+save('fx.lava-bubble', TR.bubble_frames(), (3, 6), 'bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung')
+save('tile.void', TR.void_frames(), (0, 0), 'khe hư không (ô f): đáy đen, mạch tím; tấm 64×64 lặp liền cắt 16 ô')
+save('tile.void-rim', TR.void_rim(), (0, 0), 'bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc')
+save('fx.void-wisp', TR.wisp_frames(), (2, 9), 'khói tím bốc lên khỏi khe hư không: 6 khung')
+
+# ---------------------------------------------------------------- núi, nước tinh cầu (tools/art/terrain2.py, vẽ ở src/world/draw-ground.js)
+save('tile.water', T2.water_frames(), (0, 0), 'nước (ô =): sóng lăn tăn; tấm 64×64 lặp liền cắt 16 ô')
+save('tile.water-rim', T2.water_rim(), (0, 0), 'bọt ven bờ nước: 4 cạnh rồi 4 góc')
+save('fx.water-glint', T2.glint_frames(), (2, 1), 'đốm lấp lánh trên mặt nước: 6 khung')
+_maps = [json.loads(_p.read_text(encoding='utf-8')) for _p in sorted((Path(__file__).resolve().parents[2] / 'data' / 'maps').glob('*.json'))]
+for _g in T2.grounds(_maps):
+    save('prop.peak-' + T2.key(_g), [T2.peak(_g, _s) for _s in range(3)], (12, 29), f"đỉnh núi phủ tuyết (ô ^ không có núi phía trên), đá theo màu đất {_g or 'đảo cỏ'}: 3 dáng")
+    save('tile.slope-' + T2.key(_g), [T2.slope(_g, _s) for _s in range(4)], (0, 0), f"sườn đá (ô ^ có núi phía trên), đá theo màu đất {_g or 'đảo cỏ'}: 4 biến thể")
+save('tile.house-burnt', TR.burnt_house_frames(), (0, 0), 'nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng')
+
+# ---------------------------------------------------------------- nhà và vật tinh cầu Kim, Thổ, Mộc (tools/art/houses.py, props_planet.py)
+save('tile.house-forge', HS.frames('forge'), (0, 0), 'nhà rèn (ô N, Thiên Kim): mái đá phiến, tường đá khối, ống khói; cùng thứ tự khung với tile.house')
+save('tile.house-adobe', HS.frames('adobe'), (0, 0), 'nhà đất (ô z, Hậu Thổ): mái rơm, tường đất nện, cửa vòm; cùng thứ tự khung với tile.house')
+save('tile.house-tree', HS.frames('tree'), (0, 0), 'nhà trên cây (ô W, Thanh Mộc, Làng Tinh Linh): mái lá, vách ván; cùng thứ tự khung với tile.house')
+save('prop.sword-grave', [PP.sword_grave(s) for s in range(2)], (8, 22), 'mộ kiếm (ô J): kiếm cắm thẳng, kiếm nghiêng có tua')
+save('prop.broken-sword', [PP.broken_sword(k) for k in range(3)], (8, 8), 'kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên')
+save('prop.pillar', [PP.pillar(s) for s in range(2)], (6, 24), 'cột đá đất nung (ô I): trơn, có chữ cổ hổ phách')
+save('tile.terrace', [PP.terrace(s) for s in range(4)], (0, 0), 'ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang')
+
+# ---------------------------------------------------------------- cây cỏ, vật hoang tinh cầu Mộc, Phong, Hư Không (tools/art/props_wild.py)
+save('prop.oldtree', [PW.old_tree(s) for s in range(2)], (16, 38), 'cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng')
+save('prop.mushroom', [PW.mushroom(s) for s in range(2)], (8, 11), 'cụm nấm phát sáng (ô n): mũ xanh ngọc; thêm nấm nhỏ')
+save('prop.lantern', [PW.lantern(f) for f in range(2)], (5, 21), 'đèn lồng giấy đỏ treo cột gỗ (ô Q): 2 khung lửa nhảy')
+save('prop.deadtree', [PW.dead_tree(s) for s in range(2)], (8, 23), 'cây khô (ô V): cành trơ; có quạ đậu')
+save('prop.blackpillar', [PW.black_pillar(s) for s in range(2)], (6, 25), 'trụ đá đen (ô U): phù văn tím; vỡ đỉnh')
+save('prop.crystal', [PW.crystal(s) for s in range(2)], (7, 19), 'tinh thể tím (ô *): cụm cao, cụm thấp')
+save('prop.pine', [PW.pine(s) for s in range(2)], (9, 26), 'tùng phủ tuyết (ô Y): ba tầng tán, tuyết đọng; cây thấp')
+save('prop.icepillar', [PW.ice_pillar(s) for s in range(2)], (6, 25), 'trụ băng (ô k): tinh thể vát nhọn; có nhánh nhỏ')
+
+# ---------------------------------------------------------------- động phủ, cổng truyền tống (tools/art/props_home.py)
+save('prop.portal', [PH.portal(f) for f in range(4)], (10, 7), 'cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung')
+save('prop.cushion', [PH.cushion()], (8, 5), 'bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng')
+save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung')
+save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
+save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
+
+# ---------------------------------------------------------------- vách hang theo hệ, đá linh căn, cửa phong ấn (tools/art/walls.py)
+save('tile.wall-root', WL.wall_frames('root'), (0, 0), 'vách rễ (ô X): mặt vách ×2 có rêu mép trên, đỉnh vách ×2')
+save('tile.wall-copper', WL.wall_frames('copper'), (0, 0), 'vách đồng (ô C): mặt vách ×2 mạch vàng, đỉnh vách ×2')
+save('tile.wall-earth', WL.wall_frames('earth'), (0, 0), 'vách núi đất (ô E): mặt vách ×2 từng lớp, đỉnh vách ×2')
+save('prop.spiritstone', [WL.spirit_stone()], (7, 25), 'đá linh căn (ô S): trụ đá khắc, khe giữa để game tô màu linh căn')
+save('tile.seal', [WL.seal(f) for f in range(2)], (0, 0), 'cửa bí cảnh còn khoá (ô D): màn phong ấn đỏ, bùa vàng; 2 khung vân chạy')
+
+# ---------------------------------------------------------------- động phủ, cổng truyền tống (tools/art/props_home.py)
+save('prop.portal', [PH.portal(f) for f in range(4)], (10, 7), 'cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung')
+save('prop.cushion', [PH.cushion()], (8, 5), 'bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng')
+save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung')
+save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
+save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
 
 # ---------------------------------------------------------------- hầm ngục, bí cảnh về đêm (tools/art/dungeon.py, vẽ ở src/world/draw-ground.js, src/render/draw-light.js)
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')
@@ -139,6 +206,12 @@ for _id, _d in _pets['mounts'].items():
 for _id, _d in json.loads((Path(__file__).resolve().parents[2] / 'data' / 'npcs.json').read_text(encoding='utf-8')).items():
     if isinstance(_d, dict) and _d.get('name'):
         save('npc.' + _id, npc_frames(_d), (11, 23), f"{_d['name']}: đứng, nhún, bước A, bước B")
+
+# đấu sĩ luận võ (data/arena.json rivals): chibi như NPC theo màu áo, tóc; kiểu tóc xoay vòng, đấu sĩ mạnh (dau-si-ba) có ấn trán
+_STY = ['bun', 'long', 'spiky']
+for _i, _r in enumerate(json.loads((Path(__file__).resolve().parents[2] / 'data' / 'arena.json').read_text(encoding='utf-8'))['rivals']):
+    _d = {'name': _r['name'], 'color': _r['robe'], 'hair': _r['hair'], 'art': {'style': _STY[_i % 3], 'acc': ['mark'] if _r['base'] == 'dau-si-ba' else []}}
+    save('rival.' + _r['id'], npc_frames(_d), (11, 23), f"đấu sĩ {_r['name']} (hạng {_r['rank']}): đứng, nhún, bước A, bước B")
 
 
 # ---------------------------------------------------------------- kiếm bay (45°)
