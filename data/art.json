@@ -3505,6 +3505,18 @@
    ],
    "note": "đá, đá có rêu"
   },
+  "prop.spiritstone": {
+   "file": "assets/art/prop-spiritstone.png",
+   "v": "cd0e2972",
+   "w": 14,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    7,
+    25
+   ],
+   "note": "đá linh căn (ô S): trụ đá khắc, khe giữa để game tô màu linh căn"
+  },
   "prop.sword-grave": {
    "file": "assets/art/prop-sword-grave.png",
    "v": "a9f28d9a",
@@ -3721,6 +3733,18 @@
    ],
    "note": "đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại"
   },
+  "tile.seal": {
+   "file": "assets/art/tile-seal.png",
+   "v": "88385c78",
+   "w": 16,
+   "h": 16,
+   "frames": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "cửa bí cảnh còn khoá (ô D): màn phong ấn đỏ, bùa vàng; 2 khung vân chạy"
+  },
   "tile.slope-4a3a5a": {
    "file": "assets/art/tile-slope-4a3a5a.png",
    "v": "ce063040",
@@ -3888,6 +3912,42 @@
     0
    ],
    "note": "bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc"
+  },
+  "tile.wall-copper": {
+   "file": "assets/art/tile-wall-copper.png",
+   "v": "f3633574",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách đồng (ô C): mặt vách ×2 mạch vàng, đỉnh vách ×2"
+  },
+  "tile.wall-earth": {
+   "file": "assets/art/tile-wall-earth.png",
+   "v": "90bc7ceb",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách núi đất (ô E): mặt vách ×2 từng lớp, đỉnh vách ×2"
+  },
+  "tile.wall-root": {
+   "file": "assets/art/tile-wall-root.png",
+   "v": "c3a4eef0",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "vách rễ (ô X): mặt vách ×2 có rêu mép trên, đỉnh vách ×2"
   },
   "tile.water": {
    "file": "assets/art/tile-water.png",

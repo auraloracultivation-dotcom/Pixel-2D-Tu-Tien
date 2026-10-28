@@ -22,6 +22,7 @@ import props_planet as PP  # noqa: E402
 import props_wild as PW  # noqa: E402
 import props_home as PH  # noqa: E402
 import terrain2 as T2  # noqa: E402
+import walls as WL  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -99,6 +100,13 @@ save('prop.cushion', [PH.cushion()], (8, 5), 'bồ đoàn đả tọa (ô M): đ
 save('prop.furnace', [PH.furnace(f) for f in range(3)], (10, 22), 'lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung')
 save('prop.anvil', [PH.anvil(f) for f in range(2)], (11, 16), 'lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung')
 save('tile.plot', [PH.plot(True, s) for s in range(2)] + [PH.plot(False, s) for s in range(2)], (0, 0), 'đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại')
+
+# ---------------------------------------------------------------- vách hang theo hệ, đá linh căn, cửa phong ấn (tools/art/walls.py)
+save('tile.wall-root', WL.wall_frames('root'), (0, 0), 'vách rễ (ô X): mặt vách ×2 có rêu mép trên, đỉnh vách ×2')
+save('tile.wall-copper', WL.wall_frames('copper'), (0, 0), 'vách đồng (ô C): mặt vách ×2 mạch vàng, đỉnh vách ×2')
+save('tile.wall-earth', WL.wall_frames('earth'), (0, 0), 'vách núi đất (ô E): mặt vách ×2 từng lớp, đỉnh vách ×2')
+save('prop.spiritstone', [WL.spirit_stone()], (7, 25), 'đá linh căn (ô S): trụ đá khắc, khe giữa để game tô màu linh căn')
+save('tile.seal', [WL.seal(f) for f in range(2)], (0, 0), 'cửa bí cảnh còn khoá (ô D): màn phong ấn đỏ, bùa vàng; 2 khung vân chạy')
 
 # ---------------------------------------------------------------- động phủ, cổng truyền tống (tools/art/props_home.py)
 save('prop.portal', [PH.portal(f) for f in range(4)], (10, 7), 'cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung')

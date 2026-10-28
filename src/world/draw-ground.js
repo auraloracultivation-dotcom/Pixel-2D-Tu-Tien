@@ -18,7 +18,9 @@ const PROP = {
   U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15], Y: ['prop.pine', 8, 15], k: ['prop.icepillar', 8, 15],
   P: ['prop.portal', 8, 9, true], M: ['prop.cushion', 8, 9], K: ['prop.furnace', 8, 15, true], A: ['prop.anvil', 8, 14, true],
 };
-export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + 'F^';
+// Vách hang theo hệ: mặt vách khi ô dưới đi được, không thì đỉnh vách
+const WALLS = { X: 'tile.wall-root', C: 'tile.wall-copper', E: 'tile.wall-earth' };
+export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + Object.keys(WALLS).join('') + 'F^S';
 // Mép bờ phủ lên ô: hình, và ô bên cạnh nào thì có bờ
 const RIM = {
   L: ['tile.lava-rim', n => n !== 'L'],
@@ -83,6 +85,7 @@ function build(game, map, tiles, hash, baseTile) {
       else baseTile(c, map, tiles, tx, ty, tiles.types[n]?.color);
     }
     else if (texOf(ch, k)) { put(c, tex[ch], Math.floor(h * 4), px, py); painted.add(ch); }
+    else if (lit && PROP[ch] && !k.solid && map.def.ground) baseTile(c, map, tiles, tx, ty, map.def.ground);   // nấm, kiếm gãy trong hầm: nền hầm, không lấy màu ô
     else baseTile(c, map, tiles, tx, ty);
     if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
     if (rim[ch]) rimTile(c, map, rim[ch], RIM[ch][1], tx, ty, px, py);
@@ -148,6 +151,8 @@ function housePiece(map, tx, ty, ch) {
 // Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
 export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   if (ch === '^') return drawPeak(ctx, game, map, tx, ty, h);
+  if (WALLS[ch]) return drawWallTile(ctx, game, map, ch, tx, ty, h);
+  if (ch === 'S') return drawSpiritStone(ctx, game, map, tx, ty, t);
   const id = HOUSE[ch] || PROP[ch]?.[0] || (ch === 'F' && 'decal.flowers'), sp = id && sheet(game, id);
   if (!sp) return false;
   const T = map.T, px = tx * T, py = ty * T, a = sp.s.anchor;
@@ -179,5 +184,36 @@ function drawPeak(ctx, game, map, tx, ty, h) {
   else put(ctx, sp, Math.floor(h * sp.s.frames), px, py);
   if (map.at(tx, ty + 1) !== '^') { ctx.fillStyle = 'rgba(20,16,30,.25)'; ctx.fillRect(px, py + T - 1, T, 1); }
   ctx.restore();
+  return true;
+}
+
+function drawWallTile(ctx, game, map, ch, tx, ty, h) {
+  const sp = sheet(game, WALLS[ch]);
+  if (!sp) return false;
+  const face = !map.type(tx, ty + 1).solid;
+  put(ctx, sp, (face ? 0 : 2) + (h < 0.5 ? 0 : 1), tx * map.T, ty * map.T);
+  return true;
+}
+
+// Đá linh căn: trụ đá pixel, khe giữa sáng màu linh căn của người chơi (chưa có thì xanh nhạt), nhấp nháy
+function drawSpiritStone(ctx, game, map, tx, ty, t) {
+  const sp = sheet(game, 'prop.spiritstone');
+  if (!sp) return false;
+  const T = map.T, x = tx * T + 8 - sp.s.anchor[0], y = ty * T + 15 - sp.s.anchor[1];
+  ctx.save(); ctx.imageSmoothingEnabled = false;
+  put(ctx, sp, 0, x, y);
+  ctx.fillStyle = game.save.element ? game.data.elements[game.save.element].color : '#bff4ff';
+  ctx.globalAlpha = 0.6 + 0.3 * Math.sin(t * 3);
+  ctx.fillRect(x + 6, y + 5, 2, 16);
+  ctx.globalAlpha = 1; ctx.fillStyle = '#ffffff'; ctx.fillRect(x + 6, y + 6 + (Math.floor(t * 6) % 14), 1, 1);
+  ctx.restore();
+  return true;
+}
+
+// Cửa bí cảnh còn khoá (map.locked): màn phong ấn đỏ có bùa, vân chạy 2 khung
+export function drawSeal(ctx, game, map, tx, ty, t) {
+  const sp = sheet(game, 'tile.seal');
+  if (!sp) return false;
+  put(ctx, sp, Math.floor(t * 2 + tx) % 2, tx * map.T, ty * map.T);
   return true;
 }

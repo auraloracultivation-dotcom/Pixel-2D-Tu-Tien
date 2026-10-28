@@ -1,4 +1,4 @@
-// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể, cổng, bồ đoàn, lò đan, lò rèn, đất linh điền, tùng tuyết, trụ băng, khe hư không, núi, nước đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
+// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể, cổng, bồ đoàn, lò đan, lò rèn, đất linh điền, tùng tuyết, trụ băng, khe hư không, núi, nước, vách hang theo hệ, đá linh căn, cửa phong ấn đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
@@ -7,7 +7,7 @@ import { drawForestTile } from './draw-forest.js';
 import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
-import { drawGround, drawProp, groundPainted, drawPlotSoil, PROP_TILES } from './draw-ground.js';
+import { drawGround, drawProp, groundPainted, drawPlotSoil, drawSeal, PROP_TILES } from './draw-ground.js';
 import { drawLavaBubble } from './draw-lava.js';
 import { drawMountain, drawWater } from './draw-terrain.js';
 function hash(x, y) {
@@ -155,7 +155,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
     }
     else if (ch === 'q' && hash(tx, ty) > 0.82) {
       ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);
-    } else if (ch === 'D' && map.locked.has(tx + ',' + ty)) {
+    } else if (ch === 'D' && map.locked.has(tx + ',' + ty) && !drawSeal(ctx, game, map, tx, ty, t)) {
       ctx.fillStyle = '#5a1a28'; ctx.fillRect(px, py, T, T);
       ctx.fillStyle = '#c0283a';
       for (let i = 2; i < T; i += 5) ctx.fillRect(px + i, py, 2, T);
