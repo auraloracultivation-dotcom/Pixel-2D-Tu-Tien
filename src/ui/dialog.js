@@ -54,7 +54,7 @@ export function createDialog(onLine) {
     for (const o of options) {
       const b = document.createElement('button');
       b.className = 'choice';
-      b.style.borderLeft = `6px solid ${o.color || '#1b1830'}`;
+      b.style.borderLeft = `6px solid ${o.color || 'var(--line-hi)'}`;
       const l = document.createElement('b'); l.textContent = o.label;
       const s = document.createElement('small'); s.textContent = o.desc || '';
       b.append(l, s);

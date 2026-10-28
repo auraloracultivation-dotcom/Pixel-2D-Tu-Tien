@@ -10,7 +10,7 @@ import { salvageIron } from './cave.js';
 import { dailyEvent } from './daily.js';
 import { salvageArt } from './refine.js';
 
-const trial = (game, slot, uid) => {
+export const trial = (game, slot, uid) => {   // lực chiến nếu đặt uid vào ô slot (túi đồ dùng để so sánh)
   const s = game.save, old = s.equip[slot];
   s.equip[slot] = uid;
   const v = power(game, playerStats(s, game.data));

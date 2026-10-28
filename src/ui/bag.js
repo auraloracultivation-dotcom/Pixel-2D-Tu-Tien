@@ -1,45 +1,34 @@
-// Túi đồ: ô đang mặc, danh sách đồ và ngọc, chi tiết món đồ với mặc/tháo, tẩy luyện, khảm ngọc, phân giải.
-import {
-  ensureInv, equip, unequip, salvage, reroll, rerollFee, socket, unsocket, mergeGems, gemMergeFee,
-  gemInfo, rarityOf, itemName, statText, gearStats, artOf,
-} from '../game/items.js';
-import { salvageIron, matInfo } from '../game/cave.js';
-import { coins, sell, sellPrice } from '../game/shop.js';
-import { dailyEvent } from '../game/daily.js';
-import { enhance, enhanceCost, setStats } from '../game/enhance.js';
-import { costText } from '../game/cave.js';
-import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
-import { rerollEl } from '../game/daovan.js';
+// Túi đồ: ô đang mặc (chạm để xem), lọc theo ô và sắp xếp, danh sách đồ và ngọc.
+// Chạm một món thì tấm chi tiết trượt lên từ đáy túi (src/ui/bag-detail.js): nút Mặc / Thay nằm ngay đầu tấm,
+// kèm lực chiến tăng giảm và so sánh với món đang mặc, không phải cuộn xuống cuối túi như trước.
+import { ensureInv, socket, mergeGems, gemMergeFee, gemInfo, rarityOf, itemName, statText, gearStats } from '../game/items.js';
+import { matInfo } from '../game/cave.js';
+import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
+import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 
 const $ = id => document.getElementById(id);
-
-const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây` })[s] || null;
-
-function el(tag, cls, text) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (text != null) e.textContent = text;
-  return e;
-}
+const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
 
 export function createBag(game) {
   const { data } = game;
-  const st = { tab: 'do', sel: null, pickSocket: null };
+  const st = { tab: 'do', sel: null, pickSocket: null, slot: 'all', sort: 'moi' };
 
   const save = () => game.save;
   const isEq = uid => Object.values(save().equip).includes(uid);
+  const rIdx = id => data.items.rarities.findIndex(r => r.id === id);
 
-  function changed() { game.refreshStats(); game.persist(); render(); }
+  // full = false: chỉ vẽ lại (đổi tab, chọn ngọc), không lưu
+  function changed(full = true) { if (full) { game.refreshStats(); game.persist(); } render(); }
+  const pick = uid => { st.sel = st.sel === uid ? null : uid; st.pickSocket = null; render(); };
 
-  function itemCard(it) {
+  function itemCard(it, gain) {
     const r = rarityOf(data.items, it.rarity);
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
-    b.style.borderColor = r.color;
-    const spr = data.art.sprites['gear.' + it.base];   // biểu tượng pixel của món gốc (tools/art/gear.py)
-    if (spr) { const ico = el('i', 'ico'); ico.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`; b.append(ico); }
-    b.append(el('b', null, itemName(data, it)), el('small', null, `${r.name} · cấp ${it.lvl}${isEq(it.uid) ? ' · đang mặc' : ''}`));
-    b.onclick = () => { st.sel = it.uid; st.pickSocket = null; render(); };
+    b.style.setProperty('--rar', r.color);
+    b.append(icon(data, it), el('b', null, itemName(data, it)), el('small', null, `${r.name} · cấp ${it.lvl}`));
+    if (gain > 0) b.append(el('em', 'up', '▲ ' + gain.toLocaleString('vi-VN')));
+    b.onclick = () => pick(it.uid);
     return b;
   }
 
@@ -47,25 +36,54 @@ export function createBag(game) {
     const box = $('bag-equip'); box.innerHTML = '';
     for (const [slot, name] of Object.entries(data.items.slots)) {
       const it = save().bag.find(i => i.uid === save().equip[slot]);
-      const cell = el('div', 'slot');
-      cell.append(el('span', 'slot-name', name));
-      if (it) cell.append(itemCard(it)); else cell.append(el('div', 'empty', 'Trống'));
+      const cell = el('button', 'slot' + (it ? '' : ' empty') + (it && st.sel === it.uid ? ' sel' : ''));
+      if (it) {
+        const r = rarityOf(data.items, it.rarity);
+        cell.style.setProperty('--rar', r.color);
+        cell.append(icon(data, it), el('small', null, name));
+        cell.title = itemName(data, it);
+        cell.onclick = () => pick(it.uid);
+      } else {
+        cell.append(el('i', 'ico'), el('small', null, name));
+        cell.onclick = () => { st.tab = 'do'; st.slot = slot; st.sel = null; render(); };   // ô trống: lọc túi theo ô đó
+      }
       box.append(cell);
     }
     const g = gearStats(data, save());
     $('bag-stats').textContent = Object.keys(g).length
-      ? 'Tổng từ đồ: ' + Object.entries(g).map(([s, v]) => statText(data, s, v)).join(' · ')
+      ? Object.entries(g).map(([s, v]) => statText(data, s, v)).join(' · ')
       : 'Chưa mặc đồ.';
-    $('bag-mats').textContent = `${data.shop.name} ${coins(save())} · ` + Object.entries(save().mats).filter(([, n]) => n > 0).map(([k, n]) => `${matInfo(data, k)?.name || k} ${n}`).join(' · ') || 'Chưa có nguyên liệu';
+    $('bag-mats').textContent = `${coins(save()).toLocaleString('vi-VN')} ${data.shop.name}`;
+    $('bag-mats').title = Object.entries(save().mats).filter(([, n]) => n > 0).map(([k, n]) => `${matInfo(data, k)?.name || k} ${n}`).join(' · ');
+  }
+
+  function renderFilter() {
+    const box = $('bag-filter'); box.innerHTML = '';
+    box.hidden = st.tab !== 'do';
+    if (box.hidden) return;
+    const chips = el('div', 'chips');
+    for (const [id, name] of [['all', 'Tất cả'], ...Object.entries(data.items.slots)]) {
+      const c = el('button', 'chip' + (st.slot === id ? ' on' : ''), name);
+      c.onclick = () => { st.slot = id; render(); };
+      chips.append(c);
+    }
+    const sort = el('button', 'chip sort', '⇅ ' + SORTS.find(s => s[0] === st.sort)[1]);
+    sort.onclick = () => { st.sort = SORTS[(SORTS.findIndex(s => s[0] === st.sort) + 1) % SORTS.length][0]; render(); };
+    box.append(chips, sort);
   }
 
   function renderList() {
     const box = $('bag-list'); box.innerHTML = '';
     if (st.tab === 'do') {
-      const items = save().bag.filter(i => !isEq(i.uid));
-      if (items.length) renderQuick(game, box, st, full => full ? changed() : render());
-      if (!items.length) box.append(el('p', 'muted', 'Túi trống. Hạ quái để nhặt đồ.'));
-      for (const it of items) box.append(itemCard(it));
+      let items = save().bag.filter(i => !isEq(i.uid) && (st.slot === 'all' || data.items.bases[i.base].slot === st.slot));
+      const gain = new Map(items.map(i => [i.uid, powerGain(game, i)]));
+      if (st.sort === 'moi') items = items.slice().sort((a, b) => b.uid - a.uid);
+      if (st.sort === 'pham') items = items.slice().sort((a, b) => rIdx(b.rarity) - rIdx(a.rarity) || b.lvl - a.lvl);
+      if (st.sort === 'cap') items = items.slice().sort((a, b) => b.lvl - a.lvl || rIdx(b.rarity) - rIdx(a.rarity));
+      if (st.sort === 'manh') items = items.slice().sort((a, b) => gain.get(b.uid) - gain.get(a.uid));
+      if (save().bag.some(i => !isEq(i.uid))) renderQuick(game, box, st, full => full ? changed() : render());
+      if (!items.length) box.append(el('p', 'muted', st.slot === 'all' ? 'Túi trống. Hạ quái để nhặt đồ.' : `Chưa có ${data.items.slots[st.slot].toLowerCase()} nào trong túi.`));
+      for (const it of items) box.append(itemCard(it, gain.get(it.uid)));
       return;
     }
     const keys = Object.keys(save().gems).sort();
@@ -75,8 +93,8 @@ export function createBag(game) {
       const dot = el('i', 'gem-dot'); dot.style.background = gi.color;
       row.append(dot, el('span', null, `${gi.name} ×${save().gems[k]} (${statText(data, gi.stat, gi.value)})`));
       if (st.pickSocket) {
-        const b = el('button', 'mini', 'Khảm');
-        b.onclick = () => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.pickSocket = null; st.tab = 'do'; changed(); };
+        const b = el('button', 'mini primary', 'Khảm');
+        b.onclick = () => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.sel = st.pickSocket.uid; st.pickSocket = null; st.tab = 'do'; changed(); };
         row.append(b);
       } else if (gi.lv < data.items.gems.max_level) {
         const fee = gemMergeFee(data, gi.lv), b = el('button', 'mini', `Ghép ${data.items.gems.merge}→1 (${fee.toLocaleString('vi-VN')} ${data.shop.name})`);
@@ -88,88 +106,26 @@ export function createBag(game) {
     }
   }
 
-  function renderDetail() {
-    const box = $('bag-detail'); box.innerHTML = '';
-    const it = save().bag.find(i => i.uid === st.sel);
-    if (!it) { box.append(el('p', 'muted', 'Chọn một món để xem.')); return; }
-    const r = rarityOf(data.items, it.rarity), base = data.items.bases[it.base];
-    const title = el('div', 'd-title', `[${r.name}] ${itemName(data, it)}`); title.style.color = r.color;
-    box.append(title, el('div', 'muted', `${data.items.slots[base.slot]} · cấp ${it.lvl}`));
-    const k = (1 + (it.plus || 0) * data.gear.enhance.main_per) * (base.dv && it.el === save().element ? 1 + data.daovan.match_main : 1);   // Đạo Vận hợp hệ: chỉ số chính đã cộng
-    for (const [s, v] of Object.entries(it.main)) box.append(el('div', 'd-main', statText(data, s, Math.round(v * k))));
-    const art = artOf(data, it);
-    if (art) box.append(el('div', 'd-line', `Chiêu pháp bảo ${data.skills[art].name}: ${data.skills[art].desc}`));
-    if (base.dv) {   // món Đạo Vận: hệ ngẫu nhiên, hợp hệ linh căn thì chỉ số chính mạnh thêm
-      const ok = it.el === save().element, t = el('div', 'd-line', `Đạo Vận hệ ${data.elements[it.el]?.name || '?'}: ${ok ? `hợp linh căn, chỉ số chính +${Math.round(data.daovan.match_main * 100)}%, tính vào bộ` : 'khác hệ linh căn, chưa tính vào bộ'}`);
-      t.style.color = data.elements[it.el]?.color || '#ffd27a'; box.append(t);
-    }
-    if (base.set) {
-      const sd = data.gear.sets[base.set], n = setStats(data, save()).count[base.set] || 0;
-      const t = el('div', 'd-line', `${sd.name} (đang mặc ${n}): ` + Object.entries(sd.bonus).map(([need, b]) => `${need} món: ` + Object.entries(b).map(([s, v]) => bonusText(s, v) || statText(data, s, v)).join(', ')).join(' · '));
-      t.style.color = sd.color; box.append(t);
-    }
-    if (st.lockUid !== it.uid) { st.lockUid = it.uid; st.lock = null; }
-    it.lines.forEach((l, idx) => {
-      const on = st.lock === idx, d = el('div', 'd-line lockable' + (on ? ' locked' : ''), (on ? '🔒 ' : '◆ ') + statText(data, l.s, l.v));
-      d.onclick = () => { st.lock = on ? null : idx; renderDetail(); };
-      box.append(d);
-    });
-    if (it.lines.length > 1) box.append(el('div', 'muted tiny', `Chạm một dòng để khoá khi tẩy luyện (tốn ${data.items.reroll_lock.n} ${data.items.materials[data.items.reroll_lock.mat].name}, có ${save().mats[data.items.reroll_lock.mat] || 0}).`));
-    if (it.sockets.length) {
-      const row = el('div', 'd-sockets');
-      it.sockets.forEach((g, idx) => {
-        const b = el('button', 'socket' + (g ? ' full' : ''));
-        if (g) { const gi = gemInfo(data, g); b.textContent = `${gi.name}`; b.style.borderColor = gi.color; b.onclick = () => { unsocket(save(), it.uid, idx); changed(); }; }
-        else { b.textContent = '+ Khảm ngọc'; b.onclick = () => { st.pickSocket = { uid: it.uid, idx }; st.tab = 'ngoc'; render(); }; }
-        row.append(b);
-      });
-      box.append(row, el('div', 'muted tiny', 'Chạm ô có ngọc để gỡ ngọc về túi.'));
-    }
-    const acts = el('div', 'd-acts');
-    const btn = (t, fn, off) => { const b = el('button', 'act-btn', t); b.disabled = !!off; b.onclick = fn; acts.append(b); };
-    if (isEq(it.uid)) btn('Tháo', () => { unequip(save(), base.slot); changed(); });
-    else btn('Mặc', () => { equip(save(), data, it.uid); game.sfx('shield'); changed(); });
-    const ec = enhanceCost(data, it, save());
-    if (ec?.locked) btn(`Cường hóa +${(it.plus || 0) + 1}: mở ở ${data.realms.names[Math.min(data.realms.names.length - 1, data.gear.enhance.open.from_realm + Math.ceil(((it.plus || 0) + 1 - data.gear.enhance.open.base) / data.gear.enhance.open.per_realm))]}`, () => {}, true);
-    else if (ec) {
-      const can = Object.entries(ec.cost).every(([m, n]) => (save().mats[m] || 0) >= n) && (save().lingshi || 0) >= ec.coins;
-      btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}${ec.coins ? `, ${ec.coins.toLocaleString('vi-VN')} ${data.shop.name}` : ''}, ${Math.round(ec.rate * 100)}%)`, () => {
-        const r = enhance(game, it.uid);
-        st.msg = r === 'up' ? `Thành công! +${it.plus}` : r === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
-        game.sfx(r === 'up' ? 'levelup' : 'hurt'); changed();
-      }, !can);
-    }
-    const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
-    if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save().mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save().mats[rm] || 0) < rc);
-    const stones = save().mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save(), it);
-    const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save().mats[lk.mat] || 0) >= lk.n;
-    btn(`Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name}${locking ? `, khoá 1 dòng` : ''})`, () => { if (reroll(data, save(), it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk || (save().lingshi || 0) < fee);
-    const iron = data.cave.salvage_iron[it.rarity] || 0;
-    if (base.dv) {   // Đạo Vận: không phân giải, không bán; đổi hệ bằng Đạo Vận Thạch
-      const R = data.daovan.reroll, have = save().mats[R.mat] || 0;
-      btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), () => { const e = rerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); changed(); } }, have < R.n);
-    } else {
-      btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save(), it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, isEq(it.uid));
-      btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, isEq(it.uid));
-    }
-    box.append(acts);
-    if (st.msg) { box.append(el('div', 'd-main', st.msg)); st.msg = ''; }
+  function renderSheet() {
+    const has = renderDetail(game, st, $('bag-detail'), changed, () => { st.sel = null; render(); });
+    $('bag-sheet').hidden = !has;
+    $('bag').classList.toggle('sheet-open', has);
   }
 
   function render() {
     ensureInv(save());
     for (const b of document.querySelectorAll('#bag [data-tab]')) b.classList.toggle('on', b.dataset.tab === st.tab);
     $('bag-pick').hidden = !st.pickSocket;
-    renderEquip(); renderList(); renderDetail();
+    renderEquip(); renderFilter(); renderList(); renderSheet();
   }
 
-  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; render(); };
+  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; render(); };
   $('bag-close').onclick = () => close();
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); open(); });
 
   function open() {
     if (!game.save || game.dialog.open) return;
-    game.uiOpen = true; game.newItems = 0; $('bag').hidden = false; render();
+    game.uiOpen = true; game.newItems = 0; st.sel = null; $('bag').hidden = false; render();
   }
   function close() { game.uiOpen = false; $('bag').hidden = true; }
 
