@@ -3181,6 +3181,18 @@
    ],
    "note": "kim gỗ có lá non ở đuôi, 2 khung"
   },
+  "prop.broken-sword": {
+   "file": "assets/art/prop-broken-sword.png",
+   "v": "3f5cb5a6",
+   "w": 16,
+   "h": 16,
+   "frames": 3,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên"
+  },
   "prop.bush": {
    "file": "assets/art/prop-bush.png",
    "v": "ff0a1384",
@@ -3193,6 +3205,18 @@
    ],
    "note": "bụi cây thấp: xanh, có hoa vàng; rải trên cỏ"
   },
+  "prop.pillar": {
+   "file": "assets/art/prop-pillar.png",
+   "v": "19eca069",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    24
+   ],
+   "note": "cột đá đất nung (ô I): trơn, có chữ cổ hổ phách"
+  },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
    "v": "878f148c",
@@ -3204,6 +3228,18 @@
     11
    ],
    "note": "đá, đá có rêu"
+  },
+  "prop.sword-grave": {
+   "file": "assets/art/prop-sword-grave.png",
+   "v": "a9f28d9a",
+   "w": 16,
+   "h": 24,
+   "frames": 2,
+   "anchor": [
+    8,
+    22
+   ],
+   "note": "mộ kiếm (ô J): kiếm cắm thẳng, kiếm nghiêng có tua"
   },
   "prop.torch": {
    "file": "assets/art/prop-torch.png",
@@ -3301,6 +3337,18 @@
    ],
    "note": "nhà mái ngói: mái nóc/giữa/mép/thấp × trái/giữa/phải, rồi tường trái, giữa, phải, cửa, cửa sổ"
   },
+  "tile.house-adobe": {
+   "file": "assets/art/tile-house-adobe.png",
+   "v": "6744ac1b",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà đất (ô z, Hậu Thổ): mái rơm, tường đất nện, cửa vòm; cùng thứ tự khung với tile.house"
+  },
   "tile.house-burnt": {
    "file": "assets/art/tile-house-burnt.png",
    "v": "32c0d151",
@@ -3312,6 +3360,30 @@
     0
    ],
    "note": "nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng"
+  },
+  "tile.house-forge": {
+   "file": "assets/art/tile-house-forge.png",
+   "v": "5b09d330",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà rèn (ô N, Thiên Kim): mái đá phiến, tường đá khối, ống khói; cùng thứ tự khung với tile.house"
+  },
+  "tile.house-tree": {
+   "file": "assets/art/tile-house-tree.png",
+   "v": "8927e97b",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà trên cây (ô W, Thanh Mộc, Làng Tinh Linh): mái lá, vách ván; cùng thứ tự khung với tile.house"
   },
   "tile.icelake": {
    "file": "assets/art/tile-icelake.png",
@@ -3384,6 +3456,18 @@
     0
    ],
    "note": "nền đá lát, 4 biến thể"
+  },
+  "tile.terrace": {
+   "file": "assets/art/tile-terrace.png",
+   "v": "fee1b107",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang"
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",

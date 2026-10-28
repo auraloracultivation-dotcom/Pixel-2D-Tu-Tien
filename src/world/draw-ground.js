@@ -6,8 +6,14 @@ const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
 const WALL = { L: 12, M: 13, R: 14, door: 15, win: 16 };   // khung tường trong tile.house, sau 12 khung mái
 const DIAG = [[-1, -1], [1, -1], [1, 1], [-1, 1]];   // thứ tự khung góc của tile.*-rim: trên trái, trên phải, dưới phải, dưới trái
-// Mặt lớn lặp liền (tools/art/terrain.py): khung theo vị trí ô nên cả hồ liền mạch
+// Mặt lớn lặp liền (tools/art/terrain.py): khung theo vị trí ô nên cả hồ liền mạch; ROW: ghép liền theo hàng (khung = tx % 4)
 const BIG = { L: 'tile.lava', O: 'tile.icelake' };
+const ROW = { y: 'tile.terrace' };
+// Nhà ghép theo khối ô cùng loại, cùng bố cục khung với tile.house
+const HOUSE = { H: 'tile.house', B: 'tile.house-burnt', N: 'tile.house-forge', z: 'tile.house-adobe', W: 'tile.house-tree' };
+// Vật đứng một ô: hình, chân đặt ở điểm (x, y) trong ô
+const PROP = { T: ['prop.tree', 8, 14], R: ['prop.rock', 8, 13], J: ['prop.sword-grave', 8, 15], I: ['prop.pillar', 8, 15], h: ['prop.broken-sword', 8, 8] };
+export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + 'F';
 // Mép bờ phủ lên ô: hình, và ô bên cạnh nào thì có bờ
 const RIM = {
   L: ['tile.lava-rim', n => n !== 'L'],
@@ -33,13 +39,17 @@ function build(game, map, tiles, hash, baseTile) {
   for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff', 'decal.dirt', 'prop.bush']) if (!(sp[id] = sheet(game, id))) return null;
   const lit = game.data.light.maps.includes(map.def.id);
   // Nền pixel theo kiểu "tex" của ô (tools/art/ground.py); ô cây, đá, nhà đứng trên nền màu đất của đảo thì lấy nền ô cùng màu
-  const tex = {}, under = map.def.ground && Object.keys(tiles.types).find(k => tiles.types[k].tex && tiles.types[k].color === map.def.ground);
-  const texOf = (ch, k) => lit ? null : tex[ch] ??= sheet(game, 'ground.' + (k.solid ? under : ch)) || false;
+  // Ô không có tex thì lấy nền của ô có tex cùng màu (kiếm gãy, mộ kiếm trên nền bãi mộ; nhà đất trên đất hậu thổ), không có nữa thì ô đặc đứng trên nền đảo
+  const byColor = col => col && Object.keys(tiles.types).find(t => tiles.types[t].tex && tiles.types[t].color === col);
+  const tex = {}, under = byColor(map.def.ground);
+  const keyOf = (ch, k) => (k.tex ? ch : byColor(k.color)) || (k.solid ? under : null);
+  const texOf = (ch, k) => lit ? null : tex[ch] ??= sheet(game, 'ground.' + keyOf(ch, k)) || false;
   // Hình nền riêng của bản đồ này chưa tải xong thì chờ (trả null, khung sau dựng lại), kẻo nền phẳng mãi
-  const need = lit ? ['tile.dfloor'] : [...new Set((under || '') + map.def.grid.join(''))].map(ch => 'ground.' + ch);
+  const need = lit ? ['tile.dfloor'] : [...new Set(map.def.grid.join(''))].map(ch => 'ground.' + keyOf(ch, tiles.types[ch] || {}));
   for (const id of need) if (game.data.art.sprites[id] && !sheet(game, id)) return null;
-  const big = {}, rim = {};
+  const big = {}, row = {}, rim = {};
   for (const ch in BIG) if (game.data.art.sprites[BIG[ch]] && !(big[ch] = sheet(game, BIG[ch]))) return null;
+  for (const ch in ROW) if (game.data.art.sprites[ROW[ch]] && !(row[ch] = sheet(game, ROW[ch]))) return null;
   for (const ch in RIM) if (game.data.art.sprites[RIM[ch][0]] && !(rim[ch] = sheet(game, RIM[ch][0]))) return null;
   const painted = new Set();
   const T = map.T, cv = document.createElement('canvas');
@@ -54,6 +64,7 @@ function build(game, map, tiles, hash, baseTile) {
       continue;
     }
     if (big[ch]) { put(c, big[ch], (tx % 4) + (ty % 4) * 4, px, py); painted.add(ch); }
+    else if (row[ch] && !lit) { put(c, row[ch], tx % 4, px, py); painted.add(ch); }
     else if (ch === ',') put(c, sp['tile.path'], Math.floor(h * 4), px, py);
     else if (ch === '_') put(c, sp['tile.stone'], Math.floor(h * 4), px, py);
     else if (GRASSY.includes(ch) && !(k.solid && map.def.ground)) put(c, sp['tile.grass'], Math.floor(h * 4), px, py);
@@ -110,7 +121,7 @@ export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
   return true;
 }
 
-// Một khối nhà chữ nhật gồm các ô cùng loại (H nhà, B nhà cháy): hàng dưới là tường (cửa ở giữa, cửa sổ xen kẽ), các hàng trên là mái.
+// Một khối nhà chữ nhật gồm các ô cùng loại (bảng HOUSE): hàng dưới là tường (cửa ở giữa, cửa sổ xen kẽ), các hàng trên là mái.
 function housePiece(map, tx, ty, ch) {
   let x0 = tx, y0 = ty;
   while (map.at(x0 - 1, ty) === ch) x0--;
@@ -126,13 +137,13 @@ function housePiece(map, tx, ty, ch) {
 
 // Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
 export function drawProp(ctx, game, map, ch, tx, ty, h) {
-  const id = { T: 'prop.tree', R: 'prop.rock', F: 'decal.flowers', H: 'tile.house', B: 'tile.house-burnt' }[ch], sp = id && sheet(game, id);
+  const id = HOUSE[ch] || PROP[ch]?.[0] || (ch === 'F' && 'decal.flowers'), sp = id && sheet(game, id);
   if (!sp) return false;
   const T = map.T, px = tx * T, py = ty * T, a = sp.s.anchor;
   ctx.save(); ctx.imageSmoothingEnabled = false;
   if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
-  else if (ch === 'R') put(ctx, sp, h < 0.5 ? 0 : 1, px + 8 - a[0], py + 13 - a[1]);
-  else if (ch === 'H' || ch === 'B') put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
+  else if (PROP[ch]) put(ctx, sp, Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);
+  else if (HOUSE[ch]) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   ctx.restore();
   return true;
