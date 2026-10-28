@@ -152,7 +152,11 @@
    "fx.shield": "130,200,255",
    "fx.shield-earth": "255,210,120",
    "fx.buff": "255,220,120",
-   "fx.spark": "255,240,200"
+   "fx.spark": "255,240,200",
+   "fx.slash-gay-go": "255,225,180",
+   "fx.slash-kiem": "170,225,255",
+   "fx.slash-thuong": "190,220,255",
+   "fx.slash-quat": "170,240,255"
   }
  }
 }

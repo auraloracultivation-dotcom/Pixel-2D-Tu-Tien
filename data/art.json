@@ -131,7 +131,31 @@
   },
   "fw.cung": {
    "file": "assets/art/fw-cung.png",
-   "v": "e1c44bc5",
+   "v": "9450ec7f",
+   "w": 39,
+   "h": 39,
+   "frames": 32,
+   "anchor": [
+    19,
+    19
+   ],
+   "note": "vũ khí bay cung: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
+  },
+  "fw.dan": {
+   "file": "assets/art/fw-dan.png",
+   "v": "4aa61521",
+   "w": 34,
+   "h": 34,
+   "frames": 32,
+   "anchor": [
+    17,
+    17
+   ],
+   "note": "vũ khí bay dan: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
+  },
+  "fw.gay-go": {
+   "file": "assets/art/fw-gay-go.png",
+   "v": "99d429a9",
    "w": 31,
    "h": 31,
    "frames": 32,
@@ -139,79 +163,55 @@
     15,
     15
    ],
-   "note": "vũ khí bay cung: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
-  },
-  "fw.dan": {
-   "file": "assets/art/fw-dan.png",
-   "v": "9bc7b1ca",
-   "w": 26,
-   "h": 26,
-   "frames": 32,
-   "anchor": [
-    13,
-    13
-   ],
-   "note": "vũ khí bay dan: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
-  },
-  "fw.gay-go": {
-   "file": "assets/art/fw-gay-go.png",
-   "v": "a3eebee5",
-   "w": 27,
-   "h": 27,
-   "frames": 32,
-   "anchor": [
-    13,
-    13
-   ],
-   "note": "vũ khí bay gay-go: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+   "note": "vũ khí bay gay-go: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
   },
   "fw.kiem": {
    "file": "assets/art/fw-kiem.png",
-   "v": "4f03bb45",
-   "w": 30,
-   "h": 30,
+   "v": "eb602708",
+   "w": 34,
+   "h": 34,
    "frames": 32,
    "anchor": [
-    15,
-    15
+    17,
+    17
    ],
-   "note": "vũ khí bay kiem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+   "note": "vũ khí bay kiem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
   },
   "fw.liem": {
    "file": "assets/art/fw-liem.png",
-   "v": "e06b45a6",
-   "w": 32,
-   "h": 32,
+   "v": "7a4c0874",
+   "w": 41,
+   "h": 41,
    "frames": 32,
    "anchor": [
-    16,
-    16
+    20,
+    20
    ],
-   "note": "vũ khí bay liem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+   "note": "vũ khí bay liem: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
   },
   "fw.quat": {
    "file": "assets/art/fw-quat.png",
-   "v": "497de18f",
-   "w": 28,
-   "h": 28,
+   "v": "fa9f08c2",
+   "w": 39,
+   "h": 39,
    "frames": 32,
    "anchor": [
-    14,
-    14
+    19,
+    19
    ],
-   "note": "vũ khí bay quat: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+   "note": "vũ khí bay quat: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
   },
   "fw.thuong": {
    "file": "assets/art/fw-thuong.png",
-   "v": "b70d9232",
-   "w": 32,
-   "h": 32,
+   "v": "ec2792a2",
+   "w": 37,
+   "h": 37,
    "frames": 32,
    "anchor": [
-    16,
-    16
+    18,
+    18
    ],
-   "note": "vũ khí bay thuong: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ)"
+   "note": "vũ khí bay thuong: 32 hướng xoay sẵn, khung i = góc i/32 vòng (0 chĩa phải, theo chiều kim đồng hồ) · ảnh Canva"
   },
   "fx.bolt": {
    "file": "assets/art/fx-bolt.png",
@@ -287,15 +287,15 @@
   },
   "fx.liem": {
    "file": "assets/art/fx-liem.png",
-   "v": "139ccf73",
-   "w": 56,
-   "h": 48,
-   "frames": 7,
+   "v": "df5ecda3",
+   "w": 34,
+   "h": 34,
+   "frames": 2,
    "anchor": [
-    18,
-    24
+    3,
+    17
    ],
-   "note": "vệt liềm tím vươn xa trước mặt (vũ khí Liềm, chiêu liềm trúng), 7 khung; tâm cung tại neo"
+   "note": "vệt liềm tím (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "fx.puff": {
    "file": "assets/art/fx-puff.png",
@@ -356,6 +356,54 @@
     24
    ],
    "note": "vệt chém đánh thường, 7 khung; tâm cung tại neo"
+  },
+  "fx.slash-gay-go": {
+   "file": "assets/art/fx-slash-gay-go.png",
+   "v": "8bf28e2c",
+   "w": 30,
+   "h": 22,
+   "frames": 4,
+   "anchor": [
+    2,
+    11
+   ],
+   "note": "vệt quét gậy gỗ (ảnh chủ dự án gửi 28/10) · ảnh Canva"
+  },
+  "fx.slash-kiem": {
+   "file": "assets/art/fx-slash-kiem.png",
+   "v": "4291bb1b",
+   "w": 30,
+   "h": 26,
+   "frames": 3,
+   "anchor": [
+    2,
+    13
+   ],
+   "note": "vệt chém kiếm (ảnh chủ dự án gửi 28/10) · ảnh Canva"
+  },
+  "fx.slash-quat": {
+   "file": "assets/art/fx-slash-quat.png",
+   "v": "a0c4c3e2",
+   "w": 34,
+   "h": 26,
+   "frames": 3,
+   "anchor": [
+    4,
+    13
+   ],
+   "note": "gió quạt (ảnh chủ dự án gửi 28/10) · ảnh Canva"
+  },
+  "fx.slash-thuong": {
+   "file": "assets/art/fx-slash-thuong.png",
+   "v": "9fa478f2",
+   "w": 44,
+   "h": 14,
+   "frames": 4,
+   "anchor": [
+    0,
+    7
+   ],
+   "note": "vệt đâm thương (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "fx.spark": {
    "file": "assets/art/fx-spark.png",
@@ -3383,15 +3431,15 @@
   },
   "proj.arrow": {
    "file": "assets/art/proj-arrow.png",
-   "v": "67b2fb05",
-   "w": 17,
-   "h": 7,
+   "v": "08d7e59c",
+   "w": 20,
+   "h": 6,
    "frames": 2,
    "anchor": [
-    15,
+    10,
     3
    ],
-   "note": "mũi tên cung, lông đuôi, vệt gió 2 khung"
+   "note": "mũi tên (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "proj.fire": {
    "file": "assets/art/proj-fire.png",
@@ -3419,15 +3467,15 @@
   },
   "proj.liem": {
    "file": "assets/art/proj-liem.png",
-   "v": "c1a7cc57",
+   "v": "b82597ac",
    "w": 17,
    "h": 17,
-   "frames": 3,
+   "frames": 1,
    "anchor": [
     8,
     8
    ],
-   "note": "lưỡi liềm tím xoay (Tử Nguyệt Liềm), game cho xoay tròn"
+   "note": "lưỡi liềm xoay (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "proj.rock": {
    "file": "assets/art/proj-rock.png",
@@ -3443,27 +3491,27 @@
   },
   "proj.slash": {
    "file": "assets/art/proj-slash.png",
-   "v": "eda2a836",
-   "w": 13,
-   "h": 21,
-   "frames": 3,
+   "v": "b04b2650",
+   "w": 18,
+   "h": 10,
+   "frames": 2,
    "anchor": [
-    8,
-    10
+    9,
+    5
    ],
-   "note": "kiếm khí lưỡi liềm, lõi trắng, game tô quầng theo màu chiêu"
+   "note": "kiếm khí bay (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "proj.sound": {
    "file": "assets/art/proj-sound.png",
-   "v": "abcdb0dd",
-   "w": 12,
-   "h": 17,
+   "v": "7ddecd3e",
+   "w": 16,
+   "h": 14,
    "frames": 3,
    "anchor": [
     8,
-    8
+    7
    ],
-   "note": "sóng âm đàn: ba vòng cung loang ra, nốt nhạc nhỏ, 3 khung"
+   "note": "sóng âm đàn (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
   "proj.vine": {
    "file": "assets/art/proj-vine.png",

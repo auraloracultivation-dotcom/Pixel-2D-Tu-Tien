@@ -154,6 +154,9 @@ def apply(manifest, save):
         if sid.startswith('_') or not (AI / s['src']).exists():
             continue
         old = manifest.get(sid) or ({'w': 1, 'h': 1, 'frames': 6, 'anchor': [0, 0]} if s.get('acts') else None)   # hình mới chưa có bản code (bạn đồng hành)
+        if s.get('size'):   # cỡ, neo khai thẳng (hình hiệu ứng mới, hoặc đổi hẳn dáng so với bản code): số khung = số ô
+            w0, h0 = s['size']
+            old = {'w': w0, 'h': h0, 'frames': 0, 'anchor': s.get('anchor', [w0 // 2, h0 // 2]), 'note': s.get('note', '')}
         if not old:
             print('bỏ qua (không có hình code cùng id):', sid); continue
         if s.get('acts') and s.get('h'):   # ảnh gốc đầy đủ (chủ dự án gửi): bỏ nền theo màu, tự tách khung, thu về cao h
@@ -173,12 +176,13 @@ def apply(manifest, save):
         cells = [c for c in cells if _bbox(c)]
         if not cells:
             print('ảnh trống:', sid); continue
+        if s.get('size'): old['frames'] = len(cells)
         sc = s.get('scale', 1.0)
         tw, th = round(old['w'] * sc), round(old['h'] * sc)
         mode = s.get('mode', 'pixel')
         if mode == 'rot':
             import flyweapons as FWP
-            base = _pixel_frames(cells[:1], tw, round(th * 0.45), s.get('colors', 12))[0]
+            base = _pixel_frames(cells[:1], tw, round(th * s.get('thick', 0.45)), s.get('colors', 12))[0]   # thick: vũ khí bè (quạt, đàn, cung) cho cao hơn
             fr, side = FWP.rotations(_canvas(base))
             save(sid, fr, (side // 2, side // 2), (old.get('note') or '') + ' · ảnh Canva')
             n += 1; continue
