@@ -66,6 +66,17 @@ def _key(a, shadow=True):
     return out
 
 
+def _key_near(a):
+    """Bỏ nền hồng tím chặt hơn _key: chỉ màu gần màu nền (lấy ở góc ảnh) hoặc nền pha mực ở mép (đỏ = lam, không có lục).
+    Dùng cho nhân vật mặc đồ tím, quầng tím (Mặc Ảnh) mà _key ăn mất."""
+    c = a[:, :, :3].astype(int); bg = np.median(np.concatenate([c[:4, :4].reshape(-1, 3), c[-4:, -4:].reshape(-1, 3)]), axis=0)
+    near = np.sqrt(((c - bg) ** 2).sum(axis=2)) < 80
+    r, g, b = c[:, :, 0], c[:, :, 1], c[:, :, 2]
+    fringe = (np.abs(r - b) < 28) & (g < 0.12 * r) & (r > 90)
+    out = a.copy(); out[:, :, 3] = np.where(near | fringe, 0, a[:, :, 3])
+    return out
+
+
 def _split(a, gap=8):
     """Tách khung theo cột trống (ảnh một hàng, khung cách nhau)."""
     cols = np.nonzero((a[:, :, 3] > 0).any(axis=0))[0]
@@ -75,6 +86,35 @@ def _split(a, gap=8):
         p = c
     segs.append((s, p + 1))
     return [a[:, x0:x1] for x0, x1 in segs]
+
+
+def _split_rows(a, gap=8, per=None):
+    """Ảnh nhiều hàng (Canva khung vuông: 3 dáng trên, 2 dáng dưới): tách hàng theo dòng trống rồi tách khung từng hàng."""
+    rows = np.nonzero((a[:, :, 3] > 0).any(axis=1))[0]
+    bands, s, p = [], rows[0], rows[0]
+    for r in rows[1:]:
+        if r - p > gap: bands.append((s, p + 1)); s = r
+        p = r
+    bands.append((s, p + 1))
+    out = []
+    for i, (y0, y1) in enumerate(bands):
+        segs = [c for c in _split(a[y0:y1], gap) if _bbox(c) and (_bbox(c)[3] - _bbox(c)[1]) > (y1 - y0) * 0.4]   # bỏ mảnh vụn
+        n = per[i] if per and i < len(per) else 0
+        if n and len(segs) != n: segs = _cut(a[y0:y1], n)   # dáng chạm nhau (đuôi, dây leo): cắt ở khe thưa nhất
+        out += segs
+    return out
+
+
+def _cut(band, n):
+    """Chia một hàng thành n khung: chỗ cắt là cột ít điểm ảnh đặc nhất quanh mỗi mốc chia đều."""
+    dens = (band[:, :, 3] > 0).sum(axis=0)
+    xs = np.nonzero(dens)[0]; x0, x1 = xs[0], xs[-1] + 1; w = (x1 - x0) / n
+    cuts = [x0]
+    for i in range(1, n):
+        lo, hi = int(x0 + w * (i - 0.3)), int(x0 + w * (i + 0.3))
+        cuts.append(lo + int(np.argmin(dens[lo:hi])))
+    cuts.append(x1)
+    return [band[:, cuts[i]:cuts[i + 1]].copy() for i in range(n)]
 
 
 def _grid(a, grid):
@@ -91,7 +131,14 @@ def _lift(f):
     return g
 
 
-def _act_frames(cells, h, colors):
+def _feet(o):
+    """Cột giữa phần chân (40% dưới của hình) theo điểm ảnh đặc."""
+    m = o[int(o.shape[0] * 0.6):, :, 3] > 0
+    xs = np.nonzero(m)[1]
+    return float(xs.mean()) if len(xs) else o.shape[1] / 2
+
+
+def _act_frames(cells, h, colors, align='center'):
     """Thu về cao h điểm ảnh bằng trung bình vùng (giữ mắt, mặt rõ hơn màu đa số khi ảnh gốc to), gom màu chung, viền mực."""
     boxes = [_bbox(c) for c in cells]
     k = (h - 2) / max(b[3] - b[1] for b in boxes)
@@ -100,10 +147,16 @@ def _act_frames(cells, h, colors):
         part = Image.fromarray(np.ascontiguousarray(c[b[1]:b[3], b[0]:b[2]])).convert('RGBa')
         a = np.array(part.resize((max(1, round((b[2] - b[0]) * k)), max(1, round((b[3] - b[1]) * k))), Image.BOX).convert('RGBA'))
         a[:, :, 3] = np.where(a[:, :, 3] > 110, 255, 0); outs.append(a)
-    W, H = max(o.shape[1] for o in outs), max(o.shape[0] for o in outs)
+    H = max(o.shape[0] for o in outs)
+    if align == 'feet':   # căn theo chân: khung đánh có cầu lửa, vệt chém thì người không bị đẩy lệch
+        feet = [_feet(o) for o in outs]
+        half = int(np.ceil(max(max(c, o.shape[1] - c) for c, o in zip(feet, outs))))
+        W, xs = 2 * half, [int(round(half - c)) for c in feet]
+    else:
+        W = max(o.shape[1] for o in outs); xs = [(W - o.shape[1]) // 2 for o in outs]
     fr = []
-    for o in outs:
-        f = np.zeros((H, W, 4), np.uint8); x0 = (W - o.shape[1]) // 2
+    for o, x0 in zip(outs, xs):
+        f = np.zeros((H, W, 4), np.uint8)
         f[H - o.shape[0]:, x0:x0 + o.shape[1]] = o; fr.append(f)
     strip = quantize(np.concatenate(fr, axis=1), colors)
     return [outline(strip[:, i * W:(i + 1) * W]) for i in range(len(fr))]
@@ -161,10 +214,12 @@ def apply(manifest, save):
             print('bỏ qua (không có hình code cùng id):', sid); continue
         if s.get('acts') and s.get('h'):   # ảnh gốc đầy đủ (chủ dự án gửi): bỏ nền theo màu, tự tách khung, thu về cao h
             a = np.array(Image.open(AI / s['src']).convert('RGBA'))
-            a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else remove_bg(a, 60)
-            cells = _grid(a, s['grid']) if s.get('grid') else _split(a)
+            a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else _key_near(a) if s.get('key') == 'near' else remove_bg(a, 60)
+            cells = _grid(a, s['grid']) if s.get('grid') else _split_rows(a, per=s['rows'] if isinstance(s['rows'], list) else None) if s.get('rows') else _split(a)
+            if s.get('down') == 'rot':   # ảnh không có dáng ngã: khung 5 = khung đứng nằm xuống (xoay 90°, đầu về sau lưng)
+                cells = cells + [np.ascontiguousarray(np.rot90(_trim(cells[0]), 1))]
             if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
-            frames = _act_frames(cells, s['h'], s.get('colors', 14))
+            frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'))
             if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + f' · ảnh chủ dự án {len(frames)} khung')

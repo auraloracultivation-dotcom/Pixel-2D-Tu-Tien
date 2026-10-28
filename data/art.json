@@ -3,106 +3,106 @@
  "sprites": {
   "comp.ho-linh": {
    "file": "assets/art/comp-ho-linh.png",
-   "v": "6e2661e4",
-   "w": 43,
+   "v": "463fd9b4",
+   "w": 74,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    21,
+    37,
     42
    ],
-   "note": "Hồ Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Hồ Linh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.lac-tuyet": {
    "file": "assets/art/comp-lac-tuyet.png",
-   "v": "c2eecb4c",
-   "w": 37,
+   "v": "f68719e6",
+   "w": 72,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    18,
+    36,
     42
    ],
-   "note": "Sư tỷ Lạc Tuyết (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Lạc Tuyết: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.mac-anh": {
    "file": "assets/art/comp-mac-anh.png",
-   "v": "8156f5aa",
-   "w": 38,
+   "v": "67fb299e",
+   "w": 56,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    19,
+    28,
     42
    ],
-   "note": "Mặc Ảnh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Mặc Ảnh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.thach-sinh": {
    "file": "assets/art/comp-thach-sinh.png",
-   "v": "6c7db84a",
-   "w": 40,
+   "v": "49c08195",
+   "w": 66,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    20,
+    33,
     42
    ],
-   "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Thạch Sinh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.thanh-diep": {
    "file": "assets/art/comp-thanh-diep.png",
-   "v": "8559d4fa",
-   "w": 41,
+   "v": "61e23dac",
+   "w": 78,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    20,
+    39,
     42
    ],
-   "note": "Thanh Diệp (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Thanh Diệp: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.thiet-lan": {
    "file": "assets/art/comp-thiet-lan.png",
-   "v": "4a914605",
-   "w": 44,
+   "v": "35c91a9c",
+   "w": 62,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    22,
+    31,
     42
    ],
-   "note": "Thiết Lan (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Thiết Lan: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.tieu-dao": {
    "file": "assets/art/comp-tieu-dao.png",
-   "v": "bdfb3d3b",
-   "w": 40,
+   "v": "0a12c6a1",
+   "w": 68,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    20,
+    34,
     42
    ],
-   "note": "Sư huynh Tiêu Dao (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Tiêu Dao: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "comp.tieu-hoa": {
    "file": "assets/art/comp-tieu-hoa.png",
-   "v": "f2447ca4",
-   "w": 36,
+   "v": "705422b6",
+   "w": 66,
    "h": 44,
-   "frames": 6,
+   "frames": 7,
    "anchor": [
-    18,
+    33,
     42
    ],
-   "note": "Tiểu Hỏa (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
+   "note": "Tiểu Hỏa: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "decal.dirt": {
