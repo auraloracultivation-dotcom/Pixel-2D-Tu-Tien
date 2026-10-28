@@ -8,7 +8,7 @@ export function giveOdds(data, give) {
     const rars = items.rarities.slice(Math.max(0, items.rarities.findIndex(r => r.id === give.item)));
     const sum = rars.reduce((a, r) => a + r.weight, 0);
     out.push(O.rarity.replace('{list}', rars.map(r => `${r.name} ${pct(r.weight / sum)}`).join(', ')));
-    const n = Object.values(items.bases).filter(b => !b.set).length;
+    const n = Object.values(items.bases).filter(b => !b.set && !b.dv).length;   // đồ Đạo Vận không rơi ngẫu nhiên
     out.push(O.base.replace('{n}', n).replace('{p}', pct(1 / n)), O.lines);
   }
   if (give.gem) {

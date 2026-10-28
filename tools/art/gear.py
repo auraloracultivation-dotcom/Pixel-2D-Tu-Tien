@@ -180,7 +180,7 @@ SHAPES = dict(kiem=kiem, thuong=thuong, quat=quat, dan=dan, cung=cung, liem=liem
 
 
 def gear_icon(base, sets):
-    color = sets.get(base.get('set'), {}).get('color') or DEFAULT[base['slot']]
+    color = base.get('color') or sets.get(base.get('set'), {}).get('color') or DEFAULT[base['slot']]   # món có màu riêng (Đạo Vận vàng)
     P, _ = tones(color)
     slot = base['slot']
     if slot == 'vu-khi':

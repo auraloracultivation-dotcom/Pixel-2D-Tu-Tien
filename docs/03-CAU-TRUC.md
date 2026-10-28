@@ -134,6 +134,12 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 - Đánh thường / chiêu: `data/config.json` → `combat` (`basicMul` ở `src/game/player.js`, hệ số chiêu ở `castSkill`).
 - Cấp khó bí cảnh: `data/dungeon.json` (4 cấp × 10 bậc, `tier_mul` 2), `src/game/dun-mode.js` (`save.dunLv`, màu gợi ý `hintOf`). Tháp từ tầng 46: `data/tower.json` → `endless`.
 
+## Bộ Đạo Vận (`data/daovan.json`)
+
+Đích lớn đầu tiên, mở ở Kim Đan, xong trong 1–2 tuần, không bán (chủ dự án ghi trong bản chốt): bộ gồm 6 món trang bị + Đạo Vận Ấn (pháp bảo) + 2 chiêu hệ đang mang + linh thú, tính "hợp hệ" khi cùng hệ linh căn người chơi (tối đa 10). Bảy món Đạo Vận (`items.bases` có `dv`) giống nhau, chỉ có hệ (`it.el`) ngẫu nhiên lúc nhận, tên ghi hệ ở sau ("Đạo Vận Binh · Hỏa"). Món hợp hệ: chỉ số chính +30% (`gearStats`), nên cường hoá món hợp hệ là cách ép chỉ số hệ lên. Đủ 3 / 5 / 7 / 10 món hợp hệ mở thưởng bộ theo hệ (`daoVanStats`, cộng ở `playerStats`); chưa mặc món Đạo Vận hợp hệ nào thì chiêu và linh thú chưa tính. Hệ của linh thú ở `daovan.pet_el`; Đạo Vận Ấn ra chiêu theo hệ (`art_by_el`, thêm Thanh Mộc Ấn hồi máu và Huyền Thủy Ấn chắn đòn). Đổi hệ một món: Túi → chọn món → Đổi hệ, tốn 1 Đạo Vận Thạch, ra hệ khác hệ cũ. Món Đạo Vận không phân giải, không bán, không đưa lên chợ; máy chủ cũng từ chối rao món `dao-van-*` và Đạo Vận Thạch (`p2d_rao_ban`, migration 20261028110000).
+
+Con Đường Đạo Vận (`src/game/daovan.js`, tab Đạo Vận ở bảng Việc): 14 bước làm lần lượt, mỗi ngày mở thêm hai bước (`steps[i].day`), việc tính từ lúc bước mở (đả tọa, hạ quái, câu cá, hạ boss, lên tầng tu vi). Bảy bước cho bảy món Đạo Vận (hệ ngẫu nhiên), các bước còn lại cho Đạo Vận Thạch; bước cuối bật cờ `dao-van-xong`, mở thành tựu và danh hiệu Đạo Vận Sơ Thành. Bước xong thì báo và chấm đỏ nút Việc; tự hành tự nhận (túi đầy thì để đó). Lưu ở `save.dv` (ngày bắt đầu, bước, mốc tính).
+
 ## Mã khôi phục (quên mật khẩu)
 
 Tài khoản dùng email ẩn nên không gửi thư được. Người chơi đã đăng nhập bấm "Mã khôi phục" ở màn đầu: `p2d_tao_ma_khoi_phuc` sinh mã 16 ký tự (bỏ I, O, 0, 1), máy chủ chỉ giữ mã băm (`p2d_khoi_phuc`); tạo mã mới thì mã cũ hết. Quên mật khẩu: nút "Quên mật khẩu?" hỏi tài khoản, mã, mật khẩu mới rồi gọi Edge Function `supabase/functions/khoi-phuc` (verify_jwt tắt, chỉ nhận từ trang game) → `p2d_dung_ma_khoi_phuc` (chỉ service_role; sai quá 5 lần mỗi giờ / 20 lần mỗi ngày trên một địa chỉ mạng thì chặn; đúng thì xoá mã, dùng một lần) → đặt mật khẩu mới. Migration `20261028090000_p2d_ma_khoi_phuc.sql`.

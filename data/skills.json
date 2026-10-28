@@ -39,6 +39,8 @@
  "tu-nguyet-luan": {"fx": "liem", "name": "Tử Nguyệt Luân Hồi", "type": "multi", "cd": 12, "mult": 1.7, "count": 10, "spread": 360, "speed": 150, "range": 120, "radius": 7, "pierce": true, "slow": 1.5, "color": "#d0b8ff", "desc": "Tuyệt kỹ: mười lưỡi liềm tím bắn tứ phía, xuyên quái và làm chậm."},
  "lien-chau": {"fx": "arrow", "name": "Liên Châu Tiễn", "type": "multi", "cd": 4, "mult": 1.5, "count": 3, "spread": 16, "speed": 260, "range": 160, "radius": 3, "pierce": true, "color": "#f0d090", "desc": "Ba mũi tên xuyên liền nhau."},
  "phap-kim-luan": {"fx": "slash", "name": "Kim Luân", "type": "multi", "cd": 8, "mult": 1.4, "count": 8, "spread": 360, "speed": 150, "range": 90, "radius": 4, "pierce": true, "color": "#f2c94c", "desc": "Tám vòng kim luân bay ra bốn phía."},
+ "phap-thanh-moc": {"fx": "heal", "name": "Thanh Mộc Ấn", "type": "heal", "cd": 16, "amount": 0.3, "color": "#9af0a8", "desc": "Ấn lá xanh hồi 30% máu."},
+ "phap-huyen-thuy": {"fx": "shield", "name": "Huyền Thủy Ấn", "type": "shield", "cd": 14, "amount": 0.4, "dur": 6, "color": "#7ad0ff", "desc": "Màn nước chắn 40% máu."},
  "phap-tran-yeu": {"fx": "shield-earth", "name": "Trấn Yêu Tháp", "type": "shield", "cd": 16, "amount": 0.5, "dur": 6, "color": "#c9a46a", "desc": "Tháp vàng hạ xuống, chắn 50% máu."},
  "phap-hoa-hon": {"fx": "fire", "name": "Hỏa Hồn Linh", "type": "aoe", "cd": 10, "mult": 3.0, "radius": 40, "offset": 0, "color": "#ff7a3a", "desc": "Chuông lửa nổ quanh mình."}
 }

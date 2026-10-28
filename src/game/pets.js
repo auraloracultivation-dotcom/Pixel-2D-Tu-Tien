@@ -57,7 +57,7 @@ export function gainPetExp(game, amount, only) {
   }
 }
 
-export function setPet(game, id) { game.save.pet = id; spawnPet(game); game.persist(); }
+export function setPet(game, id) { game.save.pet = id; spawnPet(game); game.refreshStats(); game.persist(); }   // thưởng bộ Đạo Vận tính linh thú cùng hệ
 export function setMount(game, id) { game.save.mount = id; game.player.riding = false; game.persist(); }
 
 export function spawnPet(game) {

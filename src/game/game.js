@@ -35,6 +35,7 @@ import { updateSnack } from './snack.js';
 import { updateFair } from './fair.js';
 import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
+import { updateDaoVan } from './daovan.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
@@ -354,7 +355,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateParty(game, dt);
     updateTower(game, dt);
     updateArena(game, dt);
-    updatePraise(game, dt); updateCheer(game, dt);
+    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);

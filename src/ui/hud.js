@@ -9,6 +9,7 @@ import { togglePilot, pilotLabel } from '../game/pilot.js';
 import { teaLeft } from '../game/home.js';
 import { mealHud } from '../game/cooking.js';
 import { snackHud } from '../game/snack.js';
+import { dvGoal } from '../game/daovan.js';
 import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 
@@ -75,7 +76,7 @@ export function createHud(audio) {
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}`;
     }
-    const pl = pilotLabel(game), gt = [game.goals(), pl].filter(Boolean).join('\n');
+    const pl = pilotLabel(game), gt = [game.goals(), dvGoal(game), pl].filter(Boolean).join('\n');   // Con Đường Đạo Vận song hành truyện chính
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);

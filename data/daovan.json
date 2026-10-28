@@ -1,0 +1,51 @@
+{
+ "_note": "Bộ Đạo Vận và Con Đường Đạo Vận (chủ dự án chốt 28/10/2026: đích lớn đầu tiên, mở ở Kim Đan, xong trong 1–2 tuần, không bán). Bộ gồm 6 món trang bị (6 ô) + pháp bảo Đạo Vận Ấn + 2 chiêu hệ đang mang + linh thú, tính 'hợp hệ' khi cùng hệ linh căn của người chơi (tối đa 10). Món Đạo Vận giống nhau, chỉ có hệ (el) là ngẫu nhiên khi nhận (hên xui), tên ghi hệ ở sau. Món hợp hệ: chỉ số chính nhân thêm match_main (ép chỉ số hệ: cường hoá món hợp hệ là mạnh nhất). Đủ số món hợp hệ thì mở thưởng bộ theo hệ (bonus[hệ][số món]). Đổi hệ một món: tốn reroll.n Đạo Vận Thạch, ra hệ ngẫu nhiên khác hệ cũ. Con đường: các bước làm lần lượt, bước i mở từ ngày steps[i].day kể từ lúc bắt đầu; need.type như thành tựu (kills, bosses, rares, sit phút, fish...) tính phần tăng từ lúc nhận bước, abs: true thì tính giá trị hiện có; layer là số tầng tu vi tăng thêm. give: dv là món Đạo Vận (độ hiếm rarity, cấp đồ theo tầng tu vi), mats nguyên liệu, flag cờ (bước cuối bật dao-van-xong, mở thành tựu và danh hiệu Đạo Vận Sơ Thành).",
+ "realm": 2,
+ "rarity": "dia",
+ "match_main": 0.3,
+ "reroll": {"mat": "dao-van-thach", "n": 1},
+ "pet_el": {"moc-linh": "moc", "moc-yeu": "moc", "hoa-lang": "hoa", "viem-linh": "hoa", "tuyet-lang": "thuy", "bang-tinh": "thuy", "kiem-hon": "kim", "phong-yeu": "kim", "tho-khoi": "tho", "ma-tieu": "tho", "ma-cung": "hoa", "hu-anh": "thuy"},
+ "bonus": {
+  "moc": {"3": {"hp_pct": 6}, "5": {"regen": 4, "hp_pct": 4}, "7": {"hp_pct": 8, "qi_gain": 8}, "10": {"hp_pct": 12, "regen": 6, "atk_pct": 8}},
+  "hoa": {"3": {"atk_pct": 5}, "5": {"crit_dmg": 12}, "7": {"atk_pct": 8}, "10": {"atk_pct": 12, "crit_dmg": 20}},
+  "thuy": {"3": {"def": 4}, "5": {"hp_pct": 8}, "7": {"cdr": 6}, "10": {"hp_pct": 10, "def": 8, "cdr": 6}},
+  "kim": {"3": {"crit": 3}, "5": {"crit_dmg": 12}, "7": {"atk_pct": 6, "crit": 3}, "10": {"crit": 5, "crit_dmg": 25, "atk_pct": 6}},
+  "tho": {"3": {"hp_pct": 6}, "5": {"def": 5}, "7": {"hp_pct": 8, "thorns": 8}, "10": {"hp_pct": 12, "def": 8, "thorns": 12}}
+ },
+ "steps": [
+  {"name": "Ngộ đạo", "text": "Ngồi tĩnh tâm, lắng nghe nhịp đạo của linh căn mình.", "need": {"type": "sit", "n": 30}, "day": 0, "give": {"dv": "dao-van-binh"}},
+  {"name": "Thử kiếm", "text": "Đạo vận chỉ hiện ra trong trận đánh. Hạ quái để thấy nó.", "need": {"type": "kills", "n": 200}, "day": 0, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Tĩnh tâm bên tinh hải", "text": "Câu cá ở mép tinh cầu, để lòng lặng như nước.", "need": {"type": "fish", "n": 5}, "day": 1, "give": {"dv": "dao-van-quan"}},
+  {"name": "Trảm yêu vương", "text": "Đạo vận cứng lại khi đối đầu kẻ mạnh. Hạ boss.", "need": {"type": "bosses", "n": 3}, "day": 1, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Linh khí tụ hội", "text": "Tu vi lên thêm, đạo vận theo đó mà dày.", "need": {"type": "layer", "n": 2}, "day": 2, "give": {"dv": "dao-van-bao"}},
+  {"name": "Thiên chuy bách luyện", "text": "Ngàn lần chém mới thành một nhát có hồn.", "need": {"type": "kills", "n": 400}, "day": 2, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Toạ quan tinh thần", "text": "Ngồi lâu dưới trời sao, nghe đạo vận nói.", "need": {"type": "sit", "n": 60}, "day": 3, "give": {"dv": "dao-van-boi"}},
+  {"name": "Phá trận ma khí", "text": "Ma khí ăn mòn đạo vận. Diệt những kẻ mang nó.", "need": {"type": "bosses", "n": 5}, "day": 3, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Đạp tinh hành", "text": "Đi khắp các tinh cầu, chém đến đâu đạo vận theo đến đó.", "need": {"type": "kills", "n": 600}, "day": 4, "give": {"dv": "dao-van-hai"}},
+  {"name": "Câu nguyệt", "text": "Mười con cá, mười lần lòng lặng.", "need": {"type": "fish", "n": 10}, "day": 4, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Đạo tâm kiên cố", "text": "Tu vi lên thêm ba tầng, đạo tâm không lay.", "need": {"type": "layer", "n": 3}, "day": 5, "give": {"dv": "dao-van-gioi"}},
+  {"name": "Vạn yêu thần phục", "text": "Tám yêu vương gục, đạo vận gần thành hình.", "need": {"type": "bosses", "n": 8}, "day": 5, "give": {"mats": {"dao-van-thach": 2}}},
+  {"name": "Ấn đạo", "text": "Hai giờ toạ thiền, đạo vận kết thành ấn.", "need": {"type": "sit", "n": 120}, "day": 6, "give": {"dv": "dao-van-an"}},
+  {"name": "Đạo vận sơ thành", "text": "Ngàn trận chém, đạo vận của ngươi đã thành. Từ đây chỉ cần mài cho sắc.", "need": {"type": "kills", "n": 1000}, "day": 6, "give": {"mats": {"dao-van-thach": 3}, "flag": "dao-van-xong"}}
+ ],
+ "texts": {
+  "tab": "Đạo Vận",
+  "locked": "Con Đường Đạo Vận mở khi lên Kim Đan.",
+  "sub": "Hợp hệ {n}/10 · {el}",
+  "path": "Con Đường Đạo Vận · bước {i}/{all}",
+  "wait": "Bước sau mở vào ngày thứ {day} (còn {left}).",
+  "done_all": "Đã đi hết Con Đường Đạo Vận. Đổi hệ cho đủ bộ, cường hoá món hợp hệ để mạnh thêm.",
+  "claim": "Nhận",
+  "not_yet": "Chưa xong",
+  "bag_full": "Túi đầy, dọn bớt rồi nhận.",
+  "got": "Nhận {what}.",
+  "ready": "Con Đường Đạo Vận: xong bước \"{name}\", vào Việc → Đạo Vận nhận thưởng.",
+  "match": "Món hợp hệ: {gear}/7 trang bị, {skills}/2 chiêu hệ, {pet}/1 linh thú",
+  "bonus_title": "Thưởng bộ Đạo Vận {el}",
+  "reroll": "Đổi hệ ({n} {mat})",
+  "rerolled": "{item}: hệ mới là {el}.",
+  "goal": "Đạo Vận",
+  "goal_ready": "Đạo Vận: xong bước, vào Việc → Đạo Vận nhận thưởng"
+ },
+ "need_text": {"sit": "Đả tọa {n} phút", "kills": "Hạ {n} quái", "fish": "Câu {n} cá", "bosses": "Hạ {n} boss", "layer": "Lên thêm {n} tầng tu vi", "rares": "Hạ {n} quái hiếm"}
+}

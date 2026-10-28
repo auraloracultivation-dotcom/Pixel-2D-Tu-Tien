@@ -129,6 +129,7 @@ export function setSlot(game, i, id) {
   lo[i] = id;
   game.save.loadout = lo;
   game.player.skillCd = [0, 0, 0];
+  game.refreshStats();   // thưởng bộ Đạo Vận tính chiêu hệ đang mang
   game.persist();
 }
 

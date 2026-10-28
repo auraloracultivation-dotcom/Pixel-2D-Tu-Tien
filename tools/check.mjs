@@ -155,6 +155,13 @@ try {
   need(new Set(Object.values(sn.list).map(d => d.npc)).size === Object.keys(sn.list).length && sn.min > 0 && sn.keep > 0, 'snacks: mỗi người bán một món, min và keep phải dương');
   const fa = read('fair.json');   // hội đèn: 7 ngày, tinh cầu có xóm, giờ hợp lệ
   need(fa.days.length === 7 && fa.days.every(id => maps[id]?.hamlets?.length) && fa.hours[0] < fa.hours[1] && fa.hours[1] <= 24 && fa.qi >= 1 && fa.snack_price > 0 && fa.lines.length, 'fair: ngày, tinh cầu (phải có xóm), giờ hoặc số sai');
+  { const dv = read('daovan.json'), els = Object.keys(elements).filter(k => !k.startsWith('_')), extra = ['regen', 'thorns', 'lifesteal'];   // Đạo Vận
+    const dvBases = Object.entries(items.bases).filter(([, b]) => b.dv);
+    need(new Set(dvBases.map(([, b]) => b.slot)).size === Object.keys(items.slots).length && dvBases.length === Object.keys(items.slots).length, 'daovan: phải đủ mỗi ô một món Đạo Vận');
+    for (const [id, b] of dvBases) need(!b.art_by_el || els.every(e => skills[b.art_by_el[e]]), `items.bases/${id}: chiêu pháp bảo theo hệ thiếu`);
+    need(Object.entries(dv.pet_el).every(([p, e]) => pets.pets[p] && els.includes(e)) && Object.keys(dv.bonus).every(e => els.includes(e)) && Object.values(dv.bonus).every(t => Object.values(t).every(b => Object.keys(b).every(s => items.stats[s] || extra.includes(s)))), 'daovan: linh thú, hệ hoặc chỉ số thưởng bộ sai');
+    for (const [i, st] of dv.steps.entries()) need(dv.need_text[st.need.type] && st.need.n > 0 && (!st.give.dv || items.bases[st.give.dv]?.dv) && Object.keys(st.give.mats || {}).every(matOk) && (!st.give.flag || read('status.json').achievements.some(a => a.need.flag === st.give.flag)) && (i === 0 || st.day >= dv.steps[i - 1].day), `daovan.steps[${i}]: việc, thưởng hoặc ngày sai`);
+    need(dv.steps.filter(s => s.give.dv).length === dvBases.length && matOk(dv.reroll.mat) && items.rarities.some(r => r.id === dv.rarity), 'daovan: con đường phải cho đủ mỗi món một lần, nguyên liệu đổi hệ, độ hiếm phải có'); }
   const dm = read('demon.json');
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');

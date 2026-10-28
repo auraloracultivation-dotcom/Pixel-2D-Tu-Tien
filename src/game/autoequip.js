@@ -25,7 +25,8 @@ export function autoEquip(game) {
   s.aeUid = s.nextUid - 1;
   for (const it of fresh) {
     const b = B[it.base], slot = b.slot;
-    if (b.art || (b.weapon && b.weapon !== s.weapon)) continue;
+    const wt = b.weapon || it.wt;   // Đạo Vận Binh: loại vũ khí lúc nhận
+    if (b.art || (wt && wt !== s.weapon)) continue;
     const now = power(game, playerStats(s, d)), v = trial(game, slot, it.uid);
     if (v <= now) continue;
     equip(s, d, it.uid);

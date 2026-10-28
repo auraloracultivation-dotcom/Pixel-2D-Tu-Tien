@@ -241,6 +241,90 @@
    ],
    "note": "Bố Y Đạo Bào"
   },
+  "gear.dao-van-an": {
+   "file": "assets/art/gear-dao-van-an.png",
+   "v": "46eb88ba",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Ấn"
+  },
+  "gear.dao-van-bao": {
+   "file": "assets/art/gear-dao-van-bao.png",
+   "v": "483cfdd5",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Bào"
+  },
+  "gear.dao-van-binh": {
+   "file": "assets/art/gear-dao-van-binh.png",
+   "v": "ce2d01bc",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Binh"
+  },
+  "gear.dao-van-boi": {
+   "file": "assets/art/gear-dao-van-boi.png",
+   "v": "9ef8152a",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Bội"
+  },
+  "gear.dao-van-gioi": {
+   "file": "assets/art/gear-dao-van-gioi.png",
+   "v": "3e02f7f4",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Giới"
+  },
+  "gear.dao-van-hai": {
+   "file": "assets/art/gear-dao-van-hai.png",
+   "v": "104e41f9",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Hài"
+  },
+  "gear.dao-van-quan": {
+   "file": "assets/art/gear-dao-van-quan.png",
+   "v": "17152bc6",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "Đạo Vận Quan"
+  },
   "gear.hac-phong-boi": {
    "file": "assets/art/gear-hac-phong-boi.png",
    "v": "d4c74a83",
