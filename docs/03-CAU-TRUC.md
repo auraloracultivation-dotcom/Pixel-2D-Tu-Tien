@@ -79,6 +79,10 @@ Túi đồ, tab Trang bị có nút Bán nhanh (chủ dự án xin 28/10/2026): 
 
 Chạy tay (lâu, không chạy trong CI): người mới bật Tự hành, game được tua bằng cách gọi `game.update` liên tục, tự bấm độ kiếp khi linh khí đầy, trong kiếp né sét và chém tâm ma như người chơi; ghi tiến độ mỗi phút giả lập, báo bước đứng lâu và lỗi JavaScript. `SIM_MIN` số phút giả lập, `GENDER` 0 nam / 1 nữ, `OUT` file ghi nhật ký. Việc tính theo giờ thật (linh thực, hội đèn, việc ngày) không tua theo. Lượt đầu (28/10/2026) tìm ra và đã sửa: tự hành bắn cách hàng cây mãi không trúng, đổi qua lại giữa đánh quái sau cây và đi việc khác rồi đứng rung, quái mọc giữa thân cây khi quanh bãi kín cây, tâm ma kẹt xa làm kiếp không bao giờ xong, treo máy ở bãi yếu khi đã có tinh cầu hợp cảnh giới hơn, quái bãi treo máy chặn việc nhặt đồ của truyện; thêm chặn lỗi trong vòng khung hình (một lỗi không làm đứng hình cả game).
 
+## Âm thanh (`data/sounds.json`)
+
+Mọi tiếng tổng hợp bằng WebAudio, không có file (`src/core/audio.js`, nhạc ở `src/core/music.js`). Mỗi bản đồ một khúc (`music.maps`). Thêm 28/10/2026: khúc `boss` nhanh, trầm, tự đổi sang khi đang độ kiếp hoặc boss đã nhắm mình trong 260 đơn vị, hết thì về nhạc bản đồ (`src/game/boss-music.js`); khúc riêng cho Phương Thiên Địa; tiếng gõ gỗ nhẹ `click` khi bấm nút trong bảng, hộp thoại, menu (`src/ui/click-sound.js`, trừ nút đánh, lướt, chiêu).
+
 ## Lưu tiến trình
 
 Tạm lưu trong máy theo từng tài khoản (`p2d.save.v1:<id>`, khách là `:guest`).

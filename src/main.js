@@ -8,6 +8,7 @@ import { drawTrip } from './render/flight.js';
 import { createHud } from './ui/hud.js';
 import { createLogin } from './ui/login.js';
 import { createAudio } from './core/audio.js';
+import { clickSounds } from './ui/click-sound.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
@@ -44,6 +45,7 @@ async function boot() {
   createMarketPanel(game); startMailCheck(game);
   createTopupPanel(game);
   createGuildPanel(game);
+  clickSounds(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }

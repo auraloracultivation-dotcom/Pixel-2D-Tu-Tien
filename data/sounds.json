@@ -18,6 +18,7 @@
   "pickup": [{"wave": "square", "f": 880, "t": 0, "d": 0.06, "v": 0.12, "q": 3000}, {"wave": "square", "f": 1320, "t": 0.06, "d": 0.1, "v": 0.12, "q": 3000}],
   "levelup": [{"wave": "triangle", "f": 523, "t": 0, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 659, "t": 0.12, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 784, "t": 0.24, "d": 0.18, "v": 0.25}, {"wave": "triangle", "f": 1047, "t": 0.36, "d": 0.5, "v": 0.3}],
   "talk": [{"wave": "square", "f": 700, "t": 0, "d": 0.03, "v": 0.06, "q": 2000}],
+  "click": [{"wave": "triangle", "f": 520, "t": 0, "d": 0.035, "v": 0.05, "q": 1800}, {"wave": "noise", "t": 0, "d": 0.02, "v": 0.015, "q": 1200}],
   "fly": [{"wave": "noise", "t": 0, "d": 4, "v": 0.22, "q": 900}, {"wave": "sine", "f": 300, "f2": 600, "t": 0, "d": 0.9, "v": 0.1}, {"wave": "triangle", "f": 784, "t": 0.2, "d": 0.3, "v": 0.08}, {"wave": "triangle", "f": 1047, "t": 0.4, "d": 0.5, "v": 0.08}],
   "portal": [{"wave": "sine", "f": 200, "f2": 900, "t": 0, "d": 1.2, "v": 0.18}, {"wave": "noise", "t": 0, "d": 1.2, "v": 0.15, "q": 2200}],
   "door": [{"wave": "sawtooth", "f": 90, "f2": 60, "t": 0, "d": 0.4, "v": 0.25, "q": 500}],
@@ -37,6 +38,8 @@
   "reverb": {"sec": 3.2, "wet": 0.45},
   "amb": {"bird": 0.08, "water": 0.18, "fire": 0.25, "wind": 0.035, "rain": 0.05, "cricket": 0.35}, "night_rest": 2,
   "maps": {
+   "phuong-thien-dia": {"root": 138.59, "bpm": 96, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
+   "boss": {"root": 146.83, "bpm": 104, "lead": "tranh", "amb": [], "mood": "toi"},
    "thanh-khe": {"root": 293.66, "bpm": 63, "lead": "sao", "amb": ["chim", "nuoc", "gio"], "mood": "sang"},
    "thien-kiem-phong": {"root": 261.63, "bpm": 54, "lead": "sao", "amb": ["gio", "chim"], "mood": "sang"},
    "bi-canh": {"root": 196.0, "bpm": 82, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
