@@ -28,6 +28,7 @@ import { pilotDialog, pilotDied } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
 import { updateGarden } from './garden.js';
 import { updateDayNight } from './daynight.js';
+import { syncClock, setFloor } from './clock-sync.js';
 import { updateWeather } from './weather.js';
 import { updateJournal } from './journal.js';
 import { updateHome } from './home.js';
@@ -252,7 +253,8 @@ export function createGame(data, screen, input, ui, audio) {
     const msg = document.getElementById('login-msg');
     if (session && msg) { msg.classList.remove('bad'); msg.textContent = 'Đang tải bản lưu...'; }
     game.cloudDown = false;
-    const local = loadSave(owner), remote = await loadCloud(session);
+    const local = loadSave(owner), [remote] = await Promise.all([loadCloud(session), syncClock()]);   // giờ máy chủ làm mốc (src/game/clock-sync.js)
+    setFloor(Math.max(local?.lastSeen || 0, remote?.lastSeen || 0));   // giờ không lùi dưới lần chơi trước
     if (game.online && game.cloud?.name) game.online.me.name = game.cloud.name;
     if (game.cloudDown && !local && !fresh) {   // máy này chưa có bản lưu, máy chủ không trả lời: đừng mở game trống
       if (msg) { msg.classList.add('bad'); msg.textContent = 'Máy chủ đang chậm, chưa tải được bản lưu. Bấm lại sau ít phút.'; }
