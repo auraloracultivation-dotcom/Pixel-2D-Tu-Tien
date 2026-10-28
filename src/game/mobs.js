@@ -14,7 +14,7 @@ export function spawnMob(game, id, x, y, extra = {}) {
     aggro: def.ai === 'chase' || def.ai === 'ranged' || def.ai === 'boss',
     hop: Math.random() * 6, dead: false, ...extra,
   };
-  if (def.ai === 'boss') { m.phase = 0; m.summoned = 0; }
+  if (def.ai === 'boss') { m.phase = 0; m.summoned = extra.summoned ?? 0; }   // đối thủ Luận Võ Đài kiểu boss truyền summoned: 2 (không gọi đệ tử)
   game.mobs.push(m);
   return m;
 }
@@ -113,7 +113,7 @@ function rangedThink(game, m, d, dt) {
 function bossThink(game, m, d, dt) {
   const p = m.tgt || game.player, def = m.def;
   const hpf = m.hp / m.maxHp;
-  if (m.summoned < 2 && hpf < (m.summoned === 0 ? 0.7 : 0.35)) {
+  if (m.summoned < 2 && hpf < (m.summoned === 0 ? 0.7 : 0.35) && game.data.mobs[def.summon]) {   // chưa khai đệ tử thì thôi (trước đây treo game)
     m.summoned++;
     if (def.shout) game.say(def.name, def.shout, 1.6);
     for (let i = 0; i < 3; i++) {
