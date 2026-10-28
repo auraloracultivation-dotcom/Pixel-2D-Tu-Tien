@@ -1,0 +1,22 @@
+{
+ "_note": "Cộng đồng ngoài game. zalo (chủ dự án xin 28/10/2026): nút cạnh nút quay clip mở bảng có link nhóm Zalo để mọi người vào thảo luận; quà tham gia 1 viên ngọc cấp gem_level, người chơi chọn loại, mỗi bản lưu nhận một lần (save.quaZalo). Zalo không cho hỏi ai đã vào nhóm, nên bấm mở link là nhận. on: false thì ẩn nút. Code ở src/ui/zalo.js.",
+ "zalo": {
+  "on": true,
+  "url": "https://zalo.me/g/d5qjmhtxtfygjsvv40xg",
+  "gem_level": 5,
+  "text": {
+   "btn": "Zalo",
+   "label": "Nhóm Zalo",
+   "title": "Nhóm Zalo",
+   "info": "Vào nhóm Zalo của game để trò chuyện cùng đạo hữu, hỏi đáp, góp ý và báo lỗi.",
+   "gift": "Quà tham gia: 1 viên ngọc cấp {lv}",
+   "gift_how": "Mỗi tài khoản nhận một lần. Chọn loại ngọc rồi bấm vào nhóm, ngọc vào túi ngay.",
+   "pick": "Chọn loại ngọc:",
+   "go": "Vào nhóm Zalo và nhận ngọc",
+   "go_done": "Vào nhóm Zalo",
+   "got": "Nhận {gem}! Hẹn gặp bạn trong nhóm Zalo.",
+   "done": "Bạn đã nhận quà tham gia rồi.",
+   "close": "Đóng"
+  }
+ }
+}

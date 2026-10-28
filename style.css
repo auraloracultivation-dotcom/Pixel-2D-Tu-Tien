@@ -304,3 +304,18 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 
 /* thanh cuộn tối */
 * { scrollbar-color: var(--line-hi) transparent; scrollbar-width: thin; }
+
+/* ---------------------------------------------------------------- nhóm Zalo (src/ui/zalo.js) */
+#btn-zalo { pointer-events: auto; position: relative; height: 28px; padding: 0 8px; border: 1px solid #7fb0ff; border-radius: 5px; background: #0068ff; color: #fff; font: 700 13px var(--f-body); box-shadow: 0 0 0 1px #000; }
+#btn-zalo.gift::after { content: ''; position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #ffd86b; border: 1px solid #000; box-shadow: 0 0 6px #ffd86b; }
+.zalo-panel { bottom: auto; }
+.zalo-panel .bag-head b { flex: 1; }
+.zalo-body { display: flex; flex-direction: column; gap: 8px; }
+.zalo-info { margin: 0; color: var(--ink-2); line-height: 1.45; }
+.zalo-gift { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 8px; border: 1px dashed var(--trim); background: var(--panel-2); }
+.zalo-gift b { color: var(--trim-hi); }
+.zalo-gift small { color: var(--ink-2); line-height: 1.4; }
+.zalo-gems { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.zalo-gem { border-color: var(--gem); }
+.zalo-gem.on { background: var(--gem); color: #fff; border-color: #fff; text-shadow: 0 1px 0 #000; }
+.zalo-go { display: block; padding: 11px; border-radius: 8px; border: 1px solid #7fb0ff; background: #0068ff; color: #fff; font: 700 15px var(--f-body); text-align: center; text-decoration: none; box-shadow: 0 0 0 1px #000; }
