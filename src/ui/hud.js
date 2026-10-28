@@ -44,7 +44,7 @@ export function createHud(audio) {
   ui.tripMode = on => document.body.classList.toggle('trip', on); // ẩn nút khi đang bay
 
   const mute = $('btn-mute');
-  const paintMute = () => { mute.textContent = audio.muted ? '🔇' : '🔊'; };
+  const paintMute = () => { mute.textContent = audio.muted ? '🔇' : '🔊'; mute.classList.toggle('off', audio.muted); };   // .off: biểu tượng loa mờ (style-khung.css)
   mute.addEventListener('pointerdown', e => { e.stopPropagation(); audio.toggle(); paintMute(); });
   paintMute();
 

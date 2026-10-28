@@ -13,6 +13,14 @@ LIGHTS = {
     'den-2.png': [('bracket', 26), ('lamppost', 26), ('lanterns3', 20), ('incense', 20), ('wisp', 22), ('oillamp', 16)],
 }
 
+# biểu tượng nút bảng điều khiển (thay emoji) và khung tròn nút đánh, chiêu, lướt, đan (chủ dự án 29/10/2026: làm một lượt trên Canva)
+LIGHTS.update({
+    'bieu-tuong.png': [('i-sound', 18), ('i-camera', 18), ('i-mail', 16), ('i-bug', 18), ('i-idea', 18), ('i-scroll', 18),
+                       ('i-map', 18), ('i-swords', 18), ('i-steps', 18), ('i-bag', 18), ('i-gift', 18), ('i-pumpkin', 18)],
+    'vong-nut.png': [('ring-atk', 60), ('ring-skill', 56), ('ring-dash', 56), ('ring-pill', 56), ('ring-art', 56), ('ring-act', 56)],
+})
+PER = {'bieu-tuong.png': [4, 4, 4]}
+
 INK, GOLD_D, GOLD, GOLD_L, WOOD_D, WOOD, WOOD_L = (hx(c) for c in ('#140a08', '#7a4a16', '#c8902e', '#ffe08a', '#2a1210', '#4a1c16', '#6a2a1e'))
 
 
@@ -45,7 +53,40 @@ def _frame(corner):
     return c
 
 
+def _button(on):
+    """Khung nút chữ 12×12 cắt 4: viền mực, nẹp vàng, lòng gỗ son (đang bật: lòng cam bí ngô, nẹp vàng sáng)."""
+    S = 12
+    c = Canvas(S, S)
+    fill = (hx('#e07a24'), hx('#b8460e')) if on else (WOOD_L, WOOD_D)
+    for y in range(S):
+        for x in range(S):
+            d = min(x, y, S - 1 - x, S - 1 - y)
+            if d == 0: col = INK if (x, y) not in ((0, 0), (S - 1, 0), (0, S - 1), (S - 1, S - 1)) else None   # góc vạt
+            elif d == 1: col = GOLD_L if on or y < S // 2 else GOLD
+            elif d == 2: col = GOLD_D
+            else: col = fill[0] if y < S // 2 else fill[1]
+            if col: c.px(x, y, col)
+    return c
+
+
+def _hole(f):
+    """Khung tròn: khoét lòng tối ở giữa (loang từ tâm qua điểm tối) cho trong suốt, để khung đè lên nút mà vẫn thấy chữ, biểu tượng chiêu."""
+    f = f.copy(); h, w = f.shape[:2]
+    lum = f[:, :, :3].astype(int).sum(axis=2)
+    seen = np.zeros((h, w), bool); st = [(h // 2, w // 2)]
+    while st:
+        y, x = st.pop()
+        if y < 0 or x < 0 or y >= h or x >= w or seen[y, x] or f[y, x, 3] == 0 and False: continue
+        if seen[y, x] or lum[y, x] > 200: continue
+        seen[y, x] = True
+        st += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+    f[seen, 3] = 0
+    return f
+
+
 def frames(save):
+    save('ui.btn', [_button(False)], (0, 0), 'khung nút chữ 12×12 cắt 4 (border-image): mực, nẹp vàng, lòng gỗ son')
+    save('ui.btn-on', [_button(True)], (0, 0), 'khung nút chữ đang bật: lòng cam bí ngô')
     save('ui.frame', [_frame(True)], (0, 0), 'khung bảng 36×36 cắt 12 (border-image, style-khung.css): mực, nẹp vàng, gỗ sơn son, góc chạm vàng')
     save('ui.frame-thin', [_frame(False)], (0, 0), 'khung mảnh 36×36 cắt 12 cho hộp thoại, thông báo: không có ô góc')
 
@@ -64,9 +105,11 @@ def lights(save):
         n += 1
     for src, names in LIGHTS.items():
         a = A._key_near(np.array(__import__('PIL.Image', fromlist=['Image']).open(AI / src).convert('RGBA')))
-        cells = A._split_rows(a, per=[3, 3])
+        per = PER.get(src, [3, 3])
+        cells = A._split_rows(a, per=per)
         for (name, h), cell in zip(names, cells):
-            f = A._act_frames([cell], h, 16)[0]
+            f = A._act_frames([cell], h, 20 if src == 'vong-nut.png' else 16)[0]
+            if name.startswith('ring-'): f = _hole(f)
             cv = Canvas(f.shape[1], f.shape[0]); cv.a = np.ascontiguousarray(f, dtype=np.uint8)
             save('ui.' + name, [cv], (f.shape[1] // 2, f.shape[0] - 1), f'nguồn sáng khung giao diện: {name} (ảnh Canva {src})')
             n += 1
