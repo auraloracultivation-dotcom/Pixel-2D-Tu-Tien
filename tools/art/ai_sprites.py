@@ -17,6 +17,7 @@ from px import Canvas
 from ai_import import remove_bg, quantize, outline, shrink
 
 AI = Path(__file__).resolve().parent / 'nguon' / 'ai'
+HD = round(24 / 45, 4)   # đơn vị bản đồ trên một điểm ảnh, như nhân vật chính (data/heroes.json: thân 45 điểm ảnh = 24 đơn vị)
 
 
 def _canvas(a):
@@ -35,8 +36,24 @@ def _cells(src, grid):
     out = []
     for r in range(rows):
         for c in range(cols):
-            out.append(a[round(r * h / rows):round((r + 1) * h / rows), round(c * w / cols):round((c + 1) * w / cols)])
+            out.append(_trim(a[round(r * h / rows):round((r + 1) * h / rows), round(c * w / cols):round((c + 1) * w / cols)].copy()))
     return out
+
+
+def _trim(c):
+    """Bỏ mảnh rời chạm mép trái/phải ô (phần hình của ô bên cạnh lấn sang khi cắt lưới đều)."""
+    from scipy import ndimage
+    lab, n = ndimage.label(c[:, :, 3] > 0)
+    if n < 2:
+        return c
+    sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
+    big = 1 + int(np.argmax(sizes))
+    for i in range(1, n + 1):
+        if i == big: continue
+        xs = np.nonzero((lab == i).any(axis=0))[0]
+        if xs.min() <= 1 or xs.max() >= c.shape[1] - 2:
+            c[lab == i] = 0
+    return c
 
 
 def _key(a):
@@ -130,6 +147,7 @@ def apply(manifest, save):
             frames = _act_frames(cells, s['h'], s.get('colors', 14))
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + ' · ảnh AI 6 động tác')
+            manifest[sid]['scale'] = HD
             n += 1; continue
         cells = _cells(AI / s['src'], s.get('grid', [1, 1]))
         cells = [cells[i] for i in s.get('cells', range(len(cells)))]
@@ -145,11 +163,12 @@ def apply(manifest, save):
             fr, side = FWP.rotations(_canvas(base))
             save(sid, fr, (side // 2, side // 2), (old.get('note') or '') + ' · ảnh Canva')
             n += 1; continue
-        if s.get('acts'):   # 6 khung động tác (src/render/draw-acts.js): giữ đủ, cỡ theo "box" [rộng, cao], neo giữa chân
-            bw, bh = s.get('box', [tw, th])
-            frames = _pixel_frames(cells, bw, bh, s.get('colors', 14))
+        if s.get('hd') or s.get('acts'):   # vẽ gấp đôi độ phân giải (mật độ nhân vật chính), game thu theo scale; giữ đủ mọi ô làm khung
+            frames = _act_frames(cells, s.get('h') or round(th / HD), s.get('colors', 14))
             h, w = frames[0].shape[:2]
-            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), (old.get('note') or '') + ' · ảnh Canva 6 động tác')
+            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), (old.get('note') or '') + ' · ảnh Canva')
+            manifest[sid]['scale'] = HD
+            if sid.startswith('mob.') and len(frames) == 2: manifest[sid]['atk'] = True   # khung 2 là tư thế ra đòn
             n += 1; continue
         frames = _glow_frames(cells, tw, th) if mode == 'glow' else _pixel_frames(cells, tw, th, s.get('colors', 14))
         if s.get('bob') and len(frames) == 1:

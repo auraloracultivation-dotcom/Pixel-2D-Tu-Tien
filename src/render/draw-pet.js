@@ -6,9 +6,11 @@ import { ACT, actFrame, drawAct, isAct, UNIT_PER_PX } from './draw-acts.js';
 const INK = '#1b1830';
 
 // Vẽ khung f của hình id, chân ở (x, y), dir: 1 nhìn phải, -1 lật trái, k: cỡ. Trả false nếu chưa có hình.
+// Hình có spr.scale (ảnh AI vẽ chi tiết gấp đôi, data/art.json) thì thu theo scale, cỡ ngoài thế giới đã tính sẵn nên bỏ k.
 function sprite(ctx, art, id, f, x, y, dir, k = 1) {
   const spr = art && art.sprites[id], im = spr && spriteImage(spr);
   if (!im) return false;
+  if (spr.scale) k = spr.scale;
   ctx.save(); ctx.translate(Math.round(x), Math.round(y)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = false;
   ctx.drawImage(im, (f % spr.frames) * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
@@ -65,10 +67,10 @@ function drawSleep(ctx, pet, t) {
 export function drawMount(ctx, p, m, t, art, id) {
   const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
   ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
-  if (isAct(art, 'mount.' + id)) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi theo ~58% chiều cao hình
+  if (isAct(art, 'mount.' + id)) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
     const spr = art.sprites['mount.' + id];
     drawAct(ctx, art, 'mount.' + id, p.moving ? ACT.walk[Math.floor(p.walkT * 7) % 2] : ACT.idle, p.x, p.y + 1, dir);
-    return Math.round(spr.h * UNIT_PER_PX * 0.58);
+    return Math.round(spr.h * UNIT_PER_PX * 11 / 42);
   }
   if (sprite(ctx, art, 'mount.' + id, p.moving ? Math.floor(p.walkT * 8) : 0, p.x, p.y + 1, dir)) return 11;
   ctx.fillStyle = INK;
