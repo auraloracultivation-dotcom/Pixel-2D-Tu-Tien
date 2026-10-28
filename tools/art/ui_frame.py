@@ -21,6 +21,15 @@ LIGHTS.update({
 })
 PER = {'bieu-tuong.png': [4, 4, 4]}
 
+# biểu tượng ô Menu (chủ dự án 29/10/2026: "mấy cái bảng này cũng thiết kế lại bằng canvas"), 3 tấm Canva 4×4×4 món, cao 32 (ô Menu 34)
+_M = lambda *n: [('m-' + x, 32) for x in n]
+LIGHTS.update({
+    'menu-1.png': _M('bag', 'sword', 'manual', 'robe', 'medal', 'cauldron', 'anvil', 'herb', 'cave', 'root', 'portal', 'pagoda'),
+    'menu-2.png': _M('arena', 'chest', 'flags', 'demon', 'checklist', 'taiji', 'banner', 'firework', 'auto', 'trophy', 'diary', 'fish'),
+    'menu-3.png': _M('globe', 'friends', 'podium', 'palace', 'market', 'jade', 'tea', 'lantern', 'mapscroll', 'boots', 'potion', 'star'),
+})
+PER.update({f'menu-{i}.png': [4, 4, 4] for i in (1, 2, 3)})
+
 INK, GOLD_D, GOLD, GOLD_L, WOOD_D, WOOD, WOOD_L = (hx(c) for c in ('#140a08', '#7a4a16', '#c8902e', '#ffe08a', '#2a1210', '#4a1c16', '#6a2a1e'))
 
 
