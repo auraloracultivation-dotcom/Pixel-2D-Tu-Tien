@@ -16,6 +16,7 @@ from fx_proj import proj_sprites  # noqa: E402
 from icons import icon_sprites  # noqa: E402
 from heroes import sheet, foot, fit, shrink, picture  # noqa: E402
 import world as W  # noqa: E402
+import terrain as TR  # noqa: E402
 import dungeon as DG  # noqa: E402
 from ground import ground_frames  # noqa: E402
 from mobs import mob_frames  # noqa: E402
@@ -47,6 +48,14 @@ save('tile.house', W.house_frames(), (0, 0), 'nhà mái ngói: mái nóc/giữa/
 save('prop.tree', [W.tree(s) for s in range(3)], (15, 36), 'cây: quả đỏ, tán tròn, hoa đào')
 save('prop.rock', [W.rock(s) for s in range(2)], (8, 11), 'đá, đá có rêu')
 save('decal.flowers', [W.flowers(s) for s in range(3)], (3, 3), 'hoa nhỏ trắng / vàng / hồng')
+
+# ---------------------------------------------------------------- tinh cầu Hỏa, Băng (tools/art/terrain.py, vẽ ở src/world/draw-ground.js, draw-lava.js)
+save('tile.lava', TR.lava_frames(), (0, 0), 'dung nham: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4')
+save('tile.icelake', TR.icelake_frames(), (0, 0), 'hồ băng nứt: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4')
+save('tile.lava-rim', TR.lava_rim(), (0, 0), 'bờ đá bazan quanh dung nham: cạnh trên, phải, dưới, trái, rồi góc trên trái, trên phải, dưới phải, dưới trái (góc trong và bo góc ngoài)')
+save('tile.snow-rim', TR.snow_rim(), (0, 0), 'bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc')
+save('fx.lava-bubble', TR.bubble_frames(), (3, 6), 'bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung')
+save('tile.house-burnt', TR.burnt_house_frames(), (0, 0), 'nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng')
 
 # ---------------------------------------------------------------- hầm ngục, bí cảnh về đêm (tools/art/dungeon.py, vẽ ở src/world/draw-ground.js, src/render/draw-light.js)
 save('tile.dfloor', [DG.floor(s) for s in range(4)], (0, 0), 'lớp phủ nền đá hầm ngục (trong suốt, đè lên màu đất của bản đồ), 4 biến thể')

@@ -1,4 +1,4 @@
-// Vẽ bản đồ. Nền đảo, nhà, cây, đá, hoa đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
+// Vẽ bản đồ. Nền đảo, nhà, cây, đá, hoa, dung nham, hồ băng, nhà cháy đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
@@ -7,7 +7,8 @@ import { drawForestTile } from './draw-forest.js';
 import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
-import { drawGround, drawProp } from './draw-ground.js';
+import { drawGround, drawProp, groundPainted } from './draw-ground.js';
+import { drawLavaBubble } from './draw-lava.js';
 import { drawMountain, drawWater } from './draw-terrain.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
@@ -89,7 +90,8 @@ export function drawMap(ctx, map, tiles, view, t, game) {
   // Vật trên nền
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const ch = map.at(tx, ty), px = tx * T, py = ty * T, cx = px + T / 2, cy = py + T / 2;
-    if ('TRFH'.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty))) continue;
+    if ('TRFHB'.includes(ch) && drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty))) continue;
+    if ('LOi'.includes(ch) && groundPainted(ch)) { if (ch === 'L') drawLavaBubble(ctx, game, px, py, hash(tx, ty), t); continue; }   // đã có hình pixel trong tấm đệm
     if (ch === 'F') {
       for (let i = 0; i < 3; i++) {
         ctx.fillStyle = ['#fff', '#ffe27a', '#ffb0d0'][Math.floor(hash(tx + i, ty) * 3)];

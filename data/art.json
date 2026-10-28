@@ -85,6 +85,18 @@
    ],
    "note": "gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng"
   },
+  "fx.lava-bubble": {
+   "file": "assets/art/fx-lava-bubble.png",
+   "v": "3d0ea6ab",
+   "w": 7,
+   "h": 7,
+   "frames": 6,
+   "anchor": [
+    3,
+    6
+   ],
+   "note": "bọt dung nham phồng, vỡ, tia bắn, trống: 6 khung"
+  },
   "fx.liem": {
    "file": "assets/art/fx-liem.png",
    "v": "139ccf73",
@@ -3289,6 +3301,54 @@
    ],
    "note": "nhà mái ngói: mái nóc/giữa/mép/thấp × trái/giữa/phải, rồi tường trái, giữa, phải, cửa, cửa sổ"
   },
+  "tile.house-burnt": {
+   "file": "assets/art/tile-house-burnt.png",
+   "v": "32c0d151",
+   "w": 16,
+   "h": 16,
+   "frames": 17,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nhà cháy (ô B): cùng thứ tự khung với tile.house, mái thủng lộ xà, tường ám muội, than hồng"
+  },
+  "tile.icelake": {
+   "file": "assets/art/tile-icelake.png",
+   "v": "579b0c86",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "hồ băng nứt: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4"
+  },
+  "tile.lava": {
+   "file": "assets/art/tile-lava.png",
+   "v": "55b4a218",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dung nham: tấm 64×64 lặp liền cắt 16 ô, khung = (tx % 4) + (ty % 4) × 4"
+  },
+  "tile.lava-rim": {
+   "file": "assets/art/tile-lava-rim.png",
+   "v": "b67bfb5e",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ đá bazan quanh dung nham: cạnh trên, phải, dưới, trái, rồi góc trên trái, trên phải, dưới phải, dưới trái (góc trong và bo góc ngoài)"
+  },
   "tile.path": {
    "file": "assets/art/tile-path.png",
    "v": "000e6556",
@@ -3300,6 +3360,18 @@
     0
    ],
    "note": "đường đất, 4 biến thể"
+  },
+  "tile.snow-rim": {
+   "file": "assets/art/tile-snow-rim.png",
+   "v": "517374be",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ tuyết quanh mặt băng, hồ băng: cạnh trên, phải, dưới, trái, rồi 4 góc"
   },
   "tile.stone": {
    "file": "assets/art/tile-stone.png",
