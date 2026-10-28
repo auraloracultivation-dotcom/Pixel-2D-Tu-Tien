@@ -1,5 +1,6 @@
 // Luận Võ Đài (data/arena.json): đấu với bản sao tu sĩ theo bảng xếp hạng, thắng người ngay trên thì lên hạng.
 import { grant, dailyEvent, ensureDaily, taskDef } from './daily.js';
+import { updateDuel, duelFail, duelGoal } from './duel.js';   // So tài với bản sao người chơi khác cũng diễn ra trên đài này
 
 const C = game => game.data.arena;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
@@ -67,6 +68,7 @@ export async function talkArena(game, npc) {
 
 // Gọi mỗi khung: đếm ngược, gọi đối thủ ra, xét thắng thua
 export function updateArena(game, dt) {
+  if (game.duel) return updateDuel(game, dt);
   const f = game.arena, onMap = game.map.def.arena;
   if (!onMap) { if (f && !game.traveling) game.arena = null; return; }
   if (!f) { if (!game.traveling) leaveArena(game); return; }   // nạp lại bản lưu đang ở trên đài
@@ -101,6 +103,7 @@ async function finish(game, win, why) {
 
 // Gục trên đài: thua, không chết thật
 export function arenaFail(game) {
+  if (game.duel) return duelFail(game);
   if (!game.arena) return false;
   const f = game.arena;
   if (!f.done) { f.done = true; dailyEvent(game, 'arena'); }
@@ -108,4 +111,4 @@ export function arenaFail(game) {
   return true;
 }
 
-export const arenaGoal = game => game.arena && `Luận võ: ${game.arena.rival.name}, còn ${Math.max(0, Math.ceil(game.arena.t))} giây`;
+export const arenaGoal = game => game.duel ? duelGoal(game) : game.arena && `Luận võ: ${game.arena.rival.name}, còn ${Math.max(0, Math.ceil(game.arena.t))} giây`;

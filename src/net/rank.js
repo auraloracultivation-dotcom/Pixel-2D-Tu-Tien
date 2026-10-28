@@ -6,3 +6,10 @@ export async function fetchRank(kind) {
   if (error) throw error;
   return data;
 }
+
+// Hồ sơ một người trên bảng (chạm tên): chỉ đọc qua p2d_xem_nguoi, k là mã công khai của người đó (không phải id thật)
+export async function fetchPlayer(k) {
+  const { data, error } = await supabase.rpc('p2d_xem_nguoi', { p_k: k });
+  if (error) throw error;
+  return data;
+}

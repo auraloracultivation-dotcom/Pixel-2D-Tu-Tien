@@ -1,0 +1,31 @@
+/* Hồ sơ đạo hữu (src/ui/profile-panel.js): mở từ bảng xếp hạng, nằm trên bảng Đạo hữu */
+.pf-panel .bag-head b { flex: 1; }
+.pf-body { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; min-height: 0; padding-right: 2px; }
+.pf-body > * { flex-shrink: 0; }
+.pf-top { display: flex; flex-direction: column; gap: 3px; }
+.pf-name { font: 700 17px var(--f-title, var(--f-body)); color: var(--torch, #f2a443); overflow-wrap: anywhere; }
+.pf-name.co { color: var(--blood); }
+.pf-name.co::before { content: '⚑ '; }
+.pf-realm { font-weight: 700; color: var(--trim-hi); font-size: 13px; }
+.pf-line { font-size: 12px; color: var(--ink-2); }
+.pf-acts { display: flex; gap: 8px; margin: 6px 0 2px; }
+.pf-acts .act-btn { flex: 1; }
+.pf-sec { display: flex; flex-direction: column; gap: 5px; }
+.pf-label { font: 700 12.5px var(--f-body); color: var(--trim-hi); border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.pf-gear { display: flex; flex-direction: column; gap: 5px; }
+.pf-item { display: flex; gap: 8px; align-items: flex-start; padding: 6px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--line); }
+.pf-item.empty { align-items: center; padding: 5px 8px; opacity: .7; }
+.pf-item.empty .pf-slot { flex: 1; font-size: 12px; color: var(--ink-2); }
+.pf-item .ico { width: 34px; height: 34px; flex: none; border: 1px solid var(--line-hi); border-radius: 6px; background: no-repeat center / 28px 28px, #110e1a; image-rendering: pixelated; }
+.pf-it { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.pf-it b { font-size: 13px; overflow-wrap: anywhere; }
+.pf-it small { font-size: 11px; margin: 0; }
+.pf-stats { display: flex; flex-wrap: wrap; gap: 1px 10px; font-size: 11.5px; margin-top: 2px; }
+.pf-gems { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; margin-top: 3px; }
+.pf-gem { font-size: 11px; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--line-hi); background: #110e1a; }
+.pf-gem.empty { border-style: dashed; color: var(--muted); }
+.pf-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.pf-chip { font-size: 12px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line-hi); background: var(--panel-2); color: var(--ink); }
+#rank-list div.tap { cursor: pointer; }
+#rank-list div.tap span { text-decoration: underline dotted rgba(169, 195, 255, .45); text-underline-offset: 3px; }
+#rank-list div.tap:active { background: rgba(169, 195, 255, .1); }

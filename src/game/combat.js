@@ -34,15 +34,16 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
+  if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
   if (m.remote) m.hp = Math.max(1, m.hp);
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
-  const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi
+  const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : m.def.kb ?? feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi; kb: bản sao so tài bị đẩy như người chơi
   m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
-  if (opt.slow) m.slowT = Math.max(m.slowT, opt.slow);
-  if (opt.stun && m.def.ai !== 'boss') m.stunT = Math.max(m.stunT, opt.stun);
+  if (opt.slow && !m.def.noCc) m.slowT = Math.max(m.slowT, opt.slow);   // noCc: bản sao so tài không bị khống chế (nó cũng không khống chế người chơi)
+  if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
@@ -65,11 +66,11 @@ export function killMob(game, m) {
 }
 
 export function hitPlayer(game, dmg, from) {
-  const p = game.player;
-  if (p.invT > 0 || p.dashT > 0 || game.paused) return;
-  const who = from?.def ? from : from?.src;   // quái vừa đánh trúng mình (tự hành gục thì tránh loài này)
+  const p = game.player, who = from?.def ? from : from?.src;   // quái vừa đánh trúng mình (tự hành gục thì tránh loài này)
+  if ((p.invT > 0 && !who?.duel) || p.dashT > 0 || game.paused) return;   // bản sao so tài (game/duel.js): đòn nào cũng trúng, như đòn mình đánh nó
   if (who?.def) game.lastHit = who;
   dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def)));   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn
+  if (who?.dmgMul) dmg = Math.max(1, Math.round(dmg * who.dmgMul));   // so tài: đòn hai bên cùng nhẹ đi cho trận kéo dài (data/duel.json dmg)
   if (p.shield > 0) {
     const a = Math.min(p.shield, dmg); p.shield -= a; dmg -= a;
     addNumber(game, p.x, p.y - 14, a, '#7ad0ff');
@@ -77,11 +78,12 @@ export function hitPlayer(game, dmg, from) {
   if (dmg > 0) {
     p.hp -= dmg;
     game.sfx('hurt');
-    if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, color: '#f2c94c' }); // phản đòn
+    if (who?.duel && who.st.lifesteal) who.hp = Math.min(who.maxHp, who.hp + dmg * who.st.lifesteal);   // bản sao hút máu như người chơi
+    if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;
-  if (from) {
+  if (from && !from.soft) {   // soft: phản đòn, linh thú đánh gần: không đẩy lùi (như đòn mình đánh quái)
     const ang = Math.atan2(p.y - from.y, p.x - from.x);
     p.kx = Math.cos(ang) * 70; p.ky = Math.sin(ang) * 70;
   }
@@ -121,6 +123,10 @@ function burst(game, b) {
   if (!b.explode) return;
   if (b.fx) burstFx(game, b.fx, b.x, b.y, b.explode, Math.atan2(b.vy, b.vx));
   addFx(game, { type: 'ring', x: b.x, y: b.y, r: b.explode, color: b.color, life: 0.3 });
+  if (b.from !== 'player') {   // chiêu nổ của bản sao so tài chạm vách: nổ trúng người chơi, không trúng quái
+    if (b.src?.duel && dist(b, game.player) < b.explode + game.player.r) hitPlayer(game, b.dmg * 0.6, { x: b.x, y: b.y, src: b.src });
+    return;
+  }
   for (const m of game.mobs) if (!m.dead && !b.hit.has(m) && dist(b, m) < b.explode + m.r) hitMob(game, m, b.dmg * 0.6, { color: b.color, fromX: b.x, fromY: b.y });
 }
 
