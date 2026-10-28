@@ -193,6 +193,18 @@
    ],
    "note": "dây leo trồi ×4, đung đưa ×2, héo rụng ×2 (chiêu hệ mộc); neo ở giữa nền đất"
   },
+  "fx.void-wisp": {
+   "file": "assets/art/fx-void-wisp.png",
+   "v": "56ff29f6",
+   "w": 5,
+   "h": 10,
+   "frames": 6,
+   "anchor": [
+    2,
+    9
+   ],
+   "note": "khói tím bốc lên khỏi khe hư không: 6 khung"
+  },
   "fx.wind": {
    "file": "assets/art/fx-wind.png",
    "v": "167e1bb2",
@@ -3277,6 +3289,18 @@
    ],
    "note": "lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung"
   },
+  "prop.icepillar": {
+   "file": "assets/art/prop-icepillar.png",
+   "v": "9830f45d",
+   "w": 12,
+   "h": 26,
+   "frames": 2,
+   "anchor": [
+    6,
+    25
+   ],
+   "note": "trụ băng (ô k): tinh thể vát nhọn; có nhánh nhỏ"
+  },
   "prop.lantern": {
    "file": "assets/art/prop-lantern.png",
    "v": "f7425178",
@@ -3324,6 +3348,18 @@
     24
    ],
    "note": "cột đá đất nung (ô I): trơn, có chữ cổ hổ phách"
+  },
+  "prop.pine": {
+   "file": "assets/art/prop-pine.png",
+   "v": "4a4ebec3",
+   "w": 18,
+   "h": 28,
+   "frames": 2,
+   "anchor": [
+    9,
+    26
+   ],
+   "note": "tùng phủ tuyết (ô Y): ba tầng tán, tuyết đọng; cây thấp"
   },
   "prop.portal": {
    "file": "assets/art/prop-portal.png",
@@ -3600,6 +3636,30 @@
     0
    ],
    "note": "ruộng bậc thang (ô y): bờ đất, mặt nước, lúa non; 4 biến thể ghép liền ngang"
+  },
+  "tile.void": {
+   "file": "assets/art/tile-void.png",
+   "v": "5030e0f6",
+   "w": 16,
+   "h": 16,
+   "frames": 16,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khe hư không (ô f): đáy đen, mạch tím; tấm 64×64 lặp liền cắt 16 ô"
+  },
+  "tile.void-rim": {
+   "file": "assets/art/tile-void-rim.png",
+   "v": "6a954d34",
+   "w": 16,
+   "h": 16,
+   "frames": 8,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc"
   },
   "ui.digits": {
    "file": "assets/art/ui-digits.png",

@@ -1,12 +1,12 @@
-// Bọt dung nham (fx.lava-bubble, tools/art/terrain.py): khoảng một nửa số ô dung nham thỉnh thoảng phồng bọt rồi vỡ,
-// mỗi ô một nhịp và một chỗ riêng theo hash ô. Mặt dung nham tĩnh đã vẽ sẵn trong tấm đệm nền (draw-ground.js).
+// Bọt dung nham (fx.lava-bubble) và khói tím khe hư không (fx.void-wisp), tools/art/terrain.py: khoảng một nửa số ô
+// thỉnh thoảng phồng bọt / bốc khói, mỗi ô một nhịp và một chỗ riêng theo hash ô. Mặt tĩnh đã vẽ sẵn trong tấm đệm nền (draw-ground.js).
 import { spriteImage } from '../render/sprites.js';
 
 const CYCLE = 3.2, STEP = 0.14;   // giây mỗi vòng, giây mỗi khung bọt
 
-export function drawLavaBubble(ctx, game, px, py, h, t) {
+export function drawLavaBubble(ctx, game, px, py, h, t, id = 'fx.lava-bubble') {
   if (h < 0.45) return;
-  const s = game.data.art.sprites['fx.lava-bubble'], im = s && spriteImage(s);
+  const s = game.data.art.sprites[id], im = s && spriteImage(s);
   if (!im) return;
   const f = Math.floor(((t + h * 17) % (CYCLE * (1 + h))) / STEP);
   if (f >= s.frames) return;

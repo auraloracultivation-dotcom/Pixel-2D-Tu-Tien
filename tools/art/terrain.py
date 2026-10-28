@@ -1,5 +1,5 @@
-"""Mặt đất đặc biệt của tinh cầu Hỏa và Băng bằng pixel (thay hình khối cũ trong src/world/draw-map.js):
-dung nham (L), hồ băng nứt (O), mép bờ (đá bazan quanh dung nham, tuyết quanh băng), bọt dung nham, nhà cháy (B).
+"""Mặt đất đặc biệt bằng pixel (thay hình khối cũ trong src/world/draw-map.js):
+dung nham (L), hồ băng nứt (O), khe hư không (f), mép bờ (đá bazan quanh dung nham, tuyết quanh băng, đá tím quanh khe), bọt, nhà cháy (B).
 Dung nham và hồ băng vẽ một tấm 64×64 lặp liền rồi cắt 16 ô 16×16: game chọn ô theo (tx % 4, ty % 4) nên cả hồ liền mạch,
 không lộ ô vuông."""
 import math, random
@@ -86,6 +86,45 @@ def icelake_frames():
         for i in range(4 + k % 3):
             big.px((x0 + i) % N, (y0 - i) % N, ICE[4])
     return _slice(big)
+
+
+VOID = [hx(c) for c in ('#05020c', '#0e0620', '#1e0c3a', '#3a1a6a', '#7a3ac8', '#c08aff', '#f0e0ff')]
+
+
+def void_frames():
+    """Khe hư không: đáy đen sâu, mạch tím phát sáng chảy ngoằn ngoèo (nhiễu dải hẹp), sao lấm tấm."""
+    n = _noise(33, 8) * 0.7 + _noise(41, 16) * 0.3
+    rnd = random.Random(29)
+    big = Canvas(N, N)
+    for y in range(N):
+        for x in range(N):
+            v = abs(n[y, x] - 0.5)   # gần 0.5 là mạch
+            b = BAYER4[y % 4, x % 4] / 16
+            col = VOID[5] if v < 0.012 else VOID[4] if v < 0.03 else VOID[3] if v < 0.05 + b * 0.02 else VOID[2] if v < 0.09 else VOID[1] if v < 0.18 else VOID[0]
+            big.px(x, y, col)
+    for _ in range(26):
+        big.px(rnd.randrange(N), rnd.randrange(N), VOID[6] if rnd.random() < 0.4 else VOID[5])
+    return _slice(big)
+
+
+def void_rim():
+    """Bờ đá tím quanh khe hư không: 4 cạnh rồi 4 góc. Dưới mép là ánh tím hắt lên."""
+    return _rim(hx('#2a2236'), hx('#5a4a72'), VOID[3], 21) + _corners(hx('#2a2236'), hx('#5a4a72'))
+
+
+def wisp_frames():
+    """Khói tím bốc lên khỏi khe: 6 khung 5×10, đốm sáng to dần, bay lên, tan; neo ở chân."""
+    out = []
+    for f in range(6):
+        c = Canvas(5, 10)
+        y = 8 - f
+        if f < 5:
+            col = VOID[6] if f < 2 else VOID[5] if f < 4 else VOID[4]
+            c.px(2, y, col)
+            if 1 <= f <= 3:
+                c.px(1, y, VOID[4]); c.px(3, y, VOID[4]); c.px(2, y - 1, VOID[5])
+        out.append(c)
+    return out
 
 
 def _rim(fill, lip, shade, seed, depth=(1, 3)):

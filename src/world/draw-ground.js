@@ -7,7 +7,7 @@ const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edg
 const WALL = { L: 12, M: 13, R: 14, door: 15, win: 16 };   // khung tường trong tile.house, sau 12 khung mái
 const DIAG = [[-1, -1], [1, -1], [1, 1], [-1, 1]];   // thứ tự khung góc của tile.*-rim: trên trái, trên phải, dưới phải, dưới trái
 // Mặt lớn lặp liền (tools/art/terrain.py): khung theo vị trí ô nên cả hồ liền mạch; ROW: ghép liền theo hàng (khung = tx % 4)
-const BIG = { L: 'tile.lava', O: 'tile.icelake' };
+const BIG = { L: 'tile.lava', O: 'tile.icelake', f: 'tile.void' };
 const ROW = { y: 'tile.terrace' };
 // Nhà ghép theo khối ô cùng loại, cùng bố cục khung với tile.house
 const HOUSE = { H: 'tile.house', B: 'tile.house-burnt', N: 'tile.house-forge', z: 'tile.house-adobe', W: 'tile.house-tree' };
@@ -15,7 +15,7 @@ const HOUSE = { H: 'tile.house', B: 'tile.house-burnt', N: 'tile.house-forge', z
 const PROP = {
   T: ['prop.tree', 8, 14], R: ['prop.rock', 8, 13], J: ['prop.sword-grave', 8, 15], I: ['prop.pillar', 8, 15], h: ['prop.broken-sword', 8, 8],
   Z: ['prop.oldtree', 8, 15], n: ['prop.mushroom', 8, 13], Q: ['prop.lantern', 8, 15, true], V: ['prop.deadtree', 8, 15],
-  U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15],
+  U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15], Y: ['prop.pine', 8, 15], k: ['prop.icepillar', 8, 15],
   P: ['prop.portal', 8, 9, true], M: ['prop.cushion', 8, 9], K: ['prop.furnace', 8, 15, true], A: ['prop.anvil', 8, 14, true],
 };
 export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + 'F';
@@ -24,6 +24,7 @@ const RIM = {
   L: ['tile.lava-rim', n => n !== 'L'],
   O: ['tile.snow-rim', n => n !== 'O'],
   i: ['tile.snow-rim', n => n === 'w' || n === 'Y'],
+  f: ['tile.void-rim', n => n !== 'f'],
 };
 let cache = { map: null, cv: null, painted: new Set() };
 
