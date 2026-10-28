@@ -2,7 +2,7 @@
 // 1. Giấu số: số quan trọng trong bản lưu không nằm trong bộ nhớ dưới dạng số thật. Mỗi lần ghi, số được trộn (XOR)
 //    với khoá ngẫu nhiên mới, nên dò "số bằng 98544" hay "số vừa tăng, vừa giảm" đều không ra. Đọc, ghi, JSON vẫn như số thường.
 // 2. Bẫy số: một bản sao số thật để lộ (Float64Array, dò là ra). Sửa bản sao thì số trong game không đổi, lần kiểm tra sau
-//    thấy lệch: tăng save.ac, máy chủ ghi cờ 'sua_bo_nho' (migration 20261028130000_p2d_chong_gian_2).
+//    thấy lệch: tăng save.ac, máy chủ ghi cờ 'sua_bo_nho' (migration 20261028140000_p2d_chong_gian_2).
 // guardSave(save, cfg) bọc các khoá; checkGuard(save, cfg) kiểm tra bẫy và bọc khoá mới xuất hiện (gọi định kỳ).
 
 const dv = new DataView(new ArrayBuffer(8));
