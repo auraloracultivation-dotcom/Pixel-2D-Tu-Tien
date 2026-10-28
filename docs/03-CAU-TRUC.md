@@ -77,6 +77,8 @@ Chạm nút chiêu: tự ngắm quái gần nhất trong tầm (không có thì 
 
 ## Bán nhanh (`data/shop.json` → quick)
 
+Giao diện "đêm hầm ngục" (chủ dự án chốt 28/10/2026): tông tối, âm u, ánh trăng và đèn đuốc để nhân vật, đèn, chiêu sáng nổi. Màu khai một chỗ ở `:root` trong `style.css` (nền đá `--panel`, viền vàng cũ `--trim`, chữ ánh trăng `--ink`/`--moon`, nút chính màu lửa đuốc `--torch`), mọi bảng dùng biến, chữ tiêu đề kiểu chữ có chân (`--f-title`). Ban ngày ngoài trời cũng phủ lam đêm nhẹ (`data/daynight.json`), nên quầng đèn nhà, đèn lồng vẫn hiện nửa độ sáng.
+Túi đồ xếp lại (28/10/2026, chủ dự án thấy phải cuộn xuống cuối túi mới bấm được Mặc): 7 ô đang mặc thành hàng biểu tượng (chạm ô có đồ để xem, ô trống để lọc túi theo ô đó); hàng lọc theo ô và nút sắp xếp (mới nhặt, phẩm chất, cấp, lực chiến); món mặc vào mạnh hơn hiện ▲ lực chiến tăng. Chạm một món thì tấm chi tiết trượt lên từ đáy túi (`src/ui/bag-detail.js`): nút Mặc / Thay vào ngay dưới tên, kèm lực chiến đổi bao nhiêu và so chỉ số với món đang mặc cùng ô; cường hoá, tẩy luyện, phân giải, bán ở dưới. Lực chiến thử mặc tính bằng `trial` (`src/game/autoequip.js`), cùng cách tự mặc đồ khi tự hành.
 Túi đồ, tab Trang bị có nút Bán nhanh (chủ dự án xin 28/10/2026): chọn phẩm chất (chọn sẵn ở `quick.pick`), thấy trước số món và Linh Thạch nhận, bấm một lần bán hết. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (`skip_plus`); ngọc đang khảm trả về túi ngọc. Luật ở `quickList`, `quickSell` (`src/game/shop.js`), giao diện ở `src/ui/bag-quick.js`. Bán cho tiệm chỉ đổi Linh Thạch trong bản lưu như bán từng món, máy chủ không giới hạn riêng.
 
 ## Chơi dọc tua nhanh (`tools/choi-doc.mjs`)
