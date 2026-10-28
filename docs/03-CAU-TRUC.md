@@ -61,6 +61,8 @@ Nút Bản đồ mở tinh đồ Thiên Kiếm Tinh Hệ: Linh Nhật ở giữa
 
 Tinh cầu sang tinh cầu: bay truyền tống qua không gian sao (`src/game/space-trip.js`, vẽ ở `src/render/draw-space.js`), dài 5 giây cộng 0,9 giây mỗi vòng quỹ đạo cách nhau trên tinh đồ, tối đa 12 giây. Tinh cầu vừa rời lùi dần, cổng trận pháp lướt qua, tinh cầu đến lớn dần. Kéo nửa trái màn để lượn nhặt sao linh khí (mỗi sao một phần nhỏ linh khí của tầng đang tu, đôi khi có sao vàng cho Linh Thạch); không chạm thì nhân vật tự lượn. Va mảnh vỡ hư không chỉ chậm lại, không bao giờ thua. Chạm nửa phải sau 1 giây để bỏ qua. Ra vào bí cảnh: xoáy truyền tống (chạm đâu cũng bỏ qua được). Số ở `config.travel`.
 
+
+Tới nơi mới (bay, truyền tống, cổng) thì hiện bảng tên 3 giây (`src/game/banner.js`, vẽ ở `src/render/draw-banner.js`): tên lớn, dòng nhỏ là loại nơi theo tinh đồ, độ nguy hiểm so cảnh giới (màu như thẻ tinh đồ) và "Hội đèn tối nay" nếu có.
 ## Thiên kiếp
 
 Đầy linh khí ở tầng 9, nút ngữ cảnh hiện "Độ thiên kiếp". Sét giáng từng đợt (vòng báo trước), chạy né cho hết `realms.tribulation.waves` đợt thì lên cảnh giới mới; gục thì mất một phần linh khí.

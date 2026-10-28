@@ -14,6 +14,7 @@ import { drawClouds } from './draw-clouds.js';
 import { drawLamps, drawGlow } from './draw-glow.js';
 import { drawFairWorld, drawFairSky } from './draw-fair.js';
 import { drawStalls } from './draw-stall.js';
+import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -343,6 +344,7 @@ export function drawOverlay(game, screen, input) {
   const ctx = screen.ctx;
   screen.screenTransform();
   if (!game.map || game.dialog.open) return;
+  drawBanner(ctx, game, screen);
   // Mũi tên chỉ đường tới mục tiêu nhiệm vụ
   const goal = game.story?.goal();
   if (goal?.target) {
