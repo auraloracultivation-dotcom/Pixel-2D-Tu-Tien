@@ -2,9 +2,12 @@
 import { spriteImage, drawHitFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 
+// Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
+// chưa có thì hình gốc của nhân vật
+export const outfitSprite = (game, key) => `hero.y-${game.save?.outfit || 'dong-phuc'}-${key}`;
 export function heroLook(game) {
-  const H = game.data.heroes;
-  return H.list[game.save?.look] || H.list[H.default];
+  const H = game.data.heroes, key = H.list[game.save?.look] ? game.save.look : H.default, base = H.list[key], id = outfitSprite(game, key);
+  return H.chibi && game.data.art.sprites[id] ? { ...base, ...H.chibi, sprite: id } : base;
 }
 
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
@@ -63,7 +66,8 @@ export function drawHero(ctx, game, p, t, flash) {
   ctx.save();
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
-  ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
+  const breath = look.breath && name === 'idle' && Math.sin(t * 2.2) > 0.55 ? n : 0;   // chibi đứng: thở nhún 1 điểm ảnh
+  ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f - breath));
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();

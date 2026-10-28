@@ -3,6 +3,7 @@
 // Gọi hai lần quanh hình nhân vật: layer 'back' (đang treo sau lưng) và 'front' (đang lao ra, hoặc lượn phía trước lúc đả tọa).
 import { spriteImage, tintedImage } from './sprites.js';
 import { weaponId } from '../game/stats.js';
+import { heroLook } from './draw-hero.js';
 
 // Hình vũ khí bay: fw.<loại> (tools/art/flyweapons.py, xoay sẵn từng hướng); loại mới chưa có hình thì xoay biểu tượng túi đồ
 function weaponSprite(game) {
@@ -31,7 +32,7 @@ function blit(ctx, ws, im, x, y, a, k) {
 export function drawFlyWeapon(ctx, game, layer) {
   const p = game.player, fw = p?.fw, ws = fw && weaponSprite(game);
   if (!ws?.im || (layer === 'front') !== !!fw.front) return;
-  const { spr, im } = ws, c = game.data.heroes.fly, k = c.scale, t = game.time;
+  const { spr, im } = ws, c = game.data.heroes.fly, k = heroLook(game).fw_scale || c.scale, t = game.time;   // chibi thấp đầu to: vũ khí nhỏ lại cho cân
   const el = game.save.element ? game.data.elements[game.save.element].color : '#bff4ff', glow = tintedImage(spr, im, el);
   ctx.save();
   ctx.imageSmoothingEnabled = false;

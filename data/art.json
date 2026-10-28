@@ -1509,6 +1509,552 @@
    ],
    "note": "nữ liềm tím tóc oải hương (SpriteCook): đứng, đi, chém chéo kéo lên, quét ngang thu về, móc liềm sát đất; mỗi động tác 8 khung, mọi đòn vung về phía trước"
   },
+  "hero.y-bang-y-han-bang-nam": {
+   "file": "assets/art/hero-y-bang-y-han-bang-nam.png",
+   "v": "e3ecaec7",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "Băng y Hàn Băng (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-bang-y-han-bang-nu": {
+   "file": "assets/art/hero-y-bang-y-han-bang-nu.png",
+   "v": "1aaef5d5",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Băng y Hàn Băng (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-bi-ngo-nam": {
+   "file": "assets/art/hero-y-bi-ngo-nam.png",
+   "v": "ae4d5a73",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Áo choàng Bí Ngô (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-bi-ngo-nu": {
+   "file": "assets/art/hero-y-bi-ngo-nu.png",
+   "v": "511152a2",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Áo choàng Bí Ngô (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-dong-phuc-nam": {
+   "file": "assets/art/hero-y-dong-phuc-nam.png",
+   "v": "c02c5e9f",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Đồng phục Kiếm tông (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-dong-phuc-nu": {
+   "file": "assets/art/hero-y-dong-phuc-nu.png",
+   "v": "d77cef86",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Đồng phục Kiếm tông (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hac-y-nam": {
+   "file": "assets/art/hero-y-hac-y-nam.png",
+   "v": "d52ab827",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Hắc y dạ hành (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hac-y-nu": {
+   "file": "assets/art/hero-y-hac-y-nu.png",
+   "v": "ddb1ee18",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Hắc y dạ hành (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hoa-bao-xich-diem-nam": {
+   "file": "assets/art/hero-y-hoa-bao-xich-diem-nam.png",
+   "v": "845f6ae3",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "Hỏa bào Xích Diễm (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hoa-bao-xich-diem-nu": {
+   "file": "assets/art/hero-y-hoa-bao-xich-diem-nu.png",
+   "v": "f22e88ed",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Hỏa bào Xích Diễm (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hoang-kim-nam": {
+   "file": "assets/art/hero-y-hoang-kim-nam.png",
+   "v": "4a4c88b2",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Hoàng Kim Long Bào (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hoang-kim-nu": {
+   "file": "assets/art/hero-y-hoang-kim-nu.png",
+   "v": "b4d8630b",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Hoàng Kim Long Bào (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hong-y-nam": {
+   "file": "assets/art/hero-y-hong-y-nam.png",
+   "v": "6b0fa4bb",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Hồng y hoa đào (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hong-y-nu": {
+   "file": "assets/art/hero-y-hong-y-nu.png",
+   "v": "bd7d11cc",
+   "w": 80,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    40,
+    42
+   ],
+   "note": "Hồng y hoa đào (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hu-khong-tu-y-nam": {
+   "file": "assets/art/hero-y-hu-khong-tu-y-nam.png",
+   "v": "2a5f43fa",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "Hư Không Tử Y (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-hu-khong-tu-y-nu": {
+   "file": "assets/art/hero-y-hu-khong-tu-y-nu.png",
+   "v": "87320095",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    36,
+    42
+   ],
+   "note": "Hư Không Tử Y (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-huyet-giap-nam": {
+   "file": "assets/art/hero-y-huyet-giap-nam.png",
+   "v": "dbe59ccb",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Huyết giáp săn yêu (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-huyet-giap-nu": {
+   "file": "assets/art/hero-y-huyet-giap-nu.png",
+   "v": "0a53b220",
+   "w": 78,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    39,
+    42
+   ],
+   "note": "Huyết giáp săn yêu (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-kim-bao-nam": {
+   "file": "assets/art/hero-y-kim-bao-nam.png",
+   "v": "e31c496d",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "Kim bào Kim Đan (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-kim-bao-nu": {
+   "file": "assets/art/hero-y-kim-bao-nu.png",
+   "v": "71cc6e9a",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Kim bào Kim Đan (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-kim-y-thien-kim-nam": {
+   "file": "assets/art/hero-y-kim-y-thien-kim-nam.png",
+   "v": "593dfedd",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Kim y Thiên Kim (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-kim-y-thien-kim-nu": {
+   "file": "assets/art/hero-y-kim-y-thien-kim-nu.png",
+   "v": "2f81a9a1",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Kim y Thiên Kim (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-luc-bao-thanh-moc-nam": {
+   "file": "assets/art/hero-y-luc-bao-thanh-moc-nam.png",
+   "v": "7ee925b1",
+   "w": 60,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    30,
+    42
+   ],
+   "note": "Lục bào Thanh Mộc (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-luc-bao-thanh-moc-nu": {
+   "file": "assets/art/hero-y-luc-bao-thanh-moc-nu.png",
+   "v": "4206d500",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Lục bào Thanh Mộc (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-phong-bao-hac-phong-nam": {
+   "file": "assets/art/hero-y-phong-bao-hac-phong-nam.png",
+   "v": "ead70c01",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Phong bào Hắc Phong (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-phong-bao-hac-phong-nu": {
+   "file": "assets/art/hero-y-phong-bao-hac-phong-nu.png",
+   "v": "e3383030",
+   "w": 80,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    40,
+    42
+   ],
+   "note": "Phong bào Hắc Phong (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tet-do-nam": {
+   "file": "assets/art/hero-y-tet-do-nam.png",
+   "v": "c753897c",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Áo Tết đỏ thắm (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tet-do-nu": {
+   "file": "assets/art/hero-y-tet-do-nu.png",
+   "v": "891e81bb",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    36,
+    42
+   ],
+   "note": "Áo Tết đỏ thắm (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thanh-sam-nam": {
+   "file": "assets/art/hero-y-thanh-sam-nam.png",
+   "v": "fe9c0171",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "Thanh sam thư sinh (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thanh-sam-nu": {
+   "file": "assets/art/hero-y-thanh-sam-nu.png",
+   "v": "682dd893",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Thanh sam thư sinh (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thien-kiem-bao-nam": {
+   "file": "assets/art/hero-y-thien-kiem-bao-nam.png",
+   "v": "79fcb4e1",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Kiếm bào Thiên Kiếm (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thien-kiem-bao-nu": {
+   "file": "assets/art/hero-y-thien-kiem-bao-nu.png",
+   "v": "4cd6997c",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Kiếm bào Thiên Kiếm (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thien-mach-bao-nam": {
+   "file": "assets/art/hero-y-thien-mach-bao-nam.png",
+   "v": "d8c27543",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "Thiên Mạch bào (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-thien-mach-bao-nu": {
+   "file": "assets/art/hero-y-thien-mach-bao-nu.png",
+   "v": "01d94730",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    41,
+    42
+   ],
+   "note": "Thiên Mạch bào (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tho-bao-hau-tho-nam": {
+   "file": "assets/art/hero-y-tho-bao-hau-tho-nam.png",
+   "v": "e3dc323e",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Thổ bào Hậu Thổ (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tho-bao-hau-tho-nu": {
+   "file": "assets/art/hero-y-tho-bao-hau-tho-nu.png",
+   "v": "8844021f",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Thổ bào Hậu Thổ (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tien-nhan-nam": {
+   "file": "assets/art/hero-y-tien-nhan-nam.png",
+   "v": "412fb95a",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "Tiên Nhân Bạch Y (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tien-nhan-nu": {
+   "file": "assets/art/hero-y-tien-nhan-nu.png",
+   "v": "abc94d49",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Tiên Nhân Bạch Y (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tu-bao-nam": {
+   "file": "assets/art/hero-y-tu-bao-nam.png",
+   "v": "053f165e",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "Tử bào Nguyên Anh (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tu-bao-nu": {
+   "file": "assets/art/hero-y-tu-bao-nu.png",
+   "v": "7ace9cf4",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Tử bào Nguyên Anh (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tuyet-lanh-nam": {
+   "file": "assets/art/hero-y-tuyet-lanh-nam.png",
+   "v": "c70c02d4",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "Áo lông Tuyết Lành (nam): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
+  "hero.y-tuyet-lanh-nu": {
+   "file": "assets/art/hero-y-tuyet-lanh-nu.png",
+   "v": "b439323e",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "Áo lông Tuyết Lành (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",
    "v": "53211337",
