@@ -25,6 +25,7 @@ import { drawBubbles } from './draw-bubble.js';
 import { drawHero } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
+import { drawBolt, drawBoltLead } from './draw-bolt.js';
 import { drawFocus, textQ } from './draw-focus.js';
 import { drawNumbers } from './draw-numbers.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
@@ -223,6 +224,8 @@ function drawFx(ctx, game) {
       ctx.fillStyle = f.color; ctx.fillRect(x - 2, y + 4, 3, 2); ctx.fillRect(x, y, 1, 5); ctx.fillRect(x + 1, y, 2, 1); ctx.fillRect(x + 2, y + 1, 1, 1);
     } else if (f.type === 'sprite') {
       drawSpriteFx(ctx, game, f, k);
+    } else if (f.type === 'bolt') {
+      ctx.globalAlpha = 1; drawBolt(ctx, game, f);
     } else if (f.type === 'ult') {
       drawUltFx(ctx, f, k);
     } else if (f.type === 'line') {
@@ -247,10 +250,9 @@ function drawStrikeMarks(ctx, game) {
 function drawStrikeFalls(ctx, game) {
   for (const s of game.strikes) {
     const left = s.delay - s.t;
-    if (s.kind === 'thunder' && (left < 0.12 && left > -0.15)) {
-      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(s.x, s.y);
-      for (let i = 1; i <= 6; i++) ctx.lineTo(s.x + (i % 2 ? 5 : -5) * Math.random(), s.y - i * 22);
-      ctx.stroke(); ctx.strokeStyle = '#bff4ff'; ctx.lineWidth = 6; ctx.globalAlpha = 0.35; ctx.stroke(); ctx.globalAlpha = 1;
+    if (s.kind === 'thunder') {   // vệt tiên dẫn rơi xuống trước lúc giáng; tia sét là hiệu ứng 'bolt' thêm lúc giáng
+      const lead = game.data.config.bolt?.lead ?? 0.1;
+      if (left > 0 && left < lead) drawBoltLead(ctx, game, s, 1 - left / lead);
     } else if (s.kind === 'meteor' && left > 0 && left < 0.35) {
       const h = left / 0.35 * 120;
       if (drawMeteor(ctx, game, s.x, s.y, h, s.t)) continue;
@@ -323,7 +325,10 @@ export function drawWorld(game, screen, t) {
   }
   drawBloom(ctx, game, screen, lights);
   screen.worldTransform(); drawSlashes(ctx, game); screen.screenTransform();   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
-  if (game.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${game.flashT / 0.35})`; ctx.fillRect(0, 0, screen.w, screen.h); }
+  if (game.flashT > 0) {   // chớp dịu (config.comfort): màu ấm, không trắng toát cả màn
+    const c = game.data.config.comfort || {};
+    ctx.fillStyle = `rgba(${c.flash_rgb || '255,255,255'},${Math.min(1, game.flashT / 0.35) * (c.flash_max ?? 1)})`; ctx.fillRect(0, 0, screen.w, screen.h);
+  }
 }
 
 // Vạch ngắm khi kéo nút chiêu: dài theo tầm chiêu, vòng tròn cho chiêu diện rộng

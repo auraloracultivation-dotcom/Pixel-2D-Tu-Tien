@@ -14,7 +14,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
   const s = {
     canvas, ctx: canvas.getContext('2d'),
     w: 0, h: 0, dpr: 1, zoom: 1, base: 1, mul: 1, mulT: 1,
-    camX: 0, camY: 0, shakeT: 0, shakeA: 0, sx: 0, sy: 0,
+    camX: 0, camY: 0, shakeT: 0, shakeA: 0, shake0: 0, shakeP: 0, sx: 0, sy: 0,
   };
 
   function resize() {
@@ -28,7 +28,13 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
   resize();
   s.resize = resize;
 
-  s.shake = (amount, time = 0.18) => { s.shakeA = Math.max(s.shakeA, amount); s.shakeT = Math.max(s.shakeT, time); };
+  // Rung dịu mắt (config.comfort): nhỏ lại, có trần, lắc mượt và nhỏ dần tới hết thay vì nhảy ngẫu nhiên mỗi khung
+  s.shake = (amount, time = 0.18) => {
+    const c = cfg.comfort || {}, a = Math.min(c.shake_max ?? 99, amount * (c.shake_mul ?? 1));
+    if (a <= 0) return;
+    if (s.shakeT <= 0) s.shakeP = Math.random() * 10;
+    s.shakeA = Math.max(s.shakeA, a); s.shakeT = Math.max(s.shakeT, time); s.shake0 = Math.max(s.shakeT, s.shake0 || 0);
+  };
 
   // Lùi, tiến máy quay mượt (ngắm cảnh)
   s.zoomTo = k => { s.mulT = k; };
@@ -48,9 +54,10 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
       s.camY = H > hh * 2 ? Math.min(Math.max(s.camY, hh), H - hh) : H / 2;
     }
     if (s.shakeT > 0) {
-      s.shakeT -= dt;
-      s.sx = (Math.random() * 2 - 1) * s.shakeA; s.sy = (Math.random() * 2 - 1) * s.shakeA;
-      if (s.shakeT <= 0) s.shakeA = 0;
+      s.shakeT -= dt; s.shakeP += dt;
+      const k = Math.max(0, s.shakeT / s.shake0), w = (cfg.comfort?.shake_hz ?? 14) * Math.PI * 2, a = s.shakeA * k * k;
+      s.sx = Math.sin(s.shakeP * w) * a; s.sy = Math.sin(s.shakeP * w * 1.31 + 1.7) * a * 0.7;
+      if (s.shakeT <= 0) { s.shakeA = 0; s.shake0 = 0; }
     } else { s.sx = 0; s.sy = 0; }
   };
 

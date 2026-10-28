@@ -48,7 +48,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
   if (!opt.soft) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
-    game.screen.shake(crit ? feel.shake * 1.5 : feel.shake * 0.6, 0.12);
+    game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
   }
   if (m.hp <= 0 && !m.remote) killMob(game, m);
 }
@@ -84,7 +84,7 @@ export function hitPlayer(game, dmg, from) {
     const ang = Math.atan2(p.y - from.y, p.x - from.x);
     p.kx = Math.cos(ang) * 70; p.ky = Math.sin(ang) * 70;
   }
-  game.screen.shake(game.data.config.feel.shake, 0.15);
+  game.screen.shake(game.data.config.feel.shake * (game.data.config.feel.hurt_shake ?? 1), 0.15);
   if (game.noDeath && p.hp < 1) p.hp = 1;
 }
 

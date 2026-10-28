@@ -4,11 +4,25 @@ import { circle } from '../world/draw-map.js';
 import { spriteImage } from './sprites.js';
 import { drawDragon } from './draw-ult.js';
 
+// Đạn tròn theo bài Đạn trong trang Xưởng VFX Pixel: quầng mềm cộng sáng, viền sẫm mỏng (đọc được trên nền sáng khi máy quay xa),
+// vành màu đậm, lõi trắng lệch về phía bay; đạn quái có viền sẫm rõ hơn để nhìn là biết phải né.
+const darker = new Map();
+function darkOf(hex) {
+  if (!darker.has(hex)) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''), n = m ? parseInt(m[1], 16) : 0xffffff;
+    darker.set(hex, `rgb(${(n >> 16 & 255) * 0.35 + 20 | 0},${(n >> 8 & 255) * 0.3 + 10 | 0},${(n & 255) * 0.4 + 30 | 0})`);
+  }
+  return darker.get(hex);
+}
 function drawShape(ctx, b) {
-  ctx.fillStyle = b.color;
-  if (b.trail) { ctx.globalAlpha = 0.35; circle(ctx, b.x - b.vx * 0.03, b.y - b.vy * 0.03, b.r * 0.8); ctx.globalAlpha = 1; }
-  circle(ctx, b.x, b.y, b.r);
-  ctx.fillStyle = '#fff'; circle(ctx, b.x, b.y, b.r * 0.45);
+  const mob = b.from !== 'player', sp = Math.hypot(b.vx, b.vy) || 1, ux = b.vx / sp, uy = b.vy / sp;
+  ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.28; ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r + 3);
+  ctx.globalCompositeOperation = 'source-over';
+  if (b.trail) { ctx.globalAlpha = 0.35; circle(ctx, b.x - b.vx * 0.03, b.y - b.vy * 0.03, b.r * 0.8); }
+  ctx.globalAlpha = 1;
+  if (mob) { ctx.fillStyle = darkOf(b.color); circle(ctx, b.x, b.y, b.r + 1); }
+  ctx.fillStyle = b.color; circle(ctx, b.x, b.y, b.r);
+  ctx.fillStyle = '#fff'; circle(ctx, b.x + ux * b.r * 0.2, b.y + uy * b.r * 0.2, Math.max(1, b.r * 0.45));
 }
 
 export function drawBullets(ctx, game, t) {

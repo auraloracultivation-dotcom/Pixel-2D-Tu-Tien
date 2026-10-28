@@ -29,6 +29,9 @@ export function gatherLights(game, t) {
     } else if (f.type === 'slash') {   // vệt chém mượt: hắt sáng xuống đất quanh lưỡi
       const c = rgbOf(f.color) || '235,242,255', x = f.on ? f.on.x : f.x, y = f.on ? f.on.y : f.y;
       out.push({ x: f.shape === 'line' ? x + Math.cos(f.ang) * f.len / 2 : x, y: (f.shape === 'line' ? y + Math.sin(f.ang) * f.len / 2 : y) - 3, r: Math.max(G.fx.r, (f.r || f.len / 2 || 10) * 1.1), c, a: fade });
+    } else if (f.type === 'bolt') {   // tia sét điểm ảnh: hắt sáng ở chân và giữa thân
+      const c = G.sprite['fx.bolt'] || '200,235,255';
+      out.push({ x: f.x, y: f.y - 3, r: G.fx.r * 1.6, c, a: fade }, { x: f.x, y: f.y - f.h * 0.4, r: G.fx.r, c, a: fade * 0.6 });
     } else if (['ring', 'arc', 'line', 'ult', 'spark'].includes(f.type)) {
       const c = rgbOf(f.color) || '255,240,220';
       if (f.type === 'line' || f.type === 'ult') {   // vệt dài: rải nguồn sáng dọc đường
