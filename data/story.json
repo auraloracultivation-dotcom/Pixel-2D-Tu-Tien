@@ -130,9 +130,9 @@
    "do": [
     {"say": [["van-hac", "Ngự kiếm không phải là cưỡi kiếm. Là để kiếm nghe theo tâm con."], ["van-hac", "Thả linh khí xuống lưỡi kiếm. Đứng cho vững. Đừng nhìn xuống trời sao."], ["", "Thanh Phong Kiếm rung lên dưới chân bạn, rồi từ từ nâng bạn khỏi mặt đất..."], ["ho-linh", "Bay được rồi! Bay được rồi! Cho ta theo với!"]]},
     {"flag": "ngu-kiem"},
-    {"say": [["van-hac", "Truyền tống trận ở phía tây tinh cầu. Từ đó con bay sang Xích Diễm Tinh. Ở đó toàn lửa và ma tộc, đừng liều."]]}
+    {"say": [["van-hac", "Giờ mở Bản đồ, chạm vào Xích Diễm Tinh là bay sang được. Ở đó toàn lửa và ma tộc, đừng liều."]]}
    ],
-   "goal": "Tới truyền tống trận phía tây, bay sang Xích Diễm Tinh", "target": [10, 23],
+   "goal": "Mở Bản đồ, bay sang Xích Diễm Tinh",
    "until": {"map": "dao-xich-dien"}
   },
   {
@@ -357,7 +357,7 @@
     {"fly": "dao-moc", "spawn": "vao", "kind": "flight", "text": "Bay ra vòng xa"},
     {"say": [["tieu-hoa", "...Ơ? Mình vừa đi qua gốc cây này rồi mà."], ["", "Cây cối như dịch chuyển sau lưng. Lối đi cũ biến mất."], ["", "Giữa những tán lá có vài đốm sáng xanh lơ lửng, như đang chờ ai đó."]]}
    ],
-   "goal": "Tìm đốm linh quang trong Rừng Mê",
+   "goal": "Mở Bản đồ, bay sang Thanh Mộc Tinh tìm đốm linh quang trong Rừng Mê",
    "until": {"map": "dao-moc"}
   },
   {

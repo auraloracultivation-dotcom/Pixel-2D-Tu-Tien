@@ -13,7 +13,7 @@ export function waterDir(game) {
   if (!outdoor(game) || game.map.def.no_fish) return null;
   const T = game.map.T, p = game.player, tx = Math.floor(p.x / T), ty = Math.floor(p.y / T);
   for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]]) {
-    if (!'~='.includes(game.map.at(tx + dx, ty + dy))) continue;   // mép tinh cầu hoặc sông, hồ
+    if (game.map.at(tx + dx, ty + dy) !== '=' && !game.map.edge(tx + dx, ty + dy)) continue;   // mép tinh cầu hoặc sông, hồ
     const c = game.map.center(tx + dx, ty + dy);
     if (Math.hypot(c.x - p.x, c.y - p.y) < T * 1.3) return { x: dx, y: dy };
   }

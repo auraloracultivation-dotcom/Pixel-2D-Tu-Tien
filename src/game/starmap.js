@@ -35,13 +35,19 @@ export function dangerOf(b, realm) {
   return realm > b.realm ? 'easy' : realm === b.realm ? 'fair' : 'hard';
 }
 
+// Đường bay tới tinh cầu này đã mở chưa (cổng cũ nối hai tinh cầu, nay "fly": true, có need thì cần cờ truyện đó)
+export function flyOpen(game, id) {
+  for (const m of Object.values(game.data.maps)) for (const pt of m.portals) if (pt.fly && pt.to === id && (!pt.need || game.save.flags?.[pt.need])) return true;
+  return false;
+}
+
 // Lý do không bay tới được (null = bay được)
 export function whyNot(game, b) {
   const sm = game.data.starmap, t = sm.texts, def = game.data.maps[b.map];
   if (b.sun || b.kind === 'lost') return t.lost;
   if (b.kind === 'soon' || !def) return t.soon;
   if (def.demon) return demonWhy(game);   // Phương Thiên Địa: mở theo cảnh giới, mỗi tuần một lần
-  if (!game.save.visited?.[b.map]) return t.locked;
+  if (!game.save.visited?.[b.map] && !flyOpen(game, b.map)) return t.locked;
   if (!def.world) return t.moon.replace('{parent}', b.parent?.name || '');
   return null;
 }
