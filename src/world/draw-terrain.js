@@ -1,4 +1,4 @@
-// Địa hình tinh cầu (tools/terrain.py): núi (^) và nước (=). Hình khối tạm, tô dần sau.
+// Địa hình tinh cầu (tools/terrain.py): núi (^) và nước (=). Hình khối dự phòng khi hình pixel (tools/art/terrain2.py) chưa tải xong.
 function shade(hex, k) {
   const n = parseInt(hex.slice(1), 16), f = c => Math.max(0, Math.min(255, Math.round(c * k)));
   return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`;
