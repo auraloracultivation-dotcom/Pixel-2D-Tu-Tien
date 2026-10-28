@@ -35,7 +35,7 @@ import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
 import { drawAim } from './draw-aim.js';
-import { actFrame, drawAct, isAct } from './draw-acts.js';
+import { actFrame, drawAct, isAct, walkFrame, ACT } from './draw-acts.js';
 
 const INK = '#1b1830';
 
@@ -184,7 +184,10 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
+  // Người đồng hành đứng làm NPC (Lạc Tuyết, Mặc Ảnh...): cùng hình comp.<id> như lúc đi theo, cho khớp với bảng Đồng hành
+  const art = game.data.art, cid = 'comp.' + n.id, fr = isAct(art, cid) && (n.moving ? walkFrame(art.sprites[cid], t) : ACT.idle);
+  if (fr != null && fr !== false && drawAct(ctx, art, cid, fr, n.x, n.y + 1, (n.face?.x ?? 1) < 0 ? -1 : 1)) { /* đã vẽ */ }
+  else if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
