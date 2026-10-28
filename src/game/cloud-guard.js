@@ -2,7 +2,7 @@
 // GameGuardian, nâng cấp chống gian lận"). Chữ và số ở data/config.json → guard.
 // - cloudHooks: các hàm game đưa cho src/net/profile.js: báo lỗi lưu (một lần mỗi phút, không dội liên tục), báo máy khác
 //   đang chơi, nhận số máy chủ sửa lại.
-// - applyFix: máy chủ thấy số gửi lên lố quá xa (migration 20261028130000_p2d_chong_gian_2) thì trả "sua":
+// - applyFix: máy chủ thấy số gửi lên lố quá xa (migration 20261028140000_p2d_chong_gian_2) thì trả "sua":
 //   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho.
 // - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
 import { guardSave, checkGuard } from '../core/guard.js';

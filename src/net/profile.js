@@ -3,7 +3,7 @@
 // Máy chủ giữ thật: Linh Thạch và nguyên liệu tăng theo hạn mức, Tiên Ngọc, chợ, hòm thư (migration 20261027140000).
 // Lệnh nào sửa bản lưu ở máy chủ (rao bán, mua, nhận thư, Tiên Ngọc) chạy qua run(): đợi lần lưu đang gửi xong, đẩy
 // bản mới nhất, gọi lệnh, nhận phien_ban mới; trong lúc đó không gửi bản lưu nào (khỏi bị coi là bản cũ).
-// Chống gian lận (migration 20261028130000): bản gửi kèm ss (mã phiên) và clk (đồng hồ máy) để máy chủ bắt tăng tốc;
+// Chống gian lận (migration 20261028140000): bản gửi kèm ss (mã phiên) và clk (đồng hồ máy) để máy chủ bắt tăng tốc;
 // máy chủ trả "sua" khi số gửi lên lố quá xa, onFix(bản đã gửi, sua) để game nhận lại số đúng.
 // Bản gửi được làm sạch trước (cleanSave): số hỏng (NaN, âm, quá trần) làm cả lần lưu bị từ chối mãi.
 import { supabase } from './client.js';
