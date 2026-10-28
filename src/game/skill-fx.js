@@ -2,6 +2,14 @@
 import { addFx } from './combat.js';
 import { slashArc, slashSpin } from './slash-fx.js';
 
+// Sét giáng tại chân (x, y): tia điểm ảnh vẽ mỗi khung (src/render/draw-bolt.js), rồi vết cháy xém (hình fx.bolt khung 4–6)
+export function boltFx(game, x, y, sky = false, seed = Math.floor(Math.random() * 1e6)) {
+  const C = game.data.config.bolt;
+  if (!C) { addFx(game, { type: 'sprite', id: 'fx.bolt', x, y, life: 0.5 }); return; }
+  addFx(game, { type: 'bolt', x, y, h: sky ? C.h_sky : C.h_skill, seed, life: C.strike + C.fade });
+  addFx(game, { type: 'sprite', id: 'fx.bolt', frames: [4, 5, 6], x, y, life: 0.6, fade: true });
+}
+
 // Nổ một lần tại (x, y), r: bán kính vùng trúng; ang: hướng chém (slash)
 export function burstFx(game, kind, x, y, r, ang = 0) {
   if (kind === 'fire') {
@@ -13,7 +21,7 @@ export function burstFx(game, kind, x, y, r, ang = 0) {
   } else if (kind === 'ice') {
     addFx(game, { type: 'sprite', id: 'fx.ice', x, y, s: Math.max(0.45, r / 26), life: 0.7 });
   } else if (kind === 'bolt') {
-    addFx(game, { type: 'sprite', id: 'fx.bolt', x, y, s: Math.max(0.6, r / 30), life: 0.5 });
+    boltFx(game, x, y);
     game.flashT = Math.max(game.flashT || 0, 0.06);
   } else if (kind === 'slash' || kind === 'liem') {   // vệt chém mượt (src/render/draw-slash.js); liềm trúng: vệt tím
     slashArc(game, { x, y: y - 3, ang, r: Math.max(12, r), arc: 160, color: game.data.config.slash?.colors[kind] });
