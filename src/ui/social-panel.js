@@ -128,6 +128,7 @@ export function createSocialPanel(game) {
     if (!$('social').hidden && tab === 'world' && Date.now() - pullT > w.poll * 1000) { pullT = Date.now(); pullWorld(game).then(n => n && tab === 'world' && render()); }
   }, 500);
   // Nhắn riêng một người (chạm tin ở kênh Thế giới, tông môn → Truyền âm)
+  game.closeSocial = () => { if (!$('social').hidden) close(); };   // So tài từ hồ sơ (ui/profile-panel.js)
   game.openSocial = to => { if ($('social').hidden) open(to); else showTab(to); };   // Hòm thư: chạm tin nhắc tên ở kênh Thế giới
   game.openWhisper = (k, ten) => { const s = whisperState(game); s.with = k; s.withName = ten; if ($('guild')) $('guild').hidden = true; if ($('social').hidden) { game.uiOpen = false; open('whisper'); } else showTab('whisper'); };
   return { open, close };

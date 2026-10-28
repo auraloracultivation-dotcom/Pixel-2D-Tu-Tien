@@ -89,7 +89,7 @@ export function castSkill(game, id) {
   return s.cd;
 }
 
-function segDist(pt, x1, y1, x2, y2) {
+export function segDist(pt, x1, y1, x2, y2) {
   const dx = x2 - x1, dy = y2 - y1, l = dx * dx + dy * dy || 1;
   const t = Math.max(0, Math.min(1, ((pt.x - x1) * dx + (pt.y - y1) * dy) / l));
   return dist(pt, { x: x1 + dx * t, y: y1 + dy * t });

@@ -20,9 +20,10 @@ export function createRankView(game) {
     return R.value[kind].replace('{v}', r.gia_tri.toLocaleString('vi-VN'));
   }
 
-  // Người bị gắn cờ nghi vấn (máy chủ trả co): tên đỏ, cờ cạnh tên
+  // Người bị gắn cờ nghi vấn (máy chủ trả co): tên đỏ, cờ cạnh tên. Chạm dòng: mở hồ sơ người đó (ui/profile-panel.js)
   function row(r) {
-    const d = el('div', [r.la_toi ? 'me' : '', r.co ? 'co' : ''].join(' ').trim() || null);
+    const d = el('div', [r.la_toi ? 'me' : '', r.co ? 'co' : '', r.k && game.openProfile ? 'tap' : ''].join(' ').trim() || null);
+    if (r.k && game.openProfile) d.onclick = () => game.openProfile(r.k, r.ten);
     const name = el('span', null, r.ten);
     if (r.co) { const f = el('i', 'flag', R.flag); f.title = R.flag_title; name.prepend(f); d.title = R.flag_title; }
     d.append(el('b', null, r.hang), name, el('small', null, value(r)));

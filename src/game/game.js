@@ -293,7 +293,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   function respawn() {
     game.cheer = null;   // gục thì chuỗi hạ quái tính lại
-    if (!game.tower && !game.arena) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
+    if (!game.tower && !game.arena && !game.duel) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
     if (game.trib.active) game.trib.fail();
     else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     downFx(game);   // hiệu ứng gục tại chỗ: hồn người chơi bay lên, bạn đồng hành ngã theo (render/draw-act-fx.js)

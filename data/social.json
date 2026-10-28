@@ -176,7 +176,7 @@
   "empty": "Chưa có ai trên bảng này.",
   "me": "Bạn đang hạng {n}.",
   "me_none": "Bạn chưa có tên trên bảng này.",
-  "note": "Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
+  "note": "Chạm tên để xem hồ sơ, so tài. Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
   "value": {
    "luc_chien": "{v} lực chiến",
    "thap": "tầng {v}"

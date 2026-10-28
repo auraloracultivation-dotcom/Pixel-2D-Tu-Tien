@@ -4,9 +4,10 @@ import { strikeLean } from '../game/flyweapon.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
-export const outfitSprite = (game, key) => `hero.y-${game.save?.outfit || 'dong-phuc'}-${key}`;
-export function heroLook(game) {
-  const H = game.data.heroes, key = H.list[game.save?.look] ? game.save.look : H.default, base = H.list[key], id = outfitSprite(game, key);
+// save: bản lưu của người được vẽ (mặc định người chơi; bản sao so tài truyền bản lưu hồ sơ người kia, game/duel.js)
+export const outfitSprite = (game, key, save = game.save) => `hero.y-${save?.outfit || 'dong-phuc'}-${key}`;
+export function heroLook(game, save = game.save) {
+  const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);
   return H.chibi && game.data.art.sprites[id] ? { ...base, ...H.chibi, sprite: id } : base;
 }
 
@@ -20,7 +21,7 @@ function anim(game, p, look, t) {
       if (i >= 0 && i < list.length) return [ha.name, i, i / list.length, true];
       p.heroAnim = null;
     }
-    const k = strikeLean(game), cast = look.anims.cast;   // nhân vật chưa có động tác đánh: chạy vận lực (cast) nếu có, không thì nhún nhẹ
+    const k = p === game.player ? strikeLean(game) : null, cast = look.anims.cast;   // vũ khí bay chỉ người chơi có   // nhân vật chưa có động tác đánh: chạy vận lực (cast) nếu có, không thì nhún nhẹ
     if (k != null && cast) return ['cast', Math.min(cast.length - 1, Math.floor(k * cast.length)), k];
     return [walkName, Math.floor(t * (look.fps[walkName] || 1)), k ?? undefined];
   }
@@ -47,8 +48,8 @@ function build(H, look) {
 }
 
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
-export function drawHero(ctx, game, p, t, flash) {
-  const look = heroLook(game), spr = look.sprite && game.data.art.sprites[look.sprite];
+export function drawHero(ctx, game, p, t, flash, save = game.save) {
+  const look = heroLook(game, save), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;
   const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;

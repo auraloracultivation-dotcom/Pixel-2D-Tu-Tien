@@ -2,6 +2,7 @@
 import { addFx, hitPlayer, shoot, dist } from './combat.js';
 import { addStrike } from './strikes.js';
 import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
+import { duelThink } from './duel-ai.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -63,7 +64,8 @@ export function updateMobs(game, dt) {
     if (m.stunT > 0 || game.paused) continue;
     const d = dist(m, p);
     if (!m.aggro && m.def.aggro && d < m.def.aggro) m.aggro = true;
-    if (m.def.ai === 'boss') bossThink(game, m, d, dt);
+    if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)
+    else if (m.def.ai === 'boss') bossThink(game, m, d, dt);
     else if (m.aggro && m.def.ai === 'ranged') rangedThink(game, m, d, dt);
     else if (m.aggro) meleeThink(game, m, d, dt);
     else wander(game, m, dt);
