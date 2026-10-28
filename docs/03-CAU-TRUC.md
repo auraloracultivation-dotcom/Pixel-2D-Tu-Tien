@@ -140,6 +140,10 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 
 Chủ dự án ghi bốn loại việc: chính tuyến (truyện + Con Đường Đạo Vận song hành), việc ngày, việc tuần, sự kiện. Việc tuần (`src/game/weekly.js`): bốn việc lớn tính từ thứ Hai (giờ máy): hạ 1.500 quái, hạ 10 boss, đả tọa 300 phút, câu 25 cá; xong từng việc nhận thưởng, đủ hết mở rương tuần (có 3 Đạo Vận Thạch để đổi hệ món Đạo Vận). Hiện ở tab Hằng ngày dưới rương ngày; tự hành tự nhận (rương có trang bị thì chờ túi còn chỗ). Lưu ở `save.weekly` (tuần, mốc đầu tuần, đã nhận).
 
+## Gộp linh thú (`data/pets.json` → merge)
+
+Chủ dự án chốt trưa 28/10/2026: hai con cùng cấp gộp thành một con lên một cấp, không giới hạn, mỗi cấp mạnh thêm ít. Bắt thêm dị chủng của loài đã có thì được một bản sao (vẫn cộng kinh nghiệm như cũ). Sao n lên n + 1 tốn 2^n bản sao (ghép đôi như hai con sao n thành một con sao n + 1); mỗi sao sát thương linh thú +3% (`petMul`). Thẻ "Gộp" hiện ở tab Linh thú khi đủ bản sao; tự hành (tùy chọn nâng) gộp luôn vì không tốn tiền. Lên cấp, tiến hoá giữ nguyên; ✦ trước tên là đã tiến hoá, ★ sau cấp là sao gộp.
+
 ## Bộ Đạo Vận (`data/daovan.json`)
 
 Đích lớn đầu tiên, mở ở Kim Đan, xong trong 1–2 tuần, không bán (chủ dự án ghi trong bản chốt): bộ gồm 6 món trang bị + Đạo Vận Ấn (pháp bảo) + 2 chiêu hệ đang mang + linh thú, tính "hợp hệ" khi cùng hệ linh căn người chơi (tối đa 10). Bảy món Đạo Vận (`items.bases` có `dv`) giống nhau, chỉ có hệ (`it.el`) ngẫu nhiên lúc nhận, tên ghi hệ ở sau ("Đạo Vận Binh · Hỏa"). Món hợp hệ: chỉ số chính +30% (`gearStats`), nên cường hoá món hợp hệ là cách ép chỉ số hệ lên. Đủ 3 / 5 / 7 / 10 món hợp hệ mở thưởng bộ theo hệ (`daoVanStats`, cộng ở `playerStats`); chưa mặc món Đạo Vận hợp hệ nào thì chiêu và linh thú chưa tính. Hệ của linh thú ở `daovan.pet_el`; Đạo Vận Ấn ra chiêu theo hệ (`art_by_el`, thêm Thanh Mộc Ấn hồi máu và Huyền Thủy Ấn chắn đòn). Đổi hệ một món: Túi → chọn món → Đổi hệ, tốn 1 Đạo Vận Thạch, ra hệ khác hệ cũ. Món Đạo Vận không phân giải, không bán, không đưa lên chợ; máy chủ cũng từ chối rao món `dao-van-*` và Đạo Vận Thạch (`p2d_rao_ban`, migration 20261028110000).
