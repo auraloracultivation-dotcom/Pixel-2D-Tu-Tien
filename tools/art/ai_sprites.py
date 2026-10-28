@@ -96,6 +96,10 @@ def _split_rows(a, gap=8, per=None):
         if r - p > gap: bands.append((s, p + 1)); s = r
         p = r
     bands.append((s, p + 1))
+    if per and len(bands) != len(per):   # vũ khí giơ cao chạm hàng trên: cắt hàng ở dòng thưa nhất quanh mốc chia đều
+        dens = (a[:, :, 3] > 0).sum(axis=1); y0, y1 = rows[0], rows[-1] + 1; h = (y1 - y0) / len(per)
+        cuts = [y0] + [int(y0 + h * (i - 0.25)) + int(np.argmin(dens[int(y0 + h * (i - 0.25)):int(y0 + h * (i + 0.25))])) for i in range(1, len(per))] + [y1]
+        bands = [(cuts[i], cuts[i + 1]) for i in range(len(per))]
     out = []
     for i, (y0, y1) in enumerate(bands):
         segs = [c for c in _split(a[y0:y1], gap) if _bbox(c) and (_bbox(c)[3] - _bbox(c)[1]) > (y1 - y0) * 0.4]   # bỏ mảnh vụn
