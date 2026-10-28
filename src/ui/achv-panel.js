@@ -51,14 +51,21 @@ export function createAchvPanel(game) {
     }
   }
 
+  // Hình ô lưới: nhân vật chính mặc đúng bộ đó (hình chibi hero.y-<bộ>-<nam|nu>), không có thì hình gốc
+  function icon(c, id, alt) {
+    const sp = data.art.sprites;
+    if (sp[id]) { c.dataset.icon = id; c.dataset.iconSize = 46; } else if (alt && sp[alt]) c.dataset.icon = alt;
+  }
+
   // Thời trang: mặc bộ đã có, mua bộ bán bằng Linh Thạch
   function renderFashion(list) {
     const F = data.fashion.list, s = game.save, cur = s.outfit || 'dong-phuc';
     $('achv-sub').textContent = `${Object.keys(F).filter(id => owned(game, id)).length}/${Object.keys(F).length} bộ · chỉ đổi dáng vẻ`;
     const H = data.heroes, look = s.look || H.default;   // hình nhân vật: nam hoặc nữ
     for (const [id, h] of Object.entries(H.list)) {
-      list.append(card('#b8a0e0', `Hình: ${h.name}`, [h.note || (look === id ? 'Đang dùng.' : 'Chạm để đổi.')],
-        mini(look === id ? 'Đang dùng' : 'Chọn', () => { s.look = id; game.persist(); msg = `Đổi hình ${h.name}.`; }, look === id)));
+      const hc = card('#b8a0e0', `Hình: ${h.name}`, [h.note || (look === id ? 'Đang dùng.' : 'Chạm để đổi.')],
+        mini(look === id ? 'Đang dùng' : 'Chọn', () => { s.look = id; game.persist(); msg = `Đổi hình ${h.name}.`; }, look === id));
+      icon(hc, `hero.y-${cur}-${id}`, h.sprite); list.append(hc);
     }
     for (const [id, f] of Object.entries(F)) {
       const own = owned(game, id), on = cur === id;
@@ -66,7 +73,7 @@ export function createAchvPanel(game) {
         : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id)) { wear(game, id); msg = `Mua và mặc ${f.name}.`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
       const c = card(f.robe, f.name, [own ? 'Đã có' : howToGet(game, f)], btn);
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
-      c.prepend(sw); list.append(c);
+      c.prepend(sw); icon(c, `hero.y-${id}-${look}`); list.append(c);
     }
   }
 

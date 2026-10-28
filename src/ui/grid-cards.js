@@ -49,7 +49,7 @@ export function gridCards(game) {
       const head = el('div', 'gc-head'), x = el('button', 'd-close', T.close), body = el('div', 'gc-body');
       const name = el('b', 'gc-title', titleOf(card));
       name.style.color = card.style.borderLeftColor || '';
-      if (card.dataset.icon) head.append(spriteIcon(game, card.dataset.icon, 0, 40, 'gc-ico'));
+      if (card.dataset.icon) head.append(spriteIcon(game, card.dataset.icon, 0, card.dataset.iconSize ? 52 : 40, 'gc-ico', !!card.dataset.iconSize));
       head.append(name, x);
       x.onclick = closeSheet;
       const box = el('div', 'gc-card');
@@ -73,7 +73,9 @@ export function gridCards(game) {
       for (const k of ['using', 'locked']) if (card.classList.contains(k)) t.classList.add(k);
       if (card.disabled) t.classList.add('off');
       t.style.borderLeftColor = card.style.borderLeftColor || '';
-      if (card.dataset.icon) t.append(spriteIcon(game, card.dataset.icon, 0, 28, 'gc-ico'));
+      const big = +card.dataset.iconSize || 0;   // nhân vật chibi (đồng hành, thời trang): hình to theo chiều cao, chữ nhỏ lại
+      if (big) t.classList.add('gc-big');
+      if (card.dataset.icon) t.append(spriteIcon(game, card.dataset.icon, 0, big || 28, 'gc-ico', !!big));
       const [name, ...rest] = titleOf(card).split(' · '), first = card.querySelector('small');   // dòng 2: cấp, sao, đang mang; không có thì dòng mô tả đầu
       t.append(el('b', null, name));
       if (rest.length || first) t.append(el('small', null, rest.length ? rest.join(' · ') : first.textContent));
