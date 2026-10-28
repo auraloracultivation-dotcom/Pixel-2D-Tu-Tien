@@ -52,6 +52,7 @@ export function createInput(canvas) {
 
   inp.aim = {};      // hướng ngắm khi thả nút chiêu sau khi kéo (null = tự ngắm)
   inp.aiming = null; // đang kéo nút chiêu để ngắm: {act, x, y} (đã chuẩn hoá)
+  inp.holding = null; // nút chiêu đang giữ (chưa kéo cũng hiện khung chiêu)
   for (const b of document.querySelectorAll('[data-act]')) {
     const act = b.dataset.act;
     if (act.startsWith('s')) {
@@ -60,6 +61,7 @@ export function createInput(canvas) {
       b.addEventListener('pointerdown', e => {
         e.preventDefault(); e.stopPropagation();
         st = { id: e.pointerId, ox: e.clientX, oy: e.clientY };
+        inp.holding = act;   // đang giữ nút: hiện khung chiêu theo hướng tự ngắm (render/draw-aim.js)
         b.setPointerCapture?.(e.pointerId); b.classList.add('down');
       });
       b.addEventListener('pointermove', e => {
@@ -70,7 +72,7 @@ export function createInput(canvas) {
       const release = cancel => e => {
         if (!st || e.pointerId !== st.id) return;
         if (!cancel) { inp.aim[act] = inp.aiming && inp.aiming.act === act ? { x: inp.aiming.x, y: inp.aiming.y } : null; inp.pressed.add(act); }
-        st = null; inp.aiming = null; b.classList.remove('down');
+        st = null; inp.aiming = null; if (inp.holding === act) inp.holding = null; b.classList.remove('down');
       };
       b.addEventListener('pointerup', release(false)); b.addEventListener('pointercancel', release(true));
       continue;
@@ -91,7 +93,7 @@ export function createInput(canvas) {
     const act = KEYMAP[e.code];
     if (act) inp.held.delete(act);
   });
-  const reset = () => { inp.keys.clear(); inp.held.clear(); inp.joy = null; fingers = 0; };
+  const reset = () => { inp.keys.clear(); inp.held.clear(); inp.joy = null; inp.holding = null; inp.aiming = null; fingers = 0; };
   window.addEventListener('blur', reset);
   document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
 
