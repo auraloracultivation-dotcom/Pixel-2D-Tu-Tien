@@ -1,7 +1,7 @@
 // Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
 // trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
-import { addItem, isEquipped, unsocket, itemName, rarityOf } from './items.js';
+import { addItem, isEquipped, unsocket, itemName, rarityOf, gemInfo } from './items.js';
 import { addMat, matInfo } from './cave.js';
 import { notify } from './inbox.js';
 
@@ -78,10 +78,13 @@ export async function claimMail(game) {
   const got = [];
   await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
     for (const m of r.thu || []) {
-      const d = m.noi_dung, head = M(game).mail[m.ly_do] || '', lines = [];
+      const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || '', lines = [];
       if (d.coins) { addCoins(game, d.coins); lines.push(`+${d.coins} ${game.data.shop.name}`); }
       if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
       if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
+      if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)
+        s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
+      }
       for (const l of lines) got.push(head ? `${head}: ${l}` : l);
       // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư; đang mở bảng (mua, huỷ ở chợ) thì coi như đã đọc
       if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: M(game).mail[m.ly_do] ? 'market' : '', read: !!game.uiOpen });

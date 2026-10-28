@@ -197,6 +197,10 @@ try {
   const gdd = read('guild.json'), gm = lastWith(/insert into public\.p2d_bang_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/);
   const gcfg = gm ? JSON.parse(gm[1]) : null, gkeys = ['need_realm', 'cost', 'max', 'max_pho', 'max_lao', 'checkin', 'donate', 'min_pts', 'leave_hours', 'milestones'];
   need(gcfg && gkeys.every(k => JSON.stringify(gcfg[k]) === JSON.stringify(gdd[k])), `guild: số khác bảng p2d_bang_cfg trên máy chủ (${gkeys.filter(k => !gcfg || JSON.stringify(gcfg[k]) !== JSON.stringify(gdd[k])).join(', ')}); đổi số thì thêm migration mới`);
+  // Sự kiện giới thiệu, thưởng góp ý: số trong data/referral.json phải khớp hàm p2d_gt_luat, p2d_gop_y_thuong trên máy chủ
+  const rf = read('referral.json'), gt = lastWith(/function public\.p2d_gt_luat/), gtv = k => +(gt.match(new RegExp(`'${k}', (\\d+)`)) || [])[1];
+  need(gt.includes(`'${rf.starts}'::timestamptz`) && gt.includes(`'${rf.ends}'::timestamptz`) && gtv('phut') === rf.minutes && gtv('ngat_phut') === rf.gap && gtv('cap_gt') === rf.gem_ref && gtv('cap_moi') === rf.gem_new && gtv('nhap_ngay') === rf.join_days, 'referral: ngày, số phút, cấp ngọc khác hàm p2d_gt_luat trên máy chủ (supabase/migrations)');
+  need(lastWith(/function public\.p2d_gop_y_thuong/).includes(`':${rf.fame.gem}'`) && rf.gems.every(t => items.gems.types[t]), 'referral.fame.gem khác cấp ngọc trong p2d_gop_y_thuong, hoặc gems có loại ngọc lạ');
   const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
   need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');

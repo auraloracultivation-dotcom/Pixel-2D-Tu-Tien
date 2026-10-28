@@ -17,6 +17,10 @@ import { createZalo } from './ui/zalo.js';
 import { createFeedback } from './ui/feedback-panel.js';
 import { createInbox } from './ui/inbox-panel.js';
 import { createProfile } from './ui/profile-panel.js';
+import { createReferral } from './ui/referral-panel.js';
+import { createFame } from './ui/fame-panel.js';
+import { createNotice } from './ui/notice-panel.js';
+import { startReferral } from './game/referral.js';
 import { startInbox } from './game/inbox-feed.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
@@ -71,6 +75,8 @@ async function boot() {
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)
   createFeedback(game);   // nút Báo lỗi, Đề xuất cạnh nút Zalo (data/community.json → feedback)
   createProfile(game);   // chạm tên ở bảng xếp hạng: hồ sơ, nút So tài (data/duel.json)
+  createReferral(game); createFame(game); startReferral(game);   // sự kiện giới thiệu nhận ngọc, bảng vinh danh góp ý (data/referral.json)
+  createNotice(game);   // nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }

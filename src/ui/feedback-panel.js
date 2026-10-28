@@ -41,6 +41,11 @@ export function createFeedback(game) {
 
   async function paintList() {
     list.textContent = '';
+    const fame = game.data.referral?.fame;   // thưởng góp ý: mỗi vấn đề được nhận 1 viên ngọc, bảng vinh danh (ui/fame-panel.js)
+    if (fame && game.openFame) {
+      const b = el('button', 'mini', fame.open); b.onclick = () => game.openFame(root);
+      list.append(el('p', 'fb-reward', fame.rule.replace('{gem}', fame.gem)), b);
+    }
     list.append(el('b', null, T.mine));
     const rows = await myFeedback();
     if (!rows.length) { list.append(el('p', 'muted', T.none)); return; }
