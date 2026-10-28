@@ -3553,6 +3553,126 @@
    ],
    "note": "cây: quả đỏ, tán tròn, hoa đào"
   },
+  "rival.bach-lien": {
+   "file": "assets/art/rival-bach-lien.png",
+   "v": "61c90cd3",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Bạch Liên (hạng 5): đứng, nhún, bước A, bước B"
+  },
+  "rival.doan-kiem": {
+   "file": "assets/art/rival-doan-kiem.png",
+   "v": "0219517a",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Đoạn Kiếm (hạng 4): đứng, nhún, bước A, bước B"
+  },
+  "rival.hoang-pha": {
+   "file": "assets/art/rival-hoang-pha.png",
+   "v": "5e8981bc",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Hoàng Phá (hạng 6): đứng, nhún, bước A, bước B"
+  },
+  "rival.kiem-thanh": {
+   "file": "assets/art/rival-kiem-thanh.png",
+   "v": "b8d63a23",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Kiếm Thánh Vô Danh (hạng 1): đứng, nhún, bước A, bước B"
+  },
+  "rival.lieu-oanh": {
+   "file": "assets/art/rival-lieu-oanh.png",
+   "v": "c83d425c",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Liễu Oanh (hạng 9): đứng, nhún, bước A, bước B"
+  },
+  "rival.long-uyen": {
+   "file": "assets/art/rival-long-uyen.png",
+   "v": "b2747600",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Long Uyên (hạng 2): đứng, nhún, bước A, bước B"
+  },
+  "rival.ma-thiet": {
+   "file": "assets/art/rival-ma-thiet.png",
+   "v": "af091bcf",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Mã Thiết (hạng 8): đứng, nhún, bước A, bước B"
+  },
+  "rival.tran-binh": {
+   "file": "assets/art/rival-tran-binh.png",
+   "v": "07017f76",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Trần Bình (hạng 10): đứng, nhún, bước A, bước B"
+  },
+  "rival.tu-ngoc": {
+   "file": "assets/art/rival-tu-ngoc.png",
+   "v": "21f6644d",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Tử Ngọc (hạng 3): đứng, nhún, bước A, bước B"
+  },
+  "rival.van-tu": {
+   "file": "assets/art/rival-van-tu.png",
+   "v": "9ac3d29b",
+   "w": 22,
+   "h": 26,
+   "frames": 4,
+   "anchor": [
+    11,
+    23
+   ],
+   "note": "đấu sĩ Vân Tú (hạng 7): đứng, nhún, bước A, bước B"
+  },
   "tile.cliff": {
    "file": "assets/art/tile-cliff.png",
    "v": "77b41011",
