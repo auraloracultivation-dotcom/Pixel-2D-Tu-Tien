@@ -224,6 +224,9 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .skill-card.locked { opacity: .45; }
 .skill-card.using { background: var(--panel-3); box-shadow: inset 0 0 0 1px rgba(242, 164, 67, .5); }
 #cave-slots[hidden] { display: none; }
+/* Động phủ: dòng nguyên liệu trên đầu bảng dài theo túi (cuối game vài chục loại) từng đẩy danh sách luống, đan ra khỏi bảng nửa màn hình
+   (báo lỗi #5 "dược viên kín không thể trồng", 29/10/2026): giữ tối đa 2 dòng, dài hơn thì cuộn trong dòng đó */
+#cave-mats { max-height: 2.5em; line-height: 1.25; overflow-y: auto; touch-action: pan-y; overscroll-behavior: contain; }
 #cave-msg, #daily-msg, #achv-msg, #guild-msg { min-height: 16px; font: 700 13px var(--f-body); color: var(--torch); }
 .card-acts { display: flex; gap: 6px; margin-top: 6px; }
 .card-acts .mini { flex: 1; min-height: 32px; }
