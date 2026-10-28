@@ -1,4 +1,4 @@
-// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
+// Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể, cổng, bồ đoàn, lò đan, lò rèn, đất linh điền đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
 import { drawIceTile } from './draw-ice.js';
@@ -7,7 +7,7 @@ import { drawForestTile } from './draw-forest.js';
 import { drawMetalTile } from './draw-metal.js';
 import { drawEarthTile } from './draw-earth.js';
 import { drawVoidTile } from './draw-void.js';
-import { drawGround, drawProp, groundPainted, PROP_TILES } from './draw-ground.js';
+import { drawGround, drawProp, groundPainted, drawPlotSoil, PROP_TILES } from './draw-ground.js';
 import { drawLavaBubble } from './draw-lava.js';
 import { drawMountain, drawWater } from './draw-terrain.js';
 function hash(x, y) {
@@ -60,7 +60,7 @@ export function drawSky(ctx, screen, map, t) {
 }
 
 // Lớp nền một ô bằng hình khối (bản tạm, và cho ô chưa có hình pixel).
-function baseTile(ctx, map, tiles, tx, ty) {
+function baseTile(ctx, map, tiles, tx, ty, color) {
   const T = map.T, ch = map.at(tx, ty), ty_ = tiles.types[ch] || {};
   const px = tx * T, py = ty * T;
   if (ty_.void) {
@@ -72,7 +72,7 @@ function baseTile(ctx, map, tiles, tx, ty) {
     }
     return;
   }
-  const base = (ty_.solid && map.def.ground) || ty_.color || '#7cc46a'; // nền dưới cây, đá, nhà theo màu đất của đảo
+  const base = color || (ty_.solid && map.def.ground) || ty_.color || '#7cc46a'; // nền dưới cây, đá, nhà theo màu đất của đảo
   ctx.fillStyle = shade(base, 0.96 + hash(tx, ty) * 0.08);
   ctx.fillRect(px, py, T, T);
   if (ch === '.' && hash(tx, ty + 99) > 0.7) {
@@ -145,7 +145,10 @@ export function drawMap(ctx, map, tiles, view, t, game) {
     else if ('pf*'.includes(ch)) drawVoidTile(ctx, ch, px, py, T, hash(tx, ty), t);
     else if (ch === '^') drawMountain(ctx, map, tx, ty, T, hash(tx, ty));
     else if (ch === '=') drawWater(ctx, map, tx, ty, T, hash(tx, ty), t);
-    else if (ch === 'G') drawPlot(ctx, px, py, T, plotGrowth(game, tx, ty), hash(tx, ty), cropOf(game, plotIndex(game, tx, ty)));
+    else if (ch === 'G') {
+      const grow = plotGrowth(game, tx, ty);
+      drawPlot(ctx, px, py, T, grow, hash(tx, ty), cropOf(game, plotIndex(game, tx, ty)), drawPlotSoil(ctx, game, px, py, grow < 0, hash(tx, ty)));
+    }
     else if (ch === 'q' && hash(tx, ty) > 0.82) {
       ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(px + 2 + hash(ty, tx) * 9, py + 3 + hash(tx, ty + 3) * 9, 3, 2);
     } else if (ch === 'D' && map.locked.has(tx + ',' + ty)) {

@@ -3181,6 +3181,18 @@
    ],
    "note": "kim gỗ có lá non ở đuôi, 2 khung"
   },
+  "prop.anvil": {
+   "file": "assets/art/prop-anvil.png",
+   "v": "5298fc68",
+   "w": 22,
+   "h": 18,
+   "frames": 2,
+   "anchor": [
+    11,
+    16
+   ],
+   "note": "lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung"
+  },
   "prop.blackpillar": {
    "file": "assets/art/prop-blackpillar.png",
    "v": "146a006f",
@@ -3229,6 +3241,18 @@
    ],
    "note": "tinh thể tím (ô *): cụm cao, cụm thấp"
   },
+  "prop.cushion": {
+   "file": "assets/art/prop-cushion.png",
+   "v": "f1aacd8c",
+   "w": 16,
+   "h": 11,
+   "frames": 1,
+   "anchor": [
+    8,
+    5
+   ],
+   "note": "bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng"
+  },
   "prop.deadtree": {
    "file": "assets/art/prop-deadtree.png",
    "v": "20614122",
@@ -3240,6 +3264,18 @@
     23
    ],
    "note": "cây khô (ô V): cành trơ; có quạ đậu"
+  },
+  "prop.furnace": {
+   "file": "assets/art/prop-furnace.png",
+   "v": "ed8ab60e",
+   "w": 20,
+   "h": 24,
+   "frames": 3,
+   "anchor": [
+    10,
+    22
+   ],
+   "note": "lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung"
   },
   "prop.lantern": {
    "file": "assets/art/prop-lantern.png",
@@ -3288,6 +3324,18 @@
     24
    ],
    "note": "cột đá đất nung (ô I): trơn, có chữ cổ hổ phách"
+  },
+  "prop.portal": {
+   "file": "assets/art/prop-portal.png",
+   "v": "81a0e39b",
+   "w": 20,
+   "h": 14,
+   "frames": 4,
+   "anchor": [
+    10,
+    7
+   ],
+   "note": "cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung"
   },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
@@ -3504,6 +3552,18 @@
     0
    ],
    "note": "đường đất, 4 biến thể"
+  },
+  "tile.plot": {
+   "file": "assets/art/tile-plot.png",
+   "v": "35ec1c66",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "đất linh điền (ô G): 2 khung đã khai luống cày, 2 khung còn hoang cỏ dại"
   },
   "tile.snow-rim": {
    "file": "assets/art/tile-snow-rim.png",

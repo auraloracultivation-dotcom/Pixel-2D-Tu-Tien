@@ -16,6 +16,7 @@ const PROP = {
   T: ['prop.tree', 8, 14], R: ['prop.rock', 8, 13], J: ['prop.sword-grave', 8, 15], I: ['prop.pillar', 8, 15], h: ['prop.broken-sword', 8, 8],
   Z: ['prop.oldtree', 8, 15], n: ['prop.mushroom', 8, 13], Q: ['prop.lantern', 8, 15, true], V: ['prop.deadtree', 8, 15],
   U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15],
+  P: ['prop.portal', 8, 9, true], M: ['prop.cushion', 8, 9], K: ['prop.furnace', 8, 15, true], A: ['prop.anvil', 8, 14, true],
 };
 export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + 'F';
 // Mép bờ phủ lên ô: hình, và ô bên cạnh nào thì có bờ
@@ -72,9 +73,12 @@ function build(game, map, tiles, hash, baseTile) {
     else if (ch === ',') put(c, sp['tile.path'], Math.floor(h * 4), px, py);
     else if (ch === '_') put(c, sp['tile.stone'], Math.floor(h * 4), px, py);
     else if (GRASSY.includes(ch) && !(k.solid && map.def.ground)) put(c, sp['tile.grass'], Math.floor(h * 4), px, py);
-    else if ('PMS'.includes(ch)) {   // cổng, bồ đoàn, đá linh căn: nền đá nếu cạnh nền đá, không thì cỏ
-      const onStone = EDGES.some(([dx, dy]) => map.at(tx + dx, ty + dy) === '_');
-      put(c, sp[onStone ? 'tile.stone' : 'tile.grass'], Math.floor(h * 4), px, py);
+    else if ('PMS'.includes(ch)) {   // cổng, bồ đoàn, đá linh căn: lấy nền của ô đi được bên cạnh (nền đá, cỏ, nền bí cảnh...)
+      const n = EDGES.map(([dx, dy]) => map.at(tx + dx, ty + dy)).find(x => !'PMS'.includes(x) && !tiles.types[x]?.solid) || '.';
+      const own = !lit && texOf(n, tiles.types[n] || {});
+      if (n === '_' || GRASSY.includes(n)) put(c, sp[n === '_' ? 'tile.stone' : 'tile.grass'], Math.floor(h * 4), px, py);
+      else if (own) put(c, own, Math.floor(h * 4), px, py);
+      else baseTile(c, map, tiles, tx, ty, tiles.types[n]?.color);
     }
     else if (texOf(ch, k)) { put(c, tex[ch], Math.floor(h * 4), px, py); painted.add(ch); }
     else baseTile(c, map, tiles, tx, ty);
@@ -84,7 +88,7 @@ function build(game, map, tiles, hash, baseTile) {
   const floor = lit && sheet(game, 'tile.dfloor');   // hầm ngục về đêm: phủ phiến đá lên nền
   if (floor) for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
     const k = map.type(tx, ty);
-    if (!k.solid && !k.void && map.at(tx, ty) !== 'P') put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
+    if (!k.solid && !k.void) put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
   }
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
   cache.painted = painted;
@@ -150,5 +154,13 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   else if (HOUSE[ch]) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   ctx.restore();
+  return true;
+}
+
+// Đất linh điền (tile.plot): đã khai thì luống cày, còn hoang thì cỏ dại. Trả false nếu hình chưa tải để draw-cave.js vẽ hình khối.
+export function drawPlotSoil(ctx, game, px, py, wild, h) {
+  const sp = sheet(game, 'tile.plot');
+  if (!sp) return false;
+  put(ctx, sp, (wild ? 2 : 0) + (h < 0.5 ? 0 : 1), px, py);
   return true;
 }
