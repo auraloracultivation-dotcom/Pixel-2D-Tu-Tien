@@ -23,7 +23,11 @@ export function petKill(game, m) {
   if (md && Math.random() < md[1]) gainMount(game, md[0]);
   if (!m.rare) return;
   const id = m.id, def = cfg.pets[id];
-  if (game.save.pets[id]) { gainPetExp(game, petNeed(game.data, game.save.pets[id].lv), id); game.toast(`Linh hồn ${def.name} nhập vào linh thú cùng loài: thêm kinh nghiệm`, 2); }
+  if (game.save.pets[id]) {   // đã có loài này: thêm kinh nghiệm và một bản sao để gộp
+    const st = game.save.pets[id]; st.copies = (st.copies || 0) + 1;
+    gainPetExp(game, petNeed(game.data, st.lv), id);
+    game.toast(cfg.merge.texts.copy.replace('{name}', def.name).replace('{n}', st.copies), 2.4); game.newPets = true;
+  }
   else gainPet(game, id);
   if (def.mount && Math.random() < def.mount[1]) gainMount(game, def.mount[0]);
 }
@@ -125,7 +129,19 @@ function petSkill(game, pet, tgt, dmg) {
   }
 }
 
-export const petMul = game => 1 + (petLevel(game, game.save.pet) - 1) * P(game).lv_bonus;
+export const petMul = game => (1 + (petLevel(game, game.save.pet) - 1) * P(game).lv_bonus) * (1 + (game.save.pets[game.save.pet]?.star || 0) * P(game).merge.bonus);
+
+// Gộp linh thú: sao n lên n + 1 tốn 2^n bản sao (hai con cùng sao thành một con sao cao hơn), không giới hạn
+export const mergeCost = st => 2 ** (st?.star || 0);
+export const canMerge = (game, id) => { const st = game.save.pets[id]; return !!st && (st.copies || 0) >= mergeCost(st); };
+export function mergePet(game, id) {
+  const st = game.save.pets[id];
+  if (!canMerge(game, id)) return false;
+  st.copies -= mergeCost(st); st.star = (st.star || 0) + 1;
+  game.persist(); game.sfx('levelup');
+  game.toast(P(game).merge.texts.done.replace('{name}', P(game).pets[id].name).replace('{star}', st.star), 2);
+  return true;
+}
 
 // Thú cưỡi: lên khi đang đi, không đánh nhau một lúc, không ở bí cảnh
 export function updateRide(game, dt) {

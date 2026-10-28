@@ -10,6 +10,7 @@
  },
  "max_level": 20,
  "evolve": {"_note": "Đủ cấp level thì tiến hóa: đổi tên (evo của từng con), sát thương x mult, chiêu hồi nhanh hơn (skill_cd), mở cấp tới max_level.", "level": 20, "max_level": 40, "mult": 1.5, "skill_cd": 0.75, "cost": {"yeu-huyet": 12, "tinh-thiet": 8}, "coins": 600},
+ "merge": {"_note": "Gộp linh thú (chủ dự án chốt trưa 28/10/2026: 2 con cùng cấp thì lên 1 cấp, chỉ số tăng ít, không giới hạn): bắt thêm dị chủng của loài đã có thì được một bản sao (copies), vẫn cộng kinh nghiệm như cũ. Gộp như ghép đôi: sao n lên n + 1 tốn 2^n bản sao (hai con sao n thành một con sao n + 1), không giới hạn sao; mỗi sao sát thương linh thú + bonus. Giữ nguyên lên cấp và tiến hoá.", "bonus": 0.03, "texts": {"copy": "Bắt thêm một {name}: +1 bản sao để gộp (có {n}).", "line": "Sao ★{star} · bản sao {n}/{cost}", "card": "Gộp {name}: ★{star} → ★{next}", "card_line": "Tốn {cost} bản sao. Sát thương linh thú +{pct}% mỗi sao.", "done": "{name} lên ★{star}!"}},
  "exp_base": 40,
  "exp_pow": 1.35,
  "lv_bonus": 0.08,

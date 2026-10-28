@@ -1,5 +1,5 @@
 // Bảng Thú: tab Linh thú (con đang mang, cấp, kinh nghiệm, đổi con), Thú cưỡi (chọn con để cưỡi), Đồng hành (comp-tab.js).
-import { petNeed, setPet, setMount } from '../game/pets.js';
+import { petNeed, setPet, setMount, mergeCost, canMerge, mergePet } from '../game/pets.js';
 import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
@@ -30,12 +30,17 @@ export function createPetsPanel(game) {
     const ids = Object.keys(s.pets);
     if (!ids.length) list.append(el('p', 'muted', 'Chưa có linh thú. Gặp Ngự Thú Sư ở Thiên Kiếm Phong, hoặc hạ quái dị chủng (có ánh vàng).'));
     for (const id of ids) {
-      const d = petDef(data, s, id), st = s.pets[id], max = st.lv >= petMax(data, s, id);
-      list.append(card(d.color, `${d.evo ? '★ ' : ''}${d.name} · cấp ${st.lv}${s.pet === id ? ' · đang mang' : ''}`, [
+      const d = petDef(data, s, id), st = s.pets[id], max = st.lv >= petMax(data, s, id), M = P.merge.texts;
+      list.append(card(d.color, `${st.evo ? '✦ ' : ''}${d.name} · cấp ${st.lv}${st.star ? ` · ★${st.star}` : ''}${s.pet === id ? ' · đang mang' : ''}`, [
         d.desc,
-        `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * 100)}% công của bạn`,
+        `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * (1 + (st.star || 0) * P.merge.bonus) * 100)}% công của bạn`,
         max ? 'Đã tối đa.' : `Kinh nghiệm ${Math.floor(st.exp)}/${petNeed(data, st.lv)}`,
+        M.line.replace('{star}', st.star || 0).replace('{n}', st.copies || 0).replace('{cost}', mergeCost(st)),
       ], s.pet === id, () => setPet(game, id)));
+    }
+    for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
+      const st = s.pets[id], M = P.merge.texts, nm = P.pets[id].name;
+      list.append(card('#ffd27a', M.card.replace('{name}', nm).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1), [M.card_line.replace('{cost}', mergeCost(st)).replace('{pct}', Math.round(P.merge.bonus * 100))], false, () => mergePet(game, id)));
     }
     // Tiến hóa: con nào đủ cấp thì hiện thẻ riêng
     const E = P.evolve;
