@@ -134,3 +134,45 @@ body[data-le="halloween"] #menu::after {
 .feed-line.bump { transform: scale(1.06); transform-origin: left center; }
 @keyframes feed-vao { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
 body:has(.panel:not([hidden])) #feed, body:has(#bag:not([hidden])) #feed { display: none; }
+
+/* ---- bảng điều khiển (chủ dự án 29/10/2026: làm một lượt trên Canva): biểu tượng pixel thay emoji, khung tròn thắp sáng cho nút đánh,
+   chiêu, lướt, đan; nút chữ, ô Menu, tab khung gỗ son nẹp vàng 9 mảnh (tools/art/ui_frame.py: ui.i-*, ui.ring-*, ui.btn) ---- */
+#btn-mute, #btn-rec, #btn-inbox, [id^="btn-fb-"], #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, .menu-tile, .bag-tabs button, .world-tabs button {
+  border: 4px solid transparent !important; border-radius: 0 !important;
+  border-image: url("assets/art/ui-btn.png") 4 fill / 4px / 0 stretch !important; image-rendering: pixelated;
+  background-color: transparent !important; box-shadow: 0 2px 0 rgba(0, 0, 0, .45) !important;
+}
+#btn-auto.on, #btn-pilot.on, .bag-tabs button.on, .world-tabs button.on, .menu-tile:active {
+  border-image: url("assets/art/ui-btn-on.png") 4 fill / 4px / 0 stretch !important; color: #2a0a12 !important; text-shadow: 0 1px 0 rgba(255, 220, 160, .6) !important;
+  box-shadow: 0 0 10px rgba(var(--lamp), .55), 0 2px 0 rgba(0, 0, 0, .45) !important;
+}
+#btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo { color: #ffe6a0 !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+/* nút biểu tượng: giấu emoji, vẽ biểu tượng Canva (khi quay clip vẫn hiện số giây) */
+#btn-mute, #btn-inbox, [id^="btn-fb-"], #btn-rec:not(.on) { font-size: 0 !important; color: transparent !important; background-repeat: no-repeat !important; background-position: center !important; background-size: 18px 18px !important; }
+#btn-mute { background-image: url("assets/art/ui-i-sound.png") !important; }
+#btn-mute.off { filter: grayscale(1) brightness(.6); }
+#btn-rec:not(.on) { background-image: url("assets/art/ui-i-camera.png") !important; }
+#btn-inbox { background-image: url("assets/art/ui-i-mail.png") !important; background-size: 20px 16px !important; }
+#btn-fb-loi { background-image: url("assets/art/ui-i-bug.png") !important; }
+#btn-fb-de_xuat { background-image: url("assets/art/ui-i-idea.png") !important; }
+#btn-inbox > *, #btn-menu > * { font-size: 10px; }   /* số tin chưa đọc vẫn hiện */
+body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block; width: 12px; height: 14px; margin-right: 4px; vertical-align: -2px; background: url("assets/art/ui-i-pumpkin.png") center / contain no-repeat; image-rendering: pixelated; }
+
+/* nút tròn: khung Canva đè lên (lòng đã khoét rỗng), thắp sáng nhịp nhàng; chữ, biểu tượng chiêu vẫn ở dưới */
+#btn-atk, #btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art, #btn-act { border-color: transparent !important; overflow: visible !important; }
+#btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after, #btn-act::after {
+  content: ''; position: absolute; inset: -16% -11% -9% -11%; pointer-events: none; image-rendering: pixelated;
+  background: url("assets/art/ui-ring-skill.png") center / 100% 100% no-repeat; animation: den-sang 1.8s ease-in-out infinite alternate;
+}
+#btn-atk::after { background-image: url("assets/art/ui-ring-atk.png"); inset: -15% -12% -8% -12%; }
+#btn-dash::after { background-image: url("assets/art/ui-ring-dash.png"); inset: -10% -10% -10% -10%; }
+#btn-pill::after { background-image: url("assets/art/ui-ring-pill.png"); }
+#btn-art::after { background-image: url("assets/art/ui-ring-art.png"); }
+#btn-act::after { background-image: url("assets/art/ui-ring-act.png"); }
+#btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art, #btn-act { background-color: rgba(26, 10, 30, .92); }
+.menu-tile { color: #ffe6a0; }
+/* nút biểu tượng: khung không tô lòng (lòng khung sẽ đè lên biểu tượng), lòng là màu gỗ son */
+#btn-mute, #btn-inbox, [id^="btn-fb-"], #btn-rec:not(.on) {
+  border-image: url("assets/art/ui-btn.png") 4 / 4px / 0 stretch !important;
+  background-color: #4a1c16 !important;
+}

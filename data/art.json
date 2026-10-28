@@ -107,7 +107,7 @@
   },
   "decal.dirt": {
    "file": "assets/art/decal-dirt.png",
-   "v": "f04d865f",
+   "v": "6cee3ca4",
    "w": 48,
    "h": 32,
    "frames": 3,
@@ -215,7 +215,7 @@
   },
   "fx.bolt": {
    "file": "assets/art/fx-bolt.png",
-   "v": "df84db55",
+   "v": "d2e3c4e7",
    "w": 40,
    "h": 56,
    "frames": 7,
@@ -227,7 +227,7 @@
   },
   "fx.buff": {
    "file": "assets/art/fx-buff.png",
-   "v": "bb1d6271",
+   "v": "155c50d7",
    "w": 30,
    "h": 38,
    "frames": 8,
@@ -239,7 +239,7 @@
   },
   "fx.fire": {
    "file": "assets/art/fx-fire.png",
-   "v": "dbd80b6d",
+   "v": "5a0b0134",
    "w": 24,
    "h": 34,
    "frames": 8,
@@ -251,7 +251,7 @@
   },
   "fx.heal": {
    "file": "assets/art/fx-heal.png",
-   "v": "2b6c26fd",
+   "v": "3b8f554f",
    "w": 28,
    "h": 38,
    "frames": 8,
@@ -263,7 +263,7 @@
   },
   "fx.ice": {
    "file": "assets/art/fx-ice.png",
-   "v": "3bb00540",
+   "v": "3a78a44f",
    "w": 48,
    "h": 40,
    "frames": 10,
@@ -311,7 +311,7 @@
   },
   "fx.rock": {
    "file": "assets/art/fx-rock.png",
-   "v": "48dec36e",
+   "v": "0a19756e",
    "w": 48,
    "h": 40,
    "frames": 8,
@@ -323,7 +323,7 @@
   },
   "fx.shield": {
    "file": "assets/art/fx-shield.png",
-   "v": "932e7003",
+   "v": "61b2c34d",
    "w": 34,
    "h": 36,
    "frames": 6,
@@ -335,7 +335,7 @@
   },
   "fx.shield-earth": {
    "file": "assets/art/fx-shield-earth.png",
-   "v": "fbec9f00",
+   "v": "62bc8188",
    "w": 34,
    "h": 36,
    "frames": 6,
@@ -347,7 +347,7 @@
   },
   "fx.slash": {
    "file": "assets/art/fx-slash.png",
-   "v": "1ca538f1",
+   "v": "4f793789",
    "w": 56,
    "h": 48,
    "frames": 7,
@@ -419,7 +419,7 @@
   },
   "fx.vine": {
    "file": "assets/art/fx-vine.png",
-   "v": "6e2e6fbb",
+   "v": "d40755ea",
    "w": 40,
    "h": 36,
    "frames": 8,
@@ -455,7 +455,7 @@
   },
   "fx.wind": {
    "file": "assets/art/fx-wind.png",
-   "v": "167e1bb2",
+   "v": "0e59404c",
    "w": 36,
    "h": 28,
    "frames": 8,
@@ -1487,7 +1487,7 @@
   },
   "hero.nam": {
    "file": "assets/art/hero-nam.png",
-   "v": "3ae62812",
+   "v": "f4affa84",
    "w": 64,
    "h": 64,
    "frames": 48,
@@ -1499,7 +1499,7 @@
   },
   "hero.nu": {
    "file": "assets/art/hero-nu.png",
-   "v": "a2908d24",
+   "v": "0ac97519",
    "w": 106,
    "h": 77,
    "frames": 40,
@@ -3191,7 +3191,7 @@
   },
   "npc.bang-co": {
    "file": "assets/art/npc-bang-co.png",
-   "v": "04b135cc",
+   "v": "c4262bd9",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3294,7 +3294,7 @@
   },
   "npc.ho-linh": {
    "file": "assets/art/npc-ho-linh.png",
-   "v": "d52b0ba3",
+   "v": "e0f16184",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3306,7 +3306,7 @@
   },
   "npc.hoa-dong": {
    "file": "assets/art/npc-hoa-dong.png",
-   "v": "c31fc3c5",
+   "v": "63bac4f1",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3370,7 +3370,7 @@
   },
   "npc.lac-tuyet": {
    "file": "assets/art/npc-lac-tuyet.png",
-   "v": "bd78946f",
+   "v": "cb6ade16",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3447,7 +3447,7 @@
   },
   "npc.linh-ho": {
    "file": "assets/art/npc-linh-ho.png",
-   "v": "1fada7ca",
+   "v": "b2222a9d",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3498,7 +3498,7 @@
   },
   "npc.ma-tu": {
    "file": "assets/art/npc-ma-tu.png",
-   "v": "639f2d5a",
+   "v": "0db73111",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3510,7 +3510,7 @@
   },
   "npc.mac-anh": {
    "file": "assets/art/npc-mac-anh.png",
-   "v": "3fd7504c",
+   "v": "7c54b63b",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3626,7 +3626,7 @@
   },
   "npc.thach-sinh": {
    "file": "assets/art/npc-thach-sinh.png",
-   "v": "d4b8b0b0",
+   "v": "b98938b7",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3650,7 +3650,7 @@
   },
   "npc.thiet-lan": {
    "file": "assets/art/npc-thiet-lan.png",
-   "v": "308e393c",
+   "v": "dbfc74d3",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -3739,7 +3739,7 @@
   },
   "npc.tieu-hoa": {
    "file": "assets/art/npc-tieu-hoa.png",
-   "v": "f0bebb56",
+   "v": "aff15391",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4159,7 +4159,7 @@
   },
   "prop.anvil": {
    "file": "assets/art/prop-anvil.png",
-   "v": "5298fc68",
+   "v": "ed23d13b",
    "w": 22,
    "h": 18,
    "frames": 2,
@@ -4183,7 +4183,7 @@
   },
   "prop.broken-sword": {
    "file": "assets/art/prop-broken-sword.png",
-   "v": "3f5cb5a6",
+   "v": "61e1b7ff",
    "w": 16,
    "h": 16,
    "frames": 3,
@@ -4231,7 +4231,7 @@
   },
   "prop.deadtree": {
    "file": "assets/art/prop-deadtree.png",
-   "v": "20614122",
+   "v": "2dea6117",
    "w": 16,
    "h": 24,
    "frames": 2,
@@ -4243,7 +4243,7 @@
   },
   "prop.furnace": {
    "file": "assets/art/prop-furnace.png",
-   "v": "ed8ab60e",
+   "v": "8fbcabed",
    "w": 20,
    "h": 24,
    "frames": 3,
@@ -4291,7 +4291,7 @@
   },
   "prop.oldtree": {
    "file": "assets/art/prop-oldtree.png",
-   "v": "5d152876",
+   "v": "e3b62b30",
    "w": 32,
    "h": 40,
    "frames": 2,
@@ -4495,7 +4495,7 @@
   },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
-   "v": "0c71d21b",
+   "v": "af06591b",
    "w": 30,
    "h": 38,
    "frames": 3,
@@ -4507,7 +4507,7 @@
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",
-   "v": "61c90cd3",
+   "v": "c9f6f896",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4531,7 +4531,7 @@
   },
   "rival.hoang-pha": {
    "file": "assets/art/rival-hoang-pha.png",
-   "v": "5e8981bc",
+   "v": "90f1fd7f",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4543,7 +4543,7 @@
   },
   "rival.kiem-thanh": {
    "file": "assets/art/rival-kiem-thanh.png",
-   "v": "b8d63a23",
+   "v": "a5e595af",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4555,7 +4555,7 @@
   },
   "rival.lieu-oanh": {
    "file": "assets/art/rival-lieu-oanh.png",
-   "v": "c83d425c",
+   "v": "09fbccec",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4567,7 +4567,7 @@
   },
   "rival.long-uyen": {
    "file": "assets/art/rival-long-uyen.png",
-   "v": "b2747600",
+   "v": "869828cb",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4579,7 +4579,7 @@
   },
   "rival.ma-thiet": {
    "file": "assets/art/rival-ma-thiet.png",
-   "v": "af091bcf",
+   "v": "f35adf8d",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4591,7 +4591,7 @@
   },
   "rival.tran-binh": {
    "file": "assets/art/rival-tran-binh.png",
-   "v": "07017f76",
+   "v": "949921f7",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4603,7 +4603,7 @@
   },
   "rival.tu-ngoc": {
    "file": "assets/art/rival-tu-ngoc.png",
-   "v": "21f6644d",
+   "v": "ed029383",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4615,7 +4615,7 @@
   },
   "rival.van-tu": {
    "file": "assets/art/rival-van-tu.png",
-   "v": "9ac3d29b",
+   "v": "88ff6ea5",
    "w": 22,
    "h": 26,
    "frames": 4,
@@ -4687,7 +4687,7 @@
   },
   "tile.house": {
    "file": "assets/art/tile-house.png",
-   "v": "be600df9",
+   "v": "c0cd4a02",
    "w": 16,
    "h": 16,
    "frames": 17,
@@ -4699,7 +4699,7 @@
   },
   "tile.house-adobe": {
    "file": "assets/art/tile-house-adobe.png",
-   "v": "6744ac1b",
+   "v": "1d64cb30",
    "w": 16,
    "h": 16,
    "frames": 17,
@@ -4711,7 +4711,7 @@
   },
   "tile.house-burnt": {
    "file": "assets/art/tile-house-burnt.png",
-   "v": "32c0d151",
+   "v": "7ebf0437",
    "w": 16,
    "h": 16,
    "frames": 17,
@@ -4723,7 +4723,7 @@
   },
   "tile.house-forge": {
    "file": "assets/art/tile-house-forge.png",
-   "v": "5b09d330",
+   "v": "f1638e35",
    "w": 16,
    "h": 16,
    "frames": 17,
@@ -4735,7 +4735,7 @@
   },
   "tile.house-tree": {
    "file": "assets/art/tile-house-tree.png",
-   "v": "8927e97b",
+   "v": "224cefb9",
    "w": 16,
    "h": 16,
    "frames": 17,
@@ -4747,7 +4747,7 @@
   },
   "tile.icelake": {
    "file": "assets/art/tile-icelake.png",
-   "v": "579b0c86",
+   "v": "23e157de",
    "w": 16,
    "h": 16,
    "frames": 16,
@@ -4759,7 +4759,7 @@
   },
   "tile.lava": {
    "file": "assets/art/tile-lava.png",
-   "v": "55b4a218",
+   "v": "cee99ccd",
    "w": 16,
    "h": 16,
    "frames": 16,
@@ -4771,7 +4771,7 @@
   },
   "tile.lava-rim": {
    "file": "assets/art/tile-lava-rim.png",
-   "v": "b67bfb5e",
+   "v": "85e45fed",
    "w": 16,
    "h": 16,
    "frames": 8,
@@ -4783,7 +4783,7 @@
   },
   "tile.path": {
    "file": "assets/art/tile-path.png",
-   "v": "000e6556",
+   "v": "1794283e",
    "w": 16,
    "h": 16,
    "frames": 4,
@@ -4927,7 +4927,7 @@
   },
   "tile.snow-rim": {
    "file": "assets/art/tile-snow-rim.png",
-   "v": "517374be",
+   "v": "700c8ff8",
    "w": 16,
    "h": 16,
    "frames": 8,
@@ -4963,7 +4963,7 @@
   },
   "tile.void": {
    "file": "assets/art/tile-void.png",
-   "v": "5030e0f6",
+   "v": "e3ef2603",
    "w": 16,
    "h": 16,
    "frames": 16,
@@ -4975,7 +4975,7 @@
   },
   "tile.void-rim": {
    "file": "assets/art/tile-void-rim.png",
-   "v": "6a954d34",
+   "v": "67f869c2",
    "w": 16,
    "h": 16,
    "frames": 8,
@@ -5023,7 +5023,7 @@
   },
   "tile.water": {
    "file": "assets/art/tile-water.png",
-   "v": "e62c0b3d",
+   "v": "45144b5a",
    "w": 16,
    "h": 16,
    "frames": 16,
@@ -5035,7 +5035,7 @@
   },
   "tile.water-rim": {
    "file": "assets/art/tile-water-rim.png",
-   "v": "e88f9c33",
+   "v": "8752ed4c",
    "w": 16,
    "h": 16,
    "frames": 8,
@@ -5056,6 +5056,30 @@
     25
    ],
    "note": "nguồn sáng khung giao diện: bracket (ảnh Canva den-2.png)"
+  },
+  "ui.btn": {
+   "file": "assets/art/ui-btn.png",
+   "v": "73b4b96a",
+   "w": 12,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung nút chữ 12×12 cắt 4 (border-image): mực, nẹp vàng, lòng gỗ son"
+  },
+  "ui.btn-on": {
+   "file": "assets/art/ui-btn-on.png",
+   "v": "d0464ef1",
+   "w": 12,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung nút chữ đang bật: lòng cam bí ngô"
   },
   "ui.candles": {
    "file": "assets/art/ui-candles.png",
@@ -5141,6 +5165,150 @@
    ],
    "note": "khung mảnh 36×36 cắt 12 cho hộp thoại, thông báo: không có ô góc"
   },
+  "ui.i-bag": {
+   "file": "assets/art/ui-i-bag.png",
+   "v": "89539be5",
+   "w": 17,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-bag (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-bug": {
+   "file": "assets/art/ui-i-bug.png",
+   "v": "2b2af95f",
+   "w": 16,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-bug (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-camera": {
+   "file": "assets/art/ui-i-camera.png",
+   "v": "0bc2840e",
+   "w": 15,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-camera (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-gift": {
+   "file": "assets/art/ui-i-gift.png",
+   "v": "e4adb830",
+   "w": 17,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-gift (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-idea": {
+   "file": "assets/art/ui-i-idea.png",
+   "v": "9c31dbf0",
+   "w": 17,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-idea (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-mail": {
+   "file": "assets/art/ui-i-mail.png",
+   "v": "2639b3b7",
+   "w": 20,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    10,
+    15
+   ],
+   "note": "nguồn sáng khung giao diện: i-mail (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-map": {
+   "file": "assets/art/ui-i-map.png",
+   "v": "34bc0be7",
+   "w": 18,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-map (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-pumpkin": {
+   "file": "assets/art/ui-i-pumpkin.png",
+   "v": "17e234b1",
+   "w": 15,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-pumpkin (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-scroll": {
+   "file": "assets/art/ui-i-scroll.png",
+   "v": "faab2493",
+   "w": 17,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    8,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-scroll (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-sound": {
+   "file": "assets/art/ui-i-sound.png",
+   "v": "dd1b75e2",
+   "w": 20,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    10,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-sound (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-steps": {
+   "file": "assets/art/ui-i-steps.png",
+   "v": "3eb9fdce",
+   "w": 14,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-steps (ảnh Canva bieu-tuong.png)"
+  },
+  "ui.i-swords": {
+   "file": "assets/art/ui-i-swords.png",
+   "v": "2c0051ba",
+   "w": 18,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "nguồn sáng khung giao diện: i-swords (ảnh Canva bieu-tuong.png)"
+  },
   "ui.incense": {
    "file": "assets/art/ui-incense.png",
    "v": "c9311f97",
@@ -5212,6 +5380,78 @@
     17
    ],
    "note": "nguồn sáng khung giao diện: pumpkin (ảnh Canva den-1.png)"
+  },
+  "ui.ring-act": {
+   "file": "assets/art/ui-ring-act.png",
+   "v": "044488e2",
+   "w": 47,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    23,
+    55
+   ],
+   "note": "nguồn sáng khung giao diện: ring-act (ảnh Canva vong-nut.png)"
+  },
+  "ui.ring-art": {
+   "file": "assets/art/ui-ring-art.png",
+   "v": "dd75f513",
+   "w": 46,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    23,
+    55
+   ],
+   "note": "nguồn sáng khung giao diện: ring-art (ảnh Canva vong-nut.png)"
+  },
+  "ui.ring-atk": {
+   "file": "assets/art/ui-ring-atk.png",
+   "v": "b69765e1",
+   "w": 51,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    25,
+    59
+   ],
+   "note": "nguồn sáng khung giao diện: ring-atk (ảnh Canva vong-nut.png)"
+  },
+  "ui.ring-dash": {
+   "file": "assets/art/ui-ring-dash.png",
+   "v": "d2b8cc29",
+   "w": 54,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    27,
+    55
+   ],
+   "note": "nguồn sáng khung giao diện: ring-dash (ảnh Canva vong-nut.png)"
+  },
+  "ui.ring-pill": {
+   "file": "assets/art/ui-ring-pill.png",
+   "v": "0f3afb66",
+   "w": 49,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    24,
+    55
+   ],
+   "note": "nguồn sáng khung giao diện: ring-pill (ảnh Canva vong-nut.png)"
+  },
+  "ui.ring-skill": {
+   "file": "assets/art/ui-ring-skill.png",
+   "v": "7e808015",
+   "w": 45,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    22,
+    55
+   ],
+   "note": "nguồn sáng khung giao diện: ring-skill (ảnh Canva vong-nut.png)"
   },
   "ui.stonelamp": {
    "file": "assets/art/ui-stonelamp.png",
