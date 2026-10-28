@@ -39,6 +39,44 @@ def _cells(src, grid):
     return out
 
 
+def _key(a):
+    """Bỏ nền hồng tím theo màu (cả chỗ kẹp giữa chân mà loang từ mép không tới) và vệt bóng tím sẫm dưới chân."""
+    c = a[:, :, :3].astype(int); r, g, b = c[:, :, 0], c[:, :, 1], c[:, :, 2]
+    mag = (r - g > 90) & (b - g > 90) & (np.abs(r - b) < 90)
+    shadow = (b >= r - 10) & (g < r) & (b - g > 25) & (r < 170) & (np.arange(a.shape[0])[:, None] > a.shape[0] * 0.55)
+    out = a.copy(); out[:, :, 3] = np.where(mag | shadow, 0, a[:, :, 3])
+    return out
+
+
+def _split(a, gap=8):
+    """Tách khung theo cột trống (ảnh một hàng, khung cách nhau)."""
+    cols = np.nonzero((a[:, :, 3] > 0).any(axis=0))[0]
+    segs, s, p = [], cols[0], cols[0]
+    for c in cols[1:]:
+        if c - p > gap: segs.append((s, p + 1)); s = c
+        p = c
+    segs.append((s, p + 1))
+    return [a[:, x0:x1] for x0, x1 in segs]
+
+
+def _act_frames(cells, h, colors):
+    """Thu về cao h điểm ảnh bằng trung bình vùng (giữ mắt, mặt rõ hơn màu đa số khi ảnh gốc to), gom màu chung, viền mực."""
+    boxes = [_bbox(c) for c in cells]
+    k = (h - 2) / max(b[3] - b[1] for b in boxes)
+    outs = []
+    for c, b in zip(cells, boxes):
+        part = Image.fromarray(np.ascontiguousarray(c[b[1]:b[3], b[0]:b[2]])).convert('RGBa')
+        a = np.array(part.resize((max(1, round((b[2] - b[0]) * k)), max(1, round((b[3] - b[1]) * k))), Image.BOX).convert('RGBA'))
+        a[:, :, 3] = np.where(a[:, :, 3] > 110, 255, 0); outs.append(a)
+    W, H = max(o.shape[1] for o in outs), max(o.shape[0] for o in outs)
+    fr = []
+    for o in outs:
+        f = np.zeros((H, W, 4), np.uint8); x0 = (W - o.shape[1]) // 2
+        f[H - o.shape[0]:, x0:x0 + o.shape[1]] = o; fr.append(f)
+    strip = quantize(np.concatenate(fr, axis=1), colors)
+    return [outline(strip[:, i * W:(i + 1) * W]) for i in range(len(fr))]
+
+
 def _bbox(a):
     ys, xs = np.nonzero(a[:, :, 3] > 0)
     return (xs.min(), ys.min(), xs.max() + 1, ys.max() + 1) if len(ys) else None
@@ -83,9 +121,16 @@ def apply(manifest, save):
     for sid, s in spec.items():
         if sid.startswith('_') or not (AI / s['src']).exists():
             continue
-        old = manifest.get(sid)
+        old = manifest.get(sid) or ({'w': 1, 'h': 1, 'frames': 6, 'anchor': [0, 0]} if s.get('acts') else None)   # hình mới chưa có bản code (bạn đồng hành)
         if not old:
             print('bỏ qua (không có hình code cùng id):', sid); continue
+        if s.get('acts') and s.get('h'):   # ảnh gốc đầy đủ (chủ dự án gửi): bỏ nền theo màu, tự tách khung, thu về cao h
+            a = np.array(Image.open(AI / s['src']).convert('RGBA'))
+            cells = _split(_key(a) if s.get('key') == 'magenta' else remove_bg(a, 60))
+            frames = _act_frames(cells, s['h'], s.get('colors', 14))
+            h, w = frames[0].shape[:2]
+            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + ' · ảnh AI 6 động tác')
+            n += 1; continue
         cells = _cells(AI / s['src'], s.get('grid', [1, 1]))
         cells = [cells[i] for i in s.get('cells', range(len(cells)))]
         cells = [c for c in cells if _bbox(c)]
@@ -99,6 +144,12 @@ def apply(manifest, save):
             base = _pixel_frames(cells[:1], tw, round(th * 0.45), s.get('colors', 12))[0]
             fr, side = FWP.rotations(_canvas(base))
             save(sid, fr, (side // 2, side // 2), (old.get('note') or '') + ' · ảnh Canva')
+            n += 1; continue
+        if s.get('acts'):   # 6 khung động tác (src/render/draw-acts.js): giữ đủ, cỡ theo "box" [rộng, cao], neo giữa chân
+            bw, bh = s.get('box', [tw, th])
+            frames = _pixel_frames(cells, bw, bh, s.get('colors', 14))
+            h, w = frames[0].shape[:2]
+            save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), (old.get('note') or '') + ' · ảnh Canva 6 động tác')
             n += 1; continue
         frames = _glow_frames(cells, tw, th) if mode == 'glow' else _pixel_frames(cells, tw, th, s.get('colors', 14))
         if s.get('bob') and len(frames) == 1:
