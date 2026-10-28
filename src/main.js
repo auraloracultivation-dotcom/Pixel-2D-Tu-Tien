@@ -1,4 +1,5 @@
 // Khởi động: nạp dữ liệu, dựng màn hình, vòng lặp khung hình.
+import './core/clock.js';   // đồng hồ tin được: phải nạp trước mọi thứ dùng Date
 import { loadData } from './core/data.js';
 import { createScreen } from './core/screen.js';
 import { createPerf } from './core/perf.js';
