@@ -1,14 +1,26 @@
 {
- "_note": "Quay clip trong game (chủ dự án xin 28/10/2026): người chơi tự quay đoạn chơi rồi lưu hoặc chia sẻ (TikTok, Zalo, Facebook). Chỉ ghi khung vẽ của game (bản đồ, nhân vật, hiệu ứng) và tiếng game; Menu, chat, nút bấm bằng HTML không lên hình. Nút quay nằm cạnh nút tiếng. File nạp riêng ở src/game/record.js (không nằm trong danh sách data.js) để không đụng file chung. max_sec: dài nhất mỗi clip, hết thì tự dừng. fps: khung hình mỗi giây. long: cạnh dài của clip (điểm ảnh), máy khoẻ / máy yếu; weak: máy yếu khi số nhân CPU ≤ cores hoặc RAM ≤ mem GB. kbps: tốc độ ghi hình. mark: chữ góc clip để quảng bá.",
+ "_note": "Quay clip trong game (chủ dự án xin 28/10/2026): người chơi tự quay đoạn chơi rồi lưu hoặc chia sẻ (TikTok, Zalo, Facebook). Chỉ ghi khung vẽ của game (bản đồ, nhân vật, hiệu ứng) và tiếng game; Menu, chat, nút bấm bằng HTML không lên hình. Nút quay nằm cạnh nút tiếng. File nạp riêng ở src/game/record.js (không nằm trong danh sách data.js) để không đụng file chung. max_sec: dài nhất mỗi clip, hết thì tự dừng. fps / fps_weak: khung hình mỗi giây máy khoẻ / máy yếu (chép khung vẽ đúng số lần này, không chép mỗi khung màn hình cho đỡ giật). long: cạnh dài của clip (điểm ảnh), máy khoẻ / máy yếu; weak: máy yếu khi số nhân CPU ≤ cores hoặc RAM ≤ mem GB. kbps: tốc độ ghi hình. mark: chữ góc clip để quảng bá.",
  "max_sec": 60,
  "warn_sec": 10,
  "min_sec": 1,
  "fps": 30,
- "long": {"strong": 1280, "weak": 854},
- "kbps": {"strong": 2500, "weak": 1200},
- "weak": {"cores": 4, "mem": 3},
+ "long": {
+  "strong": 1280,
+  "weak": 854
+ },
+ "kbps": {
+  "strong": 2500,
+  "weak": 1200
+ },
+ "weak": {
+  "cores": 4,
+  "mem": 3
+ },
  "audio_kbps": 96,
- "mark": {"title": "Pixel 2D Tu Tiên", "sub": "Tu tiên pixel · chơi trên điện thoại"},
+ "mark": {
+  "title": "Pixel 2D Tu Tiên",
+  "sub": "Tu tiên pixel · chơi trên điện thoại"
+ },
  "file": "pixel-2d-tu-tien",
  "share": {
   "_note": "Quà chia sẻ (chủ dự án xin 28/10/2026): quay clip từ min_sec giây, đăng CÔNG KHAI lên TikTok hoặc YouTube có tag trong mô tả, dán link để nhận 1 viên ngọc cấp gem_level, mỗi tài khoản một lần. on: bật ô nhận quà (chỉ bật sau khi đã áp migration và triển khai hàm Edge). Máy chủ (supabase/functions/chia-se-clip) hỏi oEmbed của TikTok/YouTube: video riêng tư hoặc đã xoá thì không đọc được nên không nhận. Không thưởng Facebook vì luật Facebook cấm thưởng để đổi lấy lượt chia sẻ. gem_level, tag phải khớp máy chủ (migration 20261028143000, hàm chia-se-clip).",
@@ -32,13 +44,11 @@
   "too_short": "Clip ngắn quá nên không lưu.",
   "title": "Clip của bạn",
   "info": "{sec} giây · {mb} MB · {fmt}",
-  "share": "Chia sẻ",
   "save": "Lưu về máy",
   "drop": "Bỏ",
   "close": "Đóng",
   "saved": "Đã lưu clip vào mục Tải xuống.",
   "share_title": "Pixel 2D Tu Tiên",
-  "share_text": "Xem mình tu tiên nè! #PixelTuTien",
   "no_share": "Máy này không mở được bảng chia sẻ; clip đã được lưu về máy, bạn đăng từ thư viện nhé.",
   "webm_note": "Máy này quay ra file WebM; nếu TikTok không nhận, mở clip bằng app chỉnh video rồi xuất lại MP4.",
   "gift_head": "Quà chia sẻ: 1 viên ngọc cấp {lv}",
@@ -62,6 +72,13 @@
    "chua_luu": "Chưa có bản lưu trên máy chủ, chơi thêm chút rồi thử lại.",
    "chua_dang_nhap": "Đăng nhập tài khoản để nhận quà chia sẻ.",
    "loi": "Máy chủ đang bận, thử lại sau nhé."
-  }
- }
+  },
+  "tiktok": "Đăng TikTok",
+  "tiktok_caption": "Tu tiên pixel trên điện thoại 🗡️ #PixelTuTien #tutien #pixelart #gamemobile",
+  "tiktok_after": "Chọn TikTok trong bảng chia sẻ. Mô tả có #PixelTuTien đã được chép sẵn: trong TikTok, giữ ô mô tả rồi bấm Dán.",
+  "save_ios": "Trên iPhone, bấm Lưu về máy rồi chọn \"Lưu video\" để clip vào Ảnh.",
+  "saved_ios": "Nếu bạn đã chọn \"Lưu video\", clip nằm trong app Ảnh.",
+  "save_ios_fail": "Máy này chưa lưu được clip từ game. Bạn dùng nút quay màn hình của iPhone nhé."
+ },
+ "fps_weak": 24
 }

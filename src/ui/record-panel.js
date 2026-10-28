@@ -30,22 +30,38 @@ export function createRecordPanel(game, cfg, onRecord) {
 
   const fileOf = c => new File([c.blob], `${cfg.file}-${new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-')}.${c.ext}`, { type: c.blob.type });
 
+  // iPhone/iPad không tải file về được từ trang web (nhất là khi cài lên màn hình chính): lưu qua bảng chia sẻ → "Lưu video"
+  const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
   function download(c) {
     const a = el('a'); a.href = url; a.download = fileOf(c).name;
     document.body.append(a); a.click(); a.remove();
   }
 
-  async function share() {
+  // Mở bảng chia sẻ của máy với file clip. Trả về 'ok' | 'huy' | 'khong' (máy không chia sẻ file được)
+  async function sheet() {
     const f = fileOf(clip);
+    if (!navigator.canShare?.({ files: [f] })) return 'khong';
+    try { await navigator.share({ files: [f], title: T.share_title }); return 'ok'; }
+    catch (e) { return e?.name === 'AbortError' ? 'huy' : 'khong'; }
+  }
+
+  // Ưu tiên TikTok: chép sẵn mô tả có tag (TikTok không nhận chữ gửi kèm), mở bảng chia sẻ để chọn TikTok
+  async function tiktok() {
     const long = clip.sec >= S.min_sec;
-    try {
-      if (navigator.canShare?.({ files: [f] })) {
-        await navigator.share({ files: [f], title: T.share_title, text: T.share_text });
-        if (long) unlockGift();
-      } else { download(clip); if (long) unlockGift(); note = T.no_share; }
-    } catch (e) {
-      if (e?.name !== 'AbortError') { download(clip); if (long) unlockGift(); note = T.no_share; }   // người chơi tự đóng bảng chia sẻ thì thôi
-    }
+    try { navigator.clipboard?.writeText(T.tiktok_caption).catch(() => {}); } catch { /* không chép được: vẫn chia sẻ */ }
+    const r = await sheet();
+    if (r === 'khong') { download(clip); note = T.no_share; }
+    else note = T.tiktok_after;
+    if (r !== 'huy' && long) unlockGift();
+    render();
+  }
+
+  async function save() {
+    if (ios) {
+      const r = await sheet();
+      note = r === 'khong' ? T.save_ios_fail : r === 'ok' ? T.saved_ios : T.save_ios;
+    } else { download(clip); note = T.saved; }
     render();
   }
 
@@ -88,8 +104,9 @@ export function createRecordPanel(game, cfg, onRecord) {
       const info = el('small', 'rec-info', fill(T.info, { sec: Math.round(clip.sec), mb, fmt: clip.ext.toUpperCase() }));
       const acts = el('div', 'card-acts');
       const b = (text, fn) => { const k = el('button', 'mini', text); k.onclick = fn; return k; };
-      acts.append(b(T.share, share), b(T.save, () => { download(clip); note = T.saved; render(); }), b(T.drop, close));
-      body.append(v, info, acts);
+      const tk = el('button', 'mini rec-tiktok', T.tiktok); tk.onclick = tiktok;
+      acts.append(b(T.save, save), b(T.drop, close));
+      body.append(v, info, tk, acts);
       if (clip.ext === 'webm') body.append(el('small', 'rec-hint', T.webm_note));
     } else {
       const acts = el('div', 'card-acts');
