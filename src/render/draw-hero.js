@@ -10,8 +10,14 @@ export function heroLook(game) {
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
 function anim(game, p, look, t) {
   const walkName = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';
-  if (game.data.heroes.fly) {   // ngự kiếm: không chạy khung chém sẵn trong hình; có động tác vận lực (cast) thì chạy, không thì đứng/đi
-    const k = strikeLean(game), cast = look.anims.cast;
+  if (game.data.heroes.fly) {   // ngự kiếm: động tác đánh do flyweapon.js chọn (p.heroAnim), chạy cùng lúc vũ khí bay lao ra
+    const ha = p.heroAnim, list = ha && look.anims[ha.name];
+    if (list) {
+      const i = Math.floor((game.time - ha.t0) * look.fps[ha.name]);
+      if (i >= 0 && i < list.length) return [ha.name, i, i / list.length, true];
+      p.heroAnim = null;
+    }
+    const k = strikeLean(game), cast = look.anims.cast;   // nhân vật chưa có động tác đánh: chạy vận lực (cast) nếu có, không thì nhún nhẹ
     if (k != null && cast) return ['cast', Math.min(cast.length - 1, Math.floor(k * cast.length)), k];
     return [walkName, Math.floor(t * (look.fps[walkName] || 1)), k ?? undefined];
   }
@@ -42,7 +48,7 @@ export function drawHero(ctx, game, p, t, flash) {
   const look = heroLook(game), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;
-  const [name, i, atk] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
+  const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống
   ctx.fillStyle = 'rgba(27,24,48,0.25)';   // bóng dưới chân
@@ -54,7 +60,7 @@ export function drawHero(ctx, game, p, t, flash) {
   const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
   const n0 = want >= 0.75 ? Math.max(1, Math.round(want)) : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
   ctx.save();
-  const fly = game.data.heroes.fly, lunge = fly ? fly.lean : look.lunge;   // ngự kiếm: chỉ nhún nhẹ vận lực, vũ khí bay mới là cái đánh
+  const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
   ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f));
   ctx.imageSmoothingEnabled = n0 < 0.75;
