@@ -577,5 +577,174 @@
    3
   ],
   "scale": 1.6
+ },
+ "comp.tieu-hoa": {
+  "src": "sheets/comp-tieu-hoa.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Tiểu Hỏa (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.lac-tuyet": {
+  "src": "sheets/comp-lac-tuyet.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Sư tỷ Lạc Tuyết (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.ho-linh": {
+  "src": "sheets/comp-ho-linh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Hồ Linh (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.mac-anh": {
+  "src": "sheets/comp-mac-anh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Mặc Ảnh (ảnh chủ dự án gửi 28/10)",
+  "shadow": false,
+  "colors": 24
+ },
+ "comp.tieu-dao": {
+  "src": "sheets/comp-tieu-dao.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Sư huynh Tiêu Dao (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thanh-diep": {
+  "src": "sheets/comp-thanh-diep.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thanh Diệp (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thiet-lan": {
+  "src": "sheets/comp-thiet-lan.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thiết Lan (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
+ },
+ "comp.thach-sinh": {
+  "src": "sheets/comp-thach-sinh.png",
+  "acts": true,
+  "h": 44,
+  "key": "magenta",
+  "grid": [
+   1,
+   1
+  ],
+  "order": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "hop": true,
+  "note": "Thạch Sinh (ảnh chủ dự án gửi 28/10)",
+  "colors": 24
  }
 }
