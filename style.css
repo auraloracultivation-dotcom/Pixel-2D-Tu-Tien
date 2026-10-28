@@ -58,14 +58,15 @@ canvas#game { position: fixed; inset: 0; display: block; image-rendering: -webki
 #btn-s0 b, #btn-s1 b, #btn-s2 b { font-size: 9px; padding-top: 30px; }
 .atk { right: 0; bottom: 0; width: 84px; height: 84px; font-size: 15px; border-color: var(--trim); background: radial-gradient(circle at 45% 35%, #ffcf7a 0, #e0802e 38%, #6a2a10 100%); color: var(--torch-ink); box-shadow: 0 0 0 1px #000, 0 0 18px rgba(242, 164, 67, .45), inset 0 2px 0 rgba(255, 240, 200, .5); }
 .atk b { color: #fff6e0; text-shadow: 0 1px 2px #3a1404; font-family: var(--f-title); font-size: 16px; }
-#btn-s0 { right: 92px; bottom: 2px; width: 58px; height: 58px; }
-#btn-s1 { right: 76px; bottom: 70px; width: 58px; height: 58px; }
-#btn-s2 { right: 4px; bottom: 96px; width: 58px; height: 58px; }
-.act { right: 140px; bottom: 120px; width: auto; height: 38px; border-radius: 6px; padding: 0 14px; background: linear-gradient(#f6b45a, #c66a22); border-color: var(--trim-hi); color: var(--torch-ink); font-size: 13px; white-space: nowrap; box-shadow: 0 0 14px rgba(242, 164, 67, .45); }
+/* Chiêu xếp thành cung đều quanh nút Đánh (tâm nút Đánh cách góc 42px): bán kính 94 ở 180°, 135°, 90° — không chạm nhau */
+#btn-s0 { right: 107px; bottom: 13px; width: 58px; height: 58px; }
+#btn-s1 { right: 79px; bottom: 79px; width: 58px; height: 58px; }
+#btn-s2 { right: 13px; bottom: 107px; width: 58px; height: 58px; }
+.act { right: 128px; bottom: 150px; width: auto; height: 38px; border-radius: 6px; padding: 0 14px; background: linear-gradient(#f6b45a, #c66a22); border-color: var(--trim-hi); color: var(--torch-ink); font-size: 13px; white-space: nowrap; box-shadow: 0 0 14px rgba(242, 164, 67, .45); }
 .act b { color: var(--torch-ink); text-shadow: none; }
-#btn-pill { right: 158px; bottom: 6px; width: 46px; height: 46px; font-size: 11px; background: radial-gradient(circle at 40% 30%, #8a3a52, #2a0f1c); }
-#btn-dash { right: 140px; bottom: 58px; width: 44px; height: 44px; font-size: 11px; background: radial-gradient(circle at 40% 30%, #3a5a8a, #0f1828); }
-#btn-art { right: 10px; bottom: 162px; width: 46px; height: 46px; font-size: 10px; background: radial-gradient(circle at 40% 30%, #6a5a2a, #20180a); border-color: var(--trim); }
+#btn-pill { right: 178px; bottom: 8px; width: 46px; height: 46px; font-size: 11px; background: radial-gradient(circle at 40% 30%, #8a3a52, #2a0f1c); }
+#btn-dash { right: 166px; bottom: 74px; width: 44px; height: 44px; font-size: 11px; background: radial-gradient(circle at 40% 30%, #3a5a8a, #0f1828); }
+#btn-art { right: 70px; bottom: 156px; width: 46px; height: 46px; font-size: 10px; background: radial-gradient(circle at 40% 30%, #6a5a2a, #20180a); border-color: var(--trim); }
 
 /* ---------------------------------------------------------------- hộp thoại */
 #dialog { max-height: 92vh; overflow-y: auto; position: fixed; left: 8px; right: 8px; bottom: calc(env(safe-area-inset-bottom) + 10px); min-height: 110px; background: linear-gradient(rgba(169, 195, 255, .06), transparent 40%), var(--panel); border: 1px solid var(--line-hi); border-radius: var(--r); padding: 12px 14px 22px; box-shadow: 0 0 0 1px #000, inset 0 0 0 1px rgba(226, 192, 122, .2), 0 10px 30px rgba(0, 0, 0, .7); max-width: 640px; margin: 0 auto; }
@@ -416,3 +417,18 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #bag .item small { grid-column: 1 / -1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #bag .item:has(em) small { padding-right: 40px; }
 #bag .item em { right: 5px; bottom: 3px; font-size: 9.5px; }
+
+/* ---------------------------------------------------------------- HUD gọn (28/10/2026 đêm, chơi thử thấy góc trái chật, đè mục tiêu)
+   Nút nhỏ lại một nấc, tên cảnh giới không xuống dòng, Zalo theo tông tối (giữ viền lam nhận diện), dòng báo cao hơn, gọn hơn. */
+.bars { width: 182px; }
+.realm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; }
+.power, .sky { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hud-btns { gap: 5px; max-width: 200px; }
+#btn-mute, #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, #btn-rec { height: 26px !important; font-size: 12px !important; }
+#btn-menu, #btn-auto, #btn-pilot, #btn-world { padding: 0 8px !important; }
+#btn-mute { width: 28px !important; }
+#btn-zalo { background: var(--glass); color: #8fbcff; border-color: #3d6fc4; padding: 0 7px; }
+.goal { font-size: 11.5px; padding: 6px 8px; max-width: 48%; }
+#toast { top: 24%; font-size: 13px; padding: 7px 12px; max-width: 74%; }
+/* Ô chiêu chưa có chiêu: ẩn hẳn, đỡ rối góc màn (chơi thử thấy ba vòng tối trống cạnh nút Đánh) */
+#btn-s0.off, #btn-s1.off, #btn-s2.off { opacity: 0; pointer-events: none; }

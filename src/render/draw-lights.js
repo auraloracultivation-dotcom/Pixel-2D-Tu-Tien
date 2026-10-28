@@ -2,6 +2,7 @@
 // Mỗi khung gom nguồn sáng một lần (gatherLights), lớp tối ngày đêm (draw-sky.js) và hầm ngục (draw-light.js) khoét
 // lỗ tại đó (cutLights), cuối cùng phủ quầng cộng sáng lên trên tất cả (drawBloom) để màu chiêu rực trên nền tối.
 import { weaponId } from '../game/stats.js';
+import { phase } from '../game/daynight.js';
 
 const rgbOf = hex => {
   if (!hex || hex[0] !== '#') return null;
@@ -78,6 +79,13 @@ export function cutLights(c, lights, at, s, cut) {
   c.restore();
 }
 
+// Trời tối tới đâu (0 ban ngày ngoài trời có phủ nhẹ … 1 đêm, hầm ngục): quầng chiêu rực theo độ tối
+function darkness(game) {
+  if (game.data.light.maps.includes(game.map?.id)) return 1;
+  const p = phase(game);
+  return p.tint ? Math.min(1, p.tint[3] / 0.6) : 0;
+}
+
 // Quầng cộng sáng lên trên cùng (toạ độ màn hình): tâm rực, viền mờ dần theo màu nguồn
 export function drawBloom(ctx, game, screen, lights) {
   const G = game.data.light.glow;
@@ -85,10 +93,15 @@ export function drawBloom(ctx, game, screen, lights) {
   ctx.save();
   ctx.globalCompositeOperation = 'lighter';
   const k = G.player.a / G.core;   // người chơi: quầng dịu hơn
+  // Đánh đông quái: nhiều quầng chồng một chỗ cộng thành mảng trắng chói (chơi thử 28/10). Chia độ sáng theo số quầng
+  // trong cùng ô density (đơn vị thế giới), và ban ngày ngoài trời dịu hơn trong hầm, ban đêm.
+  const D = G.density || 32, n = new Map(), cell = L => Math.floor(L.x / D) + ',' + Math.floor(L.y / D);
+  for (const L of lights) if (!L.soft) n.set(cell(L), (n.get(cell(L)) || 0) + 1);
+  const env = darkness(game);
   for (const L of lights) {
     const q = screen.toScreen(L.x, L.y), r = L.r * screen.zoom * (L.soft ? 1 : 0.9);
     if (q.x < -r || q.y < -r || q.x > screen.w + r || q.y > screen.h + r) continue;
-    const m = L.soft ? k : 1, a = Math.min(1, L.a);
+    const m = L.soft ? k : 1, a = Math.min(1, L.a) * (L.soft ? 1 : (G.day + (1 - G.day) * env) / Math.sqrt(n.get(cell(L)) || 1));
     if (a <= 0.01) continue;
     ctx.globalAlpha = a;
     ctx.drawImage(glow(`${L.c}|${m}`, [[0, `rgba(${L.c},${Math.min(1, G.core * m).toFixed(3)})`], [0.3, `rgba(${L.c},${Math.min(1, G.halo * m).toFixed(3)})`], [1, `rgba(${L.c},0)`]]), q.x - r, q.y - r, r * 2, r * 2);

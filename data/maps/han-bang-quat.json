@@ -3,7 +3,7 @@
  "name": "Băng Quật",
  "sky": "#0c1828",
  "dark": 0.35,
- "ground": "#3a5470",
+ "ground": "#3a5470", "tint_mul": 1.2,
  "grid": [
   "#################################################",
   "#jjjjjjjjjj###jjjjjjjjjjjjjj###jjjjjjjjjjjjjjjjj#",

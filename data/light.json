@@ -113,10 +113,10 @@
   }
  },
  "glow": {
-  "_note": "Chiêu, đạn, vệt chém sáng như đèn (src/render/draw-lights.js, chủ dự án xin 28/10/2026): mỗi khung gom nguồn sáng (người chơi, đạn, hiệu ứng chiêu, vùng chiêu, vệt chém, vũ khí bay), khoét lớp tối ngày đêm và hầm ngục tại đó (cut), rồi phủ quầng cộng sáng (core ở tâm, halo giữa). r: bán kính điểm ảnh thế giới. sprite: màu sáng theo hình hiệu ứng (không có trong bảng thì không sáng, như khói). player: đèn quanh người chơi luôn bật.",
+  "_note": "Chiêu, đạn, vệt chém sáng như đèn (src/render/draw-lights.js, chủ dự án xin 28/10/2026): mỗi khung gom nguồn sáng (người chơi, đạn, hiệu ứng chiêu, vùng chiêu, vệt chém, vũ khí bay), khoét lớp tối ngày đêm và hầm ngục tại đó (cut), rồi phủ quầng cộng sáng (core ở tâm, halo giữa). r: bán kính điểm ảnh thế giới. sprite: màu sáng theo hình hiệu ứng (không có trong bảng thì không sáng, như khói). player: đèn quanh người chơi luôn bật. density: các quầng chiêu trong cùng ô (đơn vị thế giới) chia độ sáng theo căn số lượng, khỏi chồng thành mảng trắng; day: độ rực quầng chiêu khi trời sáng nhất (1 là như đêm).",
   "cut": 0.9,
-  "core": 0.5,
-  "halo": 0.2,
+  "core": 0.38,
+  "halo": 0.15,
   "player": {
    "r": 78,
    "c": "255,214,160",
@@ -157,6 +157,8 @@
    "fx.slash-kiem": "170,225,255",
    "fx.slash-thuong": "190,220,255",
    "fx.slash-quat": "170,240,255"
-  }
+  },
+  "density": 32,
+  "day": 0.45
  }
 }

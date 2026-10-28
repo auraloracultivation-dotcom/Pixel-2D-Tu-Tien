@@ -17,36 +17,39 @@ def _a(c, a):
 DARK, LIGHT = (8, 4, 14), (255, 240, 220)
 
 
+# Bố cục phiến đá trong một ô 16×16 (x, y, rộng, cao). Trước đây phiến 8×8 xếp đều, mạch vữa đậm nên nền đọc thành
+# tường gạch (chơi thử 28/10: nền hầm trông như vách). Nay phiến to nhỏ không đều, mạch nhạt, nền khác hẳn vách.
+LAYOUTS = [
+    [(0, 0, 10, 7), (10, 0, 6, 7), (0, 7, 6, 9), (6, 7, 10, 9)],
+    [(0, 0, 16, 6), (0, 6, 7, 10), (7, 6, 9, 5), (7, 11, 9, 5)],
+    [(0, 0, 7, 9), (7, 0, 9, 9), (0, 9, 11, 7), (11, 9, 5, 7)],
+    [(0, 0, 5, 16), (5, 0, 11, 8), (5, 8, 6, 8), (11, 8, 5, 8)],
+]
+
+
 def floor(seed):
-    """Phiến đá 8×8 xếp lệch hàng: mạch vữa tối, cạnh trên sáng nhẹ, mỗi phiến đậm nhạt khác nhau."""
+    """Phiến đá to nhỏ không đều: mạch vữa nhạt, cạnh trên bắt sáng rất nhẹ, mỗi phiến đậm nhạt một chút."""
     rnd = random.Random(seed * 7 + 1)
     c = Canvas(16, 16)
-    for row in (0, 8):
-        off = 0 if row == 0 else 4
-        for sx in range(-8, 16, 8):
-            x0 = sx + off
-            shade = rnd.choice((0, 0, 18, 32, 48))
-            for y in range(row, row + 8):
-                for x in range(x0, x0 + 8):
-                    if not 0 <= x < 16:
-                        continue
-                    lx, ly = x - x0, y - row
-                    if lx == 7 or ly == 7:
-                        c.px(x, y, _a(DARK, 150))            # mạch vữa
-                    elif ly == 0 and lx < 6:
-                        c.px(x, y, _a(LIGHT, 34))            # cạnh trên bắt sáng
-                    elif ly == 6 or lx == 6:
-                        c.px(x, y, _a(DARK, 70))             # cạnh dưới, phải chìm
-                    elif shade:
-                        c.px(x, y, _a(DARK, shade))
+    for (x0, y0, w, h) in LAYOUTS[seed % len(LAYOUTS)]:
+        shade = rnd.choice((0, 0, 0, 14, 24, 34))
+        for y in range(y0, y0 + h):
+            for x in range(x0, x0 + w):
+                lx, ly = x - x0, y - y0
+                if lx == w - 1 or ly == h - 1:
+                    c.px(x, y, _a(DARK, 105))            # mạch vữa (một nét, nhạt)
+                elif ly == 0 and 0 < lx < w - 2:
+                    c.px(x, y, _a(LIGHT, 18))            # cạnh trên bắt sáng
+                elif shade:
+                    c.px(x, y, _a(DARK, shade))
     if seed % 4 == 1:   # vết nứt
-        x, y = rnd.randrange(2, 10), rnd.randrange(1, 5)
-        for k in range(5):
-            c.px(x + k, y + (k > 2), _a(DARK, 170))
+        x, y = rnd.randrange(2, 10), rnd.randrange(2, 12)
+        for k in range(4):
+            c.px(x + k, y + (k > 1), _a(DARK, 140))
     if seed % 4 == 3:   # sỏi vụn
         for _ in range(3):
-            x, y = rnd.randrange(1, 15), rnd.randrange(1, 15)
-            c.px(x, y, _a(LIGHT, 40)); c.px(x + 1, y + 1, _a(DARK, 120))
+            x, y = rnd.randrange(1, 14), rnd.randrange(1, 14)
+            c.px(x, y, _a(LIGHT, 30)); c.px(x + 1, y + 1, _a(DARK, 90))
     return c
 
 

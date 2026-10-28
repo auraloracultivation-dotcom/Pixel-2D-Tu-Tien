@@ -19,6 +19,7 @@ const PROP = {
   U: ['prop.blackpillar', 8, 15], '*': ['prop.crystal', 8, 15], Y: ['prop.pine', 8, 15], k: ['prop.icepillar', 8, 15],
   P: ['prop.portal', 8, 9, true], M: ['prop.cushion', 8, 9], K: ['prop.furnace', 8, 15, true], A: ['prop.anvil', 8, 14, true],
 };
+const NATURAL = 'nRY*kTZV';   // cây, đá, nấm, tinh thể: lệch nhẹ cho tự nhiên
 // Vách hang theo hệ: mặt vách khi ô dưới đi được, không thì đỉnh vách
 const WALLS = { X: 'tile.wall-root', C: 'tile.wall-copper', E: 'tile.wall-earth' };
 export const PROP_TILES = Object.keys(HOUSE).join('') + Object.keys(PROP).join('') + Object.keys(WALLS).join('') + 'F^S';
@@ -97,6 +98,7 @@ function build(game, map, tiles, hash, baseTile) {
     const k = map.type(tx, ty);
     if (!k.solid && !k.void) put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
   }
+  if (!lit) meadow(c, map, hash);
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
@@ -112,6 +114,23 @@ function rimTile(c, map, sp, isBank, tx, ty, px, py) {
     const a = bank(dx, 0), b = bank(0, dy);
     if ((a && b) || (!a && !b && bank(dx, dy))) put(c, sp, 4 + i, px, py);
   });
+}
+
+// Bãi cỏ loang (chơi thử 28/10: cỏ một màu phẳng lì, nhìn lâu mỏi mắt): nhiễu thô mỗi 5 ô, nội suy ra từng khối 4×4 điểm ảnh,
+// chia 3 bậc (sẫm, thường, sáng ấm) như mảng cỏ dày, cỏ thưa có nắng. Vẽ một lần vào tấm đệm nền.
+function meadow(c, map, hash) {
+  const T = map.T, S = 5, B = 4, n = (gx, gy) => hash(gx * 13 + 101, gy * 17 + 7);
+  for (let ty = 0; ty < map.h; ty++) for (let tx = 0; tx < map.w; tx++) {
+    if (!GRASSY.includes(map.at(tx, ty))) continue;
+    for (let by = 0; by < T; by += B) for (let bx = 0; bx < T; bx += B) {
+      const fx = (tx * T + bx) / (S * T), fy = (ty * T + by) / (S * T), gx = Math.floor(fx), gy = Math.floor(fy), u = fx - gx, v = fy - gy;
+      const su = u * u * (3 - 2 * u), sv = v * v * (3 - 2 * v);
+      const val = (n(gx, gy) * (1 - su) + n(gx + 1, gy) * su) * (1 - sv) + (n(gx, gy + 1) * (1 - su) + n(gx + 1, gy + 1) * su) * sv;
+      const d = ((bx + by * 3 + tx * 5 + ty * 7) % 4) / 4 * 0.08;   // lệch ngưỡng theo khối: mép mảng răng cưa kiểu pixel, không thành dải
+      if (val + d < 0.36) { c.fillStyle = 'rgba(10,40,30,0.09)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
+      else if (val - d > 0.7) { c.fillStyle = 'rgba(255,230,150,0.05)'; c.fillRect(tx * T + bx, ty * T + by, B, B); }
+    }
+  }
 }
 
 // Rải vùng đất trống và bụi cây thấp lên bãi cỏ rộng, cố định theo vị trí ô (vẽ luôn vào tấm đệm, không chắn đường).
@@ -158,7 +177,10 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   if (ch === 'S') return drawSpiritStone(ctx, game, map, tx, ty, t);
   const id = HOUSE[ch] || PROP[ch]?.[0] || (ch === 'F' && 'decal.flowers'), sp = id && sheet(game, id);
   if (!sp) return false;
-  const T = map.T, px = tx * T, py = ty * T, a = sp.s.anchor;
+  const T = map.T, a = sp.s.anchor;
+  // Vật tự nhiên lệch vài điểm ảnh theo ô, nấm dày thì bỏ bớt: trước đây xếp thẳng hàng như ô cờ (chơi thử 28/10 ở Thanh Mộc)
+  if (ch === 'n' && (h * 31) % 1 < 0.35) return true;
+  const nat = NATURAL.includes(ch), px = tx * T + (nat ? Math.round(((h * 97) % 1 - 0.5) * 6) : 0), py = ty * T + (nat ? Math.round(((h * 53) % 1 - 0.5) * 4) : 0);
   ctx.save(); ctx.imageSmoothingEnabled = false;
   if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
   else if (PROP[ch]) put(ctx, sp, PROP[ch][3] ? Math.floor(t * 3 + h * 5) % sp.s.frames : Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);

@@ -30,7 +30,12 @@ export function tintedImage(spr, im, color) {
 // hit: 0 là không trúng, 1 là vừa trúng.
 export function drawHitFrame(ctx, spr, im, f, hit) {
   const sx = f * spr.w, ax = -spr.anchor[0], ay = -spr.anchor[1];
-  if (hit > 0.5) { ctx.drawImage(tintedImage(spr, im, '#ffffff'), sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h); return; }
+  if (hit > 0.5) {   // vừa trúng: hình thật phủ trắng 70% (trắng đặc cả bầy quái cộng quầng chiêu thành mảng chói, chơi thử 28/10)
+    ctx.drawImage(im, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
+    const a = ctx.globalAlpha; ctx.globalAlpha = a * 0.7;
+    ctx.drawImage(tintedImage(spr, im, '#ffffff'), sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
+    ctx.globalAlpha = a; return;
+  }
   ctx.drawImage(im, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
   if (hit > 0) {
     ctx.globalAlpha = hit * 1.1;

@@ -3,7 +3,7 @@
  "name": "Hàn Băng Tinh",
  "sky": "#cfe6f5",
  "dark": 0.05,
- "ground": "#e4eef6",
+ "ground": "#e4eef6", "tint_mul": 1.45,
  "island": {"top": "#d8e6f0", "under": "#8aa8c0", "trees": "#4a6a80"},
  "world": true,
  "planet": {"d": 48, "origin": [6, 12], "terrain": 1, "settle": 1, "open": 1},
