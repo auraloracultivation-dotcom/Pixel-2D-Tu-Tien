@@ -49,6 +49,11 @@ export function createStory(game) {
     }
     else if ('nodeath' in a) g.noDeath = a.nodeath;
     else if (a.flash) g.flashT = 0.35;
+    else if (a.fx) {   // dàn cảnh (src/render/draw-story-fx.js): đặt tại chỗ NPC, chờ wait giây cho cảnh chạy xong
+      const at = g.npcs.find(e => e.id === a.npc) || g.player;
+      g.storyFx = { ...a, t0: performance.now(), x: at.x, y: at.y, fog: a.fog || 6 };
+      if (a.wait) await new Promise(r => setTimeout(r, a.wait * 1000));
+    }
     else if (a.kill_all) { for (const m of g.mobs) m.dead = true; g.mobs = []; g.bullets = []; }
     else if (a.npc_add) g.addNpc(a.npc_add, a.near_player ? null : a.at);
     else if (a.npc_remove) g.npcs = g.npcs.filter(n => n.id !== a.npc_remove);

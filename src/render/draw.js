@@ -40,6 +40,7 @@ import { gatherLights, drawBloom } from './draw-lights.js';
 import { drawAim } from './draw-aim.js';
 import { actFrame, drawAct, isAct, ACT } from './draw-acts.js';
 import { drawRunDust, drawHitSwoosh, drawDowns } from './draw-act-fx.js';
+import { drawStoryFx } from './draw-story-fx.js';
 import { drawDen } from './draw-den.js';
 import { drawDuelist } from './draw-duel.js';
 import { duelFoes } from '../game/duel.js';
@@ -314,6 +315,7 @@ export function drawWorld(game, screen, t) {
     else if (k === 'comp') drawComp(ctx, e, t, game.data.art);
     else drawPlayer(ctx, game, t);
   }
+  drawStoryFx(ctx, game);   // dàn cảnh truyện: bàn tay ma khí (draw-story-fx.js)
   drawDowns(ctx, game);   // lượt gục: khung ngã nhạt dần, hồn bay lên (draw-act-fx.js)
   drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm
   drawBullets(ctx, game, t);
