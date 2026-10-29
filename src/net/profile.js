@@ -125,7 +125,12 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
     }
   }
 
-  return Object.assign(api, { load, save, flush, run });
+  // Đóng dấu bản lưu trong máy: mã phiên và phiên bản máy chủ đang dựa vào (báo cáo #13, issue #335).
+  // Lúc vào game, pickSave (src/game/cloud-guard.js) dùng dấu này biết máy khác đã ghi lên sau bản trong máy hay chưa.
+  // Đã bị máy khác chặn (stopped) thì thôi đóng dấu: bản trong máy giữ dấu cũ, lần sau vào game nhường bản máy chủ.
+  function mark(s) { if (!stopped) { s.ss = SS; s.pb = version; } }
+
+  return Object.assign(api, { load, save, flush, run, mark, get version() { return version; } });
 }
 
 // Đặt tên hiển thị (khác tên đăng nhập): 2–16 ký tự, mỗi ngày đổi một lần
