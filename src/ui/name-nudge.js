@@ -52,7 +52,7 @@ export function createNameNudge(game) {
   setInterval(() => {
     if (!root.hidden || seen()) return;
     if (!game.save || !game.player || !game.cloud || game.dialog.open || game.story?.busy || game.uiOpen || game.traveling || game.trip) return;
-    if ((game.save.step || 0) < (game.data.notice.auto_step || 0)) return;
+    if ((game.save.step || 0) < (T.step ?? 3)) return;   // qua đoạn truyện mở đầu là hỏi
     if (!DEF.test(game.cloud.name || '')) return;   // chưa lưu lên máy chủ (tên rỗng) hoặc đã có tên riêng
     mark(); inp.value = ''; msg.textContent = '';
     root.hidden = false; game.uiOpen = true;
