@@ -1,4 +1,5 @@
 // Trạng thái ván chơi và vòng cập nhật. Vẽ ở src/render, giao diện ở src/ui.
+import { fitBag } from './autoequip.js';
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
@@ -86,7 +87,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   game.persist = () => {
     if (!game.save || !game.map) return;
-    stamp(game.save);
+    stamp(game.save); if (game.save.bag?.length > data.items.bag_size) fitBag(game);   // túi lố thì máy chủ từ chối cả bản lưu
     if (game.player) game.save.power = power(game);   // máy chủ đọc để xếp hạng lực chiến
     game.cloud?.mark(game.save);   // dấu phiên cho pickSave (src/game/cloud-guard.js)
     writeSave(game.owner, game.save);
