@@ -1,6 +1,6 @@
 # Hướng dẫn cho AI làm việc trong repo này
 
-Trước mọi thay đổi, đọc `docs/01-HUONG-DI.md` → `docs/03-CAU-TRUC.md`. Việc về hình ảnh, hiệu ứng, cảm giác đánh: đọc thêm `docs/02-CHUAN-PIXEL.md`.
+Trước mọi thay đổi, đọc `docs/01-HUONG-DI.md` → `docs/03-CAU-TRUC.md`, và `docs/07-PHAN-VIEC.md` để biết tab mình giữ mảng nào (Hình ảnh / Nội dung / Máy chủ / Vận hành và sửa lỗi), không sửa đè việc tab khác. Việc về hình ảnh, hiệu ứng, cảm giác đánh: đọc thêm `docs/02-CHUAN-PIXEL.md`.
 
 Thứ tự làm việc chủ dự án đã chốt: **cốt truyện và nội dung trước → dựng bản chơi tạm bằng code đơn giản → sau cùng mới làm hình và hiệu ứng mượt.** Đừng vội vẽ khi phần trước chưa xong. Hỏi chủ dự án từng câu một khi cần quyết định.
 
