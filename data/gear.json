@@ -1,7 +1,7 @@
 {
  "_note": "Cường hóa và bộ đồ. Cường hóa +1 tới max: chỉ số chính nhân (1 + cấp × main_per). Lần lên cấp n tốn tinh-thiet iron[n-1] và tay-luyen-thach stones[n-1], tỉ lệ thành công rate[n-1]. Hỏng ở cấp ≥ drop_from thì có drop_chance tụt 1 cấp. Bộ đồ: món có set; mặc đủ số món trong bonus thì cộng chỉ số (có lifesteal, thorns, regen như công pháp).",
  "enhance": {
-  "max": 20,
+  "max": 20, "refund": 0.4, "_refund": "Phân giải món đã cường hoá trả lại refund phần tinh thiết và Tẩy Luyện Thạch đã tốn cho các cấp đã lên (không tính lần hỏng, không trả Linh Thạch). Người chơi minhavart1 báo #7, chủ dự án chốt 40% ngày 29/10/2026.",
   "open": {"_note": "Cấp cường hoá tối đa mở dần theo cảnh giới: base, từ cảnh giới from_realm (Kim Đan = 2) mỗi cảnh giới thêm per_realm, tối đa max. Kim Đan +10, Nguyên Anh +12 ... Đại Thừa +20 (chủ dự án chốt 28/10/2026).", "base": 10, "from_realm": 2, "per_realm": 2},
   "main_per": 0.1,
   "iron": [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18, 21, 25, 30, 36, 43, 51, 61, 73, 87],
