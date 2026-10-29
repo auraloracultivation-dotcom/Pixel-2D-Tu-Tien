@@ -29,10 +29,31 @@ export function createAudio(cfg) {
   }
   // iPhone: sau khi ra màn hình chính, có cuộc gọi hay khoá máy, AudioContext sang 'interrupted' chứ không phải 'suspended',
   // nên chạm nào cũng thử bật lại khi chưa 'running'. Loại phiên 'playback' để gạt im lặng không tắt tiếng game (Safari 16.4+).
+  // iPhone còn có lúc báo 'running' mà không ra tiếng, hoặc kẹt 'interrupted' dù đã chạm (báo lỗi #8 của tapsu, 29/10/2026):
+  // đồng hồ âm thanh đứng yên giữa hai lần chạm cách nhau hơn 1,5 giây, hoặc bật lại hai lần không được, thì dựng AudioContext mới.
+  let checkAt = 0, checkT = 0, failAt = 0, fails = 0;
+  function rebuild() {
+    const old = ac;
+    try { music?.stop(); music?.rain(false); } catch { /* nhạc đã dừng */ }
+    ac = null; checkAt = 0; failAt = 0; fails = 0;
+    try { old.close(); } catch { /* đã đóng */ }
+    init();
+    ac?.resume().catch(() => {});
+  }
   function wake() {
     init();
     try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch { /* trình duyệt không hỗ trợ */ }
-    if (ac && ac.state !== 'running' && ac.state !== 'closed') ac.resume().catch(() => {});
+    if (!ac || ac.state === 'closed') return;
+    const now = performance.now();
+    if (ac.state !== 'running') {
+      if (!failAt) failAt = now; else if (now - failAt > 1000 && ++fails >= 2) { rebuild(); return; }
+      checkAt = 0;   // vừa bị ngắt (ra màn hình chính, khoá máy): chạy lại thì đo lại từ đầu
+      ac.resume().catch(() => {});
+      return;
+    }
+    failAt = 0; fails = 0;
+    if (checkAt && now - checkAt > 1500 && ac.currentTime - checkT < 0.05) { rebuild(); return; }
+    checkAt = now; checkT = ac.currentTime;
   }
   for (const ev of ['pointerdown', 'touchend', 'keydown']) window.addEventListener(ev, wake, { capture: true });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && ac) wake(); });
@@ -76,6 +97,7 @@ export function createAudio(cfg) {
       muted = !muted;
       try { localStorage.setItem(MUTE_KEY, muted ? '1' : '0'); } catch { /* bỏ qua */ }
       if (api.master) api.master.gain.value = muted ? 0 : 1;
+      if (!muted) wake();   // bật tiếng: chắc chắn âm thanh đang chạy
       return muted;
     },
   };
