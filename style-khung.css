@@ -199,3 +199,9 @@ body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block
   border-image: url("assets/art/ui-btn.png") 4 / 4px / 0 stretch !important;
   background-color: #4a1c16 !important;
 }
+
+/* máy chậm (src/core/perf.js tự hạ mức, data/config.json perf.calm_from): tắt mọi hiệu ứng CSS chạy liên tục (đèn lập lòe drop-shadow,
+   viền nhấp nháy, tàn lửa), giữ ánh sáng tĩnh. Báo cáo #14: Android cũ giật khi farm, hiệu ứng CSS ăn khoảng 1/4 khung hình. */
+body.perf-calm *, body.perf-calm *::before, body.perf-calm *::after { animation: none !important; }
+body.perf-calm #btn-atk::after, body.perf-calm #btn-s0::after, body.perf-calm #btn-s1::after, body.perf-calm #btn-s2::after,
+body.perf-calm #btn-dash::after, body.perf-calm #btn-pill::after, body.perf-calm #btn-art::after { filter: none !important; }

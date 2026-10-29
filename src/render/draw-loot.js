@@ -1,6 +1,8 @@
 // Đồ rơi trên đất và đồ nhiệm vụ nhặt được, vẽ bằng điểm ảnh nguyên (trước là hình thoi, hình tròn vẽ nét khử răng cưa).
-// Đồ rơi: viên ngọc thoi 7×7 viền mực, màu theo độ hiếm, đốm sáng trên trái, nhấp nháy quầng; đồ nhiệm vụ: hạt tròn 5×5 nảy nhẹ.
+// Đồ rơi: viên ngọc thoi 7×7 viền mực, màu theo độ hiếm, đốm sáng trên trái, nhấp nháy quầng; đồ nhiệm vụ: hình riêng pickup.<món>
+// (tools/art/pickups.py; báo cáo #10: linh thảo trước là hạt tròn) có quầng sáng nhịp thở, thiếu hình thì về hạt tròn 5×5.
 import { lootColor } from '../game/loot.js';
+import { spriteImage } from './sprites.js';
 
 const INK = '#1b1830';
 const R = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
@@ -24,7 +26,12 @@ export function drawLoot(ctx, game, t) {
 
 export function drawQuestPickups(ctx, game, t) {
   for (const k of game.pickups) {
-    const q = game.data.items.quest_items[k.item] || {};
-    orb(ctx, Math.round(k.x), Math.round(k.y + (Math.sin(t * 4) > 0 ? -1 : 0)), q.base || '#2f7a44', q.color || '#9af0a8');
+    const q = game.data.items.quest_items[k.item] || {}, bob = Math.sin(t * 4) > 0 ? -1 : 0;
+    const spr = game.data.art.sprites['pickup.' + k.item], im = spr && spriteImage(spr);
+    if (!im) { orb(ctx, Math.round(k.x), Math.round(k.y + bob), q.base || '#2f7a44', q.color || '#9af0a8'); continue; }
+    const x = Math.round(k.x), y = Math.round(k.y);
+    ctx.globalAlpha = 0.22 + 0.12 * Math.sin(t * 3 + x);   // quầng sáng dưới chân cho dễ thấy trên cỏ
+    ctx.fillStyle = q.color || '#9af0a8'; ctx.beginPath(); ctx.ellipse(x, y + 1, 7, 3, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+    ctx.drawImage(im, x - spr.anchor[0], y - spr.anchor[1] + bob);
   }
 }

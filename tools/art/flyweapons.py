@@ -111,6 +111,7 @@ SHAPES = {'kiem': kiem, 'gay-go': gay, 'thuong': thuong, 'liem': liem, 'quat': q
 def rotations(base):
     """Xoay DIRS hướng kiểu RotSprite: phóng 8 lần (cận kề), xoay quanh tâm, thu 8 lần lấy màu đa số mỗi ô 8×8."""
     K = 8
+    base = _calm(base)
     im = base.img()
     side = int(math.ceil(math.hypot(base.w, base.h))) + 2
     pad = Image.new('RGBA', (side, side)); pad.alpha_composite(im, ((side - base.w) // 2, (side - base.h) // 2))
@@ -127,5 +128,35 @@ def rotations(base):
                     continue
                 vals, cnt = np.unique(op.view(np.uint32).ravel(), return_counts=True)
                 c.a[y, x] = np.frombuffer(np.uint32(vals[cnt.argmax()]).tobytes(), dtype=np.uint8)
+        _seal(c)
         out.append(c)
     return out, side
+
+
+def _calm(base):
+    """Bỏ đốm sáng lẻ trên thân vũ khí (ảnh gốc lốm đốm: thu nhỏ còn điểm trắng rời dọc mép lưỡi, xoay lên trông răng cưa, mẻ):
+    điểm rất sáng có ít hơn 2 điểm rất sáng kề bên thì lấy màu trung vị các điểm màu kề nó."""
+    c = Canvas(base.w, base.h); c.a = base.a.copy(); a = c.a; h, w = a.shape[:2]
+    op = a[:, :, 3] > 0
+    lum = a[:, :, :3].astype(int).sum(2)
+    ink = np.all(a[:, :, :3] == np.array(INK[:3], dtype=np.uint8), axis=2)
+    hi = op & (lum > 690)
+    for y, x in zip(*np.where(hi)):
+        nb = [(y + dy, x + dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and 0 <= y + dy < h and 0 <= x + dx < w]
+        if sum(hi[p] for p in nb) >= 2: continue
+        cols = [base.a[p] for p in nb if op[p] and not ink[p] and not hi[p]]
+        if len(cols) >= 3:
+            cols.sort(key=lambda v: int(v[0]) + int(v[1]) + int(v[2])); a[y, x] = cols[len(cols) // 2]
+    return c
+
+
+def _seal(c):
+    """Vá viền sau khi xoay: điểm trống kề (4 hướng) với điểm màu không phải mực thì tô mực, để viền liền một vòng.
+    Trước đây góc xoay nghiêng làm vài điểm sáng của lưỡi lộ thẳng ra ngoài, trông như kiếm bị mẻ (báo cáo #12, issue #334)."""
+    a = c.a; h, w = a.shape[:2]
+    op = a[:, :, 3] > 0
+    ink = np.all(a[:, :, :3] == np.array(INK[:3], dtype=np.uint8), axis=2) & op
+    col = op & ~ink
+    p = np.pad(col, 1)
+    near = p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
+    a[near & ~op] = INK

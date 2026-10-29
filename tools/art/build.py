@@ -33,6 +33,7 @@ from gear import gear_icon  # noqa: E402
 from pets import pet_frames, mount_frames  # noqa: E402
 import ai_sprites  # noqa: E402
 import ui_frame  # noqa: E402
+import pickups  # noqa: E402
 from px import MANIFEST  # noqa: E402
 
 clean()
@@ -316,6 +317,7 @@ for _id, _b in _items['bases'].items():
 # ---------------------------------------------------------------- khung giao diện thắp đèn (tools/art/ui_frame.py, style-khung.css)
 ui_frame.frames(save)
 print('nguồn sáng khung:', ui_frame.lights(save))
+print('đồ nhiệm vụ:', pickups.pickup_sprites(save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')
