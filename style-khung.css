@@ -29,7 +29,7 @@ html, body, button, input, textarea, select { font-family: var(--f-body); font-s
 }
 .realm { font-size: 16px !important; font-weight: 400; color: #ffe6a0; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000, 0 0 8px rgba(var(--lamp), .45); }
 #toast { font-size: 16px !important; font-weight: 400; color: #fff0c8; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
-.bag-tabs button, .world-tabs button { font-size: 16px !important; font-weight: 400 !important; padding: 4px 10px !important; }
+.bag-tabs button, .world-tabs button { font-size: 16px !important; font-weight: 400 !important; padding: 4px 6px !important; }   /* lề 6: bốn tab động phủ nằm một hàng trên điện thoại dọc */
 .bag-tabs button.on, .world-tabs button.on { color: #ffcf6a !important; text-shadow: 0 0 6px rgba(var(--lamp), .6); }
 #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo { font-size: 16px !important; font-weight: 400 !important; }
 .atk b { font-size: 16px !important; font-weight: 400; text-shadow: 1px 0 #3a1404, -1px 0 #3a1404, 0 1px #3a1404, 0 -1px #3a1404 !important; }
