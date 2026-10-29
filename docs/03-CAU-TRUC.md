@@ -94,7 +94,7 @@ Kết quả trên máy giả lập yếu: 7 → khoảng 25 khung mỗi giây, m
 
 ## Bảng nửa màn hình
 
-Chủ dự án chốt 28/10/2026: mọi bảng (`#bag`, `.panel`) và hộp thoại chỉ chiếm nửa dưới màn hình (`--sheet-h` ở cuối `style.css`), nền và viền trong mờ để thấy game phía sau; thẻ đồ, ô trang bị, nút bên trong giữ nền đặc cho nổi. Đang mở bảng thì máy quay đẩy người chơi lên giữa nửa trên (`src/game/camera.js`). Bảng mới cứ dùng class `panel` là theo luật này.
+Chủ dự án chốt 28/10/2026: mọi bảng (`#bag`, `.panel`) và hộp thoại chỉ chiếm nửa dưới màn hình (`--sheet-h` ở cuối `style.css`), nền và viền trong mờ để thấy game phía sau; thẻ đồ, ô trang bị, nút bên trong giữ nền đặc cho nổi. Đang mở bảng thì máy quay đẩy người chơi lên giữa nửa trên (`src/game/camera.js`). Bảng mới cứ dùng class `panel` là theo luật này. Mở bảng thì game dừng, trừ khi đang bật Tự hành hoặc Tự đánh: khi đó game chạy tiếp sau bảng (người chơi minhavart1 báo lỗi #6, 29/10/2026; `game.update` trong `src/game/game.js`), chỉ hộp thoại mới làm dừng.
 
 ## Điều khiển chiêu
 

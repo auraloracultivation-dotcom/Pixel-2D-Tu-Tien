@@ -339,9 +339,11 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.trip) { updateTrip(game, dt); return; }
     if (!game.save || game.traveling) return;
     pilotDialog(game, dt);
-    const blocked = game.dialog.open || game.uiOpen;
+    const keep = game.uiOpen && !game.dialog.open && (game.pilot || game.auto);   // tự hành, tự đánh chạy tiếp khi mở bảng (báo lỗi #6)
+    const blocked = (game.dialog.open || game.uiOpen) && !keep;
     game.paused = blocked;
-    if (blocked) { game.input.clear(); if (game.uiOpen) camFollow(game, screen, dt); return; }
+    if (blocked || keep) game.input.clear();
+    if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
     updatePlayer(game, dt);
