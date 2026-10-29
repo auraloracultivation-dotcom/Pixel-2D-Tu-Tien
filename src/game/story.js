@@ -56,6 +56,10 @@ export function createStory(game) {
     }
     else if (a.kill_all) { for (const m of g.mobs) m.dead = true; g.mobs = []; g.bullets = []; }
     else if (a.npc_add) g.addNpc(a.npc_add, a.near_player ? null : a.at);
+    else if (a.stand_by) {   // dàn cảnh: đặt người chơi đứng ngay trước NPC, quay mặt vào (báo cáo #12: nhận kiếm mà đứng xa người trao)
+      const n = g.npcs.find(e => e.id === a.stand_by), T = g.map.T || 16;
+      if (n && g.player) { const p = g.map.freeNear(Math.floor(n.x / T), Math.floor(n.y / T) + 2, 1, 6); g.player.x = p.x; g.player.y = p.y; g.player.face = { x: 0, y: -1 }; }
+    }
     else if (a.npc_remove) g.npcs = g.npcs.filter(n => n.id !== a.npc_remove);
     else if (a.flag) g.save.flags[a.flag] = true;
     else if (a.unflag) delete g.save.flags[a.unflag];

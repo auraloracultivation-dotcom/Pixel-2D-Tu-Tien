@@ -47,12 +47,11 @@ Thêm phần tử vào bảng điều khiển (nút, chip, dòng chữ trên mà
 - Thấy việc thuộc mảng khác: ghi issue cho mảng đó, không tự làm.
 - Kiểm thử: việc chạy theo lịch mỗi đêm (chơi thử tự động, chụp ảnh), không cần tab riêng.
 
-## Giao việc (chủ dự án chốt 29/10/2026 21:17)
+## Lỗi người chơi báo: mảng D tự sửa hết (chủ dự án chốt 29/10/2026 22:13)
 
-Mảng D là người giao việc. Mọi việc mới (báo lỗi, đề xuất, việc chủ dự án nhờ) thành một GitHub issue, gắn đúng **một** nhãn mảng: `mang-A`, `mang-B`, `mang-C`, `mang-D`.
+Chủ dự án không muốn phải chạy qua từng tab báo việc. Nên mọi lỗi người chơi báo, lỗi JavaScript, lỗi chủ dự án vi hành gặp: **mảng D tự sửa luôn, ở bất kỳ mảng nào**, không chờ tab chủ mảng. Thay cho luật "sửa thẳng khi đủ ba điều" ở trên.
 
-- Việc rõ thuộc mảng nào thì giao mảng đó.
-- Việc không thuộc mảng nào, hoặc thuộc nhiều mảng ("việc thứ 5"): mảng D vẫn phải giao cho một tab cụ thể, chọn tab đang ít việc nhất, ghi lý do trong issue. Không để issue nào không có nhãn.
-- Giữ đều: số issue đang mở của mỗi mảng chênh nhau không quá 1–2. Mảng nào dồn nhiều thì mảng D chuyển bớt việc nhỏ (vẫn theo luật sửa thẳng ở trên) sang mảng ít việc, đổi nhãn và ghi lý do.
-- **Đầu mỗi phiên, mỗi tab mở danh sách issue mang nhãn mảng mình** (`gh issue list --label mang-X`) và làm từ việc cũ nhất. Làm xong: PR ghi `Sửa #số`, gộp thì issue tự đóng; mảng D theo dõi để báo người chơi và thưởng.
-- Bảng việc hiện tại: https://github.com/auraloracultivation-dotcom/Pixel-2D-Tu-Tien/issues
+- Trước khi sửa file của mảng khác: kéo `main` mới nhất, xem PR đang mở của tab khác có đụng file đó không; có thì sửa sau khi PR kia gộp, hoặc sửa phần không chồng.
+- Tên PR ghi mảng bị đụng, ví dụ `Sửa báo cáo #9 [đụng B: data/story.json]`, để tab chủ mảng biết mà kéo về.
+- Vẫn giữ: đổi cơ sở dữ liệu thật phải chủ dự án duyệt (luật trong `CLAUDE.md`); chức năng mới, đổi lối chơi, kinh tế thì hỏi chủ dự án trước.
+- Việc lớn của từng mảng (nội dung mới, hình mới, máy chủ mới) vẫn do tab chủ mảng làm khi chủ dự án mở tab đó. Issue chỉ dùng để ghi lại việc lớn, gắn nhãn `mang-A` / `mang-B` / `mang-C` / `mang-D`; mỗi tab đầu phiên xem issue nhãn mình (`gh api "repos/auraloracultivation-dotcom/Pixel-2D-Tu-Tien/issues?labels=mang-X"`).
