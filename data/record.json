@@ -23,8 +23,8 @@
  },
  "file": "pixel-2d-tu-tien",
  "share": {
-  "_note": "Quà chia sẻ (chủ dự án xin 28/10/2026): quay clip từ min_sec giây, đăng CÔNG KHAI lên TikTok hoặc YouTube có tag trong mô tả, dán link để nhận 1 viên ngọc cấp gem_level, mỗi tài khoản một lần. on: bật ô nhận quà (chỉ bật sau khi đã áp migration và triển khai hàm Edge). Máy chủ (supabase/functions/chia-se-clip) hỏi oEmbed của TikTok/YouTube: video riêng tư hoặc đã xoá thì không đọc được nên không nhận. Không thưởng Facebook vì luật Facebook cấm thưởng để đổi lấy lượt chia sẻ. gem_level, tag phải khớp máy chủ (migration 20261028143000, hàm chia-se-clip).",
-  "on": false,
+  "_note": "Quà chia sẻ (chủ dự án xin 28/10/2026): quay clip từ min_sec giây, đăng CÔNG KHAI lên TikTok hoặc YouTube có tag trong mô tả, dán link để nhận 1 viên ngọc cấp gem_level, mỗi tài khoản một lần. on: bật ô nhận quà (chỉ bật sau khi đã áp migration và triển khai hàm Edge). Máy chủ (supabase/functions/chia-se-clip) hỏi oEmbed của TikTok/YouTube: video riêng tư hoặc đã xoá thì không đọc được nên không nhận. Không thưởng Facebook vì luật Facebook cấm thưởng để đổi lấy lượt chia sẻ. gem_level, tag phải khớp máy chủ (migration 20261029130000, hàm chia-se-clip).",
+  "on": true,
   "min_sec": 30,
   "gem_level": 5,
   "tag": "#PixelTuTien",
