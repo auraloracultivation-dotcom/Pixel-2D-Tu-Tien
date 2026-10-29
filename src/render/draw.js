@@ -22,7 +22,7 @@ import { drawCritters, drawWild } from './draw-critter.js';
 import { drawVeins } from './draw-vein.js';
 import { drawFishing, drawScenic } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
-import { drawHero } from './draw-hero.js';
+import { drawHero, heroLook } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
 import { drawBolt, drawBoltLead } from './draw-bolt.js';
@@ -188,11 +188,18 @@ function drawTele(ctx, m) {
   }
 }
 
+// Người chơi khác (game/others.js): hình nhân vật theo hình dáng, thời trang họ báo (bản game cũ chưa báo thì vẽ hình khối), tên trên đầu
 function drawOther(ctx, o, game, t) {
   const el = o.element ? game.data.elements[o.element]?.color : null;
-  drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
-  if (el) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
-  if (o.swingT > 0) {
+  const fit = { look: o.look, outfit: o.outfit };
+  if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
+  const hero = o.look && drawHero(ctx, game, o, t, false, fit);
+  if (!hero) drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
+  if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
+  const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
+  ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
+  ctx.strokeText(o.def.name, o.x, ny); ctx.fillStyle = el || '#e6ebf7'; ctx.fillText(o.def.name, o.x, ny);
+  if (o.swingT > 0 && !hero) {
     const a = Math.atan2(o.face.y, o.face.x);
     ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
   }

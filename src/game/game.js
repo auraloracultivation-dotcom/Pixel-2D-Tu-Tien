@@ -7,7 +7,7 @@ import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
-import { createOthers } from './others.js';
+import { createOthers, onlineLook } from './others.js';
 import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
@@ -216,7 +216,7 @@ export function createGame(data, screen, input, ui, audio) {
   function joinOnline() {
     if (!game.online) return;
     const solo = (game.map.def.rooms || []).length > 0;
-    game.online.join(solo ? null : game.map.id, { element: game.save.element, realm: realmLabel(game.save, data.realms) })
+    game.online.join(solo ? null : game.map.id, onlineLook(game))
       .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
   }
 
