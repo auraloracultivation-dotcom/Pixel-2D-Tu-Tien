@@ -1,5 +1,5 @@
 {
- "_note": "Sự kiện Dẫn đạo hữu nhập môn (chủ dự án chốt 29/10/2026): người mới nhập mã giới thiệu trong join_days ngày đầu tạo tài khoản thì nhận 1 viên ngọc cấp gem_new; người mới online liên tục minutes phút (ra ngoài quá gap phút thì đếm lại) thì người giới thiệu nhận 1 viên ngọc cấp gem_ref, không giới hạn số viên. Máy chủ đếm phút và gửi thưởng (supabase/migrations/20261029070000_p2d_gioi_thieu.sql, hàm p2d_gt_luat): đổi from/to/minutes/gap/gem_ref/gem_new/join_days thì sửa cả hàm đó (tools/check.mjs so). Chỉ tài khoản tạo từ ngày from mới nhập mã được. Link mời: trang game kèm ?gt=<mã>, mở link rồi đăng ký là tự điền mã. beat_sec: giây giữa hai nhịp online gửi máy chủ. Thưởng góp ý (fame): mỗi báo lỗi / đề xuất được nhận (đã sửa, sẽ làm) thưởng 1 viên ngọc cấp fame.gem (supabase/migrations/20261029071000_p2d_thuong_gop_y.sql). mail: tên thư hiện ở Hòm thư theo ly_do. gems: các loại ngọc được chọn (items.json gems.types).",
+ "_note": "Sự kiện Dẫn đạo hữu nhập môn (chủ dự án chốt 29/10/2026): người mới nhập mã giới thiệu trong join_days ngày đầu tạo tài khoản thì nhận 1 viên ngọc cấp gem_new; người mới online liên tục minutes phút (ra ngoài quá gap phút thì đếm lại) thì người giới thiệu nhận 1 viên ngọc cấp gem_ref, không giới hạn số viên. Máy chủ đếm phút và gửi thưởng (supabase/migrations/20261029070000_p2d_gioi_thieu.sql, hàm p2d_gt_luat): đổi from/to/minutes/gap/gem_ref/gem_new/join_days thì sửa cả hàm đó (tools/check.mjs so). Chỉ tài khoản tạo từ ngày from mới nhập mã được. Link mời: trang game kèm ?gt=<mã>, mở link rồi đăng ký là tự điền mã. beat_sec: giây giữa hai nhịp online gửi máy chủ. Chống nhiều tài khoản (supabase/migrations/20261029103000_p2d_gt_chong_nhieu_tk.sql): mỗi máy một suất nhập mã, cùng người mời mà cùng mạng / cùng máy thì lần lượt đếm, chung máy với người mời thì không tính và gắn cờ. Thưởng góp ý (fame): mỗi báo lỗi / đề xuất được nhận (đã sửa, sẽ làm) thưởng 1 viên ngọc cấp fame.gem (supabase/migrations/20261029071000_p2d_thuong_gop_y.sql). mail: tên thư hiện ở Hòm thư theo ly_do. gems: các loại ngọc được chọn (items.json gems.types).",
  "from": "2026-10-29",
  "to": "2026-11-12",
  "starts": "2026-10-29T00:00:00+08:00",
@@ -17,7 +17,7 @@
   "title": "Dẫn đạo hữu nhập môn",
   "close": "Đóng",
   "when": "Từ {from} tới hết {to}",
-  "rule": "Mời bạn mới vào game bằng mã của bạn. Bạn mới online liên tục 4 tiếng (ra ngoài quá {gap} phút thì đếm lại) là bạn nhận 1 viên Ngọc cấp {ref}. Mời bao nhiêu nhận bấy nhiêu, không giới hạn. Bạn mới nhập mã được tặng 1 viên Ngọc cấp {new}.",
+  "rule": "Mời bạn mới vào game bằng mã của bạn. Bạn mới online liên tục 4 tiếng (ra ngoài quá {gap} phút thì đếm lại) là bạn nhận 1 viên Ngọc cấp {ref}. Mời bao nhiêu nhận bấy nhiêu, không giới hạn. Bạn mới nhập mã được tặng 1 viên Ngọc cấp {new}. Mỗi máy chỉ nhập mã một lần; nhiều bạn cùng mạng hoặc cùng máy do một người mời thì lần lượt từng bạn được đếm. Dùng nhiều tài khoản để tự mời mình sẽ không được tính và bị gắn cờ trên bảng xếp hạng.",
   "my_code": "Mã mời của bạn",
   "copy": "Sao chép link mời",
   "share": "Gửi link mời",
@@ -32,16 +32,20 @@
   "mine": "Bạn được {name} mời. Online liên tục: {n}/{max} phút.",
   "mine_done": "Bạn được {name} mời và đã online đủ 4 tiếng. Cảm ơn bạn!",
   "mine_note": "Cứ mở game là tự đếm, ra ngoài quá {gap} phút thì đếm lại từ đầu.",
+  "mine_pause": "Đang chờ lượt: một bạn khác cũng do {name} mời đang online cùng mạng hoặc cùng máy. Bạn ấy xong hoặc thoát thì bạn đếm tiếp, số phút vẫn giữ.",
+  "mine_lock": "Bạn được {name} mời nhưng không được tính: tài khoản này dùng chung máy với người mời hoặc với người được mời khác.",
   "invited": "Bạn đã mời {n} người · nhận {g} viên Ngọc cấp {ref}",
   "invited_none": "Chưa mời ai. Gửi link mời cho bạn bè nhé!",
   "row": "{name}: {n}/{max} phút",
   "row_done": "{name}: đủ 4 tiếng ✔",
+  "row_pause": "{name}: {n}/{max} phút · chờ lượt (cùng mạng)",
+  "row_lock": "{name}: không tính (dùng chung máy)",
   "done_toast": "Đã online đủ 4 tiếng! Người mời bạn vừa nhận Ngọc cấp {ref}.",
   "loading": "Đang tải...",
   "login": "Đăng nhập tài khoản để tham gia sự kiện.",
   "error": "Chưa tải được, thử lại sau.",
   "ended": "Sự kiện đã kết thúc.",
-  "errors": {"ma_sai": "Mã không đúng.", "da_nhap": "Bạn đã nhập mã rồi.", "khong_phai_nguoi_moi": "Chỉ tài khoản mới tạo trong {days} ngày (từ ngày {from}) mới nhập được mã.", "het_su_kien": "Sự kiện đã kết thúc.", "net": "Mạng yếu, thử lại nhé."}
+  "errors": {"ma_sai": "Mã không đúng.", "da_nhap": "Bạn đã nhập mã rồi.", "khong_phai_nguoi_moi": "Chỉ tài khoản mới tạo trong {days} ngày (từ ngày {from}) mới nhập được mã.", "het_su_kien": "Sự kiện đã kết thúc.", "trung_may": "Máy này đã nhập mã cho tài khoản khác, hoặc là máy của người mời. Mỗi máy chỉ nhập mã một lần.", "net": "Mạng yếu, thử lại nhé."}
  },
  "fame": {
   "gem": 4,

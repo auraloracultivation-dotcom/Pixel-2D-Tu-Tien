@@ -99,16 +99,18 @@ export function createReferral(game) {
     const me = info.cua_toi;
     if (me) {
       const s = el('div', 'ev-sec');
-      s.append(el('div', 'pf-label', me.dat ? fill(T.mine_done, { name: me.ten }) : fill(T.mine, { name: me.ten, n: me.chuoi, max: R.minutes })));
-      if (!me.dat) s.append(bar(me.chuoi, R.minutes), el('small', 'muted', fill(T.mine_note, { gap: R.gap })));
+      const head = me.dat ? T.mine_done : me.khoa ? T.mine_lock : T.mine;
+      s.append(el('div', 'pf-label', fill(head, { name: me.ten, n: me.chuoi, max: R.minutes })));
+      if (!me.dat && !me.khoa) s.append(bar(me.chuoi, R.minutes), el('small', 'muted', fill(me.tam_dung ? T.mine_pause : T.mine_note, { gap: R.gap, name: me.ten })));
       body.append(s);
     }
     const inv = el('div', 'ev-sec');
     inv.append(el('div', 'pf-label', info.so_moi ? fill(T.invited, { n: info.so_moi, g: info.so_ngoc, ref: R.gem_ref }) : T.invited_none));
     for (const r of info.da_moi || []) {
       const row = el('div', 'ev-inv' + (r.dat ? ' done' : ''));
-      row.append(el('span', null, r.dat ? fill(T.row_done, { name: r.ten }) : fill(T.row, { name: r.ten, n: r.chuoi, max: R.minutes })));
-      if (!r.dat) row.append(bar(r.chuoi, R.minutes));
+      const t = r.dat ? T.row_done : r.khoa ? T.row_lock : r.tam_dung ? T.row_pause : T.row;
+      row.append(el('span', null, fill(t, { name: r.ten, n: r.chuoi, max: R.minutes })));
+      if (!r.dat && !r.khoa) row.append(bar(r.chuoi, R.minutes));
       inv.append(row);
     }
     body.append(inv);
