@@ -224,6 +224,8 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .skill-card.locked { opacity: .45; }
 .skill-card.using { background: var(--panel-3); box-shadow: inset 0 0 0 1px rgba(242, 164, 67, .5); }
 #cave-slots[hidden] { display: none; }
+#cave-slots { grid-template-columns: repeat(4, 1fr); gap: 4px; flex: none; }   /* ô rèn gọn để danh sách lò rèn còn chỗ trên điện thoại dọc (báo cáo #16) */
+#cave-slots button { min-height: 30px; padding: 3px 4px; font-size: 12px; }
 /* Động phủ: dòng nguyên liệu trên đầu bảng dài theo túi (cuối game vài chục loại) từng đẩy danh sách luống, đan ra khỏi bảng nửa màn hình
    (báo lỗi #5 "dược viên kín không thể trồng", 29/10/2026): giữ tối đa 2 dòng, dài hơn thì cuộn trong dòng đó */
 #cave-mats { max-height: 2.5em; line-height: 1.25; overflow-y: auto; touch-action: pan-y; overscroll-behavior: contain; }
