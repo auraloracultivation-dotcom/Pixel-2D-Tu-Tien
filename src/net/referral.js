@@ -12,7 +12,8 @@ async function call(fn, args) {
 }
 
 export const myReferral = () => call('p2d_gt_cua_toi');
-export const enterCode = (ma, loai) => call('p2d_gt_nhap', { p_ma: ma, p_loai: loai });
+export const enterCode = (ma, loai) => call('p2d_gt_nhap', { p_ma: ma, p_loai: loai }).then(r => (r.data?.loi ? { error: r.data.loi } : r));   // trùng máy: máy chủ trả {loi}
+export const reportDevice = may => call('p2d_thiet_bi_bao', { p_may: may });
 export const pickGem = loai => call('p2d_gt_chon', { p_loai: loai });
 export const beat = () => call('p2d_gt_nhip');
 export const fameRank = () => call('p2d_bxh_gop_y');

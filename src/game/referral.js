@@ -2,8 +2,35 @@
 // mã mời trong link (?gt=<mã>) giữ lại tới khi đăng nhập để tự điền. Máy chủ đếm phút và gửi ngọc (net/referral.js).
 const net = () => import('../net/referral.js');
 const KEY = 'p2d.gt';   // mã mời lấy từ link, giữ trong máy tới khi nhập xong
+const DEV = 'p2d.may';  // mã thiết bị ngẫu nhiên của trình duyệt này, giữ nguyên khi đổi tài khoản (máy chủ: mỗi máy một suất nhập mã)
+let devMem = '';
 
-export const refState = game => (game.referral ??= { info: null, at: 0 });
+function newId() {
+  const b = new Uint8Array(12);
+  crypto.getRandomValues(b);
+  return [...b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+export function deviceId() {
+  try {
+    let v = localStorage.getItem(DEV);
+    if (!/^[a-z0-9]{16,40}$/.test(v || '')) { v = newId(); localStorage.setItem(DEV, v); }
+    return v;
+  } catch { return (devMem ||= newId()); }   // chế độ riêng tư: mã chỉ sống trong lần mở này
+}
+// Báo mã thiết bị một lần cho mỗi tài khoản đăng nhập (trước khi nhập mã thì báo chắc chắn)
+async function sendDevice(game) {
+  const s = refState(game);
+  if (s.dev === game.owner) return true;
+  const r = await net().then(m => m.reportDevice(deviceId())).catch(() => ({ error: 'net' }));
+  if (!r.error) s.dev = game.owner;
+  return !r.error;
+}
+
+export function refState(game) {
+  const s = (game.referral ??= { info: null, at: 0 });
+  if (s.owner !== game.owner) { s.owner = game.owner; s.info = null; s.at = 0; }   // đổi tài khoản: bỏ trạng thái của người trước
+  return s;
+}
 export const refOn = game => { const R = game.data.referral, now = Date.now(); return !!R && now >= Date.parse(R.starts) && now < Date.parse(R.ends); };
 
 export function pendingCode() { try { return localStorage.getItem(KEY) || ''; } catch { return ''; } }
@@ -27,7 +54,10 @@ export async function loadRef(game, force) {
   return s.info;
 }
 
-export const enterRef = (game, ma, loai) => net().then(m => m.enterCode(ma, loai)).catch(() => ({ error: 'net' }));
+export async function enterRef(game, ma, loai) {
+  if (!(await sendDevice(game))) return { error: 'net' };
+  return net().then(m => m.enterCode(ma, loai)).catch(() => ({ error: 'net' }));
+}
 export const pickRefGem = (game, loai) => net().then(m => m.pickGem(loai)).catch(() => ({ error: 'net' }));
 
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
@@ -39,13 +69,14 @@ export function startReferral(game) {
   if (!R) return;
   setInterval(async () => {
     if (!game.online || !game.cloud || !refOn(game) || document.visibilityState !== 'visible') return;
+    sendDevice(game);
     const s = refState(game);
     if (!s.info) { try { await loadRef(game); } catch { return; } }
     const me = s.info?.cua_toi;
-    if (!me || me.dat) return;
+    if (!me || me.dat || me.khoa) return;
     const r = await net().then(m => m.beat()).catch(() => null);
     if (!r?.data) return;
-    me.chuoi = r.data.chuoi; me.dat = r.data.dat;
+    me.chuoi = r.data.chuoi; me.dat = r.data.dat; me.tam_dung = !!r.data.tam_dung; me.khoa = !!r.data.khoa;
     if (r.data.vua_dat) { game.toast(fill(R.text.done_toast, { ref: R.gem_ref }), 4); game.sfx('levelup'); }
   }, R.beat_sec * 1000);
 }
