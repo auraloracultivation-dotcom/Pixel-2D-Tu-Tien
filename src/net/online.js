@@ -1,4 +1,4 @@
-// Thấy người chơi khác: mỗi đảo một kênh Realtime "p2d:<đảo>". Presence = ai đang ở đây (tên, hệ, cảnh giới);
+// Thấy người chơi khác: mỗi đảo một kênh Realtime "p2d:<đảo>". Presence = ai đang ở đây (tên, hệ, cảnh giới, hình dáng, thời trang);
 // broadcast "move" = vị trí, gửi tối đa ~8 lần/giây và chỉ khi đã "joined"; broadcast "say" = chào hỏi, trò chuyện
 // (game/social.js lọc chữ). Không ghi gì vào cơ sở dữ liệu.
 // Kênh riêng tư: chỉ người đã đăng nhập vào được (chính sách realtime.messages trong migration p2d_chong_gian_lan).
@@ -58,5 +58,11 @@ export function createOnline(me, handlers) {
     if (ch && ch.state === 'joined') ch.track({ name, ...prof });
   }
 
-  return { me, join, leave, send, say, rename };
+  // Đổi hồ sơ (thời trang, hình dáng, cảnh giới): báo lại cho người cùng đảo để họ vẽ đúng hình
+  function setProfile(p) {
+    prof = { ...prof, ...p };
+    if (ch && ch.state === 'joined') ch.track({ name: me.name, ...prof });
+  }
+
+  return { me, join, leave, send, say, rename, setProfile };
 }

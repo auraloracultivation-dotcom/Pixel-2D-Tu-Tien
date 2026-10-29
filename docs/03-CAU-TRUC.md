@@ -180,6 +180,13 @@ Người chơi tapsu đề xuất qua nút Đề xuất (báo cáo #4), chủ d�
 
 Kho tin (`src/game/inbox.js`) nằm trong máy theo tài khoản (localStorage `p2d.inbox.v1:<tài khoản>`), không vào bản lưu máy chủ; giữ tối đa 80 tin, 14 ngày. Nguồn tin (`src/game/inbox-feed.js`, chỉ khi đã đăng nhập): thư chợ và thư hệ thống báo ngay lúc tự nhận (`claimMail`); truyền âm theo danh sách bảng Đạo hữu đã đọc (đọc ở bảng kia thì tự thành đã đọc); kênh Thế giới đọc mỗi 60 giây, chỉ báo khi tin có tên mình; tông môn: tin trò chuyện mới gộp một dòng (đang mở bảng Tông môn thì coi như đã xem), người xin vào khi mình là chủ / phó; lời đáp báo lỗi / đề xuất mỗi 10 phút. Mốc từng nguồn lưu cùng kho tin, lần đầu chỉ đặt mốc nên không báo tin cũ. Game chưa có danh sách bạn bè nên chưa có mục bạn bè.
 
+## Thấy người chơi khác cùng đảo
+
+Mỗi đảo một kênh Realtime `p2d:<đảo>` (`src/net/online.js`, không ghi cơ sở dữ liệu). Presence báo tên, hệ, cảnh giới, hình dáng, thời trang (`onlineLook` trong `src/game/others.js`; đổi thời trang, lên cảnh giới thì tự báo lại sau tối đa 3 giây qua `setProfile`). Vị trí gửi tối đa 8 lần mỗi giây. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng vẽ bằng khối, nhảy chỗ này sang chỗ khác như hack tốc độ. Giờ:
+
+- Người khác vẽ bằng hình nhân vật theo hình dáng, thời trang của họ (`drawOther` trong `src/render/draw.js` gọi `drawHero(..., { look, outfit })`), có dáng đi, quay mặt, động tác đánh khi họ vung đòn, tên trên đầu theo màu hệ. Bản game cũ chưa báo hình dáng thì vẫn vẽ hình khối.
+- Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc độ để tới chỗ mới sau khoảng hai nhịp gói tin (trễ chừng 0,25 giây), nên bước đi liền mạch, rớt một gói vẫn không khựng (tối đa 260 đơn vị mỗi giây). Xa quá 140 (ngự kiếm bay trên tinh cầu, qua cổng) thì hiện vòng sáng ở chỗ cũ và chỗ mới rồi đặt thẳng.
+
 ## Hồ sơ người chơi, So tài (`data/duel.json`)
 
 Chủ dự án xin 29/10/2026. Bảng xếp hạng → chạm tên: bảng Hồ sơ đạo hữu (`src/ui/profile-panel.js`, kiểu ở `src/ui/profile.css`) hiện cảnh giới, lực chiến, chỉ số tính lại từ bản lưu, linh căn, binh khí, đồ từng ô (phẩm, cấp, cường hoá, chỉ số chính, dòng phụ, ngọc đang khảm), 3 chiêu kèm cấp và chiêu pháp bảo, công pháp, linh thú (cấp, sao), đồng hành; nút So tài và Truyền âm. Mở hồ sơ thì bảng Đạo hữu ẩn tạm, đóng thì hiện lại.
