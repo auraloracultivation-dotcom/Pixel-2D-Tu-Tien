@@ -10,6 +10,13 @@
   --ink-pixel: #1a0c06;          /* viền mực quanh chữ pixel */
 }
 
+/* ---- toàn bộ chữ trong game là chữ pixel (chủ dự án 29/10/2026: "chữ trong game chưa toàn bộ chuyển thành pixel"):
+   đổi phông gốc của style.css sang Unifont, tắt in đậm giả (đậm giả làm nhòe nét pixel). html:root thắng :root ở style.css. */
+html:root { --f-body: "Unifont VN", system-ui, sans-serif; --f-title: "Unifont VN", system-ui, sans-serif; }
+html, body, button, input, textarea, select { font-family: var(--f-body); font-synthesis: none; -webkit-font-smoothing: none; }
+* { font-synthesis: none; font-family: "Unifont VN", system-ui, sans-serif !important; }   /* cả chỗ style.css ghi cứng system-ui */
+.realm small { font-size: 12px !important; font-weight: 400 !important; }
+
 /* ---- chữ pixel có màu, viền mực bốn phía cho rõ trên mọi nền ---- */
 .bag-head b, .realm, .who, #toast, .atk b, .bag-tabs button, .world-tabs button,
 #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, #menu h1 {
@@ -137,7 +144,7 @@ body:has(.panel:not([hidden])) #feed, body:has(#bag:not([hidden])) #feed { displ
 
 /* ---- bảng điều khiển (chủ dự án 29/10/2026: làm một lượt trên Canva): biểu tượng pixel thay emoji, khung tròn thắp sáng cho nút đánh,
    chiêu, lướt, đan; nút chữ, ô Menu, tab khung gỗ son nẹp vàng 9 mảnh (tools/art/ui_frame.py: ui.i-*, ui.ring-*, ui.btn) ---- */
-#btn-mute, #btn-rec, #btn-inbox, [id^="btn-fb-"], #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, .menu-tile, .bag-tabs button, .world-tabs button {
+#btn-mute, #btn-rec, #btn-inbox, #btn-notice, [id^="btn-fb-"], #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo, .menu-tile, .bag-tabs button, .world-tabs button {
   border: 4px solid transparent !important; border-radius: 0 !important;
   border-image: url("assets/art/ui-btn.png") 4 fill / 4px / 0 stretch !important; image-rendering: pixelated;
   background-color: transparent !important; box-shadow: 0 2px 0 rgba(0, 0, 0, .45) !important;
@@ -148,31 +155,47 @@ body:has(.panel:not([hidden])) #feed, body:has(#bag:not([hidden])) #feed { displ
 }
 #btn-menu, #btn-auto, #btn-pilot, #btn-world, #btn-zalo { color: #ffe6a0 !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
 /* nút biểu tượng: giấu emoji, vẽ biểu tượng Canva (khi quay clip vẫn hiện số giây) */
-#btn-mute, #btn-inbox, [id^="btn-fb-"], #btn-rec:not(.on) { font-size: 0 !important; color: transparent !important; background-repeat: no-repeat !important; background-position: center !important; background-size: 18px 18px !important; }
+#btn-mute, #btn-inbox, #btn-notice, [id^="btn-fb-"], #btn-rec:not(.on) { font-size: 0 !important; color: transparent !important; background-repeat: no-repeat !important; background-position: center !important; background-size: 18px 18px !important; }
 #btn-mute { background-image: url("assets/art/ui-i-sound.png") !important; }
 #btn-mute.off { filter: grayscale(1) brightness(.6); }
 #btn-rec:not(.on) { background-image: url("assets/art/ui-i-camera.png") !important; }
 #btn-inbox { background-image: url("assets/art/ui-i-mail.png") !important; background-size: 20px 16px !important; }
+#btn-notice { background-image: url("assets/art/ui-i-loa.png") !important; }
+#btn-notice > * { font-size: 10px; }
 #btn-fb-loi { background-image: url("assets/art/ui-i-bug.png") !important; }
 #btn-fb-de_xuat { background-image: url("assets/art/ui-i-idea.png") !important; }
 #btn-inbox > *, #btn-menu > * { font-size: 10px; }   /* số tin chưa đọc vẫn hiện */
 body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block; width: 12px; height: 14px; margin-right: 4px; vertical-align: -2px; background: url("assets/art/ui-i-pumpkin.png") center / contain no-repeat; image-rendering: pixelated; }
 
-/* nút tròn: khung Canva đè lên (lòng đã khoét rỗng), thắp sáng nhịp nhàng; chữ, biểu tượng chiêu vẫn ở dưới */
-#btn-atk, #btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art, #btn-act { border-color: transparent !important; overflow: visible !important; }
-#btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after, #btn-act::after {
-  content: ''; position: absolute; inset: -16% -11% -9% -11%; pointer-events: none; image-rendering: pixelated;
-  background: url("assets/art/ui-ring-skill.png") center / 100% 100% no-repeat; animation: den-sang 1.8s ease-in-out infinite alternate;
+/* nút tròn: khung đè lên (lòng rỗng), thắp sáng nhịp nhàng; chữ, biểu tượng chiêu vẫn ở dưới. Nút Đánh giữ khung Canva lửa;
+   chiêu, pháp bảo, đan, lướt dùng khung tròn đều vẽ code ui.round-* (chủ dự án 29/10/2026: khung Canva chóp cao thấp trông lệch).
+   Lớp hồi chiêu .cd bo tròn theo nút (trước đây hình vuông tràn ra ngoài khi nút để overflow: visible cho khung lồi ra). */
+#btn-atk, #btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art { border-color: transparent !important; overflow: visible !important; }
+#btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after {
+  content: ''; position: absolute; inset: -9%; pointer-events: none; image-rendering: pixelated;
+  background: url("assets/art/ui-round-skill.png") center / 100% 100% no-repeat; animation: den-sang 1.8s ease-in-out infinite alternate;
 }
 #btn-atk::after { background-image: url("assets/art/ui-ring-atk.png"); inset: -15% -12% -8% -12%; }
-#btn-dash::after { background-image: url("assets/art/ui-ring-dash.png"); inset: -10% -10% -10% -10%; }
-#btn-pill::after { background-image: url("assets/art/ui-ring-pill.png"); }
-#btn-art::after { background-image: url("assets/art/ui-ring-art.png"); }
-#btn-act::after { background-image: url("assets/art/ui-ring-act.png"); }
-#btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art, #btn-act { background-color: rgba(26, 10, 30, .92); }
+#btn-dash::after { background-image: url("assets/art/ui-round-dash.png"); }
+#btn-pill::after { background-image: url("assets/art/ui-round-pill.png"); }
+#btn-art::after { background-image: url("assets/art/ui-round-art.png"); }
+.btn .cd { border-radius: 50%; transform: none !important; z-index: 2; pointer-events: none;
+  background: conic-gradient(rgba(4, 2, 8, .78) calc(var(--cd, 0) * 360deg), transparent 0) !important; }   /* hồi chiêu: quạt tối quay như kim đồng hồ, nằm gọn trong nút */
+#btn-s0, #btn-s1, #btn-s2, #btn-dash, #btn-pill, #btn-art { background-color: rgba(26, 10, 30, .92); }
+/* hai cung đều quanh nút Đánh (tâm cách góc 42px): cung trong bán kính 94 (chiêu 180°, 135°, 90°),
+   cung ngoài bán kính 156 (đan 180°, lướt 152°, pháp bảo 100°; chừa 126° cho nút Nói chuyện) */
+#btn-pill { right: 175px !important; bottom: 19px !important; width: 46px !important; height: 46px !important; }
+#btn-dash { right: 157px !important; bottom: 92px !important; width: 46px !important; height: 46px !important; }
+#btn-art { right: 46px !important; bottom: 173px !important; width: 46px !important; height: 46px !important; }
+/* tên chiêu: chữ pixel, tối đa hai dòng nằm gọn trong lòng nút, biểu tượng dịch lên */
+#btn-s0, #btn-s1, #btn-s2 { background-position: center 6px !important; background-size: 22px 22px !important; }
+#btn-s0 b, #btn-s1 b, #btn-s2 b { font-size: 11px !important; line-height: 11px !important; padding: 28px 3px 0 !important; max-height: 50px; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
+#btn-dash b, #btn-pill b, #btn-art b { font-size: 11px !important; line-height: 11px !important; padding: 0 2px !important; max-height: 33px; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
 .menu-tile { color: #ffe6a0; }
 /* nút biểu tượng: khung không tô lòng (lòng khung sẽ đè lên biểu tượng), lòng là màu gỗ son */
-#btn-mute, #btn-inbox, [id^="btn-fb-"], #btn-rec:not(.on) {
+#btn-mute, #btn-inbox, #btn-notice, [id^="btn-fb-"], #btn-rec:not(.on) {
   border-image: url("assets/art/ui-btn.png") 4 / 4px / 0 stretch !important;
   background-color: #4a1c16 !important;
 }

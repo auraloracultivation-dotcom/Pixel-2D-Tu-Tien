@@ -5,7 +5,7 @@ const INK = '#1b1830';
 
 export function drawBubbles(ctx, game) {
   const sec = game.data.chatter.sec;
-  ctx.font = 'bold 6px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = '6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   for (const n of [...game.npcs, game.comp, game.player, ...game.others.visible()]) {
     const b = n?.bubble;
     if (!b) continue;

@@ -5225,6 +5225,18 @@
    ],
    "note": "nguồn sáng khung giao diện: i-idea (ảnh Canva bieu-tuong.png)"
   },
+  "ui.i-loa": {
+   "file": "assets/art/ui-i-loa.png",
+   "v": "aafa1a93",
+   "w": 18,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "huy hiệu màn đăng nhập (ảnh Canva loa.png)"
+  },
   "ui.i-mail": {
    "file": "assets/art/ui-i-mail.png",
    "v": "2639b3b7",
@@ -5884,6 +5896,54 @@
     55
    ],
    "note": "nguồn sáng khung giao diện: ring-skill (ảnh Canva vong-nut.png)"
+  },
+  "ui.round-art": {
+   "file": "assets/art/ui-round-art.png",
+   "v": "7fa12540",
+   "w": 64,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    32,
+    32
+   ],
+   "note": "khung tròn đều 64×64 cho nút art (vẽ code, ngọc #7affc0)"
+  },
+  "ui.round-dash": {
+   "file": "assets/art/ui-round-dash.png",
+   "v": "019886d5",
+   "w": 64,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    32,
+    32
+   ],
+   "note": "khung tròn đều 64×64 cho nút dash (vẽ code, ngọc #8ad8ff)"
+  },
+  "ui.round-pill": {
+   "file": "assets/art/ui-round-pill.png",
+   "v": "3566584b",
+   "w": 64,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    32,
+    32
+   ],
+   "note": "khung tròn đều 64×64 cho nút pill (vẽ code, ngọc #ff8ad8)"
+  },
+  "ui.round-skill": {
+   "file": "assets/art/ui-round-skill.png",
+   "v": "0d408876",
+   "w": 64,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    32,
+    32
+   ],
+   "note": "khung tròn đều 64×64 cho nút skill (vẽ code, ngọc #ff6a4a)"
   },
   "ui.stonelamp": {
    "file": "assets/art/ui-stonelamp.png",

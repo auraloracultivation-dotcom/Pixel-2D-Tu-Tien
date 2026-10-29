@@ -29,11 +29,15 @@ export function createFeed(game) {
     el.className = 'feed-line'; el.style.color = color;
     L = { el, key, t: now, sum: m ? parseFloat(m[1].replace(',', '.')) : 0 };
     el.textContent = m ? `+${fmt(L.sum)} ${m[2]}` : String(text);
-    lines.push(L); box.append(el);
+    place(); lines.push(L); box.append(el);
     while (lines.length > MAX) drop(lines[0]);
   };
 
+  // cột bám ngay dưới hàng nút bảng điều khiển (hàng nút có thể mọc thêm dòng: nút Thông báo, chip sự kiện), không đè lên nhau
+  const place = () => { const r = document.querySelector('.hud-btns')?.getBoundingClientRect(); if (r && r.height) box.style.top = Math.round(r.bottom + 8) + 'px'; };
+
   setInterval(() => {   // mờ rồi bỏ dòng cũ
+    if (lines.length) place();
     const now = performance.now() / 1000;
     for (const L of [...lines]) {
       if (now - L.t > LIFE) drop(L);

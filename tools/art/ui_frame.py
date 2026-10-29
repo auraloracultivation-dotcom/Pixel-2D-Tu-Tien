@@ -93,7 +93,42 @@ def _hole(f):
     return f
 
 
+def _ring(gem, S=64):
+    """Khung tròn đều cho nút chiêu, lướt, đan, pháp bảo (chủ dự án 29/10/2026: khung Canva có chóp cao thấp khác nhau trông lệch):
+    viền mực, nẹp vàng ba lớp, lòng trong suốt, bốn viên ngọc ở bốn hướng và tám đinh vàng xen giữa. Cạnh S, tâm ở giữa."""
+    import math
+    c = Canvas(S, S); cx = cy = (S - 1) / 2; R = S / 2 - 1
+    for y in range(S):
+        for x in range(S):
+            d = R - math.hypot(x - cx, y - cy)
+            if d < -0.5 or d > 6.5: continue
+            k = int(d + 0.5)
+            col = (INK, GOLD_L, GOLD, GOLD, GOLD_D, GOLD_D, INK)[min(k, 6)]
+            if k == 1 and y > cy: col = GOLD          # sáng trên, tối dưới
+            if k == 2 and y < cy - R * 0.4: col = GOLD_L
+            c.px(x, y, col)
+    g0, g1 = hx(gem[0]), hx(gem[1])
+    for i in range(12):
+        a = i * math.pi / 6; ox = int(cx + math.cos(a) * (R - 3)); oy = int(cy + math.sin(a) * (R - 3))   # tâm nguyên: tránh làm tròn .5 kiểu ngân hàng
+        if i % 3 == 0:   # ngọc hình thoi 9×9 ở bốn hướng
+            for dy in range(-4, 5):
+                for dx in range(-4, 5):
+                    m = abs(dx) + abs(dy)
+                    if m > 4: continue
+                    col = INK if m == 4 else (g1 if dx + dy > 0 else g0)
+                    c.px(int(round(ox + dx)), int(round(oy + dy)), col)
+            c.px(int(round(ox - 1)), int(round(oy - 1)), hx('#ffffff')); c.px(int(round(ox - 1)), int(round(oy - 2)), hx('#ffffff'))
+        else:            # đinh vàng
+            x0, y0 = int(round(ox)), int(round(oy)); c.px(x0, y0, GOLD_L); c.px(x0 + 1, y0, GOLD_L); c.px(x0, y0 + 1, GOLD_D); c.px(x0 + 1, y0 + 1, GOLD_D)
+    return c
+
+
+RINGS = {'skill': ('#ff6a4a', '#a8201a'), 'art': ('#7affc0', '#1a8a5a'), 'pill': ('#ff8ad8', '#a02a6a'), 'dash': ('#8ad8ff', '#2a5aa8')}
+
+
 def frames(save):
+    for k, gem in RINGS.items():
+        save('ui.round-' + k, [_ring(gem)], (32, 32), f'khung tròn đều 64×64 cho nút {k} (vẽ code, ngọc {gem[0]})')
     save('ui.btn', [_button(False)], (0, 0), 'khung nút chữ 12×12 cắt 4 (border-image): mực, nẹp vàng, lòng gỗ son')
     save('ui.btn-on', [_button(True)], (0, 0), 'khung nút chữ đang bật: lòng cam bí ngô')
     save('ui.frame', [_frame(True)], (0, 0), 'khung bảng 36×36 cắt 12 (border-image, style-khung.css): mực, nẹp vàng, gỗ sơn son, góc chạm vàng')
@@ -101,7 +136,7 @@ def frames(save):
 
 
 # ảnh một món (huy hiệu màn đăng nhập theo mùa lễ): tên hình, chiều cao
-SINGLE = {'huy-hieu-halloween.png': ('crest-halloween', 56)}
+SINGLE = {'huy-hieu-halloween.png': ('crest-halloween', 56), 'loa.png': ('i-loa', 18)}   # loa: nút Thông báo (chủ dự án 29/10/2026)
 
 
 def lights(save):

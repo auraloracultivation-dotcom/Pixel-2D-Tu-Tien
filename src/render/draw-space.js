@@ -98,7 +98,7 @@ export function drawSpace(ctx, screen, game, trip, riders, caption) {
   if (sp.slowT > 0) { ctx.fillStyle = 'rgba(160,110,220,.35)'; ctx.beginPath(); ctx.arc(px, py - 6 * S, 16 * S, 0, TAU); ctx.fill(); }
   riders(ctx, px, py, S, t);
   for (const p of sp.pops) { // chữ +linh khí bay lên
-    ctx.globalAlpha = clamp01(1.2 - p.t); ctx.font = '800 13px system-ui, sans-serif'; ctx.textAlign = 'center';
+    ctx.globalAlpha = clamp01(1.2 - p.t); ctx.font = '13px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.lineWidth = 3; ctx.strokeStyle = INK; ctx.strokeText(p.text, px, py - 26 * S - p.t * 30); ctx.fillStyle = p.color; ctx.fillText(p.text, px, py - 26 * S - p.t * 30);
   }
   ctx.globalAlpha = 1;

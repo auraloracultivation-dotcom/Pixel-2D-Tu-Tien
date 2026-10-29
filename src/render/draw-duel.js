@@ -16,7 +16,7 @@ export function drawDuelist(ctx, game, m, t) {
   ctx.fillStyle = '#e0484a'; ctx.fillRect(m.x - w / 2, top, w * Math.max(0, m.hp / m.maxHp), 2.5);
   if (m.shield > 0) { ctx.fillStyle = '#7ad0ff'; ctx.fillRect(m.x - w / 2, top, w * Math.min(1, m.shield / m.maxHp), 1); }
   const q = textQ(game, 6);
-  ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center';
+  ctx.font = `${6 * q}px "Unifont VN", system-ui`; ctx.textAlign = 'center';
   ctx.lineWidth = 2 * q; ctx.strokeStyle = INK; ctx.strokeText(m.def.name, m.x, top - 2);
   ctx.fillStyle = '#ffb0a8'; ctx.fillText(m.def.name, m.x, top - 2);
   return true;

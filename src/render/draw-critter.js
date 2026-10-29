@@ -60,7 +60,7 @@ export function drawCritters(ctx, game, t) {
     ctx.globalAlpha = 0.25; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, y, 4, 1.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
     KINDS[d.kind]?.(ctx, x, y, k.face, t, !k.wait || k.wait <= 0);
     const nm = game.save.critters?.[k.id]?.name, p = game.player;   // tên riêng, hiện khi đứng gần
-    if (nm && Math.hypot(k.x - p.x, k.y - p.y) < 40) { ctx.font = '600 6px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#1b1830'; ctx.fillText(nm, x, y - 19); }
+    if (nm && Math.hypot(k.x - p.x, k.y - p.y) < 40) { ctx.font = '6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.fillStyle = '#1b1830'; ctx.fillText(nm, x, y - 19); }
     if (k.ready) { const g = 0.6 + 0.4 * Math.sin(t * 5 + x); ctx.globalAlpha = g; R(ctx, '#ffd84a', x - 1, y - 22 + Math.sin(t * 3) * 1.5, 3, 3); R(ctx, '#fff6c8', x, y - 21 + Math.sin(t * 3) * 1.5, 1, 1); ctx.globalAlpha = 1; }
   }
 }
