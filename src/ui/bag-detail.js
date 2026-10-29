@@ -2,7 +2,7 @@
 // Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
 // cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
 import {
-  equip, unequip, salvage, reroll, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf,
+  equip, unequip, salvage, reroll, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund,
 } from '../game/items.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
@@ -149,7 +149,8 @@ export function renderDetail(game, st, box, changed, close) {
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;
     btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), () => { const e = rerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); changed(); } }, have < R.n);
   } else {
-    btn(`Phân giải (+${r.salvage} thạch, +${iron} tinh thiết)`, () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, worn);
+    const rf = enhanceRefund(data, it), rfTxt = it.plus ? `, gồm ${Math.round(data.gear.enhance.refund * 100)}% nguyên liệu cường hoá` : '';   // trả lại một phần nguyên liệu cường hoá
+    btn(`Phân giải (+${r.salvage + rf.stones} thạch, +${iron + rf.iron} tinh thiết${rfTxt})`, () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, worn);
     btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, worn);
   }
   box.append(el('div', 'd-label', 'Rèn luyện'), acts);

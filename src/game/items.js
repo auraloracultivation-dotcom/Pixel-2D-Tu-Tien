@@ -81,9 +81,18 @@ export function salvage(data, save, uid) {
   const it = save.bag[i];
   for (const g of it.sockets) if (g) save.gems[g] = (save.gems[g] || 0) + 1;
   save.bag.splice(i, 1);
-  const n = rarityOf(data.items, it.rarity).salvage;
-  save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + n;
-  return n;
+  const n = rarityOf(data.items, it.rarity).salvage, rf = enhanceRefund(data, it);
+  save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + n + rf.stones;
+  if (rf.iron) save.mats['tinh-thiet'] = (save.mats['tinh-thiet'] || 0) + rf.iron;
+  return n + rf.stones;
+}
+
+// Phân giải món đã cường hoá: trả lại gear.enhance.refund phần tinh thiết, thạch đã tốn cho các cấp đã lên (báo lỗi #7, chủ dự án chốt 40%)
+export function enhanceRefund(data, it) {
+  const e = data.gear?.enhance, k = e?.refund || 0, out = { iron: 0, stones: 0 };
+  for (let i = 0; i < Math.min(it.plus || 0, e?.iron?.length || 0); i++) { out.iron += e.iron[i]; out.stones += e.stones[i] || 0; }
+  out.iron = Math.floor(out.iron * k); out.stones = Math.floor(out.stones * k);
+  return out;
 }
 
 // Phí Linh Thạch tẩy luyện (items.reroll_fee): càng tẩy một món nhiều lần càng đắt; decay bậc rẻ lại mỗi ngày (đang 0: không reset)
