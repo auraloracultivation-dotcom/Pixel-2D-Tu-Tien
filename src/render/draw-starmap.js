@@ -103,7 +103,7 @@ function label(ctx, text, x, y, color) {
 
 // Đặt nhãn theo thứ tự ưu tiên, bỏ nhãn đè lên nhãn đã đặt
 function placeLabels(ctx, list) {
-  ctx.font = '800 11px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.font = '11px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
   const boxes = [];
   for (const l of list.sort((a, b) => a.pri - b.pri)) {
     const w = ctx.measureText(l.text).width + 4, bx = { x0: l.x - w / 2, x1: l.x + w / 2, y0: l.y, y1: l.y + 13 };

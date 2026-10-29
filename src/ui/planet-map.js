@@ -80,7 +80,7 @@ function star(ctx, x, y, r) {
 }
 
 function legend(ctx, w, h, T) {
-  ctx.font = '700 11px system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+  ctx.font = '11px "Unifont VN", system-ui'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
   ctx.fillStyle = '#e2c07a'; ctx.fillText(T.hop_hint, 10, 14);
   let x = 10;
   for (const [k, label] of [['you', T.legend_you], ['camp', T.legend_camp], ['gate', T.legend_gate], ['goal', T.legend_goal]]) {

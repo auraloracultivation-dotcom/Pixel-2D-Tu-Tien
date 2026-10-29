@@ -29,7 +29,7 @@ export function drawTitle(ctx, game, p) {
   if (!ti) return;
   const y = p.y - (p.top || 24) - (game.data.heroes.title_gap ?? 10);   // tách hẳn khỏi đầu, tóc, vũ khí đeo vai (chủ dự án xin 29/10/2026)
   const q = textQ(game, 6);   // máy quay xa: chữ không nhỏ quá
-  ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center';
+  ctx.font = `${6 * q}px "Unifont VN", system-ui`; ctx.textAlign = 'center';
   ctx.lineWidth = 2 * q; ctx.strokeStyle = '#1b1830'; ctx.strokeText(ti.name, p.x, y);
   ctx.fillStyle = ti.color; ctx.fillText(ti.name, p.x, y);
 }

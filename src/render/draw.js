@@ -209,7 +209,7 @@ function drawNpc(ctx, n, game, t) {
   // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
-    ctx.fillStyle = '#f2c94c'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
   }
 }
@@ -326,7 +326,7 @@ export function drawWorld(game, screen, t) {
   if (game.peek) {   // tên chỉ hiện khi chạm vào
     const e = game.peek.e, name = e.def.name, ny = e.y - Math.max(22, (e.top || 0) + 4, game.data.art.sprites['npc.' + e.id] ? 28 : 0);   // trên đỉnh hình
     const q = textQ(game, 7);   // máy quay xa: chữ không nhỏ quá
-    ctx.font = `bold ${7 * q}px system-ui`; ctx.textAlign = 'center';
+    ctx.font = `${7 * q}px "Unifont VN", system-ui`; ctx.textAlign = 'center';
     ctx.lineWidth = 2 * q; ctx.strokeStyle = INK; ctx.strokeText(name, e.x, ny); ctx.fillStyle = '#fff7d6'; ctx.fillText(name, e.x, ny);
   }
   screen.screenTransform();

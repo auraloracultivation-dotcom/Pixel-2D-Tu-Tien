@@ -28,7 +28,7 @@ export function drawNumbers(ctx, game) {
     const a = Math.min(1, (0.75 - n.t) * 4);
     if (pixelNumber(ctx, game, n, 1 - a)) continue;
     ctx.globalAlpha = n.gain ? a * 0.85 : a;   // dòng nhận linh khí, linh thạch: nhỏ và dịu hơn số sát thương
-    ctx.font = `bold ${n.big ? 11 : n.gain ? 7 : 8}px system-ui`; ctx.textAlign = 'center';
+    ctx.font = `${n.big ? 11 : n.gain ? 7 : 8}px "Unifont VN", system-ui`; ctx.textAlign = 'center';
     ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y);
   }
   ctx.globalAlpha = 1;

@@ -58,7 +58,7 @@ function drawSleep(ctx, pet, t) {
   ctx.fillStyle = pet.def.color; ctx.beginPath(); ctx.ellipse(pet.x, pet.y - 2.5, 4.8 + br, 2.8 + br, 0, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = INK; ctx.fillRect(pet.x - 2.5, pet.y - 3, 1.6, 0.8); ctx.fillRect(pet.x + 1, pet.y - 3, 1.6, 0.8);
   const k = (t * 0.6) % 1;
-  ctx.globalAlpha = 1 - k; ctx.fillStyle = '#e8f0ff'; ctx.font = 'bold 5px system-ui'; ctx.textAlign = 'center';
+  ctx.globalAlpha = 1 - k; ctx.fillStyle = '#e8f0ff'; ctx.font = '5px "Unifont VN", system-ui'; ctx.textAlign = 'center';
   ctx.fillText('z', pet.x + 4 + k * 4, pet.y - 7 - k * 8); ctx.globalAlpha = 1;
 }
 

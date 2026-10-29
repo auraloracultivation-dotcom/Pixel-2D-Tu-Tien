@@ -97,10 +97,10 @@ function drawPortal(ctx, screen, game, trip) {
 function caption(ctx, w, h, trip, k, hint) {
   ctx.globalAlpha = clamp01(Math.min(k / 0.1, (1 - k) / 0.1));
   ctx.textAlign = 'center';
-  ctx.font = '800 17px system-ui, sans-serif'; ctx.lineWidth = 4; ctx.strokeStyle = INK; ctx.fillStyle = '#fff7d6';
+  ctx.font = '17px "Unifont VN", system-ui'; ctx.lineWidth = 4; ctx.strokeStyle = INK; ctx.fillStyle = '#fff7d6';
   ctx.strokeText(trip.text, w / 2, h * 0.14); ctx.fillText(trip.text, w / 2, h * 0.14);
   if (trip.t > 1) {
-    ctx.font = '600 11px system-ui, sans-serif'; ctx.lineWidth = 3;
+    ctx.font = '11px "Unifont VN", system-ui'; ctx.lineWidth = 3;
     const tip = hint || 'Chạm để bỏ qua';
     ctx.strokeText(tip, w / 2, h - 24); ctx.fillText(tip, w / 2, h - 24);
   }
