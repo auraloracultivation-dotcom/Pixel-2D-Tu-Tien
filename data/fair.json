@@ -13,7 +13,9 @@
   "enter": "Hội đèn ở {map} tối nay! Ra sân xóm: linh khí x{qi}, linh thực nửa giá, ăn được lâu gấp đôi.",
   "card": "Hội đèn tối nay (19 tới 23 giờ) ở sân xóm.",
   "event": "Hội đèn ở {map}",
-  "event_desc": "Tối nay 19 tới 23 giờ. Đứng ở sân xóm: linh khí x{qi}, linh thực nửa giá."
+  "event_desc": "Tối nay 19 tới 23 giờ. Đứng ở sân xóm: linh khí x{qi}, linh thực nửa giá.",
+  "event_short": "Tối nay 19–23 giờ, ra sân xóm",
+  "event_how": ["1. Bay tới {map}, ra sân xóm (chỗ giăng dây đèn lồng).", "2. Đứng trong sân: linh khí đánh quái và đả tọa x{qi}, linh thực nửa giá, ăn được lâu gấp đôi.", "3. Từ 20 giờ có pháo hoa, người chơi khác cũng ra đây.", "Bật \"Tối ra hội đèn\" ở tab Tự hành thì nhân vật tự đi."]
  },
  "lines": [
   "Tối nay có hội, ra sân xem đèn đi!",

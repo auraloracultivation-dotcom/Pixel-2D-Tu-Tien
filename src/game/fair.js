@@ -30,7 +30,8 @@ export function fairEvent(game) {
   const id = fairMap(game), f = F(game);
   if (!id) return null;
   const map = game.data.maps[id]?.name || id;
-  return { id: 'hoi-den', name: f.texts.event.replace('{map}', map), desc: f.texts.event_desc.replace('{qi}', f.qi), color: '#ffb347' };
+  const fill = t => t.replace('{map}', map).replace('{qi}', String(f.qi).replace('.', ','));
+  return { id: 'hoi-den', name: fill(f.texts.event), desc: fill(f.texts.event_desc), short: f.texts.event_short, how: (f.texts.event_how || []).map(fill), color: '#ffb347' };
 }
 
 export function updateFair(game, dt) {

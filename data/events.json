@@ -1,8 +1,20 @@
 {
  "_note": "Sự kiện theo giờ máy. Cuối tuần (thứ 7, CN) nhân linh khí từ đánh quái và đả tọa. Mỗi tuần (tính từ thứ 2) một sự kiện trong weekly, xoay vòng. Lễ (festivals) theo ngày: vào game trong khoảng from..to nhận quà một lần, mul cộng thêm trong lễ.",
- "weekend": {"name": "Cuối tuần linh khí dồi dào", "mul": {"qi": 2}},
+ "weekend": {"name": "Cuối tuần linh khí dồi dào", "mul": {"qi": 2}, "short": "Thứ 7, Chủ nhật: linh khí x2",
+  "how": ["Đánh quái và đả tọa được gấp đôi linh khí.", "Không cần làm gì thêm, vào game là có."]},
+ "_texts": "Chữ tab Sự kiện (src/ui/event-tab.js). Mỗi sự kiện có short (một dòng hiện trên ô) và how (các bước cách chơi, hiện khi chạm ô); phần quà, hệ số nhân, ngày còn lại, kẹo đổi quà game tự ghi từ số trong file này.",
+ "texts": {
+  "how": "Cách chơi:", "gift": "Vào game trong dịp lễ nhận quà một lần: {r}.", "gift_got": "Quà vào game: đã nhận ({r}).", "outfit": "Kèm thời trang {name} (Thành tựu → Thời trang).",
+  "mul": "Suốt sự kiện: {list}.", "mul_qi": "linh khí x{k}", "mul_coin": "Linh Thạch rơi x{k}", "mul_tower": "thưởng tầng tháp mới x{k}", "mul_brew": "số viên đan mỗi lò x{k}",
+  "left": "Còn {n} ngày (hết ngày {end}).", "last": "Hôm nay là ngày cuối.", "week_left": "Còn {n} ngày, hết Chủ nhật. Thứ Hai đổi sự kiện khác.",
+  "candy": "Bạn đang có {n} {name}.", "swap": "Đổi quà ở {npc} ({map}):", "swap_row": "{cost} {name} → {label} ({r})",
+  "points": "Điểm: quái thường +{mob}, quái hiếm +{rare}, trùm +{boss}.", "pts_now": "Điểm tuần này: {n}.",
+  "ms_title": "Mốc {pts} điểm săn yêu", "ms_have": "Đã có {n}/{pts} điểm", "ms_got": "Đã nhận thưởng", "ms_ok": "Đủ điểm, bấm nhận!", "ms_reward": "Thưởng: {r}."
+ },
  "weekly": [
   {"id": "san-yeu", "name": "Tuần Săn Yêu", "desc": "Hạ quái tích điểm săn yêu, đủ mốc nhận thưởng.", "color": "#e0604a",
+   "short": "Đánh quái tích điểm, đủ mốc nhận quà",
+   "how": ["Đánh quái ở bất kỳ đâu là được điểm, tự hành và treo máy cũng tính.", "Đủ điểm thì mở các ô Mốc bên dưới, bấm Nhận thưởng.", "Điểm tính từ thứ Hai, sang tuần mới làm lại từ 0."],
    "points": {"mob": 1, "rare": 10, "boss": 30},
    "milestones": [
     {"pts": 100, "give": {"stones": 3, "coins": 100}},
@@ -10,13 +22,18 @@
     {"pts": 600, "give": {"item": "huyen", "stones": 5}},
     {"pts": 1000, "give": {"item": "dia", "gem": 2, "coins": 800}}
    ]},
-  {"id": "thap", "name": "Tuần Leo Tháp", "desc": "Thưởng qua tầng mới của Tháp Thử Thách nhân đôi.", "color": "#7a8af0", "mul": {"tower": 2}},
-  {"id": "dan", "name": "Tuần Luyện Đan", "desc": "Mỗi lò luyện ra gấp đôi số viên.", "color": "#5fd07a", "mul": {"brew": 2}},
-  {"id": "linh-thach", "name": "Tuần Linh Thạch", "desc": "Quái rơi Linh Thạch gấp đôi.", "color": "#ffd24a", "mul": {"coin": 2}}
+  {"id": "thap", "name": "Tuần Leo Tháp", "desc": "Thưởng qua tầng mới của Tháp Thử Thách nhân đôi.", "color": "#7a8af0", "short": "Leo tháp: thưởng tầng mới x2",
+   "how": ["Vào Tháp Thử Thách, leo lên tầng bạn chưa từng qua.", "Mỗi tầng mới qua được thưởng gấp đôi ngày thường."], "mul": {"tower": 2}},
+  {"id": "dan", "name": "Tuần Luyện Đan", "desc": "Mỗi lò luyện ra gấp đôi số viên.", "color": "#5fd07a", "short": "Luyện đan ra gấp đôi số viên",
+   "how": ["Về động phủ luyện đan như thường, mỗi lò ra gấp đôi.", "Nên luyện dồn đan dùng cho cả tuần sau."], "mul": {"brew": 2}},
+  {"id": "linh-thach", "name": "Tuần Linh Thạch", "desc": "Quái rơi Linh Thạch gấp đôi.", "color": "#ffd24a", "short": "Đánh quái rơi Linh Thạch x2",
+   "how": ["Đánh quái ở bất kỳ đâu, Linh Thạch rơi ra gấp đôi.", "Hợp để bật tự hành hoặc treo máy ở bãi quái."], "mul": {"coin": 2}}
  ],
  "festivals": [
   {"id": "halloween-2026", "name": "Lễ Hội Bí Ngô", "from": "2026-10-29", "to": "2026-11-02", "color": "#ff9a3a",
    "greet": "Đêm Bí Ngô! Bí ngô yêu mọc khắp các tinh cầu, đánh vỡ là rơi kẹo. Mang kẹo tới Bà Bí Ngô ở Thiên Kiếm Phong mà đổi quà.", "mul": {"qi": 1.2}, "gift": {"coins": 300, "qi": 300},
+   "short": "Đập bí ngô yêu lấy kẹo, đổi quà",
+   "how": ["1. Bí ngô yêu (quả bí cam) mọc ở các tinh cầu ngoài trời. Chúng hiền, không đánh lại.", "2. Đập vỡ mỗi quả rơi 1–2 Kẹo Bí Ngô. Tự hành, treo máy cũng nhặt.", "3. Bay về Thiên Kiếm Tinh, nói chuyện với Bà Bí Ngô để đổi kẹo lấy quà."],
    "mob": "bi-ngo-yeu", "mob_n": 3, "candy": "keo-bi", "drop": [1, 2],
    "npc": "ba-bi-ngo", "npc_map": "thien-kiem-phong", "npc_at": [21, 28],
    "swap": [
@@ -28,6 +45,8 @@
   {"id": "dong-chi-2026", "name": "Đông Chí", "from": "2026-12-21", "to": "2026-12-23", "color": "#bfe4ff", "greet": "Đông Chí, đêm dài nhất năm. Tông môn nấu chè trôi nước, ai cũng có phần.", "mul": {"qi": 1.3}, "gift": {"coins": 200, "qi": 300}},
   {"id": "giang-sinh-2026", "name": "Đêm Tuyết Lành", "from": "2026-12-24", "to": "2026-12-28", "color": "#e8f4ff",
    "greet": "Đêm Tuyết Lành! Người tuyết yêu lăn ra khắp các tinh cầu, đánh tan là rơi kẹo gậy. Ông Già Tuyết ở Thiên Kiếm Phong đổi kẹo lấy quà.", "mul": {"qi": 1.3}, "gift": {"coins": 400, "stones": 3},
+   "short": "Đánh người tuyết yêu lấy kẹo, đổi quà",
+   "how": ["1. Người tuyết yêu lăn ra ở các tinh cầu ngoài trời.", "2. Đánh tan mỗi con rơi 1–2 Kẹo Gậy.", "3. Bay về Thiên Kiếm Tinh, nói chuyện với Ông Già Tuyết để đổi kẹo lấy quà."],
    "mob": "nguoi-tuyet-yeu", "mob_n": 3, "candy": "keo-gay", "drop": [1, 2],
    "npc": "ong-gia-tuyet", "npc_map": "thien-kiem-phong", "npc_at": [21, 28],
    "swap": [
@@ -37,6 +56,8 @@
     {"cost": 45, "label": "Rương trang bị Địa phẩm", "give": {"item": "dia"}}
    ]},
   {"id": "tet-2027", "name": "Tết Đinh Mùi", "from": "2027-02-04", "to": "2027-02-14", "color": "#ff4a4a",
+   "short": "Đánh quái nhặt bao lì xì, đổi lộc",
+   "how": ["1. Đánh quái bất kỳ, thỉnh thoảng rơi Bao Lì Xì.", "2. Bay về Thiên Kiếm Tinh, nói chuyện với Ông Đồ để đổi lộc."],
    "greet": "Chúc mừng năm mới! Tông môn lì xì cho đệ tử. Quái khắp nơi rơi bao lì xì, mang tới Ông Đồ ở Thiên Kiếm Phong đổi lộc.", "mul": {"qi": 1.5, "coin": 1.5},
    "gift": {"coins": 888, "stones": 8, "gem": 2, "item": "huyen"},
    "candy": "bao-li-xi", "drop_p": 0.12, "drop": [1, 1],
