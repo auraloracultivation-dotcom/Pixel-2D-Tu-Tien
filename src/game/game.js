@@ -39,7 +39,7 @@ import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
 import { updateDaoVan } from './daovan.js';
 import { showBanner } from './banner.js';
-import { cloudHooks, startGuard } from './cloud-guard.js';
+import { cloudHooks, pickSave, startGuard } from './cloud-guard.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
@@ -88,6 +88,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (!game.save || !game.map) return;
     stamp(game.save);
     if (game.player) game.save.power = power(game);   // máy chủ đọc để xếp hạng lực chiến
+    game.cloud?.mark(game.save);   // dấu phiên cho pickSave (src/game/cloud-guard.js)
     writeSave(game.owner, game.save);
     game.cloud?.save(game.save);
   };
@@ -260,7 +261,7 @@ export function createGame(data, screen, input, ui, audio) {
     }
     if (msg) msg.textContent = '';
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
-    const saved = remote && local && (local.lastSeen || 0) > (remote.lastSeen || 0) ? local : remote || local;   // bản trong máy mới hơn (chơi lúc máy chủ chậm) thì giữ bản trong máy
+    const saved = pickSave(local, remote, game.cloud?.version);   // máy khác đã ghi sau bản trong máy thì lấy bản máy chủ (src/game/cloud-guard.js)
     game.save = fresh || !saved ? newSave(cfg) : saved;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè

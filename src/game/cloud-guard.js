@@ -4,10 +4,22 @@
 //   đang chơi, nhận số máy chủ sửa lại.
 // - applyFix: máy chủ thấy số gửi lên lố quá xa (migration 20261028140000_p2d_chong_gian_2) thì trả "sua":
 //   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho.
+// - pickSave: chọn bản trong máy hay bản máy chủ lúc vào game, không để máy cũ đè máy mới.
 // - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
 import { guardSave, checkGuard } from '../core/guard.js';
 
 const fin = v => typeof v === 'number' && Number.isFinite(v);
+
+// Chọn bản lưu lúc vào game (báo cáo #13, issue #335: chơi hai máy, máy cũ còn mở đè mất đồ máy kia).
+// Bản trong máy chỉ thắng khi mới hơn VÀ không máy nào khác ghi lên máy chủ sau nó:
+// cùng phiên ghi cả hai (ss trùng), hoặc dựa đúng phiên bản máy chủ hiện tại (chơi lúc máy chủ chậm).
+// Dấu ss, pb do src/net/profile.js mark() đóng. Bản trong máy chưa có dấu thì nhường máy chủ.
+export function pickSave(local, remote, pb) {
+  if (!remote || !local) return remote || local;
+  if ((local.lastSeen || 0) <= (remote.lastSeen || 0)) return remote;
+  const same = (local.ss && local.ss === remote.ss) || (fin(local.pb) && local.pb === pb);
+  return same ? local : remote;
+}
 
 export function applyFix(game, sent, sua) {
   const s = game.save;
