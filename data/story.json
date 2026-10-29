@@ -64,10 +64,11 @@
    "id": "nhap-mon", "map": "thien-kiem-phong",
    "do": [
     {"dark": 0},
-    {"say": [["van-hac", "Từ nay con là đệ tử Kiếm tông. Cầm lấy thanh kiếm này."]]},
-    {"weapon": "kiem"},
-    {"gear": ["thiet-kiem", "bo-y"]},
-    {"say": [["", "Nhận Thanh Phong Kiếm. Mở khóa chiêu Kiếm Khí. Nhận thêm Thiết Kiếm và Bố Y Đạo Bào (mở Túi để xem)."], ["lac-tuyet", "{Sư đệ|Sư muội} mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]]}
+    {"stand_by": "van-hac"},
+    {"say": [["van-hac", "Từ nay con là đệ tử Kiếm tông. Cầm lấy {thanh kiếm|cây liềm} này."]]},
+    {"weapon": "{kiem|liem}"},
+    {"gear": ["{thiet-kiem|tu-nguyet-liem}", "bo-y"]},
+    {"say": [["", "Nhận {Thanh Phong Kiếm|Liềm}. Mở khóa chiêu {Kiếm Khí|Tử Nguyệt Liềm}. Nhận thêm {Thiết Kiếm|Tử Nguyệt Liềm} và Bố Y Đạo Bào (mở Túi để xem)."], ["lac-tuyet", "{Sư đệ|Sư muội} mới à. Đừng làm mất mặt Kiếm tông."], ["ho-linh", "Ta là Hồ Linh! Lại bồ đoàn cạnh ta mà đả tọa, tu luyện bắt đầu từ đó."]]}
    ],
    "goal": "Ngồi lên bồ đoàn, bấm Đả tọa tới Luyện Khí tầng 2", "target": [14, 21],
    "until": {"layer": 2}

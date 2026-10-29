@@ -247,9 +247,10 @@ try {
       if (a.say) for (const [who] of a.say) need(!who || npcs[who], `story/${s.id}: NPC "${who}" không có`);
       if (a.spawn && !a.fly) need(mobs[a.spawn], `story/${s.id}: quái "${a.spawn}" không có`);
       if (a.fly) need(maps[a.fly], `story/${s.id}: bản đồ "${a.fly}" không có`);
-      if (a.weapon) need(weapons[a.weapon], `story/${s.id}: vũ khí "${a.weapon}" không có`);
+      const both = v => String(v).match(/^\{([^|{}]*)\|([^|{}]*)\}$/)?.slice(1) || [v];   // {nam|nữ}: kiểm cả hai
+      if (a.weapon) for (const w of both(a.weapon)) need(weapons[w], `story/${s.id}: vũ khí "${w}" không có`);
       if (a.npc_add) need(npcs[a.npc_add], `story/${s.id}: NPC "${a.npc_add}" không có`);
-      for (const b of a.gear || []) need(items.bases[b], `story/${s.id}: trang bị "${b}" không có`);
+      for (const b of (a.gear || []).flatMap(both)) need(items.bases[b], `story/${s.id}: trang bị "${b}" không có`);
       if (a.reward?.base) need(items.bases[a.reward.base], `story/${s.id}: phần thưởng "${a.reward.base}" không có`);
       if (a.pickups) need(items.quest_items[a.pickups], `story/${s.id}: vật nhặt "${a.pickups}" chưa có trong items.quest_items`);
       if (a.with) need(npcs[a.with], `story/${s.id}: NPC "${a.with}" không có`);
