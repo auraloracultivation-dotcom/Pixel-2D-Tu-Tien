@@ -46,3 +46,13 @@ Thêm phần tử vào bảng điều khiển (nút, chip, dòng chữ trên mà
 - Chạy `node tools/check.mjs` trước khi đẩy (luật trong `CLAUDE.md`).
 - Thấy việc thuộc mảng khác: ghi issue cho mảng đó, không tự làm.
 - Kiểm thử: việc chạy theo lịch mỗi đêm (chơi thử tự động, chụp ảnh), không cần tab riêng.
+
+## Giao việc (chủ dự án chốt 29/10/2026 21:17)
+
+Mảng D là người giao việc. Mọi việc mới (báo lỗi, đề xuất, việc chủ dự án nhờ) thành một GitHub issue, gắn đúng **một** nhãn mảng: `mang-A`, `mang-B`, `mang-C`, `mang-D`.
+
+- Việc rõ thuộc mảng nào thì giao mảng đó.
+- Việc không thuộc mảng nào, hoặc thuộc nhiều mảng ("việc thứ 5"): mảng D vẫn phải giao cho một tab cụ thể, chọn tab đang ít việc nhất, ghi lý do trong issue. Không để issue nào không có nhãn.
+- Giữ đều: số issue đang mở của mỗi mảng chênh nhau không quá 1–2. Mảng nào dồn nhiều thì mảng D chuyển bớt việc nhỏ (vẫn theo luật sửa thẳng ở trên) sang mảng ít việc, đổi nhãn và ghi lý do.
+- **Đầu mỗi phiên, mỗi tab mở danh sách issue mang nhãn mảng mình** (`gh issue list --label mang-X`) và làm từ việc cũ nhất. Làm xong: PR ghi `Sửa #số`, gộp thì issue tự đóng; mảng D theo dõi để báo người chơi và thưởng.
+- Bảng việc hiện tại: https://github.com/auraloracultivation-dotcom/Pixel-2D-Tu-Tien/issues
