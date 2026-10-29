@@ -59,3 +59,16 @@ export function autoEnhance(game) {
   const r = enhance(game, it.uid);
   if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8);
 }
+
+// Túi lố sức chứa (lối nào đó nhét quá bag_size): máy chủ từ chối cả bản lưu ('tui_qua_day'), mất hết tiến độ từ đó (báo lỗi JS
+// 30/10, người chơi 41 món). Trước khi lưu: phân giải món độ hiếm thấp nhất, cũ nhất, không mặc cho tới khi vừa túi.
+export function fitBag(game) {
+  const s = game.save, d = game.data, R = d.items.rarities.map(r => r.id);
+  let n = 0;
+  while (s.bag.length > d.items.bag_size) {
+    const it = s.bag.filter(i => !isEquipped(s, i.uid)).sort((a, b) => R.indexOf(a.rarity) - R.indexOf(b.rarity) || a.uid - b.uid)[0];
+    if (!it) break;
+    salvage(d, s, it.uid); salvageIron(game, it.rarity); salvageArt(game, it); n++;
+  }
+  if (n) game.toast?.(`Túi quá đầy: tự phân giải ${n} món cũ`, 2);
+}
