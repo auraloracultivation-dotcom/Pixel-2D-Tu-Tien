@@ -41,6 +41,7 @@ import { createMenuPanel } from './ui/menu-panel.js';
 import { gridCards } from './ui/grid-cards.js';
 import { leHoi } from './ui/le-hoi.js';
 import { createFeed } from './ui/feed.js';
+import { startNetWatch } from './game/net-watch.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -78,6 +79,7 @@ async function boot() {
   createProfile(game);   // chạm tên ở bảng xếp hạng: hồ sơ, nút So tài (data/duel.json)
   createReferral(game); createFame(game); startReferral(game);   // sự kiện giới thiệu nhận ngọc, bảng vinh danh góp ý (data/referral.json)
   createNotice(game); createNameNudge(game);   // nhắc người còn tên mặc định đặt tên; nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
+  startNetWatch(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
