@@ -60,3 +60,5 @@ Bản chơi tạm hiện vẽ hình khối đơn giản. Khi sang bước 3, hì
 - 30/10/2026: 37 quái thường còn vẽ code chuyển sang ảnh Canva (13 tấm `nguon/ai/sheets/mob-nhom-*.png` mỗi tấm 3 con × 2 dáng đứng / đánh, `mob-tuyet-lang.png`), `sheets.json` mục `mob.*` thêm `"align": "feet"` (đường xử lý hd giờ nhận align) để dáng đánh có vệt lửa, vệt chém không đẩy thân lệch. Không còn quái nào vẽ code.
 
 - 30/10/2026: 55 icon đồ trang bị không phải vũ khí bay (8 bộ theo hệ: mũ, giáp / áo, ngọc bội, nhẫn, giày; bộ Đạo Vận thêm ấn, binh; các món lẻ) từ 5 tấm Canva `nguon/ai/props/trang-bi-*.png` (`props_ai.gear`, cao 22, bộ trắng vàng khử ám hồng nền).
+
+- 30/10/2026 (chủ dự án chọn "mỗi nhà một hình Canva"): nhà nguyên căn `house.<ô>-<số ô ngang>` (H mái ngói, B nhà cháy, N lò rèn, z nhà đất, W nhà trên cây, rộng 2 và 3 ô; `house.H-10` điện lớn Thiên Kiếm Phong) từ `nguon/ai/props/nha-1.png`, `dien-lon.png` (`props_ai.houses`, ngang đúng số ô × 16, cao theo tỉ lệ). `src/world/draw-ground.js` vẽ một lần ở ô dưới trái của khối nhà, chân sát đáy khối; khối cỡ khác vẫn ghép ô `tile.house*`.
