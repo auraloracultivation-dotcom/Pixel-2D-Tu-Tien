@@ -2457,17 +2457,17 @@
   },
   "mob.co-thu-yeu-vuong": {
    "file": "assets/art/mob-co-thu-yeu-vuong.png",
-   "v": "33548cd4",
-   "w": 81,
-   "h": 101,
-   "frames": 2,
+   "v": "4b095b4d",
+   "w": 164,
+   "h": 100,
+   "frames": 7,
    "anchor": [
-    40,
-    99
+    82,
+    98
    ],
-   "note": "Cổ Thụ Yêu Vương (plant): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.doc-dang": {
    "file": "assets/art/mob-doc-dang.png",
@@ -2485,13 +2485,13 @@
   },
   "mob.gai-ma-ve": {
    "file": "assets/art/mob-gai-ma-ve.png",
-   "v": "aa04f140",
-   "w": 94,
-   "h": 60,
+   "v": "0828a8e4",
+   "w": 88,
+   "h": 56,
    "frames": 7,
    "anchor": [
-    47,
-    58
+    44,
+    54
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2541,13 +2541,13 @@
   },
   "mob.hac-phong-ma-quan": {
    "file": "assets/art/mob-hac-phong-ma-quan.png",
-   "v": "4e63a717",
-   "w": 140,
-   "h": 90,
+   "v": "dc50661d",
+   "w": 168,
+   "h": 108,
    "frames": 7,
    "anchor": [
-    70,
-    88
+    84,
+    106
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2555,13 +2555,13 @@
   },
   "mob.han-hon-ma-tuong": {
    "file": "assets/art/mob-han-hon-ma-tuong.png",
-   "v": "d5bd03ab",
-   "w": 178,
-   "h": 71,
+   "v": "d31420f7",
+   "w": 222,
+   "h": 87,
    "frames": 7,
    "anchor": [
-    89,
-    69
+    111,
+    85
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2583,13 +2583,13 @@
   },
   "mob.hoa-lang": {
    "file": "assets/art/mob-hoa-lang.png",
-   "v": "610e5a59",
-   "w": 54,
-   "h": 28,
+   "v": "6ac5ff4a",
+   "w": 72,
+   "h": 37,
    "frames": 7,
    "anchor": [
-    27,
-    26
+    36,
+    35
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2597,13 +2597,13 @@
   },
   "mob.hoa-lang-vuong": {
    "file": "assets/art/mob-hoa-lang-vuong.png",
-   "v": "775f2372",
-   "w": 132,
-   "h": 87,
+   "v": "8f8c0901",
+   "w": 188,
+   "h": 122,
    "frames": 7,
    "anchor": [
-    66,
-    85
+    94,
+    120
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2625,17 +2625,17 @@
   },
   "mob.hu-khong-cu-thu": {
    "file": "assets/art/mob-hu-khong-cu-thu.png",
-   "v": "51f4776d",
-   "w": 167,
-   "h": 103,
-   "frames": 2,
+   "v": "3a33199e",
+   "w": 210,
+   "h": 110,
+   "frames": 7,
    "anchor": [
-    83,
-    101
+    105,
+    108
    ],
-   "note": "Hư Không Cự Thú (wolf): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.hu-khong-ma": {
    "file": "assets/art/mob-hu-khong-ma.png",
@@ -2667,13 +2667,13 @@
   },
   "mob.huyet-nha": {
    "file": "assets/art/mob-huyet-nha.png",
-   "v": "ed7ce921",
-   "w": 112,
-   "h": 75,
+   "v": "dfc94854",
+   "w": 140,
+   "h": 94,
    "frames": 7,
    "anchor": [
-    56,
-    73
+    70,
+    92
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2681,13 +2681,13 @@
   },
   "mob.huyet-nha-that": {
    "file": "assets/art/mob-huyet-nha-that.png",
-   "v": "19b5fa6f",
-   "w": 148,
-   "h": 97,
+   "v": "77ec16fa",
+   "w": 182,
+   "h": 120,
    "frames": 7,
    "anchor": [
-    74,
-    95
+    91,
+    118
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2723,13 +2723,13 @@
   },
   "mob.kim-giap-vuong": {
    "file": "assets/art/mob-kim-giap-vuong.png",
-   "v": "1b3ee5ea",
-   "w": 154,
-   "h": 105,
+   "v": "6cc4e573",
+   "w": 194,
+   "h": 134,
    "frames": 7,
    "anchor": [
-    77,
-    103
+    97,
+    132
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -2877,17 +2877,17 @@
   },
   "mob.ma-ton": {
    "file": "assets/art/mob-ma-ton.png",
-   "v": "159613ea",
-   "w": 81,
-   "h": 111,
-   "frames": 2,
+   "v": "77b982c5",
+   "w": 182,
+   "h": 108,
+   "frames": 7,
    "anchor": [
-    40,
-    109
+    91,
+    106
    ],
-   "note": "Ma Tôn (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.moc-linh": {
    "file": "assets/art/mob-moc-linh.png",
@@ -2947,13 +2947,13 @@
   },
   "mob.nham-giap-thu": {
    "file": "assets/art/mob-nham-giap-thu.png",
-   "v": "130b948b",
-   "w": 142,
-   "h": 91,
+   "v": "f220863d",
+   "w": 206,
+   "h": 132,
    "frames": 7,
    "anchor": [
-    71,
-    89
+    103,
+    130
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -3171,13 +3171,13 @@
   },
   "mob.toai-son-ma-tuong": {
    "file": "assets/art/mob-toai-son-ma-tuong.png",
-   "v": "e37ce106",
-   "w": 124,
-   "h": 107,
+   "v": "030a91b4",
+   "w": 156,
+   "h": 135,
    "frames": 7,
    "anchor": [
-    62,
-    105
+    78,
+    133
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -3199,13 +3199,13 @@
   },
   "mob.tuyet-lang-vuong": {
    "file": "assets/art/mob-tuyet-lang-vuong.png",
-   "v": "16d14f8f",
-   "w": 148,
-   "h": 72,
+   "v": "e6671083",
+   "w": 176,
+   "h": 86,
    "frames": 7,
    "anchor": [
-    74,
-    70
+    88,
+    84
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
@@ -3241,13 +3241,13 @@
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",
-   "v": "9201c4fc",
-   "w": 162,
-   "h": 91,
+   "v": "f62036d6",
+   "w": 194,
+   "h": 111,
    "frames": 7,
    "anchor": [
-    81,
-    89
+    97,
+    109
    ],
    "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
