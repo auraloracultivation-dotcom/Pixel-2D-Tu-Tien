@@ -16,8 +16,8 @@ export function renderDaoVan(game, list, { card, mini, say }) {
     list.append(card(k.ready ? '#5fd07a' : '#ffd27a', `${T.path.replace('{i}', k.st.step + 1).replace('{all}', all)}: ${k.step.name}`, lines,
       mini(k.ready ? T.claim : T.not_yet, () => {
         const r = claimStep(game);
-        if (r?.full) say(T.bag_full);
-        else if (r?.got) { say(T.got.replace('{what}', r.got.join(', '))); game.sfx('levelup'); game.refreshStats(); }
+        if (r?.full) { say(T.bag_full); game.toast(T.bag_full, 2.4); }   // bảng dạng lưới che dòng chữ dưới bảng: báo thêm bằng thông báo nổi
+        else if (r?.got) { const t = T.got.replace('{what}', r.got.join(', ')); say(t); game.toast(t, 2.6); game.sfx('levelup'); game.refreshStats(); }
       }, !k.ready)));
   }
   const tiers = D.bonus[s.element] || {};
