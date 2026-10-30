@@ -107,8 +107,23 @@ def _defringe(c):
     return a
 
 
+# biểu tượng chiêu (nút chiêu, bảng chiêu), ảnh Canva 30/10/2026; None = ô thừa
+SKILL_ICONS = {'icon-chieu-1.png': ['fire', 'ice', 'bolt', 'vine', 'rock', 'wind', 'heal', 'shield'],
+               'icon-chieu-2.png': ['shield-earth', 'buff', 'arrow', 'liem', 'orb', 'slash', 'sound', None]}
+
+
 def gear(save):
     n = 0
+    for src, ids in SKILL_ICONS.items():
+        cells = _sheet(src, [4, 4])
+        if len(cells) != len(ids): print('icon chiêu: cắt', src, 'ra', len(cells), 'ô, cần', len(ids)); continue
+        for sid, c in zip(ids, cells):
+            if not sid: continue
+            if sid == 'arrow': c = _defringe(c)   # mép tên bị ám hồng của nền
+            f = A._act_frames([c], 15, 18, 'center')[0]; f = f[:, :16]   # nút chiêu kéo hình về ô vuông (style-khung.css): đệm giữa khung 16×16
+            sq = Canvas(16, 16); y, x = (16 - f.shape[0]) // 2, (16 - f.shape[1]) // 2
+            sq.a[y:y + f.shape[0], x:x + f.shape[1]] = f
+            save('icon.' + sid, [sq], (8, 8), f'biểu tượng chiêu {sid} (ảnh Canva nguon/ai/props/{src})'); n += 1
     for src, (per, ids) in GEAR.items():
         if not (SRC / src).exists(): continue
         cells = _sheet(src, per)
