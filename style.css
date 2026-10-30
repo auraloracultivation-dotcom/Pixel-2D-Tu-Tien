@@ -499,3 +499,10 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 
 /* Hộp thoại luôn nằm trên nút đánh, chiêu (màn ngang: nút Lướt đè lên chữ hộp thoại, chơi thử 28/10) */
 #dialog { z-index: 30; }
+
+/* Mất kết nối máy chủ (src/game/net-watch.js): phủ màn, game đứng lại tới khi nối lại */
+#net-lost { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; background: rgba(8, 10, 20, 0.72); }
+#net-lost[hidden] { display: none; }
+#net-lost .nl-box { max-width: 300px; margin: 16px; padding: 16px 20px; text-align: center; color: #f3ead2; background: #1d2236; border: 2px solid #c9a24a; border-radius: 6px; }
+#net-lost b { display: block; font-size: 18px; margin-bottom: 6px; }
+#net-lost p { margin: 0; font-size: 14px; line-height: 1.4; }
