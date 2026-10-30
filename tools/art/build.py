@@ -319,7 +319,7 @@ for _id, _b in _items['bases'].items():
 ui_frame.frames(save)
 print('nguồn sáng khung:', ui_frame.lights(save))
 print('đồ nhiệm vụ:', pickups.pickup_sprites(save))
-print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save), props_ai.gear(save), props_ai.houses(save), props_ai.skill_fx(save), props_ai.anim(save))
+print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save), props_ai.gear(save), props_ai.houses(save), props_ai.skill_fx(save), props_ai.anim(save), props_ai.hit_fx(save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')
