@@ -9,7 +9,7 @@
  "hint": {"dps_per_atk": 4, "hit_rate": 0.5, "easy": 2, "hard": 0.8,
   "easy_text": "Dễ với bạn", "fair_text": "Vừa sức", "hard_text": "Rất khó, nên mạnh thêm",
   "easy_color": "#5fd07a", "fair_color": "#ffb03a", "hard_color": "#e0484a"},
- "texts": {"pick": "{map}: chọn độ khó", "level": "{mode} · bậc {step}", "out": "Thôi", "unlock": "Mở {level}!", "first": "Lần đầu qua {level}", "done": "Qua {map} ({level})! Nhận: {got}.", "full": "Hôm nay đã nhận đủ {n} lần thưởng {mode}."},
+ "texts": {"pick": "{map}: chọn độ khó", "level": "{mode} · bậc {step}", "out": "Thôi", "unlock": "Mở {level}!", "first": "Lần đầu qua {level}", "done": "Qua {map} ({level})! Nhận: {got}.", "full": "Hôm nay đã nhận đủ {n} lần thưởng {mode}.", "guest": "Đi theo tổ đội: chỉ đội trưởng tăng bậc, bạn nhận quà lượt ngày."},
  "story_step": {"_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.", "bi-canh": "bi-canh", "hoa-quat": "hoa-quat", "han-bang-quat": "bang-quat", "hac-phong-dong": "hac-phong-dong", "co-thu-tam": "co-thu-tam"},
  "modes": [
   {"id": "thuong", "name": "Thường", "reward": {"stones": 1, "coins": 150, "mats": {"bi-kip-chieu": 1}}},
