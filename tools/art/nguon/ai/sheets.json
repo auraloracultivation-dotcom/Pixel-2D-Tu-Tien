@@ -3385,19 +3385,27 @@
   "note": "Canva 30/10/2026 (tấm quái nhóm 6, hàng 1): đứng, đánh"
  },
  "mob.ma-binh": {
-  "src": "sheets/mob-nhom-6.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-ma-binh.png",
+  "acts": true,
+  "h": 46,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   2,
-   3
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 6, hàng 2): đứng, đánh"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "mob.ma-phong-ve": {
   "src": "sheets/mob-nhom-6.png",
@@ -3685,161 +3693,256 @@
   "note": "Canva 30/10/2026 (tấm quái nhóm 12, hàng 3): đứng, đánh"
  },
  "mob.tuyet-lang": {
-  "src": "sheets/mob-tuyet-lang.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-tuyet-lang.png",
+  "acts": true,
+  "h": 34,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.0,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026: đứng, vồ"
+  "down": "flip",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng sói đứng, bước, bước, thu mình, vồ; ngã = xoay nằm (chủ dự án: thú 4 chân phải bước)"
  },
  "rival.kiem-thanh": {
-  "src": "sheets/rival-nhom-1.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   0,
-   1
-  ],
+  "src": "sheets/rival5-kiem-thanh.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 1): đứng, ra đòn",
-  "defringe": true
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.long-uyen": {
-  "src": "sheets/rival-nhom-1.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   2,
-   3
-  ],
+  "src": "sheets/rival5-long-uyen.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 2): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.tu-ngoc": {
-  "src": "sheets/rival-nhom-1.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   4,
-   5
-  ],
+  "src": "sheets/rival5-tu-ngoc.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 3): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.doan-kiem": {
-  "src": "sheets/rival-nhom-2.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   0,
-   1
-  ],
+  "src": "sheets/rival5-doan-kiem.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 1): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.bach-lien": {
-  "src": "sheets/rival-nhom-2.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   2,
-   3
-  ],
+  "src": "sheets/rival5-bach-lien.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 2): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.hoang-pha": {
-  "src": "sheets/rival-nhom-2.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   4,
-   5
-  ],
+  "src": "sheets/rival5-hoang-pha.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 3): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.van-tu": {
-  "src": "sheets/rival-nhom-3.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   0,
-   1
-  ],
+  "src": "sheets/rival5-van-tu.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 1): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.ma-thiet": {
-  "src": "sheets/rival-nhom-3.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   2,
-   3
-  ],
+  "src": "sheets/rival5-ma-thiet.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 2): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.lieu-oanh": {
-  "src": "sheets/rival-nhom-3.png",
-  "grid": [
-   2,
-   3
-  ],
-  "cells": [
-   4,
-   5
-  ],
+  "src": "sheets/rival5-lieu-oanh.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 3): đứng, ra đòn"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  },
  "rival.tran-binh": {
-  "src": "sheets/rival-tran-binh.png",
-  "grid": [
-   2,
-   1
-  ],
+  "src": "sheets/rival5-tran-binh.png",
+  "acts": true,
   "h": 44,
-  "hd": true,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
   "align": "feet",
-  "note": "Canva 30/10/2026: đứng, đâm kiếm"
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
  }
 }

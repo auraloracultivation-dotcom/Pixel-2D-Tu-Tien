@@ -228,9 +228,10 @@ def apply(manifest, save):
             a = np.array(Image.open(AI / s['src']).convert('RGBA'))
             a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else _key_near(a) if s.get('key') == 'near' else remove_bg(a, 60)
             cells = _grid(a, s['grid']) if s.get('grid') else _split_rows(a, per=s['rows'] if isinstance(s['rows'], list) else None) if s.get('rows') else _split(a)
-            if s.get('down') == 'rot':   # ảnh không có dáng ngã: khung 5 = khung đứng nằm xuống (xoay 90°, đầu về sau lưng)
+            if s.get('down') in ('rot', 'flip'):   # ảnh không có dáng ngã: khung 5 = dáng đứng nằm xuống (người xoay 90°, thú 4 chân lật ngửa)
                 stand = cells[s['order'][0]] if s.get('order') else cells[0]   # dáng đứng theo order (linh thú lấy ô giữa tấm quái)
-                cells = cells + [np.ascontiguousarray(np.rot90(_trim(stand), 1))]
+                lie = np.rot90(_trim(stand), 1) if s['down'] == 'rot' else np.flipud(_trim(stand))
+                cells = cells + [np.ascontiguousarray(lie)]
             if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
             frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'))
             if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
@@ -238,6 +239,7 @@ def apply(manifest, save):
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + f' · ảnh chủ dự án {len(frames)} khung')
             manifest[sid]['scale'] = HD
             if s.get('walk'): manifest[sid]['walk'] = s['walk']
+            if sid.startswith(('mob.', 'rival.')): manifest[sid]['acts'] = True   # 7 khung: đứng, bước ×2, lấy đà, đánh, ngã, chiêu (draw-mob-sprite.js)
             n += 1; continue
         cells = _cells(AI / s['src'], s.get('grid', [1, 1]))
         cells = [cells[i] for i in s.get('cells', range(len(cells)))]

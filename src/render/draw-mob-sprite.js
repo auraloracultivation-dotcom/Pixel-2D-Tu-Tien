@@ -4,17 +4,29 @@
 import { spriteImage, drawHitFrame } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
+// Hình 5 dáng Canva (acts, chủ dự án 30/10/2026: người và thú 4 chân phải bước chân trái phải khi đi): 0 đứng, 1–2 bước, 3 lấy đà, 4 đánh.
+// Lấy đà (windup, đòn boss) → khung 3; vừa ra đòn (hồi chiêu mới bắt đầu) → khung 4; đang đi → bước trái phải; đứng → khung 0 thở nhún.
+function actFrame(m, t, wind) {
+  const cd = m.def.cd || 1, struck = m.cd > cd - 0.28;
+  if (wind || ['slash', 'charge', 'nova'].includes(m.state)) return { f: 3, bob: 0 };
+  if (struck) return { f: 4, bob: 0 };
+  const mv = Math.abs(m.x - (m.ax ?? m.x)) + Math.abs(m.y - (m.ay ?? m.y)) > 0.05;
+  m.ax = m.x; m.ay = m.y;
+  if (mv || m.moving) return { f: 1 + (Math.floor(t * 7 + (m.uid || 0) * 0.37) % 2), bob: 0 };
+  return { f: 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 };
+}
+
 export function drawMobSprite(ctx, game, m, t, wind) {
   const spr = m.def.look && game.data.art.sprites['mob.' + m.id], im = spr && spriteImage(spr);
   if (!im) return false;
   const sc = spr.scale || 1;
   m.top = spr.anchor[1] * sc - 2;   // đỉnh hình: thanh máu, sao choáng đặt trên đó
   if (Math.abs(m.fx || 0) > 0.2) m.lookX = Math.sign(m.fx);
-  const { f, bob } = spr.atk ? { f: wind ? 1 : 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 } : mobFrame(spr, m, t);   // ảnh AI 2 khung: đứng / ra đòn
+  const { f, bob } = spr.acts ? actFrame(m, t, wind) : spr.atk ? { f: wind ? 1 : 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 } : mobFrame(spr, m, t);   // ảnh AI 5 dáng / 2 khung đứng, ra đòn
   ctx.save();
   ctx.translate(m.x, m.y + 1 - bob);
   ctx.scale((m.lookX || 1) * sc, sc);
-  if (wind) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh
+  if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
@@ -42,8 +54,9 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
   const mv = Math.abs(m.x - (m.lastX ?? m.x)) + Math.abs(m.y - (m.lastY ?? m.y)) > 0.05;   // đang đi thì bước, đứng thì nhún
   m.lastX = m.x; m.lastY = m.y;
   // ảnh Canva 2 khung (đứng / ra đòn, chủ dự án 30/10/2026) như quái: lấy đà thì khung đánh, còn lại nhún; ảnh vẽ code 4 khung như cũ
-  const bob = spr.atk ? Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 : 0;
-  const f = spr.atk ? (wind ? 1 : 0) : mv ? 2 + Math.floor(t * 6) % 2 : Math.floor(t * 2) % 2;
+  const A = spr.acts ? actFrame(m, t, wind) : null;
+  const bob = A ? A.bob : spr.atk ? Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 : 0;
+  const f = A ? A.f : spr.atk ? (wind ? 1 : 0) : mv ? 2 + Math.floor(t * 6) % 2 : Math.floor(t * 2) % 2;
   ctx.save();
   ctx.translate(Math.round(m.x), Math.round(m.y) + 1 - bob);
   ctx.scale((m.lookX || 1) * sc, sc);

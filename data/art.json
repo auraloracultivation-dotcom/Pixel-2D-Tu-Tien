@@ -2791,17 +2791,17 @@
   },
   "mob.ma-binh": {
    "file": "assets/art/mob-ma-binh.png",
-   "v": "c47b6523",
-   "w": 116,
-   "h": 49,
-   "frames": 2,
+   "v": "085e0713",
+   "w": 78,
+   "h": 46,
+   "frames": 7,
    "anchor": [
-    58,
-    47
+    39,
+    44
    ],
-   "note": "Ma binh (imp): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-cung": {
    "file": "assets/art/mob-ma-cung.png",
@@ -3183,17 +3183,17 @@
   },
   "mob.tuyet-lang": {
    "file": "assets/art/mob-tuyet-lang.png",
-   "v": "c2376aa2",
-   "w": 58,
-   "h": 38,
-   "frames": 2,
+   "v": "8e2d5d43",
+   "w": 62,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    29,
-    36
+    31,
+    32
    ],
-   "note": "Tuyết lang (wolf): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng sói đứng, bước, bước, thu mình, vồ; ngã = xoay nằm (chủ dự án: thú 4 chân phải bước) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.tuyet-lang-vuong": {
    "file": "assets/art/mob-tuyet-lang-vuong.png",
@@ -4868,143 +4868,143 @@
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",
-   "v": "8c81718c",
-   "w": 104,
+   "v": "219f912b",
+   "w": 88,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
-    52,
+    44,
     42
    ],
-   "note": "đấu sĩ Bạch Liên (hạng 5): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "rival.doan-kiem": {
    "file": "assets/art/rival-doan-kiem.png",
-   "v": "6a3cdced",
-   "w": 84,
+   "v": "1e3e85a2",
+   "w": 68,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
-    42,
+    34,
     42
    ],
-   "note": "đấu sĩ Đoạn Kiếm (hạng 4): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "rival.hoang-pha": {
    "file": "assets/art/rival-hoang-pha.png",
-   "v": "13ef8c76",
-   "w": 90,
-   "h": 44,
-   "frames": 2,
-   "anchor": [
-    45,
-    42
-   ],
-   "note": "đấu sĩ Hoàng Phá (hạng 6): đứng, nhún, bước A, bước B · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "rival.kiem-thanh": {
-   "file": "assets/art/rival-kiem-thanh.png",
-   "v": "e564a8d6",
-   "w": 78,
-   "h": 44,
-   "frames": 2,
-   "anchor": [
-    39,
-    42
-   ],
-   "note": "đấu sĩ Kiếm Thánh Vô Danh (hạng 1): đứng, nhún, bước A, bước B · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "rival.lieu-oanh": {
-   "file": "assets/art/rival-lieu-oanh.png",
-   "v": "28408b14",
-   "w": 96,
-   "h": 44,
-   "frames": 2,
-   "anchor": [
-    48,
-    42
-   ],
-   "note": "đấu sĩ Liễu Oanh (hạng 9): đứng, nhún, bước A, bước B · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "rival.long-uyen": {
-   "file": "assets/art/rival-long-uyen.png",
-   "v": "a8f4dcdd",
-   "w": 86,
-   "h": 44,
-   "frames": 2,
-   "anchor": [
-    43,
-    42
-   ],
-   "note": "đấu sĩ Long Uyên (hạng 2): đứng, nhún, bước A, bước B · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "rival.ma-thiet": {
-   "file": "assets/art/rival-ma-thiet.png",
-   "v": "5f70ad5a",
+   "v": "c753db1d",
    "w": 72,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
     36,
     42
    ],
-   "note": "đấu sĩ Mã Thiết (hạng 8): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
-  "rival.tran-binh": {
-   "file": "assets/art/rival-tran-binh.png",
-   "v": "3a1a20d6",
-   "w": 82,
+  "rival.kiem-thanh": {
+   "file": "assets/art/rival-kiem-thanh.png",
+   "v": "7a4f5131",
+   "w": 64,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
-    41,
+    32,
     42
    ],
-   "note": "đấu sĩ Trần Bình (hạng 10): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
-  "rival.tu-ngoc": {
-   "file": "assets/art/rival-tu-ngoc.png",
-   "v": "4781f7f4",
+  "rival.lieu-oanh": {
+   "file": "assets/art/rival-lieu-oanh.png",
+   "v": "9517d693",
    "w": 98,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
     49,
     42
    ],
-   "note": "đấu sĩ Tử Ngọc (hạng 3): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
+  },
+  "rival.long-uyen": {
+   "file": "assets/art/rival-long-uyen.png",
+   "v": "8552ed86",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
+  },
+  "rival.ma-thiet": {
+   "file": "assets/art/rival-ma-thiet.png",
+   "v": "32664718",
+   "w": 54,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    27,
+    42
+   ],
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
+  },
+  "rival.tran-binh": {
+   "file": "assets/art/rival-tran-binh.png",
+   "v": "c0fa60ec",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    41,
+    42
+   ],
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
+  },
+  "rival.tu-ngoc": {
+   "file": "assets/art/rival-tu-ngoc.png",
+   "v": "61e3c35e",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    36,
+    42
+   ],
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
   },
   "rival.van-tu": {
    "file": "assets/art/rival-van-tu.png",
-   "v": "552e9a9d",
-   "w": 96,
+   "v": "5627c289",
+   "w": 76,
    "h": 44,
-   "frames": 2,
+   "frames": 7,
    "anchor": [
-    48,
+    38,
     42
    ],
-   "note": "đấu sĩ Vân Tú (hạng 7): đứng, nhún, bước A, bước B · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "tile.cliff": {
    "file": "assets/art/tile-cliff.png",
