@@ -1,27 +1,9 @@
 {
  "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét. Ảnh chủ dự án 28/10 (12 linh thú, 4 thú cưỡi, gốc ở goc/): grid chia khung, order xếp ô thành khung (0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu), hop: ảnh 1 dáng thì bước nhảy 1 điểm ảnh, walk: thứ tự khung khi đi (thú cưỡi 4 bước), shadow false: giữ màu tím sẫm. Chuẩn 29/10 (nhân vật, nv/): mạng ở đây không tải được ảnh gốc Canva, nên tạo khung vuông 5 dáng 2 hàng (3 trên, 2 dưới) để mỗi dáng cao ~80 điểm ảnh trong bản xem trước, thu về 44 (gấp ~1.8 lần, vẫn rõ mắt mặt). rows: tách hàng rồi tách khung; align feet: căn theo chân (khung đánh có cầu lửa, vệt chém không đẩy người lệch); down rot: khung ngã = khung đứng xoay nằm.",
  "pet.hoa-lang": {
-  "src": "sheets/mob-hoa-lang.png",
-  "acts": true,
-  "h": 27,
-  "key": "magenta",
-  "grid": [
-   3,
-   2
-  ],
-  "order": [
-   0,
-   0,
-   0,
-   1,
-   2,
-   6,
-   2
-  ],
-  "down": "rot",
-  "hop": true,
-  "align": "feet",
-  "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
+  "like": "mob.hoa-lang",
+  "k": 0.7,
+  "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh)"
  },
  "pet.moc-linh": {
   "src": "sheets/mob-nhom-1.png",
@@ -47,27 +29,9 @@
   "note": "Tiểu Mộc Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.ma-tieu": {
-  "src": "sheets/mob-nhom-7.png",
-  "acts": true,
-  "h": 29,
-  "key": "magenta",
-  "grid": [
-   2,
-   3
-  ],
-  "order": [
-   4,
-   4,
-   4,
-   4,
-   5,
-   6,
-   5
-  ],
-  "down": "rot",
-  "hop": true,
-  "align": "feet",
-  "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)",
+  "like": "mob.ma-tieu",
+  "k": 0.7,
+  "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh)",
   "shadow": false
  },
  "pet.viem-linh": {
@@ -94,50 +58,14 @@
   "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.ma-cung": {
-  "src": "sheets/mob-nhom-9.png",
-  "acts": true,
-  "h": 30,
-  "key": "magenta",
-  "grid": [
-   2,
-   3
-  ],
-  "order": [
-   2,
-   2,
-   2,
-   2,
-   3,
-   6,
-   3
-  ],
-  "down": "rot",
-  "hop": true,
-  "align": "feet",
-  "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
+  "like": "mob.ma-cung",
+  "k": 0.7,
+  "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh)"
  },
  "pet.tuyet-lang": {
-  "src": "sheets/mob-tuyet-lang.png",
-  "acts": true,
-  "h": 27,
-  "key": "magenta",
-  "grid": [
-   2,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   0,
-   0,
-   1,
-   2,
-   1
-  ],
-  "down": "rot",
-  "hop": true,
-  "align": "feet",
-  "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
+  "like": "mob.tuyet-lang",
+  "k": 0.7,
+  "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh)"
  },
  "pet.moc-yeu": {
   "src": "sheets/mob-nhom-3.png",
@@ -186,27 +114,9 @@
   "note": "Tiểu Kiếm Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.tho-khoi": {
-  "src": "sheets/mob-nhom-12.png",
-  "acts": true,
-  "h": 34,
-  "key": "magenta",
-  "grid": [
-   2,
-   3
-  ],
-  "order": [
-   2,
-   2,
-   2,
-   2,
-   3,
-   6,
-   3
-  ],
-  "down": "rot",
-  "hop": true,
-  "align": "feet",
-  "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
+  "like": "mob.tho-khoi",
+  "k": 0.7,
+  "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh)"
  },
  "pet.hu-anh": {
   "src": "sheets/mob-nhom-8.png",
