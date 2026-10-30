@@ -2485,17 +2485,17 @@
   },
   "mob.gai-ma-ve": {
    "file": "assets/art/mob-gai-ma-ve.png",
-   "v": "1d4ce92b",
-   "w": 108,
-   "h": 56,
-   "frames": 2,
+   "v": "aa04f140",
+   "w": 94,
+   "h": 60,
+   "frames": 7,
    "anchor": [
-    54,
-    54
+    47,
+    58
    ],
-   "note": "Gai Ma Vệ (plant): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.hac-cuc-ma-chung": {
    "file": "assets/art/mob-hac-cuc-ma-chung.png",
@@ -2541,17 +2541,17 @@
   },
   "mob.hac-phong-ma-quan": {
    "file": "assets/art/mob-hac-phong-ma-quan.png",
-   "v": "26b1b464",
-   "w": 74,
-   "h": 86,
-   "frames": 2,
+   "v": "4e63a717",
+   "w": 140,
+   "h": 90,
+   "frames": 7,
    "anchor": [
-    37,
-    84
+    70,
+    88
    ],
-   "note": "Hắc Phong Ma Quân (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.han-hon-ma-tuong": {
    "file": "assets/art/mob-han-hon-ma-tuong.png",
@@ -2723,17 +2723,17 @@
   },
   "mob.kim-giap-vuong": {
    "file": "assets/art/mob-kim-giap-vuong.png",
-   "v": "34ecd269",
-   "w": 113,
-   "h": 84,
-   "frames": 2,
+   "v": "1b3ee5ea",
+   "w": 154,
+   "h": 105,
+   "frames": 7,
    "anchor": [
-    56,
-    82
+    77,
+    103
    ],
-   "note": "Kim Giáp Trùng Vương (beetle): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.kim-ma-ve": {
    "file": "assets/art/mob-kim-ma-ve.png",
@@ -2947,17 +2947,17 @@
   },
   "mob.nham-giap-thu": {
    "file": "assets/art/mob-nham-giap-thu.png",
-   "v": "4709bf5e",
-   "w": 143,
-   "h": 101,
-   "frames": 2,
+   "v": "130b948b",
+   "w": 142,
+   "h": 91,
+   "frames": 7,
    "anchor": [
     71,
-    99
+    89
    ],
-   "note": "Nham Giáp Thú (golem): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.nham-xa": {
    "file": "assets/art/mob-nham-xa.png",
@@ -3171,17 +3171,17 @@
   },
   "mob.toai-son-ma-tuong": {
    "file": "assets/art/mob-toai-son-ma-tuong.png",
-   "v": "25153afa",
-   "w": 107,
-   "h": 98,
-   "frames": 2,
+   "v": "e37ce106",
+   "w": 124,
+   "h": 107,
+   "frames": 7,
    "anchor": [
-    53,
-    96
+    62,
+    105
    ],
-   "note": "Toái Sơn Ma Tướng (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.tuyet-lang": {
    "file": "assets/art/mob-tuyet-lang.png",
@@ -3241,17 +3241,17 @@
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",
-   "v": "05bb04b3",
-   "w": 69,
-   "h": 92,
-   "frames": 2,
+   "v": "9201c4fc",
+   "w": 162,
+   "h": 91,
+   "frames": 7,
    "anchor": [
-    34,
-    90
+    81,
+    89
    ],
-   "note": "Vạn Kiếm Ma Tướng (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.viem-linh": {
    "file": "assets/art/mob-viem-linh.png",
