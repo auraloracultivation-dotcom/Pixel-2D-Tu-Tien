@@ -34,6 +34,7 @@ from pets import pet_frames, mount_frames  # noqa: E402
 import ai_sprites  # noqa: E402
 import ui_frame  # noqa: E402
 import pickups  # noqa: E402
+import props_ai  # noqa: E402
 from px import MANIFEST  # noqa: E402
 
 clean()
@@ -318,6 +319,7 @@ for _id, _b in _items['bases'].items():
 ui_frame.frames(save)
 print('nguồn sáng khung:', ui_frame.lights(save))
 print('đồ nhiệm vụ:', pickups.pickup_sprites(save))
+print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save))
 
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')
