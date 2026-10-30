@@ -1,5 +1,13 @@
 # Phân việc giữa các tab AI
 
+## Ba bên vận hành (chủ dự án chốt 30/10/2026 08:44, thay cho bốn mảng bên dưới khi chồng nhau)
+
+1. **Điều hành chung** (tab Vận hành, việc định kỳ mỗi giờ "Tổng hợp báo lỗi mỗi giờ"): phụ trách chung. Duyệt báo lỗi, đề xuất, lỗi JavaScript, cờ gian lận; tự sửa lỗi người chơi báo ở mọi phần; email tổng hợp mỗi giờ; hỏi chủ dự án bằng bảng chọn khi cần quyết; xem PR của hai bên kia, gỡ chồng chéo, báo lại trong email.
+2. **Thiên Đạo chơi thử** (4 tiếng một lần, tài khoản người chơi tên Thiên Đạo): đi farm, làm nhiệm vụ như người chơi thật, thuận đường kiểm tra game; sửa lỗi cách chơi, nội dung, hình ảnh gặp phải.
+3. **Máy chủ** (4 tiếng một lần): cập nhật, sửa lỗi máy chủ, giảm lag, chống bug, hack.
+
+Cả ba: nhánh riêng, PR nhỏ, gộp khi kiểm tra xanh; đổi cơ sở dữ liệu thật, chức năng mới, kinh tế thì hỏi chủ dự án. Tên PR ghi bên làm ở đầu: `[Điều hành]`, `[Thiên Đạo]`, `[Máy chủ]`. Gặp việc của bên khác: tiện tay sửa nhỏ thì làm, lớn thì ghi issue nhãn `mang-B` (Thiên Đạo, nội dung / hình) hoặc `mang-C` (máy chủ); bên điều hành theo dõi.
+
 Chủ dự án chốt 29/10/2026. Mỗi tab Claude giữ một mảng. Trước khi làm, đọc file này để biết phần nào của mình, phần nào phải hỏi tab khác. Mục đích: không sửa đè lên nhau (đã xảy ra: chip sự kiện đè cột nhận đồ, suýt ghi đè file trang trí động phủ).
 
 ## Bốn mảng
