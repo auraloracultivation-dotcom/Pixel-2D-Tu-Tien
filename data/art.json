@@ -2707,17 +2707,17 @@
   },
   "mob.kim-giap-trung": {
    "file": "assets/art/mob-kim-giap-trung.png",
-   "v": "4dfb06c4",
-   "w": 100,
-   "h": 43,
-   "frames": 2,
+   "v": "4946740a",
+   "w": 72,
+   "h": 36,
+   "frames": 7,
    "anchor": [
-    50,
-    41
+    36,
+    34
    ],
-   "note": "Kim giáp trùng (beetle): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.kim-giap-vuong": {
    "file": "assets/art/mob-kim-giap-vuong.png",
@@ -2749,31 +2749,31 @@
   },
   "mob.linh-thach-tinh": {
    "file": "assets/art/mob-linh-thach-tinh.png",
-   "v": "3791d07f",
-   "w": 80,
-   "h": 43,
-   "frames": 2,
+   "v": "f5886380",
+   "w": 74,
+   "h": 42,
+   "frames": 7,
    "anchor": [
-    40,
-    41
+    37,
+    40
    ],
-   "note": "Linh Thạch Tinh (golem): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.linh-thao-tinh": {
    "file": "assets/art/mob-linh-thao-tinh.png",
-   "v": "20d7efc8",
-   "w": 68,
-   "h": 45,
-   "frames": 2,
+   "v": "965fee60",
+   "w": 72,
+   "h": 42,
+   "frames": 7,
    "anchor": [
-    34,
-    43
+    36,
+    40
    ],
-   "note": "Linh Thảo Tinh (plant): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-bang-tien": {
    "file": "assets/art/mob-ma-bang-tien.png",
@@ -3113,17 +3113,17 @@
   },
   "mob.tho-khoi": {
    "file": "assets/art/mob-tho-khoi.png",
-   "v": "3e7ea61a",
-   "w": 100,
-   "h": 54,
-   "frames": 2,
+   "v": "5c77e024",
+   "w": 80,
+   "h": 52,
+   "frames": 7,
    "anchor": [
-    50,
-    52
+    40,
+    50
    ],
-   "note": "Thổ khôi (golem): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.tho-ma-ve": {
    "file": "assets/art/mob-tho-ma-ve.png",
@@ -3141,17 +3141,17 @@
   },
   "mob.thu-moc-ve": {
    "file": "assets/art/mob-thu-moc-ve.png",
-   "v": "91e5cacd",
-   "w": 104,
-   "h": 56,
-   "frames": 2,
+   "v": "013330ed",
+   "w": 76,
+   "h": 54,
+   "frames": 7,
    "anchor": [
-    52,
-    54
+    38,
+    52
    ],
-   "note": "Thụ Mộc Vệ (plant): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.thuc-moc-ma-hau": {
    "file": "assets/art/mob-thuc-moc-ma-hau.png",
