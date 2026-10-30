@@ -14,6 +14,7 @@
   "reward": "{coins} Linh Thạch, {khoa} Khóa Linh Thạch, ngọc cấp {ngoc}",
   "login": "Đăng nhập tài khoản để điểm danh nhận quà.",
   "loading": "Đang xem điểm danh…",
+  "nudge": "Hôm nay chưa điểm danh! Vào Menu → Việc hằng ngày để nhận quà.",
   "ok": "Điểm danh xong! Quà đã vào Hòm thư.",
   "ok_moc": "Điểm danh xong, đủ mốc {list}! Quà đã vào Hòm thư.",
   "err": {"da_diem_danh": "Hôm nay bạn đã điểm danh rồi.", "chua_luu": "Chơi thêm chút cho máy chủ lưu nhân vật rồi điểm danh nhé.", "chua_dang_nhap": "Đăng nhập tài khoản để điểm danh nhận quà.", "net": "Mạng chập chờn, thử lại sau."}
