@@ -480,6 +480,7 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 .power, .sky { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .realm b, .realm small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .realm b { font: inherit; }
+.realm .hud-name { pointer-events: auto; cursor: pointer; color: #fff4d0; margin-right: .35em; text-decoration: underline dotted rgba(226, 192, 122, .6); text-underline-offset: 3px; }
 .realm small { font: 700 10.5px system-ui, sans-serif; color: var(--moon); letter-spacing: 0; margin-top: 1px; }
 .realm small:empty { display: none; }
 .hud-btns { gap: 5px; max-width: 200px; }

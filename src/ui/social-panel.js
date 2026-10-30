@@ -58,7 +58,7 @@ export function createSocialPanel(game) {
     }
     if (on && game.cloud) {   // tên hiển thị (người khác thấy tên này, không thấy tên đăng nhập)
       const N = S.name, b = el('button', 'mini', N.btn.replace('{name}', game.online.me.name));
-      b.onclick = () => rename(N);
+      b.onclick = () => { close(); game.openRename?.(); };   // bảng đổi tên chung (src/ui/name-nudge.js)
       em.append(b);
     }
     const nb = (game.save.blocked || []).length;
@@ -72,17 +72,6 @@ export function createSocialPanel(game) {
     game.chatNew = false;
   }
 
-  async function rename(N) {
-    const t = prompt(N.ask, game.online.me.name);
-    if (t == null || !t.trim()) return;
-    try {
-      const { setDisplayName } = await import('../net/profile.js');
-      const name = await setDisplayName(t);
-      game.cloud.name = name; game.online.rename(name);
-      note = N.ok.replace('{name}', name);
-    } catch (e) { const m = String(e?.message || ''); note = N.err[Object.keys(N.err).find(k => m.includes(k))] || N.err.other; }
-    render();
-  }
 
   function open(to) {   // to: mở thẳng một tab (nút Xếp hạng ở menu mở tab rank)
     if (!game.save || game.dialog.open || game.trip) return;
