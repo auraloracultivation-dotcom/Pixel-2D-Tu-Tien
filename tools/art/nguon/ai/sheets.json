@@ -3111,5 +3111,556 @@
   ],
   "colors": 24,
   "note": "Áo lông Tuyết Lành (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm"
+ },
+ "mob.bang-tinh": {
+  "src": "sheets/mob-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 1, hàng 1): đứng, đánh"
+ },
+ "mob.moc-linh": {
+  "src": "sheets/mob-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 1, hàng 2): đứng, đánh"
+ },
+ "mob.viem-linh": {
+  "src": "sheets/mob-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 1, hàng 3): đứng, đánh"
+ },
+ "mob.doc-dang": {
+  "src": "sheets/mob-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 2, hàng 1): đứng, đánh"
+ },
+ "mob.gai-ma-ve": {
+  "src": "sheets/mob-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 2, hàng 2): đứng, đánh"
+ },
+ "mob.hac-cuc-mam": {
+  "src": "sheets/mob-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 2, hàng 3): đứng, đánh"
+ },
+ "mob.linh-thao-tinh": {
+  "src": "sheets/mob-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 3, hàng 1): đứng, đánh"
+ },
+ "mob.moc-yeu": {
+  "src": "sheets/mob-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 3, hàng 2): đứng, đánh"
+ },
+ "mob.thu-moc-ve": {
+  "src": "sheets/mob-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 3, hàng 3): đứng, đánh"
+ },
+ "mob.re-ma": {
+  "src": "sheets/mob-nhom-4.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 4, hàng 1): đứng, đánh"
+ },
+ "mob.nham-xa": {
+  "src": "sheets/mob-nhom-4.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 4, hàng 2): đứng, đánh"
+ },
+ "mob.kim-giap-trung": {
+  "src": "sheets/mob-nhom-4.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 4, hàng 3): đứng, đánh"
+ },
+ "mob.hac-diep": {
+  "src": "sheets/mob-nhom-5.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 5, hàng 1): đứng, đánh"
+ },
+ "mob.phong-yeu": {
+  "src": "sheets/mob-nhom-5.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 5, hàng 2): đứng, đánh"
+ },
+ "mob.thach-doi": {
+  "src": "sheets/mob-nhom-5.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 5, hàng 3): đứng, đánh"
+ },
+ "mob.han-ma-ve": {
+  "src": "sheets/mob-nhom-6.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 6, hàng 1): đứng, đánh"
+ },
+ "mob.ma-binh": {
+  "src": "sheets/mob-nhom-6.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 6, hàng 2): đứng, đánh"
+ },
+ "mob.ma-phong-ve": {
+  "src": "sheets/mob-nhom-6.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 6, hàng 3): đứng, đánh"
+ },
+ "mob.hu-khong-ma": {
+  "src": "sheets/mob-nhom-7.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 7, hàng 1): đứng, đánh"
+ },
+ "mob.ma-tham-tu": {
+  "src": "sheets/mob-nhom-7.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 7, hàng 2): đứng, đánh"
+ },
+ "mob.ma-tieu": {
+  "src": "sheets/mob-nhom-7.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 7, hàng 3): đứng, đánh"
+ },
+ "mob.hu-anh": {
+  "src": "sheets/mob-nhom-8.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 8, hàng 1): đứng, đánh"
+ },
+ "mob.tam-ma": {
+  "src": "sheets/mob-nhom-8.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 8, hàng 2): đứng, đánh"
+ },
+ "mob.kiem-hon": {
+  "src": "sheets/mob-nhom-8.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 8, hàng 3): đứng, đánh"
+ },
+ "mob.ma-bang-tien": {
+  "src": "sheets/mob-nhom-9.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 1): đứng, đánh"
+ },
+ "mob.ma-cung": {
+  "src": "sheets/mob-nhom-9.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 2): đứng, đánh"
+ },
+ "mob.ma-phap": {
+  "src": "sheets/mob-nhom-9.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 3): đứng, đánh"
+ },
+ "mob.sa-ma": {
+  "src": "sheets/mob-nhom-10.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 10, hàng 1): đứng, đánh"
+ },
+ "mob.u-minh-phap": {
+  "src": "sheets/mob-nhom-10.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 10, hàng 2): đứng, đánh"
+ },
+ "mob.bi-ngo-yeu": {
+  "src": "sheets/mob-nhom-10.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 10, hàng 3): đứng, đánh"
+ },
+ "mob.kim-ma-ve": {
+  "src": "sheets/mob-nhom-11.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 11, hàng 1): đứng, đánh"
+ },
+ "mob.tho-ma-ve": {
+  "src": "sheets/mob-nhom-11.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 11, hàng 2): đứng, đánh"
+ },
+ "mob.u-minh-ve": {
+  "src": "sheets/mob-nhom-11.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 11, hàng 3): đứng, đánh"
+ },
+ "mob.linh-thach-tinh": {
+  "src": "sheets/mob-nhom-12.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 12, hàng 1): đứng, đánh"
+ },
+ "mob.tho-khoi": {
+  "src": "sheets/mob-nhom-12.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 12, hàng 2): đứng, đánh"
+ },
+ "mob.nguoi-tuyet-yeu": {
+  "src": "sheets/mob-nhom-12.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "scale": 1.1,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm quái nhóm 12, hàng 3): đứng, đánh"
+ },
+ "mob.tuyet-lang": {
+  "src": "sheets/mob-tuyet-lang.png",
+  "grid": [
+   2,
+   1
+  ],
+  "scale": 1.0,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026: đứng, vồ"
  }
 }

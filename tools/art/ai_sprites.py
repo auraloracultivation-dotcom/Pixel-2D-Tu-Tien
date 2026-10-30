@@ -246,7 +246,7 @@ def apply(manifest, save):
             save(sid, fr, (side // 2, side // 2), (old.get('note') or '') + ' · ảnh Canva')
             n += 1; continue
         if s.get('hd') or s.get('acts'):   # vẽ gấp đôi độ phân giải (mật độ nhân vật chính), game thu theo scale; giữ đủ mọi ô làm khung
-            frames = _act_frames(cells, s.get('h') or round(th / HD), s.get('colors', 14))
+            frames = _act_frames(cells, s.get('h') or round(th / HD), s.get('colors', 14), s.get('align', 'center'))   # align feet: dáng đánh có vệt lửa, vệt chém thì thân không lệch
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), (old.get('note') or '') + ' · ảnh Canva')
             manifest[sid]['scale'] = HD

@@ -2297,29 +2297,31 @@
   },
   "mob.bang-tinh": {
    "file": "assets/art/mob-bang-tinh.png",
-   "v": "19f93914",
-   "w": 24,
-   "h": 24,
-   "frames": 4,
+   "v": "cb99f53e",
+   "w": 70,
+   "h": 38,
+   "frames": 2,
    "anchor": [
-    12,
-    23
+    35,
+    36
    ],
-   "note": "Băng tinh (slime): 4 khung đi",
-   "scale": 0.82
+   "note": "Băng tinh (slime): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.bi-ngo-yeu": {
    "file": "assets/art/mob-bi-ngo-yeu.png",
-   "v": "ce382561",
-   "w": 26,
-   "h": 28,
-   "frames": 4,
+   "v": "05620486",
+   "w": 94,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    13,
-    27
+    47,
+    41
    ],
-   "note": "Bí ngô yêu (pumpkin): 4 khung đi",
-   "scale": 0.7
+   "note": "Bí ngô yêu (pumpkin): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.co-thu-yeu-vuong": {
    "file": "assets/art/mob-co-thu-yeu-vuong.png",
@@ -2337,29 +2339,31 @@
   },
   "mob.doc-dang": {
    "file": "assets/art/mob-doc-dang.png",
-   "v": "6f4818ea",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "5c5a3f89",
+   "w": 98,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    49,
+    43
    ],
-   "note": "Độc đằng (plant): 4 khung đi",
-   "scale": 0.54
+   "note": "Độc đằng (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.gai-ma-ve": {
    "file": "assets/art/mob-gai-ma-ve.png",
-   "v": "ec7f543c",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "1d4ce92b",
+   "w": 108,
+   "h": 56,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    54,
+    54
    ],
-   "note": "Gai Ma Vệ (plant): 4 khung đi",
-   "scale": 0.69
+   "note": "Gai Ma Vệ (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hac-cuc-ma-chung": {
    "file": "assets/art/mob-hac-cuc-ma-chung.png",
@@ -2377,29 +2381,31 @@
   },
   "mob.hac-cuc-mam": {
    "file": "assets/art/mob-hac-cuc-mam.png",
-   "v": "785ea4fb",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "5513efa0",
+   "w": 110,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    55,
+    43
    ],
-   "note": "Mầm Hắc Cức (plant): 4 khung đi",
-   "scale": 0.54
+   "note": "Mầm Hắc Cức (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hac-diep": {
    "file": "assets/art/mob-hac-diep.png",
-   "v": "96d5aaef",
-   "w": 32,
-   "h": 26,
-   "frames": 4,
+   "v": "32d51a7e",
+   "w": 64,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    16,
-    25
+    32,
+    41
    ],
-   "note": "Hắc điệp (wing): 4 khung đi",
-   "scale": 0.65
+   "note": "Hắc điệp (wing): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hac-phong-ma-quan": {
    "file": "assets/art/mob-hac-phong-ma-quan.png",
@@ -2431,16 +2437,17 @@
   },
   "mob.han-ma-ve": {
    "file": "assets/art/mob-han-ma-ve.png",
-   "v": "9d10f6fc",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "63768612",
+   "w": 88,
+   "h": 49,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    44,
+    47
    ],
-   "note": "Hàn ma vệ (imp): 4 khung đi",
-   "scale": 0.5
+   "note": "Hàn ma vệ (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hoa-lang": {
    "file": "assets/art/mob-hoa-lang.png",
@@ -2470,16 +2477,17 @@
   },
   "mob.hu-anh": {
    "file": "assets/art/mob-hu-anh.png",
-   "v": "703568b4",
-   "w": 26,
-   "h": 34,
-   "frames": 4,
+   "v": "d5997f42",
+   "w": 70,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    13,
-    33
+    35,
+    45
    ],
-   "note": "Hư ảnh (shade): 4 khung đi",
-   "scale": 0.58
+   "note": "Hư ảnh (shade): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hu-khong-cu-thu": {
    "file": "assets/art/mob-hu-khong-cu-thu.png",
@@ -2497,16 +2505,17 @@
   },
   "mob.hu-khong-ma": {
    "file": "assets/art/mob-hu-khong-ma.png",
-   "v": "413a79f0",
-   "w": 28,
-   "h": 38,
-   "frames": 4,
+   "v": "40b7ef1b",
+   "w": 78,
+   "h": 49,
+   "frames": 2,
    "anchor": [
-    16,
-    37
+    39,
+    47
    ],
-   "note": "Hư không ma (imp): 4 khung đi",
-   "scale": 0.58
+   "note": "Hư không ma (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.hu-khong-nguc-chu": {
    "file": "assets/art/mob-hu-khong-nguc-chu.png",
@@ -2552,29 +2561,31 @@
   },
   "mob.kiem-hon": {
    "file": "assets/art/mob-kiem-hon.png",
-   "v": "9707137d",
-   "w": 22,
-   "h": 33,
-   "frames": 4,
+   "v": "1721fee5",
+   "w": 72,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    11,
-    32
+    36,
+    43
    ],
-   "note": "Kiếm hồn (blade): 4 khung đi",
-   "scale": 0.59
+   "note": "Kiếm hồn (blade): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.kim-giap-trung": {
    "file": "assets/art/mob-kim-giap-trung.png",
-   "v": "d530fa3b",
-   "w": 30,
-   "h": 19,
-   "frames": 4,
+   "v": "4dfb06c4",
+   "w": 100,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    12,
-    18
+    50,
+    41
    ],
-   "note": "Kim giáp trùng (beetle): 4 khung đi",
-   "scale": 1.0
+   "note": "Kim giáp trùng (beetle): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.kim-giap-vuong": {
    "file": "assets/art/mob-kim-giap-vuong.png",
@@ -2592,133 +2603,143 @@
   },
   "mob.kim-ma-ve": {
    "file": "assets/art/mob-kim-ma-ve.png",
-   "v": "2d907a19",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "2da2d617",
+   "w": 122,
+   "h": 58,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    61,
+    56
    ],
-   "note": "Kim Ma Vệ (person): 4 khung đi",
-   "scale": 0.56
+   "note": "Kim Ma Vệ (person): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.linh-thach-tinh": {
    "file": "assets/art/mob-linh-thach-tinh.png",
-   "v": "9a3b70b4",
-   "w": 35,
-   "h": 34,
-   "frames": 4,
+   "v": "3791d07f",
+   "w": 80,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    17,
-    33
+    40,
+    41
    ],
-   "note": "Linh Thạch Tinh (golem): 4 khung đi",
-   "scale": 0.58
+   "note": "Linh Thạch Tinh (golem): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.linh-thao-tinh": {
    "file": "assets/art/mob-linh-thao-tinh.png",
-   "v": "7ca0907b",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "20d7efc8",
+   "w": 68,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    34,
+    43
    ],
-   "note": "Linh Thảo Tinh (plant): 4 khung đi",
-   "scale": 0.54
+   "note": "Linh Thảo Tinh (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-bang-tien": {
    "file": "assets/art/mob-ma-bang-tien.png",
-   "v": "4b3c7f64",
-   "w": 25,
-   "h": 38,
-   "frames": 4,
+   "v": "8a34c8f2",
+   "w": 98,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    12,
-    37
+    49,
+    41
    ],
-   "note": "Ma băng tiễn (mage): 4 khung đi",
-   "scale": 0.5
+   "note": "Ma băng tiễn (mage): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-binh": {
    "file": "assets/art/mob-ma-binh.png",
-   "v": "43813c25",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "c47b6523",
+   "w": 116,
+   "h": 49,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    58,
+    47
    ],
-   "note": "Ma binh (imp): 4 khung đi",
-   "scale": 0.5
+   "note": "Ma binh (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-cung": {
    "file": "assets/art/mob-ma-cung.png",
-   "v": "b1e82dcd",
-   "w": 25,
-   "h": 36,
-   "frames": 4,
+   "v": "aad9350f",
+   "w": 96,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    12,
-    35
+    48,
+    41
    ],
-   "note": "Ma tiễn (mage): 4 khung đi",
-   "scale": 0.5
+   "note": "Ma tiễn (mage): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-phap": {
    "file": "assets/art/mob-ma-phap.png",
-   "v": "949b9fc6",
-   "w": 25,
-   "h": 36,
-   "frames": 4,
+   "v": "900e23e8",
+   "w": 98,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    12,
-    35
+    49,
+    41
    ],
-   "note": "Ma pháp sư (mage): 4 khung đi",
-   "scale": 0.5
+   "note": "Ma pháp sư (mage): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-phong-ve": {
    "file": "assets/art/mob-ma-phong-ve.png",
-   "v": "732d5ed4",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "a21bc174",
+   "w": 92,
+   "h": 49,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    46,
+    47
    ],
-   "note": "Ma Phong Vệ (imp): 4 khung đi",
-   "scale": 0.5
+   "note": "Ma Phong Vệ (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-tham-tu": {
    "file": "assets/art/mob-ma-tham-tu.png",
-   "v": "e1dd096d",
-   "w": 26,
-   "h": 34,
-   "frames": 4,
+   "v": "47bcd09e",
+   "w": 78,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    13,
-    33
+    39,
+    43
    ],
-   "note": "Ma thám tử (imp): 4 khung đi",
-   "scale": 0.58
+   "note": "Ma thám tử (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-tieu": {
    "file": "assets/art/mob-ma-tieu.png",
-   "v": "f66c3cf4",
-   "w": 28,
-   "h": 35,
-   "frames": 4,
+   "v": "0ae24f2e",
+   "w": 66,
+   "h": 41,
+   "frames": 2,
    "anchor": [
-    16,
-    34
+    33,
+    39
    ],
-   "note": "Tiểu ma (imp): 4 khung đi",
-   "scale": 0.5
+   "note": "Tiểu ma (imp): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.ma-ton": {
    "file": "assets/art/mob-ma-ton.png",
@@ -2736,16 +2757,17 @@
   },
   "mob.moc-linh": {
    "file": "assets/art/mob-moc-linh.png",
-   "v": "800544e6",
-   "w": 24,
-   "h": 24,
-   "frames": 4,
+   "v": "22231338",
+   "w": 66,
+   "h": 38,
+   "frames": 2,
    "anchor": [
-    12,
-    23
+    33,
+    36
    ],
-   "note": "Mộc linh (slime): 4 khung đi",
-   "scale": 0.82
+   "note": "Mộc linh (slime): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.moc-linh-vuong": {
    "file": "assets/art/mob-moc-linh-vuong.png",
@@ -2763,29 +2785,31 @@
   },
   "mob.moc-yeu": {
    "file": "assets/art/mob-moc-yeu.png",
-   "v": "dbf67708",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "f4f93eaa",
+   "w": 84,
+   "h": 49,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    42,
+    47
    ],
-   "note": "Mộc yêu (plant): 4 khung đi",
-   "scale": 0.62
+   "note": "Mộc yêu (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.nguoi-tuyet-yeu": {
    "file": "assets/art/mob-nguoi-tuyet-yeu.png",
-   "v": "6967483b",
-   "w": 27,
-   "h": 29,
-   "frames": 4,
+   "v": "1a8290c2",
+   "w": 94,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    13,
-    28
+    47,
+    45
    ],
-   "note": "Người tuyết yêu (snowman): 4 khung đi",
-   "scale": 0.68
+   "note": "Người tuyết yêu (snowman): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.nham-giap-thu": {
    "file": "assets/art/mob-nham-giap-thu.png",
@@ -2803,29 +2827,31 @@
   },
   "mob.nham-xa": {
    "file": "assets/art/mob-nham-xa.png",
-   "v": "d96c3508",
-   "w": 37,
-   "h": 21,
-   "frames": 4,
+   "v": "76a8fb6a",
+   "w": 142,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    17,
-    20
+    71,
+    41
    ],
-   "note": "Nham xà (snake): 4 khung đi",
-   "scale": 0.93
+   "note": "Nham xà (snake): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.phong-yeu": {
    "file": "assets/art/mob-phong-yeu.png",
-   "v": "45736d72",
-   "w": 32,
-   "h": 26,
-   "frames": 4,
+   "v": "741e5ec1",
+   "w": 72,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    16,
-    25
+    36,
+    45
    ],
-   "note": "Phong yêu (wing): 4 khung đi",
-   "scale": 0.75
+   "note": "Phong yêu (wing): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.phong-yeu-vuong": {
    "file": "assets/art/mob-phong-yeu-vuong.png",
@@ -2843,42 +2869,45 @@
   },
   "mob.re-ma": {
    "file": "assets/art/mob-re-ma.png",
-   "v": "c7181cae",
-   "w": 37,
-   "h": 21,
-   "frames": 4,
+   "v": "90750185",
+   "w": 120,
+   "h": 45,
+   "frames": 2,
    "anchor": [
-    17,
-    20
+    60,
+    43
    ],
-   "note": "Rễ ma (plant): 4 khung đi",
-   "scale": 0.93
+   "note": "Rễ ma (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.sa-ma": {
    "file": "assets/art/mob-sa-ma.png",
-   "v": "6966d3b9",
-   "w": 25,
-   "h": 36,
-   "frames": 4,
+   "v": "5e84fd34",
+   "w": 100,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    12,
-    35
+    50,
+    45
    ],
-   "note": "Sa ma (mage): 4 khung đi",
-   "scale": 0.54
+   "note": "Sa ma (mage): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.tam-ma": {
    "file": "assets/art/mob-tam-ma.png",
-   "v": "4787f054",
-   "w": 26,
-   "h": 34,
-   "frames": 4,
+   "v": "bc1ae938",
+   "w": 60,
+   "h": 43,
+   "frames": 2,
    "anchor": [
-    13,
-    33
+    30,
+    41
    ],
-   "note": "Tâm Ma (shade): 4 khung đi",
-   "scale": 0.5
+   "note": "Tâm Ma (shade): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.tan-hon-hac-phong": {
    "file": "assets/art/mob-tan-hon-hac-phong.png",
@@ -2938,55 +2967,59 @@
   },
   "mob.thach-doi": {
    "file": "assets/art/mob-thach-doi.png",
-   "v": "430560ab",
-   "w": 32,
-   "h": 26,
-   "frames": 4,
+   "v": "19e35a52",
+   "w": 80,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    16,
-    25
+    40,
+    45
    ],
-   "note": "Thạch dơi (wing): 4 khung đi",
-   "scale": 0.75
+   "note": "Thạch dơi (wing): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.tho-khoi": {
    "file": "assets/art/mob-tho-khoi.png",
-   "v": "a172cda6",
-   "w": 35,
-   "h": 34,
-   "frames": 4,
+   "v": "3e7ea61a",
+   "w": 100,
+   "h": 54,
+   "frames": 2,
    "anchor": [
-    17,
-    33
+    50,
+    52
    ],
-   "note": "Thổ khôi (golem): 4 khung đi",
-   "scale": 0.73
+   "note": "Thổ khôi (golem): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.tho-ma-ve": {
    "file": "assets/art/mob-tho-ma-ve.png",
-   "v": "9ffca835",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "7ab28a88",
+   "w": 92,
+   "h": 58,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    46,
+    56
    ],
-   "note": "Thổ Ma Vệ (person): 4 khung đi",
-   "scale": 0.56
+   "note": "Thổ Ma Vệ (person): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.thu-moc-ve": {
    "file": "assets/art/mob-thu-moc-ve.png",
-   "v": "c7d94bd4",
-   "w": 28,
-   "h": 36,
-   "frames": 4,
+   "v": "91e5cacd",
+   "w": 104,
+   "h": 56,
+   "frames": 2,
    "anchor": [
-    14,
-    35
+    52,
+    54
    ],
-   "note": "Thụ Mộc Vệ (plant): 4 khung đi",
-   "scale": 0.69
+   "note": "Thụ Mộc Vệ (plant): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.thuc-moc-ma-hau": {
    "file": "assets/art/mob-thuc-moc-ma-hau.png",
@@ -3018,16 +3051,17 @@
   },
   "mob.tuyet-lang": {
    "file": "assets/art/mob-tuyet-lang.png",
-   "v": "4e4a563f",
-   "w": 48,
-   "h": 30,
-   "frames": 4,
+   "v": "c2376aa2",
+   "w": 58,
+   "h": 38,
+   "frames": 2,
    "anchor": [
-    24,
-    29
+    29,
+    36
    ],
-   "note": "Tuyết lang (wolf): 4 khung đi",
-   "scale": 0.65
+   "note": "Tuyết lang (wolf): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.tuyet-lang-vuong": {
    "file": "assets/art/mob-tuyet-lang-vuong.png",
@@ -3045,29 +3079,31 @@
   },
   "mob.u-minh-phap": {
    "file": "assets/art/mob-u-minh-phap.png",
-   "v": "f1178d14",
-   "w": 25,
-   "h": 40,
-   "frames": 4,
+   "v": "ee66ca62",
+   "w": 96,
+   "h": 47,
+   "frames": 2,
    "anchor": [
-    12,
-    39
+    48,
+    45
    ],
-   "note": "U minh pháp sư (mage): 4 khung đi",
-   "scale": 0.5
+   "note": "U minh pháp sư (mage): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.u-minh-ve": {
    "file": "assets/art/mob-u-minh-ve.png",
-   "v": "9cecf806",
-   "w": 27,
-   "h": 44,
-   "frames": 4,
+   "v": "75c9326f",
+   "w": 118,
+   "h": 58,
+   "frames": 2,
    "anchor": [
-    13,
-    43
+    59,
+    56
    ],
-   "note": "U Minh Vệ (person): 4 khung đi",
-   "scale": 0.56
+   "note": "U Minh Vệ (person): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",
@@ -3085,16 +3121,17 @@
   },
   "mob.viem-linh": {
    "file": "assets/art/mob-viem-linh.png",
-   "v": "daab8f88",
-   "w": 24,
-   "h": 24,
-   "frames": 4,
+   "v": "b435c25f",
+   "w": 68,
+   "h": 38,
+   "frames": 2,
    "anchor": [
-    12,
-    23
+    34,
+    36
    ],
-   "note": "Viêm linh (slime): 4 khung đi",
-   "scale": 0.82
+   "note": "Viêm linh (slime): đứng, bước · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "mount.bach-loc": {
    "file": "assets/art/mount-bach-loc.png",
