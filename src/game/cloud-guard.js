@@ -21,6 +21,8 @@ export function pickSave(local, remote, pb) {
   return same ? local : remote;
 }
 
+// Trần nhận mỗi ngày (migration 20261030180000_p2d_tran_ngay): máy chủ trả sua.tran, không phải gian lận
+let lastTran = -1e9;
 export function applyFix(game, sent, sua) {
   const s = game.save;
   if (!s || !sua) return;
@@ -35,7 +37,9 @@ export function applyFix(game, sent, sua) {
   if (fin(sua.best) && s.tower && s.tower.best > sua.best) s.tower.best = sua.best;
   game.refreshStats?.();
   if (game.player) game.player.hp = Math.min(game.player.hp, game.player.maxHp);
-  game.toast(game.data.config.guard?.texts?.fix || '', 3);
+  const T = game.data.config.guard?.texts || {};
+  if (!sua.tran) game.toast(T.fix || '', 3);
+  else if (performance.now() - lastTran > 60000) { lastTran = performance.now(); game.toast(T.tran || '', 3); }   // chạm trần ngày: báo nhẹ, một lần mỗi phút
   game.persist();
 }
 
