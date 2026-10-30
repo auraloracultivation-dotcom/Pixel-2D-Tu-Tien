@@ -1,5 +1,6 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
 import { createDialog } from './dialog.js';
+import { guideLine, guideNext } from '../game/guide.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { createHints } from './hints.js';
@@ -53,6 +54,7 @@ export function createHud(audio) {
   let hints = null;
   $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) { toggleAuto(gameRef); if (gameRef.auto) gameRef.pilot = null; } });
   $('btn-pilot').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) togglePilot(gameRef); });
+  $('goal').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player && guideNext(gameRef)) gameRef.sfx?.('pickup'); });   // chạm khung mục tiêu: mũi tên chỉ sang việc kế tiếp (src/game/guide.js)
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 
@@ -82,7 +84,8 @@ export function createHud(audio) {
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}`;
     }
-    const pl = pilotLabel(game), gt = [game.goals(), dvGoal(game), pl].filter(Boolean).join('\n');   // Con Đường Đạo Vận song hành truyện chính
+    const gl = guideLine(game), goals = game.goals().split('\n').map(l => (gl && l === gl && game.goals().includes('\n') ? '➤ ' + l : l)).join('\n');   // nhiều việc: ➤ là việc mũi tên đang chỉ (chạm khung để đổi)
+    const pl = pilotLabel(game), gt = [goals, dvGoal(game), pl].filter(Boolean).join('\n');   // Con Đường Đạo Vận song hành truyện chính
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);
