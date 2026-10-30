@@ -228,6 +228,7 @@ def apply(manifest, save):
             a = np.array(Image.open(AI / s['src']).convert('RGBA'))
             a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else _key_near(a) if s.get('key') == 'near' else remove_bg(a, 60)
             cells = _grid(a, s['grid']) if s.get('grid') else _split_rows(a, per=s['rows'] if isinstance(s['rows'], list) else None) if s.get('rows') else _split(a)
+            if s.get('defringe'): cells = [_defringe(c) for c in cells]   # bụi, vệt sáng bị ám hồng của nền
             if s.get('down') in ('rot', 'flip'):   # ảnh không có dáng ngã: khung 5 = dáng đứng nằm xuống (người xoay 90°, thú 4 chân lật ngửa)
                 stand = cells[s['order'][0]] if s.get('order') else cells[0]   # dáng đứng theo order (linh thú lấy ô giữa tấm quái)
                 lie = np.rot90(_trim(stand), 1) if s['down'] == 'rot' else np.flipud(_trim(stand))
