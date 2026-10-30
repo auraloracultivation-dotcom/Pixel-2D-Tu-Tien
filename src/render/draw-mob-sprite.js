@@ -36,14 +36,17 @@ function mobFrame(spr, m, t) {
 export function drawRivalSprite(ctx, game, m, t, wind) {
   const spr = game.data.art.sprites['rival.' + m.def.rival], im = spr && spriteImage(spr);
   if (!im) return false;
-  m.top = spr.anchor[1] - 2;
+  const sc = spr.scale || 1;
+  m.top = spr.anchor[1] * sc - 2;
   if (Math.abs(m.fx || 0) > 0.2) m.lookX = Math.sign(m.fx);
   const mv = Math.abs(m.x - (m.lastX ?? m.x)) + Math.abs(m.y - (m.lastY ?? m.y)) > 0.05;   // đang đi thì bước, đứng thì nhún
   m.lastX = m.x; m.lastY = m.y;
-  const f = mv ? 2 + Math.floor(t * 6) % 2 : Math.floor(t * 2) % 2;
+  // ảnh Canva 2 khung (đứng / ra đòn, chủ dự án 30/10/2026) như quái: lấy đà thì khung đánh, còn lại nhún; ảnh vẽ code 4 khung như cũ
+  const bob = spr.atk ? Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 : 0;
+  const f = spr.atk ? (wind ? 1 : 0) : mv ? 2 + Math.floor(t * 6) % 2 : Math.floor(t * 2) % 2;
   ctx.save();
-  ctx.translate(Math.round(m.x), Math.round(m.y) + 1);
-  ctx.scale(m.lookX || 1, 1);
+  ctx.translate(Math.round(m.x), Math.round(m.y) + 1 - bob);
+  ctx.scale((m.lookX || 1) * sc, sc);
   if (wind) ctx.scale(1.1, 0.92);
   ctx.imageSmoothingEnabled = false;
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);

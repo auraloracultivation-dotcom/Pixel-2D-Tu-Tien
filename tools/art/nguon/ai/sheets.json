@@ -3694,5 +3694,152 @@
   "hd": true,
   "align": "feet",
   "note": "Canva 30/10/2026: đứng, vồ"
+ },
+ "rival.kiem-thanh": {
+  "src": "sheets/rival-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 1): đứng, ra đòn",
+  "defringe": true
+ },
+ "rival.long-uyen": {
+  "src": "sheets/rival-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 2): đứng, ra đòn"
+ },
+ "rival.tu-ngoc": {
+  "src": "sheets/rival-nhom-1.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 1, hàng 3): đứng, ra đòn"
+ },
+ "rival.doan-kiem": {
+  "src": "sheets/rival-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 1): đứng, ra đòn"
+ },
+ "rival.bach-lien": {
+  "src": "sheets/rival-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 2): đứng, ra đòn"
+ },
+ "rival.hoang-pha": {
+  "src": "sheets/rival-nhom-2.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 2, hàng 3): đứng, ra đòn"
+ },
+ "rival.van-tu": {
+  "src": "sheets/rival-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   0,
+   1
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 1): đứng, ra đòn"
+ },
+ "rival.ma-thiet": {
+  "src": "sheets/rival-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   2,
+   3
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 2): đứng, ra đòn"
+ },
+ "rival.lieu-oanh": {
+  "src": "sheets/rival-nhom-3.png",
+  "grid": [
+   2,
+   3
+  ],
+  "cells": [
+   4,
+   5
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026 (tấm đấu sĩ 3, hàng 3): đứng, ra đòn"
+ },
+ "rival.tran-binh": {
+  "src": "sheets/rival-tran-binh.png",
+  "grid": [
+   2,
+   1
+  ],
+  "h": 44,
+  "hd": true,
+  "align": "feet",
+  "note": "Canva 30/10/2026: đứng, đâm kiếm"
  }
 }

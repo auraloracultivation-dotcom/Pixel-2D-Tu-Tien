@@ -4868,123 +4868,143 @@
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",
-   "v": "c9f6f896",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "8c81718c",
+   "w": 104,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    52,
+    42
    ],
-   "note": "đấu sĩ Bạch Liên (hạng 5): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Bạch Liên (hạng 5): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.doan-kiem": {
    "file": "assets/art/rival-doan-kiem.png",
-   "v": "0219517a",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "6a3cdced",
+   "w": 84,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    42,
+    42
    ],
-   "note": "đấu sĩ Đoạn Kiếm (hạng 4): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Đoạn Kiếm (hạng 4): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.hoang-pha": {
    "file": "assets/art/rival-hoang-pha.png",
-   "v": "90f1fd7f",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "13ef8c76",
+   "w": 90,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    45,
+    42
    ],
-   "note": "đấu sĩ Hoàng Phá (hạng 6): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Hoàng Phá (hạng 6): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.kiem-thanh": {
    "file": "assets/art/rival-kiem-thanh.png",
-   "v": "a5e595af",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "e564a8d6",
+   "w": 78,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    39,
+    42
    ],
-   "note": "đấu sĩ Kiếm Thánh Vô Danh (hạng 1): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Kiếm Thánh Vô Danh (hạng 1): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.lieu-oanh": {
    "file": "assets/art/rival-lieu-oanh.png",
-   "v": "09fbccec",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "28408b14",
+   "w": 96,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    48,
+    42
    ],
-   "note": "đấu sĩ Liễu Oanh (hạng 9): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Liễu Oanh (hạng 9): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.long-uyen": {
    "file": "assets/art/rival-long-uyen.png",
-   "v": "869828cb",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "a8f4dcdd",
+   "w": 86,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    43,
+    42
    ],
-   "note": "đấu sĩ Long Uyên (hạng 2): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Long Uyên (hạng 2): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.ma-thiet": {
    "file": "assets/art/rival-ma-thiet.png",
-   "v": "f35adf8d",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "5f70ad5a",
+   "w": 72,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    36,
+    42
    ],
-   "note": "đấu sĩ Mã Thiết (hạng 8): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Mã Thiết (hạng 8): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.tran-binh": {
    "file": "assets/art/rival-tran-binh.png",
-   "v": "949921f7",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "3a1a20d6",
+   "w": 82,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    41,
+    42
    ],
-   "note": "đấu sĩ Trần Bình (hạng 10): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Trần Bình (hạng 10): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.tu-ngoc": {
    "file": "assets/art/rival-tu-ngoc.png",
-   "v": "ed029383",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "4781f7f4",
+   "w": 98,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    49,
+    42
    ],
-   "note": "đấu sĩ Tử Ngọc (hạng 3): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Tử Ngọc (hạng 3): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "rival.van-tu": {
    "file": "assets/art/rival-van-tu.png",
-   "v": "88ff6ea5",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
+   "v": "552e9a9d",
+   "w": 96,
+   "h": 44,
+   "frames": 2,
    "anchor": [
-    11,
-    23
+    48,
+    42
    ],
-   "note": "đấu sĩ Vân Tú (hạng 7): đứng, nhún, bước A, bước B"
+   "note": "đấu sĩ Vân Tú (hạng 7): đứng, nhún, bước A, bước B · ảnh Canva",
+   "scale": 0.5333,
+   "atk": true
   },
   "tile.cliff": {
    "file": "assets/art/tile-cliff.png",
