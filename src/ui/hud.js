@@ -64,12 +64,18 @@ export function createHud(audio) {
     gameRef = game;
     (hints ??= createHints(game))();
     const need = qiNeed(s, d.realms);
-    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element].join();
+    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element, game.cloud?.name].join();
     if (key !== last) {
       last = key;
       const R = $('realm');   // cảnh giới dòng trên, linh căn dòng dưới nhỏ hơn (trước gộp một dòng nên bị cắt mất chữ "Thiên")
-      if (R.childElementCount !== 2) { R.textContent = ''; R.append(document.createElement('b'), document.createElement('small')); }
-      R.children[0].textContent = realmLabel(s, d.realms);
+      if (R.childElementCount !== 2) {
+        R.textContent = ''; const b = document.createElement('b'), nm = document.createElement('span');
+        nm.className = 'hud-name'; nm.onclick = () => gameRef?.openRename?.();   // chủ dự án 30/10: tên trước cảnh giới, chạm để đổi tên
+        b.append(nm, document.createElement('span')); R.append(b, document.createElement('small'));
+      }
+      const nm = R.children[0].children[0];
+      nm.textContent = game.cloud?.name || ''; nm.hidden = !game.cloud?.name;
+      R.children[0].children[1].textContent = realmLabel(s, d.realms);
       R.children[1].textContent = s.element ? `${d.elements[s.element].name} căn · ${rootOf(s, d).name}` : '';
       $('hp-fill').style.width = Math.max(0, p.hp / p.maxHp * 100) + '%';
       $('hp-text').textContent = `${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');

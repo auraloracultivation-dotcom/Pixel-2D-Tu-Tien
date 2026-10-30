@@ -134,6 +134,13 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
 }
 
 // Đặt tên hiển thị (khác tên đăng nhập): 2–16 ký tự, mỗi ngày đổi một lần
+// Lượt đổi tên còn lại: { dau, free, ve } (supabase/migrations/20261030060000_p2d_doi_ten_ve.sql)
+export async function renameLeft() {
+  const { data, error } = await supabase.rpc('p2d_ten_luot');
+  if (error) throw error;
+  return data;
+}
+
 export async function setDisplayName(ten) {
   const { data, error } = await supabase.rpc('p2d_dat_ten', { p_ten: ten });
   if (error) throw error;
