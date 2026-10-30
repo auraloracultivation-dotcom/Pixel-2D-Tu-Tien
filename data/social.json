@@ -135,7 +135,7 @@
   "muted": "Bạn đang bị khoá chat vì bị nhiều người báo cáo. Thử lại sau."
  },
  "name": {
-  "btn": "✎ Tên: {name}",
+  "btn": "✎ Đổi tên ({name})",
   "ask": "Tên hiển thị mới (2–16 ký tự, mỗi ngày đổi một lần):",
   "ok": "Đã đổi tên thành {name}.",
   "err": {
