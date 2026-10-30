@@ -35,6 +35,7 @@ import ai_sprites  # noqa: E402
 import ui_frame  # noqa: E402
 import pickups  # noqa: E402
 import props_ai  # noqa: E402
+import gems_ai  # noqa: E402
 from px import MANIFEST  # noqa: E402
 
 clean()
@@ -321,5 +322,6 @@ print('nguồn sáng khung:', ui_frame.lights(save))
 print('đồ nhiệm vụ:', pickups.pickup_sprites(save))
 print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save), props_ai.gear(save), props_ai.houses(save), props_ai.skill_fx(save), props_ai.anim(save), props_ai.hit_fx(save))
 
+print('ngọc Canva:', gems_ai.gems(save))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

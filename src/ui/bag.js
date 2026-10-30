@@ -6,6 +6,7 @@ import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
+import { gemIcon } from './gem-icon.js';
 
 const $ = id => document.getElementById(id);
 const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
@@ -86,12 +87,11 @@ export function createBag(game) {
       for (const it of items) box.append(itemCard(it, gain.get(it.uid)));
       return;
     }
-    const keys = Object.keys(save().gems).sort();
+    const keys = Object.keys(save().gems).sort((a, b) => a.split(':')[0].localeCompare(b.split(':')[0]) || b.split(':')[1] - a.split(':')[1]);   // theo loại, cấp cao lên trước
     if (!keys.length) box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.'));
     for (const k of keys) {
       const gi = gemInfo(data, k), row = el('div', 'gem-row');
-      const dot = el('i', 'gem-dot'); dot.style.background = gi.color;
-      row.append(dot, el('span', null, `${gi.name} ×${save().gems[k]} (${statText(data, gi.stat, gi.value)})`));
+      row.append(gemIcon(game, k, 56), el('span', null, `${gi.name} ×${save().gems[k]} (${statText(data, gi.stat, gi.value)})`));
       if (st.pickSocket) {
         const b = el('button', 'mini primary', 'Khảm');
         b.onclick = () => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.sel = st.pickSocket.uid; st.pickSocket = null; st.tab = 'do'; changed(); };

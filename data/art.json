@@ -1269,6 +1269,966 @@
    ],
    "note": "icon trang bị xich-diem-quan (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
+  "gem.hoang-ngoc-1": {
+   "file": "assets/art/gem-hoang-ngoc-1.png",
+   "v": "c33f8adf",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 1 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-10": {
+   "file": "assets/art/gem-hoang-ngoc-10.png",
+   "v": "b64d7f7e",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 10 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-11": {
+   "file": "assets/art/gem-hoang-ngoc-11.png",
+   "v": "0997235d",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 11 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-12": {
+   "file": "assets/art/gem-hoang-ngoc-12.png",
+   "v": "07470b20",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 12 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-13": {
+   "file": "assets/art/gem-hoang-ngoc-13.png",
+   "v": "43e5eca4",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 13 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-14": {
+   "file": "assets/art/gem-hoang-ngoc-14.png",
+   "v": "ac9efb97",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 14 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-15": {
+   "file": "assets/art/gem-hoang-ngoc-15.png",
+   "v": "47f82fd5",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 15 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-16": {
+   "file": "assets/art/gem-hoang-ngoc-16.png",
+   "v": "74e07676",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 16 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-17": {
+   "file": "assets/art/gem-hoang-ngoc-17.png",
+   "v": "18636918",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 17 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-18": {
+   "file": "assets/art/gem-hoang-ngoc-18.png",
+   "v": "77577649",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 18 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-19": {
+   "file": "assets/art/gem-hoang-ngoc-19.png",
+   "v": "57ec9432",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 19 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-2": {
+   "file": "assets/art/gem-hoang-ngoc-2.png",
+   "v": "76eb7183",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 2 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-20": {
+   "file": "assets/art/gem-hoang-ngoc-20.png",
+   "v": "7a344bac",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 20 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-3": {
+   "file": "assets/art/gem-hoang-ngoc-3.png",
+   "v": "ff73e508",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 3 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-4": {
+   "file": "assets/art/gem-hoang-ngoc-4.png",
+   "v": "41259c0e",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 4 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-5": {
+   "file": "assets/art/gem-hoang-ngoc-5.png",
+   "v": "4ae05689",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 5 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-6": {
+   "file": "assets/art/gem-hoang-ngoc-6.png",
+   "v": "bf78883f",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 6 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-7": {
+   "file": "assets/art/gem-hoang-ngoc-7.png",
+   "v": "75650f17",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 7 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-8": {
+   "file": "assets/art/gem-hoang-ngoc-8.png",
+   "v": "5347135b",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 8 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hoang-ngoc-9": {
+   "file": "assets/art/gem-hoang-ngoc-9.png",
+   "v": "80e6d1ac",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hoang-ngoc cấp 9 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-1": {
+   "file": "assets/art/gem-hong-ngoc-1.png",
+   "v": "0e9f0282",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 1 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-10": {
+   "file": "assets/art/gem-hong-ngoc-10.png",
+   "v": "82b8a952",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 10 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-11": {
+   "file": "assets/art/gem-hong-ngoc-11.png",
+   "v": "109086e1",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 11 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-12": {
+   "file": "assets/art/gem-hong-ngoc-12.png",
+   "v": "a9cc7b6a",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 12 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-13": {
+   "file": "assets/art/gem-hong-ngoc-13.png",
+   "v": "4ad033dc",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 13 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-14": {
+   "file": "assets/art/gem-hong-ngoc-14.png",
+   "v": "fcff2eb1",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 14 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-15": {
+   "file": "assets/art/gem-hong-ngoc-15.png",
+   "v": "992cb779",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 15 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-16": {
+   "file": "assets/art/gem-hong-ngoc-16.png",
+   "v": "9fe04757",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 16 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-17": {
+   "file": "assets/art/gem-hong-ngoc-17.png",
+   "v": "d812fcd0",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 17 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-18": {
+   "file": "assets/art/gem-hong-ngoc-18.png",
+   "v": "56a4430c",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 18 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-19": {
+   "file": "assets/art/gem-hong-ngoc-19.png",
+   "v": "19462136",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 19 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-2": {
+   "file": "assets/art/gem-hong-ngoc-2.png",
+   "v": "62021c04",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 2 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-20": {
+   "file": "assets/art/gem-hong-ngoc-20.png",
+   "v": "5e5b2814",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 20 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-3": {
+   "file": "assets/art/gem-hong-ngoc-3.png",
+   "v": "aa0ffce2",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 3 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-4": {
+   "file": "assets/art/gem-hong-ngoc-4.png",
+   "v": "7f5ca839",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 4 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-5": {
+   "file": "assets/art/gem-hong-ngoc-5.png",
+   "v": "d9b48a0f",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 5 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-6": {
+   "file": "assets/art/gem-hong-ngoc-6.png",
+   "v": "a0f79dd9",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 6 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-7": {
+   "file": "assets/art/gem-hong-ngoc-7.png",
+   "v": "056b6739",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 7 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-8": {
+   "file": "assets/art/gem-hong-ngoc-8.png",
+   "v": "7d6b0eeb",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 8 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.hong-ngoc-9": {
+   "file": "assets/art/gem-hong-ngoc-9.png",
+   "v": "294452fa",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "hong-ngoc cấp 9 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-1": {
+   "file": "assets/art/gem-lam-ngoc-1.png",
+   "v": "0ce07f85",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 1 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-10": {
+   "file": "assets/art/gem-lam-ngoc-10.png",
+   "v": "d1b593dc",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 10 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-11": {
+   "file": "assets/art/gem-lam-ngoc-11.png",
+   "v": "c3d2e095",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 11 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-12": {
+   "file": "assets/art/gem-lam-ngoc-12.png",
+   "v": "88bd3ea9",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 12 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-13": {
+   "file": "assets/art/gem-lam-ngoc-13.png",
+   "v": "6d63c4ce",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 13 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-14": {
+   "file": "assets/art/gem-lam-ngoc-14.png",
+   "v": "f435f567",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 14 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-15": {
+   "file": "assets/art/gem-lam-ngoc-15.png",
+   "v": "9ecd8e3d",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 15 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-16": {
+   "file": "assets/art/gem-lam-ngoc-16.png",
+   "v": "0b49f03b",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 16 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-17": {
+   "file": "assets/art/gem-lam-ngoc-17.png",
+   "v": "efe4b0ba",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 17 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-18": {
+   "file": "assets/art/gem-lam-ngoc-18.png",
+   "v": "2cc0c11f",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 18 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-19": {
+   "file": "assets/art/gem-lam-ngoc-19.png",
+   "v": "7cf23807",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 19 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-2": {
+   "file": "assets/art/gem-lam-ngoc-2.png",
+   "v": "5631cf98",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 2 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-20": {
+   "file": "assets/art/gem-lam-ngoc-20.png",
+   "v": "f7cb2a94",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 20 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-3": {
+   "file": "assets/art/gem-lam-ngoc-3.png",
+   "v": "e079fe9b",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 3 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-4": {
+   "file": "assets/art/gem-lam-ngoc-4.png",
+   "v": "179c6d28",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 4 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-5": {
+   "file": "assets/art/gem-lam-ngoc-5.png",
+   "v": "d19997f9",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 5 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-6": {
+   "file": "assets/art/gem-lam-ngoc-6.png",
+   "v": "e6107fc3",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 6 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-7": {
+   "file": "assets/art/gem-lam-ngoc-7.png",
+   "v": "4c124b8c",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 7 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-8": {
+   "file": "assets/art/gem-lam-ngoc-8.png",
+   "v": "30c1b3da",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 8 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.lam-ngoc-9": {
+   "file": "assets/art/gem-lam-ngoc-9.png",
+   "v": "af8f703b",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "lam-ngoc cấp 9 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-1": {
+   "file": "assets/art/gem-luc-ngoc-1.png",
+   "v": "44a8030b",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 1 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-10": {
+   "file": "assets/art/gem-luc-ngoc-10.png",
+   "v": "a095a498",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 10 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-11": {
+   "file": "assets/art/gem-luc-ngoc-11.png",
+   "v": "ee91cca5",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 11 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-12": {
+   "file": "assets/art/gem-luc-ngoc-12.png",
+   "v": "7f37a5be",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 12 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-13": {
+   "file": "assets/art/gem-luc-ngoc-13.png",
+   "v": "ba05d2cf",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 13 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-14": {
+   "file": "assets/art/gem-luc-ngoc-14.png",
+   "v": "2947ee99",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 14 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-15": {
+   "file": "assets/art/gem-luc-ngoc-15.png",
+   "v": "7e9c51ad",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 15 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-16": {
+   "file": "assets/art/gem-luc-ngoc-16.png",
+   "v": "b5302aed",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 16 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-17": {
+   "file": "assets/art/gem-luc-ngoc-17.png",
+   "v": "91a5adff",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 17 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-18": {
+   "file": "assets/art/gem-luc-ngoc-18.png",
+   "v": "679ee978",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 18 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-19": {
+   "file": "assets/art/gem-luc-ngoc-19.png",
+   "v": "31976822",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 19 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-2": {
+   "file": "assets/art/gem-luc-ngoc-2.png",
+   "v": "d37b6cce",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 2 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-20": {
+   "file": "assets/art/gem-luc-ngoc-20.png",
+   "v": "056fa624",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 20 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-3": {
+   "file": "assets/art/gem-luc-ngoc-3.png",
+   "v": "717c8ab7",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 3 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-4": {
+   "file": "assets/art/gem-luc-ngoc-4.png",
+   "v": "e026a9f1",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 4 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-5": {
+   "file": "assets/art/gem-luc-ngoc-5.png",
+   "v": "7d4428e5",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 5 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-6": {
+   "file": "assets/art/gem-luc-ngoc-6.png",
+   "v": "3c5b0474",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 6 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-7": {
+   "file": "assets/art/gem-luc-ngoc-7.png",
+   "v": "eada2844",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 7 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-8": {
+   "file": "assets/art/gem-luc-ngoc-8.png",
+   "v": "70c2ad12",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 8 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
+  "gem.luc-ngoc-9": {
+   "file": "assets/art/gem-luc-ngoc-9.png",
+   "v": "9d81b61f",
+   "w": 28,
+   "h": 28,
+   "frames": 6,
+   "anchor": [
+    14,
+    14
+   ],
+   "note": "luc-ngoc cấp 9 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
+  },
   "ground.a": {
    "file": "assets/art/ground-a.png",
    "v": "ef56ab29",
@@ -4126,7 +5086,7 @@
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",
-   "v": "88dc97d9",
+   "v": "42c85503",
    "w": 46,
    "h": 27,
    "frames": 7,
@@ -4139,7 +5099,7 @@
   },
   "pet.hoa-lang": {
    "file": "assets/art/pet-hoa-lang.png",
-   "v": "e11a308f",
+   "v": "e09ec362",
    "w": 50,
    "h": 26,
    "frames": 7,
@@ -4152,7 +5112,7 @@
   },
   "pet.hu-anh": {
    "file": "assets/art/pet-hu-anh.png",
-   "v": "41e56e31",
+   "v": "4d80a02a",
    "w": 50,
    "h": 33,
    "frames": 7,
@@ -4165,7 +5125,7 @@
   },
   "pet.kiem-hon": {
    "file": "assets/art/pet-kiem-hon.png",
-   "v": "490844ed",
+   "v": "d39fc8ac",
    "w": 50,
    "h": 31,
    "frames": 7,
@@ -4178,7 +5138,7 @@
   },
   "pet.ma-cung": {
    "file": "assets/art/pet-ma-cung.png",
-   "v": "a02e14ad",
+   "v": "af750955",
    "w": 72,
    "h": 31,
    "frames": 7,
@@ -4191,7 +5151,7 @@
   },
   "pet.ma-tieu": {
    "file": "assets/art/pet-ma-tieu.png",
-   "v": "f95bea0a",
+   "v": "d886e3bd",
    "w": 44,
    "h": 24,
    "frames": 7,
@@ -4204,7 +5164,7 @@
   },
   "pet.moc-linh": {
    "file": "assets/art/pet-moc-linh.png",
-   "v": "fe46686a",
+   "v": "7bca2855",
    "w": 46,
    "h": 27,
    "frames": 7,
@@ -4217,7 +5177,7 @@
   },
   "pet.moc-yeu": {
    "file": "assets/art/pet-moc-yeu.png",
-   "v": "e84eee76",
+   "v": "40e34e43",
    "w": 58,
    "h": 34,
    "frames": 7,
@@ -4230,7 +5190,7 @@
   },
   "pet.phong-yeu": {
    "file": "assets/art/pet-phong-yeu.png",
-   "v": "fbdee3e2",
+   "v": "eb992d88",
    "w": 42,
    "h": 33,
    "frames": 7,
@@ -4243,7 +5203,7 @@
   },
   "pet.tho-khoi": {
    "file": "assets/art/pet-tho-khoi.png",
-   "v": "a3323c17",
+   "v": "18f7ff84",
    "w": 52,
    "h": 34,
    "frames": 7,
@@ -4256,7 +5216,7 @@
   },
   "pet.tuyet-lang": {
    "file": "assets/art/pet-tuyet-lang.png",
-   "v": "0ccd1905",
+   "v": "cc3c5307",
    "w": 44,
    "h": 24,
    "frames": 7,
@@ -4269,7 +5229,7 @@
   },
   "pet.viem-linh": {
    "file": "assets/art/pet-viem-linh.png",
-   "v": "a639b68a",
+   "v": "6f0442f2",
    "w": 48,
    "h": 27,
    "frames": 7,
@@ -4474,7 +5434,7 @@
   },
   "proj.rock": {
    "file": "assets/art/proj-rock.png",
-   "v": "e6fb599e",
+   "v": "9342616d",
    "w": 9,
    "h": 9,
    "frames": 1,
@@ -4482,7 +5442,7 @@
     4,
     4
    ],
-   "note": "tảng đá ném, game cho xoay tròn"
+   "note": "tảng đá ném, game cho xoay tròn (ảnh Canva nguon/ai/props/proj-rock-vine.png)"
   },
   "proj.slash": {
    "file": "assets/art/proj-slash.png",

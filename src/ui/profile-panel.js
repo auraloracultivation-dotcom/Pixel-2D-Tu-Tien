@@ -6,6 +6,7 @@ import { startDuel } from '../game/duel.js';
 import { playerStats, realmLabel, weaponId, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
 import { petDef } from '../game/evolve.js';
+import { gemIcon } from './gem-icon.js';
 import { rarityOf, itemName, statText, gemInfo } from '../game/items.js';
 import { icon, mainStats } from './bag-detail.js';
 
@@ -45,7 +46,7 @@ function itemCard(game, save, slot, T) {
     for (const g of it.sockets) {
       if (!g) { gems.append(el('span', 'pf-gem empty', T.gem_empty)); continue; }
       const gi = gemInfo(data, g), chip = el('span', 'pf-gem', `${gi.name}: ${statText(data, gi.stat, gi.value)}`);
-      chip.style.borderColor = gi.color; chip.style.color = gi.color;
+      chip.style.borderColor = gi.color; chip.style.color = gi.color; chip.prepend(gemIcon(game, g, 18, 'gem-ico sm'));
       gems.append(chip);
     }
     st.append(gems);

@@ -13,6 +13,7 @@ import { rerollEl } from '../game/daovan.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { trial } from '../game/autoequip.js';
+import { gemIcon } from './gem-icon.js';
 
 const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây` })[s] || null;
 
@@ -118,7 +119,7 @@ export function renderDetail(game, st, box, changed, close) {
     const row = el('div', 'd-sockets');
     it.sockets.forEach((g, idx) => {
       const b = el('button', 'socket' + (g ? ' full' : ''));
-      if (g) { const gi = gemInfo(data, g); b.textContent = gi.name; b.style.borderColor = gi.color; b.onclick = () => { unsocket(save, it.uid, idx); changed(); }; }
+      if (g) { const gi = gemInfo(data, g); b.append(gemIcon(game, g, 20, 'gem-ico sm'), gi.name); b.style.borderColor = gi.color; b.onclick = () => { unsocket(save, it.uid, idx); changed(); }; }
       else { b.textContent = '+ Khảm ngọc'; b.onclick = () => { st.pickSocket = { uid: it.uid, idx }; st.tab = 'ngoc'; st.sel = null; changed(false); }; }
       row.append(b);
     });
