@@ -488,7 +488,7 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 #btn-mute { width: 28px !important; }
 #btn-zalo { background: var(--glass); color: #8fbcff; border-color: #3d6fc4; padding: 0 7px; }
 .goal { font-size: 11.5px; padding: 6px 8px; max-width: 48%; }
-#toast { top: max(28%, 232px); font-size: 12.5px; padding: 6px 11px; max-width: 64%; }   /* dưới cột nút HUD: chơi thử thấy thông báo đè nút Bản đồ, Ngọc cấp */
+#toast { top: max(40%, 330px); font-size: 12.5px; padding: 6px 11px; max-width: 64%; }   /* giữa cột nút HUD và nhân vật: 20% đè nút Bản đồ, 28% đè dòng nhặt đồ dưới HUD (chơi thử 30/10) */
 /* Ô chiêu chưa có chiêu: ẩn hẳn, đỡ rối góc màn (chơi thử thấy ba vòng tối trống cạnh nút Đánh) */
 #btn-s0.off, #btn-s1.off, #btn-s2.off { opacity: 0; pointer-events: none; }
 
