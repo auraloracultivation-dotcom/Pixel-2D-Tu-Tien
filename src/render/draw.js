@@ -1,5 +1,6 @@
 // Vẽ thế giới bằng hình khối đơn giản (bản tạm): người, quái, đạn, hiệu ứng, chỉ đường, cần gạt.
 import { drawLanterns, drawMeteors } from './draw-lantern.js';
+import { guideTarget } from '../game/guide.js';
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
@@ -360,9 +361,8 @@ export function drawOverlay(game, screen, input) {
   if (!game.map || game.dialog.open) return;
   drawBanner(ctx, game, screen);
   // Mũi tên chỉ đường tới mục tiêu nhiệm vụ
-  const goal = game.story?.goal();
-  if (goal?.target) {
-    const c = game.map.center(goal.target[0], goal.target[1]);
+  const c = guideTarget(game);   // việc đang chọn ở khung mục tiêu (src/game/guide.js), mặc định truyện chính
+  if (c) {
     const s = screen.toScreen(c.x, c.y), pl = screen.toScreen(game.player.x, game.player.y);
     const d = Math.hypot(s.x - pl.x, s.y - pl.y);
     if (d > 60) {

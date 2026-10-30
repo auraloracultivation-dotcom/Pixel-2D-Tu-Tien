@@ -44,6 +44,7 @@ canvas#game { position: fixed; inset: 0; display: block; image-rendering: -webki
 .bar span { position: absolute; inset: 0; font-size: 9px; line-height: 10px; text-align: center; color: #fff; font-weight: 700; text-shadow: 0 1px 1px #000; }
 .goal { position: absolute; right: 10px; top: calc(env(safe-area-inset-top) + 8px); max-width: 52%; background: var(--glass); color: var(--ink); font-size: 12px; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); border-left: 3px solid var(--torch); white-space: pre-line; box-shadow: 0 4px 14px rgba(0, 0, 0, .45); }
 .goal:empty { display: none; }
+.goal { pointer-events: auto; cursor: pointer; }   /* chạm để đổi việc mũi tên chỉ (src/game/guide.js) */
 .boss { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top) + 64px); width: 70%; text-align: center; color: var(--ink); font: 700 13px var(--f-title); text-shadow: 0 1px 2px #000, 0 0 10px rgba(226, 82, 90, .6); }
 .boss .bar { height: 10px; margin-top: 3px; border-color: var(--trim); }
 .boss .bar i { background: linear-gradient(#ff6a5a, #8a1020); }
