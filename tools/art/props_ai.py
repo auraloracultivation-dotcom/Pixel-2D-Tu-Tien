@@ -243,3 +243,29 @@ def anim(save):
         save('prop.' + pid, cvs, (ww // 2, hh - up), f'{note} (ảnh Canva nguon/ai/props/{name})')
         n += 1
     return n
+
+
+# hiệu ứng trúng đòn, khói tan, đạn quái (30/10/2026): mỗi tấm một hàng, cắt đều; giữ cao hình code cũ, neo theo tỉ lệ cũ (đầu cầu lửa...)
+HITFX = [('fx.spark', 'fx-spark.png', 4, [0, 1, 2, 3], 'tia lửa khi trúng, 4 khung'),
+      ('fx.puff', 'fx-puff.png', 5, [0, 1, 2, 3, 4], 'khói tan khi quái chết, 5 khung'),
+      ('proj.fire', 'proj-fire.png', 4, [0, 1, 2, 3], 'cầu lửa bay, đuôi lửa 4 khung'),
+      ('proj.rock', 'proj-rock-vine.png', 3, [0], 'tảng đá ném, game cho xoay tròn'),
+      ('proj.vine', 'proj-rock-vine.png', 3, [1, 2], 'kim gỗ lá non ở đuôi, 2 khung')]
+
+
+def hit_fx(save):
+    n, cache = 0, {}
+    for sid, name, cnt, idx, note in HITFX:
+        if name not in cache:
+            a = A._key_near(np.array(Image.open(SRC / name).convert('RGBA')))
+            cache[name] = [A._trim(c) for c in A._cut(a, cnt)]
+        old = MANIFEST[sid]
+        fr = A._act_frames([_defringe(cache[name][i]) for i in idx], old['h'], 16, 'center')   # khói, đuôi lửa bị ám hồng của nền
+        hh, ww = fr[0].shape[:2]
+        cvs = []
+        for f in fr:
+            c = Canvas(ww, hh); c.a = np.ascontiguousarray(f, dtype=np.uint8); cvs.append(c)
+        ax, ay = old['anchor']
+        save(sid, cvs, (round(ax * ww / old['w']), round(ay * hh / old['h'])), f'{note} (ảnh Canva nguon/ai/props/{name})')
+        n += 1
+    return n
