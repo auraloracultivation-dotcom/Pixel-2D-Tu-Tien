@@ -2777,17 +2777,17 @@
   },
   "mob.ma-bang-tien": {
    "file": "assets/art/mob-ma-bang-tien.png",
-   "v": "8a34c8f2",
-   "w": 98,
-   "h": 43,
-   "frames": 2,
+   "v": "a53e9d1e",
+   "w": 88,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    49,
-    41
+    44,
+    42
    ],
-   "note": "Ma băng tiễn (mage): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-binh": {
    "file": "assets/art/mob-ma-binh.png",
@@ -2805,31 +2805,31 @@
   },
   "mob.ma-cung": {
    "file": "assets/art/mob-ma-cung.png",
-   "v": "aad9350f",
-   "w": 96,
-   "h": 43,
-   "frames": 2,
+   "v": "0612b0cc",
+   "w": 104,
+   "h": 44,
+   "frames": 7,
    "anchor": [
-    48,
-    41
+    52,
+    42
    ],
-   "note": "Ma tiễn (mage): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-phap": {
    "file": "assets/art/mob-ma-phap.png",
-   "v": "900e23e8",
-   "w": 98,
-   "h": 43,
-   "frames": 2,
+   "v": "f639bad7",
+   "w": 88,
+   "h": 46,
+   "frames": 7,
    "anchor": [
-    49,
-    41
+    44,
+    44
    ],
-   "note": "Ma pháp sư (mage): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-phong-ve": {
    "file": "assets/art/mob-ma-phong-ve.png",
@@ -2847,17 +2847,17 @@
   },
   "mob.ma-tham-tu": {
    "file": "assets/art/mob-ma-tham-tu.png",
-   "v": "47bcd09e",
+   "v": "a6382a64",
    "w": 78,
-   "h": 45,
-   "frames": 2,
+   "h": 44,
+   "frames": 7,
    "anchor": [
     39,
-    43
+    42
    ],
-   "note": "Ma thám tử (imp): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-tieu": {
    "file": "assets/art/mob-ma-tieu.png",
@@ -3015,17 +3015,17 @@
   },
   "mob.sa-ma": {
    "file": "assets/art/mob-sa-ma.png",
-   "v": "5e84fd34",
-   "w": 100,
-   "h": 47,
-   "frames": 2,
+   "v": "84eb83cf",
+   "w": 86,
+   "h": 46,
+   "frames": 7,
    "anchor": [
-    50,
-    45
+    43,
+    44
    ],
-   "note": "Sa ma (mage): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.tam-ma": {
    "file": "assets/art/mob-tam-ma.png",
