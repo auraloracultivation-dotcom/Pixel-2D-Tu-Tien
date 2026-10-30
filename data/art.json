@@ -527,423 +527,423 @@
   },
   "gear.bo-can": {
    "file": "assets/art/gear-bo-can.png",
-   "v": "390056a1",
-   "w": 16,
-   "h": 16,
+   "v": "bb2524b9",
+   "w": 24,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    12,
+    11
    ],
-   "note": "Bố Cân"
+   "note": "icon trang bị bo-can (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.bo-hai": {
    "file": "assets/art/gear-bo-hai.png",
-   "v": "a30774ef",
-   "w": 16,
-   "h": 16,
+   "v": "6c8c849c",
+   "w": 26,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    13,
+    11
    ],
-   "note": "Bố Hài"
+   "note": "icon trang bị bo-hai (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.bo-y": {
    "file": "assets/art/gear-bo-y.png",
-   "v": "914f95a6",
-   "w": 16,
-   "h": 16,
+   "v": "427dab6d",
+   "w": 18,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Bố Y Đạo Bào"
+   "note": "icon trang bị bo-y (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.dao-van-an": {
    "file": "assets/art/gear-dao-van-an.png",
-   "v": "46eb88ba",
-   "w": 16,
-   "h": 16,
+   "v": "0fc0877c",
+   "w": 18,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Đạo Vận Ấn"
+   "note": "icon trang bị dao-van-an (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-bao": {
    "file": "assets/art/gear-dao-van-bao.png",
-   "v": "483cfdd5",
-   "w": 16,
-   "h": 16,
+   "v": "9af161ad",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Đạo Vận Bào"
+   "note": "icon trang bị dao-van-bao (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-binh": {
    "file": "assets/art/gear-dao-van-binh.png",
-   "v": "ce2d01bc",
-   "w": 16,
-   "h": 16,
+   "v": "f6036013",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Đạo Vận Binh"
+   "note": "icon trang bị dao-van-binh (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-boi": {
    "file": "assets/art/gear-dao-van-boi.png",
-   "v": "9ef8152a",
-   "w": 16,
-   "h": 16,
+   "v": "1c53c34d",
+   "w": 15,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    7,
+    11
    ],
-   "note": "Đạo Vận Bội"
+   "note": "icon trang bị dao-van-boi (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-gioi": {
    "file": "assets/art/gear-dao-van-gioi.png",
-   "v": "3e02f7f4",
-   "w": 16,
-   "h": 16,
+   "v": "27c272c0",
+   "w": 23,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    11,
+    11
    ],
-   "note": "Đạo Vận Giới"
+   "note": "icon trang bị dao-van-gioi (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-hai": {
    "file": "assets/art/gear-dao-van-hai.png",
-   "v": "104e41f9",
-   "w": 16,
-   "h": 16,
+   "v": "5c32d89d",
+   "w": 19,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Đạo Vận Hài"
+   "note": "icon trang bị dao-van-hai (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.dao-van-quan": {
    "file": "assets/art/gear-dao-van-quan.png",
-   "v": "17152bc6",
-   "w": 16,
-   "h": 16,
+   "v": "612b49a8",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Đạo Vận Quan"
+   "note": "icon trang bị dao-van-quan (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.hac-phong-boi": {
    "file": "assets/art/gear-hac-phong-boi.png",
-   "v": "d4c74a83",
-   "w": 16,
-   "h": 16,
+   "v": "ce2f9d3e",
+   "w": 13,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    6,
+    11
    ],
-   "note": "Hắc Phong Bội"
+   "note": "icon trang bị hac-phong-boi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.hac-phong-giap": {
    "file": "assets/art/gear-hac-phong-giap.png",
-   "v": "af05fb9b",
-   "w": 16,
-   "h": 16,
+   "v": "a162e4af",
+   "w": 19,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Hắc Phong Giáp"
+   "note": "icon trang bị hac-phong-giap (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.hac-phong-gioi": {
    "file": "assets/art/gear-hac-phong-gioi.png",
-   "v": "d40fae45",
-   "w": 16,
-   "h": 16,
+   "v": "037c6958",
+   "w": 22,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    11,
+    11
    ],
-   "note": "Hắc Phong Giới"
+   "note": "icon trang bị hac-phong-gioi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.hac-phong-hai": {
    "file": "assets/art/gear-hac-phong-hai.png",
-   "v": "b05a849d",
-   "w": 16,
-   "h": 16,
+   "v": "387466bc",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Hắc Phong Hài"
+   "note": "icon trang bị hac-phong-hai (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.hac-phong-quan": {
    "file": "assets/art/gear-hac-phong-quan.png",
-   "v": "93df3284",
-   "w": 16,
-   "h": 16,
+   "v": "947fc76a",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Hắc Phong Quan"
+   "note": "icon trang bị hac-phong-quan (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.han-bang-boi": {
    "file": "assets/art/gear-han-bang-boi.png",
-   "v": "51aaa83f",
-   "w": 16,
-   "h": 16,
+   "v": "48881e2c",
+   "w": 14,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    7,
+    11
    ],
-   "note": "Hàn Băng Bội"
+   "note": "icon trang bị han-bang-boi (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.han-bang-giap": {
    "file": "assets/art/gear-han-bang-giap.png",
-   "v": "c81a9ec7",
-   "w": 16,
-   "h": 16,
+   "v": "6664d851",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Hàn Băng Giáp"
+   "note": "icon trang bị han-bang-giap (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.han-bang-gioi": {
    "file": "assets/art/gear-han-bang-gioi.png",
-   "v": "33962ecb",
-   "w": 16,
-   "h": 16,
+   "v": "aa305693",
+   "w": 19,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Hàn Băng Giới"
+   "note": "icon trang bị han-bang-gioi (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.han-bang-hai": {
    "file": "assets/art/gear-han-bang-hai.png",
-   "v": "116d7416",
-   "w": 16,
-   "h": 16,
+   "v": "753ee270",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Hàn Băng Hài"
+   "note": "icon trang bị han-bang-hai (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.han-bang-quan": {
    "file": "assets/art/gear-han-bang-quan.png",
-   "v": "957c3046",
-   "w": 16,
-   "h": 16,
+   "v": "676c7521",
+   "w": 19,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Hàn Băng Quan"
+   "note": "icon trang bị han-bang-quan (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hau-tho-boi": {
    "file": "assets/art/gear-hau-tho-boi.png",
-   "v": "cd706c9e",
-   "w": 16,
-   "h": 16,
+   "v": "481c0300",
+   "w": 13,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    6,
+    11
    ],
-   "note": "Hậu Thổ Bội"
+   "note": "icon trang bị hau-tho-boi (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hau-tho-giap": {
    "file": "assets/art/gear-hau-tho-giap.png",
-   "v": "165f0226",
-   "w": 16,
-   "h": 16,
+   "v": "03bb5d09",
+   "w": 21,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Hậu Thổ Giáp"
+   "note": "icon trang bị hau-tho-giap (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hau-tho-gioi": {
    "file": "assets/art/gear-hau-tho-gioi.png",
-   "v": "365afe63",
-   "w": 16,
-   "h": 16,
+   "v": "b8cd5a5a",
+   "w": 22,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    11,
+    11
    ],
-   "note": "Hậu Thổ Giới"
+   "note": "icon trang bị hau-tho-gioi (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hau-tho-hai": {
    "file": "assets/art/gear-hau-tho-hai.png",
-   "v": "a67789e3",
-   "w": 16,
-   "h": 16,
+   "v": "55ee76be",
+   "w": 18,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Hậu Thổ Hài"
+   "note": "icon trang bị hau-tho-hai (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hau-tho-quan": {
    "file": "assets/art/gear-hau-tho-quan.png",
-   "v": "25890a52",
-   "w": 16,
-   "h": 16,
+   "v": "c95474fc",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Hậu Thổ Khôi"
+   "note": "icon trang bị hau-tho-quan (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.hoa-hon-linh": {
    "file": "assets/art/gear-hoa-hon-linh.png",
-   "v": "ad77958a",
-   "w": 16,
-   "h": 16,
+   "v": "2c254e51",
+   "w": 13,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    6,
+    11
    ],
-   "note": "Hỏa Hồn Linh"
+   "note": "icon trang bị hoa-hon-linh (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.huyen-giap": {
    "file": "assets/art/gear-huyen-giap.png",
-   "v": "914f95a6",
+   "v": "4f792a51",
    "w": 16,
-   "h": 16,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Huyền Thiết Giáp"
+   "note": "icon trang bị huyen-giap (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.kim-cang-boi": {
    "file": "assets/art/gear-kim-cang-boi.png",
-   "v": "c99abac0",
-   "w": 16,
-   "h": 16,
+   "v": "ed61ee38",
+   "w": 11,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    5,
+    11
    ],
-   "note": "Kim Cang Bội"
+   "note": "icon trang bị kim-cang-boi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.kim-cang-giap": {
    "file": "assets/art/gear-kim-cang-giap.png",
-   "v": "f60ae0a8",
-   "w": 16,
-   "h": 16,
+   "v": "a8ce0441",
+   "w": 21,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Kim Cang Giáp"
+   "note": "icon trang bị kim-cang-giap (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.kim-cang-gioi": {
    "file": "assets/art/gear-kim-cang-gioi.png",
-   "v": "a50afded",
-   "w": 16,
-   "h": 16,
+   "v": "63309dbe",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Kim Cang Giới"
+   "note": "icon trang bị kim-cang-gioi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.kim-cang-hai": {
    "file": "assets/art/gear-kim-cang-hai.png",
-   "v": "210d096c",
+   "v": "d459a3e8",
    "w": 16,
-   "h": 16,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Kim Cang Hài"
+   "note": "icon trang bị kim-cang-hai (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.kim-cang-quan": {
    "file": "assets/art/gear-kim-cang-quan.png",
-   "v": "8ce153c6",
+   "v": "adff0cd5",
    "w": 16,
-   "h": 16,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Kim Cang Khôi"
+   "note": "icon trang bị kim-cang-quan (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.kim-luan": {
    "file": "assets/art/gear-kim-luan.png",
-   "v": "46eb88ba",
-   "w": 16,
-   "h": 16,
+   "v": "2496d398",
+   "w": 21,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Kim Luân"
+   "note": "icon trang bị kim-luan (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.linh-ngoc-gioi": {
    "file": "assets/art/gear-linh-ngoc-gioi.png",
-   "v": "2bd74e73",
-   "w": 16,
-   "h": 16,
+   "v": "b3f54793",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Linh Ngọc Giới"
+   "note": "icon trang bị linh-ngoc-gioi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.linh-phu": {
    "file": "assets/art/gear-linh-phu.png",
-   "v": "da17a3c6",
-   "w": 16,
-   "h": 16,
+   "v": "fd50928e",
+   "w": 11,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    5,
+    11
    ],
-   "note": "Linh Phù"
+   "note": "icon trang bị linh-phu (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.moc-cam": {
    "file": "assets/art/gear-moc-cam.png",
@@ -959,135 +959,135 @@
   },
   "gear.ngoc-boi-tho": {
    "file": "assets/art/gear-ngoc-boi-tho.png",
-   "v": "da17a3c6",
-   "w": 16,
-   "h": 16,
+   "v": "6ec0341d",
+   "w": 13,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    6,
+    11
    ],
-   "note": "Ngọc Bội Thô"
+   "note": "icon trang bị ngoc-boi-tho (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.thai-hu-boi": {
    "file": "assets/art/gear-thai-hu-boi.png",
-   "v": "e3b8fccb",
-   "w": 16,
-   "h": 16,
+   "v": "d8dedf8a",
+   "w": 15,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    7,
+    11
    ],
-   "note": "Thái Hư Bội"
+   "note": "icon trang bị thai-hu-boi (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.thai-hu-giap": {
    "file": "assets/art/gear-thai-hu-giap.png",
-   "v": "3bb504de",
-   "w": 16,
-   "h": 16,
+   "v": "dd90809f",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Thái Hư Giáp"
+   "note": "icon trang bị thai-hu-giap (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.thai-hu-gioi": {
    "file": "assets/art/gear-thai-hu-gioi.png",
-   "v": "6e8ef7b8",
-   "w": 16,
-   "h": 16,
+   "v": "46681c39",
+   "w": 22,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    11,
+    11
    ],
-   "note": "Thái Hư Giới"
+   "note": "icon trang bị thai-hu-gioi (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.thai-hu-hai": {
    "file": "assets/art/gear-thai-hu-hai.png",
-   "v": "3b6a889a",
+   "v": "b7f38a6a",
    "w": 16,
-   "h": 16,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Thái Hư Hài"
+   "note": "icon trang bị thai-hu-hai (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.thai-hu-quan": {
    "file": "assets/art/gear-thai-hu-quan.png",
-   "v": "f8aaf16e",
-   "w": 16,
-   "h": 16,
+   "v": "23649e36",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Thái Hư Quan"
+   "note": "icon trang bị thai-hu-quan (ảnh Canva nguon/ai/props/trang-bi-4.png)"
   },
   "gear.thanh-moc-bao": {
    "file": "assets/art/gear-thanh-moc-bao.png",
-   "v": "447818b1",
-   "w": 16,
-   "h": 16,
+   "v": "5708b217",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Thanh Mộc Bào"
+   "note": "icon trang bị thanh-moc-bao (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.thanh-moc-boi": {
    "file": "assets/art/gear-thanh-moc-boi.png",
-   "v": "856ef33d",
-   "w": 16,
-   "h": 16,
+   "v": "99266b91",
+   "w": 13,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    6,
+    11
    ],
-   "note": "Thanh Mộc Bội"
+   "note": "icon trang bị thanh-moc-boi (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.thanh-moc-gioi": {
    "file": "assets/art/gear-thanh-moc-gioi.png",
-   "v": "de4a2d1d",
-   "w": 16,
-   "h": 16,
+   "v": "16bf3bb4",
+   "w": 20,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    10,
+    11
    ],
-   "note": "Thanh Mộc Giới"
+   "note": "icon trang bị thanh-moc-gioi (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.thanh-moc-hai": {
    "file": "assets/art/gear-thanh-moc-hai.png",
-   "v": "2ee444f0",
-   "w": 16,
-   "h": 16,
+   "v": "e3ac04ec",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Thanh Mộc Hài"
+   "note": "icon trang bị thanh-moc-hai (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.thanh-moc-quan": {
    "file": "assets/art/gear-thanh-moc-quan.png",
-   "v": "56e10f6e",
-   "w": 16,
-   "h": 16,
+   "v": "0ef9ff2b",
+   "w": 19,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Thanh Mộc Trâm"
+   "note": "icon trang bị thanh-moc-quan (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.thanh-van-kiem": {
    "file": "assets/art/gear-thanh-van-kiem.png",
@@ -1115,27 +1115,27 @@
   },
   "gear.thiet-gioi": {
    "file": "assets/art/gear-thiet-gioi.png",
-   "v": "2bd74e73",
-   "w": 16,
-   "h": 16,
+   "v": "fbd299be",
+   "w": 22,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    11,
+    11
    ],
-   "note": "Thiết Giới"
+   "note": "icon trang bị thiet-gioi (ảnh Canva nguon/ai/props/trang-bi-3.png)"
   },
   "gear.thiet-khoi": {
    "file": "assets/art/gear-thiet-khoi.png",
-   "v": "390056a1",
-   "w": 16,
-   "h": 16,
+   "v": "5d179dad",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Thiết Khôi"
+   "note": "icon trang bị thiet-khoi (ảnh Canva nguon/ai/props/trang-bi-2.png)"
   },
   "gear.thiet-kiem": {
    "file": "assets/art/gear-thiet-kiem.png",
@@ -1163,15 +1163,15 @@
   },
   "gear.tran-yeu-thap": {
    "file": "assets/art/gear-tran-yeu-thap.png",
-   "v": "15685d34",
-   "w": 16,
-   "h": 16,
+   "v": "ccd7d2c8",
+   "w": 14,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    7,
+    11
    ],
-   "note": "Trấn Yêu Tháp"
+   "note": "icon trang bị tran-yeu-thap (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.truc-cung": {
    "file": "assets/art/gear-truc-cung.png",
@@ -1199,75 +1199,75 @@
   },
   "gear.van-van-ngoa": {
    "file": "assets/art/gear-van-van-ngoa.png",
-   "v": "a30774ef",
-   "w": 16,
-   "h": 16,
+   "v": "68e0c4eb",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Vân Văn Ngoa"
+   "note": "icon trang bị van-van-ngoa (ảnh Canva nguon/ai/props/trang-bi-5.png)"
   },
   "gear.xich-diem-boi": {
    "file": "assets/art/gear-xich-diem-boi.png",
-   "v": "eebd34b8",
-   "w": 16,
-   "h": 16,
+   "v": "602a8872",
+   "w": 14,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    7,
+    11
    ],
-   "note": "Xích Diễm Bội"
+   "note": "icon trang bị xich-diem-boi (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.xich-diem-giap": {
    "file": "assets/art/gear-xich-diem-giap.png",
-   "v": "20a8ecd7",
+   "v": "bd6ee831",
    "w": 16,
-   "h": 16,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Xích Diễm Giáp"
+   "note": "icon trang bị xich-diem-giap (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.xich-diem-gioi": {
    "file": "assets/art/gear-xich-diem-gioi.png",
-   "v": "9685f5be",
-   "w": 16,
-   "h": 16,
+   "v": "0cffb119",
+   "w": 18,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Xích Diễm Giới"
+   "note": "icon trang bị xich-diem-gioi (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.xich-diem-hai": {
    "file": "assets/art/gear-xich-diem-hai.png",
-   "v": "75e46140",
-   "w": 16,
-   "h": 16,
+   "v": "c0fcc004",
+   "w": 18,
+   "h": 22,
    "frames": 1,
    "anchor": [
-    8,
-    8
+    9,
+    11
    ],
-   "note": "Xích Diễm Hài"
+   "note": "icon trang bị xich-diem-hai (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "gear.xich-diem-quan": {
    "file": "assets/art/gear-xich-diem-quan.png",
-   "v": "f2334f33",
-   "w": 16,
-   "h": 16,
+   "v": "bb6a4c16",
+   "w": 17,
+   "h": 22,
    "frames": 1,
    "anchor": [
     8,
-    8
+    11
    ],
-   "note": "Xích Diễm Quan"
+   "note": "icon trang bị xich-diem-quan (ảnh Canva nguon/ai/props/trang-bi-1.png)"
   },
   "ground.a": {
    "file": "assets/art/ground-a.png",

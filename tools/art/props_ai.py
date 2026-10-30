@@ -83,3 +83,38 @@ def extras(save):
         for sid, idx, h, note in HAND:
             _save(save, sid, [cells[i] for i in idx], h, note + ' (ảnh Canva nguon/ai/props/ma-tay.png)', 'feet' if sid != 'fx.ma-khi' else 'mid')
     return len(cells)
+
+
+# icon đồ trang bị không phải vũ khí bay (chủ dự án 30/10/2026): 5 tấm Canva nguon/ai/props/trang-bi-*.png, thứ tự ô trái sang phải, trên xuống
+GEAR = {
+    'trang-bi-1.png': ([4, 4, 4], ['thanh-moc-quan', 'thanh-moc-bao', 'thanh-moc-boi', 'thanh-moc-gioi', 'thanh-moc-hai', 'xich-diem-quan',
+                                   'xich-diem-giap', 'xich-diem-boi', 'xich-diem-gioi', 'xich-diem-hai', 'bo-can', 'bo-hai']),
+    'trang-bi-2.png': ([4, 4, 4], ['han-bang-quan', 'han-bang-giap', 'han-bang-boi', 'han-bang-gioi', 'han-bang-hai', 'hau-tho-quan',
+                                   'hau-tho-giap', 'hau-tho-boi', 'hau-tho-gioi', 'hau-tho-hai', 'bo-y', 'thiet-khoi']),
+    'trang-bi-3.png': ([4, 4, 4], ['kim-cang-quan', 'kim-cang-giap', 'kim-cang-boi', 'kim-cang-gioi', 'kim-cang-hai', 'hac-phong-quan',
+                                   'hac-phong-giap', 'hac-phong-boi', 'hac-phong-gioi', 'hac-phong-hai', 'thiet-gioi', 'linh-ngoc-gioi']),
+    'trang-bi-4.png': ([4, 4, 4], ['thai-hu-quan', 'thai-hu-giap', 'thai-hu-boi', 'thai-hu-gioi', 'thai-hu-hai', 'dao-van-quan',
+                                   'dao-van-bao', 'dao-van-an', 'dao-van-binh', 'dao-van-boi', 'dao-van-gioi', 'dao-van-hai']),
+    'trang-bi-5.png': ([4, 4], ['hoa-hon-linh', 'huyen-giap', 'kim-luan', 'linh-phu', 'ngoc-boi-tho', 'tran-yeu-thap', 'van-van-ngoa', None]),
+}
+
+
+def _defringe(c):
+    """Khử ám hồng (nền #FF00FF lẫn vào mép trắng, vàng): điểm có đỏ và lam cùng cao hơn lục rõ rệt thì kéo đỏ, lam về gần lục."""
+    a = c.copy(); r, g, b = (a[:, :, i].astype(int) for i in range(3))
+    m = (a[:, :, 3] > 0) & (r - g > 30) & (b - g > 30)
+    a[m, 0] = np.clip(g[m] + (r[m] - g[m]) // 4 + 10, 0, 255); a[m, 2] = np.clip(g[m] + (b[m] - g[m]) // 5, 0, 255)
+    return a
+
+
+def gear(save):
+    n = 0
+    for src, (per, ids) in GEAR.items():
+        if not (SRC / src).exists(): continue
+        cells = _sheet(src, per)
+        if len(cells) != len(ids):
+            print('icon trang bị: cắt', src, 'ra', len(cells), 'ô, cần', len(ids)); continue
+        for gid, c in zip(ids, cells):
+            if gid and gid.startswith('dao-van'): c = _defringe(c)   # bộ trắng vàng: mép bị ám hồng của nền
+            if gid: _save(save, 'gear.' + gid, [c], 22, f'icon trang bị {gid} (ảnh Canva nguon/ai/props/{src})', 'mid'); n += 1
+    return n
