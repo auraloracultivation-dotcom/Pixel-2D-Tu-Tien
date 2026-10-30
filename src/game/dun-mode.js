@@ -67,8 +67,10 @@ export function scaleMob(game, m) {
 // Hạ boss phòng cuối: ghi bậc đã qua, quà lần đầu qua bậc, thưởng cấp (tối đa per_day lần mỗi cấp mỗi ngày)
 export function dungeonDone(game) {
   const s = game.save, id = game.map.id, D = C(game), L = game.dunMode || 0, md = modeOf(game), T = D.texts;
-  const was = cleared(game, id), first = L >= was;
-  (s.dunLv ??= {})[id] = Math.max(was, L + 1);
+  const pt = game.party, guest = !!pt?.run && pt.roster[0]?.id !== pt.me;   // tổ đội: chỉ đội trưởng tăng bậc (chủ dự án chốt 30/10), thành viên vẫn nhận quà lượt ngày
+  const was = cleared(game, id), first = !guest && L >= was;
+  if (!guest) (s.dunLv ??= {})[id] = Math.max(was, L + 1);
+  else game.toast(T.guest, 2.4);
   const lines = [];
   if (first && L + 1 < total(game)) game.toast(T.unlock.replace('{level}', levelName(game, L + 1)), 2.4);
   if (first && D.first) lines.push(`${T.first.replace('{level}', levelName(game, L))}: ${grant(game, D.first).join(', ')}`);
