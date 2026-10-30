@@ -66,6 +66,14 @@ def _key(a, shadow=True):
     return out
 
 
+def _defringe(c):
+    """Khử ám hồng (nền #FF00FF lẫn vào vệt sáng vàng, trắng): điểm có đỏ và lam cùng cao hơn lục rõ rệt thì kéo đỏ, lam về gần lục."""
+    a = c.copy(); r, g, b = (a[:, :, i].astype(int) for i in range(3))
+    m = (a[:, :, 3] > 0) & (r - g > 30) & (b - g > 30)
+    a[m, 0] = np.clip(g[m] + (r[m] - g[m]) // 3 + 30, 0, 255); a[m, 2] = np.clip(g[m] + (b[m] - g[m]) // 5, 0, 255)
+    return a
+
+
 def _key_near(a):
     """Bỏ nền hồng tím chặt hơn _key: chỉ màu gần màu nền (lấy ở góc ảnh) hoặc nền pha mực ở mép (đỏ = lam, không có lục).
     Dùng cho nhân vật mặc đồ tím, quầng tím (Mặc Ảnh) mà _key ăn mất."""
@@ -246,12 +254,13 @@ def apply(manifest, save):
             fr, side = FWP.rotations(_canvas(base))
             save(sid, fr, (side // 2, side // 2), (old.get('note') or '') + ' · ảnh Canva')
             n += 1; continue
+        if s.get('defringe'): cells = [_defringe(c) for c in cells]   # vệt vàng, trắng bị ám hồng của nền
         if s.get('hd') or s.get('acts'):   # vẽ gấp đôi độ phân giải (mật độ nhân vật chính), game thu theo scale; giữ đủ mọi ô làm khung
             frames = _act_frames(cells, s.get('h') or round(th / HD), s.get('colors', 14), s.get('align', 'center'))   # align feet: dáng đánh có vệt lửa, vệt chém thì thân không lệch
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), (old.get('note') or '') + ' · ảnh Canva')
             manifest[sid]['scale'] = HD
-            if sid.startswith('mob.') and len(frames) == 2: manifest[sid]['atk'] = True   # khung 2 là tư thế ra đòn
+            if sid.startswith(('mob.', 'rival.')) and len(frames) == 2: manifest[sid]['atk'] = True   # khung 2 là tư thế ra đòn
             n += 1; continue
         frames = _glow_frames(cells, tw, th) if mode == 'glow' else _pixel_frames(cells, tw, th, s.get('colors', 14))
         if s.get('bob') and len(frames) == 1:
