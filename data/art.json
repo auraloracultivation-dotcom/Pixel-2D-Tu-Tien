@@ -215,19 +215,19 @@
   },
   "fx.bolt": {
    "file": "assets/art/fx-bolt.png",
-   "v": "d2e3c4e7",
-   "w": 40,
+   "v": "3dac9336",
+   "w": 36,
    "h": 56,
    "frames": 7,
    "anchor": [
-    21,
+    18,
     47
    ],
-   "note": "sét đánh xuống: mồi, đánh, đổi hình, mảnh, cháy xém ×3 (chiêu lôi); neo ở chỗ chạm đất"
+   "note": "sét: mồi, đánh, toả nhánh, tàn, cháy xém (ảnh Canva nguon/ai/props/fx-bolt.png, 7 khung)"
   },
   "fx.buff": {
    "file": "assets/art/fx-buff.png",
-   "v": "155c50d7",
+   "v": "7e4a5485",
    "w": 30,
    "h": 38,
    "frames": 8,
@@ -235,23 +235,23 @@
     15,
     32
    ],
-   "note": "tăng sức: vầng vàng bốc lên quanh người, lặp 8 khung; neo ở chân"
+   "note": "tăng sức: vầng vàng bốc lên lặp (ảnh Canva nguon/ai/props/fx-buff.png, 8 khung)"
   },
   "fx.fire": {
    "file": "assets/art/fx-fire.png",
-   "v": "5a0b0134",
-   "w": 24,
+   "v": "048613fd",
+   "w": 22,
    "h": 34,
    "frames": 8,
    "anchor": [
-    12,
+    11,
     31
    ],
-   "note": "ngọn lửa lặp 8 khung (chiêu hệ hỏa); neo ở chân lửa"
+   "note": "ngọn lửa lặp (ảnh Canva nguon/ai/props/fx-fire.png, 8 khung)"
   },
   "fx.heal": {
    "file": "assets/art/fx-heal.png",
-   "v": "3b8f554f",
+   "v": "ec4d4c82",
    "w": 28,
    "h": 38,
    "frames": 8,
@@ -259,19 +259,19 @@
     14,
     32
    ],
-   "note": "hồi máu: vòng sáng chân, dấu cộng bay lên, 8 khung; neo ở chân"
+   "note": "hồi máu: vòng sáng chân, dấu cộng bay lên (ảnh Canva nguon/ai/props/fx-heal.png, 8 khung)"
   },
   "fx.ice": {
    "file": "assets/art/fx-ice.png",
-   "v": "3a78a44f",
-   "w": 48,
+   "v": "45221d4a",
+   "w": 36,
    "h": 40,
    "frames": 10,
    "anchor": [
-    24,
+    18,
     33
    ],
-   "note": "gai băng trồi lên, giữ, vỡ: 10 khung (chiêu hệ băng); neo ở giữa nền băng"
+   "note": "gai băng trồi lên, giữ, vỡ (ảnh Canva nguon/ai/props/fx-ice.png, 10 khung)"
   },
   "fx.lava-bubble": {
    "file": "assets/art/fx-lava-bubble.png",
@@ -359,39 +359,39 @@
   },
   "fx.rock": {
    "file": "assets/art/fx-rock.png",
-   "v": "0a19756e",
-   "w": 48,
+   "v": "f3c01d29",
+   "w": 38,
    "h": 40,
    "frames": 8,
    "anchor": [
-    24,
+    19,
     32
    ],
-   "note": "nứt đất, gai đá trồi ×4, vỡ ra bụi ×3 (chiêu hệ thổ); neo ở giữa nền"
+   "note": "nứt đất, gai đá trồi, vỡ ra bụi (ảnh Canva nguon/ai/props/fx-rock.png, 8 khung)"
   },
   "fx.shield": {
    "file": "assets/art/fx-shield.png",
-   "v": "61b2c34d",
-   "w": 34,
+   "v": "56f97dd9",
+   "w": 44,
    "h": 36,
    "frames": 6,
    "anchor": [
-    17,
+    22,
     32
    ],
-   "note": "khiên nước: nở, chớp, vệt sáng quét, 6 khung; neo ở chân"
+   "note": "khiên nước: nở, chớp, vệt sáng quét (thân vòm trong nửa) (ảnh Canva nguon/ai/props/fx-shield.png, 6 khung)"
   },
   "fx.shield-earth": {
    "file": "assets/art/fx-shield-earth.png",
-   "v": "62bc8188",
-   "w": 34,
+   "v": "de47f0c4",
+   "w": 44,
    "h": 36,
    "frames": 6,
    "anchor": [
-    17,
+    22,
     32
    ],
-   "note": "khiên đất / vàng: như khiên nước, tông đất"
+   "note": "khiên đất vàng: đá tụ, chớp, vệt sáng quét (thân vòm trong nửa) (ảnh Canva nguon/ai/props/fx-shield-earth.png, 6 khung)"
   },
   "fx.slash": {
    "file": "assets/art/fx-slash.png",
@@ -467,15 +467,15 @@
   },
   "fx.vine": {
    "file": "assets/art/fx-vine.png",
-   "v": "d40755ea",
-   "w": 40,
+   "v": "994884ad",
+   "w": 30,
    "h": 36,
    "frames": 8,
    "anchor": [
-    20,
+    15,
     30
    ],
-   "note": "dây leo trồi ×4, đung đưa ×2, héo rụng ×2 (chiêu hệ mộc); neo ở giữa nền đất"
+   "note": "dây leo trồi, đung đưa, héo rụng (ảnh Canva nguon/ai/props/fx-vine.png, 8 khung)"
   },
   "fx.void-wisp": {
    "file": "assets/art/fx-void-wisp.png",
@@ -503,15 +503,15 @@
   },
   "fx.wind": {
    "file": "assets/art/fx-wind.png",
-   "v": "0e59404c",
-   "w": 36,
+   "v": "25f40fc6",
+   "w": 26,
    "h": 28,
    "frames": 8,
    "anchor": [
-    18,
+    13,
     22
    ],
-   "note": "gió xoáy lặp 8 khung (chiêu phong); neo dưới tâm xoáy"
+   "note": "gió xoáy lặp (ảnh Canva nguon/ai/props/fx-wind.png, 8 khung)"
   },
   "gear.ba-tieu-phien": {
    "file": "assets/art/gear-ba-tieu-phien.png",
