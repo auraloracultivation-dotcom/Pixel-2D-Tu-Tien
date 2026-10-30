@@ -6,6 +6,7 @@ import { progress } from './achieve.js';
 import { totalLayer, weaponId } from './stats.js';
 import { addMat } from './cave.js';
 import { skillSlots } from './skills.js';
+import { fitBag } from './autoequip.js';
 
 const V = data => data.daovan;
 const today = () => { const d = new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000); };
@@ -70,6 +71,7 @@ export function claimStep(game) {
   if (!k?.ready) return null;
   const g = k.step.give, s = game.save, d = game.data, got = [];
   if (g.dv) {
+    if ((s.bag?.length || 0) >= d.items.bag_size) fitBag(game, 1);   // báo lỗi #22: túi đầy thì tự phân giải món thấp nhất chưa mặc, như lúc túi lố
     if ((s.bag?.length || 0) >= d.items.bag_size) return { full: true };
     const it = makeDv(game, g.dv);
     addItem(d, s, it); got.push(itemName(d, it));
