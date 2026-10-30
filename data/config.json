@@ -4,6 +4,7 @@
  "view_tiles": 19,
  "pixel_snap": true,
  "snap_tol": 0.08,
+ "npc_safe": {"r": 44, "grace": 4, "_": "Vùng an toàn quanh NPC (đề xuất #19, chủ dự án chốt 30/10): người chơi cách NPC dưới r đơn vị thì quái thường (không phải boss, bản sao so tài) không đuổi, không đánh; quái vừa bị đánh trong grace giây vẫn đánh trả (chống đứng cạnh NPC đánh quái miễn phí)."},
  "_view": "view_tiles: số ô thấy theo bề ngang (màn đứng: theo bề ngang, màn ngang: 3/4 bề cao). Chủ dự án thích máy quay xa như lúc ngắm cảnh (29/10/2026): 13 → 21; chủ dự án xin gần lại 10% (29/10/2026 03:44): 21 → 19. pixel_snap: nếu số nguyên điểm khung vẽ mỗi đơn vị bản đồ lệch cỡ muốn không quá snap_tol thì lấy số nguyên (src/core/screen.js); máy quay luôn đặt đúng lưới điểm.",
  "maps": [
   "thanh-khe",
