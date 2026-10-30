@@ -11,6 +11,17 @@ function questOf(game, npcId) {
 
 export const hasSide = (game, npcId) => !!questOf(game, npcId);
 
+// Người này đang ở động phủ (đạo lữ, khách ghé chơi) thì chỉ nói chuyện việc phụ khi lãnh thưởng hoặc nhận việc; việc đang làm dở
+// thì để nói chuyện nhà, tặng quà như thường (báo lỗi #25: tự hành tới nhận quà của khách, bị câu "Xong rồi quay lại nhé" chặn mãi).
+export function sideFirst(game, npc) {
+  const r = questOf(game, npc.id);
+  if (!r) return false;
+  if (!npc.home && !npc.visit) return true;
+  const s = st(game, r[0]);
+  if (s) return s.n >= r[1].n;
+  return !game.pilot || (pilotOpt(game, 'viec') && !nightRest(game));
+}
+
 export async function talkSide(game, npc) {
   const [id, q] = questOf(game, npc.id), name = npc.def.name, s = st(game, id);
   if (s && s.n >= q.n) {

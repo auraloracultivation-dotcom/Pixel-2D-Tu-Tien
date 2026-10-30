@@ -16,7 +16,7 @@ import { talkArena } from './arena.js';
 import { talkShop } from './shop.js';
 import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
-import { hasSide, talkSide, sideCollect } from './side.js';
+import { sideFirst, talkSide, sideCollect } from './side.js';
 import { talkHome } from './home.js';
 import { canPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
@@ -58,7 +58,7 @@ export function talkTo(game, npc) {
   if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
-  if (hasSide(game, npc.id)) { talkSide(game, npc); return; }
+  if (sideFirst(game, npc)) { talkSide(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
   if (festNpc(game, npc.id)) { talkFest(game, npc); return; }
   if (npc.id === game.data.party.npc) { talkParty(game, npc); return; }
