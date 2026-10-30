@@ -311,6 +311,7 @@ export function drawWorld(game, screen, t) {
     else if (k === 'm') drawMob(ctx, e, t, game);
     else if (k === 'c') drawCorpse(ctx, game, e);
     else if (k === 'o') drawOther(ctx, e, game, t);
+    else if ((k === 'pet' || k === 'comp') && game.player.meditating && !e.target) continue;   // đả tọa: ẩn linh thú, đồng hành đang rảnh (đề xuất #24: run run nhức mắt)
     else if (k === 'pet') drawPet(ctx, e, t, game.data.art);
     else if (k === 'comp') drawComp(ctx, e, t, game.data.art);
     else drawPlayer(ctx, game, t);
