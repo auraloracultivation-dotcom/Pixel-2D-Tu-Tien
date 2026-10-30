@@ -40,6 +40,31 @@ function anim(game, p, look, t) {
   return [name, Math.floor(t * (look.fps[name] || 1))];
 }
 
+// Dáng thân theo kiểu đòn của vũ khí bay (chủ dự án 30/10/2026: "kiếm cũng chém nhiều hướng, chiêu không thể một chiêu"):
+// hình chibi chỉ có một cặp khung đánh, nên mỗi kiểu đòn cho thân chuyển động riêng bằng dời và nén hình (không xoay, giữ điểm ảnh vuông).
+// k: tiến độ đòn 0 → 1 (flyweapon.js strikeLean). Trả về dời ngang dx (về phía trước), dời dọc dy (âm là lên), nén sx, sy, lật flip.
+const ease = k => (k < 0 ? 0 : k > 1 ? 1 : 1 - (1 - k) * (1 - k));
+const bump = (k, a, b) => (k <= a || k >= b ? 0 : Math.sin(Math.PI * (k - a) / (b - a)));
+export function strikePose(move, k) {
+  const P = { dx: 0, dy: 0, sx: 1, sy: 1, flip: 1 };
+  if (k == null) return P;
+  if (move === 'bo') {   // bổ: bật lên cao rồi đập xuống, nén khi chạm đất
+    P.dy = -7 * bump(k, 0, 0.55); const hit = bump(k, 0.5, 0.75); P.sy = 1 - 0.14 * hit; P.sx = 1 + 0.12 * hit; P.dx = 2 * ease(k / 0.6);
+  } else if (move === 'hat') {   // hất: khom xuống lấy đà rồi vút lên, duỗi người
+    const crouch = bump(k, 0, 0.35), rise = bump(k, 0.3, 0.8);
+    P.sy = 1 - 0.14 * crouch + 0.1 * rise; P.sx = 1 + 0.08 * crouch; P.dy = -5 * rise; P.dx = 2 * rise;
+  } else if (move === 'xoay') {   // xoay: xoay người một vòng (lật mặt hai lần), nhấc nhẹ khỏi đất
+    P.flip = k < 0.15 || k > 0.65 ? 1 : (Math.floor((k - 0.15) / 0.125) % 2 ? 1 : -1); P.dy = -3 * bump(k, 0.1, 0.7);
+  } else if (move === 'moc') {   // móc: hạ thấp sát đất, trượt tới
+    const low = bump(k, 0.1, 0.9); P.sy = 1 - 0.16 * low; P.sx = 1 + 0.1 * low; P.dx = 4 * low;
+  } else if (move === 'dam') {   // đâm: lao người tới trước thật nhanh
+    P.dx = 6 * bump(k, 0.15, 0.85); P.sx = 1 + 0.08 * bump(k, 0.3, 0.6);
+  } else {   // quét ngang (quet) và còn lại: lướt tới, ngả người
+    P.dx = 4 * bump(k, 0.1, 0.9); P.sy = 1 - 0.06 * bump(k, 0.35, 0.7);
+  }
+  return P;
+}
+
 // Bề ngang so với NPC theo kg/cm² (căn bậc hai cho đỡ gắt); lệch dưới 10% thì 1 cho khỏi méo vì lệch nhỏ
 function build(H, look) {
   if (!look.kg || !look.cm) return 1;
@@ -68,7 +93,9 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
   const breath = look.breath && name === 'idle' && Math.sin(t * 2.2) > 0.55 ? n : 0;   // chibi đứng: thở nhún 1 điểm ảnh
-  ctx.setTransform(n * wide * (p.lookX || 1), 0, 0, n, Math.round(m.a * (p.x + dx) + m.e), Math.round(m.d * p.y + m.f - breath));
+  const P = look.breath && p === game.player && !own ? strikePose(p.fw?.act?.move, atk) : strikePose(null, null);   // chibi: dáng thân theo kiểu đòn
+  const side = (p.lookX || 1) * P.flip, px = p.x + dx + (p.lookX || 1) * P.dx;
+  ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
