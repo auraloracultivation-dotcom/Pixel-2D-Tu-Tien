@@ -4124,158 +4124,158 @@
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",
-   "v": "c663e3ac",
-   "w": 45,
-   "h": 34,
+   "v": "88dc97d9",
+   "w": 46,
+   "h": 27,
    "frames": 7,
    "anchor": [
-    22,
-    32
+    23,
+    25
    ],
-   "note": "Băng Tinh Nhi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Băng Tinh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.hoa-lang": {
    "file": "assets/art/pet-hoa-lang.png",
-   "v": "0e7e6e50",
-   "w": 34,
-   "h": 32,
+   "v": "1ab52b7b",
+   "w": 30,
+   "h": 27,
    "frames": 7,
    "anchor": [
-    17,
-    30
+    15,
+    25
    ],
-   "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.hu-anh": {
    "file": "assets/art/pet-hu-anh.png",
-   "v": "bfa71ad4",
-   "w": 47,
-   "h": 30,
+   "v": "41e56e31",
+   "w": 50,
+   "h": 33,
    "frames": 7,
    "anchor": [
-    23,
-    28
+    25,
+    31
    ],
-   "note": "Tiểu U Ảnh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu U Ảnh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.kiem-hon": {
    "file": "assets/art/pet-kiem-hon.png",
-   "v": "6f6310d0",
+   "v": "490844ed",
    "w": 50,
-   "h": 36,
+   "h": 31,
    "frames": 7,
    "anchor": [
     25,
-    34
+    29
    ],
-   "note": "Tiểu Kiếm Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Kiếm Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.ma-cung": {
    "file": "assets/art/pet-ma-cung.png",
-   "v": "c75cbdc6",
-   "w": 45,
-   "h": 34,
+   "v": "f39f645c",
+   "w": 68,
+   "h": 30,
    "frames": 7,
    "anchor": [
-    22,
-    32
+    34,
+    28
    ],
-   "note": "Ma Tiễn Đồng (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.ma-tieu": {
    "file": "assets/art/pet-ma-tieu.png",
-   "v": "76c392e6",
-   "w": 33,
-   "h": 34,
+   "v": "b2926bc3",
+   "w": 48,
+   "h": 29,
    "frames": 7,
    "anchor": [
-    16,
-    32
+    24,
+    27
    ],
-   "note": "Tiểu Quỷ (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.moc-linh": {
    "file": "assets/art/pet-moc-linh.png",
-   "v": "1ceffcf3",
-   "w": 34,
-   "h": 34,
+   "v": "fe46686a",
+   "w": 46,
+   "h": 27,
    "frames": 7,
    "anchor": [
-    17,
-    32
+    23,
+    25
    ],
-   "note": "Tiểu Mộc Linh (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Mộc Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.moc-yeu": {
    "file": "assets/art/pet-moc-yeu.png",
-   "v": "99335e56",
-   "w": 40,
+   "v": "e84eee76",
+   "w": 58,
    "h": 34,
    "frames": 7,
    "anchor": [
-    20,
+    29,
     32
    ],
-   "note": "Tiểu Thụ Yêu (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Thụ Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.phong-yeu": {
    "file": "assets/art/pet-phong-yeu.png",
-   "v": "9e0b9a88",
-   "w": 45,
-   "h": 32,
+   "v": "fbdee3e2",
+   "w": 42,
+   "h": 33,
    "frames": 7,
    "anchor": [
-    22,
-    30
+    21,
+    31
    ],
-   "note": "Tiểu Phong Yêu (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Phong Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.tho-khoi": {
    "file": "assets/art/pet-tho-khoi.png",
-   "v": "ad6bcf32",
-   "w": 51,
-   "h": 32,
+   "v": "25acc14b",
+   "w": 58,
+   "h": 34,
    "frames": 7,
    "anchor": [
-    25,
-    30
+    29,
+    32
    ],
-   "note": "Tiểu Thạch Khôi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.tuyet-lang": {
    "file": "assets/art/pet-tuyet-lang.png",
-   "v": "60e75c2e",
-   "w": 44,
-   "h": 30,
+   "v": "f43e4dfa",
+   "w": 34,
+   "h": 27,
    "frames": 7,
    "anchor": [
-    22,
-    28
+    17,
+    25
    ],
-   "note": "Tiểu Tuyết Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.viem-linh": {
    "file": "assets/art/pet-viem-linh.png",
-   "v": "a8fb0f9a",
-   "w": 35,
-   "h": 34,
+   "v": "a639b68a",
+   "w": 48,
+   "h": 27,
    "frames": 7,
    "anchor": [
-    17,
-    32
+    24,
+    25
    ],
-   "note": "Viêm Linh Nhi (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 7 khung",
+   "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pickup.bang-hoa": {
