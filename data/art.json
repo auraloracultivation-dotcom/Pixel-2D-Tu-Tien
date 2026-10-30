@@ -297,6 +297,54 @@
    ],
    "note": "vệt liềm tím (ảnh chủ dự án gửi 28/10) · ảnh Canva"
   },
+  "fx.ma-khi": {
+   "file": "assets/art/fx-ma-khi.png",
+   "v": "dfc1d8a2",
+   "w": 19,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    9,
+    11
+   ],
+   "note": "đám mây ma khí (ảnh Canva nguon/ai/props/ma-tay.png)"
+  },
+  "fx.ma-nut": {
+   "file": "assets/art/fx-ma-nut.png",
+   "v": "6802c0e3",
+   "w": 18,
+   "h": 14,
+   "frames": 1,
+   "anchor": [
+    9,
+    13
+   ],
+   "note": "khe nứt đất tỏa tím (ảnh Canva nguon/ai/props/ma-tay.png)"
+  },
+  "fx.ma-tay": {
+   "file": "assets/art/fx-ma-tay.png",
+   "v": "5fff41d0",
+   "w": 21,
+   "h": 34,
+   "frames": 3,
+   "anchor": [
+    10,
+    33
+   ],
+   "note": "bàn tay khói ma khí: xòe, nửa nắm, nắm (ảnh Canva nguon/ai/props/ma-tay.png)"
+  },
+  "fx.ma-tay-than": {
+   "file": "assets/art/fx-ma-tay-than.png",
+   "v": "e012de77",
+   "w": 13,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    6,
+    29
+   ],
+   "note": "đoạn cánh tay khói ma khí (lát nối) (ảnh Canva nguon/ai/props/ma-tay.png)"
+  },
   "fx.puff": {
    "file": "assets/art/fx-puff.png",
    "v": "4eab0d60",
@@ -4063,147 +4111,147 @@
   },
   "pickup.bang-hoa": {
    "file": "assets/art/pickup-bang-hoa.png",
-   "v": "708052e5",
+   "v": "68e2d616",
    "w": 11,
-   "h": 11,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: băng hoa (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: bang-hoa (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.bang-tam": {
    "file": "assets/art/pickup-bang-tam.png",
-   "v": "947b18d7",
-   "w": 11,
-   "h": 11,
+   "v": "4591b237",
+   "w": 12,
+   "h": 13,
    "frames": 1,
    "anchor": [
-    5,
-    10
+    6,
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: băng tâm (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: bang-tam (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.hoa-tinh-thach": {
    "file": "assets/art/pickup-hoa-tinh-thach.png",
-   "v": "8048d339",
-   "w": 11,
-   "h": 11,
+   "v": "d52a8a4e",
+   "w": 10,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: hỏa tinh thạch (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: hoa-tinh-thach (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.hu-tinh": {
    "file": "assets/art/pickup-hu-tinh.png",
-   "v": "0439bc75",
+   "v": "a0e722d9",
    "w": 11,
-   "h": 11,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: hư tinh (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: hu-tinh (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.kim-sa-tinh": {
    "file": "assets/art/pickup-kim-sa-tinh.png",
-   "v": "1aa9739d",
-   "w": 11,
-   "h": 11,
+   "v": "b09974cc",
+   "w": 14,
+   "h": 13,
    "frames": 1,
    "anchor": [
-    5,
-    10
+    7,
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: kim sa tinh (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: kim-sa-tinh (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.linh-nhuong": {
    "file": "assets/art/pickup-linh-nhuong.png",
-   "v": "26dd06b5",
-   "w": 11,
-   "h": 11,
+   "v": "e63125c0",
+   "w": 10,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: linh nhưỡng (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: linh-nhuong (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.linh-quang": {
    "file": "assets/art/pickup-linh-quang.png",
-   "v": "8e028111",
-   "w": 11,
-   "h": 11,
+   "v": "fe75f9ca",
+   "w": 12,
+   "h": 13,
    "frames": 1,
    "anchor": [
-    5,
-    10
+    6,
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: đốm linh quang (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: linh-quang (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.linh-thao": {
    "file": "assets/art/pickup-linh-thao.png",
-   "v": "ce99cc1a",
-   "w": 11,
-   "h": 11,
+   "v": "62bec774",
+   "w": 10,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: linh thảo (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: linh-thao (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.manh-kiem": {
    "file": "assets/art/pickup-manh-kiem.png",
-   "v": "c0e9471e",
-   "w": 11,
-   "h": 11,
+   "v": "07693891",
+   "w": 9,
+   "h": 13,
    "frames": 1,
    "anchor": [
-    5,
-    10
+    4,
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: mảnh kiếm gãy (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: manh-kiem (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.ngoc-cau-cuu": {
    "file": "assets/art/pickup-ngoc-cau-cuu.png",
-   "v": "c4cf872e",
+   "v": "e58dde7a",
    "w": 11,
-   "h": 11,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: ngọc bài cầu cứu (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: ngoc-cau-cuu (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.suong-mai": {
    "file": "assets/art/pickup-suong-mai.png",
-   "v": "6cba9e77",
-   "w": 11,
-   "h": 11,
+   "v": "29efb1c1",
+   "w": 12,
+   "h": 13,
    "frames": 1,
    "anchor": [
-    5,
-    10
+    6,
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: giọt sương mai (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: suong-mai (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "pickup.tran-nhan": {
    "file": "assets/art/pickup-tran-nhan.png",
-   "v": "baea3eaa",
-   "w": 11,
-   "h": 11,
+   "v": "56b557e0",
+   "w": 10,
+   "h": 13,
    "frames": 1,
    "anchor": [
     5,
-    10
+    12
    ],
-   "note": "đồ nhiệm vụ nhặt trên đất: mảnh trận nhãn (vẽ code, màu theo items.json)"
+   "note": "đồ nhiệm vụ nhặt trên đất: tran-nhan (ảnh Canva nguon/ai/props/do-nhat.png)"
   },
   "proj.arrow": {
    "file": "assets/art/proj-arrow.png",
@@ -4315,15 +4363,15 @@
   },
   "prop.blackpillar": {
    "file": "assets/art/prop-blackpillar.png",
-   "v": "146a006f",
-   "w": 12,
+   "v": "d8625dd5",
+   "w": 16,
    "h": 26,
    "frames": 2,
    "anchor": [
-    6,
+    8,
     25
    ],
-   "note": "trụ đá đen (ô U): phù văn tím; vỡ đỉnh"
+   "note": "trụ đá đen phù văn tím, vỡ đỉnh (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.broken-sword": {
    "file": "assets/art/prop-broken-sword.png",
@@ -4339,27 +4387,27 @@
   },
   "prop.bush": {
    "file": "assets/art/prop-bush.png",
-   "v": "ff0a1384",
-   "w": 16,
-   "h": 11,
-   "frames": 2,
-   "anchor": [
-    8,
-    10
-   ],
-   "note": "bụi cây thấp: xanh, có hoa vàng; rải trên cỏ"
-  },
-  "prop.crystal": {
-   "file": "assets/art/prop-crystal.png",
-   "v": "f3eda993",
+   "v": "d8df86a9",
    "w": 14,
-   "h": 20,
+   "h": 12,
    "frames": 2,
    "anchor": [
     7,
+    11
+   ],
+   "note": "bụi xanh, bụi hoa vàng (ảnh Canva nguon/ai/props/, 2 biến thể)"
+  },
+  "prop.crystal": {
+   "file": "assets/art/prop-crystal.png",
+   "v": "40432514",
+   "w": 16,
+   "h": 20,
+   "frames": 2,
+   "anchor": [
+    8,
     19
    ],
-   "note": "tinh thể tím (ô *): cụm cao, cụm thấp"
+   "note": "tinh thể tím cao, thấp (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.cushion": {
    "file": "assets/art/prop-cushion.png",
@@ -4375,15 +4423,15 @@
   },
   "prop.deadtree": {
    "file": "assets/art/prop-deadtree.png",
-   "v": "2dea6117",
-   "w": 16,
+   "v": "8ae27f3b",
+   "w": 20,
    "h": 24,
    "frames": 2,
    "anchor": [
-    8,
+    10,
     23
    ],
-   "note": "cây khô (ô V): cành trơ; có quạ đậu"
+   "note": "cây khô cành trơ, có quạ đậu (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.furnace": {
    "file": "assets/art/prop-furnace.png",
@@ -4399,15 +4447,15 @@
   },
   "prop.icepillar": {
    "file": "assets/art/prop-icepillar.png",
-   "v": "9830f45d",
-   "w": 12,
+   "v": "bb465e98",
+   "w": 18,
    "h": 26,
    "frames": 2,
    "anchor": [
-    6,
+    9,
     25
    ],
-   "note": "trụ băng (ô k): tinh thể vát nhọn; có nhánh nhỏ"
+   "note": "trụ băng (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.lantern": {
    "file": "assets/art/prop-lantern.png",
@@ -4423,27 +4471,27 @@
   },
   "prop.mushroom": {
    "file": "assets/art/prop-mushroom.png",
-   "v": "06cc05da",
-   "w": 16,
+   "v": "32d1eee3",
+   "w": 12,
    "h": 12,
    "frames": 2,
    "anchor": [
-    8,
+    6,
     11
    ],
-   "note": "cụm nấm phát sáng (ô n): mũ xanh ngọc; thêm nấm nhỏ"
+   "note": "cụm nấm phát sáng xanh ngọc (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.oldtree": {
    "file": "assets/art/prop-oldtree.png",
-   "v": "e3b62b30",
-   "w": 32,
+   "v": "5fb08ecb",
+   "w": 36,
    "h": 40,
    "frames": 2,
    "anchor": [
-    16,
+    18,
     38
    ],
-   "note": "cổ thụ (ô Z): tán đậm nhiều tầng, rễ bò; có dây leo hoa trắng"
+   "note": "cổ thụ tán tầng, cổ thụ dây leo hoa trắng (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.peak-4a3a5a": {
    "file": "assets/art/prop-peak-4a3a5a.png",
@@ -4555,27 +4603,27 @@
   },
   "prop.pillar": {
    "file": "assets/art/prop-pillar.png",
-   "v": "19eca069",
-   "w": 12,
+   "v": "ba8482df",
+   "w": 16,
    "h": 26,
    "frames": 2,
    "anchor": [
-    6,
+    8,
     24
    ],
-   "note": "cột đá đất nung (ô I): trơn, có chữ cổ hổ phách"
+   "note": "cột đất nung, có chữ cổ hổ phách (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.pine": {
    "file": "assets/art/prop-pine.png",
-   "v": "4a4ebec3",
-   "w": 18,
+   "v": "42bc7471",
+   "w": 22,
    "h": 28,
    "frames": 2,
    "anchor": [
-    9,
+    11,
     26
    ],
-   "note": "tùng phủ tuyết (ô Y): ba tầng tán, tuyết đọng; cây thấp"
+   "note": "tùng phủ tuyết lớn, nhỏ (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.portal": {
    "file": "assets/art/prop-portal.png",
@@ -4591,15 +4639,15 @@
   },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
-   "v": "878f148c",
-   "w": 16,
+   "v": "11ecb144",
+   "w": 12,
    "h": 12,
    "frames": 2,
    "anchor": [
-    8,
+    6,
     11
    ],
-   "note": "đá, đá có rêu"
+   "note": "đá xám, đá rêu (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.spiritstone": {
    "file": "assets/art/prop-spiritstone.png",
@@ -4615,15 +4663,15 @@
   },
   "prop.sword-grave": {
    "file": "assets/art/prop-sword-grave.png",
-   "v": "a9f28d9a",
-   "w": 16,
+   "v": "be36175d",
+   "w": 18,
    "h": 24,
    "frames": 2,
    "anchor": [
-    8,
+    9,
     22
    ],
-   "note": "mộ kiếm (ô J): kiếm cắm thẳng, kiếm nghiêng có tua"
+   "note": "mộ kiếm (khung 2 lật ngang) (ảnh Canva nguon/ai/props/, 2 biến thể)"
   },
   "prop.torch": {
    "file": "assets/art/prop-torch.png",
@@ -4639,15 +4687,15 @@
   },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
-   "v": "af06591b",
-   "w": 30,
+   "v": "6b132f14",
+   "w": 34,
    "h": 38,
    "frames": 3,
    "anchor": [
-    15,
+    17,
     36
    ],
-   "note": "cây: quả đỏ, tán tròn, hoa đào"
+   "note": "cây quả đỏ, hoa đào, hoa trắng (ảnh Canva nguon/ai/props/, 3 biến thể)"
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",
@@ -5212,6 +5260,30 @@
     0
    ],
    "note": "khung nút chữ 12×12 cắt 4 (border-image): mực, nẹp vàng, lòng gỗ son"
+  },
+  "ui.btn-lg": {
+   "file": "assets/art/ui-btn-lg.png",
+   "v": "d34e11a6",
+   "w": 24,
+   "h": 24,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung nút lớn màn đăng nhập 24×24 cắt 8: thân cam sơn bóng, nẹp vàng, đinh góc"
+  },
+  "ui.btn-lg-alt": {
+   "file": "assets/art/ui-btn-lg-alt.png",
+   "v": "3cf8375a",
+   "w": 24,
+   "h": 24,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "khung nút lớn phụ: thân tím"
   },
   "ui.btn-on": {
    "file": "assets/art/ui-btn-on.png",

@@ -123,10 +123,33 @@ def _ring(gem, S=64):
     return c
 
 
+def _btn_lg(top, bot, rim=None):
+    """Khung nút lớn 24×24 cắt 8 cho màn đăng nhập: viền mực bo góc, nẹp vàng hai lớp, thân sơn bóng hai tông
+    (nửa trên sáng có vệt bóng), đinh vàng bốn góc. top/bot: màu thân trên/dưới."""
+    S = 24; c = Canvas(S, S); t, b = hx(top), hx(bot); hl = hx(rim or '#fff3c4')
+    for y in range(S):
+        for x in range(S):
+            d = min(x, y, S - 1 - x, S - 1 - y)
+            corner = min(x, S - 1 - x) + min(y, S - 1 - y)
+            if corner < 2: continue                      # bo góc
+            if d == 0 or corner == 2: col = INK
+            elif d == 1: col = GOLD_L if y < S // 2 else GOLD
+            elif d == 2: col = GOLD_D
+            elif d == 3: col = INK if y > S - 5 else GOLD_D
+            else: col = t if y < S // 2 else b
+            c.px(x, y, col)
+    for x in range(5, S - 5): c.px(x, 5, hl)              # vệt bóng trên thân
+    for ox, oy in ((3, 3), (S - 5, 3), (3, S - 5), (S - 5, S - 5)):
+        c.px(ox, oy, GOLD_L); c.px(ox + 1, oy, GOLD); c.px(ox, oy + 1, GOLD); c.px(ox + 1, oy + 1, GOLD_D)
+    return c
+
+
 RINGS = {'skill': ('#ff6a4a', '#a8201a'), 'art': ('#7affc0', '#1a8a5a'), 'pill': ('#ff8ad8', '#a02a6a'), 'dash': ('#8ad8ff', '#2a5aa8')}
 
 
 def frames(save):
+    save('ui.btn-lg', [_btn_lg('#ffb04a', '#d0601a')], (0, 0), 'khung nút lớn màn đăng nhập 24×24 cắt 8: thân cam sơn bóng, nẹp vàng, đinh góc')
+    save('ui.btn-lg-alt', [_btn_lg('#8a5ad0', '#4a2484', '#e8d0ff')], (0, 0), 'khung nút lớn phụ: thân tím')
     for k, gem in RINGS.items():
         save('ui.round-' + k, [_ring(gem)], (32, 32), f'khung tròn đều 64×64 cho nút {k} (vẽ code, ngọc {gem[0]})')
     save('ui.btn', [_button(False)], (0, 0), 'khung nút chữ 12×12 cắt 4 (border-image): mực, nẹp vàng, lòng gỗ son')

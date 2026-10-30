@@ -1,6 +1,9 @@
 // Hiệu ứng dàn cảnh trong truyện (lệnh {"fx": ...} ở data/story.json, src/game/story.js đặt game.storyFx).
 // "ma-tay" (báo cáo #11, issue #333): khe nứt mở dưới chân NPC, cánh tay khói ma khí vươn lên, nắm lấy rồi kéo NPC lên trời,
-// ma khí tím đen loang ra khắp làng rồi tan dần. Vẽ khối điểm ảnh nguyên, đồng hồ theo giờ thật (hộp thoại dừng game nhưng cảnh vẫn chạy).
+// ma khí tím đen loang ra khắp làng rồi tan dần. Có hình Canva (fx.ma-tay, fx.ma-tay-than, fx.ma-nut, fx.ma-khi; chủ dự án 30/10/2026)
+// thì vẽ bằng hình, chưa tải xong thì vẽ khối điểm ảnh nguyên; đồng hồ theo giờ thật (hộp thoại dừng game nhưng cảnh vẫn chạy).
+import { spriteImage } from './sprites.js';
+
 const INK = '#120818', SMOKE = ['#1e0f2a', '#2e1640', '#4a2468'], GLOW = '#b45cff';
 const R = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); };
 const ease = k => (k < 0 ? 0 : k > 1 ? 1 : 1 - (1 - k) * (1 - k));
@@ -55,11 +58,47 @@ function fog(ctx, game, fx, age) {   // ma khí loang khắp làng quanh khe n�
   ctx.globalAlpha = 1;
 }
 
+function art(game, id) { const spr = game.data.art.sprites[id], im = spr && spriteImage(spr); return im ? { spr, im } : null; }
+
+function blit(ctx, a, f, x, y, k = 1, alpha = 1) {   // khung f của hình a, tâm ngang x, đáy y, phóng k
+  const { spr, im } = a, w = spr.w * k, h = spr.h * k;
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(im, Math.min(f, spr.frames - 1) * spr.w, 0, spr.w, spr.h, Math.round(x - w / 2), Math.round(y - h), Math.round(w), Math.round(h));
+  ctx.globalAlpha = 1;
+}
+
+function drawWithArt(ctx, game, fx, age, A) {   // cùng nhịp với bản vẽ khối, dùng hình Canva
+  const fogA = Math.min(1, age / 1.5) * Math.max(0, 1 - Math.max(0, age - fx.fog) / 3);
+  if (fogA > 0) for (let i = 0; i < 14; i++) {
+    const ang = i * 2.39, d = 18 + (i * 37) % 130 * Math.min(1, age / 2.5);
+    blit(ctx, A.cloud, 0, fx.x + Math.cos(ang) * d + Math.sin(age * 0.6 + i) * 10, fx.y + Math.sin(ang) * d * 0.55 + 10 - (age * 3 + i * 5) % 10, 1.2 + (i % 3) * 0.4, fogA * 0.42);
+  }
+  const RISE = 0.9, GRAB = 1.3, DRAG = 2.4, gx = fx.x, gy = fx.y + 6;
+  const open = ease(age / 0.4) * (age > DRAG + 0.6 ? Math.max(0, 1 - (age - DRAG - 0.6) / 0.5) : 1);
+  if (open > 0.05) blit(ctx, A.crack, 0, gx, gy + A.crack.spr.h / 2, 1.6 * open, 1);
+  if (age > DRAG + 0.6) return;
+  let hy;
+  if (age < RISE) hy = gy - 56 * ease(age / RISE);
+  else if (age < GRAB) hy = gy - 56 + 30 * ease((age - RISE) / (GRAB - RISE));
+  else hy = gy - 26 - 150 * ease((age - GRAB) / (DRAG - GRAB));
+  const grip = age < RISE ? 0 : Math.min(1, (age - RISE) / (GRAB - RISE));
+  const npc = game.npcs.find(n => n.id === fx.npc);
+  if (npc && age > GRAB) {
+    if (fx.ny == null) { fx.nx = npc.x; fx.ny = npc.y; }
+    npc.y = Math.min(fx.ny, hy + 18); npc.x = fx.nx + Math.sin(age * 9) * 1.5;
+  }
+  const seg = A.arm.spr.h * 1.7;   // thân tay: lát khói nối từ khe nứt lên tới cổ tay, lắc nhẹ
+  for (let y = gy; y > hy + 20; y -= seg * 0.7) blit(ctx, A.arm, 0, gx + Math.sin(age * 5 + y * 0.08) * 3, y, 1.7);
+  blit(ctx, A.hand, grip < 0.35 ? 0 : grip < 0.8 ? 1 : 2, gx, hy + A.hand.spr.h * 1.1, 2.2);
+}
+
 export function drawStoryFx(ctx, game) {
   const fx = game.storyFx;
   if (!fx || fx.fx !== 'ma-tay') return;
   const age = (performance.now() - fx.t0) / 1000, t = age;
   if (age > fx.fog + 3.5) { game.storyFx = null; return; }
+  const A = { hand: art(game, 'fx.ma-tay'), arm: art(game, 'fx.ma-tay-than'), crack: art(game, 'fx.ma-nut'), cloud: art(game, 'fx.ma-khi') };
+  if (A.hand && A.arm && A.crack && A.cloud) return drawWithArt(ctx, game, fx, age, A);
   fog(ctx, game, fx, age);
   const npc = game.npcs.find(n => n.id === fx.npc), RISE = 0.9, GRAB = 1.3, DRAG = 2.4;
   const gx = fx.x, gy = fx.y + 6;   // khe nứt ngay dưới chân

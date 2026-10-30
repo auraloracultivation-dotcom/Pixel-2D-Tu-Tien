@@ -92,8 +92,8 @@ body[data-le="tet"] .bag-head::before { background-image: url("assets/art/ui-lan
 /* ---- màn đăng nhập mùa Halloween (chủ dự án 29/10/2026): nền Canva cung điện bay thắp đèn lồng, bí ngô, trăng cam;
    huy hiệu bí ngô đội mũ phù thủy trên tên game; nút màu bí ngô / tím; tàn lửa bay lên; chỉ thắp đèn, không ánh sáng tự nhiên ---- */
 body[data-le="halloween"] #menu {
-  background: radial-gradient(ellipse at 50% 40%, rgba(255, 140, 40, .10), transparent 55%), linear-gradient(rgba(14, 6, 24, .25), rgba(14, 6, 24, .55)),
-    url("assets/icon/splash-halloween.png") center / cover;
+  background: radial-gradient(ellipse at 50% 45%, rgba(14, 6, 24, .38), transparent 70%), linear-gradient(rgba(14, 6, 24, .05), rgba(14, 6, 24, .30)),
+    url("assets/icon/splash-halloween-2.png") center / cover;   /* chủ dự án 30/10: nền cũ đậm quá → tranh Canva sáng hơn, phủ tối nhẹ */
   image-rendering: pixelated;
 }
 body[data-le="halloween"] #menu h1 {
@@ -205,3 +205,31 @@ body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block
 body.perf-calm *, body.perf-calm *::before, body.perf-calm *::after { animation: none !important; }
 body.perf-calm #btn-atk::after, body.perf-calm #btn-s0::after, body.perf-calm #btn-s1::after, body.perf-calm #btn-s2::after,
 body.perf-calm #btn-dash::after, body.perf-calm #btn-pill::after, body.perf-calm #btn-art::after { filter: none !important; }
+
+/* ---- màn tải và màn đăng nhập (chủ dự án 30/10/2026: màn tải là ảnh phóng to trông giả, màn đăng nhập đậm quá, khung đổi cho đẹp):
+   nền tranh Canva gom màu thành điểm ảnh thật (assets/icon/splash-pixel.png, 200 điểm phóng nguyên 4 lần), phủ tối nhẹ;
+   nút lớn khung 9 mảnh ui.btn-lg (cam) / ui.btn-lg-alt (tím); cụm đăng nhập nằm trong khung gỗ mảnh ---- */
+#loading {
+  background: radial-gradient(ellipse 110px 26px at 50% 50%, rgba(20, 10, 40, .78), rgba(20, 10, 40, .5) 60%, transparent),
+    linear-gradient(rgba(12, 8, 28, .05), rgba(12, 8, 28, .35)), url("assets/icon/splash-pixel.png") center / cover, var(--night) !important;
+  image-rendering: pixelated; font-family: var(--f-pixel) !important; font-size: 16px !important; color: #fff3c4 !important;
+  text-shadow: 1px 0 #2a1638, -1px 0 #2a1638, 0 1px #2a1638, 0 -1px #2a1638 !important;
+}
+#menu { background: linear-gradient(rgba(12, 8, 28, .10), rgba(12, 8, 28, .40)), url("assets/icon/splash-pixel.png") center / cover; image-rendering: pixelated; }
+#menu .menu-btn, body[data-le] #menu .menu-btn {
+  border: 8px solid transparent !important; border-image: url("assets/art/ui-btn-lg.png") 8 fill / 8px / 0 stretch !important;
+  background: none !important; box-shadow: 0 3px 0 rgba(20, 8, 30, .55) !important; border-radius: 0 !important;
+  font-family: var(--f-pixel) !important; font-size: 16px !important; font-weight: 400 !important; color: #3a1206 !important;
+  text-shadow: 0 1px 0 rgba(255, 230, 170, .7) !important; padding: 6px 10px !important; image-rendering: pixelated;
+}
+#menu .menu-btn.alt, body[data-le] #menu .menu-btn.alt { border-image-source: url("assets/art/ui-btn-lg-alt.png") !important; color: #fff0d0 !important; text-shadow: 0 1px 0 #2a0a3a !important; }
+#menu .menu-btn:active { transform: translateY(2px); box-shadow: none !important; filter: brightness(1.08); }
+#logged, #login-form {
+  border: 12px solid transparent; border-image: url("assets/art/ui-frame-thin.png") 12 fill / 12px / 0 stretch; image-rendering: pixelated;
+  padding: 4px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: 300px;
+}
+#logged[hidden], #login-form[hidden] { display: none; }
+#logged .hello { margin: 0; font-family: var(--f-pixel); font-size: 16px; color: #ffe6a0; }
+#menu .link-btn { font-family: var(--f-pixel) !important; font-size: 14px !important; }
+#menu .help, #menu .health { background: rgba(14, 8, 26, .55); padding: 4px 8px; font-family: var(--f-pixel); }
+#login-msg:not(:empty) { background: rgba(20, 8, 30, .78); padding: 4px 10px; font-family: var(--f-pixel); color: #ffb0a0; text-shadow: none; max-width: 320px; }
