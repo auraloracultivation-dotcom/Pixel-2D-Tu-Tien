@@ -1,6 +1,6 @@
 {
  "_note": "Điểm danh ngày, tuần, tháng, quý (chủ dự án chốt 30/10/2026): mỗi tài khoản 1 lần mỗi ngày theo giờ Việt Nam, đếm số ngày trong kỳ (tuần từ thứ Hai, tháng, quý theo lịch), đủ 'can' ngày thì nhận quà mốc một lần mỗi kỳ. Quà cố định cho mọi người: coins Linh Thạch, khoa Khóa Linh Thạch, ngoc cấp ngọc (loại theo lựa chọn ở sự kiện giới thiệu, mặc định Hồng Ngọc). Máy chủ ghi và gửi quà qua Hòm thư (supabase/migrations/20261030050000_p2d_diem_danh.sql, hàm p2d_dd_luat); rules phải khớp, tools/check.mjs so sánh. Bảng ở tab Hằng ngày (src/ui/checkin-card.js).",
- "rules": {"ngay": {"coins": 500}, "tuan": {"can": 5, "coins": 3000, "khoa": 1, "ngoc": 4}, "thang": {"can": 20, "coins": 10000, "khoa": 3, "ngoc": 5}, "quy": {"can": 60, "coins": 30000, "khoa": 6, "ngoc": 6}},
+ "rules": {"ngay": {"coins": 500}, "tuan": {"can": 5, "coins": 3000, "khoa": 1, "ngoc": 6}, "thang": {"can": 20, "coins": 10000, "khoa": 3, "ngoc": 7}, "quy": {"can": 60, "coins": 30000, "khoa": 6, "ngoc": 8}},
  "names": {"tuan": "Tuần", "thang": "Tháng", "quy": "Quý"},
  "mail": {"diem_danh_ngay": "Điểm danh hôm nay", "diem_danh_tuan": "Đủ mốc điểm danh tuần", "diem_danh_thang": "Đủ mốc điểm danh tháng", "diem_danh_quy": "Đủ mốc điểm danh quý"},
  "text": {

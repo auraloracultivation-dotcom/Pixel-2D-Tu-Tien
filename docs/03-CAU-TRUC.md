@@ -204,7 +204,7 @@ Chủ dự án chốt 30/10/2026. Mỗi tài khoản đã có bản lưu điểm
 
 Máy chủ đếm số ngày đã điểm danh trong kỳ: tuần tính từ thứ Hai, tháng và quý theo lịch. Đủ số ngày (5/7, 20, 60) thì nhận quà mốc, mỗi kỳ một lần.
 
-Quà cố định cho mọi người: ngày 500 Linh Thạch. Mốc tuần, tháng, quý cho Linh Thạch, Khóa Linh Thạch và 1 viên ngọc cấp 4 / 5 / 6, loại theo `p2d_gt_ngoc`. Quà gửi qua Hòm thư (ly_do `diem_danh_*`). Điểm danh xong máy khách nhận thư ngay (`claimMail`).
+Quà cố định cho mọi người: ngày 500 Linh Thạch. Mốc tuần, tháng, quý cho Linh Thạch, Khóa Linh Thạch và 1 viên ngọc cấp 6 / 7 / 8 (chủ dự án nâng 30/10 13:48), loại theo `p2d_gt_ngoc`. Quà gửi qua Hòm thư (ly_do `diem_danh_*`). Điểm danh xong máy khách nhận thư ngay (`claimMail`).
 
 Máy chủ: `supabase/migrations/20261030050000_p2d_diem_danh.sql`.
 - Bảng: `p2d_diem_danh`, `p2d_diem_danh_moc`.
