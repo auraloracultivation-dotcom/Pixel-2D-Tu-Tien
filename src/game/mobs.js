@@ -45,7 +45,7 @@ function strike(game, m, dmg) {
 function mobShoot(game, b) { shoot(game, b); partyShot(game, b); }
 
 export function updateMobs(game, dt) {
-  const host = partyHostRun(game);
+  const host = partyHostRun(game), S = game.data.config.npc_safe;
   for (const m of game.mobs) {
     if (m.dead) continue;
     m.flash -= dt; m.slowT -= dt; m.stunT -= dt; m.t += dt; m.cd -= dt; m.hop += dt * 6;
@@ -62,6 +62,7 @@ export function updateMobs(game, dt) {
       if (Math.abs(m.kx) + Math.abs(m.ky) < 2) { m.kx = 0; m.ky = 0; }
     }
     if (m.stunT > 0 || game.paused) continue;
+    if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && nearNpc(game, p, S.r)) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe)
     const d = dist(m, p);
     if (!m.aggro && m.def.aggro && d < m.def.aggro) m.aggro = true;
     if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)
@@ -72,6 +73,8 @@ export function updateMobs(game, dt) {
   }
   game.mobs = game.mobs.filter(m => !m.dead);
 }
+
+const nearNpc = (game, p, r) => !!p && game.npcs.some(n => Math.abs(n.x - p.x) < r && Math.abs(n.y - p.y) < r && Math.hypot(n.x - p.x, n.y - p.y) < r);
 
 function wander(game, m, dt) {
   if (m.t > 2.5) {

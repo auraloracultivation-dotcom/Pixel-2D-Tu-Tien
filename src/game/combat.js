@@ -36,7 +36,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
-  m.hp -= dmg; m.flash = feel.flash; m.aggro = true;
+  m.hp -= dmg; m.flash = feel.flash; m.aggro = true; m.hurtT = game.time;   // hurtT: vừa bị đánh thì đánh trả cả trong vùng an toàn quanh NPC
   if (m.remote) m.hp = Math.max(1, m.hp);
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
