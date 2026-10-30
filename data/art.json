@@ -2237,7 +2237,7 @@
   },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",
-   "v": "53211337",
+   "v": "e5e38b27",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2245,11 +2245,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu arrow"
+   "note": "biểu tượng chiêu arrow (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.bolt": {
    "file": "assets/art/icon-bolt.png",
-   "v": "f3871a7d",
+   "v": "0a4b4c4a",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2257,11 +2257,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu bolt"
+   "note": "biểu tượng chiêu bolt (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.buff": {
    "file": "assets/art/icon-buff.png",
-   "v": "42582ba6",
+   "v": "c7eb803c",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2269,11 +2269,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu buff"
+   "note": "biểu tượng chiêu buff (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.fire": {
    "file": "assets/art/icon-fire.png",
-   "v": "4c40eeaa",
+   "v": "198fb5dc",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2281,11 +2281,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu fire"
+   "note": "biểu tượng chiêu fire (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.heal": {
    "file": "assets/art/icon-heal.png",
-   "v": "5343dc3d",
+   "v": "62a3d773",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2293,11 +2293,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu heal"
+   "note": "biểu tượng chiêu heal (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.ice": {
    "file": "assets/art/icon-ice.png",
-   "v": "fa7baf90",
+   "v": "111db702",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2305,11 +2305,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu ice"
+   "note": "biểu tượng chiêu ice (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.liem": {
    "file": "assets/art/icon-liem.png",
-   "v": "9d8c3a20",
+   "v": "fac970a2",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2317,11 +2317,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu liem"
+   "note": "biểu tượng chiêu liem (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.orb": {
    "file": "assets/art/icon-orb.png",
-   "v": "e3759019",
+   "v": "df6be623",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2329,11 +2329,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu orb"
+   "note": "biểu tượng chiêu orb (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.rock": {
    "file": "assets/art/icon-rock.png",
-   "v": "70f3662b",
+   "v": "ff56bac9",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2341,11 +2341,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu rock"
+   "note": "biểu tượng chiêu rock (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.shield": {
    "file": "assets/art/icon-shield.png",
-   "v": "4c2229bc",
+   "v": "1146f7d8",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2353,11 +2353,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu shield"
+   "note": "biểu tượng chiêu shield (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.shield-earth": {
    "file": "assets/art/icon-shield-earth.png",
-   "v": "e692ca13",
+   "v": "f74b37be",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2365,11 +2365,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu shield-earth"
+   "note": "biểu tượng chiêu shield-earth (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.slash": {
    "file": "assets/art/icon-slash.png",
-   "v": "ec2bdbba",
+   "v": "7a5c52f1",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2377,11 +2377,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu slash"
+   "note": "biểu tượng chiêu slash (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.sound": {
    "file": "assets/art/icon-sound.png",
-   "v": "d056a65c",
+   "v": "55f1c536",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2389,11 +2389,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu sound"
+   "note": "biểu tượng chiêu sound (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
   "icon.vine": {
    "file": "assets/art/icon-vine.png",
-   "v": "89f58522",
+   "v": "1ca1f9ad",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2401,11 +2401,11 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu vine"
+   "note": "biểu tượng chiêu vine (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "icon.wind": {
    "file": "assets/art/icon-wind.png",
-   "v": "9a8fb1c4",
+   "v": "3fbb721a",
    "w": 16,
    "h": 16,
    "frames": 1,
@@ -2413,7 +2413,7 @@
     8,
     8
    ],
-   "note": "biểu tượng chiêu wind"
+   "note": "biểu tượng chiêu wind (ảnh Canva nguon/ai/props/icon-chieu-1.png)"
   },
   "item.kiem": {
    "file": "assets/art/item-kiem.png",
