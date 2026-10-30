@@ -4522,15 +4522,15 @@
   },
   "prop.anvil": {
    "file": "assets/art/prop-anvil.png",
-   "v": "ed23d13b",
-   "w": 22,
+   "v": "5f6b49c7",
+   "w": 20,
    "h": 18,
    "frames": 2,
    "anchor": [
-    11,
+    10,
     16
    ],
-   "note": "lò rèn (ô A): bệ than hồng, đe sắt trên gốc gỗ, búa dựa; 2 khung"
+   "note": "lò rèn: bệ than, đe trên gốc gỗ, búa; 2 khung than hồng (ảnh Canva nguon/ai/props/anim-anvil.png)"
   },
   "prop.blackpillar": {
    "file": "assets/art/prop-blackpillar.png",
@@ -4546,15 +4546,15 @@
   },
   "prop.broken-sword": {
    "file": "assets/art/prop-broken-sword.png",
-   "v": "61e1b7ff",
-   "w": 16,
+   "v": "7bcb206a",
+   "w": 22,
    "h": 16,
    "frames": 3,
    "anchor": [
-    8,
+    11,
     8
    ],
-   "note": "kiếm gãy nằm (ô h, nền Kiếm Trủng): ngang, chéo xuống, chéo lên"
+   "note": "kiếm gãy nằm: ngang, chéo xuống, chéo lên (ảnh Canva nguon/ai/props/anim-misc.png)"
   },
   "prop.bush": {
    "file": "assets/art/prop-bush.png",
@@ -4582,15 +4582,15 @@
   },
   "prop.cushion": {
    "file": "assets/art/prop-cushion.png",
-   "v": "f1aacd8c",
-   "w": 16,
+   "v": "5d6971c0",
+   "w": 14,
    "h": 11,
    "frames": 1,
    "anchor": [
-    8,
+    7,
     5
    ],
-   "note": "bồ đoàn đả tọa (ô M): đệm cói tết vòng, thêu sen vàng"
+   "note": "bồ đoàn cói thêu sen vàng (ảnh Canva nguon/ai/props/anim-misc.png)"
   },
   "prop.deadtree": {
    "file": "assets/art/prop-deadtree.png",
@@ -4606,7 +4606,7 @@
   },
   "prop.furnace": {
    "file": "assets/art/prop-furnace.png",
-   "v": "8fbcabed",
+   "v": "cd012ec3",
    "w": 20,
    "h": 24,
    "frames": 3,
@@ -4614,7 +4614,7 @@
     10,
     22
    ],
-   "note": "lò đan (ô K): đỉnh đồng ba chân, cửa lò lửa nhảy 3 khung"
+   "note": "lò đan đỉnh đồng ba chân, 3 khung lửa cửa lò (ảnh Canva nguon/ai/props/anim-furnace.png)"
   },
   "prop.icepillar": {
    "file": "assets/art/prop-icepillar.png",
@@ -4630,15 +4630,15 @@
   },
   "prop.lantern": {
    "file": "assets/art/prop-lantern.png",
-   "v": "f7425178",
-   "w": 10,
+   "v": "97166c22",
+   "w": 18,
    "h": 22,
    "frames": 2,
    "anchor": [
-    5,
+    9,
     21
    ],
-   "note": "đèn lồng giấy đỏ treo cột gỗ (ô Q): 2 khung lửa nhảy"
+   "note": "đèn lồng giấy đỏ treo cột gỗ, 2 khung sáng tối (ảnh Canva nguon/ai/props/anim-lantern.png)"
   },
   "prop.mushroom": {
    "file": "assets/art/prop-mushroom.png",
@@ -4798,15 +4798,15 @@
   },
   "prop.portal": {
    "file": "assets/art/prop-portal.png",
-   "v": "81a0e39b",
-   "w": 20,
+   "v": "c8dc16b7",
+   "w": 18,
    "h": 14,
    "frames": 4,
    "anchor": [
-    10,
+    9,
     7
    ],
-   "note": "cổng truyền tống (ô P): vành đá khắc, lòng xoáy tím xoay 4 khung"
+   "note": "cổng truyền tống vành đá, xoáy tím 4 khung (ảnh Canva nguon/ai/props/anim-portal.png)"
   },
   "prop.rock": {
    "file": "assets/art/prop-rock.png",
@@ -4846,7 +4846,7 @@
   },
   "prop.torch": {
    "file": "assets/art/prop-torch.png",
-   "v": "0f70a079",
+   "v": "baebd15d",
    "w": 10,
    "h": 18,
    "frames": 4,
@@ -4854,7 +4854,7 @@
     5,
     17
    ],
-   "note": "đuốc treo vách, 4 khung lửa nhảy"
+   "note": "đuốc treo vách, 4 khung lửa nhảy (ảnh Canva nguon/ai/props/anim-torch.png)"
   },
   "prop.tree": {
    "file": "assets/art/prop-tree.png",
