@@ -2569,17 +2569,17 @@
   },
   "mob.han-ma-ve": {
    "file": "assets/art/mob-han-ma-ve.png",
-   "v": "63768612",
-   "w": 88,
-   "h": 49,
-   "frames": 2,
+   "v": "9e99276a",
+   "w": 62,
+   "h": 46,
+   "frames": 7,
    "anchor": [
-    44,
-    47
+    31,
+    44
    ],
-   "note": "Hàn ma vệ (imp): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.hoa-lang": {
    "file": "assets/art/mob-hoa-lang.png",
@@ -2735,17 +2735,17 @@
   },
   "mob.kim-ma-ve": {
    "file": "assets/art/mob-kim-ma-ve.png",
-   "v": "2da2d617",
-   "w": 122,
-   "h": 58,
-   "frames": 2,
+   "v": "518edd4b",
+   "w": 118,
+   "h": 60,
+   "frames": 7,
    "anchor": [
-    61,
-    56
+    59,
+    58
    ],
-   "note": "Kim Ma Vệ (person): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.linh-thach-tinh": {
    "file": "assets/art/mob-linh-thach-tinh.png",
@@ -2833,17 +2833,17 @@
   },
   "mob.ma-phong-ve": {
    "file": "assets/art/mob-ma-phong-ve.png",
-   "v": "a21bc174",
-   "w": 92,
-   "h": 49,
-   "frames": 2,
+   "v": "b794fe99",
+   "w": 74,
+   "h": 46,
+   "frames": 7,
    "anchor": [
-    46,
-    47
+    37,
+    44
    ],
-   "note": "Ma Phong Vệ (imp): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-tham-tu": {
    "file": "assets/art/mob-ma-tham-tu.png",
@@ -2861,17 +2861,17 @@
   },
   "mob.ma-tieu": {
    "file": "assets/art/mob-ma-tieu.png",
-   "v": "0ae24f2e",
-   "w": 66,
-   "h": 41,
-   "frames": 2,
+   "v": "17c417b3",
+   "w": 64,
+   "h": 34,
+   "frames": 7,
    "anchor": [
-    33,
-    39
+    32,
+    32
    ],
-   "note": "Tiểu ma (imp): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.ma-ton": {
    "file": "assets/art/mob-ma-ton.png",
@@ -3127,17 +3127,17 @@
   },
   "mob.tho-ma-ve": {
    "file": "assets/art/mob-tho-ma-ve.png",
-   "v": "7ab28a88",
-   "w": 92,
-   "h": 58,
-   "frames": 2,
+   "v": "96a2100e",
+   "w": 68,
+   "h": 54,
+   "frames": 7,
    "anchor": [
-    46,
-    56
+    34,
+    52
    ],
-   "note": "Thổ Ma Vệ (person): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.thu-moc-ve": {
    "file": "assets/art/mob-thu-moc-ve.png",
@@ -3225,17 +3225,17 @@
   },
   "mob.u-minh-ve": {
    "file": "assets/art/mob-u-minh-ve.png",
-   "v": "75c9326f",
-   "w": 118,
-   "h": 58,
-   "frames": 2,
+   "v": "cfaac217",
+   "w": 80,
+   "h": 54,
+   "frames": 7,
    "anchor": [
-    59,
-    56
+    40,
+    52
    ],
-   "note": "U Minh Vệ (person): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.van-kiem-ma-tuong": {
    "file": "assets/art/mob-van-kiem-ma-tuong.png",
