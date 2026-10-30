@@ -11,6 +11,12 @@ import ai_sprites as A
 
 SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ngoc'
 TYPES = {'hong-ngoc': (255, 120, 80), 'lam-ngoc': (110, 190, 255), 'hoang-ngoc': (255, 220, 90), 'luc-ngoc': (120, 240, 140)}
+# thứ tự cấp → ô ảnh nguồn (1–10 tấm -1, 11–20 tấm -2): rà bằng mắt 31/10/2026, chủ dự án thấy "nhiều ngọc 11 không đẹp bằng ngọc 10".
+# Viên vương miện mảnh, cánh nhỏ của tấm -2 đứng trước viên hào quang tròn cuối tấm -1; càng lên càng to, nhiều lớp, rực hơn.
+ORDER = {'hong-ngoc': [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 11, 14, 12, 10, 15, 16, 17, 18, 19, 20],
+         'lam-ngoc': [1, 2, 3, 4, 5, 6, 7, 8, 13, 11, 9, 14, 12, 10, 15, 16, 17, 18, 19, 20],
+         'hoang-ngoc': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 11, 14, 16, 12, 15, 17, 18, 19, 20],
+         'luc-ngoc': [1, 2, 3, 4, 5, 6, 7, 8, 17, 13, 15, 9, 11, 10, 14, 12, 16, 18, 19, 20]}
 S, N = 28, 6   # cạnh khung, số khung động
 HS = [7, 9, 11, 12, 14, 15, 17, 18, 20, 21, 22, 22, 23, 23, 24, 24, 25, 26, 27, 28]   # cao từng cấp: lớn dần đều, cấp 11 không bé hơn cấp 10
 
@@ -60,7 +66,7 @@ def _frames(base, lv, col, seed):
     out = []
     for k in range(N):
         b = base.copy()
-        if lv >= 16: _halo(b, col, (90, 140, 190, 230, 190, 140)[k])
+        if lv >= 16: _halo(b, tuple(min(255, v + 60) for v in col), (120, 170, 220, 255, 220, 170)[k])   # hào quang sáng hơn màu loại, nhịp thở
         if lv >= 6 and k < 4: b = _shine(b, k + 1)
         if lv >= 11:
             for x, y, ph in spots:
@@ -74,7 +80,8 @@ def gems(save):
     n = 0
     for t, col in TYPES.items():
         if not (SRC / f'{t}-1.png').exists(): continue
-        cells = _cells(f'{t}-1.png') + (_cells(f'{t}-2.png') if (SRC / f'{t}-2.png').exists() else [])
+        src = _cells(f'{t}-1.png') + (_cells(f'{t}-2.png') if (SRC / f'{t}-2.png').exists() else [])
+        cells = [src[j - 1] for j in ORDER[t] if j <= len(src)]
         for i, c in enumerate(cells):
             lv = i + 1
             f = A._act_frames([c], HS[i], 20 if lv <= 10 else 24, 'feet')[0]
