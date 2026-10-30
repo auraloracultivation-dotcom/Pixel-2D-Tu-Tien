@@ -2555,17 +2555,17 @@
   },
   "mob.han-hon-ma-tuong": {
    "file": "assets/art/mob-han-hon-ma-tuong.png",
-   "v": "b782002f",
-   "w": 109,
-   "h": 86,
-   "frames": 2,
+   "v": "d5bd03ab",
+   "w": 178,
+   "h": 71,
+   "frames": 7,
    "anchor": [
-    54,
-    84
+    89,
+    69
    ],
-   "note": "Hàn Hồn Ma Tướng (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.han-ma-ve": {
    "file": "assets/art/mob-han-ma-ve.png",
@@ -2583,29 +2583,31 @@
   },
   "mob.hoa-lang": {
    "file": "assets/art/mob-hoa-lang.png",
-   "v": "78fac0d2",
-   "w": 42,
-   "h": 38,
-   "frames": 4,
+   "v": "610e5a59",
+   "w": 54,
+   "h": 28,
+   "frames": 7,
    "anchor": [
-    21,
-    36
+    27,
+    26
    ],
-   "note": "Hỏa lang (wolf): đứng, bước · ảnh Canva",
-   "scale": 0.5333
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
   },
   "mob.hoa-lang-vuong": {
    "file": "assets/art/mob-hoa-lang-vuong.png",
-   "v": "a828fcb4",
-   "w": 74,
-   "h": 86,
-   "frames": 4,
+   "v": "775f2372",
+   "w": 132,
+   "h": 87,
+   "frames": 7,
    "anchor": [
-    37,
-    84
+    66,
+    85
    ],
-   "note": "Hỏa Lang Vương (wolf): đứng, bước · ảnh Canva",
-   "scale": 0.5333
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
+   "scale": 0.5333,
+   "acts": true
   },
   "mob.hu-anh": {
    "file": "assets/art/mob-hu-anh.png",
@@ -2665,31 +2667,31 @@
   },
   "mob.huyet-nha": {
    "file": "assets/art/mob-huyet-nha.png",
-   "v": "13fd040a",
-   "w": 81,
-   "h": 81,
-   "frames": 2,
+   "v": "ed7ce921",
+   "w": 112,
+   "h": 75,
+   "frames": 7,
    "anchor": [
-    40,
-    79
+    56,
+    73
    ],
-   "note": "Phân thân Huyết Nha (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.huyet-nha-that": {
    "file": "assets/art/mob-huyet-nha-that.png",
-   "v": "14cc4c7c",
-   "w": 103,
-   "h": 86,
-   "frames": 2,
+   "v": "19b5fa6f",
+   "w": 148,
+   "h": 97,
+   "frames": 7,
    "anchor": [
-    51,
-    84
+    74,
+    95
    ],
-   "note": "Huyết Nha (lord): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.kiem-hon": {
    "file": "assets/art/mob-kiem-hon.png",
@@ -3197,17 +3199,17 @@
   },
   "mob.tuyet-lang-vuong": {
    "file": "assets/art/mob-tuyet-lang-vuong.png",
-   "v": "b183a54c",
-   "w": 106,
-   "h": 86,
-   "frames": 2,
+   "v": "16d14f8f",
+   "w": 148,
+   "h": 72,
+   "frames": 7,
    "anchor": [
-    53,
-    84
+    74,
+    70
    ],
-   "note": "Tuyết Lang Vương (wolf): đứng, bước · ảnh Canva",
+   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "atk": true
+   "acts": true
   },
   "mob.u-minh-phap": {
    "file": "assets/art/mob-u-minh-phap.png",

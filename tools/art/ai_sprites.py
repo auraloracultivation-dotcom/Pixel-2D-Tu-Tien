@@ -150,10 +150,10 @@ def _feet(o):
     return float(xs.mean()) if len(xs) else o.shape[1] / 2
 
 
-def _act_frames(cells, h, colors, align='center'):
+def _act_frames(cells, h, colors, align='center', fit=None):
     """Thu về cao h điểm ảnh bằng trung bình vùng (giữ mắt, mặt rõ hơn màu đa số khi ảnh gốc to), gom màu chung, viền mực."""
     boxes = [_bbox(c) for c in cells]
-    k = (h - 2) / max(b[3] - b[1] for b in boxes)
+    k = (h - 2) / ((boxes[0][3] - boxes[0][1]) if fit == 'idle' else max(b[3] - b[1] for b in boxes))   # fit idle: cao h tính theo dáng đứng, dáng chồm, giơ vũ khí được cao hơn
     outs = []
     for c, b in zip(cells, boxes):
         part = Image.fromarray(np.ascontiguousarray(c[b[1]:b[3], b[0]:b[2]])).convert('RGBa')
@@ -234,7 +234,7 @@ def apply(manifest, save):
                 lie = np.rot90(_trim(stand), 1) if s['down'] == 'rot' else np.flipud(_trim(stand))
                 cells = cells + [np.ascontiguousarray(lie)]
             if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
-            frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'))
+            frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'), s.get('fit'))
             if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + f' · ảnh chủ dự án {len(frames)} khung')
