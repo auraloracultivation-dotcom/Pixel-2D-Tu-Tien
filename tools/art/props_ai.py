@@ -142,3 +142,56 @@ def houses(save):
     hall = A._trim(A._key_near(np.array(Image.open(SRC / 'dien-lon.png').convert('RGBA'))))
     _by_width(save, 'house.H-10', hall, 160, 'điện lớn tông môn rộng 10 ô (ảnh Canva nguon/ai/props/dien-lon.png)'); n += 1
     return n
+
+
+# hiệu ứng chiêu (chủ dự án chọn 30/10/2026 "đòn và chiêu nhân vật chính trước"): mỗi hiệu ứng một tấm Canva 6 khung (3 trên, 3 dưới,
+# đọc trái sang phải, trên xuống), xếp lại đúng số khung cũ (khung lặp cho đủ nhịp), cao như cũ, căn đáy, giữ điểm neo cũ.
+FX = {
+    'fire': ([0, 1, 2, 3, 4, 5, 4, 3], 34, 'ngọn lửa lặp'),
+    'ice': ([0, 1, 2, 3, 3, 3, 4, 4, 5, 5], 40, 'gai băng trồi lên, giữ, vỡ'),
+    'bolt': ([0, 1, 2, 3, 4, 5, 5], 56, 'sét: mồi, đánh, toả nhánh, tàn, cháy xém'),
+    'vine': ([0, 1, 2, 2, 3, 3, 4, 5], 36, 'dây leo trồi, đung đưa, héo rụng'),
+    'rock': ([0, 1, 2, 2, 3, 4, 5, 5], 40, 'nứt đất, gai đá trồi, vỡ ra bụi'),
+    'wind': ([0, 1, 2, 3, 4, 5, 4, 3], 28, 'gió xoáy lặp'),
+    'heal': ([0, 1, 2, 2, 3, 4, 5, 5], 38, 'hồi máu: vòng sáng chân, dấu cộng bay lên'),
+    'shield': ([0, 1, 2, 3, 4, 5], 36, 'khiên nước: nở, chớp, vệt sáng quét (thân vòm trong nửa)'),
+    'shield-earth': ([0, 1, 2, 3, 4, 5], 36, 'khiên đất vàng: đá tụ, chớp, vệt sáng quét (thân vòm trong nửa)'),
+    'buff': ([0, 1, 2, 3, 4, 5, 4, 3], 38, 'tăng sức: vầng vàng bốc lên lặp'),
+}
+
+
+def _smoke_grey(c):
+    a = c.copy(); r, g, b = (a[:, :, i].astype(int) for i in range(3))
+    m = (a[:, :, 3] > 0) & (r - g > 25) & (b - g > 25)
+    v = ((r + g + b) // 3)[m]; a[m, 0] = v; a[m, 1] = v; a[m, 2] = np.clip(v + 6, 0, 255)
+    return a
+
+
+def _pink_to(c, col):
+    a = c.copy(); r, g, b = (a[:, :, i].astype(int) for i in range(3))
+    m = (a[:, :, 3] > 0) & (r - g > 25) & (b - g > 25)
+    a[m, 0], a[m, 1], a[m, 2] = col
+    return a
+
+
+def skill_fx(save):
+    n = 0
+    for k, (order, h, note) in FX.items():
+        src = f'fx-{k}.png'
+        if not (SRC / src).exists(): continue
+        cells = _sheet(src, [3, 3])
+        if len(cells) != 6: print('hiệu ứng', k, 'cắt ra', len(cells), 'ô'); continue
+        if k == 'bolt': cells[5] = _smoke_grey(cells[5])   # khói cháy xém bị ám tím của nền: về xám
+        if k == 'heal': cells = [_pink_to(c, (200, 255, 190)) for c in cells]   # dấu cộng, tia sáng bị ám hồng: về xanh nhạt
+        fr = A._act_frames([cells[i] for i in order], h, 20, 'feet')
+        hh, ww = fr[0].shape[:2]
+        cvs = []
+        for f in fr:
+            if k.startswith('shield'):   # vòm khiên che người: thân trong nửa, viền tối và điểm rất sáng giữ đậm
+                lum = f[:, :, :3].astype(int).sum(2); op = f[:, :, 3] > 0
+                f[op & (lum < 650), 3] = 150
+            c = Canvas(ww, hh); c.a = np.ascontiguousarray(f, dtype=np.uint8); cvs.append(c)
+        old = MANIFEST.get('fx.' + k, {}); up = old['h'] - old['anchor'][1] if old else 1
+        save('fx.' + k, cvs, (ww // 2, hh - up), f'{note} (ảnh Canva nguon/ai/props/{src}, {len(cvs)} khung)')
+        n += 1
+    return n
