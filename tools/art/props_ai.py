@@ -118,3 +118,27 @@ def gear(save):
             if gid and gid.startswith('dao-van'): c = _defringe(c)   # bộ trắng vàng: mép bị ám hồng của nền
             if gid: _save(save, 'gear.' + gid, [c], 22, f'icon trang bị {gid} (ảnh Canva nguon/ai/props/{src})', 'mid'); n += 1
     return n
+
+
+# nhà nguyên căn (chủ dự án chọn 30/10/2026: "mỗi nhà một hình Canva"): vẽ một lần ở ô dưới trái của khối ô nhà (src/world/draw-ground.js),
+# bề ngang đúng số ô × 16, cao theo tỉ lệ ảnh. Tên house.<ký tự ô>-<số ô ngang>; cỡ khối chưa có hình thì vẫn ghép ô như cũ.
+HOUSES = {'H': 0, 'B': 1, 'N': 2, 'z': 3, 'W': 4}   # ô trong nha-1.png (3 trên, 2 dưới)
+
+
+def _by_width(save, sid, cell, w, note):
+    b = A._bbox(cell); h = max(8, round(w * (b[3] - b[1]) / (b[2] - b[0])))
+    fr = A._act_frames([cell], h, 24, 'center')[0]
+    c = Canvas(fr.shape[1], fr.shape[0]); c.a = np.ascontiguousarray(fr, dtype=np.uint8)
+    save(sid, [c], (c.w // 2, c.h - 1), note)
+
+
+def houses(save):
+    cells = _sheet('nha-1.png', [3, 2])
+    if len(cells) != 5: print('nhà: cắt ra', len(cells), 'ô, cần 5'); return 0
+    n = 0
+    for ch, i in HOUSES.items():
+        for tiles in (3, 2):
+            _by_width(save, f'house.{ch}-{tiles}', cells[i], tiles * 16, f'nhà nguyên căn ô {ch} rộng {tiles} ô (ảnh Canva nguon/ai/props/nha-1.png)'); n += 1
+    hall = A._trim(A._key_near(np.array(Image.open(SRC / 'dien-lon.png').convert('RGBA'))))
+    _by_width(save, 'house.H-10', hall, 160, 'điện lớn tông môn rộng 10 ô (ảnh Canva nguon/ai/props/dien-lon.png)'); n += 1
+    return n

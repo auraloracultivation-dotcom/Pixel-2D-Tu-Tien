@@ -188,13 +188,18 @@ export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
 }
 
 // Một khối nhà chữ nhật gồm các ô cùng loại (bảng HOUSE): hàng dưới là tường (cửa ở giữa, cửa sổ xen kẽ), các hàng trên là mái.
-function housePiece(map, tx, ty, ch) {
+function houseBlock(map, tx, ty, ch) {
   let x0 = tx, y0 = ty;
   while (map.at(x0 - 1, ty) === ch) x0--;
   while (map.at(tx, y0 - 1) === ch) y0--;
   let w = 1, h = 1;
   while (map.at(x0 + w, y0) === ch) w++;
   while (map.at(x0, y0 + h) === ch) h++;
+  return { x0, y0, w, h };
+}
+
+function housePiece(map, tx, ty, ch) {
+  const { x0, y0, w, h } = houseBlock(map, tx, ty, ch);
   const c = tx - x0, r = ty - y0, pos = c === 0 ? 0 : c === w - 1 ? 2 : 1;
   if (r === h - 1) return h === 1 ? WALL.M : pos !== 1 ? WALL[pos ? 'R' : 'L'] : c === Math.floor((w - 1) / 2) ? WALL.door : c % 2 ? WALL.win : WALL.M;
   const kind = h === 2 ? 3 : r === 0 ? 0 : r === h - 2 ? 2 : 1;   // nóc, giữa, mép, nhà thấp (nóc + mép)
@@ -215,7 +220,13 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
   ctx.imageSmoothingEnabled = false;
   if (ch === 'T') put(ctx, sp, h < 0.1 ? 2 : h < 0.55 ? 1 : 0, px + 8 - a[0], py + 14 - a[1]);
   else if (PROP[ch]) put(ctx, sp, PROP[ch][3] ? Math.floor(t * 3 + h * 5) % sp.s.frames : Math.floor(h * sp.s.frames), px + PROP[ch][1] - a[0], py + PROP[ch][2] - a[1]);
-  else if (HOUSE[ch]) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
+  else if (HOUSE[ch]) {
+    // Nhà nguyên căn ảnh Canva house.<ô>-<số ô ngang> (chủ dự án chọn 30/10/2026): vẽ một lần ở ô dưới trái của khối, chân nhà sát đáy khối,
+    // giữa theo bề ngang; các ô khác của khối không vẽ gì. Cỡ khối chưa có hình thì ghép ô tile.house như cũ.
+    const b = houseBlock(map, tx, ty, ch), whole = sheet(game, `house.${ch}-${b.w}`);
+    if (!whole) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
+    else if (tx === b.x0 && ty === b.y0 + b.h - 1) put(ctx, whole, 0, b.x0 * T + Math.round((b.w * T - whole.s.w) / 2), (b.y0 + b.h) * T - whole.s.h);
+  }
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   return true;
 }

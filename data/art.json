@@ -2103,6 +2103,138 @@
    "note": "Áo lông Tuyết Lành (nữ): Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, vận chưởng ×2; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "house.B-2": {
+   "file": "assets/art/house-B-2.png",
+   "v": "857f1a9a",
+   "w": 32,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    16,
+    33
+   ],
+   "note": "nhà nguyên căn ô B rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.B-3": {
+   "file": "assets/art/house-B-3.png",
+   "v": "c5453476",
+   "w": 48,
+   "h": 51,
+   "frames": 1,
+   "anchor": [
+    24,
+    50
+   ],
+   "note": "nhà nguyên căn ô B rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.H-10": {
+   "file": "assets/art/house-H-10.png",
+   "v": "f0a590da",
+   "w": 158,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    79,
+    63
+   ],
+   "note": "điện lớn tông môn rộng 10 ô (ảnh Canva nguon/ai/props/dien-lon.png)"
+  },
+  "house.H-2": {
+   "file": "assets/art/house-H-2.png",
+   "v": "04ed8543",
+   "w": 31,
+   "h": 28,
+   "frames": 1,
+   "anchor": [
+    15,
+    27
+   ],
+   "note": "nhà nguyên căn ô H rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.H-3": {
+   "file": "assets/art/house-H-3.png",
+   "v": "de32148e",
+   "w": 47,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    23,
+    41
+   ],
+   "note": "nhà nguyên căn ô H rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.N-2": {
+   "file": "assets/art/house-N-2.png",
+   "v": "58a22114",
+   "w": 33,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    16,
+    38
+   ],
+   "note": "nhà nguyên căn ô N rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.N-3": {
+   "file": "assets/art/house-N-3.png",
+   "v": "e98ad598",
+   "w": 48,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    24,
+    57
+   ],
+   "note": "nhà nguyên căn ô N rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.W-2": {
+   "file": "assets/art/house-W-2.png",
+   "v": "c3be373f",
+   "w": 32,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    16,
+    30
+   ],
+   "note": "nhà nguyên căn ô W rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.W-3": {
+   "file": "assets/art/house-W-3.png",
+   "v": "8bc96347",
+   "w": 47,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    23,
+    45
+   ],
+   "note": "nhà nguyên căn ô W rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.z-2": {
+   "file": "assets/art/house-z-2.png",
+   "v": "4127c5f7",
+   "w": 31,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    15,
+    25
+   ],
+   "note": "nhà nguyên căn ô z rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
+  "house.z-3": {
+   "file": "assets/art/house-z-3.png",
+   "v": "0dd026d8",
+   "w": 48,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    24,
+    39
+   ],
+   "note": "nhà nguyên căn ô z rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+  },
   "icon.arrow": {
    "file": "assets/art/icon-arrow.png",
    "v": "53211337",
