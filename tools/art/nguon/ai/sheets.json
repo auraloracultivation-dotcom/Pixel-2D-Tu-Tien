@@ -379,31 +379,76 @@
   "note": "Tuyết Ly (ảnh chủ dự án gửi 28/10)"
  },
  "mob.huyet-nha": {
-  "src": "sheets/mob-huyet-nha.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-huyet-nha.png",
+  "acts": true,
+  "h": 64,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "fit": "idle"
  },
  "mob.huyet-nha-that": {
-  "src": "sheets/mob-huyet-nha-that.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-huyet-nha-that.png",
+  "acts": true,
+  "h": 70,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "fit": "idle"
  },
  "mob.han-hon-ma-tuong": {
-  "src": "sheets/mob-han-hon-ma-tuong.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-han-hon-ma-tuong.png",
+  "acts": true,
+  "h": 70,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "fit": "idle"
  },
  "mob.thuc-moc-ma-hau": {
   "src": "sheets/mob-thuc-moc-ma-hau.png",
@@ -550,13 +595,27 @@
   "hd": true
  },
  "mob.tuyet-lang-vuong": {
-  "src": "sheets/mob-tuyet-lang-vuong.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-tuyet-lang-vuong.png",
+  "acts": true,
+  "h": 72,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "flip"
  },
  "mob.phong-yeu-vuong": {
   "src": "sheets/mob-phong-yeu-vuong.png",
@@ -568,34 +627,52 @@
   "hd": true
  },
  "mob.hoa-lang-vuong": {
-  "src": "sheets/mob-hoa-lang-vuong.png",
-  "grid": [
-   4,
-   2
-  ],
-  "cells": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "scale": 1.15,
-  "hd": true
- },
- "mob.hoa-lang": {
-  "src": "sheets/mob-hoa-lang.png",
-  "grid": [
+  "src": "sheets/mob5-hoa-lang-vuong.png",
+  "acts": true,
+  "h": 60,
+  "key": "near",
+  "rows": [
    3,
    2
   ],
-  "cells": [
+  "align": "feet",
+  "order": [
    0,
    1,
-   0,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "flip",
+  "fit": "idle"
+ },
+ "mob.hoa-lang": {
+  "src": "sheets/mob5-hoa-lang.png",
+  "acts": true,
+  "h": 26,
+  "key": "near",
+  "rows": [
+   3,
    2
   ],
-  "scale": 1.1,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "flip",
+  "fit": "idle"
  },
  "proj.ice": {
   "src": "sheets/proj-ice.png",
