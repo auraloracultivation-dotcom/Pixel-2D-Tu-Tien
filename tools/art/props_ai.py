@@ -195,3 +195,36 @@ def skill_fx(save):
         save('fx.' + k, cvs, (ww // 2, hh - up), f'{note} (ảnh Canva nguon/ai/props/{src}, {len(cvs)} khung)')
         n += 1
     return n
+
+
+# đồ có lửa nhảy, xoáy: mỗi tấm Canva một hàng, mỗi ô là một khung động (30/10/2026); cao đúng hình code cũ, giữ neo như cũ
+ANIM = [('torch', 'anim-torch.png', [0, 1, 2, 3], 'đuốc treo vách, 4 khung lửa nhảy'),
+        ('lantern', 'anim-lantern.png', [0, 1], 'đèn lồng giấy đỏ treo cột gỗ, 2 khung sáng tối'),
+        ('furnace', 'anim-furnace.png', [0, 1, 2], 'lò đan đỉnh đồng ba chân, 3 khung lửa cửa lò'),
+        ('portal', 'anim-portal.png', [0, 1, 2, 3], 'cổng truyền tống vành đá, xoáy tím 4 khung'),
+        ('anvil', 'anim-anvil.png', [0, 1], 'lò rèn: bệ than, đe trên gốc gỗ, búa; 2 khung than hồng'),
+        ('cushion', 'anim-misc.png', [0], 'bồ đoàn cói thêu sen vàng'),
+        ('broken-sword', 'anim-misc.png', [1, 2, 3], 'kiếm gãy nằm: ngang, chéo xuống, chéo lên')]
+
+
+def anim(save):
+    n, cache = 0, {}
+    count = {}
+    for _, name, idx, _ in ANIM: count[name] = max(count.get(name, 0), max(idx) + 1)
+    for pid, name, idx, note in ANIM:
+        if name not in cache:
+            a = A._key_near(np.array(Image.open(SRC / name).convert('RGBA')))
+            cache[name] = [A._trim(c) for c in A._split_rows(a, per=[count[name]])]
+        cells = cache[name]
+        if max(idx) >= len(cells): raise SystemExit(f'{name}: cắt ra {len(cells)} ô, cần {max(idx) + 1}')
+        old = MANIFEST['prop.' + pid]
+        src = [_smoke_grey(cells[i]) if pid == 'furnace' else cells[i] for i in idx]   # khói lò bị ám hồng nền → xám
+        fr = A._act_frames(src, old['h'], 18, 'feet')
+        hh, ww = fr[0].shape[:2]
+        cvs = []
+        for f in fr:
+            c = Canvas(ww, hh); c.a = np.ascontiguousarray(f, dtype=np.uint8); cvs.append(c)
+        up = old['h'] - old['anchor'][1]
+        save('prop.' + pid, cvs, (ww // 2, hh - up), f'{note} (ảnh Canva nguon/ai/props/{name})')
+        n += 1
+    return n
