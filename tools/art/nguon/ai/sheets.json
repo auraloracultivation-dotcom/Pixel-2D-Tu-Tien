@@ -1,250 +1,282 @@
 {
  "_note": "Ảnh AI thay hình code, xem tools/art/ai_sprites.py. Chuẩn 28/10: ảnh gốc đầy đủ (không dùng bản xem trước 200 điểm ảnh), một hàng 6 động tác (đứng, đi, đi, lấy đà, đánh, ngã), góc 3/4 ngang tầm mắt nhìn phải, nền hồng tím phẳng. Ảnh lấy từ bản xem trước Canva (200 điểm ảnh) dùng \"hd\": vẽ ở mật độ nhân vật chính (game thu theo scale trong art.json) thay vì thu nhỏ về cỡ quái code, nên giữ được nét. Ảnh chủ dự án 28/10 (12 linh thú, 4 thú cưỡi, gốc ở goc/): grid chia khung, order xếp ô thành khung (0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu), hop: ảnh 1 dáng thì bước nhảy 1 điểm ảnh, walk: thứ tự khung khi đi (thú cưỡi 4 bước), shadow false: giữ màu tím sẫm. Chuẩn 29/10 (nhân vật, nv/): mạng ở đây không tải được ảnh gốc Canva, nên tạo khung vuông 5 dáng 2 hàng (3 trên, 2 dưới) để mỗi dáng cao ~80 điểm ảnh trong bản xem trước, thu về 44 (gấp ~1.8 lần, vẫn rõ mắt mặt). rows: tách hàng rồi tách khung; align feet: căn theo chân (khung đánh có cầu lửa, vệt chém không đẩy người lệch); down rot: khung ngã = khung đứng xoay nằm.",
  "pet.hoa-lang": {
-  "src": "sheets/pet-hoa-lang.png",
+  "src": "sheets/mob-hoa-lang.png",
   "acts": true,
-  "h": 32,
+  "h": 27,
   "key": "magenta",
   "grid": [
-   1,
-   1
+   3,
+   2
   ],
   "order": [
    0,
    0,
    0,
-   0,
-   0,
-   0,
-   0
+   1,
+   2,
+   6,
+   2
   ],
+  "down": "rot",
   "hop": true,
-  "note": "Tiểu Hỏa Lang (ảnh chủ dự án gửi 28/10)"
+  "align": "feet",
+  "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.moc-linh": {
-  "src": "sheets/pet-moc-linh.png",
+  "src": "sheets/mob-nhom-1.png",
   "acts": true,
-  "h": 34,
+  "h": 27,
   "key": "magenta",
   "grid": [
-   1,
-   1
+   2,
+   3
   ],
   "order": [
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0
+   2,
+   2,
+   2,
+   2,
+   3,
+   6,
+   3
   ],
+  "down": "rot",
   "hop": true,
-  "note": "Tiểu Mộc Linh (ảnh chủ dự án gửi 28/10)"
+  "align": "feet",
+  "note": "Tiểu Mộc Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.ma-tieu": {
-  "src": "sheets/pet-ma-tieu.png",
+  "src": "sheets/mob-nhom-7.png",
   "acts": true,
-  "h": 34,
+  "h": 29,
   "key": "magenta",
   "grid": [
-   1,
-   1
+   2,
+   3
   ],
   "order": [
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0
+   4,
+   4,
+   4,
+   4,
+   5,
+   6,
+   5
   ],
+  "down": "rot",
   "hop": true,
-  "note": "Tiểu Quỷ (ảnh chủ dự án gửi 28/10)",
+  "align": "feet",
+  "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)",
   "shadow": false
  },
  "pet.viem-linh": {
-  "src": "sheets/pet-viem-linh.png",
+  "src": "sheets/mob-nhom-1.png",
   "acts": true,
-  "h": 34,
+  "h": 27,
   "key": "magenta",
   "grid": [
-   1,
-   1
+   2,
+   3
   ],
   "order": [
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0
+   4,
+   4,
+   4,
+   4,
+   5,
+   6,
+   5
   ],
+  "down": "rot",
   "hop": true,
-  "note": "Viêm Linh Nhi (ảnh chủ dự án gửi 28/10)"
+  "align": "feet",
+  "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.ma-cung": {
-  "src": "sheets/pet-ma-cung.png",
+  "src": "sheets/mob-nhom-9.png",
   "acts": true,
-  "h": 34,
+  "h": 30,
   "key": "magenta",
   "grid": [
-   4,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   1,
-   1,
    2,
-   0,
    3
   ],
-  "note": "Ma Tiễn Đồng (ảnh chủ dự án gửi 28/10)"
+  "order": [
+   2,
+   2,
+   2,
+   2,
+   3,
+   6,
+   3
+  ],
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.tuyet-lang": {
-  "src": "sheets/pet-tuyet-lang.png",
+  "src": "sheets/mob-tuyet-lang.png",
   "acts": true,
-  "h": 30,
+  "h": 27,
   "key": "magenta",
   "grid": [
-   4,
+   2,
    1
   ],
   "order": [
    0,
    0,
-   1,
+   0,
+   0,
    1,
    2,
-   0,
-   3
+   1
   ],
-  "note": "Tiểu Tuyết Lang (ảnh chủ dự án gửi 28/10)"
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.moc-yeu": {
-  "src": "sheets/pet-moc-yeu.png",
+  "src": "sheets/mob-nhom-3.png",
   "acts": true,
   "h": 34,
   "key": "magenta",
   "grid": [
-   4,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   1,
-   1,
    2,
-   0,
    3
   ],
-  "note": "Tiểu Thụ Yêu (ảnh chủ dự án gửi 28/10)"
+  "order": [
+   2,
+   2,
+   2,
+   2,
+   3,
+   6,
+   3
+  ],
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu Thụ Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.kiem-hon": {
-  "src": "sheets/pet-kiem-hon.png",
+  "src": "sheets/mob-nhom-8.png",
   "acts": true,
-  "h": 36,
+  "h": 31,
   "key": "magenta",
   "grid": [
-   4,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   1,
-   1,
    2,
-   0,
    3
   ],
-  "note": "Tiểu Kiếm Linh (ảnh chủ dự án gửi 28/10)"
+  "order": [
+   4,
+   4,
+   4,
+   4,
+   5,
+   6,
+   5
+  ],
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu Kiếm Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.tho-khoi": {
-  "src": "sheets/pet-tho-khoi.png",
+  "src": "sheets/mob-nhom-12.png",
   "acts": true,
-  "h": 32,
+  "h": 34,
   "key": "magenta",
   "grid": [
-   4,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   1,
-   1,
    2,
-   0,
    3
   ],
-  "note": "Tiểu Thạch Khôi (ảnh chủ dự án gửi 28/10)"
+  "order": [
+   2,
+   2,
+   2,
+   2,
+   3,
+   6,
+   3
+  ],
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.hu-anh": {
-  "src": "sheets/pet-hu-anh.png",
+  "src": "sheets/mob-nhom-8.png",
   "acts": true,
-  "h": 30,
+  "h": 33,
   "key": "magenta",
   "grid": [
-   4,
-   1
+   2,
+   3
   ],
   "order": [
    0,
    0,
-   1,
-   1,
-   2,
    0,
-   3
+   0,
+   1,
+   6,
+   1
   ],
-  "note": "Tiểu U Ảnh (ảnh chủ dự án gửi 28/10)",
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu U Ảnh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)",
   "shadow": false
  },
  "pet.phong-yeu": {
-  "src": "sheets/pet-phong-yeu.png",
+  "src": "sheets/mob-nhom-5.png",
   "acts": true,
-  "h": 32,
+  "h": 33,
   "key": "magenta",
   "grid": [
-   4,
-   1
-  ],
-  "order": [
-   0,
-   0,
-   1,
-   1,
    2,
-   0,
    3
   ],
-  "note": "Tiểu Phong Yêu (ảnh chủ dự án gửi 28/10)"
+  "order": [
+   2,
+   2,
+   2,
+   2,
+   3,
+   6,
+   3
+  ],
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Tiểu Phong Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "pet.bang-tinh": {
-  "src": "sheets/pet-bang-tinh.png",
+  "src": "sheets/mob-nhom-1.png",
   "acts": true,
-  "h": 34,
+  "h": 27,
   "key": "magenta",
   "grid": [
-   4,
-   1
+   2,
+   3
   ],
   "order": [
    0,
    0,
-   1,
-   1,
-   2,
    0,
-   3
+   0,
+   1,
+   6,
+   1
   ],
-  "note": "Băng Tinh Nhi (ảnh chủ dự án gửi 28/10)"
+  "down": "rot",
+  "hop": true,
+  "align": "feet",
+  "note": "Băng Tinh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10)"
  },
  "mount.bach-loc": {
   "src": "sheets/mount-bach-loc.png",

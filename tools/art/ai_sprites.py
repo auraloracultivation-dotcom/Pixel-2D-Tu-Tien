@@ -221,7 +221,8 @@ def apply(manifest, save):
             a = _key(a, s.get('shadow', True)) if s.get('key') == 'magenta' else _key_near(a) if s.get('key') == 'near' else remove_bg(a, 60)
             cells = _grid(a, s['grid']) if s.get('grid') else _split_rows(a, per=s['rows'] if isinstance(s['rows'], list) else None) if s.get('rows') else _split(a)
             if s.get('down') == 'rot':   # ảnh không có dáng ngã: khung 5 = khung đứng nằm xuống (xoay 90°, đầu về sau lưng)
-                cells = cells + [np.ascontiguousarray(np.rot90(_trim(cells[0]), 1))]
+                stand = cells[s['order'][0]] if s.get('order') else cells[0]   # dáng đứng theo order (linh thú lấy ô giữa tấm quái)
+                cells = cells + [np.ascontiguousarray(np.rot90(_trim(stand), 1))]
             if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
             frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'))
             if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
