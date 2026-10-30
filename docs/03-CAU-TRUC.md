@@ -198,6 +198,19 @@ So tài (`src/game/duel.js`): bay tới Luận Võ Đài (`game/arena.js` chuy�
 
 Luật công bằng: hai bên vào trận đầy máu, chiêu đã hồi; mọi đòn hai bên (cả linh thú, đồng hành) nhân `dmg` (0,04) sau khi trừ phòng ngự cho trận kéo dài (để nguyên thì người ngang sức hạ nhau trong 1-2 giây; đấu với chính mình thử 3 lần mỗi trận khoảng 30 giây, thắng thua chia đều, sát thương hai bên gần bằng nhau); đòn bản sao bỏ qua thời gian bất tử sau khi trúng đòn (vì đòn mình đánh nó cũng trúng hết); bản sao có phòng ngự, khiên, phản đòn, hút máu, lướt né khi dùng chiêu lướt như người chơi (`m.take` → `duelTake`); không ai bị choáng, làm chậm (`noCc`); đẩy lùi như nhau (`knockback`); người chơi không uống đan trong trận. Hết `time_limit` giây thì hoà, gục thì thua, không chết thật; kết thúc thì đòn đang bay của bản sao tan, dừng `end_wait` giây rồi về đúng chỗ đứng lúc bấm So tài. Không có phần thưởng, không tính việc ngày (trận đánh ở máy mình nên không lấy làm thưởng được). Không so tài khi đang trong tháp, bí cảnh, Luận Võ Đài, độ kiếp, đoạn truyện.
 
+## Điểm danh ngày, tuần, tháng, quý (`data/checkin.json`)
+
+Chủ dự án chốt 30/10/2026. Mỗi tài khoản đã có bản lưu điểm danh 1 lần mỗi ngày, theo giờ Việt Nam. Thẻ "Điểm danh" ở đầu tab Hằng ngày của bảng Việc (`src/ui/checkin-card.js`, lớp game `src/game/checkin.js`, gọi máy chủ `src/net/checkin.js`).
+
+Máy chủ đếm số ngày đã điểm danh trong kỳ: tuần tính từ thứ Hai, tháng và quý theo lịch. Đủ số ngày (5/7, 20, 60) thì nhận quà mốc, mỗi kỳ một lần.
+
+Quà cố định cho mọi người: ngày 500 Linh Thạch. Mốc tuần, tháng, quý cho Linh Thạch, Khóa Linh Thạch và 1 viên ngọc cấp 6 / 7 / 8 (chủ dự án nâng 30/10 13:48), loại theo `p2d_gt_ngoc`. Quà gửi qua Hòm thư (ly_do `diem_danh_*`). Điểm danh xong máy khách nhận thư ngay (`claimMail`).
+
+Máy chủ: `supabase/migrations/20261030050000_p2d_diem_danh.sql`.
+- Bảng: `p2d_diem_danh`, `p2d_diem_danh_moc`.
+- Hàm: `p2d_diem_danh`, `p2d_diem_danh_xem`.
+- Số quà ở `p2d_dd_luat`; `tools/check.mjs` so với `checkin.rules`.
+
 ## Sự kiện giới thiệu, thưởng góp ý, bảng thông báo (`data/referral.json`, `data/notice.json`)
 
 Chủ dự án chốt 29/10/2026 (bản đang chơi thử, sau này đặt lại hết nên luật nới).

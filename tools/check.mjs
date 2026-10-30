@@ -201,6 +201,10 @@ try {
   const rf = read('referral.json'), gt = lastWith(/function public\.p2d_gt_luat/), gtv = k => +(gt.match(new RegExp(`'${k}', (\\d+)`)) || [])[1];
   need(gt.includes(`'${rf.starts}'::timestamptz`) && gt.includes(`'${rf.ends}'::timestamptz`) && gtv('phut') === rf.minutes && gtv('ngat_phut') === rf.gap && gtv('cap_gt') === rf.gem_ref && gtv('cap_moi') === rf.gem_new && gtv('nhap_ngay') === rf.join_days, 'referral: ngày, số phút, cấp ngọc khác hàm p2d_gt_luat trên máy chủ (supabase/migrations)');
   need(lastWith(/function public\.p2d_gop_y_thuong/).includes(`':${rf.fame.gem}'`) && rf.gems.every(t => items.gems.types[t]), 'referral.fame.gem khác cấp ngọc trong p2d_gop_y_thuong, hoặc gems có loại ngọc lạ');
+  // Điểm danh: số quà trong data/checkin.json phải khớp hàm p2d_dd_luat trên máy chủ
+  const cki = read('checkin.json'), ckm = lastWith(/function public\.p2d_dd_luat/).match(/select '(\{[^']*\})'::jsonb/);
+  need(ckm && JSON.stringify(JSON.parse(ckm[1])) === JSON.stringify(cki.rules), 'checkin.rules khác hàm p2d_dd_luat trên máy chủ (supabase/migrations); đổi số thì thêm migration mới');
+  need(['tuan', 'thang', 'quy'].every(k => cki.names[k] && cki.mail['diem_danh_' + k]) && cki.mail.diem_danh_ngay, 'checkin: thiếu tên kỳ hoặc tiêu đề thư');
   const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
   need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');

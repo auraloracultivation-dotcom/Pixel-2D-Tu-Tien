@@ -5,6 +5,8 @@ import { renderEvents } from './event-tab.js';
 import { renderPilotOpts } from './pilot-tab.js';
 import { renderDaoVan } from './daovan-tab.js';
 import { weeklyRows, claimWeekly, claimWeeklyChest } from '../game/weekly.js';
+import { renderCheckin } from './checkin-card.js';
+import { loadCheckin } from '../game/checkin.js';
 
 const $ = id => document.getElementById(id);
 
@@ -32,6 +34,7 @@ export function createDailyPanel(game) {
 
   function renderDay(list) {
     const dl = ensureDaily(game);
+    renderCheckin(game, list, { card, mini, say: t => { msg = t; }, rerender: () => { if (!$('daily').hidden && tab === 'ngay') render(); } });
     $('daily-sub').textContent = `Treo thưởng còn ${Math.max(0, bountyLeft(game))}/${D.bounty_per_day} lượt hôm nay`;
     dl.tasks.forEach((t, i) => {
       const d = taskDef(game, t.id); if (!d) return;
@@ -85,6 +88,7 @@ export function createDailyPanel(game) {
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
     game.uiOpen = true; game.newDaily = false; msg = ''; $('daily').hidden = false; render();
+    loadCheckin(game).then(() => { if (!$('daily').hidden && tab === 'ngay') render(); });   // ngày mới: đọc lại điểm danh
   }
   function close() { game.uiOpen = false; $('daily').hidden = true; }
 
