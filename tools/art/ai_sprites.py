@@ -216,7 +216,11 @@ def apply(manifest, save):
     spec = json.loads(spec_file.read_text(encoding='utf-8'))
     n = 0
     for sid, s in spec.items():
-        if sid.startswith('_') or not (AI / s['src']).exists():
+        if sid.startswith('_'): continue
+        if s.get('like'):   # linh thú theo quái (chủ dự án 30/10): lấy nguyên khai của quái 6 động tác, thu cao còn k lần (24–34 điểm ảnh)
+            b = spec[s['like']]
+            s = {**b, **{k: v for k, v in s.items() if k not in ('like', 'k')}, 'h': max(24, min(34, round(b['h'] * s.get('k', 0.7))))}
+        if not (AI / s['src']).exists():
             continue
         old = manifest.get(sid) or ({'w': 1, 'h': 1, 'frames': 6, 'anchor': [0, 0]} if s.get('acts') else None)   # hình mới chưa có bản code (bạn đồng hành)
         if s.get('size'):   # cỡ, neo khai thẳng (hình hiệu ứng mới, hoặc đổi hẳn dáng so với bản code): số khung = số ô

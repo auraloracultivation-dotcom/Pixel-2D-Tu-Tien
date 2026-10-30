@@ -4139,15 +4139,15 @@
   },
   "pet.hoa-lang": {
    "file": "assets/art/pet-hoa-lang.png",
-   "v": "1ab52b7b",
-   "w": 30,
-   "h": 27,
+   "v": "e11a308f",
+   "w": 50,
+   "h": 26,
    "frames": 7,
    "anchor": [
-    15,
-    25
+    25,
+    24
    ],
-   "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.hu-anh": {
@@ -4178,28 +4178,28 @@
   },
   "pet.ma-cung": {
    "file": "assets/art/pet-ma-cung.png",
-   "v": "f39f645c",
-   "w": 68,
-   "h": 30,
+   "v": "a02e14ad",
+   "w": 72,
+   "h": 31,
    "frames": 7,
    "anchor": [
-    34,
-    28
+    36,
+    29
    ],
-   "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
+   "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.ma-tieu": {
    "file": "assets/art/pet-ma-tieu.png",
-   "v": "b2926bc3",
-   "w": 48,
-   "h": 29,
+   "v": "f95bea0a",
+   "w": 44,
+   "h": 24,
    "frames": 7,
    "anchor": [
-    24,
-    27
+    22,
+    22
    ],
-   "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.moc-linh": {
@@ -4243,28 +4243,28 @@
   },
   "pet.tho-khoi": {
    "file": "assets/art/pet-tho-khoi.png",
-   "v": "25acc14b",
-   "w": 58,
+   "v": "a3323c17",
+   "w": 52,
    "h": 34,
    "frames": 7,
    "anchor": [
-    29,
+    26,
     32
    ],
-   "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.tuyet-lang": {
    "file": "assets/art/pet-tuyet-lang.png",
-   "v": "f43e4dfa",
-   "w": 34,
-   "h": 27,
+   "v": "0ccd1905",
+   "w": 44,
+   "h": 24,
    "frames": 7,
    "anchor": [
-    17,
-    25
+    22,
+    22
    ],
-   "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
+   "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "pet.viem-linh": {
