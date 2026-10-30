@@ -3454,19 +3454,27 @@
   "note": "Canva 30/10/2026 (tấm quái nhóm 7, hàng 1): đứng, đánh"
  },
  "mob.ma-tham-tu": {
-  "src": "sheets/mob-nhom-7.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-ma-tham-tu.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   2,
-   3
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 7, hàng 2): đứng, đánh"
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot"
  },
  "mob.ma-tieu": {
   "src": "sheets/mob5-ma-tieu.png",
@@ -3537,64 +3545,97 @@
   "note": "Canva 30/10/2026 (tấm quái nhóm 8, hàng 3): đứng, đánh"
  },
  "mob.ma-bang-tien": {
-  "src": "sheets/mob-nhom-9.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-ma-bang-tien.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   0,
-   1
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 1): đứng, đánh"
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot"
  },
  "mob.ma-cung": {
-  "src": "sheets/mob-nhom-9.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-ma-cung.png",
+  "acts": true,
+  "h": 44,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   2,
-   3
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 2): đứng, đánh"
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot"
  },
  "mob.ma-phap": {
-  "src": "sheets/mob-nhom-9.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-ma-phap.png",
+  "acts": true,
+  "h": 46,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   4,
-   5
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 9, hàng 3): đứng, đánh"
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot"
  },
  "mob.sa-ma": {
-  "src": "sheets/mob-nhom-10.png",
-  "grid": [
-   2,
-   3
+  "src": "sheets/mob5-sa-ma.png",
+  "acts": true,
+  "h": 46,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "cells": [
-   0,
-   1
-  ],
-  "scale": 1.1,
-  "hd": true,
   "align": "feet",
-  "note": "Canva 30/10/2026 (tấm quái nhóm 10, hàng 1): đứng, đánh"
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "defringe": true
  },
  "mob.u-minh-phap": {
   "src": "sheets/mob-nhom-10.png",
