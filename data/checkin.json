@@ -1,0 +1,21 @@
+{
+ "_note": "Điểm danh ngày, tuần, tháng, quý (chủ dự án chốt 30/10/2026): mỗi tài khoản 1 lần mỗi ngày theo giờ Việt Nam, đếm số ngày trong kỳ (tuần từ thứ Hai, tháng, quý theo lịch), đủ 'can' ngày thì nhận quà mốc một lần mỗi kỳ. Quà cố định cho mọi người: coins Linh Thạch, khoa Khóa Linh Thạch, ngoc cấp ngọc (loại theo lựa chọn ở sự kiện giới thiệu, mặc định Hồng Ngọc). Máy chủ ghi và gửi quà qua Hòm thư (supabase/migrations/20261030050000_p2d_diem_danh.sql, hàm p2d_dd_luat); rules phải khớp, tools/check.mjs so sánh. Bảng ở tab Hằng ngày (src/ui/checkin-card.js).",
+ "rules": {"ngay": {"coins": 500}, "tuan": {"can": 5, "coins": 3000, "khoa": 1, "ngoc": 4}, "thang": {"can": 20, "coins": 10000, "khoa": 3, "ngoc": 5}, "quy": {"can": 60, "coins": 30000, "khoa": 6, "ngoc": 6}},
+ "names": {"tuan": "Tuần", "thang": "Tháng", "quy": "Quý"},
+ "mail": {"diem_danh_ngay": "Điểm danh hôm nay", "diem_danh_tuan": "Đủ mốc điểm danh tuần", "diem_danh_thang": "Đủ mốc điểm danh tháng", "diem_danh_quy": "Đủ mốc điểm danh quý"},
+ "text": {
+  "title": "Điểm danh",
+  "btn": "Điểm danh",
+  "done": "Đã điểm danh",
+  "day": "Hôm nay: {coins} Linh Thạch",
+  "row": "{name}: {co}/{can} ngày · {reward}",
+  "row_got": "{name}: {co}/{can} ngày · đã nhận quà mốc",
+  "left": "còn {n} ngày",
+  "reward": "{coins} Linh Thạch, {khoa} Khóa Linh Thạch, ngọc cấp {ngoc}",
+  "login": "Đăng nhập tài khoản để điểm danh nhận quà.",
+  "loading": "Đang xem điểm danh…",
+  "ok": "Điểm danh xong! Quà đã vào Hòm thư.",
+  "ok_moc": "Điểm danh xong, đủ mốc {list}! Quà đã vào Hòm thư.",
+  "err": {"da_diem_danh": "Hôm nay bạn đã điểm danh rồi.", "chua_luu": "Chơi thêm chút cho máy chủ lưu nhân vật rồi điểm danh nhé.", "chua_dang_nhap": "Đăng nhập tài khoản để điểm danh nhận quà.", "net": "Mạng chập chờn, thử lại sau."}
+ }
+}
