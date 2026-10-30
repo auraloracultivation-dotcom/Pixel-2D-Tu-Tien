@@ -381,7 +381,7 @@
  "mob.huyet-nha": {
   "src": "sheets/mob5-huyet-nha.png",
   "acts": true,
-  "h": 64,
+  "h": 80,
   "key": "near",
   "rows": [
    3,
@@ -405,7 +405,7 @@
  "mob.huyet-nha-that": {
   "src": "sheets/mob5-huyet-nha-that.png",
   "acts": true,
-  "h": 70,
+  "h": 86,
   "key": "near",
   "rows": [
    3,
@@ -429,7 +429,7 @@
  "mob.han-hon-ma-tuong": {
   "src": "sheets/mob5-han-hon-ma-tuong.png",
   "acts": true,
-  "h": 70,
+  "h": 86,
   "key": "near",
   "rows": [
    3,
@@ -471,7 +471,7 @@
  "mob.van-kiem-ma-tuong": {
   "src": "sheets/mob5-van-kiem-ma-tuong.png",
   "acts": true,
-  "h": 74,
+  "h": 90,
   "key": "near",
   "rows": [
    3,
@@ -496,7 +496,7 @@
  "mob.kim-giap-vuong": {
   "src": "sheets/mob5-kim-giap-vuong.png",
   "acts": true,
-  "h": 66,
+  "h": 84,
   "key": "near",
   "rows": [
    3,
@@ -520,7 +520,7 @@
  "mob.toai-son-ma-tuong": {
   "src": "sheets/mob5-toai-son-ma-tuong.png",
   "acts": true,
-  "h": 76,
+  "h": 96,
   "key": "near",
   "rows": [
    3,
@@ -545,7 +545,7 @@
  "mob.nham-giap-thu": {
   "src": "sheets/mob5-nham-giap-thu.png",
   "acts": true,
-  "h": 66,
+  "h": 96,
   "key": "near",
   "rows": [
    3,
@@ -577,13 +577,28 @@
   "hd": true
  },
  "mob.hu-khong-cu-thu": {
-  "src": "sheets/mob-hu-khong-cu-thu.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-hu-khong-cu-thu.png",
+  "acts": true,
+  "h": 98,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "flip",
+  "fit": "idle"
  },
  "mob.tan-hon-huyet-nha": {
   "src": "sheets/mob-tan-hon-huyet-nha.png",
@@ -622,27 +637,57 @@
   "hd": true
  },
  "mob.ma-ton": {
-  "src": "sheets/mob-ma-ton.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-ma-ton.png",
+  "acts": true,
+  "h": 108,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "fit": "idle"
  },
  "mob.co-thu-yeu-vuong": {
-  "src": "sheets/mob-co-thu-yeu-vuong.png",
-  "grid": [
-   2,
-   1
+  "src": "sheets/mob5-co-thu-yeu-vuong.png",
+  "acts": true,
+  "h": 100,
+  "key": "near",
+  "rows": [
+   3,
+   2
   ],
-  "scale": 1.15,
-  "hd": true
+  "align": "feet",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 24,
+  "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm",
+  "down": "rot",
+  "fit": "idle"
  },
  "mob.hac-phong-ma-quan": {
   "src": "sheets/mob5-hac-phong-ma-quan.png",
   "acts": true,
-  "h": 72,
+  "h": 86,
   "key": "near",
   "rows": [
    3,
@@ -675,7 +720,7 @@
  "mob.tuyet-lang-vuong": {
   "src": "sheets/mob5-tuyet-lang-vuong.png",
   "acts": true,
-  "h": 72,
+  "h": 86,
   "key": "near",
   "rows": [
    3,
@@ -707,7 +752,7 @@
  "mob.hoa-lang-vuong": {
   "src": "sheets/mob5-hoa-lang-vuong.png",
   "acts": true,
-  "h": 60,
+  "h": 84,
   "key": "near",
   "rows": [
    3,
@@ -731,7 +776,7 @@
  "mob.hoa-lang": {
   "src": "sheets/mob5-hoa-lang.png",
   "acts": true,
-  "h": 26,
+  "h": 34,
   "key": "near",
   "rows": [
    3,
@@ -3362,7 +3407,7 @@
  "mob.gai-ma-ve": {
   "src": "sheets/mob5-gai-ma-ve.png",
   "acts": true,
-  "h": 60,
+  "h": 56,
   "key": "near",
   "rows": [
    3,
