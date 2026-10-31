@@ -4195,5 +4195,30 @@
   ],
   "colors": 24,
   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi)"
+ },
+ "npc.dai-ma-than": {
+  "src": "nv/dai-ma-than.png",
+  "acts": true,
+  "h": 64,
+  "key": "near",
+  "rows": [
+   3,
+   2
+  ],
+  "align": "feet",
+  "down": "rot",
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  "colors": 40,
+  "note": "Đại Ma Thần (Đài Ma Thần, Thiên Kiếm Phong): Canva 31/10/2026 theo yêu cầu chủ dự án, 5 dáng; cao hơn NPC chuẩn, ma khí tím đen",
+  "fit": "idle",
+  "bright": 1.45
  }
 }

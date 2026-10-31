@@ -4445,6 +4445,19 @@
    "note": "Cô Bán Nước: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "npc.dai-ma-than": {
+   "file": "assets/art/npc-dai-ma-than.png",
+   "v": "895b2bd2",
+   "w": 102,
+   "h": 64,
+   "frames": 7,
+   "anchor": [
+    51,
+    62
+   ],
+   "note": "Đại Ma Thần (Đài Ma Thần, Thiên Kiếm Phong): Canva 31/10/2026 theo yêu cầu chủ dự án, 5 dáng; cao hơn NPC chuẩn, ma khí tím đen · ảnh chủ dự án 7 khung",
+   "scale": 0.5333
+  },
   "npc.du-tang": {
    "file": "assets/art/npc-du-tang.png",
    "v": "13cf9434",
