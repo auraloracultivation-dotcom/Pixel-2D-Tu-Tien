@@ -3351,6 +3351,18 @@
    ],
    "note": "biểu tượng chiêu sound (ảnh Canva nguon/ai/props/icon-chieu-2.png)"
   },
+  "icon.thuong": {
+   "file": "assets/art/icon-thuong.png",
+   "v": "8fe37c0d",
+   "w": 16,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    8
+   ],
+   "note": "biểu tượng chiêu thuong, cắt từ fw.thuong"
+  },
   "icon.vine": {
    "file": "assets/art/icon-vine.png",
    "v": "1ca1f9ad",
