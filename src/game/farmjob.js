@@ -34,6 +34,17 @@ function bestCamp(game) {
   return best;
 }
 
+// Bãi yếu nhất ở bản đồ này (người chơi tự chọn tinh cầu mà chưa đánh nổi bãi nào thì vẫn treo bãi dễ nhất)
+function easiestCamp(game) {
+  return game.spawners.filter(s => s.farm && !avoided(game, s.mob)).sort((a, b) => (a.mul || 1) - (b.mul || 1))[0] || null;
+}
+
+// Các tinh cầu có bãi treo máy đã tới (đề xuất #38: người chơi chọn ở Việc → tab Tự hành)
+export function farmPlanets(game) {
+  return game.data.starmap.bodies.filter(b => b.map && game.data.maps[b.map]?.spawners.some(s => s.farm) && game.save.visited?.[b.map]);
+}
+const picked = game => { const id = game.save.pilotFarm; return id && farmPlanets(game).some(b => b.map === id) ? id : null; };
+
 // Tinh cầu có bãi treo máy hợp cảnh giới nhất mà đi tới được
 function farmPlanet(game, routeTo) {
   const sm = game.data.starmap, realm = game.save.realm || 0;
@@ -54,11 +65,13 @@ export function fairJob(game, routeTo) {
 
 export function farmJob(game, routeTo) {
   if (!pilotOpt(game, 'treo') || nightRest(game)) return null;
-  const camp = bestCamp(game), p = game.player;
+  const pick = picked(game), p = game.player;
+  if (pick && pick !== game.map.id) { const pt = routeTo(game, pick); if (pt) return { go: game.map.center(pt.at[0], pt.at[1]), to: pick }; }
+  const camp = bestCamp(game) || (pick ? easiestCamp(game) : null);
   // Có tinh cầu hợp cảnh giới hơn tinh cầu đang đứng thì bay sang đó treo (chơi thử 28/10: Hóa Thần vẫn đứng chém Mộc linh
-  // ở bãi tập Thiên Kiếm Phong hàng giờ, linh khí mỗi con quá ít)
+  // ở bãi tập Thiên Kiếm Phong hàng giờ, linh khí mỗi con quá ít). Người chơi đã chọn tinh cầu thì giữ chỗ đã chọn.
   const better = farmPlanet(game, routeTo), bodyRealm = id => game.data.starmap.bodies.find(b => b.map === id)?.realm ?? -1;
-  if (better && better !== game.map.id && bodyRealm(better) > bodyRealm(game.map.id)) {
+  if (!pick && better && better !== game.map.id && bodyRealm(better) > bodyRealm(game.map.id)) {
     const pt = routeTo(game, better);
     if (pt) return { go: game.map.center(pt.at[0], pt.at[1]), to: better };
   }
