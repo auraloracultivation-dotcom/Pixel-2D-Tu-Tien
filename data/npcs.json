@@ -1,5 +1,5 @@
 {
- "dai-ma-than": {"art": {"style": "long", "acc": ["horns"]}, "name": "Đài Ma Thần", "color": "#3a0a1a", "hair": "#120008", "lines": ["Đài đá đen lạnh buốt. Khi Đại Ma Thần xuất thế, chạm vào đài để khiêu chiến."]},
+ "dai-ma-than": {"ma_khi": {"r": 16, "n": 24, "h": 50}, "art": {"style": "long", "acc": ["horns"]}, "name": "Đài Ma Thần", "color": "#3a0a1a", "hair": "#120008", "lines": ["Đài đá đen lạnh buốt. Khi Đại Ma Thần xuất thế, chạm vào đài để khiêu chiến."]},
  "truong-thon": {"name": "Trưởng thôn", "color": "#c9a46a", "lines": ["Linh căn là trời cho, đường tu là tự mình đi.", "Làng Thanh Khê nhỏ, nhưng lòng người không nhỏ."]},
  "tieu-hoa": {"art": {"style": "spiky"}, "name": "Tiểu Hỏa", "color": "#ff7a3a", "lines": ["Nhanh lên! Linh thảo mọc nhiều ở mép tinh cầu đó.", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem!", "Lần này tớ không để ai bắt nữa đâu. Cho tớ đi cùng đi!"]},
  "van-hac": {"name": "Trưởng lão Vân Hạc", "color": "#e6ebf7", "hair": "#f4f4fa", "lines": ["Kiếm nhanh không bằng tâm vững.", "Đả tọa đều đặn. Linh khí không tự chảy vào người lười đâu."]},
