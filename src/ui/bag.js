@@ -87,6 +87,7 @@ export function createBag(game) {
       for (const it of items) box.append(itemCard(it, gain.get(it.uid)));
       return;
     }
+    if (st.tab === 'nl') { renderMats(box); return; }
     const keys = Object.keys(save().gems).sort((a, b) => a.split(':')[0].localeCompare(b.split(':')[0]) || b.split(':')[1] - a.split(':')[1]);   // theo loại, cấp cao lên trước
     if (!keys.length) box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.'));
     for (const k of keys) {
@@ -103,6 +104,18 @@ export function createBag(game) {
         row.append(b);
       }
       box.append(row);
+    }
+  }
+
+  // Mục lục nguyên liệu (đề xuất #29): mọi nguyên liệu, số đang có, nơi kiếm (cave.json → materials.desc); món đang có lên trước
+  function renderMats(box) {
+    const M = data.cave.materials, have = save().mats || {};
+    const ids = Object.keys(M).sort((a, b) => ((have[b] || 0) > 0) - ((have[a] || 0) > 0) || M[a].name.localeCompare(M[b].name, 'vi'));
+    for (const id of ids) {
+      const m = M[id], row = el('div', 'mat-row'), dot = el('i', 'mat-dot');
+      dot.style.background = m.color || '#ccc';
+      const txt = el('div', null); txt.append(el('b', null, `${m.name} ×${Math.floor(have[id] || 0).toLocaleString('vi-VN')}`), el('small', null, m.desc || ''));
+      row.append(dot, txt); box.append(row);
     }
   }
 
