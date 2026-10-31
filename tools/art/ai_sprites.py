@@ -239,6 +239,8 @@ def apply(manifest, save):
                 cells = cells + [np.ascontiguousarray(lie)]
             if s.get('order'): cells = [cells[i] for i in s['order']]   # ô ảnh gốc → khung: 0 đứng, 1–2 đi, 3 lấy đà, 4 đánh, 5 ngã, 6 tung chiêu
             frames = _act_frames(cells, s['h'], s.get('colors', 14), s.get('align', 'center'), s.get('fit'))
+            if s.get('bright'):   # ảnh gốc quá tối (Đại Ma Thần đen tím): nâng sáng, giữ viền mực
+                for f in frames: f[:, :, :3] = np.clip(f[:, :, :3].astype(float) * s['bright'] + 6, 0, 255).astype(np.uint8)
             if s.get('hop'): frames[2] = _lift(frames[2])   # ảnh chỉ 1 dáng: bước 2 nhảy lên 1 điểm ảnh cho thấy đang đi
             h, w = frames[0].shape[:2]
             save(sid, [_canvas(f) for f in frames], (w // 2, h - 2), s.get('note', sid) + f' · ảnh chủ dự án {len(frames)} khung')
