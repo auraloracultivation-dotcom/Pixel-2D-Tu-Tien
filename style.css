@@ -171,8 +171,8 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .item em.up { color: var(--jade); }
 .item.sel { background: var(--panel-3); box-shadow: 0 0 0 1px var(--torch), 0 0 12px rgba(242, 164, 67, .25); }
 .item .ico { float: left; width: 32px; height: 32px; margin-right: 6px; background: no-repeat center / 32px 32px; image-rendering: pixelated; }
-.gem-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 2px; border-bottom: 1px solid var(--line); }
-.gem-row span { flex: 1; }
+.gem-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; padding: 4px 2px; border-bottom: 1px solid var(--line); }
+.gem-row span { flex: 1; min-width: 120px; }
 .gem-ico { image-rendering: pixelated; flex: none; filter: drop-shadow(0 0 3px rgba(0, 0, 0, .6)); }
 .gem-ico.sm { vertical-align: middle; margin-right: 4px; }
 .socket.full, .pf-gem { display: inline-flex; align-items: center; gap: 2px; }
