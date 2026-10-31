@@ -233,3 +233,12 @@ body.perf-calm #btn-dash::after, body.perf-calm #btn-pill::after, body.perf-calm
 #menu .link-btn { font-family: var(--f-pixel) !important; font-size: 14px !important; }
 #menu .help, #menu .health { background: rgba(14, 8, 26, .55); padding: 4px 8px; font-family: var(--f-pixel); }
 #login-msg:not(:empty) { background: rgba(20, 8, 30, .78); padding: 4px 10px; font-family: var(--f-pixel); color: #ffb0a0; text-shadow: none; max-width: 320px; }
+
+/* Đề xuất #41 (31/10/2026): viền nút theo hệ Linh căn của nhân vật. hud.js đặt --el-line = màu hệ (data/elements.json);
+   nút chữ, nút biểu tượng có thêm viền mảnh màu hệ ngoài khung gỗ; nút tròn (đánh, chiêu, lướt, đan, pháp bảo) có quầng màu hệ. Chưa chọn hệ thì như cũ. */
+#btn-mute, #btn-rec, #btn-inbox, #btn-notice, [id^="btn-fb-"], #btn-menu, #btn-auto:not(.on), #btn-pilot:not(.on), #btn-world, #btn-zalo {
+  box-shadow: 0 0 0 1.5px var(--el-line, transparent), 0 2px 0 rgba(0, 0, 0, .45) !important;
+}
+#btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after {
+  filter: drop-shadow(0 0 3px var(--el-line, transparent));
+}
