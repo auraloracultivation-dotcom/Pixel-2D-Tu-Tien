@@ -1,0 +1,19 @@
+{
+  "_note": "Màn tải và màn đăng nhập (src/ui/man-dau.js, style-man-dau.css). tips: câu hiện dưới thanh tải, đổi mỗi tip_sec giây. motes: số đốm linh khí bay lên; petals: số cánh hoa rơi (đổi theo lễ hội ở le_petals). Máy chậm (body.perf-calm) hoặc người dùng tắt chuyển động thì không chạy.",
+  "tip_sec": 3.2,
+  "motes": 26,
+  "petals": 14,
+  "le_petals": { "halloween": ["#ff9a3a", "#c56aff", "#ffcf7a"], "giang-sinh": ["#ffffff", "#d8ecff", "#bfe0ff"] },
+  "petal_colors": ["#ffc4d8", "#ffe0ea", "#ffffff", "#f6a8c4"],
+  "mote_colors": ["#ffe6a0", "#fff7d6", "#a8e8ff"],
+  "tips": [
+    "Mẹo: bấm Tự hành để nhân vật tự đi làm nhiệm vụ.",
+    "Mẹo: đầy linh khí ở tầng 9 thì về chỗ yên tĩnh rồi độ thiên kiếp.",
+    "Mẹo: khi độ kiếp, chạy né vòng sét báo trước.",
+    "Mẹo: vắng mặt vẫn bế quan, quay lại là thấy mình mạnh hơn.",
+    "Mẹo: Túi → Ngọc có nút Khảm ngọc tốt nhất và Ghép hết.",
+    "Mẹo: điểm danh mỗi ngày nhận ngọc, đủ mốc tuần, tháng còn thêm quà.",
+    "Mẹo: linh thú đi theo đánh quái cùng bạn.",
+    "Mẹo: khuya rồi thì về động phủ nghỉ ngơi, đạo hữu nhé."
+  ]
+}
