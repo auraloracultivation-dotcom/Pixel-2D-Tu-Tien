@@ -1,7 +1,7 @@
 -- Thiên Ma Ngoại Vực (chủ dự án chốt 31/10/2026 08:40–08:50; tài liệu dự án claude/y-tuong-thien-ma-ngoai-vuc.md):
 -- tài khoản admin hoathan là Thiên Ma. Không hiện trên bảng xếp hạng. Mỗi khi Thiên Ma online (nhịp sống trong 30 giây), ai từ
 -- Kim Đan trở lên cũng khiêu chiến được, không giới hạn số lần. Trận đánh như So tài ở máy người chơi chỉ để xem; THẮNG THUA DO MÁY
--- CHỦ QUYẾT: lực chiến người chơi (máy chủ đã chặn trần theo cảnh giới) × ngẫu nhiên 0,8–1,2 so với sức mạnh Thiên Ma × 0,8–1,2.
+-- CHỦ QUYẾT: lực chiến người chơi (máy chủ đã chặn trần theo cảnh giới) × ngẫu nhiên 0,8–1,2 so với lực chiến thật của Thiên Ma (data.power, không chặn trần) × 0,8–1,2.
 -- Thắng: 1 món Đạo Vận vàng ngẫu nhiên, không ngọc, gửi Hòm thư. Thua: mất 10% tổng linh khí (có thể tụt tầng, tụt cảnh giới),
 -- được an ủi 1 viên ngọc cấp 4 ngẫu nhiên loại (chủ dự án 08:48). Thông báo đứng tên "Thiên Đạo" cho có cảm giác hệ thống.
 -- Thông báo toàn máy chủ qua kênh thế giới: Thiên Ma giáng lâm (online lại sau 5 phút vắng), mỗi trận khiêu chiến và kết quả.
@@ -113,7 +113,8 @@ begin
   if n.canh_gioi < 2 then raise exception 'chua_du' using errcode = '22023'; end if;
   v_ten := coalesce(n.ten, public.p2d_ten_mac_dinh(v_uid));
   v_ta := greatest(n.luc_chien, 0) * (0.8 + random() * 0.4);
-  v_ma := t.suc_manh * (0.8 + random() * 0.4);
+  -- Chỉ số thật của Đại Ma Thần (chủ dự án 08:59: không đeo đồ thì yếu): lực chiến máy khách của chính tài khoản đó, không chặn trần
+  v_ma := coalesce((select case when jsonb_typeof(x.data -> 'power') = 'number' then (x.data ->> 'power')::numeric end from public.p2d_nhan_vat x where x.user_id = p_tm), t.suc_manh) * (0.8 + random() * 0.4);
   v_thang := v_ta > v_ma;
   if v_thang then
     select q.mon into v_mon from public.p2d_thien_ma_qua q order by random() limit 1;
