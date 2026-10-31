@@ -65,7 +65,7 @@ export function farmJob(game, routeTo) {
   if (camp) {
     const sj = snackJob(game);   // hết linh thực mà dư Linh Thạch: ghé xóm mua một phần rồi mới treo
     if (sj) return sj;
-    const m = camp.alive.filter(m => !m.dead).sort((a, b) => dist(a, p) - dist(b, p))[0];
+    const m = camp.alive.filter(m => !m.dead && !((m.skipUntil || 0) > Date.now())).sort((a, b) => dist(a, p) - dist(b, p))[0];
     return m ? { fight: m } : { go: game.map.center(camp.at[0], camp.at[1]) };   // chờ quái hồi ngay tại bãi
   }
   const to = farmPlanet(game, routeTo);
