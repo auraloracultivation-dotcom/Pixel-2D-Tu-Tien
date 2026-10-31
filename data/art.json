@@ -7360,6 +7360,18 @@
     21
    ],
    "note": "nguồn sáng khung giao diện: wisp (ảnh Canva den-2.png)"
+  },
+  "wpn.ma-than-thuong": {
+   "file": "assets/art/wpn-ma-than-thuong.png",
+   "v": "b9398a15",
+   "w": 73,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    36,
+    19
+   ],
+   "note": "thương Đại Ma Thần, mũi hướng phải (ảnh Canva nguon/ai/props/ma-than-thuong.png)"
   }
  }
 }

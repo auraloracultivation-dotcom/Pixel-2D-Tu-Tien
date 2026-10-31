@@ -269,3 +269,12 @@ def hit_fx(save):
         save(sid, cvs, (round(ax * ww / old['w']), round(ay * hh / old['h'])), f'{note} (ảnh Canva nguon/ai/props/{name})')
         n += 1
     return n
+
+
+def ma_than_weapon(save):
+    """Thương của Đại Ma Thần (chủ dự án 31/10/2026: "vũ khí phải là thương, lớn gấp đôi vũ khí thường, cực đỉnh"): ảnh Canva nằm ngang,
+    dài 72 điểm ảnh (vũ khí bay thường ~36). Game xoay, nhấp nhô sau lưng (src/render/draw-ma-khi.js)."""
+    if not (SRC / 'ma-than-thuong.png').exists(): return 0
+    a = A._key_near(np.array(Image.open(SRC / 'ma-than-thuong.png').convert('RGBA')))
+    _by_width(save, 'wpn.ma-than-thuong', A._trim(a), 80, 'thương Đại Ma Thần, mũi hướng phải (ảnh Canva nguon/ai/props/ma-than-thuong.png)')
+    return 1
