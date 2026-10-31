@@ -80,9 +80,9 @@ async function cleared(game) {
   const p = game.player; p.hp = Math.min(p.maxHp, p.hp + p.maxHp * 0.3);
   const daily = game.pilot && towerTaskLeft(game);   // tự hành: leo tiếp cho xong việc hằng ngày rồi ra
   const go = game.pilot ? (daily ? 'up' : 'out') : await game.dialog.choose(msg, [
+    { id: 'out', label: 'Rời tháp', desc: 'Giữ tầng cao nhất, lần sau leo tiếp' },   // Rời tháp bên trái, Leo bên phải (chỗ nút Đánh): bấm nhầm thì vẫn leo tiếp (đề xuất #31)
     { id: 'up', label: `Leo tầng ${t.floor + 1}`, desc: 'Hồi 30% máu giữa các tầng' },
-    { id: 'out', label: 'Rời tháp', desc: 'Giữ tầng cao nhất, lần sau leo tiếp' },
-  ]);
+  ], 600);
   if (go === 'up' && game.tower === t) { t.floor++; t.wait = 1; t.busy = false; }
   else if (game.tower === t) leaveTower(game);
 }
