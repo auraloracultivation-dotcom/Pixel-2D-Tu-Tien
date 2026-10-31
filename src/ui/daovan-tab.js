@@ -11,8 +11,9 @@ export function renderDaoVan(game, list, { card, mini, say }) {
   if (k.all) list.append(card('#ffd27a', T.path.replace('{i}', all).replace('{all}', all), [T.done_all]));
   else {
     const need = D.need_text[k.step.need.type].replace('{n}', k.goal);
-    const lines = [k.step.text, `${need} (${Math.min(k.have, k.goal)}/${k.goal})`, `Thưởng: ${giveText(d, k.step.give)}`];
-    if (!k.open) lines.push(T.wait.replace('{day}', k.step.day + 1).replace('{left}', leftText(k.step.day - k.day)));
+    const wait = !k.open && T.wait.replace('{day}', k.step.day + 1).replace('{left}', leftText(k.step.day - k.day));   // báo lỗi #30: chưa mở thì nói rõ, đừng hiện 0/600 như đang đếm
+    const lines = [k.step.text, k.open ? `${need} (${Math.min(k.have, k.goal)}/${k.goal})` : `${need} · ${T.locked_step}`, `Thưởng: ${giveText(d, k.step.give)}`];
+    if (wait) lines.unshift(wait);
     list.append(card(k.ready ? '#5fd07a' : '#ffd27a', `${T.path.replace('{i}', k.st.step + 1).replace('{all}', all)}: ${k.step.name}`, lines,
       mini(k.ready ? T.claim : T.not_yet, () => {
         const r = claimStep(game);
