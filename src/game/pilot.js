@@ -125,8 +125,10 @@ const tileOf = (game, at) => game.map.center(at[0], at[1]);
 // đảo không có bồ đoàn thì về động phủ (hoặc Thiên Kiếm Phong)
 function sit(game) {
   const home = game.save.flags['dong-phu'] ? 'dong-phu' : 'thien-kiem-phong', d = game.save.flags['dong-phu'] && daoLuHere(game);
-  const m = game.map.findTiles('M')[0], night = nightRest(game);   // khuya thì về nhà
-  if (m && (game.map.id === home || (!night && (!d || game.save.companion === d)))) return { sit: m };
+  const m = game.map.findTiles('M')[0], night = nightRest(game), nha = pilotOpt(game, 'nha');   // khuya thì về nhà
+  if (m && (game.map.id === home || (!night && (!nha || !d || game.save.companion === d)))) return { sit: m };
+  // Báo lỗi #45: tắt "Về nhà nhận quà..." thì đảo không có bồ đoàn cũng đả tọa ngay tại chỗ, không chạy về động phủ (trừ khuya)
+  if (!nha && !night && game.map.id !== home) { const T = game.map.T; return { sit: [Math.floor(game.player.x / T), Math.floor(game.player.y / T)] }; }
   const pt = routeTo(game, home);
   return pt ? { go: tileOf(game, pt.at), to: home } : { hunt: true };
 }
