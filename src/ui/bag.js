@@ -112,6 +112,12 @@ export function createBag(game) {
         b.disabled = save().gems[k] < data.items.gems.merge || (save().lingshi || 0) < fee;
         b.onclick = () => { if (mergeGems(data, save(), k)) { game.sfx('levelup'); changed(); } };
         row.append(b);
+        const can = Math.min(Math.floor(save().gems[k] / data.items.gems.merge), Math.floor((save().lingshi || 0) / fee));
+        if (can >= 2) {   // báo lỗi #35: ghép số lượng lớn một lần bấm, phí như ghép từng lần
+          const all = el('button', 'mini primary', `Ghép hết ×${can}`);
+          all.onclick = () => { let n = 0; while (mergeGems(data, save(), k)) n++; if (n) { game.sfx('levelup'); game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); changed(); } };
+          row.append(all);
+        }
       }
       box.append(row);
     }
