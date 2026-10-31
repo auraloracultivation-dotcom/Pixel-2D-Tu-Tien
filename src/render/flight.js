@@ -51,6 +51,21 @@ function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen, npcId) {
   ctx.restore();
 }
 
+// Vệt gió và đốm linh khí kéo dài sau thú cưỡi khi bay (đơn vị bản đồ, gốc ở chân thú): các vạch ngang chạy lùi rồi tan
+function windTrail(c, t, el) {
+  for (let i = 0; i < 9; i++) {
+    const k = (t * 1.8 + i / 9) % 1, y = -26 + ((i * 7) % 22), x = -10 - k * 46, len = 6 + (i % 3) * 4;
+    c.globalAlpha = (1 - k) * 0.55; c.fillStyle = i % 3 ? '#e8f4ff' : el;
+    c.fillRect(Math.round(x - len), Math.round(y), len, 1);
+  }
+  for (let i = 0; i < 6; i++) {   // đốm sáng rơi từ chân
+    const k = (t * 1.2 + i / 6) % 1;
+    c.globalAlpha = (1 - k) * 0.8; c.fillStyle = el;
+    c.fillRect(Math.round(-8 - k * 30), Math.round(-2 + k * 8 + Math.sin(i * 2 + t * 4) * 2), 1, 1);
+  }
+  c.globalAlpha = 1;
+}
+
 // Bay truyền tống giữa các tinh cầu (src/render/draw-space.js); hàm này chỉ lo vẽ người bay
 function drawFlight(ctx, screen, game, trip) {
   heroGame = game;
@@ -63,9 +78,10 @@ function drawFlight(ctx, screen, game, trip) {
     } else if (game.save.realm >= game.data.pets.fly_realm && game.save.mount) {
       // Từ Nguyên Anh: cưỡi thú bay thay cho kiếm
       c.save(); c.translate(px, py + 6 * S); c.scale(S, S);
-      drawMount(c, { x: 0, y: 0, face: { x: 1 }, moving: true, walkT: t }, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount);
+      windTrail(c, t, el);
+      drawMount(c, { x: 0, y: 0, face: { x: 1 }, moving: true, fly: true, walkT: t }, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount);
       c.restore();
-      rider(c, 0, px, py, S, t, fit.robe, fit.hair, fit.sash || el, 0);
+      rider(c, 0, px, py - Math.sin(t * 2.6) * 1.5 * S, S, t, fit.robe, fit.hair, fit.sash || el, 0);   // người nhấp nhô cùng thú
     } else rider(c, 0, px, py, S, t, fit.robe, fit.hair, fit.sash || el, 24);
   }, caption);
 }
