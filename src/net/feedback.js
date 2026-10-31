@@ -1,5 +1,5 @@
 // Báo lỗi, đề xuất của người chơi (supabase/migrations/20261029030000_p2d_gop_y.sql). Chỉ gửi khi đã đăng nhập;
-// máy chủ kiểm tra độ dài, kiểu ảnh và chặn gửi dồn (3 lần mỗi 10 phút, 15 lần mỗi ngày).
+// máy chủ kiểm tra độ dài, kiểu ảnh và chặn gửi dồn (10 lần liên tiếp mỗi 10 phút, 15 lần mỗi ngày).
 import { supabase } from './client.js';
 
 export async function loggedIn() {
