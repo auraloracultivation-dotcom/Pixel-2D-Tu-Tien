@@ -17,6 +17,7 @@ import { talkShop } from './shop.js';
 import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
 import { sideFirst, talkSide, sideCollect } from './side.js';
+import { challenge as challengeTm } from './thienma.js';
 import { talkHome } from './home.js';
 import { canPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
@@ -55,6 +56,7 @@ export function talkTo(game, npc) {
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
   if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
+  if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }

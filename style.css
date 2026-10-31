@@ -506,3 +506,8 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 #net-lost .nl-box { max-width: 300px; margin: 16px; padding: 16px 20px; text-align: center; color: #f3ead2; background: #1d2236; border: 2px solid #c9a24a; border-radius: 6px; }
 #net-lost b { display: block; font-size: 18px; margin-bottom: 6px; }
 #net-lost p { margin: 0; font-size: 14px; line-height: 1.4; }
+
+/* Đại Ma Thần xuất thế (src/game/thienma.js): nút đỏ rực chỉ hiện khi Đại Ma Thần online */
+#btn-thien-ma { pointer-events: auto; height: 26px; padding: 0 8px; border: 1px solid #ff5a3c; border-radius: 5px; background: #3a0a12; color: #ffd0b0; font: 700 12px var(--f-body); box-shadow: 0 0 0 1px #000, 0 0 10px #ff3c2a; animation: tm-pulse 1.4s ease-in-out infinite; }
+#btn-thien-ma[hidden] { display: none; }
+@keyframes tm-pulse { 50% { box-shadow: 0 0 0 1px #000, 0 0 18px #ff7a3c; } }
