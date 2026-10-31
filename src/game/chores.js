@@ -65,9 +65,10 @@ function wants(game) {
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
   if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
+  const viec = pilotOpt(game, 'viec');   // báo lỗi #42: tắt "việc phụ, treo thưởng" thì cả việc đã nhận cũng không tự làm
   for (const [id, q] of Object.entries(game.data.side.quests)) {
     const st = s.side?.[id];
-    if (st?.state !== 'on') continue;
+    if (!viec || st?.state !== 'on') continue;
     if (st.n >= q.n) out.push({ talk: q.npc });
     else if (q.kind === 'kill') out.push({ kill: q.mob });
     else out.push({ pick: id, map: q.map });
@@ -76,17 +77,17 @@ function wants(game) {
     const d = taskDef(game, t.id);
     if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
     if (d?.type === 'kill' && !d.mob && t.n < d.n) out.push({ any: true });
-    if (d?.type === 'fish' && t.n < d.n) out.push({ fish: true });
+    if (d?.type === 'fish' && t.n < d.n && pilotOpt(game, 'cau')) out.push({ fish: true });
     const R = game.data.resrun;   // việc vào bí cảnh tài nguyên: tới Quản Bí Cảnh, tự chọn loại còn lượt
     if (d?.type === 'res' && t.n < d.n && s.flags[R.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: R.npc });
     if (d?.type === 'arena' && t.n < d.n && s.flags[game.data.arena.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.arena.npc });   // luận võ
     if (d?.type === 'tower' && t.n < d.n && s.towerGaveUp !== new Date().toDateString() && (!d.need || s.flags[d.need]) && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.tower.npc });   // leo tháp: leo lại từ tầng 1
     const pill = game.data.cave.pill_button;
-    if (d?.type === 'brew' && t.n < d.n && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
+    if (d?.type === 'brew' && t.n < d.n && pilotOpt(game, 'dan') && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
   }
   const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
-  if (b && s.bounty.n < b.n) out.push({ kill: b.mob });
-  else if (b || (pilotOpt(game, 'viec') && !nightRest(game) && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
+  if (b && viec && s.bounty.n < b.n) out.push({ kill: b.mob });
+  else if ((b && viec) || (viec && !nightRest(game) && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
   for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
     if (pilotOpt(game, 'viec') && !nightRest(game) && !s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
   }
