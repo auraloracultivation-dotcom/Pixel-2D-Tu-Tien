@@ -9,7 +9,7 @@ import { loadPlayer } from './profile.js';
 const net = () => import('../net/thienma.js');
 const T = game => game.data.duel.thien_ma;
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
-let live = [], busy = false;
+let live = [], mine = null, busy = false;   // mine: chính mình là Đại Ma Thần
 
 const on = game => !!(game.online && game.cloud && game.save);
 export const tmLive = () => live.find(t => t.online) || null;
@@ -23,7 +23,7 @@ export function startThienMa(game) {
   document.getElementById('btn-world')?.after(btn);
   const poll = async () => {
     if (!on(game)) { btn.hidden = true; return; }
-    try { live = (await (await net()).tmList()).filter(t => t.id !== game.online?.me?.id); } catch { /* mạng lỗi: lần sau */ }
+    try { const all = await (await net()).tmList(), me = game.online?.me?.id; mine = all.find(t => t.id === me) || null; live = all.filter(t => t.id !== me); } catch { /* mạng lỗi: lần sau */ }
     btn.hidden = !tmLive();
   };
   setInterval(poll, c.poll_s * 1000); setTimeout(poll, 3000);
@@ -33,6 +33,7 @@ export async function challenge(game) {
   const c = T(game), tm = tmLive();
   if (busy) return;
   if (!on(game)) { game.toast(c.text.login, 2.4); return; }
+  if (mine) { game.toast(fill(c.text.self, { name: mine.ten }), 3.5); return; }   // Đại Ma Thần chạm đài của chính mình
   if (!tm) { game.toast(c.text.away, 2.4); return; }
   if (game.save.realm < c.min_realm) { game.toast(c.text.err.chua_du, 2.4); return; }
   const ok = await game.dialog.choose(fill(c.text.ask, { name: tm.ten }), [{ id: 'yes', label: c.text.yes, desc: c.text.yes_desc }, { id: 'no', label: c.text.no, desc: '' }]);
