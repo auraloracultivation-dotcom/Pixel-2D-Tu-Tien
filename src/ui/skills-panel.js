@@ -84,7 +84,7 @@ export function createSkillsPanel(game) {
       c.style.borderLeftColor = s.color;
       c.append(el('b', null, s.name), el('small', null, `${from} · hồi ${s.cd} giây${ok ? '' : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
       c.disabled = !ok;
-      if (data.art.sprites['icon.' + s.fx]) c.dataset.icon = 'icon.' + s.fx;   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)
+      if (data.art.sprites['icon.' + (s.icon || s.fx)]) c.dataset.icon = 'icon.' + (s.icon || s.fx);   // s.icon: biểu tượng riêng khi fx dùng chung (thương mượn vệt chém)   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)
       c.dataset.act = 'Mang vào ô ' + (slot + 1);
       c.onclick = () => { setSlot(game, slot, id); slot = (slot + 1) % 3; game.sfx('pickup'); render(); };
       list.append(c);

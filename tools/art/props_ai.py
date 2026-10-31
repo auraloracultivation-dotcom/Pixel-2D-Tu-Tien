@@ -278,3 +278,20 @@ def ma_than_weapon(save):
     a = A._key_near(np.array(Image.open(SRC / 'ma-than-thuong.png').convert('RGBA')))
     _by_width(save, 'wpn.ma-than-thuong', A._trim(a), 80, 'thương Đại Ma Thần, mũi hướng phải (ảnh Canva nguon/ai/props/ma-than-thuong.png)')
     return 1
+
+
+def weapon_icons(save):
+    """Biểu tượng chiêu riêng cho vũ khí chưa có (01/11/2026: chiêu Long Thương Đột của thương mà hiện hình kiếm): cắt từ hình
+    vũ khí bay fw.<loại> ở khung chéo lên (khung 28 / 32 = xoay -45°), thu vào ô 16×16 như các biểu tượng chiêu khác."""
+    n = 0
+    for kind in ('thuong',):
+        spr = MANIFEST.get('fw.' + kind)
+        if not spr: continue
+        sheet = np.array(Image.open(Path(__file__).resolve().parents[2] / spr['file']).convert('RGBA'))
+        k = 28 % spr['frames']; cell = sheet[:, k * spr['w']:(k + 1) * spr['w']]
+        f = A._act_frames([A._trim(cell)], 15, 18, 'center')[0][:, :16].copy()
+        f[:, :, :3] = np.clip(f[:, :, :3].astype(float) * 1.35 + 10, 0, 255).astype(np.uint8)   # hình bay nhỏ tối: nâng sáng cho ngang các biểu tượng khác
+        sq = Canvas(16, 16); y, x = (16 - f.shape[0]) // 2, (16 - f.shape[1]) // 2
+        sq.a[y:y + f.shape[0], x:x + f.shape[1]] = f
+        save('icon.' + kind, [sq], (8, 8), f'biểu tượng chiêu {kind}, cắt từ fw.{kind}'); n += 1
+    return n

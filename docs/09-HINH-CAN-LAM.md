@@ -22,5 +22,7 @@ Mỗi mục ghi: ngày thấy, ở đâu, vì sao chưa ổn, cần tấm hình 
 
 ## Ưu tiên thấp
 
+- [ ] 01/11. Biểu tượng chiêu thương (`icon.thuong`): đang cắt tạm từ hình thương bay, nhỏ và mờ hơn 15 biểu tượng Canva. Cần vẽ một biểu tượng thương cùng bộ với `icon-chieu-1/2.png`.
+
 - [ ] 31/10. Đỉnh núi, sườn đá, ô nền: còn vẽ code. Game tự tô màu theo màu đất, nên muốn đổi phải là ảnh xám để tô màu, hoặc mỗi màu đất một bộ.
 - [ ] 31/10. "Đấu sĩ" (`dau-si`, `dau-si-xa`, `dau-si-ba` trong data/mobs.json): chưa có hình `mob.` riêng. Cần xem trận đang vẽ bằng gì rồi mới quyết có cần hình không.

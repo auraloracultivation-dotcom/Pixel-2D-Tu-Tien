@@ -141,6 +141,6 @@ export function createHud(audio) {
 function skillIcon(d, id) {
   const s = id && d.skills[id];
   if (!s) return '';
-  const spr = d.art.sprites['icon.' + (s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];
+  const spr = d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];
   return spr ? `url("${spr.file}?v=${spr.v}")` : '';
 }

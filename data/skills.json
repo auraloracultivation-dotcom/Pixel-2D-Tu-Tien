@@ -31,7 +31,7 @@
  "thach-chuy": {"fx": "rock", "name": "Thạch Chùy", "type": "projectile", "cd": 6, "mult": 2.8, "speed": 110, "range": 120, "radius": 8, "stun": 1.2, "explode": 20, "color": "#a07850", "desc": "Ném tảng đá nổ, làm choáng."},
  "son-nhac": {"fx": "rock", "name": "Sơn Nhạc Trấn", "type": "aoe", "cd": 11, "mult": 2.4, "radius": 56, "offset": 0, "stun": 1.5, "color": "#d0a070", "desc": "Núi đè xuống quanh người, sát thương lớn và choáng."},
  "dai-dia": {"fx": "shield-earth", "name": "Đại Địa Chi Tâm", "type": "shield", "cd": 22, "amount": 1.0, "dur": 8, "heal": 0.3, "color": "#e0b080", "desc": "Tuyệt kỹ: khiên bằng 100% máu và hồi 30% máu."},
- "long-thuong": {"ult": "spear", "fx": "slash", "name": "Long Thương Đột", "type": "dash", "cd": 5, "mult": 2.6, "dist": 76, "color": "#e0e0f0", "desc": "Cầm thương lao tới đâm xuyên."},
+ "long-thuong": {"ult": "spear", "icon": "thuong", "fx": "slash", "name": "Long Thương Đột", "type": "dash", "cd": 5, "mult": 2.6, "dist": 76, "color": "#e0e0f0", "desc": "Cầm thương lao tới đâm xuyên."},
  "cuong-phong": {"fx": "wind", "name": "Cuồng Phong", "type": "aoe", "cd": 6, "mult": 1.6, "radius": 46, "offset": 0, "stun": 0.5, "color": "#9af0c8", "desc": "Quạt một trận gió lớn quanh người, quái bị choáng ngắn."},
  "that-huyen": {"fx": "sound", "name": "Thất Huyền Âm", "type": "multi", "cd": 7, "mult": 1.1, "count": 10, "spread": 360, "speed": 150, "range": 100, "radius": 4, "pierce": true, "color": "#d8b0ff", "desc": "Gảy bảy dây, sóng âm tỏa tứ phía."},
  "tu-nguyet-liem": {"fx": "liem", "name": "Tử Nguyệt Liềm", "type": "projectile", "cd": 4.5, "mult": 2.4, "speed": 150, "range": 140, "radius": 7, "pierce": true, "slow": 1.2, "color": "#b89af0", "desc": "Ném lưỡi liềm tím xoay tròn, xuyên qua mọi quái và làm chậm."},
