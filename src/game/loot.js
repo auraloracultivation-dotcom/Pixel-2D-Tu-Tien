@@ -40,8 +40,9 @@ function take(game, l) {
   const { data, save } = game;
   if (l.kind === 'item') {
     if (!addItem(data, save, l.payload)) {
-      if (!game.pilot || !pilotOpt(game, 'phan-giai')) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
-      if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành: phân giải món rẻ cho có chỗ
+      // Đề xuất #46: cả Tự đánh (treo máy tại chỗ) cũng tự phân giải món rẻ khi túi đầy, theo tùy chọn "phan-giai" ở tab Tự hành
+      if (!(game.pilot || game.auto) || !pilotOpt(game, 'phan-giai')) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
+      if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành / tự đánh: phân giải món rẻ cho có chỗ
     }
     const r = rarityOf(data.items, l.payload.rarity);
     if (game.feed) game.feed(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, r.color || '#ffe6a0'); else game.toast(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
