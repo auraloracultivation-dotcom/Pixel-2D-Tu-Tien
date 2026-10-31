@@ -106,8 +106,10 @@
  "pill_button": "hoi-xuan-dan",
  "qi_pill_day": {"_note": "Đan độc (chủ dự án thấy đan cho linh khí quá nhiều, 28/10/2026): mỗi ngày dùng tối đa n viên đan và canh cho linh khí (gộp mọi loại); đủ rồi thì phải đợi hôm sau. Trước đây một viên Tụ Khí Đan 60 Linh Thạch cho 20% tầng, mua thả cửa thì bỏ qua cả game.", "n": 8, "full": "Đan độc tích tụ: hôm nay đã dùng {n} viên đan linh khí, mai dùng tiếp.", "left": "Hôm nay còn dùng được {n} viên đan linh khí."},
  "brew": {"_note": "rate: tỉ lệ thành của từng đan (mặc định default). Linh căn hệ trong element_bonus cộng thêm. Hỏng thì mất nguyên liệu.", "default": 0.85, "element_bonus": {"hoa": 0.1}},
+ "x2_err": {"_note": "Lỗi máy chủ khi uống Thăng Linh Đan (src/game/cave.js).", "chua_co_dan": "Máy chủ chưa thấy viên đan (vừa luyện xong chưa lưu kịp), chờ vài giây rồi uống lại.", "het_luot_hom_nay": "Hôm nay đã uống đủ 2 viên Thăng Linh Đan.", "net": "Chưa uống được (mạng chập chờn), thử lại sau."},
  "pills": {
   "hoi-xuan-dan": {"name": "Hồi Xuân Đan", "color": "#ff7a8a", "desc": "Hồi ngay 40% máu. Dùng bằng nút Đan khi đánh.", "use": {"heal": 0.4}, "cd": 8, "recipe": {"linh-thao": 2}, "make": 2, "rate": 0.95},
+  "thang-linh-dan": {"name": "Thăng Linh Đan", "color": "#ffd98a", "desc": "15 phút linh khí gấp đôi (không nhân Linh Thạch, ngọc, nguyên liệu). Mỗi ngày dùng tối đa 2 viên, uống nối thì cộng dồn thời gian.", "use": {"x2": 900, "per_day": 2}, "recipe": {"linh-thao": 6, "hoa-linh-chi": 2, "yeu-huyet": 2}, "make": 1},
   "tu-khi-dan": {"name": "Tụ Khí Đan", "color": "#bff4ff", "desc": "Nhận ngay linh khí bằng 6% tầng hiện tại.", "use": {"qi": 0.06}, "recipe": {"linh-thao": 3, "yeu-huyet": 1}, "make": 1},
   "boi-nguyen-dan": {"name": "Bồi Nguyên Đan", "color": "#f2c94c", "desc": "Vĩnh viễn +6 máu tối đa. Mỗi người dùng tối đa 10 viên.", "use": {"hp": 6, "cap": 10}, "recipe": {"linh-thao": 4, "yeu-huyet": 2, "hoa-linh-chi": 1}, "make": 1, "rate": 0.7},
   "thanh-tam-dan": {"name": "Thanh Tâm Đan", "color": "#c8b8ff", "desc": "Lần độ kiếp tới, sét đánh nhẹ đi 30%.", "use": {"trib": 0.3}, "recipe": {"linh-thao": 3, "hoa-linh-chi": 2}, "make": 1, "rate": 0.75},

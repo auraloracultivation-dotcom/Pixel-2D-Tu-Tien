@@ -131,8 +131,8 @@ export function createGame(data, screen, input, ui, audio) {
     game.pickups.push({ item, x: p.x, y: p.y });
   };
 
-  game.gainQi = (amount, x, y, quiet) => {
-    amount = Math.round(amount * (game.player?.st.qiMul || 1) * 10) / 10;
+  game.gainQi = (amount, x, y, quiet, raw) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí)
+    amount = Math.round(amount * (game.player?.st.qiMul || 1) * (!raw && (game.save.qiX2 || 0) > Date.now() ? 2 : 1) * 10) / 10;
     const broke = addQi(game.save, data.realms, amount);
     gainTechExp(game, amount);
     gainPetExp(game, amount);

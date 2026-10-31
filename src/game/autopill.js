@@ -8,7 +8,7 @@ export function autoPills(game) {
   const s = game.save, d = game.data, P = d.cave.pills;
   for (const [id, n] of Object.entries(s.pills || {})) {
     const u = P[id]?.use;
-    if (!u || !(n > 0) || u.heal) continue;
+    if (!u || !(n > 0) || u.heal || u.x2) continue;   // Thăng Linh Đan: để người chơi tự chọn lúc uống
     if (u.qi) {
       const need = qiNeed(s, d.realms);
       if (s.layer >= d.realms.layers && s.qi + need * u.qi > need) continue;   // sắp đầy tới đỉnh: để dành
