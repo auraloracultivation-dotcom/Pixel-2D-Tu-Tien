@@ -84,6 +84,7 @@ export function salvage(data, save, uid) {
   const n = rarityOf(data.items, it.rarity).salvage, rf = enhanceRefund(data, it);
   save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + n + rf.stones;
   if (rf.iron) save.mats['tinh-thiet'] = (save.mats['tinh-thiet'] || 0) + rf.iron;
+  if (data.items.bases[it.base]?.dv) for (const [m, k] of Object.entries(data.daovan?.salvage?.mats || {})) save.mats[m] = (save.mats[m] || 0) + k;   // món Đạo Vận: thêm Đạo Vận Thạch
   return n + rf.stones;
 }
 

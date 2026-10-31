@@ -4,6 +4,7 @@
  "rarity": "dia",
  "match_main": 0.3,
  "reroll": {"mat": "dao-van-thach", "n": 1},
+ "salvage": {"_note": "Phân giải món Đạo Vận (chủ dự án 31/10/2026): như đồ thường, thêm nguyên liệu dưới đây. Bán cho tiệm được, không rao chợ. Bấm hai lần mới phân giải / bán.", "mats": {"dao-van-thach": 1}},
  "pet_el": {"moc-linh": "moc", "moc-yeu": "moc", "hoa-lang": "hoa", "viem-linh": "hoa", "tuyet-lang": "thuy", "bang-tinh": "thuy", "kiem-hon": "kim", "phong-yeu": "kim", "tho-khoi": "tho", "ma-tieu": "tho", "ma-cung": "hoa", "hu-anh": "thuy"},
  "bonus": {
   "moc": {"3": {"hp_pct": 6}, "5": {"regen": 4, "hp_pct": 4}, "7": {"hp_pct": 8, "qi_gain": 8}, "10": {"hp_pct": 12, "regen": 6, "atk_pct": 8}},
@@ -45,6 +46,7 @@
   "reroll": "Đổi hệ ({n} {mat})",
   "rerolled": "{item}: hệ mới là {el}.",
   "goal": "Đạo Vận",
+  "confirm": "Bấm lần nữa để {act} (món Đạo Vận)",
   "goal_ready": "Đạo Vận: xong bước, vào Việc → Đạo Vận nhận thưởng"
  },
  "need_text": {"sit": "Đả tọa {n} phút", "kills": "Hạ {n} quái", "fish": "Câu {n} cá", "bosses": "Hạ {n} boss", "layer": "Lên thêm {n} tầng tu vi", "rares": "Hạ {n} quái hiếm"}
