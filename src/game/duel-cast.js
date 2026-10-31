@@ -116,7 +116,7 @@ export function castFoe(game, m, id) {
       break;
     }
     case 'shield':
-      m.shield = Math.round(m.maxHp * amount); m.shieldT = s.dur; m.shieldColor = s.color;
+      m.shield = Math.min(Math.round(m.maxHp * (game.data.config.combat.shield_cap || 1)), (m.shieldT > 0 ? m.shield : 0) + Math.round(m.maxHp * amount)); m.shieldT = Math.max(m.shieldT, s.dur); m.shieldColor = s.color;   // giáp chồng nhau (báo lỗi #28)
       if (s.heal) m.hp = Math.min(m.maxHp, m.hp + Math.round(m.maxHp * s.heal));
       addFx(game, { type: 'ring', x: m.x, y: m.y, r: 14, color: s.color, life: 0.4 });
       if (s.fx) selfFx(game, s.fx, m);

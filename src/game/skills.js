@@ -59,7 +59,7 @@ export function castSkill(game, id) {
       break;
     }
     case 'shield':
-      p.shield = Math.round(p.maxHp * amount); p.shieldT = s.dur; p.shieldColor = s.color;
+      p.shield = Math.min(Math.round(p.maxHp * (game.data.config.combat.shield_cap || 1)), (p.shieldT > 0 ? p.shield : 0) + Math.round(p.maxHp * amount)); p.shieldT = Math.max(p.shieldT, s.dur); p.shieldColor = s.color;   // giáp chồng nhau (báo lỗi #28)
       if (s.heal) p.hp = Math.min(p.maxHp, p.hp + Math.round(p.maxHp * s.heal));
       addFx(game, { type: 'ring', x: p.x, y: p.y, r: 14, color: s.color, life: 0.4 });
       if (s.fx) selfFx(game, s.fx, p);
