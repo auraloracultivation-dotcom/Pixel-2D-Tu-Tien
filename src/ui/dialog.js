@@ -47,10 +47,11 @@ export function createDialog(onLine) {
   };
 
   // options: [{id, label, desc, color}]
-  d.choose = (title, options) => queue(resolve => {
+  d.choose = (title, options, guard = 0) => queue(resolve => {   // guard: số mili giây đầu bỏ qua chạm (đề xuất #31)
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
     full = title; shown = title.length; text.textContent = title; clearInterval(timer);
     choices.innerHTML = '';
+    const t0 = performance.now();
     for (const o of options) {
       const b = document.createElement('button');
       b.className = 'choice';
@@ -60,6 +61,7 @@ export function createDialog(onLine) {
       b.append(l, s);
       b.addEventListener('pointerdown', e => {
         e.stopPropagation();
+        if (performance.now() - t0 < guard) return;   // đang bấm Đánh liên tục thì khỏi chạm trúng lựa chọn vừa hiện
         choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(o.id);
       });
       choices.append(b);
