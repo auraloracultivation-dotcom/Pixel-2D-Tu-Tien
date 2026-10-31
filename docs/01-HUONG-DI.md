@@ -34,6 +34,20 @@ Tự hành hiện làm được khi truyện đang chờ tu luyện (`src/game/c
 
 Những thứ cho cảm giác yên bình: ngày đêm theo giờ thật, bốn mùa, mưa, đom đóm, ngắm cảnh (đạo lữ ngồi cạnh), động phủ trang trí được (Tiểu Linh bán đồ, mỗi món tăng tốc đả tọa ở nhà), khách quen ghé chơi mỗi ngày, chuông gió, thư đạo lữ khi vắng lâu, bế quan khi vắng mặt (ở nhà nhanh hơn), nhật ký tu tiên, uống trà với đạo lữ mỗi ngày (đả tọa nhanh hơn một lúc), NPC và bạn đồng hành nói nhỏ thành bong bóng, vài NPC đi dạo, câu thơ tĩnh tâm khi đả tọa lâu (`data/chatter.json`), đạo lữ đón khi về nhà sau lúc đi xa, kỳ ngộ nhỏ khi đi ngoài trời như nhặt linh thảo, gặp tiên hạc, giọt sương sớm (`data/kyngo.json`). Đạo lữ câu cá cùng và ngồi đả tọa cạnh bên; mỗi tối ra đá ngắm cảnh thả hoa đăng (`data/scenic.json` → lantern); đả tọa lâu thì linh thú tha đồ về (`data/pets.json` → fetch). Khi vắng mặt, linh thú cũng tha đồ về và đạo lữ ở nhà câu cá giùm (`data/fishing.json` → away). Đêm trời quang ngồi ngắm cảnh thì có sao băng, sao đầu mỗi đêm là một điều ước (`data/scenic.json` → star). Đêm song tu ở nhà thì đạo lữ gảy đàn tranh (`data/home.json` → zither). Dòng báo xếp hàng hiện lần lượt, không che mất nhau. Chuồng linh cầm sau nhà (gà, thỏ ngọc, hạc con) đẻ quà theo giờ (`data/critters.json`). Mỗi ngày nấu một bữa cùng đạo lữ từ cá và thảo dược, ăn xong đả tọa nhanh hơn (`data/cooking.json`). Cứ vài ngày có khách phương xa ghé: kể chuyện, tặng quà, bán nguyên liệu; khách nào cũng đánh cờ được (`data/visitors.json`). Vắng lâu về nhà thì đạo lữ nấu sẵn cháo; khuya đạo lữ chúc ngủ ngon, sáng sớm chào buổi sáng (`data/home.json` → greet).
 
+
+## Tầm nhìn và cân bằng (chủ dự án nói tối 31/10/2026, kim chỉ nam cho mọi tab)
+
+Lời chủ dự án: "Một thế giới tu tiên vừa chill vừa yên bình, nơi mà khi người ta bất mãn với xã hội thì có thể vào game để giải toả căng thẳng; nơi mà xung quanh chẳng còn ai thì game vẫn là người bạn đồng hành; nơi mà dù một ngày bạn chỉ vô 15 phút thì bạn vẫn đang tiến bộ và được công nhận."
+
+Nhưng "không nên chiều chuộng người chơi quá": người chơi luôn đòi chức năng, cảnh giới mới, không bao giờ biết đủ. Áp dụng cả hai mặt, lọc cái tinh tuý để vừa giữ khách vừa làm khách hài lòng.
+
+Cách xét một đề xuất / tính năng:
+
+1. **15 phút vẫn tiến bộ**: có tiến bộ khi vắng mặt (bế quan, động phủ, linh thú), mỗi ngày có mốc nhỏ làm xong trong 15 phút.
+2. **Được công nhận, có bạn đồng hành**: lời khen, NPC / đạo lữ / linh thú hỏi han; vinh danh cả người chăm chỉ, góp ý, giúp người mới, không chỉ người mạnh.
+3. **Chill, không ép**: không phạt nặng khi nghỉ, không bắt canh giờ, không dụ nạp bằng cảm giác thua thiệt.
+4. **Không chiều quá**: nội dung mới (cảnh giới, chức năng) ra có nhịp, theo cốt truyện, không chạy theo mọi lời đòi; đỉnh cao phải khó với tới (ví dụ phí ghép / cường hoá cấp cao giữ đắt). Thử thách, của hiếm, thứ phải tích luỹ lâu là gia vị tốt, miễn người chơi 15 phút / ngày vẫn thấy mình đi lên.
+5. Đề xuất đi ngược tinh thần trên thì gạt ra hoặc hỏi chủ dự án.
 ## Quyết định sáng 27/10/2026
 
 1. Tiên ngọc, thẻ tháng, quầy đổi: làm khung trong game, chưa thu tiền thật. Gói nạp hiện "Sắp mở" tới khi lên CH Play bản chính thức (`data/topup.json`).
