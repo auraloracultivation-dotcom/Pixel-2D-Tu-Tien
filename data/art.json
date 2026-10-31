@@ -4240,10 +4240,10 @@
    "note": "Bạch Lộc (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
    "scale": 0.5333,
    "walk": [
-    1,
     2,
     3,
-    4
+    4,
+    3
    ]
   },
   "mount.hoa-ky-lan": {
@@ -4259,10 +4259,10 @@
    "note": "Hỏa Kỳ Lân (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
    "scale": 0.5333,
    "walk": [
-    1,
     2,
     3,
-    4
+    4,
+    3
    ]
   },
   "mount.phong-lang": {
@@ -4278,10 +4278,10 @@
    "note": "Phong Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
    "scale": 0.5333,
    "walk": [
-    1,
     2,
     3,
-    4
+    4,
+    3
    ]
   },
   "mount.tuyet-ly": {
@@ -4297,10 +4297,10 @@
    "note": "Tuyết Ly (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
    "scale": 0.5333,
    "walk": [
-    1,
     2,
     3,
-    4
+    4,
+    3
    ]
   },
   "npc.a-moc": {
