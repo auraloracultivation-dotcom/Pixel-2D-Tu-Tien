@@ -1,5 +1,5 @@
 {
- "_note": "Boss hiếm khi săn: cộng dồn thời gian ở đảo có trong maps (không tính trong nhà, lúc truyện đang chạy). Hết min_min tới max_min phút thì boss của đảo đó hiện gần người chơi. Rời đảo thì boss biến mất, đếm lại từ retry_min phút.",
+ "_note": "Boss hiếm khi săn (Yêu Vương): cộng dồn thời gian ở đảo có trong maps (không tính trong nhà, lúc truyện đang chạy). Hết min_min tới max_min phút thì boss của đảo đó hiện gần người chơi. Rời đảo thì boss biến mất, đếm lại từ retry_min phút.",
  "min_min": 15,
  "max_min": 20,
  "retry_min": 3,
@@ -13,5 +13,9 @@
   "dao-hau-tho": "nham-giap-thu",
   "vet-nut-ngoai": "hu-khong-cu-thu"
  },
- "intro": "Mặt đất rung chuyển... {name} xuất hiện!"
+ "intro": "Mặt đất rung chuyển... {name} xuất hiện!",
+ "_eta": "Đề xuất #43 (31/10/2026): vừa tới đảo báo eta (còn khoảng {min} phút săn nữa boss hiện); còn warn_sec giây thì nhắc warn một lần.",
+ "eta": "{name} sẽ xuất hiện sau khoảng {min} phút săn trên đảo này.",
+ "warn_sec": 60,
+ "warn": "Mặt đất rung nhẹ... {name} sắp xuất hiện, còn khoảng 1 phút!"
 }
