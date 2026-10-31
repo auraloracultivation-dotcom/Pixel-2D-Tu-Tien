@@ -61,6 +61,7 @@ export function usePill(game, id) {
   const { data, save, player: p } = game, pill = data.cave.pills[id], u = pill?.use;
   if (!u || !(save.pills[id] > 0)) return null;
   let msg;
+  if (u.x2) return drinkX2Pill(game, id, u);
   if (u.heal) {
     if (p.hp >= p.maxHp) return null;
     p.hp = Math.min(p.maxHp, p.hp + p.maxHp * u.heal);
@@ -70,7 +71,7 @@ export function usePill(game, id) {
     const day = new Date().toDateString();
     save.qiPill = { day, n: (save.qiPill?.day === day ? save.qiPill.n : 0) + 1 };
     save.pills[id]--;
-    game.gainQi(qiNeed(save, data.realms) * u.qi, p.x, p.y);
+    game.gainQi(qiNeed(save, data.realms) * u.qi, p.x, p.y, false, true);   // đan linh khí không nhân đôi theo Thăng Linh Đan
     game.persist();
     return 'Linh khí tràn vào kinh mạch';
   } else if (u.hp) {
@@ -115,4 +116,25 @@ export function forge(game, recipeId, slot) {
   game.newItems = (game.newItems || 0) + 1;
   game.persist();
   return it;
+}
+
+// Thăng Linh Đan (đề xuất #39): u.x2 giây linh khí gấp đôi, mỗi ngày u.per_day viên. Đã đăng nhập thì máy chủ ghi giờ hết
+// (để hạn mức linh khí không cắt phần nhân đôi); chơi không tài khoản thì chỉ đếm trong máy.
+export const x2Left = (game, u) => { const d = new Date().toDateString(), x = game.save.x2Pill; return u.per_day - (x?.day === d ? x.n : 0); };
+export const x2Active = game => (game.save.qiX2 || 0) > Date.now();
+function drinkX2Pill(game, id, u) {
+  const s = game.save;
+  if (x2Left(game, u) <= 0 || game.x2Busy) return null;
+  const done = het => {
+    const d = new Date().toDateString();
+    s.x2Pill = { day: d, n: (s.x2Pill?.day === d ? s.x2Pill.n : 0) + 1 };
+    s.pills[id]--; s.qiX2 = het; game.persist();
+    game.toast(`Linh khí gấp đôi tới ${new Date(het).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`, 2.4);
+  };
+  if (!game.cloud) { done(Math.max(Date.now(), s.qiX2 || 0) + u.x2 * 1000); return 'Thăng Linh Đan vào bụng, linh khí cuộn trào'; }
+  game.x2Busy = true;
+  import('../net/danx2.js').then(m => m.drinkX2()).then(r => done(Date.parse(r.het_luc)))
+    .catch(e => game.toast(game.data.cave.x2_err[e.message] || game.data.cave.x2_err.net, 2.4))
+    .finally(() => { game.x2Busy = false; });
+  return 'Đang uống Thăng Linh Đan...';
 }
