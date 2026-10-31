@@ -6,7 +6,7 @@ export function drawBanner(ctx, game, screen) {
   if (!b) return;
   const age = game.time - b.at;
   if (age > LIFE) { game.banner = null; return; }
-  const a = Math.min(1, age * 3, (LIFE - age) * 1.5), cx = screen.w / 2, y = screen.h * 0.24 - (1 - Math.min(1, age * 3)) * 8;
+  const a = Math.min(1, age * 3, (LIFE - age) * 1.5), cx = screen.w / 2, y = screen.h * 0.62 - (1 - Math.min(1, age * 3)) * 8;   // dưới nhân vật, trên cụm nút chiêu: 24% bị cột nút HUD (DOM) đè (chơi thử 31/10)
   ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.font = '22px "Unifont VN", system-ui'; const wName = ctx.measureText(b.name).width;
   ctx.font = '12px "Unifont VN", system-ui'; const sub = b.parts.map(p => p.t).join('  ·  '), wSub = ctx.measureText(sub).width;
