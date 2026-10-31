@@ -92,7 +92,7 @@ function finish(game, res) {
   if (f.mob) f.mob.hitQ = null;
   game.bullets = game.bullets.filter(b => b.src !== f.mob); game.zones = game.zones.filter(z => !z.foe);   // dừng tay: đòn đang bay của bản sao tan
   game.sfx(res === 'win' ? 'levelup' : res === 'draw' ? 'warn' : 'hurt');
-  game.toast(fill(D(game).text[res], { name: f.prof.ten }), 2.4);
+  game.toast(f.tmText || fill(D(game).text[res], { name: f.prof.ten }), f.tmText ? 4 : 2.4);   // khiêu chiến Đại Ma Thần: kết quả máy chủ (game/thienma.js)
 }
 
 // Gọi mỗi khung từ updateArena khi đang so tài
@@ -113,7 +113,7 @@ export function duelFail(game) {
   if (!f) return false;
   const lost = !f.done;   // đã thắng / hoà rồi mới gục (đòn bay dở) thì giữ kết quả
   if (lost) { f.done = true; f.res = 'lose'; }
-  if (!f.left) { f.left = true; leave(game, lost && fill(D(game).text.lose, { name: f.prof.ten })); }
+  if (!f.left) { f.left = true; leave(game, lost && (f.tmText || fill(D(game).text.lose, { name: f.prof.ten }))); }
   return true;
 }
 
