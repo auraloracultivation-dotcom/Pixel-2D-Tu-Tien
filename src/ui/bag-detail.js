@@ -146,14 +146,18 @@ export function renderDetail(game, st, box, changed, close) {
   const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save.mats[lk.mat] || 0) >= lk.n;
   btn(`Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name}${locking ? ', khoá 1 dòng' : ''})`, () => { if (reroll(data, save, it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk || (save.lingshi || 0) < fee);
   const iron = data.cave.salvage_iron[it.rarity] || 0;
-  if (base.dv) {   // Đạo Vận: không phân giải, không bán; đổi hệ bằng Đạo Vận Thạch
+  if (base.dv) {   // Đạo Vận: đổi hệ bằng Đạo Vận Thạch; phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;
     btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), () => { const e = rerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); changed(); } }, have < R.n);
-  } else {
-    const rf = enhanceRefund(data, it), rfTxt = it.plus ? `, gồm ${Math.round(data.gear.enhance.refund * 100)}% nguyên liệu cường hoá` : '';   // trả lại một phần nguyên liệu cường hoá
-    btn(`Phân giải (+${r.salvage + rf.stones} thạch, +${iron + rf.iron} tinh thiết${rfTxt})`, () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }, worn);
-    btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }, worn);
   }
+  const sure = (act, fn) => () => {   // món Đạo Vận: lần bấm đầu chỉ hỏi lại
+    if (base.dv && st.sure !== act + it.uid) { st.sure = act + it.uid; game.toast(data.daovan.texts.confirm.replace('{act}', act), 2); return; }
+    st.sure = null; fn();
+  };
+  const rf = enhanceRefund(data, it), rfTxt = it.plus ? `, gồm ${Math.round(data.gear.enhance.refund * 100)}% nguyên liệu cường hoá` : '';   // trả lại một phần nguyên liệu cường hoá
+  const dvTxt = base.dv ? Object.entries(data.daovan.salvage?.mats || {}).map(([m, k]) => `, +${k} ${data.cave.materials[m].name}`).join('') : '';
+  btn(`Phân giải (+${r.salvage + rf.stones} thạch, +${iron + rf.iron} tinh thiết${dvTxt}${rfTxt})`, sure('phân giải', () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }), worn);
+  btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, sure('bán', () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }), worn);
   box.append(el('div', 'd-label', 'Rèn luyện'), acts);
   return true;
 }
