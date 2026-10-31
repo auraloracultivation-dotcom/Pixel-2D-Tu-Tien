@@ -4447,15 +4447,15 @@
   },
   "npc.dai-ma-than": {
    "file": "assets/art/npc-dai-ma-than.png",
-   "v": "895b2bd2",
-   "w": 102,
-   "h": 64,
+   "v": "b614d763",
+   "w": 82,
+   "h": 53,
    "frames": 7,
    "anchor": [
-    51,
-    62
+    41,
+    51
    ],
-   "note": "Đại Ma Thần (Đài Ma Thần, Thiên Kiếm Phong): Canva 31/10/2026 theo yêu cầu chủ dự án, 5 dáng; cao hơn NPC chuẩn, ma khí tím đen · ảnh chủ dự án 7 khung",
+   "note": "Đại Ma Thần (Đài Ma Thần, Thiên Kiếm Phong): Canva chibi 31/10/2026 (bản đầu đầu nhỏ bị chủ dự án chê), 5 dáng; cao hơn NPC chuẩn, sừng, lửa tím · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
   "npc.du-tang": {
