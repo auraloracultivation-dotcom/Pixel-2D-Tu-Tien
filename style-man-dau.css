@@ -1,0 +1,72 @@
+/* Màn tải và màn đăng nhập có hiệu ứng (01/11/2026, chủ dự án: "thô sơ, chưa thuận mắt, không có hiệu ứng").
+   Nạp sau style.css (index.html). Hiệu ứng chạy bằng CSS (tên game nhún, ánh chạy trên nút, thanh tải pixel, nội dung hiện dần)
+   và canvas điểm ảnh của src/ui/man-dau.js (cánh hoa, đốm linh khí). Máy chậm (body.perf-calm) và người tắt chuyển động: đứng yên. */
+
+#man-dau-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; image-rendering: pixelated; z-index: 0; }
+#menu > :not(#man-dau-fx), #loading > :not(#man-dau-fx) { position: relative; z-index: 1; }
+
+/* ---- màn tải: tên game, thanh tải pixel chạy, mẹo đổi dần ---- */
+#loading { flex-direction: column; gap: 14px; }
+#loading .ld-box { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 22px 14px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(18, 8, 34, .78), rgba(18, 8, 34, .45) 70%, transparent); }
+.ld-title, #menu h1 { font-family: var(--f-pixel) !important; font-weight: 400 !important; letter-spacing: 1px !important; }
+.ld-title { font-size: 30px; color: #ffe39a;
+  text-shadow: 2px 0 #3a1406, -2px 0 #3a1406, 0 2px #3a1406, 0 -2px #3a1406, 2px 2px #3a1406, 0 4px 0 #1a0820, 0 0 16px rgba(255, 190, 90, .65);
+  animation: md-nhun 3s ease-in-out infinite; }
+.ld-bar { position: relative; width: 220px; height: 14px; background: #1a0c26; overflow: hidden;
+  box-shadow: 0 0 0 2px #e8b45a, 0 0 0 4px #3a1406, 0 4px 0 4px rgba(10, 4, 20, .55); image-rendering: pixelated; }
+.ld-bar i { position: absolute; top: 2px; bottom: 2px; left: 2px; width: 40%;
+  background: repeating-linear-gradient(90deg, #ffd46a 0 8px, #f2a43a 8px 10px);
+  box-shadow: 0 -2px 0 #fff2b8 inset, 0 2px 0 #b8641a inset;
+  animation: md-tai 1.6s steps(24) infinite; }
+.ld-text { font-family: var(--f-pixel); font-size: 16px; color: #fff3c4;
+  text-shadow: 1px 0 #2a1638, -1px 0 #2a1638, 0 1px #2a1638, 0 -1px #2a1638; }
+.ld-text::after { content: ''; display: inline-block; width: 18px; text-align: left; animation: md-cham 1.2s steps(4) infinite; }
+#ld-tip { min-height: 18px; max-width: 300px; font-family: var(--f-pixel); font-size: 14px; color: #d8c8ff; text-align: center;
+  text-shadow: 1px 0 #1a0c26, -1px 0 #1a0c26, 0 1px #1a0c26, 0 -1px #1a0c26; opacity: 0; }
+#ld-tip.in { animation: md-hien .5s steps(5) forwards; }
+
+/* ---- màn đăng nhập: tên to, nhún nhẹ, ánh lướt; khung và nút hiện dần lần lượt ---- */
+#menu h1 { font-size: 34px !important; color: #ffe39a !important;
+  text-shadow: 2px 0 #3a1406, -2px 0 #3a1406, 0 2px #3a1406, 0 -2px #3a1406, 2px 2px #3a1406, 0 4px 0 #1a0820, 0 0 18px rgba(255, 190, 90, .6) !important;
+  animation: md-nhun 3s ease-in-out infinite, md-hien .6s steps(6) both; }
+body[data-le] #menu h1 { animation: md-nhun 3s ease-in-out infinite, md-hien .6s steps(6) both, hw-chu 2.2s ease-in-out infinite alternate; }
+#menu .sub { margin: -4px 0 4px; font-family: var(--f-pixel); font-size: 16px; color: #e8d8ff;
+  text-shadow: 1px 0 #1a0c26, -1px 0 #1a0c26, 0 1px #1a0c26, 0 -1px #1a0c26; animation: md-hien .6s .1s steps(6) both; }
+#menu:not([hidden]) > #login-form, #menu:not([hidden]) > #logged { animation: md-len .45s .15s steps(6) both; }
+#menu:not([hidden]) > #login-msg { animation: md-hien .4s .2s steps(4) both; }
+#menu:not([hidden]) > #btn-guest { animation: md-len .45s .25s steps(6) both; }
+#menu:not([hidden]) > .help, #menu:not([hidden]) > .health, #menu:not([hidden]) > .legal, #menu:not([hidden]) > #btn-install { animation: md-hien .5s .35s steps(5) both; }
+#menu .help, #menu .health { border-left: 2px solid rgba(232, 180, 90, .55); }
+
+/* ánh sáng lướt qua nút lớn mỗi vài giây (lớp phủ trên khung 9 mảnh, không đổi hình nút) */
+#menu .menu-btn { position: relative; overflow: hidden; transition: filter .12s steps(2); }
+#menu .menu-btn::after { content: ''; position: absolute; top: -8px; bottom: -8px; left: -40%; width: 24%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 250, 220, .55), transparent); transform: skewX(-20deg);
+  animation: md-anh 3.6s steps(18) infinite; }
+#menu .menu-btn.alt::after { animation-delay: 1.4s; background: linear-gradient(90deg, transparent, rgba(220, 200, 255, .45), transparent); }
+#menu .menu-btn:hover:not(:disabled) { filter: brightness(1.12) drop-shadow(0 0 6px rgba(255, 200, 110, .55)); }
+#menu .menu-btn:disabled::after { animation: none; display: none; }
+#menu input { transition: box-shadow .12s steps(2); }
+#menu input:focus { outline: none; box-shadow: 0 0 0 2px #e8b45a, 0 0 10px rgba(255, 200, 110, .45); }
+
+/* chớp linh khí lúc vào game (src/ui/man-dau.js thêm rồi tự gỡ) */
+#man-dau-flash { position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: radial-gradient(circle at 50% 55%, #fff8e0 0, #ffe6a0 25%, rgba(255, 210, 140, .6) 55%, rgba(40, 20, 60, 0) 100%);
+  animation: md-chop .7s steps(10) forwards; }
+
+@keyframes md-nhun { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes md-tai { 0% { left: -40%; } 100% { left: 100%; } }
+@keyframes md-cham { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+@keyframes md-hien { from { opacity: 0; } to { opacity: 1; } }
+@keyframes md-len { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes md-anh { 0%, 70% { left: -40%; } 100% { left: 130%; } }
+@keyframes md-chop { 0% { opacity: .95; } 100% { opacity: 0; } }
+
+body.perf-calm #man-dau-fx { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ld-title, #menu h1, #menu .sub, .ld-bar i, .ld-text::after, #ld-tip.in, #menu .menu-btn::after, #man-dau-flash,
+  #menu:not([hidden]) > * { animation: none !important; opacity: 1 !important; }
+  .ld-bar i { left: 2px; right: 2px; width: auto; }
+  #man-dau-fx { display: none; }
+}
