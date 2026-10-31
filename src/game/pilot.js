@@ -140,7 +140,7 @@ function plan(game) {
   // Đang đi việc truyện (nhặt đồ, gặp người...) thì quái bãi treo máy (hồi 2,5 giây) không chặn lại đánh, trừ khi máu dưới nửa:
   // trước đây đánh mãi quái bãi, không tới được chỗ nhặt mảnh kiếm (chơi thử 28/10, Thiên Kim Tinh)
   const errand = !waiting(game) && p.hp > p.maxHp * 0.5;
-  const foe = nearest(game, alive(game).filter(m => m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
+  const foe = nearest(game, alive(game).filter(m => !skipped(m) && m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
   if (foe) return { fight: foe };
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (waiting(game)) return choreJob(game, routeTo) || fairJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
@@ -168,6 +168,17 @@ function plan(game) {
 // Quá tầm hoặc vướng cây, vách giữa hai bên thì đi theo đường tới gần; không thì đánh
 const engage = (game, m, dt) => dist(m, game.player) > reachOf(game, m) || !clearShot(game, game.player, m) ? { ax: walk(game, m.x, m.y, dt), atk: false } : fightStep(game, m);
 
+// Báo lỗi #40 (31/10): quái dồn sau đá / vách, tự hành đi mãi không tới tầm, đứng rung một chỗ. Đuổi một con quá stuck_sec giây
+// mà gần như không nhích (dưới 6 đơn vị) và không đánh được thì bỏ qua con đó skip_sec giây, đánh con khác.
+function stuckCheck(game, m, r, dt) {
+  const pl = game.pilot, p = game.player, cfg = C(game);
+  if (r.atk || pl.chase?.m !== m) { pl.chase = { m, x: p.x, y: p.y, t: 0 }; return; }
+  const c = pl.chase;
+  if (Math.hypot(p.x - c.x, p.y - c.y) > 6) { c.x = p.x; c.y = p.y; c.t = 0; return; }
+  if ((c.t += dt) > (cfg.stuck_sec || 3)) { m.skipUntil = Date.now() + (cfg.skip_sec || 20) * 1000; pl.chase = null; pl.path = null; pl.key = ''; }
+}
+export const skipped = m => (m.skipUntil || 0) > Date.now();
+
 // Gọi mỗi khung từ player khi đang tự hành: trả về hướng đi và có đánh thường không
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
@@ -177,7 +188,7 @@ export function pilotStep(game, ax, dt) {
   if (game.trib.active) { game.pilot.job = null; return none; }   // người chơi tự độ kiếp: tự hành đứng yên, nhường người chơi né
   const job = game.pilot.job = plan(game);
   if (!job) return none;
-  if (job.fight) { p.meditating = false; return engage(game, job.fight, dt); }
+  if (job.fight) { p.meditating = false; const r = engage(game, job.fight, dt); stuckCheck(game, job.fight, r, dt); return r; }
   if (job.talk) {
     if (dist(job.talk, p) < game.data.config.interact_range * 0.8) { if ((game.pilot.talkT = (game.pilot.talkT || 0) - dt) <= 0) { game.pilot.talkT = 0.8; talkTo(game, job.talk); } return none; }   // nói thẳng với đúng người, không qua nút
     return { ax: walk(game, job.talk.x, job.talk.y, dt), atk: false };
@@ -228,7 +239,7 @@ export function pilotStep(game, ax, dt) {
     return none;
   }
   if (job.hunt) {
-    const m = nearest(game, alive(game).filter(m => m.def.qi && !avoided(game, m.id)));
+    const m = nearest(game, alive(game).filter(m => m.def.qi && !avoided(game, m.id) && !skipped(m)));
     return m && dist(m, p) < 220 ? engage(game, m, dt) : none;
   }
   p.meditating = false;
