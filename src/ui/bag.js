@@ -7,6 +7,7 @@ import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 import { gemIcon } from './gem-icon.js';
+import { bestGems } from '../game/autogem.js';
 
 const $ = id => document.getElementById(id);
 const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
@@ -90,6 +91,15 @@ export function createBag(game) {
     if (st.tab === 'nl') { renderMats(box); return; }
     const keys = Object.keys(save().gems).sort((a, b) => a.split(':')[0].localeCompare(b.split(':')[0]) || b.split(':')[1] - a.split(':')[1]);   // theo loại, cấp cao lên trước
     if (!keys.length) box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.'));
+    else if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
+      const b = el('button', 'mini primary gem-best', 'Khảm ngọc tốt nhất');
+      b.onclick = () => {
+        const r = bestGems(game);
+        game.toast(r.n ? `Đã khảm ${r.n} lần: lực chiến +${r.gain.toLocaleString('vi-VN')}` : 'Ngọc đang khảm đã là tốt nhất.', 2.2);
+        if (r.n) { game.sfx('levelup'); changed(); }
+      };
+      box.append(b);
+    }
     for (const k of keys) {
       const gi = gemInfo(data, k), row = el('div', 'gem-row');
       row.append(gemIcon(game, k, 56), el('span', null, `${gi.name} ×${save().gems[k]} (${statText(data, gi.stat, gi.value)})`));

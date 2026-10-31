@@ -4,9 +4,10 @@ import { playerStats } from './stats.js';
 import { power } from './achieve.js';
 import { equipped, socket, mergeGems, gemInfo, itemName } from './items.js';
 
-export function autoGem(game) {
+// Tìm một lần khảm / thay tăng lực chiến nhiều nhất (null nếu không còn cách nào mạnh hơn)
+function bestStep(game) {
   const s = game.save, d = game.data, keys = Object.keys(s.gems || {}).filter(k => s.gems[k] > 0);
-  if (!keys.length) return;
+  if (!keys.length) return null;
   const now = power(game, playerStats(s, d));
   let best = null;
   for (const it of equipped(s)) it.sockets.forEach((old, i) => {
@@ -18,6 +19,21 @@ export function autoGem(game) {
     }
     it.sockets[i] = old;
   });
+  return best;
+}
+
+// Nút "Khảm ngọc tốt nhất" ở Túi → Ngọc (đề xuất #33): lặp từng bước cho tới khi không còn viên nào làm mạnh hơn. Không ghép ngọc.
+export function bestGems(game) {
+  let n = 0, gain = 0, b;
+  while (n < 200 && (b = bestStep(game))) { socket(game.save, b.it.uid, b.i, b.k); n++; gain += b.v; }
+  if (n) { game.refreshStats(); game.persist(); }
+  return { n, gain };
+}
+
+export function autoGem(game) {
+  const s = game.save, d = game.data, keys = Object.keys(s.gems || {}).filter(k => s.gems[k] > 0);
+  if (!keys.length) return;
+  const best = bestStep(game);
   if (best) {
     socket(s, best.it.uid, best.i, best.k);
     game.refreshStats(); game.persist();
