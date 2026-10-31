@@ -1,4 +1,5 @@
 // Vẽ thế giới bằng hình khối đơn giản (bản tạm): người, quái, đạn, hiệu ứng, chỉ đường, cần gạt.
+import { drawMaKhi } from './draw-ma-khi.js';
 import { drawLanterns, drawMeteors } from './draw-lantern.js';
 import { guideTarget } from '../game/guide.js';
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
@@ -208,12 +209,14 @@ function drawOther(ctx, o, game, t) {
 }
 
 function drawNpc(ctx, n, game, t) {
-  // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>
+  // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>; ma khí (draw-ma-khi.js) hai lớp
+  if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'back');
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
   }
+  if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'front');
 }
 
 function drawFx(ctx, game) {
