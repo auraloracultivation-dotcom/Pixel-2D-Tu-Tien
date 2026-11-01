@@ -31,13 +31,15 @@ await p.waitForTimeout(800);
 await p.tap('#btn-guest');
 await p.waitForFunction(() => window.__game?.save, null, { timeout: 30000 });
 const step0 = await p.evaluate(() => window.__game.save.step);
-await p.tap('#btn-pilot');
+// Không còn nút Tự hành (02/11/2026): bật tự hành như chạm khung nhiệm vụ
+const pilotOn = () => p.evaluate(async () => { const P = await import('/src/game/pilot.js'); if (!window.__game.pilot) P.togglePilot(window.__game); });
+await pilotOn();
 const end = Date.now() + SEC * 1000;
 while (Date.now() < end) {
   const c = await p.$('#dlg-choices .choice');
   if (c && await c.isVisible()) { const all = await p.$$('#dlg-choices .choice'); await all[Math.min(1, all.length - 1)].tap().catch(() => {}); continue; }
   if (await p.evaluate(() => window.__game.dialog.open)) { await p.mouse.click(195, 760); await p.waitForTimeout(200); continue; }
-  if (!(await p.evaluate(() => !!window.__game.pilot))) await p.tap('#btn-pilot').catch(() => {});
+  if (!(await p.evaluate(() => !!window.__game.pilot))) await pilotOn().catch(() => {});
   await p.waitForTimeout(500);
 }
 const r = await p.evaluate(() => { const g = window.__game; return { step: g.save.step, map: g.map.id, realm: g.save.realm, layer: g.save.layer, goal: g.story.current()?.goal || '' }; });
