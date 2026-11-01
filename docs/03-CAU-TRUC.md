@@ -124,6 +124,8 @@ Thăng Linh Đan (đề xuất #39, chủ dự án duyệt 31/10/2026; `supabase
 
 Trấn giữ vùng an toàn (đề xuất #47 + #48, chủ dự án chốt 01/11/2026): một việc hằng ngày trong `data/daily.json` (`pool.tran-giu`, kiểu `guard`). Hạ quái thường (không boss, không Yêu Vương) cách NPC dưới `guard.r` đơn vị thì tính tiến độ (`dailyKill` ở `src/game/daily.js`, gọi từ `game.onKill`). Thưởng như việc ngày khác, chỉ data + máy khách.
 
+Tẩy luyện mới (chủ dự án chốt 02/11/2026; `src/game/tiers.js`, `data/items.json` → `line_tiers`): mỗi dòng phụ `{ s, v, t }` có màu t (0 lục, 1 lam, 2 tím, 3 cam, 4 vàng, 5 đỏ, 6 đen viền đỏ sẫm), tối đa 10 dòng, được trùng chỉ số. Phẩm món hiện theo trung bình màu các dòng (`quality`). Mỗi lần tẩy (`reroll`): xác suất ra thêm dòng giảm dần theo số dòng, may mắn ra liền nhiều dòng; không ra dòng thì quay màu một dòng, chỉ giữ nếu cao hơn. Đồ cũ khi vào game được gắn màu theo phẩm cũ (dòng cao lên 1 màu, giá trị không giảm) và tặng 1 lượt tẩy miễn phí (`it.free`). Máy chủ `p2d_mon_hop_le` nhận tới 10 dòng, trần mỗi dòng theo hệ số màu (`supabase/migrations/20261102010000_p2d_tay_luyen_moi.sql`). Khoá dòng khi tẩy đã bỏ.
+
 ## Âm thanh (`data/sounds.json`)
 
 Mọi tiếng tổng hợp bằng WebAudio, không có file (`src/core/audio.js`, nhạc ở `src/core/music.js`). Mỗi bản đồ một khúc (`music.maps`). Thêm 28/10/2026: khúc `boss` nhanh, trầm, tự đổi sang khi đang độ kiếp hoặc boss đã nhắm mình trong 260 đơn vị, hết thì về nhạc bản đồ (`src/game/boss-music.js`); khúc riêng cho Phương Thiên Địa; tiếng gõ gỗ nhẹ `click` khi bấm nút trong bảng, hộp thoại, menu (`src/ui/click-sound.js`, trừ nút đánh, lướt, chiêu).

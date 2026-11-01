@@ -8,6 +8,7 @@ import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 import { gemIcon } from './gem-icon.js';
 import { bestGems } from '../game/autogem.js';
+import { quality } from '../game/tiers.js';
 
 const $ = id => document.getElementById(id);
 const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
@@ -25,10 +26,10 @@ export function createBag(game) {
   const pick = uid => { st.sel = st.sel === uid ? null : uid; st.pickSocket = null; render(); };
 
   function itemCard(it, gain) {
-    const r = rarityOf(data.items, it.rarity);
+    const r = rarityOf(data.items, it.rarity), q = quality(data, it);   // tẩy luyện mới: màu theo phẩm trung bình các dòng
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
-    b.style.setProperty('--rar', r.color);
-    b.append(icon(data, it), el('b', null, itemName(data, it)), el('small', null, `${r.name} · cấp ${it.lvl}`));
+    b.style.setProperty('--rar', q ? q.edge || q.color : r.color);
+    b.append(icon(data, it), el('b', null, itemName(data, it)), el('small', null, `${q ? 'Phẩm ' + q.name : r.name} · ${it.lines.length} dòng · cấp ${it.lvl}`));
     if (gain > 0) b.append(el('em', 'up', '▲ ' + gain.toLocaleString('vi-VN')));
     b.onclick = () => pick(it.uid);
     return b;
@@ -40,8 +41,8 @@ export function createBag(game) {
       const it = save().bag.find(i => i.uid === save().equip[slot]);
       const cell = el('button', 'slot' + (it ? '' : ' empty') + (it && st.sel === it.uid ? ' sel' : ''));
       if (it) {
-        const r = rarityOf(data.items, it.rarity);
-        cell.style.setProperty('--rar', r.color);
+        const r = rarityOf(data.items, it.rarity), q = quality(data, it);
+        cell.style.setProperty('--rar', q ? q.edge || q.color : r.color);
         cell.append(icon(data, it), el('small', null, name));
         cell.title = itemName(data, it);
         cell.onclick = () => pick(it.uid);

@@ -40,7 +40,7 @@ function itemCard(game, save, slot, T) {
   txt.append(name, el('small', 'muted', `${data.items.slots[slot]} · ${fill(T.item_sub, { rarity: r.name, lvl: it.lvl })}`));
   const st = el('div', 'pf-stats');
   for (const [s, v] of Object.entries(mainStats(data, save, it))) st.append(el('span', 'd-main', statText(data, s, v)));
-  for (const l of it.lines) st.append(el('span', 'd-line', '◆ ' + statText(data, l.s, l.v)));
+  for (const l of it.lines) { const t = Number.isInteger(l.t) && data.items.line_tiers.list[l.t], d = el('span', 'd-line', '◆ ' + statText(data, l.s, l.v)); if (t) d.style.color = t.edge ? '#ff8a8a' : t.color; st.append(d); }
   if (it.sockets.length) {
     const gems = el('div', 'pf-gems');
     for (const g of it.sockets) {
