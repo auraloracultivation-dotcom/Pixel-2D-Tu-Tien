@@ -4,7 +4,12 @@ import { totalLayer, qiNeed, weaponId } from './stats.js';
 import { dailyEvent } from './daily.js';
 import { caveLevel } from './evolve.js';
 
-export function ensureCave(save) { save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {}; }
+export function ensureCave(save, data) {
+  save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {};
+  // Vào game luôn ở động phủ (chủ dự án chốt 02/11/2026), khi đã có động phủ; đang trong bí cảnh, tháp... cũng về nhà
+  const H = data?.home;
+  if (H?.start_home && save.flags['dong-phu'] && data.maps[H.map]) { save.map = H.map; save.spawn = Object.keys(data.maps[H.map].spawns || {})[0] || 'vao'; }
+}
 
 export const matInfo = (data, id) => data.cave.materials[id] || data.items.materials[id];
 const has = (save, cost) => Object.entries(cost).every(([k, n]) => (save.mats[k] || 0) >= n);

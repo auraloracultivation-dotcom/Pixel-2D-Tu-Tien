@@ -266,7 +266,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
-    ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save); ensurePets(game.save); ensureStats(game.save);
+    ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
     applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
