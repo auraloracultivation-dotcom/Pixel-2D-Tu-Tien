@@ -111,7 +111,7 @@ export function rerollCount(data, it, now = Date.now()) {
 }
 export function rerollFee(data, save, it, now = Date.now()) {
   const f = data.items.reroll_fee;
-  return Math.round(f.base * f.realm_mul ** (save.realm || 0) * f.r ** rerollCount(data, it, now));
+  return Math.round(f.base * f.realm_mul ** (save.realm || 0) * f.r ** rerollCount(data, it, now) * (f.line_mul || 1) ** Math.max(0, (it.lines?.length || 1) - 1));   // càng nhiều dòng càng đắt
 }
 
 // Tẩy luyện mới (02/11/2026): mọi dòng quay lại ngẫu nhiên, có xác suất ra thêm dòng (tối đa line_tiers.max).
