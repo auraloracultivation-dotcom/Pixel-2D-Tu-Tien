@@ -46,6 +46,7 @@
   "quest": {"title": "Nhiệm vụ", "sub": "Chạm khung nhiệm vụ góc phải trên để tự hành làm.", "groups": [
    {"name": "Nhiệm vụ", "items": [
     {"id": "daily", "label": "Việc hằng ngày, điểm danh", "icon": "ui.m-checklist", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "ngay", "badge": "daily-badge"},
+    {"id": "retreat", "label": "Bế quan tích luỹ", "icon": "ui.m-taiji", "open": "retreat"},
     {"id": "achv", "label": "Nhiệm vụ thành tích", "icon": "ui.m-trophy", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thanh-tuu", "badge": "achv-badge"},
     {"id": "pilotset", "label": "Cài tự hành", "icon": "ui.m-auto", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tu-hanh"}
    ]}

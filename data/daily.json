@@ -58,5 +58,14 @@
   {"id": "linh-trang-bi", "name": "Trang bị phẩm Linh", "cost": 60, "give": {"item": "linh"}},
   {"id": "huyen-trang-bi", "name": "Trang bị phẩm Huyền", "cost": 160, "rank": "noi-mon", "give": {"item": "huyen"}},
   {"id": "boi-nguyen", "name": "Bồi Nguyên Đan", "cost": 120, "rank": "tinh-anh", "give": {"pills": {"boi-nguyen-dan": 1}}}
- ]
+ ],
+ "retreat": {
+  "_note": "Thưởng bế quan tích luỹ (chủ dự án 02/11/2026: tính theo mốc lớn 100, 1000 giờ, không theo thời gian ngắn). Giờ = phút đả tọa trong game (stats.sit) + thời gian bế quan khi vắng mặt (retreat.off, đã chặn theo offline.max_hours). Mỗi mốc nhận một lần (save.retreat.got). reward như việc ngày (grant ở daily.js): item là độ hiếm thấp nhất, gem số viên ngọc cấp 1, stones Tẩy Luyện Thạch.",
+  "list": [
+   {"h": 100, "reward": {"item": "thien", "gem": 3, "stones": 10}},
+   {"h": 300, "reward": {"item": "thien", "gem": 6, "stones": 20}},
+   {"h": 600, "reward": {"item": "thien", "gem": 10, "stones": 30}},
+   {"h": 1000, "reward": {"item": "thien", "gem": 15, "stones": 50}}
+  ]
+ }
 }

@@ -4,6 +4,7 @@ import { qiNeed } from './stats.js';
 import { daoLuHere } from './affinity.js';
 import { comfort } from './decor.js';
 import { awayGifts } from './offgift.js';
+import { noteOffline } from './retreat.js';
 
 // Hệ số bế quan ở nhà: đồ trang trí cộng phần trăm, đạo lữ ở nhà thì song tu
 function homeOffline(game) {
@@ -20,6 +21,7 @@ export async function offlineGains(game, lastSeen) {
   const away = lastSeen ? (Date.now() - lastSeen) / 1000 : 0;
   if (away < o.min_minutes * 60) { await letter(game, away); return; }
   const sec = Math.min(away, o.max_hours * 3600);
+  noteOffline(game, sec);   // cộng vào giờ bế quan tích luỹ (src/game/retreat.js)
   const layer = s.layer, realm = s.realm;
   const mul = homeOffline(game);
   game.gainQi(cfg.meditate.qi_per_sec * o.rate * sec * mul, game.player.x, game.player.y, true);
