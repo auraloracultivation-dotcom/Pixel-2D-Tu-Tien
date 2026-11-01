@@ -20,6 +20,7 @@ import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
 import { drawHoiFlat, hoiEnts, drawHoiItem } from './draw-hoi.js';
 import { drawHoiSky } from './draw-hoi-sky.js';
+import { drawDatGlints } from '../world/draw-dat.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
 import { drawCritters, drawWild } from './draw-critter.js';
@@ -292,7 +293,7 @@ export function drawWorld(game, screen, t) {
   if (!game.map) return;
   drawSky(ctx, screen, game.map, t);
   screen.worldTransform();
-  drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game); drawHoiFlat(ctx, game, t);   // đồ hội phẳng: sân lát, gợn nước
+  drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game); drawHoiFlat(ctx, game, t); drawDatGlints(ctx, game, screen.viewRect(), t);   // đồ hội phẳng: sân lát, gợn nước; tuyết lấp lánh
   drawTorches(ctx, game, screen.viewRect(), t);
   drawScenic(ctx, game);
   drawDecor(ctx, game, t);
