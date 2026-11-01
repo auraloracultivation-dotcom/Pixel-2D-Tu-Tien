@@ -1,4 +1,5 @@
 // Quái: lang thang, đuổi, bắn xa, và boss (chém, lao, triệu hồi, vòng đạn, gọi lửa rơi nếu có meteor).
+import { inHoi } from '../world/hoi-foot.js';
 import { addFx, hitPlayer, shoot, dist } from './combat.js';
 import { addStrike } from './strikes.js';
 import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
@@ -32,6 +33,7 @@ function moveToward(game, m, tx, ty, speed, dt) {
   const dx = tx - m.x, dy = ty - m.y, d = Math.hypot(dx, dy);
   if (d < 1) return d;
   const s = speed * (m.slowT > 0 ? 0.45 : 1) * dt, mx = dx / d * Math.min(s, d), my = dy / d * Math.min(s, d);
+  if (m.def.ai !== 'boss' && !inHoi(game, m) && inHoi(game, { x: m.x + mx, y: m.y + my })) { m.fx = dx / d; m.fy = dy / d; return d; }   // không bước vào phố lễ hội
   // Đề xuất #49: quái kẹt sau đá, nhà quá ghost_after giây thì đi xuyên vật cản ghost_sec giây (kẹt giữa vật thì xuyên tiếp tới chỗ trống)
   const G = game.data.config.mob_ghost, T = game.map.T, inWall = () => game.map.solidTile(Math.floor(m.x / T), Math.floor(m.y / T));
   if (G && (m.ghostT > 0 || (m.ghostT === 0 && inWall()))) { m.x = Math.max(0, Math.min(game.map.w * T, m.x + mx)); m.y = Math.max(0, Math.min(game.map.h * T, m.y + my)); m.ghostT = Math.max(0, m.ghostT - dt); }
@@ -70,7 +72,7 @@ export function updateMobs(game, dt) {
       if (Math.abs(m.kx) + Math.abs(m.ky) < 2) { m.kx = 0; m.ky = 0; }
     }
     if (m.stunT > 0 || game.paused) continue;
-    if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && nearNpc(game, p, S.r)) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe)
+    if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && (nearNpc(game, p, S.r) || inHoi(game, p))) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe) và phố lễ hội (hoi-foot.js)
     const d = dist(m, p);
     if (!m.aggro && m.def.aggro && d < m.def.aggro) m.aggro = true;
     if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)

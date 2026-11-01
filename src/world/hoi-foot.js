@@ -55,3 +55,12 @@ export function hoiCovers(map, tx, ty) {
   const x = (tx + 0.5) * map.T, y = (ty + 0.5) * map.T;
   return (map.hoi || []).some(it => !it.foot.flat && x > it.x - it.w / 2 && x < it.x + it.w / 2 && y > it.y - it.h && y < it.y);
 }
+
+// Vùng phố hội (data/le-hoi.json → festivals.<bản đồ>.khu: các khung [x0, y0, x1, y1] theo ô). Chủ dự án 02/11/2026: quái ở ngoài
+// lễ hội, không xông vào cắn người. Quái không bước vào vùng này, người chơi đứng trong vùng thì quái không đuổi (mobs.js).
+export function inHoi(game, e) {
+  const K = game.data['le-hoi']?.festivals?.[game.map?.id]?.khu;
+  if (!K || !e) return false;
+  const x = e.x / game.map.T, y = e.y / game.map.T;
+  return K.some(([x0, y0, x1, y1]) => x >= x0 && x <= x1 && y >= y0 && y <= y1);
+}

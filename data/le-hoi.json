@@ -4,9 +4,10 @@
   "dao-han-bang": {
    "name": "Hàn Nguyệt Long Đăng Hội",
    "desc": "Băng tuyết, đăng long, múa lân",
+   "troi": {"_note": "Trời đêm hội (src/render/draw-hoi-sky.js): den số đèn trời bay lên (den_speed điểm mỗi giây), phao số ô pháo hoa nổ so le (phao_every giây một quả mỗi ô), tia mỗi quả, mau màu.", "den": 14, "den_speed": [6, 12], "phao": 3, "phao_every": [5, 9], "tia": 22, "mau": ["255,200,90", "140,220,255", "255,140,220", "200,170,255", "255,240,210"]},
    "khach": {
-    "_note": "Khách đi hội (src/game/hoi-khach.js): n người, mượn hình dân làng ids (mỗi người một hình), đi theo nodes (điểm dừng theo ô) nối bằng links, đứng ngắm wait giây; speed đơn vị mỗi giây; người chơi trong stop đơn vị thì đứng lại chào; cứ talk giây một khách trong range ô quanh người chơi nói một câu; bong bóng hiện sec giây.",
-    "n": 18,
+    "_note": "Khách đi hội (src/game/hoi-khach.js): n người, mượn hình dân làng ids (mỗi người một hình), đi theo nodes (điểm dừng theo ô) nối bằng links, đứng ngắm wait giây; speed đơn vị mỗi giây; người chơi trong stop đơn vị thì đứng lại chào; cứ talk giây một khách trong range ô quanh người chơi nói một câu; bong bóng hiện sec giây. group tỉ lệ người đi theo nhóm (bám người đi trước); kids hình trẻ con chạy nhanh kid_speed lần, câu kid_lines; ban: người bán [hình, x, y] đứng sau quầy, câu ban_lines.",
+    "n": 24,
     "speed": 13,
     "wait": [2, 7],
     "stop": 20,
@@ -14,8 +15,8 @@
     "talk": [5, 11],
     "sec": 3.2,
     "ids": [
-     "lao-ngu-ong", "hoa-su", "thuong-nhan", "du-tang", "tieu-phu", "lao-than", "phong-thach", "ba-do-den", "tieu-moc-linh", "ong-hai-nam",
-     "be-la", "tho-kim-sa", "co-ban-nuoc", "lao-nong", "chi-ganh-da", "ong-do", "chu-cho", "ong-gia-tuyet", "trai-truong"
+     "lao-ngu-ong", "du-tang", "tieu-phu", "phong-thach", "tieu-moc-linh", "be-la", "ong-gia-tuyet", "trai-truong", "ba-bi-ngo", "van-bao",
+     "thu-thap", "quan-binh-kho", "luan-vo-su", "quan-bi-canh"
     ],
     "nodes": [
      [3.5, 24.5], [5.4, 24.2], [9.4, 24.2], [15.5, 24.5], [19.5, 24.6], [24.5, 24.5], [28.5, 24.6], [32.5, 24.5], [24.5, 22.6], [20.0, 21.8],
@@ -32,9 +33,25 @@
      "Xiên nướng thơm quá, mua một xiên không?", "Mặt nạ hồ ly này đeo vào là thành tiên ngay.", "Đứng xa ra chút, lò lửa lam nóng lắm đó.",
      "Tối nay trăng sáng, ra hồ băng ngắm đi.", "Có tu sĩ Kiếm tông tới dự hội kìa!", "Người tuyết ai đắp mà dễ thương vậy?",
      "Đèn lồng bên đại lộ thắp suốt đêm luôn.", "Lên tháp năm tầng ngắm được cả tinh cầu đó.", "Cầu nguyện ở điện tuyết linh lắm.",
-     "Hàn Nguyệt Long Đăng Hội năm nào cũng đông vui."
+     "Hàn Nguyệt Long Đăng Hội năm nào cũng đông vui.", "♪ ♫ ♪", "Nắm tay đi kẻo lạc giữa hội đông thế này.", "Mai lại tới nữa nhé!",
+     "Đèn hoa sen ở vườn đào đẹp lắm.", "Tớ ước được thành tiên nhân.", "Ăn xong rồi đi ngắm pháo hoa đi!"
+    ],
+    "group": 0.35,
+    "kids": ["be-la", "tieu-moc-linh"],
+    "kid_speed": 2.2,
+    "ban": [
+     ["co-ban-nuoc", 5.4, 22.0], ["thuong-nhan", 9.4, 22.0], ["lao-than", 5.4, 26.7], ["ba-do-den", 9.4, 26.7], ["chu-cho", 19.6, 26.7],
+     ["ong-hai-nam", 23.6, 26.7], ["tho-kim-sa", 27.6, 26.7], ["hoa-su", 30.6, 32.0], ["lao-nong", 35.0, 32.0], ["chi-ganh-da", 31.0, 38.6],
+     ["ong-do", 35.2, 38.6]
+    ],
+    "kid_lines": ["Mẹ ơi con muốn mặt nạ hồ ly!", "Đuổi bắt đi, ai chậm là người tuyết!", "Hi hi, không bắt được đâu!", "Lân kìa, lân kìa!", "Con muốn ăn kẹo hồ lô!"],
+    "ban_lines": [
+     "Mời ghé xem, hàng mới về!", "Nóng hổi đây, nóng hổi đây!", "Mua hai tặng một nha!", "Hàng đẹp nhất phố đây!",
+     "Đạo hữu xem thử đi, không mua cũng được!", "Chè tuyết liên, thơm ngọt mát lạnh!"
     ]
-   }
+   },
+   "khu": [[2, 15, 30, 30], [8, 30, 30, 41], [27, 22, 35, 30], [28, 30, 38, 40]],
+   "_khu": "Vùng phố hội [x0, y0, x1, y1] theo ô: quái không bước vào, người chơi đứng trong vùng thì quái không đuổi (src/world/hoi-foot.js → inHoi, mobs.js). Bãi quái đặt cách vùng ít nhất 4 ô."
   }
  },
  "foot": {
