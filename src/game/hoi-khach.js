@@ -4,19 +4,20 @@
 // Đi theo lưới đường của lễ hội (data/le-hoi.json → festivals.<bản đồ>.khach: nodes điểm dừng theo ô, links đường nối), tới nơi
 // đứng ngắm vài giây (trước sạp, trước rồng băng) rồi đi tiếp sang điểm kề. Người chơi tới gần thì đứng lại quay sang, nói một câu;
 // thỉnh thoảng một khách gần người chơi tự nói câu hội (bong bóng như NPC, vẽ ở draw-bubble.js). Vẽ cùng đồ hội (draw-hoi.js).
+import { updateTro } from './hoi-tro.js';
 const K = game => game.data['le-hoi']?.festivals?.[game.map?.id]?.khach;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
 function spawn(game, c) {
-  const T = game.map.T, list = [], pool = c.ids.filter(id => game.data.npcs[id]);
+  const T = game.map.T, list = [], A = game.data.art.sprites, pool = c.ids.filter(id => game.data.npcs[id] || A[id]);
   let bag = [];
   const nextId = () => { if (!bag.length) bag = [...pool].sort(() => Math.random() - 0.5); return bag.pop(); };   // xáo đủ lượt rồi mới lặp hình
   for (let i = 0; i < c.n; i++) {
     const id = nextId(), at = Math.floor(Math.random() * c.nodes.length), [x, y] = c.nodes[at], kid = (c.kids || []).includes(id);
-    const n = { id, def: game.data.npcs[id], khach: true, kid, x: (x + (Math.random() - 0.5)) * T, y: (y + (Math.random() - 0.5) * 0.6) * T, r: 5,
+    const n = { id, def: game.data.npcs[id] || { name: 'Đệ tử' }, hero: !game.data.npcs[id], khach: true, kid, x: (x + (Math.random() - 0.5)) * T, y: (y + (Math.random() - 0.5) * 0.6) * T, r: 5,
       at, to: null, wait: Math.random() * 4, bob: Math.random() * 6, face: { x: Math.random() < 0.5 ? -1 : 1, y: 1 }, walkT: 0 };
     const lead = list[list.length - 1];   // đi theo nhóm hai ba người: bám người trước, lệch sang bên
-    if (lead && !lead.lead && !kid && !lead.kid && Math.random() < c.group) { n.lead = lead; n.ox = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 4); n.oy = (Math.random() - 0.5) * 6; n.x = lead.x + n.ox; n.y = lead.y + n.oy; }
+    if (lead && !lead.lead && kid === !!lead.kid && Math.random() < (kid ? 0.8 : c.group)) { n.lead = lead; n.ox = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 4); n.oy = (Math.random() - 0.5) * 6; n.x = lead.x + n.ox; n.y = lead.y + n.oy; }
     list.push(n);
   }
   for (const [id, x, y] of c.ban || []) {   // người bán đứng sau quầy, nhìn ra phố, mời khách
@@ -27,14 +28,22 @@ function spawn(game, c) {
 }
 
 export function updateKhach(game, dt) {
+  updateTro(game, dt);   // trò diễn (hoi-tro.js)
   const c = K(game);
   if (!c) { game.khach = null; return; }
   if (game.khachMap !== game.map) { game.khachMap = game.map; game.khach = spawn(game, c); game.khachT = c.talk[0]; }
-  const p = game.player, T = game.map.T, near = [];
+  const p = game.player, T = game.map.T, near = [], ch = game.hoiTro?.cheer, fresh = ch && ch !== game.khachCheer;
+  if (fresh) game.khachCheer = ch;
   for (const n of game.khach) {
     if (n.bubble && (n.bubble.t += dt) >= c.sec) n.bubble = null;
     if (n.reply && (n.reply -= dt) <= 0) { n.reply = 0; if (!n.bubble) n.bubble = { text: pick(c.lines), t: 0 }; }
     n.walkT += dt;
+    if (n.hop > 0) n.hop -= dt;
+    if (fresh && Math.hypot(n.x - ch.x, n.y - ch.y) < c.cheer_r * T && !n.lead?.ban) {   // khán giả reo hò: nhảy lên, quay về phía trò
+      n.face = { x: Math.sign(ch.x - n.x) || 1, y: ch.y < n.y ? -1 : 1 };
+      if (!ch.quiet || Math.random() < 0.3) n.hop = 0.45 + Math.random() * 0.2;
+      if (!n.bubble && Math.random() < (ch.big ? 0.5 : ch.quiet ? 0.05 : 0.14)) n.bubble = { text: pick(ch.big ? c.cheer_big : c.cheer), t: 0 };
+    }
     const px = p.x - n.x, py = p.y - n.y, d = Math.hypot(px, py);
     if (d < c.range * T) near.push(n);
     if (d < c.stop) {   // người chơi tới sát: đứng lại quay sang, chào một câu
@@ -60,7 +69,9 @@ export function updateKhach(game, dt) {
     const dx = n.to.x - n.x, dy = n.to.y - n.y, dd = Math.hypot(dx, dy), step = c.speed * (n.kid ? c.kid_speed : 1) * dt;
     if (dd < step + 0.5) {   // tới điểm dừng: đứng ngắm, quay lên (sạp, rồng) hoặc ngẫu nhiên
       n.to = null; n.moving = false; n.wait = n.kid ? Math.random() * 1.2 : c.wait[0] + Math.random() * (c.wait[1] - c.wait[0]);
-      n.face = { x: Math.random() < 0.5 ? -0.6 : 0.6, y: Math.random() < 0.6 ? -1 : 1 };
+      const nd = c.nodes[n.at];
+      if (nd.length > 2) { n.face = { x: Math.sign(nd[2] - nd[0]) * 0.8 || 0.6, y: nd[3] < nd[1] ? -1 : 1 }; n.wait += c.watch || 6; }   // điểm ngắm: quay về phía trò, đứng xem lâu hơn
+      else n.face = { x: Math.random() < 0.5 ? -0.6 : 0.6, y: Math.random() < 0.6 ? -1 : 1 };
       continue;
     }
     const ox = n.x, oy = n.y;
