@@ -236,7 +236,7 @@
    "do": [
     {"say": [["lao-ngu", "Tu sĩ Kiếm tông? Trời phật phù hộ!"], ["lao-ngu", "Mười ngày trước, một tên ma tướng mặc giáp băng kéo theo một đứa nhỏ tóc đỏ, bị xích tay, đi vào Băng Quật phía bắc."], ["lao-ngu", "Từ đó tinh hải đông cứng, tuyết lang thì phát cuồng, cắn chết cả người đi kiếm củi."], ["lac-tuyet", "Tóc đỏ... là Tiểu Hỏa. {Sư đệ|Sư muội}, dẹp bầy tuyết lang trước, dân làng mới dám ra khỏi nhà."]]}
    ],
-   "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [30, 25],
+   "goal": "Dẹp bầy tuyết lang ({n}/8)", "target": [40, 21],
    "until": {"kill": "tuyet-lang", "n": 8}
   },
   {

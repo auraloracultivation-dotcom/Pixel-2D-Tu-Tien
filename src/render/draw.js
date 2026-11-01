@@ -19,6 +19,7 @@ import { drawHamlets } from './draw-hamlet.js';
 import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
 import { drawHoiFlat, hoiEnts, drawHoiItem } from './draw-hoi.js';
+import { drawHoiSky } from './draw-hoi-sky.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
 import { drawCritters, drawWild } from './draw-critter.js';
@@ -342,7 +343,7 @@ export function drawWorld(game, screen, t) {
   screen.screenTransform();
   const lights = gatherLights(game, t);   // chiêu, đạn, người chơi: khoét lớp tối rồi phủ quầng sáng cuối cùng
   drawDayNight(ctx, game, screen, t, lights);
-  drawGlow(ctx, game, screen, t); drawFairSky(ctx, game, screen, t);
+  drawGlow(ctx, game, screen, t); drawFairSky(ctx, game, screen, t); drawHoiSky(ctx, game, screen, t);   // đèn trời, pháo hoa lễ hội
   drawWeather(ctx, game, screen, t);
   drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);

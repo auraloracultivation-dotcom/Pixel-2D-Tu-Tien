@@ -31,8 +31,17 @@ export function drawHoiItem(ctx, game, it, t) {
   if (it.khach) { drawNpcSprite(ctx, game, it, t); return; }
   const im = spriteImage(it.spr);
   if (!im) return;
-  const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k, oy = it.y - s.anchor[1] * k;
+  const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k;
+  let oy = it.y - s.anchor[1] * k;
   ctx.imageSmoothingEnabled = false;
+  if (it.id.startsWith('hb.lan')) {   // lân múa: nhảy nhịp, lắc đầu qua lại, thỉnh thoảng nhảy cao
+    const ph = it.x * 0.13, hop = Math.abs(Math.sin(t * 5 + ph)) * 2.2 + (Math.sin(t * 0.7 + ph) > 0.92 ? Math.abs(Math.sin(t * 5 + ph)) * 4 : 0);
+    ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.fillRect(it.x - it.w * 0.35, it.y - 1, it.w * 0.7, 2);
+    ctx.save(); ctx.translate(it.x, it.y - hop); ctx.rotate(Math.sin(t * 2.6 + ph) * 0.06); ctx.scale(Math.sin(t * 0.45 + ph) > 0 ? 1 : -1, 1);
+    ctx.drawImage(im, 0, 0, s.w, s.h, -s.anchor[0] * k, -s.anchor[1] * k, s.w * k, s.h * k);
+    ctx.restore();
+    return;
+  }
   ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x);
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
