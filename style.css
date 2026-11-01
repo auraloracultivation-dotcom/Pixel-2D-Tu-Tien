@@ -566,3 +566,16 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .self-row { display: flex; justify-content: space-between; gap: 6px; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--line); }
 .self-row span { color: var(--ink-2); }
 .self-panel .bag-head b { flex: 1; }
+/* Bảng điểm danh 1→N (src/ui/checkin-card.js) */
+.ck-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 6px 0; }
+.ck-cell { position: relative; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-2); }
+.ck-cell b { font-size: 11px; color: var(--ink); }
+.ck-cell i { font-style: normal; font-size: 11px; line-height: 1; }
+.ck-cell.on { background: rgba(95, 208, 122, .18); border-color: #5fd07a; }
+.ck-cell.on i { color: #5fd07a; }
+.ck-cell.today { border-color: #ff7ab6; box-shadow: 0 0 6px rgba(255, 122, 182, .6); }
+.ck-cell.gift { border-color: #f2c94c; }
+.ck-cell.m28 { border-color: #ff9a3a; } .ck-cell.m112 { border-color: #e0484a; box-shadow: 0 0 6px rgba(224, 72, 74, .5); }
+.rank-sub { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; margin-top: 4px; }
+.rank-sub button { font-size: 11px !important; padding: 2px 6px !important; }
+#rank-tabs { flex-wrap: wrap; }
