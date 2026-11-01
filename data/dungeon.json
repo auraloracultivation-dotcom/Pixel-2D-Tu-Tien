@@ -1,8 +1,7 @@
 {
- "_note": "Bí cảnh (hướng mới, chủ dự án chốt 02/11/2026): mỗi bí cảnh một thang liền Dễ 1→10, Trung 1→10, Khó 1→10 (modes × steps), qua bậc nào mở bậc kế. Quái mạnh tier_mul lần mỗi cấp, chia đều theo bậc: hệ số = tier_mul^(cấp + (bậc − 1) / steps), người chơi chỉ thấy màu so với sức mình (hint). 7 bí cảnh rơi 7 loại trang bị (drops: bản đồ → ô trang bị, vũ khí theo loại vũ khí đang dùng); thưởng cấp (modes[].reward, item là độ hiếm thấp nhất) phát khi hạ boss, tối đa per_day lần mỗi bí cảnh mỗi ngày; coins nhích theo bậc (reward_step), first: quà thêm lần đầu qua mỗi bậc. Linh khí, Linh Thạch của quái nhích theo reward_tier mỗi cấp. Bản lưu cũ đã qua cấp Ác Mộng / Địa Ngục coi như qua hết thang.",
+ "_note": "Bí cảnh không đáy (chủ dự án chốt 02/11/2026 02:57): mỗi bí cảnh một thang bậc liền, mỗi bậc quái mạnh step_mul lần (máu và công), không có đáy. Cứ steps bậc là một cấp: Dễ, Trung, Khó, Cực khó, Ác mộng, Địa ngục, Vô Gian; qua cấp cuối thì đánh số tiếp (Vô Gian 2, 3…, dùng thưởng cấp cuối). Người chơi chỉ thấy màu so với sức mình (hint). 7 bí cảnh rơi 7 loại trang bị (drops); thưởng cấp (modes[].reward, item là độ hiếm thấp nhất) phát khi hạ boss, tối đa per_day lần mỗi bí cảnh mỗi ngày; coins nhích theo bậc (reward_step), first: quà lần đầu qua mỗi bậc; linh khí, Linh Thạch của quái nhích reward_tier mỗi cấp.",
  "per_day": 2,
  "steps": 10,
- "tier_mul": 2,
  "reward_tier": 1.15,
  "reward_step": 0.015,
  "first": {
@@ -28,7 +27,8 @@
   "first": "Lần đầu qua {level}",
   "done": "Qua {map} ({level})! Nhận: {got}.",
   "full": "Hôm nay đã nhận đủ {n} lần thưởng ở {map}.",
-  "guest": "Đi theo tổ đội: chỉ đội trưởng tăng bậc, bạn nhận quà lượt ngày."
+  "guest": "Đi theo tổ đội: chỉ đội trưởng tăng bậc, bạn nhận quà lượt ngày.",
+  "level_n": "{mode} {n} · bậc {step}"
  },
  "story_step": {
   "_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.",
@@ -72,6 +72,58 @@
      "bi-kip-chieu": 2
     }
    }
+  },
+  {
+   "id": "cuc-kho",
+   "name": "Cực khó",
+   "reward": {
+    "item": "thien",
+    "gem": 2,
+    "stones": 4,
+    "coins": 2500,
+    "mats": {
+     "bi-kip-chieu": 3
+    }
+   }
+  },
+  {
+   "id": "ac-mong",
+   "name": "Ác mộng",
+   "reward": {
+    "item": "thien",
+    "gem": 3,
+    "stones": 6,
+    "coins": 6000,
+    "mats": {
+     "bi-kip-chieu": 4
+    }
+   }
+  },
+  {
+   "id": "dia-nguc",
+   "name": "Địa ngục",
+   "reward": {
+    "item": "thien",
+    "gem": 4,
+    "stones": 8,
+    "coins": 15000,
+    "mats": {
+     "bi-kip-chieu": 5
+    }
+   }
+  },
+  {
+   "id": "vo-gian",
+   "name": "Vô Gian",
+   "reward": {
+    "item": "thien",
+    "gem": 5,
+    "stones": 10,
+    "coins": 40000,
+    "mats": {
+     "bi-kip-chieu": 6
+    }
+   }
   }
  ],
  "drops": {
@@ -83,5 +135,6 @@
   "hoa-quat": "nhan",
   "co-thu-tam": "ngoc-boi",
   "vet-nut": "phap-bao"
- }
+ },
+ "step_mul": 2
 }
