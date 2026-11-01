@@ -166,7 +166,7 @@ export function updateRide(game, dt) {
   p.calmT = (p.calmT || 0) + dt;
   if (p.atkCd > 0 || p.invT > 0) { p.calmT = 0; p.riding = false; }
   const ok = id && game.save.mounts[id] && !(game.map.def.rooms || []).length && !game.map.def.indoor;
-  if (!ok) { p.riding = false; return; }
+  if (!ok || p.meditating) { p.riding = false; return; }   // đả tọa thì xuống thú (chơi thử 01/11: ngồi đả tọa ở hội đèn mà vẫn cưỡi sói)
   if (!p.riding && p.moving && p.calmT > P(game).ride_calm) { p.riding = true; game.sfx('pickup'); }
 }
 
