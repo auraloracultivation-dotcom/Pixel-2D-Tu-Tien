@@ -3,9 +3,15 @@
 // cùng danh sách món đã tính sẵn toạ độ thế giới để src/render/draw-hoi.js vẽ.
 
 // Kiểu chân của mã hình: tiền tố dài nhất trong kinds thắng
+// (bỏ tiền tố tinh cầu: hb.cay-... và tk.cay-... cùng theo khoá "hb.cay"; khoá riêng có tiền tố đúng tinh cầu thắng khi dài bằng)
 export function hoiKind(L, id) {
-  let best = '', kind = 'nho';
-  for (const p in L.kinds) if (id.startsWith(p) && p.length > best.length) { best = p; kind = L.kinds[p]; }
+  const rest = id.slice(id.indexOf('.') + 1);
+  let best = -1, kind = 'nho';
+  for (const p in L.kinds) {
+    const key = p.slice(p.indexOf('.') + 1), own = p.startsWith(id.slice(0, id.indexOf('.') + 1));
+    const score = key.length * 2 + (own ? 1 : 0);
+    if (rest.startsWith(key) && score > best) { best = score; kind = L.kinds[p]; }
+  }
   return kind;
 }
 

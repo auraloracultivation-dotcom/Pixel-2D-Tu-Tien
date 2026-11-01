@@ -4,7 +4,15 @@
   "dao-han-bang": {
    "name": "Hàn Nguyệt Long Đăng Hội",
    "desc": "Băng tuyết, đăng long, múa lân",
-   "troi": {"_note": "Trời đêm hội (src/render/draw-hoi-sky.js): den số đèn trời bay lên (den_speed điểm mỗi giây), phao số ô pháo hoa nổ so le (phao_every giây một quả mỗi ô), tia mỗi quả, mau màu.", "den": 14, "den_speed": [6, 12], "phao": 3, "phao_every": [5, 9], "tia": 22, "mau": ["255,200,90", "140,220,255", "255,140,220", "200,170,255", "255,240,210"]},
+   "troi": {
+    "_note": "Trời đêm hội (src/render/draw-hoi-sky.js): den số đèn trời bay lên (den_speed điểm mỗi giây), phao số ô pháo hoa nổ so le (phao_every giây một quả mỗi ô), tia mỗi quả, mau màu.",
+    "den": 14,
+    "den_speed": [6, 12],
+    "phao": 3,
+    "phao_every": [5, 9],
+    "tia": 22,
+    "mau": ["255,200,90", "140,220,255", "255,140,220", "200,170,255", "255,240,210"]
+   },
    "khach": {
     "_note": "Khách đi hội (src/game/hoi-khach.js): n người, mượn hình dân làng ids (mỗi người một hình), đi theo nodes (điểm dừng theo ô) nối bằng links, đứng ngắm wait giây; speed đơn vị mỗi giây; người chơi trong stop đơn vị thì đứng lại chào; cứ talk giây một khách trong range ô quanh người chơi nói một câu; bong bóng hiện sec giây. group tỉ lệ người đi theo nhóm (bám người đi trước); kids hình trẻ con chạy nhanh kid_speed lần, câu kid_lines; ban: người bán [hình, x, y] đứng sau quầy, câu ban_lines.",
     "n": 24,
@@ -48,10 +56,95 @@
     "ban_lines": [
      "Mời ghé xem, hàng mới về!", "Nóng hổi đây, nóng hổi đây!", "Mua hai tặng một nha!", "Hàng đẹp nhất phố đây!",
      "Đạo hữu xem thử đi, không mua cũng được!", "Chè tuyết liên, thơm ngọt mát lạnh!"
-    ]
+    ],
+    "watch": 6,
+    "cheer_r": 6,
+    "cheer": ["Hay!", "Oa!"],
+    "cheer_big": ["Hoan hô!"]
    },
    "khu": [[2, 15, 30, 30], [8, 30, 30, 41], [27, 22, 35, 30], [28, 30, 38, 40]],
    "_khu": "Vùng phố hội [x0, y0, x1, y1] theo ô: quái không bước vào, người chơi đứng trong vùng thì quái không đuổi (src/world/hoi-foot.js → inHoi, mobs.js). Bãi quái đặt cách vùng ít nhất 4 ô."
+  },
+  "thien-kiem-phong": {
+   "name": "Cửu Tông Tranh Phong",
+   "desc": "Chín tông môn tỷ thí, lôi đài, cờ ngũ hành",
+   "troi": {
+    "_note": "như Hàn Băng",
+    "den": 18,
+    "den_speed": [6, 12],
+    "phao": 4,
+    "phao_every": [3, 6],
+    "tia": 26,
+    "mau": ["255,200,90", "255,120,120", "140,220,255", "200,170,255", "255,240,210", "140,255,170"]
+   },
+   "tro": [
+    {
+     "_note": "Trò diễn (src/game/hoi-tro.js, vẽ src/render/draw-hoi-tro.js): item món gắn trò, dx dy lệch từ chân món. ty-vo: a b hình hai đệ tử, gap khoảng cách, blows số đòn mỗi hiệp, mau giấy màu. trong: a người đánh trống, face hướng, beat nhịp (mỗi ô 0,3 giây). mua-kiem: a người múa, r bán kính vòng, sword hình kiếm bay quanh.",
+     "item": "tk.loi-dai-co",
+     "kind": "ty-vo",
+     "dx": 0,
+     "dy": -44,
+     "gap": 24,
+     "blows": 5,
+     "a": "hero.y-thien-kiem-bao-nam",
+     "b": "hero.y-hong-y-nu",
+     "mau": ["#ff6a6a", "#ffd24a", "#6ad0ff", "#b48aff", "#7af0a0", "#ffffff"]
+    },
+    {"item": "tk.trong-lon", "kind": "trong", "dx": -36, "dy": 3, "a": "hero.y-thanh-sam-nam", "face": 1, "beat": [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0]},
+    {"item": "tk.tran-bat-quai", "kind": "mua-kiem", "dx": 0, "dy": -2, "r": 20, "a": "hero.y-tu-bao-nu", "sword": "tk.kiem-lam"}
+   ],
+   "khach": {
+    "_note": "như Hàn Băng (festivals.dao-han-bang.khach). Điểm có 4 số [x, y, nhìn x, nhìn y] là chỗ đứng xem trò: tới nơi quay về điểm nhìn, đứng thêm watch giây. cheer_r ô quanh trò thì reo khi có cú đánh (cheer), cú hạ gục (cheer_big). ids có thể là hình nhân vật hero.y-<thời trang>-<nam|nu> (đệ tử các tông môn tới dự hội).",
+    "n": 26,
+    "speed": 13,
+    "wait": [2, 6],
+    "stop": 20,
+    "range": 9,
+    "talk": [4, 9],
+    "sec": 3.2,
+    "group": 0.35,
+    "kids": ["be-la", "tieu-moc-linh"],
+    "kid_speed": 2.2,
+    "watch": 8,
+    "cheer_r": 7,
+    "ids": [
+     "lao-ngu-ong", "du-tang", "phong-thach", "tieu-moc-linh", "be-la", "trai-truong", "chi-ganh-da", "hoa-su", "hero.y-thien-kiem-bao-nam",
+     "hero.y-thien-kiem-bao-nu", "hero.y-thanh-sam-nam", "hero.y-thanh-sam-nu", "hero.y-tu-bao-nam", "hero.y-tu-bao-nu", "hero.y-hong-y-nam",
+     "hero.y-hong-y-nu", "hero.y-hac-y-nam", "hero.y-hac-y-nu", "hero.y-kim-bao-nam", "hero.y-kim-bao-nu", "hero.y-tuyet-lanh-nam",
+     "hero.y-tuyet-lanh-nu", "hero.y-tien-nhan-nam", "hero.y-tien-nhan-nu", "hero.y-thien-mach-bao-nam", "hero.y-thien-mach-bao-nu"
+    ],
+    "nodes": [
+     [2.6, 22.6], [6.6, 22.6], [11.0, 22.8], [15.0, 22.6], [18.0, 22.6], [21.0, 19.6], [24.4, 19.4], [22.6, 23.0], [20.6, 25.2], [24.8, 25.0],
+     [5.0, 26.6], [9.0, 26.8], [14.0, 26.6], [18.6, 26.8], [22.6, 26.6], [26.0, 26.8], [29.6, 26.4], [30.6, 24.8], [34.6, 25.6], [34.5, 28.8],
+     [29.4, 30.4, 34.5, 32], [29.6, 31.8, 34.5, 32], [31.8, 35.8, 34.5, 32], [33.6, 36.0, 34.5, 32], [35.4, 36.0, 34.5, 32],
+     [37.2, 35.8, 34.5, 32], [21.0, 21.8, 22.6, 21.2], [24.6, 22.6, 22.6, 21.2]
+    ],
+    "links": [
+     [0, 1], [1, 2], [2, 3], [3, 4], [4, 7], [4, 5], [5, 6], [6, 7], [7, 8], [7, 9], [8, 14], [9, 14], [9, 15], [10, 11], [11, 12], [12, 13],
+     [13, 14], [14, 15], [15, 16], [16, 17], [17, 18], [18, 19], [19, 20], [20, 21], [21, 22], [22, 23], [23, 24], [24, 25], [16, 20], [12, 3],
+     [5, 26], [26, 7], [6, 27], [27, 9]
+    ],
+    "ban": [
+     ["co-ban-nuoc", 4.2, 20.6], ["thuong-nhan", 9.0, 20.6], ["lao-than", 4.4, 24.6], ["ba-do-den", 9.2, 24.4], ["ong-hai-nam", 6.4, 29.4],
+     ["tho-kim-sa", 10.6, 29.6], ["ong-do", 19.6, 29.6], ["lao-nong", 24.2, 29.8]
+    ],
+    "lines": [
+     "Hôm nay Cửu Tông Tranh Phong, chín tông môn đều tới!", "Lôi đài phía đông đang tỷ thí kìa, ra xem đi!", "Tớ cược đệ tử áo xanh thắng.",
+     "Nghe nói quán quân được cúp vàng đó.", "Cờ ngũ hành bay phấp phới đẹp ghê.", "Trống trận vang lên là có trận mới!",
+     "Kiếm trận trước đại điện sáng quá.", "Người múa kiếm ở quảng trường giỏi thật.", "Đệ tử Thiên Kiếm Tông năm nay mạnh lắm.",
+     "Mua bánh rồi ra lôi đài xem nhé!", "Tối nay pháo hoa nổ suốt đêm.", "Năm sau ta cũng lên đài!", "♪ ♫ ♪",
+     "Đông vui quá, đi chậm thôi kẻo lạc.", "Ai thắng hiệp này nhỉ?", "Bảng xếp hạng treo cạnh lôi đài kìa."
+    ],
+    "kid_lines": ["Con muốn làm kiếm tiên!", "Hây a! Xem chiêu!", "Đuổi bắt đi!", "Mẹ ơi mua kiếm gỗ!", "Lên lôi đài chơi đi!"],
+    "ban_lines": [
+     "Kiếm gỗ cho bé đây, rẻ lắm!", "Bánh bao nóng hổi đây!", "Mời đạo hữu ghé xem!", "Bùa may mắn tranh phong đây!", "Trà thơm giải khát đây!",
+     "Mặt nạ hồ ly, đeo vào thành tiên!"
+    ],
+    "cheer": ["Hay!", "Tốt lắm!", "Đỡ đẹp quá!", "Cố lên!", "Oa!", "Đánh nữa đi!"],
+    "cheer_big": ["Thắng rồi!", "Hạ gục!", "Quá hay!!", "Vô địch!", "Hoan hô!"]
+   },
+   "khu": [[1, 12, 31, 31], [25, 22, 42, 39]],
+   "_khu": "như Hàn Băng"
   }
  },
  "foot": {
@@ -142,8 +235,45 @@
   "hb.bo-pha-le": "tuong",
   "hb.mat-nuoc": "phang",
   "hb.san": "phang",
-  "hb.gach": "phang"
+  "hb.gach": "phang",
+  "hb.loi-dai": "tuong",
+  "hb.bang": "tru",
+  "hb.lu": "tru",
+  "hb.tran": "phang",
+  "hb.den-nuoc": "phang",
+  "hb.tu-dang": "cay",
+  "hb.phong": "cay",
+  "hb.kiem": "tru",
+  "hb.gieng": "tuong",
+  "hb.voi": "tuong",
+  "hb.coi": "tuong",
+  "hb.tham": "phang",
+  "hb.khan": "sap",
+  "hb.trong": "tru",
+  "hb.cup": "tuong",
+  "hb.dai-chu": "nha",
+  "hb.day": "rao",
+  "hb.ca": "tru",
+  "hb.vom": "cong",
+  "hb.qua-cau": "nho"
  },
  "glow": {"warm": {"c": "255,180,100", "r": 20, "a": 0.2}, "cold": {"c": "140,210,255", "r": 18, "a": 0.16}, "pink": {"c": "255,140,220", "r": 16, "a": 0.16}},
- "flame": {"lam": ["#bff4ff", "#5ab8ff", "#2a6ad8"], "hong": ["#ffe0f4", "#ff8ad8", "#c04ab0"], "vang": ["#fff2b0", "#ffb040", "#e0602a"]}
+ "flame": {"lam": ["#bff4ff", "#5ab8ff", "#2a6ad8"], "hong": ["#ffe0f4", "#ff8ad8", "#c04ab0"], "vang": ["#fff2b0", "#ffb040", "#e0602a"]},
+ "_kinds": "kinds khớp phần sau tiền tố tinh cầu (hb.cay khớp cả tk.cay-...), khoá dài nhất thắng.",
+ "anim": {
+  "_note": "Chuyển động của đồ hội theo tên (phần sau tiền tố tinh cầu, khoá dài nhất thắng), vẽ ở src/render/draw-hoi-tro.js: wave cờ bay, swing đèn treo đung đưa, float kiếm bay nhấp nhô, pulse trận pháp sáng tắt, trong trống nảy theo nhịp.",
+  "co-": "wave",
+  "bang-1": "wave",
+  "bang-2": "wave",
+  "bang-3": "wave",
+  "kiem-lam": "float",
+  "kiem-vang": "float",
+  "kiem-tim": "float",
+  "den-chum": "swing",
+  "trong": "trong",
+  "tran-": "pulse",
+  "cong-xoay": "pulse",
+  "cong-tinh": "pulse",
+  "dinh-xoay": "pulse"
+ }
 }

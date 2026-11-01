@@ -3311,7 +3311,7 @@
   },
   "hb.cay-trang-tim": {
    "file": "assets/art/hb-cay-trang-tim.png",
-   "v": "7d421fe2",
+   "v": "f1405441",
    "w": 130,
    "h": 150,
    "frames": 1,
@@ -5702,7 +5702,7 @@
   },
   "hb.hon-thien": {
    "file": "assets/art/hb-hon-thien.png",
-   "v": "111036cb",
+   "v": "1a36f31b",
    "w": 75,
    "h": 84,
    "frames": 1,
@@ -5725,7 +5725,7 @@
     ],
     [
      12,
-     22,
+     23,
      "warm"
     ],
     [
@@ -5734,8 +5734,8 @@
      "warm"
     ],
     [
-     23,
-     12,
+     31,
+     13,
      "warm"
     ]
    ]
@@ -6907,7 +6907,7 @@
   },
   "hb.nha-bang": {
    "file": "assets/art/hb-nha-bang.png",
-   "v": "2402b200",
+   "v": "2d70d4a5",
    "w": 143,
    "h": 132,
    "frames": 1,
@@ -7042,7 +7042,7 @@
   },
   "hb.pha-le": {
    "file": "assets/art/hb-pha-le.png",
-   "v": "06d7260f",
+   "v": "2cf65da6",
    "w": 90,
    "h": 94,
    "frames": 1,
@@ -7064,7 +7064,7 @@
      "cold"
     ],
     [
-     54,
+     53,
      89,
      "cold"
     ]
@@ -7710,7 +7710,7 @@
   },
   "hb.sap-ao": {
    "file": "assets/art/hb-sap-ao.png",
-   "v": "8b5bf31d",
+   "v": "8b671862",
    "w": 113,
    "h": 102,
    "frames": 1,
@@ -7722,13 +7722,18 @@
    "scale": 0.5333,
    "lights": [
     [
-     103,
+     104,
      49,
      "warm"
     ],
     [
-     14,
+     22,
      58,
+     "warm"
+    ],
+    [
+     59,
+     39,
      "warm"
     ],
     [
@@ -7737,13 +7742,8 @@
      "warm"
     ],
     [
-     59,
-     41,
-     "warm"
-    ],
-    [
-     66,
-     84,
+     32,
+     37,
      "warm"
     ]
    ]
@@ -7920,7 +7920,7 @@
   },
   "hb.sap-duoc": {
    "file": "assets/art/hb-sap-duoc.png",
-   "v": "89e42d27",
+   "v": "dc2448e3",
    "w": 113,
    "h": 108,
    "frames": 1,
@@ -7942,22 +7942,22 @@
      "warm"
     ],
     [
-     30,
-     87,
-     "warm"
-    ],
-    [
      58,
      12,
      "warm"
     ],
     [
-     84,
+     30,
      87,
      "warm"
     ],
     [
      67,
+     86,
+     "warm"
+    ],
+    [
+     84,
      86,
      "warm"
     ],
@@ -7980,7 +7980,7 @@
   },
   "hb.sap-hoa": {
    "file": "assets/art/hb-sap-hoa.png",
-   "v": "a29ae7b2",
+   "v": "d14b040d",
    "w": 113,
    "h": 110,
    "frames": 1,
@@ -8078,7 +8078,7 @@
   },
   "hb.sap-pha-le": {
    "file": "assets/art/hb-sap-pha-le.png",
-   "v": "9f9f6475",
+   "v": "2a923069",
    "w": 113,
    "h": 110,
    "frames": 1,
@@ -8110,18 +8110,23 @@
      "warm"
     ],
     [
-     77,
-     31,
-     "warm"
-    ],
-    [
      84,
      58,
      "warm"
     ],
     [
-     38,
-     50,
+     77,
+     31,
+     "warm"
+    ],
+    [
+     29,
+     58,
+     "warm"
+    ],
+    [
+     34,
+     40,
      "warm"
     ],
     [
@@ -8130,7 +8135,7 @@
      "cold"
     ],
     [
-     66,
+     65,
      78,
      "cold"
     ],
@@ -9436,7 +9441,7 @@
   },
   "hb.tuong-tien": {
    "file": "assets/art/hb-tuong-tien.png",
-   "v": "0577bb68",
+   "v": "8cfbd41e",
    "w": 75,
    "h": 101,
    "frames": 1,
@@ -9448,18 +9453,18 @@
    "scale": 0.5333,
    "lights": [
     [
+     30,
+     93,
+     "cold"
+    ],
+    [
      33,
      64,
      "cold"
     ],
     [
-     44,
-     42,
-     "cold"
-    ],
-    [
-     30,
-     93,
+     21,
+     55,
      "cold"
     ]
    ]
@@ -13602,6 +13607,6184 @@
     0
    ],
    "note": "bọt ven bờ nước: 4 cạnh rồi 4 góc"
+  },
+  "tk.bang-1": {
+   "file": "assets/art/tk-bang-1.png",
+   "v": "6bd82335",
+   "w": 31,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    15,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     22,
+     "warm"
+    ],
+    [
+     21,
+     50,
+     "warm"
+    ],
+    [
+     22,
+     39,
+     "warm"
+    ],
+    [
+     22,
+     10,
+     "warm"
+    ],
+    [
+     6,
+     24,
+     "warm"
+    ],
+    [
+     7,
+     10,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bang-2": {
+   "file": "assets/art/tk-bang-2.png",
+   "v": "63ceed6a",
+   "w": 36,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    18,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     6,
+     23,
+     "warm"
+    ],
+    [
+     13,
+     11,
+     "warm"
+    ],
+    [
+     31,
+     11,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bang-3": {
+   "file": "assets/art/tk-bang-3.png",
+   "v": "2d9cac84",
+   "w": 40,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    20,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     31,
+     "warm"
+    ],
+    [
+     4,
+     29,
+     "warm"
+    ],
+    [
+     21,
+     51,
+     "warm"
+    ],
+    [
+     22,
+     12,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bang-dau": {
+   "file": "assets/art/tk-bang-dau.png",
+   "v": "9cffb144",
+   "w": 131,
+   "h": 144,
+   "frames": 1,
+   "anchor": [
+    65,
+    142
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (70 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     59,
+     "warm"
+    ],
+    [
+     31,
+     33,
+     "warm"
+    ],
+    [
+     75,
+     32,
+     "warm"
+    ],
+    [
+     103,
+     33,
+     "warm"
+    ],
+    [
+     67,
+     77,
+     "warm"
+    ],
+    [
+     121,
+     43,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bang-tin": {
+   "file": "assets/art/tk-bang-tin.png",
+   "v": "265d4b20",
+   "w": 124,
+   "h": 107,
+   "frames": 1,
+   "anchor": [
+    62,
+    105
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (66 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     67,
+     "warm"
+    ],
+    [
+     85,
+     58,
+     "warm"
+    ],
+    [
+     68,
+     67,
+     "warm"
+    ],
+    [
+     112,
+     30,
+     "warm"
+    ],
+    [
+     13,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bia-tim": {
+   "file": "assets/art/tk-bia-tim.png",
+   "v": "9bab6517",
+   "w": 51,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    25,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     54,
+     "cold"
+    ],
+    [
+     20,
+     17,
+     "pink"
+    ]
+   ]
+  },
+  "tk.binh": {
+   "file": "assets/art/tk-binh.png",
+   "v": "d7b07b16",
+   "w": 19,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    9,
+    28
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (16 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     25,
+     "warm"
+    ],
+    [
+     8,
+     8,
+     "warm"
+    ],
+    [
+     9,
+     18,
+     "cold"
+    ],
+    [
+     7,
+     10,
+     "pink"
+    ]
+   ]
+  },
+  "tk.binh-dom": {
+   "file": "assets/art/tk-binh-dom.png",
+   "v": "3c56dfa1",
+   "w": 25,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    12,
+    28
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (16 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     22,
+     "warm"
+    ],
+    [
+     12,
+     5,
+     "warm"
+    ]
+   ]
+  },
+  "tk.bui-hoa": {
+   "file": "assets/art/tk-bui-hoa.png",
+   "v": "8f71af8b",
+   "w": 35,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    17,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     19,
+     "cold"
+    ],
+    [
+     27,
+     19,
+     "cold"
+    ]
+   ]
+  },
+  "tk.bui-hong": {
+   "file": "assets/art/tk-bui-hong.png",
+   "v": "c9bd5709",
+   "w": 26,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    13,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     23,
+     "warm"
+    ],
+    [
+     16,
+     5,
+     "pink"
+    ]
+   ]
+  },
+  "tk.bui-pha-le": {
+   "file": "assets/art/tk-bui-pha-le.png",
+   "v": "bb99879c",
+   "w": 43,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    21,
+    51
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     43,
+     "cold"
+    ],
+    [
+     17,
+     42,
+     "cold"
+    ],
+    [
+     21,
+     27,
+     "pink"
+    ]
+   ]
+  },
+  "tk.ca-chep": {
+   "file": "assets/art/tk-ca-chep.png",
+   "v": "ca4ae9f2",
+   "w": 68,
+   "h": 70,
+   "frames": 1,
+   "anchor": [
+    34,
+    68
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     31,
+     "warm"
+    ],
+    [
+     40,
+     41,
+     "warm"
+    ],
+    [
+     57,
+     40,
+     "warm"
+    ],
+    [
+     18,
+     57,
+     "cold"
+    ],
+    [
+     54,
+     57,
+     "cold"
+    ],
+    [
+     39,
+     58,
+     "cold"
+    ]
+   ]
+  },
+  "tk.cau-1": {
+   "file": "assets/art/tk-cau-1.png",
+   "v": "a2de5a93",
+   "w": 135,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    67,
+    75
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     22,
+     "warm"
+    ],
+    [
+     94,
+     21,
+     "warm"
+    ],
+    [
+     122,
+     33,
+     "warm"
+    ],
+    [
+     13,
+     33,
+     "warm"
+    ],
+    [
+     14,
+     49,
+     "warm"
+    ],
+    [
+     113,
+     49,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cau-2": {
+   "file": "assets/art/tk-cau-2.png",
+   "v": "966d9d9e",
+   "w": 151,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    75,
+    75
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     31,
+     "warm"
+    ],
+    [
+     138,
+     31,
+     "warm"
+    ],
+    [
+     41,
+     11,
+     "warm"
+    ],
+    [
+     103,
+     11,
+     "warm"
+    ],
+    [
+     131,
+     49,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cau-da": {
+   "file": "assets/art/tk-cau-da.png",
+   "v": "14a80c01",
+   "w": 151,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    75,
+    79
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     22,
+     "warm"
+    ],
+    [
+     130,
+     22,
+     "warm"
+    ],
+    [
+     57,
+     22,
+     "warm"
+    ],
+    [
+     96,
+     21,
+     "warm"
+    ],
+    [
+     130,
+     38,
+     "warm"
+    ],
+    [
+     22,
+     37,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cau-go": {
+   "file": "assets/art/tk-cau-go.png",
+   "v": "24ba248b",
+   "w": 131,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    65,
+    72
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (70 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     40,
+     "warm"
+    ],
+    [
+     113,
+     39,
+     "warm"
+    ],
+    [
+     75,
+     31,
+     "warm"
+    ],
+    [
+     86,
+     40,
+     "warm"
+    ],
+    [
+     14,
+     48,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cay-lam-den": {
+   "file": "assets/art/tk-cay-lam-den.png",
+   "v": "1f17480f",
+   "w": 152,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    76,
+    129
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (70 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     66,
+     "cold"
+    ],
+    [
+     89,
+     66,
+     "cold"
+    ],
+    [
+     65,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "tk.cay-tim-den": {
+   "file": "assets/art/tk-cay-tim-den.png",
+   "v": "2dbf33cd",
+   "w": 114,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    57,
+    107
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (58 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     85,
+     "warm"
+    ],
+    [
+     22,
+     69,
+     "warm"
+    ],
+    [
+     93,
+     67,
+     "warm"
+    ],
+    [
+     42,
+     17,
+     "pink"
+    ],
+    [
+     65,
+     18,
+     "pink"
+    ]
+   ]
+  },
+  "tk.cay-vang-den": {
+   "file": "assets/art/tk-cay-vang-den.png",
+   "v": "d2154937",
+   "w": 140,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    70,
+    129
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (70 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     121,
+     49,
+     "warm"
+    ],
+    [
+     94,
+     22,
+     "warm"
+    ],
+    [
+     31,
+     58,
+     "warm"
+    ],
+    [
+     58,
+     13,
+     "warm"
+    ],
+    [
+     49,
+     49,
+     "warm"
+    ],
+    [
+     76,
+     31,
+     "warm"
+    ],
+    [
+     76,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "tk.chan-nen": {
+   "file": "assets/art/tk-chan-nen.png",
+   "v": "abc5ccd6",
+   "w": 32,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    16,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     24,
+     24,
+     "warm"
+    ],
+    [
+     6,
+     24,
+     "warm"
+    ],
+    [
+     15,
+     12,
+     "warm"
+    ],
+    [
+     14,
+     42,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-am-duong": {
+   "file": "assets/art/tk-co-am-duong.png",
+   "v": "4c9e706b",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     10,
+     "warm"
+    ],
+    [
+     10,
+     41,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-don": {
+   "file": "assets/art/tk-co-don.png",
+   "v": "dc45dec3",
+   "w": 45,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    22,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     49,
+     "warm"
+    ],
+    [
+     31,
+     33,
+     "warm"
+    ],
+    [
+     32,
+     49,
+     "warm"
+    ],
+    [
+     12,
+     11,
+     "warm"
+    ],
+    [
+     39,
+     10,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-giay": {
+   "file": "assets/art/tk-co-giay.png",
+   "v": "ba8bf7b1",
+   "w": 20,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    10,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     13,
+     "warm"
+    ],
+    [
+     16,
+     29,
+     "warm"
+    ],
+    [
+     4,
+     29,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-hoa": {
+   "file": "assets/art/tk-co-hoa.png",
+   "v": "553e9491",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     22,
+     "warm"
+    ],
+    [
+     11,
+     11,
+     "warm"
+    ],
+    [
+     11,
+     38,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-kiem": {
+   "file": "assets/art/tk-co-kiem.png",
+   "v": "fec0cb16",
+   "w": 22,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    11,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     21,
+     "warm"
+    ],
+    [
+     12,
+     7,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-loi": {
+   "file": "assets/art/tk-co-loi.png",
+   "v": "434c53fc",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     22,
+     "warm"
+    ],
+    [
+     4,
+     10,
+     "warm"
+    ],
+    [
+     10,
+     40,
+     "warm"
+    ],
+    [
+     18,
+     10,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-lua-tim": {
+   "file": "assets/art/tk-co-lua-tim.png",
+   "v": "74a0de8b",
+   "w": 37,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    18,
+    69
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     42,
+     "pink"
+    ]
+   ]
+  },
+  "tk.co-lua-tim-2": {
+   "file": "assets/art/tk-co-lua-tim-2.png",
+   "v": "3cb242bb",
+   "w": 35,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    17,
+    69
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     42,
+     "pink"
+    ]
+   ]
+  },
+  "tk.co-lua-vang": {
+   "file": "assets/art/tk-co-lua-vang.png",
+   "v": "52ff79f7",
+   "w": 39,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    19,
+    69
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     41,
+     "warm"
+    ],
+    [
+     12,
+     13,
+     "warm"
+    ],
+    [
+     24,
+     41,
+     "warm"
+    ],
+    [
+     31,
+     58,
+     "warm"
+    ],
+    [
+     13,
+     66,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-moc": {
+   "file": "assets/art/tk-co-moc.png",
+   "v": "332d7663",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     22,
+     "warm"
+    ],
+    [
+     13,
+     11,
+     "warm"
+    ],
+    [
+     11,
+     39,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-phong": {
+   "file": "assets/art/tk-co-phong.png",
+   "v": "73104116",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     8,
+     19,
+     "pink"
+    ]
+   ]
+  },
+  "tk.co-sen": {
+   "file": "assets/art/tk-co-sen.png",
+   "v": "e3ca7d04",
+   "w": 22,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    11,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (20 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "tk.co-sen-2": {
+   "file": "assets/art/tk-co-sen-2.png",
+   "v": "a231266e",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     10,
+     "warm"
+    ],
+    [
+     10,
+     42,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-tho": {
+   "file": "assets/art/tk-co-tho.png",
+   "v": "b78b6ffb",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     22,
+     "warm"
+    ],
+    [
+     13,
+     11,
+     "warm"
+    ],
+    [
+     11,
+     39,
+     "warm"
+    ]
+   ]
+  },
+  "tk.co-thuy": {
+   "file": "assets/art/tk-co-thuy.png",
+   "v": "4d79f15e",
+   "w": 22,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    11,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     10,
+     "warm"
+    ],
+    [
+     10,
+     45,
+     "warm"
+    ],
+    [
+     9,
+     20,
+     "cold"
+    ]
+   ]
+  },
+  "tk.co-xoay": {
+   "file": "assets/art/tk-co-xoay.png",
+   "v": "51d79e94",
+   "w": 22,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    11,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     14,
+     "warm"
+    ]
+   ]
+  },
+  "tk.coi-nuoc": {
+   "file": "assets/art/tk-coi-nuoc.png",
+   "v": "caf3061f",
+   "w": 113,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    56,
+    98
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     21,
+     "warm"
+    ],
+    [
+     30,
+     77,
+     "warm"
+    ],
+    [
+     58,
+     5,
+     "warm"
+    ],
+    [
+     94,
+     75,
+     "warm"
+    ],
+    [
+     22,
+     38,
+     "warm"
+    ],
+    [
+     54,
+     65,
+     "cold"
+    ],
+    [
+     54,
+     76,
+     "cold"
+    ],
+    [
+     55,
+     54,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     109,
+     82
+    ],
+    [
+     66,
+     74
+    ],
+    [
+     48,
+     86
+    ],
+    [
+     87,
+     90
+    ],
+    [
+     52,
+     91
+    ],
+    [
+     52,
+     67
+    ],
+    [
+     40,
+     95
+    ],
+    [
+     54,
+     88
+    ],
+    [
+     52,
+     96
+    ],
+    [
+     52,
+     48
+    ],
+    [
+     38,
+     72
+    ],
+    [
+     53,
+     87
+    ],
+    [
+     97,
+     82
+    ],
+    [
+     65,
+     64
+    ],
+    [
+     27,
+     90
+    ],
+    [
+     46,
+     86
+    ],
+    [
+     105,
+     85
+    ],
+    [
+     101,
+     73
+    ],
+    [
+     46,
+     89
+    ],
+    [
+     50,
+     86
+    ],
+    [
+     54,
+     56
+    ],
+    [
+     73,
+     94
+    ],
+    [
+     54,
+     65
+    ],
+    [
+     55,
+     46
+    ]
+   ]
+  },
+  "tk.cong-go": {
+   "file": "assets/art/tk-cong-go.png",
+   "v": "49f06049",
+   "w": 120,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    60,
+    92
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     66,
+     "warm"
+    ],
+    [
+     102,
+     67,
+     "warm"
+    ],
+    [
+     102,
+     50,
+     "warm"
+    ],
+    [
+     21,
+     49,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cong-lon": {
+   "file": "assets/art/tk-cong-lon.png",
+   "v": "e9e60ba5",
+   "w": 240,
+   "h": 173,
+   "frames": 1,
+   "anchor": [
+    120,
+    171
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (128 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     130,
+     58,
+     "warm"
+    ],
+    [
+     112,
+     58,
+     "warm"
+    ],
+    [
+     175,
+     86,
+     "warm"
+    ],
+    [
+     40,
+     130,
+     "warm"
+    ],
+    [
+     203,
+     130,
+     "warm"
+    ],
+    [
+     76,
+     32,
+     "warm"
+    ],
+    [
+     85,
+     102,
+     "warm"
+    ],
+    [
+     49,
+     67,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cong-tinh": {
+   "file": "assets/art/tk-cong-tinh.png",
+   "v": "3b6ae4ee",
+   "w": 188,
+   "h": 127,
+   "frames": 1,
+   "anchor": [
+    94,
+    125
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (100 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     101,
+     "cold"
+    ],
+    [
+     161,
+     101,
+     "cold"
+    ],
+    [
+     31,
+     87,
+     "cold"
+    ],
+    [
+     77,
+     77,
+     "pink"
+    ],
+    [
+     113,
+     78,
+     "pink"
+    ]
+   ]
+  },
+  "tk.cong-tong": {
+   "file": "assets/art/tk-cong-tong.png",
+   "v": "05a57fb1",
+   "w": 233,
+   "h": 200,
+   "frames": 1,
+   "anchor": [
+    116,
+    198
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (124 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     130,
+     "warm"
+    ],
+    [
+     211,
+     130,
+     "warm"
+    ],
+    [
+     122,
+     67,
+     "warm"
+    ],
+    [
+     193,
+     31,
+     "warm"
+    ],
+    [
+     57,
+     139,
+     "warm"
+    ],
+    [
+     162,
+     162,
+     "pink"
+    ],
+    [
+     163,
+     138,
+     "pink"
+    ]
+   ]
+  },
+  "tk.cong-xoay": {
+   "file": "assets/art/tk-cong-xoay.png",
+   "v": "84f56d7a",
+   "w": 120,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    60,
+    91
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     67,
+     "cold"
+    ],
+    [
+     76,
+     41,
+     "cold"
+    ],
+    [
+     55,
+     79,
+     "cold"
+    ]
+   ]
+  },
+  "tk.cot-den": {
+   "file": "assets/art/tk-cot-den.png",
+   "v": "9ddd7628",
+   "w": 53,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    26,
+    84
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     47,
+     31,
+     "warm"
+    ],
+    [
+     14,
+     40,
+     "warm"
+    ],
+    [
+     25,
+     5,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cot-den-ba": {
+   "file": "assets/art/tk-cot-den-ba.png",
+   "v": "adbd25cc",
+   "w": 90,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    45,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     40,
+     "warm"
+    ],
+    [
+     40,
+     31,
+     "warm"
+    ],
+    [
+     12,
+     48,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cot-den-doi": {
+   "file": "assets/art/tk-cot-den-doi.png",
+   "v": "f11426d0",
+   "w": 63,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    31,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     48,
+     39,
+     "warm"
+    ],
+    [
+     5,
+     31,
+     "warm"
+    ],
+    [
+     21,
+     6,
+     "warm"
+    ],
+    [
+     40,
+     15,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cot-den-treo": {
+   "file": "assets/art/tk-cot-den-treo.png",
+   "v": "062e775e",
+   "w": 49,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    24,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     31,
+     "warm"
+    ],
+    [
+     32,
+     5,
+     "warm"
+    ],
+    [
+     37,
+     47,
+     "warm"
+    ],
+    [
+     12,
+     68,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cup": {
+   "file": "assets/art/tk-cup.png",
+   "v": "87f2ac3e",
+   "w": 98,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    49,
+    99
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     40,
+     "warm"
+    ],
+    [
+     49,
+     13,
+     "warm"
+    ],
+    [
+     23,
+     22,
+     "warm"
+    ],
+    [
+     49,
+     58,
+     "warm"
+    ],
+    [
+     76,
+     49,
+     "warm"
+    ],
+    [
+     75,
+     22,
+     "warm"
+    ]
+   ]
+  },
+  "tk.da": {
+   "file": "assets/art/tk-da.png",
+   "v": "b7d18452",
+   "w": 56,
+   "h": 48,
+   "frames": 1,
+   "anchor": [
+    28,
+    46
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     26,
+     8,
+     "pink"
+    ],
+    [
+     41,
+     27,
+     "pink"
+    ]
+   ]
+  },
+  "tk.da-pha-le": {
+   "file": "assets/art/tk-da-pha-le.png",
+   "v": "a388febb",
+   "w": 68,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    34,
+    58
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (36 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "tk.da-phu-van": {
+   "file": "assets/art/tk-da-phu-van.png",
+   "v": "eb1733c3",
+   "w": 105,
+   "h": 87,
+   "frames": 1,
+   "anchor": [
+    52,
+    85
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     48,
+     "warm"
+    ],
+    [
+     58,
+     69,
+     "warm"
+    ],
+    [
+     76,
+     31,
+     "warm"
+    ],
+    [
+     40,
+     52,
+     "pink"
+    ]
+   ]
+  },
+  "tk.da-phu-van-2": {
+   "file": "assets/art/tk-da-phu-van-2.png",
+   "v": "7010a2a1",
+   "w": 83,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    41,
+    82
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     40,
+     "warm"
+    ],
+    [
+     49,
+     74,
+     "warm"
+    ],
+    [
+     57,
+     58,
+     "warm"
+    ],
+    [
+     48,
+     22,
+     "warm"
+    ],
+    [
+     64,
+     41,
+     "warm"
+    ],
+    [
+     18,
+     53,
+     "cold"
+    ],
+    [
+     19,
+     64,
+     "cold"
+    ]
+   ]
+  },
+  "tk.da-rieu": {
+   "file": "assets/art/tk-da-rieu.png",
+   "v": "c5abfc9c",
+   "w": 68,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    34,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     21,
+     "warm"
+    ],
+    [
+     31,
+     13,
+     "warm"
+    ],
+    [
+     43,
+     20,
+     "warm"
+    ],
+    [
+     28,
+     27,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dai-chu-tri": {
+   "file": "assets/art/tk-dai-chu-tri.png",
+   "v": "33def79d",
+   "w": 232,
+   "h": 173,
+   "frames": 1,
+   "anchor": [
+    116,
+    171
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (124 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     148,
+     103,
+     "warm"
+    ],
+    [
+     84,
+     103,
+     "warm"
+    ],
+    [
+     58,
+     103,
+     "warm"
+    ],
+    [
+     67,
+     31,
+     "warm"
+    ],
+    [
+     58,
+     85,
+     "warm"
+    ],
+    [
+     174,
+     85,
+     "warm"
+    ],
+    [
+     157,
+     32,
+     "warm"
+    ],
+    [
+     193,
+     41,
+     "warm"
+    ]
+   ],
+   "flame": [
+    116,
+    53
+   ]
+  },
+  "tk.dai-pha-le": {
+   "file": "assets/art/tk-dai-pha-le.png",
+   "v": "de5ae496",
+   "w": 40,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    20,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     42,
+     "warm"
+    ],
+    [
+     32,
+     37,
+     "warm"
+    ],
+    [
+     5,
+     34,
+     "warm"
+    ],
+    [
+     19,
+     18,
+     "cold"
+    ],
+    [
+     17,
+     33,
+     "cold"
+    ]
+   ]
+  },
+  "tk.dao-den": {
+   "file": "assets/art/tk-dao-den.png",
+   "v": "eb2eb401",
+   "w": 178,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    89,
+    129
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (70 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     113,
+     41,
+     "pink"
+    ],
+    [
+     66,
+     17,
+     "pink"
+    ]
+   ]
+  },
+  "tk.day-den": {
+   "file": "assets/art/tk-day-den.png",
+   "v": "2b6f2c9a",
+   "w": 135,
+   "h": 82,
+   "frames": 1,
+   "anchor": [
+    67,
+    80
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     110,
+     40,
+     "warm"
+    ],
+    [
+     12,
+     49,
+     "warm"
+    ],
+    [
+     74,
+     49,
+     "warm"
+    ],
+    [
+     93,
+     31,
+     "warm"
+    ],
+    [
+     40,
+     32,
+     "warm"
+    ],
+    [
+     123,
+     50,
+     "warm"
+    ]
+   ]
+  },
+  "tk.day-lua": {
+   "file": "assets/art/tk-day-lua.png",
+   "v": "ee20b453",
+   "w": 116,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    58,
+    60
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (62 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     49,
+     "warm"
+    ],
+    [
+     40,
+     31,
+     "warm"
+    ],
+    [
+     77,
+     31,
+     "warm"
+    ],
+    [
+     40,
+     15,
+     "warm"
+    ],
+    [
+     11,
+     6,
+     "warm"
+    ],
+    [
+     106,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-da": {
+   "file": "assets/art/tk-den-da.png",
+   "v": "58aae984",
+   "w": 40,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    20,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     31,
+     "warm"
+    ],
+    [
+     21,
+     5,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-do": {
+   "file": "assets/art/tk-den-do.png",
+   "v": "1e2d714e",
+   "w": 21,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    10,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     20,
+     "warm"
+    ],
+    [
+     10,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-dung": {
+   "file": "assets/art/tk-den-dung.png",
+   "v": "6d95bc4e",
+   "w": 36,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    18,
+    66
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     31,
+     "warm"
+    ],
+    [
+     21,
+     49,
+     "warm"
+    ],
+    [
+     19,
+     4,
+     "warm"
+    ],
+    [
+     12,
+     16,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-dung-2": {
+   "file": "assets/art/tk-den-dung-2.png",
+   "v": "d5b3c607",
+   "w": 47,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    23,
+    62
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     23,
+     29,
+     "warm"
+    ],
+    [
+     21,
+     51,
+     "warm"
+    ],
+    [
+     31,
+     12,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-dung-3": {
+   "file": "assets/art/tk-den-dung-3.png",
+   "v": "e46cff20",
+   "w": 42,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    21,
+    62
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     29,
+     "warm"
+    ],
+    [
+     21,
+     4,
+     "warm"
+    ],
+    [
+     10,
+     15,
+     "warm"
+    ],
+    [
+     12,
+     58,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-giay": {
+   "file": "assets/art/tk-den-giay.png",
+   "v": "d1d790fa",
+   "w": 31,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    15,
+    51
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     14,
+     "warm"
+    ],
+    [
+     21,
+     39,
+     "warm"
+    ],
+    [
+     6,
+     40,
+     "warm"
+    ],
+    [
+     7,
+     14,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-go": {
+   "file": "assets/art/tk-den-go.png",
+   "v": "ca033f80",
+   "w": 33,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    16,
+    43
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     21,
+     "warm"
+    ],
+    [
+     22,
+     21,
+     "warm"
+    ],
+    [
+     11,
+     32,
+     "warm"
+    ],
+    [
+     16,
+     4,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-hop": {
+   "file": "assets/art/tk-den-hop.png",
+   "v": "2cb1c59a",
+   "w": 32,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    16,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     22,
+     "warm"
+    ],
+    [
+     15,
+     8,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-lam": {
+   "file": "assets/art/tk-den-lam.png",
+   "v": "ec601f0d",
+   "w": 14,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    7,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     5,
+     7,
+     "warm"
+    ],
+    [
+     6,
+     23,
+     "warm"
+    ],
+    [
+     7,
+     16,
+     "cold"
+    ],
+    [
+     7,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "tk.den-mai": {
+   "file": "assets/art/tk-den-mai.png",
+   "v": "10e871b4",
+   "w": 48,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    24,
+    62
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     23,
+     32,
+     "warm"
+    ],
+    [
+     21,
+     12,
+     "warm"
+    ],
+    [
+     4,
+     17,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-nuoc": {
+   "file": "assets/art/tk-den-nuoc.png",
+   "v": "9ce4c769",
+   "w": 45,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    22,
+    45
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     22,
+     "warm"
+    ],
+    [
+     14,
+     22,
+     "warm"
+    ],
+    [
+     22,
+     6,
+     "warm"
+    ],
+    [
+     22,
+     39,
+     "warm"
+    ]
+   ],
+   "glints": [
+    [
+     22,
+     44
+    ],
+    [
+     7,
+     34
+    ],
+    [
+     10,
+     34
+    ],
+    [
+     28,
+     45
+    ],
+    [
+     43,
+     36
+    ],
+    [
+     10,
+     40
+    ],
+    [
+     24,
+     44
+    ],
+    [
+     8,
+     41
+    ],
+    [
+     40,
+     39
+    ],
+    [
+     20,
+     45
+    ],
+    [
+     19,
+     44
+    ],
+    [
+     41,
+     30
+    ],
+    [
+     39,
+     30
+    ],
+    [
+     9,
+     30
+    ],
+    [
+     6,
+     34
+    ],
+    [
+     3,
+     37
+    ],
+    [
+     10,
+     42
+    ],
+    [
+     3,
+     32
+    ],
+    [
+     16,
+     42
+    ],
+    [
+     16,
+     39
+    ],
+    [
+     35,
+     40
+    ],
+    [
+     36,
+     41
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     37,
+     30
+    ]
+   ]
+  },
+  "tk.den-sen": {
+   "file": "assets/art/tk-den-sen.png",
+   "v": "4db9310d",
+   "w": 19,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    9,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     21,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-tim": {
+   "file": "assets/art/tk-den-tim.png",
+   "v": "43aca2e8",
+   "w": 16,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    8,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     7,
+     14,
+     "warm"
+    ],
+    [
+     6,
+     18,
+     "pink"
+    ]
+   ]
+  },
+  "tk.den-tron": {
+   "file": "assets/art/tk-den-tron.png",
+   "v": "99abeb2b",
+   "w": 19,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    9,
+    24
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (14 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "tk.den-vang": {
+   "file": "assets/art/tk-den-vang.png",
+   "v": "f61cfab4",
+   "w": 19,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    9,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dien-tong": {
+   "file": "assets/art/tk-dien-tong.png",
+   "v": "b14d49f6",
+   "w": 344,
+   "h": 185,
+   "frames": 1,
+   "anchor": [
+    172,
+    183
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (184 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     175,
+     58,
+     "warm"
+    ],
+    [
+     130,
+     139,
+     "warm"
+    ],
+    [
+     175,
+     103,
+     "warm"
+    ],
+    [
+     130,
+     84,
+     "warm"
+    ],
+    [
+     220,
+     140,
+     "warm"
+    ],
+    [
+     219,
+     94,
+     "warm"
+    ],
+    [
+     292,
+     103,
+     "warm"
+    ],
+    [
+     103,
+     23,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dinh-den": {
+   "file": "assets/art/tk-dinh-den.png",
+   "v": "2407e6c1",
+   "w": 116,
+   "h": 103,
+   "frames": 1,
+   "anchor": [
+    58,
+    101
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (62 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     5,
+     "warm"
+    ],
+    [
+     103,
+     57,
+     "warm"
+    ],
+    [
+     14,
+     67,
+     "warm"
+    ],
+    [
+     102,
+     33,
+     "warm"
+    ],
+    [
+     58,
+     18,
+     "warm"
+    ],
+    [
+     22,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dinh-ghe": {
+   "file": "assets/art/tk-dinh-ghe.png",
+   "v": "34fde6aa",
+   "w": 173,
+   "h": 113,
+   "frames": 1,
+   "anchor": [
+    86,
+    111
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (92 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     58,
+     "warm"
+    ],
+    [
+     147,
+     23,
+     "warm"
+    ],
+    [
+     29,
+     23,
+     "warm"
+    ],
+    [
+     157,
+     59,
+     "warm"
+    ],
+    [
+     157,
+     83,
+     "warm"
+    ],
+    [
+     122,
+     21,
+     "warm"
+    ],
+    [
+     57,
+     6,
+     "warm"
+    ],
+    [
+     15,
+     84,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dinh-kiem": {
+   "file": "assets/art/tk-dinh-kiem.png",
+   "v": "6d1d7b19",
+   "w": 131,
+   "h": 114,
+   "frames": 1,
+   "anchor": [
+    65,
+    112
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (70 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     67,
+     "warm"
+    ],
+    [
+     13,
+     95,
+     "warm"
+    ],
+    [
+     12,
+     31,
+     "warm"
+    ],
+    [
+     48,
+     86,
+     "warm"
+    ],
+    [
+     112,
+     94,
+     "warm"
+    ],
+    [
+     40,
+     22,
+     "warm"
+    ],
+    [
+     119,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dinh-pha-le": {
+   "file": "assets/art/tk-dinh-pha-le.png",
+   "v": "314c9fc2",
+   "w": 150,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    75,
+    114
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     93,
+     "warm"
+    ],
+    [
+     41,
+     76,
+     "warm"
+    ],
+    [
+     13,
+     41,
+     "warm"
+    ],
+    [
+     31,
+     29,
+     "warm"
+    ],
+    [
+     139,
+     40,
+     "warm"
+    ],
+    [
+     103,
+     22,
+     "warm"
+    ],
+    [
+     77,
+     77,
+     "cold"
+    ],
+    [
+     66,
+     78,
+     "cold"
+    ]
+   ]
+  },
+  "tk.dinh-trong": {
+   "file": "assets/art/tk-dinh-trong.png",
+   "v": "165cfad1",
+   "w": 131,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    65,
+    114
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (70 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     67,
+     "warm"
+    ],
+    [
+     67,
+     67,
+     "warm"
+    ],
+    [
+     112,
+     67,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dinh-xoay": {
+   "file": "assets/art/tk-dinh-xoay.png",
+   "v": "d86b9fd7",
+   "w": 120,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    60,
+    95
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     86,
+     21,
+     "warm"
+    ],
+    [
+     31,
+     23,
+     "warm"
+    ],
+    [
+     103,
+     76,
+     "warm"
+    ],
+    [
+     11,
+     76,
+     "warm"
+    ],
+    [
+     12,
+     65,
+     "warm"
+    ],
+    [
+     67,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dong-ho-cat": {
+   "file": "assets/art/tk-dong-ho-cat.png",
+   "v": "cb45d0c9",
+   "w": 25,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    12,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     13,
+     "warm"
+    ],
+    [
+     14,
+     24,
+     "warm"
+    ]
+   ]
+  },
+  "tk.gach-hoa": {
+   "file": "assets/art/tk-gach-hoa.png",
+   "v": "d2c9397b",
+   "w": 53,
+   "h": 48,
+   "frames": 1,
+   "anchor": [
+    26,
+    46
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (28 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     22,
+     "warm"
+    ],
+    [
+     15,
+     23,
+     "warm"
+    ],
+    [
+     7,
+     18,
+     "pink"
+    ],
+    [
+     6,
+     29,
+     "pink"
+    ]
+   ]
+  },
+  "tk.gach-thai-cuc": {
+   "file": "assets/art/tk-gach-thai-cuc.png",
+   "v": "2aa87f41",
+   "w": 53,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    26,
+    45
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (28 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     19,
+     "pink"
+    ]
+   ]
+  },
+  "tk.gach-tron": {
+   "file": "assets/art/tk-gach-tron.png",
+   "v": "fe58567d",
+   "w": 53,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    26,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (28 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "tk.gieng": {
+   "file": "assets/art/tk-gieng.png",
+   "v": "2fa95aca",
+   "w": 86,
+   "h": 82,
+   "frames": 1,
+   "anchor": [
+    43,
+    80
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (46 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     40,
+     "warm"
+    ],
+    [
+     12,
+     40,
+     "warm"
+    ],
+    [
+     49,
+     8,
+     "warm"
+    ],
+    [
+     68,
+     14,
+     "warm"
+    ],
+    [
+     22,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.hac-lua": {
+   "file": "assets/art/tk-hac-lua.png",
+   "v": "467cbbb0",
+   "w": 68,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    34,
+    79
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     67,
+     "warm"
+    ],
+    [
+     13,
+     67,
+     "warm"
+    ],
+    [
+     31,
+     66,
+     "warm"
+    ]
+   ]
+  },
+  "tk.ho-den": {
+   "file": "assets/art/tk-ho-den.png",
+   "v": "2861c97e",
+   "w": 150,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    75,
+    72
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     130,
+     30,
+     "warm"
+    ],
+    [
+     104,
+     57,
+     "warm"
+    ],
+    [
+     102,
+     22,
+     "warm"
+    ],
+    [
+     76,
+     47,
+     "warm"
+    ],
+    [
+     113,
+     22,
+     "warm"
+    ]
+   ],
+   "glints": [
+    [
+     14,
+     50
+    ],
+    [
+     37,
+     66
+    ],
+    [
+     63,
+     58
+    ],
+    [
+     52,
+     53
+    ],
+    [
+     28,
+     65
+    ],
+    [
+     124,
+     52
+    ],
+    [
+     28,
+     40
+    ],
+    [
+     65,
+     58
+    ],
+    [
+     97,
+     37
+    ],
+    [
+     99,
+     48
+    ],
+    [
+     23,
+     62
+    ],
+    [
+     141,
+     49
+    ],
+    [
+     111,
+     40
+    ],
+    [
+     120,
+     50
+    ],
+    [
+     98,
+     58
+    ],
+    [
+     34,
+     68
+    ],
+    [
+     71,
+     61
+    ],
+    [
+     114,
+     48
+    ],
+    [
+     132,
+     64
+    ],
+    [
+     50,
+     51
+    ],
+    [
+     90,
+     32
+    ],
+    [
+     43,
+     46
+    ],
+    [
+     115,
+     36
+    ],
+    [
+     91,
+     47
+    ]
+   ]
+  },
+  "tk.ho-khoi": {
+   "file": "assets/art/tk-ho-khoi.png",
+   "v": "0799e1c6",
+   "w": 143,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    71,
+    95
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (76 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     24,
+     "warm"
+    ],
+    [
+     104,
+     41,
+     "warm"
+    ],
+    [
+     130,
+     48,
+     "warm"
+    ],
+    [
+     120,
+     60,
+     "warm"
+    ],
+    [
+     122,
+     23,
+     "warm"
+    ],
+    [
+     66,
+     66,
+     "cold"
+    ],
+    [
+     77,
+     66,
+     "cold"
+    ],
+    [
+     53,
+     66,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     80,
+     6
+    ],
+    [
+     111,
+     38
+    ],
+    [
+     137,
+     71
+    ],
+    [
+     29,
+     62
+    ],
+    [
+     25,
+     61
+    ],
+    [
+     119,
+     40
+    ],
+    [
+     61,
+     58
+    ],
+    [
+     60,
+     62
+    ],
+    [
+     10,
+     83
+    ],
+    [
+     57,
+     55
+    ],
+    [
+     67,
+     36
+    ],
+    [
+     130,
+     59
+    ],
+    [
+     63,
+     66
+    ],
+    [
+     63,
+     93
+    ],
+    [
+     54,
+     45
+    ],
+    [
+     52,
+     41
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     34,
+     84
+    ],
+    [
+     89,
+     86
+    ],
+    [
+     79,
+     90
+    ],
+    [
+     91,
+     65
+    ],
+    [
+     24,
+     87
+    ],
+    [
+     44,
+     52
+    ],
+    [
+     73,
+     44
+    ]
+   ]
+  },
+  "tk.ho-sen": {
+   "file": "assets/art/tk-ho-sen.png",
+   "v": "b3226700",
+   "w": 116,
+   "h": 73,
+   "frames": 1,
+   "anchor": [
+    58,
+    71
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (62 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     101,
+     18,
+     "pink"
+    ],
+    [
+     29,
+     54,
+     "pink"
+    ]
+   ],
+   "glints": [
+    [
+     25,
+     45
+    ],
+    [
+     84,
+     55
+    ],
+    [
+     99,
+     47
+    ],
+    [
+     74,
+     67
+    ],
+    [
+     40,
+     51
+    ],
+    [
+     91,
+     64
+    ],
+    [
+     51,
+     36
+    ],
+    [
+     77,
+     15
+    ],
+    [
+     61,
+     58
+    ],
+    [
+     46,
+     57
+    ],
+    [
+     68,
+     42
+    ],
+    [
+     34,
+     31
+    ],
+    [
+     34,
+     38
+    ],
+    [
+     95,
+     36
+    ],
+    [
+     16,
+     19
+    ],
+    [
+     110,
+     39
+    ],
+    [
+     32,
+     8
+    ],
+    [
+     69,
+     56
+    ],
+    [
+     34,
+     41
+    ],
+    [
+     10,
+     35
+    ],
+    [
+     107,
+     51
+    ],
+    [
+     32,
+     50
+    ],
+    [
+     59,
+     55
+    ],
+    [
+     57,
+     19
+    ]
+   ]
+  },
+  "tk.ho-thac": {
+   "file": "assets/art/tk-ho-thac.png",
+   "v": "6f8fba99",
+   "w": 143,
+   "h": 106,
+   "frames": 1,
+   "anchor": [
+    71,
+    104
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (76 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     78,
+     "cold"
+    ],
+    [
+     77,
+     17,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     20,
+     51
+    ],
+    [
+     50,
+     64
+    ],
+    [
+     48,
+     70
+    ],
+    [
+     109,
+     82
+    ],
+    [
+     90,
+     80
+    ],
+    [
+     99,
+     27
+    ],
+    [
+     74,
+     53
+    ],
+    [
+     70,
+     79
+    ],
+    [
+     3,
+     85
+    ],
+    [
+     67,
+     23
+    ],
+    [
+     134,
+     56
+    ],
+    [
+     88,
+     65
+    ],
+    [
+     75,
+     89
+    ],
+    [
+     33,
+     69
+    ],
+    [
+     98,
+     62
+    ],
+    [
+     49,
+     70
+    ],
+    [
+     65,
+     43
+    ],
+    [
+     135,
+     90
+    ],
+    [
+     78,
+     80
+    ],
+    [
+     141,
+     73
+    ],
+    [
+     63,
+     75
+    ],
+    [
+     54,
+     68
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     41,
+     64
+    ]
+   ]
+  },
+  "tk.hon-thien": {
+   "file": "assets/art/tk-hon-thien.png",
+   "v": "48b23f55",
+   "w": 42,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    21,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     23,
+     13,
+     "warm"
+    ],
+    [
+     5,
+     14,
+     "warm"
+    ],
+    [
+     20,
+     37,
+     "warm"
+    ]
+   ]
+  },
+  "tk.hop-qua": {
+   "file": "assets/art/tk-hop-qua.png",
+   "v": "db38ce82",
+   "w": 38,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    19,
+    37
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (20 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     31,
+     "warm"
+    ],
+    [
+     14,
+     13,
+     "warm"
+    ],
+    [
+     28,
+     12,
+     "warm"
+    ],
+    [
+     28,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "tk.khan-dai": {
+   "file": "assets/art/tk-khan-dai.png",
+   "v": "0e0a082e",
+   "w": 194,
+   "h": 115,
+   "frames": 1,
+   "anchor": [
+    97,
+    113
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     184,
+     56,
+     "warm"
+    ],
+    [
+     166,
+     32,
+     "warm"
+    ],
+    [
+     148,
+     84,
+     "warm"
+    ],
+    [
+     67,
+     84,
+     "warm"
+    ],
+    [
+     130,
+     84,
+     "warm"
+    ],
+    [
+     21,
+     56,
+     "warm"
+    ],
+    [
+     94,
+     41,
+     "warm"
+    ],
+    [
+     50,
+     85,
+     "warm"
+    ],
+    [
+     138,
+     29,
+     "pink"
+    ],
+    [
+     66,
+     29,
+     "pink"
+    ]
+   ]
+  },
+  "tk.kiem-da": {
+   "file": "assets/art/tk-kiem-da.png",
+   "v": "08a5f747",
+   "w": 72,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    36,
+    84
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     63,
+     "cold"
+    ],
+    [
+     52,
+     52,
+     "cold"
+    ]
+   ]
+  },
+  "tk.kiem-lam": {
+   "file": "assets/art/tk-kiem-lam.png",
+   "v": "667fb0b3",
+   "w": 30,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    15,
+    66
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     44,
+     "cold"
+    ],
+    [
+     5,
+     44,
+     "cold"
+    ]
+   ]
+  },
+  "tk.kiem-tim": {
+   "file": "assets/art/tk-kiem-tim.png",
+   "v": "3a4a4234",
+   "w": 30,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    15,
+    66
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     19,
+     "pink"
+    ]
+   ]
+  },
+  "tk.kiem-vang": {
+   "file": "assets/art/tk-kiem-vang.png",
+   "v": "d8abbccd",
+   "w": 33,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    16,
+    66
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     22,
+     "warm"
+    ],
+    [
+     14,
+     49,
+     "warm"
+    ],
+    [
+     5,
+     38,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lan-can": {
+   "file": "assets/art/tk-lan-can.png",
+   "v": "332a49ed",
+   "w": 106,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    53,
+    50
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     13,
+     "warm"
+    ],
+    [
+     94,
+     19,
+     "warm"
+    ],
+    [
+     12,
+     10,
+     "warm"
+    ],
+    [
+     95,
+     7,
+     "warm"
+    ],
+    [
+     88,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lan-can-2": {
+   "file": "assets/art/tk-lan-can-2.png",
+   "v": "c42a512d",
+   "w": 83,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    41,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (44 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "tk.lan-can-day": {
+   "file": "assets/art/tk-lan-can-day.png",
+   "v": "c0e47d1d",
+   "w": 86,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    43,
+    72
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (46 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     12,
+     "warm"
+    ],
+    [
+     12,
+     33,
+     "warm"
+    ],
+    [
+     75,
+     33,
+     "warm"
+    ],
+    [
+     75,
+     20,
+     "warm"
+    ],
+    [
+     40,
+     40,
+     "warm"
+    ],
+    [
+     58,
+     40,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lan-can-go": {
+   "file": "assets/art/tk-lan-can-go.png",
+   "v": "91cfcfc5",
+   "w": 90,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    45,
+    45
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     13,
+     "warm"
+    ],
+    [
+     12,
+     13,
+     "warm"
+    ],
+    [
+     76,
+     38,
+     "warm"
+    ],
+    [
+     32,
+     30,
+     "warm"
+    ],
+    [
+     58,
+     30,
+     "warm"
+    ],
+    [
+     13,
+     37,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lau-canh": {
+   "file": "assets/art/tk-lau-canh.png",
+   "v": "7ce6a74b",
+   "w": 128,
+   "h": 121,
+   "frames": 1,
+   "anchor": [
+    64,
+    119
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (68 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     48,
+     "warm"
+    ],
+    [
+     77,
+     48,
+     "warm"
+    ],
+    [
+     40,
+     48,
+     "warm"
+    ],
+    [
+     15,
+     84,
+     "warm"
+    ],
+    [
+     74,
+     6,
+     "warm"
+    ],
+    [
+     41,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.loi-dai": {
+   "file": "assets/art/tk-loi-dai.png",
+   "v": "349085e6",
+   "w": 255,
+   "h": 190,
+   "frames": 1,
+   "anchor": [
+    127,
+    188
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (136 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     130,
+     58,
+     "warm"
+    ],
+    [
+     13,
+     94,
+     "warm"
+    ],
+    [
+     238,
+     94,
+     "warm"
+    ],
+    [
+     184,
+     59,
+     "warm"
+    ],
+    [
+     67,
+     59,
+     "warm"
+    ],
+    [
+     157,
+     49,
+     "warm"
+    ],
+    [
+     67,
+     140,
+     "warm"
+    ],
+    [
+     67,
+     30,
+     "warm"
+    ],
+    [
+     174,
+     126,
+     "pink"
+    ],
+    [
+     78,
+     125,
+     "pink"
+    ]
+   ]
+  },
+  "tk.loi-dai-co": {
+   "file": "assets/art/tk-loi-dai-co.png",
+   "v": "470f7fe0",
+   "w": 255,
+   "h": 204,
+   "frames": 1,
+   "anchor": [
+    127,
+    202
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (136 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     175,
+     157,
+     "warm"
+    ],
+    [
+     76,
+     157,
+     "warm"
+    ],
+    [
+     220,
+     139,
+     "warm"
+    ],
+    [
+     13,
+     130,
+     "warm"
+    ],
+    [
+     40,
+     139,
+     "warm"
+    ],
+    [
+     94,
+     41,
+     "warm"
+    ],
+    [
+     126,
+     149,
+     "pink"
+    ],
+    [
+     54,
+     126,
+     "pink"
+    ]
+   ],
+   "flame": [
+    131,
+    68
+   ]
+  },
+  "tk.lu-huong": {
+   "file": "assets/art/tk-lu-huong.png",
+   "v": "f2e1002c",
+   "w": 31,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    15,
+    47
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     37,
+     "warm"
+    ],
+    [
+     21,
+     26,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lu-tim": {
+   "file": "assets/art/tk-lu-tim.png",
+   "v": "22d634b2",
+   "w": 50,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    25,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     20,
+     "warm"
+    ],
+    [
+     23,
+     34,
+     "warm"
+    ],
+    [
+     6,
+     25,
+     "warm"
+    ],
+    [
+     42,
+     25,
+     "warm"
+    ]
+   ],
+   "flame": [
+    25,
+    10
+   ],
+   "flame_c": "hong"
+  },
+  "tk.lua-cam": {
+   "file": "assets/art/tk-lua-cam.png",
+   "v": "a0fe3cdf",
+   "w": 35,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    17,
+    43
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     22,
+     "warm"
+    ],
+    [
+     5,
+     24,
+     "warm"
+    ],
+    [
+     14,
+     39,
+     "warm"
+    ]
+   ],
+   "flame": [
+    17,
+    20
+   ]
+  },
+  "tk.lua-hong": {
+   "file": "assets/art/tk-lua-hong.png",
+   "v": "30d9b723",
+   "w": 40,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     18,
+     "pink"
+    ]
+   ],
+   "flame": [
+    19,
+    12
+   ],
+   "flame_c": "hong"
+  },
+  "tk.lua-lam": {
+   "file": "assets/art/tk-lua-lam.png",
+   "v": "aa9c0cc2",
+   "w": 31,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    15,
+    43
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     29,
+     "warm"
+    ],
+    [
+     27,
+     25,
+     "warm"
+    ],
+    [
+     18,
+     17,
+     "cold"
+    ]
+   ],
+   "flame": [
+    16,
+    19
+   ],
+   "flame_c": "lam"
+  },
+  "tk.lua-sen": {
+   "file": "assets/art/tk-lua-sen.png",
+   "v": "52382805",
+   "w": 42,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    21,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     14,
+     "warm"
+    ],
+    [
+     21,
+     28,
+     "warm"
+    ],
+    [
+     6,
+     24,
+     "warm"
+    ]
+   ],
+   "flame": [
+    20,
+    20
+   ]
+  },
+  "tk.lua-vang": {
+   "file": "assets/art/tk-lua-vang.png",
+   "v": "062cc246",
+   "w": 37,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    18,
+    51
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     22,
+     "warm"
+    ],
+    [
+     28,
+     24,
+     "warm"
+    ],
+    [
+     19,
+     6,
+     "warm"
+    ]
+   ],
+   "flame": [
+    18,
+    17
+   ]
+  },
+  "tk.mat-na": {
+   "file": "assets/art/tk-mat-na.png",
+   "v": "72610248",
+   "w": 26,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    13,
+    30
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (14 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "tk.nam": {
+   "file": "assets/art/tk-nam.png",
+   "v": "6fd4c9c8",
+   "w": 30,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    15,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     8,
+     "cold"
+    ],
+    [
+     15,
+     25,
+     "cold"
+    ]
+   ]
+  },
+  "tk.nam-lam": {
+   "file": "assets/art/tk-nam-lam.png",
+   "v": "8277b1c9",
+   "w": 64,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    32,
+    54
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     16,
+     "cold"
+    ],
+    [
+     51,
+     30,
+     "cold"
+    ]
+   ]
+  },
+  "tk.nen": {
+   "file": "assets/art/tk-nen.png",
+   "v": "da1f764d",
+   "w": 41,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     22,
+     "warm"
+    ],
+    [
+     23,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.nen-2": {
+   "file": "assets/art/tk-nen-2.png",
+   "v": "bf05ef90",
+   "w": 37,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    18,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     21,
+     "warm"
+    ],
+    [
+     24,
+     29,
+     "warm"
+    ],
+    [
+     15,
+     7,
+     "warm"
+    ]
+   ]
+  },
+  "tk.pha-le-lam": {
+   "file": "assets/art/tk-pha-le-lam.png",
+   "v": "ec17c5ee",
+   "w": 44,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    22,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "tk.pha-le-luc": {
+   "file": "assets/art/tk-pha-le-luc.png",
+   "v": "89e97ff0",
+   "w": 35,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "tk.pha-le-nho": {
+   "file": "assets/art/tk-pha-le-nho.png",
+   "v": "4cf0028f",
+   "w": 28,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    14,
+    32
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     17,
+     "pink"
+    ]
+   ]
+  },
+  "tk.pha-le-tim": {
+   "file": "assets/art/tk-pha-le-tim.png",
+   "v": "eb1da801",
+   "w": 38,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    19,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     29,
+     "pink"
+    ]
+   ]
+  },
+  "tk.pha-le-vang": {
+   "file": "assets/art/tk-pha-le-vang.png",
+   "v": "af974696",
+   "w": 33,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    16,
+    39
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     22,
+     "warm"
+    ],
+    [
+     6,
+     22,
+     "warm"
+    ],
+    [
+     19,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.phong-do": {
+   "file": "assets/art/tk-phong-do.png",
+   "v": "0576d731",
+   "w": 122,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    61,
+    126
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (68 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     85,
+     "warm"
+    ],
+    [
+     44,
+     22,
+     "warm"
+    ],
+    [
+     74,
+     55,
+     "warm"
+    ],
+    [
+     58,
+     70,
+     "warm"
+    ]
+   ]
+  },
+  "tk.qua-cau-tim": {
+   "file": "assets/art/tk-qua-cau-tim.png",
+   "v": "b79e08c4",
+   "w": 38,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    19,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     31,
+     "warm"
+    ],
+    [
+     33,
+     15,
+     "warm"
+    ],
+    [
+     5,
+     15,
+     "warm"
+    ],
+    [
+     18,
+     6,
+     "pink"
+    ]
+   ]
+  },
+  "tk.qua-cau-tim-2": {
+   "file": "assets/art/tk-qua-cau-tim-2.png",
+   "v": "6578db1f",
+   "w": 33,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    16,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     31,
+     "warm"
+    ],
+    [
+     27,
+     21,
+     "warm"
+    ],
+    [
+     19,
+     16,
+     "pink"
+    ]
+   ]
+  },
+  "tk.ruong": {
+   "file": "assets/art/tk-ruong.png",
+   "v": "e82e50e5",
+   "w": 45,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    22,
+    35
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     13,
+     "warm"
+    ],
+    [
+     30,
+     31,
+     "warm"
+    ],
+    [
+     5,
+     13,
+     "warm"
+    ],
+    [
+     5,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-banh": {
+   "file": "assets/art/tk-sap-banh.png",
+   "v": "c0248664",
+   "w": 135,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    67,
+    98
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     48,
+     67,
+     "warm"
+    ],
+    [
+     67,
+     78,
+     "warm"
+    ],
+    [
+     22,
+     21,
+     "warm"
+    ],
+    [
+     122,
+     14,
+     "warm"
+    ],
+    [
+     104,
+     21,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-du": {
+   "file": "assets/art/tk-sap-du.png",
+   "v": "59959290",
+   "w": 113,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    56,
+    88
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     59,
+     "warm"
+    ],
+    [
+     102,
+     57,
+     "warm"
+    ],
+    [
+     31,
+     41,
+     "warm"
+    ],
+    [
+     32,
+     20,
+     "warm"
+    ],
+    [
+     58,
+     6,
+     "warm"
+    ],
+    [
+     94,
+     40,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-hang": {
+   "file": "assets/art/tk-sap-hang.png",
+   "v": "d4ee4902",
+   "w": 116,
+   "h": 99,
+   "frames": 1,
+   "anchor": [
+    58,
+    97
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (62 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     57,
+     "warm"
+    ],
+    [
+     50,
+     38,
+     "warm"
+    ],
+    [
+     31,
+     5,
+     "warm"
+    ],
+    [
+     66,
+     40,
+     "warm"
+    ],
+    [
+     77,
+     41,
+     "warm"
+    ],
+    [
+     67,
+     78,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-man": {
+   "file": "assets/art/tk-sap-man.png",
+   "v": "720c83f2",
+   "w": 143,
+   "h": 121,
+   "frames": 1,
+   "anchor": [
+    71,
+    119
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (76 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     103,
+     "warm"
+    ],
+    [
+     121,
+     39,
+     "warm"
+    ],
+    [
+     21,
+     31,
+     "warm"
+    ],
+    [
+     58,
+     102,
+     "warm"
+    ],
+    [
+     103,
+     66,
+     "warm"
+    ],
+    [
+     94,
+     103,
+     "warm"
+    ],
+    [
+     32,
+     39,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-soc": {
+   "file": "assets/art/tk-sap-soc.png",
+   "v": "8ff45f14",
+   "w": 150,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    75,
+    94
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     139,
+     31,
+     "warm"
+    ],
+    [
+     13,
+     31,
+     "warm"
+    ],
+    [
+     76,
+     39,
+     "warm"
+    ],
+    [
+     40,
+     32,
+     "warm"
+    ],
+    [
+     112,
+     32,
+     "warm"
+    ],
+    [
+     48,
+     67,
+     "warm"
+    ],
+    [
+     121,
+     58,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sen-lon": {
+   "file": "assets/art/tk-sen-lon.png",
+   "v": "530bae33",
+   "w": 86,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    43,
+    67
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (46 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     31,
+     "warm"
+    ],
+    [
+     41,
+     59,
+     "warm"
+    ],
+    [
+     33,
+     40,
+     "warm"
+    ],
+    [
+     21,
+     41,
+     "warm"
+    ],
+    [
+     58,
+     47,
+     "warm"
+    ]
+   ]
+  },
+  "tk.su-tu": {
+   "file": "assets/art/tk-su-tu.png",
+   "v": "b3ee5e23",
+   "w": 86,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    43,
+    99
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (46 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     23,
+     85,
+     "warm"
+    ],
+    [
+     23,
+     50,
+     "warm"
+    ],
+    [
+     38,
+     86,
+     "warm"
+    ],
+    [
+     14,
+     74,
+     "warm"
+    ],
+    [
+     76,
+     64,
+     "cold"
+    ],
+    [
+     42,
+     41,
+     "pink"
+    ],
+    [
+     27,
+     75,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tham-do": {
+   "file": "assets/art/tk-tham-do.png",
+   "v": "b7a55695",
+   "w": 56,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    28,
+    67
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     31,
+     "warm"
+    ],
+    [
+     48,
+     58,
+     "warm"
+    ],
+    [
+     13,
+     58,
+     "warm"
+    ],
+    [
+     48,
+     31,
+     "warm"
+    ],
+    [
+     30,
+     58,
+     "warm"
+    ],
+    [
+     13,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tham-lam": {
+   "file": "assets/art/tk-tham-lam.png",
+   "v": "14a3e461",
+   "w": 56,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    28,
+    65
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     31,
+     "warm"
+    ],
+    [
+     13,
+     58,
+     "warm"
+    ],
+    [
+     30,
+     59,
+     "warm"
+    ],
+    [
+     47,
+     59,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tham-tim": {
+   "file": "assets/art/tk-tham-tim.png",
+   "v": "5fd7c6bf",
+   "w": 49,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    24,
+    66
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     58,
+     "warm"
+    ],
+    [
+     12,
+     59,
+     "warm"
+    ],
+    [
+     39,
+     40,
+     "warm"
+    ],
+    [
+     7,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tinh-the-lon": {
+   "file": "assets/art/tk-tinh-the-lon.png",
+   "v": "1228f25b",
+   "w": 63,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    31,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     42,
+     "cold"
+    ],
+    [
+     31,
+     57,
+     "pink"
+    ],
+    [
+     27,
+     29,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tran-bat-quai": {
+   "file": "assets/art/tk-tran-bat-quai.png",
+   "v": "f4a51597",
+   "w": 98,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    49,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     31,
+     "warm"
+    ],
+    [
+     49,
+     21,
+     "warm"
+    ],
+    [
+     49,
+     58,
+     "warm"
+    ],
+    [
+     13,
+     32,
+     "warm"
+    ],
+    [
+     23,
+     50,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tran-hong": {
+   "file": "assets/art/tk-tran-hong.png",
+   "v": "fd3a3809",
+   "w": 90,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    45,
+    79
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     13,
+     "warm"
+    ],
+    [
+     49,
+     49,
+     "warm"
+    ],
+    [
+     75,
+     13,
+     "warm"
+    ],
+    [
+     46,
+     67,
+     "warm"
+    ],
+    [
+     23,
+     50,
+     "warm"
+    ],
+    [
+     75,
+     49,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tran-lam": {
+   "file": "assets/art/tk-tran-lam.png",
+   "v": "1143f11c",
+   "w": 98,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    49,
+    100
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     65,
+     "cold"
+    ],
+    [
+     77,
+     78,
+     "cold"
+    ],
+    [
+     54,
+     52,
+     "cold"
+    ]
+   ]
+  },
+  "tk.tran-nen": {
+   "file": "assets/art/tk-tran-nen.png",
+   "v": "30c0b92b",
+   "w": 135,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    67,
+    86
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     68,
+     "warm"
+    ],
+    [
+     93,
+     67,
+     "warm"
+    ],
+    [
+     40,
+     57,
+     "warm"
+    ],
+    [
+     50,
+     43,
+     "warm"
+    ],
+    [
+     10,
+     50,
+     "warm"
+    ],
+    [
+     102,
+     31,
+     "warm"
+    ],
+    [
+     53,
+     67,
+     "pink"
+    ],
+    [
+     78,
+     68,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tran-sang": {
+   "file": "assets/art/tk-tran-sang.png",
+   "v": "2ff5349c",
+   "w": 83,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    41,
+    75
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     41,
+     "pink"
+    ],
+    [
+     30,
+     42,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tran-sen": {
+   "file": "assets/art/tk-tran-sen.png",
+   "v": "da972c10",
+   "w": 91,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    45,
+    64
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     39,
+     "pink"
+    ],
+    [
+     66,
+     19,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tran-vang": {
+   "file": "assets/art/tk-tran-vang.png",
+   "v": "47e26d8b",
+   "w": 105,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    52,
+    79
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     40,
+     "warm"
+    ],
+    [
+     85,
+     23,
+     "warm"
+    ],
+    [
+     22,
+     23,
+     "warm"
+    ],
+    [
+     67,
+     49,
+     "warm"
+    ],
+    [
+     31,
+     49,
+     "warm"
+    ],
+    [
+     49,
+     66,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tran-xoay": {
+   "file": "assets/art/tk-tran-xoay.png",
+   "v": "a6c3a7bc",
+   "w": 105,
+   "h": 76,
+   "frames": 1,
+   "anchor": [
+    52,
+    74
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     50,
+     "pink"
+    ],
+    [
+     66,
+     43,
+     "pink"
+    ]
+   ]
+  },
+  "tk.trong-lon": {
+   "file": "assets/art/tk-trong-lon.png",
+   "v": "492b7bc4",
+   "w": 120,
+   "h": 133,
+   "frames": 1,
+   "anchor": [
+    60,
+    131
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     58,
+     "warm"
+    ],
+    [
+     49,
+     76,
+     "warm"
+    ],
+    [
+     68,
+     49,
+     "warm"
+    ],
+    [
+     49,
+     40,
+     "warm"
+    ],
+    [
+     66,
+     75,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tru-pha-le": {
+   "file": "assets/art/tk-tru-pha-le.png",
+   "v": "3b8e6bdc",
+   "w": 77,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    38,
+    81
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-1.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     68,
+     31,
+     "warm"
+    ],
+    [
+     11,
+     31,
+     "warm"
+    ],
+    [
+     22,
+     42,
+     "warm"
+    ],
+    [
+     68,
+     59,
+     "warm"
+    ],
+    [
+     40,
+     43,
+     "warm"
+    ],
+    [
+     11,
+     59,
+     "warm"
+    ],
+    [
+     40,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "tk.truc-den": {
+   "file": "assets/art/tk-truc-den.png",
+   "v": "462655ea",
+   "w": 113,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    56,
+    118
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (64 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     48,
+     85,
+     "warm"
+    ],
+    [
+     95,
+     59,
+     "warm"
+    ],
+    [
+     22,
+     93,
+     "warm"
+    ],
+    [
+     37,
+     93,
+     "warm"
+    ],
+    [
+     74,
+     87,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tu-dang": {
+   "file": "assets/art/tk-tu-dang.png",
+   "v": "b92b512d",
+   "w": 150,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    75,
+    129
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (70 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     65,
+     17,
+     "pink"
+    ],
+    [
+     54,
+     41,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tui-gam": {
+   "file": "assets/art/tk-tui-gam.png",
+   "v": "83c396fa",
+   "w": 34,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    17,
+    36
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     21,
+     "warm"
+    ],
+    [
+     22,
+     6,
+     "warm"
+    ],
+    [
+     8,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tuong-cao": {
+   "file": "assets/art/tk-tuong-cao.png",
+   "v": "eecc6bd0",
+   "w": 53,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    26,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "tk.tuong-hac": {
+   "file": "assets/art/tk-tuong-hac.png",
+   "v": "855de7e6",
+   "w": 53,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    26,
+    73
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     43,
+     55,
+     "cold"
+    ],
+    [
+     14,
+     24,
+     "cold"
+    ],
+    [
+     30,
+     30,
+     "pink"
+    ],
+    [
+     43,
+     30,
+     "pink"
+    ]
+   ]
+  },
+  "tk.tuong-phat": {
+   "file": "assets/art/tk-tuong-phat.png",
+   "v": "9a203689",
+   "w": 86,
+   "h": 92,
+   "frames": 1,
+   "anchor": [
+    43,
+    90
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (46 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     22,
+     "warm"
+    ],
+    [
+     49,
+     67,
+     "warm"
+    ],
+    [
+     31,
+     67,
+     "warm"
+    ],
+    [
+     22,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "tk.tuong-rong": {
+   "file": "assets/art/tk-tuong-rong.png",
+   "v": "e05d5d8a",
+   "w": 94,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    47,
+    98
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (50 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     59,
+     67,
+     "warm"
+    ],
+    [
+     70,
+     75,
+     "warm"
+    ],
+    [
+     50,
+     91,
+     "warm"
+    ],
+    [
+     16,
+     76,
+     "cold"
+    ],
+    [
+     65,
+     98,
+     "cold"
+    ]
+   ]
+  },
+  "tk.vac-lua": {
+   "file": "assets/art/tk-vac-lua.png",
+   "v": "e3d7dca6",
+   "w": 52,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    26,
+    51
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-2.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     33,
+     20,
+     "warm"
+    ],
+    [
+     23,
+     38,
+     "warm"
+    ],
+    [
+     5,
+     22,
+     "warm"
+    ],
+    [
+     20,
+     20,
+     "warm"
+    ],
+    [
+     47,
+     22,
+     "warm"
+    ]
+   ],
+   "flame": [
+    25,
+    21
+   ]
+  },
+  "tk.voi-nuoc": {
+   "file": "assets/art/tk-voi-nuoc.png",
+   "v": "cf890928",
+   "w": 75,
+   "h": 78,
+   "frames": 1,
+   "anchor": [
+    37,
+    76
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     44,
+     29,
+     "cold"
+    ],
+    [
+     44,
+     45,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     13,
+     15
+    ],
+    [
+     56,
+     68
+    ],
+    [
+     17,
+     48
+    ],
+    [
+     29,
+     23
+    ],
+    [
+     22,
+     20
+    ],
+    [
+     23,
+     41
+    ],
+    [
+     27,
+     40
+    ],
+    [
+     36,
+     22
+    ],
+    [
+     48,
+     58
+    ],
+    [
+     12,
+     70
+    ],
+    [
+     62,
+     68
+    ],
+    [
+     4,
+     67
+    ],
+    [
+     46,
+     72
+    ],
+    [
+     4,
+     59
+    ],
+    [
+     38,
+     27
+    ],
+    [
+     66,
+     70
+    ],
+    [
+     16,
+     49
+    ],
+    [
+     24,
+     45
+    ],
+    [
+     28,
+     23
+    ],
+    [
+     71,
+     61
+    ],
+    [
+     62,
+     65
+    ],
+    [
+     41,
+     68
+    ],
+    [
+     63,
+     70
+    ],
+    [
+     35,
+     38
+    ]
+   ]
+  },
+  "tk.voi-su-tu": {
+   "file": "assets/art/tk-voi-su-tu.png",
+   "v": "77af5398",
+   "w": 98,
+   "h": 87,
+   "frames": 1,
+   "anchor": [
+    49,
+    85
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-3.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     66,
+     "cold"
+    ],
+    [
+     52,
+     55,
+     "cold"
+    ],
+    [
+     52,
+     76,
+     "pink"
+    ],
+    [
+     77,
+     65,
+     "pink"
+    ]
+   ],
+   "glints": [
+    [
+     15,
+     36
+    ],
+    [
+     44,
+     52
+    ],
+    [
+     77,
+     52
+    ],
+    [
+     68,
+     73
+    ],
+    [
+     62,
+     49
+    ],
+    [
+     92,
+     46
+    ],
+    [
+     65,
+     59
+    ],
+    [
+     93,
+     72
+    ],
+    [
+     53,
+     72
+    ],
+    [
+     56,
+     55
+    ],
+    [
+     20,
+     45
+    ],
+    [
+     49,
+     45
+    ],
+    [
+     43,
+     47
+    ],
+    [
+     8,
+     68
+    ],
+    [
+     92,
+     71
+    ],
+    [
+     67,
+     82
+    ],
+    [
+     20,
+     59
+    ],
+    [
+     84,
+     62
+    ],
+    [
+     59,
+     80
+    ],
+    [
+     90,
+     67
+    ],
+    [
+     87,
+     76
+    ],
+    [
+     56,
+     35
+    ],
+    [
+     9,
+     36
+    ],
+    [
+     62,
+     34
+    ]
+   ]
+  },
+  "tk.vom-lua": {
+   "file": "assets/art/tk-vom-lua.png",
+   "v": "1c16c717",
+   "w": 116,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    58,
+    88
+   ],
+   "note": "đồ lễ hội thien-kiem: bo-4.png (62 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     67,
+     "warm"
+    ],
+    [
+     12,
+     31,
+     "warm"
+    ],
+    [
+     103,
+     67,
+     "warm"
+    ],
+    [
+     30,
+     68,
+     "warm"
+    ],
+    [
+     58,
+     31,
+     "warm"
+    ],
+    [
+     104,
+     31,
+     "warm"
+    ],
+    [
+     86,
+     67,
+     "warm"
+    ]
+   ],
+   "flame": [
+    58,
+    26
+   ]
   },
   "ui.bracket": {
    "file": "assets/art/ui-bracket.png",

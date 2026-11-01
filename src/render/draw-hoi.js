@@ -4,8 +4,11 @@
 // (flame). Đồ phẳng (sân lát, gợn nước) vẽ sát đất dưới người; đồ đứng xếp theo chân cùng người, quái (draw.js).
 import { spriteImage } from './sprites.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
+import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
+import { ACT, drawAct, walkFrame } from './draw-acts.js';
 
 const flat = it => it.foot.flat;
+const flameKind = it => it.spr.flame_c || (it.id.includes('lam') ? 'lam' : it.id.includes('hong') ? 'hong' : 'vang');
 
 // Đồ phẳng: vẽ ngay sau nền, trước mọi thứ đứng trên đất
 export function drawHoiFlat(ctx, game, t) {
@@ -28,7 +31,16 @@ export function hoiEnts(game, view) {
 }
 
 export function drawHoiItem(ctx, game, it, t) {
-  if (it.khach) { drawNpcSprite(ctx, game, it, t); return; }
+  if (it.khach) {   // khách đi hội: nhảy lên khi reo hò (hop)
+    const hop = it.hop > 0 ? Math.sin(Math.min(1, it.hop / 0.45) * Math.PI) * 4 : 0;
+    if (it.face && Math.abs(it.face.x) > 0.2) it.lookX = Math.sign(it.face.x);
+    if (it.hero) {   // đệ tử tông môn (hình thời trang nhân vật, 7 động tác)
+      ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(it.x, it.y + 1, 6, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+      drawAct(ctx, game.data.art, it.id, it.moving ? walkFrame(it.spr0 ??= game.data.art.sprites[it.id], t + it.bob) : hop ? ACT.hit : ACT.idle, it.x, it.y + 1, it.lookX || 1, hop);
+    } else if (hop) { ctx.save(); ctx.translate(0, -hop); drawNpcSprite(ctx, game, it, t); ctx.restore(); }
+    else drawNpcSprite(ctx, game, it, t);
+    return;
+  }
   const im = spriteImage(it.spr);
   if (!im) return;
   const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k;
@@ -42,9 +54,11 @@ export function drawHoiItem(ctx, game, it, t) {
     ctx.restore();
     return;
   }
-  ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
+  const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
+  if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x);
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
+  if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
 
 // Mặt nước, mặt băng lấp lánh: điểm sáng chớp lên rồi tắt, mỗi điểm một nhịp
@@ -62,7 +76,7 @@ function glints(ctx, pts, ox, oy, k, t, seed) {
 
 // Lò lửa: năm lưỡi lửa nhảy so le theo thời gian, lõi sáng, tàn lửa bay lên rồi tắt; màu theo tên lò (lam, hồng, vàng)
 function flame(ctx, game, it, x, y, t) {
-  const P = game.data['le-hoi'].flame, c = P[it.id.includes('lam') ? 'lam' : it.id.includes('hong') ? 'hong' : 'vang'];
+  const P = game.data['le-hoi'].flame, c = P[flameKind(it)];
   const ph = it.x * 0.07;
   for (let i = 0; i < 5; i++) {
     const dx = (i - 2) * 1.1, hh = 2.2 + 3.2 * Math.abs(Math.sin(t * 8.3 + i * 1.7 + ph)) * (i === 2 ? 1.4 : 1);
@@ -89,7 +103,7 @@ export function hoiLights(game) {
       const g = G[kind] || G.warm;
       out.push({ x: ox + lx * k, y: oy + ly * k, r: g.r, c: g.c, a: g.a, ph: (lx * 7 + ly * 13 + it.x) % 10 });
     }
-    if (s.flame) { const g = G[it.id.includes('lam') ? 'cold' : it.id.includes('hong') ? 'pink' : 'warm']; out.push({ x: ox + s.flame[0] * k, y: oy + s.flame[1] * k - 3, r: g.r + 8, c: g.c, a: g.a * 1.4, ph: it.x % 10 }); }
+    if (s.flame) { const g = G[{ lam: 'cold', hong: 'pink', vang: 'warm' }[flameKind(it)]]; out.push({ x: ox + s.flame[0] * k, y: oy + s.flame[1] * k - 3, r: g.r + 8, c: g.c, a: g.a * 1.4, ph: it.x % 10 }); }
   }
   return out;
 }

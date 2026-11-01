@@ -21,15 +21,24 @@ def _key(a):
     """Bỏ nền hồng tím (cả quầng tím nhạt quanh đèn): đỏ, lam cao, lục thấp hẳn."""
     r, g, b = (a[:, :, i].astype(int) for i in range(3))
     bg = (r > 150) & (b > 150) & (g < 130) & (g < r - 60) & (g < b - 60)
-    # đốm hồng nhỏ kẹt trong hình (quầng tím của đèn, pha lê) không phải nền: tô bằng màu điểm hình gần nhất, kẻo thủng lỗ đen
+    # vùng hồng không thông ra mép tấm là nằm trong hình: đốm nhỏ tô bằng màu điểm hình gần nhất (kẻo thủng lỗ đen); vùng lớn mà màu
+    # lệch xa màu nền (quầng tím của trận pháp, mái vải tím) là màu thật của hình, giữ nguyên; vùng lớn đúng màu nền (lỗ vòng cổng) bỏ
     lab, k = nd.label(bg)
     if k:
-        size = nd.sum(np.ones_like(lab), lab, index=np.arange(1, k + 1))
-        small = np.isin(lab, np.nonzero(size < 260)[0] + 1)
+        edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+        idx = np.arange(1, k + 1)
+        size = nd.sum(np.ones_like(lab), lab, index=idx)
+        col = a[:, :, :3].astype(float)
+        bgc = np.median(col[lab == max(edge, key=lambda e: size[e - 1])], axis=0) if edge else np.array([250, 5, 250])
+        dist = np.sqrt(((col - bgc) ** 2).sum(axis=2))
+        mdist = nd.mean(dist, lab, index=idx)
+        inner = np.array([i not in edge for i in idx])
+        small = np.isin(lab, idx[inner & (size < 260)])
+        keep = np.isin(lab, idx[inner & (size >= 260) & (mdist > 70)])
         if small.any():
             _, (iy, ix) = nd.distance_transform_edt(bg, return_indices=True)
             a = a.copy(); a[small] = a[iy[small], ix[small]]
-            bg = bg & ~small
+        bg = bg & ~small & ~keep
     out = np.dstack([a[:, :, :3], np.where(bg, 0, 255).astype(np.uint8)])
     # mép ám hồng: điểm sát nền mà vẫn ngả hồng tím thì bỏ thêm hai vòng
     for _ in range(2):
@@ -141,5 +150,7 @@ def build(save):
                 f = _flame(a)
                 if f:
                     m['flame'] = f
+                    if '-' in fx:
+                        m['flame_c'] = fx.split('-')[1]   # màu lửa: lam, hong (mặc định vàng)
             n += 1
     return n
