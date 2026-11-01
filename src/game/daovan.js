@@ -1,7 +1,8 @@
-// Bộ Đạo Vận và Con Đường Đạo Vận (data/daovan.json, chủ dự án chốt 28/10/2026): đích lớn đầu tiên từ Kim Đan, xong trong 1–2 tuần, không bán.
-// Bộ = 6 món trang bị + Đạo Vận Ấn + 2 chiêu hệ đang mang + linh thú; tính "hợp hệ" khi cùng hệ linh căn người chơi.
-// Món Đạo Vận giống nhau, hệ ngẫu nhiên lúc nhận (it.el); đổi hệ bằng Đạo Vận Thạch.
-import { rollItem, addItem, equipped, itemName } from './items.js';
+// Bộ Đạo Vận và Con Đường Đạo Vận (data/daovan.json, chủ dự án chốt 28/10/2026; đổi 02/11/2026).
+// Đạo Vận mới: không còn đồ Đạo Vận riêng. Mọi trang bị có một hệ (it.el); bộ = trang bị đang mặc (tối đa 7) + 2 chiêu hệ
+// đang mang + công pháp đang mang (tối đa 3) + linh thú, tính "hợp hệ" khi cùng hệ linh căn. Đổi hệ bằng Đạo Vận Thạch.
+// Đồ Đạo Vận cũ thành trang bị thường, giữ chỉ số và hệ.
+import { rollItem, addItem, equipped, itemName, baseForSlot } from './items.js';
 import { progress } from './achieve.js';
 import { totalLayer, weaponId } from './stats.js';
 import { addMat } from './cave.js';
@@ -13,16 +14,17 @@ const today = () => { const d = new Date(); return Math.floor((d.getTime() - d.g
 export const elList = data => Object.keys(data.elements).filter(k => !k.startsWith('_'));
 const matName = (data, id) => data.cave.materials[id]?.name || id;
 
-// Số món hợp hệ: trang bị Đạo Vận cùng hệ (tối đa 7), chiêu hệ đang mang (tối đa 2), linh thú cùng hệ (1).
-// Chưa mặc món Đạo Vận hợp hệ nào thì chưa tính bộ (chiêu, linh thú chỉ cộng thêm khi đã có món).
+// Số món hợp hệ: trang bị cùng hệ (tối đa 7), chiêu hệ đang mang (tối đa 2), công pháp cùng hệ đang mang (tối đa 3), linh thú (1).
+// Chưa mặc trang bị hợp hệ nào thì chưa tính bộ (chiêu, công pháp, linh thú chỉ cộng thêm khi đã có món).
 export function matchInfo(save, data) {
   const el = save.element, D = V(data);
-  if (!el || !D) return { gear: 0, skills: 0, pet: 0, n: 0, el };
-  const gear = equipped(save).filter(it => data.items.bases[it.base]?.dv && it.el === el).length;
+  if (!el || !D) return { gear: 0, skills: 0, techs: 0, pet: 0, n: 0, el };
+  const gear = equipped(save).filter(it => it.el === el).length;
+  const techs = (save.techSlots || []).filter(id => data.techniques?.list[id]?.el === el).length;
   const mine = data.elements[el]?.skills || [];
   const skills = Math.min(2, skillSlots({ save, data }).filter(id => mine.includes(id)).length);   // theo các ô chiêu đang hiện (chưa chọn thì ô mặc định)
   const pet = save.pet && D.pet_el[save.pet] === el ? 1 : 0;
-  return { gear, skills, pet, n: gear ? gear + skills + pet : 0, el };
+  return { gear, skills, techs, pet, n: gear ? gear + skills + techs + pet : 0, el };
 }
 
 // Thưởng bộ theo hệ và số món hợp hệ (stats.js cộng vào chỉ số)
@@ -57,12 +59,10 @@ export function stepInfo(game) {
   return { st, step, open, day, have, goal, ready: open && have >= goal };
 }
 
-export function makeDv(game, base, rnd = Math.random) {
-  const it = rollItem(game.data, game.save, { base, rarity: V(game.data).rarity, lvl: Math.min(81, totalLayer(game.save, game.data.realms)) });
-  const els = elList(game.data);
-  it.el = els[Math.floor(rnd() * els.length)];
-  if (game.data.items.bases[base].slot === 'vu-khi') it.wt = weaponId(game.save, game.data);   // Đạo Vận Binh theo loại vũ khí đang dùng
-  return it;
+// Thưởng trang bị của Con Đường: món thường đúng ô (give.slot), hệ ngẫu nhiên; vũ khí theo loại đang dùng
+export function makeDv(game, slot, rnd = Math.random) {
+  const d = game.data, base = baseForSlot(d, slot, weaponId(game.save, d), rnd);
+  return rollItem(d, game.save, { base, rarity: V(d).rarity, lvl: Math.min(81, totalLayer(game.save, d.realms)), rnd });
 }
 
 // Nhận thưởng bước vừa xong: trả về { got: [...] } hoặc { full: true } khi túi đầy, null khi chưa xong
@@ -70,10 +70,10 @@ export function claimStep(game) {
   const k = stepInfo(game);
   if (!k?.ready) return null;
   const g = k.step.give, s = game.save, d = game.data, got = [];
-  if (g.dv) {
+  if (g.slot) {
     if ((s.bag?.length || 0) >= d.items.bag_size) fitBag(game, 1);   // báo lỗi #22: túi đầy thì tự phân giải món thấp nhất chưa mặc, như lúc túi lố
     if ((s.bag?.length || 0) >= d.items.bag_size) return { full: true };
-    const it = makeDv(game, g.dv);
+    const it = makeDv(game, g.slot);
     addItem(d, s, it); got.push(itemName(d, it));
   }
   for (const [id, n] of Object.entries(g.mats || {})) { addMat(s, id, n); got.push(`${n} ${matName(d, id)}`); }
@@ -83,10 +83,10 @@ export function claimStep(game) {
   return { got };
 }
 
-// Đổi hệ một món Đạo Vận: tốn Đạo Vận Thạch, ra hệ khác hệ cũ
+// Đổi hệ một món (mọi trang bị có hệ): tốn Đạo Vận Thạch, ra hệ khác hệ cũ
 export function rerollEl(game, uid, rnd = Math.random) {
   const s = game.save, d = game.data, R = V(d).reroll, it = s.bag.find(i => i.uid === uid);
-  if (!it || !d.items.bases[it.base]?.dv || (s.mats[R.mat] || 0) < R.n) return null;
+  if (!it?.el || (s.mats[R.mat] || 0) < R.n) return null;
   s.mats[R.mat] -= R.n;
   const els = elList(d).filter(e => e !== it.el);
   it.el = els[Math.floor(rnd() * els.length)];

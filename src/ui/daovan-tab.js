@@ -23,14 +23,14 @@ export function renderDaoVan(game, list, { card, mini, say }) {
   }
   const tiers = D.bonus[s.element] || {};
   list.append(card(el?.color || '#ffd27a', T.bonus_title.replace('{el}', el?.name || ''), [
-    T.match.replace('{gear}', m.gear).replace('{skills}', m.skills).replace('{pet}', m.pet),
+    T.match.replace('{gear}', m.gear).replace('{skills}', m.skills).replace('{techs}', m.techs).replace('{pet}', m.pet),
     ...Object.entries(tiers).map(([n, b]) => `${m.n >= +n ? '✓' : '·'} ${n} món: ` + Object.entries(b).map(([st, v]) => statLabel(d, st, v)).join(', ')),
   ]));
 }
 
 function giveText(d, g) {
   const out = [];
-  if (g.dv) out.push(`${d.items.bases[g.dv].name} (hệ ngẫu nhiên)`);
+  if (g.slot) out.push(`${d.items.slots[g.slot] || g.slot} (hệ ngẫu nhiên)`);
   for (const [id, n] of Object.entries(g.mats || {})) out.push(`${n} ${d.cave.materials[id]?.name || id}`);
   if (g.flag) out.push('danh hiệu');
   return out.join(', ');
