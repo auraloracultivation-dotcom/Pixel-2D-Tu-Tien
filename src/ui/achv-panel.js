@@ -60,7 +60,7 @@ export function createAchvPanel(game) {
   // Thời trang: mặc bộ đã có, mua bộ bán bằng Linh Thạch
   function renderFashion(list) {
     const s = game.save, cur = s.outfit || 'dong-phuc';
-    const F = Object.fromEntries(Object.entries(data.fashion.list).filter(([id, f]) => !f.from.uid || owned(game, id)));   // bộ thử riêng: chỉ tài khoản có mới thấy
+    const F = data.fashion.list;
     $('achv-sub').textContent = `${Object.keys(F).filter(id => owned(game, id)).length}/${Object.keys(F).length} bộ · chỉ đổi dáng vẻ`;
     const H = data.heroes, look = s.look || H.default;   // hình nhân vật: nam hoặc nữ
     for (const [id, h] of Object.entries(H.list)) {
@@ -69,12 +69,12 @@ export function createAchvPanel(game) {
       icon(hc, `hero.y-${cur}-${id}`, h.sprite); list.append(hc);
     }
     for (const [id, f] of Object.entries(F)) {
-      const own = owned(game, id), on = cur === id;
-      const btn = on ? mini('Đang mặc', () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
+      const own = owned(game, id), on = cur === id, other = f.only && f.only !== look;   // bộ chỉ cho hình nam hoặc nữ
+      const btn = on ? mini('Đang mặc', () => {}, true) : own && other ? mini(`Chỉ ${H.list[f.only].name.split(' ·')[0].toLowerCase()}`, () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
         : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id)) { wear(game, id); msg = `Mua và mặc ${f.name}.`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
       const c = card(f.robe, f.name, [own ? 'Đã có' : howToGet(game, f)], btn);
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
-      c.prepend(sw); icon(c, `hero.y-${id}-${look}`, f.sprite === 'goc' && H.list[look]?.sprite); list.append(c);
+      c.prepend(sw); icon(c, `hero.y-${id}-${look}`, f.sprite === 'goc' && H.list[f.only || look]?.sprite); list.append(c);
     }
   }
 
