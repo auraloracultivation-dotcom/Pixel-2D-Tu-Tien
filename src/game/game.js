@@ -22,7 +22,7 @@ import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
-import { ensureDaily, dailyEvent } from './daily.js';
+import { ensureDaily, dailyEvent, dailyKill } from './daily.js';
 import { updateTower, towerFail } from './tower.js';
 import { updateArena, arenaFail, arenaGoal } from './arena.js';
 import { pilotDialog, pilotDied } from './pilot.js';
@@ -164,7 +164,7 @@ export function createGame(data, screen, input, ui, audio) {
     matDrop(game, m);
     petKill(game, m);
     eventKill(game, m);
-    dailyEvent(game, 'kill', m.id);
+    dailyKill(game, m);
     if (m.rare) dailyEvent(game, 'rare', m.id);
     game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { if (!m.wb) game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }

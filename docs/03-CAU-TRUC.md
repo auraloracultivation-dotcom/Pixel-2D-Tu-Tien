@@ -122,6 +122,8 @@ Chủ dự án thấy người chơi farm quá nhanh, nhiều tiền (28/10/2026
 
 Thăng Linh Đan (đề xuất #39, chủ dự án duyệt 31/10/2026; `supabase/migrations/20261101010000_p2d_dan_x2.sql`): luyện ở lò đan (`cave.pills.thang-linh-dan`), uống vào 15 phút linh khí gấp đôi (`game.gainQi` nhân 2 khi `save.qiX2` còn hạn; đan linh khí không nhân), mỗi ngày (giờ Việt Nam) tối đa 2 viên, uống nối cộng dồn. Không nhân Linh Thạch, ngọc, nguyên liệu. Đã đăng nhập thì máy chủ ghi giờ đan qua `p2d_uong_dan_x2` (bảng `p2d_dan_x2`, kiểm tra bản lưu còn viên), trigger `p2d_kiem_linh_khi` cộng thêm hạn mức `v_toc` mỗi giây cho phần thời gian lưu nằm trong lúc đan chạy (tối đa 30 phút). Tự hành không tự uống. HUD ghi "×2" sau thanh linh khí.
 
+Trấn giữ vùng an toàn (đề xuất #47 + #48, chủ dự án chốt 01/11/2026): một việc hằng ngày trong `data/daily.json` (`pool.tran-giu`, kiểu `guard`). Hạ quái thường (không boss, không Yêu Vương) cách NPC dưới `guard.r` đơn vị thì tính tiến độ (`dailyKill` ở `src/game/daily.js`, gọi từ `game.onKill`). Thưởng như việc ngày khác, chỉ data + máy khách.
+
 ## Âm thanh (`data/sounds.json`)
 
 Mọi tiếng tổng hợp bằng WebAudio, không có file (`src/core/audio.js`, nhạc ở `src/core/music.js`). Mỗi bản đồ một khúc (`music.maps`). Thêm 28/10/2026: khúc `boss` nhanh, trầm, tự đổi sang khi đang độ kiếp hoặc boss đã nhắm mình trong 260 đơn vị, hết thì về nhạc bản đồ (`src/game/boss-music.js`); khúc riêng cho Phương Thiên Địa; tiếng gõ gỗ nhẹ `click` khi bấm nút trong bảng, hộp thoại, menu (`src/ui/click-sound.js`, trừ nút đánh, lướt, chiêu).

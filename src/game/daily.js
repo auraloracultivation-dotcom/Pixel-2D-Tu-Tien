@@ -27,7 +27,7 @@ export function ensureDaily(game) {
 export const taskDef = (game, id) => game.data.daily.pool.find(t => t.id === id);
 export const taskText = (t, n) => t.text.replace('{n}', t.n) + ` (${Math.floor(Math.min(n, t.n))}/${t.n})`;
 
-// Ghi tiến độ: type theo pool (kill, rare, meditate, bounty, brew, forge, harvest, salvage)
+// Ghi tiến độ: type theo pool (kill, guard, rare, meditate, bounty, brew, forge, harvest, salvage)
 export function dailyEvent(game, type, id, amount = 1) {
   if (!game.save) return;
   if (type === 'brew' || type === 'harvest' || type === 'fish') praise(game, type);
@@ -40,6 +40,13 @@ export function dailyEvent(game, type, id, amount = 1) {
     else if (t.n >= d.n) game.toast(`Xong việc hằng ngày: ${d.text.replace('{n}', d.n)}. Mở bảng Việc để nhận thưởng.`, 2.2);
     game.newDaily = true;
   }
+}
+
+// Hạ quái: việc đánh quái + việc Trấn giữ vùng an toàn (#47, #48: quái thường gần NPC, data/daily.json guard.r)
+export function dailyKill(game, m) {
+  dailyEvent(game, 'kill', m.id);
+  const r = game.data.daily.guard?.r;
+  if (r && m.def.ai !== 'boss' && !m.wb && game.npcs?.some(n => Math.hypot(n.x - m.x, n.y - m.y) < r)) dailyEvent(game, 'guard', m.id);
 }
 
 // Đang tự hành: xong việc thì nhận thưởng luôn, đủ hết thì mở rương

@@ -2,6 +2,7 @@
  "_note": "Việc hằng ngày và cống hiến tông môn. Mỗi ngày (giờ máy) bốc per_day việc từ pool (need: cờ cốt truyện). Xong việc nhận thưởng + cống hiến; xong hết nhận rương. Treo thưởng chỉ có thưởng bounty_per_day lần mỗi ngày. Cống hiến lên chức vị (ranks) và đổi đồ ở shop.",
  "per_day": 5,
  "bounty_per_day": 10,
+ "guard": {"r": 200, "_": "Việc Trấn giữ vùng an toàn (đề xuất #47 + #48, chủ dự án chốt 01/11): hạ quái thường (không boss) cách NPC dưới r đơn vị trên tinh cầu thì tính tiến độ."},
  "pool": [
   {"id": "giet-quai", "type": "kill", "n": 30, "text": "Hạ {n} quái bất kỳ", "reward": {"contrib": 20, "stones": 1}},
   {"id": "giet-moc-linh", "type": "kill", "mob": "moc-linh", "n": 10, "text": "Hạ {n} mộc linh", "reward": {"contrib": 15, "qi": 40}},
@@ -17,6 +18,7 @@
   {"id": "luyen-dan", "type": "brew", "n": 2, "need": "dong-phu", "text": "Luyện đan {n} lần", "reward": {"contrib": 20, "mats": {"linh-thao": 3}}},
   {"id": "ren-do", "type": "forge", "n": 1, "need": "dong-phu", "text": "Rèn {n} món ở lò rèn", "reward": {"contrib": 25, "mats": {"tinh-thiet": 3}}},
   {"id": "linh-dien", "type": "harvest", "n": 1, "need": "dong-phu", "text": "Thu hoạch linh điền {n} lần", "reward": {"contrib": 15, "mats": {"yeu-huyet": 1}}},
+  {"id": "tran-giu", "type": "guard", "n": 10, "text": "Trấn giữ vùng an toàn: hạ {n} yêu quái lảng vảng gần dân làng", "reward": {"contrib": 25, "stones": 2}},
   {"id": "phan-giai", "type": "salvage", "n": 3, "text": "Phân giải {n} món đồ", "reward": {"contrib": 15, "stones": 1}},
   {"id": "bi-canh", "type": "kill", "mob": "huyet-nha", "n": 1, "need": "mo-bi-canh", "text": "Hạ Phân thân Huyết Nha", "reward": {"contrib": 35, "gem": 1}},
   {"id": "giet-tuyet-lang", "type": "kill", "mob": "tuyet-lang", "n": 12, "need": "han-bang", "text": "Hạ {n} tuyết lang", "reward": {"contrib": 30, "stones": 2}},
