@@ -25,6 +25,14 @@ function rollLines(items, base, rar, lvl, rnd, data) {
   return lines;
 }
 
+// Gốc trang bị ngẫu nhiên của một ô (không đồ bộ, không Đạo Vận); vũ khí theo loại vũ khí đang dùng (weapon)
+export function baseForSlot(data, slot, weapon, rnd = Math.random) {
+  const B = data.items.bases, ids = Object.keys(B).filter(k => B[k].slot === slot && !B[k].set && !B[k].dv);
+  const own = slot === 'vu-khi' ? ids.filter(k => B[k].weapon === weapon) : [];
+  const pool = own.length ? own : ids;
+  return pool.length ? pool[Math.floor(rnd() * pool.length)] : undefined;
+}
+
 // Tạo một món mới. minRarity: độ hiếm thấp nhất (boss rơi từ Linh trở lên)
 export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, rnd = Math.random } = {}) {
   ensureInv(save);

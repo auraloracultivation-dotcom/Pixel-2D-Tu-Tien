@@ -75,10 +75,10 @@ export function dungeonDone(game) {
   if (first && L + 1 < total(game)) game.toast(T.unlock.replace('{level}', levelName(game, L + 1)), 2.4);
   if (first && D.first) lines.push(`${T.first.replace('{level}', levelName(game, L))}: ${grant(game, D.first).join(', ')}`);
   const runs = s.dunRuns?.day === today() ? s.dunRuns : (s.dunRuns = { day: today() });
-  if (md.reward && (runs[md.id] || 0) < D.per_day) {
-    runs[md.id] = (runs[md.id] || 0) + 1;
-    const r = { ...md.reward, coins: Math.round((md.reward.coins || 0) * (1 + D.reward_step * (L % D.steps))) || undefined };
+  if (md.reward && (runs[id] || 0) < D.per_day) {   // lượt thưởng tính theo bí cảnh (hướng mới 02/11/2026)
+    runs[id] = (runs[id] || 0) + 1;
+    const r = { ...md.reward, slot: D.drops?.[id], coins: Math.round((md.reward.coins || 0) * (1 + D.reward_step * (L % D.steps))) || undefined };
     lines.push(grant(game, r).join(', '));
-  } else if (md.reward) game.toast(T.full.replace('{n}', D.per_day).replace('{mode}', md.name), 2.2);
+  } else if (md.reward) game.toast(T.full.replace('{n}', D.per_day).replace('{map}', game.map.def.name), 2.2);
   if (lines.length) setTimeout(() => game.dialog.say([['', T.done.replace('{map}', game.map.def.name).replace('{level}', levelName(game, L)).replace('{got}', lines.join('; '))]]), 400);
 }
