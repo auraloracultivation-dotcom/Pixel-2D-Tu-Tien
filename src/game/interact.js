@@ -19,7 +19,7 @@ import { canInvite, talkCompanion } from './companion.js';
 import { sideFirst, talkSide, sideCollect } from './side.js';
 import { challenge as challengeTm } from './thienma.js';
 import { talkHome } from './home.js';
-import { canPat, patPet } from './pat.js';
+import { showPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
 import { talkTieuLinh } from './critters.js';
 import { festNpc, talkFest } from './events.js';
@@ -83,7 +83,7 @@ export function updateInteract(game) {
   const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
   const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
   const vein = !npc && !trib && !st && !med && !view && !game.view && !game.fish && !game.dig && nearVein(game);   // mạch linh khoáng
-  const pat = !npc && !trib && !st && !med && !view && !fish && !vein && !game.view && canPat(game);
+  const pat = !npc && !trib && !st && !med && !view && !fish && !vein && !game.view && showPat(game);
   game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : vein ? game.data.gather.texts.act : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
