@@ -1,6 +1,6 @@
 // Trang bị chỉ số ngẫu nhiên, ngọc khảm, tẩy luyện, phân giải. Số liệu ở data/items.json.
 // Mọi thay đổi đi qua các hàm ở đây để sau này chuyển sang hàm máy chủ (RPC) cho dễ.
-import { newLine, convertLines, rollReroll, tierOf } from './tiers.js';
+import { newLine, convertLines, addLine, linesFull, ensureCap, rollCap, tierOf } from './tiers.js';
 
 export function ensureInv(save) {
   save.bag ??= []; save.equip ??= {}; save.gems ??= {}; save.mats ??= {}; save.nextUid ??= 1;
@@ -18,11 +18,10 @@ export function rarityOf(items, id) { return items.rarities.find(r => r.id === i
 // Chỉ số phần trăm (bạo kích, công %, ...) không lớn theo cấp đồ, chỉ chỉ số cộng thẳng mới lớn theo cấp
 const grow = (items, s, per, lvl) => items.stats[s]?.pct ? 1 : 1 + lvl * per;
 
-// Dòng phụ có màu (tiers.js), được trùng chỉ số (tẩy luyện mới 02/11/2026); số dòng lúc rơi theo độ hiếm
+// Dòng phụ có màu (tiers.js), được trùng chỉ số. Tẩy luyện kiểu mở dòng (02/11/2026 03:58): món mới rơi ra có 1 dòng,
+// các dòng sau mở dần bằng tẩy luyện tới trần dòng của món (1–10, ngẫu nhiên)
 function rollLines(items, base, rar, lvl, rnd, data) {
-  const lines = [];
-  for (let i = 0; i < rar.lines && base.pool.length; i++) lines.push(newLine(data, base.pool, lvl, rnd));
-  return lines;
+  return base.pool.length ? [newLine(data, base.pool, lvl, rnd)] : [];
 }
 
 // Gốc trang bị ngẫu nhiên của một ô (không đồ bộ, không Đạo Vận); vũ khí theo loại vũ khí đang dùng (weapon)
@@ -50,7 +49,8 @@ export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity,
   const main = {};
   for (const [s, v] of Object.entries(base.main)) main[s] = Math.max(1, Math.round(v * grow(items, s, items.main_per_lvl, lvl) * rar.mult));
   const els = elIds(data);
-  return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines: rollLines(items, base, rar, lvl, rnd, data), sockets: Array(rar.sockets).fill(null), el: el || els[Math.floor(rnd() * els.length)] };
+  const lines = rollLines(items, base, rar, lvl, rnd, data);
+  return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines, cap: Math.max(lines.length, rollCap(data, rnd)), sockets: Array(rar.sockets).fill(null), el: el || els[Math.floor(rnd() * els.length)] };
 }
 
 export function addItem(data, save, item) {
@@ -120,16 +120,17 @@ export function rerollFee(data, save, it, now = Date.now()) {
   return Math.round(f.base * f.realm_mul ** (save.realm || 0) * f.r ** rerollCount(data, it, now) * (f.line_mul || 1) ** Math.max(0, (it.lines?.length || 1) - 1));   // càng nhiều dòng càng đắt
 }
 
-// Tẩy luyện mới (02/11/2026): mọi dòng quay lại ngẫu nhiên, có xác suất ra thêm dòng (tối đa line_tiers.max).
-// Món có lượt miễn phí (it.free, đồ cũ quy đổi) thì không tốn gì. Trả về { added } hoặc false khi thiếu phí.
+// Tẩy luyện (chủ dự án 02/11/2026 03:58): mỗi lần mở thêm 1 dòng màu ngẫu nhiên, cố định; tới trần dòng của món thì hết.
+// Món có lượt miễn phí (it.free, đồ cũ quy đổi) thì không tốn gì. Trả về { line, last }, { full } khi đã đủ dòng, false khi thiếu phí.
 export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = Date.now()) {
   const it = save.bag.find(x => x.uid === uid), cost = data.items.reroll_cost;
   if (!it) return false;
+  if (linesFull(data, it)) return { full: true };
   const free = (it.free || 0) > 0, fee = free ? 0 : rerollFee(data, save, it, now);
   if (!free && ((save.mats['tay-luyen-thach'] || 0) < cost || (save.lingshi || 0) < fee)) return false;
   if (free) it.free -= 1;
   else { save.mats['tay-luyen-thach'] -= cost; save.lingshi -= fee; it.rr = rerollCount(data, it, now) + 1; it.rrDay = dayNo(now); }
-  return rollReroll(data, it, data.items.bases[it.base].pool, rnd);
+  return addLine(data, it, data.items.bases[it.base].pool, rnd);
 }
 
 // Ngọc: khoá "loại:cấp", ví dụ "hong-ngoc:1"
@@ -184,6 +185,7 @@ export function fixGearPct(data, save) {
     if (!rar || !base) continue;
     for (const s of Object.keys(it.main || {})) if (items.stats[s]?.pct && base.main[s] != null) it.main[s] = Math.min(it.main[s], Math.max(1, Math.round(base.main[s] * rar.mult)));
     convertLines(data, it, rar);   // tẩy luyện mới: gắn màu cho dòng đồ cũ
+    ensureCap(data, it);   // trần dòng của món (đồ cũ: không thấp hơn số dòng đang có)
     if (!it.el) { const els = elIds(data); it.el = els[it.uid % els.length]; }   // Đạo Vận mới: đồ cũ chưa có hệ
     for (const l of it.lines || []) { const def = items.stats[l.s]; if (def?.pct) l.v = Math.min(l.v, Math.max(1, Math.round(def.max * (Number.isInteger(l.t) ? tierOf(data, l.t).mult : rar.mult)))); }
   }

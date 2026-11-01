@@ -48,14 +48,25 @@ export function convertLines(data, it, rar) {
   return true;
 }
 
-// Một lần tẩy (chủ dự án 02/11/2026 02:04): mọi dòng quay lại ngẫu nhiên từ đầu (chỉ số, màu, giá trị; có thể xuống màu thấp),
-// rồi có xác suất ra thêm dòng (càng nhiều dòng càng khó, may mắn ra liền nhiều dòng). Số dòng không giảm. Trả về { added }.
-export function rollReroll(data, it, pool, rnd = Math.random) {
-  const C = T(data), added = [];
-  it.lines = (it.lines || []).map(() => newLine(data, pool, it.lvl || 0, rnd));
-  while (it.lines.length < C.max && rnd() < (added.length ? C.chain : C.add) * (C.max - it.lines.length) / C.max) {
-    const l = newLine(data, pool, it.lvl || 0, rnd); it.lines.push(l); added.push(l);
-  }
-  if (!it.lines.length) { const l = newLine(data, pool, it.lvl || 0, rnd); it.lines.push(l); added.push(l); }
-  return { added };
+// Số dòng tối đa của một món (chủ dự án 02/11/2026 03:58): ngẫu nhiên 1..max theo cap_w, người chơi chỉ biết khi tẩy tới dòng cuối
+export function rollCap(data, rnd = Math.random) {
+  const W = T(data).cap_w, total = W.reduce((a, x) => a + x, 0);
+  let r = rnd() * total;
+  for (let i = 0; i < W.length; i++) { r -= W[i]; if (r <= 0) return i + 1; }
+  return W.length;
+}
+// Món chưa có trần dòng (đồ trước 02/11 03:58): bốc trần, không thấp hơn số dòng đang có
+export function ensureCap(data, it, rnd = Math.random) {
+  if (!Number.isInteger(it.cap)) it.cap = Math.max((it.lines || []).length, rollCap(data, rnd));
+  return it.cap;
+}
+export const linesFull = (data, it) => (it.lines || []).length >= ensureCap(data, it);
+
+// Một lần tẩy (chủ dự án 02/11/2026 03:58): mở thêm đúng 1 dòng, chỉ số và màu (lục → đen) ngẫu nhiên, dòng đã có giữ nguyên.
+// Tới trần dòng của món thì hết. Trả về { line, last } hoặc null khi đã đủ dòng.
+export function addLine(data, it, pool, rnd = Math.random) {
+  if (linesFull(data, it)) return null;
+  const line = newLine(data, pool, it.lvl || 0, rnd);
+  (it.lines ??= []).push(line);
+  return { line, last: it.lines.length >= it.cap };
 }
