@@ -6,11 +6,11 @@ const INK = '#1b1830';
 export function drawBubbles(ctx, game) {
   const sec = game.data.chatter.sec;
   ctx.font = '6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  for (const n of [...game.npcs, game.comp, game.player, ...game.others.visible()]) {
+  for (const n of [...game.npcs, ...(game.khach || []), game.comp, game.player, ...game.others.visible()]) {
     const b = n?.bubble;
     if (!b) continue;
     const a = Math.min(1, b.t * 5, ((b.sec || sec) - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
-    const top = n.y - (n.def && game.npcs.includes(n) ? 37 : 34) + h + 3.5, q = textQ(game, 6);   // máy quay xa: phóng cả bong bóng quanh đuôi
+    const top = n.y - (n.def && (n.khach || game.npcs.includes(n)) ? 37 : 34) + h + 3.5, q = textQ(game, 6);   // máy quay xa: phóng cả bong bóng quanh đuôi
     ctx.save(); ctx.translate(n.x, top); ctx.scale(q, q); ctx.translate(-n.x, -top);
     const x = n.x - w / 2, y = top - h - 3.5 - (1 - Math.min(1, b.t * 5)) * 2;   // NPC chibi cao hơn
     ctx.globalAlpha = a * 0.92;
