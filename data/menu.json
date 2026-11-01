@@ -4,7 +4,7 @@
  "sub": "Chạm một ô để mở.",
  "groups": [
   {"name": "Đạo hữu", "items": [
-   {"id": "social", "label": "Bạn bè", "icon": "ui.m-friends", "btn": "btn-social", "badge": "social-badge"},
+   {"id": "friends", "label": "Bạn bè", "icon": "ui.m-friends", "open": "friends"},
    {"id": "guild", "label": "Tông môn", "icon": "ui.m-palace", "btn": "btn-guild"},
    {"id": "market", "label": "Chợ", "icon": "ui.m-market", "open": "market"},
    {"id": "topup", "label": "Nạp Tiên Ngọc", "icon": "ui.m-jade", "open": "topup"},
@@ -22,6 +22,7 @@
    {"id": "rec", "label": "Quay clip", "icon": "ui.m-star", "btn": "btn-rec"}
   ]},
   {"name": "Tin nhắn", "items": [
+   {"id": "social", "label": "Trò chuyện", "icon": "ui.m-tea", "btn": "btn-social", "badge": "social-badge"},
    {"id": "inbox", "label": "Hòm thư", "icon": "ui.m-chest", "btn": "btn-inbox"},
    {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true}
   ]}
@@ -79,7 +80,9 @@
     {"id": "dao-lu", "label": "Đạo lữ", "icon": "ui.m-tea", "home": "dao-lu"},
     {"id": "khach", "label": "Khách đến chơi", "icon": "ui.m-friends", "home": "khach"},
     {"id": "decor", "label": "Trang trí", "icon": "ui.m-lantern", "home": "decor"},
-    {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"}
+    {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"},
+    {"id": "friends", "label": "Nhà bạn bè", "icon": "ui.m-palace", "open": "friends"},
+    {"id": "ve-nha", "label": "Về nhà mình", "icon": "ui.m-cave", "home": "ve-nha"}
    ]}]},
   "bag_links": [
    {"id": "pets", "label": "Linh thú", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"},

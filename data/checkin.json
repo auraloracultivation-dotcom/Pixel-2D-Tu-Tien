@@ -1,8 +1,43 @@
 {
- "_note": "Điểm danh ngày, tuần, tháng, quý (chủ dự án chốt 30/10/2026): mỗi tài khoản 1 lần mỗi ngày theo giờ Việt Nam, đếm số ngày trong kỳ (tuần từ thứ Hai, tháng, quý theo lịch), đủ 'can' ngày thì nhận quà mốc một lần mỗi kỳ. Quà cố định cho mọi người: coins Linh Thạch, khoa Khóa Linh Thạch, ngoc cấp ngọc (loại theo lựa chọn ở sự kiện giới thiệu, mặc định Hồng Ngọc). Máy chủ ghi và gửi quà qua Hòm thư (supabase/migrations/20261030050000_p2d_diem_danh.sql, hàm p2d_dd_luat); rules phải khớp, tools/check.mjs so sánh. Bảng ở tab Hằng ngày (src/ui/checkin-card.js).",
- "rules": {"ngay": {"coins": 500}, "tuan": {"can": 5, "coins": 3000, "khoa": 1, "ngoc": 6}, "thang": {"can": 20, "coins": 10000, "khoa": 3, "ngoc": 7}, "quy": {"can": 60, "coins": 30000, "khoa": 6, "ngoc": 8}},
- "names": {"tuan": "Tuần", "thang": "Tháng", "quy": "Quý"},
- "mail": {"diem_danh_ngay": "Điểm danh hôm nay", "diem_danh_tuan": "Đủ mốc điểm danh tuần", "diem_danh_thang": "Đủ mốc điểm danh tháng", "diem_danh_quy": "Đủ mốc điểm danh quý"},
+ "_note": "Bảng điểm danh 1→N (chủ dự án chốt 02/11/2026, thay mốc tuần/tháng/quý): mỗi tài khoản 1 lần mỗi ngày theo giờ Việt Nam, đếm tổng số ngày đã điểm danh, vòng 112 ngày. Mỗi ngày quà ngày; ngày thứ 7, 14… trong vòng nhận mốc m7; 28, 56, 84, 112 nhận m28; ngày 112 nhận m112 (trùng nhiều mốc thì nhận đủ). Quà cố định: coins Linh Thạch, khoa Khóa Linh Thạch, ngoc cấp ngọc (loại theo lựa chọn ở sự kiện giới thiệu, mặc định Hồng Ngọc). Máy chủ ghi và gửi quà qua Hòm thư (supabase/migrations/20261102030000_p2d_diem_danh_chuoi.sql, hàm p2d_dd_luat); rules phải khớp, tools/check.mjs so sánh. Bảng ở tab Hằng ngày (src/ui/checkin-card.js): hiện 28 ô của khối hiện tại, tích V ô đã điểm danh, ô mốc có quà, quà ghi bên dưới.",
+ "rules": {
+  "ngay": {
+   "coins": 500
+  },
+  "vong": 112,
+  "m7": {
+   "moi": 7,
+   "coins": 3000,
+   "khoa": 1,
+   "ngoc": 6
+  },
+  "m28": {
+   "moi": 28,
+   "coins": 10000,
+   "khoa": 3,
+   "ngoc": 7
+  },
+  "m112": {
+   "moi": 112,
+   "coins": 30000,
+   "khoa": 6,
+   "ngoc": 8
+  }
+ },
+ "names": {
+  "m7": "Mốc 7 ngày",
+  "m28": "Mốc 28 ngày",
+  "m112": "Mốc 112 ngày"
+ },
+ "mail": {
+  "diem_danh_ngay": "Điểm danh hôm nay",
+  "diem_danh_tuan": "Đủ mốc điểm danh tuần",
+  "diem_danh_thang": "Đủ mốc điểm danh tháng",
+  "diem_danh_quy": "Đủ mốc điểm danh quý",
+  "diem_danh_m7": "Đủ 7 ngày điểm danh",
+  "diem_danh_m28": "Đủ 28 ngày điểm danh",
+  "diem_danh_m112": "Đủ 112 ngày điểm danh"
+ },
  "text": {
   "title": "Điểm danh",
   "btn": "Điểm danh",
@@ -17,6 +52,13 @@
   "nudge": "Hôm nay chưa điểm danh! Vào Menu → Việc hằng ngày để nhận quà.",
   "ok": "Điểm danh xong! Quà đã vào Hòm thư.",
   "ok_moc": "Điểm danh xong, đủ mốc {list}! Quà đã vào Hòm thư.",
-  "err": {"da_diem_danh": "Hôm nay bạn đã điểm danh rồi.", "chua_luu": "Chơi thêm chút cho máy chủ lưu nhân vật rồi điểm danh nhé.", "chua_dang_nhap": "Đăng nhập tài khoản để điểm danh nhận quà.", "net": "Mạng chập chờn, thử lại sau."}
+  "err": {
+   "da_diem_danh": "Hôm nay bạn đã điểm danh rồi.",
+   "chua_luu": "Chơi thêm chút cho máy chủ lưu nhân vật rồi điểm danh nhé.",
+   "chua_dang_nhap": "Đăng nhập tài khoản để điểm danh nhận quà.",
+   "net": "Mạng chập chờn, thử lại sau."
+  },
+  "board": "Vòng {vong}: ngày {pos}/112 · đã điểm danh tổng {tong} ngày",
+  "gift_row": "{name}: {reward}"
  }
 }

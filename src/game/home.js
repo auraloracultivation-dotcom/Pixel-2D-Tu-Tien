@@ -47,7 +47,7 @@ function welcome(game, id) {
 
 // Gọi khi vào bản đồ: ở động phủ thì đạo lữ ngồi chờ (trừ khi đang đi cùng), khách hôm nay ngồi bên kia
 export function spawnHome(game) {
-  if (game.map.id !== C(game).map) return;
+  if (game.map.id !== C(game).map || game.visiting) return;   // thăm nhà bạn: không gọi đạo lữ, khách nhà mình ra
   const id = daoLuHere(game);
   if (id && game.save.companion !== id && seat(game, id, C(game).at, 'home')) welcome(game, id);
   const v = visitorToday(game), n = v && seat(game, v, C(game).visit.at, 'visit');

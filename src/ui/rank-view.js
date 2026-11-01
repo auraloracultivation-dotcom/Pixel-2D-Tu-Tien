@@ -14,10 +14,13 @@ function el(tag, cls, text) {
 export function createRankView(game) {
   const R = game.data.social.rank;
   let kind = R.tabs[0].id, ticket = 0;
+  const dunIds = Object.keys(game.data.dungeon?.drops || {}).filter(k => !k.startsWith('_') && game.data.maps[k]);
+  let bc = dunIds[0];   // bảng Bí cảnh: bí cảnh đang xem (hàng nút thứ hai)
+  const kindNow = () => (kind === 'bc' ? 'bc:' + bc : kind);
 
   function value(r) {
     if (kind === 'canh_gioi') return realmLabel({ realm: r.canh_gioi, layer: r.tang }, game.data.realms);
-    return R.value[kind].replace('{v}', r.gia_tri.toLocaleString('vi-VN'));
+    return (R.value[kind] || '{v}').replace('{v}', r.gia_tri.toLocaleString('vi-VN'));
   }
 
   // Người bị gắn cờ nghi vấn (máy chủ trả co): tên đỏ, cờ cạnh tên. Chạm dòng: mở hồ sơ người đó (ui/profile-panel.js)
@@ -44,12 +47,21 @@ export function createRankView(game) {
       b.onclick = () => { kind = t.id; render(); };
       tabs.append(b);
     }
+    if (kind === 'bc') {   // hàng chọn 1 trong 7 bí cảnh
+      const sub = el('div', 'rank-sub');
+      for (const id of dunIds) {
+        const b = el('button', id === bc ? 'on' : null, game.data.maps[id].name);
+        b.onclick = () => { bc = id; render(); };
+        sub.append(b);
+      }
+      tabs.append(sub);
+    }
     $('rank-note').textContent = R.note;
     if (!game.online) return msg(R.offline);
     msg(R.loading);
     const my = ++ticket;
     let data;
-    try { data = await loadRank(game, kind, force); } catch { if (my === ticket) msg(R.error, true); return; }
+    try { data = await loadRank(game, kindNow(), force); } catch { if (my === ticket) msg(R.error, true); return; }
     if (my !== ticket) return;
     const L = $('rank-list'); L.innerHTML = '';
     if (!data?.top?.length) return msg(R.empty);
