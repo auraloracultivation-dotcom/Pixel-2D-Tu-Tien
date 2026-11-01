@@ -1,20 +1,87 @@
 {
- "_note": "Độ khó bí cảnh theo luật 7 → 14 → 28 (chủ dự án chốt 28/10/2026). Mỗi cấp (modes) chia steps bậc; qua bậc nào thì mở bậc kế tiếp, qua bậc cuối thì mở cấp sau. Quái mạnh tier_mul lần mỗi cấp (cả máu lẫn công), chia đều theo bậc: hệ số = tier_mul^(cấp + (bậc − 1) / steps). Người chơi không thấy hệ số này: ở cổng chỉ thấy màu so với sức mình (hint). Linh khí và Linh Thạch của quái chỉ nhích theo reward_tier mỗi cấp, reward_step mỗi bậc. reward phát khi hạ boss, tối đa per_day lần mỗi cấp mỗi ngày (như daily: item là độ hiếm thấp nhất), coins nhích theo bậc; first: quà thêm lần đầu qua mỗi bậc. hint: so thời gian bạn gục trước boss với thời gian bạn hạ boss (dps_per_atk lần công mỗi giây, boss trúng bạn hit_rate số đòn); tỉ lệ từ easy trở lên là dễ, dưới hard là rất khó.",
- "per_day": 3,
+ "_note": "Bí cảnh (hướng mới, chủ dự án chốt 02/11/2026): mỗi bí cảnh một thang liền Dễ 1→10, Trung 1→10, Khó 1→10 (modes × steps), qua bậc nào mở bậc kế. Quái mạnh tier_mul lần mỗi cấp, chia đều theo bậc: hệ số = tier_mul^(cấp + (bậc − 1) / steps), người chơi chỉ thấy màu so với sức mình (hint). 7 bí cảnh rơi 7 loại trang bị (drops: bản đồ → ô trang bị, vũ khí theo loại vũ khí đang dùng); thưởng cấp (modes[].reward, item là độ hiếm thấp nhất) phát khi hạ boss, tối đa per_day lần mỗi bí cảnh mỗi ngày; coins nhích theo bậc (reward_step), first: quà thêm lần đầu qua mỗi bậc. Linh khí, Linh Thạch của quái nhích theo reward_tier mỗi cấp. Bản lưu cũ đã qua cấp Ác Mộng / Địa Ngục coi như qua hết thang.",
+ "per_day": 2,
  "steps": 10,
  "tier_mul": 2,
  "reward_tier": 1.15,
  "reward_step": 0.015,
- "first": {"stones": 1},
- "hint": {"dps_per_atk": 4, "hit_rate": 0.5, "easy": 2, "hard": 0.8,
-  "easy_text": "Dễ với bạn", "fair_text": "Vừa sức", "hard_text": "Rất khó, nên mạnh thêm",
-  "easy_color": "#5fd07a", "fair_color": "#ffb03a", "hard_color": "#e0484a"},
- "texts": {"pick": "{map}: chọn độ khó", "level": "{mode} · bậc {step}", "out": "Thôi", "unlock": "Mở {level}!", "first": "Lần đầu qua {level}", "done": "Qua {map} ({level})! Nhận: {got}.", "full": "Hôm nay đã nhận đủ {n} lần thưởng {mode}.", "guest": "Đi theo tổ đội: chỉ đội trưởng tăng bậc, bạn nhận quà lượt ngày."},
- "story_step": {"_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.", "bi-canh": "bi-canh", "hoa-quat": "hoa-quat", "han-bang-quat": "bang-quat", "hac-phong-dong": "hac-phong-dong", "co-thu-tam": "co-thu-tam"},
+ "first": {
+  "stones": 1
+ },
+ "hint": {
+  "dps_per_atk": 4,
+  "hit_rate": 0.5,
+  "easy": 2,
+  "hard": 0.8,
+  "easy_text": "Dễ với bạn",
+  "fair_text": "Vừa sức",
+  "hard_text": "Rất khó, nên mạnh thêm",
+  "easy_color": "#5fd07a",
+  "fair_color": "#ffb03a",
+  "hard_color": "#e0484a"
+ },
+ "texts": {
+  "pick": "{map}: chọn bậc",
+  "level": "{mode} · bậc {step}",
+  "out": "Thôi",
+  "unlock": "Mở {level}!",
+  "first": "Lần đầu qua {level}",
+  "done": "Qua {map} ({level})! Nhận: {got}.",
+  "full": "Hôm nay đã nhận đủ {n} lần thưởng ở {map}.",
+  "guest": "Đi theo tổ đội: chỉ đội trưởng tăng bậc, bạn nhận quà lượt ngày."
+ },
+ "story_step": {
+  "_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.",
+  "bi-canh": "bi-canh",
+  "hoa-quat": "hoa-quat",
+  "han-bang-quat": "bang-quat",
+  "hac-phong-dong": "hac-phong-dong",
+  "co-thu-tam": "co-thu-tam"
+ },
  "modes": [
-  {"id": "thuong", "name": "Thường", "reward": {"stones": 1, "coins": 150, "mats": {"bi-kip-chieu": 1}}},
-  {"id": "kho", "name": "Khó", "reward": {"item": "huyen", "stones": 3, "coins": 300, "mats": {"bi-kip-chieu": 2}}},
-  {"id": "ac-mong", "name": "Ác Mộng", "reward": {"item": "dia", "gem": 1, "coins": 1000, "mats": {"khoa-linh-thach": 1, "bi-kip-chieu": 3}}},
-  {"id": "dia-nguc", "name": "Địa Ngục", "reward": {"item": "dia", "gem": 1, "stones": 2, "coins": 1150, "mats": {"khoa-linh-thach": 1, "bi-kip-chieu": 4}}}
- ]
+  {
+   "id": "de",
+   "name": "Dễ",
+   "reward": {
+    "item": "linh",
+    "stones": 1,
+    "coins": 150
+   }
+  },
+  {
+   "id": "trung",
+   "name": "Trung",
+   "reward": {
+    "item": "dia",
+    "stones": 2,
+    "coins": 400,
+    "mats": {
+     "bi-kip-chieu": 1
+    }
+   }
+  },
+  {
+   "id": "kho",
+   "name": "Khó",
+   "reward": {
+    "item": "thien",
+    "gem": 1,
+    "stones": 3,
+    "coins": 1000,
+    "mats": {
+     "bi-kip-chieu": 2
+    }
+   }
+  }
+ ],
+ "drops": {
+  "_note": "Bí cảnh → ô trang bị rơi (chủ dự án chốt 02/11/2026).",
+  "kiem-trung": "vu-khi",
+  "dia-cung": "giap",
+  "han-bang-quat": "mu",
+  "hac-phong-dong": "giay",
+  "hoa-quat": "nhan",
+  "co-thu-tam": "ngoc-boi",
+  "vet-nut": "phap-bao"
+ }
 }

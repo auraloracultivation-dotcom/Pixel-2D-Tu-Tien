@@ -1,6 +1,6 @@
 // Việc hằng ngày, lượt treo thưởng mỗi ngày, cống hiến tông môn, chức vị và đổi thưởng (data/daily.json).
-import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
-import { totalLayer } from './stats.js';
+import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName, baseForSlot } from './items.js';
+import { totalLayer, weaponId } from './stats.js';
 import { addCoins } from './shop.js';
 import { praise } from './praise.js';
 
@@ -66,7 +66,7 @@ export function grant(game, r) {
   for (const [k, n] of Object.entries(r.mats || {})) { save.mats[k] = (save.mats[k] || 0) + n; got.push(`${n} ${data.cave.materials[k]?.name || k}`); }
   for (const [k, n] of Object.entries(r.pills || {})) { save.pills[k] = (save.pills[k] || 0) + n; got.push(`${n} ${data.cave.pills[k].name}`); }
   if (r.item) {
-    const it = rollItem(data, save, { lvl: totalLayer(save, data.realms), minRarity: r.item });
+    const it = rollItem(data, save, { lvl: totalLayer(save, data.realms), minRarity: r.item, base: r.slot ? baseForSlot(data, r.slot, weaponId(save, data)) : undefined });   // bí cảnh rơi đúng ô trang bị
     if (addItem(data, save, it)) { got.push(`[${rarityOf(data.items, it.rarity).name}] ${itemName(data, it)}`); game.newItems = (game.newItems || 0) + 1; }
     else got.push('(túi đầy, mất trang bị)');
   }
