@@ -92,7 +92,7 @@ try {
     need(G.list[G.default] && Object.entries(G.list).every(([k, g]) => hl[g.look] && af.dao_lu.can[k]?.length), 'gender: giới tính mặc định, hình (look) hoặc đạo lữ theo giới tính sai');
     const bad = readdirSync('data').filter(f => f.endsWith('.json') && f !== 'art.json').flatMap(f => (readFileSync(`data/${f}`, 'utf8').match(/\{[^{}"]*\|[^{}"]*\}/g) || []).filter(x => x.split('|').length !== 2).map(x => `${f}: ${x}`));
     need(!bad.length, `chữ {nam|nữ} viết sai: ${bad.slice(0, 3).join(', ')}`); }
-  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
+  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.uid?.length || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
   for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
   { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
