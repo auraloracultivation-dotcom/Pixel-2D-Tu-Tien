@@ -29,6 +29,7 @@ export function createMenuPanel(game) {
   function openOld(it) {
     close();
     $(it.btn)?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+    if (it.click) $(it.btn)?.click();   // nút nghe sự kiện click (Zalo, báo lỗi, thông báo)
     if (it.tab) setTimeout(() => document.querySelector(`#${it.tabs} [data-tab="${it.tab}"]`)?.click(), 0);
   }
 
@@ -100,6 +101,8 @@ export function createMenuPanel(game) {
     view = 'main'; game.uiOpen = true; root.hidden = false; render();
   }
   x.onclick = close;
+  game.openDungeons = () => { open(); if (!root.hidden) { view = 'dun'; render(); } };   // nút Bí cảnh trên màn hình (src/ui/hud-order.js)
+  game.openOldPanel = openOld;
   $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); if (root.hidden) open(); else close(); });
   return { open, close };
 }

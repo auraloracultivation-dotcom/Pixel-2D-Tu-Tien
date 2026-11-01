@@ -81,6 +81,8 @@ Chủ dự án xin 28/10/2026: bảng nào cũng hiện danh sách dạng lướ
 
 ## Menu (`data/menu.json`)
 
+Nút trên màn hình theo nhóm A–L chủ dự án gom (02/11/2026 03:43; `menu.json → hud.list`, `src/ui/hud-order.js`): Túi đồ, Menu, Công pháp, Bí cảnh, Sự kiện, Nhiệm vụ, Tự đánh, Tự hành, Đạo Vận, Bản đồ, Xếp hạng; hòm thư, thông báo chỉ hiện khi có tin chưa xem, nút quay clip chỉ hiện khi đang quay. Nút khác (tiếng, Zalo, báo lỗi, đề xuất, quay clip) dời vào `#hud-menu` (ẩn), mở từ Menu → Cài đặt, liên hệ (ô có `click: true` bấm hộ bằng click).
+
 Chủ dự án xin 28/10/2026: mọi chức năng và phó bản đều có trong Menu. Nút Menu mở bảng nửa màn hình chia nhóm (Nhân vật, Tu luyện chế tạo, Phó bản, Nhiệm vụ, Thế giới đạo hữu), mỗi ô có hình lấy từ hình trong game. Luyện đan, luyện khí, dược viên, động phủ mở từ xa ở đâu cũng được (khi đã có động phủ); Tháp Thử Thách, Luận Võ Đài, Bí cảnh tài nguyên, Tổ đội, Tẩy linh căn nói chuyện thẳng với NPC không phải đi tới; ô Bí cảnh liệt kê mọi bí cảnh có cổng trên tinh cầu (đã mở, đã phá, màu nguy hiểm), bấm Vào là vào thẳng (đã qua thì hỏi độ khó như đi cổng); Ma Vương tuần bay thẳng tới Phương Thiên Địa. Ô chưa mở hiện mờ, chạm báo cần gì. Thêm chức năng: thêm ô vào `groups` (cách mở ghi ở `_note`). Bảng ở `src/ui/menu-panel.js`, điều kiện và việc ở `src/game/menu-acts.js`; các bảng cũ vẫn mở bằng nút cũ để trong `#hud-menu` (luôn ẩn).
 
 ## Nhẹ máy (`data/config.json` → perf)

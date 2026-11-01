@@ -45,6 +45,15 @@
    {"id": "guild", "label": "Tông môn", "icon": "ui.m-palace", "btn": "btn-guild"},
    {"id": "market", "label": "Chợ", "icon": "ui.m-market", "open": "market"},
    {"id": "topup", "label": "Tiên Ngọc", "icon": "ui.m-jade", "open": "topup"}
+  ]},
+  {"name": "Cài đặt, liên hệ", "items": [
+   {"id": "sound", "label": "Âm thanh", "icon": "ui.m-lantern", "btn": "btn-mute"},
+   {"id": "zalo", "label": "Nhóm Zalo", "icon": "ui.m-friends", "btn": "btn-zalo", "click": true},
+   {"id": "rec", "label": "Quay clip", "icon": "ui.m-star", "btn": "btn-rec"},
+   {"id": "fb-loi", "label": "Báo lỗi", "icon": "ui.m-diary", "btn": "btn-fb-loi", "click": true},
+   {"id": "fb-de", "label": "Đề xuất", "icon": "ui.m-banner", "btn": "btn-fb-de_xuat", "click": true},
+   {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true},
+   {"id": "inbox", "label": "Hòm thư", "icon": "ui.m-chest", "btn": "btn-inbox"}
   ]}
  ],
  "dungeon": {
@@ -61,5 +70,24 @@
   "story": "đang có chuyện",
   "trip": "đang bay",
   "run": "đang trong tháp, luận võ hoặc bí cảnh tài nguyên"
+ },
+ "hud": {
+  "_note": "Nút trên màn hình (chủ dự án gom nhóm A–L, 02/11/2026 03:43), theo thứ tự: A Túi đồ, B Menu, C Công pháp, (D: chạm khung nhân vật), G Bí cảnh, H Sự kiện, I Nhiệm vụ + Tự đánh + Tự hành, J Đạo Vận, K Bản đồ, L Xếp hạng. F (hiện khi cần): hòm thư, thông báo khi có tin chưa xem, nút quay clip khi đang quay. Nút có sẵn (id) thì dời vào đúng chỗ, đổi chữ (label); nút chưa có thì tạo: dun mở danh sách bí cảnh, btn + tabs + tab bấm hộ như ô Menu. show: 'badge' hiện khi chấm số (#id i) đang hiện, 'on' hiện khi nút có lớp on. Các nút khác (tiếng, Zalo, báo lỗi, đề xuất, quay clip) vào Menu → Cài đặt, liên hệ.",
+  "list": [
+   {"id": "btn-bag", "label": "Túi đồ"},
+   {"id": "btn-menu"},
+   {"id": "btn-skills", "label": "Công pháp"},
+   {"id": "hud-dun", "label": "Bí cảnh", "dun": true},
+   {"id": "hud-event", "label": "Sự kiện", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "su-kien"},
+   {"id": "btn-daily", "label": "Nhiệm vụ"},
+   {"id": "btn-auto"},
+   {"id": "btn-pilot"},
+   {"id": "hud-dv", "label": "Đạo Vận", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "dao-van"},
+   {"id": "btn-world"},
+   {"id": "btn-rank", "label": "Xếp hạng"},
+   {"id": "btn-inbox", "show": "badge"},
+   {"id": "btn-notice", "show": "badge"},
+   {"id": "btn-rec", "show": "on"}
+  ]
  }
 }
