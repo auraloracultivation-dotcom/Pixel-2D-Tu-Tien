@@ -22,6 +22,7 @@ import { createFame } from './ui/fame-panel.js';
 import { createNotice } from './ui/notice-panel.js';
 import { createDunResult } from './ui/dun-result.js';
 import { orderHud } from './ui/hud-order.js';
+import { createBagLinks } from './ui/bag-links.js';
 import { createNameNudge } from './ui/name-nudge.js';
 import { startReferral } from './game/referral.js';
 import { startInbox } from './game/inbox-feed.js';
@@ -86,6 +87,7 @@ async function boot() {
   createNotice(game); createNameNudge(game);   // nhắc người còn tên mặc định đặt tên; nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
   startNetWatch(game); startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
+  createBagLinks(game);   // Túi đồ: nút mở nhanh linh thú, thú cưỡi, đồng hành, thời trang, luyện khí
   orderHud(game);   // nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
