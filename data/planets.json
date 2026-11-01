@@ -18,5 +18,6 @@
   "dao-thien-kim": {"d": 58, "fill": "s", "scatter": {"b": 3, "J": 2, "h": 2}, "path": ","},
   "dao-hau-tho": {"d": 60, "fill": "t", "scatter": {"I": 3, "y": 5}, "path": "o"},
   "vet-nut-ngoai": {"d": 62, "fill": "p", "scatter": {"*": 3, "f": 2}, "path": "p"}
- }
+ },
+ "makhi": {"_note": "Vùng ma khí (chủ dự án chốt 02/11/2026): Ngoại Vực Vết Nứt bị ma khí ăn mòn, dồn các loài quái không còn dùng (quái lễ hội, tháp, luận võ, bí cảnh tài nguyên). Mỗi lần vào bản đồ, n bầy quái mọc ở chỗ ngẫu nhiên, mỗi bầy một loài trong mobs và một bậc ma khí bốc theo w trong tiers (mul nhân máu, công; tag ghi trước tên). Có con yếu xìu, có con không ai đánh nổi. src/game/makhi.js.", "map": "vet-nut-ngoai", "n": 14, "per": 2, "respawn": 20, "mobs": ["nguoi-tuyet-yeu", "bi-ngo-yeu", "linh-thach-tinh", "linh-thao-tinh", "dau-si", "dau-si-xa", "dau-si-ba", "tam-ma", "hu-khong-ma", "u-minh-phap", "hu-anh"], "tiers": [{"tag": "Tàn", "mul": 0.1, "w": 18}, {"tag": "Yếu", "mul": 0.4, "w": 20}, {"tag": "Ma nhiễm", "mul": 1.5, "w": 20}, {"tag": "Hung", "mul": 5, "w": 16}, {"tag": "Bạo", "mul": 20, "w": 12}, {"tag": "Ma Tôn", "mul": 100, "w": 9}, {"tag": "Ma Thần", "mul": 1000, "w": 5}]}
 }

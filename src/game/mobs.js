@@ -23,10 +23,10 @@ export function spawnMob(game, id, x, y, extra = {}) {
 
 // Quái nhiễm ma khí ở vòng ngoài tinh cầu (spawner có mul, data/planets.json): máu, công gấp mul lần, không hiện số;
 // linh khí chỉ nhích dungeon.reward_tier mỗi lần gấp đôi (luật 7 → 14 → 28)
-export function scaleMobBy(game, m, mul) {
+export function scaleMobBy(game, m, mul, tag) {   // tag: chữ trước tên (vùng ma khí: Tàn, Hung, Ma Thần…); mul < 1 là quái yếu đi
   const q = game.data.dungeon.reward_tier ** Math.log2(mul);
-  m.def = { ...m.def, hp: Math.round(m.def.hp * mul), atk: Math.round(m.def.atk * mul * 10) / 10, qi: Math.round((m.def.qi || 0) * q) };
-  m.hp = m.maxHp = m.def.hp; m.elite = mul;
+  m.def = { ...m.def, hp: Math.max(1, Math.round(m.def.hp * mul)), atk: Math.max(0.1, Math.round(m.def.atk * mul * 10) / 10), qi: Math.round((m.def.qi || 0) * q), name: tag ? `${tag} ${m.def.name}` : m.def.name };
+  m.hp = m.maxHp = m.def.hp; m.elite = mul > 1 ? mul : 0;
 }
 
 function moveToward(game, m, tx, ty, speed, dt) {

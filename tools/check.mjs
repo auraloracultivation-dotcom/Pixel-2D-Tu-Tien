@@ -138,7 +138,7 @@ try {
   const tb = read('realms.json').tribulation;
   for (const b of tb.by_realm) need(tb.kinds[b.kind], `realms.tribulation: kiểu kiếp "${b.kind}" không có`);
   need(tb.by_realm.length >= read('realms.json').names.length - 1 && mobs['tam-ma'], 'realms.tribulation: thiếu kiếp cho cảnh giới hoặc quái tâm ma');
-  for (const [m, id] of Object.entries(wb.maps)) need(maps[m] && mobs[id]?.ai === 'boss', `worldboss: ${m} → ${id} không đúng`);
+  for (const [m, v] of Object.entries(wb.maps)) for (const id of [v].flat()) need(maps[m] && mobs[id]?.ai === 'boss', `worldboss: ${m} → ${id} không đúng`);
   // Tinh đồ: mọi thiên thể trỏ đúng bản đồ, mọi bản đồ bay tới được đều có trên tinh đồ, quỹ đạo nằm trong vòng ma khí
   const sm = read('starmap.json'), smMaps = new Set(), nRealm = read('realms.json').names.length;
   need(sm.orbits.first + sm.orbits.step * (Math.max(...sm.bodies.map(b => b.orbit)) - 1) < 1 && sm.makhi.from < 1, 'starmap: quỹ đạo ngoài cùng hoặc ma khí vượt khung');
@@ -156,6 +156,8 @@ try {
   const fa = read('fair.json');   // hội đèn: 7 ngày, tinh cầu có xóm, giờ hợp lệ
   need(fa.days.length === 7 && fa.days.every(id => maps[id]?.hamlets?.length) && fa.hours[0] < fa.hours[1] && fa.hours[1] <= 24 && fa.qi >= 1 && fa.snack_price > 0 && fa.lines.length, 'fair: ngày, tinh cầu (phải có xóm), giờ hoặc số sai');
   need(Object.values(read('techniques.json').list).every(t => elements[t.el]), 'techniques: mỗi công pháp phải có hệ (el) hợp lệ');   // Đạo Vận mới
+  { const MK = read('planets.json').makhi;   // vùng ma khí
+    need(!MK || (maps[MK.map] && MK.mobs.every(id => mobs[id]) && MK.tiers.every(t => t.mul > 0 && t.w > 0 && t.tag)), 'planets.makhi: bản đồ, quái hoặc bậc ma khí sai'); }
   { const dv = read('daovan.json'), els = Object.keys(elements).filter(k => !k.startsWith('_')), extra = ['regen', 'thorns', 'lifesteal'];   // Đạo Vận
     const dvBases = Object.entries(items.bases).filter(([, b]) => b.dv);
     need(new Set(dvBases.map(([, b]) => b.slot)).size === Object.keys(items.slots).length && dvBases.length === Object.keys(items.slots).length, 'daovan: phải đủ mỗi ô một món Đạo Vận');
