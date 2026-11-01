@@ -2,10 +2,13 @@
 // bế quan (tới bồ đoàn ngồi đả tọa), đạo lữ, khách, trang trí (nói chuyện với người đang ở nhà), hồ cá. Trả về câu báo nếu không làm được.
 import { talkTo } from './interact.js';
 import { hasDecor } from './decor.js';
+import { goHome } from './friends.js';
 
 export function homeAct(game, act) {
   const H = game.data.home, here = game.map.id === H.map, npcs = game.npcs || [];
+  if (act === 've-nha') { goHome(game); return null; }
   if (!here) return 'Về động phủ rồi mới làm được.';
+  if (game.visiting) return `Đang ở nhà ${game.visiting.ten}. Chọn "Về nhà mình" trước.`;
   if (act === 'be-quan') {
     const m = game.map.findTiles('M')[0], p = game.player;
     if (!m) return 'Động phủ chưa có bồ đoàn.';

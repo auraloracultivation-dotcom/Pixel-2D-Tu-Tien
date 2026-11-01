@@ -148,21 +148,29 @@
   }
  },
  "rank": {
-  "_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng. flag: cờ cạnh tên người bị gắn cờ nghi vấn (nghi_van >= 10, máy chủ trả \"co\"); tên tô đỏ, vẫn hiện trên bảng nhưng không nhận danh hiệu tuần.",
+  "_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng. flag: cờ cạnh tên người bị gắn cờ nghi vấn (nghi_van >= 10, máy chủ trả \"co\"); tên tô đỏ, vẫn hiện trên bảng nhưng không nhận danh hiệu tuần. Bảng mới (chủ dự án 02/11/2026, nhóm L): Góp ý (báo lỗi + đề xuất được nhận), Đánh Ma Thần (số lần khiêu chiến), Bí cảnh (bậc đã qua, chọn 1 trong 7 bí cảnh ở hàng nút thứ hai) lấy từ hàm p2d_bxh2 (supabase/migrations/20261102031000_p2d_bxh_moi.sql); bảng Tháp đã gỡ (tháp bỏ).",
   "tab": "Xếp hạng",
   "chat_tab": "Trò chuyện",
   "tabs": [
    {
     "id": "luc_chien",
-    "label": "Lực chiến"
+    "label": "Sức mạnh"
    },
    {
     "id": "canh_gioi",
     "label": "Cảnh giới"
    },
    {
-    "id": "thap",
-    "label": "Tháp"
+    "id": "gop_y",
+    "label": "Góp ý"
+   },
+   {
+    "id": "dmt",
+    "label": "Đánh Ma Thần"
+   },
+   {
+    "id": "bc",
+    "label": "Bí cảnh"
    }
   ],
   "titles": {
@@ -180,10 +188,18 @@
   "note": "Chạm tên để xem hồ sơ, so tài. Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
   "value": {
    "luc_chien": "{v} lực chiến",
-   "thap": "tầng {v}"
+   "thap": "tầng {v}",
+   "gop_y": "{v} góp ý được nhận",
+   "dmt": "{v} trận",
+   "bc": "qua {v} bậc"
   },
   "flag": "⚑",
   "flag_title": "Bị hệ thống gắn cờ nghi vấn gian lận",
-  "me_flag": "Tài khoản của bạn đang bị gắn cờ nghi vấn, không nhận danh hiệu tuần."
+  "me_flag": "Tài khoản của bạn đang bị gắn cờ nghi vấn, không nhận danh hiệu tuần.",
+  "new_fn": [
+   "gop_y",
+   "dmt",
+   "bc"
+  ]
  }
 }

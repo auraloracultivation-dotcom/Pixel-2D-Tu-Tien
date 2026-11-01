@@ -207,7 +207,7 @@ try {
   // Điểm danh: số quà trong data/checkin.json phải khớp hàm p2d_dd_luat trên máy chủ
   const cki = read('checkin.json'), ckm = lastWith(/function public\.p2d_dd_luat/).match(/select '(\{[^']*\})'::jsonb/);
   need(ckm && JSON.stringify(JSON.parse(ckm[1])) === JSON.stringify(cki.rules), 'checkin.rules khác hàm p2d_dd_luat trên máy chủ (supabase/migrations); đổi số thì thêm migration mới');
-  need(['tuan', 'thang', 'quy'].every(k => cki.names[k] && cki.mail['diem_danh_' + k]) && cki.mail.diem_danh_ngay, 'checkin: thiếu tên kỳ hoặc tiêu đề thư');
+  need(['m7', 'm28', 'm112'].every(k => cki.names[k] && cki.mail['diem_danh_' + k] && cki.rules[k]?.moi > 0) && cki.mail.diem_danh_ngay && cki.rules.vong > 0, 'checkin: thiếu tên mốc, tiêu đề thư hoặc số ngày mốc');
   const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
   need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');
