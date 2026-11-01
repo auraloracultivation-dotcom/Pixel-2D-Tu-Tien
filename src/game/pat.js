@@ -9,7 +9,11 @@ const C = game => game.data.pets.pat, F = game => game.data.pets.fetch;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const today = () => new Date().toDateString();
 
+// Nút Vuốt ve chỉ hiện khi hợp lẽ: không đang phi thú cưỡi; hết lượt có kinh nghiệm trong ngày thì chỉ hiện lúc đứng yên tự chơi
+// (chơi thử 01/11/2026: linh thú luôn bám sát nên nút Vuốt ve đứng lì cạnh nút chiêu cả buổi, kể cả khi đang cưỡi, đang tự đánh).
+const patsLeft = game => game.save.pat?.day === today() ? C(game).per_day - game.save.pat.n : C(game).per_day;
 export const canPat = game => !!game.pet && !game.pet.target && dist(game.pet, game.player) < C(game).range;
+export const showPat = game => canPat(game) && !game.player.riding && (patsLeft(game) > 0 || (!game.player.moving && !game.auto && !game.pilot));
 
 export function patPet(game) {
   const pet = game.pet, s = game.save, c = C(game);
