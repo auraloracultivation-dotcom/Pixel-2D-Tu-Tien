@@ -107,6 +107,15 @@ def _defringe(c):
     return a
 
 
+def _pink_to_green(c):
+    """Điểm ám hồng tím (đỏ và lam cùng cao hơn lục) đổi sang xanh lá cùng độ sáng (sau khi gom màu, để không lọt lại màu hồng)."""
+    a = c.copy(); r, g, b = (a[:, :, i].astype(int) for i in range(3))
+    m = (a[:, :, 3] > 0) & (r - g > 24) & (b - g > 24)
+    hi = np.maximum(r, b)
+    a[m, 0] = np.clip(g[m] * 0.6 + hi[m] * 0.25, 0, 255); a[m, 1] = np.clip(hi[m] + 20, 0, 255); a[m, 2] = np.clip(g[m] * 0.5 + hi[m] * 0.2, 0, 255)
+    return a
+
+
 # biểu tượng chiêu (nút chiêu, bảng chiêu), ảnh Canva 30/10/2026; None = ô thừa
 SKILL_ICONS = {'icon-chieu-1.png': ['fire', 'ice', 'bolt', 'vine', 'rock', 'wind', 'heal', 'shield'],
                'icon-chieu-2.png': ['shield-earth', 'buff', 'arrow', 'liem', 'orb', 'slash', 'sound', None]}
@@ -121,6 +130,7 @@ def gear(save):
             if not sid: continue
             if sid == 'arrow': c = _defringe(c)   # mép tên bị ám hồng của nền
             f = A._act_frames([c], 15, 18, 'center')[0]; f = f[:, :16]   # nút chiêu kéo hình về ô vuông (style-khung.css): đệm giữa khung 16×16
+            if sid == 'heal': f = _pink_to_green(f)   # lá hồi xuân lốm đốm hồng tím của nền: đổi thành đốm sáng xanh lá
             sq = Canvas(16, 16); y, x = (16 - f.shape[0]) // 2, (16 - f.shape[1]) // 2
             sq.a[y:y + f.shape[0], x:x + f.shape[1]] = f
             save('icon.' + sid, [sq], (8, 8), f'biểu tượng chiêu {sid} (ảnh Canva nguon/ai/props/{src})'); n += 1

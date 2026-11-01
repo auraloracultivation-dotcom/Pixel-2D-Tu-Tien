@@ -188,8 +188,9 @@ body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block
 #btn-dash { right: 157px !important; bottom: 92px !important; width: 46px !important; height: 46px !important; }
 #btn-art { right: 46px !important; bottom: 173px !important; width: 46px !important; height: 46px !important; }
 /* tên chiêu: chữ pixel, tối đa hai dòng nằm gọn trong lòng nút, biểu tượng dịch lên */
-#btn-s0, #btn-s1, #btn-s2 { background-position: center 6px !important; background-size: 22px 22px !important; }
-#btn-s0 b, #btn-s1 b, #btn-s2 b { font-size: 11px !important; line-height: 11px !important; padding: 28px 3px 0 !important; max-height: 50px; overflow: hidden;
+/* biểu tượng 16 điểm phóng đúng 2 lần (32px) cho nét điểm ảnh sắc, không nhoè như 22px; tên chiêu nằm trên lớp hồi chiêu để vẫn đọc được khi chờ */
+#btn-s0, #btn-s1, #btn-s2 { background-position: center 2px !important; background-size: 32px 32px !important; }
+#btn-s0 b, #btn-s1 b, #btn-s2 b { z-index: 3; font-size: 11px !important; line-height: 11px !important; padding: 32px 3px 0 !important; max-height: 56px; overflow: hidden;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
 #btn-dash b, #btn-pill b, #btn-art b { font-size: 11px !important; line-height: 11px !important; padding: 0 2px !important; max-height: 33px; overflow: hidden;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
