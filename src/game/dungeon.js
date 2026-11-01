@@ -1,5 +1,6 @@
 // Bí cảnh: các phòng nối nhau, cửa khoá tới khi dọn sạch phòng, phòng cuối có boss. Độ khó ở dun-mode.js.
 import { scaleMob, dungeonDone, levelName } from './dun-mode.js';
+import { startRun } from './dun-run.js';
 import { applyDemon, demonDone } from './demon.js';
 import { partyGuest, partyHostRun, partyGhosts, partySize, partyDoor, partyDone } from './party-sync.js';
 
@@ -7,6 +8,7 @@ export function createDungeon(game) {
   const map = game.map, T = map.T;
   const rooms = (map.def.rooms || []).map(r => ({ ...r, entered: false, cleared: false, mobs: [] }));
   if (!rooms.length) return null;
+  if (!map.def.demon) startRun(game);   // đếm đồ thu được trong lượt này (bảng kết quả)
 
   // Khoá mọi cửa lúc vào
   const doors = map.findTiles('D');

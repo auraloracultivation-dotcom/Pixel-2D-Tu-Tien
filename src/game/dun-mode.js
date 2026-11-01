@@ -1,9 +1,9 @@
 // Bí cảnh không đáy (data/dungeon.json, chủ dự án chốt 02/11/2026): mỗi bậc quái mạnh step_mul lần, cứ steps bậc là một cấp.
 // game.dunMode = chỉ số bậc L đếm từ 0 (0 = Dễ bậc 1, 10 = Trung bậc 1, ...). Qua cấp cuối thì đánh số tiếp (Vô Gian 2…).
 import { grant } from './daily.js';
+import { runsLeft, useRun, rewardOf, finishRun, sweep } from './dun-run.js';
 
 const C = game => game.data.dungeon;
-const today = () => new Date().toDateString();
 
 export const tierOf = (game, L) => Math.floor(L / C(game).steps);
 export const levelMul = (game, L) => C(game).step_mul ** L;
@@ -38,14 +38,27 @@ export function levelOptions(game, id) {
   return out.map(L => { const h = hintOf(game, id, L); return { id: String(L), label: levelName(game, L), desc: h.text, color: h.color }; });
 }
 
-// Ở cổng vào bí cảnh đã qua: hỏi độ khó. Trả về false nếu người chơi thôi.
+// Ở cổng vào bí cảnh đã qua (chủ dự án chốt 02/11/2026 03:25): 3 lựa chọn — vượt bậc kế (bậc đã qua +1), càn quét bậc đã qua
+// (nhận ngay thưởng cố định, không vào), thoát. Mỗi bí cảnh per_day lượt mỗi ngày. Trả về false nếu không vào.
 export async function pickMode(game, id) {
   game.dunMode = 0;
-  if (!cleared(game, id)) return true;
-  const D = C(game), opts = levelOptions(game, id);
-  const pick = await game.dialog.choose(D.texts.pick.replace('{map}', game.data.maps[id].name), [...opts, { id: 'out', label: D.texts.out, desc: '' }]);
-  if (!pick || pick === 'out') return false;
-  game.dunMode = +pick;
+  const top = cleared(game, id);
+  if (!top) return true;   // lần đầu (truyện): vào bậc 1
+  const D = C(game), T = D.texts, left = runsLeft(game, id), name = game.data.maps[id].name;
+  if (!left) { game.toast(T.no_runs.replace('{n}', D.per_day).replace('{map}', name), 2.6); return false; }
+  const h = hintOf(game, id, top), r = rewardOf(game, id, top - 1);
+  const pick = await game.dialog.choose(T.pick.replace('{map}', name).replace('{left}', left).replace('{n}', D.per_day), [
+    { id: 'go', label: T.go.replace('{level}', levelName(game, top)), desc: h.text, color: h.color },
+    { id: 'sweep', label: T.sweep.replace('{level}', levelName(game, top - 1)), desc: r ? T.sweep_desc : '' },
+    { id: 'out', label: T.out, desc: '' },
+  ]);
+  if (pick === 'sweep') {
+    const loot = sweep(game, id, top - 1);
+    if (loot) game.openDunResult?.({ id, L: top - 1, loot, inside: false, swept: true });
+    return false;
+  }
+  if (pick !== 'go') return false;
+  game.dunMode = top;
   return true;
 }
 
@@ -58,9 +71,9 @@ export function scaleMob(game, m) {
   m.hp = m.maxHp = m.def.hp;
 }
 
-// Hạ boss phòng cuối: ghi bậc đã qua, quà lần đầu qua bậc, thưởng cấp (tối đa per_day lần mỗi cấp mỗi ngày)
+// Hạ boss phòng cuối: ghi bậc đã qua, quà lần đầu qua bậc, thưởng cấp (tối đa per_day lượt mỗi bí cảnh mỗi ngày)
 export function dungeonDone(game) {
-  const s = game.save, id = game.map.id, D = C(game), L = game.dunMode || 0, md = modeOf(game), T = D.texts;
+  const s = game.save, id = game.map.id, D = C(game), L = game.dunMode || 0, T = D.texts;
   const pt = game.party, guest = !!pt?.run && pt.roster[0]?.id !== pt.me;   // tổ đội: chỉ đội trưởng tăng bậc (chủ dự án chốt 30/10), thành viên vẫn nhận quà lượt ngày
   const was = cleared(game, id), first = !guest && L >= was;
   if (!guest) (s.dunLv2 ??= {})[id] = Math.max(was, L + 1);
@@ -68,11 +81,9 @@ export function dungeonDone(game) {
   const lines = [];
   if (first) game.toast(T.unlock.replace('{level}', levelName(game, L + 1)), 2.4);
   if (first && D.first) lines.push(`${T.first.replace('{level}', levelName(game, L))}: ${grant(game, D.first).join(', ')}`);
-  const runs = s.dunRuns?.day === today() ? s.dunRuns : (s.dunRuns = { day: today() });
-  if (md.reward && (runs[id] || 0) < D.per_day) {   // lượt thưởng tính theo bí cảnh (hướng mới 02/11/2026)
-    runs[id] = (runs[id] || 0) + 1;
-    const r = { ...md.reward, slot: D.drops?.[id], coins: Math.round((md.reward.coins || 0) * (1 + D.reward_step * (L % D.steps))) || undefined };
-    lines.push(grant(game, r).join(', '));
-  } else if (md.reward) game.toast(T.full.replace('{n}', D.per_day).replace('{map}', game.map.def.name), 2.2);
-  if (lines.length) setTimeout(() => game.dialog.say([['', T.done.replace('{map}', game.map.def.name).replace('{level}', levelName(game, L)).replace('{got}', lines.join('; '))]]), 400);
+  const r = rewardOf(game, id, L);
+  if (r && runsLeft(game, id) > 0) { useRun(game, id); lines.push(grant(game, r).join(', ')); }   // lượt tính theo bí cảnh (hướng mới 02/11/2026)
+  else if (r) game.toast(T.full.replace('{n}', D.per_day).replace('{map}', game.map.def.name), 2.2);
+  if (game.dunRun) finishRun(game);   // bảng ô vuông mọi thứ thu được + Tiếp tục / Càn quét / Thoát
+  else if (lines.length) setTimeout(() => game.dialog.say([['', T.done.replace('{map}', game.map.def.name).replace('{level}', levelName(game, L)).replace('{got}', lines.join('; '))]]), 400);
 }

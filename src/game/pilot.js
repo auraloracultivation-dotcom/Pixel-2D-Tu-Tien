@@ -144,6 +144,13 @@ function plan(game) {
   const errand = !waiting(game) && p.hp > p.maxHp * 0.5;
   const foe = nearest(game, alive(game).filter(m => !skipped(m) && m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
   if (foe) return { fight: foe };
+  if (game.dungeon && game.map.def.rooms?.length) {   // tự hành trong bí cảnh (chủ dự án 02/11): đánh hết quái, sang phòng kế; xong thì chờ bảng kết quả (đang đi truyện thì làm tiếp truyện)
+    const m = nearest(game, alive(game).filter(m => !skipped(m)));
+    if (m) return { fight: m };
+    const room = game.dungeon.rooms.find(r => !r.entered);
+    if (room) { const [x, y, w, h] = room.rect; return { go: game.map.center(Math.floor(x + w / 2), Math.floor(y + h / 2)) }; }
+    if (waiting(game)) return null;
+  }
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (game.trib.canStart()) return sit(game);   // đầy linh khí: về bồ đoàn / động phủ chờ, chỗ vắng quái, để người chơi độ kiếp không bị bầy quái vây (chủ dự án gật 31/10, chơi thử máy tính: thua kiếp giữa bầy Hỏa Lang)
   if (waiting(game)) return choreJob(game, routeTo) || fairJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
