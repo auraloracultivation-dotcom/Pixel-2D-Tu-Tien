@@ -31,8 +31,16 @@ export function scaleMobBy(game, m, mul) {
 function moveToward(game, m, tx, ty, speed, dt) {
   const dx = tx - m.x, dy = ty - m.y, d = Math.hypot(dx, dy);
   if (d < 1) return d;
-  const s = speed * (m.slowT > 0 ? 0.45 : 1) * dt;
-  game.map.move(m, dx / d * Math.min(s, d), dy / d * Math.min(s, d));
+  const s = speed * (m.slowT > 0 ? 0.45 : 1) * dt, mx = dx / d * Math.min(s, d), my = dy / d * Math.min(s, d);
+  // Đề xuất #49: quái kẹt sau đá, nhà quá ghost_after giây thì đi xuyên vật cản ghost_sec giây (kẹt giữa vật thì xuyên tiếp tới chỗ trống)
+  const G = game.data.config.mob_ghost, T = game.map.T, inWall = () => game.map.solidTile(Math.floor(m.x / T), Math.floor(m.y / T));
+  if (G && (m.ghostT > 0 || (m.ghostT === 0 && inWall()))) { m.x = Math.max(0, Math.min(game.map.w * T, m.x + mx)); m.y = Math.max(0, Math.min(game.map.h * T, m.y + my)); m.ghostT = Math.max(0, m.ghostT - dt); }
+  else {
+    const bx = m.x, by = m.y;
+    game.map.move(m, mx, my);
+    if (G && Math.hypot(m.x - bx, m.y - by) < Math.hypot(mx, my) * 0.3) { if ((m.blkT = (m.blkT || 0) + dt) > G.after) { m.blkT = 0; m.ghostT = G.sec; } }
+    else m.blkT = 0;
+  }
   m.fx = dx / d; m.fy = dy / d;
   return d;
 }
