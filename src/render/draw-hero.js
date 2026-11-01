@@ -5,10 +5,12 @@ import { strikeLean } from '../game/flyweapon.js';
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
 // save: bản lưu của người được vẽ (mặc định người chơi; bản sao so tài truyền bản lưu hồ sơ người kia, game/duel.js)
-export const outfitSprite = (game, key, save = game.save) => `hero.y-${save?.outfit || 'dong-phuc'}-${key}`;
+// Bộ không còn trong data/fashion.json, hoặc chỉ cho hình kia (only), thì như đồng phục
+const wornId = (game, key, save) => { const f = game.data.fashion.list[save?.outfit]; return f && (!f.only || f.only === key) ? save.outfit : 'dong-phuc'; };
+export const outfitSprite = (game, key, save = game.save) => `hero.y-${wornId(game, key, save)}-${key}`;
 export function heroLook(game, save = game.save) {
   const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);
-  const fo = game.data.fashion.list[save?.outfit];
+  const fo = game.data.fashion.list[wornId(game, key, save)];
   if (fo?.sprite === 'goc') return fo.cm?.[key] ? { ...base, cm: fo.cm[key] } : base;   // bộ mặc hình gốc của nhân vật, cao riêng theo bộ (data/fashion.json)
   return H.chibi && game.data.art.sprites[id] ? { ...base, ...H.chibi, sprite: id } : base;
 }

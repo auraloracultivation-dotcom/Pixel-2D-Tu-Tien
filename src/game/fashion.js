@@ -26,7 +26,7 @@ export function outfit(game) {
   return { robe: f.robe, hair: f.hair, sash: f.sash || null };
 }
 
-export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.uid ? 'Bộ thử riêng' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
+export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.soon ? 'Sắp mở bán' : f.from.uid ? 'Bộ riêng' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
   : f.from.achv ? `Thành tựu: ${game.data.status.achievements.find(a => a.id === f.from.achv)?.name}` : f.from.fest ? 'Quà lễ Tết'
   : f.from.tn ? `${f.from.tn} ${game.data.topup.name} (Quầy Tiên Ngọc)`
   : f.from.elite ? `Hạ ${f.from.elite.n} quái nhiễm ma khí ở ${game.data.maps[f.from.elite.map]?.name} (${Math.min(f.from.elite.n, game.save.elite?.[f.from.elite.map] || 0)}/${f.from.elite.n})` : '';
