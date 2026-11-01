@@ -54,7 +54,12 @@ export function createHud(audio) {
   let hints = null;
   $('btn-auto').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) { toggleAuto(gameRef); if (gameRef.auto) gameRef.pilot = null; } });
   $('btn-pilot').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player) togglePilot(gameRef); });
-  $('goal').addEventListener('pointerdown', e => { e.stopPropagation(); if (gameRef?.player && guideNext(gameRef)) gameRef.sfx?.('pickup'); });   // chạm khung mục tiêu: mũi tên chỉ sang việc kế tiếp (src/game/guide.js)
+  $('goal').addEventListener('pointerdown', e => {   // chạm khung nhiệm vụ: tự hành làm nhiệm vụ (chủ dự án 02/11/2026: không còn nút Tự hành), chạm lần nữa thì dừng
+    e.stopPropagation();
+    if (!gameRef?.player) return;
+    togglePilot(gameRef);
+    if (gameRef.pilot && guideNext(gameRef)) gameRef.sfx?.('pickup');   // mũi tên chỉ việc kế tiếp (src/game/guide.js)
+  });
 
   ui.showPlay = on => { $('hud').hidden = !on; $('buttons').hidden = !on; $('menu').hidden = on; };
 

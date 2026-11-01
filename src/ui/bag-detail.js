@@ -10,7 +10,7 @@ import { dailyEvent } from '../game/daily.js';
 import { enhance, enhanceCost, setStats } from '../game/enhance.js';
 import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
 import { rerollEl } from '../game/daovan.js';
-import { quality, tierOf } from '../game/tiers.js';
+import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { trial } from '../game/autoequip.js';
@@ -117,7 +117,7 @@ export function renderDetail(game, st, box, changed, close) {
     t.style.color = sd.color; stats.append(t);
   }
   it.lines.forEach(l => stats.append(tierLine(data, l)));   // tẩy luyện mới: mỗi dòng một màu
-  if (it.lines.length < data.items.line_tiers.max) stats.append(el('div', 'muted tiny', `${it.lines.length}/${data.items.line_tiers.max} dòng. Mỗi lần tẩy, mọi dòng quay lại ngẫu nhiên (màu có thể lên hoặc xuống) và có thể ra thêm dòng.`));
+  stats.append(el('div', 'muted tiny', linesFull(data, it) ? `Đã mở đủ ${it.lines.length} dòng, món này không tẩy thêm được.` : `Đã mở ${it.lines.length} dòng. Mỗi lần tẩy mở thêm 1 dòng, màu ngẫu nhiên lục → đen và giữ cố định; món có từ 1 đến ${data.items.line_tiers.max} dòng, tẩy tới khi hết.`));
   if (it.sockets.length) {
     const row = el('div', 'd-sockets');
     it.sockets.forEach((g, idx) => {
@@ -146,12 +146,14 @@ export function renderDetail(game, st, box, changed, close) {
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save.mats[rm] || 0) < rc);
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
-  btn(free ? `Tẩy luyện (miễn phí ×${it.free})` : `Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
+  const full = linesFull(data, it);
+  btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
     const res = reroll(data, save, it.uid);
-    if (!res) return;
-    st.msg = res.added.length ? `Tẩy xong, ra thêm ${res.added.length} dòng! Phẩm mới: ${quality(data, it)?.name || ''}.` : `Tẩy xong. Phẩm mới: ${quality(data, it)?.name || ''}.`;
-    game.sfx(res.added.length ? 'levelup' : 'heal'); changed();
-  }, !free && (stones < cost || (save.lingshi || 0) < fee));
+    if (!res || res.full) return;
+    const t = tierOf(data, res.line.t);
+    st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
+    game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal'); changed();
+  }, full || (!free && (stones < cost || (save.lingshi || 0) < fee)));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
   if (it.el) {   // đổi hệ bằng Đạo Vận Thạch (mọi món); món Đạo Vận cũ: phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;
