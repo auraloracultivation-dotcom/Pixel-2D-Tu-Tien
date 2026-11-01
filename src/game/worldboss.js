@@ -3,7 +3,8 @@ const C = game => game.data.worldboss;
 const roll = cfg => (cfg.min_min + Math.random() * (cfg.max_min - cfg.min_min)) * 60;
 
 export function updateWorldBoss(game, dt) {
-  const cfg = C(game), s = game.save, id = cfg.maps[game.map.id];
+  const cfg = C(game), s = game.save, v = cfg.maps[game.map.id];
+  const id = Array.isArray(v) ? v[Math.floor(Date.now() / 3600000) % v.length] : v;   // vùng ma khí: các Yêu Vương thay nhau mỗi giờ
   if (game.wb && (game.wb.dead || !game.mobs.includes(game.wb))) {
     if (!game.wb.dead) s.wbT = Math.min(s.wbT ?? Infinity, cfg.retry_min * 60); // rời đảo khi boss còn sống: hiện lại sớm
     game.wb = null;

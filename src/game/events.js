@@ -1,5 +1,6 @@
 // Sự kiện theo giờ máy (data/events.json): cuối tuần nhân linh khí, mỗi tuần một sự kiện xoay vòng, lễ Tết nhận quà.
 import { grant } from './daily.js';
+import { makhiSpawn } from './makhi.js';
 import { addMat } from './cave.js';
 import { fairQi, fairEvent } from './fair.js';
 
@@ -64,6 +65,7 @@ export function checkFestival(game) {
 
 // Lễ có quái riêng (bí ngô yêu...): mọc thêm ở đảo ngoài trời, rơi kẹo; NPC lễ đứng ở một đảo để đổi kẹo lấy quà
 export function festSpawn(game, def) {
+  makhiSpawn(game, def);   // vùng ma khí Vết Nứt (src/game/makhi.js)
   const f = festival(game);
   if (!f?.mob) return;
   const base = (def.rooms || []).length ? null : def.spawners.find(s => !s.need);

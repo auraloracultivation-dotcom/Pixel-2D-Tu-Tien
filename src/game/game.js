@@ -316,7 +316,7 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
-      if (s.mul > 1) scaleMobBy(game, m, s.mul);
+      if (s.mul && s.mul !== 1) scaleMobBy(game, m, s.mul, s.tag);
       if (s.farm) { m.lootMul = data.planets.farm.loot; m.farm = true; }
       maybeRare(game, m); s.alive.push(m);
     }
