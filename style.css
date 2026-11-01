@@ -551,3 +551,18 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .hud-btns > button > i.hud-dot { position: absolute; right: -4px; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: #ff4a4a; box-shadow: 0 0 0 1.5px #000; }
 .bag-links { flex-wrap: wrap; gap: 4px; margin-top: -2px; }
 .bag-links button { font-size: 13px !important; padding: 2px 6px !important; opacity: .9; }
+/* Bảng nhân vật (nhóm D, src/ui/self-panel.js) */
+#realm, #power { pointer-events: auto; cursor: pointer; }
+.self-body { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; min-height: 0; }
+.self-top { display: flex; gap: 12px; align-items: center; }
+.self-ava { width: 84px; height: 84px; flex: none; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line-hi); border-radius: 10px; background: var(--panel-2); overflow: hidden; }
+.self-ico { image-rendering: pixelated; max-height: 80px; }
+.self-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.self-name { font: 16px var(--f-pixel); color: #ffd98a; }
+.self-title { font-size: 12.5px; color: var(--ink-2); }
+.self-realm { font-size: 13px; color: var(--trim-hi); }
+.self-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.self-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+.self-row { display: flex; justify-content: space-between; gap: 6px; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.self-row span { color: var(--ink-2); }
+.self-panel .bag-head b { flex: 1; }

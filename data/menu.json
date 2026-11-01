@@ -24,13 +24,6 @@
   {"name": "Tin nhắn", "items": [
    {"id": "inbox", "label": "Hòm thư", "icon": "ui.m-chest", "btn": "btn-inbox"},
    {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true}
-  ]},
-  {"name": "Tạm để đây (sẽ chuyển vào Động phủ, khung nhân vật)", "items": [
-   {"id": "dan", "label": "Luyện đan", "icon": "ui.m-cauldron", "cave": "dan", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "vuon", "label": "Dược viên", "icon": "ui.m-herb", "cave": "vuon", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "phu", "label": "Động phủ", "icon": "ui.m-cave", "cave": "phu", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "reroot", "label": "Tẩy linh căn", "icon": "ui.m-root", "talk": "reroot", "lock": "Cần cảnh giới cao hơn"},
-   {"id": "titles", "label": "Danh hiệu", "icon": "ui.m-medal", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "danh-hieu"}
   ]}
  ],
  "dungeon": {
@@ -73,6 +66,20 @@
     {"id": "fame", "label": "Vinh danh góp ý", "icon": "ui.m-medal", "open": "fame"}
    ]}
   ]},
+  "home": {"title": "Động phủ", "sub": "Chỉ hiện khi đang ở trong động phủ.", "groups": [
+   {"name": "Động phủ", "items": [
+    {"id": "phu", "label": "Nâng cấp động phủ", "icon": "ui.m-cave", "cave": "phu"},
+    {"id": "be-quan", "label": "Bế quan", "icon": "ui.m-taiji", "home": "be-quan"},
+    {"id": "vuon", "label": "Dược viên", "icon": "ui.m-herb", "cave": "vuon"},
+    {"id": "ho-ca", "label": "Hồ cá", "icon": "ui.m-fish", "home": "ho-ca"},
+    {"id": "dan", "label": "Luyện đan", "icon": "ui.m-cauldron", "cave": "dan"},
+    {"id": "reroot", "label": "Đan tẩy linh căn", "icon": "ui.m-root", "talk": "reroot", "lock": "Cần cảnh giới cao hơn"},
+    {"id": "ren", "label": "Luyện khí", "icon": "ui.m-anvil", "cave": "ren"},
+    {"id": "dao-lu", "label": "Đạo lữ", "icon": "ui.m-tea", "home": "dao-lu"},
+    {"id": "khach", "label": "Khách đến chơi", "icon": "ui.m-friends", "home": "khach"},
+    {"id": "decor", "label": "Trang trí", "icon": "ui.m-lantern", "home": "decor"},
+    {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"}
+   ]}]},
   "bag_links": [
    {"id": "pets", "label": "Linh thú", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"},
    {"id": "mounts", "label": "Thú cưỡi", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "thu-cuoi"},
@@ -82,7 +89,7 @@
   ]
  },
  "hud": {
-  "_note": "Nút trên màn hình (chủ dự án gom nhóm A–L, 02/11/2026 03:43), theo thứ tự: A Túi đồ, B Menu, C Công pháp, (D: chạm khung nhân vật), G Bí cảnh, H Sự kiện, I Nhiệm vụ + Tự đánh (tự hành: chạm khung nhiệm vụ góc phải trên, chạm lần nữa thì dừng; không có nút ngoài màn hình), J Đạo Vận, K Bản đồ, L Xếp hạng. F (hiện khi cần): hòm thư, thông báo khi có tin chưa xem, nút quay clip khi đang quay. Nút có sẵn (id) thì dời vào đúng chỗ, đổi chữ (label); nút chưa có thì tạo: dun mở danh sách bí cảnh, btn + tabs + tab bấm hộ như ô Menu. show: 'badge' hiện khi chấm số (#id i) đang hiện, 'on' hiện khi nút có lớp on. Các nút khác (tiếng, Zalo, báo lỗi, đề xuất, quay clip) vào Menu → Cài đặt, liên hệ.",
+  "_note": "Nút trên màn hình (chủ dự án gom nhóm A–L, 02/11/2026 03:43), theo thứ tự: A Túi đồ, B Menu, C Công pháp, (D: chạm khung nhân vật), G Bí cảnh, H Sự kiện, I Nhiệm vụ + Tự đánh (tự hành: chạm khung nhiệm vụ góc phải trên, chạm lần nữa thì dừng; không có nút ngoài màn hình), J Đạo Vận, K Bản đồ, L Xếp hạng. F (hiện khi cần): hòm thư, thông báo khi có tin chưa xem, nút quay clip khi đang quay. Nút có sẵn (id) thì dời vào đúng chỗ, đổi chữ (label); nút chưa có thì tạo: dun mở danh sách bí cảnh, btn + tabs + tab bấm hộ như ô Menu. where: 'home' chỉ hiện khi đang ở động phủ (nhóm E); show: 'badge' hiện khi chấm số (#id i) đang hiện, 'on' hiện khi nút có lớp on. Các nút khác (tiếng, Zalo, báo lỗi, đề xuất, quay clip) vào Menu → Cài đặt, liên hệ.",
   "list": [
    {"id": "btn-bag", "label": "Túi đồ"},
    {"id": "btn-menu"},
@@ -92,6 +99,7 @@
    {"id": "hud-quest", "label": "Nhiệm vụ", "hub": "quest", "badge": "daily-badge"},
    {"id": "btn-auto"},
    {"id": "hud-dv", "label": "Đạo Vận", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "dao-van"},
+   {"id": "hud-home", "label": "Động phủ", "hub": "home", "where": "home"},
    {"id": "btn-world"},
    {"id": "hud-rank", "label": "Xếp hạng", "hub": "rank"},
    {"id": "btn-inbox", "show": "badge"},

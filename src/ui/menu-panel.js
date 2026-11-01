@@ -3,6 +3,7 @@
 // Bảng cũ vẫn mở bằng nút cũ (ẩn trong #hud-menu) để khỏi sửa từng bảng; ô có tab thì bấm luôn tab đó.
 import { spriteIcon } from './sprite-icon.js';
 import { itemLock, busyWhy, talkMenu, dungeonList, enterDungeon, enterDemon } from '../game/menu-acts.js';
+import { homeAct } from '../game/home-acts.js';
 
 const $ = id => document.getElementById(id);
 function el(tag, cls, text) {
@@ -44,6 +45,7 @@ export function createMenuPanel(game) {
       return;
     }
     if (it.dungeons) { view = 'dun'; render(); return; }
+    if (it.home) { close(); const why = homeAct(game, it.home); if (why) toast(why); return; }   // việc trong động phủ (nhóm E)
     if (it.btn) { openOld(it); return; }
     if (it.cave) { close(); game.openCave?.(it.cave); return; }
     if (it.open === 'world') { close(); game.worldMap?.open(); return; }
