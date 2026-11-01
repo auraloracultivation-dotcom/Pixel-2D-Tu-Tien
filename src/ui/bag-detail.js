@@ -117,7 +117,7 @@ export function renderDetail(game, st, box, changed, close) {
     t.style.color = sd.color; stats.append(t);
   }
   it.lines.forEach(l => stats.append(tierLine(data, l)));   // tẩy luyện mới: mỗi dòng một màu
-  if (it.lines.length < data.items.line_tiers.max) stats.append(el('div', 'muted tiny', `${it.lines.length}/${data.items.line_tiers.max} dòng. Tẩy luyện có thể ra thêm dòng; đủ dòng rồi thì đổi màu một dòng (chỉ lên).`));
+  if (it.lines.length < data.items.line_tiers.max) stats.append(el('div', 'muted tiny', `${it.lines.length}/${data.items.line_tiers.max} dòng. Mỗi lần tẩy, mọi dòng quay lại ngẫu nhiên (màu có thể lên hoặc xuống) và có thể ra thêm dòng.`));
   if (it.sockets.length) {
     const row = el('div', 'd-sockets');
     it.sockets.forEach((g, idx) => {
@@ -149,9 +149,8 @@ export function renderDetail(game, st, box, changed, close) {
   btn(free ? `Tẩy luyện (miễn phí ×${it.free})` : `Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
     const res = reroll(data, save, it.uid);
     if (!res) return;
-    st.msg = res.added ? `Ra thêm ${res.added.length} dòng: ${res.added.map(l => `${tierOf(data, l.t).name} ${statText(data, l.s, l.v)}`).join(', ')}.`
-      : res.up ? `Một dòng lên màu ${tierOf(data, res.up.t).name}: ${statText(data, res.up.s, res.up.v)}.` : 'Lần này không ra dòng mới, cũng không lên màu.';
-    game.sfx(res.added || res.up ? 'levelup' : 'heal'); changed();
+    st.msg = res.added.length ? `Tẩy xong, ra thêm ${res.added.length} dòng! Phẩm mới: ${quality(data, it)?.name || ''}.` : `Tẩy xong. Phẩm mới: ${quality(data, it)?.name || ''}.`;
+    game.sfx(res.added.length ? 'levelup' : 'heal'); changed();
   }, !free && (stones < cost || (save.lingshi || 0) < fee));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
   if (base.dv) {   // Đạo Vận: đổi hệ bằng Đạo Vận Thạch; phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
