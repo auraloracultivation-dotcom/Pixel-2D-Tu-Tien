@@ -8,6 +8,7 @@ import { strikeLean } from '../game/flyweapon.js';
 export const outfitSprite = (game, key, save = game.save) => `hero.y-${save?.outfit || 'dong-phuc'}-${key}`;
 export function heroLook(game, save = game.save) {
   const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);
+  if (game.data.fashion.list[save?.outfit]?.sprite === 'goc') return base;   // bộ mặc hình gốc của nhân vật (data/fashion.json)
   return H.chibi && game.data.art.sprites[id] ? { ...base, ...H.chibi, sprite: id } : base;
 }
 

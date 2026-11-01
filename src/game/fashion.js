@@ -6,7 +6,7 @@ const F = game => game.data.fashion.list;
 export function owned(game, id) {
   const f = F(game)[id]?.from, s = game.save;
   if (!f) return false;
-  return !!(f.start || s.outfits?.[id] || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n));
+  return !!(f.start || s.outfits?.[id] || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n) || (f.uid && f.uid.includes(game.owner)));
 }
 
 export function buyOutfit(game, id) {
@@ -26,7 +26,7 @@ export function outfit(game) {
   return { robe: f.robe, hair: f.hair, sash: f.sash || null };
 }
 
-export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
+export const howToGet = (game, f) => f.from.start ? 'Có sẵn' : f.from.uid ? 'Bộ thử riêng' : f.from.shop ? `${f.from.shop} ${game.data.shop.name}`
   : f.from.achv ? `Thành tựu: ${game.data.status.achievements.find(a => a.id === f.from.achv)?.name}` : f.from.fest ? 'Quà lễ Tết'
   : f.from.tn ? `${f.from.tn} ${game.data.topup.name} (Quầy Tiên Ngọc)`
   : f.from.elite ? `Hạ ${f.from.elite.n} quái nhiễm ma khí ở ${game.data.maps[f.from.elite.map]?.name} (${Math.min(f.from.elite.n, game.save.elite?.[f.from.elite.map] || 0)}/${f.from.elite.n})` : '';
