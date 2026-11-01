@@ -158,6 +158,8 @@ try {
   need(Object.values(read('techniques.json').list).every(t => elements[t.el]), 'techniques: mỗi công pháp phải có hệ (el) hợp lệ');   // Đạo Vận mới
   { const MK = read('planets.json').makhi;   // vùng ma khí
     need(!MK || (maps[MK.map] && MK.mobs.every(id => mobs[id]) && MK.tiers.every(t => t.mul > 0 && t.w > 0 && t.tag)), 'planets.makhi: bản đồ, quái hoặc bậc ma khí sai'); }
+  { const NG = read('shop.json').npc_goods || {}, cv = read('cave.json'), fa = read('fashion.json');   // món riêng của NPC
+    for (const [id, g] of Object.entries(NG)) if (!id.startsWith('_')) need(npcs[id] && g.price > 0 && (g.kind === 'pill' ? cv.pills[g.id] : g.kind === 'mat' ? cv.materials[g.id] : g.kind === 'outfit' && fa.list[g.id]) && (g.kind === 'outfit' || g.per_day > 0), `shop.npc_goods/${id}: NPC, món hoặc giá sai`); }
   { const dv = read('daovan.json'), els = Object.keys(elements).filter(k => !k.startsWith('_')), extra = ['regen', 'thorns', 'lifesteal'];   // Đạo Vận
     const dvBases = Object.entries(items.bases).filter(([, b]) => b.dv);
     need(new Set(dvBases.map(([, b]) => b.slot)).size === Object.keys(items.slots).length && dvBases.length === Object.keys(items.slots).length, 'daovan: phải đủ mỗi ô một món Đạo Vận');

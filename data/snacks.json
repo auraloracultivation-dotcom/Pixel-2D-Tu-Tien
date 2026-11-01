@@ -1,4 +1,6 @@
 {
+ "off": true,
+ "_off": "Chủ dự án chốt 02/11/2026: bỏ linh thực; người bán ở xóm chuyển sang bán món riêng (shop.json → npc_goods). Món đang ăn dở vẫn hết hạn như thường.",
  "_note": "Linh thực (lớp đồ dùng đời sống: thực phẩm chức năng, chủ dự án 28/10/2026): mỗi tinh cầu một món đặc sản bán ở xóm (npc là dân làng bán). Chạm người bán → mua bằng Linh Thạch, ăn ngay, min phút cộng chỉ số nhỏ (stats như dòng trang bị, tính theo phần trăm: atk_pct, hp_pct, crit, crit_dmg, speed, cdr). Chỉ một món có hiệu lực, món sau thay món trước. Khác bữa nấu với đạo lữ (cooking.json: tăng linh khí đả tọa) và đan dược (cave.json). Quán vẽ ở sân xóm, mái vải màu awning (src/render/draw-stall.js); người bán đứng gần quán (stroll 1). Tự hành bật treo máy: hết món mà dư Linh Thạch (ít nhất keep lần giá) thì ghé người bán trên tinh cầu đang đứng mua một phần trước khi treo.",
  "min": 20,
  "keep": 10,
