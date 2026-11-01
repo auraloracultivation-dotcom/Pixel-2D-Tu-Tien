@@ -323,5 +323,7 @@ print('đồ nhiệm vụ:', pickups.pickup_sprites(save))
 print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save), props_ai.gear(save), props_ai.houses(save), props_ai.skill_fx(save), props_ai.anim(save), props_ai.hit_fx(save), props_ai.ma_than_weapon(save), props_ai.weapon_icons(save))
 
 print('ngọc Canva:', gems_ai.gems(save))
+import le_hoi  # noqa: E402
+print('đồ lễ hội:', le_hoi.build(save))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

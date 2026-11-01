@@ -173,7 +173,7 @@ export function createGame(data, screen, input, ui, audio) {
   function loadMap(id, spawnName) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
-    game.map = buildMap(def, data.tiles, cfg.tile);
+    game.map = buildMap(def, data.tiles, cfg.tile, data);
     game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = [];
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);

@@ -1,6 +1,6 @@
 // Lớp ngày đêm ngoài trời: phủ màu theo giờ, sao lấp lánh, trăng, đom đóm quanh người chơi, quầng sáng quanh người.
 // Lớp phủ vẽ vào tấm riêng rồi khoét tại các nguồn sáng (người chơi, chiêu, đạn: src/render/draw-lights.js) mới dán lên.
-import { phase, outdoor } from '../game/daynight.js';
+import { skyPhase, outdoor } from '../game/daynight.js';
 import { cutLights } from './draw-lights.js';
 
 let tint = null;
@@ -10,7 +10,7 @@ const FLIES = Array.from({ length: 16 }, (_, i) => ({ a: i * 2.4, r: 30 + (i * 3
 
 export function drawDayNight(ctx, game, screen, t, lights = []) {
   if (!outdoor(game)) return;
-  const p = phase(game);
+  const p = skyPhase(game);
   if (!p.tint) return;
   const [r, g, b, a0] = p.tint, a = Math.min(0.85, a0 * (game.map.def.tint_mul || 1)), pos = screen.toScreen(game.player.x, game.player.y - 6);
   tint ||= document.createElement('canvas');   // lớp phủ mềm: vẽ nửa độ phân giải rồi phóng lên (nhẹ máy, nhìn như nhau)

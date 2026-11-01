@@ -2,7 +2,7 @@
 // Mỗi khung gom nguồn sáng một lần (gatherLights), lớp tối ngày đêm (draw-sky.js) và hầm ngục (draw-light.js) khoét
 // lỗ tại đó (cutLights), cuối cùng phủ quầng cộng sáng lên trên tất cả (drawBloom) để màu chiêu rực trên nền tối.
 import { weaponId } from '../game/stats.js';
-import { phase } from '../game/daynight.js';
+import { skyPhase } from '../game/daynight.js';
 import { decorLights } from './draw-den.js';
 
 const rgbOf = hex => {
@@ -90,7 +90,7 @@ export function cutLights(c, lights, at, s, cut) {
 // Trời tối tới đâu (0 ban ngày ngoài trời có phủ nhẹ … 1 đêm, hầm ngục): quầng chiêu rực theo độ tối
 function darkness(game) {
   if (game.data.light.maps.includes(game.map?.id)) return 1;
-  const p = phase(game);
+  const p = skyPhase(game);
   return p.tint ? Math.min(1, p.tint[3] / 0.6) : 0;
 }
 

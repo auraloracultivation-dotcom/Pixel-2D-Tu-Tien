@@ -1,8 +1,9 @@
 // Ánh đèn ban đêm ngoài trời (chill như lễ hội, chủ dự án 28/10/2026): cửa sổ nhà, đèn lồng, lò, dung nham, truyền tống trận
 // hắt quầng sáng ấm lên lớp tối đêm; mỗi xóm mới có một cột đèn lồng ở sân. Màu, bán kính ở data/light.json → night.
-import { phase, outdoor } from '../game/daynight.js';
+import { skyPhase, outdoor } from '../game/daynight.js';
 import { glow } from './draw-lights.js';
 import { decorLights } from './draw-den.js';
+import { hoiLights } from './draw-hoi.js';
 
 let cache = { map: null, list: [], le: null };
 
@@ -16,6 +17,7 @@ function scan(game) {
     list.push({ x: (x + 0.5) * T, y: (y + 0.5) * T + (src.dy || 0), r: src.r, c: src.c, ph: (x * 7 + y * 13) % 10 });
   }
   for (const d of decorLights(game)) list.push(d);   // đèn trang trí (draw-den.js)
+  for (const d of hoiLights(game)) list.push(d);   // đèn, pha lê, lò lửa của đồ lễ hội (draw-hoi.js)
   for (const [hx, hy] of map.def.hamlets || []) list.push({ x: (hx + 2.5) * T, y: (hy + 0.2) * T, r: N.lamp.r, c: N.lamp.c, ph: hx % 10, lamp: true });
   cache = { map, list, le: document.body.dataset.le || '' };
 }
@@ -38,7 +40,7 @@ export function drawLamps(ctx, game, t) {
 // Quầng sáng: vẽ sau lớp ngày đêm, cộng sáng; trời càng tối càng rõ
 export function drawGlow(ctx, game, screen, t) {
   if (!outdoor(game)) return;
-  const p = phase(game), a = p.tint ? p.tint[3] : 0;
+  const p = skyPhase(game), a = p.tint ? p.tint[3] : 0;
   if (a < 0.15) return;
   if (cache.map !== game.map || cache.le !== (document.body.dataset.le || '')) scan(game);
   const z = screen.zoom, k = Math.min(1, a / 0.6);
@@ -47,7 +49,8 @@ export function drawGlow(ctx, game, screen, t) {
     const s = screen.toScreen(o.x, o.y), r = o.r * z;
     if (s.x < -r || s.y < -r || s.x > screen.w + r || s.y > screen.h + r) continue;
     const f = 1 + 0.08 * Math.sin(t * 6 + o.ph * 2.1), R = r * f;
-    ctx.drawImage(glow('night|' + o.c, [[0, `rgba(${o.c},0.42)`], [0.5, `rgba(${o.c},0.16)`], [1, `rgba(${o.c},0)`]]), s.x - R, s.y - R, R * 2, R * 2);
+    const a = o.a ?? 0.42;   // đồ lễ hội dày đèn nên mỗi quầng nhạt hơn (data/le-hoi.json → glow.a)
+    ctx.drawImage(glow('night|' + o.c + '|' + a, [[0, `rgba(${o.c},${a})`], [0.5, `rgba(${o.c},${a * 0.38})`], [1, `rgba(${o.c},0)`]]), s.x - R, s.y - R, R * 2, R * 2);
   }
   ctx.restore();
 }

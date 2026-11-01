@@ -97,7 +97,46 @@ def plank(P, seed):
     return c
 
 
-STYLES = {'speckle': speckle, 'slab': slab, 'ice': ice, 'moss': moss, 'plank': plank}
+def brick(P, seed):
+    """Gạch phố lễ hội (theo ảnh GPT bộ Hàn Băng): viên 8×4 xây lệch nửa viên, mạch tối, mép trên sáng, viên đậm nhạt xen nhau,
+    vài vệt tuyết đọng trên mép viên. Chu kỳ 16 nên ghép liền mọi hướng."""
+    rnd = random.Random(seed * 11 + 9)
+    c = Canvas(16, 16)
+    for row in range(4):
+        off = 4 if row % 2 else 0
+        for bx in range(0, 16, 8):
+            base = P[rnd.choice((2, 2, 3, 1))]
+            for ly in range(4):
+                for lx in range(8):
+                    x, y = (bx + lx + off) % 16, row * 4 + ly
+                    c.px(x, y, P[0] if ly == 3 or lx == 7 else P[4] if ly == 0 and lx < 6 else base)
+            if rnd.random() < 0.35:   # tuyết đọng mép viên
+                x0 = (bx + off + rnd.randrange(1, 5)) % 16
+                for k in range(rnd.randrange(2, 4)):
+                    c.px((x0 + k) % 16, row * 4, (236, 242, 255, 255))
+    return c
+
+
+def paving(P, seed):
+    """Sân lát gạch vuông 8×8 vát cạnh (mép trên trái sáng, dưới phải tối); biến thể 3 có viên khắc hoa tuyết."""
+    rnd = random.Random(seed * 5 + 1)
+    c = Canvas(16, 16)
+    for oy in (0, 8):
+        for ox in (0, 8):
+            base = P[rnd.choice((2, 2, 3))]
+            for ly in range(8):
+                for lx in range(8):
+                    col = P[0] if lx == 7 or ly == 7 else P[4] if lx == 0 or ly == 0 else P[1] if lx == 6 or ly == 6 else base
+                    c.px(ox + lx, oy + ly, col)
+    if seed == 3:   # hoa tuyết khắc giữa viên trên trái
+        for x, y in ((3, 1), (3, 2), (3, 4), (3, 5), (1, 3), (2, 3), (4, 3), (5, 3), (2, 2), (4, 4), (4, 2), (2, 4)):
+            c.px(x, y, (236, 242, 255, 255))
+    elif rnd.random() < 0.5:
+        c.px(rnd.randrange(1, 6), rnd.randrange(1, 6), (236, 242, 255, 255))
+    return c
+
+
+STYLES = {'speckle': speckle, 'slab': slab, 'ice': ice, 'moss': moss, 'plank': plank, 'brick': brick, 'paving': paving}
 
 
 def ground_frames(color, tex):

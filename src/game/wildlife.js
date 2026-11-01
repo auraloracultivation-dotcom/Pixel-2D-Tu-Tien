@@ -8,7 +8,7 @@ function freeSpot(game, near, r) {
     const tx = near ? Math.floor(near.x / T + (Math.random() * 2 - 1) * r) : Math.floor(Math.random() * map.w);
     const ty = near ? Math.floor(near.y / T + (Math.random() * 2 - 1) * r) : Math.floor(Math.random() * map.h);
     const k = map.type(tx, ty);
-    if (!k.solid && !k.void && map.at(tx, ty) !== 'P') return map.center(tx, ty);
+    if (!k.solid && !k.void && !map.solidTile(tx, ty) && map.at(tx, ty) !== 'P') return map.center(tx, ty);   // solidTile: cả chân đồ lễ hội
   }
   return near ? { x: near.x, y: near.y } : null;
 }

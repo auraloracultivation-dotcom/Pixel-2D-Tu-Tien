@@ -1,5 +1,6 @@
 // Khai linh khoáng (data/gather.json): mạch khoáng cố định trên mỗi tinh cầu, đứng cạnh bấm Đào, đứng yên vài giây thì được
 // Tinh Thiết (thêm theo cấp Linh Cuốc), may thì Tẩy Luyện Thạch, Khóa Linh Thạch; mạch cạn rồi đầy lại theo giờ thật (save.veins).
+import { hoiCovers } from '../world/hoi-foot.js';
 import { matInfo } from './cave.js';
 import { addCoins, coins } from './shop.js';
 
@@ -20,7 +21,7 @@ export function spawnVeins(game) {
   const cand = [];
   for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
     const d = Math.hypot(x + 0.5 - R, y + 0.5 - R) / R, k = map.type(x, y);
-    if (d >= c.min_r && d <= c.max_r && !k.solid && !k.void && !near(x, y, avoid, 3)) cand.push([x, y]);
+    if (d >= c.min_r && d <= c.max_r && !k.solid && !k.void && !map.solidTile(x, y) && !hoiCovers(map, x, y) && !near(x, y, avoid, 3)) cand.push([x, y]);   // tránh cả đồ lễ hội
   }
   const picked = [];
   for (let i = 0; i < 200 && picked.length < c.per_map && cand.length; i++) {

@@ -28,6 +28,8 @@ const RIM = {
   L: ['tile.lava-rim', n => n !== 'L'],
   O: ['tile.snow-rim', n => n !== 'O'],
   i: ['tile.snow-rim', n => n === 'w' || n === 'Y'],
+  1: ['tile.snow-rim', n => n === 'w' || n === 'Y'],   // phố gạch, sân lát lễ hội: mép tuyết phủ lên
+  2: ['tile.snow-rim', n => n === 'w' || n === 'Y'],
   f: ['tile.void-rim', n => n !== 'f'],
   '=': ['tile.water-rim', n => n !== '='],
 };

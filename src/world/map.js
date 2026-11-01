@@ -1,4 +1,6 @@
 // Bản đồ dạng lưới ký tự (data/maps/*.json, chú giải ở data/tiles.json): tra ô, va chạm, tìm chỗ trống.
+// Đồ lễ hội (khoá hoi, src/world/hoi-foot.js) chắn thêm ô dưới chân nhà, cột, cây; cầu mở lối qua ô vốn chắn.
+import { hoiItems, hoiCells } from './hoi-foot.js';
 
 // Tinh cầu tròn: mép đĩa vẽ thành vòng tròn điểm ảnh (src/world/draw-rim.js) thay cho bậc thang ô vuông. Bán kính lùi vào
 // trong vòng ô ngoài cùng 0,71 ô nên mọi điểm ảnh trong vòng đều thuộc ô đất; ô có tâm sát mép hơn edge thì coi như vách.
@@ -8,19 +10,21 @@ export function discOf(def, T) {
   return { cx: c, cy: c, r, edge: r - 4 };
 }
 
-export function buildMap(def, tiles, T) {
+export function buildMap(def, tiles, T, data = null) {
   const w = Math.max(...def.grid.map(r => r.length));
   const g = def.grid.map(r => r.padEnd(w, '~'));
   const map = { id: def.id, def, w, h: g.length, g, T, locked: new Set() };
+  map.hoi = data ? hoiItems(def, data, T) : [];
+  const hc = hoiCells(map.hoi, T);
   const disc = discOf(def, T);
   const rimOut = (tx, ty) => disc && ((tx + 0.5) * T - disc.cx) ** 2 + ((ty + 0.5) * T - disc.cy) ** 2 > disc.edge * disc.edge;
 
   map.at = (tx, ty) => (ty < 0 || ty >= map.h || tx < 0 || tx >= w) ? '~' : g[ty][tx];
   map.type = (tx, ty) => tiles.types[map.at(tx, ty)] || tiles.types['~'];
-  map.solidTile = (tx, ty) => map.type(tx, ty).solid || map.locked.has(tx + ',' + ty) || rimOut(tx, ty);
+  map.solidTile = (tx, ty) => { const k = tx + ',' + ty; return ((map.type(tx, ty).solid || hc.solid.has(k)) && !hc.open.has(k)) || map.locked.has(k) || rimOut(tx, ty); };
   map.edge = (tx, ty) => map.at(tx, ty) === '~' || !!rimOut(tx, ty);   // mép tinh cầu (câu cá được)
   // Đạn bay qua biển mây và dung nham nhưng vỡ khi chạm tường, cây, nhà
-  map.wallTile = (tx, ty) => { const k = map.type(tx, ty); return (k.solid && !k.void && !k.low) || map.locked.has(tx + ',' + ty); };
+  map.wallTile = (tx, ty) => { const k = map.type(tx, ty), c = tx + ',' + ty; return (k.solid && !k.void && !k.low && !hc.open.has(c)) || hc.solid.has(c) || map.locked.has(c); };
 
   map.blocked = (x, y, r) => {
     const x0 = Math.floor((x - r) / T), x1 = Math.floor((x + r) / T);

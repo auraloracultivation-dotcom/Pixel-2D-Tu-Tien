@@ -1,4 +1,4 @@
-import { phase } from '../game/daynight.js';
+import { skyPhase } from '../game/daynight.js';
 
 // Mây trôi trên tinh cầu (vẽ theo toạ độ thế giới, trên người và quái): vài cụm mây mờ trôi chậm theo gió, bóng mây mờ dưới đất.
 function hash(i, k) { const h = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return h - Math.floor(h); }
@@ -15,7 +15,7 @@ export function drawClouds(ctx, game, t) {
   const def = game.map.def;
   if (!def.planet || (def.dark || 0) >= 0.3) return;
   // Trời càng tối mây càng nhạt và ngả lam (chơi thử 28/10: mây trắng 16% thành mảng sương bạc lạc tông giữa đêm)
-  const dk = Math.min(1, (phase(game).tint?.[3] || 0) / 0.6), ca = (0.11 * (1 - dk) + 0.04).toFixed(3);
+  const dk = Math.min(1, (skyPhase(game).tint?.[3] || 0) / 0.6), ca = (0.11 * (1 - dk) + 0.04).toFixed(3);
   const cc = dk > 0.5 ? '170,185,230' : '255,255,255';
   const W = game.map.w * game.map.T, H = game.map.h * game.map.T, span = W + 400, v = game.screen?.viewRect();
   for (let i = 0; i < 7; i++) {
