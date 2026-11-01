@@ -3,6 +3,7 @@
  "festivals": {
   "dao-han-bang": {
    "name": "Hàn Nguyệt Long Đăng Hội",
+   "dat": {"_note": "Mặt đất lễ hội (src/world/draw-dat.js): kieu tuyet | co; toi sang hai tông loang; tuyet: dong cụm tuyết, bong bóng cụm, vet vết chân, lap tỉ lệ ô có hạt băng lấp lánh; co: hoa màu khóm hoa, cuong cuống, soi sỏi ven đường, canh cánh hoa quanh gốc cây.", "kieu": "tuyet", "toi": "rgba(110,120,190,0.24)", "sang": "rgba(255,255,255,0.3)", "duong": "rgba(214,222,240,0.55)", "dong": "#f6faff", "bong": "rgba(110,120,180,0.35)", "vet": "rgba(110,120,175,0.32)", "lap": 0.35, "canh": ["#ffd0ec", "#f0b8e0"]},
    "desc": "Băng tuyết, đăng long, múa lân",
    "troi": {
     "_note": "Trời đêm hội (src/render/draw-hoi-sky.js): den số đèn trời bay lên (den_speed điểm mỗi giây), phao số ô pháo hoa nổ so le (phao_every giây một quả mỗi ô), tia mỗi quả, mau màu.",
@@ -67,6 +68,7 @@
   },
   "thien-kiem-phong": {
    "name": "Cửu Tông Tranh Phong",
+   "dat": {"_note": "như Hàn Băng", "kieu": "co", "phu": "rgba(46,40,110,0.34)", "toi": "rgba(16,24,60,0.26)", "sang": "rgba(160,210,170,0.14)", "hoa": ["#ff9ac8", "#ffd27a", "#b48aff", "#ffffff", "#8ad8ff"], "cuong": "#3a6a3a", "soi": "#c8c4d8", "canh": ["#ff9ac8", "#ffc0dc", "#e080ff"]},
    "desc": "Chín tông môn tỷ thí, lôi đài, cờ ngũ hành",
    "troi": {
     "_note": "như Hàn Băng",

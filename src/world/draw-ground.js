@@ -2,6 +2,7 @@
 // vào tấm đệm riêng của từng bản đồ; nhà, cây, đá, hoa vẽ theo từng ô. Hình chưa tải xong thì trả false để vẽ hình khối như cũ.
 import { spriteImage } from '../render/sprites.js';
 import { roundRim } from './draw-rim.js';
+import { bakeDat } from './draw-dat.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -110,7 +111,7 @@ function build(game, map, tiles, hash, baseTile) {
     else if (texOf(ch, k)) { put(c, tex[ch], Math.floor(h * 4), px, py); painted.add(ch); }
     else if (lit && PROP[ch] && !k.solid && map.def.ground) baseTile(c, map, tiles, tx, ty, map.def.ground);   // nấm, kiếm gãy trong hầm: nền hầm, không lấy màu ô
     else baseTile(c, map, tiles, tx, ty);
-    if (ch === ',' || ch === '_') EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });
+    if (',_12'.includes(ch)) EDGES.forEach(([dx, dy], i) => { if ('.F'.includes(map.at(tx + dx, ty + dy))) put(c, sp['tile.edge'], i, px, py); });   // cỏ lấn mép đường (cả phố lát lễ hội)
     if (rim[ch]) rimTile(c, map, rim[ch], RIM[ch][1], tx, ty, px, py);
   }
   const floor = lit && sheet(game, 'tile.dfloor');   // hầm ngục về đêm: phủ phiến đá lên nền
@@ -120,6 +121,7 @@ function build(game, map, tiles, hash, baseTile) {
   }
   if (!lit) meadow(c, map, hash);
   scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
+  bakeDat(c, map, hash, game.data['le-hoi']?.festivals?.[map.def.id]?.dat);   // mặt đất lễ hội (draw-dat.js)
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
   cache.baked = bakeProps(c, game, map, hash);
