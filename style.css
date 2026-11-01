@@ -499,6 +499,9 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 
 /* Hộp thoại luôn nằm trên nút đánh, chiêu (màn ngang: nút Lướt đè lên chữ hộp thoại, chơi thử 28/10) */
 #dialog { z-index: 30; }
+/* Đang có hộp thoại thì ẩn nút đánh, chiêu, đan, lướt như lúc mở bảng: khung tròn chiêu (style-khung.css) vẫn lồi lên trên viền hộp thoại
+   và lộ mờ sau nền hộp thoại (chơi thử 02/11: nút Hồi Xuân đè lên góc hộp thoại Tiểu Hỏa sau độ kiếp) */
+body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill) { visibility: hidden; }
 
 /* Mất kết nối máy chủ (src/game/net-watch.js): phủ màn, game đứng lại tới khi nối lại */
 #net-lost { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; background: rgba(8, 10, 20, 0.72); }
