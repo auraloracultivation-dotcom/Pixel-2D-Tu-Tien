@@ -49,7 +49,8 @@ export function addItem(data, save, item) {
 }
 
 export function itemName(data, item) {
-  return `${data.items.bases[item.base].name}${item.el ? ' · ' + (data.elements[item.el]?.name || '') : ''}${item.plus ? ' +' + item.plus : ''}${item.pb ? ' ★' + item.pb : ''}`;
+  const wt = item.wt && data.weapons[item.wt] ? ` (${data.weapons[item.wt].name})` : '';   // báo lỗi #50: Đạo Vận Binh ghi rõ loại vũ khí (đàn, kiếm…)
+  return `${data.items.bases[item.base].name}${wt}${item.el ? ' · ' + (data.elements[item.el]?.name || '') : ''}${item.plus ? ' +' + item.plus : ''}${item.pb ? ' ★' + item.pb : ''}`;
 }
 
 // Chiêu của một pháp bảo (Đạo Vận Ấn: theo hệ của món)
