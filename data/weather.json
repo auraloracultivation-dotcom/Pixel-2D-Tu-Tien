@@ -1,9 +1,9 @@
 {
   "_note": "Thời tiết từng đảo (chỉ ngoài trời). seasons: mùa theo tháng thật, swap đổi loại hạt của đảo (vd thu: hoa và lá thành lá phong), lần đầu vào mùa mới có câu intro. fireflies: đom đóm bay lượn ban đêm trên các đảo trong maps (trời mưa thì không có). kind: hạt bay theo đảo (kinds). rain: xác suất mỗi giờ thật có mưa trên đảo đó (cùng giờ thì cùng kết quả). Đang mưa thì đả tọa ngoài trời nhân rain.meditate (nghe mưa tĩnh tâm). Mưa có tiếng mưa êm trong nhạc nền. kinds: n số hạt, color, size, fall tốc rơi, drift lắc ngang, shape (petal, flake, leaf, ember, dust).",
   "hud": {
-    "_note": "Dòng nhỏ dưới lực chiến: mùa · giờ trong ngày · trời.",
+    "_note": "Dòng nhỏ dưới lực chiến: mùa · giờ trong ngày · trời. Giữ ngắn: cột HUD trên điện thoại chỉ chứa khoảng 34 chữ, dài hơn bị cắt thành dấu ba chấm (Thiên Đạo soi 01/11/2026: chữ mưa bị cắt mất số %).",
     "season": "Mùa {name}",
-    "rain": "Mưa, đả tọa +{pct}%"
+    "rain": "Mưa, tọa +{pct}%"
   },
   "maps": {
     "thanh-khe": {
