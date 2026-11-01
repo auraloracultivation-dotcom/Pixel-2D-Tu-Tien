@@ -51,7 +51,9 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
       const hw = s.w / s.zoom / 2, hh = s.h / s.zoom / 2;
       const W = map.w * cfg.tile, H = map.h * cfg.tile;
       s.camX = W > hw * 2 ? Math.min(Math.max(s.camX, hw), W - hw) : W / 2;
-      s.camY = H > hh * 2 ? Math.min(Math.max(s.camY, hh), H - hh) : H / 2;
+      // màn dọc: cho máy quay lố mép trên, mép dưới bản đồ một khoảng (cfg.cam_pad) để người đứng sát mép không bị cột HUD, nút đánh che
+      const tall = s.h > s.w, pt = tall ? (cfg.cam_pad?.top || 0) * s.h / s.zoom : 0, pb = tall ? (cfg.cam_pad?.bottom || 0) * s.h / s.zoom : 0;
+      s.camY = H + pt + pb > hh * 2 ? Math.min(Math.max(s.camY, hh - pt), H - hh + pb) : H / 2;
     }
     if (s.shakeT > 0) {
       s.shakeT -= dt; s.shakeP += dt;
