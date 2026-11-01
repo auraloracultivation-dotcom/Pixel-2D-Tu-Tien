@@ -548,3 +548,6 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .hud-btns > button.on { border-image: url("assets/art/ui-btn-on.png") 4 fill / 4px / 0 stretch !important; color: #2a0a12 !important; text-shadow: 0 1px 0 rgba(255, 220, 160, .6) !important; }
 .hud-btns > button > i { font-size: 10px; }
 .hud-btns { max-width: 260px !important; }
+.hud-btns > button > i.hud-dot { position: absolute; right: -4px; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: #ff4a4a; box-shadow: 0 0 0 1.5px #000; }
+.bag-links { flex-wrap: wrap; gap: 4px; margin-top: -2px; }
+.bag-links button { font-size: 13px !important; padding: 2px 6px !important; opacity: .9; }

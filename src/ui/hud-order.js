@@ -13,7 +13,7 @@ export function orderHud(game) {
     b.addEventListener('pointerdown', ev => {
       ev.stopPropagation();
       if (!game.save || game.dialog.open || game.trip) return;
-      if (e.dun) game.openDungeons?.(); else game.openOldPanel?.(e);
+      if (e.dun) game.openDungeons?.(); else if (e.hub) game.openHub?.(e.hub); else game.openOldPanel?.(e);
     });
     return b;
   }
@@ -21,10 +21,16 @@ export function orderHud(game) {
     const want = [];
     for (const e of H.list) {
       let b = document.getElementById(e.id);
-      if (!b && (e.dun || e.btn)) b = make(e);
+      if (!b && (e.dun || e.btn || e.hub)) b = make(e);
       if (!b) continue;
       if (e.label && !made.has(e.id)) { setLabel(b, e.label); made.add(e.id); }
       if (e.show) b.hidden = e.show === 'on' ? !b.classList.contains('on') : !(b.querySelector('i') && !b.querySelector('i').hidden);
+      if (e.badge) {   // chấm đỏ theo chấm của nút cũ (Việc)
+        const src = document.getElementById(e.badge), on = !!src && !src.hidden;
+        let dot = b.querySelector('i.hud-dot');
+        if (on && !dot) { dot = document.createElement('i'); dot.className = 'hud-dot'; b.append(dot); }
+        if (dot) dot.hidden = !on;
+      }
       want.push(b);
     }
     const now = [...bar.children];

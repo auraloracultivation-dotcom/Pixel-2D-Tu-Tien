@@ -33,9 +33,16 @@ export function createMenuPanel(game) {
     if (it.tab) setTimeout(() => document.querySelector(`#${it.tabs} [data-tab="${it.tab}"]`)?.click(), 0);
   }
 
+  let sure = null;
   function act(it) {
     const lock = itemLock(game, it);
     if (lock) { toast(lock); return; }
+    if (it.toast) { toast(it.toast); return; }
+    if (it.reload) {   // Đăng xuất, xoá tài khoản: lưu rồi về màn đầu (nút ở đó); bấm hai lần
+      if (sure !== it.id) { sure = it.id; toast(it.confirm); return; }
+      game.persist(); Promise.resolve(game.cloud?.flush?.()).catch(() => {}).finally(() => setTimeout(() => location.reload(), 300));
+      return;
+    }
     if (it.dungeons) { view = 'dun'; render(); return; }
     if (it.btn) { openOld(it); return; }
     if (it.cave) { close(); game.openCave?.(it.cave); return; }
@@ -48,9 +55,10 @@ export function createMenuPanel(game) {
     else if (it.demon) enterDemon(game).then(w => w && toast(D.busy.replace('{why}', w)));
   }
 
-  function renderMain() {
-    title.textContent = M.title; sub.textContent = M.sub;
-    for (const g of M.groups) {
+  function renderMain(hub) {
+    const H = hub ? M.hubs[hub] : M;
+    title.textContent = H.title; sub.textContent = H.sub || '';
+    for (const g of H.groups) {
       body.append(el('div', 'menu-group', g.name));
       const grid = el('div', 'menu-grid');
       for (const it of g.items) {
@@ -91,17 +99,18 @@ export function createMenuPanel(game) {
 
   function render() {
     body.innerHTML = '';
-    if (view === 'dun') renderDungeons(); else renderMain();
+    if (view === 'dun') renderDungeons(); else renderMain(view.startsWith('hub:') ? view.slice(4) : null);
     body.scrollTop = 0;
   }
 
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
-    view = 'main'; game.uiOpen = true; root.hidden = false; render();
+    view = 'main'; sure = null; game.uiOpen = true; root.hidden = false; render();
   }
   x.onclick = close;
-  game.openDungeons = () => { open(); if (!root.hidden) { view = 'dun'; render(); } };   // nút Bí cảnh trên màn hình (src/ui/hud-order.js)
+  game.openDungeons = () => { open(); if (!root.hidden) { view = 'dun'; render(); } };
+  game.openHub = id => { open(); if (!root.hidden && M.hubs?.[id]) { view = 'hub:' + id; render(); } };   // bảng con của nút Nhiệm vụ, Sự kiện, Xếp hạng   // nút Bí cảnh trên màn hình (src/ui/hud-order.js)
   game.openOldPanel = openOld;
   $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); if (root.hidden) open(); else close(); });
   return { open, close };

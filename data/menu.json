@@ -1,59 +1,36 @@
 {
  "_note": "Menu (chủ dự án xin 28/10/2026: \"mọi chức năng và phó bản đều có trong menu, luyện đan, luyện khí, bí cảnh...\"). Bấm nút Menu mở bảng nửa màn hình chia nhóm, mỗi ô một chức năng có hình (icon: id hình trong data/art.json, khung frame; ui.m-* là biểu tượng Canva 29/10/2026, linh thú, thú cưỡi, đồng hành giữ hình con vật). Cách mở (code ở src/ui/menu-panel.js, src/game/menu-acts.js): btn = bấm nút bảng cũ (ẩn trong #hud-menu), tabs + tab = mở thẳng tab đó; cave = bảng động phủ mở ở tab (dan lò đan, ren lò rèn, vuon dược viên, phu động phủ), mở từ xa ở đâu cũng được; talk = nói chuyện thẳng với NPC (tower, arena, res, party, reroot); dungeons = danh sách bí cảnh, vào thẳng (chọn độ khó như đi cổng); demon = Phương Thiên Địa; open = game.open<Tên>. need: cờ truyện phải có mới mở (thiếu thì ô mờ, ghi lock). badge: id chấm đỏ của nút cũ.",
  "title": "Menu",
- "sub": "Chạm một ô để mở. Phó bản vào thẳng từ đây.",
+ "sub": "Chạm một ô để mở.",
  "groups": [
-  {"name": "Nhân vật", "items": [
-   {"id": "bag", "label": "Túi đồ", "icon": "ui.m-bag", "btn": "btn-bag", "badge": "bag-badge"},
-   {"id": "skills", "label": "Chiêu thức", "icon": "ui.m-sword", "btn": "btn-skills", "tabs": "skills-tabs", "tab": "chieu", "badge": "skills-badge"},
-   {"id": "techs", "label": "Công pháp", "icon": "ui.m-manual", "btn": "btn-skills", "tabs": "skills-tabs", "tab": "cong-phap"},
-   {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu", "badge": "pets-badge"},
-   {"id": "mounts", "label": "Thú cưỡi", "icon": "mount.bach-loc", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "thu-cuoi"},
-   {"id": "comps", "label": "Đồng hành", "icon": "comp.lac-tuyet", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "dong-hanh"},
-   {"id": "fashion", "label": "Thời trang", "icon": "ui.m-robe", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thoi-trang"},
-   {"id": "titles", "label": "Danh hiệu", "icon": "ui.m-medal", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "danh-hieu"}
-  ]},
-  {"name": "Tu luyện, chế tạo", "items": [
-   {"id": "dan", "label": "Luyện đan", "icon": "ui.m-cauldron", "cave": "dan", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "ren", "label": "Luyện khí", "icon": "ui.m-anvil", "cave": "ren", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "vuon", "label": "Dược viên", "icon": "ui.m-herb", "cave": "vuon", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "phu", "label": "Động phủ", "icon": "ui.m-cave", "cave": "phu", "need": "dong-phu", "lock": "Mở khi có động phủ"},
-   {"id": "reroot", "label": "Tẩy linh căn", "icon": "ui.m-root", "talk": "reroot", "lock": "Cần cảnh giới cao hơn"}
-  ]},
-  {"name": "Phó bản", "items": [
-   {"id": "dungeons", "label": "Bí cảnh", "icon": "ui.m-portal", "dungeons": true},
-   {"id": "tower", "label": "Tháp Thử Thách", "icon": "ui.m-pagoda", "talk": "tower", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
-   {"id": "arena", "label": "Luận Võ Đài", "icon": "ui.m-arena", "talk": "arena", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
-   {"id": "res", "label": "Bí cảnh tài nguyên", "icon": "ui.m-chest", "talk": "res", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
-   {"id": "party", "label": "Tổ đội", "icon": "ui.m-flags", "talk": "party", "need": "mo-bi-canh", "lock": "Mở sau Bí cảnh Huyết Nha"},
-   {"id": "demon", "label": "Ma Vương tuần", "icon": "ui.m-demon", "demon": true}
-  ]},
-  {"name": "Nhiệm vụ", "items": [
-   {"id": "daily", "label": "Việc hằng ngày", "icon": "ui.m-checklist", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "ngay", "badge": "daily-badge"},
-   {"id": "daovan", "label": "Đạo Vận", "icon": "ui.m-taiji", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "dao-van"},
-   {"id": "sect", "label": "Việc tông môn", "icon": "ui.m-banner", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tong-mon"},
-   {"id": "event", "label": "Sự kiện", "icon": "ui.m-firework", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "su-kien"},
-   {"id": "pilotset", "label": "Cài tự hành", "icon": "ui.m-auto", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tu-hanh"},
-   {"id": "achv", "label": "Thành tựu", "icon": "ui.m-trophy", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thanh-tuu", "badge": "achv-badge"},
-   {"id": "journal", "label": "Nhật ký", "icon": "ui.m-diary", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "nhat-ky"},
-   {"id": "fish", "label": "Sổ cá", "icon": "ui.m-fish", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "so-ca"}
-  ]},
-  {"name": "Thế giới, đạo hữu", "items": [
-   {"id": "world", "label": "Bản đồ", "icon": "ui.m-globe", "open": "world"},
-   {"id": "social", "label": "Đạo hữu", "icon": "ui.m-friends", "btn": "btn-social", "badge": "social-badge"},
-   {"id": "rank", "label": "Xếp hạng", "icon": "ui.m-podium", "btn": "btn-rank"},
+  {"name": "Đạo hữu", "items": [
+   {"id": "social", "label": "Bạn bè", "icon": "ui.m-friends", "btn": "btn-social", "badge": "social-badge"},
    {"id": "guild", "label": "Tông môn", "icon": "ui.m-palace", "btn": "btn-guild"},
    {"id": "market", "label": "Chợ", "icon": "ui.m-market", "open": "market"},
-   {"id": "topup", "label": "Tiên Ngọc", "icon": "ui.m-jade", "open": "topup"}
+   {"id": "topup", "label": "Nạp Tiên Ngọc", "icon": "ui.m-jade", "open": "topup"},
+   {"id": "zalo", "label": "Nhóm Zalo", "icon": "ui.m-tea", "btn": "btn-zalo", "click": true}
   ]},
-  {"name": "Cài đặt, liên hệ", "items": [
+  {"name": "Ghi chép", "items": [
+   {"id": "achv", "label": "Thành tựu", "icon": "ui.m-trophy", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thanh-tuu", "badge": "achv-badge"},
+   {"id": "journal", "label": "Nhật ký", "icon": "ui.m-diary", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "nhat-ky"}
+  ]},
+  {"name": "Cài đặt", "items": [
    {"id": "sound", "label": "Âm thanh", "icon": "ui.m-lantern", "btn": "btn-mute"},
-   {"id": "zalo", "label": "Nhóm Zalo", "icon": "ui.m-friends", "btn": "btn-zalo", "click": true},
-   {"id": "rec", "label": "Quay clip", "icon": "ui.m-star", "btn": "btn-rec"},
-   {"id": "fb-loi", "label": "Báo lỗi", "icon": "ui.m-diary", "btn": "btn-fb-loi", "click": true},
-   {"id": "fb-de", "label": "Đề xuất", "icon": "ui.m-banner", "btn": "btn-fb-de_xuat", "click": true},
-   {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true},
-   {"id": "inbox", "label": "Hòm thư", "icon": "ui.m-chest", "btn": "btn-inbox"}
+   {"id": "code", "label": "Nhập code", "icon": "ui.m-star", "open": "referral"},
+   {"id": "lang", "label": "Ngôn ngữ", "icon": "ui.m-globe", "toast": "Hiện game chỉ có Tiếng Việt, sẽ thêm ngôn ngữ khác sau."},
+   {"id": "account", "label": "Đăng xuất, xoá tài khoản", "icon": "ui.m-banner", "reload": true, "confirm": "Bấm lần nữa để lưu và về màn đầu (đăng xuất, xoá tài khoản ở đó)."},
+   {"id": "rec", "label": "Quay clip", "icon": "ui.m-star", "btn": "btn-rec"}
+  ]},
+  {"name": "Tin nhắn", "items": [
+   {"id": "inbox", "label": "Hòm thư", "icon": "ui.m-chest", "btn": "btn-inbox"},
+   {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true}
+  ]},
+  {"name": "Tạm để đây (sẽ chuyển vào Động phủ, khung nhân vật)", "items": [
+   {"id": "dan", "label": "Luyện đan", "icon": "ui.m-cauldron", "cave": "dan", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "vuon", "label": "Dược viên", "icon": "ui.m-herb", "cave": "vuon", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "phu", "label": "Động phủ", "icon": "ui.m-cave", "cave": "phu", "need": "dong-phu", "lock": "Mở khi có động phủ"},
+   {"id": "reroot", "label": "Tẩy linh căn", "icon": "ui.m-root", "talk": "reroot", "lock": "Cần cảnh giới cao hơn"},
+   {"id": "titles", "label": "Danh hiệu", "icon": "ui.m-medal", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "danh-hieu"}
   ]}
  ],
  "dungeon": {
@@ -71,6 +48,39 @@
   "trip": "đang bay",
   "run": "đang trong tháp, luận võ hoặc bí cảnh tài nguyên"
  },
+ "hubs": {
+  "_note": "Bảng con của nút trên màn hình (chủ dự án 02/11/2026 04:03: mỗi nhóm chứa đúng các mục đã ghi). Cùng cách mở như ô Menu; thêm open referral / fame, toast, reload (lưu rồi về màn đầu). bag_links: nút mở nhanh dưới tab Túi đồ (nhóm A).",
+  "quest": {"title": "Nhiệm vụ", "sub": "Chạm khung nhiệm vụ góc phải trên để tự hành làm.", "groups": [
+   {"name": "Nhiệm vụ", "items": [
+    {"id": "daily", "label": "Việc hằng ngày, điểm danh", "icon": "ui.m-checklist", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "ngay", "badge": "daily-badge"},
+    {"id": "achv", "label": "Nhiệm vụ thành tích", "icon": "ui.m-trophy", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thanh-tuu", "badge": "achv-badge"},
+    {"id": "pilotset", "label": "Cài tự hành", "icon": "ui.m-auto", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "tu-hanh"}
+   ]}
+  ]},
+  "event": {"title": "Sự kiện", "sub": "", "groups": [
+   {"name": "Sự kiện", "items": [
+    {"id": "event", "label": "Sự kiện đang chạy", "icon": "ui.m-firework", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "su-kien"},
+    {"id": "referral", "label": "Giới thiệu bạn bè", "icon": "ui.m-friends", "open": "referral"},
+    {"id": "demon", "label": "Ma Vương tuần", "icon": "ui.m-demon", "demon": true},
+    {"id": "notice", "label": "Thông báo", "icon": "ui.m-flags", "btn": "btn-notice", "click": true}
+   ]}
+  ]},
+  "rank": {"title": "Xếp hạng", "sub": "", "groups": [
+   {"name": "Xếp hạng", "items": [
+    {"id": "rank", "label": "Bảng xếp hạng", "icon": "ui.m-podium", "btn": "btn-rank"},
+    {"id": "fb-loi", "label": "Báo lỗi", "icon": "ui.m-diary", "btn": "btn-fb-loi", "click": true},
+    {"id": "fb-de", "label": "Đề xuất", "icon": "ui.m-banner", "btn": "btn-fb-de_xuat", "click": true},
+    {"id": "fame", "label": "Vinh danh góp ý", "icon": "ui.m-medal", "open": "fame"}
+   ]}
+  ]},
+  "bag_links": [
+   {"id": "pets", "label": "Linh thú", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"},
+   {"id": "mounts", "label": "Thú cưỡi", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "thu-cuoi"},
+   {"id": "comps", "label": "Đồng hành", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "dong-hanh"},
+   {"id": "fashion", "label": "Thời trang", "btn": "btn-achv", "tabs": "achv-tabs", "tab": "thoi-trang"},
+   {"id": "ren", "label": "Luyện khí", "cave": "ren", "need": "dong-phu", "lock": "Mở khi có động phủ"}
+  ]
+ },
  "hud": {
   "_note": "Nút trên màn hình (chủ dự án gom nhóm A–L, 02/11/2026 03:43), theo thứ tự: A Túi đồ, B Menu, C Công pháp, (D: chạm khung nhân vật), G Bí cảnh, H Sự kiện, I Nhiệm vụ + Tự đánh (tự hành: chạm khung nhiệm vụ góc phải trên, chạm lần nữa thì dừng; không có nút ngoài màn hình), J Đạo Vận, K Bản đồ, L Xếp hạng. F (hiện khi cần): hòm thư, thông báo khi có tin chưa xem, nút quay clip khi đang quay. Nút có sẵn (id) thì dời vào đúng chỗ, đổi chữ (label); nút chưa có thì tạo: dun mở danh sách bí cảnh, btn + tabs + tab bấm hộ như ô Menu. show: 'badge' hiện khi chấm số (#id i) đang hiện, 'on' hiện khi nút có lớp on. Các nút khác (tiếng, Zalo, báo lỗi, đề xuất, quay clip) vào Menu → Cài đặt, liên hệ.",
   "list": [
@@ -78,12 +88,12 @@
    {"id": "btn-menu"},
    {"id": "btn-skills", "label": "Công pháp"},
    {"id": "hud-dun", "label": "Bí cảnh", "dun": true},
-   {"id": "hud-event", "label": "Sự kiện", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "su-kien"},
-   {"id": "btn-daily", "label": "Nhiệm vụ"},
+   {"id": "hud-event", "label": "Sự kiện", "hub": "event"},
+   {"id": "hud-quest", "label": "Nhiệm vụ", "hub": "quest", "badge": "daily-badge"},
    {"id": "btn-auto"},
    {"id": "hud-dv", "label": "Đạo Vận", "btn": "btn-daily", "tabs": "daily-tabs", "tab": "dao-van"},
    {"id": "btn-world"},
-   {"id": "btn-rank", "label": "Xếp hạng"},
+   {"id": "hud-rank", "label": "Xếp hạng", "hub": "rank"},
    {"id": "btn-inbox", "show": "badge"},
    {"id": "btn-notice", "show": "badge"},
    {"id": "btn-rec", "show": "on"}
