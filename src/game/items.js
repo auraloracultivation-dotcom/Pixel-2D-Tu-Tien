@@ -34,7 +34,12 @@ export function baseForSlot(data, slot, weapon, rnd = Math.random) {
 }
 
 // Tạo một món mới. minRarity: độ hiếm thấp nhất (boss rơi từ Linh trở lên)
-export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, rnd = Math.random } = {}) {
+// Hệ của món (Đạo Vận mới 02/11/2026): mọi trang bị mới có một hệ ngẫu nhiên; đồ cũ chưa có hệ thì lấy theo uid (cố định)
+export const elIds = data => Object.keys(data.elements).filter(k => !k.startsWith('_'));
+export const matchEl = (data, save, it) => !!it?.el && it.el === save.element;
+export const matchMul = (data, save, it) => (matchEl(data, save, it) ? 1 + (data.daovan?.match_main || 0) : 1);
+
+export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, el, rnd = Math.random } = {}) {
   ensureInv(save);
   const items = data.items;
   const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận
@@ -44,7 +49,8 @@ export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity,
   const rar = rarity ? rarityOf(items, rarity) : pickWeighted(items.rarities.slice(minIdx), r => r.weight, rnd);
   const main = {};
   for (const [s, v] of Object.entries(base.main)) main[s] = Math.max(1, Math.round(v * grow(items, s, items.main_per_lvl, lvl) * rar.mult));
-  return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines: rollLines(items, base, rar, lvl, rnd, data), sockets: Array(rar.sockets).fill(null) };
+  const els = elIds(data);
+  return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines: rollLines(items, base, rar, lvl, rnd, data), sockets: Array(rar.sockets).fill(null), el: el || els[Math.floor(rnd() * els.length)] };
 }
 
 export function addItem(data, save, item) {
@@ -178,6 +184,7 @@ export function fixGearPct(data, save) {
     if (!rar || !base) continue;
     for (const s of Object.keys(it.main || {})) if (items.stats[s]?.pct && base.main[s] != null) it.main[s] = Math.min(it.main[s], Math.max(1, Math.round(base.main[s] * rar.mult)));
     convertLines(data, it, rar);   // tẩy luyện mới: gắn màu cho dòng đồ cũ
+    if (!it.el) { const els = elIds(data); it.el = els[it.uid % els.length]; }   // Đạo Vận mới: đồ cũ chưa có hệ
     for (const l of it.lines || []) { const def = items.stats[l.s]; if (def?.pct) l.v = Math.min(l.v, Math.max(1, Math.round(def.max * (Number.isInteger(l.t) ? tierOf(data, l.t).mult : rar.mult)))); }
   }
 }
@@ -186,7 +193,7 @@ export function gearStats(data, save) {
   const sum = {};
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
-    const b = data.items.bases[it.base], dv = b?.dv && it.el && it.el === save.element ? 1 + (data.daovan?.match_main || 0) : 1;   // món Đạo Vận hợp hệ linh căn: chỉ số chính mạnh thêm
+    const b = data.items.bases[it.base], dv = matchMul(data, save, it);   // món cùng hệ linh căn: chỉ số chính mạnh thêm
     const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);

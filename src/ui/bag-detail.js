@@ -2,7 +2,7 @@
 // Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
 // cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
 import {
-  equip, unequip, salvage, reroll, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund,
+  equip, unequip, salvage, reroll, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
 } from '../game/items.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
@@ -34,7 +34,7 @@ export function icon(data, it) {
 // Chỉ số chính đã nhân cường hoá và hợp hệ Đạo Vận (như lúc tính vào người)
 export function mainStats(data, save, it) {
   const base = data.items.bases[it.base];
-  const k = (1 + (it.plus || 0) * data.gear.enhance.main_per) * (base.dv && it.el === save.element ? 1 + data.daovan.match_main : 1);
+  const k = (1 + (it.plus || 0) * data.gear.enhance.main_per) * matchMul(data, save, it);
   return Object.fromEntries(Object.entries(it.main).map(([s, v]) => [s, Math.round(v * k)]));
 }
 
@@ -107,8 +107,8 @@ export function renderDetail(game, st, box, changed, close) {
   for (const [s, v] of Object.entries(mine)) stats.append(el('div', 'd-main', statText(data, s, v)));
   const art = artOf(data, it);
   if (art) stats.append(el('div', 'd-line', `Chiêu pháp bảo ${data.skills[art].name}: ${data.skills[art].desc}`));
-  if (base.dv) {   // món Đạo Vận: hệ ngẫu nhiên, hợp hệ linh căn thì chỉ số chính mạnh thêm
-    const ok = it.el === save.element, t = el('div', 'd-line', `Đạo Vận hệ ${data.elements[it.el]?.name || '?'}: ${ok ? `hợp linh căn, chỉ số chính +${Math.round(data.daovan.match_main * 100)}%, tính vào bộ` : 'khác hệ linh căn, chưa tính vào bộ'}`);
+  if (it.el) {   // Đạo Vận mới: mọi món có hệ, cùng hệ linh căn thì chỉ số chính mạnh thêm và tính vào bộ Đạo Vận
+    const ok = matchEl(data, save, it), t = el('div', 'd-line', `Hệ ${data.elements[it.el]?.name || '?'}: ${ok ? `hợp linh căn, chỉ số chính +${Math.round(data.daovan.match_main * 100)}%, tính vào bộ Đạo Vận` : 'khác hệ linh căn, chưa tính vào bộ Đạo Vận'}`);
     t.style.color = data.elements[it.el]?.color || '#ffd27a'; stats.append(t);
   }
   if (base.set) {
@@ -153,7 +153,7 @@ export function renderDetail(game, st, box, changed, close) {
     game.sfx(res.added.length ? 'levelup' : 'heal'); changed();
   }, !free && (stones < cost || (save.lingshi || 0) < fee));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
-  if (base.dv) {   // Đạo Vận: đổi hệ bằng Đạo Vận Thạch; phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
+  if (it.el) {   // đổi hệ bằng Đạo Vận Thạch (mọi món); món Đạo Vận cũ: phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;
     btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), () => { const e = rerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); changed(); } }, have < R.n);
   }
