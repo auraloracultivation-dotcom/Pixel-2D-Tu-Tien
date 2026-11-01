@@ -106,8 +106,8 @@ export function rerollFee(data, save, it, now = Date.now()) {
   return Math.round(f.base * f.realm_mul ** (save.realm || 0) * f.r ** rerollCount(data, it, now));
 }
 
-// Tẩy luyện mới (02/11/2026): có xác suất ra thêm dòng (tối đa line_tiers.max), không thì quay màu một dòng (chỉ lên).
-// Món có lượt miễn phí (it.free, đồ cũ quy đổi) thì không tốn gì. Trả về { added } / { up } hoặc false khi thiếu phí.
+// Tẩy luyện mới (02/11/2026): mọi dòng quay lại ngẫu nhiên, có xác suất ra thêm dòng (tối đa line_tiers.max).
+// Món có lượt miễn phí (it.free, đồ cũ quy đổi) thì không tốn gì. Trả về { added } hoặc false khi thiếu phí.
 export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = Date.now()) {
   const it = save.bag.find(x => x.uid === uid), cost = data.items.reroll_cost;
   if (!it) return false;

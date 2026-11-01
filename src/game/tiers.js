@@ -48,18 +48,14 @@ export function convertLines(data, it, rar) {
   return true;
 }
 
-// Một lần tẩy: có thể ra thêm dòng (dây chuyền), không thì quay màu một dòng (chỉ giữ nếu cao hơn). Trả về mô tả kết quả.
+// Một lần tẩy (chủ dự án 02/11/2026 02:04): mọi dòng quay lại ngẫu nhiên từ đầu (chỉ số, màu, giá trị; có thể xuống màu thấp),
+// rồi có xác suất ra thêm dòng (càng nhiều dòng càng khó, may mắn ra liền nhiều dòng). Số dòng không giảm. Trả về { added }.
 export function rollReroll(data, it, pool, rnd = Math.random) {
   const C = T(data), added = [];
-  while (it.lines.length < C.max && rnd() < (added.length ? C.chain : C.add) * (C.max - it.lines.length) / C.max) {   // càng nhiều dòng càng khó ra thêm
+  it.lines = (it.lines || []).map(() => newLine(data, pool, it.lvl || 0, rnd));
+  while (it.lines.length < C.max && rnd() < (added.length ? C.chain : C.add) * (C.max - it.lines.length) / C.max) {
     const l = newLine(data, pool, it.lvl || 0, rnd); it.lines.push(l); added.push(l);
   }
-  if (added.length) return { added };
-  if (!it.lines.length) { const l = newLine(data, pool, it.lvl || 0, rnd); it.lines.push(l); return { added: [l] }; }
-  const i = Math.floor(rnd() * it.lines.length), l = it.lines[i], t = pickTier(data, rnd);
-  if (t <= (l.t | 0)) return { up: null };
-  const def = data.items.stats[l.s], g = grow(data.items, l.s, it.lvl || 0) * tierOf(data, l.t).mult;
-  const frac = Math.max(0, Math.min(1, (l.v / g - def.min) / Math.max(1e-9, def.max - def.min)));
-  l.t = t; l.v = Math.max(l.v, lineValue(data, l.s, it.lvl || 0, t, frac));
-  return { up: l };
+  if (!it.lines.length) { const l = newLine(data, pool, it.lvl || 0, rnd); it.lines.push(l); added.push(l); }
+  return { added };
 }
