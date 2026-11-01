@@ -1,7 +1,7 @@
 {
- "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: bộ thử riêng, chỉ các tài khoản trong danh sách có và thấy. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi.",
+ "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: bộ thử riêng, chỉ các tài khoản trong danh sách có và thấy. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi; cm: chiều cao riêng theo hình (nam/nu) khi mặc bộ này, đè cm trong data/heroes.json.",
  "list": {
-    "spritecook-thu": {"name": "Bộ thử SpriteCook", "robe": "#9ad0ff", "hair": "#3a2e5c", "sprite": "goc", "from": {"uid": ["625e027c-36b4-4bb7-bd0c-21572612bc50"]}},
+    "spritecook-thu": {"name": "Bộ thử SpriteCook", "robe": "#9ad0ff", "hair": "#3a2e5c", "sprite": "goc", "cm": {"nu": 165}, "from": {"uid": ["625e027c-36b4-4bb7-bd0c-21572612bc50"]}},
   "dong-phuc": {"name": "Đồng phục Kiếm tông", "robe": "#e6ebf7", "hair": "#3a2e5c", "from": {"start": true}},
   "thanh-sam": {"name": "Thanh sam thư sinh", "robe": "#bfe0d8", "hair": "#2a2a3a", "from": {"shop": 800}},
   "hac-y": {"name": "Hắc y dạ hành", "robe": "#3a3446", "hair": "#c8c0e0", "sash": "#8a7ab0", "from": {"shop": 1500}},
