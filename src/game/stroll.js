@@ -1,8 +1,10 @@
 // NPC đi dạo (npcs.json → stroll số ô, nhịp ở data/chatter.json → stroll): đi chậm quanh chỗ đứng, đứng nghỉ rồi đi tiếp.
 // Người chơi tới gần thì đứng lại, quay về phía người chơi.
+import { updateKhach } from './hoi-khach.js';
 const C = game => game.data.chatter.stroll;
 
 export function updateStroll(game, dt) {
+  updateKhach(game, dt);   // khách đi hội trên tinh cầu đang mở hội (hoi-khach.js)
   const c = C(game), p = game.player, T = game.map.T;
   for (const n of game.npcs) {
     const r = n.def.stroll;

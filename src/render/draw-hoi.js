@@ -3,6 +3,7 @@
 // đèn lồng, pha lê hắt quầng sáng lập loè (hoiLights → draw-glow.js), mặt hồ lấp lánh (glints), lò lửa có lưỡi lửa nhảy và tàn bay
 // (flame). Đồ phẳng (sân lát, gợn nước) vẽ sát đất dưới người; đồ đứng xếp theo chân cùng người, quái (draw.js).
 import { spriteImage } from './sprites.js';
+import { drawNpcSprite } from './draw-npc-sprite.js';
 
 const flat = it => it.foot.flat;
 
@@ -15,17 +16,19 @@ export function drawHoiFlat(ctx, game, t) {
 
 // Đồ đứng trong khung nhìn (chừa lề cho hình cao), để draw.js xếp theo chân cùng người, quái
 export function hoiEnts(game, view) {
-  const items = game.map?.hoi;
-  if (!items?.length) return [];
+  const items = game.map?.hoi || [];
+  if (!items.length && !game.khach) return [];
   const out = [];
   for (const it of items) {
     if (flat(it) || it.x + it.w / 2 < view.x0 || it.x - it.w / 2 > view.x1 || it.y < view.y0 || it.y - it.h > view.y1) continue;
     out.push(['h', it]);
   }
+  for (const n of game.khach || []) if (n.x > view.x0 - 20 && n.x < view.x1 + 20 && n.y > view.y0 && n.y < view.y1 + 50) out.push(['h', n]);   // khách đi hội (hoi-khach.js)
   return out;
 }
 
 export function drawHoiItem(ctx, game, it, t) {
+  if (it.khach) { drawNpcSprite(ctx, game, it, t); return; }
   const im = spriteImage(it.spr);
   if (!im) return;
   const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k, oy = it.y - s.anchor[1] * k;
