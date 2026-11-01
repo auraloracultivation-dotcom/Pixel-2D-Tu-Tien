@@ -10,6 +10,7 @@ import { dailyEvent } from '../game/daily.js';
 import { enhance, enhanceCost, setStats } from '../game/enhance.js';
 import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
 import { rerollEl } from '../game/daovan.js';
+import { quality, tierOf } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { trial } from '../game/autoequip.js';
@@ -47,12 +48,19 @@ export function powerGain(game, it) {
 const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toLocaleString('vi-VN');
 
 // box: nơi vẽ; st: trạng thái túi; changed(): lưu, tính lại, vẽ lại túi; close(): đóng tấm chi tiết
+// Dòng phụ tô màu theo bậc (lục → đen; đen có viền đỏ sẫm)
+function tierLine(data, l) {
+  const t = Number.isInteger(l.t) ? tierOf(data, l.t) : null, d = el('div', 'd-line' + (t?.edge ? ' tier-den' : ''), '◆ ' + statText(data, l.s, l.v));
+  if (t) { d.style.color = t.edge ? '#ffd6d6' : t.color; if (t.edge) d.style.setProperty('--edge', t.edge); }
+  return d;
+}
+
 export function renderDetail(game, st, box, changed, close) {
   const { data } = game, save = game.save;
   box.innerHTML = '';
   const it = save.bag.find(i => i.uid === st.sel);
   if (!it) return false;
-  const r = rarityOf(data.items, it.rarity), base = data.items.bases[it.base], slot = base.slot;
+  const r0 = rarityOf(data.items, it.rarity), q = quality(data, it), r = q ? { ...r0, name: `Phẩm ${q.name}`, color: q.edge || q.color } : r0, base = data.items.bases[it.base], slot = base.slot;
   const worn = save.equip[slot] === it.uid, cur = !worn && save.bag.find(i => i.uid === save.equip[slot]);
 
   // đầu tấm: biểu tượng, tên, ô, nút đóng
@@ -108,13 +116,8 @@ export function renderDetail(game, st, box, changed, close) {
     const t = el('div', 'd-line', `${sd.name} (đang mặc ${n}): ` + Object.entries(sd.bonus).map(([need, b]) => `${need} món: ` + Object.entries(b).map(([s, v]) => bonusText(s, v) || statText(data, s, v)).join(', ')).join(' · '));
     t.style.color = sd.color; stats.append(t);
   }
-  if (st.lockUid !== it.uid) { st.lockUid = it.uid; st.lock = null; }
-  it.lines.forEach((l, idx) => {
-    const on = st.lock === idx, d = el('div', 'd-line lockable' + (on ? ' locked' : ''), (on ? '🔒 ' : '◆ ') + statText(data, l.s, l.v));
-    d.onclick = () => { st.lock = on ? null : idx; renderDetail(game, st, box, changed, close); };
-    stats.append(d);
-  });
-  if (it.lines.length > 1) stats.append(el('div', 'muted tiny', `Chạm một dòng để khoá khi tẩy luyện (tốn ${data.items.reroll_lock.n} ${data.items.materials[data.items.reroll_lock.mat].name}, có ${save.mats[data.items.reroll_lock.mat] || 0}).`));
+  it.lines.forEach(l => stats.append(tierLine(data, l)));   // tẩy luyện mới: mỗi dòng một màu
+  if (it.lines.length < data.items.line_tiers.max) stats.append(el('div', 'muted tiny', `${it.lines.length}/${data.items.line_tiers.max} dòng. Tẩy luyện có thể ra thêm dòng; đủ dòng rồi thì đổi màu một dòng (chỉ lên).`));
   if (it.sockets.length) {
     const row = el('div', 'd-sockets');
     it.sockets.forEach((g, idx) => {
@@ -142,9 +145,14 @@ export function renderDetail(game, st, box, changed, close) {
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save.mats[rm] || 0) < rc);
-  const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it);
-  const lk = data.items.reroll_lock, locking = st.lock != null, lockOk = !locking || (save.mats[lk.mat] || 0) >= lk.n;
-  btn(`Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name}${locking ? ', khoá 1 dòng' : ''})`, () => { if (reroll(data, save, it.uid, Math.random, st.lock)) { game.sfx('heal'); changed(); } }, stones < cost || !lockOk || (save.lingshi || 0) < fee);
+  const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
+  btn(free ? `Tẩy luyện (miễn phí ×${it.free})` : `Tẩy luyện (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
+    const res = reroll(data, save, it.uid);
+    if (!res) return;
+    st.msg = res.added ? `Ra thêm ${res.added.length} dòng: ${res.added.map(l => `${tierOf(data, l.t).name} ${statText(data, l.s, l.v)}`).join(', ')}.`
+      : res.up ? `Một dòng lên màu ${tierOf(data, res.up.t).name}: ${statText(data, res.up.s, res.up.v)}.` : 'Lần này không ra dòng mới, cũng không lên màu.';
+    game.sfx(res.added || res.up ? 'levelup' : 'heal'); changed();
+  }, !free && (stones < cost || (save.lingshi || 0) < fee));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
   if (base.dv) {   // Đạo Vận: đổi hệ bằng Đạo Vận Thạch; phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;

@@ -209,6 +209,7 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .d-stats { display: grid; gap: 3px; }
 .d-main { font-weight: 700; color: var(--ink); }
 .d-line { color: var(--moon); }
+.d-line.tier-den { background: #1a0d12; border: 1px solid var(--edge, #8b0000); border-radius: 4px; padding: 0 4px; margin-left: -4px; }
 .d-line.lockable { cursor: pointer; border-radius: 4px; padding: 1px 4px; margin-left: -4px; }
 .d-line.locked { background: rgba(242, 164, 67, .14); color: var(--torch); font-weight: 700; }
 .d-sockets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }

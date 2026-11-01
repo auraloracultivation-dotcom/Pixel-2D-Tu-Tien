@@ -31,7 +31,7 @@ function cleanItem(data, it) {
     uid: it.uid, base: it.base, rarity: I.rarities.some(r => r.id === it.rarity) ? it.rarity : I.rarities[0].id,
     lvl: num(it.lvl), plus: num(it.plus), pb: num(it.pb), el: data.elements[it.el] ? it.el : undefined,
     wt: data.weapons[it.wt] ? it.wt : undefined, main,
-    lines: (Array.isArray(it.lines) ? it.lines : []).filter(l => I.stats[l?.s] && Number.isFinite(l.v)).map(l => ({ s: l.s, v: l.v })),
+    lines: (Array.isArray(it.lines) ? it.lines : []).filter(l => I.stats[l?.s] && Number.isFinite(l.v)).map(l => (Number.isInteger(l.t) ? { s: l.s, v: l.v, t: l.t } : { s: l.s, v: l.v })),
     sockets: (Array.isArray(it.sockets) ? it.sockets : []).map(gem),
   };
 }
