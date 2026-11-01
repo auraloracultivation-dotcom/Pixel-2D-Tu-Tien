@@ -1,0 +1,37 @@
+{
+ "_note": "Lễ hội các tinh cầu (chủ dự án chốt 02/11/2026: mọi tinh cầu là đêm trăng, tinh cầu nào cũng đang mở hội, ra khỏi Động phủ là thấy hội). Đồ hội vẽ từ ảnh GPT (tools/art/le_hoi.py, hình hb.* ... trong data/art.json, có lights/glints/flame dò sẵn). Bản đồ khai đồ hội ở khoá hoi: {\"le\": mã lễ, \"do\": [[mã hình, x, y], ...]}, x y tính bằng ô (số lẻ được), là điểm giữa chân hình. kinds: kiểu chân theo tiền tố mã hình (tiền tố dài nhất thắng); foot: kiểu chân đó chắn đường thế nào (w tỉ lệ bề ngang hình, d bề sâu tính bằng ô, dh tỉ lệ chiều cao hình nếu có, cap bề sâu tối đa theo ô; pillars: chỉ hai chân cột ở hai đầu, rộng w mỗi bên; walk: cầu, mở lối đi qua ô vốn chắn như hồ băng; flat: vẽ sát đất dưới người, không chắn). Hiệu ứng code ở src/render/draw-hoi.js, màu quầng ở glow.",
+ "festivals": {
+  "dao-han-bang": {"name": "Hàn Nguyệt Long Đăng Hội", "desc": "Băng tuyết, đăng long, múa lân"}
+ },
+ "foot": {
+  "nha": {"w": 0.84, "d": 2, "dh": 0.3},
+  "cong": {"pillars": true, "w": 0.15, "d": 1},
+  "cay": {"w": 0.22, "d": 0.7, "min": 8},
+  "tru": {"w": 0.5, "d": 0.6, "min": 7},
+  "tuong": {"w": 0.8, "d": 1.4, "dh": 0.4},
+  "sap": {"w": 0.88, "d": 1.4},
+  "ho": {"w": 0.86, "dh": 0.62},
+  "rao": {"w": 1, "d": 0.6},
+  "cau": {"walk": true, "w": 0.92, "dh": 0.8},
+  "nho": {},
+  "phang": {"flat": true}
+ },
+ "kinds": {
+  "hb.dien": "nha", "hb.lau": "nha", "hb.thap": "nha", "hb.nha": "nha", "hb.quan": "nha", "hb.dinh": "nha", "hb.san-khau": "nha", "hb.hon-thien-lon": "tuong",
+  "hb.cong": "cong", "hb.torii": "cong", "hb.vom-den": "cong",
+  "hb.rong-bang": "tuong", "hb.tuong": "tuong", "hb.lan": "tru", "hb.nai-bang": "tuong", "hb.cao-tuyet": "tru", "hb.nguoi-tuyet": "tru", "hb.trang": "tuong", "hb.trang-den": "tru",
+  "hb.pha-le": "tru", "hb.den": "tru", "hb.su-tu": "tuong", "hb.cau-trang": "tru", "hb.tru": "tru", "hb.mieu-den": "tru", "hb.lu-huong": "tru", "hb.dai-sen": "tuong",
+  "hb.hon-thien": "tuong", "hb.hac": "tru", "hb.guong-trang": "tuong",
+  "hb.sap": "sap", "hb.du-ban": "sap", "hb.ban": "sap", "hb.vac": "tru", "hb.thung": "tru", "hb.gia-thit": "tru",
+  "hb.ro": "nho", "hb.bao": "nho", "hb.bo-lua": "nho", "hb.vo-ruou": "nho", "hb.hom": "nho", "hb.sach": "nho",
+  "hb.co": "tru", "hb.cot-den": "tru", "hb.bang-hieu": "tru", "hb.lua": "tru", "hb.day-den": "rao", "hb.bia": "tru",
+  "hb.cay": "cay", "hb.dao": "cay", "hb.lieu": "cay", "hb.hoa-trang": "cay", "hb.tung": "cay", "hb.truc": "cay", "hb.nam-bang": "cay", "hb.sen-lon": "tru",
+  "hb.bui": "nho", "hb.hoa-den": "nho", "hb.bong": "nho", "hb.sen": "nho", "hb.pha-le-tim": "nho", "hb.pha-le-lam": "nho",
+  "hb.da": "tuong", "hb.vach-da": "tuong", "hb.tinh-the-lon": "tru", "hb.bia-da": "tru",
+  "hb.cau-": "cau", "hb.lan-can": "rao", "hb.xich": "rao",
+  "hb.ho": "ho", "hb.thac": "ho", "hb.bo-pha-le": "tuong", "hb.mat-nuoc": "phang",
+  "hb.san": "phang", "hb.gach": "phang"
+ },
+ "glow": {"warm": {"c": "255,180,100", "r": 20, "a": 0.2}, "cold": {"c": "140,210,255", "r": 18, "a": 0.16}, "pink": {"c": "255,140,220", "r": 16, "a": 0.16}},
+ "flame": {"lam": ["#bff4ff", "#5ab8ff", "#2a6ad8"], "hong": ["#ffe0f4", "#ff8ad8", "#c04ab0"], "vang": ["#fff2b0", "#ffb040", "#e0602a"]}
+}

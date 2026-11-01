@@ -111,8 +111,8 @@ export function createHud(audio) {
     $('menu-badge').hidden = !(game.newItems || game.newSkills || game.newPets || game.newDaily || game.newAchv);
     const tl = teaLeft(game), pw = `Lực chiến ${power(game).toLocaleString('vi-VN')}` + (tl ? ` · Trà ${tl} phút` : '') + (mealHud(game) ? ` · ${mealHud(game)}` : '') + (snackHud(game) ? ` · ${snackHud(game)}` : '');
     if ($('power').textContent !== pw) $('power').textContent = pw;
-    const H = game.data.weather.hud, se = season(game);   // mùa, giờ, trời
-    const sky = [se && H.season.replace('{name}', se.name), phase(game).name, game.raining && H.rain.replace('{pct}', Math.round((d.weather.rain.meditate - 1) * 100))].filter(Boolean).join(' · ');
+    const H = game.data.weather.hud, se = season(game);   // mùa, giờ, trời (luôn đêm: chỉ ghi chữ Đêm khi đúng giờ đêm, đả tọa +20%, không ghi Ban ngày dưới trời trăng)
+    const sky = [se && H.season.replace('{name}', se.name), (!d.daynight.always_night || phase(game).id === 'dem') && phase(game).name, game.raining && H.rain.replace('{pct}', Math.round((d.weather.rain.meditate - 1) * 100))].filter(Boolean).join(' · ');
     if ($('sky').textContent !== sky) $('sky').textContent = sky;
     $('btn-auto').classList.toggle('on', !!game.auto);
     $('btn-pilot').classList.toggle('on', !!game.pilot);

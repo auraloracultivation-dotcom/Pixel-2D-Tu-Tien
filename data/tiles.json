@@ -1,5 +1,5 @@
 {
- "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được.",
+ "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ, brick gạch phố lễ hội, paving sân lát lễ hội. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được.",
  "types": {
   "~": {"name": "tinh không", "solid": true, "void": true},
   ".": {"name": "cỏ", "color": "#7cc46a"},
@@ -24,6 +24,8 @@
   "A": {"name": "lò rèn", "solid": true, "color": "#6a5e7a"},
   "G": {"name": "linh điền", "color": "#5a3e2a"},
   "w": {"name": "tuyết", "color": "#e4eef6", "tex": "speckle"},
+  "1": {"name": "phố gạch lễ hội", "color": "#8e8cc8", "tex": "brick"},
+  "2": {"name": "sân lát lễ hội", "color": "#9c9ad2", "tex": "paving"},
   "i": {"name": "mặt băng", "color": "#bfe0f2", "tex": "ice"},
   "Y": {"name": "tùng tuyết", "solid": true, "color": "#e4eef6"},
   "O": {"name": "hồ băng nứt", "solid": true, "low": true, "color": "#7ab8e0"},

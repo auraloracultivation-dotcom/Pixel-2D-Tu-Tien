@@ -1,6 +1,6 @@
 // Hội đèn (src/game/fair.js): dây đèn lồng quanh sân xóm (theo toạ độ thế giới) và pháo hoa, quầng đèn (sau lớp ngày đêm, cộng sáng).
 import { fairSpot } from '../game/fair.js';
-import { phase, outdoor } from '../game/daynight.js';
+import { skyPhase, outdoor } from '../game/daynight.js';
 
 // Bốn cột ở góc sân, dây võng giữa hai cột, đèn treo dọc dây
 function lanterns(game, s) {
@@ -39,7 +39,7 @@ export function drawFairWorld(ctx, game, t) {
 export function drawFairSky(ctx, game, screen, t) {
   const st = game.fair, s = fairSpot(game);
   if (!outdoor(game) || (!s && !st?.fx.length)) return;
-  const z = screen.zoom, p = phase(game), dark = Math.min(1, (p.tint ? p.tint[3] : 0) / 0.6);
+  const z = screen.zoom, p = skyPhase(game), dark = Math.min(1, (p.tint ? p.tint[3] : 0) / 0.6);
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   if (s && dark > 0.2) for (const o of lanterns(game, s).out) {
     const q = screen.toScreen(o.x, o.y + 2), r = 16 * z * (1 + 0.1 * Math.sin(t * 5 + o.ph));

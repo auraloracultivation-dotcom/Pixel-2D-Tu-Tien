@@ -78,3 +78,10 @@ Bản chơi tạm hiện vẽ hình khối đơn giản. Khi sang bước 3, hì
 - 31/10/2026: Đại Ma Thần (`npc.dai-ma-than`, Đài Ma Thần ở Thiên Kiếm Phong) có hình Canva chibi 5 dáng theo yêu cầu chủ dự án. Bản đầu tỉ lệ người thật, đầu nhỏ, bị chê "như người tí hon": nhân vật luôn là chibi đầu to (khoảng 2,5 đầu), cùng kiểu NPC; cao 52.
 - 01/11/2026: thú cưỡi chạy bằng 3 khung phi (bỏ khung đứng lặp ở đầu chuỗi bước, `walk: [2,3,4,3]`), người cưỡi nhún theo nhịp. Trước đó chuỗi bước có khung đứng nên trông như trượt, chân không chạy.
 - 01/11/2026: bay giữa tinh cầu bằng thú cưỡi: thú giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió cùng người cưỡi, vệt gió và đốm linh khí màu linh căn kéo sau lưng (`windTrail` trong `src/render/flight.js`). Trước đó thú chạy bước trên không trung.
+
+## Đồ lễ hội từ ảnh GPT (02/11/2026)
+
+- Chủ dự án tạo bộ vật phẩm nền hồng tím bằng GPT, cho phép dùng. `tools/art/le_hoi.py` cắt từng món theo khung trong `tools/art/lh_bo.py`, bỏ nền hồng (cả quầng tím; đốm hồng nhỏ kẹt trong hình thì tô màu điểm gần nhất, không thủng lỗ), thu về điểm ảnh thật theo cỡ đơn vị bản đồ (người chuẩn 24), gom 28–40 màu, viền mực 1 điểm.
+- Đồ hội lưu `scale` 0,5333 như nhân vật để nét đều với người. Hiệu ứng làm bằng code để điều khiển được: quầng đèn (ấm, lạnh, hồng) lập loè, lửa lò nhảy, mặt nước lấp lánh, tuyết rơi theo thời tiết.
+- Luôn đêm trăng, không có nắng: mọi cảnh vẽ dưới lớp đêm, đèn lồng, pha lê, lửa là nguồn sáng.
+

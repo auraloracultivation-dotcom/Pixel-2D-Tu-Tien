@@ -20,7 +20,7 @@ export function decorList(game) {
   const map = game.map, le = document.body.dataset.le || '';
   if (cache.map === map && cache.le === le) return cache.list;
   const D = game.data.light.decor, list = [];
-  if (!D || !map) return (cache = { map, le, list }).list;
+  if (!D || !map || map.hoi?.length) return (cache = { map, le, list }).list;   // tinh cầu đã có đồ lễ hội: đèn hội thay đèn trang trí
   const T = map.T, dark = game.data.light.maps.includes(map.def.id), voidMap = D.void_maps.some(p => map.def.id.startsWith(p));
   const set = voidMap ? 'void' : dark ? 'dark' : 'outdoor';
   const busy = [...Object.values(map.def.spawns || {}), ...(map.def.portals || []).map(p => p.at), ...(map.def.npcs || []).map(n => n.at)];

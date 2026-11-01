@@ -2229,6 +2229,30 @@
    ],
    "note": "luc-ngoc cấp 9 (ảnh Canva nguon/ai/ngoc/, 6 khung động)"
   },
+  "ground.1": {
+   "file": "assets/art/ground-1.png",
+   "v": "2c01e841",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền phố gạch lễ hội (brick), 4 biến thể"
+  },
+  "ground.2": {
+   "file": "assets/art/ground-2.png",
+   "v": "88be1293",
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "nền sân lát lễ hội (paving), 4 biến thể"
+  },
   "ground.a": {
    "file": "assets/art/ground-a.png",
    "v": "ef56ab29",
@@ -2480,6 +2504,7172 @@
     0
    ],
    "note": "nền ruộng bậc thang (speckle), 4 biến thể"
+  },
+  "hb.ban-lua": {
+   "file": "assets/art/hb-ban-lua.png",
+   "v": "81093a97",
+   "w": 75,
+   "h": 63,
+   "frames": 1,
+   "anchor": [
+    37,
+    61
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     13,
+     "warm"
+    ],
+    [
+     32,
+     31,
+     "warm"
+    ],
+    [
+     22,
+     15,
+     "warm"
+    ],
+    [
+     49,
+     31,
+     "warm"
+    ],
+    [
+     68,
+     39,
+     "warm"
+    ]
+   ],
+   "flame": [
+    36,
+    15
+   ]
+  },
+  "hb.ban-ruou": {
+   "file": "assets/art/hb-ban-ruou.png",
+   "v": "b109857b",
+   "w": 75,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    37,
+    54
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     30,
+     "warm"
+    ],
+    [
+     31,
+     30,
+     "warm"
+    ],
+    [
+     15,
+     30,
+     "warm"
+    ],
+    [
+     4,
+     33,
+     "warm"
+    ],
+    [
+     57,
+     42,
+     "warm"
+    ],
+    [
+     22,
+     43,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ban-tra": {
+   "file": "assets/art/hb-ban-tra.png",
+   "v": "44278ccd",
+   "w": 75,
+   "h": 51,
+   "frames": 1,
+   "anchor": [
+    37,
+    49
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     23,
+     "warm"
+    ],
+    [
+     40,
+     23,
+     "warm"
+    ],
+    [
+     56,
+     23,
+     "warm"
+    ],
+    [
+     67,
+     33,
+     "warm"
+    ],
+    [
+     32,
+     41,
+     "warm"
+    ],
+    [
+     6,
+     33,
+     "warm"
+    ]
+   ]
+  },
+  "hb.bang-hieu": {
+   "file": "assets/art/hb-bang-hieu.png",
+   "v": "0f2264cf",
+   "w": 83,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    41,
+    75
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     30,
+     "warm"
+    ],
+    [
+     30,
+     47,
+     "warm"
+    ],
+    [
+     60,
+     49,
+     "warm"
+    ],
+    [
+     58,
+     23,
+     "warm"
+    ]
+   ]
+  },
+  "hb.bao-gao": {
+   "file": "assets/art/hb-bao-gao.png",
+   "v": "8e482993",
+   "w": 28,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    14,
+    34
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (15 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     24,
+     "warm"
+    ],
+    [
+     6,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "hb.bia-bang": {
+   "file": "assets/art/hb-bia-bang.png",
+   "v": "635a23f2",
+   "w": 60,
+   "h": 87,
+   "frames": 1,
+   "anchor": [
+    30,
+    85
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     49,
+     "warm"
+    ],
+    [
+     40,
+     49,
+     "warm"
+    ],
+    [
+     48,
+     31,
+     "warm"
+    ],
+    [
+     20,
+     17,
+     "cold"
+    ],
+    [
+     40,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bia-da": {
+   "file": "assets/art/hb-bia-da.png",
+   "v": "0b81c444",
+   "w": 46,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    23,
+    54
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     8,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bo-lua": {
+   "file": "assets/art/hb-bo-lua.png",
+   "v": "3b6df094",
+   "w": 32,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (17 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "hb.bo-pha-le": {
+   "file": "assets/art/hb-bo-pha-le.png",
+   "v": "c5ad5cce",
+   "w": 120,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    60,
+    58
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     55,
+     29,
+     "cold"
+    ],
+    [
+     110,
+     28,
+     "cold"
+    ],
+    [
+     18,
+     28,
+     "pink"
+    ],
+    [
+     30,
+     30,
+     "pink"
+    ]
+   ]
+  },
+  "hb.bong-cam": {
+   "file": "assets/art/hb-bong-cam.png",
+   "v": "376955c2",
+   "w": 43,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    21,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     29,
+     "cold"
+    ],
+    [
+     8,
+     20,
+     "pink"
+    ],
+    [
+     38,
+     20,
+     "pink"
+    ]
+   ]
+  },
+  "hb.bong-sang": {
+   "file": "assets/art/hb-bong-sang.png",
+   "v": "7c0bd5cf",
+   "w": 43,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    21,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     17,
+     "cold"
+    ],
+    [
+     19,
+     31,
+     "cold"
+    ],
+    [
+     18,
+     6,
+     "pink"
+    ]
+   ]
+  },
+  "hb.bui-hoa": {
+   "file": "assets/art/hb-bui-hoa.png",
+   "v": "2435389c",
+   "w": 56,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    28,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     19,
+     "pink"
+    ]
+   ]
+  },
+  "hb.bui-lam": {
+   "file": "assets/art/hb-bui-lam.png",
+   "v": "967306d5",
+   "w": 55,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    27,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     17,
+     "cold"
+    ],
+    [
+     41,
+     19,
+     "cold"
+    ],
+    [
+     30,
+     19,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bui-tuyet": {
+   "file": "assets/art/hb-bui-tuyet.png",
+   "v": "75dace98",
+   "w": 57,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    28,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     8,
+     "cold"
+    ],
+    [
+     42,
+     19,
+     "cold"
+    ],
+    [
+     16,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cao-tuyet": {
+   "file": "assets/art/hb-cao-tuyet.png",
+   "v": "6983efe7",
+   "w": 75,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    37,
+    64
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     43,
+     "cold"
+    ],
+    [
+     52,
+     18,
+     "cold"
+    ],
+    [
+     16,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-1": {
+   "file": "assets/art/hb-cau-1.png",
+   "v": "6414ef8a",
+   "w": 180,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    90,
+    79
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     148,
+     12,
+     "warm"
+    ],
+    [
+     39,
+     13,
+     "warm"
+    ],
+    [
+     13,
+     30,
+     "warm"
+    ],
+    [
+     165,
+     40,
+     "warm"
+    ],
+    [
+     53,
+     50,
+     "cold"
+    ],
+    [
+     90,
+     21,
+     "cold"
+    ],
+    [
+     18,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-2": {
+   "file": "assets/art/hb-cau-2.png",
+   "v": "66af6ec4",
+   "w": 181,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    90,
+    83
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     166,
+     30,
+     "warm"
+    ],
+    [
+     21,
+     30,
+     "warm"
+    ],
+    [
+     90,
+     20,
+     "cold"
+    ],
+    [
+     17,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-co": {
+   "file": "assets/art/hb-cau-co.png",
+   "v": "b6799999",
+   "w": 180,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    90,
+    79
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     166,
+     39,
+     "warm"
+    ],
+    [
+     12,
+     31,
+     "warm"
+    ],
+    [
+     165,
+     22,
+     "warm"
+    ],
+    [
+     29,
+     54,
+     "cold"
+    ],
+    [
+     53,
+     40,
+     "cold"
+    ],
+    [
+     161,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-co-2": {
+   "file": "assets/art/hb-cau-co-2.png",
+   "v": "b8ce739c",
+   "w": 210,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    105,
+    86
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (112 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     12,
+     "warm"
+    ],
+    [
+     166,
+     12,
+     "warm"
+    ],
+    [
+     11,
+     40,
+     "warm"
+    ],
+    [
+     193,
+     48,
+     "warm"
+    ],
+    [
+     122,
+     25,
+     "warm"
+    ],
+    [
+     42,
+     56,
+     "cold"
+    ],
+    [
+     79,
+     42,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-go": {
+   "file": "assets/art/hb-cau-go.png",
+   "v": "de59d609",
+   "w": 181,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    90,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     149,
+     52,
+     "cold"
+    ],
+    [
+     104,
+     29,
+     "cold"
+    ],
+    [
+     49,
+     54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-trang": {
+   "file": "assets/art/hb-cau-trang.png",
+   "v": "72438faa",
+   "w": 68,
+   "h": 79,
+   "frames": 1,
+   "anchor": [
+    34,
+    77
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     33,
+     "cold"
+    ],
+    [
+     8,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-bac-den": {
+   "file": "assets/art/hb-cay-bac-den.png",
+   "v": "90d8cac4",
+   "w": 149,
+   "h": 158,
+   "frames": 1,
+   "anchor": [
+    74,
+    156
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (84 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     77,
+     "cold"
+    ],
+    [
+     30,
+     53,
+     "cold"
+    ],
+    [
+     66,
+     77,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-kho": {
+   "file": "assets/art/hb-cay-kho.png",
+   "v": "cbc472ad",
+   "w": 75,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    37,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     52,
+     55,
+     "cold"
+    ],
+    [
+     30,
+     80,
+     "cold"
+    ],
+    [
+     41,
+     81,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-lam": {
+   "file": "assets/art/hb-cay-lam.png",
+   "v": "02a411aa",
+   "w": 97,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    48,
+    92
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (50 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     65,
+     29,
+     "cold"
+    ],
+    [
+     66,
+     17,
+     "cold"
+    ],
+    [
+     18,
+     30,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-trang-tim": {
+   "file": "assets/art/hb-cay-trang-tim.png",
+   "v": "7d421fe2",
+   "w": 130,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    65,
+    148
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (80 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     64,
+     138,
+     "cold"
+    ],
+    [
+     28,
+     101,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-tuyet-2": {
+   "file": "assets/art/hb-cay-tuyet-2.png",
+   "v": "e2eed308",
+   "w": 108,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    54,
+    96
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (52 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     52,
+     "cold"
+    ],
+    [
+     78,
+     17,
+     "cold"
+    ],
+    [
+     30,
+     30,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-tuyet-den": {
+   "file": "assets/art/hb-cay-tuyet-den.png",
+   "v": "0a135b00",
+   "w": 175,
+   "h": 158,
+   "frames": 1,
+   "anchor": [
+    87,
+    156
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (84 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     102,
+     54,
+     "cold"
+    ],
+    [
+     42,
+     80,
+     "cold"
+    ],
+    [
+     101,
+     18,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-tuyet-nho": {
+   "file": "assets/art/hb-cay-tuyet-nho.png",
+   "v": "cfc513af",
+   "w": 82,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    41,
+    88
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (48 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     44,
+     28,
+     "cold"
+    ],
+    [
+     17,
+     31,
+     "cold"
+    ],
+    [
+     28,
+     43,
+     "cold"
+    ]
+   ]
+  },
+  "hb.co-6": {
+   "file": "assets/art/hb-co-6.png",
+   "v": "62cb93c4",
+   "w": 41,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    20,
+    73
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (40 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "hb.co-trang": {
+   "file": "assets/art/hb-co-trang.png",
+   "v": "03fbe9b6",
+   "w": 39,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    19,
+    73
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     31,
+     "warm"
+    ],
+    [
+     19,
+     4,
+     "warm"
+    ],
+    [
+     4,
+     12,
+     "warm"
+    ],
+    [
+     10,
+     51,
+     "warm"
+    ]
+   ]
+  },
+  "hb.co-tuyet": {
+   "file": "assets/art/hb-co-tuyet.png",
+   "v": "71ff9bd0",
+   "w": 39,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    19,
+    73
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "hb.cong": {
+   "file": "assets/art/hb-cong.png",
+   "v": "138c68c7",
+   "w": 180,
+   "h": 154,
+   "frames": 1,
+   "anchor": [
+    90,
+    152
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     137,
+     94,
+     "warm"
+    ],
+    [
+     48,
+     85,
+     "warm"
+    ],
+    [
+     13,
+     86,
+     "warm"
+    ],
+    [
+     159,
+     94,
+     "warm"
+    ],
+    [
+     162,
+     52,
+     "cold"
+    ],
+    [
+     90,
+     9,
+     "cold"
+    ],
+    [
+     19,
+     53,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-2": {
+   "file": "assets/art/hb-cong-2.png",
+   "v": "8317a1e6",
+   "w": 195,
+   "h": 208,
+   "frames": 1,
+   "anchor": [
+    97,
+    206
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     112,
+     "warm"
+    ],
+    [
+     139,
+     129,
+     "warm"
+    ],
+    [
+     13,
+     139,
+     "warm"
+    ],
+    [
+     150,
+     90,
+     "cold"
+    ],
+    [
+     41,
+     90,
+     "cold"
+    ],
+    [
+     172,
+     90,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-3": {
+   "file": "assets/art/hb-cong-3.png",
+   "v": "ca2d7320",
+   "w": 210,
+   "h": 145,
+   "frames": 1,
+   "anchor": [
+    105,
+    143
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (112 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     166,
+     103,
+     "warm"
+    ],
+    [
+     41,
+     103,
+     "warm"
+    ],
+    [
+     193,
+     103,
+     "warm"
+    ],
+    [
+     14,
+     103,
+     "warm"
+    ],
+    [
+     174,
+     66,
+     "cold"
+    ],
+    [
+     39,
+     68,
+     "cold"
+    ],
+    [
+     16,
+     75,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-bang": {
+   "file": "assets/art/hb-cong-bang.png",
+   "v": "b5168a8b",
+   "w": 150,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    75,
+    115
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     29,
+     "cold"
+    ],
+    [
+     20,
+     64,
+     "cold"
+    ],
+    [
+     129,
+     65,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-lon": {
+   "file": "assets/art/hb-cong-lon.png",
+   "v": "e201b14c",
+   "w": 284,
+   "h": 158,
+   "frames": 1,
+   "anchor": [
+    142,
+    156
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (152 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     24,
+     103,
+     "warm"
+    ],
+    [
+     138,
+     23,
+     "warm"
+    ],
+    [
+     256,
+     95,
+     "warm"
+    ],
+    [
+     185,
+     94,
+     "warm"
+    ],
+    [
+     94,
+     93,
+     "warm"
+    ],
+    [
+     257,
+     149,
+     "cold"
+    ],
+    [
+     30,
+     149,
+     "cold"
+    ],
+    [
+     100,
+     43,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-tuyet": {
+   "file": "assets/art/hb-cong-tuyet.png",
+   "v": "f2b699ec",
+   "w": 240,
+   "h": 154,
+   "frames": 1,
+   "anchor": [
+    120,
+    152
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (128 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     165,
+     103,
+     "warm"
+    ],
+    [
+     85,
+     96,
+     "warm"
+    ],
+    [
+     13,
+     102,
+     "warm"
+    ],
+    [
+     219,
+     102,
+     "warm"
+    ],
+    [
+     199,
+     66,
+     "cold"
+    ],
+    [
+     76,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cot-den-1": {
+   "file": "assets/art/hb-cot-den-1.png",
+   "v": "f53ff648",
+   "w": 46,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    23,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     32,
+     "warm"
+    ],
+    [
+     12,
+     31,
+     "warm"
+    ],
+    [
+     23,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-2": {
+   "file": "assets/art/hb-cot-den-2.png",
+   "v": "1c9a598e",
+   "w": 44,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    22,
+    81
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     39,
+     "warm"
+    ],
+    [
+     39,
+     32,
+     "warm"
+    ],
+    [
+     22,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-3": {
+   "file": "assets/art/hb-cot-den-3.png",
+   "v": "4d749995",
+   "w": 68,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    34,
+    88
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (48 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     40,
+     "warm"
+    ],
+    [
+     13,
+     40,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-4": {
+   "file": "assets/art/hb-cot-den-4.png",
+   "v": "c5ed6800",
+   "w": 68,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    34,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     40,
+     "warm"
+    ],
+    [
+     49,
+     40,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-5": {
+   "file": "assets/art/hb-cot-den-5.png",
+   "v": "84846227",
+   "w": 51,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    25,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     31,
+     "warm"
+    ],
+    [
+     12,
+     40,
+     "warm"
+    ],
+    [
+     24,
+     40,
+     "warm"
+    ],
+    [
+     42,
+     48,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-doi": {
+   "file": "assets/art/hb-cot-den-doi.png",
+   "v": "d0aa3849",
+   "w": 69,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    34,
+    81
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     48,
+     "warm"
+    ],
+    [
+     58,
+     49,
+     "warm"
+    ],
+    [
+     13,
+     32,
+     "warm"
+    ],
+    [
+     58,
+     32,
+     "warm"
+    ]
+   ]
+  },
+  "hb.cot-den-trang": {
+   "file": "assets/art/hb-cot-den-trang.png",
+   "v": "29e8b545",
+   "w": 48,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    24,
+    73
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     47,
+     "warm"
+    ],
+    [
+     22,
+     5,
+     "warm"
+    ],
+    [
+     33,
+     58,
+     "warm"
+    ],
+    [
+     23,
+     33,
+     "warm"
+    ],
+    [
+     42,
+     33,
+     "warm"
+    ]
+   ]
+  },
+  "hb.da-nho": {
+   "file": "assets/art/hb-da-nho.png",
+   "v": "c4047e7c",
+   "w": 57,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    28,
+    44
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     16,
+     "cold"
+    ],
+    [
+     43,
+     32,
+     "cold"
+    ],
+    [
+     41,
+     16,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-pha-le": {
+   "file": "assets/art/hb-da-pha-le.png",
+   "v": "706c592d",
+   "w": 68,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    34,
+    59
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     42,
+     "cold"
+    ],
+    [
+     17,
+     29,
+     "cold"
+    ],
+    [
+     39,
+     51,
+     "cold"
+    ],
+    [
+     18,
+     16,
+     "pink"
+    ],
+    [
+     31,
+     17,
+     "pink"
+    ]
+   ]
+  },
+  "hb.da-phu-van": {
+   "file": "assets/art/hb-da-phu-van.png",
+   "v": "8f809c30",
+   "w": 83,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    41,
+    65
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     55,
+     9,
+     "cold"
+    ],
+    [
+     42,
+     15,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-tuyet": {
+   "file": "assets/art/hb-da-tuyet.png",
+   "v": "19b2d2f4",
+   "w": 75,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    37,
+    58
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     18,
+     "cold"
+    ],
+    [
+     42,
+     19,
+     "cold"
+    ],
+    [
+     65,
+     44,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dai-sen": {
+   "file": "assets/art/hb-dai-sen.png",
+   "v": "c8c41777",
+   "w": 194,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    97,
+    108
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     101,
+     67,
+     "cold"
+    ],
+    [
+     54,
+     90,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dao-den": {
+   "file": "assets/art/hb-dao-den.png",
+   "v": "70d84edd",
+   "w": 153,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    76,
+    148
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (80 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     54,
+     "pink"
+    ],
+    [
+     103,
+     56,
+     "pink"
+    ]
+   ]
+  },
+  "hb.dao-hong": {
+   "file": "assets/art/hb-dao-hong.png",
+   "v": "a84f24b4",
+   "w": 121,
+   "h": 143,
+   "frames": 1,
+   "anchor": [
+    60,
+    141
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (76 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     78,
+     "pink"
+    ],
+    [
+     78,
+     55,
+     "pink"
+    ]
+   ]
+  },
+  "hb.dao-nho": {
+   "file": "assets/art/hb-dao-nho.png",
+   "v": "8f1e66d5",
+   "w": 73,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    36,
+    84
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (46 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     31,
+     "pink"
+    ],
+    [
+     31,
+     51,
+     "pink"
+    ]
+   ]
+  },
+  "hb.day-den": {
+   "file": "assets/art/hb-day-den.png",
+   "v": "46073904",
+   "w": 135,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    67,
+    88
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     75,
+     49,
+     "warm"
+    ],
+    [
+     58,
+     49,
+     "warm"
+    ],
+    [
+     103,
+     40,
+     "warm"
+    ],
+    [
+     31,
+     40,
+     "warm"
+    ]
+   ]
+  },
+  "hb.den-chum": {
+   "file": "assets/art/hb-den-chum.png",
+   "v": "ac850d4e",
+   "w": 26,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    13,
+    95
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (14 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     39,
+     "warm"
+    ],
+    [
+     13,
+     50,
+     "warm"
+    ]
+   ]
+  },
+  "hb.den-da": {
+   "file": "assets/art/hb-den-da.png",
+   "v": "fd1493ec",
+   "w": 36,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    18,
+    43
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     6,
+     "cold"
+    ],
+    [
+     8,
+     32,
+     "cold"
+    ]
+   ]
+  },
+  "hb.den-da-2": {
+   "file": "assets/art/hb-den-da-2.png",
+   "v": "c9690ac5",
+   "w": 36,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    18,
+    43
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     30,
+     "warm"
+    ],
+    [
+     19,
+     6,
+     "cold"
+    ],
+    [
+     6,
+     14,
+     "cold"
+    ]
+   ]
+  },
+  "hb.den-da-lon": {
+   "file": "assets/art/hb-den-da-lon.png",
+   "v": "92f8b2ec",
+   "w": 49,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    24,
+    54
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     31,
+     "warm"
+    ],
+    [
+     24,
+     48,
+     "warm"
+    ],
+    [
+     37,
+     21,
+     "warm"
+    ],
+    [
+     18,
+     17,
+     "cold"
+    ],
+    [
+     29,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.den-dien": {
+   "file": "assets/art/hb-den-dien.png",
+   "v": "68a410c3",
+   "w": 75,
+   "h": 76,
+   "frames": 1,
+   "anchor": [
+    37,
+    74
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     41,
+     "warm"
+    ],
+    [
+     24,
+     43,
+     "warm"
+    ],
+    [
+     65,
+     64,
+     "cold"
+    ],
+    [
+     41,
+     28,
+     "cold"
+    ],
+    [
+     39,
+     8,
+     "cold"
+    ]
+   ]
+  },
+  "hb.den-dong": {
+   "file": "assets/art/hb-den-dong.png",
+   "v": "4ff51d1a",
+   "w": 29,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    14,
+    43
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     23,
+     "warm"
+    ],
+    [
+     13,
+     4,
+     "warm"
+    ]
+   ]
+  },
+  "hb.den-dong-2": {
+   "file": "assets/art/hb-den-dong-2.png",
+   "v": "34c883fe",
+   "w": 29,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    14,
+    43
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     23,
+     "warm"
+    ],
+    [
+     15,
+     4,
+     "warm"
+    ],
+    [
+     13,
+     39,
+     "warm"
+    ]
+   ]
+  },
+  "hb.den-dung": {
+   "file": "assets/art/hb-den-dung.png",
+   "v": "5b975775",
+   "w": 22,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    11,
+    54
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     39,
+     "warm"
+    ],
+    [
+     15,
+     23,
+     "warm"
+    ],
+    [
+     11,
+     4,
+     "warm"
+    ]
+   ]
+  },
+  "hb.den-dung-2": {
+   "file": "assets/art/hb-den-dung-2.png",
+   "v": "5992c463",
+   "w": 22,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    11,
+    54
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (30 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "hb.den-sen": {
+   "file": "assets/art/hb-den-sen.png",
+   "v": "ffe383cb",
+   "w": 32,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    16,
+    39
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     23,
+     "warm"
+    ],
+    [
+     28,
+     20,
+     "warm"
+    ],
+    [
+     17,
+     7,
+     "pink"
+    ]
+   ]
+  },
+  "hb.dien": {
+   "file": "assets/art/hb-dien.png",
+   "v": "27491461",
+   "w": 269,
+   "h": 160,
+   "frames": 1,
+   "anchor": [
+    134,
+    158
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (144 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     85,
+     "warm"
+    ],
+    [
+     184,
+     85,
+     "warm"
+    ],
+    [
+     140,
+     94,
+     "warm"
+    ],
+    [
+     240,
+     121,
+     "warm"
+    ],
+    [
+     21,
+     113,
+     "warm"
+    ],
+    [
+     125,
+     54,
+     "cold"
+    ],
+    [
+     102,
+     52,
+     "cold"
+    ],
+    [
+     150,
+     54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dien-trang": {
+   "file": "assets/art/hb-dien-trang.png",
+   "v": "98a6ce8d",
+   "w": 329,
+   "h": 185,
+   "frames": 1,
+   "anchor": [
+    164,
+    183
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (176 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     157,
+     31,
+     "warm"
+    ],
+    [
+     175,
+     103,
+     "warm"
+    ],
+    [
+     112,
+     111,
+     "warm"
+    ],
+    [
+     113,
+     162,
+     "cold"
+    ],
+    [
+     210,
+     139,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dien-tuyet": {
+   "file": "assets/art/hb-dien-tuyet.png",
+   "v": "140869fe",
+   "w": 300,
+   "h": 216,
+   "frames": 1,
+   "anchor": [
+    150,
+    214
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (160 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     139,
+     139,
+     "warm"
+    ],
+    [
+     219,
+     166,
+     "warm"
+    ],
+    [
+     183,
+     148,
+     "warm"
+    ],
+    [
+     23,
+     165,
+     "warm"
+    ],
+    [
+     75,
+     165,
+     "warm"
+    ],
+    [
+     284,
+     165,
+     "warm"
+    ],
+    [
+     199,
+     185,
+     "cold"
+    ],
+    [
+     102,
+     188,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dinh-8": {
+   "file": "assets/art/hb-dinh-8.png",
+   "v": "aa5d8e12",
+   "w": 120,
+   "h": 144,
+   "frames": 1,
+   "anchor": [
+    60,
+    142
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     49,
+     "warm"
+    ],
+    [
+     49,
+     49,
+     "warm"
+    ],
+    [
+     50,
+     12,
+     "warm"
+    ],
+    [
+     39,
+     32,
+     "warm"
+    ],
+    [
+     57,
+     113,
+     "warm"
+    ],
+    [
+     68,
+     112,
+     "warm"
+    ],
+    [
+     89,
+     76,
+     "cold"
+    ],
+    [
+     53,
+     77,
+     "cold"
+    ],
+    [
+     31,
+     77,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dinh-chuong": {
+   "file": "assets/art/hb-dinh-chuong.png",
+   "v": "0f773375",
+   "w": 105,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    52,
+    126
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     76,
+     "warm"
+    ],
+    [
+     47,
+     60,
+     "warm"
+    ],
+    [
+     58,
+     60,
+     "warm"
+    ],
+    [
+     49,
+     41,
+     "warm"
+    ],
+    [
+     89,
+     111,
+     "cold"
+    ],
+    [
+     53,
+     111,
+     "cold"
+    ],
+    [
+     65,
+     111,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dinh-rem": {
+   "file": "assets/art/hb-dinh-rem.png",
+   "v": "ef0221e1",
+   "w": 135,
+   "h": 139,
+   "frames": 1,
+   "anchor": [
+    67,
+    137
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     40,
+     "cold"
+    ],
+    [
+     67,
+     42,
+     "cold"
+    ],
+    [
+     90,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dinh-trang": {
+   "file": "assets/art/hb-dinh-trang.png",
+   "v": "ca444c58",
+   "w": 120,
+   "h": 146,
+   "frames": 1,
+   "anchor": [
+    60,
+    144
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     102,
+     "cold"
+    ],
+    [
+     65,
+     103,
+     "cold"
+    ],
+    [
+     80,
+     51,
+     "cold"
+    ]
+   ]
+  },
+  "hb.du-ban": {
+   "file": "assets/art/hb-du-ban.png",
+   "v": "f52ae4cc",
+   "w": 98,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    49,
+    86
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     69,
+     "warm"
+    ],
+    [
+     13,
+     48,
+     "warm"
+    ],
+    [
+     22,
+     69,
+     "warm"
+    ],
+    [
+     85,
+     48,
+     "warm"
+    ],
+    [
+     49,
+     11,
+     "warm"
+    ]
+   ]
+  },
+  "hb.gach-hoa": {
+   "file": "assets/art/hb-gach-hoa.png",
+   "v": "ae86c98e",
+   "w": 61,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     51,
+     "cold"
+    ],
+    [
+     53,
+     7,
+     "cold"
+    ],
+    [
+     7,
+     7,
+     "cold"
+    ]
+   ]
+  },
+  "hb.gach-tuyet": {
+   "file": "assets/art/hb-gach-tuyet.png",
+   "v": "b37c2eb8",
+   "w": 60,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    30,
+    60
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     15,
+     "cold"
+    ],
+    [
+     31,
+     28,
+     "cold"
+    ],
+    [
+     51,
+     5,
+     "cold"
+    ]
+   ]
+  },
+  "hb.gia-thit": {
+   "file": "assets/art/hb-gia-thit.png",
+   "v": "f538f7f1",
+   "w": 68,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    34,
+    58
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     13,
+     "warm"
+    ],
+    [
+     33,
+     12,
+     "warm"
+    ],
+    [
+     50,
+     13,
+     "warm"
+    ],
+    [
+     12,
+     46,
+     "warm"
+    ],
+    [
+     51,
+     42,
+     "warm"
+    ]
+   ]
+  },
+  "hb.guong-trang": {
+   "file": "assets/art/hb-guong-trang.png",
+   "v": "d85b3b39",
+   "w": 106,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    53,
+    86
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     40,
+     "warm"
+    ],
+    [
+     58,
+     23,
+     "warm"
+    ],
+    [
+     40,
+     39,
+     "warm"
+    ],
+    [
+     76,
+     49,
+     "warm"
+    ]
+   ]
+  },
+  "hb.hac": {
+   "file": "assets/art/hb-hac.png",
+   "v": "f95ca55d",
+   "w": 56,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    28,
+    83
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     43,
+     "cold"
+    ],
+    [
+     17,
+     44,
+     "cold"
+    ],
+    [
+     17,
+     75,
+     "cold"
+    ]
+   ]
+  },
+  "hb.ho": {
+   "file": "assets/art/hb-ho.png",
+   "v": "1d092fbd",
+   "w": 210,
+   "h": 196,
+   "frames": 1,
+   "anchor": [
+    105,
+    194
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (112 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     174,
+     "cold"
+    ],
+    [
+     187,
+     78,
+     "cold"
+    ],
+    [
+     30,
+     112,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     94,
+     77
+    ],
+    [
+     16,
+     94
+    ],
+    [
+     137,
+     64
+    ],
+    [
+     37,
+     142
+    ],
+    [
+     88,
+     88
+    ],
+    [
+     145,
+     167
+    ],
+    [
+     27,
+     140
+    ],
+    [
+     99,
+     24
+    ],
+    [
+     140,
+     74
+    ],
+    [
+     160,
+     65
+    ],
+    [
+     26,
+     74
+    ],
+    [
+     160,
+     104
+    ],
+    [
+     201,
+     102
+    ],
+    [
+     97,
+     115
+    ],
+    [
+     48,
+     90
+    ],
+    [
+     47,
+     92
+    ],
+    [
+     147,
+     70
+    ],
+    [
+     37,
+     153
+    ],
+    [
+     39,
+     124
+    ],
+    [
+     184,
+     138
+    ],
+    [
+     120,
+     83
+    ],
+    [
+     191,
+     125
+    ],
+    [
+     11,
+     75
+    ],
+    [
+     82,
+     19
+    ]
+   ]
+  },
+  "hb.ho-lon": {
+   "file": "assets/art/hb-ho-lon.png",
+   "v": "5044b8f0",
+   "w": 331,
+   "h": 175,
+   "frames": 1,
+   "anchor": [
+    165,
+    173
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (176 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     258,
+     161,
+     "cold"
+    ],
+    [
+     246,
+     18,
+     "cold"
+    ],
+    [
+     317,
+     89,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     209,
+     143
+    ],
+    [
+     176,
+     146
+    ],
+    [
+     87,
+     63
+    ],
+    [
+     79,
+     77
+    ],
+    [
+     195,
+     142
+    ],
+    [
+     255,
+     48
+    ],
+    [
+     262,
+     94
+    ],
+    [
+     100,
+     137
+    ],
+    [
+     249,
+     62
+    ],
+    [
+     64,
+     80
+    ],
+    [
+     122,
+     155
+    ],
+    [
+     67,
+     80
+    ],
+    [
+     185,
+     107
+    ],
+    [
+     219,
+     118
+    ],
+    [
+     120,
+     159
+    ],
+    [
+     56,
+     81
+    ],
+    [
+     102,
+     78
+    ],
+    [
+     272,
+     99
+    ],
+    [
+     164,
+     106
+    ],
+    [
+     77,
+     62
+    ],
+    [
+     107,
+     115
+    ],
+    [
+     130,
+     100
+    ],
+    [
+     106,
+     82
+    ],
+    [
+     241,
+     59
+    ]
+   ]
+  },
+  "hb.ho-nho": {
+   "file": "assets/art/hb-ho-nho.png",
+   "v": "43fc85e0",
+   "w": 135,
+   "h": 143,
+   "frames": 1,
+   "anchor": [
+    67,
+    141
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     113,
+     52,
+     "cold"
+    ],
+    [
+     66,
+     115,
+     "cold"
+    ],
+    [
+     53,
+     103,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     73,
+     135
+    ],
+    [
+     78,
+     95
+    ],
+    [
+     76,
+     70
+    ],
+    [
+     49,
+     90
+    ],
+    [
+     49,
+     140
+    ],
+    [
+     33,
+     124
+    ],
+    [
+     32,
+     105
+    ],
+    [
+     30,
+     102
+    ],
+    [
+     28,
+     24
+    ],
+    [
+     85,
+     87
+    ],
+    [
+     83,
+     122
+    ],
+    [
+     100,
+     87
+    ],
+    [
+     31,
+     5
+    ],
+    [
+     80,
+     16
+    ],
+    [
+     114,
+     87
+    ],
+    [
+     114,
+     104
+    ],
+    [
+     6,
+     30
+    ],
+    [
+     46,
+     117
+    ],
+    [
+     37,
+     78
+    ],
+    [
+     109,
+     114
+    ],
+    [
+     33,
+     31
+    ],
+    [
+     48,
+     130
+    ],
+    [
+     60,
+     74
+    ],
+    [
+     82,
+     90
+    ]
+   ]
+  },
+  "hb.ho-nho-2": {
+   "file": "assets/art/hb-ho-nho-2.png",
+   "v": "2e4e97b2",
+   "w": 121,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    60,
+    81
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     102,
+     40,
+     "cold"
+    ],
+    [
+     64,
+     64,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     54,
+     74
+    ],
+    [
+     31,
+     16
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     2,
+     36
+    ],
+    [
+     76,
+     55
+    ],
+    [
+     103,
+     46
+    ],
+    [
+     75,
+     66
+    ],
+    [
+     44,
+     79
+    ],
+    [
+     85,
+     70
+    ],
+    [
+     3,
+     43
+    ],
+    [
+     38,
+     14
+    ],
+    [
+     83,
+     10
+    ],
+    [
+     84,
+     72
+    ],
+    [
+     47,
+     77
+    ],
+    [
+     85,
+     17
+    ],
+    [
+     33,
+     16
+    ],
+    [
+     63,
+     21
+    ],
+    [
+     53,
+     62
+    ],
+    [
+     44,
+     39
+    ],
+    [
+     96,
+     52
+    ],
+    [
+     47,
+     72
+    ],
+    [
+     76,
+     21
+    ],
+    [
+     94,
+     49
+    ],
+    [
+     57,
+     16
+    ]
+   ]
+  },
+  "hb.hoa-den": {
+   "file": "assets/art/hb-hoa-den.png",
+   "v": "0703398d",
+   "w": 55,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    27,
+    39
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     14,
+     "warm"
+    ],
+    [
+     29,
+     5,
+     "warm"
+    ],
+    [
+     40,
+     15,
+     "warm"
+    ],
+    [
+     29,
+     25,
+     "warm"
+    ],
+    [
+     44,
+     26,
+     "cold"
+    ],
+    [
+     14,
+     28,
+     "cold"
+    ]
+   ]
+  },
+  "hb.hoa-trang-den": {
+   "file": "assets/art/hb-hoa-trang-den.png",
+   "v": "0dba0c53",
+   "w": 130,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    65,
+    148
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (80 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     86,
+     113,
+     "warm"
+    ],
+    [
+     66,
+     14,
+     "warm"
+    ],
+    [
+     87,
+     32,
+     "warm"
+    ],
+    [
+     111,
+     111,
+     "warm"
+    ],
+    [
+     21,
+     112,
+     "warm"
+    ],
+    [
+     42,
+     119,
+     "warm"
+    ],
+    [
+     49,
+     46,
+     "warm"
+    ],
+    [
+     67,
+     83,
+     "warm"
+    ],
+    [
+     100,
+     76,
+     "cold"
+    ],
+    [
+     100,
+     65,
+     "cold"
+    ],
+    [
+     113,
+     76,
+     "cold"
+    ]
+   ]
+  },
+  "hb.hom-ngoc": {
+   "file": "assets/art/hb-hom-ngoc.png",
+   "v": "d904fc31",
+   "w": 34,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    17,
+    28
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     12,
+     "warm"
+    ],
+    [
+     4,
+     15,
+     "warm"
+    ]
+   ]
+  },
+  "hb.hon-thien": {
+   "file": "assets/art/hb-hon-thien.png",
+   "v": "111036cb",
+   "w": 75,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    37,
+    82
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     40,
+     "warm"
+    ],
+    [
+     50,
+     12,
+     "warm"
+    ],
+    [
+     12,
+     22,
+     "warm"
+    ],
+    [
+     38,
+     31,
+     "warm"
+    ],
+    [
+     23,
+     12,
+     "warm"
+    ]
+   ]
+  },
+  "hb.hon-thien-lon": {
+   "file": "assets/art/hb-hon-thien-lon.png",
+   "v": "75023f99",
+   "w": 135,
+   "h": 244,
+   "frames": 1,
+   "anchor": [
+    67,
+    242
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     57,
+     30,
+     "warm"
+    ],
+    [
+     30,
+     148,
+     "warm"
+    ],
+    [
+     12,
+     121,
+     "warm"
+    ],
+    [
+     28,
+     38,
+     "warm"
+    ],
+    [
+     41,
+     38,
+     "warm"
+    ],
+    [
+     59,
+     64,
+     "warm"
+    ],
+    [
+     57,
+     105,
+     "warm"
+    ],
+    [
+     66,
+     121,
+     "warm"
+    ],
+    [
+     38,
+     24,
+     "warm"
+    ],
+    [
+     76,
+     29,
+     "cold"
+    ],
+    [
+     66,
+     161,
+     "cold"
+    ],
+    [
+     65,
+     54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan": {
+   "file": "assets/art/hb-lan.png",
+   "v": "594d0664",
+   "w": 90,
+   "h": 78,
+   "frames": 1,
+   "anchor": [
+    45,
+    76
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     59,
+     "warm"
+    ],
+    [
+     76,
+     69,
+     "warm"
+    ],
+    [
+     48,
+     69,
+     "warm"
+    ],
+    [
+     51,
+     23,
+     "warm"
+    ]
+   ]
+  },
+  "hb.lan-can": {
+   "file": "assets/art/hb-lan-can.png",
+   "v": "e79d6777",
+   "w": 104,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    52,
+    42
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (56 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "hb.lan-can-2": {
+   "file": "assets/art/hb-lan-can-2.png",
+   "v": "ddec537a",
+   "w": 99,
+   "h": 48,
+   "frames": 1,
+   "anchor": [
+    49,
+    46
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     12,
+     "warm"
+    ],
+    [
+     86,
+     13,
+     "warm"
+    ],
+    [
+     78,
+     40,
+     "cold"
+    ],
+    [
+     52,
+     22,
+     "cold"
+    ],
+    [
+     66,
+     21,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-ngan": {
+   "file": "assets/art/hb-lan-can-ngan.png",
+   "v": "43706a4b",
+   "w": 55,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    27,
+    41
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     45,
+     9,
+     "cold"
+    ],
+    [
+     18,
+     34,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-nho": {
+   "file": "assets/art/hb-lan-nho.png",
+   "v": "f2d251b8",
+   "w": 56,
+   "h": 55,
+   "frames": 1,
+   "anchor": [
+    28,
+    53
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     22,
+     "warm"
+    ],
+    [
+     20,
+     41,
+     "warm"
+    ],
+    [
+     23,
+     7,
+     "warm"
+    ],
+    [
+     48,
+     38,
+     "warm"
+    ],
+    [
+     33,
+     50,
+     "warm"
+    ]
+   ]
+  },
+  "hb.lau-2": {
+   "file": "assets/art/hb-lau-2.png",
+   "v": "3a640230",
+   "w": 113,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    56,
+    148
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     112,
+     "warm"
+    ],
+    [
+     32,
+     113,
+     "warm"
+    ],
+    [
+     59,
+     59,
+     "warm"
+    ],
+    [
+     78,
+     120,
+     "warm"
+    ],
+    [
+     101,
+     117,
+     "cold"
+    ],
+    [
+     89,
+     33,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-3": {
+   "file": "assets/art/hb-lau-3.png",
+   "v": "446d75ca",
+   "w": 135,
+   "h": 185,
+   "frames": 1,
+   "anchor": [
+    67,
+    183
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     139,
+     "warm"
+    ],
+    [
+     94,
+     94,
+     "warm"
+    ],
+    [
+     85,
+     138,
+     "warm"
+    ],
+    [
+     102,
+     139,
+     "warm"
+    ],
+    [
+     40,
+     138,
+     "warm"
+    ],
+    [
+     78,
+     56,
+     "cold"
+    ],
+    [
+     54,
+     55,
+     "cold"
+    ],
+    [
+     66,
+     56,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-4": {
+   "file": "assets/art/hb-lau-4.png",
+   "v": "47d0c3b6",
+   "w": 120,
+   "h": 198,
+   "frames": 1,
+   "anchor": [
+    60,
+    196
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     57,
+     167,
+     "warm"
+    ],
+    [
+     103,
+     157,
+     "warm"
+    ],
+    [
+     57,
+     86,
+     "warm"
+    ],
+    [
+     54,
+     126,
+     "cold"
+    ],
+    [
+     40,
+     125,
+     "cold"
+    ],
+    [
+     77,
+     125,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-5": {
+   "file": "assets/art/hb-lau-5.png",
+   "v": "c3d3e747",
+   "w": 105,
+   "h": 195,
+   "frames": 1,
+   "anchor": [
+    52,
+    193
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     33,
+     "cold"
+    ],
+    [
+     41,
+     33,
+     "cold"
+    ],
+    [
+     17,
+     39,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-6": {
+   "file": "assets/art/hb-lau-6.png",
+   "v": "205fb56e",
+   "w": 135,
+   "h": 168,
+   "frames": 1,
+   "anchor": [
+    67,
+    166
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     130,
+     "warm"
+    ],
+    [
+     95,
+     130,
+     "warm"
+    ],
+    [
+     75,
+     131,
+     "warm"
+    ],
+    [
+     50,
+     114,
+     "warm"
+    ],
+    [
+     78,
+     64,
+     "cold"
+    ],
+    [
+     66,
+     63,
+     "cold"
+    ],
+    [
+     29,
+     63,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-7": {
+   "file": "assets/art/hb-lau-7.png",
+   "v": "8d431657",
+   "w": 105,
+   "h": 170,
+   "frames": 1,
+   "anchor": [
+    52,
+    168
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     13,
+     "warm"
+    ],
+    [
+     40,
+     32,
+     "warm"
+    ],
+    [
+     85,
+     86,
+     "warm"
+    ],
+    [
+     49,
+     87,
+     "warm"
+    ],
+    [
+     40,
+     102,
+     "warm"
+    ],
+    [
+     13,
+     86,
+     "warm"
+    ],
+    [
+     78,
+     67,
+     "cold"
+    ],
+    [
+     18,
+     67,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-doi": {
+   "file": "assets/art/hb-lau-doi.png",
+   "v": "50bbb8dc",
+   "w": 150,
+   "h": 177,
+   "frames": 1,
+   "anchor": [
+    75,
+    175
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     76,
+     "warm"
+    ],
+    [
+     67,
+     149,
+     "warm"
+    ],
+    [
+     93,
+     148,
+     "warm"
+    ],
+    [
+     14,
+     123,
+     "warm"
+    ],
+    [
+     67,
+     68,
+     "warm"
+    ],
+    [
+     40,
+     102,
+     "warm"
+    ],
+    [
+     124,
+     111,
+     "cold"
+    ],
+    [
+     30,
+     101,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-mai": {
+   "file": "assets/art/hb-lau-mai.png",
+   "v": "ed9bf065",
+   "w": 210,
+   "h": 214,
+   "frames": 1,
+   "anchor": [
+    105,
+    212
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (112 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     112,
+     184,
+     "warm"
+    ],
+    [
+     111,
+     167,
+     "warm"
+    ],
+    [
+     96,
+     184,
+     "warm"
+    ],
+    [
+     139,
+     167,
+     "warm"
+    ],
+    [
+     67,
+     166,
+     "warm"
+    ],
+    [
+     104,
+     122,
+     "warm"
+    ],
+    [
+     65,
+     112,
+     "cold"
+    ],
+    [
+     138,
+     113,
+     "cold"
+    ],
+    [
+     90,
+     124,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lau-nho": {
+   "file": "assets/art/hb-lau-nho.png",
+   "v": "c81488c7",
+   "w": 98,
+   "h": 145,
+   "frames": 1,
+   "anchor": [
+    49,
+    143
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     113,
+     "warm"
+    ],
+    [
+     69,
+     112,
+     "warm"
+    ],
+    [
+     42,
+     113,
+     "warm"
+    ],
+    [
+     49,
+     129,
+     "warm"
+    ],
+    [
+     60,
+     58,
+     "warm"
+    ],
+    [
+     40,
+     58,
+     "warm"
+    ],
+    [
+     56,
+     112,
+     "warm"
+    ],
+    [
+     53,
+     80,
+     "cold"
+    ],
+    [
+     31,
+     80,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lieu-bang": {
+   "file": "assets/art/hb-lieu-bang.png",
+   "v": "802934c2",
+   "w": 169,
+   "h": 161,
+   "frames": 1,
+   "anchor": [
+    84,
+    159
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (86 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     41,
+     "cold"
+    ],
+    [
+     100,
+     42,
+     "cold"
+    ],
+    [
+     114,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lu-huong": {
+   "file": "assets/art/hb-lu-huong.png",
+   "v": "75517b50",
+   "w": 71,
+   "h": 79,
+   "frames": 1,
+   "anchor": [
+    35,
+    77
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (38 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     17,
+     "cold"
+    ],
+    [
+     29,
+     17,
+     "cold"
+    ],
+    [
+     41,
+     38,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lua-hong": {
+   "file": "assets/art/hb-lua-hong.png",
+   "v": "b9941b45",
+   "w": 38,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    19,
+    47
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     7,
+     "pink"
+    ],
+    [
+     18,
+     22,
+     "pink"
+    ]
+   ],
+   "flame": [
+    19,
+    13
+   ]
+  },
+  "hb.lua-lam": {
+   "file": "assets/art/hb-lua-lam.png",
+   "v": "09e2447a",
+   "w": 32,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    16,
+    47
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     19,
+     17,
+     "cold"
+    ]
+   ],
+   "flame": [
+    16,
+    14
+   ]
+  },
+  "hb.lua-lam-2": {
+   "file": "assets/art/hb-lua-lam-2.png",
+   "v": "9b954534",
+   "w": 37,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    18,
+    51
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     16,
+     "cold"
+    ],
+    [
+     16,
+     31,
+     "cold"
+    ]
+   ],
+   "flame": [
+    19,
+    14
+   ]
+  },
+  "hb.lua-vang": {
+   "file": "assets/art/hb-lua-vang.png",
+   "v": "c68be9de",
+   "w": 28,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    14,
+    43
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     14,
+     "warm"
+    ],
+    [
+     14,
+     29,
+     "warm"
+    ]
+   ],
+   "flame": [
+    13,
+    13
+   ]
+  },
+  "hb.mat-nuoc": {
+   "file": "assets/art/hb-mat-nuoc.png",
+   "v": "5625252f",
+   "w": 136,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    68,
+    60
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     30,
+     "cold"
+    ],
+    [
+     54,
+     28,
+     "cold"
+    ],
+    [
+     53,
+     17,
+     "cold"
+    ]
+   ],
+   "glints": []
+  },
+  "hb.mieu-den": {
+   "file": "assets/art/hb-mieu-den.png",
+   "v": "b0a3cc2f",
+   "w": 56,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    28,
+    67
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     30,
+     "warm"
+    ],
+    [
+     28,
+     12,
+     "warm"
+    ],
+    [
+     40,
+     14,
+     "warm"
+    ]
+   ]
+  },
+  "hb.nai-bang": {
+   "file": "assets/art/hb-nai-bang.png",
+   "v": "362455b6",
+   "w": 90,
+   "h": 106,
+   "frames": 1,
+   "anchor": [
+    45,
+    104
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     66,
+     "cold"
+    ],
+    [
+     17,
+     65,
+     "cold"
+    ],
+    [
+     41,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nam-bang": {
+   "file": "assets/art/hb-nam-bang.png",
+   "v": "e1cf7d48",
+   "w": 68,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    34,
+    73
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     21,
+     "cold"
+    ],
+    [
+     16,
+     18,
+     "cold"
+    ],
+    [
+     40,
+     18,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nguoi-tuyet": {
+   "file": "assets/art/hb-nguoi-tuyet.png",
+   "v": "f6b1010d",
+   "w": 64,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    32,
+    65
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     43,
+     30,
+     "cold"
+    ],
+    [
+     41,
+     53,
+     "cold"
+    ],
+    [
+     18,
+     53,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-1": {
+   "file": "assets/art/hb-nha-1.png",
+   "v": "5bbcecca",
+   "w": 165,
+   "h": 148,
+   "frames": 1,
+   "anchor": [
+    82,
+    146
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (88 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     112,
+     103,
+     "warm"
+    ],
+    [
+     59,
+     103,
+     "warm"
+    ],
+    [
+     139,
+     86,
+     "warm"
+    ],
+    [
+     22,
+     94,
+     "warm"
+    ],
+    [
+     66,
+     54,
+     "cold"
+    ],
+    [
+     53,
+     55,
+     "cold"
+    ],
+    [
+     114,
+     54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-3": {
+   "file": "assets/art/hb-nha-3.png",
+   "v": "1db677ee",
+   "w": 135,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    67,
+    114
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     86,
+     "warm"
+    ],
+    [
+     48,
+     85,
+     "warm"
+    ],
+    [
+     57,
+     74,
+     "warm"
+    ],
+    [
+     77,
+     75,
+     "warm"
+    ],
+    [
+     66,
+     85,
+     "warm"
+    ],
+    [
+     65,
+     41,
+     "cold"
+    ],
+    [
+     78,
+     40,
+     "cold"
+    ],
+    [
+     43,
+     40,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-4": {
+   "file": "assets/art/hb-nha-4.png",
+   "v": "2c6a5f9e",
+   "w": 135,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    67,
+    107
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     66,
+     "warm"
+    ],
+    [
+     31,
+     58,
+     "warm"
+    ],
+    [
+     94,
+     67,
+     "warm"
+    ],
+    [
+     112,
+     51,
+     "warm"
+    ],
+    [
+     12,
+     59,
+     "warm"
+    ],
+    [
+     65,
+     27,
+     "cold"
+    ],
+    [
+     54,
+     26,
+     "cold"
+    ],
+    [
+     77,
+     27,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-bang": {
+   "file": "assets/art/hb-nha-bang.png",
+   "v": "2402b200",
+   "w": 143,
+   "h": 132,
+   "frames": 1,
+   "anchor": [
+    71,
+    130
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (76 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     68,
+     15,
+     "cold"
+    ],
+    [
+     19,
+     112,
+     "cold"
+    ],
+    [
+     115,
+     113,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-dai": {
+   "file": "assets/art/hb-nha-dai.png",
+   "v": "be8d69d5",
+   "w": 210,
+   "h": 147,
+   "frames": 1,
+   "anchor": [
+    105,
+    145
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (112 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     93,
+     "warm"
+    ],
+    [
+     103,
+     67,
+     "warm"
+    ],
+    [
+     104,
+     121,
+     "warm"
+    ],
+    [
+     158,
+     121,
+     "warm"
+    ],
+    [
+     67,
+     75,
+     "warm"
+    ],
+    [
+     88,
+     31,
+     "cold"
+    ],
+    [
+     126,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-dai-2": {
+   "file": "assets/art/hb-nha-dai-2.png",
+   "v": "63d1dcbf",
+   "w": 194,
+   "h": 137,
+   "frames": 1,
+   "anchor": [
+    97,
+    135
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     103,
+     "warm"
+    ],
+    [
+     102,
+     94,
+     "warm"
+    ],
+    [
+     13,
+     93,
+     "warm"
+    ],
+    [
+     112,
+     113,
+     "warm"
+    ],
+    [
+     94,
+     113,
+     "warm"
+    ],
+    [
+     53,
+     55,
+     "cold"
+    ],
+    [
+     114,
+     56,
+     "cold"
+    ],
+    [
+     67,
+     55,
+     "cold"
+    ]
+   ]
+  },
+  "hb.pha-le": {
+   "file": "assets/art/hb-pha-le.png",
+   "v": "06d7260f",
+   "w": 90,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    45,
+    92
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     43,
+     18,
+     "cold"
+    ],
+    [
+     18,
+     86,
+     "cold"
+    ],
+    [
+     54,
+     89,
+     "cold"
+    ]
+   ]
+  },
+  "hb.pha-le-lam": {
+   "file": "assets/art/hb-pha-le-lam.png",
+   "v": "b8a9ead8",
+   "w": 48,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    24,
+    32
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (18 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     19,
+     "cold"
+    ]
+   ]
+  },
+  "hb.pha-le-tim": {
+   "file": "assets/art/hb-pha-le-tim.png",
+   "v": "8d5811a8",
+   "w": 45,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    22,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (20 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     26,
+     20,
+     "cold"
+    ],
+    [
+     9,
+     33,
+     "cold"
+    ],
+    [
+     31,
+     17,
+     "pink"
+    ],
+    [
+     17,
+     16,
+     "pink"
+    ]
+   ]
+  },
+  "hb.quan-5": {
+   "file": "assets/art/hb-quan-5.png",
+   "v": "4d425226",
+   "w": 135,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    67,
+    140
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     85,
+     "warm"
+    ],
+    [
+     85,
+     85,
+     "warm"
+    ],
+    [
+     40,
+     85,
+     "warm"
+    ],
+    [
+     75,
+     103,
+     "warm"
+    ],
+    [
+     56,
+     85,
+     "warm"
+    ],
+    [
+     101,
+     85,
+     "warm"
+    ],
+    [
+     78,
+     53,
+     "cold"
+    ],
+    [
+     100,
+     53,
+     "cold"
+    ],
+    [
+     66,
+     52,
+     "cold"
+    ]
+   ]
+  },
+  "hb.quan-6": {
+   "file": "assets/art/hb-quan-6.png",
+   "v": "160eb92f",
+   "w": 135,
+   "h": 127,
+   "frames": 1,
+   "anchor": [
+    67,
+    125
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     66,
+     "warm"
+    ],
+    [
+     76,
+     112,
+     "warm"
+    ],
+    [
+     102,
+     85,
+     "warm"
+    ],
+    [
+     94,
+     110,
+     "warm"
+    ],
+    [
+     114,
+     112,
+     "warm"
+    ],
+    [
+     77,
+     31,
+     "cold"
+    ],
+    [
+     42,
+     32,
+     "cold"
+    ],
+    [
+     64,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.quan-7": {
+   "file": "assets/art/hb-quan-7.png",
+   "v": "28efcc8b",
+   "w": 165,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    82,
+    118
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (88 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     84,
+     76,
+     "warm"
+    ],
+    [
+     13,
+     66,
+     "warm"
+    ],
+    [
+     138,
+     67,
+     "warm"
+    ],
+    [
+     96,
+     76,
+     "warm"
+    ],
+    [
+     67,
+     84,
+     "warm"
+    ],
+    [
+     113,
+     32,
+     "cold"
+    ],
+    [
+     53,
+     31,
+     "cold"
+    ],
+    [
+     78,
+     32,
+     "cold"
+    ]
+   ]
+  },
+  "hb.quan-mai": {
+   "file": "assets/art/hb-quan-mai.png",
+   "v": "799215b3",
+   "w": 135,
+   "h": 136,
+   "frames": 1,
+   "anchor": [
+    67,
+    134
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     76,
+     "warm"
+    ],
+    [
+     40,
+     76,
+     "warm"
+    ],
+    [
+     103,
+     76,
+     "warm"
+    ],
+    [
+     67,
+     76,
+     "warm"
+    ],
+    [
+     85,
+     94,
+     "warm"
+    ],
+    [
+     66,
+     94,
+     "warm"
+    ],
+    [
+     65,
+     41,
+     "cold"
+    ],
+    [
+     43,
+     40,
+     "cold"
+    ]
+   ]
+  },
+  "hb.ro-banh": {
+   "file": "assets/art/hb-ro-banh.png",
+   "v": "33e069ea",
+   "w": 38,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    19,
+    36
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (20 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     20,
+     "warm"
+    ],
+    [
+     6,
+     19,
+     "warm"
+    ],
+    [
+     22,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ro-cam": {
+   "file": "assets/art/hb-ro-cam.png",
+   "v": "354a986a",
+   "w": 34,
+   "h": 29,
+   "frames": 1,
+   "anchor": [
+    17,
+    27
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     13,
+     "warm"
+    ],
+    [
+     29,
+     19,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ro-rau": {
+   "file": "assets/art/hb-ro-rau.png",
+   "v": "96eae804",
+   "w": 34,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     18,
+     "warm"
+    ],
+    [
+     29,
+     18,
+     "warm"
+    ],
+    [
+     8,
+     6,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ro-tao": {
+   "file": "assets/art/hb-ro-tao.png",
+   "v": "20ed438a",
+   "w": 34,
+   "h": 29,
+   "frames": 1,
+   "anchor": [
+    17,
+    27
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     14,
+     "warm"
+    ],
+    [
+     5,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ro-tinh-the": {
+   "file": "assets/art/hb-ro-tinh-the.png",
+   "v": "b2ba95d7",
+   "w": 38,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    19,
+    33
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (20 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     27,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.ro-tinh-the-2": {
+   "file": "assets/art/hb-ro-tinh-the-2.png",
+   "v": "1c75bdb6",
+   "w": 38,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    19,
+    35
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (20 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     19,
+     8,
+     "pink"
+    ]
+   ]
+  },
+  "hb.ro-truc": {
+   "file": "assets/art/hb-ro-truc.png",
+   "v": "fe32e42b",
+   "w": 38,
+   "h": 29,
+   "frames": 1,
+   "anchor": [
+    19,
+    27
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (20 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     12,
+     "warm"
+    ],
+    [
+     23,
+     5,
+     "warm"
+    ],
+    [
+     31,
+     20,
+     "warm"
+    ]
+   ]
+  },
+  "hb.ro-vang": {
+   "file": "assets/art/hb-ro-vang.png",
+   "v": "6f878ac6",
+   "w": 34,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    17,
+    29
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (18 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     13,
+     "warm"
+    ],
+    [
+     29,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "hb.rong-bang": {
+   "file": "assets/art/hb-rong-bang.png",
+   "v": "8ddc6d90",
+   "w": 240,
+   "h": 146,
+   "frames": 1,
+   "anchor": [
+    120,
+    144
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (128 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     149,
+     78,
+     "cold"
+    ],
+    [
+     173,
+     66,
+     "cold"
+    ],
+    [
+     77,
+     113,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sach": {
+   "file": "assets/art/hb-sach.png",
+   "v": "80338a0a",
+   "w": 26,
+   "h": 28,
+   "frames": 1,
+   "anchor": [
+    13,
+    26
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (14 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     6,
+     "warm"
+    ],
+    [
+     12,
+     22,
+     "warm"
+    ]
+   ]
+  },
+  "hb.san-khau": {
+   "file": "assets/art/hb-san-khau.png",
+   "v": "1e212f26",
+   "w": 180,
+   "h": 155,
+   "frames": 1,
+   "anchor": [
+    90,
+    153
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     138,
+     "warm"
+    ],
+    [
+     103,
+     138,
+     "warm"
+    ],
+    [
+     121,
+     138,
+     "warm"
+    ],
+    [
+     31,
+     138,
+     "warm"
+    ],
+    [
+     85,
+     138,
+     "warm"
+    ],
+    [
+     148,
+     138,
+     "warm"
+    ],
+    [
+     77,
+     21,
+     "cold"
+    ],
+    [
+     102,
+     21,
+     "cold"
+    ]
+   ]
+  },
+  "hb.san-thai-cuc": {
+   "file": "assets/art/hb-san-thai-cuc.png",
+   "v": "95280691",
+   "w": 120,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    60,
+    99
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     91,
+     54,
+     "cold"
+    ],
+    [
+     30,
+     64,
+     "cold"
+    ],
+    [
+     76,
+     21,
+     "cold"
+    ]
+   ]
+  },
+  "hb.san-tuyet": {
+   "file": "assets/art/hb-san-tuyet.png",
+   "v": "1d0b8c02",
+   "w": 120,
+   "h": 103,
+   "frames": 1,
+   "anchor": [
+    60,
+    101
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "hb.sap-ao": {
+   "file": "assets/art/hb-sap-ao.png",
+   "v": "8b5bf31d",
+   "w": 113,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    56,
+    100
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     49,
+     "warm"
+    ],
+    [
+     14,
+     58,
+     "warm"
+    ],
+    [
+     85,
+     84,
+     "warm"
+    ],
+    [
+     59,
+     41,
+     "warm"
+    ],
+    [
+     66,
+     84,
+     "warm"
+    ]
+   ]
+  },
+  "hb.sap-banh": {
+   "file": "assets/art/hb-sap-banh.png",
+   "v": "92780097",
+   "w": 113,
+   "h": 111,
+   "frames": 1,
+   "anchor": [
+    56,
+    109
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     58,
+     "warm"
+    ],
+    [
+     58,
+     76,
+     "warm"
+    ],
+    [
+     14,
+     66,
+     "warm"
+    ],
+    [
+     31,
+     78,
+     "warm"
+    ],
+    [
+     87,
+     87,
+     "warm"
+    ],
+    [
+     75,
+     77,
+     "warm"
+    ],
+    [
+     49,
+     91,
+     "warm"
+    ]
+   ]
+  },
+  "hb.sap-bua": {
+   "file": "assets/art/hb-sap-bua.png",
+   "v": "f86351fd",
+   "w": 113,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    56,
+    107
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     49,
+     "warm"
+    ],
+    [
+     13,
+     49,
+     "warm"
+    ],
+    [
+     57,
+     67,
+     "warm"
+    ],
+    [
+     59,
+     85,
+     "warm"
+    ],
+    [
+     84,
+     50,
+     "warm"
+    ],
+    [
+     41,
+     29,
+     "cold"
+    ],
+    [
+     52,
+     27,
+     "cold"
+    ],
+    [
+     65,
+     28,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-chao": {
+   "file": "assets/art/hb-sap-chao.png",
+   "v": "5fe97dc2",
+   "w": 113,
+   "h": 89,
+   "frames": 1,
+   "anchor": [
+    56,
+    87
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     69,
+     "warm"
+    ],
+    [
+     57,
+     69,
+     "warm"
+    ],
+    [
+     33,
+     68,
+     "warm"
+    ],
+    [
+     58,
+     32,
+     "warm"
+    ],
+    [
+     96,
+     41,
+     "warm"
+    ],
+    [
+     22,
+     48,
+     "warm"
+    ],
+    [
+     68,
+     68,
+     "warm"
+    ],
+    [
+     29,
+     25,
+     "cold"
+    ],
+    [
+     16,
+     26,
+     "cold"
+    ],
+    [
+     90,
+     26,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-duoc": {
+   "file": "assets/art/hb-sap-duoc.png",
+   "v": "89e42d27",
+   "w": 113,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    56,
+    106
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     94,
+     59,
+     "warm"
+    ],
+    [
+     21,
+     58,
+     "warm"
+    ],
+    [
+     30,
+     87,
+     "warm"
+    ],
+    [
+     58,
+     12,
+     "warm"
+    ],
+    [
+     84,
+     87,
+     "warm"
+    ],
+    [
+     67,
+     86,
+     "warm"
+    ],
+    [
+     17,
+     32,
+     "cold"
+    ],
+    [
+     41,
+     77,
+     "cold"
+    ],
+    [
+     78,
+     37,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-hoa": {
+   "file": "assets/art/hb-sap-hoa.png",
+   "v": "a29ae7b2",
+   "w": 113,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    56,
+    108
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "hb.sap-kiem": {
+   "file": "assets/art/hb-sap-kiem.png",
+   "v": "b8b9afda",
+   "w": 113,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    56,
+    95
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     89,
+     20,
+     "cold"
+    ],
+    [
+     28,
+     21,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-mat-na": {
+   "file": "assets/art/hb-sap-mat-na.png",
+   "v": "9e2b318f",
+   "w": 113,
+   "h": 113,
+   "frames": 1,
+   "anchor": [
+    56,
+    111
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     96,
+     "warm"
+    ],
+    [
+     102,
+     59,
+     "warm"
+    ],
+    [
+     66,
+     95,
+     "warm"
+    ],
+    [
+     49,
+     85,
+     "warm"
+    ],
+    [
+     31,
+     92,
+     "warm"
+    ],
+    [
+     85,
+     92,
+     "warm"
+    ],
+    [
+     89,
+     30,
+     "cold"
+    ],
+    [
+     29,
+     31,
+     "cold"
+    ],
+    [
+     76,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-pha-le": {
+   "file": "assets/art/hb-sap-pha-le.png",
+   "v": "9f9f6475",
+   "w": 113,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    56,
+    108
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     23,
+     85,
+     "warm"
+    ],
+    [
+     86,
+     86,
+     "warm"
+    ],
+    [
+     13,
+     57,
+     "warm"
+    ],
+    [
+     102,
+     57,
+     "warm"
+    ],
+    [
+     77,
+     31,
+     "warm"
+    ],
+    [
+     84,
+     58,
+     "warm"
+    ],
+    [
+     38,
+     50,
+     "warm"
+    ],
+    [
+     54,
+     45,
+     "cold"
+    ],
+    [
+     66,
+     78,
+     "cold"
+    ],
+    [
+     89,
+     30,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-tra": {
+   "file": "assets/art/hb-sap-tra.png",
+   "v": "4de3baea",
+   "w": 113,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    56,
+    96
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     103,
+     49,
+     "warm"
+    ],
+    [
+     51,
+     29,
+     "warm"
+    ],
+    [
+     67,
+     76,
+     "warm"
+    ],
+    [
+     14,
+     49,
+     "warm"
+    ],
+    [
+     84,
+     50,
+     "warm"
+    ]
+   ]
+  },
+  "hb.sap-vai": {
+   "file": "assets/art/hb-sap-vai.png",
+   "v": "fcc99c3c",
+   "w": 113,
+   "h": 106,
+   "frames": 1,
+   "anchor": [
+    56,
+    104
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     50,
+     "warm"
+    ],
+    [
+     57,
+     49,
+     "warm"
+    ],
+    [
+     76,
+     76,
+     "warm"
+    ],
+    [
+     31,
+     86,
+     "warm"
+    ],
+    [
+     102,
+     50,
+     "warm"
+    ],
+    [
+     58,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "hb.sap-xien": {
+   "file": "assets/art/hb-sap-xien.png",
+   "v": "9472db6e",
+   "w": 113,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    56,
+    108
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     84,
+     "warm"
+    ],
+    [
+     104,
+     57,
+     "warm"
+    ],
+    [
+     13,
+     59,
+     "warm"
+    ],
+    [
+     42,
+     76,
+     "warm"
+    ],
+    [
+     31,
+     85,
+     "warm"
+    ],
+    [
+     84,
+     85,
+     "warm"
+    ],
+    [
+     13,
+     93,
+     "warm"
+    ]
+   ],
+   "flame": [
+    57,
+    24
+   ]
+  },
+  "hb.sen": {
+   "file": "assets/art/hb-sen.png",
+   "v": "b5fec353",
+   "w": 37,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    18,
+    24
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (14 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     18,
+     "cold"
+    ],
+    [
+     17,
+     21,
+     "cold"
+    ],
+    [
+     6,
+     19,
+     "cold"
+    ],
+    [
+     18,
+     7,
+     "pink"
+    ]
+   ]
+  },
+  "hb.sen-2": {
+   "file": "assets/art/hb-sen-2.png",
+   "v": "4df8d8a4",
+   "w": 46,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    23,
+    28
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (16 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     16,
+     "cold"
+    ],
+    [
+     19,
+     6,
+     "pink"
+    ],
+    [
+     38,
+     15,
+     "pink"
+    ]
+   ]
+  },
+  "hb.sen-lon": {
+   "file": "assets/art/hb-sen-lon.png",
+   "v": "23a9e4f9",
+   "w": 71,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    35,
+    62
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     33,
+     "cold"
+    ],
+    [
+     51,
+     31,
+     "cold"
+    ],
+    [
+     39,
+     37,
+     "cold"
+    ],
+    [
+     52,
+     17,
+     "pink"
+    ],
+    [
+     19,
+     17,
+     "pink"
+    ]
+   ]
+  },
+  "hb.su-tu": {
+   "file": "assets/art/hb-su-tu.png",
+   "v": "3909cfa1",
+   "w": 83,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    41,
+    88
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     78,
+     "cold"
+    ],
+    [
+     41,
+     81,
+     "cold"
+    ],
+    [
+     29,
+     82,
+     "cold"
+    ]
+   ]
+  },
+  "hb.thac": {
+   "file": "assets/art/hb-thac.png",
+   "v": "c2325591",
+   "w": 165,
+   "h": 172,
+   "frames": 1,
+   "anchor": [
+    82,
+    170
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (88 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     101,
+     "cold"
+    ],
+    [
+     65,
+     101,
+     "cold"
+    ],
+    [
+     90,
+     101,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     55,
+     143
+    ],
+    [
+     87,
+     31
+    ],
+    [
+     17,
+     117
+    ],
+    [
+     41,
+     69
+    ],
+    [
+     140,
+     78
+    ],
+    [
+     83,
+     28
+    ],
+    [
+     90,
+     74
+    ],
+    [
+     47,
+     77
+    ],
+    [
+     72,
+     99
+    ],
+    [
+     112,
+     40
+    ],
+    [
+     114,
+     32
+    ],
+    [
+     138,
+     100
+    ],
+    [
+     134,
+     84
+    ],
+    [
+     80,
+     137
+    ],
+    [
+     151,
+     74
+    ],
+    [
+     41,
+     42
+    ],
+    [
+     160,
+     159
+    ],
+    [
+     143,
+     93
+    ],
+    [
+     18,
+     131
+    ],
+    [
+     67,
+     67
+    ],
+    [
+     142,
+     45
+    ],
+    [
+     147,
+     64
+    ],
+    [
+     31,
+     125
+    ],
+    [
+     129,
+     97
+    ]
+   ]
+  },
+  "hb.thac-2": {
+   "file": "assets/art/hb-thac-2.png",
+   "v": "22a0ac9a",
+   "w": 150,
+   "h": 179,
+   "frames": 1,
+   "anchor": [
+    75,
+    177
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     78,
+     17,
+     "cold"
+    ],
+    [
+     54,
+     90,
+     "cold"
+    ],
+    [
+     65,
+     103,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     46,
+     140
+    ],
+    [
+     39,
+     87
+    ],
+    [
+     70,
+     52
+    ],
+    [
+     23,
+     159
+    ],
+    [
+     133,
+     111
+    ],
+    [
+     67,
+     57
+    ],
+    [
+     62,
+     35
+    ],
+    [
+     51,
+     48
+    ],
+    [
+     47,
+     76
+    ],
+    [
+     10,
+     121
+    ],
+    [
+     36,
+     81
+    ],
+    [
+     85,
+     125
+    ],
+    [
+     86,
+     146
+    ],
+    [
+     75,
+     120
+    ],
+    [
+     102,
+     74
+    ],
+    [
+     75,
+     65
+    ],
+    [
+     70,
+     111
+    ],
+    [
+     121,
+     109
+    ],
+    [
+     103,
+     168
+    ],
+    [
+     119,
+     78
+    ],
+    [
+     112,
+     116
+    ],
+    [
+     123,
+     113
+    ],
+    [
+     39,
+     44
+    ],
+    [
+     100,
+     64
+    ]
+   ]
+  },
+  "hb.thac-3": {
+   "file": "assets/art/hb-thac-3.png",
+   "v": "a00afb2a",
+   "w": 150,
+   "h": 123,
+   "frames": 1,
+   "anchor": [
+    75,
+    121
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     78,
+     78,
+     "cold"
+    ],
+    [
+     66,
+     78,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     25,
+     100
+    ],
+    [
+     23,
+     76
+    ],
+    [
+     109,
+     58
+    ],
+    [
+     75,
+     64
+    ],
+    [
+     64,
+     20
+    ],
+    [
+     132,
+     79
+    ],
+    [
+     78,
+     72
+    ],
+    [
+     39,
+     86
+    ],
+    [
+     102,
+     25
+    ],
+    [
+     23,
+     64
+    ],
+    [
+     4,
+     90
+    ],
+    [
+     69,
+     45
+    ],
+    [
+     78,
+     68
+    ],
+    [
+     133,
+     101
+    ],
+    [
+     92,
+     12
+    ],
+    [
+     121,
+     88
+    ],
+    [
+     72,
+     40
+    ],
+    [
+     134,
+     71
+    ],
+    [
+     78,
+     50
+    ],
+    [
+     74,
+     57
+    ],
+    [
+     24,
+     75
+    ],
+    [
+     40,
+     101
+    ],
+    [
+     71,
+     60
+    ],
+    [
+     95,
+     29
+    ]
+   ]
+  },
+  "hb.thap": {
+   "file": "assets/art/hb-thap.png",
+   "v": "9576dc43",
+   "w": 149,
+   "h": 248,
+   "frames": 1,
+   "anchor": [
+    74,
+    246
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (132 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     221,
+     "warm"
+    ],
+    [
+     41,
+     211,
+     "warm"
+    ],
+    [
+     77,
+     157,
+     "warm"
+    ],
+    [
+     96,
+     211,
+     "warm"
+    ],
+    [
+     48,
+     164,
+     "warm"
+    ],
+    [
+     103,
+     157,
+     "warm"
+    ],
+    [
+     67,
+     53,
+     "cold"
+    ],
+    [
+     67,
+     236,
+     "cold"
+    ]
+   ]
+  },
+  "hb.thung-go": {
+   "file": "assets/art/hb-thung-go.png",
+   "v": "0752ef9d",
+   "w": 65,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    32,
+    51
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     30,
+     "warm"
+    ],
+    [
+     49,
+     22,
+     "warm"
+    ],
+    [
+     31,
+     21,
+     "warm"
+    ]
+   ]
+  },
+  "hb.thung-pha-le": {
+   "file": "assets/art/hb-thung-pha-le.png",
+   "v": "84ce5e2e",
+   "w": 71,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    35,
+    64
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (38 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     29,
+     "cold"
+    ],
+    [
+     17,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tinh-the-lon": {
+   "file": "assets/art/hb-tinh-the-lon.png",
+   "v": "97435e87",
+   "w": 60,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    30,
+    62
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     42,
+     "cold"
+    ],
+    [
+     19,
+     42,
+     "cold"
+    ],
+    [
+     41,
+     43,
+     "cold"
+    ],
+    [
+     28,
+     15,
+     "pink"
+    ]
+   ]
+  },
+  "hb.torii": {
+   "file": "assets/art/hb-torii.png",
+   "v": "eb83df99",
+   "w": 135,
+   "h": 143,
+   "frames": 1,
+   "anchor": [
+    67,
+    141
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     67,
+     "warm"
+    ],
+    [
+     121,
+     86,
+     "warm"
+    ],
+    [
+     115,
+     68,
+     "warm"
+    ],
+    [
+     68,
+     42,
+     "warm"
+    ],
+    [
+     16,
+     87,
+     "warm"
+    ],
+    [
+     29,
+     21,
+     "cold"
+    ],
+    [
+     67,
+     26,
+     "cold"
+    ],
+    [
+     102,
+     22,
+     "cold"
+    ]
+   ]
+  },
+  "hb.torii-2": {
+   "file": "assets/art/hb-torii-2.png",
+   "v": "544cd27b",
+   "w": 142,
+   "h": 123,
+   "frames": 1,
+   "anchor": [
+    71,
+    121
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (76 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     24,
+     67,
+     "warm"
+    ],
+    [
+     131,
+     66,
+     "warm"
+    ],
+    [
+     120,
+     66,
+     "warm"
+    ],
+    [
+     89,
+     18,
+     "cold"
+    ],
+    [
+     125,
+     42,
+     "cold"
+    ],
+    [
+     75,
+     19,
+     "cold"
+    ]
+   ]
+  },
+  "hb.torii-trang": {
+   "file": "assets/art/hb-torii-trang.png",
+   "v": "e1013f12",
+   "w": 105,
+   "h": 159,
+   "frames": 1,
+   "anchor": [
+    52,
+    157
+   ],
+   "note": "đồ lễ hội han-bang: bo-2.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     30,
+     "warm"
+    ],
+    [
+     13,
+     84,
+     "warm"
+    ],
+    [
+     93,
+     85,
+     "warm"
+    ],
+    [
+     42,
+     13,
+     "warm"
+    ],
+    [
+     65,
+     24,
+     "warm"
+    ],
+    [
+     29,
+     43,
+     "cold"
+    ],
+    [
+     78,
+     43,
+     "cold"
+    ],
+    [
+     66,
+     45,
+     "cold"
+    ]
+   ]
+  },
+  "hb.trang-den": {
+   "file": "assets/art/hb-trang-den.png",
+   "v": "eee770ff",
+   "w": 56,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    28,
+    62
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     40,
+     "warm"
+    ],
+    [
+     40,
+     41,
+     "warm"
+    ],
+    [
+     40,
+     22,
+     "warm"
+    ],
+    [
+     20,
+     22,
+     "warm"
+    ],
+    [
+     30,
+     5,
+     "warm"
+    ]
+   ]
+  },
+  "hb.trang-lon": {
+   "file": "assets/art/hb-trang-lon.png",
+   "v": "d4559df3",
+   "w": 119,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    59,
+    88
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     80,
+     "cold"
+    ],
+    [
+     102,
+     66,
+     "cold"
+    ],
+    [
+     19,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "hb.trang-may": {
+   "file": "assets/art/hb-trang-may.png",
+   "v": "72435be9",
+   "w": 105,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    52,
+    92
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     31,
+     "warm"
+    ],
+    [
+     40,
+     13,
+     "warm"
+    ],
+    [
+     21,
+     49,
+     "warm"
+    ],
+    [
+     67,
+     67,
+     "warm"
+    ],
+    [
+     40,
+     57,
+     "warm"
+    ],
+    [
+     30,
+     77,
+     "cold"
+    ],
+    [
+     19,
+     68,
+     "cold"
+    ],
+    [
+     53,
+     80,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tru-pha-le": {
+   "file": "assets/art/hb-tru-pha-le.png",
+   "v": "f6d0afdc",
+   "w": 75,
+   "h": 91,
+   "frames": 1,
+   "anchor": [
+    37,
+    89
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     53,
+     "cold"
+    ],
+    [
+     42,
+     53,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tru-tinh-the": {
+   "file": "assets/art/hb-tru-tinh-the.png",
+   "v": "fc24bf6d",
+   "w": 40,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    20,
+    62
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     41,
+     "cold"
+    ],
+    [
+     20,
+     9,
+     "pink"
+    ]
+   ]
+  },
+  "hb.truc-den": {
+   "file": "assets/art/hb-truc-den.png",
+   "v": "e7063a96",
+   "w": 81,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    40,
+    92
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (50 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     58,
+     "warm"
+    ],
+    [
+     67,
+     66,
+     "warm"
+    ],
+    [
+     41,
+     49,
+     "warm"
+    ],
+    [
+     69,
+     52,
+     "warm"
+    ],
+    [
+     18,
+     30,
+     "cold"
+    ],
+    [
+     42,
+     9,
+     "cold"
+    ],
+    [
+     65,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tung": {
+   "file": "assets/art/hb-tung.png",
+   "v": "34ffeabf",
+   "w": 98,
+   "h": 113,
+   "frames": 1,
+   "anchor": [
+    49,
+    111
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (60 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     41,
+     "cold"
+    ],
+    [
+     30,
+     40,
+     "cold"
+    ],
+    [
+     42,
+     67,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tuong-cao": {
+   "file": "assets/art/hb-tuong-cao.png",
+   "v": "01d7743f",
+   "w": 75,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    37,
+    83
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     30,
+     "cold"
+    ],
+    [
+     19,
+     43,
+     "cold"
+    ],
+    [
+     30,
+     67,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tuong-hac": {
+   "file": "assets/art/hb-tuong-hac.png",
+   "v": "745e375d",
+   "w": 64,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    32,
+    95
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     42,
+     "cold"
+    ],
+    [
+     41,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tuong-rong": {
+   "file": "assets/art/hb-tuong-rong.png",
+   "v": "854650bf",
+   "w": 120,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    60,
+    83
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     65,
+     "cold"
+    ],
+    [
+     54,
+     42,
+     "cold"
+    ],
+    [
+     77,
+     40,
+     "cold"
+    ]
+   ]
+  },
+  "hb.tuong-tien": {
+   "file": "assets/art/hb-tuong-tien.png",
+   "v": "0577bb68",
+   "w": 75,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    37,
+    99
+   ],
+   "note": "đồ lễ hội han-bang: bo-5.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     33,
+     64,
+     "cold"
+    ],
+    [
+     44,
+     42,
+     "cold"
+    ],
+    [
+     30,
+     93,
+     "cold"
+    ]
+   ]
+  },
+  "hb.vac": {
+   "file": "assets/art/hb-vac.png",
+   "v": "96dfdb58",
+   "w": 60,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    30,
+    66
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "flame": [
+    30,
+    19
+   ]
+  },
+  "hb.vach-da": {
+   "file": "assets/art/hb-vach-da.png",
+   "v": "e2cd1a5b",
+   "w": 180,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    90,
+    98
+   ],
+   "note": "đồ lễ hội han-bang: bo-1.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     150,
+     54,
+     "cold"
+    ],
+    [
+     66,
+     29,
+     "cold"
+    ],
+    [
+     138,
+     17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.vo-ruou": {
+   "file": "assets/art/hb-vo-ruou.png",
+   "v": "60559358",
+   "w": 49,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    24,
+    32
+   ],
+   "note": "đồ lễ hội han-bang: bo-3.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     12,
+     "warm"
+    ],
+    [
+     13,
+     12,
+     "warm"
+    ],
+    [
+     30,
+     25,
+     "warm"
+    ],
+    [
+     9,
+     25,
+     "warm"
+    ]
+   ]
+  },
+  "hb.vom-den": {
+   "file": "assets/art/hb-vom-den.png",
+   "v": "13abc29e",
+   "w": 135,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    67,
+    86
+   ],
+   "note": "đồ lễ hội han-bang: bo-6.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     50,
+     "warm"
+    ],
+    [
+     67,
+     41,
+     "warm"
+    ],
+    [
+     102,
+     50,
+     "warm"
+    ],
+    [
+     40,
+     39,
+     "warm"
+    ],
+    [
+     52,
+     42,
+     "warm"
+    ],
+    [
+     114,
+     76,
+     "cold"
+    ],
+    [
+     16,
+     77,
+     "cold"
+    ],
+    [
+     29,
+     76,
+     "cold"
+    ],
+    [
+     98,
+     45,
+     "pink"
+    ],
+    [
+     20,
+     62,
+     "pink"
+    ]
+   ]
+  },
+  "hb.xich": {
+   "file": "assets/art/hb-xich.png",
+   "v": "e60951fa",
+   "w": 83,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    41,
+    44
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     14,
+     "warm"
+    ],
+    [
+     10,
+     14,
+     "warm"
+    ]
+   ]
+  },
+  "hb.xich-co": {
+   "file": "assets/art/hb-xich-co.png",
+   "v": "520345dc",
+   "w": 98,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    49,
+    47
+   ],
+   "note": "đồ lễ hội han-bang: bo-4.png (52 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     5,
+     12,
+     "warm"
+    ],
+    [
+     94,
+     12,
+     "warm"
+    ],
+    [
+     67,
+     28,
+     "cold"
+    ],
+    [
+     51,
+     38,
+     "cold"
+    ]
+   ]
   },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",
