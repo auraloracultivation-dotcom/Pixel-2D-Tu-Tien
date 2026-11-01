@@ -23,7 +23,7 @@ export function createDunResult(game) {
     if (x.kind === 'item') {
       const q = quality(data, x.it) || rarityOf(data.items, x.it.rarity);
       c.append(icon(data, x.it)); name = itemName(data, x.it); color = q?.color || color;
-    } else if (x.kind === 'gem') { const g = gemInfo(data, x.id); c.append(gemIcon(game, x.id, 26)); name = g.name; color = g.color || color; }
+    } else if (x.kind === 'gem') { const g = gemInfo(data, x.id); const box = el('div', 'dr-gem'); box.append(gemIcon(game, x.id, g.lv < 6 ? 84 : 56)); c.append(box); name = g.name; color = g.color || color; }   // ngọc cấp thấp hình nhỏ giữa khung: phóng to, cắt viền trống
     else {
       const m = x.kind === 'coins' ? { name: T.coins, color: '#f2c94c' } : x.kind === 'pill' ? data.cave.pills[x.id] : matInfo(data, x.id);
       const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color;
@@ -48,7 +48,7 @@ export function createDunResult(game) {
     const top = cleared(game, r.id), next = r.inside ? r.L + 1 : top;
     if (!r.party) {
       btn(T.next.replace('{level}', levelName(game, next)), () => { close(); enterLevel(game, r.id, next); }, !left || next > top);
-      btn(T.again.replace('{level}', levelName(game, top - 1)), () => {
+      btn(T.again.replace('{level}', levelName(game, Math.max(0, top - 1))), () => {
         const loot = sweep(game, r.id, top - 1);
         if (loot) { game.sfx('levelup'); open({ ...r, L: top - 1, loot, swept: true }); }
       }, !left || top < 1);
