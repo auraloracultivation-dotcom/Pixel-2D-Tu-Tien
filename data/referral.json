@@ -59,5 +59,6 @@
   "loading": "Đang tải...",
   "login": "Đăng nhập để xem bảng vinh danh.",
   "error": "Chưa tải được, thử lại sau."
- }
+ },
+ "extra": {"_note": "Sự kiện thêm hiện trên đầu bảng Sự kiện (chủ dự án 03/11/2026 02:34). from/to theo ngày; hết hạn tự ẩn.", "list": [{"id": "mung-50-tk", "from": "2026-11-03", "to": "2026-11-04", "title": "🎉 Mừng 50 tài khoản: phát Linh Thạch theo Bảng lực chiến", "lines": ["Xét bảng lúc 9h sáng thứ Tư 04/11:", "Top 1–5 lực chiến: 2.000.000 Linh Thạch · Top 6–10: 1.000.000 · Top 11–20: 500.000 · Mọi người còn lại: 250.000.", "Top 1 và Top 2 Bảng quản trị viên: được chủ dự án làm riêng một nhân vật theo yêu cầu (có chỉnh khác bản gốc để tránh bản quyền).", "Điểm quản trị viên đổi được Tiên Ngọc 1 = 1, tối đa 500 mỗi tuần (Xếp hạng → Quản trị viên → Sổ điểm). Mời bạn thành công nay +60 điểm.", "Tài khoản phụ tự tạo để ăn thưởng sẽ bị khoá, hệ thống tự kiểm tra."]}]}
 }

@@ -43,3 +43,12 @@ body:has(.panel:not([hidden])) #btn-auto.auto-dock, body:has(#bag:not([hidden]))
 .dl-gifts { max-height: 32vh; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; margin-top: 6px; touch-action: pan-y; overscroll-behavior: contain; }
 .dl-gift { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 6px 8px; text-align: left; border: 1px solid rgba(255, 255, 255, .15); border-left: 3px solid #b8a0e0; border-radius: 5px; background: rgba(0, 0, 0, .3); color: var(--ink, #eee); font: 12px var(--f-body); }
 .dl-gift small { opacity: .7; font-size: 10.5px; }
+
+/* Sổ điểm QTV (src/ui/qtv-ledger.js) */
+.qtv-ledger { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.qtv-ledger p { margin: 0; font-size: 12px; }
+.qtv-doi { display: flex; gap: 6px; } .qtv-doi input { flex: 1; min-width: 0; padding: 6px; background: var(--panel-3); color: var(--ink); border: 1px solid var(--line-hi); border-radius: 6px; }
+.qtv-note { color: #ffd27a; }
+.qtv-dong { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+.qtv-line { display: grid; grid-template-columns: 44px 1fr auto; gap: 6px; font-size: 11px; align-items: baseline; }
+.qtv-line.up b { color: #5fd07a; } .qtv-line.down b { color: #e0484a; } .qtv-line small { opacity: .6; }
