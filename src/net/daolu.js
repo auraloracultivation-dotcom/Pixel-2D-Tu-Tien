@@ -10,4 +10,4 @@ async function rpc(fn, args) {
 export const daoLuState = () => rpc('p2d_dao_lu_tt');
 export const daoLuInvite = k => rpc('p2d_dao_lu_moi', { p_k: k });
 export const daoLuCancel = k => rpc('p2d_dao_lu_huy', { p_k: k });
-export const daoLuGift = (loai, mon) => rpc('p2d_dl_tang', { p_loai: loai, p_mon: mon });
+export const daoLuGift = (loai, mon) => rpc('p2d_dl_tang2', { p_loai: loai, p_mon: mon });   // bản 2: tặng được cả trang bị Đạo Vận (20261102180000_p2d_dl_tang2.sql)

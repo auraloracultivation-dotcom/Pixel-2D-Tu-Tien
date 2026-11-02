@@ -30,7 +30,7 @@ export function inviteBtn(game, st, r, btn, rerender) {
 // Danh sách quà: hiện ngay trong khung Đạo lữ, cuộn được (nút bấm bằng click nên vuốt không chọn nhầm); chạm một món thì hỏi lại
 function giftList(game, kind) {
   const s = game.save, D = game.data;
-  if (kind === 'mon') return s.bag.filter(it => !isEquipped(s, it.uid) && !D.items.bases[it.base]?.dv).slice().reverse()
+  if (kind === 'mon') return s.bag.filter(it => !isEquipped(s, it.uid)).slice().reverse()   // mọi trang bị không đang mặc, cả đồ Đạo Vận (chủ dự án 16:49)
     .map(it => ({ label: itemName(D, it), desc: `${rarityOf(D.items, it.rarity)?.name || ''} · cấp ${it.lvl}`, color: rarityOf(D.items, it.rarity)?.color, mon: { uid: it.uid } }));
   if (kind === 'nl') return Object.entries(s.mats || {}).filter(([id, n]) => n >= 1 && matInfo(D, id) && id !== 'dao-van-thach')
     .map(([id, n]) => ({ label: `${matInfo(D, id).name} ×${Math.min(10, Math.floor(n))}`, desc: `Đang có ${Math.floor(n)}`, mon: { id, n: Math.min(10, Math.floor(n)) } }));
