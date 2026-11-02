@@ -1,5 +1,5 @@
 // Bảng động phủ: tab Lò đan (luyện và dùng đan), Lò rèn (chọn ô, rèn đồ mới), Động phủ (nâng cấp). Mở khi đứng cạnh lò.
-import { brew, brewRate, usePill, forge, costText, canPay, matInfo, qiPillLeft } from '../game/cave.js';
+import { brew, brewRate, usePill, forge, costText, canPay, matInfo, qiPillLeft, qiPillUsed, qiPillRate } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
@@ -54,8 +54,8 @@ export function createCavePanel(game) {
           }, !canPay(game, p.recipe)),
           mini('Dùng', () => {
             const L = game.data.cave.qi_pill_day, isQi = !!p.use?.qi, m = usePill(game, id);   // đan linh khí: báo đan độc, số viên còn dùng hôm nay
-            if (m) { last = `${p.name}: ${m}` + (isQi && L ? ' ' + L.left.replace('{n}', qiPillLeft(game)) : ''); game.sfx('levelup'); }
-            else last = isQi && L && qiPillLeft(game) <= 0 ? L.full.replace('{n}', L.n) : 'Lúc này dùng không có tác dụng.';
+            if (m) { last = `${p.name}: ${m}` + (isQi && L && qiPillLeft(game) > 0 ? ' ' + L.left.replace('{n}', qiPillLeft(game)) : isQi && L ? ' ' + L.full.replace('{n}', qiPillUsed(game)).replace('{pct}', Math.round(qiPillRate(game) * 100)) : ''); game.sfx('levelup'); }
+            else last = 'Lúc này dùng không có tác dụng.';
             render();
           }, !have),
         );

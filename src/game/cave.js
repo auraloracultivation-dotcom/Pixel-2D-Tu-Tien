@@ -19,11 +19,18 @@ export const canPay = (game, cost) => has(game.save, cost);
 
 export function addMat(save, id, n = 1) { save.mats[id] = (save.mats[id] || 0) + n; }
 
-// Đan độc: số viên đan linh khí còn được dùng hôm nay (data/cave.json → qi_pill_day)
+// Đan độc giảm dần (data/cave.json → qi_pill_day): số viên đan linh khí đã dùng hôm nay, số viên còn đủ hiệu quả,
+// tỉ lệ linh khí của viên kế tiếp (viên 1–8 đủ, 9–16 một nửa, từ 17 còn 20%; qua 0 giờ đếm lại)
+export const qiPillUsed = game => (game.save.qiPill?.day === new Date().toDateString() ? game.save.qiPill.n : 0);
 export function qiPillLeft(game) {
-  const L = game.data.cave.qi_pill_day, q = game.save.qiPill;
-  if (!L) return Infinity;
-  return q?.day === new Date().toDateString() ? Math.max(0, L.n - q.n) : L.n;
+  const L = game.data.cave.qi_pill_day;
+  return L ? Math.max(0, L.n - qiPillUsed(game)) : Infinity;
+}
+export function qiPillRate(game) {
+  const L = game.data.cave.qi_pill_day, k = qiPillUsed(game) + 1;
+  let r = 1;
+  for (const [from, x] of L?.steps || []) if (k >= from) r = x;
+  return r;
 }
 
 // Quái rơi nguyên liệu: [loại, xác suất, số lượng]
@@ -72,13 +79,12 @@ export function usePill(game, id) {
     p.hp = Math.min(p.maxHp, p.hp + p.maxHp * u.heal);
     msg = `+${Math.round(p.maxHp * u.heal)} máu`;
   } else if (u.qi) {
-    if (qiPillLeft(game) <= 0) return null;
-    const day = new Date().toDateString();
-    save.qiPill = { day, n: (save.qiPill?.day === day ? save.qiPill.n : 0) + 1 };
+    const rate = qiPillRate(game), day = new Date().toDateString(), L = data.cave.qi_pill_day;
+    save.qiPill = { day, n: qiPillUsed(game) + 1 };
     save.pills[id]--;
-    game.gainQi(qiNeed(save, data.realms) * u.qi, p.x, p.y, false, true);   // đan linh khí không nhân đôi theo Thăng Linh Đan
+    game.gainQi(qiNeed(save, data.realms) * u.qi * rate, p.x, p.y, false, true);   // đan linh khí không nhân đôi theo Thăng Linh Đan; đan độc giảm dần
     game.persist();
-    return 'Linh khí tràn vào kinh mạch';
+    return rate < 1 && L?.weak ? L.weak.replace('{pct}', Math.round(rate * 100)).replace('{used}', save.qiPill.n) : 'Linh khí tràn vào kinh mạch';
   } else if (u.hp) {
     save.flags.boiNguyen = save.flags.boiNguyen || 0;
     if (save.flags.boiNguyen >= u.cap) return null;

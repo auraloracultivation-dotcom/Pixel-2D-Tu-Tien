@@ -2,7 +2,7 @@
 // chưa đầy tới đỉnh (không phí); đan tĩnh tâm dùng ngay trước khi độ kiếp. Đan hồi máu do player.js lo.
 import { qiNeed } from './stats.js';
 import { atPeak } from './tribulation.js';
-import { usePill } from './cave.js';
+import { usePill, qiPillLeft } from './cave.js';
 
 export function autoPills(game) {
   const s = game.save, d = game.data, P = d.cave.pills;
@@ -12,6 +12,7 @@ export function autoPills(game) {
     if (u.qi) {
       const need = qiNeed(s, d.realms);
       if (s.layer >= d.realms.layers && s.qi + need * u.qi > need) continue;   // sắp đầy tới đỉnh: để dành
+      if (qiPillLeft(game) <= 0) continue;   // đan độc: tự hành chỉ uống viên còn đủ hiệu quả, viên giảm dần để người chơi tự chọn
     }
     if (u.trib && !atPeak(game)) continue;
     const msg = usePill(game, id);
