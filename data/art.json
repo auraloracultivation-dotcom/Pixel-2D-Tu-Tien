@@ -20098,6 +20098,306 @@
    ],
    "note": "nguồn sáng khung giao diện: incense (ảnh Canva den-2.png)"
   },
+  "ui.k-arrow-l": {
+   "file": "assets/art/ui-k-arrow-l.png",
+   "v": "542dbcbd",
+   "w": 11,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    5,
+    8
+   ],
+   "note": "mũi tên trái (thu gọn) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-arrow-r": {
+   "file": "assets/art/ui-k-arrow-r.png",
+   "v": "b2c38c44",
+   "w": 10,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    5,
+    7
+   ],
+   "note": "mũi tên phải (mở ra) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-atk": {
+   "file": "assets/art/ui-k-atk.png",
+   "v": "21a33972",
+   "w": 67,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    33,
+    34
+   ],
+   "note": "nút Đánh: vòng vàng, song kiếm, chữ Đánh (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-bar-do": {
+   "file": "assets/art/ui-k-bar-do.png",
+   "v": "e1990aee",
+   "w": 62,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    31,
+    5
+   ],
+   "note": "thanh máu (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-bar-lam": {
+   "file": "assets/art/ui-k-bar-lam.png",
+   "v": "954256a5",
+   "w": 56,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    28,
+    5
+   ],
+   "note": "thanh linh khí (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-bar-rong": {
+   "file": "assets/art/ui-k-bar-rong.png",
+   "v": "52a045c3",
+   "w": 56,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    28,
+    5
+   ],
+   "note": "thanh rỗng (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-btn": {
+   "file": "assets/art/ui-k-btn.png",
+   "v": "c7a05809",
+   "w": 68,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    34,
+    11
+   ],
+   "note": "khung nút dài 9 mảnh, lòng tím sẫm (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-chat": {
+   "file": "assets/art/ui-k-chat.png",
+   "v": "3841953f",
+   "w": 156,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    78,
+    10
+   ],
+   "note": "ô nhập trò chuyện (đã xoá chữ mẫu) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-den": {
+   "file": "assets/art/ui-k-den.png",
+   "v": "0823a25b",
+   "w": 20,
+   "h": 63,
+   "frames": 1,
+   "anchor": [
+    10,
+    31
+   ],
+   "note": "đèn lồng treo góc bảng (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-ban-do": {
+   "file": "assets/art/ui-k-i-ban-do.png",
+   "v": "2da72d31",
+   "w": 27,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    13,
+    9
+   ],
+   "note": "biểu tượng nút ban-do (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-bi-canh": {
+   "file": "assets/art/ui-k-i-bi-canh.png",
+   "v": "d10e7a86",
+   "w": 24,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    12,
+    8
+   ],
+   "note": "biểu tượng nút bi-canh (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-cong-phap": {
+   "file": "assets/art/ui-k-i-cong-phap.png",
+   "v": "1831eb84",
+   "w": 25,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    12,
+    8
+   ],
+   "note": "biểu tượng nút cong-phap (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-de-xuat": {
+   "file": "assets/art/ui-k-i-de-xuat.png",
+   "v": "0a35b2b4",
+   "w": 14,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    7,
+    8
+   ],
+   "note": "biểu tượng nút de-xuat (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-dong-phu": {
+   "file": "assets/art/ui-k-i-dong-phu.png",
+   "v": "98c5f42d",
+   "w": 25,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    12,
+    9
+   ],
+   "note": "biểu tượng nút dong-phu (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-loi": {
+   "file": "assets/art/ui-k-i-loi.png",
+   "v": "eeccb079",
+   "w": 27,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    13,
+    8
+   ],
+   "note": "biểu tượng nút loi (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-menu": {
+   "file": "assets/art/ui-k-i-menu.png",
+   "v": "c580b417",
+   "w": 28,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    14,
+    9
+   ],
+   "note": "biểu tượng nút menu (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-nhiem-vu": {
+   "file": "assets/art/ui-k-i-nhiem-vu.png",
+   "v": "50b2cc59",
+   "w": 27,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    13,
+    8
+   ],
+   "note": "biểu tượng nút nhiem-vu (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-su-kien": {
+   "file": "assets/art/ui-k-i-su-kien.png",
+   "v": "b2bbd8f9",
+   "w": 24,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    12,
+    8
+   ],
+   "note": "biểu tượng nút su-kien (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-thu": {
+   "file": "assets/art/ui-k-i-thu.png",
+   "v": "260fb36a",
+   "w": 26,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    13,
+    8
+   ],
+   "note": "biểu tượng nút thu (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-tu-danh": {
+   "file": "assets/art/ui-k-i-tu-danh.png",
+   "v": "ce274b54",
+   "w": 22,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    11,
+    9
+   ],
+   "note": "biểu tượng nút tu-danh (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-tui": {
+   "file": "assets/art/ui-k-i-tui.png",
+   "v": "7369fffd",
+   "w": 24,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    12,
+    9
+   ],
+   "note": "biểu tượng nút tui (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-i-xep-hang": {
+   "file": "assets/art/ui-k-i-xep-hang.png",
+   "v": "0b07893d",
+   "w": 25,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    12,
+    9
+   ],
+   "note": "biểu tượng nút xep-hang (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-panel": {
+   "file": "assets/art/ui-k-panel.png",
+   "v": "eab2dc80",
+   "w": 68,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    34,
+    22
+   ],
+   "note": "khung bảng 9 mảnh góc vàng, lòng trong mờ (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-ring-do": {
+   "file": "assets/art/ui-k-ring-do.png",
+   "v": "79d6ed1d",
+   "w": 37,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    18,
+    18
+   ],
+   "note": "vòng nút tròn đá đỏ (chiêu, đan, pháp bảo; từ nút Đan) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
+  "ui.k-ring-lam": {
+   "file": "assets/art/ui-k-ring-lam.png",
+   "v": "1d74e516",
+   "w": 38,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    19,
+    19
+   ],
+   "note": "vòng nút tròn đá lam (Lướt) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
+  },
   "ui.lamppost": {
    "file": "assets/art/ui-lamppost.png",
    "v": "6424c5ac",

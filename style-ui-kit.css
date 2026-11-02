@@ -1,0 +1,87 @@
+/* Bộ khung giao diện từ ảnh GPT (chủ dự án 02/11/2026 21:46; ảnh mẫu tools/art/nguon/ai/ui/ui-mau-1.png, hình tools/art/ui_kit.py).
+   Nạp sau cùng (style.css @import), chọn có #hud / body để đè các lớp khung cũ. Hình là điểm ảnh thật, phóng 2 lần (image-rendering pixelated).
+   Thu gọn bảng nút, ẩn giao diện: src/ui/hud-gon.js (body.hud-gon, body.ui-an). */
+
+/* ---- nút chữ trên màn hình: khung tím sẫm nẹp vàng 9 mảnh, biểu tượng bên trái ---- */
+body #hud .hud-btns > button:not(#btn-inbox):not(#btn-notice):not(#btn-rec):not(#btn-mute):not(#btn-fb-loi):not(#btn-fb-de_xuat) {
+  height: 28px !important; padding: 0 4px 0 3px !important; display: inline-flex; align-items: center; gap: 3px;
+  border: 6px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 4 fill / 6px / 0 stretch !important;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .4) !important; font-size: 14px !important; color: #fff1c8 !important;
+}
+body #hud .hud-btns > button[data-ico]::before {
+  content: ''; flex: none; width: 18px; height: 18px; margin: -4px 0 -4px -2px; image-rendering: pixelated;
+  background: var(--ico) center / contain no-repeat;
+}
+#btn-bag { --ico: url("assets/art/ui-k-i-tui.png"); }
+#btn-menu { --ico: url("assets/art/ui-k-i-menu.png"); }
+#btn-skills { --ico: url("assets/art/ui-k-i-cong-phap.png"); }
+#hud-dun { --ico: url("assets/art/ui-k-i-bi-canh.png"); }
+#hud-event { --ico: url("assets/art/ui-k-i-su-kien.png"); }
+#hud-quest { --ico: url("assets/art/ui-k-i-nhiem-vu.png"); }
+#hud-home { --ico: url("assets/art/ui-k-i-dong-phu.png"); }
+#btn-world { --ico: url("assets/art/ui-k-i-ban-do.png"); }
+#hud-rank { --ico: url("assets/art/ui-k-i-xep-hang.png"); }
+body[data-le] #btn-menu::before { display: block; }
+/* lưới hai cột đều như ảnh mẫu; cột nút rộng 220, cột nhiệm vụ bên phải thu còn 40% màn để không chạm nhau */
+body #hud .hud-btns { width: 220px; max-width: 220px !important; gap: 5px 4px; }
+body #hud .hud-btns > button[data-ico] { flex: 0 0 calc(50% - 2px); justify-content: flex-start; }   /* bỏ bí ngô Halloween trước chữ Menu: đã có biểu tượng */
+/* nút biểu tượng (thư, báo lỗi, đề xuất): cùng khung, biểu tượng vẽ ở ::before (lòng khung 9 mảnh phủ lên nền nên không dùng background) */
+/* (ID lặp để thắng luật nút chữ ở style.css: .hud-btns > button:not(#…)×4 tính như 4 ID) */
+body #hud #btn-inbox, body #hud #btn-fb-loi#btn-fb-loi#btn-fb-loi#btn-fb-loi, body #hud #btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat {
+  width: 40px !important; height: 28px !important; border: 6px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 4 fill / 6px / 0 stretch !important;
+  background: none !important; font-size: 0 !important; color: transparent !important; position: relative; padding: 0 !important;
+}
+body #hud #btn-inbox::before, body #hud #btn-fb-loi::before, body #hud #btn-fb-de_xuat::before {
+  content: ''; position: absolute; inset: -2px; background: var(--ico) center / 22px 18px no-repeat; image-rendering: pixelated;
+}
+body #hud #btn-inbox { --ico: url("assets/art/ui-k-i-thu.png"); }
+body #hud #btn-fb-loi { --ico: url("assets/art/ui-k-i-loi.png"); }
+body #hud #btn-fb-de_xuat { --ico: url("assets/art/ui-k-i-de-xuat.png"); }
+body #hud #btn-fb-de_xuat::before { background-size: 16px 16px; }
+body #hud #btn-inbox > * { font-size: 10px; position: relative; z-index: 1; }
+/* Tự đánh ở cụm nút đánh */
+body #btn-auto.auto-dock { border: 8px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 4 fill / 8px / 0 stretch !important; background: transparent !important;
+  height: 34px !important; padding: 0 8px 0 30px !important; position: absolute; }
+body #btn-auto.auto-dock::before { content: ''; position: absolute; left: 2px; top: 50%; width: 24px; height: 24px; transform: translateY(-50%);
+  background: url("assets/art/ui-k-i-tu-danh.png") center / contain no-repeat; image-rendering: pixelated; }
+body #btn-auto.auto-dock.on { filter: brightness(1.25) drop-shadow(0 0 4px rgba(255, 190, 90, .8)); color: #fff1c8 !important; }
+
+/* ---- thanh máu, linh khí: rãnh tối, ruột đỏ / lam ---- */
+body #hud .bars .bar { height: 16px; border: 4px solid transparent; border-image: url("assets/art/ui-k-bar-rong.png") 3 fill / 4px / 0 stretch; background: none; box-shadow: none;
+  border-radius: 0; overflow: visible; image-rendering: pixelated; }
+body #hud .bars .bar i { top: -2px; bottom: -2px; left: -2px; border-radius: 0; box-shadow: none; }
+body #hud .bars .bar.hp i { background: url("assets/art/ui-k-bar-do.png") 0 0 / 100% 100%; }
+body #hud .bars .bar.qi i { background: url("assets/art/ui-k-bar-lam.png") 0 0 / 100% 100%; }
+body #hud .bars .bar span { line-height: 8px; z-index: 1; }
+
+/* ---- nút tròn: vòng đá lam (Lướt), đá đỏ (chiêu, đan, pháp bảo); nút Đánh song kiếm ---- */
+body #btn-s0::after, body #btn-s1::after, body #btn-s2::after, body #btn-pill::after, body #btn-art::after { background-image: url("assets/art/ui-k-ring-do.png") !important; inset: -12% !important; }
+body #btn-dash::after { background-image: url("assets/art/ui-k-ring-lam.png") !important; inset: -12% !important; }
+body #btn-atk, body[data-le] #btn-atk { background: radial-gradient(circle, #2a1838 0 55%, transparent 56%) !important; box-shadow: none !important; }
+body #btn-atk::after, body[data-le] #btn-atk::after { background-image: url("assets/art/ui-k-atk.png") !important; inset: -16% !important; animation: none; }
+body #btn-atk b { opacity: 0; }
+
+/* ---- cột nhiệm vụ hằng ngày: khung bảng góc vàng, đèn lồng treo góc trái ---- */
+body .quest-dock { border: 10px solid transparent; border-image: url("assets/art/ui-k-panel.png") 8 fill / 10px / 0 stretch; image-rendering: pixelated;
+  padding: 2px 4px; align-items: flex-start; text-align: left; max-width: 40%; font-size: 10.5px; }
+body .quest-dock::before { content: ''; position: absolute; left: -22px; top: -12px; width: 14px; height: 44px; background: url("assets/art/ui-k-den.png") top / contain no-repeat;
+  image-rendering: pixelated; animation: uk-den 2.4s ease-in-out infinite alternate; transform-origin: top center; pointer-events: none; }
+@keyframes uk-den { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+body .quest-dock .qd-head { align-self: center; color: #ffe6a0; font-size: 12px; margin-bottom: 2px; }
+body .quest-dock .qd-line.done::before { content: '✓ '; color: #6ae07a; }
+
+/* ---- ô trò chuyện ---- */
+body .chat-dock .cd-input { border: 6px solid transparent; border-image: url("assets/art/ui-k-chat.png") 4 18 4 4 fill / 6px 24px 6px 6px / 0 stretch; border-right-width: 24px; white-space: nowrap; overflow: hidden;
+  border-radius: 0; background: none; image-rendering: pixelated; }
+
+/* ---- thu gọn, ẩn giao diện (src/ui/hud-gon.js) ---- */
+.uk-tog { position: fixed; z-index: 7; pointer-events: auto; width: 30px; height: 30px; padding: 0; border: 7px solid transparent;
+  border-image: url("assets/art/ui-k-btn.png") 4 fill / 7px / 0 stretch; background: none; image-rendering: pixelated; color: #fff1c8;
+  font: 400 12px var(--f-pixel); line-height: 16px; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+#uk-gon::before { content: ''; display: block; width: 10px; height: 14px; margin: auto; background: url("assets/art/ui-k-arrow-l.png") center / contain no-repeat; image-rendering: pixelated; }
+body.hud-gon #uk-gon::before { background-image: url("assets/art/ui-k-arrow-r.png"); }
+#uk-an { width: auto; padding: 0 2px; }
+body.hud-gon #hud .hud-btns { display: none !important; }
+body:has(#uk-gon:not([hidden])) #hud .hud-btns { margin-top: 34px; }   /* chừa hàng cho hai nút thu gọn, ẩn ngay dưới thanh linh khí */
+body.ui-an #hud, body.ui-an .quest-dock, body.ui-an .chat-dock, body.ui-an #feed, body.ui-an #uk-gon { visibility: hidden !important; }
+body:has(.panel:not([hidden])) .uk-tog, body:has(#bag:not([hidden])) .uk-tog, body:has(#dialog:not([hidden])) .uk-tog, body.trip .uk-tog { display: none; }
