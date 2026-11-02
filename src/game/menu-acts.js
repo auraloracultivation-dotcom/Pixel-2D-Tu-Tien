@@ -60,12 +60,3 @@ export async function enterDungeon(game, d) {
   await game.travel(d.id, d.spawn, true, { text: d.label, kind: 'portal' });
   return null;
 }
-
-// Phương Thiên Địa (Ma Vương tuần): bay thẳng như chạm trên tinh đồ
-export async function enterDemon(game) {
-  const why = busyWhy(game) || demonWhy(game);
-  if (why) return why;
-  const id = Object.keys(game.data.maps).find(k => game.data.maps[k].demon);
-  await game.travel(id, 'vao', true, { text: game.data.starmap.texts.trip.replace('{name}', game.data.maps[id].name), kind: 'portal' });
-  return null;
-}

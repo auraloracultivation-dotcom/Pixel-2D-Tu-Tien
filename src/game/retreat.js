@@ -12,7 +12,6 @@ export function retreatList(game) {
   const h = retreatHours(game), got = game.save.retreat?.got || [];
   return (R(game)?.list || []).map((m, i) => ({ ...m, i, got: got.includes(m.h), ready: h >= m.h && !got.includes(m.h) }));
 }
-export const retreatReady = game => retreatList(game).some(m => m.ready);
 
 // Nhận quà mốc i; trả về danh sách quà hoặc null
 export function claimRetreat(game, i) {

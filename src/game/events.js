@@ -3,7 +3,6 @@ import { grant } from './daily.js';
 import { makhiSpawn } from './makhi.js';
 
 const C = game => game.data.events;
-const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 // Số tuần tính từ thứ 2 theo giờ máy (1970-01-05 là thứ 2)
 const weekNo = d => Math.floor((Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000) - 4) / 7);
 const isWeekend = d => d.getDay() === 0 || d.getDay() === 6;
@@ -55,12 +54,4 @@ export function festSpawn(game, def) {
 // Lời chào khi vào game: sự kiện tuần và cuối tuần
 export function eventToast(game) {
   game.toast(activeEvents(game).map(e => e.name).join(' · '), 3);
-}
-
-// Nhân thưởng số (đá, linh khí, Linh Thạch); món đồ giữ nguyên
-export function scaleReward(r, k) {
-  if (k === 1) return r;
-  const o = { ...r };
-  for (const key of ['stones', 'qi', 'coins']) if (o[key]) o[key] = Math.round(o[key] * k);
-  return o;
 }

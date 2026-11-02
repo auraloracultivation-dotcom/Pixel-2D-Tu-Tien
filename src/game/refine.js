@@ -4,7 +4,6 @@ import { artOf } from './items.js';
 const R = data => data.gear.refine;
 
 export const isArt = (data, it) => data.items.bases[it?.base]?.slot === 'phap-bao';
-export const refineMul = (data, it) => 1 + (isArt(data, it) ? (it.pb || 0) * R(data).per : 0);
 
 // Mảnh cần để luyện từ bậc hiện tại lên bậc kế; null nếu đã tối đa hoặc không phải pháp bảo
 export function refineCost(data, it) {
