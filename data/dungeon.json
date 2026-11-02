@@ -146,5 +146,7 @@
   "co-thu-tam": "ngoc-boi",
   "vet-nut": "phap-bao"
  },
- "step_mul": 2
+ "step_mul": 2,
+ "closed_note": "Bí cảnh tạm đóng cửa (chủ dự án 02/11/2026 18:04: cuối game, chưa có gì riêng, giữ game gọn). Danh sách bí cảnh xếp cuối, cổng không vào được, việc ngày cùng id không ra. Mở lại: bỏ id khỏi closed.",
+ "closed": ["re-mau-thu", "hu-khong-lao", "vet-nut"]
 }

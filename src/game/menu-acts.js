@@ -35,6 +35,7 @@ export function talkMenu(game, kind) {
 }
 
 // Bí cảnh: bản đồ có phòng mà một tinh cầu có cổng dẫn vào, theo thứ tự truyện (config.maps); cờ need của cổng là điều kiện mở
+export const dunClosed = (game, id) => (game.data.dungeon.closed || []).includes(id);   // bí cảnh tạm đóng cửa (data/dungeon.json → closed)
 export function dungeonList(game) {
   const D = game.data, out = [], seen = new Set();
   for (const mid of D.config.maps) {
@@ -44,11 +45,11 @@ export function dungeonList(game) {
       const d = D.maps[pt.to];
       if (!d || !(d.rooms || []).length || d.demon || seen.has(pt.to)) continue;
       seen.add(pt.to);
-      const open = !pt.need || !!game.save.flags[pt.need], n = cleared(game, pt.to);
-      out.push({ id: pt.to, name: d.name, from: m.name, spawn: pt.spawn, label: pt.label, open, done: n > 0, hint: open ? hintOf(game, pt.to, Math.max(0, n - 1)) : null });
+      const closed = dunClosed(game, pt.to), open = !closed && (!pt.need || !!game.save.flags[pt.need]), n = cleared(game, pt.to);
+      out.push({ id: pt.to, name: d.name, from: m.name, spawn: pt.spawn, label: pt.label, open, closed, done: n > 0, hint: open ? hintOf(game, pt.to, Math.max(0, n - 1)) : null });
     }
   }
-  return out;
+  return out.filter(d => d.open).concat(out.filter(d => !d.open && !d.closed), out.filter(d => d.closed));   // đang mở lên trên (chủ dự án 18:04)
 }
 
 // Vào bí cảnh từ menu: như đi qua cổng (đã qua thì hỏi độ khó). Trả lý do nếu chưa vào được
