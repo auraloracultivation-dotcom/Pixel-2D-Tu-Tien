@@ -3,7 +3,7 @@ import { petNeed, setPet, setMount, mergeCost, canMerge, mergePet } from '../gam
 import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
-import { petPrice, sellPet } from '../game/home-pets.js';
+import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
 
 const $ = id => document.getElementById(id);
 
@@ -32,10 +32,10 @@ export function createPetsPanel(game) {
 
   // Nút Bán trong tấm chi tiết (src/ui/grid-cards.js bấm hộ): bấm lần đầu hỏi lại, lần hai mới bán (src/game/home-pets.js)
   let sure = null;
-  function sellRow(id) {
-    const row = el('div', 'card-acts skill-up'), price = petPrice(game, id).toLocaleString('vi-VN');
-    const b = el('button', 'mini', sure === id ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
-    b.onclick = () => { if (sure !== id) { sure = id; render(); return; } sure = null; game.toast(sellPet(game, id), 2.4); render(); };
+  function sellRow(id, mount) {
+    const row = el('div', 'card-acts skill-up'), price = (mount ? mountPrice : petPrice)(game, id).toLocaleString('vi-VN'), key = (mount ? 'm:' : '') + id;
+    const b = el('button', 'mini', sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
+    b.onclick = () => { if (sure !== key) { sure = key; render(); return; } sure = null; game.toast((mount ? sellMount : sellPet)(game, id), 2.4); render(); };
     row.append(b);
     return row;
   }
@@ -82,6 +82,7 @@ export function createPetsPanel(game) {
       c.disabled = !got;
       if (!got) c.classList.add('locked');
       list.append(c);
+      if (got && s.mount !== id) list.append(sellRow(id, true));   // bán thú cưỡi ngay trong thẻ
     }
   }
 

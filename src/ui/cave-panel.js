@@ -3,6 +3,7 @@ import { brew, brewRate, usePill, forge, costText, canPay, matInfo, qiPillLeft }
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
+import { specialPills } from '../game/special-pills.js';
 
 const $ = id => document.getElementById(id);
 
@@ -31,6 +32,13 @@ export function createCavePanel(game) {
     if (tab === 'phu') { renderCave(list); return; }
     if (tab === 'vuon') { renderGarden(game, list, m => { last = m; game.sfx('pickup'); }, render); return; }
     if (tab === 'dan') {
+      for (const sp of specialPills(game)) {   // Đan tẩy linh căn, Đan đổi giới tính (src/game/special-pills.js): đóng bảng, hỏi lại rồi làm
+        const c = el('div', 'skill-card'); c.style.borderLeftColor = sp.color;
+        c.append(el('b', null, sp.name), el('small', null, sp.desc));
+        const row = el('div', 'card-acts');
+        row.append(mini(sp.lock || 'Luyện và dùng', () => { game.closeAll?.(); close(); sp.run(); }, !!sp.lock));
+        c.append(row); list.append(c);
+      }
       for (const [id, p] of Object.entries(data.cave.pills)) {
         const c = el('div', 'skill-card');
         c.style.borderLeftColor = p.color;

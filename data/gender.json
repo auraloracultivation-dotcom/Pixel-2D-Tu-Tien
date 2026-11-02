@@ -6,5 +6,6 @@
   "nam": {"label": "Nam", "desc": "Kiếm tu tóc đen. Đạo lữ sau này là nữ.", "look": "nam", "color": "#4a6ad8"},
   "nu": {"label": "Nữ", "desc": "Liềm tu tóc trắng. Đạo lữ sau này là nam.", "look": "nu", "color": "#e86a9a"}
  },
- "toast": "Đã chọn {label}."
+ "toast": "Đã chọn {label}.",
+ "pill": {"_note": "Đan đổi giới tính (chủ dự án 02/11/2026: giới tính chọn lúc vào game, muốn đổi phải luyện đan): ở Lò đan, tốn coins Linh Thạch + mats; đổi cả giới tính (gioi) lẫn hình (look). Bộ thời trang đang mặc không có bản giới tính mới thì về đồng phục (src/game/special-pills.js).", "name": "Đan đổi giới tính", "desc": "Uống vào thì đổi nam thành nữ, nữ thành nam. Thời trang chỉ mặc được bản đúng giới tính.", "coins": 20000, "mats": {"linh-thao": 30, "hoa-linh-chi": 10}, "ask": "Uống Đan đổi giới tính, thành {to}? Tốn {cost}.", "yes": "Uống", "no": "Thôi", "done": "Đan tan vào kinh mạch... đạo hữu đã thành {to}.", "short": "Chưa đủ: cần {cost}."}
 }

@@ -16,9 +16,9 @@ function canPay(game) {
   return coins(s) >= c.coins && Object.entries(c.mats).every(([id, n]) => (s.mats[id] || 0) >= n);
 }
 
-export async function talkReroot(game, npc) {
+export async function talkReroot(game, npc, direct) {   // direct: luyện ở Lò đan (src/game/special-pills.js), bỏ câu chào
   const r = R(game), name = npc.def.name, cost = costText(game);
-  const ch = await game.dialog.choose(`${name}: ${pick(r.lines)}`, [
+  const ch = direct ? 'reroot' : await game.dialog.choose(`${name}: ${pick(r.lines)}`, [
     { id: 'reroot', label: r.label, desc: r.desc.replace('{cost}', cost), color: game.data.elements[game.save.element].color },
     { id: 'talk', label: r.talk, desc: '' },
   ]);

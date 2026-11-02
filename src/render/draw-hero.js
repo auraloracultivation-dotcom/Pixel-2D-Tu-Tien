@@ -1,12 +1,13 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
 import { spriteImage, drawHitFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
+import { curOutfit } from '../game/fashion.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
 // save: bản lưu của người được vẽ (mặc định người chơi; bản sao so tài truyền bản lưu hồ sơ người kia, game/duel.js)
 // Bộ không còn trong data/fashion.json, hoặc chỉ cho hình kia (only), thì như đồng phục
-const wornId = (game, key, save) => { const f = game.data.fashion.list[save?.outfit]; return f && (!f.only || f.only === key) ? save.outfit : 'dong-phuc'; };
+const wornId = (game, key, save) => { const id = curOutfit(game, save), f = game.data.fashion.list[id]; return !f.only || f.only === key ? id : 'dong-phuc'; };
 export const outfitSprite = (game, key, save = game.save) => `hero.y-${wornId(game, key, save)}-${key}`;
 export function heroLook(game, save = game.save) {
   const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);

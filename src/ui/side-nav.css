@@ -18,7 +18,7 @@
 .sn-item.on { background: linear-gradient(#e0782a, #a8481a); border-color: #ffc070; color: #fff7d8; }
 .sn-item.locked { opacity: .55; filter: saturate(.4); }
 .sn-dot { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--ember, #ff5a3a); border: 1px solid #000; }
-body.nav-on #bag, body.nav-on .panel {
+body.nav-on #bag, body.nav-on .panel, body.nav-on #dialog {
   left: calc(var(--box-l) + var(--nav-w) + 4px) !important; right: var(--box-l) !important; max-width: none !important; margin: 0 !important;
 }
 .nav-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; touch-action: pan-y; overscroll-behavior: contain; }
