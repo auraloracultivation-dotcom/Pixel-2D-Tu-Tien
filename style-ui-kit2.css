@@ -102,3 +102,6 @@ body #menu .help, body #menu .health { border: 8px solid transparent; border-ima
 body #menu .link-btn { color: #9fd4ff !important; }
 body #menu .link-btn.danger { color: #ff8a7a !important; }
 body #menu .legal a { color: #ffd27a; }
+
+/* ---- màn tải (chủ dự án 02/11/2026 23:01: bỏ nền tranh đảo bay cũ): dùng chung nền đêm trăng của màn đăng nhập ---- */
+body #loading, body[data-le] #loading { background: url("assets/icon/splash-hoi.jpg") center / cover, #1a1430 !important; image-rendering: auto; }
