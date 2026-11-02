@@ -56,7 +56,7 @@ export function gridCards(game) {
       for (const ch of card.children) if (ch.tagName !== 'B') box.append(ch.cloneNode(true));
       wire(box, card);
       body.append(box);
-      for (const extra of card._gcExtra || []) { const cl = extra.cloneNode(true); wire(cl, extra); body.append(cl); }   // dòng đi kèm (cấp chiêu)
+      for (const extra of card._gcExtra || []) { const cl = extra.cloneNode(true); cl.classList.remove('gc-hidden'); wire(cl, extra); body.append(cl); }   // bản sao bỏ lớp ẩn (trước đây nút Tẩy luyện, Bán trong tấm chi tiết bị ẩn theo)   // dòng đi kèm (cấp chiêu)
       if (card.tagName === 'BUTTON') {
         const used = card.dataset.used && card.classList.contains('using');   // đang mang, đang cưỡi: nút chính mờ
         const go = el('button', 'act-btn primary gc-go', used ? card.dataset.used : card.dataset.act || T.pick);
