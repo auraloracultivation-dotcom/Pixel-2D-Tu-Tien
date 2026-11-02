@@ -269,6 +269,11 @@
      "id": "ve-nha",
      "label": "Về nhà mình",
      "home": "ve-nha"
+    },
+    {
+     "id": "ra-ngoai",
+     "label": "Ra khỏi động phủ",
+     "home": "ra-ngoai"
     }
    ]
   }

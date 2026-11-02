@@ -14,8 +14,9 @@ export function createStory(game) {
     if (s.map && game.map.id !== s.map && !game.save.stepDone) await game.travel(s.map, null, false);
     if (!game.save.stepDone) {
       st.busy = true;
-      for (const a of s.do || []) await act(a);
-      st.busy = false;
+      try { for (const a of s.do || []) await act(a); }
+      catch (e) { console.error('story', s.id, e); }   // một lệnh truyện lỗi: vẫn mở khoá, không kẹt "đang có chuyện" mãi (góp ý #55 kẹt map)
+      finally { st.busy = false; }
       game.save.stepDone = true;
       game.persist();
     }

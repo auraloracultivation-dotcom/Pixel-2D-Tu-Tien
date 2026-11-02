@@ -190,14 +190,14 @@ export function createGame(data, screen, input, ui, audio) {
   // fly: đi bằng cảnh bay/truyền tống; opts.text là chữ hiện trên đường, opts.with là NPC chở người chơi
   game.travel = async (id, spawnName, fly, opts = {}) => {
     game.traveling = true;
-    if (fly) {
-      ui.tripMode(true);
-      await startTrip(game, id, { ...opts, text: opts.text || `Ngự kiếm bay tới ${data.maps[id].name}` }, () => loadMap(id, spawnName));
-      ui.tripMode(false);
-      game.player.hp = game.player.maxHp; // nghỉ ngơi trên đường bay
-    }
-    else loadMap(id, spawnName);
-    game.traveling = false;
+    try {
+      if (fly) {
+        ui.tripMode(true);
+        await startTrip(game, id, { ...opts, text: opts.text || `Ngự kiếm bay tới ${data.maps[id].name}` }, () => loadMap(id, spawnName));
+        game.player.hp = game.player.maxHp; // nghỉ ngơi trên đường bay
+      }
+      else loadMap(id, spawnName);
+    } finally { ui.tripMode(false); game.traveling = false; }   // chuyến đi lỗi giữa chừng: không kẹt "đang bay" mãi (góp ý #55)
     showBanner(game);   // bảng tên nơi vừa tới
     game.story.notify('enter', id);
   };
