@@ -145,12 +145,17 @@ export function createStory(game) {
 // tinh cầu, bí cảnh, động phủ của bước cuối. Cờ truyện cũ, đồ, cảnh giới giữ nguyên.
 function pickStory(game) {
   const d = game.data, s = game.save;
-  if (s.storyV === 2) return;
-  s.storyV = 2;
-  if (!s.step) return;
   const steps = d.story.steps, last = steps.length - 1;
-  s.step = last; s.stepDone = true;
-  s.flags['mo-bi-canh'] = true;
-  for (const a of steps[last].do || []) if (a.flag && !/vang$/.test(a.flag)) s.flags[a.flag] = true;   // không đặt cờ "người ấy bị bắt": người chơi cũ chưa gặp
-  game.persist?.();
+  if (s.storyV !== 2) {
+    s.storyV = 2;
+    if (!s.step) return;
+    s.step = last; s.stepDone = true;
+    s.flags['mo-bi-canh'] = true;
+  }
+  // Đã ở bước cuối: nhận đủ cờ mở của bước cuối (cờ thêm về sau như Lòng Vết Nứt, Hư Không Lao, Rễ Mẫu Thụ 02/11 thì người đã
+  // qua bước này cũng có). Không đặt cờ "người ấy bị bắt": người chơi cũ chưa gặp.
+  if (s.step !== last || !s.stepDone) return;
+  let add = 0;
+  for (const a of steps[last].do || []) if (a.flag && !/vang\|?|^\{/.test(a.flag) && !s.flags[a.flag]) { s.flags[a.flag] = true; add++; }
+  if (add) game.persist?.();
 }
