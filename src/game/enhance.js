@@ -1,8 +1,6 @@
 // Cường hóa trang bị và bộ đồ (data/gear.json). Cường hóa nhân chỉ số chính; bộ đồ cộng chỉ số khi mặc đủ món.
 import { equipped } from './items.js';
 
-export const plusMul = (data, it) => 1 + (it.plus || 0) * data.gear.enhance.main_per;
-
 // Cấp cường hoá tối đa đang mở theo cảnh giới (gear.enhance.open)
 export function enhanceCap(data, save) {
   const e = data.gear.enhance, o = e.open;

@@ -56,15 +56,3 @@ export function sellMount(game, id) {
   game.persist(); game.sfx('pickup');
   return `Đã bán ${m.name}, nhận ${price.toLocaleString('vi-VN')} Linh Thạch.`;
 }
-
-// Bảng chọn bán (Động phủ → Linh thú trong nhà)
-export async function talkHomePets(game) {
-  const s = game.save, ids = Object.keys(s.pets || {}).filter(id => game.data.pets.pets[id]);
-  if (!ids.length) { game.toast('Chưa bắt được linh thú nào.', 2); return; }
-  const opts = ids.map(id => ({ id, label: `${petDef(game.data, s, id).name} · cấp ${s.pets[id].lv || 1}${id === s.pet ? ' (đang mang)' : ''}`, desc: id === s.pet ? 'Đang đi theo bạn' : `Bán: ${petPrice(game, id).toLocaleString('vi-VN')} Linh Thạch`, color: id === s.pet ? '#8a8498' : '#f2c94c' }));
-  opts.push({ id: 'thoi', label: 'Thôi', desc: '' });
-  const pick = await game.dialog.choose('Linh thú trong nhà: chọn con muốn bán', opts);
-  if (!s.pets[pick]) return;
-  const ok = await game.dialog.choose(`Bán ${petDef(game.data, s, pick).name} lấy ${petPrice(game, pick).toLocaleString('vi-VN')} Linh Thạch? Bán rồi không lấy lại được.`, [{ id: 'yes', label: 'Bán', color: '#e0484a' }, { id: 'no', label: 'Giữ lại' }]);
-  if (ok === 'yes') game.toast(sellPet(game, pick), 2.4);
-}

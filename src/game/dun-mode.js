@@ -12,7 +12,6 @@ export function levelName(game, L) {
   if (t <= last) return D.texts.level.replace('{mode}', D.modes[t].name).replace('{step}', L % D.steps + 1);
   return D.texts.level_n.replace('{mode}', D.modes[last].name).replace('{n}', t - last + 1).replace('{step}', L % D.steps + 1);
 }
-export const modeOf = game => { const M = C(game).modes; return M[Math.min(M.length - 1, tierOf(game, game.dunMode || 0))]; };
 
 // Số bậc đã qua của bí cảnh id (0: chưa qua lần nào). Bản lưu cũ (save.dun: số độ khó đã qua) đổi sang bậc 1 của cấp đó.
 export function cleared(game, id) {

@@ -4,7 +4,7 @@ import { dist } from './combat.js';
 import { ensureDaily, taskDef } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
-import { outdoor, phase } from './daynight.js';
+import { outdoor } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
 import { visitJob } from './visitors.js';
@@ -17,9 +17,6 @@ function npcMap(game, id) {
   for (const m of Object.values(game.data.maps)) if (m.npcs.some(n => n.id === id && flagOk(game, n))) return m.id;
   return null;
 }
-
-// Có bãi quái ngoài trời của loài này (tự hành chỉ nhận treo thưởng đánh được ngoài trời)
-export const outdoorMob = (game, mob) => Object.values(game.data.maps).some(m => m.spawners.some(s => s.mob === mob && flagOk(game, s)));
 
 // Bãi quái ngoài trời của loài này: ưu tiên đảo đang đứng, sau đó đảo đi tới được
 function spawnerOf(game, mob, routeTo) {

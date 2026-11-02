@@ -1,7 +1,6 @@
 // Thiện cảm và đạo lữ (data/affinity.json): tặng quà tăng thiện cảm và cấp bạn đồng hành, mốc mở cảnh riêng,
 // đủ thân thì kết đạo lữ: song tu nhân linh khí đả tọa, đi cùng có chiêu hợp kích.
-import { compNeed } from './companion.js';
-import { coins, addCoins } from './shop.js';
+import { coins } from './shop.js';
 import { hitMob, addFx, dist } from './combat.js';
 import { daoLuCan } from './gender.js';
 
@@ -22,33 +21,6 @@ export function canGive(game, gift) {
   return (s.mats[gift.id] || 0) >= gift.n;
 }
 
-// Trả về { pts, liked, scene } hoặc null
-export function giveGift(game, id, giftId) {
-  const cfg = A(game), s = game.save, gift = cfg.gifts.find(g => g.id === giftId);
-  if (!gift || !canGive(game, gift) || giftsLeft(game, id) <= 0) return null;
-  if (gift.kind === 'coins') addCoins(game, -gift.n);
-  else if (gift.kind === 'pill') s.pills[gift.id] -= gift.n;
-  else s.mats[gift.id] -= gift.n;
-  if (s.giftDay?.day !== today()) s.giftDay = { day: today() };
-  s.giftDay[id] = (s.giftDay[id] || 0) + 1;
-  const liked = cfg.likes[id] === giftId, pts = gift.pts * (liked ? cfg.like_mul : 1);
-  s.affinity ??= {};
-  const before = affinity(game, id);
-  s.affinity[id] = Math.min(cfg.max, before + pts);
-  compExp(game, id, pts * cfg.exp_per_pt);
-  // cảnh riêng ở mốc vừa vượt
-  const sc = cfg.scenes[id] || {}, hit = Object.keys(sc).map(Number).filter(n => before < n && s.affinity[id] >= n).pop();
-  game.persist();
-  return { pts, liked, scene: hit ? sc[hit] : null };
-}
-
-function compExp(game, id, amount) {
-  const s = game.save, cfg = game.data.companions;
-  s.comps ??= {}; const st = s.comps[id] ??= { lv: 1, exp: 0 };
-  st.exp += amount;
-  while (st.lv < cfg.max_level && st.exp >= compNeed(game.data, st.lv)) { st.exp -= compNeed(game.data, st.lv); st.lv++; }
-}
-
 // Đạo lữ
 export const daoLu = game => game.save.daoLu || null;
 // Đạo lữ đang ở bên (không bị bắt đi theo truyện): mới khen, viết thư, thu hoạch giúp
@@ -57,11 +29,6 @@ export const canPropose = (game, id) => {
   const d = A(game).dao_lu;
   return !daoLu(game) && daoLuCan(game).includes(id) && affinity(game, id) >= d.pts && game.save.realm >= d.realm;
 };
-export function propose(game, id) {
-  if (!canPropose(game, id)) return null;
-  game.save.daoLu = id; game.save.daoLuAt = Date.now(); game.persist();
-  return A(game).dao_lu.vows[id];
-}
 export const songTuMul = game => daoLu(game) ? A(game).dao_lu.meditate_mul : 1;
 
 // Chiêu hợp kích: đạo lữ đang đi cùng, có quái gần thì cứ cd giây đánh một vòng quanh người chơi

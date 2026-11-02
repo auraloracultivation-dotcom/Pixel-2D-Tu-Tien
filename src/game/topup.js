@@ -28,14 +28,6 @@ export async function starterGift(game) {
 export const cardLeft = game => Math.max(0, Math.ceil(((game.save.card?.until || 0) - Date.now()) / DAY));
 export const cardClaimed = game => game.save.card?.last === ymd(new Date());
 
-// Mua thẻ tháng: chỉ khi đã mở thanh toán thật (máy chủ xác minh rồi mới gọi). Có lưu máy chủ thì máy chủ ghi thẻ.
-export function activateCard(game) {
-  if (game.cloud) return;
-  const c = T(game).card, s = game.save, base = Math.max(Date.now(), s.card?.until || 0);
-  s.card = { until: base + c.days * DAY, last: s.card?.last || '' };
-  addTn(game, c.now); game.persist();
-}
-
 export async function claimCard(game) {
   const c = T(game).card;
   if (!cardLeft(game) || cardClaimed(game)) return null;

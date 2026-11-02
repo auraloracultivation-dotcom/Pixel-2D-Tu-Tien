@@ -132,7 +132,6 @@ export function forge(game, recipeId, slot) {
 // Thăng Linh Đan (đề xuất #39): u.x2 giây linh khí gấp đôi, mỗi ngày u.per_day viên. Đã đăng nhập thì máy chủ ghi giờ hết
 // (để hạn mức linh khí không cắt phần nhân đôi); chơi không tài khoản thì chỉ đếm trong máy.
 export const x2Left = (game, u) => { const d = new Date().toDateString(), x = game.save.x2Pill; return u.per_day - (x?.day === d ? x.n : 0); };
-export const x2Active = game => (game.save.qiX2 || 0) > Date.now();
 function drinkX2Pill(game, id, u) {
   const s = game.save;
   if (x2Left(game, u) <= 0 || game.x2Busy) return null;

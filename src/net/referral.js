@@ -16,4 +16,3 @@ export const enterCode = (ma, loai) => call('p2d_gt_nhap', { p_ma: ma, p_loai: l
 export const reportDevice = may => call('p2d_thiet_bi_bao', { p_may: may });
 export const pickGem = loai => call('p2d_gt_chon', { p_loai: loai });
 export const beat = () => call('p2d_gt_nhip');
-export const fameRank = () => call('p2d_bxh_gop_y');

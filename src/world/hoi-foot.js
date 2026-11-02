@@ -56,12 +56,6 @@ export function hoiCells(items, T) {
   return { solid, open };
 }
 
-// Ô bị hình đồ hội đứng che (mái nhà, tán cây vươn lên trên chân): đặt mạch khoáng, đèn trang trí ở đó thì bị che khuất
-export function hoiCovers(map, tx, ty) {
-  const x = (tx + 0.5) * map.T, y = (ty + 0.5) * map.T;
-  return (map.hoi || []).some(it => !it.foot.flat && x > it.x - it.w / 2 && x < it.x + it.w / 2 && y > it.y - it.h && y < it.y);
-}
-
 // Vùng phố hội (data/le-hoi.json → festivals.<bản đồ>.khu: các khung [x0, y0, x1, y1] theo ô). Chủ dự án 02/11/2026: quái ở ngoài
 // lễ hội, không xông vào cắn người. Quái không bước vào vùng này, người chơi đứng trong vùng thì quái không đuổi (mobs.js).
 export function inHoi(game, e) {

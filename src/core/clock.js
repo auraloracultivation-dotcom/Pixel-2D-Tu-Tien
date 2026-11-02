@@ -26,7 +26,6 @@ export function setServerTime(ms) {
   if (!Number.isFinite(ms)) return;
   base = ms; basePerf = perf(); server = true;
 }
-export const hasServerTime = () => server;
 
 // Mốc không được lùi dưới (lastSeen trong bản lưu)
 export function setFloor(ms) { if (ms > floor) floor = ms; }
