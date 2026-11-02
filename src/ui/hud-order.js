@@ -10,6 +10,8 @@ export function orderHud(game) {
   if (!H || !bar || !stash) return;
   const setLabel = (b, t) => { const n = [...b.childNodes].find(x => x.nodeType === 3); if (n) n.textContent = t; else b.prepend(t); };
   const made = new Set();
+  const auto = document.getElementById('btn-auto'), pad = document.getElementById('buttons');   // Tự đánh: xuống cụm nút đánh, cạnh nút chiêu linh thú
+  if (auto && pad) { pad.append(auto); auto.classList.add('auto-dock'); }
   function make(e) {
     const b = document.createElement('button'); b.id = e.id; b.textContent = e.label || '';
     b.addEventListener('pointerdown', ev => {

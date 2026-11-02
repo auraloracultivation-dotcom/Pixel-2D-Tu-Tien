@@ -2,7 +2,7 @@
 // Đã đăng nhập và lưu máy chủ: Tiên Ngọc do máy chủ giữ (hàm p2d_qua_tn, p2d_doi_tn, p2d_nhan_the), máy này chỉ làm theo
 // số máy chủ trả về; hàng đổi được (đá, ngọc, rương, áo) vẫn trao ở máy này như cũ. Chơi thử không tài khoản thì tính ở máy.
 import { grant } from './daily.js';
-import { owned } from './fashion.js';
+import { owned, grantOutfit } from './fashion.js';
 
 const T = game => game.data.topup;
 const DAY = 86400000;
@@ -62,7 +62,7 @@ export async function buyTn(game, id) {
   if (!x || shopOwned(game, x)) return null;
   if (tn(game) < x.tn) return false;
   const give = () => {
-    if (x.outfit) { (s.outfits ??= {})[x.outfit] = true; game.persist(); return [game.data.fashion.list[x.outfit].name]; }
+    if (x.outfit) { grantOutfit(game, x.outfit); game.persist(); return [game.data.fashion.list[x.outfit].name]; }
     return grant(game, x.give);
   };
   if (game.cloud) {

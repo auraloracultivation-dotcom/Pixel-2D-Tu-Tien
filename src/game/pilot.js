@@ -28,6 +28,14 @@ export function togglePilot(game) {
   game.toast(game.pilot ? 'Tự hành: tự đi làm nhiệm vụ' : 'Tắt tự hành', 1.4);
 }
 
+// Tự hành làm nhiệm vụ hằng ngày (chủ dự án 02/11/2026): chạm dòng việc ngày chưa xong thì bật tự hành ưu tiên việc ngày
+export function pilotDaily(game) {
+  if (!game.player) return;
+  game.pilot = { path: null, key: '', repath: 0, line: 0, daily: true };
+  game.auto = false;
+  game.toast('Tự hành: làm nhiệm vụ hằng ngày (kéo cần chạy để dừng)', 1.8);
+}
+
 export function stopPilot(game, text) {
   if (!game.pilot) return;
   game.pilot = null;
@@ -148,6 +156,7 @@ function plan(game) {
   }
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (game.trib.canStart()) return sit(game);   // đầy linh khí: về bồ đoàn / động phủ chờ, chỗ vắng quái, để người chơi độ kiếp không bị bầy quái vây (chủ dự án gật 31/10, chơi thử máy tính: thua kiếp giữa bầy Hỏa Lang)
+  if (game.pilot.daily) { const j = choreJob(game, routeTo); if (j) return j; game.pilot.daily = false; }   // chạm dòng nhiệm vụ ngày (src/ui/quest-dock.js): làm việc ngày trước, xong thì về việc truyện
   if (waiting(game)) return choreJob(game, routeTo) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {

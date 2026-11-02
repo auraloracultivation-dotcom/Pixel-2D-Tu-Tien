@@ -1,9 +1,10 @@
 // Nhiệm vụ hằng ngày hiện thẳng trên màn hình (chủ dự án 02/11/2026 13:38: "kéo ra ngoài dạng chữ, nền trong suốt, đừng chắn
 // phần hiện đồ nhận được khi farm"). Cột chữ bên phải, ngay dưới khung nhiệm vụ truyện (cột nhận đồ #feed nằm bên trái).
 // Dòng đầu là điểm danh, rồi từng việc hôm nay, cuối là rương. Dòng đã xong mà chưa nhận thì sáng màu, chạm để nhận;
-// chạm dòng điểm danh để điểm danh. Nút Nhiệm vụ: chạm để ẩn / hiện cột này (nhớ trên máy); bảng đầy đủ mở từ dòng "Chi tiết".
+// chạm dòng điểm danh để điểm danh; chạm dòng chưa xong thì tự hành đi làm việc ngày (kéo cần chạy để dừng). Nút Nhiệm vụ: chạm để ẩn / hiện cột này (nhớ trên máy); bảng đầy đủ mở từ dòng "Chi tiết".
 import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
 import { checkinOn, checkinCached, loadCheckin, doCheckin } from '../game/checkin.js';
+import { pilotDaily } from '../game/pilot.js';
 
 const KEY = 'p2d.questdock.v1';
 function el(tag, cls, text) {
@@ -45,7 +46,7 @@ export function createQuestDock(game) {
       const done = t.n >= d.n;
       if (t.got) box.append(line('done', '✓ ' + taskText(d, t.n)));
       else if (done) box.append(line('ready', '▸ ' + taskText(d, t.n) + ' · Nhận', () => { const g = claimTask(game, i); if (g) { game.toast('Nhận: ' + g.join(', '), 2); game.sfx('levelup'); } }));
-      else box.append(line('todo', '• ' + taskText(d, t.n)));
+      else box.append(line('todo', '• ' + taskText(d, t.n), () => pilotDaily(game)));   // chạm: tự hành làm việc ngày
     });
     const all = dl.tasks.every(t => t.got);
     if (dl.chest) box.append(line('done', '✓ Rương hằng ngày'));

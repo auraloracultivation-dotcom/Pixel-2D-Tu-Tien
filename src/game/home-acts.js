@@ -17,7 +17,6 @@ export function homeAct(game, act) {
     game.toast('Bế quan trên bồ đoàn động phủ… chạm Đả tọa để dừng.', 2.2);
     return null;
   }
-  if (act === 'thu-nha') { talkHomePets(game); return null; }
   if (act === 'ho-ca') {
     if (hasDecor(game, 'ho-ca')) { game.toast(`${H.decor.items['ho-ca'].name}: ${H.decor.items['ho-ca'].desc}`, 2.4); return null; }
     act = 'decor';

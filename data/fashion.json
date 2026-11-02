@@ -1,5 +1,6 @@
 {
  "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: các tài khoản trong danh sách có sẵn (ai cũng thấy bộ trong bảng); soon: chưa bán, hiện \"Sắp mở bán\". only: bộ chỉ cho hình nam hoặc nữ. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi; cm: chiều cao riêng theo hình (nam/nu) khi mặc bộ này, đè cm trong data/heroes.json.",
+ "renamed": {"_note": "id bộ cũ đã đổi tên → id mới theo giới tính: bản lưu đang mặc bộ cũ vẫn mặc đúng bộ mới (src/game/fashion.js curOutfit). Mỗi bộ không có only có bản nam và bản nữ, mua riêng từng bản (chủ dự án 02/11/2026).", "spritecook-thu": {"nam": "bach-kiem-bao", "nu": "tu-liem-y"}},
  "list": {
   "dong-phuc": {"name": "Đồng phục Kiếm tông", "robe": "#e6ebf7", "hair": "#3a2e5c", "from": {"start": true}},
   "bach-kiem-bao": {"name": "Bạch Kiếm Bào", "robe": "#e8eef8", "hair": "#2a2a3a", "sprite": "goc", "only": "nam", "from": {"uid": ["625e027c-36b4-4bb7-bd0c-21572612bc50"], "soon": true}},

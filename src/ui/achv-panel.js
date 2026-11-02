@@ -1,7 +1,7 @@
 // Bảng Thành tựu: phần Thành tựu (tiến độ, nhận thưởng), Danh hiệu (chọn danh hiệu hiện trên đầu), Thời trang, Nhật ký.
 // Thanh tab ẩn (src/ui/side-nav.css): mỗi mục Menu / Túi đồ mở đúng một phần, tên bảng đổi theo phần đó.
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
-import { owned, buyOutfit, wear, howToGet } from '../game/fashion.js';
+import { owned, buyOutfit, wear, howToGet, curOutfit, versions } from '../game/fashion.js';
 import { journal } from '../game/journal.js';
 
 const $ = id => document.getElementById(id);
@@ -57,24 +57,22 @@ export function createAchvPanel(game) {
     if (sp[id]) { c.dataset.icon = id; c.dataset.iconSize = 46; } else if (alt && sp[alt]) c.dataset.icon = alt;
   }
 
-  // Thời trang: mặc bộ đã có, mua bộ bán bằng Linh Thạch
+  // Thời trang: mỗi bộ có bản nam và bản nữ, đều hiện (bản đúng giới tính mình lên trước); mua bản nào nhận bản đó,
+  // chỉ mặc được bản đúng giới tính (đổi giới tính: Đan đổi giới tính ở Lò đan). Ô đang mặc ghi "Đang mặc".
   function renderFashion(list) {
-    const s = game.save, cur = s.outfit || 'dong-phuc';
-    const F = data.fashion.list;
-    $('achv-sub').textContent = `${Object.keys(F).filter(id => owned(game, id)).length}/${Object.keys(F).length} bộ · chỉ đổi dáng vẻ`;
-    const H = data.heroes, look = s.look || H.default;   // hình nhân vật: nam hoặc nữ
-    for (const [id, h] of Object.entries(H.list)) {
-      const hc = card('#b8a0e0', `Hình: ${h.name}`, [h.note || (look === id ? 'Đang dùng.' : 'Chạm để đổi.')],
-        mini(look === id ? 'Đang dùng' : 'Chọn', () => { s.look = id; game.persist(); msg = `Đổi hình ${h.name}.`; }, look === id));
-      icon(hc, `hero.y-${cur}-${id}`, h.sprite); list.append(hc);
-    }
-    for (const [id, f] of Object.entries(F)) {
-      const own = owned(game, id), on = cur === id, other = f.only && f.only !== look;   // bộ chỉ cho hình nam hoặc nữ
-      const btn = on ? mini('Đang mặc', () => {}, true) : own && other ? mini(`Chỉ ${H.list[f.only].name.split(' ·')[0].toLowerCase()}`, () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
-        : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id)) { wear(game, id); msg = `Mua và mặc ${f.name}.`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
-      const c = card(f.robe, f.name, [own ? 'Đã có' : howToGet(game, f)], btn);
+    const s = game.save, F = data.fashion.list, H = data.heroes, look = H.list[s.look] ? s.look : H.default, cur = curOutfit(game);
+    const gName = g => H.list[g].name.split(' ·')[0].toLowerCase();
+    const rows = [];
+    for (const [id, f] of Object.entries(F)) for (const g of versions(game, id)) rows.push([id, f, g]);
+    rows.sort((x, y) => (x[2] !== look) - (y[2] !== look));
+    $('achv-sub').textContent = `${rows.filter(([id, , g]) => owned(game, id, g)).length}/${rows.length} bộ`;
+    for (const [id, f, g] of rows) {
+      const own = owned(game, id, g), on = cur === id && g === look, mine = g === look, two = versions(game, id).length > 1;
+      const btn = on ? mini('Đang mặc', () => {}, true) : own && !mine ? mini(`Chỉ ${gName(g)}`, () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
+        : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id, g)) { if (mine) wear(game, id); msg = `Đã mua ${f.name} (${gName(g)}).`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
+      const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f)], btn);
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
-      c.prepend(sw); icon(c, `hero.y-${id}-${look}`, f.sprite === 'goc' && H.list[f.only || look]?.sprite); list.append(c);
+      c.prepend(sw); icon(c, `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);
     }
   }
 

@@ -33,7 +33,7 @@ export function createSideNav(game) {
   document.body.append(pane, nav);
   for (const e of [nav, pane]) e.addEventListener('pointerdown', ev => ev.stopPropagation());
 
-  let which = null, cur = null, switching = 0, sure = null;
+  let which = null, cur = null, switching = 0, sure = null, fromNav = false;
 
   function closePanels() {
     for (const p of shown()) {
@@ -93,11 +93,15 @@ export function createSideNav(game) {
   function pick(it) {
     const lock = itemLock(game, it);
     if (lock) { game.toast(lock, 2); return; }
-    if (it.home || it.talk) {   // việc trong động phủ, nói chuyện thẳng với NPC: đóng bảng để thấy hội thoại
-      const why = it.talk && busyWhy(game);
+    if (it.talk) {   // nói chuyện thẳng với NPC: đóng bảng để thấy hội thoại
+      const why = busyWhy(game);
       if (why) { game.toast(game.data.menu.dungeon.busy.replace('{why}', why), 2); return; }
-      closeAll();
-      if (it.home) { const w = homeAct(game, it.home); if (w) game.toast(w, 2); } else talkMenu(game, it.talk);
+      closeAll(); talkMenu(game, it.talk);
+      return;
+    }
+    if (it.home) {   // việc trong động phủ (hồ cá, khách, trang trí…): hộp thoại hiện ở khung bên phải, cột bên trái vẫn giữ
+      cur = it.id; paintNav(); switching = Date.now(); closePanels(); fromNav = true;
+      const w = homeAct(game, it.home); if (w) { game.toast(w, 2); openPane(null); }
       return;
     }
     cur = it.id; paintNav();
@@ -123,6 +127,9 @@ export function createSideNav(game) {
   // Bảng bên phải tự đóng (hoặc người chơi bấm ✕ của nó): cột bên trái đóng theo
   setInterval(() => {
     if (nav.hidden || Date.now() - switching < 500) return;
+    if (game.dialog.open && fromNav) return;   // hộp thoại mở từ cột này: giữ cột
+    if (fromNav && !shown().length && which) { fromNav = false; cur = null; paintNav(); openPane(null); return; }   // hộp thoại xong: về khung trống, cột vẫn còn
+    fromNav = false;
     if (!shown().length || game.dialog.open) closeNav(); else paintNav(true);
   }, 300);
 

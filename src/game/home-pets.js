@@ -44,6 +44,19 @@ export function sellPet(game, id) {
   return `Đã bán ${name}, nhận ${price.toLocaleString('vi-VN')} Linh Thạch.`;
 }
 
+// Thú cưỡi bán được (chủ dự án 02/11/2026): giá mount_base + tốc chạy × mount_per_speed; không bán con đang cưỡi
+export const mountPrice = (game, id) => { const c = H(game).sell; return Math.round(c.mount_base + (game.data.pets.mounts[id]?.speed || 0) * c.mount_per_speed); };
+export function sellMount(game, id) {
+  const s = game.save, m = game.data.pets.mounts[id];
+  if (!m || !s.mounts?.[id]) return 'Không có thú cưỡi này.';
+  if (id === s.mount) return 'Đang cưỡi con này, đổi thú cưỡi khác rồi mới bán.';
+  const price = mountPrice(game, id);
+  delete s.mounts[id];
+  addCoins(game, price);
+  game.persist(); game.sfx('pickup');
+  return `Đã bán ${m.name}, nhận ${price.toLocaleString('vi-VN')} Linh Thạch.`;
+}
+
 // Bảng chọn bán (Động phủ → Linh thú trong nhà)
 export async function talkHomePets(game) {
   const s = game.save, ids = Object.keys(s.pets || {}).filter(id => game.data.pets.pets[id]);

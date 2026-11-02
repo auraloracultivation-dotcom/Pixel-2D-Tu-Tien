@@ -2,7 +2,7 @@
 // một loại đan, một bộ đồ, hoặc nguyên liệu không có ở bí cảnh / nhiệm vụ. Mua bằng Linh Thạch, giới hạn số lần mỗi ngày.
 import { coins, addCoins } from './shop.js';
 import { addMat } from './cave.js';
-import { owned as hasOutfit } from './fashion.js';
+import { owned as hasOutfit, grantOutfit } from './fashion.js';
 
 const G = data => data.shop.npc_goods || {};
 const today = () => new Date().toDateString();
@@ -24,7 +24,7 @@ export function buyGoods(game, npcId) {
   addCoins(game, -g.price);
   if (g.kind === 'pill') s.pills[g.id] = (s.pills[g.id] || 0) + 1;
   else if (g.kind === 'mat') addMat(s, g.id, 1);
-  else (s.outfits ??= {})[g.id] = true;
+  else grantOutfit(game, g.id);   // bản theo giới tính mình (src/game/fashion.js)
   if (s.npcBuy?.day !== today()) s.npcBuy = { day: today() };
   s.npcBuy[npcId] = (s.npcBuy[npcId] || 0) + 1;
   game.persist(); game.sfx('pickup');
