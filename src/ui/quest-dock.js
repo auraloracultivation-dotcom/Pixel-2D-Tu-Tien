@@ -24,7 +24,9 @@ export function createQuestDock(game) {
   let hide = getHide(), key = '', loaded = 0;
 
   const line = (cls, text, onTap) => {
-    const d = el('div', 'qd-line ' + cls, text);
+    const d = el('div', 'qd-line ' + cls);   // một dấu ✓ đầu dòng: xanh là xong, xám là chưa (style-ui-kit.css)
+    if (cls === 'more') d.textContent = text;
+    else d.append(el('span', 'qd-ck', '✓'), text.replace(/^[✓▸•]\s*/, ''));
     if (onTap) d.onclick = () => { onTap(); key = ''; paint(); };
     return d;
   };

@@ -62,11 +62,11 @@ body #hud #boss .bar { position: absolute; left: 27%; right: 4%; top: 52%; heigh
 body #hud #boss .bar i { background: linear-gradient(#ff7a6a, #c02838); }
 
 /* ---- khung chân dung theo hệ (src/ui/hud-ava.js) ---- */
-body #hud .bars:has(#uk-ava) { position: relative; padding-left: 62px; min-height: 64px; }
-body #hud .bars:has(#uk-ava) .hud-btns { margin-left: -62px; }   /* cột nút vẫn sát mép trái, không đè cột nhiệm vụ */
-#uk-ava { position: absolute; left: -2px; top: -4px; width: 62px; height: 64px; pointer-events: auto; cursor: pointer; }
+body #hud .bars:has(#uk-ava) { position: relative; padding-left: 66px; min-height: 66px; }
+body #hud .bars:has(#uk-ava) .hud-btns { margin-left: -66px; }   /* cột nút vẫn sát mép trái, không đè cột nhiệm vụ */
+#uk-ava { position: absolute; left: -4px; top: -6px; width: 66px; height: 70px; pointer-events: auto; cursor: pointer; }
 #uk-ava canvas { position: absolute; left: 11px; top: 8px; width: 40px; height: 40px; border-radius: 50%; image-rendering: auto; }
-#uk-ava i { position: absolute; inset: 0; background: var(--ava) center top / 62px auto no-repeat; image-rendering: auto; }
+#uk-ava i { position: absolute; inset: 0; background: var(--ava) left top / 66px auto no-repeat; image-rendering: auto; }
 #uk-ava b { position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); min-width: 34px; padding: 0 3px; background: #2a1838; border-radius: 3px;
   font: 400 11px var(--f-pixel); color: #fff1c8; text-align: center; line-height: 12px; }
 

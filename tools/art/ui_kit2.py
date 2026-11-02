@@ -11,6 +11,8 @@ from le_hoi import _key
 from ui_kit import _cut, _px, _main, _icon, _ring
 
 SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ui' / 'ui-kit-2.png'
+# tâm, bán kính lòng vòng chân dung theo tỉ lệ bề ngang / cao hình (đo tia từ tâm tới vòng vàng); src/ui/hud-ava.js dùng cùng số
+AVA_HOLE = {'hoa-sen': (0.526, 0.438, 0.314), 'kim': (0.489, 0.451, 0.331), 'thuy': (0.474, 0.469, 0.326), 'hoa': (0.5, 0.458, 0.343), 'phong': (0.481, 0.458, 0.326)}
 AVA = {'hoa-sen': (15, 12, 194, 192), 'kim': (210, 26, 349, 173), 'thuy': (362, 22, 501, 173), 'hoa': (511, 25, 650, 173), 'phong': (662, 25, 802, 173)}
 ROUND = {'loa': (835, 60, 915, 140), 'loa-tat': (921, 60, 1001, 140), 'mat': (1005, 60, 1086, 140), 'mat-tat': (1090, 60, 1170, 140)}
 TILES = ['tu-hanh', 'linh-thu', 'thanh-tuu', 'dao-huu', 'bang-hoi', 'cua-hang', 'lo-dan', 'lo-ren', 'duoc-vien']
@@ -39,6 +41,14 @@ def _hole(b):
     return b
 
 
+def _circle(b, hole):
+    """Khoét lòng tròn chân dung trong suốt (mặt nhân vật vẽ dưới khung)."""
+    h, w = b.shape[:2]; cx, cy, r = hole[0] * w, hole[1] * h, hole[2] * w * 0.97
+    yy, xx = np.mgrid[0:h, 0:w]; b = b.copy()
+    b[(yy - cy) ** 2 + (xx - cx) ** 2 < r * r, 3] = 0
+    return b
+
+
 def build(save):
     a = _key(np.array(Image.open(SRC).convert('RGB')))
     n = 0
@@ -47,7 +57,7 @@ def build(save):
         c = Canvas(arr.shape[1], arr.shape[0]); c.a = np.ascontiguousarray(arr, dtype=np.uint8)
         save(sid, [c], (c.w // 2, c.h // 2), note + ' (ảnh GPT nguon/ai/ui/ui-kit-2.png)'); n += 1
     for k, box in AVA.items():
-        put('ui.k-ava-' + k, _hole(_main(_px(_cut(a, box)))), 'khung chân dung ' + k + ' (ô Lv có chữ mẫu, game phủ chữ cấp lên)')
+        put('ui.k-ava-' + k, _circle(_main(_px(_cut(a, box))), AVA_HOLE[k]), 'khung chân dung ' + k + ' (ô Lv có chữ mẫu, game phủ chữ cấp lên)')
     for k, box in ROUND.items():
         put('ui.k-nut-' + k, _main(_px(_cut(a, box))), 'nút vuông ' + k)
     for k, x in zip(TILES, TILE_X):

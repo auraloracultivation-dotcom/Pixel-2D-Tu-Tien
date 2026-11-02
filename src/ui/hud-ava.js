@@ -5,6 +5,9 @@ import { spriteImage } from '../render/sprites.js';
 import { outfitSprite } from '../render/draw-hero.js';
 
 const FRAME = { moc: 'hoa-sen', hoa: 'hoa', thuy: 'thuy', kim: 'kim', tho: 'kim' };
+// lòng vòng từng khung: [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng] (đo trên hình, tools/art/ui_kit2.py → AVA_HOLE)
+const HOLE = { 'hoa-sen': [0.526, 0.438, 0.314, 1.006], kim: [0.489, 0.451, 0.331, 1.068], thuy: [0.474, 0.469, 0.326, 1.089], hoa: [0.5, 0.458, 0.343, 1.075], phong: [0.481, 0.458, 0.326, 1.067] };
+const W = 66;   // bề ngang khung trên màn hình
 
 export function createHudAva(game) {
   const box = document.createElement('div'); box.id = 'uk-ava'; box.hidden = true;
@@ -23,6 +26,9 @@ export function createHudAva(game) {
     if (k === key) return;
     key = k; lv.textContent = L;
     fr.style.setProperty('--ava', `url("assets/art/ui-k-ava-${fk}.png")`);
+    const [hx, hy, hr, ar] = HOLE[fk], d = Math.round(hr * W * 2) + 2;   // mặt tròn khớp lòng vòng (lớn hơn 2 điểm cho kín mép)
+    Object.assign(cv.style, { width: d + 'px', height: d + 'px', left: Math.round(hx * W - d / 2) + 'px', top: Math.round(hy * W * ar - d / 2) + 'px' });
+    box.style.height = Math.round(W * ar) + 'px';
     const im = spr && spriteImage(spr), c = cv.getContext('2d');
     c.clearRect(0, 0, 40, 40); c.fillStyle = '#2a1838'; c.fillRect(0, 0, 40, 40);
     if (!im) return;
