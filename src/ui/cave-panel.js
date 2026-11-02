@@ -22,6 +22,7 @@ export function createCavePanel(game) {
   function render() {
     const s = game.save;
     for (const b of document.querySelectorAll('#cave-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
+    $('cave').querySelector('.bag-head b').textContent = document.querySelector(`#cave-tabs [data-tab="${tab}"]`).textContent;   // mỗi nút một việc: tên bảng theo phần đang mở
     $('cave-mats').textContent = Object.entries(s.mats).filter(([, n]) => n > 0).map(([k, n]) => `${matInfo(data, k)?.name || k} ${n}`).join(' · ') || 'Chưa có nguyên liệu. Đánh quái, phân giải đồ, trồng linh điền.';
     $('cave-msg').textContent = last;
     const top = $('cave-slots'), list = $('cave-list');

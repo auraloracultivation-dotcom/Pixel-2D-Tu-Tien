@@ -1,10 +1,10 @@
-// Tab Tự hành trong bảng Việc: bật tắt từng việc tự hành được làm (data/config.json → pilot.opts).
+// Mục Tự động trong Menu (src/ui/side-nav.js): bật tắt từng việc tự hành được làm (data/config.json → pilot.opts).
 import { pilotOpt, togglePilotOpt } from '../game/pilotopt.js';
 import { farmPlanets } from '../game/farmjob.js';
 
-export function renderPilotOpts(game, list, { card, mini }) {
+export function renderPilotOpts(game, list, { card, mini, sub }) {
   const opts = game.data.config.pilot.opts;
-  document.getElementById('daily-sub').textContent = `Tự hành đang làm ${opts.filter(o => pilotOpt(game, o.id)).length}/${opts.length} việc`;
+  sub(`Tự động đang làm ${opts.filter(o => pilotOpt(game, o.id)).length}/${opts.length} việc`);
   // Đề xuất #38: chọn tinh cầu treo máy (bấm để đổi lần lượt: Tự chọn → từng tinh cầu có bãi đã tới)
   const F = game.data.config.pilot.farm_pick, list2 = farmPlanets(game), cur = game.save.pilotFarm;
   const name = id => game.data.maps[id]?.name || id, now = list2.some(b => b.map === cur) ? name(cur) : F.auto;

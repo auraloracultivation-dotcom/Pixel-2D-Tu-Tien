@@ -1,0 +1,26 @@
+/* Cột mục bên trái (src/ui/side-nav.js): nằm cạnh bảng nửa dưới màn hình, bảng đang mở dời sang phải nhường chỗ. */
+:root { --nav-w: 96px; --box-l: max(8px, calc(50% - 280px)); }
+.side-nav {
+  position: fixed; left: var(--box-l); bottom: calc(env(safe-area-inset-bottom) + 8px); width: var(--nav-w);
+  height: var(--sheet-h, 50vh); display: flex; flex-direction: column; gap: 4px; padding: 4px 4px 6px;
+  border: 12px solid transparent; border-image: url("../../assets/art/ui-frame.png") 12 fill / 12px / 0 stretch;
+  image-rendering: pixelated; background-clip: padding-box; background-color: rgba(18, 10, 12, .94);
+  color: var(--ink); text-shadow: 0 1px 1px rgba(0, 0, 0, .75);
+}
+.side-nav[hidden] { display: none; }
+.sn-title { font: 700 14px var(--f-body); color: var(--torch); padding: 0 2px 4px; border-bottom: 1px solid var(--glass-line, #555); }
+.sn-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; touch-action: pan-y; overscroll-behavior: contain; }
+.sn-item {
+  position: relative; flex: none; min-height: 34px; padding: 5px 6px; text-align: left;
+  border: 1px solid #6b4a2a; border-radius: 4px; background: linear-gradient(#4a2a1a, #2a170f);
+  color: #ffe6a0; font: 700 12px var(--f-body); line-height: 1.2; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5);
+}
+.sn-item.on { background: linear-gradient(#e0782a, #a8481a); border-color: #ffc070; color: #fff7d8; }
+.sn-item.locked { opacity: .55; filter: saturate(.4); }
+.sn-dot { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--ember, #ff5a3a); border: 1px solid #000; }
+body.nav-on #bag, body.nav-on .panel {
+  left: calc(var(--box-l) + var(--nav-w) + 4px) !important; right: var(--box-l) !important; max-width: none !important; margin: 0 !important;
+}
+.nav-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; touch-action: pan-y; overscroll-behavior: contain; }
+/* Bảng cũ khoá đúng một phần: thanh tab chuyển chỗ khác ẩn hẳn (mỗi nút một tính năng, chủ dự án 02/11/2026) */
+#cave-tabs, #pets-tabs, #achv-tabs, #bag > .bag-tabs > button, #social-tabs [data-tab="rank"], #social.rank-mode #social-tabs { display: none !important; }

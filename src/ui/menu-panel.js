@@ -1,9 +1,6 @@
-// Bảng Menu (nút Menu, chủ dự án xin 28/10/2026): mọi chức năng và phó bản chia nhóm, mỗi ô có hình lấy từ hình trong game.
-// Ô và cách mở ở data/menu.json; điều kiện, nói chuyện thẳng với NPC, vào bí cảnh ở src/game/menu-acts.js.
-// Bảng cũ vẫn mở bằng nút cũ (ẩn trong #hud-menu) để khỏi sửa từng bảng; ô có tab thì bấm luôn tab đó.
-import { spriteIcon } from './sprite-icon.js';
-import { itemLock, busyWhy, talkMenu, dungeonList, enterDungeon, enterDemon } from '../game/menu-acts.js';
-import { homeAct } from '../game/home-acts.js';
+// Bảng Bí cảnh (nút Bí cảnh): danh sách bí cảnh, vào thẳng (src/game/menu-acts.js). Nút Menu giờ mở cột mục bên trái
+// (src/ui/side-nav.js, chủ dự án 02/11/2026). game.openOldPanel: bấm hộ nút bảng cũ (ẩn trong #hud-menu) rồi chọn đúng phần.
+import { busyWhy, dungeonList, enterDungeon } from '../game/menu-acts.js';
 
 const $ = id => document.getElementById(id);
 function el(tag, cls, text) {
@@ -14,14 +11,13 @@ function el(tag, cls, text) {
 }
 
 export function createMenuPanel(game) {
-  const M = game.data.menu, D = M.dungeon;
+  const D = game.data.menu.dungeon;
   const root = el('div', 'panel menu-panel'); root.hidden = true;
-  const head = el('div', 'bag-head'), title = el('b', null, M.title), sub = el('span', 'panel-sub', M.sub), x = el('button', 'mini', '✕');
+  const head = el('div', 'bag-head'), title = el('b', null, D.title), sub = el('span', 'panel-sub', ''), x = el('button', 'mini', '✕');
   head.append(title, sub, x);
   const body = el('div', 'menu-body');
   root.append(head, body);
   document.body.append(root);
-  let view = 'main';
 
   function close() { root.hidden = true; game.uiOpen = false; }
   const toast = msg => game.toast(msg, 2);
@@ -34,52 +30,8 @@ export function createMenuPanel(game) {
     if (it.tab) setTimeout(() => document.querySelector(`#${it.tabs} [data-tab="${it.tab}"]`)?.click(), 0);
   }
 
-  let sure = null;
-  function act(it) {
-    const lock = itemLock(game, it);
-    if (lock) { toast(lock); return; }
-    if (it.toast) { toast(it.toast); return; }
-    if (it.reload) {   // Đăng xuất, xoá tài khoản: lưu rồi về màn đầu (nút ở đó); bấm hai lần
-      if (sure !== it.id) { sure = it.id; toast(it.confirm); return; }
-      game.persist(); Promise.resolve(game.cloud?.flush?.()).catch(() => {}).finally(() => setTimeout(() => location.reload(), 300));
-      return;
-    }
-    if (it.dungeons) { view = 'dun'; render(); return; }
-    if (it.home) { close(); const why = homeAct(game, it.home); if (why) toast(why); return; }   // việc trong động phủ (nhóm E)
-    if (it.btn) { openOld(it); return; }
-    if (it.cave) { close(); game.openCave?.(it.cave); return; }
-    if (it.open === 'world') { close(); game.worldMap?.open(); return; }
-    if (it.open) { close(); game['open' + it.open[0].toUpperCase() + it.open.slice(1)]?.(); return; }
-    const why = busyWhy(game);
-    if (why) { toast(D.busy.replace('{why}', why)); return; }
-    close();
-    if (it.talk) talkMenu(game, it.talk);
-    else if (it.demon) enterDemon(game).then(w => w && toast(D.busy.replace('{why}', w)));
-  }
-
-  function renderMain(hub) {
-    const H = hub ? M.hubs[hub] : M;
-    title.textContent = H.title; sub.textContent = H.sub || '';
-    for (const g of H.groups) {
-      body.append(el('div', 'menu-group', g.name));
-      const grid = el('div', 'menu-grid');
-      for (const it of g.items) {
-        const lock = itemLock(game, it), b = el('button', 'menu-tile' + (lock ? ' locked' : ''));
-        b.append(spriteIcon(game, it.icon, it.frame, 34, 'mt-ico', it.icon.startsWith('comp.')), el('span', null, it.label));   // đồng hành chibi: vừa theo chiều cao
-        if (it.badge && $(it.badge) && !$(it.badge).hidden) b.append(el('i', 'menu-dot'));
-        if (it.btn && $(it.btn)?.classList.contains('glow-hint')) b.classList.add('glow-hint');
-        b.onclick = () => act(it);
-        grid.append(b);
-      }
-      body.append(grid);
-    }
-  }
-
   function renderDungeons() {
     title.textContent = D.title; sub.textContent = '';
-    const back = el('button', 'mini menu-back', D.back);
-    back.onclick = () => { view = 'main'; render(); };
-    body.append(back);
     for (const d of dungeonList(game)) {
       const row = el('div', 'menu-dun' + (d.open ? '' : ' locked')), info = el('div', 'md-info');
       info.append(el('b', null, d.name), el('small', null, D.from.replace('{name}', d.from)));
@@ -101,19 +53,18 @@ export function createMenuPanel(game) {
 
   function render() {
     body.innerHTML = '';
-    if (view === 'dun') renderDungeons(); else renderMain(view.startsWith('hub:') ? view.slice(4) : null);
+    renderDungeons();
     body.scrollTop = 0;
   }
 
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
-    view = 'main'; sure = null; game.uiOpen = true; root.hidden = false; render();
+    game.uiOpen = true; root.hidden = false; render();
   }
   x.onclick = close;
-  game.openDungeons = () => { open(); if (!root.hidden) { view = 'dun'; render(); } };
-  game.openHub = id => { open(); if (!root.hidden && M.hubs?.[id]) { view = 'hub:' + id; render(); } };   // bảng con của nút Nhiệm vụ, Sự kiện, Xếp hạng   // nút Bí cảnh trên màn hình (src/ui/hud-order.js)
+  game.openDungeons = open;   // nút Bí cảnh trên màn hình (src/ui/hud-order.js)
   game.openOldPanel = openOld;
-  $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); if (root.hidden) open(); else close(); });
+  $('btn-menu').addEventListener('pointerdown', e => { e.stopPropagation(); game.openNav?.('menu'); });
   return { open, close };
 }

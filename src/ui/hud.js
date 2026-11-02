@@ -8,7 +8,6 @@ import { skillSlots } from '../game/skills.js';
 import { toggleAuto } from '../game/auto.js';
 import { togglePilot, pilotLabel } from '../game/pilot.js';
 import { teaLeft } from '../game/home.js';
-import { dvGoal } from '../game/daovan.js';
 import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 
@@ -89,7 +88,7 @@ export function createHud(audio) {
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
     }
     const gl = guideLine(game), goals = game.goals().split('\n').map(l => (gl && l === gl && game.goals().includes('\n') ? '➤ ' + l : l)).join('\n');   // nhiều việc: ➤ là việc mũi tên đang chỉ (chạm khung để đổi)
-    const pl = pilotLabel(game), gt = [goals, dvGoal(game), pl].filter(Boolean).join('\n');   // Con Đường Đạo Vận song hành truyện chính
+    const pl = pilotLabel(game), gt = [goals, pl].filter(Boolean).join('\n');   // dòng Con Đường Đạo Vận đã bỏ khỏi khung (chủ dự án 02/11/2026)
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);

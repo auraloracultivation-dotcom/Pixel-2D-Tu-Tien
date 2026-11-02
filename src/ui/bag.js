@@ -152,7 +152,8 @@ export function createBag(game) {
   for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; render(); };
   $('bag-close').onclick = () => close();
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
-  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); open(); });
+  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
+  game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; } open(); };
 
   function open() {
     if (!game.save || game.dialog.open) return;

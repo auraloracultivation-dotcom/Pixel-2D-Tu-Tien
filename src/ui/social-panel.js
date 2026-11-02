@@ -27,6 +27,9 @@ export function createSocialPanel(game) {
     $('social-emotes').hidden = id !== 'chat';
     for (const k of ['social-log', 'social-form']) $(k).hidden = id === 'rank';
     $('social-rank').hidden = id !== 'rank';
+    $('social').classList.toggle('rank-mode', id === 'rank');   // nút Xếp hạng mở thẳng bảng xếp hạng, không kèm tab trò chuyện
+    $('social').querySelector('.bag-head b').textContent = id === 'rank' ? S.rank.tab : 'Trò chuyện';
+    if (id === 'rank') $('social-sub').textContent = '';
     $('social-input').maxLength = id === 'world' ? w.max_len : c.max_len;
     $('social-input').placeholder = id === 'world' ? w.placeholder : c.placeholder;
     if (id === 'whisper') { wPullT = Date.now(); pullWhisper(game).then(() => tab === 'whisper' && render()); }

@@ -1,9 +1,6 @@
-// Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương), tab Tông môn (chức vị, cống hiến, đổi thưởng),
-// tab Đạo Vận (Con Đường Đạo Vận, bộ hợp hệ), tab Sự kiện và tab Tự hành (bật tắt việc tự hành làm).
+// Bảng Nhiệm vụ (nút Nhiệm vụ trên màn hình): chủ dự án chốt 02/11/2026 chỉ còn 2 thứ, điểm danh (checkin-card.js) và nhiệm vụ
+// hằng ngày (việc hôm nay, nhận thưởng, rương). Tab Đạo Vận, Sự kiện đã bỏ; Tự hành thành mục Tự động trong Menu (side-nav.js).
 import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
-import { renderEvents } from './event-tab.js';
-import { renderPilotOpts } from './pilot-tab.js';
-import { renderDaoVan } from './daovan-tab.js';
 import { renderCheckin } from './checkin-card.js';
 import { loadCheckin } from '../game/checkin.js';
 
@@ -18,7 +15,7 @@ function el(tag, cls, text) {
 
 export function createDailyPanel(game) {
   const { data } = game, D = data.daily;
-  let tab = 'ngay', msg = '';
+  let msg = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; return b; };
   const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
@@ -33,7 +30,7 @@ export function createDailyPanel(game) {
 
   function renderDay(list) {
     const dl = ensureDaily(game);
-    renderCheckin(game, list, { card, mini, say: t => { msg = t; }, rerender: () => { if (!$('daily').hidden && tab === 'ngay') render(); } });
+    renderCheckin(game, list, { card, mini, say: t => { msg = t; }, rerender: () => { if (!$('daily').hidden) render(); } });
     $('daily-sub').textContent = '';
     dl.tasks.forEach((t, i) => {
       const d = taskDef(game, t.id); if (!d) return;
@@ -48,24 +45,19 @@ export function createDailyPanel(game) {
 
   function render() {
     const list = $('daily-list');
-    for (const b of document.querySelectorAll('#daily-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
     $('daily-msg').textContent = msg;
-    if (tab === 'ngay') renderDay(list);
-    else if (tab === 'su-kien') renderEvents(game, list, { card, mini, rewardText, say: t => { msg = t; } });
-    else if (tab === 'tu-hanh') renderPilotOpts(game, list, { card, mini });
-    else renderDaoVan(game, list, { card, mini, say: t => { msg = t; } });
+    renderDay(list);
   }
 
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
     game.uiOpen = true; game.newDaily = false; msg = ''; $('daily').hidden = false; render();
-    loadCheckin(game).then(() => { if (!$('daily').hidden && tab === 'ngay') render(); });   // ngày mới: đọc lại điểm danh
+    loadCheckin(game).then(() => { if (!$('daily').hidden) render(); });   // ngày mới: đọc lại điểm danh
   }
   function close() { game.uiOpen = false; $('daily').hidden = true; }
 
   $('daily-close').onclick = close;
-  for (const b of document.querySelectorAll('#daily-tabs [data-tab]')) b.onclick = () => { tab = b.dataset.tab; msg = ''; render(); };
   $('btn-daily').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   return { open, close };
 }

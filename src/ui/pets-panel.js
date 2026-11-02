@@ -75,6 +75,7 @@ export function createPetsPanel(game) {
   function render() {
     const s = game.save, list = $('pets-list');
     for (const b of document.querySelectorAll('#pets-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
+    $('pets').querySelector('.bag-head b').textContent = document.querySelector(`#pets-tabs [data-tab="${tab}"]`).textContent;
     list.innerHTML = '';
     if (tab === 'linh-thu') renderPets(s, list);
     else if (tab === 'dong-hanh') renderComps(game, list, { render, close, sub: t => { $('pets-sub').textContent = t; } });
