@@ -1,4 +1,5 @@
 // Tab Xếp hạng trong bảng Đạo hữu: 3 bảng con (data/social.json rank), dữ liệu từ game/rank.js.
+import { qtvLedgerButton } from './qtv-ledger.js';
 import { loadRank } from '../game/rank.js';
 import { realmLabel } from '../game/stats.js';
 
@@ -53,6 +54,7 @@ export function createRankView(game) {
     }
     if (!data?.top?.length) { L.append(el('div', 'empty', R.empty)); } else L.append(t);
     L.append(el('small', 'qtv-rule', Q.rule));
+    qtvLedgerButton(game, L);   // sổ điểm của mình, đổi Tiên Ngọc
     $('rank-note').textContent = data?.toi ? Q.me.replace('{n}', data.toi.hang).replace('{d}', data.toi.diem).replace('{c}', data.toi.cap) : Q.me_none;
   }
 

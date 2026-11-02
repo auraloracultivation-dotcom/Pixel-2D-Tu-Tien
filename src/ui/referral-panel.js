@@ -89,7 +89,12 @@ export function createReferral(game) {
 
   function paint(info) {
     body.textContent = '';
-    const d = s => s.split('-').reverse().join('/');
+    const d = s => s.split('-').reverse().join('/'), today = new Date().toISOString().slice(0, 10);
+    for (const e of R.extra?.list || []) {   // sự kiện thêm (data/referral.json → extra), hết hạn tự ẩn
+      if ((e.from && today < e.from) || (e.to && today > e.to)) continue;
+      const n = el('div', 'ev-note top'); n.append(el('b', 'ev-note-title', e.title), ...e.lines.map(l => el('p', null, l)));
+      body.append(n);
+    }
     body.append(el('div', 'ev-when', fill(T.when, { from: d(R.from), to: d(R.to) })),
       el('p', 'ev-rule', fill(T.rule, { gap: R.gap, ref: R.gem_ref, new: R.gem_new })));
     if (!info.dang_chay) body.append(el('p', 'fb-msg', T.ended));
