@@ -52,7 +52,7 @@
   "title": "Bảng vinh danh góp ý",
   "close": "Đóng",
   "rule": "Mỗi báo lỗi hoặc đề xuất được đội làm game nhận (đã sửa hoặc sẽ làm) thưởng 1 viên Ngọc cấp {gem} gửi vào Hòm thư. Trùng hoặc không đúng thì không thưởng.",
-  "open": "🏆 Bảng vinh danh",
+  "open": "🏆 Bảng quản trị viên",
   "row": "{loi} lỗi · {dx} đề xuất",
   "me": "Bạn có {n} vấn đề được nhận, {c} đang chờ xem.",
   "empty": "Chưa có ai. Hãy là người đầu tiên!",

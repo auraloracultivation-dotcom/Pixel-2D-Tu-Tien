@@ -40,6 +40,22 @@ export function createRankView(game) {
     L.append(d);
   }
 
+  // Bảng quản trị viên: bảng nhiều cột (điểm, cấp, lỗi được sửa, đề xuất được làm, không thông qua, đang chờ)
+  function renderQtv(L, data) {
+    const Q = R.qtv, t = el('table', 'qtv-table'), hr = el('tr');
+    for (const h of Q.head) hr.append(el('th', null, h));
+    t.append(hr);
+    for (const r of data?.top || []) {
+      const tr = el('tr', r.la_toi ? 'me' : null);
+      if (r.k && game.openProfile) { tr.classList.add('tap'); tr.onclick = () => game.openProfile(r.k, r.ten); }
+      for (const v of [r.hang, r.ten, r.diem, r.cap, r.loi, r.dx + (r.ghi ? ` (+${r.ghi})` : ''), r.khong, r.cho]) tr.append(el('td', null, String(v)));
+      t.append(tr);
+    }
+    if (!data?.top?.length) { L.append(el('div', 'empty', R.empty)); } else L.append(t);
+    L.append(el('small', 'qtv-rule', Q.rule));
+    $('rank-note').textContent = data?.toi ? Q.me.replace('{n}', data.toi.hang).replace('{d}', data.toi.diem).replace('{c}', data.toi.cap) : Q.me_none;
+  }
+
   async function render(force) {
     const tabs = $('rank-tabs'); tabs.innerHTML = '';
     for (const t of R.tabs) {
@@ -64,10 +80,12 @@ export function createRankView(game) {
     try { data = await loadRank(game, kindNow(), force); } catch { if (my === ticket) msg(R.error, true); return; }
     if (my !== ticket) return;
     const L = $('rank-list'); L.innerHTML = '';
+    if (kind === 'qtv') { renderQtv(L, data); return; }
     if (!data?.top?.length) return msg(R.empty);
     for (const r of data.top) L.append(row(r));
     $('rank-note').textContent = `${data.toi ? R.me.replace('{n}', data.toi.hang) : R.me_none} ${data.toi?.co ? R.me_flag : R.note}`;
   }
 
+  game.rankKind = id => { if (R.tabs.some(t => t.id === id)) kind = id; };   // mở thẳng một bảng (Bảng quản trị viên từ bảng báo lỗi)
   return { render };
 }

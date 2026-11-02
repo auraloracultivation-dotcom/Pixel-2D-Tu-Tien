@@ -3,6 +3,11 @@ import { supabase } from './client.js';
 
 // Bảng mới (góp ý, đánh Ma Thần, bí cảnh) ở hàm p2d_bxh2 (supabase/migrations/20261102031000_p2d_bxh_moi.sql)
 export async function fetchRank(kind) {
+  if (kind === 'qtv') {   // bảng quản trị viên (supabase/migrations/20261102170000_p2d_bxh_qtv.sql)
+    const { data, error } = await supabase.rpc('p2d_bxh_qtv');
+    if (error) throw error;
+    return data;
+  }
   const fn = kind === 'gop_y' || kind === 'dmt' || kind.startsWith('bc:') ? 'p2d_bxh2' : 'p2d_bxh';
   const { data, error } = await supabase.rpc(fn, { p_loai: kind });
   if (error) throw error;

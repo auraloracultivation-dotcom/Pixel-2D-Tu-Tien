@@ -30,3 +30,11 @@ body:has(.panel:not([hidden])) .chat-dock, body:has(#bag:not([hidden])) .chat-do
 /* Tự đánh nằm trong cụm nút đánh, bên trái nút chiêu linh thú #btn-art (src/ui/hud-order.js) */
 #btn-auto.auto-dock { position: absolute; right: 124px; bottom: 166px; height: 30px !important; pointer-events: auto; }
 body:has(.panel:not([hidden])) #btn-auto.auto-dock, body:has(#bag:not([hidden])) #btn-auto.auto-dock, body:has(#dialog:not([hidden])) #btn-auto.auto-dock { visibility: hidden; }
+/* Bảng quản trị viên trong Xếp hạng (src/ui/rank-view.js) */
+.qtv-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.qtv-table th { color: var(--torch, #ffb03a); font-weight: 700; text-align: left; padding: 3px 4px; border-bottom: 1px solid rgba(255, 255, 255, .15); white-space: nowrap; }
+.qtv-table td { padding: 4px; border-bottom: 1px solid rgba(255, 255, 255, .06); }
+.qtv-table td:nth-child(2) { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qtv-table tr.me td { color: #8dffa6; }
+.qtv-table tr.tap { cursor: pointer; }
+.qtv-rule { display: block; margin-top: 6px; opacity: .75; font-size: 10.5px; line-height: 1.35; }

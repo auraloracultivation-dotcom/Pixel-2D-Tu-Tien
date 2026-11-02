@@ -161,8 +161,8 @@
     "label": "Cảnh giới"
    },
    {
-    "id": "gop_y",
-    "label": "Góp ý"
+    "id": "qtv",
+    "label": "Quản trị viên"
    },
    {
     "id": "dmt",
@@ -196,8 +196,9 @@
   "flag": "⚑",
   "flag_title": "Bị hệ thống gắn cờ nghi vấn gian lận",
   "me_flag": "Tài khoản của bạn đang bị gắn cờ nghi vấn, không nhận danh hiệu tuần.",
+  "qtv": {"_note": "Bảng quản trị viên (chủ dự án 02/11/2026 16:33, thay bảng Góp ý cũ): điểm từ góp ý đã duyệt, máy chủ tính (supabase/migrations/20261102170000_p2d_bxh_qtv.sql). Quyền mở theo cấp bàn sau.", "head": ["#", "Tên", "Điểm", "Cấp", "Lỗi sửa", "Đề xuất làm", "Không qua", "Chờ"], "rule": "Lỗi được sửa +10, đề xuất được làm vào game +20, đề xuất được ghi nhận +5, trùng / không thông qua 0, spam −15. Cấp 1 từ 20 điểm, 2 từ 60, 3 từ 150, 4 từ 300, 5 từ 600.", "me": "Bạn hạng {n} · {d} điểm · cấp {c}.", "me_none": "Gửi báo lỗi, đề xuất (nút 🐞 💡) để có điểm quản trị viên."},
   "new_fn": [
-   "gop_y",
+   "qtv",
    "dmt",
    "bc"
   ]
