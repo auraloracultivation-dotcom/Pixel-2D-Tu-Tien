@@ -1,7 +1,10 @@
 // Bảng Bạn bè (Menu → Bạn bè, Động phủ → Nhà bạn bè): bạn, lời mời đến, lời mời đã gửi; nút Thăm nhà, Đồng ý, Từ chối, Huỷ.
 // Kết bạn: chạm tên người chơi (bảng xếp hạng, kênh chat) → hồ sơ → Kết bạn. Luật ở máy chủ (src/game/friends.js).
+// Đầu bảng là phần Đạo lữ (src/ui/daolu-section.js); mỗi người bạn có nút Mời làm đạo lữ.
 import { friendList, addFriend, removeFriend, visitFriend } from '../game/friends.js';
 import { realmLabel } from '../game/stats.js';
+import { loadDaoLu } from '../game/daolu.js';
+import { renderDaoLu, inviteBtn } from './daolu-section.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -9,7 +12,7 @@ function el(tag, cls, text) {
   if (text != null) e.textContent = text;
   return e;
 }
-const ERR = { khong_thay: 'Không tìm thấy người này.', chinh_minh: 'Không tự kết bạn với mình được.', qua_nhieu_ban: 'Đã đủ 100 bạn.', qua_nhieu_loi_moi: 'Đang chờ quá nhiều lời mời, đợi người ta đồng ý đã.', chua_la_ban: 'Hai người chưa là bạn.', net: 'Mạng chập chờn, thử lại sau.' };
+const ERR = { dang_dao_lu: 'Đang là đạo lữ, huỷ đạo lữ trước.', khong_thay: 'Không tìm thấy người này.', chinh_minh: 'Không tự kết bạn với mình được.', qua_nhieu_ban: 'Đã đủ 100 bạn.', qua_nhieu_loi_moi: 'Đang chờ quá nhiều lời mời, đợi người ta đồng ý đã.', chua_la_ban: 'Hai người chưa là bạn.', net: 'Mạng chập chờn, thử lại sau.' };
 export const friendErr = e => ERR[e?.message] || ERR.net;
 
 export function createFriendsPanel(game) {
@@ -27,7 +30,10 @@ export function createFriendsPanel(game) {
     if (!game.online) { body.replaceChildren(el('p', null, 'Đăng nhập tài khoản để kết bạn.')); return; }
     let list;
     try { list = await friendList(); } catch (e) { body.replaceChildren(el('p', null, friendErr(e))); return; }
+    let dl = null;
+    try { dl = await loadDaoLu(game); } catch { dl = null; }   // máy chủ chưa có phần đạo lữ: ẩn phần này
     body.replaceChildren(el('p', null, 'Kết bạn: chạm tên người chơi ở bảng xếp hạng hoặc kênh chat → Kết bạn. Chọn nhà bạn để vào thăm.'));
+    renderDaoLu(game, body, dl, { say, rerender: render });   // đạo lữ (src/ui/daolu-section.js)
     if (note) say(note);
     const groups = [['moi_toi', 'Lời mời kết bạn'], ['ban', 'Bạn bè'], ['toi_moi', 'Đã gửi lời mời']];
     for (const [tt, title] of groups) {
@@ -39,6 +45,7 @@ export function createFriendsPanel(game) {
         card.append(el('b', 'ev-note-title', r.ten), el('p', null, realmLabel({ realm: r.canh_gioi, layer: r.tang }, game.data.realms)));
         const btn = (t, fn, cls = 'act-btn') => { const b = el('button', cls, t); b.onclick = async () => { b.disabled = true; try { await fn(); } catch (e) { say(friendErr(e)); b.disabled = false; } }; acts.append(b); };
         if (tt === 'ban') btn('Thăm nhà', async () => { close(); await visitFriend(game, r.k, r.ten); }, 'act-btn primary');
+        if (tt === 'ban') inviteBtn(game, dl, r, btn, render);
         if (tt === 'moi_toi') btn('Đồng ý', async () => { await addFriend(r.k); render(`Đã kết bạn với ${r.ten}.`); }, 'act-btn primary');
         btn(tt === 'ban' ? 'Huỷ bạn' : tt === 'moi_toi' ? 'Từ chối' : 'Rút lời mời', async () => { await removeFriend(r.k); render(); });
         if (game.openProfile) btn('Hồ sơ', async () => { close(); game.openProfile(r.k, r.ten); });
