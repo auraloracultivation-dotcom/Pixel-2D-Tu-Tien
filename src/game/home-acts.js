@@ -7,6 +7,11 @@ import { goHome } from './friends.js';
 export function homeAct(game, act) {
   const H = game.data.home, here = game.map.id === H.map, npcs = game.npcs || [];
   if (act === 've-nha') { goHome(game); return null; }
+  if (act === 'ra-ngoai') {   // ra Thiên Kiếm Phong ngay, không cần đi tới cổng (góp ý #55: kẹt trong động phủ)
+    game.traveling = false; game.portalLock = 0;
+    game.travel('thien-kiem-phong', 'tu-dong-phu', false);
+    return null;
+  }
   if (!here) return 'Về động phủ rồi mới làm được.';
   if (game.visiting) return `Đang ở nhà ${game.visiting.ten}. Chọn "Về nhà mình" trước.`;
   if (act === 'be-quan') {
