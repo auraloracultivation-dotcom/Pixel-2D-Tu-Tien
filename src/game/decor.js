@@ -6,7 +6,7 @@ import { praise } from './praise.js';
 const C = game => game.data.home.decor;
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
-export const hasDecor = (game, id) => !!game.save.decor?.[id];
+export const hasDecor = (game, id) => !!(game.visiting ? game.visiting.decor : game.save.decor)?.[id];   // đang thăm nhà bạn: đồ nhà bạn (src/game/friends.js)
 // Phần trăm đả tọa cộng thêm ở động phủ
 export const comfort = game => Object.entries(C(game).items).reduce((a, [id, d]) => a + (hasDecor(game, id) ? d.comfort : 0), 0);
 

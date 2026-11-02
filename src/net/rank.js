@@ -1,8 +1,10 @@
 // Bảng xếp hạng: chỉ đọc qua hàm p2d_bxh (supabase/migrations). Máy chủ tự lấy lực chiến, cảnh giới, tháp từ bản lưu.
 import { supabase } from './client.js';
 
+// Bảng mới (góp ý, đánh Ma Thần, bí cảnh) ở hàm p2d_bxh2 (supabase/migrations/20261102031000_p2d_bxh_moi.sql)
 export async function fetchRank(kind) {
-  const { data, error } = await supabase.rpc('p2d_bxh', { p_loai: kind });
+  const fn = kind === 'gop_y' || kind === 'dmt' || kind.startsWith('bc:') ? 'p2d_bxh2' : 'p2d_bxh';
+  const { data, error } = await supabase.rpc(fn, { p_loai: kind });
   if (error) throw error;
   return data;
 }

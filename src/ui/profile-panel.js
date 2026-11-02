@@ -9,6 +9,8 @@ import { petDef } from '../game/evolve.js';
 import { gemIcon } from './gem-icon.js';
 import { rarityOf, itemName, statText, gemInfo } from '../game/items.js';
 import { icon, mainStats } from './bag-detail.js';
+import { addFriend } from '../game/friends.js';
+import { friendErr } from './friends-panel.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
@@ -106,6 +108,15 @@ export function createProfile(game) {
     duel.onclick = () => { close(false); game.closeSocial?.(); startDuel(game, prof); };
     acts.append(duel);
     if (!prof.la_toi && game.openWhisper) { const w = el('button', 'act-btn', T.whisper); w.onclick = () => { close(false); game.openWhisper(prof.k, prof.ten); }; acts.append(w); }
+    if (!prof.la_toi && prof.k) {   // kết bạn (src/game/friends.js); đã là bạn / đã mời thì máy chủ báo lại
+      const f = el('button', 'act-btn', 'Kết bạn');
+      f.onclick = async () => {
+        f.disabled = true;
+        try { const r = await addFriend(prof.k); game.toast({ da_gui: `Đã gửi lời mời kết bạn tới ${prof.ten}.`, thanh_ban: `Đã kết bạn với ${prof.ten}!`, da_la_ban: 'Hai người đã là bạn.' }[r] || 'Đã gửi.', 2.4); }
+        catch (e) { game.toast(friendErr(e), 2.4); f.disabled = false; }
+      };
+      acts.append(f);
+    }
     top.append(acts, el('div', 'muted tiny', T.note));
     body.append(top);
 
