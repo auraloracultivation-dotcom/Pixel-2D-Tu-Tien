@@ -1,6 +1,7 @@
 // Đạo lữ ở nhà (data/home.json): ngồi cạnh bồ đoàn trong động phủ, trò chuyện theo giờ trong ngày, mỗi ngày tặng một món quà nhỏ và mời uống trà.
 // Mỗi ngày còn có một người bạn đã thân hoặc một khách phương xa ghé chơi (visit, game/visitors.js). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
+import { spawnHomePets, updateHomePets } from './home-pets.js';
 import { phase, hourNow } from './daynight.js';
 import { grant } from './daily.js';
 import { bump } from './achieve.js';
@@ -47,6 +48,7 @@ function welcome(game, id) {
 
 // Gọi khi vào bản đồ: ở động phủ thì đạo lữ ngồi chờ (trừ khi đang đi cùng), khách hôm nay ngồi bên kia
 export function spawnHome(game) {
+  spawnHomePets(game);   // linh thú bắt được đi lại trong sân (src/game/home-pets.js)
   if (game.map.id !== C(game).map) return;
   const id = daoLuHere(game);
   if (id && game.save.companion !== id && seat(game, id, C(game).at, 'home')) welcome(game, id);
@@ -71,6 +73,7 @@ export const homeMul = game => (songTuNpc(game) ? C(game).song_tu.mul : 1) * (ga
 
 // Bắt đầu song tu thì báo một câu và để đạo lữ nói nhỏ một lời
 export function updateHome(game, dt) {
+  updateHomePets(game, dt);
   chime(game, dt);
   greet(game);
   const hs = game.homeSay;   // lời chào chờ báo khách ghé chơi hiện xong rồi mới nói

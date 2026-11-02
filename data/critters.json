@@ -1,4 +1,6 @@
 {
+ "off": true,
+ "_off": "Chủ dự án chốt 02/11/2026: bỏ linh cầm (không bán thêm), linh thú bắt được sống trong động phủ thay vào (pets.json → home). Con đã nuôi vẫn ở lại.",
  "_note": "Linh cầm nuôi ở động phủ: mua ở Tiểu Linh (npc) bằng Linh Thạch. Mỗi con đi lững thững trong pen (ô x, y, rộng, cao trên bản đồ map), cứ every_h giờ thật làm ra một phần give (như daily), tích tối đa cap phần, kể cả lúc vắng mặt. Người chơi đi tới gần (range px) là tự nhặt, hiện text ({got} là món nhận). kind là kiểu vẽ trong draw-critter.js, speed px/giây.",
  "npc": "tieu-linh",
  "map": "dong-phu",

@@ -347,5 +347,6 @@
   "_note": "Tách linh thú, bạn đồng hành, người chơi (src/game/pets.js updateFollower): mỗi kẻ đi theo đứng lệch sang một bên hướng nhìn (side, đơn vị bản đồ; linh thú dương, bạn đồng hành âm) và bị đẩy ra nếu đứng gần người chơi dưới player hoặc gần kẻ đi theo khác dưới other.",
   "player": 14,
   "other": 16
- }
+ },
+ "home": {"_note": "Linh thú bắt được sống trong động phủ (chủ dự án chốt 02/11/2026, thay linh cầm): pen là ô x, y, rộng, cao trên bản đồ động phủ; max con hiện; speed px/giây; sell giá bán = base + cấp × per_lv + sao × per_star (+ evo nếu đã tiến hoá). src/game/home-pets.js.", "pen": [11, 6, 7, 3], "max": 10, "speed": 18, "sell": {"base": 300, "per_lv": 150, "per_star": 1000, "evo": 5000}}
 }
