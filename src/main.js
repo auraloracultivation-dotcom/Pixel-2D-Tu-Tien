@@ -18,7 +18,6 @@ import { createFeedback } from './ui/feedback-panel.js';
 import { createInbox } from './ui/inbox-panel.js';
 import { createProfile } from './ui/profile-panel.js';
 import { createReferral } from './ui/referral-panel.js';
-import { createFame } from './ui/fame-panel.js';
 import { createNotice } from './ui/notice-panel.js';
 import { createDunResult } from './ui/dun-result.js';
 import { orderHud } from './ui/hud-order.js';
@@ -89,7 +88,8 @@ async function boot() {
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)
   createFeedback(game);   // nút Báo lỗi, Đề xuất cạnh nút Zalo (data/community.json → feedback)
   createProfile(game);   // chạm tên ở bảng xếp hạng: hồ sơ, nút So tài (data/duel.json)
-  createReferral(game); createFame(game); startReferral(game);   // sự kiện giới thiệu nhận ngọc, bảng vinh danh góp ý (data/referral.json)
+  createReferral(game); startReferral(game);   // sự kiện giới thiệu nhận ngọc (data/referral.json)
+  game.openFame = () => { game.closeAll?.(); game.rankKind?.('qtv'); game.openSocial?.('rank'); };   // bảng vinh danh góp ý cũ đã thay bằng Bảng quản trị viên (Xếp hạng)
   createDunResult(game);   // bảng kết quả bí cảnh: ô vuông đồ thu được, Tiếp tục / Càn quét / Thoát
   createNotice(game); createNameNudge(game);   // nhắc người còn tên mặc định đặt tên; nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
   startNetWatch(game); startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
