@@ -30,7 +30,7 @@ export async function startDuel(game, prof) {
   if (!st || !Number.isFinite(st.maxHp) || !Number.isFinite(st.atk)) { game.toast(D(game).text.bad, 2); return false; }
   const p = game.player;
   game.duel = { prof, save, st, wait: D(game).wait, t: D(game).time_limit, mob: null, foes: [], back: { map: game.save.map, spawn: game.save.spawn, x: p.x, y: p.y } };
-  await game.travel(game.data.arena.map, 'vao', true, { text: fill(D(game).text.trip, { name: prof.ten }), kind: 'portal' });
+  await game.travel(D(game).map, 'vao', true, { text: fill(D(game).text.trip, { name: prof.ten }), kind: 'portal' });
   return true;
 }
 

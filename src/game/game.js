@@ -20,11 +20,9 @@ import { updateZones } from './zones.js';
 import { checkUnlocks } from './skills.js';
 import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
-import { bountyKill, bountyGoal } from './bounty.js';
 import { ensureCave, matDrop } from './cave.js';
 import { ensureDaily, dailyEvent, dailyKill } from './daily.js';
-import { updateTower, towerFail } from './tower.js';
-import { updateArena, arenaFail, arenaGoal } from './arena.js';
+import { updateDuel, duelFail, duelGoal } from './duel.js';
 import { pilotDialog, pilotDied } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
 import { updateGarden } from './garden.js';
@@ -45,7 +43,6 @@ import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { spawnVeins, updateDig } from './gather.js';
 import { eliteKill } from './fashion.js';
-import { updateKyNgo } from './kyngo.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
 import { updateAnniv } from './anniv.js';
@@ -59,10 +56,8 @@ import { coinDrop } from './shop.js';
 import { eventMul, eventKill, checkFestival, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
-import { updateRes, resKill, resGoal } from './resrun.js';
 import { updateWorldBoss } from './worldboss.js';
 import { stamp, offlineGains } from './offline.js';
-import { sideKill, spawnSidePickups, sideGoals, hasSide } from './side.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
 import { updateCombo } from './affinity.js';
@@ -95,7 +90,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
   game.toast = (text, sec = 1.6) => ui.toast(text, sec);
   // Chữ nhiệm vụ góc phải: bước truyện và việc treo thưởng
-  game.goals = () => [game.res && resGoal(game), arenaGoal(game), game.tower && `Tháp Thử Thách: tầng ${game.tower.floor} (cao nhất ${game.save.tower?.best || 0})`, game.story?.goal()?.text, game.save?.bounty && bountyGoal(game), ...(game.save ? sideGoals(game) : [])].filter(Boolean).join('\n');
+  game.goals = () => [game.duel && duelGoal(game), game.story?.goal()?.text].filter(Boolean).join('\n');
   game.say = (who, text, sec) => ui.toast(`${who}: ${text}`, sec);
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
@@ -153,13 +148,11 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   game.onKill = m => {
-    if (m.tower) { resKill(game, m); return; } // quái trong tháp, bí cảnh tài nguyên: chỉ tính ở đó
+    if (m.tower) return; // quái dàn cảnh (tâm ma thiên kiếp, bản sao so tài): không tính
     countKill(game, m);
     if (m.def.ai === 'boss') praise(game, 'boss', { boss: m.def.name });
     dropLoot(game, m);
     coinDrop(game, m); eliteKill(game, m); cheerKill(game, m);
-    bountyKill(game, m);
-    sideKill(game, m);
     techDrop(game, m);
     matDrop(game, m);
     petKill(game, m);
@@ -181,10 +174,10 @@ export function createGame(data, screen, input, ui, audio) {
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
       if ((n.unless && game.save.flags[n.unless]) || (n.need && !game.save.flags[n.need])) continue;
-      if (n.id === game.save.companion && !game.story.wants(n.id) && !hasSide(game, n.id)) continue; // đang đi cùng người chơi
+      if (n.id === game.save.companion && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnSidePickups(game); spawnHome(game); spawnWild(game); spawnVeins(game); game.dig = null;
+    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnVeins(game); game.dig = null;
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
@@ -295,9 +288,9 @@ export function createGame(data, screen, input, ui, audio) {
 
   function respawn() {
     game.cheer = null;   // gục thì chuỗi hạ quái tính lại
-    if (!game.tower && !game.arena && !game.duel) pilotDied(game);   // gục trong tháp, trên đài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
+    if (!game.duel) pilotDied(game);   // gục trên đài so tài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
     if (game.trib.active) game.trib.fail();
-    else if (!towerFail(game) && !arenaFail(game)) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    else if (!(game.duel && duelFail(game))) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
     downFx(game);   // hiệu ứng gục tại chỗ: hồn người chơi bay lên, bạn đồng hành ngã theo (render/draw-act-fx.js)
     const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
@@ -364,8 +357,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateSpawners(dt);
     game.dungeon?.update();
     updateParty(game, dt);
-    updateTower(game, dt);
-    updateArena(game, dt);
+    if (game.duel) updateDuel(game, dt);
     updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
@@ -374,7 +366,6 @@ export function createGame(data, screen, input, ui, audio) {
     updateHome(game, dt);
     updateChatter(game, dt); updateSnack(game); updateFair(game, dt);
     updateStroll(game, dt); updateWild(game, dt); updateDig(game, dt);
-    updateKyNgo(game, dt);
     updatePilotLog(game);
     updateEta(game, dt);
     updateAnniv(game, dt);
@@ -384,7 +375,6 @@ export function createGame(data, screen, input, ui, audio) {
     updateFishing(game, dt);
     updateView(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
-    updateRes(game, dt);
     updateWorldBoss(game, dt);
     updateInteract(game);
     updatePortals(game, dt);

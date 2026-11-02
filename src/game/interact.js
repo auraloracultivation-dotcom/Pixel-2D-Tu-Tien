@@ -1,6 +1,5 @@
 // Tương tác trên bản đồ: nút ngữ cảnh (nói chuyện, đả tọa, độ kiếp), cổng, vật nhặt theo nhiệm vụ.
 import { dist } from './combat.js';
-import { BOUNTY_NPC, talkBounty } from './bounty.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvestAll, gotText } from './garden.js';
 import { meditateMul } from './evolve.js';
@@ -11,12 +10,8 @@ import { nearVein, startDig } from './gather.js';
 
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
-import { talkTower } from './tower.js';
-import { talkArena } from './arena.js';
 import { talkShop } from './shop.js';
-import { talkRes } from './resrun.js';
 import { canInvite, talkCompanion } from './companion.js';
-import { sideFirst, talkSide, sideCollect } from './side.js';
 import { challenge as challengeTm } from './thienma.js';
 import { talkHome } from './home.js';
 import { showPat, patPet } from './pat.js';
@@ -52,15 +47,10 @@ function nearStation(game) {
 // Nói chuyện với một NPC: truyện trước, rồi các việc riêng của NPC đó (tự hành gọi thẳng hàm này)
 export function talkTo(game, npc) {
   if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
-  if (npc.id === BOUNTY_NPC) { talkBounty(game, npc); return; }
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
-  if (npc.id === game.data.tower.npc) { talkTower(game, npc); return; }
   if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
-  if (npc.id === game.data.arena.npc) { talkArena(game, npc); return; }
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
-  if (npc.id === game.data.resrun.npc) { talkRes(game, npc); return; }
-  if (sideFirst(game, npc)) { talkSide(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
   if (festNpc(game, npc.id)) { talkFest(game, npc); return; }
   if (npc.id === game.data.party.npc) { talkParty(game, npc); return; }
@@ -131,7 +121,7 @@ export function updatePickups(game) {
   for (const k of game.pickups) {
     if (k.taken || dist(k, p) > 12) continue;
     k.taken = true;
-    if (k.side) sideCollect(game, k); else game.story.notify('collect', k.item);
+    game.story.notify('collect', k.item);
     game.toast(`Nhặt được ${game.data.items.quest_items[k.item]?.name || k.item}!`, 1);
     game.sfx('pickup');
   }

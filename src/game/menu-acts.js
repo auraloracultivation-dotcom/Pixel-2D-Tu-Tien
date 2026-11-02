@@ -1,8 +1,5 @@
 // Việc của các ô Menu (data/menu.json): ô nào đã mở, đang bận không vào được, nói chuyện thẳng với NPC (tháp, luận võ,
 // bí cảnh tài nguyên, tổ đội, tẩy linh căn) mà không phải đi tới chỗ họ, danh sách bí cảnh và vào thẳng từ menu.
-import { talkTower } from './tower.js';
-import { talkArena } from './arena.js';
-import { talkRes } from './resrun.js';
 import { talkParty } from './party.js';
 import { talkReroot, rerootNpc } from './reroot.js';
 import { pickMode, cleared, hintOf } from './dun-mode.js';
@@ -10,9 +7,6 @@ import { demonWhy } from './demon.js';
 
 const M = game => game.data.menu;
 const TALK = {
-  tower: g => [g.data.tower.npc, talkTower],
-  arena: g => [g.data.arena.npc, talkArena],
-  res: g => [g.data.resrun.npc, talkRes],
   party: g => [g.data.party.npc, talkParty],
   reroot: g => [g.data.elements._reroot.npc, talkReroot],
 };
@@ -31,7 +25,7 @@ export function busyWhy(game) {
   if (game.trib.active) return B.trib;
   if (game.story.busy || game.dialog.open) return B.story;
   if (game.trip || game.traveling) return B.trip;
-  if (game.tower || game.arena || game.res) return B.run;
+  if (game.duel) return B.run;
   return null;
 }
 

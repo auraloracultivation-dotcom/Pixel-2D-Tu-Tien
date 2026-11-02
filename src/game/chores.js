@@ -2,7 +2,7 @@
 // nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú, hoàng hôn ra ngắm cảnh,
 // hạ quái cho việc hằng ngày và treo thưởng, rảnh thì câu vài con cá, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
-import { ensureDaily, taskDef, bountyLeft } from './daily.js';
+import { ensureDaily, taskDef } from './daily.js';
 import { nextRipe } from './garden.js';
 import { daoLuHere } from './affinity.js';
 import { outdoor, phase } from './daynight.js';
@@ -65,31 +65,13 @@ function wants(game) {
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
   if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
-  const viec = pilotOpt(game, 'viec');   // báo lỗi #42: tắt "việc phụ, treo thưởng" thì cả việc đã nhận cũng không tự làm
-  for (const [id, q] of Object.entries(game.data.side.quests)) {
-    const st = s.side?.[id];
-    if (!viec || st?.state !== 'on') continue;
-    if (st.n >= q.n) out.push({ talk: q.npc });
-    else if (q.kind === 'kill') out.push({ kill: q.mob });
-    else out.push({ pick: id, map: q.map });
-  }
   for (const t of ensureDaily(game).tasks) {
     const d = taskDef(game, t.id);
     if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
     if (d?.type === 'kill' && !d.mob && t.n < d.n) out.push({ any: true });
     if (d?.type === 'fish' && t.n < d.n && pilotOpt(game, 'cau')) out.push({ fish: true });
-    const R = game.data.resrun;   // việc vào bí cảnh tài nguyên: tới Quản Bí Cảnh, tự chọn loại còn lượt
-    if (d?.type === 'res' && t.n < d.n && s.flags[R.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: R.npc });
-    if (d?.type === 'arena' && t.n < d.n && s.flags[game.data.arena.need] && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.arena.npc });   // luận võ
-    if (d?.type === 'tower' && t.n < d.n && s.towerGaveUp !== new Date().toDateString() && (!d.need || s.flags[d.need]) && pilotOpt(game, 'bi-canh')) out.push({ talk: game.data.tower.npc });   // leo tháp: leo lại từ tầng 1
     const pill = game.data.cave.pill_button;
     if (d?.type === 'brew' && t.n < d.n && pilotOpt(game, 'dan') && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
-  }
-  const b = s.bounty && game.data.quests.bounties.find(x => x.id === s.bounty.id);
-  if (b && viec && s.bounty.n < b.n) out.push({ kill: b.mob });
-  else if ((b && viec) || (viec && !nightRest(game) && bountyLeft(game) > 0 && game.data.quests.bounties.some(x => (!x.need || s.flags[x.need]) && outdoorMob(game, x.mob)))) out.push({ talk: 'chap-su' });   // trả treo thưởng, nhận việc mới
-  for (const [id, q] of Object.entries(game.data.side.quests)) {   // việc phụ chưa nhận (bỏ việc đánh quái chỉ có trong bí cảnh)
-    if (pilotOpt(game, 'viec') && !nightRest(game) && !s.side?.[id] && s.flags[q.need] && (q.kind !== 'kill' || outdoorMob(game, q.mob))) out.push({ talk: q.npc });
   }
   const P = game.data.config.pilot, keep = r => ({ ...r, 'linh-thao': (r['linh-thao'] || 0) + P.herb_keep });   // cá, sâm dư: nấu canh, luyện đan linh khí, chừa linh thảo cho đan hồi máu
   const soup = pilotOpt(game, 'dan') && s.flags['dong-phu'] && P.auto_brew.find(id => canPay(game, keep(game.data.cave.pills[id].recipe)));
