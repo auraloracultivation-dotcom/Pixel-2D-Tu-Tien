@@ -249,6 +249,11 @@ try {
       if (!deploy.includes(f)) errors.push(`${page} trỏ tới ${f} nhưng .github/workflows/pages.yml không chép file này lên trang game`);
     }
   }
+  for (const css of deploy.filter(f => f.endsWith('.css'))) {   // tệp @import trong tệp kiểu ở gốc (02/11/2026: style-ui-kit*.css bị sót, trên mạng không thấy khung mới)
+    for (const [, f] of readFileSync(css, 'utf8').matchAll(/@import url\("([\w-]+\.css)"\)/g)) {
+      if (!deploy.includes(f)) errors.push(`${css} @import ${f} nhưng .github/workflows/pages.yml không chép file này lên trang game`);
+    }
+  }
 }
 
 if (errors.length) {
