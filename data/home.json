@@ -105,6 +105,7 @@
    "ho-ca": {"name": "Hồ cá nhỏ", "desc": "Mấy con cá chép đỏ bơi quanh đá.", "cost": 1500, "comfort": 6, "kind": "pond", "at": [[16, 10]]}
   },
   "full": "Động phủ đã đủ đồ rồi. Đẹp lắm!",
+  "visiting": "Đây là động phủ của đạo hữu khác. Về động phủ của mình rồi gọi ta bày đồ nhé.",
   "lines": ["Chủ nhân muốn sắm gì cho động phủ?", "Nhà có đẹp thì về mới vui."],
   "bought": ["Để con bày ngay!", "Đẹp quá! Chủ nhân có mắt nhìn."]
  }

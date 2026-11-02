@@ -12,6 +12,7 @@ export const comfort = game => Object.entries(C(game).items).reduce((a, [id, d])
 
 export async function talkDecor(game, npc) {
   const c = C(game), name = npc.def.name;
+  if (game.visiting) { await game.dialog.say([[name, c.visiting]]); return; }   // báo lỗi #78: thăm nhà bạn thì mua vào nhà mình, nhìn tưởng mất tiền
   const left = Object.entries(c.items).filter(([id]) => !hasDecor(game, id)).sort((a, b) => a[1].cost - b[1].cost);
   if (!left.length) { await game.dialog.say([[name, c.full]]); return; }
   const opts = left.slice(0, 3).map(([id, d]) => ({ id, label: `${d.name} (${d.cost} LT)`, desc: `${d.desc} Đả tọa ở nhà +${d.comfort}%`, color: coins(game.save) >= d.cost ? '#f2c94c' : '#8a8498' }));
