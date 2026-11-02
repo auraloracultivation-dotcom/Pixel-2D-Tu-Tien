@@ -165,8 +165,11 @@ export function renderDetail(game, st, box, changed, close) {
   };
   const rf = enhanceRefund(data, it), rfTxt = it.plus ? `, gồm ${Math.round(data.gear.enhance.refund * 100)}% nguyên liệu cường hoá` : '';   // trả lại một phần nguyên liệu cường hoá
   const dvTxt = base.dv ? Object.entries(data.daovan.salvage?.mats || {}).map(([m, k]) => `, +${k} ${data.cave.materials[m].name}`).join('') : '';
-  btn(`Phân giải (+${r.salvage + rf.stones} thạch, +${iron + rf.iron} tinh thiết${dvTxt}${rfTxt})`, sure('phân giải', () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }), worn);
-  btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, sure('bán', () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }), worn);
+  btn(`Phân giải (+${r.salvage + rf.stones} thạch, +${iron + rf.iron} tinh thiết${dvTxt}${rfTxt})`, sure('phân giải', () => { if (salvage(data, save, it.uid)) { salvageArt(game, it); salvageIron(game, it.rarity); dailyEvent(game, 'salvage'); } st.sel = null; game.sfx('die'); changed(); }), worn || it.lock);
+  btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, sure('bán', () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }), worn || it.lock);
+  const lk = el('button', 'act-btn' + (it.lock ? ' primary' : ''), it.lock ? '🔒 Đã khoá (chạm để mở)' : 'Khoá (không bị bán, phân giải)');   // góp ý #61
+  lk.onclick = () => { if (it.lock) delete it.lock; else it.lock = true; changed(); };
+  acts.prepend(lk);
   box.append(el('div', 'd-label', 'Rèn luyện'), acts);
   return true;
 }

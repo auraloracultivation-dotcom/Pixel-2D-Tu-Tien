@@ -22,7 +22,7 @@ export const sellPrice = (game, it) => C(game).sell[it.rarity] || 0;
 // Bán một món trong túi (không bán đồ đang mặc); ngọc đang khảm trả về túi ngọc
 export function sell(game, uid) {
   const s = game.save, i = s.bag.findIndex(x => x.uid === uid);
-  if (i < 0 || isEquipped(s, uid)) return 0;
+  if (i < 0 || isEquipped(s, uid) || s.bag[i].lock) return 0;   // đồ đã khoá (góp ý #61) không bán
   const it = s.bag[i], n = sellPrice(game, it);
   for (const g of it.sockets) if (g) s.gems[g] = (s.gems[g] || 0) + 1;
   s.bag.splice(i, 1);
@@ -39,7 +39,7 @@ export function shownTier(game, it) {
 // Báo lỗi 02/11 18:56: bản cũ lọc theo phẩm chất cũ (Phàm, Linh…) nên món màu Đỏ mà phẩm cũ là Phàm vẫn bị bán.
 export function quickList(game, tiers) {
   const s = game.save, q = C(game).quick, bases = game.data.items.bases;
-  return s.bag.filter(it => tiers.includes(shownTier(game, it)) && !isEquipped(s, it.uid) && !bases[it.base]?.dv && !(q.skip_plus && it.plus > 0));
+  return s.bag.filter(it => tiers.includes(shownTier(game, it)) && !it.lock && !isEquipped(s, it.uid) && !bases[it.base]?.dv && !(q.skip_plus && it.plus > 0));
 }
 
 // Bán hết danh sách bán nhanh một lần: ngọc đang khảm trả về túi ngọc. Trả { n: số món, coins: Linh Thạch nhận }

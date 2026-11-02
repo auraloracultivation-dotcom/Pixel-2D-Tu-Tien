@@ -29,7 +29,7 @@ export function createBag(game) {
     const r = rarityOf(data.items, it.rarity), q = quality(data, it);   // tẩy luyện mới: màu theo phẩm trung bình các dòng
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
     b.style.setProperty('--rar', q ? q.edge || q.color : r.color);
-    b.append(icon(data, it), el('b', null, itemName(data, it)), el('small', null, `${q ? 'Phẩm ' + q.name : r.name} · ${it.lines.length} dòng · cấp ${it.lvl}`));
+    b.append(icon(data, it), el('b', null, (it.lock ? '🔒' : '') + itemName(data, it)), el('small', null, `${q ? 'Phẩm ' + q.name : r.name} · ${it.lines.length} dòng · cấp ${it.lvl}`));
     if (gain > 0) b.append(el('em', 'up', '▲ ' + gain.toLocaleString('vi-VN')));
     b.onclick = () => pick(it.uid);
     return b;

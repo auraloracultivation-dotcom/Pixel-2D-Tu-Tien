@@ -18,6 +18,8 @@ export function useRun(game, id) { runsUsed(game, id); game.save.dunRuns[id] = (
 export function rewardOf(game, id, L) {
   const D = C(game), M = D.modes, md = M[Math.min(M.length - 1, Math.floor(L / D.steps))];
   if (!md?.reward) return null;
+  const cd = D.coin_dun?.[id];   // bí cảnh Linh Thạch: chỉ Linh Thạch, gấp coins_mul lần
+  if (cd) return { coins: Math.round((md.reward.coins || 0) * cd.coins_mul * (1 + D.reward_step * (L % D.steps))) };
   return { ...md.reward, slot: D.drops?.[id], coins: Math.round((md.reward.coins || 0) * (1 + D.reward_step * (L % D.steps))) || undefined };
 }
 

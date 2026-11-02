@@ -92,6 +92,7 @@ export function salvage(data, save, uid) {
   const i = save.bag.findIndex(x => x.uid === uid);
   if (i < 0) return 0;
   const it = save.bag[i];
+  if (it.lock) return 0;   // đồ đã khoá không phân giải
   for (const g of it.sockets) if (g) save.gems[g] = (save.gems[g] || 0) + 1;
   save.bag.splice(i, 1);
   const n = rarityOf(data.items, it.rarity).salvage, rf = enhanceRefund(data, it);

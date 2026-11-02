@@ -40,7 +40,7 @@ function doNow(game, d) {
   }
   if (d.type === 'salvage') {   // chỉ phân giải đồ Phàm, Linh không mặc, cũ nhất trước
     const R = D.items.rarities.map(r => r.id).slice(0, 2);
-    const it = s.bag.filter(i => R.includes(i.rarity) && !isEquipped(s, i.uid) && !D.items.bases[i.base]?.dv).sort((a, b) => a.uid - b.uid)[0];
+    const it = s.bag.filter(i => R.includes(i.rarity) && !i.lock && !isEquipped(s, i.uid) && !D.items.bases[i.base]?.dv).sort((a, b) => a.uid - b.uid)[0];
     if (!it) return false;
     salvage(D, s, it.uid); dailyEvent(game, 'salvage'); game.refreshStats(); game.persist();
     game.toast(`Tự hành phân giải [${rarityOf(D.items, it.rarity).name}] cho việc ngày`, 1.4);
