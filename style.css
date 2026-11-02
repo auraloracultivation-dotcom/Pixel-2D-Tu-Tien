@@ -368,7 +368,7 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 /* ---------------------------------------------------------------- nhóm Zalo (src/ui/zalo.js) */
 #btn-zalo { pointer-events: auto; position: relative; height: 28px; padding: 0 8px; border: 1px solid #7fb0ff; border-radius: 5px; background: #0068ff; color: #fff; font: 700 13px var(--f-body); box-shadow: 0 0 0 1px #000; }
 #btn-zalo.gift::after { content: ''; position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: #ffd86b; border: 1px solid #000; box-shadow: 0 0 6px #ffd86b; }
-.zalo-panel { bottom: auto; }
+/* .zalo-panel: nằm nửa dưới như mọi bảng (chủ dự án 02/11/2026: Zalo bị kéo lên góc trên) */
 .zalo-panel .bag-head b { flex: 1; }
 .zalo-body { display: flex; flex-direction: column; gap: 8px; }
 .zalo-info { margin: 0; color: var(--ink-2); line-height: 1.45; }
@@ -523,7 +523,11 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .mat-dot { flex: 0 0 12px; height: 12px; margin-top: 3px; border-radius: 3px; border: 1px solid #000; }
 
 /* Túi → Ngọc: nút khảm ngọc tốt nhất (đề xuất #33) */
-#bag .gem-best { white-space: nowrap; margin: 2px 0 8px; }
+#bag .gem-best { white-space: nowrap; margin: 2px 0 8px; grid-column: 1 / -1; justify-self: start; }
+/* ngọc, nguyên liệu dạng lưới (src/ui/bag-stock.js) */
+#bag .item.stock .ico { image-rendering: pixelated; object-fit: contain; }
+#bag .item.stock .mat-sq, .d-head .mat-sq { display: block; width: 18px; height: 18px; margin: 3px; border-radius: 4px; border: 1px solid #000; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .25); }
+#bag .item.stock.none { opacity: .45; }
 
 /* Bảng kết quả bí cảnh (src/ui/dun-result.js) */
 .dr-panel { display: flex; flex-direction: column; gap: 8px; }

@@ -17,7 +17,8 @@ export function orderHud(game) {
       if (!game.save || game.dialog.open || game.trip) return;
       if (e.nav) { game.openNav?.(e.nav); return; }
       game.closeAll?.();
-      if (e.dun) game.openDungeons?.();
+      if (e.toggle) game.toggleQuestDock?.();   // Nhiệm vụ: ẩn / hiện cột nhiệm vụ hằng ngày trên màn hình (src/ui/quest-dock.js)
+      else if (e.dun) game.openDungeons?.();
       else if (e.social) game.openSocial?.(e.social);
       else if (e.open) game['open' + e.open[0].toUpperCase() + e.open.slice(1)]?.();
       else game.openOldPanel?.(e);
@@ -28,7 +29,7 @@ export function orderHud(game) {
     const want = [];
     for (const e of H.list) {
       let b = document.getElementById(e.id);
-      if (!b && (e.dun || e.btn || e.nav || e.open || e.social)) b = make(e);
+      if (!b && (e.dun || e.btn || e.nav || e.open || e.social || e.toggle)) b = make(e);
       if (!b) continue;
       if (e.label && !made.has(e.id)) { setLabel(b, e.label); made.add(e.id); }
       if (e.where === 'home') b.hidden = game.map?.id !== game.data.home?.map;
