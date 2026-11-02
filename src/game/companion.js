@@ -2,6 +2,7 @@
 // (save.companion, save.companion2), đánh như linh thú, có cấp riêng; mua bán ở Ngự Thú Sư (src/game/beast-shop.js),
 // chỉ số và tẩy luyện ở src/game/beast.js (holder là save.comps[id]).
 import { updateFollower } from './pets.js';
+import { curOutfit } from './fashion.js';
 
 const C = game => game.data.companions;
 export const compNeed = (data, lv) => Math.round(data.companions.exp_base * Math.pow(lv, data.companions.exp_pow));
