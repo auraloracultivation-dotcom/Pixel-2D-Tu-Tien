@@ -43,7 +43,17 @@ export function createChatDock(game) {
     fromDock = true;
     setTimeout(() => document.getElementById('social-input')?.focus(), 50);
   }
-  dock.addEventListener('pointerdown', e => { e.stopPropagation(); expand(); });
+  // Báo lỗi #81: đang giữ cần điều khiển dễ chạm nhầm khung chat. Chỉ mở khi chạm gọn (nhấc ngón tại chỗ, dưới 0,4 giây) và
+  // không có ngón khác đang giữ màn hình (cần điều khiển, nút đánh).
+  let held = 0, tap = null;
+  document.addEventListener('pointerdown', () => { held++; }, true);
+  const up = () => { held = Math.max(0, held - 1); };
+  document.addEventListener('pointerup', up, true); document.addEventListener('pointercancel', up, true);
+  dock.addEventListener('pointerdown', e => { e.stopPropagation(); tap = held <= 1 ? { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId } : null; });
+  dock.addEventListener('pointerup', e => {
+    const s = tap; tap = null;
+    if (s && s.id === e.pointerId && performance.now() - s.t < 400 && Math.hypot(e.clientX - s.x, e.clientY - s.y) < 10) expand();
+  });
 
   // Mở từ khung nhỏ: chạm ngoài bảng là thu nhỏ lại
   document.addEventListener('pointerdown', e => {
