@@ -120,7 +120,7 @@ export function forge(game, recipeId, slot) {
   if (slot === 'vu-khi') bases = bases.filter(([, b]) => b.weapon === wt).concat(bases.filter(([, b]) => !b.weapon && wt === 'kiem'));
   if (!bases.length) return null;
   const base = bases[Math.floor(Math.random() * bases.length)][0];
-  const it = rollItem(data, save, { base, minRarity: r.min_rarity, lvl: totalLayer(save, data.realms) });
+  const it = rollItem(data, save, { base, minRarity: r.min_rarity, lvl: totalLayer(save, data.realms), maxTier: data.items.line_tiers.world_max });   // rèn: như đồ rơi ngoài bí cảnh
   if (!addItem(data, save, it)) return 'full';
   pay(save, r.cost);
   dailyEvent(game, 'forge');

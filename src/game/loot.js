@@ -8,17 +8,20 @@ export function dropLoot(game, m) {
   const d = game.data.items.drops[m.id];
   if (!d || m.noQi) return;
   const lvl = totalLayer(game.save, game.data.realms);
+  // Đồ rơi ngoài bí cảnh chỉ tới màu world_max (chủ dự án 02/11/2026 17:48: farm ngoài ra đồ đen, đỏ thì người chỉ đi bí cảnh không đua nổi);
+  // màu cao (vàng, đỏ, đen) chỉ có trong bí cảnh và qua tẩy luyện
+  const maxTier = game.dungeon || (game.map.def.rooms || []).length ? undefined : game.data.items.line_tiers.world_max;
   const spawn = (kind, payload) => {
     const a = Math.random() * Math.PI * 2, s = 40 + Math.random() * 40;
     game.loot.push({ kind, payload, x: m.x, y: m.y - 4, vx: Math.cos(a) * s, vy: Math.sin(a) * s, t: 0 });
   };
   const L = m.lootMul ?? 1;   // bãi treo máy rơi ít hơn (data/planets.json → farm.loot)
   const times = (p, n = 1) => { let k = 0; for (let i = 0; i < n; i++) if (Math.random() < p * L) k++; return k; };
-  for (let i = times(d.item, d.items || 1); i > 0; i--) spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity }));
+  for (let i = times(d.item, d.items || 1); i > 0; i--) spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity, maxTier }));
   for (let i = times(d.gem); i > 0; i--) spawn('gem', rollGem(game.data));
   if (d.set && Math.random() < d.set[1]) {   // boss rơi một món bộ đồ của đảo
     const bs = Object.keys(game.data.items.bases).filter(k => game.data.items.bases[k].set === d.set[0]);
-    spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity, base: bs[Math.floor(Math.random() * bs.length)] }));
+    spawn('item', rollItem(game.data, game.save, { lvl, minRarity: d.min_rarity, base: bs[Math.floor(Math.random() * bs.length)], maxTier }));
   }
   const st = times(d.stone);
   if (st) spawn('stone', d.stones || 1);
