@@ -1,5 +1,6 @@
 // Linh Thạch (data/shop.json): quái rơi, bán đồ cho tiệm, mua ở Vạn Bảo Lâu.
 import { rollGem, gemInfo, isEquipped } from './items.js';
+import { quality } from './tiers.js';
 
 const C = game => game.data.shop;
 export const coins = save => save.lingshi || 0;
@@ -29,10 +30,16 @@ export function sell(game, uid) {
   return n;
 }
 
-// Bán nhanh (data/shop.json → quick): các món thuộc phẩm chất đã chọn, trừ đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá
-export function quickList(game, rarities) {
+// Phẩm đang hiện của món (màu trên ô túi): màu trung bình các dòng; đồ chưa có dòng màu thì đổi phẩm cũ qua line_tiers.from_rarity
+export function shownTier(game, it) {
+  const T = game.data.items.line_tiers;
+  return quality(game.data, it)?.id || T.list[T.from_rarity[it.rarity] ?? 0].id;
+}
+// Bán nhanh (data/shop.json → quick): các món có phẩm (màu đang hiện) đã chọn, trừ đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.
+// Báo lỗi 02/11 18:56: bản cũ lọc theo phẩm chất cũ (Phàm, Linh…) nên món màu Đỏ mà phẩm cũ là Phàm vẫn bị bán.
+export function quickList(game, tiers) {
   const s = game.save, q = C(game).quick, bases = game.data.items.bases;
-  return s.bag.filter(it => rarities.includes(it.rarity) && !isEquipped(s, it.uid) && !bases[it.base]?.dv && !(q.skip_plus && it.plus > 0));
+  return s.bag.filter(it => tiers.includes(shownTier(game, it)) && !isEquipped(s, it.uid) && !bases[it.base]?.dv && !(q.skip_plus && it.plus > 0));
 }
 
 // Bán hết danh sách bán nhanh một lần: ngọc đang khảm trả về túi ngọc. Trả { n: số món, coins: Linh Thạch nhận }
