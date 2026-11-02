@@ -24,17 +24,38 @@ export function startNetWatch(game) {
     if (box) box.hidden = !yes;
   }
 
+  // Một tài khoản một máy (góp ý #72): mỗi lần có lưu máy chủ mới (vào game) thì nhận mã phiên; nhịp sống báo máy khác vào sau
+  // thì thôi lưu, hiện bảng rồi đăng xuất (không đăng xuất thì tải lại sẽ tự vào và đá máy kia ra).
+  let claimedFor = null, phien = null, kicked = false;
+  async function claim(hb) {
+    claimedFor = game.cloud;
+    phien = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => (b % 36).toString(36)).join('') + Date.now().toString(36);
+    if (!(await hb.claimSession(phien).catch(() => false))) phien = null;
+  }
+  async function kick() {
+    kicked = true; game.cloud = null; game.persist = () => {};   // không ghi đè tiến độ của máy kia
+    show(true);
+    box.querySelector('b').textContent = c.text.kick_title; box.querySelector('p').textContent = c.text.kick_sub;
+    setTimeout(async () => { try { await (await import('../net/auth.js')).signOut(); } catch { /* vẫn tải lại */ } location.reload(); }, 4000);
+  }
+
   async function send() {
     busy = true;
     let ok = false;
-    try { ok = await (await import('../net/heartbeat.js')).beat(c.timeout_s * 1000); } catch { /* mất mạng lúc tải mã */ }
+    try {
+      const hb = await import('../net/heartbeat.js');
+      if (game.cloud && claimedFor !== game.cloud) await claim(hb);
+      if (phien) { const r = await hb.beat2(phien, c.timeout_s * 1000); ok = r.ok; if (r.khac && !kicked) { busy = false; kick(); return; } }
+      else ok = await hb.beat(c.timeout_s * 1000);
+    } catch { /* mất mạng lúc tải mã */ }
     busy = false;
-    if (!ok) return;
+    if (!ok || kicked) return;
     lastOk = Date.now();
     if (lostAt) { lostAt = 0; show(false); game.toast?.(c.text.back, 2); }
   }
 
   function tick() {
+    if (kicked) return;
     if (!on()) { lastOk = Date.now(); nextBeat = 0; return; }   // chưa vào game, chơi không tài khoản, thẻ ẩn: không tính
     const now = Date.now();
     if (!busy && now >= nextBeat) { nextBeat = now + c.beat_s * 1000; send(); }
