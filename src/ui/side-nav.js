@@ -83,6 +83,7 @@ export function createSideNav(game) {
     navList.replaceChildren();
     for (const it of N[which].items) {
       const lock = itemLock(game, it), b = el('button', 'sn-item' + (lock ? ' locked' : '') + (cur === it.id ? ' on' : ''), it.label);
+      b.dataset.nav = it.id;   // biểu tượng mục (style-ui-kit2.css)
       const dot = it.badge && document.getElementById(it.badge);
       if (dot && !dot.hidden) b.append(el('i', 'sn-dot'));
       b.onclick = () => pick(it);

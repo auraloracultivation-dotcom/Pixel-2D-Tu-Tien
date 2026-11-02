@@ -22,6 +22,7 @@ import { createNotice } from './ui/notice-panel.js';
 import { createDunResult } from './ui/dun-result.js';
 import { orderHud } from './ui/hud-order.js';
 import { createHudGon } from './ui/hud-gon.js';
+import { createHudAva } from './ui/hud-ava.js';
 import { createSideNav } from './ui/side-nav.js';
 import { createChatDock } from './ui/chat-dock.js';
 import { startDaoLu } from './game/daolu.js';
@@ -99,7 +100,7 @@ async function boot() {
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
   createChatDock(game); createQuestDock(game);   // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
-  orderHud(game); createHudGon(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
+  orderHud(game); createHudGon(game); createHudAva(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 

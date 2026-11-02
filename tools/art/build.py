@@ -325,6 +325,8 @@ print('đồ vật Canva:', props_ai.props(save), props_ai.extras(save), props_a
 print('ngọc Canva:', gems_ai.gems(save))
 import ui_kit  # noqa: E402
 print('khung giao diện GPT:', ui_kit.build(save))
+import ui_kit2  # noqa: E402
+print('khung giao diện GPT 2:', ui_kit2.build(save))
 import le_hoi  # noqa: E402
 print('đồ lễ hội:', le_hoi.build(save))
 write_manifest()
