@@ -313,7 +313,7 @@ export function drawWorld(game, screen, t) {
   drawSongTu(ctx, game, t);
   if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife);
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.comp ? [['comp', game.comp]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].sort((a, b) => a[1].y - b[1].y);
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
     if (k === 'h') drawHoiItem(ctx, game, e, t);   // đồ lễ hội đứng (draw-hoi.js)
     else if (k === 'n') drawNpc(ctx, e, game, t);

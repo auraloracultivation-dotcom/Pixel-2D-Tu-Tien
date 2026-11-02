@@ -88,7 +88,7 @@ export async function talkTieuLinh(game, npc) {
   const c = C(game), M = c.menu, name = npc.def.name;
   const ch = await game.dialog.choose(`${name}: ${c.ask}`, [
     { id: 'decor', label: M.decor, desc: M.decor_desc },
-    { id: 'buy', label: M.buy, desc: M.buy_desc },
+    ...(c.off ? [] : [{ id: 'buy', label: M.buy, desc: M.buy_desc }]),   // linh cầm đã bỏ (critters.off): không bán thêm
     { id: 'name', label: c.name.menu, desc: c.name.menu_desc },
     { id: 'out', label: M.out, desc: '' },
   ]);
