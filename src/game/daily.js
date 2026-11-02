@@ -15,7 +15,6 @@ function seeded(str) {
 
 export function ensureDaily(game) {
   const s = game.save, cfg = game.data.daily, d = today();
-  s.contrib ??= 0; s.rank ??= cfg.ranks[0].id;
   if (s.daily?.day === d) {   // việc đã bỏ (tháp, luận võ, bí cảnh tài nguyên, treo thưởng: 02/11/2026) thì gỡ khỏi việc hôm nay
     if (s.daily.tasks.some(t => !taskDef(game, t.id))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id));
     return s.daily;
@@ -23,7 +22,7 @@ export function ensureDaily(game) {
   const pool = cfg.pool.filter(t => !t.need || s.flags[t.need]), rnd = seeded(d + (game.owner || ''));
   const tasks = [];
   while (tasks.length < cfg.per_day && pool.length) tasks.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0].id);
-  s.daily = { day: d, tasks: tasks.map(id => ({ id, n: 0, got: false })), chest: false, bounties: 0 };
+  s.daily = { day: d, tasks: tasks.map(id => ({ id, n: 0, got: false })), chest: false };
   return s.daily;
 }
 
@@ -59,11 +58,10 @@ function autoClaim(game, idx, d) {
   if (chest) setTimeout(() => game.toast(`Xong hết việc hôm nay, mở rương: ${chest.join(', ')}.`, 3), 2800);
 }
 
-// Phát thưởng chung: coins (Linh Thạch), stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills, contrib
+// Phát thưởng chung: coins (Linh Thạch), stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills
 export function grant(game, r) {
   const { data, save } = game, got = [];
   if (r.coins) { addCoins(game, r.coins); got.push(`${r.coins} ${data.shop.name}`); }
-  if (r.contrib) { addContrib(game, r.contrib); got.push(`${r.contrib} cống hiến`); }
   if (r.stones) { save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + r.stones; got.push(`${r.stones} Tẩy Luyện Thạch`); }
   for (let i = 0; i < (r.gem || 0); i++) { const g = rollGem(data); save.gems[g] = (save.gems[g] || 0) + 1; got.push(gemInfo(data, g).name); }
   for (const [k, n] of Object.entries(r.mats || {})) { save.mats[k] = (save.mats[k] || 0) + n; got.push(`${n} ${data.cave.materials[k]?.name || k}`); }
@@ -92,28 +90,3 @@ export function claimChest(game) {
   return grant(game, game.data.daily.chest);
 }
 
-// Treo thưởng: chỉ bounty_per_day lần có thưởng mỗi ngày
-export const bountyLeft = game => game.data.daily.bounty_per_day - ensureDaily(game).bounties;
-export function useBounty(game) { ensureDaily(game).bounties++; dailyEvent(game, 'bounty'); }
-
-export const rankOf = (game, id = game.save.rank) => game.data.daily.ranks.find(r => r.id === id);
-export const rankIdx = (game, id = game.save.rank) => game.data.daily.ranks.findIndex(r => r.id === id);
-
-// Cống hiến cộng dồn trọn đời quyết định chức vị; cống hiến tiêu được là save.contrib
-export function addContrib(game, n) {
-  const s = game.save, ranks = game.data.daily.ranks;
-  s.contrib += n; s.contribTotal = (s.contribTotal || 0) + n;
-  let i = rankIdx(game);
-  while (ranks[i + 1] && s.contribTotal >= ranks[i + 1].need) {
-    i++; s.rank = ranks[i].id;
-    game.toast(`Thăng chức: ${ranks[i].name}!`, 3); game.sfx('levelup');
-    if (ranks[i].gift) setTimeout(() => game.dialog.say([['', `Tông môn ban thưởng cho ${ranks[i].name}: ${grant(game, ranks[i].gift).join(', ')}.`]]), 50);
-  }
-}
-
-export function buy(game, id) {
-  const it = game.data.daily.shop.find(x => x.id === id), s = game.save;
-  if (!it || s.contrib < it.cost || (it.rank && rankIdx(game) < rankIdx(game, it.rank))) return null;
-  s.contrib -= it.cost;
-  return grant(game, it.give);
-}

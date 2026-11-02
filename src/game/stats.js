@@ -3,7 +3,6 @@ import { gearStats, artOf } from './items.js';
 import { techStats } from './techniques.js';
 import { pillHp } from './cave.js';
 import { setStats } from './enhance.js';
-import { snackStats } from './snack.js';
 import { daoVanStats } from './daovan.js';
 // Linh khí hạ quái nhân theo cảnh giới (data/realms.json → kill_qi): cảnh giới cao hấp thụ linh khí phàm thú chậm hơn
 export const killQiMul = (save, realms) => realms.kill_qi?.[save.realm] ?? 1;
@@ -53,7 +52,6 @@ export function playerStats(save, data) {
   const g = gearStats(data, save), tg = techStats(save, data);
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(setStats(data, save).stats)) g[s] = (g[s] || 0) + x;
-  for (const [s, x] of Object.entries(snackStats(save, data))) g[s] = (g[s] || 0) + x;   // linh thực đang ăn
   for (const [s, x] of Object.entries(daoVanStats(save, data))) g[s] = (g[s] || 0) + x;   // thưởng bộ Đạo Vận hợp hệ
   const v = s => g[s] || 0;
   return {

@@ -92,7 +92,7 @@ try {
     need(G.list[G.default] && Object.entries(G.list).every(([k, g]) => hl[g.look] && af.dao_lu.can[k]?.length), 'gender: giới tính mặc định, hình (look) hoặc đạo lữ theo giới tính sai');
     const bad = readdirSync('data').filter(f => f.endsWith('.json') && f !== 'art.json').flatMap(f => (readFileSync(`data/${f}`, 'utf8').match(/\{[^{}"]*\|[^{}"]*\}/g) || []).filter(x => x.split('|').length !== 2).map(x => `${f}: ${x}`));
     need(!bad.length, `chữ {nam|nữ} viết sai: ${bad.slice(0, 3).join(', ')}`); }
-  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.uid?.length || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || read('events.json').festivals.some(x => x.id === f.from.fest), `fashion/${id}: nguồn có không đúng`);
+  for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.uid?.length || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || f.from.fest, `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
   for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
   { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
@@ -122,8 +122,6 @@ try {
     for (const m of Object.keys(r.pills || {})) need(cave.pills[m], `${where}: đan "${m}" không có`);
   };
   for (const t of daily.pool) { need(!t.mob || mobs[t.mob], `daily/${t.id}: quái "${t.mob}" không có`); rewardOk(t.reward, `daily/${t.id}`); }
-  for (const r of daily.ranks) if (r.gift) rewardOk(r.gift, `daily.ranks/${r.id}`);
-  for (const it of daily.shop) { rewardOk(it.give, `daily.shop/${it.id}`); need(!it.rank || daily.ranks.some(r => r.id === it.rank), `daily.shop/${it.id}: chức vị không có`); }
   rewardOk(daily.chest, 'daily.chest');
   for (const id of Object.keys(comps.list)) need(npcs[id], `companions: NPC "${id}" không có`);
   need(npcs[shop.npc], 'shop: NPC không có');
@@ -141,14 +139,7 @@ try {
     for (const m of [b, ...(b.moons || [])]) if (m.map) { need(!smMaps.has(m.map) && maps[m.map] && sm.kinds[m.kind], `starmap/${m.map}: trùng hoặc không có`); smMaps.add(m.map); }
   }
   for (const [id, m] of Object.entries(maps)) need(!m.world || smMaps.has(id), `maps/${id}: có world nhưng không có trên tinh đồ (starmap.json)`);
-  const ga = read('gather.json'), matIn = id => read('cave.json').materials[id] || items.materials[id];
-  need(matIn(ga.yield[0]) && ga.rare.every(([id, p, n]) => matIn(id) && p > 0 && p < 1 && n > 0) && ga.per_map > 0 && ga.min_r < ga.max_r && ga.max_r < 1, 'gather: nguyên liệu hoặc số sai');
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(!f.from.elite || (maps[f.from.elite.map]?.spawners.some(sp => sp.mul > 1) && f.from.elite.n > 0), `fashion/${id}: tinh cầu không có bãi quái nhiễm ma khí`);
-  const sn = read('snacks.json'), statIds = Object.keys(items.stats);   // linh thực: người bán đứng trên đúng tinh cầu, chỉ số có thật
-  for (const [id, d] of Object.entries(sn.list)) need(maps[d.map]?.npcs.some(n => n.id === d.npc) && npcs[d.npc] && d.price > 0 && Object.keys(d.stats).length && Object.keys(d.stats).every(s => statIds.includes(s) && sn.stat_names[s]), `snacks/${id}: tinh cầu, người bán, giá hoặc chỉ số sai`);
-  need(new Set(Object.values(sn.list).map(d => d.npc)).size === Object.keys(sn.list).length && sn.min > 0 && sn.keep > 0, 'snacks: mỗi người bán một món, min và keep phải dương');
-  const fa = read('fair.json');   // hội đèn: 7 ngày, tinh cầu có xóm, giờ hợp lệ
-  need(fa.days.length === 7 && fa.days.every(id => maps[id]?.hamlets?.length) && fa.hours[0] < fa.hours[1] && fa.hours[1] <= 24 && fa.qi >= 1 && fa.snack_price > 0 && fa.lines.length, 'fair: ngày, tinh cầu (phải có xóm), giờ hoặc số sai');
   need(Object.values(read('techniques.json').list).every(t => elements[t.el]), 'techniques: mỗi công pháp phải có hệ (el) hợp lệ');   // Đạo Vận mới
   { const MK = read('planets.json').makhi;   // vùng ma khí
     need(!MK || (maps[MK.map] && MK.mobs.every(id => mobs[id]) && MK.tiers.every(t => t.mul > 0 && t.w > 0 && t.tag)), 'planets.makhi: bản đồ, quái hoặc bậc ma khí sai'); }
@@ -168,8 +159,6 @@ try {
   for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
   const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
-  for (const f of ev.festivals) need(/^\d{4}-\d\d-\d\d$/.test(f.from) && f.from <= f.to && giftOk(f.gift), `events/${f.id}: ngày hoặc quà sai`);
-  for (const f of ev.festivals.filter(x => x.candy)) need((f.mob ? mobs[f.mob] : f.drop_p > 0) && read('cave.json').materials[f.candy] && f.drop?.length === 2 && read('npcs.json')[f.npc] && maps[f.npc_map] && (f.swap || []).every(x => x.cost > 0 && giftOk(x.give)), `events/${f.id}: quái, kẹo, NPC hoặc quà đổi sai`);
   const tp = read('topup.json'), fl = read('fashion.json').list;
   for (const x of tp.shop) need(x.tn > 0 && (x.outfit ? fl[x.outfit]?.from.tn === x.tn : giftOk(x.give)), `topup/${x.id}: giá, thời trang hoặc quà sai`);
   need(tp.card.days > 0 && giftOk(tp.card.daily.give) && tp.packs.every(p => p.tn > 0 && p.vnd > 0), 'topup: thẻ tháng hoặc gói nạp sai');
@@ -212,9 +201,6 @@ try {
   const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag', 'fish', 'lantern', 'pat', 'tea', 'cook', 'sit'];
   need(stt.auras.length >= read('realms.json').names.length, 'status.auras: thiếu hào quang cho cảnh giới');
   for (const a of stt.achievements) need(kinds.includes(a.need.type) && (!a.title || stt.titles[a.title]) && (!a.give.item || items.rarities.some(r => r.id === a.give.item)), `status/${a.id}: điều kiện, danh hiệu hoặc thưởng sai`);
-  const ck = read('cooking.json'), cmats = read('cave.json').materials;
-  for (const [id, r] of Object.entries(ck.recipes)) need(Object.keys(r.need).every(m => cmats[m]) && r.buff.qi > 1 && r.buff.min > 0, `cooking/${id}: nguyên liệu hoặc hiệu ứng sai`);
-  need(!ck.away || ck.recipes[ck.away.dish], 'cooking.away: món không có');
   const gr = read('home.json').greet;
   need(gr && ['night', 'morning'].every(k => gr[k].hours.length === 2 && gr[k].lines.default?.length), 'home.greet: thiếu giờ hoặc câu mặc định');
   const vis = read('visitors.json'), vnpc = read('npcs.json'), vmat = read('cave.json').materials;
@@ -222,7 +208,6 @@ try {
   for (const who of Object.keys(read('letters.json').lines)) need(npcs[who], `letters: "${who}" không phải NPC`);
   const dn = read('daynight.json').phases;
   need(dn[0].from === 0 && dn.every((p, i) => !i || p.from > dn[i - 1].from), 'daynight: pha phải bắt đầu từ 0 giờ và tăng dần');
-  for (const s of read('scenic.json').spots) { const g = maps[s.map]?.grid; need(g && !tiles.types[g[s.at[1]][s.at[0]]].solid && g[s.at[1] + 1]?.[s.at[0]] === '~', `scenic: "${s.name}" phải ở ô đi được, sát biển mây phía nam`); }
   for (const [id, f] of Object.entries(read('fishing.json').fish)) need(cave.materials[id] && (f.maps || []).every(m => maps[m]) && (!f.season || read('weather.json').seasons.some(s => s.id === f.season)), `fishing/${id}: cá hoặc đảo không có`);
   const pr = read('praise.json');
   for (const [who, set] of Object.entries(pr.lines)) need(who === 'default' || npcs[who], `praise: "${who}" không phải NPC`);

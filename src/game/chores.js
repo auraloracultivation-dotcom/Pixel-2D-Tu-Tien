@@ -1,6 +1,5 @@
-// Việc vặt cho tự hành khi truyện đang chờ tu luyện: trả việc phụ đã xong, làm tiếp việc phụ đang nhận, tự nhận việc phụ mới,
-// nhận và trả treo thưởng, về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú, hoàng hôn ra ngắm cảnh,
-// hạ quái cho việc hằng ngày và treo thưởng, rảnh thì câu vài con cá, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
+// Việc vặt cho tự hành khi truyện đang chờ tu luyện: về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú,
+// hạ quái cho việc hằng ngày, rảnh thì câu vài con cá, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
 import { dist } from './combat.js';
 import { ensureDaily, taskDef } from './daily.js';
 import { nextRipe } from './garden.js';
@@ -9,8 +8,6 @@ import { outdoor, phase } from './daynight.js';
 import { brew, canPay } from './cave.js';
 import { visitorToday } from './home.js';
 import { visitJob } from './visitors.js';
-import { bestRecipe } from './cooking.js';
-import { anyReady } from './critters.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
@@ -49,19 +46,15 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { critter: true } | { pat: true } | { view: true } | { kill: mobId } | { pick: sideId, map } | { fish: true } | { any: true } | { brew: pillId }
+// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { kill: mobId } | { fish: true } | { any: true } | { brew: pillId }
 function wants(game) {
-  const s = game.save, out = [];
-  // Việc có giờ (hoàng hôn, thả đèn) và việc nhà mỗi ngày làm trước, không để treo thưởng chiếm hết ngày
-  const ss = game.data.scenic.sunset;   // hoàng hôn: ra đá ngắm cảnh một lúc
-  const day = new Date().toDateString(), ph = phase(game).id, ln = game.data.scenic.lantern;   // tối: ra đá thả hoa đăng
-  if (pilotOpt(game, 'ngam') && !game.view && ((s.sunset !== day && ph === ss.phase) || (s.lantern !== day && ph === ln.phase))) out.push({ view: true });
+  const s = game.save, out = [], day = new Date().toDateString();
+  // Việc nhà mỗi ngày làm trước
   if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
     const d = daoLuHere(game);
-    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day || (s.cooked !== day && bestRecipe(game)))) out.push({ gift: d });
+    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
     const v = visitorToday(game);
     if (v && visitJob(game, v)) out.push({ gift: v });
-    if (anyReady(game)) out.push({ critter: true });   // linh cầm có quà: về nhà nhặt
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
   if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
@@ -116,21 +109,8 @@ export function choreJob(game, routeTo) {
       if (game.map.id !== game.data.home.map) { const j = goPortal(game, routeTo, game.data.home.map); if (j) return j; continue; }
       const n = game.npcs.find(n => n.id === w.gift && (n.home || n.visit));
       if (n) return { talk: n };
-    } else if (w.critter) {   // linh cầm có quà: về động phủ, đi tới con đang có quà
-      if (game.map.id !== game.data.critters.map) { const j = goPortal(game, routeTo, game.data.critters.map); if (j) return j; continue; }
-      const k = (game.critters || []).find(k => k.ready);
-      if (k) return { go: { x: k.x, y: k.y } };
-    } else if (w.view) {
-      const spot = game.data.scenic.spots.find(x => x.map === game.map.id);
-      if (spot) return { view: spot, at: game.map.center(spot.at[0], spot.at[1]) };
-      const j = goPortal(game, routeTo, 'thien-kiem-phong');
-      if (j) return j;
     } else if (w.pat) {
       if (game.pet && !game.pet.target) return { pat: game.pet };
-    } else if (w.pick) {
-      if (game.map.id !== w.map) { const j = goPortal(game, routeTo, w.map); if (j) return j; continue; }
-      const k = game.pickups.filter(k => k.side === w.pick).sort((a, b) => dist(a, p) - dist(b, p))[0];
-      if (k) return { go: k };
     } else if (w.any) {   // hạ quái bất kỳ: đánh con gần nhất, không có thì tới bãi quái, đảo không có bãi thì về Thiên Kiếm Phong
       const m = game.mobs.filter(m => !m.dead && m.def.ai !== 'boss' && !avoided(game, m.id)).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (m) return { fight: m };

@@ -5,8 +5,6 @@ import { harvestAll, gotText } from './garden.js';
 import { meditateMul } from './evolve.js';
 import { pickMode } from './dun-mode.js';
 import { waterDir, fishAct, fishLabel } from './fishing.js';
-import { spotHere, sitView } from './scenic.js';
-import { nearVein, startDig } from './gather.js';
 
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
@@ -16,11 +14,9 @@ import { challenge as challengeTm } from './thienma.js';
 import { talkHome } from './home.js';
 import { showPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
-import { talkTieuLinh } from './critters.js';
-import { festNpc, talkFest } from './events.js';
+import { talkDecor } from './decor.js';
 import { talkParty } from './party.js';
 import { goodsOf, talkGoods } from './npc-goods.js';
-import { inFair } from './fair.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -52,10 +48,9 @@ export function talkTo(game, npc) {
   if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
-  if (festNpc(game, npc.id)) { talkFest(game, npc); return; }
   if (npc.id === game.data.party.npc) { talkParty(game, npc); return; }
   if (npc.id === game.data.market.npc) { game.openMarket?.(); return; }
-  if (npc.id === game.data.home.decor.npc) { talkTieuLinh(game, npc); return; }
+  if (npc.id === game.data.home.decor.npc) { talkDecor(game, npc); return; }   // Tiểu Linh: bày đồ trang trí (linh cầm đã bỏ)
   if (npc.home || npc.visit) { talkHome(game, npc); return; }
   if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
   if (goodsOf(game.data, npc.id)) { talkGoods(game, npc); return; }   // mỗi NPC một món riêng (thay linh thực, data/shop.json → npc_goods)
@@ -69,12 +64,10 @@ export function updateInteract(game) {
   const npc = nearestNpc(game, cfg.interact_range);
   const trib = !npc && game.trib.canStart();
   const st = !npc && !trib && nearStation(game);
-  const med = !npc && !trib && !st && (nearTile(game, 'M', cfg.meditate.range) || inFair(game));   // sân hội đèn ngồi đả tọa được
-  const view = !npc && !trib && !st && !med && !game.fish && !game.view && spotHere(game);
-  const fish = !npc && !trib && !st && !med && !view && !game.view && (game.fish ? game.fish.dir : waterDir(game));
-  const vein = !npc && !trib && !st && !med && !view && !game.view && !game.fish && !game.dig && nearVein(game);   // mạch linh khoáng
-  const pat = !npc && !trib && !st && !med && !view && !fish && !vein && !game.view && showPat(game);
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : view ? 'Ngắm cảnh' : vein ? game.data.gather.texts.act : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
+  const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
+  const fish = !npc && !trib && !st && !med && (game.fish ? game.fish.dir : waterDir(game));
+  const pat = !npc && !trib && !st && !med && !fish && showPat(game);
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     talkTo(game, npc);
@@ -86,10 +79,6 @@ export function updateInteract(game) {
     else game.openCave?.('vuon');
   } else if (st) {
     game.openCave?.(st[1]);
-  } else if (view) {
-    sitView(game, view);
-  } else if (vein) {
-    startDig(game, vein);
   } else if (fish) {
     fishAct(game, fish);
   } else if (pat) {

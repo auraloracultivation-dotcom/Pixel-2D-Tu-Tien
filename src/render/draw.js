@@ -12,8 +12,6 @@ import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
 import { drawClouds } from './draw-clouds.js';
 import { drawLamps, drawGlow } from './draw-glow.js';
-import { drawFairWorld, drawFairSky } from './draw-fair.js';
-import { drawStalls } from './draw-stall.js';
 import { drawHamlets } from './draw-hamlet.js';
 import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
@@ -22,9 +20,8 @@ import { drawHoiSky } from './draw-hoi-sky.js';
 import { drawDatGlints } from '../world/draw-dat.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
-import { drawCritters, drawWild } from './draw-critter.js';
-import { drawVeins } from './draw-vein.js';
-import { drawFishing, drawScenic } from './draw-fish.js';
+import { drawWild } from './draw-critter.js';
+import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
@@ -294,12 +291,9 @@ export function drawWorld(game, screen, t) {
   screen.worldTransform();
   drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game); drawHoiFlat(ctx, game, t); drawDatGlints(ctx, game, screen.viewRect(), t);   // đồ hội phẳng: sân lát, gợn nước; tuyết lấp lánh
   drawTorches(ctx, game, screen.viewRect(), t);
-  drawScenic(ctx, game);
   drawDecor(ctx, game, t);
-  drawHamlets(ctx, game, t); drawLamps(ctx, game, t); drawStalls(ctx, game, t); drawFairWorld(ctx, game, t);   // đồ ở sân xóm, đèn xóm, quán linh thực, dây đèn hội
-  drawCritters(ctx, game, t);
+  drawHamlets(ctx, game, t); drawLamps(ctx, game, t);   // đồ ở sân xóm, đèn xóm
   drawWild(ctx, game, t);
-  drawVeins(ctx, game, t);
   drawFocus(ctx, game, screen.viewRect());   // nền lùi lại: nhạt màu, tối chút; quái, người, đồ, hiệu ứng vẽ sau giữ nguyên màu
   drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
@@ -343,7 +337,7 @@ export function drawWorld(game, screen, t) {
   screen.screenTransform();
   const lights = gatherLights(game, t);   // chiêu, đạn, người chơi: khoét lớp tối rồi phủ quầng sáng cuối cùng
   drawDayNight(ctx, game, screen, t, lights);
-  drawGlow(ctx, game, screen, t); drawFairSky(ctx, game, screen, t); drawHoiSky(ctx, game, screen, t);   // đèn trời, pháo hoa lễ hội
+  drawGlow(ctx, game, screen, t); drawHoiSky(ctx, game, screen, t);   // đèn trời, pháo hoa lễ hội
   drawWeather(ctx, game, screen, t);
   drawMeteors(ctx, game, screen);
   drawLanterns(ctx, game, screen);

@@ -2,7 +2,6 @@
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
 import { owned, buyOutfit, wear, howToGet } from '../game/fashion.js';
 import { journal } from '../game/journal.js';
-import { renderFishBook } from './fishbook-tab.js';
 
 const $ = id => document.getElementById(id);
 
@@ -91,7 +90,7 @@ export function createAchvPanel(game) {
     for (const b of document.querySelectorAll('#achv-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     list.innerHTML = '';
     $('achv-msg').textContent = msg;
-    if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else if (tab === 'nhat-ky') renderJournal(list); else if (tab === 'so-ca') renderFishBook(game, list); else renderTitles(list);
+    if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else if (tab === 'nhat-ky') renderJournal(list); else renderTitles(list);
   }
 
   function open() {

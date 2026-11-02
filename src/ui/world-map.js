@@ -4,7 +4,6 @@ import { bodiesOf, dangerOf, whyNot, flyOpen } from '../game/starmap.js';
 import { drawStarmap } from '../render/draw-starmap.js';
 import { panZoom } from './pan-zoom.js';
 import { weekLine } from '../game/demon.js';
-import { fairMap } from '../game/fair.js';
 import { drawPlanet, tapPlanet } from './planet-map.js';
 import { hopTo, hopWhy } from '../game/hop.js';
 
@@ -60,7 +59,6 @@ export function createWorldMap(game) {
     if (known && b.desc) box.append(el('p', null, b.desc));
     const dg = known && dangerOf(b, game.save.realm || 0);
     if (data.maps[b.map]?.demon) box.append(el('p', 'wc-danger', weekLine(game)));   // Ma Vương tuần này
-    if (known && fairMap(game) === b.map) box.append(el('p', 'wc-danger', data.fair.texts.card));   // hội đèn tối nay
     if (dg) { const p = el('p', 'wc-danger', sm.texts.danger + ' '); const s = el('span', null, hintText[dg]); s.style.color = hint[dg]; p.append(s); box.append(p); }
     if (b.sun || b.kind === 'lost' || b.kind === 'soon') return;
     const here = game.map.id === b.map, why = here ? sm.texts.here : whyNot(game, b) || blocked();
