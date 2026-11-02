@@ -187,7 +187,7 @@ export const skipped = m => (m.skipUntil || 0) > Date.now();
 // Gọi mỗi khung từ player khi đang tự hành: trả về hướng đi và có đánh thường không
 export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
-  if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
+  if (Math.hypot(ax.x, ax.y) > 0.3) { stopPilot(game, 'Tắt tự hành'); return none; }   // tự tay kéo cần chạy là tắt tự hành (chủ dự án 02/11/2026: không còn nút tắt)
   if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); if (pilotOpt(game, 'dan')) autoPills(game); if (pilotOpt(game, 'nang')) autoGrow(game); if (pilotOpt(game, 'vuon')) autoGarden(game); autoClaim(game); }
   if (game.trib.active) { game.pilot.job = null; return none; }   // người chơi tự độ kiếp: tự hành đứng yên, nhường người chơi né
   const job = game.pilot.job = plan(game);

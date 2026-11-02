@@ -23,6 +23,8 @@ import { createNotice } from './ui/notice-panel.js';
 import { createDunResult } from './ui/dun-result.js';
 import { orderHud } from './ui/hud-order.js';
 import { createSideNav } from './ui/side-nav.js';
+import { createChatDock } from './ui/chat-dock.js';
+import { createQuestDock } from './ui/quest-dock.js';
 import { createSelfPanel } from './ui/self-panel.js';
 import { createRetreatPanel } from './ui/retreat-panel.js';
 import { createFriendsPanel } from './ui/friends-panel.js';
@@ -92,6 +94,7 @@ async function boot() {
   startNetWatch(game); startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
+  createChatDock(game); createQuestDock(game);   // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
   orderHud(game);   // nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
   document.getElementById('loading').hidden = true;

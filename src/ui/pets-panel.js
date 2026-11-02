@@ -3,6 +3,7 @@ import { petNeed, setPet, setMount, mergeCost, canMerge, mergePet } from '../gam
 import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
+import { petPrice, sellPet } from '../game/home-pets.js';
 
 const $ = id => document.getElementById(id);
 
@@ -29,18 +30,30 @@ export function createPetsPanel(game) {
     return c;
   }
 
+  // Nút Bán trong tấm chi tiết (src/ui/grid-cards.js bấm hộ): bấm lần đầu hỏi lại, lần hai mới bán (src/game/home-pets.js)
+  let sure = null;
+  function sellRow(id) {
+    const row = el('div', 'card-acts skill-up'), price = petPrice(game, id).toLocaleString('vi-VN');
+    const b = el('button', 'mini', sure === id ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
+    b.onclick = () => { if (sure !== id) { sure = id; render(); return; } sure = null; game.toast(sellPet(game, id), 2.4); render(); };
+    row.append(b);
+    return row;
+  }
+
   function renderPets(s, list) {
     $('pets-sub').textContent = 'Chạm để mang theo. Linh thú hưởng nửa linh khí bạn thu được.';
     const ids = Object.keys(s.pets);
     if (!ids.length) list.append(el('p', 'muted', 'Chưa có linh thú. Gặp Ngự Thú Sư ở Thiên Kiếm Phong, hoặc hạ quái dị chủng (có ánh vàng).'));
     for (const id of ids) {
       const d = petDef(data, s, id), st = s.pets[id], max = st.lv >= petMax(data, s, id), M = P.merge.texts;
-      list.append(card(d.color, `${st.evo ? '✦ ' : ''}${d.name} · cấp ${st.lv}${st.star ? ` · ★${st.star}` : ''}${s.pet === id ? ' · đang mang' : ''}`, [
+      const c = card(d.color, `${st.evo ? '✦ ' : ''}${d.name} · cấp ${st.lv}${st.star ? ` · ★${st.star}` : ''}${s.pet === id ? ' · đang mang' : ''}`, [
         d.desc,
         `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * (1 + (st.star || 0) * P.merge.bonus) * 100)}% công của bạn`,
         max ? 'Đã tối đa.' : `Kinh nghiệm ${Math.floor(st.exp)}/${petNeed(data, st.lv)}`,
         M.line.replace('{star}', st.star || 0).replace('{n}', st.copies || 0).replace('{cost}', mergeCost(st)),
-      ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang'));
+      ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang');
+      list.append(c);
+      if (s.pet !== id && P.pets[id]) list.append(sellRow(id));   // bán linh thú ngay trong thẻ (thay ô Bán linh thú ở Động phủ); grid-cards gom dòng .skill-up vào tấm chi tiết
     }
     for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
       const st = s.pets[id], M = P.merge.texts, nm = P.pets[id].name;
@@ -84,7 +97,7 @@ export function createPetsPanel(game) {
 
   function open() {
     if (!game.save || game.dialog.open || game.trip) return;
-    game.uiOpen = true; game.newPets = false; $('pets').hidden = false; render();
+    game.uiOpen = true; game.newPets = false; sure = null; $('pets').hidden = false; render();
   }
   function close() { game.uiOpen = false; $('pets').hidden = true; }
 

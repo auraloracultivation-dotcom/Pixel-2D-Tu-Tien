@@ -1,12 +1,12 @@
-// Túi đồ: ô đang mặc (chạm để xem), lọc theo ô và sắp xếp, danh sách đồ và ngọc.
+// Túi đồ: ô đang mặc (chạm để xem), lọc theo ô và sắp xếp, danh sách đồ; ngọc, nguyên liệu dạng lưới ở src/ui/bag-stock.js.
 // Chạm một món thì tấm chi tiết trượt lên từ đáy túi (src/ui/bag-detail.js): nút Mặc / Thay nằm ngay đầu tấm,
 // kèm lực chiến tăng giảm và so sánh với món đang mặc, không phải cuộn xuống cuối túi như trước.
-import { ensureInv, socket, mergeGems, gemMergeFee, gemInfo, rarityOf, itemName, statText, gearStats } from '../game/items.js';
+import { ensureInv, socket, rarityOf, itemName, statText, gearStats } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
-import { gemIcon } from './gem-icon.js';
+import { renderGemGrid, renderMatGrid, renderStockSheet } from './bag-stock.js';
 import { bestGems } from '../game/autogem.js';
 import { quality } from '../game/tiers.js';
 
@@ -89,10 +89,10 @@ export function createBag(game) {
       for (const it of items) box.append(itemCard(it, gain.get(it.uid)));
       return;
     }
-    if (st.tab === 'nl') { renderMats(box); return; }
-    const keys = Object.keys(save().gems).sort((a, b) => a.split(':')[0].localeCompare(b.split(':')[0]) || b.split(':')[1] - a.split(':')[1]);   // theo loại, cấp cao lên trước
-    if (!keys.length) box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.'));
-    else if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
+    const pickStock = v => { st.stock = st.stock?.id === v.id ? null : v; st.sel = null; render(); };
+    if (st.tab === 'nl') { renderMatGrid(game, box, st, pickStock); return; }
+    if (!Object.keys(save().gems).length) { box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.')); return; }
+    if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
       const b = el('button', 'mini primary gem-best', 'Khảm ngọc tốt nhất');
       b.onclick = () => {
         const r = bestGems(game);
@@ -101,43 +101,12 @@ export function createBag(game) {
       };
       box.append(b);
     }
-    for (const k of keys) {
-      const gi = gemInfo(data, k), row = el('div', 'gem-row');
-      row.append(gemIcon(game, k, 56), el('span', null, `${gi.name} ×${save().gems[k]} (${statText(data, gi.stat, gi.value)})`));
-      if (st.pickSocket) {
-        const b = el('button', 'mini primary', 'Khảm');
-        b.onclick = () => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.sel = st.pickSocket.uid; st.pickSocket = null; st.tab = 'do'; changed(); };
-        row.append(b);
-      } else if (gi.lv < data.items.gems.max_level) {
-        const fee = gemMergeFee(data, gi.lv), b = el('button', 'mini', `Ghép ${data.items.gems.merge}→1 (${fee.toLocaleString('vi-VN')} ${data.shop.name})`);
-        b.disabled = save().gems[k] < data.items.gems.merge || (save().lingshi || 0) < fee;
-        b.onclick = () => { if (mergeGems(data, save(), k)) { game.sfx('levelup'); changed(); } };
-        row.append(b);
-        const can = Math.min(Math.floor(save().gems[k] / data.items.gems.merge), Math.floor((save().lingshi || 0) / fee));
-        if (can >= 2) {   // báo lỗi #35: ghép số lượng lớn một lần bấm, phí như ghép từng lần
-          const all = el('button', 'mini primary', `Ghép hết ×${can}`);
-          all.onclick = () => { let n = 0; while (mergeGems(data, save(), k)) n++; if (n) { game.sfx('levelup'); game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); changed(); } };
-          row.append(all);
-        }
-      }
-      box.append(row);
-    }
-  }
-
-  // Mục lục nguyên liệu (đề xuất #29): mọi nguyên liệu, số đang có, nơi kiếm (cave.json → materials.desc); món đang có lên trước
-  function renderMats(box) {
-    const M = data.cave.materials, have = save().mats || {};
-    const ids = Object.keys(M).sort((a, b) => ((have[b] || 0) > 0) - ((have[a] || 0) > 0) || M[a].name.localeCompare(M[b].name, 'vi'));
-    for (const id of ids) {
-      const m = M[id], row = el('div', 'mat-row'), dot = el('i', 'mat-dot');
-      dot.style.background = m.color || '#ccc';
-      const txt = el('div', null); txt.append(el('b', null, `${m.name} ×${Math.floor(have[id] || 0).toLocaleString('vi-VN')}`), el('small', null, m.desc || ''));
-      row.append(dot, txt); box.append(row);
-    }
+    renderGemGrid(game, box, st, pickStock, k => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.sel = st.pickSocket.uid; st.pickSocket = null; st.tab = 'do'; changed(); });
   }
 
   function renderSheet() {
-    const has = renderDetail(game, st, $('bag-detail'), changed, () => { st.sel = null; render(); });
+    if (st.tab === 'do') st.stock = null;
+    const has = st.stock ? renderStockSheet(game, st, $('bag-detail'), changed, () => { st.stock = null; render(); }) : renderDetail(game, st, $('bag-detail'), changed, () => { st.sel = null; render(); });
     $('bag-sheet').hidden = !has;
     $('bag').classList.toggle('sheet-open', has);
   }
@@ -149,11 +118,11 @@ export function createBag(game) {
     renderEquip(); renderFilter(); renderList(); renderSheet();
   }
 
-  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; render(); };
+  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; st.stock = null; render(); };
   $('bag-close').onclick = () => close();
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
-  game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; } open(); };
+  game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
 
   function open() {
     if (!game.save || game.dialog.open) return;
