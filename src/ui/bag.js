@@ -6,7 +6,7 @@ import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
-import { renderGemGrid, renderMatGrid, renderStockSheet } from './bag-stock.js';
+import { renderGemGrid, renderMatGrid, renderPillGrid, renderStockSheet } from './bag-stock.js';
 import { bestGems } from '../game/autogem.js';
 import { quality } from '../game/tiers.js';
 
@@ -91,6 +91,7 @@ export function createBag(game) {
     }
     const pickStock = v => { st.stock = st.stock?.id === v.id ? null : v; st.sel = null; render(); };
     if (st.tab === 'nl') { renderMatGrid(game, box, st, pickStock); return; }
+    if (st.tab === 'dan') { renderPillGrid(game, box, st, pickStock); return; }   // đan dược dùng ngay trong túi (góp ý #53)
     if (!Object.keys(save().gems).length) { box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.')); return; }
     if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
       const b = el('button', 'mini primary gem-best', 'Khảm ngọc tốt nhất');
