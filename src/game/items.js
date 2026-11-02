@@ -1,6 +1,6 @@
 // Trang bị chỉ số ngẫu nhiên, ngọc khảm, tẩy luyện, phân giải. Số liệu ở data/items.json.
 // Mọi thay đổi đi qua các hàm ở đây để sau này chuyển sang hàm máy chủ (RPC) cho dễ.
-import { newLine, convertLines, addLine, linesFull, ensureCap, rollCap, tierOf } from './tiers.js';
+import { newLine, convertLines, addLine, linesFull, ensureCap, rollCap, tierOf, pickTier } from './tiers.js';
 
 export function ensureInv(save) {
   save.bag ??= []; save.equip ??= {}; save.gems ??= {}; save.mats ??= {}; save.nextUid ??= 1;
@@ -20,8 +20,8 @@ const grow = (items, s, per, lvl) => items.stats[s]?.pct ? 1 : 1 + lvl * per;
 
 // Dòng phụ có màu (tiers.js), được trùng chỉ số. Tẩy luyện kiểu mở dòng (02/11/2026 03:58): món mới rơi ra có 1 dòng,
 // các dòng sau mở dần bằng tẩy luyện tới trần dòng của món (1–10, ngẫu nhiên)
-function rollLines(items, base, rar, lvl, rnd, data) {
-  return base.pool.length ? [newLine(data, base.pool, lvl, rnd)] : [];
+function rollLines(items, base, rar, lvl, rnd, data, maxTier) {
+  return base.pool.length ? [newLine(data, base.pool, lvl, rnd, pickTier(data, rnd, maxTier))] : [];
 }
 
 // Gốc trang bị ngẫu nhiên của một ô (không đồ bộ, không Đạo Vận); vũ khí theo loại vũ khí đang dùng (weapon)
@@ -38,7 +38,7 @@ export const elIds = data => Object.keys(data.elements).filter(k => !k.startsWit
 export const matchEl = (data, save, it) => !!it?.el && it.el === save.element;
 export const matchMul = (data, save, it) => (matchEl(data, save, it) ? 1 + (data.daovan?.match_main || 0) : 1);
 
-export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, el, rnd = Math.random } = {}) {
+export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, el, rnd = Math.random, maxTier } = {}) {   // maxTier: màu dòng cao nhất (đồ rơi ngoài bí cảnh)
   ensureInv(save);
   const items = data.items;
   const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận
@@ -49,7 +49,7 @@ export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity,
   const main = {};
   for (const [s, v] of Object.entries(base.main)) main[s] = Math.max(1, Math.round(v * grow(items, s, items.main_per_lvl, lvl) * rar.mult));
   const els = elIds(data);
-  const lines = rollLines(items, base, rar, lvl, rnd, data);
+  const lines = rollLines(items, base, rar, lvl, rnd, data, maxTier);
   return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines, cap: Math.max(lines.length, rollCap(data, rnd)), sockets: Array(rar.sockets).fill(null), el: el || els[Math.floor(rnd() * els.length)] };
 }
 

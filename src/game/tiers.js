@@ -6,8 +6,8 @@ const grow = (items, s, lvl) => items.stats[s]?.pct ? 1 : 1 + lvl * items.line_p
 
 export const tierOf = (data, t) => T(data).list[Math.max(0, Math.min(T(data).list.length - 1, t | 0))];
 
-export function pickTier(data, rnd = Math.random) {
-  const L = T(data).list, total = L.reduce((a, x) => a + x.w, 0);
+export function pickTier(data, rnd = Math.random, max = Infinity) {   // max: màu cao nhất được ra (đồ rơi ngoài bí cảnh, line_tiers.world_max)
+  const L = T(data).list.slice(0, Math.min(T(data).list.length, max + 1)), total = L.reduce((a, x) => a + x.w, 0);
   let r = rnd() * total;
   for (let i = 0; i < L.length; i++) { r -= L[i].w; if (r <= 0) return i; }
   return L.length - 1;
