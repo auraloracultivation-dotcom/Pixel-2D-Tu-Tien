@@ -75,3 +75,18 @@ body #uk-an { width: 32px; padding: 0; font-size: 0 !important; color: transpare
 body.ui-an #uk-an { background-image: url("assets/art/ui-k-nut-mat.png"); }
 body #btn-atk::after, body[data-le] #btn-atk::after { background-image: url("assets/art/ui-k-atk2.png") !important; }
 body #btn-atk b { opacity: 1; position: absolute; left: 0; right: 0; bottom: 4px; z-index: 3; font-size: 15px; }
+
+/* ---- ô đồ theo độ hiếm (bag.js gắn data-o = màu phẩm tẩy luyện luc…den, hoặc độ hiếm cũ pham…thien): viền ô quanh biểu tượng ---- */
+body #bag [data-o] .ico { border: 4px solid transparent; border-image: var(--o) 6 / 4px / 0 stretch; box-sizing: border-box; background-origin: content-box; background-clip: content-box; background-size: contain !important; image-rendering: pixelated; }
+body #bag .slot[data-o] { border: none !important; box-shadow: none !important; }
+[data-o="pham"] { --o: url("assets/art/ui-k-o-trang.png"); }
+[data-o="linh"], [data-o="luc"] { --o: url("assets/art/ui-k-o-luc.png"); }
+[data-o="huyen"], [data-o="lam"] { --o: url("assets/art/ui-k-o-lam.png"); }
+[data-o="dia"], [data-o="tim"] { --o: url("assets/art/ui-k-o-tim.png"); }
+[data-o="thien"], [data-o="cam"] { --o: url("assets/art/ui-k-o-cam.png"); }
+[data-o="vang"] { --o: url("assets/art/ui-k-o-vang.png"); }
+[data-o="do"] { --o: url("assets/art/ui-k-o-do.png"); }
+[data-o="den"] { --o: url("assets/art/ui-k-o-den.png"); }
+/* Linh Thạch: viên pha lê trước số tiền ở đầu túi đồ */
+body #bag-mats::before { content: ''; display: inline-block; width: 12px; height: 18px; margin-right: 3px; vertical-align: -4px;
+  background: url("assets/art/ui-k-linh-thach.png") center / contain no-repeat; image-rendering: pixelated; }
