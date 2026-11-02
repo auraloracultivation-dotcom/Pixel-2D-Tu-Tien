@@ -169,7 +169,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
       if ((n.unless && game.save.flags[n.unless]) || (n.need && !game.save.flags[n.need])) continue;
-      if (n.id === game.save.companion && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
+      if ((n.id === game.save.companion || n.id === game.save.companion2) && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
     spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game);

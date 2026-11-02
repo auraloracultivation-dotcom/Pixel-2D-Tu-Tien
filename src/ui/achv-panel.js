@@ -3,6 +3,8 @@
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
 import { owned, buyOutfit, wear, howToGet, curOutfit, versions } from '../game/fashion.js';
 import { journal } from '../game/journal.js';
+import { outfitLine, linesText } from '../game/beast.js';
+import { tierOf } from '../game/tiers.js';
 
 const $ = id => document.getElementById(id);
 
@@ -70,7 +72,9 @@ export function createAchvPanel(game) {
       const own = owned(game, id, g), on = cur === id && g === look, mine = g === look, two = versions(game, id).length > 1;
       const btn = on ? mini('Đang mặc', () => {}, true) : own && !mine ? mini(`Chỉ ${gName(g)}`, () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
         : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id, g)) { if (mine) wear(game, id); msg = `Đã mua ${f.name} (${gName(g)}).`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
-      const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f)], btn);
+      const T = data.pets.beast.fashion.tier, t = T[Object.keys(f.from).find(k => T[k] != null)] ?? 0;
+      const bonus = own ? `Cộng khi mặc: ${linesText(data, [outfitLine(game, `${id}:${g}`, f)])[0]}` : `Có bộ thì bốc 1 dòng chỉ số màu ${tierOf(data, t).name}, cố định mãi`;
+      const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f), bonus], btn);
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
       c.prepend(sw); icon(c, `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);
     }

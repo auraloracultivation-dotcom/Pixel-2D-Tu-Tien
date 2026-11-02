@@ -1,5 +1,6 @@
 // Linh thú (data/pets.json): thu phục từ quái dị chủng, đi theo đánh cùng, lên cấp bằng linh khí.
 // Thú cưỡi: tự lên khi đi trên đảo lúc yên, đánh nhau thì xuống.
+import { talkBeastShop } from './beast-shop.js';
 import { hitMob, shoot, addFx, dist } from './combat.js';
 import { petDef, petMax } from './evolve.js';
 
@@ -62,7 +63,7 @@ export function gainPetExp(game, amount, only) {
 }
 
 export function setPet(game, id) { game.save.pet = id; spawnPet(game); game.refreshStats(); game.persist(); }   // thưởng bộ Đạo Vận tính linh thú cùng hệ
-export function setMount(game, id) { game.save.mount = id; game.player.riding = false; game.persist(); }
+export function setMount(game, id) { game.save.mount = id; game.player.riding = false; game.refreshStats(); game.persist(); }   // dòng % của thú cưỡi cộng vào chỉ số (src/game/beast.js)
 
 export function spawnPet(game) {
   const id = game.save.pet, p = game.player;
@@ -83,7 +84,7 @@ export function updatePet(game, dt) {
 function spread(game, f, dt) {
   const S = P(game).spread;
   if (!S) return;
-  for (const o of [game.player, game.pet, game.comp]) {
+  for (const o of [game.player, game.pet, game.comp, game.comp2]) {
     if (!o || o === f) continue;
     const min = o === game.player ? S.player : S.other, ox = f.x - o.x, oy = f.y - o.y, od = Math.hypot(ox, oy);
     if (od >= min) continue;
@@ -175,7 +176,7 @@ export const rideSpeed = game => game.player.riding ? 1 + P(game).mounts[game.sa
 // Ngự Thú Sư: tặng linh thú và thú cưỡi đầu tiên, sau đó chỉ cách săn dị chủng
 export async function talkBeast(game, npc) {
   const cfg = P(game), s = game.save, name = npc.def.name;
-  if (s.flags.nguThu) { await game.dialog.say([[name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]); return; }
+  if (s.flags.nguThu) { await talkBeastShop(game, npc); return; }   // đã nhận linh thú đầu: bán thú cưỡi, khôi lỗi (src/game/beast-shop.js)
   await game.dialog.say([
     [name, 'Ngươi là đệ tử mới? Đệ tử Kiếm tông ai cũng nên có một linh thú bầu bạn.'],
     [name, `Con ${cfg.pets[cfg.starter_pet].name} này ta nuôi từ hạt mầm, cho ngươi. Con ${cfg.mounts[cfg.starter_mount].name} cũng theo ngươi luôn: cứ đi trên đảo lúc yên ổn là nó chở.`],

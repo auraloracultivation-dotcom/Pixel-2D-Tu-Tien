@@ -1,32 +1,51 @@
-// Bạn đồng hành (data/companions.json): mang 1 người đi cùng, đánh như linh thú, có cấp riêng.
+// Khôi lỗi (trước là bạn đồng hành, data/companions.json; chủ dự án đổi 02/11/2026 14:39): mang tối đa 2 con đi cùng
+// (save.companion, save.companion2), đánh như linh thú, có cấp riêng; mua bán ở Ngự Thú Sư (src/game/beast-shop.js),
+// chỉ số và tẩy luyện ở src/game/beast.js (holder là save.comps[id]).
 import { updateFollower } from './pets.js';
 
 const C = game => game.data.companions;
 export const compNeed = (data, lv) => Math.round(data.companions.exp_base * Math.pow(lv, data.companions.exp_pow));
 export const compLevel = (game, id = game.save.companion) => game.save.comps?.[id]?.lv || 0;
 export const away = (game, id) => !!game.save.flags[C(game).list[id]?.unless];
-export const canInvite = (game, id) => !!C(game).list[id] && !!game.save.flags[C(game).list[id].need || C(game).need] && !away(game, id);
+export const canInvite = (game, id) => !!C(game).list[id] && (game.data.pets.shop?.puppets?.[id] ? !!game.save.comps?.[id] : !!game.save.flags[C(game).list[id].need || C(game).need]) && !away(game, id);   // khôi lỗi: phải mua rồi mới mang được
 
+const mk = (game, id, dx) => { const p = game.player; return id && p && C(game).list[id] ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x - dx, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null; };
 export function spawnCompanion(game) {
-  const id = game.save.companion, p = game.player;
-  game.comp = id && p ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x - 10, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null;
+  game.comp = mk(game, game.save.companion, 10);
+  game.comp2 = mk(game, game.save.companion2, -10);
 }
 
 export function updateCompanion(game, dt) {
-  if (!game.comp) return;
-  if (away(game, game.comp.id)) { game.save.companion = null; game.comp = null; return; }
-  updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * C(game).lv_bonus, C(game).follow, dt, C(game).lift, C(game).side || 0);   // đi sau lưng, lệch lên: không chắn trước mặt
+  if (game.comp && away(game, game.comp.id)) { game.save.companion = null; game.comp = null; }
+  const c = C(game);
+  if (game.comp) updateFollower(game, game.comp, 1 + (compLevel(game) - 1) * c.lv_bonus, c.follow, dt, c.lift, c.side || 0);   // đi sau lưng, lệch lên: không chắn trước mặt
+  if (game.comp2) updateFollower(game, game.comp2, 1 + (compLevel(game, game.comp2.id) - 1) * c.lv_bonus, c.follow + 14, dt, c.lift, -(c.side || 0));   // con thứ hai lệch sang bên kia
 }
 
-// Nhận một phần linh khí người chơi thu được
+// Nhận một phần linh khí người chơi thu được (cả hai con đang mang)
 export function gainCompExp(game, amount) {
-  const id = game.save.companion, st = game.save.comps?.[id], cfg = C(game);
-  if (!st || st.lv >= cfg.max_level) return;
-  st.exp += amount * cfg.share;
-  while (st.lv < cfg.max_level && st.exp >= compNeed(game.data, st.lv)) {
-    st.exp -= compNeed(game.data, st.lv); st.lv++;
-    game.toast(`${game.data.npcs[id].name} lên cấp ${st.lv}!`, 1.6);
+  const cfg = C(game);
+  for (const id of [game.save.companion, game.save.companion2]) {
+    const st = game.save.comps?.[id];
+    if (!st || st.lv >= cfg.max_level) continue;
+    st.exp += amount * cfg.share;
+    while (st.lv < cfg.max_level && st.exp >= compNeed(game.data, st.lv)) {
+      st.exp -= compNeed(game.data, st.lv); st.lv++;
+      game.toast(`Khôi lỗi ${game.data.npcs[id].name} lên cấp ${st.lv}!`, 1.6);
+    }
   }
+}
+
+// Mang theo / cất khôi lỗi: tối đa 2 con; đủ 2 thì con mới thay con thứ hai
+export function togglePuppet(game, id) {
+  const s = game.save;
+  if (!s.comps?.[id]) return;
+  if (s.companion === id) { s.companion = s.companion2 || null; s.companion2 = null; }
+  else if (s.companion2 === id) s.companion2 = null;
+  else if (!s.companion) s.companion = id;
+  else s.companion2 = id;
+  game.npcs = game.npcs.filter(n => n.id !== id);
+  spawnCompanion(game); game.persist();
 }
 
 export function setCompanion(game, id) {

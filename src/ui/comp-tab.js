@@ -1,7 +1,9 @@
-// Tab Đồng hành trong bảng Thú: cấp, thiện cảm, tặng quà, mang theo, kết đạo lữ.
-import { canInvite, compLevel, setCompanion } from '../game/companion.js';
-import { affinity, tierOf, giftsLeft, canGive, giveGift, daoLu, canPropose, propose } from '../game/affinity.js';
-import { matInfo } from '../game/cave.js';
+// Phần Khôi lỗi trong Túi đồ (trước là Đồng hành; chủ dự án đổi 02/11/2026 14:39): khôi lỗi đã mua (save.comps), mang theo
+// tối đa 2 con, cấp, chỉ số (cộng lực chiến khi mang), tẩy luyện mở dòng như trang bị, bán lại. Mua ở Ngự Thú Sư.
+// Thẻ là nút (chạm để mang / cất), dòng .skill-up sau thẻ là nút trong tấm chi tiết (src/ui/grid-cards.js gom vào).
+import { compLevel, compNeed, togglePuppet } from '../game/companion.js';
+import { isPuppet, puppetName, puppetPrice, sellPuppet } from '../game/beast-shop.js';
+import { beastStats, statLine, linesText, rerollCost, costLine, rerollBeast } from '../game/beast.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -10,33 +12,33 @@ function el(tag, cls, text) {
   return e;
 }
 
-export function renderComps(game, list, { render, close, sub }) {
-  const { data } = game, A = data.affinity, s = game.save;
-  const ids = Object.keys(data.companions.list).filter(id => canInvite(game, id));
-  sub(daoLu(game) ? `Đạo lữ: ${data.npcs[daoLu(game)].name} · song tu x${A.dao_lu.meditate_mul} linh khí đả tọa` : 'Tặng quà để tăng thiện cảm và cấp. Mỗi người 3 lần một ngày.');
-  if (!ids.length) { list.append(el('p', 'muted', 'Chưa có bạn đồng hành. Cứu Tiểu Hỏa ở Chương 3 để mở.')); return; }
-  const giftName = g => g.kind === 'coins' ? `${g.n} ${data.shop.name}` : `${g.n} ${g.kind === 'pill' ? data.cave.pills[g.id].name : matInfo(data, g.id).name}`;
-  const scene = lines => { close(); game.dialog.say(lines.map(([who, t]) => [data.npcs[who]?.name || who, t])); };
+let sure = null;
+export function renderComps(game, list, { render, sub }) {
+  const { data } = game, s = game.save, max = data.pets.shop.max_puppets;
+  const ids = Object.keys(s.comps || {}).filter(id => isPuppet(game, id) && data.npcs[id]);
+  const on = [s.companion, s.companion2].filter(Boolean);
+  sub(`Đang mang ${on.length}/${max}. Chạm để mang theo / cất đi. Mua thêm ở Ngự Thú Sư.`);
+  if (!ids.length) { list.append(el('p', 'muted', 'Chưa có khôi lỗi. Mua ở Ngự Thú Sư (Thiên Kiếm Phong).')); return; }
+  const row = (text, fn, off) => { const r = el('div', 'card-acts skill-up'), b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; r.append(b); return r; };
   for (const id of ids) {
-    const d = data.companions.list[id], npc = data.npcs[id], pts = affinity(game, id), tier = tierOf(game, pts);
-    const c = el('div', 'skill-card wide-card'); c.style.borderLeftColor = d.color; c.dataset.icon = data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id; c.dataset.iconSize = 46;   // hình ô lưới: cùng hình người đi theo trong game (comp.<id>)
-    const dl = daoLu(game) === id ? ' · đạo lữ' : '';
-    c.append(el('b', null, `${npc.name} · cấp ${compLevel(game, id) || 1}${s.companion === id ? ' · đang đi cùng' : ''}${dl}`),
-      el('small', null, d.desc),
-      el('small', null, `Thiện cảm ${pts}/${A.max}${tier ? ` (${tier.name})` : ''} · thích ${giftName(A.gifts.find(g => g.id === A.likes[id]))} · còn ${Math.max(0, giftsLeft(game, id))} lần tặng`));
-    const row = el('div', 'card-acts wrap');
-    const mini = (t, fn, off) => { const b = el('button', 'mini', t); b.disabled = !!off; b.onclick = fn; row.append(b); };
-    if (s.companion !== id) mini('Mang theo', () => { setCompanion(game, id); render(); });
-    row.append(el('small', 'gift-lbl', 'Tặng:'));
-    for (const g of A.gifts) {
-      mini(giftName(g), () => {
-        const r = giveGift(game, id, g.id);
-        if (!r) return;
-        game.sfx('pickup'); game.toast(`${npc.name} thiện cảm +${r.pts}${r.liked ? ' (rất thích!)' : ''}`, 1.6);
-        if (r.scene) scene(r.scene); else render();
-      }, !canGive(game, g) || giftsLeft(game, id) <= 0);
+    const d = data.companions.list[id], st = s.comps[id], lv = compLevel(game, id) || 1, using = on.includes(id);
+    const c = el('button', 'skill-card' + (using ? ' using' : ''));
+    c.style.borderLeftColor = d.color;
+    c.dataset.icon = data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id; c.dataset.iconSize = 46;
+    c.dataset.act = on.length >= max ? 'Mang theo (thay con thứ 2)' : 'Mang theo'; c.dataset.used = 'Cất đi';
+    c.append(el('b', null, `${puppetName(game, id)} · cấp ${lv}${using ? ' · đang mang' : ''}`),
+      el('small', null, d.desc || ''),
+      el('small', null, lv >= data.companions.max_level ? 'Đã tối đa cấp.' : `Kinh nghiệm ${Math.floor(st.exp || 0)}/${compNeed(data, lv)} (nhận một phần linh khí bạn thu khi mang theo)`),
+      el('small', null, `Chỉ số (cộng lực chiến khi mang): ${statLine(data, beastStats(data, s, 'puppet', id))}`),
+      ...linesText(data, st.lines).map(t => el('small', null, t)));
+    c.onclick = () => { togglePuppet(game, id); game.sfx('pickup'); render(); };
+    list.append(c);
+    if (using) list.append(row('Cất đi', () => togglePuppet(game, id)));
+    const full = Number.isInteger(st.cap) && (st.lines || []).length >= st.cap;
+    list.append(row(full ? 'Đã đủ dòng' : `Tẩy luyện (${costLine(data, rerollCost(data, st))})`, () => game.toast(rerollBeast(game, 'puppet', id), 2.4), full));
+    if (!using) {
+      const price = puppetPrice(game, id).toLocaleString('vi-VN'), key = 'k:' + id;
+      list.append(row(sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`, () => { if (sure !== key) { sure = key; return; } sure = null; game.toast(sellPuppet(game, id), 2.4); }));
     }
-    if (canPropose(game, id)) mini(A.dao_lu.ask, () => { const v = propose(game, id); if (v) { game.sfx('levelup'); scene([...v, ['', `${npc.name} thành đạo lữ của bạn. Song tu: linh khí đả tọa x${A.dao_lu.meditate_mul}. Khi đi cùng có chiêu ${A.dao_lu.combo.name}.`]]); } });
-    c.append(row); list.append(c);
   }
 }

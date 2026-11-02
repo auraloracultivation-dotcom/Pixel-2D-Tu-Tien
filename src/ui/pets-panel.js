@@ -4,6 +4,7 @@ import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
 import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
+import { beastStats, statLine, linesText, rerollCost, costLine, rerollBeast, rerollMount, mountLine } from '../game/beast.js';
 
 const $ = id => document.getElementById(id);
 
@@ -40,6 +41,18 @@ export function createPetsPanel(game) {
     return row;
   }
 
+  // Nút Tẩy luyện trong tấm chi tiết: linh thú mở thêm 1 dòng, thú cưỡi bốc lại dòng % (src/game/beast.js)
+  function rerollRow(id, mount) {
+    const row = el('div', 'card-acts skill-up'), b0 = !mount && s0().pets[id];
+    const cost = mount ? data.pets.beast.mount.reroll : rerollCost(data, b0), full = b0 && Number.isInteger(b0.cap) && (b0.lines || []).length >= b0.cap;
+    const b = el('button', 'mini', full ? 'Đã đủ dòng' : `Tẩy luyện (${costLine(data, cost)})`);
+    b.disabled = !!full;
+    b.onclick = () => { game.toast(mount ? rerollMount(game, id) : rerollBeast(game, 'pet', id), 2.4); render(); };
+    row.append(b);
+    return row;
+  }
+  const s0 = () => game.save;
+
   function renderPets(s, list) {
     $('pets-sub').textContent = 'Chạm để mang theo. Linh thú hưởng nửa linh khí bạn thu được.';
     const ids = Object.keys(s.pets);
@@ -51,8 +64,11 @@ export function createPetsPanel(game) {
         `Sát thương ${Math.round(d.mult * (1 + (st.lv - 1) * P.lv_bonus) * (1 + (st.star || 0) * P.merge.bonus) * 100)}% công của bạn`,
         max ? 'Đã tối đa.' : `Kinh nghiệm ${Math.floor(st.exp)}/${petNeed(data, st.lv)}`,
         M.line.replace('{star}', st.star || 0).replace('{n}', st.copies || 0).replace('{cost}', mergeCost(st)),
+        `Chỉ số (cộng lực chiến khi mang): ${statLine(data, beastStats(data, s, 'pet', id))}`,
+        ...linesText(data, st.lines),
       ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang');
       list.append(c);
+      if (P.pets[id]) list.append(rerollRow(id));
       if (s.pet !== id && P.pets[id]) list.append(sellRow(id));   // bán linh thú ngay trong thẻ (thay ô Bán linh thú ở Động phủ); grid-cards gom dòng .skill-up vào tấm chi tiết
     }
     for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
@@ -78,10 +94,12 @@ export function createPetsPanel(game) {
     $('pets-sub').textContent = 'Đi trên đảo lúc yên ổn là tự cưỡi. Đánh nhau thì xuống.';
     for (const [id, m] of Object.entries(P.mounts)) {
       const got = s.mounts[id];
-      const c = card(m.color, `${m.name}${s.mount === id ? ' · đang dùng' : got ? '' : ' · chưa có'}`, [m.desc], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
+      const ml = got && mountLine(game, id);
+      const c = card(m.color, `${m.name}${s.mount === id ? ' · đang dùng' : got ? '' : ' · chưa có'}`, [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
       c.disabled = !got;
       if (!got) c.classList.add('locked');
       list.append(c);
+      if (got) list.append(rerollRow(id, true));
       if (got && s.mount !== id) list.append(sellRow(id, true));   // bán thú cưỡi ngay trong thẻ
     }
   }
