@@ -113,7 +113,7 @@
     },
     {
      "id": "comps",
-     "label": "Đồng hành",
+     "label": "Khôi lỗi",
      "btn": "btn-pets",
      "tabs": "pets-tabs",
      "tab": "dong-hanh"

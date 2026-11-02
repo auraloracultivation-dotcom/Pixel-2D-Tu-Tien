@@ -36,7 +36,7 @@ export function buyOutfit(game, id, g = lookOf(game)) {
 }
 
 // Chỉ mặc được bản đúng giới tính của mình
-export function wear(game, id) { if (owned(game, id, lookOf(game))) { game.save.outfit = id; game.persist(); } }
+export function wear(game, id) { if (owned(game, id, lookOf(game))) { game.save.outfit = id; game.refreshStats?.(); game.persist(); } }   // dòng chỉ số của bộ (src/game/beast.js)
 
 // Màu đang mặc: { robe, hair, sash } (sash null thì dùng màu hệ)
 export function outfit(game) {
