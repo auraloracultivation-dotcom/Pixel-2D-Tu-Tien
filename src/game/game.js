@@ -257,12 +257,11 @@ export function createGame(data, screen, input, ui, audio) {
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
     applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
-    const ptIdx = data.story.steps.findIndex(x => x.id === 'phan-than');
-    if (game.save.step > ptIdx && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
+    if (game.save.step > 0 && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
     ensureDaily(game);
     if (!game.save.visited) { // bản lưu trước khi có bản đồ thế giới: đảo có cổng đã mở coi như đã tới
       const v = game.save.visited = { [cfg.start.map]: true };
-      if (game.save.step >= data.story.steps.findIndex(x => x.id === 'nhap-mon')) v['thien-kiem-phong'] = true;
+      if (game.save.step > 0) v['thien-kiem-phong'] = true;
       for (const m of Object.values(data.maps)) for (const pt of m.portals) if (pt.need && game.save.flags[pt.need]) v[pt.to] = true;
     }
     game.story = createStory(game);

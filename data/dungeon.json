@@ -46,11 +46,7 @@
  },
  "story_step": {
   "_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.",
-  "bi-canh": "bi-canh",
-  "hoa-quat": "hoa-quat",
-  "han-bang-quat": "bang-quat",
-  "hac-phong-dong": "hac-phong-dong",
-  "co-thu-tam": "co-thu-tam"
+  "bi-canh": "bi-canh"
  },
  "modes": [
   {
