@@ -48,7 +48,7 @@ export function createRankView(game) {
     for (const r of data?.top || []) {
       const tr = el('tr', r.la_toi ? 'me' : null);
       if (r.k && game.openProfile) { tr.classList.add('tap'); tr.onclick = () => game.openProfile(r.k, r.ten); }
-      for (const v of [r.hang, r.ten, r.diem, r.cap, r.loi, r.dx + (r.ghi ? ` (+${r.ghi})` : ''), r.khong, r.cho]) tr.append(el('td', null, String(v)));
+      for (const v of [r.hang, r.ten, r.diem, r.cap, r.loi, r.dx + (r.ghi ? ` (+${r.ghi})` : ''), r.moi || 0, r.khong, r.cho]) tr.append(el('td', null, String(v)));
       t.append(tr);
     }
     if (!data?.top?.length) { L.append(el('div', 'empty', R.empty)); } else L.append(t);
