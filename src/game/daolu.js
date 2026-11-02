@@ -28,12 +28,18 @@ export async function giftDaoLu(game, loai, mon) {
     (it.sockets || []).forEach((_, i) => unsocket(s, mon.uid, i));   // ngọc khảm giữ lại, không tặng theo đồ
     game.persist();
   }
-  await game.cloud.run(() => daoLuGift(loai, mon), () => {
+  const mirror = () => {
     if (loai === 'mon') { s.bag = s.bag.filter(x => x.uid !== mon.uid); game.refreshStats(); }
     else if (loai === 'nl') s.mats[mon.id] -= mon.n;
     else addCoins(game, -mon.n);
     game.persist();
-  });
+  };
+  try { await game.cloud.run(() => daoLuGift(loai, mon), mirror); }
+  catch (e) {   // máy chủ chưa thấy món mới nhặt: đợi một nhịp cho bản lưu lên máy chủ rồi thử lại một lần (như chợ)
+    if (e?.message !== 'khong_co') throw e;
+    await new Promise(r => setTimeout(r, 1500));
+    await game.cloud.run(() => daoLuGift(loai, mon), mirror);
+  }
 }
 
 export function startDaoLu(game) {
