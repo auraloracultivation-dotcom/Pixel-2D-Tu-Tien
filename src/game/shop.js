@@ -49,6 +49,15 @@ export function quickSell(game, rarities) {
   return { n: list.length, coins: got };
 }
 
+// Giá đan linh khí (chủ dự án 02/11/2026 16:03: "mua tăng linh đan đừng rẻ quá"): đan cho linh khí theo % tầng nên càng lên
+// cảnh giới càng đáng tiền; giá nhân base_mul và thêm per_realm mỗi cảnh giới (data/cave.json → qi_pill_day.price)
+export function pillPrice(game, id, price) {
+  const P = game.data.cave.qi_pill_day?.price, u = game.data.cave.pills[id]?.use;
+  if (!P || !u?.qi) return price;
+  return Math.round(price * P.base_mul * (1 + (game.save?.realm || 0) * P.per_realm) / 10) * 10;
+}
+const priceOf = (game, x) => (x.kind === 'pill' ? pillPrice(game, x.ref, x.price) : x.price);
+
 function label(game, x) {
   const d = game.data;
   if (x.kind === 'gem') return 'Ngọc ngẫu nhiên cấp 1';
@@ -58,8 +67,9 @@ function label(game, x) {
 
 function buy(game, x) {
   const s = game.save;
-  if (coins(s) < x.price) return null;
-  s.lingshi -= x.price;
+  const price = priceOf(game, x);
+  if (coins(s) < price) return null;
+  s.lingshi -= price;
   if (x.kind === 'gem') { const g = rollGem(game.data); s.gems[g] = (s.gems[g] || 0) + 1; game.persist(); return gemInfo(game.data, g).name; }
   const bag = x.kind === 'pill' ? (s.pills ??= {}) : (s.mats ??= {});
   bag[x.ref] = (bag[x.ref] || 0) + x.n;
@@ -72,7 +82,7 @@ export async function talkShop(game, npc) {
   let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
     const list = C(game).items.filter(x => !x.need || game.save.flags[x.need]);
-    const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${x.price} ${C(game).name}`, color: coins(game.save) >= x.price ? '#f2c94c' : '#b8b0c8' }));
+    const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${priceOf(game, x).toLocaleString('vi-VN')} ${C(game).name}`, color: coins(game.save) >= priceOf(game, x) ? '#f2c94c' : '#b8b0c8' }));
     opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);
