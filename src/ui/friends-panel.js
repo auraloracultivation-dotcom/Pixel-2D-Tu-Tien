@@ -47,7 +47,7 @@ export function createFriendsPanel(game) {
         if (tt === 'ban') btn('Thăm nhà', async () => { close(); await visitFriend(game, r.k, r.ten); }, 'act-btn primary');
         if (tt === 'ban') inviteBtn(game, dl, r, btn, render);
         if (tt === 'moi_toi') btn('Đồng ý', async () => { await addFriend(r.k); render(`Đã kết bạn với ${r.ten}.`); }, 'act-btn primary');
-        btn(tt === 'ban' ? 'Huỷ bạn' : tt === 'moi_toi' ? 'Từ chối' : 'Rút lời mời', async () => { await removeFriend(r.k); render(); });
+        if (!(tt === 'ban' && dl?.dao_lu?.k === r.k)) btn(tt === 'ban' ? 'Huỷ bạn' : tt === 'moi_toi' ? 'Từ chối' : 'Rút lời mời', async () => { await removeFriend(r.k); render(); });
         if (game.openProfile) btn('Hồ sơ', async () => { close(); game.openProfile(r.k, r.ten); });
         card.append(acts); body.append(card);
       }
