@@ -1,7 +1,7 @@
 // Tab Sự kiện trong bảng Việc: sự kiện đang chạy, mốc săn yêu của tuần.
 // Mỗi ô một dòng ngắn (short); chạm ô thì tấm chi tiết hiện đủ: cách chơi (how), quà, hệ số nhân, ngày còn lại, kẹo đổi quà.
 // Chữ ở data/events.json → texts; số lấy thẳng từ sự kiện nên sửa số là chữ tự đổi.
-import { activeEvents, weekly, festival, huntState, claimMilestone } from '../game/events.js';
+import { activeEvents, weekly, huntState, claimMilestone } from '../game/events.js';
 
 const fill = (t, o) => t.replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 const dm = s => { const [, m, d] = s.split('-'); return `${+d}/${+m}`; };
@@ -37,7 +37,7 @@ function festLines(game, T, f, rewardText) {
 }
 
 export function renderEvents(game, list, { card, mini, rewardText, say }) {
-  const T = game.data.events.texts, e = weekly(game), fest = festival(game);
+  const T = game.data.events.texts, e = weekly(game), fest = null;   // lễ hội theo mùa đã bỏ
   document.getElementById('daily-sub').textContent = e.name;
   for (const ev of activeEvents(game)) {
     const lines = [ev.short || ev.desc || ''];

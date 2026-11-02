@@ -9,7 +9,6 @@ import { setCompanion } from './companion.js';
 import { comfort, hasDecor } from './decor.js';
 import { addFx } from './combat.js';
 import { addEntry } from './journal.js';
-import { cook, cookedToday, bestRecipe } from './cooking.js';
 import { strangerToday, isStranger, talkVisit } from './visitors.js';
 
 const C = game => game.data.home;
@@ -137,10 +136,8 @@ export async function talkHome(game, npc) {
   if (!gifted) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Mỗi ngày một món nhỏ', color: '#ffb0d0' });
   const tea = C(game).tea, teaOk = game.save.tea !== today();
   if (teaOk) opts.push({ id: 'tea', label: tea.label, desc: tea.desc, color: '#b8e0a0' });
-  const ck = !cookedToday(game);
-  if (ck) opts.push({ id: 'cook', label: game.data.cooking.label, desc: game.data.cooking.desc, color: '#ffd08a' });
   opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
-  const auto = !gifted ? 'gift' : teaOk ? 'tea' : ck && bestRecipe(game) ? 'cook' : null;   // tự hành: nhận quà, uống trà, nấu ăn luôn
+  const auto = !gifted ? 'gift' : teaOk ? 'tea' : null;   // tự hành: nhận quà, uống trà luôn
   const ch = game.pilot && auto ? auto : await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);
   if (ch === 'talk') await game.dialog.say([[name, lineOf(game, id)]]);
   else if (ch === 'gift') {
@@ -153,8 +150,7 @@ export async function talkHome(game, npc) {
     game.sfx('pickup');
     await game.dialog.say([[name, pick(tea.lines[id] || tea.lines.default)]]);
     game.toast(tea.toast, 3);
-  } else if (ch === 'cook') await cook(game, npc);
-  else if (ch === 'join') {
+  } else if (ch === 'join') {
     setCompanion(game, id);
     await game.dialog.say([[name, game.data.companions.list[id]?.join || 'Đi thôi.']]);
   }

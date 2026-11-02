@@ -1,16 +1,3 @@
-// Câu cá và ngắm cảnh: phiến đá ngắm cảnh, dây câu từ tay người chơi tới phao, cá cắn thì phao chìm, gợn sóng.
-export function drawScenic(ctx, game) {
-  const T = game.map.T;
-  for (const s of game.data.scenic.spots) {
-    if (s.map !== game.map.id) continue;
-    const x = (s.at[0] + 0.5) * T, y = (s.at[1] + 0.5) * T + 3;
-    ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(x, y + 2, 8, 2.5, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#1b1830'; ctx.beginPath(); ctx.ellipse(x, y, 7.5, 3.6, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#a8a0b8'; ctx.beginPath(); ctx.ellipse(x, y - 0.5, 6.6, 2.8, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#c8c2d4'; ctx.fillRect(x - 4, y - 2, 5, 1);
-  }
-}
-
 // Cần câu: dây từ tay người chơi tới phao trên biển mây; cá cắn thì phao chìm, gợn sóng.
 export function drawFishing(ctx, game, t) {
   const f = game.fish;

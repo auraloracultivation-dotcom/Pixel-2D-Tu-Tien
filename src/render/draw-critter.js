@@ -1,4 +1,4 @@
-// Linh cầm trong động phủ (data/critters.json), vẽ bằng khối pixel theo kiểu (kind). Có quà chờ nhặt thì hiện đốm vàng lấp lánh.
+// Thú nhỏ vẽ bằng khối pixel theo kiểu (kind): thú hiền trên tinh cầu (src/game/wildlife.js).
 const R = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
 
 const KINDS = {
@@ -52,18 +52,6 @@ const KINDS = {
     R(ctx, '#d83a3a', x + 4 * f, y - 17, 1 * f, 1); R(ctx, '#e8a03a', x + 6 * f, y - 15, 2 * f, 1);
   },
 };
-
-export function drawCritters(ctx, game, t) {
-  if (!game.critters) return;
-  for (const k of [...game.critters].sort((a, b) => a.y - b.y)) {
-    const d = game.data.critters.list[k.id], x = Math.round(k.x), y = Math.round(k.y);
-    ctx.globalAlpha = 0.25; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, y, 4, 1.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
-    KINDS[d.kind]?.(ctx, x, y, k.face, t, !k.wait || k.wait <= 0);
-    const nm = game.save.critters?.[k.id]?.name, p = game.player;   // tên riêng, hiện khi đứng gần
-    if (nm && Math.hypot(k.x - p.x, k.y - p.y) < 40) { ctx.font = '6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.fillStyle = '#1b1830'; ctx.fillText(nm, x, y - 19); }
-    if (k.ready) { const g = 0.6 + 0.4 * Math.sin(t * 5 + x); ctx.globalAlpha = g; R(ctx, '#ffd84a', x - 1, y - 22 + Math.sin(t * 3) * 1.5, 3, 3); R(ctx, '#fff6c8', x, y - 21 + Math.sin(t * 3) * 1.5, 1, 1); ctx.globalAlpha = 1; }
-  }
-}
 
 // Thú hiền trên tinh cầu (src/game/wildlife.js): bóng dưới đất, chim bay thì vẽ cao lên, dụi đầu thì hiện tim
 export function drawWild(ctx, game, t) {

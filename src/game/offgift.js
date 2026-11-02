@@ -29,20 +29,9 @@ function compFish(game, hours) {
   return [game.data.npcs[who].name, `${line} (${got.join(', ')})`];
 }
 
-// Đạo lữ nấu sẵn cháo: chỉ khi chưa có bữa nào còn hiệu lực
-function compMeal(game, hours) {
-  const a = game.data.cooking.away, who = daoLuHere(game), s = game.save;
-  if (!a || !who || s.map !== game.data.home.map || hours < a.hours || (s.meal?.until || 0) > Date.now()) return null;
-  const r = game.data.cooking.recipes[a.dish];
-  s.meal = { id: a.dish, qi: r.buff.qi, until: Date.now() + r.buff.min * 60000 };
-  const fx = game.data.cooking.toast.replace('{dish}', r.name).replace('{pct}', Math.round((r.buff.qi - 1) * 100)).replace('{min}', r.buff.min);
-  return [game.data.npcs[who].name, `${pick(a.lines[who] || a.lines.default)} (${fx})`];
-}
-
 export function awayGifts(game, sec) {
-  const h = sec / 3600, out = [], pet = petGifts(game, h), fish = compFish(game, h), meal = compMeal(game, h);
+  const h = sec / 3600, out = [], pet = petGifts(game, h), fish = compFish(game, h);
   if (pet) out.push(['', pet]);
   if (fish) out.push(fish);
-  if (meal) out.push(meal);
   return out;
 }

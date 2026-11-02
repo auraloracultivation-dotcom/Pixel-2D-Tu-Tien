@@ -11,9 +11,7 @@ import { autoGarden } from './autogarden.js';
 import { autoClaim } from './autoclaim.js';
 import { autoGrow } from './autogrow.js';
 import { pilotOpt, nightRest, avoided } from './pilotopt.js';
-import { digJob, farmJob, fairJob } from './farmjob.js';
-import { buySnack } from './snack.js';
-import { startDig } from './gather.js';
+import { farmJob } from './farmjob.js';
 import { waterDir, fishAct } from './fishing.js';
 import { talkTo } from './interact.js';
 import { harvestAll, gotText } from './garden.js';
@@ -21,7 +19,6 @@ import { daoLuHere } from './affinity.js';
 import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
 import { etaText } from './eta.js';
-import { sitView, standUp, spotHere } from './scenic.js';
 
 const C = game => game.data.config.pilot;
 
@@ -62,9 +59,8 @@ export function pilotLabel(game) {
   const k = j && Object.keys(L).find(k => j[k]);
   if (!k) return '';
   const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
-  const kk = k === 'view' && phase(game).id === game.data.scenic.lantern.phase ? 'lantern' : k;   // tối ra đá là để thả đèn
   const eta = k === 'sit' ? etaText(game) : '';
-  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[kk].replace('{name}', name)) + (eta ? ', ' + eta : '');
+  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[k].replace('{name}', name)) + (eta ? ', ' + eta : '');
 }
 
 // Đường qua các đảo: tìm theo cổng (bỏ cổng chưa mở), trả về cổng đầu tiên phải đi
@@ -136,7 +132,6 @@ function sit(game) {
 // Việc cần làm lúc này: { fight } | { go: {x,y} } | { talk } | { use: {x,y} } | { fish: {x,y} } | { brew, at } | { pat } | { view, at } | { sit } | null (đứng chờ)
 function plan(game) {
   const s = game.story.current(), p = game.player, u = s?.until;
-  if (game.dig) return { dig: game.dig.v };   // đang đào dở: đào cho xong rồi mới làm việc khác (1–2 giây)
   // Quái đang đánh mình ở gần: đánh trước. Cách hàng cây, vách thì nó không tới được, mình cũng không bắn trúng: bỏ qua,
   // kẻo đổi qua đổi lại giữa đánh nó và đi việc khác rồi đứng rung tại chỗ (chơi thử 28/10: kẹt trước cổng Làng Tinh Linh)
   // Đang đi việc truyện (nhặt đồ, gặp người...) thì quái bãi treo máy (hồi 2,5 giây) không chặn lại đánh, trừ khi máu dưới nửa:
@@ -153,7 +148,7 @@ function plan(game) {
   }
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (game.trib.canStart()) return sit(game);   // đầy linh khí: về bồ đoàn / động phủ chờ, chỗ vắng quái, để người chơi độ kiếp không bị bầy quái vây (chủ dự án gật 31/10, chơi thử máy tính: thua kiếp giữa bầy Hỏa Lang)
-  if (waiting(game)) return choreJob(game, routeTo) || fairJob(game, routeTo) || digJob(game) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
+  if (waiting(game)) return choreJob(game, routeTo) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
@@ -194,7 +189,6 @@ export function pilotStep(game, ax, dt) {
   const p = game.player, none = { ax, atk: false };
   if (Math.hypot(ax.x, ax.y) > 0.1) return none;   // tự tay đẩy cần thì nhường
   if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); if (pilotOpt(game, 'dan')) autoPills(game); if (pilotOpt(game, 'nang')) autoGrow(game); if (pilotOpt(game, 'vuon')) autoGarden(game); autoClaim(game); }
-  if (game.view) { if (game.view.t >= game.data.scenic.sunset.sec) standUp(game); return none; }   // đang ngắm cảnh
   if (game.trib.active) { game.pilot.job = null; return none; }   // người chơi tự độ kiếp: tự hành đứng yên, nhường người chơi né
   const job = game.pilot.job = plan(game);
   if (!job) return none;
@@ -221,26 +215,10 @@ export function pilotStep(game, ax, dt) {
     if ((game.pilot.brewT = (game.pilot.brewT || 0) - dt) <= 0) { game.pilot.brewT = 1.2; doBrew(game, job.brew); }
     return none;
   }
-  if (job.view) {   // ngắm hoàng hôn: tới phiến đá rồi ngồi
-    if (!spotHere(game)) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
-    game.save.sunset = new Date().toDateString();
-    sitView(game, job.view, true);
-    return none;
-  }
   if (job.pat) {   // vuốt ve linh thú: tới sát rồi vuốt, nghỉ chút giữa hai lần
     if (!canPat(game)) return { ax: walk(game, job.pat.x, job.pat.y, dt), atk: false };
     if ((game.pilot.patT = (game.pilot.patT || 0) - dt) <= 0) { game.pilot.patT = 2.2; p.meditating = false; patPet(game); }
     return none;
-  }
-  if (job.dig) {   // đào linh khoáng: tới cạnh mạch, bấm đào, đứng yên chờ xong
-    if (game.dig) return none;
-    if (dist(job.dig, p) > game.data.gather.range * 0.8) return { ax: walk(game, job.dig.x, job.dig.y, dt), atk: false };
-    p.meditating = false; startDig(game, job.dig);
-    return none;
-  }
-  if (job.snack) {   // mua linh thực: tới cạnh người bán rồi mua
-    if (dist(job.at, p) > game.data.config.interact_range * 0.8) return { ax: walk(game, job.at.x, job.at.y, dt), atk: false };
-    buySnack(game, job.snack); game.pilot.job = null; return none;
   }
   if (job.use) {
     if (Math.hypot(job.use.x - p.x, job.use.y - p.y) > 8) return { ax: walk(game, job.use.x, job.use.y, dt), atk: false };

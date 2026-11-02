@@ -1,6 +1,6 @@
 // Bảng Việc: tab Hằng ngày (việc hôm nay, nhận thưởng, rương), tab Tông môn (chức vị, cống hiến, đổi thưởng),
 // tab Đạo Vận (Con Đường Đạo Vận, bộ hợp hệ), tab Sự kiện và tab Tự hành (bật tắt việc tự hành làm).
-import { ensureDaily, taskDef, taskText, claimTask, claimChest, bountyLeft, rankOf, rankIdx, buy } from '../game/daily.js';
+import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
 import { renderEvents } from './event-tab.js';
 import { renderPilotOpts } from './pilot-tab.js';
 import { renderDaoVan } from './daovan-tab.js';
@@ -21,7 +21,7 @@ export function createDailyPanel(game) {
   let tab = 'ngay', msg = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; return b; };
-  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.contrib && `${r.contrib} cống hiến`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
+  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
 
   function card(color, title, lines, btn) {
     const c = el('div', 'skill-card');
@@ -46,20 +46,6 @@ export function createDailyPanel(game) {
       mini(dl.chest ? 'Đã mở' : 'Mở rương', () => { const g = claimChest(game); if (g) { msg = 'Rương: ' + g.join(', '); game.sfx('levelup'); } }, dl.chest || !all)));
   }
 
-  function renderSect(list) {
-    const s = game.save, ri = rankIdx(game), next = D.ranks[ri + 1];
-    $('daily-sub').textContent = `${rankOf(game).name} · cống hiến ${s.contrib}`;
-    list.append(card('#5ab8f0', rankOf(game).name, [
-      `Cống hiến tích luỹ ${s.contribTotal || 0}`,
-      next ? `Lên ${next.name} khi đủ ${next.need}` : 'Đã tới chức vị cao nhất hiện có.',
-    ]));
-    for (const it of D.shop) {
-      const lock = it.rank && ri < rankIdx(game, it.rank);
-      list.append(card(lock ? '#c8c4d0' : '#f2c94c', it.name, [`${it.cost} cống hiến${lock ? ` · cần ${rankOf(game, it.rank).name}` : ''}`],
-        mini('Đổi', () => { const g = buy(game, it.id); if (g) { msg = 'Đổi được: ' + g.join(', '); game.sfx('pickup'); } }, lock || s.contrib < it.cost)));
-    }
-  }
-
   function render() {
     const list = $('daily-list');
     for (const b of document.querySelectorAll('#daily-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
@@ -68,8 +54,7 @@ export function createDailyPanel(game) {
     if (tab === 'ngay') renderDay(list);
     else if (tab === 'su-kien') renderEvents(game, list, { card, mini, rewardText, say: t => { msg = t; } });
     else if (tab === 'tu-hanh') renderPilotOpts(game, list, { card, mini });
-    else if (tab === 'dao-van') renderDaoVan(game, list, { card, mini, say: t => { msg = t; } });
-    else renderSect(list);
+    else renderDaoVan(game, list, { card, mini, say: t => { msg = t; } });
   }
 
   function open() {

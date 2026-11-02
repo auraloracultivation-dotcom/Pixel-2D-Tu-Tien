@@ -32,8 +32,6 @@ import { updateWeather } from './weather.js';
 import { updateJournal } from './journal.js';
 import { updateHome } from './home.js';
 import { updateChatter } from './chatter.js';
-import { updateSnack } from './snack.js';
-import { updateFair } from './fair.js';
 import { applyWords, askGender } from './gender.js';
 import { cheerKill, updateCheer } from './cheer.js';
 import { updateDaoVan } from './daovan.js';
@@ -41,19 +39,16 @@ import { showBanner } from './banner.js';
 import { cloudHooks, pickSave, startGuard } from './cloud-guard.js';
 import { updateStroll } from './stroll.js';
 import { spawnWild, updateWild } from './wildlife.js';
-import { spawnVeins, updateDig } from './gather.js';
 import { eliteKill } from './fashion.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
 import { updateAnniv } from './anniv.js';
-import { updateCritters } from './critters.js';
 import { onSay, updateSocial } from './social.js';
 import { updatePetFetch } from './pat.js';
 import { updateFishing } from './fishing.js';
-import { updateView, standUp } from './scenic.js';
 import { camFollow } from './camera.js';
 import { coinDrop } from './shop.js';
-import { eventMul, eventKill, checkFestival, eventToast, festSpawn } from './events.js';
+import { eventMul, eventKill, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
@@ -177,12 +172,12 @@ export function createGame(data, screen, input, ui, audio) {
       if (n.id === game.save.companion && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnVeins(game); game.dig = null;
+    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game);
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;
-    standUp(game); game.fish = null;
+    game.fish = null;
     game.save.map = id; game.save.spawn = spawnName || 'vao';
     (game.save.visited ??= {})[id] = true;
     game.portalLock = 0.8;
@@ -280,7 +275,7 @@ export function createGame(data, screen, input, ui, audio) {
     ui.showPlay(true);
     initRank(game);
     await offlineGains(game, lastSeen);
-    eventToast(game); checkFestival(game);
+    eventToast(game);
     if (game.cloudDown) game.toast('Máy chủ đang chậm: đang chơi bằng bản lưu trong máy, chưa lưu lên máy chủ.', 4);
     await askGender(game);   // tạo nhân vật mới, hoặc bản lưu cũ chưa chọn: hỏi nam hay nữ một lần
     await game.story.start();
@@ -364,16 +359,14 @@ export function createGame(data, screen, input, ui, audio) {
     updateWeather(game, dt);
     updateJournal(game, dt);
     updateHome(game, dt);
-    updateChatter(game, dt); updateSnack(game); updateFair(game, dt);
-    updateStroll(game, dt); updateWild(game, dt); updateDig(game, dt);
+    updateChatter(game, dt);
+    updateStroll(game, dt); updateWild(game, dt);
     updatePilotLog(game);
     updateEta(game, dt);
     updateAnniv(game, dt);
-    updateCritters(game, dt);
     updateSocial(game, dt);
     updatePetFetch(game, dt);
     updateFishing(game, dt);
-    updateView(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
     updateWorldBoss(game, dt);
     updateInteract(game);
