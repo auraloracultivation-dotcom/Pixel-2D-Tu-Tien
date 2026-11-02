@@ -1,6 +1,6 @@
 {
  "_note": "Bí cảnh không đáy (chủ dự án chốt 02/11/2026 02:57): mỗi bí cảnh một thang bậc liền, mỗi bậc quái mạnh step_mul lần (máu và công), không có đáy. Cứ steps bậc là một cấp: Dễ, Trung, Khó, Cực khó, Ác mộng, Địa ngục, Vô Gian; qua cấp cuối thì đánh số tiếp (Vô Gian 2, 3…, dùng thưởng cấp cuối). Người chơi chỉ thấy màu so với sức mình (hint). 7 bí cảnh rơi 7 loại trang bị (drops); thưởng cấp (modes[].reward, item là độ hiếm thấp nhất) phát khi hạ boss, tối đa per_day lần mỗi bí cảnh mỗi ngày; coins nhích theo bậc (reward_step), first: quà lần đầu qua mỗi bậc; linh khí, Linh Thạch của quái nhích reward_tier mỗi cấp. Lượt (chủ dự án 02/11 03:25): mỗi bí cảnh per_day lượt mỗi ngày, vượt hay càn quét đều tốn 1 lượt; hết lượt thì không vào được. Cổng vào (đã qua ít nhất 1 bậc): Vượt bậc đã qua +1 / Càn quét bậc đã qua (nhận ngay thưởng cấp cố định, không có quà lần đầu) / Thoát. Hạ boss xong hiện bảng ô vuông mọi thứ thu được trong lượt (src/game/dun-run.js, src/ui/dun-result.js) và 3 nút Tiếp tục (bậc kế) / Càn quét (bậc vừa qua) / Thoát. Tự hành đánh hết phòng trong bí cảnh.",
- "per_day": 2,
+ "per_day": 5,
  "steps": 10,
  "reward_tier": 1.15,
  "reward_step": 0.015,
@@ -42,7 +42,8 @@
   "again": "Càn quét {level}",
   "exit": "Thoát",
   "close": "Đóng",
-  "coins": "Linh Thạch"
+  "coins": "Linh Thạch",
+  "coin_tag": "Bí cảnh Linh Thạch"
  },
  "story_step": {
   "_note": "Bản lưu cũ: đã qua bước truyện này thì coi như đã qua bí cảnh ở Thường bậc 1.",
@@ -148,5 +149,7 @@
  },
  "step_mul": 2,
  "closed_note": "Bí cảnh tạm đóng cửa (chủ dự án 02/11/2026 18:04: cuối game, chưa có gì riêng, giữ game gọn). Danh sách bí cảnh xếp cuối, cổng không vào được, việc ngày cùng id không ra. Mở lại: bỏ id khỏi closed.",
- "closed": ["re-mau-thu", "hu-khong-lao", "vet-nut"]
+ "closed": ["hu-khong-lao", "vet-nut"],
+ "coin_note": "Bí cảnh Linh Thạch (chủ dự án 02/11 19:56, góp ý #63): thưởng cấp chỉ có Linh Thạch, gấp coins_mul lần (không trang bị, ngọc, đá, bí kíp). Vượt hay càn quét đều được.",
+ "coin_dun": {"re-mau-thu": {"coins_mul": 8}}
 }

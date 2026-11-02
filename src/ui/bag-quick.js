@@ -1,6 +1,7 @@
 // Bán nhanh trong Túi đồ (tab Trang bị): bấm "Bán nhanh" mở hàng chọn phẩm chất, thấy trước số món và Linh Thạch nhận, bấm bán là xong.
 // Luật chọn món ở src/game/shop.js quickList (không bán đồ đang mặc, Đạo Vận, đồ đã cường hoá).
 import { quickList, quickSell, sellPrice } from '../game/shop.js';
+import { bestGear } from '../game/autogear.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -15,7 +16,13 @@ export function renderQuick(game, box, st, changed) {
   const wrap = el('div', 'quick-sell');
   const toggle = el('button', 'mini' + (q.open ? ' on' : ''), q.open ? 'Đóng bán nhanh' : 'Bán nhanh');
   toggle.onclick = () => { q.open = !q.open; changed(false); };
-  wrap.append(toggle);
+  const best = el('button', 'mini', 'Mặc đồ tốt nhất');   // góp ý #58
+  best.onclick = () => {
+    const r = bestGear(game);
+    game.toast?.(r.n ? `Đã thay ${r.n} món: lực chiến ${r.gain >= 0 ? '+' : ''}${r.gain.toLocaleString('vi-VN')}` : 'Đồ đang mặc đã là tốt nhất.', 2.2);
+    if (r.n) { game.sfx('shield'); st.sel = null; changed(true); }
+  };
+  wrap.append(toggle, best);
   if (!q.open) { box.append(wrap); return; }
   const chips = el('div', 'quick-chips');
   q.pick = q.pick.filter(id => data.items.line_tiers.list.some(t => t.id === id));   // bỏ lựa chọn kiểu phẩm chất cũ
@@ -34,6 +41,6 @@ export function renderQuick(game, box, st, changed) {
     st.sel = null; changed(true);
   };
   const names = q.pick.map(id => data.items.line_tiers.list.find(t => t.id === id)?.name).filter(Boolean).join(', ');
-  wrap.append(chips, el('div', 'muted tiny', `Bán hết đồ ${names || '(chưa chọn phẩm chất)'} trong túi. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.`), go);
+  wrap.append(chips, el('div', 'muted tiny', `Bán hết đồ ${names || '(chưa chọn phẩm chất)'} trong túi. Không bán đồ đang mặc, đồ đã khoá, đồ Đạo Vận, đồ đã cường hoá.`), go);
   box.append(wrap);
 }
