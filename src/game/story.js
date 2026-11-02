@@ -1,6 +1,7 @@
 // Chạy kịch bản data/story.json: mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
 export function createStory(game) {
+  pickStory(game);   // người mới (từ 02/11/2026) đi cốt truyện mới data/story-moi.json
   const steps = game.data.story.steps;
   const st = { busy: false, counters: {}, events: {} };
 
@@ -69,6 +70,7 @@ export function createStory(game) {
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
     else if (a.reward) g.giveReward(a.reward);
     else if (a.mats) for (const [k, n] of Object.entries(a.mats)) g.save.mats[k] = (g.save.mats[k] || 0) + n;
+    else if (a.gem) g.save.gems[a.gem] = (g.save.gems[a.gem] || 0) + 1;   // ngọc ("loại:cấp"), cốt truyện người mới
     else if (a.pills) for (const [k, n] of Object.entries(a.pills)) g.save.pills[k] = (g.save.pills[k] || 0) + n;
     else if (a.technique) { if (!g.save.techs[a.technique]) g.learnTech(a.technique); }
     g.persist();
@@ -135,4 +137,12 @@ export function createStory(game) {
     // NPC này đang được nhiệm vụ chờ nói chuyện?
     wants(npcId) { const s = step(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
   };
+}
+
+// Cốt truyện theo bản lưu: bắt đầu từ bước 0 sau khi có truyện mới thì storyV = 2 (data/story-moi.json), bản lưu cũ giữ truyện cũ
+function pickStory(game) {
+  const d = game.data, s = game.save;
+  d.storyGoc ??= d.story;
+  if (s.storyV == null) s.storyV = !s.step && d['story-moi'] ? 2 : 1;
+  d.story = s.storyV === 2 && d['story-moi'] ? d['story-moi'] : d.storyGoc;
 }
