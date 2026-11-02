@@ -1,7 +1,7 @@
-// Chạy kịch bản data/story.json: mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
+// Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
 export function createStory(game) {
-  pickStory(game);   // người mới (từ 02/11/2026) đi cốt truyện mới data/story-moi.json
+  pickStory(game);   // bản lưu truyện cũ: sang bước cuối truyện mới
   const steps = game.data.story.steps;
   const st = { busy: false, counters: {}, events: {} };
 
@@ -127,7 +127,7 @@ export function createStory(game) {
     // Chữ nhiệm vụ và ô chỉ đường đang hiện
     goal() {
       const s = step();
-      if (!s || !game.save.stepDone || !s.goal) return null;
+      if (!s || !game.save.stepDone || !s.goal || s.until.never) return null;   // hết truyện (cày bí cảnh + nhiệm vụ): không còn khung nhiệm vụ truyện, chỉ còn cột nhiệm vụ ngày
       const key = s.until.collect || (s.until.kill && 'kill:' + s.until.kill);
       const n = key ? Math.min(st.counters[key] || 0, s.until.n) : 0;
       return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map) === game.map.id ? s.target : null };
@@ -139,10 +139,17 @@ export function createStory(game) {
   };
 }
 
-// Cốt truyện theo bản lưu: bắt đầu từ bước 0 sau khi có truyện mới thì storyV = 2 (data/story-moi.json), bản lưu cũ giữ truyện cũ
+// Chỉ còn cốt truyện mới (data/story.json; chủ dự án 02/11/2026 14:56: xoá hẳn cốt truyện cũ). Bản lưu đang đi truyện cũ
+// (storyV khác 2, đã qua bước 0) sang thẳng bước cuối truyện mới (cày bí cảnh + nhiệm vụ), không chạy lại cảnh; nhận các cờ mở
+// tinh cầu, bí cảnh, động phủ của bước cuối. Cờ truyện cũ, đồ, cảnh giới giữ nguyên.
 function pickStory(game) {
   const d = game.data, s = game.save;
-  d.storyGoc ??= d.story;
-  if (s.storyV == null) s.storyV = !s.step && d['story-moi'] ? 2 : 1;
-  d.story = s.storyV === 2 && d['story-moi'] ? d['story-moi'] : d.storyGoc;
+  if (s.storyV === 2) return;
+  s.storyV = 2;
+  if (!s.step) return;
+  const steps = d.story.steps, last = steps.length - 1;
+  s.step = last; s.stepDone = true;
+  s.flags['mo-bi-canh'] = true;
+  for (const a of steps[last].do || []) if (a.flag && !/vang$/.test(a.flag)) s.flags[a.flag] = true;   // không đặt cờ "người ấy bị bắt": người chơi cũ chưa gặp
+  game.persist?.();
 }

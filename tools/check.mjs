@@ -217,24 +217,24 @@ try {
   const e = gear.enhance;
   need(['iron', 'stones', 'rate'].every(k => e[k].length === e.max), 'gear.enhance: iron/stones/rate phải đủ max phần tử');
   for (const [id, s] of Object.entries(gear.sets)) for (const b of Object.values(s.bonus)) for (const k of Object.keys(b)) need(techStatsOk.has(k), `gear.sets/${id}: chỉ số "${k}" không có`);
+  const both = v => String(v).match(/^\{([^|{}]*)\|([^|{}]*)\}$/)?.slice(1) || [v];   // {nam|nữ}: kiểm cả hai
   for (const s of story.steps) {
     need(!s.map || maps[s.map], `story/${s.id}: bản đồ "${s.map}" không có`);
     for (const a of s.do || []) {
-      if (a.say) for (const [who] of a.say) need(!who || npcs[who], `story/${s.id}: NPC "${who}" không có`);
+      if (a.say) for (const [w] of a.say) for (const who of both(w)) need(!who || npcs[who], `story/${s.id}: NPC "${who}" không có`);
       if (a.spawn && !a.fly) need(mobs[a.spawn], `story/${s.id}: quái "${a.spawn}" không có`);
       if (a.fly) need(maps[a.fly], `story/${s.id}: bản đồ "${a.fly}" không có`);
-      const both = v => String(v).match(/^\{([^|{}]*)\|([^|{}]*)\}$/)?.slice(1) || [v];   // {nam|nữ}: kiểm cả hai
       if (a.weapon) for (const w of both(a.weapon)) need(weapons[w], `story/${s.id}: vũ khí "${w}" không có`);
-      if (a.npc_add) need(npcs[a.npc_add], `story/${s.id}: NPC "${a.npc_add}" không có`);
+      if (a.npc_add) for (const n of both(a.npc_add)) need(npcs[n], `story/${s.id}: NPC "${n}" không có`);
       for (const b of (a.gear || []).flatMap(both)) need(items.bases[b], `story/${s.id}: trang bị "${b}" không có`);
-      if (a.reward?.base) need(items.bases[a.reward.base], `story/${s.id}: phần thưởng "${a.reward.base}" không có`);
+      if (a.reward?.base) for (const b of both(a.reward.base)) need(items.bases[b], `story/${s.id}: phần thưởng "${b}" không có`);
       if (a.pickups) need(items.quest_items[a.pickups], `story/${s.id}: vật nhặt "${a.pickups}" chưa có trong items.quest_items`);
-      if (a.with) need(npcs[a.with], `story/${s.id}: NPC "${a.with}" không có`);
+      if (a.with) for (const n of both(a.with)) need(npcs[n], `story/${s.id}: NPC "${n}" không có`);
       for (const m of Object.keys(a.mats || {})) need(cave.materials[m] || items.materials[m], `story/${s.id}: nguyên liệu "${m}" không có`);
       for (const m of Object.keys(a.pills || {})) need(cave.pills[m], `story/${s.id}: đan "${m}" không có`);
       if (a.technique) need(techs.list[a.technique], `story/${s.id}: công pháp "${a.technique}" không có`);
     }
-    if (s.until.talk) need(npcs[s.until.talk], `story/${s.id}: NPC "${s.until.talk}" không có`);
+    if (s.until.talk) for (const n of both(s.until.talk)) need(npcs[n], `story/${s.id}: NPC "${n}" không có`);
     if (s.until.kill) need(mobs[s.until.kill], `story/${s.id}: quái "${s.until.kill}" không có`);
   }
 } catch (e) {
