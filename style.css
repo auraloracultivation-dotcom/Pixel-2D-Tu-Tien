@@ -1,4 +1,5 @@
 @import url("style-khung.css");   /* khung thắp đèn, chữ pixel (29/10/2026) */
+@import url("style-ui-kit.css");   /* bộ khung GPT 02/11/2026: nút có biểu tượng, vòng nút tròn, thanh, khung bảng; thu gọn, ẩn giao diện */
 /* Giao diện "đêm hầm ngục" (28/10/2026): nền đá tối, viền vàng cũ, chữ ánh trăng, nút chính màu lửa đuốc.
    Màu chỉ khai ở :root, mọi chỗ khác dùng biến để đổi tông một chỗ. Ghi chú ở docs/03-CAU-TRUC.md (Giao diện). */
 :root {
