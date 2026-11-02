@@ -4,6 +4,7 @@
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf, clearShot } from './auto.js';
 import { choreJob, doBrew } from './chores.js';
+import { dailyJob } from './dailyjob.js';
 import { autoEquip, autoEnhance } from './autoequip.js';
 import { autoGem } from './autogem.js';
 import { autoPills } from './autopill.js';
@@ -147,6 +148,13 @@ function plan(game) {
   const errand = !waiting(game) && p.hp > p.maxHp * 0.5;
   const foe = nearest(game, alive(game).filter(m => !skipped(m) && m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
   if (foe) return { fight: foe };
+  if (game.pilot.daily) {   // chạm dòng nhiệm vụ ngày (src/ui/quest-dock.js): chỉ làm việc ngày chưa xong (src/game/dailyjob.js)
+    const j = dailyJob(game, routeTo);
+    if (j?.meditate) return sit(game);
+    if (j) return j;
+    stopPilot(game, 'Tự hành: việc ngày làm được đã xong. Việc còn lại (bí cảnh, thiếu nguyên liệu…) bạn tự làm nhé.');
+    return null;
+  }
   if (game.dungeon && game.map.def.rooms?.length) {   // tự hành trong bí cảnh (chủ dự án 02/11): đánh hết quái, sang phòng kế; xong thì chờ bảng kết quả (đang đi truyện thì làm tiếp truyện)
     const m = nearest(game, alive(game).filter(m => !skipped(m)));
     if (m) return { fight: m };
@@ -156,7 +164,6 @@ function plan(game) {
   }
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
   if (game.trib.canStart()) return sit(game);   // đầy linh khí: về bồ đoàn / động phủ chờ, chỗ vắng quái, để người chơi độ kiếp không bị bầy quái vây (chủ dự án gật 31/10, chơi thử máy tính: thua kiếp giữa bầy Hỏa Lang)
-  if (game.pilot.daily) { const j = choreJob(game, routeTo); if (j) return j; game.pilot.daily = false; }   // chạm dòng nhiệm vụ ngày (src/ui/quest-dock.js): làm việc ngày trước, xong thì về việc truyện
   if (waiting(game)) return choreJob(game, routeTo) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
@@ -239,6 +246,7 @@ export function pilotStep(game, ax, dt) {
     const m = nearest(game, alive(game).filter(m => m.def.qi && !avoided(game, m.id) && !skipped(m)));
     return m && dist(m, p) < 220 ? engage(game, m, dt) : none;
   }
+  if (!job.go) return none;   // việc ngày vừa làm từ xa (src/game/dailyjob.js): đứng chờ một nhịp
   p.meditating = false;
   const fl = flyLink(game, job.go);
   if (fl) {   // sang tinh cầu khác: bay luôn như bấm Bản đồ, khỏi đi bộ tới chỗ cổng cũ
