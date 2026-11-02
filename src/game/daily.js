@@ -19,7 +19,7 @@ export function ensureDaily(game) {
     if (s.daily.tasks.some(t => !taskDef(game, t.id))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id));
     return s.daily;
   }
-  const pool = cfg.pool.filter(t => !t.need || s.flags[t.need]), rnd = seeded(d + (game.owner || ''));
+  const pool = cfg.pool.filter(t => (!t.need || s.flags[t.need]) && !(game.data.dungeon.closed || []).includes(t.id)), rnd = seeded(d + (game.owner || ''));
   const tasks = [];
   while (tasks.length < cfg.per_day && pool.length) tasks.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0].id);
   s.daily = { day: d, tasks: tasks.map(id => ({ id, n: 0, got: false })), chest: false };

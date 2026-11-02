@@ -35,7 +35,7 @@ export function createMenuPanel(game) {
     for (const d of dungeonList(game)) {
       const row = el('div', 'menu-dun' + (d.open ? '' : ' locked')), info = el('div', 'md-info');
       info.append(el('b', null, d.name), el('small', null, D.from.replace('{name}', d.from)));
-      const tag = el('small', 'md-tag', d.open ? (d.done ? D.done + ' · ' : '') + (d.hint?.text || '') : D.locked);
+      const tag = el('small', 'md-tag', d.open ? (d.done ? D.done + ' · ' : '') + (d.hint?.text || '') : d.closed ? D.closed : D.locked);
       if (d.hint) tag.style.color = d.hint.color;
       info.append(tag);
       const go = el('button', 'mini primary', D.go);

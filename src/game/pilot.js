@@ -79,7 +79,7 @@ function routeTo(game, dest) {
   while (q.length) {
     const [id, first] = q.shift();
     for (const pt of maps[id].portals) {
-      if ((pt.need && !flags[pt.need]) || seen.has(pt.to)) continue;
+      if ((pt.need && !flags[pt.need]) || seen.has(pt.to) || (game.data.dungeon.closed || []).includes(pt.to)) continue;
       const f = first || pt;
       if (pt.to === dest) return f;
       seen.add(pt.to); q.push([pt.to, f]);
