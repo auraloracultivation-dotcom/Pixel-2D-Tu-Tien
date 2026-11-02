@@ -25,7 +25,7 @@ jobs:
       - name: Gom file chạy game
         run: |
           mkdir -p _site
-          cp -r index.html privacy.html terms.html xoa-tai-khoan.html *.css manifest.webmanifest sw.js src data _site/   # mọi tệp kiểu ở gốc (style-ui-kit*.css từng bị sót, 02/11/2026)
+          cp -r index.html privacy.html terms.html xoa-tai-khoan.html legal.css style.css style-khung.css style-ui-kit.css style-ui-kit2.css style-man-dau.css manifest.webmanifest sw.js src data _site/
           [ -d assets ] && cp -r assets _site/ || true
       - name: Gắn số phiên bản để máy không dùng file cũ trong bộ nhớ đệm
         run: |
