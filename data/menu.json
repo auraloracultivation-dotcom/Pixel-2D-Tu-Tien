@@ -81,8 +81,7 @@
     {"id": "khach", "label": "Khách đến chơi", "icon": "ui.m-friends", "home": "khach"},
     {"id": "decor", "label": "Trang trí", "icon": "ui.m-lantern", "home": "decor"},
     {"id": "pets", "label": "Linh thú", "icon": "pet.moc-linh", "btn": "btn-pets", "tabs": "pets-tabs", "tab": "linh-thu"},
-    {"id": "thu-nha", "label": "Bán linh thú", "icon": "ui.m-market", "home": "thu-nha"}
-,
+    {"id": "thu-nha", "label": "Bán linh thú", "icon": "ui.m-market", "home": "thu-nha"},
     {"id": "friends", "label": "Nhà bạn bè", "icon": "ui.m-palace", "open": "friends"},
     {"id": "ve-nha", "label": "Về nhà mình", "icon": "ui.m-cave", "home": "ve-nha"}
    ]}]},
