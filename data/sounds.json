@@ -47,8 +47,6 @@
    "hoa-quat": {"root": 174.61, "bpm": 88, "lead": "tranh", "amb": ["lua"], "mood": "toi"},
    "dao-han-bang": {"root": 246.94, "bpm": 57, "lead": "sao", "amb": ["gio", "nuoc"], "mood": "sang"},
    "han-bang-quat": {"root": 164.81, "bpm": 85, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
-   "bi-canh-tai-nguyen": {"root": 233.08, "bpm": 87, "lead": "tranh", "amb": ["nuoc"], "mood": "sang"},
-   "thap-thu-thach": {"root": 185.0, "bpm": 94, "lead": "tranh", "amb": [], "mood": "toi"},
    "hac-phong-dao": {"root": 207.65, "bpm": 68, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
    "hac-phong-dong": {"root": 155.56, "bpm": 92, "lead": "tranh", "amb": ["gio"], "mood": "toi"},
    "dao-moc": {"root": 246.94, "bpm": 57, "lead": "sao", "amb": ["chim", "gio"], "mood": "sang"},

@@ -16,7 +16,10 @@ function seeded(str) {
 export function ensureDaily(game) {
   const s = game.save, cfg = game.data.daily, d = today();
   s.contrib ??= 0; s.rank ??= cfg.ranks[0].id;
-  if (s.daily?.day === d) return s.daily;
+  if (s.daily?.day === d) {   // việc đã bỏ (tháp, luận võ, bí cảnh tài nguyên, treo thưởng: 02/11/2026) thì gỡ khỏi việc hôm nay
+    if (s.daily.tasks.some(t => !taskDef(game, t.id))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id));
+    return s.daily;
+  }
   const pool = cfg.pool.filter(t => !t.need || s.flags[t.need]), rnd = seeded(d + (game.owner || ''));
   const tasks = [];
   while (tasks.length < cfg.per_day && pool.length) tasks.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0].id);

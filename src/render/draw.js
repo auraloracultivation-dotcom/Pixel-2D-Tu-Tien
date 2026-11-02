@@ -7,7 +7,6 @@ import { skillSlots } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
 import { drawWeapon } from './weapon.js';
 import { drawPet, drawMount, drawRareGlow } from './draw-pet.js';
-import { hasSide } from '../game/side.js';
 import { drawAura, drawTitle } from './draw-aura.js';
 import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
@@ -216,7 +215,7 @@ function drawNpc(ctx, n, game, t) {
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'back');
   if (n.def.vu_khi) drawNpcWeapon(ctx, game, n, t, n.def.vu_khi);
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
-  if (game.story.wants(n.id) || hasSide(game, n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
+  if (game.story.wants(n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
   }
