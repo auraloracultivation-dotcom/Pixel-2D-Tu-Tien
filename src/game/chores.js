@@ -97,9 +97,12 @@ function gardenJob(game, routeTo) {
   return { use: game.map.center(g.plots[0][0], g.plots[0][1]) };
 }
 
-export function choreJob(game, routeTo) {
+export function choreJob(game, routeTo) { return wantJob(game, routeTo, wants(game)) || gardenJob(game, routeTo); }
+
+// Đổi danh sách việc cần làm thành một bước cho tự hành (dùng chung với việc ngày, src/game/dailyjob.js)
+export function wantJob(game, routeTo, list) {
   const p = game.player;
-  for (const w of wants(game)) {
+  for (const w of list) {
     if (w.talk) {
       const n = game.npcs.find(n => n.id === w.talk);
       if (n) return { talk: n };
@@ -137,5 +140,5 @@ export function choreJob(game, routeTo) {
       return m ? { fight: m } : { go: game.map.center(sp.s.at[0], sp.s.at[1]) };   // chờ quái mọc lại ở bãi
     }
   }
-  return gardenJob(game, routeTo);
+  return null;
 }
