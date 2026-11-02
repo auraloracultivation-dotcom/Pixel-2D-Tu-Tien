@@ -17,7 +17,7 @@ from scipy import ndimage as nd
 from le_hoi import _key, _crop
 
 SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ui' / 'ui-kit-1.png'
-K = 3   # khối điểm của ảnh nguồn
+K = 3   # khối điểm của ảnh nguồn; chủ dự án 02/11/2026 22:51: giữ nguyên độ phân giải ảnh gốc, chỉ cắt và bỏ nền (không thu về điểm ảnh)
 
 # (x0, y0, x1, y1) trên ảnh nguồn 1024×1536
 BTN_L, BTN_R = (22, 34), (241, 462)
@@ -36,8 +36,7 @@ def _cut(a, box):
 
 
 def _px(c, colors=40):
-    h = max(4, round(c.shape[0] / K))
-    return np.ascontiguousarray(AI.quantize(AI.shrink(c, h), colors), dtype=np.uint8)
+    return np.ascontiguousarray(c, dtype=np.uint8)   # giữ nguyên ảnh gốc (chỉ cắt, bỏ nền)
 
 
 def _main(c):
@@ -62,10 +61,10 @@ def _empty_btn(a):
     """Nút Túi đồ → khung rỗng: mỗi hàng trong lòng (chừa viền 3 điểm) tô bằng màu điểm cách mép phải 5 điểm."""
     b = _px(_cut(a, (22, 263, 234, 337)))
     h, w = b.shape[:2]
-    for y in range(3, h - 3):
-        col = b[y, w - 6].copy()
+    for y in range(9, h - 9):
+        col = b[y, w - 18].copy()
         if col[3] == 0: continue
-        b[y, 4:w - 5] = col
+        b[y, 12:w - 15] = col
     return b
 
 
@@ -76,7 +75,7 @@ def _icon(a, box):
     rgb = c[:, :, :3].astype(int)
     lum = rgb.sum(axis=2)
     bgc = np.median(np.concatenate([rgb[:, 0], rgb[:, -1], rgb[0], rgb[-1]]), axis=0)
-    near = (np.abs(rgb - bgc).sum(axis=2) < 70) & (lum < 330) | (c[:, :, 3] == 0)
+    near = (np.abs(rgb - bgc).sum(axis=2) < 80) & (lum < 340) | (c[:, :, 3] == 0)
     seen = np.zeros((h, w), bool); q = deque([(y, x) for y in range(h) for x in (0, w - 1)] + [(y, x) for x in range(w) for y in (0, h - 1)])
     while q:
         y, x = q.popleft()
@@ -89,7 +88,7 @@ def _icon(a, box):
         mid = c[rows[0] + len(rows) // 5: rows[-1] - len(rows) // 5, :, 3] > 0
         cols = np.nonzero(mid.any(axis=0))[0]
         if len(cols):
-            c[:, :max(0, cols[0] - 1), 3] = 0; c[:, cols[-1] + 2:, 3] = 0
+            c[:, :max(0, cols[0] - 3), 3] = 0; c[:, cols[-1] + 6:, 3] = 0
     return _main(c)
 
 
@@ -97,9 +96,9 @@ def _empty_chat(a):
     """Ô chat: xoá chữ mẫu, mỗi hàng tô bằng màu điểm ngay trước biểu tượng bong bóng."""
     b = _px(_cut(a, (21, 903, 484, 966)))
     h, w = b.shape[:2]
-    for y in range(3, h - 3):
-        col = b[y, 100].copy()
-        if col[3]: b[y, 4:w - 22] = col
+    for y in range(9, h - 9):
+        col = b[y, 300].copy()
+        if col[3]: b[y, 12:w - 66] = col
     return b
 
 
@@ -126,7 +125,7 @@ def build(save):
     put('ui.k-ring-do', _ring(a, (391, 752, 507, 865), 0.72), 'vòng nút tròn đá đỏ (chiêu, đan, pháp bảo; từ nút Đan)')
     put('ui.k-atk', _main(_px(_cut(a, (796, 698, 998, 902)))), 'nút Đánh: vòng vàng, song kiếm, chữ Đánh')
     pn = _px(_cut(a, (641, 1058, 849, 1198)))
-    pn[6:-6, 6:-6, 3] = np.where(pn[6:-6, 6:-6, 3] > 0, 150, 0)   # lòng bảng trong mờ: vẫn thấy cảnh, đồ rơi phía sau (chủ dự án 02/11 13:38)
+    pn[18:-18, 18:-18, 3] = np.where(pn[18:-18, 18:-18, 3] > 0, 150, 0)   # lòng bảng trong mờ: vẫn thấy cảnh, đồ rơi phía sau (chủ dự án 02/11 13:38)
     put('ui.k-panel', pn, 'khung bảng 9 mảnh góc vàng, lòng trong mờ')
     put('ui.k-chat', _empty_chat(a), 'ô nhập trò chuyện (đã xoá chữ mẫu)')
     put('ui.k-bar-do', _px(_cut(a, (21, 988, 211, 1022))), 'thanh máu')
