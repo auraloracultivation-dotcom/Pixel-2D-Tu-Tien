@@ -100,6 +100,11 @@
      "bag": "nl"
     },
     {
+     "id": "dan",
+     "label": "Đan dược",
+     "bag": "dan"
+    },
+    {
      "id": "pets",
      "label": "Linh thú",
      "btn": "btn-pets",

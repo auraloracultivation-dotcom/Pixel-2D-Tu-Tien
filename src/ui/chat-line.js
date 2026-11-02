@@ -1,6 +1,7 @@
 // Một dòng chat (kênh thế giới, tông môn): cảnh giới, tên, chữ. Chạm vào tin người khác thì hiện nút Chặn, Báo cáo
 // (data/social.json → mod). Tin của người bị chặn không hiện; đếm số tin đã ẩn để báo một dòng.
 import { isBlocked, block, report } from '../game/world-chat.js';
+import { addFriend } from '../game/friends.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -31,6 +32,11 @@ function toggle(game, d, m, onNote, redraw) {
   const row = el('div', 'chat-act');
   const btn = (t, fn) => { const b = el('button', 'mini', t); b.onclick = e => { e.stopPropagation(); fn(); }; row.append(b); };
   if (game.openWhisper) btn(game.data.social.whisper.btn, () => { row.remove(); game.openWhisper(m.k, m.ten); });   // nhắn riêng
+  btn('Kết bạn', async () => {   // góp ý #54: kết bạn ngay từ kênh chat
+    row.remove();
+    try { const r = await addFriend(m.k); onNote(r === 'thanh_ban' ? `Đã kết bạn với ${m.ten}.` : r === 'da_la_ban' ? `Đã là bạn với ${m.ten}.` : `Đã gửi lời mời kết bạn tới ${m.ten}.`); }
+    catch { onNote('Chưa gửi được lời mời kết bạn, thử lại sau.'); }
+  });
   btn(M.block, () => { block(game, m.k, m.ten); onNote(M.blocked.replace('{name}', m.ten)); redraw(); });
   btn(M.report, () => {
     row.innerHTML = ''; row.append(el('small', null, M.ask));
