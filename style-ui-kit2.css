@@ -90,3 +90,12 @@ body #bag .slot[data-o] { border: none !important; box-shadow: none !important; 
 /* Linh Thạch: viên pha lê trước số tiền ở đầu túi đồ */
 body #bag-mats::before { content: ''; display: inline-block; width: 12px; height: 18px; margin-right: 3px; vertical-align: -4px;
   background: url("assets/art/ui-k-linh-thach.png") center / contain no-repeat; image-rendering: pixelated; }
+
+/* ---- màn đăng nhập (chủ dự án 02/11/2026 22:33, ảnh mẫu tools/art/nguon/ai/ui/man-dang-nhap.png): nền đêm trăng thác nước hoa đào
+   (đã xoá chữ, nút của mẫu, vùng giữa nhoè tối, thu 1/4 về điểm ảnh thật: assets/icon/splash-hoi.png), cụm tài khoản trong khung góc mây ---- */
+body #menu, body[data-le] #menu { background: linear-gradient(rgba(12, 8, 28, 0), rgba(12, 8, 28, .25)), url("assets/icon/splash-hoi.png") center / cover !important; image-rendering: pixelated; }
+body #menu #logged, body #menu #login-form { border: 16px solid transparent; border-image: url("assets/art/ui-k-khung.png") 8 fill / 16px / 0 stretch; padding: 4px 14px; min-width: 250px; }
+body #menu .link-btn { color: #9fd4ff !important; }
+body #menu .link-btn.danger { color: #ff8a7a !important; }
+body #menu .help, body #menu .health { border: 8px solid transparent; border-image: url("assets/art/ui-k-btn.png") 4 fill / 8px / 0 stretch; background: none; padding: 2px 8px; image-rendering: pixelated; max-width: 320px; }
+body #menu .legal a { color: #ffd27a; }
