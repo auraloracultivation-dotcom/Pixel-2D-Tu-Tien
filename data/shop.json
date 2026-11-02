@@ -15,5 +15,20 @@
   {"kind": "mat", "ref": "tay-luyen-thach", "n": 1, "price": 40},
   {"kind": "mat", "ref": "khoa-linh-thach", "n": 1, "price": 400, "need": "mo-bi-canh"},
   {"kind": "gem", "n": 1, "price": 120}
- ]
+ ],
+ "npc_goods": {
+  "_note": "Mỗi NPC một món riêng (chủ dự án chốt 02/11/2026, thay đào khoáng, linh thực): người ở xóm bán một loại đan, một bộ đồ, hoặc món không có ở bí cảnh / nhiệm vụ. kind: pill (cave.pills), mat (nguyên liệu), outfit (fashion.list, mua một lần). price Linh Thạch, per_day: số lần mỗi ngày (outfit bỏ qua). src/game/npc-goods.js.",
+  "tieu-phu": {"kind": "pill", "id": "tu-khi-dan", "price": 300, "per_day": 3, "line": "Đan này ta luyện từ nhựa thông ngàn năm, uống vào linh khí dồi dào."},
+  "lao-than": {"kind": "pill", "id": "boi-nguyen-dan", "price": 2000, "per_day": 1, "line": "Lửa lò than này nung ra Bồi Nguyên Đan, bồi bổ khí huyết."},
+  "tuyet-nhi": {"kind": "pill", "id": "thanh-tam-dan", "price": 1500, "per_day": 2, "line": "Thanh Tâm Đan làm từ tuyết liên, giữ tâm tĩnh khi độ kiếp."},
+  "ba-do-den": {"kind": "pill", "id": "tinh-lien-dan", "price": 4000, "per_day": 1, "line": "Tĩnh Liên Đan, cả tinh hệ chỉ ta còn giữ công thức."},
+  "tieu-moc-linh": {"kind": "pill", "id": "tu-van-dan", "price": 1200, "per_day": 2, "line": "Tử Vân Đan của làng tinh linh, linh khí tím biếc."},
+  "ong-hai-nam": {"kind": "pill", "id": "tay-tuy-dan", "price": 50000, "per_day": 1, "line": "Tẩy Tủy Đan từ nấm linh chi vạn năm, nâng phẩm linh căn."},
+  "co-ban-nuoc": {"kind": "mat", "id": "dao-van-thach", "price": 5000, "per_day": 1, "line": "Đá dưới đáy giếng kim sa đã nhiễm đạo vận, đổi hệ trang bị được."},
+  "lao-nong": {"kind": "mat", "id": "manh-phap-bao", "price": 3000, "per_day": 2, "line": "Cày ruộng hay gặp mảnh pháp bảo cổ, ngươi cần thì mua."},
+  "chi-ganh-da": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."},
+  "be-la": {"kind": "outfit", "id": "thanh-sam", "price": 800, "line": "Áo thanh sam mẹ cháu may, mặc vào thư sinh lắm!"},
+  "phong-thach": {"kind": "outfit", "id": "hac-y", "price": 1500, "line": "Hắc y dạ hành, đi đêm trong gió Hắc Phong không ai thấy."},
+  "tho-kim-sa": {"kind": "outfit", "id": "hong-y", "price": 1500, "line": "Hồng y hoa đào, dệt từ tơ kim sa nhuộm cánh đào."}
+ }
 }

@@ -52,7 +52,7 @@ export function updateSnack(game) {
 
 // Tự hành trước khi treo máy: hết món, dư Linh Thạch (keep lần giá), tinh cầu này có người bán thì ghé mua
 export function snackJob(game) {
-  if (activeSnack(game.save)) return null;
+  if (S(game).off || activeSnack(game.save)) return null;   // linh thực đã bỏ (chủ dự án 02/11/2026): tự hành không ghé xóm mua nữa
   const e = snackHere(game);
   if (!e || coins(game.save) < fairSnack(game, e[1]).price * S(game).keep) return null;
   const n = game.npcs.find(x => x.id === e[1].npc);
