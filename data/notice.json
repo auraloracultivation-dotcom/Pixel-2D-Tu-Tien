@@ -1,5 +1,6 @@
 {
  "_note": "Bảng thông báo (chủ dự án xin 29/10/2026): nút 📢 trên bảng điều khiển, số đỏ là thông báo chưa xem; mỗi ngày tự mở một lần khi có thông báo đang chạy (sau khi vào game, không chen ngang hội thoại; người mới qua bước truyện auto_step mới tự mở, kẻo che phần hướng dẫn đầu game). list: thông báo xếp trên xuống, from/to theo ngày (giờ máy chủ), không có thì luôn hiện; top: nổi bật (khung vàng, nằm trên cùng); act: nút mở chỗ tương ứng (referral: sự kiện giới thiệu, fame: bảng vinh danh góp ý, rank: bảng xếp hạng, feedback: bảng báo lỗi). Thêm thông báo: thêm một mục với id mới (đổi id là người chơi thấy như thông báo mới).",
+ "auto": false,
  "auto_step": 20,
  "btn": "📢",
  "label": "Thông báo",

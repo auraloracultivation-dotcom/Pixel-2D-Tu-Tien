@@ -1,4 +1,5 @@
-// Bảng Thành tựu: tab Thành tựu (tiến độ, nhận thưởng), Danh hiệu (chọn danh hiệu hiện trên đầu), Thời trang, Nhật ký, Sổ cá.
+// Bảng Thành tựu: phần Thành tựu (tiến độ, nhận thưởng), Danh hiệu (chọn danh hiệu hiện trên đầu), Thời trang, Nhật ký.
+// Thanh tab ẩn (src/ui/side-nav.css): mỗi mục Menu / Túi đồ mở đúng một phần, tên bảng đổi theo phần đó.
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
 import { owned, buyOutfit, wear, howToGet } from '../game/fashion.js';
 import { journal } from '../game/journal.js';
@@ -88,6 +89,7 @@ export function createAchvPanel(game) {
   function render() {
     const list = $('achv-list');
     for (const b of document.querySelectorAll('#achv-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
+    $('achv').querySelector('.bag-head b').textContent = document.querySelector(`#achv-tabs [data-tab="${tab}"]`).textContent;
     list.innerHTML = '';
     $('achv-msg').textContent = msg;
     if (tab === 'thanh-tuu') renderAchv(list); else if (tab === 'thoi-trang') renderFashion(list); else if (tab === 'nhat-ky') renderJournal(list); else renderTitles(list);

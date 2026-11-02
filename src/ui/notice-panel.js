@@ -77,6 +77,7 @@ export function createNotice(game) {
 
   // Mỗi ngày tự mở một lần khi có thông báo đang chạy, lúc rảnh tay (không hội thoại, truyện, bảng khác, đường bay)
   setInterval(paint, 5000); paint();
+  if (N.auto === false) return;   // chủ dự án 02/11/2026: Sự kiện chỉ còn giới thiệu nhận quà, bảng thông báo không tự mở nữa
   const auto = setInterval(() => {
     if (!game.save || !game.player || game.dialog.open || game.story?.busy || game.uiOpen || game.traveling || game.trip) return;
     if ((game.save.step || 0) < (N.auto_step || 0)) return;   // người mới: đợi qua phần hướng dẫn đầu game
