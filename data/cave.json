@@ -104,7 +104,7 @@
   {"name": "Động thiên phúc địa", "meditate_mul": 4, "grow_min": 7, "yield": 3, "brew_bonus": 0.08, "cost": {"tinh-thiet": 60, "yeu-vuong-dan": 1}, "coins": 8000, "realm": 4}
  ],
  "pill_button": "hoi-xuan-dan",
- "qi_pill_day": {"_note": "Đan độc (chủ dự án thấy đan cho linh khí quá nhiều, 28/10/2026): mỗi ngày dùng tối đa n viên đan và canh cho linh khí (gộp mọi loại); đủ rồi thì phải đợi hôm sau. Trước đây một viên Tụ Khí Đan 60 Linh Thạch cho 20% tầng, mua thả cửa thì bỏ qua cả game.", "n": 8, "full": "Đan độc tích tụ: hôm nay đã dùng {n} viên đan linh khí, mai dùng tiếp.", "left": "Hôm nay còn dùng được {n} viên đan linh khí."},
+ "qi_pill_day": {"_note": "Đan độc giảm dần (chủ dự án 02/11/2026 15:56, thay chặn cứng 8 viên của 28/10): mỗi ngày (qua 0 giờ đếm lại) mọi loại đan, canh cho linh khí gộp chung; steps: [từ viên thứ, tỉ lệ linh khí] — viên 1–8 đủ 100%, 9–16 còn 50%, từ 17 còn 20%. n: số viên đủ hiệu quả (để báo).", "n": 8, "steps": [[1, 1], [9, 0.5], [17, 0.2]], "full": "Đan độc tích tụ: hôm nay đã dùng {n} viên, đan linh khí giờ chỉ còn {pct}% hiệu quả. Qua 0 giờ hết độc.", "left": "Hôm nay còn {n} viên đủ hiệu quả.", "weak": "Đan độc: viên này chỉ còn {pct}% hiệu quả (đã dùng {used} viên hôm nay)."},
  "brew": {"_note": "rate: tỉ lệ thành của từng đan (mặc định default). Linh căn hệ trong element_bonus cộng thêm. Hỏng thì mất nguyên liệu.", "default": 0.85, "element_bonus": {"hoa": 0.1}},
  "x2_err": {"_note": "Lỗi máy chủ khi uống Thăng Linh Đan (src/game/cave.js).", "chua_co_dan": "Máy chủ chưa thấy viên đan (vừa luyện xong chưa lưu kịp), chờ vài giây rồi uống lại.", "het_luot_hom_nay": "Hôm nay đã uống đủ 2 viên Thăng Linh Đan.", "net": "Chưa uống được (mạng chập chờn), thử lại sau."},
  "pills": {
