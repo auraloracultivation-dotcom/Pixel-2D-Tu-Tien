@@ -1,0 +1,121 @@
+{
+ "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social).",
+ "btn": "!",
+ "label": "Câu hỏi thường gặp",
+ "title": "Câu hỏi thường gặp",
+ "close": "✕",
+ "groups": [
+  {
+   "title": "Mỗi ngày",
+   "list": [
+    {
+     "q": "Mỗi ngày nên làm gì?",
+     "a": [
+      "1. Điểm danh: bấm nút Nhiệm vụ, chạm dòng điểm danh ở đầu cột nhiệm vụ bên phải.",
+      "2. Nhiệm vụ hằng ngày: chạm từng dòng việc ở cột nhiệm vụ bên phải, nhân vật tự hành đi làm. Xong việc dòng sáng lên, chạm để nhận thưởng; đủ việc thì mở rương.",
+      "3. Bí cảnh: mỗi bí cảnh có 5 lượt mỗi ngày, vượt ải hoặc càn quét ải đã qua đều tốn lượt.",
+      "4. Ma Vương tuần ở Phương Thiên Địa: mỗi tuần hạ được 1 lần."
+     ]
+    },
+    {
+     "q": "Bí cảnh có mấy lượt? Càn quét là gì?",
+     "a": [
+      "Mỗi bí cảnh có 5 lượt mỗi ngày, sang ngày mới thì hồi lại.",
+      "Ải đã vượt rồi có thể Càn quét: nhận thưởng ngay không cần đánh lại, vẫn tốn một lượt.",
+      "Rễ Mẫu Thụ là bí cảnh Linh Thạch, vào đó nếu đang thiếu tiền."
+     ]
+    },
+    {
+     "q": "Ma Vương tuần là gì?",
+     "a": [
+      "Ma Vương xuất hiện ở Phương Thiên Địa, cấp của Ma Vương đổi ngẫu nhiên mỗi tuần.",
+      "Mỗi tuần mỗi người hạ được 1 lần, thưởng lớn hơn quái thường. Nhớ ghé trước khi hết tuần."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Điều khiển",
+   "list": [
+    {
+     "q": "Điều khiển nhân vật thế nào?",
+     "a": [
+      "Cần điều khiển bên trái màn hình: kéo để chạy.",
+      "Cụm nút bên phải: nút Đánh to ở giữa, các nút chiêu xung quanh.",
+      "Nút Tự đánh (cạnh cụm nút đánh): nhân vật tự tìm quái gần và tung chiêu.",
+      "Tự hành: nhân vật tự đi làm việc truyện, việc ngày, đào khoáng, treo máy. Kéo cần điều khiển để dừng."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Quản trị viên",
+   "list": [
+    {
+     "q": "Điểm Quản trị viên để làm gì? Kiếm thế nào?",
+     "a": [
+      "Gửi Báo lỗi 🐞 hoặc Đề xuất 💡, khi được duyệt thì có điểm: lỗi được sửa +10, đề xuất được làm +20, được ghi nhận +5. Gửi spam −15.",
+      "Mời bạn thành công +60 (bạn mới online đủ 4 tiếng cộng dồn).",
+      "Điểm đổi Tiên Ngọc theo tỉ lệ 1 điểm = 1 Tiên Ngọc, tối đa 500 mỗi tuần: Xếp hạng → Quản trị viên → Sổ điểm."
+     ]
+    },
+    {
+     "q": "Cấp quản trị viên tính thế nào?",
+     "a": [
+      "Cấp 1 từ 20 điểm, cấp 2 từ 60, cấp 3 từ 150, cấp 4 từ 300, cấp 5 từ 600.",
+      "Xem cấp và bảng xếp hạng ở Xếp hạng → Quản trị viên."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Trang bị",
+   "list": [
+    {
+     "q": "Màu dòng tẩy luyện là phẩm gì?",
+     "a": [
+      "Lục = Phàm, Lam = Linh, Tím = Huyền, Cam = Địa, Vàng = Thiên, Đỏ = Tiên, Đen = Thượng Cổ.",
+      "Ngoài bí cảnh đồ rơi tối đa phẩm Cam (Địa). Vàng, Đỏ, Đen chỉ có trong bí cảnh và khi tẩy luyện.",
+      "Đồ phẩm Tiên và Thượng Cổ mở thêm ô khảm ngọc thứ 4."
+     ]
+    },
+    {
+     "q": "Túi đầy, bán đồ thế nào cho nhanh?",
+     "a": [
+      "Bán nhanh theo màu (Túi đồ, tab Trang bị): chọn màu muốn bán, mọi món màu đó được bán một lượt; không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.",
+      "Khoá món đồ quý để không bị bán nhầm.",
+      "Nút Mặc đồ tốt nhất: tự mặc món mạnh nhất đang có trong túi."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Linh Thạch, hệ, đạo lữ",
+   "list": [
+    {
+     "q": "Linh Thạch kiếm ở đâu?",
+     "a": [
+      "Rễ Mẫu Thụ là bí cảnh Linh Thạch, mỗi ngày 5 lượt.",
+      "Ngoài ra đánh quái, treo máy ở bãi quái, nhiệm vụ hằng ngày, điểm danh đều có Linh Thạch."
+     ]
+    },
+    {
+     "q": "Đổi hệ (linh căn) bằng gì?",
+     "a": [
+      "Dùng Đạo Vận Thạch.",
+      "Cô bán nước: 50.000 Linh Thạch một viên, mỗi ngày mua được 1 viên.",
+      "Quầy Tiên Ngọc: 50 Tiên Ngọc một viên, mỗi ngày mua được 2 viên."
+     ]
+    },
+    {
+     "q": "Đạo lữ là gì?",
+     "a": [
+      "Kết đạo lữ với người chơi khác qua bảng Bạn bè.",
+      "Có đạo lữ: +5% linh khí và +5% Linh Thạch, tặng quà cho nhau được.",
+      "Huỷ đạo lữ thì phải chờ 30 ngày."
+     ]
+    }
+   ]
+  }
+ ]
+}

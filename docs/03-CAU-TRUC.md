@@ -275,6 +275,8 @@ Chủ dự án chốt 29/10/2026 (bản đang chơi thử, sau này đặt lại
 
 **Bảng thông báo** (`src/ui/notice-panel.js`, kiểu ở `src/ui/event.css`): nút 📢 sau nút Bản đồ, số đỏ là thông báo chưa xem; mỗi ngày tự mở một lần lúc rảnh tay (không hội thoại, truyện, bảng khác, đường bay). Thông báo `top` có khung vàng nằm trên cùng; nút trong thông báo mở sự kiện giới thiệu, bảng vinh danh, bảng xếp hạng hoặc bảng báo lỗi. Khi sự kiện giới thiệu đang chạy, dưới hàng nút có nút "🎁 Ngọc cấp 8" chiếm cả hàng, viền vàng nhấp nháy nhẹ. Thêm thông báo: thêm mục vào `data/notice.json` → `list` với `id` mới.
 
+**Câu hỏi thường gặp** (chủ dự án 04/11/2026, góp ý #68; `data/faq.json`, `src/ui/faq-panel.js`, kiểu ở `src/ui/faq.css`): nút ! tròn nhỏ ở góc trên phải màn hình (theo vùng an toàn), khung nhiệm vụ truyện và cột nhiệm vụ hằng ngày lùi sang trái nhường chỗ. Bảng chia nhóm (Mỗi ngày, Điều khiển, Quản trị viên, Trang bị, Linh Thạch / hệ / đạo lữ); chạm câu hỏi để mở / gập câu trả lời. Đóng bằng ✕ hoặc khi bấm nút khác (`game.closeAll`). Thêm câu: thêm `{q, a: [dòng]}` vào nhóm trong `groups`.
+
 Email tổng hợp mỗi giờ có thêm mục `gioi_thieu` (số người nhập mã, ngọc cấp 8 vừa phát, số người đang đếm).
 
 ## Chặn và báo cáo chat
