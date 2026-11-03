@@ -124,7 +124,7 @@ export function updatePlayer(game, dt) {
     if (Math.abs(p.kx) + Math.abs(p.ky) < 2) { p.kx = 0; p.ky = 0; }
   }
 
-  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis()), ax = auto.ax;
+  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = auto.ax;
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
