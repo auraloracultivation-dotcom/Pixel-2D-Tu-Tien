@@ -44,6 +44,7 @@ import { drawRunDust, drawHitSwoosh, drawDowns } from './draw-act-fx.js';
 import { drawStoryFx } from './draw-story-fx.js';
 import { drawDen } from './draw-den.js';
 import { drawDuelist } from './draw-duel.js';
+import { drawDummy } from './draw-dummy.js';
 import { duelFoes } from '../game/duel.js';
 
 const INK = '#1b1830';
@@ -117,6 +118,7 @@ function drawComp(ctx, e, t, art) {
 
 function drawMob(ctx, m, t, game) {
   if (m.duel && drawDuelist(ctx, game, m, t)) return;   // bản sao so tài: hình nhân vật theo hồ sơ người kia (draw-duel.js)
+  if (m.dummy && drawDummy(ctx, game, m, t)) return;   // Mộc Nhân động phủ (draw-dummy.js)
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
   shadow(ctx, m.x, m.y + 1, r);

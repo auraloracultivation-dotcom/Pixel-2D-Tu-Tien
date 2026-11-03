@@ -9,6 +9,7 @@ import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
+import { caveRoom } from './friends.js';
 import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
@@ -202,11 +203,11 @@ export function createGame(data, screen, input, ui, audio) {
     game.story.notify('enter', id);
   };
 
-  // Bí cảnh là phòng riêng, chưa đồng bộ quái nên không hiện người khác
+  // Bí cảnh là phòng riêng, chưa đồng bộ quái nên không hiện người khác. Động phủ: phòng riêng của chủ nhà (game/friends.js caveRoom)
   function joinOnline() {
     if (!game.online) return;
-    const solo = (game.map.def.rooms || []).length > 0;
-    game.online.join(solo ? null : game.map.id, onlineLook(game))
+    const solo = (game.map.def.rooms || []).length > 0, home = game.map.id === data.home.map;
+    game.online.join(solo ? null : home ? caveRoom(game, game.online.me.id) : game.map.id, onlineLook(game))
       .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
   }
 

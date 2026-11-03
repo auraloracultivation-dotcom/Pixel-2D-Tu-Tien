@@ -1,4 +1,4 @@
-// Tab Xếp hạng trong bảng Đạo hữu: 3 bảng con (data/social.json rank), dữ liệu từ game/rank.js.
+// Tab Xếp hạng trong bảng Đạo hữu: các bảng con (data/social.json rank), dữ liệu từ game/rank.js.
 import { qtvLedgerButton } from './qtv-ledger.js';
 import { loadRank } from '../game/rank.js';
 import { realmLabel } from '../game/stats.js';
@@ -83,9 +83,9 @@ export function createRankView(game) {
     if (my !== ticket) return;
     const L = $('rank-list'); L.innerHTML = '';
     if (kind === 'qtv') { renderQtv(L, data); return; }
-    if (!data?.top?.length) return msg(R.empty);
+    if (!data?.top?.length) { msg(data?.missing ? R.dps_soon : R.empty); if (kind === 'dps') $('rank-note').textContent = R.dps_note; return; }
     for (const r of data.top) L.append(row(r));
-    $('rank-note').textContent = `${data.toi ? R.me.replace('{n}', data.toi.hang) : R.me_none} ${data.toi?.co ? R.me_flag : R.note}`;
+    $('rank-note').textContent = `${data.toi ? R.me.replace('{n}', data.toi.hang) : R.me_none} ${data.toi?.co ? R.me_flag : kind === 'dps' ? R.dps_note : R.note}`;   // Sát thương/giây: cách ghi kết quả Mộc Nhân
   }
 
   game.rankKind = id => { if (R.tabs.some(t => t.id === id)) kind = id; };   // mở thẳng một bảng (Bảng quản trị viên từ bảng báo lỗi)

@@ -8,6 +8,7 @@ export async function fetchRank(kind) {
     if (error) throw error;
     return data;
   }
+  if (kind === 'dps') return fetchDps();
   const fn = kind === 'gop_y' || kind === 'dmt' || kind.startsWith('bc:') ? 'p2d_bxh2_het' : 'p2d_bxh_het';   // bản _het: tất cả người chơi, không chỉ top 50 (20261103040000_p2d_bxh_het.sql)
   const { data, error } = await supabase.rpc(fn, { p_loai: kind });
   if (error) throw error;
@@ -30,5 +31,20 @@ export async function qtvLedger() {
 export async function qtvExchange(n) {
   const { data, error } = await supabase.rpc('p2d_qtv_doi', { p_n: n });
   if (error) throw new Error((error.message || '').match(/[a-z_]+/)?.[0] || 'net');
+  return data;
+}
+
+// Bảng Sát thương/giây (Mộc Nhân trong động phủ, supabase/migrations/20261104020000_p2d_dps.sql). Máy chủ chưa có hàm
+// (chưa chạy migration) thì trả bảng rỗng kèm missing để giao diện báo "đang chuẩn bị" thay vì lỗi.
+const missingFn = e => e?.code === 'PGRST202' || e?.code === '42883';
+async function fetchDps() {
+  const { data, error } = await supabase.rpc('p2d_bxh_dps');
+  if (error) { if (missingFn(error)) return { top: [], toi: null, missing: true }; throw error; }
+  return data;
+}
+// Gửi kết quả một lượt 60 giây; máy chủ giữ kết quả cao nhất, 55 giây một lần, chặn số vượt mức so với lực chiến
+export async function submitDps(dps) {
+  const { data, error } = await supabase.rpc('p2d_gui_dps', { p_dps: Math.round(dps) });
+  if (error) throw new Error(['qua_muc', 'cham_lai', 'chua_luu', 'so_sai'].find(c => (error.message || '').includes(c)) || 'net');
   return data;
 }
