@@ -124,7 +124,7 @@ function walk(game, x, y, dt) {
 }
 
 const nearest = (game, list) => { let b = null, bd = Infinity; for (const e of list) { const d = dist(e, game.player); if (d < bd) { bd = d; b = e; } } return b; };
-const alive = game => game.mobs.filter(m => !m.dead);
+const alive = game => game.mobs.filter(m => !m.dead && !m.dummy);   // Mộc Nhân không chết: tự hành không đánh mãi
 const tileOf = (game, at) => game.map.center(at[0], at[1]);
 
 // Việc tu luyện: đạo lữ đang ở nhà, hoặc trời đã tối, thì về động phủ; không thì ngồi bồ đoàn trên đảo này,

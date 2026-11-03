@@ -72,7 +72,7 @@ export function spawnPet(game) {
 
 function nearestMob(game, from, range) {
   let best = null, bd = range;
-  for (const m of game.mobs) { if (m.dead || m.def.ai === 'passive' && !m.aggro && m.hp === m.maxHp) continue; const d = dist(m, from); if (d < bd) { bd = d; best = m; } }
+  for (const m of game.mobs) { if (m.dead || (m.def.ai === 'passive' || m.dummy) && !m.aggro && m.hp === m.maxHp) continue; const d = dist(m, from); if (d < bd) { bd = d; best = m; } }
   return best;
 }
 

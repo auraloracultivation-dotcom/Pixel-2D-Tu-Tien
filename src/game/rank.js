@@ -22,6 +22,9 @@ function noteTitles(game, list) {
   game.rankTitles = list.map(t => ids[t.loai]).filter(Boolean);
 }
 
+// Bỏ bảng đã nhớ (vừa gửi kết quả Mộc Nhân thì lần mở sau tải lại bảng Sát thương/giây)
+export function dropRank(kind) { delete cache[kind]; }
+
 // Lúc vào game: hỏi một lần để biết tuần này mình có danh hiệu xếp hạng nào
 export function initRank(game) {
   game.rankTitles = [];

@@ -1,10 +1,13 @@
 // Tự động săn (nút Tự đánh): đánh quái thường quanh chỗ bật, không tự làm truyện, không đánh boss, không chạy trong bí cảnh, tháp, độ kiếp.
+// Trong động phủ thì đánh Mộc Nhân.
 import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
 
-export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && !game.map.def.indoor && !game.trib.active;
+// Trong nhà không tự đánh, trừ động phủ có Mộc Nhân (góp ý #114: tự đánh Mộc Nhân để đo sát thương/giây, game/dummy.js)
+const indoorOk = game => !game.map.def.indoor || (game.map.id === game.data.home.map && game.mobs.some(m => m.dummy));
+export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && indoorOk(game) && !game.trib.active;
 
 export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
@@ -21,7 +24,7 @@ export function autoStep(game, ax, dt = 0) {
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
-  const ok = m => m && !m.dead && m.hp > 0 && (dun || m.def.ai !== 'boss') && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius);
+  const ok = m => m && !m.dead && m.hp > 0 && (dun || m.def.ai !== 'boss') && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius);   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
   let tgt = null, bd = Infinity;
   for (const m of game.mobs) {
     if (!ok(m)) continue;
