@@ -1,6 +1,7 @@
 // Đồ rơi khi hạ quái: bật ra quanh xác rồi tự bay vào người chơi.
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
+import { quality } from './tiers.js';
 import { makeRoom } from './autoequip.js';
 import { pilotOpt } from './pilotopt.js';
 
@@ -47,8 +48,8 @@ function take(game, l) {
       if (!(game.pilot || game.auto) || !pilotOpt(game, 'phan-giai')) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
       if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành / tự đánh: phân giải món rẻ cho có chỗ
     }
-    const r = rarityOf(data.items, l.payload.rarity);
-    if (game.feed) game.feed(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, r.color || '#ffe6a0'); else game.toast(`Nhặt [${r.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
+    const q = quality(data, l.payload) || rarityOf(data.items, l.payload.rarity);   // tên phẩm theo màu dòng (Phàm…Thiên, Tiên, Thượng Cổ)
+    if (game.feed) game.feed(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, q.color || '#ffe6a0'); else game.toast(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
     game.newItems = (game.newItems || 0) + 1;
   } else if (l.kind === 'gem') {
     save.gems[l.payload] = (save.gems[l.payload] || 0) + 1;
