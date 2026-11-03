@@ -5,6 +5,7 @@
 // Chữ ở data/duel.json → thien_ma.
 import { startDuel } from './duel.js';
 import { loadPlayer } from './profile.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const net = () => import('../net/thienma.js');
 const T = game => game.data.duel.thien_ma;
@@ -26,7 +27,7 @@ export function startThienMa(game) {
     try { const all = await (await net()).tmList(), me = game.online?.me?.id; mine = all.find(t => t.id === me) || null; live = all.filter(t => t.id !== me); } catch { /* mạng lỗi: lần sau */ }
     btn.hidden = !tmLive();
   };
-  setInterval(poll, c.poll_s * 1000); setTimeout(poll, 3000);
+  every(poll, c.poll_s * 1000); setTimeout(poll, 3000);
 }
 
 export async function challenge(game) {

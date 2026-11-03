@@ -4,6 +4,7 @@
 // Tặng quà: máy chủ tự lấy món trong bản lưu trên máy chủ rồi gửi vào hòm thư người kia; máy này làm theo (như rao bán ở chợ).
 import { unsocket, isEquipped } from './items.js';
 import { addCoins } from './shop.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const net = () => import('../net/daolu.js');
 const T = game => game.data.social.dao_lu.text;
@@ -45,5 +46,5 @@ export async function giftDaoLu(game, loai, mon) {
 export function startDaoLu(game) {
   game.daoLuMul = () => (game.daoLu ? 1 + game.data.social.dao_lu.bonus : 1);
   let last = 0;
-  setInterval(() => { if (game.online && game.cloud && Date.now() - last > 300000) { last = Date.now(); loadDaoLu(game).catch(() => {}); } }, 5000);
+  every(() => { if (game.online && game.cloud && Date.now() - last > 300000) { last = Date.now(); loadDaoLu(game).catch(() => {}); } }, 5000);
 }

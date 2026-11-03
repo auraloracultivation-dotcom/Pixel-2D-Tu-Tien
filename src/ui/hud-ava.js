@@ -3,6 +3,7 @@
 // (cảnh giới × 9 + tầng). Chạm chân dung mở bảng nhân vật như chạm tên cảnh giới. Kiểu ở style-ui-kit2.css.
 import { spriteImage } from '../render/sprites.js';
 import { outfitSprite } from '../render/draw-hero.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const FRAME = { moc: 'hoa-sen', hoa: 'hoa', thuy: 'thuy', kim: 'kim', tho: 'kim' };
 // lòng vòng từng khung: [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng] (đo trên hình, tools/art/ui_kit2.py → AVA_HOLE)
@@ -37,5 +38,5 @@ export function createHudAva(game) {
     c.imageSmoothingEnabled = false;
     c.drawImage(im, cx - S / 2, Math.max(0, top), S, S, 0, 2, 40, 40);
   }
-  paint(); setInterval(paint, 1500);
+  paint(); every(paint, 3000);
 }

@@ -8,6 +8,7 @@ import { inboxState, notify, markRead, saveInbox } from './inbox.js';
 import { threads } from './whisper.js';
 import { worldState, pullWorld } from './world-chat.js';
 import { guildState, loadMine, guildChat, pullGuildChat, canGuild } from './guild.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
 const cut = (s, n = 90) => { s = String(s || ''); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
@@ -74,7 +75,7 @@ async function feedback(game, s, T) {
 export function startInbox(game) {
   const P = game.data.inbox.poll, T = game.data.inbox.text, last = {};
   const due = (k, sec) => { const now = Date.now(); if (now - (last[k] || 0) < sec * 1000) return false; last[k] = now; return true; };
-  setInterval(async () => {
+  every(async () => {
     if (!game.save || !game.online || !game.cloud) return;
     const s = inboxState(game);
     try {

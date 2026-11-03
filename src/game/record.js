@@ -4,6 +4,7 @@
 import { pickType, startRecording } from '../core/recorder.js';
 import { createRecordPanel } from '../ui/record-panel.js';
 import { giftReady, loggedIn } from './record-gift.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
@@ -81,6 +82,6 @@ export async function createRecord(game, audio) {
   document.addEventListener('visibilitychange', () => { if (document.hidden && rec) stop(T.hidden_stop); });
 
   paint();
-  setInterval(() => { if (!rec) paint(); }, 5000);   // đăng nhập xong, nhận quà xong thì đổi dấu trên nút
+  every(() => { if (!rec) paint(); }, 5000);   // đăng nhập xong, nhận quà xong thì đổi dấu trên nút
   return { start, stop, get recording() { return !!rec; } };
 }

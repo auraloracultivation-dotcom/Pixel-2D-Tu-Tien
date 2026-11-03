@@ -12,6 +12,8 @@ import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 
 const $ = id => document.getElementById(id);
+// Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
+const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 
 export function createHud(audio) {
   const dialog = createDialog(() => audio.play('talk'));
@@ -93,7 +95,8 @@ export function createHud(audio) {
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);
     $('boss').hidden = !boss;
-    if (boss) { $('boss-name').textContent = boss.def.name; $('boss-fill').style.width = boss.hp / boss.maxHp * 100 + '%'; }
+    if (boss && $('boss-name').textContent !== boss.def.name) $('boss-name').textContent = boss.def.name;
+    if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }
 
     const slots = skillSlots(game);
     for (let i = 0; i < 3; i++) {
@@ -103,7 +106,7 @@ export function createHud(audio) {
       const lbl = b.querySelector('b');
       if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); }
       const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
-      b.style.setProperty('--cd', cd.toFixed(3));
+      css(b, '--cd', cd.toFixed(3));
     }
     $('bag-badge').hidden = !game.newItems;
     $('skills-badge').hidden = !game.newSkills;
@@ -123,15 +126,15 @@ export function createHud(audio) {
     if (pn) {
       const t = `Đan ${pn}`;
       if (pb.querySelector('b').textContent !== t) pb.querySelector('b').textContent = t;
-      pb.style.setProperty('--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
+      css(pb, '--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
     }
     const art = artSkill(s, d), ab = $('btn-art');
     ab.hidden = !art;
     if (art) {
       if (ab.querySelector('b').textContent !== d.skills[art].name) ab.querySelector('b').textContent = d.skills[art].name;
-      ab.style.setProperty('--cd', (Math.max(0, p.artCd || 0) / (d.skills[art].cd * (1 - p.st.cdr))).toFixed(3));
+      css(ab, '--cd', (Math.max(0, p.artCd || 0) / (d.skills[art].cd * (1 - p.st.cdr))).toFixed(3));
     }
-    $('btn-dash').style.setProperty('--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
+    css($('btn-dash'), '--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

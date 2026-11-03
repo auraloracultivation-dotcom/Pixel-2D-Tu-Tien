@@ -3,6 +3,7 @@
 // ai đã vào nhóm, nên bấm mở link là nhận; ngọc nằm trong bản lưu như ngọc rơi khi đánh quái (máy chủ không giữ riêng).
 // Bảng dựng bằng code (không thêm vào index.html).
 import { gemInfo } from '../game/items.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -73,5 +74,5 @@ export function createZalo(game) {
     root.hidden = false; game.uiOpen = true; render();
   });
   paint();
-  setInterval(paint, 1000);   // bản lưu đổi khi đăng nhập / chơi thử: chấm quà tự cập nhật
+  every(paint, 3000);   // bản lưu đổi khi đăng nhập / chơi thử: chấm quà tự cập nhật
 }

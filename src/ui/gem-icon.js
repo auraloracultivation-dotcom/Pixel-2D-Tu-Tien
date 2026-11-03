@@ -1,6 +1,7 @@
 // Hình ngọc khảm theo loại và cấp (data/art.json gem.<loại>-<cấp>, tools/art/gems_ai.py): canvas phóng nguyên lần, pixelated.
 // Cấp cao có khung động (vệt sáng, sao lấp lánh, hào quang): tự chạy khi ô còn trên màn hình, tự dừng khi bị gỡ.
 import { spriteImage } from '../render/sprites.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const FPS = 7, MOVE_FROM = 6;   // cấp 6 trở lên mới có khung động (data gems_ai: vệt sáng từ cấp 6)
 
@@ -15,7 +16,7 @@ export function gemIcon(game, key, size = 28, cls = 'gem-ico') {
   const ctx = cv.getContext('2d');
   const draw = f => { const im = spriteImage(spr); if (!im) return false; ctx.clearRect(0, 0, spr.w, spr.h); ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, 0, 0, spr.w, spr.h); return true; };
   let f = 0, tries = 0;
-  const id = setInterval(() => {
+  const id = every(() => {
     if (tries > 4 && !cv.isConnected) return clearInterval(id);   // ô đã bị vẽ lại / đóng bảng
     tries++;
     if (!draw(f)) return;

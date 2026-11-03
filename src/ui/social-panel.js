@@ -6,6 +6,7 @@ import { worldState, pullWorld, sendWorld, unblockAll } from '../game/world-chat
 import { chatLines } from './chat-line.js';
 import { renderWhisper } from './whisper-view.js';
 import { whisperState, pullWhisper, sendWhisper, unreadCount } from '../game/whisper.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const $ = id => document.getElementById(id);
 
@@ -112,13 +113,13 @@ export function createSocialPanel(game) {
   $('btn-social').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   $('btn-rank').textContent = S.rank.tab;
   $('btn-rank').addEventListener('pointerdown', ev => { ev.stopPropagation(); open('rank'); });
-  setInterval(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
+  every(() => {   // có tin mới: chấm đỏ ở nút; đang mở bảng thì vẽ lại
     $('social-badge').hidden = !(game.chatNew || unreadCount(game)) || !$('social').hidden;
     const wOpen = !$('social').hidden && tab === 'whisper';   // truyền âm: đọc tin mới định kỳ (mở tab thì nhanh hơn)
     if (game.online && Date.now() - wPullT > S.whisper[wOpen ? 'open_poll' : 'poll'] * 1000) { wPullT = Date.now(); pullWhisper(game).then(n => n && wOpen && tab === 'whisper' && render()); }
     if (!$('social').hidden && game.chatNew && tab === 'chat') render();
     if (!$('social').hidden && tab === 'world' && Date.now() - pullT > w.poll * 1000) { pullT = Date.now(); pullWorld(game).then(n => n && tab === 'world' && render()); }
-  }, 500);
+  }, 1000);
   // Nhắn riêng một người (chạm tin ở kênh Thế giới, tông môn → Truyền âm)
   game.closeSocial = () => { if (!$('social').hidden) close(); };   // So tài từ hồ sơ (ui/profile-panel.js)
   game.openSocial = to => { if ($('social').hidden) open(to); else showTab(to); };   // Hòm thư: chạm tin nhắc tên ở kênh Thế giới
