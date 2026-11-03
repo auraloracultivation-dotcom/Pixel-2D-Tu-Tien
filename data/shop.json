@@ -24,7 +24,7 @@
   "ba-do-den": {"kind": "pill", "id": "tinh-lien-dan", "price": 4000, "per_day": 1, "line": "Tĩnh Liên Đan, cả tinh hệ chỉ ta còn giữ công thức."},
   "tieu-moc-linh": {"kind": "pill", "id": "tu-van-dan", "price": 1200, "per_day": 2, "line": "Tử Vân Đan của làng tinh linh, linh khí tím biếc."},
   "ong-hai-nam": {"kind": "pill", "id": "tay-tuy-dan", "price": 50000, "per_day": 1, "line": "Tẩy Tủy Đan từ nấm linh chi vạn năm, nâng phẩm linh căn."},
-  "co-ban-nuoc": {"kind": "mat", "id": "dao-van-thach", "price": 5000, "per_day": 1, "line": "Đá dưới đáy giếng kim sa đã nhiễm đạo vận, đổi hệ trang bị được."},
+  "co-ban-nuoc": {"kind": "mat", "id": "dao-van-thach", "price": 50000, "per_day": 1, "line": "Đá dưới đáy giếng kim sa đã nhiễm đạo vận, đổi hệ trang bị được."},
   "lao-nong": {"kind": "mat", "id": "manh-phap-bao", "price": 3000, "per_day": 2, "line": "Cày ruộng hay gặp mảnh pháp bảo cổ, ngươi cần thì mua."},
   "chi-ganh-da": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."},
   "be-la": {"kind": "outfit", "id": "thanh-sam", "price": 800, "line": "Áo thanh sam mẹ cháu may, mặc vào thư sinh lắm!"},
