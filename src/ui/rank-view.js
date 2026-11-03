@@ -21,7 +21,7 @@ export function createRankView(game) {
 
   function value(r) {
     if (kind === 'canh_gioi') return realmLabel({ realm: r.canh_gioi, layer: r.tang }, game.data.realms);
-    return (R.value[kind] || '{v}').replace('{v}', r.gia_tri.toLocaleString('vi-VN'));
+    return (R.value[kind] || '{v}').replace('{v}', Number(r.gia_tri ?? r.diem ?? 0).toLocaleString('vi-VN'));
   }
 
   // Người bị gắn cờ nghi vấn (máy chủ trả co): tên đỏ, cờ cạnh tên. Chạm dòng: mở hồ sơ người đó (ui/profile-panel.js)
