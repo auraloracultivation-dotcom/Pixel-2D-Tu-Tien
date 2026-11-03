@@ -2,6 +2,7 @@
 import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
 import { weaponId } from './stats.js';
+import { unstuck } from './unstuck.js';
 
 export const autoAllowed = game => !(game.map.def.rooms || []).length && !game.map.def.tower && !game.map.def.res && !game.map.def.indoor && !game.trib.active;
 
@@ -13,13 +14,13 @@ export function toggleAuto(game) {
 }
 
 // Gọi khi người chơi không tự đẩy cần: trả về hướng đi và có đánh thường không; bấm chiêu đã hồi
-export function autoStep(game, ax) {
+export function autoStep(game, ax, dt = 0) {
   const p = game.player, cfg = game.data.config.auto;
   if (!game.auto) return { ax, atk: false };
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
-  const ok = m => m && !m.dead && m.hp > 0 && m.def.ai !== 'boss' && !m.story && game.mobs.includes(m) && Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius;
+  const ok = m => m && !m.dead && m.hp > 0 && m.def.ai !== 'boss' && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius;
   let tgt = null, bd = Infinity;
   for (const m of game.mobs) {
     if (!ok(m)) continue;
@@ -30,8 +31,10 @@ export function autoStep(game, ax) {
   const cur = game.autoTgt;
   if (ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
   game.autoTgt = tgt;
-  if (!tgt) return { ax: Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };
-  return fightStep(game, tgt, ax);
+  const r = tgt ? fightStep(game, tgt, ax) : { ax: Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };
+  // Chống kẹt (báo lỗi #102, #117): đuổi mãi sau nhà, cây, cột đá mà không nhích thì bỏ con này một lúc (skipUntil, tự hành cũng tránh),
+  // khung sau chọn con khác hoặc đi về chỗ săn; trước đó bước ngang một chút cho thoát góc (unstuck.js)
+  return unstuck(game, r, dt, () => { if (tgt) tgt.skipUntil = Date.now() + game.data.config.unstuck.skip * 1000; game.autoTgt = null; });
 }
 
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };

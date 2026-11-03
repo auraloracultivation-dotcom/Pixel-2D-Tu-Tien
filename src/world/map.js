@@ -21,10 +21,12 @@ export function buildMap(def, tiles, T, data = null) {
 
   map.at = (tx, ty) => (ty < 0 || ty >= map.h || tx < 0 || tx >= w) ? '~' : g[ty][tx];
   map.type = (tx, ty) => tiles.types[map.at(tx, ty)] || tiles.types['~'];
-  map.solidTile = (tx, ty) => { const k = tx + ',' + ty; return ((map.type(tx, ty).solid || hc.solid.has(k)) && !hc.open.has(k)) || map.locked.has(k) || rimOut(tx, ty); };
+  // flat (data/tiles.json): đá nhỏ chìm sát đất, vẽ như vật nhưng đi qua được (báo lỗi #102, #117: tự đánh kẹt sau đá)
+  const hard = k => k.solid && !k.flat;
+  map.solidTile = (tx, ty) => { const k = tx + ',' + ty; return ((hard(map.type(tx, ty)) || hc.solid.has(k)) && !hc.open.has(k)) || map.locked.has(k) || rimOut(tx, ty); };
   map.edge = (tx, ty) => map.at(tx, ty) === '~' || !!rimOut(tx, ty);   // mép tinh cầu (câu cá được)
   // Đạn bay qua biển mây và dung nham nhưng vỡ khi chạm tường, cây, nhà
-  map.wallTile = (tx, ty) => { const k = map.type(tx, ty), c = tx + ',' + ty; return (k.solid && !k.void && !k.low && !hc.open.has(c)) || hc.solid.has(c) || map.locked.has(c); };
+  map.wallTile = (tx, ty) => { const k = map.type(tx, ty), c = tx + ',' + ty; return (hard(k) && !k.void && !k.low && !hc.open.has(c)) || hc.solid.has(c) || map.locked.has(c); };
 
   map.blocked = (x, y, r) => {
     const x0 = Math.floor((x - r) / T), x1 = Math.floor((x + r) / T);

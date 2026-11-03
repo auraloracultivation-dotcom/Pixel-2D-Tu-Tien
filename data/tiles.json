@@ -1,5 +1,5 @@
 {
- "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ, brick gạch phố lễ hội, paving sân lát lễ hội. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được.",
+ "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ, brick gạch phố lễ hội, paving sân lát lễ hội. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được. flat: vật thấp, chìm sát đất (đá nhỏ): vẫn vẽ như vật nhưng người, quái đi qua được, đạn bay qua (báo lỗi #102, #117, chủ dự án 04/11/2026: đá chìm, phẳng thì đi qua; đá nhô cao như cột đá I, đá linh căn S, núi ^ vẫn chắn).",
  "types": {
   "~": {"name": "tinh không", "solid": true, "void": true},
   ".": {"name": "cỏ", "color": "#7cc46a"},
@@ -10,7 +10,7 @@
   "#": {"name": "vách đá", "solid": true, "color": "#1f1830"},
   "T": {"name": "cây", "solid": true, "color": "#7cc46a"},
   "H": {"name": "nhà", "solid": true, "color": "#7cc46a"},
-  "R": {"name": "đá", "solid": true, "color": "#7cc46a"},
+  "R": {"name": "đá", "solid": true, "flat": true, "color": "#7cc46a"},
   "S": {"name": "đá linh căn", "solid": true, "color": "#d8d2c4"},
   "M": {"name": "bồ đoàn đả tọa", "color": "#d8d2c4"},
   "P": {"name": "cổng truyền tống", "color": "#d8d2c4"},
