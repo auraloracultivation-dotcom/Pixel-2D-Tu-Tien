@@ -1,5 +1,6 @@
 // Trang bị chỉ số ngẫu nhiên, ngọc khảm, tẩy luyện, phân giải. Số liệu ở data/items.json.
 // Mọi thay đổi đi qua các hàm ở đây để sau này chuyển sang hàm máy chủ (RPC) cho dễ.
+import { openSocket4 } from './socket4.js';
 import { newLine, convertLines, addLine, linesFull, ensureCap, rollCap, tierOf, pickTier } from './tiers.js';
 
 export function ensureInv(save) {
@@ -131,7 +132,9 @@ export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = D
   if (!free && ((save.mats['tay-luyen-thach'] || 0) < cost || (save.lingshi || 0) < fee)) return false;
   if (free) it.free -= 1;
   else { save.mats['tay-luyen-thach'] -= cost; save.lingshi -= fee; it.rr = rerollCount(data, it, now) + 1; it.rrDay = dayNo(now); }
-  return addLine(data, it, data.items.bases[it.base].pool, rnd);
+  const res = addLine(data, it, data.items.bases[it.base].pool, rnd);
+  if (res) openSocket4(data, it);   // tẩy lên phẩm Tiên / Thượng Cổ: mở ô khảm thứ 4
+  return res;
 }
 
 // Ngọc: khoá "loại:cấp", ví dụ "hong-ngoc:1"
