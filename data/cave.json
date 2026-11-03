@@ -121,7 +121,7 @@
   "nguyet-ngu-thang": {"name": "Nguyệt Ngư Thang", "color": "#e8f0ff", "desc": "Canh trong như ánh trăng. Nhận ngay linh khí bằng 8% tầng hiện tại.", "use": {"qi": 0.08}, "recipe": {"nguyet-ngu": 2, "linh-thao": 2}, "make": 2, "rate": 0.9}
  },
  "forge": [
-  {"id": "ren-thuong", "name": "Rèn thường", "desc": "Rèn một món theo ô đã chọn, ít nhất 2★.", "cost": {"tinh-thiet": 4}, "min_rarity": "linh"},
-  {"id": "ren-tinh", "name": "Rèn tinh", "desc": "Lửa Hỏa Linh Chi, ít nhất 3★.", "cost": {"tinh-thiet": 10, "hoa-linh-chi": 2, "tay-luyen-thach": 2}, "min_rarity": "huyen"}
+  {"id": "ren-thuong", "name": "Rèn thường", "desc": "Rèn một món theo ô đã chọn, ít nhất phẩm Linh.", "cost": {"tinh-thiet": 4}, "min_rarity": "linh"},
+  {"id": "ren-tinh", "name": "Rèn tinh", "desc": "Lửa Hỏa Linh Chi, ít nhất phẩm Huyền.", "cost": {"tinh-thiet": 10, "hoa-linh-chi": 2, "tay-luyen-thach": 2}, "min_rarity": "huyen"}
  ]
 }

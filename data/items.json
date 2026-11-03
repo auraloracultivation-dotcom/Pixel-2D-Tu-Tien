@@ -12,8 +12,7 @@
   "nhan": "Nhẫn",
   "phap-bao": "Pháp bảo"
  },
- "_rarities": "Bậc gốc của món (chủ dự án 03/11/2026 10:46: bỏ tên Phàm/Linh/Huyền/Địa/Thiên cho khỏi lẫn với màu phẩm Lục…Đen): 1★–5★ quyết định số lỗ khảm (sockets), hệ số chỉ số chính (mult), số Tẩy Luyện Thạch khi phân giải. Màu phẩm hiện trên món theo dòng tẩy luyện (line_tiers).",
- "rarities": [{"id": "pham", "name": "1★", "color": "#c8c4d0", "weight": 60, "lines": 1, "sockets": 0, "mult": 1.0, "salvage": 1}, {"id": "linh", "name": "2★", "color": "#5fd07a", "weight": 28, "lines": 2, "sockets": 1, "mult": 1.2, "salvage": 2}, {"id": "huyen", "name": "3★", "color": "#5ab8f0", "weight": 9, "lines": 3, "sockets": 1, "mult": 1.45, "salvage": 3}, {"id": "dia", "name": "4★", "color": "#b070ff", "weight": 2.6, "lines": 4, "sockets": 2, "mult": 1.75, "salvage": 6}, {"id": "thien", "name": "5★", "color": "#ffb03a", "weight": 0.4, "lines": 5, "sockets": 3, "mult": 2.1, "salvage": 12}],
+ "rarities": [{"id": "pham", "name": "Phàm", "color": "#c8c4d0", "weight": 60, "lines": 1, "sockets": 0, "mult": 1.0, "salvage": 1}, {"id": "linh", "name": "Linh", "color": "#5fd07a", "weight": 28, "lines": 2, "sockets": 1, "mult": 1.2, "salvage": 2}, {"id": "huyen", "name": "Huyền", "color": "#5ab8f0", "weight": 9, "lines": 3, "sockets": 1, "mult": 1.45, "salvage": 3}, {"id": "dia", "name": "Địa", "color": "#b070ff", "weight": 2.6, "lines": 4, "sockets": 2, "mult": 1.75, "salvage": 6}, {"id": "thien", "name": "Thiên", "color": "#ffb03a", "weight": 0.4, "lines": 5, "sockets": 3, "mult": 2.1, "salvage": 12}],
  "stats": {
   "atk": {"name": "Công", "min": 2, "max": 6},
   "atk_pct": {"name": "Công", "min": 3, "max": 8, "pct": true},
