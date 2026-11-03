@@ -108,5 +108,22 @@
   "visiting": "Đây là động phủ của đạo hữu khác. Về động phủ của mình rồi gọi ta bày đồ nhé.",
   "lines": ["Chủ nhân muốn sắm gì cho động phủ?", "Nhà có đẹp thì về mới vui."],
   "bought": ["Để con bày ngay!", "Đẹp quá! Chủ nhân có mắt nhìn."]
+ },
+ "dummy": {
+  "_note": "Mộc Nhân (chủ dự án 04/11/2026, góp ý #114): hình nộm gỗ đứng ở at (ô) trong động phủ, không chết, không đánh. Đánh trúng lần đầu thì bắt đầu đếm; trên đầu hiện sát thương/giây đang chạy. Đánh liền test_s giây là xong một lượt: sát thương/giây = tổng ÷ test_s, giữ kết quả cao nhất ở save.dpsBest và gửi lên bảng xếp hạng Sát thương/giây (supabase/migrations/20261104020000_p2d_dps.sql). Ngừng đánh idle_s giây thì Mộc Nhân dừng đếm. Chữ kết quả hiện show_s giây. src/game/dummy.js, vẽ ở src/render/draw-dummy.js.",
+  "mob": "moc-nhan",
+  "at": [16, 6],
+  "test_s": 60,
+  "idle_s": 5,
+  "show_s": 8,
+  "run": "{dps}/giây · còn {s} giây",
+  "stop": "Đã dừng (ngừng đánh {idle} giây)",
+  "done": "Kết quả: {dps}/giây",
+  "idle": "Mộc Nhân · đánh 60 giây để đo",
+  "best": "Mộc Nhân · kỷ lục {best}/giây",
+  "toast": "Mộc Nhân: {dps} sát thương/giây (kỷ lục {best}).",
+  "toast_best": "Mộc Nhân: {dps} sát thương/giây, kỷ lục mới!",
+  "sent": "Đã ghi lên bảng xếp hạng Sát thương/giây.",
+  "err": {"qua_muc": "Máy chủ không nhận kết quả này (vượt mức so với lực chiến).", "cham_lai": "Gửi kết quả quá nhanh, lượt sau sẽ gửi lại.", "chua_luu": "Chưa có bản lưu trên máy chủ, chưa ghi lên bảng.", "net": "Chưa gửi được kết quả lên bảng xếp hạng, lượt sau sẽ gửi lại."}
  }
 }

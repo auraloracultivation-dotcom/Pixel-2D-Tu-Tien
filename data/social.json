@@ -171,6 +171,10 @@
    {
     "id": "bc",
     "label": "Bí cảnh"
+   },
+   {
+    "id": "dps",
+    "label": "Sát thương/giây"
    }
   ],
   "titles": {
@@ -191,8 +195,11 @@
    "thap": "tầng {v}",
    "gop_y": "{v} góp ý được nhận",
    "dmt": "{v} trận",
-   "bc": "qua {v} bậc"
+   "bc": "qua {v} bậc",
+   "dps": "{v} sát thương/giây"
   },
+  "dps_note": "Đánh Mộc Nhân trong động phủ đủ 60 giây liền để ghi kết quả (sát thương/giây = tổng sát thương ÷ 60). Bảng giữ kết quả cao nhất của mỗi người.",
+  "dps_soon": "Bảng Sát thương/giây đang được máy chủ chuẩn bị, quay lại sau nhé.",
   "flag": "⚑",
   "flag_title": "Bị hệ thống gắn cờ nghi vấn gian lận",
   "me_flag": "Tài khoản của bạn đang bị gắn cờ nghi vấn, không nhận danh hiệu tuần.",

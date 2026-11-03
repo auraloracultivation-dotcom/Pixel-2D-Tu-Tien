@@ -42,7 +42,7 @@ export function updateParty(game, dt) {
   const pl = game.player, pos = { x: Math.round(pl.x), y: Math.round(pl.y), fx: +pl.face.x.toFixed(2), fy: +pl.face.y.toFixed(2), sw: pl.swingT > 0.15 ? 1 : 0 };
   if (isHost(game)) {
     s.t = P(game).snap;
-    const m = game.mobs.filter(k => !k.dead && k.uid).map(k => [k.uid, k.id, Math.round(k.x), Math.round(k.y), Math.max(1, Math.round(k.hp)), k.maxHp,
+    const m = game.mobs.filter(k => !k.dead && k.uid && !k.dummy).map(k => [k.uid, k.id, Math.round(k.x), Math.round(k.y), Math.max(1, Math.round(k.hp)), k.maxHp,
       k.state === 'idle' ? 0 : 1, k.tele ? [k.tele.type, k.tele.r || 0, +(k.tele.a || 0).toFixed(2), k.tele.len || 0, +(k.tele.k || 0).toFixed(2)] : 0, k.rare ? 1 : 0]);
     send(game, { t: 'snap', pos, m, b: s.shots }); s.shots = [];
   } else {

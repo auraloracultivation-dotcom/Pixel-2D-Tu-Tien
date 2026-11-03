@@ -2,6 +2,7 @@
 // Mỗi ngày còn có một người bạn đã thân hoặc một khách phương xa ghé chơi (visit, game/visitors.js). Có chuông gió thì thỉnh thoảng nghe leng keng.
 import { daoLuHere, daoLu, affinity } from './affinity.js';
 import { spawnHomePets, updateHomePets } from './home-pets.js';
+import { spawnDummy } from './dummy.js';
 import { phase, hourNow } from './daynight.js';
 import { grant } from './daily.js';
 import { bump } from './achieve.js';
@@ -48,6 +49,7 @@ function welcome(game, id) {
 // Gọi khi vào bản đồ: ở động phủ thì đạo lữ ngồi chờ (trừ khi đang đi cùng), khách hôm nay ngồi bên kia
 export function spawnHome(game) {
   spawnHomePets(game);   // linh thú bắt được đi lại trong sân (src/game/home-pets.js)
+  spawnDummy(game);   // Mộc Nhân đo sát thương/giây (src/game/dummy.js), nhà mình hay nhà bạn đều có
   if (game.map.id !== C(game).map || game.visiting) return;   // thăm nhà bạn: không gọi đạo lữ, khách nhà mình ra
   const id = daoLuHere(game);
   if (id && game.save.companion !== id && seat(game, id, C(game).at, 'home')) welcome(game, id);
