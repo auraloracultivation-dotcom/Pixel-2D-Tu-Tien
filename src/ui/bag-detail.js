@@ -148,10 +148,11 @@ export function renderDetail(game, st, box, changed, close) {
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
+    const p0 = power(game, playerStats(save, data));
     const res = reroll(data, save, it.uid);
     if (!res || res.full) return;
-    const t = tierOf(data, res.line.t);
-    st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
+    const t = tierOf(data, res.line.t), gain = Math.round(power(game, playerStats(save, data)) - p0);   // góp ý #77: hiện rõ món mạnh lên bao nhiêu (phẩm có thể tụt khi dòng mới màu thấp)
+    st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
     game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal'); changed();
   }, full || (!free && (stones < cost || (save.lingshi || 0) < fee)));
   const iron = data.cave.salvage_iron[it.rarity] || 0;

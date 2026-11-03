@@ -42,7 +42,7 @@ const read = f => JSON.parse(readFileSync(join('data', f), 'utf8'));
 try {
   const cfg = read('config.json'), tiles = read('tiles.json'), mobs = read('mobs.json'), npcs = read('npcs.json');
   const skills = read('skills.json'), elements = read('elements.json'), weapons = read('weapons.json'), story = read('story.json');
-  const items = read('items.json'), quests = read('quests.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), comps = read('companions.json'), shop = read('shop.json'), wb = read('worldboss.json');
+  const items = read('items.json'), techs = read('techniques.json'), cave = read('cave.json'), pets = read('pets.json'), daily = read('daily.json'), gear = read('gear.json'), comps = read('companions.json'), shop = read('shop.json'), wb = read('worldboss.json');
   const maps = Object.fromEntries(cfg.maps.map(id => [id, read(`maps/${id}.json`)]));
   const need = (ok, msg) => { if (!ok) errors.push(msg); };
   for (const [id, m] of Object.entries(maps)) {
