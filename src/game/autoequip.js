@@ -40,7 +40,7 @@ export function autoEquip(game) {
 export function makeRoom(game, item) {
   const s = game.save, d = game.data, R = d.items.rarities.map(r => r.id), cheap = R.slice(0, 2);
   const rank = it => R.indexOf(it.rarity);
-  const old = s.bag.filter(i => cheap.includes(i.rarity) && !isEquipped(s, i.uid) && rank(i) <= rank(item)).sort((a, b) => rank(a) - rank(b) || a.uid - b.uid)[0];
+  const old = s.bag.filter(i => cheap.includes(i.rarity) && !i.lock && !isEquipped(s, i.uid) && rank(i) <= rank(item)).sort((a, b) => rank(a) - rank(b) || a.uid - b.uid)[0];
   const gone = old || item, name = `[${rarityOf(d.items, gone.rarity).name}] ${itemName(d, gone)}`;
   if (old) salvage(d, s, old.uid);
   else s.mats['tay-luyen-thach'] = (s.mats['tay-luyen-thach'] || 0) + rarityOf(d.items, item.rarity).salvage;

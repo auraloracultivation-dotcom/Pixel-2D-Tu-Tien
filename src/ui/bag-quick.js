@@ -12,7 +12,7 @@ function el(tag, cls, text) {
 
 // st: trạng thái túi (st.quick = { open, pick: [phẩm theo màu dòng, data/items.json → line_tiers.list] }); changed: lưu và vẽ lại túi
 export function renderQuick(game, box, st, changed) {
-  const { data } = game, q = (st.quick ??= { open: false, pick: [...data.shop.quick.pick] });
+  const { data } = game, sv = game.save.autoSell, q = (st.quick ??= { open: false, pick: sv?.on && sv.tiers?.length ? [...sv.tiers] : [...data.shop.quick.pick] });
   const wrap = el('div', 'quick-sell');
   const toggle = el('button', 'mini' + (q.open ? ' on' : ''), q.open ? 'Đóng bán nhanh' : 'Bán nhanh');
   toggle.onclick = () => { q.open = !q.open; changed(false); };
@@ -40,7 +40,13 @@ export function renderQuick(game, box, st, changed) {
     if (r.n) { game.sfx('pickup'); game.toast?.(`Đã bán ${r.n} món, nhận ${r.coins.toLocaleString('vi-VN')} ${data.shop.name}`); }
     st.sel = null; changed(true);
   };
+  const as = (game.save.autoSell ??= { on: false, tiers: [] });   // góp ý #86: tự bán khi túi đầy theo đúng các phẩm đang chọn
+  const auto = el('label', 'quick-auto'), cb = el('input');
+  cb.type = 'checkbox'; cb.id = 'quick-auto-cb'; cb.checked = !!as.on;
+  cb.onchange = () => { as.on = cb.checked; as.tiers = [...q.pick]; game.persist(); changed(false); };
+  if (as.on && as.tiers.join() !== q.pick.join()) { as.tiers = [...q.pick]; game.persist(); }   // đổi phẩm chọn thì tự bán theo phẩm mới
+  auto.append(cb, document.createTextNode(' Tự bán các phẩm này khi túi đầy'));
   const names = q.pick.map(id => data.items.line_tiers.list.find(t => t.id === id)?.name).filter(Boolean).join(', ');
-  wrap.append(chips, el('div', 'muted tiny', `Bán hết đồ ${names || '(chưa chọn phẩm chất)'} trong túi. Không bán đồ đang mặc, đồ đã khoá, đồ Đạo Vận, đồ đã cường hoá.`), go);
+  wrap.append(chips, auto, el('div', 'muted tiny', `Bán hết đồ ${names || '(chưa chọn phẩm chất)'} trong túi. Không bán đồ đang mặc, đồ đã khoá, đồ Đạo Vận, đồ đã cường hoá.`), go);
   box.append(wrap);
 }

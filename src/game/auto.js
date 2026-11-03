@@ -3,7 +3,7 @@ import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
 import { weaponId } from './stats.js';
 
-export const autoAllowed = game => !(game.map.def.rooms || []).length && !game.map.def.tower && !game.map.def.res && !game.map.def.indoor && !game.trib.active;
+export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && !game.map.def.indoor && !game.trib.active;
 
 export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
@@ -19,7 +19,8 @@ export function autoStep(game, ax) {
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
-  const ok = m => m && !m.dead && m.hp > 0 && m.def.ai !== 'boss' && !m.story && game.mobs.includes(m) && Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius;
+  const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
+  const ok = m => m && !m.dead && m.hp > 0 && (dun || m.def.ai !== 'boss') && !m.story && game.mobs.includes(m) && (dun || Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius);
   let tgt = null, bd = Infinity;
   for (const m of game.mobs) {
     if (!ok(m)) continue;
@@ -30,7 +31,7 @@ export function autoStep(game, ax) {
   const cur = game.autoTgt;
   if (ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
   game.autoTgt = tgt;
-  if (!tgt) return { ax: Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };
+  if (!tgt) return { ax: !dun && Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };   // bí cảnh hết quái: đứng chờ (tự đi cổng / phòng kế do người chơi)
   return fightStep(game, tgt, ax);
 }
 
@@ -41,7 +42,10 @@ export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(gam
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
   const slots = skillSlots(game);
-  if (bd < reach + 30 && see) for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
+  if (bd < reach + 30 && see) {
+    for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
+    if ((p.artCd || 0) <= 0) game.input.pressed.add('art');   // góp ý #111: chiêu pháp bảo đã hồi thì tự dùng (không có pháp bảo thì nút không làm gì)
+  }
   return bd > reach || !see ? { ax: toward(p, tgt.x, tgt.y), atk: false } : { ax, atk: true };
 }
 
