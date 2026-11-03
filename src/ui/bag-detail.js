@@ -60,7 +60,7 @@ export function renderDetail(game, st, box, changed, close) {
   box.innerHTML = '';
   const it = save.bag.find(i => i.uid === st.sel);
   if (!it) return false;
-  const r0 = rarityOf(data.items, it.rarity), q = quality(data, it), r = q ? { ...r0, name: `Phẩm ${q.name}`, color: q.edge || q.color } : r0, base = data.items.bases[it.base], slot = base.slot;
+  const r0 = rarityOf(data.items, it.rarity), q = quality(data, it), r = q ? { ...r0, name: `Phẩm ${q.name} · ${r0.name}`, color: q.edge || q.color } : r0, base = data.items.bases[it.base], slot = base.slot;
   const worn = save.equip[slot] === it.uid, cur = !worn && save.bag.find(i => i.uid === save.equip[slot]);
 
   // đầu tấm: biểu tượng, tên, ô, nút đóng

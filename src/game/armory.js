@@ -1,4 +1,4 @@
-// Quản Binh Khố (Thiên Kiếm Phong): mỗi loại vũ khí được lĩnh miễn phí một món phẩm Phàm để thử cách đánh.
+// Quản Binh Khố (Thiên Kiếm Phong): mỗi loại vũ khí được lĩnh miễn phí một món 1★ để thử cách đánh.
 import { rollItem, addItem, equip } from './items.js';
 import { totalLayer } from './stats.js';
 
