@@ -30,7 +30,7 @@ export function createBag(game) {
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
     b.style.setProperty('--rar', q ? q.edge || q.color : r.color);
     b.dataset.o = q ? q.id : r.id;   // ô đồ theo độ hiếm (style-ui-kit2.css)
-    b.append(icon(data, it), el('b', null, (it.lock ? '🔒' : '') + itemName(data, it)), el('small', null, `${q ? 'Phẩm ' + q.name + ' · ' : ''}${r.name} · ${it.lines.length} dòng · cấp ${it.lvl}`));
+    b.append(icon(data, it), el('b', null, (it.lock ? '🔒' : '') + itemName(data, it)), el('small', null, `${q ? 'Phẩm ' + q.name : r.name} · ${it.lines.length} dòng · cấp ${it.lvl}`));
     if (gain > 0) b.append(el('em', 'up', '▲ ' + gain.toLocaleString('vi-VN')));
     b.onclick = () => pick(it.uid);
     return b;
