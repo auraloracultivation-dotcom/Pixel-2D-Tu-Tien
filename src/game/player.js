@@ -174,7 +174,8 @@ export function updatePlayer(game, dt) {
 
   // Nút Đan: uống đan hồi máu
   p.pillCd = (p.pillCd || 0) - dt;
-  const pid = game.data.cave.pill_button, low = (game.pilot || game.auto) && pilotOpt(game, 'dan') && p.hp < p.maxHp * game.data.config.pilot.pill_hp && (game.save.pills?.[pid] || 0) > 0;   // tự hành, tự đánh: máu thấp thì tự uống đan
+  const pid = game.data.cave.pill_button, ap = game.save.autoPillPct || 0;   // góp ý #106: tự uống khi máu dưới mức % người chơi cài (Túi đồ → Đan dược), cả lúc tự tay đánh
+  const low = (game.save.pills?.[pid] || 0) > 0 && (ap > 0 ? p.hp > 0 && p.hp < p.maxHp * ap : (game.pilot || game.auto) && pilotOpt(game, 'dan') && p.hp < p.maxHp * game.data.config.pilot.pill_hp);   // chưa cài: tự hành, tự đánh máu thấp thì tự uống như cũ
   if ((inp.consume('pill') || low) && p.pillCd <= 0 && !game.duel) {   // so tài: bản sao không uống đan nên mình cũng không
     const id = game.data.cave.pill_button, msg = usePill(game, id);
     if (msg) { p.pillCd = game.data.cave.pills[id].cd; game.number(p.x, p.y - 20, msg, '#9af0a8'); game.sfx('heal'); }

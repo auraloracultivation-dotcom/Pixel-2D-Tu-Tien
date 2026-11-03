@@ -100,3 +100,13 @@ export async function talkShop(game, npc) {
     game.sfx(got ? 'pickup' : 'hurt');
   }
 }
+
+// Tự bán khi túi đầy (góp ý #86, chủ dự án 04/11/2026): bật ở Túi đồ → Bán nhanh, bán các món thuộc phẩm đang chọn ở hàng bán nhanh
+// (save.autoSell = { on, tiers }); đồ khoá, đang mặc, Đạo Vận, đã cường hoá không bán. Trả true nếu đã bán được ít nhất 1 món.
+export function autoSellFull(game) {
+  const a = game.save.autoSell;
+  if (!a?.on || !a.tiers?.length) return false;
+  const r = quickSell(game, a.tiers);
+  if (r.n) game.toast?.(`Túi đầy: tự bán ${r.n} món, +${r.coins.toLocaleString('vi-VN')} ${game.data.shop.name}`, 1.8);
+  return r.n > 0;
+}

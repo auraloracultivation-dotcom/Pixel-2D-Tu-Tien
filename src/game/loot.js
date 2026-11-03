@@ -2,6 +2,7 @@
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
 import { quality } from './tiers.js';
+import { autoSellFull } from './shop.js';
 import { makeRoom } from './autoequip.js';
 import { pilotOpt } from './pilotopt.js';
 
@@ -43,7 +44,9 @@ export function updateLoot(game, dt) {
 function take(game, l) {
   const { data, save } = game;
   if (l.kind === 'item') {
-    if (!addItem(data, save, l.payload)) {
+    let ok = addItem(data, save, l.payload);
+    if (!ok && autoSellFull(game)) ok = addItem(data, save, l.payload);   // góp ý #86: túi đầy thì tự bán theo phẩm đã chọn rồi nhặt
+    if (!ok) {
       // Đề xuất #46: cả Tự đánh (treo máy tại chỗ) cũng tự phân giải món rẻ khi túi đầy, theo tùy chọn "phan-giai" ở tab Tự hành
       if (!(game.pilot || game.auto) || !pilotOpt(game, 'phan-giai')) { game.toast('Túi đầy! Phân giải bớt đồ.', 1.5); return; }
       if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành / tự đánh: phân giải món rẻ cho có chỗ
