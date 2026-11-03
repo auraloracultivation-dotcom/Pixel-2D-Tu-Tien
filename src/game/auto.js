@@ -19,11 +19,17 @@ export function autoStep(game, ax) {
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
+  const ok = m => m && !m.dead && m.hp > 0 && m.def.ai !== 'boss' && !m.story && game.mobs.includes(m) && Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius;
   let tgt = null, bd = Infinity;
   for (const m of game.mobs) {
-    if (m.dead || m.def.ai === 'boss' || m.story || Math.hypot(m.x - home.x, m.y - home.y) > cfg.radius) continue;
+    if (!ok(m)) continue;
     const d = dist(m, p); if (d < bd) { bd = d; tgt = m; }
   }
+  // Bám một con tới khi chết (báo lỗi #87: chọn lại con gần nhất mỗi khung nên hai con cách gần bằng nhau thì chạy lên chạy xuống);
+  // chỉ đổi khi có con khác gần hơn hẳn (dưới một nửa khoảng cách)
+  const cur = game.autoTgt;
+  if (ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
+  game.autoTgt = tgt;
   if (!tgt) return { ax: Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };
   return fightStep(game, tgt, ax);
 }
