@@ -65,3 +65,10 @@ body:has(.panel:not([hidden])) #btn-auto.auto-dock, body:has(#bag:not([hidden]))
 #world-close { flex: none; }
 #world-sub { display: none; }
 #world-sky { flex: 1; min-height: 0; }
+
+/* Đầu mọi bảng (Tông môn, Chợ… báo lỗi #97, #98; như Bản đồ): tiêu đề + chữ phụ + ✕ một hàng. Chữ phụ dài thì cắt "…" thay vì
+   dựng đứng từng chữ đẩy nội dung xuống. */
+.panel > .bag-head { flex-wrap: nowrap; }
+.panel > .bag-head > b { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.panel > .bag-head > .panel-sub { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
+.panel > .bag-head > button:last-child { flex: none; }
