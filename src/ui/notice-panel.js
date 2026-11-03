@@ -2,6 +2,7 @@
 // đang chạy (đợi xong hội thoại, đoạn truyện, đường bay). Thông báo nổi bật (top) có khung vàng; nút trong thông báo mở đúng chỗ
 // (sự kiện giới thiệu, bảng vinh danh góp ý, bảng xếp hạng, bảng báo lỗi). Thêm nút sự kiện "🎁 Ngọc cấp 8" trên bảng điều khiển
 // khi sự kiện giới thiệu đang chạy. Nạp kiểu ở src/ui/event.css (dùng chung cho bảng sự kiện, vinh danh).
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const KEY = 'p2d.notice.v1';
 function el(tag, cls, text) {
@@ -76,9 +77,9 @@ export function createNotice(game) {
   game.openNotice = open;
 
   // Mỗi ngày tự mở một lần khi có thông báo đang chạy, lúc rảnh tay (không hội thoại, truyện, bảng khác, đường bay)
-  setInterval(paint, 5000); paint();
+  every(paint, 5000); paint();
   if (N.auto === false) return;   // chủ dự án 02/11/2026: Sự kiện chỉ còn giới thiệu nhận quà, bảng thông báo không tự mở nữa
-  const auto = setInterval(() => {
+  const auto = every(() => {
     if (!game.save || !game.player || game.dialog.open || game.story?.busy || game.uiOpen || game.traveling || game.trip) return;
     if ((game.save.step || 0) < (N.auto_step || 0)) return;   // người mới: đợi qua phần hướng dẫn đầu game
     const s = load();

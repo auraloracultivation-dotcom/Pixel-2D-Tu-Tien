@@ -2,6 +2,7 @@
 // nhiều người không biết nút "✎ Tên" trong bảng Đạo hữu nên bảng xếp hạng toàn "Đạo hữu ...". Còn tên mặc định thì mỗi ngày
 // hỏi một lần lúc rảnh tay (đợi qua phần hướng dẫn đầu game). Chữ ở data/notice.json → name_nudge, lỗi dùng data/social.json → name.err.
 // Kiểu dùng chung src/ui/event.css (bảng thông báo đã nạp). Cùng bảng này dùng để đổi tên: game.openRename (chạm tên trên màn hình, nút Đổi tên ở bảng Đạo hữu).
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 const KEY = 'p2d.name-nudge';
 const DEF = /^đạo hữu /i;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
@@ -67,7 +68,7 @@ export function createNameNudge(game) {
     } finally { ok.disabled = false; }
   };
 
-  setInterval(() => {
+  every(() => {
     if (!root.hidden || seen()) return;
     if (!game.save || !game.player || !game.cloud || game.dialog.open || game.story?.busy || game.uiOpen || game.traveling || game.trip) return;
     if ((game.save.step || 0) < (T.step ?? 3)) return;   // qua đoạn truyện mở đầu là hỏi

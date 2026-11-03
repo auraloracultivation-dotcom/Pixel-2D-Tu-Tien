@@ -3,6 +3,7 @@
 // kênh Thế giới, chợ, bảng báo lỗi / đề xuất). Kho tin ở src/game/inbox.js, nguồn tin ở src/game/inbox-feed.js.
 // Bảng dựng bằng code (không thêm vào index.html), chữ người chơi chỉ gán textContent.
 import { inboxState, unreadCount, markRead, readAll } from '../game/inbox.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -86,7 +87,7 @@ export function createInbox(game) {
   });
   paint();
   let sig = '';   // vẽ lại khi có tin mới hay đổi đã đọc (không vẽ lại vô cớ kẻo nhảy chỗ đang cuộn)
-  setInterval(() => {
+  every(() => {
     paint();
     const s = inboxState(game).items, now = `${s.length}|${s[0]?.key}|${s[0]?.t}|${unreadCount(game)}`;
     if (!root.hidden && now !== sig) render();

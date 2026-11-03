@@ -2,6 +2,7 @@
 // hoặc nút ẩn UI"). Hai nút nhỏ cạnh thanh máu: mũi tên thu / mở cột nút (body.hud-gon); "Ẩn" giấu thanh trạng thái, cột nhiệm vụ,
 // khung trò chuyện, cột nhặt đồ (body.ui-an), chỉ chừa cụm nút đánh để vẫn farm được; chạm "Hiện" để bày lại. Cột nhiệm vụ riêng thì
 // thu / mở bằng nút Nhiệm vụ như cũ. Nhớ trên máy (localStorage, lỗi thì thôi). Kiểu ở style-ui-kit.css.
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 const KEY = 'p2d.hudgon.v1';
 const ICO = { 'btn-bag': 1, 'btn-menu': 1, 'btn-skills': 1, 'hud-dun': 1, 'hud-event': 1, 'hud-quest': 1, 'hud-home': 1, 'btn-world': 1, 'hud-rank': 1 };
 
@@ -35,5 +36,5 @@ export function createHudGon(game) {
     gon.style.left = `${left}px`; an.style.left = `${left + 34}px`;
     if (st.an) an.style.left = `${left}px`;
   }
-  apply(); place(); setInterval(place, 700); addEventListener('resize', place);
+  apply(); place(); every(place, 2000); addEventListener('resize', place);
 }

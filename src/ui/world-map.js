@@ -6,6 +6,7 @@ import { panZoom } from './pan-zoom.js';
 import { weekLine } from '../game/demon.js';
 import { drawPlanet, tapPlanet } from './planet-map.js';
 import { hopTo, hopWhy } from '../game/hop.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const $ = id => document.getElementById(id);
 
@@ -125,9 +126,9 @@ export function createWorldMap(game) {
   $('world-close').onclick = close;
   $('btn-world').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
   // Truyện bảo sang tinh cầu khác (không còn cổng giẫm, chỉ bay bằng Bản đồ): nút Bản đồ sáng nhắc
-  setInterval(() => {
+  every(() => {
     const u = game.save && game.story?.current?.()?.until, to = u?.map, def = to && data.maps[to];
     $('btn-world').classList.toggle('glow-hint', !!def?.world && to !== game.map?.id && !game.pilot && (flyOpen(game, to) || !!game.save.visited?.[to]));
-  }, 1000);
+  }, 2000);
   return { open, close, get pts() { return pts; } }; // pts: chỗ vẽ từng thiên thể (kiểm thử tự động chạm theo)
 }

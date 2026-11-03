@@ -4,6 +4,7 @@ import { coins, addCoins } from './shop.js';
 import { addItem, isEquipped, unsocket, itemName, rarityOf, gemInfo } from './items.js';
 import { addMat, matInfo } from './cave.js';
 import { notify } from './inbox.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const M = game => game.data.market;
 const net = () => import('../net/market.js');
@@ -97,7 +98,7 @@ export async function claimMail(game) {
 
 // Thỉnh thoảng tự nhận thư (tiền bán hàng) khi đang chơi
 export function startMailCheck(game) {
-  setInterval(async () => {
+  every(async () => {
     if (!canTrade(game) || game.uiOpen) return;
     try { const got = await claimMail(game); if (got.length) game.toast(got.join(' · '), 3); } catch { /* mạng lỗi: lần sau */ }
   }, 90000);

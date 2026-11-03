@@ -4,7 +4,8 @@
 // social = bảng Đạo hữu mở thẳng một phần (Xếp hạng), btn = bấm hộ nút bảng cũ (Nhiệm vụ). Bấm nút nào cũng đóng bảng đang mở.
 // Nút không có trong danh sách (tiếng, Zalo, báo lỗi, đề xuất…) dời vào #hud-menu (luôn ẩn), mở từ Menu → Cài đặt, liên hệ.
 // show: 'badge' chỉ hiện khi có số chưa xem, 'on' chỉ hiện khi đang bật (nút quay clip đang quay).
-// Vài nút được tạo muộn (quay clip nạp sau): mỗi giây xếp lại nếu lệch.
+// Vài nút được tạo muộn (quay clip nạp sau): hai giây một lần xếp lại nếu lệch (trang ẩn thì thôi).
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 export function orderHud(game) {
   const H = game.data.menu?.hud, bar = document.querySelector('.hud-btns'), stash = document.getElementById('hud-menu');
   if (!H || !bar || !stash) return;
@@ -55,5 +56,5 @@ export function orderHud(game) {
   // Bấm nút bảng nào trên màn hình cũng đóng bảng đang mở trước (không chồng hai bảng); Túi đồ, Menu, Động phủ tự lo (bấm lại là đóng)
   const own = new Set(['btn-bag', 'btn-menu', 'btn-auto', 'btn-mute', ...H.list.filter(e => e.nav).map(e => e.id)]);
   bar.addEventListener('pointerdown', ev => { const b = ev.target.closest('button'); if (b && !own.has(b.id)) game.closeAll?.(); }, true);
-  place(); setInterval(place, 1000);
+  place(); every(place, 2000);
 }

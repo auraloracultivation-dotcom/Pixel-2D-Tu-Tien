@@ -5,6 +5,7 @@
 import { itemLock, busyWhy, talkMenu } from '../game/menu-acts.js';
 import { homeAct } from '../game/home-acts.js';
 import { renderPilotOpts } from './pilot-tab.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) {
@@ -126,7 +127,7 @@ export function createSideNav(game) {
   }
 
   // Bảng bên phải tự đóng (hoặc người chơi bấm ✕ của nó): cột bên trái đóng theo
-  setInterval(() => {
+  every(() => {
     if (nav.hidden || Date.now() - switching < 500) return;
     if (game.dialog.open && fromNav) return;   // hộp thoại mở từ cột này: giữ cột
     if (fromNav && !shown().length && which) { fromNav = false; cur = null; paintNav(); openPane(null); return; }   // hộp thoại xong: về khung trống, cột vẫn còn

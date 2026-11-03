@@ -1,6 +1,7 @@
 // Cột thông báo nhận được bên trái màn hình (chủ dự án 29/10/2026: linh khí, Linh Thạch, nhặt đồ bay trên đầu nhân vật chồng chữ
 // đau mắt). Máu và sát thương vẫn bay trên đầu (combat.js addNumber). Dòng cùng loại trong lúc còn hiện thì cộng dồn số;
 // tối đa MAX dòng, mỗi dòng hiện LIFE giây rồi mờ. Phần tử tự tạo (không sửa index.html), kiểu ở style-khung.css (#feed).
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 const MAX = 5, LIFE = 3.2;
 
 const fmt = n => (Math.round(n * 10) / 10).toLocaleString('vi-VN');
@@ -36,7 +37,7 @@ export function createFeed(game) {
   // cột bám ngay dưới hàng nút bảng điều khiển (hàng nút có thể mọc thêm dòng: nút Thông báo, chip sự kiện), không đè lên nhau
   const place = () => { const r = document.querySelector('.hud-btns')?.getBoundingClientRect(); if (r && r.height) box.style.top = Math.round(r.bottom + 8) + 'px'; };
 
-  setInterval(() => {   // mờ rồi bỏ dòng cũ
+  every(() => {   // mờ rồi bỏ dòng cũ
     if (lines.length) place();
     const now = performance.now() / 1000;
     for (const L of [...lines]) {

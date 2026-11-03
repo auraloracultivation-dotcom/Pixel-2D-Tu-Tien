@@ -5,6 +5,7 @@ import { canGuild, guildState, loadMine, loadList, guildErr, guildAct, createGui
 import { coins } from '../game/shop.js';
 import { renderHome, renderMembers } from './guild-view.js';
 import { chatLines } from './chat-line.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const $ = id => document.getElementById(id);
 
@@ -131,9 +132,9 @@ export function createGuildPanel(game) {
     render();
   };
   $('btn-guild').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
-  setInterval(() => {   // đang mở tab trò chuyện: đọc tin mới mỗi vài giây
+  every(() => {   // đang mở tab trò chuyện: đọc tin mới mỗi vài giây
     if ($('guild').hidden || tab !== 'chat' || busy || Date.now() - pullT < game.data.social.world.poll * 1000) return;
     pullT = Date.now(); pullGuildChat(game).then(n => n && tab === 'chat' && render());
-  }, 500);
+  }, 1000);
   return { open, close };
 }

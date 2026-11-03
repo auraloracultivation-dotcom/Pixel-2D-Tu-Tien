@@ -5,6 +5,7 @@
 import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
 import { checkinOn, checkinCached, loadCheckin, doCheckin } from '../game/checkin.js';
 import { pilotDaily } from '../game/pilot.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const KEY = 'p2d.questdock.v1';
 function el(tag, cls, text) {
@@ -65,5 +66,5 @@ export function createQuestDock(game) {
     if (checkinOn(game) && Date.now() - loaded > 300000) { loaded = Date.now(); loadCheckin(game).then(() => { key = ''; }); }
     paint();
   }
-  setInterval(tick, 1000);
+  every(tick, 2000);
 }

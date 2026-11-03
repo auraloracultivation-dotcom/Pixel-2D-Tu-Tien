@@ -2,6 +2,7 @@
 // cho người mới, tiến độ online của mình (nếu được mời), danh sách người mình đã mời. Mở bằng game.openReferral() (bảng thông
 // báo, nút sự kiện trên bảng điều khiển, tab Sự kiện). Dữ liệu từ game/referral.js; chữ người chơi chỉ gán textContent.
 import { loadRef, enterRef, pickRefGem, pendingCode, clearCode, refOn } from '../game/referral.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
 function el(tag, cls, text) {
@@ -129,11 +130,11 @@ export function createReferral(game) {
     try { const info = await loadRef(game, true); if (my === ticket) paint(info); }
     catch { if (my === ticket) { body.textContent = ''; body.append(el('p', 'muted', T.error)); } }
     clearInterval(timer);
-    timer = setInterval(() => { if (!root.hidden && document.activeElement?.className !== 'ev-input') loadRef(game, true).then(i => { if (!root.hidden) paint(i); }).catch(() => {}); }, 30000);
+    timer = every(() => { if (!root.hidden && document.activeElement?.className !== 'ev-input') loadRef(game, true).then(i => { if (!root.hidden) paint(i); }).catch(() => {}); }, 30000);
   }
   game.openReferral = () => open(false);
   // Mở game bằng link mời: đăng nhập xong, lúc rảnh tay thì tự mở bảng để người mới nhập mã (đã tự điền)
-  const auto = setInterval(async () => {
+  const auto = every(async () => {
     if (!pendingCode()) { clearInterval(auto); return; }
     if (!game.online || !game.cloud || !game.save || game.dialog.open || game.story?.busy || game.uiOpen || game.traveling) return;
     clearInterval(auto);

@@ -3,6 +3,7 @@
 // bảng Trò chuyện đầy đủ (src/ui/social-panel.js, tab Thế giới, con trỏ vào ô gõ); chạm bất kỳ chỗ nào ngoài bảng là thu nhỏ.
 // Bỏ mục Trò chuyện khỏi Menu. Đọc kênh Thế giới mỗi POLL giây khi đã đăng nhập.
 import { worldState, pullWorld, isBlocked } from '../game/world-chat.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const SHOW = 3, POLL = 20;
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
@@ -57,7 +58,7 @@ export function createChatDock(game) {
     if (!p.contains(e.target)) { document.getElementById('social-close')?.click(); fromDock = false; }
   }, true);
 
-  setInterval(() => {
+  every(() => {
     const busy = !game.save || !game.player || game.trip;
     dock.hidden = busy;
     if (busy) return;

@@ -2,10 +2,11 @@
 // nút Việc (game.newDaily, src/ui/hud.js) kèm một dòng nhắc (data/checkin.json → text.nudge). Xem lại mỗi 30 phút
 // (qua 0h là ngày mới); đã điểm danh thì thôi.
 import { checkinOn, loadCheckin } from './checkin.js';
+import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 export function startCheckinNudge(game) {
   let told = '', next = 0;
-  setInterval(async () => {
+  every(async () => {
     if (!checkinOn(game) || Date.now() < next || game.netLost?.()) return;
     next = Date.now() + 30 * 60 * 1000;
     try {
