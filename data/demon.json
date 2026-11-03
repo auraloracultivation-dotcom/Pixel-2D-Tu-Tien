@@ -4,7 +4,7 @@
  "need_realm": 7,
  "epoch": "2026-10-26",
  "base": {"hp": 250000, "atk": 170},
- "tier_mul": 2,
+ "tier_mul": 2, "rand_note": "Chủ dự án 03/11/2026 12:11: cấp Ma Vương mỗi tuần NGẪU NHIÊN từ cấp 1 tới rand_max (ai cũng gặp cùng cấp trong tuần, bốc theo số tuần), không leo dần theo số con đã hạ nữa: lâu lâu gặp con yếu, lâu lâu gặp con rất mạnh, không farm mãi một vùng. Máu, công = base × tier_mul^(cấp − 1); thưởng Linh Thạch nhích reward_tier mỗi cấp. save.demon.lv chỉ còn đếm số con đã hạ.", "rand_max": 6,
  "reward_tier": 1.15,
  "bosses": [
   {"mob": "hu-khong-nguc-chu", "name": "Hư Không Ma Vương"},
@@ -19,7 +19,7 @@
  "texts": {
   "locked": "Lên {realm} mới đủ sức vào Phương Thiên Địa.",
   "done": "Đã hạ {name} tuần này. Phương thiên địa được tịnh hoá, tuần sau Ma Tổ sinh Ma Vương mới.",
-  "week": "Tuần này: {name} (Ma Vương thứ {n} của bạn)",
+  "week": "Tuần này: {name} (cấp {n}/{max})",
   "appear": "{name} xuất hiện!",
   "win": "Hạ {name}! Phương thiên địa được tịnh hoá tới tuần sau. Nhận: {got}."
  }
