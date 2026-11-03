@@ -1,5 +1,5 @@
 // Bảng Quầy Tiên Ngọc (data/topup.json): số dư, thẻ tháng, gói nạp (chưa mở), đổi Tiên Ngọc lấy đồ.
-import { tn, starterGift, cardLeft, cardClaimed, claimCard, buyTn, shopOwned } from '../game/topup.js';
+import { tn, starterGift, cardLeft, cardClaimed, claimCard, buyTn, shopOwned, tnLeft } from '../game/topup.js';
 import { giveOdds } from '../game/odds.js';
 
 const $ = id => document.getElementById(id);
@@ -41,9 +41,11 @@ export function createTopupPanel(game) {
     for (const p of T.packs) box.append(row(`${p.tn}${p.bonus ? ' + ' + p.bonus : ''} ${T.name}`, `${p.vnd.toLocaleString('vi-VN')}đ`, btn(T.soon, () => {}, !T.open)));
     if (!T.open) box.append(el('small', 'tp-note', T.closed));
     box.append(el('b', 'tp-head', T.shop_head));
+    if (T.rate) box.append(el('small', 'tp-note', T.rate));   // tỉ lệ đổi điểm QTV → Tiên Ngọc (chủ dự án 04/11)
     for (const x of T.shop) {
-      const have = shopOwned(game, x);
-      box.append(row(x.label, `${x.tn} ${T.name}`, have ? el('small', null, T.owned) : btn(T.buy, async () => {
+      const have = shopOwned(game, x), left = tnLeft(game, x);
+      const price = `${x.tn} ${T.name}` + (x.per_day ? ` · ${T.left.replace('{n}', Math.min(left, x.per_day)).replace('{max}', x.per_day)}` : '');
+      box.append(row(x.label, price, have ? el('small', null, T.owned) : left <= 0 ? el('small', null, T.limit) : btn(T.buy, async () => {
         const got = await buyTn(game, x.id);
         note = got ? T.got.replace('{got}', got.join(', ')) : T.poor;
         game.sfx(got ? 'pickup' : 'hurt');

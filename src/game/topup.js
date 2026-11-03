@@ -48,13 +48,26 @@ export async function claimCard(game) {
 }
 
 export const shopOwned = (game, x) => !!x.outfit && owned(game, x.outfit);
+// Món có per_day: số lần còn đổi hôm nay (save.tnDay { day, [id]: n })
+const today = () => new Date().toDateString();
+export function tnLeft(game, x) {
+  if (!x.per_day) return Infinity;
+  const d = game.save.tnDay;
+  return Math.max(0, x.per_day - (d?.day === today() ? d[x.id] || 0 : 0));
+}
+function useTnDay(game, x) {
+  if (!x.per_day) return;
+  const s = game.save; if (s.tnDay?.day !== today()) s.tnDay = { day: today() };
+  s.tnDay[x.id] = (s.tnDay[x.id] || 0) + 1;
+}
 
 export async function buyTn(game, id) {
   const x = T(game).shop.find(i => i.id === id), s = game.save;
-  if (!x || shopOwned(game, x)) return null;
+  if (!x || shopOwned(game, x) || tnLeft(game, x) <= 0) return null;
   if (tn(game) < x.tn) return false;
   const give = () => {
     if (x.outfit) { grantOutfit(game, x.outfit); game.persist(); return [game.data.fashion.list[x.outfit].name]; }
+    useTnDay(game, x);
     return grant(game, x.give);
   };
   if (game.cloud) {

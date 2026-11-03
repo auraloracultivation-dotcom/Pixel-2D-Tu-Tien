@@ -7,20 +7,95 @@
  "starter": 100,
  "starter_text": "Quà ra mắt quầy Tiên Ngọc: +{n} Tiên Ngọc.",
  "packs": [
-  {"id": "goi-1", "tn": 60, "bonus": 0, "vnd": 20000},
-  {"id": "goi-2", "tn": 300, "bonus": 30, "vnd": 99000},
-  {"id": "goi-3", "tn": 980, "bonus": 150, "vnd": 299000},
-  {"id": "goi-4", "tn": 1980, "bonus": 400, "vnd": 599000}
+  {
+   "id": "goi-1",
+   "tn": 60,
+   "bonus": 0,
+   "vnd": 20000
+  },
+  {
+   "id": "goi-2",
+   "tn": 300,
+   "bonus": 30,
+   "vnd": 99000
+  },
+  {
+   "id": "goi-3",
+   "tn": 980,
+   "bonus": 150,
+   "vnd": 299000
+  },
+  {
+   "id": "goi-4",
+   "tn": 1980,
+   "bonus": 400,
+   "vnd": 599000
+  }
  ],
- "card": {"name": "Thẻ Tháng", "days": 30, "vnd": 59000, "now": 300, "daily": {"tn": 100, "give": {"coins": 300}},
+ "card": {
+  "name": "Thẻ Tháng",
+  "days": 30,
+  "vnd": 59000,
+  "now": 300,
+  "daily": {
+   "tn": 100,
+   "give": {
+    "coins": 300
+   }
+  },
   "desc": "Nhận ngay {now} Tiên Ngọc, rồi mỗi ngày vào quầy nhận {tn} Tiên Ngọc và {coins} Linh Thạch trong {days} ngày.",
-  "left": "Thẻ còn {d} ngày.", "claim": "Nhận quà hôm nay", "claimed": "Hôm nay đã nhận."},
+  "left": "Thẻ còn {d} ngày.",
+  "claim": "Nhận quà hôm nay",
+  "claimed": "Hôm nay đã nhận."
+ },
  "shop": [
-  {"id": "da-tay", "label": "10 Tẩy Luyện Thạch", "tn": 60, "give": {"stones": 10}},
-  {"id": "ngoc-3", "label": "3 viên ngọc khảm", "tn": 90, "give": {"gem": 3}},
-  {"id": "ruong-dia", "label": "Rương trang bị Địa phẩm", "tn": 180, "give": {"item": "dia"}},
-  {"id": "ao-tien-nhan", "label": "Thời trang Tiên Nhân Bạch Y", "tn": 300, "outfit": "tien-nhan"},
-  {"id": "ao-hoang-kim", "label": "Thời trang Hoàng Kim Long Bào", "tn": 600, "outfit": "hoang-kim"}
+  {
+   "id": "da-tay",
+   "label": "10 Tẩy Luyện Thạch",
+   "tn": 60,
+   "give": {
+    "stones": 10
+   }
+  },
+  {
+   "id": "dao-van-thach",
+   "label": "1 Đạo Vận Thạch (đổi hệ trang bị)",
+   "tn": 50,
+   "per_day": 2,
+   "give": {
+    "mats": {
+     "dao-van-thach": 1
+    }
+   }
+  },
+  {
+   "id": "ngoc-3",
+   "label": "3 viên ngọc khảm",
+   "tn": 90,
+   "give": {
+    "gem": 3
+   }
+  },
+  {
+   "id": "ruong-dia",
+   "label": "Rương trang bị Địa phẩm",
+   "tn": 180,
+   "give": {
+    "item": "dia"
+   }
+  },
+  {
+   "id": "ao-tien-nhan",
+   "label": "Thời trang Tiên Nhân Bạch Y",
+   "tn": 300,
+   "outfit": "tien-nhan"
+  },
+  {
+   "id": "ao-hoang-kim",
+   "label": "Thời trang Hoàng Kim Long Bào",
+   "tn": 600,
+   "outfit": "hoang-kim"
+  }
  ],
  "title": "Quầy Tiên Ngọc",
  "packs_head": "Gói nạp",
@@ -28,7 +103,19 @@
  "buy": "Đổi",
  "owned": "Đã có",
  "soon": "Sắp mở",
- "poor": "Chưa đủ Tiên Ngọc.", "busy": "Máy chủ đang bận, thử lại sau nhé.",
- "odds": {"_note": "Công bố tỉ lệ cho món may rủi đổi bằng Tiên Ngọc (luật CH Play: phải hiện trước khi mua). Số tính từ data/items.json lúc chạy (game/odds.js), không gõ tay.", "head": "Tỉ lệ:", "rarity": "phẩm {list}", "base": "1 trong {n} loại đồ thường, mỗi loại {p}", "lines": "dòng chỉ số ngẫu nhiên theo phẩm", "gem": "mỗi viên là ngọc cấp 1, {list}"},
- "got": "Nhận: {got}."
+ "poor": "Chưa đủ Tiên Ngọc.",
+ "busy": "Máy chủ đang bận, thử lại sau nhé.",
+ "odds": {
+  "_note": "Công bố tỉ lệ cho món may rủi đổi bằng Tiên Ngọc (luật CH Play: phải hiện trước khi mua). Số tính từ data/items.json lúc chạy (game/odds.js), không gõ tay.",
+  "head": "Tỉ lệ:",
+  "rarity": "phẩm {list}",
+  "base": "1 trong {n} loại đồ thường, mỗi loại {p}",
+  "lines": "dòng chỉ số ngẫu nhiên theo phẩm",
+  "gem": "mỗi viên là ngọc cấp 1, {list}"
+ },
+ "got": "Nhận: {got}.",
+ "limit": "Hết lượt hôm nay",
+ "left": "còn {n}/{max} hôm nay",
+ "rate": "Đổi điểm Quản trị viên lấy Tiên Ngọc: 1 điểm = 1 Tiên Ngọc, tối đa 500 mỗi tuần (Xếp hạng → Quản trị viên → Sổ điểm).",
+ "_shop_note": "per_day: số lần đổi mỗi ngày (giờ máy), lưu save.tnDay. Đạo Vận Thạch: 50 Tiên Ngọc, 2 viên/ngày; ở Cô bán nước 50.000 Linh Thạch, 1 viên/ngày (chủ dự án 04/11/2026). Giá máy chủ ở bảng p2d_tn_gia."
 }
