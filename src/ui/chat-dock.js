@@ -43,17 +43,12 @@ export function createChatDock(game) {
     fromDock = true;
     setTimeout(() => document.getElementById('social-input')?.focus(), 50);
   }
-  // Báo lỗi #81: đang giữ cần điều khiển dễ chạm nhầm khung chat. Chỉ mở khi chạm gọn (nhấc ngón tại chỗ, dưới 0,4 giây) và
-  // không có ngón khác đang giữ màn hình (cần điều khiển, nút đánh).
-  let held = 0, tap = null;
-  document.addEventListener('pointerdown', () => { held++; }, true);
-  const up = () => { held = Math.max(0, held - 1); };
-  document.addEventListener('pointerup', up, true); document.addEventListener('pointercancel', up, true);
-  dock.addEventListener('pointerdown', e => { e.stopPropagation(); tap = held <= 1 ? { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId } : null; });
-  dock.addEventListener('pointerup', e => {
-    const s = tap; tap = null;
-    if (s && s.id === e.pointerId && performance.now() - s.t < 400 && Math.hypot(e.clientX - s.x, e.clientY - s.y) < 10) expand();
-  });
+  // Báo lỗi #81: đang giữ cần điều khiển dễ chạm nhầm khung chat. Chỉ mở bằng chạm gọn (click: vuốt qua thì trình duyệt không
+  // tính) và chỉ khi đó là ngón chính (ngón thứ hai trong lúc ngón kia giữ cần điều khiển thì isPrimary = false).
+  // Bản trước tự đếm ngón đang giữ, có máy mất sự kiện nhấc ngón nên đếm sai, khung chat không bấm được nữa (chủ dự án 03/11 10:09).
+  let primary = false;
+  dock.addEventListener('pointerdown', e => { e.stopPropagation(); primary = e.isPrimary !== false; });
+  dock.addEventListener('click', () => { if (primary) expand(); primary = false; });
 
   // Mở từ khung nhỏ: chạm ngoài bảng là thu nhỏ lại
   document.addEventListener('pointerdown', e => {
