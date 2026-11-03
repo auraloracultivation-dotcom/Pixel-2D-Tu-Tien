@@ -18,6 +18,7 @@ export function qiNeed(save, realms) {
 }
 
 export function realmLabel(save, realms) {
+  if (realms.peak && save.realm >= realms.names.length - 1 && save.layer >= realms.layers) return `${realms.names[save.realm]} ${realms.peak}`;   // tầng cuối cảnh giới cuối: "Độ Kiếp Viên Mãn" (chủ dự án 04/11/2026)
   return `${realms.names[save.realm]} tầng ${save.layer}`;
 }
 

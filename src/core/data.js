@@ -1,6 +1,6 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
 const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'quests', 'techniques', 'cave', 'pets', 'daily', 'gear', 'companions', 'shop', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'home', 'weather', 'journal', 'chatter', 'social', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'demon', 'gender', 'daovan', 'community', 'menu', 'inbox', 'duel', 'referral', 'notice', 'checkin', 'le-hoi'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'techniques', 'cave', 'pets', 'daily', 'gear', 'companions', 'shop', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'home', 'weather', 'journal', 'chatter', 'social', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'demon', 'gender', 'daovan', 'community', 'menu', 'inbox', 'duel', 'referral', 'notice', 'checkin', 'le-hoi'];
 
 async function getJson(path) {
   const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });
