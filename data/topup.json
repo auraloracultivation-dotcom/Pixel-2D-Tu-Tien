@@ -116,6 +116,6 @@
  "got": "Nhận: {got}.",
  "limit": "Hết lượt hôm nay",
  "left": "còn {n}/{max} hôm nay",
- "rate": "Đổi điểm Quản trị viên lấy Tiên Ngọc: 1 điểm = 1 Tiên Ngọc, tối đa 500 mỗi tuần (Xếp hạng → Quản trị viên → Sổ điểm).",
+ "rate": "Tỉ lệ quy đổi: 60 Tiên Ngọc ≈ 60.000 Linh Thạch · 1 USD ≈ 60 Tiên Ngọc (khi mở nạp) · 1 điểm Quản trị viên = 1 Tiên Ngọc, tối đa 500 mỗi tuần.",
  "_shop_note": "per_day: số lần đổi mỗi ngày (giờ máy), lưu save.tnDay. Đạo Vận Thạch: 50 Tiên Ngọc, 2 viên/ngày; ở Cô bán nước 50.000 Linh Thạch, 1 viên/ngày (chủ dự án 04/11/2026). Giá máy chủ ở bảng p2d_tn_gia."
 }
