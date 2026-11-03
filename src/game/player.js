@@ -1,5 +1,6 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
 import { ensureWornLines } from './beast.js';
+import { openAllSocket4 } from './socket4.js';
 import { addFx, hitMob, dist, shoot } from './combat.js';
 import { weaponSlash } from './slash-fx.js';
 import { castSkill, skillSlots } from './skills.js';
@@ -34,6 +35,7 @@ export function createPlayer(game, x, y) {
 
 export function refreshStats(game) {
   ensureWornLines(game);   // dòng chỉ số thú cưỡi, thời trang (src/game/beast.js)
+  if (openAllSocket4(game)) game.persist?.();   // ô khảm thứ 4 cho phẩm Tiên / Thượng Cổ (src/game/socket4.js)
   const p = game.player, st = playerStats(game.save, game.data);
   const grow = st.maxHp - p.maxHp;
   p.maxHp = st.maxHp; p.atk = st.atk; p.st = st; p.hp = Math.min(p.maxHp, p.hp + Math.max(0, grow));
