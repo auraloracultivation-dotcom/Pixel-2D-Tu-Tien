@@ -22,7 +22,7 @@ const p = await (await b.newContext({ viewport: { width: 390, height: 844 } })).
 await p.route(/supabase-js/, r => r.abort());
 const errs = new Set();
 p.on('pageerror', e => errs.add(e.message + ' @ ' + (e.stack || '').split('\n').slice(1, 3).join(' | ')));
-await p.goto(`http://localhost:${PORT}/`);
+await p.goto(`http://localhost:${PORT}/?thu=1`);   // ?thu=1: hiện nút chơi thử (người chơi thật không thấy, src/ui/login.js)
 await p.waitForSelector('#btn-guest:not([disabled])', { timeout: 30000 });
 await p.waitForTimeout(800);
 await p.click('#btn-guest');

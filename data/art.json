@@ -20044,6 +20044,18 @@
    ],
    "note": "khung bang (ảnh GPT bộ hoa đào)"
   },
+  "ui.hd-bang2": {
+   "file": "assets/art/ui-hd-bang2.png",
+   "v": "734836c9",
+   "w": 333,
+   "h": 293,
+   "frames": 1,
+   "anchor": [
+    166,
+    146
+   ],
+   "note": "khung bang2 (ảnh GPT bộ hoa đào)"
+  },
   "ui.hd-bar-do": {
    "file": "assets/art/ui-hd-bar-do.png",
    "v": "d4a86bf1",
@@ -20091,6 +20103,18 @@
     53
    ],
    "note": "khung chat (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-chat2": {
+   "file": "assets/art/ui-hd-chat2.png",
+   "v": "79346365",
+   "w": 424,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    212,
+    40
+   ],
+   "note": "khung chat2 (ảnh GPT bộ hoa đào)"
   },
   "ui.hd-chon": {
    "file": "assets/art/ui-hd-chon.png",
@@ -20392,6 +20416,18 @@
    ],
    "note": "vòng Lướt đá lam khoét lòng (ảnh GPT bộ hoa đào)"
   },
+  "ui.hd-ring-vang": {
+   "file": "assets/art/ui-hd-ring-vang.png",
+   "v": "e0b3ad59",
+   "w": 139,
+   "h": 139,
+   "frames": 1,
+   "anchor": [
+    69,
+    69
+   ],
+   "note": "vòng vàng trơn khoét lòng (chiêu; chủ dự án 11:01: bớt hoa, khung mỏng) (ảnh GPT bộ hoa đào)"
+  },
   "ui.hd-tab": {
    "file": "assets/art/ui-hd-tab.png",
    "v": "58defa18",
@@ -20550,20 +20586,20 @@
   },
   "ui.hd-vong-ban-do": {
    "file": "assets/art/ui-hd-vong-ban-do.png",
-   "v": "7bafa51e",
-   "w": 137,
-   "h": 161,
+   "v": "e0b3ad59",
+   "w": 139,
+   "h": 139,
    "frames": 1,
    "anchor": [
-    68,
-    80
+    69,
+    69
    ],
    "note": "vòng hoa đào lòng trống (khung bản đồ tròn) (ảnh GPT bộ hoa đào)",
    "hole": [
-    0.485,
-    0.555,
-    0.329,
-    1.175
+    0.499,
+    0.497,
+    0.346,
+    1.0
    ]
   },
   "ui.hd-vong-hoa": {
@@ -20577,6 +20613,18 @@
     65
    ],
    "note": "vòng hoa đào lòng tím (nút tròn) (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-vong-mong": {
+   "file": "assets/art/ui-hd-vong-mong.png",
+   "v": "b62b1f5d",
+   "w": 83,
+   "h": 76,
+   "frames": 1,
+   "anchor": [
+    41,
+    38
+   ],
+   "note": "khung vong-mong (ảnh GPT bộ hoa đào)"
   },
   "ui.i-bag": {
    "file": "assets/art/ui-i-bag.png",

@@ -24,7 +24,11 @@ export function createLogin(onPlay0) {
     if (session) $('logged-name').textContent = auth.displayName(session);
     const has = !!loadSave(session ? session.user.id : 'guest');
     $('menu-continue').hidden = !has;
-    $('menu-new').textContent = has ? 'Chơi lại từ đầu' : 'Bắt đầu';
+    // chủ dự án 04/11/2026 10:58: bỏ "Chơi lại từ đầu" (đã có bản lưu thì chỉ còn Chơi tiếp) và bỏ "Chơi thử không cần tài khoản";
+    // nút chơi thử chỉ còn cho máy kiểm tra tự động (địa chỉ có ?thu=1: tools/playtest.mjs, choi-doc.mjs, cay-thu.mjs)
+    $('menu-new').hidden = has;
+    $('menu-new').textContent = 'Bắt đầu';
+    $('btn-guest').hidden = !new URLSearchParams(location.search).has('thu');
     $('play-buttons').hidden = !session;
   }
 
