@@ -2,6 +2,7 @@
 // Chỉ thêm hiệu ứng, không đụng logic đăng nhập (login.js): một lớp canvas điểm ảnh sau nội dung (cánh hoa rơi, đốm linh khí bay lên),
 // câu mẹo đổi dần dưới thanh tải, chớp sáng chuyển cảnh lúc vào game. Nạp bằng thẻ script riêng trong index.html để chạy ngay khi
 // màn tải hiện (trước khi main.js tải xong cả game). Số liệu ở data/man-dau.json. Máy chậm (perf-calm) hoặc tắt chuyển động: đứng yên.
+import '../core/i18n.js';   // tải từ điển sớm nhất có thể (chữ màn tải, màn đăng nhập)
 const $ = id => document.getElementById(id);
 const PX = 3;   // mỗi điểm ảnh hiệu ứng = 3 điểm màn hình, cho cùng độ thô với nền
 const still = () => document.body.classList.contains('perf-calm') || matchMedia('(prefers-reduced-motion: reduce)').matches;

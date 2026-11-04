@@ -7,6 +7,7 @@ import { homeAct } from '../game/home-acts.js';
 import { renderPilotOpts } from './pilot-tab.js';
 import { renderCodePane } from './ma-qua.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
+import { renderLang } from './lang-pick.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) {
@@ -64,6 +65,7 @@ export function createSideNav(game) {
     paneTitle.textContent = it ? it.label : D.title;
     if (!it) { body.append(el('p', 'muted', D.hint || '')); return; }
     if (it.code) renderCodePane(game, body);   // Nhập mã quà
+    else if (it.lang) renderLang(body, it, card, mini);   // Ngôn ngữ: chọn xong tải lại trang
     else if (it.pilot) renderPilotOpts(game, body, { card, mini, sub: t => { paneSub.textContent = t; } });
     else if (it.sound) {
       const m = document.getElementById('btn-mute'), off = m?.classList.contains('off');

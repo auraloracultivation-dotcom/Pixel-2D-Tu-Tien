@@ -1,5 +1,5 @@
 {
- "_note": "Menu và các nút trên màn hình (chủ dự án 02/11/2026 10:50: \"Menu đừng phân nữa, sắp xếp thành 1 bảng dọc, ấn vào hiển thị nội dung bên cạnh; Túi đồ cũng vậy; mỗi mục 1 tính năng\"). nav: cột mục bên trái của nút Túi đồ (bag), Menu (menu), Động phủ (home), code ở src/ui/side-nav.js. Mỗi mục mở đúng một phần, bảng cũ đã ẩn thanh tab: bag = phần của túi (do, ngoc, nl); btn + tabs + tab = bấm hộ nút bảng cũ rồi chọn phần (click: nút nghe sự kiện click); cave = bảng lò (dan, ren, vuon, phu); open = game.open<Tên>; home = việc trong động phủ (src/game/home-acts.js); talk = nói chuyện thẳng với NPC; pilot / sound / reload / text = hiện trong khung bên phải (Tự động, Âm thanh, Đăng xuất, Ngôn ngữ). need + lock: cờ phải có mới mở. badge: id chấm đỏ của nút cũ. first: mở sẵn mục đầu; không có thì khung bên phải hiện hint. dungeon: danh sách bí cảnh (nút Bí cảnh, src/ui/menu-panel.js).",
+ "_note": "Menu và các nút trên màn hình (chủ dự án 02/11/2026 10:50: \"Menu đừng phân nữa, sắp xếp thành 1 bảng dọc, ấn vào hiển thị nội dung bên cạnh; Túi đồ cũng vậy; mỗi mục 1 tính năng\"). nav: cột mục bên trái của nút Túi đồ (bag), Menu (menu), Động phủ (home), code ở src/ui/side-nav.js. Mỗi mục mở đúng một phần, bảng cũ đã ẩn thanh tab: bag = phần của túi (do, ngoc, nl); btn + tabs + tab = bấm hộ nút bảng cũ rồi chọn phần (click: nút nghe sự kiện click); cave = bảng lò (dan, ren, vuon, phu); open = game.open<Tên>; home = việc trong động phủ (src/game/home-acts.js); talk = nói chuyện thẳng với NPC; pilot / sound / reload / lang / text = hiện trong khung bên phải (Tự động, Âm thanh, Đăng xuất, Ngôn ngữ: src/ui/lang-pick.js). need + lock: cờ phải có mới mở. badge: id chấm đỏ của nút cũ. first: mở sẵn mục đầu; không có thì khung bên phải hiện hint. dungeon: danh sách bí cảnh (nút Bí cảnh, src/ui/menu-panel.js).",
  "title": "Menu",
  "sub": "",
  "dungeon": {
@@ -224,7 +224,8 @@
     {
      "id": "lang",
      "label": "Ngôn ngữ",
-     "text": "Hiện game chỉ có Tiếng Việt, sẽ thêm ngôn ngữ khác sau."
+     "lang": true,
+     "text": "Chọn ngôn ngữ hiển thị. Đổi xong game tự tải lại."
     },
     {
      "id": "rec",

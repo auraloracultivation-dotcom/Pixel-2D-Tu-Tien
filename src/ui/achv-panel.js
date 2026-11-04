@@ -5,6 +5,7 @@ import { owned, buyOutfit, wear, howToGet, curOutfit, versions } from '../game/f
 import { journal } from '../game/journal.js';
 import { outfitLine, linesText } from '../game/beast.js';
 import { tierOf } from '../game/tiers.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const $ = id => document.getElementById(id);
 
@@ -20,7 +21,7 @@ export function createAchvPanel(game) {
   let tab = 'thanh-tuu', msg = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; return b; };
-  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && `${r.stones} thạch`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị'].filter(Boolean).join(', ');
+  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && t('{n} thạch', { n: r.stones }), r.gem && t('{n} ngọc', { n: r.gem }), r.item && t('trang bị')].filter(Boolean).join(', ');
 
   function card(color, title, lines, btn) {
     const c = el('div', 'skill-card');
@@ -36,7 +37,7 @@ export function createAchvPanel(game) {
     // chưa nhận lên đầu, đã nhận xuống cuối
     const order = a => st[a.id] === 1 ? 0 : st[a.id] ? 2 : 1;
     for (const a of [...D.achievements].sort((x, y) => order(x) - order(y))) {
-      const s = st[a.id], lines = [achvText(game, a), `Thưởng: ${rewardText(a.give)}${a.title ? ` · danh hiệu ${D.titles[a.title].name}` : ''}`];
+      const s = st[a.id], lines = [achvText(game, a), t('Thưởng: {x}', { x: rewardText(a.give) }) + (a.title ? ' ' + t('· danh hiệu {name}', { name: D.titles[a.title].name }) : '')];
       list.append(card(s === 2 ? '#c8c4d0' : s ? '#5fd07a' : '#f2c94c', a.name, lines,
         mini(s === 2 ? 'Đã nhận' : s ? 'Nhận thưởng' : 'Chưa xong', () => { const g = claimAchv(game, a.id); if (g) { msg = 'Nhận: ' + g.join(', '); game.sfx('levelup'); } }, s !== 1)));
     }

@@ -1,6 +1,8 @@
 // Hộp thoại kể chuyện và chọn lựa. Chạm để hiện hết chữ / sang câu tiếp.
 // Hộp thoại xếp hàng: lời chào lễ, thưởng bí cảnh... gọi lúc đang có hộp khác thì đợi hộp đó xong rồi mới hiện.
 // (Trước đây hộp mới đè hộp cũ, lời hứa của hộp cũ không bao giờ xong nên truyện đứng mãi ở bước đó.)
+import { tr } from '../core/i18n.js';
+
 export function createDialog(onLine) {
   const box = document.getElementById('dialog');
   const who = document.getElementById('dlg-who');
@@ -17,7 +19,7 @@ export function createDialog(onLine) {
   const queue = run => { const p = line.then(() => new Promise(run)); line = p.catch(() => {}); return p; };
 
   function type(str) {
-    full = str; shown = 0; text.textContent = '';
+    full = tr(str); shown = 0; text.textContent = '';   // dịch cả câu trước khi gõ từng chữ (ngôn ngữ khác tiếng Việt)
     clearInterval(timer);
     timer = setInterval(() => {
       shown += 2; text.textContent = full.slice(0, shown);
