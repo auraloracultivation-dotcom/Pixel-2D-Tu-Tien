@@ -1,7 +1,8 @@
 // Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
 // trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
-import { addItem, isEquipped, itemName, rarityOf, gemInfo } from './items.js';
+import { addItem, isEquipped, itemName, gemInfo } from './items.js';
+import { grade } from './tiers.js';
 import { applyDoi } from './ky-ngoc.js';
 import { addMat, matInfo } from './cave.js';
 import { notify } from './inbox.js';
@@ -19,7 +20,7 @@ export function errText(game, e) {
 }
 
 export function goodsName(game, loai, mon) {
-  if (loai === 'mon') return { name: itemName(game.data, mon), color: rarityOf(game.data.items, mon.rarity)?.color, sub: `${rarityOf(game.data.items, mon.rarity)?.name} · cấp ${mon.lvl}` };
+  if (loai === 'mon') { const g = grade(game.data, mon); return { name: itemName(game.data, mon), color: g.color, sub: `${g.name} · cấp ${mon.lvl}` }; }
   const m = matInfo(game.data, mon.id);
   return { name: `${m?.name || mon.id} ×${mon.n}`, sub: 'Nguyên liệu' };
 }

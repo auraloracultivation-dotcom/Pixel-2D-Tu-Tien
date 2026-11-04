@@ -7,7 +7,8 @@ import { playerStats, realmLabel, weaponId, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
 import { petDef } from '../game/evolve.js';
 import { gemIcon } from './gem-icon.js';
-import { rarityOf, itemName, statText, gemInfo } from '../game/items.js';
+import { itemName, statText, gemInfo } from '../game/items.js';
+import { grade } from '../game/tiers.js';
 import { icon, mainStats } from './bag-detail.js';
 import { addFriend } from '../game/friends.js';
 import { friendErr } from './friends-panel.js';
@@ -36,7 +37,7 @@ function itemCard(game, save, slot, T) {
     card.append(el('span', 'pf-slot', data.items.slots[slot]), el('span', 'muted', T.slot_empty));
     return card;
   }
-  const r = rarityOf(data.items, it.rarity), ico = icon(data, it), txt = el('div', 'pf-it');
+  const r = grade(data, it), ico = icon(data, it), txt = el('div', 'pf-it');
   ico.style.borderColor = r.color;
   const name = el('b', null, itemName(data, it)); name.style.color = r.color;
   txt.append(name, el('small', 'muted', `${data.items.slots[slot]} · ${fill(T.item_sub, { rarity: r.name, lvl: it.lvl })}`));

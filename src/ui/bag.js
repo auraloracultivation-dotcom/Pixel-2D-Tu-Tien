@@ -9,7 +9,7 @@ import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid, renderStockSheet } from './bag-stock.js';
 import { bestGems } from '../game/autogem.js';
-import { quality } from '../game/tiers.js';
+import { quality, grade } from '../game/tiers.js';
 import { startCoinLog } from '../game/coin-log.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 
@@ -23,7 +23,6 @@ export function createBag(game) {
 
   const save = () => game.save;
   const isEq = uid => Object.values(save().equip).includes(uid);
-  const rIdx = id => data.items.rarities.findIndex(r => r.id === id);
 
   // full = false: chỉ vẽ lại (đổi tab, chọn ngọc), không lưu
   function changed(full = true) { if (full) { game.refreshStats(); game.persist(); } render(); }
@@ -89,8 +88,8 @@ export function createBag(game) {
       let items = save().bag.filter(i => !isEq(i.uid) && (st.slot === 'all' || data.items.bases[i.base].slot === st.slot));
       const gain = new Map(items.map(i => [i.uid, powerGain(game, i)]));
       if (st.sort === 'moi') items = items.slice().sort((a, b) => b.uid - a.uid);
-      if (st.sort === 'pham') items = items.slice().sort((a, b) => rIdx(b.rarity) - rIdx(a.rarity) || b.lvl - a.lvl);
-      if (st.sort === 'cap') items = items.slice().sort((a, b) => b.lvl - a.lvl || rIdx(b.rarity) - rIdx(a.rarity));
+      if (st.sort === 'pham') items = items.slice().sort((a, b) => grade(data, b).idx - grade(data, a).idx || b.lvl - a.lvl);   // xếp theo phẩm màu dòng (#138)
+      if (st.sort === 'cap') items = items.slice().sort((a, b) => b.lvl - a.lvl || grade(data, b).idx - grade(data, a).idx);
       if (st.sort === 'manh') items = items.slice().sort((a, b) => gain.get(b.uid) - gain.get(a.uid));
       if (save().bag.some(i => !isEq(i.uid))) renderQuick(game, box, st, full => full ? changed() : render());
       if (!items.length) box.append(el('p', 'muted', st.slot === 'all' ? 'Túi trống. Hạ quái để nhặt đồ.' : `Chưa có ${data.items.slots[st.slot].toLowerCase()} nào trong túi.`));

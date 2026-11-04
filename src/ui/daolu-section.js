@@ -2,7 +2,8 @@
 // huỷ bấm hai lần), lời mời đến (đồng ý sau khi đọc cảnh báo 30 ngày), lời mời đã gửi, hạn chờ sau khi huỷ. Nút "Mời làm
 // đạo lữ" trên từng người bạn: inviteBtn. Logic ở src/game/daolu.js; chữ data/social.json → dao_lu.text.
 import { inviteDaoLu, cancelDaoLu, giftDaoLu, daoLuErr } from '../game/daolu.js';
-import { isEquipped, itemName, rarityOf } from '../game/items.js';
+import { isEquipped, itemName } from '../game/items.js';
+import { grade } from '../game/tiers.js';
 import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 
@@ -31,7 +32,7 @@ export function inviteBtn(game, st, r, btn, rerender) {
 function giftList(game, kind) {
   const s = game.save, D = game.data;
   if (kind === 'mon') return s.bag.filter(it => !isEquipped(s, it.uid)).slice().reverse()   // mọi trang bị không đang mặc, cả đồ Đạo Vận (chủ dự án 16:49)
-    .map(it => ({ label: itemName(D, it), desc: `${rarityOf(D.items, it.rarity)?.name || ''} · cấp ${it.lvl}`, color: rarityOf(D.items, it.rarity)?.color, mon: { uid: it.uid } }));
+    .map(it => { const g = grade(D, it); return { label: itemName(D, it), desc: `${g.name} · cấp ${it.lvl}`, color: g.color, mon: { uid: it.uid } }; });
   if (kind === 'nl') return Object.entries(s.mats || {}).filter(([id, n]) => n >= 1 && matInfo(D, id) && id !== 'dao-van-thach')
     .map(([id, n]) => ({ label: `${matInfo(D, id).name} ×${Math.min(10, Math.floor(n))}`, desc: `Đang có ${Math.floor(n)}`, mon: { id, n: Math.min(10, Math.floor(n)) } }));
   return [1000, 10000, 100000].filter(n => coins(s) >= n).map(n => ({ label: `${n.toLocaleString('vi-VN')} ${D.shop.name}`, desc: '', mon: { n } }));
