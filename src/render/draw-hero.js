@@ -2,6 +2,7 @@
 import { spriteImage, drawHitFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 import { curOutfit } from '../game/fashion.js';
+import { drawKiemTrail, drawBloodAura } from './draw-huyet.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -103,11 +104,14 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const breath = look.breath && name === 'idle' && Math.sin(t * 2.2) > 0.55 ? n : 0;   // chibi đứng: thở nhún 1 điểm ảnh
   const P = look.breath && p === game.player && !own ? strikePose(p.fw?.act?.move, atk) : strikePose(null, null);   // chibi: dáng thân theo kiểu đòn
   const side = (p.lookX || 1) * P.flip, px = p.x + dx + (p.lookX || 1) * P.dx;
+  if (look.aura === 'huyet') { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
-  if (look.trail && atk != null && look.attacks?.includes(name)) drawTrail(ctx, look.trail, name === look.attacks[0] ? 0 : 1, atk, px, p.y - p.top * 0.45, p.lookX || 1);
+  if (look.aura === 'huyet') drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding);
+  if (look.trail?.style === 'kiem' && atk != null && look.attacks?.includes(name)) drawKiemTrail(ctx, look.trail, look.attacks.indexOf(name), atk, px, p.y - p.top * 0.45, p.lookX || 1, p.top);   // kiếm khí Huyết Nguyệt (src/render/draw-huyet.js)
+  else if (look.trail && atk != null && look.attacks?.includes(name)) drawTrail(ctx, look.trail, name === look.attacks[0] ? 0 : 1, atk, px, p.y - p.top * 0.45, p.lookX || 1);
   return true;
 }
 

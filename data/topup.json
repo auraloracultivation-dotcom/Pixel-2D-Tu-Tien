@@ -89,6 +89,12 @@
    "label": "Thời trang Tử Liềm Y (nữ)",
    "tn": 10,
    "outfit": "tu-liem-y"
+  },
+  {
+   "id": "ao-huyet-nguyet",
+   "label": "Thời trang Huyết Nguyệt",
+   "tn": 60,
+   "outfit": "huyet-nguyet"
   }
  ],
  "wrong_look": "Bộ này khác giới tính nhân vật",
