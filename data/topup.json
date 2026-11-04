@@ -95,8 +95,15 @@
    "label": "Thời trang Hoàng Kim Long Bào",
    "tn": 600,
    "outfit": "hoang-kim"
+  },
+  {
+   "id": "ao-tu-liem",
+   "label": "Thời trang Tử Liềm Y (nữ)",
+   "tn": 10,
+   "outfit": "tu-liem-y"
   }
  ],
+ "wrong_look": "Bộ này khác giới tính nhân vật",
  "title": "Quầy Tiên Ngọc",
  "packs_head": "Gói nạp",
  "shop_head": "Đổi Tiên Ngọc",
