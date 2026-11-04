@@ -18,6 +18,7 @@ ORDER = {'vu-khi': ['thiet-kiem', 'thanh-van-kiem', 'thien-mach-kiem', 'thiet-th
 # nguyên liệu (chủ dự án 11:43, 11:45): mỗi hàng một danh sách, id theo data/cave.json → materials, data/items.json → materials
 ROWS = {
     'ren-1.png': [['tinh-thiet', 'manh-phap-bao', 'tay-luyen-thach', 'khoa-linh-thach'], ['dao-van-thach', 'bi-kip-chieu', 'yeu-vuong-dan']],
+    'ca-1.png': [['linh-ngu', 'van-ngu', 'nguyet-ngu', 'hoa-ly', 'bang-ngu', 'dao-hoa-ngu', 'ha-quang-ngu'], ['phong-ngu', 'tuyet-ngu', 'vu-ngu', 'kim-ly', 'kim-tu-ngu', 'nham-ngu']],
     'nguyen-lieu-1.png': [['linh-thao', 'yeu-huyet', 'hoa-linh-chi'], ['ngoc-lo-hoa', 'linh-mach', 'linh-dau', 'hong-qua', 'kim-tieu', 'tu-van-sam', 'thai-hu-lien']],
 }
 

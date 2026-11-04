@@ -94,7 +94,7 @@ export function createBag(game) {
       return;
     }
     const pickStock = v => { st.stock = st.stock?.id === v.id ? null : v; st.sel = null; render(); };
-    if (st.tab === 'nl') { renderMatGrid(game, box, st, pickStock); return; }
+    if (st.tab === 'nl' || st.tab === 'ca') { renderMatGrid(game, box, st, pickStock, st.tab === 'ca'); return; }   // Cá: mục riêng (chủ dự án 04/11/2026 11:50)
     if (st.tab === 'dan') { renderPillGrid(game, box, st, pickStock); return; }   // đan dược dùng ngay trong túi (góp ý #53)
     if (!Object.keys(save().gems).length) { box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.')); return; }
     if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
