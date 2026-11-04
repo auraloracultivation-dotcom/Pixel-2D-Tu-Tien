@@ -10,10 +10,10 @@ export function spawnHomePets(game, rnd = Math.random) {
   const cfg = H(game), s = game.save;
   if (!cfg || game.map.id !== game.data.home.map || game.visiting) return;
   const T = game.map.T, [px, py, pw, ph] = cfg.pen;
-  for (const id of Object.keys(s.pets || {}).filter(id => id !== s.pet && game.data.pets.pets[id]).slice(0, cfg.max)) {
-    const x = (px + rnd() * pw) * T, y = (py + rnd() * ph) * T;
-    game.homePets.push({ id, def: petDef(game.data, s, id), x, y, tx: x, ty: y, wait: rnd() * 3, hop: 0, face: 1, moving: false });
-  }
+  Object.keys(s.pets || {}).filter(id => id !== s.pet && game.data.pets.pets[id]).slice(0, cfg.max).forEach((id, i) => {
+    const sp = cfg.spots?.[i], hx = sp ? (sp[0] + 0.5) * T : (px + rnd() * pw) * T, hy = sp ? (sp[1] + 0.5) * T : (py + rnd() * ph) * T;   // mỗi con một chỗ riêng
+    game.homePets.push({ id, def: petDef(game.data, s, id), x: hx, y: hy, hx, hy, tx: hx, ty: hy, wait: rnd() * 3, hop: 0, face: 1, moving: false });
+  });
 }
 
 export function updateHomePets(game, dt, rnd = Math.random) {
@@ -23,7 +23,12 @@ export function updateHomePets(game, dt, rnd = Math.random) {
   for (const p of game.homePets) {
     if ((p.wait -= dt) > 0) { p.moving = false; continue; }
     const dx = p.tx - p.x, dy = p.ty - p.y, d = Math.hypot(dx, dy);
-    if (d < 2) { p.wait = 1 + rnd() * 3; p.tx = (px + rnd() * pw) * T; p.ty = (py + rnd() * ph) * T; continue; }
+    if (d < 2) {
+      p.wait = 1 + rnd() * 3;
+      if (cfg.spots && p.hx != null) { const r = (cfg.roam || 0.6) * T, a = rnd() * Math.PI * 2; p.tx = p.hx + Math.cos(a) * r * rnd(); p.ty = p.hy + Math.sin(a) * r * rnd(); }   // quanh chỗ của mình
+      else { p.tx = (px + rnd() * pw) * T; p.ty = (py + rnd() * ph) * T; }
+      continue;
+    }
     const st = Math.min(d, cfg.speed * dt);
     p.x += dx / d * st; p.y += dy / d * st; p.face = dx < 0 ? -1 : 1; p.moving = true; p.hop += dt * 10;
   }

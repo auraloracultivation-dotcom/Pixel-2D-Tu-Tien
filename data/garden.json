@@ -3,20 +3,8 @@
  "map": "dong-phu",
  "plots": [
   [
-   2,
-   8
-  ],
-  [
-   3,
-   8
-  ],
-  [
-   5,
-   8
-  ],
-  [
-   6,
-   8
+   1,
+   9
   ],
   [
    2,
@@ -24,6 +12,10 @@
   ],
   [
    3,
+   9
+  ],
+  [
+   4,
    9
   ],
   [
@@ -35,36 +27,44 @@
    9
   ],
   [
-   12,
-   8
-  ],
-  [
-   13,
-   8
-  ],
-  [
-   12,
+   7,
    9
   ],
   [
-   13,
+   8,
    9
+  ],
+  [
+   1,
+   7
   ],
   [
    2,
-   10
+   7
   ],
   [
    3,
-   10
+   7
+  ],
+  [
+   4,
+   7
   ],
   [
    5,
-   10
+   7
   ],
   [
    6,
-   10
+   7
+  ],
+  [
+   7,
+   7
+  ],
+  [
+   8,
+   7
   ]
  ],
  "start": 8,
@@ -257,5 +257,6 @@
  },
  "helper_sec": 60,
  "cook_plots": 3,
- "_levels": "Chủ dự án chốt 04/11/2026 12:32: luống thành chậu bảy cấp (hình ui-vk-chau-1..7, ảnh GPT chau-1.png), giá theo mức farm 1 triệu Linh Thạch / ngày (đủ 16 chậu cấp 7 ≈ 66 triệu, khoảng 2 tháng). Cấp đã nâng theo giá cũ giữ nguyên. Cây trong chậu: hình nguyên liệu của cây (ui-vk-<cây>) lớn dần theo độ chín; chủ dự án sẽ gửi hình cây lớn sau."
+ "_levels": "Chủ dự án chốt 04/11/2026 12:32: luống thành chậu bảy cấp (hình ui-vk-chau-1..7, ảnh GPT chau-1.png), giá theo mức farm 1 triệu Linh Thạch / ngày (đủ 16 chậu cấp 7 ≈ 66 triệu, khoảng 2 tháng). Cấp đã nâng theo giá cũ giữ nguyên. Cây trong chậu: hình nguyên liệu của cây (ui-vk-<cây>) lớn dần theo độ chín; chủ dự án sẽ gửi hình cây lớn sau.",
+ "_plots": "Chủ dự án 04/11/2026 12:54: chậu gom hết sang bên trái, hai hàng (y 9 rồi y 7), cách một hàng cho cây hàng sau không đè chậu hàng trước."
 }
