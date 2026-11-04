@@ -95,6 +95,7 @@ export function createSideNav(game) {
   function pick(it) {
     const lock = itemLock(game, it);
     if (lock) { game.toast(lock, 2); return; }
+    if (fromNav && game.dialog.open) { game.dialog.cancel?.(); fromNav = false; }   // hộp thoại mục trước (trang trí, khách, hồ cá…) đang mở: bỏ ngang, không chồng lên mục mới
     if (it.talk) {   // nói chuyện thẳng với NPC: đóng bảng để thấy hội thoại
       const why = busyWhy(game);
       if (why) { game.toast(game.data.menu.dungeon.busy.replace('{why}', why), 2); return; }

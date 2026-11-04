@@ -90,3 +90,13 @@ body #hud .hud-btns > button.tron#hud-thu.co { background: radial-gradient(circl
 .ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-k-i-loi.png"); }
 .ht-row i { margin-left: auto; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: #e0484a; color: #fff; font: 700 10px/16px var(--f-body); font-style: normal; text-align: center; }
 body.ui-an #hop-thu, body.trip #hop-thu { display: none; }
+
+/* ---- cột mục bên trái (Túi đồ, Menu, Động phủ; src/ui/side-nav.js): ô gọn một hai dòng, cột rộng hơn để chữ khỏi gãy từng chữ
+   (chủ dự án 04/11/2026 09:43: "mấy cái ô ở mục động phủ to quá") ---- */
+html:root { --nav-w: 124px; }   /* side-nav.css nạp sau bằng JS: html:root để thắng */
+body .side-nav { border-width: 12px; border-image-width: 12px; padding: 2px 2px 4px; gap: 3px; }
+body .sn-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; padding: 0 2px 3px; }
+body .sn-list { gap: 3px; }
+body .sn-item { min-height: 0; padding: 3px 4px 3px 6px; line-height: 1.15; font-size: 11px; border-width: 5px; border-image-width: 5px; }
+body .sn-item[data-nav] { padding-left: 20px; }
+body .sn-item[data-nav]::before { left: 1px; }

@@ -8,7 +8,7 @@ export function createDialog(onLine) {
   const choices = document.getElementById('dlg-choices');
   const hint = document.getElementById('dlg-hint');
   const d = { open: false };
-  let full = '', shown = 0, timer = null, next = null, line = Promise.resolve();
+  let full = '', shown = 0, timer = null, next = null, line = Promise.resolve(), quit = null;
   const queue = run => { const p = line.then(() => new Promise(run)); line = p.catch(() => {}); return p; };
 
   function type(str) {
@@ -31,8 +31,9 @@ export function createDialog(onLine) {
   d.say = lines => queue(resolve => {
     let i = 0;
     d.open = true; box.hidden = false; choices.innerHTML = ''; hint.hidden = false;
+    quit = () => { i = lines.length; show(); };
     const show = () => {
-      if (i >= lines.length) { next = null; d.open = false; box.hidden = true; resolve(); return; }
+      if (i >= lines.length) { next = null; quit = null; d.open = false; box.hidden = true; resolve(); return; }
       const [n, s] = lines[i++];
       who.textContent = n; type(s); onLine?.();
     };
@@ -51,6 +52,7 @@ export function createDialog(onLine) {
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
     full = title; shown = title.length; text.textContent = title; clearInterval(timer);
     choices.innerHTML = '';
+    quit = () => { quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(null); };
     const t0 = performance.now();
     for (const o of options) {
       const b = document.createElement('button');
@@ -62,7 +64,7 @@ export function createDialog(onLine) {
       b.addEventListener('pointerdown', e => {
         e.stopPropagation();
         if (performance.now() - t0 < guard) return;   // đang bấm Đánh liên tục thì khỏi chạm trúng lựa chọn vừa hiện
-        choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(o.id);
+        quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(o.id);
       });
       choices.append(b);
     }
@@ -74,7 +76,8 @@ export function createDialog(onLine) {
     choices.innerHTML = '';
     const inp = document.createElement('input');
     inp.className = 'dlg-input'; inp.maxLength = max; inp.placeholder = placeholder; inp.autocomplete = 'off';
-    const done = v => { choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(v); };
+    const done = v => { quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(v); };
+    quit = () => done(null);
     const mk = (label, v) => {
       const b = document.createElement('button'); b.className = 'choice';
       const l = document.createElement('b'); l.textContent = label; b.append(l);
@@ -86,5 +89,7 @@ export function createDialog(onLine) {
     choices.append(inp, mk(ok, () => inp.value), mk(cancel, () => null));
     setTimeout(() => inp.focus(), 50);
   });
+  // Bỏ ngang hộp đang hiện (chọn mục khác ở cột bên trái, chủ dự án 04/11/2026 09:43): hộp chọn trả null như bấm "Để sau"
+  d.cancel = () => { clearInterval(timer); quit?.(); };
   return d;
 }
