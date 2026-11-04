@@ -23,7 +23,8 @@ export function createHudAva(game) {
     if (box.parentElement !== bars) bars.prepend(box);
     box.hidden = false;
     const id = heroLook(game).sprite, spr = game.data.art.sprites[id];   // đúng hình đang vẽ ngoài màn (bộ thời trang chưa có hình chibi thì hình gốc; trước lấy tên chibi không có hình nên mặt trống)
-    const fk = ELS.includes(s.element) ? s.element : 'moc', L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
+    const fk = s.element === 'moc' || !ELS.includes(s.element) ? 'kim' : s.element,   // Mộc / chưa có hệ: khung vàng kim cương (khung hoa đào hồng đã bỏ, chủ dự án 04/11/2026 11:10)
+      L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
     if (k === key) return;
     key = k; lv.textContent = L;
     fr.style.setProperty('--ava', `url("assets/art/ui-hd-ava-${fk}.png")`);
