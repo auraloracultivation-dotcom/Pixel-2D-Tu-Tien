@@ -26,8 +26,9 @@ export function el(tag, cls, text) {
 }
 
 export function icon(data, it) {
-  const ico = el('i', 'ico'), spr = data.art.sprites['gear.' + it.base];   // biểu tượng pixel của món gốc (tools/art/gear.py)
-  if (spr) ico.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
+  // biểu tượng theo loại món (bộ biểu tượng mới, chủ dự án 04/11/2026 11:17: ui-ic-<ô>), nằm trong lòng khung phẩm cấp (style-ui-icon.css)
+  const ico = el('i', 'ico'), slot = data.items.bases[it.base]?.slot, spr = slot && data.art.sprites['ui.ic-' + slot];
+  if (spr) ico.style.setProperty('--ic', `url("${spr.file}?v=${spr.v}")`);
   return ico;
 }
 

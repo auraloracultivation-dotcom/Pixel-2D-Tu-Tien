@@ -49,7 +49,9 @@ export function createBag(game) {
         cell.title = itemName(data, it);
         cell.onclick = () => pick(it.uid);
       } else {
-        cell.append(el('i', 'ico'), el('small', null, name));
+        const ic = el('i', 'ico'), spr = data.art.sprites['ui.ic-' + slot];   // ô trống: biểu tượng loại ô mờ
+        if (spr) ic.style.setProperty('--ic', `url("${spr.file}?v=${spr.v}")`);
+        cell.append(ic, el('small', null, name));
         cell.onclick = () => { st.tab = 'do'; st.slot = slot; st.sel = null; render(); };   // ô trống: lọc túi theo ô đó
       }
       box.append(cell);
