@@ -77,11 +77,16 @@ function drawFlight(ctx, screen, game, trip) {
       rider(c, 0, px - 9 * S, py + 1.5 * S, S, t, fit.robe, fit.hair, fit.sash || el, 0); // đứng sau trưởng lão, chung một thanh kiếm
     } else if (game.save.realm >= game.data.pets.fly_realm && game.save.mount) {
       // Từ Nguyên Anh: cưỡi thú bay thay cho kiếm
-      c.save(); c.translate(px, py + 6 * S); c.scale(S, S);
+      // người đứng trên yên: độ cao, lệch ngang chỗ đứng lấy từ drawMount (đã gồm nhấp nhô theo gió), như lúc cưỡi ngoài bản đồ
+      // (chủ dự án 04/11/2026 22:05: trước vẽ người cố định ở py, đè lên thân thú như xếp chồng)
+      const mp = { x: 0, y: 0, face: { x: 1 }, moving: true, fly: true, walkT: t }, gy = py + 6 * S;
+      c.save(); c.translate(px, gy); c.scale(S, S);
       windTrail(c, t, el);
-      drawMount(c, { x: 0, y: 0, face: { x: 1 }, moving: true, fly: true, walkT: t }, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount);
+      const lift = drawMount(c, mp, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount);
       c.restore();
-      rider(c, 0, px, py - Math.sin(t * 2.6) * 1.5 * S, S, t, fit.robe, fit.hair, fit.sash || el, 0);   // người nhấp nhô cùng thú
+      FLY.riding = true;
+      rider(c, 0, px + (mp.seatX || 0) * S, gy - lift * S, S, t, fit.robe, fit.hair, fit.sash || el, 0);
+      FLY.riding = false;
     } else rider(c, 0, px, py, S, t, fit.robe, fit.hair, fit.sash || el, 24);
   }, caption);
 }
