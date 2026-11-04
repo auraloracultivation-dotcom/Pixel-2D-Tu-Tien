@@ -76,13 +76,14 @@ B3 = {
     'bar-do': (261, 734, 471, 773), 'bar-lam': (261, 784, 472, 823), 'bar-rong': (260, 835, 473, 873),
     'thong-bao': (397, 900, 997, 1008),
     'i-lui': (17, 458, 80, 517), 'i-toi': (17, 527, 80, 585), 'i-dong': (18, 595, 80, 652), 'i-ok': (17, 661, 80, 720),
+    'vong-mong': (1307, 727, 1390, 803), 'bang2': (409, 51, 742, 344),
     'i-cai-dat': (23, 729, 78, 783), 'i-hoi': (24, 790, 77, 841), 'i-than': (24, 848, 77, 899), 'i-tin': (24, 907, 77, 961),
 }
 B4 = {
     'khung': (15, 43, 362, 435), 'mai': (382, 12, 778, 290), 'trang2': (794, 23, 1152, 288), 'hop': (384, 289, 707, 437),
     'may': (727, 316, 1128, 431), 'o-nhap': (1151, 380, 1415, 434), 'vang': (15, 462, 360, 534), 'tim': (381, 461, 691, 531),
     'vang-nho': (912, 453, 1127, 512), 'tim-nho': (712, 453, 891, 527), 'tab': (913, 591, 1056, 634), 'tab-on': (1073, 589, 1215, 631),
-    'o': (384, 544, 692, 610), 'chon': (15, 638, 347, 725), 'chat': (243, 745, 602, 852), 'nhap': (1151, 515, 1415, 568),
+    'chat2': (624, 764, 1048, 845), 'o': (384, 544, 692, 610), 'chon': (15, 638, 347, 725), 'chat': (243, 745, 602, 852), 'nhap': (1151, 515, 1415, 568),
 }
 
 B5 = {   # ảnh 5 (chủ dự án 04/11/2026 10:46): nền khung đăng nhập, chơi tiếp, nút
@@ -111,7 +112,8 @@ def build(save):
         MANIFEST['ui.hd-ava-' + k]['hole'] = holes[k]   # [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng] cho src/ui/hud-ava.js
     put('ui.hd-vong-hoa', _cut(a2, B2['vong-hoa']), 'vòng hoa đào lòng tím (nút tròn)')
     put('ui.hd-ring', _hole(_cut(a2, B2['ring']), 1.0)[0], 'vòng chiêu khoét lòng')
-    vb, cx, cy, r = _hole(_cut(a3, (493, 732, 630, 893)), 1.0)
+    put('ui.hd-ring-vang', _hole(_cut(a3, (642, 755, 781, 894)), 1.0)[0], 'vòng vàng trơn khoét lòng (chiêu; chủ dự án 11:01: bớt hoa, khung mỏng)')
+    vb, cx, cy, r = _hole(_cut(a3, (642, 755, 781, 894)), 1.0)   # bản đồ: vòng vàng trơn mỏng (chủ dự án 04/11/2026 11:01)
     put('ui.hd-vong-ban-do', vb, 'vòng hoa đào lòng trống (khung bản đồ tròn)')
     MANIFEST['ui.hd-vong-ban-do']['hole'] = [round(float(cx) / vb.shape[1], 3), round(float(cy) / vb.shape[0], 3), round(float(r) / vb.shape[1], 3), round(vb.shape[0] / vb.shape[1], 3)]
     put('ui.hd-ring-lam', _hole(_cut(a2, B2['ring-lam']), 1.0)[0], 'vòng Lướt đá lam khoét lòng')

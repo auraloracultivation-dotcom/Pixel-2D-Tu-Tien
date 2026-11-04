@@ -25,7 +25,7 @@ await ctx.addInitScript(() => { const D = Date, off = new D(window.__FAKE) - D.n
 await ctx.route(/supabase-js/, r => r.abort());   // chơi không mạng, không đụng máy chủ thật
 const p = await ctx.newPage(), errs = [];
 p.on('pageerror', e => errs.push(e.message + ' @ ' + (e.stack || '').split('\n')[1]?.trim()));
-await p.goto(`http://localhost:${PORT}/`);
+await p.goto(`http://localhost:${PORT}/?thu=1`);   // ?thu=1: hiện nút chơi thử (người chơi thật không thấy, src/ui/login.js)
 await p.waitForSelector('#btn-guest:not([disabled])', { timeout: 30000 });
 await p.waitForTimeout(800);
 await p.tap('#btn-guest');
