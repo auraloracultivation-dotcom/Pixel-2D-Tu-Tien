@@ -2,6 +2,7 @@
 // Đánh thường: người ra động tác đánh của mình (chuỗi attacks của nhân vật), cùng lúc vũ khí từ sau lưng lao ra theo đúng động tác đó
 // (fly.moves: bổ, hất, quét, xoay, móc; nhân vật không có động tác thì xoay vòng đâm, quét, bổ), cung và đàn ra trước mặt bắn, rồi bay về.
 // Vị trí, góc vũ khí tính ở đây mỗi nhịp (render/draw-flyweapon.js chỉ vẽ); sát thương tính lúc vũ khí lao tới nơi (player.js).
+import { heroLook } from '../render/draw-hero.js';   // hình đang mặc (bộ thời trang có động tác riêng: Thần Nguyên Y)
 const C = game => game.data.heroes.fly;
 const ease = k => 1 - (1 - k) * (1 - k);
 const lerp = (a, b, k) => a + (b - a) * k;
@@ -21,7 +22,7 @@ function rest(game, p, t) {
 // render/draw-hero.js chạy khung cùng lúc) và đường bay vũ khí tương ứng. Trả về số giây tới lúc trúng (player.js tính sát thương).
 export function startStrike(game, kind, dir, reach, half) {
   const p = game.player, c = C(game), fw = ensure(game), H = game.data.heroes;
-  const look = H.list[game.save?.look] || H.list[H.default], atks = look?.sprite && look.attacks?.length ? look.attacks : null;
+  const look = heroLook(game), atks = look?.sprite && look.attacks?.length ? look.attacks : null;
   const fresh = game.time - (fw.last ?? -99) > (H.combo_reset || 1.2);
   fw.n = fresh ? 0 : (fw.n + 1) % (atks ? atks.length : c.combo.length);
   fw.last = game.time;
