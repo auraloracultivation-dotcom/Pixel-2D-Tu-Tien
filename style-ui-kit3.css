@@ -1,6 +1,6 @@
-/* Bố cục nút tròn theo ảnh mẫu chủ dự án (04/11/2026 09:05): cột nút tròn bên trái dưới thanh linh khí (Sự kiện, Xếp hạng, Zalo,
-   Thư, Báo lỗi, Đề xuất), góc dưới trái Túi đồ lớn, trên nó Bí cảnh, Menu (Động phủ khi ở nhà). Bản đồ thành khung tròn góc phải
-   trên (src/ui/mini-map.js); việc truyện, nhiệm vụ hằng ngày dời xuống dưới khung tròn. Nút tròn: vòng tím ui-k-vong-tim (ảnh GPT
+/* Bố cục nút tròn theo ảnh mẫu chủ dự án (04/11/2026 09:05, sửa 09:19): bên phải dưới bản đồ tròn và việc truyện là hai cột nút:
+   cột vòng (Sự kiện, Xếp hạng, Bí cảnh, Menu, Động phủ khi ở nhà) sát mép, cột không viền (Zalo, Thư, Báo lỗi, Đề xuất) bên trái nó;
+   góc dưới trái chỉ còn Túi đồ. Nhiệm vụ hằng ngày sang bên trái dưới thanh linh khí. Bản đồ tròn: src/ui/mini-map.js. Nút tròn: vòng tím ui-k-vong-tim (ảnh GPT
    bộ hai), biểu tượng trên, chữ dưới (data-lb, gắn lớp .tron ở src/ui/hud-gon.js theo data/menu.json → hud.tron).
    Nạp sau style-ui-kit*.css; các luật khung chữ nhật cũ đã chừa :not(.tron). */
 
@@ -24,13 +24,15 @@ body #hud .hud-btns > button.tron > i { position: absolute; top: 2px; right: 2px
 body #hud .hud-btns > button.tron:active { transform: scale(.92); }
 body #hud .hud-btns > button.tron.on { filter: drop-shadow(0 0 5px rgba(255, 190, 90, .9)); }
 
-/* cột trái: dưới hai nút thu gọn / ẩn */
-body #hud .hud-btns > button.tron[data-cot] { left: calc(env(safe-area-inset-left) + 6px); top: calc(env(safe-area-inset-top) + 122px + var(--cot) * 60px); }
+/* hai cột phải: dưới việc truyện (--cot-top do src/ui/hud-gon.js đo) */
+body #hud .hud-btns > button.tron[data-cot] { right: calc(env(safe-area-inset-right) + 6px); top: calc(var(--cot-top, 160px) + var(--cot) * 60px); left: auto; }
+body #hud .hud-btns > button.tron[data-tron2] { right: calc(env(safe-area-inset-right) + 64px); top: calc(var(--cot-top, 160px) + var(--tron2) * 60px); left: auto;
+  background: none !important; filter: none; }
+body #hud .hud-btns > button.tron[data-tron2]::before { top: 8px; width: 36px; height: 28px; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .7)); }
 /* góc dưới trái */
 body #hud .hud-btns > button.tron#btn-bag { width: 70px !important; height: 70px !important; left: calc(env(safe-area-inset-left) + 4px); bottom: calc(env(safe-area-inset-bottom) + 6px); top: auto; }
 body #hud .hud-btns > button.tron#btn-bag::before { width: 34px; height: 32px; top: 9px; }
 body #hud .hud-btns > button.tron#btn-bag::after { font-size: 11px; bottom: -2px; }
-body #hud .hud-btns > button.tron[data-day] { bottom: calc(env(safe-area-inset-bottom) + 92px); left: calc(env(safe-area-inset-left) + 6px + var(--day) * 58px); top: auto; }
 
 #hud-event { --ico: url("assets/art/ui-k-i-su-kien.png"); }
 #hud-rank { --ico: url("assets/art/ui-k-i-xep-hang.png"); }
@@ -46,8 +48,8 @@ body #hud .hud-btns > button.tron[data-day] { bottom: calc(env(safe-area-inset-b
 body[data-le] #hud .hud-btns > button.tron#btn-menu::before { display: block; }
 body #hud .hud-btns > button.tron#btn-rec.on::after { content: attr(data-lb) " " attr(data-s); }
 
-/* cột nhặt đồ, khung trò chuyện tránh hai cụm nút tròn */
-body #feed { left: calc(env(safe-area-inset-left) + 62px); }
+/* cột nhặt đồ dưới cột nhiệm vụ bên trái; khung trò chuyện cạnh Túi đồ */
+body #feed { left: calc(env(safe-area-inset-left) + 8px); top: 46%; }
 body .chat-dock { left: calc(env(safe-area-inset-left) + 80px); }
 
 /* ---- bản đồ tròn góc phải trên ---- */
@@ -63,7 +65,8 @@ body.ui-an #mini-map, body:has(.panel:not([hidden])) #mini-map, body:has(#bag:no
 /* việc truyện dưới khung tròn */
 body #goal { top: calc(env(safe-area-inset-top) + 118px); right: 8px; max-width: 46%; }
 
-/* ---- nhiệm vụ hằng ngày: mũi tên thu / mở ở dòng tiêu đề (thay nút Nhiệm vụ) ---- */
+/* ---- nhiệm vụ hằng ngày: bên trái dưới thanh linh khí (quest-dock.js đo chỗ); mũi tên thu / mở ở dòng tiêu đề (thay nút Nhiệm vụ) ---- */
+body .quest-dock { left: calc(env(safe-area-inset-left) + 8px); right: auto; max-width: 52%; }
 body .quest-dock .qd-head { pointer-events: auto; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 .qd-arrow { display: inline-block; width: 12px; height: 16px; background: url("assets/art/ui-k-arrow-r.png") center / contain no-repeat; transform: rotate(-90deg); image-rendering: auto; }
 .qd-arrow.dong { transform: rotate(90deg); }

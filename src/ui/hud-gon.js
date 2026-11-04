@@ -50,7 +50,11 @@ export function createHudGon(game) {
         if (attr && !b.hidden) b.style.setProperty('--' + attr, k++);
       }
     };
-    put(T.cot, 'cot'); put(T.day, 'day'); put([T.goc]);
+    put(T.cot, 'cot'); put(T.tron2, 'tron2'); put([T.goc]);
+    // hai cột phải bắt đầu dưới việc truyện / bản đồ tròn
+    const g = document.getElementById('goal')?.getBoundingClientRect(), mm = document.getElementById('mini-map')?.getBoundingClientRect();
+    const top = Math.max(g && g.height ? g.bottom : 0, mm && mm.height ? mm.bottom + 14 : 0, 110) + 8;
+    document.body.style.setProperty('--cot-top', Math.round(top) + 'px');
   }
   apply(); place(); every(place, 2000); addEventListener('resize', place);
 }
