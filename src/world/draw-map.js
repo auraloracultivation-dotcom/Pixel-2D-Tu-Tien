@@ -1,6 +1,7 @@
 // Vẽ bản đồ. Nền, nhà các tinh cầu, cây, đá, hoa, dung nham, hồ băng, ruộng bậc thang, mộ kiếm, cột đá, cổ thụ, nấm, đèn lồng, cây khô, trụ đá đen, tinh thể, cổng, bồ đoàn, lò đan, lò rèn, đất linh điền, tùng tuyết, trụ băng, khe hư không, núi, nước, vách hang theo hệ, đá linh căn, cửa phong ấn đã có hình pixel (draw-ground.js); các ô khác còn hình khối (bản tạm).
 import { drawFurnace, drawAnvil, drawPlot } from './draw-cave.js';
 import { plotGrowth, plotIndex, cropOf } from '../game/garden.js';
+import { drawChau } from './draw-chau.js';
 import { drawIceTile } from './draw-ice.js';
 import { drawWindTile } from './draw-wind.js';
 import { drawForestTile } from './draw-forest.js';
@@ -162,6 +163,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
     else if (ch === '=') drawWater(ctx, map, tx, ty, T, hash(tx, ty), t);
     else if (ch === 'G') {
       const grow = plotGrowth(game, tx, ty);
+      if (drawChau(ctx, game, tx, ty, px, py, T, grow, cropOf(game, plotIndex(game, tx, ty)), t)) continue;   // chậu theo cấp (draw-chau.js)
       drawPlot(ctx, px, py, T, grow, hash(tx, ty), cropOf(game, plotIndex(game, tx, ty)), drawPlotSoil(ctx, game, px, py, grow < 0, hash(tx, ty)));
     }
     else if (ch === 'q' && hash(tx, ty) > 0.82) {

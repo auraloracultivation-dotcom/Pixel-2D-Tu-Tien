@@ -23494,6 +23494,90 @@
    ],
    "note": "giap bo-y (ảnh GPT giap-1.png)"
   },
+  "ui.vk-chau-1": {
+   "file": "assets/art/ui-vk-chau-1.png",
+   "v": "64d5535b",
+   "w": 399,
+   "h": 399,
+   "frames": 1,
+   "anchor": [
+    199,
+    199
+   ],
+   "note": "nguyen-lieu chau-1 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-2": {
+   "file": "assets/art/ui-vk-chau-2.png",
+   "v": "c2a6e40d",
+   "w": 495,
+   "h": 495,
+   "frames": 1,
+   "anchor": [
+    247,
+    247
+   ],
+   "note": "nguyen-lieu chau-2 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-3": {
+   "file": "assets/art/ui-vk-chau-3.png",
+   "v": "9ae2ac3f",
+   "w": 483,
+   "h": 483,
+   "frames": 1,
+   "anchor": [
+    241,
+    241
+   ],
+   "note": "nguyen-lieu chau-3 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-4": {
+   "file": "assets/art/ui-vk-chau-4.png",
+   "v": "0595e8da",
+   "w": 489,
+   "h": 489,
+   "frames": 1,
+   "anchor": [
+    244,
+    244
+   ],
+   "note": "nguyen-lieu chau-4 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-5": {
+   "file": "assets/art/ui-vk-chau-5.png",
+   "v": "56b77a6f",
+   "w": 554,
+   "h": 554,
+   "frames": 1,
+   "anchor": [
+    277,
+    277
+   ],
+   "note": "nguyen-lieu chau-5 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-6": {
+   "file": "assets/art/ui-vk-chau-6.png",
+   "v": "09be7e61",
+   "w": 565,
+   "h": 565,
+   "frames": 1,
+   "anchor": [
+    282,
+    282
+   ],
+   "note": "nguyen-lieu chau-6 (ảnh GPT chau-1.png)"
+  },
+  "ui.vk-chau-7": {
+   "file": "assets/art/ui-vk-chau-7.png",
+   "v": "010734d9",
+   "w": 687,
+   "h": 687,
+   "frames": 1,
+   "anchor": [
+    343,
+    343
+   ],
+   "note": "nguyen-lieu chau-7 (ảnh GPT chau-1.png)"
+  },
   "ui.vk-dao-hoa-ngu": {
    "file": "assets/art/ui-vk-dao-hoa-ngu.png",
    "v": "17bc0db5",
