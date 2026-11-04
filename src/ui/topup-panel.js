@@ -1,5 +1,5 @@
 // Bảng Quầy Tiên Ngọc (data/topup.json): số dư, thẻ tháng, gói nạp (chưa mở), đổi Tiên Ngọc lấy đồ.
-import { tn, starterGift, cardLeft, cardClaimed, claimCard, buyTn, shopOwned, tnLeft } from '../game/topup.js';
+import { tn, starterGift, cardLeft, cardClaimed, claimCard, buyTn, shopOwned, tnLeft, shopWrongLook } from '../game/topup.js';
 import { giveOdds } from '../game/odds.js';
 
 const $ = id => document.getElementById(id);
@@ -45,7 +45,7 @@ export function createTopupPanel(game) {
     for (const x of T.shop) {
       const have = shopOwned(game, x), left = tnLeft(game, x);
       const price = `${x.tn} ${T.name}` + (x.per_day ? ` · ${T.left.replace('{n}', Math.min(left, x.per_day)).replace('{max}', x.per_day)}` : '');
-      box.append(row(x.label, price, have ? el('small', null, T.owned) : left <= 0 ? el('small', null, T.limit) : btn(T.buy, async () => {
+      box.append(row(x.label, price, have ? el('small', null, T.owned) : shopWrongLook(game, x) ? el('small', null, T.wrong_look) : left <= 0 ? el('small', null, T.limit) : btn(T.buy, async () => {
         const got = await buyTn(game, x.id);
         note = got ? T.got.replace('{got}', got.join(', ')) : T.poor;
         game.sfx(got ? 'pickup' : 'hurt');

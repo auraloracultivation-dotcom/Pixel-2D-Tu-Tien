@@ -23,10 +23,7 @@
    "sprite": "goc",
    "only": "nam",
    "from": {
-    "uid": [
-     "625e027c-36b4-4bb7-bd0c-21572612bc50"
-    ],
-    "soon": true
+    "shop": 10000
    }
   },
   "tu-liem-y": {
@@ -39,10 +36,7 @@
     "nu": 165
    },
    "from": {
-    "uid": [
-     "625e027c-36b4-4bb7-bd0c-21572612bc50"
-    ],
-    "soon": true
+    "tn": 10
    }
   },
   "thanh-sam": {

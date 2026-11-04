@@ -48,6 +48,9 @@ export async function claimCard(game) {
 }
 
 export const shopOwned = (game, x) => !!x.outfit && owned(game, x.outfit);
+// Bộ chỉ một giới (fashion only, vd Tử Liềm Y chỉ nữ): người giới khác không mua được (mua thì nhận bản không mặc được)
+export const shopWrongLook = (game, x) => { const o = x.outfit && game.data.fashion.list[x.outfit]?.only; return !!o && o !== versionsLook(game); };
+const versionsLook = game => (game.data.heroes.list[game.save?.look] ? game.save.look : game.data.heroes.default);
 // Món có per_day: số lần còn đổi hôm nay (save.tnDay { day, [id]: n })
 const today = () => new Date().toDateString();
 export function tnLeft(game, x) {
@@ -63,7 +66,7 @@ function useTnDay(game, x) {
 
 export async function buyTn(game, id) {
   const x = T(game).shop.find(i => i.id === id), s = game.save;
-  if (!x || shopOwned(game, x) || tnLeft(game, x) <= 0) return null;
+  if (!x || shopOwned(game, x) || shopWrongLook(game, x) || tnLeft(game, x) <= 0) return null;
   if (tn(game) < x.tn) return false;
   const give = () => {
     if (x.outfit) { grantOutfit(game, x.outfit); game.persist(); return [game.data.fashion.list[x.outfit].name]; }
