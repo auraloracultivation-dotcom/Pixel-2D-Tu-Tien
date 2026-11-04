@@ -1,5 +1,5 @@
 {
- "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người). follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
+ "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
  "npc": "ngu-thu-su",
  "rare_chance": 0.04,
  "rare": {
@@ -238,8 +238,7 @@
    "accent": "#c9a46a",
    "speed": 0.35,
    "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%.",
-   "seat": 18,
-   "seat_x": -3
+   "seat": 18
   },
   "phong-lang": {
    "look": "wolf",
@@ -248,8 +247,7 @@
    "accent": "#ff7a3a",
    "speed": 0.5,
    "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%.",
-   "seat": 17,
-   "seat_x": -2
+   "seat": 17
   },
   "hoa-ky-lan": {
    "look": "qilin",
@@ -258,8 +256,7 @@
    "accent": "#ffe27a",
    "speed": 0.65,
    "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%.",
-   "seat": 15,
-   "seat_x": 0
+   "seat": 15
   },
   "tuyet-ly": {
    "look": "lynx",
@@ -268,8 +265,7 @@
    "accent": "#9ad8ff",
    "speed": 0.55,
    "desc": "Hồ ly tuyết nhiều đuôi. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%.",
-   "seat": 15,
-   "seat_x": 2
+   "seat": 15
   }
  },
  "mount_drops": {
