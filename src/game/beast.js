@@ -85,7 +85,7 @@ export function outfitLine(game, key, f) {
   const s = game.save, F = B(game.data).fashion;
   s.outfitLine ??= {};
   // bộ bán bằng Linh Thạch: phẩm theo giá (pets.json → beast.fashion.price_tier); khác thì theo nguồn
-  const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim);
+  const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = (f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && F.tn_tier?.find(([lim]) => f.from.tn < lim));   // Tiên Ngọc: bảng riêng
   const t = pt ? pt[1] : F.tier[src] ?? 0;
   if (s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
   if (!s.outfitLine[key]) {
