@@ -89,7 +89,7 @@ export function usePill(game, id) {
     save.flags.boiNguyen = save.flags.boiNguyen || 0;
     if (save.flags.boiNguyen >= u.cap) return null;
     save.flags.boiNguyen++;
-    msg = `Máu tối đa +${u.hp} (${save.flags.boiNguyen}/${u.cap})`;
+    msg = `Sinh lực tối đa +${u.hp} (${save.flags.boiNguyen}/${u.cap})`;
   } else if (u.root) {
     const list = data.realms.roots.list, i = list.findIndex(r => r.id === save.root);
     if (i < 0 || i >= list.length - 1) return null;

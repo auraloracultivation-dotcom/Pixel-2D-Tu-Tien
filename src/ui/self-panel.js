@@ -43,7 +43,7 @@ export function createSelfPanel(game) {
     stats.append(
       row('Linh căn', s.element ? `${d.elements[s.element].name} · ${rootOf(s, d).name}` : 'Chưa thức tỉnh'),
       row('Lực chiến', vn(power(game))),
-      row('Máu', `${vn(p?.hp)}/${vn(st.maxHp)}`),
+      row('Sinh lực', `${vn(p?.hp)}/${vn(st.maxHp)}`),
       row('Linh lực', `${vn(s.qi)}/${vn(need)}`),
       row('Công', vn(st.atk)),
       row('Phòng', vn(st.def)),
