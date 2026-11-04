@@ -25,6 +25,7 @@
  ],
  "server_save": true,
  "start": {"map": "thanh-khe", "spawn": "vao", "weapon": "gay-go"},
+ "mana": {"_note": "Linh lực (chủ dự án 04/11/2026 12:57: thanh cạnh chân dung là Linh lực, hao khi dùng chiêu; Linh khí là để đột phá cảnh giới, khác nhau). Tối đa = base + per_layer × tầng tu tổng; hồi regen_pct tối đa mỗi giây (đả tọa ×med_mul); chiêu tốn tối đa × min(cap, per_cd × hồi chiêu giây), chiêu pháp bảo như vậy. Thiếu thì không ra chiêu. src/game/mana.js.", "base": 100, "per_layer": 12, "regen_pct": 0.05, "med_mul": 3, "per_cd": 0.04, "cap": 0.4},
  "player": {"hp": 100, "speed": 72, "radius": 5, "regen": 1.5, "invuln": 0.45, "crit": 0.12, "crit_mult": 1.7, "def_min_take": 0.35},
  "meditate": {"qi_per_sec": 5, "range": 20},
  "net_watch": {"_note": "Game online (chủ dự án 31/10/2026, src/game/net-watch.js): đã đăng nhập thì mỗi beat_s giây gửi nhịp sống; quá lost_s giây không liên lạc được máy chủ thì game đứng lại, hiện bảng; nối lại thì chơi tiếp; quá reload_s giây thì về màn đăng nhập. Máy chủ chỉ cộng Linh Thạch, nguyên liệu cho thời gian còn liên lạc (nhịp cách nhau tối đa 15 giây, migration 20261031020000).", "beat_s": 5, "lost_s": 10, "reload_s": 60, "timeout_s": 8, "text": {"title": "Mất kết nối", "sub": "Đang nối lại với máy chủ… Game tạm dừng, không mất gì.", "back": "Đã nối lại máy chủ.", "kick_title": "Đã đăng nhập ở máy khác", "kick_sub": "Tài khoản vừa vào game ở một máy khác nên máy này tự thoát. Tiến độ đã lưu ở máy kia."}},

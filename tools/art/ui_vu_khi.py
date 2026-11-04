@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 from scipy import ndimage as nd
-from px import Canvas
+from px import Canvas, MANIFEST
 
 ART = Path(__file__).resolve().parent
 SRC = ART / 'nguon' / 'ai' / 'ui'
@@ -36,6 +36,21 @@ def _segs(mask, axis, gap, need=None):
     return segs
 
 
+def _soil(a):
+    """Dải đất trong miệng chậu [trên, dưới] theo tỉ lệ cao hình: hàng có trên 30% điểm giữa chậu màu đất nâu, lấy dải liền dài nhất.
+    'dưới' là mép thành trước của chậu (src/world/draw-chau.js cắt cây ở đó)."""
+    h, w = a.shape[:2]; b = a[:, int(w * .3):int(w * .7)].astype(int); r, g, bl, al = (b[:, :, i] for i in range(4))
+    soil = ((al > 200) & (r > g + 8) & (g > bl) & (r < 175) & (r > 55)).mean(1) > 0.3
+    best, s0 = (0, 0), None
+    for y in range(h + 1):
+        v = y < h and soil[y]
+        if v and s0 is None: s0 = y
+        if not v and s0 is not None:
+            if y - s0 > best[1] - best[0]: best = (s0, y)
+            s0 = None
+    return [round(best[0] / h, 3), round(best[1] / h, 3)]
+
+
 def build(save):
     bases = json.loads((ART.parents[1] / 'data' / 'items.json').read_text(encoding='utf-8'))['bases']
     n = 0
@@ -61,6 +76,7 @@ def build(save):
             oy, ox = (S - c.shape[0]) // 2, (S - c.shape[1]) // 2; sq[oy:oy + c.shape[0], ox:ox + c.shape[1]] = c
             cv = Canvas(S, S); cv.a = sq
             save('ui.vk-' + k, [cv], (S // 2, S // 2), f'{slot} {k} (ảnh GPT {f})'); n += 1
+            if k.startswith('chau-'): MANIFEST['ui.vk-' + k]['soil'] = _soil(sq)   # mặt đất trong chậu: cây đứng trên đó, không vượt thành trước
         print(slot, len(rows), 'hàng', len(boxes), 'ô /', len(names), 'món')
     # bể cá động phủ (chủ dự án 11:57): giữ vệt kính mờ (độ trong thấp nhưng sáng), chỉ bỏ quầng tối nền
     a = np.array(Image.open(SRC / 'be-ca.png').convert('RGBA')).astype(int)
