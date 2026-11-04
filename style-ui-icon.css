@@ -1,0 +1,73 @@
+/* Bộ biểu tượng mới (chủ dự án 04/11/2026 11:17: "thay toàn bộ thành icon mới", ảnh GPT tools/art/nguon/ai/ui/icon-moi.png, cắt ở
+   tools/art/ui_icon.py → ui-ic-<tên>). Nạp sau cùng, đè biểu tượng cũ ở nút trên màn, cột mục, hộp Thư, nút nhỏ, ô trang bị.
+   Ô trang bị: biểu tượng theo loại món nằm gọn trong lòng khung phẩm cấp (không còn hình vuông đè vỡ khung). */
+
+/* nút tròn trên màn */
+body #hud .hud-btns > button#btn-menu { --ico: url("assets/art/ui-ic-cai-dat.png"); }
+body #hud .hud-btns > button#hud-dun { --ico: url("assets/art/ui-ic-bi-canh.png"); }
+body #hud .hud-btns > button#hud-event { --ico: url("assets/art/ui-ic-su-kien.png"); }
+body #hud .hud-btns > button#hud-rank { --ico: url("assets/art/ui-ic-xep-hang.png"); }
+body #hud .hud-btns > button#hud-thu { --ico: url("assets/art/ui-ic-thu.png"); }
+body #hud .hud-btns > button#btn-bag { --ico: url("assets/art/ui-ic-tui.png"); }
+body #hud .hud-btns > button#hud-home { --ico: url("assets/art/ui-ic-dong-phu.png"); }
+body #hud .hud-btns > button#btn-rec { --ico: url("assets/art/ui-ic-quay.png"); }
+body #hud .hud-btns > button.tron::before { width: 30px; height: 28px; top: 8px; }
+
+/* cột mục bên trái: mọi mục có biểu tượng */
+body .sn-item[data-nav] { padding-left: 24px !important; }
+body .sn-item[data-nav]::before { left: 3px !important; width: 20px !important; height: 20px !important; background: var(--ico, none) center / contain no-repeat !important; }
+body .sn-item[data-nav="do"] { --ico: url("assets/art/ui-ic-giap.png"); }
+body .sn-item[data-nav="ngoc"] { --ico: url("assets/art/ui-ic-ngoc.png"); }
+body .sn-item[data-nav="nl"] { --ico: url("assets/art/ui-ic-tinh-thach.png"); }
+body .sn-item[data-nav="dan"] { --ico: url("assets/art/ui-ic-dan.png"); }
+body .sn-item[data-nav="cong-phap"] { --ico: url("assets/art/ui-ic-cong-phap.png"); }
+body .sn-item[data-nav="pets"] { --ico: url("assets/art/ui-ic-linh-thu.png"); }
+body .sn-item[data-nav="mounts"] { --ico: url("assets/art/ui-ic-thu-cuoi.png"); }
+body .sn-item[data-nav="comps"] { --ico: url("assets/art/ui-ic-dau.png"); }
+body .sn-item[data-nav="fashion"] { --ico: url("assets/art/ui-ic-thoi-trang.png"); }
+body .sn-item[data-nav="friends"] { --ico: url("assets/art/ui-ic-dao-lu.png"); }
+body .sn-item[data-nav="guild"] { --ico: url("assets/art/ui-ic-tong-mon.png"); }
+body .sn-item[data-nav="market"] { --ico: url("assets/art/ui-ic-cho.png"); }
+body .sn-item[data-nav="topup"] { --ico: url("assets/art/ui-ic-linh-thach.png"); }
+body .sn-item[data-nav="achv"] { --ico: url("assets/art/ui-ic-thanh-tuu.png"); }
+body .sn-item[data-nav="title"] { --ico: url("assets/art/ui-ic-danh-hieu.png"); }
+body .sn-item[data-nav="journal"] { --ico: url("assets/art/ui-ic-nhat-ky.png"); }
+body .sn-item[data-nav="pilot"] { --ico: url("assets/art/ui-ic-tu-hanh.png"); }
+body .sn-item[data-nav="sound"] { --ico: url("assets/art/ui-ic-am-thanh.png"); }
+body .sn-item[data-nav="lang"] { --ico: url("assets/art/ui-ic-chat.png"); }
+body .sn-item[data-nav="rec"] { --ico: url("assets/art/ui-ic-quay.png"); }
+body .sn-item[data-nav="account"] { --ico: url("assets/art/ui-ic-cai-dat.png"); }
+body .sn-item[data-nav="phu"] { --ico: url("assets/art/ui-ic-dong-phu.png"); }
+body .sn-item[data-nav="be-quan"] { --ico: url("assets/art/ui-ic-tu-luyen.png"); }
+body .sn-item[data-nav="vuon"] { --ico: url("assets/art/ui-ic-duoc.png"); }
+body .sn-item[data-nav="ho-ca"] { --ico: url("assets/art/ui-ic-thuy.png"); }
+body .sn-item[data-nav="ren"] { --ico: url("assets/art/ui-ic-lua.png"); }
+body .sn-item[data-nav="khach"] { --ico: url("assets/art/ui-ic-qua.png"); }
+body .sn-item[data-nav="decor"] { --ico: url("assets/art/ui-ic-den.png"); }
+body .sn-item[data-nav="ve-nha"] { --ico: url("assets/art/ui-ic-nha-nho.png"); }
+body .sn-item[data-nav="ra-ngoai"] { --ico: url("assets/art/ui-ic-vi-tri.png"); }
+
+/* hộp Thư */
+body .ht-row[data-k="btn-inbox"] { --ico: url("assets/art/ui-ic-thu.png"); }
+body .ht-row[data-k="btn-zalo"] { --ico: url("assets/art/ui-ic-chat.png"); }
+body .ht-row[data-k="btn-fb-de_xuat"] { --ico: url("assets/art/ui-ic-nhiem-vu.png"); }
+body .ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-ic-than.png"); }
+
+/* nút nhỏ: mắt ẩn giao diện, !, thu gọn, đóng bảng, Tự đánh, Linh Thạch */
+body #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; background-size: 80% auto !important; }
+body.ui-an #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; opacity: .6; }
+body .faq-btn { background-image: url("assets/art/ui-ic-than.png") !important; background-size: contain !important; }
+.uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; background-size: 80% auto !important; }
+body.hud-gon .uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; transform: scaleX(-1); }
+body .bag-head > button[id$="-close"], body .bag-head > .close-x, body .ib-panel .bag-head > button:last-child { background-image: url("assets/art/ui-ic-dong.png") !important; }
+body #btn-auto.auto-dock::before { background-image: url("assets/art/ui-ic-dau.png") !important; }
+body #bag-mats::before { background-image: url("assets/art/ui-ic-linh-thach.png") !important; width: 14px; }
+
+/* ô trang bị: khung phẩm cấp phủ cả ô, biểu tượng loại món ở giữa lòng khung (src/ui/bag-detail.js đặt --ic) */
+body #bag .ico, body .ico[style*="--ic"] { border: none !important; border-image: none !important; box-sizing: border-box;
+  background: var(--ic, none) center / 62% auto no-repeat, var(--o, none) center / 100% 100% no-repeat !important; image-rendering: auto !important; }
+body #bag-equip .slot .ico { width: 34px !important; height: 34px !important; }
+body #bag .item .ico { width: 32px !important; height: 32px !important; }
+body #bag .slot.empty .ico { opacity: .35; background-size: 60% auto !important; }
+[data-o="pham"] { --o: url("assets/art/ui-pc-den.png"); }
+body #bag .item { grid-template-columns: 32px minmax(0, 1fr) !important; column-gap: 5px !important; }
