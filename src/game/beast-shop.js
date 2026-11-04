@@ -14,7 +14,7 @@ export function buyMount(game, id) {
   if (!m || price == null) return 'Không bán con này.';
   if (s.mounts?.[id]) return `Đã có ${m.name}.`;
   if (coins(s) < price) return `Thiếu Linh Thạch (cần ${vn(price)}).`;
-  addCoins(game, -price); s.mounts[id] = true; mountLine(game, id);
+  addCoins(game, -price, 'mua-thu'); s.mounts[id] = true; mountLine(game, id);
   game.persist(); game.sfx('levelup');
   return `Mua ${m.name}. Chọn cưỡi ở Túi đồ → Thú cưỡi.`;
 }
@@ -24,7 +24,7 @@ export function buyPuppet(game, id) {
   if (price == null) return 'Không bán khôi lỗi này.';
   if (s.comps?.[id]) return `Đã có ${puppetName(game, id)}.`;
   if (coins(s) < price) return `Thiếu Linh Thạch (cần ${vn(price)}).`;
-  addCoins(game, -price); (s.comps ??= {})[id] = { lv: 1, exp: 0 };
+  addCoins(game, -price, 'mua-thu'); (s.comps ??= {})[id] = { lv: 1, exp: 0 };
   game.persist(); game.sfx('levelup');
   return `Mua ${puppetName(game, id)}. Mang theo ở Túi đồ → Khôi lỗi.`;
 }
@@ -35,7 +35,7 @@ export function sellPuppet(game, id) {
   if (s.companion === id || s.companion2 === id) return 'Đang mang theo, cất đi rồi mới bán.';
   const price = puppetPrice(game, id);
   delete s.comps[id];
-  addCoins(game, price); game.persist(); game.sfx('pickup');
+  addCoins(game, price, 'ban-thu'); game.persist(); game.sfx('pickup');
   return `Đã bán ${puppetName(game, id)}, nhận ${vn(price)} Linh Thạch.`;
 }
 

@@ -21,7 +21,7 @@ export async function talkDecor(game, npc) {
   const d = c.items[ch];
   if (!d) return;
   if (coins(game.save) < d.cost) { await game.dialog.say([[name, 'Linh Thạch chưa đủ rồi chủ nhân ơi.']]); return; }
-  addCoins(game, -d.cost);
+  addCoins(game, -d.cost, 'trang-tri');
   (game.save.decor ??= {})[ch] = 1;
   game.persist(); game.sfx('levelup');
   await game.dialog.say([[name, pick(c.bought)], ['', `Đã bày ${d.name}. Đả tọa ở động phủ nhanh thêm ${comfort(game)}%.`]]);

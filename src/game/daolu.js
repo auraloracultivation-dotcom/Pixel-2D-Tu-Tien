@@ -32,7 +32,7 @@ export async function giftDaoLu(game, loai, mon) {
   const mirror = () => {
     if (loai === 'mon') { s.bag = s.bag.filter(x => x.uid !== mon.uid); game.refreshStats(); }
     else if (loai === 'nl') s.mats[mon.id] -= mon.n;
-    else addCoins(game, -mon.n);
+    else addCoins(game, -mon.n, 'dao-lu');
     game.persist();
   };
   try { await game.cloud.run(() => daoLuGift(loai, mon), mirror); }

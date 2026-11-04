@@ -59,9 +59,9 @@ function autoClaim(game, idx, d) {
 }
 
 // Phát thưởng chung: coins (Linh Thạch), stones, qi, gem (số viên), item (độ hiếm thấp nhất), mats, pills
-export function grant(game, r) {
+export function grant(game, r, why = 'thuong') {   // why: mã lý do Lịch sử Linh Thạch
   const { data, save } = game, got = [];
-  if (r.coins) { addCoins(game, r.coins); got.push(`${r.coins} ${data.shop.name}`); }
+  if (r.coins) { addCoins(game, r.coins, why); got.push(`${r.coins} ${data.shop.name}`); }
   if (r.stones) { save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + r.stones; got.push(`${r.stones} Tẩy Luyện Thạch`); }
   for (let i = 0; i < (r.gem || 0); i++) { const g = rollGem(data); save.gems[g] = (save.gems[g] || 0) + 1; got.push(gemInfo(data, g).name); }
   for (const [k, n] of Object.entries(r.mats || {})) { save.mats[k] = (save.mats[k] || 0) + n; got.push(`${n} ${data.cave.materials[k]?.name || k}`); }
@@ -80,13 +80,13 @@ export function claimTask(game, idx) {
   const t = ensureDaily(game).tasks[idx], d = t && taskDef(game, t.id);
   if (!d || t.got || t.n < d.n) return null;
   t.got = true;
-  return grant(game, d.reward);
+  return grant(game, d.reward, 'viec-ngay');
 }
 
 export function claimChest(game) {
   const dl = ensureDaily(game);
   if (dl.chest || !dl.tasks.every(t => t.got)) return null;
   dl.chest = true;
-  return grant(game, game.data.daily.chest);
+  return grant(game, game.data.daily.chest, 'viec-ngay');
 }
 

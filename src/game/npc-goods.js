@@ -22,7 +22,7 @@ export function buyGoods(game, npcId) {
   if (g.kind !== 'outfit' && boughtToday(game, npcId) >= g.per_day) return `Hôm nay đã mua đủ ${g.per_day} lần, mai quay lại nhé.`;
   const price = g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price;   // đan linh khí đắt dần theo cảnh giới (shop.js)
   if (coins(s) < price) return `Thiếu Linh Thạch (cần ${price.toLocaleString('vi-VN')}).`;
-  addCoins(game, -price);
+  addCoins(game, -price, 'npc');
   if (g.kind === 'pill') s.pills[g.id] = (s.pills[g.id] || 0) + 1;
   else if (g.kind === 'mat') addMat(s, g.id, 1);
   else grantOutfit(game, g.id);   // bản theo giới tính mình (src/game/fashion.js)

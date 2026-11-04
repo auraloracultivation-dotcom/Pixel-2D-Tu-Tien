@@ -9,13 +9,16 @@ import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid, renderStockSheet } from './bag-stock.js';
 import { bestGems } from '../game/autogem.js';
 import { quality } from '../game/tiers.js';
+import { startCoinLog } from '../game/coin-log.js';
+import { renderCoinLog } from './coin-log-sheet.js';
 
 const $ = id => document.getElementById(id);
 const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
 
 export function createBag(game) {
   const { data } = game;
-  const st = { tab: 'do', sel: null, pickSocket: null, slot: 'all', sort: 'moi' };
+  const st = { tab: 'do', sel: null, pickSocket: null, slot: 'all', sort: 'moi', coinLog: false };
+  startCoinLog(game);   // Lịch sử Linh Thạch: ghi trong máy (src/game/coin-log.js)
 
   const save = () => game.save;
   const isEq = uid => Object.values(save().equip).includes(uid);
@@ -23,7 +26,7 @@ export function createBag(game) {
 
   // full = false: chỉ vẽ lại (đổi tab, chọn ngọc), không lưu
   function changed(full = true) { if (full) { game.refreshStats(); game.persist(); } render(); }
-  const pick = uid => { st.sel = st.sel === uid ? null : uid; st.pickSocket = null; render(); };
+  const pick = uid => { st.sel = st.sel === uid ? null : uid; st.pickSocket = null; st.coinLog = false; render(); };
 
   function itemCard(it, gain) {
     const r = rarityOf(data.items, it.rarity), q = quality(data, it);   // tẩy luyện mới: màu theo phẩm trung bình các dòng
@@ -93,7 +96,7 @@ export function createBag(game) {
       for (const it of items) box.append(itemCard(it, gain.get(it.uid)));
       return;
     }
-    const pickStock = v => { st.stock = st.stock?.id === v.id ? null : v; st.sel = null; render(); };
+    const pickStock = v => { st.stock = st.stock?.id === v.id ? null : v; st.sel = null; st.coinLog = false; render(); };
     if (st.tab === 'nl' || st.tab === 'ca') { renderMatGrid(game, box, st, pickStock, st.tab === 'ca'); return; }   // Cá: mục riêng (chủ dự án 04/11/2026 11:50)
     if (st.tab === 'dan') { renderPillGrid(game, box, st, pickStock); return; }   // đan dược dùng ngay trong túi (góp ý #53)
     if (!Object.keys(save().gems).length) { box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.')); return; }
@@ -111,7 +114,7 @@ export function createBag(game) {
 
   function renderSheet() {
     if (st.tab === 'do') st.stock = null;
-    const has = st.stock ? renderStockSheet(game, st, $('bag-detail'), changed, () => { st.stock = null; render(); }) : renderDetail(game, st, $('bag-detail'), changed, () => { st.sel = null; render(); });
+    const has = st.coinLog ? renderCoinLog(game, $('bag-detail'), () => { st.coinLog = false; render(); }) : st.stock ? renderStockSheet(game, st, $('bag-detail'), changed, () => { st.stock = null; render(); }) : renderDetail(game, st, $('bag-detail'), changed, () => { st.sel = null; render(); });
     $('bag-sheet').hidden = !has;
     $('bag').classList.toggle('sheet-open', has);
   }
@@ -123,15 +126,19 @@ export function createBag(game) {
     renderEquip(); renderFilter(); renderList(); renderSheet();
   }
 
-  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; st.stock = null; render(); };
+  for (const b of document.querySelectorAll('#bag [data-tab]')) b.onclick = () => { st.tab = b.dataset.tab; st.pickSocket = null; st.sel = null; st.stock = null; st.coinLog = false; render(); };
   $('bag-close').onclick = () => close();
+  const logBtn = el('button', 'mini', data.shop.coin_log.btn);   // nút Lịch sử cạnh số Linh Thạch (đề xuất #137)
+  logBtn.id = 'bag-coinlog';
+  $('bag-mats').after(logBtn);
+  logBtn.onclick = $('bag-mats').onclick = () => { st.coinLog = !st.coinLog; st.sel = null; st.stock = null; st.pickSocket = null; render(); };
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
   game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
 
   function open() {
     if (!game.save || game.dialog.open) return;
-    game.uiOpen = true; game.newItems = 0; st.sel = null; $('bag').hidden = false; render();
+    game.uiOpen = true; game.newItems = 0; st.sel = null; st.coinLog = false; $('bag').hidden = false; render();
   }
   function close() { game.uiOpen = false; $('bag').hidden = true; }
 

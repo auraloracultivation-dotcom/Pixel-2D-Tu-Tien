@@ -36,18 +36,18 @@ export async function guildAct(game, name, ...args) {
 
 export async function createGuild(game, ten, moTa) {
   const c = await net();
-  return game.cloud.run(() => c.create(ten, moTa), r => { addCoins(game, -r.gia); game.persist(); });
+  return game.cloud.run(() => c.create(ten, moTa), r => { addCoins(game, -r.gia, 'tong-mon'); game.persist(); });
 }
 
 export async function donate(game, lt) {
   const c = await net();
-  return game.cloud.run(() => c.donate(lt), r => { addCoins(game, -r.lt); game.persist(); });
+  return game.cloud.run(() => c.donate(lt), r => { addCoins(game, -r.lt, 'tong-mon'); game.persist(); });
 }
 
 export async function claimMilestone(game, i) {
   const c = await net();
   return game.cloud.run(() => c.claim(i), r => {
-    addCoins(game, r.coins);
+    addCoins(game, r.coins, 'tong-mon');
     game.save.mats['tay-luyen-thach'] = (game.save.mats['tay-luyen-thach'] || 0) + r.stones;
     game.refreshStats?.(); game.persist();
   });

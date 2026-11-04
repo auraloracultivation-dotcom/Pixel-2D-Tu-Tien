@@ -46,7 +46,7 @@ export function applyDemon(game, m) {
 export function demonDone(game) {
   const c = D(game), s = game.save, name = weekBoss(game).name, tier = weekTier(game);
   s.demon = { lv: demonLv(game) + 1, week: weekNo(game) };
-  const got = grant(game, { ...c.reward, coins: Math.round(c.reward.coins * c.reward_tier ** tier) });
+  const got = grant(game, { ...c.reward, coins: Math.round(c.reward.coins * c.reward_tier ** tier) }, 'ma-vuong');
   game.persist();
   setTimeout(() => game.dialog.say([['', c.texts.win.replace('{name}', name).replace('{got}', got.join(', '))]]), 400);
 }

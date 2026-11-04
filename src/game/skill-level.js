@@ -26,7 +26,7 @@ export function levelUp(game, id) {
   const cost = levelCost(game, lv);
   if ((s.mats[c.mat] || 0) < cost.book || coins(s) < cost.coins) return false;
   s.mats[c.mat] -= cost.book;
-  addCoins(game, -cost.coins);
+  addCoins(game, -cost.coins, 'cap-chieu');
   (s.skillLv ??= {})[id] = lv + 1;
   game.persist();
   return true;

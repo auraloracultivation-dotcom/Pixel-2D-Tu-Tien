@@ -44,7 +44,7 @@ export function rerollCost(data, b) {
   return { coins: Math.round(R.coins * R.mul ** n), mats: R.mats };
 }
 const canPay = (save, c) => coins(save) >= c.coins && Object.entries(c.mats || {}).every(([m, n]) => (save.mats[m] || 0) >= n);
-const pay = (game, c) => { addCoins(game, -c.coins); for (const [m, n] of Object.entries(c.mats || {})) game.save.mats[m] -= n; };
+const pay = (game, c) => { addCoins(game, -c.coins, 'linh-thu'); for (const [m, n] of Object.entries(c.mats || {})) game.save.mats[m] -= n; };
 export const costLine = (data, c) => [`${c.coins.toLocaleString('vi-VN')} ${data.shop.name}`, ...Object.entries(c.mats || {}).map(([m, n]) => `${n} ${data.cave.materials[m]?.name || m}`)].join(', ');
 
 // Tẩy luyện linh thú / khôi lỗi: mở thêm 1 dòng. Trả câu báo

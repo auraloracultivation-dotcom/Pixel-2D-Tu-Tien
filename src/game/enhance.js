@@ -1,5 +1,6 @@
 // Cường hóa trang bị và bộ đồ (data/gear.json). Cường hóa nhân chỉ số chính; bộ đồ cộng chỉ số khi mặc đủ món.
 import { equipped } from './items.js';
+import { noteCoins } from './coin-log.js';   // Lịch sử Linh Thạch
 
 // Cấp cường hoá tối đa đang mở theo cảnh giới (gear.enhance.open)
 export function enhanceCap(data, save) {
@@ -21,7 +22,7 @@ export function enhance(game, uid, rnd = Math.random) {
   const { data, save } = game, it = save.bag.find(x => x.uid === uid), c = it && enhanceCost(data, it, save);
   if (!c || c.locked || (save.lingshi || 0) < c.coins || Object.entries(c.cost).some(([k, n]) => (save.mats[k] || 0) < n)) return null;
   for (const [k, n] of Object.entries(c.cost)) save.mats[k] -= n;
-  save.lingshi -= c.coins;
+  save.lingshi -= c.coins; noteCoins(save, -c.coins, 'cuong-hoa');
   const e = data.gear.enhance, n = it.plus || 0;
   let res;
   if (rnd() < c.rate) { it.plus = n + 1; res = 'up'; }

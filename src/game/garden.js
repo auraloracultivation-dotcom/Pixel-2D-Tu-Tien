@@ -62,7 +62,7 @@ export const openCost = game => C(game).open_cost[herbs(game).n - C(game).start]
 export function openPlot(game) {
   const c = openCost(game);
   if (c == null || coins(game.save) < c) return false;
-  addCoins(game, -c);
+  addCoins(game, -c, 'duoc-vien');
   const h = herbs(game);
   game.save.garden[key(C(game).plots[h.n])] = now();
   h.n++; game.persist();
@@ -73,7 +73,7 @@ export const nextLv = (game, i) => C(game).levels[plotLv(game, i) + 1] || null;
 export function upgradePlot(game, i) {
   const n = nextLv(game, i), s = game.save;
   if (!n || coins(s) < n.cost.coins || !has(s, n.cost.mats)) return false;
-  addCoins(game, -n.cost.coins); pay(s, n.cost.mats);
+  addCoins(game, -n.cost.coins, 'duoc-vien'); pay(s, n.cost.mats);
   herbs(game).lv[i] = plotLv(game, i) + 1; game.persist();
   return true;
 }

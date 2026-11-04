@@ -24,7 +24,7 @@ export function canEvolve(game, id) {
 export function evolvePet(game, id) {
   if (canEvolve(game, id) !== 'ok') return false;
   const s = game.save, E = game.data.pets.evolve;
-  pay(s, E.cost); addCoins(game, -E.coins);
+  pay(s, E.cost); addCoins(game, -E.coins, 'tien-hoa');
   s.pets[id].evo = true;
   if (s.pet === id && game.pet) {
     game.pet.def = petDef(game.data, s, id);
@@ -48,7 +48,7 @@ export function caveNext(game) {
 export function upgradeCave(game) {
   const n = caveNext(game), s = game.save;
   if (!n?.ok) return false;
-  pay(s, n.cost); addCoins(game, -n.coins);
+  pay(s, n.cost); addCoins(game, -n.coins, 'dong-phu');
   s.caveLv = caveLv(s) + 1;
   game.toast(`Động phủ lên cấp: ${n.name}!`, 3);
   game.sfx('levelup'); game.screen.shake(3, 0.4); game.persist();

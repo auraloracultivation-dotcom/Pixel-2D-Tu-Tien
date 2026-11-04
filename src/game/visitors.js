@@ -57,7 +57,7 @@ async function askMove(game, c, n) {
 async function trade(game, npc, t) {
   const s = game.save;
   if (coins(s) < t.coins) { await game.dialog.say([[npc.def.name, V(game).trade_none]]); return; }
-  addCoins(game, -t.coins); s.trade = today();
+  addCoins(game, -t.coins, 'khach'); s.trade = today();
   const got = grant(game, { mats: t.mats });
   game.sfx('pickup'); game.persist();
   await game.dialog.say([['', `Nhận: ${got.join(', ')}.`]]);

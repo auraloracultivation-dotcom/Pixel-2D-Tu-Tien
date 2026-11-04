@@ -59,7 +59,7 @@ export function sweep(game, id, L) {
   if (!r) return null;
   const snap = snapRun(game);
   useRun(game, id);
-  grant(game, r);
+  grant(game, r, 'can-quet');
   sweepKills(game, id, L);   // đồ rơi của từng quái như đánh thật (góp ý #127)
   return diffRun(game, snap);
 }

@@ -28,7 +28,7 @@ export async function talkReroot(game, npc, direct) {   // direct: luyện ở L
   const id = await game.dialog.choose(`${name}: ${r.ask}`, [...els.map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color })), { id: 'back', label: r.back, desc: '' }]);
   if (!game.data.elements[id] || id.startsWith('_')) return;
   const s = game.save;
-  addCoins(game, -r.cost.coins);
+  addCoins(game, -r.cost.coins, 'doi-he');
   for (const [m, n] of Object.entries(r.cost.mats)) s.mats[m] -= n;
   s.element = id; s.loadout = null;
   game.refreshStats(); game.checkUnlocks?.(); game.persist();
