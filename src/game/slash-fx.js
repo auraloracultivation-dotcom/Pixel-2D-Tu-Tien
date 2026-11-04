@@ -4,7 +4,8 @@ import { addFx } from './combat.js';
 
 const DEG = Math.PI / 180;
 const C = game => game.data.config.slash;
-const width = (game, r) => Math.max(C(game).w_min, Math.min(C(game).w_max, r * C(game).w));
+const width = (game, r) => Math.max(C(game).w_min, Math.min(C(game).w_max, r * C(game).w)) * (C(game).wide || 1);
+const far = (game, r) => r * (C(game).far || 1);   // vệt xa hơn tầm (chủ dự án 04/11/2026 15:50: sáng hơn, xa hơn, rộng hơn)
 const lifeOf = c => c.timing.reduce((a, b) => a + b, 0);   // đủ các khung: lóe, vút, đỉnh, tan
 const seed = () => Math.floor(Math.random() * 1000);
 
@@ -13,21 +14,21 @@ export function slashArc(game, { x, y, ang, r, arc = 150, dir = 1, color, pal, l
   const c = C(game);
   if (!c) return;
   const half = Math.min(arc, c.max_arc) / 2 * DEG;
-  addFx(game, { type: 'slash', shape: 'arc', x, y, r, a0: ang - half * dir, a1: ang + half * dir, w: width(game, r), color: color || c.color, pal, life: life || lifeOf(c), seed: seed() });
+  addFx(game, { type: 'slash', shape: 'arc', x, y, r: far(game, r), a0: ang - half * dir, a1: ang + half * dir, w: width(game, r), color: color || c.color, pal, life: life || lifeOf(c), seed: seed() });
 }
 
 // Vệt thẳng từ (x, y) theo hướng ang dài len; from: phần đầu bỏ trống (vệt bắt đầu cách gốc một đoạn)
 export function slashLine(game, { x, y, ang, len, from = 0.15, color, pal, life, w }) {
   const c = C(game);
   if (!c) return;
-  addFx(game, { type: 'slash', shape: 'line', x, y, ang, len, from, w: w || width(game, len * 0.6), color: color || c.color, pal, life: life || lifeOf(c), seed: seed() });
+  addFx(game, { type: 'slash', shape: 'line', x, y, ang, len: far(game, len), from, w: w || width(game, len * 0.6), color: color || c.color, pal, life: life || lifeOf(c), seed: seed() });
 }
 
 // Hai lưỡi xoay quanh vùng chiêu suốt thời gian vùng còn
 export function slashSpin(game, { on, r, color, pal, life, spin = 9 }) {
   const c = C(game);
   if (!c) return;
-  addFx(game, { type: 'slash', shape: 'arc', on, ox: 0, oy: -3, r, spin, span: 2.1, w: width(game, r), color: color || c.color, pal, life, seed: seed() });
+  addFx(game, { type: 'slash', shape: 'arc', on, ox: 0, oy: -3, r: far(game, r), spin, span: 2.1, w: width(game, r), color: color || c.color, pal, life, seed: seed() });
 }
 
 // Đòn đánh thường theo động tác vũ khí (src/game/player.js → strike)
