@@ -291,7 +291,7 @@ export function drawWorld(game, screen, t) {
   if (!game.map) return;
   drawSky(ctx, screen, game.map, t);
   screen.worldTransform();
-  drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game); drawHoiFlat(ctx, game, t); drawDatGlints(ctx, game, screen.viewRect(), t);   // đồ hội phẳng: sân lát, gợn nước; tuyết lấp lánh
+  drawMap(ctx, game.map, game.data.tiles, screen.viewRect(), t, game); drawHoiFlat(ctx, game, t);   // đồ hội phẳng: sân lát, gợn nước (tuyết lấp lánh đã bỏ: nền nhạt, ít chi tiết, chủ dự án 04/11/2026)
   drawTorches(ctx, game, screen.viewRect(), t);
   drawDecor(ctx, game, t);
   drawHamlets(ctx, game, t); drawLamps(ctx, game, t);   // đồ ở sân xóm, đèn xóm
