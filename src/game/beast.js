@@ -86,7 +86,7 @@ export function outfitLine(game, key, f) {
   s.outfitLine ??= {};
   if (!s.outfitLine[key]) {
     const src = Object.keys(f.from).find(k => F.tier[k] != null), t = F.tier[src] ?? 0;
-    const st = F.pool[Math.floor(Math.random() * F.pool.length)];
+    const st = f.line?.s || F.pool[Math.floor(Math.random() * F.pool.length)];   // bộ có dòng định sẵn (Thần Nguyên Y: sát thương bạo kích)
     s.outfitLine[key] = { s: st, v: lineValue(game.data, st, 0, t, Math.random()), t };
     game.persist();
   }

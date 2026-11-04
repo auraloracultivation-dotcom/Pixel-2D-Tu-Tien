@@ -12,6 +12,7 @@ export const outfitSprite = (game, key, save = game.save) => `hero.y-${wornId(ga
 export function heroLook(game, save = game.save) {
   const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);
   const fo = game.data.fashion.list[wornId(game, key, save)];
+  if (fo?.look) return { ...base, ...fo.look };   // bộ có hình, động tác riêng (Thần Nguyên Y: data/fashion.json → look)
   if (fo?.sprite === 'goc') return fo.cm?.[key] ? { ...base, cm: fo.cm[key] } : base;   // bộ mặc hình gốc của nhân vật, cao riêng theo bộ (data/fashion.json)
   return H.chibi && game.data.art.sprites[id] ? { ...base, ...H.chibi, sprite: id } : base;
 }
@@ -104,5 +105,28 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
+  if (look.trail && atk != null && look.attacks?.includes(name)) drawTrail(ctx, look.trail, name === look.attacks[0] ? 0 : 1, atk, px, p.y - p.top * 0.45, p.lookX || 1);
   return true;
+}
+
+// Vệt phép xanh trước mặt khi đánh (chủ dự án 04/11/2026 13:15, Thần Nguyên Y; look.trail = màu): đòn 1 đẩy chưởng: quầng sáng
+// phóng thẳng tới trước rồi tan; đòn 2 vung tay đập cánh: vệt cung rộng quét từ trên xuống. k: tiến độ đòn 0 → 1.
+function drawTrail(ctx, color, kind, k, x, y, dir) {
+  const on = Math.sin(Math.PI * Math.min(1, Math.max(0, (k - 0.15) / 0.75)));
+  if (on <= 0.02) return;
+  ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.lineCap = 'round';
+  if (kind === 0) {
+    const d = 6 + 26 * k, r = 4 + 6 * k;
+    for (let j = 0; j < 3; j++) {
+      ctx.globalAlpha = on * (0.55 - j * 0.15); ctx.fillStyle = j ? color : '#8fd0ff';
+      ctx.beginPath(); ctx.ellipse(x + dir * (d - j * 6), y, r * (1 + j * 0.3), r * 0.7 * (1 + j * 0.3), 0, 0, Math.PI * 2); ctx.fill();
+    }
+  } else {
+    const R = 16 + 8 * k, a0 = -1.1, a1 = a0 + 2.2 * Math.min(1, k * 1.4);
+    for (let j = 0; j < 3; j++) {
+      ctx.globalAlpha = on * (0.7 - j * 0.2); ctx.strokeStyle = j ? color : '#8fd0ff'; ctx.lineWidth = 4 - j;
+      ctx.beginPath(); ctx.arc(x, y, R + j * 3, dir > 0 ? a0 : Math.PI - a1, dir > 0 ? a1 : Math.PI - a0); ctx.stroke();
+    }
+  }
+  ctx.restore();
 }
