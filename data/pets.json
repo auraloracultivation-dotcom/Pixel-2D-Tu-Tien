@@ -238,7 +238,8 @@
    "accent": "#c9a46a",
    "speed": 0.35,
    "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%.",
-   "seat": 13
+   "seat": 18,
+   "seat_x": -3
   },
   "phong-lang": {
    "look": "wolf",
@@ -247,7 +248,8 @@
    "accent": "#ff7a3a",
    "speed": 0.5,
    "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%.",
-   "seat": 11
+   "seat": 17,
+   "seat_x": -2
   },
   "hoa-ky-lan": {
    "look": "qilin",
@@ -256,7 +258,8 @@
    "accent": "#ffe27a",
    "speed": 0.65,
    "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%.",
-   "seat": 11
+   "seat": 15,
+   "seat_x": 0
   },
   "tuyet-ly": {
    "look": "lynx",
@@ -265,7 +268,8 @@
    "accent": "#9ad8ff",
    "speed": 0.55,
    "desc": "Hồ ly tuyết nhiều đuôi. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%.",
-   "seat": 10
+   "seat": 15,
+   "seat_x": 2
   }
  },
  "mount_drops": {

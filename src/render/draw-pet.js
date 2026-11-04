@@ -66,11 +66,13 @@ function drawSleep(ctx, pet, t) {
 // Trả về độ cao chỗ người cưỡi ngồi (để nâng người lên trên lưng thú).
 export function drawMount(ctx, p, m, t, art, id) {
   const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
+  p.seatX = 0;
   ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
   if (isAct(art, 'mount.' + id)) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
     const spr = art.sprites['mount.' + id];
     const fly = p.fly && spr.walk?.includes(4);   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
     drawAct(ctx, art, 'mount.' + id, fly ? 4 : p.moving ? walkFrame(spr, p.walkT) : ACT.idle, p.x, p.y + 1 - (fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0), dir);
+    p.seatX = dir * (m.seat_x || 0);   // người đứng giữa yên (data/pets.json → seat_x, đơn vị bản đồ, âm là về phía đuôi)
     return m.seat ?? Math.round(spr.h * UNIT_PER_PX * 11 / 42);   // seat: độ cao chỗ ngồi đo theo lưng ảnh (data/pets.json)
   }
   if (sprite(ctx, art, 'mount.' + id, p.moving ? Math.floor(p.walkT * 8) : 0, p.x, p.y + 1, dir)) return 11;
