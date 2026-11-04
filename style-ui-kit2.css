@@ -98,6 +98,9 @@ body #menu #logged, body #menu #login-form { border: 16px solid transparent; bor
 body #menu .menu-btn, body[data-le] #menu .menu-btn { border: 10px solid transparent !important; border-width: 10px 14px !important; border-image: url("assets/art/ui-k-dn-cam.png") 20 26 fill / 10px 14px / 0 stretch !important;
   background: none !important; box-shadow: none !important; image-rendering: auto; color: #3a1206 !important; min-width: 220px; }
 body #menu .menu-btn.alt, body[data-le] #menu .menu-btn.alt { border-width: 12px 22px !important; border-image: url("assets/art/ui-k-dn-tim.png") 28 50 fill / 12px 22px / 0 stretch !important; color: #fff0d0 !important; }
+/* Nút Đăng nhập, Đăng ký xếp dọc: mỗi nút min-width 220px nên đặt cạnh nhau thì nút Đăng ký tràn ra ngoài khung (chủ dự án 04/11/2026) */
+body #menu #login-form .row { flex-direction: column; width: 100%; }
+body #menu #login-form .row .menu-btn { width: 100%; flex: none; }
 body #menu .help, body #menu .health { border: 8px solid transparent; border-image: url("assets/art/ui-k-dn-o.png") 16 fill / 8px / 0 stretch; background: none; padding: 2px 8px; max-width: 320px; }
 body #menu .link-btn { color: #9fd4ff !important; }
 body #menu .link-btn.danger { color: #ff8a7a !important; }
