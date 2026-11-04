@@ -19,11 +19,14 @@ Chạy lại ảnh: `python3 -I tools/art/build.py && python3 -I tools/art/store
 
 ## 2. Nội dung trang cửa hàng (dán vào Play Console)
 
-**Tên ứng dụng** (tối đa 30 ký tự): `Pixel 2D Tu Tiên`
+Game có ba ngôn ngữ (05/11/2026): tiếng Việt (gốc), English, 繁體中文. Trong Play Console thêm bản dịch trang cửa hàng cho `en-US` và `zh-TW` (dán phần tương ứng bên dưới); tên trong game cũng đổi theo ngôn ngữ (`data/i18n/`).
+
+**Tên ứng dụng** (tối đa 30 ký tự): `Pixel 2D Tu Tiên` · English: `Pixel 2D Cultivation` · 繁體中文: `像素2D修仙`
 
 **Mô tả ngắn** (tối đa 80 ký tự)
 - Tiếng Việt: `Tu tiên pixel ấm: đánh quái, độ kiếp, tự hành, đạo lữ, động phủ yên bình.`
 - English: `Cozy pixel cultivation RPG: fight, ascend, auto-play and find a Dao partner.`
+- 繁體中文: `溫馨像素修仙RPG：打怪、渡劫、自動修煉、結道侶、經營洞府。`
 
 **Mô tả đầy đủ** (tiếng Việt)
 
@@ -38,6 +41,34 @@ Chạy lại ảnh: `python3 -I tools/art/build.py && python3 -I tools/art/store
 > 🎒 Trang bị, ngọc, cường hoá, tẩy luyện, bộ Đạo Vận theo ngũ hành.
 >
 > Toàn bộ hình, nhạc, tiếng trong game đều vẽ và tổng hợp bằng code. Chơi thử không cần tài khoản; đăng ký để lưu tiến trình và chơi cùng người khác.
+
+**Full description** (English)
+
+> Step into the Heavenly Sword Star System, a warm pixel-art cultivation world. Starting as a young disciple from Clearbrook, you cultivate from Qi Refining to Tribulation Transcendence and fly across eight planets: the volcanoes of Crimson Flame, the ice plains of Frost Star, the ancient forest of Verdant Wood, the sword tomb of Heavenly Gold…
+>
+> ⚔️ Fight monsters, clear secret realms, defeat bosses, climb the tower, spar in the arena.
+> ⚡ Face the heavenly tribulation: dodge lightning and slay your heart demon to break through.
+> 🤖 Auto-Quest: busy? Turn it on and your character quests, fights, meditates and fishes on their own.
+> 💞 Companions travel with you, chat and cheer you on; become Dao Companions, dual cultivate, cook together, watch the sunset.
+> 🏡 Your own cave abode: herb garden, alchemy, forging, spirit beasts.
+> 🏮 Lantern festivals each night on a different planet: meet fellow Daoists, found a sect, chat.
+> 🎒 Gear, gems, enhancement, rerolling, and Five Elements Dao Rhyme sets.
+>
+> All art, music and sound in the game are drawn and synthesized with code. Play as a guest without an account; sign up to save progress and play with others. Available in English, 繁體中文 and Tiếng Việt.
+
+**完整說明**（繁體中文）
+
+> 踏入天劍星系，一個溫暖的像素修仙世界。你從清溪村的少年弟子出發，由練氣一路修到渡劫，御劍飛越八顆星球：赤焰的火山、寒冰的冰原、青木的古林、天金的劍塚……
+>
+> ⚔️ 打怪、闖秘境、擊敗首領、爬塔、論武切磋。
+> ⚡ 渡天劫：閃避雷擊、斬殺心魔，突破境界。
+> 🤖 自動任務：忙的時候打開，角色自己做任務、打怪、打坐、釣魚。
+> 💞 同伴隨行、聊天、為你喝采；結為道侶、雙修、一起做飯、看夕陽。
+> 🏡 專屬洞府：藥園、煉丹、鍛造、靈獸。
+> 🏮 每晚一顆星球舉辦燈會：結識道友、創立宗門、聊天交流。
+> 🎒 裝備、寶石、強化、洗煉，以及依五行配套的道韻套裝。
+>
+> 遊戲中所有圖像、音樂與音效皆以程式繪製與合成。不需帳號即可試玩；註冊後可保存進度並與他人同玩。支援繁體中文、English、越南語。
 
 **Thể loại**: Trò chơi → Nhập vai (Role Playing). Thẻ gợi ý: pixel, tu tiên, nhập vai, nhàn rỗi/tự động.
 
