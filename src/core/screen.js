@@ -5,10 +5,12 @@
 // nguyên đó (máy lớn, phóng nhiều thì gần như luôn khớp; điện thoại phóng 2–3 lần thì bước nhảy quá thô, giữ đúng tầm nhìn chủ dự án
 // chọn). Tính theo độ phân giải chuẩn của máy (tối đa 2), không theo mức nhẹ máy, để tầm nhìn không nhảy khi game tự hạ mức.
 // Máy quay luôn đặt đúng lưới điểm khung vẽ (làm tròn), đỡ lấp lánh khi máy quay trôi.
-const refDpr = () => Math.min(window.devicePixelRatio || 1, 2);
-const snapZ = (cfg, want) => {
-  const d = refDpr(), z = want * d, k = Math.round(z);
-  return cfg.pixel_snap && k >= 2 && Math.abs(k - z) / z <= (cfg.snap_tol ?? 0.08) ? k / d : want;
+// Chủ dự án 04/11/2026 10:11 ("ảnh vỡ nhiều, viền đen rộng"): trước đây lưới tính theo dpr chuẩn 2 trong khi khung vẽ thật ở mức
+// nhẹ máy 1,5 → mỗi điểm hình thành 2,25 điểm khung vẽ, chỗ 2 chỗ 3, viền mực chỗ dày chỗ mỏng. Nay tính theo đúng dpr khung vẽ
+// đang dùng (perf.js chọn dpr để màn phóng khung vẽ lên số nguyên lần), nên mỗi điểm hình luôn bằng số nguyên điểm màn hình.
+const snapZ = (cfg, want, d) => {
+  const z = want * d, k = Math.max(1, Math.round(z));
+  return cfg.pixel_snap && Math.abs(k - z) / z <= (cfg.snap_tol ?? 0.08) ? k / d : want;
 };
 export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixelRatio || 1, 2)) {
   const s = {
@@ -22,7 +24,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
     s.w = window.innerWidth; s.h = window.innerHeight;
     canvas.width = Math.round(s.w * s.dpr); canvas.height = Math.round(s.h * s.dpr);
     canvas.style.width = s.w + 'px'; canvas.style.height = s.h + 'px';
-    s.base = snapZ(cfg, Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles)); s.zoom = s.mul === 1 ? s.base : snapZ(cfg, s.base * s.mul);
+    s.base = snapZ(cfg, Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles), s.dpr); s.zoom = s.mul === 1 ? s.base : snapZ(cfg, s.base * s.mul, s.dpr);
   }
   window.addEventListener('resize', resize);
   resize();
@@ -44,7 +46,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
     if (s.mul !== s.mulT) {   // đang lùi, tiến máy quay: mượt; dừng hẳn thì về đúng lưới điểm
       s.mul += (s.mulT - s.mul) * (1 - Math.exp(-dt * 1.2));
       if (Math.abs(s.mul - s.mulT) < 0.002) s.mul = s.mulT;
-      s.zoom = s.mul === s.mulT ? snapZ(cfg, s.base * s.mul) : s.base * s.mul;
+      s.zoom = s.mul === s.mulT ? snapZ(cfg, s.base * s.mul, s.dpr) : s.base * s.mul;
     }
     s.camX += (x - s.camX) * k; s.camY += (y - s.camY) * k;
     if (map) {

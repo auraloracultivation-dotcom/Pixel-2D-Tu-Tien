@@ -12,7 +12,8 @@ export function createPerf(cfg, onChange) {
   const P = { level: weak ? 1 : 0, last: 0, sum: 0, n: 0, since: 0, warm: performance.now() + C.warm * 1000, map: null, slow: 0 };
   const mark = () => { document.body.dataset.perf = P.level; document.body.classList.toggle('perf-calm', P.level >= (C.calm_from ?? 99)); };   // style-khung.css tắt hiệu ứng CSS
   mark();
-  P.dpr = () => Math.min(window.devicePixelRatio || 1, C.dpr[P.level]);
+  // dpr khung vẽ: không quá trần của mức, và màn phóng khung vẽ lên số nguyên lần (máy 3x: 1,5 chứ không 2) để điểm ảnh đều, không vỡ
+  P.dpr = () => { const dev = window.devicePixelRatio || 1, cap = C.dpr[P.level]; return dev <= cap ? dev : dev / Math.ceil(dev / cap - 1e-6); };
   P.fps = game => (game?.uiOpen || game?.dialog?.open || game?.view || (game?.player?.meditating && !game.trib?.active) ? C.fps_ui : C.fps[P.level]);   // mở bảng, hộp thoại, ngắm cảnh, đả tọa: cảnh gần như đứng yên
 
   // Gọi đầu mỗi lần trình duyệt mời vẽ: true = vẽ khung này
