@@ -31,6 +31,15 @@ export function quality(data, it) {
   return tierOf(data, Math.round(ls.reduce((a, l) => a + l.t, 0) / ls.length));
 }
 
+// Phẩm hiển thị của món (túi, chợ, đạo lữ, hồ sơ; góp ý #138): theo màu dòng, chưa có dòng màu thì theo độ hiếm cũ.
+// Trả { id, name ("Phẩm …" hoặc tên độ hiếm), color (viền), idx (để xếp, cao hơn là tốt hơn) }
+export function grade(data, it) {
+  const q = quality(data, it);
+  if (q) return { id: q.id, name: `Phẩm ${q.name}`, color: q.edge || q.color, idx: T(data).list.indexOf(q) };
+  const rs = data.items.rarities, i = Math.max(0, rs.findIndex(r => r.id === it?.rarity)), r = rs[i];
+  return { id: r.id, name: r.name, color: r.color, idx: T(data).from_rarity[r.id] ?? i };
+}
+
 // Đồ cũ: gắn màu cho dòng chưa có màu, giữ giá trị không thấp hơn cũ, tặng lượt tẩy miễn phí (chạy lại không đổi gì)
 export function convertLines(data, it, rar) {
   const C = T(data), ls = it.lines || [];
