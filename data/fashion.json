@@ -323,7 +323,7 @@
     "uid": [
      "625e027c-36b4-4bb7-bd0c-21572612bc50"
     ],
-    "shop": 25000
+    "shop": 35000
    },
    "look": {
     "sprite": "hero.ly-hoa",
@@ -387,7 +387,7 @@
      "don2"
     ]
    },
-   "_note": "Chủ dự án 04/11/2026 14:23: hình chủ dự án gửi (đã nghiêng phải), động tác SpriteCook (tools/art/hero_tny.py → hero.ly-hoa): đứng, chạy (vung hai tay, ngả tới), đòn 1 chưởng tay trái, đòn 2 quét tay phải, đều sang ngang về phía trước; cao 1m70, nặng 50kg; vệt chưởng màu phượng hoàng (lục lam ngoài, vàng trong). Giá như Thần Nguyên Y (25.000 LT); dòng chỉ số: bốc ngẫu nhiên tới khi chủ dự án chốt. 14:41: đứng nghỉ nhún nông và nhanh hơn: chỉ dùng các khung gần dáng đứng (đầu lệch tối đa 3 điểm thay vì 6), 10 khung / giây."
+   "_note": "Chủ dự án 04/11/2026 14:23: hình chủ dự án gửi (đã nghiêng phải), động tác SpriteCook (tools/art/hero_tny.py → hero.ly-hoa): đứng, chạy (vung hai tay, ngả tới), đòn 1 chưởng tay trái, đòn 2 quét tay phải, đều sang ngang về phía trước; cao 1m70, nặng 50kg; vệt chưởng màu phượng hoàng (lục lam ngoài, vàng trong). Giá như Thần Nguyên Y (25.000 LT); dòng chỉ số: bốc ngẫu nhiên tới khi chủ dự án chốt. 14:41: đứng nghỉ nhún nông và nhanh hơn: chỉ dùng các khung gần dáng đứng (đầu lệch tối đa 3 điểm thay vì 6), 10 khung / giây. 14:48: giá 35.000 Linh Thạch."
   }
  }
 }
