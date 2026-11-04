@@ -261,7 +261,7 @@
    },
    "look": {
     "sprite": "hero.tny",
-    "body": 70,
+    "body": 81,
     "cm": 190,
     "kg": 75,
     "trail": "#4aa8ff",
@@ -318,7 +318,7 @@
      "phep2"
     ]
    },
-   "_note": "Chủ dự án 04/11/2026 13:15–13:32: hình chủ dự án gửi, động tác SpriteCook (tools/art/hero_tny.py → hero.tny), cao 1m90, nặng 75kg, đánh ra vệt phép xanh (draw-hero.js drawTrail), dòng cố định Sát thương bạo kích (line). Tạm chỉ tài khoản chủ dự án (uid) để thử; cách có được cho người chơi: chờ chủ dự án chốt."
+   "_note": "Chủ dự án 04/11/2026 13:15–13:32: hình chủ dự án gửi, động tác SpriteCook (tools/art/hero_tny.py → hero.tny), cao 1m90, nặng 75kg, đánh ra vệt phép xanh (draw-hero.js drawTrail), dòng cố định Sát thương bạo kích (line). Tạm chỉ tài khoản chủ dự án (uid) để thử; cách có được cho người chơi: chờ chủ dự án chốt. 13:50: trông như 2m2 → body 70 → 81 (tính cả búi tóc, không tính mũ miện)."
   }
  }
 }

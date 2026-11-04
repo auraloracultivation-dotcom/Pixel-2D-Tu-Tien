@@ -76,7 +76,7 @@ export function createAchvPanel(game) {
       const bonus = own ? `Cộng khi mặc: ${linesText(data, [outfitLine(game, `${id}:${g}`, f)])[0]}` : `Có bộ thì bốc 1 dòng chỉ số màu ${tierOf(data, t).name}, cố định mãi`;
       const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f), bonus], btn);
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
-      c.prepend(sw); icon(c, `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);
+      c.prepend(sw); icon(c, f.look?.sprite || `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);   // bộ có hình riêng (look): hiện hình bộ
     }
   }
 

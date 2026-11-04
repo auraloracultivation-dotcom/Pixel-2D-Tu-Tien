@@ -16,7 +16,7 @@ export function curOutfit(game, save = game.save) {
 }
 
 // Bộ có những bản nào (bộ only: một bản)
-export const versions = (game, id) => (F(game)[id]?.only ? [F(game)[id].only] : Object.keys(game.data.heroes.list));
+export const versions = (game, id) => (F(game)[id]?.only ? [F(game)[id].only] : F(game)[id]?.look ? [lookOf(game)] : Object.keys(game.data.heroes.list));   // bộ có hình riêng (look): một bản, nam nữ đều mặc
 
 export function owned(game, id, g = lookOf(game)) {
   const f = F(game)[id]?.from, s = game.save;
