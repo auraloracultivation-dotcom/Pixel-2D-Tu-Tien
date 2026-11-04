@@ -1,4 +1,5 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
+import { manaTick, spendMana } from './mana.js';
 import { ensureWornLines } from './beast.js';
 import { openAllSocket4 } from './socket4.js';
 import { addFx, hitMob, dist, shoot } from './combat.js';
@@ -154,7 +155,7 @@ export function updatePlayer(game, dt) {
 
   const slots = skillSlots(game);
   for (let i = 0; i < 3; i++) {
-    if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0) {
+    if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
       p.meditating = false; p.calmT = 0; p.riding = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;
@@ -165,7 +166,7 @@ export function updatePlayer(game, dt) {
   // Nút pháp bảo: chiêu riêng của pháp bảo đang mặc
   p.artCd = (p.artCd || 0) - dt;
   const art = artSkill(game.save, game.data);
-  if (inp.consume('art') && art && p.artCd <= 0) {
+  if (inp.consume('art') && art && p.artCd <= 0 && spendMana(game, art)) {
     p.meditating = false; p.calmT = 0; p.riding = false;
     const dir = autoAim(game, art);
     if (dir) p.face = dir;
@@ -181,6 +182,7 @@ export function updatePlayer(game, dt) {
     if (msg) { p.pillCd = game.data.cave.pills[id].cd; game.number(p.x, p.y - 20, msg, '#9af0a8'); game.sfx('heal'); }
   }
 
+  manaTick(game, dt);   // linh lực hồi dần, đả tọa hồi nhanh
   // Hồi máu chậm khi không bị đánh
   if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
   if (p.st.regen && p.hp < p.maxHp && p.hp > 0) p.hp = Math.min(p.maxHp, p.hp + p.st.regen * dt);

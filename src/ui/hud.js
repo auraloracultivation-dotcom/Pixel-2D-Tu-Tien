@@ -86,6 +86,11 @@ export function createHud(audio) {
       document.documentElement.style.setProperty('--el-line', s.element ? d.elements[s.element].color + 'dd' : '');   // đề xuất #41: viền nút theo hệ Linh căn (style-khung.css)
       $('hp-fill').style.width = Math.max(0, p.hp / p.maxHp * 100) + '%';
       $('hp-text').textContent = `Sinh lực ${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');
+      // thanh Linh lực (chủ dự án 04/11/2026 12:57) giữa Sinh lực và Linh khí; Linh khí (tu vi đột phá) thành thanh mảnh bên dưới
+      let mb = document.getElementById('mp-fill');
+      if (!mb) { const bar = document.createElement('div'); bar.className = 'bar mp'; bar.innerHTML = '<i id="mp-fill"></i><span id="mp-text"></span>'; document.querySelector('#hud .bar.qi')?.before(bar); mb = document.getElementById('mp-fill'); }
+      mb.style.width = Math.max(0, (p.mp ?? 0) / (p.mpMax || 1) * 100) + '%';
+      $('mp-text').textContent = `Linh lực ${Math.floor(p.mp ?? 0)}/${p.mpMax || 0}`;
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
     }

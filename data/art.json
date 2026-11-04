@@ -23744,7 +23744,11 @@
     199,
     199
    ],
-   "note": "nguyen-lieu chau-1 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-1 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.316,
+    0.416
+   ]
   },
   "ui.vk-chau-2": {
    "file": "assets/art/ui-vk-chau-2.png",
@@ -23756,7 +23760,11 @@
     247,
     247
    ],
-   "note": "nguyen-lieu chau-2 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-2 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.364,
+    0.44
+   ]
   },
   "ui.vk-chau-3": {
    "file": "assets/art/ui-vk-chau-3.png",
@@ -23768,7 +23776,11 @@
     241,
     241
    ],
-   "note": "nguyen-lieu chau-3 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-3 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.35,
+    0.424
+   ]
   },
   "ui.vk-chau-4": {
    "file": "assets/art/ui-vk-chau-4.png",
@@ -23780,7 +23792,11 @@
     244,
     244
    ],
-   "note": "nguyen-lieu chau-4 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-4 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.366,
+    0.452
+   ]
   },
   "ui.vk-chau-5": {
    "file": "assets/art/ui-vk-chau-5.png",
@@ -23792,7 +23808,11 @@
     277,
     277
    ],
-   "note": "nguyen-lieu chau-5 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-5 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.334,
+    0.401
+   ]
   },
   "ui.vk-chau-6": {
    "file": "assets/art/ui-vk-chau-6.png",
@@ -23804,7 +23824,11 @@
     282,
     282
    ],
-   "note": "nguyen-lieu chau-6 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-6 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.347,
+    0.382
+   ]
   },
   "ui.vk-chau-7": {
    "file": "assets/art/ui-vk-chau-7.png",
@@ -23816,7 +23840,11 @@
     343,
     343
    ],
-   "note": "nguyen-lieu chau-7 (ảnh GPT chau-1.png)"
+   "note": "nguyen-lieu chau-7 (ảnh GPT chau-1.png)",
+   "soil": [
+    0.386,
+    0.44
+   ]
   },
   "ui.vk-dao-hoa-ngu": {
    "file": "assets/art/ui-vk-dao-hoa-ngu.png",
