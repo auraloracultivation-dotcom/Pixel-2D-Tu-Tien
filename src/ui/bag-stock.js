@@ -16,7 +16,13 @@ function cell(sel, ico, name, sub, color, onPick) {
   b.onclick = onPick;
   return b;
 }
-function matIco(m) { const i = el('i', 'ico mat-sq'); i.style.background = m.color || '#ccc'; return i; }
+// nguyên liệu có hình (ui-vk-<id>, ảnh GPT chủ dự án 04/11/2026 11:43) thì hiện hình, chưa có thì ô màu như cũ
+let ART = {};
+function matIco(m, id) {
+  const spr = id && ART['ui.vk-' + id], i = el('i', 'ico' + (spr ? ' that' : ' mat-sq'));
+  if (spr) i.style.setProperty('--ic', `url("${spr.file}?v=${spr.v}")`); else i.style.background = m.color || '#ccc';
+  return i;
+}
 
 // Ngọc: theo loại, cấp cao lên trước. pickSocket: đang chọn ngọc để khảm thì chạm là khảm luôn (onSocket)
 export function renderGemGrid(game, box, st, onPick, onSocket) {
@@ -32,10 +38,10 @@ export function renderGemGrid(game, box, st, onPick, onSocket) {
 
 // Nguyên liệu: món đang có lên trước, chưa có thì mờ (vẫn chạm xem nơi kiếm được)
 export function renderMatGrid(game, box, st, onPick) {
-  const M = game.data.cave.materials, have = game.save.mats || {};
+  const M = game.data.cave.materials, have = game.save.mats || {}; ART = game.data.art.sprites;
   const ids = Object.keys(M).sort((a, b) => ((have[b] || 0) > 0) - ((have[a] || 0) > 0) || M[a].name.localeCompare(M[b].name, 'vi'));
   for (const id of ids) {
-    const c = cell(st.stock?.id === id, matIco(M[id]), M[id].name, `×${vn(have[id])}`, M[id].color || '#ccc', () => onPick({ kind: 'mat', id }));
+    const c = cell(st.stock?.id === id, matIco(M[id], id), M[id].name, `×${vn(have[id])}`, M[id].color || '#ccc', () => onPick({ kind: 'mat', id }));
     if (!(have[id] > 0)) c.classList.add('none');
     box.append(c);
   }
@@ -84,7 +90,7 @@ export function renderStockSheet(game, st, box, changed, close) {
     const m = data.cave.materials[k];
     if (!m) return false;
     txt.append(el('div', 'd-title', m.name), el('div', 'd-sub', `Đang có ${vn(s.mats[k])}`));
-    head.append(matIco(m), txt, x);
+    head.append(matIco(m, k), txt, x);
     box.append(head, el('div', 'd-line', m.desc || ''));
     return true;
   }
