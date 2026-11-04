@@ -57,8 +57,9 @@ export function playerStats(save, data) {
   for (const [s, x] of Object.entries(daoVanStats(save, data))) g[s] = (g[s] || 0) + x;   // thưởng bộ Đạo Vận hợp hệ
   for (const [s, x] of Object.entries(wornExtra(save, data))) g[s] = (g[s] || 0) + x;   // dòng thú cưỡi đang chọn, bộ thời trang đang mặc
   const v = s => g[s] || 0;
+  const base = { maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)) };
   return {
-    maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)),
+    maxHp: base.maxHp,
     atk: Math.round((w.atk + n * data.realms.atk_per_layer + v('atk')) * (1 + v('atk_pct') / 100)),
     crit: pc.crit + v('crit') / 100,
     critMult: pc.crit_mult + v('crit_dmg') / 100,
@@ -68,7 +69,10 @@ export function playerStats(save, data) {
     qiMul: (1 + v('qi_gain') / 100) * rootOf(save, data).qi,
     lifesteal: v('lifesteal') / 100,
     thorns: v('thorns') / 100,
-    regen: v('regen'),
+    regen: v('regen') + base.maxHp * v('regen_pct') / 100,   // regen_pct: hồi % máu tối đa mỗi giây (công pháp, 05/11/2026)
+    dr: Math.min(0.5, v('dr') / 100),   // giảm sát thương nhận % (công pháp hộ thân, tối đa 50%)
+    mpPct: v('mp_pct') / 100,           // Linh lực tối đa + % (công pháp Linh lực)
+    mpRegen: v('mp_regen') / 100,       // hồi thêm % linh lực tối đa mỗi giây
   };
 }
 

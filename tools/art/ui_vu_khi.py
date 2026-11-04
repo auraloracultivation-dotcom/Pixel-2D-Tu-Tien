@@ -23,6 +23,9 @@ ROWS = {
     'cay-1.png': [['cay-non-linh-thao', 'cay-non-yeu-huyet', 'cay-non-hoa-linh-chi', 'cay-non-ngoc-lo-hoa', 'cay-non-linh-mach', 'cay-non-linh-dau', 'cay-non-hong-qua', 'cay-non-kim-tieu', 'cay-non-tu-van-sam', 'cay-non-thai-hu-lien'], ['cay-linh-thao', 'cay-yeu-huyet', 'cay-hoa-linh-chi', 'cay-ngoc-lo-hoa', 'cay-linh-mach', 'cay-linh-dau', 'cay-hong-qua', 'cay-kim-tieu', 'cay-tu-van-sam', 'cay-thai-hu-lien']],   # cây non / cây lớn trong chậu (chủ dự án 12:38)
     'dan-1.png': [['hoi-xuan-dan', 'tu-khi-dan', 'thanh-tam-dan', 'tu-van-dan', 'tay-tuy-dan'],   # đan dược, canh (chủ dự án 15:37)
                   ['boi-nguyen-dan', 'thang-linh-dan', 'tinh-lien-dan', 'linh-ngu-thang', 'van-ngu-thang', 'nguyet-ngu-thang']],
+    'cong-phap-1.png': [['kiem-tong-tam-phap', 'truong-sinh-quyet', 'kim-chung-trao', 'huyet-ma-kinh', 'loi-am-quyet', 'phong-hanh-thuat', 'ngu-hanh-quy-nguyen'],   # công pháp (chủ dự án 05/11/2026 01:30, theo danh sách 1–21)
+                        ['thai-thuong-vong-tinh', 'huyen-bang-quyet', 'han-phong-bo', 'hac-phong-quyet', 'thanh-moc-truong-xuan', 'canh-kim-kiem-quyet', 'hau-tho-quyet'],
+                        ['thai-hu-quyet', 'canh-kim-tu-linh', 'thanh-moc-duong-linh', 'bich-hai-hoi-linh', 'xich-viem-luyen-linh', 'hau-tho-tang-linh', 'van-linh-quy-nguyen']],
     'nguyen-lieu-1.png': [['linh-thao', 'yeu-huyet', 'hoa-linh-chi'], ['ngoc-lo-hoa', 'linh-mach', 'linh-dau', 'hong-qua', 'kim-tieu', 'tu-van-sam', 'thai-hu-lien']],
 }
 # món lẻ một ảnh một món (chủ dự án 04/11/2026 21:46: Hồi Linh Đan), thu về cạnh ONE_S như các đan khác trên dan-1.png

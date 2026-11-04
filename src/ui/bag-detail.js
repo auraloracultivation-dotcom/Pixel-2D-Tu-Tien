@@ -16,7 +16,7 @@ import { power } from '../game/achieve.js';
 import { trial } from '../game/autoequip.js';
 import { gemIcon } from './gem-icon.js';
 
-const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây` })[s] || null;
+const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây`, regen_pct: `hồi ${v}% máu/giây`, dr: `giảm sát thương ${v}%`, mp_pct: `linh lực tối đa +${v}%`, mp_regen: `hồi linh lực +${v}%/giây` })[s] || null;
 
 export function el(tag, cls, text) {
   const e = document.createElement(tag);

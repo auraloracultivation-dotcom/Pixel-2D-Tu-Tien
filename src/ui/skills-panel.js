@@ -34,6 +34,10 @@ export function createSkillsPanel(game) {
     if (k === 'lifesteal') return `Hút máu ${n}%`;
     if (k === 'thorns') return `Phản đòn ${n}%`;
     if (k === 'regen') return `Hồi ${n} máu/giây`;
+    if (k === 'regen_pct') return `Hồi ${n}% máu/giây`;
+    if (k === 'dr') return `Giảm sát thương ${n}%`;
+    if (k === 'mp_pct') return `Linh lực tối đa +${n}%`;
+    if (k === 'mp_regen') return `Hồi linh lực +${n}%/giây`;
     return statText(data, k, n);
   }).join(' · ');
 
@@ -57,6 +61,7 @@ export function createSkillsPanel(game) {
         el('small', null, effText(t, st.lv)),
         el('small', null, max ? 'Đã viên mãn.' : `Kinh nghiệm ${Math.floor(st.exp)}/${techNeed(data, st.lv)} (mang theo để tu)`),
         el('small', null, t.desc));
+      if (data.art.sprites['ui.vk-' + id]) c.dataset.icon = 'ui.vk-' + id;   // biểu tượng cuốn công pháp (ảnh chủ dự án 05/11/2026, tools/art/ui_vu_khi.py)
       c.dataset.act = 'Mang vào ô ' + (slot + 1);
       c.onclick = () => { setTechSlot(game, slot, id); slot = (slot + 1) % T.slots; game.sfx('pickup'); render(); };
       list.append(c);

@@ -26,7 +26,7 @@ export function hit(game, m, dmg, at) {
 // phản đòn (như hitPlayer)
 export function duelTake(game, m, dmg, opt) {
   if (m.dashT > 0) return 0;
-  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - m.st.def) * m.dmgMul));
+  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - m.st.def) * (1 - (m.st.dr || 0)) * m.dmgMul));
   if (m.shield > 0) {
     const a = Math.min(m.shield, dmg); m.shield -= a; dmg -= a;
     addNumber(game, m.x, m.y - 14, a, '#7ad0ff');

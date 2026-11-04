@@ -3,13 +3,15 @@
 import { totalLayer } from './stats.js';
 
 const M = game => game.data.config.mana;
-export const manaMax = game => Math.round(M(game).base + M(game).per_layer * totalLayer(game.save, game.data.realms));
-export const manaCost = (game, id) => { const c = M(game), s = game.data.skills[id]; return Math.round(manaMax(game) * Math.min(c.cap, c.per_cd * (s?.cd || 3))); };
+// Gốc theo tầng tu; công pháp Linh lực cộng % (st.mpPct). Chiêu tốn theo linh lực GỐC, để linh lực tối đa tăng thì ra được nhiều chiêu hơn.
+const manaBase = game => M(game).base + M(game).per_layer * totalLayer(game.save, game.data.realms);
+export const manaMax = game => Math.round(manaBase(game) * (1 + (game.player?.st?.mpPct || 0)));
+export const manaCost = (game, id) => { const c = M(game), s = game.data.skills[id]; return Math.round(manaBase(game) * Math.min(c.cap, c.per_cd * (s?.cd || 3))); };
 
 export function manaTick(game, dt) {
   const p = game.player, mx = manaMax(game);
   if (p.mp == null || p.mpMax !== mx) { p.mp = p.mp == null ? mx : Math.min(mx, p.mp + Math.max(0, mx - (p.mpMax || mx))); p.mpMax = mx; }
-  if (p.mp < mx) p.mp = Math.min(mx, p.mp + mx * M(game).regen_pct * dt * (p.meditating ? M(game).med_mul : 1));
+  if (p.mp < mx) p.mp = Math.min(mx, p.mp + mx * (M(game).regen_pct + (p.st?.mpRegen || 0)) * dt * (p.meditating ? M(game).med_mul : 1));
 }
 
 // Đủ linh lực thì trừ và trả true; thiếu thì báo (cách nhau 1,5 giây) và trả false
