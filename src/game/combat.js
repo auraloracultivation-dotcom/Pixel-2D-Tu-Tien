@@ -63,7 +63,7 @@ export function killMob(game, m) {
   partyKill(game, m);
   game.sfx('die');
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
-  if (!m.noQi) game.gainQi(Math.max(1, Math.round(m.def.qi * game.eventMul('qi') * killQiMul(game.save, game.data.realms))), m.x, m.y);
+  if (!m.noQi) game.gainQi(Math.max(1, Math.round(m.def.qi * game.eventMul('qi') * killQiMul(game.save, game.data.realms) * (game.farmTeamMul?.() || 1))), m.x, m.y);   // tổ đội farm (src/game/farm-team.js)
   game.onKill(m);
 }
 
