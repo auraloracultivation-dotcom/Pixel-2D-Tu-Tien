@@ -44,7 +44,8 @@ export function createSelfPanel(game) {
       row('Linh căn', s.element ? `${d.elements[s.element].name} · ${rootOf(s, d).name}` : 'Chưa thức tỉnh'),
       row('Lực chiến', vn(power(game))),
       row('Sinh lực', `${vn(p?.hp)}/${vn(st.maxHp)}`),
-      row('Linh lực', `${vn(s.qi)}/${vn(need)}`),
+      row('Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`),   // linh lực dùng chiêu (src/game/mana.js)
+      row('Linh khí', `${vn(s.qi)}/${vn(need)}`),   // tu vi để đột phá cảnh giới
       row('Công', vn(st.atk)),
       row('Phòng', vn(st.def)),
       row('Bạo kích', `${Math.round(st.crit * 100)}%`),
