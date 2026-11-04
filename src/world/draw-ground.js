@@ -63,6 +63,30 @@ function put(ctx, sp, f, x, y) {
   ctx.drawImage(sp.im, f * sp.s.w, 0, sp.s.w, sp.s.h, x, y, sp.s.w, sp.s.h);
 }
 
+// Làm mờ, nhạt nền đã nướng: nhoè hộp 3×3 (k lượt), kéo màu về màu trung bình của nền (contrast) rồi sáng thêm (lift).
+// Số ở data/config.json → ground_soft.
+function soften(c, w, h, o = { pass: 1, contrast: 0.6, lift: 10 }) {
+  if (!o || w * h > 16e6) return;
+  const im = c.getImageData(0, 0, w, h), d = im.data, n = w * h;
+  let sr = 0, sg = 0, sb = 0, cnt = 0;
+  for (let i = 0; i < n * 4; i += 64) if (d[i + 3] > 200) { sr += d[i]; sg += d[i + 1]; sb += d[i + 2]; cnt++; }
+  const av = cnt ? [sr / cnt, sg / cnt, sb / cnt] : [0, 0, 0], tmp = new Uint8ClampedArray(d.length);
+  for (let p = 0; p < (o.pass || 0); p++) {
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {   // ngang
+      const i = (y * w + x) * 4, a = (y * w + Math.max(0, x - 1)) * 4, b = (y * w + Math.min(w - 1, x + 1)) * 4;
+      for (let k = 0; k < 3; k++) tmp[i + k] = (d[a + k] + d[i + k] * 2 + d[b + k]) >> 2;
+      tmp[i + 3] = d[i + 3];
+    }
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {   // dọc
+      const i = (y * w + x) * 4, a = (Math.max(0, y - 1) * w + x) * 4, b = (Math.min(h - 1, y + 1) * w + x) * 4;
+      for (let k = 0; k < 3; k++) d[i + k] = (tmp[a + k] + tmp[i + k] * 2 + tmp[b + k]) >> 2;
+    }
+  }
+  const ct = o.contrast ?? 1, lf = o.lift || 0;
+  for (let i = 0; i < n * 4; i += 4) for (let k = 0; k < 3; k++) d[i + k] = av[k] + (d[i + k] - av[k]) * ct + lf;
+  c.putImageData(im, 0, 0);
+}
+
 function build(game, map, tiles, hash, baseTile) {
   const sp = {};
   for (const id of ['tile.grass', 'tile.path', 'tile.stone', 'tile.edge', 'tile.cliff', 'decal.dirt', 'prop.bush']) if (!(sp[id] = sheet(game, id))) return null;
@@ -119,9 +143,9 @@ function build(game, map, tiles, hash, baseTile) {
     const k = map.type(tx, ty);
     if (!k.solid && !k.void) put(c, floor, Math.floor(hash(tx + 11, ty) * 4), tx * T, ty * T);
   }
-  if (!lit) meadow(c, map, hash);
-  scatter(c, map, hash, sp['decal.dirt'], sp['prop.bush']);
+  // chủ dự án 04/11/2026 15:38: nền đất mờ, nhạt hơn, bỏ chi tiết nhỏ (hoa cỏ lấm tấm, vệt đất, bụi nhỏ) cho nhân vật, đồ vật nổi lên
   bakeDat(c, map, hash, game.data['le-hoi']?.festivals?.[map.def.id]?.dat);   // mặt đất lễ hội (draw-dat.js)
+  soften(c, cv.width, cv.height, game.data.config.ground_soft);
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
   cache.baked = bakeProps(c, game, map, hash);

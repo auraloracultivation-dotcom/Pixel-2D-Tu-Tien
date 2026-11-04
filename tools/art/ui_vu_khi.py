@@ -21,6 +21,8 @@ ROWS = {
     'ca-1.png': [['linh-ngu', 'van-ngu', 'nguyet-ngu', 'hoa-ly', 'bang-ngu', 'dao-hoa-ngu', 'ha-quang-ngu'], ['phong-ngu', 'tuyet-ngu', 'vu-ngu', 'kim-ly', 'kim-tu-ngu', 'nham-ngu']],
     'chau-1.png': [['chau-1', 'chau-2', 'chau-3', 'chau-4'], ['chau-5', 'chau-6', 'chau-7']],   # chậu dược viên theo cấp (chủ dự án 12:27)
     'cay-1.png': [['cay-non-linh-thao', 'cay-non-yeu-huyet', 'cay-non-hoa-linh-chi', 'cay-non-ngoc-lo-hoa', 'cay-non-linh-mach', 'cay-non-linh-dau', 'cay-non-hong-qua', 'cay-non-kim-tieu', 'cay-non-tu-van-sam', 'cay-non-thai-hu-lien'], ['cay-linh-thao', 'cay-yeu-huyet', 'cay-hoa-linh-chi', 'cay-ngoc-lo-hoa', 'cay-linh-mach', 'cay-linh-dau', 'cay-hong-qua', 'cay-kim-tieu', 'cay-tu-van-sam', 'cay-thai-hu-lien']],   # cây non / cây lớn trong chậu (chủ dự án 12:38)
+    'dan-1.png': [['hoi-xuan-dan', 'tu-khi-dan', 'thanh-tam-dan', 'tu-van-dan', 'tay-tuy-dan'],   # đan dược, canh (chủ dự án 15:37)
+                  ['boi-nguyen-dan', 'thang-linh-dan', 'tinh-lien-dan', 'linh-ngu-thang', 'van-ngu-thang', 'nguyet-ngu-thang']],
     'nguyen-lieu-1.png': [['linh-thao', 'yeu-huyet', 'hoa-linh-chi'], ['ngoc-lo-hoa', 'linh-mach', 'linh-dau', 'hong-qua', 'kim-tieu', 'tu-van-sam', 'thai-hu-lien']],
 }
 

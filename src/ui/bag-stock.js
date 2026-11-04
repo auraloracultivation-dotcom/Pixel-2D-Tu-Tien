@@ -50,17 +50,17 @@ export function renderMatGrid(game, box, st, onPick, fish = false) {
 
 // Đan dược đang có (save.pills)
 export function renderPillGrid(game, box, st, onPick) {
-  const P = game.data.cave.pills, have = game.save.pills || {};
+  const P = game.data.cave.pills, have = game.save.pills || {}; ART = game.data.art.sprites;
   const ids = Object.keys(have).filter(id => P[id] && have[id] > 0);
   if (!ids.length) { box.append(el('p', 'muted', 'Chưa có đan dược. Luyện ở Lò đan hoặc mua ở Vạn Bảo Lâu.')); return; }
-  for (const id of ids) box.append(cell(st.stock?.id === id, matIco(P[id]), P[id].name, `×${vn(have[id])}`, P[id].color || '#ccc', () => onPick({ kind: 'pill', id })));
+  for (const id of ids) box.append(cell(st.stock?.id === id, matIco(P[id], id), P[id].name, `×${vn(have[id])}`, P[id].color || '#ccc', () => onPick({ kind: 'pill', id })));
 }
 
 function pillSheet(game, k, box, head, txt, changed) {
   const D = game.data, p = D.cave.pills[k], s = game.save, L = D.cave.qi_pill_day;
   if (!p || !(s.pills?.[k] > 0)) return false;
   txt.append(el('div', 'd-title', p.name), el('div', 'd-sub', `Đang có ${vn(s.pills[k])}`));
-  head.prepend(matIco(p));
+  head.prepend(matIco(p, k));
   box.append(head, el('div', 'd-line', p.desc || ''));
   if (p.use?.qi && L) box.append(el('div', 'd-line', qiPillLeft(game) > 0 ? L.left.replace('{n}', qiPillLeft(game)) : `Đan độc: viên kế tiếp còn ${Math.round(qiPillRate(game) * 100)}% hiệu quả.`));
   const row = el('div', 'd-primary'), b = el('button', 'act-btn primary', 'Dùng');
