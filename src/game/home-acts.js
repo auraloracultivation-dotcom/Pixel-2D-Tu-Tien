@@ -3,6 +3,7 @@
 import { talkTo } from './interact.js';
 import { hasDecor } from './decor.js';
 import { goHome } from './friends.js';
+import { talkBeCa } from './be-ca.js';
 
 export function homeAct(game, act) {
   const H = game.data.home, here = game.map.id === H.map, npcs = game.npcs || [];
@@ -20,6 +21,12 @@ export function homeAct(game, act) {
     const c = game.map.center(m[0], m[1]);
     p.x = c.x; p.y = c.y; p.meditating = true;
     game.toast('Bế quan trên bồ đoàn động phủ… chạm Đả tọa để dừng.', 2.2);
+    return null;
+  }
+  if (act === 'ho-ca' && H.be_ca) {   // mục Hồ cá: tới đứng cạnh bể cá, mở việc thả cá (chủ dự án 04/11/2026 11:57)
+    const c = game.map.center(H.be_ca.at[0] - 1, H.be_ca.at[1] + 1), p = game.player;
+    p.x = c.x; p.y = c.y; p.meditating = false;
+    talkBeCa(game);
     return null;
   }
   if (act === 'ho-ca') {

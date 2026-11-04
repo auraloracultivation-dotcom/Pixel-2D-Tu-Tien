@@ -17,6 +17,7 @@ import { rerootNpc, talkReroot } from './reroot.js';
 import { talkDecor } from './decor.js';
 import { talkParty } from './party.js';
 import { goodsOf, talkGoods } from './npc-goods.js';
+import { nearBeCa, talkBeCa } from './be-ca.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -66,8 +67,9 @@ export function updateInteract(game) {
   const st = !npc && !trib && nearStation(game);
   const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
   const fish = !npc && !trib && !st && !med && (game.fish ? game.fish.dir : waterDir(game));
-  const pat = !npc && !trib && !st && !med && !fish && showPat(game);
-  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : fish ? fishLabel(game) : pat ? 'Vuốt ve' : null;
+  const beca = !npc && !trib && !st && !med && !fish && nearBeCa(game);
+  const pat = !npc && !trib && !st && !med && !fish && !beca && showPat(game);
+  game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : fish ? fishLabel(game) : beca ? game.data.home.be_ca.name : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
     talkTo(game, npc);
@@ -81,6 +83,8 @@ export function updateInteract(game) {
     game.openCave?.(st[1]);
   } else if (fish) {
     fishAct(game, fish);
+  } else if (beca) {
+    talkBeCa(game);
   } else if (pat) {
     patPet(game);
   } else if (med) {

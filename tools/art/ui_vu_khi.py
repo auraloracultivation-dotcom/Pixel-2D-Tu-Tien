@@ -60,4 +60,11 @@ def build(save):
             cv = Canvas(S, S); cv.a = sq
             save('ui.vk-' + k, [cv], (S // 2, S // 2), f'{slot} {k} (ảnh GPT {f})'); n += 1
         print(slot, len(rows), 'hàng', len(boxes), 'ô /', len(names), 'món')
+    # bể cá động phủ (chủ dự án 11:57): giữ vệt kính mờ (độ trong thấp nhưng sáng), chỉ bỏ quầng tối nền
+    a = np.array(Image.open(SRC / 'be-ca.png').convert('RGBA')).astype(int)
+    lum = a[:, :, :3].sum(axis=2) / 3
+    a[:, :, 3] = np.where((a[:, :, 3] < 64) & (lum < 140), 0, a[:, :, 3])
+    ys, xs = np.nonzero(a[:, :, 3] >= 64); c = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1].astype(np.uint8)
+    cv = Canvas(c.shape[1], c.shape[0]); cv.a = np.ascontiguousarray(c)
+    save('ui.vk-be-ca', [cv], (c.shape[1] // 2, c.shape[0]), 'bể cá động phủ (ảnh GPT be-ca.png)'); n += 1
     return n

@@ -1,5 +1,6 @@
 // Đồ trang trí trong động phủ (data/home.json → decor), vẽ bằng khối pixel theo kiểu (kind).
 import { hasDecor } from '../game/decor.js';
+import { drawBeCa } from './draw-be-ca.js';
 
 const R = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
 
@@ -56,4 +57,5 @@ export function drawDecor(ctx, game, t) {
     if (!hasDecor(game, id)) continue;
     for (const at of d.at) { const c = game.map.center(at[0], at[1]); KINDS[d.kind]?.(ctx, c.x, c.y, t); }
   }
+  drawBeCa(ctx, game, t);   // bể cá đặt sẵn (chủ dự án 04/11/2026)
 }

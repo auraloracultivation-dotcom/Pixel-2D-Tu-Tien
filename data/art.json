@@ -23434,6 +23434,18 @@
    ],
    "note": "nguyen-lieu bang-ngu (ảnh GPT ca-1.png)"
   },
+  "ui.vk-be-ca": {
+   "file": "assets/art/ui-vk-be-ca.png",
+   "v": "a3723745",
+   "w": 1132,
+   "h": 880,
+   "frames": 1,
+   "anchor": [
+    566,
+    880
+   ],
+   "note": "bể cá động phủ (ảnh GPT be-ca.png)"
+  },
   "ui.vk-bi-kip-chieu": {
    "file": "assets/art/ui-vk-bi-kip-chieu.png",
    "v": "1030e20b",
