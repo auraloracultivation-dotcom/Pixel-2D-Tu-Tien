@@ -1,7 +1,8 @@
 // Túi đồ: ô đang mặc (chạm để xem), lọc theo ô và sắp xếp, danh sách đồ; ngọc, nguyên liệu dạng lưới ở src/ui/bag-stock.js.
 // Chạm một món thì tấm chi tiết trượt lên từ đáy túi (src/ui/bag-detail.js): nút Mặc / Thay nằm ngay đầu tấm,
 // kèm lực chiến tăng giảm và so sánh với món đang mặc, không phải cuộn xuống cuối túi như trước.
-import { ensureInv, socket, rarityOf, itemName, statText, gearStats } from '../game/items.js';
+import { ensureInv, rarityOf, itemName, statText, gearStats } from '../game/items.js';
+import { kySocket } from '../game/ky-ngoc.js';   // đã đăng nhập: máy chủ khảm ngọc
 import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
@@ -102,14 +103,20 @@ export function createBag(game) {
     if (!Object.keys(save().gems).length) { box.append(el('p', 'muted', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.')); return; }
     if (!st.pickSocket) {   // đề xuất #33: khảm hết bằng một lần bấm
       const b = el('button', 'mini primary gem-best', 'Khảm ngọc tốt nhất');
-      b.onclick = () => {
-        const r = bestGems(game);
+      b.onclick = async () => {
+        b.disabled = true; b.textContent = data.items.ky_mon.busy;
+        const r = await bestGems(game);
         game.toast(r.n ? `Đã khảm ${r.n} lần: lực chiến +${r.gain.toLocaleString('vi-VN')}` : 'Ngọc đang khảm đã là tốt nhất.', 2.2);
-        if (r.n) { game.sfx('levelup'); changed(); }
+        if (r.n) game.sfx('levelup');
+        changed();
       };
       box.append(b);
     }
-    renderGemGrid(game, box, st, pickStock, k => { socket(save(), st.pickSocket.uid, st.pickSocket.idx, k); st.sel = st.pickSocket.uid; st.pickSocket = null; st.tab = 'do'; changed(); });
+    renderGemGrid(game, box, st, pickStock, async k => {
+      const p = st.pickSocket; if (!p) return;
+      await kySocket(game, p.uid, p.idx, k);
+      st.sel = p.uid; st.pickSocket = null; st.tab = 'do'; changed();
+    });
   }
 
   function renderSheet() {

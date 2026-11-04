@@ -2,7 +2,8 @@
 // Mỗi ô: hình, tên, số lượng. Chạm ô thì tấm chi tiết trượt lên từ đáy túi (#bag-sheet, như trang bị): mô tả, nơi kiếm;
 // ngọc có thêm nút Ghép 3→1 và Ghép hết; đan dược (góp ý #53: dùng đan ngay trong túi, không phải về Lò đan) có nút Dùng.
 // st.stock = { kind: 'gem' | 'mat' | 'pill', id } là ô đang chọn.
-import { mergeGems, gemMergeFee, gemInfo, statText } from '../game/items.js';
+import { gemMergeFee, gemInfo, statText } from '../game/items.js';
+import { kyMerge } from '../game/ky-ngoc.js';   // đã đăng nhập: máy chủ ghép ngọc
 import { el } from './bag-detail.js';
 import { gemIcon } from './gem-icon.js';
 import { usePill, qiPillLeft, qiPillRate } from '../game/cave.js';
@@ -105,12 +106,17 @@ export function renderStockSheet(game, st, box, changed, close) {
   const fee = gemMergeFee(data, gi.lv), row = el('div', 'd-primary');
   const one = el('button', 'act-btn', `Ghép ${G.merge}→1 (${vn(fee)} ${data.shop.name})`);
   one.disabled = s.gems[k] < G.merge || (s.lingshi || 0) < fee;
-  one.onclick = () => { if (mergeGems(data, s, k)) { game.sfx('levelup'); changed(); } };
+  one.onclick = async () => { one.disabled = true; if (await kyMerge(game, k)) game.sfx('levelup'); changed(); };
   row.append(one);
   const can = Math.min(Math.floor(s.gems[k] / G.merge), Math.floor((s.lingshi || 0) / fee));
   if (can >= 2) {   // báo lỗi #35: ghép số lượng lớn một lần bấm, phí như ghép từng lần
     const all = el('button', 'act-btn primary', `Ghép hết ×${can}`);
-    all.onclick = () => { let n = 0; while (mergeGems(data, s, k)) n++; if (n) { game.sfx('levelup'); game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); changed(); } };
+    all.onclick = async () => {
+      all.disabled = true;
+      const n = await kyMerge(game, k, 0, can);
+      if (n) { game.sfx('levelup'); game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); }
+      changed();
+    };
     row.append(all);
   }
   box.append(row, el('div', 'd-line', `Cần ${G.merge} viên cùng loại cùng cấp. Ghép xong thành 1 viên cấp ${gi.lv + 1}.`));

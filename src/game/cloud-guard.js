@@ -36,6 +36,18 @@ export function applyFix(game, sent, sua) {
     }
   }
   if (fin(sua.best) && s.tower && s.tower.best > sua.best) s.tower.best = sua.best;
+  // Túi ngọc máy chủ nhận (migration 20261105020000_p2d_ky_ngoc, p2d_kiem_ngoc): thêm / bớt phần chênh với bản đã gửi,
+  // giữ ngọc vừa nhặt sau lần gửi
+  if (sua.gems && typeof sua.gems === 'object') {
+    s.gems ??= {};
+    const sg = sent.gems || {};
+    for (const k of new Set([...Object.keys(sg), ...Object.keys(sua.gems)])) {
+      const d = (fin(sua.gems[k]) ? sua.gems[k] : 0) - (fin(sg[k]) ? sg[k] : 0);
+      if (!d) continue;
+      s.gems[k] = Math.max(0, (s.gems[k] || 0) + d);
+      if (!s.gems[k]) delete s.gems[k];
+    }
+  }
   // Món bị sửa ở máy (dòng, cấp cường hoá, độ hiếm...) hoặc đồ cũ máy chủ đặt trần dòng / hệ: lấy bản máy chủ
   // (migration 20261105010000_p2d_ky_mon, p2d_kiem_ky). Giữ nguyên đối tượng món để chỗ khác đang trỏ tới vẫn đúng.
   for (const m of Array.isArray(sua.mon) ? sua.mon : []) {
