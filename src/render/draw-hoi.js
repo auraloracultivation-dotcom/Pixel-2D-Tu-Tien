@@ -6,6 +6,7 @@ import { spriteImage } from './sprites.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
 import { ACT, drawAct, walkFrame } from './draw-acts.js';
+import { drawHero } from './draw-hero.js';
 
 const flat = it => it.foot.flat;
 const flameKind = it => it.spr.flame_c || (it.id.includes('lam') ? 'lam' : it.id.includes('hong') ? 'hong' : 'vang');
@@ -34,6 +35,7 @@ export function drawHoiItem(ctx, game, it, t) {
   if (it.khach) {   // khách đi hội: nhảy lên khi reo hò (hop)
     const hop = it.hop > 0 ? Math.sin(Math.min(1, it.hop / 0.45) * Math.PI) * 4 : 0;
     if (it.face && Math.abs(it.face.x) > 0.2) it.lookX = Math.sign(it.face.x);
+    if (it.dress) { if (!drawHero(ctx, game, it, t + it.bob, false, it.dress)) drawNpcSprite(ctx, game, it, t); return; }   // khách mặc bộ có hình riêng (hoi-khach.js mac)
     if (it.hero) {   // đệ tử tông môn (hình thời trang nhân vật, 7 động tác)
       ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(it.x, it.y + 1, 6, 2.5, 0, 0, Math.PI * 2); ctx.fill();
       drawAct(ctx, game.data.art, it.id, it.moving ? walkFrame(it.spr0 ??= game.data.art.sprites[it.id], t + it.bob) : hop ? ACT.hit : ACT.idle, it.x, it.y + 1, it.lookX || 1, hop);
