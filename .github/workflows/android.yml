@@ -34,6 +34,10 @@ jobs:
       - name: Cài Bubblewrap (bản cố định) và chỉ đường JDK, Android SDK
         run: |
           npm i -g @bubblewrap/cli@$BUBBLEWRAP_VERSION
+          # Bubblewrap chỉ nhận SDK có thư mục bin/ hoặc tools/ ở gốc; SDK mới để ở cmdline-tools/latest/bin
+          [ -e "$ANDROID_HOME/bin" ] || ln -s "$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/bin" \
+            || sudo ln -s "$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/bin"
+          ls "$ANDROID_HOME" "$ANDROID_HOME/build-tools"
           mkdir -p ~/.bubblewrap
           printf '{"jdkPath":"%s","androidSdkPath":"%s"}\n' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
           cat ~/.bubblewrap/config.json
