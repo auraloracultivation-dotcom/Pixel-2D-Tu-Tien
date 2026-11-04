@@ -3,13 +3,14 @@
 import { drawHero } from './draw-hero.js';
 import { ring, disc } from './pixel-shapes.js';
 import { textQ } from './draw-focus.js';
+import { vfxOf } from '../game/vfx.js';
 
 const INK = '#1b1830';
 
 export function drawDuelist(ctx, game, m, t) {
   if (!drawHero(ctx, game, m, t, m.flash > 0, m.save)) return false;
-  if (m.shield > 0) { ctx.globalAlpha = 0.7; ring(ctx, m.x, m.y - 6, 10, m.shieldColor); }
-  if (m.buffT > 0) { ctx.globalAlpha = 0.25; disc(ctx, m.x, m.y - 6, 10, m.buffColor); }
+  if (m.shield > 0 && !vfxOf(game, m.shieldSk)) { ctx.globalAlpha = 0.7; ring(ctx, m.x, m.y - 6, 10, m.shieldColor); }
+  if (m.buffT > 0 && !vfxOf(game, m.buffSk)) { ctx.globalAlpha = 0.25; disc(ctx, m.x, m.y - 6, 10, m.buffColor); }
   ctx.globalAlpha = 1;
   const top = m.y - (m.top || 24) - 5, w = 22;
   ctx.fillStyle = INK; ctx.fillRect(m.x - w / 2 - 0.5, top - 0.5, w + 1, 3.5);

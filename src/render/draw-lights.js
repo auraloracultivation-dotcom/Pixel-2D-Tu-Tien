@@ -88,7 +88,7 @@ export function cutLights(c, lights, at, s, cut) {
 }
 
 // Trời tối tới đâu (0 ban ngày ngoài trời có phủ nhẹ … 1 đêm, hầm ngục): quầng chiêu rực theo độ tối
-function darkness(game) {
+export function darkness(game) {
   if (game.data.light.maps.includes(game.map?.id)) return 1;
   const p = skyPhase(game);
   return p.tint ? Math.min(1, p.tint[3] / 0.6) : 0;

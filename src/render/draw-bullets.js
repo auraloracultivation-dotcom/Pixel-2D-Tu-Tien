@@ -3,6 +3,7 @@
 import { circle } from '../world/draw-map.js';
 import { spriteImage } from './sprites.js';
 import { drawDragon } from './draw-ult.js';
+import { vfxOf } from '../game/vfx.js';
 
 // Đạn tròn theo bài Đạn trong trang Xưởng VFX Pixel: quầng mềm cộng sáng, viền sẫm mỏng (đọc được trên nền sáng khi máy quay xa),
 // vành màu đậm, lõi trắng lệch về phía bay; đạn quái có viền sẫm rõ hơn để nhìn là biết phải né.
@@ -28,6 +29,7 @@ function drawShape(ctx, b) {
 export function drawBullets(ctx, game, t) {
   const sprites = game.data.art.sprites;
   for (const b of game.bullets) {
+    if (vfxOf(game, b.sk)) continue;   // đạn chiêu có hiệu ứng mới: vẽ ở lớp trên cùng (src/render/vfx/draw-vfx.js)
     if (b.ult === 'dragon') { drawDragon(ctx, b, t); continue; }
     const spr = b.fx && sprites['proj.' + b.fx], im = spr && spriteImage(spr);
     if (!im) { drawShape(ctx, b); continue; }

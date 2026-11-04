@@ -3,6 +3,8 @@ import { spriteImage, drawHitFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 import { curOutfit } from '../game/fashion.js';
 import { drawKiemTrail, drawBloodAura } from './draw-huyet.js';
+import { glow } from './vfx/glow.js';
+import { darkness } from './draw-lights.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -104,6 +106,11 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const breath = look.breath && name === 'idle' && Math.sin(t * 2.2) > 0.55 ? n : 0;   // chibi đứng: thở nhún 1 điểm ảnh
   const P = look.breath && p === game.player && !own ? strikePose(p.fw?.act?.move, atk) : strikePose(null, null);   // chibi: dáng thân theo kiểu đòn
   const side = (p.lookX || 1) * P.flip, px = p.x + dx + (p.lookX || 1) * P.dx;
+  const G = game.data.heroes.glow;   // nhân vật hơi phát quang (quy tắc chiêu 05/11/2026): quầng mềm sau lưng theo màu hệ, đêm rõ hơn ngày
+  if (G) {
+    const el = save?.element && game.data.elements[save.element]?.color, a = G.day + (G.night - G.day) * darkness(game);
+    ctx.save(); ctx.imageSmoothingEnabled = true; glow(ctx, p.x, p.y - p.top * 0.5, p.top * G.r, el || G.color, a); ctx.restore();
+  }
   if (look.aura === 'huyet') { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 < 0.75;

@@ -7,6 +7,7 @@ import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 import { skillMul } from './skill-level.js';
 import { segDist } from './skills.js';
 import { weaponSlash } from './slash-fx.js';
+import { vfxOf, vfxCast } from './vfx.js';
 
 const SFX = { projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' };
 
@@ -75,10 +76,10 @@ function zoneTick(game, m, z) {
   }
 }
 
-function bullet(game, m, s, a, dmg) {
+function bullet(game, m, s, a, dmg, id) {
   shoot(game, {
     from: 'mob', src: m, x: m.x + Math.cos(a) * 6, y: m.y - 4 + Math.sin(a) * 6, vx: Math.cos(a) * s.speed, vy: Math.sin(a) * s.speed,
-    r: s.radius, dmg: roll(m, dmg), pierce: !!s.pierce, explode: s.explode, color: s.color, life: s.range / s.speed, trail: true, fx: s.fx, ult: s.ult,
+    r: s.radius, dmg: roll(m, dmg), pierce: !!s.pierce, explode: s.explode, color: s.color, life: s.range / s.speed, trail: true, fx: s.fx, ult: s.ult, sk: id,
   });
 }
 
@@ -86,24 +87,26 @@ function bullet(game, m, s, a, dmg) {
 export function castFoe(game, m, id) {
   const s = game.data.skills[id], p = game.player, K = game.data.config.combat, lv = skillMul({ data: game.data, save: m.save }, id);
   const atk = m.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
-  const fx = m.face.x, fy = m.face.y, base = Math.atan2(fy, fx);
-  if (!['heal', 'shield', 'buff'].includes(s.type)) m.swingT = 0.18;
+  const fx = m.face.x, fy = m.face.y, base = Math.atan2(fy, fx), V = vfxOf(game, id);   // V: hiệu ứng mới như người chơi (src/game/vfx.js)
+  // dùng chiêu không ra động tác đánh (chủ dự án 05/11/2026)
   game.sfx(SFX[s.type], 0.7);
   switch (s.type) {
-    case 'projectile': bullet(game, m, s, base, atk * s.mult); break;
+    case 'projectile': bullet(game, m, s, base, atk * s.mult, id); if (V) vfxCast(game, id, s, m); break;
     case 'multi': {
       const spread = s.spread * Math.PI / 180, full = s.spread >= 360, n = s.count;
-      for (let i = 0; i < n; i++) bullet(game, m, s, full ? base + i / n * Math.PI * 2 : base + (n > 1 ? (i / (n - 1) - 0.5) * spread : 0), atk * s.mult);
+      for (let i = 0; i < n; i++) bullet(game, m, s, full ? base + i / n * Math.PI * 2 : base + (n > 1 ? (i / (n - 1) - 0.5) * spread : 0), atk * s.mult, id);
+      if (V) vfxCast(game, id, s, m);
       break;
     }
     case 'zone':
       addZone(game, { ...s, x: m.x + fx * (s.offset || 0), y: m.y + fy * (s.offset || 0), dmg: atk * s.mult, foe: m, onTick: z => zoneTick(game, m, z) });
-      if (s.fx) zoneFx(game, s.fx, game.zones[game.zones.length - 1]);
+      if (V) vfxCast(game, id, s, m, { zone: game.zones[game.zones.length - 1] });
+      else if (s.fx) zoneFx(game, s.fx, game.zones[game.zones.length - 1]);
       break;
     case 'aoe': {
       const cx = m.x + fx * (s.offset || 0), cy = m.y + fy * (s.offset || 0);
-      addFx(game, { type: 'ring', x: cx, y: cy, r: s.radius, color: s.color, life: 0.35, fill: true });
-      if (s.fx) burstFx(game, s.fx, cx, cy, s.radius, base);
+      if (V) vfxCast(game, id, s, m, { cx, cy });
+      else { addFx(game, { type: 'ring', x: cx, y: cy, r: s.radius, color: s.color, life: 0.35, fill: true }); if (s.fx) burstFx(game, s.fx, cx, cy, s.radius, base); }
       if (Math.hypot(p.x - cx, p.y - cy) < s.radius + p.r) hit(game, m, roll(m, atk * s.mult), { x: cx, y: cy });
       break;
     }
@@ -111,28 +114,31 @@ export function castFoe(game, m, id) {
       const amt = Math.round(m.maxHp * amount);
       m.hp = Math.min(m.maxHp, m.hp + amt);
       game.number(m.x, m.y - 16, '+' + amt, '#9af0a8');
-      addFx(game, { type: 'ring', x: m.x, y: m.y, r: 18, color: s.color, life: 0.5 });
-      if (s.fx) selfFx(game, s.fx, m);
+      if (V) vfxCast(game, id, s, m);
+      else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 18, color: s.color, life: 0.5 }); if (s.fx) selfFx(game, s.fx, m); }
       break;
     }
     case 'shield':
       m.shield = Math.min(Math.round(m.maxHp * (game.data.config.combat.shield_cap || 1)), (m.shieldT > 0 ? m.shield : 0) + Math.round(m.maxHp * amount)); m.shieldT = Math.max(m.shieldT, s.dur); m.shieldColor = s.color;   // giáp chồng nhau (báo lỗi #28)
       if (s.heal) m.hp = Math.min(m.maxHp, m.hp + Math.round(m.maxHp * s.heal));
-      addFx(game, { type: 'ring', x: m.x, y: m.y, r: 14, color: s.color, life: 0.4 });
-      if (s.fx) selfFx(game, s.fx, m);
+      if (V) vfxCast(game, id, s, m);
+      else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 14, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, m); }
       break;
     case 'buff':
       m.buffT = s.dur; m.buffAmt = amount; m.buffColor = s.color;
-      addFx(game, { type: 'ring', x: m.x, y: m.y, r: 16, color: s.color, life: 0.4 });
-      if (s.fx) selfFx(game, s.fx, m);
+      if (V) vfxCast(game, id, s, m);
+      else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, m); }
       break;
     case 'dash': {
       const sx = m.x, sy = m.y, steps = 16;
       for (let i = 0; i < steps; i++) game.map.move(m, fx * s.dist / steps, fy * s.dist / steps);
-      addFx(game, { type: 'line', x: sx, y: sy, x2: m.x, y2: m.y, color: s.color, life: 0.3 });
       m.dashT = 0.15;
-      if (s.ult) addFx(game, { type: 'ult', kind: s.ult, x: sx, y: sy, x2: m.x, y2: m.y, color: s.color, life: 0.6 });
-      if (s.fx) burstFx(game, s.fx, m.x, m.y, 18, base);
+      if (V) vfxCast(game, id, s, m, { sx, sy });
+      else {
+        addFx(game, { type: 'line', x: sx, y: sy, x2: m.x, y2: m.y, color: s.color, life: 0.3 });
+        if (s.ult) addFx(game, { type: 'ult', kind: s.ult, x: sx, y: sy, x2: m.x, y2: m.y, color: s.color, life: 0.6 });
+        if (s.fx) burstFx(game, s.fx, m.x, m.y, 18, base);
+      }
       if (segDist(p, sx, sy, m.x, m.y) < p.r + 8) hit(game, m, roll(m, atk * s.mult), { x: sx, y: sy });
       break;
     }
