@@ -1,0 +1,92 @@
+/* Bố cục nút tròn theo ảnh mẫu chủ dự án (04/11/2026 09:05, sửa 09:19, 09:25): bên phải dưới bản đồ tròn và việc truyện là hai hàng
+   ngang canh mép phải: hàng trên có vòng (Menu, Bí cảnh, Sự kiện, Xếp hạng), hàng dưới không viền (Zalo, Đề xuất, Báo lỗi, Thư;
+   Động phủ khi ở nhà); góc dưới trái chỉ còn Túi đồ. Nhiệm vụ hằng ngày sang bên trái dưới thanh linh khí. Bản đồ tròn: src/ui/mini-map.js. Nút tròn: vòng tím ui-k-vong-tim (ảnh GPT
+   bộ hai), biểu tượng trên, chữ dưới (data-lb, gắn lớp .tron ở src/ui/hud-gon.js theo data/menu.json → hud.tron).
+   Nạp sau style-ui-kit*.css; các luật khung chữ nhật cũ đã chừa :not(.tron). */
+
+body #hud .hud-btns > button.tron {
+  position: fixed !important; z-index: 6; width: 50px !important; height: 50px !important; padding: 0 !important; margin: 0 !important;
+  border: 0 !important; border-image: none !important; border-radius: 50% !important; box-shadow: none !important; outline: none;
+  background: url("assets/art/ui-k-vong-tim.png") center / 100% 100% no-repeat !important; image-rendering: auto;
+  font-size: 0 !important; color: transparent !important; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .55));
+  display: block !important; flex: none !important; pointer-events: auto !important; cursor: pointer;
+}
+body #hud .hud-btns > button.tron::before {
+  content: ''; position: absolute; left: 50%; top: 9px; width: 28px; height: 26px; margin: 0; transform: translateX(-50%);
+  background: var(--ico, none) center / contain no-repeat; image-rendering: auto;
+}
+body #hud .hud-btns > button.tron::after {
+  content: attr(data-lb); position: absolute; left: -8px; right: -8px; bottom: -4px; text-align: center; white-space: nowrap;
+  font: 400 10px/1 var(--f-pixel, var(--f-body)); color: #fff1c8; background: none; border: 0; width: auto; height: auto; top: auto;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000, 0 0 4px #000; box-shadow: none; animation: none;
+}
+body #hud .hud-btns > button.tron > i { position: absolute; top: 2px; right: 2px; }
+body #hud .hud-btns > button.tron:active { transform: scale(.92); }
+body #hud .hud-btns > button.tron.on { filter: drop-shadow(0 0 5px rgba(255, 190, 90, .9)); }
+
+/* hai hàng phải: dưới việc truyện (--cot-top do src/ui/hud-gon.js đo), --cot / --tron2 đếm từ mép phải */
+body #hud .hud-btns > button.tron[data-cot] { right: calc(env(safe-area-inset-right) + 6px + var(--cot) * 54px); top: var(--cot-top, 160px); left: auto; }
+body #hud .hud-btns > button.tron[data-tron2] { width: 44px !important; height: 42px !important; right: calc(env(safe-area-inset-right) + 9px + var(--tron2) * 54px); top: calc(var(--cot-top, 160px) + 62px); left: auto;
+  background: none !important; filter: none; border-radius: 0 !important; }
+body #hud .hud-btns > button.tron[data-tron2]::after { bottom: -2px; }
+body #hud .hud-btns > button.tron[data-tron2]::before { top: 2px; width: 30px; height: 24px; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .7)); }
+/* góc dưới trái */
+body #hud .hud-btns > button.tron#btn-bag { width: 70px !important; height: 70px !important; left: calc(env(safe-area-inset-left) + 4px); bottom: calc(env(safe-area-inset-bottom) + 6px); top: auto; }
+body #hud .hud-btns > button.tron#btn-bag::before { width: 34px; height: 32px; top: 9px; }
+body #hud .hud-btns > button.tron#btn-bag::after { font-size: 11px; bottom: -2px; }
+
+#hud-event { --ico: url("assets/art/ui-k-i-su-kien.png"); }
+#hud-rank { --ico: url("assets/art/ui-k-i-xep-hang.png"); }
+#btn-zalo { --ico: url("assets/art/ui-k-i-dao-huu.png"); }
+#btn-inbox { --ico: url("assets/art/ui-k-i-thu.png"); }
+#btn-fb-loi { --ico: url("assets/art/ui-k-i-loi.png"); }
+#btn-fb-de_xuat { --ico: url("assets/art/ui-k-i-de-xuat.png"); }
+#btn-rec { --ico: url("assets/art/ui-i-camera.png"); }
+#hud-dun { --ico: url("assets/art/ui-k-i-bi-canh.png"); }
+#btn-menu { --ico: url("assets/art/ui-k-i-menu.png"); }
+#btn-bag { --ico: url("assets/art/ui-k-i-tui.png"); }
+#hud-home { --ico: url("assets/art/ui-k-i-dong-phu.png"); }
+body[data-le] #hud .hud-btns > button.tron#btn-menu::before { display: block; }
+body #hud .hud-btns > button.tron#btn-rec.on::after { content: attr(data-lb) " " attr(data-s); }
+
+/* cột nhặt đồ dưới cột nhiệm vụ bên trái; khung trò chuyện cạnh Túi đồ */
+body #feed { left: calc(env(safe-area-inset-left) + 8px); top: 46%; }
+body .chat-dock { left: calc(env(safe-area-inset-left) + 80px); }
+
+/* ---- bản đồ tròn góc phải trên ---- */
+#mini-map { position: fixed; z-index: 6; top: calc(env(safe-area-inset-top) + 6px); right: calc(env(safe-area-inset-right) + 40px); width: 96px; height: 96px; pointer-events: auto; cursor: pointer; }
+#mini-map[hidden] { display: none; }
+#mini-map canvas { position: absolute; left: 8px; top: 8px; width: 80px; height: 80px; border-radius: 50%; image-rendering: pixelated; }
+#mini-map i { position: absolute; inset: 0; background: url("assets/art/ui-k-vong-tim-rong.png") center / 100% 100% no-repeat; image-rendering: auto; pointer-events: none; }
+#mini-map b { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); max-width: 120px; padding: 1px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font: 400 10px/1.3 var(--f-pixel, var(--f-body)); color: #ffe6a0; background: rgba(26, 14, 40, .85); border: 1px solid #c89a3a; border-radius: 3px;
+  text-shadow: 1px 0 #000, -1px 0 #000; }
+#mini-map:active { transform: scale(.96); }
+body.ui-an #mini-map, body:has(.panel:not([hidden])) #mini-map, body:has(#bag:not([hidden])) #mini-map, body.trip #mini-map { visibility: hidden; }
+/* việc truyện dưới khung tròn */
+body #goal { top: calc(env(safe-area-inset-top) + 118px); right: 8px; max-width: 46%; }
+
+/* ---- nhiệm vụ hằng ngày: bên trái dưới thanh linh khí (quest-dock.js đo chỗ); mũi tên thu / mở ở dòng tiêu đề (thay nút Nhiệm vụ) ---- */
+body .quest-dock { left: calc(env(safe-area-inset-left) + 8px); right: auto; max-width: calc(100% - 240px); min-width: 150px; }
+body .quest-dock .qd-head { pointer-events: auto; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.qd-arrow { display: inline-block; width: 12px; height: 16px; background: url("assets/art/ui-k-arrow-r.png") center / contain no-repeat; transform: rotate(-90deg); image-rendering: auto; }
+.qd-arrow.dong { transform: rotate(90deg); }
+body #hud .hud-btns > button.tron[hidden] { display: none !important; }
+
+/* ---- nút Thư gộp (src/ui/hop-thu.js): Hòm thư, Zalo, Đề xuất, Báo lỗi trong một hộp nhỏ dưới nút ---- */
+#hud-thu { --ico: url("assets/art/ui-k-i-thu.png"); }
+body #hud .hud-btns > button.tron#hud-thu.co { background: radial-gradient(circle at 82% 10%, #e0484a 0 4px, #1b1830 5px, transparent 6px) !important; }   /* chấm đỏ: thư chưa đọc, quà Zalo */
+#hop-thu { position: fixed; z-index: 9; display: flex; flex-direction: column; gap: 3px; padding: 6px; min-width: 132px;
+  border: 6px solid transparent; border-image: url("assets/art/ui-k-btn.png") 12 fill / 6px / 0 stretch; image-rendering: auto;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .6)); }
+#hop-thu[hidden] { display: none; }
+.ht-row { position: relative; display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 8px 0 4px; border: 0; border-radius: 4px; background: rgba(0, 0, 0, .25);
+  color: #fff1c8; font: 400 13px var(--f-pixel, var(--f-body)); text-align: left; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; cursor: pointer; }
+.ht-row:active { background: rgba(255, 210, 120, .25); }
+.ht-row::before { content: ''; flex: none; width: 24px; height: 20px; background: var(--ico) center / contain no-repeat; image-rendering: auto; }
+.ht-row[data-k="btn-inbox"] { --ico: url("assets/art/ui-k-i-thu.png"); }
+.ht-row[data-k="btn-zalo"] { --ico: url("assets/art/ui-k-i-dao-huu.png"); }
+.ht-row[data-k="btn-fb-de_xuat"] { --ico: url("assets/art/ui-k-i-de-xuat.png"); }
+.ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-k-i-loi.png"); }
+.ht-row i { margin-left: auto; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: #e0484a; color: #fff; font: 700 10px/16px var(--f-body); font-style: normal; text-align: center; }
+body.ui-an #hop-thu, body.trip #hop-thu { display: none; }

@@ -3,7 +3,7 @@
    Thu gọn bảng nút, ẩn giao diện: src/ui/hud-gon.js (body.hud-gon, body.ui-an). */
 
 /* ---- nút chữ trên màn hình: khung tím sẫm nẹp vàng 9 mảnh, biểu tượng bên trái ---- */
-body #hud .hud-btns > button:not(#btn-inbox):not(#btn-notice):not(#btn-rec):not(#btn-mute):not(#btn-fb-loi):not(#btn-fb-de_xuat) {
+body #hud .hud-btns > button:not(#btn-inbox):not(#btn-notice):not(#btn-rec):not(#btn-mute):not(#btn-fb-loi):not(#btn-fb-de_xuat):not(.tron) {
   height: 28px !important; padding: 0 4px 0 3px !important; display: inline-flex; align-items: center; gap: 3px;
   border: 6px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 12 fill / 6px / 0 stretch !important;
   box-shadow: 0 2px 0 rgba(0, 0, 0, .4) !important; font-size: 14px !important; color: #fff1c8 !important;
@@ -27,17 +27,17 @@ body #hud .hud-btns { width: 220px; max-width: 220px !important; gap: 5px 4px; }
 body #hud .hud-btns > button[data-ico] { flex: 0 0 calc(50% - 2px); justify-content: flex-start; }   /* bỏ bí ngô Halloween trước chữ Menu: đã có biểu tượng */
 /* nút biểu tượng (thư, báo lỗi, đề xuất): cùng khung, biểu tượng vẽ ở ::before (lòng khung 9 mảnh phủ lên nền nên không dùng background) */
 /* (ID lặp để thắng luật nút chữ ở style.css: .hud-btns > button:not(#…)×4 tính như 4 ID) */
-body #hud #btn-inbox, body #hud #btn-fb-loi#btn-fb-loi#btn-fb-loi#btn-fb-loi, body #hud #btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat {
+body #hud #btn-inbox:not(.tron), body #hud #btn-fb-loi#btn-fb-loi#btn-fb-loi#btn-fb-loi:not(.tron), body #hud #btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat#btn-fb-de_xuat:not(.tron) {
   width: 40px !important; height: 28px !important; border: 6px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 12 fill / 6px / 0 stretch !important;
   background: none !important; font-size: 0 !important; color: transparent !important; position: relative; padding: 0 !important;
 }
-body #hud #btn-inbox::before, body #hud #btn-fb-loi::before, body #hud #btn-fb-de_xuat::before {
+body #hud #btn-inbox:not(.tron)::before, body #hud #btn-fb-loi:not(.tron)::before, body #hud #btn-fb-de_xuat:not(.tron)::before {
   content: ''; position: absolute; inset: -2px; background: var(--ico) center / 22px 18px no-repeat; image-rendering: auto;
 }
 body #hud #btn-inbox { --ico: url("assets/art/ui-k-i-thu.png"); }
 body #hud #btn-fb-loi { --ico: url("assets/art/ui-k-i-loi.png"); }
 body #hud #btn-fb-de_xuat { --ico: url("assets/art/ui-k-i-de-xuat.png"); }
-body #hud #btn-fb-de_xuat::before { background-size: 16px 16px; }
+body #hud #btn-fb-de_xuat:not(.tron)::before { background-size: 16px 16px; }
 body #hud #btn-inbox > * { font-size: 10px; position: relative; z-index: 1; }
 /* Tự đánh ở cụm nút đánh */
 body #btn-auto.auto-dock { border: 8px solid transparent !important; border-image: url("assets/art/ui-k-btn.png") 12 fill / 8px / 0 stretch !important; background: transparent !important;

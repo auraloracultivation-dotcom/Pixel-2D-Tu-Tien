@@ -9,7 +9,7 @@ const SOLID = {
 const COL = { camp: '#ff5a4a', gate: '#b47cff', goal: '#ffd86b', npc: '#fff2d0', you: '#ffffff' };
 const cache = { id: null, cv: null };
 
-function mini(game) {
+export function mini(game) {
   const map = game.map;
   if (cache.id === map.id && cache.cv) return cache.cv;
   const cv = document.createElement('canvas'); cv.width = map.w; cv.height = map.h;
@@ -30,7 +30,7 @@ function shade(hex, k) {
 }
 
 // Các điểm đánh dấu (toạ độ ô) và tên để báo khi bay tới
-function marks(game) {
+export function marks(game) {
   const def = game.map.def, D = game.data, T = D.starmap.texts, out = [];
   for (const s of def.spawners) out.push({ k: 'camp', at: s.at, name: T.camp.replace('{name}', D.mobs[s.mob]?.name || '') });
   for (const pt of def.portals) if (!pt.fly && (!pt.need || game.save.flags[pt.need])) out.push({ k: 'gate', at: pt.at, name: T.gate.replace('{name}', D.maps[pt.to]?.name || pt.label) });

@@ -1,6 +1,7 @@
 @import url("style-khung.css");   /* khung thắp đèn, chữ pixel (29/10/2026) */
 @import url("style-ui-kit.css");
 @import url("style-ui-kit2.css");   /* bộ khung GPT thứ hai: bảng, tab, hộp thoại, thông báo, boss, chân dung */   /* bộ khung GPT 02/11/2026: nút có biểu tượng, vòng nút tròn, thanh, khung bảng; thu gọn, ẩn giao diện */
+@import url("style-ui-kit3.css");   /* nút tròn, bản đồ tròn theo ảnh mẫu 04/11/2026 */
 /* Giao diện "đêm hầm ngục" (28/10/2026): nền đá tối, viền vàng cũ, chữ ánh trăng, nút chính màu lửa đuốc.
    Màu chỉ khai ở :root, mọi chỗ khác dùng biến để đổi tông một chỗ. Ghi chú ở docs/03-CAU-TRUC.md (Giao diện). */
 :root {
@@ -542,7 +543,7 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .dr-cell .ico { width: 28px; height: 28px; display: block; background: center / contain no-repeat; image-rendering: pixelated; }
 .dr-gem { width: 40px; height: 40px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 /* Nút chữ trên màn hình theo nhóm A–L (src/ui/hud-order.js): cùng khung gỗ son nẹp vàng như nút Menu */
-.hud-btns > button:not(#btn-inbox):not(#btn-notice):not(#btn-rec):not(#btn-mute) {
+.hud-btns > button:not(#btn-inbox):not(#btn-notice):not(#btn-rec):not(#btn-mute):not(.tron) {
   pointer-events: auto; width: auto !important; height: 26px !important; padding: 0 8px !important; white-space: nowrap; position: relative;
   font-family: var(--f-pixel) !important; font-size: 16px !important; font-weight: 400 !important; -webkit-font-smoothing: none;
   border: 4px solid transparent !important; border-radius: 0 !important; border-image: url("assets/art/ui-btn.png") 4 fill / 4px / 0 stretch !important; image-rendering: pixelated;

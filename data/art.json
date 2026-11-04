@@ -20890,6 +20890,54 @@
    ],
    "note": "băng tiêu đề bảng (đã xoá chữ) (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
   },
+  "ui.k-vong-lam": {
+   "file": "assets/art/ui-k-vong-lam.png",
+   "v": "e288795e",
+   "w": 115,
+   "h": 121,
+   "frames": 1,
+   "anchor": [
+    57,
+    60
+   ],
+   "note": "vòng nút tròn vong-lam (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
+  },
+  "ui.k-vong-tim": {
+   "file": "assets/art/ui-k-vong-tim.png",
+   "v": "276418a8",
+   "w": 115,
+   "h": 124,
+   "frames": 1,
+   "anchor": [
+    57,
+    62
+   ],
+   "note": "vòng nút tròn vong-tim (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
+  },
+  "ui.k-vong-tim-rong": {
+   "file": "assets/art/ui-k-vong-tim-rong.png",
+   "v": "f79bc60f",
+   "w": 115,
+   "h": 124,
+   "frames": 1,
+   "anchor": [
+    57,
+    62
+   ],
+   "note": "vòng tím khoét lòng (khung bản đồ tròn) (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
+  },
+  "ui.k-vong-vang": {
+   "file": "assets/art/ui-k-vong-vang.png",
+   "v": "93805af8",
+   "w": 130,
+   "h": 140,
+   "frames": 1,
+   "anchor": [
+    65,
+    70
+   ],
+   "note": "vòng nút tròn vong-vang (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
+  },
   "ui.lamppost": {
    "file": "assets/art/ui-lamppost.png",
    "v": "6424c5ac",
