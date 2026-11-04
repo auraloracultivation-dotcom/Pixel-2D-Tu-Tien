@@ -2,7 +2,7 @@
    (#feed ở top 46%, tối đa 5 dòng), trên khung trò chuyện và nút Túi đồ. Khung ngoài không nhận chạm (cần gạt vẫn kéo được qua),
    chỉ dòng bấm được (.tap) nhận chạm. Bảng nào đang mở, đang bay, ẩn giao diện thì ẩn đi. */
 .ft-panel {
-  position: fixed; z-index: 6; left: calc(env(safe-area-inset-left) + 8px); top: calc(46% + 100px);
+  position: fixed; z-index: 6; left: calc(env(safe-area-inset-left) + 8px); top: calc(46% + 132px);
   max-width: min(56%, 230px); max-height: calc(54% - 100px - 96px - env(safe-area-inset-bottom)); overflow: hidden;
   display: flex; flex-direction: column; align-items: flex-start; gap: 1px;
   font: 11px/1.3 var(--f-body); color: #e8e2f2; pointer-events: none;
