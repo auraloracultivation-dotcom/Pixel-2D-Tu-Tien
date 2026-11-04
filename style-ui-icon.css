@@ -72,3 +72,4 @@ body #bag .slot.empty .ico { opacity: .35; background-size: 60% auto !important;
 [data-o="pham"] { --o: url("assets/art/ui-pc-den.png"); }
 body #bag .item { grid-template-columns: 32px minmax(0, 1fr) !important; column-gap: 5px !important; }
 body .ico.that { background-size: 80% 80%, 100% 100% !important; }   /* hình vũ khí thật: to hơn biểu tượng loại, vẫn trong lòng khung */
+body #bag .item.stock .ico.that, body .d-head .ico.that { background-size: 100% 100%, 0 0 !important; }   /* nguyên liệu có hình: không khung, hình đầy ô */

@@ -23422,6 +23422,18 @@
    ],
    "note": "vu-khi ba-tieu-phien (ảnh GPT vu-khi-1.png)"
   },
+  "ui.vk-bi-kip-chieu": {
+   "file": "assets/art/ui-vk-bi-kip-chieu.png",
+   "v": "1030e20b",
+   "w": 361,
+   "h": 361,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "nguyen-lieu bi-kip-chieu (ảnh GPT ren-1.png)"
+  },
   "ui.vk-bo-can": {
    "file": "assets/art/ui-vk-bo-can.png",
    "v": "7436e657",
@@ -23529,6 +23541,18 @@
     183
    ],
    "note": "mu dao-van-quan (ảnh GPT mu-1.png)"
+  },
+  "ui.vk-dao-van-thach": {
+   "file": "assets/art/ui-vk-dao-van-thach.png",
+   "v": "00c2a012",
+   "w": 386,
+   "h": 386,
+   "frames": 1,
+   "anchor": [
+    193,
+    193
+   ],
+   "note": "nguyen-lieu dao-van-thach (ảnh GPT ren-1.png)"
   },
   "ui.vk-hac-phong-boi": {
    "file": "assets/art/ui-vk-hac-phong-boi.png",
@@ -23686,6 +23710,30 @@
    ],
    "note": "phap-bao hoa-hon-linh (ảnh GPT phap-bao-1.png)"
   },
+  "ui.vk-hoa-linh-chi": {
+   "file": "assets/art/ui-vk-hoa-linh-chi.png",
+   "v": "c39ca330",
+   "w": 352,
+   "h": 352,
+   "frames": 1,
+   "anchor": [
+    176,
+    176
+   ],
+   "note": "nguyen-lieu hoa-linh-chi (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-hong-qua": {
+   "file": "assets/art/ui-vk-hong-qua.png",
+   "v": "e80c9dde",
+   "w": 285,
+   "h": 285,
+   "frames": 1,
+   "anchor": [
+    142,
+    142
+   ],
+   "note": "nguyen-lieu hong-qua (ảnh GPT nguyen-lieu-1.png)"
+  },
   "ui.vk-huyen-giap": {
    "file": "assets/art/ui-vk-huyen-giap.png",
    "v": "9f604c36",
@@ -23697,6 +23745,18 @@
     189
    ],
    "note": "giap huyen-giap (ảnh GPT giap-1.png)"
+  },
+  "ui.vk-khoa-linh-thach": {
+   "file": "assets/art/ui-vk-khoa-linh-thach.png",
+   "v": "2718dba9",
+   "w": 342,
+   "h": 342,
+   "frames": 1,
+   "anchor": [
+    171,
+    171
+   ],
+   "note": "nguyen-lieu khoa-linh-thach (ảnh GPT ren-1.png)"
   },
   "ui.vk-kim-cang-boi": {
    "file": "assets/art/ui-vk-kim-cang-boi.png",
@@ -23758,6 +23818,42 @@
    ],
    "note": "phap-bao kim-luan (ảnh GPT phap-bao-1.png)"
   },
+  "ui.vk-kim-tieu": {
+   "file": "assets/art/ui-vk-kim-tieu.png",
+   "v": "f5122496",
+   "w": 292,
+   "h": 292,
+   "frames": 1,
+   "anchor": [
+    146,
+    146
+   ],
+   "note": "nguyen-lieu kim-tieu (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-linh-dau": {
+   "file": "assets/art/ui-vk-linh-dau.png",
+   "v": "67030ee3",
+   "w": 299,
+   "h": 299,
+   "frames": 1,
+   "anchor": [
+    149,
+    149
+   ],
+   "note": "nguyen-lieu linh-dau (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-linh-mach": {
+   "file": "assets/art/ui-vk-linh-mach.png",
+   "v": "f820db11",
+   "w": 300,
+   "h": 300,
+   "frames": 1,
+   "anchor": [
+    150,
+    150
+   ],
+   "note": "nguyen-lieu linh-mach (ảnh GPT nguyen-lieu-1.png)"
+  },
   "ui.vk-linh-phu": {
    "file": "assets/art/ui-vk-linh-phu.png",
    "v": "c1cf8d18",
@@ -23769,6 +23865,30 @@
     175
    ],
    "note": "ngoc-boi linh-phu (ảnh GPT ngoc-boi-1.png)"
+  },
+  "ui.vk-linh-thao": {
+   "file": "assets/art/ui-vk-linh-thao.png",
+   "v": "b79edc82",
+   "w": 351,
+   "h": 351,
+   "frames": 1,
+   "anchor": [
+    175,
+    175
+   ],
+   "note": "nguyen-lieu linh-thao (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-manh-phap-bao": {
+   "file": "assets/art/ui-vk-manh-phap-bao.png",
+   "v": "816ee6a7",
+   "w": 352,
+   "h": 352,
+   "frames": 1,
+   "anchor": [
+    176,
+    176
+   ],
+   "note": "nguyen-lieu manh-phap-bao (ảnh GPT ren-1.png)"
   },
   "ui.vk-moc-cam": {
    "file": "assets/art/ui-vk-moc-cam.png",
@@ -23793,6 +23913,30 @@
     171
    ],
    "note": "ngoc-boi ngoc-boi-tho (ảnh GPT ngoc-boi-1.png)"
+  },
+  "ui.vk-ngoc-lo-hoa": {
+   "file": "assets/art/ui-vk-ngoc-lo-hoa.png",
+   "v": "b7fd8525",
+   "w": 300,
+   "h": 300,
+   "frames": 1,
+   "anchor": [
+    150,
+    150
+   ],
+   "note": "nguyen-lieu ngoc-lo-hoa (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-tay-luyen-thach": {
+   "file": "assets/art/ui-vk-tay-luyen-thach.png",
+   "v": "c35ced0a",
+   "w": 347,
+   "h": 347,
+   "frames": 1,
+   "anchor": [
+    173,
+    173
+   ],
+   "note": "nguyen-lieu tay-luyen-thach (ảnh GPT ren-1.png)"
   },
   "ui.vk-thai-hu-boi": {
    "file": "assets/art/ui-vk-thai-hu-boi.png",
@@ -23829,6 +23973,18 @@
     205
    ],
    "note": "giay thai-hu-hai (ảnh GPT giay-1.png)"
+  },
+  "ui.vk-thai-hu-lien": {
+   "file": "assets/art/ui-vk-thai-hu-lien.png",
+   "v": "0fdbe9cd",
+   "w": 337,
+   "h": 337,
+   "frames": 1,
+   "anchor": [
+    168,
+    168
+   ],
+   "note": "nguyen-lieu thai-hu-lien (ảnh GPT nguyen-lieu-1.png)"
   },
   "ui.vk-thai-hu-quan": {
    "file": "assets/art/ui-vk-thai-hu-quan.png",
@@ -23950,6 +24106,18 @@
    ],
    "note": "vu-khi thiet-thuong (ảnh GPT vu-khi-1.png)"
   },
+  "ui.vk-tinh-thiet": {
+   "file": "assets/art/ui-vk-tinh-thiet.png",
+   "v": "7f5aa656",
+   "w": 347,
+   "h": 347,
+   "frames": 1,
+   "anchor": [
+    173,
+    173
+   ],
+   "note": "nguyen-lieu tinh-thiet (ảnh GPT ren-1.png)"
+  },
   "ui.vk-tran-yeu-thap": {
    "file": "assets/art/ui-vk-tran-yeu-thap.png",
    "v": "af985296",
@@ -23985,6 +24153,18 @@
     200
    ],
    "note": "vu-khi tu-nguyet-liem (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-tu-van-sam": {
+   "file": "assets/art/ui-vk-tu-van-sam.png",
+   "v": "f3ce510e",
+   "w": 319,
+   "h": 319,
+   "frames": 1,
+   "anchor": [
+    159,
+    159
+   ],
+   "note": "nguyen-lieu tu-van-sam (ảnh GPT nguyen-lieu-1.png)"
   },
   "ui.vk-van-van-ngoa": {
    "file": "assets/art/ui-vk-van-van-ngoa.png",
@@ -24045,6 +24225,30 @@
     189
    ],
    "note": "mu xich-diem-quan (ảnh GPT mu-1.png)"
+  },
+  "ui.vk-yeu-huyet": {
+   "file": "assets/art/ui-vk-yeu-huyet.png",
+   "v": "da0636d4",
+   "w": 357,
+   "h": 357,
+   "frames": 1,
+   "anchor": [
+    178,
+    178
+   ],
+   "note": "nguyen-lieu yeu-huyet (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-yeu-vuong-dan": {
+   "file": "assets/art/ui-vk-yeu-vuong-dan.png",
+   "v": "920aa503",
+   "w": 379,
+   "h": 379,
+   "frames": 1,
+   "anchor": [
+    189,
+    189
+   ],
+   "note": "nguyen-lieu yeu-vuong-dan (ảnh GPT ren-1.png)"
   },
   "ui.wisp": {
    "file": "assets/art/ui-wisp.png",

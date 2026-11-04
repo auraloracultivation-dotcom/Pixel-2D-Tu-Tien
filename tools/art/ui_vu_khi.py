@@ -15,6 +15,11 @@ SRC = ART / 'nguon' / 'ai' / 'ui'
 SHEETS = {'vu-khi': 'vu-khi-1.png', 'mu': 'mu-1.png', 'giap': 'giap-1.png', 'ngoc-boi': 'ngoc-boi-1.png', 'giay': 'giay-1.png', 'phap-bao': 'phap-bao-1.png'}
 # thứ tự vũ khí trên ảnh khác thứ tự trong data (ba kiếm đứng liền nhau)
 ORDER = {'vu-khi': ['thiet-kiem', 'thanh-van-kiem', 'thien-mach-kiem', 'thiet-thuong', 'ba-tieu-phien', 'moc-cam', 'tu-nguyet-liem', 'truc-cung', 'dao-van-binh']}
+# nguyên liệu (chủ dự án 11:43, 11:45): mỗi hàng một danh sách, id theo data/cave.json → materials, data/items.json → materials
+ROWS = {
+    'ren-1.png': [['tinh-thiet', 'manh-phap-bao', 'tay-luyen-thach', 'khoa-linh-thach'], ['dao-van-thach', 'bi-kip-chieu', 'yeu-vuong-dan']],
+    'nguyen-lieu-1.png': [['linh-thao', 'yeu-huyet', 'hoa-linh-chi'], ['ngoc-lo-hoa', 'linh-mach', 'linh-dau', 'hong-qua', 'kim-tieu', 'tu-van-sam', 'thai-hu-lien']],
+}
 
 
 def _segs(mask, axis, gap, need=None):
@@ -31,16 +36,20 @@ def _segs(mask, axis, gap, need=None):
 def build(save):
     bases = json.loads((ART.parents[1] / 'data' / 'items.json').read_text(encoding='utf-8'))['bases']
     n = 0
-    for slot, f in SHEETS.items():
-        names = ORDER.get(slot) or [k for k, v in bases.items() if v['slot'] == slot]
+    jobs = [(slot, f, ORDER.get(slot) or [k for k, v in bases.items() if v['slot'] == slot], None) for slot, f in SHEETS.items()]
+    jobs += [('nguyen-lieu', f, [k for r in rows for k in r], rows) for f, rows in ROWS.items()]
+    for slot, f, names, fixed in jobs:
         a = np.array(Image.open(SRC / f).convert('RGBA')); a[:, :, 3] = np.where(a[:, :, 3] >= 64, a[:, :, 3], 0)
         m = a[:, :, 3] > 0
-        rows = _segs(m, 1, 4, 2 if len(names) > 5 else 1)
+        rows = _segs(m, 1, 4, len(fixed) if fixed else (2 if len(names) > 5 else 1))
         per = -(-len(names) // len(rows))
         boxes = []
         for r, (y0, y1) in enumerate(rows):
             left = len(names) - len(boxes)
-            for x0, x1 in _segs(m[y0:y1], 0, 8, min(per, left)):
+            want = len(fixed[r]) if fixed and r < len(fixed) else min(per, left)
+            segs = _segs(m[y0:y1], 0, 8, want)
+            segs = sorted(sorted(segs, key=lambda s: s[1] - s[0], reverse=True)[:want])   # bỏ vụn quầng
+            for x0, x1 in segs:
                 boxes.append((x0, y0, x1, y1))
         for k, (x0, y0, x1, y1) in zip(names, boxes):
             c = a[y0:y1, x0:x1]; ys, xs = np.nonzero(c[:, :, 3])
