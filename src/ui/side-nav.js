@@ -122,6 +122,7 @@ export function createSideNav(game) {
     closePanels();
     if (it.bag) game.openBag?.(it.bag);
     else if (it.cave) game.openCave?.(it.cave);
+    else if (it.relog || it.reload) openPane(it);   // Đổi tài khoản, Đăng xuất: "btn" của hai mục này là chữ trên nút, không phải bảng cũ
     else if (it.btn) game.openOldPanel?.(it);
     else if (it.open) game['open' + it.open[0].toUpperCase() + it.open.slice(1)]?.();
     else openPane(it);
