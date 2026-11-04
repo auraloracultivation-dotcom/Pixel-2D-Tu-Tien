@@ -1,0 +1,97 @@
+# Đóng gói ứng dụng Android (TWA, Bubblewrap) từ android/twa-manifest.json. Hướng dẫn: docs/05-CH-PLAY.md
+# Có đủ 4 secret ANDROID_* thì ký bằng khoá tải lên thật; thiếu thì tạo khoá dùng một lần, tệp ghi "unsigned-test".
+name: Đóng gói Android
+on:
+  workflow_dispatch:
+  push:
+    tags: ['android-v*']
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      BUBBLEWRAP_VERSION: 1.27.0
+      BUILD_TOOLS: 36.1.0
+      HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEYSTORE_PASSWORD != '' && secrets.ANDROID_KEY_ALIAS != '' && secrets.ANDROID_KEY_PASSWORD != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.1.0'
+      - name: Cài Bubblewrap (bản cố định) và chỉ đường JDK, Android SDK
+        run: |
+          npm i -g @bubblewrap/cli@$BUBBLEWRAP_VERSION
+          # Bubblewrap chỉ nhận SDK có thư mục bin/ hoặc tools/ ở gốc; SDK mới để ở cmdline-tools/latest/bin
+          [ -e "$ANDROID_HOME/bin" ] || ln -s "$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/bin" \
+            || sudo ln -s "$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/bin"
+          ls "$ANDROID_HOME" "$ANDROID_HOME/build-tools"
+          mkdir -p ~/.bubblewrap
+          printf '{"jdkPath":"%s","androidSdkPath":"%s"}\n' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
+          cat ~/.bubblewrap/config.json
+      - name: Chuẩn bị khoá ký
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          mkdir -p _android
+          cp android/twa-manifest.json _android/
+          cd _android
+          if [ "$HAS_KEY" = "true" ]; then
+            echo "$KS_B64" | base64 -d > android.keystore
+            ALIAS="$KEY_ALIAS"; SP="$KS_PASS"; KP="$KEY_PASS"; LABEL=signed
+          else
+            echo '::warning::Chưa có secret ANDROID_*: ký bằng khoá dùng một lần, KHÔNG tải tệp này lên CH Play.'
+            SP=$(openssl rand -hex 16); KP="$SP"; ALIAS=upload; LABEL=unsigned-test
+            keytool -genkeypair -noprompt -keystore android.keystore -storetype PKCS12 -alias "$ALIAS" \
+              -keyalg RSA -keysize 2048 -validity 10000 -storepass "$SP" -keypass "$KP" -dname "CN=Test, O=Test, C=VN"
+          fi
+          echo "::add-mask::$SP"; echo "::add-mask::$KP"
+          # Bubblewrap đọc mật khẩu từ biến môi trường, đọc bí danh từ twa-manifest.json
+          node -e "const f='twa-manifest.json',m=JSON.parse(require('fs').readFileSync(f));m.signingKey={path:'./android.keystore',alias:process.argv[1]};require('fs').writeFileSync(f,JSON.stringify(m,null,2))" "$ALIAS"
+          { echo "BUBBLEWRAP_KEYSTORE_PASSWORD=$SP"; echo "BUBBLEWRAP_KEY_PASSWORD=$KP"; echo "LABEL=$LABEL"; echo "KEY_ALIAS_USED=$ALIAS"; } >> "$GITHUB_ENV"
+      - name: Sinh dự án Android từ android/twa-manifest.json (không hỏi)
+        run: |
+          cd _android
+          bubblewrap update --skipVersionUpgrade
+          grep -E 'targetSdkVersion|compileSdkVersion|applicationId|versionCode|versionName' app/build.gradle
+          grep -q 'targetSdkVersion 36' app/build.gradle || { echo '::error::targetSdkVersion không phải 36'; exit 1; }
+      - name: Build AAB + APK (release)
+        run: |
+          cd _android
+          bubblewrap build
+          ls -la *.aab *.apk
+      - name: Dấu vân tay SHA-256 của khoá đã ký (dán vào tools/assetlinks.mjs)
+        run: |
+          cd _android
+          keytool -list -v -keystore android.keystore -storepass "$BUBBLEWRAP_KEYSTORE_PASSWORD" -alias "$KEY_ALIAS_USED" | grep -E 'SHA256:|SHA-256:' | tee ../fingerprint.txt
+          echo "### Khoá: $LABEL" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"; cat ../fingerprint.txt >> "$GITHUB_STEP_SUMMARY"; echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - name: Gom tệp
+        run: |
+          V=$(node -p "require('./android/twa-manifest.json').appVersion")
+          mkdir -p out
+          cp _android/app-release-bundle.aab "out/tu-tien-$V-$LABEL.aab"
+          cp _android/app-release-signed.apk "out/tu-tien-$V-$LABEL.apk"
+          cp fingerprint.txt out/
+          rm -f _android/android.keystore
+          echo "NAME=tu-tien-android-$V-$LABEL" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}
+          path: out/
+          if-no-files-found: error
+          retention-days: 30

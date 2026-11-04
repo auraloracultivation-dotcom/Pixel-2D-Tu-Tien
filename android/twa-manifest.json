@@ -1,0 +1,42 @@
+{
+  "packageId": "com.auralora.tutien",
+  "host": "auraloracultivation-dotcom.github.io",
+  "name": "Pixel 2D Tu Tiên",
+  "launcherName": "Tu Tiên",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "themeColor": "#0d0b16",
+  "themeColorDark": "#0d0b16",
+  "navigationColor": "#0d0b16",
+  "navigationColorDark": "#0d0b16",
+  "navigationDividerColor": "#0d0b16",
+  "navigationDividerColorDark": "#0d0b16",
+  "backgroundColor": "#0d0b16",
+  "enableNotifications": false,
+  "startUrl": "/Pixel-2D-Tu-Tien/",
+  "fullScopeUrl": "https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/",
+  "webManifestUrl": "https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/manifest.webmanifest",
+  "iconUrl": "https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/assets/icon/icon-512.png",
+  "maskableIconUrl": "https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/assets/icon/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "upload"
+  },
+  "appVersionCode": 1,
+  "appVersion": "1.0.0",
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "minSdkVersion": 24,
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": []
+}

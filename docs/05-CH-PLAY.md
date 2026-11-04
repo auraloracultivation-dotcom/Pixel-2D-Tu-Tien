@@ -70,3 +70,54 @@ Không chia sẻ cho bên thứ ba (Supabase là đơn vị xử lý dữ liệu
 6. Mở game trên điện thoại thật một lượt: đăng ký, khôi phục mã, nút di chuyển, tiếng.
 
 Nguồn: [Yêu cầu thử nghiệm cho tài khoản cá nhân mới](https://support.google.com/googleplay/android-developer/answer/14151465), [Yêu cầu hình ảnh trang cửa hàng](https://support.google.com/googleplay/android-developer/answer/9866151).
+
+## 5. Đóng gói Android (TWA)
+
+Đã chốt: **Trusted Web Activity bằng Bubblewrap**, nhắm **API 36** (CH Play bắt buộc cho ứng dụng mới từ 31/08/2026), dọc, toàn màn hình. Ứng dụng mở thẳng trang game trên GitHub Pages, sửa web là người chơi có ngay, chỉ phải đăng bản mới khi đổi biểu tượng, tên, màu hoặc tên gói.
+
+| Tệp | Việc |
+| --- | --- |
+| `android/twa-manifest.json` | Cấu hình duy nhất: **tên gói** (`packageId`, đang là `com.auralora.tutien`, đổi được tới trước lần tải lên đầu tiên), tên, biểu tượng, màu, số phiên bản (`appVersionCode`, `appVersion`). |
+| `.github/workflows/android.yml` | Sinh dự án Android và build AAB + APK trên GitHub Actions (không lưu dự án Gradle trong repo). |
+| `android/assetlinks.template.json`, `tools/assetlinks.mjs` | Tạo tệp `assetlinks.json` chứng minh ứng dụng và trang game cùng một chủ. |
+
+### Build
+
+Trên điện thoại: GitHub → repo → **Actions** → **Đóng gói Android** → **Run workflow** → chọn `main` → **Run workflow**. Chờ khoảng 5–10 phút, mở lượt chạy, kéo xuống **Artifacts**, tải tệp `tu-tien-android-…` (có `.aab` để tải lên CH Play, `.apk` để cài thử, `fingerprint.txt`). Hoặc gắn thẻ `android-vX.Y.Z` để tự chạy.
+
+- Tên tệp có chữ **`unsigned-test`**: chưa có khoá thật, ký bằng khoá dùng một lần, chỉ để cài thử, **không tải lên CH Play**.
+- Tên tệp có chữ **`signed`**: ký bằng khoá tải lên của chủ dự án, tải lên CH Play được.
+- Mỗi lần đăng bản mới phải tăng `appVersionCode` (1 → 2 → 3…) và `appVersion` trong `android/twa-manifest.json`.
+
+### Thêm khoá ký vào GitHub (làm một lần, từ điện thoại)
+
+Khoá tải lên (upload key) là tệp `.keystore`; Google giữ khoá chính qua Play App Signing. Mất khoá tải lên thì xin Google đổi được, nhưng vẫn phải cất kỹ.
+
+1. **Tạo khoá** (chỉ làm một lần). Không có máy tính thì dùng app **Termux** trên Android (cài từ F-Droid), gõ `pkg install openjdk-17`; có máy tính có Java thì dùng luôn. Chạy:
+   `keytool -genkeypair -v -keystore upload.keystore -storetype PKCS12 -alias upload -keyalg RSA -keysize 2048 -validity 10000`
+   Đặt mật khẩu chỉ gồm chữ và số (không dùng dấu nháy, `$`, khoảng trắng). Cất tệp và mật khẩu ở chỗ an toàn (Google Drive riêng, trình quản lý mật khẩu).
+2. **Đổi tệp khoá thành chữ (base64)**: trên máy đó chạy `base64 -w0 upload.keystore > upload.txt` (macOS: `base64 -i upload.keystore -o upload.txt`), mở `upload.txt`, sao chép toàn bộ.
+3. Trên điện thoại mở trình duyệt (bật "Trang web cho máy tính" nếu app GitHub không có mục này): github.com → repo **Pixel-2D-Tu-Tien** → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+4. Tạo lần lượt 4 secret (tên gõ đúng chữ hoa):
+   - `ANDROID_KEYSTORE_BASE64`: dán nội dung `upload.txt`.
+   - `ANDROID_KEYSTORE_PASSWORD`: mật khẩu kho khoá.
+   - `ANDROID_KEY_ALIAS`: `upload` (bí danh đã đặt ở bước 1).
+   - `ANDROID_KEY_PASSWORD`: mật khẩu khoá (PKCS12 thì giống mật khẩu kho).
+5. Chạy lại **Đóng gói Android**: tệp giờ có chữ `signed`. Không bao giờ đưa tệp khoá hay mật khẩu vào repo.
+
+### Lấy dấu vân tay SHA-256
+
+Cần hai dấu vân tay:
+- **Khoá tải lên**: mở lượt chạy Actions đã `signed`, phần Summary (hoặc tệp `fingerprint.txt`) có dòng `SHA256: AA:BB:…`.
+- **Khoá Play App Signing** (Google giữ, máy người chơi thấy khoá này): sau khi tải AAB đầu tiên lên Play Console → **Kiểm thử và phát hành** → **Thiết lập** → **Toàn vẹn ứng dụng** → **Ký ứng dụng** → sao chép "Dấu vân tay chứng chỉ SHA-256". Trang này cũng có sẵn đoạn Digital Asset Links JSON để chép.
+
+Tạo tệp: `node tools/assetlinks.mjs <SHA256 khoá tải lên> <SHA256 khoá Play> > assetlinks.json` (tên gói lấy từ `android/twa-manifest.json`).
+
+### Đặt `assetlinks.json` ở đâu
+
+TWA đòi tệp ở **gốc tên miền**: `https://<tên miền>/.well-known/assetlinks.json`. Thiếu tệp này ứng dụng vẫn chạy nhưng hiện thanh địa chỉ trình duyệt ở trên (không toàn màn hình). Gốc của `auraloracultivation-dotcom.github.io` không thuộc repo game, nên chọn một trong hai:
+
+1. **Repo trang tài khoản** (miễn phí, không cần tên miền): tạo repo công khai tên đúng `auraloracultivation-dotcom.github.io`, thêm tệp `.well-known/assetlinks.json` và một tệp rỗng `.nojekyll` (để GitHub Pages không bỏ thư mục bắt đầu bằng dấu chấm), bật Pages từ nhánh `main`. Kiểm tra mở được `https://auraloracultivation-dotcom.github.io/.well-known/assetlinks.json`. Không phải đổi gì trong repo game.
+2. **Tên miền riêng** (mua tên miền, ví dụ `tutien.vn`): trỏ tên miền vào GitHub Pages của repo game (Settings → Pages → Custom domain). Game lúc đó nằm ở gốc tên miền nên tệp để luôn trong repo game ở `.well-known/assetlinks.json`; cần thêm `.well-known` vào dòng `cp -r` của `.github/workflows/pages.yml` (cách đưa lên hiện tại dùng artifact, không qua Jekyll, nên thư mục dấu chấm vẫn được đăng). Đổi `host`, `startUrl` (`/`), `fullScopeUrl`, `webManifestUrl`, `iconUrl` trong `android/twa-manifest.json` theo tên miền mới rồi build lại.
+
+Nguồn: [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap), [Yêu cầu API đích của CH Play](https://support.google.com/googleplay/android-developer/answer/11926878), [Digital Asset Links cho TWA](https://developer.chrome.com/docs/android/trusted-web-activity/android-for-web-devs#digital-asset-links).
