@@ -6,7 +6,7 @@ export const ACT = { idle: 0, walk: [1, 2], wind: 3, hit: 4, down: 5, skill: 6 }
 const SKILL = 0.45;   // giây giữ khung tung chiêu
 
 // Khung bước: hình có spr.walk (thú cưỡi 4 bước) thì đi theo thứ tự đó
-export const walkFrame = (spr, t) => { const w = spr?.walk || ACT.walk; return w[Math.floor(t * 7) % w.length]; };
+export const walkFrame = (spr, t) => { const w = spr?.walk || ACT.walk; return w[Math.floor(t * (w.length >= 8 ? 13 : 7)) % w.length]; };   // chạy 8 khung (thú cưỡi mới) nhịp nhanh hơn
 const ATTACK = 0.32;   // giây: lấy đà rồi đánh ngay sau mỗi đòn
 
 // Chọn khung: e là thực thể có cd (thời gian chờ đòn kế), def.cd; moving; t là giây trò chơi
@@ -30,8 +30,8 @@ export function isAct(art, id) { const s = art && art.sprites[id]; return !!s &&
 export function drawAct(ctx, art, id, f, x, y, dir, bob = 0) {
   const spr = art && art.sprites[id], im = spr && spriteImage(spr);
   if (!im || f == null || spr.frames < 6) return false;
-  const d = Math.abs(ctx.getTransform().d) || 1, k = Math.max(1, Math.round(UNIT_PER_PX * d)) / d;
-  ctx.save(); ctx.translate(Math.round(x), Math.round(y - bob)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = false;
+  const d = Math.abs(ctx.getTransform().d) || 1, k = spr.px || Math.max(1, Math.round(UNIT_PER_PX * d)) / d;   // spr.px: hình chi tiết hơn, giữ đúng cỡ cũ (thu nhỏ có làm mịn)
+  ctx.save(); ctx.translate(Math.round(x), Math.round(y - bob)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = !!spr.px && spr.px * d < 0.98;
   ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
   return true;

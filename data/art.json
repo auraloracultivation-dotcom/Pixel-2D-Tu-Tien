@@ -11460,22 +11460,26 @@
   },
   "mount.bach-loc": {
    "file": "assets/art/mount-bach-loc.png",
-   "v": "6e2056dc",
-   "w": 70,
-   "h": 66,
-   "frames": 6,
+   "v": "49af5ccd",
+   "w": 118,
+   "h": 118,
+   "frames": 9,
    "anchor": [
-    35,
-    64
+    59,
+    116
    ],
-   "note": "Bạch Lộc (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
-   "scale": 0.5333,
+   "note": "thú cưỡi bach-loc: đứng + chạy 8 khung (SpriteCook)",
    "walk": [
+    1,
     2,
     3,
     4,
-    3
-   ]
+    5,
+    6,
+    7,
+    8
+   ],
+   "px": 0.3592
   },
   "mount.hoa-ky-lan": {
    "file": "assets/art/mount-hoa-ky-lan.png",
