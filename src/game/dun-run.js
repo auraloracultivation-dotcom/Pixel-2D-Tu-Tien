@@ -2,6 +2,7 @@
 // Mỗi bí cảnh tối đa dungeon.per_day lượt mỗi ngày (vượt hay càn quét đều tính). Càn quét: bậc đã qua, nhận ngay thưởng cố định
 // của bậc đó, không phải đánh. Bảng kết quả (src/ui/dun-result.js) có 3 nút: Tiếp tục (bậc kế), Càn quét, Thoát.
 import { grant } from './daily.js';
+import { sweepKills } from './dun-sweep.js';
 
 const C = game => game.data.dungeon;
 const today = () => new Date().toDateString();
@@ -51,7 +52,7 @@ export function finishRun(game) {
   setTimeout(() => game.openDunResult?.({ id: r.id, L: r.L, loot: diffRun(game, r.snap), inside: true, party: !!game.party?.run }), 600);
 }
 
-// Càn quét bậc L đã qua: tốn một lượt, nhận ngay thưởng cố định. Trả về danh sách đồ nhận, null khi không được
+// Càn quét bậc L đã qua: tốn một lượt, nhận ngay thưởng cố định và đồ rơi của mọi quái như đánh thật (dun-sweep.js). Trả về danh sách đồ nhận, null khi không được
 export function sweep(game, id, L) {
   if (runsLeft(game, id) <= 0 || L < 0) return null;
   const r = rewardOf(game, id, L);
@@ -59,6 +60,7 @@ export function sweep(game, id, L) {
   const snap = snapRun(game);
   useRun(game, id);
   grant(game, r);
+  sweepKills(game, id, L);   // đồ rơi của từng quái như đánh thật (góp ý #127)
   return diffRun(game, snap);
 }
 
