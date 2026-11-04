@@ -43,6 +43,13 @@ body #hud .bars .bar { border: none !important; border-image: none !important; h
 body #hud .bars .bar::before { content: ''; position: absolute; inset: 0; border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-rong.png") 0 18 fill / 0 8px / 0 stretch; }
 body #hud .bars .bar i { top: 0; bottom: 0; left: 0; border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-do.png") 0 18 fill / 0 8px / 0 stretch; background: none !important; box-sizing: border-box; min-width: 16px; }
 body #hud .bars .bar.mp i { border-image-source: url("assets/art/ui-hd-bar-lam.png"); }   /* Linh lực: thanh lam (chủ dự án 04/11/2026 12:57) */
+/* Thanh máu boss (chủ dự án 05/11/2026 01:10): bỏ khung cũ ui-k-boss (đầu quỷ cắt ảnh, ruột tô màu bằng code), dùng chung bộ thanh
+   mới như Sinh lực: rãnh vàng mảnh ui-hd-bar-rong, ruột đỏ ui-hd-bar-do; tên boss nằm trên thanh */
+body #hud #boss { background: none !important; aspect-ratio: auto; width: min(78vw, 300px); height: 36px; }
+body #hud #boss-name { left: 0; right: 0; top: 0; width: auto; font-size: 12px; line-height: 16px; color: #ffe9b8; text-shadow: -1px 0 #1b1830, 1px 0 #1b1830, 0 -1px #1b1830, 0 1px #1b1830; }
+body #hud #boss .bar { left: 0; right: 0; top: 18px; height: 16px; background: none !important; overflow: visible; }
+body #hud #boss .bar::before { content: ''; position: absolute; inset: 0; border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-rong.png") 0 18 fill / 0 8px / 0 stretch; }
+body #hud #boss .bar i { border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-do.png") 0 18 fill / 0 8px / 0 stretch; background: none !important; box-shadow: none; box-sizing: border-box; min-width: 16px; }
 /* Linh khí (tu vi đột phá): thanh mảnh vàng dưới Linh lực, chữ nhỏ */
 body #hud .bars .bar.qi { height: 10px !important; margin-top: 1px; }
 body #hud .bars .bar.qi::before { border-width: 0 5px; }
