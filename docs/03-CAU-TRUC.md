@@ -223,7 +223,12 @@ Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi 
   - `p2d_kiem_ngoc` (p2d_luu gọi sau `p2d_kiem_ky`): so tổng ngọc mỗi `loại:cấp` (túi + đang khảm) với bản máy chủ. Tăng chỉ được từ thùng ngọc rơi (cấp 1..4, tính bằng viên cấp 1, viên cấp n tốn 3^(n−1); số ở `data/items.json` → `gems.server`, giữ ở `data.kyNgoc.xo`), quà ngọc cốt truyện (`data/story.json`, mỗi bước một lần, `kyNgoc.tr`), quà Zalo (một lần, `kyNgoc.zalo`), ghép ở máy của bản game cũ (3 → 1, `ngoc_cu`). Phần lố bị cắt, trả ở `sua.gems` (`applyFix` cộng / trừ phần chênh), lý do `ngoc_lo` (cộng điểm). `data.kyNgoc` do máy chủ giữ, máy khách gửi gì cũng bỏ qua. Ngọc từ Hòm thư, chợ, đạo lữ, clip, điểm danh do hàm máy chủ cộng thẳng nên đã có trong bản cũ.
   - Khoá ngọc ở chợ / đạo lữ / thư kiểm bằng `p2d_ngoc_dung` (loại, cấp 1..max theo `p2d_ky_cfg`) thay biểu thức cố định.
 
-Còn tin máy khách: chỉ số đồ rơi và món mới (chỉ qua `p2d_mon_hop_le` + giới hạn số món hiếm), nguyên liệu, Linh Thạch, linh khí (giới hạn bằng thùng hạn mức và trần ngày của `p2d_luu`), ngọc cấp 1..4 trong giới hạn thùng ngọc rơi.
+- **Chữ ký món, giai đoạn 3: mức nhận đồ rơi mới** (`supabase/migrations/20261105030000_p2d_ky_roi.sql`):
+  - `p2d_kiem_roi` (p2d_luu gọi giữa `p2d_kiem_ky` và `p2d_kiem_ngoc`): món mới (uid chưa có trong túi máy chủ) phải giống món vừa rơi (≤ 1 dòng, chưa cường hoá, chưa luyện pháp bảo, cấp ≤ tầng tu vi), sai thì bỏ (`roi_sai`, lần lưu đầu `roi_dau`).
+  - Mỗi độ hiếm một thùng ở `data.kyRoi.xo` (hồi theo phút còn liên lạc + giờ thật, đầy `tran`; độ hiếm thấp mượn thùng cao hơn), dòng Tiên / Thượng Cổ tốn thêm thùng màu `data.kyRoi.m`; số ở `data/items.json` → `drop_budget` (vào `p2d_ky_cfg.roi`). Hết thùng: bỏ món, trả `sua.roi` (mã món), `src/game/cloud-guard.js` bỏ khỏi túi / đồ đang mặc. Lố xa (> nang × số nhận + 2) `roi_lo` cộng điểm, còn lại `roi_nhieu`; trùng mã `roi_trung`. Bằng chứng ghi `roi_mon`.
+  - Món từ Hòm thư (chợ, đạo lữ, Thiên Ma) đã vào túi máy chủ ở `p2d_nhan_thu_moi` nên không tốn thùng. Không gắn chủ vào chữ ký (máy chủ so theo uid với túi của chính người đó, không tin chữ ký máy khách gửi).
+
+Còn tin máy khách: chỉ số dòng đầu của món mới (trong luật `p2d_mon_hop_le` và thùng `p2d_kiem_roi`), trần dòng `cap` và hệ `el` của món mới, nguyên liệu, Linh Thạch, linh khí (giới hạn bằng thùng hạn mức và trần ngày của `p2d_luu`), ngọc cấp 1..4 trong giới hạn thùng ngọc rơi.
 
 ## Tông môn người chơi
 

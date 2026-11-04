@@ -4,7 +4,7 @@
 //   đang chơi, nhận số máy chủ sửa lại.
 // - applyFix: máy chủ thấy số gửi lên lố quá xa (migration 20261028140000_p2d_chong_gian_2) thì trả "sua":
 //   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho;
-//   món máy chủ trả về (sua.mon) thay món cùng uid trong túi.
+//   món máy chủ trả về (sua.mon) thay món cùng uid trong túi; món mới máy chủ không nhận (sua.roi) bỏ khỏi túi.
 // - pickSave: chọn bản trong máy hay bản máy chủ lúc vào game, không để máy cũ đè máy mới.
 // - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
 import { guardSave, checkGuard } from '../core/guard.js';
@@ -54,10 +54,22 @@ export function applyFix(game, sent, sua) {
     const it = m && s.bag?.find(x => x.uid === m.uid);
     if (it) { for (const k of Object.keys(it)) if (!(k in m)) delete it[k]; Object.assign(it, m); }
   }
+  // Đồ rơi mới máy chủ không nhận (migration 20261105030000_p2d_ky_roi, p2d_kiem_roi): bỏ khỏi túi, tháo nếu đang mặc;
+  // món trùng mã số chỉ giữ món đầu như máy chủ. Sửa túi tại chỗ để chỗ khác đang trỏ tới vẫn đúng.
+  const roi = Array.isArray(sua.roi) ? new Set(sua.roi) : null;
+  if (roi && s.bag) {
+    const seen = new Set();
+    for (let i = 0; i < s.bag.length; i++) {
+      const u = s.bag[i]?.uid;
+      if (roi.has(u) || seen.has(u)) s.bag.splice(i--, 1); else seen.add(u);
+    }
+    for (const [k, u] of Object.entries(s.equip || {})) if (roi.has(u)) delete s.equip[k];
+  }
   game.refreshStats?.();
   if (game.player) game.player.hp = Math.min(game.player.hp, game.player.maxHp);
   const T = game.data.config.guard?.texts || {};
-  if (!sua.tran) game.toast(T.fix || '', 3);
+  if (roi?.size && T.roi) game.toast(T.roi.replace('{n}', roi.size), 3);
+  else if (!sua.tran) game.toast(T.fix || '', 3);
   else if (performance.now() - lastTran > 60000) { lastTran = performance.now(); game.toast(T.tran || '', 3); }   // chạm trần ngày: báo nhẹ, một lần mỗi phút
   game.persist();
 }
