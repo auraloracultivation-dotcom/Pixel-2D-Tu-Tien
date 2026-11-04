@@ -291,6 +291,7 @@ body.ngam-canh #hud, body.ngam-canh #buttons { opacity: 0; pointer-events: none;
 #social-input::placeholder, .dlg-input::placeholder, .guild-input::placeholder { color: var(--muted); }
 #social-input { flex: 1; min-width: 0; padding: 7px 9px; }
 #market-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding: 6px; font-size: 13px; }
+#market-list { min-height: 0; touch-action: pan-y; overscroll-behavior: contain; } #market-list > * { flex-shrink: 0; }   /* chợ kéo lên xem được (đề xuất admin 04/11/2026): dòng không co lại, danh sách cuộn */
 #market-list .empty { color: var(--muted); }
 .mk-row { display: flex; align-items: center; gap: 8px; padding: 5px 7px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); }
 .mk-row.sel { background: rgba(242, 164, 67, .12); border-color: var(--torch); }

@@ -70,7 +70,7 @@ export function createHud(audio) {
     gameRef = game;
     (hints ??= createHints(game))();
     const need = qiNeed(s, d.realms);
-    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element, game.cloud?.name, (s.qiX2 || 0) > Date.now()].join();
+    const key = [Math.ceil(p.hp), p.maxHp, Math.floor(p.mp ?? 0), p.mpMax, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element, game.cloud?.name, (s.qiX2 || 0) > Date.now()].join();
     if (key !== last) {
       last = key;
       const R = $('realm');   // cảnh giới dòng trên, linh căn dòng dưới nhỏ hơn (trước gộp một dòng nên bị cắt mất chữ "Thiên")

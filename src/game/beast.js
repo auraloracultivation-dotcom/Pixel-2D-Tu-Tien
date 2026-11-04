@@ -84,8 +84,11 @@ export function rerollMount(game, id) {
 export function outfitLine(game, key, f) {
   const s = game.save, F = B(game.data).fashion;
   s.outfitLine ??= {};
+  // bộ bán bằng Linh Thạch: phẩm theo giá (pets.json → beast.fashion.price_tier); khác thì theo nguồn
+  const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim);
+  const t = pt ? pt[1] : F.tier[src] ?? 0;
+  if (s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
   if (!s.outfitLine[key]) {
-    const src = Object.keys(f.from).find(k => F.tier[k] != null), t = F.tier[src] ?? 0;
     const st = f.line?.s || F.pool[Math.floor(Math.random() * F.pool.length)];   // bộ có dòng định sẵn (Thần Nguyên Y: sát thương bạo kích)
     s.outfitLine[key] = { s: st, v: lineValue(game.data, st, 0, t, Math.random()), t };
     game.persist();
