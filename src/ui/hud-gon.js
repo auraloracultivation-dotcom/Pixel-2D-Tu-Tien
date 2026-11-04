@@ -28,9 +28,9 @@ export function createHudGon(game) {
     const hud = document.getElementById('hud');
     const on = !!game.save && hud && !hud.hidden;
     gon.hidden = an.hidden = !on;
+    const top = tron();   // xếp nút tròn cả khi màn chơi chưa hiện: vào game không thoáng thấy bố cục nút chữ cũ (chủ dự án 04/11/2026 10:31)
     if (!on) return;
     for (const b of document.querySelectorAll('#hud .hud-btns > button')) if (ICO[b.id] && !b.dataset.ico) b.dataset.ico = '1';   // biểu tượng nút (CSS --ico)
-    const top = tron();
     const f = document.getElementById('btn-faq'), fr = f && !f.hidden ? f.getBoundingClientRect() : null;
     Object.assign(an.style, { left: 'auto', right: `${fr && fr.width ? Math.round(innerWidth - fr.right - 2) : 8}px`, top: `${fr && fr.height ? Math.round(fr.bottom + 6) : 8}px` });
     Object.assign(gon.style, { left: 'auto', right: '16px', top: `${top + 62 + 6}px` });
@@ -56,4 +56,6 @@ export function createHudGon(game) {
     return Math.round(top);
   }
   apply(); place(); every(place, 2000); addEventListener('resize', place);
+  const hud = document.getElementById('hud');   // màn chơi vừa hiện: xếp ngay, không đợi lượt 2 giây
+  if (hud) new MutationObserver(() => { if (!hud.hidden) place(); }).observe(hud, { attributes: true, attributeFilter: ['hidden'] });
 }

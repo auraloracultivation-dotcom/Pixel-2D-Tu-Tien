@@ -5,9 +5,9 @@ import { spriteImage } from '../render/sprites.js';
 import { outfitSprite } from '../render/draw-hero.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
-const FRAME = { moc: 'hoa-sen', hoa: 'hoa', thuy: 'thuy', kim: 'kim', tho: 'kim' };
-// lòng vòng từng khung: [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng] (đo trên hình, tools/art/ui_kit2.py → AVA_HOLE)
-const HOLE = { 'hoa-sen': [0.526, 0.438, 0.314, 1.006], kim: [0.489, 0.451, 0.331, 1.068], thuy: [0.474, 0.469, 0.326, 1.089], hoa: [0.5, 0.458, 0.343, 1.075], phong: [0.481, 0.458, 0.326, 1.067] };
+// Khung bộ hoa đào (chủ dự án 04/11/2026 10:19, tools/art/ui_hoa_dao.py): mộc hoa đào, kim vàng kim cương, thủy sóng, hỏa lửa, thổ mây vàng.
+// Lòng vòng từng khung đọc ở data/art.json → sprites['ui.hd-ava-<hệ>'].hole = [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng].
+const ELS = ['moc', 'hoa', 'thuy', 'kim', 'tho'];
 const W = 66;   // bề ngang khung trên màn hình
 
 export function createHudAva(game) {
@@ -23,11 +23,11 @@ export function createHudAva(game) {
     if (box.parentElement !== bars) bars.prepend(box);
     box.hidden = false;
     const H = game.data.heroes, look = H.list[s.look] ? s.look : H.default, id = outfitSprite(game, look), spr = game.data.art.sprites[id];
-    const fk = FRAME[s.element] || 'hoa-sen', L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
+    const fk = ELS.includes(s.element) ? s.element : 'moc', L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
     if (k === key) return;
     key = k; lv.textContent = L;
-    fr.style.setProperty('--ava', `url("assets/art/ui-k-ava-${fk}.png")`);
-    const [hx, hy, hr, ar] = HOLE[fk], d = Math.round(hr * W * 2) + 2;   // mặt tròn khớp lòng vòng (lớn hơn 2 điểm cho kín mép)
+    fr.style.setProperty('--ava', `url("assets/art/ui-hd-ava-${fk}.png")`);
+    const [hx, hy, hr, ar] = game.data.art.sprites['ui.hd-ava-' + fk]?.hole || [0.5, 0.45, 0.31, 1.1], d = Math.round(hr * W * 2) + 2;   // mặt tròn khớp lòng vòng (lớn hơn 2 điểm cho kín mép)
     Object.assign(cv.style, { width: d + 'px', height: d + 'px', left: Math.round(hx * W - d / 2) + 'px', top: Math.round(hy * W * ar - d / 2) + 'px' });
     box.style.height = Math.round(W * ar) + 'px';
     const im = spr && spriteImage(spr), c = cv.getContext('2d');
