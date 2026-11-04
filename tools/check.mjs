@@ -196,6 +196,9 @@ try {
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');
   const pt = read('party.json');
   need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');
+  { const df = read('doi-farm.json'), ds = lastWith(/function public\.p2d_doi_vao/);   // tổ đội farm: số người tối đa, độ dài tên khớp máy chủ
+    need(ds.includes(`>= ${df.max} then raise exception 'day'`) && ds.includes(`'max', ${df.max})`) && ds.includes(`char_length(v_ten) < ${df.name_min} or char_length(v_ten) > ${df.name_max}`) && df.pct_each > 0 && df.show >= 1,
+      'doi-farm: max / name_min / name_max khác hàm p2d_doi_* trên máy chủ (supabase/migrations); đổi số thì thêm migration mới'); }
   const mk = read('market.json');
   need(read('npcs.json')[mk.npc] && Object.values(maps).some(m => m.npcs.some(n => n.id === mk.npc)) && mk.tax > 0 && mk.tax < 1 && items.rarities.every(r => mk.price.item[r.id] > 0), 'market: npc, thuế hoặc giá gợi ý sai');
   const stt = read('status.json'), kinds = ['realm', 'kills', 'bosses', 'rares', 'tower', 'arena', 'coins', 'pets', 'techs', 'comps', 'power', 'flag', 'fish', 'lantern', 'pat', 'tea', 'cook', 'sit'];

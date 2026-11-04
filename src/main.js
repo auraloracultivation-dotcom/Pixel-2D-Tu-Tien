@@ -58,6 +58,7 @@ import { createFeed } from './ui/feed.js';
 import { startNetWatch } from './game/net-watch.js';
 import { startCheckinNudge } from './game/checkin-nudge.js';
 import { startThienMa } from './game/thienma.js';
+import { createFarmTeamPanel } from './ui/farm-team-panel.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -104,6 +105,7 @@ async function boot() {
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
+  createFarmTeamPanel(game);   // tổ đội farm ngoài thế giới mở: danh sách đội trên tinh cầu, thưởng +10% mỗi đồng đội cùng chỗ (data/doi-farm.json)
   createChatDock(game); createQuestDock(game);   // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
   orderHud(game); createHudGon(game); createHudAva(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
