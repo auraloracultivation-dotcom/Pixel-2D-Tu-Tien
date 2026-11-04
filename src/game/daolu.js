@@ -2,7 +2,9 @@
 // migration 20261102160000_p2d_dao_lu.sql). game.daoLu: đạo lữ hiện tại { k, ten, tu } hoặc null, đọc lại 5 phút
 // một lần. Có đạo lữ: Linh Thạch rơi từ quái và linh khí thêm bonus (game.daoLuMul, gọi ở shop.js coinDrop và game.gainQi).
 // Tặng quà: máy chủ tự lấy món trong bản lưu trên máy chủ rồi gửi vào hòm thư người kia; máy này làm theo (như rao bán ở chợ).
-import { unsocket, isEquipped } from './items.js';
+import { isEquipped } from './items.js';
+import { applyDoi } from './ky-ngoc.js';
+import { gemsOf } from './market.js';
 import { addCoins } from './shop.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
@@ -26,11 +28,9 @@ export async function giftDaoLu(game, loai, mon) {
   if (loai === 'mon') {
     const it = s.bag.find(x => x.uid === mon.uid);
     if (!it || isEquipped(s, mon.uid)) throw new Error('khong_co');
-    (it.sockets || []).forEach((_, i) => unsocket(s, mon.uid, i));   // ngọc khảm giữ lại, không tặng theo đồ
-    game.persist();
-  }
+  }   // ngọc khảm giữ lại, không tặng theo đồ: máy chủ tháo (p2d_dl_tang2), máy này cộng lại khi máy chủ nhận
   const mirror = () => {
-    if (loai === 'mon') { s.bag = s.bag.filter(x => x.uid !== mon.uid); game.refreshStats(); }
+    if (loai === 'mon') { applyDoi(s, gemsOf(game, s.bag.find(x => x.uid === mon.uid))); s.bag = s.bag.filter(x => x.uid !== mon.uid); game.refreshStats(); }
     else if (loai === 'nl') s.mats[mon.id] -= mon.n;
     else addCoins(game, -mon.n, 'dao-lu');
     game.persist();

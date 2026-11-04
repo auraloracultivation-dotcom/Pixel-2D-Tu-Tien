@@ -2,13 +2,14 @@
 // Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
 // cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
 import {
-  equip, unequip, salvage, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
+  equip, unequip, salvage, rerollFee, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
 } from '../game/items.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
 import { dailyEvent } from '../game/daily.js';
 import { enhanceCost, setStats } from '../game/enhance.js';
-import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
+import { isArt, refineCost, salvageArt } from '../game/refine.js';
+import { kyUnsocket, kyRefine } from '../game/ky-ngoc.js';   // khảm / gỡ ngọc, luyện pháp bảo: máy chủ quyết khi đã đăng nhập
 import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã đăng nhập: máy chủ quyết (chống sửa món)
 import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
@@ -125,7 +126,7 @@ export function renderDetail(game, st, box, changed, close) {
     const row = el('div', 'd-sockets');
     it.sockets.forEach((g, idx) => {
       const b = el('button', 'socket' + (g ? ' full' : ''));
-      if (g) { const gi = gemInfo(data, g); b.append(gemIcon(game, g, 20, 'gem-ico sm'), gi.name); b.style.borderColor = gi.color; b.onclick = () => { unsocket(save, it.uid, idx); changed(); }; }
+      if (g) { const gi = gemInfo(data, g); b.append(gemIcon(game, g, 20, 'gem-ico sm'), gi.name); b.style.borderColor = gi.color; b.onclick = async () => { b.disabled = true; await kyUnsocket(game, it.uid, idx); changed(); }; }
       else { b.textContent = '+ Khảm ngọc'; b.onclick = () => { st.pickSocket = { uid: it.uid, idx }; st.tab = 'ngoc'; st.sel = null; changed(false); }; }
       row.append(b);
     });
@@ -152,7 +153,7 @@ export function renderDetail(game, st, box, changed, close) {
     }), !can);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
-  if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save.mats[rm] || 0) < rc);
+  if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {

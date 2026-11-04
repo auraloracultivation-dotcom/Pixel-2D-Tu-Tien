@@ -1,7 +1,8 @@
 // Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
 // trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
-import { addItem, isEquipped, unsocket, itemName, rarityOf, gemInfo } from './items.js';
+import { addItem, isEquipped, itemName, rarityOf, gemInfo } from './items.js';
+import { applyDoi } from './ky-ngoc.js';
 import { addMat, matInfo } from './cave.js';
 import { notify } from './inbox.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
@@ -35,13 +36,21 @@ async function onServer(game, fn, mirror) {
   }
 }
 
+// Ngọc đang khảm của một món ({ "loại:cấp": số }), chỉ loại có trong data/items.json gems như máy chủ
+export function gemsOf(game, it) {
+  const out = {}, T = game.data.items.gems.types;
+  for (const g of it?.sockets || []) if (g && T[g.split(':')[0]]) out[g] = (out[g] || 0) + 1;
+  return out;
+}
+
 export async function sellItem(game, uid, price) {
   const s = game.save, it = s.bag.find(x => x.uid === uid);
   if (!it || isEquipped(s, uid)) throw new Error('khong_co');
-  (it.sockets || []).forEach((_, i) => unsocket(s, uid, i));   // ngọc khảm trả về túi, không bán theo đồ
-  game.persist();
+  // ngọc khảm trả về túi, không bán theo đồ: máy chủ tháo (p2d_rao_ban), máy này cộng lại khi máy chủ nhận
+  // (ô khảm nằm trong phần được ký: tự tháo ở máy trước sẽ bị máy chủ trả lại, migration 20261105020000_p2d_ky_ngoc)
   const { postListing } = await net();
   await onServer(game, () => postListing('mon', { uid }, price), () => {
+    applyDoi(s, gemsOf(game, s.bag.find(x => x.uid === uid)));
     s.bag = s.bag.filter(x => x.uid !== uid);
     game.refreshStats(); game.persist();
   });

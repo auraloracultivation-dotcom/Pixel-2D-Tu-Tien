@@ -172,10 +172,16 @@ export function unsocket(save, uid, idx) {
 // Phí Linh Thạch ghép ngọc cấp lv lên lv + 1 (items.gems.merge_fee)
 export const gemMergeFee = (data, lv) => { const f = data.items.gems.merge_fee; return Math.round(f.base * f.r ** (lv - 1)); };
 
+// Ghép được không (đủ viên, chưa cấp tối đa, sau phí còn ít nhất keep Linh Thạch)
+export function canMerge(data, save, key, keep = 0) {
+  const { lv } = gemInfo(data, key);
+  return lv < data.items.gems.max_level && (save.gems[key] || 0) >= data.items.gems.merge && (save.lingshi || 0) - gemMergeFee(data, lv) >= keep;
+}
+
 // keep: số Linh Thạch luôn chừa lại (tự hành)
 export function mergeGems(data, save, key, keep = 0) {
   const { type, lv } = gemInfo(data, key), need = data.items.gems.merge, fee = gemMergeFee(data, lv);
-  if (lv >= data.items.gems.max_level || (save.gems[key] || 0) < need || (save.lingshi || 0) - fee < keep) return false;
+  if (!canMerge(data, save, key, keep)) return false;
   save.gems[key] -= need; if (!save.gems[key]) delete save.gems[key];
   save.lingshi -= fee; noteCoins(save, -fee, 'ghep-ngoc');
   const up = `${type}:${lv + 1}`;
