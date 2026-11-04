@@ -211,7 +211,12 @@ Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi 
 - Đăng ký (`supabase/functions/dang-ky`): mỗi địa chỉ mạng tối đa 3 tài khoản / giờ, 10 / ngày; chỉ trang game gọi được từ trình duyệt; mật khẩu mới 8–72 ký tự.
 - `tools/check.mjs` so số trong migration với `data/` (giá Tiên Ngọc, quà, ngưỡng chỉ số, độ hiếm, thuế chợ): đổi số trong `data/` thì phải thêm migration mới.
 
-Còn tin máy khách: chỉ số đồ rơi, tẩy luyện, cường hóa, linh khí. Muốn chặn hết thì chuyển việc tung đồ và tính linh khí vào hàm máy chủ (việc lớn, làm sau).
+- **Chữ ký món, giai đoạn 1** (`supabase/migrations/20261105010000_p2d_ky_mon.sql`, chủ dự án duyệt 05/11/2026 sau vụ "Thiên đế" sửa món đang có trong túi):
+  - Khoá bí mật ở bảng `p2d_bi_mat` (tạo ngẫu nhiên trong cơ sở dữ liệu, không nằm trong repo). `p2d_ky_mon(món)` = 24 ký tự hex hmac-sha256 trên phần được ký (`p2d_ky_phan`): `uid, base, rarity, lvl, main, lines, plus, cap, el, wt, dv, set`. Lưu ở món: `sig`. Không ký: `sockets` (khảm ngọc vẫn ở máy, máy chủ chỉ kiểm số lỗ, loại ngọc, cấp 1..20), `lock`, `pb` (luyện pháp bảo, chỉ kẹp 0..max, ký ở giai đoạn sau), `free` / `rr` / `rrDay` (máy chủ giữ, máy khách sửa không ăn).
+  - Đã đăng nhập: tẩy luyện, cường hoá (cả tự cường hoá khi tự hành), đổi hệ Đạo Vận do máy chủ tung: `p2d_tay_luyen(p_uid)`, `p2d_cuong_hoa(p_uid)`, `p2d_doi_he(p_uid)` trừ tiền trên bản lưu máy chủ, ký lại món, tăng `phien_ban`, trả `{ mon, tru, phien_ban, ... }`. Máy khách gọi qua `cloud.run` (`src/game/ky-mon.js`, `src/net/ky-mon.js`), nút hiện "Đang hỏi máy chủ…", chữ báo ở `data/items.json` → `ky_mon`. Chơi khách hoặc máy chủ chưa có hàm thì tính ở máy như cũ. Số máy chủ dùng ở bảng `p2d_ky_cfg` (dựng bằng `node tools/ky-cfg.mjs`, `tools/check.mjs` so với `data/items.json`, `gear.json`, `elements.json`, `daovan.json`): đổi số tẩy luyện / cường hoá / hệ thì thêm migration mới.
+  - `p2d_luu` gọi `p2d_kiem_ky(túi cũ, túi mới)` (vá bằng thay chuỗi): chỉ xét món có thay đổi. Món đã có mà trường được ký khác bản máy chủ thì trả bản máy chủ (giữ ngọc nếu hợp lệ), gửi lại máy khách ở `sua.mon` (`applyFix`), lý do `sua_do` (cộng điểm) hoặc `sua_do_cu` (giống tẩy / cường hoá của bản game cũ chưa tải lại: chỉ ghi), bằng chứng ở dòng `sua_do_mon` của `p2d_nghi_van`. Không nhận cả bản cũ có chữ ký đúng (chặn lùi về trước lần tẩy / cường hoá hỏng). Đồ cũ được game tự quy đổi (gắn màu dòng, kéo % về trần) thì nhận và ký; trần dòng `cap`, hệ `el` của đồ cũ chưa có do máy chủ bốc. Món mới qua `p2d_mon_hop_le` thì được ký, không qua thì như cũ (`do_sai_chi_so`). Nhận thư (`p2d_nhan_thu_moi`) đổi uid nên ký lại.
+
+Còn tin máy khách: chỉ số đồ rơi (giai đoạn 2: máy chủ tung đồ rơi), bậc luyện pháp bảo, số ngọc trong túi, linh khí.
 
 ## Tông môn người chơi
 
@@ -308,7 +313,7 @@ Xoá tài khoản (`supabase/migrations/20261028060000_p2d_xoa_tai_khoan.sql`): 
 ## Trọng điểm bồi dưỡng, cấp khó (luật 7 → 14 → 28)
 
 - Tẩy luyện tăng giá: `data/items.json` → `reroll_fee`, `rerollFee` ở `src/game/items.js` (món lưu `rr`, `rrDay`); `decay` 0 nên bộ đếm không reset (chủ dự án chốt trưa 28/10/2026).
-- Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000).
+- Cường hoá tới +20, mở dần theo cảnh giới (`data/gear.json` → `enhance.open`, `enhanceCap`), từ +11 tốn thêm Linh Thạch; máy chủ nhận 0–20 (`p2d_mon_hop_le`, migration 20261028080000). Đã đăng nhập thì máy chủ cường hoá (`p2d_cuong_hoa`, xem Chữ ký món).
 - Ngọc tới cấp 10, phí ghép: `data/items.json` → `gems.merge_fee`, `gemMergeFee`.
 - Ô Mũ (`data/items.json` → slots `mu`): 2 mũ thường (Bố Cân, Thiết Khôi) và 7 mũ bộ (rơi ở boss như các món bộ khác); biểu tượng vẽ ở `tools/art/gear.py` (`mu`). Trang bị giờ 6 ô (vũ khí, mũ, giáp, ngọc bội, giày, nhẫn) cộng ô pháp bảo.
 - Luyện pháp bảo (`data/gear.json` → refine, `src/game/refine.js`): phân giải pháp bảo ra Mảnh Pháp Bảo theo độ hiếm (cả lúc tự hành phân giải), Túi → chọn pháp bảo → Luyện: bậc n lên n + 1 tốn ceil(3 × 1,35^n) mảnh, tối đa ★20; mỗi bậc chỉ số chính +6%, chiêu pháp bảo +5%. Bậc lưu ở `it.pb`, không đổi chỉ số đã lưu.

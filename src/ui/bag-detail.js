@@ -2,14 +2,14 @@
 // Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
 // cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
 import {
-  equip, unequip, salvage, reroll, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
+  equip, unequip, salvage, rerollFee, unsocket, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
 } from '../game/items.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
 import { dailyEvent } from '../game/daily.js';
-import { enhance, enhanceCost, setStats } from '../game/enhance.js';
+import { enhanceCost, setStats } from '../game/enhance.js';
 import { isArt, refine, refineCost, salvageArt } from '../game/refine.js';
-import { rerollEl } from '../game/daovan.js';
+import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã đăng nhập: máy chủ quyết (chống sửa món)
 import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
@@ -136,32 +136,37 @@ export function renderDetail(game, st, box, changed, close) {
   // việc khác
   const acts = el('div', 'd-acts');
   const btn = (t, fn, off) => { const b = el('button', 'act-btn', t); b.disabled = !!off; b.onclick = fn; acts.append(b); };
+  const wait = fn => async e => {   // nút hỏi máy chủ: tắt nút, hiện "Đang hỏi máy chủ…" tới khi có kết quả
+    const b = e?.currentTarget; if (b) { b.disabled = true; b.textContent = data.items.ky_mon.busy; }
+    await fn();
+  };
   const ec = enhanceCost(data, it, save);
   if (ec?.locked) btn(`Cường hóa +${(it.plus || 0) + 1}: mở ở ${data.realms.names[Math.min(data.realms.names.length - 1, data.gear.enhance.open.from_realm + Math.ceil(((it.plus || 0) + 1 - data.gear.enhance.open.base) / data.gear.enhance.open.per_realm))]}`, () => {}, true);
   else if (ec) {
     const can = Object.entries(ec.cost).every(([m, n]) => (save.mats[m] || 0) >= n) && (save.lingshi || 0) >= ec.coins;
-    btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}${ec.coins ? `, ${ec.coins.toLocaleString('vi-VN')} ${data.shop.name}` : ''}, ${Math.round(ec.rate * 100)}%)`, () => {
-      const res = enhance(game, it.uid);
+    btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}${ec.coins ? `, ${ec.coins.toLocaleString('vi-VN')} ${data.shop.name}` : ''}, ${Math.round(ec.rate * 100)}%)`, wait(async () => {
+      const res = await kyEnhance(game, it.uid);
+      if (!res) { changed(); return; }
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
       game.sfx(res === 'up' ? 'levelup' : 'hurt'); changed();
-    }, !can);
+    }), !can);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, () => { if (refine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); changed(); } }, rc == null || (save.mats[rm] || 0) < rc);
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
-  btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, () => {
+  btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
     const p0 = power(game, playerStats(save, data));
-    const res = reroll(data, save, it.uid);
-    if (!res || res.full) return;
+    const res = await kyReroll(game, it.uid);
+    if (!res || res.full) { changed(); return; }
     const t = tierOf(data, res.line.t), gain = Math.round(power(game, playerStats(save, data)) - p0);   // góp ý #77: hiện rõ món mạnh lên bao nhiêu (phẩm có thể tụt khi dòng mới màu thấp)
     st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
     game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal'); changed();
-  }, full || (!free && (stones < cost || (save.lingshi || 0) < fee)));
+  }), full || (!free && (stones < cost || (save.lingshi || 0) < fee)));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
   if (it.el) {   // đổi hệ bằng Đạo Vận Thạch (mọi món); món Đạo Vận cũ: phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)
     const R = data.daovan.reroll, have = save.mats[R.mat] || 0;
-    btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), () => { const e = rerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); changed(); } }, have < R.n);
+    btn(data.daovan.texts.reroll.replace('{n}', R.n).replace('{mat}', `${data.cave.materials[R.mat].name}, có ${have}`), wait(async () => { const e = await kyRerollEl(game, it.uid); if (e) { st.msg = data.daovan.texts.rerolled.replace('{item}', data.items.bases[it.base].name).replace('{el}', data.elements[e].name); game.sfx('heal'); } changed(); }), have < R.n);
   }
   const sure = (act, fn) => () => {   // món Đạo Vận: lần bấm đầu chỉ hỏi lại
     if (base.dv && st.sure !== act + it.uid) { st.sure = act + it.uid; game.toast(data.daovan.texts.confirm.replace('{act}', act), 2); return; }

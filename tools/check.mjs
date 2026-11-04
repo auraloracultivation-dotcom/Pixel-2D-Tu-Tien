@@ -3,6 +3,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { kyCfg, sameJson } from './ky-cfg.mjs';
 
 const errors = [];
 const SKIP = new Set(['.git', 'node_modules']);
@@ -183,6 +184,10 @@ try {
   const gdd = read('guild.json'), gm = lastWith(/insert into public\.p2d_bang_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/);
   const gcfg = gm ? JSON.parse(gm[1]) : null, gkeys = ['need_realm', 'cost', 'max', 'max_pho', 'max_lao', 'checkin', 'donate', 'min_pts', 'leave_hours', 'milestones'];
   need(gcfg && gkeys.every(k => JSON.stringify(gcfg[k]) === JSON.stringify(gdd[k])), `guild: số khác bảng p2d_bang_cfg trên máy chủ (${gkeys.filter(k => !gcfg || JSON.stringify(gcfg[k]) !== JSON.stringify(gdd[k])).join(', ')}); đổi số thì thêm migration mới`);
+  // Chữ ký món: máy chủ tự tẩy luyện, cường hoá, đổi hệ theo bảng p2d_ky_cfg; số phải khớp data/ (tools/ky-cfg.mjs dựng)
+  { const km = lastWith(/insert into public\.p2d_ky_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/), want = kyCfg(read);
+    need(km && sameJson(JSON.parse(km[1]), want), 'items / gear / elements / daovan: số tẩy luyện, cường hoá, đổi hệ khác bảng p2d_ky_cfg trên máy chủ; chạy node tools/ky-cfg.mjs rồi thêm migration mới');
+    need(items.ky_mon?.busy && items.ky_mon.err?.other, 'items.ky_mon: thiếu chữ báo'); }
   // Sự kiện giới thiệu, thưởng góp ý: số trong data/referral.json phải khớp hàm p2d_gt_luat, p2d_gop_y_thuong trên máy chủ
   const rf = read('referral.json'), gt = lastWith(/function public\.p2d_gt_luat/), gtv = k => +(gt.match(new RegExp(`'${k}', (\\d+)`)) || [])[1];
   need(gt.includes(`'${rf.starts}'::timestamptz`) && gt.includes(`'${rf.ends}'::timestamptz`) && gtv('phut') === rf.minutes && gtv('ngat_phut') === rf.gap && gtv('cap_gt') === rf.gem_ref && gtv('cap_moi') === rf.gem_new && gtv('nhap_ngay') === rf.join_days, 'referral: ngày, số phút, cấp ngọc khác hàm p2d_gt_luat trên máy chủ (supabase/migrations)');

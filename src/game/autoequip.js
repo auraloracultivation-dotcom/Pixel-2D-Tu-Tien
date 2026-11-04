@@ -9,6 +9,7 @@ import { enhance, enhanceCost } from './enhance.js';
 import { salvageIron } from './cave.js';
 import { dailyEvent } from './daily.js';
 import { salvageArt } from './refine.js';
+import { onServer, kyBusy, kyEnhance } from './ky-mon.js';   // đã đăng nhập: máy chủ cường hoá
 
 export const trial = (game, slot, uid) => {   // lực chiến nếu đặt uid vào ô slot (túi đồ dùng để so sánh)
   const s = game.save, old = s.equip[slot];
@@ -56,8 +57,10 @@ export function autoEnhance(game) {
   const it = equipped(s).filter(i => (i.plus || 0) < d.gear.enhance.drop_from).sort((a, b) => (a.plus || 0) - (b.plus || 0))[0];
   const c = it && enhanceCost(d, it, s);
   if (!c || c.locked || c.coins || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;   // tự hành không tiêu Linh Thạch vào cường hoá
-  const r = enhance(game, it.uid);
-  if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8);
+  const say = r => { if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8); };
+  if (!onServer(game)) return say(enhance(game, it.uid));
+  if (kyBusy(game) || (game.aeWait || 0) > performance.now()) return;
+  kyEnhance(game, it.uid, true).then(r => { if (!r) game.aeWait = performance.now() + 30000; say(r); });   // máy chủ từ chối: 30 giây sau mới thử lại
 }
 
 // Túi lố sức chứa (lối nào đó nhét quá bag_size): máy chủ từ chối cả bản lưu ('tui_qua_day'), mất hết tiến độ từ đó (báo lỗi JS

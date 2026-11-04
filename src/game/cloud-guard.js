@@ -3,7 +3,8 @@
 // - cloudHooks: các hàm game đưa cho src/net/profile.js: báo lỗi lưu (một lần mỗi phút, không dội liên tục), báo máy khác
 //   đang chơi, nhận số máy chủ sửa lại.
 // - applyFix: máy chủ thấy số gửi lên lố quá xa (migration 20261028140000_p2d_chong_gian_2) thì trả "sua":
-//   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho.
+//   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho;
+//   món máy chủ trả về (sua.mon) thay món cùng uid trong túi.
 // - pickSave: chọn bản trong máy hay bản máy chủ lúc vào game, không để máy cũ đè máy mới.
 // - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
 import { guardSave, checkGuard } from '../core/guard.js';
@@ -35,6 +36,12 @@ export function applyFix(game, sent, sua) {
     }
   }
   if (fin(sua.best) && s.tower && s.tower.best > sua.best) s.tower.best = sua.best;
+  // Món bị sửa ở máy (dòng, cấp cường hoá, độ hiếm...) hoặc đồ cũ máy chủ đặt trần dòng / hệ: lấy bản máy chủ
+  // (migration 20261105010000_p2d_ky_mon, p2d_kiem_ky). Giữ nguyên đối tượng món để chỗ khác đang trỏ tới vẫn đúng.
+  for (const m of Array.isArray(sua.mon) ? sua.mon : []) {
+    const it = m && s.bag?.find(x => x.uid === m.uid);
+    if (it) { for (const k of Object.keys(it)) if (!(k in m)) delete it[k]; Object.assign(it, m); }
+  }
   game.refreshStats?.();
   if (game.player) game.player.hp = Math.min(game.player.hp, game.player.maxHp);
   const T = game.data.config.guard?.texts || {};
