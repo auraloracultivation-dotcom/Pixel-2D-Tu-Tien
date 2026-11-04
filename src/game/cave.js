@@ -3,6 +3,7 @@ import { rollItem, addItem } from './items.js';
 import { totalLayer, qiNeed, weaponId } from './stats.js';
 import { dailyEvent } from './daily.js';
 import { caveLevel } from './evolve.js';
+import { manaMax } from './mana.js';
 
 export function ensureCave(save, data) {
   save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {};
@@ -78,6 +79,11 @@ export function usePill(game, id) {
     if (p.hp >= p.maxHp) return null;
     p.hp = Math.min(p.maxHp, p.hp + p.maxHp * u.heal);
     msg = `+${Math.round(p.maxHp * u.heal)} máu`;
+  } else if (u.mana) {   // Hồi Linh Đan (chủ dự án 04/11/2026 21:46): hồi linh lực để ra chiêu tiếp (src/game/mana.js)
+    const mx = manaMax(game);
+    if ((p.mp ?? mx) >= mx) return null;
+    p.mp = Math.min(mx, (p.mp ?? 0) + mx * u.mana);
+    msg = `+${Math.round(mx * u.mana)} linh lực`;
   } else if (u.qi) {
     const rate = qiPillRate(game), day = new Date().toDateString(), L = data.cave.qi_pill_day;
     save.qiPill = { day, n: qiPillUsed(game) + 1 };

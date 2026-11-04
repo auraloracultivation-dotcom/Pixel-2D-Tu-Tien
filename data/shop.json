@@ -7,6 +7,7 @@
  "npc": "van-bao",
  "items": [
   {"kind": "pill", "ref": "hoi-xuan-dan", "n": 2, "price": 30},
+  {"kind": "pill", "ref": "hoi-linh-dan", "n": 2, "price": 45},
   {"kind": "pill", "ref": "tu-khi-dan", "n": 1, "price": 200},
   {"kind": "mat", "ref": "linh-thao", "n": 3, "price": 15},
   {"kind": "mat", "ref": "yeu-huyet", "n": 2, "price": 25},

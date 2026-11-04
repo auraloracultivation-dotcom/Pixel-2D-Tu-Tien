@@ -66,12 +66,13 @@ function pillSheet(game, k, box, head, txt, changed) {
   const row = el('div', 'd-primary'), b = el('button', 'act-btn primary', 'Dùng');
   b.onclick = () => { const m = usePill(game, k); game.toast(m ? `${p.name}: ${m}` : 'Lúc này dùng không có tác dụng.', 2.2); if (m) { game.sfx('levelup'); changed(); } };
   row.append(b); box.append(row);
-  if (k === D.cave.pill_button) {   // góp ý #106: tự uống đan hồi máu khi máu dưới mức đã chọn
-    const ar = el('div', 'd-primary'), cur = s.autoPillPct || 0;
-    ar.append(el('small', 'muted', 'Tự uống khi máu dưới:'));
+  const auto = k === D.cave.pill_button ? ['autoPillPct', 'máu'] : k === D.cave.mana_pill ? ['autoManaPct', 'linh lực'] : null;
+  if (auto) {   // góp ý #106: tự uống đan hồi máu khi máu dưới mức đã chọn; Hồi Linh Đan như vậy theo linh lực (04/11/2026)
+    const [key, what] = auto, ar = el('div', 'd-primary'), cur = s[key] || 0;
+    ar.append(el('small', 'muted', `Tự uống khi ${what} dưới:`));
     for (const v of [0, 0.3, 0.5, 0.7]) {
       const o = el('button', 'act-btn' + (cur === v ? ' primary' : ''), v ? `${v * 100}%` : 'Tắt');
-      o.onclick = () => { s.autoPillPct = v; game.persist(); changed(); };
+      o.onclick = () => { s[key] = v; game.persist(); changed(); };
       ar.append(o);
     }
     box.append(ar);

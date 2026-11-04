@@ -55,6 +55,8 @@ function wants(game) {
   }
   const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
   if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
+  const mp = game.data.cave.mana_pill;   // đủ đan hồi máu rồi mới luyện đan hồi linh lực
+  if (mp && pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) >= game.data.config.pilot.pill_keep && (s.pills?.[mp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[mp].recipe)) out.push({ brew: mp });
   for (const t of ensureDaily(game).tasks) {
     const d = taskDef(game, t.id);
     if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
