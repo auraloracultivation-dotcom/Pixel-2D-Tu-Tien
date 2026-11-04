@@ -21996,19 +21996,19 @@
   },
   "ui.pc-cam": {
    "file": "assets/art/ui-pc-cam.png",
-   "v": "cdaa9622",
-   "w": 201,
-   "h": 213,
+   "v": "8eee1175",
+   "w": 206,
+   "h": 218,
    "frames": 1,
    "anchor": [
-    100,
-    106
+    103,
+    109
    ],
    "note": "ô trang bị phẩm cam (ảnh GPT pham-cap.png)"
   },
   "ui.pc-da-cam": {
    "file": "assets/art/ui-pc-da-cam.png",
-   "v": "ca2275f7",
+   "v": "10a04463",
    "w": 49,
    "h": 72,
    "frames": 1,
@@ -22020,7 +22020,7 @@
   },
   "ui.pc-da-den": {
    "file": "assets/art/ui-pc-da-den.png",
-   "v": "7cc9da8d",
+   "v": "e488c750",
    "w": 50,
    "h": 77,
    "frames": 1,
@@ -22032,7 +22032,7 @@
   },
   "ui.pc-da-do": {
    "file": "assets/art/ui-pc-da-do.png",
-   "v": "c8e66eac",
+   "v": "8ae3ebb8",
    "w": 50,
    "h": 75,
    "frames": 1,
@@ -22044,7 +22044,7 @@
   },
   "ui.pc-da-lam": {
    "file": "assets/art/ui-pc-da-lam.png",
-   "v": "048eb2da",
+   "v": "20a6bef2",
    "w": 48,
    "h": 70,
    "frames": 1,
@@ -22056,7 +22056,7 @@
   },
   "ui.pc-da-luc": {
    "file": "assets/art/ui-pc-da-luc.png",
-   "v": "5431d7b6",
+   "v": "b4a8f126",
    "w": 48,
    "h": 70,
    "frames": 1,
@@ -22068,7 +22068,7 @@
   },
   "ui.pc-da-tim": {
    "file": "assets/art/ui-pc-da-tim.png",
-   "v": "35b6f395",
+   "v": "0b404335",
    "w": 48,
    "h": 71,
    "frames": 1,
@@ -22080,7 +22080,7 @@
   },
   "ui.pc-da-vang": {
    "file": "assets/art/ui-pc-da-vang.png",
-   "v": "896cbbc0",
+   "v": "77a7899f",
    "w": 51,
    "h": 76,
    "frames": 1,
@@ -22092,31 +22092,31 @@
   },
   "ui.pc-den": {
    "file": "assets/art/ui-pc-den.png",
-   "v": "d4331752",
-   "w": 206,
-   "h": 223,
+   "v": "50d4dc03",
+   "w": 210,
+   "h": 228,
    "frames": 1,
    "anchor": [
-    103,
-    111
+    105,
+    114
    ],
    "note": "ô trang bị phẩm den (ảnh GPT pham-cap.png)"
   },
   "ui.pc-do": {
    "file": "assets/art/ui-pc-do.png",
-   "v": "3f3097d6",
+   "v": "cb826abc",
    "w": 206,
-   "h": 217,
+   "h": 218,
    "frames": 1,
    "anchor": [
     103,
-    108
+    109
    ],
    "note": "ô trang bị phẩm do (ảnh GPT pham-cap.png)"
   },
   "ui.pc-lam": {
    "file": "assets/art/ui-pc-lam.png",
-   "v": "1d47efa2",
+   "v": "68b69b7a",
    "w": 204,
    "h": 216,
    "frames": 1,
@@ -22128,7 +22128,7 @@
   },
   "ui.pc-luc": {
    "file": "assets/art/ui-pc-luc.png",
-   "v": "22204e83",
+   "v": "cd0d2296",
    "w": 201,
    "h": 216,
    "frames": 1,
@@ -22140,7 +22140,7 @@
   },
   "ui.pc-ten-cam": {
    "file": "assets/art/ui-pc-ten-cam.png",
-   "v": "7fe5c386",
+   "v": "8b16c9de",
    "w": 201,
    "h": 79,
    "frames": 1,
@@ -22152,19 +22152,19 @@
   },
   "ui.pc-ten-den": {
    "file": "assets/art/ui-pc-ten-den.png",
-   "v": "831757d5",
-   "w": 202,
-   "h": 79,
+   "v": "ad72d727",
+   "w": 206,
+   "h": 84,
    "frames": 1,
    "anchor": [
-    101,
-    39
+    103,
+    42
    ],
    "note": "băng tên phẩm den (ảnh GPT pham-cap.png)"
   },
   "ui.pc-ten-do": {
    "file": "assets/art/ui-pc-ten-do.png",
-   "v": "ebc4e945",
+   "v": "263ac020",
    "w": 196,
    "h": 80,
    "frames": 1,
@@ -22176,7 +22176,7 @@
   },
   "ui.pc-ten-lam": {
    "file": "assets/art/ui-pc-ten-lam.png",
-   "v": "26e4b280",
+   "v": "0b5553a0",
    "w": 202,
    "h": 78,
    "frames": 1,
@@ -22188,7 +22188,7 @@
   },
   "ui.pc-ten-luc": {
    "file": "assets/art/ui-pc-ten-luc.png",
-   "v": "632ad788",
+   "v": "22d77146",
    "w": 202,
    "h": 81,
    "frames": 1,
@@ -22200,31 +22200,31 @@
   },
   "ui.pc-ten-tim": {
    "file": "assets/art/ui-pc-ten-tim.png",
-   "v": "146e454d",
-   "w": 204,
-   "h": 77,
+   "v": "6f5185b0",
+   "w": 208,
+   "h": 81,
    "frames": 1,
    "anchor": [
-    102,
-    38
+    104,
+    40
    ],
    "note": "băng tên phẩm tim (ảnh GPT pham-cap.png)"
   },
   "ui.pc-ten-vang": {
    "file": "assets/art/ui-pc-ten-vang.png",
-   "v": "6dafc324",
-   "w": 206,
-   "h": 78,
+   "v": "33628466",
+   "w": 211,
+   "h": 89,
    "frames": 1,
    "anchor": [
-    103,
-    39
+    105,
+    44
    ],
    "note": "băng tên phẩm vang (ảnh GPT pham-cap.png)"
   },
   "ui.pc-tim": {
    "file": "assets/art/ui-pc-tim.png",
-   "v": "8f59b0c2",
+   "v": "71182858",
    "w": 201,
    "h": 217,
    "frames": 1,
@@ -22236,13 +22236,13 @@
   },
   "ui.pc-vang": {
    "file": "assets/art/ui-pc-vang.png",
-   "v": "2531bb3e",
-   "w": 210,
-   "h": 228,
+   "v": "58f0bdbd",
+   "w": 208,
+   "h": 220,
    "frames": 1,
    "anchor": [
-    105,
-    114
+    104,
+    110
    ],
    "note": "ô trang bị phẩm vang (ảnh GPT pham-cap.png)"
   },

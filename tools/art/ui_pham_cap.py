@@ -1,6 +1,6 @@
 """Khung ô trang bị theo phẩm cấp từ ảnh GPT (chủ dự án 04/11/2026 10:28, nguon/ai/ui/pham-cap.png): bảy phẩm lục, lam, tím, cam,
-vàng, đỏ, đen (tím sẫm). Ảnh không có lớp trong suốt (nền ô ca-rô trắng xám vẽ sẵn): bỏ các vùng xám trắng ít màu nối liền (trên 40
-điểm), rồi gọt hai lượt viền sáng xám sát chỗ trong suốt. Giữ nguyên hình (chỉ cắt, bỏ nền).
+vàng, đỏ, đen (tím sẫm). Ảnh nền trong suốt (chủ dự án gửi lại 10:37); nếu thay bằng ảnh không có lớp trong suốt (nền ô ca-rô vẽ
+sẵn) thì bỏ các vùng xám trắng ít màu nối liền, gọt hai lượt viền sáng sát chỗ trong suốt. Giữ nguyên hình (chỉ cắt, bỏ nền).
 - ui-pc-<phẩm>: ô vuông lòng tối (hàng hai của ảnh) làm khung ô đồ trong túi (style-ui-hoa-dao.css, bag.js gắn data-o);
 - ui-pc-ten-<phẩm>: băng tên cùng màu (hàng ba), ui-pc-da-<phẩm>: viên đá phẩm (hàng cuối).
 Dựng riêng: python3 -I tools/art/ui_kit_only.py."""
@@ -19,7 +19,11 @@ DA = [(1078, 821, 1126, 891), (1136, 821, 1184, 891), (1194, 820, 1242, 891), (1
 
 
 def _clean():
-    a = np.array(Image.open(SRC).convert('RGBA')).astype(int)
+    im = Image.open(SRC)
+    a = np.array(im.convert('RGBA')).astype(int)
+    if im.mode == 'RGBA' and (a[:, :, 3] == 0).mean() > 0.2:
+        a[:, :, 3] = np.where(a[:, :, 3] >= 200, 255, 0)
+        return a.astype(np.uint8)
     mx, mn = a[:, :, :3].max(2), a[:, :, :3].min(2)
     lab, n = nd.label((mn > 200) & (mx - mn < 16))
     if n:
