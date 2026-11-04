@@ -90,4 +90,9 @@ def build(save):
     for k, box in (('linh-thach', (950, 947, 985, 1006)), ('linh-thach-2', (1015, 944, 1074, 1000)), ('linh-thach-3', (1099, 938, 1172, 1005))):
         put('ui.k-' + k, _main(_px(_cut(a, box))), 'Linh Thạch')
     put('ui.k-atk2', _main(_px(_cut(a, (1028, 1044, 1196, 1230)))), 'nút Đánh song kiếm không chữ')
+    # vòng nút tròn trống hàng dưới (chủ dự án 04/11/2026 09:05, bố cục nút tròn theo ảnh mẫu): lòng tím đặc cho nút mục,
+    # bản khoét lòng cho bản đồ tròn góc phải trên (src/ui/mini-map.js)
+    for k, box in (('vong-lam', (667, 1060, 782, 1200)), ('vong-tim', (781, 1060, 896, 1200)), ('vong-vang', (896, 1050, 1026, 1210))):
+        put('ui.k-' + k, _main(_cut(a, box)), 'vòng nút tròn ' + k)
+    put('ui.k-vong-tim-rong', _main(_ring(a, (781, 1060, 896, 1200), 0.80)), 'vòng tím khoét lòng (khung bản đồ tròn)')
     return n

@@ -29,12 +29,28 @@ export function createHudGon(game) {
     gon.hidden = an.hidden = !on;
     if (!on) return;
     for (const b of document.querySelectorAll('#hud .hud-btns > button')) if (ICO[b.id] && !b.dataset.ico) b.dataset.ico = '1';   // biểu tượng nút (CSS --ico)
+    tron();
     const r = qi?.getBoundingClientRect();
     if (!r || !r.width) return;
     const top = Math.round(r.bottom + 2), left = Math.round(r.left);
     gon.style.top = an.style.top = `${top}px`;
     gon.style.left = `${left}px`; an.style.left = `${left + 34}px`;
     if (st.an) an.style.left = `${left}px`;
+  }
+  // nút tròn theo ảnh mẫu (chủ dự án 04/11/2026 09:05; data/menu.json → hud.tron, style-ui-kit3.css): xếp lại vị trí theo nút đang hiện
+  const T = game.data.menu?.hud?.tron;
+  function tron() {
+    if (!T) return;
+    const put = (ids, attr) => {
+      let k = 0;
+      for (const id of ids) {
+        const b = document.getElementById(id);
+        if (!b || !b.closest('#hud .hud-btns')) continue;
+        b.classList.add('tron'); b.dataset.lb = T.lb[id] || ''; if (attr) b.dataset[attr] = '1';
+        if (attr && !b.hidden) b.style.setProperty('--' + attr, k++);
+      }
+    };
+    put(T.cot, 'cot'); put(T.day, 'day'); put([T.goc]);
   }
   apply(); place(); every(place, 2000); addEventListener('resize', place);
 }

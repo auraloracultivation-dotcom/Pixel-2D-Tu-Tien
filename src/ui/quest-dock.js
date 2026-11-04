@@ -1,7 +1,7 @@
 // Nhiệm vụ hằng ngày hiện thẳng trên màn hình (chủ dự án 02/11/2026 13:38: "kéo ra ngoài dạng chữ, nền trong suốt, đừng chắn
 // phần hiện đồ nhận được khi farm"). Cột chữ bên phải, ngay dưới khung nhiệm vụ truyện (cột nhận đồ #feed nằm bên trái).
 // Dòng đầu là điểm danh, rồi từng việc hôm nay, cuối là rương. Dòng đã xong mà chưa nhận thì sáng màu, chạm để nhận;
-// chạm dòng điểm danh để điểm danh; chạm dòng chưa xong thì tự hành đi làm việc ngày (kéo cần chạy để dừng). Nút Nhiệm vụ: chạm để ẩn / hiện cột này (nhớ trên máy); bảng đầy đủ mở từ dòng "Chi tiết".
+// chạm dòng điểm danh để điểm danh; chạm dòng chưa xong thì tự hành đi làm việc ngày (kéo cần chạy để dừng). Mũi tên ở dòng tiêu đề: chạm để thu / mở cột này (chủ dự án 04/11/2026 09:05, thay nút Nhiệm vụ; nhớ trên máy); bảng đầy đủ mở từ dòng "Chi tiết".
 import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
 import { checkinOn, checkinCached, loadCheckin, doCheckin } from '../game/checkin.js';
 import { pilotDaily } from '../game/pilot.js';
@@ -33,13 +33,16 @@ export function createQuestDock(game) {
   };
 
   function paint() {
-    const goal = document.getElementById('goal'), r = goal?.getBoundingClientRect();
-    box.style.top = `${Math.round((r && r.height ? r.bottom : 8) + 6)}px`;
+    const goal = document.getElementById('goal'), r = goal?.getBoundingClientRect(), mm = document.getElementById('mini-map')?.getBoundingClientRect();
+    box.style.top = `${Math.round(Math.max(r && r.height ? r.bottom : 8, mm && mm.height ? mm.bottom + 12 : 0) + 6)}px`;   // dưới việc truyện, dưới bản đồ tròn
     const dl = ensureDaily(game), ck = checkinOn(game) ? checkinCached() : null;
     const k = [hide, ck?.hom_nay, ck?.vi_tri, dl.chest, ...dl.tasks.map(t => `${t.n}${t.got}`)].join('|');
     if (k === key) return;
     key = k; box.replaceChildren();
-    box.append(el('div', 'qd-head', 'Nhiệm vụ hằng ngày'));
+    const head = el('div', 'qd-head', 'Nhiệm vụ hằng ngày'), arrow = el('i', 'qd-arrow' + (hide ? ' dong' : ''));
+    head.append(arrow); head.onclick = () => game.toggleQuestDock();
+    box.append(head); box.classList.toggle('gon', hide);
+    if (hide) return;
     if (ck && ck.vi_tri != null) {
       box.append(ck.hom_nay ? line('done', `✓ ${C.title}: ngày ${ck.vi_tri}/112`)
         : line('ready', `▸ ${C.btn} (ngày ${(ck.vi_tri || 0) % 112 + 1}/112)`, async () => { const r = await doCheckin(game); if (r.msg) game.toast(r.msg, 2.4); key = ''; paint(); }));
@@ -60,7 +63,7 @@ export function createQuestDock(game) {
 
   game.toggleQuestDock = () => { hide = !hide; setHide(hide); key = ''; tick(); };
   function tick() {
-    const off = hide || !game.save || !game.player || game.trip || game.dialog.open;
+    const off = !game.save || !game.player || game.trip || game.dialog.open;
     box.hidden = off;
     if (off) return;
     if (checkinOn(game) && Date.now() - loaded > 300000) { loaded = Date.now(); loadCheckin(game).then(() => { key = ''; }); }

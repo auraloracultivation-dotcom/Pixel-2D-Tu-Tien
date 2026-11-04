@@ -42,6 +42,7 @@ import { createPetsPanel } from './ui/pets-panel.js';
 import { createDailyPanel } from './ui/daily-panel.js';
 import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
+import { createMiniMap } from './ui/mini-map.js';
 import { createSocialPanel } from './ui/social-panel.js';
 import { initPwa, recoverStale } from './core/pwa.js';
 import { catchErrors } from './core/catch-errors.js';
@@ -76,6 +77,7 @@ async function boot() {
   createDailyPanel(game);
   createAchvPanel(game);
   game.worldMap = createWorldMap(game);
+  createMiniMap(game);   // bản đồ tròn góc phải trên (thay nút Bản đồ)
   createSocialPanel(game);
   createMarketPanel(game); startMailCheck(game);
   createTopupPanel(game);
