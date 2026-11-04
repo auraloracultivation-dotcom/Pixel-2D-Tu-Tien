@@ -85,6 +85,11 @@ B4 = {
     'o': (384, 544, 692, 610), 'chon': (15, 638, 347, 725), 'chat': (243, 745, 602, 852), 'nhap': (1151, 515, 1415, 568),
 }
 
+B5 = {   # ảnh 5 (chủ dự án 04/11/2026 10:46): nền khung đăng nhập, chơi tiếp, nút
+    'dn-khung': (10, 26, 399, 444), 'dn-tiep': (400, 9, 805, 292), 'dn-vang': (12, 458, 393, 539), 'dn-tim': (10, 542, 395, 624),
+    'dn-o': (1150, 318, 1423, 376), 'dn-may': (747, 318, 1132, 441),
+}
+
 
 def build(save):
     a2, a3, a4 = _load(2), _load(3), _load(4)
@@ -113,6 +118,9 @@ def build(save):
     put('ui.hd-atk', _cut(a2, B2['atk']), 'nút Đánh song kiếm hoa đào')
     for k, box in B3.items():
         put('ui.hd-' + k, _cut(a3, box), 'khung ' + k)
+    a5 = _load(5)
+    for k, box in B5.items():
+        put('ui.hd-' + k, _cut(a5, box), 'khung ' + k)
     for k, box in B4.items():
         put('ui.hd-' + k, _cut(a4, box), 'khung ' + k)
     print('lòng chân dung:', holes)
