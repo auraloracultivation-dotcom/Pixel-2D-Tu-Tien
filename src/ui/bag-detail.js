@@ -27,8 +27,10 @@ export function el(tag, cls, text) {
 
 export function icon(data, it) {
   // biểu tượng theo loại món (bộ biểu tượng mới, chủ dự án 04/11/2026 11:17: ui-ic-<ô>), nằm trong lòng khung phẩm cấp (style-ui-icon.css)
-  const ico = el('i', 'ico'), slot = data.items.bases[it.base]?.slot, spr = slot && data.art.sprites['ui.ic-' + slot];
+  // món có hình thật (ui-vk-<món>, chủ dự án 11:33) thì hiện hình đó; chưa có thì biểu tượng loại
+  const S = data.art.sprites, slot = data.items.bases[it.base]?.slot, ico = el('i', 'ico'), spr = S['ui.vk-' + it.base] || (slot && S['ui.ic-' + slot]);
   if (spr) ico.style.setProperty('--ic', `url("${spr.file}?v=${spr.v}")`);
+  if (S['ui.vk-' + it.base]) ico.classList.add('that');
   return ico;
 }
 
