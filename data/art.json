@@ -19932,19 +19932,19 @@
   },
   "ui.hd-atk": {
    "file": "assets/art/ui-hd-atk.png",
-   "v": "7a4e55bb",
-   "w": 216,
+   "v": "8129071f",
+   "w": 215,
    "h": 209,
    "frames": 1,
    "anchor": [
-    108,
+    107,
     104
    ],
    "note": "nút Đánh song kiếm hoa đào (ảnh GPT bộ hoa đào)"
   },
   "ui.hd-ava-hoa": {
    "file": "assets/art/ui-hd-ava-hoa.png",
-   "v": "fa3533b9",
+   "v": "5e6d4202",
    "w": 125,
    "h": 151,
    "frames": 1,
@@ -19962,7 +19962,7 @@
   },
   "ui.hd-ava-kim": {
    "file": "assets/art/ui-hd-ava-kim.png",
-   "v": "c21f62cc",
+   "v": "e8c75e8e",
    "w": 186,
    "h": 206,
    "frames": 1,
@@ -19974,13 +19974,13 @@
    "hole": [
     0.498,
     0.465,
-    0.327,
+    0.318,
     1.108
    ]
   },
   "ui.hd-ava-moc": {
    "file": "assets/art/ui-hd-ava-moc.png",
-   "v": "dbebe61c",
+   "v": "0371ce25",
    "w": 206,
    "h": 208,
    "frames": 1,
@@ -19990,15 +19990,15 @@
    ],
    "note": "khung chân dung hệ moc (ảnh GPT bộ hoa đào)",
    "hole": [
-    0.518,
-    0.476,
-    0.307,
+    0.519,
+    0.477,
+    0.3,
     1.01
    ]
   },
   "ui.hd-ava-tho": {
    "file": "assets/art/ui-hd-ava-tho.png",
-   "v": "285621eb",
+   "v": "aaae5a81",
    "w": 130,
    "h": 149,
    "frames": 1,
@@ -20016,7 +20016,7 @@
   },
   "ui.hd-ava-thuy": {
    "file": "assets/art/ui-hd-ava-thuy.png",
-   "v": "39d5048e",
+   "v": "55606643",
    "w": 125,
    "h": 149,
    "frames": 1,
@@ -20034,7 +20034,7 @@
   },
   "ui.hd-bang": {
    "file": "assets/art/ui-hd-bang.png",
-   "v": "6229674f",
+   "v": "0b662544",
    "w": 386,
    "h": 413,
    "frames": 1,
@@ -20046,7 +20046,7 @@
   },
   "ui.hd-bar-do": {
    "file": "assets/art/ui-hd-bar-do.png",
-   "v": "a0c9294b",
+   "v": "d4a86bf1",
    "w": 210,
    "h": 39,
    "frames": 1,
@@ -20058,7 +20058,7 @@
   },
   "ui.hd-bar-lam": {
    "file": "assets/art/ui-hd-bar-lam.png",
-   "v": "4b88bdc7",
+   "v": "aff53415",
    "w": 211,
    "h": 39,
    "frames": 1,
@@ -20070,7 +20070,7 @@
   },
   "ui.hd-bar-rong": {
    "file": "assets/art/ui-hd-bar-rong.png",
-   "v": "0f9b10a7",
+   "v": "963dbac5",
    "w": 213,
    "h": 38,
    "frames": 1,
@@ -20082,7 +20082,7 @@
   },
   "ui.hd-chat": {
    "file": "assets/art/ui-hd-chat.png",
-   "v": "45801d90",
+   "v": "6d01f754",
    "w": 359,
    "h": 107,
    "frames": 1,
@@ -20094,7 +20094,7 @@
   },
   "ui.hd-chon": {
    "file": "assets/art/ui-hd-chon.png",
-   "v": "54a6a56f",
+   "v": "3d84b8fb",
    "w": 332,
    "h": 87,
    "frames": 1,
@@ -20106,7 +20106,7 @@
   },
   "ui.hd-cuon": {
    "file": "assets/art/ui-hd-cuon.png",
-   "v": "6b7a89cc",
+   "v": "a627e78a",
    "w": 182,
    "h": 232,
    "frames": 1,
@@ -20118,7 +20118,7 @@
   },
   "ui.hd-hop": {
    "file": "assets/art/ui-hd-hop.png",
-   "v": "92b16bf6",
+   "v": "5432d1e8",
    "w": 323,
    "h": 148,
    "frames": 1,
@@ -20130,7 +20130,7 @@
   },
   "ui.hd-i-cai-dat": {
    "file": "assets/art/ui-hd-i-cai-dat.png",
-   "v": "c2880244",
+   "v": "f9d35f73",
    "w": 55,
    "h": 54,
    "frames": 1,
@@ -20142,7 +20142,7 @@
   },
   "ui.hd-i-dong": {
    "file": "assets/art/ui-hd-i-dong.png",
-   "v": "dc038572",
+   "v": "8945df7f",
    "w": 62,
    "h": 57,
    "frames": 1,
@@ -20154,7 +20154,7 @@
   },
   "ui.hd-i-hoi": {
    "file": "assets/art/ui-hd-i-hoi.png",
-   "v": "b396afa8",
+   "v": "632d9fe4",
    "w": 53,
    "h": 51,
    "frames": 1,
@@ -20166,7 +20166,7 @@
   },
   "ui.hd-i-lui": {
    "file": "assets/art/ui-hd-i-lui.png",
-   "v": "fb168d55",
+   "v": "f20a6586",
    "w": 63,
    "h": 59,
    "frames": 1,
@@ -20178,7 +20178,7 @@
   },
   "ui.hd-i-ok": {
    "file": "assets/art/ui-hd-i-ok.png",
-   "v": "8bc6e84e",
+   "v": "8ef68ced",
    "w": 63,
    "h": 59,
    "frames": 1,
@@ -20190,7 +20190,7 @@
   },
   "ui.hd-i-than": {
    "file": "assets/art/ui-hd-i-than.png",
-   "v": "dd1158ef",
+   "v": "0b6c2fde",
    "w": 53,
    "h": 51,
    "frames": 1,
@@ -20202,7 +20202,7 @@
   },
   "ui.hd-i-tin": {
    "file": "assets/art/ui-hd-i-tin.png",
-   "v": "a03450c1",
+   "v": "2f9edea9",
    "w": 53,
    "h": 54,
    "frames": 1,
@@ -20214,7 +20214,7 @@
   },
   "ui.hd-i-toi": {
    "file": "assets/art/ui-hd-i-toi.png",
-   "v": "3fa680ad",
+   "v": "305eb725",
    "w": 63,
    "h": 58,
    "frames": 1,
@@ -20226,7 +20226,7 @@
   },
   "ui.hd-khung": {
    "file": "assets/art/ui-hd-khung.png",
-   "v": "b89254ea",
+   "v": "236e8a9f",
    "w": 347,
    "h": 392,
    "frames": 1,
@@ -20238,7 +20238,7 @@
   },
   "ui.hd-mai": {
    "file": "assets/art/ui-hd-mai.png",
-   "v": "71a15e55",
+   "v": "a3c879d0",
    "w": 396,
    "h": 278,
    "frames": 1,
@@ -20250,7 +20250,7 @@
   },
   "ui.hd-may": {
    "file": "assets/art/ui-hd-may.png",
-   "v": "ef9b1b1f",
+   "v": "88c3d09b",
    "w": 401,
    "h": 115,
    "frames": 1,
@@ -20262,7 +20262,7 @@
   },
   "ui.hd-nhap": {
    "file": "assets/art/ui-hd-nhap.png",
-   "v": "a854f9ed",
+   "v": "344fbfeb",
    "w": 264,
    "h": 53,
    "frames": 1,
@@ -20274,7 +20274,7 @@
   },
   "ui.hd-o": {
    "file": "assets/art/ui-hd-o.png",
-   "v": "43f0d802",
+   "v": "bcdb2680",
    "w": 308,
    "h": 66,
    "frames": 1,
@@ -20286,7 +20286,7 @@
   },
   "ui.hd-o-nhap": {
    "file": "assets/art/ui-hd-o-nhap.png",
-   "v": "15d7fc1a",
+   "v": "bae7fc30",
    "w": 264,
    "h": 54,
    "frames": 1,
@@ -20298,7 +20298,7 @@
   },
   "ui.hd-ring": {
    "file": "assets/art/ui-hd-ring.png",
-   "v": "fadf78b2",
+   "v": "1a3193d2",
    "w": 126,
    "h": 124,
    "frames": 1,
@@ -20310,7 +20310,7 @@
   },
   "ui.hd-ring-lam": {
    "file": "assets/art/ui-hd-ring-lam.png",
-   "v": "a34a8327",
+   "v": "a24b952e",
    "w": 141,
    "h": 141,
    "frames": 1,
@@ -20322,7 +20322,7 @@
   },
   "ui.hd-tab": {
    "file": "assets/art/ui-hd-tab.png",
-   "v": "6075cd69",
+   "v": "58defa18",
    "w": 143,
    "h": 43,
    "frames": 1,
@@ -20334,7 +20334,7 @@
   },
   "ui.hd-tab-on": {
    "file": "assets/art/ui-hd-tab-on.png",
-   "v": "e74003f7",
+   "v": "11133e39",
    "w": 142,
    "h": 42,
    "frames": 1,
@@ -20346,7 +20346,7 @@
   },
   "ui.hd-ten": {
    "file": "assets/art/ui-hd-ten.png",
-   "v": "60518baa",
+   "v": "0513fffa",
    "w": 166,
    "h": 69,
    "frames": 1,
@@ -20358,7 +20358,7 @@
   },
   "ui.hd-thoai": {
    "file": "assets/art/ui-hd-thoai.png",
-   "v": "8421e473",
+   "v": "5487a0e5",
    "w": 312,
    "h": 201,
    "frames": 1,
@@ -20370,19 +20370,19 @@
   },
   "ui.hd-thong-bao": {
    "file": "assets/art/ui-hd-thong-bao.png",
-   "v": "3e24c9a1",
-   "w": 598,
-   "h": 106,
+   "v": "96b62df7",
+   "w": 600,
+   "h": 108,
    "frames": 1,
    "anchor": [
-    299,
-    53
+    300,
+    54
    ],
    "note": "khung thong-bao (ảnh GPT bộ hoa đào)"
   },
   "ui.hd-tieu-de": {
    "file": "assets/art/ui-hd-tieu-de.png",
-   "v": "f806dd31",
+   "v": "bc9a2dd6",
    "w": 372,
    "h": 138,
    "frames": 1,
@@ -20394,7 +20394,7 @@
   },
   "ui.hd-tim": {
    "file": "assets/art/ui-hd-tim.png",
-   "v": "b98db01a",
+   "v": "ab3f3458",
    "w": 310,
    "h": 70,
    "frames": 1,
@@ -20406,7 +20406,7 @@
   },
   "ui.hd-tim-nho": {
    "file": "assets/art/ui-hd-tim-nho.png",
-   "v": "22af3c17",
+   "v": "56fcdc62",
    "w": 179,
    "h": 74,
    "frames": 1,
@@ -20418,7 +20418,7 @@
   },
   "ui.hd-trang": {
    "file": "assets/art/ui-hd-trang.png",
-   "v": "d85dd2b8",
+   "v": "bbfc1ee3",
    "w": 309,
    "h": 330,
    "frames": 1,
@@ -20430,7 +20430,7 @@
   },
   "ui.hd-trang2": {
    "file": "assets/art/ui-hd-trang2.png",
-   "v": "9422173d",
+   "v": "0220f33a",
    "w": 358,
    "h": 265,
    "frames": 1,
@@ -20442,7 +20442,7 @@
   },
   "ui.hd-vang": {
    "file": "assets/art/ui-hd-vang.png",
-   "v": "d830dfe1",
+   "v": "799ea719",
    "w": 345,
    "h": 72,
    "frames": 1,
@@ -20454,7 +20454,7 @@
   },
   "ui.hd-vang-nho": {
    "file": "assets/art/ui-hd-vang-nho.png",
-   "v": "bbf45819",
+   "v": "7fba600e",
    "w": 215,
    "h": 59,
    "frames": 1,
@@ -20466,7 +20466,7 @@
   },
   "ui.hd-viec": {
    "file": "assets/art/ui-hd-viec.png",
-   "v": "b7467be1",
+   "v": "606a8e71",
    "w": 343,
    "h": 67,
    "frames": 1,
@@ -20478,7 +20478,7 @@
   },
   "ui.hd-vong-ban-do": {
    "file": "assets/art/ui-hd-vong-ban-do.png",
-   "v": "ad7db051",
+   "v": "7bafa51e",
    "w": 137,
    "h": 161,
    "frames": 1,
@@ -20488,15 +20488,15 @@
    ],
    "note": "vòng hoa đào lòng trống (khung bản đồ tròn) (ảnh GPT bộ hoa đào)",
    "hole": [
-    0.486,
-    0.559,
-    0.347,
+    0.485,
+    0.555,
+    0.329,
     1.175
    ]
   },
   "ui.hd-vong-hoa": {
    "file": "assets/art/ui-hd-vong-hoa.png",
-   "v": "af321697",
+   "v": "72bc6418",
    "w": 135,
    "h": 130,
    "frames": 1,
@@ -21996,7 +21996,7 @@
   },
   "ui.pc-cam": {
    "file": "assets/art/ui-pc-cam.png",
-   "v": "8eee1175",
+   "v": "c5ca7e6b",
    "w": 206,
    "h": 218,
    "frames": 1,
@@ -22008,7 +22008,7 @@
   },
   "ui.pc-da-cam": {
    "file": "assets/art/ui-pc-da-cam.png",
-   "v": "10a04463",
+   "v": "21d4cf89",
    "w": 49,
    "h": 72,
    "frames": 1,
@@ -22020,7 +22020,7 @@
   },
   "ui.pc-da-den": {
    "file": "assets/art/ui-pc-da-den.png",
-   "v": "e488c750",
+   "v": "d23e1f44",
    "w": 50,
    "h": 77,
    "frames": 1,
@@ -22032,7 +22032,7 @@
   },
   "ui.pc-da-do": {
    "file": "assets/art/ui-pc-da-do.png",
-   "v": "8ae3ebb8",
+   "v": "3cc155df",
    "w": 50,
    "h": 75,
    "frames": 1,
@@ -22044,7 +22044,7 @@
   },
   "ui.pc-da-lam": {
    "file": "assets/art/ui-pc-da-lam.png",
-   "v": "20a6bef2",
+   "v": "359d132c",
    "w": 48,
    "h": 70,
    "frames": 1,
@@ -22056,7 +22056,7 @@
   },
   "ui.pc-da-luc": {
    "file": "assets/art/ui-pc-da-luc.png",
-   "v": "b4a8f126",
+   "v": "16ba0c7f",
    "w": 48,
    "h": 70,
    "frames": 1,
@@ -22068,7 +22068,7 @@
   },
   "ui.pc-da-tim": {
    "file": "assets/art/ui-pc-da-tim.png",
-   "v": "0b404335",
+   "v": "4e01efae",
    "w": 48,
    "h": 71,
    "frames": 1,
@@ -22080,7 +22080,7 @@
   },
   "ui.pc-da-vang": {
    "file": "assets/art/ui-pc-da-vang.png",
-   "v": "77a7899f",
+   "v": "306275bd",
    "w": 51,
    "h": 76,
    "frames": 1,
@@ -22092,7 +22092,7 @@
   },
   "ui.pc-den": {
    "file": "assets/art/ui-pc-den.png",
-   "v": "50d4dc03",
+   "v": "3f7a42c3",
    "w": 210,
    "h": 228,
    "frames": 1,
@@ -22104,19 +22104,19 @@
   },
   "ui.pc-do": {
    "file": "assets/art/ui-pc-do.png",
-   "v": "cb826abc",
-   "w": 206,
-   "h": 218,
+   "v": "d0062f01",
+   "w": 213,
+   "h": 228,
    "frames": 1,
    "anchor": [
-    103,
-    109
+    106,
+    114
    ],
    "note": "ô trang bị phẩm do (ảnh GPT pham-cap.png)"
   },
   "ui.pc-lam": {
    "file": "assets/art/ui-pc-lam.png",
-   "v": "68b69b7a",
+   "v": "e2cda4ae",
    "w": 204,
    "h": 216,
    "frames": 1,
@@ -22128,7 +22128,7 @@
   },
   "ui.pc-luc": {
    "file": "assets/art/ui-pc-luc.png",
-   "v": "cd0d2296",
+   "v": "79fb2651",
    "w": 201,
    "h": 216,
    "frames": 1,
@@ -22140,7 +22140,7 @@
   },
   "ui.pc-ten-cam": {
    "file": "assets/art/ui-pc-ten-cam.png",
-   "v": "8b16c9de",
+   "v": "a5f2a0d0",
    "w": 201,
    "h": 79,
    "frames": 1,
@@ -22152,7 +22152,7 @@
   },
   "ui.pc-ten-den": {
    "file": "assets/art/ui-pc-ten-den.png",
-   "v": "ad72d727",
+   "v": "d52b05b7",
    "w": 206,
    "h": 84,
    "frames": 1,
@@ -22164,7 +22164,7 @@
   },
   "ui.pc-ten-do": {
    "file": "assets/art/ui-pc-ten-do.png",
-   "v": "263ac020",
+   "v": "19398e30",
    "w": 196,
    "h": 80,
    "frames": 1,
@@ -22176,7 +22176,7 @@
   },
   "ui.pc-ten-lam": {
    "file": "assets/art/ui-pc-ten-lam.png",
-   "v": "0b5553a0",
+   "v": "81283989",
    "w": 202,
    "h": 78,
    "frames": 1,
@@ -22188,7 +22188,7 @@
   },
   "ui.pc-ten-luc": {
    "file": "assets/art/ui-pc-ten-luc.png",
-   "v": "22d77146",
+   "v": "29820bd0",
    "w": 202,
    "h": 81,
    "frames": 1,
@@ -22200,7 +22200,7 @@
   },
   "ui.pc-ten-tim": {
    "file": "assets/art/ui-pc-ten-tim.png",
-   "v": "6f5185b0",
+   "v": "44bb53c7",
    "w": 208,
    "h": 81,
    "frames": 1,
@@ -22212,7 +22212,7 @@
   },
   "ui.pc-ten-vang": {
    "file": "assets/art/ui-pc-ten-vang.png",
-   "v": "33628466",
+   "v": "bed07a02",
    "w": 211,
    "h": 89,
    "frames": 1,
@@ -22224,7 +22224,7 @@
   },
   "ui.pc-tim": {
    "file": "assets/art/ui-pc-tim.png",
-   "v": "71182858",
+   "v": "0a47b25b",
    "w": 201,
    "h": 217,
    "frames": 1,
@@ -22236,13 +22236,13 @@
   },
   "ui.pc-vang": {
    "file": "assets/art/ui-pc-vang.png",
-   "v": "58f0bdbd",
-   "w": 208,
-   "h": 220,
+   "v": "267e2129",
+   "w": 210,
+   "h": 228,
    "frames": 1,
    "anchor": [
-    104,
-    110
+    105,
+    114
    ],
    "note": "ô trang bị phẩm vang (ảnh GPT pham-cap.png)"
   },

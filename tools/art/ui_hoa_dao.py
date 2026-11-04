@@ -1,5 +1,5 @@
 """Bộ khung hoa đào từ ảnh GPT (chủ dự án 04/11/2026 10:05, 10:16, 10:23; nguon/ai/ui/hoa-dao-1.png … hoa-dao-4.png).
-Ảnh nền trong suốt nhưng còn quầng mờ (độ mờ thấp) quanh hình: chỉ giữ điểm có alpha >= 200, đặt đặc hẳn; cắt từng món theo khung
+Ảnh nền trong suốt nhưng còn quầng mờ (độ mờ thấp) quanh hình: bỏ điểm alpha dưới 64, giữ nguyên độ mờ mép còn lại; cắt từng món theo khung
 đo trên ảnh (toạ độ ảnh gốc 1536×1024), giữ nguyên độ phân giải (chỉ cắt và ghép, chủ dự án 02/11/2026 22:51).
 Món nào lắp vào đâu (style-ui-hoa-dao.css; tên hình ui-hd-<khoá> theo bảng B1–B4 bên dưới):
 - chân dung theo Linh căn: mộc hoa đào, kim vàng kim cương, thủy vòng sóng, hỏa vòng lửa, thổ vòng mây vàng (ảnh 2); lòng tròn khoét
@@ -23,8 +23,7 @@ SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ui'
 
 def _load(k):
     a = np.array(Image.open(SRC / f'hoa-dao-{k}.png').convert('RGBA'))
-    keep = a[:, :, 3] >= 200
-    a[:, :, 3] = np.where(keep, 255, 0)
+    a[:, :, 3] = np.where(a[:, :, 3] >= 64, a[:, :, 3], 0)   # bỏ quầng mờ nhạt, giữ mép mềm của ảnh gốc (chủ dự án 04/11/2026 10:39: cắt cứng thì mép vỡ)
     return a
 
 

@@ -2,6 +2,12 @@
    tools/art/ui_hoa_dao.py, ui_pham_cap.py, giữ nguyên hình). Nạp sau cùng (style.css @import), đè khung bộ GPT một, hai.
    Khung 9 mảnh: số cắt tính theo điểm ảnh hình gốc, bề dày viền trên màn = số cắt × tỉ lệ thu (ghi cạnh từng luật). */
 
+/* Khung thu nhỏ còn khoảng 1/3: làm mịn khi thu (pixelated thu nhỏ thì mép vỡ, chủ dự án 04/11/2026 10:39) */
+body #bag, body .panel, body .side-nav, body .sn-item, body #dialog, body #dialog .who, body #dialog .choice, body .bag-head > b, body .bag-tabs button, body .world-tabs button,
+body #hud .bars .bar, body #hud .bars .bar::before, body #hud .bars .bar i, body #hud .hud-btns > button, body #btn-auto, #mini-map i, #mini-map b, body #goal, body .chat-dock, body .chat-dock .cd-input,
+#hop-thu, .uk-tog, body .faq-btn, body #toast, body #bag .ico, body #menu #logged, body #menu #login-form, body #menu .menu-btn, body #menu input, body #menu .help, body #menu .health,
+body #loading .ld-box, #uk-ava i, body #btn-atk::after, body #btn-s0::after, body #btn-s1::after, body #btn-s2::after, body #btn-pill::after, body #btn-art::after, body #btn-dash::after { image-rendering: auto !important; }
+
 /* ---- bảng chức năng, túi đồ: khung mái ngói hoa đào, hai đèn lồng, lòng tím (thu 0,3) ---- */
 body #bag, body .panel { border-style: solid !important; border-color: transparent !important; border-width: 66px 18px 13px !important;
   border-image: url("assets/art/ui-hd-bang.png") 220 60 44 fill / 66px 18px 13px / 0 stretch !important; background-color: transparent !important; }
