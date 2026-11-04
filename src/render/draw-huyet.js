@@ -77,7 +77,7 @@ export function drawBloodAura(ctx, fx, fy, top, t, back, riding) {
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
       ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = '#ff2a3a'; ctx.shadowColor = '#ff1a2e'; ctx.shadowBlur = 6 * (Math.abs(ctx.getTransform().d) || 1);
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 1; i++) {   // một vòng ấn (chủ dự án 05/11/2026 00:37: nhiều vòng quá, bỏ vòng trắng ngoài cùng)
         ctx.globalAlpha = 0.25 + 0.2 * p - i * 0.08; ctx.lineWidth = 0.7;
         ctx.beginPath(); ctx.ellipse(fx, fy, 11 + i * 4 + p, (11 + i * 4 + p) * 0.3, 0, t * (i ? -0.6 : 0.8), t * (i ? -0.6 : 0.8) + Math.PI * 1.6); ctx.stroke();
       }
