@@ -79,6 +79,6 @@ body .chat-dock .cd-input { border: 6px solid transparent; border-image: url("as
 body.hud-gon #uk-gon::before { background-image: url("assets/art/ui-k-arrow-r.png"); }
 #uk-an { width: auto; padding: 0 2px; }
 body.hud-gon #hud .hud-btns { display: none !important; }
-body:has(#uk-gon:not([hidden])) #hud .hud-btns { margin-top: 34px; }   /* chừa hàng cho hai nút thu gọn, ẩn ngay dưới thanh linh khí */
+/* (hai nút thu gọn, ẩn đã dời sang phải: chủ dự án 04/11/2026 09:57, src/ui/hud-gon.js) */
 body.ui-an #hud, body.ui-an .quest-dock, body.ui-an .chat-dock, body.ui-an #feed, body.ui-an #uk-gon { visibility: hidden !important; }
 body:has(.panel:not([hidden])) .uk-tog, body:has(#bag:not([hidden])) .uk-tog, body:has(#dialog:not([hidden])) .uk-tog, body.trip .uk-tog { display: none; }
