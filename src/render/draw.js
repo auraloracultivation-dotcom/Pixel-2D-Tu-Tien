@@ -46,6 +46,8 @@ import { drawDen } from './draw-den.js';
 import { drawDuelist } from './draw-duel.js';
 import { drawDummy } from './draw-dummy.js';
 import { duelFoes } from '../game/duel.js';
+import { drawVfx } from './vfx/draw-vfx.js';
+import { vfxOf } from '../game/vfx.js';
 
 const INK = '#1b1830';
 
@@ -90,8 +92,8 @@ function drawPlayer(ctx, game, t) {
     drawWeapon(ctx, p, w);
   }
   drawFlyWeapon(ctx, game, 'front');
-  if (p.shield > 0) { ctx.globalAlpha = 0.7; ring(ctx, p.x, p.y - 6, 10, p.shieldColor); }
-  if (p.buffT > 0) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
+  if (p.shield > 0 && !vfxOf(game, p.shieldSk)) { ctx.globalAlpha = 0.7; ring(ctx, p.x, p.y - 6, 10, p.shieldColor); }   // khiên có hiệu ứng mới: vẽ ở lớp trên (src/render/vfx/)
+  if (p.buffT > 0 && !vfxOf(game, p.buffSk)) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
   drawTitle(ctx, game, p);
   if (p.riding) ctx.restore();
@@ -299,7 +301,8 @@ export function drawWorld(game, screen, t) {
   drawFocus(ctx, game, screen.viewRect());   // nền lùi lại: nhạt màu, tối chút; quái, người, đồ, hiệu ứng vẽ sau giữ nguyên màu
   drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
-  for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp
+  for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp (chiêu có hiệu ứng mới vẽ ở lớp trên)
+    if (vfxOf(game, z.sk)) continue;
     const k = 1 - Math.max(0, z.next) / z.tick;
     ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); disc(ctx, z.x, z.y, z.radius, z.color);
     ctx.globalAlpha = 0.6; ring(ctx, z.x, z.y, z.radius, z.color, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.globalAlpha = 1;
@@ -350,7 +353,8 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
   drawBloom(ctx, game, screen, lights);
-  screen.worldTransform(); drawSlashes(ctx, game); screen.screenTransform();   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
+  screen.worldTransform(); drawSlashes(ctx, game);   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
+  drawVfx(ctx, game, t); screen.screenTransform();   // hiệu ứng chiêu: lớp trên cùng, đè nhà cửa, người (quy tắc chiêu 05/11/2026)
   if (game.flashT > 0) {   // chớp dịu (config.comfort): màu ấm, không trắng toát cả màn
     const c = game.data.config.comfort || {};
     ctx.fillStyle = `rgba(${c.flash_rgb || '255,255,255'},${Math.min(1, game.flashT / 0.35) * (c.flash_max ?? 1)})`; ctx.fillRect(0, 0, screen.w, screen.h);

@@ -25318,6 +25318,762 @@
    ],
    "note": "nguồn sáng khung giao diện: wisp (ảnh Canva den-2.png)"
   },
+  "vfx.am": {
+   "file": "assets/art/vfx-am.png",
+   "v": "f962e42b",
+   "w": 128,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    64,
+    47
+   ],
+   "note": "hiệu ứng chiêu am (ảnh GPT chieu-3.png)"
+  },
+  "vfx.bang-phach": {
+   "file": "assets/art/vfx-bang-phach.png",
+   "v": "e3ffd310",
+   "w": 128,
+   "h": 111,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu bang-phach (ảnh GPT chieu-2.png)"
+  },
+  "vfx.bang-phong": {
+   "file": "assets/art/vfx-bang-phong.png",
+   "v": "6e0ce255",
+   "w": 107,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    53,
+    64
+   ],
+   "note": "hiệu ứng chiêu bang-phong (ảnh GPT chieu-1.png)"
+  },
+  "vfx.bang-truy": {
+   "file": "assets/art/vfx-bang-truy.png",
+   "v": "21692c79",
+   "w": 128,
+   "h": 91,
+   "frames": 1,
+   "anchor": [
+    64,
+    45
+   ],
+   "note": "hiệu ứng chiêu bang-truy (ảnh GPT chieu-1.png)"
+  },
+  "vfx.cuong-phong": {
+   "file": "assets/art/vfx-cuong-phong.png",
+   "v": "24c2fe0c",
+   "w": 128,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    64,
+    60
+   ],
+   "note": "hiệu ứng chiêu cuong-phong (ảnh GPT chieu-2.png)"
+  },
+  "vfx.da": {
+   "file": "assets/art/vfx-da.png",
+   "v": "dfbbfc85",
+   "w": 128,
+   "h": 103,
+   "frames": 1,
+   "anchor": [
+    64,
+    51
+   ],
+   "note": "hiệu ứng chiêu da (ảnh GPT chieu-3.png)"
+  },
+  "vfx.dai-dia": {
+   "file": "assets/art/vfx-dai-dia.png",
+   "v": "cd450b49",
+   "w": 128,
+   "h": 125,
+   "frames": 1,
+   "anchor": [
+    64,
+    62
+   ],
+   "note": "hiệu ứng chiêu dai-dia (ảnh GPT chieu-2.png)"
+  },
+  "vfx.dang-phuoc": {
+   "file": "assets/art/vfx-dang-phuoc.png",
+   "v": "b2ef3e0d",
+   "w": 116,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    58,
+    64
+   ],
+   "note": "hiệu ứng chiêu dang-phuoc (ảnh GPT chieu-1.png)"
+  },
+  "vfx.dia-chan": {
+   "file": "assets/art/vfx-dia-chan.png",
+   "v": "9dbebae9",
+   "w": 128,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    64,
+    58
+   ],
+   "note": "hiệu ứng chiêu dia-chan (ảnh GPT chieu-1.png)"
+  },
+  "vfx.gio": {
+   "file": "assets/art/vfx-gio.png",
+   "v": "26a46679",
+   "w": 128,
+   "h": 92,
+   "frames": 1,
+   "anchor": [
+    64,
+    46
+   ],
+   "note": "hiệu ứng chiêu gio (ảnh GPT chieu-3.png)"
+  },
+  "vfx.giot": {
+   "file": "assets/art/vfx-giot.png",
+   "v": "b8cb431b",
+   "w": 128,
+   "h": 118,
+   "frames": 1,
+   "anchor": [
+    64,
+    59
+   ],
+   "note": "hiệu ứng chiêu giot (ảnh GPT chieu-3.png)"
+  },
+  "vfx.han-bang-vuc": {
+   "file": "assets/art/vfx-han-bang-vuc.png",
+   "v": "629d87da",
+   "w": 128,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    64,
+    54
+   ],
+   "note": "hiệu ứng chiêu han-bang-vuc (ảnh GPT chieu-2.png)"
+  },
+  "vfx.hoa-cau": {
+   "file": "assets/art/vfx-hoa-cau.png",
+   "v": "c903b9dc",
+   "w": 128,
+   "h": 79,
+   "frames": 1,
+   "anchor": [
+    64,
+    39
+   ],
+   "note": "hiệu ứng chiêu hoa-cau (ảnh GPT chieu-1.png)"
+  },
+  "vfx.hoa-long": {
+   "file": "assets/art/vfx-hoa-long.png",
+   "v": "47b48a8c",
+   "w": 128,
+   "h": 126,
+   "frames": 1,
+   "anchor": [
+    64,
+    63
+   ],
+   "note": "hiệu ứng chiêu hoa-long (ảnh GPT chieu-1.png)"
+  },
+  "vfx.hoi-xuan": {
+   "file": "assets/art/vfx-hoi-xuan.png",
+   "v": "8c67cd6a",
+   "w": 113,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    56,
+    64
+   ],
+   "note": "hiệu ứng chiêu hoi-xuan (ảnh GPT chieu-1.png)"
+  },
+  "vfx.kiem-khi": {
+   "file": "assets/art/vfx-kiem-khi.png",
+   "v": "d114ccdd",
+   "w": 128,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    64,
+    54
+   ],
+   "note": "hiệu ứng chiêu kiem-khi (ảnh GPT chieu-1.png)"
+  },
+  "vfx.kim-cuong-the": {
+   "file": "assets/art/vfx-kim-cuong-the.png",
+   "v": "0d850b7b",
+   "w": 93,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    46,
+    64
+   ],
+   "note": "hiệu ứng chiêu kim-cuong-the (ảnh GPT chieu-1.png)"
+  },
+  "vfx.kim-luan": {
+   "file": "assets/art/vfx-kim-luan.png",
+   "v": "c25b341a",
+   "w": 128,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    64,
+    58
+   ],
+   "note": "hiệu ứng chiêu kim-luan (ảnh GPT chieu-2.png)"
+  },
+  "vfx.kim-quang-tram": {
+   "file": "assets/art/vfx-kim-quang-tram.png",
+   "v": "ebdbbf3b",
+   "w": 128,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    64,
+    30
+   ],
+   "note": "hiệu ứng chiêu kim-quang-tram (ảnh GPT chieu-1.png)"
+  },
+  "vfx.kim-than": {
+   "file": "assets/art/vfx-kim-than.png",
+   "v": "7665329f",
+   "w": 128,
+   "h": 115,
+   "frames": 1,
+   "anchor": [
+    64,
+    57
+   ],
+   "note": "hiệu ứng chiêu kim-than (ảnh GPT chieu-2.png)"
+  },
+  "vfx.la": {
+   "file": "assets/art/vfx-la.png",
+   "v": "1e6e6441",
+   "w": 120,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    60,
+    64
+   ],
+   "note": "hiệu ứng chiêu la (ảnh GPT chieu-3.png)"
+  },
+  "vfx.lien-chau": {
+   "file": "assets/art/vfx-lien-chau.png",
+   "v": "90932bec",
+   "w": 128,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    64,
+    32
+   ],
+   "note": "hiệu ứng chiêu lien-chau (ảnh GPT chieu-2.png)"
+  },
+  "vfx.liet-diem": {
+   "file": "assets/art/vfx-liet-diem.png",
+   "v": "0de2ce9f",
+   "w": 122,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    61,
+    64
+   ],
+   "note": "hiệu ứng chiêu liet-diem (ảnh GPT chieu-1.png)"
+  },
+  "vfx.liet-hoa-tran": {
+   "file": "assets/art/vfx-liet-hoa-tran.png",
+   "v": "1e6b7110",
+   "w": 119,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    59,
+    64
+   ],
+   "note": "hiệu ứng chiêu liet-hoa-tran (ảnh GPT chieu-1.png)"
+  },
+  "vfx.loi-dinh": {
+   "file": "assets/art/vfx-loi-dinh.png",
+   "v": "0e219dfc",
+   "w": 121,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    60,
+    64
+   ],
+   "note": "hiệu ứng chiêu loi-dinh (ảnh GPT chieu-2.png)"
+  },
+  "vfx.long-thuong": {
+   "file": "assets/art/vfx-long-thuong.png",
+   "v": "903c9f4f",
+   "w": 128,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    64,
+    32
+   ],
+   "note": "hiệu ứng chiêu long-thuong (ảnh GPT chieu-2.png)"
+  },
+  "vfx.lua": {
+   "file": "assets/art/vfx-lua.png",
+   "v": "12a13cc2",
+   "w": 113,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    56,
+    64
+   ],
+   "note": "hiệu ứng chiêu lua (ảnh GPT chieu-3.png)"
+  },
+  "vfx.luc-dang-long": {
+   "file": "assets/art/vfx-luc-dang-long.png",
+   "v": "ba3e21a1",
+   "w": 128,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu luc-dang-long (ảnh GPT chieu-1.png)"
+  },
+  "vfx.luu-sa": {
+   "file": "assets/art/vfx-luu-sa.png",
+   "v": "7ec35f03",
+   "w": 128,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    64,
+    49
+   ],
+   "note": "hiệu ứng chiêu luu-sa (ảnh GPT chieu-2.png)"
+  },
+  "vfx.no-bang": {
+   "file": "assets/art/vfx-no-bang.png",
+   "v": "a883ad85",
+   "w": 128,
+   "h": 125,
+   "frames": 1,
+   "anchor": [
+    64,
+    62
+   ],
+   "note": "hiệu ứng chiêu no-bang (ảnh GPT chieu-3.png)"
+  },
+  "vfx.no-da": {
+   "file": "assets/art/vfx-no-da.png",
+   "v": "af00ece8",
+   "w": 128,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    64,
+    59
+   ],
+   "note": "hiệu ứng chiêu no-da (ảnh GPT chieu-3.png)"
+  },
+  "vfx.no-la": {
+   "file": "assets/art/vfx-no-la.png",
+   "v": "06bb747e",
+   "w": 128,
+   "h": 111,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu no-la (ảnh GPT chieu-3.png)"
+  },
+  "vfx.no-lua": {
+   "file": "assets/art/vfx-no-lua.png",
+   "v": "63cf58aa",
+   "w": 128,
+   "h": 126,
+   "frames": 1,
+   "anchor": [
+    64,
+    63
+   ],
+   "note": "hiệu ứng chiêu no-lua (ảnh GPT chieu-3.png)"
+  },
+  "vfx.no-nuoc": {
+   "file": "assets/art/vfx-no-nuoc.png",
+   "v": "38d8a616",
+   "w": 128,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    64,
+    60
+   ],
+   "note": "hiệu ứng chiêu no-nuoc (ảnh GPT chieu-3.png)"
+  },
+  "vfx.phan-thien": {
+   "file": "assets/art/vfx-phan-thien.png",
+   "v": "72c714c3",
+   "w": 128,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    64,
+    60
+   ],
+   "note": "hiệu ứng chiêu phan-thien (ảnh GPT chieu-1.png)"
+  },
+  "vfx.phap-hoa-hon": {
+   "file": "assets/art/vfx-phap-hoa-hon.png",
+   "v": "afe8034b",
+   "w": 128,
+   "h": 118,
+   "frames": 1,
+   "anchor": [
+    64,
+    59
+   ],
+   "note": "hiệu ứng chiêu phap-hoa-hon (ảnh GPT chieu-3.png)"
+  },
+  "vfx.phap-huyen-thuy": {
+   "file": "assets/art/vfx-phap-huyen-thuy.png",
+   "v": "b2b88a49",
+   "w": 128,
+   "h": 112,
+   "frames": 1,
+   "anchor": [
+    64,
+    56
+   ],
+   "note": "hiệu ứng chiêu phap-huyen-thuy (ảnh GPT chieu-2.png)"
+  },
+  "vfx.phap-kim-luan": {
+   "file": "assets/art/vfx-phap-kim-luan.png",
+   "v": "c2b898d8",
+   "w": 126,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    63,
+    64
+   ],
+   "note": "hiệu ứng chiêu phap-kim-luan (ảnh GPT chieu-2.png)"
+  },
+  "vfx.phap-thanh-moc": {
+   "file": "assets/art/vfx-phap-thanh-moc.png",
+   "v": "40eab232",
+   "w": 128,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu phap-thanh-moc (ảnh GPT chieu-2.png)"
+  },
+  "vfx.phap-tran-yeu": {
+   "file": "assets/art/vfx-phap-tran-yeu.png",
+   "v": "b2a97011",
+   "w": 119,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    59,
+    64
+   ],
+   "note": "hiệu ứng chiêu phap-tran-yeu (ảnh GPT chieu-2.png)"
+  },
+  "vfx.phuong-hoang": {
+   "file": "assets/art/vfx-phuong-hoang.png",
+   "v": "2537f1b5",
+   "w": 112,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    56,
+    64
+   ],
+   "note": "hiệu ứng chiêu phuong-hoang (ảnh GPT chieu-1.png)"
+  },
+  "vfx.sao-vang": {
+   "file": "assets/art/vfx-sao-vang.png",
+   "v": "4f97579e",
+   "w": 128,
+   "h": 126,
+   "frames": 1,
+   "anchor": [
+    64,
+    63
+   ],
+   "note": "hiệu ứng chiêu sao-vang (ảnh GPT chieu-3.png)"
+  },
+  "vfx.set": {
+   "file": "assets/art/vfx-set.png",
+   "v": "d052d450",
+   "w": 128,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    64,
+    52
+   ],
+   "note": "hiệu ứng chiêu set (ảnh GPT chieu-3.png)"
+  },
+  "vfx.son-nhac": {
+   "file": "assets/art/vfx-son-nhac.png",
+   "v": "5a806e8d",
+   "w": 128,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu son-nhac (ảnh GPT chieu-2.png)"
+  },
+  "vfx.song-nguyet-tram": {
+   "file": "assets/art/vfx-song-nguyet-tram.png",
+   "v": "90f4e005",
+   "w": 128,
+   "h": 112,
+   "frames": 1,
+   "anchor": [
+    64,
+    56
+   ],
+   "note": "hiệu ứng chiêu song-nguyet-tram (ảnh GPT chieu-2.png)"
+  },
+  "vfx.thach-chuy": {
+   "file": "assets/art/vfx-thach-chuy.png",
+   "v": "78bccf12",
+   "w": 128,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    64,
+    37
+   ],
+   "note": "hiệu ứng chiêu thach-chuy (ảnh GPT chieu-2.png)"
+  },
+  "vfx.thach-giap": {
+   "file": "assets/art/vfx-thach-giap.png",
+   "v": "5aa24351",
+   "w": 119,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    59,
+    64
+   ],
+   "note": "hiệu ứng chiêu thach-giap (ảnh GPT chieu-1.png)"
+  },
+  "vfx.thanh-moc-vuc": {
+   "file": "assets/art/vfx-thanh-moc-vuc.png",
+   "v": "2b0f9f73",
+   "w": 128,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    64,
+    54
+   ],
+   "note": "hiệu ứng chiêu thanh-moc-vuc (ảnh GPT chieu-1.png)"
+  },
+  "vfx.thanh-quang": {
+   "file": "assets/art/vfx-thanh-quang.png",
+   "v": "6c81a03a",
+   "w": 128,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    64,
+    54
+   ],
+   "note": "hiệu ứng chiêu thanh-quang (ảnh GPT chieu-3.png)"
+  },
+  "vfx.that-huyen": {
+   "file": "assets/art/vfx-that-huyen.png",
+   "v": "c69c941d",
+   "w": 128,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    64,
+    37
+   ],
+   "note": "hiệu ứng chiêu that-huyen (ảnh GPT chieu-2.png)"
+  },
+  "vfx.thuy-long": {
+   "file": "assets/art/vfx-thuy-long.png",
+   "v": "b5e79941",
+   "w": 104,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    52,
+    64
+   ],
+   "note": "hiệu ứng chiêu thuy-long (ảnh GPT chieu-1.png)"
+  },
+  "vfx.thuy-thuan": {
+   "file": "assets/art/vfx-thuy-thuan.png",
+   "v": "065a96a1",
+   "w": 125,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    62,
+    64
+   ],
+   "note": "hiệu ứng chiêu thuy-thuan (ảnh GPT chieu-1.png)"
+  },
+  "vfx.tran-hoa": {
+   "file": "assets/art/vfx-tran-hoa.png",
+   "v": "6dacdb3c",
+   "w": 128,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    64,
+    58
+   ],
+   "note": "hiệu ứng chiêu tran-hoa (ảnh GPT chieu-3.png)"
+  },
+  "vfx.tran-kim": {
+   "file": "assets/art/vfx-tran-kim.png",
+   "v": "678ab6af",
+   "w": 128,
+   "h": 121,
+   "frames": 1,
+   "anchor": [
+    64,
+    60
+   ],
+   "note": "hiệu ứng chiêu tran-kim (ảnh GPT chieu-3.png)"
+  },
+  "vfx.tran-moc": {
+   "file": "assets/art/vfx-tran-moc.png",
+   "v": "f8d94274",
+   "w": 128,
+   "h": 122,
+   "frames": 1,
+   "anchor": [
+    64,
+    61
+   ],
+   "note": "hiệu ứng chiêu tran-moc (ảnh GPT chieu-3.png)"
+  },
+  "vfx.tran-tho": {
+   "file": "assets/art/vfx-tran-tho.png",
+   "v": "16a96b39",
+   "w": 128,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    64,
+    59
+   ],
+   "note": "hiệu ứng chiêu tran-tho (ảnh GPT chieu-3.png)"
+  },
+  "vfx.tran-thuy": {
+   "file": "assets/art/vfx-tran-thuy.png",
+   "v": "c040e3ca",
+   "w": 128,
+   "h": 123,
+   "frames": 1,
+   "anchor": [
+    64,
+    61
+   ],
+   "note": "hiệu ứng chiêu tran-thuy (ảnh GPT chieu-3.png)"
+  },
+  "vfx.truong-xuan": {
+   "file": "assets/art/vfx-truong-xuan.png",
+   "v": "2239a8ee",
+   "w": 127,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    63,
+    64
+   ],
+   "note": "hiệu ứng chiêu truong-xuan (ảnh GPT chieu-1.png)"
+  },
+  "vfx.tu-nguyet-liem": {
+   "file": "assets/art/vfx-tu-nguyet-liem.png",
+   "v": "2b55c99e",
+   "w": 128,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    64,
+    46
+   ],
+   "note": "hiệu ứng chiêu tu-nguyet-liem (ảnh GPT chieu-2.png)"
+  },
+  "vfx.tu-nguyet-luan": {
+   "file": "assets/art/vfx-tu-nguyet-luan.png",
+   "v": "43c9de63",
+   "w": 128,
+   "h": 111,
+   "frames": 1,
+   "anchor": [
+    64,
+    55
+   ],
+   "note": "hiệu ứng chiêu tu-nguyet-luan (ảnh GPT chieu-2.png)"
+  },
+  "vfx.tuyet": {
+   "file": "assets/art/vfx-tuyet.png",
+   "v": "1cbabfa0",
+   "w": 118,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    59,
+    64
+   ],
+   "note": "hiệu ứng chiêu tuyet (ảnh GPT chieu-3.png)"
+  },
+  "vfx.van-kiem": {
+   "file": "assets/art/vfx-van-kiem.png",
+   "v": "b7232a58",
+   "w": 128,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    64,
+    33
+   ],
+   "note": "hiệu ứng chiêu van-kiem (ảnh GPT chieu-2.png)"
+  },
+  "vfx.van-moc-cham": {
+   "file": "assets/art/vfx-van-moc-cham.png",
+   "v": "a4bec194",
+   "w": 128,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    64,
+    58
+   ],
+   "note": "hiệu ứng chiêu van-moc-cham (ảnh GPT chieu-1.png)"
+  },
   "wpn.ma-than-thuong": {
    "file": "assets/art/wpn-ma-than-thuong.png",
    "v": "b9398a15",

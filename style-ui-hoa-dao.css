@@ -123,3 +123,6 @@ body #menu input { border: solid transparent !important; border-width: 8px 10px 
   background: none !important; border-radius: 0 !important; color: #fff1c8 !important; box-shadow: none !important; }
 body #menu .help, body #menu .health { border-width: 12px 22px !important; border-image: url("assets/art/ui-hd-dn-may.png") 34 60 fill / 12px 22px / 0 stretch !important; }
 body #loading .ld-box { border: solid transparent; border-width: 26px 14px 20px; border-image: url("assets/art/ui-hd-trang2.png") 66 34 48 fill / 26px 14px 20px / 0 stretch; background: none; }
+
+/* nút chiêu: hình riêng từng chiêu (ảnh GPT 05/11/2026, vfx.<chiêu>), vẽ mượt, vừa trong lòng vòng */
+body #btn-s0, body #btn-s1, body #btn-s2 { image-rendering: auto; background-size: 34px 34px !important; background-repeat: no-repeat !important; }

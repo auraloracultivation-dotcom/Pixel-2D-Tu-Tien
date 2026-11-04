@@ -39,6 +39,7 @@ import { updateDaoVan } from './daovan.js';
 import { showBanner } from './banner.js';
 import { cloudHooks, pickSave, startGuard } from './cloud-guard.js';
 import { updateStroll } from './stroll.js';
+import { updateVfx } from './vfx.js';
 import { spawnWild, updateWild } from './wildlife.js';
 import { eliteKill } from './fashion.js';
 import { updatePilotLog } from './pilotlog.js';
@@ -163,7 +164,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile, data);
-    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = [];
+    game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = []; game.vfx = null;
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     const c = game.map.center(sp[0], sp[1]);
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
@@ -346,6 +347,7 @@ export function createGame(data, screen, input, ui, audio) {
     updateBullets(game, dt);
     updateStrikes(game, dt);
     updateZones(game, dt);
+    updateVfx(game, dt);   // hiệu ứng chiêu thế hệ mới (src/game/vfx.js)
     game.trib.update(dt);
     updateLoot(game, dt);
     updatePickups(game);

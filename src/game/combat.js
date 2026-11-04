@@ -3,6 +3,7 @@ import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 import { killQiMul } from './stats.js';
 import { dummyHit } from './dummy.js';
+import { vfxHit, vfxOf } from './vfx.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -107,24 +108,30 @@ export function updateBullets(game, dt) {
         if (m.dead || b.hit.has(m) || dist(b, m) > m.r + b.r) continue;
         b.hit.add(m);
         hitMob(game, m, b.dmg, { slow: b.slow, stun: b.stun, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy });
-        if (b.fx) burstFx(game, b.fx, m.x, m.y, b.explode || 10, Math.atan2(b.vy, b.vx));
+        if (!(b.sk && vfxHit(game, b, m.x, m.y, b.pierce ? 0 : b.explode || 0)) && b.fx) burstFx(game, b.fx, m.x, m.y, b.explode || 10, Math.atan2(b.vy, b.vx));
+        if (b.sk && !b.pierce) b.vfxDone = true;
         if (!b.pierce) { b.life = 0; burst(game, b); break; }
       }
     } else if (b.from === 'see') continue;   // đạn quái của đội trưởng, chỉ để nhìn; trúng hay không do máy đội trưởng báo
     else if (dist(b, game.player) < game.player.r + b.r) {
       hitPlayer(game, b.dmg, { x: b.x - b.vx, y: b.y - b.vy, src: b.src }); b.life = 0;
+      if (b.sk) { vfxHit(game, b, b.x, b.y, b.explode || 0); b.vfxDone = true; }
     } else {
       const o = partyGhosts(game).find(g => dist(b, g) < g.r + b.r);
       if (o) { partyHurt(game, o.id, b.dmg, { x: b.x - b.vx, y: b.y - b.vy }); b.life = 0; }
     }
   }
+  for (const b of game.bullets) if (b.life <= 0 && b.sk && !b.vfxDone && vfxOf(game, b.sk)) { b.vfxDone = true; vfxHit(game, b, b.x, b.y, b.explode || 0); }   // hết đường: tan, nổ nhẹ
   game.bullets = game.bullets.filter(b => b.life > 0);
 }
 
 function burst(game, b) {
+  if (b.sk && vfxOf(game, b.sk) && !b.vfxDone) { b.vfxDone = true; vfxHit(game, b, b.x, b.y, b.explode || 0); }
   if (!b.explode) return;
-  if (b.fx) burstFx(game, b.fx, b.x, b.y, b.explode, Math.atan2(b.vy, b.vx));
-  addFx(game, { type: 'ring', x: b.x, y: b.y, r: b.explode, color: b.color, life: 0.3 });
+  if (!vfxOf(game, b.sk)) {
+    if (b.fx) burstFx(game, b.fx, b.x, b.y, b.explode, Math.atan2(b.vy, b.vx));
+    addFx(game, { type: 'ring', x: b.x, y: b.y, r: b.explode, color: b.color, life: 0.3 });
+  }
   if (b.from !== 'player') {   // chiêu nổ của bản sao so tài chạm vách: nổ trúng người chơi, không trúng quái
     if (b.src?.duel && dist(b, game.player) < b.explode + game.player.r) hitPlayer(game, b.dmg * 0.6, { x: b.x, y: b.y, src: b.src });
     return;

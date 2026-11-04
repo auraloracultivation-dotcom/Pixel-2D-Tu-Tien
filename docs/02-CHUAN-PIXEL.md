@@ -2,6 +2,16 @@
 
 Bản chơi tạm hiện vẽ hình khối đơn giản. Khi sang bước 3, hình thay theo chuẩn này.
 
+**Quy tắc cốt lõi về chiêu (chủ dự án chốt 05/11/2026 02:31, đè lên các dòng cũ nếu khác):**
+- Nhân vật là điểm ảnh, hơi phát quang. Nền không quá sáng để đèn và hiệu ứng có đất diễn.
+- Chiêu thì mượt (không ra điểm ảnh), bay từ từ; chính giữa phát sáng trắng rất mạnh, mịn, ra ngoài mờ dần theo màu chiêu.
+- Vệt sáng và hiệu ứng chiêu vẽ đè lên toàn bộ nhà cửa, cây, con người (lớp vẽ trên cùng, sau lớp ngày đêm, mây, bóng tối hầm).
+- Chiêu nhắm vào quái mà bắn, hoặc theo hướng người chơi kéo; không bao giờ đánh về phía màn hình.
+- Chiêu bay đủ chậm để người khác kịp né (sau này có PvP): đạn chậm hơn nhiều so với cũ, chỉ nhanh hơn tốc chạy người chơi chừng 1,2–1,8 lần.
+- Dùng chiêu không cần nhân vật ra động tác; chỉ chém thường mới ra động tác đánh.
+- Tham khảo cách làm hiệu ứng của Soul Knight, My Heroes: Dungeon Raid: đạn đọc rõ (lõi trắng, vành màu), lóe ở tay lúc tung, đuôi hạt, nổ tóe hạt khi trúng, quái chớp trắng, chiêu lớn có vòng báo, chiêu soi sáng chỗ tối.
+- Hình chính của chiêu từ ảnh GPT (`tools/art/nguon/ai/chieu/`, `tools/art/vfx_chieu.py` → `vfx.*`), chuyển động và ánh sáng do code (`src/render/vfx/`, công thức từng chiêu ở `data/vfx.json`); không lấy hình rồi dùng nguyên, phải làm cho đúng ý chiêu.
+
 - Pixel thật: vẽ thế giới ra khung độ phân giải gốc, phóng nguyên lần bằng nearest neighbor, không làm mịn. 1 điểm ảnh hình = 2 đơn vị thế giới.
 - Viền 1 px tối cùng tông (hoặc mực #1b1830), bóng 3 tông đổi sắc, sáng từ trên trái, không khử răng cưa.
 - Hiệu ứng: không viền, lõi trắng, quầng sáng cộng; tan bằng dither Bayer 4×4.

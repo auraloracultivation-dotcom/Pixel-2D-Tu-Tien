@@ -151,6 +151,6 @@ export function createHud(audio) {
 function skillIcon(d, id) {
   const s = id && d.skills[id];
   if (!s) return '';
-  const spr = d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];
+  const spr = d.art.sprites['vfx.' + (d.vfx?.skills?.[id]?.icon || id)] || d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
   return spr ? `url("${spr.file}?v=${spr.v}")` : '';
 }
