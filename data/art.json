@@ -11483,60 +11483,72 @@
   },
   "mount.hoa-ky-lan": {
    "file": "assets/art/mount-hoa-ky-lan.png",
-   "v": "97d182df",
-   "w": 84,
-   "h": 60,
-   "frames": 6,
+   "v": "4da96ca9",
+   "w": 90,
+   "h": 90,
+   "frames": 9,
    "anchor": [
-    42,
-    58
+    45,
+    88
    ],
-   "note": "Hỏa Kỳ Lân (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
-   "scale": 0.5333,
+   "note": "thú cưỡi hoa-ky-lan: đứng + chạy 8 khung (SpriteCook)",
    "walk": [
+    1,
     2,
     3,
     4,
-    3
-   ]
+    5,
+    6,
+    7,
+    8
+   ],
+   "px": 0.5517
   },
   "mount.phong-lang": {
    "file": "assets/art/mount-phong-lang.png",
-   "v": "b4b64c4f",
-   "w": 92,
-   "h": 56,
-   "frames": 6,
+   "v": "e1557ac3",
+   "w": 106,
+   "h": 106,
+   "frames": 9,
    "anchor": [
-    46,
-    54
+    53,
+    104
    ],
-   "note": "Phong Lang (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
-   "scale": 0.5333,
+   "note": "thú cưỡi phong-lang: đứng + chạy 8 khung (SpriteCook)",
    "walk": [
+    1,
     2,
     3,
     4,
-    3
-   ]
+    5,
+    6,
+    7,
+    8
+   ],
+   "px": 0.5333
   },
   "mount.tuyet-ly": {
    "file": "assets/art/mount-tuyet-ly.png",
-   "v": "1734e59d",
-   "w": 83,
-   "h": 56,
-   "frames": 6,
+   "v": "f8cc68dc",
+   "w": 102,
+   "h": 102,
+   "frames": 9,
    "anchor": [
-    41,
-    54
+    51,
+    100
    ],
-   "note": "Tuyết Ly (ảnh chủ dự án gửi 28/10) · ảnh chủ dự án 6 khung",
-   "scale": 0.5333,
+   "note": "thú cưỡi tuyet-ly: đứng + chạy 8 khung (SpriteCook)",
    "walk": [
+    1,
     2,
     3,
     4,
-    3
-   ]
+    5,
+    6,
+    7,
+    8
+   ],
+   "px": 0.5333
   },
   "npc.a-moc": {
    "file": "assets/art/npc-a-moc.png",
