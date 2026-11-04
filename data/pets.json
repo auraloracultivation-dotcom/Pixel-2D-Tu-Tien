@@ -491,15 +491,15 @@
      2
     ],
     [
-     20000,
+     20001,
      3
     ],
     [
-     30000,
+     50000,
      4
     ],
     [
-     50000,
+     100000,
      5
     ],
     [
@@ -507,7 +507,25 @@
      6
     ]
    ],
-   "_price_tier": "Chủ dự án 04/11/2026 15:02: bộ bán bằng Linh Thạch có phẩm theo giá (dưới 2.000 Lam, dưới 10.000 Tím, dưới 20.000 Cam, dưới 30.000 Vàng, dưới 50.000 Đỏ, từ 50.000 Đen); chỉ số vẫn bốc ngẫu nhiên trong phẩm đó (bộ có line.s thì cố định loại chỉ số). Bản lưu có dòng khác phẩm thì bốc lại."
+   "_price_tier": "Chủ dự án 04/11/2026 15:36: phẩm bộ thời trang theo giá. Linh Thạch: từ 20.000 trở xuống dưới Vàng (dưới 2.000 Lam, dưới 10.000 Tím, tới 20.000 Cam), trên 20.000 tới dưới 50.000 Vàng, 50.000 tới dưới 100.000 Đỏ, từ 100.000 Đen. Tiên Ngọc (tn_tier): dưới 5 Cam, 5 tới dưới 10 Vàng, 10 tới dưới 20 Đỏ, từ 20 Đen. Chỉ số bốc ngẫu nhiên trong phẩm (bộ có line.s cố định loại chỉ số); dòng khác phẩm thì bốc lại.",
+   "tn_tier": [
+    [
+     5,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     20,
+     5
+    ],
+    [
+     999999999,
+     6
+    ]
+   ]
   }
  },
  "shop": {
