@@ -233,6 +233,14 @@
      "click": true
     },
     {
+     "id": "doi-tk",
+     "label": "Đổi tài khoản",
+     "relog": true,
+     "text": "Lưu game, đăng xuất tài khoản này rồi về màn đăng nhập để vào tài khoản khác.",
+     "btn": "Đổi tài khoản",
+     "sure": "Bấm lần nữa để chắc chắn"
+    },
+    {
      "id": "account",
      "label": "Đăng xuất",
      "reload": true,
