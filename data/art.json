@@ -9676,6 +9676,18 @@
     ]
    ]
   },
+  "hero.huyet-nguyet": {
+   "file": "assets/art/hero-huyet-nguyet.png",
+   "v": "17313031",
+   "w": 256,
+   "h": 256,
+   "frames": 40,
+   "anchor": [
+    128,
+    253
+   ],
+   "note": "thời trang Huyết Nguyệt (SpriteCook): nghỉ, chạy, chém 1, chém 2, đâm; mỗi động tác 8 khung"
+  },
   "hero.kiem-tu": {
    "file": "assets/art/hero-kiem-tu.png",
    "v": "56fdf82d",
