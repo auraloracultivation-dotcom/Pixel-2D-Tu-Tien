@@ -9,7 +9,8 @@ export function drawChau(ctx, game, tx, ty, px, py, T, grow, crop, t) {
   const S = game.data.art.sprites, i = plotIndex(game, tx, ty), pot = S['ui.vk-chau-' + (plotLv(game, i) + 1)], pim = pot && spriteImage(pot);
   if (!pim) return false;
   const smooth = ctx.imageSmoothingEnabled; ctx.imageSmoothingEnabled = true;
-  const W = T * 1.1, H = W * pot.h / pot.w, x0 = px + T / 2 - W / 2, y0 = py + T - H;   // chậu đứng đáy ô
+  const W = T * 0.92,   // hẹp hơn ô một chút: chậu cạnh nhau cách đều (chủ dự án 12:54)
+    H = W * pot.h / pot.w, x0 = px + T / 2 - W / 2, y0 = py + T - H;   // chậu đứng đáy ô
   // cây trong chậu (ảnh cay-1.png, chủ dự án 12:38): nửa đầu là cây non, nửa sau là cây lớn, lớn dần theo độ chín;
   // chưa có hình cây thì dùng hình nguyên liệu của cây
   const g = Math.min(1, grow), cs = S[(g < 0.5 ? 'ui.vk-cay-non-' : 'ui.vk-cay-') + crop.id] || S['ui.vk-' + crop.id], cim = cs && spriteImage(cs);

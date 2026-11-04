@@ -348,7 +348,159 @@
   "player": 14,
   "other": 16
  },
- "home": {"_note": "Linh thú bắt được sống trong động phủ (chủ dự án chốt 02/11/2026, thay linh cầm): pen là ô x, y, rộng, cao trên bản đồ động phủ; max con hiện; speed px/giây; sell giá bán = base + cấp × per_lv + sao × per_star (+ evo nếu đã tiến hoá). src/game/home-pets.js.", "pen": [11, 6, 7, 3], "max": 10, "speed": 18, "sell": {"mount_base": 2000, "mount_per_speed": 10000, "base": 300, "per_lv": 150, "per_star": 1000, "evo": 5000}},
- "beast": {"_note": "Chỉ số linh thú / khôi lỗi / thú cưỡi / thời trang (chủ dự án chốt 02/11/2026 14:39, src/game/beast.js). base: khoảng chỉ số gốc cấp 1 của mỗi loài, mỗi loài bốc cố định một lần theo tên (ai cũng như ai); lv: mỗi cấp thêm bấy nhiêu lần gốc, star: mỗi sao, evo: tiến hoá. Cộng vào lực chiến (con đang mang), không cộng chỉ số cơ bản. pool: chỉ số dòng tẩy luyện (mỗi lần mở 1 dòng như trang bị, trần 1–10 dòng); reroll: phí = coins × mul^(số dòng) + mats. mount: thú cưỡi có 1 dòng % chỉ số (pool), tẩy là bốc lại dòng, phí reroll; cộng thẳng vào chỉ số nhân vật khi đang chọn con đó. fashion: bộ thời trang 1 dòng bốc lúc có bộ, màu theo nguồn (tier: start, shop, achv, fest, elite, tn, uid → bậc màu 0 lục … 6 đen), cố định; cộng khi đang mặc.", "base": {"atk": [3, 9], "hp": [20, 60], "def": [1, 4]}, "lv": 0.25, "star": 0.25, "evo": 0.6, "pool": ["atk", "hp", "def", "crit", "crit_dmg", "atk_pct", "hp_pct"], "reroll": {"coins": 500, "mul": 2, "mats": {"linh-thao": 3}}, "mount": {"pool": ["atk_pct", "hp_pct", "crit", "crit_dmg", "cdr", "speed", "qi_gain"], "reroll": {"coins": 3000, "mats": {"linh-thao": 5}}}, "fashion": {"pool": ["atk_pct", "hp_pct", "crit", "crit_dmg", "cdr", "speed", "qi_gain"], "tier": {"start": 0, "shop": 1, "achv": 2, "fest": 2, "elite": 3, "tn": 4, "uid": 5}}},
- "shop": {"_note": "Ngự Thú Sư bán thú cưỡi và khôi lỗi (chủ dự án 02/11/2026 14:39: thú cưỡi mua từ NPC, khôi lỗi mua bán ở NPC; src/game/beast-shop.js). Giá Linh Thạch. puppets: id trong data/companions.json (chỉ những con này là khôi lỗi); bán lại: puppet_sell × giá mua + cấp × puppet_per_lv.", "mounts": {"bach-loc": 5000, "phong-lang": 12000, "tuyet-ly": 15000, "hoa-ky-lan": 25000}, "puppets": {"tieu-hoa": 8000, "ho-linh": 8000, "thanh-diep": 10000, "mac-anh": 12000, "thach-sinh": 15000, "thiet-lan": 18000}, "puppet_sell": 0.4, "puppet_per_lv": 150, "max_puppets": 2}
+ "home": {
+  "_note": "Linh thú bắt được sống trong động phủ (chủ dự án chốt 02/11/2026, thay linh cầm): pen là ô x, y, rộng, cao trên bản đồ động phủ; max con hiện; speed px/giây; sell giá bán = base + cấp × per_lv + sao × per_star (+ evo nếu đã tiến hoá). src/game/home-pets.js. Chủ dự án 04/11/2026 12:54: mỗi con một chỗ riêng ở góc phải trên (spots: ô x, y theo thứ tự con), chỉ lững thững quanh chỗ mình trong bán kính roam ô.",
+  "pen": [
+   11,
+   6,
+   7,
+   3
+  ],
+  "max": 10,
+  "speed": 18,
+  "sell": {
+   "mount_base": 2000,
+   "mount_per_speed": 10000,
+   "base": 300,
+   "per_lv": 150,
+   "per_star": 1000,
+   "evo": 5000
+  },
+  "spots": [
+   [
+    12,
+    1.6
+   ],
+   [
+    14.3,
+    1.6
+   ],
+   [
+    18,
+    2.4
+   ],
+   [
+    12,
+    3.6
+   ],
+   [
+    14.3,
+    3.4
+   ],
+   [
+    13.2,
+    2.5
+   ],
+   [
+    11.2,
+    2.6
+   ],
+   [
+    15.3,
+    3.9
+   ],
+   [
+    18,
+    4.4
+   ],
+   [
+    17,
+    3.6
+   ]
+  ],
+  "roam": 0.6
+ },
+ "beast": {
+  "_note": "Chỉ số linh thú / khôi lỗi / thú cưỡi / thời trang (chủ dự án chốt 02/11/2026 14:39, src/game/beast.js). base: khoảng chỉ số gốc cấp 1 của mỗi loài, mỗi loài bốc cố định một lần theo tên (ai cũng như ai); lv: mỗi cấp thêm bấy nhiêu lần gốc, star: mỗi sao, evo: tiến hoá. Cộng vào lực chiến (con đang mang), không cộng chỉ số cơ bản. pool: chỉ số dòng tẩy luyện (mỗi lần mở 1 dòng như trang bị, trần 1–10 dòng); reroll: phí = coins × mul^(số dòng) + mats. mount: thú cưỡi có 1 dòng % chỉ số (pool), tẩy là bốc lại dòng, phí reroll; cộng thẳng vào chỉ số nhân vật khi đang chọn con đó. fashion: bộ thời trang 1 dòng bốc lúc có bộ, màu theo nguồn (tier: start, shop, achv, fest, elite, tn, uid → bậc màu 0 lục … 6 đen), cố định; cộng khi đang mặc.",
+  "base": {
+   "atk": [
+    3,
+    9
+   ],
+   "hp": [
+    20,
+    60
+   ],
+   "def": [
+    1,
+    4
+   ]
+  },
+  "lv": 0.25,
+  "star": 0.25,
+  "evo": 0.6,
+  "pool": [
+   "atk",
+   "hp",
+   "def",
+   "crit",
+   "crit_dmg",
+   "atk_pct",
+   "hp_pct"
+  ],
+  "reroll": {
+   "coins": 500,
+   "mul": 2,
+   "mats": {
+    "linh-thao": 3
+   }
+  },
+  "mount": {
+   "pool": [
+    "atk_pct",
+    "hp_pct",
+    "crit",
+    "crit_dmg",
+    "cdr",
+    "speed",
+    "qi_gain"
+   ],
+   "reroll": {
+    "coins": 3000,
+    "mats": {
+     "linh-thao": 5
+    }
+   }
+  },
+  "fashion": {
+   "pool": [
+    "atk_pct",
+    "hp_pct",
+    "crit",
+    "crit_dmg",
+    "cdr",
+    "speed",
+    "qi_gain"
+   ],
+   "tier": {
+    "start": 0,
+    "shop": 1,
+    "achv": 2,
+    "fest": 2,
+    "elite": 3,
+    "tn": 4,
+    "uid": 5
+   }
+  }
+ },
+ "shop": {
+  "_note": "Ngự Thú Sư bán thú cưỡi và khôi lỗi (chủ dự án 02/11/2026 14:39: thú cưỡi mua từ NPC, khôi lỗi mua bán ở NPC; src/game/beast-shop.js). Giá Linh Thạch. puppets: id trong data/companions.json (chỉ những con này là khôi lỗi); bán lại: puppet_sell × giá mua + cấp × puppet_per_lv.",
+  "mounts": {
+   "bach-loc": 5000,
+   "phong-lang": 12000,
+   "tuyet-ly": 15000,
+   "hoa-ky-lan": 25000
+  },
+  "puppets": {
+   "tieu-hoa": 8000,
+   "ho-linh": 8000,
+   "thanh-diep": 10000,
+   "mac-anh": 12000,
+   "thach-sinh": 15000,
+   "thiet-lan": 18000
+  },
+  "puppet_sell": 0.4,
+  "puppet_per_lv": 150,
+  "max_puppets": 2
+ }
 }
