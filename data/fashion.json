@@ -115,7 +115,7 @@
    "hair": "#c8d8f0",
    "sash": "#7ae0ff",
    "from": {
-    "tn": 300
+    "shop": 10000
    }
   },
   "hoang-kim": {
@@ -124,7 +124,7 @@
    "hair": "#2a1a0a",
    "sash": "#c0302a",
    "from": {
-    "tn": 600
+    "shop": 10000
    }
   },
   "tet-do": {

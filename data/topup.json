@@ -85,18 +85,6 @@
    }
   },
   {
-   "id": "ao-tien-nhan",
-   "label": "Thời trang Tiên Nhân Bạch Y",
-   "tn": 300,
-   "outfit": "tien-nhan"
-  },
-  {
-   "id": "ao-hoang-kim",
-   "label": "Thời trang Hoàng Kim Long Bào",
-   "tn": 600,
-   "outfit": "hoang-kim"
-  },
-  {
    "id": "ao-tu-liem",
    "label": "Thời trang Tử Liềm Y (nữ)",
    "tn": 10,
