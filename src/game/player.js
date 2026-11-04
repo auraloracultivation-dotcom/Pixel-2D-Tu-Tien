@@ -4,6 +4,7 @@ import { ensureWornLines } from './beast.js';
 import { openAllSocket4 } from './socket4.js';
 import { addFx, hitMob, dist, shoot } from './combat.js';
 import { weaponSlash } from './slash-fx.js';
+import { heroLook } from '../render/draw-hero.js';
 import { castSkill, skillSlots } from './skills.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
@@ -99,7 +100,7 @@ function strike(game, q) {
   const cx = p.x, cy = p.y - 8, tip = { x: cx + ca * w.range, y: cy + sa * w.range };
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
   const hit = q.move === 'bo' ? { x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8 } : tip;
-  weaponSlash(game, p, w, q.move, q.ang, hit);
+  if (heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });
   for (const m of game.mobs) {
     if (m.dead) continue;
