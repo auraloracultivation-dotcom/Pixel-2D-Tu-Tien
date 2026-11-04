@@ -1,0 +1,91 @@
+/* Bộ khung hoa đào (chủ dự án 04/11/2026 10:05–10:28, ảnh GPT tools/art/nguon/ai/ui/hoa-dao-*.png, pham-cap.png; cắt ở
+   tools/art/ui_hoa_dao.py, ui_pham_cap.py, giữ nguyên hình). Nạp sau cùng (style.css @import), đè khung bộ GPT một, hai.
+   Khung 9 mảnh: số cắt tính theo điểm ảnh hình gốc, bề dày viền trên màn = số cắt × tỉ lệ thu (ghi cạnh từng luật). */
+
+/* Khung thu nhỏ còn khoảng 1/3: làm mịn khi thu (pixelated thu nhỏ thì mép vỡ, chủ dự án 04/11/2026 10:39) */
+body #bag, body .panel, body .side-nav, body .sn-item, body #dialog, body #dialog .who, body #dialog .choice, body .bag-head > b, body .bag-tabs button, body .world-tabs button,
+body #hud .bars .bar, body #hud .bars .bar::before, body #hud .bars .bar i, body #hud .hud-btns > button, body #btn-auto, #mini-map i, #mini-map b, body #goal, body .chat-dock, body .chat-dock .cd-input,
+#hop-thu, .uk-tog, body .faq-btn, body #toast, body #bag .ico, body #menu #logged, body #menu #login-form, body #menu .menu-btn, body #menu input, body #menu .help, body #menu .health,
+body #loading .ld-box, #uk-ava i, body #btn-atk::after, body #btn-s0::after, body #btn-s1::after, body #btn-s2::after, body #btn-pill::after, body #btn-art::after, body #btn-dash::after { image-rendering: auto !important; }
+
+/* ---- bảng chức năng, túi đồ: khung mái ngói hoa đào, hai đèn lồng, lòng tím (thu 0,3) ---- */
+body #bag, body .panel { border-style: solid !important; border-color: transparent !important; border-width: 66px 18px 13px !important;
+  border-image: url("assets/art/ui-hd-bang.png") 220 60 44 fill / 66px 18px 13px / 0 stretch !important; background-color: transparent !important; }
+body #bag > .bag-head, body .panel > .bag-head { min-height: 30px; align-items: center; }
+body .bag-head > b { border-width: 7px 16px !important; border-image: url("assets/art/ui-hd-ten.png") 18 40 fill / 7px 16px / 0 stretch !important; padding: 1px 6px 2px; font-size: 15px !important; }
+body .bag-head > button[id$="-close"], body .bag-head > .close-x, body .ib-panel .bag-head > button:last-child {
+  width: 30px !important; height: 28px !important; background-image: url("assets/art/ui-hd-i-dong.png") !important; }
+body .bag-tabs button, body .world-tabs button { border-width: 6px 10px !important; border-image: url("assets/art/ui-hd-tab.png") 14 22 fill / 6px 10px / 0 stretch !important; }
+body .bag-tabs button.on, body .world-tabs button.on { border-image-source: url("assets/art/ui-hd-tab-on.png") !important; }
+
+/* ---- cột mục bên trái: cuộn giấy (thu 0,5), ô tím / ô vàng đang chọn ---- */
+body .side-nav { border-width: 16px 11px !important; border-image: url("assets/art/ui-hd-cuon.png") 32 22 fill / 16px 11px / 0 stretch !important; }
+body .sn-item { border-width: 6px 12px !important; border-image: url("assets/art/ui-hd-o.png") 16 40 fill / 6px 12px / 0 stretch !important; color: #fff1c8; }
+body .sn-item.on { border-image-source: url("assets/art/ui-hd-vang-nho.png") !important; border-image-slice: 14 28 fill !important; color: #3a1206; }
+body .sn-item[data-nav] { padding-left: 18px; }
+
+/* ---- hộp thoại NPC: khung góc mây (thu 0,45), bảng tên, nút lựa chọn ---- */
+body #dialog { border-width: 18px !important; border-image: url("assets/art/ui-hd-thoai.png") 40 fill / 18px / 0 stretch !important; color: #fff1c8 !important;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
+body #dialog .text { color: #fff1c8; }
+body #dialog .hint { color: #e8c8ff; text-shadow: none; }
+body #dialog .who { border-width: 7px 16px; border-image: url("assets/art/ui-hd-ten.png") 18 40 fill / 7px 16px / 0 stretch; top: -30px; }
+body #dialog .choices button, body #dialog .choice { border: 9px solid transparent !important; border-width: 9px 18px !important; border-radius: 0 !important;
+  border-image: url("assets/art/ui-hd-chon.png") 22 46 fill / 9px 18px / 0 stretch !important; background: none !important; box-shadow: none !important; }
+
+/* ---- thanh Sinh lực, linh khí: rãnh tím, ruột đỏ / lam đầu vát (thu 0,42) ---- */
+body #hud .bars .bar { border: none !important; border-image: none !important; height: 16px; background: none !important; position: relative; }
+body #hud .bars .bar::before { content: ''; position: absolute; inset: 0; border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-rong.png") 0 18 fill / 0 8px / 0 stretch; }
+body #hud .bars .bar i { top: 0; bottom: 0; left: 0; border: solid transparent; border-width: 0 8px; border-image: url("assets/art/ui-hd-bar-do.png") 0 18 fill / 0 8px / 0 stretch; background: none !important; box-sizing: border-box; min-width: 16px; }
+body #hud .bars .bar.qi i { border-image-source: url("assets/art/ui-hd-bar-lam.png"); }
+body #hud .bars .bar span { z-index: 2; line-height: 16px; }
+
+/* ---- nút tròn trên màn hình: vòng hoa đào lòng tím; vòng chiêu, Lướt, nút Đánh ---- */
+body #hud .hud-btns > button.tron { background-image: url("assets/art/ui-hd-vong-hoa.png") !important; }
+body #hud .hud-btns > button.tron[data-tron2] { background: none !important; }
+body #btn-s0::after, body #btn-s1::after, body #btn-s2::after, body #btn-pill::after, body #btn-art::after { background-image: url("assets/art/ui-hd-ring.png") !important; }
+body #btn-dash::after { background-image: url("assets/art/ui-hd-ring-lam.png") !important; }
+body #btn-atk::after, body[data-le] #btn-atk::after { background-image: url("assets/art/ui-hd-atk.png") !important; }
+body #btn-atk b { opacity: 0; }
+body #btn-auto.auto-dock { border-width: 9px 14px !important; border-image: url("assets/art/ui-hd-tim-nho.png") 18 30 fill / 9px 14px / 0 stretch !important; }
+
+/* nút trên màn chưa gắn lớp .tron (lúc vừa vào game) thì giấu, không thoáng thấy bố cục nút chữ cũ (chủ dự án 04/11/2026 10:31) */
+body #hud .hud-btns > button:not(.tron) { visibility: hidden; }
+/* viền màu Linh căn quanh nút (đề xuất #41) hiện thành khung chữ nhật cam lệch khung mới: bỏ (chủ dự án báo 04/11/2026) */
+body #btn-auto.auto-dock, body #hud .hud-btns > button { box-shadow: none !important; }
+
+/* ---- bản đồ tròn, việc truyện, ô trò chuyện, hộp Thư, nút nhỏ ---- */
+#mini-map i { background-image: url("assets/art/ui-hd-vong-ban-do.png") !important; }
+#mini-map b { border: 6px solid transparent; border-width: 5px 12px; border-image: url("assets/art/ui-hd-ten.png") 18 40 fill / 5px 12px / 0 stretch; background: none; bottom: -16px; padding: 0 2px; }
+body #goal { border: solid transparent !important; border-width: 7px 16px !important; border-image: url("assets/art/ui-hd-viec.png") 16 40 fill / 7px 16px / 0 stretch !important;
+  background: none !important; border-radius: 0 !important; box-shadow: none !important; padding: 2px 4px !important; color: #fff1c8; top: calc(env(safe-area-inset-top) + 140px) !important; }
+body .chat-dock { border: solid transparent !important; border-width: 10px 16px !important; border-image: url("assets/art/ui-hd-chat.png") 24 40 fill / 10px 16px / 0 stretch !important; background: none !important; border-radius: 0 !important; padding: 0 2px !important; }
+body .chat-dock .cd-input { border-width: 5px 8px !important; border-right-width: 8px !important; border-image: url("assets/art/ui-hd-nhap.png") 12 16 fill / 5px 8px / 0 stretch !important; }
+#hop-thu { border-width: 14px 12px !important; border-image: url("assets/art/ui-hd-hop.png") 36 30 fill / 14px 12px / 0 stretch !important; }
+.uk-tog#uk-gon { border: none !important; border-image: none !important; background: url("assets/art/ui-hd-i-lui.png") center / contain no-repeat !important; }
+body.hud-gon .uk-tog#uk-gon { background-image: url("assets/art/ui-hd-i-toi.png") !important; }
+#uk-gon::before { display: none !important; }
+body .faq-btn { border: none; border-radius: 0; box-shadow: none; background: url("assets/art/ui-hd-i-than.png") center / contain no-repeat; font-size: 0; color: transparent; width: 30px; height: 30px; }
+
+/* ---- băng thông báo giữa màn: băng hoa sen (thu 0,45) ---- */
+body #toast { border-width: 18px 27px 9px !important; border-image: url("assets/art/ui-hd-thong-bao.png") 40 60 20 fill / 18px 27px 9px / 0 stretch !important; padding: 4px 6px 6px !important; min-height: 0; }
+body #toast::before { display: none; }
+
+/* ---- ô trang bị theo phẩm cấp (bag.js gắn data-o): khung pham-cap, lòng giữ nền ô ---- */
+[data-o="linh"], [data-o="luc"] { --o: url("assets/art/ui-pc-luc.png"); }
+[data-o="huyen"], [data-o="lam"] { --o: url("assets/art/ui-pc-lam.png"); }
+[data-o="dia"], [data-o="tim"] { --o: url("assets/art/ui-pc-tim.png"); }
+[data-o="thien"], [data-o="cam"] { --o: url("assets/art/ui-pc-cam.png"); }
+[data-o="vang"] { --o: url("assets/art/ui-pc-vang.png"); }
+[data-o="do"] { --o: url("assets/art/ui-pc-do.png"); }
+[data-o="den"] { --o: url("assets/art/ui-pc-den.png"); }
+body #bag [data-o]:not([data-o="pham"]) .ico { border-width: 5px; border-image: var(--o) 34 / 5px / 0 stretch; background-color: rgba(26, 14, 40, .7); }
+
+/* ---- màn đăng nhập, chơi tiếp, màn tải ---- */
+body #menu #logged, body #menu #login-form { border-width: 30px 14px 22px !important; border-image: url("assets/art/ui-hd-trang.png") 70 30 50 fill / 30px 14px 22px / 0 stretch !important; padding: 2px 10px 4px; }
+body #menu .menu-btn, body[data-le] #menu .menu-btn { border-width: 9px 14px !important; border-image: url("assets/art/ui-hd-vang.png") 18 30 fill / 9px 14px / 0 stretch !important; color: #3a1206 !important; }
+body #menu .menu-btn.alt, body[data-le] #menu .menu-btn.alt { border-width: 9px 14px !important; border-image: url("assets/art/ui-hd-tim.png") 18 30 fill / 9px 14px / 0 stretch !important; color: #fff1c8 !important; }
+body #menu input { border: solid transparent !important; border-width: 7px 8px !important; border-image: url("assets/art/ui-hd-o-nhap.png") 14 16 fill / 7px 8px / 0 stretch !important;
+  background: none !important; border-radius: 0 !important; color: #fff1c8 !important; box-shadow: none !important; }
+body #menu .help, body #menu .health { border-width: 9px 20px !important; border-image: url("assets/art/ui-hd-may.png") 22 50 fill / 9px 20px / 0 stretch !important; }
+body #loading .ld-box { border: solid transparent; border-width: 26px 14px 20px; border-image: url("assets/art/ui-hd-trang2.png") 66 34 48 fill / 26px 14px 20px / 0 stretch; background: none; }
