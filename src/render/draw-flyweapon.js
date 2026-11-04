@@ -6,8 +6,11 @@ import { weaponId } from '../game/stats.js';
 import { heroLook } from './draw-hero.js';
 
 // Hình vũ khí bay: fw.<loại> (tools/art/flyweapons.py, xoay sẵn từng hướng); loại mới chưa có hình thì xoay biểu tượng túi đồ
+// Chủ dự án 04/11/2026 15:02: vũ khí bay phải đúng món đang mặc → món có hình thật (ui-vk-<món>, ảnh GPT) thì bay hình đó
 function weaponSprite(game) {
-  const s = game.save, wid = weaponId(s, game.data), fw = game.data.art.sprites['fw.' + wid];
+  const s = game.save, S = game.data.art.sprites, eq = s.bag?.find(i => i.uid === s.equip?.['vu-khi']), real = eq && S['ui.vk-' + eq.base];
+  if (real) return { spr: real, im: spriteImage(real), dirs: 0, size: 22, smooth: true };
+  const wid = weaponId(s, game.data), fw = S['fw.' + wid];
   if (fw) return { spr: fw, im: spriteImage(fw), dirs: fw.frames };
   const it = s.bag?.find(i => i.uid === s.equip?.['vu-khi']), id = it && 'gear.' + it.base, spr = id && game.data.art.sprites[id];
   return spr ? { spr, im: spriteImage(spr), dirs: 0 } : null;
@@ -17,13 +20,14 @@ function weaponSprite(game) {
 function blit(ctx, ws, im, x, y, a, k) {
   const { spr, dirs } = ws;
   ctx.save();
+  if (ws.smooth) ctx.imageSmoothingEnabled = true;   // ảnh to thu nhỏ: làm mịn kẻo vỡ
   ctx.translate(Math.round(x), Math.round(y));
   if (dirs) {
     const f = ((Math.round(a / (Math.PI * 2) * dirs) % dirs) + dirs) % dirs;
     ctx.scale(k, k);
     ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   } else {
-    ctx.rotate(a + Math.PI / 4); ctx.scale(k * 16 / spr.w, k * 16 / spr.w);
+    ctx.rotate(a + Math.PI / 4); ctx.scale(k * (ws.size || 16) / spr.w, k * (ws.size || 16) / spr.w);
     ctx.drawImage(im, 0, 0, spr.w, spr.h, -spr.w / 2, -spr.h / 2, spr.w, spr.h);
   }
   ctx.restore();
