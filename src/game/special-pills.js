@@ -15,7 +15,7 @@ async function genderPill(game) {
   if (!canPay(game, P)) { game.toast(P.short.replace('{cost}', cost), 2.4); return; }
   const ok = await game.dialog.choose(P.ask.replace('{to}', label).replace('{cost}', cost), [{ id: 'yes', label: P.yes, color: G.list[to].color }, { id: 'no', label: P.no }]);
   if (ok !== 'yes' || !canPay(game, P)) return;
-  addCoins(game, -P.coins);
+  addCoins(game, -P.coins, 'dan-dac-biet');
   for (const [m, n] of Object.entries(P.mats)) s.mats[m] -= n;
   s.gioi = to;
   if (game.data.heroes.list[G.list[to].look]) s.look = G.list[to].look;

@@ -1,11 +1,14 @@
 // Linh Thạch (data/shop.json): quái rơi, bán đồ cho tiệm, mua ở Vạn Bảo Lâu.
 import { rollGem, gemInfo, isEquipped } from './items.js';
 import { quality } from './tiers.js';
+import { noteCoins } from './coin-log.js';
 
 const C = game => game.data.shop;
 export const coins = save => save.lingshi || 0;
-export function addCoins(game, n) {
+// why: mã lý do cho Lịch sử Linh Thạch (data/shop.json → coin_log.why, src/game/coin-log.js); bỏ trống thì ghi 'khac'
+export function addCoins(game, n, why) {
   game.save.lingshi = coins(game.save) + n;
+  noteCoins(game.save, n, why);
   if (n > 0 && game.save.stats) game.save.stats.coins += n;
 }
 
@@ -13,7 +16,7 @@ export function coinDrop(game, m) {
   const d = C(game).drop, boss = m.def.ai === 'boss';
   if (m.noQi || !m.def.qi || (!boss && Math.random() >= d.chance * (m.lootMul ?? 1))) return;
   const n = Math.max(1, Math.round(m.def.qi * d.per_qi * (boss ? d.boss_mul : 1) * (0.7 + Math.random() * 0.6) * game.eventMul('coin') * (game.daoLuMul?.() || 1) * (game.farmTeamMul?.() || 1)));   // có đạo lữ +5% (src/game/daolu.js); tổ đội farm +10% mỗi đồng đội cùng tinh cầu (src/game/farm-team.js)
-  addCoins(game, n);
+  addCoins(game, n, game.sweeping ? 'can-quet' : 'nhat');   // gộp một dòng mỗi phút
   game.number(m.x, m.y - 26, `+${n} ${C(game).name}`, '#ffd24a');
 }
 
@@ -26,7 +29,7 @@ export function sell(game, uid) {
   const it = s.bag[i], n = sellPrice(game, it);
   for (const g of it.sockets) if (g) s.gems[g] = (s.gems[g] || 0) + 1;
   s.bag.splice(i, 1);
-  addCoins(game, n); game.persist();
+  addCoins(game, n, 'ban-do'); game.persist();
   return n;
 }
 
@@ -51,7 +54,7 @@ export function quickSell(game, rarities) {
     for (const g of it.sockets || []) if (g) s.gems[g] = (s.gems[g] || 0) + 1;
   }
   s.bag = s.bag.filter(it => !gone.has(it.uid));
-  if (got) addCoins(game, got);
+  if (got) addCoins(game, got, 'ban-do');
   game.persist();
   return { n: list.length, coins: got };
 }
@@ -76,7 +79,7 @@ function buy(game, x) {
   const s = game.save;
   const price = priceOf(game, x);
   if (coins(s) < price) return null;
-  s.lingshi -= price;
+  s.lingshi -= price; noteCoins(s, -price, 'van-bao');
   if (x.kind === 'gem') { const g = rollGem(game.data); s.gems[g] = (s.gems[g] || 0) + 1; game.persist(); return gemInfo(game.data, g).name; }
   const bag = x.kind === 'pill' ? (s.pills ??= {}) : (s.mats ??= {});
   bag[x.ref] = (bag[x.ref] || 0) + x.n;

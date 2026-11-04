@@ -57,7 +57,7 @@ export async function sellMat(game, id, n, price) {
 export async function buy(game, row) {
   if (coins(game.save) < row.gia) throw new Error('thieu_tien');
   const { buyListing } = await net();
-  await onServer(game, () => buyListing(row.id), () => { addCoins(game, -row.gia); game.persist(); });
+  await onServer(game, () => buyListing(row.id), () => { addCoins(game, -row.gia, 'cho-mua'); game.persist(); });
   return claimMail(game);
 }
 
@@ -80,7 +80,7 @@ export async function claimMail(game) {
   await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
     for (const m of r.thu || []) {
       const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || '', lines = [];
-      if (d.coins) { addCoins(game, d.coins); lines.push(`+${d.coins} ${game.data.shop.name}`); }
+      if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); }
       if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
       if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
       if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)

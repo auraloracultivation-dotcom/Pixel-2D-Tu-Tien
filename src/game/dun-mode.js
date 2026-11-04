@@ -79,9 +79,9 @@ export function dungeonDone(game) {
   else game.toast(T.guest, 2.4);
   const lines = [];
   if (first) game.toast(T.unlock.replace('{level}', levelName(game, L + 1)), 2.4);
-  if (first && D.first) lines.push(`${T.first.replace('{level}', levelName(game, L))}: ${grant(game, D.first).join(', ')}`);
+  if (first && D.first) lines.push(`${T.first.replace('{level}', levelName(game, L))}: ${grant(game, D.first, 'bi-canh').join(', ')}`);
   const r = rewardOf(game, id, L);
-  if (r && runsLeft(game, id) > 0) { useRun(game, id); lines.push(grant(game, r).join(', ')); }   // lượt tính theo bí cảnh (hướng mới 02/11/2026)
+  if (r && runsLeft(game, id) > 0) { useRun(game, id); lines.push(grant(game, r, 'bi-canh').join(', ')); }   // lượt tính theo bí cảnh (hướng mới 02/11/2026)
   else if (r) game.toast(T.full.replace('{n}', D.per_day).replace('{map}', game.map.def.name), 2.2);
   if (game.dunRun) finishRun(game);   // bảng ô vuông mọi thứ thu được + Tiếp tục / Càn quét / Thoát
   else if (lines.length) setTimeout(() => game.dialog.say([['', T.done.replace('{map}', game.map.def.name).replace('{level}', levelName(game, L)).replace('{got}', lines.join('; '))]]), 400);

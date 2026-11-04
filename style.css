@@ -195,6 +195,17 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 @keyframes sheet-up { from { transform: translateY(30px); opacity: .4; } }
 @media (prefers-reduced-motion: reduce) { #bag-sheet { animation: none; } }
 #bag-detail { overflow-y: auto; padding: 10px 12px 12px; font-size: 13px; display: flex; flex-direction: column; gap: 8px; }
+/* Lịch sử Linh Thạch (src/ui/coin-log-sheet.js): giờ · lý do · số ± · số dư, vừa màn dọc */
+#bag-coinlog { padding: 4px 8px; font-size: 11px; flex: none; }
+.coinlog { display: flex; flex-direction: column; gap: 2px; }
+.coinlog-day { font-size: 11px; color: var(--trim-hi); opacity: .8; margin-top: 6px; }
+.coinlog-row { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; column-gap: 8px; align-items: baseline; padding: 4px 2px; border-bottom: 1px solid var(--line); font-size: 12px; }
+.coinlog-t { color: var(--ink); opacity: .7; font-variant-numeric: tabular-nums; }
+.coinlog-why { overflow-wrap: anywhere; }
+.coinlog-n { text-align: right; font-variant-numeric: tabular-nums; }
+.coinlog-n.up { color: #8ee08a; }
+.coinlog-n.down { color: #ff7a7a; }
+.coinlog-b { grid-column: 2 / 4; text-align: right; opacity: .6; font-size: 10px; }
 .d-head { display: flex; align-items: center; gap: 10px; }
 .d-head .ico { width: 40px; height: 40px; flex: none; border: 1px solid var(--line-hi); border-radius: 7px; background: no-repeat center / 32px 32px, var(--panel-2); image-rendering: pixelated; }
 .d-name { flex: 1; min-width: 0; }

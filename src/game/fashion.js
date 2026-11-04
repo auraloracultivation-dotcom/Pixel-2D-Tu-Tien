@@ -29,7 +29,7 @@ export function grantOutfit(game, id, g = lookOf(game)) { (game.save.outfits ??=
 export function buyOutfit(game, id, g = lookOf(game)) {
   const f = F(game)[id], s = game.save;
   if (!f?.from.shop || owned(game, id, g) || coins(s) < f.from.shop) return false;
-  addCoins(game, -f.from.shop);
+  addCoins(game, -f.from.shop, 'thoi-trang');
   grantOutfit(game, id, g);
   game.persist();
   return true;

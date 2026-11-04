@@ -58,7 +58,7 @@ export function claimAchv(game, id) {
   const a = C(game).achievements.find(x => x.id === id), s = game.save;
   if (!a || s.achv[id] !== 1) return null;
   s.achv[id] = 2;
-  return grant(game, a.give);
+  return grant(game, a.give, 'thanh-tuu');
 }
 
 // Danh hiệu thành tựu giữ mãi; danh hiệu xếp hạng tuần (weekly) chỉ có khi đang ở top 10 tuần trước (game/rank.js)

@@ -43,7 +43,7 @@ export function sellPet(game, id) {
   if (id === s.pet) return 'Đang mang theo con này, đổi linh thú khác rồi mới bán.';
   const price = petPrice(game, id), name = petDef(game.data, s, id).name;
   delete s.pets[id];
-  addCoins(game, price);
+  addCoins(game, price, 'ban-thu');
   game.homePets = (game.homePets || []).filter(p => p.id !== id);
   game.persist(); game.sfx('pickup');
   return `Đã bán ${name}, nhận ${price.toLocaleString('vi-VN')} Linh Thạch.`;
@@ -57,7 +57,7 @@ export function sellMount(game, id) {
   if (id === s.mount) return 'Đang cưỡi con này, đổi thú cưỡi khác rồi mới bán.';
   const price = mountPrice(game, id);
   delete s.mounts[id];
-  addCoins(game, price);
+  addCoins(game, price, 'ban-thu');
   game.persist(); game.sfx('pickup');
   return `Đã bán ${m.name}, nhận ${price.toLocaleString('vi-VN')} Linh Thạch.`;
 }
