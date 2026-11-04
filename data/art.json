@@ -24274,6 +24274,18 @@
    ],
    "note": "nguyen-lieu hoa-ly (ảnh GPT ca-1.png)"
   },
+  "ui.vk-hoi-linh-dan": {
+   "file": "assets/art/ui-vk-hoi-linh-dan.png",
+   "v": "f92fa415",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "đan hoi-linh-dan (ảnh GPT hoi-linh-dan.png)"
+  },
   "ui.vk-hoi-xuan-dan": {
    "file": "assets/art/ui-vk-hoi-xuan-dan.png",
    "v": "69dcb182",

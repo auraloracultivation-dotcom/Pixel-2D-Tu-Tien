@@ -182,6 +182,15 @@ export function updatePlayer(game, dt) {
     if (msg) { p.pillCd = game.data.cave.pills[id].cd; game.number(p.x, p.y - 20, msg, '#9af0a8'); game.sfx('heal'); }
   }
 
+  // Hồi Linh Đan (cave.mana_pill): tự uống khi linh lực dưới mức đã cài (Túi đồ → Đan dược), chưa cài thì tự hành, tự đánh dưới pilot.pill_mp
+  p.mpPillCd = (p.mpPillCd || 0) - dt;
+  const mid = game.data.cave.mana_pill, am = game.save.autoManaPct || 0;
+  if (mid && p.mpPillCd <= 0 && !game.duel && (game.save.pills?.[mid] || 0) > 0 && p.mp != null && p.mpMax
+    && (am > 0 ? p.mp < p.mpMax * am : (game.pilot || game.auto) && pilotOpt(game, 'dan') && p.mp < p.mpMax * game.data.config.pilot.pill_mp)) {
+    const msg = usePill(game, mid);
+    if (msg) { p.mpPillCd = game.data.cave.pills[mid].cd; game.number(p.x, p.y - 26, msg, '#7ab8ff'); game.sfx('heal'); }
+  }
+
   manaTick(game, dt);   // linh lực hồi dần, đả tọa hồi nhanh
   // Hồi máu chậm khi không bị đánh
   if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));

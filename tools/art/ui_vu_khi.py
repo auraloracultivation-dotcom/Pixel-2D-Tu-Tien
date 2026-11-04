@@ -25,6 +25,9 @@ ROWS = {
                   ['boi-nguyen-dan', 'thang-linh-dan', 'tinh-lien-dan', 'linh-ngu-thang', 'van-ngu-thang', 'nguyet-ngu-thang']],
     'nguyen-lieu-1.png': [['linh-thao', 'yeu-huyet', 'hoa-linh-chi'], ['ngoc-lo-hoa', 'linh-mach', 'linh-dau', 'hong-qua', 'kim-tieu', 'tu-van-sam', 'thai-hu-lien']],
 }
+# món lẻ một ảnh một món (chủ dự án 04/11/2026 21:46: Hồi Linh Đan), thu về cạnh ONE_S như các đan khác trên dan-1.png
+ONE = {'hoi-linh-dan.png': 'hoi-linh-dan'}
+ONE_S = 360
 
 
 def _segs(mask, axis, gap, need=None):
@@ -80,6 +83,14 @@ def build(save):
             save('ui.vk-' + k, [cv], (S // 2, S // 2), f'{slot} {k} (ảnh GPT {f})'); n += 1
             if k.startswith('chau-'): MANIFEST['ui.vk-' + k]['soil'] = _soil(sq)   # mặt đất trong chậu: cây đứng trên đó, không vượt thành trước
         print(slot, len(rows), 'hàng', len(boxes), 'ô /', len(names), 'món')
+    for f, k in ONE.items():
+        a = np.array(Image.open(SRC / f).convert('RGBA')); a[:, :, 3] = np.where(a[:, :, 3] >= 64, a[:, :, 3], 0)
+        ys, xs = np.nonzero(a[:, :, 3]); c = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        S = max(c.shape[:2]); sq = np.zeros((S, S, 4), np.uint8)
+        oy, ox = (S - c.shape[0]) // 2, (S - c.shape[1]) // 2; sq[oy:oy + c.shape[0], ox:ox + c.shape[1]] = c
+        sq = np.array(Image.fromarray(sq).resize((ONE_S, ONE_S), Image.LANCZOS))
+        cv = Canvas(ONE_S, ONE_S); cv.a = np.ascontiguousarray(sq)
+        save('ui.vk-' + k, [cv], (ONE_S // 2, ONE_S // 2), f'đan {k} (ảnh GPT {f})'); n += 1
     # bể cá động phủ (chủ dự án 11:57): giữ vệt kính mờ (độ trong thấp nhưng sáng), chỉ bỏ quầng tối nền
     a = np.array(Image.open(SRC / 'be-ca.png').convert('RGBA')).astype(int)
     lum = a[:, :, :3].sum(axis=2) / 3
