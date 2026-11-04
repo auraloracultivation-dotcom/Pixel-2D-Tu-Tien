@@ -22,39 +22,38 @@ export function createHudGon(game) {
   };
   gon.onclick = () => { st.gon = !st.gon; store(st); apply(); place(); };
   an.onclick = () => { st.an = !st.an; store(st); apply(); place(); };
-  // hai nút đứng ngay dưới thanh linh khí (cột nút dời xuống một hàng, style-ui-kit.css); ẩn giao diện thì chỉ còn nút Hiện ở đó
+  // chủ dự án 04/11/2026 09:57: nút mắt ngay dưới nút "!" góc phải trên; mũi tên thu / mở ngay sau nút Thư (ô cuối hàng nút dưới,
+  // các nút hàng đó dịch sang trái một ô). Ẩn giao diện thì chỉ còn nút mắt ở đó.
   function place() {
-    const hud = document.getElementById('hud'), qi = document.querySelector('#hud .bar.qi');
+    const hud = document.getElementById('hud');
     const on = !!game.save && hud && !hud.hidden;
     gon.hidden = an.hidden = !on;
     if (!on) return;
     for (const b of document.querySelectorAll('#hud .hud-btns > button')) if (ICO[b.id] && !b.dataset.ico) b.dataset.ico = '1';   // biểu tượng nút (CSS --ico)
-    tron();
-    const r = qi?.getBoundingClientRect();
-    if (!r || !r.width) return;
-    const top = Math.round(r.bottom + 2), left = Math.round(r.left);
-    gon.style.top = an.style.top = `${top}px`;
-    gon.style.left = `${left}px`; an.style.left = `${left + 34}px`;
-    if (st.an) an.style.left = `${left}px`;
+    const top = tron();
+    const f = document.getElementById('btn-faq'), fr = f && !f.hidden ? f.getBoundingClientRect() : null;
+    Object.assign(an.style, { left: 'auto', right: `${fr && fr.width ? Math.round(innerWidth - fr.right - 2) : 8}px`, top: `${fr && fr.height ? Math.round(fr.bottom + 6) : 8}px` });
+    Object.assign(gon.style, { left: 'auto', right: '16px', top: `${top + 62 + 6}px` });
   }
   // nút tròn theo ảnh mẫu (chủ dự án 04/11/2026 09:05; data/menu.json → hud.tron, style-ui-kit3.css): xếp lại vị trí theo nút đang hiện
   const T = game.data.menu?.hud?.tron;
   function tron() {
-    if (!T) return;
-    const put = (ids, attr) => {   // hàng ngang canh mép phải: --<attr> = số thứ tự đếm từ phải sang (nút ẩn không chiếm chỗ)
+    if (!T) return 160;
+    const put = (ids, attr, off = 0) => {   // hàng ngang canh mép phải: --<attr> = số thứ tự đếm từ phải sang (nút ẩn không chiếm chỗ)
       const vis = ids.map(id => document.getElementById(id)).filter(b => b && b.closest('#hud .hud-btns') && !b.hidden);
       for (const id of ids) {
         const b = document.getElementById(id);
         if (!b || !b.closest('#hud .hud-btns')) continue;
         b.classList.add('tron'); b.dataset.lb = T.lb[id] || ''; if (attr) b.dataset[attr] = '1';
-        if (attr && !b.hidden) b.style.setProperty('--' + attr, vis.length - 1 - vis.indexOf(b));
+        if (attr && !b.hidden) b.style.setProperty('--' + attr, vis.length - 1 - vis.indexOf(b) + off);
       }
     };
-    put(T.cot, 'cot'); put(T.tron2, 'tron2'); put([T.goc]);
+    put(T.cot, 'cot'); put(T.tron2, 'tron2', 1); put([T.goc]);
     // hai hàng bên phải bắt đầu dưới việc truyện / bản đồ tròn
     const g = document.getElementById('goal')?.getBoundingClientRect(), mm = document.getElementById('mini-map')?.getBoundingClientRect();
     const top = Math.max(g && g.height ? g.bottom : 0, mm && mm.height ? mm.bottom + 14 : 0, 110) + 6;
     document.body.style.setProperty('--cot-top', Math.round(top) + 'px');
+    return Math.round(top);
   }
   apply(); place(); every(place, 2000); addEventListener('resize', place);
 }

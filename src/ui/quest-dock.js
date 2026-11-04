@@ -33,8 +33,8 @@ export function createQuestDock(game) {
   };
 
   function paint() {
-    const r = (document.getElementById('uk-gon') || document.querySelector('#hud .bar.qi'))?.getBoundingClientRect();
-    box.style.top = `${Math.round((r && r.height ? r.bottom : 120) + 8)}px`;   // bên trái, dưới nút thu gọn / thanh linh khí (chủ dự án 04/11/2026 09:19)
+    const r = document.querySelector('#hud .bar.qi')?.getBoundingClientRect();
+    box.style.top = `${Math.round((r && r.height ? r.bottom : 90) + 10)}px`;   // bên trái, dưới thanh linh khí (chủ dự án 04/11/2026 09:19)
     const dl = ensureDaily(game), ck = checkinOn(game) ? checkinCached() : null;
     const k = [hide, ck?.hom_nay, ck?.vi_tri, dl.chest, ...dl.tasks.map(t => `${t.n}${t.got}`)].join('|');
     if (k === key) return;
