@@ -16,8 +16,8 @@
  "stats": {
   "atk": {"name": "Công", "min": 2, "max": 6},
   "atk_pct": {"name": "Công", "min": 3, "max": 8, "pct": true},
-  "hp": {"name": "Máu", "min": 10, "max": 30},
-  "hp_pct": {"name": "Máu", "min": 4, "max": 10, "pct": true},
+  "hp": {"name": "Sinh lực", "min": 10, "max": 30},
+  "hp_pct": {"name": "Sinh lực", "min": 4, "max": 10, "pct": true},
   "def": {"name": "Phòng ngự", "min": 1, "max": 4},
   "crit": {"name": "Tỉ lệ bạo kích", "min": 2, "max": 5, "pct": true, "cap": 60},
   "crit_dmg": {"name": "Sát thương bạo kích", "min": 8, "max": 20, "pct": true},

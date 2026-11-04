@@ -20,7 +20,7 @@
   "whisper": "Truyền âm",
   "flag": "Bị gắn cờ nghi vấn gian lận",
   "power": "Lực chiến {v}",
-  "stats": "Máu {hp} · Công {atk} · Phòng {def} · Bạo kích {crit}% · Sát thương bạo {cm}%",
+  "stats": "Sinh lực {hp} · Công {atk} · Phòng {def} · Bạo kích {crit}% · Sát thương bạo {cm}%",
   "element": "Linh căn {name}",
   "element_none": "Chưa thức tỉnh linh căn",
   "weapon": "Binh khí: {name}",

@@ -85,7 +85,7 @@ export function createHud(audio) {
       R.children[1].textContent = s.element ? `${d.elements[s.element].name} căn · ${rootOf(s, d).name}` : '';
       document.documentElement.style.setProperty('--el-line', s.element ? d.elements[s.element].color + 'dd' : '');   // đề xuất #41: viền nút theo hệ Linh căn (style-khung.css)
       $('hp-fill').style.width = Math.max(0, p.hp / p.maxHp * 100) + '%';
-      $('hp-text').textContent = `${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');
+      $('hp-text').textContent = `Sinh lực ${Math.max(0, Math.ceil(p.hp))}/${p.maxHp}` + (p.shield > 0 ? ` (+${Math.ceil(p.shield)})` : '');
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
     }
