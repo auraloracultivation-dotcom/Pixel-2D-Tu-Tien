@@ -67,13 +67,12 @@
    }
   ],
   "tron": {
-   "_note": "Nút tròn theo ảnh mẫu chủ dự án 04/11/2026 09:05, sửa 09:19 (style-ui-kit3.css, src/ui/hud-gon.js): cot = cột vòng sát mép phải dưới việc truyện, tron2 = cột không viền bên trái nó, goc = Túi đồ lớn góc dưới trái (dưới chỉ giữ Túi); lb = chữ dưới biểu tượng.",
+   "_note": "Nút tròn theo ảnh mẫu chủ dự án 04/11/2026 09:05, sửa 09:19, 09:25 (style-ui-kit3.css, src/ui/hud-gon.js): bên phải dưới việc truyện hai hàng ngang canh mép phải: cot = hàng trên có vòng (Menu, Bí cảnh, Sự kiện, Xếp hạng), tron2 = hàng dưới không viền (Zalo, Đề xuất, Báo lỗi, Thư; Động phủ khi ở nhà); goc = Túi đồ góc dưới trái; lb = chữ dưới biểu tượng.",
    "cot": [
-    "hud-event",
-    "hud-rank",
-    "hud-dun",
     "btn-menu",
-    "hud-home"
+    "hud-dun",
+    "hud-event",
+    "hud-rank"
    ],
    "goc": "btn-bag",
    "lb": {
@@ -90,10 +89,11 @@
     "btn-bag": "Túi đồ"
    },
    "tron2": [
+    "hud-home",
     "btn-zalo",
-    "btn-inbox",
-    "btn-fb-loi",
     "btn-fb-de_xuat",
+    "btn-fb-loi",
+    "btn-inbox",
     "btn-rec"
    ]
   }

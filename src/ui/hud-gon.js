@@ -41,19 +41,19 @@ export function createHudGon(game) {
   const T = game.data.menu?.hud?.tron;
   function tron() {
     if (!T) return;
-    const put = (ids, attr) => {
-      let k = 0;
+    const put = (ids, attr) => {   // hàng ngang canh mép phải: --<attr> = số thứ tự đếm từ phải sang (nút ẩn không chiếm chỗ)
+      const vis = ids.map(id => document.getElementById(id)).filter(b => b && b.closest('#hud .hud-btns') && !b.hidden);
       for (const id of ids) {
         const b = document.getElementById(id);
         if (!b || !b.closest('#hud .hud-btns')) continue;
         b.classList.add('tron'); b.dataset.lb = T.lb[id] || ''; if (attr) b.dataset[attr] = '1';
-        if (attr && !b.hidden) b.style.setProperty('--' + attr, k++);
+        if (attr && !b.hidden) b.style.setProperty('--' + attr, vis.length - 1 - vis.indexOf(b));
       }
     };
     put(T.cot, 'cot'); put(T.tron2, 'tron2'); put([T.goc]);
-    // hai cột phải bắt đầu dưới việc truyện / bản đồ tròn
+    // hai hàng bên phải bắt đầu dưới việc truyện / bản đồ tròn
     const g = document.getElementById('goal')?.getBoundingClientRect(), mm = document.getElementById('mini-map')?.getBoundingClientRect();
-    const top = Math.max(g && g.height ? g.bottom : 0, mm && mm.height ? mm.bottom + 14 : 0, 110) + 8;
+    const top = Math.max(g && g.height ? g.bottom : 0, mm && mm.height ? mm.bottom + 14 : 0, 110) + 6;
     document.body.style.setProperty('--cot-top', Math.round(top) + 'px');
   }
   apply(); place(); every(place, 2000); addEventListener('resize', place);

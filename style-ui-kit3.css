@@ -1,11 +1,11 @@
-/* Bố cục nút tròn theo ảnh mẫu chủ dự án (04/11/2026 09:05, sửa 09:19): bên phải dưới bản đồ tròn và việc truyện là hai cột nút:
-   cột vòng (Sự kiện, Xếp hạng, Bí cảnh, Menu, Động phủ khi ở nhà) sát mép, cột không viền (Zalo, Thư, Báo lỗi, Đề xuất) bên trái nó;
-   góc dưới trái chỉ còn Túi đồ. Nhiệm vụ hằng ngày sang bên trái dưới thanh linh khí. Bản đồ tròn: src/ui/mini-map.js. Nút tròn: vòng tím ui-k-vong-tim (ảnh GPT
+/* Bố cục nút tròn theo ảnh mẫu chủ dự án (04/11/2026 09:05, sửa 09:19, 09:25): bên phải dưới bản đồ tròn và việc truyện là hai hàng
+   ngang canh mép phải: hàng trên có vòng (Menu, Bí cảnh, Sự kiện, Xếp hạng), hàng dưới không viền (Zalo, Đề xuất, Báo lỗi, Thư;
+   Động phủ khi ở nhà); góc dưới trái chỉ còn Túi đồ. Nhiệm vụ hằng ngày sang bên trái dưới thanh linh khí. Bản đồ tròn: src/ui/mini-map.js. Nút tròn: vòng tím ui-k-vong-tim (ảnh GPT
    bộ hai), biểu tượng trên, chữ dưới (data-lb, gắn lớp .tron ở src/ui/hud-gon.js theo data/menu.json → hud.tron).
    Nạp sau style-ui-kit*.css; các luật khung chữ nhật cũ đã chừa :not(.tron). */
 
 body #hud .hud-btns > button.tron {
-  position: fixed !important; z-index: 6; width: 52px !important; height: 52px !important; padding: 0 !important; margin: 0 !important;
+  position: fixed !important; z-index: 6; width: 50px !important; height: 50px !important; padding: 0 !important; margin: 0 !important;
   border: 0 !important; border-image: none !important; border-radius: 50% !important; box-shadow: none !important; outline: none;
   background: url("assets/art/ui-k-vong-tim.png") center / 100% 100% no-repeat !important; image-rendering: auto;
   font-size: 0 !important; color: transparent !important; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .55));
@@ -24,11 +24,12 @@ body #hud .hud-btns > button.tron > i { position: absolute; top: 2px; right: 2px
 body #hud .hud-btns > button.tron:active { transform: scale(.92); }
 body #hud .hud-btns > button.tron.on { filter: drop-shadow(0 0 5px rgba(255, 190, 90, .9)); }
 
-/* hai cột phải: dưới việc truyện (--cot-top do src/ui/hud-gon.js đo) */
-body #hud .hud-btns > button.tron[data-cot] { right: calc(env(safe-area-inset-right) + 6px); top: calc(var(--cot-top, 160px) + var(--cot) * 60px); left: auto; }
-body #hud .hud-btns > button.tron[data-tron2] { right: calc(env(safe-area-inset-right) + 64px); top: calc(var(--cot-top, 160px) + var(--tron2) * 60px); left: auto;
-  background: none !important; filter: none; }
-body #hud .hud-btns > button.tron[data-tron2]::before { top: 8px; width: 36px; height: 28px; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .7)); }
+/* hai hàng phải: dưới việc truyện (--cot-top do src/ui/hud-gon.js đo), --cot / --tron2 đếm từ mép phải */
+body #hud .hud-btns > button.tron[data-cot] { right: calc(env(safe-area-inset-right) + 6px + var(--cot) * 54px); top: var(--cot-top, 160px); left: auto; }
+body #hud .hud-btns > button.tron[data-tron2] { width: 44px !important; height: 42px !important; right: calc(env(safe-area-inset-right) + 9px + var(--tron2) * 54px); top: calc(var(--cot-top, 160px) + 62px); left: auto;
+  background: none !important; filter: none; border-radius: 0 !important; }
+body #hud .hud-btns > button.tron[data-tron2]::after { bottom: -2px; }
+body #hud .hud-btns > button.tron[data-tron2]::before { top: 2px; width: 30px; height: 24px; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .7)); }
 /* góc dưới trái */
 body #hud .hud-btns > button.tron#btn-bag { width: 70px !important; height: 70px !important; left: calc(env(safe-area-inset-left) + 4px); bottom: calc(env(safe-area-inset-bottom) + 6px); top: auto; }
 body #hud .hud-btns > button.tron#btn-bag::before { width: 34px; height: 32px; top: 9px; }
@@ -66,7 +67,7 @@ body.ui-an #mini-map, body:has(.panel:not([hidden])) #mini-map, body:has(#bag:no
 body #goal { top: calc(env(safe-area-inset-top) + 118px); right: 8px; max-width: 46%; }
 
 /* ---- nhiệm vụ hằng ngày: bên trái dưới thanh linh khí (quest-dock.js đo chỗ); mũi tên thu / mở ở dòng tiêu đề (thay nút Nhiệm vụ) ---- */
-body .quest-dock { left: calc(env(safe-area-inset-left) + 8px); right: auto; max-width: 52%; }
+body .quest-dock { left: calc(env(safe-area-inset-left) + 8px); right: auto; max-width: calc(100% - 240px); min-width: 150px; }
 body .quest-dock .qd-head { pointer-events: auto; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 .qd-arrow { display: inline-block; width: 12px; height: 16px; background: url("assets/art/ui-k-arrow-r.png") center / contain no-repeat; transform: rotate(-90deg); image-rendering: auto; }
 .qd-arrow.dong { transform: rotate(90deg); }
