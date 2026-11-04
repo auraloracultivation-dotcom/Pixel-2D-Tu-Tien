@@ -499,7 +499,7 @@
     "kind": "pond",
     "at": [
      [
-      16,
+      12,
       10
      ]
     ]
@@ -521,7 +521,7 @@
   "mob": "moc-nhan",
   "at": [
    16,
-   6
+   5
   ],
   "test_s": 60,
   "idle_s": 5,
@@ -542,15 +542,15 @@
   }
  },
  "be_ca": {
-  "_note": "Bể cá động phủ (chủ dự án 04/11/2026 11:57): đặt sẵn ở góc phải dưới, tránh Mộc Nhân (16, 6) (at: ô bản đồ, w: bề ngang điểm bản đồ), hình ui-vk-be-ca (ảnh GPT tools/art/nguon/ai/ui/be-ca.png). Đứng gần chạm 'Bể cá' để thả cá câu được (cá trong Túi đồ → mục Cá) vào bể, tối đa max con; cá thả rồi bơi qua lại trong nước (src/render/draw-be-ca.js), lưu save.beCa = {loài: số}. Thả là một chiều (không vớt lại). Bán cá: làm sau.",
+  "_note": "Bể cá động phủ (chủ dự án 04/11/2026 11:57): đặt sẵn ở góc phải dưới, tránh Mộc Nhân (16, 6) (at: ô bản đồ, w: bề ngang điểm bản đồ), hình ui-vk-be-ca (ảnh GPT tools/art/nguon/ai/ui/be-ca.png). Đứng gần chạm 'Bể cá' để thả cá câu được (cá trong Túi đồ → mục Cá) vào bể, tối đa max con; cá thả rồi bơi qua lại trong nước (src/render/draw-be-ca.js), lưu save.beCa = {loài: số}. Thả là một chiều (không vớt lại). Bán cá: làm sau. Chủ dự án 04/11/2026 12:08: chậu to (w 84, max 40); hòn đá (15, 8) bỏ, Mộc Nhân dời (16, 5), hồ cá nhỏ trang trí dời (12, 10) cho bể chỗ đứng.",
   "name": "Bể cá",
   "at": [
-   17,
-   9
+   16,
+   10
   ],
-  "w": 46,
-  "max": 20,
-  "range": 26,
+  "w": 84,
+  "max": 40,
+  "range": 40,
   "ask": "Bể cá: {n}/{max} con. Thả cá câu được vào bể cho động phủ thêm sống động.",
   "release": "Thả cá",
   "pick": "Chọn cá để thả (mỗi lần một con):",

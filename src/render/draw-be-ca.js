@@ -18,13 +18,15 @@ export function drawBeCa(ctx, game, t) {
   ctx.fillStyle = 'rgba(220,245,255,.5)';
   for (let i = 0; i < 6; i++) ctx.fillRect(cx - rx + ((i * 9 + t * 4) % (rx * 2)), top + Math.sin(t * 3 + i) * 0.6, 3, 0.6);
   // cá: mỗi con một làn bơi, đi qua lại, lật mặt theo hướng
-  const fish = Object.entries((game.visiting ? game.visiting.beCa : game.save?.beCa) || {}).flatMap(([k, n]) => Array(Math.min(n, 20)).fill(k));
+  const fish = Object.entries((game.visiting ? game.visiting.beCa : game.save?.beCa) || {}).flatMap(([k, n]) => Array(Math.min(n, 40)).fill(k));   // tối đa 40 con (data/home.json → be_ca.max)
   ctx.imageSmoothingEnabled = true;
-  fish.slice(0, 20).forEach((k, i) => {
+  fish.slice(0, 40).forEach((k, i) => {
     const spr = S['ui.vk-' + k], fi = spr && spriteImage(spr);
     if (!fi) return;
-    const sp = 0.35 + (i * 0.13) % 0.3, ph = i * 2.1, u = Math.sin(t * sp + ph), dir = Math.cos(t * sp + ph) >= 0 ? 1 : -1;
-    const fx = cx + u * rx * 0.75, fy = top + 4 + ((i * 7) % Math.max(4, (cy + ry - top - 10))) + Math.sin(t * 1.7 + i) * 0.8, fw = 9;
+    // bơi đi về đều khắp bề ngang (sóng tam giác), chỗ xuất phát và làn sâu rải theo tỉ lệ vàng: 40 con không dồn một chỗ
+    const sp = 0.05 + ((i * 0.618) % 1) * 0.05, q = (t * sp + i * 0.618) % 2, pos = q < 1 ? q : 2 - q, dir = q < 1 ? 1 : -1;
+    const deep = cy + ry - top - 10, lane = (i * 0.381) % 1, half = rx * (0.85 - 0.4 * Math.abs(lane - 0.5));
+    const fw = 11, fy = top + 6 + lane * deep + Math.sin(t * 1.3 + i) * 1, fx = cx - half + pos * 2 * half;
     ctx.save(); ctx.translate(fx, fy); ctx.scale(-dir, 1);   // hình gốc nhìn trái
     ctx.drawImage(fi, -fw / 2, -fw / 2, fw, fw); ctx.restore();
   });
