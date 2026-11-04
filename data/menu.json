@@ -19,7 +19,7 @@
   "run": "đang trong tháp, luận võ hoặc bí cảnh tài nguyên"
  },
  "hud": {
-  "_note": "Nút trên màn hình theo thứ tự (chủ dự án gom A–L 02/11/2026 03:43, dọn lại 10:50: mỗi nút đúng một việc): Túi đồ, Menu, Công pháp, Bí cảnh, Sự kiện (thẳng bảng giới thiệu nhận quà), Nhiệm vụ (điểm danh + nhiệm vụ hằng ngày), Tự đánh, Động phủ (chỉ hiện trong động phủ), Bản đồ, Xếp hạng (thẳng bảng xếp hạng). Nút Đạo Vận đã bỏ. Luôn hiện thêm (13:38): Hòm thư, Báo lỗi, Đề xuất. Nút quay clip chỉ hiện khi đang quay. Trò chuyện là khung nhỏ dưới màn hình (src/ui/chat-dock.js). Cách mở: nav (cột mục, side-nav.js), dun, open, social, btn (bấm hộ nút cũ); code ở src/ui/hud-order.js. where 'home': chỉ hiện ở động phủ; show 'badge' / 'on'; badge: chấm đỏ theo nút cũ. Tự đánh (btn-auto) dời xuống cạnh nút chiêu linh thú (Hỏa Hồn Linh) ở cụm nút đánh (chủ dự án 02/11/2026 14:39). Nhóm Zalo ra màn hình cạnh Báo lỗi, Đề xuất (chủ dự án 02/11/2026 15:37). Chủ dự án 04/11/2026 09:05: Công pháp thành mục trong Túi đồ; bỏ nút Nhiệm vụ (cột nhiệm vụ có mũi tên đóng / mở riêng); Bản đồ thành khung tròn góc phải trên (src/ui/mini-map.js).",
+  "_note": "Nút trên màn hình theo thứ tự (chủ dự án gom A–L 02/11/2026 03:43, dọn lại 10:50: mỗi nút đúng một việc): Túi đồ, Menu, Công pháp, Bí cảnh, Sự kiện (thẳng bảng giới thiệu nhận quà), Nhiệm vụ (điểm danh + nhiệm vụ hằng ngày), Tự đánh, Động phủ (chỉ hiện trong động phủ), Bản đồ, Xếp hạng (thẳng bảng xếp hạng). Nút Đạo Vận đã bỏ. Luôn hiện thêm (13:38): Hòm thư, Báo lỗi, Đề xuất. Nút quay clip chỉ hiện khi đang quay. Trò chuyện là khung nhỏ dưới màn hình (src/ui/chat-dock.js). Cách mở: nav (cột mục, side-nav.js), dun, open, social, btn (bấm hộ nút cũ); code ở src/ui/hud-order.js. where 'home': chỉ hiện ở động phủ; show 'badge' / 'on'; badge: chấm đỏ theo nút cũ. Tự đánh (btn-auto) dời xuống cạnh nút chiêu linh thú (Hỏa Hồn Linh) ở cụm nút đánh (chủ dự án 02/11/2026 14:39). Nhóm Zalo ra màn hình cạnh Báo lỗi, Đề xuất (chủ dự án 02/11/2026 15:37). Chủ dự án 04/11/2026 09:05: Công pháp thành mục trong Túi đồ; bỏ nút Nhiệm vụ (cột nhiệm vụ có mũi tên đóng / mở riêng); Bản đồ thành khung tròn góc phải trên (src/ui/mini-map.js). 09:31: Hòm thư, Zalo, Đề xuất, Báo lỗi gộp vào một nút Thư (src/ui/hop-thu.js), các nút cũ cất vào #hud-menu.",
   "list": [
    {
     "id": "btn-bag",
@@ -50,16 +50,9 @@
     "social": "rank"
    },
    {
-    "id": "btn-inbox"
-   },
-   {
-    "id": "btn-fb-loi"
-   },
-   {
-    "id": "btn-fb-de_xuat"
-   },
-   {
-    "id": "btn-zalo"
+    "id": "hud-thu",
+    "label": "Thư",
+    "open": "hopThu"
    },
    {
     "id": "btn-rec",
@@ -67,7 +60,7 @@
    }
   ],
   "tron": {
-   "_note": "Nút tròn theo ảnh mẫu chủ dự án 04/11/2026 09:05, sửa 09:19, 09:25 (style-ui-kit3.css, src/ui/hud-gon.js): bên phải dưới việc truyện hai hàng ngang canh mép phải: cot = hàng trên có vòng (Menu, Bí cảnh, Sự kiện, Xếp hạng), tron2 = hàng dưới không viền (Zalo, Đề xuất, Báo lỗi, Thư; Động phủ khi ở nhà); goc = Túi đồ góc dưới trái; lb = chữ dưới biểu tượng.",
+   "_note": "Nút tròn theo ảnh mẫu chủ dự án 04/11/2026 09:05, sửa 09:19, 09:25 (style-ui-kit3.css, src/ui/hud-gon.js): bên phải dưới việc truyện hai hàng ngang canh mép phải: cot = hàng trên có vòng (Menu, Bí cảnh, Sự kiện, Xếp hạng), tron2 = hàng dưới không viền (Thư gộp Hòm thư, Zalo, Đề xuất, Báo lỗi; Động phủ khi ở nhà); goc = Túi đồ góc dưới trái; lb = chữ dưới biểu tượng.",
    "cot": [
     "btn-menu",
     "hud-dun",
@@ -86,14 +79,12 @@
     "hud-dun": "Bí cảnh",
     "btn-menu": "Menu",
     "hud-home": "Động phủ",
-    "btn-bag": "Túi đồ"
+    "btn-bag": "Túi đồ",
+    "hud-thu": "Thư"
    },
    "tron2": [
     "hud-home",
-    "btn-zalo",
-    "btn-fb-de_xuat",
-    "btn-fb-loi",
-    "btn-inbox",
+    "hud-thu",
     "btn-rec"
    ]
   }
