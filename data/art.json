@@ -23410,6 +23410,114 @@
    ],
    "note": "nguồn sáng khung giao diện: torch (ảnh Canva den-1.png)"
   },
+  "ui.vk-ba-tieu-phien": {
+   "file": "assets/art/ui-vk-ba-tieu-phien.png",
+   "v": "42c7d345",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "vũ khí ba-tieu-phien (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-dao-van-binh": {
+   "file": "assets/art/ui-vk-dao-van-binh.png",
+   "v": "b128dc42",
+   "w": 369,
+   "h": 369,
+   "frames": 1,
+   "anchor": [
+    184,
+    184
+   ],
+   "note": "vũ khí dao-van-binh (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-moc-cam": {
+   "file": "assets/art/ui-vk-moc-cam.png",
+   "v": "e64e60b5",
+   "w": 355,
+   "h": 355,
+   "frames": 1,
+   "anchor": [
+    177,
+    177
+   ],
+   "note": "vũ khí moc-cam (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-thanh-van-kiem": {
+   "file": "assets/art/ui-vk-thanh-van-kiem.png",
+   "v": "d404b1f0",
+   "w": 367,
+   "h": 367,
+   "frames": 1,
+   "anchor": [
+    183,
+    183
+   ],
+   "note": "vũ khí thanh-van-kiem (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-thien-mach-kiem": {
+   "file": "assets/art/ui-vk-thien-mach-kiem.png",
+   "v": "9709bea7",
+   "w": 374,
+   "h": 374,
+   "frames": 1,
+   "anchor": [
+    187,
+    187
+   ],
+   "note": "vũ khí thien-mach-kiem (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-thiet-kiem": {
+   "file": "assets/art/ui-vk-thiet-kiem.png",
+   "v": "e001f7ce",
+   "w": 352,
+   "h": 352,
+   "frames": 1,
+   "anchor": [
+    176,
+    176
+   ],
+   "note": "vũ khí thiet-kiem (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-thiet-thuong": {
+   "file": "assets/art/ui-vk-thiet-thuong.png",
+   "v": "a342ee11",
+   "w": 348,
+   "h": 348,
+   "frames": 1,
+   "anchor": [
+    174,
+    174
+   ],
+   "note": "vũ khí thiet-thuong (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-truc-cung": {
+   "file": "assets/art/ui-vk-truc-cung.png",
+   "v": "b51a8244",
+   "w": 347,
+   "h": 347,
+   "frames": 1,
+   "anchor": [
+    173,
+    173
+   ],
+   "note": "vũ khí truc-cung (ảnh GPT vu-khi-1.png)"
+  },
+  "ui.vk-tu-nguyet-liem": {
+   "file": "assets/art/ui-vk-tu-nguyet-liem.png",
+   "v": "77c4d000",
+   "w": 400,
+   "h": 400,
+   "frames": 1,
+   "anchor": [
+    200,
+    200
+   ],
+   "note": "vũ khí tu-nguyet-liem (ảnh GPT vu-khi-1.png)"
+  },
   "ui.wisp": {
    "file": "assets/art/ui-wisp.png",
    "v": "e509b778",
