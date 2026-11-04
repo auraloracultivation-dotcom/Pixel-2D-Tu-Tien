@@ -77,11 +77,12 @@ function drawBullet(ctx, game, art, C, t, b, V) {
 function drawFx(ctx, game, art, C, t, f) {
   const T = f.t - (f.delay || 0);
   if (T < 0) return;
+  const pl = game.player, nearMul = Math.hypot(f.x - pl.x, f.y - pl.y) < 16 ? game.data.vfx.near_mul ?? 1 : 1;   // nở ngay trên người: dịu lõi, quầng cho khỏi trắng nhân vật
   const k = Math.min(1, T / f.life), out = 1 - Math.max(0, (k - 0.55) / 0.45);
   switch (f.k) {
     case 'muzzle': glow(ctx, f.x, f.y, f.r * (0.5 + k), f.color, 0.8 * (1 - k)); core(ctx, f.x, f.y, f.r * 0.5, f.color, 0.9 * (1 - k)); break;
     case 'pop': glow(ctx, f.x, f.y, f.r * (0.6 + k * 0.8), f.color, 0.9 * (1 - k)); core(ctx, f.x, f.y, f.r * 0.6 * (1 - k * 0.5), f.color, 1 - k); break;
-    case 'flash': lit(ctx, art, C, f.img, f.x, f.y - k * 4, f.size * (0.6 + 0.5 * ease(k * 2)), f.color, { a: out }); break;
+    case 'flash': lit(ctx, art, C, f.img, f.x, f.y - 6 - k * 6, f.size * (0.6 + 0.4 * ease(k * 2)), f.color, { a: out * 0.85, core: 0.5 }); break;
     case 'circle': groundCircle(ctx, art, f.img, f.x, f.y, f.r * (0.6 + 0.4 * ease(k * 5)), T * 1.2, 0.8 * out); break;
     case 'ring': {   // sóng xung kích: vành sáng nở ra, mỏng dần, nằm dẹt trên đất
       const r = f.r * (0.25 + 0.95 * ease(k));
@@ -95,16 +96,16 @@ function drawFx(ctx, game, art, C, t, f) {
     }
     case 'burst': {
       const s = f.size * (0.5 + 0.8 * ease(k * 1.6));
-      glow(ctx, f.x, f.y, s * 0.8, f.color, 0.7 * (1 - k));
-      vimg(ctx, art, f.img, f.x, f.y, s, { a: out, add: k > 0.35 });
-      core(ctx, f.x, f.y, s * 0.3, f.color, (1 - k * 2.2));
+      glow(ctx, f.x, f.y, s * 0.8, f.color, 0.7 * (1 - k) * nearMul);
+      vimg(ctx, art, f.img, f.x, f.y, s, { a: out * (nearMul < 1 ? 0.75 : 1), add: k > 0.35 });
+      core(ctx, f.x, f.y, s * 0.3, f.color, (1 - k * 2.2) * nearMul);
       break;
     }
     case 'ground': {
-      const s = f.size * back(Math.min(1, k * 3.2)), a = out * (f.flat ? 0.8 : 0.9);
-      glow(ctx, f.x, f.y - 4, f.size * 0.5, f.color, 0.3 * out);
+      const s = f.size * back(Math.min(1, k * 3.2)), a = out * (f.flat ? 0.72 : 0.9) * (nearMul < 1 && !f.flat ? 0.8 : 1);
+      glow(ctx, f.x, f.y - 4, f.size * 0.5, f.color, 0.3 * out * nearMul);
       vimg(ctx, art, f.img, f.x, f.y - (f.flat ? 0 : s * 0.12), s, { a, sy: f.flat ? 0.62 : 1, add: k > 0.45 });
-      core(ctx, f.x, f.y - 4, f.size * 0.18, f.color, 0.9 * (1 - k));
+      core(ctx, f.x, f.y - 4, f.size * 0.18, f.color, 0.9 * (1 - k) * nearMul);
       break;
     }
     case 'center': {   // lốc xoáy: lớn lên, lắc qua lại, xoáy nhẹ
@@ -126,7 +127,7 @@ function drawFx(ctx, game, art, C, t, f) {
       const yy = y - f.size * 0.42 - (1 - land * land) * 70, a = T < f.land ? Math.min(1, T * 8) : 1 - Math.max(0, (T - f.land) / (f.life - f.land)) * (f.soft ? 1 : 0.9);
       glow(ctx, x, yy, f.size * 0.7, f.color, 0.45 * a);
       vimg(ctx, art, f.img, x, yy, f.size, { a, add: f.soft && T > f.land });
-      if (T >= f.land) core(ctx, x, y - 4, f.size * 0.4, f.color, 1 - (T - f.land) * 3);
+      if (T >= f.land) core(ctx, x, y - 4, f.size * 0.4, f.color, (1 - (T - f.land) * 3) * nearMul);
       break;
     }
     case 'rise': {   // hồi máu: lá, sen bay lên trên đầu, nở ra, cột sáng dưới chân
