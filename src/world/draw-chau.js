@@ -10,11 +10,13 @@ export function drawChau(ctx, game, tx, ty, px, py, T, grow, crop, t) {
   if (!pim) return false;
   const smooth = ctx.imageSmoothingEnabled; ctx.imageSmoothingEnabled = true;
   const W = T * 1.1, H = W * pot.h / pot.w, x0 = px + T / 2 - W / 2, y0 = py + T - H;   // chậu đứng đáy ô
-  const cs = S['ui.vk-' + crop.id], cim = cs && spriteImage(cs);
-  if (cim) {   // cây sau miệng chậu: mầm nhỏ → cây đủ lớn
-    const k = 0.3 + 0.7 * Math.min(1, grow), cw = T * 0.85 * k, sway = grow >= 1 ? Math.sin(t * 1.6 + tx) * 0.05 : 0;
-    ctx.save(); ctx.translate(px + T / 2, y0 + H * 0.35); ctx.rotate(sway);
-    ctx.drawImage(cim, -cw / 2, -cw, cw, cw); ctx.restore();
+  // cây trong chậu (ảnh cay-1.png, chủ dự án 12:38): nửa đầu là cây non, nửa sau là cây lớn, lớn dần theo độ chín;
+  // chưa có hình cây thì dùng hình nguyên liệu của cây
+  const g = Math.min(1, grow), cs = S[(g < 0.5 ? 'ui.vk-cay-non-' : 'ui.vk-cay-') + crop.id] || S['ui.vk-' + crop.id], cim = cs && spriteImage(cs);
+  if (cim) {
+    const k = g < 0.5 ? 0.55 + 0.45 * g / 0.5 : 0.75 + 0.25 * (g - 0.5) / 0.5, cw = T * 1.0 * k, sway = g >= 1 ? Math.sin(t * 1.6 + tx) * 0.05 : 0;
+    ctx.save(); ctx.translate(px + T / 2, y0 + H * 0.42); ctx.rotate(sway);
+    ctx.drawImage(cim, -cw / 2, -cw * 0.95, cw, cw); ctx.restore();   // gò đất của hình nằm ở miệng chậu
   }
   ctx.drawImage(pim, x0, y0, W, H);
   if (grow >= 1) {   // chín: hạt sáng lấp lánh trên ngọn
