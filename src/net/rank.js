@@ -48,3 +48,10 @@ export async function submitDps(dps) {
   if (error) throw new Error(['qua_muc', 'cham_lai', 'chua_luu', 'so_sai'].find(c => (error.message || '').includes(c)) || 'net');
   return data;
 }
+
+// Nhập mã quà (supabase/migrations/20261104080000_p2d_ma_qua.sql): trả { ok, diem } hoặc { ok: false, ly_do }
+export async function redeemCode(ma) {
+  const { data, error } = await supabase.rpc('p2d_nhap_ma', { p_ma: ma });
+  if (error) throw new Error((error.message || '').match(/[a-z_]+/)?.[0] || 'net');
+  return data;
+}

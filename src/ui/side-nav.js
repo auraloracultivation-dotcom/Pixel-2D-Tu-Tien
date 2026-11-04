@@ -5,6 +5,7 @@
 import { itemLock, busyWhy, talkMenu } from '../game/menu-acts.js';
 import { homeAct } from '../game/home-acts.js';
 import { renderPilotOpts } from './pilot-tab.js';
+import { renderCodePane } from './ma-qua.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
@@ -62,7 +63,8 @@ export function createSideNav(game) {
     body.replaceChildren(); paneSub.textContent = '';
     paneTitle.textContent = it ? it.label : D.title;
     if (!it) { body.append(el('p', 'muted', D.hint || '')); return; }
-    if (it.pilot) renderPilotOpts(game, body, { card, mini, sub: t => { paneSub.textContent = t; } });
+    if (it.code) renderCodePane(game, body);   // Nhập mã quà
+    else if (it.pilot) renderPilotOpts(game, body, { card, mini, sub: t => { paneSub.textContent = t; } });
     else if (it.sound) {
       const m = document.getElementById('btn-mute'), off = m?.classList.contains('off');
       body.append(card(off ? '#c8c4d0' : '#5fd07a', it.label, [off ? it.off : it.on], mini(off ? it.btn_on : it.btn_off, () => m?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })))));
