@@ -44,24 +44,24 @@ function arcPts(cx, cy, r, a0, a1, head, span, dir) {
 }
 
 export function drawKiemTrail(ctx, tr, kind, k, x, y, dir, top) {
-  const color = tr.color || '#ff1a2e', core = tr.core || '#fff4ee', W = tr.w || 5;
+  const color = tr.color || '#ff1a2e', core = tr.core || '#fff4ee', W = tr.w || 5, Z = tr.size || 1;   // w: độ dày, size: nhân bán kính, tầm (data/fashion.json)
   const go = ease((k - 0.18) / 0.42), fade = k < 0.62 ? 1 : clamp(1 - (k - 0.62) / 0.38);   // vung nhanh, sáng lưu lâu
   if (go <= 0) return;
   ctx.save(); ctx.lineCap = 'round';
   if (kind === 0) {   // chém 1: từ trên đầu phía sau chéo xuống trước mặt bên phải, xa
-    const R = top * 1.25;
+    const R = top * 1.25 * Z;
     ribbon(ctx, arcPts(x - dir * 2, y + 2, R, -1.75, 0.75, go, 0.75, dir), W, color, core, fade);
   } else if (kind === 1) {   // chém 2: từ dưới trước mặt quét ngược lên, vòng ra sau lưng
-    const R = top * 1.2;
+    const R = top * 1.2 * Z;
     ribbon(ctx, arcPts(x, y + 3, R, 0.85, -2.6, go, 0.7, dir), W, color, core, fade);
   } else {   // đâm: tia thẳng ra trước ngang hông, đầu nhọn, chớp sáng ở mũi
-    const y0 = y + top * 0.2, len = top * 2.4 * go, x0 = x + dir * top * 0.35, pts = [];
+    const y0 = y + top * 0.2, len = top * 2.4 * Z * go, x0 = x + dir * top * 0.35, pts = [];
     for (let i = 0; i <= 12; i++) { const u = i / 12; pts.push([x0 + dir * len * u, y0, 0.25 + 0.75 * Math.sin(Math.PI * Math.min(0.999, u * 0.92 + 0.04))]); }
     ribbon(ctx, pts, W * 0.9, color, core, fade);
-    const tx = x0 + dir * len, g = ctx.createRadialGradient(tx, y0, 0, tx, y0, 7);
+    const tx = x0 + dir * len, g = ctx.createRadialGradient(tx, y0, 0, tx, y0, 7 * Z);
     g.addColorStop(0, core); g.addColorStop(0.35, color); g.addColorStop(1, 'rgba(255,26,46,0)');
     ctx.globalCompositeOperation = 'lighter'; ctx.shadowBlur = 0; ctx.globalAlpha = fade * 0.8 * go;
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(tx, y0, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(tx, y0, 7 * Z, 0, Math.PI * 2); ctx.fill();
   }
   ctx.restore();
 }
