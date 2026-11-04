@@ -27,7 +27,7 @@ function paletteOf(C, color, name) {
   if (!tones.has(key)) {
     const p = C.palettes?.[name];
     const c = rgb(color || C.color);
-    tones.set(key, p ? p.map(rgb) : [mix(c, [255, 252, 240], 0.85), mix(c, [255, 255, 255], 0.4), c, mix(c, [58, 20, 64], 0.38)]);
+    tones.set(key, p ? [[255, 255, 255], ...p.slice(1).map(rgb)] : [[255, 255, 255], mix(c, [255, 255, 255], 0.4), c, mix(c, [58, 20, 64], 0.38)]);
   }
   return tones.get(key);
 }
@@ -47,14 +47,14 @@ function canvasFor(w, h) {
 }
 
 // Tô điểm ảnh của một lưỡi vào buffer: inside(px, py) trả về [độ sâu 0..1, u dọc lưỡi] hoặc null; streak(px, py) cho tia
-function raster(img, W, H, x0, y0, test, pal, dis, cool) {
+function raster(img, W, H, x0, y0, test, pal, dis, cool, core = 0.22) {
   const d = img.data;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const wx = x0 + x, wy = y0 + y;
     if (dis && BAYER[(wy & 3) * 4 + (wx & 3)] < dis) continue;
     const r = test(wx + 0.5, wy + 0.5);
     if (!r) continue;
-    let tone = r[0] < 0.22 ? 0 : r[0] < 0.5 ? 1 : r[0] < 0.8 ? 2 : 3;
+    let tone = r[0] < core ? 0 : r[0] < 0.6 ? 1 : r[0] < 0.85 ? 2 : 3;   // lõi trắng rộng (config.slash.core)
     if (r[1] < cool && tone < 3) tone++;   // đuôi nguội đi một tông
     if (r[2]) tone = 1 + (tone > 2);        // tia: tông sáng hoặc màu gốc, không sẫm
     const c = pal[tone], i = (y * W + x) * 4;
@@ -125,7 +125,7 @@ function drawOne(ctx, f, C) {
   const c = canvasFor(w2, h2);
   if (!imgBuf || imgBuf.width !== w2 || imgBuf.height !== h2) imgBuf = c.createImageData(w2, h2); else imgBuf.data.fill(0);
   const img = imgBuf;
-  for (const test of tests) raster(img, w2, h2, x0, y0, test, pal, dis, fr <= 3 ? C.cool : C.cool * 1.6);
+  for (const test of tests) raster(img, w2, h2, x0, y0, test, pal, dis, fr <= 3 ? C.cool : C.cool * 1.6, C.core);
   if (fr === 0 || (fr <= 2 && !f.spin)) {   // lóe báo trước / tia ở đầu lưỡi lúc vút: chữ thập 4 cánh điểm ảnh
     let sx, sy;
     if (f.shape === 'line') { const s0 = (f.from || 0) * f.len, b = s0 + (f.len - s0) * head; sx = ox + Math.cos(f.ang) * b; sy = oy + Math.sin(f.ang) * b; }
