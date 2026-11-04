@@ -3,6 +3,7 @@
 import { ensureDaily, taskDef, taskText, claimTask, claimChest } from '../game/daily.js';
 import { renderCheckin } from './checkin-card.js';
 import { loadCheckin } from '../game/checkin.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const $ = id => document.getElementById(id);
 
@@ -18,7 +19,7 @@ export function createDailyPanel(game) {
   let msg = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); render(); }; return b; };
-  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && `${r.stones} thạch`, r.qi && `${r.qi} linh khí`, r.gem && `${r.gem} ngọc`, r.item && 'trang bị', r.mats && 'nguyên liệu'].filter(Boolean).join(', ');
+  const rewardText = r => [r.coins && `${r.coins} ${data.shop.name}`, r.stones && t('{n} thạch', { n: r.stones }), r.qi && t('{n} linh khí', { n: r.qi }), r.gem && t('{n} ngọc', { n: r.gem }), r.item && t('trang bị'), r.mats && t('nguyên liệu')].filter(Boolean).join(', ');
 
   function card(color, title, lines, btn) {
     const c = el('div', 'skill-card');

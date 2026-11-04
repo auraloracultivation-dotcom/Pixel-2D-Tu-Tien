@@ -21,6 +21,7 @@ import { canPat, patPet } from './pat.js';
 import { phase } from './daynight.js';
 import { etaText } from './eta.js';
 import { unstuck } from './unstuck.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const C = game => game.data.config.pilot;
 
@@ -64,13 +65,13 @@ export function pilotDied(game) {
 
 // Chữ báo việc tự hành đang làm, hiện dưới mục tiêu
 export function pilotLabel(game) {
-  if (game.pilot && game.trib.canStart()) return 'Tự hành: ' + C(game).peak.label;
+  if (game.pilot && game.trib.canStart()) return t('Tự hành: {x}', { x: C(game).peak.label });
   const j = game.pilot?.job, L = C(game).labels;
   const k = j && Object.keys(L).find(k => j[k]);
   if (!k) return '';
   const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
   const eta = k === 'sit' ? etaText(game) : '';
-  return 'Tự hành: ' + (k === 'go' && to ? L.to.replace('{name}', to) : L[k].replace('{name}', name)) + (eta ? ', ' + eta : '');
+  return t('Tự hành: {x}', { x: (k === 'go' && to ? L.to.replace('{name}', to) : L[k].replace('{name}', name)) + (eta ? ', ' + eta : '') });
 }
 
 // Đường qua các đảo: tìm theo cổng (bỏ cổng chưa mở), trả về cổng đầu tiên phải đi

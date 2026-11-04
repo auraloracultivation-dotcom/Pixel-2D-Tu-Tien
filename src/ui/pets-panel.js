@@ -5,6 +5,7 @@ import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
 import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
 import { beastStats, statLine, linesText, rerollCost, costLine, rerollBeast, rerollMount, mountLine } from '../game/beast.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const $ = id => document.getElementById(id);
 
@@ -86,7 +87,7 @@ export function createPetsPanel(game) {
       c.disabled = !ok; list.append(c);
     }
     const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
-    if (missing.length) list.append(el('p', 'muted', 'Chưa thu phục: ' + missing.join(', ') + '.'));
+    if (missing.length) list.append(el('p', 'muted', t('Chưa thu phục: {list}.', { list: missing.join(', ') })));
     list.append(el('p', 'muted', `Linh thú cấp ${E.level} có thể tiến hóa.`));
   }
 
@@ -95,7 +96,7 @@ export function createPetsPanel(game) {
     for (const [id, m] of Object.entries(P.mounts)) {
       const got = s.mounts[id];
       const ml = got && mountLine(game, id);
-      const c = card(m.color, `${m.name}${s.mount === id ? ' · đang dùng' : got ? '' : ' · chưa có'}`, [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
+      const c = card(m.color, m.name + (s.mount === id ? ' ' + t('· đang dùng') : got ? '' : ' ' + t('· chưa có')), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
       c.disabled = !got;
       if (!got) c.classList.add('locked');
       list.append(c);

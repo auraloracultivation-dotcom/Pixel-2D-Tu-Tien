@@ -1,6 +1,7 @@
 // Màn đầu: đăng nhập tài khoản, hoặc chơi thử không mạng.
 // Phần mạng nạp lười: mất mạng thì vẫn chơi thử được.
 import { loadSave } from '../core/save.js';
+import { langRow } from './lang-pick.js';
 
 const $ = id => document.getElementById(id);
 const NET_TIMEOUT = 8000;
@@ -19,6 +20,7 @@ export function createLogin(onPlay0) {
   function render() {
     if (played) return; // đã vào game: kết nối xong muộn cũng không hiện lại màn đầu
     $('menu').hidden = false;
+    langRow($('menu'));   // Tiếng Việt · English · 繁體中文
     $('login-form').hidden = !!session;
     $('logged').hidden = !session;
     if (session) $('logged-name').textContent = auth.displayName(session);

@@ -1,5 +1,6 @@
 // Đạo lữ khen (data/praise.json): đột phá, hạ boss, được đồ hiếm, lên hạng... thì đạo lữ (hoặc bạn đồng hành thân) nói vài câu.
 import { daoLuHere, affinity } from './affinity.js';
+import { srcOf } from '../core/i18n.js';   // câu đã dịch: xét chữ gốc tiếng Việt
 
 const C = game => game.data.praise;
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -20,7 +21,7 @@ export function praise(game, kind, vars = {}) {
     if (!who.close || game.time < (game.praiseT || 0) || Math.random() > cfg.small_chance) return;
     game.praiseT = game.time + cfg.small_cd;
   } else if (!who.close && Math.random() > cfg.comp_chance) return;
-  const mine = (cfg.lines[who.id]?.[kind] || []).filter(l => who.close || !l.includes('đạo lữ'));   // chưa kết đạo lữ thì không nói "đạo lữ của ta"
+  const mine = (cfg.lines[who.id]?.[kind] || []).filter(l => who.close || !srcOf(l).includes('đạo lữ'));   // chưa kết đạo lữ thì không nói "đạo lữ của ta"
   const set = mine.length ? mine : cfg.lines.default[kind];
   if (!set) return;
   const text = pick(set).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');

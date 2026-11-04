@@ -269,6 +269,19 @@ try {
   }
 }
 
+// Đa ngôn ngữ (data/i18n/<ngôn ngữ>.json, src/core/i18n.js): bản dịch phải giữ đủ chỗ trống {n}; in tỉ lệ đã dịch.
+// Thiếu bản dịch không làm trượt kiểm tra (game tự hiện tiếng Việt), nhưng nên dịch bù: node tools/i18n-extract.mjs --missing en
+{
+  const { collect, PH } = await import('./i18n-extract.mjs');
+  const keys = [...collect('.').keys()], cov = [];
+  for (const f of readdirSync(join('data', 'i18n')).filter(f => f.endsWith('.json'))) {
+    const d = JSON.parse(readFileSync(join('data', 'i18n', f), 'utf8'));
+    for (const [k, v] of Object.entries(d)) if (!k.startsWith('_') && PH(k) !== PH(v)) errors.push(`data/i18n/${f}: bản dịch của "${k.slice(0, 50)}" làm mất / đổi chỗ trống {…}`);
+    cov.push(`${f.replace('.json', '')} ${(keys.filter(k => d[k]).length / keys.length * 100).toFixed(1)}%`);
+  }
+  console.log(`Đa ngôn ngữ: ${keys.length} câu, đã dịch ${cov.join(', ')}`);
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);
