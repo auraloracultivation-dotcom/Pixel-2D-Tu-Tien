@@ -13,7 +13,9 @@ let base = Real.now(), basePerf = perf(), floor = 0, server = false, resync = nu
 try { floor = Number(localStorage.getItem(KEY)) || 0; } catch { /* trình duyệt chặn lưu: bỏ qua */ }
 
 const raw = () => base + (perf() - basePerf);
-export const trustedNow = () => Math.max(raw(), floor);
+// Số nguyên như Date.now() thật: performance.now có phần lẻ, mã phiên p2d_phien_dat ghép Date.now().toString(36) bị dấu chấm
+// nên máy chủ từ chối (phien_sai, khoảng 3/4 lần vào game), "một tài khoản một máy" không chạy
+export const trustedNow = () => Math.floor(Math.max(raw(), floor));
 
 class TrustedDate extends Real {
   constructor(...a) { if (a.length) super(...a); else super(trustedNow()); }
