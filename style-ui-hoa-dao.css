@@ -82,10 +82,16 @@ body #toast::before { display: none; }
 body #bag [data-o]:not([data-o="pham"]) .ico { border-width: 5px; border-image: var(--o) 34 / 5px / 0 stretch; background-color: rgba(26, 14, 40, .7); }
 
 /* ---- màn đăng nhập, chơi tiếp, màn tải ---- */
-body #menu #logged, body #menu #login-form { border-width: 30px 14px 22px !important; border-image: url("assets/art/ui-hd-trang.png") 70 30 50 fill / 30px 14px 22px / 0 stretch !important; padding: 2px 10px 4px; }
-body #menu .menu-btn, body[data-le] #menu .menu-btn { border-width: 9px 14px !important; border-image: url("assets/art/ui-hd-vang.png") 18 30 fill / 9px 14px / 0 stretch !important; color: #3a1206 !important; }
-body #menu .menu-btn.alt, body[data-le] #menu .menu-btn.alt { border-width: 9px 14px !important; border-image: url("assets/art/ui-hd-tim.png") 18 30 fill / 9px 14px / 0 stretch !important; color: #fff1c8 !important; }
-body #menu input { border: solid transparent !important; border-width: 7px 8px !important; border-image: url("assets/art/ui-hd-o-nhap.png") 14 16 fill / 7px 8px / 0 stretch !important;
+/* đăng nhập: khung hoa đào đèn đá (dn-khung); chơi tiếp: khung chùa mây đèn lồng (dn-tiep) — ảnh 5, chủ dự án 04/11/2026 10:46.
+   Khung lòng trống: ảnh phủ cả hộp, lớp tím mờ lót bên trong cho chữ dễ đọc */
+body #menu #login-form, body #menu #logged { border: none !important; border-image: none !important; min-width: 270px;
+  background: url("assets/art/ui-hd-dn-khung.png") center / 100% 100% no-repeat, linear-gradient(rgba(34, 20, 58, .86), rgba(34, 20, 58, .86)) center / calc(100% - 26px) calc(100% - 60px) no-repeat !important;
+  padding: 62px 34px 136px !important; }
+body #menu #logged { background-image: url("assets/art/ui-hd-dn-tiep.png"), linear-gradient(rgba(34, 20, 58, .86), rgba(34, 20, 58, .86)) !important;
+  background-size: 100% 100%, calc(100% - 64px) calc(100% - 190px) !important; padding: 136px 52px 92px !important; }
+body #menu .menu-btn, body[data-le] #menu .menu-btn { border-width: 10px 18px !important; border-image: url("assets/art/ui-hd-dn-vang.png") 22 40 fill / 10px 18px / 0 stretch !important; color: #3a1206 !important; }
+body #menu .menu-btn.alt, body[data-le] #menu .menu-btn.alt { border-width: 10px 18px !important; border-image: url("assets/art/ui-hd-dn-tim.png") 22 40 fill / 10px 18px / 0 stretch !important; color: #fff1c8 !important; }
+body #menu input { border: solid transparent !important; border-width: 8px 10px !important; border-image: url("assets/art/ui-hd-dn-o.png") 16 20 fill / 8px 10px / 0 stretch !important;
   background: none !important; border-radius: 0 !important; color: #fff1c8 !important; box-shadow: none !important; }
-body #menu .help, body #menu .health { border-width: 9px 20px !important; border-image: url("assets/art/ui-hd-may.png") 22 50 fill / 9px 20px / 0 stretch !important; }
+body #menu .help, body #menu .health { border-width: 12px 22px !important; border-image: url("assets/art/ui-hd-dn-may.png") 34 60 fill / 12px 22px / 0 stretch !important; }
 body #loading .ld-box { border: solid transparent; border-width: 26px 14px 20px; border-image: url("assets/art/ui-hd-trang2.png") 66 34 48 fill / 26px 14px 20px / 0 stretch; background: none; }

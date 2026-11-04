@@ -20116,6 +20116,78 @@
    ],
    "note": "khung cuon (ảnh GPT bộ hoa đào)"
   },
+  "ui.hd-dn-khung": {
+   "file": "assets/art/ui-hd-dn-khung.png",
+   "v": "e82e3a60",
+   "w": 387,
+   "h": 416,
+   "frames": 1,
+   "anchor": [
+    193,
+    208
+   ],
+   "note": "khung dn-khung (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-dn-may": {
+   "file": "assets/art/ui-hd-dn-may.png",
+   "v": "c5c61d86",
+   "w": 385,
+   "h": 123,
+   "frames": 1,
+   "anchor": [
+    192,
+    61
+   ],
+   "note": "khung dn-may (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-dn-o": {
+   "file": "assets/art/ui-hd-dn-o.png",
+   "v": "199783b6",
+   "w": 273,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    136,
+    29
+   ],
+   "note": "khung dn-o (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-dn-tiep": {
+   "file": "assets/art/ui-hd-dn-tiep.png",
+   "v": "6f50410f",
+   "w": 403,
+   "h": 282,
+   "frames": 1,
+   "anchor": [
+    201,
+    141
+   ],
+   "note": "khung dn-tiep (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-dn-tim": {
+   "file": "assets/art/ui-hd-dn-tim.png",
+   "v": "e9249cbd",
+   "w": 385,
+   "h": 82,
+   "frames": 1,
+   "anchor": [
+    192,
+    41
+   ],
+   "note": "khung dn-tim (ảnh GPT bộ hoa đào)"
+  },
+  "ui.hd-dn-vang": {
+   "file": "assets/art/ui-hd-dn-vang.png",
+   "v": "993eedd5",
+   "w": 381,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    190,
+    40
+   ],
+   "note": "khung dn-vang (ảnh GPT bộ hoa đào)"
+  },
   "ui.hd-hop": {
    "file": "assets/art/ui-hd-hop.png",
    "v": "5432d1e8",
