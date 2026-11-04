@@ -217,6 +217,11 @@
      "btn_off": "Tắt tiếng"
     },
     {
+     "id": "ma-qua",
+     "label": "Nhập mã quà",
+     "code": true
+    },
+    {
      "id": "lang",
      "label": "Ngôn ngữ",
      "text": "Hiện game chỉ có Tiếng Việt, sẽ thêm ngôn ngữ khác sau."
@@ -298,5 +303,20 @@
     }
    ]
   }
+ },
+ "ma_qua": {
+  "_note": "Mục Nhập mã quà (src/ui/ma-qua.js, máy chủ p2d_nhap_ma). Mã tạo trên máy chủ, không ghi trong repo.",
+  "title": "Nhập mã quà",
+  "placeholder": "Nhập mã",
+  "btn": "Nhận",
+  "hint": "Mỗi mã dùng một lần, mỗi tài khoản nhập một mã mỗi đợt.",
+  "login": "Đăng nhập tài khoản để nhập mã.",
+  "wait": "Đang kiểm tra…",
+  "ok": "Nhận thành công +{n} điểm QTV!",
+  "sai_ma": "Mã không đúng.",
+  "het_luot": "Mã này đã có người dùng.",
+  "da_nhap": "Bạn đã nhập mã này rồi.",
+  "da_nhap_dot": "Tài khoản đã nhập một mã của đợt này rồi.",
+  "net": "Mạng lỗi, thử lại sau."
  }
 }
