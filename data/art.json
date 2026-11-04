@@ -9688,6 +9688,18 @@
    ],
    "note": "Kiếm Tu — khung: đứng, nhún, bước A, bước B"
   },
+  "hero.ly-hoa": {
+   "file": "assets/art/hero-ly-hoa.png",
+   "v": "53f98159",
+   "w": 100,
+   "h": 100,
+   "frames": 32,
+   "anchor": [
+    50,
+    97
+   ],
+   "note": "thời trang Ly Hoa (SpriteCook): đứng, chạy, đòn 1, đòn 2; mỗi động tác 8 khung"
+  },
   "hero.nam": {
    "file": "assets/art/hero-nam.png",
    "v": "f4affa84",
@@ -9722,7 +9734,7 @@
     64,
     125
    ],
-   "note": "thời trang Thần Nguyên Y (SpriteCook): đứng, chạy, phép 1, phép 2; mỗi động tác 8 khung"
+   "note": "thời trang Thần Nguyên Y (SpriteCook): đứng, chạy, đòn 1, đòn 2; mỗi động tác 8 khung"
   },
   "hero.y-bang-y-han-bang-nam": {
    "file": "assets/art/hero-y-bang-y-han-bang-nam.png",
