@@ -37,9 +37,10 @@ export function renderGemGrid(game, box, st, onPick, onSocket) {
 }
 
 // Nguyên liệu: món đang có lên trước, chưa có thì mờ (vẫn chạm xem nơi kiếm được)
-export function renderMatGrid(game, box, st, onPick) {
-  const M = game.data.cave.materials, have = game.save.mats || {}; ART = game.data.art.sprites;
-  const ids = Object.keys(M).sort((a, b) => ((have[b] || 0) > 0) - ((have[a] || 0) > 0) || M[a].name.localeCompare(M[b].name, 'vi'));
+// fish: chỉ cá câu được (data/fishing.json → fish), không thì nguyên liệu trừ cá (chủ dự án 04/11/2026 11:50: cá thành mục riêng)
+export function renderMatGrid(game, box, st, onPick, fish = false) {
+  const M = game.data.cave.materials, have = game.save.mats || {}, F = game.data.fishing?.fish || {}; ART = game.data.art.sprites;
+  const ids = Object.keys(M).filter(id => !!F[id] === fish).sort((a, b) => ((have[b] || 0) > 0) - ((have[a] || 0) > 0) || M[a].name.localeCompare(M[b].name, 'vi'));
   for (const id of ids) {
     const c = cell(st.stock?.id === id, matIco(M[id], id), M[id].name, `×${vn(have[id])}`, M[id].color || '#ccc', () => onPick({ kind: 'mat', id }));
     if (!(have[id] > 0)) c.classList.add('none');

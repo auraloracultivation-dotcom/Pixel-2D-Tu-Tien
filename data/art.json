@@ -23422,6 +23422,18 @@
    ],
    "note": "vu-khi ba-tieu-phien (ảnh GPT vu-khi-1.png)"
   },
+  "ui.vk-bang-ngu": {
+   "file": "assets/art/ui-vk-bang-ngu.png",
+   "v": "707ff2c6",
+   "w": 295,
+   "h": 295,
+   "frames": 1,
+   "anchor": [
+    147,
+    147
+   ],
+   "note": "nguyen-lieu bang-ngu (ảnh GPT ca-1.png)"
+  },
   "ui.vk-bi-kip-chieu": {
    "file": "assets/art/ui-vk-bi-kip-chieu.png",
    "v": "1030e20b",
@@ -23469,6 +23481,18 @@
     192
    ],
    "note": "giap bo-y (ảnh GPT giap-1.png)"
+  },
+  "ui.vk-dao-hoa-ngu": {
+   "file": "assets/art/ui-vk-dao-hoa-ngu.png",
+   "v": "17bc0db5",
+   "w": 316,
+   "h": 316,
+   "frames": 1,
+   "anchor": [
+    158,
+    158
+   ],
+   "note": "nguyen-lieu dao-hoa-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-dao-van-an": {
    "file": "assets/art/ui-vk-dao-van-an.png",
@@ -23553,6 +23577,18 @@
     193
    ],
    "note": "nguyen-lieu dao-van-thach (ảnh GPT ren-1.png)"
+  },
+  "ui.vk-ha-quang-ngu": {
+   "file": "assets/art/ui-vk-ha-quang-ngu.png",
+   "v": "2c68e5c3",
+   "w": 297,
+   "h": 297,
+   "frames": 1,
+   "anchor": [
+    148,
+    148
+   ],
+   "note": "nguyen-lieu ha-quang-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-hac-phong-boi": {
    "file": "assets/art/ui-vk-hac-phong-boi.png",
@@ -23722,6 +23758,18 @@
    ],
    "note": "nguyen-lieu hoa-linh-chi (ảnh GPT nguyen-lieu-1.png)"
   },
+  "ui.vk-hoa-ly": {
+   "file": "assets/art/ui-vk-hoa-ly.png",
+   "v": "eb56fb57",
+   "w": 302,
+   "h": 302,
+   "frames": 1,
+   "anchor": [
+    151,
+    151
+   ],
+   "note": "nguyen-lieu hoa-ly (ảnh GPT ca-1.png)"
+  },
   "ui.vk-hong-qua": {
    "file": "assets/art/ui-vk-hong-qua.png",
    "v": "e80c9dde",
@@ -23818,6 +23866,18 @@
    ],
    "note": "phap-bao kim-luan (ảnh GPT phap-bao-1.png)"
   },
+  "ui.vk-kim-ly": {
+   "file": "assets/art/ui-vk-kim-ly.png",
+   "v": "a4a5ea9e",
+   "w": 353,
+   "h": 353,
+   "frames": 1,
+   "anchor": [
+    176,
+    176
+   ],
+   "note": "nguyen-lieu kim-ly (ảnh GPT ca-1.png)"
+  },
   "ui.vk-kim-tieu": {
    "file": "assets/art/ui-vk-kim-tieu.png",
    "v": "f5122496",
@@ -23829,6 +23889,18 @@
     146
    ],
    "note": "nguyen-lieu kim-tieu (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-kim-tu-ngu": {
+   "file": "assets/art/ui-vk-kim-tu-ngu.png",
+   "v": "0c41fb96",
+   "w": 338,
+   "h": 338,
+   "frames": 1,
+   "anchor": [
+    169,
+    169
+   ],
+   "note": "nguyen-lieu kim-tu-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-linh-dau": {
    "file": "assets/art/ui-vk-linh-dau.png",
@@ -23853,6 +23925,18 @@
     150
    ],
    "note": "nguyen-lieu linh-mach (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-linh-ngu": {
+   "file": "assets/art/ui-vk-linh-ngu.png",
+   "v": "8253df50",
+   "w": 298,
+   "h": 298,
+   "frames": 1,
+   "anchor": [
+    149,
+    149
+   ],
+   "note": "nguyen-lieu linh-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-linh-phu": {
    "file": "assets/art/ui-vk-linh-phu.png",
@@ -23925,6 +24009,42 @@
     150
    ],
    "note": "nguyen-lieu ngoc-lo-hoa (ảnh GPT nguyen-lieu-1.png)"
+  },
+  "ui.vk-nguyet-ngu": {
+   "file": "assets/art/ui-vk-nguyet-ngu.png",
+   "v": "45b31d63",
+   "w": 282,
+   "h": 282,
+   "frames": 1,
+   "anchor": [
+    141,
+    141
+   ],
+   "note": "nguyen-lieu nguyet-ngu (ảnh GPT ca-1.png)"
+  },
+  "ui.vk-nham-ngu": {
+   "file": "assets/art/ui-vk-nham-ngu.png",
+   "v": "bd657157",
+   "w": 362,
+   "h": 362,
+   "frames": 1,
+   "anchor": [
+    181,
+    181
+   ],
+   "note": "nguyen-lieu nham-ngu (ảnh GPT ca-1.png)"
+  },
+  "ui.vk-phong-ngu": {
+   "file": "assets/art/ui-vk-phong-ngu.png",
+   "v": "9a95e4b7",
+   "w": 314,
+   "h": 314,
+   "frames": 1,
+   "anchor": [
+    157,
+    157
+   ],
+   "note": "nguyen-lieu phong-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-tay-luyen-thach": {
    "file": "assets/art/ui-vk-tay-luyen-thach.png",
@@ -24166,6 +24286,30 @@
    ],
    "note": "nguyen-lieu tu-van-sam (ảnh GPT nguyen-lieu-1.png)"
   },
+  "ui.vk-tuyet-ngu": {
+   "file": "assets/art/ui-vk-tuyet-ngu.png",
+   "v": "09d41559",
+   "w": 338,
+   "h": 338,
+   "frames": 1,
+   "anchor": [
+    169,
+    169
+   ],
+   "note": "nguyen-lieu tuyet-ngu (ảnh GPT ca-1.png)"
+  },
+  "ui.vk-van-ngu": {
+   "file": "assets/art/ui-vk-van-ngu.png",
+   "v": "24efb14d",
+   "w": 291,
+   "h": 291,
+   "frames": 1,
+   "anchor": [
+    145,
+    145
+   ],
+   "note": "nguyen-lieu van-ngu (ảnh GPT ca-1.png)"
+  },
   "ui.vk-van-van-ngoa": {
    "file": "assets/art/ui-vk-van-van-ngoa.png",
    "v": "48314b6f",
@@ -24177,6 +24321,18 @@
     193
    ],
    "note": "giay van-van-ngoa (ảnh GPT giay-1.png)"
+  },
+  "ui.vk-vu-ngu": {
+   "file": "assets/art/ui-vk-vu-ngu.png",
+   "v": "c6f60be7",
+   "w": 320,
+   "h": 320,
+   "frames": 1,
+   "anchor": [
+    160,
+    160
+   ],
+   "note": "nguyen-lieu vu-ngu (ảnh GPT ca-1.png)"
   },
   "ui.vk-xich-diem-boi": {
    "file": "assets/art/ui-vk-xich-diem-boi.png",
