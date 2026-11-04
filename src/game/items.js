@@ -142,7 +142,9 @@ export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = D
 export function gemInfo(data, key) {
   const [type, lv] = key.split(':');
   const t = data.items.gems.types[type];
-  return { type, lv: Number(lv), name: `${t.name} cấp ${lv}`, color: t.color, stat: t.stat, value: t.values[Number(lv) - 1] };
+  // Khoá ngọc không có trong data (bản lưu bị sửa tay, ngọc đã bỏ): không làm văng game, coi như ngọc không cộng gì
+  if (!t) return { type, lv: Number(lv) || 0, name: `Ngọc lạ (${key})`, color: '#888', stat: null, value: 0 };
+  return { type, lv: Number(lv), name: `${t.name} cấp ${lv}`, color: t.color, stat: t.stat, value: t.values[Number(lv) - 1] || 0 };
 }
 
 export function rollGem(data, rnd = Math.random) {
@@ -204,7 +206,7 @@ export function gearStats(data, save) {
     const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
-    for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); add(gi.stat, gi.value); }
+    for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); if (gi.stat) add(gi.stat, gi.value); }
   }
   for (const [s, def] of Object.entries(data.items.stats)) if (def.cap && sum[s] > def.cap) sum[s] = def.cap;
   return sum;
