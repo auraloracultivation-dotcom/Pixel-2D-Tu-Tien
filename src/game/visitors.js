@@ -37,6 +37,7 @@ async function chess(game, npc) {
   let score = 0;
   for (let i = 1; i <= c.rounds; i++) {
     const me = game.pilot ? pick(c.moves) : await askMove(game, c, i);
+    if (!me) return;   // hộp chọn bị bỏ ngang (chọn mục khác ở cột bên trái)
     const them = pick(c.moves), key = me.beats === them.id ? 'win' : them.beats === me.id ? 'lose' : 'draw';
     score += key === 'win' ? 1 : key === 'lose' ? -1 : 0;
     await game.dialog.say([['', c.round[key].replace('{me}', me.label).replace('{them}', them.label)]]);
