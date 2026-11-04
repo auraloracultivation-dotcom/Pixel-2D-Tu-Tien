@@ -7,14 +7,18 @@
 import { updateTro } from './hoi-tro.js';
 const K = game => game.data['le-hoi']?.festivals?.[game.map?.id]?.khach;
 const pick = a => a[Math.floor(Math.random() * a.length)];
+// "mac:<bộ>:<nam|nu>" trong ids: khách mặc bộ thời trang có hình riêng (Ly Hoa, Thần Nguyên Y, Tử Liềm Y, Bạch Kiếm Bào), vẽ như nhân vật
+// (draw-hero.js) để người chơi thấy mà muốn mua (chủ dự án 04/11/2026 14:52). Trả bản lưu giả { look, outfit } hoặc null.
+const mac = (game, id) => { const [k, o, g] = id.split(':'); return k === 'mac' && game.data.fashion.list[o] && game.data.heroes.list[g] ? { look: g, outfit: o } : null; };
 
 function spawn(game, c) {
-  const T = game.map.T, list = [], A = game.data.art.sprites, pool = c.ids.filter(id => game.data.npcs[id] || A[id]);
+  const T = game.map.T, list = [], A = game.data.art.sprites, pool = c.ids.filter(id => game.data.npcs[id] || A[id] || mac(game, id));
   let bag = [];
   const nextId = () => { if (!bag.length) bag = [...pool].sort(() => Math.random() - 0.5); return bag.pop(); };   // xáo đủ lượt rồi mới lặp hình
   for (let i = 0; i < c.n; i++) {
     const id = nextId(), at = Math.floor(Math.random() * c.nodes.length), [x, y] = c.nodes[at], kid = (c.kids || []).includes(id);
-    const n = { id, def: game.data.npcs[id] || { name: 'Đệ tử' }, hero: !game.data.npcs[id], khach: true, kid, x: (x + (Math.random() - 0.5)) * T, y: (y + (Math.random() - 0.5) * 0.6) * T, r: 5,
+    const dress = mac(game, id);
+    const n = { id, def: game.data.npcs[id] || { name: dress ? game.data.fashion.list[dress.outfit].name : 'Đệ tử' }, hero: !game.data.npcs[id] && !dress, dress, khach: true, kid, x: (x + (Math.random() - 0.5)) * T, y: (y + (Math.random() - 0.5) * 0.6) * T, r: 5,
       at, to: null, wait: Math.random() * 4, bob: Math.random() * 6, face: { x: Math.random() < 0.5 ? -1 : 1, y: 1 }, walkT: 0 };
     const lead = list[list.length - 1];   // đi theo nhóm hai ba người: bám người trước, lệch sang bên
     if (lead && !lead.lead && kid === !!lead.kid && Math.random() < (kid ? 0.8 : c.group)) { n.lead = lead; n.ox = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 4); n.oy = (Math.random() - 0.5) * 6; n.x = lead.x + n.ox; n.y = lead.y + n.oy; }

@@ -113,7 +113,7 @@
      "lao-ngu-ong", "du-tang", "phong-thach", "tieu-moc-linh", "be-la", "trai-truong", "chi-ganh-da", "hoa-su", "hero.y-thien-kiem-bao-nam",
      "hero.y-thien-kiem-bao-nu", "hero.y-thanh-sam-nam", "hero.y-thanh-sam-nu", "hero.y-tu-bao-nam", "hero.y-tu-bao-nu", "hero.y-hong-y-nam",
      "hero.y-hong-y-nu", "hero.y-hac-y-nam", "hero.y-hac-y-nu", "hero.y-kim-bao-nam", "hero.y-kim-bao-nu", "hero.y-tuyet-lanh-nam",
-     "hero.y-tuyet-lanh-nu", "hero.y-tien-nhan-nam", "hero.y-tien-nhan-nu", "hero.y-thien-mach-bao-nam", "hero.y-thien-mach-bao-nu"
+     "hero.y-tuyet-lanh-nu", "hero.y-tien-nhan-nam", "hero.y-tien-nhan-nu", "hero.y-thien-mach-bao-nam", "hero.y-thien-mach-bao-nu", "mac:ly-hoa:nu", "mac:than-nguyen-y:nam", "mac:tu-liem-y:nu", "mac:bach-kiem-bao:nam", "mac:ly-hoa:nu", "mac:than-nguyen-y:nam", "mac:tu-liem-y:nu", "mac:bach-kiem-bao:nam"
     ],
     "nodes": [
      [2.6, 22.6], [6.6, 22.6], [11.0, 22.8], [15.0, 22.6], [18.0, 22.6], [21.0, 19.6], [24.4, 19.4], [22.6, 23.0], [20.6, 25.2], [24.8, 25.0],
