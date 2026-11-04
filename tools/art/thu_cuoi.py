@@ -17,6 +17,9 @@ UNIT = 24 / 45
 SCALE = 1.3
 # mặt yên trên hình đứng <id>-goc96.png (x0, y0 = mép trên mặt yên, x1, y1), đo bằng mắt trên lưới phóng to
 SADDLE = {'bach-loc': (30, 47, 54, 56), 'phong-lang': (29, 38, 50, 46), 'hoa-ky-lan': (29, 38, 43, 45), 'tuyet-ly': (36, 39, 52, 47)}
+# hàng mặt da yên (chỗ chân đặt) trên goc96: dưới viền mực trên cùng của yên vài điểm ảnh (chủ dự án 04/11/2026 19:01, Thần Nguyên Y:
+# chân đặt lên viền mép yên trông như hở, phải lún vào mặt da)
+MAT = {'bach-loc': 50, 'phong-lang': 41, 'hoa-ky-lan': 39, 'tuyet-ly': 41}
 SEARCH = 14   # dò lệch tối đa (điểm ảnh) quanh chỗ yên ở khung đứng
 
 
@@ -54,7 +57,7 @@ def build(save):
         seat, seat_x = [], []
         for a in arrs:
             x, y = _find(a, tpl, bx, by)
-            seat.append(round((S - 3 - y) * px, 2)); seat_x.append(round((x + (sx1 - sx0) / 2 - S // 2) * px, 2))
+            seat.append(round((S - 3 - y - (MAT[mid] - sy0)) * px, 2)); seat_x.append(round((x + (sx1 - sx0) / 2 - S // 2) * px, 2))
         save('mount.' + mid, frames, (S // 2, S - 2), f'thú cưỡi {mid}: đứng + chạy {len(frames) - 1} khung (SpriteCook)')
         M = MANIFEST['mount.' + mid]
         M['walk'] = list(range(1, len(frames))); M['px'] = px; M['seat'] = seat; M['seat_x'] = seat_x

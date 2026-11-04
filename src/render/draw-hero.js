@@ -86,8 +86,10 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống
-  ctx.fillStyle = 'rgba(27,24,48,0.25)';   // bóng dưới chân
-  ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
+  if (!p.riding) {   // bóng dưới chân; đang cưỡi thì bỏ (bóng xám đè lên yên trông như chân hở khỏi lưng thú, chủ dự án 04/11/2026 19:01)
+    ctx.fillStyle = 'rgba(27,24,48,0.25)';
+    ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
+  }
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
