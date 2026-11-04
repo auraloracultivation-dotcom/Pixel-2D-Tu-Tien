@@ -1,6 +1,6 @@
 // Đại Ma Thần (chủ dự án 31/10/2026, tài liệu dự án y-tuong-thien-ma-ngoai-vuc.md): tài khoản admin xuất thế khi online. Ai từ
 // Kim Đan trở lên khiêu chiến được, không giới hạn: nút trên màn hình (chỉ hiện khi Đại Ma Thần online) hoặc Đài Ma Thần ở
-// Thiên Kiếm Phong. THẮNG THUA DO MÁY CHỦ QUYẾT trước khi vào trận (p2d_thien_ma_khieu_chien); trận So tài với bản sao Đại Ma
+// góc trên bên phải Ngoại Vực Vết Nứt (đi lại quanh 2 ô). THẮNG THUA DO MÁY CHỦ QUYẾT trước khi vào trận (p2d_thien_ma_khieu_chien); trận So tài với bản sao Đại Ma
 // Thần sau đó chỉ để xem. Thắng: Đạo Vận vàng vào Hòm thư. Thua: mất 10% tổng tu vi, nhận 1 viên ngọc cấp 4.
 // Chữ ở data/duel.json → thien_ma.
 import { startDuel } from './duel.js';
