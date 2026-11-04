@@ -8,6 +8,11 @@ export function createDialog(onLine) {
   const choices = document.getElementById('dlg-choices');
   const hint = document.getElementById('dlg-hint');
   const d = { open: false };
+  // nút ✕ góc hộp khi đang có lựa chọn (chủ dự án 04/11/2026 15:09: bể cá tràn màn không có chỗ tắt): bỏ ngang như "Để sau"
+  const xb = document.createElement('button'); xb.className = 'dlg-x'; xb.textContent = '✕'; xb.setAttribute('aria-label', 'Đóng'); xb.hidden = true;
+  xb.addEventListener('pointerdown', e => { e.stopPropagation(); d.cancel?.(); });
+  box.append(xb);
+  new MutationObserver(() => { xb.hidden = !choices.childElementCount || choices.querySelector('.dlg-input') != null; }).observe(choices, { childList: true });
   let full = '', shown = 0, timer = null, next = null, line = Promise.resolve(), quit = null;
   const queue = run => { const p = line.then(() => new Promise(run)); line = p.catch(() => {}); return p; };
 

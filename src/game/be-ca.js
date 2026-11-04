@@ -22,7 +22,7 @@ export async function talkBeCa(game) {
     const have = Object.keys(F).filter(id => (s.mats?.[id] || 0) >= 1);
     if (!have.length) { game.toast(c.none, 2.4); return; }
     const id = await game.dialog.choose(fill(c.ask, { n: beCaCount(s), max: c.max }) + '\n' + c.pick,
-      [...have.map(k => ({ id: k, label: `${M[k]?.name || k} (×${s.mats[k]})`, color: M[k]?.color })), { id: 'xong', label: c.done }]);
+      [{ id: 'xong', label: c.done, color: '#ff8a7a' }, ...have.map(k => ({ id: k, label: `${M[k]?.name || k} (×${s.mats[k]})`, color: M[k]?.color }))]);   // nút Xong lên đầu: danh sách dài vẫn thoát được ngay
     if (!id || id === 'xong' || !have.includes(id)) return;
     s.mats[id] -= 1; s.beCa ??= {}; s.beCa[id] = (s.beCa[id] || 0) + 1;
     game.persist(); game.sfx('pickup');

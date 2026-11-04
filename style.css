@@ -83,6 +83,8 @@ canvas#game { position: fixed; inset: 0; display: block; image-rendering: -webki
 .hint { position: absolute; right: 12px; bottom: 5px; font-size: 11px; color: var(--muted); }
 .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
 .choices:empty { display: none; }
+/* nhiều lựa chọn (bể cá: cả chục loài cá) thì cuộn trong khung, không tràn màn (chủ dự án 04/11/2026 15:09) */
+#dialog .choices { max-height: 34vh; overflow-y: auto; touch-action: pan-y; overscroll-behavior: contain; }
 .choice { border: 1px solid var(--line-hi); border-radius: 8px; padding: 8px 10px; text-align: left; background: var(--panel-2); font: inherit; color: var(--ink); }
 .choice:active { background: var(--panel-3); border-color: var(--torch); }
 .choice b { display: block; font-size: 15px; }
@@ -587,3 +589,6 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .rank-sub { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; margin-top: 4px; }
 .rank-sub button { font-size: 11px !important; padding: 2px 6px !important; }
 #rank-tabs { flex-wrap: wrap; }
+#dialog .dlg-x { position: absolute; top: 4px; right: 4px; z-index: 3; width: 28px; height: 28px; padding: 0; border: none; border-radius: 0;
+  background: url("assets/art/ui-ic-dong.png") center / contain no-repeat; color: transparent; font-size: 0; cursor: pointer; }
+#dialog .dlg-x[hidden] { display: none; }
