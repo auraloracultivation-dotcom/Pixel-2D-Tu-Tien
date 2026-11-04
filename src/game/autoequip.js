@@ -69,9 +69,10 @@ export function fitBag(game, room = 0) {   // room: chừa sẵn chừng ấy ô
   const s = game.save, d = game.data, R = d.items.rarities.map(r => r.id);
   let n = 0;
   while (s.bag.length > d.items.bag_size - room) {
-    const it = s.bag.filter(i => !isEquipped(s, i.uid)).sort((a, b) => R.indexOf(a.rarity) - R.indexOf(b.rarity) || a.uid - b.uid)[0];
-    if (!it) break;
-    salvage(d, s, it.uid); salvageIron(game, it.rarity); salvageArt(game, it); n++;
+    // Bỏ qua đồ đã khoá: salvage() không phân giải món khoá, chọn trúng món khoá thì vòng lặp chạy mãi (treo game) và cộng tinh thiết mỗi vòng
+    const it = s.bag.filter(i => !i.lock && !isEquipped(s, i.uid)).sort((a, b) => R.indexOf(a.rarity) - R.indexOf(b.rarity) || a.uid - b.uid)[0];
+    if (!it || !salvage(d, s, it.uid)) break;
+    salvageIron(game, it.rarity); salvageArt(game, it); n++;
   }
   if (n) game.toast?.(`Túi quá đầy: tự phân giải ${n} món cũ`, 2);
 }
