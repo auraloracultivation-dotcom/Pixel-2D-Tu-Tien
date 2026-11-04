@@ -68,7 +68,7 @@ try {
     need(!b.set || gear.sets[b.set], `items.bases/${id}: bộ "${b.set}" không có`);
   }
   for (const [id, g] of Object.entries(items.gems.types)) need(items.stats[g.stat] && g.values.length === items.gems.max_level, `items.gems/${id}: chỉ số hoặc số cấp sai`);
-  const techStatsOk = new Set([...Object.keys(items.stats), 'lifesteal', 'thorns', 'regen']);
+  const techStatsOk = new Set([...Object.keys(items.stats), 'lifesteal', 'thorns', 'regen', 'regen_pct', 'dr', 'mp_pct', 'mp_regen']);   // 4 chỉ số % của công pháp (05/11/2026)
   for (const [id, t] of Object.entries(techs.list)) for (const s of Object.keys(t.per_level)) need(techStatsOk.has(s), `techniques/${id}: chỉ số "${s}" không có`);
   for (const id of Object.keys(techs.drops)) need(mobs[id], `techniques.drops: quái "${id}" không có`);
   for (const [id, l] of Object.entries(techs.boss_drops)) { need(mobs[id], `techniques.boss_drops: quái "${id}" không có`); for (const t of l) need(techs.list[t], `techniques.boss_drops/${id}: công pháp "${t}" không có`); }

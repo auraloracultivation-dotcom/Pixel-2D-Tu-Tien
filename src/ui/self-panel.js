@@ -55,7 +55,9 @@ export function createSelfPanel(game) {
       row('Tốc tu', `×${st.qiMul.toFixed(2)}`),
       row('Hút máu', `${Math.round(st.lifesteal * 100)}%`),
       row('Phản đòn', `${Math.round(st.thorns * 100)}%`),
-      row('Hồi máu', `${st.regen}/giây`),
+      row('Hồi máu', `${vn(Math.round(st.regen))}/giây`),
+      row('Giảm sát thương', `${Math.round(st.dr * 100)}%`),
+      row('Hồi linh lực', `${Math.round((game.data.config.mana.regen_pct + st.mpRegen) * 1000) / 10}%/giây`),
     );
     body.append(top, stats);
   }
