@@ -12,8 +12,9 @@ export function dropLoot(game, m) {
   const lvl = totalLayer(game.save, game.data.realms);
   // Đồ rơi ngoài bí cảnh chỉ tới màu world_max (chủ dự án 02/11/2026 17:48: farm ngoài ra đồ đen, đỏ thì người chỉ đi bí cảnh không đua nổi);
   // màu cao (vàng, đỏ, đen) chỉ có trong bí cảnh và qua tẩy luyện
-  const maxTier = game.dungeon || (game.map.def.rooms || []).length ? undefined : game.data.items.line_tiers.world_max;
+  const maxTier = game.sweeping || game.dungeon || (game.map.def.rooms || []).length ? undefined : game.data.items.line_tiers.world_max;
   const spawn = (kind, payload) => {
+    if (game.sweeping) { take(game, { kind, payload }); return; }   // càn quét (dun-sweep.js): vào thẳng túi
     const a = Math.random() * Math.PI * 2, s = 40 + Math.random() * 40;
     game.loot.push({ kind, payload, x: m.x, y: m.y - 4, vx: Math.cos(a) * s, vy: Math.sin(a) * s, t: 0 });
   };
