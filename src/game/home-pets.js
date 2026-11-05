@@ -50,11 +50,11 @@ export function sellPet(game, id) {
 }
 
 // Thú cưỡi bán được (chủ dự án 02/11/2026): giá mount_base + tốc chạy × mount_per_speed; không bán con đang cưỡi
-// Chủ dự án 05/11/2026: con nào Ngự Thú Sư có bán thì bán lại không quá resell_max × giá mua (pets.json → shop)
+// Chủ dự án 05/11/2026: con nào Ngự Thú Sư có bán thì bán lại đúng resell_max × giá mua (pets.json → shop)
 export const mountPrice = (game, id) => {
   const c = H(game).sell, S = game.data.pets.shop, buy = S?.mounts?.[id];
   const v = Math.round(c.mount_base + (game.data.pets.mounts[id]?.speed || 0) * c.mount_per_speed);
-  return buy != null && S.resell_max != null ? Math.min(v, Math.floor(buy * S.resell_max)) : v;
+  return buy != null && S.resell_max != null ? Math.floor(buy * S.resell_max) : v;
 };
 export function sellMount(game, id) {
   const s = game.save, m = game.data.pets.mounts[id];
