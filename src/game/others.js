@@ -1,52 +1,69 @@
-// Người chơi khác trên cùng đảo (net/online.js): vị trí đến ~8 lần mỗi giây. Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc
-// độ để tới chỗ mới đúng lúc gói kế tiếp tới (giới hạn MAX), nên thấy bước đi đều chứ không giật cục; xa quá HOP (ngự kiếm bay,
-// qua cổng) thì hiện vòng sáng ở chỗ cũ và chỗ mới rồi đặt thẳng. Vẽ bằng hình nhân vật theo hình dáng, thời trang người đó
-// báo qua presence (render/draw.js drawOther), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước
-// đây chỉ thấy cái bóng vẽ bằng khối, nhảy từ chỗ này sang chỗ khác như hack tốc độ.
+// Người chơi khác trên cùng đảo (net/online.js). Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc độ để tới chỗ mới đúng lúc
+// gói kế tiếp tới (giới hạn speed), nên thấy bước đi đều chứ không giật cục; xa quá hop (ngự kiếm bay, qua cổng) thì hiện vòng
+// sáng ở chỗ cũ và chỗ mới rồi đặt thẳng. Vẽ bằng hình nhân vật theo hình dáng, thời trang người đó báo qua presence
+// (render/draw.js drawOther), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng
+// vẽ bằng khối, nhảy từ chỗ này sang chỗ khác như hack tốc độ.
+// Realtime 05/11/2026 (data/config.json → realtime): tin từ máy người khác lọc ở game/others-net.js (tên bỏ ký tự lạ, lọc từ bậy,
+// toạ độ kẹp trong bản đồ, mã hình dáng / hệ phải có trong data/); chỉ vẽ shown[mức nhẹ máy] người gần nhất; khoảng gửi vị trí
+// của mình giãn theo số người cùng kênh, không ai gần thì gửi thưa, một mình thì không gửi (sendGap).
 import { addFx } from './combat.js';
 import { realmLabel } from './stats.js';
+import { cleanText } from './social.js';
+import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
 
-const MAX = 260, HOP = 140, MIN_SPEED = 30;
+const MIN_SPEED = 30;
 
 // Hồ sơ gửi kèm khi vào kênh đảo: hệ, cảnh giới, hình dáng, thời trang (người khác vẽ đúng hình mình)
 export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null });
 const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}`;
+const perfLevel = () => +(document.body?.dataset?.perf || 0) || 0;
 
 export function createOthers(game) {
   const list = new Map();
-  let chk = 3, sig = '';
+  const R = () => game.data.config.realtime || {};
+  let chk = 3, sig = '', shown = [], pick = 0, sendNow = false;
 
   function puff(o, x, y) {
     const col = o.element ? game.data.elements[o.element]?.color : null;
     addFx(game, { type: 'ring', x, y, r: 14, color: col || '#bff4ff', life: 0.45 });
   }
+  const bounds = () => (game.map ? { w: game.map.w * game.map.T, h: game.map.h * game.map.T } : null);
+  function refresh() {
+    const p = game.player, cap = (R().shown || [20])[Math.min(perfLevel(), (R().shown || [20]).length - 1)];
+    shown = p ? nearestN([...list.values()], p.x, p.y, cap) : [...list.values()].filter(o => o.x !== null).slice(0, cap);
+  }
 
   return {
     list,
-    clear() { list.clear(); },
+    clear() { list.clear(); shown = []; },
     presence(entries) {
-      const seen = new Set();
-      for (const e of entries) {
+      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list };
+      for (const raw of entries.slice(0, R().max_list || 120)) {
+        const e = cleanPresence(raw, known, R().name_max);
+        if (!e) continue;
         seen.add(e.id);
+        if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
         const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
-        o.def = { name: e.name || 'Đạo hữu' };
-        o.element = e.element; o.realm = e.realm;
-        o.look = game.data.heroes.list[e.look] ? e.look : null; o.outfit = e.outfit || null;
+        o.def = { name: cleanText(game, e.name) };
+        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit;
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
+      refresh();
     },
-    move(p) {
-      const o = list.get(p.id);
+    move(raw) {
+      const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;
-      const now = performance.now();
-      if (o.x === null) { o.x = p.x; o.y = p.y; }
-      else if (Math.hypot(p.x - o.x, p.y - o.y) > HOP) { puff(o, o.x, o.y); o.x = p.x; o.y = p.y; puff(o, p.x, p.y); }
-      const gap = Math.min(0.5, Math.max(0.1, (now - (o.at || now - 125)) / 1000));
+      const now = performance.now(), hop = R().hop || 140;
+      const first = o.x === null;
+      if (first) { o.x = p.x; o.y = p.y; }
+      else if (Math.hypot(p.x - o.x, p.y - o.y) > hop) { puff(o, o.x, o.y); o.x = p.x; o.y = p.y; puff(o, p.x, p.y); }
+      const gap = Math.min(R().gap_max || 0.5, Math.max(0.1, (now - (o.at || now - 125)) / 1000));
       o.at = now; o.tx = p.x; o.ty = p.y;
-      o.spd = Math.min(MAX, Math.hypot(o.tx - o.x, o.ty - o.y) / (gap * 2));   // đi sau khoảng hai nhịp gói tin: liền mạch, rớt một gói vẫn không đứng khựng
-      if (Math.abs(p.fx || 0) + Math.abs(p.fy || 0) > 0.1) o.face = { x: p.fx || 0, y: p.fy || 0 };
+      o.spd = Math.min(R().speed || 260, Math.hypot(o.tx - o.x, o.ty - o.y) / (gap * 2));   // đi sau khoảng hai nhịp gói tin: liền mạch, rớt một gói vẫn không đứng khựng
+      if (Math.abs(p.fx) + Math.abs(p.fy) > 0.1) o.face = { x: p.fx, y: p.fy };
       if (p.sw) { o.swingT = 0.18; o.swingNew = true; }   // vung đòn: lúc vẽ chọn động tác đánh kế tiếp của nhân vật (render/draw.js)
+      if (first) refresh();
     },
     update(dt) {
       for (const o of list.values()) {
@@ -58,6 +75,7 @@ export function createOthers(game) {
         if (o.moving) o.walkT += dt;
         if (o.swingT > 0) o.swingT -= dt;
       }
+      if ((pick -= dt) <= 0) { pick = 0.25; refresh(); }   // chọn lại người gần nhất 4 lần mỗi giây
       if ((chk -= dt) <= 0 && game.save && game.online?.setProfile) {   // đổi thời trang, hình dáng, lên cảnh giới: báo lại cho người cùng đảo
         chk = 3;
         const p = onlineLook(game), s = sigOf(p);
@@ -65,6 +83,16 @@ export function createOthers(game) {
         sig = s;
       }
     },
-    visible() { return [...list.values()].filter(o => o.x !== null); },
+    // Người được vẽ (tối đa shown theo mức nhẹ máy, gần nhất trước)
+    visible() { return shown; },
+    count() { return list.size; },
+    // Khoảng gửi vị trí của mình lúc này (mili giây; 0 = gửi ngay; Infinity = không gửi)
+    sendGap() {
+      if (sendNow && list.size) { sendNow = false; return 0; }
+      const p = game.player;
+      let near = Infinity;
+      if (p) for (const o of list.values()) if (o.x !== null) near = Math.min(near, Math.hypot(o.x - p.x, o.y - p.y));
+      return sendGap(R(), list.size, near === Infinity && list.size ? 0 : near, game.data.config.tile || 16);
+    },
   };
 }

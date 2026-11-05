@@ -1,4 +1,4 @@
-// Game online (chủ dự án 31/10/2026): đã đăng nhập thì cứ beat_s giây gửi nhịp sống (src/net/heartbeat.js). Quá lost_s giây
+// Game online (chủ dự án 31/10/2026): đã đăng nhập thì cứ beat_s giây (socket Realtime khoẻ: beat_rt_s) gửi nhịp sống (src/net/heartbeat.js). Quá lost_s giây
 // không liên lạc được máy chủ thì game đứng lại, hiện bảng "Mất kết nối"; nối lại được thì chơi tiếp. Mất quá reload_s giây
 // thì tải lại trang về màn đăng nhập. Thẻ trình duyệt bị ẩn (khoá máy, chuyển ứng dụng) thì không tính, mở lại gửi nhịp ngay.
 // Số giây và chữ ở data/config.json → net_watch.
@@ -6,7 +6,16 @@
 export function startNetWatch(game) {
   const c = game.data.config.net_watch;
   if (!c) return;
-  let lastOk = Date.now(), lostAt = 0, busy = false, nextBeat = 0, box = null;
+  let lastOk = Date.now(), lostAt = 0, busy = false, nextBeat = 0, box = null, sockOk = 0, beatOk = Date.now(), hooked = false;
+  // Realtime (05/11/2026): socket trả nhịp ok trong rt_fresh_s giây thì nhịp sống giãn ra beat_rt_s giây (máy chủ vẫn cộng giờ online
+  // khi hai lần liên lạc cách nhau tối đa 15 giây; lần lưu p2d_luu2 cũng tính là liên lạc). Nhịp socket cũng tính là còn liên lạc.
+  const sockFresh = () => Date.now() - sockOk < (c.rt_fresh_s || 12) * 1000;
+  const gapS = () => (sockFresh() && c.beat_rt_s ? c.beat_rt_s : c.beat_s);
+  async function hookSocket() {
+    hooked = true;
+    try { (await import('../net/heartbeat.js')).onSocketBeat(ok => { if (ok) { sockOk = Date.now(); if (!lostAt) lastOk = Math.max(lastOk, sockOk); } }); }
+    catch { /* không có Realtime: giữ nhịp sống beat_s như cũ */ }
+  }
   const on = () => !!game.save && !!(game.cloud || game.cloudDown) && !document.hidden;
 
   const run = game.update;
@@ -50,22 +59,24 @@ export function startNetWatch(game) {
     } catch { /* mất mạng lúc tải mã */ }
     busy = false;
     if (!ok || kicked) return;
-    lastOk = Date.now();
+    lastOk = beatOk = Date.now();
     if (lostAt) { lostAt = 0; show(false); game.toast?.(c.text.back, 2); }
   }
 
   function tick() {
     if (kicked) return;
-    if (!on()) { lastOk = Date.now(); nextBeat = 0; return; }   // chưa vào game, chơi không tài khoản, thẻ ẩn: không tính
+    if (!on()) { lastOk = beatOk = Date.now(); nextBeat = 0; return; }   // chưa vào game, chơi không tài khoản, thẻ ẩn: không tính
+    if (!hooked) hookSocket();
     const now = Date.now();
-    if (!busy && now >= nextBeat) { nextBeat = now + c.beat_s * 1000; send(); }
-    if (!lostAt && now - lastOk > c.lost_s * 1000) { lostAt = now; show(true); }
+    if (!busy && now >= nextBeat) { nextBeat = now + gapS() * 1000; send(); }
+    // mất cả nhịp sống lẫn nhịp socket quá lost_s giây; hoặc socket còn mà máy chủ không nhận nhịp sống quá lost_s + beat_rt_s giây
+    if (!lostAt && (now - lastOk > c.lost_s * 1000 || now - beatOk > (c.lost_s + gapS()) * 1000)) { lostAt = now; show(true); }
     if (lostAt && now - lostAt > c.reload_s * 1000) {
       try { game.persist?.(); } catch { /* vẫn tải lại */ }
       location.reload();
     }
   }
   setInterval(tick, 1000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) { lastOk = Date.now(); nextBeat = 0; tick(); } });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { lastOk = beatOk = Date.now(); nextBeat = 0; tick(); } });
   game.netLost = () => !!lostAt;
 }

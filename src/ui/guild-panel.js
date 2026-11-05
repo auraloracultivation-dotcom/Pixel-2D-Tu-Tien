@@ -132,8 +132,12 @@ export function createGuildPanel(game) {
     render();
   };
   $('btn-guild').addEventListener('pointerdown', ev => { ev.stopPropagation(); open(); });
-  every(() => {   // đang mở tab trò chuyện: đọc tin mới mỗi vài giây
-    if ($('guild').hidden || tab !== 'chat' || busy || Date.now() - pullT < game.data.social.world.poll * 1000) return;
+  let seen = -1;
+  every(() => {   // đang mở tab trò chuyện: tin máy chủ đẩy (game/chat-push.js) thì vẽ lại; đọc bù mỗi vài giây (đang nghe Realtime thì world-chat.js giãn ra)
+    if ($('guild').hidden || tab !== 'chat' || busy) return;
+    const rev = guildChat(game)?.rev;
+    if (rev !== seen) { seen = rev; render(); }
+    if (Date.now() - pullT < game.data.social.world.poll * 1000) return;
     pullT = Date.now(); pullGuildChat(game).then(n => n && tab === 'chat' && render());
   }, 1000);
   return { open, close };

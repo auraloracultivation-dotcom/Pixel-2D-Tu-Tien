@@ -3,17 +3,21 @@ import { cleanText } from './social.js';
 import { isBlocked } from './world-chat.js';
 
 const W = game => game.data.social.whisper;
-export const whisperState = game => (game.whisper ??= { list: [], last: 0, busy: false, err: '', with: null, sentT: 0 });
+export const whisperState = game => (game.whisper ??= { list: [], last: 0, busy: false, err: '', with: null, sentT: 0, at: 0, rev: 0 });
 
-export async function pullWhisper(game) {
+// Máy chủ báo có truyền âm mới qua Realtime (game/chat-push.js, game.push.live('w')) thì chỉ đọc bù mỗi whisper_fallback_s giây,
+// trừ khi force (vừa được báo, vừa vào lại kênh, vừa gửi)
+export async function pullWhisper(game, force = false) {
   const s = whisperState(game);
   if (!game.online || s.busy) return 0;
+  if (!force && game.push?.live('w') && Date.now() - s.at < (game.data.config.realtime?.whisper_fallback_s || 300) * 1000) return 0;
   s.busy = true;
   try {
     const { readWhispers } = await import('../net/whisper.js');
     const rows = await readWhispers(s.last);
     for (const r of rows) if (r.la_toi || !isBlocked(game, r.k)) s.list.push({ ...r, chu: cleanText(game, r.chu) });
-    if (rows.length) s.last = rows[rows.length - 1].id;
+    if (rows.length) { s.last = rows[rows.length - 1].id; s.rev++; }
+    s.at = Date.now();
     if (s.list.length > 300) s.list.splice(0, s.list.length - 300);
     s.err = '';
     if (s.with) markRead(game, s.with);
@@ -58,6 +62,6 @@ export async function sendWhisper(game, k, text) {
     const m = String(e?.message);
     return m.includes('nhanh_qua') ? w.wait : m.includes('bi_cam') ? game.data.social.mod.muted : m.includes('khong_thay') ? w.gone : w.error;
   }
-  await pullWhisper(game);
+  await pullWhisper(game, true);
   return '';
 }

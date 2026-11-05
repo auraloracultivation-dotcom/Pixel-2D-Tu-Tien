@@ -1,6 +1,9 @@
 // Nhịp sống gửi máy chủ (supabase/migrations/20261031020000_p2d_nhip_song.sql): máy chủ chỉ cộng hạn mức Linh Thạch,
 // nguyên liệu cho thời gian còn liên lạc. Trả true khi máy chủ nhận trong ms mili giây, false khi lỗi hoặc quá chậm.
-import { supabase } from './client.js';
+import { supabase, onRealtimeBeat } from './client.js';
+
+// Nhịp socket Realtime trả lời (client.js, 5 giây một lần): game/net-watch.js tính là còn liên lạc
+export const onSocketBeat = f => onRealtimeBeat(st => f(st === 'ok'));
 
 export async function beat(ms) {
   try {

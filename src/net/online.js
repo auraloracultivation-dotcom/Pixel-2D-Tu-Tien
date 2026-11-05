@@ -1,10 +1,10 @@
 // Thấy người chơi khác: mỗi đảo một kênh Realtime "p2d:<đảo>". Presence = ai đang ở đây (tên, hệ, cảnh giới, hình dáng, thời trang);
-// broadcast "move" = vị trí, gửi tối đa ~8 lần/giây và chỉ khi đã "joined"; broadcast "say" = chào hỏi, trò chuyện
+// broadcast "move" = vị trí, gửi theo khoảng game/others.js chọn (mặc định 4 lần/giây khi có người gần) và chỉ khi đã "joined"; broadcast "say" = chào hỏi, trò chuyện
 // (game/social.js lọc chữ). Không ghi gì vào cơ sở dữ liệu.
 // Kênh riêng tư: chỉ người đã đăng nhập vào được (chính sách realtime.messages trong migration p2d_chong_gian_lan).
 import { supabase, realtimeAuth } from './client.js';
 
-const SEND_MS = 125;
+const SEND_MS = 250;
 
 export function createOnline(me, handlers) {
   let ch = null, mapId = null, lastSend = 0, lastPos = '', prof = {};
@@ -37,11 +37,13 @@ export function createOnline(me, handlers) {
       });
   }
 
-  function send(p, extra = {}) {
-    if (!ch || ch.state !== 'joined') return;
+  // gap: mili giây tối thiểu giữa hai lần gửi (game/others.js sendGap: theo số người cùng kênh, Infinity = một mình, không gửi);
+  // đứng yên thì chỉ gửi lại sau idle mili giây. Mỗi tin tính 1 gửi + 1 cho mỗi người nhận (data/config.json → realtime).
+  function send(p, extra = {}, gap = SEND_MS, idle = 10000) {
+    if (!ch || ch.state !== 'joined' || gap === Infinity) return;
     const now = Date.now();
-    const key = `${Math.round(p.x)},${Math.round(p.y)},${extra.act || ''}`;
-    if (now - lastSend < SEND_MS || (key === lastPos && now - lastSend < 2000)) return;
+    const key = `${Math.round(p.x)},${Math.round(p.y)},${extra.act || ''},${extra.sw || ''}`;
+    if (gap > 0 && (now - lastSend < gap || (key === lastPos && now - lastSend < idle))) return;
     lastSend = now; lastPos = key;
     ch.send({ type: 'broadcast', event: 'move', payload: { id: me.id, x: Math.round(p.x), y: Math.round(p.y), fx: +p.face.x.toFixed(2), fy: +p.face.y.toFixed(2), ...extra } });
   }
