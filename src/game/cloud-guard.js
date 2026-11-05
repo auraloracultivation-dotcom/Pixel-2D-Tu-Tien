@@ -8,6 +8,7 @@
 // - pickSave: chọn bản trong máy hay bản máy chủ lúc vào game, không để máy cũ đè máy mới.
 // - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
 import { guardSave, checkGuard } from '../core/guard.js';
+import { applyThu, thuQuiet } from './ky-thu.js';
 
 const fin = v => typeof v === 'number' && Number.isFinite(v);
 
@@ -65,10 +66,14 @@ export function applyFix(game, sent, sua) {
     }
     for (const [k, u] of Object.entries(s.equip || {})) if (roi.has(u)) delete s.equip[k];
   }
+  // Linh thú, khôi lỗi, thú cưỡi, công pháp, thời trang, cấp chiêu, động phủ (migration 20261105120000_p2d_ky_thu, p2d_kiem_thu):
+  // mã nào máy chủ trả thì lấy bản máy chủ; dòng thú cưỡi / thời trang mới máy chủ bốc cũng về đây (im: không có gì sai, khỏi báo)
+  if (sua.thu) applyThu(game, sua.thu);
   game.refreshStats?.();
   if (game.player) game.player.hp = Math.min(game.player.hp, game.player.maxHp);
   const T = game.data.config.guard?.texts || {};
-  if (roi?.size && T.roi) game.toast(T.roi.replace('{n}', roi.size), 3);
+  if (thuQuiet(sua)) { /* chỉ nhận dòng máy chủ bốc */ }
+  else if (roi?.size && T.roi) game.toast(T.roi.replace('{n}', roi.size), 3);
   else if (!sua.tran) game.toast(T.fix || '', 3);
   else if (performance.now() - lastTran > 60000) { lastTran = performance.now(); game.toast(T.tran || '', 3); }   // chạm trần ngày: báo nhẹ, một lần mỗi phút
   game.persist();

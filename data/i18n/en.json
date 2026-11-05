@@ -3300,5 +3300,7 @@
 "Phẩm {x}": "Grade {x}",
 "Mang vào ô {x}": "Equip to slot {x}",
 "{x} · Nhận": "{x} · Claim",
-"Lỗi tải game: {x}": "Game failed to load: {x}"
+"Lỗi tải game: {x}": "Game failed to load: {x}",
+"Máy chủ chưa thấy con này. Đợi vài giây rồi thử lại.": "The server doesn't see this one yet. Wait a few seconds and try again.",
+"Không tẩy luyện được con này.": "This one can't be refined."
 }

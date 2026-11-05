@@ -4,7 +4,8 @@ import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
 import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
-import { beastStats, statLine, linesText, rerollCost, costLine, rerollBeast, rerollMount, mountLine } from '../game/beast.js';
+import { beastStats, statLine, linesText, rerollCost, costLine, mountLine } from '../game/beast.js';
+import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const $ = id => document.getElementById(id);
@@ -48,7 +49,7 @@ export function createPetsPanel(game) {
     const cost = mount ? data.pets.beast.mount.reroll : rerollCost(data, b0), full = b0 && Number.isInteger(b0.cap) && (b0.lines || []).length >= b0.cap;
     const b = el('button', 'mini', full ? 'Đã đủ dòng' : `Tẩy luyện (${costLine(data, cost)})`);
     b.disabled = !!full;
-    b.onclick = () => { game.toast(mount ? rerollMount(game, id) : rerollBeast(game, 'pet', id), 2.4); render(); };
+    b.onclick = async () => { game.toast(await (mount ? kyRerollMount(game, id) : kyRerollBeast(game, 'pet', id)), 2.4); render(); };   // máy chủ tung khi đã đăng nhập (src/game/ky-thu.js)
     row.append(b);
     return row;
   }

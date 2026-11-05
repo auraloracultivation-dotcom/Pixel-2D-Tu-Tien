@@ -549,5 +549,16 @@
   "max_puppets": 2,
   "_resell_max": "Chủ dự án 05/11/2026 09:28 + 09:41: giá bán lại đúng nửa giá mua. Thú cưỡi, khôi lỗi có giá ở đây bán lại đúng resell_max × giá mua (làm tròn xuống, Hỏa Kỳ Lân 25.000 → 12.500), không theo công thức home.sell / puppet_sell (Bạch Lộc từng mua 5.000 bán 5.500). Tiến hoá linh thú cộng home.sell.evo 450 (≈ nửa phí tiến hoá ~890 Linh Thạch, trước là 5.000).",
   "resell_max": 0.5
+ },
+ "server": {
+  "_note": "Mức máy chủ nhận linh thú, khôi lỗi, thú cưỡi mới và tăng trưởng mỗi lần lưu (migration 20261105120000_p2d_ky_thu.sql, p2d_kiem_thu; tools/ky-cfg.mjs đưa vào bảng p2d_ky_cfg). exp_k: kinh nghiệm linh thú (pet) / khôi lỗi (comp) tăng được tối đa exp_k × tốc linh khí trần của cảnh giới mỗi giây còn liên lạc (như trigger p2d_kiem_linh_khi; linh thú hưởng 0,5, hai khôi lỗi mỗi con 0,4 nên gấp đôi phần chia), thùng đầy exp_k × thùng linh khí; linh thú không mang chỉ lớn bằng bản sao. sao: bản sao (copies, cả bản sao đã gộp thành sao: copies + 2^sao − 1) tăng tối đa phut mỗi phút còn liên lạc, đầy tran (người cày nặng nhất ~2.600 / ngày ≈ 1,8 / phút nếu treo cả ngày). moi: loài linh thú mới. cuoi: thú cưỡi rơi từ quái (không trả Linh Thạch). Số đo sao lưu đêm 30/10–05/11/2026 (chỉ đọc): bản sao tăng tới ~2.600 / ngày (người cày nặng nhất, bằng số dị chủng hạ được), loài mới tới 4 / ngày, thú cưỡi mới tới 2 / ngày.",
+  "exp_k": {"pet": 1, "comp": 1.6},
+  "sao": {"phut": 4, "tran": 240},
+  "moi": {"phut": 0.05, "tran": 3},
+  "cuoi": {"phut": 0.0042, "tran": 2},
+  "dau": 0.34,
+  "_dau": "Tài khoản mới (lần lưu đầu): thùng loài mới, bản sao, công pháp mới, thú cưỡi rơi bắt đầu ở dau × đầy (đủ 1 loài linh thú mới, 2 công pháp mới, ~80 bản sao), thùng kinh nghiệm bắt đầu rỗng; người chơi cũ chưa có kyThu thì đầy.",
+  "ban": {"giay": 20, "tran": 60000, "toc_giay": 7200},
+  "_ban": "Tiền bán linh thú, thú cưỡi, đồ (p2d_mien_tran: không tính vào thùng Linh Thạch thường, không tính trần ngày) nay cũng có thùng riêng theo giờ còn liên lạc: hồi giay + tốc Linh Thạch của cảnh giới (6 × 1,6^cảnh giới) mỗi giây, đầy tran + toc_giay × tốc đó; phần vượt tính như Linh Thạch thường (thùng lt_xo, ghi ban_lo). Lý do 05/11/2026: tài khoản hack tải lên 12 linh thú cấp 40 / 20 sao rồi bán, Linh Thạch 1.023 → 261.970 trong 46 giây."
  }
 }

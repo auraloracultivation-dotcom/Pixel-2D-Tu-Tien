@@ -3300,5 +3300,7 @@
 "Phẩm {x}": "品階{x}",
 "Mang vào ô {x}": "裝入欄位{x}",
 "{x} · Nhận": "{x} · 領取",
-"Lỗi tải game: {x}": "遊戲載入失敗：{x}"
+"Lỗi tải game: {x}": "遊戲載入失敗：{x}",
+"Máy chủ chưa thấy con này. Đợi vài giây rồi thử lại.": "伺服器尚未看到這隻，請稍候幾秒再試。",
+"Không tẩy luyện được con này.": "這隻無法洗煉。"
 }

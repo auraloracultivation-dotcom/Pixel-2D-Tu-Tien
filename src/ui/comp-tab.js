@@ -3,7 +3,8 @@
 // Thẻ là nút (chạm để mang / cất), dòng .skill-up sau thẻ là nút trong tấm chi tiết (src/ui/grid-cards.js gom vào).
 import { compLevel, compNeed, togglePuppet } from '../game/companion.js';
 import { isPuppet, puppetName, puppetPrice, sellPuppet } from '../game/beast-shop.js';
-import { beastStats, statLine, linesText, rerollCost, costLine, rerollBeast } from '../game/beast.js';
+import { beastStats, statLine, linesText, rerollCost, costLine } from '../game/beast.js';
+import { kyRerollBeast } from '../game/ky-thu.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -35,7 +36,7 @@ export function renderComps(game, list, { render, sub }) {
     list.append(c);
     if (using) list.append(row('Cất đi', () => togglePuppet(game, id)));
     const full = Number.isInteger(st.cap) && (st.lines || []).length >= st.cap;
-    list.append(row(full ? 'Đã đủ dòng' : `Tẩy luyện (${costLine(data, rerollCost(data, st))})`, () => game.toast(rerollBeast(game, 'puppet', id), 2.4), full));
+    list.append(row(full ? 'Đã đủ dòng' : `Tẩy luyện (${costLine(data, rerollCost(data, st))})`, () => kyRerollBeast(game, 'puppet', id).then(m => { game.toast(m, 2.4); render(); }), full));
     if (!using) {
       const price = puppetPrice(game, id).toLocaleString('vi-VN'), key = 'k:' + id;
       list.append(row(sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`, () => { if (sure !== key) { sure = key; return; } sure = null; game.toast(sellPuppet(game, id), 2.4); }));

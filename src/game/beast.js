@@ -9,6 +9,9 @@ import { coins, addCoins } from './shop.js';
 import { curOutfit, owned } from './fashion.js';
 
 const B = data => data.pets.beast;
+// Đã đăng nhập và máy chủ đã kiểm linh thú (bản lưu có kyThu, migration 20261105120000_p2d_ky_thu): dòng thú cưỡi / thời trang mới
+// do máy chủ bốc, máy này chỉ gửi chỗ trống { wait } rồi nhận dòng ở sua.thu (src/game/ky-thu.js applyThu)
+export const srvLines = game => !!game.cloud && !!game.save?.kyThu;
 
 // Số giả ngẫu nhiên cố định theo chuỗi (cùng loài → cùng chỉ số gốc)
 function h01(str) {
@@ -36,7 +39,7 @@ export function beastStats(data, save, kind, id) {
 }
 
 export const statLine = (data, st) => Object.entries(st).map(([s, v]) => `${data.items.stats[s]?.name || s} +${v}${data.items.stats[s]?.pct ? '%' : ''}`).join(' · ');
-export const linesText = (data, ls) => (ls || []).map(l => `[${tierOf(data, l.t).name}] ${data.items.stats[l.s]?.name || l.s} +${l.v}${data.items.stats[l.s]?.pct ? '%' : ''}`);
+export const linesText = (data, ls) => (ls || []).filter(l => l?.s).map(l => `[${tierOf(data, l.t).name}] ${data.items.stats[l.s]?.name || l.s} +${l.v}${data.items.stats[l.s]?.pct ? '%' : ''}`);
 
 // Phí tẩy: coins × mul^(số dòng đang có) + nguyên liệu
 export function rerollCost(data, b) {
@@ -67,7 +70,7 @@ export function mountLine(game, id) {
   const s = game.save;
   if (!s.mounts?.[id]) return null;
   s.mountLine ??= {};
-  if (!s.mountLine[id]) { s.mountLine[id] = newLine(game.data, B(game.data).mount.pool, 0); game.persist(); }
+  if (!s.mountLine[id]) { s.mountLine[id] = srvLines(game) ? { wait: 1 } : newLine(game.data, B(game.data).mount.pool, 0); game.persist(); }   // máy chủ bốc: gửi chỗ trống
   return s.mountLine[id];
 }
 export function rerollMount(game, id) {
@@ -88,6 +91,7 @@ export function outfitLine(game, key, f) {
   const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = (f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && F.tn_tier?.find(([lim]) => f.from.tn < lim));   // Tiên Ngọc: bảng riêng
   const t = pt ? pt[1] : F.tier[src] ?? 0;
   if (s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
+  if (!s.outfitLine[key] && srvLines(game)) { s.outfitLine[key] = { t, wait: 1 }; game.persist(); }   // máy chủ bốc (migration 20261105120000_p2d_ky_thu)
   if (!s.outfitLine[key]) {
     const st = f.line?.s || F.pool[Math.floor(Math.random() * F.pool.length)];   // bộ có dòng định sẵn (Thần Nguyên Y: sát thương bạo kích)
     s.outfitLine[key] = { s: st, v: lineValue(game.data, st, 0, t, Math.random()), t };
