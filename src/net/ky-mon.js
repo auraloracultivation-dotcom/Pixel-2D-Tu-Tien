@@ -21,4 +21,5 @@ export const kyCalls = {
   unsocket: (uid, o) => call('p2d_go_ngoc', { p_uid: uid, p_o: o }),
   merge: (key, keep, n) => call('p2d_ghep_ngoc', { p_ngoc: key, p_giu: keep, p_lan: n }),
   refine: uid => call('p2d_luyen_phap_bao', { p_uid: uid }),
+  rerollThu: (loai, id) => call('p2d_tay_thu', { p_loai: loai, p_id: id }),   // linh thú / khôi lỗi / thú cưỡi (20261105120000_p2d_ky_thu.sql)
 };

@@ -32,6 +32,35 @@ export function kyCfg(read) {
     // giai đoạn 3 (migration 20261105030000_p2d_ky_roi.sql): mức nhận đồ rơi mới. dong: số dòng của món vừa rơi (items.js rollLines);
     // tang: số tầng mỗi cảnh giới (cấp món vừa rơi = totalLayer, src/game/stats.js)
     roi: { thu_tu: I.rarities.map(r => r.id), phut: rb.phut, gio: rb.gio, tran: rb.tran, mau: rb.mau, dong: 1, tang: R.layers, nang: rb.nang, nho: rb.nho },
+    thu: thuCfg(read),
+  };
+}
+
+// Giai đoạn 4 (migration 20261105120000_p2d_ky_thu.sql): linh thú, khôi lỗi, thú cưỡi, công pháp, thời trang, cấp chiêu, động phủ
+function thuCfg(read) {
+  const P = read('pets.json'), C = read('companions.json'), T = read('techniques.json'), F = read('fashion.json'), H = read('heroes.json');
+  const K = read('config.json').skill_lv, V = read('cave.json'), SH = read('shop.json'), TP = read('topup.json'), SK = read('skills.json');
+  const B = P.beast, FB = B.fashion, sv = P.server, ts = T.server, E = P.evolve;
+  const npc = {};   // bộ bán ở NPC (data/shop.json npc_goods)
+  for (const g of Object.values(SH.npc_goods || {})) if (g && g.kind === 'outfit') npc[g.id] = g.price;
+  // phẩm dòng của bộ (src/game/beast.js outfitLine): theo giá Linh Thạch / Tiên Ngọc, không thì theo nguồn
+  const tierOf = f => {
+    const src = Object.keys(f.from).find(k => FB.tier[k] != null);
+    const pt = (f.from.shop && FB.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && FB.tn_tier?.find(([lim]) => f.from.tn < lim));
+    return pt ? pt[1] : FB.tier[src] ?? 0;
+  };
+  const bo = Object.fromEntries(Object.entries(F.list).map(([id, f]) => [id, [tierOf(f), f.line?.s || null, f.from.shop ?? npc[id] ?? null, !!f.from.tn, f.from.uid || null]]));   // [phẩm, chỉ số cố định, giá Linh Thạch, Tiên Ngọc, chủ riêng]
+  const roi = [...new Set([...Object.values(P.mount_drops || {}).map(x => x[0]), ...Object.values(P.pets).filter(p => p.mount).map(p => p.mount[0])])].sort();
+  return {
+    pet: { ids: Object.keys(P.pets), max: P.max_level, evo_max: E.max_level, evo_lv: E.level, evo_lt: E.coins, evo_mats: E.cost, exp: [P.exp_base, P.exp_pow], starter: P.starter_pet },
+    comp: { ids: Object.keys(P.shop.puppets).filter(id => C.list[id]), max: C.max_level, exp: [C.exp_base, C.exp_pow], gia: P.shop.puppets },
+    tech: { ids: Object.keys(T.list), max: T.max_level, exp: [T.exp_base, T.exp_pow], slots: T.slots, starter: T.starter },
+    cuoi: { ids: Object.keys(P.mounts), gia: P.shop.mounts, roi, starter: P.starter_mount },
+    dong: { pool: B.pool, phi: [B.reroll.coins, B.reroll.mul], mats: B.reroll.mats, mpool: B.mount.pool, mphi: B.mount.reroll.coins, mmats: B.mount.reroll.mats },
+    thoi: { pool: FB.pool, bo, look: Object.keys(H.list), def: H.default, tn: Object.fromEntries(TP.shop.filter(x => x.outfit).map(x => [x.id, x.outfit])) },
+    chieu: { ids: Object.keys(SK).filter(k => !k.startsWith('_')), max: K.max, mat: K.mat, book: [K.book_base, K.book_r], coins: [K.coins_base, K.coins_r] },
+    dong_phu: V.levels.slice(1).map(l => [l.realm || 0, l.coins || 0, l.cost || {}]),
+    sv: { exp_k: { pet: sv.exp_k.pet, comp: sv.exp_k.comp, tech: ts.exp_k }, sao: sv.sao, moi: sv.moi, cuoi: sv.cuoi, cp_moi: ts.moi, ban: sv.ban, dau: sv.dau },
   };
 }
 
