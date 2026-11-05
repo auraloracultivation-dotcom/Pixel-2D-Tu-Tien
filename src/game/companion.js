@@ -54,8 +54,13 @@ export function togglePuppet(game, id) {
   spawnCompanion(game); game.persist();
 }
 
+// Khôi lỗi phải mua ở Ngự Thú Sư mới mang được: chặn lối "Rủ đi cùng" (đạo lữ, khách ở động phủ) tạo khôi lỗi miễn phí rồi bán lấy Linh Thạch.
+// Người không phải khôi lỗi (Lạc Tuyết, Tiêu Dao) không rủ đi cùng được nữa (05/11/2026).
+export const canJoin = canInvite;
+
 export function setCompanion(game, id) {
   const s = game.save;
+  if (!canJoin(game, id)) return false;
   s.comps ??= {};
   s.comps[id] ??= { lv: 1, exp: 0 };
   s.companion = id;

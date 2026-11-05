@@ -1,7 +1,7 @@
 // Khách ghé động phủ (data/visitors.json, home.json visit): bạn quen hoặc khách phương xa.
 // Khách phương xa kể chuyện, tặng quà, có người bán nguyên liệu; khách nào cũng chơi được một ván cờ mỗi ngày.
 import { grant } from './daily.js';
-import { setCompanion, canInvite } from './companion.js';
+import { setCompanion, canJoin } from './companion.js';
 import { coins, addCoins } from './shop.js';
 
 const V = game => game.data.visitors;
@@ -71,7 +71,7 @@ export async function talkVisit(game, npc) {
   if (s.visitGift !== today()) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Khách mang tới', color: '#ffb0d0' });
   if (s.chess !== today()) opts.push({ id: 'chess', label: V(game).chess.label, desc: V(game).chess.desc, color: '#c8b080' });
   if (st?.trade && s.trade !== today()) opts.push({ id: 'trade', label: st.trade.label, desc: '', color: '#ffd24a' });
-  if (!st && canInvite(game, id)) opts.push({ id: 'join', label: 'Rủ đi cùng', desc: s.companion ? `${game.data.npcs[s.companion].name} sẽ về nghỉ` : '' });
+  if (!st && canJoin(game, id)) opts.push({ id: 'join', label: 'Rủ đi cùng', desc: s.companion ? `${game.data.npcs[s.companion].name} sẽ về nghỉ` : '' });
   const auto = game.pilot && visitJob(game, id);   // tự hành: nhận quà, nghe chuyện mới (mỗi ngày một chuyện), đánh cờ
   const ch = auto || await game.dialog.choose(`${name}: ${line()}`, opts);
   if (ch === 'talk') await story(game, npc, st, line);
