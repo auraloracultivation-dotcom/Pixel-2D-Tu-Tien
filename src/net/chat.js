@@ -2,8 +2,9 @@
 import { supabase } from './client.js';
 
 export async function sendChat(kenh, text) {
-  const { error } = await supabase.rpc('p2d_gui_chat', { p_kenh: kenh, p_noi_dung: text });
+  const { data, error } = await supabase.rpc('p2d_gui_chat', { p_kenh: kenh, p_noi_dung: text });
   if (error) throw error;
+  return data;   // id tin vừa ghi
 }
 
 export async function readChat(kenh, after = 0) {

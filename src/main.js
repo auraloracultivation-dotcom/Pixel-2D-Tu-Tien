@@ -35,6 +35,7 @@ import { hookVisit } from './game/friends.js';
 import { createNameNudge } from './ui/name-nudge.js';
 import { startReferral } from './game/referral.js';
 import { startInbox } from './game/inbox-feed.js';
+import { startChatPush } from './game/chat-push.js';
 import { createBag } from './ui/bag.js';
 import { createSkillsPanel } from './ui/skills-panel.js';
 import { createCavePanel } from './ui/cave-panel.js';
@@ -102,6 +103,7 @@ async function boot() {
   createFaq(game);   // nút ! góc trên phải: bảng Câu hỏi thường gặp cho người mới (data/faq.json)
   createNotice(game); createNameNudge(game);   // nhắc người còn tên mặc định đặt tên; nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
   startNetWatch(game); startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
+  startChatPush(game);   // chat, truyền âm máy chủ đẩy qua Realtime; các vòng đọc cũ thành đọc bù (data/config.json → realtime)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%

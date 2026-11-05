@@ -342,7 +342,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePet(game, dt);
     updateCompanion(game, dt); updateCombo(game, dt);
     game.others.update(dt);
-    game.online?.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {});
+    if (game.online) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
     updateMobs(game, dt);
     updateBullets(game, dt);
     updateStrikes(game, dt);

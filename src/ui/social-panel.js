@@ -19,7 +19,7 @@ function el(tag, cls, text) {
 
 export function createSocialPanel(game) {
   const S = game.data.social, c = S.chat, w = S.world;
-  let note = '', tab = 'chat', pullT = 0, wPullT = 0;
+  let note = '', tab = 'chat', pullT = 0, wPullT = 0, seenW = -1, seenH = -1;
   const rank = createRankView(game);
 
   function showTab(id) {
@@ -53,7 +53,7 @@ export function createSocialPanel(game) {
     if (tab === 'world') { renderWorld(); return; }
     if (tab === 'whisper') { renderWhisper(game, { log: $('social-log'), sub: $('social-sub'), input: $('social-input'), send: $('social-send'), note, redraw: render }); note = ''; return; }
     const on = !!game.online;
-    $('social-sub').textContent = note || (on ? c.here.replace('{n}', game.others.visible().length) : c.offline);
+    $('social-sub').textContent = note || (on ? c.here.replace('{n}', game.others.count()) : c.offline);
     const em = $('social-emotes'); em.innerHTML = '';
     for (const e of S.emotes) {
       const b = el('button', 'mini', e.label); b.disabled = !on;
@@ -118,6 +118,8 @@ export function createSocialPanel(game) {
     const wOpen = !$('social').hidden && tab === 'whisper';   // truyền âm: đọc tin mới định kỳ (mở tab thì nhanh hơn)
     if (game.online && Date.now() - wPullT > S.whisper[wOpen ? 'open_poll' : 'poll'] * 1000) { wPullT = Date.now(); pullWhisper(game).then(n => n && wOpen && tab === 'whisper' && render()); }
     if (!$('social').hidden && game.chatNew && tab === 'chat') render();
+    const wr = worldState(game).rev, hr = whisperState(game).rev;   // tin máy chủ đẩy qua Realtime (game/chat-push.js): vẽ lại ngay
+    if (!$('social').hidden && ((tab === 'world' && wr !== seenW) || (tab === 'whisper' && hr !== seenH))) { seenW = wr; seenH = hr; render(); }
     if (!$('social').hidden && tab === 'world' && Date.now() - pullT > w.poll * 1000) { pullT = Date.now(); pullWorld(game).then(n => n && tab === 'world' && render()); }
   }, 1000);
   // Nhắn riêng một người (chạm tin ở kênh Thế giới, tông môn → Truyền âm)

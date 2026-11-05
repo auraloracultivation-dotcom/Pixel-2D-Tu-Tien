@@ -10,6 +10,8 @@ export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_FD5ghLVsNfp3-d69NXlz3w_b
 // game mất lưu cả chục phút (log 31/10/2026: một máy Android 88 lần 401 trong 14 phút, 17 lần lưu hỏng).
 // Gặp 401 ở /rest/v1 thì làm mới mã một lần (gộp chung cho các lời gọi cùng lúc) rồi gọi lại đúng một lần.
 let lamMoi = null;
+const rtBeat = new Set();   // nghe nhịp socket Realtime: 'sent' | 'ok' | 'error' | 'timeout' | 'disconnected'
+export const onRealtimeBeat = f => { rtBeat.add(f); return () => rtBeat.delete(f); };
 async function fetchTuLamMoi(url, opts = {}) {
   const res = await fetch(url, opts);
   if (res.status !== 401 || !String(url).includes('/rest/v1/') || opts.__lai) return res;
@@ -27,7 +29,9 @@ async function fetchTuLamMoi(url, opts = {}) {
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true },
   global: { fetch: fetchTuLamMoi },
-  realtime: { params: { eventsPerSecond: 20 } },   // tổ đội gửi trạng thái quái và vị trí khoảng 7 lần mỗi giây
+  // tổ đội gửi trạng thái quái và vị trí khoảng 7 lần mỗi giây. Nhịp socket 5 giây (mặc định 25): game/net-watch.js coi nhịp ok là
+  // còn liên lạc nên giãn được nhịp sống p2d_nhip_song; nhịp socket không tính vào số tin Realtime (chỉ Broadcast, Presence, DB changes).
+  realtime: { params: { eventsPerSecond: 20 }, heartbeatIntervalMs: 5000, heartbeatCallback: st => { for (const f of rtBeat) f(st); } },
 });
 
 // Kênh Realtime riêng tư cần mã đăng nhập: gắn mã hiện tại trước khi vào kênh
