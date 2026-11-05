@@ -8,10 +8,15 @@ const C = game => game.data.companions;
 export const compNeed = (data, lv) => Math.round(data.companions.exp_base * Math.pow(lv, data.companions.exp_pow));
 export const compLevel = (game, id = game.save.companion) => game.save.comps?.[id]?.lv || 0;
 export const away = (game, id) => !!game.save.flags[C(game).list[id]?.unless];
-export const canInvite = (game, id) => !!C(game).list[id] && (game.data.pets.shop?.puppets?.[id] ? !!game.save.comps?.[id] : !!game.save.flags[C(game).list[id].need || C(game).need]) && !away(game, id);   // khôi lỗi: phải mua rồi mới mang được
+// Chỉ khôi lỗi mới mang theo được (05/11/2026: Lạc Tuyết, Tiêu Dao bị Đại Ma Thần bắt trong truyện mới, không còn là bạn đồng hành)
+export const isCarry = (game, id) => !!C(game).list[id] && !!game.data.pets.shop?.puppets?.[id];
+export const canInvite = (game, id) => isCarry(game, id) && !!game.save.comps?.[id] && !away(game, id);   // khôi lỗi: phải mua rồi mới mang được
 
 const mk = (game, id, dx) => { const p = game.player; return id && p && C(game).list[id] ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x - dx, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null; };
 export function spawnCompanion(game) {
+  const s = game.save;   // bản lưu cũ còn mang người không phải khôi lỗi (Lạc Tuyết, Tiêu Dao): cho về, nhường ô
+  if (s.companion2 && !isCarry(game, s.companion2)) s.companion2 = null;
+  if (s.companion && !isCarry(game, s.companion)) { s.companion = s.companion2 || null; s.companion2 = null; }
   game.comp = mk(game, game.save.companion, 10);
   game.comp2 = mk(game, game.save.companion2, -10);
 }

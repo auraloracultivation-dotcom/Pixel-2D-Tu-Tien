@@ -6,7 +6,7 @@ import { spawnDummy } from './dummy.js';
 import { phase, hourNow } from './daynight.js';
 import { grant } from './daily.js';
 import { bump } from './achieve.js';
-import { setCompanion } from './companion.js';
+import { setCompanion, canInvite } from './companion.js';
 import { comfort, hasDecor } from './decor.js';
 import { addFx } from './combat.js';
 import { addEntry } from './journal.js';
@@ -138,7 +138,7 @@ export async function talkHome(game, npc) {
   if (!gifted) opts.push({ id: 'gift', label: 'Nhận quà', desc: 'Mỗi ngày một món nhỏ', color: '#ffb0d0' });
   const tea = C(game).tea, teaOk = game.save.tea !== today();
   if (teaOk) opts.push({ id: 'tea', label: tea.label, desc: tea.desc, color: '#b8e0a0' });
-  opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
+  if (canInvite(game, id)) opts.push({ id: 'join', label: 'Rủ đi cùng', desc: game.save.companion ? `${game.data.npcs[game.save.companion].name} sẽ về nghỉ` : '' });
   const auto = !gifted ? 'gift' : teaOk ? 'tea' : null;   // tự hành: nhận quà, uống trà luôn
   const ch = game.pilot && auto ? auto : await game.dialog.choose(`${name}: ${lineOf(game, id)}`, opts);
   if (ch === 'talk') await game.dialog.say([[name, lineOf(game, id)]]);

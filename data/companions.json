@@ -1,6 +1,5 @@
 {
- "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Mời ở NPC sau khi có cờ need. unless: cờ truyện bật thì người đó vắng mặt (bị bắt), không mời được, không khen, không viết thư. follow: đứng lùi sau lưng bấy nhiêu đơn vị, lift: lệch lên phía sau để không che hình nhân vật. side: lệch sang bên kia hướng nhìn so với linh thú cho khỏi chụm (âm).",
- "need": "cuu-tieu-hoa",
+ "_note": "Bạn đồng hành: mang 1 người, đi theo đánh cùng như linh thú nhưng có cấp riêng. Kinh nghiệm: share phần linh khí người chơi thu được (khi đang đi cùng). Sát thương = công người chơi × mult × (1 + (cấp - 1) × lv_bonus). Chỉ khôi lỗi (data/pets.json → shop.puppets, mua ở Ngự Thú Sư) mới mang theo được (chủ dự án đổi 02/11/2026; cờ need cũ theo truyện đã xoá 05/11/2026). Lạc Tuyết, Tiêu Dao không phải khôi lỗi: không mời đi cùng được (truyện mới: bị Đại Ma Thần bắt); mục của họ chỉ còn cho đạo lữ, thiện cảm, khách ở động phủ dùng (color, desc, unless). unless: cờ truyện bật thì người đó vắng mặt (bị bắt), không mời được, không khen, không viết thư. follow: đứng lùi sau lưng bấy nhiêu đơn vị, lift: lệch lên phía sau để không che hình nhân vật. side: lệch sang bên kia hướng nhìn so với linh thú cho khỏi chụm (âm).",
  "share": 0.4,
  "max_level": 30,
  "exp_base": 60,
@@ -92,8 +91,7 @@
     "dur": 3.5,
     "cd": 9
    },
-   "join": "Ta đi cùng. Cây mẹ bảo ta ra ngoài nhìn thế giới.",
-   "need": "cuu-thanh-diep"
+   "join": "Ta đi cùng. Cây mẹ bảo ta ra ngoài nhìn thế giới."
   },
   "thiet-lan": {
    "desc": "Kim linh căn thuần. Lao vào chém. Cứ 9 giây phóng kiếm khí quanh mình.",
@@ -108,8 +106,7 @@
     "dmg": 2.4,
     "cd": 9
    },
-   "join": "Đi thôi. Có gì cần chém, cứ để ta.",
-   "need": "cuu-thiet-lan"
+   "join": "Đi thôi. Có gì cần chém, cứ để ta."
   },
   "thach-sinh": {
    "desc": "Thổ linh căn thuần. Lao vào đấm. Cứ 10 giây dựng tường đá, tăng 25% công cho bạn 5 giây.",
@@ -124,8 +121,7 @@
     "dur": 5,
     "cd": 10
    },
-   "join": "...Đi.",
-   "need": "het-chuong-5"
+   "join": "...Đi."
   }
  },
  "side": -12
