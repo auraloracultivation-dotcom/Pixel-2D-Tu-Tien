@@ -1,12 +1,14 @@
 // Linh lực (chủ dự án 04/11/2026 12:57): năng lượng dùng chiêu, khác Linh khí (tu vi để đột phá cảnh giới). Số ở data/config.json → mana.
 // Không lưu vào bản lưu: vào game là đầy. Dùng ở src/game/player.js (trừ khi ra chiêu, hồi theo thời gian), src/ui/hud.js (thanh).
 import { totalLayer } from './stats.js';
+import { skillLv } from './skill-level.js';
 
 const M = game => game.data.config.mana;
-// Gốc theo tầng tu; công pháp Linh lực cộng % (st.mpPct). Chiêu tốn theo linh lực GỐC, để linh lực tối đa tăng thì ra được nhiều chiêu hơn.
+// Gốc theo tầng tu; công pháp Linh lực cộng % (st.mpPct). Chiêu tốn số cố định nên linh lực tối đa tăng là ra được nhiều chiêu hơn.
 const manaBase = game => M(game).base + M(game).per_layer * totalLayer(game.save, game.data.realms);
 export const manaMax = game => Math.round(manaBase(game) * (1 + (game.player?.st?.mpPct || 0)));
-export const manaCost = (game, id) => { const c = M(game), s = game.data.skills[id]; return Math.round(manaBase(game) * Math.min(c.cap, c.per_cd * (s?.cd || 3))); };
+// Chiêu tốn số linh lực cố định (data/skills.json → mp, chủ dự án 05/11/2026 09:45), cấp chiêu cao tốn thêm mp_lv mỗi cấp
+export const manaCost = (game, id) => { const s = game.data.skills[id]; return Math.round((s?.mp ?? 10) * (1 + (M(game).mp_lv || 0) * (skillLv(game, id) - 1))); };
 
 export function manaTick(game, dt) {
   const p = game.player, mx = manaMax(game);
