@@ -6,10 +6,17 @@
 // Chống gian lận (migration 20261028140000): bản gửi kèm ss (mã phiên) và clk (đồng hồ máy) để máy chủ bắt tăng tốc;
 // máy chủ trả "sua" khi số gửi lên lố quá xa, onFix(bản đã gửi, sua) để game nhận lại số đúng.
 // Bản gửi được làm sạch trước (cleanSave): số hỏng (NaN, âm, quá trần) làm cả lần lưu bị từ chối mãi.
+// Lưu phần thay đổi (migration 20261105090000_p2d_luu_vi, src/net/save-diff.js): lần đầu, mỗi FULL_MS, sau lỗi thì gửi cả bản
+// (p2d_luu2); còn lại chỉ gửi khoá đổi qua p2d_luu_vi. Không khoá nào đổi (chỉ mốc giờ, đồng hồ) thì không gọi máy chủ,
+// trừ khi đã KEEP_MS chưa gọi (gửi mốc giờ cho máy chủ biết lần chơi cuối). Nhịp sống, một máy một tài khoản chạy riêng
+// (src/net/heartbeat.js), không dựa vào lần lưu.
 import { supabase } from './client.js';
 import { sendError } from './errlog.js';
+import { createSaveDiff } from './save-diff.js';
 
-const WAIT_MS = 4000; // gom nhiều lần lưu liên tiếp thành một lần gửi
+const WAIT_MS = 4000; // gom nhiều lần lưu liên tiếp thành một lần gửi (chủ dự án giữ 4 giây)
+const FULL_MS = 5 * 60000;   // gửi cả bản định kỳ cho chắc
+const KEEP_MS = 60000;       // không đổi gì thì vẫn gửi mốc giờ mỗi phút
 const SS = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);   // mã phiên lần mở game này
 const fin = v => typeof v === 'number' && Number.isFinite(v);
 
@@ -45,6 +52,8 @@ function shape(d) {
 export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
   let version = 0, timer = null, pending = null, stopped = false, sending = null, busy = 0;
   let fn = 'p2d_luu2', fails = 0, told = false, fixedTold = false, lastFixed = [];
+  let viOff = false, lastFull = -1e9, lastCall = -1e9;   // viOff: máy chủ chưa có p2d_luu_vi
+  const diff = createSaveDiff();
   const api = { name: '' };
 
   async function load() {
@@ -56,18 +65,30 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
   }
 
   const call = body => supabase.rpc(fn, { p_data: body, p_phien_ban: version });
+  const callVi = p => supabase.rpc('p2d_luu_vi', { p_vi: p.vi, p_xoa: p.xoa, p_phien_ban: version });
+  const missing = (e, name) => e.code === 'PGRST202' || new RegExp(name).test(e.message || '');
 
   async function send() {
     const body = pending; pending = null;
-    body.ss = SS; body.clk = Math.round(performance.now());   // lấy lúc gửi, khỏi lệch khi phải chờ thử lại
-    let res = await call(body);
-    if (res.error && fn === 'p2d_luu2' && (res.error.code === 'PGRST202' || /p2d_luu2/.test(res.error.message || ''))) { fn = 'p2d_luu'; res = await call(body); }   // máy chủ chưa có hàm mới
+    const now = performance.now();
+    body.ss = SS; body.clk = Math.round(now);   // lấy lúc gửi, khỏi lệch khi phải chờ thử lại
+    const p = diff.plan(body);
+    let vi = !p.full && !viOff && fn === 'p2d_luu2' && now - lastFull < FULL_MS;
+    if (vi && !p.changed && now - lastCall < KEEP_MS) return true;   // không khoá nào đổi: khỏi gọi máy chủ
+    let res = vi ? await callVi(p) : await call(body);
+    if (vi && res.error && (missing(res.error, 'p2d_luu_vi') || /chua_co_ban_luu/.test(res.error.message || ''))) {   // máy chủ chưa có hàm mới / chưa có bản lưu
+      if (missing(res.error, 'p2d_luu_vi')) viOff = true;
+      vi = false; res = await call(body);
+    }
+    if (res.error && fn === 'p2d_luu2' && missing(res.error, 'p2d_luu2')) { fn = 'p2d_luu'; res = await call(body); }   // máy chủ chưa có hàm mới
     const { data, error } = res;
     if (!error) {
-      fails = 0;
-      if (fn === 'p2d_luu2') { version = data.pb; if (data.sua) onFix?.(body, data.sua); } else version = data;
+      fails = 0; lastCall = now;
+      if (!vi) lastFull = now;
+      if (fn === 'p2d_luu2') { version = data.pb; diff.ack(p, data.sua); if (data.sua) onFix?.(body, data.sua); } else version = data;
       return true;
     }
+    diff.reset();   // không chắc máy chủ đang giữ gì: lần sau gửi cả bản
     if (error.message?.includes('phien_ban_cu')) { stopped = true; onConflict?.(); return false; }
     pending = pending || body; // giữ bản lưu, thử lại sau
     fails++;
