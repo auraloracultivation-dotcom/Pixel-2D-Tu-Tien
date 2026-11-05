@@ -7,9 +7,9 @@ const S = game => game.data.pets.shop;
 const vn = n => n.toLocaleString('vi-VN');
 export const isPuppet = (game, id) => !!S(game)?.puppets?.[id];
 export const puppetName = (game, id) => `Khôi lỗi ${game.data.npcs[id]?.name || id}`;
-export const puppetPrice = (game, id) => {   // không quá resell_max × giá mua (chủ dự án 05/11/2026)
+export const puppetPrice = (game, id) => {   // đúng resell_max × giá mua (chủ dự án 05/11/2026)
   const c = S(game), buy = c.puppets[id], v = Math.round(buy * c.puppet_sell + ((game.save.comps?.[id]?.lv || 1) - 1) * c.puppet_per_lv);
-  return c.resell_max != null ? Math.min(v, Math.floor(buy * c.resell_max)) : v;
+  return c.resell_max != null ? Math.floor(buy * c.resell_max) : v;
 };
 
 export function buyMount(game, id) {

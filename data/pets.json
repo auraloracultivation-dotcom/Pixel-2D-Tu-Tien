@@ -364,7 +364,7 @@
    "base": 300,
    "per_lv": 150,
    "per_star": 1000,
-   "evo": 5000
+   "evo": 450
   },
   "spots": [
    [
@@ -547,7 +547,7 @@
   "puppet_sell": 0.4,
   "puppet_per_lv": 150,
   "max_puppets": 2,
-  "_resell_max": "Chủ dự án 05/11/2026 09:28: giá bán lại tối đa nửa giá mua. Thú cưỡi, khôi lỗi có giá ở đây thì bán lại không quá resell_max × giá mua (làm tròn xuống), dù công thức home.sell / puppet_sell ra cao hơn (Bạch Lộc từng mua 5.000 bán 5.500).",
+  "_resell_max": "Chủ dự án 05/11/2026 09:28 + 09:41: giá bán lại đúng nửa giá mua. Thú cưỡi, khôi lỗi có giá ở đây bán lại đúng resell_max × giá mua (làm tròn xuống, Hỏa Kỳ Lân 25.000 → 12.500), không theo công thức home.sell / puppet_sell (Bạch Lộc từng mua 5.000 bán 5.500). Tiến hoá linh thú cộng home.sell.evo 450 (≈ nửa phí tiến hoá ~890 Linh Thạch, trước là 5.000).",
   "resell_max": 0.5
  }
 }
