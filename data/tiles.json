@@ -2,6 +2,7 @@
  "_note": "tex: kiểu nền pixel (tools/art/ground.py, tông lấy từ color): speckle hạt, slab phiến đá, ice băng, moss rêu, plank sàn gỗ, brick gạch phố lễ hội, paving sân lát lễ hội. Mỗi ký tự trong lưới bản đồ. solid: không đi qua được. void: biển mây (đạn bay qua được). low: thấp sát đất (dung nham), đạn bay qua được. flat: vật thấp, chìm sát đất (đá nhỏ): vẫn vẽ như vật nhưng người, quái đi qua được, đạn bay qua (báo lỗi #102, #117, chủ dự án 04/11/2026: đá chìm, phẳng thì đi qua; đá nhô cao như cột đá I, đá linh căn S, núi ^ vẫn chắn).",
  "types": {
   "~": {"name": "tinh không", "solid": true, "void": true},
+  ":": {"name": "hư không ngự kiếm", "_note": "Ô bay được giữa không gian (vùng Thôn Thiên Mãng, data/maps/thon-thien-mang.json): không vẽ nền, nền sao do world/draw-map.js vẽ"},
   ".": {"name": "cỏ", "color": "#7cc46a"},
   ",": {"name": "đường đất", "color": "#c9a46a"},
   "F": {"name": "hoa", "color": "#7cc46a"},

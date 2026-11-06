@@ -11,6 +11,7 @@ import { drawVoidTile } from './draw-void.js';
 import { drawGround, drawProp, propBaked, groundPainted, drawPlotSoil, drawSeal, PROP_TILES } from './draw-ground.js';
 import { drawLavaBubble } from './draw-lava.js';
 import { drawMountain, drawWater } from './draw-terrain.js';
+import { drawMangArena, drawArenaSwords } from '../render/draw-mang-arena.js';
 function hash(x, y) {
   let h = (x * 374761393 + y * 668265263) | 0;
   h = (h ^ (h >>> 13)) * 1274126177;
@@ -51,7 +52,7 @@ function spaceSky(ctx, screen, map, t) {
 
 export function drawSky(ctx, screen, map, t) {
   screen.screenTransform();
-  if (map.def.planet) { spaceSky(ctx, screen, map, t); return; }
+  if (map.def.planet || map.def.space) { spaceSky(ctx, screen, map, t); return; }   // space: vùng Thôn Thiên Mãng
   const sky = map.def.sky || '#9fd8f0';
   const g = ctx.createLinearGradient(0, 0, 0, screen.h);
   g.addColorStop(0, shade(sky, 0.8)); g.addColorStop(1, shade(sky, 1.1));
@@ -93,6 +94,7 @@ function baseTile(ctx, map, tiles, tx, ty, color) {
 }
 
 export function drawMap(ctx, map, tiles, view, t, game) {
+  if (map.def.space) { drawMangArena(ctx, game, t); drawArenaSwords(ctx, game, t); return; }   // vùng không gian: không có đất, chỉ có con rắn khổng lồ
   const T = map.T;
   const x0 = Math.max(0, Math.floor(view.x0 / T)), x1 = Math.min(map.w - 1, Math.floor(view.x1 / T));
   const y0 = Math.max(0, Math.floor(view.y0 / T)), y1 = Math.min(map.h - 1, Math.floor(view.y1 / T));

@@ -10,6 +10,7 @@ const shade = (hex, k) => {
 };
 
 export function drawMang(ctx, game, m, t) {
+  if (m.wboss?.arena) return arenaHead(ctx, game, m, t);
   const el = game.data.elements[m.wboss?.el]?.color || '#b07ad8', hit = m.flash > 0;
   const body = hit ? '#fff' : '#3a2458', belly = hit ? '#fff' : '#6a4a8a', scale = hit ? '#fff' : shade(el, 0.8), glow = hit ? '#fff' : el;
   const breathe = Math.sin(t * 1.6) * 2, wob = hit ? Math.sin(t * 60) * 1.2 : 0;
@@ -56,5 +57,18 @@ export function drawMang(ctx, game, m, t) {
   const q = textQ(game, 7), ny = m.y - 82 + breathe;
   ctx.font = `bold ${7 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2.5 * q; ctx.strokeStyle = INK;
   ctx.strokeText(name, m.x, ny); ctx.fillStyle = el; ctx.fillText(name, m.x, ny);
+  return true;
+}
+
+// Đầu trong vùng không gian (cả con rắn vẽ ở draw-mang-arena.js): chỉ vẽ tên đầu, vòng sáng theo hệ khi trúng đòn
+function arenaHead(ctx, game, m, t) {
+  const el = game.data.elements[m.wboss.el]?.color || '#b07ad8';
+  if (m.flash > 0) {
+    ctx.save(); ctx.globalAlpha = Math.min(1, m.flash * 6) * 0.7; ctx.strokeStyle = el; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(m.x, m.y, m.r * (0.8 + Math.sin(t * 30) * 0.05), 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+  }
+  const q = textQ(game, 8), ny = m.y - m.r - 6;
+  ctx.font = `bold ${9 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2.5 * q; ctx.strokeStyle = INK;
+  ctx.strokeText(m.wboss.name || m.def.name, m.x, ny); ctx.fillStyle = el; ctx.fillText(m.wboss.name || m.def.name, m.x, ny);
   return true;
 }

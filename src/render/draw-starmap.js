@@ -143,6 +143,7 @@ export function drawStarmap(ctx, w, h, sm, bodies, st) {
   if (st.mang) {   // Cửu Đầu Thôn Thiên Mãng lượn ngoài kết giới (src/render/draw-mang-sky.js), cỡ theo Ma Vương
     const mv = out.find(p => p.b.id === 'ma-vuong'), m = drawMangSky(ctx, st.mang.spr, st.mang.sky, { cx: v.cx * P, cy: v.cy * P, rx: v.rx * P, ry: v.ry * P }, mv ? mv.r : 20, t);
     if (m && st.mang.name) labels.push({ text: st.mang.name, x: m.x, y: m.y + m.r * 0.95, color: '#e0a8ff', pri: 2 });
+    if (m) out.push({ b: { id: 'thon-thien-mang', mang: true, name: st.mang.name }, x: m.x, y: m.y, r: m.r * 0.8 });   // chạm được: thẻ boss, nút Bay tới (ui/world-map.js)
   }
   for (const p of out) {
     const b = p.b, here = b.map && b.map === st.here, sel = b.id === st.sel;

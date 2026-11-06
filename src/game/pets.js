@@ -166,12 +166,12 @@ export function updateRide(game, dt) {
   const p = game.player, id = game.save.mount;
   p.calmT = (p.calmT || 0) + dt;
   if (p.atkCd > 0 || p.invT > 0) { p.calmT = 0; p.riding = false; }
-  const ok = id && game.save.mounts[id] && !(game.map.def.rooms || []).length && !game.map.def.indoor;
+  const ok = id && game.save.mounts[id] && !(game.map.def.rooms || []).length && !game.map.def.indoor && !game.map.def.space;   // vùng không gian: ngự kiếm (thien-mang.js)
   if (!ok || p.meditating) { p.riding = false; return; }   // đả tọa thì xuống thú (chơi thử 01/11: ngồi đả tọa ở hội đèn mà vẫn cưỡi sói)
   if (!p.riding && p.moving && p.calmT > P(game).ride_calm) { p.riding = true; game.sfx('pickup'); }
 }
 
-export const rideSpeed = game => game.player.riding ? 1 + P(game).mounts[game.save.mount].speed : 1;
+export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + P(game).mounts[game.save.mount].speed : 1;   // vùng không gian: ngự kiếm bay nhanh
 
 // Ngự Thú Sư: tặng linh thú và thú cưỡi đầu tiên, sau đó chỉ cách săn dị chủng
 export async function talkBeast(game, npc) {
