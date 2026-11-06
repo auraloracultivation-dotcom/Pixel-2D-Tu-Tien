@@ -187,7 +187,8 @@ console.log('phong.test: ok');
   await room2.webSocketMessage(w2, JSON.stringify({ t: 'd', n: 100 }));
   await room2.bossFlush();
   const lt1 = w1.out.at(-1).lt, want = 2 * C.FARM_LT_S['vet-nut-ngoai'] * C.LT_MULT * (1 + C.LT_BONUS);   // một mình đánh: mạnh nhất tuyến
-  assert.ok(Math.abs(lt1 - Math.floor(want)) <= 1, `lt ${lt1} ≠ ${want}`);
+  const base0 = want / (1 + C.LT_BONUS);   // thùng trần lực chiến có thể cắt bớt sát thương: thưởng nằm giữa phần cố định và tối đa
+  assert.ok(lt1 >= Math.floor(base0) - 1 && lt1 <= Math.floor(want) + 1, `lt ${lt1} ngoài [${base0}, ${want}]`);
   assert.equal(w2.out.at(-1).lt, 0);
   await room2.webSocketMessage(w1, JSON.stringify({ t: 'm', x: hx, y: hy + 2000 }));   // chạy xa: không cộng thêm
   room2.dmg.get('p1') && (room2.dmg.get('p1').at -= 2000);
@@ -197,7 +198,7 @@ console.log('phong.test: ok');
 
   { // sát thương 100k và 1k cùng tuyến: chênh chưa tới 1,5 lần
     const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
-    const rb = await mb.add([{ id: 'a', n: 100000, s: 2, map: 'dao-moc' }, { id: 'b', n: 1000, s: 2, map: 'dao-moc' }]);
+    const rb = await mb.add([{ id: 'a', n: 100000, s: 2, map: 'dao-moc', pw: 1e6 }, { id: 'b', n: 1000, s: 2, map: 'dao-moc', pw: 1e6 }]);
     const base = 2 * C.FARM_LT_S['dao-moc'] * C.LT_MULT;
     assert.ok(Math.abs(mb.pend.get('a') - base * 1.5) < 1e-6 && Math.abs(mb.pend.get('b') - base * 1.05) < 1e-6, JSON.stringify([...mb.pend]));
     void rb;
@@ -232,6 +233,11 @@ console.log('phong.test: ok');
     assert.ok(b.d.length >= 2 && b.d[0][2] >= b.d[1][2]);
     const x = await mang.lenh('xong', ts, ky('xong'));
     assert.ok(x.ok && mang.tot.size === 0 && mang.sum === 0);
+  }
+  { // trần theo lực chiến dùng chung mọi tuyến, gửi dồn dập không vượt
+    const mt = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
+    for (let i = 0; i < 50; i++) await mt.add([{ id: 'x', n: 1e9, pw: 1000, s: 0 }]);
+    assert.ok(mt.tot.get('x').v <= 1000 * 5 * 2 + 1, String(mt.tot.get('x').v));
   }
   console.log('mang.test: ok');
 }
