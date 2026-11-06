@@ -5,6 +5,7 @@
  "max_list": 10,
  "hours": 48,
  "price": {"item": {"pham": 40, "linh": 120, "huyen": 400, "dia": 1500, "thien": 6000}, "mat": 30},
+ "stats": {"gain": "Lực chiến nếu mặc: {v}", "gem_empty": "Ô khảm trống", "_note": "Chỉ số món hiện ngay trên chợ (src/ui/item-stats.js), chủ dự án 06/11/2026 18:52"},
  "title": "Chợ Phiên",
  "tabs": {"buy": "Mua", "sell": "Bán", "mine": "Của tôi"},
  "offline": "Đăng nhập và bật lưu máy chủ để vào chợ.",

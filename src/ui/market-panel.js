@@ -4,6 +4,7 @@ import { canTrade, errText, goodsName, sellItem, sellMat, buy, cancel, claimMail
 import { coins } from '../game/shop.js';
 import { isEquipped } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
+import { itemStats } from './item-stats.js';
 
 const $ = id => document.getElementById(id);
 
@@ -22,10 +23,11 @@ export function createMarketPanel(game) {
     $('market-sub').textContent = note || `${game.data.shop.name} ${coins(game.save).toLocaleString('vi-VN')} · ${M.sub.replace('{tax}', Math.round(M.tax * 100)).replace('{h}', M.hours)}`;
   }
 
-  function goodsRow(g, price, btn) {
+  function goodsRow(g, price, btn, item) {
     const d = el('div', 'mk-row'), info = el('div');
     const name = el('b', null, g.name); if (g.color) name.style.color = g.color;
     info.append(name, el('small', null, g.sub));
+    if (item) try { info.append(itemStats(game, item)); } catch { /* món lạ: chỉ hiện tên */ }   // chỉ số đầy đủ cho người mua xem rõ
     d.append(info);
     if (price != null) d.append(el('span', 'mk-price', price.toLocaleString('vi-VN')));
     if (btn) d.append(btn);
@@ -81,7 +83,7 @@ export function createMarketPanel(game) {
       const g = goodsName(game, r.loai, r.mon);
       g.sub = `${g.sub} · ${r.ten}`;
       const btn = tab === 'mine' ? button(M.cancel_btn, () => cancel(game, r.id)) : button(M.buy_btn, () => buy(game, r), coins(game.save) < r.gia);
-      box.append(goodsRow(g, r.gia, btn));
+      box.append(goodsRow(g, r.gia, btn, r.loai === 'mon' ? r.mon : null));
     }
   }
 
