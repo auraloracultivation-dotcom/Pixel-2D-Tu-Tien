@@ -1,7 +1,7 @@
 // Nạp mọi file trong data/. Code chỉ đọc số liệu và nội dung từ đây, không viết cứng.
 import { ready, translateData } from './i18n.js';   // ngôn ngữ khác tiếng Việt: dịch chữ ngay khi nạp
 const BUILD = 'dev'; // quy trình đưa lên mạng thay bằng mã phiên bản
-const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'techniques', 'cave', 'pets', 'daily', 'gear', 'companions', 'shop', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'home', 'weather', 'journal', 'chatter', 'social', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'demon', 'gender', 'daovan', 'community', 'menu', 'inbox', 'duel', 'referral', 'notice', 'checkin', 'le-hoi', 'faq', 'doi-farm', 'vfx', 'thien-mang', 'pvp'];
+const FILES = ['config', 'tiles', 'elements', 'weapons', 'skills', 'mobs', 'npcs', 'realms', 'story', 'sounds', 'items', 'techniques', 'cave', 'pets', 'daily', 'gear', 'companions', 'shop', 'worldboss', 'events', 'status', 'dungeon', 'affinity', 'hints', 'fashion', 'praise', 'garden', 'daynight', 'letters', 'fishing', 'home', 'weather', 'journal', 'chatter', 'social', 'visitors', 'heroes', 'art', 'market', 'topup', 'party', 'light', 'guild', 'starmap', 'planets', 'wildlife', 'demon', 'gender', 'daovan', 'community', 'menu', 'inbox', 'duel', 'referral', 'notice', 'checkin', 'le-hoi', 'faq', 'doi-farm', 'vfx', 'thien-mang', 'pvp', 'he-thong'];
 
 async function getJson(path) {
   const r = await fetch(`${path}?v=${BUILD}`, { cache: 'no-cache' });

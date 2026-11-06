@@ -1,0 +1,52 @@
+{
+ "_note": "Hệ Thống đi theo ký chủ (chủ dự án 06/11/2026 16:15: người chơi là kẻ xuyên không, có hệ thống đi theo; bảng giữa màn hình, chạm ra ngoài thì thu nhỏ bay sang phải thành biểu tượng cạnh nút pháp bảo; chạm biểu tượng mở lại). src/game/he-thong.js, src/ui/he-thong.js, kiểu he-thong.css. Ba mục: Nhiệm vụ (việc truyện đang làm, nút Dẫn đường bật Tự hành), Hỏi đáp (dùng data/faq.json), Hỏi thêm (gửi câu hỏi về máy chủ p2d_ht_hoi, Claude đọc và bổ sung Hỏi đáp). Hệ thống tự lên tiếng (biểu tượng rung + một dòng): đứng yên idle_s giây không làm gì, gục deaths lần trong deaths_s giây, các bước truyện trong steps (bước 10 là chỗ người mới hay bỏ game).",
+ "name": "Hệ Thống Tu Tiên",
+ "icon": "Hệ",
+ "intro": [
+  "Đinh! Phát hiện linh hồn dị giới...",
+  "Chúc mừng ký chủ xuyên không thành công tới Mảnh Vỡ Thanh Khê.",
+  "Tinh cầu này đang bị ma khí từ Ngoại Vực xâm thực, chín tinh cầu đã vỡ vụn, sinh linh tán loạn.",
+  "Hệ Thống Tu Tiên chính thức liên kết với ký chủ. Nhiệm vụ đầu tiên: sống sót, tu luyện, đánh đuổi ma khí.",
+  "Chạm ra ngoài để thu nhỏ hệ thống. Cần gì, chạm biểu tượng Hệ bên phải."
+ ],
+ "intro_old": [
+  "Đinh! Hệ Thống Tu Tiên đã nâng cấp.",
+  "Từ nay hệ thống đi theo ký chủ: nhắc việc cần làm, giải đáp thắc mắc, nhận câu hỏi mới.",
+  "Chạm ra ngoài để thu nhỏ. Cần gì, chạm biểu tượng Hệ bên phải."
+ ],
+ "tabs": {
+  "task": "Nhiệm vụ",
+  "faq": "Hỏi đáp",
+  "ask": "Hỏi thêm"
+ },
+ "task_head": "Nhiệm vụ hệ thống",
+ "task_none": "Ký chủ đã đi hết cốt truyện hiện có. Đi bí cảnh, làm nhiệm vụ hằng ngày, săn boss để mạnh lên!",
+ "guide": "Dẫn đường",
+ "guide_on": "Đang dẫn đường",
+ "realm": "Cảnh giới: {realm}",
+ "ask_head": "Chưa thấy câu trả lời? Hỏi hệ thống. Câu hỏi được ghi lại, câu nào nhiều người hỏi sẽ có trong Hỏi đáp.",
+ "ask_ph": "Ví dụ: làm sao lên Trúc Cơ?",
+ "ask_send": "Gửi",
+ "ask_ok": "Đinh! Hệ thống đã ghi nhận câu hỏi.",
+ "ask_err": {
+  "chua_dang_nhap": "Cần đăng nhập để hỏi hệ thống.",
+  "qua_nhieu": "Hôm nay ký chủ đã hỏi nhiều rồi, mai hỏi tiếp nhé.",
+  "ngan": "Câu hỏi ngắn quá.",
+  "other": "Mạng lỗi, thử lại sau."
+ },
+ "ask_mine": "Câu đã hỏi",
+ "close_hint": "Chạm ra ngoài để thu nhỏ",
+ "idle_s": 45,
+ "deaths": 2,
+ "deaths_s": 240,
+ "nudge": {
+  "idle": "Ký chủ đang phân vân? Chạm Dẫn đường, hệ thống đưa đi làm nhiệm vụ.",
+  "death": "Ký chủ gục nhiều quá! Mặc trang bị tốt nhất, học chiêu mới, hoặc săn quái yếu hơn để lên cấp.",
+  "step": "Có nhiệm vụ mới. Chạm để xem."
+ },
+ "steps": {
+  "5": "Ký chủ đã làm quen với chiến đấu. Nhớ mở Túi mặc trang bị vừa nhặt!",
+  "10": "Đinh! Ký chủ đã vượt qua chặng đầu, phần thưởng lớn đang ở phía trước. Đừng bỏ cuộc, hệ thống luôn ở đây.",
+  "20": "Bí cảnh đã mở: mỗi ngày 5 lượt, đi để lấy trang bị và đan dược."
+ }
+}
