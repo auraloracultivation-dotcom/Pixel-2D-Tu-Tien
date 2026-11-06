@@ -62,7 +62,11 @@
      "Chạy đi tìm đường về nhà"
     ],
     "dap": 0,
-    "sai": "Sai! Ký chủ không có đường về đâu. Ở lại đây, sống sót, mạnh lên. Chọn lại đi."
+    "sai": [
+     null,
+     "Ngủ tiếp? Ma khí sắp nuốt cả tinh hà mà ký chủ còn đòi ngủ? Dậy! Chọn lại.",
+     "Đường về? Không có đâu ký chủ. Vé một chiều thôi. Chọn lại."
+    ]
    },
    "dk": {
     "dap": 0
@@ -106,7 +110,11 @@
      "Số bạn bè trong game"
     ],
     "dap": 0,
-    "sai": "Ký chủ đang đùa với bổn hệ thống à? Linh căn quyết định hệ chiêu và trang bị cùng hệ mạnh hơn. Chọn lại."
+    "sai": [
+     null,
+     "Màu tóc? Ký chủ tưởng đây là tiệm cắt tóc à? Chọn lại.",
+     "Bạn bè thì liên quan gì linh căn. Ký chủ cô đơn quá rồi... Chọn lại."
+    ]
    },
    "dk": {
     "step": 1,
@@ -167,7 +175,11 @@
      "Cá ngoài mép tinh cầu"
     ],
     "dap": 0,
-    "sai": "Đem cá đi cường hoá thì kiếm chỉ có mùi tanh thôi. Chọn lại."
+    "sai": [
+     null,
+     "Linh Thảo để luyện đan, đem đi cường hoá thì kiếm thành rau. Chọn lại.",
+     "Đem cá đi cường hoá thì kiếm chỉ có mùi tanh thôi. Chọn lại."
+    ]
    },
    "dk": {
     "step": 2,
@@ -207,7 +219,11 @@
      "Túi đồ"
     ],
     "dap": 0,
-    "sai": "Bấm Lướt thì chỉ chạy vòng vòng thôi ký chủ ạ. Chọn lại."
+    "sai": [
+     null,
+     "Bấm Lướt thì chỉ chạy vòng vòng thôi ký chủ ạ. Chọn lại.",
+     "Mở Túi đồ ra ngắm thì quái nó đánh cho. Chọn lại."
+    ]
    },
    "dk": {
     "step": 2,
@@ -254,7 +270,11 @@
      "Đem bán cho Lão Ngư Ông"
     ],
     "dap": 0,
-    "sai": "Linh thú không thích đội ngọc đâu. Chọn lại."
+    "sai": [
+     null,
+     "Linh thú không thích đội ngọc đâu, nó cắn đấy. Chọn lại.",
+     "Lão Ngư Ông chỉ mua cá, không mua ngọc. Chọn lại."
+    ]
    },
    "dk": {
     "step": 2,
@@ -318,7 +338,11 @@
      "Đứng yên cầu nguyện"
     ],
     "dap": 0,
-    "sai": "Ký chủ mà chết thì bổn hệ thống cũng thất nghiệp. Chọn lại!"
+    "sai": [
+     null,
+     "Lao vào boss với một phần ba máu? Dũng cảm đấy... rồi chết. Chọn lại!",
+     "Cầu nguyện ai? Bổn hệ thống không nhận lời cầu nguyện. Chọn lại."
+    ]
    },
    "dk": {
     "step": 3,
@@ -359,7 +383,11 @@
      "Đổi tên nhân vật"
     ],
     "dap": 0,
-    "sai": "Đứng chờ thì tới mùa sau cũng chưa lên tầng. Chọn lại."
+    "sai": [
+     null,
+     "Đứng chờ thì tới mùa sau cũng chưa lên tầng. Chọn lại.",
+     "Đổi tên thì tu vi vẫn thế, chỉ có tên là mới. Chọn lại."
+    ]
    },
    "dk": {
     "step": 4,
@@ -423,7 +451,11 @@
      "Hòm thư"
     ],
     "dap": 0,
-    "sai": "Bụi cỏ chỉ có sâu thôi ký chủ. Chọn lại."
+    "sai": [
+     null,
+     "Bụi cỏ chỉ có sâu thôi ký chủ. Chọn lại.",
+     "Hòm thư là chỗ bổn hệ thống gửi quà, không phải chỗ đồ tự rơi. Chọn lại."
+    ]
    },
    "dk": {
     "step": 5,
@@ -516,7 +548,11 @@
      "Lam (Linh)"
     ],
     "dap": 0,
-    "sai": "Lục là đồ phàm nhân mặc đi chợ. Chọn lại."
+    "sai": [
+     null,
+     "Lục là đồ phàm nhân mặc đi chợ. Chọn lại.",
+     "Lam mới là bậc hai thôi, còn xa lắm. Chọn lại."
+    ]
    },
    "dk": {
     "step": 10,
@@ -540,7 +576,11 @@
      "Đổi tên món đồ"
     ],
     "dap": 0,
-    "sai": "Bổn hệ thống không phải tiệm giặt. Chọn lại."
+    "sai": [
+     null,
+     "Bổn hệ thống không phải tiệm giặt. Chọn lại.",
+     "Đổi tên thì vào Túi đồ mà sửa... à không, chẳng có chỗ đó. Chọn lại."
+    ]
    },
    "dk": {
     "step": 10,
@@ -583,7 +623,11 @@
      "Hòm thư"
     ],
     "dap": 0,
-    "sai": "Lão Ngư Ông chỉ có cá thôi. Chọn lại."
+    "sai": [
+     null,
+     "Lão Ngư Ông chỉ có cá thôi. Chọn lại.",
+     "Hòm thư không đẻ ra thú được đâu. Chọn lại."
+    ]
    },
    "dk": {
     "step": 10,
@@ -606,7 +650,11 @@
      "Đứng giữa đường khiêu khích"
     ],
     "dap": 0,
-    "sai": "Tắt khiên là mời người ta đánh đấy ký chủ. Chọn lại."
+    "sai": [
+     null,
+     "Tắt khiên là mời người ta đánh đấy ký chủ. Chọn lại.",
+     "Đứng giữa đường khiêu khích? Ký chủ chán sống rồi. Chọn lại."
+    ]
    },
    "dk": {
     "step": 10,
@@ -730,7 +778,11 @@
      "Chỉ người đánh đòn cuối được"
     ],
     "dap": 0,
-    "sai": "Sai! Ai đánh cũng có phần, đánh càng đau càng nhiều. Chọn lại."
+    "sai": [
+     null,
+     "Sai! Đánh boss thế giới ai cũng có phần, đánh càng đau càng nhiều. Chọn lại.",
+     "Không phải đâu, ai góp sát thương cũng được chia, không cần đòn cuối. Chọn lại."
+    ]
    },
    "dk": {
     "realm": 1,
@@ -754,7 +806,11 @@
      "Chờ tầng 10"
     ],
     "dap": 0,
-    "sai": "Không có tầng 10 đâu ký chủ. Chọn lại."
+    "sai": [
+     null,
+     "Xoá nhân vật? Bổn hệ thống mất việc thì sao! Chọn lại.",
+     "Không có tầng 10 đâu ký chủ. Chọn lại."
+    ]
    },
    "dk": {
     "realm": 0,
@@ -997,7 +1053,7 @@
  "points": 25,
  "cost": 100,
  "show_n": 3,
- "_missions": "Nhiệm vụ hệ thống (chủ dự án 06/11/2026 16:49–18:03): dắt người mới từ không biết gì, không có gì thành có đủ mọi thứ. Mỗi nhiệm vụ points điểm như nhau và quà qua (vào Hòm thư): nhiệm vụ trước cho đúng thứ cần cho nhiệm vụ sau (đồ cho mặc, Tinh Thiết cho cường hoá, đồ có ô và ngọc cho khảm, đan cho lên tầng). qua: coins | mat+n | gem \"loại:cấp\"+n | pill+n | gear bậc màu (slot \"thieu\": máy chủ chọn ô ký chủ chưa mặc). hoi: nhiệm vụ câu hỏi lựa chọn (dap: đáp án đúng, máy chủ kiểm; sai thì hệ thống trêu một câu, chọn lại được). xong: câu hệ thống nói khi nhận. dk: step, realm (+layer), equip, techs, plus, socket, pets, mounts, dap. Máy chủ kiểm lại trên bản lưu trên máy chủ (bảng p2d_ht_nv sinh bằng tools/he-thong-sql.py). Hiện show_n nhiệm vụ chưa nhận đầu tiên.",
+ "_missions": "Nhiệm vụ hệ thống (chủ dự án 06/11/2026 16:49–18:03): dắt người mới từ không biết gì, không có gì thành có đủ mọi thứ. Mỗi nhiệm vụ points điểm như nhau và quà qua (vào Hòm thư): nhiệm vụ trước cho đúng thứ cần cho nhiệm vụ sau (đồ cho mặc, Tinh Thiết cho cường hoá, đồ có ô và ngọc cho khảm, đan cho lên tầng). qua: coins | mat+n | gem \"loại:cấp\"+n | pill+n | gear bậc màu (slot \"thieu\": máy chủ chọn ô ký chủ chưa mặc). hoi: nhiệm vụ câu hỏi lựa chọn (dap: đáp án đúng, máy chủ kiểm; sai: câu trêu riêng cho từng đáp án sai theo thứ tự opts, chỗ đáp án đúng để null; chọn lại được). xong: câu hệ thống nói khi nhận. dk: step, realm (+layer), equip, techs, plus, socket, pets, mounts, dap. Máy chủ kiểm lại trên bản lưu trên máy chủ (bảng p2d_ht_nv sinh bằng tools/he-thong-sql.py). Hiện show_n nhiệm vụ chưa nhận đầu tiên.",
  "pool": [
   {
    "id": "lt-5k",
@@ -1252,13 +1308,52 @@
     "nguong"
    ],
    "ask_ok": "nhay-mat",
-   "ask_err": "khoc-gia"
+   "ask_err": "khoc-gia",
+   "tim": [
+    "nhay-mat",
+    "muu-mo",
+    "soc",
+    "kieu",
+    "nhech",
+    "phan-khich",
+    "nguong",
+    "thuong"
+   ]
   },
   "icon_k": 0.75,
   "head_k": 0.75,
   "ambient_s": [
    25,
    45
+  ]
+ },
+ "dao": {
+  "_note": "Hệ Thống chạy lung tung trên màn hình như thú cưng tò mò (chủ dự án 06/11/2026 19:29): đi tới các nút trên màn hình, dừng lại ngó nghiêng (mat.ev.tim), lâu lâu lẩm bẩm. Đang nhắc việc hoặc mở bảng thì đứng yên. src/ui/he-thong-dao.js.",
+  "on": true,
+  "speed": 60,
+  "pause": [
+   2,
+   5
+  ],
+  "mumble_every": 3,
+  "mumble": [
+   "{x}? Cái này để làm gì nhỉ... bổn hệ thống ghi chép lại.",
+   "Hừm, {x}. Đáng nghiên cứu.",
+   "Ký chủ ơi, bấm {x} có ra quà không?",
+   "{x}... ghi vào sổ tay hệ thống.",
+   "Ồ, {x}! Bổn hệ thống chưa thấy cái này bao giờ.",
+   "{x} à? Để bổn hệ thống gõ thử... đùa thôi."
+  ],
+  "plain": [
+   "Chỗ này trống trơn... chán.",
+   "Ký chủ đang làm gì thế? Cho bổn hệ thống xem với.",
+   "Đang quét dữ liệu thế giới... 37%... à thôi, lười.",
+   "Tinh hà này lắm thứ lạ ghê.",
+   "Hừm hừm, có mùi linh khí đâu đây."
+  ],
+  "skip": [
+   "btn-atk",
+   "btn-dash"
   ]
  }
 }

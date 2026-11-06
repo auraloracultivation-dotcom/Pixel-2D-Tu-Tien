@@ -62,7 +62,7 @@ export function renderTasks(game, body, api) {
           try { const N = await import('../net/he-thong.js'); done(await N.htAnswer(m.id, i), m); }
           catch (e) {
             opts.querySelectorAll('button').forEach(x => { x.disabled = false; });
-            if (String(e?.message || '').includes('sai')) { openQ.bad.add(i); api.setHt(ht, m.hoi.sai); game.sfx?.('hit'); game.htFace?.react('sai'); } else err(e);
+            if (String(e?.message || '').includes('sai')) { openQ.bad.add(i); api.setHt(ht, (Array.isArray(m.hoi.sai) ? m.hoi.sai[i] : m.hoi.sai) || X.wrong); game.sfx?.('hit'); game.htFace?.react('sai'); } else err(e);
           }
         };
         opts.append(ob);
