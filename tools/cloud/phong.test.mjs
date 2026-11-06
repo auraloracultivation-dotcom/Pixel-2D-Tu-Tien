@@ -142,7 +142,7 @@ console.log('phong.test: ok');
   await mang.add([{ id: 'u1', n: 1000 }]);
   const r2 = await mang.add([{ id: 'u1', n: 0 }]);
   assert.deepEqual(r2.ranks.u1, [1, 1500]);
-  await mang.alarm(); assert.ok(rows.length >= 2);
+  await mang.alarm(); assert.ok(rows.length >= 1 && rows.at(-1)[0].includes('"u1"'));   // cả bảng một dòng
 
   const ctx2 = { list: [], setWebSocketAutoResponse() {}, acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
     getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
@@ -189,7 +189,7 @@ console.log('phong.test: ok');
   assert.equal(w1.out.at(-1).lt, lt1);
 
   { // sát thương 100k và 1k cùng tuyến: chênh chưa tới 1,5 lần
-    const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {} }, blockConcurrencyWhile: f => f() }, {});
+    const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
     const rb = await mb.add([{ id: 'a', n: 100000, s: 2, map: 'dao-moc' }, { id: 'b', n: 1000, s: 2, map: 'dao-moc' }]);
     const base = 2 * C.FARM_LT_S['dao-moc'] * C.LT_MULT;
     assert.ok(Math.abs(mb.pend.get('a') - base * 1.5) < 1e-6 && Math.abs(mb.pend.get('b') - base * 1.05) < 1e-6, JSON.stringify([...mb.pend]));
@@ -199,7 +199,7 @@ console.log('phong.test: ok');
   const calls = [];
   globalThis.fetch = async (url, init) => { calls.push({ url, body: JSON.parse(init.body), key: init.headers.apikey }); return { ok: true, status: 200, text: async () => '1' }; };
   mang.env = { SUPABASE_URL: 'https://x.supabase.co', SUPABASE_KEY: 'pk' };
-  kv.set('pay_at', 1);   // tới giờ gửi
+  mang.payAt = 1;   // tới giờ gửi
   await mang.alarm();
   assert.ok(calls[0].url.endsWith('/rpc/p2d_mang_dang_ky') && calls[0].body.p_khoa.length >= 48);
   const pay = calls.find(c => c.url.endsWith('/rpc/p2d_mang_thuong'));
@@ -211,6 +211,12 @@ console.log('phong.test: ok');
   const n0 = calls.length; await mang.alarm();
   assert.equal(calls.filter(c => c.url.endsWith('dang_ky')).length, 1);   // không đăng ký lại
   assert.equal(calls.length, n0);   // hết nợ: không gửi
+  { // khởi động lại: đọc lại đúng bảng từ một dòng đã lưu
+    const saved = rows.at(-1)[0];
+    const m2 = new Mang({ storage: { sql: { exec: q => (q.includes("FROM anh") ? [{ j: saved }] : []) }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
+    assert.deepEqual(m2.tot.get('u1'), mang.tot.get('u1'));
+    assert.equal(m2.sum, mang.sum);
+  }
   console.log('mang.test: ok');
 }
 
