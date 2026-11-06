@@ -1,6 +1,6 @@
 // Bảng boss thế giới Cửu Đầu Thôn Thiên Mãng (chủ dự án 06/11/2026: "bxh ngay màn hình bên phải ghi bxh sát thương của người chơi,
 // boss k chết, cứ điền là 99% hp"). Hiện khi tinh cầu đang đứng có một cái đầu (game/thien-mang.js). Chữ trơn viền mực như bảng
-// tổ đội, không chặn chạm; chạm dòng tên boss để thu gọn (nhớ trong máy). Chữ ở data/thien-mang.json → text, kiểu ở mang.css.
+// tổ đội, không chặn chạm; dưới hạng là Linh Thạch thưởng (gấp lt_mult lần farm, chờ vào Hòm thư); chạm dòng tên boss để thu gọn (nhớ trong máy). Chữ ở data/thien-mang.json → text, kiểu ở mang.css.
 import { every } from '../core/ticker.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
@@ -53,6 +53,9 @@ export function createMangPanel(game) {
           rows.push(r);
         });
         rows.push(el('div', 'mang-me', b?.me ? fill(T.me, { r: b.me[0], v: fmt(b.me[1]) }) : T.me_none));
+        const h = s.head, x = C.lt_mult || 10;   // thưởng Linh Thạch gấp lt_mult lần farm (máy chủ phòng tính, Hòm thư 5 phút một lần)
+        if (h?.farm_lt_s) rows.push(el('div', 'mang-lt', fill(T.lt_rate, { lt: fmt(Math.round(h.farm_lt_s * x * 10) / 10), x })));
+        if (b?.lt != null) rows.push(el('div', 'mang-lt', fill(T.lt, { lt: fmt(b.lt) })));
       }
     }
     box.replaceChildren(...rows);

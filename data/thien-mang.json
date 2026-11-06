@@ -11,47 +11,56 @@
   "thanh-khe": {
    "n": 1,
    "el": "moc",
-   "name": "Đầu thứ nhất · Thanh Mộc"
+   "name": "Đầu thứ nhất · Thanh Mộc",
+   "farm_lt_s": 0.07
   },
   "thien-kiem-phong": {
    "n": 2,
    "el": "kim",
-   "name": "Đầu thứ hai · Kiếm Kim"
+   "name": "Đầu thứ hai · Kiếm Kim",
+   "farm_lt_s": 0.09
   },
   "dao-xich-dien": {
    "n": 3,
    "el": "hoa",
-   "name": "Đầu thứ ba · Xích Diễm"
+   "name": "Đầu thứ ba · Xích Diễm",
+   "farm_lt_s": 0.17
   },
   "dao-han-bang": {
    "n": 4,
    "el": "thuy",
-   "name": "Đầu thứ tư · Hàn Băng"
+   "name": "Đầu thứ tư · Hàn Băng",
+   "farm_lt_s": 0.32
   },
   "hac-phong-dao": {
    "n": 5,
    "el": "thuy",
-   "name": "Đầu thứ năm · Hắc Phong"
+   "name": "Đầu thứ năm · Hắc Phong",
+   "farm_lt_s": 0.69
   },
   "dao-moc": {
    "n": 6,
    "el": "moc",
-   "name": "Đầu thứ sáu · Thanh Mộc"
+   "name": "Đầu thứ sáu · Thanh Mộc",
+   "farm_lt_s": 1.24
   },
   "dao-thien-kim": {
    "n": 7,
    "el": "kim",
-   "name": "Đầu thứ bảy · Thiên Kim"
+   "name": "Đầu thứ bảy · Thiên Kim",
+   "farm_lt_s": 2.13
   },
   "dao-hau-tho": {
    "n": 8,
    "el": "tho",
-   "name": "Đầu thứ tám · Hậu Thổ"
+   "name": "Đầu thứ tám · Hậu Thổ",
+   "farm_lt_s": 2.89
   },
   "vet-nut-ngoai": {
    "n": 9,
    "el": "hoa",
-   "name": "Đầu thứ chín · Ma Diễm"
+   "name": "Đầu thứ chín · Ma Diễm",
+   "farm_lt_s": 3.76
   }
  },
  "text": {
@@ -63,6 +72,13 @@
   "me_none": "Bạn chưa gây sát thương",
   "empty": "Chưa ai ra tay",
   "offline": "Đăng nhập để vào bảng xếp hạng",
-  "intro": "Trên mép tinh cầu, một cái đầu rắn khổng lồ trồi lên từ tinh hà… {name}!"
+  "intro": "Trên mép tinh cầu, một cái đầu rắn khổng lồ trồi lên từ tinh hà… {name}!",
+  "lt": "Linh Thạch chờ nhận: {lt} (vào Hòm thư mỗi 5 phút)",
+  "lt_rate": "Chém đầu này: ~{lt}/giây (gấp {x} lần farm)"
+ },
+ "lt_mult": 10,
+ "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult = 10 lần farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
+ "mail": {
+  "thon_thien_mang": "Chém Thôn Thiên Mãng"
  }
 }

@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 const root = resolve(import.meta.dirname, '../../cloud/src');
 const dir = mkdtempSync(join(tmpdir(), 'phong-'));
 writeFileSync(join(dir, 'proto.js'), readFileSync(join(root, 'proto.js'), 'utf8'));
+writeFileSync(join(dir, 'mang-cfg.js'), readFileSync(join(root, 'mang-cfg.js'), 'utf8'));
 const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
 writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
 writeFileSync(join(dir, 'mang.js'), readFileSync(join(root, 'mang.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
@@ -128,7 +129,9 @@ console.log('phong.test: ok');
 {
   const { Mang } = await import(join(dir, 'mang.js'));
   const rows = [];
-  const mctx = { storage: { sql: { exec: (q, ...a) => { if (q.startsWith('INSERT')) rows.push(a); return []; } }, getAlarm: async () => null, setAlarm: async () => {} },
+  const kv = new Map();
+  const mctx = { storage: { sql: { exec: (q, ...a) => { if (q.startsWith('INSERT')) rows.push(a); return []; } }, getAlarm: async () => null, setAlarm: async () => {},
+    get: async k => kv.get(k), put: async (k, v) => { kv.set(k, v); } },
     blockConcurrencyWhile: f => f() };
   const mang = new Mang(mctx, {});
   const r1 = await mang.add([{ id: 'u1', name: 'An', n: 500 }, { id: 'u2', name: 'Bình', n: 900 }]);
@@ -144,7 +147,7 @@ console.log('phong.test: ok');
     getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
   const env2 = { MANG: { idFromName: () => 'id', get: () => mang } };
   const room2 = new Phong(ctx2, env2);
-  const h = (uid, pw, co = '0') => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-name', encodeURIComponent('Tên ' + uid)], ['x-power', String(pw)], ['x-co', co]]);
+  const h = (uid, pw, co = '0') => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', 'vet-nut-ngoai'], ['x-name', encodeURIComponent('Tên ' + uid)], ['x-power', String(pw)], ['x-co', co]]);
   await room2.fetch({ headers: h('p1', 2000) }); const w1 = ctx2.list.at(-1);
   await room2.fetch({ headers: h('p2', 0, '1') }); const w2 = ctx2.list.at(-1);
   await room2.webSocketMessage(w1, JSON.stringify({ t: 'p', p: { name: 'Giả Danh' } }));
@@ -156,5 +159,47 @@ console.log('phong.test: ok');
   assert.equal(bx.t, 'bx');
   assert.ok(bx.me && bx.me[1] <= 20000, JSON.stringify(bx.me));
   assert.equal(w2.out.at(-1).me, null);
+  assert.equal(bx.lt, 0);   // chưa gửi vị trí: không tính giây chém
+
+  // Linh Thạch ×10: đứng gần đầu boss, chém 2 giây → 2 × farm vết nứt × 10; cờ đỏ, đứng xa: không
+  const C = await import(join(dir, 'mang-cfg.js'));
+  const TM = JSON.parse(readFileSync(resolve(root, '../../data/thien-mang.json'), 'utf8'));
+  assert.equal(C.LT_MULT, TM.lt_mult);
+  for (const [k, v] of Object.entries(TM.heads)) {
+    assert.equal(C.FARM_LT_S[k], v.farm_lt_s, 'mang-cfg.js FARM_LT_S lệch data/thien-mang.json: ' + k);
+    const g = JSON.parse(readFileSync(resolve(root, `../../data/maps/${k}.json`), 'utf8')).grid, cx = Math.floor(g[0].length / 2);
+    let ry = 0; while (ry < g.length && g[ry][cx] === '~') ry++;
+    assert.deepEqual(C.HEAD[k], [(cx + 0.5) * 16, (Math.max(0, ry - 1) + 0.5) * 16], 'mang-cfg.js HEAD lệch bản đồ: ' + k);
+  }
+  const [hx, hy] = C.HEAD['vet-nut-ngoai'];
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'm', x: hx, y: hy + 100 }));
+  await room2.webSocketMessage(w2, JSON.stringify({ t: 'm', x: hx, y: hy + 50 }));
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'd', n: 100 }));
+  await room2.webSocketMessage(w2, JSON.stringify({ t: 'd', n: 100 }));
+  await room2.bossFlush();
+  const lt1 = w1.out.at(-1).lt, want = 2 * C.FARM_LT_S['vet-nut-ngoai'] * C.LT_MULT;
+  assert.ok(Math.abs(lt1 - Math.floor(want)) <= 1, `lt ${lt1} ≠ ${want}`);
+  assert.equal(w2.out.at(-1).lt, 0);
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'm', x: hx, y: hy + 2000 }));   // chạy xa: không cộng thêm
+  room2.dmg.get('p1') && (room2.dmg.get('p1').at -= 2000);
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'd', n: 100 }));
+  await room2.bossFlush();
+  assert.equal(w1.out.at(-1).lt, lt1);
+
+  // gửi lô ký HMAC về Supabase: đăng ký khoá một lần, chữ ký khớp, gửi xong thì xoá nợ
+  const calls = [];
+  globalThis.fetch = async (url, init) => { calls.push({ url, body: JSON.parse(init.body), key: init.headers.apikey }); return { ok: true, status: 200, text: async () => '1' }; };
+  mang.env = { SUPABASE_URL: 'https://x.supabase.co', SUPABASE_KEY: 'pk' };
+  await mang.alarm();
+  assert.ok(calls[0].url.endsWith('/rpc/p2d_mang_dang_ky') && calls[0].body.p_khoa.length >= 48);
+  const pay = calls.find(c => c.url.endsWith('/rpc/p2d_mang_thuong'));
+  const { createHmac, createHash } = await import('node:crypto');
+  assert.equal(pay.body.p_ky, createHmac('sha256', calls[0].body.p_khoa).update(`${pay.body.p_ts}.${pay.body.p_ds}`).digest('hex'));
+  assert.deepEqual(JSON.parse(pay.body.p_ds), [{ u: 'p1', lt: lt1 }]);
+  assert.equal(await mang.vanTay(), createHash('sha256').update(calls[0].body.p_khoa).digest('hex'));
+  assert.ok((mang.pend.get('p1') || 0) < 1);
+  const n0 = calls.length; await mang.alarm();
+  assert.equal(calls.filter(c => c.url.endsWith('dang_ky')).length, 1);   // không đăng ký lại
+  assert.equal(calls.length, n0);   // hết nợ: không gửi
   console.log('mang.test: ok');
 }

@@ -3,6 +3,7 @@
 // "ping" → "pong" do Cloudflare tự trả (không đánh thức phòng). Tin phát xuống người chơi không tính tiền (chỉ tin gửi lên, 20 tin = 1 yêu cầu).
 // Mọi thứ ở đây chỉ để hiển thị (vị trí, hồ sơ, chào hỏi, hiệu ứng chiêu); đồ, Linh Thạch, sát thương vẫn do Supabase kiểm.
 import { DurableObject } from 'cloudflare:workers';
+import { HEAD, NEAR } from './mang-cfg.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -21,6 +22,7 @@ export class Phong extends DurableObject {
 
   async fetch(req) {
     const uid = req.headers.get('x-uid'), kind = req.headers.get('x-kind'), cap = Number(req.headers.get('x-cap')) || 40;
+    const map = req.headers.get('x-map') || '';
     const nm = req.headers.get('x-name') ? decodeURIComponent(req.headers.get('x-name')) : '', pw = Number(req.headers.get('x-power')) || 0, co = req.headers.get('x-co') === '1';
     if (!uid || !kind) return new Response('thiếu', { status: 400 });
     // cùng tài khoản vào lại (mở hai thẻ, mạng chập chờn): đóng kết nối cũ
@@ -35,7 +37,7 @@ export class Phong extends DurableObject {
     }
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
-    server.serializeAttachment({ id: uid, kind, at, nm, pw, co, p: { name: nm || 'Đạo hữu' } });
+    server.serializeAttachment({ id: uid, kind, at, nm, pw, co, map, p: { name: nm || 'Đạo hữu' } });
     server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })) }));
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
   }
@@ -106,9 +108,10 @@ export class Phong extends DurableObject {
 // Boss thế giới: kẹp sát thương mỗi người theo lực chiến máy chủ giữ (tối đa max(lực chiến, 1000) × 5 mỗi giây, như bảng
 // Sát thương/giây p2d_gui_dps), gom 2 giây gửi lõi Mang; trả bảng xếp hạng cho cả phòng kèm hạng riêng từng người.
 Phong.prototype.bossHit = function (ws, a, n) {
-  const now = Date.now(), d = (this.dmg ??= new Map()), cur = d.get(a.id) || { n: 0, at: now - 2000, name: a.nm || a.p?.name || 'Đạo hữu', co: a.co, pw: a.pw };
+  const now = Date.now(), d = (this.dmg ??= new Map()), cur = d.get(a.id) || { n: 0, s: 0, at: now - 2000, name: a.nm || a.p?.name || 'Đạo hữu', co: a.co, pw: a.pw, map: a.map };
   const dt = Math.min(10, Math.max(0.5, (now - cur.at) / 1000));
   const v = typeof n === 'number' && Number.isFinite(n) && n > 0 ? Math.min(n, Math.max(cur.pw || 0, 1000) * 5 * dt) : 0;
+  if (v > 0 && nearHead(a.map, this.pos.get(a.id))) cur.s += Math.min(dt, 3);   // giây chém thật để tính Linh Thạch (gửi 2 giây/lần)
   if (v > 0 || !d.has(a.id)) { cur.n += v; cur.at = now; }
   d.set(a.id, cur);
   if (!this.bossTimer) this.bossTimer = setTimeout(() => this.bossFlush(), 2000);
@@ -118,14 +121,15 @@ Phong.prototype.bossFlush = async function () {
   this.bossTimer = null;
   const d = this.dmg; this.dmg = new Map();
   if (!d?.size) return;
-  const list = [...d].map(([id, x]) => ({ id, name: x.name, n: x.co ? 0 : Math.round(x.n) }));   // cờ đỏ: vẫn thấy bảng, không tính sát thương
+  const list = [...d].map(([id, x]) => ({ id, name: x.name, n: x.co ? 0 : Math.round(x.n), s: x.co ? 0 : x.s, map: x.map }));   // cờ đỏ: vẫn thấy bảng, không tính sát thương, không thưởng
   let res;
   try { res = await this.env.MANG.get(this.env.MANG.idFromName('cuu-dau')).add(list); } catch { return; }
   for (const ws of this.ctx.getWebSockets()) {
     if (ws.readyState !== 1) continue;
     const id = ws.deserializeAttachment()?.id;
-    try { ws.send(JSON.stringify({ t: 'bx', top: res.top, n: res.n, total: res.total, me: res.ranks[id] || null })); } catch { /* đang đóng */ }
+    try { ws.send(JSON.stringify({ t: 'bx', top: res.top, n: res.n, total: res.total, me: res.ranks[id] || null, lt: res.lt?.[id] ?? null })); } catch { /* đang đóng */ }
   }
 };
 
+const nearHead = (map, mv) => { const h = HEAD[map]; return !!(h && mv && Math.hypot(mv[0] - h[0], mv[1] - h[1]) <= NEAR); };
 const xy = mv => ({ x: mv[0], y: mv[1], fx: mv[2], fy: mv[3] });
