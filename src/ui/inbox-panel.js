@@ -28,7 +28,22 @@ export function createInbox(game) {
   const tabs = el('div', 'ib-tabs'), list = el('div', 'ib-list');
   root.append(head, tabs, list);
   document.body.append(root);
-  let tab = 'all';
+  let tab = 'all', wait = 0;   // thư máy chủ gửi mà máy này chưa nhận (quà, Linh Thạch, đồ): đếm vào số đỏ, hiện dòng nhận đầu bảng
+
+  // Chủ dự án 06/11/2026 16:33: thư gửi phải vào Hòm thư có dấu đỏ ngay, không vòng qua Chợ. Hỏi máy chủ mỗi phút (kể cả đang mở bảng khác)
+  async function peek() {
+    if (!game.cloud || !game.online) { wait = 0; return; }
+    try { const { peekMail } = await import('../net/market.js'); wait = (await peekMail()).length; } catch { /* mạng lỗi: lần sau */ }
+    paint(); if (!root.hidden) render();
+  }
+  async function claim() {
+    try {
+      const { claimMail } = await import('../game/market.js');
+      const got = await claimMail(game);
+      if (got.length) game.toast(got.join(' · '), 3);
+    } catch { /* thư còn đó */ }
+    await peek();
+  }
 
   function ago(t) {
     const m = Math.floor((Date.now() - t) / 60000);
@@ -56,6 +71,7 @@ export function createInbox(game) {
     }
     list.textContent = '';
     if (!game.cloud) list.append(el('p', 'muted', T.login));
+    if (wait > 0) { const w = el('button', 'ib-row new ib-wait', fill(T.wait, { n: wait })); w.onclick = claim; list.append(w); }
     const shown = items.filter(inTab);
     if (!shown.length) { list.append(el('p', 'muted', T.empty)); return; }
     for (const it of shown) {
@@ -70,7 +86,7 @@ export function createInbox(game) {
   }
 
   function paint() {
-    const n = unreadCount(game);
+    const n = unreadCount(game) + wait;
     badge.textContent = n > 99 ? '99+' : String(n);
     badge.hidden = !n;
   }
@@ -84,9 +100,10 @@ export function createInbox(game) {
     if (!root.hidden) { close(); return; }
     if (!game.save || game.dialog.open) return;
     root.hidden = false; game.uiOpen = true; render();
-    import('../game/market.js').then(M => M.claimMail(game)).then(got => { if (got?.length) { game.toast(got.join(' · '), 3); render(); } }).catch(() => {});   // mở Hòm thư thì nhận thư chờ ngay (chủ dự án 06/11/2026 16:25: chưa nhận được quà)
+    claim();   // mở Hòm thư thì nhận thư chờ ngay (chủ dự án 06/11/2026 16:25)
   });
   paint();
+  every(peek, 60000); setTimeout(peek, 8000);
   let sig = '';   // vẽ lại khi có tin mới hay đổi đã đọc (không vẽ lại vô cớ kẻo nhảy chỗ đang cuộn)
   every(() => {
     paint();
