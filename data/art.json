@@ -9760,6 +9760,18 @@
    ],
    "note": "thời trang Thần Nguyên Y (SpriteCook): đứng, chạy, đòn 1, đòn 2; mỗi động tác 8 khung"
   },
+  "hero.tu-linh": {
+   "file": "assets/art/hero-tu-linh.png",
+   "v": "7b6cd42d",
+   "w": 86,
+   "h": 86,
+   "frames": 32,
+   "anchor": [
+    43,
+    83
+   ],
+   "note": "thời trang Tử Linh Ma Yêu (SpriteCook): nghỉ, chạy, bổ, đâm; mỗi động tác 8 khung"
+  },
   "hero.y-bang-y-han-bang-nam": {
    "file": "assets/art/hero-y-bang-y-han-bang-nam.png",
    "v": "e3ecaec7",
