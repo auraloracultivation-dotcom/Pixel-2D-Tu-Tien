@@ -4,16 +4,65 @@
  "label": "Hòm thư",
  "keep": 80,
  "keep_days": 14,
- "poll": {"tick": 5, "world": 60, "guild": 60, "guild_info": 600, "feedback": 600},
- "kinds": {
-  "cho": {"icon": "💰", "name": "Chợ"},
-  "thu": {"icon": "✉️", "name": "Thư"},
-  "truyen_am": {"icon": "💬", "name": "Truyền âm"},
-  "tong_mon": {"icon": "🏯", "name": "Tông môn"},
-  "the_gioi": {"icon": "🌐", "name": "Thế giới"},
-  "he_thong": {"icon": "📢", "name": "Hệ thống"}
+ "poll": {
+  "tick": 5,
+  "world": 60,
+  "guild": 60,
+  "guild_info": 600,
+  "feedback": 600
  },
- "tabs": [["all", "Tất cả"], ["cho", "Chợ, thư"], ["truyen_am", "Truyền âm"], ["tong_mon", "Tông môn"], ["the_gioi", "Thế giới"], ["he_thong", "Hệ thống"]],
+ "kinds": {
+  "cho": {
+   "icon": "💰",
+   "name": "Chợ"
+  },
+  "thu": {
+   "icon": "✉️",
+   "name": "Thư"
+  },
+  "truyen_am": {
+   "icon": "💬",
+   "name": "Truyền âm"
+  },
+  "tong_mon": {
+   "icon": "🏯",
+   "name": "Tông môn"
+  },
+  "the_gioi": {
+   "icon": "🌐",
+   "name": "Thế giới"
+  },
+  "he_thong": {
+   "icon": "📢",
+   "name": "Hệ thống"
+  }
+ },
+ "tabs": [
+  [
+   "all",
+   "Tất cả"
+  ],
+  [
+   "cho",
+   "Chợ, thư"
+  ],
+  [
+   "truyen_am",
+   "Truyền âm"
+  ],
+  [
+   "tong_mon",
+   "Tông môn"
+  ],
+  [
+   "the_gioi",
+   "Thế giới"
+  ],
+  [
+   "he_thong",
+   "Hệ thống"
+  ]
+ ],
  "text": {
   "title": "Hòm thư",
   "read_all": "Đọc hết",
@@ -31,6 +80,7 @@
   "ago_now": "vừa xong",
   "ago_min": "{n} phút trước",
   "ago_hour": "{n} giờ trước",
-  "ago_day": "{n} ngày trước"
+  "ago_day": "{n} ngày trước",
+  "wait": "📬 Có {n} thư chờ nhận (quà, Linh Thạch, vật phẩm). Chạm để nhận"
  }
 }
