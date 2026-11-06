@@ -153,7 +153,7 @@
  },
  "lt_bonus": 0.5,
  "_lt_bonus": "Chủ dự án 06/11/2026 10:10: Linh Thạch theo sát thương nhưng không chênh quá: mỗi giây chém được phần cố định farm_lt_s × lt_mult, cộng thêm tối đa lt_bonus (50%) theo sát thương: lt_bonus × căn bậc hai(sát thương mình ÷ sát thương người mạnh nhất cùng tuyến trong 2 giây đó). Người mạnh nhất ×1,5; người bằng 1% sát thương ×1,05 (100k và 1k nhận chênh nhau chưa tới 1,5 lần). Cloudflare tính (cloud/src/mang.js, LT_BONUS trong mang-cfg.js).",
- "on": true,
+ "on": false,
  "dur_min": 30,
  "thuong": {
   "top": 10,
@@ -167,7 +167,7 @@
   "all_lt": 100000,
   "gem_lv": 1
  },
- "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 vũ khí ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 vũ khí phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30). 15:03: boss chuyển ra vùng không gian riêng (arena), các đầu ở mép 9 tinh cầu bỏ. 15:38: mở thử 30 phút (chủ dự án: mở luôn 30 phút).",
+ "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 vũ khí ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 vũ khí phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30). 15:03: boss chuyển ra vùng không gian riêng (arena), các đầu ở mép 9 tinh cầu bỏ. 15:38: mở thử 30 phút (chủ dự án: mở luôn 30 phút). 16:19: hết 30 phút mở thử, tắt (máy chủ phòng cũng hết giờ mở).",
  "arena": {
   "map": "thon-thien-mang",
   "h": 1000,
