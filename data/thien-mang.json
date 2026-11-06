@@ -76,11 +76,27 @@
   "lt": "Linh Thạch chờ nhận: {lt} (vào Hòm thư mỗi 5 phút)",
   "lt_rate": "Chém đầu này: ~{lt}/giây (gấp {x} lần farm, +tới {b}% theo sát thương)"
  },
- "lt_mult": 10,
- "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult = 10 lần farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
+ "lt_mult": 30,
+ "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult lần (10, chủ dự án 11:39 nâng ×3 = 30) farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
  "mail": {
-  "thon_thien_mang": "Chém Thôn Thiên Mãng"
+  "thon_thien_mang": "Chém Thôn Thiên Mãng",
+  "thon_thien_mang_tk": "Tổng kết Thôn Thiên Mãng"
  },
  "lt_bonus": 0.5,
- "_lt_bonus": "Chủ dự án 06/11/2026 10:10: Linh Thạch theo sát thương nhưng không chênh quá: mỗi giây chém được phần cố định farm_lt_s × lt_mult, cộng thêm tối đa lt_bonus (50%) theo sát thương: lt_bonus × căn bậc hai(sát thương mình ÷ sát thương người mạnh nhất cùng tuyến trong 2 giây đó). Người mạnh nhất ×1,5; người bằng 1% sát thương ×1,05 (100k và 1k nhận chênh nhau chưa tới 1,5 lần). Cloudflare tính (cloud/src/mang.js, LT_BONUS trong mang-cfg.js)."
+ "_lt_bonus": "Chủ dự án 06/11/2026 10:10: Linh Thạch theo sát thương nhưng không chênh quá: mỗi giây chém được phần cố định farm_lt_s × lt_mult, cộng thêm tối đa lt_bonus (50%) theo sát thương: lt_bonus × căn bậc hai(sát thương mình ÷ sát thương người mạnh nhất cùng tuyến trong 2 giây đó). Người mạnh nhất ×1,5; người bằng 1% sát thương ×1,05 (100k và 1k nhận chênh nhau chưa tới 1,5 lần). Cloudflare tính (cloud/src/mang.js, LT_BONUS trong mang-cfg.js).",
+ "on": false,
+ "dur_min": 30,
+ "thuong": {
+  "top": 10,
+  "top_tier": 6,
+  "top_rarity": "thien",
+  "top_gems": 50,
+  "top_lt": 200000,
+  "all_tier": 5,
+  "all_rarity": "dia",
+  "all_gems": 25,
+  "all_lt": 100000,
+  "gem_lv": 1
+ },
+ "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 vũ khí ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 vũ khí phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30)."
 }

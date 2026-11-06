@@ -13,7 +13,7 @@ export const mangHead = game => C(game)?.heads?.[game.map?.id] || null;
 // Gọi lúc dựng bản đồ (game.js loadMap)
 export function spawnMang(game) {
   const c = C(game), h = mangHead(game), grid = game.map?.def?.grid;
-  if (!c || !h || !game.data.mobs[c.mob] || !Array.isArray(grid) || !grid.length) { if (game.mang) game.mang.m = null; return; }
+  if (!c || c.on === false || !h || !game.data.mobs[c.mob] || !Array.isArray(grid) || !grid.length) { if (game.mang) game.mang.m = null; return; }
   const cx = Math.floor(grid[0].length / 2);
   let ry = 0;
   while (ry < grid.length && grid[ry][cx] === '~') ry++;

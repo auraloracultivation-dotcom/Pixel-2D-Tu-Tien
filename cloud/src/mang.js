@@ -12,7 +12,7 @@ import { FARM_LT_S, LT_MULT, LT_BONUS } from './mang-cfg.js';
 // vì trước đây 5 phút mới lưu). Cloudflare tính tiền theo số DÒNG ghi, nên cả bảng (sát thương + Linh Thạch chờ gửi + giờ gửi kế)
 // gom thành MỘT dòng JSON, có thay đổi thì 2 giây ghi một lần (khớp nhịp phòng gửi về): ~1,3 triệu dòng/tháng dù 10 hay
 // 10.000 người, nằm trong 50 triệu miễn phí của gói Workers Paid. Gửi Linh Thạch vẫn 5 phút một lần (PAY_MS).
-const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 2000, PAY_MS = 300000, PAY_MAX = 20000;
+const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 2000, PAY_MS = 300000, PAY_MAX = 60000;   // trần một lô 5 phút / người (chủ dự án 06/11/2026 11:39: Linh Thạch boss ×3)
 const sign = async (khoa, msg) => {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   return hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg)));
@@ -120,6 +120,21 @@ export class Mang extends DurableObject {
       await this.ctx.storage.put('da_dk', 1);
     }
     return k;
+  }
+
+  // Lệnh quản trị có ký (Claude tính chữ ký từ khoá trong Supabase, khoá không rời máy chủ): 'bang' trả cả bảng [uid, tên, sát thương]
+  // để phát thưởng tổng kết; 'xong' gửi nốt Linh Thạch chờ, cất bảng vào lịch sử (dòng 'mua:<ts>'), xoá bảng cho lần boss sau.
+  async lenh(action, ts, ky) {
+    ts = Number(ts);
+    if (!['bang', 'xong'].includes(action) || !(Math.abs(Date.now() - ts) < 120000) || typeof ky !== 'string') return null;
+    const khoa = await this.ctx.storage.get('khoa');
+    if (!khoa || (await sign(khoa, `${ts}.${action}`)) !== ky.toLowerCase()) return null;
+    const d = [...this.tot].filter(([, x]) => x.v > 0).sort((a, b) => b[1].v - a[1].v).map(([uid, x]) => [uid, x.name, Math.round(x.v)]);
+    if (action === 'bang') return { d, total: Math.round(this.sum) };
+    if (this.pend.size) await this.pay();
+    this.ctx.storage.sql.exec('INSERT INTO anh (k, j) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j', `mua:${ts}`, JSON.stringify({ d, total: Math.round(this.sum) }));
+    this.tot.clear(); this.seen.clear(); this.sum = 0; this.save();
+    return { ok: true, n: d.length, left: this.pend.size };
   }
 
   async vanTay() {   // gọi ngay sau khi triển khai: sinh và đăng ký khoá luôn, khỏi để trống chỗ cho kẻ khác chiếm
