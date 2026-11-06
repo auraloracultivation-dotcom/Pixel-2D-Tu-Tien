@@ -12,6 +12,7 @@ export function castSkill(game, id) {
   const K = game.data.config.combat, lv = skillMul(game, id);   // chiêu mạnh hơn đánh thường (config.combat), mạnh thêm theo cấp chiêu
   const atk = p.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
   const fx = p.face.x, fy = p.face.y, V = vfxOf(game, id);   // V: chiêu có hiệu ứng mới (data/vfx.json): bỏ hiệu ứng cũ
+  game.online?.cast?.({ k: id, x: Math.round(p.x), y: Math.round(p.y), fx: +fx.toFixed(2), fy: +fy.toFixed(2) });   // người cùng đảo thấy hiệu ứng (game/others-cast.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
   game.sfx({ projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
   switch (s.type) {
