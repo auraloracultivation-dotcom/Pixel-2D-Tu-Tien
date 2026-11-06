@@ -55,6 +55,7 @@ import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
 import { spawnMang, updateMang, onMangBoard } from './thien-mang.js';
+import { createPvp, updatePvp, onPvp } from './pvp.js';
 import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
@@ -77,6 +78,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.rain = on => audio?.rain(on);
   game.night = on => audio?.night(on);
   game.others = createOthers(game);
+  createPvp(game);   // PvP Ngoại Vực (data/pvp.json)
 
   game.persist = () => {
     if (!game.save || !game.map) return;
@@ -239,7 +241,7 @@ export function createGame(data, screen, input, ui, audio) {
         const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
-          onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx),
+          onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx), onPvp: m => onPvp(game, m),
         }, { url: R.cf_url });
       } catch { game.online = null; }
     }
@@ -373,7 +375,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePetFetch(game, dt);
     updateFishing(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
-    updateWorldBoss(game, dt); updateMang(game, dt);
+    updateWorldBoss(game, dt); updateMang(game, dt); updatePvp(game, dt);
     updateInteract(game);
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;

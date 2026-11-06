@@ -1,0 +1,8 @@
+/* Nút Bảo vệ PvP (src/ui/pvp-btn.js): bên phải, ngay trên bảng boss Thôn Thiên Mãng (mang.css top 50%). Bật: xanh dịu; tắt: đỏ. */
+.pvp-btn {
+  position: fixed; z-index: 7; right: calc(env(safe-area-inset-right) + 8px); top: calc(50% - 30px);
+  font: 700 11px/1 var(--f-body); color: #d9f7e6; padding: 6px 9px; border-radius: 6px; border: 1px solid #000;
+  background: rgba(24, 70, 52, .85); text-shadow: 1px 1px 0 #000; cursor: pointer;
+}
+.pvp-btn.off { color: #fff1f1; background: rgba(150, 26, 34, .9); box-shadow: 0 0 6px rgba(255, 70, 70, .6); }
+.pvp-btn[hidden] { display: none; }

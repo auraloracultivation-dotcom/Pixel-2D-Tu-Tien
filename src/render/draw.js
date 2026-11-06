@@ -207,7 +207,9 @@ function drawOther(ctx, o, game, t) {
   if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
   const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
   ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
-  ctx.strokeText(o.def.name, o.x, ny); ctx.fillStyle = el || '#e6ebf7'; ctx.fillText(o.def.name, o.x, ny);
+  const nm = o.pk ? '⚔ ' + o.def.name : o.def.name;   // tắt bảo vệ (PvP Ngoại Vực, game/pvp.js): tên đỏ, kèm thanh máu PvP khi vừa trúng đòn
+  ctx.strokeText(nm, o.x, ny); ctx.fillStyle = o.pk ? '#ff5a5a' : el || '#e6ebf7'; ctx.fillText(nm, o.x, ny);
+  if (o.pk && o.pvpR < 1 && game.time - (o.pvpAt || 0) < 10) { ctx.fillStyle = INK; ctx.fillRect(o.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = '#ff5a5a'; ctx.fillRect(o.x - 10, ny + 1.5, 20 * Math.max(0, o.pvpR), 2.5); }
   if (o.swingT > 0 && !hero) {
     const a = Math.atan2(o.face.y, o.face.x);
     ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;

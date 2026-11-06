@@ -1,0 +1,33 @@
+{
+ "_note": "PvP (chủ dự án 06/11/2026 09:06, 09:37): chỉ ở Ngoại Vực Vết Nứt (server.map), chỉ khi cả hai đều tắt bảo vệ, chỉ tính khi đứng trong tầm (server.range đơn vị bản đồ = 10 ô). Ai cũng đánh được ai miễn tắt bảo vệ. Máy chủ phòng Cloudflare làm trọng tài (cloud/src/pvp.js, bản sao số ở cloud/src/mang-cfg.js PVP): máu PvP = max(lực chiến, pw_min) × hp_k, mỗi đòn = max(lực chiến người đánh, pw_min) × dps_k × giây từ đòn trước (tối đa dt_max, nhịp tối thiểu gap_s) → hai người ngang lực chiến hạ nhau trong khoảng hp_k/dps_k = 20 giây. regen_s giây không trúng đòn PvP thì máu PvP đầy lại. Bật lại bảo vệ phải chờ lock_s giây sau đòn PvP cuối. Gục: về điểm hồi sinh, bảo vệ bật lại, immune_s giây không tắt được. Rơi đồ (Supabase p2d_pvp_tra, migration 20261106020000): 10% Linh Thạch + 1 món ngẫu nhiên trong túi không đang mặc, hoặc 10% (ít nhất 1) của một loại nguyên liệu, gửi Hòm thư người hạ. Cùng một cặp chỉ tính một lần mỗi giờ; bên nào cờ đỏ thì đồ rơi bị huỷ.",
+ "server": {
+  "map": "vet-nut-ngoai",
+  "range": 160,
+  "gap_s": 0.5,
+  "dt_max": 1.5,
+  "dps_k": 0.1,
+  "hp_k": 2,
+  "pw_min": 100,
+  "regen_s": 10,
+  "lock_s": 15,
+  "immune_s": 10
+ },
+ "mail": {
+  "pvp_ha": "Chiến lợi phẩm PvP"
+ },
+ "text": {
+  "on": "🛡 Bảo vệ: BẬT",
+  "off": "⚔ Bảo vệ: TẮT",
+  "turned_off": "Đã tắt bảo vệ: ai tắt bảo vệ ở Ngoại Vực đều đánh được bạn. Chết sẽ rơi 1 món trong túi và 10% Linh Thạch.",
+  "turned_on": "Đã bật bảo vệ.",
+  "lock": "Vừa giao chiến, {s} giây nữa mới bật lại bảo vệ được.",
+  "immune": "Vừa gục, {s} giây nữa mới tắt bảo vệ được.",
+  "map": "Chỉ tắt bảo vệ được ở Ngoại Vực Vết Nứt.",
+  "offline": "Cần đăng nhập và có mạng để PvP.",
+  "killed": "Bạn bị {name} hạ gục!",
+  "lost": "Mất {lt} Linh Thạch{item}.",
+  "lost_item": " và {name}",
+  "kill": "Bạn hạ gục {name}!",
+  "saw_kill": "{a} hạ gục {b}"
+ }
+}

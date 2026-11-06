@@ -23,7 +23,8 @@ export function cleanPresence(e, known, max) {
     realm: cleanName(e.realm, 24),
     look: has(known.looks, e.look) ? e.look : null,
     outfit: word(e.outfit),
-    mount: known.mounts && has(known.mounts, e.mount) ? e.mount : null,   // đang cưỡi thú gì (06/11/2026: người khác thấy thú cưỡi)
+    mount: known.mounts && has(known.mounts, e.mount) ? e.mount : null,
+    pk: e.pk ? 1 : 0,   // đang tắt bảo vệ (PvP Ngoại Vực, máy chủ phòng giữ)   // đang cưỡi thú gì (06/11/2026: người khác thấy thú cưỡi)
   };
 }
 

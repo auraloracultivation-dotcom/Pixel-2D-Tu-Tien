@@ -61,6 +61,7 @@ import { startCheckinNudge } from './game/checkin-nudge.js';
 import { startThienMa } from './game/thienma.js';
 import { createFarmTeamPanel } from './ui/farm-team-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
+import { createPvpBtn } from './ui/pvp-btn.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -108,6 +109,7 @@ async function boot() {
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
+  createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
   createFarmTeamPanel(game);   // tổ đội farm ngoài thế giới mở: danh sách đội trên tinh cầu, thưởng +10% mỗi đồng đội cùng chỗ (data/doi-farm.json)
   createChatDock(game); createQuestDock(game);   // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
