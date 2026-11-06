@@ -7,16 +7,25 @@ import { PVP } from './mang-cfg.js';
 
 const pool = pw => Math.max(pw || 0, PVP.pw_min) * PVP.hp_k;
 
-// Tắt / bật bảo vệ. Tắt chỉ ở bản đồ PvP; bật lại phải chờ lock_s giây sau đòn PvP cuối (khỏi đánh xong bật khiên chạy).
-export function pvpToggle(room, ws, a, off) {
+// Tắt khiên (chỉ ở bản đồ PvP). Khiên chỉ bật lại khi chết hồi sinh (chủ dự án 06/11/2026 10:49): xin bật lại thì từ chối.
+// Trạng thái khiên giữ ở lõi Mang theo tài khoản (mang.js pk), nên đổi tuyến, ra vào bản đồ, mất mạng vào lại vẫn y như cũ.
+export async function pvpToggle(room, ws, a, off) {
   const now = Date.now();
-  if (off && a.map !== PVP.map) return send(ws, { t: 'pe', e: 'map' });
-  if (!off && now - (a.pvpAt || 0) < PVP.lock_s * 1000) return send(ws, { t: 'pe', e: 'lock', s: Math.ceil(PVP.lock_s - (now - a.pvpAt) / 1000) });
-  if (off && now < (a.immune || 0)) return send(ws, { t: 'pe', e: 'immune', s: Math.ceil((a.immune - now) / 1000) });
-  a.pk = !!off; a.p.pk = a.pk ? 1 : 0;
+  if (!off) return send(ws, { t: 'pe', e: 'only_death' });
+  if (a.map !== PVP.map) return send(ws, { t: 'pe', e: 'map' });
+  if (now < (a.immune || 0)) return send(ws, { t: 'pe', e: 'immune', s: Math.ceil((a.immune - now) / 1000) });
+  if (a.pk) return;
+  a.pk = true; a.p.pk = 1;
   ws.serializeAttachment(a);
-  room.all({ t: 'pk', id: a.id, on: a.pk ? 1 : 0 });
+  room.all({ t: 'pk', id: a.id, on: 1 });
+  try { await mang(room).pkSet(a.id, true, 0); } catch { /* lõi Mang lỗi: chỉ phòng này nhớ */ }
 }
+
+// Lúc vào phòng bản đồ PvP: lấy trạng thái khiên đã giữ ở Mang
+export async function pvpLoad(env, uid) {
+  try { return await env.MANG.get(env.MANG.idFromName('cuu-dau')).pkGet(uid); } catch { return null; }
+}
+const mang = room => room.env.MANG.get(room.env.MANG.idFromName('cuu-dau'));
 
 // a đánh người id. Hợp lệ khi: cùng phòng PvP, cả hai tắt bảo vệ, cả hai có vị trí, trong tầm, đủ nhịp.
 export async function pvpHit(room, ws, a, id) {
@@ -41,8 +50,9 @@ export async function pvpHit(room, ws, a, id) {
   hp.delete(id);
   b.pk = false; b.p.pk = 0; b.immune = now + PVP.immune_s * 1000; b.pvpAt = 0;
   tw.serializeAttachment(b);
+  try { await mang(room).pkSet(id, false, b.immune); } catch { /* lõi Mang lỗi */ }
   let ok = false;
-  try { ok = await room.env.MANG.get(room.env.MANG.idFromName('cuu-dau')).pvp(a.id, id); } catch { /* mạng lỗi: không rơi đồ */ }
+  try { ok = await mang(room).pvp(a.id, id); } catch { /* mạng lỗi: không rơi đồ */ }
   room.all({ t: 'pd', from: a.id, to: id, n, by: a.nm || a.p?.name || 'Đạo hữu', loot: ok ? 1 : 0 });
   room.all({ t: 'pk', id, on: 0 });
 }

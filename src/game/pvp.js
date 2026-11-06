@@ -18,9 +18,11 @@ export function createPvp(game) {
   setTimeout(() => settle(game), 20000);   // nợ cũ (gục rồi thoát game)
 }
 
-export function togglePvp(game) {
+// Tắt khiên (đã xác nhận ở src/ui/pvp-btn.js). Khiên chỉ bật lại khi chết hồi sinh (chủ dự án 06/11/2026 10:49), máy chủ phòng giữ.
+export function togglePvp(game, off = true) {
   const T = P(game).text;
-  if (!game.online?.pvpOff || !game.online.pvpOff(!game.pvp.off)) game.toast(T.offline, 2);
+  if (!off || game.pvp.off) return;
+  if (!game.online?.pvpOff || !game.online.pvpOff(true)) game.toast(T.offline, 2);
 }
 
 // Đánh người tắt bảo vệ gần nhất trong tầm (máy chủ kiểm lại theo vị trí của nó)
@@ -42,7 +44,7 @@ export function pvpTryHit(game) {
 export function updatePvp(game, dt) {
   const s = game.pvp, p = game.player;
   if (!s || !p) return;
-  if (s.map !== game.map?.id) { s.map = game.map?.id; s.off = false; }   // đổi bản đồ = vào phòng mới: máy chủ phòng mặc định bật bảo vệ
+  if (s.map !== game.map?.id) { s.map = game.map?.id; if (!pvpMap(game)) s.off = false; }   // vào lại Ngoại Vực: máy chủ phòng báo lại khiên (pk) lúc vào
   s.cd = Math.max(0, s.cd - dt);
   const sw = p.swingT > 0.15;
   if (sw && !s.wasSwing) pvpTryHit(game);

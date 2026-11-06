@@ -229,7 +229,9 @@ console.log('phong.test: ok');
   const ctx3 = { list: [], setWebSocketAutoResponse() {}, acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
     getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
   const kills = [];
-  const env3 = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v) => { kills.push([k, v]); return true; } }) } };
+  const pks = new Map();
+  const env3 = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v) => { kills.push([k, v]); return true; },
+    pkGet: async u => pks.get(u) || { off: false, immune: 0 }, pkSet: async (u, off, immune) => { pks.set(u, { off, immune }); } }) } };
   const r3 = new Phong(ctx3, env3);
   const hh = (uid, pw, map = C.PVP.map) => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', map], ['x-name', encodeURIComponent('N' + uid)], ['x-power', String(pw)], ['x-co', '0']]);
   await r3.fetch({ headers: hh('k1', 10000) }); const k1 = ctx3.list.at(-1);
@@ -261,8 +263,13 @@ console.log('phong.test: ok');
   const nph = k1.out.filter(o => o.t === 'ph').length;
   await m3(v1, { t: 'h', to: 'k1' });   // nhịp quá nhanh: bỏ
   assert.equal(k1.out.filter(o => o.t === 'ph').length, nph);
-  await m3(v1, { t: 'bv', off: false });
-  assert.equal(v1.out.at(-1).e, 'lock');
+  await m3(v1, { t: 'bv', off: false });   // khiên chỉ bật lại khi chết
+  assert.equal(v1.out.at(-1).e, 'only_death');
+  // vào lại (đổi tuyến, mất mạng): vẫn tắt khiên
+  await r3.fetch({ headers: hh('v1', 100) }); const v1b = ctx3.list.at(-1);
+  assert.equal(v1b.deserializeAttachment().pk, true);
+  assert.ok(v1b.out.some(o => o.t === 'pk' && o.id === 'v1' && o.on === 1));
+  assert.equal(pks.get('k1').off, true);
   // bản đồ khác: không tắt bảo vệ được
   await r3.fetch({ headers: hh('z1', 100, 'thanh-khe') }); const z1 = ctx3.list.at(-1);
   await m3(z1, { t: 'bv', off: true });

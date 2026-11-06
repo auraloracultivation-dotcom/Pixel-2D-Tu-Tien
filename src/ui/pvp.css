@@ -1,8 +1,22 @@
-/* Nút Bảo vệ PvP (src/ui/pvp-btn.js): bên phải, ngay trên bảng boss Thôn Thiên Mãng (mang.css top 50%). Bật: xanh dịu; tắt: đỏ. */
-.pvp-btn {
-  position: fixed; z-index: 7; right: calc(env(safe-area-inset-right) + 8px); top: calc(50% - 30px);
-  font: 700 11px/1 var(--f-body); color: #d9f7e6; padding: 6px 9px; border-radius: 6px; border: 1px solid #000;
-  background: rgba(24, 70, 52, .85); text-shadow: 1px 1px 0 #000; cursor: pointer;
+/* Khiên PvP sau tên (src/ui/pvp-btn.js): nhãn "tên 🛡 / ⚔" bám trên đầu nhân vật mình ở Ngoại Vực; chữ trơn viền mực như tên người
+   khác vẽ trên khung game. Còn khiên: chữ sáng, biểu tượng xanh; tắt khiên: chữ đỏ. Bảng xác nhận giữa màn hình. */
+.pvp-tag {
+  position: fixed; left: 0; top: 0; z-index: 6; display: flex; align-items: center; gap: 3px; padding: 2px 4px;
+  font: 700 11px/1 var(--f-body); color: #e6ebf7; background: none; border: 0; cursor: pointer; white-space: nowrap;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; will-change: transform;
 }
-.pvp-btn.off { color: #fff1f1; background: rgba(150, 26, 34, .9); box-shadow: 0 0 6px rgba(255, 70, 70, .6); }
-.pvp-btn[hidden] { display: none; }
+.pvp-tag b { font-size: 13px; padding: 1px 3px; border-radius: 4px; background: rgba(20, 60, 90, .7); border: 1px solid #000; }
+.pvp-tag.off { color: #ff6a6a; }
+.pvp-tag.off b { background: rgba(150, 26, 34, .85); box-shadow: 0 0 6px rgba(255, 70, 70, .7); }
+.pvp-tag[hidden], .pvp-ask[hidden] { display: none; }
+.pvp-ask { position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; background: rgba(8, 4, 16, .55); padding: 16px; }
+.pvp-ask-card {
+  width: min(92vw, 320px); padding: 14px 14px 12px; border-radius: 10px; border: 2px solid #000;
+  background: #2a1838; color: #f1e8ff; font: 13px/1.45 var(--f-body); box-shadow: 0 0 0 2px #c79bff inset;
+}
+.pvp-ask-q { margin: 0 0 6px; font-weight: 700; font-size: 15px; color: #ffd0d0; }
+.pvp-ask-note { margin: 0 0 12px; color: #d8cce8; }
+.pvp-ask-row { display: flex; gap: 8px; justify-content: flex-end; }
+.pvp-ask-row button { font: 700 13px/1 var(--f-body); padding: 9px 14px; border-radius: 7px; border: 1px solid #000; cursor: pointer; }
+.pvp-no { background: #4a3c5c; color: #f1e8ff; }
+.pvp-yes { background: #b0222c; color: #fff; }
