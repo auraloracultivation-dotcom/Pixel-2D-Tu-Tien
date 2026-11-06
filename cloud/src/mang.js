@@ -31,6 +31,7 @@ export class Mang extends DurableObject {
     this.pend = new Map();     // uid → Linh Thạch chờ gửi
     this.bud = new Map();      // uid → { b: sát thương còn được tính, at } (trần theo lực chiến)
     this.sum = 0; this.payAt = 0; this.changed = false;
+    this.moTo = 0;             // boss mở tới lúc này (ms); hết giờ thì không nhận sát thương, không trả Linh Thạch (lệnh 'mo' / 'tat')
     this.pk = new Map();       // uid → { off, immune } khiên PvP (src/pvp.js)
     ctx.blockConcurrencyWhile(async () => {
       const q = ctx.storage.sql;
@@ -40,7 +41,7 @@ export class Mang extends DurableObject {
         const b = JSON.parse(row.j);
         for (const [uid, name, v] of b.d || []) { this.tot.set(uid, { name, v }); this.sum += v; }
         for (const [uid, lt] of b.p || []) this.pend.set(uid, lt);
-        this.payAt = b.at || 0;
+        this.payAt = b.at || 0; this.moTo = b.mo || 0;
         for (const [uid, off, immune] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0 });
       } else {   // bản cũ lưu mỗi người một dòng (bảng dmg, pay): đọc một lần rồi chuyển sang một dòng
         q.exec('CREATE TABLE IF NOT EXISTS dmg (uid TEXT PRIMARY KEY, name TEXT, v REAL)');
@@ -54,18 +55,18 @@ export class Mang extends DurableObject {
 
   // list: [{ id, name, n, s, map }] (n đã kẹp, s giây chém thật ở phòng). Trả bảng xếp hạng, hạng và Linh Thạch chờ nhận của người trong list.
   async add(list) {
-    const now = Date.now(), lt = {};
+    const now = Date.now(), lt = {}, open = now < this.moTo;   // chủ dự án 06/11/2026 15:53: tắt boss thì máy chủ phải tự chặn (máy mở sẵn từ trước vẫn còn đầu boss)
     const top = Math.max(1, ...(Array.isArray(list) ? list : []).map(x => (x?.s > 0 && x.n > 0 ? Number(x.n) || 0 : 0)));   // sát thương cao nhất tuyến trong lượt
     for (const it of Array.isArray(list) ? list.slice(0, 64) : []) {
       if (typeof it?.id !== 'string' || !(it.n >= 0)) continue;
       const pw = Math.max(1000, Number(it.pw) || 0), bu = this.bud.get(it.id) || { b: pw * DPS_K * 2, at: now };
       bu.b = Math.min(pw * DPS_K * BUD_S, bu.b + pw * DPS_K * Math.max(0, now - bu.at) / 1000); bu.at = now;
-      const n = Math.min(Number(it.n) || 0, 1e15, bu.b); bu.b -= n; this.bud.set(it.id, bu);
+      const n = open ? Math.min(Number(it.n) || 0, 1e15, bu.b) : 0; bu.b -= n; this.bud.set(it.id, bu);
       const cur = this.tot.get(it.id) || { name: it.name || 'Đạo hữu', v: 0 };
       if (it.name) cur.name = String(it.name).slice(0, 24);
       if (n > 0) { cur.v += n; this.sum += n; this.seen.set(it.id, now); this.changed = true; }
       this.tot.set(it.id, cur);
-      const s = Math.min(Number(it.s) || 0, 10), rate = FARM_LT_S[it.map] || 0;
+      const s = open ? Math.min(Number(it.s) || 0, 10) : 0, rate = FARM_LT_S[it.map] || 0;
       const mul = LT_MULT * (1 + LT_BONUS * Math.sqrt(Math.min(1, n / top)));   // phần cố định + tối đa 50% theo sát thương
       if (s > 0 && rate > 0) { this.pend.set(it.id, Math.min(PAY_MAX, (this.pend.get(it.id) || 0) + s * rate * mul)); this.changed = true; }
       lt[it.id] = Math.floor(this.pend.get(it.id) || 0);
@@ -76,14 +77,14 @@ export class Mang extends DurableObject {
     const ranks = {};
     const want = new Set((list || []).map(x => x?.id));
     sorted.forEach(([id, x], i) => { if (want.has(id)) ranks[id] = [i + 1, Math.round(x.v)]; });
-    return { top: sorted.slice(0, TOP).map(([, x]) => [x.name, Math.round(x.v)]), n: this.seen.size, total: Math.round(this.sum), ranks, lt };
+    return { top: sorted.slice(0, TOP).map(([, x]) => [x.name, Math.round(x.v)]), n: this.seen.size, total: Math.round(this.sum), ranks, lt, mo: open ? this.moTo : 0 };
   }
 
   // Một dòng cho cả bảng (xem SAVE_MS)
   save() {
     this.changed = false;
     const d = [...this.tot].filter(([, x]) => x.v > 0).map(([uid, x]) => [uid, x.name, x.v]);
-    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune]) }));
+    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, mo: this.moTo, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune]) }));
   }
 
   async alarm() {
@@ -131,11 +132,15 @@ export class Mang extends DurableObject {
 
   // Lệnh quản trị có ký (Claude tính chữ ký từ khoá trong Supabase, khoá không rời máy chủ): 'bang' trả cả bảng [uid, tên, sát thương]
   // để phát thưởng tổng kết; 'xong' gửi nốt Linh Thạch chờ, cất bảng vào lịch sử (dòng 'mua:<ts>'), xoá bảng cho lần boss sau.
-  async lenh(action, ts, ky) {
+  // 'mo' (arg = số phút): mở boss từ giờ tới giờ + arg phút; 'tat': tắt ngay. Chữ ký trên `${ts}.${action}` (có arg thì `.${arg}`).
+  async lenh(action, ts, ky, arg = '') {
     ts = Number(ts);
-    if (!['bang', 'xong'].includes(action) || !(Math.abs(Date.now() - ts) < 120000) || typeof ky !== 'string') return null;
+    if (!['bang', 'xong', 'mo', 'tat', 'trang'].includes(action) || !(Math.abs(Date.now() - ts) < 120000) || typeof ky !== 'string') return null;
     const khoa = await this.ctx.storage.get('khoa');
-    if (!khoa || (await sign(khoa, `${ts}.${action}`)) !== ky.toLowerCase()) return null;
+    if (!khoa || (await sign(khoa, `${ts}.${action}${arg ? '.' + arg : ''}`)) !== ky.toLowerCase()) return null;
+    if (action === 'mo') { const m = Math.min(24 * 60, Math.max(1, Number(arg) || 0)); this.moTo = Date.now() + m * 60000; this.save(); return { ok: true, mo: this.moTo }; }
+    if (action === 'tat') { this.moTo = 0; this.save(); return { ok: true, mo: 0 }; }
+    if (action === 'trang') return { mo: this.moTo, open: Date.now() < this.moTo };
     const d = [...this.tot].filter(([, x]) => x.v > 0).sort((a, b) => b[1].v - a[1].v).map(([uid, x]) => [uid, x.name, Math.round(x.v)]);
     if (action === 'bang') return { d, total: Math.round(this.sum) };
     if (this.pend.size) await this.pay();

@@ -16,7 +16,7 @@ export default {
     if (url.pathname === '/mang/kt') return text(await env.MANG.get(env.MANG.idFromName('cuu-dau')).vanTay() || 'chua', 200);   // vân tay khoá thưởng (so với p2d_mang_van_tay)
     if (url.pathname === '/mang/lenh') {   // lệnh quản trị có ký (mang.js lenh)
       let r;
-      try { r = await env.MANG.get(env.MANG.idFromName('cuu-dau')).lenh(String(url.searchParams.get('a') || ''), String(url.searchParams.get('ts') || ''), String(url.searchParams.get('ky') || '')); }
+      try { r = await env.MANG.get(env.MANG.idFromName('cuu-dau')).lenh(String(url.searchParams.get('a') || ''), String(url.searchParams.get('ts') || ''), String(url.searchParams.get('ky') || ''), String(url.searchParams.get('m') || '')); }
       catch (e) { return text('loi: ' + String(e?.message || e).slice(0, 200), 500); }
       return r ? new Response(JSON.stringify(r), { headers: { 'content-type': 'application/json' } }) : text('sai', 403);
     }

@@ -137,7 +137,7 @@ Phong.prototype.bossFlush = async function () {
   for (const ws of this.ctx.getWebSockets()) {
     if (ws.readyState !== 1) continue;
     const id = ws.deserializeAttachment()?.id;
-    try { ws.send(JSON.stringify({ t: 'bx', top: res.top, n: res.n, total: res.total, me: res.ranks[id] || null, lt: res.lt?.[id] ?? null })); } catch { /* đang đóng */ }
+    try { ws.send(JSON.stringify({ t: 'bx', top: res.top, n: res.n, total: res.total, me: res.ranks[id] || null, lt: res.lt?.[id] ?? null, mo: res.mo })); } catch { /* đang đóng */ }
   }
 };
 

@@ -142,7 +142,8 @@
   "arena_intro": "Cửu Đầu Thôn Thiên Mãng che kín cả tinh không. Bay tới gần một cái đầu mà chém!",
   "fly_to": "Ngự kiếm bay ra Hư Không Thôn Thiên",
   "fly_back": "Ngự kiếm bay về {name}",
-  "boss_kind": "Thái cổ yêu thú · Boss thế giới"
+  "boss_kind": "Thái cổ yêu thú · Boss thế giới",
+  "ended": "Cửu Đầu Thôn Thiên Mãng đã lui vào hư không. Hẹn lần xuất hiện sau!"
  },
  "lt_mult": 30,
  "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult lần (10, chủ dự án 11:39 nâng ×3 = 30) farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
