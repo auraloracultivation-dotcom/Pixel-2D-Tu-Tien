@@ -13,6 +13,7 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     if (url.pathname === '/' || url.pathname === '/health') return text('p2d-phong ok', 200);
+    if (url.pathname === '/mang/kt') return text(await env.MANG.get(env.MANG.idFromName('cuu-dau')).vanTay() || 'chua', 200);   // vân tay khoá thưởng (so với p2d_mang_van_tay)
     if (url.pathname !== '/ws') return text('not found', 404);
     if (req.headers.get('Upgrade') !== 'websocket') return text('cần WebSocket', 426);
     const origin = req.headers.get('Origin') || '';
@@ -33,6 +34,7 @@ export default {
       const pf = await profileOf(uid, protos[1], env);
       if (pf) { headers.set('x-name', encodeURIComponent(pf.name)); headers.set('x-power', String(pf.power)); headers.set('x-co', pf.co ? '1' : '0'); }
     }
+    if (room.kind === 'dao') headers.set('x-map', room.room.slice(4));
     headers.set('x-cap', String(room.cap));
     return stub.fetch(new Request(req, { headers }));
   },

@@ -1,5 +1,6 @@
 // Boss thế giới Cửu Đầu Thôn Thiên Mãng (data/thien-mang.json; chủ dự án 06/11/2026). Bản thử: vô hạn máu, thanh máu luôn 99%,
-// bảng xếp hạng sát thương cả máy chủ ở bên phải màn hình (src/ui/mang-panel.js), chưa có thưởng.
+// bảng xếp hạng sát thương cả máy chủ ở bên phải màn hình (src/ui/mang-panel.js); chém thì được Linh Thạch gấp 10 lần farm
+// (cloud/src/mang.js tính theo giây chém thật, Hòm thư 5 phút một lần).
 // Mỗi tinh cầu trong heads có một cái đầu mọc ở mép trên (ô ngay trên hàng đất đầu tiên ở giữa bản đồ), đứng yên, không đánh,
 // không chết, không rơi đồ, không linh khí. Đòn trúng đầu (combat.js hitMob) cộng vào pend; cứ report_s giây gửi tổng qua máy chủ
 // phòng Cloudflare (net/online-cf.js bossDmg → cloud/src/phong.js kẹp theo lực chiến → cloud/src/mang.js cộng dồn). Đứng gần đầu
