@@ -2,7 +2,7 @@
 import { spriteImage, drawHitFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 import { curOutfit } from '../game/fashion.js';
-import { drawKiemTrail, drawBloodAura } from './draw-huyet.js';
+import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
 import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
 
@@ -111,13 +111,13 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
     const el = save?.element && game.data.elements[save.element]?.color, a = G.day + (G.night - G.day) * darkness(game);
     ctx.save(); ctx.imageSmoothingEnabled = true; glow(ctx, p.x, p.y - p.top * 0.5, p.top * G.r, el || G.color, a); ctx.restore();
   }
-  if (look.aura === 'huyet') { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
+  if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 < 0.75;
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
-  if (look.aura === 'huyet') drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding);
-  if (look.trail?.style === 'kiem' && atk != null && look.attacks?.includes(name)) drawKiemTrail(ctx, look.trail, look.attacks.indexOf(name), atk, px, p.y - p.top * 0.45, p.lookX || 1, p.top);   // kiếm khí Huyết Nguyệt (src/render/draw-huyet.js)
+  if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);
+  if (look.trail?.style === 'kiem' && atk != null && look.attacks?.includes(name)) drawKiemTrail(ctx, look.trail, look.trail.kinds?.[look.attacks.indexOf(name)] ?? look.attacks.indexOf(name), atk, px, p.y - p.top * 0.45, p.lookX || 1, p.top);   // kiếm khí Huyết Nguyệt (src/render/draw-huyet.js)
   else if (look.trail && atk != null && look.attacks?.includes(name)) drawTrail(ctx, look.trail, name === look.attacks[0] ? 0 : 1, atk, px, p.y - p.top * 0.45, p.lookX || 1);
   return true;
 }
