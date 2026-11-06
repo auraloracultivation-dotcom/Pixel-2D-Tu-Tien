@@ -9,6 +9,8 @@ import { renderTasks } from './he-thong-nv.js';
 import { renderGacha } from './he-thong-qua.js';
 import { createFace } from './he-thong-mat.js';
 import { createWander } from './he-thong-dao.js';
+import { createGreeter } from './he-thong-chao.js';
+import { makeDraggable } from './he-thong-keo.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -77,7 +79,7 @@ export function createHeThong(game) {
   [ic, tip, back].forEach(e => e.addEventListener('pointerdown', stop));
   box.addEventListener('click', stop);
   back.addEventListener('click', () => minimize());
-  ic.addEventListener('click', () => (open ? minimize() : show()));
+  ic.addEventListener('click', () => { if (ic.dataset.keo) { delete ic.dataset.keo; return; } open ? minimize() : show(); });   // vừa kéo xong thì không mở bảng
   tip.addEventListener('click', () => { tip.hidden = true; show(); });
 
   function tabBar() {
@@ -190,12 +192,12 @@ export function createHeThong(game) {
     tip.style.right = `${Math.round(W - x + 6)}px`; tip.style.top = `${Math.round(y)}px`;
   }
 
-  let last = performance.now();
+  let last = performance.now(), userPos = null;   // userPos: chỗ người chơi kéo biểu tượng tới (khi không chạy lung tung)
   every(() => {
     const now = performance.now(), dt = (now - last) / 1000; last = now;
     const hud = document.getElementById('hud'), live = !!game.save && hud && !hud.hidden && !game.trip;
     ic.hidden = !live; if (!live) { tip.hidden = true; return; }
-    if (!wander) place();
+    if (!wander && !userPos && !ic.classList.contains('keo')) place();
     const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
     if (mum && !open && tip.hidden) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
@@ -215,7 +217,7 @@ export function createHeThong(game) {
     const loop = t => {
       const dt = Math.min(0.1, (t - t0) / 1000); t0 = t;
       if (!ic.hidden) {
-        const p = wander.step(dt, open || ic.classList.contains('wake') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
+        const p = wander.step(dt, open || ic.classList.contains('wake') || ic.classList.contains('keo') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
         if (p.x > W / 2) { tip.style.left = ''; tip.style.right = `${Math.round(W - p.x + 6)}px`; } else { tip.style.right = ''; tip.style.left = `${Math.round(p.x + S + 6)}px`; }
         tip.style.top = `${Math.round(p.y)}px`;
       }
@@ -225,5 +227,7 @@ export function createHeThong(game) {
   }
   const anim = t => { if (!ic.hidden) drawIcon(cv, C.icon, t / 1000); requestAnimationFrame(anim); };
   if (!MT) requestAnimationFrame(anim);
+  makeDraggable(game, ic, tip, icFace, C.dao || {}, () => wander?.pos || userPos, p => { if (wander) wander.drop(); else userPos = p; });
+  createGreeter(game);   // Hệ Thống ra đón ở màn đăng nhập (he-thong-chao.js)
   game.openHeThong = () => show();
 }
