@@ -4,7 +4,7 @@
 // Quầng ma khí tím phía sau, thân nhấp nhô rất chậm (to nên chậm), mỗi sky.roar_every giây gầm: chín miệng lóe sáng theo hệ.
 // Chỗ chín miệng là chín chỗ đánh (game/thien-mang.js arenaHeads). Gọi từ world/draw-map.js khi bản đồ là vùng không gian.
 import { spriteImage } from './sprites.js';
-import { arenaBox } from '../game/thien-mang.js';
+import { arenaBox, mangOn } from '../game/thien-mang.js';
 
 const TAU = Math.PI * 2;
 const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
@@ -16,7 +16,7 @@ function blob(ctx, x, y, r, inner, outer) {
 
 export function drawMangArena(ctx, game, t) {
   const c = game.data['thien-mang'], S = c?.sky, spr = game.data.art?.sprites?.['boss.mang'], im = spr && spriteImage(spr);
-  if (!S || !c.arena || c.on === false) return;
+  if (!S || !c.arena || !mangOn(game)) return;   // theo lịch (data/thien-mang.json on false = chỉ hiện 20:30–21:00 giờ VN, mang-lich.js)
   const b = arenaBox(game), bob = Math.sin(t * 0.35) * b.h * 0.006;
   const nr = spr ? spr.frames - 9 : 0, cyc = t % S.roar_every, roar = nr > 0 && cyc * S.roar_fps < nr;
   const pulse = roar ? Math.sin(cyc * S.roar_fps / nr * Math.PI) : 0;
