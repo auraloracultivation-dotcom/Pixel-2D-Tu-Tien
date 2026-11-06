@@ -1,8 +1,8 @@
 // Nhạc trận (data/sounds.json → music.maps.boss): đang độ kiếp, hoặc boss đã nhắm mình ở gần, thì đổi sang khúc nhanh, trầm;
-// hết thì về nhạc của bản đồ. Xét mỗi CHECK giây cho khỏi đổi qua lại.
+// hết thì về nhạc của bản đồ. Xét mỗi CHECK giây cho khỏi đổi qua lại. Quái đang đánh ở gần: lớp trống vào (src/core/music.js).
 import { dist } from './combat.js';
 
-const CHECK = 0.5, NEAR = 260;
+const CHECK = 0.5, NEAR = 260, FIGHT = 170;
 
 export function updateBossMusic(game, dt) {
   if ((game.bossMusicT = (game.bossMusicT || 0) - dt) > 0) return;
@@ -10,4 +10,6 @@ export function updateBossMusic(game, dt) {
   const p = game.player;
   const fight = game.trib.active || game.mobs.some(m => !m.dead && m.def.ai === 'boss' && m.aggro && dist(m, p) < NEAR);
   game.music(fight ? 'boss' : game.map.id);
+  const n = game.mobs.filter(m => !m.dead && m.aggro && !m.dummy && dist(m, p) < FIGHT).length;   // quái đang đánh mình ở gần: lớp trống vào theo số quái
+  game.combat?.(n ? Math.min(1, 0.3 + n * 0.18) : 0);
 }

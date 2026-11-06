@@ -149,7 +149,7 @@ export function renderDetail(game, st, box, changed, close) {
       const res = await kyEnhance(game, it.uid);
       if (!res) { changed(); return; }
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
-      game.sfx(res === 'up' ? 'levelup' : 'hurt'); changed();
+      game.sfx(res === 'up' ? 'anvil' : 'hurt'); changed();
     }), !can);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh

@@ -3,6 +3,8 @@
 // vẽ ở src/render/vfx/ (lớp trên cùng, đè nhà cửa, người). Gọi từ src/game/skills.js (người chơi), src/game/duel-cast.js (bản sao
 // so tài), src/game/combat.js (đạn trúng, nổ). Chiêu không có công thức thì giữ hiệu ứng cũ (skill-fx.js).
 
+import { hitSfx } from './skill-sfx.js';
+
 export const vfxOf = (game, id) => (id && game.data.vfx?.skills?.[id]) || null;
 const st = game => (game.vfx ??= { fx: [], parts: [] });
 const rnd = (a, b) => a + Math.random() * (b - a);
@@ -68,6 +70,7 @@ export function vfxMobHit(game, id, m) {
   const V = vfxOf(game, id);
   if (!V) return false;
   spray(game, V.part || V.trail, m.x, m.y - 6, Math.ceil((V.hit_n || 6) / 3), 40, { size: 5 });
+  hitSfx(game, id, 0.5);
   if (V.show === 'sweep' && V.hit) fx(game, { k: 'burst', img: V.hit, x: m.x, y: m.y - 6, size: V.hit_size, color: V.color, life: 0.35 });
   return true;
 }
@@ -77,6 +80,7 @@ export function vfxHit(game, b, x, y, big = 0) {
   const V = vfxOf(game, b.sk);
   if (!V) return false;
   const size = Math.max(V.hit_size || 14, big * 1.8);
+  hitSfx(game, b.sk, big ? 0.9 : 0.7);
   if (V.hit) fx(game, { k: 'burst', img: V.hit, x, y: y - 3, size, color: V.color || b.color, life: big ? 0.5 : 0.38 });
   fx(game, { k: 'pop', x, y: y - 3, r: Math.max(8, V.glow * (big ? 1.4 : 0.8)), color: V.color || b.color, life: 0.25 });
   if (big) fx(game, { k: 'ring', x, y, r: big, color: V.color || b.color, life: 0.4 });

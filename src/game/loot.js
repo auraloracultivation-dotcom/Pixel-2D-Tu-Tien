@@ -44,6 +44,7 @@ export function updateLoot(game, dt) {
 
 function take(game, l) {
   const { data, save } = game;
+  let rare = false;
   if (l.kind === 'item') {
     let ok = addItem(data, save, l.payload);
     if (!ok && autoSellFull(game)) ok = addItem(data, save, l.payload);   // góp ý #86: túi đầy thì tự bán theo phẩm đã chọn rồi nhặt
@@ -53,6 +54,7 @@ function take(game, l) {
       if (!makeRoom(game, l.payload)) { game.persist(); return; }   // tự hành / tự đánh: phân giải món rẻ cho có chỗ
     }
     const q = quality(data, l.payload) || rarityOf(data.items, l.payload.rarity);   // tên phẩm theo màu dòng (Phàm…Thiên, Tiên, Thượng Cổ)
+    rare = data.items.line_tiers.list.indexOf(q) >= 4;   // phẩm Thiên trở lên: tiếng chuông ngọc riêng
     if (game.feed) game.feed(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, q.color || '#ffe6a0'); else game.toast(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
     game.newItems = (game.newItems || 0) + 1;
   } else if (l.kind === 'gem') {
@@ -62,7 +64,7 @@ function take(game, l) {
     save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + l.payload;
     game.number(game.player.x, game.player.y - 20, `+${l.payload} Tẩy Luyện Thạch`, '#bff4ff');
   }
-  game.sfx('pickup');
+  game.sfx(rare ? 'rare' : 'pickup');
   game.persist();
 }
 

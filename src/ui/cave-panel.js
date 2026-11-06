@@ -49,7 +49,7 @@ export function createCavePanel(game) {
           mini('Luyện', () => {
             const n = brew(game, id);
             if (n === 'fail') { game.sfx('hurt'); last = `Lò nổ! Luyện ${p.name} thất bại, mất nguyên liệu.`; }
-            else if (n) { game.sfx('heal'); last = `Luyện thành ${n} ${p.name}!`; }
+            else if (n) { game.sfx('brew'); last = `Luyện thành ${n} ${p.name}!`; }
             render();
           }, !canPay(game, p.recipe)),
           mini('Dùng', () => {

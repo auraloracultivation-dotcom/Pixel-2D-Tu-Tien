@@ -74,6 +74,7 @@ export function createGame(data, screen, input, ui, audio) {
     owner: 'guest', online: null, others: null,
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
+  game.combat = k => audio?.combat(k);   // lớp trống nhạc nền khi đánh nhau (boss-music.js)
   game.music = id => audio?.music(id);   // nhạc nền theo bản đồ, hoặc 'boss' lúc đánh boss, độ kiếp (boss-music.js)
   game.rain = on => audio?.rain(on);
   game.night = on => audio?.night(on);
@@ -138,7 +139,7 @@ export function createGame(data, screen, input, ui, audio) {
       checkUnlocks(game);
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
       game.toast(`Đột phá! ${realmLabel(game.save, data.realms)}`, 2.2);
-      game.sfx('levelup');
+      game.sfx('layer_up');
       game.screen.shake(3, 0.3);
     } else if (broke === -1 && !game.capWarned) {
       game.capWarned = true;
