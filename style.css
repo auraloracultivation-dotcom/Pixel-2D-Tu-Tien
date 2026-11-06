@@ -603,3 +603,10 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 #dialog .dlg-x { position: absolute; top: 4px; right: 4px; z-index: 3; width: 28px; height: 28px; padding: 0; border: none; border-radius: 0;
   background: url("assets/art/ui-ic-dong.png") center / contain no-repeat; color: transparent; font-size: 0; cursor: pointer; }
 #dialog .dlg-x[hidden] { display: none; }
+/* Chỉ số món trên chợ (src/ui/item-stats.js) */
+.it-stats { display: flex; flex-wrap: wrap; gap: 1px 10px; font-size: 11.5px; margin-top: 3px; }
+.it-gem { font-size: 11px; padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line-hi); background: #110e1a; }
+.it-gem.empty { border-style: dashed; color: var(--muted); }
+.it-gain { flex-basis: 100%; font-size: 11px; color: var(--muted); }
+.it-gain.up { color: #5fd07a; }
+.it-gain.down { color: #ff8a8a; }
