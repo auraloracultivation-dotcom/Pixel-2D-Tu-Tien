@@ -59,7 +59,21 @@ export function renderGacha(game, body, ht, onDone) {
   const stage = el('div', 'ht-chest-stage'), slot = el('div', 'ht-slot'), chest = el('img', 'ht-chest');
   chest.src = chestImg(game, false); chest.alt = ''; chest.draggable = false;
   if (R) chest.style.width = `${Math.round(R.w * 1.7)}px`;
-  stage.append(slot, chest);
+  const feed = el('div', 'ht-feed');   // 10 lần quay đáng khoe cả máy chủ: bạo kích từ x5 hoặc trang bị phẩm Thiên trở lên (chủ dự án 07/11/2026 00:07)
+  stage.append(slot, chest, feed);
+  const loadFeed = () => game.cloud && import('../net/he-thong.js').then(N => N.htFeed()).then(list => {
+    feed.textContent = '';
+    if (!list?.length) return;
+    feed.append(el('div', 'ht-feed-h', X.feed_head));
+    for (const f of list) {
+      const p = H.pool.find(x => x.id === f.qua); if (!p) continue;
+      const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
+      const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, bk >= 5 ? `x${bk}` : (f.nd?.item ? grade(game.data, f.nd.item).name : '')));
+      t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
+      row.title = `${f.ten}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t); feed.append(row);
+    }
+  }).catch(() => {});
+  loadFeed();
   const btn = el('button', 'ht-btn big', fill(X.summon, { c: H.cost })), need = el('p', 'ht-line ht-muted');
   btn.type = 'button';
   let diem = ht.diem, busy = false;
@@ -111,7 +125,7 @@ export function renderGacha(game, body, ht, onDone) {
     game.toast(fill(X.summon_got, { name: L.name }), 3); game.sfx?.(rk > 1 ? 'levelup' : 'pickup');
     game.htFace?.react(rk > 1 ? 'hiem' : rk ? 'trieu_kha' : 'trieu', rk > 1 ? 'phan-khich' : undefined);
     import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // quà vào túi liền, khỏi đợi lượt dò thư
-    diem = r.diem; busy = false; sync(); onDone(r);   // món trúng để nguyên trên rương (không vẽ lại bảng)
+    diem = r.diem; busy = false; sync(); onDone(r); setTimeout(loadFeed, 600);   // món trúng để nguyên trên rương (không vẽ lại bảng)
   };
   sync();
   body.append(stage, btn, need, el('p', 'ht-line ht-muted', fill(X.summon_desc, { c: H.cost })), el('div', 'ht-sub', fill(X.odds_eq, { n: H.pool.length, p: +(100 / H.pool.length).toFixed(2) })));
