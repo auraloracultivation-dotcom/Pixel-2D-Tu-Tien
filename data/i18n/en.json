@@ -389,6 +389,7 @@
 "...Đi.": "...Let's go.",
 "Mất kết nối": "Disconnected",
 "Đang nối lại với máy chủ… Game tạm dừng, không mất gì.": "Reconnecting to the server… The game is paused, nothing is lost.",
+"Có bản game mới, tự tải lại sau {n} giây. Tiến độ đã lưu.": "New game version available, reloading in {n} seconds. Progress saved.",
 "Đã nối lại máy chủ.": "Reconnected to the server.",
 "Đã đăng nhập ở máy khác": "Logged in on another device",
 "Tài khoản vừa vào game ở một máy khác nên máy này tự thoát. Tiến độ đã lưu ở máy kia.": "This account just entered the game on another device, so this one signed out. Progress is saved there.",
