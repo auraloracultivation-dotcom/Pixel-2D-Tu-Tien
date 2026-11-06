@@ -1,6 +1,6 @@
 // Nhóm Zalo (data/community.json → zalo, chủ dự án xin 28/10/2026): nút cạnh nút quay clip, bấm mở bảng có link nhóm.
 // Quà tham gia: 1 viên ngọc cấp gem_level, người chơi chọn loại, mỗi bản lưu nhận một lần (save.quaZalo). Zalo không cho hỏi
-// ai đã vào nhóm, nên bấm mở link là nhận; ngọc nằm trong bản lưu như ngọc rơi khi đánh quái (máy chủ không giữ riêng).
+// ai đã vào nhóm, nên bấm mở link là nhận; đã đăng nhập thì ngọc gửi vào Hòm thư (máy chủ p2d_qua_zalo), bấm Nhận ở đó.
 // Bảng dựng bằng code (không thêm vào index.html).
 import { gemInfo } from '../game/items.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
@@ -31,15 +31,26 @@ export function createZalo(game) {
   const claimed = () => !!game.save?.quaZalo;
   const paint = () => btn.classList.toggle('gift', !!game.save && !claimed());
 
-  function grant() {
+  // Đã đăng nhập: máy chủ gửi ngọc vào Hòm thư (p2d_qua_zalo, chủ dự án 06/11/2026: mọi quà qua thư, bấm Nhận mới vào kho).
+  // Chơi thử không tài khoản: cộng ở máy như cũ.
+  async function grant() {
     const s = game.save;
     if (!s || s.quaZalo || !types[pick]) return;
-    const key = `${pick}:${Z.gem_level}`;
-    s.gems ??= {};
-    s.gems[key] = (s.gems[key] || 0) + 1;
-    s.quaZalo = true;
-    game.refreshStats?.(); game.persist?.();
-    game.toast?.(fill(T.got, { gem: gemInfo(game.data, key).name }), 3);
+    const key = `${pick}:${Z.gem_level}`, name = gemInfo(game.data, key).name;
+    if (game.cloud) {
+      try {
+        const r = await (await import('../net/market.js')).zaloGift(pick);
+        if (!r?.ok && r?.ly_do !== 'da_nhan') return;
+        s.quaZalo = true; game.persist?.();
+        if (r.ok) { game.toast?.(fill(T.got_mail, { gem: name }), 3); (await import('../game/mail.js')).refreshMail(game).catch(() => {}); }
+      } catch { return; }
+    } else {
+      s.gems ??= {};
+      s.gems[key] = (s.gems[key] || 0) + 1;
+      s.quaZalo = true;
+      game.refreshStats?.(); game.persist?.();
+      game.toast?.(fill(T.got, { gem: name }), 3);
+    }
     paint(); render();
   }
 
@@ -62,7 +73,7 @@ export function createZalo(game) {
     }
     const go = el('a', 'zalo-go', claimed() || !game.save ? T.go_done : T.go);
     go.href = Z.url; go.target = '_blank'; go.rel = 'noopener';
-    go.addEventListener('click', grant);   // không chặn mở link: nhận ngọc rồi trình duyệt mở nhóm (app Zalo nếu có)
+    go.addEventListener('click', () => { grant(); });   // không chặn mở link: gửi quà rồi trình duyệt mở nhóm (app Zalo nếu có)
     body.append(go);
   }
 

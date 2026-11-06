@@ -5,7 +5,7 @@
  "open": false,
  "closed": "Chưa mở nạp. Khi game lên CH Play bản chính thức sẽ mở.",
  "starter": 100,
- "starter_text": "Quà ra mắt quầy Tiên Ngọc: +{n} Tiên Ngọc.",
+ "starter_text": "Quà ra mắt quầy Tiên Ngọc: +{n} Tiên Ngọc đã gửi vào Hòm thư, bấm Nhận ở đó.",
  "packs": [
   {
    "id": "goi-1",

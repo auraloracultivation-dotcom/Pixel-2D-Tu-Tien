@@ -44,11 +44,8 @@ export async function claimGift(game, url, loai) {
     await game.cloud.run(() => claimShareGift(url.trim(), loai), r => {
       if (r?.error) { out = { error: r.error }; if (r.error === 'da_nhan') { game.save.quaChiaSe = true; game.persist?.(); } return; }
       if (!r?.gem || !/^[a-z-]+:\d+$/.test(r.gem)) return;
-      const s = game.save;
-      s.gems ??= {};
-      s.gems[r.gem] = (s.gems[r.gem] || 0) + 1;
-      s.quaChiaSe = true;
-      game.refreshStats?.(); game.persist?.();
+      game.save.quaChiaSe = true; game.persist?.();   // ngọc gửi vào Hòm thư (migration 20261106070000), bấm Nhận ở đó
+      import('./mail.js').then(m => m.refreshMail(game)).catch(() => {});
       out = { gem: gemInfo(game.data, r.gem).name };
     });
   } catch { out = { error: 'loi' }; }

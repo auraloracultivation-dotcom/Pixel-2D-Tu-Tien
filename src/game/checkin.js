@@ -1,6 +1,6 @@
 // Điểm danh ngày, tuần, tháng, quý (data/checkin.json): máy chủ ghi ngày, đếm mốc, gửi quà qua Hòm thư;
-// điểm danh xong thì nhận thư ngay (claimMail) để Linh Thạch, ngọc vào túi liền.
-import { claimMail } from './market.js';
+// quà nằm ở Hòm thư tới khi người chơi bấm Nhận (src/game/mail.js, chủ dự án 06/11/2026).
+import { refreshMail } from './mail.js';
 
 const net = () => import('../net/checkin.js');
 let state = null, busy = false;   // trạng thái lần đọc gần nhất (một phiên chơi)
@@ -26,7 +26,7 @@ export async function doCheckin(game) {
     if (r.error) return { msg: T.err[r.error] || T.err.net };
     state = r.data;
     if (r.data.loi) return { msg: T.err[r.data.loi] || T.err.net };
-    try { await claimMail(game); } catch { /* thư còn đó, lần tự nhận sau sẽ lấy */ }
+    try { await refreshMail(game); } catch { /* lần đọc sau */ }
     const moc = (r.data.moc || []).map(k => game.data.checkin.names[k]).filter(Boolean);
     return { msg: moc.length ? T.ok_moc.replace('{list}', moc.join(', ')) : T.ok, ok: true };
   } finally { busy = false; }
