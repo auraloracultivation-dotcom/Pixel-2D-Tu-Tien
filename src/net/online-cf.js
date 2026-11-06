@@ -24,6 +24,7 @@ export function createOnline(me, handlers, opts = {}) {
       for (const [id, c] of m.k || []) if (id !== me.id) handlers.onCast?.({ id, ...c });
     } else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, { ...people.get(m.u.id), ...m.u }); push(); }
     else if (m.t === 'l' && people.delete(m.id)) push();
+    else if (m.t === 'bx') handlers.onBoss?.(m);   // bảng sát thương boss thế giới (cloud/src/mang.js)
   }
 
   async function leave() {
@@ -54,9 +55,10 @@ export function createOnline(me, handlers, opts = {}) {
 
   function say(body) { conn?.send({ t: 's', ...body }); }
   function cast(c) { conn?.send({ t: 'k', ...c }); }
+  function bossDmg(n) { conn?.send({ t: 'd', n }); }
   function rename(name) { me.name = name; conn?.send({ t: 'p', p: { name, ...prof } }); }
   function setProfile(p) { prof = { ...prof, ...p }; conn?.send({ t: 'p', p: { name: me.name, ...prof } }); }
   const line = () => conn?.line() || 0;
 
-  return { me, join, leave, send, say, cast, rename, setProfile, line };
+  return { me, join, leave, send, say, cast, bossDmg, rename, setProfile, line };
 }

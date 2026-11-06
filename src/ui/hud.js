@@ -98,7 +98,7 @@ export function createHud(audio) {
     const pl = pilotLabel(game), gt = [goals, pl].filter(Boolean).join('\n');   // dòng Con Đường Đạo Vận đã bỏ khỏi khung (chủ dự án 02/11/2026)
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
-    const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead);
+    const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead && !m.wboss);   // đầu boss thế giới có bảng riêng (ui/mang-panel.js)
     $('boss').hidden = !boss;
     if (boss && $('boss-name').textContent !== boss.def.name) $('boss-name').textContent = boss.def.name;
     if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }

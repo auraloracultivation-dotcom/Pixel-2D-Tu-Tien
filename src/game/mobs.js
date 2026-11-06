@@ -5,6 +5,7 @@ import { addStrike } from './strikes.js';
 import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
 import { duelThink } from './duel-ai.js';
 import { tickDummy } from './dummy.js';
+import { tickMang } from './thien-mang.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -67,6 +68,7 @@ export function updateMobs(game, dt) {
       continue;
     }
     if (m.dummy) { tickDummy(game, m); continue; }   // Mộc Nhân: đứng yên, không đánh (game/dummy.js)
+    if (m.wboss) { tickMang(game, m); continue; }   // đầu boss thế giới: đứng yên (game/thien-mang.js)
     const p = m.tgt = host ? nearestTarget(game, m) : game.player;
     if (m.kx || m.ky) {
       game.map.move(m, m.kx * dt, m.ky * dt);
