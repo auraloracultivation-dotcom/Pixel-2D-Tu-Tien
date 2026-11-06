@@ -4041,5 +4041,12 @@
 "Đã có {x}, đổi ra Linh Thạch": "Already own {x}, converted to Spirit Stones",
 "Ngọc cấp {a}": "Level {a} gem",
 "Tỷ lệ: {n} loại, mỗi loại {p}%": "Odds: {n} kinds, {p}% each",
-"Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!": "Ding! A welcome gift from this System: {p} System points. Go to Summon and test your luck, Host, don't let them go to waste!"
+"Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!": "Ding! A welcome gift from this System: {p} System points. Go to Summon and test your luck, Host, don't let them go to waste!",
+"Chợ chưa mở cho đạo hữu mới": "Market not yet open for new cultivators",
+"Tài khoản cần lập đủ {ngay} ngày và chơi đủ {gio} tiếng thì mở chợ.": "Your account must be {ngay} day old and played for {gio} hours to unlock the market.",
+"Còn khoảng {h} tiếng nữa là đủ ngày.": "About {h} more hours until the day is up.",
+"Đã đủ ngày.": "Account age requirement met.",
+"Đã chơi {a} / {b} tiếng.": "Played {a} / {b} hours.",
+"Tài khoản mới cần lập đủ 1 ngày mới dùng được chợ.": "New accounts can use the market after 1 day.",
+"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "New accounts can use the market after 4 hours of play."
 }
