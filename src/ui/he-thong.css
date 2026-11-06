@@ -97,3 +97,20 @@
 @keyframes ht-hit { 0% { transform: scale(.2); opacity: 0; } 60% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1); } }
 @keyframes ht-float { 50% { transform: translateY(-3px); } }
 @keyframes ht-rays { to { transform: rotate(360deg); } }
+/* Sân khấu rương triệu hồi (src/ui/he-thong-qua.js): rương ở dưới, món lơ lửng phía trên; --g màu sáng theo phẩm */
+.ht-chest-stage { position: relative; flex-shrink: 0; height: 260px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; border-radius: 10px;
+  background: radial-gradient(ellipse at 50% 85%, rgba(255, 210, 90, .18), transparent 60%); overflow: hidden; }
+.ht-chest-stage.lit { background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--g, #7ff0ff) 55%, transparent) 0%, color-mix(in srgb, var(--g, #7ff0ff) 18%, transparent) 32%, transparent 62%),
+  radial-gradient(ellipse at 50% 85%, rgba(255, 210, 90, .18), transparent 60%); }
+.ht-chest-stage.rare { animation: ht-flash .6s 2; }
+.ht-chest { image-rendering: pixelated; margin-bottom: 6px; transition: transform .2s; }
+.ht-chest.pop { animation: ht-pop-open .45s ease-out; }
+.ht-slot { position: absolute; left: 0; right: 0; top: 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; pointer-events: none; text-align: center; padding: 0 10px; }
+.ht-slot b { font-size: 13px; color: #fff; text-shadow: 0 1px 0 #0a1830; }
+.ht-slot.rise { animation: ht-rise .5s ease-out; }
+.ht-slot.spin .ht-reel-ico { filter: drop-shadow(0 0 6px var(--g, #5ff0ff)); }
+.ht-slot.hit b { font-size: 16px; color: var(--g, #fff); text-shadow: 0 0 8px var(--g, #5ff0ff), 0 1px 0 #0a1830; }
+.ht-slot .ht-rare { color: #ffd24a; }
+@keyframes ht-rise { 0% { transform: translateY(150px) scale(.4); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes ht-pop-open { 0% { transform: scale(1); } 40% { transform: scale(1.08, .92) translateY(4px); } 70% { transform: scale(.96, 1.06); } 100% { transform: none; } }
+@keyframes ht-flash { 50% { box-shadow: 0 0 0 2px var(--g, #ff5a5a) inset, 0 0 24px var(--g, #ff5a5a); } }

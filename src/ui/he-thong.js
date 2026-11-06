@@ -92,7 +92,7 @@ export function createHeThong(game) {
     tabBar(); body.textContent = '';
     if (tab === 'task') renderTasks(game, body, { ht, say, face: MT ? bigFace : null, setHt: (h, line) => { ht = h; say = line || say; render(); }, render, minimize });
     else if (tab === 'gacha') {
-      renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; render(); });
+      renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; });   // không vẽ lại: món vừa trúng nằm trên rương tới khi người chơi chạm
     } else if (tab === 'faq') {
       for (const gr of F.groups) {
         body.append(el('div', 'ht-sub', gr.title));
