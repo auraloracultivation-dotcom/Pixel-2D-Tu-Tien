@@ -38,6 +38,7 @@ export function dailyEvent(game, type, id, amount = 1) {
     const d = taskDef(game, t.id);
     if (!d || d.type !== type || (d.mob && d.mob !== id) || t.n >= d.n) continue;
     t.n = Math.min(d.n, t.n + amount);
+    if (game.data.daily.off) continue;   // việc ngày giờ thành nhiệm vụ ngày của Hệ Thống (chủ dự án 06/11/2026): chỉ đếm, nhận điểm ở bảng Hệ Thống
     if (t.n >= d.n && game.pilot) autoClaim(game, dl.tasks.indexOf(t), d);
     else if (t.n >= d.n) game.toast(`Xong việc hằng ngày: ${d.text.replace('{n}', d.n)}. Mở bảng Việc để nhận thưởng.`, 2.2);
     game.newDaily = true;

@@ -2,7 +2,7 @@
 # tạo trang bị từ data/ vào máy chủ. Đổi data/he-thong.json (missions, pool) thì chạy lại thành migration mới.
 import json, sys
 J = lambda f: json.load(open(f'data/{f}.json', encoding='utf-8'))
-H, I, E = J('he-thong'), J('items'), J('elements')
+H, I, E, DL = J('he-thong'), J('items'), J('elements'), J('daily')
 q = lambda s: "'" + str(s).replace("'", "''") + "'"
 bases = {k: {'slot': v['slot'], 'main': v['main'], 'pool': v['pool']} for k, v in I['bases'].items() if v.get('pool') and not v.get('set') and not v.get('dv')}
 cfg = {
@@ -13,7 +13,8 @@ cfg = {
   'tier_rar': ['pham', 'linh', 'huyen', 'dia', 'thien', 'thien', 'thien'],
   'cap_w': I['line_tiers']['cap_w'], 'main_per_lvl': I['main_per_lvl'], 'line_per_lvl': I['line_per_lvl'],
   'els': [k for k in E if not k.startswith('_')], 'gems': list(I['gems']['types'].keys()),
-  'pool': H['pool'], 'cost': H['cost'], 'points': H['points'], 'mail': H['text']['mail'],
+  'pool': H['pool'], 'cost': H['cost'], 'points': H['points'], 'mail': H['text']['mail'], 'quest_mail': H['text']['quest_mail'],
+  'daily': {t['id']: t['n'] for t in DL['pool']}, 'per_day': DL['per_day'],
 }
 out = sys.stdout
 out.write("""-- Hệ Thống Tu Tiên: điểm nhiệm vụ và triệu hồi quà (chủ dự án 06/11/2026 16:49–17:05: hệ thống thay cốt truyện và nhiệm vụ hằng
@@ -48,8 +49,13 @@ create index if not exists p2d_ht_lich_su_user_idx on public.p2d_ht_lich_su (use
 alter table public.p2d_ht_lich_su enable row level security;
 revoke all on table public.p2d_ht_lich_su from public, anon, authenticated;
 
+-- Quà từng nhiệm vụ, nhiệm vụ ngày (chủ dự án 06/11/2026 18:03)
+alter table public.p2d_ht_nv add column if not exists qua jsonb not null default '[]'::jsonb;
+alter table public.p2d_ht_diem add column if not exists ngay date;
+alter table public.p2d_ht_diem add column if not exists ngay_xong text[] not null default '{}';
+
 """)
 out.write("insert into public.p2d_ht_cfg (k, v) values ('cfg', " + q(json.dumps(cfg, ensure_ascii=False)) + "::jsonb) on conflict (k) do update set v = excluded.v;\n\n")
-rows = ",\n".join(f"({q(m['id'])}, {i}, {q(json.dumps(m['dk']))}::jsonb)" for i, m in enumerate(H['missions']))
-out.write("insert into public.p2d_ht_nv (id, ord, dk) values\n" + rows + "\non conflict (id) do update set ord = excluded.ord, dk = excluded.dk;\n\n")
+rows = ",\n".join(f"({q(m['id'])}, {i}, {q(json.dumps(m['dk']))}::jsonb, {q(json.dumps(m.get('qua', []), ensure_ascii=False))}::jsonb)" for i, m in enumerate(H['missions']))
+out.write("insert into public.p2d_ht_nv (id, ord, dk, qua) values\n" + rows + "\non conflict (id) do update set ord = excluded.ord, dk = excluded.dk, qua = excluded.qua;\n\n")
 out.write(open('tools/he-thong-fn.sql', encoding='utf-8').read())

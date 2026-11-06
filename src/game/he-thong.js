@@ -3,6 +3,8 @@
 // Tự lên tiếng (nudge): đứng yên idle_s giây không tự đánh / tự hành / mở bảng; gục deaths lần trong deaths_s giây; tới bước truyện
 // có trong steps. Mỗi loại cách nhau ít nhất 3 phút cho khỏi phiền.
 
+import { ensureDaily, taskDef, taskText } from './daily.js';
+
 const H = game => game.data['he-thong'];
 const GAP = 180000;
 
@@ -18,7 +20,7 @@ export function doneIntro(game) { (game.save.ht ??= {}).intro = 1; game.persist?
 // Việc hệ thống giao lúc này: mục tiêu truyện chính đang làm
 export function htTask(game) {
   const cur = game.story?.current?.();
-  return cur?.goal || null;
+  return cur?.goal ? (game.story.goal?.()?.text || cur.goal.replace('{n}', '0')) : null;   // goal(): đã thay {n} bằng số đã làm
 }
 
 // Gọi mỗi giây (src/ui/he-thong.js). Trả câu nhắc (một dòng) hoặc null.
@@ -61,8 +63,20 @@ export function missionDone(save, dk) {
   return true;
 }
 
-// Danh sách nhiệm vụ hiện ra: show_n nhiệm vụ chưa nhận đầu tiên (theo thứ tự), kèm đã xong chưa
+// Danh sách nhiệm vụ hiện ra: mọi nhiệm vụ đã đủ điều kiện mà chưa nhận (nhận được ngay), rồi các nhiệm vụ chưa xong kế tiếp cho đủ
+// show_n (theo thứ tự). Kẹt một nhiệm vụ (chưa có linh thú...) vẫn thấy và nhận được các nhiệm vụ sau đã xong.
 export function missionList(game, xong = []) {
-  const H = game.data['he-thong'], done = new Set(xong);
-  return (H.missions || []).filter(m => !done.has(m.id)).slice(0, H.show_n || 3).map(m => ({ ...m, ok: missionDone(game.save, m.dk) }));
+  const H = game.data['he-thong'], done = new Set(xong), n = H.show_n || 3;
+  const all = (H.missions || []).filter(m => !done.has(m.id)).map(m => ({ ...m, ok: missionDone(game.save, m.dk) }));
+  const ok = all.filter(m => m.ok), todo = all.filter(m => !m.ok).slice(0, Math.max(0, n - ok.length) || 1);
+  return [...ok, ...todo];
+}
+
+// Nhiệm vụ ngày (data/he-thong.json → ngay): chỉ mở khi đã nhận hết nhiệm vụ hệ thống. Việc ngày lấy từ bản lưu (game/daily.js).
+// Trả null khi chưa mở; mỗi việc { id, text, ok, got }.
+export function dailyList(game, ht) {
+  const H = game.data['he-thong'], xong = new Set(ht?.xong || []);
+  if (!game.save || (H.missions || []).some(m => !xong.has(m.id))) return null;
+  const dl = ensureDaily(game), got = new Set(ht?.ngay_xong || []);
+  return dl.tasks.map(t => { const d = taskDef(game, t.id); return d && { id: t.id, text: taskText(d, t.n), ok: t.n >= d.n, got: got.has(t.id) }; }).filter(Boolean);
 }
