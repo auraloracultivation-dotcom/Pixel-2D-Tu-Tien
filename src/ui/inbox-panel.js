@@ -84,6 +84,7 @@ export function createInbox(game) {
     if (!root.hidden) { close(); return; }
     if (!game.save || game.dialog.open) return;
     root.hidden = false; game.uiOpen = true; render();
+    import('../game/market.js').then(M => M.claimMail(game)).then(got => { if (got?.length) { game.toast(got.join(' · '), 3); render(); } }).catch(() => {});   // mở Hòm thư thì nhận thư chờ ngay (chủ dự án 06/11/2026 16:25: chưa nhận được quà)
   });
   paint();
   let sig = '';   // vẽ lại khi có tin mới hay đổi đã đọc (không vẽ lại vô cớ kẻo nhảy chỗ đang cuộn)
