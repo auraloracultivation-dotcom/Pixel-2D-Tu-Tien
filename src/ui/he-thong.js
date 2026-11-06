@@ -8,6 +8,7 @@ import { needIntro, doneIntro, htTick, missionList } from '../game/he-thong.js';
 import { renderTasks } from './he-thong-nv.js';
 import { renderGacha } from './he-thong-qua.js';
 import { createFace } from './he-thong-mat.js';
+import { createWander } from './he-thong-dao.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -162,7 +163,9 @@ export function createHeThong(game) {
     const now = performance.now(), dt = (now - last) / 1000; last = now;
     const hud = document.getElementById('hud'), live = !!game.save && hud && !hud.hidden && !game.trip;
     ic.hidden = !live; if (!live) { tip.hidden = true; return; }
-    place();
+    if (!wander) place();
+    const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
+    if (mum && !open && tip.hidden) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);
@@ -173,6 +176,21 @@ export function createHeThong(game) {
     // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
     if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }
   }, 1000);
+  // Chạy lung tung như thú cưng (he-thong-dao.js): đặt biểu tượng mỗi khung hình, dòng nhắc bám theo bên cạnh
+  const wander = MT && C.dao?.on ? createWander(game, ic, icFace, C.dao) : null;
+  if (wander) {
+    let t0 = performance.now();
+    const loop = t => {
+      const dt = Math.min(0.1, (t - t0) / 1000); t0 = t;
+      if (!ic.hidden) {
+        const p = wander.step(dt, open || ic.classList.contains('wake') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
+        if (p.x > W / 2) { tip.style.left = ''; tip.style.right = `${Math.round(W - p.x + 6)}px`; } else { tip.style.right = ''; tip.style.left = `${Math.round(p.x + S + 6)}px`; }
+        tip.style.top = `${Math.round(p.y)}px`;
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
   const anim = t => { if (!ic.hidden) drawIcon(cv, C.icon, t / 1000); requestAnimationFrame(anim); };
   if (!MT) requestAnimationFrame(anim);
   game.openHeThong = () => show();
