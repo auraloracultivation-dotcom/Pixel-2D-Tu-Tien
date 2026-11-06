@@ -43,7 +43,7 @@ export function drawMangArena(ctx, game, t) {
 export function drawArenaSwords(ctx, game, t) {
   const list = [];
   if (game.player) list.push({ x: game.player.x, y: game.player.y, el: game.save?.element, mv: game.player.moving, fx: game.player.face?.x || 1 });
-  for (const o of game.others?.list?.values?.() || []) if (o.x !== null) list.push({ x: o.x, y: o.y, el: o.element, mv: Math.hypot((o.tx ?? o.x) - o.x, (o.ty ?? o.y) - o.y) > 1, fx: o.face?.x || 1 });
+  for (const o of game.others?.list?.values?.() || []) if (o.x !== null && (o.sword = true)) list.push({ x: o.x, y: o.y, el: o.element, mv: Math.hypot((o.tx ?? o.x) - o.x, (o.ty ?? o.y) - o.y) > 1, fx: o.face?.x || 1 });
   for (const s of list) {
     const col = game.data.elements[s.el]?.color || '#9ad8ff', dir = s.fx >= 0 ? 1 : -1, y = s.y + 7 + Math.sin(t * 3 + s.x) * 1.2;
     ctx.save(); ctx.translate(s.x, y); ctx.scale(dir, 1);
