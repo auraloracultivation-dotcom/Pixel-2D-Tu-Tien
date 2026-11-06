@@ -8,6 +8,7 @@
   "observability": { "enabled": true, "head_sampling_rate": 0.05 },
   "vars": {
     "SUPABASE_URL": "https://idiiyxcfzugrehifhhjx.supabase.co",
+    "SUPABASE_KEY": "sb_publishable_FD5ghLVsNfp3-d69NXlz3w_bvOotHYk",
     "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080"
   },
   "durable_objects": {
