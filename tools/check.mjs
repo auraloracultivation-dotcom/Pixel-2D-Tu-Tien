@@ -282,6 +282,12 @@ try {
   console.log(`Đa ngôn ngữ: ${keys.length} câu, đã dịch ${cov.join(', ')}`);
 }
 
+// Máy chủ phòng Cloudflare (cloud/): bài thử thuần Node
+{
+  const r = spawnSync(process.execPath, [join('tools', 'cloud', 'phong.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`cloud: bài thử máy chủ phòng trượt — ${(r.stderr || r.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);
