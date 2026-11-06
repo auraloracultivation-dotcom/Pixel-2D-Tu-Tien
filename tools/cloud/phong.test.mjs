@@ -166,6 +166,7 @@ console.log('phong.test: ok');
   const C = await import(join(dir, 'mang-cfg.js'));
   const TM = JSON.parse(readFileSync(resolve(root, '../../data/thien-mang.json'), 'utf8'));
   assert.equal(C.LT_MULT, TM.lt_mult);
+  assert.equal(C.LT_BONUS, TM.lt_bonus);
   for (const [k, v] of Object.entries(TM.heads)) {
     assert.equal(C.FARM_LT_S[k], v.farm_lt_s, 'mang-cfg.js FARM_LT_S lệch data/thien-mang.json: ' + k);
     const g = JSON.parse(readFileSync(resolve(root, `../../data/maps/${k}.json`), 'utf8')).grid, cx = Math.floor(g[0].length / 2);
@@ -178,7 +179,7 @@ console.log('phong.test: ok');
   await room2.webSocketMessage(w1, JSON.stringify({ t: 'd', n: 100 }));
   await room2.webSocketMessage(w2, JSON.stringify({ t: 'd', n: 100 }));
   await room2.bossFlush();
-  const lt1 = w1.out.at(-1).lt, want = 2 * C.FARM_LT_S['vet-nut-ngoai'] * C.LT_MULT;
+  const lt1 = w1.out.at(-1).lt, want = 2 * C.FARM_LT_S['vet-nut-ngoai'] * C.LT_MULT * (1 + C.LT_BONUS);   // một mình đánh: mạnh nhất tuyến
   assert.ok(Math.abs(lt1 - Math.floor(want)) <= 1, `lt ${lt1} ≠ ${want}`);
   assert.equal(w2.out.at(-1).lt, 0);
   await room2.webSocketMessage(w1, JSON.stringify({ t: 'm', x: hx, y: hy + 2000 }));   // chạy xa: không cộng thêm
@@ -187,6 +188,13 @@ console.log('phong.test: ok');
   await room2.bossFlush();
   assert.equal(w1.out.at(-1).lt, lt1);
 
+  { // sát thương 100k và 1k cùng tuyến: chênh chưa tới 1,5 lần
+    const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {} }, blockConcurrencyWhile: f => f() }, {});
+    const rb = await mb.add([{ id: 'a', n: 100000, s: 2, map: 'dao-moc' }, { id: 'b', n: 1000, s: 2, map: 'dao-moc' }]);
+    const base = 2 * C.FARM_LT_S['dao-moc'] * C.LT_MULT;
+    assert.ok(Math.abs(mb.pend.get('a') - base * 1.5) < 1e-6 && Math.abs(mb.pend.get('b') - base * 1.05) < 1e-6, JSON.stringify([...mb.pend]));
+    void rb;
+  }
   // gửi lô ký HMAC về Supabase: đăng ký khoá một lần, chữ ký khớp, gửi xong thì xoá nợ
   const calls = [];
   globalThis.fetch = async (url, init) => { calls.push({ url, body: JSON.parse(init.body), key: init.headers.apikey }); return { ok: true, status: 200, text: async () => '1' }; };

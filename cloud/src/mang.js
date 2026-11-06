@@ -6,7 +6,7 @@
 // của tinh cầu đó × 10 (src/mang-cfg.js), dồn theo người; 5 phút một lần gửi một lô ký HMAC về Supabase (p2d_mang_thuong) → Hòm thư.
 // Khoá ký tự sinh lần đầu, giữ trong kho của Mang, tự đăng ký với Supabase (p2d_mang_dang_ky chỉ nhận khi chưa có khoá).
 import { DurableObject } from 'cloudflare:workers';
-import { FARM_LT_S, LT_MULT } from './mang-cfg.js';
+import { FARM_LT_S, LT_MULT, LT_BONUS } from './mang-cfg.js';
 
 const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 300000, PAY_MAX = 20000;
 const sign = async (khoa, msg) => {
@@ -34,6 +34,7 @@ export class Mang extends DurableObject {
   // list: [{ id, name, n, s, map }] (n đã kẹp, s giây chém thật ở phòng). Trả bảng xếp hạng, hạng và Linh Thạch chờ nhận của người trong list.
   async add(list) {
     const now = Date.now(), lt = {};
+    const top = Math.max(1, ...(Array.isArray(list) ? list : []).map(x => (x?.s > 0 && x.n > 0 ? Number(x.n) || 0 : 0)));   // sát thương cao nhất tuyến trong lượt
     for (const it of Array.isArray(list) ? list.slice(0, 64) : []) {
       if (typeof it?.id !== 'string' || !(it.n >= 0)) continue;
       const n = Math.min(Number(it.n) || 0, 1e15);
@@ -42,7 +43,8 @@ export class Mang extends DurableObject {
       if (n > 0) { cur.v += n; this.sum += n; this.seen.set(it.id, now); this.dirty.add(it.id); }
       this.tot.set(it.id, cur);
       const s = Math.min(Number(it.s) || 0, 10), rate = FARM_LT_S[it.map] || 0;
-      if (s > 0 && rate > 0) { this.pend.set(it.id, Math.min(PAY_MAX, (this.pend.get(it.id) || 0) + s * rate * LT_MULT)); this.dirty.add(it.id); }
+      const mul = LT_MULT * (1 + LT_BONUS * Math.sqrt(Math.min(1, n / top)));   // phần cố định + tối đa 50% theo sát thương
+      if (s > 0 && rate > 0) { this.pend.set(it.id, Math.min(PAY_MAX, (this.pend.get(it.id) || 0) + s * rate * mul)); this.dirty.add(it.id); }
       lt[it.id] = Math.floor(this.pend.get(it.id) || 0);
     }
     for (const [id, at] of this.seen) if (now - at > ACTIVE_MS) this.seen.delete(id);
