@@ -39,10 +39,87 @@ language sql
 stable
 security definer
 set search_path = ''
-as $$ select coalesce((select jsonb_build_object('diem', diem, 'xong', to_jsonb(xong), 'so_lan', so_lan) from public.p2d_ht_diem where user_id = public.p2d_uid()),
-  jsonb_build_object('diem', 0, 'xong', '[]'::jsonb, 'so_lan', 0)) $$;
+as $$ select coalesce((select jsonb_build_object('diem', diem, 'xong', to_jsonb(xong), 'so_lan', so_lan,
+    'ngay_xong', case when ngay = (now() at time zone 'Asia/Ho_Chi_Minh')::date then to_jsonb(ngay_xong) else '[]'::jsonb end)
+  from public.p2d_ht_diem where user_id = public.p2d_uid()),
+  jsonb_build_object('diem', 0, 'xong', '[]'::jsonb, 'so_lan', 0, 'ngay_xong', '[]'::jsonb)) $$;
 revoke all on function public.p2d_ht_trang_thai() from public, anon;
 grant execute on function public.p2d_ht_trang_thai() to authenticated;
+
+-- Quà một nhiệm vụ vào Hòm thư: coins | mat+n | gem+n | pill+n | gear bậc màu (slot 'thieu': ô ký chủ chưa mặc)
+create or replace function public.p2d_ht_thuong(p_uid uuid, p_qua jsonb, p_d jsonb)
+returns void
+language plpgsql
+volatile
+set search_path = ''
+as $$
+declare c jsonb := (select v from public.p2d_ht_cfg where k = 'cfg'); e jsonb; v_nd jsonb; v_it jsonb; v_lvl int; v_eq text[];
+begin
+  select greatest(0, coalesce(canh_gioi, 0) * 9 + coalesce(tang, 1) - 1) into v_lvl from public.p2d_nhan_vat where user_id = p_uid;
+  select coalesce(array_agg(k), '{}') into v_eq from jsonb_object_keys(case when jsonb_typeof(p_d -> 'equip') = 'object' then p_d -> 'equip' else '{}'::jsonb end) k;
+  for e in select * from jsonb_array_elements(coalesce(p_qua, '[]'::jsonb)) loop
+    v_nd := case
+      when e ? 'coins' then jsonb_build_object('coins', (e ->> 'coins')::int)
+      when e ? 'mat' then jsonb_build_object('mat', jsonb_build_object('id', e ->> 'mat', 'n', (e ->> 'n')::int))
+      when e ? 'gem' then jsonb_build_object('gem', jsonb_build_object('key', e ->> 'gem', 'n', (e ->> 'n')::int))
+      when e ? 'pill' then jsonb_build_object('pill', jsonb_build_object('id', e ->> 'pill', 'n', (e ->> 'n')::int))
+      else null end;
+    if e ? 'gear' then
+      v_it := public.p2d_ht_do_o((e ->> 'gear')::int, coalesce(v_lvl, 0), case when e ->> 'slot' = 'thieu' then v_eq else '{}' end);
+      v_eq := v_eq || (v_it ->> 'slot');   -- hai món cùng lần: món sau chọn ô khác
+      v_nd := jsonb_build_object('item', v_it - 'slot');
+    end if;
+    if v_nd is not null then
+      insert into public.p2d_hom_thu (user_id, noi_dung, ly_do) values (p_uid, v_nd || jsonb_build_object('tieu_de', c ->> 'quest_mail'), 'he_thong_nv');
+    end if;
+  end loop;
+end;
+$$;
+revoke all on function public.p2d_ht_thuong(uuid, jsonb, jsonb) from public, anon, authenticated;
+
+-- Trang bị bậc p_t, tránh các ô p_bo (đủ hết ô thì chọn bất kỳ). Trả về món kèm khoá slot (bỏ đi trước khi vào thư)
+create or replace function public.p2d_ht_do_o(p_t int, p_lvl int, p_bo text[])
+returns jsonb
+language plpgsql
+volatile
+set search_path = ''
+as $$
+declare c jsonb := (select v from public.p2d_ht_cfg where k = 'cfg'); v_slot text; v jsonb; i int := 0;
+begin
+  select s into v_slot from (select distinct b.value ->> 'slot' s from jsonb_each(c -> 'bases') b) x where s <> all (coalesce(p_bo, '{}')) order by random() limit 1;
+  loop
+    v := public.p2d_ht_do(p_t, p_lvl); i := i + 1;
+    exit when v_slot is null or c -> 'bases' -> (v ->> 'base') ->> 'slot' = v_slot or i > 60;
+  end loop;
+  return v || jsonb_build_object('slot', c -> 'bases' -> (v ->> 'base') ->> 'slot');
+end;
+$$;
+revoke all on function public.p2d_ht_do_o(int, int, text[]) from public, anon, authenticated;
+
+-- Phần chung của nhận nhiệm vụ và trả lời câu hỏi: kiểm, cộng điểm, gửi quà
+create or replace function public.p2d_ht_xong(p_id text, p_chon int)
+returns jsonb
+language plpgsql
+volatile
+set search_path = ''
+as $$
+declare v_uid uuid := public.p2d_uid(); v_nv public.p2d_ht_nv%rowtype; v_d jsonb; v_row public.p2d_ht_diem%rowtype; v_pt int;
+begin
+  select * into v_nv from public.p2d_ht_nv where id = p_id;
+  if not found then raise exception 'khong_co' using errcode = '22023'; end if;
+  insert into public.p2d_ht_diem (user_id) values (v_uid) on conflict (user_id) do nothing;
+  select * into v_row from public.p2d_ht_diem where user_id = v_uid for update;
+  if p_id = any (v_row.xong) then raise exception 'da_nhan' using errcode = '22023'; end if;
+  select data into v_d from public.p2d_nhan_vat where user_id = v_uid;
+  if v_d is null or not public.p2d_ht_dk(v_d, v_nv.dk) then raise exception 'chua_xong' using errcode = '22023'; end if;
+  if v_nv.dk ? 'dap' and p_chon is distinct from (v_nv.dk ->> 'dap')::int then raise exception 'sai' using errcode = '22023'; end if;
+  v_pt := ((select v from public.p2d_ht_cfg where k = 'cfg') ->> 'points')::int;
+  update public.p2d_ht_diem set diem = diem + v_pt, xong = array_append(xong, p_id), luc = now() where user_id = v_uid returning * into v_row;
+  perform public.p2d_ht_thuong(v_uid, v_nv.qua, v_d);
+  return jsonb_build_object('diem', v_row.diem, 'xong', to_jsonb(v_row.xong), 'them', v_pt, 'qua', v_nv.qua);
+end;
+$$;
+revoke all on function public.p2d_ht_xong(text, int) from public, anon, authenticated;
 
 -- Nhận điểm một nhiệm vụ: máy chủ kiểm trên bản lưu trên máy chủ
 create or replace function public.p2d_ht_nhan(p_id text)
@@ -51,23 +128,59 @@ language plpgsql
 security definer
 set search_path = ''
 as $$
-declare v_uid uuid := public.p2d_uid(); v_nv public.p2d_ht_nv%rowtype; v_d jsonb; v_row public.p2d_ht_diem%rowtype; v_pt int;
 begin
-  if v_uid is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
-  select * into v_nv from public.p2d_ht_nv where id = p_id;
-  if not found then raise exception 'khong_co' using errcode = '22023'; end if;
-  insert into public.p2d_ht_diem (user_id) values (v_uid) on conflict (user_id) do nothing;
-  select * into v_row from public.p2d_ht_diem where user_id = v_uid for update;
-  if p_id = any (v_row.xong) then raise exception 'da_nhan' using errcode = '22023'; end if;
-  select data into v_d from public.p2d_nhan_vat where user_id = v_uid;
-  if v_d is null or not public.p2d_ht_dk(v_d, v_nv.dk) then raise exception 'chua_xong' using errcode = '22023'; end if;
-  v_pt := ((select v from public.p2d_ht_cfg where k = 'cfg') ->> 'points')::int;
-  update public.p2d_ht_diem set diem = diem + v_pt, xong = array_append(xong, p_id), luc = now() where user_id = v_uid returning * into v_row;
-  return jsonb_build_object('diem', v_row.diem, 'xong', to_jsonb(v_row.xong), 'them', v_pt);
+  if public.p2d_uid() is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
+  return public.p2d_ht_xong(p_id, null);
 end;
 $$;
 revoke all on function public.p2d_ht_nhan(text) from public, anon;
 grant execute on function public.p2d_ht_nhan(text) to authenticated;
+
+-- Trả lời nhiệm vụ câu hỏi lựa chọn
+create or replace function public.p2d_ht_tra_loi(p_id text, p_chon int)
+returns jsonb
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if public.p2d_uid() is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
+  return public.p2d_ht_xong(p_id, p_chon);
+end;
+$$;
+revoke all on function public.p2d_ht_tra_loi(text, int) from public, anon;
+grant execute on function public.p2d_ht_tra_loi(text, int) to authenticated;
+
+-- Nhiệm vụ ngày: làm hết nhiệm vụ hệ thống rồi, việc ngày p_task trong bản lưu (daily) đã đủ số → cộng điểm.
+-- Đếm theo ngày giờ Việt Nam, mỗi việc một lần, mỗi ngày tối đa per_day việc; ngày trong bản lưu lệch quá 1 ngày thì không nhận.
+create or replace function public.p2d_ht_ngay(p_task text)
+returns jsonb
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare v_uid uuid := public.p2d_uid(); c jsonb := (select v from public.p2d_ht_cfg where k = 'cfg'); v_row public.p2d_ht_diem%rowtype; v_d jsonb;
+  v_today date := (now() at time zone 'Asia/Ho_Chi_Minh')::date; v_day date; v_t jsonb; v_pt int := (c ->> 'points')::int;
+begin
+  if v_uid is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
+  if not c -> 'daily' ? p_task then raise exception 'khong_co' using errcode = '22023'; end if;
+  insert into public.p2d_ht_diem (user_id) values (v_uid) on conflict (user_id) do nothing;
+  select * into v_row from public.p2d_ht_diem where user_id = v_uid for update;
+  if exists (select 1 from public.p2d_ht_nv n where not (n.id = any (v_row.xong))) then raise exception 'chua_het' using errcode = '22023'; end if;
+  if v_row.ngay is distinct from v_today then v_row.ngay_xong := '{}'; end if;
+  if p_task = any (v_row.ngay_xong) then raise exception 'da_nhan' using errcode = '22023'; end if;
+  if coalesce(array_length(v_row.ngay_xong, 1), 0) >= (c ->> 'per_day')::int then raise exception 'het_luot' using errcode = '22023'; end if;
+  select data into v_d from public.p2d_nhan_vat where user_id = v_uid;
+  begin v_day := to_date(v_d -> 'daily' ->> 'day', 'YYYY-MM-DD'); exception when others then v_day := null; end;
+  if v_day is null or abs(v_day - v_today) > 1 then raise exception 'chua_xong' using errcode = '22023'; end if;
+  select t into v_t from jsonb_array_elements(case when jsonb_typeof(v_d -> 'daily' -> 'tasks') = 'array' then v_d -> 'daily' -> 'tasks' else '[]'::jsonb end) t where t ->> 'id' = p_task limit 1;
+  if v_t is null or coalesce((v_t ->> 'n')::numeric, 0) < (c -> 'daily' ->> p_task)::numeric then raise exception 'chua_xong' using errcode = '22023'; end if;
+  update public.p2d_ht_diem set diem = diem + v_pt, ngay = v_today, ngay_xong = array_append(v_row.ngay_xong, p_task), luc = now() where user_id = v_uid returning * into v_row;
+  return jsonb_build_object('diem', v_row.diem, 'ngay_xong', to_jsonb(v_row.ngay_xong), 'them', v_pt);
+end;
+$$;
+revoke all on function public.p2d_ht_ngay(text) from public, anon;
+grant execute on function public.p2d_ht_ngay(text) to authenticated;
 
 -- Một món trang bị ngẫu nhiên mọi ô, 1 dòng màu bậc p_t, cấp món p_lvl (cùng công thức src/game/items.js rollItem, tiers.js lineValue)
 create or replace function public.p2d_ht_do(p_t int, p_lvl int)

@@ -92,6 +92,7 @@ export async function claimMail(game) {
       const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || d.tieu_de || '', lines = [];
       if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); }
       if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
+      if (d.pill && game.data.cave.pills[d.pill.id]) { s.pills ??= {}; s.pills[d.pill.id] = (s.pills[d.pill.id] || 0) + d.pill.n; lines.push(`${game.data.cave.pills[d.pill.id].name} ×${d.pill.n}`); }   // đan dược thưởng nhiệm vụ hệ thống
       if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
       if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)
         s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);

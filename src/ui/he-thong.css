@@ -63,3 +63,12 @@
 .ht-odds { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; }
 .ht-odd { display: flex; justify-content: space-between; gap: 6px; font-size: 11px; color: #bfe6f4; }
 .ht-odd.rare span { color: #ffd24a; }
+/* Câu hệ thống nói, quà nhiệm vụ, câu hỏi lựa chọn (src/ui/he-thong-nv.js) */
+.ht-say { border: 1px solid #5ff0ff; border-radius: 8px; padding: 7px 9px; background: rgba(95, 240, 255, .1); box-shadow: 0 0 10px rgba(95, 240, 255, .25) inset; animation: ht-pop .35s; }
+.ht-say b { color: #7fe0ff; font-size: 11px; letter-spacing: .05em; }
+.ht-say p { margin: 2px 0 0; color: #fff; }
+.ht-mis .ht-qua { color: #ffe27a; }
+.ht-opts { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+.ht-opts[hidden] { display: none; }
+.ht-opt { text-align: left; font: 13px/1.35 var(--f-body); color: #dff6ff; background: rgba(20, 70, 110, .7); border: 1px solid #3ec8f0; border-radius: 6px; padding: 8px 10px; }
+.ht-opt.bad { border-color: #ff6a6a; color: #ffb0b0; text-decoration: line-through; }
