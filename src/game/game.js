@@ -233,11 +233,12 @@ export function createGame(data, screen, input, ui, audio) {
     game.owner = owner;
     if (session) {
       try {
-        const { createOnline } = await import('../net/online.js');
+        const R = data.config.realtime || {}, cf = R.backend === 'cf' && R.cf_url;   // máy chủ phòng Cloudflare (cloud/) hay kênh Realtime cũ
+        const { createOnline } = await import(cf ? '../net/online-cf.js' : '../net/online.js');
         const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
-        });
+        }, { url: R.cf_url });
       } catch { game.online = null; }
     }
     const msg = document.getElementById('login-msg');
@@ -342,7 +343,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePet(game, dt);
     updateCompanion(game, dt); updateCombo(game, dt);
     game.others.update(dt);
-    if (game.online && game.data.config.realtime?.map_send !== false) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
+    if (game.online && (game.data.config.realtime?.backend === 'cf' || game.data.config.realtime?.map_send !== false)) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
     updateMobs(game, dt);
     updateBullets(game, dt);
     updateStrikes(game, dt);

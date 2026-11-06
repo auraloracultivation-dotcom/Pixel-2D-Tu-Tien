@@ -1,0 +1,17 @@
+{
+  // Máy chủ phòng Realtime của Pixel 2D Tu Tiên trên Cloudflare (chủ dự án 06/11/2026: chuyển phần "thấy nhau" khỏi Supabase Realtime,
+  // nhắm 1.000+ người online). Supabase vẫn giữ tài khoản, lưu game, chống hack, chat. Xem cloud/README.md.
+  "name": "p2d-phong",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": { "enabled": true, "head_sampling_rate": 0.05 },
+  "vars": {
+    "SUPABASE_URL": "https://idiiyxcfzugrehifhhjx.supabase.co",
+    "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "PHONG", "class_name": "Phong" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Phong"] }]
+}
