@@ -1,5 +1,8 @@
 // Linh Thạch (data/shop.json): quái rơi, bán đồ cho tiệm, mua ở Vạn Bảo Lâu.
-import { rollGem, gemInfo, isEquipped } from './items.js';
+import { rollGem, gemInfo, isEquipped, salvage } from './items.js';
+import { salvageIron } from './cave.js';
+import { salvageArt } from './refine.js';
+import { dailyEvent } from './daily.js';
 import { quality } from './tiers.js';
 import { noteCoins } from './coin-log.js';
 
@@ -104,11 +107,35 @@ export async function talkShop(game, npc) {
   }
 }
 
+// Phân giải nhanh (góp ý #146, chủ dự án 06/11/2026 22:26): cùng danh sách với bán nhanh, phân giải thay vì bán (Tẩy Luyện Thạch,
+// Tinh Thiết, ngọc đang khảm về túi ngọc). Trả { n, stones, iron }.
+export function salvageGain(game, list) {
+  const d = game.data;
+  return list.reduce((a, it) => ({ stones: a.stones + (d.items.rarities.find(r => r.id === it.rarity)?.salvage || 0), iron: a.iron + (d.cave.salvage_iron[it.rarity] || 0) }), { stones: 0, iron: 0 });
+}
+export function quickSalvage(game, tiers) {
+  const list = quickList(game, tiers);
+  let stones = 0, iron = 0, n = 0;
+  for (const it of list) {
+    if (!game.save.bag.includes(it)) continue;
+    const k = salvage(game.data, game.save, it.uid);
+    if (game.save.bag.includes(it)) continue;   // khoá / đang mặc: không phân giải
+    stones += k; iron += salvageIron(game, it.rarity); salvageArt(game, it); n++;
+  }
+  if (n) { dailyEvent(game, 'salvage', null, n); game.persist(); }
+  return { n, stones, iron };
+}
+
 // Tự bán khi túi đầy (góp ý #86, chủ dự án 04/11/2026): bật ở Túi đồ → Bán nhanh, bán các món thuộc phẩm đang chọn ở hàng bán nhanh
 // (save.autoSell = { on, tiers }); đồ khoá, đang mặc, Đạo Vận, đã cường hoá không bán. Trả true nếu đã bán được ít nhất 1 món.
 export function autoSellFull(game) {
   const a = game.save.autoSell;
   if (!a?.on || !a.tiers?.length) return false;
+  if (a.mode === 'phan_giai') {   // góp ý #146: khi túi đầy tự phân giải thay vì bán
+    const r = quickSalvage(game, a.tiers);
+    if (r.n) game.toast?.(`Túi đầy: tự phân giải ${r.n} món, +${r.stones} Tẩy Luyện Thạch, +${r.iron} Tinh Thiết`, 1.8);
+    return r.n > 0;
+  }
   const r = quickSell(game, a.tiers);
   if (r.n) game.toast?.(`Túi đầy: tự bán ${r.n} món, +${r.coins.toLocaleString('vi-VN')} ${game.data.shop.name}`, 1.8);
   return r.n > 0;

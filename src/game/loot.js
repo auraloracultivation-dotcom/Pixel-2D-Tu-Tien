@@ -55,7 +55,9 @@ function take(game, l) {
     }
     const q = quality(data, l.payload) || rarityOf(data.items, l.payload.rarity);   // tên phẩm theo màu dòng (Phàm…Thiên, Tiên, Thượng Cổ)
     rare = data.items.line_tiers.list.indexOf(q) >= 4;   // phẩm Thiên trở lên: tiếng chuông ngọc riêng
-    if (game.feed) game.feed(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, q.color || '#ffe6a0'); else game.toast(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
+    const tierIx = data.items.line_tiers.list.indexOf(q);
+    if (tierIx >= 0 && tierIx < (save.feedMin || 0)) { /* góp ý #145: phẩm thấp hơn mức chọn thì nhặt lặng lẽ */ }
+    else if (game.feed) game.feed(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, q.color || '#ffe6a0'); else game.toast(`Nhặt [${q.name}] ${itemName(data, l.payload)}`, 1.4);   // cột bên trái (src/ui/feed.js)
     game.newItems = (game.newItems || 0) + 1;
   } else if (l.kind === 'gem') {
     save.gems[l.payload] = (save.gems[l.payload] || 0) + 1;
