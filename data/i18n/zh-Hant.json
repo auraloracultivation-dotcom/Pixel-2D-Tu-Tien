@@ -4041,5 +4041,12 @@
 "Đã có {x}, đổi ra Linh Thạch": "已擁有{x}，換成靈石",
 "Ngọc cấp {a}": "{a}級寶石",
 "Tỷ lệ: {n} loại, mỗi loại {p}%": "機率：{n}種，每種{p}%",
-"Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!": "叮！本系統的見面禮：{p}系統積分。宿主快去召喚試試氣運，別浪費了！"
+"Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!": "叮！本系統的見面禮：{p}系統積分。宿主快去召喚試試氣運，別浪費了！",
+"Chợ chưa mở cho đạo hữu mới": "市集尚未對新道友開放",
+"Tài khoản cần lập đủ {ngay} ngày và chơi đủ {gio} tiếng thì mở chợ.": "帳號需建立滿{ngay}天並遊玩滿{gio}小時才開放市集。",
+"Còn khoảng {h} tiếng nữa là đủ ngày.": "約再{h}小時滿一天。",
+"Đã đủ ngày.": "已滿天數。",
+"Đã chơi {a} / {b} tiếng.": "已遊玩{a} / {b}小時。",
+"Tài khoản mới cần lập đủ 1 ngày mới dùng được chợ.": "新帳號需建立滿1天才能使用市集。",
+"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "新帳號需遊玩滿4小時才能使用市集。"
 }

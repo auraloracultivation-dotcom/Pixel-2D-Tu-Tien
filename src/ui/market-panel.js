@@ -7,6 +7,7 @@ import { matInfo } from '../game/cave.js';
 import { itemStats } from './item-stats.js';
 
 const $ = id => document.getElementById(id);
+const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -17,7 +18,7 @@ function el(tag, cls, text) {
 
 export function createMarketPanel(game) {
   const M = game.data.market;
-  let tab = 'buy', rows = [], note = '', pick = null, busy = false;
+  let tab = 'buy', rows = [], note = '', pick = null, busy = false, lock = null;   // lock: chợ chưa mở cho tài khoản mới (data/market.json → mo_khoa)
 
   function sub() {
     $('market-sub').textContent = note || `${game.data.shop.name} ${coins(game.save).toLocaleString('vi-VN')} · ${M.sub.replace('{tax}', Math.round(M.tax * 100)).replace('{h}', M.hours)}`;
@@ -76,6 +77,12 @@ export function createMarketPanel(game) {
     const box = $('market-list'); box.innerHTML = '';
     $('market-form').hidden = tab !== 'sell' || !pick;
     if (!canTrade(game)) { box.append(el('div', 'empty', M.offline)); return; }
+    if (lock?.ly_do) {   // tài khoản mới: 1 ngày tuổi và 4 tiếng chơi mới mở chợ (chủ dự án 06/11/2026 23:12)
+      const K = M.mo_khoa, h = Math.max(0, Math.ceil((new Date(lock.tao).getTime() + K.ngay * 86400000 - Date.now()) / 3600000));
+      const w = el('div', 'empty'); w.append(el('b', null, K.title), el('p', null, fill(K.desc, { ngay: K.ngay, gio: K.gio })),
+        el('p', null, h > 0 ? fill(K.wait_day, { h }) : K.ok_day), el('p', null, fill(K.played, { a: (lock.giay / 3600).toFixed(1), b: K.gio })));
+      box.append(w); return;
+    }
     if (tab === 'sell') { renderSell(box); updateForm(); return; }
     const list = rows.filter(r => (tab === 'mine') === r.la_toi);
     if (!list.length) box.append(el('div', 'empty', tab === 'mine' ? M.empty_mine : M.empty_buy));
@@ -98,7 +105,7 @@ export function createMarketPanel(game) {
     if (!game.save || game.dialog.open) return;
     game.uiOpen = true; $('market').hidden = false; note = ''; pick = null;
     render();
-    if (canTrade(game)) run(() => claimMail(game));
+    if (canTrade(game)) { import('../net/market.js').then(N => N.marketLock()).then(r => { lock = r; render(); }).catch(() => {}); run(() => claimMail(game)); }
   }
   function close() { game.uiOpen = false; $('market').hidden = true; }
 
