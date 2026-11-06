@@ -128,7 +128,8 @@
    "dk": {
     "equip": 4
    },
-   "tip": "Mở Túi đồ, chạm món đồ rồi bấm Mặc."
+   "tip": "Mở Túi đồ, chạm món đồ rồi bấm Mặc.",
+   "go": "btn-bag"
   },
   {
    "id": "cong-phap-2",
@@ -136,7 +137,8 @@
    "dk": {
     "techs": 2
    },
-   "tip": "Túi đồ → Công pháp. Bí kíp rơi từ quái và bí cảnh."
+   "tip": "Túi đồ → Công pháp. Bí kíp rơi từ quái và bí cảnh.",
+   "go": "btn-bag"
   },
   {
    "id": "luyen-khi-5",
@@ -153,7 +155,8 @@
    "dk": {
     "plus": 3
    },
-   "tip": "Túi đồ → chạm món → Cường hoá. Cần tinh thiết."
+   "tip": "Túi đồ → chạm món → Cường hoá. Cần tinh thiết.",
+   "go": "btn-bag"
   },
   {
    "id": "kham-1",
@@ -161,7 +164,8 @@
    "dk": {
     "socket": 1
    },
-   "tip": "Túi đồ → chạm món có ô khảm → chọn ngọc."
+   "tip": "Túi đồ → chạm món có ô khảm → chọn ngọc.",
+   "go": "btn-bag"
   },
   {
    "id": "linh-thu-1",
@@ -169,7 +173,8 @@
    "dk": {
     "pets": 1
    },
-   "tip": "Gặp Ngự Thú Sư, hoặc săn dị chủng ngoài tinh cầu."
+   "tip": "Gặp Ngự Thú Sư, hoặc săn dị chủng ngoài tinh cầu.",
+   "go": "btn-pets"
   },
   {
    "id": "thu-cuoi-1",
@@ -177,7 +182,8 @@
    "dk": {
     "mounts": 1
    },
-   "tip": "Ngự Thú Sư tặng thú cưỡi đầu tiên. Đi bộ một lúc là tự cưỡi."
+   "tip": "Ngự Thú Sư tặng thú cưỡi đầu tiên. Đi bộ một lúc là tự cưỡi.",
+   "go": "btn-pets"
   },
   {
    "id": "mac-7",
@@ -185,7 +191,8 @@
    "dk": {
     "equip": 7
    },
-   "tip": "Đủ vũ khí, giáp, mũ, giày, nhẫn, ngọc bội, pháp bảo."
+   "tip": "Đủ vũ khí, giáp, mũ, giày, nhẫn, ngọc bội, pháp bảo.",
+   "go": "btn-bag"
   },
   {
    "id": "truc-co",
@@ -200,77 +207,92 @@
    "goal": "Cường hoá một món đang mặc lên +6",
    "dk": {
     "plus": 6
-   }
+   },
+   "tip": "Túi đồ → chạm món đang mặc → Cường hoá. Tinh thiết rơi ở bí cảnh và quái mạnh.",
+   "go": "btn-bag"
   },
   {
    "id": "kham-4",
    "goal": "Khảm 4 viên ngọc vào trang bị đang mặc",
    "dk": {
     "socket": 4
-   }
+   },
+   "tip": "Túi đồ → chạm món có ô khảm → chọn ngọc. Đồ phẩm cao có nhiều ô hơn.",
+   "go": "btn-bag"
   },
   {
    "id": "cong-phap-5",
    "goal": "Học 5 công pháp",
    "dk": {
     "techs": 5
-   }
+   },
+   "tip": "Túi đồ → Công pháp. Bí kíp rơi từ quái, bí cảnh, boss.",
+   "go": "btn-bag"
   },
   {
    "id": "kim-dan",
    "goal": "Đột phá Kim Đan (khiêu chiến được Đại Ma Thần)",
    "dk": {
     "realm": 2
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 Trúc Cơ thì đột phá. Đan dược và đả tọa giúp lên nhanh."
   },
   {
    "id": "cuong-hoa-10",
    "goal": "Cường hoá một món đang mặc lên +10",
    "dk": {
     "plus": 10
-   }
+   },
+   "tip": "Cường hoá cao dễ hỏng hơn, chuẩn bị nhiều tinh thiết.",
+   "go": "btn-bag"
   },
   {
    "id": "canh-gioi-3",
    "goal": "Đột phá Nguyên Anh",
    "dk": {
     "realm": 3
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
    "id": "canh-gioi-4",
    "goal": "Đột phá Hóa Thần",
    "dk": {
     "realm": 4
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
    "id": "canh-gioi-5",
    "goal": "Đột phá Luyện Hư",
    "dk": {
     "realm": 5
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
    "id": "canh-gioi-6",
    "goal": "Đột phá Hợp Thể",
    "dk": {
     "realm": 6
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
    "id": "canh-gioi-7",
    "goal": "Đột phá Đại Thừa",
    "dk": {
     "realm": 7
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
    "id": "canh-gioi-8",
    "goal": "Đột phá Độ Kiếp",
    "dk": {
     "realm": 8
-   }
+   },
+   "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   }
  ],
  "points": 25,
@@ -402,6 +424,8 @@
   "odds": "Tỷ lệ",
   "mail": "Quà triệu hồi hệ thống",
   "pool_gem": "Ngọc cấp {a}–{b}",
-  "pool_gear": "Trang bị phẩm {t}"
- }
+  "pool_gear": "Trang bị phẩm {t}",
+  "go": "Đi làm"
+ },
+ "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do."
 }

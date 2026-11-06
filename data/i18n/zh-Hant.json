@@ -3852,5 +3852,12 @@
 "Tự đánh: đánh boss trước, hết boss thì săn quái": "自動戰鬥：先打首領，沒首領就獵怪",
 "{name} · cấp {lvl}": "{name} · {lvl}級",
 "Hệ Thống": "系統",
-"{from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{from} · 冷卻{cd}秒 · 消耗{x}靈力{x2}"
+"{from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{from} · 冷卻{cd}秒 · 消耗{x}靈力{x2}",
+"Túi đồ → chạm món đang mặc → Cường hoá. Tinh thiết rơi ở bí cảnh và quái mạnh.": "背包 → 點擊已裝備的物品 → 強化。精鐵在秘境與強大妖獸身上掉落。",
+"Túi đồ → chạm món có ô khảm → chọn ngọc. Đồ phẩm cao có nhiều ô hơn.": "背包 → 點擊有鑲嵌孔的物品 → 選擇寶石。品階越高孔越多。",
+"Túi đồ → Công pháp. Bí kíp rơi từ quái, bí cảnh, boss.": "背包 → 功法。秘笈從妖獸、秘境、首領掉落。",
+"Đầy tu vi tầng 9 Trúc Cơ thì đột phá. Đan dược và đả tọa giúp lên nhanh.": "築基九層修為圓滿即可突破。丹藥與打坐能加快速度。",
+"Cường hoá cao dễ hỏng hơn, chuẩn bị nhiều tinh thiết.": "強化越高越易失敗，多準備些精鐵。",
+"Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh.": "九層修為圓滿即可突破。刷秘境、打坐、服丹可加快速度。",
+"Đi làm": "前往"
 }

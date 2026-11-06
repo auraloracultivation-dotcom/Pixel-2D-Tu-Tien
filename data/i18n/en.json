@@ -3852,5 +3852,12 @@
 "Tự đánh: đánh boss trước, hết boss thì săn quái": "Auto-Fight: bosses first, monsters when no boss is left",
 "{name} · cấp {lvl}": "{name} · level {lvl}",
 "Hệ Thống": "System",
-"{from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{from} · {cd}s cooldown · {x} mana{x2}"
+"{from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{from} · {cd}s cooldown · {x} mana{x2}",
+"Túi đồ → chạm món đang mặc → Cường hoá. Tinh thiết rơi ở bí cảnh và quái mạnh.": "Bag → tap an equipped item → Enhance. Refined Iron drops in secret realms and from strong monsters.",
+"Túi đồ → chạm món có ô khảm → chọn ngọc. Đồ phẩm cao có nhiều ô hơn.": "Bag → tap an item with a socket → choose a gem. Higher grades have more sockets.",
+"Túi đồ → Công pháp. Bí kíp rơi từ quái, bí cảnh, boss.": "Bag → Techniques. Manuals drop from monsters, secret realms and bosses.",
+"Đầy tu vi tầng 9 Trúc Cơ thì đột phá. Đan dược và đả tọa giúp lên nhanh.": "Fill cultivation at Foundation layer 9, then break through. Pills and meditation speed it up.",
+"Cường hoá cao dễ hỏng hơn, chuẩn bị nhiều tinh thiết.": "High enhancement fails more often, so stock up on Refined Iron.",
+"Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh.": "Fill cultivation at layer 9, then break through. Farm secret realms, meditate and take pills to go faster.",
+"Đi làm": "Go"
 }
