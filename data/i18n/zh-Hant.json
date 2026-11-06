@@ -389,6 +389,7 @@
 "...Đi.": "……走。",
 "Mất kết nối": "連線中斷",
 "Đang nối lại với máy chủ… Game tạm dừng, không mất gì.": "正在重新連線伺服器……遊戲暫停，不會有損失。",
+"Có bản game mới, tự tải lại sau {n} giây. Tiến độ đã lưu.": "遊戲有新版本，{n} 秒後自動重新載入。進度已儲存。",
 "Đã nối lại máy chủ.": "已重新連上伺服器。",
 "Đã đăng nhập ở máy khác": "已在其他裝置登入",
 "Tài khoản vừa vào game ở một máy khác nên máy này tự thoát. Tiến độ đã lưu ở máy kia.": "此帳號剛在其他裝置進入遊戲，本裝置已自動登出。進度已存在另一台裝置。",
