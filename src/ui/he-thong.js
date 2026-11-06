@@ -73,7 +73,7 @@ export function createHeThong(game) {
       const X = C.text;
       body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
       const t = htTask(game);
-      if (t) {
+      if (t && !game.story?.current?.()?.until?.never) {   // bước chơi tự do (hết truyện): Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11/2026 17:51: bấm lại đi gặp Lão Ngư Ông)
         body.append(el('div', 'ht-sub', X.story_hint), el('p', 'ht-line ht-goal', t));
         const g = el('button', 'ht-btn', game.pilot ? C.guide_on : C.guide); g.type = 'button'; g.disabled = !!game.pilot;
         g.onclick = async () => { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); minimize(); };
@@ -86,6 +86,7 @@ export function createHeThong(game) {
         const row = el('div', `ht-mis${m.ok ? ' ok' : ''}`), b = el('button', 'ht-btn sm', m.ok ? fill(X.claim, { p: H.points }) : X.todo);
         row.append(el('b', null, fillStory(m.goal)));
         if (m.tip && !m.ok) row.append(el('small', null, m.tip));
+        if (!m.ok && m.go) { b.textContent = X.go; b.disabled = false; b.onclick = () => { minimize(); game.openOldPanel?.({ btn: m.go }); }; row.append(b); body.append(row); continue; }
         b.type = 'button'; b.disabled = !m.ok || !game.cloud;
         b.onclick = async () => {
           b.disabled = true;
