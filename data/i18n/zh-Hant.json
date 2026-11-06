@@ -4027,5 +4027,14 @@
 "Cửu Đầu Thôn Thiên Mãng đang ngủ. Xuất hiện 20:30–21:00 mỗi ngày (giờ Việt Nam).": "九頭吞天蟒正在沉睡。每天20:30–21:00（越南時間）出現。",
 "Cửu Đầu Thôn Thiên Mãng sắp xuất hiện lúc {from}! Chuẩn bị đan dược, trang bị.": "九頭吞天蟒將於{from}出現！備好丹藥與裝備。",
 "Cửu Đầu Thôn Thiên Mãng đã xuất hiện! Mở tới {to}. Ngự kiếm bay ra vây công?": "九頭吞天蟒出現了！開放至{to}。御劍飛去圍攻？",
-"Bay tới ngay": "立刻飛去"
+"Bay tới ngay": "立刻飛去",
+"Túi đầy: tự phân giải {n} món, +{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết": "背包已滿：自動分解{n}件，+{stones}洗煉石，+{iron}精鐵",
+"Phân giải {length} món (+{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết)": "分解{length}件（+{stones}洗煉石，+{iron}精鐵）",
+"Không có món nào để phân giải": "沒有可分解的物品",
+"Đã phân giải {n} món: +{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết": "已分解{n}件：+{stones}洗煉石，+{iron}精鐵",
+"Tự": "自動",
+"các phẩm này khi túi đầy": "這些品階（背包滿時）",
+"{name} trở lên": "{name}以上",
+"mọi phẩm": "所有品階",
+"Báo nhặt đồ:": "拾取提示："
 }

@@ -4027,5 +4027,14 @@
 "Cửu Đầu Thôn Thiên Mãng đang ngủ. Xuất hiện 20:30–21:00 mỗi ngày (giờ Việt Nam).": "The Nine-Headed Heaven-Devouring Python is asleep. It appears 20:30–21:00 every day (Vietnam time).",
 "Cửu Đầu Thôn Thiên Mãng sắp xuất hiện lúc {from}! Chuẩn bị đan dược, trang bị.": "The Nine-Headed Heaven-Devouring Python appears at {from}! Get your pills and gear ready.",
 "Cửu Đầu Thôn Thiên Mãng đã xuất hiện! Mở tới {to}. Ngự kiếm bay ra vây công?": "The Nine-Headed Heaven-Devouring Python has appeared! Open until {to}. Fly out on your sword to join the siege?",
-"Bay tới ngay": "Fly there now"
+"Bay tới ngay": "Fly there now",
+"Túi đầy: tự phân giải {n} món, +{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết": "Bag full: auto-salvaged {n} items, +{stones} Refining Stone, +{iron} Refined Iron",
+"Phân giải {length} món (+{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết)": "Salvage {length} items (+{stones} Refining Stone, +{iron} Refined Iron)",
+"Không có món nào để phân giải": "Nothing to salvage",
+"Đã phân giải {n} món: +{stones} Tẩy Luyện Thạch, +{iron} Tinh Thiết": "Salvaged {n} items: +{stones} Refining Stone, +{iron} Refined Iron",
+"Tự": "Auto",
+"các phẩm này khi túi đầy": "these grades when the bag is full",
+"{name} trở lên": "{name} and above",
+"mọi phẩm": "all grades",
+"Báo nhặt đồ:": "Pickup alerts:"
 }
