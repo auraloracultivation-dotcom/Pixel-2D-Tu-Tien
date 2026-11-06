@@ -127,7 +127,8 @@
 .ht-bk.k8, .ht-bk.k9 { color: #ff5a5a; } .ht-bk.k10 { color: #ff2fd0; font-size: 42px; }
 @keyframes ht-bk { 0% { transform: scale(3) rotate(-12deg); opacity: 0; } 100% { transform: scale(1) rotate(-8deg); opacity: 1; } }
 /* Bảng khoe triệu hồi cả máy chủ, sát mép phải sân khấu rương (src/ui/he-thong-qua.js) */
-.ht-feed { position: absolute; right: 2px; top: 6px; bottom: 6px; width: 92px; display: flex; flex-direction: column; gap: 2px; overflow: hidden; pointer-events: none; }
+.ht-chest-wrap { position: relative; flex-shrink: 0; }
+.ht-feed { position: absolute; right: -10px; top: -46px; bottom: 40px; width: 100px; display: flex; flex-direction: column; gap: 2px; overflow: hidden; pointer-events: none; }
 .ht-feed-h { font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #7fe0ff; text-transform: uppercase; letter-spacing: .04em; }
 .ht-feed-r { display: flex; align-items: center; gap: 3px; min-height: 20px; background: rgba(8, 22, 44, .55); border-radius: 4px; padding: 1px 3px; }
 .ht-feed-r i { flex: none; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
@@ -135,4 +136,4 @@
 .ht-feed-r span { min-width: 0; display: flex; flex-direction: column; line-height: 1.05; }
 .ht-feed-r b { font-size: 9px; color: #dff6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .ht-feed-r em { font-style: normal; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ht-chest-stage .ht-slot { left: 96px; right: 96px; }
+.ht-chest-stage .ht-slot { left: 92px; right: 92px; }
