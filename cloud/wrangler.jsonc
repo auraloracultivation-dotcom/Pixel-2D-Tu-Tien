@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "compatibility_date": "2026-10-01",
   "workers_dev": true,
+  // 14:02 UTC = 21:02 giờ VN: boss (20:30–21:00) vừa hết giờ thì tổng kết, phát quà (chủ dự án 06/11/2026 20:59)
+  "triggers": { "crons": ["2 14 * * *"] },
   "observability": { "enabled": true, "head_sampling_rate": 0.05 },
   "vars": {
     "SUPABASE_URL": "https://idiiyxcfzugrehifhhjx.supabase.co",

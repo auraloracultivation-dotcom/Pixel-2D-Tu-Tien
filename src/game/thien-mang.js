@@ -7,11 +7,12 @@
 // Đòn trúng đầu (combat.js hitMob) cộng vào pend; cứ report_s giây gửi tổng qua máy chủ phòng Cloudflare (net/online-cf.js bossDmg →
 // cloud/src/phong.js kẹp theo lực chiến → cloud/src/mang.js cộng dồn). Đứng gần mà không đánh thì poll_s giây hỏi bảng một lần.
 import { spawnMob } from './mobs.js';
+import { inLich } from './mang-lich.js';
 
 const C = game => game.data['thien-mang'];
 const A = game => C(game)?.arena;
 export const isArena = game => !!A(game) && game.map?.id === A(game).map;
-export const mangOn = game => C(game)?.on !== false;
+export const mangOn = game => C(game)?.on === true || inLich(game);   // on=true: mở cả ngày; còn lại theo lịch 20:30–21:00 giờ VN (mang-lich.js)
 
 // Vị trí boss trong vùng: { x, y (chân hình), w, h } theo đơn vị bản đồ
 export function arenaBox(game) {

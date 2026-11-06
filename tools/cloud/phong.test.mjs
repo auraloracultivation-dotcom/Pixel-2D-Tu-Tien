@@ -132,7 +132,7 @@ console.log('phong.test: ok');
   const rows = [];
   const kv = new Map();
   const mctx = { storage: { sql: { exec: (q, ...a) => { if (q.startsWith('INSERT')) rows.push(a); return []; } }, getAlarm: async () => null, setAlarm: async () => {},
-    get: async k => kv.get(k), put: async (k, v) => { kv.set(k, v); } },
+    get: async k => kv.get(k), put: async (k, v) => { kv.set(k, v); }, delete: async k => kv.delete(k) },
     blockConcurrencyWhile: f => f() };
   const mang = new Mang(mctx, {});
   mang.moTo = Date.now() + 1e9;   // boss đang mở
@@ -168,6 +168,7 @@ console.log('phong.test: ok');
   const TM = JSON.parse(readFileSync(resolve(root, '../../data/thien-mang.json'), 'utf8'));
   assert.equal(C.LT_MULT, TM.lt_mult);
   assert.equal(C.LT_BONUS, TM.lt_bonus);
+  { const hm = t => t.split(':').reduce((h, m) => h * 60 + +m); assert.deepEqual(C.LICH, { tz: TM.lich.tz, from: hm(TM.lich.from), to: hm(TM.lich.to) }, 'mang-cfg.js LICH lệch data/thien-mang.json lich'); }
   for (const [k, v] of Object.entries(TM.heads)) {
     assert.equal(C.FARM_LT_S[k], v.farm_lt_s, 'mang-cfg.js FARM_LT_S lệch data/thien-mang.json: ' + k);
     const g = JSON.parse(readFileSync(resolve(root, `../../data/maps/${k}.json`), 'utf8')).grid, cx = Math.floor(g[0].length / 2);
@@ -245,11 +246,30 @@ console.log('phong.test: ok');
     const khoa = kv.get('khoa'), ts = Date.now(), ky = x => createHmac('sha256', khoa).update(`${ts}.${x}`).digest('hex');
     const v0 = mang.tot.get('u1')?.v || 0;
     assert.ok((await mang.lenh('tat', ts, ky('tat'))).ok);
+    const D1 = Date.now, vn = (h, m) => Date.UTC(2026, 10, 6, h - 7, m);   // giờ VN → ms (lịch boss 20:30–21:00 giờ VN)
+    Date.now = () => vn(10, 0);
     const rt = await mang.add([{ id: 'u1', n: 500, s: 2, map: 'dao-moc', pw: 1e6 }]);
     assert.equal(mang.tot.get('u1')?.v || 0, v0); assert.equal(rt.mo, 0);
+    Date.now = () => vn(20, 45);   // trong lịch: tắt tay vẫn mở theo giờ
+    const rl = await mang.add([{ id: 'u1', n: 500, s: 2, map: 'dao-moc', pw: 1e6 }]);
+    assert.ok((mang.tot.get('u1')?.v || 0) > v0, 'trong lịch phải nhận sát thương'); assert.equal(rl.mo, vn(21, 0));
+    Date.now = D1;
     assert.equal(await mang.lenh('mo', ts, ky('mo'), '30'), null);   // thiếu tham số trong chữ ký
     const r = await mang.lenh('mo', ts, ky('mo.30'), '30');
     assert.ok(r.ok && r.mo > Date.now() + 29 * 60000);
+  }
+  { // tổng kết hằng ngày: gửi bảng ký HMAC tới p2d_mang_tong_ket rồi xoá bảng; Supabase báo đã phát thì cũng xoá
+    const F0 = globalThis.fetch, sent = [];
+    globalThis.fetch = async (url, init) => { sent.push({ url, body: JSON.parse(init.body) }); return { ok: true, status: 200, text: async () => '1' }; };
+    mang.env = { ...(mang.env || {}), SUPABASE_URL: 'https://x', SUPABASE_KEY: 'k' };
+    const n0 = [...mang.tot.values()].filter(x => x.v > 0).length;
+    const r = await mang.tongKet();
+    const tk = sent.find(c => c.url.endsWith('/p2d_mang_tong_ket'));
+    assert.ok(r.ok && r.n === n0 && n0 > 0 && tk, JSON.stringify(r));
+    const ds = JSON.parse(tk.body.p_ds); assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(ds.ngay) && ds.d[0][0] === 'u1');
+    assert.equal(mang.tot.size, 0); assert.equal(mang.sum, 0);
+    assert.deepEqual(await mang.tongKet(), { ok: true, n: 0 });   // bảng trống: không gửi
+    globalThis.fetch = F0;
   }
   console.log('mang.test: ok');
 }

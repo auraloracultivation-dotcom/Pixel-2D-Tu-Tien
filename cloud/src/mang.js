@@ -6,7 +6,7 @@
 // của tinh cầu đó × 10 (src/mang-cfg.js), dồn theo người; 5 phút một lần gửi một lô ký HMAC về Supabase (p2d_mang_thuong) → Hòm thư.
 // Khoá ký tự sinh lần đầu, giữ trong kho của Mang, tự đăng ký với Supabase (p2d_mang_dang_ky chỉ nhận khi chưa có khoá).
 import { DurableObject } from 'cloudflare:workers';
-import { FARM_LT_S, LT_MULT, LT_BONUS } from './mang-cfg.js';
+import { FARM_LT_S, LT_MULT, LT_BONUS, LICH } from './mang-cfg.js';
 
 // Lưu (chủ dự án 06/11/2026 10:15: bảng tụt từ 5 triệu về 3 triệu — lúc triển khai bản mới Mang khởi động lại, mất phần chưa lưu
 // vì trước đây 5 phút mới lưu). Cloudflare tính tiền theo số DÒNG ghi, nên cả bảng (sát thương + Linh Thạch chờ gửi + giờ gửi kế)
@@ -21,6 +21,11 @@ const sign = async (khoa, msg) => {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   return hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg)));
 };
+// Đang trong khung giờ lịch (LICH) không; ngày theo múi giờ lịch (YYYY-MM-DD)
+const vnDate = now => new Date(now + LICH.tz * 3600000);
+export const inLich = (now = Date.now()) => { const d = vnDate(now), m = d.getUTCHours() * 60 + d.getUTCMinutes(); return m >= LICH.from && m < LICH.to; };
+const lichDay = now => vnDate(now).toISOString().slice(0, 10);
+const lichEnd = now => { const d = vnDate(now); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) + LICH.to * 60000 - LICH.tz * 3600000; };
 const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
 
 export class Mang extends DurableObject {
@@ -55,7 +60,7 @@ export class Mang extends DurableObject {
 
   // list: [{ id, name, n, s, map }] (n đã kẹp, s giây chém thật ở phòng). Trả bảng xếp hạng, hạng và Linh Thạch chờ nhận của người trong list.
   async add(list) {
-    const now = Date.now(), lt = {}, open = now < this.moTo;   // chủ dự án 06/11/2026 15:53: tắt boss thì máy chủ phải tự chặn (máy mở sẵn từ trước vẫn còn đầu boss)
+    const now = Date.now(), lt = {}, open = now < this.moTo || inLich(now);   // lịch hằng ngày 20:30–21:00 giờ VN (chủ dự án 06/11/2026 20:59)   // chủ dự án 06/11/2026 15:53: tắt boss thì máy chủ phải tự chặn (máy mở sẵn từ trước vẫn còn đầu boss)
     const top = Math.max(1, ...(Array.isArray(list) ? list : []).map(x => (x?.s > 0 && x.n > 0 ? Number(x.n) || 0 : 0)));   // sát thương cao nhất tuyến trong lượt
     for (const it of Array.isArray(list) ? list.slice(0, 64) : []) {
       if (typeof it?.id !== 'string' || !(it.n >= 0)) continue;
@@ -77,7 +82,7 @@ export class Mang extends DurableObject {
     const ranks = {};
     const want = new Set((list || []).map(x => x?.id));
     sorted.forEach(([id, x], i) => { if (want.has(id)) ranks[id] = [i + 1, Math.round(x.v)]; });
-    return { top: sorted.slice(0, TOP).map(([, x]) => [x.name, Math.round(x.v)]), n: this.seen.size, total: Math.round(this.sum), ranks, lt, mo: open ? this.moTo : 0 };
+    return { top: sorted.slice(0, TOP).map(([, x]) => [x.name, Math.round(x.v)]), n: this.seen.size, total: Math.round(this.sum), ranks, lt, mo: open ? Math.max(this.moTo, inLich(now) ? lichEnd(now) : 0) : 0 };
   }
 
   // Một dòng cho cả bảng (xem SAVE_MS)
@@ -89,6 +94,8 @@ export class Mang extends DurableObject {
 
   async alarm() {
     const now = Date.now();
+    if (this.tkCho === undefined) this.tkCho = (await this.ctx.storage.get('tk_cho')) || null;
+    if (this.tkCho && !inLich(now)) await this.tongKet();   // tổng kết lần trước lỗi mạng: thử lại
     if (!this.payAt) { this.payAt = now + PAY_MS; this.changed = true; }
     else if (now >= this.payAt && this.pend.size) { await this.pay(); this.payAt = now + PAY_MS; this.changed = true; }
     if (this.changed) this.save();
@@ -135,18 +142,42 @@ export class Mang extends DurableObject {
   // 'mo' (arg = số phút): mở boss từ giờ tới giờ + arg phút; 'tat': tắt ngay. Chữ ký trên `${ts}.${action}` (có arg thì `.${arg}`).
   async lenh(action, ts, ky, arg = '') {
     ts = Number(ts);
-    if (!['bang', 'xong', 'mo', 'tat', 'trang'].includes(action) || !(Math.abs(Date.now() - ts) < 120000) || typeof ky !== 'string') return null;
+    if (!['bang', 'xong', 'mo', 'tat', 'trang', 'tk'].includes(action) || !(Math.abs(Date.now() - ts) < 120000) || typeof ky !== 'string') return null;
     const khoa = await this.ctx.storage.get('khoa');
     if (!khoa || (await sign(khoa, `${ts}.${action}${arg ? '.' + arg : ''}`)) !== ky.toLowerCase()) return null;
     if (action === 'mo') { const m = Math.min(24 * 60, Math.max(1, Number(arg) || 0)); this.moTo = Date.now() + m * 60000; this.save(); return { ok: true, mo: this.moTo }; }
     if (action === 'tat') { this.moTo = 0; this.save(); return { ok: true, mo: 0 }; }
-    if (action === 'trang') return { mo: this.moTo, open: Date.now() < this.moTo };
+    if (action === 'trang') return { mo: this.moTo, open: Date.now() < this.moTo || inLich(), lich: inLich(), tk: this.tkCho || null };
+    if (action === 'tk') return this.tongKet();   // tổng kết tay (thử, hoặc cron lỡ)
     const d = [...this.tot].filter(([, x]) => x.v > 0).sort((a, b) => b[1].v - a[1].v).map(([uid, x]) => [uid, x.name, Math.round(x.v)]);
     if (action === 'bang') return { d, total: Math.round(this.sum) };
     if (this.pend.size) await this.pay();
     this.ctx.storage.sql.exec('INSERT INTO anh (k, j) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j', `mua:${ts}`, JSON.stringify({ d, total: Math.round(this.sum) }));
     this.tot.clear(); this.seen.clear(); this.sum = 0; this.save();
     return { ok: true, n: d.length, left: this.pend.size };
+  }
+
+  // Tổng kết sau mỗi lần boss (cron hằng ngày lúc hết giờ, index.js scheduled): gửi bảng sát thương ký HMAC tới Supabase
+  // p2d_mang_tong_ket (phát quà top 10 / người tham gia, mỗi ngày một lần), gửi nốt Linh Thạch chờ, cất bảng vào lịch sử, xoá bảng.
+  // Lỗi mạng thì 5 phút sau thử lại (tkCho); Supabase báo đã phát ngày đó thì coi như xong.
+  async tongKet() {
+    const now = Date.now(), ngay = this.tkCho || lichDay(now - 60000);
+    const d = [...this.tot].filter(([, x]) => x.v > 0).sort((a, b) => b[1].v - a[1].v).map(([uid, x]) => [uid, Math.round(x.v)]).slice(0, 5000);
+    if (!d.length) { this.tkCho = null; return { ok: true, n: 0 }; }
+    const khoa = this.env.SUPABASE_URL && await this.khoa();
+    if (!khoa) return { ok: false };
+    const ts = Date.now(), ds = JSON.stringify({ ngay, d });
+    const r = await this.rpc('p2d_mang_tong_ket', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
+    const body = await r.text().catch(() => '');
+    if (!r.ok && !body.includes('da_phat')) {
+      console.log('mang_tong_ket', r.status, body.slice(0, 200));
+      this.tkCho = ngay; await this.ctx.storage.put('tk_cho', ngay); await this.ctx.storage.setAlarm(now + 300000);
+      return { ok: false, status: r.status };
+    }
+    if (this.pend.size) await this.pay();
+    this.ctx.storage.sql.exec('INSERT INTO anh (k, j) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j', `mua:${ngay}`, JSON.stringify({ d, total: Math.round(this.sum) }));
+    this.tot.clear(); this.seen.clear(); this.bud.clear(); this.sum = 0; this.tkCho = null; await this.ctx.storage.delete('tk_cho'); this.save();
+    return { ok: true, n: d.length, phat: Number(body) || 0 };
   }
 
   async vanTay() {   // gọi ngay sau khi triển khai: sinh và đăng ký khoá luôn, khỏi để trống chỗ cho kẻ khác chiếm

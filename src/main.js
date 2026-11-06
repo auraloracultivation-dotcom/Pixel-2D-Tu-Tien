@@ -51,6 +51,7 @@ import { initPwa, recoverStale } from './core/pwa.js';
 import { catchErrors } from './core/catch-errors.js';
 import { createMarketPanel } from './ui/market-panel.js';
 import { startMailCheck } from './game/market.js';
+import { startMangLich } from './game/mang-lich.js';
 import { createTopupPanel } from './ui/topup-panel.js';
 import { createGuildPanel } from './ui/guild-panel.js';
 import { createMenuPanel } from './ui/menu-panel.js';
@@ -87,7 +88,7 @@ async function boot() {
   createMiniMap(game);   // bản đồ tròn góc phải trên (thay nút Bản đồ)
   createHopThu(game);   // nút Thư gộp Hòm thư, Zalo, Đề xuất, Báo lỗi
   createSocialPanel(game);
-  createMarketPanel(game); startMailCheck(game);
+  createMarketPanel(game); startMailCheck(game); startMangLich(game);   // boss Thôn Thiên Mãng 20:30–21:00 giờ VN
   createTopupPanel(game);
   createGuildPanel(game);
   createMenuPanel(game);   // nút Menu: mọi chức năng, phó bản (data/menu.json)

@@ -138,12 +138,16 @@
   "enter": "Bay tới",
   "leave": "Rời đi",
   "enter_ask": "Ngự kiếm bay ra Hư Không Thôn Thiên vây công Cửu Đầu Thôn Thiên Mãng?",
-  "closed": "Cửu Đầu Thôn Thiên Mãng đang ngủ. Chờ thông báo lần xuất hiện sau.",
+  "closed": "Cửu Đầu Thôn Thiên Mãng đang ngủ. Xuất hiện 20:30–21:00 mỗi ngày (giờ Việt Nam).",
   "arena_intro": "Cửu Đầu Thôn Thiên Mãng che kín cả tinh không. Bay tới gần một cái đầu mà chém!",
   "fly_to": "Ngự kiếm bay ra Hư Không Thôn Thiên",
   "fly_back": "Ngự kiếm bay về {name}",
   "boss_kind": "Thái cổ yêu thú · Boss thế giới",
-  "ended": "Cửu Đầu Thôn Thiên Mãng đã lui vào hư không. Hẹn lần xuất hiện sau!"
+  "ended": "Cửu Đầu Thôn Thiên Mãng đã lui vào hư không. Hẹn lần xuất hiện sau!",
+  "soon": "Cửu Đầu Thôn Thiên Mãng sắp xuất hiện lúc {from}! Chuẩn bị đan dược, trang bị.",
+  "open_now": "Cửu Đầu Thôn Thiên Mãng đã xuất hiện! Mở tới {to}. Ngự kiếm bay ra vây công?",
+  "go_now": "Bay tới ngay",
+  "later": "Để sau"
  },
  "lt_mult": 30,
  "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult lần (10, chủ dự án 11:39 nâng ×3 = 30) farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
@@ -168,7 +172,7 @@
   "gem_lv": 1,
   "loai": "trang_bi"
  },
- "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 trang bị ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 trang bị phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30). 15:03: boss chuyển ra vùng không gian riêng (arena), các đầu ở mép 9 tinh cầu bỏ. 15:38: mở thử 30 phút (chủ dự án: mở luôn 30 phút). 16:19: hết 30 phút mở thử, tắt (máy chủ phòng cũng hết giờ mở). Chủ dự án 16:57: quà là TRANG BỊ ngẫu nhiên mọi ô (không chỉ vũ khí) — thuong.loai = trang_bi.",
+ "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 trang bị ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 trang bị phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30). 15:03: boss chuyển ra vùng không gian riêng (arena), các đầu ở mép 9 tinh cầu bỏ. 15:38: mở thử 30 phút (chủ dự án: mở luôn 30 phút). 16:19: hết 30 phút mở thử, tắt (máy chủ phòng cũng hết giờ mở). Chủ dự án 16:57: quà là TRANG BỊ ngẫu nhiên mọi ô (không chỉ vũ khí) — thuong.loai = trang_bi. 20:59: lịch cố định 20:30–21:00 hằng ngày (lich), on=false vẫn giữ (on=true là mở luôn cả ngày); hết giờ tự tổng kết.",
  "arena": {
   "map": "thon-thien-mang",
   "h": 1000,
@@ -228,5 +232,12 @@
    }
   ],
   "_heads": "Chín đầu theo thứ tự sky.mouths (màu miệng khớp hệ)."
+ },
+ "lich": {
+  "_note": "Chủ dự án 06/11/2026 20:59: boss xuất hiện 20:30–21:00 hằng ngày giờ Việt Nam (tz = +7). Máy khách: src/game/mang-lich.js (báo trước warn_min phút, tới giờ hỏi bay ra). Máy chủ phòng: cloud/src/mang-cfg.js LICH (bản sao, tools/cloud/phong.test.mjs so khớp) tự mở nhận sát thương trong khung giờ; hết giờ Cloudflare tự phát thưởng tổng kết (thuong) qua p2d_mang_tong_ket rồi xoá bảng cho hôm sau.",
+  "tz": 7,
+  "from": "20:30",
+  "to": "21:00",
+  "warn_min": 5
  }
 }
