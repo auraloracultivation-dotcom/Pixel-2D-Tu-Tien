@@ -6,6 +6,7 @@ import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
+import { findPath } from './pilot.js';
 
 // Trong nhà không tự đánh, trừ động phủ có Mộc Nhân (góp ý #114: tự đánh Mộc Nhân để đo sát thương/giây, game/dummy.js)
 const indoorOk = game => !game.map.def.indoor || (game.map.id === game.data.home.map && game.mobs.some(m => m.dummy));
@@ -40,10 +41,24 @@ export function autoStep(game, ax, dt = 0) {
   const cur = game.autoTgt;
   if (!boss && ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
   game.autoTgt = tgt;
-  const r = tgt ? fightStep(game, tgt, ax) : { ax: !dun && Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };   // bí cảnh hết quái: đứng chờ
+  const r = tgt ? (tgt === boss ? bossStep(game, tgt, ax, dt) : fightStep(game, tgt, ax)) : { ax: !dun && Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };   // bí cảnh hết quái: đứng chờ
   // Chống kẹt (báo lỗi #102, #117): đuổi mãi sau nhà, cây, cột đá mà không nhích thì bỏ con này một lúc (skipUntil, tự hành cũng tránh),
   // khung sau chọn con khác hoặc đi về chỗ săn; trước đó bước ngang một chút cho thoát góc (unstuck.js)
-  return unstuck(game, r, dt, () => { if (tgt) tgt.skipUntil = Date.now() + game.data.config.unstuck.skip * 1000; game.autoTgt = null; });
+  // boss thì không bỏ (đường vòng bossStep tự tìm lại), chỉ quái thường mới bỏ một lúc
+  return unstuck(game, r, dt, () => { if (tgt && tgt !== boss) { tgt.skipUntil = Date.now() + game.data.config.unstuck.skip * 1000; game.autoTgt = null; } else game.autoPath = null; });
+}
+
+// Boss (đầu mãng xà nằm ở mép trên, nhà cửa chắn giữa): chưa tới tầm hoặc bị chắn thì đi theo đường tìm trên lưới ô (pilot.js findPath)
+// tới ô sát boss, tìm lại mỗi giây; tới nơi thì đánh như thường.
+function bossStep(game, tgt, ax, dt) {
+  const p = game.player, T = game.map.T;
+  if (dist(tgt, p) <= reachOf(game, tgt) && clearShot(game, p, tgt)) { game.autoPath = null; return fightStep(game, tgt, ax); }
+  const a = game.autoPath ??= { path: null, t: 0, key: '' }, key = `${game.map.id}:${Math.floor(tgt.x / T)},${Math.floor(tgt.y / T)}`;
+  if (a.key !== key || (a.t -= dt) <= 0) { a.key = key; a.t = 1; a.path = findPath(game, Math.floor(tgt.x / T), Math.floor(tgt.y / T)); }
+  const path = a.path;
+  while (path?.length && Math.hypot(path[0].x - p.x, path[0].y - p.y) < 4) path.shift();
+  if (!path?.length) return fightStep(game, tgt, ax);   // không tìm được đường: đi thẳng như cũ
+  return { ax: toward(p, path[0].x, path[0].y), atk: false };
 }
 
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };
