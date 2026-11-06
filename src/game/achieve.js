@@ -50,7 +50,7 @@ export function checkAchv(game) {
     if (s.achv[a.id] || progress(game, a.need) < target(a.need)) continue;
     s.achv[a.id] = 1; game.newAchv = true;
     game.toast(`Thành tựu: ${a.name}!${a.title ? ` Mở danh hiệu ${C(game).titles[a.title].name}.` : ''}`, 2.6);
-    game.sfx('levelup');
+    game.sfx('achieve');
   }
 }
 

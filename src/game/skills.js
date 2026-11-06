@@ -5,6 +5,7 @@ import { totalLayer, weaponId } from './stats.js';
 import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 import { skillMul } from './skill-level.js';
 import { vfxOf, vfxCast, vfxMobHit } from './vfx.js';
+import { castSfx } from './skill-sfx.js';
 import { pvpTryHit } from './pvp.js';
 
 export function castSkill(game, id) {
@@ -16,7 +17,7 @@ export function castSkill(game, id) {
   game.online?.cast?.({ k: id, x: Math.round(p.x), y: Math.round(p.y), fx: +fx.toFixed(2), fy: +fy.toFixed(2) });   // người cùng đảo thấy hiệu ứng (game/others-cast.js)
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
-  game.sfx({ projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' }[s.type]);
+  castSfx(game, s);   // tiếng theo hệ chiêu (src/game/skill-sfx.js)
   switch (s.type) {
     case 'projectile':
       shoot(game, {

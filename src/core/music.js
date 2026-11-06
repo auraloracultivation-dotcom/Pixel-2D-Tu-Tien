@@ -1,5 +1,9 @@
-// Nhạc nền êm (data/sounds.json → music): đàn tranh gảy từng câu ngắn, sáo trúc ngân dài, nền trầm, tiếng vang,
-// xen tiếng gió, chim (đêm thì dế), nước, lửa theo từng đảo. Tất cả tổng hợp bằng WebAudio, không cần file.
+// Nhạc nền êm (data/sounds.json → music): đàn tranh gảy từng câu ngắn (dây Karplus-Strong, src/core/synth.js), sáo trúc
+// ngân dài, nhị hồ ở đảo trầm, dây trầm và nền ngân, tiếng vang, xen tiếng gió, chim (đêm thì dế), nước, lửa theo từng đảo.
+// Lớp trống (combat 0…1): khi đánh nhau thì trống trầm vào dần, đánh dữ thì thêm trống nhỏ; trùm thì thêm chiêng.
+// Tất cả tổng hợp bằng WebAudio, không cần file (chủ dự án 06/11/2026 19:15: làm lại bộ âm thanh bằng code).
+import { renderSfx, zitherBuffer } from './synth.js';
+
 const DARK = [0, 3, 5, 7, 10];
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
@@ -11,7 +15,44 @@ export function createMusic(ac, out, noise, cfg) {
   verb.buffer = ir; wet.gain.value = cfg.reverb.wet; dry.gain.value = 1 - cfg.reverb.wet * 0.5;
   const bus = ac.createGain(); bus.connect(dry); bus.connect(verb); verb.connect(wet); dry.connect(out); wet.connect(out);
 
-  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null, night: false };
+  const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null, night: false, want: 0, k: 0, erhu: false };
+  const C = cfg.combat || {};
+
+  // Đàn tranh: phát dây đã dựng sẵn, thỉnh thoảng vuốt dây (cao độ trượt lên tới nốt)
+  function zither(f, at, v, pan = -0.2, slide = false) {
+    const s = ac.createBufferSource(), g = ac.createGain();
+    s.buffer = zitherBuffer(ac, f);
+    if (slide) { s.playbackRate.setValueAtTime(0.94, at); s.playbackRate.linearRampToValueAtTime(1, at + 0.12); }
+    g.gain.value = v;
+    let node = g;
+    if (ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = pan; g.connect(p); node = p; }
+    s.connect(g); node.connect(bus); s.start(at);
+  }
+
+  // Trống: dựng một lần thành buffer (trống trầm, trống nhỏ, chiêng)
+  const drums = {};
+  const drum = name => drums[name] || (drums[name] = (() => {
+    const d = renderSfx(cfg.drums[name], ac.sampleRate, name.length * 31 + 7), b = ac.createBuffer(1, d.length, ac.sampleRate);
+    b.getChannelData(0).set(d); return b;
+  })());
+  function hitDrum(name, at, v, pan = 0) {
+    if (!cfg.drums?.[name]) return;
+    const s = ac.createBufferSource(), g = ac.createGain();
+    s.buffer = drum(name); s.playbackRate.value = 1 + (Math.random() - 0.5) * 0.04; g.gain.value = v;
+    let node = g;
+    if (pan && ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = pan; g.connect(p); node = p; }
+    s.connect(g); node.connect(bus); s.start(at);
+  }
+  // Mỗi phách: trống trầm phách 1 và 3 (dữ thì thêm phách 4 lẻ), trống nhỏ nửa phách khi k cao; trùm: chiêng mỗi 16 phách
+  function drumBeat(at, beat) {
+    const k = st.k, b = st.beat % 4, V = C.vol ?? 0.5;
+    if (k < 0.12) return;
+    if (b === 1 || b === 3) hitDrum('taiko', at, V * k, 0);
+    if (k > 0.55 && b === 0) hitDrum('taiko', at + beat * 0.5, V * k * 0.6, 0);
+    if (k > 0.45) hitDrum('tick', at + beat * 0.5, V * 0.35 * k, b % 2 ? 0.3 : -0.3);
+    if (k > 0.8 && b === 2) hitDrum('tick', at + beat * 0.75, V * 0.25 * k, 0.2);
+    if (st.m.boss && st.beat % 16 === 1) hitDrum('gong', at, V * 0.7, 0);
+  }
 
   // Một nốt: a (giây lên), d (độ dài), vib (rung Hz), q (lọc), pan
   function voice(n, at) {
@@ -94,19 +135,24 @@ export function createMusic(ac, out, noise, cfg) {
     ambience(m, at);
     // Nền: hai nốt trầm (chủ và năm) ngân dài mỗi 8 phách
     if (st.beat % 8 === 1) for (const s of [0, 3]) voice({ wave: 'sine', f: freq(m, s) / 2, a: beat * 2, d: beat * 8.5, v: cfg.drone, q: 700 }, at);
+    if (st.beat % 8 === 1 || (st.k > 0.4 && st.beat % 4 === 1)) zither(freq(m, 0) / 2, at, (cfg.bass ?? 0.25) * (0.6 + st.k * 0.6), 0.1);   // dây trầm
+    st.k += ((m.boss ? Math.max(st.want, C.boss ?? 0.75) : st.want) - st.k) * (st.want > st.k ? C.up ?? 0.5 : C.down ?? 0.12);   // vào nhanh, ra chậm
+    drumBeat(at, beat);
     if (st.phrase.length) {
       // Đàn tranh: gảy nốt, tắt dần; nốt nửa phách thì gảy hai nốt trong một phách
       const n = st.phrase.shift(), f = freq(m, n.step), lead = m.lead === 'sao' && Math.random() < 0.5;
-      if (lead) {
+      if (st.erhu) {   // nhị hồ: dây kéo, vào từ dưới nốt, rung sâu, tiếng mũi (lọc thấp)
+        voice({ wave: 'sawtooth', from: f * 0.97, f, a: 0.22, d: beat * n.len * 1.5 + 0.35, v: cfg.erhu ?? 0.05, vib: 5.5, q: 1500, pan: 0.15 }, at);
+      } else if (lead) {
         voice({ wave: 'sine', f, a: 0.18, d: beat * n.len * 1.6 + 0.4, v: cfg.flute, vib: 5, q: 3200 }, at);
         hiss(at, beat * n.len * 1.4, 0.006, f * 1.5, f * 2.5);
       } else {
-        const pluck = (ff, t) => { voice({ wave: 'triangle', from: Math.random() < 0.15 ? ff * 0.94 : 0, f: ff, a: 0.006, d: 1.8 + Math.random(), v: cfg.zither, q: 2600, pan: -0.2 }, t); voice({ wave: 'sine', f: ff * 2, a: 0.004, d: 0.6, v: cfg.zither * 0.25, q: 5000, pan: -0.2 }, t); };
+        const pluck = (ff, t) => zither(ff, t, cfg.zither * 1.2, -0.2, Math.random() < 0.15);
         pluck(f, at);
         if (n.len === 0.5 && st.phrase.length) pluck(freq(m, st.phrase.shift().step), at + beat / 2);
       }
-      if (!st.phrase.length) st.rest = 2 + Math.floor(Math.random() * 4) + (st.night ? cfg.night_rest : 0);
-    } else if (--st.rest <= 0) st.phrase = makePhrase();
+      if (!st.phrase.length) { st.rest = 2 + Math.floor(Math.random() * 4) + (st.night ? cfg.night_rest : 0) - (st.k > 0.5 ? 1 : 0); }
+    } else if (--st.rest <= 0) { st.phrase = makePhrase(); st.erhu = m.mood === 'toi' && Math.random() < (cfg.erhu_p ?? 0.4); }
   }
 
   function stop() {
@@ -135,6 +181,7 @@ export function createMusic(ac, out, noise, cfg) {
   return {
     rain,
     night(on) { st.night = on; },
+    combat(k) { st.want = Math.max(0, Math.min(1, k)); },
     play(id) {
       if (id === st.id && st.timer) return;
       stop();

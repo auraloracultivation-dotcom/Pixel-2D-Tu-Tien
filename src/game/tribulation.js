@@ -100,7 +100,7 @@ export function createTribulation(game) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
       game.flashT = 0.35;
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 70, color: '#fff7d6', life: 1.2, fill: true });
-      game.sfx('levelup'); game.screen.shake(6, 0.6);
+      game.sfx('breakthrough'); game.screen.shake(6, 0.6);
       game.toast(`Độ kiếp thành công! ${realmLabel(s, game.data.realms)}`, 3);
       game.checkUnlocks();
       game.story.notify('realm');

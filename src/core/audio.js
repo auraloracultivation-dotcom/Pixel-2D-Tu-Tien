@@ -1,11 +1,13 @@
-// Âm thanh tổng hợp bằng WebAudio theo data/sounds.json: tiếng hiệu ứng; nhạc nền ở music.js.
-// Trình duyệt chỉ cho phát tiếng sau lần chạm đầu tiên, nên khởi động âm thanh lúc đó.
+// Âm thanh tổng hợp theo data/sounds.json: tiếng hiệu ứng (dựng bằng src/core/synth.js thành buffer, lần đầu phát mới dựng),
+// nhạc nền ở music.js. Trình duyệt chỉ cho phát tiếng sau lần chạm đầu tiên, nên khởi động âm thanh lúc đó.
 import { createMusic } from './music.js';
+import { renderSfx } from './synth.js';
 
 const MUTE_KEY = 'p2d.mute';
 
 export function createAudio(cfg) {
-  let ac = null, sfxGain = null, musicGain = null, noise = null;
+  let ac = null, sfxGain = null, musicGain = null, noise = null, sfxVerb = null;
+  const bufs = new Map();   // tiếng đã dựng
   let muted = false;
   try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch { /* không có bộ nhớ: mặc định bật tiếng */ }
   const lastPlay = {};
@@ -20,6 +22,12 @@ export function createAudio(cfg) {
     sfxGain = ac.createGain(); sfxGain.gain.value = cfg.volume.sfx; sfxGain.connect(master);
     musicGain = ac.createGain(); musicGain.gain.value = cfg.volume.music; musicGain.connect(master);
     api.master = master;
+    // phòng vang nhẹ cho tiếng hiệu ứng (rec.rev: phần gửi vào vang), ngắn hơn vang của nhạc
+    const len = Math.floor(ac.sampleRate * 1.4), ir = ac.createBuffer(2, len, ac.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 4); }
+    sfxVerb = ac.createConvolver(); sfxVerb.buffer = ir; sfxVerb.connect(sfxGain);
+    bufs.clear();
+    setTimeout(() => { for (const k of cfg.warm || []) buf(k); }, 50);   // dựng sẵn tiếng hay dùng (đánh, trúng, nhặt) cho lần đầu khỏi trễ
     noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
     const d = noise.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -58,33 +66,32 @@ export function createAudio(cfg) {
   for (const ev of ['pointerdown', 'touchend', 'keydown']) window.addEventListener(ev, wake, { capture: true });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && ac) wake(); });
 
-  function tone(n, at, out) {
-    const t0 = at + (n.t || 0), t1 = t0 + n.d;
-    let src;
-    if (n.wave === 'noise') { src = ac.createBufferSource(); src.buffer = noise; }
-    else {
-      src = ac.createOscillator(); src.type = n.wave;
-      src.frequency.setValueAtTime(n.f, t0);
-      if (n.f2) src.frequency.exponentialRampToValueAtTime(n.f2, t1);
-    }
-    const g = ac.createGain();
-    g.gain.setValueAtTime(0.0001, t0);
-    g.gain.exponentialRampToValueAtTime(n.v, t0 + Math.min(0.01, n.d / 4));
-    g.gain.exponentialRampToValueAtTime(0.0001, t1);
-    let node = src;
-    if (n.q) { const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = n.q; node.connect(f); node = f; }
-    node.connect(g); g.connect(out);
-    src.start(t0); src.stop(t1 + 0.02);
+  function buf(name) {
+    if (bufs.has(name)) return bufs.get(name);
+    const rec = cfg.sfx[name];
+    if (!rec || !ac) return null;
+    const d = renderSfx(rec, ac.sampleRate, name.length * 7919 + 1), b = ac.createBuffer(1, d.length, ac.sampleRate);
+    b.getChannelData(0).set(d); bufs.set(name, b);
+    return b;
   }
 
+  // vol: nhân âm lượng; rec.gap: tối thiểu giây giữa hai lần cùng tiếng (trúng nhiều quái một lúc), rec.jit: lệch cao độ ngẫu nhiên (cung)
   function play(name, vol = 1) {
     if (!ac || muted) return;
-    const now = ac.currentTime;
-    if (lastPlay[name] && now - lastPlay[name] < 0.045) return; // tránh chồng tiếng khi trúng nhiều quái
+    const rec = cfg.sfx[name], now = ac.currentTime;
+    if (!rec) return;
+    if (lastPlay[name] && now - lastPlay[name] < (rec.gap ?? 0.045)) return;
     lastPlay[name] = now;
-    const notes = cfg.sfx[name];
-    if (!notes) return;
-    for (const n of notes) tone(vol === 1 ? n : { ...n, v: n.v * vol }, now, sfxGain);
+    const b = buf(name);
+    if (!b) return;
+    const s = ac.createBufferSource(), g = ac.createGain();
+    s.buffer = b; s.playbackRate.value = Math.pow(2, ((Math.random() * 2 - 1) * (rec.jit ?? 0)) / 12);
+    g.gain.value = vol * (rec.gain ?? 1);
+    let node = g;
+    if (ac.createStereoPanner && rec.pan !== 0) { const p = ac.createStereoPanner(); p.pan.value = (Math.random() * 2 - 1) * (rec.pan ?? 0.15); g.connect(p); node = p; }
+    s.connect(g); node.connect(sfxGain);
+    if (rec.rev) { const r = ac.createGain(); r.gain.value = rec.rev; node.connect(r); r.connect(sfxVerb); }
+    s.start(now);
   }
 
   const api = {
@@ -92,6 +99,7 @@ export function createAudio(cfg) {
     music: id => { want = id; music?.play(id); },
     rain: on => { if (on === wantRain) return; wantRain = on; music?.rain(on); },
     night: on => { wantNight = on; music?.night(on); },
+    combat: k => music?.combat?.(k),   // 0 yên … 1 đánh dữ: lớp trống nhạc nền (music.js)
     get muted() { return muted; },
     toggle() {
       muted = !muted;

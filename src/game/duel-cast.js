@@ -8,8 +8,8 @@ import { skillMul } from './skill-level.js';
 import { segDist } from './skills.js';
 import { weaponSlash } from './slash-fx.js';
 import { vfxOf, vfxCast } from './vfx.js';
+import { castSfx } from './skill-sfx.js';
 
-const SFX = { projectile: 'shoot', multi: 'shoot', aoe: 'boom', zone: 'boom', heal: 'heal', shield: 'shield', buff: 'shield', dash: 'dash' };
 
 // Sát thương bản sao gây ra: bạo kích (đòn của chính nó; linh thú, đồng hành không bạo như của người chơi), tăng lực, ±10%
 export function roll(m, dmg, canCrit = true) {
@@ -89,7 +89,7 @@ export function castFoe(game, m, id) {
   const atk = m.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
   const fx = m.face.x, fy = m.face.y, base = Math.atan2(fy, fx), V = vfxOf(game, id);   // V: hiệu ứng mới như người chơi (src/game/vfx.js)
   // dùng chiêu không ra động tác đánh (chủ dự án 05/11/2026)
-  game.sfx(SFX[s.type], 0.7);
+  castSfx(game, s, 0.7);
   switch (s.type) {
     case 'projectile': bullet(game, m, s, base, atk * s.mult, id); if (V) vfxCast(game, id, s, m); break;
     case 'multi': {
