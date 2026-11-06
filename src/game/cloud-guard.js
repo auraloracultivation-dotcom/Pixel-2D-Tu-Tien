@@ -6,9 +6,11 @@
 //   cảnh giới, tầng, linh khí lấy đúng số máy chủ; Linh Thạch, nguyên liệu trừ phần lố; tháp về tầng máy chủ cho;
 //   món máy chủ trả về (sua.mon) thay món cùng uid trong túi; món mới máy chủ không nhận (sua.roi) bỏ khỏi túi.
 // - pickSave: chọn bản trong máy hay bản máy chủ lúc vào game, không để máy cũ đè máy mới.
-// - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ.
+// - startGuard: giấu số và đặt bẫy sửa bộ nhớ (src/core/guard.js), kiểm tra định kỳ; có bản game mới thì lưu rồi tự tải lại
+//   (src/net/ban-moi.js, guard.ban_moi).
 import { guardSave, checkGuard } from '../core/guard.js';
 import { applyThu, thuQuiet } from './ky-thu.js';
+import { watchBuild } from '../net/ban-moi.js';
 
 const fin = v => typeof v === 'number' && Number.isFinite(v);
 
@@ -101,4 +103,5 @@ export function startGuard(game) {
   if (!G) return;
   guardSave(game.save, G);
   timer ||= setInterval(() => { if (game.save) checkGuard(game.save, G); }, G.check_ms || 3000);
+  watchBuild(G.ban_moi, { toast: (t, sec) => game.toast?.(t, sec), flush: () => game.cloud?.flush?.() });
 }
