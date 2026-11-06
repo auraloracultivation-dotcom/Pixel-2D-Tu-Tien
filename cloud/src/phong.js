@@ -4,6 +4,7 @@
 // Mọi thứ ở đây chỉ để hiển thị (vị trí, hồ sơ, chào hỏi, hiệu ứng chiêu); đồ, Linh Thạch, sát thương vẫn do Supabase kiểm.
 import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
+import { pvpToggle, pvpHit } from './pvp.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -55,7 +56,7 @@ export class Phong extends DurableObject {
     if (!msg || typeof msg !== 'object') return;
     switch (msg.t) {
       case 'p': {   // hồ sơ hiển thị (tên, cảnh giới, hình dáng, thời trang, thú cưỡi, linh thú)
-        a.p = cleanProf(msg.p); if (a.nm) a.p.name = a.nm;   // tên thật từ Supabase khi có (không cho giả tên người khác)
+        a.p = cleanProf(msg.p); if (a.nm) a.p.name = a.nm; a.p.pk = a.pk ? 1 : 0;   // trạng thái bảo vệ do phòng giữ (src/pvp.js)   // tên thật từ Supabase khi có (không cho giả tên người khác)
         ws.serializeAttachment(a);
         this.others(ws, { t: 'j', u: { id: a.id, joined: a.at, ...a.p } });
         break;
@@ -63,6 +64,8 @@ export class Phong extends DurableObject {
       case 'm': { const mv = cleanMove(msg); if (mv) { this.pos.set(a.id, mv); this.moves.set(a.id, mv); this.later(); } break; }
       case 's': { const s = cleanSay(msg); if (s) { this.says.push([a.id, s]); this.later(); } break; }
       case 'k': { const c = cleanCast(msg); if (c) { this.casts.push([a.id, c]); this.later(); } break; }
+      case 'bv': { if (a.kind === 'dao') pvpToggle(this, ws, a, !!msg.off); break; }   // PvP Ngoại Vực: tắt / bật bảo vệ (src/pvp.js)
+      case 'h': { if (a.kind === 'dao') await pvpHit(this, ws, a, msg.to); break; }
       case 'd': { if (a.kind === 'dao') this.bossHit(ws, a, msg.n); break; }   // sát thương lên Cửu Đầu Thôn Thiên Mãng (src/mang.js)
       case 'r': {   // tổ đội: chuyển tiếp ngay nguyên gói cho người khác trong đội
         if (a.kind === 'to' && msg.d && typeof msg.d === 'object') this.others(ws, { t: 'r', from: a.id, d: msg.d });
@@ -83,6 +86,11 @@ export class Phong extends DurableObject {
     if (this.ctx.getWebSockets(a.id).some(w => w !== ws && w.readyState === 1)) return;
     this.pos.delete(a.id); this.moves.delete(a.id);
     this.others(ws, { t: 'l', id: a.id });
+  }
+
+  all(obj) {
+    const s = JSON.stringify(obj);
+    for (const ws of this.ctx.getWebSockets()) if (ws.readyState === 1) { try { ws.send(s); } catch { /* đang đóng */ } }
   }
 
   others(from, obj) {

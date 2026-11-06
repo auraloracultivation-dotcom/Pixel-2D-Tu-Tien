@@ -9,6 +9,10 @@ import { DurableObject } from 'cloudflare:workers';
 import { FARM_LT_S, LT_MULT } from './mang-cfg.js';
 
 const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 300000, PAY_MAX = 20000;
+const sign = async (khoa, msg) => {
+  const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg)));
+};
 const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
 
 export class Mang extends DurableObject {
@@ -68,8 +72,7 @@ export class Mang extends DurableObject {
     const khoa = await this.khoa();
     if (!khoa) return;
     const ts = Date.now(), ds = JSON.stringify(rows);
-    const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-    const ky = hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(`${ts}.${ds}`)));
+    const ky = await sign(khoa, `${ts}.${ds}`);
     const r = await this.rpc('p2d_mang_thuong', { p_ts: ts, p_ds: ds, p_ky: ky });
     if (!r.ok) { console.log('mang_thuong', r.status, await r.text().catch(() => '')); return; }
     for (const { u, lt } of rows) {
@@ -99,6 +102,17 @@ export class Mang extends DurableObject {
   async vanTay() {   // gọi ngay sau khi triển khai: sinh và đăng ký khoá luôn, khỏi để trống chỗ cho kẻ khác chiếm
     const k = this.env.SUPABASE_URL ? await this.khoa() : await this.ctx.storage.get('khoa');
     return k ? hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(k))) : null;
+  }
+
+  // PvP Ngoại Vực (src/pvp.js): báo Supabase một lần hạ, ký bằng cùng khoá; true khi Supabase ghi nợ (cùng cặp trong 1 giờ thì không)
+  async pvp(ke, nan) {
+    if (!this.env.SUPABASE_URL || typeof ke !== 'string' || typeof nan !== 'string') return false;
+    const khoa = await this.khoa();
+    if (!khoa) return false;
+    const ts = Date.now(), ds = JSON.stringify({ k: ke, v: nan });
+    const r = await this.rpc('p2d_pvp_ghi', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
+    if (!r.ok) { console.log('pvp_ghi', r.status, await r.text().catch(() => '')); return false; }
+    return (await r.json().catch(() => false)) === true;
   }
 
   rpc(fn, body) {

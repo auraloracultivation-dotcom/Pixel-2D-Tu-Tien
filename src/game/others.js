@@ -46,7 +46,7 @@ export function createOthers(game) {
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
         const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
         o.def = { name: cleanText(game, e.name) };
-        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount;
+        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk;
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);

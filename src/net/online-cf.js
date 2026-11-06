@@ -25,6 +25,10 @@ export function createOnline(me, handlers, opts = {}) {
     } else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, { ...people.get(m.u.id), ...m.u }); push(); }
     else if (m.t === 'l' && people.delete(m.id)) push();
     else if (m.t === 'bx') handlers.onBoss?.(m);   // bảng sát thương boss thế giới (cloud/src/mang.js)
+    else if (m.t === 'pk' || m.t === 'ph' || m.t === 'pd' || m.t === 'pe') {   // PvP Ngoại Vực (cloud/src/pvp.js)
+      if (m.t === 'pk' && people.has(m.id)) { people.get(m.id).pk = m.on; push(); }
+      handlers.onPvp?.(m);
+    }
   }
 
   async function leave() {
@@ -56,9 +60,11 @@ export function createOnline(me, handlers, opts = {}) {
   function say(body) { conn?.send({ t: 's', ...body }); }
   function cast(c) { conn?.send({ t: 'k', ...c }); }
   function bossDmg(n) { conn?.send({ t: 'd', n }); }
+  function pvpOff(off) { if (!conn?.ready()) return false; conn.send({ t: 'bv', off: !!off }); return true; }
+  function pvpHit(to) { conn?.send({ t: 'h', to }); }
   function rename(name) { me.name = name; conn?.send({ t: 'p', p: { name, ...prof } }); }
   function setProfile(p) { prof = { ...prof, ...p }; conn?.send({ t: 'p', p: { name: me.name, ...prof } }); }
   const line = () => conn?.line() || 0;
 
-  return { me, join, leave, send, say, cast, bossDmg, rename, setProfile, line };
+  return { me, join, leave, send, say, cast, bossDmg, pvpOff, pvpHit, rename, setProfile, line };
 }

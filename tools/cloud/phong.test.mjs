@@ -9,6 +9,7 @@ const root = resolve(import.meta.dirname, '../../cloud/src');
 const dir = mkdtempSync(join(tmpdir(), 'phong-'));
 writeFileSync(join(dir, 'proto.js'), readFileSync(join(root, 'proto.js'), 'utf8'));
 writeFileSync(join(dir, 'mang-cfg.js'), readFileSync(join(root, 'mang-cfg.js'), 'utf8'));
+writeFileSync(join(dir, 'pvp.js'), readFileSync(join(root, 'pvp.js'), 'utf8'));
 const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
 writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
 writeFileSync(join(dir, 'mang.js'), readFileSync(join(root, 'mang.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
@@ -202,4 +203,55 @@ console.log('phong.test: ok');
   assert.equal(calls.filter(c => c.url.endsWith('dang_ky')).length, 1);   // không đăng ký lại
   assert.equal(calls.length, n0);   // hết nợ: không gửi
   console.log('mang.test: ok');
+}
+
+// PvP Ngoại Vực: chỉ khi cả hai tắt bảo vệ, trong tầm, máy chủ tính máu theo lực chiến; gục thì Mang báo Supabase
+{
+  const C = await import(join(dir, 'mang-cfg.js'));
+  const PV = JSON.parse(readFileSync(resolve(root, '../../data/pvp.json'), 'utf8'));
+  assert.deepEqual(C.PVP, PV.server, 'mang-cfg.js PVP lệch data/pvp.json server');
+  const D0 = Date.now; let T = 1e12; Date.now = () => T;
+  const ctx3 = { list: [], setWebSocketAutoResponse() {}, acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
+    getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
+  const kills = [];
+  const env3 = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v) => { kills.push([k, v]); return true; } }) } };
+  const r3 = new Phong(ctx3, env3);
+  const hh = (uid, pw, map = C.PVP.map) => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', map], ['x-name', encodeURIComponent('N' + uid)], ['x-power', String(pw)], ['x-co', '0']]);
+  await r3.fetch({ headers: hh('k1', 10000) }); const k1 = ctx3.list.at(-1);
+  await r3.fetch({ headers: hh('v1', 100) }); const v1 = ctx3.list.at(-1);
+  const m3 = (w, o) => r3.webSocketMessage(w, JSON.stringify(o));
+  await m3(k1, { t: 'm', x: 100, y: 100 }); await m3(v1, { t: 'm', x: 150, y: 100 });
+  await m3(k1, { t: 'bv', off: true });
+  assert.deepEqual(v1.out.at(-1), { t: 'pk', id: 'k1', on: 1 });
+  await m3(k1, { t: 'h', to: 'v1' });   // người kia còn bảo vệ: không trúng
+  assert.ok(!v1.out.some(o => o.t === 'ph' || o.t === 'pd'));
+  await m3(v1, { t: 'bv', off: true });
+  await m3(v1, { t: 'm', x: 900, y: 100 }); T += 1000;
+  await m3(k1, { t: 'h', to: 'v1' });   // ngoài tầm
+  assert.ok(!v1.out.some(o => o.t === 'ph'));
+  await m3(v1, { t: 'm', x: 150, y: 100 }); T += 1000;
+  await m3(k1, { t: 'h', to: 'v1' });   // 10000 × 0,1 × 1 giây = 1000 ≥ máu 100 × 2 → gục
+  const pd = v1.out.find(o => o.t === 'pd');
+  assert.ok(pd && pd.to === 'v1' && pd.from === 'k1' && pd.loot === 1, JSON.stringify(v1.out.slice(-3)));
+  assert.deepEqual(kills, [['k1', 'v1']]);
+  assert.equal(v1.deserializeAttachment().pk, false);   // gục: bảo vệ bật lại
+  await m3(v1, { t: 'bv', off: true });
+  assert.equal(v1.out.at(-1).e, 'immune');
+  // người yếu đánh người mạnh: trúng nhưng không chết ngay; vừa giao chiến thì chưa bật lại bảo vệ được
+  T += C.PVP.immune_s * 1000 + 1;
+  await m3(v1, { t: 'bv', off: true }); T += 1000;
+  await m3(v1, { t: 'h', to: 'k1' });
+  const ph = k1.out.filter(o => o.t === 'ph').at(-1);
+  assert.ok(ph && ph.to === 'k1' && ph.r > 0.99, JSON.stringify(ph));
+  const nph = k1.out.filter(o => o.t === 'ph').length;
+  await m3(v1, { t: 'h', to: 'k1' });   // nhịp quá nhanh: bỏ
+  assert.equal(k1.out.filter(o => o.t === 'ph').length, nph);
+  await m3(v1, { t: 'bv', off: false });
+  assert.equal(v1.out.at(-1).e, 'lock');
+  // bản đồ khác: không tắt bảo vệ được
+  await r3.fetch({ headers: hh('z1', 100, 'thanh-khe') }); const z1 = ctx3.list.at(-1);
+  await m3(z1, { t: 'bv', off: true });
+  assert.equal(z1.out.at(-1).e, 'map');
+  Date.now = D0;
+  console.log('pvp.test: ok');
 }
