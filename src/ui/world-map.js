@@ -78,7 +78,7 @@ export function createWorldMap(game) {
 
   // Thẻ Cửu Đầu Thôn Thiên Mãng (chạm con rắn lượn ngoài kết giới): đang mở thì nút Bay tới ra vùng không gian (game/thien-mang.js)
   function mangCard(box) {
-    const c = data['thien-mang'], T = c.text, on = c.on !== false;
+    const c = data['thien-mang'], T = c.text, on = c.on !== false && game.mang?.board?.mo !== 0;   // máy chủ báo đã tắt thì cũng khoá nút
     box.append(el('b', null, c.name), el('small', null, T.boss_kind || ''), el('p', null, on ? T.enter_ask : T.closed));
     const why = on ? (game.map.id === c.arena?.map ? sm.texts.here : blocked()) : T.closed;
     const go = el('button', 'wc-go', why || T.enter);
