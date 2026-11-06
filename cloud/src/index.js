@@ -21,7 +21,7 @@ export default {
     const protos = (req.headers.get('Sec-WebSocket-Protocol') || '').split(',').map(s => s.trim());
     if (protos[0] !== 'p2d') return text('giao thức', 400);
     // DEV_NO_AUTH chỉ đặt khi chạy thử trên máy (wrangler dev --var DEV_NO_AUTH:1), không bao giờ có trong wrangler.jsonc
-    const uid = env.DEV_NO_AUTH === '1' ? url.searchParams.get('dev_uid') : await verifyToken(protos[1], env.SUPABASE_URL);
+    const uid = env.DEV_NO_AUTH === '1' ? url.searchParams.get('dev_uid') : await verifyToken(protos[1], env.SUPABASE_URL, env.SUPABASE_KEY);
     if (!uid) return text('chưa đăng nhập', 401);
     const stub = env.PHONG.get(env.PHONG.idFromName(room.name));
     const headers = new Headers(req.headers);

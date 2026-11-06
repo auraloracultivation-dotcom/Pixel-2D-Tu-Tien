@@ -21,20 +21,30 @@ async function keys(url, force) {
 }
 
 // Trả về mã tài khoản (sub) nếu vé hợp lệ, không thì null
-export async function verifyToken(token, url) {
+export async function verifyToken(token, url, key) {
   try {
     const [h, p, s] = String(token || '').split('.');
     if (!h || !p || !s) return null;
     const head = json(h), body = json(p);
-    if (head.alg !== 'ES256') return null;
+    if (head.alg !== 'ES256') return key ? await askSupabase(token, url, key) : null;   // vé kiểu cũ (HS256): hỏi Supabase
     let ks = await keys(url, false);
     if (!ks[head.kid]) ks = await keys(url, true);   // khoá mới vừa xoay vòng
-    const key = ks[head.kid];
-    if (!key) return null;
-    const ok = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, b64u(s), enc.encode(`${h}.${p}`));
+    const pub = ks[head.kid];
+    if (!pub) return null;
+    const ok = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, pub, b64u(s), enc.encode(`${h}.${p}`));
     if (!ok) return null;
     const now = Date.now() / 1000;
     if (!(body.exp > now - 30) || body.iss !== `${url}/auth/v1` || body.role !== 'authenticated' || typeof body.sub !== 'string') return null;
     return body.sub;
+  } catch { return null; }
+}
+
+// Dự phòng: hỏi Supabase vé còn hợp lệ không (khoá publishable là khoá công khai, như trong máy khách)
+async function askSupabase(token, url, key) {
+  try {
+    const r = await fetch(`${url}/auth/v1/user`, { headers: { apikey: key, Authorization: `Bearer ${token}` } });
+    if (!r.ok) return null;
+    const u = await r.json();
+    return typeof u?.id === 'string' && !u.banned_until ? u.id : null;
   } catch { return null; }
 }
