@@ -88,6 +88,7 @@ Bản chơi tạm hiện vẽ hình khối đơn giản. Khi sang bước 3, hì
 - 31/10/2026: Đại Ma Thần (`npc.dai-ma-than`, Đài Ma Thần ở Thiên Kiếm Phong) có hình Canva chibi 5 dáng theo yêu cầu chủ dự án. Bản đầu tỉ lệ người thật, đầu nhỏ, bị chê "như người tí hon": nhân vật luôn là chibi đầu to (khoảng 2,5 đầu), cùng kiểu NPC; cao 52.
 - 01/11/2026: thú cưỡi chạy bằng 3 khung phi (bỏ khung đứng lặp ở đầu chuỗi bước, `walk: [2,3,4,3]`), người cưỡi nhún theo nhịp. Trước đó chuỗi bước có khung đứng nên trông như trượt, chân không chạy.
 - 01/11/2026: bay giữa tinh cầu bằng thú cưỡi: thú giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió cùng người cưỡi, vệt gió và đốm linh khí màu linh căn kéo sau lưng (`windTrail` trong `src/render/flight.js`). Trước đó thú chạy bước trên không trung.
+- 06/11/2026: biểu cảm Hệ Thống Tu Tiên (khối tinh thể lục giác có màn hình mặt, hai tay bay, vòng phù văn vàng): 3 tấm ảnh GPT chủ dự án tạo (`nguon/ai/he-thong/`: 16 biểu cảm, chuỗi 9 khung khen, chuỗi 9 khung vung nắm đấm), `tools/art/he_thong_mat.py` cắt ô theo khe trống, bỏ viền nhoè, phóng các tấm cho thân bằng nhau, thu về cao 64 (màu đa số, 24 màu, viền mực) thành dải `assets/art/he-thong/mat.png` 34 khung 74×64. Game hiện ở biểu tượng Hệ, đầu bảng, ô lời hệ thống (`src/ui/he-thong-mat.js`, sự việc → biểu cảm ở `data/he-thong.json` → `mat.ev`).
 
 ## Đồ lễ hội từ ảnh GPT (02/11/2026)
 

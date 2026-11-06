@@ -1140,5 +1140,125 @@
   "locked": "Làm xong hết nhiệm vụ hệ thống thì mở nhiệm vụ ngày: mỗi ngày đủ điểm triệu hồi một lần.",
   "done": "Hôm nay xong hết rồi. Mai quay lại, bổn hệ thống lại giao việc.",
   "xong": "Đinh! Việc ngày hoàn thành. Chăm chỉ thế này thì bổn hệ thống cũng nở mày nở mặt."
+ },
+ "mat": {
+  "_note": "Biểu cảm Hệ Thống (chủ dự án 06/11/2026 19:03: ảnh GPT chủ dự án tạo, Claude phụ trách). Dải khung src (tools/art/he_thong_mat.py cắt từ tools/art/nguon/ai/he-thong/), mỗi khung w×h, thứ tự frames. anim: chuỗi khung chạy mỗi ms. ev: sự việc → biểu cảm (danh sách thì bốc ngẫu nhiên; \"chuỗi>biểu cảm\" chạy chuỗi rồi đứng ở biểu cảm đó). src/ui/he-thong-mat.js.",
+  "src": "assets/art/he-thong/mat.png",
+  "w": 74,
+  "h": 64,
+  "frames": [
+   "thuong",
+   "dinh",
+   "kieu",
+   "le-luoi",
+   "cuoi-lan",
+   "nhech",
+   "vo-tay",
+   "om-mat",
+   "gian",
+   "soc",
+   "khoc-gia",
+   "ngap",
+   "nhay-mat",
+   "phan-khich",
+   "nguong",
+   "muu-mo",
+   "khen-0",
+   "khen-1",
+   "khen-2",
+   "khen-3",
+   "khen-4",
+   "khen-5",
+   "khen-6",
+   "khen-7",
+   "khen-8",
+   "dam-0",
+   "dam-1",
+   "dam-2",
+   "dam-3",
+   "dam-4",
+   "dam-5",
+   "dam-6",
+   "dam-7",
+   "dam-8"
+  ],
+  "ms": 110,
+  "anim": {
+   "khen": [
+    "khen-0",
+    "khen-1",
+    "khen-2",
+    "khen-3",
+    "khen-4",
+    "khen-5",
+    "khen-6",
+    "khen-7",
+    "khen-8"
+   ],
+   "dam": [
+    "dam-0",
+    "dam-1",
+    "dam-2",
+    "dam-3",
+    "dam-4",
+    "dam-5",
+    "dam-4",
+    "dam-3",
+    "dam-2",
+    "dam-1",
+    "dam-6",
+    "dam-7",
+    "dam-8"
+   ]
+  },
+  "ev": {
+   "intro": "dinh",
+   "intro_old": "kieu",
+   "xong": [
+    "khen>nhay-mat",
+    "phan-khich",
+    "khen>kieu"
+   ],
+   "sai": [
+    "le-luoi",
+    "cuoi-lan",
+    "nhech",
+    "dam>le-luoi",
+    "vo-tay"
+   ],
+   "trieu": [
+    "nhech",
+    "kieu",
+    "vo-tay",
+    "muu-mo"
+   ],
+   "trieu_kha": "phan-khich",
+   "hiem": "soc",
+   "thieu_diem": "khoc-gia",
+   "loi": "gian",
+   "nudge_claim": "dinh",
+   "nudge_idle": [
+    "ngap",
+    "vo-tay"
+   ],
+   "nudge_death": "om-mat",
+   "nudge_step": "dinh",
+   "ambient": [
+    "dam>thuong",
+    "khen>thuong",
+    "nhay-mat",
+    "kieu",
+    "muu-mo",
+    "nguong"
+   ],
+   "ask_ok": "nhay-mat",
+   "ask_err": "khoc-gia"
+  },
+  "icon_k": 0.75,
+  "head_k": 0.75,
+  "ambient_s": [
+   25,
+   45
+  ]
  }
 }

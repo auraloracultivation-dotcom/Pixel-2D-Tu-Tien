@@ -7,6 +7,7 @@ import { every } from '../core/ticker.js';
 import { needIntro, doneIntro, htTick, missionList } from '../game/he-thong.js';
 import { renderTasks } from './he-thong-nv.js';
 import { renderGacha } from './he-thong-qua.js';
+import { createFace } from './he-thong-mat.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -40,12 +41,15 @@ export function createHeThong(game) {
 
   // Biểu tượng
   const ic = el('button', 'ht-icon'); ic.type = 'button'; ic.id = 'ht-icon'; ic.hidden = true; ic.title = C.name;
-  const cv = document.createElement('canvas'); cv.width = 88; cv.height = 88; ic.append(cv);
+  const cv = document.createElement('canvas'); cv.width = 88; cv.height = 88;
+  const MT = C.mat, icFace = createFace(game, MT?.icon_k || 0.75), headFace = createFace(game, MT?.head_k || 0.75), bigFace = createFace(game, MT?.big_k || 1);   // biểu cảm (he-thong-mat.js); chưa có hình thì vẽ tinh thể
+  if (MT) { ic.append(icFace.node); ic.classList.add('has-face'); } else ic.append(cv);
+  game.htFace = { react: (ev, then) => { headFace.react(ev, then); icFace.react(ev, then); bigFace.react(ev, then); } };
   const tip = el('div', 'ht-tip'); tip.hidden = true;
   // Bảng
   const back = el('div', 'ht-back'); back.hidden = true;
   const box = el('div', 'ht-box'), head = el('div', 'ht-head'), body = el('div', 'ht-body'), tabs = el('div', 'ht-tabs'), hint = el('div', 'ht-hint', C.close_hint);
-  head.append(el('span', 'ht-dot'), el('b', null, C.name));
+  head.append(MT ? headFace.node : el('span', 'ht-dot'), el('b', null, C.name));
   box.append(head, tabs, body, hint); back.append(box);
   document.body.append(back, ic, tip);
 
@@ -70,7 +74,7 @@ export function createHeThong(game) {
   }
   function render() {
     tabBar(); body.textContent = '';
-    if (tab === 'task') renderTasks(game, body, { ht, say, setHt: (h, line) => { ht = h; say = line || say; render(); }, render, minimize });
+    if (tab === 'task') renderTasks(game, body, { ht, say, face: MT ? bigFace : null, setHt: (h, line) => { ht = h; say = line || say; render(); }, render, minimize });
     else if (tab === 'gacha') {
       renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; render(); });
     } else if (tab === 'faq') {
@@ -91,8 +95,8 @@ export function createHeThong(game) {
         const q = ta.value.trim();
         if (q.length < 4) { game.toast(C.ask_err.ngan, 1.6); return; }
         send.disabled = true;
-        try { const N = await import('../net/he-thong.js'); await N.askSystem(q, game.save?.step); ta.value = ''; game.toast(C.ask_ok, 2); mine = null; render(); }
-        catch (e) { const m = String(e?.message || ''); game.toast(C.ask_err[Object.keys(C.ask_err).find(k => m.includes(k))] || (game.cloud ? C.ask_err.other : C.ask_err.chua_dang_nhap), 2.2); }
+        try { const N = await import('../net/he-thong.js'); await N.askSystem(q, game.save?.step); ta.value = ''; game.toast(C.ask_ok, 2); game.htFace?.react('ask_ok'); mine = null; render(); }
+        catch (e) { const m = String(e?.message || ''); game.htFace?.react('ask_err'); game.toast(C.ask_err[Object.keys(C.ask_err).find(k => m.includes(k))] || (game.cloud ? C.ask_err.other : C.ask_err.chua_dang_nhap), 2.2); }
         finally { send.disabled = false; }
       };
       body.append(ta, send);
@@ -113,7 +117,7 @@ export function createHeThong(game) {
   function show(intro) {
     if (open) return;
     open = true; back.hidden = false; game.uiOpen = game.uiOpen || 'he-thong'; loadHt();
-    if (intro) { tab = 'task'; typeIntro(intro); } else render();
+    if (intro) { tab = 'task'; typeIntro(intro); headFace.react(intro === 'new' ? 'intro' : 'intro_old'); bigFace.react(intro === 'new' ? 'intro' : 'intro_old'); } else { render(); headFace.show(icFace.cur); }
     box.style.transition = 'none'; box.style.opacity = '0'; box.style.transform = fly();
     requestAnimationFrame(() => requestAnimationFrame(() => { box.style.transition = ''; box.style.opacity = '1'; box.style.transform = 'none'; }));
   }
@@ -128,6 +132,7 @@ export function createHeThong(game) {
   function typeIntro(kind) {
     tabs.textContent = ''; body.textContent = '';
     const lines = kind === 'new' ? C.intro : C.intro_old, wrap = el('div', 'ht-intro'); body.append(wrap);
+    if (MT) wrap.append(bigFace.node);
     let li = 0, ci = 0, p = null;
     typing = setInterval(() => {
       if (li >= lines.length) { clearInterval(typing); typing = null; doneIntro(game); setTimeout(() => { if (open) render(); }, 1600); return; }
@@ -136,17 +141,18 @@ export function createHeThong(game) {
       if (ci >= lines[li].length) { li++; ci = 0; p = null; }
     }, 30);
   }
-  function nudge(text) {
+  function nudge(text, kind) {
     tip.textContent = text; tip.hidden = false; ic.classList.add('wake'); game.sfx?.('pickup');
-    clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; ic.classList.remove('wake'); }, 7000);
+    icFace.react('nudge_' + (kind || 'step'));
+    clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; ic.classList.remove('wake'); icFace.show('thuong'); }, 7000);
   }
 
   // Chỗ biểu tượng: ngay bên phải nút pháp bảo (btn-art), không có thì bên phải nút chiêu thứ ba; sát mép phải thì lên trên
   function place() {
     const ref = [document.getElementById('btn-art'), document.getElementById('btn-s2')].find(e => e && !e.hidden && e.offsetParent);
-    const S = 44, W = window.innerWidth;
+    const S = ic.offsetWidth || 44, SH = ic.offsetHeight || 44, W = window.innerWidth;
     let x = W - S - 8, y = window.innerHeight * 0.5;
-    if (ref) { const r = ref.getBoundingClientRect(); x = r.right + 6; y = r.top + (r.height - S) / 2; if (x + S > W - 4) { x = r.left + (r.width - S) / 2; y = r.top - S - 8; } }
+    if (ref) { const r = ref.getBoundingClientRect(); x = r.right + 6; y = r.top + (r.height - SH) / 2; if (x + S > W - 4) { x = r.left + (r.width - S) / 2; y = r.top - SH - 8; } }
     ic.style.left = `${Math.round(x)}px`; ic.style.top = `${Math.round(y)}px`;
     tip.style.right = `${Math.round(W - x + 6)}px`; tip.style.top = `${Math.round(y)}px`;
   }
@@ -160,12 +166,14 @@ export function createHeThong(game) {
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);
-    if (say && !open) nudge(say);
+    if (say && !open) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
     // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
     if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
-    if (!say && !open && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim); }
+    if (!say && !open && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
+    // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
+    if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }
   }, 1000);
   const anim = t => { if (!ic.hidden) drawIcon(cv, C.icon, t / 1000); requestAnimationFrame(anim); };
-  requestAnimationFrame(anim);
+  if (!MT) requestAnimationFrame(anim);
   game.openHeThong = () => show();
 }
