@@ -1569,7 +1569,14 @@
   "ambient_s": [
    25,
    45
-  ]
+  ],
+  "ruong": {
+   "dong": "assets/art/he-thong/ruong-dong.png",
+   "mo": "assets/art/he-thong/ruong-mo.png",
+   "w": 71,
+   "h": 74,
+   "_note": "Rương triệu hồi (ảnh GPT chủ dự án tạo 06/11/2026 23:19, tools/art/he_thong_ruong.py), hiện phóng 1,7 lần."
+  }
  },
  "dao": {
   "_note": "Hệ Thống chạy lung tung trên màn hình như thú cưng tò mò (chủ dự án 06/11/2026 19:29): đi tới các nút trên màn hình, dừng lại ngó nghiêng (mat.ev.tim), lâu lâu lẩm bẩm. Đang nhắc việc hoặc mở bảng thì đứng yên. src/ui/he-thong-dao.js.",
