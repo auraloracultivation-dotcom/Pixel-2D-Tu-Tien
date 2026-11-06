@@ -1599,5 +1599,10 @@
    "btn-atk",
    "btn-dash"
   ]
+ },
+ "qua_dau": {
+  "_note": "Quà gặp mặt (chủ dự án 06/11/2026 22:59): ai mới chơi hoặc lần đầu gặp hệ thống được diem điểm, mỗi tài khoản một lần (máy chủ p2d_ht_qua_dau, cfg qua_dau).",
+  "diem": 1000,
+  "say": "Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!"
  }
 }

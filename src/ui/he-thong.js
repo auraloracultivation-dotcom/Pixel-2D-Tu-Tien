@@ -56,7 +56,22 @@ export function createHeThong(game) {
 
   let tab = 'task', open = false, typing = null, mine = null, ht = { diem: 0, xong: [], ngay_xong: [] }, say = '';
   const H = C, fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
-  async function loadHt() { if (!game.cloud) return; try { const N = await import('../net/he-thong.js'); ht = await N.htStatus(); if (open) render(); } catch { /* mạng lỗi */ } }
+  async function loadHt() {
+    if (!game.cloud) return;
+    try {
+      const N = await import('../net/he-thong.js'); ht = await N.htStatus();
+      if (!loadHt.qd) {   // quà gặp mặt (data/he-thong.json → qua_dau; chủ dự án 06/11/2026 22:59): mỗi tài khoản một lần, máy chủ giữ
+        loadHt.qd = true;
+        const w = await N.htWelcome().catch(() => null);
+        if (w?.them > 0) {
+          const line = fill(C.qua_dau.say, { p: w.them.toLocaleString('vi-VN') });
+          ht = { ...ht, diem: w.diem }; say = line; game.htFace?.react('xong'); game.sfx?.('levelup');
+          if (!open) nudge(line, 'claim');
+        }
+      }
+      if (open) render();
+    } catch { /* mạng lỗi */ }
+  }
   const stop = ev => ev.stopPropagation();
   [ic, tip, back].forEach(e => e.addEventListener('pointerdown', stop));
   box.addEventListener('click', stop);

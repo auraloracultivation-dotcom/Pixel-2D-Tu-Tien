@@ -17,4 +17,5 @@ export const htStatus = () => rpc('p2d_ht_trang_thai');
 export const htClaim = id => rpc('p2d_ht_nhan', { p_id: id });
 export const htSummon = () => rpc('p2d_ht_trieu');
 export const htAnswer = (id, chon) => rpc('p2d_ht_tra_loi', { p_id: id, p_chon: chon });
+export const htWelcome = () => rpc('p2d_ht_qua_dau');   // quà gặp mặt, mỗi tài khoản một lần
 export const htDaily = task => rpc('p2d_ht_ngay', { p_task: task });
