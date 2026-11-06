@@ -99,7 +99,8 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   // để 1m75 vẫn thấp hơn NPC một xíu dù làm tròn (lệch vài phần trăm, điểm ảnh gần như vẫn vuông)
   const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
   p.top = H.char_height * (look.cm || H.npc_cm) / H.npc_cm;   // cao thân (đơn vị bản đồ): danh hiệu đặt trên đầu theo số này
-  const n0 = want >= 0.75 ? Math.max(1, Math.round(want)) : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
+  // làm tròn lên mà to quá 15% (hình ít điểm ảnh, như Tử Linh Ma Yêu body 64 ở màn ~0.75) thì giữ đúng cỡ, vẽ có làm mịn (chủ dự án 06/11/2026 20:54: to hơn NPC)
+  const r0 = Math.max(1, Math.round(want)), n0 = want >= 0.75 && r0 <= want * 1.15 ? r0 : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
   ctx.save();
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
@@ -113,7 +114,7 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   }
   if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
-  ctx.imageSmoothingEnabled = n0 < 0.75;
+  ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
   if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);
