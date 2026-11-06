@@ -322,6 +322,7 @@
   "login": "Đăng nhập tài khoản để nhập mã.",
   "wait": "Đang kiểm tra…",
   "ok": "Nhận thành công +{n} điểm QTV!",
+  "ok_ht": "Nhận thành công +{n} điểm hệ thống! Mở Hệ Thống → Triệu hồi để dùng.",
   "sai_ma": "Mã không đúng.",
   "het_luot": "Mã này đã có người dùng.",
   "da_nhap": "Bạn đã nhập mã này rồi.",
