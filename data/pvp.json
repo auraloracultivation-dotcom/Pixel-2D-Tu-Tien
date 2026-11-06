@@ -1,5 +1,5 @@
 {
- "_note": "PvP (chủ dự án 06/11/2026 09:06, 09:37): chỉ ở Ngoại Vực Vết Nứt (server.map), chỉ khi cả hai đều tắt bảo vệ, chỉ tính khi đứng trong tầm (server.range đơn vị bản đồ = 10 ô). Ai cũng đánh được ai miễn tắt bảo vệ. Máy chủ phòng Cloudflare làm trọng tài (cloud/src/pvp.js, bản sao số ở cloud/src/mang-cfg.js PVP): máu PvP = max(lực chiến, pw_min) × hp_k, mỗi đòn = max(lực chiến người đánh, pw_min) × dps_k × giây từ đòn trước (tối đa dt_max, nhịp tối thiểu gap_s) → hai người ngang lực chiến hạ nhau trong khoảng hp_k/dps_k = 20 giây. regen_s giây không trúng đòn PvP thì máu PvP đầy lại. Bật lại bảo vệ phải chờ lock_s giây sau đòn PvP cuối. Gục: về điểm hồi sinh, bảo vệ bật lại, immune_s giây không tắt được. Rơi đồ (Supabase p2d_pvp_tra, migration 20261106020000): 10% Linh Thạch + 1 món ngẫu nhiên trong túi không đang mặc, hoặc 10% (ít nhất 1) của một loại nguyên liệu, gửi Hòm thư người hạ. Cùng một cặp chỉ tính một lần mỗi giờ; bên nào cờ đỏ thì đồ rơi bị huỷ.",
+ "_note": "PvP (chủ dự án 06/11/2026 09:06, 09:37): chỉ ở Ngoại Vực Vết Nứt (server.map), chỉ khi cả hai đều tắt bảo vệ, chỉ tính khi đứng trong tầm (server.range đơn vị bản đồ = 10 ô). Ai cũng đánh được ai miễn tắt bảo vệ. Máy chủ phòng Cloudflare làm trọng tài (cloud/src/pvp.js, bản sao số ở cloud/src/mang-cfg.js PVP): máu PvP = max(lực chiến, pw_min) × hp_k, mỗi đòn = max(lực chiến người đánh, pw_min) × dps_k × giây từ đòn trước (tối đa dt_max, nhịp tối thiểu gap_s) → hai người ngang lực chiến hạ nhau trong khoảng hp_k/dps_k = 20 giây. regen_s giây không trúng đòn PvP thì máu PvP đầy lại. Khiên (bảo vệ) chỉ bật lại khi chết hồi sinh (chủ dự án 06/11/2026 10:49); trạng thái khiên giữ ở lõi Mang theo tài khoản nên đổi tuyến, ra vào bản đồ không bật lại được. Khiên hiện và tắt được ở mọi nơi (chủ dự án 06/11/2026 10:56), nhưng chỉ Ngoại Vực đánh nhau được. Nút tắt khiên là biểu tượng ngay sau tên trên đầu nhân vật (src/ui/pvp-btn.js), có bảng xác nhận; người khác thấy 🛡/⚔ sau tên mình. Gục: về điểm hồi sinh, bảo vệ bật lại, immune_s giây không tắt được. Rơi đồ (Supabase p2d_pvp_tra, migration 20261106020000): 10% Linh Thạch + 1 món ngẫu nhiên trong túi không đang mặc, hoặc 10% (ít nhất 1) của một loại nguyên liệu, gửi Hòm thư người hạ. Cùng một cặp chỉ tính một lần mỗi giờ; bên nào cờ đỏ thì đồ rơi bị huỷ.",
  "server": {
   "map": "vet-nut-ngoai",
   "range": 160,
@@ -9,25 +9,28 @@
   "hp_k": 2,
   "pw_min": 100,
   "regen_s": 10,
-  "lock_s": 15,
   "immune_s": 10
  },
  "mail": {
   "pvp_ha": "Chiến lợi phẩm PvP"
  },
  "text": {
-  "on": "🛡 Bảo vệ: BẬT",
-  "off": "⚔ Bảo vệ: TẮT",
-  "turned_off": "Đã tắt bảo vệ: ai tắt bảo vệ ở Ngoại Vực đều đánh được bạn. Chết sẽ rơi 1 món trong túi và 10% Linh Thạch.",
-  "turned_on": "Đã bật bảo vệ.",
-  "lock": "Vừa giao chiến, {s} giây nữa mới bật lại bảo vệ được.",
-  "immune": "Vừa gục, {s} giây nữa mới tắt bảo vệ được.",
-  "map": "Chỉ tắt bảo vệ được ở Ngoại Vực Vết Nứt.",
+  "on": "Còn khiên: không ai đánh được bạn",
+  "off": "Đã tắt khiên: đánh và bị đánh được",
+  "turned_off": "Đã tắt khiên: ở Ngoại Vực Vết Nứt, ai tắt khiên đều đánh được bạn.",
+  "turned_on": "Khiên đã bật lại.",
+  "immune": "Vừa hồi sinh, {s} giây nữa mới tắt khiên được.",
+  "map": "Chỉ tắt khiên được ở Ngoại Vực Vết Nứt.",
   "offline": "Cần đăng nhập và có mạng để PvP.",
   "killed": "Bạn bị {name} hạ gục!",
   "lost": "Mất {lt} Linh Thạch{item}.",
   "lost_item": " và {name}",
   "kill": "Bạn hạ gục {name}!",
-  "saw_kill": "{a} hạ gục {b}"
+  "saw_kill": "{a} hạ gục {b}",
+  "ask": "Bạn có muốn tắt khiên không?",
+  "ask_note": "Tắt khiên thì người khác cũng tắt khiên đánh được bạn khi cả hai ở Ngoại Vực Vết Nứt (tinh cầu khác không đánh nhau được). Chết sẽ rơi 1 món trong túi (đồ đang mặc không mất) và 10% Linh Thạch. Khiên chỉ bật lại khi bạn chết và hồi sinh.",
+  "yes": "Tắt khiên",
+  "no": "Thôi",
+  "only_death": "Khiên chỉ bật lại khi bạn chết và hồi sinh."
  }
 }

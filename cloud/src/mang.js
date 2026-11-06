@@ -26,6 +26,7 @@ export class Mang extends DurableObject {
     this.seen = new Map();     // uid → lần đánh gần nhất (đếm người đang vây công)
     this.pend = new Map();     // uid → Linh Thạch chờ gửi
     this.sum = 0; this.payAt = 0; this.changed = false;
+    this.pk = new Map();       // uid → { off, immune } khiên PvP (src/pvp.js)
     ctx.blockConcurrencyWhile(async () => {
       const q = ctx.storage.sql;
       q.exec('CREATE TABLE IF NOT EXISTS anh (k TEXT PRIMARY KEY, j TEXT)');
@@ -35,6 +36,7 @@ export class Mang extends DurableObject {
         for (const [uid, name, v] of b.d || []) { this.tot.set(uid, { name, v }); this.sum += v; }
         for (const [uid, lt] of b.p || []) this.pend.set(uid, lt);
         this.payAt = b.at || 0;
+        for (const [uid, off, immune] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0 });
       } else {   // bản cũ lưu mỗi người một dòng (bảng dmg, pay): đọc một lần rồi chuyển sang một dòng
         q.exec('CREATE TABLE IF NOT EXISTS dmg (uid TEXT PRIMARY KEY, name TEXT, v REAL)');
         q.exec('CREATE TABLE IF NOT EXISTS pay (uid TEXT PRIMARY KEY, lt REAL)');
@@ -74,7 +76,7 @@ export class Mang extends DurableObject {
   save() {
     this.changed = false;
     const d = [...this.tot].filter(([, x]) => x.v > 0).map(([uid, x]) => [uid, x.name, x.v]);
-    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt }));
+    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune]) }));
   }
 
   async alarm() {
@@ -134,6 +136,16 @@ export class Mang extends DurableObject {
     const r = await this.rpc('p2d_pvp_ghi', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
     if (!r.ok) { console.log('pvp_ghi', r.status, await r.text().catch(() => '')); return false; }
     return (await r.json().catch(() => false)) === true;
+  }
+
+  // Khiên PvP theo tài khoản: phòng hỏi lúc vào, báo lúc tắt khiên / chết
+  pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0 }; }
+  async pkSet(uid, off, immune) {
+    if (typeof uid !== 'string') return;
+    this.pk.set(uid, { off: !!off, immune: immune || 0 });
+    this.changed = true;
+    const now = Date.now(), at = await this.ctx.storage.getAlarm();
+    if (!at || at > now + SAVE_MS) await this.ctx.storage.setAlarm(now + SAVE_MS);
   }
 
   rpc(fn, body) {

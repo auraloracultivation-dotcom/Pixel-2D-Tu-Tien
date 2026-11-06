@@ -4,7 +4,7 @@
 // Mọi thứ ở đây chỉ để hiển thị (vị trí, hồ sơ, chào hỏi, hiệu ứng chiêu); đồ, Linh Thạch, sát thương vẫn do Supabase kiểm.
 import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
-import { pvpToggle, pvpHit } from './pvp.js';
+import { pvpToggle, pvpHit, pvpLoad } from './pvp.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -36,9 +36,11 @@ export class Phong extends DurableObject {
       server.close(4009, 'day');
       return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
     }
+    const pk = kind === 'dao' ? await pvpLoad(this.env, uid) : null;   // khiên PvP giữ theo tài khoản (src/pvp.js)
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
-    server.serializeAttachment({ id: uid, kind, at, nm, pw, co, map, p: { name: nm || 'Đạo hữu' } });
+    server.serializeAttachment({ id: uid, kind, at, nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
+    if (pk?.off) server.send(JSON.stringify({ t: 'pk', id: uid, on: 1 }));   // máy mình biết đang tắt khiên
     server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })) }));
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
   }
@@ -64,7 +66,7 @@ export class Phong extends DurableObject {
       case 'm': { const mv = cleanMove(msg); if (mv) { this.pos.set(a.id, mv); this.moves.set(a.id, mv); this.later(); } break; }
       case 's': { const s = cleanSay(msg); if (s) { this.says.push([a.id, s]); this.later(); } break; }
       case 'k': { const c = cleanCast(msg); if (c) { this.casts.push([a.id, c]); this.later(); } break; }
-      case 'bv': { if (a.kind === 'dao') pvpToggle(this, ws, a, !!msg.off); break; }   // PvP Ngoại Vực: tắt / bật bảo vệ (src/pvp.js)
+      case 'bv': { if (a.kind === 'dao') await pvpToggle(this, ws, a, !!msg.off); break; }   // PvP Ngoại Vực: tắt / bật bảo vệ (src/pvp.js)
       case 'h': { if (a.kind === 'dao') await pvpHit(this, ws, a, msg.to); break; }
       case 'd': { if (a.kind === 'dao') this.bossHit(ws, a, msg.n); break; }   // sát thương lên Cửu Đầu Thôn Thiên Mãng (src/mang.js)
       case 'r': {   // tổ đội: chuyển tiếp ngay nguyên gói cho người khác trong đội
