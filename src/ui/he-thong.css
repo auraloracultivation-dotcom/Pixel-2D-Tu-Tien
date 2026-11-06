@@ -114,3 +114,10 @@
 @keyframes ht-rise { 0% { transform: translateY(150px) scale(.4); opacity: 0; } 100% { transform: none; opacity: 1; } }
 @keyframes ht-pop-open { 0% { transform: scale(1); } 40% { transform: scale(1.08, .92) translateY(4px); } 70% { transform: scale(.96, 1.06); } 100% { transform: none; } }
 @keyframes ht-flash { 50% { box-shadow: 0 0 0 2px var(--g, #ff5a5a) inset, 0 0 24px var(--g, #ff5a5a); } }
+/* Hỏi đáp thu gọn theo nhóm, ô tìm (src/ui/he-thong.js) */
+.ht-find { width: 100%; box-sizing: border-box; font: 13px/1.3 var(--f-body); color: #eafaff; background: rgba(8, 22, 44, .9); border: 1px solid #3ec8f0; border-radius: 6px; padding: 8px 10px; }
+.ht-faq { display: flex; flex-direction: column; gap: 6px; }
+.ht-grp { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; text-align: left; font: 700 13px/1.3 var(--f-body); color: #7fe0ff;
+  text-transform: uppercase; letter-spacing: .04em; background: rgba(20, 70, 110, .55); border: 1px solid rgba(62, 200, 240, .45); border-radius: 7px; padding: 9px 10px; }
+.ht-grp i { font-style: normal; color: #bfe6f4; font-size: 12px; white-space: nowrap; }
+.ht-grp.on { background: rgba(62, 200, 240, .22); border-color: #5fd8f8; }

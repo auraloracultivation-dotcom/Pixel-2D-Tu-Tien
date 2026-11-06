@@ -54,6 +54,7 @@ export function createHeThong(game) {
   box.append(head, tabs, body, hint); back.append(box);
   document.body.append(back, ic, tip);
 
+  let faqQ = '', faqOpen = new Set();   // Hỏi đáp: chữ đang tìm, nhóm đang mở
   let tab = 'task', open = false, typing = null, mine = null, ht = { diem: 0, xong: [], ngay_xong: [] }, say = '';
   const H = C, fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
   async function loadHt() {
@@ -94,15 +95,31 @@ export function createHeThong(game) {
     else if (tab === 'gacha') {
       renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; });   // không vẽ lại: món vừa trúng nằm trên rương tới khi người chơi chạm
     } else if (tab === 'faq') {
-      for (const gr of F.groups) {
-        body.append(el('div', 'ht-sub', gr.title));
-        for (const it of gr.list) {
-          const card = el('div', 'ht-qa'), q = el('button', 'ht-q', it.q), a = el('div', 'ht-a'); q.type = 'button';
-          for (const l of it.a) a.append(el('p', null, l));
-          q.onclick = () => card.classList.toggle('on');
-          card.append(q, a); body.append(card);
+      // Nhóm thu gọn (chủ dự án 06/11/2026 23:38: kéo xuống lâu quá): chạm tên nhóm mới hiện câu hỏi; ô tìm lọc câu hỏi, câu trả lời
+      const T = C.text, find = el('input', 'ht-find'); find.type = 'search'; find.placeholder = T.faq_find; find.value = faqQ;
+      const list = el('div', 'ht-faq'); body.append(find, list);
+      const norm = t => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+      const draw = () => {
+        list.textContent = ''; const q = norm(faqQ.trim());
+        for (const gr of F.groups) {
+          const items = q ? gr.list.filter(it => norm(it.q + ' ' + it.a.join(' ')).includes(q)) : gr.list;
+          if (!items.length) continue;
+          const on = !!q || faqOpen.has(gr.title), head = el('button', `ht-grp${on ? ' on' : ''}`); head.type = 'button';
+          head.append(el('span', null, gr.title), el('i', null, `${items.length} ${on ? '▾' : '▸'}`));
+          head.onclick = () => { if (q) return; faqOpen.has(gr.title) ? faqOpen.delete(gr.title) : faqOpen.add(gr.title); draw(); };
+          list.append(head);
+          if (!on) continue;
+          for (const it of items) {
+            const card = el('div', 'ht-qa'), qb = el('button', 'ht-q', it.q), a = el('div', 'ht-a'); qb.type = 'button';
+            for (const l of it.a) a.append(el('p', null, l));
+            qb.onclick = () => card.classList.toggle('on');
+            card.append(qb, a); list.append(card);
+          }
         }
-      }
+        if (!list.childElementCount) list.append(el('p', 'ht-line ht-muted', T.faq_none));
+      };
+      find.oninput = () => { faqQ = find.value; draw(); };
+      draw();
     } else {
       body.append(el('p', 'ht-line', C.ask_head));
       const ta = el('textarea', 'ht-ask'); ta.maxLength = 300; ta.rows = 3; ta.placeholder = C.ask_ph;

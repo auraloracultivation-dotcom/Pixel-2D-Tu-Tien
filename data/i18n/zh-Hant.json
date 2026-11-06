@@ -4048,5 +4048,7 @@
 "Đã đủ ngày.": "已滿天數。",
 "Đã chơi {a} / {b} tiếng.": "已遊玩{a} / {b}小時。",
 "Tài khoản mới cần lập đủ 1 ngày mới dùng được chợ.": "新帳號需建立滿1天才能使用市集。",
-"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "新帳號需遊玩滿4小時才能使用市集。"
+"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "新帳號需遊玩滿4小時才能使用市集。",
+"Tìm câu hỏi... (vd: đột phá, cường hoá, chợ)": "搜尋問題……（例：突破、強化、市集）",
+"Không thấy câu nào. Thử chữ khác, hoặc sang mục Hỏi thêm hỏi bổn hệ thống.": "找不到。換個詞試試，或到「提問」問本系統。"
 }

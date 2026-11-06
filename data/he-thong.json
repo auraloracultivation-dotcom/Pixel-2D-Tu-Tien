@@ -1431,7 +1431,9 @@
   "k_mount": "Thú cưỡi",
   "k_comp": "Khôi lỗi",
   "k_outfit": "Thời trang",
-  "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%"
+  "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%",
+  "faq_find": "Tìm câu hỏi... (vd: đột phá, cường hoá, chợ)",
+  "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc sang mục Hỏi thêm hỏi bổn hệ thống."
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
  "ngay": {

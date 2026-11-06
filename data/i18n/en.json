@@ -4048,5 +4048,7 @@
 "Đã đủ ngày.": "Account age requirement met.",
 "Đã chơi {a} / {b} tiếng.": "Played {a} / {b} hours.",
 "Tài khoản mới cần lập đủ 1 ngày mới dùng được chợ.": "New accounts can use the market after 1 day.",
-"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "New accounts can use the market after 4 hours of play."
+"Tài khoản mới cần chơi đủ 4 tiếng mới dùng được chợ.": "New accounts can use the market after 4 hours of play.",
+"Tìm câu hỏi... (vd: đột phá, cường hoá, chợ)": "Search questions... (e.g. breakthrough, enhance, market)",
+"Không thấy câu nào. Thử chữ khác, hoặc sang mục Hỏi thêm hỏi bổn hệ thống.": "Nothing found. Try other words, or ask this System in the Ask tab."
 }
