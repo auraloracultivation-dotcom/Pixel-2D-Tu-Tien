@@ -49,6 +49,7 @@ export function createNotice(game) {
     if (n.act === 'referral') game.openReferral?.();
     else if (n.act === 'rank') game.openSocial?.('rank');
     else if (n.act === 'feedback') document.getElementById('btn-fb-loi')?.click();
+    else if (n.act === 'mang') import('../game/thien-mang.js').then(M => M.goArena(game));   // bay ra vùng Thôn Thiên Mãng
   }
 
   function render() {
