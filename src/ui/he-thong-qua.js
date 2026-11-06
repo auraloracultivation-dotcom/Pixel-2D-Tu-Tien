@@ -25,7 +25,7 @@ function rank(p) {
 function look(game, p, nd) {
   const D = game.data, T = D.items.line_tiers.list, X = D['he-thong'].text, sh = D.shop?.name || 'Linh Thạch';
   if (nd?.doi) return { name: `${(nd.coins || 0).toLocaleString('vi-VN')} ${sh}`, sub: fill(X.dup, { x: look(game, p).name }), ico: () => spriteIcon(game, 'ui.ic-linh-thach', 0, 64), glow: '#ffd24a' };
-  if (p.coins) return { name: `${p.coins.toLocaleString('vi-VN')} ${sh}`, ico: s => spriteIcon(game, 'ui.ic-linh-thach', 0, s), glow: '#ffd24a' };
+  if (p.coins) return { name: `${(nd?.coins || p.coins).toLocaleString('vi-VN')} ${sh}`, ico: s => spriteIcon(game, 'ui.ic-linh-thach', 0, s), glow: '#ffd24a' };
   if (p.gem) {
     const key = nd?.gem?.key || `${pickOf(GEMS)}:${p.gem[0]}`, g = gemInfo(D, key);
     return { name: nd ? `${g?.name || key} ×${nd.gem.n}` : fill(X.pool_gem1, { a: p.gem[0] }), ico: s => gemIcon(game, key, s), glow: g?.color || '#9fe8ff' };
@@ -34,8 +34,8 @@ function look(game, p, nd) {
     const t = T[p.gear[0]], bases = Object.keys(D.items.bases).filter(b => D.art.sprites['ui.vk-' + b]), base = nd?.item?.base || pickOf(bases);
     return { name: nd?.item ? itemName(D, nd.item) : fill(X.pool_gear, { t: t?.name || '' }), sub: nd?.item ? fill(X.grade, { g: grade(D, nd.item).name }) : '', ico: s => spriteIcon(game, 'ui.vk-' + base, 0, s), glow: t?.edge ? '#ff4a5a' : t?.color || '#fff' };   // Thượng Cổ màu đen: sáng đỏ thẫm như viền dòng đen
   }
-  if (p.pill) { const x = D.cave.pills[p.pill]; return { name: `${x?.name || p.pill} ×${p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.pill, 0, s), glow: x?.color || '#ff9ad0' }; }
-  if (p.mat) { const x = matInfo(D, p.mat); return { name: `${x?.name || p.mat} ×${p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.mat, 0, s), glow: x?.color || '#bfe6f4' }; }
+  if (p.pill) { const x = D.cave.pills[p.pill]; return { name: `${x?.name || p.pill} ×${nd?.pill?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.pill, 0, s), glow: x?.color || '#ff9ad0' }; }
+  if (p.mat) { const x = matInfo(D, p.mat); return { name: `${x?.name || p.mat} ×${nd?.mat?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.mat, 0, s), glow: x?.color || '#bfe6f4' }; }
   if (p.mount) return { name: D.pets.mounts[p.mount]?.name || p.mount, sub: X.k_mount, ico: s => spriteIcon(game, 'mount.' + p.mount, 0, s, 'mt-ico', true), glow: '#c07aff' };
   if (p.comp) return { name: `${X.k_comp} ${D.npcs[p.comp]?.name || p.comp}`, ico: s => spriteIcon(game, 'comp.' + p.comp, 0, s, 'mt-ico', true), glow: '#c07aff' };
   if (p.outfit) { const g = nd?.g || game.save?.gioi || 'nam'; return { name: D.fashion.list[p.outfit]?.name || p.outfit, sub: X.k_outfit, ico: s => spriteIcon(game, `hero.y-${p.outfit}-${g}`, 0, s, 'mt-ico', true), glow: '#c07aff' }; }
@@ -100,7 +100,12 @@ export function renderGacha(game, body, ht, onDone) {
       return;
     }
     const hit = H.pool.find(p => p.id === r.qua) || H.pool[0], rk = rank(hit), L = look(game, hit, r.noi_dung);
-    show(L, true); slot.className = `ht-slot hit${rk > 1 ? ' rare' : ''}`; stage.classList.add('lit'); stage.classList.toggle('rare', rk > 1);
+    show(L, true); slot.className = `ht-slot hit${rk > 1 ? ' rare' : ''}`;
+    const bk = r.bk || r.noi_dung?.bk || 1;
+    if (bk > 1) {   // bạo kích: chữ x2, x3... to, không viền, chỉ có màu, góc trên phải ngoài món (chủ dự án 06/11/2026 23:52)
+      const b = el('span', `ht-bk k${Math.min(bk, 10)}`, `x${bk}`); slot.querySelector('.ht-hit-ico')?.append(b);
+      game.sfx?.(bk >= 5 ? 'boom' : 'crit');
+    } stage.classList.add('lit'); stage.classList.toggle('rare', rk > 1);
     if (L.sub) slot.append(el('small', 'ht-hit-sub', L.sub));
     if (rk > 1) slot.append(el('small', 'ht-rare', X.rare));
     game.toast(fill(X.summon_got, { name: L.name }), 3); game.sfx?.(rk > 1 ? 'levelup' : 'pickup');

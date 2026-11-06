@@ -121,3 +121,8 @@
   text-transform: uppercase; letter-spacing: .04em; background: rgba(20, 70, 110, .55); border: 1px solid rgba(62, 200, 240, .45); border-radius: 7px; padding: 9px 10px; }
 .ht-grp i { font-style: normal; color: #bfe6f4; font-size: 12px; white-space: nowrap; }
 .ht-grp.on { background: rgba(62, 200, 240, .22); border-color: #5fd8f8; }
+/* Bạo kích x2, x3... (src/ui/he-thong-qua.js): chữ to, không viền, chỉ có màu, góc trên phải phía ngoài món */
+.ht-bk { position: absolute; left: calc(50% + 34px); top: -10px; font: 900 34px/1 var(--f-body); color: #7dff6a; text-shadow: none; -webkit-text-stroke: 0; animation: ht-bk .5s cubic-bezier(.2, 1.6, .4, 1); }
+.ht-bk.k3 { color: #5fd8ff; } .ht-bk.k4 { color: #c07aff; } .ht-bk.k5, .ht-bk.k6, .ht-bk.k7 { color: #ffa53a; }
+.ht-bk.k8, .ht-bk.k9 { color: #ff5a5a; } .ht-bk.k10 { color: #ff2fd0; font-size: 42px; }
+@keyframes ht-bk { 0% { transform: scale(3) rotate(-12deg); opacity: 0; } 100% { transform: scale(1) rotate(-8deg); opacity: 1; } }

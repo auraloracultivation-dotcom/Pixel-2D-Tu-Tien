@@ -228,7 +228,7 @@ security definer
 set search_path = ''
 as $$
 declare v_uid uuid := public.p2d_uid(); c jsonb := (select v from public.p2d_ht_cfg where k = 'cfg'); v_row public.p2d_ht_diem%rowtype;
-  v_cost int := (c ->> 'cost')::int; v_tot numeric; v_x numeric; e jsonb; v_pick jsonb; v_nd jsonb; v_lvl int; v_lv int; v_t int; v_d jsonb; v_g text; v_k text;
+  v_cost int := (c ->> 'cost')::int; v_tot numeric; v_x numeric; e jsonb; v_pick jsonb; v_nd jsonb; v_lvl int; v_lv int; v_t int; v_d jsonb; v_g text; v_k text; v_bk int; v_cf jsonb;
 begin
   if v_uid is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
   select * into v_row from public.p2d_ht_diem where user_id = v_uid for update;
@@ -264,11 +264,25 @@ begin
     v_t := (v_pick -> 'gear' ->> floor(random() * jsonb_array_length(v_pick -> 'gear'))::int)::int;
     v_nd := jsonb_build_object('item', public.p2d_ht_do(v_t, coalesce(v_lvl, 0)));
   end if;
+  -- Bạo kích (chủ dự án 06/11/2026 23:52: tỉ lệ không ghi vào game): số liệu ở p2d_ht_cfg 'bk' trên máy chủ (p: tỉ lệ lên mỗi bậc,
+  -- max: bậc cao nhất, cap: trần Linh Thạch một lần), không có trong repo. Chỉ nhân đồ đếm được: Linh Thạch, đan, nguyên liệu, ngọc.
+  v_bk := 1; v_cf := coalesce((select v from public.p2d_ht_cfg where k = 'bk'), '{"p": 0, "max": 1, "cap": 0}'::jsonb);
+  if v_nd ? 'coins' and not v_nd ? 'doi' or v_nd ? 'pill' or v_nd ? 'mat' or v_nd ? 'gem' then
+    while v_bk < (v_cf ->> 'max')::int and random() < (v_cf ->> 'p')::numeric loop v_bk := v_bk + 1; end loop;
+  end if;
+  if v_bk > 1 then
+    if v_nd ? 'coins' then v_nd := jsonb_set(v_nd, '{coins}', to_jsonb(least((v_nd ->> 'coins')::bigint * v_bk, greatest((v_cf ->> 'cap')::bigint, (v_nd ->> 'coins')::bigint))));
+    else
+      v_k := case when v_nd ? 'pill' then 'pill' when v_nd ? 'mat' then 'mat' else 'gem' end;
+      v_nd := jsonb_set(v_nd, array[v_k, 'n'], to_jsonb((v_nd -> v_k ->> 'n')::int * v_bk));
+    end if;
+    v_nd := v_nd || jsonb_build_object('bk', v_bk);
+  end if;
   v_nd := v_nd || jsonb_build_object('tieu_de', c ->> 'mail');
   insert into public.p2d_hom_thu (user_id, noi_dung, ly_do) values (v_uid, v_nd, 'he_thong_qua');
   insert into public.p2d_ht_lich_su (user_id, qua, noi_dung) values (v_uid, v_pick ->> 'id', v_nd);
   update public.p2d_ht_diem set diem = diem - v_cost, so_lan = so_lan + 1, luc = now() where user_id = v_uid returning * into v_row;
-  return jsonb_build_object('qua', v_pick ->> 'id', 'noi_dung', v_nd, 'diem', v_row.diem);
+  return jsonb_build_object('qua', v_pick ->> 'id', 'noi_dung', v_nd, 'diem', v_row.diem, 'bk', v_bk);
 end;
 $$;
 revoke all on function public.p2d_ht_trieu() from public, anon;

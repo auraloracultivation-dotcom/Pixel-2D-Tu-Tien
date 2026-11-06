@@ -1,15 +1,15 @@
 {
  "_note": "Hệ Thống đi theo ký chủ (chủ dự án 06/11/2026 16:15: người chơi là kẻ xuyên không, có hệ thống đi theo; bảng giữa màn hình, chạm ra ngoài thì thu nhỏ bay sang phải thành biểu tượng cạnh nút pháp bảo; chạm biểu tượng mở lại). src/game/he-thong.js, src/ui/he-thong.js, kiểu he-thong.css. Ba mục: Nhiệm vụ (việc truyện đang làm, nút Dẫn đường bật Tự hành), Hỏi đáp (dùng data/faq.json), Hỏi thêm (gửi câu hỏi về máy chủ p2d_ht_hoi, Claude đọc và bổ sung Hỏi đáp). Hệ thống tự lên tiếng (biểu tượng rung + một dòng): đứng yên idle_s giây không làm gì, gục deaths lần trong deaths_s giây, các bước truyện trong steps (bước 10 là chỗ người mới hay bỏ game).",
- "name": "Hệ Thống Tu Tiên",
+ "name": "Hệ Thống Bạo Kích Tài Nguyên Vô Hạn",
  "icon": "Hệ",
  "intro": [
-  "Đinh! Hệ Thống Tu Tiên liên kết thành công. Từ giờ bổn hệ thống là... ừm, người đồng hành của ký chủ.",
+  "Đinh! Hệ Thống Bạo Kích Tài Nguyên Vô Hạn liên kết thành công. Từ giờ bổn hệ thống là... ừm, người đồng hành của ký chủ.",
   "Ma khí từ Ngoại Vực đang nuốt dần tinh hà này. Chín tinh cầu đã vỡ. Ký chủ mà yếu thì cũng chẳng sống được lâu đâu.",
   "Bổn hệ thống giao nhiệm vụ, làm xong có điểm hệ thống. Đủ 100 điểm thì triệu hồi quà: Linh Thạch, ngọc, đá, trang bị... ra gì là nhờ khí vận của ký chủ.",
   "Có gì không hiểu, chạm biểu tượng Hệ bên phải mà hỏi. Đừng hỏi câu ngớ ngẩn quá là được. Chạm ra ngoài để thu nhỏ."
  ],
  "intro_old": [
-  "Đinh! Hệ Thống Tu Tiên đã nâng cấp. Ký chủ cũ, lâu rồi không gặp.",
+  "Đinh! Hệ Thống Bạo Kích Tài Nguyên Vô Hạn đã nâng cấp. Ký chủ cũ, lâu rồi không gặp.",
   "Từ nay bổn hệ thống giao nhiệm vụ thay cho mấy việc hằng ngày lặt vặt. Làm xong có điểm, đủ 100 điểm triệu hồi quà, khí vận tốt thì ra cả trang bị Thượng Cổ.",
   "Cần gì chạm biểu tượng Hệ bên phải. Chạm ra ngoài để thu nhỏ."
  ],
@@ -1613,5 +1613,7 @@
   "_note": "Quà gặp mặt (chủ dự án 06/11/2026 22:59): ai mới chơi hoặc lần đầu gặp hệ thống được diem điểm, mỗi tài khoản một lần (máy chủ p2d_ht_qua_dau, cfg qua_dau).",
   "diem": 1000,
   "say": "Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!"
- }
+ },
+ "short": "Hệ Thống",
+ "_short": "Tên ngắn khi Hệ Thống nói trong hộp thoại truyện (tên đầy đủ dài, ô tên hộp thoại không đủ chỗ)."
 }
