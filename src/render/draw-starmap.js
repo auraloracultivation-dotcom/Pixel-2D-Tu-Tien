@@ -1,6 +1,7 @@
 // Vẽ tinh đồ kiểu pixel ấm (chủ dự án thích màu ấm, pixel, không thích kiểu hiện đại): vẽ hình lên một tấm nhỏ rồi phóng nguyên lần
 // (mỗi điểm ảnh tinh đồ = P điểm ảnh màn hình, không làm mịn); chữ tên vẽ sau ở độ phân giải thật cho dễ đọc.
 import { flatPos, orbitR, dangerOf, REF } from '../game/starmap.js';
+import { drawMangSky } from './draw-mang-sky.js';
 
 const TAU = Math.PI * 2, INK = '#1b1830';
 let low = null;
@@ -139,6 +140,10 @@ export function drawStarmap(ctx, w, h, sm, bodies, st) {
   ctx.imageSmoothingEnabled = false;
   ctx.drawImage(low, 0, 0, W * P, H * P);
   const out = pts.map(p => ({ b: p.b, x: p.x * P, y: p.y * P, r: p.r * P })), labels = [];
+  if (st.mang) {   // Cửu Đầu Thôn Thiên Mãng lượn ngoài kết giới (src/render/draw-mang-sky.js), cỡ theo Ma Vương
+    const mv = out.find(p => p.b.id === 'ma-vuong'), m = drawMangSky(ctx, st.mang.spr, st.mang.sky, { cx: v.cx * P, cy: v.cy * P, rx: v.rx * P, ry: v.ry * P }, mv ? mv.r : 20, t);
+    if (m && st.mang.name) labels.push({ text: st.mang.name, x: m.x, y: m.y + m.r * 0.95, color: '#e0a8ff', pri: 2 });
+  }
   for (const p of out) {
     const b = p.b, here = b.map && b.map === st.here, sel = b.id === st.sel;
     if (here) labels.push({ text: sm.texts.here, x: p.x, y: p.y - p.r - 18, color: '#ffd24a', pri: 0, must: true });

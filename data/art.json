@@ -1,6 +1,18 @@
 {
  "_note": "Sinh bằng tools/art/build.py — không sửa tay. Mỗi hình 1× (1 art px), nhiều khung xếp ngang.",
  "sprites": {
+  "boss.mang": {
+   "file": "assets/art/boss-mang.png",
+   "v": "9ad644cc",
+   "w": 314,
+   "h": 240,
+   "frames": 21,
+   "anchor": [
+    157,
+    238
+   ],
+   "note": "Cửu Đầu Thôn Thiên Mãng cả con (ảnh GPT): 0–8 đứng, 9–20 gầm"
+  },
   "comp.ho-linh": {
    "file": "assets/art/comp-ho-linh.png",
    "v": "463fd9b4",
