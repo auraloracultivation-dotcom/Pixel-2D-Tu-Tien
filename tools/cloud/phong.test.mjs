@@ -199,6 +199,7 @@ console.log('phong.test: ok');
   const calls = [];
   globalThis.fetch = async (url, init) => { calls.push({ url, body: JSON.parse(init.body), key: init.headers.apikey }); return { ok: true, status: 200, text: async () => '1' }; };
   mang.env = { SUPABASE_URL: 'https://x.supabase.co', SUPABASE_KEY: 'pk' };
+  kv.set('pay_at', 1);   // tới giờ gửi
   await mang.alarm();
   assert.ok(calls[0].url.endsWith('/rpc/p2d_mang_dang_ky') && calls[0].body.p_khoa.length >= 48);
   const pay = calls.find(c => c.url.endsWith('/rpc/p2d_mang_thuong'));

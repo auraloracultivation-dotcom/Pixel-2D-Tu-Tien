@@ -8,7 +8,9 @@
 import { DurableObject } from 'cloudflare:workers';
 import { FARM_LT_S, LT_MULT, LT_BONUS } from './mang-cfg.js';
 
-const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 300000, PAY_MAX = 20000;
+// Lưu 15 giây một lần (chủ dự án 06/11/2026 10:15: bảng tụt từ 5 triệu về 3 triệu — lúc triển khai bản mới, Mang khởi động lại
+// và mất phần chưa lưu; trước đây 5 phút mới lưu). Gửi Linh Thạch vẫn 5 phút một lần (PAY_MS).
+const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 15000, PAY_MS = 300000, PAY_MAX = 20000;
 const sign = async (khoa, msg) => {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   return hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg)));
@@ -57,14 +59,20 @@ export class Mang extends DurableObject {
   }
 
   async alarm() {
-    const ids = [...this.dirty]; this.dirty.clear();
+    const now = Date.now(), ids = [...this.dirty]; this.dirty.clear();
     for (const id of ids) {
       const x = this.tot.get(id);
       if (x) this.ctx.storage.sql.exec('INSERT INTO dmg (uid, name, v) VALUES (?, ?, ?) ON CONFLICT(uid) DO UPDATE SET name = excluded.name, v = excluded.v', id, x.name, x.v);
     }
-    await this.pay();
-    for (const [id, v] of this.pend) this.ctx.storage.sql.exec('INSERT INTO pay (uid, lt) VALUES (?, ?) ON CONFLICT(uid) DO UPDATE SET lt = excluded.lt', id, v);
-    if (this.pend.size) await this.ctx.storage.setAlarm(Date.now() + SAVE_MS);   // còn nợ (mạng lỗi): 5 phút sau gửi lại
+    for (const id of ids) { const v = this.pend.get(id); if (v != null) this.ctx.storage.sql.exec('INSERT INTO pay (uid, lt) VALUES (?, ?) ON CONFLICT(uid) DO UPDATE SET lt = excluded.lt', id, v); }
+    const payAt = (await this.ctx.storage.get('pay_at')) || 0;
+    if (!payAt) await this.ctx.storage.put('pay_at', now + PAY_MS);
+    else if (now >= payAt) {
+      await this.pay();
+      for (const [id, v] of this.pend) this.ctx.storage.sql.exec('INSERT INTO pay (uid, lt) VALUES (?, ?) ON CONFLICT(uid) DO UPDATE SET lt = excluded.lt', id, v);
+      await this.ctx.storage.put('pay_at', now + PAY_MS);
+    }
+    if (this.pend.size || this.dirty.size) await this.ctx.storage.setAlarm(now + SAVE_MS);   // còn Linh Thạch chờ gửi: hẹn tiếp
   }
 
   // Gửi lô Linh Thạch phần nguyên; trả lỗi thì giữ lại lần sau (đã kẹp PAY_MAX mỗi người)
