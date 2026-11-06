@@ -164,6 +164,7 @@ export function mergePet(game, id) {
 // Thú cưỡi: lên khi đang đi, không đánh nhau một lúc, không ở bí cảnh
 export function updateRide(game, dt) {
   const p = game.player, id = game.save.mount;
+  p.sword = !!game.map.def.space;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)
   p.calmT = (p.calmT || 0) + dt;
   if (p.atkCd > 0 || p.invT > 0) { p.calmT = 0; p.riding = false; }
   const ok = id && game.save.mounts[id] && !(game.map.def.rooms || []).length && !game.map.def.indoor && !game.map.def.space;   // vùng không gian: ngự kiếm (thien-mang.js)

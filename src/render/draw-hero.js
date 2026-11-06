@@ -22,7 +22,7 @@ export function heroLook(game, save = game.save) {
 
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
 function anim(game, p, look, t) {
-  const walkName = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';
+  const walkName = p.moving && !p.meditating && !p.riding && !p.sword ? 'walk' : 'idle';
   if (game.data.heroes.fly) {   // ngự kiếm: động tác đánh do flyweapon.js chọn (p.heroAnim), chạy cùng lúc vũ khí bay lao ra
     const ha = p.heroAnim, list = ha && look.anims[ha.name];
     if (list) {
@@ -45,7 +45,7 @@ function anim(game, p, look, t) {
     if (i >= 0 && i < look.anims[name].length) return [name, i, i / look.anims[name].length];
     p.heroAtk0 = null;
   }
-  const name = p.moving && !p.meditating && !p.riding ? 'walk' : 'idle';   // cưỡi thú: đứng yên trên lưng thú, không bước chân
+  const name = p.moving && !p.meditating && !p.riding && !p.sword ? 'walk' : 'idle';   // cưỡi thú, ngự kiếm (p.sword, vùng Thôn Thiên Mãng): đứng yên, không bước chân
   return [name, Math.floor(t * (look.fps[name] || 1))];
 }
 
