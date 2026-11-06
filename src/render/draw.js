@@ -197,7 +197,8 @@ function drawTele(ctx, m) {
 // Người chơi khác (game/others.js): hình nhân vật theo hình dáng, thời trang họ báo (bản game cũ chưa báo thì vẽ hình khối), tên trên đầu
 function drawOther(ctx, o, game, t) {
   const el = o.element ? game.data.elements[o.element]?.color : null;
-  const fit = { look: o.look, outfit: o.outfit };
+  const fit = { look: o.look, outfit: o.outfit }, md = o.mount && game.data.pets.mounts[o.mount];
+  if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
   if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
   const hero = o.look && drawHero(ctx, game, o, t, false, fit);
   if (!hero) drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
@@ -209,6 +210,7 @@ function drawOther(ctx, o, game, t) {
     const a = Math.atan2(o.face.y, o.face.x);
     ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
   }
+  if (md) ctx.restore();
 }
 
 function drawNpc(ctx, n, game, t) {

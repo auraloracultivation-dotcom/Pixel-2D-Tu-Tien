@@ -238,6 +238,7 @@ export function createGame(data, screen, input, ui, audio) {
         const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
+          onCast: c => game.others.cast(c),
         }, { url: R.cf_url });
       } catch { game.online = null; }
     }

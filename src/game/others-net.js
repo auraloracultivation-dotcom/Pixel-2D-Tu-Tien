@@ -23,6 +23,7 @@ export function cleanPresence(e, known, max) {
     realm: cleanName(e.realm, 24),
     look: has(known.looks, e.look) ? e.look : null,
     outfit: word(e.outfit),
+    mount: known.mounts && has(known.mounts, e.mount) ? e.mount : null,   // đang cưỡi thú gì (06/11/2026: người khác thấy thú cưỡi)
   };
 }
 
