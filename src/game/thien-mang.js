@@ -73,7 +73,15 @@ export function updateMang(game, dt) {
 }
 
 // Bảng xếp hạng về từ máy chủ: { top: [[tên, sát thương]], n, total, me: [hạng, tổng] | null }
-export function onMangBoard(game, bx) { (game.mang ??= {}).board = bx; game.mang.boardAt = Date.now(); }
+export function onMangBoard(game, bx) {
+  (game.mang ??= {}).board = bx; game.mang.boardAt = Date.now();
+  // Máy chủ báo boss đã tắt (bx.mo = 0; cloud/src/mang.js giữ giờ mở): bỏ các đầu, ai đang trong vùng thì đưa về
+  if (bx?.mo === 0 && game.mang.heads?.length) {
+    game.mobs = game.mobs.filter(m => !game.mang.heads.includes(m)); game.mang.heads = []; game.mang.m = null;
+    game.toast(C(game).text.ended, 3);
+    if (isArena(game)) setTimeout(() => leaveArena(game), 1500);
+  }
+}
 
 // Bay tới vùng (nút trên tinh đồ) và rời vùng (nút Rời đi)
 export function goArena(game) {

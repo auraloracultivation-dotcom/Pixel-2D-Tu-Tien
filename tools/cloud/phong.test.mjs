@@ -135,6 +135,7 @@ console.log('phong.test: ok');
     get: async k => kv.get(k), put: async (k, v) => { kv.set(k, v); } },
     blockConcurrencyWhile: f => f() };
   const mang = new Mang(mctx, {});
+  mang.moTo = Date.now() + 1e9;   // boss đang mở
   const r1 = await mang.add([{ id: 'u1', name: 'An', n: 500 }, { id: 'u2', name: 'Bình', n: 900 }]);
   assert.deepEqual(r1.top[0], ['Bình', 900]);
   assert.deepEqual(r1.ranks.u1, [2, 500]);
@@ -197,7 +198,7 @@ console.log('phong.test: ok');
   assert.equal(w1.out.at(-1).lt, lt1);
 
   { // sát thương 100k và 1k cùng tuyến: chênh chưa tới 1,5 lần
-    const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
+    const mb = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {}); mb.moTo = Date.now() + 1e9;
     const rb = await mb.add([{ id: 'a', n: 100000, s: 2, map: 'dao-moc', pw: 1e6 }, { id: 'b', n: 1000, s: 2, map: 'dao-moc', pw: 1e6 }]);
     const base = 2 * C.FARM_LT_S['dao-moc'] * C.LT_MULT;
     assert.ok(Math.abs(mb.pend.get('a') - base * 1.5) < 1e-6 && Math.abs(mb.pend.get('b') - base * 1.05) < 1e-6, JSON.stringify([...mb.pend]));
@@ -235,9 +236,20 @@ console.log('phong.test: ok');
     assert.ok(x.ok && mang.tot.size === 0 && mang.sum === 0);
   }
   { // trần theo lực chiến dùng chung mọi tuyến, gửi dồn dập không vượt
-    const mt = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
+    const mt = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {}); mt.moTo = Date.now() + 1e9;
     for (let i = 0; i < 50; i++) await mt.add([{ id: 'x', n: 1e9, pw: 1000, s: 0 }]);
     assert.ok(mt.tot.get('x').v <= 1000 * 5 * 2 + 1, String(mt.tot.get('x').v));
+  }
+  { // boss tắt: không nhận sát thương, không Linh Thạch; lệnh mo / tat có ký
+    const { createHmac } = await import('node:crypto');
+    const khoa = kv.get('khoa'), ts = Date.now(), ky = x => createHmac('sha256', khoa).update(`${ts}.${x}`).digest('hex');
+    const v0 = mang.tot.get('u1')?.v || 0;
+    assert.ok((await mang.lenh('tat', ts, ky('tat'))).ok);
+    const rt = await mang.add([{ id: 'u1', n: 500, s: 2, map: 'dao-moc', pw: 1e6 }]);
+    assert.equal(mang.tot.get('u1')?.v || 0, v0); assert.equal(rt.mo, 0);
+    assert.equal(await mang.lenh('mo', ts, ky('mo'), '30'), null);   // thiếu tham số trong chữ ký
+    const r = await mang.lenh('mo', ts, ky('mo.30'), '30');
+    assert.ok(r.ok && r.mo > Date.now() + 29 * 60000);
   }
   console.log('mang.test: ok');
 }
