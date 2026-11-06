@@ -15,24 +15,42 @@ const pickOf = a => a[Math.floor(Math.random() * a.length)];
 // Độ hiếm một ô quà: 2 = hiếm (hệ thống sốc), 1 = khá, 0 = thường
 function rank(p) {
   if (p.gear) return p.gear[0] >= 5 ? 2 : p.gear[0] >= 3 ? 1 : 0;
-  if (p.gem) return p.gem[0] >= 7 ? 2 : p.gem[0] >= 5 ? 1 : 0;
+  if (p.gem) return p.gem[0] >= 8 ? 2 : p.gem[0] >= 5 ? 1 : 0;
   if (p.coins) return p.coins >= 1000000 ? 2 : p.coins >= 200000 ? 1 : 0;
   if (p.mount || p.comp || p.outfit) return 1;
-  return p.pill === 'tay-tuy-dan' || p.mat === 'dao-van-thach' ? 1 : 0;
+  return p.mat === 'dao-van-thach' ? 2 : p.pill === 'tay-tuy-dan' ? 1 : 0;
+}
+
+// Màu một ô quà theo bảng màu phẩm (data/items.json line_tiers; chủ dự án 07/11/2026 00:46): Linh Thạch 1–2 triệu, ngọc 8, Đạo Vận
+// Thạch đỏ; Linh Thạch 200k–500k, ngọc 5–7 vàng; trang bị theo màu phẩm thật (Thượng Cổ đen thì sáng đỏ thẫm); thú, khôi lỗi, áo tím;
+// Tẩy Tủy Đan giữ màu đan; còn lại lục. Chữ bảng tỉ lệ, ánh sáng khi trúng, chữ bảng khoe đều dùng màu này.
+function tone(game, p, nd) {
+  const D = game.data, T = D.items.line_tiers.list, [G, Y, Rd] = [T[0].color, T[4].color, T[5].color];
+  const by = i => T[i]?.edge ? '#ff4a5a' : T[i]?.color || G;
+  if (nd?.doi) return (nd.coins || 0) >= 1000000 ? Rd : (nd.coins || 0) >= 200000 ? Y : G;
+  if (p.coins) return p.coins >= 1000000 ? Rd : p.coins >= 200000 ? Y : G;
+  if (p.gem) { const a = +(nd?.gem?.key || '').split(':')[1] || p.gem[0]; return a >= 8 ? Rd : a >= 5 ? Y : G; }
+  if (p.gear) return by(nd?.item ? grade(D, nd.item).idx : p.gear[0]);
+  if (p.mount || p.comp || p.outfit) return '#c07aff';
+  if (p.mat === 'dao-van-thach') return Rd;
+  if (p.pill === 'tay-tuy-dan') return D.cave.pills[p.pill]?.color || '#ff9ad0';
+  return G;
 }
 
 // Tên, hình, màu sáng của một ô quà (p: ô trong bảng quà; nd: nội dung thư thật khi đã trúng)
-function look(game, p, nd) {
+function look(game, p, nd) { const L = look0(game, p, nd); L.glow = tone(game, p, nd); return L; }
+function look0(game, p, nd) {
   const D = game.data, T = D.items.line_tiers.list, X = D['he-thong'].text, sh = D.shop?.name || 'Linh Thạch';
-  if (nd?.doi) return { name: `${(nd.coins || 0).toLocaleString('vi-VN')} ${sh}`, sub: fill(X.dup, { x: look(game, p).name }), ico: () => spriteIcon(game, 'ui.ic-linh-thach', 0, 64), glow: '#ffd24a' };
+  if (nd?.doi) return { name: `${(nd.coins || 0).toLocaleString('vi-VN')} ${sh}`, sub: fill(X.dup, { x: look0(game, p).name }), ico: () => spriteIcon(game, 'ui.ic-linh-thach', 0, 64), glow: '#ffd24a' };
   if (p.coins) return { name: `${(nd?.coins || p.coins).toLocaleString('vi-VN')} ${sh}`, ico: s => spriteIcon(game, 'ui.ic-linh-thach', 0, s), glow: '#ffd24a' };
   if (p.gem) {
     const key = nd?.gem?.key || `${pickOf(GEMS)}:${p.gem[0]}`, g = gemInfo(D, key);
     return { name: nd ? `${g?.name || key} ×${nd.gem.n}` : fill(X.pool_gem1, { a: p.gem[0] }), ico: s => gemIcon(game, key, s), glow: g?.color || '#9fe8ff' };
   }
   if (p.gear) {
-    const t = T[p.gear[0]], bases = Object.keys(D.items.bases).filter(b => D.art.sprites['ui.vk-' + b]), base = nd?.item?.base || pickOf(bases);
-    return { name: nd?.item ? itemName(D, nd.item) : fill(X.pool_gear, { t: t?.name || '' }), sub: nd?.item ? fill(X.grade, { g: grade(D, nd.item).name }) : '', ico: s => spriteIcon(game, 'ui.vk-' + base, 0, s), glow: t?.edge ? '#ff4a5a' : t?.color || '#fff' };   // Thượng Cổ màu đen: sáng đỏ thẫm như viền dòng đen
+    const ik = b => D.art.sprites['ui.vk-' + b] ? 'ui.vk-' + b : D.art.sprites['gear.' + b] ? 'gear.' + b : null;   // nhẫn, ngọc bội… chỉ có hình gear.*
+    const t = T[p.gear[0]], bases = Object.keys(D.items.bases).filter(ik), base = nd?.item?.base || pickOf(bases);
+    return { name: nd?.item ? itemName(D, nd.item) : fill(X.pool_gear, { t: t?.name || '' }), sub: nd?.item ? fill(X.grade, { g: grade(D, nd.item).name }) : '', ico: s => spriteIcon(game, ik(base) || 'ui.vk-' + base, 0, s), glow: t?.edge ? '#ff4a5a' : t?.color || '#fff' };   // Thượng Cổ màu đen: sáng đỏ thẫm như viền dòng đen
   }
   if (p.pill) { const x = D.cave.pills[p.pill]; return { name: `${x?.name || p.pill} ×${nd?.pill?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.pill, 0, s), glow: x?.color || '#ff9ad0' }; }
   if (p.mat) { const x = matInfo(D, p.mat); return { name: `${x?.name || p.mat} ×${nd?.mat?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.mat, 0, s), glow: x?.color || '#bfe6f4' }; }
@@ -69,7 +87,7 @@ export function renderGacha(game, body, ht, onDone) {
     for (const f of list) {
       const p = H.pool.find(x => x.id === f.qua); if (!p) continue;
       const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
-      const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, bk >= 5 ? `x${bk}` : (f.nd?.item ? grade(game.data, f.nd.item).name : '')));
+      const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, bk >= 5 ? `x${bk}` : (f.nd?.item ? grade(game.data, f.nd.item).name : L.name)));
       t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
       row.title = `${f.ten}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t); feed.append(row);
     }
@@ -131,6 +149,6 @@ export function renderGacha(game, body, ht, onDone) {
   sync();
   body.append(wrap, btn, need, el('p', 'ht-line ht-muted', fill(X.summon_desc, { c: H.cost })), el('div', 'ht-sub', fill(X.odds_eq, { n: H.pool.length, p: +(100 / H.pool.length).toFixed(2) })));
   const tb = el('div', 'ht-odds');
-  for (const p of H.pool) { const L = look(game, p), r = el('div', `ht-odd${rank(p) > 1 ? ' rare' : ''}`), s = el('span', null, L.name); s.style.color = rank(p) ? L.glow : ''; r.append(s); tb.append(r); }
+  for (const p of H.pool) { const L = look(game, p), r = el('div', `ht-odd${rank(p) > 1 ? ' rare' : ''}`), s = el('span', null, L.name); s.style.color = L.glow; r.append(s); tb.append(r); }
   body.append(tb);
 }
