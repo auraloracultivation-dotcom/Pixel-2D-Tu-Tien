@@ -15,7 +15,9 @@ export default {
     if (url.pathname === '/' || url.pathname === '/health') return text('p2d-phong ok', 200);
     if (url.pathname === '/mang/kt') return text(await env.MANG.get(env.MANG.idFromName('cuu-dau')).vanTay() || 'chua', 200);   // vân tay khoá thưởng (so với p2d_mang_van_tay)
     if (url.pathname === '/mang/lenh') {   // lệnh quản trị có ký (mang.js lenh)
-      const r = await env.MANG.get(env.MANG.idFromName('cuu-dau')).lenh(url.searchParams.get('a'), url.searchParams.get('ts'), url.searchParams.get('ky'));
+      let r;
+      try { r = await env.MANG.get(env.MANG.idFromName('cuu-dau')).lenh(String(url.searchParams.get('a') || ''), String(url.searchParams.get('ts') || ''), String(url.searchParams.get('ky') || '')); }
+      catch (e) { return text('loi: ' + String(e?.message || e).slice(0, 200), 500); }
       return r ? new Response(JSON.stringify(r), { headers: { 'content-type': 'application/json' } }) : text('sai', 403);
     }
     if (url.pathname !== '/ws') return text('not found', 404);
