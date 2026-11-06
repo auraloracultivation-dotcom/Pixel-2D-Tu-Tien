@@ -25,7 +25,7 @@ const takeMail = game => import('../game/market.js').then(M => M.claimMail(game)
 // api: { ht, setHt(ht), render(), minimize(), say }
 export function renderTasks(game, body, api) {
   const H = game.data['he-thong'], X = H.text, ht = api.ht;
-  if (api.say) { const s = el('div', 'ht-say'); s.append(el('b', null, H.name), el('p', null, api.say)); body.append(s); }
+  if (api.say) { const s = el('div', 'ht-say'), t = el('div'); t.append(el('b', null, H.name), el('p', null, api.say)); if (api.face) s.append(api.face.node); s.append(t); body.append(s); }
   body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
   const t = htTask(game);
   if (t && !game.story?.current?.()?.until?.never) {   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
@@ -37,9 +37,10 @@ export function renderTasks(game, body, api) {
   const done = (r, m) => {   // nhận xong: cộng điểm, hệ thống nói câu xong, nhận thư
     api.setHt({ ...ht, diem: r.diem, xong: r.xong ?? ht.xong, ngay_xong: r.ngay_xong ?? ht.ngay_xong }, m.xong || H.ngay.xong);
     game.toast(fill(X.claimed, { p: r.them }), 2); game.sfx?.('levelup');
+    game.htFace?.react('xong');
     if (m.qua?.length) takeMail(game);
   };
-  const err = e => { const s = String(e?.message || ''); game.toast(s.includes('chua_xong') ? X.todo : X.summon_err, 2); };
+  const err = e => { const s = String(e?.message || ''); game.htFace?.react('loi'); game.toast(s.includes('chua_xong') ? X.todo : X.summon_err, 2); };
   const list = missionList(game, ht.xong);
   body.append(el('div', 'ht-sub', H.task_head));
   for (const m of list) {
@@ -61,7 +62,7 @@ export function renderTasks(game, body, api) {
           try { const N = await import('../net/he-thong.js'); done(await N.htAnswer(m.id, i), m); }
           catch (e) {
             opts.querySelectorAll('button').forEach(x => { x.disabled = false; });
-            if (String(e?.message || '').includes('sai')) { openQ.bad.add(i); api.setHt(ht, m.hoi.sai); game.sfx?.('hit'); } else err(e);
+            if (String(e?.message || '').includes('sai')) { openQ.bad.add(i); api.setHt(ht, m.hoi.sai); game.sfx?.('hit'); game.htFace?.react('sai'); } else err(e);
           }
         };
         opts.append(ob);

@@ -72,3 +72,11 @@
 .ht-opts[hidden] { display: none; }
 .ht-opt { text-align: left; font: 13px/1.35 var(--f-body); color: #dff6ff; background: rgba(20, 70, 110, .7); border: 1px solid #3ec8f0; border-radius: 6px; padding: 8px 10px; }
 .ht-opt.bad { border-color: #ff6a6a; color: #ffb0b0; text-decoration: line-through; }
+/* Biểu cảm Hệ Thống (src/ui/he-thong-mat.js): ô cắt từ dải khung, giữ điểm ảnh sắc */
+.ht-face { display: inline-block; flex: none; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
+.ht-face[hidden] { display: none; }
+.ht-icon.has-face { width: auto; height: auto; filter: drop-shadow(0 0 6px rgba(95, 240, 255, .55)); }
+.ht-head .ht-face { margin: -6px 0 -6px -4px; }
+.ht-say { display: flex; gap: 8px; align-items: center; }
+.ht-say > div { min-width: 0; }
+.ht-intro .ht-face { display: block; margin: 0 auto 6px; }
