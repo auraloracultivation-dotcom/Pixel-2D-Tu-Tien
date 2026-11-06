@@ -1,6 +1,6 @@
 // Bản sao từ data/thien-mang.json (tools/cloud/phong.test.mjs so khớp): Linh Thạch farm thường mỗi giây theo tinh cầu có đầu boss,
 // và hệ số thưởng khi chém Cửu Đầu Thôn Thiên Mãng (chủ dự án 06/11/2026: gấp 10 lần farm thường).
-export const LT_MULT = 10;
+export const LT_MULT = 30;   // chủ dự án 06/11/2026 11:39: ×3 (trước 10)
 // Thưởng thêm theo sát thương (chủ dự án 06/11/2026 10:10): tối đa +LT_BONUS × căn(sát thương mình / người mạnh nhất cùng tuyến)
 export const LT_BONUS = 0.5;
 export const FARM_LT_S = {"thanh-khe": 0.07, "thien-kiem-phong": 0.09, "dao-xich-dien": 0.17, "dao-han-bang": 0.32, "hac-phong-dao": 0.69, "dao-moc": 1.24, "dao-thien-kim": 2.13, "dao-hau-tho": 2.89, "vet-nut-ngoai": 3.76};

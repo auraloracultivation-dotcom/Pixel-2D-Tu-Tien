@@ -217,6 +217,15 @@ console.log('phong.test: ok');
     assert.deepEqual(m2.tot.get('u1'), mang.tot.get('u1'));
     assert.equal(m2.sum, mang.sum);
   }
+  { // lệnh quản trị có ký: sai chữ ký thì từ chối; 'bang' trả cả bảng; 'xong' cất lịch sử, xoá bảng
+    const { createHmac } = await import('node:crypto');
+    const khoa = kv.get('khoa'), ts = Date.now(), ky = a => createHmac('sha256', khoa).update(`${ts}.${a}`).digest('hex');
+    assert.equal(await mang.lenh('bang', ts, 'sai'), null);
+    const b = await mang.lenh('bang', ts, ky('bang'));
+    assert.ok(b.d.length >= 2 && b.d[0][2] >= b.d[1][2]);
+    const x = await mang.lenh('xong', ts, ky('xong'));
+    assert.ok(x.ok && mang.tot.size === 0 && mang.sum === 0);
+  }
   console.log('mang.test: ok');
 }
 

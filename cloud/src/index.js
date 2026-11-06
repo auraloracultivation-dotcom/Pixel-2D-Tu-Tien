@@ -14,6 +14,10 @@ export default {
     const url = new URL(req.url);
     if (url.pathname === '/' || url.pathname === '/health') return text('p2d-phong ok', 200);
     if (url.pathname === '/mang/kt') return text(await env.MANG.get(env.MANG.idFromName('cuu-dau')).vanTay() || 'chua', 200);   // vân tay khoá thưởng (so với p2d_mang_van_tay)
+    if (url.pathname === '/mang/lenh') {   // lệnh quản trị có ký (mang.js lenh)
+      const r = await env.MANG.get(env.MANG.idFromName('cuu-dau')).lenh(url.searchParams.get('a'), url.searchParams.get('ts'), url.searchParams.get('ky'));
+      return r ? new Response(JSON.stringify(r), { headers: { 'content-type': 'application/json' } }) : text('sai', 403);
+    }
     if (url.pathname !== '/ws') return text('not found', 404);
     if (req.headers.get('Upgrade') !== 'websocket') return text('cần WebSocket', 426);
     const origin = req.headers.get('Origin') || '';
