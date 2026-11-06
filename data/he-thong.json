@@ -3,31 +3,31 @@
  "name": "Hệ Thống Tu Tiên",
  "icon": "Hệ",
  "intro": [
-  "Đinh! Phát hiện linh hồn dị giới...",
-  "Chúc mừng ký chủ xuyên không thành công tới Mảnh Vỡ Thanh Khê.",
-  "Tinh cầu này đang bị ma khí từ Ngoại Vực xâm thực, chín tinh cầu đã vỡ vụn, sinh linh tán loạn.",
-  "Hệ Thống Tu Tiên chính thức liên kết với ký chủ. Nhiệm vụ đầu tiên: sống sót, tu luyện, đánh đuổi ma khí.",
-  "Chạm ra ngoài để thu nhỏ hệ thống. Cần gì, chạm biểu tượng Hệ bên phải."
+  "Đinh! Hệ Thống Tu Tiên liên kết thành công. Từ giờ bổn hệ thống là... ừm, người đồng hành của ký chủ.",
+  "Ma khí từ Ngoại Vực đang nuốt dần tinh hà này. Chín tinh cầu đã vỡ. Ký chủ mà yếu thì cũng chẳng sống được lâu đâu.",
+  "Bổn hệ thống giao nhiệm vụ, làm xong có điểm hệ thống. Đủ 100 điểm thì triệu hồi quà: Linh Thạch, ngọc, đá, trang bị... ra gì là nhờ khí vận của ký chủ.",
+  "Có gì không hiểu, chạm biểu tượng Hệ bên phải mà hỏi. Đừng hỏi câu ngớ ngẩn quá là được. Chạm ra ngoài để thu nhỏ."
  ],
  "intro_old": [
-  "Đinh! Hệ Thống Tu Tiên đã nâng cấp.",
-  "Từ nay hệ thống đi theo ký chủ: nhắc việc cần làm, giải đáp thắc mắc, nhận câu hỏi mới.",
-  "Chạm ra ngoài để thu nhỏ. Cần gì, chạm biểu tượng Hệ bên phải."
+  "Đinh! Hệ Thống Tu Tiên đã nâng cấp. Ký chủ cũ, lâu rồi không gặp.",
+  "Từ nay bổn hệ thống giao nhiệm vụ thay cho mấy việc hằng ngày lặt vặt. Làm xong có điểm, đủ 100 điểm triệu hồi quà, khí vận tốt thì ra cả trang bị Thượng Cổ.",
+  "Cần gì chạm biểu tượng Hệ bên phải. Chạm ra ngoài để thu nhỏ."
  ],
  "tabs": {
   "task": "Nhiệm vụ",
+  "gacha": "Triệu hồi",
   "faq": "Hỏi đáp",
   "ask": "Hỏi thêm"
  },
  "task_head": "Nhiệm vụ hệ thống",
- "task_none": "Ký chủ đã đi hết cốt truyện hiện có. Đi bí cảnh, làm nhiệm vụ hằng ngày, săn boss để mạnh lên!",
+ "task_none": "Ký chủ đã làm hết nhiệm vụ bổn hệ thống giao lúc này. Đi bí cảnh, săn boss, luyện cảnh giới đi, nhiệm vụ mới sẽ tới.",
  "guide": "Dẫn đường",
  "guide_on": "Đang dẫn đường",
  "realm": "Cảnh giới: {realm}",
- "ask_head": "Chưa thấy câu trả lời? Hỏi hệ thống. Câu hỏi được ghi lại, câu nào nhiều người hỏi sẽ có trong Hỏi đáp.",
+ "ask_head": "Không tìm thấy câu trả lời? Hỏi bổn hệ thống. Câu hỏi được ghi lại, câu nào nhiều ký chủ hỏi sẽ có trong Hỏi đáp.",
  "ask_ph": "Ví dụ: làm sao lên Trúc Cơ?",
  "ask_send": "Gửi",
- "ask_ok": "Đinh! Hệ thống đã ghi nhận câu hỏi.",
+ "ask_ok": "Đinh! Bổn hệ thống ghi nhận rồi. Câu nào nhiều người hỏi sẽ có trả lời trong Hỏi đáp.",
  "ask_err": {
   "chua_dang_nhap": "Cần đăng nhập để hỏi hệ thống.",
   "qua_nhieu": "Hôm nay ký chủ đã hỏi nhiều rồi, mai hỏi tiếp nhé.",
@@ -40,13 +40,368 @@
  "deaths": 2,
  "deaths_s": 240,
  "nudge": {
-  "idle": "Ký chủ đang phân vân? Chạm Dẫn đường, hệ thống đưa đi làm nhiệm vụ.",
-  "death": "Ký chủ gục nhiều quá! Mặc trang bị tốt nhất, học chiêu mới, hoặc săn quái yếu hơn để lên cấp.",
-  "step": "Có nhiệm vụ mới. Chạm để xem."
+  "idle": "Ký chủ đứng ngẩn ra đó làm gì? Chạm Dẫn đường, bổn hệ thống dắt đi làm nhiệm vụ.",
+  "death": "Lại gục? Ký chủ ơi... Mặc trang bị tốt nhất, học chiêu mới, hoặc đi đánh quái yếu hơn mà lên cấp đi.",
+  "step": "Có nhiệm vụ mới. Chạm vào đây.",
+  "claim": "Đinh! Ký chủ có nhiệm vụ đã xong mà chưa nhận điểm. Chạm vào đây nhận đi, đủ điểm là triệu hồi quà được rồi."
  },
  "steps": {
-  "5": "Ký chủ đã làm quen với chiến đấu. Nhớ mở Túi mặc trang bị vừa nhặt!",
-  "10": "Đinh! Ký chủ đã vượt qua chặng đầu, phần thưởng lớn đang ở phía trước. Đừng bỏ cuộc, hệ thống luôn ở đây.",
-  "20": "Bí cảnh đã mở: mỗi ngày 5 lượt, đi để lấy trang bị và đan dược."
+  "5": "Biết đánh nhau rồi đấy. Mở Túi mặc đồ vừa nhặt vào đi, bổn hệ thống không muốn thấy ký chủ gục vì lười thay đồ.",
+  "10": "Đinh! Ký chủ đã vượt chặng đầu. Phần khó nhất là bắt đầu, ký chủ làm được rồi. Quà lớn đang ở phía trước, đừng bỏ cuộc.",
+  "20": "Bí cảnh mở rồi. Mỗi ngày có lượt, vào vét trang bị và đan dược."
+ },
+ "_persona": "Giọng hệ thống (chủ dự án 06/11/2026 16:49 'nói chuyện phải như người có hồn'): xưng 'bổn hệ thống', gọi 'ký chủ', hơi kiêu, hay trêu nhưng thật lòng muốn ký chủ mạnh lên; mở đầu thông báo bằng 'Đinh!'. Lời dẫn cốt truyện (data/story.json, người nói 'he-thong') theo cùng giọng.",
+ "missions": [
+  {
+   "id": "truyen-1",
+   "goal": "Tới đá linh căn, thức tỉnh linh căn",
+   "dk": {
+    "step": 1
+   }
+  },
+  {
+   "id": "truyen-2",
+   "goal": "Hái 3 linh thảo",
+   "dk": {
+    "step": 2
+   }
+  },
+  {
+   "id": "truyen-3",
+   "goal": "Đánh lui ma tộc ở Thanh Khê",
+   "dk": {
+    "step": 3
+   }
+  },
+  {
+   "id": "truyen-4",
+   "goal": "Lên Thiên Kiếm Phong",
+   "dk": {
+    "step": 4
+   }
+  },
+  {
+   "id": "truyen-5",
+   "goal": "Đả tọa tới Luyện Khí tầng 2",
+   "dk": {
+    "step": 5
+   }
+  },
+  {
+   "id": "truyen-6",
+   "goal": "Vào Bí cảnh Huyết Nha",
+   "dk": {
+    "step": 6
+   }
+  },
+  {
+   "id": "truyen-7",
+   "goal": "Hạ Huyết Nha",
+   "dk": {
+    "step": 7
+   }
+  },
+  {
+   "id": "truyen-8",
+   "goal": "Trở về Thiên Kiếm Phong",
+   "dk": {
+    "step": 8
+   }
+  },
+  {
+   "id": "truyen-9",
+   "goal": "Gặp {sư tỷ Lạc Tuyết|sư huynh Tiêu Dao}",
+   "dk": {
+    "step": 9
+   }
+  },
+  {
+   "id": "truyen-10",
+   "goal": "Đối mặt Đại Ma Thần",
+   "dk": {
+    "step": 10
+   }
+  },
+  {
+   "id": "mac-4",
+   "goal": "Mặc đủ 4 món trang bị",
+   "dk": {
+    "equip": 4
+   },
+   "tip": "Mở Túi đồ, chạm món đồ rồi bấm Mặc."
+  },
+  {
+   "id": "cong-phap-2",
+   "goal": "Học 2 công pháp",
+   "dk": {
+    "techs": 2
+   },
+   "tip": "Túi đồ → Công pháp. Bí kíp rơi từ quái và bí cảnh."
+  },
+  {
+   "id": "luyen-khi-5",
+   "goal": "Đả tọa tới Luyện Khí tầng 5",
+   "dk": {
+    "realm": 0,
+    "layer": 5
+   },
+   "tip": "Ngồi lên bồ đoàn hoặc bấm đả tọa, giết quái cũng có linh khí."
+  },
+  {
+   "id": "cuong-hoa-3",
+   "goal": "Cường hoá một món đang mặc lên +3",
+   "dk": {
+    "plus": 3
+   },
+   "tip": "Túi đồ → chạm món → Cường hoá. Cần tinh thiết."
+  },
+  {
+   "id": "kham-1",
+   "goal": "Khảm 1 viên ngọc vào trang bị",
+   "dk": {
+    "socket": 1
+   },
+   "tip": "Túi đồ → chạm món có ô khảm → chọn ngọc."
+  },
+  {
+   "id": "linh-thu-1",
+   "goal": "Thu một linh thú",
+   "dk": {
+    "pets": 1
+   },
+   "tip": "Gặp Ngự Thú Sư, hoặc săn dị chủng ngoài tinh cầu."
+  },
+  {
+   "id": "thu-cuoi-1",
+   "goal": "Có một thú cưỡi",
+   "dk": {
+    "mounts": 1
+   },
+   "tip": "Ngự Thú Sư tặng thú cưỡi đầu tiên. Đi bộ một lúc là tự cưỡi."
+  },
+  {
+   "id": "mac-7",
+   "goal": "Mặc đủ 7 món trang bị",
+   "dk": {
+    "equip": 7
+   },
+   "tip": "Đủ vũ khí, giáp, mũ, giày, nhẫn, ngọc bội, pháp bảo."
+  },
+  {
+   "id": "truc-co",
+   "goal": "Đột phá Trúc Cơ",
+   "dk": {
+    "realm": 1
+   },
+   "tip": "Tu vi đầy tầng 9 thì đột phá lên cảnh giới mới."
+  },
+  {
+   "id": "cuong-hoa-6",
+   "goal": "Cường hoá một món đang mặc lên +6",
+   "dk": {
+    "plus": 6
+   }
+  },
+  {
+   "id": "kham-4",
+   "goal": "Khảm 4 viên ngọc vào trang bị đang mặc",
+   "dk": {
+    "socket": 4
+   }
+  },
+  {
+   "id": "cong-phap-5",
+   "goal": "Học 5 công pháp",
+   "dk": {
+    "techs": 5
+   }
+  },
+  {
+   "id": "kim-dan",
+   "goal": "Đột phá Kim Đan (khiêu chiến được Đại Ma Thần)",
+   "dk": {
+    "realm": 2
+   }
+  },
+  {
+   "id": "cuong-hoa-10",
+   "goal": "Cường hoá một món đang mặc lên +10",
+   "dk": {
+    "plus": 10
+   }
+  },
+  {
+   "id": "canh-gioi-3",
+   "goal": "Đột phá Nguyên Anh",
+   "dk": {
+    "realm": 3
+   }
+  },
+  {
+   "id": "canh-gioi-4",
+   "goal": "Đột phá Hóa Thần",
+   "dk": {
+    "realm": 4
+   }
+  },
+  {
+   "id": "canh-gioi-5",
+   "goal": "Đột phá Luyện Hư",
+   "dk": {
+    "realm": 5
+   }
+  },
+  {
+   "id": "canh-gioi-6",
+   "goal": "Đột phá Hợp Thể",
+   "dk": {
+    "realm": 6
+   }
+  },
+  {
+   "id": "canh-gioi-7",
+   "goal": "Đột phá Đại Thừa",
+   "dk": {
+    "realm": 7
+   }
+  },
+  {
+   "id": "canh-gioi-8",
+   "goal": "Đột phá Độ Kiếp",
+   "dk": {
+    "realm": 8
+   }
+  }
+ ],
+ "points": 25,
+ "cost": 100,
+ "show_n": 3,
+ "_missions": "Nhiệm vụ hệ thống (chủ dự án 06/11/2026 16:49–17:05): thay cốt truyện và nhiệm vụ hằng ngày; ưu tiên hướng dẫn tân thủ nhập môn. Mỗi nhiệm vụ cho points điểm như nhau, đủ cost điểm triệu hồi một lần. dk: step ≥, realm ≥ (+ layer ≥ khi cùng cảnh giới), equip (số ô đang mặc), techs (số công pháp), plus (món đang mặc cường hoá cao nhất), socket (số ngọc đang khảm trên đồ đang mặc), pets, mounts. Máy chủ kiểm lại điều kiện trên bản lưu trên máy chủ (supabase/migrations/20261106080000_p2d_he_thong_qua.sql, bảng p2d_ht_nv chép từ đây — tools/check.mjs so khớp). Hiện show_n nhiệm vụ chưa nhận đầu tiên.",
+ "pool": [
+  {
+   "id": "lt-5k",
+   "w": 30,
+   "coins": 5000
+  },
+  {
+   "id": "lt-20k",
+   "w": 18,
+   "coins": 20000
+  },
+  {
+   "id": "lt-100k",
+   "w": 6,
+   "coins": 100000
+  },
+  {
+   "id": "lt-500k",
+   "w": 1,
+   "coins": 500000
+  },
+  {
+   "id": "ngoc-1-2",
+   "w": 14,
+   "gem": [
+    1,
+    2
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-3-4",
+   "w": 6,
+   "gem": [
+    3,
+    4
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-5-6",
+   "w": 1.5,
+   "gem": [
+    5,
+    6
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-7-8",
+   "w": 0.3,
+   "gem": [
+    7,
+    8
+   ],
+   "n": 1
+  },
+  {
+   "id": "tay-2",
+   "w": 10,
+   "mat": "tay-luyen-thach",
+   "n": 2
+  },
+  {
+   "id": "tay-5",
+   "w": 3,
+   "mat": "tay-luyen-thach",
+   "n": 5
+  },
+  {
+   "id": "do-luc-lam",
+   "w": 6,
+   "gear": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "do-tim-cam",
+   "w": 3,
+   "gear": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "do-vang",
+   "w": 0.8,
+   "gear": [
+    4
+   ]
+  },
+  {
+   "id": "do-tien",
+   "w": 0.3,
+   "gear": [
+    5
+   ]
+  },
+  {
+   "id": "do-thuong-co",
+   "w": 0.1,
+   "gear": [
+    6
+   ]
+  }
+ ],
+ "_pool": "Bảng quà triệu hồi (chủ dự án duyệt 06/11/2026 17:00: quà như nhau cho mọi người, ra gì nhờ khí vận). w trọng số (tổng 100). gem [cấp thấp, cấp cao] loại ngẫu nhiên; mat nguyên liệu (đá: Tẩy Luyện Thạch); gear [bậc màu dòng] trang bị ngẫu nhiên mọi ô (chủ dự án 16:57: trang bị, không chỉ vũ khí), cấp món theo tầng tu vi, 1 dòng màu đó. Quà vào Hòm thư (ly_do he_thong_qua). Máy chủ quay (p2d_ht_trieu).",
+ "text": {
+  "points": "Điểm hệ thống: {p}",
+  "claim": "Nhận {p} điểm",
+  "claimed": "Đinh! +{p} điểm hệ thống.",
+  "todo": "Chưa xong",
+  "story_hint": "Việc đang làm:",
+  "summon": "Triệu hồi ({c} điểm)",
+  "summon_need": "Cần {c} điểm (đang có {p})",
+  "summon_title": "Triệu hồi quà hệ thống",
+  "summon_desc": "Mỗi lần {c} điểm. Linh Thạch, ngọc cấp 1–8, Tẩy Luyện Thạch, trang bị phẩm Lục tới Thượng Cổ. Ra gì là nhờ khí vận của ký chủ. Quà vào Hòm thư.",
+  "summon_got": "Đinh! Ký chủ triệu hồi được: {name}",
+  "summon_err": "Bổn hệ thống đang bận, thử lại sau.",
+  "login": "Đăng nhập để nhận điểm và triệu hồi.",
+  "rare": "Khí vận nghịch thiên! Bổn hệ thống cũng phải nể.",
+  "odds": "Tỷ lệ",
+  "mail": "Quà triệu hồi hệ thống",
+  "pool_gem": "Ngọc cấp {a}–{b}",
+  "pool_gear": "Trang bị phẩm {t}"
  }
 }

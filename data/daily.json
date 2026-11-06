@@ -1,5 +1,6 @@
 {
  "_note": "Việc hằng ngày và cống hiến tông môn. Mỗi ngày (giờ máy) bốc per_day việc từ pool (need: cờ cốt truyện; việc hạ boss bí cảnh dùng đúng cờ mở cổng bí cảnh đó, việc ở tinh cầu dùng cờ mở tinh cầu, đổi 05/11/2026 vì cờ truyện cũ đã xoá). Xong việc nhận thưởng + cống hiến; xong hết nhận rương. Treo thưởng chỉ có thưởng bounty_per_day lần mỗi ngày. Cống hiến lên chức vị (ranks) và đổi đồ ở shop.",
+ "off": true, "_off": "Chủ dự án 06/11/2026 16:49: bỏ nhiệm vụ hằng ngày (cột nhiệm vụ trên màn hình, điểm danh, rương); nhiệm vụ hệ thống thay (data/he-thong.json). off = true: không dựng cột nhiệm vụ (src/main.js createQuestDock), không nhắc điểm danh.",
  "per_day": 5,
  "guard": {"r": 200, "_": "Việc Trấn giữ vùng an toàn (đề xuất #47 + #48, chủ dự án chốt 01/11): hạ quái thường (không boss) cách NPC dưới r đơn vị trên tinh cầu thì tính tiến độ."},
  "pool": [

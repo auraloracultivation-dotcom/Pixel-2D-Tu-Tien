@@ -10,3 +10,9 @@ export async function myQuestions() {
   if (error) throw error;
   return data || [];
 }
+
+// Điểm hệ thống và triệu hồi quà (supabase/migrations/20261106080000_p2d_he_thong_qua.sql)
+async function rpc(fn, args) { const { data, error } = await supabase.rpc(fn, args); if (error) throw error; return data; }
+export const htStatus = () => rpc('p2d_ht_trang_thai');
+export const htClaim = id => rpc('p2d_ht_nhan', { p_id: id });
+export const htSummon = () => rpc('p2d_ht_trieu');

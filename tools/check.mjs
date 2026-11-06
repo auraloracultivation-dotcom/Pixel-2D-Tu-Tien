@@ -234,7 +234,7 @@ try {
   for (const s of story.steps) {
     need(!s.map || maps[s.map], `story/${s.id}: bản đồ "${s.map}" không có`);
     for (const a of s.do || []) {
-      if (a.say) for (const [w] of a.say) for (const who of both(w)) need(!who || npcs[who], `story/${s.id}: NPC "${who}" không có`);
+      if (a.say) for (const [w] of a.say) for (const who of both(w)) need(!who || who === 'he-thong' || npcs[who], `story/${s.id}: NPC "${who}" không có`);
       if (a.spawn && !a.fly) need(mobs[a.spawn], `story/${s.id}: quái "${a.spawn}" không có`);
       if (a.fly) need(maps[a.fly], `story/${s.id}: bản đồ "${a.fly}" không có`);
       if (a.weapon) for (const w of both(a.weapon)) need(weapons[w], `story/${s.id}: vũ khí "${w}" không có`);

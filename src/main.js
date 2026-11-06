@@ -107,7 +107,7 @@ async function boot() {
   createHeThong(game);   // Hệ Thống Tu Tiên đi theo ký chủ (data/he-thong.json)
   createFaq(game);   // nút ! góc trên phải: bảng Câu hỏi thường gặp cho người mới (data/faq.json)
   createNotice(game); createNameNudge(game);   // nhắc người còn tên mặc định đặt tên; nút 📢 bảng thông báo, nút sự kiện trên bảng điều khiển (data/notice.json)
-  startNetWatch(game); startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
+  startNetWatch(game); if (!game.data.daily?.off) startCheckinNudge(game); startThienMa(game);   // game online: mất liên lạc máy chủ quá 10 giây thì đứng hình, quá 1 phút về màn đăng nhập (data/config.json → net_watch)
   startChatPush(game);   // chat, truyền âm máy chủ đẩy qua Realtime; các vòng đọc cũ thành đọc bù (data/config.json → realtime)
   createInbox(game); startInbox(game);   // nút Hòm thư cạnh Menu, gom tin chợ, truyền âm, tông môn, thế giới (data/inbox.json)
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
@@ -116,7 +116,8 @@ async function boot() {
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
   createFarmTeamPanel(game);   // tổ đội farm ngoài thế giới mở: danh sách đội trên tinh cầu, thưởng +10% mỗi đồng đội cùng chỗ (data/doi-farm.json)
-  createChatDock(game); createQuestDock(game);   // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
+  createChatDock(game); if (!game.data.daily?.off) createQuestDock(game);   // off: bỏ nhiệm vụ hằng ngày (chủ dự án 06/11/2026), hệ thống thay
+    // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
   orderHud(game); createHudGon(game); createHudAva(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
   document.getElementById('loading').hidden = true;
