@@ -1,5 +1,5 @@
 {
- "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json.",
+ "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Tu Tiên (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply).",
  "steps": [
   {
    "id": "le-thuc-tinh",
@@ -8,8 +8,12 @@
     {
      "say": [
       [
-       "",
-       "Tinh cầu Thanh Khê, sáng ngày lễ thức tỉnh linh căn."
+       "he-thong",
+       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn."
+      ],
+      [
+       "he-thong",
+       "Đá linh căn ở giữa làng. Đi tới đó, để bổn hệ thống xem cái thân xác mới này có chút tư chất nào không."
       ],
       [
        "truong-thon",
@@ -53,8 +57,8 @@
        "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."
       ],
       [
-       "",
-       "Đám đông rẽ ra. {Một thiếu nữ áo trắng như tuyết|Một thiếu niên áo lam, mắt sáng như sao} bước tới, nhìn bạn mỉm cười."
+       "he-thong",
+       "Hệ {element}, phẩm {root}. Hừm... cũng tạm. Có bổn hệ thống ở đây, phế vật cũng thành thiên tài."
       ]
      ]
     },
@@ -68,14 +72,33 @@
     {
      "say": [
       [
-       "{lac-tuyet|tieu-dao}",
-       "Linh căn đẹp thật. Ta là {Lạc Tuyết|Tiêu Dao}, đệ tử Thiên Kiếm Tông, xuống núi dự lễ thức tỉnh."
+       "",
+       "{Một thiếu nữ áo trắng như tuyết|Một thiếu niên áo lam, mắt sáng như sao} bước tới."
+      ],
+      [
+       "he-thong",
+       "Đinh! Phát hiện đệ tử Thiên Kiếm Tông. Cơ hội vào tông môn đây, ký chủ đừng làm bổn hệ thống mất mặt."
       ],
       [
        "{lac-tuyet|tieu-dao}",
-       "Ngươi có muốn giúp ta vài việc không? Làm xong, ta đưa ngươi lên Thiên Kiếm Phong."
+       "Ta là {Lạc Tuyết|Tiêu Dao}. Giúp ta vài việc, ta đưa ngươi lên Thiên Kiếm Phong."
       ]
      ]
+    },
+    {
+     "sys_ask": {
+      "q": "Đinh! Kích hoạt chuỗi nhiệm vụ Tân Thủ Nhập Môn. Ký chủ có chấp nhận không?",
+      "opts": [
+       {
+        "label": "Chấp nhận",
+        "reply": "Tốt! Biết nghe lời là bước đầu của cường giả. Hoàn thành nhiệm vụ sẽ có điểm hệ thống, đủ 100 điểm thì triệu hồi quà."
+       },
+       {
+        "label": "Từ chối",
+        "reply": "Từ chối? Ha. Ký chủ tưởng có quyền chọn à? Bổn hệ thống đã ghi danh rồi. Đi làm việc đi!"
+       }
+      ]
+     }
     }
    ],
    "goal": "Nói chuyện với {sư tỷ Lạc Tuyết|sư huynh Tiêu Dao}",
@@ -91,7 +114,11 @@
      "say": [
       [
        "{lac-tuyet|tieu-dao}",
-       "Việc thứ nhất: hái giúp ta ba nhánh linh thảo ở mép tinh cầu. Ta cần luyện đan cho sư môn."
+       "Việc thứ nhất: hái giúp ta ba nhánh linh thảo ở mép tinh cầu."
+      ],
+      [
+       "he-thong",
+       "Nhiệm vụ: hái 3 linh thảo. Cỏ có ánh xanh ở mép tinh cầu, chạm khung nhiệm vụ để bổn hệ thống chỉ đường."
       ]
      ]
     },
@@ -136,15 +163,23 @@
      "say": [
       [
        "{lac-tuyet|tieu-dao}",
-       "Giỏi lắm! Tặng ngươi một viên Hồng Ngọc cấp 5 và tấm đạo bào. Mở Túi đồ mà mặc vào."
+       "Giỏi lắm! Tặng ngươi Hồng Ngọc cấp 5 và tấm đạo bào."
+      ],
+      [
+       "he-thong",
+       "Đinh! Nhận đạo bào. Mở Túi mặc vào ngay, đừng để bổn hệ thống thấy ký chủ ra trận với bộ đồ ngủ."
       ],
       [
        "",
        "Trời bỗng tối sầm. Ma khí bò lên từ mép tinh cầu."
       ],
       [
+       "he-thong",
+       "Cảnh báo! Ma tộc xâm nhập. Cơ hội luyện tay đây, đừng có chạy!"
+      ],
+      [
        "{lac-tuyet|tieu-dao}",
-       "Ma tộc! Việc thứ hai: cùng ta đánh lui chúng!"
+       "Ma tộc! Cùng ta đánh lui chúng!"
       ]
      ]
     },
@@ -185,8 +220,8 @@
     {
      "say": [
       [
-       "{lac-tuyet|tieu-dao}",
-       "Ngươi chiến đấu không tệ. Lam Ngọc cấp 5 và chiếc mũ này là của ngươi."
+       "he-thong",
+       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
       ],
       [
        "{lac-tuyet|tieu-dao}",
@@ -218,6 +253,10 @@
       [
        "van-hac",
        "Đệ tử mới à. Cầm lấy {thanh kiếm|cây liềm} này."
+      ],
+      [
+       "he-thong",
+       "Binh khí đầu tiên. Đừng làm rơi."
       ]
      ]
     },
@@ -233,8 +272,8 @@
     {
      "say": [
       [
-       "{lac-tuyet|tieu-dao}",
-       "Việc thứ ba: ngồi lên bồ đoàn, đả tọa tới Luyện Khí tầng 2. Ta ngồi chờ ngươi."
+       "he-thong",
+       "Nhiệm vụ: ngồi lên bồ đoàn, đả tọa tới Luyện Khí tầng 2. Tu tiên mà không ngồi yên được thì về làng trồng rau đi."
       ]
      ]
     }
@@ -264,12 +303,12 @@
     {
      "say": [
       [
-       "{lac-tuyet|tieu-dao}",
-       "Đột phá rồi! Hoàng Ngọc cấp 5 và chiếc nhẫn này cho ngươi."
+       "he-thong",
+       "Đinh! Đột phá Luyện Khí tầng 2. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Linh khí chảy trong kinh mạch sướng chưa?"
       ],
       [
-       "{lac-tuyet|tieu-dao}",
-       "Việc thứ tư: vào Bí cảnh Huyết Nha (cổng phía đông), hạ Huyết Nha cho ta."
+       "he-thong",
+       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông, hạ Huyết Nha. Bên trong nhiều đồ tốt, nhặt hết cho bổn hệ thống."
       ]
      ]
     },
@@ -301,6 +340,10 @@
       [
        "",
        "Huyết Nha tan thành khói đen."
+      ],
+      [
+       "he-thong",
+       "Đinh! Hạ Huyết Nha. Bí cảnh mỗi ngày có lượt, nhớ quay lại vét đồ. Giờ về gặp {Lạc Tuyết|Tiêu Dao}."
       ]
      ]
     },
@@ -324,7 +367,7 @@
      "say": [
       [
        "{lac-tuyet|tieu-dao}",
-       "Ngươi về rồi! Việc cuối cùng: lại đây, ta có thứ muốn đưa."
+       "Ngươi về rồi! Lại đây, ta có thứ muốn đưa."
       ]
      ]
     }
@@ -368,6 +411,10 @@
        "Bầu trời Thiên Kiếm Phong nứt toác. Ma khí đen đặc tràn xuống."
       ],
       [
+       "he-thong",
+       "Cảnh báo cấp cao! Ma khí vượt ngưỡng!"
+      ],
+      [
        "{lac-tuyet|tieu-dao}",
        "Cẩn thận! Là... Đại Ma Thần!"
       ]
@@ -384,6 +431,10 @@
       [
        "",
        "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất."
+      ],
+      [
+       "he-thong",
+       "...Bổn hệ thống không cản được. Lần đầu tiên bổn hệ thống thấy mình nhỏ bé."
       ]
      ]
     },
@@ -399,16 +450,16 @@
     {
      "say": [
       [
-       "van-hac",
-       "Đại Ma Thần vây kín tinh hà bằng ma khí, không còn ánh mặt trời nữa."
+       "he-thong",
+       "Nghe đây ký chủ. Đại Ma Thần vây kín tinh hà bằng ma khí. Muốn cứu {Lạc Tuyết|Tiêu Dao}, ngươi phải mạnh lên."
       ],
       [
-       "van-hac",
-       "Muốn cứu {Lạc Tuyết|Tiêu Dao}, con phải mạnh lên từ đầu: vào bí cảnh, làm nhiệm vụ, khảm ngọc từ cấp 1."
+       "he-thong",
+       "Từ giờ bổn hệ thống giao nhiệm vụ tân thủ từng bước: trang bị, chiêu thức, bí cảnh, cường hoá, khảm ngọc... Việc nào cũng có điểm, đủ 100 điểm thì triệu hồi quà."
       ],
       [
-       "van-hac",
-       "Từ Kim Đan, con khiêu chiến được Đại Ma Thần ở Đài Ma Thần."
+       "he-thong",
+       "Tới Kim Đan, ngươi khiêu chiến được Đại Ma Thần ở Đài Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng."
       ]
      ]
     },
@@ -470,7 +521,7 @@
      "dark": 0
     }
    ],
-   "goal": "Cày bí cảnh, làm nhiệm vụ, mạnh lên để đánh bại Đại Ma Thần (khiêu chiến từ Kim Đan)",
+   "goal": "Làm nhiệm vụ hệ thống (biểu tượng Hệ), mạnh lên để đánh bại Đại Ma Thần (khiêu chiến từ Kim Đan)",
    "until": {
     "never": true
    }

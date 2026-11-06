@@ -34,7 +34,12 @@ export function createStory(game) {
   async function act(a) {
     const g = game;
     if (a.fly) await g.travel(a.fly, a.spawn, true, { text: a.text, with: a.with, kind: a.kind });
-    else if (a.say) await g.dialog.say(a.say.map(([who, text]) => [who ? (g.data.npcs[who]?.name || who) : '', fill(text)]));
+    else if (a.say) await g.dialog.say(a.say.map(([who, text]) => [who === 'he-thong' ? g.data['he-thong']?.name || 'Hệ Thống' : who ? (g.data.npcs[who]?.name || who) : '', fill(text)]));   // 'he-thong': Hệ Thống Tu Tiên nói (data/he-thong.json)
+    else if (a.sys_ask) {   // câu hỏi lựa chọn của hệ thống (chủ dự án 06/11/2026): chọn xong hệ thống đáp một câu
+      const H = g.data['he-thong']?.name || 'Hệ Thống', id = await g.dialog.choose(fill(a.sys_ask.q), a.sys_ask.opts.map((o, i) => ({ id: i, label: o.label, color: '#5fd8f8' })), 400);
+      const o = a.sys_ask.opts[id ?? 0];
+      if (o?.reply) await g.dialog.say([[H, fill(o.reply)]]);
+    }
     else if (a.choose_element) {
       const els = g.data.elements;
       const id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:',

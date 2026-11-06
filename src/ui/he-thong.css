@@ -42,3 +42,23 @@
   position: fixed; z-index: 8; max-width: min(64vw, 240px); padding: 7px 9px; border-radius: 8px; border: 1px solid #0a1830;
   background: rgba(14, 44, 78, .95); color: #eafaff; font: 12px/1.4 var(--f-body); box-shadow: 0 0 0 1px #3ec8f0 inset, 0 0 10px rgba(62, 200, 240, .45);
 }
+/* Nhiệm vụ có điểm, mục Triệu hồi (src/ui/he-thong-qua.js) */
+.ht-pts { align-self: flex-start; font-weight: 700; color: #ffe27a; background: rgba(255, 210, 90, .12); border: 1px solid rgba(255, 210, 90, .5); border-radius: 6px; padding: 3px 9px; }
+.ht-muted { color: #8fb4c4; font-size: 12px; }
+.ht-mis { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; padding: 7px 9px; border: 1px solid rgba(62, 200, 240, .3); border-radius: 7px; }
+.ht-mis small { grid-column: 1; color: #9fc8d8; font-size: 11px; }
+.ht-mis .ht-btn { grid-row: 1 / span 2; grid-column: 2; }
+.ht-mis.ok { border-color: #ffd24a; box-shadow: 0 0 8px rgba(255, 210, 74, .35); }
+.ht-btn.sm { font-size: 11px; padding: 6px 9px; }
+.ht-btn.big { align-self: stretch; font-size: 15px; padding: 11px; background: linear-gradient(180deg, #7ff0ff, #3ec8f0); }
+.ht-stage { min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; border-radius: 10px; }
+.ht-stage.spin { min-height: 70px; background: radial-gradient(circle, rgba(127, 240, 255, .5), transparent 65%); animation: ht-spin .5s linear infinite; }
+.ht-stage.open { min-height: 70px; padding: 10px; justify-content: center; background: radial-gradient(circle, rgba(127, 240, 255, .35), transparent 70%); animation: ht-pop .45s; }
+.ht-stage.open b { font-size: 15px; color: #fff; text-align: center; text-shadow: 0 0 8px #5ff0ff; }
+.ht-stage.rare { background: radial-gradient(circle, rgba(255, 90, 90, .45), rgba(255, 210, 90, .2) 50%, transparent 72%); }
+.ht-stage.rare small { color: #ffd24a; }
+@keyframes ht-spin { to { filter: hue-rotate(360deg); transform: scale(1.04); } }
+@keyframes ht-pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.1); } }
+.ht-odds { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; }
+.ht-odd { display: flex; justify-content: space-between; gap: 6px; font-size: 11px; color: #bfe6f4; }
+.ht-odd.rare span { color: #ffd24a; }

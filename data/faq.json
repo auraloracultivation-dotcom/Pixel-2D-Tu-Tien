@@ -1,62 +1,792 @@
 {
- "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social).",
+ "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social). 06/11/2026 17:10: viết lại đầy đủ mọi hạng mục (bản nháp tools/faq-draft.json), bỏ nhóm Mỗi ngày (điểm danh, nhiệm vụ hằng ngày đã bỏ), thêm Hệ Thống, boss Thôn Thiên Mãng, PvP, Hòm thư.",
  "btn": "!",
  "label": "Câu hỏi thường gặp",
  "title": "Câu hỏi thường gặp",
  "close": "✕",
  "groups": [
   {
-   "title": "Mỗi ngày",
+   "title": "Bắt đầu, điều khiển",
    "list": [
     {
-     "q": "Mỗi ngày nên làm gì?",
+     "q": "Điều khiển nhân vật thế nào?",
      "a": [
-      "1. Điểm danh: bấm nút Nhiệm vụ, chạm dòng điểm danh ở đầu cột nhiệm vụ bên phải.",
-      "2. Nhiệm vụ hằng ngày: chạm từng dòng việc ở cột nhiệm vụ bên phải, nhân vật tự hành đi làm. Xong việc dòng sáng lên, chạm để nhận thưởng; đủ việc thì mở rương.",
-      "3. Bí cảnh: mỗi bí cảnh có 5 lượt mỗi ngày, vượt ải hoặc càn quét ải đã qua đều tốn lượt.",
-      "4. Ma Vương tuần ở Phương Thiên Địa: mỗi tuần hạ được 1 lần."
+      "Kéo cần điều khiển bên trái màn hình để chạy.",
+      "Cụm nút bên phải: nút Đánh to ở giữa, ba nút chiêu, nút chiêu pháp bảo, nút Lướt và nút Đan (uống Hồi Xuân Đan).",
+      "Nút tương tác hiện khi đứng gần thứ gì đó: Nói chuyện, Đả tọa, Độ thiên kiếp, Câu cá, Vuốt ve linh thú."
      ]
     },
     {
+     "q": "Lướt dùng để làm gì?",
+     "a": [
+      "Bấm Lướt để vọt nhanh một đoạn theo hướng đang chạy, hồi lại sau 2 giây.",
+      "Dùng để né vòng đỏ báo trước của boss, né sét khi độ kiếp và né chiêu khi PvP."
+     ]
+    },
+    {
+     "q": "Tự đánh và Tự hành khác nhau thế nào?",
+     "a": [
+      "Tự đánh (cạnh cụm nút đánh): nhân vật đánh quái quanh chỗ bật, không đi xa. Bật ngay cạnh boss thì ưu tiên đánh boss trước.",
+      "Tự hành: nhân vật tự đi làm nhiệm vụ hệ thống, đánh quái, nhặt đồ, đả tọa, hết việc thì treo máy ở bãi quái vừa sức.",
+      "Kéo cần điều khiển là dừng cả hai."
+     ]
+    },
+    {
+     "q": "Tắt bớt việc Tự hành tự làm ở đâu?",
+     "a": [
+      "Menu → Tự động: bật tắt từng việc như tự mặc đồ tốt hơn, tự cường hoá an toàn, tự khảm ghép ngọc, tự uống luyện đan, túi đầy tự phân giải đồ rẻ, khuya về động phủ.",
+      "Ở đó cũng chọn được tinh cầu treo máy, để trống thì tự chọn bãi hợp cảnh giới."
+     ]
+    },
+    {
+     "q": "Xem bản đồ và bay nhanh trong tinh cầu thế nào?",
+     "a": [
+      "Chạm bản đồ tròn ở góc trên bên phải để mở Bản đồ.",
+      "Tab Tinh cầu này: chạm chỗ nào là ngự kiếm bay tới đó.",
+      "Tab Tinh hệ: chạm tinh cầu đã từng tới để bay sang."
+     ]
+    },
+    {
+     "q": "Đi sang tinh cầu khác, vào bí cảnh bằng cách nào?",
+     "a": [
+      "Sang tinh cầu khác: chọn trong Bản đồ → Tinh hệ. Trên đường bay lượn lên xuống nhặt sao linh khí, sao vàng ra Linh Thạch, va mảnh vỡ chỉ bị chậm lại, không bao giờ thua.",
+      "Bí cảnh: đi vào truyền tống trận trên tinh cầu, hoặc bấm nút Bí cảnh để vào thẳng."
+     ]
+    },
+    {
+     "q": "Màn hình nhiều nút quá, ẩn bớt được không?",
+     "a": [
+      "Có. Cạnh thanh máu có nút mũi tên để thu gọn cột nút, và nút Ẩn để giấu thanh trạng thái, khung trò chuyện, cột nhặt đồ.",
+      "Khi ẩn vẫn còn cụm nút đánh để farm. Chạm Hiện để bày lại."
+     ]
+    },
+    {
+     "q": "Linh lực và linh khí khác nhau thế nào?",
+     "a": [
+      "Linh lực (thanh cạnh chân dung) là năng lượng ra chiêu, tự hồi 5% mỗi giây, đả tọa hồi nhanh gấp 3. Thiếu linh lực thì không ra chiêu được.",
+      "Linh khí là tu vi để lên tầng, đột phá cảnh giới.",
+      "Hồi Linh Đan hồi ngay 50% linh lực."
+     ]
+    },
+    {
+     "q": "Gục thì sao?",
+     "a": [
+      "Gục thì về điểm hồi sinh, không mất đồ (trừ khi bị người khác hạ trong PvP).",
+      "Gục nhiều lần liền thì Hệ Thống sẽ nhắc: mặc trang bị tốt nhất, học chiêu mới, hoặc săn quái yếu hơn."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Hệ Thống Tu Tiên",
+   "list": [
+    {
+     "q": "Hệ Thống Tu Tiên là gì?",
+     "a": [
+      "Ký chủ là người xuyên không, có Hệ Thống đi theo: giao nhiệm vụ, giải đáp thắc mắc, nhận câu hỏi mới.",
+      "Bảng Hệ Thống hiện giữa màn hình. Chạm ra ngoài thì bảng thu nhỏ thành biểu tượng Hệ bên phải (cạnh nút pháp bảo). Chạm biểu tượng Hệ để mở lại."
+     ]
+    },
+    {
+     "q": "Nhiệm vụ hệ thống làm thế nào?",
+     "a": [
+      "Mở bảng Hệ Thống → Nhiệm vụ: đầu tiên là các bước tân thủ (thức tỉnh linh căn, lên Thiên Kiếm Phong, bí cảnh đầu tiên), sau đó là nhập môn: mặc đồ, học công pháp, cường hoá, khảm ngọc, thu linh thú, thú cưỡi, đột phá từng cảnh giới.",
+      "Việc đang làm có nút Dẫn đường bật Tự hành. Xong việc nào bấm Nhận điểm việc đó.",
+      "Nhiệm vụ hệ thống thay cho cốt truyện cũ; nhiệm vụ hằng ngày, điểm danh, rương ngày đã bỏ."
+     ]
+    },
+    {
+     "q": "Làm nhiệm vụ hệ thống được gì?",
+     "a": [
+      "Mỗi nhiệm vụ xong: mở bảng Hệ Thống → Nhiệm vụ, bấm Nhận 25 điểm hệ thống (máy chủ kiểm lại rồi mới cộng).",
+      "Đủ 100 điểm (4 nhiệm vụ) thì vào mục Triệu hồi, bấm Triệu hồi để nhận 1 phần quà ngẫu nhiên.",
+      "Quà gửi vào Hòm thư, mở Hòm thư là nhận."
+     ]
+    },
+    {
+     "q": "Triệu hồi ra những gì? Tỉ lệ có công bằng không?",
+     "a": [
+      "Có thể ra: Linh Thạch (5.000, 20.000, 100.000 hoặc 500.000), ngọc cấp 1 tới 8, Tẩy Luyện Thạch ×2 hoặc ×5, trang bị ngẫu nhiên mọi ô phẩm Lục tới Thượng Cổ (cấp món theo tầng tu vi).",
+      "Tỉ lệ như nhau cho mọi người, ra gì là nhờ khí vận. Xem bảng tỉ lệ ngay trong mục Triệu hồi."
+     ]
+    },
+    {
+     "q": "Hỏi đáp và Hỏi thêm là gì?",
+     "a": [
+      "Hỏi đáp: các câu hỏi thường gặp, chạm câu để xem trả lời.",
+      "Hỏi thêm: chưa thấy câu trả lời thì gõ câu hỏi gửi Hệ Thống (cần đăng nhập, mỗi ngày hỏi có giới hạn). Câu nào nhiều người hỏi sẽ được thêm vào Hỏi đáp."
+     ]
+    },
+    {
+     "q": "Sao biểu tượng Hệ tự rung, hiện chữ?",
+     "a": [
+      "Hệ Thống tự nhắc khi ký chủ đứng yên lâu không làm gì, gục nhiều lần liền, hoặc có nhiệm vụ mới.",
+      "Mỗi loại nhắc cách nhau ít nhất 3 phút. Chạm biểu tượng để xem."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Cảnh giới, tu luyện, độ kiếp",
+   "list": [
+    {
+     "q": "Có những cảnh giới nào?",
+     "a": [
+      "9 cảnh giới: Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh, Hóa Thần, Luyện Hư, Hợp Thể, Đại Thừa, Độ Kiếp.",
+      "Mỗi cảnh giới 9 tầng. Mỗi tầng thêm máu và công."
+     ]
+    },
+    {
+     "q": "Kiếm linh khí (tu vi) ở đâu nhanh?",
+     "a": [
+      "Hạ quái, đả tọa, uống đan linh khí (Tụ Khí Đan, Tử Vân Đan, canh cá).",
+      "Thăng Linh Đan: 15 phút linh khí gấp đôi, mỗi ngày tối đa 2 viên.",
+      "Thứ 7, Chủ nhật: linh khí đánh quái và đả tọa gấp đôi. Có đạo lữ +5%, tổ đội farm cùng tinh cầu thêm nữa."
+     ]
+    },
+    {
+     "q": "Đả tọa thế nào? Ở đâu tu nhanh nhất?",
+     "a": [
+      "Đứng cạnh bồ đoàn, bấm nút Đả tọa. Đánh hoặc chạy là dừng.",
+      "Bồ đoàn trong động phủ tu nhanh gấp 2, nâng động phủ lên tới gấp 4. Đồ trang trí, đạo lữ ở nhà làm nhanh thêm."
+     ]
+    },
+    {
+     "q": "Uống đan linh khí nhiều có bị giảm không?",
+     "a": [
+      "Có đan độc: mỗi ngày 8 viên đầu đủ hiệu quả, viên 9 tới 16 còn 50%, từ viên 17 còn 20%.",
+      "Qua 0 giờ thì hết độc. Đan, canh linh khí tính chung."
+     ]
+    },
+    {
+     "q": "Rời game có được tu vi không?",
+     "a": [
+      "Có. Vắng từ 5 phút trở lên thì lúc vào lại được linh khí bế quan bằng nửa tốc độ đả tọa, tối đa 8 giờ.",
+      "Thoát game khi đang ở động phủ thì bế quan ở nhà, nhanh hơn."
+     ]
+    },
+    {
+     "q": "Đột phá, độ kiếp thế nào?",
+     "a": [
+      "Đủ tầng 9 và đầy linh khí thì nút Độ thiên kiếp hiện ra (không độ được trong bí cảnh).",
+      "Trụ hết các đợt sét là lên cảnh giới mới. Gục thì thất bại, mất 30% linh khí.",
+      "Tự hành không tự độ kiếp, chỉ nhắc bạn."
+     ]
+    },
+    {
+     "q": "Mỗi lần độ kiếp khác nhau ra sao? Mẹo qua kiếp?",
+     "a": [
+      "Lôi kiếp (sét giáng chỗ đứng), Cửu Tiêu Lôi Kiếp (sét thành hàng), Tâm Ma Kiếp (đánh bóng của chính mình), Thiên Hỏa Kiếp (lửa trời), từ Hóa Thần trở lên là Hỗn Nguyên Kiếp trộn cả.",
+      "Nhìn vòng sáng báo trước mà chạy, dùng Lướt để né.",
+      "Uống Thanh Tâm Đan (sét nhẹ 30%) hoặc Tĩnh Liên Đan (nhẹ 50%) trước khi độ."
+     ]
+    },
+    {
+     "q": "Lực chiến là gì?",
+     "a": [
+      "Lực chiến là số tổng sức mạnh: chỉ số nhân vật, trang bị, ngọc, đồ bộ, linh thú, khôi lỗi, thú cưỡi, thời trang.",
+      "Ô đồ trong túi ghi Lực chiến ± để biết mặc vào mạnh hơn hay yếu đi."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Linh căn, hệ ngũ hành",
+   "list": [
+    {
+     "q": "Linh căn có mấy hệ? Hệ ảnh hưởng gì?",
+     "a": [
+      "5 hệ: Mộc (trói buộc, hồi máu), Hỏa (sát thương lớn diện rộng), Thủy (làm chậm, che chắn), Kim (lao tới chém xuyên), Thổ (choáng diện rộng, giáp đá).",
+      "Mỗi hệ 6 chiêu, mở dần theo tu vi."
+     ]
+    },
+    {
+     "q": "Phẩm linh căn là gì? Nâng thế nào?",
+     "a": [
+      "Phẩm linh căn: Phàm, Linh, Huyền, Địa, Thiên. Phẩm cao tu nhanh hơn chút (Thiên nhanh hơn Phàm 12%).",
+      "Nâng một bậc bằng Tẩy Tủy Đan: luyện ở Lò đan (cần Yêu Vương Đan rơi từ boss) hoặc mua của Ông Hai Nấm 50.000 Linh Thạch, mỗi ngày 1 viên."
+     ]
+    },
+    {
+     "q": "Đổi hệ linh căn bằng gì?",
+     "a": [
+      "Luyện Đan tẩy linh căn ở Lò đan, từ Kim Đan trở lên: tốn 3.000 Linh Thạch, 5 Ngọc Lộ Hoa, 5 Hỏa Linh Chi.",
+      "Giữ nguyên phẩm linh căn. Chiêu hệ cũ mất, ô chiêu về mặc định, chiêu hệ mới mở theo tu vi."
+     ]
+    },
+    {
+     "q": "Hợp hệ, bộ Đạo Vận là gì?",
+     "a": [
+      "Mỗi trang bị có một hệ. Món cùng hệ linh căn của bạn được chỉ số chính +30%.",
+      "Đồ đang mặc, chiêu hệ, công pháp, linh thú cùng hệ cộng lại thành bộ Đạo Vận: đủ 3, 5, 7, 10 món hợp hệ thì mở thưởng bộ theo hệ."
+     ]
+    },
+    {
+     "q": "Đổi hệ của trang bị thế nào?",
+     "a": [
+      "Dùng Đạo Vận Thạch, mỗi lần ra một hệ ngẫu nhiên khác hệ cũ.",
+      "Mua: Cô bán nước 50.000 Linh Thạch (mỗi ngày 1 viên), hoặc Quầy Tiên Ngọc 50 Tiên Ngọc (mỗi ngày 2 viên)."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Trang bị: phẩm, tẩy luyện, cường hoá",
+   "list": [
+    {
+     "q": "Màu dòng chỉ số là phẩm gì?",
+     "a": [
+      "Lục = Phàm, Lam = Linh, Tím = Huyền, Cam = Địa, Vàng = Thiên, Đỏ = Tiên, Đen = Thượng Cổ.",
+      "Phẩm của món là trung bình màu các dòng.",
+      "Ngoài bí cảnh và đồ rèn chỉ ra tối đa màu Cam. Vàng, Đỏ, Đen chỉ có trong bí cảnh và khi tẩy luyện."
+     ]
+    },
+    {
+     "q": "Trang bị có mấy ô?",
+     "a": [
+      "7 ô: Vũ khí, Mũ, Giáp, Ngọc bội, Giày, Nhẫn, Pháp bảo.",
+      "Loại vũ khí (kiếm, thương, quạt, đàn, liềm, cung...) quyết định cách đánh thường và chiêu vũ khí. Quản Binh Khố ở Thiên Kiếm Tinh cho lĩnh miễn phí mỗi loại một món để thử."
+     ]
+    },
+    {
+     "q": "Tẩy luyện là gì?",
+     "a": [
+      "Đồ mới rơi có 1 dòng. Mỗi lần tẩy luyện mở thêm đúng 1 dòng, chỉ số và màu ngẫu nhiên, dòng đã ra giữ cố định.",
+      "Mỗi món có số dòng tối đa ẩn (1 tới 10), tẩy tới dòng cuối mới biết.",
+      "Tốn Tẩy Luyện Thạch và Linh Thạch; món càng nhiều dòng, tẩy càng nhiều lần thì càng đắt."
+     ]
+    },
+    {
+     "q": "Cường hoá thế nào? Có bị tụt cấp không?",
+     "a": [
+      "Mỗi cấp cường hoá thêm 10% chỉ số chính, tối đa +20. Tốn Tinh Thiết; từ +5 tốn thêm Tẩy Luyện Thạch, từ +11 tốn thêm Linh Thạch.",
+      "Cấp thấp chắc thành công, càng cao càng dễ hỏng. Từ +7 trở lên, hỏng thì có 50% tụt 1 cấp.",
+      "Cấp tối đa mở theo cảnh giới: +10 tới Kim Đan, mỗi cảnh giới sau thêm +2, Đại Thừa mở +20."
+     ]
+    },
+    {
+     "q": "Tinh Thiết, Tẩy Luyện Thạch kiếm ở đâu?",
+     "a": [
+      "Tinh Thiết: phân giải đồ, quái và boss rơi, mua ở Vạn Bảo Lâu (khi đã có động phủ).",
+      "Tẩy Luyện Thạch: quái và boss rơi, thưởng bí cảnh, Vạn Bảo Lâu, Quầy Tiên Ngọc."
+     ]
+    },
+    {
+     "q": "Đồ bộ là gì?",
+     "a": [
+      "Một số món thuộc bộ (Xích Diễm, Hàn Băng, Hắc Phong, Thanh Mộc, Kim Cang, Hậu Thổ, Thái Hư).",
+      "Mặc đủ 2 món cùng bộ được thưởng nhỏ, đủ 4 món được thưởng lớn (hút máu, phản đòn, hồi máu...)."
+     ]
+    },
+    {
+     "q": "Rèn đồ ở đâu?",
+     "a": [
+      "Lò rèn trong động phủ, chọn ô muốn rèn.",
+      "Rèn thường: 4 Tinh Thiết, ít nhất phẩm Linh. Rèn tinh: 10 Tinh Thiết, 2 Hỏa Linh Chi, 2 Tẩy Luyện Thạch, ít nhất phẩm Huyền."
+     ]
+    },
+    {
+     "q": "Mặc đồ nhanh thế nào?",
+     "a": [
+      "Túi đồ → Trang bị → nút Mặc đồ tốt nhất: mỗi ô tự chọn món cho lực chiến cao nhất (tính cả hệ, đồ bộ, ngọc).",
+      "Chạm một món để xem chi tiết, nút Mặc / Thay ở ngay đầu, kèm lực chiến tăng giảm."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Ngọc khảm, túi đồ",
+   "list": [
+    {
+     "q": "Có những loại ngọc nào?",
+     "a": [
+      "Hồng Ngọc: Công. Lam Ngọc: Sinh lực. Hoàng Ngọc: Tỉ lệ bạo kích. Lục Ngọc: Phòng ngự.",
+      "Ngọc có 20 cấp, cấp càng cao chỉ số càng lớn."
+     ]
+    },
+    {
+     "q": "Ghép ngọc thế nào?",
+     "a": [
+      "3 viên cùng loại cùng cấp ghép thành 1 viên cấp trên, tốn thêm Linh Thạch (cấp càng cao càng đắt).",
+      "Túi đồ → Ngọc, chạm viên ngọc rồi bấm Ghép 3→1 hoặc Ghép hết."
+     ]
+    },
+    {
+     "q": "Món đồ có mấy ô khảm? Ô thứ 4 mở thế nào?",
+     "a": [
+      "Phẩm càng cao càng nhiều ô khảm, tối đa 3 ô.",
+      "Món phẩm Tiên (Đỏ) hoặc Thượng Cổ (Đen) được thêm ô khảm thứ 4. Đã mở thì giữ, tẩy thêm dòng thấp làm tụt phẩm cũng không mất."
+     ]
+    },
+    {
+     "q": "Ngọc kiếm ở đâu?",
+     "a": [
+      "Quái và boss rơi, thưởng bí cảnh từ cấp Khó, Ma Vương, triệu hồi của Hệ Thống, boss Thôn Thiên Mãng.",
+      "Mua ngọc cấp 1 ở Vạn Bảo Lâu, đổi ở Quầy Tiên Ngọc. Ngọc cấp cao ra từ ghép và Hòm thư."
+     ]
+    },
+    {
+     "q": "Túi đầy, bán đồ thế nào cho nhanh?",
+     "a": [
+      "Túi đồ → Trang bị → Bán nhanh: chọn màu, mọi món màu đó bán một lượt. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.",
+      "Khoá món đồ quý để khỏi bán nhầm.",
+      "Bật Menu → Tự động → Túi đầy tự phân giải đồ rẻ để tự dọn món Phàm, Linh."
+     ]
+    },
+    {
+     "q": "Bán hay phân giải thì lợi hơn?",
+     "a": [
+      "Bán: ra Linh Thạch (món phẩm cao giá cao hơn).",
+      "Phân giải: ra Tinh Thiết để cường hoá. Phân giải món đã cường hoá trả lại 40% Tinh Thiết và Tẩy Luyện Thạch đã tốn (không trả Linh Thạch).",
+      "Phân giải pháp bảo ra Mảnh Pháp Bảo."
+     ]
+    },
+    {
+     "q": "Xem Linh Thạch tiêu vào đâu?",
+     "a": [
+      "Túi đồ → nút Lịch sử cạnh số Linh Thạch: 100 dòng gần nhất, giờ, số cộng trừ, lý do.",
+      "Lịch sử chỉ lưu trên máy đang chơi."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chiêu thức, công pháp, pháp bảo",
+   "list": [
+    {
+     "q": "Mang chiêu thế nào? Chiêu mở khi nào?",
+     "a": [
+      "Mỗi hệ 6 chiêu, mở dần theo tu vi (Trúc Cơ, Kim Đan mở thêm chiêu mới). Vũ khí cũng có chiêu riêng.",
+      "Chọn 3 chiêu mang theo ở bảng Chiêu (trong Túi đồ → Công pháp, tab Chiêu)."
+     ]
+    },
+    {
+     "q": "Nâng cấp chiêu bằng gì?",
+     "a": [
+      "Mỗi chiêu nâng riêng, tối đa cấp 30, tốn Bí Kíp Chiêu và Linh Thạch, cấp sau đắt hơn cấp trước.",
+      "Mỗi cấp chiêu đánh mạnh thêm 4%; chiêu hồi máu, khiên, tăng lực thêm 2%.",
+      "Bí Kíp Chiêu rơi từ boss bí cảnh (từ cấp Trung) và Ma Vương."
+     ]
+    },
+    {
+     "q": "Công pháp là gì?",
+     "a": [
+      "Công pháp học từ bí kíp quái và boss rơi, mang tối đa 3 cuốn, mỗi cuốn tối đa cấp 10.",
+      "Công pháp đang mang tự lên cấp bằng linh khí bạn thu được. Cùng hệ linh căn thì tính vào bộ Đạo Vận."
+     ]
+    },
+    {
+     "q": "Pháp bảo dùng thế nào? Luyện pháp bảo ra sao?",
+     "a": [
+      "Mặc pháp bảo vào ô Pháp bảo thì có thêm một nút chiêu pháp bảo.",
+      "Phân giải pháp bảo thừa ra Mảnh Pháp Bảo, dùng mảnh để Luyện pháp bảo lên bậc (tối đa 20): mỗi bậc chỉ số chính và chiêu pháp bảo mạnh thêm.",
+      "Ma Vương cũng thưởng Mảnh Pháp Bảo."
+     ]
+    },
+    {
+     "q": "Ngự kiếm là gì?",
+     "a": [
+      "Vũ khí không cầm tay mà bay sau lưng. Đánh thường thì vũ khí lao ra theo động tác của nhân vật rồi bay về; cung, đàn thì bắn từ trước mặt.",
+      "Ngự kiếm cũng là cách bay: chạm chỗ trên bản đồ tinh cầu là bay tới, và bay quanh boss Thôn Thiên Mãng."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Linh thú, thú cưỡi, khôi lỗi",
+   "list": [
+    {
+     "q": "Bắt linh thú thế nào?",
+     "a": [
+      "Quái thỉnh thoảng mọc thành Dị chủng (mạnh hơn, tên có chữ Dị chủng). Hạ Dị chủng của loài có linh thú thì thu phục được.",
+      "Mang 1 con đi theo đánh cùng, đổi con ở Túi đồ → Linh thú. Linh thú lên cấp bằng linh khí."
+     ]
+    },
+    {
+     "q": "Tiến hoá, gộp sao linh thú?",
+     "a": [
+      "Đủ cấp 20 thì tiến hoá: đổi tên, mạnh gấp 1,5, chiêu hồi nhanh hơn, mở cấp tới 40. Tốn 12 Yêu Huyết Tinh, 8 Tinh Thiết, 600 Linh Thạch.",
+      "Bắt thêm Dị chủng loài đã có được bản sao. Hai con cùng sao gộp lên một sao, mỗi sao sát thương linh thú thêm 3%."
+     ]
+    },
+    {
+     "q": "Linh thú có tẩy luyện được không?",
+     "a": [
+      "Được, như trang bị: mỗi lần mở thêm 1 dòng chỉ số màu Lục tới Đen, tối đa 10 dòng.",
+      "Chỉ số linh thú đang mang cộng vào lực chiến. Linh thú không mang sống trong sân động phủ, bán được lấy Linh Thạch."
+     ]
+    },
+    {
+     "q": "Thú cưỡi mua ở đâu? Cưỡi thế nào?",
+     "a": [
+      "Ngự Thú Sư bán: Bạch Lộc 5.000, Phong Lang 12.000, Tuyết Ly 15.000, Hỏa Kỳ Lân 25.000 Linh Thạch. Một số con đôi khi theo về khi hạ Dị chủng hoặc boss.",
+      "Chọn con ở Túi đồ → Thú cưỡi. Đi yên một lúc là tự lên lưng, đánh nhau thì xuống.",
+      "Bán lại được nửa giá mua."
+     ]
+    },
+    {
+     "q": "Khôi lỗi là gì?",
+     "a": [
+      "Khôi lỗi đi theo đánh như linh thú, mang tối đa 2 con, có cấp và tẩy luyện dòng riêng.",
+      "Mua ở Ngự Thú Sư (8.000 tới 18.000 Linh Thạch), xem ở Túi đồ → Khôi lỗi, bán lại được."
+     ]
+    },
+    {
+     "q": "Vuốt ve linh thú để làm gì?",
+     "a": [
+      "Đứng gần linh thú bấm Vuốt ve: 5 lần đầu mỗi ngày cho linh thú kinh nghiệm.",
+      "Bạn đả tọa lâu thì linh thú thỉnh thoảng tha về quà nhỏ (linh thảo, Linh Thạch, đá...), tối đa 3 lần mỗi ngày."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Bí cảnh, Ma Vương, Yêu Vương",
+   "list": [
+    {
      "q": "Bí cảnh có mấy lượt? Càn quét là gì?",
      "a": [
-      "Mỗi bí cảnh có 5 lượt mỗi ngày, sang ngày mới thì hồi lại.",
-      "Ải đã vượt rồi có thể Càn quét: nhận thưởng ngay không cần đánh lại, vẫn tốn một lượt.",
-      "Rễ Mẫu Thụ là bí cảnh Linh Thạch, vào đó nếu đang thiếu tiền."
+      "Mỗi bí cảnh 5 lượt mỗi ngày, sang ngày mới hồi lại. Vượt ải hay càn quét đều tốn 1 lượt.",
+      "Càn quét bậc đã qua: nhận ngay thưởng cố định, đồ rơi tính như đánh thật, không phải đánh. Càn quét không cho linh khí."
+     ]
+    },
+    {
+     "q": "Bí cảnh nào rơi đồ gì?",
+     "a": [
+      "Kiếm Trủng: vũ khí. Địa Cung: giáp. Băng Quật: mũ. Hắc Phong Động: giày. Hỏa Quật: nhẫn. Cổ Thụ Tâm: ngọc bội.",
+      "Rễ Mẫu Thụ là bí cảnh Linh Thạch: thưởng chỉ có Linh Thạch nhưng gấp nhiều lần."
+     ]
+    },
+    {
+     "q": "Độ khó bí cảnh tính thế nào?",
+     "a": [
+      "Mỗi bí cảnh là thang bậc không đáy, mỗi bậc quái mạnh gấp đôi. Cứ 10 bậc lên một cấp: Dễ, Trung, Khó, Cực khó, Ác mộng, Địa ngục, Vô Gian, rồi Vô Gian 2, 3...",
+      "Màu gợi ý: xanh là dễ với bạn, vàng là vừa sức, đỏ là nên mạnh thêm.",
+      "Cấp cao thưởng phẩm cao hơn, có ngọc, Bí Kíp Chiêu. Lần đầu qua mỗi bậc được thêm quà."
+     ]
+    },
+    {
+     "q": "Đi bí cảnh cùng bạn được không?",
+     "a": [
+      "Được, tối đa 4 người. Một người lập đội, người khác vào bằng mã đội; đội trưởng chọn bí cảnh và độ khó.",
+      "Quái máu nhiều hơn theo số người. Ai cũng nhận đồ rơi, thưởng boss, vẫn tính lượt của từng người."
      ]
     },
     {
      "q": "Ma Vương tuần là gì?",
      "a": [
-      "Ma Vương xuất hiện ở Phương Thiên Địa, cấp của Ma Vương đổi ngẫu nhiên mỗi tuần.",
-      "Mỗi tuần mỗi người hạ được 1 lần, thưởng lớn hơn quái thường. Nhớ ghé trước khi hết tuần."
+      "Mỗi tuần một Ma Vương trấn Phương Thiên Địa, mở từ Đại Thừa. Cấp Ma Vương ngẫu nhiên 1 tới 6 mỗi tuần, ai cũng gặp cùng cấp.",
+      "Mỗi tuần mỗi người hạ được 1 lần. Thưởng: trang bị Thiên, ngọc, Tẩy Luyện Thạch, Khóa Linh Thạch, Mảnh Pháp Bảo, Bí Kíp Chiêu, Linh Thạch."
+     ]
+    },
+    {
+     "q": "Yêu Vương xuất hiện ở đâu?",
+     "a": [
+      "Săn ở Ngoại Vực Vết Nứt đủ khoảng 15 tới 20 phút thì Yêu Vương hiện ra gần bạn. Còn khoảng 1 phút thì có báo trước.",
+      "Rời tinh cầu thì Yêu Vương biến mất. Các Yêu Vương thay nhau mỗi giờ."
+     ]
+    },
+    {
+     "q": "Ngoại Vực Vết Nứt có gì đặc biệt?",
+     "a": [
+      "Vùng ma khí: mỗi lần vào, các bầy quái mọc chỗ ngẫu nhiên với bậc ma khí ngẫu nhiên, từ con Tàn yếu xìu tới con không ai đánh nổi.",
+      "Ở đây có Yêu Vương, Đài Ma Thần và là nơi duy nhất đánh PvP được."
      ]
     }
    ]
   },
   {
-   "title": "Điều khiển",
+   "title": "Boss Cửu Đầu Thôn Thiên Mãng",
    "list": [
     {
-     "q": "Điều khiển nhân vật thế nào?",
+     "q": "Cửu Đầu Thôn Thiên Mãng là gì? Khi nào mở?",
      "a": [
-      "Cần điều khiển bên trái màn hình: kéo để chạy.",
-      "Cụm nút bên phải: nút Đánh to ở giữa, các nút chiêu xung quanh.",
-      "Nút Tự đánh (cạnh cụm nút đánh): nhân vật tự tìm quái gần và tung chiêu.",
-      "Tự hành: nhân vật tự đi làm việc truyện, việc ngày, đào khoáng, treo máy. Kéo cần điều khiển để dừng."
+      "Boss thế giới: thái cổ yêu thú hình rắn chín đầu quấn quanh tinh hà, cả máy chủ cùng đánh.",
+      "Boss chỉ mở theo thông báo, mỗi lần khoảng 30 phút. Lúc boss ngủ thì chờ thông báo lần xuất hiện sau."
+     ]
+    },
+    {
+     "q": "Vào đánh boss thế nào?",
+     "a": [
+      "Khi boss mở, bấm Bay tới để ngự kiếm bay ra vùng không gian Hư Không Thôn Thiên.",
+      "Trong vùng chỉ ngự kiếm bay (nhanh hơn đi bộ, không dùng thú cưỡi). Bay tới gần một trong 9 cái đầu mà chém. Bật Tự đánh ngay cạnh boss thì tự ưu tiên đánh boss.",
+      "Bấm Rời đi để bay về tinh cầu lúc trước."
+     ]
+    },
+    {
+     "q": "Chém boss được gì?",
+     "a": [
+      "Mỗi giây chém thật được Linh Thạch gấp 30 lần farm quái thường, cộng thêm tối đa 50% theo sát thương (người yếu, người mạnh nhận chênh nhau không nhiều).",
+      "Linh Thạch gom lại, cứ 5 phút gửi vào Hòm thư một lần.",
+      "Bảng sát thương cả máy chủ hiện bên phải màn hình."
+     ]
+    },
+    {
+     "q": "Thưởng tổng kết sau trận?",
+     "a": [
+      "Top 10 sát thương: mỗi người 1 vũ khí phẩm Thượng Cổ, 50 ngọc cấp 1, 200.000 Linh Thạch.",
+      "Mọi người khác có gây sát thương: 1 vũ khí phẩm Tiên, 25 ngọc cấp 1, 100.000 Linh Thạch.",
+      "Thưởng gửi vào Hòm thư khi boss lui."
      ]
     }
    ]
   },
   {
-   "title": "Quản trị viên",
+   "title": "PvP, Ma Thần, so tài",
    "list": [
+    {
+     "q": "PvP ở đâu? Khiên là gì?",
+     "a": [
+      "Sau tên trên đầu nhân vật có biểu tượng: 🛡 là còn khiên (không ai đánh được), ⚔ là đã tắt khiên.",
+      "Chỉ đánh nhau được ở Ngoại Vực Vết Nứt, khi cả hai đều tắt khiên. Tinh cầu khác không đánh nhau được."
+     ]
+    },
+    {
+     "q": "Tắt khiên thế nào? Bật lại được không?",
+     "a": [
+      "Chạm biểu tượng 🛡 sau tên mình, xác nhận Tắt khiên. Tắt ở đâu cũng được.",
+      "Khiên chỉ bật lại khi bạn chết và hồi sinh. Đổi tuyến, ra vào bản đồ không bật lại được.",
+      "Vừa hồi sinh phải chờ 10 giây mới tắt khiên lại được."
+     ]
+    },
+    {
+     "q": "Bị hạ trong PvP mất gì?",
+     "a": [
+      "Mất 10% Linh Thạch và 1 món ngẫu nhiên trong túi (hoặc một phần nguyên liệu), gửi vào Hòm thư người hạ bạn.",
+      "Đồ đang mặc không mất.",
+      "Cùng một người hạ cùng một người chỉ tính 1 lần mỗi giờ."
+     ]
+    },
+    {
+     "q": "Đại Ma Thần là gì?",
+     "a": [
+      "Khi Đại Ma Thần xuất thế, Đài Ma Thần hiện ở góc trên bên phải Ngoại Vực Vết Nứt. Từ Kim Đan chạm đài để khiêu chiến.",
+      "Thắng: nhận một món Đạo Vận vàng. Thua: mất 10% tổng tu vi, nhận 1 viên ngọc cấp 4 an ủi. Thưởng vào Hòm thư."
+     ]
+    },
+    {
+     "q": "So tài là gì?",
+     "a": [
+      "Ở bảng xếp hạng, chạm tên ai đó để xem hồ sơ, bấm So tài để đấu với bản sao của họ trên Luận Võ Đài.",
+      "Gục trên đài không chết thật, hết giờ thì hoà. So tài để thử sức, không có thưởng."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Động phủ, dược viên, lò đan, lò rèn",
+   "list": [
+    {
+     "q": "Động phủ có gì?",
+     "a": [
+      "Bồ đoàn tu nhanh, Lò đan, Lò rèn, Dược viên, Hồ cá, bể cá, Mộc Nhân, đồ trang trí, đạo lữ và khách ghé chơi.",
+      "Ở động phủ có nút Động phủ: chạm để mở các mục như Nâng cấp, Bế quan, Dược viên, Lò đan, Lò rèn, Nhà bạn bè."
+     ]
+    },
+    {
+     "q": "Nâng cấp động phủ được gì?",
+     "a": [
+      "5 cấp, từ Động phủ sơ khai tới Động thiên phúc địa: đả tọa nhanh từ gấp 2 tới gấp 4, cây chín nhanh hơn, thu hoạch nhiều hơn, luyện đan dễ thành hơn.",
+      "Mỗi cấp tốn Linh Thạch, nguyên liệu và cần đủ cảnh giới."
+     ]
+    },
+    {
+     "q": "Dược viên trồng thế nào?",
+     "a": [
+      "Có sẵn 8 chậu, khai thêm tới 16 chậu bằng Linh Thạch (400 tới 6.000).",
+      "Chọn cây để gieo, cây chín theo giờ thật. Cây hiếm cần hạt và cảnh giới cao hơn.",
+      "Mỗi chậu nâng được 7 cấp: cây chín nhanh hơn, thu nhiều hơn. Có đạo lữ thì đạo lữ thu hoạch giúp."
+     ]
+    },
+    {
+     "q": "Lò đan luyện được gì?",
+     "a": [
+      "Hồi Xuân Đan (hồi 40% máu), Hồi Linh Đan (hồi 50% linh lực), đan linh khí, Thăng Linh Đan (x2 linh khí 15 phút), Bồi Nguyên Đan (+6 máu tối đa, tối đa 10 viên), Thanh Tâm, Tĩnh Liên Đan (giảm sét độ kiếp), Tẩy Tủy Đan, canh cá.",
+      "Có tỉ lệ hỏng, hỏng thì mất nguyên liệu. Linh căn Hỏa luyện dễ thành hơn.",
+      "Lò đan còn có Đan tẩy linh căn và Đan đổi giới tính."
+     ]
+    },
+    {
+     "q": "Mộc Nhân dùng để làm gì?",
+     "a": [
+      "Mộc Nhân trong động phủ không chết, không đánh trả. Đánh liền 60 giây để đo sát thương mỗi giây.",
+      "Kết quả cao nhất lên bảng xếp hạng Sát thương/giây."
+     ]
+    },
+    {
+     "q": "Câu cá thế nào?",
+     "a": [
+      "Đứng ở mép tinh cầu hoặc bờ nước, bấm nút Câu cá, chờ cá cắn rồi bấm kéo cần kịp lúc.",
+      "Cá dùng nấu canh linh khí ở Lò đan, hoặc thả vào bể cá trong động phủ."
+     ]
+    },
+    {
+     "q": "Thưởng bế quan tích luỹ là gì?",
+     "a": [
+      "Thời gian đả tọa trong game cộng thời gian bế quan khi vắng mặt được cộng dồn thành giờ.",
+      "Đủ mốc 100, 300, 600, 1000 giờ thì nhận quà một lần: trang bị Thiên, ngọc, Tẩy Luyện Thạch."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Linh Thạch, Tiên Ngọc, chợ, Hòm thư",
+   "list": [
+    {
+     "q": "Linh Thạch kiếm ở đâu?",
+     "a": [
+      "Đánh quái, treo máy ở bãi quái, bán đồ, càn quét Rễ Mẫu Thụ (bí cảnh Linh Thạch, 5 lượt mỗi ngày).",
+      "Chém boss Thôn Thiên Mãng khi mở, triệu hồi của Hệ Thống, Ma Vương tuần.",
+      "Có đạo lữ +5%, tổ đội farm cùng tinh cầu mỗi người thêm 10% (tối đa +40%)."
+     ]
+    },
+    {
+     "q": "Tiên Ngọc là gì? Có nạp được không?",
+     "a": [
+      "Tiên Ngọc là tiền cao cấp, đổi đồ ở Menu → Nạp Tiên Ngọc (Quầy Tiên Ngọc): Tẩy Luyện Thạch, Đạo Vận Thạch, ngọc, rương trang bị Địa, thời trang.",
+      "Nạp tiền chưa mở, sẽ mở khi game lên CH Play bản chính thức.",
+      "Hiện có Tiên Ngọc từ quà ra mắt quầy và đổi điểm Quản trị viên."
+     ]
+    },
+    {
+     "q": "Chợ mua bán thế nào?",
+     "a": [
+      "Menu → Chợ (Chợ Phiên): tab Mua, Bán, Của tôi. Cần đăng nhập.",
+      "Mỗi người rao tối đa 10 món, hàng rao 48 giờ, hết hạn tự trả về. Thuế 10% trừ vào người bán.",
+      "Hàng mua, tiền bán, hàng trả về đều gửi qua Hòm thư."
+     ]
+    },
+    {
+     "q": "Hòm thư ở đâu? Nhận quà thế nào?",
+     "a": [
+      "Chạm nút Thư → Hòm thư. Số đỏ là thư chưa đọc hoặc thư đang chờ nhận.",
+      "Mở Hòm thư là nhận: Linh Thạch, vật phẩm, quà vào túi luôn.",
+      "Hòm thư còn gom tin chợ, truyền âm, tông môn, ai nhắc tên bạn ở kênh Thế giới, lời đáp báo lỗi."
+     ]
+    },
+    {
+     "q": "Vạn Bảo Lâu và dân làng bán gì?",
+     "a": [
+      "Vạn Bảo Lâu: Hồi Xuân Đan, Hồi Linh Đan, Tụ Khí Đan, nguyên liệu, Tẩy Luyện Thạch, Khóa Linh Thạch, ngọc cấp 1.",
+      "Mỗi dân làng bán một món riêng (đan, nguyên liệu, thời trang), giới hạn số lần mỗi ngày. Nói chuyện để mua."
+     ]
+    },
+    {
+     "q": "Tặng quà cho người khác được không?",
+     "a": [
+      "Tặng trang bị, nguyên liệu, Linh Thạch thẳng cho đạo lữ trong phần Đạo lữ ở bảng Bạn bè. Quà gửi vào Hòm thư người kia.",
+      "Với người khác thì trao đổi qua Chợ."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Đạo hữu, đạo lữ, tông môn",
+   "list": [
+    {
+     "q": "Kết bạn thế nào?",
+     "a": [
+      "Chạm tên người chơi ở bảng xếp hạng hoặc kênh chat → hồ sơ → Kết bạn.",
+      "Menu → Bạn bè: xem bạn, lời mời, bấm Thăm nhà để bay tới động phủ của bạn."
+     ]
+    },
+    {
+     "q": "Đạo lữ là gì?",
+     "a": [
+      "Mời một người bạn làm đạo lữ trong bảng Bạn bè, người kia đồng ý là thành.",
+      "Có đạo lữ: +5% Linh Thạch rơi từ quái, +5% linh khí, tặng quà thẳng cho nhau.",
+      "Huỷ đạo lữ thì cả hai phải chờ 30 ngày mới kết người mới."
+     ]
+    },
+    {
+     "q": "Trò chuyện, kênh Thế giới thế nào?",
+     "a": [
+      "Khung trò chuyện nhỏ dưới màn hình hiện tin mới. Chạm để mở rộng: Trò chuyện (cùng tinh cầu), Thế giới (cả máy chủ), Truyền âm.",
+      "Kênh Thế giới tin giữ 7 ngày, gửi cách nhau vài giây. Từ bậy tự che."
+     ]
+    },
+    {
+     "q": "Truyền âm (nhắn riêng) thế nào?",
+     "a": [
+      "Chạm tin của một đạo hữu ở kênh Thế giới hoặc tông môn, chọn Truyền âm.",
+      "Tin riêng giữ 14 ngày. Có tin mới thì Hòm thư báo."
+     ]
+    },
+    {
+     "q": "Gặp người chửi bậy, lừa đảo thì làm sao?",
+     "a": [
+      "Chạm vào tin của người đó, chọn Chặn (ẩn mọi tin của họ) hoặc Báo cáo.",
+      "Bị 3 người khác nhau báo cáo trong 24 giờ thì bị khoá chat 24 giờ."
+     ]
+    },
+    {
+     "q": "Tông môn lập và tham gia thế nào?",
+     "a": [
+      "Menu → Tông môn → Tìm tông môn để xin vào. Lập tông môn cần Kim Đan và 20.000 Linh Thạch, tối đa 30 người.",
+      "Mỗi tuần góp điểm (điểm danh tông môn, góp Linh Thạch: 100 Linh Thạch = 1 điểm), cả tông môn đủ mốc 200, 600, 1200 điểm thì mỗi người tự góp từ 10 điểm nhận thưởng.",
+      "Rời tông môn phải chờ 24 giờ mới vào tông môn khác."
+     ]
+    },
+    {
+     "q": "Tổ đội farm là gì?",
+     "a": [
+      "Bảng tổ đội bên trái màn hình khi ở tinh cầu ngoài trời: lập đội hoặc chạm tên đội để vào, tối đa 5 người.",
+      "Mỗi đồng đội đang online cùng tinh cầu thêm 10% Linh Thạch và linh khí hạ quái, đủ 5 người là +40%."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Xếp hạng, thành tựu, thời trang",
+   "list": [
+    {
+     "q": "Bảng xếp hạng có những gì?",
+     "a": [
+      "Nút Xếp hạng: Sức mạnh, Cảnh giới, Quản trị viên, Đánh Ma Thần, Bí cảnh, Sát thương/giây.",
+      "Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
+      "Chạm tên để xem hồ sơ, trang bị, ngọc, chiêu của người đó."
+     ]
+    },
+    {
+     "q": "Thành tựu, danh hiệu xem ở đâu?",
+     "a": [
+      "Menu → Thành tựu: xem tiến độ, xong thì nhận thưởng.",
+      "Menu → Danh hiệu: chọn danh hiệu hiện trên đầu. Menu → Nhật ký: các dấu mốc tu tiên của bạn."
+     ]
+    },
+    {
+     "q": "Thời trang có được từ đâu? Có cộng chỉ số không?",
+     "a": [
+      "Có từ thành tựu, mua bằng Linh Thạch của dân làng, đổi Tiên Ngọc, quà lễ, hạ quái nhiễm ma khí.",
+      "Mỗi bộ có 1 dòng chỉ số cố định, cộng khi đang mặc. Chỉ mặc được bản đúng giới tính nhân vật.",
+      "Thay ở Túi đồ → Thời trang."
+     ]
+    },
+    {
+     "q": "Bảng vinh danh là gì?",
+     "a": [
+      "Bảng vinh danh ghi tên những đạo hữu báo lỗi, góp ý được nhận nhiều nhất.",
+      "Mở từ Bảng thông báo (mục Báo lỗi, góp ý)."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Góp ý, Quản trị viên, sự kiện",
+   "list": [
+    {
+     "q": "Báo lỗi, góp ý có thưởng không?",
+     "a": [
+      "Có. Chạm nút Thư → Báo lỗi hoặc Đề xuất, điền tên lỗi, kèm ảnh (game tự chụp màn lúc bấm), mô tả thêm nếu muốn.",
+      "Mỗi báo cáo được nhận (đã sửa, sẽ làm) thưởng 1 viên Ngọc cấp 4 và điểm Quản trị viên.",
+      "Mỗi ngày gửi tối đa 15 lần. Trạng thái và lời đáp hiện ngay dưới bảng."
+     ]
+    },
     {
      "q": "Điểm Quản trị viên để làm gì? Kiếm thế nào?",
      "a": [
-      "Gửi Báo lỗi 🐞 hoặc Đề xuất 💡, khi được duyệt thì có điểm: lỗi được sửa +10, đề xuất được làm +20, được ghi nhận +5. Gửi spam −15.",
-      "Mời bạn thành công +60 (bạn mới online đủ 4 tiếng cộng dồn).",
-      "Điểm đổi Tiên Ngọc theo tỉ lệ 1 điểm = 1 Tiên Ngọc, tối đa 500 mỗi tuần: Xếp hạng → Quản trị viên → Sổ điểm."
+      "Lỗi được sửa +10, đề xuất được làm +20, được ghi nhận +5, mời bạn thành công +60. Gửi spam −15.",
+      "Đổi Tiên Ngọc 1 điểm = 1 Tiên Ngọc, tối đa 500 mỗi tuần: Xếp hạng → Quản trị viên → Sổ điểm."
      ]
     },
     {
@@ -65,54 +795,85 @@
       "Cấp 1 từ 20 điểm, cấp 2 từ 60, cấp 3 từ 150, cấp 4 từ 300, cấp 5 từ 600.",
       "Xem cấp và bảng xếp hạng ở Xếp hạng → Quản trị viên."
      ]
+    },
+    {
+     "q": "Mời bạn chơi được gì?",
+     "a": [
+      "Sự kiện Dẫn đạo hữu nhập môn (nút Sự kiện), từ 29/10 tới hết 12/11: bạn mới nhập mã của bạn và online đủ 4 tiếng cộng dồn thì bạn nhận 1 viên Ngọc cấp 8, mời bao nhiêu nhận bấy nhiêu.",
+      "Bạn mới nhập mã được tặng 1 viên Ngọc cấp 5.",
+      "Tự mời mình bằng nhiều tài khoản, chung máy sẽ không được tính và bị gắn cờ."
+     ]
+    },
+    {
+     "q": "Nhóm Zalo, mã quà là gì?",
+     "a": [
+      "Nút Thư → Zalo: vào nhóm Zalo của game, mỗi tài khoản nhận một lần 1 viên ngọc cấp 5 (tự chọn loại).",
+      "Menu → Nhập mã quà: nhập mã đội làm game phát để nhận điểm Quản trị viên. Mỗi mã dùng một lần."
+     ]
+    },
+    {
+     "q": "Xem thông báo, sự kiện ở đâu?",
+     "a": [
+      "Bảng thông báo: số đỏ là thông báo chưa xem. Boss thế giới, sự kiện mới đều báo ở đây.",
+      "Thứ 7, Chủ nhật luôn có linh khí gấp đôi, vào game là có."
+     ]
     }
    ]
   },
   {
-   "title": "Trang bị",
+   "title": "Tài khoản, lưu game, điện thoại",
    "list": [
     {
-     "q": "Màu dòng tẩy luyện là phẩm gì?",
+     "q": "Game có tự lưu không? Chơi thử khác gì có tài khoản?",
      "a": [
-      "Lục = Phàm, Lam = Linh, Tím = Huyền, Cam = Địa, Vàng = Thiên, Đỏ = Tiên, Đen = Thượng Cổ.",
-      "Ngoài bí cảnh đồ rơi tối đa phẩm Cam (Địa). Vàng, Đỏ, Đen chỉ có trong bí cảnh và khi tẩy luyện.",
-      "Đồ phẩm Tiên và Thượng Cổ mở thêm ô khảm ngọc thứ 4."
+      "Có tài khoản: game tự lưu lên máy chủ, đổi máy vẫn chơi tiếp.",
+      "Chơi thử (không cần tài khoản) chỉ lưu trong máy, không vào được chợ, chat, tông môn, xếp hạng, PvP, Hỏi thêm."
      ]
     },
     {
-     "q": "Túi đầy, bán đồ thế nào cho nhanh?",
+     "q": "Quên mật khẩu thì sao?",
      "a": [
-      "Bán nhanh theo màu (Túi đồ, tab Trang bị): chọn màu muốn bán, mọi món màu đó được bán một lượt; không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.",
-      "Khoá món đồ quý để không bị bán nhầm.",
-      "Nút Mặc đồ tốt nhất: tự mặc món mạnh nhất đang có trong túi."
-     ]
-    }
-   ]
-  },
-  {
-   "title": "Linh Thạch, hệ, đạo lữ",
-   "list": [
-    {
-     "q": "Linh Thạch kiếm ở đâu?",
-     "a": [
-      "Rễ Mẫu Thụ là bí cảnh Linh Thạch, mỗi ngày 5 lượt.",
-      "Ngoài ra đánh quái, treo máy ở bãi quái, nhiệm vụ hằng ngày, điểm danh đều có Linh Thạch."
+      "Lúc còn nhớ mật khẩu, bấm Mã khôi phục ở màn đầu để tạo mã, chép và cất kỹ (chỉ hiện một lần).",
+      "Quên mật khẩu thì bấm Quên mật khẩu? và nhập mã đó. Tạo mã mới thì mã cũ hết hạn."
      ]
     },
     {
-     "q": "Đổi hệ (linh căn) bằng gì?",
+     "q": "Sao game tự thoát, báo đăng nhập ở máy khác?",
      "a": [
-      "Dùng Đạo Vận Thạch.",
-      "Cô bán nước: 50.000 Linh Thạch một viên, mỗi ngày mua được 1 viên.",
-      "Quầy Tiên Ngọc: 50 Tiên Ngọc một viên, mỗi ngày mua được 2 viên."
+      "Mỗi tài khoản chỉ chơi một máy một lúc. Vào ở máy khác thì máy này tự thoát, tiến độ đã lưu ở máy kia.",
+      "Mất mạng thì game tạm dừng, không mất gì; nối lại thì chơi tiếp.",
+      "Có bản game mới thì game tự lưu rồi tải lại sau vài giây."
      ]
     },
     {
-     "q": "Đạo lữ là gì?",
+     "q": "Cài game vào điện thoại thế nào?",
      "a": [
-      "Kết đạo lữ với người chơi khác qua bảng Bạn bè.",
-      "Có đạo lữ: +5% linh khí và +5% Linh Thạch, tặng quà cho nhau được.",
-      "Huỷ đạo lữ thì phải chờ 30 ngày."
+      "Android (Chrome): bấm Cài vào máy ở màn đầu, hoặc menu ⋮ → Cài đặt ứng dụng.",
+      "iPhone (Safari): bấm nút Chia sẻ → Thêm vào màn hình chính.",
+      "Game có biểu tượng riêng, mở toàn màn hình. Bản CH Play đang chuẩn bị."
+     ]
+    },
+    {
+     "q": "Đổi tên, đổi ngôn ngữ, đổi tài khoản ở đâu?",
+     "a": [
+      "Chạm tên trên màn hình để đổi tên: 2–16 ký tự, lần đặt đầu miễn phí, sau đó còn 1 lần đổi miễn phí, rồi cần Vé đổi tên.",
+      "Menu → Ngôn ngữ: Tiếng Việt, English, 繁體中文.",
+      "Menu → Đổi tài khoản hoặc Đăng xuất. Xoá tài khoản nằm ở màn đầu."
+     ]
+    },
+    {
+     "q": "Cờ đỏ ⚑ cạnh tên là gì?",
+     "a": [
+      "Hệ thống gắn cờ tài khoản có dữ liệu bất thường (nghi gian lận, dùng phần mềm sửa số, nhiều tài khoản tự mời mình).",
+      "Tài khoản bị gắn cờ: tên tô đỏ, không nhận danh hiệu tuần, chợ và giao dịch có thể bị khoá, đồ rơi PvP bị huỷ.",
+      "Số liệu sửa bậy sẽ bị khôi phục theo máy chủ."
+     ]
+    },
+    {
+     "q": "Sao nhặt đồ báo không nhận hết?",
+     "a": [
+      "Máy chủ có mức nhận đồ rơi, ngọc theo thời gian chơi để chống gian lận. Cày quá nhanh thì phần dư không được nhận.",
+      "0 giờ (giờ Việt Nam) tính lại. Chơi bình thường gần như không chạm mức này."
      ]
     }
    ]

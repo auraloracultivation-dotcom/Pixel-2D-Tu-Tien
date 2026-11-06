@@ -43,3 +43,26 @@ export function htTick(game, dt) {
   if (s.idle >= C.idle_s && ok('idle') && htTask(game)) { s.last.idle = now; s.idle = 0; return C.nudge.idle; }
   return null;
 }
+
+// Điều kiện nhiệm vụ trên bản lưu trong máy (cùng cách tính với máy chủ p2d_ht_dk)
+export function missionDone(save, dk) {
+  if (!save || !dk) return false;
+  const n = o => (o && typeof o === 'object' ? Object.keys(o).length : 0);
+  const eqUids = new Set(Object.values(save.equip || {})), worn = (save.bag || []).filter(it => eqUids.has(it.uid));
+  if (dk.step != null && (save.step || 0) < dk.step) return false;
+  if (dk.realm != null) {
+    if ((save.realm || 0) < dk.realm) return false;
+    if (dk.layer != null && (save.realm || 0) === dk.realm && (save.layer || 1) < dk.layer) return false;
+  }
+  if (dk.equip != null && n(save.equip) < dk.equip) return false;
+  for (const k of ['techs', 'pets', 'mounts']) if (dk[k] != null && n(save[k]) < dk[k]) return false;
+  if (dk.plus != null && Math.max(0, ...worn.map(it => it.plus || 0)) < dk.plus) return false;
+  if (dk.socket != null && worn.reduce((a, it) => a + (it.sockets || []).filter(x => typeof x === 'string').length, 0) < dk.socket) return false;
+  return true;
+}
+
+// Danh sách nhiệm vụ hiện ra: show_n nhiệm vụ chưa nhận đầu tiên (theo thứ tự), kèm đã xong chưa
+export function missionList(game, xong = []) {
+  const H = game.data['he-thong'], done = new Set(xong);
+  return (H.missions || []).filter(m => !done.has(m.id)).slice(0, H.show_n || 3).map(m => ({ ...m, ok: missionDone(game.save, m.dk) }));
+}

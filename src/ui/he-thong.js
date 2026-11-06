@@ -4,7 +4,8 @@
 // Hệ thống tự lên tiếng (game/he-thong.js htTick): biểu tượng rung, hiện một dòng nhắc cạnh biểu tượng. Kiểu ở he-thong.css.
 // Biểu tượng là khối tinh thể vẽ bằng canvas (không dùng hình ngoài). Chữ người chơi chỉ gán textContent.
 import { every } from '../core/ticker.js';
-import { needIntro, doneIntro, htTask, htTick } from '../game/he-thong.js';
+import { needIntro, doneIntro, htTask, htTick, missionList } from '../game/he-thong.js';
+import { renderGacha } from './he-thong-qua.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -47,7 +48,9 @@ export function createHeThong(game) {
   box.append(head, tabs, body, hint); back.append(box);
   document.body.append(back, ic, tip);
 
-  let tab = 'task', open = false, typing = null, mine = null;
+  let tab = 'task', open = false, typing = null, mine = null, ht = { diem: 0, xong: [] };
+  const H = C, fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? ''), fillStory = t => String(t);   // chữ {nam|nữ} trong data đã thay theo giới (game/gender.js applyWords)
+  async function loadHt() { if (!game.cloud) return; try { const N = await import('../net/he-thong.js'); ht = await N.htStatus(); if (open) render(); } catch { /* mạng lỗi */ } }
   const stop = ev => ev.stopPropagation();
   [ic, tip, back].forEach(e => e.addEventListener('pointerdown', stop));
   box.addEventListener('click', stop);
@@ -67,14 +70,34 @@ export function createHeThong(game) {
   function render() {
     tabBar(); body.textContent = '';
     if (tab === 'task') {
-      body.append(el('div', 'ht-sub', C.task_head));
+      const X = C.text;
+      body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
       const t = htTask(game);
-      body.append(el('p', 'ht-line ht-goal', t || C.task_none));
       if (t) {
+        body.append(el('div', 'ht-sub', X.story_hint), el('p', 'ht-line ht-goal', t));
         const g = el('button', 'ht-btn', game.pilot ? C.guide_on : C.guide); g.type = 'button'; g.disabled = !!game.pilot;
         g.onclick = async () => { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); minimize(); };
         body.append(g);
       }
+      body.append(el('div', 'ht-sub', C.task_head));
+      const list = missionList(game, ht.xong);
+      if (!list.length) body.append(el('p', 'ht-line', C.task_none));
+      for (const m of list) {
+        const row = el('div', `ht-mis${m.ok ? ' ok' : ''}`), b = el('button', 'ht-btn sm', m.ok ? fill(X.claim, { p: H.points }) : X.todo);
+        row.append(el('b', null, fillStory(m.goal)));
+        if (m.tip && !m.ok) row.append(el('small', null, m.tip));
+        b.type = 'button'; b.disabled = !m.ok || !game.cloud;
+        b.onclick = async () => {
+          b.disabled = true;
+          try { const N = await import('../net/he-thong.js'); const r = await N.htClaim(m.id); ht = { ...ht, diem: r.diem, xong: r.xong }; game.toast(fill(X.claimed, { p: r.them }), 2); game.sfx?.('pickup'); }
+          catch (e) { game.toast(String(e?.message || '').includes('chua_xong') ? X.todo : X.summon_err, 2); }
+          render();
+        };
+        row.append(b); body.append(row);
+      }
+      if (!game.cloud) body.append(el('p', 'ht-line ht-muted', X.login));
+    } else if (tab === 'gacha') {
+      renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; render(); });
     } else if (tab === 'faq') {
       for (const gr of F.groups) {
         body.append(el('div', 'ht-sub', gr.title));
@@ -114,7 +137,7 @@ export function createHeThong(game) {
   }
   function show(intro) {
     if (open) return;
-    open = true; back.hidden = false; game.uiOpen = game.uiOpen || 'he-thong';
+    open = true; back.hidden = false; game.uiOpen = game.uiOpen || 'he-thong'; loadHt();
     if (intro) { tab = 'task'; typeIntro(intro); } else render();
     box.style.transition = 'none'; box.style.opacity = '0'; box.style.transform = fly();
     requestAnimationFrame(() => requestAnimationFrame(() => { box.style.transition = ''; box.style.opacity = '1'; box.style.transform = 'none'; }));
@@ -163,6 +186,9 @@ export function createHeThong(game) {
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);
     if (say && !open) nudge(say);
+    // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
+    if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
+    if (!say && !open && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim); }
   }, 1000);
   const anim = t => { if (!ic.hidden) drawIcon(cv, C.icon, t / 1000); requestAnimationFrame(anim); };
   requestAnimationFrame(anim);
