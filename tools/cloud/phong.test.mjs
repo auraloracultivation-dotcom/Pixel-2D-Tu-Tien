@@ -238,7 +238,7 @@ console.log('phong.test: ok');
   { // trần theo lực chiến dùng chung mọi tuyến, gửi dồn dập không vượt
     const mt = new Mang({ storage: { sql: { exec: () => [] }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {}); mt.moTo = Date.now() + 1e9;
     for (let i = 0; i < 50; i++) await mt.add([{ id: 'x', n: 1e9, pw: 1000, s: 0 }]);
-    assert.ok(mt.tot.get('x').v <= 1000 * 5 * 2 + 1, String(mt.tot.get('x').v));
+    assert.ok(mt.tot.get('x').v <= 1000 * 5 * 2.5, String(mt.tot.get('x').v));   // 2 giây đầu + chút thời gian thật trôi trong vòng lặp
   }
   { // boss tắt: không nhận sát thương, không Linh Thạch; lệnh mo / tat có ký
     const { createHmac } = await import('node:crypto');
