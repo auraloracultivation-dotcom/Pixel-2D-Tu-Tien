@@ -1056,19 +1056,24 @@
  "_missions": "Nhiệm vụ hệ thống (chủ dự án 06/11/2026 16:49–18:03): dắt người mới từ không biết gì, không có gì thành có đủ mọi thứ. Mỗi nhiệm vụ points điểm như nhau và quà qua (vào Hòm thư): nhiệm vụ trước cho đúng thứ cần cho nhiệm vụ sau (đồ cho mặc, Tinh Thiết cho cường hoá, đồ có ô và ngọc cho khảm, đan cho lên tầng). qua: coins | mat+n | gem \"loại:cấp\"+n | pill+n | gear bậc màu (slot \"thieu\": máy chủ chọn ô ký chủ chưa mặc). hoi: nhiệm vụ câu hỏi lựa chọn (dap: đáp án đúng, máy chủ kiểm; sai: câu trêu riêng cho từng đáp án sai theo thứ tự opts, chỗ đáp án đúng để null; chọn lại được). xong: câu hệ thống nói khi nhận. dk: step, realm (+layer), equip, techs, plus, socket, pets, mounts, dap. Máy chủ kiểm lại trên bản lưu trên máy chủ (bảng p2d_ht_nv sinh bằng tools/he-thong-sql.py). Hiện show_n nhiệm vụ chưa nhận đầu tiên.",
  "pool": [
   {
-   "id": "lt-5k",
-   "w": 30,
-   "coins": 5000
-  },
-  {
    "id": "lt-20k",
-   "w": 18,
+   "w": 1,
    "coins": 20000
   },
   {
+   "id": "lt-50k",
+   "w": 1,
+   "coins": 50000
+  },
+  {
    "id": "lt-100k",
-   "w": 6,
+   "w": 1,
    "coins": 100000
+  },
+  {
+   "id": "lt-200k",
+   "w": 1,
+   "coins": 200000
   },
   {
    "id": "lt-500k",
@@ -1076,92 +1081,324 @@
    "coins": 500000
   },
   {
-   "id": "ngoc-1-2",
-   "w": 14,
+   "id": "lt-1tr",
+   "w": 1,
+   "coins": 1000000
+  },
+  {
+   "id": "lt-2tr",
+   "w": 1,
+   "coins": 2000000
+  },
+  {
+   "id": "ngoc-1",
+   "w": 1,
    "gem": [
     1,
+    1
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-2",
+   "w": 1,
+   "gem": [
+    2,
     2
    ],
    "n": 1
   },
   {
-   "id": "ngoc-3-4",
-   "w": 6,
+   "id": "ngoc-3",
+   "w": 1,
    "gem": [
     3,
+    3
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-4",
+   "w": 1,
+   "gem": [
+    4,
     4
    ],
    "n": 1
   },
   {
-   "id": "ngoc-5-6",
-   "w": 1.5,
+   "id": "ngoc-5",
+   "w": 1,
    "gem": [
     5,
+    5
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-6",
+   "w": 1,
+   "gem": [
+    6,
     6
    ],
    "n": 1
   },
   {
-   "id": "ngoc-7-8",
-   "w": 0.3,
+   "id": "ngoc-7",
+   "w": 1,
    "gem": [
     7,
+    7
+   ],
+   "n": 1
+  },
+  {
+   "id": "ngoc-8",
+   "w": 1,
+   "gem": [
+    8,
     8
    ],
    "n": 1
   },
   {
-   "id": "tay-2",
-   "w": 10,
-   "mat": "tay-luyen-thach",
-   "n": 2
-  },
-  {
-   "id": "tay-5",
-   "w": 3,
-   "mat": "tay-luyen-thach",
-   "n": 5
-  },
-  {
-   "id": "do-luc-lam",
-   "w": 6,
+   "id": "do-0",
+   "w": 1,
    "gear": [
-    0,
+    0
+   ]
+  },
+  {
+   "id": "do-1",
+   "w": 1,
+   "gear": [
     1
    ]
   },
   {
-   "id": "do-tim-cam",
-   "w": 3,
+   "id": "do-2",
+   "w": 1,
    "gear": [
-    2,
+    2
+   ]
+  },
+  {
+   "id": "do-3",
+   "w": 1,
+   "gear": [
     3
    ]
   },
   {
-   "id": "do-vang",
-   "w": 0.8,
+   "id": "do-4",
+   "w": 1,
    "gear": [
     4
    ]
   },
   {
-   "id": "do-tien",
-   "w": 0.3,
+   "id": "do-5",
+   "w": 1,
    "gear": [
     5
    ]
   },
   {
-   "id": "do-thuong-co",
-   "w": 0.1,
+   "id": "do-6",
+   "w": 1,
    "gear": [
     6
    ]
+  },
+  {
+   "id": "dan-hoi-xuan-dan",
+   "w": 1,
+   "pill": "hoi-xuan-dan",
+   "n": 10
+  },
+  {
+   "id": "dan-hoi-linh-dan",
+   "w": 1,
+   "pill": "hoi-linh-dan",
+   "n": 10
+  },
+  {
+   "id": "dan-tu-khi-dan",
+   "w": 1,
+   "pill": "tu-khi-dan",
+   "n": 5
+  },
+  {
+   "id": "dan-boi-nguyen-dan",
+   "w": 1,
+   "pill": "boi-nguyen-dan",
+   "n": 2
+  },
+  {
+   "id": "dan-thanh-tam-dan",
+   "w": 1,
+   "pill": "thanh-tam-dan",
+   "n": 2
+  },
+  {
+   "id": "dan-tinh-lien-dan",
+   "w": 1,
+   "pill": "tinh-lien-dan",
+   "n": 1
+  },
+  {
+   "id": "dan-tu-van-dan",
+   "w": 1,
+   "pill": "tu-van-dan",
+   "n": 3
+  },
+  {
+   "id": "dan-tay-tuy-dan",
+   "w": 1,
+   "pill": "tay-tuy-dan",
+   "n": 1
+  },
+  {
+   "id": "nl-linh-thao",
+   "w": 1,
+   "mat": "linh-thao",
+   "n": 20
+  },
+  {
+   "id": "nl-yeu-huyet",
+   "w": 1,
+   "mat": "yeu-huyet",
+   "n": 10
+  },
+  {
+   "id": "nl-tinh-thiet",
+   "w": 1,
+   "mat": "tinh-thiet",
+   "n": 20
+  },
+  {
+   "id": "nl-hoa-linh-chi",
+   "w": 1,
+   "mat": "hoa-linh-chi",
+   "n": 5
+  },
+  {
+   "id": "nl-tay-luyen-thach",
+   "w": 1,
+   "mat": "tay-luyen-thach",
+   "n": 10
+  },
+  {
+   "id": "nl-khoa-linh-thach",
+   "w": 1,
+   "mat": "khoa-linh-thach",
+   "n": 2
+  },
+  {
+   "id": "nl-dao-van-thach",
+   "w": 1,
+   "mat": "dao-van-thach",
+   "n": 1
+  },
+  {
+   "id": "nl-manh-phap-bao",
+   "w": 1,
+   "mat": "manh-phap-bao",
+   "n": 3
+  },
+  {
+   "id": "cuoi-bach-loc",
+   "w": 1,
+   "mount": "bach-loc",
+   "gia": 5000
+  },
+  {
+   "id": "cuoi-phong-lang",
+   "w": 1,
+   "mount": "phong-lang",
+   "gia": 12000
+  },
+  {
+   "id": "cuoi-tuyet-ly",
+   "w": 1,
+   "mount": "tuyet-ly",
+   "gia": 15000
+  },
+  {
+   "id": "cuoi-hoa-ky-lan",
+   "w": 1,
+   "mount": "hoa-ky-lan",
+   "gia": 25000
+  },
+  {
+   "id": "khoi-tieu-hoa",
+   "w": 1,
+   "comp": "tieu-hoa",
+   "gia": 8000
+  },
+  {
+   "id": "khoi-ho-linh",
+   "w": 1,
+   "comp": "ho-linh",
+   "gia": 8000
+  },
+  {
+   "id": "khoi-thanh-diep",
+   "w": 1,
+   "comp": "thanh-diep",
+   "gia": 10000
+  },
+  {
+   "id": "khoi-mac-anh",
+   "w": 1,
+   "comp": "mac-anh",
+   "gia": 12000
+  },
+  {
+   "id": "khoi-thach-sinh",
+   "w": 1,
+   "comp": "thach-sinh",
+   "gia": 15000
+  },
+  {
+   "id": "khoi-thiet-lan",
+   "w": 1,
+   "comp": "thiet-lan",
+   "gia": 18000
+  },
+  {
+   "id": "ao-thanh-sam",
+   "w": 1,
+   "outfit": "thanh-sam",
+   "gia": 800
+  },
+  {
+   "id": "ao-hac-y",
+   "w": 1,
+   "outfit": "hac-y",
+   "gia": 1500
+  },
+  {
+   "id": "ao-hong-y",
+   "w": 1,
+   "outfit": "hong-y",
+   "gia": 1500
+  },
+  {
+   "id": "ao-tien-nhan",
+   "w": 1,
+   "outfit": "tien-nhan",
+   "gia": 10000
+  },
+  {
+   "id": "ao-hoang-kim",
+   "w": 1,
+   "outfit": "hoang-kim",
+   "gia": 10000
   }
  ],
- "_pool": "Bảng quà triệu hồi (chủ dự án duyệt 06/11/2026 17:00: quà như nhau cho mọi người, ra gì nhờ khí vận). w trọng số (tổng 100). gem [cấp thấp, cấp cao] loại ngẫu nhiên; mat nguyên liệu (đá: Tẩy Luyện Thạch); gear [bậc màu dòng] trang bị ngẫu nhiên mọi ô (chủ dự án 16:57: trang bị, không chỉ vũ khí), cấp món theo tầng tu vi, 1 dòng màu đó. Quà vào Hòm thư (ly_do he_thong_qua). Máy chủ quay (p2d_ht_trieu).",
+ "_pool": "Bảng quà triệu hồi (chủ dự án 06/11/2026 22:37: mọi thứ mua được trong game đều có, trừ ngọc cấp 9 trở lên; Linh Thạch 20k → 2 triệu 7 mức; mọi loại tỉ lệ ngang nhau — w = 1 hết, 53 loại thì mỗi loại 1/53). gem [cấp, cấp] loại ngẫu nhiên; gear [bậc màu dòng] trang bị ngẫu nhiên mọi ô; pill / mat + n; mount (thú cưỡi), comp (khôi lỗi), outfit (thời trang bán bằng Linh Thạch, bản theo giới tính; bỏ bộ chỉ một giới): đã có (hoặc đang chờ trong Hòm thư) thì đổi ra gia Linh Thạch. Quà vào Hòm thư; máy chủ quay (p2d_ht_trieu).",
  "text": {
   "points": "Điểm hệ thống: {p}",
   "claim": "Nhận",
@@ -1171,7 +1408,7 @@
   "summon": "Triệu hồi ({c} điểm)",
   "summon_need": "Cần {c} điểm (đang có {p})",
   "summon_title": "Triệu hồi quà hệ thống",
-  "summon_desc": "Mỗi lần {c} điểm. Linh Thạch, ngọc cấp 1–8, Tẩy Luyện Thạch, trang bị phẩm Lục tới Thượng Cổ. Ra gì là nhờ khí vận của ký chủ. Quà vào Hòm thư.",
+  "summon_desc": "Mỗi lần {c} điểm. Mọi thứ mua được trong game: Linh Thạch 20k → 2 triệu, ngọc cấp 1–8, trang bị Phàm → Thượng Cổ, đan, nguyên liệu, thú cưỡi, khôi lỗi, thời trang. Tỷ lệ mọi loại như nhau, ra gì nhờ khí vận. Quà vào Hòm thư.",
   "summon_got": "Đinh! Ký chủ triệu hồi được: {name}",
   "summon_err": "Bổn hệ thống đang bận, thử lại sau.",
   "login": "Đăng nhập để nhận điểm và triệu hồi.",
@@ -1187,7 +1424,14 @@
   "got": "Quà đã vào Hòm thư.",
   "pts_tag": "+{p} điểm",
   "quest_mail": "Thưởng nhiệm vụ hệ thống",
-  "claimed_tag": "Đã nhận"
+  "claimed_tag": "Đã nhận",
+  "dup": "Đã có {x}, đổi ra Linh Thạch",
+  "pool_gem1": "Ngọc cấp {a}",
+  "grade": "{g}",
+  "k_mount": "Thú cưỡi",
+  "k_comp": "Khôi lỗi",
+  "k_outfit": "Thời trang",
+  "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%"
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
  "ngay": {

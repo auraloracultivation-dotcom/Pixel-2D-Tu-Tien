@@ -219,7 +219,8 @@ end;
 $$;
 revoke all on function public.p2d_ht_do(int, int) from public, anon, authenticated;
 
--- Triệu hồi: trừ điểm, quay bảng quà (trọng số w), quà vào Hòm thư
+-- Triệu hồi: trừ điểm, quay bảng quà (trọng số w; chủ dự án 06/11/2026 22:37: mọi loại ngang nhau), quà vào Hòm thư.
+-- Thú cưỡi / khôi lỗi / thời trang đã có (hoặc đang chờ trong Hòm thư) thì đổi ra gia Linh Thạch.
 create or replace function public.p2d_ht_trieu()
 returns jsonb
 language plpgsql
@@ -227,7 +228,7 @@ security definer
 set search_path = ''
 as $$
 declare v_uid uuid := public.p2d_uid(); c jsonb := (select v from public.p2d_ht_cfg where k = 'cfg'); v_row public.p2d_ht_diem%rowtype;
-  v_cost int := (c ->> 'cost')::int; v_tot numeric; v_x numeric; e jsonb; v_pick jsonb; v_nd jsonb; v_lvl int; v_lv int; v_t int;
+  v_cost int := (c ->> 'cost')::int; v_tot numeric; v_x numeric; e jsonb; v_pick jsonb; v_nd jsonb; v_lvl int; v_lv int; v_t int; v_d jsonb; v_g text; v_k text;
 begin
   if v_uid is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
   select * into v_row from public.p2d_ht_diem where user_id = v_uid for update;
@@ -239,11 +240,25 @@ begin
     if v_x <= 0 then v_pick := e; exit; end if;
   end loop;
   v_pick := coalesce(v_pick, c -> 'pool' -> 0);
+  select data into v_d from public.p2d_nhan_vat where user_id = v_uid;
   if v_pick ? 'coins' then v_nd := jsonb_build_object('coins', (v_pick ->> 'coins')::int);
   elsif v_pick ? 'gem' then
     v_lv := (v_pick -> 'gem' ->> 0)::int + floor(random() * ((v_pick -> 'gem' ->> 1)::int - (v_pick -> 'gem' ->> 0)::int + 1))::int;
     v_nd := jsonb_build_object('gem', jsonb_build_object('key', (c -> 'gems' ->> floor(random() * jsonb_array_length(c -> 'gems'))::int) || ':' || v_lv, 'n', coalesce((v_pick ->> 'n')::int, 1)));
   elsif v_pick ? 'mat' then v_nd := jsonb_build_object('mat', jsonb_build_object('id', v_pick ->> 'mat', 'n', (v_pick ->> 'n')::int));
+  elsif v_pick ? 'pill' then v_nd := jsonb_build_object('pill', jsonb_build_object('id', v_pick ->> 'pill', 'n', (v_pick ->> 'n')::int));
+  elsif v_pick ? 'mount' or v_pick ? 'comp' or v_pick ? 'outfit' then
+    v_g := case when v_d ->> 'gioi' = 'nu' then 'nu' else 'nam' end;
+    v_k := coalesce(v_pick ->> 'mount', v_pick ->> 'comp', v_pick ->> 'outfit');
+    if (v_pick ? 'mount' and (coalesce((v_d -> 'mounts') ? v_k, false) or exists (select 1 from public.p2d_hom_thu t where t.user_id = v_uid and t.nhan_luc is null and t.noi_dung ->> 'mount' = v_k)))
+       or (v_pick ? 'comp' and (coalesce((v_d -> 'comps') ? v_k, false) or exists (select 1 from public.p2d_hom_thu t where t.user_id = v_uid and t.nhan_luc is null and t.noi_dung ->> 'comp' = v_k)))
+       or (v_pick ? 'outfit' and (coalesce((v_d -> 'outfits') ? (v_k || ':' || v_g), false) or (v_d -> 'outfits' -> v_k) = 'true'::jsonb
+           or exists (select 1 from public.p2d_hom_thu t where t.user_id = v_uid and t.nhan_luc is null and t.noi_dung ->> 'outfit' = v_k))) then
+      v_nd := jsonb_build_object('coins', (v_pick ->> 'gia')::int, 'doi', v_k);   -- đã có: đổi ra Linh Thạch
+    elsif v_pick ? 'mount' then v_nd := jsonb_build_object('mount', v_k);
+    elsif v_pick ? 'comp' then v_nd := jsonb_build_object('comp', v_k);
+    else v_nd := jsonb_build_object('outfit', v_k, 'g', v_g);
+    end if;
   else
     select greatest(0, coalesce(canh_gioi, 0) * 9 + coalesce(tang, 1) - 1) into v_lvl from public.p2d_nhan_vat where user_id = v_uid;
     v_t := (v_pick -> 'gear' ->> floor(random() * jsonb_array_length(v_pick -> 'gear'))::int)::int;
