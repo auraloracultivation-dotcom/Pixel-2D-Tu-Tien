@@ -95,7 +95,11 @@ export function createOthers(game) {
       const p = game.player;
       let near = Infinity;
       if (p) for (const o of list.values()) if (o.x !== null) near = Math.min(near, Math.hypot(o.x - p.x, o.y - p.y));
-      return sendGap(R(), list.size, near === Infinity && list.size ? 0 : near, game.data.config.tile || 16);
+      const g = sendGap(R(), list.size, near === Infinity && list.size ? 0 : near, game.data.config.tile || 16);
+      // Đứng gần đầu Thôn Thiên Mãng: máy chủ phòng cần vị trí để tính Linh Thạch chém boss (cloud/src/phong.js nearHead), nên kể cả
+      // một mình trên tinh cầu cũng gửi, tối đa boss_ms một lần (06/11/2026: trước đây một mình thì không gửi → không được thưởng)
+      const h = game.mang?.m, bm = R().boss_ms || 3000;
+      return h && p && game.mobs.includes(h) && Math.hypot(h.x - p.x, h.y - p.y) < 26 * (game.data.config.tile || 16) ? Math.min(g, bm) : g;
     },
   };
 }
