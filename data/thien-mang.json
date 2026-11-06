@@ -1,7 +1,66 @@
 {
  "_note": "Boss thế giới Cửu Đầu Thôn Thiên Mãng (chủ dự án 06/11/2026: thái cổ yêu thú hình rắn chín đầu quấn quanh tinh hà; mỗi tinh cầu thấy một cái đầu ở mép viền ngoài; bản thử vô hạn máu, thanh máu luôn hp_show, bảng xếp hạng sát thương bên phải màn hình; ổn rồi mới mở giới hạn, chưa có thưởng). Đầu là quái đứng yên không chết, không đánh (data/mobs.json → mob), mọc ở mép trên tinh cầu. Sát thương mình gây gom report_s giây gửi máy chủ phòng Cloudflare (cloud/src/phong.js kẹp theo lực chiến máy chủ giữ, cloud/src/mang.js cộng dồn cả máy chủ). Đứng gần đầu (trong near tile) thì cứ poll_s giây hỏi bảng một lần dù không đánh. src/game/thien-mang.js, src/render/draw-mang.js, src/ui/mang-panel.js.",
  "name": "Cửu Đầu Thôn Thiên Mãng",
- "sky": {"_note": "Cả con trên tinh đồ (chủ dự án 06/11/2026 14:35: hình GPT boss.mang, ngoài không gian, bay qua lại, to gần bằng Phương Thiên Địa Ma Vương). Lượn trên cung elip bán kính ring (theo khung tinh đồ, ma khí ở 0,9) từ góc from (độ, 0 = phải, 90 = dưới) rộng span độ, một vòng đi về period giây; cao = size × đường kính Ma Vương trên màn; bob nhấp nhô; idle_fps khung đứng; mỗi roar_every giây gầm một lượt roar_fps khung/giây; aura màu quầng ma khí; mouths [x, y theo tỉ lệ hình (0–1 từ trái, trên), màu] chỗ chín miệng lóe khi gầm. src/render/draw-mang-sky.js.", "ring": 0.9, "from": 218, "span": 104, "period": 48, "size": 2.1, "bob": 0.03, "idle_fps": 8, "roar_fps": 12, "roar_every": 9, "aura": "#8a3ac0", "mouths": [[0.12, 0.27, "#7ae08a"], [0.13, 0.43, "#7ae08a"], [0.3, 0.13, "#f2d27a"], [0.55, 0.2, "#ff7a3a"], [0.7, 0.12, "#f2d27a"], [0.84, 0.24, "#7ad0ff"], [0.85, 0.38, "#8a9aff"], [0.84, 0.53, "#d070ff"], [0.24, 0.6, "#d0a060"]]},
+ "sky": {
+  "_note": "Cả con trên tinh đồ (chủ dự án 06/11/2026 14:35: hình GPT boss.mang, ngoài không gian, bay qua lại, to gần bằng Phương Thiên Địa Ma Vương). Lượn trên cung elip bán kính ring (theo khung tinh đồ, ma khí ở 0,9) từ góc from (độ, 0 = phải, 90 = dưới) rộng span độ, một vòng đi về period giây; cao = size × đường kính Ma Vương trên màn; bob nhấp nhô; idle_fps khung đứng; mỗi roar_every giây gầm một lượt roar_fps khung/giây; aura màu quầng ma khí; mouths [x, y theo tỉ lệ hình (0–1 từ trái, trên), màu] chỗ chín miệng lóe khi gầm. src/render/draw-mang-sky.js.",
+  "ring": 0.9,
+  "from": 218,
+  "span": 104,
+  "period": 48,
+  "size": 2.1,
+  "bob": 0.03,
+  "idle_fps": 8,
+  "roar_fps": 12,
+  "roar_every": 9,
+  "aura": "#8a3ac0",
+  "mouths": [
+   [
+    0.12,
+    0.27,
+    "#7ae08a"
+   ],
+   [
+    0.13,
+    0.43,
+    "#7ae08a"
+   ],
+   [
+    0.3,
+    0.13,
+    "#f2d27a"
+   ],
+   [
+    0.55,
+    0.2,
+    "#ff7a3a"
+   ],
+   [
+    0.7,
+    0.12,
+    "#f2d27a"
+   ],
+   [
+    0.84,
+    0.24,
+    "#7ad0ff"
+   ],
+   [
+    0.85,
+    0.38,
+    "#8a9aff"
+   ],
+   [
+    0.84,
+    0.53,
+    "#d070ff"
+   ],
+   [
+    0.24,
+    0.6,
+    "#d0a060"
+   ]
+  ]
+ },
  "mob": "thon-thien-mang",
  "hp_show": 0.99,
  "report_s": 2,
@@ -75,7 +134,15 @@
   "offline": "Đăng nhập để vào bảng xếp hạng",
   "intro": "Trên mép tinh cầu, một cái đầu rắn khổng lồ trồi lên từ tinh hà… {name}!",
   "lt": "Linh Thạch chờ nhận: {lt} (vào Hòm thư mỗi 5 phút)",
-  "lt_rate": "Chém đầu này: ~{lt}/giây (gấp {x} lần farm, +tới {b}% theo sát thương)"
+  "lt_rate": "Chém boss: ~{lt} Linh Thạch/giây, +tới {b}% theo sát thương",
+  "enter": "Bay tới",
+  "leave": "Rời đi",
+  "enter_ask": "Ngự kiếm bay ra Hư Không Thôn Thiên vây công Cửu Đầu Thôn Thiên Mãng?",
+  "closed": "Cửu Đầu Thôn Thiên Mãng đang ngủ. Chờ thông báo lần xuất hiện sau.",
+  "arena_intro": "Cửu Đầu Thôn Thiên Mãng che kín cả tinh không. Bay tới gần một cái đầu mà chém!",
+  "fly_to": "Ngự kiếm bay ra Hư Không Thôn Thiên",
+  "fly_back": "Ngự kiếm bay về {name}",
+  "boss_kind": "Thái cổ yêu thú · Boss thế giới"
  },
  "lt_mult": 30,
  "_lt": "Chủ dự án 06/11/2026 09:34: chém Thôn Thiên Mãng được Linh Thạch gấp lt_mult lần (10, chủ dự án 11:39 nâng ×3 = 30) farm thường. farm_lt_s mỗi đầu = Linh Thạch trung bình một giây farm quái thường trên tinh cầu đó: 0,35 (tỉ lệ rơi) × 0,1 × linh khí trung bình của quái tinh cầu (data/shop.json drop) ÷ 4 giây một con. Chỉ tính giây đang đánh thật (máy chủ phòng Cloudflare thấy sát thương đã kẹp, người đứng gần mép trên tinh cầu). Cloudflare gom 5 phút một lần gửi Supabase (p2d_mang_thuong, ký HMAC) → Hòm thư. Bản sao số trong cloud/src/mang-cfg.js (tools/cloud/phong.test.mjs so khớp).",
@@ -99,5 +166,65 @@
   "all_lt": 100000,
   "gem_lv": 1
  },
- "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 vũ khí ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 vũ khí phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30)."
+ "_on": "Chủ dự án 06/11/2026 11:39: tắt boss (on=false: không mọc đầu ở tinh cầu nào), tổng kết lần đầu: top 10 sát thương mỗi người 1 vũ khí ngẫu nhiên phẩm Thượng Cổ (dòng màu top_tier 6 = Đen) + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương 1 vũ khí phẩm Tiên (5 = Đỏ) + 25 ngọc cấp 1 + 100.000 Linh Thạch, gửi Hòm thư (ngọc chia đều 4 loại). Sau này mỗi lần boss xuất hiện kéo dài dur_min phút rồi phát thưởng y như vậy; giờ xuất hiện chưa chốt. Cùng lúc Linh Thạch chém boss ×3 (lt_mult 10 → 30). 15:03: boss chuyển ra vùng không gian riêng (arena), các đầu ở mép 9 tinh cầu bỏ.",
+ "arena": {
+  "map": "thon-thien-mang",
+  "h": 1200,
+  "x": 0.5,
+  "y": 0.72,
+  "head_r": 80,
+  "farm_lt_s": 2.67,
+  "speed": 1.6,
+  "back": "thanh-khe",
+  "near": 30,
+  "_note": "Vùng không gian (chủ dự án 06/11/2026 15:03). Boss vẽ cả con cao h đơn vị bản đồ (hình boss.mang phóng to), chân hình đặt ở (x, y) theo tỉ lệ bản đồ; chín đầu là chín chỗ đánh đặt tại sky.mouths, bán kính chạm head_r, tên và hệ lấy theo thứ tự heads. Ở đây ai cũng nhận Linh Thạch như nhau: farm_lt_s × lt_mult mỗi giây chém (2,67 × 30 ≈ 24.000 / 5 phút, cộng tối đa 50% theo sát thương ≈ 30.000 như chủ dự án dặn). Ngự kiếm: tốc bay speed lần đi bộ, không thú cưỡi. Rời vùng (nút Rời đi, hoặc boss tắt mà còn đứng trong vùng) thì về tinh cầu trước khi vào (save.mangBack), không có thì back. near ô: hiện bảng boss, gửi hỏi bảng.",
+  "heads": [
+   {
+    "n": 1,
+    "el": "moc",
+    "name": "Đầu thứ nhất · Thanh Mộc"
+   },
+   {
+    "n": 6,
+    "el": "moc",
+    "name": "Đầu thứ sáu · Thanh Mộc"
+   },
+   {
+    "n": 2,
+    "el": "kim",
+    "name": "Đầu thứ hai · Kiếm Kim"
+   },
+   {
+    "n": 3,
+    "el": "hoa",
+    "name": "Đầu thứ ba · Xích Diễm"
+   },
+   {
+    "n": 7,
+    "el": "kim",
+    "name": "Đầu thứ bảy · Thiên Kim"
+   },
+   {
+    "n": 4,
+    "el": "thuy",
+    "name": "Đầu thứ tư · Hàn Băng"
+   },
+   {
+    "n": 5,
+    "el": "thuy",
+    "name": "Đầu thứ năm · Hắc Phong"
+   },
+   {
+    "n": 9,
+    "el": "hoa",
+    "name": "Đầu thứ chín · Ma Diễm"
+   },
+   {
+    "n": 8,
+    "el": "tho",
+    "name": "Đầu thứ tám · Hậu Thổ"
+   }
+  ],
+  "_heads": "Chín đầu theo thứ tự sky.mouths (màu miệng khớp hệ)."
+ }
 }

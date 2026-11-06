@@ -53,7 +53,7 @@ export function createMangPanel(game) {
           rows.push(r);
         });
         rows.push(el('div', 'mang-me', b?.me ? fill(T.me, { r: b.me[0], v: fmt(b.me[1]) }) : T.me_none));
-        const h = s.head, x = C.lt_mult || 10;   // thưởng Linh Thạch gấp lt_mult lần farm (máy chủ phòng tính, Hòm thư 5 phút một lần)
+        const h = C.arena, x = C.lt_mult || 10;   // thưởng Linh Thạch gấp lt_mult lần farm (máy chủ phòng tính, Hòm thư 5 phút một lần)
         if (h?.farm_lt_s) rows.push(el('div', 'mang-lt', fill(T.lt_rate, { lt: fmt(Math.round(h.farm_lt_s * x * 10) / 10), x, b: Math.round((C.lt_bonus || 0) * 100) })));
         if (b?.lt != null) rows.push(el('div', 'mang-lt', fill(T.lt, { lt: fmt(b.lt) })));
       }

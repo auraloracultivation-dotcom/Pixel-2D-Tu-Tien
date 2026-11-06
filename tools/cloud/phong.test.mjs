@@ -173,6 +173,13 @@ console.log('phong.test: ok');
     let ry = 0; while (ry < g.length && g[ry][cx] === '~') ry++;
     assert.deepEqual(C.HEAD[k], [(cx + 0.5) * 16, (Math.max(0, ry - 1) + 0.5) * 16], 'mang-cfg.js HEAD lệch bản đồ: ' + k);
   }
+  { // vùng không gian: chín đầu khớp hình boss và bản đồ, farm như nhau
+    const ar = TM.arena, spr = JSON.parse(readFileSync(resolve(root, '../../data/art.json'), 'utf8')).sprites['boss.mang'];
+    const mg = JSON.parse(readFileSync(resolve(root, `../../data/maps/${ar.map}.json`), 'utf8')).grid, W = mg[0].length * 16, H = mg.length * 16;
+    const bx = W * ar.x, by = H * ar.y, w = ar.h * spr.w / spr.h;
+    TM.sky.mouths.forEach(([mx, my], i) => { const q = C.HEAD[ar.map][i]; assert.ok(Math.abs(q[0] - (bx + (mx - 0.5) * w)) < 0.2 && Math.abs(q[1] - (by - (1 - my) * ar.h)) < 0.2, 'mang-cfg.js HEAD vùng lệch: đầu ' + i); });
+    assert.equal(C.FARM_LT_S[ar.map], ar.farm_lt_s);
+  }
   const [hx, hy] = C.HEAD['vet-nut-ngoai'];
   await room2.webSocketMessage(w1, JSON.stringify({ t: 'm', x: hx, y: hy + 100 }));
   await room2.webSocketMessage(w2, JSON.stringify({ t: 'm', x: hx, y: hy + 50 }));

@@ -141,5 +141,5 @@ Phong.prototype.bossFlush = async function () {
   }
 };
 
-const nearHead = (map, mv) => { const h = HEAD[map]; return !!(h && mv && Math.hypot(mv[0] - h[0], mv[1] - h[1]) <= NEAR); };
+const nearHead = (map, mv) => { const h = HEAD[map]; return !!(h && mv && (Array.isArray(h[0]) ? h : [h]).some(q => Math.hypot(mv[0] - q[0], mv[1] - q[1]) <= NEAR)); };   // vùng không gian: chín đầu
 const xy = mv => ({ x: mv[0], y: mv[1], fx: mv[2], fy: mv[3] });

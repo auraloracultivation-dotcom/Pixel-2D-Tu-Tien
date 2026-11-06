@@ -7,6 +7,7 @@ import { weekLine } from '../game/demon.js';
 import { drawPlanet, tapPlanet } from './planet-map.js';
 import { hopTo, hopWhy } from '../game/hop.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
+import { goArena } from '../game/thien-mang.js';
 
 const $ = id => document.getElementById(id);
 
@@ -56,7 +57,8 @@ export function createWorldMap(game) {
     const box = $('world-card'); box.innerHTML = '';
     box.hidden = !sel;
     if (!sel) return;
-    const b = sel, known = seen(b);
+    const b = sel, known = b.mang || seen(b);
+    if (b.mang) { mangCard(box); return; }
     box.append(el('b', null, known ? b.name : sm.texts.unknown), el('small', null, sm.kinds[b.kind] || ''));
     if (known && b.desc) box.append(el('p', null, b.desc));
     const dg = known && dangerOf(b, game.save.realm || 0);
@@ -71,6 +73,17 @@ export function createWorldMap(game) {
       close();
       game.travel(b.map, 'vao', true, { text: sm.texts.trip.replace('{name}', b.name), kind: m.indoor || m.rooms?.length ? 'portal' : 'flight' });
     };
+    box.append(go);
+  }
+
+  // Thẻ Cửu Đầu Thôn Thiên Mãng (chạm con rắn lượn ngoài kết giới): đang mở thì nút Bay tới ra vùng không gian (game/thien-mang.js)
+  function mangCard(box) {
+    const c = data['thien-mang'], T = c.text, on = c.on !== false;
+    box.append(el('b', null, c.name), el('small', null, T.boss_kind || ''), el('p', null, on ? T.enter_ask : T.closed));
+    const why = on ? (game.map.id === c.arena?.map ? sm.texts.here : blocked()) : T.closed;
+    const go = el('button', 'wc-go', why || T.enter);
+    go.disabled = !!why;
+    go.onclick = () => { close(); goArena(game); };
     box.append(go);
   }
 

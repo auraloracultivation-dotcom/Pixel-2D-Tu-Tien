@@ -54,7 +54,7 @@ import { eventMul, eventKill, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
-import { spawnMang, updateMang, onMangBoard } from './thien-mang.js';
+import { spawnMang, updateMang, onMangBoard, arenaGuard } from './thien-mang.js';
 import { createPvp, updatePvp, onPvp } from './pvp.js';
 import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
@@ -164,6 +164,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   function loadMap(id, spawnName) {
+    id = arenaGuard(game, id);   // vùng Thôn Thiên Mãng lúc boss ngủ: về tinh cầu cũ
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile, data);

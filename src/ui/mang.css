@@ -24,3 +24,10 @@
 .mang-muted { color: #b8b0c8; opacity: .85; }
 body:has(.panel:not([hidden])) .mang-panel, body:has(#bag:not([hidden])) .mang-panel, body:has(#dialog:not([hidden])) .mang-panel,
 body.trip .mang-panel, body.ui-an .mang-panel { display: none; }
+/* Nút Rời đi trong vùng không gian (src/ui/mang-leave.js): giữa phía trên, dưới tai thỏ */
+.mang-leave {
+  position: fixed; z-index: 7; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top) + 262px);
+  font: 700 12px/1 var(--f-body); color: #f1e8ff; padding: 7px 12px; border-radius: 7px; border: 1px solid #000;
+  background: rgba(58, 30, 90, .88); text-shadow: 1px 1px 0 #000; cursor: pointer;
+}
+.mang-leave[hidden] { display: none; }
