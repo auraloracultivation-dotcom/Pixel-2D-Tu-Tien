@@ -44,4 +44,8 @@ export default {
     headers.set('x-cap', String(room.cap));
     return stub.fetch(new Request(req, { headers }));
   },
+  // Hẹn giờ (wrangler.jsonc triggers.crons, 21:02 giờ VN): boss hết giờ thì tổng kết, phát quà (mang.js tongKet)
+  async scheduled(ev, env, ctx) {
+    ctx.waitUntil(env.MANG.get(env.MANG.idFromName('cuu-dau')).tongKet().then(r => console.log('tong_ket', JSON.stringify(r))));
+  },
 };

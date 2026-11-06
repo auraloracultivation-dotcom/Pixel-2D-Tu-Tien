@@ -57,6 +57,7 @@ export function createInbox(game) {
     else if (it.go === 'guild') press('btn-guild');
     else if (it.go === 'world') game.openSocial?.('world');
     else if (it.go === 'market') game.openMarket?.();
+    else if (it.go === 'mang') import('../game/thien-mang.js').then(M => M.goArena(game));   // boss tới giờ xuất hiện (game/mang-lich.js)
     else if (it.go === 'feedback') document.getElementById(a.loai === 'de_xuat' ? 'btn-fb-de_xuat' : 'btn-fb-loi')?.click();
   }
 
