@@ -1,4 +1,6 @@
-// Tự động săn (nút Tự đánh): đánh quái thường quanh chỗ bật, không tự làm truyện, không đánh boss, không chạy trong bí cảnh, tháp, độ kiếp.
+// Tự động săn (nút Tự đánh): đánh quái quanh chỗ bật, không tự làm truyện, không chạy trong tháp, độ kiếp.
+// Chủ dự án 06/11/2026 10:27: có boss trong vùng săn (Thôn Thiên Mãng, Yêu Vương...) thì ưu tiên boss máu cao nhất trước, hết boss
+// mới đánh quái thường (trước đây ngoài bí cảnh không đánh boss nên cứ chạy ra đánh quái con).
 // Trong động phủ thì đánh Mộc Nhân.
 import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
@@ -13,7 +15,7 @@ export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
   game.auto = !game.auto;
   if (game.auto) game.autoHome = { x: game.player.x, y: game.player.y };
-  game.toast(game.auto ? 'Tự đánh: săn quái quanh đây' : 'Tắt tự đánh', 1.2);
+  game.toast(game.auto ? 'Tự đánh: săn quái quanh đây (có boss thì đánh boss trước)' : 'Tắt tự đánh', 1.2);
 }
 
 // Gọi khi người chơi không tự đẩy cần: trả về hướng đi và có đánh thường không; bấm chiêu đã hồi
@@ -24,16 +26,19 @@ export function autoStep(game, ax, dt = 0) {
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
-  const ok = m => m && !m.dead && m.hp > 0 && (dun || m.def.ai !== 'boss') && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= cfg.radius);   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
-  let tgt = null, bd = Infinity;
+  const ok = m => m && !m.dead && m.hp > 0 && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? cfg.radius : cfg.radius));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
+  const isBoss = m => m.def.ai === 'boss' || !!m.wboss;
+  let tgt = null, bd = Infinity, boss = null;
   for (const m of game.mobs) {
     if (!ok(m)) continue;
+    if (isBoss(m)) { if (!boss || m.maxHp > boss.maxHp) boss = m; continue; }
     const d = dist(m, p); if (d < bd) { bd = d; tgt = m; }
   }
+  if (boss) { bd = dist(boss, p); tgt = boss; }   // boss máu cao nhất trước, không đổi sang quái con
   // Bám một con tới khi chết (báo lỗi #87: chọn lại con gần nhất mỗi khung nên hai con cách gần bằng nhau thì chạy lên chạy xuống);
   // chỉ đổi khi có con khác gần hơn hẳn (dưới một nửa khoảng cách)
   const cur = game.autoTgt;
-  if (ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
+  if (!boss && ok(cur) && tgt !== cur && bd > dist(cur, p) * 0.5) tgt = cur;
   game.autoTgt = tgt;
   const r = tgt ? fightStep(game, tgt, ax) : { ax: !dun && Math.hypot(home.x - p.x, home.y - p.y) > 8 ? toward(p, home.x, home.y) : ax, atk: false };   // bí cảnh hết quái: đứng chờ
   // Chống kẹt (báo lỗi #102, #117): đuổi mãi sau nhà, cây, cột đá mà không nhích thì bỏ con này một lúc (skipUntil, tự hành cũng tránh),
