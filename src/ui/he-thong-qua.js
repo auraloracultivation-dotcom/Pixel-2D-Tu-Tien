@@ -60,7 +60,8 @@ export function renderGacha(game, body, ht, onDone) {
   chest.src = chestImg(game, false); chest.alt = ''; chest.draggable = false;
   if (R) chest.style.width = `${Math.round(R.w * 1.7)}px`;
   const feed = el('div', 'ht-feed');   // 10 lần quay đáng khoe cả máy chủ: bạo kích từ x5 hoặc trang bị phẩm Thiên trở lên (chủ dự án 07/11/2026 00:07)
-  stage.append(slot, chest, feed);
+  const wrap = el('div', 'ht-chest-wrap');   // bảng khoe nằm ngoài sân khấu (sân khấu cắt viền ánh sáng) để kéo lên, ra sát mép bảng
+  stage.append(slot, chest); wrap.append(stage, feed);
   const loadFeed = () => game.cloud && import('../net/he-thong.js').then(N => N.htFeed()).then(list => {
     feed.textContent = '';
     if (!list?.length) return;
@@ -128,7 +129,7 @@ export function renderGacha(game, body, ht, onDone) {
     diem = r.diem; busy = false; sync(); onDone(r); setTimeout(loadFeed, 600);   // món trúng để nguyên trên rương (không vẽ lại bảng)
   };
   sync();
-  body.append(stage, btn, need, el('p', 'ht-line ht-muted', fill(X.summon_desc, { c: H.cost })), el('div', 'ht-sub', fill(X.odds_eq, { n: H.pool.length, p: +(100 / H.pool.length).toFixed(2) })));
+  body.append(wrap, btn, need, el('p', 'ht-line ht-muted', fill(X.summon_desc, { c: H.cost })), el('div', 'ht-sub', fill(X.odds_eq, { n: H.pool.length, p: +(100 / H.pool.length).toFixed(2) })));
   const tb = el('div', 'ht-odds');
   for (const p of H.pool) { const L = look(game, p), r = el('div', `ht-odd${rank(p) > 1 ? ' rare' : ''}`), s = el('span', null, L.name); s.style.color = rank(p) ? L.glow : ''; r.append(s); tb.append(r); }
   body.append(tb);
