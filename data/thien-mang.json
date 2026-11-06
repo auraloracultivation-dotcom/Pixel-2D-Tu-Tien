@@ -1,0 +1,68 @@
+{
+ "_note": "Boss thế giới Cửu Đầu Thôn Thiên Mãng (chủ dự án 06/11/2026: thái cổ yêu thú hình rắn chín đầu quấn quanh tinh hà; mỗi tinh cầu thấy một cái đầu ở mép viền ngoài; bản thử vô hạn máu, thanh máu luôn hp_show, bảng xếp hạng sát thương bên phải màn hình; ổn rồi mới mở giới hạn, chưa có thưởng). Đầu là quái đứng yên không chết, không đánh (data/mobs.json → mob), mọc ở mép trên tinh cầu. Sát thương mình gây gom report_s giây gửi máy chủ phòng Cloudflare (cloud/src/phong.js kẹp theo lực chiến máy chủ giữ, cloud/src/mang.js cộng dồn cả máy chủ). Đứng gần đầu (trong near tile) thì cứ poll_s giây hỏi bảng một lần dù không đánh. src/game/thien-mang.js, src/render/draw-mang.js, src/ui/mang-panel.js.",
+ "name": "Cửu Đầu Thôn Thiên Mãng",
+ "mob": "thon-thien-mang",
+ "hp_show": 0.99,
+ "report_s": 2,
+ "poll_s": 15,
+ "near": 22,
+ "top": 10,
+ "heads": {
+  "thanh-khe": {
+   "n": 1,
+   "el": "moc",
+   "name": "Đầu thứ nhất · Thanh Mộc"
+  },
+  "thien-kiem-phong": {
+   "n": 2,
+   "el": "kim",
+   "name": "Đầu thứ hai · Kiếm Kim"
+  },
+  "dao-xich-dien": {
+   "n": 3,
+   "el": "hoa",
+   "name": "Đầu thứ ba · Xích Diễm"
+  },
+  "dao-han-bang": {
+   "n": 4,
+   "el": "thuy",
+   "name": "Đầu thứ tư · Hàn Băng"
+  },
+  "hac-phong-dao": {
+   "n": 5,
+   "el": "thuy",
+   "name": "Đầu thứ năm · Hắc Phong"
+  },
+  "dao-moc": {
+   "n": 6,
+   "el": "moc",
+   "name": "Đầu thứ sáu · Thanh Mộc"
+  },
+  "dao-thien-kim": {
+   "n": 7,
+   "el": "kim",
+   "name": "Đầu thứ bảy · Thiên Kim"
+  },
+  "dao-hau-tho": {
+   "n": 8,
+   "el": "tho",
+   "name": "Đầu thứ tám · Hậu Thổ"
+  },
+  "vet-nut-ngoai": {
+   "n": 9,
+   "el": "hoa",
+   "name": "Đầu thứ chín · Ma Diễm"
+  }
+ },
+ "text": {
+  "title": "Cửu Đầu Thôn Thiên Mãng",
+  "hp": "Máu {pct}%",
+  "attackers": "{n} đạo hữu đang vây công",
+  "board": "Bảng sát thương",
+  "me": "Bạn: hạng {r} · {v}",
+  "me_none": "Bạn chưa gây sát thương",
+  "empty": "Chưa ai ra tay",
+  "offline": "Đăng nhập để vào bảng xếp hạng",
+  "intro": "Trên mép tinh cầu, một cái đầu rắn khổng lồ trồi lên từ tinh hà… {name}!"
+ }
+}

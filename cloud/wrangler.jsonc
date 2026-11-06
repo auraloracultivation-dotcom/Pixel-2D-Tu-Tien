@@ -12,7 +12,7 @@
     "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080"
   },
   "durable_objects": {
-    "bindings": [{ "name": "PHONG", "class_name": "Phong" }]
+    "bindings": [{ "name": "PHONG", "class_name": "Phong" }, { "name": "MANG", "class_name": "Mang" }]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Phong"] }]
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Phong"] }, { "tag": "v2", "new_sqlite_classes": ["Mang"] }]
 }

@@ -8,8 +8,9 @@ import assert from 'node:assert/strict';
 const root = resolve(import.meta.dirname, '../../cloud/src');
 const dir = mkdtempSync(join(tmpdir(), 'phong-'));
 writeFileSync(join(dir, 'proto.js'), readFileSync(join(root, 'proto.js'), 'utf8'));
-writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8')
-  .replace("import { DurableObject } from 'cloudflare:workers';", 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }'));
+const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
+writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
+writeFileSync(join(dir, 'mang.js'), readFileSync(join(root, 'mang.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
 
 // Giả lập
 globalThis.WebSocketRequestResponsePair = class { constructor(a, b) { this.a = a; this.b = b; } };
@@ -121,4 +122,39 @@ console.log('phong.test: ok');
   assert.equal(await verifyToken('rac', URL0), null);
   void p;
   console.log('auth.test: ok');
+}
+
+// boss thế giới: phòng kẹp sát thương theo lực chiến, lõi Mang cộng dồn và xếp hạng
+{
+  const { Mang } = await import(join(dir, 'mang.js'));
+  const rows = [];
+  const mctx = { storage: { sql: { exec: (q, ...a) => { if (q.startsWith('INSERT')) rows.push(a); return []; } }, getAlarm: async () => null, setAlarm: async () => {} },
+    blockConcurrencyWhile: f => f() };
+  const mang = new Mang(mctx, {});
+  const r1 = await mang.add([{ id: 'u1', name: 'An', n: 500 }, { id: 'u2', name: 'Bình', n: 900 }]);
+  assert.deepEqual(r1.top[0], ['Bình', 900]);
+  assert.deepEqual(r1.ranks.u1, [2, 500]);
+  assert.equal(r1.n, 2);
+  await mang.add([{ id: 'u1', n: 1000 }]);
+  const r2 = await mang.add([{ id: 'u1', n: 0 }]);
+  assert.deepEqual(r2.ranks.u1, [1, 1500]);
+  await mang.alarm(); assert.ok(rows.length >= 2);
+
+  const ctx2 = { list: [], setWebSocketAutoResponse() {}, acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
+    getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
+  const env2 = { MANG: { idFromName: () => 'id', get: () => mang } };
+  const room2 = new Phong(ctx2, env2);
+  const h = (uid, pw, co = '0') => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-name', encodeURIComponent('Tên ' + uid)], ['x-power', String(pw)], ['x-co', co]]);
+  await room2.fetch({ headers: h('p1', 2000) }); const w1 = ctx2.list.at(-1);
+  await room2.fetch({ headers: h('p2', 0, '1') }); const w2 = ctx2.list.at(-1);
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'p', p: { name: 'Giả Danh' } }));
+  assert.equal(w2.out.at(-1).u.name, 'Tên p1');   // tên thật từ Supabase, không đổi được
+  await room2.webSocketMessage(w1, JSON.stringify({ t: 'd', n: 1e12 }));   // hack: kẹp còn ≤ 2000 × 5 × 2 giây
+  await room2.webSocketMessage(w2, JSON.stringify({ t: 'd', n: 5000 }));   // cờ đỏ: không tính
+  await room2.bossFlush();
+  const bx = w1.out.at(-1);
+  assert.equal(bx.t, 'bx');
+  assert.ok(bx.me && bx.me[1] <= 20000, JSON.stringify(bx.me));
+  assert.equal(w2.out.at(-1).me, null);
+  console.log('mang.test: ok');
 }

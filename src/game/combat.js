@@ -3,6 +3,7 @@ import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 import { killQiMul } from './stats.js';
 import { dummyHit } from './dummy.js';
+import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
@@ -41,6 +42,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true; m.hurtT = game.time;   // hurtT: vừa bị đánh thì đánh trả cả trong vùng an toàn quanh NPC
   if (m.remote) m.hp = Math.max(1, m.hp);
   if (m.dummy) { m.hp = m.maxHp; dummyHit(game, m, dmg); }   // Mộc Nhân trong động phủ: không chết, đếm sát thương/giây (game/dummy.js)
+  if (m.wboss) { m.hp = m.maxHp; mangHit(game, m, dmg); }   // đầu Cửu Đầu Thôn Thiên Mãng: không chết, đếm sát thương (game/thien-mang.js)
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
   const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : m.def.kb ?? feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi; kb: bản sao so tài bị đẩy như người chơi

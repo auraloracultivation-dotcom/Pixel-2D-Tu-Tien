@@ -54,6 +54,7 @@ import { eventMul, eventKill, eventToast, festSpawn } from './events.js';
 import { ensureStats, countKill, checkAchv, power } from './achieve.js';
 import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
+import { spawnMang, updateMang, onMangBoard } from './thien-mang.js';
 import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
@@ -174,7 +175,7 @@ export function createGame(data, screen, input, ui, audio) {
       if ((n.id === game.save.companion || n.id === game.save.companion2) && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game);
+    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game);
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
@@ -238,7 +239,7 @@ export function createGame(data, screen, input, ui, audio) {
         const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
-          onCast: c => game.others.cast(c),
+          onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx),
         }, { url: R.cf_url });
       } catch { game.online = null; }
     }
@@ -372,7 +373,7 @@ export function createGame(data, screen, input, ui, audio) {
     updatePetFetch(game, dt);
     updateFishing(game, dt);
     if ((game.achvT = (game.achvT || 0) - dt) <= 0) { game.achvT = 2; checkAchv(game); }
-    updateWorldBoss(game, dt);
+    updateWorldBoss(game, dt); updateMang(game, dt);
     updateInteract(game);
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
