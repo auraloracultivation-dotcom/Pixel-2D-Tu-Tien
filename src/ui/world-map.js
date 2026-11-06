@@ -47,6 +47,7 @@ export function createWorldMap(game) {
     pts = drawStarmap(ctx, w, h, sm, bodies, {
       min: Date.now() / 60000, t: (performance.now() - t0) / 1000, realm: game.save.realm || 0,
       here: game.map.id, sel: sel?.id, seen, hint, view,
+      mang: data['thien-mang']?.sky && { spr: data.art.sprites['boss.mang'], sky: data['thien-mang'].sky, name: data['thien-mang'].name },   // boss lượn ngoài kết giới
     });
     raf = requestAnimationFrame(frame);
   }
