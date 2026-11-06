@@ -321,7 +321,7 @@
   "hint": "Mỗi mã dùng một lần, mỗi tài khoản nhập một mã mỗi đợt.",
   "login": "Đăng nhập tài khoản để nhập mã.",
   "wait": "Đang kiểm tra…",
-  "ok": "Nhận thành công +{n} điểm QTV!",
+  "ok": "Đúng mã! +{n} điểm QTV đã gửi vào Hòm thư, bấm Nhận ở đó.",
   "sai_ma": "Mã không đúng.",
   "het_luot": "Mã này đã có người dùng.",
   "da_nhap": "Bạn đã nhập mã này rồi.",

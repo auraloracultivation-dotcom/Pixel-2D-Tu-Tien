@@ -1,6 +1,6 @@
 // Bảng Chợ Phiên (data/market.json): tab Mua (hàng người khác đang rao), Bán (đồ trong túi, nguyên liệu), Của tôi (hàng mình đang rao).
 // Mọi việc mua bán đi qua game/market.js.
-import { canTrade, errText, goodsName, sellItem, sellMat, buy, cancel, claimMail } from '../game/market.js';
+import { canTrade, errText, goodsName, sellItem, sellMat, buy, cancel } from '../game/market.js';
 import { coins } from '../game/shop.js';
 import { isEquipped } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
@@ -95,8 +95,7 @@ export function createMarketPanel(game) {
   function open() {
     if (!game.save || game.dialog.open) return;
     game.uiOpen = true; $('market').hidden = false; note = ''; pick = null;
-    render();
-    if (canTrade(game)) run(() => claimMail(game));
+    render();   // hàng mua, tiền bán nằm ở Hòm thư, bấm Nhận ở đó (src/game/mail.js)
   }
   function close() { game.uiOpen = false; $('market').hidden = true; }
 

@@ -1,10 +1,10 @@
 {
- "_note": "Hòm thư (người chơi tapsu đề xuất qua nút Đề xuất, chủ dự án duyệt 29/10/2026): nút ✉ cạnh Menu gom tin vào một chỗ, có số tin chưa đọc. Nguồn: thư chợ và thư hệ thống (tự nhận, src/game/market.js), truyền âm (game/whisper.js), tông môn (tin trò chuyện mới, người xin vào khi mình là chủ / phó), kênh Thế giới khi có người nhắc tên mình, lời đáp báo lỗi / đề xuất. Lưu trong máy theo tài khoản (không vào bản lưu máy chủ), giữ tối đa keep tin, xoá tin cũ hơn keep_days ngày. poll: giây giữa hai lần đọc từng nguồn khi bảng đóng. Code ở src/game/inbox.js, src/game/inbox-feed.js, src/ui/inbox-panel.js.",
+ "_note": "Hòm thư (người chơi tapsu đề xuất qua nút Đề xuất, chủ dự án duyệt 29/10/2026): nút ✉ cạnh Menu gom tin vào một chỗ, có số tin chưa đọc. Nguồn: thư chợ và thư hệ thống (src/game/mail.js: mọi quà nằm trong thư, bấm Nhận / Nhận hết ở mục Quà chờ nhận mới vào kho, chủ dự án 06/11/2026; poll.mail giây đọc lại thư), truyền âm (game/whisper.js), tông môn (tin trò chuyện mới, người xin vào khi mình là chủ / phó), kênh Thế giới khi có người nhắc tên mình, lời đáp báo lỗi / đề xuất. Lưu trong máy theo tài khoản (không vào bản lưu máy chủ), giữ tối đa keep tin, xoá tin cũ hơn keep_days ngày. poll: giây giữa hai lần đọc từng nguồn khi bảng đóng. Code ở src/game/inbox.js, src/game/inbox-feed.js, src/ui/inbox-panel.js.",
  "btn": "✉",
  "label": "Hòm thư",
  "keep": 80,
  "keep_days": 14,
- "poll": {"tick": 5, "world": 60, "guild": 60, "guild_info": 600, "feedback": 600},
+ "poll": {"mail": 60, "tick": 5, "world": 60, "guild": 60, "guild_info": 600, "feedback": 600},
  "kinds": {
   "cho": {"icon": "💰", "name": "Chợ"},
   "thu": {"icon": "✉️", "name": "Thư"},
@@ -13,6 +13,7 @@
   "the_gioi": {"icon": "🌐", "name": "Thế giới"},
   "he_thong": {"icon": "📢", "name": "Hệ thống"}
  },
+ "mail": {"qua_tn": "Quà ra mắt quầy Tiên Ngọc", "chia_se": "Quà chia sẻ clip", "ma_qua": "Quà mã quà tặng", "zalo": "Quà nhóm Zalo"},
  "tabs": [["all", "Tất cả"], ["cho", "Chợ, thư"], ["truyen_am", "Truyền âm"], ["tong_mon", "Tông môn"], ["the_gioi", "Thế giới"], ["he_thong", "Hệ thống"]],
  "text": {
   "title": "Hòm thư",
@@ -31,6 +32,14 @@
   "ago_now": "vừa xong",
   "ago_min": "{n} phút trước",
   "ago_hour": "{n} giờ trước",
-  "ago_day": "{n} ngày trước"
+  "ago_day": "{n} ngày trước",
+  "gifts": "Quà chờ nhận ({n})",
+  "take": "Nhận",
+  "take_all": "Nhận hết",
+  "taking": "Đang nhận…",
+  "got": "Đã nhận: {list}",
+  "bag_full": "Túi đầy: dọn bớt túi rồi nhận thư trang bị.",
+  "take_err": "Chưa nhận được, thử lại sau.",
+  "diem": "+{n} điểm QTV"
  }
 }

@@ -18,8 +18,11 @@ export async function starterGift(game) {
   if (s.tnStarter) return 0;
   if (game.cloud) {
     const c = await calls();
-    const r = await game.cloud.run(() => c.starter(), r => { s.tn = r.tn; s.tnStarter = true; game.persist(); });
-    return r.them || 0;
+    // quà gửi vào Hòm thư (migration 20261106070000_p2d_qua_qua_thu), bấm Nhận ở đó mới cộng Tiên Ngọc
+    const r = await c.starter();
+    s.tnStarter = true; game.persist();
+    if (r?.thu) import('./mail.js').then(m => m.refreshMail(game)).catch(() => {});
+    return r?.thu ? r.them || 0 : 0;
   }
   s.tnStarter = true; addTn(game, T(game).starter); game.persist();
   return T(game).starter;

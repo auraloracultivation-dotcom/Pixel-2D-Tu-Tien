@@ -1,12 +1,11 @@
 // Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
 // trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
-import { addItem, isEquipped, itemName, gemInfo } from './items.js';
+import { isEquipped, itemName } from './items.js';
 import { grade } from './tiers.js';
 import { applyDoi } from './ky-ngoc.js';
-import { addMat, matInfo } from './cave.js';
-import { notify } from './inbox.js';
-import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
+import { matInfo } from './cave.js';
+import { refreshMail } from './mail.js';
 
 const M = game => game.data.market;
 const net = () => import('../net/market.js');
@@ -38,6 +37,12 @@ async function onServer(game, fn, mirror) {
 }
 
 // Ngọc đang khảm của một món ({ "loại:cấp": số }), chỉ loại có trong data/items.json gems như máy chủ
+// Hàng mua, hàng huỷ rao về Hòm thư (bấm Nhận ở đó): đọc lại thư, báo một dòng
+async function toMail(game) {
+  try { await refreshMail(game); } catch { /* lần đọc sau */ }
+  return [M(game).to_mail || 'Đã gửi vào Hòm thư.'];
+}
+
 export function gemsOf(game, it) {
   const out = {}, T = game.data.items.gems.types;
   for (const g of it?.sockets || []) if (g && T[g.split(':')[0]]) out[g] = (out[g] || 0) + 1;
@@ -68,48 +73,14 @@ export async function buy(game, row) {
   if (coins(game.save) < row.gia) throw new Error('thieu_tien');
   const { buyListing } = await net();
   await onServer(game, () => buyListing(row.id), () => { addCoins(game, -row.gia, 'cho-mua'); game.persist(); });
-  return claimMail(game);
+  return toMail(game);
 }
 
 export async function cancel(game, id) {
   const { cancelListing } = await net();
   await cancelListing(id);
-  return claimMail(game);
+  return toMail(game);
 }
 
-// Nhận thư còn chỗ trong túi (trang bị cần ô trống); máy chủ cộng vào bản lưu, máy này cộng y như vậy
-// (món nhận được mang mã số máy chủ cấp, bắt đầu từ chỗ máy này giữ sẵn). Trả về các dòng chữ đã nhận.
-export async function claimMail(game) {
-  if (!canTrade(game)) return [];
-  const { peekMail, takeMail } = await net();
-  const mail = await peekMail(), s = game.save;
-  let free = game.data.items.bag_size - s.bag.length;
-  const ids = mail.filter(m => !m.noi_dung.item || free-- > 0).map(m => m.id);
-  if (!ids.length) return [];
-  const got = [];
-  await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
-    for (const m of r.thu || []) {
-      const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || '', lines = [];
-      if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); }
-      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
-      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
-      if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)
-        s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
-      }
-      for (const l of lines) got.push(head ? `${head}: ${l}` : l);
-      // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư; đang mở bảng (mua, huỷ ở chợ) thì coi như đã đọc
-      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: M(game).mail[m.ly_do] ? 'market' : '', read: !!game.uiOpen });
-    }
-    s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
-    game.refreshStats(); game.persist();
-  });
-  return got;
-}
-
-// Thỉnh thoảng tự nhận thư (tiền bán hàng) khi đang chơi
-export function startMailCheck(game) {
-  every(async () => {
-    if (!canTrade(game) || game.uiOpen) return;
-    try { const got = await claimMail(game); if (got.length) game.toast(got.join(' · '), 3); } catch { /* mạng lỗi: lần sau */ }
-  }, 90000);
-}
+// Hòm thư (thư hàng mua, tiền bán, hàng trả về, quà): src/game/mail.js, người chơi bấm Nhận ở bảng Hòm thư
+export { claimMail, startMailCheck } from './mail.js';

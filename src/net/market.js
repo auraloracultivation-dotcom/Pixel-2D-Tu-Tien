@@ -14,3 +14,4 @@ export const cancelListing = id => call('p2d_huy_ban', { p_id: id });
 export const buyListing = id => call('p2d_mua_hang', { p_id: id });
 export const peekMail = () => call('p2d_xem_thu');
 export const takeMail = (ids, uidFrom) => call('p2d_nhan_thu_moi', { p_ids: ids, p_uid_tu: uidFrom ?? null });
+export const zaloGift = loai => call('p2d_qua_zalo', { p_loai: loai });   // quà nhóm Zalo gửi vào Hòm thư (20261106070000)

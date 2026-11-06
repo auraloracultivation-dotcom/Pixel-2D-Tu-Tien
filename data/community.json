@@ -10,11 +10,12 @@
    "title": "Nhóm Zalo",
    "info": "Vào nhóm Zalo của game để trò chuyện cùng đạo hữu, hỏi đáp, góp ý và báo lỗi.",
    "gift": "Quà tham gia: 1 viên ngọc cấp {lv}",
-   "gift_how": "Mỗi tài khoản nhận một lần. Chọn loại ngọc rồi bấm vào nhóm, ngọc vào túi ngay.",
+   "gift_how": "Mỗi tài khoản nhận một lần. Chọn loại ngọc rồi bấm vào nhóm, ngọc gửi vào Hòm thư, bấm Nhận ở đó.",
    "pick": "Chọn loại ngọc:",
    "go": "Vào nhóm Zalo và nhận ngọc",
    "go_done": "Vào nhóm Zalo",
    "got": "Nhận {gem}! Hẹn gặp bạn trong nhóm Zalo.",
+   "got_mail": "{gem} đã gửi vào Hòm thư! Hẹn gặp bạn trong nhóm Zalo.",
    "done": "Bạn đã nhận quà tham gia rồi.",
    "close": "Đóng"
   }
