@@ -12,6 +12,10 @@ import { FARM_LT_S, LT_MULT, LT_BONUS } from './mang-cfg.js';
 // vì trước đây 5 phút mới lưu). Cloudflare tính tiền theo số DÒNG ghi, nên cả bảng (sát thương + Linh Thạch chờ gửi + giờ gửi kế)
 // gom thành MỘT dòng JSON, có thay đổi thì 2 giây ghi một lần (khớp nhịp phòng gửi về): ~1,3 triệu dòng/tháng dù 10 hay
 // 10.000 người, nằm trong 50 triệu miễn phí của gói Workers Paid. Gửi Linh Thạch vẫn 5 phút một lần (PAY_MS).
+// Trần sát thương theo lực chiến (chủ dự án 06/11/2026 15:48 hỏi vì sao admin 2,2 tỷ sau vài phút): mỗi tài khoản có một thùng chung
+// mọi tuyến, đầy dần DPS_K × lực chiến mỗi giây (tối đa BUD_S giây), sát thương báo về chỉ được tính trong phần thùng còn.
+// Trước đây phòng kẹp theo từng tin và tính lại từ đầu mỗi lượt gom 2 giây, gửi tin dồn dập (hoặc nhiều tuyến) thì vượt trần.
+const DPS_K = 5, BUD_S = 10;
 const TOP = 10, ACTIVE_MS = 15000, SAVE_MS = 2000, PAY_MS = 300000, PAY_MAX = 60000;   // trần một lô 5 phút / người (chủ dự án 06/11/2026 11:39: Linh Thạch boss ×3)
 const sign = async (khoa, msg) => {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(khoa), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
@@ -25,6 +29,7 @@ export class Mang extends DurableObject {
     this.tot = new Map();      // uid → { name, v }
     this.seen = new Map();     // uid → lần đánh gần nhất (đếm người đang vây công)
     this.pend = new Map();     // uid → Linh Thạch chờ gửi
+    this.bud = new Map();      // uid → { b: sát thương còn được tính, at } (trần theo lực chiến)
     this.sum = 0; this.payAt = 0; this.changed = false;
     this.pk = new Map();       // uid → { off, immune } khiên PvP (src/pvp.js)
     ctx.blockConcurrencyWhile(async () => {
@@ -53,7 +58,9 @@ export class Mang extends DurableObject {
     const top = Math.max(1, ...(Array.isArray(list) ? list : []).map(x => (x?.s > 0 && x.n > 0 ? Number(x.n) || 0 : 0)));   // sát thương cao nhất tuyến trong lượt
     for (const it of Array.isArray(list) ? list.slice(0, 64) : []) {
       if (typeof it?.id !== 'string' || !(it.n >= 0)) continue;
-      const n = Math.min(Number(it.n) || 0, 1e15);
+      const pw = Math.max(1000, Number(it.pw) || 0), bu = this.bud.get(it.id) || { b: pw * DPS_K * 2, at: now };
+      bu.b = Math.min(pw * DPS_K * BUD_S, bu.b + pw * DPS_K * Math.max(0, now - bu.at) / 1000); bu.at = now;
+      const n = Math.min(Number(it.n) || 0, 1e15, bu.b); bu.b -= n; this.bud.set(it.id, bu);
       const cur = this.tot.get(it.id) || { name: it.name || 'Đạo hữu', v: 0 };
       if (it.name) cur.name = String(it.name).slice(0, 24);
       if (n > 0) { cur.v += n; this.sum += n; this.seen.set(it.id, now); this.changed = true; }

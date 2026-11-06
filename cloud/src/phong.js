@@ -131,7 +131,7 @@ Phong.prototype.bossFlush = async function () {
   this.bossTimer = null;
   const d = this.dmg; this.dmg = new Map();
   if (!d?.size) return;
-  const list = [...d].map(([id, x]) => ({ id, name: x.name, n: x.co ? 0 : Math.round(x.n), s: x.co ? 0 : x.s, map: x.map }));   // cờ đỏ: vẫn thấy bảng, không tính sát thương, không thưởng
+  const list = [...d].map(([id, x]) => ({ id, name: x.name, n: x.co ? 0 : Math.round(x.n), s: x.co ? 0 : x.s, map: x.map, pw: x.pw || 0 }));   // cờ đỏ: vẫn thấy bảng, không tính sát thương, không thưởng
   let res;
   try { res = await this.env.MANG.get(this.env.MANG.idFromName('cuu-dau')).add(list); } catch { return; }
   for (const ws of this.ctx.getWebSockets()) {
