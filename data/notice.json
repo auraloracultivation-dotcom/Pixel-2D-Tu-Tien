@@ -1,6 +1,6 @@
 {
  "_note": "Bảng thông báo (chủ dự án xin 29/10/2026): nút 📢 trên bảng điều khiển, số đỏ là thông báo chưa xem; mỗi ngày tự mở một lần khi có thông báo đang chạy (sau khi vào game, không chen ngang hội thoại; người mới qua bước truyện auto_step mới tự mở, kẻo che phần hướng dẫn đầu game). list: thông báo xếp trên xuống, from/to theo ngày (giờ máy chủ), không có thì luôn hiện; top: nổi bật (khung vàng, nằm trên cùng); act: nút mở chỗ tương ứng (referral: sự kiện giới thiệu, fame: bảng vinh danh góp ý, rank: bảng xếp hạng, feedback: bảng báo lỗi). Thêm thông báo: thêm một mục với id mới (đổi id là người chơi thấy như thông báo mới).",
- "auto": true,
+ "auto": false,
  "auto_step": 20,
  "btn": "📢",
  "label": "Thông báo",
@@ -32,21 +32,6 @@
   }
  },
  "list": [
-  {
-   "id": "thon-thien-mang-2026-11-06",
-   "top": true,
-   "color": "#c88aff",
-   "from": "2026-11-06",
-   "to": "2026-11-06",
-   "title": "🐉 Cửu Đầu Thôn Thiên Mãng xuất hiện!",
-   "lines": [
-    "Thái cổ yêu thú to bằng cả tinh cầu đang che kín tinh không. Ngự kiếm bay ra Hư Không Thôn Thiên, chém chín cái đầu!",
-    "Chém boss nhận Linh Thạch mỗi 5 phút. Hết giờ: top 10 sát thương nhận vũ khí Thượng Cổ + 50 ngọc cấp 1 + 200.000 Linh Thạch; mọi người khác có sát thương nhận vũ khí phẩm Tiên + 25 ngọc cấp 1 + 100.000 Linh Thạch.",
-    "Mở 30 phút. Vào: bấm nút dưới đây, hoặc Bản đồ → Tinh hệ → chạm con mãng."
-   ],
-   "act": "mang",
-   "btn": "Bay tới"
-  },
   {
    "id": "gioi-thieu-2026-10",
    "top": true,
