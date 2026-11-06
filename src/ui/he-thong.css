@@ -80,3 +80,20 @@
 .ht-say { display: flex; gap: 8px; align-items: center; }
 .ht-say > div { min-width: 0; }
 .ht-intro .ht-face { display: block; margin: 0 auto 6px; }
+/* Ô quay triệu hồi và món trúng phát sáng theo màu phẩm (src/ui/he-thong-qua.js, --g là màu sáng) */
+.ht-stage.spin { animation: none; background: none; min-height: 110px; justify-content: center; }
+.ht-reel { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 14px; min-width: 70%; border-radius: 10px; border: 1px solid var(--g, #5ff0ff);
+  background: radial-gradient(circle, color-mix(in srgb, var(--g, #5ff0ff) 35%, transparent), transparent 70%); }
+.ht-reel b { font-size: 13px; color: #fff; text-align: center; }
+.ht-reel-ico { height: 48px; display: flex; align-items: center; justify-content: center; }
+.ht-reel-ico canvas, .ht-hit-ico canvas { image-rendering: pixelated; }
+.ht-stage.open { min-height: 150px; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--g, #7ff0ff) 70%, transparent) 0%, color-mix(in srgb, var(--g, #7ff0ff) 25%, transparent) 35%, transparent 70%); }
+.ht-stage.open.rare { background: radial-gradient(circle at 50% 40%, var(--g, #ff5a5a) 0%, color-mix(in srgb, var(--g, #ff5a5a) 35%, transparent) 40%, transparent 72%); }
+.ht-hit-ico { position: relative; isolation: isolate; height: 84px; display: flex; align-items: center; justify-content: center; animation: ht-hit 0.6s ease-out, ht-float 2.4s 0.6s ease-in-out infinite; }
+.ht-hit-ico::before { content: ''; position: absolute; inset: -18px; border-radius: 50%; background: conic-gradient(from 0deg, transparent, var(--g, #fff), transparent 30%, var(--g, #fff), transparent 60%, var(--g, #fff), transparent);
+  opacity: .45; filter: blur(4px); animation: ht-rays 3s linear infinite; z-index: -1; }
+.ht-stage.open b { font-size: 16px; color: var(--g, #fff); text-shadow: 0 0 8px var(--g, #5ff0ff), 0 1px 0 #0a1830; }
+.ht-hit-sub { color: #dff6ff; }
+@keyframes ht-hit { 0% { transform: scale(.2); opacity: 0; } 60% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes ht-float { 50% { transform: translateY(-3px); } }
+@keyframes ht-rays { to { transform: rotate(360deg); } }
