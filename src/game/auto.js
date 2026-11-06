@@ -1,6 +1,6 @@
 // Tự động săn (nút Tự đánh): đánh quái quanh chỗ bật, không tự làm truyện, không chạy trong tháp, độ kiếp.
-// Chủ dự án 06/11/2026 10:27: có boss trong vùng săn (Thôn Thiên Mãng, Yêu Vương...) thì ưu tiên boss máu cao nhất trước, hết boss
-// mới đánh quái thường (trước đây ngoài bí cảnh không đánh boss nên cứ chạy ra đánh quái con).
+// Chủ dự án 06/11/2026 10:27: bật Tự đánh ngay cạnh boss (Thôn Thiên Mãng, Yêu Vương...) thì ưu tiên boss máu cao nhất trước, hết boss
+// mới đánh quái thường. 10:43: không ép ai farm boss — bật ở chỗ khác (xa boss quá boss_on) thì không đánh boss, như trước.
 // Trong động phủ thì đánh Mộc Nhân.
 import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
@@ -15,8 +15,8 @@ export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && i
 export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
   game.auto = !game.auto;
-  if (game.auto) game.autoHome = { x: game.player.x, y: game.player.y };
-  game.toast(game.auto ? 'Tự đánh: săn quái quanh đây (có boss thì đánh boss trước)' : 'Tắt tự đánh', 1.2);
+  if (game.auto) { game.autoHome = { x: game.player.x, y: game.player.y }; game.autoBoss = nearBoss(game); }
+  game.toast(game.auto ? (game.autoBoss ? 'Tự đánh: đánh boss trước, hết boss thì săn quái' : 'Tự đánh: săn quái quanh đây') : 'Tắt tự đánh', 1.2);
 }
 
 // Gọi khi người chơi không tự đẩy cần: trả về hướng đi và có đánh thường không; bấm chiêu đã hồi
@@ -24,11 +24,10 @@ export function autoStep(game, ax, dt = 0) {
   const p = game.player, cfg = game.data.config.auto;
   if (!game.auto) return { ax, atk: false };
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
-  if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo
+  if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; game.autoBoss = nearBoss(game); return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo (đi tới cạnh boss thì đánh boss, đi xa thì thôi)
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
-  const ok = m => m && !m.dead && m.hp > 0 && !m.story && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? cfg.radius : cfg.radius));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
-  const isBoss = m => m.def.ai === 'boss' || !!m.wboss;
+  const ok = m => m && !m.dead && m.hp > 0 && !m.story && (dun || game.autoBoss || !isBoss(m)) && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? cfg.radius : cfg.radius));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
   let tgt = null, bd = Infinity, boss = null;
   for (const m of game.mobs) {
     if (!ok(m)) continue;
@@ -60,6 +59,10 @@ function bossStep(game, tgt, ax, dt) {
   if (!path?.length) return fightStep(game, tgt, ax);   // không tìm được đường: đi thẳng như cũ
   return { ax: toward(p, path[0].x, path[0].y), atk: false };
 }
+
+const isBoss = m => m.def.ai === 'boss' || !!m.wboss;
+// Đang đứng cạnh một boss còn sống (data/config.json auto.boss_on)
+const nearBoss = game => { const p = game.player, r = game.data.config.auto.boss_on ?? 160; return game.mobs.some(m => !m.dead && !m.story && isBoss(m) && dist(m, p) <= r + (m.r || 0)); };
 
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };
 
