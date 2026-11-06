@@ -91,7 +91,7 @@ function routeTo(game, dest) {
 }
 
 // Tìm đường trên lưới ô (BFS), trả về danh sách điểm giữa ô
-function findPath(game, tx, ty) {
+export function findPath(game, tx, ty) {   // auto.js dùng để đi vòng tới boss
   const map = game.map, T = map.T, p = game.player;
   const sx = Math.floor(p.x / T), sy = Math.floor(p.y / T), W = map.w;
   const prev = new Map([[sy * W + sx, -1]]), q = [[sx, sy]];
