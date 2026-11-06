@@ -281,6 +281,10 @@
     },
     {
      "coins": 2000
+    },
+    {
+     "mat": "tinh-thiet",
+     "n": 5
     }
    ],
    "xong": "Đinh! Ngọc khảm vào là chỉ số cộng thẳng. Tặng Tụ Khí Đan, uống vào linh khí tăng ngay.",
@@ -400,7 +404,7 @@
    "qua": [
     {
      "mat": "tinh-thiet",
-     "n": 8
+     "n": 10
     },
     {
      "coins": 3000
@@ -463,7 +467,7 @@
     },
     {
      "mat": "tinh-thiet",
-     "n": 8
+     "n": 12
     }
    ],
    "xong": "Đinh! Huyết Nha đã gục. Ký chủ làm bổn hệ thống hơi bất ngờ đấy. Thưởng một món trang bị."
@@ -662,7 +666,7 @@
    "qua": [
     {
      "mat": "tinh-thiet",
-     "n": 15
+     "n": 25
     },
     {
      "mat": "tay-luyen-thach",
@@ -765,6 +769,10 @@
     {
      "pill": "thang-linh-dan",
      "n": 2
+    },
+    {
+     "pill": "thanh-tam-dan",
+     "n": 2
     }
    ],
    "xong": "Đinh! Đầy tầng 9 thì đột phá. Lên cảnh giới cao còn phải độ kiếp, uống Thanh Tâm Đan cho sét đánh nhẹ."
@@ -786,9 +794,17 @@
     {
      "mat": "tinh-thiet",
      "n": 15
+    },
+    {
+     "pill": "thanh-tam-dan",
+     "n": 2
+    },
+    {
+     "pill": "boi-nguyen-dan",
+     "n": 3
     }
    ],
-   "xong": "Đinh! Trúc Cơ thành công! Thọ nguyên tăng, linh lực dày hơn. Ký chủ cuối cùng cũng thoát kiếp phàm nhân.",
+   "xong": "Đinh! Trúc Cơ thành công! Thọ nguyên tăng, linh lực dày hơn. Ký chủ cuối cùng cũng thoát kiếp phàm nhân. Tặng Thanh Tâm Đan: uống trước khi độ kiếp Kim Đan cho sét đánh nhẹ.",
    "tip": "Uống Tụ Khí Đan, Thăng Linh Đan rồi đả tọa. Đầy tầng 9 thì đột phá."
   },
   {
