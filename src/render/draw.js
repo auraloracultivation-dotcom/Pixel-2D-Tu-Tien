@@ -207,7 +207,7 @@ function drawOther(ctx, o, game, t) {
   if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
   const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
   ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
-  const nm = o.pk ? o.def.name + ' ⚔' : game.map.id === game.data.pvp?.server.map ? o.def.name + ' 🛡' : o.def.name;   // khiên sau tên ở Ngoại Vực (game/pvp.js): tắt khiên thì tên đỏ ⚔, kèm thanh máu PvP khi vừa trúng đòn
+  const nm = o.pk ? o.def.name + ' ⚔' : game.data.pvp ? o.def.name + ' 🛡' : o.def.name;   // khiên sau tên (mọi nơi; chỉ Ngoại Vực đánh nhau được) (game/pvp.js): tắt khiên thì tên đỏ ⚔, kèm thanh máu PvP khi vừa trúng đòn
   ctx.strokeText(nm, o.x, ny); ctx.fillStyle = o.pk ? '#ff5a5a' : el || '#e6ebf7'; ctx.fillText(nm, o.x, ny);
   if (o.pk && o.pvpR < 1 && game.time - (o.pvpAt || 0) < 10) { ctx.fillStyle = INK; ctx.fillRect(o.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = '#ff5a5a'; ctx.fillRect(o.x - 10, ny + 1.5, 20 * Math.max(0, o.pvpR), 2.5); }
   if (o.swingT > 0 && !hero) {

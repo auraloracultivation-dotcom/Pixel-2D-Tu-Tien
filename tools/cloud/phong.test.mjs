@@ -272,8 +272,12 @@ console.log('phong.test: ok');
   assert.equal(pks.get('k1').off, true);
   // bản đồ khác: không tắt bảo vệ được
   await r3.fetch({ headers: hh('z1', 100, 'thanh-khe') }); const z1 = ctx3.list.at(-1);
-  await m3(z1, { t: 'bv', off: true });
-  assert.equal(z1.out.at(-1).e, 'map');
+  await m3(z1, { t: 'bv', off: true });   // tinh cầu khác: tắt khiên được (10:56) nhưng không đánh nhau được
+  assert.deepEqual(z1.out.at(-1), { t: 'pk', id: 'z1', on: 1 });
+  await r3.fetch({ headers: hh('z2', 99999, 'thanh-khe') }); const z2 = ctx3.list.at(-1);
+  await m3(z1, { t: 'm', x: 10, y: 10 }); await m3(z2, { t: 'm', x: 20, y: 10 }); await m3(z2, { t: 'bv', off: true }); T += 1000;
+  await m3(z2, { t: 'h', to: 'z1' });
+  assert.ok(!z1.out.some(o => o.t === 'ph' || o.t === 'pd'));
   Date.now = D0;
   console.log('pvp.test: ok');
 }

@@ -1,8 +1,8 @@
-// Khiên PvP ngay sau tên (chủ dự án 06/11/2026 10:49): ở Ngoại Vực Vết Nứt, trên đầu nhân vật mình hiện "tên 🛡" (còn khiên) hoặc
+// Khiên PvP ngay sau tên (chủ dự án 06/11/2026 10:49; 10:56: hiện ở mọi nơi, tắt ở đâu cũng được, chỉ Ngoại Vực mới đánh nhau): trên đầu nhân vật mình hiện "tên 🛡" (còn khiên) hoặc
 // "tên ⚔" (đã tắt khiên); người khác cũng thấy biểu tượng sau tên mình (render/draw.js drawOther). Chạm biểu tượng của mình → bảng
 // xác nhận "Bạn có muốn tắt khiên không?". Khiên chỉ bật lại khi chết hồi sinh (máy chủ phòng cloud/src/pvp.js giữ). Chữ ở
 // data/pvp.json → text, kiểu ở pvp.css. Nhãn là chữ HTML bám theo đầu nhân vật mỗi khung hình (chạm được, không vẽ lên khung game).
-import { pvpMap, togglePvp } from '../game/pvp.js';
+import { togglePvp } from '../game/pvp.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
@@ -46,7 +46,7 @@ export function createPvpBtn(game) {
   let key = '';
   const frame = () => {
     requestAnimationFrame(frame);
-    const p = game.player, show = !!p && pvpMap(game) && !game.trip && !!game.save && !game.dialog?.open && (!game.uiOpen || game.uiOpen === 'pvp-ask');
+    const p = game.player, show = !!p && !!game.online && !game.trip && !!game.save && !game.dialog?.open && (!game.uiOpen || game.uiOpen === 'pvp-ask');
     if (!show) { if (!tag.hidden) tag.hidden = true; key = ''; return; }
     const off = !!game.pvp?.off, name = game.online?.me?.name || game.save.name || '', k = `${off}|${name}`;
     if (k !== key) { key = k; nm.textContent = name; ic.textContent = off ? '⚔' : '🛡'; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }

@@ -7,12 +7,11 @@ import { PVP } from './mang-cfg.js';
 
 const pool = pw => Math.max(pw || 0, PVP.pw_min) * PVP.hp_k;
 
-// Tắt khiên (chỉ ở bản đồ PvP). Khiên chỉ bật lại khi chết hồi sinh (chủ dự án 06/11/2026 10:49): xin bật lại thì từ chối.
+// Tắt khiên (ở đâu cũng tắt được, chủ dự án 06/11/2026 10:56; chỉ Ngoại Vực mới đánh nhau được). Khiên chỉ bật lại khi chết hồi sinh (chủ dự án 06/11/2026 10:49): xin bật lại thì từ chối.
 // Trạng thái khiên giữ ở lõi Mang theo tài khoản (mang.js pk), nên đổi tuyến, ra vào bản đồ, mất mạng vào lại vẫn y như cũ.
 export async function pvpToggle(room, ws, a, off) {
   const now = Date.now();
   if (!off) return send(ws, { t: 'pe', e: 'only_death' });
-  if (a.map !== PVP.map) return send(ws, { t: 'pe', e: 'map' });
   if (now < (a.immune || 0)) return send(ws, { t: 'pe', e: 'immune', s: Math.ceil((a.immune - now) / 1000) });
   if (a.pk) return;
   a.pk = true; a.p.pk = 1;

@@ -5,7 +5,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
 import { pvpToggle, pvpHit, pvpLoad } from './pvp.js';
-import { PVP } from './mang-cfg.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -37,7 +36,7 @@ export class Phong extends DurableObject {
       server.close(4009, 'day');
       return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
     }
-    const pk = kind === 'dao' && map === PVP.map ? await pvpLoad(this.env, uid) : null;   // khiên PvP giữ theo tài khoản (src/pvp.js)
+    const pk = kind === 'dao' ? await pvpLoad(this.env, uid) : null;   // khiên PvP giữ theo tài khoản (src/pvp.js)
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
     server.serializeAttachment({ id: uid, kind, at, nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });

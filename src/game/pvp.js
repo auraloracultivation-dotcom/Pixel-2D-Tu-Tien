@@ -44,7 +44,7 @@ export function pvpTryHit(game) {
 export function updatePvp(game, dt) {
   const s = game.pvp, p = game.player;
   if (!s || !p) return;
-  if (s.map !== game.map?.id) { s.map = game.map?.id; if (!pvpMap(game)) s.off = false; }   // vào lại Ngoại Vực: máy chủ phòng báo lại khiên (pk) lúc vào
+  if (s.map !== game.map?.id) s.map = game.map?.id;   // đổi bản đồ: máy chủ phòng báo lại khiên (pk) lúc vào phòng mới
   s.cd = Math.max(0, s.cd - dt);
   const sw = p.swingT > 0.15;
   if (sw && !s.wasSwing) pvpTryHit(game);
