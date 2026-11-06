@@ -137,3 +137,13 @@
 .ht-feed-r b { font-size: 9px; color: #dff6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .ht-feed-r em { font-style: normal; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ht-chest-stage .ht-slot { left: 92px; right: 92px; }
+/* Kéo Hệ Thống (src/ui/he-thong-keo.js) */
+.ht-icon { touch-action: none; -webkit-user-select: none; user-select: none; }
+.ht-icon.keo { cursor: grabbing; transform: scale(1.15) rotate(-8deg); filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .45)); transition: transform .12s; }
+/* Hệ Thống đón ở màn đăng nhập (src/ui/he-thong-chao.js) */
+.ht-chao { display: flex; align-items: flex-end; gap: 8px; width: min(340px, 92vw); margin: 6px auto 10px; cursor: pointer; text-align: left; }
+.ht-chao .ht-face { flex: none; }
+.ht-chao-say { position: relative; flex: 1; min-width: 0; min-height: 54px; background: rgba(8, 24, 48, .88); border: 1px solid #5fd8ff; border-radius: 10px; padding: 6px 9px; box-shadow: 0 0 12px rgba(95, 216, 255, .25); }
+.ht-chao-say::before { content: ''; position: absolute; left: -7px; bottom: 14px; border: 7px solid transparent; border-left: 0; border-right-color: #5fd8ff; }
+.ht-chao-say b { display: block; font-size: 11px; color: #7fe0ff; margin-bottom: 2px; }
+.ht-chao-say p { margin: 0; font-size: 13px; line-height: 1.35; color: #eafaff; }

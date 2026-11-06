@@ -32,6 +32,7 @@ export function createWander(game, ic, face, D) {
   }
   return {
     pos,
+    drop() { st.mode = 'look'; st.tgt = null; st.t = 5 + Math.random() * 3; },   // bị người chơi kéo thả: đứng hờn ở chỗ mới một lúc rồi mới đi tiếp
     get say() { const s = st.say; st.say = null; return s; },   // câu lẩm bẩm vừa có (lấy một lần)
     step(dt, hold) {
       const S = ic.offsetWidth || 56, SH = ic.offsetHeight || 50;

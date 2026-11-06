@@ -1565,6 +1565,17 @@
     "phan-khich",
     "nguong",
     "thuong"
+   ],
+   "keo": [
+    "gian",
+    "soc",
+    "khoc-gia",
+    "nguong"
+   ],
+   "tha": [
+    "nhech",
+    "le-luoi",
+    "kieu"
    ]
   },
   "icon_k": 0.75,
@@ -1608,7 +1619,26 @@
   "skip": [
    "btn-atk",
    "btn-dash"
-  ]
+  ],
+  "_keo": "Người chơi giữ và kéo Hệ Thống đi chỗ khác (chủ dự án 07/11/2026 02:10): keo lúc bắt đầu kéo, keo_lau mỗi keo_s giây nếu kéo lâu, tha lúc thả ra. src/ui/he-thong-keo.js.",
+  "keo": [
+   "Ê ê ê! Ai cho túm cổ bổn hệ thống thế hả?!",
+   "Buông ra! Bổn hệ thống là hệ thống cao cấp, không phải túi đồ!",
+   "Ối, chóng mặt quá... ký chủ định mang bổn hệ thống đi bán à?",
+   "Hừ! Kéo nhẹ thôi, linh hạch của bổn hệ thống dễ vỡ lắm đó!"
+  ],
+  "keo_lau": [
+   "Còn kéo nữa?! Bổn hệ thống ghi sổ thù rồi nha.",
+   "Lắc nữa là bổn hệ thống nôn ra điểm hệ thống bây giờ...",
+   "Ký chủ ơi, mỏi tay chưa? Bổn hệ thống mỏi lắm rồi đó."
+  ],
+  "tha": [
+   "Hứ! Chỗ này cũng được... mà không phải bổn hệ thống thích đâu nha.",
+   "Rồi rồi, đứng đây. Vừa lòng ký chủ chưa?",
+   "Ghi nhận: ký chủ thích bổn hệ thống đứng ở đây. Ba phút nữa bổn hệ thống đi chỗ khác.",
+   "Lần sau muốn bổn hệ thống qua đây thì cứ gọi, đừng túm cổ!"
+  ],
+  "keo_s": 3
  },
  "qua_dau": {
   "_note": "Quà gặp mặt (chủ dự án 06/11/2026 22:59): ai mới chơi hoặc lần đầu gặp hệ thống được diem điểm, mỗi tài khoản một lần (máy chủ p2d_ht_qua_dau, cfg qua_dau).",
@@ -1616,5 +1646,30 @@
   "say": "Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!"
  },
  "short": "Hệ Thống",
- "_short": "Tên ngắn khi Hệ Thống nói trong hộp thoại truyện (tên đầy đủ dài, ô tên hộp thoại không đủ chỗ)."
+ "_short": "Tên ngắn khi Hệ Thống nói trong hộp thoại truyện (tên đầy đủ dài, ô tên hộp thoại không đủ chỗ).",
+ "chao": {
+  "_note": "Hệ Thống đón quý khách ở màn đăng nhập (chủ dự án 07/11/2026 02:10: 'phải chào hỏi quý khách của tớ đàng hoàng'). hello: chào lần lượt; sau đó nói theo bước đang hiện. {n}: tên tài khoản, {e}: lỗi máy chủ báo. src/ui/he-thong-chao.js.",
+  "k": 1,
+  "hello": [
+   "Đinh! Hoan nghênh quý khách quang lâm Pixel 2D Tu Tiên! Bổn hệ thống là Hệ Thống Bạo Kích Tài Nguyên Vô Hạn, xin cúi chào ạ.",
+   "Từ giờ bổn hệ thống sẽ dẫn đường cho quý khách. Vào game là có ngay quà gặp mặt 1.000 điểm hệ thống, không lấy một xu!"
+  ],
+  "wait": "Đang nối linh mạch tới máy chủ... quý khách đợi bổn hệ thống một xíu nha.",
+  "off": "Ối, linh mạch đứt mất rồi! Quý khách kiểm tra mạng giúp, rồi tải lại trang là bổn hệ thống đón tiếp tiếp ạ.",
+  "form": "Lần đầu ghé chơi? Gõ tên tài khoản và mật khẩu ở trên, rồi bấm Đăng ký. Đã có tài khoản thì bấm Đăng nhập là xong!",
+  "acc": "Tên tài khoản từ 3 đến 20 ký tự: chữ không dấu, số hoặc dấu _. Ví dụ: kiemtien_99. Nhớ kỹ nha, lần sau đăng nhập lại cần đó.",
+  "pwd": "Mật khẩu ít nhất 8 ký tự. Đừng đưa cho ai, kể cả người tự xưng là bổn hệ thống!",
+  "err": [
+   "Ấy, máy chủ báo: \"{e}\". Quý khách sửa lại chút rồi bấm lần nữa nha, bổn hệ thống đợi được.",
+   "Hừm, \"{e}\"... Không sao, tu tiên ai mà chẳng vấp vài lần. Thử lại nào!"
+  ],
+  "first": "Kính chào đạo hữu {n}! Bấm Bắt đầu để xuyên không vào tinh hà, bổn hệ thống đã chuẩn bị sẵn quà gặp mặt rồi đó.",
+  "back": "Đạo hữu {n} quay lại rồi! Bổn hệ thống nhớ quý khách lắm đó (không phải vì điểm đâu). Bấm Chơi tiếp nha!",
+  "tips": [
+   "Mẹo: tạo Mã khôi phục sau khi đăng nhập, lỡ quên mật khẩu vẫn lấy lại được tài khoản.",
+   "Mẹo: vào game, chạm vào bổn hệ thống để xem nhiệm vụ, làm xong có điểm triệu hồi quà.",
+   "Mẹo: mỗi tối 20:30 đến 21:00 giờ Việt Nam có boss Thôn Thiên Mãng, đánh xong máy chủ tự trả thưởng.",
+   "Chọc bổn hệ thống làm gì? Bổn hệ thống đang làm việc nghiêm túc đó... được rồi, chọc thêm cái nữa cũng được."
+  ]
+ }
 }
