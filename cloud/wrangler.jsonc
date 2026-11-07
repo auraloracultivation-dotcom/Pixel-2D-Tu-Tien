@@ -11,7 +11,7 @@
   "vars": {
     "SUPABASE_URL": "https://idiiyxcfzugrehifhhjx.supabase.co",
     "SUPABASE_KEY": "sb_publishable_FD5ghLVsNfp3-d69NXlz3w_bvOotHYk",
-    "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080,https://pixel-2d-tu-tien.vercel.app,https://pixel2d.vercel.app"
+    "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080,https://pixel-2d-tu-tien.vercel.app,https://pixel2d.vercel.app,https://www.pixel2dtutien.com,https://pixel2dtutien.com"
   },
   "durable_objects": {
     "bindings": [{ "name": "PHONG", "class_name": "Phong" }, { "name": "MANG", "class_name": "Mang" }]
