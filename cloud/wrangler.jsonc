@@ -9,8 +9,8 @@
   "triggers": { "crons": ["2 14 * * *"] },
   "observability": { "enabled": true, "head_sampling_rate": 0.05 },
   "vars": {
-    "SUPABASE_URL": "https://idiiyxcfzugrehifhhjx.supabase.co",
-    "SUPABASE_KEY": "sb_publishable_FD5ghLVsNfp3-d69NXlz3w_bvOotHYk",
+    "SUPABASE_URL": "https://idlzqbpszxexcxhhamzm.supabase.co",
+    "SUPABASE_KEY": "sb_publishable_Sv6fxGfRtmDOiVHK5VieEg_GsaFriNL",
     "ALLOWED_ORIGINS": "https://auraloracultivation-dotcom.github.io,http://localhost:8080,http://127.0.0.1:8080,https://pixel-2d-tu-tien.vercel.app,https://pixel2d.vercel.app,https://www.pixel2dtutien.com,https://pixel2dtutien.com"
   },
   "durable_objects": {
