@@ -1,6 +1,6 @@
 // Tấm chi tiết món đồ trong Túi đồ: trượt lên từ đáy túi khi chạm một món, nên không phải cuộn xuống cuối túi.
-// Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
-// cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
+// Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → rèn luyện (khoá, cường hoá,
+// luyện, tẩy luyện, đổi hệ, phân giải, bán) → so với món đang mặc cùng ô → chỉ số, dòng phụ, ngọc (khảm).
 import {
   equip, unequip, salvage, rerollFee, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
 } from '../game/items.js';
@@ -71,10 +71,10 @@ export function renderDetail(game, st, box, changed, close) {
   const head = el('div', 'd-head');
   const title = el('div', 'd-title', itemName(data, it)); title.style.color = r.color;
   const sub = el('div', 'd-sub', `${r.name} · ${data.items.slots[slot]} · cấp ${it.lvl}`);
-  if (worn) sub.append(el('span', 'd-worn', 'Đang mặc'));
   const txt = el('div', 'd-name'); txt.append(title, sub);
   const x = el('button', 'd-close', '✕'); x.setAttribute('aria-label', 'Đóng chi tiết'); x.onclick = close;
   const ico = icon(data, it); ico.style.borderColor = r.color;
+  if (worn) ico.append(el('span', 'd-worn', 'Đang mặc'));   // nhãn đè chân biểu tượng, chừa chỗ cho tên một dòng
   head.append(ico, txt, x);
   box.append(head);
 
@@ -91,7 +91,9 @@ export function renderDetail(game, st, box, changed, close) {
     main.append(b, g);
   }
   box.append(main);
-  if (st.msg) { box.append(el('div', 'd-msg', st.msg)); st.msg = ''; }
+  const forge = el('div', 'd-forge');   // Rèn luyện ngay dưới nút Mặc / Tháo (chủ dự án 07/11/2026 09:04: người mới không tìm ra chỗ cường hoá)
+  if (st.msg) { box.append(el('div', 'd-msg', st.msg)); st.msg = ''; }   // kết quả vừa rèn: ngay trên các nút rèn
+  box.append(forge);
 
   // so với món đang mặc cùng ô
   const mine = mainStats(data, save, it);
@@ -180,6 +182,6 @@ export function renderDetail(game, st, box, changed, close) {
   const lk = el('button', 'act-btn' + (it.lock ? ' primary' : ''), it.lock ? '🔒 Đã khoá (chạm để mở)' : 'Khoá (không bị bán, phân giải)');   // góp ý #61
   lk.onclick = () => { if (it.lock) delete it.lock; else it.lock = true; changed(); };
   acts.prepend(lk);
-  box.append(el('div', 'd-label', 'Rèn luyện'), acts);
+  forge.append(el('div', 'd-label', 'Rèn luyện'), acts);
   return true;
 }

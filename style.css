@@ -209,9 +209,11 @@ body:has(.panel:not([hidden])) #toast, body:has(#bag:not([hidden])) #toast { top
 .d-head { display: flex; align-items: center; gap: 10px; }
 .d-head .ico { width: 40px; height: 40px; flex: none; border: 1px solid var(--line-hi); border-radius: 7px; background: no-repeat center / 32px 32px, var(--panel-2); image-rendering: pixelated; }
 .d-name { flex: 1; min-width: 0; }
-.d-title { font: 700 16px var(--f-title); line-height: 1.25; }
-.d-sub { font-size: 11px; color: var(--muted); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.d-worn { color: var(--torch); border: 1px solid var(--torch); border-radius: 4px; padding: 0 5px; font-weight: 700; }
+/* tên + "Đang mặc" một dòng, "Phẩm · ô · cấp" một dòng (chủ dự án 07/11/2026 09:04: trước chiếm 3 và 2 dòng) */
+.d-title { font: 700 11px var(--f-title); line-height: 1.2; letter-spacing: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.d-sub { font-size: 9px; letter-spacing: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-head .ico { position: relative; }
+.d-worn { position: absolute; left: 50%; bottom: -7px; transform: translateX(-50%); white-space: nowrap; background: var(--panel-3); color: var(--torch); border: 1px solid var(--torch); border-radius: 4px; padding: 0 3px; font: 700 7px/1.4 var(--f-body); font-style: normal; }
 .d-close { width: 32px; height: 32px; flex: none; border: 1px solid var(--line-hi); border-radius: 6px; background: var(--panel-3); color: var(--ink-2); font-size: 15px; }
 .d-primary { display: flex; align-items: center; gap: 10px; }
 .d-primary .act-btn { flex: 1; padding: 10px; font-size: 14px; }

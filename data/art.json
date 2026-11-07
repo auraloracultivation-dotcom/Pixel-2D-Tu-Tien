@@ -22338,6 +22338,30 @@
    ],
    "note": "biểu tượng nút xep-hang (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
   },
+  "ui.k-khien-bat": {
+   "file": "assets/art/ui-k-khien-bat.png",
+   "v": "19157cd5",
+   "w": 94,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    47,
+    48
+   ],
+   "note": "biểu tượng khien-bat (ảnh GPT nguon/ai/ui/thu-khien.png)"
+  },
+  "ui.k-khien-tat": {
+   "file": "assets/art/ui-k-khien-tat.png",
+   "v": "4e14913c",
+   "w": 79,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    39,
+    48
+   ],
+   "note": "biểu tượng khien-tat (ảnh GPT nguon/ai/ui/thu-khien.png)"
+  },
   "ui.k-khung": {
    "file": "assets/art/ui-k-khung.png",
    "v": "e75a7765",
@@ -22625,6 +22649,30 @@
     57
    ],
    "note": "khung lời thoại giấy hồng (đã xoá chữ) (ảnh GPT nguon/ai/ui/ui-kit-2.png)"
+  },
+  "ui.k-thu-da-xem": {
+   "file": "assets/art/ui-k-thu-da-xem.png",
+   "v": "20438826",
+   "w": 82,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    41,
+    48
+   ],
+   "note": "biểu tượng thu-da-xem (ảnh GPT nguon/ai/ui/thu-khien.png)"
+  },
+  "ui.k-thu-moi": {
+   "file": "assets/art/ui-k-thu-moi.png",
+   "v": "4a98aa10",
+   "w": 109,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    54,
+    48
+   ],
+   "note": "biểu tượng thu-moi (ảnh GPT nguon/ai/ui/thu-khien.png)"
   },
   "ui.k-tieu-de": {
    "file": "assets/art/ui-k-tieu-de.png",

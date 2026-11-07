@@ -1,5 +1,5 @@
 // Khách đi hội (chủ dự án 02/11/2026: phố hội phải đông người qua lại, nói chuyện). Chỉ để làm cảnh: không lưu, không giao việc,
-// không vào game.npcs (khỏi dính truyện, tự hành, nút Nói chuyện). Hình mượn dân làng chibi có sẵn (npc.<id>), xáo đủ lượt rồi mới lặp. Có nhóm hai ba người
+// không vào game.npcs (khỏi dính truyện, tự hành). Riêng người bán ở sạp nói chuyện được (bán hàng). Hình mượn dân làng chibi có sẵn (npc.<id>), xáo đủ lượt rồi mới lặp. Có nhóm hai ba người
 // đi cùng (bám người dẫn), trẻ con chạy nhanh nghỉ ngắn, người bán đứng sau quầy mời khách (ban).
 // Đi theo lưới đường của lễ hội (data/le-hoi.json → festivals.<bản đồ>.khach: nodes điểm dừng theo ô, links đường nối), tới nơi
 // đứng ngắm vài giây (trước sạp, trước rồng băng) rồi đi tiếp sang điểm kề. Người chơi tới gần thì đứng lại quay sang, nói một câu;
@@ -24,9 +24,17 @@ function spawn(game, c) {
     if (lead && !lead.lead && kid === !!lead.kid && Math.random() < (kid ? 0.8 : c.group)) { n.lead = lead; n.ox = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 4); n.oy = (Math.random() - 0.5) * 6; n.x = lead.x + n.ox; n.y = lead.y + n.oy; }
     list.push(n);
   }
-  for (const [id, x, y] of c.ban || []) {   // người bán đứng sau quầy, nhìn ra phố, mời khách
+  // Người bán: mỗi sạp một người, đứng ngay trước góc phải sạp (chủ dự án 07/11/2026 09:04: "phải đứng chỗ dễ thấy", trước đây đứng
+  // sau quầy bị sạp che). Sạp gần nhất trong 3 ô (đồ hội mã có "sap-"), không có sạp thì đứng chỗ khai. Chạm Nói chuyện là mua món
+  // người đó bán (data/shop.json → npc_goods; Chủ Chợ Phiên mở chợ), xem src/game/interact.js → nearestNpc.
+  const stalls = (game.map.hoi || []).filter(h => /\.sap-/.test(h.id)), used = new Set();
+  for (const [id, x, y] of c.ban || []) {
     if (!game.data.npcs[id]) continue;
-    list.push({ id, def: game.data.npcs[id], khach: true, ban: true, x: x * T, y: y * T, r: 5, bob: Math.random() * 6, face: { x: Math.random() < 0.5 ? -0.5 : 0.5, y: 1 }, walkT: 0 });
+    let st = null, bd = 3 * T;
+    for (const h of stalls) { const d = Math.hypot(h.x - x * T, h.y - y * T); if (d < bd && !used.has(h)) { bd = d; st = h; } }
+    if (st) used.add(st);
+    const px = st ? st.x + st.w * 0.32 : x * T, py = st ? st.y + 5 : y * T;
+    list.push({ id, def: game.data.npcs[id], khach: true, ban: true, x: px, y: py, r: 5, bob: Math.random() * 6, face: { x: 0, y: 1 }, walkT: 0 });
   }
   return list;
 }
