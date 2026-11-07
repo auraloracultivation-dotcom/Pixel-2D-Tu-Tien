@@ -14,4 +14,5 @@ perl -pi -e "s#src/main\.js#src/main.js?v=$V#; s#style\.css#style.css?v=$V#; s#s
 perl -pi -e "s#(style-[a-z0-9-]+\.css)#\$1?v=$V#g" style.css
 sed -i "s#const BUILD = 'dev'#const BUILD = '$V'#" src/core/data.js
 sed -i "s#const V = 'dev'#const V = '$V'#" sw.js
+printf '.env*\n.vercel\n' > .vercelignore   # không bao giờ đưa khoá (vercel env pull) lên trang công khai
 echo "built $OUT ($V)"
