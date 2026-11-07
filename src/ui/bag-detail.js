@@ -80,17 +80,18 @@ export function renderDetail(game, st, box, changed, close) {
 
   // nút chính ngay dưới tên
   const main = el('div', 'd-primary');
+  let mainBtn;   // nút Mặc / Thay / Tháo: nằm ô đầu lưới rèn luyện (chủ dự án 07/11/2026 10:52: 6 nút xếp 2 cột × 3 hàng)
   if (worn) {
     const b = el('button', 'act-btn', 'Tháo xuống'); b.onclick = () => { unequip(save, slot); changed(); };
-    main.append(b);
+    mainBtn = b;
   } else {
     const gain = powerGain(game, it);
     const b = el('button', 'act-btn primary', cur ? 'Thay vào' : 'Mặc vào');
     b.onclick = () => { equip(save, data, it.uid); game.sfx('shield'); st.msg = cur ? 'Đã thay.' : 'Đã mặc.'; changed(); };
     const g = el('span', 'd-gain ' + (gain > 0 ? 'up' : gain < 0 ? 'down' : ''), `Lực chiến ${signed(gain)}`);
-    main.append(b, g);
+    main.append(g); mainBtn = b;
   }
-  box.append(main);
+  if (main.childNodes.length) box.append(main);
   const forge = el('div', 'd-forge');   // Rèn luyện ngay dưới nút Mặc / Tháo (chủ dự án 07/11/2026 09:04: người mới không tìm ra chỗ cường hoá)
   if (st.msg) { box.append(el('div', 'd-msg', st.msg)); st.msg = ''; }   // kết quả vừa rèn: ngay trên các nút rèn
   box.append(forge);
@@ -181,7 +182,13 @@ export function renderDetail(game, st, box, changed, close) {
   btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, sure('bán', () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }), worn || it.lock);
   const lk = el('button', 'act-btn' + (it.lock ? ' primary' : ''), it.lock ? '🔒 Đã khoá (chạm để mở)' : 'Khoá (không bị bán, phân giải)');   // góp ý #61
   lk.onclick = () => { if (it.lock) delete it.lock; else it.lock = true; changed(); };
-  acts.prepend(lk);
+  acts.prepend(mainBtn, lk);
+  acts.classList.add('d-grid');
+  for (const b of acts.children) {   // chữ dài "Việc (chi tiết…)": tên việc một dòng, chi tiết chữ nhỏ bên dưới
+    const t = b.textContent, i = t.indexOf(' (');
+    if (i > 0 && t.endsWith(')')) { b.textContent = ''; b.append(el('b', null, t.slice(0, i)), el('small', null, t.slice(i + 2, -1))); }
+    else if (t.includes(': ')) { const j = t.indexOf(': '); b.textContent = ''; b.append(el('b', null, t.slice(0, j)), el('small', null, t.slice(j + 2))); }
+  }
   forge.append(el('div', 'd-label', 'Rèn luyện'), acts);
   return true;
 }

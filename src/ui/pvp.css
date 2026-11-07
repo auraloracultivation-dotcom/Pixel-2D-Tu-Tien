@@ -5,9 +5,9 @@
   font: 700 11px/1 var(--f-body); color: #e6ebf7; background: none; border: 0; cursor: pointer; white-space: nowrap;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; will-change: transform;
 }
-.pvp-tag b { font-size: 13px; padding: 1px 3px; border-radius: 4px; background: rgba(20, 60, 90, .7); border: 1px solid #000; }
+.pvp-tag b { width: 22px; height: 22px; background: url("../../assets/art/ui-k-khien-bat.png") center / contain no-repeat; }   /* còn khiên: khiên sáng */
 .pvp-tag.off { color: #ff6a6a; }
-.pvp-tag.off b { background: rgba(150, 26, 34, .85); box-shadow: 0 0 6px rgba(255, 70, 70, .7); }
+.pvp-tag.off b { background-image: url("../../assets/art/ui-k-khien-tat.png"); }   /* tắt khiên: khiên kiếm chéo */
 .pvp-tag[hidden], .pvp-ask[hidden] { display: none; }
 .pvp-ask { position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; background: rgba(8, 4, 16, .55); padding: 16px; }
 .pvp-ask-card {

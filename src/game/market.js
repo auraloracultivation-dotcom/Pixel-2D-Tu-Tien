@@ -102,8 +102,9 @@ export async function claimMail(game) {
         s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
       }
       for (const l of lines) got.push(head ? `${head}: ${l}` : l);
-      // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư; đang mở bảng (mua, huỷ ở chợ) thì coi như đã đọc
-      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: M(game).mail[m.ly_do] ? 'market' : '', read: !!game.uiOpen });
+      // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư. Thư nào cũng tới dạng chưa đọc (phong bì niêm), chạm thì
+      // thành đã đọc, không kéo sang chợ (chủ dự án 07/11/2026 10:52: chạm thư bị kéo ra chợ; mua lần hai thư đã mở sẵn)
+      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: '', read: false });
     }
     s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
     game.refreshStats(); game.persist();

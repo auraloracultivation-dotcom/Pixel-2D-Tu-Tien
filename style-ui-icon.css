@@ -55,9 +55,8 @@ body .ht-row[data-k="btn-fb-de_xuat"] { --ico: url("assets/art/ui-ic-nhiem-vu.pn
 body .ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-ic-than.png"); }
 
 /* nút nhỏ: mắt ẩn giao diện, !, thu gọn, đóng bảng, Tự đánh, Linh Thạch */
-/* nút ẩn / hiện giao diện: khiên sáng = đang hiện (bật), khiên kiếm chéo = đang ẩn chỉ chừa nút đánh (tắt) (ảnh chủ dự án 07/11/2026) */
-body #uk-an { width: 36px !important; height: 36px !important; background-image: url("assets/art/ui-k-khien-bat.png") !important; background-size: contain !important; }
-body.ui-an #uk-an { background-image: url("assets/art/ui-k-khien-tat.png") !important; opacity: 1; }
+body #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; background-size: 80% auto !important; }
+body.ui-an #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; opacity: .6; }
 body .faq-btn { background-image: url("assets/art/ui-ic-than.png") !important; background-size: contain !important; }
 .uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; background-size: 80% auto !important; }
 body.hud-gon .uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; transform: scaleX(-1); }
@@ -85,3 +84,10 @@ body .sn-item[data-nav="ma-qua"] { --ico: url("assets/art/ui-ic-qua.png"); }
 body .d-head { gap: 6px !important; }
 body .d-head .ico { width: 32px !important; height: 32px !important; }
 body .d-head .d-close { width: 26px !important; height: 26px !important; font-size: 12px !important; padding: 0 !important; }
+/* Lưới rèn luyện 2 cột (chủ dự án 07/11/2026 10:52): Tháo / Mặc, Khoá, Cường hoá, Tẩy luyện, Đổi hệ, Phân giải, Bán; tên việc
+   một dòng, chi tiết chữ nhỏ bên dưới (src/ui/bag-detail.js) */
+body .d-acts.d-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 6px; }
+body .d-acts.d-grid .act-btn { min-width: 0; width: 100%; margin: 0; padding: 6px 5px !important; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 46px; font-size: 12px !important; line-height: 1.2; text-align: center; }
+body .d-acts.d-grid .act-btn b { font-size: 12px; font-weight: 700; }
+body .d-acts.d-grid .act-btn small { font-size: 9px; opacity: .8; line-height: 1.25; }
+.d-forge { margin-top: 8px; }

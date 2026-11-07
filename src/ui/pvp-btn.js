@@ -49,7 +49,7 @@ export function createPvpBtn(game) {
     const p = game.player, show = !!p && !!game.online && !game.trip && !!game.save && !game.dialog?.open && (!game.uiOpen || game.uiOpen === 'pvp-ask');
     if (!show) { if (!tag.hidden) tag.hidden = true; key = ''; return; }
     const off = !!game.pvp?.off, name = game.online?.me?.name || game.save.name || '', k = `${off}|${name}`;
-    if (k !== key) { key = k; nm.textContent = name; ic.textContent = off ? '⚔' : '🛡'; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }
+    if (k !== key) { key = k; nm.textContent = name; ic.textContent = ''; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }   // hình khiên bật / tắt ở pvp.css (ảnh chủ dự án 07/11/2026)
     const s = game.screen.toScreen(p.x, p.y - (p.top || 24) - (game.save.title ? 20 : 8));
     tag.hidden = false;
     tag.style.transform = `translate(${Math.round(s.x)}px, ${Math.round(s.y)}px) translate(-50%, -100%)`;
