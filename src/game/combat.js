@@ -6,6 +6,7 @@ import { dummyHit } from './dummy.js';
 import { sparks } from './sparks.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
+import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -37,6 +38,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   let crit = false;
   if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
+  if (own) dmg *= rageMul(game, m);   // Bạo Nộ (src/game/juice.js)
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
@@ -54,6 +56,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
+  juiceHit(game, m.x - Math.cos(ang) * m.r * 0.6, m.y - m.r * 0.6 - Math.sin(ang) * m.r * 0.4, opt.color, crit, opt.soft);   // tia toả, vụn, Liên Kích, Nộ
   if (!opt.soft) sparks(game, m.x - Math.cos(ang) * m.r, m.y - Math.sin(ang) * m.r, crit ? 'crit' : 'hit', crit ? '#ffd84a' : opt.color, ang);   // tia li ti tóe về phía sau quái
   if (!opt.soft) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
@@ -70,6 +73,7 @@ export function killMob(game, m) {
   if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
+  juiceKill(game, m);   // vòng sóng, vụn, đốm linh khí bay về người
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
   if (!m.noQi) game.gainQi(Math.max(1, Math.round(m.def.qi * game.eventMul('qi') * killQiMul(game.save, game.data.realms) * (game.farmTeamMul?.() || 1))), m.x, m.y);   // tổ đội farm (src/game/farm-team.js)
   game.onKill(m);
@@ -91,6 +95,7 @@ export function hitPlayer(game, dmg, from) {
     if (who?.duel && who.st.lifesteal) who.hp = Math.min(who.maxHp, who.hp + dmg * who.st.lifesteal);   // bản sao hút máu như người chơi
     if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
+    juiceHurt(game, dmg / p.maxHp);
     sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', from ? Math.atan2(p.y - from.y, p.x - from.x) : null);
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;

@@ -1,0 +1,11 @@
+{
+ "_note": "Cảm giác đánh có hồn (chủ dự án 09/11/2026 00:30: học clip mẫu, \"10 người chơi thì 9 người bỏ vì nhạt\"). Học từ clip: mỗi đòn trúng có chớp trắng + tia toả hình sao, bụi vụn văng, quái chết nổ đốm sáng bay về người chơi, đạn kéo khói vòng tròn trắng, lướt có bụi, chiêu lớn chớp màn + rung, đếm Liên Kích, thanh Nộ đầy thì Bạo Nộ. Code: src/game/juice.js (trạng thái), src/render/draw-juice.js (vẽ). Đơn vị: đơn vị bản đồ, giây.",
+ "max_parts": 160,
+ "hit": {"_note": "Đòn trúng: rays tia toả (crit thì nhiều, dài hơn), core chớp trắng giữa, debris bụi vụn văng có trọng lực", "rays": 4, "rays_crit": 8, "len": 12, "len_crit": 24, "life": 0.14, "life_crit": 0.22, "core": 6, "core_crit": 11, "debris": 2, "debris_crit": 5, "soft_every": 3},
+ "kill": {"_note": "Quái chết: vòng sóng, bụi vụn theo màu quái, đốm linh khí bay ra rồi hút về người chơi", "ring": 18, "debris": 7, "orbs": 4, "orbs_boss": 14, "orb_color": "#8ef0ff", "orb_speed": 220},
+ "trail": {"_note": "Đạn chiêu kéo khói vòng tròn trắng mờ (clip), lướt để bụi dưới chân", "every": 0.045, "alpha": 0.32, "r": 3.2, "life": 0.5, "dash_every": 0.03},
+ "cast": {"_note": "Mọi chiêu: trận đồ xoay dưới chân (rune, rune_big bán kính, màu theo chiêu); chiêu lớn (aoe, zone, ult): chớp màn dịu + rung; tỉ lệ flash nhân với comfort.flash_max", "flash": 0.18, "rune": 14, "rune_big": 22, "rune_life": 0.7, "rune_color": "#7ac8ff", "shake": 2.2, "big_types": ["aoe", "zone"]},
+ "hurt": {"_note": "Bị đánh mất nhiều máu: viền đỏ quanh màn (vig: mất từ tỉ lệ máu này trở lên)", "vig": 0.06, "life": 0.45},
+ "combo": {"_note": "Liên Kích: đánh trúng liên tiếp trong window giây; mốc thì hiện chữ to giữa màn, kêu chuông", "window": 2.4, "show_from": 5, "marks": [10, 25, 50, 100, 200, 500], "colors": ["#ffffff", "#ffe98a", "#ffb04a", "#ff6a4a", "#d080ff"]},
+ "rage": {"_note": "Nộ: đầy full thì Bạo Nộ dur giây, sát thương ×mul (không áp lên boss thế giới, so tài, PvP, quái của đồng đội), quầng lửa đỏ vàng, nhạc đánh dồn dập. Nạp: mỗi đòn trúng hit, hạ quái kill, bị đánh hurt (nhân tỉ lệ máu mất ×100). Ngơi đánh quá idle giây thì hao decay mỗi giây", "full": 100, "hit": 1.2, "kill": 4, "hurt": 1.5, "idle": 5, "decay": 6, "dur": 8, "mul": 1.2, "color": "#ff7a2a", "core": "#ffe3a0"}
+}

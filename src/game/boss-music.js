@@ -14,7 +14,7 @@ export function updateBossMusic(game, dt) {
   game.music(game.trib.active || boss ? 'boss' : game.map.id);
   if (boss) bossIntro(game, boss);
   const n = game.mobs.filter(m => !m.dead && m.aggro && !m.dummy && dist(m, p) < FIGHT).length;   // quái đang đánh mình ở gần: lớp trống vào theo số quái
-  game.combat?.(n ? Math.min(1, 0.3 + n * 0.18) : 0);
+  game.combat?.(game.juice?.rageOn > 0 ? 1 : n ? Math.min(1, 0.3 + n * 0.18) : 0);   // Bạo Nộ: trống dồn hết cỡ (src/game/juice.js)
 }
 
 function bossIntro(game, m) {

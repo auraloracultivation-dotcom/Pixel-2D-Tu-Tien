@@ -53,6 +53,7 @@ export function createMusic(ac, out, noise, cfg) {
     if (k < 0.12) return;
     if (tranOn()) { if (st.m.boss && st.beat % 16 === 1) hitDrum('gong', at, V * 0.5, 0); return; }   // lớp nhạc trận đã có trống
     if (b === 1 || b === 3) hitDrum('taiko', at, V * k, 0);
+    else if (k > 0.7) hitDrum('taiko', at, V * k * 0.55, 0);   // đánh dữ, Bạo Nộ: trống trầm mỗi phách, dồn như nhạc clip mẫu (09/11/2026)
     if (k > 0.55 && b === 0) hitDrum('taiko', at + beat * 0.5, V * k * 0.6, 0);
     if (k > 0.45) hitDrum('tick', at + beat * 0.5, V * 0.35 * k, b % 2 ? 0.3 : -0.3);
     if (k > 0.8 && b === 2) hitDrum('tick', at + beat * 0.75, V * 0.25 * k, 0.2);

@@ -1,5 +1,9 @@
 {
 "_note": "Từ điển dịch: khoá là câu tiếng Việt y nguyên (data/, code, index.html), giá trị là bản dịch. Giữ mọi chỗ trống {n}. Sinh và kiểm bằng tools/i18n-extract.mjs, thuật ngữ ở data/i18n/glossary.md.",
+"Liên Kích": "Combo",
+"Liên Kích {x}!": "Combo {x}!",
+"Bạo Nộ!": "Rage!",
+"Nộ {x}%": "Rage {x}%",
 "Quen biết": "Acquainted",
 "Thân thiết": "Close",
 "Tri kỷ": "Confidant",

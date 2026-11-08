@@ -6,6 +6,7 @@ import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 import { skillMul } from './skill-level.js';
 import { vfxOf, vfxCast, vfxMobHit } from './vfx.js';
 import { castSfx } from './skill-sfx.js';
+import { juiceCast } from './juice.js';
 import { pvpTryHit } from './pvp.js';
 import { sparks } from './sparks.js';
 
@@ -19,6 +20,7 @@ export function castSkill(game, id) {
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
   castSfx(game, s);   // tiếng theo hệ chiêu (src/game/skill-sfx.js)
+  juiceCast(game, s);   // trận đồ dưới chân; chiêu lớn: chớp màn, rung (src/game/juice.js)
   switch (s.type) {
     case 'projectile':
       shoot(game, {

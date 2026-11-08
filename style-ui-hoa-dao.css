@@ -53,6 +53,13 @@ body #hud #boss .bar i { border: solid transparent; border-width: 0 8px; border-
 /* Linh khí (tu vi đột phá): thanh mảnh vàng dưới Linh lực, chữ nhỏ */
 body #hud .bars .bar.qi { height: 10px !important; margin-top: 1px; }
 body #hud .bars .bar.qi::before { border-width: 0 5px; }
+/* Thanh Nộ (chủ dự án 09/11/2026 00:30, src/game/juice.js): mảnh như Linh khí, cam đỏ; Bạo Nộ thì rực, nhấp nháy */
+body #hud .bars .bar.no { height: 10px !important; margin-top: 1px; }
+body #hud .bars .bar.no::before { border-width: 0 5px; }
+body #hud .bars .bar.no i { border-width: 0 5px; border-image-source: url("assets/art/ui-hd-bar-rong.png"); background: linear-gradient(#ffb070, #e0461e) !important; background-clip: padding-box !important; min-width: 0; transition: width .15s; }
+body #hud .bars .bar.no span { font-size: 9px !important; line-height: 10px; }
+body #hud .bars .bar.no.on i { background: linear-gradient(#fff0b0, #ff7a2a 55%, #c81e10) !important; animation: no-on .5s ease-in-out infinite alternate; }
+@keyframes no-on { from { filter: brightness(1); } to { filter: brightness(1.45) drop-shadow(0 0 4px #ff7a2a); } }
 body #hud .bars .bar.qi i { border-width: 0 5px; border-image-source: url("assets/art/ui-hd-bar-rong.png"); background: linear-gradient(#ffe9a0, #d8a030) !important; background-clip: padding-box !important; min-width: 10px; }
 body #hud .bars .bar.qi span { font-size: 9px !important; line-height: 10px; }
 body #hud .bars .bar span { z-index: 2; line-height: 16px; }
