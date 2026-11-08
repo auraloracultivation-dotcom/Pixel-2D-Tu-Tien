@@ -23,7 +23,7 @@ export function createMusic(ac, out, noise, cfg) {
   const C = cfg.combat || {};
   const tran = cfg.tran && createTran(ac, out, bus, noise, cfg.tran);
   const arp = cfg.arp?.on && createArp(ac, bus, cfg.arp);
-  const bpmOf = m => (arp && !m.boss ? Math.round(m.bpm * (cfg.arp.tempo ?? 1)) : m.bpm);   // khúc trùm giữ nhịp cho lớp trận
+  const bpmOf = m => (arp && !m.boss ? cfg.arp.bpm ?? Math.round(m.bpm * (cfg.arp.tempo ?? 1)) : m.bpm);   // khúc trùm giữ nhịp cho lớp trận
   const tranOn = () => tran && st.m.boss && st.k >= cfg.tran.on;
 
   // Đàn tranh: phát dây đã dựng sẵn, thỉnh thoảng vuốt dây (cao độ trượt lên tới nốt)

@@ -112,12 +112,19 @@ export function renderSfx(rec, sr, seed = 1) {
   return out;
 }
 
-// Nốt mộc cầm cho nhạc nền (src/core/music-arp.js), cache theo tần số
+// Nốt cho nhạc nền rải (src/core/music-arp.js), cache theo tần số và kiểu tiếng. kind 'bubble' (chủ dự án 09/11/2026 01:39:
+// clip mẫu "có cảm giác nước và bong bóng"): sóng sin gần như thuần, vào mềm 25 ms, cao độ trượt nhẹ từ dưới lên như bọt nước
+// nổi "bloop", ngân dài; 'mallet': mộc cầm.
 const mallets = new Map();
-export function malletBuffer(ac, f, dur = 2.4) {
-  const key = Math.round(f * 2);
+const TONES = {
+  bubble: f => [{ k: 'osc', w: 'sine', f: f * 0.88, f2: f, g: 0.035, d: 2.2, a: 0.025, c: 1.6, v: 1 },
+    { k: 'osc', w: 'sine', f: f * 2, d: 0.4, a: 0.02, v: 0.04 }, { k: 'osc', w: 'sine', f: f * 3, d: 0.2, a: 0.02, v: 0.025 }],
+  mallet: f => [{ k: 'mallet', f, d: 2.4, v: 1 }],
+};
+export function malletBuffer(ac, f, kind = 'mallet') {
+  const key = kind + Math.round(f * 2);
   if (mallets.has(key)) return mallets.get(key);
-  const sr = ac.sampleRate, d = renderSfx({ v: 0.9, L: [{ k: 'mallet', f, d: dur, v: 1 }] }, sr, key);
+  const sr = ac.sampleRate, d = renderSfx({ v: 0.9, L: (TONES[kind] || TONES.mallet)(f) }, sr, Math.round(f * 2));
   const b = ac.createBuffer(1, d.length, sr); b.getChannelData(0).set(d);
   if (mallets.size > 64) mallets.delete(mallets.keys().next().value);
   mallets.set(key, b);

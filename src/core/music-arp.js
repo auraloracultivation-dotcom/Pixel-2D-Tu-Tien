@@ -2,7 +2,8 @@
 // này kết hợp nhau", bỏ kiểu đàn tranh gảy lác đác). Học từ clip: móc đơn đều tăm tắp (nốt nửa phách), mỗi ô nhịp rải một
 // hợp âm leo hai quãng tám rồi quay xuống, tiếng tròn như gõ mộc cầm (src/core/synth.js → malletBuffer), dây trầm ngân
 // nốt chủ mỗi ô nhịp, vài ô nhịp sau thì nền dây ngân vào cho dày; vang nhiều. Đảo tối (mood 'toi') giọng thứ, còn lại
-// giọng trưởng. Hợp âm đi theo prog (bậc trong thang 7 nốt), hình rải theo shapes (bậc tính từ nốt chủ hợp âm).
+// giọng trưởng. 01:39 chủ dự án: clip "có cảm giác nước và bong bóng" → tiếng nốt kiểu bọt nước (A.voice 'bubble'), tiếng
+// vọng nảy hai bên tai như giọt nước rơi trong hang (A.echo), lác đác tiếng bọt nổi lên (A.bubbles). Hợp âm đi theo prog (bậc trong thang 7 nốt), hình rải theo shapes (bậc tính từ nốt chủ hợp âm).
 import { malletBuffer } from './synth.js';
 
 const SCALES = { sang: [0, 2, 4, 5, 7, 9, 11], toi: [0, 2, 3, 5, 7, 8, 10] };
@@ -16,10 +17,26 @@ export function createArp(ac, bus, A) {
     if (!ac.createStereoPanner) return node;
     const s = ac.createStereoPanner(); s.pan.value = p; node.connect(s); return s;
   };
+  // Tiếng vọng: trễ nảy trái phải, mỗi vòng tối dần (lọc thấp trong vòng hồi)
+  let echo = bus;
+  if (A.echo) {
+    const E = A.echo, inp = ac.createGain(), dl = ac.createDelay(2), dr = ac.createDelay(2), fb = ac.createGain(), lp = ac.createBiquadFilter(), wet = ac.createGain();
+    dl.delayTime.value = dr.delayTime.value = E.t; fb.gain.value = E.fb; lp.type = 'lowpass'; lp.frequency.value = E.lp; wet.gain.value = E.wet;
+    inp.connect(dl); dl.connect(lp); lp.connect(dr); dr.connect(fb); fb.connect(dl);
+    pan(dl, -0.6).connect(wet); pan(dr, 0.6).connect(wet); wet.connect(bus);
+    echo = inp;
+  }
   function mallet(f, at, v, p) {
     const s = ac.createBufferSource(), g = ac.createGain();
-    s.buffer = malletBuffer(ac, f); g.gain.value = v;
-    s.connect(g); pan(g, p).connect(bus); s.start(at);
+    s.buffer = malletBuffer(ac, f, A.voice); g.gain.value = v;
+    s.connect(g); const o = pan(g, p); o.connect(bus); if (echo !== bus) o.connect(echo); s.start(at);
+  }
+  // Bọt nước nổi: sin vút lên rất nhanh rồi tắt
+  function bubble(at) {
+    const o = ac.createOscillator(), g = ac.createGain(), f = 300 + Math.random() * 500;
+    o.frequency.setValueAtTime(f, at); o.frequency.exponentialRampToValueAtTime(f * (2 + Math.random()), at + 0.05);
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(A.bubbles.v, at + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.07);
+    o.connect(g); pan(g, Math.random() * 1.4 - 0.7).connect(bus); o.start(at); o.stop(at + 0.08);
   }
   // Dây trầm: sin + tam giác qua lọc thấp, vào nhẹ, ngân hết ô nhịp
   function bass(f, at, d, v) {
@@ -51,6 +68,7 @@ export function createArp(ac, bus, A) {
       if (d == null) continue;
       mallet(deg(base, mood, chord + d), at + h * beat / 2 + Math.random() * A.swing, V * (e === 0 ? 1.15 : 0.85 + Math.random() * 0.15), (e / 7 - 0.5) * 0.7);
     }
+    if (A.bubbles && Math.random() < A.bubbles.p) { const k = 1 + Math.floor(Math.random() * 3); for (let i = 0; i < k; i++) bubble(at + Math.random() * beat); }
     if (n % 4) return;
     bass(deg(base, mood, chord - 14), at, beat * 4.2, A.bass * (night ? A.night : 1));
     if (bar >= A.pad_from) pad([0, 2, 4].map(x => deg(base, mood, chord + x - 7)), at, beat * 4.4, A.pad.v);
