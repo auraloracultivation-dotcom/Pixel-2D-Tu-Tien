@@ -55,8 +55,8 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (m.wboss) { m.hp = m.maxHp; mangHit(game, m, dmg); }   // đầu Cửu Đầu Thôn Thiên Mãng: không chết, đếm sát thương (game/thien-mang.js)
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
-  const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : m.def.kb ?? feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi; kb: bản sao so tài bị đẩy như người chơi
-  m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
+  const kb = m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : (m.def.kb ?? feel.knockback) * (opt.soft ? feel.knockback_soft ?? 0 : 1); // soft: nhịp vùng chiêu, đẩy nhẹ; kb: bản sao so tài bị đẩy như người chơi
+  m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb; m.cutAng = ang;   // cutAng: hướng đòn cuối, xác bị chém đôi theo hướng này
   if (opt.slow && !m.def.noCc) m.slowT = Math.max(m.slowT, opt.slow);   // noCc: bản sao so tài không bị khống chế (nó cũng không khống chế người chơi)
   if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
@@ -77,7 +77,7 @@ export function killMob(game, m) {
   const K = game.data.config.feel.kill?.[m.def.ai === 'boss' ? 'boss' : m.rare ? 'rare' : ''];   // hạ trùm, quái hiếm: rung, khựng, chớp
   sparks(game, m.x, m.y - m.r * 0.5, K ? 'kill_big' : 'kill', m.def.color);
   if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); if (K.sfx) game.sfx(K.sfx); }
-  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
+  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y, ang: m.cutAng ?? 0, tilt: Math.random() - 0.5 });   // xác chớp trắng, đứt đôi theo đường chém rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
   juiceKill(game, m);   // vòng sóng, vụn, đốm linh khí bay về người

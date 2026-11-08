@@ -315,7 +315,7 @@ export function drawWorld(game, screen, t) {
   }
   drawAim(ctx, game);   // giữ / kéo nút chiêu: khung đúng hình và tầm của chiêu trên mặt đất
   drawSongTu(ctx, game, t);
-  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife);
+  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife(game));
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].sort((a, b) => a[1].y - b[1].y);
   for (const [k, e] of ents) {
