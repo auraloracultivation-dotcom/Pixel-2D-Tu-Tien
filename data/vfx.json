@@ -47,5 +47,12 @@
   "phap-tran-yeu": {"show": "dome", "drop": true, "size": 40, "glow": 26, "circle": "tran-kim", "part": "thanh-quang", "hit_n": 12},
   "phap-hoa-hon": {"show": "ground", "img": "liet-diem", "size": 58, "glow": 34, "circle": "tran-hoa", "cast": "phap-hoa-hon", "cast_size": 30, "hit": "no-lua", "hit_size": 30, "part": "lua", "hit_n": 14, "flat": true}
  },
+ "sparks": {"_note": "Tia lửa li ti (src/game/sparks.js, src/render/draw-sparks.js; chủ dự án 08/11/2026 16:52 theo video tham khảo). Mỗi loại: n số hạt, spd tốc độ (đơn vị bản đồ/giây), cone nửa góc tóe quanh hướng đòn (radian), up đẩy lên lúc đầu, g trọng lực, drag hãm, life giây, big tỉ lệ hạt to, color màu mặc định (đòn có màu riêng thì lấy màu đòn; cứ 4 hạt có 1 hạt trắng). max: tối đa hạt trên màn (máy chậm còn một nửa).", "max": 220,
+  "hit": {"n": 5, "spd": 110, "cone": 0.9, "up": 20, "g": 260, "drag": 3, "life": 0.32, "big": 0.2, "color": "#fff4c8"},
+  "crit": {"n": 12, "spd": 170, "cone": 1.2, "up": 40, "g": 240, "drag": 2.5, "life": 0.45, "big": 0.4, "color": "#ffd84a"},
+  "kill": {"n": 10, "spd": 90, "cone": 3.2, "up": 50, "g": 200, "drag": 2.5, "life": 0.5, "big": 0.3, "color": "#ffffff"},
+  "kill_big": {"n": 34, "spd": 200, "cone": 3.2, "up": 80, "g": 180, "drag": 2, "life": 0.9, "big": 0.5, "color": "#ffd84a"},
+  "aoe": {"n": 18, "spd": 150, "cone": 3.2, "up": 30, "g": 160, "drag": 3, "life": 0.5, "big": 0.3, "color": "#ffffff"},
+  "hurt": {"n": 6, "spd": 100, "cone": 0.8, "up": 20, "g": 260, "drag": 3, "life": 0.3, "big": 0.2, "color": "#ff6a6a"}},
  "near_mul": 0.45
 }

@@ -144,6 +144,7 @@ export function createMusic(ac, out, noise, cfg) {
     st.k += ((m.boss ? Math.max(st.want, C.boss ?? 0.75) : st.want) - st.k) * (st.want > st.k ? C.up ?? 0.5 : C.down ?? 0.12);   // vào nhanh, ra chậm
     drumBeat(at, beat);
     if (tran && m.boss) tran(at, beat, m.root, st.beat - 1, st.k);
+    else if (tran) tran.lite(at, beat, st.beat - 1, st.k);   // đảo thường đánh đông quái: lồng nhịp trống nhẹ
     if (st.phrase.length) {
       // Đàn tranh: gảy nốt, tắt dần; nốt nửa phách thì gảy hai nốt trong một phách
       const n = st.phrase.shift(), f = freq(m, n.step), lead = m.lead === 'sao' && Math.random() < 0.5;

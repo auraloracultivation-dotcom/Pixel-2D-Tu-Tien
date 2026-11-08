@@ -43,7 +43,8 @@
       "kind": "hu"
     }
   },
-  "fireflies": {
+  "motes": {"_note": "Đốm linh khí li ti lơ lửng (src/render/draw-motes.js, chủ dự án 08/11/2026 16:52 theo video tham khảo): n hạt (đêm, tối nhân night_mul, tối đa 64), rise tốc bay lên, drift lắc ngang (đơn vị bản đồ), alpha / alpha_night độ sáng ngày / đêm, color mặc định, colors màu riêng theo bản đồ, off bản đồ không có.", "n": 22, "night_mul": 1.8, "rise": 5, "drift": 10, "alpha": 0.35, "alpha_night": 0.75, "color": "#fff1b8", "colors": {"dao-han-bang": "#cfeaff", "han-bang-quat": "#cfeaff", "dao-xich-dien": "#ffb070", "hoa-quat": "#ffb070", "hac-phong-dao": "#d8b8ff", "hac-phong-dong": "#d8b8ff", "vet-nut-ngoai": "#c79bff", "vet-nut": "#c79bff", "hu-khong-lao": "#c79bff", "dao-moc": "#c8ffb0", "lang-tinh-linh": "#c8ffb0", "co-thu-tam": "#c8ffb0", "boss": "#ffd0a0"}, "off": []},
+ "fireflies": {
     "maps": [
       "thanh-khe",
       "thien-kiem-phong",

@@ -7,6 +7,7 @@ import { skillMul } from './skill-level.js';
 import { vfxOf, vfxCast, vfxMobHit } from './vfx.js';
 import { castSfx } from './skill-sfx.js';
 import { pvpTryHit } from './pvp.js';
+import { sparks } from './sparks.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -60,6 +61,7 @@ export function castSkill(game, id) {
         }
       }
       impactShake(game, s.radius);   // chiêu vùng càng rộng càng rung (config.feel.aoe_shake)
+      sparks(game, cx, cy, 'aoe', s.color);   // vòng tia li ti tóe từ tâm chiêu
       break;
     }
     case 'heal': {

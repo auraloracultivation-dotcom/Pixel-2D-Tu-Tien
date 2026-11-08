@@ -16,6 +16,7 @@ import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateBossMusic } from './boss-music.js';
 import { updatePowerPop } from './power-pop.js';
+import { updateSparks } from './sparks.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
 import { updateZones } from './zones.js';
@@ -363,7 +364,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dungeon?.update();
     updateParty(game, dt);
     if (game.duel) updateDuel(game, dt);
-    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt); updatePowerPop(game, dt);
+    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt); updatePowerPop(game, dt); updateSparks(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);

@@ -60,8 +60,19 @@ export function createTran(ac, out, bus, noise, T) {
     }
   }
 
+  // Bản nhẹ cho đảo thường khi đánh đông quái (tran.lite): chỉ trống đạp phách 1, 3 và xèng nửa phách, không bass, không hợp âm
+  // (khỏi lệch giọng với nhạc đảo); cứ 16 phách dồn trống con một nhịp
+  function lite(at, beat, n, k) {
+    const L = T.lite;
+    if (!L || k < L.on) return;
+    const v = L.v * Math.min(1, (k - L.on) / Math.max(0.01, 1 - L.on) * 0.6 + 0.4), b4 = n % 4, pos = n % 16;
+    if (b4 === 0 || b4 === 2) kick(at, v);
+    hiss(at + beat / 2, 0.035, T.hat.v * v, 'highpass', T.hat.hp, 0.6, send);
+    if (pos === 15) { snare(at, v * 0.8); snare(at + beat / 2, v * 0.6); }
+  }
+
   // Một phách. root: nốt chủ của khúc (Hz), n: số phách đã chạy, k: mức đánh 0…1
-  return function step(at, beat, root, n, k) {
+  const step = function step(at, beat, root, n, k) {
     if (k < (T.on ?? 0.5)) return;
     const v = Math.min(1, (k - T.on) / Math.max(0.01, 1 - T.on) * 0.5 + 0.5);   // vừa vào thì nhỏ, đánh dữ thì đủ
     const sec = T.drop.every, pos = n % sec, bar = Math.floor(n / 4) % T.chords.length, b4 = n % 4;
@@ -81,4 +92,6 @@ export function createTran(ac, out, bus, noise, T) {
     if (b4 === 0 && !riser) pad(at, chord, beat * 4, v);
     if (pos === sec - T.drop.rise) hiss(at, beat * T.drop.rise, T.drop.v * v, 'bandpass', 300, 1.2, send, 6000);   // nhiễu vút lên
   };
+  step.lite = lite;
+  return step;
 }

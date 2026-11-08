@@ -3,6 +3,7 @@ import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 import { killQiMul } from './stats.js';
 import { dummyHit } from './dummy.js';
+import { sparks } from './sparks.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
@@ -53,6 +54,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
+  if (!opt.soft) sparks(game, m.x - Math.cos(ang) * m.r, m.y - Math.sin(ang) * m.r, crit ? 'crit' : 'hit', crit ? '#ffd84a' : opt.color, ang);   // tia li ti tóe về phía sau quái
   if (!opt.soft) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
     game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
@@ -63,7 +65,8 @@ export function hitMob(game, m, dmg, opt = {}) {
 export function killMob(game, m) {
   m.dead = true;
   const K = game.data.config.feel.kill?.[m.def.ai === 'boss' ? 'boss' : m.rare ? 'rare' : ''];   // hạ trùm, quái hiếm: rung, khựng, chớp
-  if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); }
+  sparks(game, m.x, m.y - m.r * 0.5, K ? 'kill_big' : 'kill', m.def.color);
+  if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); if (K.sfx) game.sfx(K.sfx); }
   if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
@@ -88,6 +91,7 @@ export function hitPlayer(game, dmg, from) {
     if (who?.duel && who.st.lifesteal) who.hp = Math.min(who.maxHp, who.hp + dmg * who.st.lifesteal);   // bản sao hút máu như người chơi
     if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
+    sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', from ? Math.atan2(p.y - from.y, p.x - from.x) : null);
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;
   if (from && !from.soft) {   // soft: phản đòn, linh thú đánh gần: không đẩy lùi (như đòn mình đánh quái)
@@ -154,5 +158,7 @@ export function updateFx(game, dt) {
 // Chiêu vùng nổ: rung theo bán kính (config.feel.aoe_shake)
 export function impactShake(game, r) {
   const A = game.data.config.feel.aoe_shake || { per_r: 0.07, min: 2.5, max: 6 };
-  game.screen.shake(Math.max(A.min, Math.min(A.max, r * A.per_r)), 0.22);
+  const a = Math.max(A.min, Math.min(A.max, r * A.per_r));
+  game.screen.shake(a, 0.22);
+  game.sfx?.('impact', 0.5 + 0.5 * (a - A.min) / Math.max(0.01, A.max - A.min));   // tiếng nện trầm lồng dưới tiếng chiêu, to theo độ rung
 }
