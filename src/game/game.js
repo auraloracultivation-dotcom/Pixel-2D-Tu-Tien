@@ -76,6 +76,7 @@ export function createGame(data, screen, input, ui, audio) {
     owner: 'guest', online: null, others: null,
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
+  game.note = (step, vol) => audio?.note?.(step, vol);
   game.combat = k => audio?.combat(k);   // lớp trống nhạc nền khi đánh nhau (boss-music.js)
   game.music = id => audio?.music(id);   // nhạc nền theo bản đồ, hoặc 'boss' lúc đánh boss, độ kiếp (boss-music.js)
   game.rain = on => audio?.rain(on);

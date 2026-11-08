@@ -26,6 +26,8 @@ export function juiceHit(game, x, y, color, crit, soft) {
   const S = juice(game);
   S.idle = 0; addRage(game, J(game).rage.hit);
   combo(game);
+  const N = J(game).note;   // nốt đàn theo Liên Kích, leo dần (data/juice.json → note)
+  if (N && (!soft || crit)) game.note?.((S.combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v);
   if (soft && S.combo % (C.soft_every || 3) && !crit) return;
   if (!fxOk(game, crit ? 'crit' : 'hit')) return;   // đánh đông quái: tia toả đòn thường trong hạn mức (src/game/fx-budget.js)
   const n = crit ? C.rays_crit : C.rays, rot = Math.random() * TAU;
@@ -41,6 +43,8 @@ export function juiceKill(game, m) {
   push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
   debris(game, m.x, m.y - m.r * 0.5, C.debris, m.def.color || '#ccc', 110);
   if (m.remote) return;
+  const N = J(game).note;
+  if (N) setTimeout(() => game.note?.(N.kill + (boss ? N.crit_up : 0), N.v_crit), 70);   // hạ quái: thêm một nốt cao ngân sau tiếng chém
   const n = Math.min(boss ? C.orbs_boss : C.orbs, Math.max(0, (C.orbs_max ?? 99) - S_orbs(game)));
   for (let i = 0; i < n; i++) {
     const a = Math.random() * TAU, v = 60 + Math.random() * 70;

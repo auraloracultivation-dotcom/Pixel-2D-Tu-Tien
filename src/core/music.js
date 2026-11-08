@@ -199,6 +199,13 @@ export function createMusic(ac, out, noise, cfg) {
       startWind(st.m);
       st.timer = setInterval(() => { if (ac.state === 'running') tick(); }, 60 / st.m.bpm * 1000);
     },
+    // Nốt đàn tranh khi đánh trúng (data/juice.json → note): theo thang âm khúc đang phát nên luôn hợp nhạc nền;
+    // Liên Kích càng cao nốt càng leo, thành chuỗi rải như nhạc. step: bậc thang âm, v: âm lượng
+    note(step, v, at = ac.currentTime) {   // at: chỉ để xuất file nghe thử (tools/nghe-thu.mjs)
+      if (!st.m || at - (st.lastNote ?? -1) < (cfg.note_gap ?? 0.06)) return;
+      st.lastNote = at;
+      zither(freq(st.m, step), at, cfg.zither * v, (Math.random() - 0.5) * 0.4);
+    },
     get id() { return st.id; },
     // Viết sẵn cả bản vào OfflineAudioContext để xuất file nghe thử
     score(id, sec) {
