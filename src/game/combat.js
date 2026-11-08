@@ -62,6 +62,8 @@ export function hitMob(game, m, dmg, opt = {}) {
 
 export function killMob(game, m) {
   m.dead = true;
+  const K = game.data.config.feel.kill?.[m.def.ai === 'boss' ? 'boss' : m.rare ? 'rare' : ''];   // hạ trùm, quái hiếm: rung, khựng, chớp
+  if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); }
   if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
@@ -92,7 +94,8 @@ export function hitPlayer(game, dmg, from) {
     const ang = Math.atan2(p.y - from.y, p.x - from.x);
     p.kx = Math.cos(ang) * 70; p.ky = Math.sin(ang) * 70;
   }
-  game.screen.shake(game.data.config.feel.shake * (game.data.config.feel.hurt_shake ?? 1), 0.15);
+  const F = game.data.config.feel, big = Math.min(2, Math.max(0, dmg) / Math.max(1, p.maxHp) * (F.hurt_big ?? 0));   // đòn càng nặng (so với máu tối đa) càng rung
+  game.screen.shake(F.shake * (F.hurt_shake ?? 1) * (1 + big), 0.15 + big * 0.1);
   if (game.noDeath && p.hp < 1) p.hp = 1;
 }
 
@@ -146,4 +149,10 @@ export function updateFx(game, dt) {
   game.fx = game.fx.filter(f => f.t < f.life);
   for (const n of game.numbers) { n.t += dt; n.y -= dt * 22; }
   game.numbers = game.numbers.filter(n => n.t < 0.75);
+}
+
+// Chiêu vùng nổ: rung theo bán kính (config.feel.aoe_shake)
+export function impactShake(game, r) {
+  const A = game.data.config.feel.aoe_shake || { per_r: 0.07, min: 2.5, max: 6 };
+  game.screen.shake(Math.max(A.min, Math.min(A.max, r * A.per_r)), 0.22);
 }

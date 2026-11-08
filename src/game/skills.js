@@ -1,5 +1,5 @@
 // Thi triển chiêu theo kiểu trong data/skills.json; chiêu đã mở và 3 ô chiêu người chơi chọn mang.
-import { addFx, hitMob, shoot, dist } from './combat.js';
+import { addFx, hitMob, shoot, dist, impactShake } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
 import { burstFx, zoneFx, selfFx } from './skill-fx.js';
@@ -59,7 +59,7 @@ export function castSkill(game, id) {
           hitMob(game, m, atk * s.mult, { slow: s.slow, stun: s.stun, color: s.color, fromX: cx, fromY: cy });
         }
       }
-      game.screen.shake(3, 0.2);
+      impactShake(game, s.radius);   // chiêu vùng càng rộng càng rung (config.feel.aoe_shake)
       break;
     }
     case 'heal': {
