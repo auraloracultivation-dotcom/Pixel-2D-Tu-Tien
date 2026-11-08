@@ -69,8 +69,8 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
 
 // Quái vừa chết (chủ dự án 09/11/2026 01:12: "chém chết thì đứt đôi"; số ở data/config.json → feel.split): chớp trắng nguyên con
 // flash giây, rồi xẻ theo đường vuông góc hướng đòn cuối (c.ang, lệch c.tilt), loé đường chém trắng; hai nửa trượt tách theo
-// mép cắt, bị hất ra sau, rơi xuống, nghiêng ngược nhau, giữ hold giây rồi tan dither Bayer. Quái chưa có hình pixel chỉ có khói.
-const SPLIT = { flash: 0.06, slide: 0.2, dist: 4, push: 5, fall: 5, rot: 0.3, tilt: 0.9, slash: 0.16, hold: 0.22, fade: 0.3 };
+// mép cắt, cả xác văng ra sau (fly, hãm drag), rơi xuống, nghiêng ngược nhau, giữ hold giây rồi tan dither Bayer. Quái chưa có hình pixel chỉ có khói.
+const SPLIT = { fly: 260, drag: 12, flash: 0.06, slide: 0.2, dist: 4, push: 5, fall: 5, rot: 0.3, tilt: 0.9, slash: 0.16, hold: 0.22, fade: 0.3 };
 const SP = game => game.data.config.feel?.split || SPLIT;
 export const corpseLife = game => { const L = SP(game); return L.flash + L.hold + L.fade; };
 export function drawCorpse(ctx, game, c) {
@@ -79,7 +79,8 @@ export function drawCorpse(ctx, game, c) {
   const spr = id && game.data.art.sprites[id], im = spr && spriteImage(spr);
   if (!im || t > corpseLife(game)) return;
   const sc = spr.scale || 1, fx = (m.lookX || 1) * sc;
-  const cx = c.x, cy = c.y + 1 + (spr.h / 2 - spr.anchor[1]) * sc;   // tâm hình (toạ độ bản đồ)
+  const fl = (L.fly ?? 0) * (1 - Math.exp(-t * (L.drag ?? 12))) / (L.drag ?? 12);   // bị đòn chí tử hất văng ra sau rồi mới đứt đôi
+  const cx = c.x + Math.cos(c.ang) * fl, cy = c.y + Math.sin(c.ang) * fl + 1 + (spr.h / 2 - spr.anchor[1]) * sc;   // tâm hình (toạ độ bản đồ)
   const draw = (k, white) => { ctx.save(); ctx.scale(fx, sc); ctx.imageSmoothingEnabled = false;
     drawDissolved(ctx, im, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1] - (spr.h / 2 - spr.anchor[1]), spr.w, spr.h, k, white); ctx.restore(); };
   if (t < L.flash) { ctx.save(); ctx.translate(Math.round(cx), Math.round(cy)); draw(0, true); ctx.restore(); return; }

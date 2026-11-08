@@ -41,8 +41,9 @@ const wav = await p.evaluate(async ({ map, sec, k, danh }) => {
     for (let t = 1; t < sec - 2; t += 8 * 0.22 + 1.2) for (let i = 0; i < 8; i++) {
       const at = t + i * 0.22, crit = i === 4; combo++;
       sfx('swing', at - 0.05); sfx(crit ? 'crit' : 'hit', at);
-      m.note((combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v, at);
-      if (i === 7) { sfx('die', at + 0.02); m.note(N.kill, N.v_crit, at + 0.07); }
+      if (N.on) m.note((combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v, at);
+      if (i === 7) { sfx('die', at + 0.02); if (N.on) m.note(N.kill, N.v_crit, at + 0.07); }
+      if (i === 7 && combo % 16 === 0) sfx('pickup', at + 0.5);
     }
   }
   const buf = await ac.startRendering();
