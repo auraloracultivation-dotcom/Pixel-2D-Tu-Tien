@@ -1,11 +1,12 @@
 // Tia lửa li ti khi trúng đòn (chủ dự án 08/11/2026 16:52: "hiệu ứng đốm nhỏ li ti" như video tham khảo): mỗi đòn trúng tóe vài
 // hạt sáng 1–2 điểm ảnh bay ra rồi rơi, chí mạng tóe nhiều hạt vàng, hạ quái tóe hạt màu quái, chiêu vùng nổ tóe vòng hạt.
 // Không dùng hình: vẽ ô vuông cộng sáng ở src/render/draw-sparks.js. Số ở data/vfx.json → sparks. Máy đã tự hạ mức (perf ≥ 3) bớt nửa.
+import { fxOk } from './fx-budget.js';
 const rnd = (a, b) => a + Math.random() * (b - a);
 
 export function sparks(game, x, y, kind, color, dir) {
   const S = game.data.vfx?.sparks, k = S?.[kind];
-  if (!k) return;
+  if (!k || (k.budget && !fxOk(game, 'sp_' + kind))) return;   // đòn thường, hạ quái thường: trong hạn mức (src/game/fx-budget.js)
   const low = +(globalThis.document?.body?.dataset.perf || 0) >= 3, list = (game.sparks ??= []);
   const n = Math.round(k.n * (low ? 0.5 : 1)), cap = S.max * (low ? 0.5 : 1);
   for (let i = 0; i < n; i++) {

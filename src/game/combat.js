@@ -4,6 +4,7 @@ import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 import { killQiMul } from './stats.js';
 import { dummyHit } from './dummy.js';
 import { sparks } from './sparks.js';
+import { fxOk, shortNum } from './fx-budget.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
 import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
@@ -23,8 +24,14 @@ export function addNumber(game, x, y, text, color = '#fff', big = false) {
   }
   // Chiêu nhiều đòn trúng một con liên tục: cộng vào số vừa hiện trên con đó thay vì chồng hàng chục số (chơi thử 28/10)
   if (/^\d+$/.test(String(text))) {
-    const same = game.numbers.find(n => !n.gain && n.color === color && /^\d+$/.test(n.text) && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
-    if (same) { same.text = String(+same.text + +text); same.big ||= big; return; }
+    const same = game.numbers.find(n => !n.gain && n.color === color && n.v != null && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
+    if (same) { same.v += +text; same.text = shortNum(same.v); same.big ||= big; return; }
+    // đánh đông quái: số đòn của mình chỉ hiện trong hạn mức (data/juice.json → budget.num, num_crit), số đồng đội, hồi máu không giới hạn (09/11/2026)
+    if ((color === '#fff' || color === '#ffd84a') && !fxOk(game, big ? 'num_crit' : 'num')) return;
+    const N = game.data.juice?.budget?.num_max ?? 28;
+    if (game.numbers.length >= N) game.numbers.splice(game.numbers.findIndex(n => !n.big) >>> 0, 1);   // bỏ số thường cũ nhất trước
+    game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: shortNum(+text), v: +text, color, big, t: 0 });   // số lớn rút gọn: 253Tr
+    return;
   }
   if (game.numbers.length > 28) game.numbers.shift();   // giữ màn gọn khi đánh đông quái
   game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0 });

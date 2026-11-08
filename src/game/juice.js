@@ -2,6 +2,7 @@
 // Đòn trúng: tia toả hình sao + chớp trắng giữa + bụi vụn văng; quái chết: vòng sóng, vụn, đốm linh khí hút về người;
 // đạn chiêu kéo khói vòng trắng, lướt để bụi; chiêu lớn chớp màn + rung; Liên Kích (đếm đòn liên tiếp, mốc thì hô to);
 // thanh Nộ đầy thì Bạo Nộ: sát thương tăng, quầng lửa, nhạc dồn. Vẽ ở src/render/draw-juice.js.
+import { fxOk } from './fx-budget.js';
 const TAU = Math.PI * 2;
 const J = game => game.data.juice;
 export const juice = game => (game.juice ||= { parts: [], combo: 0, comboT: 0, comboPop: 0, call: null, rage: 0, rageOn: 0, idle: 99, vig: 0, trailT: 0, dashT: 0 });
@@ -26,6 +27,7 @@ export function juiceHit(game, x, y, color, crit, soft) {
   S.idle = 0; addRage(game, J(game).rage.hit);
   combo(game);
   if (soft && S.combo % (C.soft_every || 3) && !crit) return;
+  if (!fxOk(game, crit ? 'crit' : 'hit')) return;   // đánh đông quái: tia toả đòn thường trong hạn mức (src/game/fx-budget.js)
   const n = crit ? C.rays_crit : C.rays, rot = Math.random() * TAU;
   push(game, { k: 'burst', x, y, n, rot, len: crit ? C.len_crit : C.len, core: crit ? C.core_crit : C.core, life: crit ? C.life_crit : C.life, color: color || '#fff', crit });
   if (crit) push(game, { k: 'ring', x, y, r: C.len_crit * 1.2, life: 0.25, color: color || '#ffe98a' });
@@ -34,16 +36,20 @@ export function juiceHit(game, x, y, color, crit, soft) {
 
 export function juiceKill(game, m) {
   const C = J(game)?.kill; if (!C) return;
+  const boss = m.def.ai === 'boss';
+  if (!boss && !fxOk(game, 'kill')) { if (!m.remote) addRage(game, J(game).rage.kill); return; }   // hạ hàng loạt: vòng sóng, vụn, đốm chỉ trong hạn mức
   push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
   debris(game, m.x, m.y - m.r * 0.5, C.debris, m.def.color || '#ccc', 110);
   if (m.remote) return;
-  const n = m.def.ai === 'boss' ? C.orbs_boss : C.orbs;
+  const n = Math.min(boss ? C.orbs_boss : C.orbs, Math.max(0, (C.orbs_max ?? 99) - S_orbs(game)));
   for (let i = 0; i < n; i++) {
     const a = Math.random() * TAU, v = 60 + Math.random() * 70;
     push(game, { k: 'orb', x: m.x, y: m.y - m.r * 0.6, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 40, life: 2.2, home: 0.25 + Math.random() * 0.2, color: C.orb_color });
   }
   addRage(game, J(game).rage.kill);
 }
+
+const S_orbs = game => juice(game).parts.filter(q => q.k === 'orb').length;   // đốm đang bay, giữ dưới kill.orbs_max
 
 export function juiceHurt(game, frac) {
   const R = J(game)?.rage; if (!R) return;

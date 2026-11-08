@@ -100,11 +100,11 @@ export function drawJuiceScreen(ctx, game, screen, t) {
   const C = D.combo;
   if (S.combo >= C.show_from) {
     const tier = C.marks.filter(m => S.combo >= m).length, col = C.colors[Math.min(C.colors.length - 1, tier)];
-    const a = Math.min(1, S.comboT / 0.6), s = 1 + S.comboPop * 3, x = w - 18, y = h * 0.47;
+    const a = Math.min(1, S.comboT / 0.6), s = 1 + S.comboPop * 3, x = w - 18, y = h * (C.y ?? 0.47), sz = C.size ?? 30;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-    label(ctx, String(S.combo), 0, 0, 30, col, a, 'right');
+    label(ctx, String(S.combo), 0, 0, sz, col, a, 'right');
     ctx.restore();
-    label(ctx, 'Liên Kích', x, y + 24, 12, '#fff2cc', a, 'right');
+    label(ctx, 'Liên Kích', x, y + sz * 0.8, 11, '#fff2cc', a, 'right');
   }
   if (S.call) {   // mốc Liên Kích, Bạo Nộ: chữ to nảy vào giữa màn rồi mờ
     const k = S.call.t, pop = k < 0.12 ? 1.7 - 0.7 * (k / 0.12) : 1, a = k < 1 ? 1 : 1 - (k - 1) / 0.3;
