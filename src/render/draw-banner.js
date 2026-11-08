@@ -1,7 +1,10 @@
 // Vẽ bảng tên nơi vừa tới (src/game/banner.js đặt game.banner): khung pixel viền mực, nền nâu ấm, tên lớn, dòng nhỏ nhiều màu. Hiện 3 giây rồi mờ dần.
+import { drawPowerPop } from './draw-power-pop.js';
+
 const INK = '#1b1830', LIFE = 3.2;
 
 export function drawBanner(ctx, game, screen) {
+  drawPowerPop(ctx, game, screen);   // chữ lực chiến tăng (cùng lớp màn hình)
   const b = game.banner;
   if (!b) return;
   const age = game.time - b.at;

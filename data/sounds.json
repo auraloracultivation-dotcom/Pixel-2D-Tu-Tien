@@ -1705,7 +1705,7 @@
    },
    "boss": {
     "root": 146.83,
-    "bpm": 104,
+    "bpm": 140,
     "lead": "tranh",
     "amb": [],
     "mood": "toi",
@@ -1991,7 +1991,20 @@
   },
   "bass": 0.12,
   "erhu": 0.045,
-  "erhu_p": 0.4
+  "erhu_p": 0.4,
+  "tran": {
+   "_note": "Lớp nhạc trận ở khúc trùm (src/core/music-tran.js, chủ dự án 08/11/2026 16:27 theo video tham khảo: ~140 nhịp, Rê thứ, bass dày, ngân rồi thả). Chạy khi mức đánh ≥ on (khúc trùm luôn ≥ combat.boss). vol: âm lượng cả lớp, wet: phần gửi vào vang. kick: trống đạp (f → f2 Hz trong sweep giây, click: tiếng cộp đầu búa cho loa điện thoại). snare: trống con phách 2, 4 (f: dải nhiễu, tone: thân trống). hat: xèng nửa phách (hp: lọc cao). chords: hợp âm từng ô nhịp, nửa cung so với nốt chủ (Rê: Rê – Si giáng – Đô – La). bass: mẫu 2 nốt mỗi phách (nửa cung so với hợp âm, null = nghỉ), lp: lọc, q: cộng hưởng. pad: nền ngân hợp âm. drop: mỗi every phách là một đoạn; rise phách cuối nhiễu vút lên, bass nghỉ, dồn trống; phách đầu đoạn sau nện mạnh (crash).",
+   "on": 0.5,
+   "vol": 0.55,
+   "wet": 0.25,
+   "kick": {"f": 120, "f2": 44, "sweep": 0.09, "d": 0.34, "v": 0.9, "click": 900},
+   "snare": {"f": 1900, "tone": 190, "d": 0.14, "v": 0.32},
+   "hat": {"v": 0.07, "hp": 7500},
+   "chords": [0, -4, -2, -5],
+   "bass": {"v": 0.16, "lp": 420, "q": 4, "pat": [0, 0, 12, 0, 0, 7, 0, 10]},
+   "pad": {"v": 0.05, "lp": 1800},
+   "drop": {"every": 16, "rise": 4, "v": 0.09, "crash": 0.12}
+  }
  },
  "by_fx": {
   "fire": [

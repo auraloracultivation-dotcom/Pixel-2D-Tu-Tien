@@ -1,8 +1,10 @@
 // Nhạc nền êm (data/sounds.json → music): đàn tranh gảy từng câu ngắn (dây Karplus-Strong, src/core/synth.js), sáo trúc
 // ngân dài, nhị hồ ở đảo trầm, dây trầm và nền ngân, tiếng vang, xen tiếng gió, chim (đêm thì dế), nước, lửa theo từng đảo.
 // Lớp trống (combat 0…1): khi đánh nhau thì trống trầm vào dần, đánh dữ thì thêm trống nhỏ; trùm thì thêm chiêng.
+// Khúc trùm đánh dữ: lớp nhạc trận dồn dập (music-tran.js) thay trống trầm, trống nhỏ.
 // Tất cả tổng hợp bằng WebAudio, không cần file (chủ dự án 06/11/2026 19:15: làm lại bộ âm thanh bằng code).
 import { renderSfx, zitherBuffer } from './synth.js';
+import { createTran } from './music-tran.js';
 
 const DARK = [0, 3, 5, 7, 10];
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -17,6 +19,8 @@ export function createMusic(ac, out, noise, cfg) {
 
   const st = { id: null, m: null, timer: null, beat: 0, note: 4, phrase: [], rest: 1, amb: [], rain: null, night: false, want: 0, k: 0, erhu: false };
   const C = cfg.combat || {};
+  const tran = cfg.tran && createTran(ac, out, bus, noise, cfg.tran);
+  const tranOn = () => tran && st.m.boss && st.k >= cfg.tran.on;
 
   // Đàn tranh: phát dây đã dựng sẵn, thỉnh thoảng vuốt dây (cao độ trượt lên tới nốt)
   function zither(f, at, v, pan = -0.2, slide = false) {
@@ -47,6 +51,7 @@ export function createMusic(ac, out, noise, cfg) {
   function drumBeat(at, beat) {
     const k = st.k, b = st.beat % 4, V = C.vol ?? 0.5;
     if (k < 0.12) return;
+    if (tranOn()) { if (st.m.boss && st.beat % 16 === 1) hitDrum('gong', at, V * 0.5, 0); return; }   // lớp nhạc trận đã có trống
     if (b === 1 || b === 3) hitDrum('taiko', at, V * k, 0);
     if (k > 0.55 && b === 0) hitDrum('taiko', at + beat * 0.5, V * k * 0.6, 0);
     if (k > 0.45) hitDrum('tick', at + beat * 0.5, V * 0.35 * k, b % 2 ? 0.3 : -0.3);
@@ -138,6 +143,7 @@ export function createMusic(ac, out, noise, cfg) {
     if (st.beat % 8 === 1 || (st.k > 0.4 && st.beat % 4 === 1)) zither(freq(m, 0) / 2, at, (cfg.bass ?? 0.25) * (0.6 + st.k * 0.6), 0.1);   // dây trầm
     st.k += ((m.boss ? Math.max(st.want, C.boss ?? 0.75) : st.want) - st.k) * (st.want > st.k ? C.up ?? 0.5 : C.down ?? 0.12);   // vào nhanh, ra chậm
     drumBeat(at, beat);
+    if (tran && m.boss) tran(at, beat, m.root, st.beat - 1, st.k);
     if (st.phrase.length) {
       // Đàn tranh: gảy nốt, tắt dần; nốt nửa phách thì gảy hai nốt trong một phách
       const n = st.phrase.shift(), f = freq(m, n.step), lead = m.lead === 'sao' && Math.random() < 0.5;
