@@ -20,12 +20,12 @@ export function hoiItems(def, data, T) {
   const L = data['le-hoi'], S = data.art?.sprites || {};
   if (!def.hoi || !L) return [];
   const out = [];
-  for (const [id, tx, ty, label] of def.hoi.do || []) {
+  (def.hoi.do || []).forEach(([id, tx, ty, label, o], idx) => {   // o: {s: cỡ, f: lật} do chủ dự án bày (src/ui/bay-canh.js)
     const spr = S[id];
-    if (!spr) continue;
-    const k = spr.scale || 1, kind = hoiKind(L, id);
-    out.push({ id, spr, x: tx * T, y: ty * T, w: spr.w * k, h: spr.h * k, k, kind, foot: L.foot[kind] || {}, label });   // label: tên vùng trên biển gỗ (draw-hoi.js)
-  }
+    if (!spr) return;
+    const k = (spr.scale || 1) * (o?.s || 1), kind = hoiKind(L, id);
+    out.push({ id, spr, x: tx * T, y: ty * T, w: spr.w * k, h: spr.h * k, k, kind, foot: L.foot[kind] || {}, label: label || undefined, flip: !!o?.f, idx });   // label: tên vùng trên biển gỗ (draw-hoi.js); idx: chỗ trong def.hoi.do
+  });
   return out.sort((a, b) => a.y - b.y);
 }
 

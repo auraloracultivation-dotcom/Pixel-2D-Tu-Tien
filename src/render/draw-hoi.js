@@ -45,6 +45,18 @@ export function drawHoiItem(ctx, game, it, t) {
   }
   const im = spriteImage(it.spr);
   if (!im) return;
+  if (it.flip || game.bay?.sel === it) {   // lật ngang (bày cảnh), khung món đang chọn
+    ctx.save();
+    if (it.flip) { ctx.translate(it.x * 2, 0); ctx.scale(-1, 1); }
+    drawHoiBody(ctx, game, it, im, t);
+    ctx.restore();
+    if (game.bay?.sel === it) { ctx.save(); ctx.strokeStyle = '#ffe36a'; ctx.lineWidth = 1; ctx.setLineDash([3, 2]); ctx.strokeRect(it.x - it.w / 2 - 1, it.y - it.h - 1, it.w + 2, it.h + 2); ctx.fillStyle = '#ffe36a'; ctx.fillRect(it.x - 1.5, it.y - 1.5, 3, 3); ctx.restore(); }
+    return;
+  }
+  drawHoiBody(ctx, game, it, im, t);
+}
+
+function drawHoiBody(ctx, game, it, im, t) {
   const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k;
   let oy = it.y - s.anchor[1] * k;
   ctx.imageSmoothingEnabled = false;
