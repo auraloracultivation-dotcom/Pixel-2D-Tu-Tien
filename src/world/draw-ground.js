@@ -3,6 +3,7 @@
 import { spriteImage } from '../render/sprites.js';
 import { roundRim } from './draw-rim.js';
 import { bakeDat } from './draw-dat.js';
+import { paintNature } from './draw-nature.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -146,6 +147,7 @@ function build(game, map, tiles, hash, baseTile) {
   // chủ dự án 04/11/2026 15:38: nền đất mờ, nhạt hơn, bỏ chi tiết nhỏ (hoa cỏ lấm tấm, vệt đất, bụi nhỏ) cho nhân vật, đồ vật nổi lên
   bakeDat(c, map, hash, game.data['le-hoi']?.festivals?.[map.def.id]?.dat);   // mặt đất lễ hội (draw-dat.js)
   soften(c, cv.width, cv.height, game.data.config.ground_soft);
+  if (!lit) paintNature(c, map, hash, game.data.config.nature, tiles);   // sông hồ, đường đất bo mép, nền bớt gắt (draw-nature.js)
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
   cache.baked = bakeProps(c, game, map, hash);
