@@ -88,6 +88,8 @@ body #hud .hud-btns > button.tron#hud-thu.co { background: radial-gradient(circl
 .ht-row[data-k="btn-zalo"] { --ico: url("assets/art/ui-k-i-dao-huu.png"); }
 .ht-row[data-k="btn-fb-de_xuat"] { --ico: url("assets/art/ui-k-i-de-xuat.png"); }
 .ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-k-i-loi.png"); }
+a.ht-row { text-decoration: none; }
+.ht-row[data-k="tiktok"]::before { content: "\266A"; background: none; text-align: center; font: 700 16px/20px var(--f-body); color: #6ff3ee; text-shadow: 1px 1px #ff3b6b; }   /* nốt nhạc vẽ bằng chữ, hai màu kiểu TikTok */
 .ht-row i { margin-left: auto; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: #e0484a; color: #fff; font: 700 10px/16px var(--f-body); font-style: normal; text-align: center; }
 body.ui-an #hop-thu, body.trip #hop-thu { display: none; }
 
