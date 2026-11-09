@@ -68,6 +68,7 @@ import { createFarmTeamPanel } from './ui/farm-team-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createMangLeave } from './ui/mang-leave.js';
+import { startAnalyticsHook } from './game/analytics-hook.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -130,6 +131,7 @@ async function boot() {
   createFrameDim(game);   // dải trên, dải dưới tối đi, phần giữa là khung chơi và khung quay video (src/ui/frame-dim.js)
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
+  startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập
   const login = createLogin(opts => game.begin(opts));
   login.start();
 
