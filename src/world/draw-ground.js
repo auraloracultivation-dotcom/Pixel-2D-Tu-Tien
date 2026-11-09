@@ -203,6 +203,8 @@ function scatter(c, map, hash, dirt, bush) {
 }
 
 // Ô có vật đã vẽ sẵn trong tấm đệm nền (draw-map.js khỏi vẽ lại)
+// Tấm đệm nền của bản đồ này đã dựng xong (màn che lúc tải, src/render/world-veil.js)
+export const groundReady = map => cache.map === map;
 export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty * map.w + tx] === 1;
 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.

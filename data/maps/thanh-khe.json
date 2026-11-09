@@ -3,9 +3,21 @@
  "name": "Mảnh Vỡ Thanh Khê",
  "sky": "#9fd8f0",
  "dark": 0,
- "island": {"top": "#7cc46a", "under": "#8a6a48"},
+ "island": {
+  "top": "#7cc46a",
+  "under": "#8a6a48"
+ },
  "world": true,
- "planet": {"d": 38, "origin": [4, 8], "terrain": 1, "settle": 1, "open": 1},
+ "planet": {
+  "d": 38,
+  "origin": [
+   4,
+   8
+  ],
+  "terrain": 1,
+  "settle": 1,
+  "open": 1
+ },
  "grid": [
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~......,.....~~~~~~~~~~~~~",
@@ -46,9 +58,39 @@
   "~~~~~~~~~~~~~............~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {"vao": [18, 23]},
+ "spawns": {
+  "vao": [
+   18,
+   23
+  ]
+ },
  "portals": [],
- "npcs": [{"id": "truong-thon", "at": [16, 17]}, {"id": "tieu-hoa", "at": [20, 20], "unless": "mat-tieu-hoa"}],
+ "npcs": [
+  {
+   "id": "truong-thon",
+   "at": [
+    16,
+    17
+   ]
+  },
+  {
+   "id": "tieu-hoa",
+   "at": [
+    20,
+    20
+   ],
+   "unless": "mat-tieu-hoa"
+  }
+ ],
  "spawners": [],
- "rooms": []
+ "rooms": [],
+ "hoi": {
+  "do": [
+   [
+    "tk.cay-anh-dao-m",
+    12.1,
+    18.1
+   ]
+  ]
+ }
 }

@@ -75,6 +75,7 @@ export function createBayCanh(game) {
     try {
       const v = await saveLayout(id, B.list, game.bayVer?.[id]);
       game.bayVer[id] = v; B.dirty = false; B.undo = [];
+      try { const c = JSON.parse(localStorage.getItem('p2d_bay_cache') || '{}'); c[id] = { items: B.list, ver: v }; localStorage.setItem('p2d_bay_cache', JSON.stringify(c)); } catch { /* máy chặn lưu */ }   // bản nhớ trong máy (bay-canh-start.js)
       game.toast(`Đã lưu ${game.map.def.name || id} (bản ${v}) — người chơi vào bản đồ này sẽ thấy ngay.`, 2.6);
     } catch (err) { game.toast('Chưa lưu được: ' + (err.message || err), 3); }
     paint();

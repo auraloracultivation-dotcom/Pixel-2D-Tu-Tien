@@ -2,6 +2,10 @@
 // và thay vào bản đồ. Chỉ tài khoản có quyền bày (máy chủ trả lời) mới tải thêm bảng bày cảnh (src/ui/bay-canh.js).
 // Nạp src/net/bay-dao.js lúc cần (nó kéo thư viện máy chủ từ mạng): nạp thẳng lúc khởi động thì mạng chặn thư viện là game không mở được.
 
+// Nhớ bố cục mới nhất trong máy (chủ dự án 09/11/2026 16:55: vào động phủ thấy đồ đổi chỗ giữa chừng): lần sau mở game dùng ngay
+// bản nhớ, khỏi chờ mạng rồi mới thay đồ. Bố cục chủ dự án đã bày cũng được ghi vào data/maps (def.hoi.do) mỗi lần cập nhật game.
+const KEY = 'p2d_bay_cache';
+
 export function applyLayouts(game, all) {
   game.bayVer = game.bayVer || {};
   for (const [id, L] of Object.entries(all || {})) {
@@ -14,6 +18,7 @@ export function applyLayouts(game, all) {
 }
 
 export function startBayCanh(game) {
+  try { const c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c) applyLayouts(game, c); } catch { /* máy chặn lưu: dùng data/maps */ }
   let done = false;
   const tick = async () => {
     if (done || !game.save || game.save.guest) return;
@@ -21,7 +26,7 @@ export function startBayCanh(game) {
     let N;
     try { N = await import('../net/bay-dao.js'); } catch { return; }
     const { layoutsAll, canArrange } = N;
-    try { applyLayouts(game, await layoutsAll()); } catch { /* không mạng: dùng bố cục có sẵn trong data/maps */ }
+    try { const all = await layoutsAll(); applyLayouts(game, all); try { localStorage.setItem(KEY, JSON.stringify(all)); } catch { /* đầy bộ nhớ */ } } catch { /* không mạng: dùng bố cục có sẵn trong data/maps */ }
     try {
       if (await canArrange()) (await import('./bay-canh.js')).createBayCanh(game);
     } catch { /* không có quyền hoặc lỗi mạng: không hiện nút */ }

@@ -17,7 +17,7 @@ import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
 import { drawAmbient } from './draw-ambient.js';
 import { drawHoiFlat, hoiEnts, drawHoiItem } from './draw-hoi.js';
-import { drawHoiSky } from './draw-hoi-sky.js';
+import { drawHoiSky } from './draw-hoi-sky.js'; import { drawVeil } from './world-veil.js';   // màn che lúc tải bản đồ
 import { drawDatGlints } from '../world/draw-dat.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -371,7 +371,7 @@ export function drawWorld(game, screen, t) {
 export function drawOverlay(game, screen, input) {
   const ctx = screen.ctx;
   screen.screenTransform();
-  if (!game.map || game.dialog.open) return;
+  if (drawVeil(ctx, game, screen) || !game.map || game.dialog.open) return;   // màn che lúc bản đồ chưa tải xong (world-veil.js)
   drawBanner(ctx, game, screen);
   // Mũi tên chỉ đường tới mục tiêu nhiệm vụ
   const c = guideTarget(game);   // việc đang chọn ở khung mục tiêu (src/game/guide.js), mặc định truyện chính
