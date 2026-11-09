@@ -6,6 +6,7 @@ import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.
 import { duelThink } from './duel-ai.js';
 import { tickDummy } from './dummy.js';
 import { tickMang } from './thien-mang.js';
+import { reachOf, spreadMobs } from './mob-power.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -29,21 +30,6 @@ export function scaleMobBy(game, m, mul, tag) {   // tag: chữ trước tên (v
   const q = game.data.dungeon.reward_tier ** Math.log2(mul);
   m.def = { ...m.def, hp: Math.max(1, Math.round(m.def.hp * mul)), atk: Math.max(0.1, Math.round(m.def.atk * mul * 10) / 10), qi: Math.round((m.def.qi || 0) * q), name: tag ? `${tag} ${m.def.name}` : m.def.name };
   m.hp = m.maxHp = m.def.hp; m.elite = mul > 1 ? mul : 0;
-}
-
-// Độ khó theo đảo (chủ dự án 09/11/2026 09:12: "lực chiến xuyên suốt game đều onehit"; data/config.json → toughen): quái mọc
-// từ bãi có máu = công người chơi × hits (boss: hits_boss), kẹp giữa máu gốc và máu gốc × max_mul của đảo. Đúng tầm đảo cần
-// khoảng hits nhát; mạnh vượt xa đảo thì chạm trần, vẫn chém một hai nhát. Linh khí (Linh Thạch rơi tính theo linh khí) nhân
-// theo (máu mới / máu gốc) ^ qi_pow để tốc độ lên cấp không chậm lại. Quái của đồng đội (remote), bản sao so tài không đổi.
-export function toughen(game, m) {
-  const T = game.data.config.toughen;
-  if (!T?.on || m.remote || m.duel || m.def.ai === 'dummy') return;
-  const max = T.maps?.[game.map?.id] ?? T.max_mul, atk = game.player?.st?.atk || 0;
-  const hp = Math.min(atk * (m.def.ai === 'boss' ? T.hits_boss : T.hits), m.def.hp * max);
-  if (!(hp > m.def.hp)) return;
-  const k = hp / m.def.hp;
-  m.def = { ...m.def, hp: Math.round(hp), qi: Math.round((m.def.qi || 0) * k ** T.qi_pow) };
-  m.hp = m.maxHp = m.def.hp;
 }
 
 function moveToward(game, m, tx, ty, speed, dt) {
@@ -100,6 +86,7 @@ export function updateMobs(game, dt) {
     else if (m.aggro) meleeThink(game, m, d, dt);
     else wander(game, m, dt);
   }
+  spreadMobs(game, dt);   // quái đuổi đẩy nhau ra, không chồng một đống (mob-power.js)
   game.mobs = game.mobs.filter(m => !m.dead);
 }
 
@@ -115,7 +102,7 @@ function wander(game, m, dt) {
 }
 
 function meleeThink(game, m, d, dt) {
-  const p = m.tgt || game.player, reach = m.r + p.r + m.def.reach;
+  const p = m.tgt || game.player, reach = m.r + p.r + reachOf(game, m);   // tầm vồ dài thêm, đứng cách người chơi (mob-power.js)
   if (m.state === 'windup') {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;

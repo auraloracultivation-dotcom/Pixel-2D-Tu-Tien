@@ -3,7 +3,8 @@ import { fitBag } from './autoequip.js';
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
-import { spawnMob, updateMobs, scaleMobBy, toughen } from './mobs.js';
+import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
+import { zonePower } from './mob-power.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
@@ -315,8 +316,8 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
+      zonePower(game, m);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp)
       if (s.mul && s.mul !== 1) scaleMobBy(game, m, s.mul, s.tag);
-      toughen(game, m);   // độ khó theo đảo (mobs.js, config.toughen)
       if (s.farm) { m.lootMul = data.planets.farm.loot; m.farm = true; }
       maybeRare(game, m); s.alive.push(m);
     }

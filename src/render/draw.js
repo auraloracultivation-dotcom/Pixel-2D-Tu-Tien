@@ -33,6 +33,7 @@ import { drawNameShield } from './draw-pvp-tag.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
+import { drawMobBar } from './draw-mob-bar.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
 import { drawFlyWeapon } from './draw-flyweapon.js';
@@ -176,11 +177,7 @@ function drawMob(ctx, m, t, game) {
   }
   if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - (m.top || r * 2) - 3 + Math.sin(t * 6 + i * 2), 1); }
   if (m.slowT > 0) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
-  if (m.hp < m.maxHp && m.def.ai !== 'boss') {
-    const hy = m.y - (m.top || r * 2) - 5;
-    ctx.fillStyle = INK; ctx.fillRect(m.x - 7, hy, 14, 2.5);
-    ctx.fillStyle = '#e0484a'; ctx.fillRect(m.x - 7, hy, 14 * Math.max(0, m.hp / m.maxHp), 2.5);
-  }
+  drawMobBar(ctx, game, m);   // thanh máu, lực chiến (draw-mob-bar.js)
 }
 
 function drawTele(ctx, m) {
