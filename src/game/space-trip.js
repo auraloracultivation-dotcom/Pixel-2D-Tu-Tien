@@ -64,7 +64,7 @@ export function updateSpace(game, tr, dt) {
       addCoins(game, n, 'sao-vang'); sp.gold += n; sp.pops.push({ text: c.texts.gold.replace('{n}', n), t: 0, color: '#ffd76a' });
     } else {
       const n = Math.max(1, Math.round(qiNeed(game.save, game.data.realms) * c.star_qi * killQiMul(game.save, game.data.realms)));   // giảm theo cảnh giới như linh khí hạ quái, kẻo bay qua lại lợi hơn đánh quái
-      game.gainQi(n, 0, 0, true); sp.got++; sp.pops.push({ text: c.texts.qi.replace('{n}', n), t: 0, color: '#bff4ff' });
+      const g = game.gainQi(n, 0, 0, true); sp.got++; sp.pops.push({ text: c.texts.qi.replace('{n}', g), t: 0, color: '#bff4ff' });
     }
     game.sfx?.('pickup');
   }

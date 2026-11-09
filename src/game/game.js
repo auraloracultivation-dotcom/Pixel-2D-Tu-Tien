@@ -134,11 +134,11 @@ export function createGame(data, screen, input, ui, audio) {
 
   game.gainQi = (amount, x, y, quiet, raw) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí)
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * (!raw && (game.save.qiX2 || 0) > Date.now() ? 2 : 1) * (game.daoLuMul?.() || 1) * 10) / 10;   // đạo lữ +5% (src/game/daolu.js)
-    const broke = addQi(game.save, data.realms, amount);
+    const got = Math.round(amount * (data.realms.qi_rate ?? 1) * 100) / 100, broke = addQi(game.save, data.realms, got);   // qi_rate: mọi nguồn linh khí (data/realms.json); công pháp, linh thú, bạn đồng hành vẫn nhận kinh nghiệm theo số gốc
     gainTechExp(game, amount);
     gainPetExp(game, amount);
     gainCompExp(game, amount);
-    if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
+    if (!quiet) addNumber(game, x, y - 18, `+${got} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
       checkUnlocks(game);
@@ -150,7 +150,7 @@ export function createGame(data, screen, input, ui, audio) {
       game.capWarned = true;
       game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
-    game.persist();
+    game.persist(); return got;
   };
 
   game.onKill = m => {

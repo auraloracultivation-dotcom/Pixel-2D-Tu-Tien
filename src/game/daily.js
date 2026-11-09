@@ -72,7 +72,7 @@ export function grant(game, r, why = 'thuong') {   // why: mã lý do Lịch s�
     if (addItem(data, save, it)) { got.push(`[${rarityOf(data.items, it.rarity).name}] ${itemName(data, it)}`); game.newItems = (game.newItems || 0) + 1; }
     else got.push('(túi đầy, mất trang bị)');
   }
-  if (r.qi) { game.gainQi(r.qi, game.player.x, game.player.y); got.push(`${r.qi} linh khí`); }
+  if (r.qi) got.push(`${game.gainQi(r.qi, game.player.x, game.player.y)} linh khí`);
   game.refreshStats(); game.persist();
   return got;
 }
