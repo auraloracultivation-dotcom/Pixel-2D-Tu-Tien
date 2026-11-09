@@ -72,14 +72,16 @@ export function paintNature(c, map, hash, N, tiles) {
     const l = d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11;
     d[i] += (l - d[i]) * N.desat; d[i + 1] += (l - d[i + 1]) * N.desat; d[i + 2] += (l - d[i + 2]) * N.desat;
   }
-  const W = N.water, P = N.path;
-  if (W && map.def.grid.some(r => r.includes('='))) {
+  const P = N.path;
+  for (const [ch, key] of Object.entries(N.liquids || { '=': 'water' })) {   // nước '=', dung nham 'L': cùng cách bo bờ, màu riêng
+    const W = N[key];
+    if (!W || !map.def.grid.some(r => r.includes(ch))) continue;
     const C = Object.fromEntries(['rim', 'shallow', 'mid', 'deep', 'glint'].map(k => [k, hex(W[k])]));
-    shape(d, cw, map, hash, x => x === '=', W, (i, dep, bx, by) => {
+    shape(d, cw, map, hash, x => x === ch, W, (i, dep, bx, by) => {
       let col = dep === 1 ? C.rim : dep === 2 ? C.shallow : dep === 3 ? C.mid : C.deep;
       if (dep >= 3 && hash(Math.floor(bx / 3) * 5 + 17, by * 3 + 1) < W.glints && hash(bx, by + 9) < 0.8) col = C.glint;   // gợn ngang ngắn
       set(d, i, col);
-    }, x => x !== '=' && !tiles.types[x]?.void);
+    }, x => x !== ch && !tiles.types[x]?.void);
   }
   if (P && map.def.grid.some(r => r.includes(','))) {
     // màu đường lấy theo nền đất của đảo (trung bình), pha thêm tông đất tint phần mix; mép, sáng, sỏi nhân độ sáng
@@ -90,7 +92,7 @@ export function paintNature(c, map, hash, N, tiles) {
     shape(d, cw, map, hash, x => x === ',', P, (i, dep, bx, by) => {
       const h = hash(bx * 3 + 7, by * 5 + 2);
       set(d, i, dep === 1 ? C.edge : h < P.pebbles ? C.pebble : h > 0.62 ? C.light : C.base);
-    }, x => x !== ',' && !solid(x) && x !== '=');
+    }, x => x !== ',' && !solid(x) && !(N.liquids || {})[x]);
   }
   c.putImageData(im, 0, 0);
 }
