@@ -58,7 +58,7 @@ export function drawHoiItem(ctx, game, it, t) {
   }
   const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
   if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
-  if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng/.test(it.id));
+  if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng|phun|suoi/.test(it.id));
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
   if (it.label) signLabel(ctx, game, it, oy);

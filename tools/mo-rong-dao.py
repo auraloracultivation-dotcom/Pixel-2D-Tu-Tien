@@ -39,6 +39,24 @@ CFG = {
                   ['hb.nhu-bang-lon-m', 290, 'Vách Nhũ Băng'], ['hb.han-ngoc-tru-m', 250, 'Trụ Hàn Ngọc']],
         'spokes': 5,
     },
+    'dao-xich-dien': {
+        'base': 'a', 'water': 'L', 'path': ',', 'seed': 5, 'plaza': True,
+        'trees': ['xd.cay-chay-m', 'xd.cay-phong-m', 'xd.cay-than-m', 'xd.cay-den-m', 'xd.truc-do-m', 'xd.cay-hoa-lua-m'],
+        'bush': ['xd.hoa-lua-m', 'xd.bui-co-do-m', 'xd.bui-tro-m', 'xd.nam-lua-m', 'xd.xuong-rong-m', 'xd.bui-chay-m'],
+        'rock': ['xd.da-bazan-m', 'xd.gai-hac-m', 'xd.da-dung-nham-m', 'xd.soi-tro-m', 'xd.tinh-the-lua-m'],
+        'lamp': 'xd.duoc-dong-m', 'sign': 'chung.bien-go',
+        'marks': [['xd.thac-dung-nham-m', 30, 'Thác Dung Nham'], ['xd.dai-phun-m', 100, 'Hoả Tuyền'], ['xd.tuong-golem-m', 165, 'Thạch Hoả Vệ'],
+                  ['xd.cong-phuong-m', 235, 'Phượng Hoàng Môn'], ['xd.mieng-khoi-m', 300, 'Miệng Núi Khói']],
+        # phố (đảo này chưa có phố lát): [mã, lệch x, lệch y từ tâm, theo ô]
+        'town': [['xd.dien-chinh-m', 0, -6], ['xd.dien-rong-m', -15, -7], ['xd.dien-nho-m', 15, -7], ['xd.lo-ren-m', -13, 9],
+                 ['xd.nha-dan-m', 13, 9], ['xd.thap-canh-m', 21, 5], ['xd.nha-hac-m', -20, 5], ['xd.ham-mo-m', -22, 14],
+                 ['xd.sap-ren-m', -6, 9], ['xd.sap-tinh-the-m', 14, 4], ['xd.sap-an-m', 6, 9], ['xd.xe-quang-m', -18, 15],
+                 ['xd.dong-than-m', -15, 13], ['xd.thung-hang-m', 18, 14], ['xd.tuong-phuong-m', -9, -4], ['xd.tuong-su-tu-m', 9, -4],
+                 ['xd.vac-lon-m', -8, 5], ['xd.dan-lua-m', 8, 5], ['xd.trong-lua-m', -11, -1], ['xd.chuong-lua-m', 11, -1],
+                 ['xd.tuong-tien-m', 0, -17], ['xd.ban-le-m', 4, -15], ['xd.den-phuong-m', -4, -15], ['xd.vac-lua-m', -3, -3],
+                 ['xd.vac-lua-m', 3, -3], ['xd.ho-dung-nham-m', 24, -14], ['xd.bia-nut-m', -24, -8]],
+        'spokes': 5,
+    },
 }
 
 
@@ -111,8 +129,15 @@ def main(mid):
             s['at'] = [int(cx + math.cos(a) * r), int(cy + math.sin(a) * r)]
     for Y in range(D):
         for X in range(D):
-            if N[Y][X] in '^RTYVFn': N[Y][X] = C['base']   # núi, đá, cây ô vuông bộ cũ (viền đậm, chặn đường): bỏ, cây đá mới đặt bằng đồ
+            if N[Y][X] in '^RTYVFn#': N[Y][X] = C['base']   # núi, đá, cây ô vuông bộ cũ (viền đậm, chặn đường): bỏ, cây đá mới đặt bằng đồ
     d.pop('hamlets', None)
+    if C.get('plaza'):   # đảo chưa có phố lát: sân lát giữa đảo, bốn phố toả ra
+        for Y in range(D):
+            for X in range(D):
+                ddx, ddy = abs(X + 0.5 - cx), abs(Y + 0.5 - cy)
+                if N[Y][X] == '~': continue
+                if ddx < 6 and ddy < 5: N[Y][X] = '2'
+                elif (ddx < 1.6 and 0 < Y + 0.5 - cy < 18) or (ddy < 1.6 and ddx < 24): N[Y][X] = '1'   # phố nam, đông, tây; phía bắc là điện chính
     # 3-5. dọn đồ cũ, cảnh lớn, đường theo đích, đèn, biển, cây (tools/mo_rong_duong.py)
     A = load(ROOT / 'data' / 'art.json')['sprites']
     mobs = {k: v.get('name', k) for k, v in load(ROOT / 'data' / 'mobs.json').items() if isinstance(v, dict)}

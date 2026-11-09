@@ -281,6 +281,9 @@ def _build(save, SRC, BO):
         lights = LH._lights(a) + ([[x, y, 'jade'] for x, y in _jade(a)] if 'jade' in fx else [])
         if lights: m['lights'] = lights
         if 'water' in fx: m['glints'] = LH._glints(a)
+        if 'lava' in fx:   # dung nham: điểm sáng cam chảy xuống như thác (draw-hoi.js glints flow)
+            r, g, b = (a[:, :, i].astype(int) for i in range(3)); ys, xs = np.nonzero((r > 215) & (g > 110) & (b < 110) & (a[:, :, 3] > 0))
+            if len(ys) > 20: pick = np.random.default_rng(len(ys)).choice(len(ys), size=min(26, len(ys) // 8), replace=False); m['glints'] = [[int(xs[i]), int(ys[i])] for i in pick]
         if 'fire' in fx:
             f = LH._flame(a)
             if f: m['flame'] = f

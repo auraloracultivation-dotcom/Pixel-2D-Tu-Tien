@@ -238,6 +238,7 @@ function housePiece(map, tx, ty, ch) {
 
 // Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
 export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
+  if (map.def.prop_hide?.includes(ch)) return true;   // bản đồ đã thay hình ô này bằng đồ mới (động phủ: lò, bồ đoàn)
   if (ch === '^') return drawPeak(ctx, game, map, tx, ty, h);
   if (WALLS[ch]) return drawWallTile(ctx, game, map, ch, tx, ty, h);
   if (ch === 'S') return drawSpiritStone(ctx, game, map, tx, ty, t);

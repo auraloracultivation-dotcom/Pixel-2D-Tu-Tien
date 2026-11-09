@@ -70,6 +70,9 @@ def lay(d, N, C, A, rnd, ctx):
             a = rnd.random() * 2 * math.pi; q = rnd.random() * r
             if put(i, x + math.cos(a) * q, y + math.sin(a) * q, gap, label, margin): return True
         return False
+    # 1b. phố (khai sẵn trong CFG town): đặt gần chỗ định, sát phố
+    for i, dx, dy in C.get('town', []):
+        if not near(i, cx + dx, cy + dy, 2.5, 50, gap=1.0, margin=0): print('  không đủ chỗ phố', i)
     # 2. cảnh lớn ở vòng ngoài
     dests = []   # (x, y, tên, loại)
     ring = (rtown + R) / 2 + 1
