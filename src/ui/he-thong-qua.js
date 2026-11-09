@@ -87,8 +87,9 @@ export function renderGacha(game, body, ht, onDone) {
     for (const f of list) {
       const p = H.pool.find(x => x.id === f.qua); if (!p) continue;
       const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
-      // chủ dự án 09/11/2026 10:32: ghi số lần bạo kích ngay đầu, kiểu "4x 2.000.000", "3x Hồi Xuân Đan ×40"
-      const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? f.nd.coins.toLocaleString('vi-VN') : L.name;
+      // chủ dự án 09/11/2026 10:32: ghi số lần bạo kích ngay đầu, kiểu "4x 2.000.000", "3x Hồi Xuân Đan" (bỏ "×n" sau tên cho khỏi
+      // hiểu nhầm nhân hai lần)
+      const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? f.nd.coins.toLocaleString('vi-VN') : bk > 1 ? L.name.replace(/ ×\d+$/, '') : L.name;
       const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, `${bk > 1 ? bk + 'x ' : ''}${what}`));
       t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
       row.title = `${f.ten}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t); feed.append(row);
