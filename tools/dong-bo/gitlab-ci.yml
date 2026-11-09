@@ -2,11 +2,14 @@
 # Máy làm việc của Claude chỉ gửi được code qua công cụ GitLab (mỗi lần ít); ảnh, data lớn đã nằm trên trang game
 # (www.pixel2dtutien.com, đưa lên bằng tools/deploy-vercel.sh) thì job này tải về, kiểm mã git từng tệp khớp danh sách
 # tools/dong-bo/ds.txt (dòng: "<mã git blob> <đường dẫn>"), khớp hết mới commit và đẩy vào nhánh đang chạy.
-# Chạy bằng tay (Build → Pipelines → Run pipeline, biến DONG_BO=1) hoặc Claude gọi qua công cụ GitLab.
+# Chạy bằng tay (Build → Pipelines → Run pipeline) hoặc Claude gọi qua công cụ GitLab. Đẩy vào kho cần bật Settings → CI/CD →
+# Job token permissions → "Allow Git push requests to the repository".
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "api"'   # chỉ khi bấm Run pipeline hoặc gọi qua API; đẩy code không tạo pipeline (khỏi thư báo lỗi)
+
 dong-bo:
   image: alpine:3.20
-  rules:
-    - if: '$DONG_BO == "1"'
   script:
     - apk add --no-cache git curl
     - git config user.name "Claude (dong-bo)"; git config user.email "noreply@anthropic.com"
