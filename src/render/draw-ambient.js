@@ -41,10 +41,21 @@ export function drawAmbient(ctx, game, view, t) {
       }
     }
   }
-  // cá quẫy: mỗi nhịp chọn vài ô nước trong khung, vòng gợn loang ra
   const map = game.map, T = map.T, W = game.data.tiles.types;
   const x0 = Math.max(0, Math.floor(view.x0 / T)), x1 = Math.min(map.w - 1, Math.floor(view.x1 / T));
   const y0 = Math.max(0, Math.floor(view.y0 / T)), y1 = Math.min(map.h - 1, Math.floor(view.y1 / T));
+  // nhúm cỏ: lâu lâu một nhúm trên ô cỏ / tuyết trống (chủ dự án 09/11/2026 13:15), 3-5 lá lắc nhẹ theo gió, màu theo nền đảo
+  const G = A.grass, gc = G && (G.colors[map.id] || G.colors._);
+  if (gc) for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
+    if (!G.on.includes(map.at(tx, ty)) || h1(tx * 73.1 + ty * 19.7) > G.p) continue;
+    const bx = (tx + 0.2 + h1(tx + ty * 3.3) * 0.6) * T, by = (ty + 0.5 + h1(tx * 2.1 + ty) * 0.4) * T, n = 3 + Math.floor(h1(tx * 5 + ty) * 3);
+    for (let i = 0; i < n; i++) {
+      const lx = bx + (i - n / 2) * 1.3, hh = 3 + h1(tx + i * 7 + ty) * 3, sw = Math.sin(t * 1.4 + tx * 0.7 + ty * 0.3) * 0.9 * (hh / 5);
+      ctx.globalAlpha = 1; ctx.fillStyle = gc[i % 2];
+      ctx.fillRect(lx, by - hh * 0.5, 1, hh * 0.5); ctx.fillRect(lx + sw, by - hh, 1, hh * 0.5);
+    }
+  }
+  // cá quẫy: mỗi nhịp chọn vài ô nước trong khung, vòng gợn loang ra
   const span = (x1 - x0 + 1) * (y1 - y0 + 1);
   if (span > 0 && !low) for (let k = 0; k < A.fish; k++) {
     const slot = Math.floor(t / A.fish_every + k * 0.37), u = (t / A.fish_every + k * 0.37) % 1, r = Math.floor(h1(slot * 13 + k) * span);

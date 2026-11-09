@@ -11,6 +11,8 @@ Cách làm:
 Mọi đồ đặt có kiểm chỗ: không đè đường, nước, cổng, NPC, chỗ xuất hiện, bãi quái, và cách nhau tối thiểu GAP ô (không chật).
 Cấu hình từng đảo ở CFG dưới đây (mã hình trong data/art.json)."""
 import json, math, random, sys
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
+from mo_rong_duong import lay  # noqa: E402
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -107,90 +109,14 @@ def main(mid):
         if inkhu(x, y) or math.hypot(x - cx, y - cy) < rtown - 4:
             a = math.atan2(y - cy, x - cx); r = rtown + 5
             s['at'] = [int(cx + math.cos(a) * r), int(cy + math.sin(a) * r)]
-    # 3. đường mòn: vòng quanh đảo + đường toả từ mép phố
-    ring_r = (rtown + R) / 2 + 1
-    def paint(x, y, w=1):
-        for a in range(-w, w + 1):
-            for b in range(-w, w + 1):
-                X, Y = int(x + a), int(y + b)
-                if 0 <= X < D and 0 <= Y < D and N[Y][X] == C['base']: N[Y][X] = C['path']
-    for i in range(720):
-        a = i / 720 * 2 * math.pi; r = ring_r + math.sin(a * 5 + C['seed']) * 1.2
-        paint(cx + math.cos(a) * r, cy + math.sin(a) * r, 1)
-    ang0 = rnd.random() * 360
-    spoke_ang = [ang0 + i * 360 / C['spokes'] + rnd.uniform(-12, 12) for i in range(C['spokes'])]
-    for a in spoke_ang:
-        ar = math.radians(a)
-        for r10 in range(int((rtown - 8) * 10), int(ring_r * 10)):
-            r = r10 / 10; w = math.sin(r * 0.6 + a) * 0.8
-            paint(cx + math.cos(ar) * r - math.sin(ar) * w, cy + math.sin(ar) * r + math.cos(ar) * w, 1)
-    # 4. hồ nhỏ ở vòng ngoài
-    pa = math.radians(ang0 + 360 / C['spokes'] / 2); pr = ring_r + 4.5
-    px_, py_ = cx + math.cos(pa) * pr, cy + math.sin(pa) * pr
     for Y in range(D):
         for X in range(D):
-            if ((X + 0.5 - px_) / 3.6) ** 2 + ((Y + 0.5 - py_) / 2.6) ** 2 < 1 and N[Y][X] == C['base']: N[Y][X] = C['water']
-    # 5. đặt đồ có kiểm chỗ
+            if N[Y][X] in '^RTYVFn': N[Y][X] = C['base']   # núi, đá, cây ô vuông bộ cũ (viền đậm, chặn đường): bỏ, cây đá mới đặt bằng đồ
+    d.pop('hamlets', None)
+    # 3-5. dọn đồ cũ, cảnh lớn, đường theo đích, đèn, biển, cây (tools/mo_rong_duong.py)
     A = load(ROOT / 'data' / 'art.json')['sprites']
-    def size(i): s = A[i]; k = s.get('scale', 1); return s['w'] * k / 16, s['h'] * k / 16
-    boxes = []
-    for it in d.get('hoi', {}).get('do', []):
-        if it[0] in A: w, h = size(it[0]); boxes.append((it[1] - w / 2, it[2] - min(h, 2), it[1] + w / 2, it[2]))
-    keep = [tuple(v) for v in d['spawns'].values()] + [tuple(p['at']) for p in d['portals']] + [tuple(n['at']) for n in d['npcs']]
-    keep += [tuple(s['at']) for s in d['spawners']]
-    def free(i, x, y, gap=GAP):
-        w, h = size(i); x0, y0, x1, y1 = x - w / 2, y - min(h, 2.2), x + w / 2, y
-        for Y in range(int(y0) - 1, int(y1) + 1):
-            for X in range(int(x0), int(x1) + 1):
-                if not (0 <= X < D and 0 <= Y < D) or N[Y][X] != C['base']: return False
-        if math.hypot(x - cx, y - cy) > R - 3.2 or inkhu(x, y): return False
-        for kx, ky in keep:
-            if x0 - 1.5 <= kx <= x1 + 1.5 and y0 - 2 <= ky <= y1 + 2: return False
-        for a0, b0, a1, b1 in boxes:
-            if a0 - gap < x1 and a1 + gap > x0 and b0 - gap < y1 and b1 + gap > y0: return False
-        return True
-    added = []
-    def put(i, x, y, gap=GAP, label=None):
-        if i not in A or not free(i, x, y, gap): return False
-        w, h = size(i); boxes.append((x - w / 2, y - min(h, 2), x + w / 2, y))
-        e = [i, round(x, 1), round(y, 1)] + ([label] if label else []); added.append(e); return True
-    def near(i, x, y, r=3.5, tries=40, gap=GAP, label=None):
-        for _ in range(tries):
-            a = rnd.random() * 2 * math.pi; q = rnd.random() * r
-            if put(i, x + math.cos(a) * q, y + math.sin(a) * q, gap, label): return True
-        return False
-    # cảnh lớn ven vòng đường, mỗi cảnh một biển gỗ và đèn
-    for i, ang, name in C['marks']:
-        done = False
-        for da in (0, 8, -8, 16, -16, 24, -24, 32, -32):   # cảnh to: chỗ đúng hướng chưa đủ rộng thì xoay dần sang hai bên
-            ar = math.radians(ang + da)
-            for dr in (4, -4.5, 5.5, -6, 3, -3, 7):
-                if near(i, cx + math.cos(ar) * (ring_r + dr), cy + math.sin(ar) * (ring_r + dr), 3, 30):
-                    e = added[-1]; near(C['sign'], e[1] + 2.5, e[2] + 1, 2.5, gap=0.6, label=name); near(C['lamp'], e[1] - 3, e[2] + 0.5, 2, gap=0.6)
-                    done = True; break
-            if done: break
-        if not done: print('  không đủ chỗ cho cảnh', name)
-    # biển gỗ ở đầu mỗi đường mòn (mép phố)
-    for a in spoke_ang:
-        ar = math.radians(a); r = rtown - 2
-        mk = min(C['marks'], key=lambda m: abs((m[1] - a + 180) % 360 - 180))   # ghi tên cảnh gần hướng đường mòn này nhất
-        near(C['sign'], cx + math.cos(ar) * r + 2 * math.sin(ar), cy + math.sin(ar) * r - 2 * math.cos(ar), 3, gap=0.6, label='→ ' + mk[2])
-    # đèn đá thưa dọc vòng đường
-    for k in range(12):
-        ar = math.radians(k * 30 + 15)
-        near(C['lamp'], cx + math.cos(ar) * (ring_r + 2.4), cy + math.sin(ar) * (ring_r + 2.4), 1.5, gap=1)
-    # lùm cây: 3-5 cây cùng loại pha một loại khác, bụi và đá quanh lùm
-    for g in range(16):
-        a = rnd.random() * 2 * math.pi; r = rnd.uniform(rtown + 1.5, R - 3)
-        gx, gy = cx + math.cos(a) * r, cy + math.sin(a) * r
-        t0, t1 = rnd.choice(C['trees']), rnd.choice(C['trees'])
-        for _ in range(rnd.randint(3, 5)): near(t0 if rnd.random() < 0.7 else t1, gx, gy, 4.5, 25)
-        for _ in range(rnd.randint(1, 3)): near(rnd.choice(C['bush']), gx, gy, 5.5, 20, gap=0.8)
-        if rnd.random() < 0.6: near(rnd.choice(C['rock']), gx, gy, 6, 20, gap=0.8)
-    for _ in range(14):   # đá, bụi lẻ rải thưa
-        a = rnd.random() * 2 * math.pi; r = rnd.uniform(rtown + 1, R - 2.5)
-        near(rnd.choice(C['rock'] + C['bush']), cx + math.cos(a) * r, cy + math.sin(a) * r, 2, 15, gap=1.2)
-    d.setdefault('hoi', {}).setdefault('do', []).extend(added)
+    mobs = {k: v.get('name', k) for k, v in load(ROOT / 'data' / 'mobs.json').items() if isinstance(v, dict)}
+    added = range(lay(d, N, C, A, rnd, {'R': R, 'rtown': rtown, 'inkhu': inkhu, 'mobs': mobs}))
     d['grid'] = [''.join(r) for r in N]
     d['planet']['d'] = D; d['planet']['grown'] = {'s': S, 'from': d0, 'note': 'tools/mo-rong-dao.py 09/11/2026'}
     txt = json.dumps(d, ensure_ascii=False, indent=1)
@@ -204,11 +130,15 @@ def main(mid):
     if ch: sp.write_text(json.dumps(st, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if fest:   # phố hội: khung khu, điểm dừng của khách [x, y(, nhìn x, nhìn y)], chỗ bán hàng [người, x, y] giãn theo
         fest['khu'] = khu
+        for t in fest.get('tro', []):   # trò diễn gắn đồ bộ cũ (đã bỏ) chuyển sang đồ bộ mới
+            t['item'] = {'tk.trong-lon': 'tk.trong-rong-m', 'tk.tran-bat-quai': 'tk.tuong-rong-m', 'tk.loi-dai-co': 'tk.dien-phu-m'}.get(t['item'], t['item'])
+            if t['kind'] == 'ty-vo' and t['item'] == 'tk.dien-phu-m': t['dy'] = 22   # tỷ võ trên sân trước điện phụ
+            if t['kind'] == 'trong': t['dx'] = -22
         k = fest.get('khach', {})
         if k.get('nodes'): k['nodes'] = [[round(v * S + off, 1) for v in n] for n in k['nodes']]
         if k.get('ban'): k['ban'] = [[b[0]] + [round(v * S + off, 1) for v in b[1:3]] + b[3:] for b in k['ban']]
         (ROOT / 'data' / 'le-hoi.json').write_text(json.dumps(L, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print(mid, f'{d0} → {D} ô, thêm {len(added)} món, {C["spokes"]} đường mòn, bãi quái {len(d["spawners"])}')
+    print(mid, f'{d0} → {D} ô, thêm {len(added)} món, bãi quái {len(d["spawners"])}')
 
 
 if __name__ == '__main__':

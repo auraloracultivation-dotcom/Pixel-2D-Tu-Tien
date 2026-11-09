@@ -468,10 +468,10 @@
    "tro": [
     {
      "_note": "Trò diễn (src/game/hoi-tro.js, vẽ src/render/draw-hoi-tro.js): item món gắn trò, dx dy lệch từ chân món. ty-vo: a b hình hai đệ tử, gap khoảng cách, blows số đòn mỗi hiệp, mau giấy màu. trong: a người đánh trống, face hướng, beat nhịp (mỗi ô 0,3 giây). mua-kiem: a người múa, r bán kính vòng, sword hình kiếm bay quanh.",
-     "item": "tk.loi-dai-co",
+     "item": "tk.dien-phu-m",
      "kind": "ty-vo",
      "dx": 0,
-     "dy": -44,
+     "dy": 22,
      "gap": 24,
      "blows": 5,
      "a": "hero.y-thien-kiem-bao-nam",
@@ -486,9 +486,9 @@
      ]
     },
     {
-     "item": "tk.trong-lon",
+     "item": "tk.trong-rong-m",
      "kind": "trong",
-     "dx": -36,
+     "dx": -22,
      "dy": 3,
      "a": "hero.y-thanh-sam-nam",
      "face": 1,
@@ -508,7 +508,7 @@
      ]
     },
     {
-     "item": "tk.tran-bat-quai",
+     "item": "tk.tuong-rong-m",
      "kind": "mua-kiem",
      "dx": 0,
      "dy": -2,
@@ -1139,6 +1139,7 @@
  },
  "_kinds": "kinds khớp phần sau tiền tố tinh cầu (hb.cay khớp cả tk.cay-...), khoá dài nhất thắng.",
  "anim": {
+  "co-thu": "sway",
   "_note": "Chuyển động của đồ hội theo tên (phần sau tiền tố tinh cầu, khoá dài nhất thắng), vẽ ở src/render/draw-hoi-tro.js: wave cờ bay, swing đèn treo đung đưa, float kiếm bay nhấp nhô, pulse trận pháp sáng tắt, trong trống nảy theo nhịp; sway cây, trúc lắc theo gió (gốc đứng yên, ngọn lệch nhiều nhất), sway-s bụi cỏ lắc nhẹ (chủ dự án 09/11/2026 12:00: \"những thứ có chuyển động như cây cối tự code\"). Khói (smoke trong data/art.json) vẽ ở src/render/draw-hoi.js.",
   "cay-": "sway",
   "truc": "sway",

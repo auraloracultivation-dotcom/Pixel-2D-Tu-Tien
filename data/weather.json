@@ -239,6 +239,21 @@
   ],
   "embers": 3,
   "fish": 3,
-  "fish_every": 2.6
+  "fish_every": 2.6,
+  "grass": {
+   "_note": "nhúm cỏ vẽ bằng code: p tỉ lệ ô có cỏ, on ký tự ô nền được mọc, colors theo bản đồ (_ mặc định) hai màu lá",
+   "p": 0.06,
+   "on": ".w",
+   "colors": {
+    "_": [
+     "#6fa064",
+     "#8cc078"
+    ],
+    "dao-han-bang": [
+     "#c8d8e8",
+     "#e8f0f8"
+    ]
+   }
+  }
  }
 }
