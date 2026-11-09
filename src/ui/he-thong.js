@@ -215,6 +215,7 @@ export function createHeThong(game) {
   if (wander) {
     let t0 = performance.now();
     const loop = t => {
+      if (t - t0 < 32) { requestAnimationFrame(loop); return; }   // tối đa ~30 lần/giây (máy nóng, 09/11/2026)
       const dt = Math.min(0.1, (t - t0) / 1000); t0 = t;
       if (!ic.hidden) {
         const p = wander.step(dt, open || ic.classList.contains('wake') || ic.classList.contains('keo') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
@@ -225,7 +226,8 @@ export function createHeThong(game) {
     };
     requestAnimationFrame(loop);
   }
-  const anim = t => { if (!ic.hidden) drawIcon(cv, C.icon, t / 1000); requestAnimationFrame(anim); };
+  let ta = 0;
+  const anim = t => { if (!ic.hidden && t - ta > 32) { ta = t; drawIcon(cv, C.icon, t / 1000); } requestAnimationFrame(anim); };
   if (!MT) requestAnimationFrame(anim);
   makeDraggable(game, ic, tip, icFace, C.dao || {}, () => wander?.pos || userPos, p => { if (wander) wander.drop(); else userPos = p; });
   createGreeter(game);   // Hệ Thống ra đón ở màn đăng nhập (he-thong-chao.js)

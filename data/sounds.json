@@ -126,32 +126,9 @@
    ]
   },
   "achieve": {"v": 0.45, "rev": 0.35, "L": [{"k": "mallet", "f": 783.99, "t": 0, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 987.77, "t": 0.1, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 1174.66, "t": 0.2, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 1568, "t": 0.3, "d": 1.2, "v": 0.7}]},
-  "swing": {
-   "v": 0.3,
-   "jit": 2,
-   "gap": 0.03,
-   "rev": 0.05,
-   "L": [
-    {
-     "k": "noise",
-     "bp": 1200,
-     "bp2": 3600,
-     "bq": 1.5,
-     "a": 0.02,
-     "d": 0.15,
-     "v": 1,
-     "c": 2
-    },
-    {
-     "k": "noise",
-     "hp": 5000,
-     "d": 0.06,
-     "v": 0.25
-    }
-   ]
-  },
-  "hit": {"_note": "Đòn trúng (09/11/2026 01:28 chủ dự án chê ting ting): tiếng xoẹt lưỡi chém quét từ cao xuống + tiếng thịch trầm, không có cao độ", "v": 0.34, "jit": 1.5, "gap": 0.03, "L": [{"k": "noise", "bp": 3200, "bp2": 900, "bq": 1.2, "a": 0.002, "d": 0.09, "v": 1, "c": 2}, {"k": "osc", "f": 150, "f2": 55, "d": 0.12, "v": 0.9, "c": 2}, {"k": "noise", "lp": 1200, "d": 0.05, "v": 0.5}]},
-  "crit": {"_note": "Chí mạng: xoẹt dài hơn, nện trầm sâu, tiếng nứt chát, răng cưa méo cho gắt (bỏ chuông 1760 Hz)", "v": 0.55, "jit": 0.8, "gap": 0.04, "rev": 0.2, "L": [{"k": "noise", "bp": 4200, "bp2": 1100, "bq": 1, "a": 0.002, "d": 0.14, "v": 1, "c": 1.8}, {"k": "osc", "f": 110, "f2": 38, "d": 0.26, "v": 1, "c": 1.6}, {"k": "noise", "hp": 5000, "d": 0.03, "v": 0.7}, {"k": "osc", "w": "saw", "f": 220, "f2": 80, "lp": 900, "dist": 2, "d": 0.12, "v": 0.3}]},
+  "swing": {"_note": "Vung kiếm (09/11/2026 09:12 chủ dự án: chói tai): gió vút trầm hơn, bỏ tiếng xì cao", "v": 0.22, "jit": 2, "gap": 0.05, "rev": 0.05, "L": [{"k": "noise", "bp": 600, "bp2": 1800, "bq": 1.3, "a": 0.02, "d": 0.14, "v": 1, "c": 2}]},
+  "hit": {"_note": "Đòn trúng (09/11/2026 01:28 chủ dự án chê ting ting): tiếng xoẹt lưỡi chém quét từ cao xuống + tiếng thịch trầm, không có cao độ", "v": 0.24, "jit": 1.5, "gap": 0.05, "L": [{"k": "noise", "bp": 1800, "bp2": 500, "bq": 1.2, "a": 0.003, "d": 0.09, "v": 1, "c": 2}, {"k": "osc", "f": 150, "f2": 55, "d": 0.12, "v": 0.9, "c": 2}, {"k": "noise", "lp": 1200, "d": 0.05, "v": 0.5}]},
+  "crit": {"_note": "Chí mạng: xoẹt dài hơn, nện trầm sâu, tiếng nứt chát, răng cưa méo cho gắt (bỏ chuông 1760 Hz)", "v": 0.42, "jit": 0.8, "gap": 0.06, "rev": 0.2, "L": [{"k": "noise", "bp": 2400, "bp2": 700, "bq": 1, "a": 0.003, "d": 0.14, "v": 1, "c": 1.8}, {"k": "osc", "f": 110, "f2": 38, "d": 0.26, "v": 1, "c": 1.6}, {"k": "noise", "hp": 3000, "d": 0.025, "v": 0.25}, {"k": "osc", "w": "saw", "f": 220, "f2": 80, "lp": 900, "dist": 2, "d": 0.12, "v": 0.3}]},
   "hurt": {
    "v": 0.42,
    "gap": 0.1,
@@ -1252,7 +1229,7 @@
    9
   ],
   "zither": 0.16,
-  "arp": {"_note": "Nhạc nền rải hợp âm bằng mộc cầm (src/core/music-arp.js; chủ dự án 09/11/2026 01:28 gửi clip mẫu, chê đàn tranh lác đác, tiếng ting ting chán). on: bật (tắt thì về đàn tranh cũ). tempo: nhân nhịp từng đảo (khúc trùm giữ nhịp). low: nốt chủ đảo thấp hơn mức này (Hz) thì lên một quãng tám. v: âm lượng mỗi nốt, night: nhân khi đêm. swing: lệch ngẫu nhiên tối đa (giây) cho đỡ máy móc. bass: dây trầm mỗi ô nhịp. pad: nền dây ngân (v, lp lọc thấp Hz) vào từ ô nhịp pad_from. prog: bậc hợp âm theo ô nhịp (thứ: i – VI – III – VII; trưởng: I – V – vi – IV). shapes: 8 nốt rải mỗi ô nhịp, bậc tính từ nốt chủ hợp âm (0 chủ, 2 ba, 4 năm, 7 quãng tám…), đổi hình sau mỗi vòng hợp âm. 09/11/2026 08:48 chủ dự án chọn bản 5 \"Mưa đêm lấp lánh\" trong 5 bản thử (nhịp 120, nốt cao trong, nền ngân từ ô nhịp đầu, vọng dài). 01:39 (clip \"có cảm giác nước và bong bóng\"): voice kiểu nốt (bubble: bọt nước, mallet: mộc cầm), bpm: nhịp chung mọi đảo như clip (~144, bỏ thì theo tempo × nhịp đảo), echo: tiếng vọng nảy hai bên (t giây, fb phần hồi, lp lọc, wet), bubbles: mỗi phách xác suất p có bọt nước nổi (v âm lượng).", "on": true, "voice": "bubble", "bpm": 120, "tempo": 1.5, "low": 400, "v": 0.16, "echo": {"t": 0.375, "fb": 0.42, "lp": 2600, "wet": 0.38}, "bubbles": {"p": 0.2, "v": 0.03}, "night": 0.7, "swing": 0.008, "bass": 0.09, "pad": {"v": 0.025, "lp": 1100}, "pad_from": 1, "prog": {"toi": [0, 5, 2, 6], "sang": [0, 4, 5, 3]}, "shapes": [[0, 4, 7, 9, 11, 9, 7, 4], [1, 4, 7, 9, 11, 12, 11, 9], [0, 2, 4, 7, 9, 11, 9, 7], [-3, 0, 4, 7, 9, 11, 9, 7]]},
+  "arp": {"_note": "Nhạc nền rải hợp âm bằng mộc cầm (src/core/music-arp.js; chủ dự án 09/11/2026 01:28 gửi clip mẫu, chê đàn tranh lác đác, tiếng ting ting chán). on: bật (tắt thì về đàn tranh cũ). tempo: nhân nhịp từng đảo (khúc trùm giữ nhịp). low: nốt chủ đảo thấp hơn mức này (Hz) thì lên một quãng tám. v: âm lượng mỗi nốt, night: nhân khi đêm. swing: lệch ngẫu nhiên tối đa (giây) cho đỡ máy móc. bass: dây trầm mỗi ô nhịp. pad: nền dây ngân (v, lp lọc thấp Hz) vào từ ô nhịp pad_from. prog: bậc hợp âm theo ô nhịp (thứ: i – VI – III – VII; trưởng: I – V – vi – IV). shapes: 8 nốt rải mỗi ô nhịp, bậc tính từ nốt chủ hợp âm (0 chủ, 2 ba, 4 năm, 7 quãng tám…), đổi hình sau mỗi vòng hợp âm, null là nghỉ. 09/11/2026 09:12 chủ dự án: nghe 1 phút đầu ong ong, chỉ cần tiếng nước chảy và \"bing bong\" có nhịp như gõ ly thuỷ tinh đựng nước → voice glass, nhịp 96 thưa nốt, bỏ nền dây (pad.v 0), bass nhỏ, vọng ngắn, bọt nước trầm và hiếm, stream: tiếng suối nền (v, bands: [tần số, Q, nhịp trôi Hz, phần]). 08:48 chủ dự án chọn bản 5 \"Mưa đêm lấp lánh\" trong 5 bản thử (nhịp 120, nốt cao trong, nền ngân từ ô nhịp đầu, vọng dài). 01:39 (clip \"có cảm giác nước và bong bóng\"): voice kiểu nốt (bubble: bọt nước, mallet: mộc cầm), bpm: nhịp chung mọi đảo như clip (~144, bỏ thì theo tempo × nhịp đảo), echo: tiếng vọng nảy hai bên (t giây, fb phần hồi, lp lọc, wet), bubbles: mỗi phách xác suất p có bọt nước nổi (v âm lượng).", "on": true, "voice": "glass", "bpm": 96, "tempo": 1.5, "low": 260, "v": 0.12, "echo": {"t": 0.4688, "fb": 0.28, "lp": 1800, "wet": 0.22}, "bubbles": {"p": 0.06, "v": 0.018, "f": 180, "up": 1.6}, "stream": {"v": 0.03, "bands": [[700, 0.7, 0.13, 1], [1600, 1.2, 0.21, 0.45], [350, 0.6, 0.08, 0.8]]}, "night": 0.7, "swing": 0.012, "bass": 0.04, "pad": {"v": 0, "lp": 1100}, "pad_from": 1, "prog": {"toi": [0, 5, 2, 6], "sang": [0, 4, 5, 3]}, "shapes": [[0, null, 4, null, 7, null, 4, null], [2, null, 4, 7, null, 4, null, null], [0, null, 7, null, 4, null, 2, null], [4, null, 7, null, 9, null, 7, null]]},
   "note_gap": 0.06,
   "flute": 0.09,
   "drone": 0.05,

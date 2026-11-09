@@ -119,6 +119,10 @@ const mallets = new Map();
 const TONES = {
   bubble: f => [{ k: 'osc', w: 'sine', f: f * 0.88, f2: f, g: 0.035, d: 2.2, a: 0.025, c: 1.6, v: 1 },
     { k: 'osc', w: 'sine', f: f * 2, d: 0.4, a: 0.02, v: 0.04 }, { k: 'osc', w: 'sine', f: f * 3, d: 0.2, a: 0.02, v: 0.025 }],
+  // ly thuỷ tinh đựng nước gõ nhẹ (chủ dự án 09/11/2026 09:12: nhạc chói, đầu ong ong, chỉ cần "bing bong" như gõ ly nước):
+  // sin chủ + một sin lệch 0,3% cho tiếng rung nước, hai bồi âm kiểu chuông ly (×2,32 ×4,25) rất nhỏ, tắt nhanh hơn nốt chủ
+  glass: f => [{ k: 'osc', w: 'sine', f, d: 1.8, a: 0.004, c: 2.2, v: 0.8 }, { k: 'osc', w: 'sine', f: f * 1.003, d: 1.6, a: 0.004, c: 2.2, v: 0.35 },
+    { k: 'osc', w: 'sine', f: f * 2.32, d: 0.7, a: 0.003, c: 2.6, v: 0.12 }, { k: 'osc', w: 'sine', f: f * 4.25, d: 0.25, a: 0.002, c: 3, v: 0.04 }],
   mallet: f => [{ k: 'mallet', f, d: 2.4, v: 1 }],
 };
 export function malletBuffer(ac, f, kind = 'mallet') {

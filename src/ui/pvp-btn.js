@@ -43,9 +43,10 @@ export function createPvpBtn(game) {
     box.hidden = false; if (!game.uiOpen) game.uiOpen = 'pvp-ask';
   });
 
-  let key = '';
-  const frame = () => {
+  let key = '', tf = 0;
+  const frame = t => {
     requestAnimationFrame(frame);
+    if (t - tf < 32) return; tf = t;   // ~30 lần/giây là đủ bám nhân vật (máy nóng, 09/11/2026)
     const p = game.player, show = !!p && !!game.online && !game.trip && !!game.save && !game.dialog?.open && (!game.uiOpen || game.uiOpen === 'pvp-ask');
     if (!show) { if (!tag.hidden) tag.hidden = true; key = ''; return; }
     const off = !!game.pvp?.off, name = game.online?.me?.name || game.save.name || '', k = `${off}|${name}`;

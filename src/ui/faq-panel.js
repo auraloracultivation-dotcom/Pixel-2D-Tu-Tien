@@ -54,6 +54,6 @@ export function createFaq(game) {
   game.openFaq = open;
 
   // chỉ hiện khi đã vào game và đang thấy HUD (màn đăng nhập, đường bay thì ẩn; bảng đang mở thì CSS ẩn)
-  const paint = () => { const hud = document.getElementById('hud'); btn.hidden = !game.save || !hud || hud.hidden; };
+  const paint = () => { const hud = document.getElementById('hud'); btn.hidden = F.show_btn === false || !game.save || !hud || hud.hidden; };   // show_btn false: chỉ còn trong Hệ Thống → Hỏi đáp
   paint(); setInterval(paint, 700);
 }

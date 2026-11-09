@@ -1,6 +1,6 @@
 {
  "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social). 06/11/2026 17:10: viết lại đầy đủ mọi hạng mục (bản nháp tools/faq-draft.json), bỏ nhóm Mỗi ngày (điểm danh, nhiệm vụ hằng ngày đã bỏ), thêm Hệ Thống, boss Thôn Thiên Mãng, PvP, Hòm thư.",
- "btn": "!",
+ "show_btn": false, "_show_btn": "Chủ dự án 09/11/2026 09:14: bỏ nút ! góc trên phải (Hỏi đáp vẫn ở Hệ Thống → Hỏi đáp).", "btn": "!",
  "label": "Câu hỏi thường gặp",
  "title": "Câu hỏi thường gặp",
  "close": "✕",

@@ -3,7 +3,8 @@
 // hợp âm leo hai quãng tám rồi quay xuống, tiếng tròn như gõ mộc cầm (src/core/synth.js → malletBuffer), dây trầm ngân
 // nốt chủ mỗi ô nhịp, vài ô nhịp sau thì nền dây ngân vào cho dày; vang nhiều. Đảo tối (mood 'toi') giọng thứ, còn lại
 // giọng trưởng. 01:39 chủ dự án: clip "có cảm giác nước và bong bóng" → tiếng nốt kiểu bọt nước (A.voice 'bubble'), tiếng
-// vọng nảy hai bên tai như giọt nước rơi trong hang (A.echo), lác đác tiếng bọt nổi lên (A.bubbles). Hợp âm đi theo prog (bậc trong thang 7 nốt), hình rải theo shapes (bậc tính từ nốt chủ hợp âm).
+// vọng nảy hai bên tai như giọt nước rơi trong hang (A.echo), lác đác tiếng bọt nổi lên (A.bubbles). 09:12: "chói tai, ong ong":
+// tiếng ly thuỷ tinh đựng nước (voice 'glass'), thưa nốt có nhịp (shapes có chỗ nghỉ null), tiếng suối chảy nền (A.stream), bỏ nền dây ngân. Hợp âm đi theo prog (bậc trong thang 7 nốt), hình rải theo shapes (bậc tính từ nốt chủ hợp âm).
 import { malletBuffer } from './synth.js';
 
 const SCALES = { sang: [0, 2, 4, 5, 7, 9, 11], toi: [0, 2, 3, 5, 7, 8, 10] };
@@ -31,10 +32,22 @@ export function createArp(ac, bus, A) {
     s.buffer = malletBuffer(ac, f, A.voice); g.gain.value = v;
     s.connect(g); const o = pan(g, p); o.connect(bus); if (echo !== bus) o.connect(echo); s.start(at);
   }
+  // Tiếng suối chảy (A.stream): hai dải nhiễu lọc, tần số và độ to trôi chậm theo hai nhịp lệch nhau, chạy suốt
+  if (A.stream?.v) {
+    const sr = ac.sampleRate, nb = ac.createBuffer(1, sr * 2, sr), ch = nb.getChannelData(0);
+    for (let i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+    for (const [f, q, rate, v] of A.stream.bands) {
+      const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(), lfo = ac.createOscillator(), lg = ac.createGain(), lfo2 = ac.createOscillator(), lg2 = ac.createGain();
+      s.buffer = nb; s.loop = true; fl.type = 'bandpass'; fl.frequency.value = f; fl.Q.value = q; g.gain.value = A.stream.v * v;
+      lfo.frequency.value = rate; lg.gain.value = f * 0.35; lfo.connect(lg); lg.connect(fl.frequency);
+      lfo2.frequency.value = rate * 1.7; lg2.gain.value = A.stream.v * v * 0.5; lfo2.connect(lg2); lg2.connect(g.gain);
+      s.connect(fl); fl.connect(g); pan(g, (Math.random() - 0.5) * 0.8).connect(bus); s.start(); lfo.start(); lfo2.start();
+    }
+  }
   // Bọt nước nổi: sin vút lên rất nhanh rồi tắt
   function bubble(at) {
-    const o = ac.createOscillator(), g = ac.createGain(), f = 300 + Math.random() * 500;
-    o.frequency.setValueAtTime(f, at); o.frequency.exponentialRampToValueAtTime(f * (2 + Math.random()), at + 0.05);
+    const o = ac.createOscillator(), g = ac.createGain(), f = (A.bubbles.f ?? 300) * (1 + Math.random() * 1.6);
+    o.frequency.setValueAtTime(f, at); o.frequency.exponentialRampToValueAtTime(f * (A.bubbles.up ?? 2) * (1 + Math.random() * 0.5), at + 0.05);
     g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(A.bubbles.v, at + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.07);
     o.connect(g); pan(g, Math.random() * 1.4 - 0.7).connect(bus); o.start(at); o.stop(at + 0.08);
   }
@@ -70,7 +83,7 @@ export function createArp(ac, bus, A) {
     }
     if (A.bubbles && Math.random() < A.bubbles.p) { const k = 1 + Math.floor(Math.random() * 3); for (let i = 0; i < k; i++) bubble(at + Math.random() * beat); }
     if (n % 4) return;
-    bass(deg(base, mood, chord - 14), at, beat * 4.2, A.bass * (night ? A.night : 1));
-    if (bar >= A.pad_from) pad([0, 2, 4].map(x => deg(base, mood, chord + x - 7)), at, beat * 4.4, A.pad.v);
+    if (A.bass) bass(deg(base, mood, chord - 14), at, beat * 4.2, A.bass * (night ? A.night : 1));
+    if (A.pad.v && bar >= A.pad_from) pad([0, 2, 4].map(x => deg(base, mood, chord + x - 7)), at, beat * 4.4, A.pad.v);
   };
 }
