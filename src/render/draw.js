@@ -308,7 +308,7 @@ export function drawWorld(game, screen, t) {
   drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
   for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp (chiêu có hiệu ứng mới vẽ ở lớp trên)
-    if (vfxOf(game, z.sk)) continue;
+    if (z.draw) { z.draw(ctx, z, game); continue; } if (vfxOf(game, z.sk)) continue;   // z.draw: hình riêng (lĩnh vực: render/draw-domain.js)
     const k = 1 - Math.max(0, z.next) / z.tick;
     ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); disc(ctx, z.x, z.y, z.radius, z.color);
     ctx.globalAlpha = 0.6; ring(ctx, z.x, z.y, z.radius, z.color, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.globalAlpha = 1;

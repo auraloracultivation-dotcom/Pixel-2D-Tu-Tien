@@ -7,6 +7,7 @@ import { weaponSlash } from './slash-fx.js';
 import { heroLook } from '../render/draw-hero.js';
 import { castSkill, skillSlots, skillReady } from './skills.js';
 import { chainStep } from './skill-chain.js';
+import { domainHold } from './skill-domain.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
@@ -117,7 +118,7 @@ function strike(game, q) {
   }
 }
 
-// Chiêu chưa dùng được (lướt Thiểm Ảnh không có mục tiêu trong tầm): không trừ linh lực, báo cách nhau 1,5 giây (tự đánh thì im)
+// Chiêu chưa dùng được (lướt Thiểm Ảnh, lĩnh vực không có mục tiêu trong tầm): không trừ linh lực, báo cách nhau 1,5 giây (tự đánh thì im)
 function ready(game, id) {
   if (skillReady(game, id)) return true;
   const p = game.player;
@@ -131,7 +132,7 @@ export function updatePlayer(game, dt) {
   p.skillCd = p.skillCd.map(c => c - dt);
   if (p.shieldT > 0 && (p.shieldT -= dt) <= 0) p.shield = 0;
   if (p.buffT > 0) p.buffT -= dt;
-  if (p.chain && chainStep(game, p, dt)) { updateFlyWeapon(game, dt); manaTick(game, dt); return; }   // đang lướt Thiểm Ảnh (skill-chain.js): bỏ đi lại, đánh
+  if ((p.chain && chainStep(game, p, dt)) || (p.domain && domainHold(game, p))) { updateFlyWeapon(game, dt); manaTick(game, dt); return; }   // đang lướt Thiểm Ảnh (skill-chain.js), giữ lĩnh vực (skill-domain.js): bỏ đi lại, đánh
 
   // Đẩy lùi
   if (p.kx || p.ky) {

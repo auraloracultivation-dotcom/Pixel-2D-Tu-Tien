@@ -13,7 +13,7 @@ export function updateZones(game, dt) {
     if (z.follow) { z.x = (z.foe || p).x; z.y = (z.foe || p).y; }
     if (z.next > 0) continue;
     z.next = z.tick;
-    if (z.foe) { z.onTick(z); continue; }   // vùng chiêu của bản sao so tài (game/duel-cast.js): đánh người chơi, hồi máu bản sao
+    if (z.onTick) { z.onTick(z); continue; }   // vùng tự xử nhịp: vùng chiêu của bản sao so tài (game/duel-cast.js), lĩnh vực (game/skill-domain.js)
     for (const m of game.mobs) {
       if (m.dead || Math.hypot(m.x - z.x, m.y - z.y) > z.radius + m.r) continue;
       hitMob(game, m, z.dmg, { slow: z.slow, color: z.color, canCrit: true, fromX: z.x, fromY: z.y, soft: true });
