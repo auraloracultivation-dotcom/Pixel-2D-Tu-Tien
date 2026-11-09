@@ -62,7 +62,7 @@ export function createBayCanh(game) {
     if (!on && B.dirty) { B.list = JSON.parse(B.undo[0] || JSON.stringify(B.list)); rebuild(); }
     B.on = on; B.sel = null; B.selIdx = -1; B.undo = []; B.dirty = false;
     B.list = on ? JSON.parse(JSON.stringify(game.map.def.hoi?.do || [])) : null;
-    B.mapId = game.map.id;
+    B.mapId = game.map.id; B.cam = on ? { x: game.player.x, y: game.player.y - 4 } : null;
     bar.hidden = !on; btn.classList.toggle('on', on);
     game.auto = false; game.pilot = null;
     if (on) game.player.invT = 1e9; else { game.player.invT = 0; game.screen.zoomTo(1); }
@@ -107,7 +107,7 @@ export function createBayCanh(game) {
   }
   function place(id) {
     const s = game.screen; snap();
-    B.list.push([id, r1(s.camX / T()), r1(s.camY / T() + 1)]);
+    B.list.push([id, r1(s.camX / T()), r1(s.camY / T() + 1)]);   // giữa màn hình
     B.selIdx = B.list.length - 1; rebuild();
   }
 
@@ -158,7 +158,7 @@ export function createBayCanh(game) {
     ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pinch && ptrs.size >= 2) { const [a, b] = [...ptrs.values()]; setZoom(pinch.m * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d); return; }
     if (!drag) return;
-    if (drag.kind === 'pan') { const z = game.screen.zoom, p = game.player; p.x -= (e.clientX - drag.x) / z; p.y -= (e.clientY - drag.y) / z; drag.x = e.clientX; drag.y = e.clientY; game.screen.snap(p.x, p.y - 4); return; }
+    if (drag.kind === 'pan') { const z = game.screen.zoom, c = B.cam; c.x -= (e.clientX - drag.x) / z; c.y -= (e.clientY - drag.y) / z; drag.x = e.clientX; drag.y = e.clientY; game.screen.snap(c.x, c.y); return; }
     const w = world(e), h = B.sel, en = entry();
     if (!h || !en) return;
     h.x = w.x - drag.ox; h.y = w.y - drag.oy; en[1] = r1(h.x / T()); en[2] = r1(h.y / T()); drag.moved = true;
