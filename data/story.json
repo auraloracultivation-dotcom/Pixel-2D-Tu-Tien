@@ -279,10 +279,7 @@
     }
    ],
    "goal": "Việc 3/5: Đả tọa tới Luyện Khí tầng 2",
-   "target": [
-    14,
-    21
-   ],
+   "target": [33, 43],
    "until": {
     "layer": 2
    }

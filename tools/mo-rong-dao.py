@@ -195,6 +195,13 @@ def main(mid):
     d['planet']['d'] = D; d['planet']['grown'] = {'s': S, 'from': d0, 'note': 'tools/mo-rong-dao.py 09/11/2026'}
     txt = json.dumps(d, ensure_ascii=False, indent=1)
     path.write_text(txt + '\n', encoding='utf-8')
+    # đích nhiệm vụ truyện trên bản đồ này (data/story.json steps[].target, until.reach) giãn theo
+    sp = ROOT / 'data' / 'story.json'; st = load(sp); ch = 0
+    for x in st['steps']:
+        if x.get('map') != mid: continue
+        if x.get('target'): x['target'] = [ti(x['target'][0]), ti(x['target'][1])]; ch += 1
+        if x.get('until', {}).get('reach'): x['until']['reach'] = [ti(v) for v in x['until']['reach']]; ch += 1
+    if ch: sp.write_text(json.dumps(st, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if fest:   # phố hội: khung khu, điểm dừng của khách [x, y(, nhìn x, nhìn y)], chỗ bán hàng [người, x, y] giãn theo
         fest['khu'] = khu
         k = fest.get('khach', {})

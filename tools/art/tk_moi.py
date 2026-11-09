@@ -239,7 +239,8 @@ def build(save):
     for k, (src, units) in LON.items():
         B = BO if src in BO else BO_HB
         B[k] = B[src][:2] + (units,) + B[src][3:]
-    return _build(save, SRC, BO) + _build(save, SRC_HB, BO_HB) + houses(save) + sign(save)
+    from bo_xd_dp import BO_XD, BO_DP, SRC_XD, SRC_DP
+    return _build(save, SRC, BO) + _build(save, SRC_HB, BO_HB) + _build(save, SRC_XD, BO_XD) + _build(save, SRC_DP, BO_DP) + houses(save) + sign(save)
 
 
 def sign(save):

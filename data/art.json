@@ -154,6 +154,1010 @@
    ],
    "note": "hoa nhỏ trắng / vàng / hồng"
   },
+  "dp.ao-sen-m": {
+   "file": "assets/art/dp-ao-sen-m.png",
+   "v": "6da7d6f2",
+   "w": 75,
+   "h": 51,
+   "frames": 1,
+   "anchor": [
+    37,
+    49
+   ],
+   "note": "bộ mới dong-phu: moi/s05.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "glints": []
+  },
+  "dp.ban-gia-m": {
+   "file": "assets/art/dp-ban-gia-m.png",
+   "v": "5205ffb0",
+   "w": 68,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "bộ mới dong-phu: moi/s02.png (36 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ban-tho-m": {
+   "file": "assets/art/dp-ban-tho-m.png",
+   "v": "839e3ca5",
+   "w": 64,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    32,
+    55
+   ],
+   "note": "bộ mới dong-phu: moi/s03.png (34 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ban-tra-m": {
+   "file": "assets/art/dp-ban-tra-m.png",
+   "v": "8728a9c1",
+   "w": 65,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    32,
+    39
+   ],
+   "note": "bộ mới dong-phu: moi/s04.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "smoke": [
+    44,
+    0
+   ]
+  },
+  "dp.binh-hoa-m": {
+   "file": "assets/art/dp-binh-hoa-m.png",
+   "v": "22e28850",
+   "w": 37,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    18,
+    51
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (28 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.binh-phong-m": {
+   "file": "assets/art/dp-binh-phong-m.png",
+   "v": "02112c68",
+   "w": 94,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    47,
+    51
+   ],
+   "note": "bộ mới dong-phu: moi/s04.png (50 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.bon-sai-m": {
+   "file": "assets/art/dp-bon-sai-m.png",
+   "v": "81ac7e95",
+   "w": 43,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    21,
+    47
+   ],
+   "note": "bộ mới dong-phu: moi/s05.png (26 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.chan-nen-m": {
+   "file": "assets/art/dp-chan-nen-m.png",
+   "v": "5a2a28fe",
+   "w": 19,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    9,
+    43
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     10,
+     12,
+     "warm"
+    ]
+   ],
+   "flame": [
+    9,
+    5
+   ]
+  },
+  "dp.chau-thao-m": {
+   "file": "assets/art/dp-chau-thao-m.png",
+   "v": "fff23eb2",
+   "w": 68,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    34,
+    41
+   ],
+   "note": "bộ mới dong-phu: moi/s02.png (36 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.cot-bua-m": {
+   "file": "assets/art/dp-cot-bua-m.png",
+   "v": "3c1ecb97",
+   "w": 39,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    19,
+    69
+   ],
+   "note": "bộ mới dong-phu: moi/s09.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     40,
+     "warm"
+    ],
+    [
+     21,
+     22,
+     "warm"
+    ],
+    [
+     33,
+     21,
+     "warm"
+    ],
+    [
+     5,
+     21,
+     "warm"
+    ],
+    [
+     21,
+     4,
+     "warm"
+    ]
+   ]
+  },
+  "dp.cua-go-m": {
+   "file": "assets/art/dp-cua-go-m.png",
+   "v": "4f5f81e6",
+   "w": 135,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    67,
+    98
+   ],
+   "note": "bộ mới dong-phu: moi/s01.png (72 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.cua-phong-an-m": {
+   "file": "assets/art/dp-cua-phong-an-m.png",
+   "v": "0b1f8849",
+   "w": 158,
+   "h": 122,
+   "frames": 1,
+   "anchor": [
+    79,
+    120
+   ],
+   "note": "bộ mới dong-phu: moi/s01.png (84 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     88,
+     78,
+     "cold"
+    ],
+    [
+     129,
+     66,
+     "cold"
+    ]
+   ]
+  },
+  "dp.cua-trang-m": {
+   "file": "assets/art/dp-cua-trang-m.png",
+   "v": "9cd2b027",
+   "w": 150,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    75,
+    114
+   ],
+   "note": "bộ mới dong-phu: moi/s01.png (80 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.da-reu-m": {
+   "file": "assets/art/dp-da-reu-m.png",
+   "v": "487f221c",
+   "w": 64,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    32,
+    48
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (34 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.dai-toa-m": {
+   "file": "assets/art/dp-dai-toa-m.png",
+   "v": "eb1f94e9",
+   "w": 82,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    41,
+    41
+   ],
+   "note": "bộ mới dong-phu: moi/s04.png (44 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.dai-truyen-tong-m": {
+   "file": "assets/art/dp-dai-truyen-tong-m.png",
+   "v": "2841cd2a",
+   "w": 82,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    41,
+    81
+   ],
+   "note": "bộ mới dong-phu: moi/s09.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     53,
+     "cold"
+    ],
+    [
+     39,
+     29,
+     "cold"
+    ],
+    [
+     54,
+     42,
+     "cold"
+    ]
+   ]
+  },
+  "dp.de-m": {
+   "file": "assets/art/dp-de-m.png",
+   "v": "1a6d222c",
+   "w": 45,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    22,
+    39
+   ],
+   "note": "bộ mới dong-phu: moi/s03.png (24 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.den-tinh-m": {
+   "file": "assets/art/dp-den-tinh-m.png",
+   "v": "33688e1b",
+   "w": 41,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    20,
+    54
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (30 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.den-tuong-m": {
+   "file": "assets/art/dp-den-tuong-m.png",
+   "v": "620cb5df",
+   "w": 31,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    15,
+    54
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     32,
+     "warm"
+    ],
+    [
+     10,
+     17,
+     "warm"
+    ]
+   ]
+  },
+  "dp.dong-linh-m": {
+   "file": "assets/art/dp-dong-linh-m.png",
+   "v": "c84c7ce8",
+   "w": 54,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    27,
+    33
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (28 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ghe-da-m": {
+   "file": "assets/art/dp-ghe-da-m.png",
+   "v": "415c559e",
+   "w": 57,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    28,
+    24
+   ],
+   "note": "bộ mới dong-phu: moi/s05.png (30 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.gia-thao-m": {
+   "file": "assets/art/dp-gia-thao-m.png",
+   "v": "0841b2dc",
+   "w": 68,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    34,
+    64
+   ],
+   "note": "bộ mới dong-phu: moi/s02.png (36 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.gia-vu-khi-m": {
+   "file": "assets/art/dp-gia-vu-khi-m.png",
+   "v": "6166f433",
+   "w": 44,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    22,
+    54
+   ],
+   "note": "bộ mới dong-phu: moi/s03.png (30 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.gian-hoa-m": {
+   "file": "assets/art/dp-gian-hoa-m.png",
+   "v": "d62180e9",
+   "w": 75,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    37,
+    69
+   ],
+   "note": "bộ mới dong-phu: moi/s05.png (40 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.giuong-m": {
+   "file": "assets/art/dp-giuong-m.png",
+   "v": "f0b9b0b7",
+   "w": 94,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    47,
+    59
+   ],
+   "note": "bộ mới dong-phu: moi/s04.png (50 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ke-dan-m": {
+   "file": "assets/art/dp-ke-dan-m.png",
+   "v": "1f5a212f",
+   "w": 64,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    32,
+    65
+   ],
+   "note": "bộ mới dong-phu: moi/s02.png (34 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ke-sach-m": {
+   "file": "assets/art/dp-ke-sach-m.png",
+   "v": "e3293480",
+   "w": 68,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    34,
+    67
+   ],
+   "note": "bộ mới dong-phu: moi/s04.png (36 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.linh-thach-m": {
+   "file": "assets/art/dp-linh-thach-m.png",
+   "v": "84ca33e7",
+   "w": 56,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    28,
+    52
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     34,
+     25,
+     "jade"
+    ],
+    [
+     24,
+     25,
+     "jade"
+    ]
+   ]
+  },
+  "dp.lo-dan-m": {
+   "file": "assets/art/dp-lo-dan-m.png",
+   "v": "84d7352f",
+   "w": 47,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    23,
+    66
+   ],
+   "note": "bộ mới dong-phu: moi/s02.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     4,
+     "warm"
+    ],
+    [
+     24,
+     32,
+     "warm"
+    ],
+    [
+     32,
+     64,
+     "warm"
+    ],
+    [
+     13,
+     43,
+     "warm"
+    ]
+   ],
+   "smoke": [
+    21,
+    0
+   ]
+  },
+  "dp.lo-luyen-m": {
+   "file": "assets/art/dp-lo-luyen-m.png",
+   "v": "4dbbb992",
+   "w": 59,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    29,
+    81
+   ],
+   "note": "bộ mới dong-phu: moi/s03.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     64,
+     "warm"
+    ],
+    [
+     7,
+     49,
+     "warm"
+    ],
+    [
+     22,
+     40,
+     "warm"
+    ],
+    [
+     46,
+     48,
+     "warm"
+    ],
+    [
+     23,
+     3,
+     "warm"
+    ]
+   ]
+  },
+  "dp.lu-huong-m": {
+   "file": "assets/art/dp-lu-huong-m.png",
+   "v": "04b0ef4a",
+   "w": 45,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    22,
+    60
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (24 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.mach-tinh-m": {
+   "file": "assets/art/dp-mach-tinh-m.png",
+   "v": "df3218fd",
+   "w": 59,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    29,
+    51
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     20,
+     30,
+     "cold"
+    ],
+    [
+     31,
+     17,
+     "cold"
+    ],
+    [
+     39,
+     30,
+     "cold"
+    ]
+   ]
+  },
+  "dp.mang-da-m": {
+   "file": "assets/art/dp-mang-da-m.png",
+   "v": "25944a83",
+   "w": 57,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    28,
+    62
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (34 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.nam-sang-m": {
+   "file": "assets/art/dp-nam-sang-m.png",
+   "v": "8dae1d6d",
+   "w": 45,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    22,
+    33
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     17,
+     "cold"
+    ],
+    [
+     16,
+     9,
+     "cold"
+    ]
+   ]
+  },
+  "dp.ngoc-m": {
+   "file": "assets/art/dp-ngoc-m.png",
+   "v": "5d16696d",
+   "w": 40,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    20,
+    29
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (22 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     24,
+     15,
+     "jade"
+    ],
+    [
+     17,
+     16,
+     "jade"
+    ]
+   ]
+  },
+  "dp.nhu-da-m": {
+   "file": "assets/art/dp-nhu-da-m.png",
+   "v": "5165e858",
+   "w": 64,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    32,
+    50
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (34 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ruong-m": {
+   "file": "assets/art/dp-ruong-m.png",
+   "v": "2223c566",
+   "w": 44,
+   "h": 29,
+   "frames": 1,
+   "anchor": [
+    22,
+    27
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (24 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.ruong-thao-m": {
+   "file": "assets/art/dp-ruong-thao-m.png",
+   "v": "3ddade25",
+   "w": 75,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    37,
+    55
+   ],
+   "note": "bộ mới dong-phu: moi/s05.png (40 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "dp.suoi-linh-m": {
+   "file": "assets/art/dp-suoi-linh-m.png",
+   "v": "68e4523f",
+   "w": 68,
+   "h": 63,
+   "frames": 1,
+   "anchor": [
+    34,
+    61
+   ],
+   "note": "bộ mới dong-phu: moi/s06.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     50,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     21,
+     42
+    ],
+    [
+     26,
+     45
+    ],
+    [
+     23,
+     46
+    ],
+    [
+     39,
+     44
+    ],
+    [
+     33,
+     47
+    ],
+    [
+     38,
+     45
+    ],
+    [
+     29,
+     7
+    ],
+    [
+     26,
+     7
+    ],
+    [
+     30,
+     3
+    ],
+    [
+     14,
+     46
+    ],
+    [
+     26,
+     44
+    ],
+    [
+     20,
+     22
+    ],
+    [
+     30,
+     55
+    ],
+    [
+     25,
+     2
+    ],
+    [
+     16,
+     45
+    ],
+    [
+     40,
+     44
+    ]
+   ]
+  },
+  "dp.thac-nho-m": {
+   "file": "assets/art/dp-thac-nho-m.png",
+   "v": "2971c3c7",
+   "w": 75,
+   "h": 63,
+   "frames": 1,
+   "anchor": [
+    37,
+    61
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     42,
+     "cold"
+    ],
+    [
+     30,
+     29,
+     "cold"
+    ],
+    [
+     31,
+     18,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     39,
+     37
+    ],
+    [
+     27,
+     22
+    ],
+    [
+     44,
+     53
+    ],
+    [
+     32,
+     23
+    ],
+    [
+     40,
+     14
+    ],
+    [
+     31,
+     58
+    ],
+    [
+     34,
+     35
+    ],
+    [
+     36,
+     57
+    ],
+    [
+     56,
+     42
+    ],
+    [
+     31,
+     19
+    ],
+    [
+     38,
+     23
+    ],
+    [
+     37,
+     25
+    ],
+    [
+     40,
+     37
+    ],
+    [
+     23,
+     57
+    ],
+    [
+     34,
+     55
+    ],
+    [
+     30,
+     36
+    ],
+    [
+     27,
+     31
+    ],
+    [
+     31,
+     35
+    ],
+    [
+     35,
+     22
+    ],
+    [
+     35,
+     16
+    ],
+    [
+     39,
+     24
+    ],
+    [
+     37,
+     28
+    ],
+    [
+     29,
+     56
+    ],
+    [
+     37,
+     13
+    ]
+   ]
+  },
+  "dp.thung-toi-m": {
+   "file": "assets/art/dp-thung-toi-m.png",
+   "v": "d1fcfe82",
+   "w": 45,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    22,
+    56
+   ],
+   "note": "bộ mới dong-phu: moi/s03.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "glints": [
+    [
+     26,
+     25
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     31,
+     26
+    ],
+    [
+     26,
+     37
+    ],
+    [
+     25,
+     38
+    ]
+   ]
+  },
+  "dp.tranh-cuon-m": {
+   "file": "assets/art/dp-tranh-cuon-m.png",
+   "v": "ad89071a",
+   "w": 28,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    14,
+    51
+   ],
+   "note": "bộ mới dong-phu: moi/s08.png (28 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "dp.tru-tran-m": {
+   "file": "assets/art/dp-tru-tran-m.png",
+   "v": "f9abb289",
+   "w": 49,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    24,
+    81
+   ],
+   "note": "bộ mới dong-phu: moi/s09.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     44,
+     "cold"
+    ],
+    [
+     24,
+     7,
+     "cold"
+    ]
+   ]
+  },
+  "dp.tu-linh-thach-m": {
+   "file": "assets/art/dp-tu-linh-thach-m.png",
+   "v": "47362a36",
+   "w": 52,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    26,
+    66
+   ],
+   "note": "bộ mới dong-phu: moi/s09.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "dp.vach-hang-m": {
+   "file": "assets/art/dp-vach-hang-m.png",
+   "v": "e293c54b",
+   "w": 89,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    44,
+    59
+   ],
+   "note": "bộ mới dong-phu: moi/s07.png (48 đơn vị ngang)",
+   "scale": 0.5333
+  },
   "fw.cung": {
    "file": "assets/art/fw-cung.png",
    "v": "6da39243",
@@ -30201,6 +31205,1991 @@
     19
    ],
    "note": "thương Đại Ma Thần, mũi hướng phải (ảnh Canva nguon/ai/props/ma-than-thuong.png)"
+  },
+  "xd.ban-le-m": {
+   "file": "assets/art/xd-ban-le-m.png",
+   "v": "20b911ba",
+   "w": 64,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    32,
+    56
+   ],
+   "note": "bộ mới xich-dien: moi/s13.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     21,
+     "warm"
+    ],
+    [
+     32,
+     40,
+     "warm"
+    ],
+    [
+     48,
+     7,
+     "warm"
+    ],
+    [
+     15,
+     7,
+     "warm"
+    ],
+    [
+     33,
+     26,
+     "warm"
+    ],
+    [
+     48,
+     26,
+     "warm"
+    ]
+   ]
+  },
+  "xd.bia-nut-m": {
+   "file": "assets/art/xd-bia-nut-m.png",
+   "v": "3fb35733",
+   "w": 71,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    35,
+    58
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (32 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     33,
+     31,
+     "warm"
+    ],
+    [
+     50,
+     50,
+     "warm"
+    ],
+    [
+     33,
+     13,
+     "warm"
+    ],
+    [
+     48,
+     38,
+     "warm"
+    ]
+   ]
+  },
+  "xd.bui-chay-m": {
+   "file": "assets/art/xd-bui-chay-m.png",
+   "v": "0f7b5f3e",
+   "w": 49,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    24,
+    38
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "xd.bui-tro-m": {
+   "file": "assets/art/xd-bui-tro-m.png",
+   "v": "34196062",
+   "w": 49,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    24,
+    37
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (26 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cau-da-m": {
+   "file": "assets/art/xd-cau-da-m.png",
+   "v": "e0e39d99",
+   "w": 120,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    60,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s08.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cau-day-m": {
+   "file": "assets/art/xd-cau-day-m.png",
+   "v": "3e7d9056",
+   "w": 120,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    60,
+    72
+   ],
+   "note": "bộ mới xich-dien: moi/s08.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cau-do-m": {
+   "file": "assets/art/xd-cau-do-m.png",
+   "v": "834d43a1",
+   "w": 121,
+   "h": 82,
+   "frames": 1,
+   "anchor": [
+    60,
+    80
+   ],
+   "note": "bộ mới xich-dien: moi/s08.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     111,
+     29,
+     "warm"
+    ],
+    [
+     11,
+     28,
+     "warm"
+    ],
+    [
+     31,
+     22,
+     "warm"
+    ],
+    [
+     15,
+     56,
+     "warm"
+    ],
+    [
+     105,
+     56,
+     "warm"
+    ],
+    [
+     90,
+     22,
+     "warm"
+    ],
+    [
+     38,
+     50,
+     "warm"
+    ],
+    [
+     59,
+     21,
+     "warm"
+    ]
+   ]
+  },
+  "xd.cau-xich-m": {
+   "file": "assets/art/xd-cau-xich-m.png",
+   "v": "01c78bf7",
+   "w": 119,
+   "h": 79,
+   "frames": 1,
+   "anchor": [
+    59,
+    77
+   ],
+   "note": "bộ mới xich-dien: moi/s08.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cay-chay-m": {
+   "file": "assets/art/xd-cay-chay-m.png",
+   "v": "962b175d",
+   "w": 106,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    53,
+    114
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (62 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "xd.cay-den-m": {
+   "file": "assets/art/xd-cay-den-m.png",
+   "v": "127da521",
+   "w": 113,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    56,
+    114
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (62 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "xd.cay-hoa-lua-m": {
+   "file": "assets/art/xd-cay-hoa-lua-m.png",
+   "v": "2eddf134",
+   "w": 120,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    60,
+    118
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (64 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     33,
+     "warm"
+    ],
+    [
+     65,
+     15,
+     "warm"
+    ],
+    [
+     46,
+     51,
+     "warm"
+    ],
+    [
+     100,
+     64,
+     "warm"
+    ],
+    [
+     29,
+     87,
+     "warm"
+    ],
+    [
+     31,
+     60,
+     "warm"
+    ],
+    [
+     97,
+     88,
+     "warm"
+    ],
+    [
+     16,
+     38,
+     "warm"
+    ]
+   ]
+  },
+  "xd.cay-phong-m": {
+   "file": "assets/art/xd-cay-phong-m.png",
+   "v": "7e14e763",
+   "w": 130,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    65,
+    126
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (68 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "xd.cay-than-m": {
+   "file": "assets/art/xd-cay-than-m.png",
+   "v": "9d93eee5",
+   "w": 110,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    55,
+    118
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (64 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     74,
+     38,
+     "warm"
+    ],
+    [
+     55,
+     14,
+     "warm"
+    ],
+    [
+     87,
+     65,
+     "warm"
+    ],
+    [
+     25,
+     47,
+     "warm"
+    ],
+    [
+     16,
+     74,
+     "warm"
+    ],
+    [
+     54,
+     41,
+     "warm"
+    ],
+    [
+     43,
+     28,
+     "warm"
+    ]
+   ]
+  },
+  "xd.chuong-lua-m": {
+   "file": "assets/art/xd-chuong-lua-m.png",
+   "v": "53a76a0b",
+   "w": 56,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    28,
+    66
+   ],
+   "note": "bộ mới xich-dien: moi/s13.png (36 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "xd.co-do-m": {
+   "file": "assets/art/xd-co-do-m.png",
+   "v": "88223d2a",
+   "w": 41,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    20,
+    30
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (22 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cong-da-m": {
+   "file": "assets/art/xd-cong-da-m.png",
+   "v": "417edb55",
+   "w": 165,
+   "h": 154,
+   "frames": 1,
+   "anchor": [
+    82,
+    152
+   ],
+   "note": "bộ mới xich-dien: moi/s01.png (88 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     140,
+     "warm"
+    ],
+    [
+     138,
+     140,
+     "warm"
+    ],
+    [
+     122,
+     113,
+     "warm"
+    ],
+    [
+     122,
+     94,
+     "warm"
+    ],
+    [
+     51,
+     131,
+     "warm"
+    ],
+    [
+     94,
+     56,
+     "warm"
+    ],
+    [
+     112,
+     42,
+     "warm"
+    ]
+   ]
+  },
+  "xd.cong-do-m": {
+   "file": "assets/art/xd-cong-do-m.png",
+   "v": "517288f1",
+   "w": 150,
+   "h": 171,
+   "frames": 1,
+   "anchor": [
+    75,
+    169
+   ],
+   "note": "bộ mới xich-dien: moi/s01.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     87,
+     "warm"
+    ],
+    [
+     75,
+     38,
+     "warm"
+    ],
+    [
+     136,
+     87,
+     "warm"
+    ],
+    [
+     75,
+     12,
+     "warm"
+    ],
+    [
+     104,
+     148,
+     "warm"
+    ],
+    [
+     48,
+     14,
+     "warm"
+    ],
+    [
+     103,
+     12,
+     "warm"
+    ],
+    [
+     39,
+     106,
+     "warm"
+    ]
+   ]
+  },
+  "xd.cong-hac-m": {
+   "file": "assets/art/xd-cong-hac-m.png",
+   "v": "987b0dc3",
+   "w": 150,
+   "h": 163,
+   "frames": 1,
+   "anchor": [
+    75,
+    161
+   ],
+   "note": "bộ mới xich-dien: moi/s01.png (80 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.cong-phuong-m": {
+   "file": "assets/art/xd-cong-phuong-m.png",
+   "v": "1db5aece",
+   "w": 158,
+   "h": 178,
+   "frames": 1,
+   "anchor": [
+    79,
+    176
+   ],
+   "note": "bộ mới xich-dien: moi/s01.png (84 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     121,
+     40,
+     "warm"
+    ],
+    [
+     31,
+     31,
+     "warm"
+    ],
+    [
+     120,
+     131,
+     "warm"
+    ],
+    [
+     39,
+     130,
+     "warm"
+    ],
+    [
+     77,
+     41,
+     "warm"
+    ],
+    [
+     120,
+     68,
+     "warm"
+    ],
+    [
+     14,
+     93,
+     "warm"
+    ],
+    [
+     121,
+     104,
+     "warm"
+    ]
+   ]
+  },
+  "xd.da-bazan-m": {
+   "file": "assets/art/xd-da-bazan-m.png",
+   "v": "5dd0501f",
+   "w": 64,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     25,
+     22,
+     "warm"
+    ],
+    [
+     38,
+     24,
+     "warm"
+    ],
+    [
+     49,
+     33,
+     "warm"
+    ],
+    [
+     40,
+     10,
+     "warm"
+    ]
+   ]
+  },
+  "xd.da-dung-nham-m": {
+   "file": "assets/art/xd-da-dung-nham-m.png",
+   "v": "fb072045",
+   "w": 59,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    29,
+    35
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (32 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     23,
+     "warm"
+    ],
+    [
+     14,
+     23,
+     "warm"
+    ],
+    [
+     25,
+     10,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dai-phun-m": {
+   "file": "assets/art/xd-dai-phun-m.png",
+   "v": "7f809483",
+   "w": 84,
+   "h": 51,
+   "frames": 1,
+   "anchor": [
+    42,
+    49
+   ],
+   "note": "bộ mới xich-dien: moi/s09.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     32,
+     "warm"
+    ],
+    [
+     41,
+     5,
+     "warm"
+    ],
+    [
+     42,
+     21,
+     "warm"
+    ],
+    [
+     10,
+     38,
+     "warm"
+    ],
+    [
+     52,
+     8,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dan-lua-m": {
+   "file": "assets/art/xd-dan-lua-m.png",
+   "v": "720e54d5",
+   "w": 68,
+   "h": 70,
+   "frames": 1,
+   "anchor": [
+    34,
+    68
+   ],
+   "note": "bộ mới xich-dien: moi/s13.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     32,
+     20,
+     "warm"
+    ],
+    [
+     33,
+     50,
+     "warm"
+    ],
+    [
+     47,
+     48,
+     "warm"
+    ],
+    [
+     58,
+     55,
+     "warm"
+    ],
+    [
+     33,
+     38,
+     "warm"
+    ],
+    [
+     10,
+     55,
+     "warm"
+    ]
+   ]
+  },
+  "xd.den-da-m": {
+   "file": "assets/art/xd-den-da-m.png",
+   "v": "83215f72",
+   "w": 33,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    16,
+    54
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     25,
+     "warm"
+    ]
+   ]
+  },
+  "xd.den-long-m": {
+   "file": "assets/art/xd-den-long-m.png",
+   "v": "6d6518ff",
+   "w": 44,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    22,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     11,
+     40,
+     "warm"
+    ],
+    [
+     32,
+     30,
+     "warm"
+    ]
+   ]
+  },
+  "xd.den-phuong-m": {
+   "file": "assets/art/xd-den-phuong-m.png",
+   "v": "9e173222",
+   "w": 52,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    26,
+    69
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     13,
+     "warm"
+    ],
+    [
+     28,
+     41,
+     "warm"
+    ],
+    [
+     16,
+     20,
+     "warm"
+    ]
+   ]
+  },
+  "xd.den-treo-m": {
+   "file": "assets/art/xd-den-treo-m.png",
+   "v": "8e9d70cf",
+   "w": 40,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    20,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     31,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dien-chinh-m": {
+   "file": "assets/art/xd-dien-chinh-m.png",
+   "v": "3acdcec3",
+   "w": 281,
+   "h": 246,
+   "frames": 1,
+   "anchor": [
+    140,
+    244
+   ],
+   "note": "bộ mới xich-dien: moi/s03.png (150 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     85,
+     192,
+     "warm"
+    ],
+    [
+     211,
+     192,
+     "warm"
+    ],
+    [
+     148,
+     194,
+     "warm"
+    ],
+    [
+     85,
+     157,
+     "warm"
+    ],
+    [
+     211,
+     157,
+     "warm"
+    ],
+    [
+     149,
+     23,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dien-nho-m": {
+   "file": "assets/art/xd-dien-nho-m.png",
+   "v": "50dd3926",
+   "w": 196,
+   "h": 160,
+   "frames": 1,
+   "anchor": [
+    98,
+    158
+   ],
+   "note": "bộ mới xich-dien: moi/s03.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     128,
+     "warm"
+    ],
+    [
+     140,
+     128,
+     "warm"
+    ],
+    [
+     96,
+     66,
+     "warm"
+    ],
+    [
+     69,
+     111,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dien-rong-m": {
+   "file": "assets/art/xd-dien-rong-m.png",
+   "v": "c86c6cb0",
+   "w": 225,
+   "h": 205,
+   "frames": 1,
+   "anchor": [
+    112,
+    203
+   ],
+   "note": "bộ mới xich-dien: moi/s03.png (120 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     175,
+     157,
+     "warm"
+    ],
+    [
+     50,
+     157,
+     "warm"
+    ],
+    [
+     112,
+     168,
+     "warm"
+    ],
+    [
+     112,
+     30,
+     "warm"
+    ],
+    [
+     50,
+     130,
+     "warm"
+    ],
+    [
+     174,
+     130,
+     "warm"
+    ]
+   ]
+  },
+  "xd.dong-than-m": {
+   "file": "assets/art/xd-dong-than-m.png",
+   "v": "d1708691",
+   "w": 68,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    34,
+    50
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     16,
+     "warm"
+    ],
+    [
+     32,
+     21,
+     "warm"
+    ],
+    [
+     20,
+     37,
+     "warm"
+    ],
+    [
+     34,
+     34,
+     "warm"
+    ]
+   ]
+  },
+  "xd.duoc-dong-m": {
+   "file": "assets/art/xd-duoc-dong-m.png",
+   "v": "3b9fda58",
+   "w": 33,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    16,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     16,
+     "warm"
+    ],
+    [
+     15,
+     38,
+     "warm"
+    ],
+    [
+     15,
+     60,
+     "warm"
+    ]
+   ],
+   "flame": [
+    16,
+    16
+   ]
+  },
+  "xd.gai-hac-m": {
+   "file": "assets/art/xd-gai-hac-m.png",
+   "v": "538f0889",
+   "w": 60,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    30,
+    47
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (32 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.ham-mo-m": {
+   "file": "assets/art/xd-ham-mo-m.png",
+   "v": "e838d73e",
+   "w": 120,
+   "h": 126,
+   "frames": 1,
+   "anchor": [
+    60,
+    124
+   ],
+   "note": "bộ mới xich-dien: moi/s05.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     94,
+     95,
+     "warm"
+    ],
+    [
+     22,
+     113,
+     "warm"
+    ],
+    [
+     58,
+     40,
+     "warm"
+    ],
+    [
+     14,
+     85,
+     "warm"
+    ],
+    [
+     76,
+     91,
+     "warm"
+    ],
+    [
+     29,
+     91,
+     "warm"
+    ]
+   ]
+  },
+  "xd.ho-dung-nham-m": {
+   "file": "assets/art/xd-ho-dung-nham-m.png",
+   "v": "8d0ebfbc",
+   "w": 135,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    67,
+    50
+   ],
+   "note": "bộ mới xich-dien: moi/s09.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     50,
+     32,
+     "warm"
+    ],
+    [
+     92,
+     31,
+     "warm"
+    ],
+    [
+     77,
+     31,
+     "warm"
+    ],
+    [
+     32,
+     33,
+     "warm"
+    ]
+   ]
+  },
+  "xd.hoa-lua-m": {
+   "file": "assets/art/xd-hoa-lua-m.png",
+   "v": "8a29fdd3",
+   "w": 46,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    23,
+    43
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (24 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     11,
+     "warm"
+    ],
+    [
+     12,
+     32,
+     "warm"
+    ],
+    [
+     28,
+     34,
+     "warm"
+    ]
+   ]
+  },
+  "xd.lan-can-do-m": {
+   "file": "assets/art/xd-lan-can-do-m.png",
+   "v": "68e47d6a",
+   "w": 121,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    60,
+    40
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.lo-ren-m": {
+   "file": "assets/art/xd-lo-ren-m.png",
+   "v": "bf49f81f",
+   "w": 120,
+   "h": 147,
+   "frames": 1,
+   "anchor": [
+    60,
+    145
+   ],
+   "note": "bộ mới xich-dien: moi/s05.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     67,
+     113,
+     "warm"
+    ],
+    [
+     66,
+     32,
+     "warm"
+    ],
+    [
+     30,
+     122,
+     "warm"
+    ],
+    [
+     110,
+     103,
+     "warm"
+    ],
+    [
+     67,
+     74,
+     "warm"
+    ]
+   ],
+   "smoke": [
+    48,
+    0
+   ]
+  },
+  "xd.mieng-khoi-m": {
+   "file": "assets/art/xd-mieng-khoi-m.png",
+   "v": "713eb524",
+   "w": 74,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    37,
+    47
+   ],
+   "note": "bộ mới xich-dien: moi/s09.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     30,
+     "warm"
+    ],
+    [
+     59,
+     40,
+     "warm"
+    ],
+    [
+     33,
+     42,
+     "warm"
+    ]
+   ],
+   "smoke": [
+    37,
+    27
+   ]
+  },
+  "xd.nam-lua-m": {
+   "file": "assets/art/xd-nam-lua-m.png",
+   "v": "52e2943a",
+   "w": 45,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    22,
+    32
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     7,
+     "warm"
+    ],
+    [
+     5,
+     19,
+     "warm"
+    ],
+    [
+     29,
+     22,
+     "warm"
+    ]
+   ]
+  },
+  "xd.nha-dan-m": {
+   "file": "assets/art/xd-nha-dan-m.png",
+   "v": "daaa267c",
+   "w": 124,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    62,
+    117
+   ],
+   "note": "bộ mới xich-dien: moi/s05.png (66 đơn vị ngang)",
+   "scale": 0.5333,
+   "smoke": [
+    62,
+    36
+   ]
+  },
+  "xd.nha-hac-m": {
+   "file": "assets/art/xd-nha-hac-m.png",
+   "v": "41c5cdcf",
+   "w": 124,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    62,
+    117
+   ],
+   "note": "bộ mới xich-dien: moi/s05.png (66 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     110,
+     74,
+     "warm"
+    ],
+    [
+     60,
+     67,
+     "warm"
+    ],
+    [
+     13,
+     74,
+     "warm"
+    ],
+    [
+     61,
+     40,
+     "warm"
+    ],
+    [
+     84,
+     86,
+     "warm"
+    ],
+    [
+     84,
+     68,
+     "warm"
+    ],
+    [
+     39,
+     87,
+     "warm"
+    ],
+    [
+     39,
+     68,
+     "warm"
+    ]
+   ]
+  },
+  "xd.rao-chay-m": {
+   "file": "assets/art/xd-rao-chay-m.png",
+   "v": "5de74ab1",
+   "w": 120,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    60,
+    39
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.rao-sat-m": {
+   "file": "assets/art/xd-rao-sat-m.png",
+   "v": "69d9c7e1",
+   "w": 120,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    60,
+    44
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.sap-an-m": {
+   "file": "assets/art/xd-sap-an-m.png",
+   "v": "8a5063f1",
+   "w": 113,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    56,
+    115
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "smoke": [
+    68,
+    47
+   ]
+  },
+  "xd.sap-ren-m": {
+   "file": "assets/art/xd-sap-ren-m.png",
+   "v": "c5b6a968",
+   "w": 113,
+   "h": 121,
+   "frames": 1,
+   "anchor": [
+    56,
+    119
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     78,
+     "warm"
+    ],
+    [
+     56,
+     20,
+     "warm"
+    ],
+    [
+     94,
+     76,
+     "warm"
+    ],
+    [
+     11,
+     56,
+     "warm"
+    ],
+    [
+     104,
+     56,
+     "warm"
+    ],
+    [
+     39,
+     12,
+     "warm"
+    ],
+    [
+     50,
+     90,
+     "warm"
+    ]
+   ]
+  },
+  "xd.sap-tinh-the-m": {
+   "file": "assets/art/xd-sap-tinh-the-m.png",
+   "v": "0a2abf87",
+   "w": 113,
+   "h": 123,
+   "frames": 1,
+   "anchor": [
+    56,
+    121
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     12,
+     51,
+     "warm"
+    ],
+    [
+     56,
+     12,
+     "warm"
+    ],
+    [
+     97,
+     51,
+     "warm"
+    ],
+    [
+     86,
+     103,
+     "warm"
+    ],
+    [
+     56,
+     58,
+     "warm"
+    ],
+    [
+     58,
+     27,
+     "warm"
+    ]
+   ]
+  },
+  "xd.soi-tro-m": {
+   "file": "assets/art/xd-soi-tro-m.png",
+   "v": "33c397b4",
+   "w": 42,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    21,
+    21
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (22 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.thac-dung-nham-m": {
+   "file": "assets/art/xd-thac-dung-nham-m.png",
+   "v": "24cdf149",
+   "w": 131,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    65,
+    63
+   ],
+   "note": "bộ mới xich-dien: moi/s09.png (70 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     58,
+     57,
+     "warm"
+    ],
+    [
+     76,
+     57,
+     "warm"
+    ],
+    [
+     75,
+     19,
+     "warm"
+    ],
+    [
+     59,
+     20,
+     "warm"
+    ]
+   ]
+  },
+  "xd.thap-canh-m": {
+   "file": "assets/art/xd-thap-canh-m.png",
+   "v": "7079515a",
+   "w": 83,
+   "h": 169,
+   "frames": 1,
+   "anchor": [
+    41,
+    167
+   ],
+   "note": "bộ mới xich-dien: moi/s05.png (90 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     39,
+     13,
+     "warm"
+    ],
+    [
+     40,
+     92,
+     "warm"
+    ],
+    [
+     25,
+     139,
+     "warm"
+    ],
+    [
+     21,
+     84,
+     "warm"
+    ],
+    [
+     31,
+     123,
+     "warm"
+    ],
+    [
+     59,
+     84,
+     "warm"
+    ],
+    [
+     58,
+     147,
+     "warm"
+    ]
+   ]
+  },
+  "xd.thung-hang-m": {
+   "file": "assets/art/xd-thung-hang-m.png",
+   "v": "9185862a",
+   "w": 75,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    37,
+    47
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (40 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.tinh-the-lua-m": {
+   "file": "assets/art/xd-tinh-the-lua-m.png",
+   "v": "7812d60f",
+   "w": 49,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    24,
+    36
+   ],
+   "note": "bộ mới xich-dien: moi/s07.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     14,
+     13,
+     "warm"
+    ],
+    [
+     25,
+     7,
+     "warm"
+    ],
+    [
+     39,
+     23,
+     "warm"
+    ],
+    [
+     11,
+     24,
+     "warm"
+    ]
+   ]
+  },
+  "xd.trong-lua-m": {
+   "file": "assets/art/xd-trong-lua-m.png",
+   "v": "9d6090a5",
+   "w": 49,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    24,
+    62
+   ],
+   "note": "bộ mới xich-dien: moi/s13.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     13,
+     "warm"
+    ],
+    [
+     15,
+     21,
+     "warm"
+    ],
+    [
+     29,
+     28,
+     "warm"
+    ]
+   ]
+  },
+  "xd.truc-do-m": {
+   "file": "assets/art/xd-truc-do-m.png",
+   "v": "c0f54f85",
+   "w": 62,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    31,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s02.png (40 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "xd.tuong-da-m": {
+   "file": "assets/art/xd-tuong-da-m.png",
+   "v": "fc6f7c88",
+   "w": 121,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    60,
+    41
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.tuong-dung-nham-m": {
+   "file": "assets/art/xd-tuong-dung-nham-m.png",
+   "v": "1b66f00f",
+   "w": 121,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    60,
+    36
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.tuong-golem-m": {
+   "file": "assets/art/xd-tuong-golem-m.png",
+   "v": "6a433d39",
+   "w": 73,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    36,
+    99
+   ],
+   "note": "bộ mới xich-dien: moi/s10.png (54 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     31,
+     "warm"
+    ],
+    [
+     24,
+     65,
+     "warm"
+    ],
+    [
+     38,
+     86,
+     "warm"
+    ],
+    [
+     66,
+     49,
+     "warm"
+    ],
+    [
+     11,
+     47,
+     "warm"
+    ],
+    [
+     29,
+     30,
+     "warm"
+    ],
+    [
+     51,
+     66,
+     "warm"
+    ],
+    [
+     15,
+     22,
+     "warm"
+    ]
+   ]
+  },
+  "xd.tuong-phuong-m": {
+   "file": "assets/art/xd-tuong-phuong-m.png",
+   "v": "1c57a271",
+   "w": 70,
+   "h": 105,
+   "frames": 1,
+   "anchor": [
+    35,
+    103
+   ],
+   "note": "bộ mới xich-dien: moi/s10.png (56 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     38,
+     76,
+     "warm"
+    ],
+    [
+     22,
+     69,
+     "warm"
+    ],
+    [
+     46,
+     58,
+     "warm"
+    ],
+    [
+     38,
+     21,
+     "warm"
+    ],
+    [
+     38,
+     33,
+     "warm"
+    ],
+    [
+     6,
+     29,
+     "warm"
+    ]
+   ]
+  },
+  "xd.tuong-su-tu-m": {
+   "file": "assets/art/xd-tuong-su-tu-m.png",
+   "v": "1ec9d065",
+   "w": 64,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    32,
+    92
+   ],
+   "note": "bộ mới xich-dien: moi/s10.png (50 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     48,
+     32,
+     "warm"
+    ],
+    [
+     22,
+     24,
+     "warm"
+    ],
+    [
+     23,
+     8,
+     "warm"
+    ],
+    [
+     31,
+     83,
+     "warm"
+    ]
+   ]
+  },
+  "xd.tuong-tien-m": {
+   "file": "assets/art/xd-tuong-tien-m.png",
+   "v": "6f094c75",
+   "w": 60,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    30,
+    107
+   ],
+   "note": "bộ mới xich-dien: moi/s10.png (58 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     49,
+     85,
+     "warm"
+    ],
+    [
+     12,
+     85,
+     "warm"
+    ],
+    [
+     29,
+     24,
+     "warm"
+    ],
+    [
+     7,
+     31,
+     "warm"
+    ],
+    [
+     31,
+     11,
+     "warm"
+    ],
+    [
+     29,
+     95,
+     "warm"
+    ]
+   ]
+  },
+  "xd.vac-lon-m": {
+   "file": "assets/art/xd-vac-lon-m.png",
+   "v": "f76f3845",
+   "w": 64,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    32,
+    73
+   ],
+   "note": "bộ mới xich-dien: moi/s13.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     24,
+     "warm"
+    ],
+    [
+     30,
+     49,
+     "warm"
+    ],
+    [
+     10,
+     38,
+     "warm"
+    ]
+   ]
+  },
+  "xd.vac-lua-m": {
+   "file": "assets/art/xd-vac-lua-m.png",
+   "v": "c7c34620",
+   "w": 42,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    21,
+    54
+   ],
+   "note": "bộ mới xich-dien: moi/s06.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     22,
+     21,
+     "warm"
+    ]
+   ],
+   "flame": [
+    21,
+    21
+   ]
+  },
+  "xd.xe-quang-m": {
+   "file": "assets/art/xd-xe-quang-m.png",
+   "v": "2722de02",
+   "w": 75,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    37,
+    58
+   ],
+   "note": "bộ mới xich-dien: moi/s12.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     38,
+     "warm"
+    ],
+    [
+     34,
+     33,
+     "warm"
+    ],
+    [
+     39,
+     12,
+     "warm"
+    ],
+    [
+     17,
+     13,
+     "warm"
+    ]
+   ]
+  },
+  "xd.xich-chan-m": {
+   "file": "assets/art/xd-xich-chan-m.png",
+   "v": "48c5d278",
+   "w": 121,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    60,
+    39
+   ],
+   "note": "bộ mới xich-dien: moi/s11.png (64 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "xd.xuong-rong-m": {
+   "file": "assets/art/xd-xuong-rong-m.png",
+   "v": "665d4e5e",
+   "w": 45,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    22,
+    47
+   ],
+   "note": "bộ mới xich-dien: moi/s04.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     24,
+     22,
+     "warm"
+    ],
+    [
+     23,
+     5,
+     "warm"
+    ],
+    [
+     37,
+     22,
+     "warm"
+    ],
+    [
+     23,
+     38,
+     "warm"
+    ],
+    [
+     13,
+     26,
+     "warm"
+    ],
+    [
+     9,
+     15,
+     "warm"
+    ]
+   ]
   }
  }
 }
