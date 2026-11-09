@@ -90,9 +90,27 @@ function watchEnter(wake) {
   if (load) new MutationObserver(wake).observe(load, { attributes: true, attributeFilter: ['hidden'] });
 }
 
+// Tải kẹt (chủ dự án 09/11/2026 09:37: "lần nào cũng phải ấn vào xong thoát ra ấn lại mới được"): sau reload_sec giây mà màn tải
+// vẫn còn thì tự tải lại một lần (lần hai trình duyệt đã có sẵn phần lớn file); vẫn kẹt nữa thì hiện nút Tải lại cho người chơi bấm.
+function watchLoad(cfg) {
+  const load = $('loading'), KEY = 'p2d-wd';
+  const store = (v) => { try { v ? sessionStorage.setItem(KEY, v) : sessionStorage.removeItem(KEY); } catch { /* chế độ riêng tư */ } };
+  const tried = () => { try { return sessionStorage.getItem(KEY); } catch { return '1'; } };
+  if (!load || !cfg.reload_sec) return;
+  new MutationObserver(() => { if (load.hidden) store(null); }).observe(load, { attributes: true, attributeFilter: ['hidden'] });
+  setTimeout(() => {
+    if (load.hidden || /Lỗi/.test(load.textContent)) return;
+    if (!tried()) { store('1'); location.reload(); return; }
+    const b = document.createElement('button'); b.className = 'menu-btn'; b.textContent = cfg.reload_text || 'Tải lại';
+    b.onclick = () => { store(null); location.reload(); };
+    load.querySelector('.ld-box')?.append(b);
+  }, cfg.reload_sec * 1000);
+}
+
 async function start() {
   let cfg;
   try { cfg = await fetch('data/man-dau.json').then(r => r.json()); } catch { return; }   // thiếu số liệu thì thôi, màn vẫn dùng được
+  watchLoad(cfg);
   const wake = startFx(cfg);
   startTips(cfg);
   watchEnter(wake);

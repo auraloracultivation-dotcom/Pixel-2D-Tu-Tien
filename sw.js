@@ -1,11 +1,12 @@
 // Service worker: cho cài game lên màn hình chính và chơi lại khi mất mạng.
-// Mạng trước, hỏng mạng thì lấy bản đã lưu. Mỗi bản dựng một kho riêng, kho cũ bị xoá khi bản mới chạy.
+// Mạng trước, hỏng mạng thì lấy bản đã lưu. Không clients.claim(): bản mới nhận trang từ lần mở sau, không chen vào giữa lúc
+// trang đang tải hàng trăm file (Safari dễ kẹt màn tải, chủ dự án 09/11/2026). Mỗi bản dựng một kho riêng, kho cũ bị xoá khi bản mới chạy.
 const V = 'dev';
 const KHO = `p2d-${V}`;
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(
-  caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('p2d-') && k !== KHO).map(k => caches.delete(k)))).then(() => self.clients.claim())
+  caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('p2d-') && k !== KHO).map(k => caches.delete(k))))
 ));
 
 self.addEventListener('fetch', e => {

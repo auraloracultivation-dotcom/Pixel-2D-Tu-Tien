@@ -10,6 +10,8 @@ async function getJson(path) {
 }
 
 export async function loadData() {
+  // bản đưa lên mạng: tools/build-site.sh gộp mọi file data thành data/_all.json, một lần tải thay cho gần 90 lần (màn tải đỡ kẹt)
+  if (BUILD !== 'dev') try { const all = await getJson('data/_all.json'); await ready; return translateData(all); } catch { /* tải từng file như cũ */ }
   const data = { maps: {} };
   await Promise.all(FILES.map(async f => { data[f] = await getJson(`data/${f}.json`); }));
   await Promise.all(data.config.maps.map(async id => { data.maps[id] = await getJson(`data/maps/${id}.json`); }));

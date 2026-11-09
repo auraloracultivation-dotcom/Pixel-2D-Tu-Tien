@@ -1,6 +1,6 @@
 {
   "_note": "Màn tải và màn đăng nhập (src/ui/man-dau.js, style-man-dau.css). tips: câu hiện dưới thanh tải, đổi mỗi tip_sec giây. motes: số đốm linh khí bay lên; petals: số cánh hoa rơi (đổi theo lễ hội ở le_petals). Máy chậm (body.perf-calm) hoặc người dùng tắt chuyển động thì không chạy.",
-  "tip_sec": 3.2,
+  "tip_sec": 3.2, "reload_sec": 15, "reload_text": "Tải lại", "_reload": "Màn tải kẹt quá reload_sec giây thì tự tải lại một lần, kẹt nữa thì hiện nút reload_text (chủ dự án 09/11/2026: lần nào cũng phải vào hai lần).",
   "motes": 26,
   "petals": 14,
   "le_petals": { "halloween": ["#ff9a3a", "#c56aff", "#ffcf7a"], "giang-sinh": ["#ffffff", "#d8ecff", "#bfe0ff"] },

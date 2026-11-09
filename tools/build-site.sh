@@ -13,6 +13,7 @@ find src -name '*.js' -exec perl -pi -e "s#((?:from\s+|import\()\s*['\"])(\.{1,2
 perl -pi -e "s#src/main\.js#src/main.js?v=$V#; s#style\.css#style.css?v=$V#; s#style-man-dau\.css#style-man-dau.css?v=$V#; s#src/ui/man-dau\.js#src/ui/man-dau.js?v=$V#" index.html
 perl -pi -e "s#(style-[a-z0-9-]+\.css)#\$1?v=$V#g" style.css
 sed -i "s#const BUILD = 'dev'#const BUILD = '$V'#" src/core/data.js
+node -e "const fs=require('fs');const src=fs.readFileSync('src/core/data.js','utf8');const F=JSON.parse(src.match(/const FILES = (\[[^\]]*\])/)[1].replace(/'/g,'\"'));const d={maps:{}};for(const f of F)d[f]=JSON.parse(fs.readFileSync('data/'+f+'.json','utf8'));for(const id of d.config.maps)d.maps[id]=JSON.parse(fs.readFileSync('data/maps/'+id+'.json','utf8'));fs.writeFileSync('data/_all.json',JSON.stringify(d))"   # gộp data một file (src/core/data.js)
 sed -i "s#const V = 'dev'#const V = '$V'#" sw.js
 printf '.env*\n.vercel\n' > .vercelignore   # không bao giờ đưa khoá (vercel env pull) lên trang công khai
 echo "built $OUT ($V)"
