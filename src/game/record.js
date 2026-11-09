@@ -37,6 +37,7 @@ export async function createRecord(game, audio) {
   const panel = createRecordPanel(game, cfg, () => start());
 
   function paint() {
+    game.recording = !!rec;   // đang quay: khỏi vẽ cần điều khiển, mũi tên chỉ đường lên khung (src/render/draw.js) cho clip sạch
     if (rec) { btn.classList.add('on'); btn.textContent = `● ${Math.floor(rec.elapsed())}`; }
     else { btn.classList.remove('on'); btn.textContent = T.btn; }
     btn.classList.toggle('gift', !rec && loggedIn(game) && giftReady(game));

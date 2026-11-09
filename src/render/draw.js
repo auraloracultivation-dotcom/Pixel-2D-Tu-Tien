@@ -375,7 +375,7 @@ export function drawOverlay(game, screen, input) {
   drawBanner(ctx, game, screen);
   // Mũi tên chỉ đường tới mục tiêu nhiệm vụ
   const c = guideTarget(game);   // việc đang chọn ở khung mục tiêu (src/game/guide.js), mặc định truyện chính
-  if (c) {
+  if (c && !game.recording) {   // đang quay clip: không vẽ mũi tên, cần điều khiển (src/game/record.js)
     const s = screen.toScreen(c.x, c.y), pl = screen.toScreen(game.player.x, game.player.y);
     const d = Math.hypot(s.x - pl.x, s.y - pl.y);
     if (d > 60) {
@@ -388,7 +388,7 @@ export function drawOverlay(game, screen, input) {
       ctx.fillStyle = '#f2c94c'; ctx.beginPath(); ctx.arc(s.x, s.y - 18 + Math.sin(game.time * 5) * 3, 4, 0, Math.PI * 2); ctx.fill();
     }
   }
-  if (input.joy) {
+  if (input.joy && !game.recording) {
     const j = input.joy;
     ctx.fillStyle = 'rgba(255,255,255,0.18)'; ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.arc(j.ox, j.oy, input.JOY_R, 0, Math.PI * 2); ctx.fill(); ctx.stroke();

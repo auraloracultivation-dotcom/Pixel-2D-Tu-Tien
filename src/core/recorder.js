@@ -24,11 +24,13 @@ export function isWeak(cfg) {
   return cores <= cfg.weak.cores || mem <= cfg.weak.mem;
 }
 
-// Cỡ clip: giữ tỉ lệ khung vẽ, cạnh dài không quá `long`, số chẵn (bộ mã hoá H.264 cần)
+// Cỡ clip: giữ tỉ lệ khung vẽ, số chẵn (bộ mã hoá H.264 cần). Lớn hơn `long` thì thu nhỏ (có làm mịn); nhỏ hơn thì phóng số nguyên
+// lần cho gần `long` (điện thoại vẽ khung ở độ phân giải thấp cho nhẹ: clip phóng lên mà điểm ảnh vẫn vuông, nét; chủ dự án 09/11/2026:
+// "video sau này là cần câu cơm, phải đẹp")
 export function clipSize(w, h, long) {
-  const k = Math.min(1, long / Math.max(w, h));
+  const m = Math.max(w, h), k = m > long ? long / m : Math.max(1, Math.floor(long / m));
   const even = v => Math.max(2, Math.round(v * k / 2) * 2);
-  return { w: even(w), h: even(h) };
+  return { w: even(w), h: even(h), up: k > 1 };
 }
 
 // Chữ góc vẽ sẵn một lần vào tấm riêng, mỗi khung chỉ dán lại (vẽ chữ có viền mỗi khung tốn máy)
@@ -62,7 +64,7 @@ export function startRecording(src, master, cfg) {
   const copy = document.createElement('canvas');
   copy.width = size.w; copy.height = size.h;
   const ctx = copy.getContext('2d');
-  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'medium';   // thu nhỏ có làm mịn: tắt thì điểm ảnh lúc rụng lúc còn, clip lăn tăn như giật (chủ dự án 09/11/2026)
+  ctx.imageSmoothingEnabled = !size.up; ctx.imageSmoothingQuality = 'high';   // phóng số nguyên lần: giữ ô vuông điểm ảnh; thu nhỏ: làm mịn, tắt thì điểm ảnh lúc rụng lúc còn, clip lăn tăn như giật
 
   // Chép đúng cfg.fps lần mỗi giây (không chép mỗi khung 60–120 Hz): đỡ nặng máy nên game và clip đều mượt hơn
   const mk = makeMark(copy.width, copy.height, cfg.mark), fps = weak ? cfg.fps_weak || cfg.fps : cfg.fps, gap = 1000 / fps;
