@@ -46,6 +46,10 @@ export function castFx(game, o, c, bounds) {
       if (V) vfxCast(game, c.k, s, o);   // aura, khiên bám theo người đó
       else { addFx(game, { type: 'ring', x: o.x, y: o.y, r: s.type === 'heal' ? 18 : 14, color: s.color, life: 0.5 }); if (s.fx) selfFx(game, s.fx, o); }
       break;
+    case 'chain':   // Thiểm Ảnh: người đó lướt theo vị trí máy chủ báo, bóng lướt và vệt sáng vẽ theo đường đi (render/draw-chain.js)
+      o.chainT = game.time + Math.min(s.dur || 2, 3); o.chainColor = s.color;
+      addFx(game, { type: 'puff', x, y, r: 10, color: s.color, life: 0.35 });
+      break;
     case 'dash':
       if (V) vfxCast(game, c.k, s, who, { sx: x, sy: y });
       addFx(game, { type: 'puff', x, y, r: 10, color: s.color, life: 0.35 });

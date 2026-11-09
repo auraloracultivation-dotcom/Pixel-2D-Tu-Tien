@@ -5,7 +5,8 @@ import { openAllSocket4 } from './socket4.js';
 import { addFx, hitMob, dist, shoot } from './combat.js';
 import { weaponSlash } from './slash-fx.js';
 import { heroLook } from '../render/draw-hero.js';
-import { castSkill, skillSlots } from './skills.js';
+import { castSkill, skillSlots, skillReady } from './skills.js';
+import { chainStep } from './skill-chain.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
@@ -116,12 +117,21 @@ function strike(game, q) {
   }
 }
 
+// Chiêu chưa dùng được (lướt Thiểm Ảnh không có mục tiêu trong tầm): không trừ linh lực, báo cách nhau 1,5 giây (tự đánh thì im)
+function ready(game, id) {
+  if (skillReady(game, id)) return true;
+  const p = game.player;
+  if (!game.auto && !game.pilot && (game.time || 0) - (p.noTgtT ?? -9) > 1.5) { p.noTgtT = game.time || 0; game.number(p.x, p.y - 22, game.data.skills[id].no_target || 'Không có mục tiêu', '#e6ebf7'); }
+  return false;
+}
+
 export function updatePlayer(game, dt) {
   const p = game.player, inp = game.input, cfg = game.data.config;
   p.invT -= dt; p.flash -= dt; p.atkCd -= dt; p.swingT -= dt; p.dashT -= dt;
   p.skillCd = p.skillCd.map(c => c - dt);
   if (p.shieldT > 0 && (p.shieldT -= dt) <= 0) p.shield = 0;
   if (p.buffT > 0) p.buffT -= dt;
+  if (p.chain && chainStep(game, p, dt)) { updateFlyWeapon(game, dt); manaTick(game, dt); return; }   // đang lướt Thiểm Ảnh (skill-chain.js): bỏ đi lại, đánh
 
   // Đẩy lùi
   if (p.kx || p.ky) {
@@ -160,7 +170,7 @@ export function updatePlayer(game, dt) {
 
   const slots = skillSlots(game);
   for (let i = 0; i < 3; i++) {
-    if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
+    if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && ready(game, slots[i]) && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
       p.meditating = false; p.calmT = 0; p.riding = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;

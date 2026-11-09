@@ -2,17 +2,17 @@
 // đẩy các cặp đang chồng nhau ra cho vừa chạm (bán kính r × sep), chia phần đẩy theo khối lượng: quái 1, trùm boss_mass, người chơi
 // player_mass (đi vào quái thì quái dạt ra là chính, quái vây vẫn đẩy được người một chút), NPC đứng như cột (không bị đẩy, ai chạm
 // vào thì dạt ra). Quái đứng yên (Mộc Nhân, đầu boss thế giới, quái của đội trưởng) cũng như cột. Đẩy qua map.move nên không xuyên
-// tường. Chia ô lưới cell đơn vị để chỉ so các cặp gần nhau. Số ở data/config.json → crowd.
+// tường. Người đang lướt Thiểm Ảnh (skill-chain.js) đi xuyên khối. Chia ô lưới cell đơn vị để chỉ so các cặp gần nhau. Số ở data/config.json → crowd.
 const C = game => game.data.config.crowd;
 
 function bodies(game, c) {
   const out = [], p = game.player;
   for (const m of game.mobs) {
-    if (m.dead) continue;
+    if (m.dead || m.chain) continue;   // bản sao so tài đang lướt Thiểm Ảnh: xuyên khối
     const fixed = m.remote || m.dummy || m.wboss;
     out.push({ e: m, r: m.r * c.sep, w: fixed ? 0 : 1 / (m.def.ai === 'boss' ? c.boss_mass : 1) });
   }
-  if (p && !p.dead && !game.ghost) out.push({ e: p, r: (p.r || 5) * c.sep, w: 1 / c.player_mass });
+  if (p && !p.dead && !game.ghost && !p.chain) out.push({ e: p, r: (p.r || 5) * c.sep, w: 1 / c.player_mass });
   for (const n of game.npcs || []) out.push({ e: n, r: (n.r || 6) * c.sep, w: 0 });
   return out;
 }

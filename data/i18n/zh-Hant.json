@@ -4096,5 +4096,11 @@
 "🧘 Cân lại tu luyện: quái cho đúng số linh khí ghi trên đầu, cảnh giới càng cao cần càng nhiều linh khí (thanh linh khí tụt phần trăm là do vậy, không mất gì). Đan, canh cho số linh khí cố định. Tụ Khí Đan giá cố định 250 Linh Thạch.": "🧘 修煉重新平衡：怪物給予頭上標示的實際靈氣，境界越高所需靈氣越多（靈氣條百分比下降是這個原因，沒有任何損失）。丹藥與湯品給予固定靈氣。聚氣丹改為固定 250 靈石。",
 "🛒 Thiếu nguyên liệu khi luyện đan, rèn, cường hoá, nâng cấp: có nút Mua nhanh (giá chợ + 10%).": "🛒 煉丹、鍛造、強化、升級缺少材料時：出現快速購買按鈕（市價 + 10%）。",
 "💀 Gục ngoài trời: chọn Hồi sinh tại đây hoặc Về động phủ (5 giây không chọn thì về động phủ).": "💀 在野外倒下：選擇原地復活或返回洞府（5 秒內未選擇則返回洞府）。",
-"🤖 Tự đánh tìm con quái gần nhất, sang tinh cầu mới cũng đánh ngay quái quanh mình. Nút tắt bảng nằm ở góc trên phải.": "🤖 自動戰鬥會攻擊最近的怪物，到新星球也會立即攻擊身邊的怪物。面板關閉按鈕移到右上角。"
+"🤖 Tự đánh tìm con quái gần nhất, sang tinh cầu mới cũng đánh ngay quái quanh mình. Nút tắt bảng nằm ở góc trên phải.": "🤖 自動戰鬥會攻擊最近的怪物，到新星球也會立即攻擊身邊的怪物。面板關閉按鈕移到右上角。",
+"Thiểm Ảnh Liên Trảm": "閃影連斬",
+"Không có mục tiêu trong tầm": "範圍內沒有目標",
+"Hóa ảnh lướt chém qua lại tối đa 4 mục tiêu gần nhất trong 2 giây, tổng sát thương gấp 10 lần đánh thường. Bất tử khi lướt.": "化為殘影，在 2 秒內來回突進斬擊最近的最多 4 個目標，總傷害為普通攻擊的 10 倍。突進時無敵。",
+"Bí kíp {x}": "秘笈：{x}",
+"· mua ở Vạn Bảo Lâu {x} {name}": "· 於萬寶樓購買 {x} {name}",
+"Không có mục tiêu": "沒有目標"
 }

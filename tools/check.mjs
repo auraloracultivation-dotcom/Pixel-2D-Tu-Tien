@@ -127,7 +127,7 @@ try {
   for (const id of Object.keys(comps.list)) need(npcs[id], `companions: NPC "${id}" không có`);
   need(npcs[shop.npc], 'shop: NPC không có');
   for (const r of items.rarities) need(shop.sell[r.id] != null, `shop.sell: thiếu giá phẩm "${r.id}"`);
-  for (const x of shop.items) need(x.kind === 'gem' || (x.kind === 'pill' ? cave.pills[x.ref] : matOk(x.ref)), `shop: món "${x.ref}" không có`);
+  for (const x of shop.items) need(x.kind === 'gem' || (x.kind === 'skill' ? skills[x.ref]?.type : x.kind === 'pill' ? cave.pills[x.ref] : matOk(x.ref)), `shop: món "${x.ref}" không có`);
   const tb = read('realms.json').tribulation;
   for (const b of tb.by_realm) need(tb.kinds[b.kind], `realms.tribulation: kiểu kiếp "${b.kind}" không có`);
   need(tb.by_realm.length >= read('realms.json').names.length - 1 && mobs['tam-ma'], 'realms.tribulation: thiếu kiếp cho cảnh giới hoặc quái tâm ma');

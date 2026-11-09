@@ -9,6 +9,7 @@ import { castSfx } from './skill-sfx.js';
 import { juiceCast } from './juice.js';
 import { pvpTryHit } from './pvp.js';
 import { sparks } from './sparks.js';
+import { castChain, chainReady } from './skill-chain.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -85,6 +86,9 @@ export function castSkill(game, id) {
       if (V) vfxCast(game, id, s, p);
       else { addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, p); }
       break;
+    case 'chain':   // Thiểm Ảnh Liên Trảm: lướt chém qua lại nhiều mục tiêu (src/game/skill-chain.js); mỗi nhát s.mult × đánh thường
+      castChain(game, s, p.atk * lv);
+      break;
     case 'dash': {
       const sx = p.x, sy = p.y, steps = 16;
       for (let i = 0; i < steps; i++) game.map.move(p, fx * s.dist / steps, fy * s.dist / steps);
@@ -109,6 +113,12 @@ export function castSkill(game, id) {
   return s.cd;
 }
 
+// Chiêu dùng được lúc này không (kiểm trước khi trừ linh lực): chiêu lướt chain cần mục tiêu trong tầm
+export function skillReady(game, id) {
+  const s = game.data.skills[id];
+  return s?.type !== 'chain' || chainReady(game, s);
+}
+
 export function segDist(pt, x1, y1, x2, y2) {
   const dx = x2 - x1, dy = y2 - y1, l = dx * dx + dy * dy || 1;
   const t = Math.max(0, Math.min(1, ((pt.x - x1) * dx + (pt.y - y1) * dy) / l));
@@ -120,13 +130,14 @@ export function weaponSkills(w) {
   return [...(w.skill ? [[w.skill, 0]] : []), ...(w.more || [])];
 }
 
-// Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock)
+// Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock) + chiêu đã mua (save.boughtSkills)
 export function unlockedSkills(game) {
   const { save, data } = game, out = [];
   const w = data.weapons[weaponId(save, data)], n = totalLayer(save, data.realms);
   for (const [id, at] of weaponSkills(w)) if (n >= at) out.push(id);
   const el = save.element ? data.elements[save.element] : null;
   if (el) el.skills.forEach((id, i) => { if (n >= data.elements._unlock[i]) out.push(id); });
+  for (const id of save.boughtSkills || []) if (Object.hasOwn(data.skills, id) && !out.includes(id)) out.push(id);   // chiêu mua ở Vạn Bảo Lâu (shop.js)
   return out;
 }
 

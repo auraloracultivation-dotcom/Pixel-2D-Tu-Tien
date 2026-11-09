@@ -9,6 +9,7 @@ import { segDist } from './skills.js';
 import { weaponSlash } from './slash-fx.js';
 import { vfxOf, vfxCast } from './vfx.js';
 import { castSfx } from './skill-sfx.js';
+import { startChain } from './skill-chain.js';
 
 
 // Sát thương bản sao gây ra: bạo kích (đòn của chính nó; linh thú, đồng hành không bạo như của người chơi), tăng lực, ±10%
@@ -128,6 +129,9 @@ export function castFoe(game, m, id) {
       m.buffT = s.dur; m.buffAmt = amount; m.buffColor = s.color;
       if (V) vfxCast(game, id, s, m);
       else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, m); }
+      break;
+    case 'chain':   // Thiểm Ảnh Liên Trảm: lướt chém qua lại người chơi (src/game/skill-chain.js), mỗi nhát s.mult × đánh thường
+      startChain(game, m, s, () => [p], () => { hit(game, m, roll(m, m.atk * lv * s.mult), { x: m.x, y: m.y }); game.sfx('swing', 0.7); });
       break;
     case 'dash': {
       const sx = m.x, sy = m.y, steps = 16;

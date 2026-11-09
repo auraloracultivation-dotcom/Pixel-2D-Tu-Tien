@@ -5,6 +5,7 @@ import { curOutfit } from '../game/fashion.js';
 import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
 import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
+import { drawChainGhosts } from './draw-chain.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -86,6 +87,7 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const look = heroLook(game, save), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;
+  if (p.chain || p.chainGh || p.chainT > game.time) drawChainGhosts(ctx, game, p, t, save, drawHero);   // bóng lướt Thiểm Ảnh (render/draw-chain.js)
   const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống

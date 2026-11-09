@@ -4096,5 +4096,11 @@
 "🧘 Cân lại tu luyện: quái cho đúng số linh khí ghi trên đầu, cảnh giới càng cao cần càng nhiều linh khí (thanh linh khí tụt phần trăm là do vậy, không mất gì). Đan, canh cho số linh khí cố định. Tụ Khí Đan giá cố định 250 Linh Thạch.": "🧘 Cultivation rebalanced: monsters give exactly the qi shown, higher realms need more qi (that's why your qi bar percentage dropped, nothing was lost). Pills and soups give a fixed amount of qi. Qi Gathering Pill now costs a fixed 250 Spirit Stones.",
 "🛒 Thiếu nguyên liệu khi luyện đan, rèn, cường hoá, nâng cấp: có nút Mua nhanh (giá chợ + 10%).": "🛒 Missing materials when brewing, forging, enhancing or upgrading: a Quick Buy button appears (market price + 10%).",
 "💀 Gục ngoài trời: chọn Hồi sinh tại đây hoặc Về động phủ (5 giây không chọn thì về động phủ).": "💀 Falling outdoors: choose Revive here or Return to Cave Abode (no choice in 5 seconds returns you to the Cave Abode).",
-"🤖 Tự đánh tìm con quái gần nhất, sang tinh cầu mới cũng đánh ngay quái quanh mình. Nút tắt bảng nằm ở góc trên phải.": "🤖 Auto-fight targets the nearest monster, and fights nearby monsters right away on a new planet. Panel close buttons are now in the top-right corner."
+"🤖 Tự đánh tìm con quái gần nhất, sang tinh cầu mới cũng đánh ngay quái quanh mình. Nút tắt bảng nằm ở góc trên phải.": "🤖 Auto-fight targets the nearest monster, and fights nearby monsters right away on a new planet. Panel close buttons are now in the top-right corner.",
+"Thiểm Ảnh Liên Trảm": "Phantom Flash Chain Slash",
+"Không có mục tiêu trong tầm": "No target in range",
+"Hóa ảnh lướt chém qua lại tối đa 4 mục tiêu gần nhất trong 2 giây, tổng sát thương gấp 10 lần đánh thường. Bất tử khi lướt.": "Become a phantom and dash back and forth slashing up to 4 nearest targets over 2 seconds, total damage 10× a normal attack. Invincible while dashing.",
+"Bí kíp {x}": "Manual: {x}",
+"· mua ở Vạn Bảo Lâu {x} {name}": "· buy at Myriad Treasures Pavilion {x} {name}",
+"Không có mục tiêu": "No target"
 }
