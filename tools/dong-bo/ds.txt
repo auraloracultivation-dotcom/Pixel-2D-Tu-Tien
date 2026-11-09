@@ -277,7 +277,7 @@ ed3238f74b9074f98a4200294cec80497693409d assets/art/xd-xich-chan-m.png
 cd5bc0435cc2096e26f0c88008c10451791bf1c4 assets/art/xd-xuong-rong-m.png
 14c283c241f61b1038521b68614c8707f8c92588 data/art.json
 07e78cf3685fb50d5fed804a884fd5538c5ca08d data/cave.json
-099dc48878589d4092c8bed4706a6386829d6451 data/config.json
+2a885635c0f48bebb6a68e935b754acfed6c6188 data/config.json
 274ae14a08bf6acb1d03559af52098491f4ce4f1 data/i18n/en.json
 082c5661224556bfce0843c0574a6ee9958b5cf5 data/i18n/zh-Hant.json
 d4b1705fe6120015ee6c030b755c1501f12fe38d data/le-hoi.json
@@ -294,6 +294,7 @@ ee489e5e629dd8a440da80af1df94f889f094248 data/maps/thanh-khe.json
 00a1c9e5833a62ea801ee1f7c49693c8cb0aa939 data/market.json
 f21df2c52fc66ea02ded383988e3bfc97ca635a8 data/mobs.json
 a511d82d7d166e202b07b4557d081c295ae7940f data/notice.json
+f1dc451382747944f668fd422512205eadc2d100 data/record.json
 b0f9037526064c375c5ee1b2b2c7cb006416b01a data/realms.json
 8b93243c2e263d2dc12a677171a685a5c19da283 data/shop.json
 2ce56535b5696a315478c56e2f346ea790fd26ab data/story.json
