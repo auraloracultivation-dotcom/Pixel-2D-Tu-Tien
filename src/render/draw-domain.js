@@ -60,3 +60,14 @@ export function drawDomain(ctx, z, game) {
   }
   ctx.restore();
 }
+
+// Người ra chiêu ẩn mình trong lĩnh vực (chủ dự án 09/11/2026 19:44): lúc vòng tối mở thì mờ dần, mở xong thì biến mất hẳn, hiện lại
+// trong nửa đầu nhịp kết. 1: thấy rõ (không giữ lĩnh vực). Dùng ở drawHero (mình, người khác, bản sao) và drawPlayer (vũ khí, danh hiệu).
+export function domainVis(game, a) {
+  const z = a?.domain;
+  if (!z || z.t >= z.dur || !game.zones.includes(z)) return 1;
+  const s = z.s, o2 = s.open + s.main;
+  if (z.t < s.open) return 1 - z.t / s.open;
+  if (z.t < o2) return 0;
+  return Math.min(1, (z.t - o2) / (s.end * 0.5));
+}

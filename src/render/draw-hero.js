@@ -6,6 +6,7 @@ import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
 import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
 import { drawChainGhosts } from './draw-chain.js';
+import { domainVis } from './draw-domain.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -83,7 +84,18 @@ function build(H, look) {
 }
 
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
+// Ẩn mình trong lĩnh vực Vô Ảnh (render/draw-domain.js domainVis): mờ dần rồi biến mất; biến mất hẳn vẫn trả true (khỏi vẽ hình khối thay)
 export function drawHero(ctx, game, p, t, flash, save = game.save) {
+  const dv = p.domain ? domainVis(game, p) : 1;
+  if (dv >= 1) return heroBody(ctx, game, p, t, flash, save);
+  if (dv <= 0.01) return true;
+  ctx.save(); ctx.globalAlpha *= dv;
+  const r = heroBody(ctx, game, p, t, flash, save);
+  ctx.restore();
+  return r;
+}
+
+function heroBody(ctx, game, p, t, flash, save) {
   const look = heroLook(game, save), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;

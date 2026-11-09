@@ -47,8 +47,8 @@ export function castFx(game, o, c, bounds) {
       if (V) vfxCast(game, c.k, s, o);   // aura, khiên bám theo người đó
       else { addFx(game, { type: 'ring', x: o.x, y: o.y, r: s.type === 'heal' ? 18 : 14, color: s.color, life: 0.5 }); if (s.fx) selfFx(game, s.fx, o); }
       break;
-    case 'domain':   // Vô Ảnh Trảm Vực: chỉ vẽ lĩnh vực và nhát chém (không gây sát thương, không giữ chân người đó)
-      openDomain(game, null, s, x, y, s.color, () => game.mobs, null);
+    case 'domain':   // Vô Ảnh Trảm Vực: chỉ vẽ lĩnh vực và nhát chém (không gây sát thương)
+      openDomain(game, o, s, x, y, s.color, () => game.mobs, null);   // o: để người đó mờ dần, biến mất như máy họ
       break;
     case 'chain':   // Thiểm Ảnh: người đó lướt theo vị trí máy chủ báo, bóng lướt và vệt sáng vẽ theo đường đi (render/draw-chain.js)
       o.chainT = game.time + Math.min(s.dur || 2, 3); o.chainColor = s.color;

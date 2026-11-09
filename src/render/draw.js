@@ -52,7 +52,7 @@ import { drawDummy } from './draw-dummy.js';
 import { drawMang } from './draw-mang.js';
 import { duelFoes } from '../game/duel.js';
 import { drawVfx } from './vfx/draw-vfx.js';
-import { vfxOf } from '../game/vfx.js';
+import { vfxOf } from '../game/vfx.js'; import { domainVis } from './draw-domain.js';
 
 const INK = '#1b1830';
 
@@ -81,7 +81,7 @@ export function drawPerson(ctx, e, color, hair, t, flash, face) {
 }
 
 function drawPlayer(ctx, game, t) {
-  if (game.ghost) return drawGhost(ctx, game, t);   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js)
+  if (game.ghost) return drawGhost(ctx, game, t); if (game.player.domain && domainVis(game, game.player) <= 0.01) return;   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js); ẩn trong lĩnh vực Vô Ảnh: cả vũ khí, danh hiệu (draw-domain.js)
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;

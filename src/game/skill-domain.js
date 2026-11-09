@@ -4,8 +4,8 @@
 //   2. vạn trảm (s.main giây): vô số nhát chém vô hình loé lên khắp vùng, thưa rồi dày (s.slash_rate nhát/giây), cứ s.hit_every giây
 //      mọi mục tiêu trong vùng trúng s.mult × đánh thường và bị trói chậm (s.slow);
 //   3. kết (s.end giây): một nhát chém lớn xé ngang lĩnh vực, trúng s.end_mult × đánh thường, rung màn, lĩnh vực vỡ tan.
-// Tổng mỗi mục tiêu ở trong vùng suốt chiêu: 11 × 1 + 4 = 15 lần đánh thường (chủ dự án chốt 19:27). Người ra chiêu đứng yên, bất tử
-// (a.domain, dashT) tới hết chiêu. Không có mục tiêu trong vùng thì không dùng được (domainReady, player.js chưa trừ linh lực).
+// Tổng mỗi mục tiêu ở trong vùng suốt chiêu: 30 × 0,35 + 4,5 = 15 lần đánh thường (chủ dự án chốt 19:27, nhịp sửa 19:44). Người ra chiêu
+// đứng yên, bất tử (a.domain, dashT) tới hết chiêu; lúc mở mờ dần rồi biến mất, hiện lại lúc kết (render/draw-domain.js domainVis). Không có mục tiêu trong vùng thì không dùng được (domainReady, player.js chưa trừ linh lực).
 // Lĩnh vực là một vùng chiêu (zones.js, onTick) có hàm vẽ riêng (render/draw-domain.js, gọi ở lớp mặt đất draw.js). PvP giữ luật trọng
 // tài: mỗi nhịp gọi pvpTryHit. Bản sao so tài dùng được (duel-cast.js); người khác thấy hình (others-cast.js, không gây sát thương).
 import { hitMob, dist, impactShake } from './combat.js';
@@ -22,7 +22,7 @@ export const domainReady = (game, s) => game.mobs.some(m => !m.dead && dist(game
 // Mở lĩnh vực. a: người ra chiêu (null: chỉ để nhìn, người khác); hit(t, k, last): gây đòn k × đánh thường lên mục tiêu t
 // foes(): danh sách mục tiêu có thể trúng
 export function openDomain(game, a, s, x, y, color, foes, hit) {
-  let z = { x, y, radius: s.radius, dur: s.open + s.main + s.end, tick: 0.05, color, s, a, foes, hit, nextHit: s.open, slashAcc: 0, done: 0, draw: drawDomain, onTick: z2 => step(game, z2) };
+  let z = { x, y, radius: s.radius, dur: s.open + s.main + s.end, tick: 0.05, color, s, a, foes, hit, nextHit: s.open, hitN: 0, slashAcc: 0, done: 0, draw: drawDomain, onTick: z2 => step(game, z2) };
   addZone(game, z);
   z = game.zones[game.zones.length - 1];   // addZone chép ra đối tượng mới: giữ đúng cái đang chạy
   if (a) { a.domain = z; a.dashT = z.dur + 0.1; a.dashV = null; a.kx = a.ky = 0; }
@@ -65,10 +65,10 @@ function step(game, z) {
       const cx = on ? on.x : z.x + Math.cos(q) * r, cy = (on ? on.y - 8 : z.y + Math.sin(q) * r * 0.9), ang = Math.random() * Math.PI * 2, L = 16 + Math.random() * 18;
       slashLine(game, { x: cx - Math.cos(ang) * L * 0.75, y: cy - Math.sin(ang) * L * 0.75, ang, len: L, from: 0, color: z.color });
     }
-    if (z.hit && t >= z.nextHit) {   // nhịp sát thương
-      z.nextHit += s.hit_every;
+    if (z.hit && t >= z.nextHit && z.hitN < Math.round(s.main / s.hit_every)) {   // nhịp sát thương: đúng main / hit_every nhát
+      z.nextHit += s.hit_every; z.hitN++;
       for (const m of tgt) z.hit(m, s.mult, false);
-      if (Math.random() < 0.6) game.sfx?.('swing', 0.5);
+      if (z.hitN % 2) game.sfx?.('swing', 0.45);
     }
   }
   if (t >= o2 && z.done === 1) {   // kết: nhát chém lớn xé ngang lĩnh vực
