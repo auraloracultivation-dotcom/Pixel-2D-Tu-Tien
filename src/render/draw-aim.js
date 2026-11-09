@@ -27,6 +27,11 @@ function parts(s, a) {
     if (full) circ(0, SHOT_Y, R, 1); else P.push({ k: 'fan', x: 0, y: SHOT_Y, a, half: sp / 2, r: R, lv: 1 });
     for (let i = 0; i < s.count; i++) shot(full ? a + i / s.count * Math.PI * 2 : a + (s.count > 1 ? (i / (s.count - 1) - 0.5) * sp : 0));
   } else if (s.type === 'aoe' || s.type === 'zone') circ(c * (s.offset || 0), n * (s.offset || 0), s.radius);
+  else if (s.type === 'charge') {   // Phá Thiên: quạt có đáy (game/skill-charge.js), khung dài aim_len (vệt thật tới mép màn)
+    const h = s.angle * Math.PI / 360, off = (s.base || 1) / Math.tan(h);
+    P.push({ k: 'fan', x: -c * off, y: SHOT_Y - n * off, a, half: h, r: (s.aim_len || s.range) + off, from: off, lv: 2 });
+  } else if (s.type === 'domain') circ(0, 0, s.radius);   // Vô Ảnh: lĩnh vực quanh người
+  else if (s.type === 'chain') circ(0, 0, s.range, 1);   // Thiểm Ảnh: tầm tìm mục tiêu
   else if (s.type === 'dash') { lane(0, 0, c * s.dist, n * s.dist, 8); circ(c * s.dist, n * s.dist, 7); }   // trúng khi cách đường lao dưới 8 + thân quái
   else circ(0, 0, 14, 1);
   return P;
@@ -39,7 +44,8 @@ function inside(p, x, y) {
   if (p.k === 'circ') return (x - p.x) ** 2 + (y - p.y) ** 2 <= p.r * p.r;
   if (p.k === 'fan') {
     const dx = x - p.x, dy = y - p.y;
-    return dx * dx + dy * dy <= p.r * p.r && Math.abs(Math.atan2(Math.sin(Math.atan2(dy, dx) - p.a), Math.cos(Math.atan2(dy, dx) - p.a))) <= p.half;
+    return dx * dx + dy * dy <= p.r * p.r && Math.abs(Math.atan2(Math.sin(Math.atan2(dy, dx) - p.a), Math.cos(Math.atan2(dy, dx) - p.a))) <= p.half
+      && (!p.from || dx * Math.cos(p.a) + dy * Math.sin(p.a) >= p.from);   // quạt có đáy: bỏ phần nhọn sau gốc
   }
   const dx = p.bx - p.ax, dy = p.by - p.ay, t = Math.max(0, Math.min(1, ((x - p.ax) * dx + (y - p.ay) * dy) / (dx * dx + dy * dy || 1)));
   return (x - p.ax - dx * t) ** 2 + (y - p.ay - dy * t) ** 2 <= p.hw * p.hw;
@@ -80,7 +86,7 @@ function build(s, a) {
 }
 
 // Hình không đổi theo hướng: vòng quanh người, chiêu tự thân
-const still = s => ((s.type === 'aoe' || s.type === 'zone') && !s.offset) || !['projectile', 'multi', 'aoe', 'zone', 'dash'].includes(s.type);
+const still = s => ((s.type === 'aoe' || s.type === 'zone') && !s.offset) || !['projectile', 'multi', 'aoe', 'zone', 'dash', 'charge'].includes(s.type);
 
 // Gọi trong lớp mặt đất (src/render/draw.js drawWorld, đã ở toạ độ bản đồ)
 export function drawAim(ctx, game) {
@@ -89,7 +95,8 @@ export function drawAim(ctx, game) {
   const id = skillSlots(game)[Number(act.slice(1))], s = id && game.data.skills[id];
   if (!s) return;
   const p = game.player, f = (inp.aiming?.act === act && inp.aiming) || autoAim(game, id) || p.face || { x: 1, y: 0 };
-  const k = still(s) ? 0 : ((Math.round(Math.atan2(f.y, f.x) / (Math.PI * 2) * DIRS) % DIRS) + DIRS) % DIRS, key = `${id}:${s.type}:${s.range || s.dist || s.radius}:${k}`;
+  const q = s.type === 'charge' ? 4 : 1;   // khung lớn (Phá Thiên): 32 hướng, khỏi tốn bộ nhớ
+  const k = still(s) ? 0 : ((Math.round(Math.atan2(f.y, f.x) / (Math.PI * 2) * DIRS / q) * q % DIRS) + DIRS) % DIRS, key = `${id}:${s.type}:${s.range || s.dist || s.radius}:${k}`;
   let c = cache.get(key);
   if (!c) { if (cache.size > 300) cache.clear(); c = build(s, k / DIRS * Math.PI * 2); cache.set(key, c); }
   ctx.save();

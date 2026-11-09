@@ -2,8 +2,9 @@
 // nên đêm vẫn chói). Số ở data/config.json → charge_fx.
 // Tụ lực: màn tối dần ở rìa, linh khí bốn phương hút về vũ khí; vũ khí bay lên trên đầu, dựng thẳng, đỏ rực và lớn dần tới s.grow lần;
 // sét trắng đỏ, huyết vụ đỏ đen, sương trắng thay nhau cuốn quanh (mỗi thứ mạnh lên rồi lắng theo nhịp lệch nhau); vòng huyết dưới chân.
-// Chém: quạt sáng trắng chói s.angle độ từ người ra tới mép màn, ba lớp (viền mờ màu trang phục, thân trắng nhạt dần về cuối, lõi trắng
-// tinh), tia tốc độ chạy dọc, loé ở gốc; lan ra trong F.grow_t giây rồi tan dần.
+// Chém (chủ dự án 09/11/2026 23:41): cả cây vũ khí khổng lồ bay vọt về phía trước (F.fly_t giây) cùng vệt sáng hình quạt s.angle độ có đáy
+// tới mép màn, ba lớp (viền mờ màu trang phục, thân trắng nhạt dần về cuối, lõi trắng tinh), tia tốc độ, loé ở gốc; lan ra trong F.grow_t
+// giây rồi tan dần.
 import { drawWeaponAt } from './draw-flyweapon.js';
 
 const clamp = k => Math.max(0, Math.min(1, k));
@@ -87,9 +88,9 @@ function swirl(ctx, a, F, T, k, wx, wy, sc, back) {
 }
 
 // Lưỡi kiếm vẽ bằng nét (người khác, bản sao: không có hình vũ khí của họ): dựng thẳng, đỏ rực dần, lõi trắng
-function blade(ctx, x, y, sc, k, dd) {
+function blade(ctx, x, y, sc, k, dd, rot = 0) {   // rot: xoay quanh tâm (0: mũi chĩa lên)
   const L = 9 * sc, W = 1.6 * sc;
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = RED; ctx.shadowBlur = 10 * dd;
+  ctx.save(); if (rot) { ctx.translate(x, y); ctx.rotate(rot); ctx.translate(-x, -y); } ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = RED; ctx.shadowBlur = 10 * dd;
   ctx.fillStyle = `rgba(255,${Math.round(200 - 170 * k)},${Math.round(200 - 170 * k)},0.95)`;
   ctx.beginPath(); ctx.moveTo(x, y - L); ctx.lineTo(x + W, y + L * 0.55); ctx.lineTo(x - W, y + L * 0.55); ctx.closePath(); ctx.fill();
   ctx.fillStyle = '#ffffff'; ctx.shadowBlur = 2 * dd;
@@ -103,27 +104,35 @@ function beam(ctx, game, f, F) {
   const g = clamp(f.t / F.grow_t), L = f.len * ease(g), fade = f.t < F.grow_t ? 1 : clamp(1 - (f.t - F.grow_t) / (f.life - F.grow_t));
   if (L < 2 || fade <= 0) return;
   const dd = Math.abs(ctx.getTransform().d) || 1, c = Math.cos(f.ang), s = Math.sin(f.ang);
-  const wedge = (half, len, base) => {
-    ctx.beginPath();
-    ctx.moveTo(f.x - s * base, f.y + c * base);
-    for (let i = 0; i <= 12; i++) { const a = f.ang - half + 2 * half * i / 12; ctx.lineTo(f.x + Math.cos(a) * len, f.y + Math.sin(a) * len); }
-    ctx.lineTo(f.x + s * base, f.y - c * base); ctx.closePath();
+  // quạt có đáy (game/skill-charge.js inBeam): rộng b mỗi bên tại gốc, mở nửa góc h, dài len từ gốc; vẽ như quạt nhọn từ đỉnh ảo sau gốc
+  const wedge = (h, len, b) => {
+    b = Math.max(1, b);
+    const off = b / Math.tan(h), ax = f.x - c * off, ay = f.y - s * off, R = len + off;
+    ctx.beginPath(); ctx.moveTo(f.x + s * b, f.y - c * b);
+    for (let i = 0; i <= 16; i++) { const a = f.ang - h + 2 * h * i / 16; ctx.lineTo(ax + Math.cos(a) * R, ay + Math.sin(a) * R); }
+    ctx.lineTo(f.x - s * b, f.y + c * b); ctx.closePath();
   };
+  const B = f.base || 0;
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   ctx.fillStyle = f.color; ctx.shadowColor = f.color; ctx.shadowBlur = 26 * dd; ctx.globalAlpha = F.rim * fade;   // viền mờ màu trang phục
-  wedge(f.half * 1.14, L * 1.02, 6); ctx.fill();
+  wedge(f.half * 1.14, L * 1.02, B + 6); ctx.fill();
   const gr = ctx.createLinearGradient(f.x, f.y, f.x + c * L, f.y + s * L);
   gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.7, 'rgba(255,255,255,0.85)'); gr.addColorStop(1, 'rgba(255,255,255,0.35)');
   ctx.fillStyle = gr; ctx.shadowColor = '#ffffff'; ctx.shadowBlur = 12 * dd; ctx.globalAlpha = 0.85 * fade;   // thân trắng
-  wedge(f.half, L, 4); ctx.fill();
+  wedge(f.half, L, B + 2); ctx.fill();
   ctx.shadowBlur = 0; ctx.fillStyle = '#ffffff'; ctx.globalAlpha = fade;   // lõi trắng tinh
-  wedge(f.half * 0.42, L * 0.97, 2.5); ctx.fill();
+  wedge(f.half * 0.42, L * 0.97, B * 0.45 + 1.5); ctx.fill();
   ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 0.8;   // tia tốc độ chạy dọc quạt
   for (let i = 0; i < 10; i++) {
-    const a = f.ang + (((i * 0.618) % 1) - 0.5) * 1.8 * f.half, u = ((f.t * 2.2 + i * 0.37) % 1);
+    const q = (((i * 0.618) % 1) - 0.5) * 1.8, a = f.ang + q * f.half, u = ((f.t * 2.2 + i * 0.37) % 1), ox = f.x - s * B * q, oy = f.y + c * B * q;   // tia toả từ khắp đáy
     ctx.globalAlpha = 0.6 * fade * (1 - u); ctx.beginPath();
-    ctx.moveTo(f.x + Math.cos(a) * L * u, f.y + Math.sin(a) * L * u); ctx.lineTo(f.x + Math.cos(a) * L * Math.min(1, u + 0.25), f.y + Math.sin(a) * L * Math.min(1, u + 0.25)); ctx.stroke();
+    ctx.moveTo(ox + Math.cos(a) * L * u, oy + Math.sin(a) * L * u); ctx.lineTo(ox + Math.cos(a) * L * Math.min(1, u + 0.25), oy + Math.sin(a) * L * Math.min(1, u + 0.25)); ctx.stroke();
   }
+  const u = clamp(f.t / F.fly_t), fd = f.len * ease(u) * 0.9, G = f.grow || 5, wx = f.x + c * fd, wy = f.y + s * fd;   // cả cây vũ khí bay vọt theo vệt sáng
+  const tr = ctx.createRadialGradient(wx, wy, 0, wx, wy, 12 * G);   // quầng đỏ quanh vũ khí, nổi trên nền trắng
+  tr.addColorStop(0, 'rgba(255,30,40,0.55)'); tr.addColorStop(1, 'rgba(255,30,40,0)');
+  ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = fade * (1 - 0.5 * u); ctx.fillStyle = tr; ctx.beginPath(); ctx.arc(wx, wy, 12 * G, 0, Math.PI * 2); ctx.fill();
+  if (!f.own || !drawWeaponAt(ctx, game, wx, wy, f.ang, F.fw_k * G, 0.9, RED)) blade(ctx, wx, wy, G, 1, dd, f.ang + Math.PI / 2);
   const fl = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, 26);   // loé ở gốc
   fl.addColorStop(0, 'rgba(255,255,255,1)'); fl.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.globalAlpha = fade * (1 - g * 0.5); ctx.fillStyle = fl; ctx.beginPath(); ctx.arc(f.x, f.y, 26, 0, Math.PI * 2); ctx.fill();

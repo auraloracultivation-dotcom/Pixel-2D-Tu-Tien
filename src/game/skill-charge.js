@@ -21,18 +21,19 @@ function reach(game, x, y, ang, s) {
   return Number.isFinite(t) ? Math.max(s.range * 0.5, t + s.over) : s.range;
 }
 
-// Mục tiêu t nằm trong quạt (gốc x, y, hướng ang, nửa góc half, dài L) không: tính cả bề ngang thân
-export function inBeam(t, x, y, ang, half, L) {
-  const dx = t.x - x, dy = t.y - y, d = Math.hypot(dx, dy), r = t.r || 5;
-  if (d > L + r) return false;
-  if (d < r + 4) return true;
-  let da = Math.atan2(dy, dx) - ang;
-  da = Math.atan2(Math.sin(da), Math.cos(da));
-  return Math.abs(da) <= half + Math.atan2(r, d);
+// Quạt có đáy (chủ dự án 09/11/2026 23:35: hình quạt, không phải chữ V, quái sát người cũng trúng): rộng base mỗi bên ngay tại gốc, hai mép
+// mở nửa góc half. Coi như quạt nhọn từ đỉnh ảo lùi sau gốc off = base / tan(half), cắt bỏ phần sau gốc. Dùng chung cho trúng đòn và hình.
+export const beamOff = (base, half) => base / Math.tan(half);
+
+// Mục tiêu t nằm trong quạt (gốc x, y, hướng ang, nửa góc half, đáy base, dài L tính từ gốc) không: tính cả bề ngang thân
+export function inBeam(t, x, y, ang, half, L, base = 0) {
+  const c = Math.cos(ang), s = Math.sin(ang), dx = t.x - x, dy = t.y - y, r = t.r || 5;
+  const along = dx * c + dy * s, perp = Math.abs(-dx * s + dy * c);
+  return along >= -r - 4 && along <= L + r && perp <= base + Math.max(0, along) * Math.tan(half) + r;
 }
 
 // Bắt đầu tụ lực. a: người ra chiêu; aim(): hướng chém lúc ra đòn (góc); fire(ang, L): gây đòn khi chém
-export function startCharge(game, a, s, color, aim, fire) {
+export function startCharge(game, a, s, color, aim, fire) {   // vệt chém dùng s.base, s.angle
   a.charge = { s, t0: game.time, t: 0, color, aim, fire };
   a.dashT = s.charge + 0.2; a.dashV = null; a.kx = a.ky = 0; a.moving = false;
 }
@@ -41,13 +42,15 @@ export function startCharge(game, a, s, color, aim, fire) {
 export function castCharge(game, s, dmg) {
   const p = game.player, color = outfitColor(game, game.data.weapons[weaponId(game.save, game.data)]);
   p.meditating = false; p.riding = false;
+  const hand = p.castAim;   // vuốt nút chiêu: chém theo hướng vuốt (player.js); chạm: tự ngắm con gần nhất lúc chém
   startCharge(game, p, s, color, () => {
+    if (hand) return Math.atan2(hand.y, hand.x);
     let best = null, bd = 1e9;
     for (const m of game.mobs) if (!m.dead && dist(p, m) < bd) { bd = dist(p, m); best = m; }
     return best && bd < s.range * 1.5 ? Math.atan2(best.y - p.y, best.x - p.x) : Math.atan2(p.face.y, p.face.x);
   }, (ang, L) => {
     pvpTryHit(game);
-    for (const m of game.mobs) if (!m.dead && inBeam(m, p.x, p.y - 8, ang, s.angle * Math.PI / 360, L)) hitMob(game, m, dmg * s.mult, { color, fromX: p.x, fromY: p.y });
+    for (const m of game.mobs) if (!m.dead && inBeam(m, p.x, p.y - 8, ang, s.angle * Math.PI / 360, L, s.base)) hitMob(game, m, dmg * s.mult, { color, fromX: p.x, fromY: p.y });
   });
 }
 
@@ -68,7 +71,7 @@ function release(game, a) {
   a.charge = null; a.dashT = 0.25;
   a.face = { x: Math.cos(ang), y: Math.sin(ang) };
   if (Math.abs(a.face.x) > 0.2) a.lookX = Math.sign(a.face.x);
-  addFx(game, { type: 'beam', x, y, ang, half: s.angle * Math.PI / 360, len: L, color: c.color, life: s.beam });
+  addFx(game, { type: 'beam', x, y, ang, half: s.angle * Math.PI / 360, base: s.base || 0, grow: s.grow, own: a === game.player, len: L, color: c.color, life: s.beam });
   c.fire?.(ang, L);
   if (!c.fire) return;   // người khác ra chiêu: chỉ hình, không rung, không chớp máy mình
   impactShake(game, 200); game.flashT = Math.max(game.flashT || 0, 0.18);

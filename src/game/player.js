@@ -176,6 +176,7 @@ export function updatePlayer(game, dt) {
       p.meditating = false; p.calmT = 0; p.riding = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;
+      p.castAim = inp.aim['s' + i] || null;   // hướng vuốt tay (null: chạm, tự ngắm), chiêu tụ lực dùng lúc chém (skill-charge.js)
       p.skillCd[i] = castSkill(game, slots[i]) * (1 - p.st.cdr);
     }
   }

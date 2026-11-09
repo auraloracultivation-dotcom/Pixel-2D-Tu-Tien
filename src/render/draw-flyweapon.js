@@ -41,7 +41,8 @@ export function drawWeaponAt(ctx, game, x, y, a, k, red, tint) {
   ctx.save(); ctx.imageSmoothingEnabled = k > 2.5;   // phóng to nhiều lần: làm mịn, khỏi thành khối vuông
   const sm = ws.smooth; ws.smooth = ws.smooth || k > 2.5;
   blit(ctx, ws, ws.im, x, y, a, k);
-  if (red > 0) { ctx.globalAlpha = red; blit(ctx, ws, tintedImage(ws.spr, ws.im, tint), x, y, a, k); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = red * 0.5; blit(ctx, ws, tintedImage(ws.spr, ws.im, '#ff8a6a'), x, y, a, k); }   // đỏ rực: phủ đỏ, cộng sáng cam
+  const A = ctx.globalAlpha;   // độ đậm người gọi đặt (vũ khí bay ra mờ dần)
+  if (red > 0) { ctx.globalAlpha = A * red; blit(ctx, ws, tintedImage(ws.spr, ws.im, tint), x, y, a, k); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = A * red * 0.5; blit(ctx, ws, tintedImage(ws.spr, ws.im, '#ff8a6a'), x, y, a, k); }   // đỏ rực: phủ đỏ, cộng sáng cam
   ws.smooth = sm;
   ctx.restore();
   return true;

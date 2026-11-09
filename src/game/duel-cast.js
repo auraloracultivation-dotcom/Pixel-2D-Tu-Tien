@@ -133,7 +133,7 @@ export function castFoe(game, m, id) {
       else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, m); }
       break;
     case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt về phía người chơi (src/game/skill-charge.js)
-      startCharge(game, m, s, s.color, () => Math.atan2(p.y - m.y, p.x - m.x), (ang, L) => { if (inBeam(p, m.x, m.y - 8, ang, s.angle * Math.PI / 360, L)) hit(game, m, roll(m, m.atk * lv * s.mult), { x: m.x, y: m.y }); });
+      startCharge(game, m, s, s.color, () => Math.atan2(p.y - m.y, p.x - m.x), (ang, L) => { if (inBeam(p, m.x, m.y - 8, ang, s.angle * Math.PI / 360, L, s.base)) hit(game, m, roll(m, m.atk * lv * s.mult), { x: m.x, y: m.y }); });
       break;
     case 'domain':   // Vô Ảnh Trảm Vực: lĩnh vực quanh bản sao, người chơi đứng trong thì trúng (src/game/skill-domain.js)
       openDomain(game, m, s, m.x, m.y, s.color, () => [p], (t, k, last) => hit(game, m, roll(m, m.atk * lv * k), { x: m.x, y: m.y, soft: !last }));
