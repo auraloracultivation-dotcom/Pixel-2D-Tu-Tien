@@ -80,5 +80,6 @@
   "saved_ios": "Nếu bạn đã chọn \"Lưu video\", clip nằm trong app Ảnh.",
   "save_ios_fail": "Máy này chưa lưu được clip từ game. Bạn dùng nút quay màn hình của iPhone nhé."
  },
- "fps_weak": 24
+ "fps_weak": 30,
+ "cfr": {"_note": "Ghi nhịp đều (src/core/recorder-cfr.js, chủ dự án 09/11/2026 18:06: video vào trình sửa TikTok bị giật vì MediaRecorder ghi nhịp không đều): tự mã hoá H.264 + AAC bằng WebCodecs, mỗi giây đủ fps khung, ghép MP4 chuẩn. need_audio: máy không mã hoá được AAC thì true = quay cách cũ để giữ tiếng, false = vẫn quay nhịp đều nhưng không có tiếng.", "on": true, "need_audio": false}
 }

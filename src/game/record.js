@@ -1,7 +1,8 @@
 // Quay clip trong game: nút 🎥 cạnh nút tiếng. Bấm để quay, bấm lần nữa để dừng, rồi mở bảng xem lại / chia sẻ / lưu.
 // Số liệu và chữ ở data/record.json (nạp riêng ở đây để khỏi sửa danh sách chung trong core/data.js).
 // Khi đã chia sẻ một clip đủ dài mà chưa nhận quà, bấm nút mở bảng nhận quà (có nút Bắt đầu quay) thay vì quay ngay.
-import { pickType, startRecording } from '../core/recorder.js';
+import { pickType } from '../core/recorder.js';
+import { startBest } from '../core/recorder-cfr.js';   // nhịp đều (WebCodecs) khi máy làm được, không thì cách cũ
 import { createRecordPanel } from '../ui/record-panel.js';
 import { giftReady, loggedIn } from './record-gift.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
@@ -43,12 +44,15 @@ export async function createRecord(game, audio) {
     btn.classList.toggle('gift', !rec && loggedIn(game) && giftReady(game));
   }
 
-  function start() {
-    if (rec) return;
-    if (!pickType()) { game.toast(T.unsupported, 3); return; }
+  let starting = false;
+  async function start() {
+    if (rec || starting) return;
+    if (!pickType() && typeof VideoEncoder === 'undefined') { game.toast(T.unsupported, 3); return; }
     const canvas = document.getElementById('game');
-    try { rec = startRecording(canvas, audio?.master || null, { ...cfg, frame: game.data.config.frame }); }   // chỉ quay khung giữa (src/ui/frame-dim.js)
+    starting = true;
+    try { rec = await startBest(canvas, audio?.master || null, { ...cfg, frame: game.data.config.frame }); }   // chỉ quay khung giữa (src/ui/frame-dim.js)
     catch { rec = null; game.toast(T.fail, 2.5); return; }
+    finally { starting = false; }
     warned = false;
     game.toast(audio?.muted ? `${T.start} ${T.muted}` : T.start, 2.5);
     tick = setInterval(() => {

@@ -34,7 +34,7 @@ export function clipSize(w, h, long) {
 }
 
 // Chữ góc vẽ sẵn một lần vào tấm riêng, mỗi khung chỉ dán lại (vẽ chữ có viền mỗi khung tốn máy)
-function makeMark(w, h, mark) {
+export function makeMark(w, h, mark) {
   const s = Math.max(10, Math.round(Math.min(w, h) / 34));
   const c = document.createElement('canvas');
   c.width = w; c.height = Math.ceil(s * 2.6);
