@@ -51,3 +51,15 @@ export function spreadMobs(game, dt) {
     game.map.move(a, -ux * push, -uy * push); game.map.move(b, ux * push, uy * push);
   }
 }
+
+// Chỉ chủ động đánh khi người chơi bước vào tầm đánh của nó (chủ dự án 09/11/2026 10:42: "quái trên bản đồ chỉ trong phạm vi công kích
+// mới chủ động công kích"): cận chiến = bán kính + tầm vồ + pad; đánh xa = tầm bắn. Bị đánh thì đánh trả (combat.js đặt aggro). Người
+// chơi chạy xa quá leash đơn vị và đã leash_sec giây không đánh nó thì nó thôi đuổi, về chỗ cũ. Trùm, đấu sĩ giữ tầm cũ (def.aggro).
+export function aggroCheck(game, m, p, d) {
+  const A = game.data.config.mob_cp?.aggro;
+  if (!A?.on || m.def.ai === 'boss' || m.def.ai === 'duel' || m.tower || m.room || game.dungeon) return m.aggro || (m.def.aggro && d < m.def.aggro);
+  if (!m.def.aggro) return m.aggro;   // quái hiền (passive) chỉ đánh trả
+  const reach = m.def.ai === 'ranged' ? (m.def.range || m.def.aggro) : m.r + (p?.r || 4) + reachOf(game, m) + (A.pad || 0);
+  if (!m.aggro) return d < reach;
+  return !(d > A.leash && game.time - (m.hurtT ?? -1e9) > A.leash_sec);
+}

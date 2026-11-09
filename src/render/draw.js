@@ -34,6 +34,7 @@ import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
 import { drawMobBar } from './draw-mob-bar.js';
+import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
 import { drawFlyWeapon } from './draw-flyweapon.js';
@@ -79,6 +80,7 @@ export function drawPerson(ctx, e, color, hair, t, flash, face) {
 }
 
 function drawPlayer(ctx, game, t) {
+  if (game.ghost) return drawGhost(ctx, game, t);   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js)
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;

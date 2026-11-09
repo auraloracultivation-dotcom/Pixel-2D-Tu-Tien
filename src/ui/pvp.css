@@ -9,6 +9,9 @@
 .pvp-tag.off { color: #ff6a6a; }
 .pvp-tag.off b { background-image: url("../../assets/art/ui-k-khien-tat.png"); }   /* tắt khiên: khiên kiếm chéo */
 .pvp-tag[hidden], .pvp-ask[hidden] { display: none; }
+/* thanh máu dưới tên (pvp-btn.js) */
+.pvp-hp { position: absolute; left: 4px; right: 4px; bottom: -4px; height: 3px; background: #2a1420; border: 1px solid #1b1830; box-sizing: content-box; }
+.pvp-hp u { display: block; height: 100%; width: 100%; background: #e0484a; text-decoration: none; }
 .pvp-ask { position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; background: rgba(8, 4, 16, .55); padding: 16px; }
 .pvp-ask-card {
   width: min(92vw, 320px); padding: 14px 14px 12px; border-radius: 10px; border: 2px solid #000;

@@ -10,7 +10,7 @@ import { findPath } from './pilot.js';
 
 // Trong nhà không tự đánh, trừ động phủ có Mộc Nhân (góp ý #114: tự đánh Mộc Nhân để đo sát thương/giây, game/dummy.js)
 const indoorOk = game => !game.map.def.indoor || (game.map.id === game.data.home.map && game.mobs.some(m => m.dummy));
-export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && indoorOk(game) && !game.trib.active;
+export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && indoorOk(game) && !(game.trib.active && !game.trib.wantsAuto);   // độ kiếp: được Tự đánh để hạ tâm ma (tribulation.js wantsAuto)
 
 export function toggleAuto(game) {
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }

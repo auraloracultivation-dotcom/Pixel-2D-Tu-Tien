@@ -6,7 +6,7 @@ import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.
 import { duelThink } from './duel-ai.js';
 import { tickDummy } from './dummy.js';
 import { tickMang } from './thien-mang.js';
-import { reachOf, spreadMobs } from './mob-power.js';
+import { reachOf, spreadMobs, aggroCheck } from './mob-power.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -79,7 +79,7 @@ export function updateMobs(game, dt) {
     if (m.stunT > 0 || game.paused) continue;
     if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && (nearNpc(game, p, S.r) || inHoi(game, p))) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe) và phố lễ hội (hoi-foot.js)
     const d = dist(m, p);
-    if (!m.aggro && m.def.aggro && d < m.def.aggro) m.aggro = true;
+    m.aggro = !!aggroCheck(game, m, p, d);   // chỉ chủ động đánh khi vào tầm, chạy xa thì thôi đuổi (mob-power.js)
     if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)
     else if (m.def.ai === 'boss') bossThink(game, m, d, dt);
     else if (m.aggro && m.def.ai === 'ranged') rangedThink(game, m, d, dt);

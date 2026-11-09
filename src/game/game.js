@@ -5,6 +5,7 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { zonePower } from './mob-power.js';
+import { startGhost, ghostTick } from './ghost.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
@@ -349,7 +350,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
-    updatePlayer(game, dt);
+    if (!game.ghost) updatePlayer(game, dt);   // gục: bong bóng linh hồn đứng yên chờ hồi sinh (ghost.js)
     updateRide(game, dt);
     updatePet(game, dt);
     updateCompanion(game, dt); updateCombo(game, dt);
@@ -387,7 +388,8 @@ export function createGame(data, screen, input, ui, audio) {
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
     game.story.update();
-    if (game.player.hp <= 0) respawn();
+    if (game.player.hp <= 0 && !game.ghost) startGhost(game);
+    if (ghostTick(game, dt)) respawn();
     if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
     camFollow(game, screen, dt);
   };
