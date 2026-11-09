@@ -59,13 +59,17 @@ export function drawHoiItem(ctx, game, it, t) {
 function drawHoiBody(ctx, game, it, im, t) {
   const s = it.spr, k = it.k, ox = it.x - s.anchor[0] * k;
   let oy = it.y - s.anchor[1] * k;
-  ctx.imageSmoothingEnabled = false;
+  // Đồ bộ mới vẽ ở 0,5333 đơn vị mỗi điểm ảnh hình: trên điện thoại (2 điểm màn mỗi đơn vị) mỗi điểm ảnh hình rộng ~1,07 điểm màn,
+  // vẽ kiểu ô vuông thì cứ vài cột lại nhân đôi một cột, máy quay trôi là cột nhân đôi chạy theo, cả cảnh lăn tăn giật (chủ dự án
+  // 09/11/2026 13:53, 14:37). Tỉ lệ không tròn thì vẽ mịn: gần như nét như cũ mà trôi êm.
+  const R = it.k * (game.screen?.zoom || 1) * (game.screen?.dpr || 1);
+  ctx.imageSmoothingEnabled = Math.abs(R - Math.round(R)) > 0.02;
   if (it.id.startsWith('hb.lan')) {   // lân múa: nhảy nhịp, lắc đầu qua lại, thỉnh thoảng nhảy cao
     const ph = it.x * 0.13, hop = Math.abs(Math.sin(t * 5 + ph)) * 2.2 + (Math.sin(t * 0.7 + ph) > 0.92 ? Math.abs(Math.sin(t * 5 + ph)) * 4 : 0);
     ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.fillRect(it.x - it.w * 0.35, it.y - 1, it.w * 0.7, 2);
     ctx.save(); ctx.translate(it.x, it.y - hop); ctx.rotate(Math.sin(t * 2.6 + ph) * 0.06); ctx.scale(Math.sin(t * 0.45 + ph) > 0 ? 1 : -1, 1);
     ctx.drawImage(im, 0, 0, s.w, s.h, -s.anchor[0] * k, -s.anchor[1] * k, s.w * k, s.h * k);
-    ctx.restore();
+    ctx.restore(); ctx.imageSmoothingEnabled = false;
     return;
   }
   const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
@@ -74,6 +78,7 @@ function drawHoiBody(ctx, game, it, im, t) {
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
   if (it.label) signLabel(ctx, game, it, oy);
+  ctx.imageSmoothingEnabled = false;   // trả lại kiểu ô vuông cho người, quái vẽ sau
   if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
 
