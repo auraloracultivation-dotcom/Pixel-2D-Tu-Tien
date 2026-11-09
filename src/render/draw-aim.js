@@ -32,6 +32,7 @@ function parts(s, a) {
     P.push({ k: 'fan', x: -c * off, y: SHOT_Y - n * off, a, half: h, r: (s.aim_len || s.range) + off, from: off, lv: 2 });
   } else if (s.type === 'domain') circ(0, 0, s.radius);   // Vô Ảnh: lĩnh vực quanh người
   else if (s.type === 'chain') circ(0, 0, s.range, 1);   // Thiểm Ảnh: tầm tìm mục tiêu
+  else if (s.type === 'thunder') circ(0, 0, s.radius, 1);   // Thiên Phạt: vòng sét tìm mục tiêu
   else if (s.type === 'dash') { lane(0, 0, c * s.dist, n * s.dist, 8); circ(c * s.dist, n * s.dist, 7); }   // trúng khi cách đường lao dưới 8 + thân quái
   else circ(0, 0, 14, 1);
   return P;

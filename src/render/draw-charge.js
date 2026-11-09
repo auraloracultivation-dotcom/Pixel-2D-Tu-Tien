@@ -6,6 +6,7 @@
 // tới mép màn, ba lớp (viền mờ màu trang phục, thân trắng nhạt dần về cuối, lõi trắng tinh), tia tốc độ, loé ở gốc; lan ra trong F.grow_t
 // giây rồi tan dần.
 import { drawWeaponAt } from './draw-flyweapon.js';
+import { drawThunderCharge, drawThunderFx } from './draw-thunder.js';   // Thiên Phạt dùng chung tụ lực (game/skill-thunder.js)
 
 const clamp = k => Math.max(0, Math.min(1, k));
 const ease = k => 1 - (1 - clamp(k)) ** 3;
@@ -14,8 +15,8 @@ const RED = '#ff1a24';
 export function drawCharges(ctx, game) {
   const F = game.data.config.charge_fx;
   if (!F) return;
-  for (const a of [game.player, ...(game.others?.visible?.() || []), ...game.mobs.filter(m => m.charge)]) if (a?.charge) one(ctx, game, a, F);
-  for (const f of game.fx) if (f.type === 'beam') beam(ctx, game, f, F);
+  for (const a of [game.player, ...(game.others?.visible?.() || []), ...game.mobs.filter(m => m.charge)]) if (a?.charge) (a.charge.s.type === 'thunder' ? drawThunderCharge : one)(ctx, game, a, F);
+  for (const f of game.fx) if (f.type === 'beam') beam(ctx, game, f, F); else if (f.type === 'thunder') drawThunderFx(ctx, game, f);
 }
 
 function one(ctx, game, a, F) {

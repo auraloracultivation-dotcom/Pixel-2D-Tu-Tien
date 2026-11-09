@@ -12,6 +12,7 @@ import { sparks } from './sparks.js';
 import { castChain, chainReady } from './skill-chain.js';
 import { castDomain, domainReady } from './skill-domain.js';
 import { castCharge } from './skill-charge.js';
+import { castThunder, thunderReady } from './skill-thunder.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -88,6 +89,9 @@ export function castSkill(game, id) {
       if (V) vfxCast(game, id, s, p);
       else { addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, p); }
       break;
+    case 'thunder':   // Thiên Phạt: tụ lực thành quả cầu sét rồi toả sét lướt qua quái (src/game/skill-thunder.js)
+      castThunder(game, s, p.atk * lv);
+      break;
     case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt sáng tới mép màn (src/game/skill-charge.js); s.mult × đánh thường
       castCharge(game, s, p.atk * lv);
       break;
@@ -124,7 +128,7 @@ export function castSkill(game, id) {
 // Chiêu dùng được lúc này không (kiểm trước khi trừ linh lực): chiêu lướt chain, lĩnh vực domain cần mục tiêu trong tầm
 export function skillReady(game, id) {
   const s = game.data.skills[id];
-  return s?.type === 'chain' ? chainReady(game, s) : s?.type === 'domain' ? domainReady(game, s) : true;
+  return s?.type === 'chain' ? chainReady(game, s) : s?.type === 'domain' ? domainReady(game, s) : s?.type === 'thunder' ? thunderReady(game, s) : true;
 }
 
 export function segDist(pt, x1, y1, x2, y2) {

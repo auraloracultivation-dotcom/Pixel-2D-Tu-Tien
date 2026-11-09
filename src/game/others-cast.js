@@ -48,6 +48,7 @@ export function castFx(game, o, c, bounds) {
       if (V) vfxCast(game, c.k, s, o);   // aura, khiên bám theo người đó
       else { addFx(game, { type: 'ring', x: o.x, y: o.y, r: s.type === 'heal' ? 18 : 14, color: s.color, life: 0.5 }); if (s.fx) selfFx(game, s.fx, o); }
       break;
+    case 'thunder':   // Thiên Phạt: tụ lực rồi sét toả theo quái máy mình (chỉ hình)
     case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi quạt sáng theo hướng họ nhìn lúc ra chiêu (chỉ hình)
       seeCharge(game, o, s, Math.atan2(fy, fx));
       break;

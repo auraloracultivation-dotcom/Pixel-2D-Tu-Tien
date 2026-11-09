@@ -4110,5 +4110,7 @@
 "Huyền phẩm": "玄品",
 "Địa phẩm": "地品",
 "Thiên phẩm": "天品",
-"{name} · {from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{name} · {from} · 冷卻{cd}秒 · 消耗{x}靈力{x2}"
+"{name} · {from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{name} · {from} · 冷卻{cd}秒 · 消耗{x}靈力{x2}",
+"Thiên Phạt": "天罰",
+"Tụ lực 2,5 giây, sét bốn phương dồn thành quả cầu trắng chói rồi nổ tung, mười tia sét toả tám phương lướt qua kẻ địch. Mỗi mục tiêu chịu tổng 15 lần đánh thường, trúng sét choáng 0,3 giây. Bất tử khi tụ lực.": "蓄力 2.5 秒，四方雷霆匯聚成耀眼白球後炸裂，十道雷光向八方穿梭敵陣。每個目標共受普通攻擊 15 倍傷害，被雷擊中暈眩 0.3 秒。蓄力時無敵。"
 }

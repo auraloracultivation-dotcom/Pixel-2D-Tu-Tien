@@ -9,6 +9,7 @@ import { hitMob, dist, impactShake, addFx } from './combat.js';
 import { outfitColor } from './slash-fx.js';
 import { pvpTryHit } from './pvp.js';
 import { weaponId } from './stats.js';
+import { thunderRelease } from './skill-thunder.js';
 
 // Độ dài vệt: từ gốc theo hướng ang tới mép khung nhìn (+ s.over), không có khung nhìn thì s.range
 function reach(game, x, y, ang, s) {
@@ -67,6 +68,7 @@ export function chargeHold(game, a, dt) {
 }
 
 function release(game, a) {
+  if (a.charge.s.type === 'thunder') { const c = a.charge; a.charge = null; a.dashT = 0.25; return thunderRelease(game, a, c); }   // Thiên Phạt (skill-thunder.js)
   const c = a.charge, s = c.s, ang = c.aim(), x = a.x, y = a.y - 8, L = reach(game, x, y, ang, s);
   a.charge = null; a.dashT = 0.25;
   a.face = { x: Math.cos(ang), y: Math.sin(ang) };
