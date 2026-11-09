@@ -30,8 +30,9 @@ await p.waitForSelector('#btn-guest:not([disabled])', { timeout: 30000 });
 await p.waitForTimeout(800);
 await p.tap('#btn-guest');
 await p.waitForFunction(() => window.__game?.save, null, { timeout: 30000 });
-// Bài này bắt lỗi kẹt truyện, không đo nhịp tu luyện (đo bằng tools/cay-thu.mjs): mặc định chạy linh khí đủ (qi_rate 1) cho truyện đi kịp trong SEC giây.
-await p.evaluate(r => { window.__game.data.realms.qi_rate = r; }, +(process.env.PLAY_QI_RATE || 1));
+// Bài này bắt lỗi kẹt truyện, không đo nhịp tu luyện (đo bằng tools/cay-thu.mjs): mặc định tu nhanh (linh khí cần mỗi tầng × PLAY_NEED,
+// đả tọa đủ qi_rate 1) cho truyện đi kịp trong SEC giây; PLAY_NEED=1 để chạy đúng nhịp thật.
+await p.evaluate(k => { const R = window.__game.data.realms; R.qi_rate = 1; R.need_mul = Array(R.names.length).fill(k); }, +(process.env.PLAY_NEED || 0.1));
 const step0 = await p.evaluate(() => window.__game.save.step);
 // Không còn nút Tự hành (02/11/2026): bật tự hành như chạm khung nhiệm vụ
 const pilotOn = () => p.evaluate(async () => { const P = await import('/src/game/pilot.js'); if (!window.__game.pilot) P.togglePilot(window.__game); });

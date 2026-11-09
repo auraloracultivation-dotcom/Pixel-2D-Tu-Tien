@@ -1,5 +1,5 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
-import { spriteImage, drawHitFrame } from './sprites.js';
+import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 import { curOutfit } from '../game/fashion.js';
 import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
@@ -89,10 +89,6 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống
-  if (!p.riding) {   // bóng dưới chân; đang cưỡi thì bỏ (bóng xám đè lên yên trông như chân hở khỏi lưng thú, chủ dự án 04/11/2026 19:01)
-    ctx.fillStyle = 'rgba(27,24,48,0.25)';
-    ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
-  }
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
@@ -115,6 +111,7 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
+  if (!p.riding) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
   if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);

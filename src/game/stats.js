@@ -7,6 +7,9 @@ import { daoVanStats } from './daovan.js';
 import { wornExtra } from './beast.js';
 // Linh khí hạ quái nhân theo cảnh giới (data/realms.json → kill_qi): cảnh giới cao hấp thụ linh khí phàm thú chậm hơn
 export const killQiMul = (save, realms) => realms.kill_qi?.[save.realm] ?? 1;
+// Linh khí thật một con quái (data/mobs.json → lk, chủ dự án 09/11/2026: số ghi là số nhận, không nhân ẩn): quái bị nhân mạnh
+// (vùng ma khí, bí cảnh, ma đầu, linh thú) thì lk nhân theo cùng tỉ lệ qi. qi vẫn là giá trị gốc để tính Linh Thạch rơi.
+export const mobLk = (mobs, m) => { const b = mobs?.[m.id]; return b?.lk != null ? b.lk * (m.def.qi || 0) / (b.qi || 1) : (m.def.qi || 0) * 0.02; };
 
 export function totalLayer(save, realms) {
   return save.realm * realms.layers + (save.layer - 1);
@@ -14,7 +17,7 @@ export function totalLayer(save, realms) {
 
 export function qiNeed(save, realms) {
   const n = totalLayer(save, realms), soft = realms.qi_soft_from ?? Infinity;
-  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, Math.min(n, soft)) * Math.pow(realms.qi_soft_growth || 1, Math.max(0, n - soft)));
+  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, Math.min(n, soft)) * Math.pow(realms.qi_soft_growth || 1, Math.max(0, n - soft)) * (realms.need_mul?.[save.realm] ?? 1));   // need_mul: cảnh giới càng cao cần càng gấp (chủ dự án 09/11/2026)
 }
 
 export function realmLabel(save, realms) {

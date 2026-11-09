@@ -1,7 +1,7 @@
 // Quái bằng hình pixel (data/mobs.json → look; tools/art/mob_design.py, bản cũ tools/art/mobs.py). Hình gốc nhìn phải,
 // quay trái lật gương. Bản mới 4 khung đi, vẽ chi tiết rồi thu theo spr.scale; đứng yên thì khung đầu nhún 1 đơn vị.
 // Bản cũ 2 khung luân phiên. Quái hiền nảy thì khung theo nhịp nảy. Trả false nếu chưa có hình để vẽ hình khối như cũ.
-import { spriteImage, drawHitFrame } from './sprites.js';
+import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
 // Hình 5 dáng Canva (acts, chủ dự án 30/10/2026: người và thú 4 chân phải bước chân trái phải khi đi): 0 đứng, 1–2 bước, 3 lấy đà, 4 đánh.
@@ -28,6 +28,7 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;
+  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
@@ -62,6 +63,7 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind) ctx.scale(1.1, 0.92);
   ctx.imageSmoothingEnabled = false;
+  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;

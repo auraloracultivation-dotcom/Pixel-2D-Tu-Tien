@@ -2,7 +2,7 @@
 // (tools/art/le_hoi.py, data/art.json hb.*), toạ độ, kiểu chân ở src/world/hoi-foot.js. Hiệu ứng vẽ bằng code để điều khiển được:
 // đèn lồng, pha lê hắt quầng sáng lập loè (hoiLights → draw-glow.js), mặt hồ lấp lánh (glints), lò lửa có lưỡi lửa nhảy và tàn bay
 // (flame). Đồ phẳng (sân lát, gợn nước) vẽ sát đất dưới người; đồ đứng xếp theo chân cùng người, quái (draw.js).
-import { spriteImage } from './sprites.js';
+import { spriteImage, setShadow, drawShadowFrame } from './sprites.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
 import { ACT, drawAct, walkFrame } from './draw-acts.js';
@@ -20,6 +20,7 @@ export function drawHoiFlat(ctx, game, t) {
 
 // Đồ đứng trong khung nhìn (chừa lề cho hình cao), để draw.js xếp theo chân cùng người, quái
 export function hoiEnts(game, view) {
+  setShadow(game.data.config.shadow);   // bóng đổ theo dáng cho cả người, quái, đồ vẽ sau (sprites.js); hàm này chạy mỗi khung trước khi vẽ
   const items = game.map?.hoi || [];
   if (!items.length && !game.khach) return [];
   const out = [];
@@ -37,7 +38,6 @@ export function drawHoiItem(ctx, game, it, t) {
     if (it.face && Math.abs(it.face.x) > 0.2) it.lookX = Math.sign(it.face.x);
     if (it.dress) { if (!drawHero(ctx, game, it, t + it.bob, false, it.dress)) drawNpcSprite(ctx, game, it, t); return; }   // khách mặc bộ có hình riêng (hoi-khach.js mac)
     if (it.hero) {   // đệ tử tông môn (hình thời trang nhân vật, 7 động tác)
-      ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(it.x, it.y + 1, 6, 2.5, 0, 0, Math.PI * 2); ctx.fill();
       drawAct(ctx, game.data.art, it.id, it.moving ? walkFrame(it.spr0 ??= game.data.art.sprites[it.id], t + it.bob) : hop ? ACT.hit : ACT.idle, it.x, it.y + 1, it.lookX || 1, hop);
     } else if (hop) { ctx.save(); ctx.translate(0, -hop); drawNpcSprite(ctx, game, it, t); ctx.restore(); }
     else drawNpcSprite(ctx, game, it, t);
@@ -72,6 +72,7 @@ function drawHoiBody(ctx, game, it, im, t) {
     ctx.restore(); ctx.imageSmoothingEnabled = false;
     return;
   }
+  if (!game.data.config.shadow?.skip?.includes(it.kind)) { ctx.save(); ctx.translate(it.x, it.y); ctx.scale(k, k); drawShadowFrame(ctx, s, im, 0); ctx.restore(); }   // bóng đổ theo dáng (mặt hồ, cầu: không)
   const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
   if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng|phun|suoi/.test(it.id));

@@ -130,7 +130,7 @@ function drawMob(ctx, m, t, game) {
   if (m.wboss && drawMang(ctx, game, m, t)) return;   // đầu Cửu Đầu Thôn Thiên Mãng (draw-mang.js)
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
-  shadow(ctx, m.x, m.y + 1, r);
+  if (!(m.def.look && game.data.art.sprites['mob.' + m.id]?.w)) shadow(ctx, m.x, m.y + 1, r);   // quái có hình: bóng đổ theo dáng (draw-mob-sprite.js)
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
   if (m.elite) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội

@@ -132,9 +132,9 @@ export function createGame(data, screen, input, ui, audio) {
     game.pickups.push({ item, x: p.x, y: p.y });
   };
 
-  game.gainQi = (amount, x, y, quiet, raw) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí)
+  game.gainQi = (amount, x, y, quiet, raw, real) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí); real: số đã là số thật (quái lk, đan), không nhân qi_rate
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * (!raw && (game.save.qiX2 || 0) > Date.now() ? 2 : 1) * (game.daoLuMul?.() || 1) * 10) / 10;   // đạo lữ +5% (src/game/daolu.js)
-    const got = Math.round(amount * (data.realms.qi_rate ?? 1) * 100) / 100, broke = addQi(game.save, data.realms, got);   // qi_rate: mọi nguồn linh khí (data/realms.json); công pháp, linh thú, bạn đồng hành vẫn nhận kinh nghiệm theo số gốc
+    const got = Math.round(amount * (real ? 1 : data.realms.qi_rate ?? 1) * 100) / 100, broke = addQi(game.save, data.realms, got);   // qi_rate: mọi nguồn linh khí (data/realms.json); công pháp, linh thú, bạn đồng hành vẫn nhận kinh nghiệm theo số gốc
     gainTechExp(game, amount);
     gainPetExp(game, amount);
     gainCompExp(game, amount);

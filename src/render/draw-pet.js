@@ -34,7 +34,6 @@ function drawBody(ctx, pet, t, art) {
   const id = 'pet.' + pet.id;
   if (isAct(art, id)) {   // ảnh 6 động tác: ngủ dùng khung nằm, vừa ra đòn thì lấy đà rồi đánh
     const f = pet.sleep && !pet.moving ? ACT.down : actFrame(art.sprites[id], pet, t, pet.def.cd);
-    ctx.fillStyle = 'rgba(27,24,48,0.22)'; ctx.beginPath(); ctx.ellipse(pet.x, pet.y + 1, 7, 2.2, 0, 0, Math.PI * 2); ctx.fill();
     drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1, f === ACT.idle && Math.sin(t * 3) > 0.6 ? 0.5 : 0);
     return;
   }
@@ -68,7 +67,7 @@ export function drawMount(ctx, p, m, t, art, id) {
   const dir = (p.face.x || 0) < -0.1 ? -1 : 1, step = p.moving ? Math.sin(p.walkT * 14) * 1.5 : 0;
   p.seatX = 0; p.seatSync = false;
   const spr = isAct(art, 'mount.' + id) && art.sprites['mount.' + id], big = !!spr?.seat;
-  ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, big ? 12 : 9, big ? 4 : 3, 0, 0, Math.PI * 2); ctx.fill();
+  if (!spr) { ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill(); }   // có hình: bóng đổ theo dáng (drawAct)
   if (spr) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
     const fly = p.fly && spr.walk?.includes(4);   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
     const f = fly ? 4 : p.moving ? walkFrame(spr, p.walkT) : ACT.idle, bob = fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0;

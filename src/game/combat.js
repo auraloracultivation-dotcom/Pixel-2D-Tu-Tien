@@ -1,7 +1,7 @@
 // Trúng đòn, đạn, hiệu ứng, số sát thương. Cảm giác đánh: chớp trắng, đẩy lùi, khựng hình, rung màn hình.
 import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
-import { killQiMul } from './stats.js';
+import { mobLk } from './stats.js';
 import { dummyHit } from './dummy.js';
 import { sparks } from './sparks.js';
 import { fxOk, shortNum } from './fx-budget.js';
@@ -82,7 +82,7 @@ export function killMob(game, m) {
   game.sfx('die');
   juiceKill(game, m);   // vòng sóng, vụn, đốm linh khí bay về người
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
-  if (!m.noQi) game.gainQi(Math.max(1, Math.round(m.def.qi * game.eventMul('qi') * killQiMul(game.save, game.data.realms) * (game.farmTeamMul?.() || 1))), m.x, m.y);   // tổ đội farm (src/game/farm-team.js)
+  if (!m.noQi) game.gainQi(Math.round(mobLk(game.data.mobs, m) * game.eventMul('qi') * (game.farmTeamMul?.() || 1) * 10) / 10, m.x, m.y, false, false, true);   // tổ đội farm (src/game/farm-team.js)
   game.onKill(m);
 }
 
