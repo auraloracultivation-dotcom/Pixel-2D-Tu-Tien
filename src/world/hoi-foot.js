@@ -20,11 +20,11 @@ export function hoiItems(def, data, T) {
   const L = data['le-hoi'], S = data.art?.sprites || {};
   if (!def.hoi || !L) return [];
   const out = [];
-  for (const [id, tx, ty] of def.hoi.do || []) {
+  for (const [id, tx, ty, label] of def.hoi.do || []) {
     const spr = S[id];
     if (!spr) continue;
     const k = spr.scale || 1, kind = hoiKind(L, id);
-    out.push({ id, spr, x: tx * T, y: ty * T, w: spr.w * k, h: spr.h * k, k, kind, foot: L.foot[kind] || {} });
+    out.push({ id, spr, x: tx * T, y: ty * T, w: spr.w * k, h: spr.h * k, k, kind, foot: L.foot[kind] || {}, label });   // label: tên vùng trên biển gỗ (draw-hoi.js)
   }
   return out.sort((a, b) => a.y - b.y);
 }

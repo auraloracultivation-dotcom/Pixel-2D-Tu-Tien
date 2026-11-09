@@ -15,6 +15,7 @@ import { drawLamps, drawGlow } from './draw-glow.js';
 import { drawHamlets } from './draw-hamlet.js';
 import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
+import { drawAmbient } from './draw-ambient.js';
 import { drawHoiFlat, hoiEnts, drawHoiItem } from './draw-hoi.js';
 import { drawHoiSky } from './draw-hoi-sky.js';
 import { drawDatGlints } from '../world/draw-dat.js';
@@ -333,7 +334,7 @@ export function drawWorld(game, screen, t) {
   drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm
   drawBullets(ctx, game, t);
   drawStrikeFalls(ctx, game);
-  drawFx(ctx, game);
+  drawFx(ctx, game); drawAmbient(ctx, game, screen.viewRect(), t);   // lá rơi, bướm, cá quẫy, tàn lửa (draw-ambient.js)
   drawFishing(ctx, game, t);
   drawClouds(ctx, game, t);
   drawNumbers(ctx, game);

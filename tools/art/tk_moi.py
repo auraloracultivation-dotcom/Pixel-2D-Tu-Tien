@@ -229,8 +229,34 @@ def _jade(a):
     return LH._spots(a, (g > 200) & (g - r > 60) & (g - b > 40), 10, 2)
 
 
+# Cảnh lớn ven vòng đường quanh đảo (tools/mo-rong-dao.py marks): cùng hình nhưng to hẳn để đứng xa đã thấy, đáng đi tới xem
+LON = {'tk.co-thu-lon-m': ('tk.cay-co-thu-m', 104), 'tk.kiem-trung-m': ('tk.kiem-da-m', 84), 'tk.tien-dai-m': ('tk.tuong-tien-m', 76),
+       'tk.nguyet-mon-m': ('tk.cong-trang-m', 112), 'hb.thac-bang-lon-m': ('hb.thac-bang-m', 96), 'hb.pha-le-to-m': ('hb.pha-le-lon-m', 80),
+       'hb.bang-tam-chau-m': ('hb.qua-cau-bang-m', 66), 'hb.nhu-bang-lon-m': ('hb.da-nhu-bang-m', 84), 'hb.han-ngoc-tru-m': ('hb.tru-pha-le-m', 84)}
+
+
 def build(save):
-    return _build(save, SRC, BO) + _build(save, SRC_HB, BO_HB) + houses(save)
+    for k, (src, units) in LON.items():
+        B = BO if src in BO else BO_HB
+        B[k] = B[src][:2] + (units,) + B[src][3:]
+    return _build(save, SRC, BO) + _build(save, SRC_HB, BO_HB) + houses(save) + sign(save)
+
+
+def sign(save):
+    """Biển gỗ chỉ lối (vẽ bằng code): cọc gỗ, tấm ván hai lớp, đinh, rêu chân cọc. Chữ tên vùng game tự vẽ khi đi gần
+    (src/render/draw-hoi.js, món có nhãn ở phần tử thứ tư trong khoá hoi.do)."""
+    W, H = 22, 22
+    a = np.zeros((H, W, 4), np.uint8)
+    def r(x0, y0, x1, y1, c): a[y0:y1, x0:x1] = list(bytes.fromhex(c)) + [255]
+    r(9, 7, 13, 21, '1b1830'); r(10, 8, 12, 21, '7a4e2e'); r(10, 8, 11, 21, '9a6a3e')   # cọc
+    r(1, 2, 21, 12, '1b1830'); r(2, 3, 20, 11, 'a8743f'); r(2, 3, 20, 4, 'c99256'); r(2, 7, 20, 8, '8a5a30')   # ván, mép sáng, khe ván
+    r(2, 10, 20, 11, '7a4a28')
+    for x in (3, 18): r(x, 5, x + 1, 6, '4a3a3a'); r(x, 9, x + 1, 10, '4a3a3a')   # đinh
+    r(7, 19, 16, 21, '1b1830'); r(8, 19, 15, 20, '5a8a4a'); r(12, 18, 14, 19, '6a9a52')   # cỏ chân cọc
+    c = Canvas(W, H); c.a = a
+    save('chung.bien-go', [c], (W // 2, H - 1), 'biển gỗ chỉ lối vẽ bằng code (tools/art/tk_moi.py sign)')
+    MANIFEST['chung.bien-go']['scale'] = SC
+    return 1
 
 
 def _build(save, SRC, BO):

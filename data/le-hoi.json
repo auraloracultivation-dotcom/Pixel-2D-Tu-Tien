@@ -3,81 +3,467 @@
  "festivals": {
   "dao-han-bang": {
    "name": "Hàn Nguyệt Long Đăng Hội",
-   "dat": {"_note": "Mặt đất lễ hội (src/world/draw-dat.js): kieu tuyet | co; toi sang hai tông loang; tuyet: dong cụm tuyết, bong bóng cụm, vet vết chân, lap tỉ lệ ô có hạt băng lấp lánh; co: hoa màu khóm hoa, cuong cuống, soi sỏi ven đường, canh cánh hoa quanh gốc cây.", "kieu": "tuyet", "toi": "rgba(110,120,190,0.24)", "sang": "rgba(255,255,255,0.3)", "duong": "rgba(214,222,240,0.55)", "dong": "#f6faff", "bong": "rgba(110,120,180,0.35)", "vet": "rgba(110,120,175,0.32)", "lap": 0.35, "canh": ["#ffd0ec", "#f0b8e0"]},
+   "dat": {
+    "_note": "Mặt đất lễ hội (src/world/draw-dat.js): kieu tuyet | co; toi sang hai tông loang; tuyet: dong cụm tuyết, bong bóng cụm, vet vết chân, lap tỉ lệ ô có hạt băng lấp lánh; co: hoa màu khóm hoa, cuong cuống, soi sỏi ven đường, canh cánh hoa quanh gốc cây.",
+    "kieu": "tuyet",
+    "toi": "rgba(110,120,190,0.24)",
+    "sang": "rgba(255,255,255,0.3)",
+    "duong": "rgba(214,222,240,0.55)",
+    "dong": "#f6faff",
+    "bong": "rgba(110,120,180,0.35)",
+    "vet": "rgba(110,120,175,0.32)",
+    "lap": 0.35,
+    "canh": [
+     "#ffd0ec",
+     "#f0b8e0"
+    ]
+   },
    "desc": "Băng tuyết, đăng long, múa lân",
    "troi": {
     "_note": "Trời đêm hội (src/render/draw-hoi-sky.js): den số đèn trời bay lên (den_speed điểm mỗi giây), phao số ô pháo hoa nổ so le (phao_every giây một quả mỗi ô), tia mỗi quả, mau màu.",
     "den": 14,
-    "den_speed": [6, 12],
+    "den_speed": [
+     6,
+     12
+    ],
     "phao": 3,
-    "phao_every": [5, 9],
+    "phao_every": [
+     5,
+     9
+    ],
     "tia": 22,
-    "mau": ["255,200,90", "140,220,255", "255,140,220", "200,170,255", "255,240,210"]
+    "mau": [
+     "255,200,90",
+     "140,220,255",
+     "255,140,220",
+     "200,170,255",
+     "255,240,210"
+    ]
    },
    "khach": {
     "_note": "Khách đi hội (src/game/hoi-khach.js): n người, mượn hình dân làng ids (mỗi người một hình), đi theo nodes (điểm dừng theo ô) nối bằng links, đứng ngắm wait giây; speed đơn vị mỗi giây; người chơi trong stop đơn vị thì đứng lại chào; cứ talk giây một khách trong range ô quanh người chơi nói một câu; bong bóng hiện sec giây. group tỉ lệ người đi theo nhóm (bám người đi trước); kids hình trẻ con chạy nhanh kid_speed lần, câu kid_lines; ban: người bán [hình, x, y] đứng sau quầy, câu ban_lines.",
     "n": 24,
     "speed": 13,
-    "wait": [2, 7],
+    "wait": [
+     2,
+     7
+    ],
     "stop": 20,
     "range": 9,
-    "talk": [5, 11],
+    "talk": [
+     5,
+     11
+    ],
     "sec": 3.2,
     "ids": [
-     "lao-ngu-ong", "du-tang", "tieu-phu", "phong-thach", "tieu-moc-linh", "be-la", "ong-gia-tuyet", "trai-truong", "ba-bi-ngo", "van-bao",
-     "thu-thap", "quan-binh-kho", "luan-vo-su", "quan-bi-canh"
+     "lao-ngu-ong",
+     "du-tang",
+     "tieu-phu",
+     "phong-thach",
+     "tieu-moc-linh",
+     "be-la",
+     "ong-gia-tuyet",
+     "trai-truong",
+     "ba-bi-ngo",
+     "van-bao",
+     "thu-thap",
+     "quan-binh-kho",
+     "luan-vo-su",
+     "quan-bi-canh"
     ],
     "nodes": [
-     [3.5, 24.5], [5.4, 24.2], [9.4, 24.2], [15.5, 24.5], [19.5, 24.6], [24.5, 24.5], [28.5, 24.6], [32.5, 24.5], [24.5, 22.6], [20.0, 21.8],
-     [29.0, 21.8], [24.5, 17.0], [20.0, 18.5], [29.0, 18.5], [15.5, 29.0], [15.5, 34.0], [15.5, 38.0], [12.8, 38.5], [18.2, 38.0], [32.5, 28.5],
-     [32.5, 32.6], [30.0, 35.0], [35.6, 34.6], [33.0, 37.4]
+     [
+      15.2,
+      46.8
+     ],
+     [
+      18.1,
+      46.3
+     ],
+     [
+      24.1,
+      46.3
+     ],
+     [
+      33.2,
+      46.8
+     ],
+     [
+      39.2,
+      46.9
+     ],
+     [
+      46.8,
+      46.8
+     ],
+     [
+      52.8,
+      46.9
+     ],
+     [
+      58.8,
+      46.8
+     ],
+     [
+      46.8,
+      43.9
+     ],
+     [
+      40.0,
+      42.7
+     ],
+     [
+      53.5,
+      42.7
+     ],
+     [
+      46.8,
+      35.5
+     ],
+     [
+      40.0,
+      37.8
+     ],
+     [
+      53.5,
+      37.8
+     ],
+     [
+      33.2,
+      53.5
+     ],
+     [
+      33.2,
+      61.0
+     ],
+     [
+      33.2,
+      67.0
+     ],
+     [
+      29.2,
+      67.8
+     ],
+     [
+      37.3,
+      67.0
+     ],
+     [
+      58.8,
+      52.8
+     ],
+     [
+      58.8,
+      58.9
+     ],
+     [
+      55.0,
+      62.5
+     ],
+     [
+      63.4,
+      61.9
+     ],
+     [
+      59.5,
+      66.1
+     ]
     ],
     "links": [
-     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [5, 8], [8, 9], [8, 10], [4, 9], [6, 10], [9, 12], [12, 11], [10, 13], [13, 11],
-     [3, 14], [14, 15], [15, 16], [16, 17], [16, 18], [7, 19], [19, 20], [20, 21], [20, 22], [21, 23], [22, 23]
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      5,
+      8
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      6,
+      10
+     ],
+     [
+      9,
+      12
+     ],
+     [
+      12,
+      11
+     ],
+     [
+      10,
+      13
+     ],
+     [
+      13,
+      11
+     ],
+     [
+      3,
+      14
+     ],
+     [
+      14,
+      15
+     ],
+     [
+      15,
+      16
+     ],
+     [
+      16,
+      17
+     ],
+     [
+      16,
+      18
+     ],
+     [
+      7,
+      19
+     ],
+     [
+      19,
+      20
+     ],
+     [
+      20,
+      21
+     ],
+     [
+      20,
+      22
+     ],
+     [
+      21,
+      23
+     ],
+     [
+      22,
+      23
+     ]
     ],
     "lines": [
-     "Đèn rồng năm nay to quá!", "Chè tuyết liên ở xóm phía nam ngon lắm.", "Ra chợ đêm đông nam không? Nghe nói có bán pha lê.",
-     "Lân múa đẹp ghê, đứng xem thêm chút nữa đi.", "Tuyết rơi mà đèn ấm, thích thật.", "Nhìn kìa, rồng băng như sắp bay lên!",
-     "Xiên nướng thơm quá, mua một xiên không?", "Mặt nạ hồ ly này đeo vào là thành tiên ngay.", "Đứng xa ra chút, lò lửa lam nóng lắm đó.",
-     "Tối nay trăng sáng, ra hồ băng ngắm đi.", "Có tu sĩ Kiếm tông tới dự hội kìa!", "Người tuyết ai đắp mà dễ thương vậy?",
-     "Đèn lồng bên đại lộ thắp suốt đêm luôn.", "Lên tháp năm tầng ngắm được cả tinh cầu đó.", "Cầu nguyện ở điện tuyết linh lắm.",
-     "Hàn Nguyệt Long Đăng Hội năm nào cũng đông vui.", "♪ ♫ ♪", "Nắm tay đi kẻo lạc giữa hội đông thế này.", "Mai lại tới nữa nhé!",
-     "Đèn hoa sen ở vườn đào đẹp lắm.", "Tớ ước được thành tiên nhân.", "Ăn xong rồi đi ngắm pháo hoa đi!"
+     "Đèn rồng năm nay to quá!",
+     "Chè tuyết liên ở xóm phía nam ngon lắm.",
+     "Ra chợ đêm đông nam không? Nghe nói có bán pha lê.",
+     "Lân múa đẹp ghê, đứng xem thêm chút nữa đi.",
+     "Tuyết rơi mà đèn ấm, thích thật.",
+     "Nhìn kìa, rồng băng như sắp bay lên!",
+     "Xiên nướng thơm quá, mua một xiên không?",
+     "Mặt nạ hồ ly này đeo vào là thành tiên ngay.",
+     "Đứng xa ra chút, lò lửa lam nóng lắm đó.",
+     "Tối nay trăng sáng, ra hồ băng ngắm đi.",
+     "Có tu sĩ Kiếm tông tới dự hội kìa!",
+     "Người tuyết ai đắp mà dễ thương vậy?",
+     "Đèn lồng bên đại lộ thắp suốt đêm luôn.",
+     "Lên tháp năm tầng ngắm được cả tinh cầu đó.",
+     "Cầu nguyện ở điện tuyết linh lắm.",
+     "Hàn Nguyệt Long Đăng Hội năm nào cũng đông vui.",
+     "♪ ♫ ♪",
+     "Nắm tay đi kẻo lạc giữa hội đông thế này.",
+     "Mai lại tới nữa nhé!",
+     "Đèn hoa sen ở vườn đào đẹp lắm.",
+     "Tớ ước được thành tiên nhân.",
+     "Ăn xong rồi đi ngắm pháo hoa đi!"
     ],
     "group": 0.35,
-    "kids": ["be-la", "tieu-moc-linh"],
+    "kids": [
+     "be-la",
+     "tieu-moc-linh"
+    ],
     "kid_speed": 2.2,
     "ban": [
-     ["co-ban-nuoc", 5.4, 22.0], ["thuong-nhan", 9.4, 22.0], ["lao-than", 5.4, 26.7], ["ba-do-den", 9.4, 26.7], ["chu-cho", 19.6, 26.7],
-     ["ong-hai-nam", 23.6, 26.7], ["tho-kim-sa", 27.6, 26.7], ["hoa-su", 30.6, 32.0], ["lao-nong", 35.0, 32.0], ["chi-ganh-da", 31.0, 38.6],
-     ["ong-do", 35.2, 38.6]
+     [
+      "co-ban-nuoc",
+      18.1,
+      43.0
+     ],
+     [
+      "thuong-nhan",
+      24.1,
+      43.0
+     ],
+     [
+      "lao-than",
+      18.1,
+      50.0
+     ],
+     [
+      "ba-do-den",
+      24.1,
+      50.0
+     ],
+     [
+      "chu-cho",
+      39.4,
+      50.0
+     ],
+     [
+      "ong-hai-nam",
+      45.4,
+      50.0
+     ],
+     [
+      "tho-kim-sa",
+      51.4,
+      50.0
+     ],
+     [
+      "hoa-su",
+      55.9,
+      58.0
+     ],
+     [
+      "lao-nong",
+      62.5,
+      58.0
+     ],
+     [
+      "chi-ganh-da",
+      56.5,
+      67.9
+     ],
+     [
+      "ong-do",
+      62.8,
+      67.9
+     ]
     ],
-    "kid_lines": ["Mẹ ơi con muốn mặt nạ hồ ly!", "Đuổi bắt đi, ai chậm là người tuyết!", "Hi hi, không bắt được đâu!", "Lân kìa, lân kìa!", "Con muốn ăn kẹo hồ lô!"],
+    "kid_lines": [
+     "Mẹ ơi con muốn mặt nạ hồ ly!",
+     "Đuổi bắt đi, ai chậm là người tuyết!",
+     "Hi hi, không bắt được đâu!",
+     "Lân kìa, lân kìa!",
+     "Con muốn ăn kẹo hồ lô!"
+    ],
     "ban_lines": [
-     "Mời ghé xem, hàng mới về!", "Nóng hổi đây, nóng hổi đây!", "Mua hai tặng một nha!", "Hàng đẹp nhất phố đây!",
-     "Đạo hữu xem thử đi, không mua cũng được!", "Chè tuyết liên, thơm ngọt mát lạnh!"
+     "Mời ghé xem, hàng mới về!",
+     "Nóng hổi đây, nóng hổi đây!",
+     "Mua hai tặng một nha!",
+     "Hàng đẹp nhất phố đây!",
+     "Đạo hữu xem thử đi, không mua cũng được!",
+     "Chè tuyết liên, thơm ngọt mát lạnh!"
     ],
     "watch": 6,
     "cheer_r": 6,
-    "cheer": ["Hay!", "Oa!"],
-    "cheer_big": ["Hoan hô!"]
+    "cheer": [
+     "Hay!",
+     "Oa!"
+    ],
+    "cheer_big": [
+     "Hoan hô!"
+    ]
    },
-   "khu": [[2, 15, 30, 30], [8, 30, 30, 41], [27, 22, 35, 30], [28, 30, 38, 40]],
+   "khu": [
+    [
+     13,
+     33,
+     55,
+     55
+    ],
+    [
+     22,
+     55,
+     55,
+     72
+    ],
+    [
+     51,
+     43,
+     63,
+     55
+    ],
+    [
+     52,
+     55,
+     67,
+     70
+    ]
+   ],
    "_khu": "Vùng phố hội [x0, y0, x1, y1] theo ô: quái không bước vào, người chơi đứng trong vùng thì quái không đuổi (src/world/hoi-foot.js → inHoi, mobs.js). Bãi quái đặt cách vùng ít nhất 4 ô."
   },
   "thien-kiem-phong": {
    "name": "Cửu Tông Tranh Phong",
-   "dat": {"_note": "như Hàn Băng", "kieu": "co", "phu": "rgba(46,40,110,0.34)", "toi": "rgba(16,24,60,0.26)", "sang": "rgba(160,210,170,0.14)", "hoa": ["#ff9ac8", "#ffd27a", "#b48aff", "#ffffff", "#8ad8ff"], "cuong": "#3a6a3a", "soi": "#c8c4d8", "canh": ["#ff9ac8", "#ffc0dc", "#e080ff"]},
+   "dat": {
+    "_note": "như Hàn Băng",
+    "kieu": "co",
+    "phu": "rgba(46,40,110,0.34)",
+    "toi": "rgba(16,24,60,0.26)",
+    "sang": "rgba(160,210,170,0.14)",
+    "hoa": [
+     "#ff9ac8",
+     "#ffd27a",
+     "#b48aff",
+     "#ffffff",
+     "#8ad8ff"
+    ],
+    "cuong": "#3a6a3a",
+    "soi": "#c8c4d8",
+    "canh": [
+     "#ff9ac8",
+     "#ffc0dc",
+     "#e080ff"
+    ]
+   },
    "desc": "Chín tông môn tỷ thí, lôi đài, cờ ngũ hành",
    "troi": {
     "_note": "như Hàn Băng",
     "den": 18,
-    "den_speed": [6, 12],
+    "den_speed": [
+     6,
+     12
+    ],
     "phao": 4,
-    "phao_every": [3, 6],
+    "phao_every": [
+     3,
+     6
+    ],
     "tia": 26,
-    "mau": ["255,200,90", "255,120,120", "140,220,255", "200,170,255", "255,240,210", "140,255,170"]
+    "mau": [
+     "255,200,90",
+     "255,120,120",
+     "140,220,255",
+     "200,170,255",
+     "255,240,210",
+     "140,255,170"
+    ]
    },
    "tro": [
     {
@@ -90,77 +476,529 @@
      "blows": 5,
      "a": "hero.y-thien-kiem-bao-nam",
      "b": "hero.y-hong-y-nu",
-     "mau": ["#ff6a6a", "#ffd24a", "#6ad0ff", "#b48aff", "#7af0a0", "#ffffff"]
+     "mau": [
+      "#ff6a6a",
+      "#ffd24a",
+      "#6ad0ff",
+      "#b48aff",
+      "#7af0a0",
+      "#ffffff"
+     ]
     },
-    {"item": "tk.trong-lon", "kind": "trong", "dx": -36, "dy": 3, "a": "hero.y-thanh-sam-nam", "face": 1, "beat": [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0]},
-    {"item": "tk.tran-bat-quai", "kind": "mua-kiem", "dx": 0, "dy": -2, "r": 20, "a": "hero.y-tu-bao-nu", "sword": "tk.kiem-lam"}
+    {
+     "item": "tk.trong-lon",
+     "kind": "trong",
+     "dx": -36,
+     "dy": 3,
+     "a": "hero.y-thanh-sam-nam",
+     "face": 1,
+     "beat": [
+      1,
+      0,
+      1,
+      0,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "item": "tk.tran-bat-quai",
+     "kind": "mua-kiem",
+     "dx": 0,
+     "dy": -2,
+     "r": 20,
+     "a": "hero.y-tu-bao-nu",
+     "sword": "tk.kiem-lam"
+    }
    ],
    "khach": {
     "_note": "như Hàn Băng (festivals.dao-han-bang.khach). Điểm có 4 số [x, y, nhìn x, nhìn y] là chỗ đứng xem trò: tới nơi quay về điểm nhìn, đứng thêm watch giây. cheer_r ô quanh trò thì reo khi có cú đánh (cheer), cú hạ gục (cheer_big). ids có thể là hình nhân vật hero.y-<thời trang>-<nam|nu> (đệ tử các tông môn tới dự hội).",
     "n": 26,
     "speed": 13,
-    "wait": [2, 6],
+    "wait": [
+     2,
+     6
+    ],
     "stop": 20,
     "range": 9,
-    "talk": [4, 9],
+    "talk": [
+     4,
+     9
+    ],
     "sec": 3.2,
     "group": 0.35,
-    "kids": ["be-la", "tieu-moc-linh"],
+    "kids": [
+     "be-la",
+     "tieu-moc-linh"
+    ],
     "kid_speed": 2.2,
     "watch": 8,
     "cheer_r": 7,
     "ids": [
-     "lao-ngu-ong", "du-tang", "phong-thach", "tieu-moc-linh", "be-la", "trai-truong", "chi-ganh-da", "hoa-su", "hero.y-thien-kiem-bao-nam",
-     "hero.y-thien-kiem-bao-nu", "hero.y-thanh-sam-nam", "hero.y-thanh-sam-nu", "hero.y-tu-bao-nam", "hero.y-tu-bao-nu", "hero.y-hong-y-nam",
-     "hero.y-hong-y-nu", "hero.y-hac-y-nam", "hero.y-hac-y-nu", "hero.y-kim-bao-nam", "hero.y-kim-bao-nu", "hero.y-tuyet-lanh-nam",
-     "hero.y-tuyet-lanh-nu", "hero.y-tien-nhan-nam", "hero.y-tien-nhan-nu", "hero.y-thien-mach-bao-nam", "hero.y-thien-mach-bao-nu", "mac:ly-hoa:nu", "mac:than-nguyen-y:nam", "mac:tu-liem-y:nu", "mac:bach-kiem-bao:nam", "mac:ly-hoa:nu", "mac:than-nguyen-y:nam", "mac:tu-liem-y:nu", "mac:bach-kiem-bao:nam"
+     "lao-ngu-ong",
+     "du-tang",
+     "phong-thach",
+     "tieu-moc-linh",
+     "be-la",
+     "trai-truong",
+     "chi-ganh-da",
+     "hoa-su",
+     "hero.y-thien-kiem-bao-nam",
+     "hero.y-thien-kiem-bao-nu",
+     "hero.y-thanh-sam-nam",
+     "hero.y-thanh-sam-nu",
+     "hero.y-tu-bao-nam",
+     "hero.y-tu-bao-nu",
+     "hero.y-hong-y-nam",
+     "hero.y-hong-y-nu",
+     "hero.y-hac-y-nam",
+     "hero.y-hac-y-nu",
+     "hero.y-kim-bao-nam",
+     "hero.y-kim-bao-nu",
+     "hero.y-tuyet-lanh-nam",
+     "hero.y-tuyet-lanh-nu",
+     "hero.y-tien-nhan-nam",
+     "hero.y-tien-nhan-nu",
+     "hero.y-thien-mach-bao-nam",
+     "hero.y-thien-mach-bao-nu",
+     "mac:ly-hoa:nu",
+     "mac:than-nguyen-y:nam",
+     "mac:tu-liem-y:nu",
+     "mac:bach-kiem-bao:nam",
+     "mac:ly-hoa:nu",
+     "mac:than-nguyen-y:nam",
+     "mac:tu-liem-y:nu",
+     "mac:bach-kiem-bao:nam"
     ],
     "nodes": [
-     [2.6, 22.6], [6.6, 22.6], [11.0, 22.8], [15.0, 22.6], [18.0, 22.6], [21.0, 19.6], [24.4, 19.4], [22.6, 23.0], [20.6, 25.2], [24.8, 25.0],
-     [5.0, 26.6], [9.0, 26.8], [14.0, 26.6], [18.6, 26.8], [22.6, 26.6], [26.0, 26.8], [29.6, 26.4], [30.6, 24.8], [34.6, 25.6], [34.5, 28.8],
-     [29.4, 30.4, 34.5, 32], [29.6, 31.8, 34.5, 32], [31.8, 35.8, 34.5, 32], [33.6, 36.0, 34.5, 32], [35.4, 36.0, 34.5, 32],
-     [37.2, 35.8, 34.5, 32], [21.0, 21.8, 22.6, 21.2], [24.6, 22.6, 22.6, 21.2]
+     [
+      15.4,
+      45.4
+     ],
+     [
+      21.4,
+      45.4
+     ],
+     [
+      28.0,
+      45.7
+     ],
+     [
+      34.0,
+      45.4
+     ],
+     [
+      38.5,
+      45.4
+     ],
+     [
+      43.0,
+      40.9
+     ],
+     [
+      48.1,
+      40.6
+     ],
+     [
+      45.4,
+      46.0
+     ],
+     [
+      42.4,
+      49.3
+     ],
+     [
+      48.7,
+      49.0
+     ],
+     [
+      19.0,
+      51.4
+     ],
+     [
+      25.0,
+      51.7
+     ],
+     [
+      32.5,
+      51.4
+     ],
+     [
+      39.4,
+      51.7
+     ],
+     [
+      45.4,
+      51.4
+     ],
+     [
+      50.5,
+      51.7
+     ],
+     [
+      55.9,
+      51.1
+     ],
+     [
+      57.4,
+      48.7
+     ],
+     [
+      63.4,
+      49.9
+     ],
+     [
+      63.2,
+      54.7
+     ],
+     [
+      55.6,
+      57.1,
+      63.2,
+      59.5
+     ],
+     [
+      55.9,
+      59.2,
+      63.2,
+      59.5
+     ],
+     [
+      59.2,
+      65.2,
+      63.2,
+      59.5
+     ],
+     [
+      61.9,
+      65.5,
+      63.2,
+      59.5
+     ],
+     [
+      64.6,
+      65.5,
+      63.2,
+      59.5
+     ],
+     [
+      67.3,
+      65.2,
+      63.2,
+      59.5
+     ],
+     [
+      43.0,
+      44.2,
+      45.4,
+      43.3
+     ],
+     [
+      48.4,
+      45.4,
+      45.4,
+      43.3
+     ]
     ],
     "links": [
-     [0, 1], [1, 2], [2, 3], [3, 4], [4, 7], [4, 5], [5, 6], [6, 7], [7, 8], [7, 9], [8, 14], [9, 14], [9, 15], [10, 11], [11, 12], [12, 13],
-     [13, 14], [14, 15], [15, 16], [16, 17], [17, 18], [18, 19], [19, 20], [20, 21], [21, 22], [22, 23], [23, 24], [24, 25], [16, 20], [12, 3],
-     [5, 26], [26, 7], [6, 27], [27, 9]
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      14
+     ],
+     [
+      9,
+      14
+     ],
+     [
+      9,
+      15
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      11,
+      12
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      13,
+      14
+     ],
+     [
+      14,
+      15
+     ],
+     [
+      15,
+      16
+     ],
+     [
+      16,
+      17
+     ],
+     [
+      17,
+      18
+     ],
+     [
+      18,
+      19
+     ],
+     [
+      19,
+      20
+     ],
+     [
+      20,
+      21
+     ],
+     [
+      21,
+      22
+     ],
+     [
+      22,
+      23
+     ],
+     [
+      23,
+      24
+     ],
+     [
+      24,
+      25
+     ],
+     [
+      16,
+      20
+     ],
+     [
+      12,
+      3
+     ],
+     [
+      5,
+      26
+     ],
+     [
+      26,
+      7
+     ],
+     [
+      6,
+      27
+     ],
+     [
+      27,
+      9
+     ]
     ],
     "ban": [
-     ["co-ban-nuoc", 4.2, 20.6], ["thuong-nhan", 9.0, 20.6], ["lao-than", 4.4, 24.6], ["ba-do-den", 9.2, 24.4], ["ong-hai-nam", 6.4, 29.4],
-     ["tho-kim-sa", 10.6, 29.6], ["ong-do", 19.6, 29.6], ["lao-nong", 24.2, 29.8]
+     [
+      "co-ban-nuoc",
+      17.8,
+      42.4
+     ],
+     [
+      "thuong-nhan",
+      25.0,
+      42.4
+     ],
+     [
+      "lao-than",
+      18.1,
+      48.4
+     ],
+     [
+      "ba-do-den",
+      25.3,
+      48.1
+     ],
+     [
+      "ong-hai-nam",
+      21.1,
+      55.6
+     ],
+     [
+      "tho-kim-sa",
+      27.4,
+      55.9
+     ],
+     [
+      "ong-do",
+      40.9,
+      55.9
+     ],
+     [
+      "lao-nong",
+      47.8,
+      56.2
+     ]
     ],
     "lines": [
-     "Hôm nay Cửu Tông Tranh Phong, chín tông môn đều tới!", "Lôi đài phía đông đang tỷ thí kìa, ra xem đi!", "Tớ cược đệ tử áo xanh thắng.",
-     "Nghe nói quán quân được cúp vàng đó.", "Cờ ngũ hành bay phấp phới đẹp ghê.", "Trống trận vang lên là có trận mới!",
-     "Kiếm trận trước đại điện sáng quá.", "Người múa kiếm ở quảng trường giỏi thật.", "Đệ tử Thiên Kiếm Tông năm nay mạnh lắm.",
-     "Mua bánh rồi ra lôi đài xem nhé!", "Tối nay pháo hoa nổ suốt đêm.", "Năm sau ta cũng lên đài!", "♪ ♫ ♪",
-     "Đông vui quá, đi chậm thôi kẻo lạc.", "Ai thắng hiệp này nhỉ?", "Bảng xếp hạng treo cạnh lôi đài kìa."
+     "Hôm nay Cửu Tông Tranh Phong, chín tông môn đều tới!",
+     "Lôi đài phía đông đang tỷ thí kìa, ra xem đi!",
+     "Tớ cược đệ tử áo xanh thắng.",
+     "Nghe nói quán quân được cúp vàng đó.",
+     "Cờ ngũ hành bay phấp phới đẹp ghê.",
+     "Trống trận vang lên là có trận mới!",
+     "Kiếm trận trước đại điện sáng quá.",
+     "Người múa kiếm ở quảng trường giỏi thật.",
+     "Đệ tử Thiên Kiếm Tông năm nay mạnh lắm.",
+     "Mua bánh rồi ra lôi đài xem nhé!",
+     "Tối nay pháo hoa nổ suốt đêm.",
+     "Năm sau ta cũng lên đài!",
+     "♪ ♫ ♪",
+     "Đông vui quá, đi chậm thôi kẻo lạc.",
+     "Ai thắng hiệp này nhỉ?",
+     "Bảng xếp hạng treo cạnh lôi đài kìa."
     ],
-    "kid_lines": ["Con muốn làm kiếm tiên!", "Hây a! Xem chiêu!", "Đuổi bắt đi!", "Mẹ ơi mua kiếm gỗ!", "Lên lôi đài chơi đi!"],
+    "kid_lines": [
+     "Con muốn làm kiếm tiên!",
+     "Hây a! Xem chiêu!",
+     "Đuổi bắt đi!",
+     "Mẹ ơi mua kiếm gỗ!",
+     "Lên lôi đài chơi đi!"
+    ],
     "ban_lines": [
-     "Kiếm gỗ cho bé đây, rẻ lắm!", "Bánh bao nóng hổi đây!", "Mời đạo hữu ghé xem!", "Bùa may mắn tranh phong đây!", "Trà thơm giải khát đây!",
+     "Kiếm gỗ cho bé đây, rẻ lắm!",
+     "Bánh bao nóng hổi đây!",
+     "Mời đạo hữu ghé xem!",
+     "Bùa may mắn tranh phong đây!",
+     "Trà thơm giải khát đây!",
      "Mặt nạ hồ ly, đeo vào thành tiên!"
     ],
-    "cheer": ["Hay!", "Tốt lắm!", "Đỡ đẹp quá!", "Cố lên!", "Oa!", "Đánh nữa đi!"],
-    "cheer_big": ["Thắng rồi!", "Hạ gục!", "Quá hay!!", "Vô địch!", "Hoan hô!"]
+    "cheer": [
+     "Hay!",
+     "Tốt lắm!",
+     "Đỡ đẹp quá!",
+     "Cố lên!",
+     "Oa!",
+     "Đánh nữa đi!"
+    ],
+    "cheer_big": [
+     "Thắng rồi!",
+     "Hạ gục!",
+     "Quá hay!!",
+     "Vô địch!",
+     "Hoan hô!"
+    ]
    },
-   "khu": [[1, 12, 31, 31], [25, 22, 42, 39]],
+   "khu": [
+    [
+     13,
+     30,
+     58,
+     58
+    ],
+    [
+     49,
+     45,
+     75,
+     70
+    ]
+   ],
    "_khu": "như Hàn Băng"
   }
  },
  "foot": {
-  "nha": {"w": 0.84, "d": 2, "dh": 0.3},
-  "cong": {"pillars": true, "w": 0.15, "d": 1},
-  "cay": {"w": 0.22, "d": 0.7, "min": 8},
-  "tru": {"w": 0.5, "d": 0.6, "min": 7},
-  "tuong": {"w": 0.8, "d": 1.4, "dh": 0.4},
-  "sap": {"w": 0.88, "d": 1.4},
-  "ho": {"w": 0.86, "dh": 0.62},
-  "rao": {"w": 1, "d": 0.6},
-  "cau": {"walk": true, "w": 0.92, "dh": 0.8},
+  "nha": {
+   "w": 0.84,
+   "d": 2,
+   "dh": 0.3
+  },
+  "cong": {
+   "pillars": true,
+   "w": 0.15,
+   "d": 1
+  },
+  "cay": {
+   "w": 0.22,
+   "d": 0.7,
+   "min": 8
+  },
+  "tru": {
+   "w": 0.5,
+   "d": 0.6,
+   "min": 7
+  },
+  "tuong": {
+   "w": 0.8,
+   "d": 1.4,
+   "dh": 0.4
+  },
+  "sap": {
+   "w": 0.88,
+   "d": 1.4
+  },
+  "ho": {
+   "w": 0.86,
+   "dh": 0.62
+  },
+  "rao": {
+   "w": 1,
+   "d": 0.6
+  },
+  "cau": {
+   "walk": true,
+   "w": 0.92,
+   "dh": 0.8
+  },
   "nho": {},
-  "phang": {"flat": true}
+  "phang": {
+   "flat": true
+  }
  },
  "kinds": {
   "tk.chuong": "tru",
@@ -260,8 +1098,45 @@
   "hb.vom": "cong",
   "hb.qua-cau": "nho"
  },
- "glow": {"warm": {"c": "255,180,100", "r": 20, "a": 0.2}, "cold": {"c": "140,210,255", "r": 18, "a": 0.16}, "pink": {"c": "255,140,220", "r": 16, "a": 0.16}, "jade": {"c": "140,255,170", "r": 16, "a": 0.16}},
- "flame": {"lam": ["#bff4ff", "#5ab8ff", "#2a6ad8"], "hong": ["#ffe0f4", "#ff8ad8", "#c04ab0"], "vang": ["#fff2b0", "#ffb040", "#e0602a"]},
+ "glow": {
+  "warm": {
+   "c": "255,180,100",
+   "r": 20,
+   "a": 0.2
+  },
+  "cold": {
+   "c": "140,210,255",
+   "r": 18,
+   "a": 0.16
+  },
+  "pink": {
+   "c": "255,140,220",
+   "r": 16,
+   "a": 0.16
+  },
+  "jade": {
+   "c": "140,255,170",
+   "r": 16,
+   "a": 0.16
+  }
+ },
+ "flame": {
+  "lam": [
+   "#bff4ff",
+   "#5ab8ff",
+   "#2a6ad8"
+  ],
+  "hong": [
+   "#ffe0f4",
+   "#ff8ad8",
+   "#c04ab0"
+  ],
+  "vang": [
+   "#fff2b0",
+   "#ffb040",
+   "#e0602a"
+  ]
+ },
  "_kinds": "kinds khớp phần sau tiền tố tinh cầu (hb.cay khớp cả tk.cay-...), khoá dài nhất thắng.",
  "anim": {
   "_note": "Chuyển động của đồ hội theo tên (phần sau tiền tố tinh cầu, khoá dài nhất thắng), vẽ ở src/render/draw-hoi-tro.js: wave cờ bay, swing đèn treo đung đưa, float kiếm bay nhấp nhô, pulse trận pháp sáng tắt, trong trống nảy theo nhịp; sway cây, trúc lắc theo gió (gốc đứng yên, ngọn lệch nhiều nhất), sway-s bụi cỏ lắc nhẹ (chủ dự án 09/11/2026 12:00: \"những thứ có chuyển động như cây cối tự code\"). Khói (smoke trong data/art.json) vẽ ở src/render/draw-hoi.js.",

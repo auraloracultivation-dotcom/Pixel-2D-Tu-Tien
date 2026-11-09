@@ -13,6 +13,19 @@
    ],
    "note": "Cửu Đầu Thôn Thiên Mãng cả con (ảnh GPT): 0–8 đứng, 9–20 gầm"
   },
+  "chung.bien-go": {
+   "file": "assets/art/chung-bien-go.png",
+   "v": "1b1bbafb",
+   "w": 22,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    11,
+    21
+   ],
+   "note": "biển gỗ chỉ lối vẽ bằng code (tools/art/tk_moi.py sign)",
+   "scale": 0.5333
+  },
   "comp.ho-linh": {
    "file": "assets/art/comp-ho-linh.png",
    "v": "463fd9b4",
@@ -2708,6 +2721,31 @@
      58,
      23,
      "warm"
+    ]
+   ]
+  },
+  "hb.bang-tam-chau-m": {
+   "file": "assets/art/hb-bang-tam-chau-m.png",
+   "v": "9f50f16f",
+   "w": 109,
+   "h": 124,
+   "frames": 1,
+   "anchor": [
+    54,
+    122
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (66 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     53,
+     "cold"
+    ],
+    [
+     53,
+     42,
+     "cold"
     ]
    ]
   },
@@ -6109,6 +6147,36 @@
     ]
    ]
   },
+  "hb.han-ngoc-tru-m": {
+   "file": "assets/art/hb-han-ngoc-tru-m.png",
+   "v": "afc9dc7f",
+   "w": 92,
+   "h": 158,
+   "frames": 1,
+   "anchor": [
+    46,
+    156
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (84 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     112,
+     "cold"
+    ],
+    [
+     42,
+     140,
+     "cold"
+    ],
+    [
+     40,
+     18,
+     "cold"
+    ]
+   ]
+  },
   "hb.ho": {
    "file": "assets/art/hb-ho.png",
    "v": "1d092fbd",
@@ -8514,6 +8582,31 @@
     0
    ]
   },
+  "hb.nhu-bang-lon-m": {
+   "file": "assets/art/hb-nhu-bang-lon-m.png",
+   "v": "dc0391cf",
+   "w": 157,
+   "h": 105,
+   "frames": 1,
+   "anchor": [
+    78,
+    103
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (84 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     31,
+     "cold"
+    ],
+    [
+     67,
+     41,
+     "cold"
+    ]
+   ]
+  },
   "hb.pha-le": {
    "file": "assets/art/hb-pha-le.png",
    "v": "2cf65da6",
@@ -8691,6 +8784,36 @@
      7,
      34,
      "pink"
+    ]
+   ]
+  },
+  "hb.pha-le-to-m": {
+   "file": "assets/art/hb-pha-le-to-m.png",
+   "v": "aaff95c7",
+   "w": 136,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    68,
+    148
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (80 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     65,
+     101,
+     "cold"
+    ],
+    [
+     66,
+     30,
+     "cold"
+    ],
+    [
+     31,
+     88,
+     "cold"
     ]
    ]
   },
@@ -10648,6 +10771,134 @@
     [
      95,
      29
+    ]
+   ]
+  },
+  "hb.thac-bang-lon-m": {
+   "file": "assets/art/hb-thac-bang-lon-m.png",
+   "v": "2814b36c",
+   "w": 181,
+   "h": 125,
+   "frames": 1,
+   "anchor": [
+    90,
+    123
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (96 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     90,
+     42,
+     "cold"
+    ],
+    [
+     101,
+     115,
+     "cold"
+    ],
+    [
+     89,
+     28,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     87,
+     65
+    ],
+    [
+     100,
+     82
+    ],
+    [
+     93,
+     98
+    ],
+    [
+     60,
+     66
+    ],
+    [
+     29,
+     42
+    ],
+    [
+     113,
+     118
+    ],
+    [
+     90,
+     84
+    ],
+    [
+     54,
+     19
+    ],
+    [
+     130,
+     117
+    ],
+    [
+     30,
+     42
+    ],
+    [
+     107,
+     85
+    ],
+    [
+     92,
+     93
+    ],
+    [
+     56,
+     19
+    ],
+    [
+     106,
+     47
+    ],
+    [
+     86,
+     53
+    ],
+    [
+     99,
+     32
+    ],
+    [
+     158,
+     100
+    ],
+    [
+     161,
+     119
+    ],
+    [
+     25,
+     108
+    ],
+    [
+     35,
+     69
+    ],
+    [
+     70,
+     100
+    ],
+    [
+     157,
+     76
+    ],
+    [
+     101,
+     66
+    ],
+    [
+     46,
+     68
     ]
    ]
   },
@@ -17503,6 +17754,19 @@
     ]
    ]
   },
+  "tk.co-thu-lon-m": {
+   "file": "assets/art/tk-co-thu-lon-m.png",
+   "v": "bb401b32",
+   "w": 145,
+   "h": 195,
+   "frames": 1,
+   "anchor": [
+    72,
+    193
+   ],
+   "note": "bộ mới thien-kiem: moi/s06.png (104 đơn vị cao)",
+   "scale": 0.5333
+  },
   "tk.co-thuy": {
    "file": "assets/art/tk-co-thuy.png",
    "v": "4d79f15e",
@@ -20707,6 +20971,19 @@
     ]
    ]
   },
+  "tk.kiem-trung-m": {
+   "file": "assets/art/tk-kiem-trung-m.png",
+   "v": "3f7dfd95",
+   "w": 88,
+   "h": 158,
+   "frames": 1,
+   "anchor": [
+    44,
+    156
+   ],
+   "note": "bộ mới thien-kiem: moi/s08.png (84 đơn vị cao)",
+   "scale": 0.5333
+  },
   "tk.kiem-vang": {
    "file": "assets/art/tk-kiem-vang.png",
    "v": "d8abbccd",
@@ -21565,6 +21842,19 @@
      "warm"
     ]
    ]
+  },
+  "tk.nguyet-mon-m": {
+   "file": "assets/art/tk-nguyet-mon-m.png",
+   "v": "4e0ea3f7",
+   "w": 210,
+   "h": 185,
+   "frames": 1,
+   "anchor": [
+    105,
+    183
+   ],
+   "note": "bộ mới thien-kiem: moi/s02.png (112 đơn vị ngang)",
+   "scale": 0.5333
   },
   "tk.nha-dan-m": {
    "file": "assets/art/tk-nha-dan-m.png",
@@ -22569,6 +22859,19 @@
     33
    ],
    "note": "bộ mới thien-kiem: moi/s14.png (20 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "tk.tien-dai-m": {
+   "file": "assets/art/tk-tien-dai-m.png",
+   "v": "dc20590c",
+   "w": 91,
+   "h": 143,
+   "frames": 1,
+   "anchor": [
+    45,
+    141
+   ],
+   "note": "bộ mới thien-kiem: moi/s13.png (76 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.tinh-the-lon": {

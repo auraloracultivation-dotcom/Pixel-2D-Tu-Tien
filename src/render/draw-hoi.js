@@ -61,6 +61,7 @@ export function drawHoiItem(ctx, game, it, t) {
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng/.test(it.id));
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
+  if (it.label) signLabel(ctx, game, it, oy);
   if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
 
@@ -95,6 +96,19 @@ function flame(ctx, game, it, x, y, t) {
     ctx.fillRect(x + Math.sin(u * 6 + i * 2) * 2.5, y - 4 - u * 12, 0.8, 0.8);
   }
   ctx.globalAlpha = 1;
+}
+
+// Tên vùng trên biển gỗ chỉ lối: hiện dần khi người chơi lại gần (trong near ô), xa thì ẩn cho cảnh gọn
+function signLabel(ctx, game, it, oy) {
+  const p = game.player, d = Math.hypot(p.x - it.x, p.y - it.y) / game.map.T, a = Math.max(0, Math.min(1, (7 - d) / 2));
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha = a;
+  ctx.font = '7px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+  const w = ctx.measureText(it.label).width + 6, y = oy - 2;
+  ctx.fillStyle = 'rgba(40,26,18,0.82)'; ctx.fillRect(it.x - w / 2, y - 9, w, 9);
+  ctx.fillStyle = '#c99256'; ctx.fillRect(it.x - w / 2, y - 9, w, 1);
+  ctx.fillStyle = '#ffe9c0'; ctx.fillText(it.label, it.x, y - 0.5);
+  ctx.restore();
 }
 
 // Khói (ống khói lò rèn, lư hương): năm cụm khói xám nhạt bay lên, nở to, trôi nghiêng theo gió rồi tan

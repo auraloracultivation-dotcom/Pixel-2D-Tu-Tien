@@ -6,7 +6,7 @@ export const LT_BONUS = 0.5;
 export const FARM_LT_S = {"thon-thien-mang": 2.67, "thanh-khe": 0.07, "thien-kiem-phong": 0.09, "dao-xich-dien": 0.17, "dao-han-bang": 0.32, "hac-phong-dao": 0.69, "dao-moc": 1.24, "dao-thien-kim": 2.13, "dao-hau-tho": 2.89, "vet-nut-ngoai": 3.76};
 // Chỗ đầu boss mỗi tinh cầu (đơn vị bản đồ, ô 16): giữa mép trên, như src/game/thien-mang.js spawnMang. Chỉ tính giây chém khi
 // vị trí cuối người đó gửi lên phòng nằm trong NEAR (near 22 ô của data/thien-mang.json + 4 ô dư cho trễ mạng).
-export const HEAD = {"thon-thien-mang": [[1422.8, 1343.6], [1435.9, 1503.6], [1658.3, 1203.6], [1985.4, 1273.6], [2181.7, 1193.6], [2364.8, 1313.6], [2377.9, 1453.6], [2364.8, 1603.6], [1579.8, 1673.6]], "thanh-khe": [312.0, 8.0], "thien-kiem-phong": [376.0, 8.0], "dao-xich-dien": [376.0, 8.0], "dao-han-bang": [392.0, 8.0], "hac-phong-dao": [408.0, 8.0], "dao-moc": [440.0, 8.0], "dao-thien-kim": [472.0, 8.0], "dao-hau-tho": [488.0, 8.0], "vet-nut-ngoai": [504.0, 8.0]};
+export const HEAD = {"thon-thien-mang": [[1422.8, 1343.6], [1435.9, 1503.6], [1658.3, 1203.6], [1985.4, 1273.6], [2181.7, 1193.6], [2364.8, 1313.6], [2377.9, 1453.6], [2364.8, 1603.6], [1579.8, 1673.6]], "thanh-khe": [312.0, 8.0], "thien-kiem-phong": [744.0, 8.0], "dao-xich-dien": [376.0, 8.0], "dao-han-bang": [744.0, 8.0], "hac-phong-dao": [408.0, 8.0], "dao-moc": [440.0, 8.0], "dao-thien-kim": [472.0, 8.0], "dao-hau-tho": [488.0, 8.0], "vet-nut-ngoai": [504.0, 8.0]};
 export const NEAR = 26 * 16;
 // Vùng không gian Thôn Thiên Mãng (chủ dự án 06/11/2026 15:03): HEAD là danh sách chín đầu (data/thien-mang.json → arena, sky.mouths,
 // cỡ hình boss.mang), đứng gần đầu nào cũng tính; FARM_LT_S như nhau cho mọi người (arena.farm_lt_s).

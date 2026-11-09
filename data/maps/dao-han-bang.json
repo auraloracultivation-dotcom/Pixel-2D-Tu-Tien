@@ -6,168 +6,1026 @@
  "dark": 0.05,
  "ground": "#e4eef6",
  "tint_mul": 1.45,
- "island": {"top": "#d8e6f0", "under": "#8aa8c0", "trees": "#4a6a80"},
+ "island": {
+  "top": "#d8e6f0",
+  "under": "#8aa8c0",
+  "trees": "#4a6a80"
+ },
  "world": true,
- "planet": {"d": 48, "origin": [6, 12], "terrain": 1, "settle": 1, "open": 1},
+ "planet": {
+  "d": 92,
+  "origin": [
+   6,
+   12
+  ],
+  "terrain": 1,
+  "settle": 1,
+  "open": 1,
+  "grown": {
+   "s": 1.5,
+   "from": 48,
+   "note": "tools/mo-rong-dao.py 09/11/2026"
+  }
+ },
  "grid": [
-  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~~wwwwwwww,wwwww~~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~wwwwYYwwww,wwwwwww~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~wwYwwwYwwwww,wwwwwwwww~~~~~~~~~~~~~",
-  "~~~~~~~~~~~wwwwww^ww^www^,wwwwwwwwwww~~~~~~~~~~~",
-  "~~~~~~~~~~ww^^^^^^^w^^^^w,wwwwwwwwwwww~~~~~~~~~~",
-  "~~~~~~~~www^www^^w^ww^www,wwwwwwwwwwwwww~~~~~~~~",
-  "~~~~~~~wwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwww~~~~~~~",
-  "~~~~~~wwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwww~~~~~~",
-  "~~~~~~wwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwww~~~~~~",
-  "~~~~~wwwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwwww~~~~~",
-  "~~~~wwwwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwwwww~~~~",
-  "~~~~wwwwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwwwww~~~~",
-  "~~~wwwwwwwwwwwwwwwwwwwwww,wwwwwwwwwwwwwwwwwww~~~",
-  "~~~wwwwwwwwwwwwwwwwwwwwwP,wwwwwwwwwwwwwwwwwww~~~",
-  "~~wwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwww~~",
-  "~~wwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwww~~",
-  "~wwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwww~",
-  "~wwwwwwwwwwwwwwwww2222222222222wwwwwwwwwwwwwwww~",
-  "~wwwwwwwwwwwwwwwww2222222222222wwwwwwwwwwwwwwww~",
-  "~wwwwwwwwwwwwwwwww2222222222222wwwwwwwwwwwwwwww~",
-  "~wwwwwwwwwwwwwwwww2222222222222wwwwwwwwwwwwwwww~",
-  "~wwwwwwwwwwwwwwwww2222222222222wwwwwwwwwwwwwwww~",
-  "~w11111111111111111111111111111111wwwwwwwwwwwww~",
-  "~w11111111111111111111111111111111wwwww,,,,,,,,~",
-  "~,11111111111111111111111111111111wwwwwwwwwwwww~",
-  "~wwwwwwwwwwwww111wwwwwwwwwwwwwww11wwwwwwwwwwwww~",
-  "~wwwwwwwwwwwww111wwwwwwwwwwwwwww11wwwwwwwwwwwww~",
-  "~wwwwwwwwwwwww111wwwwwwwwwwwwwww11wwwwwwwwwwwww~",
-  "~wwwwwwwwwwwww111wwwwwwwwwwwwwww11wwwwwwwwwwwww~",
-  "~wwwwwwwwwwwww111wwwwwwwwwwwwwww11wwwwwwwwwwwww~",
-  "~~wwwwwwwwwwww111wwwwwwwwwwww222222222wwwwwwww~~",
-  "~~wwwwwwwwwwww111wwwwwwwwwwww222222222wwwwwwww~~",
-  "~~~wwwwwwwwwww111wwwwwwwwwwww222222222wwwwwww~~~",
-  "~~~wwwwwwwwwww111wwwwwwwwwwww222222222wwwwwww~~~",
-  "~~~~wwwwwwwwww111wwwwwwwwwwww222222222wwwwww~~~~",
-  "~~~~wwwwwwww2222222wwwwwwwwww222222222wwwwww~~~~",
-  "~~~~~wwwwwww2222222wwwwwwwwww222222222wwwww~~~~~",
-  "~~~~~~wwwwww2222222wwwwwwwwww222222222wwww~~~~~~",
-  "~~~~~~wwwwww2222222wwwwwwwwww222222222wwww~~~~~~",
-  "~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww~~~~~~~",
-  "~~~~~~~~wwwwww,,,wwwwwww,wwwwwwwwwwwwwww~~~~~~~~",
-  "~~~~~~~~~~wwww,,,wwwOOOO,wwwwwwwwwwwww~~~~~~~~~~",
-  "~~~~~~~~~~~wwwY,wwwwwOOO,wwwwwwwwwwww~~~~~~~~~~~",
-  "~~~~~~~~~~~~~wwwwwwwwOww,wwwwwwwwww~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwww~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~~wwwwwwwwwwwwww~~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwww,,,,,,,,,wwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,,,,,,,,wwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,,,,,,,,,,,,,,,wwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,wwww,,,,,,,,,,,,,,,,wwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,wwwwwwwwwwwwwww,,,,,,,,,,,,,wwwwwww~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,wwwwwwwwwwwwwwwwwwwww,,,,,,,,,,,wwwwww~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,wwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,,,,,,wwwww~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,,,,,wwww~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~www,,,,,,,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,,,,wwww~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~www,,,,,,ww,,,,,wwwwwwwwwwwwwww,,wwwwwwwwwwwwwww,,,,,,,,,www~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~www,,,,,,www,,,,,,wwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwww,,,,,,,,ww~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~www,,,,,,wwwww,,,,,,wwwwwYYwwwwww,,wwwwwwwwwwwwwwwwwww,,,,,,,,ww~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~www,,,,,,wwwwwww,,,,,wwwwwwwwwwwww,,wwwwwwwwwwwwwwwwww,,,,,,,,,,,w~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~wwww,,,,,wwwwwwwww,,,YwwwwwYwwwwwww,,wwwwwwwwwwwwwwwwww,,,,w,,,,,,,w~~~~~~~~~~~~",
+  "~~~~~~~~~~~wwww,,,,,wwwwwwwwwww,,,w^^www^wwwww^,,wwwwwwwwwwwwwwww,,,,,,www,,,,,,w~~~~~~~~~~~",
+  "~~~~~~~~~~wwww,,,,,wwwwwwwww^^^^^^^^^^ww^^^^^^w,,wwwwwwwwwwwwww,,,,,,,wwwww,,,,,,w~~~~~~~~~~",
+  "~~~~~~~~~~www,,,,,,wwwwwwwww^^^^^^^^^^ww^^^^^^w,,wwwwwwwwwwwww,,,,,,,wwwwwww,,,,,,~~~~~~~~~~",
+  "~~~~~~~~~www,,,,,,wwwwwwww^^www,^^^ww^www^^wwww,,wwwwwwwwwwwww,,,,,,wwwwwwwww,,,,,w~~~~~~~~~",
+  "~~~~~~~~wwww,,,,,wwwwwwwwwwwwww,,,,wwwwwwwwwwww,,wwwwwwwwwwwww,,,,wwwwwwwwwwww,,,,,w~~~~~~~~",
+  "~~~~~~~~www,,,,,wwwwwwwwwwwwwwww,,,wwwwwwwwwwww,,wwwwwwwwwwwww,,,wwwwwwwwwwwwww,,,,,~~~~~~~~",
+  "~~~~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwww,,,,wwwwwwwwwwwwwww,,,,w~~~~~~~",
+  "~~~~~~wwww,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwww,,,,wwwwwwwwwwwwwww,,,,,w~~~~~~",
+  "~~~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwww,,,,wwwwwwwwwwwwwwww,,,,w~~~~~~",
+  "~~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,w~~~~~",
+  "~~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,w~~~~~",
+  "~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,ww~~~~",
+  "~~~~ww,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,w~~~~",
+  "~~~~Ow,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,w~~~~",
+  "~~~OO,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,ww~~~",
+  "~~~OO,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwP,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,ww~~~",
+  "~~OO,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww11111wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~~",
+  "~~Ow,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww11111wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,ww~~",
+  "~~ww,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww11111wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,ww~~",
+  "~~w,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww11111wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,ww~~",
+  "~ww,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww11111wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "ww,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2222222222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,wwww",
+  "ww,,,wwwwwwww111111111111111111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwww,,,wwww",
+  "ww,,,wwwwwwww111111111111111111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwww,,,wwww",
+  "ww,,,wwwwwwww111111111111111111111111111111111111111111111111wwwwwww,,,,,,,,,,,,wwwww,,,wwww",
+  "ww,,,wwwwww,,111111111111111111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwww,,,wwww",
+  "ww,,,wwwwww,,111111111111111111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwww,,,wwww",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,wwwwwwwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwwwwww,,,,,wwwwwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwwww,,,,,,,,,,wwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwwwwwwwwwwwwwwwww,,,www~",
+  "~w,,,,wwww,,,,,,,,,,,wwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwww,,,,wwwwwwwwww,,,www~",
+  "~ww,,,,,,,,,,,,,,,,,,wwwwwwwwww1111wwwwwwwwwwwwwwwwwwwwwww111wwwwwwwwww,,,,,,,,,,,www,,,www~",
+  "~~w,,,,,,,,,,,wwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwww,,,,,,,,,,,,w,,,,ww~~",
+  "~~ww,,,,,,,,,wwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwww,,,,,,,,,,,,,,,,ww~~",
+  "~~ww,,,,,,,wwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwww,,,,,,,,,ww~~",
+  "~~ww,,,,,wwwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwwww,,,,,,,www~~",
+  "~~~ww,,,,wwwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwww,,,,,,ww~~~",
+  "~~~ww,,,,,wwwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwwwww,,,,ww~~~",
+  "~~~~ww,,,,,wwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwwwww,,,,w~~~~",
+  "~~~~ww,,,,,wwwwwwwwwwwwwwwwwwww1111wwwwwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwwwww,,,,w~~~~",
+  "~~~~www,,,,,wwwwwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwwww,,,,ww~~~~",
+  "~~~~~www,,,,,wwwwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwwww,,,,w~~~~~",
+  "~~~~~www,,,,,wwwwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwww,,,,,w~~~~~",
+  "~~~~~~www,,,,,wwwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwwww,,,,w~~~~~~",
+  "~~~~~~wwww,,,,,wwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwww,,,,,w~~~~~~",
+  "~~~~~~~www,,,,,wwwwwwwwwwwww2222222222wwwwwwwwwwwwwww22222222222222wwwwwwwwwwwww,,,,w~~~~~~~",
+  "~~~~~~~~www,,,,,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,~~~~~~~~",
+  "~~~~~~~~wwww,,,,,wwwwwwwwwwwwww,,,,wwwwwwwwwww,wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,w~~~~~~~~",
+  "~~~~~~~~~www,,,,,,wwwwwwwwwwwww,,,,wwwwwwwwwww,wwwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,w~~~~~~~~~",
+  "~~~~~~~~~~www,,,,,,wwwwwwwwwwww,,,,wwwwwOOOOOO,wwwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,~~~~~~~~~~",
+  "~~~~~~~~~~wwww,,,,,wwwwwwwwwwwww,,wwwwwwwOOOOO,wwwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,w~~~~~~~~~~",
+  "~~~~~~~~~~~wwww,,,,,wwwwwwwwwwwY,,wwwwwwwOOOOO,wwwwwwwwwwwwwwwwwwwwwwwwwww,,,,,,w~~~~~~~~~~~",
+  "~~~~~~~~~~~~wwww,,,,,wwwwwwwwwwwwwwwwwwwwOO,,,,wwwwwwwwwwwwwwwwwwwwwwwww,,,,,,,w~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~www,,,,,,wwwwwwwwwwwwwwwwwwww,,,,wwwwwwwwwwwwwwwwwwwwwwwww,,,,,,,w~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~www,,,,,,wwwwwwwwwwwwwwwwwww,,,,wwwwwwwwwwwwwwwwwwwwwww,,,,,,,ww~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~www,,,,,,wwwwwwwwwwwwwwwwww,,,wwwwwwwwwwwwwwwwwwwwww,,,,,,,,ww~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~www,,,,,,wwwwwwwwwwwwwwwww,,,,wwwwwwwwwwwwwwwwww,,,,,,,,,www~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~www,,,,,,,wwwwwwwwwwwwwww,,,,wwwwwwwwwwwwwwww,,,,,,,,,wwww~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~ww,,,,,,,wwwwwwwwwwwwww,,,,wwwwwwwwwwwww,,,,,,,,,,wwww~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,wwwwwwwwwwwww,,,wwwwwwwwww,,,,,,,,,,,wwwww~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,wwwwwwwwwww,,,wwwwwww,,,,,,,,,,,wwwwww~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,wwwwwwww,,,,www,,,,,,,,,,,,,wwwwwww~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,www,,,,,,,,,,,,,,,,,wwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,,,,,,,,,,,,,,,wwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww,,,,,,,,,,,,,,,,,,,wwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwww,,,,,,,,,wwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {"vao": [11, 24], "tu-bang-quat": [24, 16]},
- "portals": [{"at": [9, 24], "to": "thien-kiem-phong", "spawn": "tu-han-bang", "label": "Truyền tống về Thiên Kiếm Tinh", "fly": true}, {"at": [24, 14], "to": "han-bang-quat", "spawn": "vao", "need": "mo-bang-quat", "label": "Băng Quật"}],
- "npcs": [{"id": "lao-ngu", "at": [16, 22]}, {"id": "lac-tuyet", "at": [14, 24], "need": "han-bang", "unless": "lac-tuyet-vang"}, {"id": "tuyet-nhi", "at": [15, 41]}],
- "spawners": [{"mob": "tuyet-lang", "at": [40, 21], "n": 4, "spread": 3, "respawn": 5}, {"mob": "bang-tinh", "at": [42, 35], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-bang-tien", "at": [34, 18], "n": 2, "spread": 2, "respawn": 8, "need": "han-bang"}, {"mob": "tuyet-lang", "at": [26, 8], "farm": true}, {"mob": "tuyet-lang", "at": [39, 26], "farm": true}, {"mob": "tuyet-lang", "at": [17, 9], "farm": true}, {"mob": "tuyet-lang", "at": [42, 30], "farm": true}, {"mob": "tuyet-lang", "at": [44, 21], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [29, 45], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [4, 34], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [10, 9], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [27, 4], "farm": true, "mul": 2}],
+ "spawns": {
+  "vao": [
+   27,
+   46
+  ],
+  "tu-bang-quat": [
+   46,
+   34
+  ]
+ },
+ "portals": [
+  {
+   "at": [
+    24,
+    46
+   ],
+   "to": "thien-kiem-phong",
+   "spawn": "tu-han-bang",
+   "label": "Truyền tống về Thiên Kiếm Tinh",
+   "fly": true
+  },
+  {
+   "at": [
+    46,
+    31
+   ],
+   "to": "han-bang-quat",
+   "spawn": "vao",
+   "need": "mo-bang-quat",
+   "label": "Băng Quật"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "lao-ngu",
+   "at": [
+    34,
+    43
+   ]
+  },
+  {
+   "id": "lac-tuyet",
+   "at": [
+    31,
+    46
+   ],
+   "need": "han-bang",
+   "unless": "lac-tuyet-vang"
+  },
+  {
+   "id": "tuyet-nhi",
+   "at": [
+    33,
+    72
+   ]
+  }
+ ],
+ "spawners": [
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    86,
+    39
+   ],
+   "n": 4,
+   "spread": 4,
+   "respawn": 5
+  },
+  {
+   "mob": "bang-tinh",
+   "at": [
+    80,
+    67
+   ],
+   "n": 3,
+   "spread": 4,
+   "respawn": 7
+  },
+  {
+   "mob": "ma-bang-tien",
+   "at": [
+    81,
+    24
+   ],
+   "n": 2,
+   "spread": 3,
+   "respawn": 8,
+   "need": "han-bang"
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    51,
+    5
+   ],
+   "farm": true
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    86,
+    51
+   ],
+   "farm": true
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    29,
+    8
+   ],
+   "farm": true
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    84,
+    58
+   ],
+   "farm": true
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    86,
+    40
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    54,
+    78
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    16,
+    61
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    17,
+    16
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "tuyet-lang",
+   "at": [
+    52,
+    5
+   ],
+   "farm": true,
+   "mul": 2
+  }
+ ],
  "rooms": [],
- "hamlets": [[15, 41]],
- "hoi": {"le": "han-nguyet-long-dang", "do": [
-  ["hb.cong-bang-m", 24.5, 18],
-  ["hb.dien-bang-m", 14.6, 16.6],
-  ["hb.thap-tuyet-m", 31.0, 16.4],
-  ["hb.rong-bang", 24.5, 21.2],
-  ["hb.lan", 20.4, 22.7],
-  ["hb.lan-nho", 22.0, 22.9],
-  ["hb.den-bang-m", 18.4, 20.6],
-  ["hb.den-bang-m", 30.6, 20.6],
-  ["hb.vac-bang-m", 19.6, 19.2],
-  ["hb.vac-bang-m", 29.4, 19.2],
-  ["hb.nguoi-tuyet-m", 28.4, 22.8],
-  ["hb.nai-bang", 31.6, 22.6],
-  ["hb.sap-lau-m", 5.4, 23],
-  ["hb.sap-tra-m", 9.4, 23],
-  ["hb.sap-thit-m", 5.4, 27.7],
-  ["hb.sap-long-m", 9.4, 27.7],
-  ["hb.sap-tra-m", 19.6, 27.7],
-  ["hb.sap-pha-le", 23.6, 27.7],
-  ["hb.sap-thuoc-m", 27.6, 27.7],
-  ["hb.den-linh-m", 3.2, 22.9],
-  ["hb.den-linh-m", 7.4, 22.9],
-  ["hb.den-linh-m", 11.6, 22.9],
-  ["hb.den-linh-m", 17.4, 22.9],
-  ["hb.den-dong-m", 3.2, 26.4],
-  ["hb.den-dong-m", 7.4, 26.4],
-  ["hb.den-dong-m", 11.6, 26.4],
-  ["hb.den-dong-m", 21.6, 26.4],
-  ["hb.den-dong-m", 25.6, 26.4],
-  ["hb.den-dong-m", 30.0, 26.4],
-  ["hb.co-tuyet", 12.6, 22.9],
-  ["hb.co-trang", 14.2, 22.9],
-  ["hb.den-giay-m", 33.6, 22.8],
-  ["hb.ho", 7.6, 18.4],
-  ["hb.cay-tung-nho-m", 3.6, 20.6],
-  ["hb.cong-trang-m", 15.5, 30.2],
-  ["hb.den-da-tuyet-m", 13.2, 28.2],
-  ["hb.den-da-tuyet-m", 17.8, 28.2],
-  ["hb.den-da-tuyet-m", 13.2, 33.4],
-  ["hb.den-da-tuyet-m", 17.8, 33.4],
-  ["hb.ho-lon", 7.6, 33.8],
-  ["hb.dien-tuyet-m", 24.6, 36.4],
-  ["hb.bui-mai-m", 39.0, 31.8],
-  ["hb.lua-hong", 19.2, 37.0],
-  ["hb.cao-tuyet", 12.2, 35.6],
-  ["hb.tuong-hac", 18.6, 35.4],
-  ["hb.den-sen-m", 11.6, 38.6],
-  ["hb.den-sen-m", 19.4, 39.4],
-  ["hb.cong-tron-m", 32.5, 31.2],
-  ["hb.sap-thuoc-m", 30.6, 33.0],
-  ["hb.sap-kiem", 35.0, 33.0],
-  ["hb.du-ban", 31.0, 36.4],
-  ["hb.vac-bang-m", 34.0, 35.6],
-  ["hb.sap-long-m", 31.0, 39.6],
-  ["hb.sap-vai", 35.2, 39.6],
-  ["hb.den-sen-m", 37.8, 34.6],
-  ["hb.gia-thit", 36.8, 26.8],
-  ["hb.vo-ruou", 35.8, 30.2],
-  ["hb.ro-tao", 34.6, 27.2],
-  ["hb.cay-tung-tuyet-m", 35.0, 24.6],
-  ["hb.lieu-bang-m", 36.8, 22.0],
-  ["hb.cay-bang-m", 4.2, 37.4],
-  ["hb.cay-tung-tuyet-m", 20.2, 12.6],
-  ["hb.cay-kho-m", 35.6, 12.4],
-  ["hb.pha-le-lon-m", 38.6, 14.6],
-  ["hb.tru-pha-le-m", 40.4, 18.6],
-  ["hb.cay-mai-m", 8.2, 13.6],
-  ["hb.cay-mai-m", 38.2, 38.0],
-  ["hb.dien-tuyet-m", 33.0, 8.0],
-  ["hb.nha-tuyet-m", 13.0, 10.0],
-  ["hb.nha-pha-le-m", 42.0, 24.5],
-  ["hb.dien-nho-m", 23.5, 41.5],
-  ["hb.thac-bang-m", 30.0, 4.5],
-  ["hb.gieng-bang-m", 23.5, 12.0],
-  ["hb.nha-ca-m", 8.5, 37.5],
-  ["hb.lua-trai-m", 28.0, 42.0],
-  ["hb.cui-m", 31.0, 43.0],
-  ["hb.xe-truot-m", 25.5, 43.0],
-  ["hb.ro-ca-m", 10.0, 39.0],
-  ["hb.thung-tuyet-m", 38.0, 30.0],
-  ["hb.cay-tung-tuyet-m", 43.0, 17.0],
-  ["hb.cay-tung-nho-m", 35.5, 43.0],
-  ["hb.cay-mai-m", 27.5, 11.5],
-  ["hb.pha-le-tim-m", 45.0, 24.5],
-  ["hb.manh-bang-m", 20.0, 8.0],
-  ["hb.pha-le-dai-m", 12.5, 42.0],
-  ["hb.qua-cau-bang-m", 38.0, 17.5],
-  ["hb.da-bang-m", 45.0, 26.5],
-  ["hb.bia-van-m", 24.0, 9.5],
-  ["hb.soi-tuyet-m", 12.0, 18.0],
-  ["hb.bia-cua-m", 17.0, 42.0],
-  ["hb.da-vach-m", 39.5, 9.0],
-  ["hb.da-khoi-bang-m", 44.5, 32.0],
-  ["hb.bui-tuyet-m", 14.0, 18.0],
-  ["hb.bui-hoa-bang-m", 21.0, 14.0],
-  ["hb.bui-co-trang-m", 37.5, 24.0],
-  ["hb.bui-mai-m", 40.0, 34.0],
-  ["hb.bui-tuyet-m", 28.0, 40.0],
-  ["hb.den-da-tuyet-m", 28.5, 14.0],
-  ["hb.den-giay-m", 36.0, 15.0],
-  ["hb.den-linh-m", 15.5, 19.0],
-  ["hb.den-dong-m", 41.0, 26.5],
-  ["hb.lu-huong-m", 28.0, 16.0],
-  ["hb.lan-can-tuyet-m", 40.0, 10.5]
- ]}
+ "hamlets": [
+  [
+   33,
+   72
+  ]
+ ],
+ "hoi": {
+  "le": "han-nguyet-long-dang",
+  "do": [
+   [
+    "hb.cong-bang-m",
+    46.8,
+    37.0
+   ],
+   [
+    "hb.dien-bang-m",
+    31.9,
+    34.9
+   ],
+   [
+    "hb.thap-tuyet-m",
+    56.5,
+    34.6
+   ],
+   [
+    "hb.rong-bang",
+    46.8,
+    41.8
+   ],
+   [
+    "hb.lan",
+    40.6,
+    44.0
+   ],
+   [
+    "hb.lan-nho",
+    43.0,
+    44.3
+   ],
+   [
+    "hb.den-bang-m",
+    37.6,
+    40.9
+   ],
+   [
+    "hb.den-bang-m",
+    55.9,
+    40.9
+   ],
+   [
+    "hb.vac-bang-m",
+    39.4,
+    38.8
+   ],
+   [
+    "hb.vac-bang-m",
+    54.1,
+    38.8
+   ],
+   [
+    "hb.nguoi-tuyet-m",
+    52.6,
+    44.2
+   ],
+   [
+    "hb.nai-bang",
+    57.4,
+    43.9
+   ],
+   [
+    "hb.sap-lau-m",
+    18.1,
+    44.5
+   ],
+   [
+    "hb.sap-tra-m",
+    24.1,
+    44.5
+   ],
+   [
+    "hb.sap-thit-m",
+    18.1,
+    51.5
+   ],
+   [
+    "hb.sap-long-m",
+    24.1,
+    51.5
+   ],
+   [
+    "hb.sap-tra-m",
+    39.4,
+    51.5
+   ],
+   [
+    "hb.sap-pha-le",
+    45.4,
+    51.5
+   ],
+   [
+    "hb.sap-thuoc-m",
+    51.4,
+    51.5
+   ],
+   [
+    "hb.den-linh-m",
+    14.8,
+    44.3
+   ],
+   [
+    "hb.den-linh-m",
+    21.1,
+    44.3
+   ],
+   [
+    "hb.den-linh-m",
+    27.4,
+    44.3
+   ],
+   [
+    "hb.den-linh-m",
+    36.1,
+    44.3
+   ],
+   [
+    "hb.den-dong-m",
+    14.8,
+    49.6
+   ],
+   [
+    "hb.den-dong-m",
+    21.1,
+    49.6
+   ],
+   [
+    "hb.den-dong-m",
+    27.4,
+    49.6
+   ],
+   [
+    "hb.den-dong-m",
+    42.4,
+    49.6
+   ],
+   [
+    "hb.den-dong-m",
+    48.4,
+    49.6
+   ],
+   [
+    "hb.den-dong-m",
+    55.0,
+    49.6
+   ],
+   [
+    "hb.co-tuyet",
+    28.9,
+    44.3
+   ],
+   [
+    "hb.co-trang",
+    31.3,
+    44.3
+   ],
+   [
+    "hb.den-giay-m",
+    60.4,
+    44.2
+   ],
+   [
+    "hb.ho",
+    21.4,
+    37.6
+   ],
+   [
+    "hb.cay-tung-nho-m",
+    15.4,
+    40.9
+   ],
+   [
+    "hb.cong-trang-m",
+    33.2,
+    55.3
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    29.8,
+    52.3
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    36.7,
+    52.3
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    29.8,
+    60.1
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    36.7,
+    60.1
+   ],
+   [
+    "hb.ho-lon",
+    21.4,
+    60.7
+   ],
+   [
+    "hb.dien-tuyet-m",
+    46.9,
+    64.6
+   ],
+   [
+    "hb.bui-mai-m",
+    68.5,
+    57.7
+   ],
+   [
+    "hb.lua-hong",
+    38.8,
+    65.5
+   ],
+   [
+    "hb.cao-tuyet",
+    28.3,
+    63.4
+   ],
+   [
+    "hb.tuong-hac",
+    37.9,
+    63.1
+   ],
+   [
+    "hb.den-sen-m",
+    27.4,
+    67.9
+   ],
+   [
+    "hb.den-sen-m",
+    39.1,
+    69.1
+   ],
+   [
+    "hb.cong-tron-m",
+    58.8,
+    56.8
+   ],
+   [
+    "hb.sap-thuoc-m",
+    55.9,
+    59.5
+   ],
+   [
+    "hb.sap-kiem",
+    62.5,
+    59.5
+   ],
+   [
+    "hb.du-ban",
+    56.5,
+    64.6
+   ],
+   [
+    "hb.vac-bang-m",
+    61.0,
+    63.4
+   ],
+   [
+    "hb.sap-long-m",
+    56.5,
+    69.4
+   ],
+   [
+    "hb.sap-vai",
+    62.8,
+    69.4
+   ],
+   [
+    "hb.den-sen-m",
+    66.7,
+    61.9
+   ],
+   [
+    "hb.gia-thit",
+    65.2,
+    50.2
+   ],
+   [
+    "hb.vo-ruou",
+    63.7,
+    55.3
+   ],
+   [
+    "hb.ro-tao",
+    61.9,
+    50.8
+   ],
+   [
+    "hb.cay-tung-tuyet-m",
+    62.5,
+    46.9
+   ],
+   [
+    "hb.lieu-bang-m",
+    65.2,
+    43.0
+   ],
+   [
+    "hb.cay-bang-m",
+    16.3,
+    66.1
+   ],
+   [
+    "hb.cay-tung-tuyet-m",
+    40.3,
+    28.9
+   ],
+   [
+    "hb.cay-kho-m",
+    63.4,
+    28.6
+   ],
+   [
+    "hb.pha-le-lon-m",
+    67.9,
+    31.9
+   ],
+   [
+    "hb.tru-pha-le-m",
+    70.6,
+    37.9
+   ],
+   [
+    "hb.cay-mai-m",
+    22.3,
+    30.4
+   ],
+   [
+    "hb.cay-mai-m",
+    67.3,
+    67.0
+   ],
+   [
+    "hb.dien-tuyet-m",
+    59.5,
+    22.0
+   ],
+   [
+    "hb.nha-tuyet-m",
+    29.5,
+    25.0
+   ],
+   [
+    "hb.nha-pha-le-m",
+    73.0,
+    46.8
+   ],
+   [
+    "hb.dien-nho-m",
+    45.2,
+    72.2
+   ],
+   [
+    "hb.thac-bang-m",
+    55.0,
+    16.8
+   ],
+   [
+    "hb.gieng-bang-m",
+    45.2,
+    28.0
+   ],
+   [
+    "hb.nha-ca-m",
+    22.8,
+    66.2
+   ],
+   [
+    "hb.lua-trai-m",
+    52.0,
+    73.0
+   ],
+   [
+    "hb.cui-m",
+    56.5,
+    74.5
+   ],
+   [
+    "hb.xe-truot-m",
+    48.2,
+    74.5
+   ],
+   [
+    "hb.ro-ca-m",
+    25.0,
+    68.5
+   ],
+   [
+    "hb.thung-tuyet-m",
+    67.0,
+    55.0
+   ],
+   [
+    "hb.cay-tung-tuyet-m",
+    74.5,
+    35.5
+   ],
+   [
+    "hb.cay-tung-nho-m",
+    63.2,
+    74.5
+   ],
+   [
+    "hb.cay-mai-m",
+    51.2,
+    27.2
+   ],
+   [
+    "hb.pha-le-tim-m",
+    77.5,
+    46.8
+   ],
+   [
+    "hb.manh-bang-m",
+    40.0,
+    22.0
+   ],
+   [
+    "hb.pha-le-dai-m",
+    28.8,
+    73.0
+   ],
+   [
+    "hb.qua-cau-bang-m",
+    67.0,
+    36.2
+   ],
+   [
+    "hb.da-bang-m",
+    77.5,
+    49.8
+   ],
+   [
+    "hb.bia-van-m",
+    46.0,
+    24.2
+   ],
+   [
+    "hb.soi-tuyet-m",
+    28.0,
+    37.0
+   ],
+   [
+    "hb.bia-cua-m",
+    35.5,
+    73.0
+   ],
+   [
+    "hb.da-vach-m",
+    69.2,
+    23.5
+   ],
+   [
+    "hb.da-khoi-bang-m",
+    76.8,
+    58.0
+   ],
+   [
+    "hb.bui-tuyet-m",
+    31.0,
+    37.0
+   ],
+   [
+    "hb.bui-hoa-bang-m",
+    41.5,
+    31.0
+   ],
+   [
+    "hb.bui-co-trang-m",
+    66.2,
+    46.0
+   ],
+   [
+    "hb.bui-mai-m",
+    70.0,
+    61.0
+   ],
+   [
+    "hb.bui-tuyet-m",
+    52.0,
+    70.0
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    52.8,
+    31.0
+   ],
+   [
+    "hb.den-giay-m",
+    64.0,
+    32.5
+   ],
+   [
+    "hb.den-linh-m",
+    33.2,
+    38.5
+   ],
+   [
+    "hb.den-dong-m",
+    71.5,
+    49.8
+   ],
+   [
+    "hb.lu-huong-m",
+    52.0,
+    34.0
+   ],
+   [
+    "hb.lan-can-tuyet-m",
+    70.0,
+    25.8
+   ],
+   [
+    "hb.thac-bang-lon-m",
+    78.2,
+    64.7
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    73.9,
+    65.7
+   ],
+   [
+    "hb.pha-le-to-m",
+    32.2,
+    81.5
+   ],
+   [
+    "chung.bien-go",
+    36.5,
+    83.8,
+    "Mỏ Pha Lê"
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    28.3,
+    81.6
+   ],
+   [
+    "hb.bang-tam-chau-m",
+    12.3,
+    35.0
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    9.1,
+    36.0
+   ],
+   [
+    "hb.nhu-bang-lon-m",
+    55.3,
+    12.6
+   ],
+   [
+    "chung.bien-go",
+    58.9,
+    11.8,
+    "Vách Nhũ Băng"
+   ],
+   [
+    "hb.den-da-tuyet-m",
+    50.6,
+    12.4
+   ],
+   [
+    "hb.han-ngoc-tru-m",
+    33.7,
+    10.6
+   ],
+   [
+    "chung.bien-go",
+    36.7,
+    10.8,
+    "Trụ Hàn Ngọc"
+   ],
+   [
+    "chung.bien-go",
+    14.1,
+    58.8,
+    "→ Băng Tâm Châu"
+   ],
+   [
+    "chung.bien-go",
+    27.5,
+    14.9,
+    "→ Trụ Hàn Ngọc"
+   ],
+   [
+    "chung.bien-go",
+    62.9,
+    16.6,
+    "→ Vách Nhũ Băng"
+   ],
+   [
+    "chung.bien-go",
+    79.0,
+    54.5,
+    "→ Thác Băng"
+   ],
+   [
+    "chung.bien-go",
+    46.8,
+    80.8,
+    "→ Mỏ Pha Lê"
+   ],
+   [
+    "hb.cay-mai-m",
+    72.3,
+    74.8
+   ],
+   [
+    "hb.cay-mai-m",
+    73.1,
+    71.0
+   ],
+   [
+    "hb.bui-co-trang-m",
+    68.8,
+    75.9
+   ],
+   [
+    "hb.cay-kho-m",
+    51.3,
+    83.7
+   ],
+   [
+    "hb.cay-mai-m",
+    58.1,
+    82.0
+   ],
+   [
+    "hb.bui-tuyet-m",
+    60.9,
+    12.4
+   ],
+   [
+    "hb.bui-tuyet-m",
+    46.7,
+    9.0
+   ],
+   [
+    "hb.bui-tuyet-m",
+    39.6,
+    82.8
+   ],
+   [
+    "hb.bui-tuyet-m",
+    35.7,
+    85.9
+   ],
+   [
+    "hb.bui-hoa-bang-m",
+    38.7,
+    85.6
+   ],
+   [
+    "hb.cay-mai-m",
+    19.4,
+    23.7
+   ],
+   [
+    "hb.bui-tuyet-m",
+    21.2,
+    19.4
+   ],
+   [
+    "hb.manh-bang-m",
+    16.3,
+    26.5
+   ],
+   [
+    "hb.cay-tung-nho-m",
+    6.5,
+    46.6
+   ],
+   [
+    "hb.cay-tung-nho-m",
+    7.0,
+    50.7
+   ],
+   [
+    "hb.bui-mai-m",
+    9.5,
+    47.8
+   ],
+   [
+    "hb.bui-mai-m",
+    9.4,
+    44.3
+   ],
+   [
+    "hb.bui-co-trang-m",
+    8.7,
+    54.3
+   ],
+   [
+    "hb.bui-tuyet-m",
+    10.5,
+    51.9
+   ],
+   [
+    "hb.cay-mai-m",
+    28.9,
+    77.7
+   ],
+   [
+    "hb.cay-tung-nho-m",
+    82.7,
+    52.0
+   ],
+   [
+    "hb.bui-mai-m",
+    84.0,
+    48.5
+   ],
+   [
+    "hb.manh-bang-m",
+    83.1,
+    55.0
+   ],
+   [
+    "hb.manh-bang-m",
+    81.7,
+    32.2
+   ]
+  ]
+ }
 }
