@@ -112,9 +112,9 @@ body #menu #login-form, body #menu #logged { min-width: 270px;
   padding: 10px 14px !important; }   /* khung vàng mảnh, không hoa, 9 mảnh (không kéo dãn hình) */
 /* chơi tiếp (chủ dự án 04/11/2026 10:58: nhà mờ, mây kéo béo): khung giữ đúng tỉ lệ ảnh (không kéo), phóng kiểu điểm ảnh cho sắc;
    tên đạo hữu dưới mái chùa, nút Chơi tiếp, ba liên kết một hàng nhỏ để vừa lòng khung */
-body #menu #logged { border: none !important; border-image: none !important; background-color: transparent !important; width: min(94vw, 380px); max-width: none; aspect-ratio: 405 / 283; box-sizing: border-box; min-width: 0 !important; display: flex; flex-flow: row wrap; align-content: center; justify-content: center; gap: 4px 0;
-  background-image: url("assets/art/ui-hd-dn-tiep.png"), linear-gradient(rgba(34, 20, 58, .9), rgba(34, 20, 58, .9)) !important;
-  background-size: 100% 100%, 64% 46% !important; background-position: center, 50% 64% !important; padding: 30% 17% 15% !important; image-rendering: pixelated !important; }
+body #menu #logged { border: none !important; border-image: none !important; background-color: transparent !important; width: min(94vw, 384px); max-width: none; aspect-ratio: 3 / 2; box-sizing: border-box; min-width: 0 !important; display: flex; flex-flow: row wrap; align-content: center; justify-content: center; gap: 4px 0;
+  background-image: url("assets/art/ui-dn-khung-gpt.png") !important;   /* 09/11/2026 09:54: khung mái chùa mây đèn lồng chủ dự án tạo bằng GPT (ảnh gốc 1536×1024 không đưa vào kho, đã cắt nền, thu 384×256, gom 48 màu), lòng khung tím sẵn trong ảnh */
+  background-size: 100% 100% !important; background-position: center !important; padding: 19% 12% 11% !important; image-rendering: pixelated !important; }
 body #menu #logged .hello { flex: 0 0 100%; text-align: center; margin: 0; font-size: 15px; color: #ffe6a0; text-shadow: 1px 0 #1a0a20, -1px 0 #1a0a20, 0 1px #1a0a20, 0 -1px #1a0a20, 0 0 6px #000; }
 body #menu #logged .hello b { color: #fff; }
 body #menu #logged #play-buttons { flex: 0 0 100%; margin: 0 0 2px; }
