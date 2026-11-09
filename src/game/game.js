@@ -5,7 +5,7 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { zonePower } from './mob-power.js';
-import { startGhost, ghostTick } from './ghost.js';
+import { startGhost, ghostTick, afterGhost } from './ghost.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
@@ -389,7 +389,7 @@ export function createGame(data, screen, input, ui, audio) {
     for (const n of game.npcs) n.bob += dt * 3;
     game.story.update();
     if (game.player.hp <= 0 && !game.ghost) startGhost(game);
-    if (ghostTick(game, dt)) respawn();
+    const gk = ghostTick(game, dt); if (gk) afterGhost(game, gk, respawn);   // 'home': về động phủ (bảng hỏi src/ui/death-ask.js)
     if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
     camFollow(game, screen, dt);
   };

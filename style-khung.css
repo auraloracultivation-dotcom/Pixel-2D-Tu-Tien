@@ -3,18 +3,20 @@
    nguồn sáng từ ảnh Canva nguon/ai/ui/). Lễ hội (Halloween, Giáng sinh, Tết) đổi đèn theo ngày: body[data-le], src/ui/le-hoi.js.
    Chữ pixel: GNU Unifont (assets/fonts/, giấy phép UNIFONT-LICENSE.txt) cắt riêng Latin + tiếng Việt, dùng đúng cỡ 16 điểm cho nét sắc;
    chữ dày đặc nhỏ (mô tả, số liệu) giữ chữ thường cho dễ đọc. Nạp từ đầu style.css (@import). */
-@font-face { font-family: "Unifont VN"; src: url("assets/fonts/unifont-vi.woff") format("woff"); font-display: swap; }
+/* Chủ dự án 09/11/2026 16:19: "không làm số chữ bằng pixel nữa, khá đau mắt": bỏ nạp phông Unifont, mọi chữ (cả chữ vẽ trên bản đồ
+   ghi "Unifont VN", system-ui) rơi về phông hệ thống mềm mịn. Giữ tên biến --f-pixel cho các chỗ cũ, giờ trỏ về chữ thường. */
+:root { --f-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 :root {
-  --f-pixel: "Unifont VN", var(--f-body);
+  --f-pixel: var(--f-sans);
   --lamp: 255, 170, 80;          /* ánh đèn lồng, đuốc */
   --ink-pixel: #1a0c06;          /* viền mực quanh chữ pixel */
 }
 
 /* ---- toàn bộ chữ trong game là chữ pixel (chủ dự án 29/10/2026: "chữ trong game chưa toàn bộ chuyển thành pixel"):
    đổi phông gốc của style.css sang Unifont, tắt in đậm giả (đậm giả làm nhòe nét pixel). html:root thắng :root ở style.css. */
-html:root { --f-body: "Unifont VN", system-ui, sans-serif; --f-title: "Unifont VN", system-ui, sans-serif; }
-html, body, button, input, textarea, select { font-family: var(--f-body); font-synthesis: none; -webkit-font-smoothing: none; }
-* { font-synthesis: none; font-family: "Unifont VN", system-ui, sans-serif !important; }   /* cả chỗ style.css ghi cứng system-ui */
+html:root { --f-body: var(--f-sans); --f-title: var(--f-sans); }
+html, body, button, input, textarea, select { font-family: var(--f-body); -webkit-font-smoothing: antialiased; }
+* { font-family: var(--f-sans) !important; -webkit-font-smoothing: antialiased !important; }   /* mọi chữ một phông thường */
 .realm small { font-size: 12px !important; font-weight: 400 !important; }
 
 /* ---- chữ pixel có màu, viền mực bốn phía cho rõ trên mọi nền ---- */

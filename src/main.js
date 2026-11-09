@@ -6,6 +6,7 @@ import { createPerf } from './core/perf.js';
 import { createInput } from './core/input.js';
 import { createGame } from './game/game.js';
 import { startBayCanh } from './ui/bay-canh-start.js';
+import { startDeathAsk } from './ui/death-ask.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
 import { drawTrip } from './render/flight.js';
 import { createHud } from './ui/hud.js';
@@ -125,6 +126,7 @@ async function boot() {
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 
+  startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   const login = createLogin(opts => game.begin(opts));
   login.start();

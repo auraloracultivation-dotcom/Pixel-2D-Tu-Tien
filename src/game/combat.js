@@ -2,6 +2,7 @@
 import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
 import { mobLk } from './stats.js';
+import { cpOut, cpIn } from './cp-press.js';   // áp chế lực chiến người chơi / quái
 import { dummyHit } from './dummy.js';
 import { sparks } from './sparks.js';
 import { fxOk, shortNum } from './fx-budget.js';
@@ -45,7 +46,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   let crit = false;
   if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
-  if (own) dmg *= rageMul(game, m);   // Bạo Nộ (src/game/juice.js)
+  if (own) dmg *= rageMul(game, m) * cpOut(game, m);   // Bạo Nộ (src/game/juice.js); áp chế lực chiến (cp-press.js)
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
@@ -91,6 +92,7 @@ export function hitPlayer(game, dmg, from) {
   if ((p.invT > 0 && !who?.duel) || p.dashT > 0 || game.paused) return;   // bản sao so tài (game/duel.js): đòn nào cũng trúng, như đòn mình đánh nó
   if (who?.def) game.lastHit = who;
   dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0))));   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
+  if (who?.def) dmg = Math.max(1, Math.round(dmg * cpIn(game, who)));   // áp chế lực chiến: quái mạnh hơn đánh đau hơn (cp-press.js)
   if (who?.dmgMul) dmg = Math.max(1, Math.round(dmg * who.dmgMul));   // so tài: đòn hai bên cùng nhẹ đi cho trận kéo dài (data/duel.json dmg)
   if (p.shield > 0) {
     const a = Math.min(p.shield, dmg); p.shield -= a; dmg -= a;

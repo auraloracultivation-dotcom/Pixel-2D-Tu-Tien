@@ -26,6 +26,9 @@ export function autoStep(game, ax, dt = 0) {
   if (!game.auto) return { ax, atk: false };
   if (!autoAllowed(game)) { game.auto = false; return { ax, atk: false }; }
   if (Math.hypot(ax.x, ax.y) > 0.1) { game.autoHome = { x: p.x, y: p.y }; game.autoBoss = nearBoss(game); return { ax, atk: false }; } // tự tay đi: dời chỗ săn theo (đi tới cạnh boss thì đánh boss, đi xa thì thôi)
+  // Sang bản đồ khác (bay tinh cầu, cổng) thì chỗ săn cũ thuộc bản đồ cũ: lấy chỗ đang đứng (chủ dự án 09/11/2026 16:19: vừa tới
+  // Thiên Kim Tinh nhân vật chạy về một góc thay vì đánh quái gần, vì còn nhớ chỗ săn ở tinh cầu trước)
+  if (game.autoHomeMap !== game.map.id) { game.autoHomeMap = game.map.id; game.autoHome = { x: p.x, y: p.y }; game.autoTgt = null; game.autoPath = null; }
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
   let R = cfg.radius;
