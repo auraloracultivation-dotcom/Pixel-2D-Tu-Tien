@@ -278,8 +278,8 @@ cd5bc0435cc2096e26f0c88008c10451791bf1c4 assets/art/xd-xuong-rong-m.png
 14c283c241f61b1038521b68614c8707f8c92588 data/art.json
 07e78cf3685fb50d5fed804a884fd5538c5ca08d data/cave.json
 6d25ae2f527ea59c4971abdc25ba3e29955d8da0 data/config.json
-f53325bc2cad65e1dd0fbf31f2847df7726c54aa data/i18n/en.json
-ac0ac8d87747071df9016eca8fd948de435b1d31 data/i18n/zh-Hant.json
+9b3b6f7d44fe850a70eda8a40117a4bfb2dd2af7 data/i18n/en.json
+b0e10ac833fdb2048f241f87f1cfded73821e5fe data/i18n/zh-Hant.json
 d4b1705fe6120015ee6c030b755c1501f12fe38d data/le-hoi.json
 f5ea788d8d5d5ef19ee0c09a67b0cd020d9ed8ef data/maps/dao-han-bang.json
 c3d4804b65ab0d36ecbb505ec9f33091ce1a2cb5 data/maps/dao-hau-tho.json
@@ -301,4 +301,4 @@ b0f9037526064c375c5ee1b2b2c7cb006416b01a data/realms.json
 565a50e1ce40369378f45ae3456cfaba278a6ec5 data/weather.json
 e0ca1be7bbcbb6f5ff6a87479db30104302e7997 src/vendor/mp4-muxer.mjs
 06808a52c18071b028252a769cb974100496a947 src/vendor/mp4-muxer.LICENSE
-96e738c14a16f232b9ae241e871e6b787f29b667 data/skills.json
+0e3f6a07829282a63309e5f3c4d219568404ad11 data/skills.json
