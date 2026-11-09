@@ -31,6 +31,21 @@ export function scaleMobBy(game, m, mul, tag) {   // tag: chữ trước tên (v
   m.hp = m.maxHp = m.def.hp; m.elite = mul > 1 ? mul : 0;
 }
 
+// Độ khó theo đảo (chủ dự án 09/11/2026 09:12: "lực chiến xuyên suốt game đều onehit"; data/config.json → toughen): quái mọc
+// từ bãi có máu = công người chơi × hits (boss: hits_boss), kẹp giữa máu gốc và máu gốc × max_mul của đảo. Đúng tầm đảo cần
+// khoảng hits nhát; mạnh vượt xa đảo thì chạm trần, vẫn chém một hai nhát. Linh khí (Linh Thạch rơi tính theo linh khí) nhân
+// theo (máu mới / máu gốc) ^ qi_pow để tốc độ lên cấp không chậm lại. Quái của đồng đội (remote), bản sao so tài không đổi.
+export function toughen(game, m) {
+  const T = game.data.config.toughen;
+  if (!T?.on || m.remote || m.duel || m.def.ai === 'dummy') return;
+  const max = T.maps?.[game.map?.id] ?? T.max_mul, atk = game.player?.st?.atk || 0;
+  const hp = Math.min(atk * (m.def.ai === 'boss' ? T.hits_boss : T.hits), m.def.hp * max);
+  if (!(hp > m.def.hp)) return;
+  const k = hp / m.def.hp;
+  m.def = { ...m.def, hp: Math.round(hp), qi: Math.round((m.def.qi || 0) * k ** T.qi_pow) };
+  m.hp = m.maxHp = m.def.hp;
+}
+
 function moveToward(game, m, tx, ty, speed, dt) {
   const dx = tx - m.x, dy = ty - m.y, d = Math.hypot(dx, dy);
   if (d < 1) return d;
