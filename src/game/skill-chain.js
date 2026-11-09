@@ -1,6 +1,6 @@
 // Kiểu chiêu 'chain' — Thiểm Ảnh Liên Trảm (chủ dự án 09/11/2026 18:32, bán ở Vạn Bảo Lâu, data/shop.json): hoá ảnh lướt qua lại
 // tối đa s.targets mục tiêu gần nhất trong tầm s.range, s.hits nhát trong s.dur giây (mỗi nhát s.mult × đánh thường, cả chiêu
-// 4 × 2,5 = 10 lần), bất tử suốt lúc lướt (dashT: combat.js hitPlayer, duel-cast.js duelTake), dừng ở chỗ mục tiêu cuối.
+// 10 lần), bất tử suốt lúc lướt (dashT: combat.js hitPlayer, duel-cast.js duelTake), dừng ở chỗ mục tiêu cuối.
 // Ít mục tiêu hơn số nhát thì lướt xuyên qua lại (mỗi nhát lướt xuyên qua người mục tiêu, sang phía bên kia).
 // Không có mục tiêu trong tầm: không dùng được (chainReady, player.js chưa trừ linh lực). Lướt bằng map.move nên không xuyên tường;
 // khối cứng (crowd.js) bỏ qua người đang lướt. PvP giữ luật trọng tài (chủ dự án 09/11/2026 18:32): mỗi nhát gọi pvpTryHit như một
