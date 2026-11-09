@@ -46,7 +46,7 @@ export async function createRecord(game, audio) {
     if (rec) return;
     if (!pickType()) { game.toast(T.unsupported, 3); return; }
     const canvas = document.getElementById('game');
-    try { rec = startRecording(canvas, audio?.master || null, cfg); }
+    try { rec = startRecording(canvas, audio?.master || null, { ...cfg, frame: game.data.config.frame }); }   // chỉ quay khung giữa (src/ui/frame-dim.js)
     catch { rec = null; game.toast(T.fail, 2.5); return; }
     warned = false;
     game.toast(audio?.muted ? `${T.start} ${T.muted}` : T.start, 2.5);
