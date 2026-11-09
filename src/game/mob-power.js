@@ -37,20 +37,8 @@ export function zonePower(game, m) {
   m.hp = m.maxHp = m.def.hp;
 }
 
-// Quái cận chiến: tầm vồ dài thêm; mọi quái đang đuổi đẩy nhau ra cho khỏi chồng một đống
+// Quái cận chiến: tầm vồ dài thêm (đẩy nhau ra cho khỏi chồng: src/game/crowd.js)
 export const reachOf = (game, m) => m.def.reach + (game.data.config.mob_cp?.space?.reach_add || 0);
-
-export function spreadMobs(game, dt) {
-  const S = game.data.config.mob_cp?.space;
-  if (!S?.sep) return;
-  const ms = game.mobs.filter(m => !m.dead && !m.remote && m.aggro && m.def.ai !== 'boss' && !m.wboss && !m.dummy);
-  for (let i = 0; i < ms.length; i++) for (let j = i + 1; j < ms.length; j++) {
-    const a = ms[i], b = ms[j], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.01, want = (a.r + b.r) * S.sep;
-    if (d >= want) continue;
-    const push = Math.min(want - d, S.push * dt) / 2, ux = dx / d, uy = dy / d;
-    game.map.move(a, -ux * push, -uy * push); game.map.move(b, ux * push, uy * push);
-  }
-}
 
 // Chỉ chủ động đánh khi người chơi bước vào tầm đánh của nó (chủ dự án 09/11/2026 10:42: "quái trên bản đồ chỉ trong phạm vi công kích
 // mới chủ động công kích"): cận chiến = bán kính + tầm vồ + pad; đánh xa = tầm bắn. Bị đánh thì đánh trả (combat.js đặt aggro). Người

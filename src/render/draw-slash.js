@@ -22,13 +22,14 @@ const tones = new Map();
 function rgb(hex) { const h = hex.replace('#', ''), n = parseInt(h.length === 3 ? h.replace(/./g, c => c + c) : h, 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
 const mix = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
 
-// 4 tông từ một màu: gần trắng, sáng, màu gốc, sẫm ngả tím (bóng đổi sắc theo luật bảng màu)
+// 4 tông kiểu Huyết Nguyệt cho mọi vệt (chủ dự án 09/11/2026 15:58: "vệt sáng trắng, có viền ngoài màu đặc trưng"; giữ nguyên hình,
+// độ dài, độ rộng): lõi trắng, ngả màu nhạt, màu nhạt hơn, ngoài cùng màu đặc trưng; không còn tông sẫm. Bảng palettes riêng của
+// chiêu chỉ còn lấy màu gốc (tông thứ 3).
 function paletteOf(C, color, name) {
   const key = name || color;
   if (!tones.has(key)) {
-    const p = C.palettes?.[name];
-    const c = rgb(color || C.color);
-    tones.set(key, p ? [[255, 255, 255], ...p.slice(1).map(rgb)] : [[255, 255, 255], mix(c, [255, 255, 255], 0.4), c, mix(c, [58, 20, 64], 0.38)]);
+    const p = C.palettes?.[name], c = rgb(p ? p[2] : color || C.color), W = [255, 255, 255];
+    tones.set(key, [W, mix(c, W, 0.8), mix(c, W, 0.42), c]);
   }
   return tones.get(key);
 }
@@ -140,15 +141,18 @@ function drawOne(ctx, f, C) {
   }
   c.clearRect(0, 0, w2, h2);
   c.putImageData(img, 0, 0);
-  // quầng mềm dưới hình: thu nhỏ 1/3 rồi phóng lại có làm mịn (mờ), cộng sáng; khung đỉnh sáng nhất
+  // viền mờ màu đặc trưng dưới hình (như Huyết Nguyệt): hình lưỡi thu nhỏ 1/3, tô một màu (tông ngoài cùng), phóng lại có làm mịn
+  // thành quầng; cộng sáng hai lớp: rộng nhạt và sát lưỡi đậm; khung đỉnh sáng nhất
   const gw = Math.max(1, Math.ceil(w2 / 3)), gh = Math.max(1, Math.ceil(h2 / 3));
   if (glow.width < gw || glow.height < gh) { glow.width = Math.max(gw, glow.width); glow.height = Math.max(gh, glow.height); gx = null; }
   gx ||= glow.getContext('2d');
-  gx.clearRect(0, 0, gw + 1, gh + 1); gx.imageSmoothingEnabled = true; gx.drawImage(cv, 0, 0, w2, h2, 0, 0, gw, gh);
-  const ga = C.glow * (fr === 3 ? 1.25 : fr >= 4 ? 1 - (fr - 3) * 0.25 : 1);
+  gx.globalCompositeOperation = 'source-over'; gx.clearRect(0, 0, gw + 1, gh + 1); gx.imageSmoothingEnabled = true; gx.drawImage(cv, 0, 0, w2, h2, 0, 0, gw, gh);
+  gx.globalCompositeOperation = 'source-in'; gx.fillStyle = `rgb(${pal[3].join(',')})`; gx.fillRect(0, 0, gw + 1, gh + 1); gx.globalCompositeOperation = 'source-over';
+  const ga = C.glow * (fr === 3 ? 1.25 : fr >= 4 ? 1 - (fr - 3) * 0.25 : 1), E = C.rim || 7;
   ctx.save();
-  ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = ga; ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(glow, 0, 0, gw, gh, x0 - 3, y0 - 3, w2 + 6, h2 + 6);
+  ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
+  ctx.globalAlpha = ga * 0.6; ctx.drawImage(glow, 0, 0, gw, gh, x0 - E, y0 - E, w2 + E * 2, h2 + E * 2);
+  ctx.globalAlpha = ga; ctx.drawImage(glow, 0, 0, gw, gh, x0 - 3, y0 - 3, w2 + 6, h2 + 6);
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; ctx.imageSmoothingEnabled = false;
   ctx.drawImage(cv, 0, 0, w2, h2, x0, y0, w2, h2);
   ctx.restore();

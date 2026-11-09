@@ -6,7 +6,8 @@ import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.
 import { duelThink } from './duel-ai.js';
 import { tickDummy } from './dummy.js';
 import { tickMang } from './thien-mang.js';
-import { reachOf, spreadMobs, aggroCheck } from './mob-power.js';
+import { reachOf, aggroCheck } from './mob-power.js';
+import { crowd } from './crowd.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -86,7 +87,7 @@ export function updateMobs(game, dt) {
     else if (m.aggro) meleeThink(game, m, d, dt);
     else wander(game, m, dt);
   }
-  spreadMobs(game, dt);   // quái đuổi đẩy nhau ra, không chồng một đống (mob-power.js)
+  crowd(game);   // khối cứng: quái, NPC, người chơi không đè lên nhau (crowd.js; thay spreadMobs của mob-power.js)
   game.mobs = game.mobs.filter(m => !m.dead);
 }
 

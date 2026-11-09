@@ -75,7 +75,7 @@ const nearBoss = game => { const p = game.player, r = game.data.config.auto.boss
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };
 
 // Đánh một con: áp sát tới tầm vũ khí, đánh thường, bấm chiêu đã hồi
-export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6) + tgt.r; };
+export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6 * (game.data.config.slash?.far || 1)) + tgt.r; };   // chém: tầm theo vệt chém (player.js reachW)
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
   const slots = skillSlots(game);

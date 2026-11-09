@@ -75,7 +75,7 @@ export function basicMul(game) {
 function swing(game) {
   const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], dmg = p.atk * basicMul(game);
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
-  const target = nearestMob(game, w.range + 24);
+  const target = nearestMob(game, reachW(game, w) + 24);
   if (target) {
     const a = Math.atan2(target.y - p.y, target.x - p.x);
     p.face = { x: Math.cos(a), y: Math.sin(a) };
@@ -88,6 +88,10 @@ function swing(game) {
   return w.cooldown;
 }
 
+// Tầm chém thường = đúng tầm vệt chém vẽ ra (tầm vũ khí × config.slash.far; chủ dự án 09/11/2026 15:58: "mở rộng phạm vi công kích
+// bằng vệt chém"); vũ khí bắn giữ tầm cũ
+export const reachW = (game, w) => (w.attack === 'shot' ? w.range : w.range * (game.data.config.slash?.far || 1));
+
 // Vũ khí lao tới nơi: bắn đạn từ chỗ vũ khí, hoặc chém trúng quái trong cung trước mặt
 function strike(game, q) {
   const p = game.player, w = q.w, ca = Math.cos(q.ang), sa = Math.sin(q.ang);
@@ -97,15 +101,15 @@ function strike(game, q) {
     game.sfx('shoot', 0.6);
     return;
   }
-  const cx = p.x, cy = p.y - 8, tip = { x: cx + ca * w.range, y: cy + sa * w.range };
+  const R = reachW(game, w), cx = p.x, cy = p.y - 8, tip = { x: cx + ca * R, y: cy + sa * R };
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
-  const hit = q.move === 'bo' ? { x: cx + ca * w.range * 0.8, y: cy + sa * w.range * 0.8 } : tip;
+  const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
   if (heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
-    if (d > w.range + m.r) continue;
+    if (d > R + m.r) continue;
     let da = Math.atan2(m.y - p.y, m.x - p.x) - q.ang;
     da = Math.atan2(Math.sin(da), Math.cos(da));
     if (Math.abs(da) <= q.half || d < m.r + p.r + 2) hitMob(game, m, q.dmg, { color: w.color });
