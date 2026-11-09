@@ -10356,27 +10356,27 @@
   },
   "house.H-2": {
    "file": "assets/art/house-H-2.png",
-   "v": "04ed8543",
-   "w": 31,
-   "h": 28,
-   "frames": 1,
+   "v": "a3e61b02",
+   "w": 37,
+   "h": 30,
+   "frames": 5,
    "anchor": [
-    15,
-    27
+    18,
+    29
    ],
-   "note": "nhà nguyên căn ô H rộng 2 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+   "note": "5 nhà ảnh GPT chủ dự án gửi 09/11/2026 11:30 (nhà gỗ hiên, nhà mái tranh, nhà hàng có mái che, nhà tường trắng, miếu nhỏ), cắt nền và thu về điểm ảnh; mỗi khối nhà chọn một căn theo vị trí (draw-ground.js)"
   },
   "house.H-3": {
    "file": "assets/art/house-H-3.png",
-   "v": "de32148e",
-   "w": 47,
-   "h": 42,
-   "frames": 1,
+   "v": "a3e61b07",
+   "w": 55,
+   "h": 44,
+   "frames": 5,
    "anchor": [
-    23,
-    41
+    27,
+    43
    ],
-   "note": "nhà nguyên căn ô H rộng 3 ô (ảnh Canva nguon/ai/props/nha-1.png)"
+   "note": "5 nhà ảnh GPT chủ dự án gửi 09/11/2026 11:30 (nhà gỗ hiên, nhà mái tranh, nhà hàng có mái che, nhà tường trắng, miếu nhỏ), cắt nền và thu về điểm ảnh; mỗi khối nhà chọn một căn theo vị trí (draw-ground.js)"
   },
   "house.N-2": {
    "file": "assets/art/house-N-2.png",

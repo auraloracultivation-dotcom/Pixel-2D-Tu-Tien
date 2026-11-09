@@ -255,7 +255,8 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
     // giữa theo bề ngang; các ô khác của khối không vẽ gì. Cỡ khối chưa có hình thì ghép ô tile.house như cũ.
     const b = houseBlock(map, tx, ty, ch), whole = sheet(game, `house.${ch}-${b.w}`);
     if (!whole) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
-    else if (tx === b.x0 && ty === b.y0 + b.h - 1) put(ctx, whole, 0, b.x0 * T + Math.round((b.w * T - whole.s.w) / 2), (b.y0 + b.h) * T - whole.s.h);
+    else if (tx === b.x0 && ty === b.y0 + b.h - 1) put(ctx, whole, (b.x0 * 7 + b.y0 * 13) % whole.s.frames,   // nhiều căn: mỗi khối một căn theo vị trí
+       b.x0 * T + Math.round((b.w * T - whole.s.w) / 2), (b.y0 + b.h) * T - whole.s.h);
   }
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   return true;
