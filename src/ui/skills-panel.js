@@ -1,4 +1,5 @@
 // Bảng Chiêu: tab Chiêu (3 ô chiêu đang mang, chiêu đã mở và chưa mở) và tab Công pháp (3 cuốn đang mang, cấp, kinh nghiệm).
+import { skillGrade } from '../game/skill-grade.js';
 import { unlockedSkills, skillSlots, setSlot, weaponSkills } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
 import { setTechSlot, techNeed } from '../game/techniques.js';
@@ -90,7 +91,9 @@ export function createSkillsPanel(game) {
       const s = data.skills[id], ok = open.includes(id);
       const c = el('button', 'skill-card' + (ok ? '' : ' locked') + (lo.includes(id) ? ' using' : ''));
       c.style.borderLeftColor = s.color;
-      c.append(el('b', null, s.name), el('small', null, `${from} · hồi ${s.cd} giây · tốn ${manaCost(game, id)} linh lực${ok ? '' : buy ? ` · mua ở Vạn Bảo Lâu ${buy.toLocaleString('vi-VN')} ${data.shop.name}` : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
+      const gr = skillGrade(data, id);   // phẩm chiêu (game/skill-grade.js): ghi đầu dòng, vòng màu quanh biểu tượng
+      c.dataset.gc = gr.color;
+      c.append(el('b', null, s.name), el('small', null, `${gr.name} · ${from} · hồi ${s.cd} giây · tốn ${manaCost(game, id)} linh lực${ok ? '' : buy ? ` · mua ở Vạn Bảo Lâu ${buy.toLocaleString('vi-VN')} ${data.shop.name}` : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
       c.disabled = !ok;
       if (data.art.sprites['vfx.' + id]) c.dataset.icon = 'vfx.' + id;   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
       else if (data.art.sprites['icon.' + (s.icon || s.fx)]) c.dataset.icon = 'icon.' + (s.icon || s.fx);   // s.icon: biểu tượng riêng khi fx dùng chung (thương mượn vệt chém)   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)

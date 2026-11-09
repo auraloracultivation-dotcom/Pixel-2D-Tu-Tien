@@ -20,7 +20,8 @@
   {"kind": "mat", "ref": "khoa-linh-thach", "n": 1, "price": 400, "need": "mo-bi-canh"},
   {"kind": "gem", "n": 1, "price": 120},
   {"kind": "skill", "ref": "thiem-anh", "n": 1, "price": 50000, "_note": "Chiêu không theo hệ (chủ dự án 09/11/2026 18:32): mua một lần, mọi cảnh giới, mở vào bảng Chiêu (save.boughtSkills). Đã học thì không hiện nữa."},
-  {"kind": "skill", "ref": "vo-anh", "n": 1, "price": 100000, "_note": "Vô Ảnh Trảm Vực (chủ dự án 09/11/2026 19:27)."}
+  {"kind": "skill", "ref": "vo-anh", "n": 1, "price": 100000, "_note": "Vô Ảnh Trảm Vực (chủ dự án 09/11/2026 19:27)."},
+  {"kind": "skill", "ref": "pha-thien", "n": 1, "price": 100000, "_note": "Phá Thiên Tuyệt Trảm (chủ dự án 09/11/2026 20:14)."}
  ],
  "npc_goods": {
   "_note": "Mỗi NPC một món riêng (chủ dự án chốt 02/11/2026, thay đào khoáng, linh thực): người ở xóm bán một loại đan, một bộ đồ, hoặc món không có ở bí cảnh / nhiệm vụ. kind: pill (cave.pills), mat (nguyên liệu), outfit (fashion.list, mua một lần). price Linh Thạch, per_day: số lần mỗi ngày (outfit bỏ qua). src/game/npc-goods.js.",

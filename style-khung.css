@@ -177,6 +177,11 @@ body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block
   content: ''; position: absolute; inset: -9%; pointer-events: none; image-rendering: pixelated;
   background: url("assets/art/ui-round-skill.png") center / 100% 100% no-repeat; animation: den-sang 1.8s ease-in-out infinite alternate;
 }
+/* phẩm chiêu (chủ dự án 09/11/2026 20:20, src/game/skill-grade.js): --gc màu phẩm (Huyền lam, Địa tím, Thiên vàng cam). Khung tròn đổi màu theo
+   phẩm, giữ sáng tối của khung (trộn luminosity trên nền màu, cắt theo hình khung); quầng ngoài cùng màu. Ô trống giữ màu vàng cũ. */
+#btn-s0::after, #btn-s1::after, #btn-s2::after { background-color: var(--gc, #e0a040); background-blend-mode: luminosity;
+  -webkit-mask: url("assets/art/ui-round-skill.png") center / 100% 100% no-repeat; mask: url("assets/art/ui-round-skill.png") center / 100% 100% no-repeat; }
+#btn-s0, #btn-s1, #btn-s2 { box-shadow: 0 0 9px var(--gc, transparent), 0 0 3px var(--gc, transparent) !important; }
 #btn-atk::after { background-image: url("assets/art/ui-ring-atk.png"); inset: -15% -12% -8% -12%; }
 #btn-dash::after { background-image: url("assets/art/ui-round-dash.png"); }
 #btn-pill::after { background-image: url("assets/art/ui-round-pill.png"); }

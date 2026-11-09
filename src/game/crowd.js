@@ -9,10 +9,10 @@ function bodies(game, c) {
   const out = [], p = game.player;
   for (const m of game.mobs) {
     if (m.dead || m.chain) continue;   // bản sao so tài đang lướt Thiểm Ảnh: xuyên khối
-    const fixed = m.remote || m.dummy || m.wboss || m.domain;
+    const fixed = m.remote || m.dummy || m.wboss || m.domain || m.charge;
     out.push({ e: m, r: m.r * c.sep, w: fixed ? 0 : 1 / (m.def.ai === 'boss' ? c.boss_mass : 1) });
   }
-  if (p && !p.dead && !game.ghost && !p.chain) out.push({ e: p, r: (p.r || 5) * c.sep, w: p.domain ? 0 : 1 / c.player_mass });   // giữ lĩnh vực (skill-domain.js): đứng như cột
+  if (p && !p.dead && !game.ghost && !p.chain) out.push({ e: p, r: (p.r || 5) * c.sep, w: p.domain || p.charge ? 0 : 1 / c.player_mass });   // giữ lĩnh vực (skill-domain.js), tụ lực (skill-charge.js): đứng như cột
   for (const n of game.npcs || []) out.push({ e: n, r: (n.r || 6) * c.sep, w: 0 });
   return out;
 }

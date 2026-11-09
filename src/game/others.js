@@ -10,6 +10,7 @@ import { addFx } from './combat.js';
 import { realmLabel } from './stats.js';
 import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
+import { chargeHold } from './skill-charge.js';
 import { castFx } from './others-cast.js';
 
 const MIN_SPEED = 30;
@@ -77,6 +78,7 @@ export function createOthers(game) {
         o.moving = o.moveT > 0;
         if (o.moving) o.walkT += dt;
         if (o.swingT > 0) o.swingT -= dt;
+        if (o.charge) chargeHold(game, o, dt);   // đang tụ lực Phá Thiên (skill-charge.js): tới giờ thì vệt chém hiện ra (chỉ hình)
       }
       if ((pick -= dt) <= 0) { pick = 0.25; refresh(); }   // chọn lại người gần nhất 4 lần mỗi giây
       if ((chk -= dt) <= 0 && game.save && game.online?.setProfile) {   // đổi thời trang, hình dáng, lên cảnh giới: báo lại cho người cùng đảo

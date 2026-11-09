@@ -11,6 +11,7 @@ import { vfxOf, vfxCast } from './vfx.js';
 import { castSfx } from './skill-sfx.js';
 import { startChain } from './skill-chain.js';
 import { openDomain } from './skill-domain.js';
+import { startCharge, inBeam } from './skill-charge.js';
 
 
 // Sát thương bản sao gây ra: bạo kích (đòn của chính nó; linh thú, đồng hành không bạo như của người chơi), tăng lực, ±10%
@@ -130,6 +131,9 @@ export function castFoe(game, m, id) {
       m.buffT = s.dur; m.buffAmt = amount; m.buffColor = s.color;
       if (V) vfxCast(game, id, s, m);
       else { addFx(game, { type: 'ring', x: m.x, y: m.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, m); }
+      break;
+    case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt về phía người chơi (src/game/skill-charge.js)
+      startCharge(game, m, s, s.color, () => Math.atan2(p.y - m.y, p.x - m.x), (ang, L) => { if (inBeam(p, m.x, m.y - 8, ang, s.angle * Math.PI / 360, L)) hit(game, m, roll(m, m.atk * lv * s.mult), { x: m.x, y: m.y }); });
       break;
     case 'domain':   // Vô Ảnh Trảm Vực: lĩnh vực quanh bản sao, người chơi đứng trong thì trúng (src/game/skill-domain.js)
       openDomain(game, m, s, m.x, m.y, s.color, () => [p], (t, k, last) => hit(game, m, roll(m, m.atk * lv * k), { x: m.x, y: m.y, soft: !last }));

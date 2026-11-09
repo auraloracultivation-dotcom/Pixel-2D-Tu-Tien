@@ -49,7 +49,7 @@ export function gridCards(game) {
       const head = el('div', 'gc-head'), x = el('button', 'd-close', T.close), body = el('div', 'gc-body');
       const name = el('b', 'gc-title', titleOf(card));
       name.style.color = card.style.borderLeftColor || '';
-      if (card.dataset.icon) head.append(spriteIcon(game, card.dataset.icon, 0, card.dataset.iconSize ? 52 : 40, 'gc-ico', !!card.dataset.iconSize));
+      if (card.dataset.icon) head.append(ring(spriteIcon(game, card.dataset.icon, 0, card.dataset.iconSize ? 52 : 40, 'gc-ico', !!card.dataset.iconSize), card));
       head.append(name, x);
       x.onclick = closeSheet;
       const box = el('div', 'gc-card');
@@ -75,7 +75,7 @@ export function gridCards(game) {
       t.style.borderLeftColor = card.style.borderLeftColor || '';
       const big = +card.dataset.iconSize || 0;   // nhân vật chibi (đồng hành, thời trang): hình to theo chiều cao, chữ nhỏ lại
       if (big) t.classList.add('gc-big');
-      if (card.dataset.icon) t.append(spriteIcon(game, card.dataset.icon, 0, big || 28, 'gc-ico', !!big));
+      if (card.dataset.icon) t.append(ring(spriteIcon(game, card.dataset.icon, 0, big || 28, 'gc-ico', !!big), card));
       const [name, ...rest] = titleOf(card).split(' · '), first = card.querySelector('small');   // dòng 2: cấp, sao, đang mang; không có thì dòng mô tả đầu
       t.append(el('b', null, name));
       if (rest.length || first) t.append(el('small', null, rest.length ? rest.join(' · ') : first.textContent));
@@ -99,4 +99,11 @@ export function gridCards(game) {
     new MutationObserver(() => { if (!queued) { queued = true; queueMicrotask(enhance); } }).observe(list, { childList: true });
     new MutationObserver(() => { if (panel.hidden) closeSheet(); }).observe(panel, { attributes: true, attributeFilter: ['hidden'] });
   }
+}
+
+// Vòng màu phẩm quanh biểu tượng (thẻ chiêu: data-gc = màu phẩm, src/game/skill-grade.js)
+function ring(ico, card) {
+  const c = card.dataset.gc;
+  if (c && ico) { ico.style.borderRadius = '6px'; ico.style.boxShadow = `0 0 0 1.5px ${c}, 0 0 7px ${c}`; }
+  return ico;
 }

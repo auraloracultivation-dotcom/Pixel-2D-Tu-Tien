@@ -6,6 +6,7 @@ import { clearShot } from './auto.js';
 import { swingFoe, strikeFoe, castFoe, roll, hit } from './duel-cast.js';
 import { chainStep } from './skill-chain.js';
 import { domainHold } from './skill-domain.js';
+import { chargeHold } from './skill-charge.js';
 
 const D = game => game.data.duel;
 
@@ -35,7 +36,7 @@ function useSkills(game, m) {
 export function duelThink(game, m, d, dt) {
   const f = game.duel, p = game.player;
   timers(game, m, dt);
-  if ((m.chain && chainStep(game, m, dt)) || (m.domain && domainHold(game, m))) return;   // đang lướt Thiểm Ảnh (skill-chain.js), giữ lĩnh vực (skill-domain.js)
+  if ((m.chain && chainStep(game, m, dt)) || (m.domain && domainHold(game, m)) || (m.charge && chargeHold(game, m, dt))) return;   // đang lướt Thiểm Ảnh (skill-chain.js), giữ lĩnh vực (skill-domain.js)
   if (m.hitQ && (m.hitQ.t -= dt) <= 0) { const q = m.hitQ; m.hitQ = null; strikeFoe(game, m, q); }
   m.moving = false;
   if (!f || f.done || f.wait > 0 || p.hp <= 0) return;

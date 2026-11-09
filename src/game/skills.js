@@ -11,6 +11,7 @@ import { pvpTryHit } from './pvp.js';
 import { sparks } from './sparks.js';
 import { castChain, chainReady } from './skill-chain.js';
 import { castDomain, domainReady } from './skill-domain.js';
+import { castCharge } from './skill-charge.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -86,6 +87,9 @@ export function castSkill(game, id) {
       p.buffT = s.dur; p.buffAmt = amount; p.buffColor = s.color;
       if (V) vfxCast(game, id, s, p);
       else { addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, p); }
+      break;
+    case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt sáng tới mép màn (src/game/skill-charge.js); s.mult × đánh thường
+      castCharge(game, s, p.atk * lv);
       break;
     case 'domain':   // Vô Ảnh Trảm Vực: lĩnh vực tối, vạn nhát chém (src/game/skill-domain.js); mỗi nhịp s.mult × đánh thường
       castDomain(game, s, p.atk * lv);

@@ -1,4 +1,5 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
+import { skillGrade } from '../game/skill-grade.js';
 import { createDialog } from './dialog.js';
 import { guideLine, guideNext } from '../game/guide.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
@@ -114,7 +115,7 @@ export function createHud(audio) {
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';
       const lbl = b.querySelector('b');
-      if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); }
+      if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); if (id) b.style.setProperty('--gc', skillGrade(d, id).color); else b.style.removeProperty('--gc'); }   // vòng ngoài theo phẩm chiêu (game/skill-grade.js)
       const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
       css(b, '--cd', cd.toFixed(3));
     }

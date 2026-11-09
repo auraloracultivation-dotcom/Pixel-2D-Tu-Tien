@@ -8,6 +8,7 @@ import { heroLook } from '../render/draw-hero.js';
 import { castSkill, skillSlots, skillReady } from './skills.js';
 import { chainStep } from './skill-chain.js';
 import { domainHold } from './skill-domain.js';
+import { chargeHold } from './skill-charge.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
@@ -132,7 +133,7 @@ export function updatePlayer(game, dt) {
   p.skillCd = p.skillCd.map(c => c - dt);
   if (p.shieldT > 0 && (p.shieldT -= dt) <= 0) p.shield = 0;
   if (p.buffT > 0) p.buffT -= dt;
-  if ((p.chain && chainStep(game, p, dt)) || (p.domain && domainHold(game, p))) { updateFlyWeapon(game, dt); manaTick(game, dt); return; }   // đang lướt Thiểm Ảnh (skill-chain.js), giữ lĩnh vực (skill-domain.js): bỏ đi lại, đánh
+  if ((p.chain && chainStep(game, p, dt)) || (p.domain && domainHold(game, p)) || (p.charge && chargeHold(game, p, dt))) { updateFlyWeapon(game, dt); manaTick(game, dt); return; }   // đang lướt Thiểm Ảnh (skill-chain.js), giữ lĩnh vực (skill-domain.js), tụ lực Phá Thiên (skill-charge.js): bỏ đi lại, đánh
 
   // Đẩy lùi
   if (p.kx || p.ky) {

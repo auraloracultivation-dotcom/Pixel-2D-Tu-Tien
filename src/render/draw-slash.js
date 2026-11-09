@@ -9,6 +9,7 @@
 //   (xoá 25%, 50%, 75% điểm theo mẫu cố định).
 // Hình: arc (cung quanh người), line (đâm, bổ), spin (vùng xoay). Vẽ sau cùng theo thứ tự trong game.fx. Số ở data/config.json → slash.
 import { drawSparks } from './draw-sparks.js';
+import { drawCharges } from './draw-charge.js';
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 const A = 1.15, B = 0.4, PEAK = (A / (A + B)) ** A * (B / (A + B)) ** B;
@@ -159,7 +160,7 @@ function drawOne(ctx, f, C) {
 }
 
 export function drawSlashes(ctx, game) {
-  drawSparks(ctx, game);   // tia lửa li ti (src/game/sparks.js): lớp trên cùng cùng vệt chém, sau lớp ngày đêm nên đêm vẫn sáng
+  drawSparks(ctx, game); drawCharges(ctx, game);   // Phá Thiên Tuyệt Trảm: tụ lực, quạt sáng (draw-charge.js); tia lửa li ti (src/game/sparks.js): lớp trên cùng cùng vệt chém, sau lớp ngày đêm nên đêm vẫn sáng
   const C = game.data.config.slash;
   if (!C) return;
   for (const f of game.fx) if (f.type === 'slash') drawOne(ctx, f, C);
