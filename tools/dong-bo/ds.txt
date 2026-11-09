@@ -277,9 +277,9 @@ ed3238f74b9074f98a4200294cec80497693409d assets/art/xd-xich-chan-m.png
 cd5bc0435cc2096e26f0c88008c10451791bf1c4 assets/art/xd-xuong-rong-m.png
 14c283c241f61b1038521b68614c8707f8c92588 data/art.json
 07e78cf3685fb50d5fed804a884fd5538c5ca08d data/cave.json
-2a885635c0f48bebb6a68e935b754acfed6c6188 data/config.json
-274ae14a08bf6acb1d03559af52098491f4ce4f1 data/i18n/en.json
-082c5661224556bfce0843c0574a6ee9958b5cf5 data/i18n/zh-Hant.json
+6d25ae2f527ea59c4971abdc25ba3e29955d8da0 data/config.json
+e9e5d6ea873c6e713eabc165678f2f5e608f929d data/i18n/en.json
+de1e9a66e6073082e58af0263ea6f90cc80ed0e8 data/i18n/zh-Hant.json
 d4b1705fe6120015ee6c030b755c1501f12fe38d data/le-hoi.json
 f5ea788d8d5d5ef19ee0c09a67b0cd020d9ed8ef data/maps/dao-han-bang.json
 c3d4804b65ab0d36ecbb505ec9f33091ce1a2cb5 data/maps/dao-hau-tho.json
@@ -296,8 +296,9 @@ f21df2c52fc66ea02ded383988e3bfc97ca635a8 data/mobs.json
 a511d82d7d166e202b07b4557d081c295ae7940f data/notice.json
 616151c70823319706607ccb542be978eabea41a data/record.json
 b0f9037526064c375c5ee1b2b2c7cb006416b01a data/realms.json
-8b93243c2e263d2dc12a677171a685a5c19da283 data/shop.json
+4028f0bcc4fab6b570e9bb9e4108f0b9449440ef data/shop.json
 2ce56535b5696a315478c56e2f346ea790fd26ab data/story.json
 565a50e1ce40369378f45ae3456cfaba278a6ec5 data/weather.json
 e0ca1be7bbcbb6f5ff6a87479db30104302e7997 src/vendor/mp4-muxer.mjs
 06808a52c18071b028252a769cb974100496a947 src/vendor/mp4-muxer.LICENSE
+ab60cb4dfd3cb431de306d90cb8082bee8364022 data/skills.json
