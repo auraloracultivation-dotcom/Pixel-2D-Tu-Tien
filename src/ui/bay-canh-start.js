@@ -1,6 +1,6 @@
 // Bày cảnh, phần chạy cho mọi người chơi (nhẹ): sau khi vào game tải bố cục đồ các bản đồ chủ dự án đã bày (một lần, vài chục KB)
 // và thay vào bản đồ. Chỉ tài khoản có quyền bày (máy chủ trả lời) mới tải thêm bảng bày cảnh (src/ui/bay-canh.js).
-// Nạp src/net/bay-dao.js lúc cần (nó kéo thư viện Supabase từ mạng): nạp thẳng lúc khởi động thì mạng chặn thư viện là game không mở được.
+// Nạp src/net/bay-dao.js lúc cần (nó kéo thư viện máy chủ từ mạng): nạp thẳng lúc khởi động thì mạng chặn thư viện là game không mở được.
 
 export function applyLayouts(game, all) {
   game.bayVer = game.bayVer || {};
