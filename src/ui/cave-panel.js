@@ -4,6 +4,7 @@ import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
 import { specialPills } from '../game/special-pills.js';
+import { quickBuyBtn } from './quick-buy-btn.js';
 
 const $ = id => document.getElementById(id);
 
@@ -52,6 +53,7 @@ export function createCavePanel(game) {
             else if (n) { game.sfx('brew'); last = `Luyện thành ${n} ${p.name}!`; }
             render();
           }, !canPay(game, p.recipe)),
+          ...[quickBuyBtn(game, p.recipe, m => { last = m; render(); })].filter(Boolean),   // thiếu nguyên liệu: mua nhanh phần thiếu
           mini('Dùng', () => {
             const L = game.data.cave.qi_pill_day, isQi = !!p.use?.qi, m = usePill(game, id);   // đan linh khí: báo đan độc, số viên còn dùng hôm nay
             if (m) { last = `${p.name}: ${m}` + (isQi && L && qiPillLeft(game) > 0 ? ' ' + L.left.replace('{n}', qiPillLeft(game)) : isQi && L ? ' ' + L.full.replace('{n}', qiPillUsed(game)).replace('{pct}', Math.round(qiPillRate(game) * 100)) : ''); game.sfx('levelup'); }
@@ -79,6 +81,7 @@ export function createCavePanel(game) {
         else if (it) { const rr = rarityOf(data.items, it.rarity); last = `Rèn ra [${rr.name}] ${itemName(data, it)}! Mở Túi để mặc.`; game.sfx('levelup'); game.screen.shake(2, 0.2); }
         render();
       }, !canPay(game, r.cost)));
+      const qb = quickBuyBtn(game, r.cost, m => { last = m; render(); }); if (qb) row.append(qb);
       c.append(row); list.append(c);
     }
   }
@@ -96,6 +99,7 @@ export function createCavePanel(game) {
       el('small', null, `Cần: ${costText(data, n.cost)}, ${n.coins} ${data.shop.name}, cảnh giới ${game.data.realms.names[n.realm]}`));
     const row = el('div', 'card-acts');
     row.append(mini('Nâng cấp', () => { if (upgradeCave(game)) last = `Động phủ thành ${caveLevel(game).name}!`; render(); }, !n.ok));
+    const qb = quickBuyBtn(game, n.cost, m => { last = m; render(); }); if (qb) row.append(qb);
     d.append(row); list.append(d);
   }
 

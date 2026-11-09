@@ -7,6 +7,7 @@ import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
 import { beastStats, statLine, linesText, rerollCost, costLine, mountLine } from '../game/beast.js';
 import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
+import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu nguyên liệu tiến hoá: mua nhanh
 
 const $ = id => document.getElementById(id);
 
@@ -86,6 +87,7 @@ export function createPetsPanel(game) {
         `Cần: ${costText(data, E.cost)}, ${E.coins} ${data.shop.name}${ok ? '' : ' (chưa đủ)'}`,
       ], false, () => evolvePet(game, id), 'pet.' + id, 'Tiến hóa');
       c.disabled = !ok; list.append(c);
+      const qb = quickBuyBtn(game, E.cost, m => { game.toast(m, 2.4); render(); }); if (qb) list.append(qb);
     }
     const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
     if (missing.length) list.append(el('p', 'muted', t('Chưa thu phục: {list}.', { list: missing.join(', ') })));

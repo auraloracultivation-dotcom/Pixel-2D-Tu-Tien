@@ -6,6 +6,7 @@ import { statText } from '../game/items.js';
 import { manaCost } from '../game/mana.js';
 import { skillLv, levelCost, levelUp } from '../game/skill-level.js';
 import { coins } from '../game/shop.js';
+import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu bí kíp: mua nhanh
 
 const $ = id => document.getElementById(id);
 
@@ -111,6 +112,7 @@ export function createSkillsPanel(game) {
       b.title = `Đang có ${have} ${mat}`;
       b.onclick = () => { if (levelUp(game, id)) { game.sfx('levelup'); render(); } };
       row.append(b);
+      const qb = quickBuyBtn(game, { [c.mat]: cost.book }, m => { game.toast(m, 2.4); render(); }); if (qb) row.append(qb);
     }
     return row;
   }

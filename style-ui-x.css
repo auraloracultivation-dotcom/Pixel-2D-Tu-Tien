@@ -2,16 +2,16 @@
    thôi chiếm chỗ trong hàng, đặt hẳn vào góc trên phải khung, hình ô đỏ dấu ✕ (ui-ic-dong). Bảng là position: fixed nên làm mốc.
    Tấm chi tiết món (.d-head) cũng vậy. Nạp sau cùng (style.css) để đè các bộ khung cũ. */
 body #bag > .bag-head > button:last-child, body .panel > .bag-head > button:last-child,
-body .bag-head > button[id$="-close"], body .bag-head > .close-x, body .d-head > .d-close {
+body .bag-head > button[id$="-close"], body .bag-head > .close-x, body .d-head > .d-close, body .gc-head > .d-close {
   position: absolute !important; top: -7px !important; right: -7px !important; left: auto !important; z-index: 6; margin: 0 !important;
   width: 30px !important; height: 30px !important; min-width: 0 !important; padding: 0 !important; flex: none !important;
   border: none !important; border-radius: 0 !important; box-shadow: none !important; outline: none;
   background: url("assets/art/ui-ic-dong.png") center / contain no-repeat !important; image-rendering: auto;
   font-size: 0 !important; color: transparent !important; text-shadow: none !important; }
 body #bag > .bag-head > button:last-child:active, body .panel > .bag-head > button:last-child:active,
-body .bag-head > button[id$="-close"]:active, body .d-head > .d-close:active { transform: scale(.9); }
+body .bag-head > button[id$="-close"]:active, body .d-head > .d-close:active, body .gc-head > .d-close:active { transform: scale(.9); }
 body #bag > .bag-head, body .panel > .bag-head { padding-right: 26px !important; }
 body #bag, body .panel { overflow: visible !important; }   /* nút đè lên góc khung như ảnh mẫu (danh sách trong bảng tự cuộn riêng) */
 body #bag > .bag-head::after, body .panel > .bag-head::after { display: none; }   /* nến, bí ngô cuối hàng tiêu đề: góc đã có nút tắt */
-body .d-head { position: relative; padding-right: 36px !important; }
-body .d-head > .d-close { top: 0 !important; right: 0 !important; }
+body .d-head, body .gc-head { position: relative; padding-right: 36px !important; }
+body .d-head > .d-close, body .gc-head > .d-close { top: 0 !important; right: 0 !important; }

@@ -14,6 +14,7 @@ import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã �
 import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
+import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu nguyên liệu: mua nhanh phần thiếu
 import { trial } from '../game/autoequip.js';
 import { gemIcon } from './gem-icon.js';
 
@@ -154,9 +155,11 @@ export function renderDetail(game, st, box, changed, close) {
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
       game.sfx(res === 'up' ? 'anvil' : 'hurt'); changed();
     }), !can);
+    const qb = quickBuyBtn(game, ec.cost, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
+  if (isArt(data, it) && rc != null) { const qb = quickBuyBtn(game, { [rm]: rc }, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb); }
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
