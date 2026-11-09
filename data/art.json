@@ -2517,6 +2517,31 @@
    ],
    "note": "nền ruộng bậc thang (speckle), 4 biến thể"
   },
+  "hb.ban-le-m": {
+   "file": "assets/art/hb-ban-le-m.png",
+   "v": "ac963789",
+   "w": 68,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    34,
+    69
+   ],
+   "note": "bộ mới han-bang: moi/s13.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     52,
+     "cold"
+    ],
+    [
+     53,
+     64,
+     "cold"
+    ]
+   ]
+  },
   "hb.ban-lua": {
    "file": "assets/art/hb-ban-lua.png",
    "v": "81093a97",
@@ -2751,6 +2776,36 @@
     ]
    ]
   },
+  "hb.bia-cua-m": {
+   "file": "assets/art/hb-bia-cua-m.png",
+   "v": "a10f53ff",
+   "w": 51,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    25,
+    62
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (34 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     15,
+     40,
+     "cold"
+    ],
+    [
+     41,
+     56,
+     "cold"
+    ],
+    [
+     18,
+     8,
+     "cold"
+    ]
+   ]
+  },
   "hb.bia-da": {
    "file": "assets/art/hb-bia-da.png",
    "v": "0b81c444",
@@ -2767,6 +2822,31 @@
     [
      18,
      8,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bia-van-m": {
+   "file": "assets/art/hb-bia-van-m.png",
+   "v": "502b4dd6",
+   "w": 50,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    25,
+    58
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (32 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     29,
+     9,
+     "cold"
+    ],
+    [
+     18,
+     53,
      "cold"
     ]
    ]
@@ -2886,6 +2966,31 @@
     ]
    ]
   },
+  "hb.bui-co-trang-m": {
+   "file": "assets/art/hb-bui-co-trang-m.png",
+   "v": "f18d83d3",
+   "w": 41,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    20,
+    47
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (22 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     19,
+     "cold"
+    ],
+    [
+     18,
+     31,
+     "cold"
+    ]
+   ]
+  },
   "hb.bui-hoa": {
    "file": "assets/art/hb-bui-hoa.png",
    "v": "2435389c",
@@ -2903,6 +3008,31 @@
      31,
      19,
      "pink"
+    ]
+   ]
+  },
+  "hb.bui-hoa-bang-m": {
+   "file": "assets/art/hb-bui-hoa-bang-m.png",
+   "v": "c4797cac",
+   "w": 37,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    18,
+    39
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (22 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     18,
+     "cold"
+    ],
+    [
+     19,
+     7,
+     "cold"
     ]
    ]
   },
@@ -2936,6 +3066,56 @@
     ]
    ]
   },
+  "hb.bui-lau-m": {
+   "file": "assets/art/hb-bui-lau-m.png",
+   "v": "f73aed0b",
+   "w": 35,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    17,
+    47
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     32,
+     "cold"
+    ],
+    [
+     17,
+     44,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bui-mai-m": {
+   "file": "assets/art/hb-bui-mai-m.png",
+   "v": "e8d59188",
+   "w": 45,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    22,
+    47
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     19,
+     17,
+     "cold"
+    ],
+    [
+     17,
+     33,
+     "cold"
+    ]
+   ]
+  },
   "hb.bui-tuyet": {
    "file": "assets/art/hb-bui-tuyet.png",
    "v": "75dace98",
@@ -2962,6 +3142,36 @@
     [
      16,
      17,
+     "cold"
+    ]
+   ]
+  },
+  "hb.bui-tuyet-m": {
+   "file": "assets/art/hb-bui-tuyet-m.png",
+   "v": "4158ad71",
+   "w": 45,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    22,
+    33
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     17,
+     "cold"
+    ],
+    [
+     18,
+     18,
+     "cold"
+    ],
+    [
+     6,
+     20,
      "cold"
     ]
    ]
@@ -3081,6 +3291,36 @@
     ]
    ]
   },
+  "hb.cau-bang-m": {
+   "file": "assets/art/hb-cau-bang-m.png",
+   "v": "b5a8e1bd",
+   "w": 120,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    60,
+    65
+   ],
+   "note": "bộ mới han-bang: moi/s09.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     30,
+     "cold"
+    ],
+    [
+     53,
+     28,
+     "cold"
+    ],
+    [
+     102,
+     41,
+     "cold"
+    ]
+   ]
+  },
   "hb.cau-co": {
    "file": "assets/art/hb-cau-co.png",
    "v": "b6799999",
@@ -3176,6 +3416,66 @@
     ]
    ]
   },
+  "hb.cau-da-m": {
+   "file": "assets/art/hb-cau-da-m.png",
+   "v": "fcc1d3ae",
+   "w": 119,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    59,
+    63
+   ],
+   "note": "bộ mới han-bang: moi/s09.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     57,
+     27,
+     "cold"
+    ],
+    [
+     7,
+     54,
+     "cold"
+    ],
+    [
+     15,
+     18,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-day-m": {
+   "file": "assets/art/hb-cau-day-m.png",
+   "v": "58981076",
+   "w": 120,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    60,
+    65
+   ],
+   "note": "bộ mới han-bang: moi/s09.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     38,
+     "cold"
+    ],
+    [
+     112,
+     42,
+     "cold"
+    ],
+    [
+     28,
+     55,
+     "cold"
+    ]
+   ]
+  },
   "hb.cau-go": {
    "file": "assets/art/hb-cau-go.png",
    "v": "de59d609",
@@ -3202,6 +3502,36 @@
     [
      49,
      54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cau-go-m": {
+   "file": "assets/art/hb-cau-go-m.png",
+   "v": "acf3b27a",
+   "w": 120,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    60,
+    62
+   ],
+   "note": "bộ mới han-bang: moi/s09.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     90,
+     29,
+     "cold"
+    ],
+    [
+     30,
+     28,
+     "cold"
+    ],
+    [
+     42,
+     16,
      "cold"
     ]
    ]
@@ -3261,6 +3591,36 @@
     ]
    ]
   },
+  "hb.cay-bang-m": {
+   "file": "assets/art/hb-cay-bang-m.png",
+   "v": "a52a09bf",
+   "w": 125,
+   "h": 116,
+   "frames": 1,
+   "anchor": [
+    62,
+    114
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (62 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     52,
+     "cold"
+    ],
+    [
+     77,
+     65,
+     "cold"
+    ],
+    [
+     78,
+     87,
+     "cold"
+    ]
+   ]
+  },
   "hb.cay-kho": {
    "file": "assets/art/hb-cay-kho.png",
    "v": "cbc472ad",
@@ -3287,6 +3647,36 @@
     [
      41,
      81,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-kho-m": {
+   "file": "assets/art/hb-cay-kho-m.png",
+   "v": "4c96d3ab",
+   "w": 132,
+   "h": 124,
+   "frames": 1,
+   "anchor": [
+    66,
+    122
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (66 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     64,
+     "cold"
+    ],
+    [
+     90,
+     111,
+     "cold"
+    ],
+    [
+     42,
+     79,
      "cold"
     ]
    ]
@@ -3321,6 +3711,36 @@
     ]
    ]
   },
+  "hb.cay-mai-m": {
+   "file": "assets/art/hb-cay-mai-m.png",
+   "v": "a8cd72dd",
+   "w": 115,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    57,
+    118
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (64 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     55,
+     77,
+     "cold"
+    ],
+    [
+     41,
+     114,
+     "cold"
+    ],
+    [
+     30,
+     115,
+     "cold"
+    ]
+   ]
+  },
   "hb.cay-trang-tim": {
    "file": "assets/art/hb-cay-trang-tim.png",
    "v": "f1405441",
@@ -3342,6 +3762,66 @@
     [
      28,
      101,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-tung-nho-m": {
+   "file": "assets/art/hb-cay-tung-nho-m.png",
+   "v": "431b45a5",
+   "w": 81,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    40,
+    96
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (52 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     65,
+     "cold"
+    ],
+    [
+     55,
+     52,
+     "cold"
+    ],
+    [
+     29,
+     42,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cay-tung-tuyet-m": {
+   "file": "assets/art/hb-cay-tung-tuyet-m.png",
+   "v": "31d115f6",
+   "w": 104,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    52,
+    129
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (70 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     65,
+     43,
+     "cold"
+    ],
+    [
+     89,
+     103,
+     "cold"
+    ],
+    [
+     53,
+     18,
      "cold"
     ]
    ]
@@ -3432,6 +3912,36 @@
     [
      28,
      43,
+     "cold"
+    ]
+   ]
+  },
+  "hb.chuong-m": {
+   "file": "assets/art/hb-chuong-m.png",
+   "v": "a812be1c",
+   "w": 43,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    21,
+    73
+   ],
+   "note": "bộ mới han-bang: moi/s13.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     18,
+     "cold"
+    ],
+    [
+     30,
+     67,
+     "cold"
+    ],
+    [
+     17,
+     67,
      "cold"
     ]
    ]
@@ -3672,6 +4182,66 @@
     ]
    ]
   },
+  "hb.cong-bang-m": {
+   "file": "assets/art/hb-cong-bang-m.png",
+   "v": "334af67e",
+   "w": 150,
+   "h": 157,
+   "frames": 1,
+   "anchor": [
+    75,
+    155
+   ],
+   "note": "bộ mới han-bang: moi/s12.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     138,
+     "cold"
+    ],
+    [
+     114,
+     113,
+     "cold"
+    ],
+    [
+     114,
+     102,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-go-m": {
+   "file": "assets/art/hb-cong-go-m.png",
+   "v": "bba1d529",
+   "w": 135,
+   "h": 131,
+   "frames": 1,
+   "anchor": [
+    67,
+    129
+   ],
+   "note": "bộ mới han-bang: moi/s12.png (72 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     30,
+     "cold"
+    ],
+    [
+     41,
+     29,
+     "cold"
+    ],
+    [
+     31,
+     18,
+     "cold"
+    ]
+   ]
+  },
   "hb.cong-lon": {
    "file": "assets/art/hb-cong-lon.png",
    "v": "e201b14c",
@@ -3723,6 +4293,66 @@
     [
      100,
      43,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-trang-m": {
+   "file": "assets/art/hb-cong-trang-m.png",
+   "v": "a71c2fb7",
+   "w": 150,
+   "h": 154,
+   "frames": 1,
+   "anchor": [
+    75,
+    152
+   ],
+   "note": "bộ mới han-bang: moi/s12.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     127,
+     "cold"
+    ],
+    [
+     114,
+     128,
+     "cold"
+    ],
+    [
+     65,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "hb.cong-tron-m": {
+   "file": "assets/art/hb-cong-tron-m.png",
+   "v": "0fddfa6e",
+   "w": 150,
+   "h": 138,
+   "frames": 1,
+   "anchor": [
+    75,
+    136
+   ],
+   "note": "bộ mới han-bang: moi/s12.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     30,
+     "cold"
+    ],
+    [
+     40,
+     126,
+     "cold"
+    ],
+    [
+     101,
+     18,
      "cold"
     ]
    ]
@@ -3992,6 +4622,86 @@
     ]
    ]
   },
+  "hb.cui-m": {
+   "file": "assets/art/hb-cui-m.png",
+   "v": "985e8efd",
+   "w": 56,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    28,
+    42
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     16,
+     "cold"
+    ],
+    [
+     31,
+     7,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-bang-m": {
+   "file": "assets/art/hb-da-bang-m.png",
+   "v": "7357cab1",
+   "w": 55,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    27,
+    54
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     7,
+     "cold"
+    ],
+    [
+     41,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-khoi-bang-m": {
+   "file": "assets/art/hb-da-khoi-bang-m.png",
+   "v": "5487b2f0",
+   "w": 82,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    41,
+    39
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (44 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     52,
+     17,
+     "cold"
+    ],
+    [
+     30,
+     16,
+     "cold"
+    ],
+    [
+     18,
+     30,
+     "cold"
+    ]
+   ]
+  },
   "hb.da-nho": {
    "file": "assets/art/hb-da-nho.png",
    "v": "c4047e7c",
@@ -4018,6 +4728,31 @@
     [
      41,
      16,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-nhu-bang-m": {
+   "file": "assets/art/hb-da-nhu-bang-m.png",
+   "v": "20e92a40",
+   "w": 89,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    44,
+    58
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (48 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     18,
+     "cold"
+    ],
+    [
+     64,
+     41,
      "cold"
     ]
    ]
@@ -4113,6 +4848,61 @@
     [
      65,
      44,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-tuyet-m": {
+   "file": "assets/art/hb-da-tuyet-m.png",
+   "v": "03571b1b",
+   "w": 64,
+   "h": 55,
+   "frames": 1,
+   "anchor": [
+    32,
+    53
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (34 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     16,
+     "cold"
+    ],
+    [
+     53,
+     28,
+     "cold"
+    ],
+    [
+     41,
+     31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.da-vach-m": {
+   "file": "assets/art/hb-da-vach-m.png",
+   "v": "5d554827",
+   "w": 75,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    37,
+    64
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     7,
+     "cold"
+    ],
+    [
+     53,
+     6,
      "cold"
     ]
    ]
@@ -4252,6 +5042,36 @@
     ]
    ]
   },
+  "hb.den-bang-m": {
+   "file": "assets/art/hb-den-bang-m.png",
+   "v": "bb2f44bb",
+   "w": 48,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    24,
+    69
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     31,
+     "cold"
+    ],
+    [
+     19,
+     17,
+     "cold"
+    ],
+    [
+     29,
+     66,
+     "cold"
+    ]
+   ]
+  },
   "hb.den-chum": {
    "file": "assets/art/hb-den-chum.png",
    "v": "ac850d4e",
@@ -4372,6 +5192,31 @@
     ]
    ]
   },
+  "hb.den-da-tuyet-m": {
+   "file": "assets/art/hb-den-da-tuyet-m.png",
+   "v": "64e3854c",
+   "w": 33,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    16,
+    47
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (26 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     16,
+     "cold"
+    ],
+    [
+     18,
+     32,
+     "cold"
+    ]
+   ]
+  },
   "hb.den-dien": {
    "file": "assets/art/hb-den-dien.png",
    "v": "68a410c3",
@@ -4467,6 +5312,19 @@
     ]
    ]
   },
+  "hb.den-dong-m": {
+   "file": "assets/art/hb-den-dong-m.png",
+   "v": "7dc33710",
+   "w": 38,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    19,
+    54
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (30 đơn vị cao)",
+   "scale": 0.5333
+  },
   "hb.den-dung": {
    "file": "assets/art/hb-den-dung.png",
    "v": "5b975775",
@@ -4510,6 +5368,44 @@
    "note": "đồ lễ hội han-bang: bo-6.png (30 đơn vị cao)",
    "scale": 0.5333
   },
+  "hb.den-giay-m": {
+   "file": "assets/art/hb-den-giay-m.png",
+   "v": "77d724eb",
+   "w": 41,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    20,
+    66
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (36 đơn vị cao)",
+   "scale": 0.5333
+  },
+  "hb.den-linh-m": {
+   "file": "assets/art/hb-den-linh-m.png",
+   "v": "f2d8c4ce",
+   "w": 39,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    19,
+    66
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     28,
+     32,
+     "cold"
+    ],
+    [
+     17,
+     63,
+     "cold"
+    ]
+   ]
+  },
   "hb.den-sen": {
    "file": "assets/art/hb-den-sen.png",
    "v": "ffe383cb",
@@ -4539,6 +5435,19 @@
      "pink"
     ]
    ]
+  },
+  "hb.den-sen-m": {
+   "file": "assets/art/hb-den-sen-m.png",
+   "v": "1ae7fc56",
+   "w": 43,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    21,
+    51
+   ],
+   "note": "bộ mới han-bang: moi/s04.png (28 đơn vị cao)",
+   "scale": 0.5333
   },
   "hb.dien": {
    "file": "assets/art/hb-dien.png",
@@ -4591,6 +5500,61 @@
     [
      150,
      54,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dien-bang-m": {
+   "file": "assets/art/hb-dien-bang-m.png",
+   "v": "8c10c753",
+   "w": 329,
+   "h": 188,
+   "frames": 1,
+   "anchor": [
+    164,
+    186
+   ],
+   "note": "bộ mới han-bang: moi/s01.png (176 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     146,
+     "cold"
+    ],
+    [
+     42,
+     105,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dien-nho-m": {
+   "file": "assets/art/hb-dien-nho-m.png",
+   "v": "9a1ad333",
+   "w": 189,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    94,
+    100
+   ],
+   "note": "bộ mới han-bang: moi/s01.png (100 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     173,
+     66,
+     "cold"
+    ],
+    [
+     31,
+     57,
+     "cold"
+    ],
+    [
+     16,
+     66,
      "cold"
     ]
    ]
@@ -4686,6 +5650,31 @@
     [
      102,
      188,
+     "cold"
+    ]
+   ]
+  },
+  "hb.dien-tuyet-m": {
+   "file": "assets/art/hb-dien-tuyet-m.png",
+   "v": "f0f88faa",
+   "w": 195,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    97,
+    100
+   ],
+   "note": "bộ mới han-bang: moi/s01.png (104 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     173,
+     65,
+     "cold"
+    ],
+    [
+     186,
+     91,
      "cold"
     ]
    ]
@@ -5000,6 +5989,36 @@
     ]
    ]
   },
+  "hb.gieng-bang-m": {
+   "file": "assets/art/hb-gieng-bang-m.png",
+   "v": "6e2d3ce3",
+   "w": 75,
+   "h": 72,
+   "frames": 1,
+   "anchor": [
+    37,
+    70
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (40 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     53,
+     53,
+     "cold"
+    ],
+    [
+     30,
+     17,
+     "cold"
+    ],
+    [
+     30,
+     53,
+     "cold"
+    ]
+   ]
+  },
   "hb.guong-trang": {
    "file": "assets/art/hb-guong-trang.png",
    "v": "d85b3b39",
@@ -5032,6 +6051,31 @@
      76,
      49,
      "warm"
+    ]
+   ]
+  },
+  "hb.guong-trang-m": {
+   "file": "assets/art/hb-guong-trang-m.png",
+   "v": "2ace5a75",
+   "w": 49,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    24,
+    69
+   ],
+   "note": "bộ mới han-bang: moi/s13.png (38 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     30,
+     "cold"
+    ],
+    [
+     19,
+     30,
+     "cold"
     ]
    ]
   },
@@ -5915,6 +6959,96 @@
     ]
    ]
   },
+  "hb.lan-can-bang-m": {
+   "file": "assets/art/hb-lan-can-bang-m.png",
+   "v": "8914f895",
+   "w": 119,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    59,
+    37
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     28,
+     "cold"
+    ],
+    [
+     28,
+     27,
+     "cold"
+    ],
+    [
+     77,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-da-m": {
+   "file": "assets/art/hb-lan-can-da-m.png",
+   "v": "65c04a1c",
+   "w": 121,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    60,
+    39
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     89,
+     29,
+     "cold"
+    ],
+    [
+     30,
+     29,
+     "cold"
+    ],
+    [
+     41,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-go-m": {
+   "file": "assets/art/hb-lan-can-go-m.png",
+   "v": "9d52a7fb",
+   "w": 121,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    60,
+    37
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     32,
+     "cold"
+    ],
+    [
+     42,
+     31,
+     "cold"
+    ],
+    [
+     66,
+     31,
+     "cold"
+    ]
+   ]
+  },
   "hb.lan-can-ngan": {
    "file": "assets/art/hb-lan-can-ngan.png",
    "v": "43706a4b",
@@ -5936,6 +7070,96 @@
     [
      18,
      34,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-truc-m": {
+   "file": "assets/art/hb-lan-can-truc-m.png",
+   "v": "991befdf",
+   "w": 120,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    60,
+    37
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     19,
+     "cold"
+    ],
+    [
+     19,
+     31,
+     "cold"
+    ],
+    [
+     42,
+     9,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-tuong-m": {
+   "file": "assets/art/hb-lan-can-tuong-m.png",
+   "v": "759035c9",
+   "w": 121,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    60,
+    34
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     7,
+     28,
+     "cold"
+    ],
+    [
+     103,
+     6,
+     "cold"
+    ],
+    [
+     39,
+     7,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lan-can-tuyet-m": {
+   "file": "assets/art/hb-lan-can-tuyet-m.png",
+   "v": "c572d554",
+   "w": 120,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    60,
+    32
+   ],
+   "note": "bộ mới han-bang: moi/s10.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     19,
+     "cold"
+    ],
+    [
+     41,
+     18,
+     "cold"
+    ],
+    [
+     53,
+     19,
      "cold"
     ]
    ]
@@ -6465,6 +7689,36 @@
     ]
    ]
   },
+  "hb.lieu-bang-m": {
+   "file": "assets/art/hb-lieu-bang-m.png",
+   "v": "f7e52379",
+   "w": 136,
+   "h": 124,
+   "frames": 1,
+   "anchor": [
+    68,
+    122
+   ],
+   "note": "bộ mới han-bang: moi/s03.png (66 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     53,
+     "cold"
+    ],
+    [
+     89,
+     42,
+     "cold"
+    ],
+    [
+     77,
+     40,
+     "cold"
+    ]
+   ]
+  },
   "hb.lu-huong": {
    "file": "assets/art/hb-lu-huong.png",
    "v": "75517b50",
@@ -6491,6 +7745,26 @@
     [
      41,
      38,
+     "cold"
+    ]
+   ]
+  },
+  "hb.lu-huong-m": {
+   "file": "assets/art/hb-lu-huong-m.png",
+   "v": "2ca7a57f",
+   "w": 40,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    20,
+    54
+   ],
+   "note": "bộ mới han-bang: moi/s13.png (30 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     7,
      "cold"
     ]
    ]
@@ -6577,6 +7851,50 @@
     14
    ]
   },
+  "hb.lua-trai-m": {
+   "file": "assets/art/hb-lua-trai-m.png",
+   "v": "185bd2bd",
+   "w": 53,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    26,
+    50
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (28 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     22,
+     "warm"
+    ],
+    [
+     32,
+     30,
+     "warm"
+    ],
+    [
+     25,
+     8,
+     "warm"
+    ],
+    [
+     43,
+     30,
+     "cold"
+    ],
+    [
+     9,
+     32,
+     "cold"
+    ]
+   ],
+   "flame": [
+    26,
+    23
+   ]
+  },
   "hb.lua-vang": {
    "file": "assets/art/hb-lua-vang.png",
    "v": "c68be9de",
@@ -6604,6 +7922,36 @@
    "flame": [
     13,
     13
+   ]
+  },
+  "hb.manh-bang-m": {
+   "file": "assets/art/hb-manh-bang-m.png",
+   "v": "a9da2cb8",
+   "w": 56,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    28,
+    36
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (30 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     18,
+     "cold"
+    ],
+    [
+     41,
+     29,
+     "cold"
+    ],
+    [
+     19,
+     29,
+     "cold"
+    ]
    ]
   },
   "hb.mat-nuoc": {
@@ -6753,6 +8101,31 @@
     [
      18,
      53,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nguoi-tuyet-m": {
+   "file": "assets/art/hb-nguoi-tuyet-m.png",
+   "v": "9f8bce48",
+   "w": 48,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    24,
+    51
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     44,
+     "cold"
+    ],
+    [
+     18,
+     44,
      "cold"
     ]
    ]
@@ -6947,6 +8320,36 @@
     ]
    ]
   },
+  "hb.nha-ca-m": {
+   "file": "assets/art/hb-nha-ca-m.png",
+   "v": "b34f200d",
+   "w": 120,
+   "h": 107,
+   "frames": 1,
+   "anchor": [
+    60,
+    105
+   ],
+   "note": "bộ mới han-bang: moi/s02.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     39,
+     "cold"
+    ],
+    [
+     29,
+     31,
+     "cold"
+    ],
+    [
+     78,
+     30,
+     "cold"
+    ]
+   ]
+  },
   "hb.nha-dai": {
    "file": "assets/art/hb-nha-dai.png",
    "v": "be8d69d5",
@@ -7052,6 +8455,65 @@
     ]
    ]
   },
+  "hb.nha-pha-le-m": {
+   "file": "assets/art/hb-nha-pha-le-m.png",
+   "v": "d36b0ed3",
+   "w": 113,
+   "h": 127,
+   "frames": 1,
+   "anchor": [
+    56,
+    125
+   ],
+   "note": "bộ mới han-bang: moi/s02.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     102,
+     "cold"
+    ],
+    [
+     41,
+     53,
+     "cold"
+    ],
+    [
+     89,
+     92,
+     "cold"
+    ]
+   ]
+  },
+  "hb.nha-tuyet-m": {
+   "file": "assets/art/hb-nha-tuyet-m.png",
+   "v": "800a8373",
+   "w": 120,
+   "h": 120,
+   "frames": 1,
+   "anchor": [
+    60,
+    118
+   ],
+   "note": "bộ mới han-bang: moi/s02.png (64 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     66,
+     43,
+     "cold"
+    ],
+    [
+     18,
+     55,
+     "cold"
+    ]
+   ],
+   "smoke": [
+    38,
+    0
+   ]
+  },
   "hb.pha-le": {
    "file": "assets/art/hb-pha-le.png",
    "v": "2cf65da6",
@@ -7082,6 +8544,36 @@
     ]
    ]
   },
+  "hb.pha-le-dai-m": {
+   "file": "assets/art/hb-pha-le-dai-m.png",
+   "v": "464c88d6",
+   "w": 67,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    33,
+    66
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     31,
+     17,
+     "cold"
+    ],
+    [
+     18,
+     28,
+     "cold"
+    ],
+    [
+     29,
+     30,
+     "cold"
+    ]
+   ]
+  },
   "hb.pha-le-lam": {
    "file": "assets/art/hb-pha-le-lam.png",
    "v": "b8a9ead8",
@@ -7098,6 +8590,36 @@
     [
      18,
      19,
+     "cold"
+    ]
+   ]
+  },
+  "hb.pha-le-lon-m": {
+   "file": "assets/art/hb-pha-le-lon-m.png",
+   "v": "cfcdd13e",
+   "w": 75,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    37,
+    81
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     40,
+     16,
+     "cold"
+    ],
+    [
+     32,
+     56,
+     "cold"
+    ],
+    [
+     29,
+     40,
      "cold"
     ]
    ]
@@ -7134,6 +8656,71 @@
      17,
      16,
      "pink"
+    ]
+   ]
+  },
+  "hb.pha-le-tim-m": {
+   "file": "assets/art/hb-pha-le-tim-m.png",
+   "v": "41315689",
+   "w": 62,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    31,
+    66
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (36 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     17,
+     45,
+     "cold"
+    ],
+    [
+     40,
+     51,
+     "cold"
+    ],
+    [
+     27,
+     14,
+     "pink"
+    ],
+    [
+     7,
+     34,
+     "pink"
+    ]
+   ]
+  },
+  "hb.qua-cau-bang-m": {
+   "file": "assets/art/hb-qua-cau-bang-m.png",
+   "v": "d7d5cea3",
+   "w": 66,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    33,
+    73
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (40 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     30,
+     "cold"
+    ],
+    [
+     41,
+     30,
+     "cold"
+    ],
+    [
+     52,
+     19,
+     "cold"
     ]
    ]
   },
@@ -7362,6 +8949,36 @@
     ]
    ]
   },
+  "hb.quan-tra-m": {
+   "file": "assets/art/hb-quan-tra-m.png",
+   "v": "740093dd",
+   "w": 124,
+   "h": 125,
+   "frames": 1,
+   "anchor": [
+    62,
+    123
+   ],
+   "note": "bộ mới han-bang: moi/s02.png (66 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     77,
+     55,
+     "cold"
+    ],
+    [
+     101,
+     90,
+     "cold"
+    ],
+    [
+     89,
+     57,
+     "cold"
+    ]
+   ]
+  },
   "hb.ro-banh": {
    "file": "assets/art/hb-ro-banh.png",
    "v": "33e069ea",
@@ -7389,6 +9006,31 @@
      22,
      6,
      "warm"
+    ]
+   ]
+  },
+  "hb.ro-ca-m": {
+   "file": "assets/art/hb-ro-ca-m.png",
+   "v": "eec1610a",
+   "w": 49,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    24,
+    43
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     16,
+     "cold"
+    ],
+    [
+     29,
+     18,
+     "cold"
     ]
    ]
   },
@@ -8028,6 +9670,56 @@
     ]
    ]
   },
+  "hb.sap-lau-m": {
+   "file": "assets/art/hb-sap-lau-m.png",
+   "v": "0f69c68e",
+   "w": 113,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    56,
+    108
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     17,
+     "cold"
+    ],
+    [
+     66,
+     18,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-long-m": {
+   "file": "assets/art/hb-sap-long-m.png",
+   "v": "4f63ddb7",
+   "w": 114,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    57,
+    100
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     91,
+     19,
+     "cold"
+    ],
+    [
+     29,
+     29,
+     "cold"
+    ]
+   ]
+  },
   "hb.sap-mat-na": {
    "file": "assets/art/hb-sap-mat-na.png",
    "v": "9e2b318f",
@@ -8158,6 +9850,79 @@
     ]
    ]
   },
+  "hb.sap-ruou-m": {
+   "file": "assets/art/hb-sap-ruou-m.png",
+   "v": "48c34d4d",
+   "w": 113,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    56,
+    100
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     78,
+     16,
+     "cold"
+    ],
+    [
+     28,
+     16,
+     "cold"
+    ],
+    [
+     79,
+     29,
+     "cold"
+    ]
+   ]
+  },
+  "hb.sap-thit-m": {
+   "file": "assets/art/hb-sap-thit-m.png",
+   "v": "b9f167f5",
+   "w": 105,
+   "h": 81,
+   "frames": 1,
+   "anchor": [
+    52,
+    79
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (56 đơn vị ngang)",
+   "scale": 0.5333
+  },
+  "hb.sap-thuoc-m": {
+   "file": "assets/art/hb-sap-thuoc-m.png",
+   "v": "9827f9c9",
+   "w": 113,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    56,
+    93
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     19,
+     16,
+     "cold"
+    ],
+    [
+     54,
+     15,
+     "cold"
+    ],
+    [
+     90,
+     76,
+     "cold"
+    ]
+   ]
+  },
   "hb.sap-tra": {
    "file": "assets/art/hb-sap-tra.png",
    "v": "4de3baea",
@@ -8195,6 +9960,36 @@
      84,
      50,
      "warm"
+    ]
+   ]
+  },
+  "hb.sap-tra-m": {
+   "file": "assets/art/hb-sap-tra-m.png",
+   "v": "837569fa",
+   "w": 113,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    56,
+    91
+   ],
+   "note": "bộ mới han-bang: moi/s14.png (60 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     52,
+     55,
+     "cold"
+    ],
+    [
+     7,
+     87,
+     "cold"
+    ],
+    [
+     16,
+     28,
+     "cold"
     ]
    ]
   },
@@ -8362,6 +10157,26 @@
     ]
    ]
   },
+  "hb.sen-bang-m": {
+   "file": "assets/art/hb-sen-bang-m.png",
+   "v": "acd54553",
+   "w": 45,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    22,
+    35
+   ],
+   "note": "bộ mới han-bang: moi/s05.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     17,
+     "cold"
+    ]
+   ]
+  },
   "hb.sen-lon": {
    "file": "assets/art/hb-sen-lon.png",
    "v": "23a9e4f9",
@@ -8399,6 +10214,31 @@
      19,
      17,
      "pink"
+    ]
+   ]
+  },
+  "hb.soi-tuyet-m": {
+   "file": "assets/art/hb-soi-tuyet-m.png",
+   "v": "a88f6dc1",
+   "w": 44,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    22,
+    31
+   ],
+   "note": "bộ mới han-bang: moi/s07.png (24 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     18,
+     18,
+     "cold"
+    ],
+    [
+     28,
+     7,
+     "cold"
     ]
    ]
   },
@@ -8811,6 +10651,134 @@
     ]
    ]
   },
+  "hb.thac-bang-m": {
+   "file": "assets/art/hb-thac-bang-m.png",
+   "v": "e8071d11",
+   "w": 105,
+   "h": 73,
+   "frames": 1,
+   "anchor": [
+    52,
+    71
+   ],
+   "note": "bộ mới han-bang: moi/s08.png (56 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     54,
+     28,
+     "cold"
+    ],
+    [
+     54,
+     42,
+     "cold"
+    ],
+    [
+     54,
+     65,
+     "cold"
+    ]
+   ],
+   "glints": [
+    [
+     17,
+     49
+    ],
+    [
+     49,
+     18
+    ],
+    [
+     44,
+     27
+    ],
+    [
+     20,
+     36
+    ],
+    [
+     31,
+     57
+    ],
+    [
+     76,
+     34
+    ],
+    [
+     38,
+     36
+    ],
+    [
+     61,
+     52
+    ],
+    [
+     31,
+     51
+    ],
+    [
+     25,
+     14
+    ],
+    [
+     53,
+     56
+    ],
+    [
+     82,
+     15
+    ],
+    [
+     23,
+     17
+    ],
+    [
+     18,
+     41
+    ],
+    [
+     15,
+     67
+    ],
+    [
+     41,
+     26
+    ],
+    [
+     76,
+     35
+    ],
+    [
+     51,
+     25
+    ],
+    [
+     49,
+     53
+    ],
+    [
+     99,
+     67
+    ],
+    [
+     73,
+     17
+    ],
+    [
+     17,
+     28
+    ],
+    [
+     57,
+     44
+    ],
+    [
+     88,
+     27
+    ]
+   ]
+  },
   "hb.thap": {
    "file": "assets/art/hb-thap.png",
    "v": "9576dc43",
@@ -8866,6 +10834,36 @@
     ]
    ]
   },
+  "hb.thap-tuyet-m": {
+   "file": "assets/art/hb-thap-tuyet-m.png",
+   "v": "c267e85f",
+   "w": 91,
+   "h": 188,
+   "frames": 1,
+   "anchor": [
+    45,
+    186
+   ],
+   "note": "bộ mới han-bang: moi/s02.png (100 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     30,
+     67,
+     "cold"
+    ],
+    [
+     65,
+     100,
+     "cold"
+    ],
+    [
+     30,
+     40,
+     "cold"
+    ]
+   ]
+  },
   "hb.thung-go": {
    "file": "assets/art/hb-thung-go.png",
    "v": "0752ef9d",
@@ -8917,6 +10915,36 @@
     [
      17,
      31,
+     "cold"
+    ]
+   ]
+  },
+  "hb.thung-tuyet-m": {
+   "file": "assets/art/hb-thung-tuyet-m.png",
+   "v": "b09f8eef",
+   "w": 49,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    24,
+    45
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (26 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     41,
+     17,
+     "cold"
+    ],
+    [
+     25,
+     6,
+     "cold"
+    ],
+    [
+     27,
+     42,
      "cold"
     ]
    ]
@@ -9261,6 +11289,36 @@
     ]
    ]
   },
+  "hb.tru-pha-le-m": {
+   "file": "assets/art/hb-tru-pha-le-m.png",
+   "v": "f6c25c69",
+   "w": 49,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    24,
+    81
+   ],
+   "note": "bộ mới han-bang: moi/s06.png (44 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     21,
+     56,
+     "cold"
+    ],
+    [
+     18,
+     75,
+     "cold"
+    ],
+    [
+     19,
+     18,
+     "cold"
+    ]
+   ]
+  },
   "hb.tru-tinh-the": {
    "file": "assets/art/hb-tru-tinh-the.png",
    "v": "fc24bf6d",
@@ -9498,6 +11556,36 @@
     19
    ]
   },
+  "hb.vac-bang-m": {
+   "file": "assets/art/hb-vac-bang-m.png",
+   "v": "4d250f2a",
+   "w": 44,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    22,
+    51
+   ],
+   "note": "bộ mới han-bang: moi/s13.png (28 đơn vị cao)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     16,
+     16,
+     "cold"
+    ],
+    [
+     28,
+     16,
+     "cold"
+    ],
+    [
+     18,
+     28,
+     "cold"
+    ]
+   ]
+  },
   "hb.vach-da": {
    "file": "assets/art/hb-vach-da.png",
    "v": "e2cd1a5b",
@@ -9625,6 +11713,36 @@
      20,
      62,
      "pink"
+    ]
+   ]
+  },
+  "hb.xe-truot-m": {
+   "file": "assets/art/hb-xe-truot-m.png",
+   "v": "bbad3b6b",
+   "w": 68,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    34,
+    40
+   ],
+   "note": "bộ mới han-bang: moi/s11.png (36 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     42,
+     30,
+     "cold"
+    ],
+    [
+     30,
+     30,
+     "cold"
+    ],
+    [
+     56,
+     20,
+     "cold"
     ]
    ]
   },
@@ -13782,7 +15900,7 @@
     30,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s12.png (32 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s12.png (32 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -14012,7 +16130,7 @@
     23,
     51
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s07.png (28 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s07.png (28 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.bia-kiem-m": {
@@ -14025,7 +16143,7 @@
     18,
     69
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s08.png (38 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s08.png (38 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.bia-tim": {
@@ -14063,7 +16181,7 @@
     25,
     51
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (28 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s15.png (28 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.binh": {
@@ -14136,7 +16254,7 @@
     18,
     36
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (20 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s04.png (20 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -14221,7 +16339,7 @@
     22,
     37
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (24 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s04.png (24 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -14251,7 +16369,7 @@
     23,
     36
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (24 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s04.png (24 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.bui-pha-le": {
@@ -14294,7 +16412,7 @@
     22,
     32
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (24 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s04.png (24 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.ca-chep": {
@@ -14482,7 +16600,7 @@
     60,
     47
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s09.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s09.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cau-do-m": {
@@ -14495,7 +16613,7 @@
     60,
     56
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s09.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s09.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cau-go": {
@@ -14548,7 +16666,7 @@
     59,
     56
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s09.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s09.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cau-van-m": {
@@ -14561,7 +16679,7 @@
     60,
     50
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s09.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s09.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cay-anh-dao-m": {
@@ -14574,7 +16692,7 @@
     52,
     129
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s06.png (70 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s06.png (70 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.cay-co-thu-m": {
@@ -14587,7 +16705,7 @@
     45,
     118
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s06.png (64 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s06.png (64 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.cay-lam-den": {
@@ -14630,7 +16748,7 @@
     47,
     129
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s06.png (70 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s06.png (70 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -14690,7 +16808,7 @@
     49,
     129
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s06.png (70 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s06.png (70 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.cay-thong-m": {
@@ -14703,7 +16821,7 @@
     40,
     126
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s06.png (68 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s06.png (68 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.cay-tim-den": {
@@ -14841,7 +16959,7 @@
     23,
     62
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s12.png (34 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s12.png (34 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.co-am-duong": {
@@ -14879,7 +16997,7 @@
     17,
     84
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (46 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (46 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15009,7 +17127,7 @@
     11,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (32 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15059,7 +17177,7 @@
     19,
     69
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s08.png (38 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s08.png (38 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15089,7 +17207,7 @@
     11,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (32 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.co-loi": {
@@ -15247,7 +17365,7 @@
     10,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (32 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15360,7 +17478,7 @@
     11,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (32 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15425,7 +17543,7 @@
     10,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (32 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15445,7 +17563,7 @@
     15,
     84
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s16.png (46 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s16.png (46 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.co-xoay": {
@@ -15631,7 +17749,7 @@
     90,
     178
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s02.png (96 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s02.png (96 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15706,7 +17824,7 @@
     67,
     143
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s02.png (72 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s02.png (72 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -15751,7 +17869,7 @@
     105,
     227
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s02.png (112 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s02.png (112 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cong-lon": {
@@ -15909,7 +18027,7 @@
     75,
     130
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s02.png (80 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s02.png (80 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.cong-xoay": {
@@ -16152,7 +18270,7 @@
     28,
     37
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (30 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s15.png (30 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.da-pha-le": {
@@ -16263,7 +18381,7 @@
     30,
     54
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (30 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s15.png (30 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -16288,7 +18406,7 @@
     32,
     43
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (34 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s15.png (34 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.da-rieu": {
@@ -16336,7 +18454,7 @@
     28,
     40
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s07.png (30 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s07.png (30 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.da-tim-m": {
@@ -16349,7 +18467,7 @@
     20,
     28
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (22 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s15.png (22 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.dai-chu-tri": {
@@ -16601,7 +18719,7 @@
     13,
     43
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (24 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (24 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -16646,7 +18764,7 @@
     16,
     73
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (40 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (40 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -16671,7 +18789,7 @@
     15,
     81
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (44 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (44 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -16956,7 +19074,7 @@
     8,
     36
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (20 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (20 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -17133,7 +19251,7 @@
     13,
     47
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (26 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (26 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -17178,7 +19296,7 @@
     12,
     58
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s05.png (32 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s05.png (32 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -17248,7 +19366,7 @@
     165,
     256
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s03.png (176 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s03.png (176 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.dien-nho-m": {
@@ -17261,7 +19379,7 @@
     71,
     150
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s03.png (76 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s03.png (76 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.dien-phu-m": {
@@ -17274,7 +19392,7 @@
     97,
     211
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s03.png (104 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s03.png (104 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.dien-tong": {
@@ -17755,7 +19873,7 @@
     34,
     78
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s10.png (36 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s10.png (36 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.hac-lua": {
@@ -18465,7 +20583,7 @@
     19,
     69
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s08.png (38 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s08.png (38 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -18515,7 +20633,7 @@
     24,
     84
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s08.png (46 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s08.png (46 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.kiem-gia-m": {
@@ -18528,7 +20646,7 @@
     30,
     70
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s08.png (32 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s08.png (32 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.kiem-gia-vo-m": {
@@ -18541,7 +20659,7 @@
     21,
     51
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s07.png (28 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s07.png (28 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.kiem-lam": {
@@ -18682,7 +20800,7 @@
     59,
     21
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.lan-can-day": {
@@ -18740,7 +20858,7 @@
     59,
     22
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -18840,7 +20958,7 @@
     60,
     20
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.lan-can-hoa-m": {
@@ -18853,7 +20971,7 @@
     58,
     19
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -18888,7 +21006,7 @@
     61,
     23
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.lan-can-tuong-m": {
@@ -18901,7 +21019,7 @@
     59,
     19
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s11.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s11.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.lau-canh": {
@@ -18959,7 +21077,7 @@
     69,
     158
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s01.png (74 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s01.png (74 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.loi-dai": {
@@ -19121,7 +21239,7 @@
     17,
     51
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s12.png (28 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s12.png (28 đơn vị cao)",
    "scale": 0.5333,
    "smoke": [
     16,
@@ -19458,7 +21576,7 @@
     60,
     140
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s01.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s01.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.nha-ren-m": {
@@ -19471,7 +21589,7 @@
     67,
     172
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s01.png (72 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s01.png (72 đơn vị ngang)",
    "scale": 0.5333,
    "lights": [
     [
@@ -19713,7 +21831,7 @@
     73,
     144
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s01.png (78 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s01.png (78 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.ro-gio-m": {
@@ -19726,7 +21844,7 @@
     32,
     36
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (34 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (34 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.ruong": {
@@ -19904,7 +22022,7 @@
     59,
     100
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.sap-man": {
@@ -19967,7 +22085,7 @@
     60,
     109
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.sap-soc": {
@@ -20030,7 +22148,7 @@
     60,
     104
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (64 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (64 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.sap-vai-m": {
@@ -20043,7 +22161,7 @@
     56,
     61
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (60 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (60 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.sen-chau-2-m": {
@@ -20056,7 +22174,7 @@
     21,
     47
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s10.png (26 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s10.png (26 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.sen-chau-m": {
@@ -20069,7 +22187,7 @@
     23,
     39
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (22 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s04.png (22 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.sen-lon": {
@@ -20122,7 +22240,7 @@
     16,
     13
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s15.png (18 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s15.png (18 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.su-tu": {
@@ -20185,7 +22303,7 @@
     24,
     66
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s13.png (36 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s13.png (36 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.thac-m": {
@@ -20198,7 +22316,7 @@
     47,
     92
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s10.png (50 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s10.png (50 đơn vị ngang)",
    "scale": 0.5333,
    "glints": [
     [
@@ -20424,7 +22542,7 @@
     49,
     156
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s01.png (84 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s01.png (84 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.thung-go-m": {
@@ -20437,7 +22555,7 @@
     17,
     29
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (18 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (18 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.thung-hom-m": {
@@ -20450,7 +22568,7 @@
     19,
     33
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s14.png (20 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s14.png (20 đơn vị ngang)",
    "scale": 0.5333
   },
   "tk.tinh-the-lon": {
@@ -20823,7 +22941,7 @@
     23,
     62
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s12.png (34 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s12.png (34 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -20853,7 +22971,7 @@
     17,
     47
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s07.png (26 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s07.png (26 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.tru-pha-le": {
@@ -20956,7 +23074,7 @@
     30,
     62
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s04.png (34 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s04.png (34 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.tu-dang": {
@@ -21072,7 +23190,7 @@
     20,
     77
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s13.png (42 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s13.png (42 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.tuong-phat": {
@@ -21160,7 +23278,7 @@
     28,
     92
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s13.png (50 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s13.png (50 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.tuong-tien-m": {
@@ -21173,7 +23291,7 @@
     26,
     81
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s13.png (44 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s13.png (44 đơn vị cao)",
    "scale": 0.5333
   },
   "tk.vac-lua": {
@@ -21230,7 +23348,7 @@
     17,
     47
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s12.png (26 đơn vị cao)",
+   "note": "bộ mới thien-kiem: moi/s12.png (26 đơn vị cao)",
    "scale": 0.5333,
    "lights": [
     [
@@ -21382,7 +23500,7 @@
     32,
     62
    ],
-   "note": "Thiên Kiếm Phong bộ mới: moi/s10.png (34 đơn vị ngang)",
+   "note": "bộ mới thien-kiem: moi/s10.png (34 đơn vị ngang)",
    "scale": 0.5333,
    "glints": []
   },

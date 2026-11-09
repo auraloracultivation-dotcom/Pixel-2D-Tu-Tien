@@ -122,6 +122,84 @@ BO = {
     'tk.co-kim-m': (16, (253, 1533, 828, 1748), 32, 'h', ''),
 }
 
+# Hàn Băng Tinh bộ mới (chủ dự án 09/11/2026 12:12 gửi 14 tấm, nguồn nguon/ai/le-hoi/han-bang/moi/s01..s14.png)
+SRC_HB = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'le-hoi' / 'han-bang' / 'moi'
+BO_HB = {
+    'hb.dien-bang-m': (1, (0, 200, 598, 1250), 176, 'w', ''),
+    'hb.dien-tuyet-m': (1, (600, 0, 1010, 760), 104, 'w', ''),
+    'hb.dien-nho-m': (1, (598, 770, 1010, 1536), 100, 'w', ''),
+    'hb.nha-tuyet-m': (2, (353, 6, 733, 388), 64, 'w', 'smoke@0.32,0.0'),
+    'hb.nha-pha-le-m': (2, (303, 393, 725, 768), 60, 'w', ''),
+    'hb.thap-tuyet-m': (2, (133, 767, 730, 1062), 100, 'h', ''),
+    'hb.nha-ca-m': (2, (300, 1062, 730, 1393), 64, 'w', ''),
+    'hb.quan-tra-m': (2, (352, 1390, 728, 1774), 66, 'w', ''),
+    'hb.cay-tung-tuyet-m': (3, (2, 29, 511, 436), 70, 'h', ''),
+    'hb.cay-kho-m': (3, (15, 470, 511, 997), 66, 'h', ''),
+    'hb.cay-mai-m': (3, (7, 1034, 511, 1517), 64, 'h', ''),
+    'hb.lieu-bang-m': (3, (518, 18, 999, 544), 66, 'h', ''),
+    'hb.cay-tung-nho-m': (3, (552, 589, 987, 947), 52, 'h', ''),
+    'hb.cay-bang-m': (3, (528, 1017, 987, 1512), 62, 'h', ''),
+    'hb.den-da-tuyet-m': (4, (30, 190, 510, 508), 26, 'h', ''),
+    'hb.den-linh-m': (4, (16, 607, 511, 892), 36, 'h', ''),
+    'hb.den-bang-m': (4, (0, 1000, 511, 1347), 38, 'h', ''),
+    'hb.den-giay-m': (4, (516, 186, 999, 477), 36, 'h', ''),
+    'hb.den-dong-m': (4, (538, 614, 993, 919), 30, 'h', ''),
+    'hb.den-sen-m': (4, (577, 1012, 992, 1348), 28, 'h', ''),
+    'hb.bui-tuyet-m': (5, (433, 18, 685, 341), 24, 'w', ''),
+    'hb.bui-hoa-bang-m': (5, (392, 350, 687, 614), 22, 'h', ''),
+    'hb.bui-co-trang-m': (5, (371, 622, 690, 887), 22, 'w', ''),
+    'hb.bui-lau-m': (5, (338, 899, 687, 1150), 26, 'h', ''),
+    'hb.sen-bang-m': (5, (436, 1151, 687, 1456), 24, 'w', ''),
+    'hb.bui-mai-m': (5, (373, 1468, 685, 1756), 26, 'h', ''),
+    'hb.pha-le-lon-m': (6, (0, 80, 548, 575), 44, 'h', ''),
+    'hb.pha-le-tim-m': (6, (87, 657, 548, 1080), 36, 'h', ''),
+    'hb.tru-pha-le-m': (6, (1, 1149, 548, 1469), 44, 'h', ''),
+    'hb.manh-bang-m': (6, (680, 70, 975, 560), 30, 'w', ''),
+    'hb.pha-le-dai-m': (6, (563, 618, 992, 1043), 36, 'h', ''),
+    'hb.qua-cau-bang-m': (6, (619, 1142, 1001, 1485), 40, 'h', ''),
+    'hb.da-tuyet-m': (7, (385, 5, 675, 340), 34, 'w', ''),
+    'hb.da-bang-m': (7, (385, 347, 673, 630), 30, 'h', ''),
+    'hb.bia-van-m': (7, (366, 641, 670, 897), 32, 'h', ''),
+    'hb.soi-tuyet-m': (7, (480, 906, 671, 1163), 24, 'w', ''),
+    'hb.bia-cua-m': (7, (334, 1174, 672, 1442), 34, 'h', ''),
+    'hb.da-vach-m': (7, (390, 1447, 673, 1769), 40, 'w', ''),
+    'hb.thac-bang-m': (8, (9, 34, 584, 864), 56, 'w', 'water'),
+    'hb.gieng-bang-m': (8, (34, 899, 581, 1472), 40, 'w', ''),
+    'hb.da-khoi-bang-m': (8, (629, 51, 1011, 825), 44, 'w', ''),
+    'hb.da-nhu-bang-m': (8, (597, 872, 1015, 1496), 48, 'w', ''),
+    'hb.cau-go-m': (9, (252, 11, 541, 551), 64, 'w', ''),
+    'hb.cau-da-m': (9, (259, 562, 542, 1078), 64, 'w', ''),
+    'hb.cau-bang-m': (9, (248, 1090, 545, 1622), 64, 'w', ''),
+    'hb.cau-day-m': (9, (257, 1634, 545, 2148), 64, 'w', ''),
+    'hb.lan-can-go-m': (10, (108, 38, 338, 752), 64, 'w', ''),
+    'hb.lan-can-da-m': (10, (94, 790, 338, 1508), 64, 'w', ''),
+    'hb.lan-can-bang-m': (10, (409, 42, 641, 751), 64, 'w', ''),
+    'hb.lan-can-truc-m': (10, (407, 789, 642, 1512), 64, 'w', ''),
+    'hb.lan-can-tuyet-m': (10, (720, 7, 934, 767), 64, 'w', ''),
+    'hb.lan-can-tuong-m': (10, (712, 776, 932, 1515), 64, 'w', ''),
+    'hb.nguoi-tuyet-m': (11, (318, 11, 628, 289), 28, 'h', ''),
+    'hb.cui-m': (11, (389, 295, 625, 595), 30, 'w', ''),
+    'hb.thung-tuyet-m': (11, (382, 607, 624, 861), 26, 'w', ''),
+    'hb.ro-ca-m': (11, (393, 881, 622, 1129), 26, 'w', ''),
+    'hb.xe-truot-m': (11, (382, 1122, 628, 1520), 36, 'w', ''),
+    'hb.lua-trai-m': (11, (395, 1527, 628, 1771), 28, 'w', 'fire'),
+    'hb.cong-bang-m': (12, (232, 15, 686, 449), 80, 'w', ''),
+    'hb.cong-go-m': (12, (284, 455, 689, 872), 72, 'w', ''),
+    'hb.cong-trang-m': (12, (229, 896, 689, 1343), 80, 'w', ''),
+    'hb.cong-tron-m': (12, (305, 1354, 690, 1772), 80, 'w', ''),
+    'hb.lu-huong-m': (13, (251, 11, 771, 378), 30, 'h', ''),
+    'hb.vac-bang-m': (13, (361, 376, 782, 727), 28, 'h', ''),
+    'hb.guong-trang-m': (13, (310, 742, 779, 1067), 38, 'h', ''),
+    'hb.chuong-m': (13, (273, 1094, 782, 1382), 40, 'h', ''),
+    'hb.ban-le-m': (13, (415, 1405, 784, 1760), 36, 'w', ''),
+    'hb.sap-lau-m': (14, (58, 23, 503, 481), 60, 'w', ''),
+    'hb.sap-ruou-m': (14, (56, 506, 504, 1002), 60, 'w', ''),
+    'hb.sap-long-m': (14, (58, 1019, 504, 1515), 60, 'w', ''),
+    'hb.sap-thuoc-m': (14, (564, 16, 968, 494), 60, 'w', ''),
+    'hb.sap-thit-m': (14, (589, 515, 957, 991), 56, 'w', ''),
+    'hb.sap-tra-m': (14, (549, 1023, 953, 1513), 60, 'w', ''),
+}
+
 
 def _alpha(a):
     a = a.copy()
@@ -152,9 +230,13 @@ def _jade(a):
 
 
 def build(save):
+    return _build(save, SRC, BO) + _build(save, SRC_HB, BO_HB) + houses(save)
+
+
+def _build(save, SRC, BO):
     srcs, n = {}, 0
     if not SRC.exists():   # ảnh gốc không vào kho (.gitignore): máy không có thì giữ nguyên hình cũ, báo để chép ảnh gốc về
-        print('  thiếu ảnh gốc', SRC, '— bỏ qua bộ mới Thiên Kiếm Phong (đừng dựng lại toàn bộ khi thiếu, hình tk.*-m sẽ mất)')
+        print('  thiếu ảnh gốc', SRC, '— bỏ qua (đừng dựng lại toàn bộ khi thiếu, hình *-m sẽ mất)')
         return 0
     for sid, (sheet, (y0, x0, y1, x1), units, by, fx) in BO.items():
         if sheet not in srcs:
@@ -166,7 +248,7 @@ def build(save):
             cell = cell.copy(); cell[lab != 1 + int(np.argmax(sizes)), 3] = 0
         a = LH._make(_calm(LH._crop(cell)), units, by, 40 if units > 60 else 28)
         c = Canvas(a.shape[1], a.shape[0]); c.a = a
-        save(sid, [c], (c.w // 2, c.h - 2), f'Thiên Kiếm Phong bộ mới: moi/s{sheet:02d}.png ({units} đơn vị {"cao" if by == "h" else "ngang"})')
+        save(sid, [c], (c.w // 2, c.h - 2), f'bộ mới {SRC.parent.name}: moi/s{sheet:02d}.png ({units} đơn vị {"cao" if by == "h" else "ngang"})')
         _pal(sid)
         m = MANIFEST[sid]; m['scale'] = SC
         lights = LH._lights(a) + ([[x, y, 'jade'] for x, y in _jade(a)] if 'jade' in fx else [])
@@ -180,7 +262,7 @@ def build(save):
                 fxr, fyr = (float(v) for v in part[6:].split(','))
                 m['smoke'] = [round(fxr * c.w), round(fyr * c.h)]
         n += 1
-    return n + houses(save)
+    return n
 
 
 # ---- nhà ô H (5 căn) ----

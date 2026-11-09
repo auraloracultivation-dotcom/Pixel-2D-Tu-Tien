@@ -58,19 +58,21 @@ export function drawHoiItem(ctx, game, it, t) {
   }
   const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
   if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
-  if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x);
+  if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng/.test(it.id));
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
   if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
 
 // Mặt nước, mặt băng lấp lánh: điểm sáng chớp lên rồi tắt, mỗi điểm một nhịp
-function glints(ctx, pts, ox, oy, k, t, seed) {
+function glints(ctx, pts, ox, oy, k, t, seed, flow) {
   ctx.fillStyle = '#ffffff';
   for (let i = 0; i < pts.length; i++) {
     const v = Math.sin(t * 2.1 + i * 2.37 + seed * 0.013);
+    const x0 = ox + pts[i][0] * k, y0 = oy + pts[i][1] * k, u = (t * 0.9 + i * 0.37) % 1;   // nước chảy: vệt sáng trôi xuống rồi mờ (thác, vòi, giếng)
+    if (flow) { ctx.globalAlpha = 0.35 * (1 - u); ctx.fillRect(x0, y0 - 2 + u * 5, 0.6, 1.4); }
     if (v < 0.78) continue;
-    const a = Math.min(1, (v - 0.78) * 5), x = ox + pts[i][0] * k, y = oy + pts[i][1] * k;
+    const a = Math.min(1, (v - 0.78) * 5), x = x0, y = y0;
     ctx.globalAlpha = a; ctx.fillRect(x, y, 1, 1);
     if (v > 0.95) { ctx.globalAlpha = a * 0.6; ctx.fillRect(x - 1, y, 3, 0.6); ctx.fillRect(x, y - 1, 0.6, 3); }
   }
