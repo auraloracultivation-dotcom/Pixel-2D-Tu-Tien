@@ -6,6 +6,8 @@ import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.
 import { duelThink } from './duel-ai.js';
 import { tickDummy } from './dummy.js';
 import { tickMang } from './thien-mang.js';
+import { reachOf, aggroCheck } from './mob-power.js';
+import { crowd } from './crowd.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -78,13 +80,14 @@ export function updateMobs(game, dt) {
     if (m.stunT > 0 || game.paused) continue;
     if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && (nearNpc(game, p, S.r) || inHoi(game, p))) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe) và phố lễ hội (hoi-foot.js)
     const d = dist(m, p);
-    if (!m.aggro && m.def.aggro && d < m.def.aggro) m.aggro = true;
+    m.aggro = !!aggroCheck(game, m, p, d);   // chỉ chủ động đánh khi vào tầm, chạy xa thì thôi đuổi (mob-power.js)
     if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)
     else if (m.def.ai === 'boss') bossThink(game, m, d, dt);
     else if (m.aggro && m.def.ai === 'ranged') rangedThink(game, m, d, dt);
     else if (m.aggro) meleeThink(game, m, d, dt);
     else wander(game, m, dt);
   }
+  crowd(game);   // khối cứng: quái, NPC, người chơi không đè lên nhau (crowd.js; thay spreadMobs của mob-power.js)
   game.mobs = game.mobs.filter(m => !m.dead);
 }
 
@@ -100,7 +103,7 @@ function wander(game, m, dt) {
 }
 
 function meleeThink(game, m, d, dt) {
-  const p = m.tgt || game.player, reach = m.r + p.r + m.def.reach;
+  const p = m.tgt || game.player, reach = m.r + p.r + reachOf(game, m);   // tầm vồ dài thêm, đứng cách người chơi (mob-power.js)
   if (m.state === 'windup') {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;

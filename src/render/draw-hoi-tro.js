@@ -17,10 +17,18 @@ export function hoiAnim(game, id) {
 export function drawAnimated(ctx, game, it, im, kind, t) {
   const s = it.spr, k = it.k, ph = (it.x * 0.37 + it.y * 0.11) % 6.28, W = s.w * k, Hh = s.h * k;
   const ox = it.x - s.anchor[0] * k, oy = it.y - s.anchor[1] * k;
-  if (kind === 'wave') {   // cờ: hàng trên (gần cán ngang) đứng yên, càng xuống càng lệch
+  if (kind === 'wave') {   // cờ: hàng trên (gần cán ngang) đứng yên, càng xuống càng lệch; 20% dưới cùng (chân cột) đứng yên
     const rows = Math.ceil(s.h / 2);
     for (let r = 0; r < rows; r++) {
-      const sy = r * 2, f = sy / s.h, dx = Math.round(Math.sin(t * 3.4 - f * 5 + ph) * 1.6 * f * 2) / 2;
+      const sy = r * 2, f = Math.min(sy / s.h, Math.max(0, (s.h - sy) / s.h * 5)), dx = Math.round(Math.sin(t * 3.4 - f * 5 + ph) * 1.6 * f * 2) / 2;
+      ctx.drawImage(im, 0, sy, s.w, 2, ox + dx, oy + sy * k, W, 2 * k);
+    }
+    return true;
+  }
+  if (kind === 'sway' || kind === 'sway-s') {   // cây, bụi lắc theo gió: gốc (40% dưới) đứng yên, ngọn lệch nhiều nhất; thỉnh thoảng gió mạnh hơn
+    const amp = (kind === 'sway' ? 1.4 : 0.7) * (1 + 0.6 * Math.max(0, Math.sin(t * 0.37 + ph))), rows = Math.ceil(s.h / 2);
+    for (let r = 0; r < rows; r++) {
+      const sy = r * 2, f = Math.max(0, 1 - sy / s.h / 0.6), dx = Math.round(Math.sin(t * 1.25 + ph - f * 0.6) * amp * f * f * 2) / 2;
       ctx.drawImage(im, 0, sy, s.w, 2, ox + dx, oy + sy * k, W, 2 * k);
     }
     return true;

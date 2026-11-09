@@ -3,6 +3,7 @@
 import { spriteImage } from '../render/sprites.js';
 import { roundRim } from './draw-rim.js';
 import { bakeDat } from './draw-dat.js';
+import { paintNature } from './draw-nature.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -146,6 +147,7 @@ function build(game, map, tiles, hash, baseTile) {
   // chủ dự án 04/11/2026 15:38: nền đất mờ, nhạt hơn, bỏ chi tiết nhỏ (hoa cỏ lấm tấm, vệt đất, bụi nhỏ) cho nhân vật, đồ vật nổi lên
   bakeDat(c, map, hash, game.data['le-hoi']?.festivals?.[map.def.id]?.dat);   // mặt đất lễ hội (draw-dat.js)
   soften(c, cv.width, cv.height, game.data.config.ground_soft);
+  if (!lit) paintNature(c, map, hash, game.data.config.nature, tiles);   // sông hồ, đường đất bo mép, nền bớt gắt (draw-nature.js)
   roundRim(c, map, sp['tile.cliff'], hash);
   cache.painted = painted;
   cache.baked = bakeProps(c, game, map, hash);
@@ -201,6 +203,8 @@ function scatter(c, map, hash, dirt, bush) {
 }
 
 // Ô có vật đã vẽ sẵn trong tấm đệm nền (draw-map.js khỏi vẽ lại)
+// Tấm đệm nền của bản đồ này đã dựng xong (màn che lúc tải, src/render/world-veil.js)
+export const groundReady = map => cache.map === map;
 export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty * map.w + tx] === 1;
 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
@@ -236,6 +240,7 @@ function housePiece(map, tx, ty, ch) {
 
 // Vật trên nền bằng hình: trả true nếu đã vẽ ô này.
 export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
+  if (map.def.prop_hide?.includes(ch)) return true;   // bản đồ đã thay hình ô này bằng đồ mới (động phủ: lò, bồ đoàn)
   if (ch === '^') return drawPeak(ctx, game, map, tx, ty, h);
   if (WALLS[ch]) return drawWallTile(ctx, game, map, ch, tx, ty, h);
   if (ch === 'S') return drawSpiritStone(ctx, game, map, tx, ty, t);
@@ -253,7 +258,8 @@ export function drawProp(ctx, game, map, ch, tx, ty, h, t = 0) {
     // giữa theo bề ngang; các ô khác của khối không vẽ gì. Cỡ khối chưa có hình thì ghép ô tile.house như cũ.
     const b = houseBlock(map, tx, ty, ch), whole = sheet(game, `house.${ch}-${b.w}`);
     if (!whole) put(ctx, sp, housePiece(map, tx, ty, ch), px, py);
-    else if (tx === b.x0 && ty === b.y0 + b.h - 1) put(ctx, whole, 0, b.x0 * T + Math.round((b.w * T - whole.s.w) / 2), (b.y0 + b.h) * T - whole.s.h);
+    else if (tx === b.x0 && ty === b.y0 + b.h - 1) put(ctx, whole, (b.x0 * 7 + b.y0 * 13) % whole.s.frames,   // nhiều căn: mỗi khối một căn theo vị trí
+       b.x0 * T + Math.round((b.w * T - whole.s.w) / 2), (b.y0 + b.h) * T - whole.s.h);
   }
   else for (let i = 0; i < 2; i++) put(ctx, sp, Math.floor((h * 7 + i * 0.4) * 3) % 3, px + 2 + Math.floor(((h * 13 + i * 0.5) % 1) * 7), py + 2 + Math.floor(((h * 29 + i * 0.37) % 1) * 7));
   return true;

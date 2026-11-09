@@ -1,10 +1,12 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
-import { spriteImage, drawHitFrame } from './sprites.js';
+import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
 import { curOutfit } from '../game/fashion.js';
 import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
 import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
+import { drawChainGhosts } from './draw-chain.js';
+import { domainVis } from './draw-domain.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -82,17 +84,25 @@ function build(H, look) {
 }
 
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
+// Ẩn mình trong lĩnh vực Vô Ảnh (render/draw-domain.js domainVis): mờ dần rồi biến mất; biến mất hẳn vẫn trả true (khỏi vẽ hình khối thay)
 export function drawHero(ctx, game, p, t, flash, save = game.save) {
+  const dv = p.domain ? domainVis(game, p) : 1;
+  if (dv >= 1) return heroBody(ctx, game, p, t, flash, save);
+  if (dv <= 0.01) return true;
+  ctx.save(); ctx.globalAlpha *= dv;
+  const r = heroBody(ctx, game, p, t, flash, save);
+  ctx.restore();
+  return r;
+}
+
+function heroBody(ctx, game, p, t, flash, save) {
   const look = heroLook(game, save), spr = look.sprite && game.data.art.sprites[look.sprite];
   const im = spr && spriteImage(spr);
   if (!im) return false;
+  if (p.chain || p.chainGh || p.chainT > game.time) drawChainGhosts(ctx, game, p, t, save, drawHero);   // bóng lướt Thiểm Ảnh (render/draw-chain.js)
   const [name, i, atk, own] = anim(game, p, look, t), list = look.anims[name] || look.anims.idle;
   const f = list[i % list.length];
   if (Math.abs(p.face.x) > 0.2) p.lookX = Math.sign(p.face.x);   // chỉ hai hướng: giữ hướng cũ khi đi thẳng lên xuống
-  if (!p.riding) {   // bóng dưới chân; đang cưỡi thì bỏ (bóng xám đè lên yên trông như chân hở khỏi lưng thú, chủ dự án 04/11/2026 19:01)
-    ctx.fillStyle = 'rgba(27,24,48,0.25)';
-    ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 6, 2.7, 0, 0, Math.PI * 2); ctx.fill();
-  }
   // Pixel thật: mỗi điểm ảnh hình = số nguyên điểm màn hình, đặt đúng lưới điểm màn hình.
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
@@ -115,6 +125,7 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
   if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
+  if (!p.riding) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
   ctx.restore();
   if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);
@@ -126,10 +137,11 @@ export function drawHero(ctx, game, p, t, flash, save = game.save) {
 // Vệt phép xanh trước mặt khi đánh (chủ dự án 04/11/2026 13:15, Thần Nguyên Y; look.trail = màu): đòn 1 đẩy chưởng: quầng sáng
 // phóng thẳng tới trước rồi tan; đòn 2 vung tay đập cánh: vệt cung rộng quét từ trên xuống. k: tiến độ đòn 0 → 1.
 function drawTrail(ctx, trail, kind, k, x, y, dir) {
-  const [color, core] = Array.isArray(trail) ? trail : [trail, '#8fd0ff'];   // [màu ngoài, màu lõi] (Ly Hoa: lục lam, vàng như phượng hoàng)
+  const color = Array.isArray(trail) ? trail[0] : trail, core = '#ffffff';   // màu viền (Ly Hoa: lục lam); lõi trắng sáng, viền mờ màu như Huyết Nguyệt (chủ dự án 09/11/2026 15:58)
   const on = Math.sin(Math.PI * Math.min(1, Math.max(0, (k - 0.15) / 0.75)));
   if (on <= 0.02) return;
-  ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.lineCap = 'round';
+  const d = Math.abs(ctx.getTransform().d) || 1;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.shadowColor = color; ctx.shadowBlur = 8 * d;
   if (kind === 0) {
     const d = 6 + 26 * k, r = 4 + 6 * k;
     for (let j = 0; j < 3; j++) {

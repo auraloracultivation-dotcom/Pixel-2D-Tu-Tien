@@ -1,5 +1,5 @@
 {
- "_note": "Quay clip trong game (chủ dự án xin 28/10/2026): người chơi tự quay đoạn chơi rồi lưu hoặc chia sẻ (TikTok, Zalo, Facebook). Chỉ ghi khung vẽ của game (bản đồ, nhân vật, hiệu ứng) và tiếng game; Menu, chat, nút bấm bằng HTML không lên hình. Nút quay nằm cạnh nút tiếng. File nạp riêng ở src/game/record.js (không nằm trong danh sách data.js) để không đụng file chung. max_sec: dài nhất mỗi clip, hết thì tự dừng. fps / fps_weak: khung hình mỗi giây máy khoẻ / máy yếu (chép khung vẽ đúng số lần này, không chép mỗi khung màn hình cho đỡ giật). long: cạnh dài của clip (điểm ảnh), máy khoẻ / máy yếu; weak: máy yếu khi số nhân CPU ≤ cores hoặc RAM ≤ mem GB. kbps: tốc độ ghi hình. mark: chữ góc clip để quảng bá.",
+ "_note": "Quay clip trong game (chủ dự án xin 28/10/2026): người chơi tự quay đoạn chơi rồi lưu hoặc chia sẻ (TikTok, Zalo, Facebook). Chỉ ghi khung vẽ của game (bản đồ, nhân vật, hiệu ứng) và tiếng game; Menu, chat, nút bấm bằng HTML không lên hình. Nút quay nằm cạnh nút tiếng. File nạp riêng ở src/game/record.js (không nằm trong danh sách data.js) để không đụng file chung. max_sec: dài nhất mỗi clip, hết thì tự dừng. fps / fps_weak: khung hình mỗi giây máy khoẻ / máy yếu (chép khung vẽ đúng số lần này, không chép mỗi khung màn hình cho đỡ giật). long: cạnh dài của clip (điểm ảnh), máy khoẻ / máy yếu; weak: máy yếu khi số nhân CPU ≤ cores hoặc RAM ≤ mem GB. kbps: tốc độ ghi hình (09/11/2026: tăng 2500 → 6000 cho clip nét, ít vỡ khối khi nhiều hiệu ứng; chủ dự án: \"video là cần câu cơm, phải đẹp\"). mark: chữ góc clip để quảng bá.",
  "max_sec": 60,
  "warn_sec": 10,
  "min_sec": 1,
@@ -9,8 +9,8 @@
   "weak": 854
  },
  "kbps": {
-  "strong": 2500,
-  "weak": 1200
+  "strong": 6000,
+  "weak": 3000
  },
  "weak": {
   "cores": 4,
@@ -80,5 +80,6 @@
   "saved_ios": "Nếu bạn đã chọn \"Lưu video\", clip nằm trong app Ảnh.",
   "save_ios_fail": "Máy này chưa lưu được clip từ game. Bạn dùng nút quay màn hình của iPhone nhé."
  },
- "fps_weak": 24
+ "fps_weak": 30,
+ "cfr": {"_note": "Ghi nhịp đều (src/core/recorder-cfr.js, chủ dự án 09/11/2026 18:06: video vào trình sửa TikTok bị giật vì MediaRecorder ghi nhịp không đều): tự mã hoá H.264 + AAC bằng WebCodecs, mỗi giây đủ fps khung, ghép MP4 chuẩn. need_audio: máy không mã hoá được AAC thì true = quay cách cũ để giữ tiếng, false = vẫn quay nhịp đều nhưng không có tiếng.", "on": true, "need_audio": false}
 }

@@ -4,6 +4,8 @@ import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
+import { zonePower } from './mob-power.js';
+import { startGhost, ghostTick, afterGhost } from './ghost.js';
 import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
 import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
@@ -15,6 +17,8 @@ import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateBossMusic } from './boss-music.js';
+import { updatePowerPop } from './power-pop.js';
+import { updateSparks } from './sparks.js';
 import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
 import { updateZones } from './zones.js';
@@ -74,6 +78,7 @@ export function createGame(data, screen, input, ui, audio) {
     owner: 'guest', online: null, others: null,
   };
   game.sfx = (name, vol) => audio?.play(name, vol);
+  game.note = (step, vol) => audio?.note?.(step, vol);
   game.combat = k => audio?.combat(k);   // lớp trống nhạc nền khi đánh nhau (boss-music.js)
   game.music = id => audio?.music(id);   // nhạc nền theo bản đồ, hoặc 'boss' lúc đánh boss, độ kiếp (boss-music.js)
   game.rain = on => audio?.rain(on);
@@ -127,13 +132,13 @@ export function createGame(data, screen, input, ui, audio) {
     game.pickups.push({ item, x: p.x, y: p.y });
   };
 
-  game.gainQi = (amount, x, y, quiet, raw) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí)
+  game.gainQi = (amount, x, y, quiet, raw, real) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí); real: số đã là số thật (quái lk, đan), không nhân qi_rate
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * (!raw && (game.save.qiX2 || 0) > Date.now() ? 2 : 1) * (game.daoLuMul?.() || 1) * 10) / 10;   // đạo lữ +5% (src/game/daolu.js)
-    const broke = addQi(game.save, data.realms, amount);
+    const got = Math.round(amount * (real ? 1 : data.realms.qi_rate ?? 1) * 100) / 100, broke = addQi(game.save, data.realms, got);   // qi_rate: mọi nguồn linh khí (data/realms.json); công pháp, linh thú, bạn đồng hành vẫn nhận kinh nghiệm theo số gốc
     gainTechExp(game, amount);
     gainPetExp(game, amount);
     gainCompExp(game, amount);
-    if (!quiet) addNumber(game, x, y - 18, `+${amount} linh khí`, '#bff4ff');
+    if (!quiet) addNumber(game, x, y - 18, `+${got} linh khí`, '#bff4ff');
     if (broke > 0) {
       game.refreshStats(); game.player.hp = game.player.maxHp;
       checkUnlocks(game);
@@ -145,7 +150,7 @@ export function createGame(data, screen, input, ui, audio) {
       game.capWarned = true;
       game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
-    game.persist();
+    game.persist(); return got;
   };
 
   game.onKill = m => {
@@ -312,6 +317,7 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
+      zonePower(game, m);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp)
       if (s.mul && s.mul !== 1) scaleMobBy(game, m, s.mul, s.tag);
       if (s.farm) { m.lootMul = data.planets.farm.loot; m.farm = true; }
       maybeRare(game, m); s.alive.push(m);
@@ -344,7 +350,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
     updateTaps(dt);
-    updatePlayer(game, dt);
+    if (!game.ghost) updatePlayer(game, dt);   // gục: bong bóng linh hồn đứng yên chờ hồi sinh (ghost.js)
     updateRide(game, dt);
     updatePet(game, dt);
     updateCompanion(game, dt); updateCombo(game, dt);
@@ -362,7 +368,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.dungeon?.update();
     updateParty(game, dt);
     if (game.duel) updateDuel(game, dt);
-    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt);
+    updatePraise(game, dt); updateCheer(game, dt); updateDaoVan(game, dt); updateBossMusic(game, dt); updatePowerPop(game, dt); updateSparks(game, dt);
     updateGarden(game, dt);
     updateDayNight(game, dt);
     updateWeather(game, dt);
@@ -382,7 +388,8 @@ export function createGame(data, screen, input, ui, audio) {
     updatePortals(game, dt);
     for (const n of game.npcs) n.bob += dt * 3;
     game.story.update();
-    if (game.player.hp <= 0) respawn();
+    if (game.player.hp <= 0 && !game.ghost) startGhost(game);
+    const gk = ghostTick(game, dt); if (gk) afterGhost(game, gk, respawn);   // 'home': về động phủ (bảng hỏi src/ui/death-ask.js)
     if ((game.stampT = (game.stampT ?? 30) - dt) <= 0) { game.stampT = 30; game.persist(); } // mốc giờ cho bế quan khi vắng
     camFollow(game, screen, dt);
   };

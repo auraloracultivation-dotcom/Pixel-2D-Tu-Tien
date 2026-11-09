@@ -1,6 +1,7 @@
 // Tạo vệt chém mượt (chủ dự án xin 29/10/2026), vẽ ở src/render/draw-slash.js; số ở data/config.json → slash.
 // arc: cung quanh người (quét, hất, móc, xoay); line: vệt thẳng (đâm, bổ); spin: vùng chiêu xoay (kim luân).
 import { addFx } from './combat.js';
+import { curOutfit } from './fashion.js';
 
 const DEG = Math.PI / 180;
 const C = game => game.data.config.slash;
@@ -32,8 +33,19 @@ export function slashSpin(game, { on, r, color, pal, life, spin = 9 }) {
 }
 
 // Đòn đánh thường theo động tác vũ khí (src/game/player.js → strike)
+// Màu viền vệt chém theo trang phục đang mặc (chủ dự án 09/11/2026 15:58: lõi sáng trắng, viền mờ màu đặc trưng của nhân vật):
+// look.glow, màu vệt riêng (look.trail), màu áo nếu đủ đậm, không thì màu linh căn, cuối cùng màu vũ khí
+const sat = hex => { const n = parseInt(String(hex).slice(1, 7), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255, mx = Math.max(r, g, b); return mx ? (mx - Math.min(r, g, b)) / mx : 0; };
+export function outfitColor(game, w) {
+  const o = game.data.fashion.list[curOutfit(game)], tr = o?.look?.trail;
+  const c = o?.look?.glow || (typeof tr === 'string' ? tr : Array.isArray(tr) ? tr[0] : tr?.color);
+  if (c) return c;
+  if (o?.robe && sat(o.robe) > 0.3) return o.robe;
+  return game.data.elements?.[game.save?.element]?.color || w.color;
+}
+
 export function weaponSlash(game, p, w, move, ang, tip) {
-  const color = w.color, r = w.range;
+  const color = p === game.player ? outfitColor(game, w) : w.color, r = w.range;
   if (move === 'bo') {   // bổ dọc: vệt thẳng chém xuống tại chỗ trúng, nghiêng theo hướng mặt
     const tilt = Math.cos(ang) >= 0 ? -0.35 : 0.35;
     slashLine(game, { x: tip.x - Math.cos(Math.PI / 2 + tilt) * 16, y: tip.y - Math.sin(Math.PI / 2 + tilt) * 16, ang: Math.PI / 2 + tilt, len: 30, from: 0, color });

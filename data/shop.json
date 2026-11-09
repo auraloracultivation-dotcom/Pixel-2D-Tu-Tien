@@ -3,7 +3,7 @@
  "name": "Linh Thạch",
  "coin_log": {"_note": "Lịch sử Linh Thạch (đề xuất #137, chủ dự án chốt 04/11/2026: cách nhẹ nhất, chỉ lưu trong máy, không tốn máy chủ). Giữ keep dòng mới nhất mỗi tài khoản trong localStorage, không vào bản lưu máy chủ. Lý do trong merge gộp thành một dòng mỗi phút; lý do khác gộp khi trùng dòng trên cùng trong cùng phút. watch_s: mỗi bao nhiêu giây so số dư, lệch mà không chỗ nào ghi thì thành dòng 'khac'. why: chữ của từng mã lý do. src/game/coin-log.js, src/ui/coin-log-sheet.js.", "keep": 100, "watch_s": 2, "merge": ["nhat", "can-quet", "khac"],
   "btn": "Lịch sử", "title": "Lịch sử Linh Thạch", "sub": "{n} dòng gần nhất, chỉ lưu trên máy này", "empty": "Chưa có thay đổi nào được ghi. Lịch sử bắt đầu từ lúc cập nhật này, chỉ lưu trên máy này.", "after": "còn {b}",
-  "why": {"khac": "Khác (máy chủ, tải lại, thư...)", "nhat": "Nhặt khi đánh quái", "can-quet": "Càn quét bí cảnh", "ban-do": "Bán đồ", "van-bao": "Mua ở Vạn Bảo Lâu", "npc": "Mua đồ của dân làng", "thoi-trang": "Mua thời trang", "tay-luyen": "Tẩy luyện", "cuong-hoa": "Cường hoá", "ghep-ngoc": "Ghép ngọc", "cap-chieu": "Nâng cấp chiêu", "dong-phu": "Nâng cấp động phủ", "duoc-vien": "Dược viên", "tien-hoa": "Tiến hoá linh thú", "linh-thu": "Tẩy luyện linh thú, khôi lỗi", "mua-thu": "Mua thú cưỡi, khôi lỗi", "ban-thu": "Bán linh thú, thú cưỡi, khôi lỗi", "doi-he": "Đổi hệ", "dan-dac-biet": "Đan đặc biệt", "trang-tri": "Đồ trang trí động phủ", "khach": "Mua của khách phương xa", "dao-lu": "Tặng đạo lữ", "cho-mua": "Mua ở Chợ Phiên", "thu": "Nhận thư (chợ, quà)", "tong-mon": "Tông môn", "sao-vang": "Sao vàng khi bay", "thuong": "Phần thưởng", "viec-ngay": "Việc hằng ngày", "thanh-tuu": "Thành tựu", "bi-canh": "Thưởng bí cảnh", "ma-vuong": "Hạ Ma Vương"}},
+  "why": {"khac": "Khác (máy chủ, tải lại, thư...)", "nhat": "Nhặt khi đánh quái", "can-quet": "Càn quét bí cảnh", "ban-do": "Bán đồ", "van-bao": "Mua ở Vạn Bảo Lâu", "mua-nhanh": "Mua nhanh nguyên liệu", "npc": "Mua đồ của dân làng", "thoi-trang": "Mua thời trang", "tay-luyen": "Tẩy luyện", "cuong-hoa": "Cường hoá", "ghep-ngoc": "Ghép ngọc", "cap-chieu": "Nâng cấp chiêu", "dong-phu": "Nâng cấp động phủ", "duoc-vien": "Dược viên", "tien-hoa": "Tiến hoá linh thú", "linh-thu": "Tẩy luyện linh thú, khôi lỗi", "mua-thu": "Mua thú cưỡi, khôi lỗi", "ban-thu": "Bán linh thú, thú cưỡi, khôi lỗi", "doi-he": "Đổi hệ", "dan-dac-biet": "Đan đặc biệt", "trang-tri": "Đồ trang trí động phủ", "khach": "Mua của khách phương xa", "dao-lu": "Tặng đạo lữ", "cho-mua": "Mua ở Chợ Phiên", "thu": "Nhận thư (chợ, quà)", "tong-mon": "Tông môn", "sao-vang": "Sao vàng khi bay", "thuong": "Phần thưởng", "viec-ngay": "Việc hằng ngày", "thanh-tuu": "Thành tựu", "bi-canh": "Thưởng bí cảnh", "ma-vuong": "Hạ Ma Vương"}},
  "drop": {"chance": 0.35, "per_qi": 0.1, "boss_mul": 3},
  "sell": {"pham": 4, "linh": 10, "huyen": 25, "dia": 70, "thien": 180},
  "quick": {"_note": "Bán nhanh trong Túi đồ (chủ dự án xin 28/10): chọn phẩm (màu dòng, line_tiers.list) rồi bán hết một lần. Không bán đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá (skip_plus). pick: phẩm chọn sẵn.", "pick": ["luc", "lam"], "skip_plus": true},
@@ -18,7 +18,11 @@
   {"kind": "mat", "ref": "hoa-linh-chi", "n": 1, "price": 45, "need": "ngu-kiem"},
   {"kind": "mat", "ref": "tay-luyen-thach", "n": 1, "price": 40},
   {"kind": "mat", "ref": "khoa-linh-thach", "n": 1, "price": 400, "need": "mo-bi-canh"},
-  {"kind": "gem", "n": 1, "price": 120}
+  {"kind": "gem", "n": 1, "price": 120},
+  {"kind": "skill", "ref": "thiem-anh", "n": 1, "price": 50000, "_note": "Chiêu không theo hệ (chủ dự án 09/11/2026 18:32): mua một lần, mọi cảnh giới, mở vào bảng Chiêu (save.boughtSkills). Đã học thì không hiện nữa."},
+  {"kind": "skill", "ref": "vo-anh", "n": 1, "price": 100000, "_note": "Vô Ảnh Trảm Vực (chủ dự án 09/11/2026 19:27)."},
+  {"kind": "skill", "ref": "pha-thien", "n": 1, "price": 100000, "_note": "Phá Thiên Tuyệt Trảm (chủ dự án 09/11/2026 20:14)."},
+  {"kind": "skill", "ref": "thien-phat", "n": 1, "price": 100000, "_note": "Thiên Phạt (chủ dự án 10/11/2026 00:14)."}
  ],
  "npc_goods": {
   "_note": "Mỗi NPC một món riêng (chủ dự án chốt 02/11/2026, thay đào khoáng, linh thực): người ở xóm bán một loại đan, một bộ đồ, hoặc món không có ở bí cảnh / nhiệm vụ. kind: pill (cave.pills), mat (nguyên liệu), outfit (fashion.list, mua một lần). price Linh Thạch, per_day: số lần mỗi ngày (outfit bỏ qua). src/game/npc-goods.js.",
@@ -33,6 +37,6 @@
   "chi-ganh-da": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."},
   "be-la": {"kind": "outfit", "id": "thanh-sam", "price": 800, "line": "Áo thanh sam mẹ cháu may, mặc vào thư sinh lắm!"},
   "phong-thach": {"kind": "outfit", "id": "hac-y", "price": 1500, "line": "Hắc y dạ hành, đi đêm trong gió Hắc Phong không ai thấy."},
-  "tho-kim-sa": {"kind": "outfit", "id": "hong-y", "price": 1500, "line": "Hồng y hoa đào, dệt từ tơ kim sa nhuộm cánh đào."}
+  "tho-kim-sa": {"kind": "outfit", "id": "hong-y", "price": 1500, "line": "Hồng y hoa đào, dệt từ tơ kim sa nhuộm cánh đào."}, "thuong-nhan": {"kind": "mat", "id": "hoa-linh-chi", "price": 500, "per_day": 3, "line": "Hỏa Linh Chi hái trên miệng núi lửa, luyện đan rèn đồ đều cần tới."}, "hoa-su": {"kind": "mat", "id": "linh-thao", "price": 150, "per_day": 5, "line": "Linh thảo ta vẽ xong thì hái luôn, tươi rói, mua đi đạo hữu."}, "ong-do": {"kind": "pill", "id": "hoi-linh-dan", "price": 60, "per_day": 5, "line": "Mua chữ thì không bán, chứ Hồi Linh Đan thì có. Ông đồ cũng phải sống chứ."}
  }
 }

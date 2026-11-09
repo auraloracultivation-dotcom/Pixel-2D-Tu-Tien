@@ -24,15 +24,17 @@ export function isWeak(cfg) {
   return cores <= cfg.weak.cores || mem <= cfg.weak.mem;
 }
 
-// Cỡ clip: giữ tỉ lệ khung vẽ, cạnh dài không quá `long`, số chẵn (bộ mã hoá H.264 cần)
+// Cỡ clip: giữ tỉ lệ khung vẽ, số chẵn (bộ mã hoá H.264 cần). Lớn hơn `long` thì thu nhỏ (có làm mịn); nhỏ hơn thì phóng số nguyên
+// lần cho gần `long` (điện thoại vẽ khung ở độ phân giải thấp cho nhẹ: clip phóng lên mà điểm ảnh vẫn vuông, nét; chủ dự án 09/11/2026:
+// "video sau này là cần câu cơm, phải đẹp")
 export function clipSize(w, h, long) {
-  const k = Math.min(1, long / Math.max(w, h));
+  const m = Math.max(w, h), k = m > long ? long / m : Math.max(1, Math.floor(long / m));
   const even = v => Math.max(2, Math.round(v * k / 2) * 2);
-  return { w: even(w), h: even(h) };
+  return { w: even(w), h: even(h), up: k > 1 };
 }
 
 // Chữ góc vẽ sẵn một lần vào tấm riêng, mỗi khung chỉ dán lại (vẽ chữ có viền mỗi khung tốn máy)
-function makeMark(w, h, mark) {
+export function makeMark(w, h, mark) {
   const s = Math.max(10, Math.round(Math.min(w, h) / 34));
   const c = document.createElement('canvas');
   c.width = w; c.height = Math.ceil(s * 2.6);
@@ -51,15 +53,18 @@ function makeMark(w, h, mark) {
 
 // Bắt đầu ghi. src: khung vẽ game; master: nút âm lượng tổng của game (có thể null khi chưa có tiếng).
 // Trả về { stop(): Promise<{ blob, sec, ext, mime }>, elapsed(), cancel() }
+// cfg.frame { on, top, bottom }: chỉ quay dải giữa màn (khung chơi, chủ dự án 09/11/2026 17:38), bỏ phần trên dưới có nút.
 export function startRecording(src, master, cfg) {
   const type = pickType();
   if (!type) throw new Error('unsupported');
-  const weak = isWeak(cfg);
-  const size = clipSize(src.width, src.height, weak ? cfg.long.weak : cfg.long.strong);
+  const weak = isWeak(cfg), F = cfg.frame?.on ? cfg.frame : { top: 0, bottom: 1 };
+  const crop = () => { const y = Math.round(src.height * F.top); return [0, y, src.width, Math.max(2, Math.round(src.height * F.bottom) - y)]; };
+  const [, , cw0, ch0] = crop();
+  const size = clipSize(cw0, ch0, weak ? cfg.long.weak : cfg.long.strong);
   const copy = document.createElement('canvas');
   copy.width = size.w; copy.height = size.h;
   const ctx = copy.getContext('2d');
-  ctx.imageSmoothingEnabled = false;   // giữ nét pixel khi thu nhỏ
+  ctx.imageSmoothingEnabled = !size.up; ctx.imageSmoothingQuality = 'high';   // phóng số nguyên lần: giữ ô vuông điểm ảnh; thu nhỏ: làm mịn, tắt thì điểm ảnh lúc rụng lúc còn, clip lăn tăn như giật
 
   // Chép đúng cfg.fps lần mỗi giây (không chép mỗi khung 60–120 Hz): đỡ nặng máy nên game và clip đều mượt hơn
   const mk = makeMark(copy.width, copy.height, cfg.mark), fps = weak ? cfg.fps_weak || cfg.fps : cfg.fps, gap = 1000 / fps;
@@ -70,13 +75,18 @@ export function startRecording(src, master, cfg) {
     if (now < next) return;
     next = Math.max(next + gap, now - gap);
     if (!src.width || !src.height) return;
-    ctx.drawImage(src, 0, 0, copy.width, copy.height);
+    const [sx, sy, sw, sh] = crop();
+    ctx.drawImage(src, sx, sy, sw, sh, 0, 0, copy.width, copy.height);
     ctx.drawImage(mk.img, 0, mk.y);
+    if (push) vt.requestFrame();   // đẩy đúng khung vừa chép (đỡ giật hơn để trình duyệt tự lấy theo giờ)
   };
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, copy.width, copy.height);
   raf = requestAnimationFrame(paint);
 
-  const stream = copy.captureStream(fps);
+  // captureStream(0) + requestFrame: mỗi lần chép là một khung trong clip, không lặp, không hụt; máy không có requestFrame thì lấy theo fps
+  let stream = copy.captureStream(0), vt = stream.getVideoTracks()[0];
+  const push = typeof vt?.requestFrame === 'function';
+  if (!push) { for (const t of stream.getTracks()) t.stop(); stream = copy.captureStream(fps); vt = stream.getVideoTracks()[0]; }
   let tap = null;
   if (master?.context?.createMediaStreamDestination) {
     try {

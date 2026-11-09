@@ -89,9 +89,18 @@ function layer(out, sr, L, rnd) {
   }
 }
 
+// Gõ mộc cầm (marimba, chủ dự án 09/11/2026 01:28 theo clip: tiếng tròn, gần như sóng sin thuần, có bồi âm gấp 4 tắt nhanh,
+// tiếng gõ đầu dùi rất ngắn). { k: 'mallet', f, t, d, v } trong công thức tiếng đổi thành các lớp dưới đây.
+const mallet = l => [
+  { k: 'osc', w: 'sine', f: l.f, t: l.t, d: l.d, v: l.v ?? 0.5, a: 0.003, c: l.c ?? 2 },
+  { k: 'osc', w: 'sine', f: l.f * 4, t: l.t, d: Math.min(l.d, 0.5), v: (l.v ?? 0.5) * (l.p4 ?? 0.2), a: 0.002, c: 3 },
+  { k: 'osc', w: 'sine', f: l.f * 9.9, t: l.t, d: 0.04, v: (l.v ?? 0.5) * 0.05, a: 0.001, c: 2 },
+  { k: 'noise', t: l.t, d: 0.01, v: (l.v ?? 0.5) * 0.06, hp: 2500 },
+];
+
 // Dựng một tiếng thành Float32Array (mono). Chuẩn hoá đỉnh về P (data: v) để mọi tiếng đều nhau, không vỡ.
 export function renderSfx(rec, sr, seed = 1) {
-  const L = Array.isArray(rec) ? rec.map(n => ({ k: n.wave === 'noise' ? 'noise' : 'osc', w: { triangle: 'tri', sawtooth: 'saw' }[n.wave] || n.wave, f: n.f, f2: n.f2, t: n.t, d: n.d, v: n.v, lp: n.q })) : rec.L;   // công thức cũ (danh sách nốt) vẫn chạy
+  const L = Array.isArray(rec) ? rec.map(n => ({ k: n.wave === 'noise' ? 'noise' : 'osc', w: { triangle: 'tri', sawtooth: 'saw' }[n.wave] || n.wave, f: n.f, f2: n.f2, t: n.t, d: n.d, v: n.v, lp: n.q })) : rec.L.flatMap(l => l.k === 'mallet' ? mallet(l) : [l]);   // công thức cũ (danh sách nốt) vẫn chạy
   const len = Math.ceil(Math.max(...L.map(l => (l.t || 0) + l.d)) * sr) + 8, out = new Float32Array(len);
   let s = seed >>> 0 || 1;
   const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
@@ -101,6 +110,29 @@ export function renderSfx(rec, sr, seed = 1) {
   for (let i = 0; i < len; i++) out[i] *= k;
   for (let i = 0; i < 64 && i < len; i++) out[len - 1 - i] *= i / 64;   // khử tiếng "bụp" cuối
   return out;
+}
+
+// Nốt cho nhạc nền rải (src/core/music-arp.js), cache theo tần số và kiểu tiếng. kind 'bubble' (chủ dự án 09/11/2026 01:39:
+// clip mẫu "có cảm giác nước và bong bóng"): sóng sin gần như thuần, vào mềm 25 ms, cao độ trượt nhẹ từ dưới lên như bọt nước
+// nổi "bloop", ngân dài; 'mallet': mộc cầm.
+const mallets = new Map();
+const TONES = {
+  bubble: f => [{ k: 'osc', w: 'sine', f: f * 0.88, f2: f, g: 0.035, d: 2.2, a: 0.025, c: 1.6, v: 1 },
+    { k: 'osc', w: 'sine', f: f * 2, d: 0.4, a: 0.02, v: 0.04 }, { k: 'osc', w: 'sine', f: f * 3, d: 0.2, a: 0.02, v: 0.025 }],
+  // ly thuỷ tinh đựng nước gõ nhẹ (chủ dự án 09/11/2026 09:12: nhạc chói, đầu ong ong, chỉ cần "bing bong" như gõ ly nước):
+  // sin chủ + một sin lệch 0,3% cho tiếng rung nước, hai bồi âm kiểu chuông ly (×2,32 ×4,25) rất nhỏ, tắt nhanh hơn nốt chủ
+  glass: f => [{ k: 'osc', w: 'sine', f, d: 1.8, a: 0.004, c: 2.2, v: 0.8 }, { k: 'osc', w: 'sine', f: f * 1.003, d: 1.6, a: 0.004, c: 2.2, v: 0.35 },
+    { k: 'osc', w: 'sine', f: f * 2.32, d: 0.7, a: 0.003, c: 2.6, v: 0.12 }, { k: 'osc', w: 'sine', f: f * 4.25, d: 0.25, a: 0.002, c: 3, v: 0.04 }],
+  mallet: f => [{ k: 'mallet', f, d: 2.4, v: 1 }],
+};
+export function malletBuffer(ac, f, kind = 'mallet') {
+  const key = kind + Math.round(f * 2);
+  if (mallets.has(key)) return mallets.get(key);
+  const sr = ac.sampleRate, d = renderSfx({ v: 0.9, L: (TONES[kind] || TONES.mallet)(f) }, sr, Math.round(f * 2));
+  const b = ac.createBuffer(1, d.length, sr); b.getChannelData(0).set(d);
+  if (mallets.size > 64) mallets.delete(mallets.keys().next().value);
+  mallets.set(key, b);
+  return b;
 }
 
 // Dây đàn tranh gảy (nhạc nền dùng chung): Karplus-Strong + tiếng móng gảy, cache theo tần số

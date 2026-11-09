@@ -1,4 +1,5 @@
 // Bảng Chiêu: tab Chiêu (3 ô chiêu đang mang, chiêu đã mở và chưa mở) và tab Công pháp (3 cuốn đang mang, cấp, kinh nghiệm).
+import { skillGrade } from '../game/skill-grade.js';
 import { unlockedSkills, skillSlots, setSlot, weaponSkills } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
 import { setTechSlot, techNeed } from '../game/techniques.js';
@@ -6,6 +7,7 @@ import { statText } from '../game/items.js';
 import { manaCost } from '../game/mana.js';
 import { skillLv, levelCost, levelUp } from '../game/skill-level.js';
 import { coins } from '../game/shop.js';
+import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu bí kíp: mua nhanh
 
 const $ = id => document.getElementById(id);
 
@@ -84,11 +86,14 @@ export function createSkillsPanel(game) {
     for (const [id, at] of weaponSkills(w)) all.push({ id, from: w.name, at });
     const e = game.save.element ? data.elements[game.save.element] : null;
     if (e) e.skills.forEach((id, i) => all.push({ id, from: `Hệ ${e.name}`, at: data.elements._unlock[i] }));
-    for (const { id, from, at } of all) {
+    for (const x of data.shop.items) if (x.kind === 'skill' && data.skills[x.ref]) all.push({ id: x.ref, from: 'Vạn Bảo Lâu', buy: x.price });   // chiêu không theo hệ: chưa mua thì hiện khoá kèm giá
+    for (const { id, from, at, buy } of all) {
       const s = data.skills[id], ok = open.includes(id);
       const c = el('button', 'skill-card' + (ok ? '' : ' locked') + (lo.includes(id) ? ' using' : ''));
       c.style.borderLeftColor = s.color;
-      c.append(el('b', null, s.name), el('small', null, `${from} · hồi ${s.cd} giây · tốn ${manaCost(game, id)} linh lực${ok ? '' : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
+      const gr = skillGrade(data, id);   // phẩm chiêu (game/skill-grade.js): ghi đầu dòng, vòng màu quanh biểu tượng
+      c.dataset.gc = gr.color;
+      c.append(el('b', null, s.name), el('small', null, `${gr.name} · ${from} · hồi ${s.cd} giây · tốn ${manaCost(game, id)} linh lực${ok ? '' : buy ? ` · mua ở Vạn Bảo Lâu ${buy.toLocaleString('vi-VN')} ${data.shop.name}` : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
       c.disabled = !ok;
       if (data.art.sprites['vfx.' + id]) c.dataset.icon = 'vfx.' + id;   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
       else if (data.art.sprites['icon.' + (s.icon || s.fx)]) c.dataset.icon = 'icon.' + (s.icon || s.fx);   // s.icon: biểu tượng riêng khi fx dùng chung (thương mượn vệt chém)   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)
@@ -111,6 +116,7 @@ export function createSkillsPanel(game) {
       b.title = `Đang có ${have} ${mat}`;
       b.onclick = () => { if (levelUp(game, id)) { game.sfx('levelup'); render(); } };
       row.append(b);
+      const qb = quickBuyBtn(game, { [c.mat]: cost.book }, m => { game.toast(m, 2.4); render(); }); if (qb) row.append(qb);
     }
     return row;
   }

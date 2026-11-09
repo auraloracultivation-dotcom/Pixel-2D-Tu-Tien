@@ -76,9 +76,9 @@ export function createInbox(game) {
     const shown = items.filter(inTab);
     if (!shown.length) { list.append(el('p', 'muted', T.empty)); return; }
     for (const it of shown) {
-      const K = I.kinds[it.kind] || {}, row = el('button', `ib-row${it.read ? '' : ' new'}`);
+      const row = el('button', `ib-row${it.read ? '' : ' new'}`);
       const top = el('div', 'ib-top');
-      top.append(el('span', 'ib-icon', K.icon || '•'), el('b', 'ib-title', it.title), el('small', 'ib-ago', ago(it.t)));
+      top.append(el('i', `ib-env${it.read ? ' xem' : ''}`), el('b', 'ib-title', it.title), el('small', 'ib-ago', ago(it.t)));   // phong bì niêm / đã mở (chủ dự án 07/11/2026)
       row.append(top);
       if (it.text) row.append(el('small', 'ib-text', it.text));
       row.onclick = () => { markRead(game, it.key); paint(); if (it.go) go(it); else render(); };

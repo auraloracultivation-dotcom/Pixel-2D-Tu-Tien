@@ -1,6 +1,6 @@
 // Động phủ (data/cave.json): nguyên liệu, luyện đan, dùng đan, rèn đồ, linh điền mọc theo giờ thật.
 import { rollItem, addItem } from './items.js';
-import { totalLayer, qiNeed, weaponId } from './stats.js';
+import { totalLayer, weaponId } from './stats.js';
 import { dailyEvent } from './daily.js';
 import { caveLevel } from './evolve.js';
 import { manaMax } from './mana.js';
@@ -88,7 +88,7 @@ export function usePill(game, id) {
     const rate = qiPillRate(game), day = new Date().toDateString(), L = data.cave.qi_pill_day;
     save.qiPill = { day, n: qiPillUsed(game) + 1 };
     save.pills[id]--;
-    game.gainQi(qiNeed(save, data.realms) * u.qi * rate, p.x, p.y, false, true);   // đan linh khí không nhân đôi theo Thăng Linh Đan; đan độc giảm dần
+    game.gainQi(u.qi * rate, p.x, p.y, false, true, true);   // số linh khí cố định (data/cave.json, chủ dự án 09/11/2026); không nhân đôi theo Thăng Linh Đan; đan độc giảm dần
     game.persist();
     return rate < 1 && L?.weak ? L.weak.replace('{pct}', Math.round(rate * 100)).replace('{used}', save.qiPill.n) : 'Linh khí tràn vào kinh mạch';
   } else if (u.hp) {

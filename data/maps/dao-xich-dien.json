@@ -4,61 +4,856 @@
  "sky": "#f0b890",
  "dark": 0.12,
  "ground": "#a88a74",
- "island": {"top": "#9a8270", "under": "#6a4a3a", "trees": "#3a2a2a"},
+ "island": {
+  "top": "#9a8270",
+  "under": "#6a4a3a",
+  "trees": "#3a2a2a"
+ },
  "world": true,
- "planet": {"d": 46, "origin": [6, 10], "terrain": 1, "settle": 1, "open": 1},
+ "planet": {
+  "d": 92,
+  "origin": [
+   6,
+   10
+  ],
+  "terrain": 1,
+  "settle": 1,
+  "open": 1,
+  "grown": {
+   "s": 1.5,
+   "from": 46,
+   "note": "tools/mo-rong-dao.py 09/11/2026"
+  }
+ },
  "grid": [
-  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~aaaaaaaa,aaaaa~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~aaaaaaaaaa,aa^^aaa~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~aaRRRaaaaaaa,aaL^aaaaa~~~~~~~~~~~~",
-  "~~~~~~~~~~aaaaRRRaaaaaaa,aaLa^aaaaaa~~~~~~~~~~",
-  "~~~~~~~~~aaaRRRRaaaaaaaa,aaLaa^^aLaaa~~~~~~~~~",
-  "~~~~~~~~aaaVVRRRRRaaaaaa,a^Laaa^aLaaaa~~~~~~~~",
-  "~~~~~~~aaaaVaRRRaRaaaaaa,a^^aa^^^Laaaaa~~~~~~~",
-  "~~~~~~aaaaaaaaaRaaaaaaaa,aaaaaaaa^^aaaaa~~~~~~",
-  "~~~~~aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaa~~~~~",
-  "~~~~aaaaLaaaaaaaaaaaaaaa,aaaaaaaRaaaaaaaaa~~~~",
-  "~~~~aaaaLLaaaaaaaaaaaaaa,aaaaaaaRaaaaaaaaa~~~~",
-  "~~~aaaaaLLLaaaaaaaaaaaaa,aaaaaRRaRRaaaaaaaa~~~",
-  "~~~aaaaLRLaaaaaaaaaa###P,##aaaaRaaaaaaaaaaa~~~",
-  "~~aaaaaaLaaaaaaaaaaa#aaaaa#aaaaaRaaaaaaaaaaa~~",
-  "~~aaaaaaaaaaaaaaLLaaaaa,aaaaaaaaaaaaaaaaaaaa~~",
-  "~aaaaaaaaaaaaaaaLLaaaaa,aaaaLLLaaaaaaaaaaaaaa~",
-  "~aaaLaaaaaaaRaaaaaaRaaa,aaaaLLLaaaaaaaaaaaaaa~",
-  "~aaLLLaLLLaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaa~",
-  "~aaaLaaLRLLaaBBBaBBaaaa,aaaaaaaaaRaaaaLaaaVaa~",
-  "~aaaaaLLRLaaaBBBaBBaaaa,aaaaaaaaaaaaaLLLaaaaa~",
-  "~aaaaaaLLaaaaaaaaaaaaaa,aaaaaaaaaaaaaaLaaaaaa~",
-  "~,,,,,,,,aaaaaaaaaaaaaa,aaaaa,aaaaaaa,,,,,,,,~",
-  "~aaaaaaaaa,,,,,,,,,,,,,,,,,,,,,,aaaaaaaaaaaaa~",
-  "~aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaRaaaaaaaaaa~",
-  "~aaaaaaaaaaaaBBaaaaa,aaaaBBBaaaaaaaaaaaaaaaaa~",
-  "~aaaaaaaaaaaaBBaaaaa,aaaaBBBaaaaaaaaaaaaaaaaa~",
-  "~aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaLLLaaaaaaaaaaa~",
-  "~aaaaaaaaaaLLaaaaaaa,aaaaaaaaaaLLLaaaaaaaaaaa~",
-  "~aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaa~",
-  "~~aaaaaaaaaaaaaRaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~",
-  "~~aaaaaaaaaaaaaaaaaaaaaaaaRaaaaaaaaaaaaaaaaa~~",
-  "~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~",
-  "~~~aaLaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaa~~~",
-  "~~~~aLLaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaa~~~~",
-  "~~~~aaaaLaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaa~~~~",
-  "~~~~~aaLLLaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa~~~~~",
-  "~~~~~~aaaaaaaaaaaaaaaLL,LLLaaaaaaaaaaaaa~~~~~~",
-  "~~~~~~~aaaaaaaaaaaaaaaL,LLLBBBaVaaaaaaa~~~~~~~",
-  "~~~~~~~~aaaaaaaaaaaaaaa,LLLBBBaVaaaaaa~~~~~~~~",
-  "~~~~~~~~~aaaaaaaaaaaaaa,aLa,,,aaaaaaa~~~~~~~~~",
-  "~~~~~~~~~~aaaaaaaaaaaaa,aaa,,,aaaaaa~~~~~~~~~~",
-  "~~~~~~~~~~~~aaaaaaaaaaa,aaa,,,aaaa~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~aaaaaaaaaaaaaa,aaa~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~aaaaaaaaaaaaaa~~~~~~~~~~~~~~~~",
-  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~aaaaaa,,,,,,,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~aaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~aaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~aaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~aaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,,,aaaaaaaaa~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~aaaaaaaaaa,,,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,,aaaaaaaaaa~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~aaaaaaaaaaa,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaa~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~aaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaa~~~~~~~~~~~~",
+  "~~~~~~~~~~~aaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaaaaaaa,aaaaaaaaaaaaa~~~~~~~~~~~",
+  "~~~~~~~~~~aaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaaaa,,,,aaaaaaaaaaaaaa~~~~~~~~~~",
+  "~~~~~~~~~~aaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaaaa,aaaaaaaaaaaaaaaaa~~~~~~~~~~",
+  "~~~~~~~~~aaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaLaa,aaaaaaaaaaaaaaaaaa~~~~~~~~~",
+  "~~~~~~~~aaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaLaa,aaaaaaaaaaaaaaaaaaa~~~~~~~~",
+  "~~~~~~~~aaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaLaaaaaaaaLaa,aaaaaaaaaaaaaaaaaaa~~~~~~~~",
+  "~~~~~~~aaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLaa,aaaaaaaaaaaaaaaaaaaa~~~~~~~",
+  "~~~~~~aaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaa~~~~~~",
+  "~~~~~~aaaaaa,,,,,,,,,,,,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaa~~~~~~",
+  "~~~~~aaaaaaaaaaaaaaaaaaa,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaa~~~~~",
+  "~~~~~aaaaaaaaaaaaaaaaaaLL,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaa~~~~~",
+  "~~~~aaaaaaaaaaaaaaaaaaaLL,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaa~~~~",
+  "~~~~aaaaaaaaaaaaaaaaaaaLLL,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaa~~~~",
+  "~~~~aaaaaaaaaaaaaaaaaaaLLLLL,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaa~~~~",
+  "~~~aaaaaaaaaaaaaaaaaaaaLLLLL,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaaa~~~",
+  "~~~aaaaaaaaaaaaaaaaaaaLLaL,,,aaaaaaaaaaaaaaaaaPaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaaa~~~",
+  "~~aaaaaaaaaaaaaaaaaaaaaLLa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaaaa~~",
+  "~~aaaaaaaaaaaaaaaaaaaaaLLa,aaaaaaaaaaaaaaaaaaa,,aaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaaaa~~",
+  "~~aaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaLLLaaaaaaaa,,aaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa,aaaaaaaaaa~~",
+  "~~aaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaLLLaaaaaaaa,,,,,,aLLLLLaaaaaa,a,,,,,,,,,,,,,,,,,,aaaaaa~~",
+  "~aaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaLLLaaaaaaaaaaaa,,aLLLLLaaaaaa,,,,aaaaaaaaaaa,aaaaaaaaaaa~",
+  "~aaaaaaaaaaaaaaaaLLaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaa,,aLLLLLaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaaaaaaaaaLLLLaaLLLL,aaaaaaaaaaaaaaaaaaaaaaa,,aaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaaaaaaaaaLLLLaaLLLL,,,aaaaaaaaaaaaaaaaaaaaa,,aaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaaaaaaaaaaLLaaaLLaLLL,aaaaaaaaaaaaaaaaaaaaa,,aaaaaaaaaaaaaa,aLLaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaaaaaaaaaaaaaLLLLLLaa,aaaaaaaaaaa222222222222aaaaaaaaaaaaaa,LLLLaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaa,aaaaaaaaaaaaaLLLLaLaa,aaaaaaaaaaa222222222222aaaaaaaaaaaaaa,LLLLaaaaaaaaaaaaaaaaaaaa~",
+  "aaaaaa,aaaaaaaaaaaaaaaLLLaaa,aaaaaaaaaaa222222222222aaaaaaaaaaaaaa,aLLaaaaaaaaaaaaaaaaaaaaaa",
+  "aaaaaa,,,,,,,,,,,,,,,,111111111111111111222222222222111111111111111111aaaaaaaaaaaaaaaaaaaaaa",
+  "aaaaaaaaa,aaaaaaaaaaaa111111111111111111222222222222111111111111111111aaaaaaaaaaaaaaaaaaaaaa",
+  "aaaaaaaaa,aaaaaaaaaaaa111111111111111111222222222222111111111111111111aaaaaaaaaaaaaaaaaaaaaa",
+  "aaaaaaaaa,aaaaaaaaaaaa111111111111111111222222222222111111111111111111aaaaaaaaaaaaaaaaaaaaaa",
+  "aaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaLLLLaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaLLLaaaaaaaaaaaaa1111aaaaaaaaaaLLLLaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaLLLaaaaaaaaaaaaa1111aaaaaaaaaaLLLLaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~aaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~",
+  "~~aaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~",
+  "~~aaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~",
+  "~~aaaaa,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~",
+  "~~aaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~",
+  "~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~",
+  "~~~aaaaaaaaaaaaaaaaLaaaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~",
+  "~~~~aaaaaaaaaaaaaaaLLLaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~",
+  "~~~~aaaaaaaaaaaaaaaLLLaaaaaaaaaaaaaaaaaaaaaa1111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~",
+  "~~~~aaaaaaaaaaaaaaaaaaaLLaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~",
+  "~~~~~aaaaaaaaaaaaaaaaaLLLLaaaaaaaaaaaaaaaaaaaaa,aaaa,,,,,,,,,,,,,,,,,,,,,,,,,,,,aaaaaaa~~~~~",
+  "~~~~~aaaaaaaaaaaaaaaaaLLLLaaaaaaaaaaaaaaaaaaaaa,,,,,,,aaaaaaaaaaa,aaaaaaaaa,aa,,aaaaaaa~~~~~",
+  "~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLLaLLLLL,aaaaaaaaaaaa,aaaaaaaaa,aaaaaaaaaa~~~~~~",
+  "~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLaLLLLL,aaaaaaaaaaaa,aaaaaaaaa,aaaaaaaaaa~~~~~~",
+  "~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLaLLLLL,aaaaaaaaaaaa,aaaaaaaaa,aaaaaaaaa~~~~~~~",
+  "~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLLLL,aaaaaaaaaaaa,aaaaaaaaa,aaaaaaaa~~~~~~~~",
+  "~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLaa,aaaaaaaaaaaa,aaaaaaaaa,aaaaaaaa~~~~~~~~",
+  "~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLaa,aaaaaaaaaaaa,aaaaaaaaaaaaaaaaa~~~~~~~~~",
+  "~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaa,aaaaaaaaaaaaaaaa~~~~~~~~~~",
+  "~~~~~~~~~~aaaaaaaaaaaaaa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,aaaaaaaaaa,aaaaaaaaaaaaaaaa~~~~~~~~~~",
+  "~~~~~~~~~~~aaaaaaaaaaaaa,aaaa,aaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaa,aaaaaaaaaaaaaaa~~~~~~~~~~~",
+  "~~~~~~~~~~~~aaaaaaaaaaaa,aaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~aaaaaaaaaaa,aaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaa~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~aaaaaaaaaa,aaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaa~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~aaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaa~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~aaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaa~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~aaaaaaaaaaaa,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~aaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~aaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~aaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~aaaaaa,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~aaaaa,,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaa,,,,aaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~aaaaaa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {"vao": [11, 23], "tu-hoa-quat": [23, 15]},
- "portals": [{"at": [9, 23], "to": "thien-kiem-phong", "spawn": "tu-xich-dien", "label": "Truyền tống về Thiên Kiếm Tinh", "fly": true}, {"at": [23, 13], "to": "hoa-quat", "spawn": "vao", "need": "mo-hoa-quat", "label": "Hỏa Quật"}],
- "npcs": [{"id": "lao-thiet", "at": [16, 21]}, {"id": "a-moc", "at": [22, 25]}, {"id": "lao-than", "at": [28, 41]}],
- "spawners": [{"mob": "hoa-lang", "at": [32, 20], "n": 4, "spread": 3, "respawn": 5}, {"mob": "viem-linh", "at": [26, 29], "n": 3, "spread": 3, "respawn": 7}, {"mob": "ma-binh", "at": [28, 14], "n": 1, "spread": 1, "respawn": 12, "need": "ngu-kiem"}, {"mob": "hoa-lang", "at": [15, 35], "farm": true}, {"mob": "hoa-lang", "at": [10, 15], "farm": true}, {"mob": "hoa-lang", "at": [30, 10], "farm": true}, {"mob": "hoa-lang", "at": [35, 30], "farm": true}, {"mob": "hoa-lang", "at": [15, 40], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [3, 21], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [18, 4], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [39, 13], "farm": true, "mul": 2}, {"mob": "hoa-lang", "at": [37, 35], "farm": true, "mul": 2}],
+ "spawns": {
+  "vao": [
+   28,
+   46
+  ],
+  "tu-hoa-quat": [
+   46,
+   34
+  ]
+ },
+ "portals": [
+  {
+   "at": [
+    25,
+    46
+   ],
+   "to": "thien-kiem-phong",
+   "spawn": "tu-xich-dien",
+   "label": "Truyền tống về Thiên Kiếm Tinh",
+   "fly": true
+  },
+  {
+   "at": [
+    46,
+    31
+   ],
+   "to": "hoa-quat",
+   "spawn": "vao",
+   "need": "mo-hoa-quat",
+   "label": "Hỏa Quật"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "lao-thiet",
+   "at": [
+    36,
+    43
+   ]
+  },
+  {
+   "id": "a-moc",
+   "at": [
+    45,
+    49
+   ]
+  },
+  {
+   "id": "lao-than",
+   "at": [
+    54,
+    73
+   ]
+  }
+ ],
+ "spawners": [
+  {
+   "mob": "hoa-lang",
+   "at": [
+    83,
+    35
+   ],
+   "n": 4,
+   "spread": 4,
+   "respawn": 5
+  },
+  {
+   "mob": "viem-linh",
+   "at": [
+    65,
+    80
+   ],
+   "n": 3,
+   "spread": 4,
+   "respawn": 7
+  },
+  {
+   "mob": "ma-binh",
+   "at": [
+    66,
+    12
+   ],
+   "n": 1,
+   "spread": 2,
+   "respawn": 12,
+   "need": "ngu-kiem"
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    24,
+    78
+   ],
+   "farm": true
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    12,
+    24
+   ],
+   "farm": true
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    65,
+    11
+   ],
+   "farm": true
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    79,
+    66
+   ],
+   "farm": true
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    29,
+    81
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    6,
+    42
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    36,
+    7
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    79,
+    25
+   ],
+   "farm": true,
+   "mul": 2
+  },
+  {
+   "mob": "hoa-lang",
+   "at": [
+    75,
+    71
+   ],
+   "farm": true,
+   "mul": 2
+  }
+ ],
  "rooms": [],
- "hamlets": [[28, 41]]
+ "hoi": {
+  "do": [
+   [
+    "xd.dien-chinh-m",
+    44.7,
+    38.7
+   ],
+   [
+    "xd.dien-rong-m",
+    30.9,
+    36.7
+   ],
+   [
+    "xd.dien-nho-m",
+    62.1,
+    39.2
+   ],
+   [
+    "xd.lo-ren-m",
+    34.5,
+    54.4
+   ],
+   [
+    "xd.nha-dan-m",
+    58.6,
+    57.3
+   ],
+   [
+    "xd.thap-canh-m",
+    67.0,
+    50.6
+   ],
+   [
+    "xd.nha-hac-m",
+    26.1,
+    50.7
+   ],
+   [
+    "xd.ham-mo-m",
+    23.8,
+    59.8
+   ],
+   [
+    "xd.sap-ren-m",
+    40.1,
+    55.5
+   ],
+   [
+    "xd.sap-tinh-the-m",
+    59.7,
+    50.3
+   ],
+   [
+    "xd.sap-an-m",
+    52.1,
+    55.1
+   ],
+   [
+    "xd.xe-quang-m",
+    29.7,
+    61.0
+   ],
+   [
+    "xd.dong-than-m",
+    31.5,
+    57.9
+   ],
+   [
+    "xd.thung-hang-m",
+    63.5,
+    61.1
+   ],
+   [
+    "xd.tuong-phuong-m",
+    37.0,
+    39.9
+   ],
+   [
+    "xd.tuong-su-tu-m",
+    54.0,
+    43.1
+   ],
+   [
+    "xd.vac-lon-m",
+    38.1,
+    51.0
+   ],
+   [
+    "xd.dan-lua-m",
+    53.5,
+    51.7
+   ],
+   [
+    "xd.trong-lua-m",
+    33.2,
+    43.5
+   ],
+   [
+    "xd.chuong-lua-m",
+    57.4,
+    42.9
+   ],
+   [
+    "xd.tuong-tien-m",
+    46.3,
+    27.3
+   ],
+   [
+    "xd.ban-le-m",
+    48.8,
+    32.3
+   ],
+   [
+    "xd.den-phuong-m",
+    41.8,
+    32.2
+   ],
+   [
+    "xd.ho-dung-nham-m",
+    69.4,
+    34.2
+   ],
+   [
+    "xd.bia-nut-m",
+    21.9,
+    37.9
+   ],
+   [
+    "xd.thac-dung-nham-m",
+    78.3,
+    63.5
+   ],
+   [
+    "xd.dai-phun-m",
+    36.5,
+    86.8
+   ],
+   [
+    "xd.tuong-golem-m",
+    7.6,
+    57.8
+   ],
+   [
+    "xd.cong-phuong-m",
+    24.8,
+    12.9
+   ],
+   [
+    "xd.mieng-khoi-m",
+    64.8,
+    16.2
+   ],
+   [
+    "xd.duoc-dong-m",
+    64.3,
+    43.3
+   ],
+   [
+    "chung.bien-go",
+    27.6,
+    43.6,
+    "→ Phượng Hoàng Môn"
+   ],
+   [
+    "chung.bien-go",
+    21.1,
+    45.9,
+    "→ Bãi Hỏa lang"
+   ],
+   [
+    "xd.duoc-dong-m",
+    18.3,
+    43.6
+   ],
+   [
+    "chung.bien-go",
+    82.2,
+    65.6,
+    "Thác Dung Nham"
+   ],
+   [
+    "xd.duoc-dong-m",
+    74.6,
+    64.0
+   ],
+   [
+    "chung.bien-go",
+    40.8,
+    88.0,
+    "Hoả Tuyền"
+   ],
+   [
+    "chung.bien-go",
+    11.0,
+    58.7,
+    "Thạch Hoả Vệ"
+   ],
+   [
+    "chung.bien-go",
+    26.9,
+    15.0,
+    "Phượng Hoàng Môn"
+   ],
+   [
+    "xd.duoc-dong-m",
+    20.5,
+    13.8
+   ],
+   [
+    "chung.bien-go",
+    65.6,
+    19.3,
+    "Miệng Núi Khói"
+   ],
+   [
+    "xd.duoc-dong-m",
+    62.4,
+    17.8
+   ],
+   [
+    "xd.duoc-dong-m",
+    30.5,
+    43.9
+   ],
+   [
+    "xd.duoc-dong-m",
+    38.5,
+    43.9
+   ],
+   [
+    "xd.duoc-dong-m",
+    60.5,
+    43.9
+   ],
+   [
+    "xd.cay-den-m",
+    83.1,
+    32.5
+   ],
+   [
+    "xd.truc-do-m",
+    76.6,
+    32.4
+   ],
+   [
+    "xd.nam-lua-m",
+    83.9,
+    29.0
+   ],
+   [
+    "xd.truc-do-m",
+    43.0,
+    13.4
+   ],
+   [
+    "xd.cay-chay-m",
+    43.4,
+    17.6
+   ],
+   [
+    "xd.xuong-rong-m",
+    40.7,
+    9.8
+   ],
+   [
+    "xd.nam-lua-m",
+    38.6,
+    15.1
+   ],
+   [
+    "xd.cay-hoa-lua-m",
+    60.9,
+    78.8
+   ],
+   [
+    "xd.cay-hoa-lua-m",
+    69.4,
+    77.3
+   ],
+   [
+    "xd.xuong-rong-m",
+    63.2,
+    74.9
+   ],
+   [
+    "xd.nam-lua-m",
+    68.9,
+    74.0
+   ],
+   [
+    "xd.gai-hac-m",
+    69.5,
+    80.9
+   ],
+   [
+    "xd.cay-chay-m",
+    22.5,
+    72.1
+   ],
+   [
+    "xd.truc-do-m",
+    20.4,
+    76.1
+   ],
+   [
+    "xd.truc-do-m",
+    18.0,
+    70.7
+   ],
+   [
+    "xd.nam-lua-m",
+    16.4,
+    75.4
+   ],
+   [
+    "xd.xuong-rong-m",
+    21.1,
+    68.9
+   ],
+   [
+    "xd.da-bazan-m",
+    18.0,
+    67.6
+   ],
+   [
+    "xd.cay-den-m",
+    34.7,
+    79.2
+   ],
+   [
+    "xd.truc-do-m",
+    36.1,
+    72.8
+   ],
+   [
+    "xd.hoa-lua-m",
+    31.0,
+    72.6
+   ],
+   [
+    "xd.bui-tro-m",
+    33.9,
+    81.6
+   ],
+   [
+    "xd.gai-hac-m",
+    38.9,
+    79.6
+   ],
+   [
+    "xd.truc-do-m",
+    82.6,
+    25.6
+   ],
+   [
+    "xd.bui-tro-m",
+    76.5,
+    27.1
+   ],
+   [
+    "xd.cay-hoa-lua-m",
+    61.2,
+    8.4
+   ],
+   [
+    "xd.truc-do-m",
+    60.0,
+    12.3
+   ],
+   [
+    "xd.soi-tro-m",
+    59.6,
+    14.7
+   ],
+   [
+    "xd.gai-hac-m",
+    33.0,
+    84.7
+   ],
+   [
+    "xd.cay-den-m",
+    69.9,
+    71.0
+   ],
+   [
+    "xd.cay-than-m",
+    75.5,
+    75.8
+   ],
+   [
+    "xd.xuong-rong-m",
+    72.0,
+    73.6
+   ],
+   [
+    "xd.cay-chay-m",
+    79.2,
+    71.0
+   ],
+   [
+    "xd.cay-hoa-lua-m",
+    14.1,
+    43.0
+   ],
+   [
+    "xd.cay-chay-m",
+    13.8,
+    48.4
+   ],
+   [
+    "xd.nam-lua-m",
+    10.4,
+    42.3
+   ],
+   [
+    "xd.nam-lua-m",
+    12.2,
+    39.9
+   ],
+   [
+    "xd.xuong-rong-m",
+    12.4,
+    53.2
+   ],
+   [
+    "xd.cay-than-m",
+    84.2,
+    53.1
+   ],
+   [
+    "xd.cay-than-m",
+    85.2,
+    49.3
+   ],
+   [
+    "xd.tinh-the-lua-m",
+    81.4,
+    50.3
+   ],
+   [
+    "xd.truc-do-m",
+    69.9,
+    24.0
+   ],
+   [
+    "xd.truc-do-m",
+    74.6,
+    24.0
+   ],
+   [
+    "xd.cay-hoa-lua-m",
+    74.1,
+    19.9
+   ],
+   [
+    "xd.nam-lua-m",
+    70.1,
+    20.1
+   ],
+   [
+    "xd.nam-lua-m",
+    67.1,
+    23.3
+   ],
+   [
+    "xd.bui-chay-m",
+    73.5,
+    27.4
+   ],
+   [
+    "xd.cay-than-m",
+    81.4,
+    44.0
+   ],
+   [
+    "xd.truc-do-m",
+    77.2,
+    48.2
+   ],
+   [
+    "xd.nam-lua-m",
+    77.6,
+    45.4
+   ],
+   [
+    "xd.tinh-the-lua-m",
+    78.7,
+    51.6
+   ],
+   [
+    "xd.da-dung-nham-m",
+    71.2,
+    16.8
+   ],
+   [
+    "xd.bui-co-do-m",
+    62.5,
+    10.3
+   ],
+   [
+    "xd.hoa-lua-m",
+    7.0,
+    40.0
+   ],
+   [
+    "xd.bui-tro-m",
+    5.1,
+    47.7
+   ],
+   [
+    "xd.da-bazan-m",
+    8.6,
+    28.7
+   ],
+   [
+    "xd.bui-chay-m",
+    49.7,
+    13.4
+   ],
+   [
+    "xd.gai-hac-m",
+    62.8,
+    71.9
+   ],
+   [
+    "xd.da-dung-nham-m",
+    54.6,
+    83.4
+   ],
+   [
+    "xd.soi-tro-m",
+    50.7,
+    4.9
+   ],
+   [
+    "xd.bui-tro-m",
+    27.1,
+    18.7
+   ],
+   [
+    "xd.da-dung-nham-m",
+    38.3,
+    4.4
+   ],
+   [
+    "xd.gai-hac-m",
+    12.5,
+    27.7
+   ],
+   [
+    "xd.da-dung-nham-m",
+    14.7,
+    31.3
+   ],
+   [
+    "xd.soi-tro-m",
+    57.0,
+    7.5
+   ],
+   [
+    "xd.gai-hac-m",
+    54.6,
+    4.7
+   ],
+   [
+    "xd.bui-chay-m",
+    25.5,
+    8.9
+   ]
+  ]
+ }
 }

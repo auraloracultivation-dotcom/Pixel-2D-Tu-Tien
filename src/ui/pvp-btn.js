@@ -16,7 +16,9 @@ export function createPvpBtn(game) {
   const tag = document.createElement('button');
   tag.className = 'pvp-tag'; tag.id = 'pvp-tag'; tag.type = 'button'; tag.hidden = true;
   const nm = document.createElement('span'), ic = document.createElement('b');
-  tag.append(nm, ic);
+  const hp = document.createElement('i'), hpIn = document.createElement('u');   // thanh máu dưới tên (chủ dự án 09/11/2026 10:42)
+  hp.className = 'pvp-hp'; hp.append(hpIn);
+  tag.append(nm, ic, hp);
   document.body.append(tag);
 
   // Bảng xác nhận tắt khiên
@@ -43,15 +45,18 @@ export function createPvpBtn(game) {
     box.hidden = false; if (!game.uiOpen) game.uiOpen = 'pvp-ask';
   });
 
-  let key = '';
-  const frame = () => {
+  let key = '', tf = 0;
+  const frame = t => {
     requestAnimationFrame(frame);
+    if (t - tf < 32) return; tf = t;   // ~30 lần/giây là đủ bám nhân vật (máy nóng, 09/11/2026)
     const p = game.player, show = !!p && !!game.online && !game.trip && !!game.save && !game.dialog?.open && (!game.uiOpen || game.uiOpen === 'pvp-ask');
     if (!show) { if (!tag.hidden) tag.hidden = true; key = ''; return; }
     const off = !!game.pvp?.off, name = game.online?.me?.name || game.save.name || '', k = `${off}|${name}`;
-    if (k !== key) { key = k; nm.textContent = name; ic.textContent = off ? '⚔' : '🛡'; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }
+    if (k !== key) { key = k; nm.textContent = name; ic.textContent = ''; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }   // hình khiên bật / tắt ở pvp.css (ảnh chủ dự án 07/11/2026)
     const s = game.screen.toScreen(p.x, p.y - (p.top || 24) - (game.save.title ? 20 : 8));
     tag.hidden = false;
+    const hk = Math.max(0, Math.min(1, p.hp / (p.maxHp || 1))), hw = `${Math.round(hk * 100)}%`;
+    if (hpIn.style.width !== hw) { hpIn.style.width = hw; hpIn.style.background = hk > 0.5 ? '#e0484a' : hk > 0.25 ? '#e8823a' : '#f2c94c'; }
     tag.style.transform = `translate(${Math.round(s.x)}px, ${Math.round(s.y)}px) translate(-50%, -100%)`;
   };
   requestAnimationFrame(frame);

@@ -7,7 +7,8 @@ body #hud .hud-btns > button#btn-menu { --ico: url("assets/art/ui-ic-cai-dat.png
 body #hud .hud-btns > button#hud-dun { --ico: url("assets/art/ui-ic-bi-canh.png"); }
 body #hud .hud-btns > button#hud-event { --ico: url("assets/art/ui-ic-su-kien.png"); }
 body #hud .hud-btns > button#hud-rank { --ico: url("assets/art/ui-ic-xep-hang.png"); }
-body #hud .hud-btns > button#hud-thu { --ico: url("assets/art/ui-ic-thu.png"); }
+body #hud .hud-btns > button#hud-thu { --ico: url("assets/art/ui-k-thu-da-xem.png"); }
+body #hud .hud-btns > button#hud-thu.co { --ico: url("assets/art/ui-k-thu-moi.png"); }   /* có thư chưa đọc: phong bì niêm sáp (ảnh chủ dự án 07/11/2026) */
 body #hud .hud-btns > button#btn-bag { --ico: url("assets/art/ui-ic-tui.png"); }
 body #hud .hud-btns > button#hud-home { --ico: url("assets/art/ui-ic-dong-phu.png"); }
 body #hud .hud-btns > button#btn-rec { --ico: url("assets/art/ui-ic-quay.png"); }
@@ -75,3 +76,18 @@ body .ico.that { background-size: 80% 80%, 100% 100% !important; }   /* hình v�
 body #bag .item.stock .ico.that, body .d-head .ico.that { background-size: 100% 100%, 0 0 !important; }   /* nguyên liệu có hình: không khung, hình đầy ô */
 body .sn-item[data-nav="ca"] { --ico: url("assets/art/ui-vk-linh-ngu.png"); }
 body .sn-item[data-nav="ma-qua"] { --ico: url("assets/art/ui-ic-qua.png"); }
+
+/* Hòm thư: mỗi dòng phong bì niêm (chưa xem) / phong bì mở (đã xem) thay biểu tượng chữ (src/ui/inbox-panel.js) */
+.ib-env { flex: none; width: 26px; height: 20px; background: url("assets/art/ui-k-thu-moi.png") center / contain no-repeat; }
+.ib-env.xem { background-image: url("assets/art/ui-k-thu-da-xem.png"); }
+/* Đầu tấm chi tiết món gọn lại để tên + "Đang mặc", "Phẩm · ô · cấp" mỗi thứ một dòng (chủ dự án 07/11/2026 09:04) */
+body .d-head { gap: 6px !important; }
+body .d-head .ico { width: 32px !important; height: 32px !important; }
+body .d-head .d-close { width: 26px !important; height: 26px !important; font-size: 12px !important; padding: 0 !important; }
+/* Lưới rèn luyện 2 cột (chủ dự án 07/11/2026 10:52): Tháo / Mặc, Khoá, Cường hoá, Tẩy luyện, Đổi hệ, Phân giải, Bán; tên việc
+   một dòng, chi tiết chữ nhỏ bên dưới (src/ui/bag-detail.js) */
+body .d-acts.d-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 6px; }
+body .d-acts.d-grid .act-btn { min-width: 0; width: 100%; margin: 0; padding: 6px 5px !important; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 46px; font-size: 12px !important; line-height: 1.2; text-align: center; }
+body .d-acts.d-grid .act-btn b { font-size: 12px; font-weight: 700; }
+body .d-acts.d-grid .act-btn small { font-size: 9px; opacity: .8; line-height: 1.25; }
+.d-forge { margin-top: 8px; }

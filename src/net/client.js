@@ -1,10 +1,11 @@
-// Khởi tạo Supabase (dự án riêng Pixel2DTuTien). Khoá publishable được phép công khai;
+// Khởi tạo Supabase (dự án riêng Pixel2DTuTien; 08/11/2026 chuyển sang dự án mới idlzqbpszxexcxhhamzm,
+// vì tài khoản cũ đăng nhập bằng GitHub bị khoá). Khoá publishable được phép công khai;
 // quyền thật do RLS + RPC ở máy chủ quyết định.
 // Khoá đúng phiên bản (trước đây @2 tự nhảy bản mới, lỡ bản mới lỗi là hỏng đăng nhập mà code không đổi gì)
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm';
 
-export const SUPABASE_URL = 'https://idiiyxcfzugrehifhhjx.supabase.co';
-export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_FD5ghLVsNfp3-d69NXlz3w_bvOotHYk';
+export const SUPABASE_URL = 'https://idlzqbpszxexcxhhamzm.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Sv6fxGfRtmDOiVHK5VieEg_GsaFriNL';
 
 // Mã đăng nhập hết hạn mà máy chưa tự làm mới (đồng hồ máy chạy chậm, máy ngủ dậy): máy chủ trả 401 cho mọi lời gọi,
 // game mất lưu cả chục phút (log 31/10/2026: một máy Android 88 lần 401 trong 14 phút, 17 lần lưu hỏng).

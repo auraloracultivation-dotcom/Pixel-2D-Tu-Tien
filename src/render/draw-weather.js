@@ -1,11 +1,13 @@
 // Hạt thời tiết vẽ trên màn hình: cánh hoa, tuyết, lá, tro, bụi, mưa, đom đóm ban đêm. Vị trí hạt tính từ thời gian, không lưu trạng thái.
 import { weatherOf } from '../game/weather.js';
 import { hourNow, outdoor } from '../game/daynight.js';
+import { drawMotes } from './draw-motes.js';
 
 const SEED = Array.from({ length: 80 }, (_, i) => ({ x: Math.abs(Math.sin(i * 91.7) * 1e4) % 1, y: Math.abs(Math.sin(i * 47.3) * 1e4) % 1, k: 0.6 + (i % 5) * 0.12 }));
 
 export function drawWeather(ctx, game, screen, t) {
   drawMist(ctx, game, screen, t);
+  drawMotes(ctx, game, screen, t);   // đốm linh khí li ti (mọi bản đồ, cả trong hầm)
   const w = weatherOf(game);
   if (!w) return;
   const cfg = game.data.weather, k = cfg.kinds[w.kind], W = screen.w, H = screen.h, z = screen.zoom;

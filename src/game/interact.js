@@ -22,6 +22,7 @@ import { nearBeCa, talkBeCa } from './be-ca.js';
 function nearestNpc(game, range) {
   let best = null, bd = range;
   for (const n of game.npcs) { const d = dist(n, game.player); if (d < bd) { bd = d; best = n; } }
+  for (const n of game.khach || []) if (n.ban) { const d = dist(n, game.player); if (d < bd) { bd = d; best = n; } }   // người bán ở sạp phố hội (hoi-khach.js)
   return best;
 }
 
@@ -43,6 +44,7 @@ function nearStation(game) {
 
 // Nói chuyện với một NPC: truyện trước, rồi các việc riêng của NPC đó (tự hành gọi thẳng hàm này)
 export function talkTo(game, npc) {
+  if (npc.ban) { talkStall(game, npc); return; }
   if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
@@ -55,6 +57,14 @@ export function talkTo(game, npc) {
   if (npc.home || npc.visit) { talkHome(game, npc); return; }
   if (canInvite(game, npc.id)) { talkCompanion(game, npc); return; }
   if (goodsOf(game.data, npc.id)) { talkGoods(game, npc); return; }   // mỗi NPC một món riêng (thay linh thực, data/shop.json → npc_goods)
+  const lines = npc.def.lines;
+  game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
+}
+
+// Người bán ở sạp phố hội: chỉ bán hàng (món riêng của người đó, Chủ Chợ Phiên mở chợ), không dính truyện
+function talkStall(game, npc) {
+  if (npc.id === game.data.market.npc) { game.openMarket?.(); return; }
+  if (goodsOf(game.data, npc.id)) { talkGoods(game, npc); return; }
   const lines = npc.def.lines;
   game.dialog.say([[npc.def.name, lines[Math.floor(Math.random() * lines.length)]]]);
 }

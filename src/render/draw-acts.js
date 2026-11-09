@@ -1,6 +1,6 @@
 // Hình 6 khung theo động tác (ảnh Canva, tools/art/ai_sprites.py "acts"): 0 đứng, 1–2 bước đi, 3 lấy đà, 4 đánh, 5 ngã.
 // Linh thú, thú cưỡi, bạn đồng hành dùng chung. Hình gốc nhìn phải, quay trái lật gương.
-import { spriteImage } from './sprites.js';
+import { spriteImage, drawShadowFrame } from './sprites.js';
 
 export const ACT = { idle: 0, walk: [1, 2], wind: 3, hit: 4, down: 5, skill: 6 };   // khung 6 (nếu có): tung chiêu riêng
 const SKILL = 0.45;   // giây giữ khung tung chiêu
@@ -32,6 +32,7 @@ export function drawAct(ctx, art, id, f, x, y, dir, bob = 0) {
   if (!im || f == null || spr.frames < 6) return false;
   const d = Math.abs(ctx.getTransform().d) || 1, k = spr.px || Math.max(1, Math.round(UNIT_PER_PX * d)) / d;   // spr.px: hình chi tiết hơn, giữ đúng cỡ cũ (thu nhỏ có làm mịn)
   ctx.save(); ctx.translate(Math.round(x), Math.round(y - bob)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = !!spr.px && spr.px * d < 0.98;
+  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
   return true;

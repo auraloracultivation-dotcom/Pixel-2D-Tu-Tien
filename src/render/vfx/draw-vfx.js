@@ -2,6 +2,7 @@
 // 05/11/2026, docs/02-CHUAN-PIXEL.md). Mọi hình vẽ mượt (không điểm ảnh); mỗi hình chiêu có quầng màu mờ dần và lõi trắng sáng ở
 // giữa. Trạng thái ở game.vfx (src/game/vfx.js), công thức data/vfx.json. Thứ tự: pháp trận, vùng chiêu → khiên, hào quang →
 // đạn (bóng mờ, quầng, hình, lõi) → nổ, sét, núi rơi… → hạt.
+import { drawJuiceWorld, drawJuiceScreen } from '../draw-juice.js';
 import { vfxOf } from '../../game/vfx.js';
 import { glow, core, vimg, groundCircle, ease, back } from './glow.js';
 import { spriteImage } from '../sprites.js';
@@ -176,4 +177,6 @@ export function drawVfx(ctx, game, t) {
   for (const f of fxs) if (f.k !== 'circle' && f.k !== 'ground') drawFx(ctx, game, art, C, t, f);
   if (S?.parts.length) drawParts(ctx, art, S.parts);
   ctx.restore();
+  drawJuiceWorld(ctx, game, t);   // cảm giác đánh: tia toả, vụn, khói vòng, đốm linh khí (src/render/draw-juice.js)
+  if (game.screen) { game.screen.screenTransform(); drawJuiceScreen(ctx, game, game.screen, t); game.screen.worldTransform(); }
 }

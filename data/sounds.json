@@ -46,280 +46,16 @@
     }
    ]
   },
-  "chime": {
-   "v": 0.34,
-   "rev": 0.4,
-   "L": [
-    {
-     "k": "fm",
-     "f": 1318.5,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0,
-     "d": 1.1,
-     "v": 0.8,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 1975.5,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.06,
-     "d": 0.8,
-     "v": 0.4,
-     "a": 0.002
-    }
-   ]
-  },
-  "pickup": {
-   "v": 0.28,
-   "jit": 1,
-   "gap": 0.05,
-   "rev": 0.18,
-   "L": [
-    {
-     "k": "fm",
-     "f": 1568,
-     "r": 2,
-     "i": 1.2,
-     "t": 0,
-     "d": 0.25,
-     "v": 0.7,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 2093,
-     "r": 2,
-     "i": 1.2,
-     "t": 0.06,
-     "d": 0.32,
-     "v": 0.6,
-     "a": 0.002
-    }
-   ]
-  },
-  "rare": {
-   "v": 0.45,
-   "rev": 0.45,
-   "L": [
-    {
-     "k": "fm",
-     "f": 1174.66,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.0,
-     "d": 0.7,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 1396.9,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.07,
-     "d": 0.7,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 1760,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.14,
-     "d": 0.7,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 2349.3,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.21000000000000002,
-     "d": 0.7,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "noise",
-     "hp": 6000,
-     "a": 0.1,
-     "d": 0.6,
-     "v": 0.15
-    }
-   ]
-  },
-  "levelup": {
-   "v": 0.5,
-   "rev": 0.35,
-   "L": [
-    {
-     "k": "pluck",
-     "f": 523.25,
-     "t": 0.0,
-     "d": 1.1,
-     "v": 0.8,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 659.25,
-     "t": 0.07,
-     "d": 1.1,
-     "v": 0.8,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 783.99,
-     "t": 0.14,
-     "d": 1.1,
-     "v": 0.8,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 1046.5,
-     "t": 0.21000000000000002,
-     "d": 1.1,
-     "v": 0.8,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "fm",
-     "f": 2093,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.28,
-     "d": 0.9,
-     "v": 0.35,
-     "a": 0.002
-    }
-   ]
-  },
-  "layer_up": {
-   "v": 0.6,
-   "rev": 0.5,
-   "L": [
-    {
-     "k": "pluck",
-     "f": 392,
-     "t": 0.0,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 440,
-     "t": 0.035,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 523.25,
-     "t": 0.07,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 587.33,
-     "t": 0.10500000000000001,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 659.25,
-     "t": 0.14,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 783.99,
-     "t": 0.17500000000000002,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 880,
-     "t": 0.21000000000000002,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 1046.5,
-     "t": 0.24500000000000002,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 1174.66,
-     "t": 0.28,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "pluck",
-     "f": 1567.98,
-     "t": 0.31500000000000006,
-     "d": 1.2,
-     "v": 0.7,
-     "damp": 0.35,
-     "br": 0.75
-    },
-    {
-     "k": "fm",
-     "f": 1568,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.38,
-     "d": 1.2,
-     "v": 0.45,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 110,
-     "r": 1.41,
-     "i": 4,
-     "d": 2.2,
-     "v": 0.6,
-     "c": 1.6
-    }
-   ]
-  },
+  "combo": {"_note": "Mốc Liên Kích: ba nốt mộc cầm vút lên", "v": 0.4, "rev": 0.35, "L": [{"k": "mallet", "f": 783.99, "t": 0, "d": 0.7, "v": 0.7}, {"k": "mallet", "f": 1046.5, "t": 0.05, "d": 0.7, "v": 0.7}, {"k": "mallet", "f": 1318.5, "t": 0.1, "d": 0.9, "v": 0.7}]},
+  "rage": {"v": 0.8, "rev": 0.45, "L": [{"k": "osc", "f": 90, "f2": 40, "d": 0.7, "v": 1, "c": 1.8}, {"k": "noise", "lp": 900, "lp2": 200, "d": 0.5, "v": 0.6}, {"k": "fm", "f": 98, "r": 1.41, "i": 5, "i2": 0.5, "t": 0.05, "d": 1.8, "v": 0.5, "c": 1.5}, {"k": "osc", "w": "saw", "f": 110, "f2": 220, "lp": 500, "lp2": 2400, "dist": 2, "a": 0.05, "d": 0.6, "v": 0.25}, {"k": "noise", "hp": 3000, "hp2": 8000, "a": 0.15, "d": 0.7, "v": 0.15}]},
+  "impact": {"_note": "Tiếng nện trầm lồng dưới tiếng chiêu vùng khi nổ (src/game/combat.js impactShake, 08/11/2026)", "v": 0.5, "gap": 0.08, "jit": 1, "rev": 0.3, "L": [{"k": "osc", "w": "sine", "f": 92, "f2": 34, "d": 0.55, "v": 1, "c": 1.6}, {"k": "noise", "lp": 900, "lp2": 120, "a": 0.004, "d": 0.5, "v": 0.7, "c": 2}, {"k": "noise", "bp": 2600, "d": 0.06, "v": 0.3}]},
+  "sparkle": {"_note": "Hạ quái hiếm: chuỗi mộc cầm cao rơi lấp lánh (config.feel.kill.rare.sfx)", "v": 0.32, "rev": 0.55, "L": [{"k": "mallet", "f": 2093, "t": 0, "d": 0.6, "v": 0.6}, {"k": "mallet", "f": 1568, "t": 0.06, "d": 0.6, "v": 0.6}, {"k": "mallet", "f": 1318.5, "t": 0.12, "d": 0.7, "v": 0.6}, {"k": "mallet", "f": 1046.5, "t": 0.18, "d": 0.9, "v": 0.7}]},
+  "boss_down": {"_note": "Hạ trùm: nện trầm dài, chiêng, chuông ngọc ngân (config.feel.kill.boss.sfx)", "v": 0.7, "rev": 0.5, "L": [{"k": "osc", "w": "sine", "f": 75, "f2": 28, "d": 1.4, "v": 1, "c": 1.4}, {"k": "noise", "lp": 1400, "lp2": 90, "a": 0.005, "d": 1.5, "v": 0.8, "c": 1.8}, {"k": "fm", "f": 110, "r": 1.41, "i": 4, "i2": 0.4, "d": 2.6, "v": 0.55, "c": 1.4}, {"k": "fm", "f": 1568, "r": 3.5, "i": 1.5, "t": 0.3, "d": 1.4, "v": 0.3, "a": 0.002}, {"k": "fm", "f": 2093, "r": 3.5, "i": 1.5, "t": 0.42, "d": 1.4, "v": 0.25, "a": 0.002}, {"k": "fm", "f": 2637, "r": 3.5, "i": 1.5, "t": 0.54, "d": 1.6, "v": 0.22, "a": 0.002}]},
+  "chime": {"v": 0.34, "rev": 0.45, "L": [{"k": "mallet", "f": 659.25, "t": 0, "d": 1.2, "v": 0.7}, {"k": "mallet", "f": 987.77, "t": 0.06, "d": 1.0, "v": 0.5}]},
+  "pickup": {"_note": "Nhặt đồ: hai nốt mộc cầm (cùng tiếng nhạc nền)", "v": 0.28, "jit": 0.5, "gap": 0.05, "rev": 0.25, "L": [{"k": "mallet", "f": 784, "t": 0, "d": 0.5, "v": 0.7}, {"k": "mallet", "f": 1046.5, "t": 0.07, "d": 0.6, "v": 0.6}]},
+  "rare": {"v": 0.45, "rev": 0.45, "L": [{"k": "mallet", "f": 587.33, "t": 0, "d": 0.8, "v": 0.7}, {"k": "mallet", "f": 698.46, "t": 0.07, "d": 0.8, "v": 0.7}, {"k": "mallet", "f": 880, "t": 0.14, "d": 0.8, "v": 0.7}, {"k": "mallet", "f": 1174.66, "t": 0.21, "d": 1.2, "v": 0.7}]},
+  "levelup": {"_note": "Thành công, lên cấp: mộc cầm rải hợp âm trưởng đi lên", "v": 0.45, "rev": 0.4, "L": [{"k": "mallet", "f": 523.25, "t": 0, "d": 1.2, "v": 0.7}, {"k": "mallet", "f": 659.25, "t": 0.07, "d": 1.2, "v": 0.7}, {"k": "mallet", "f": 783.99, "t": 0.14, "d": 1.2, "v": 0.7}, {"k": "mallet", "f": 1046.5, "t": 0.21, "d": 1.4, "v": 0.7}]},
+  "layer_up": {"_note": "Lên tầng: mộc cầm rải nhanh, trầm ấm", "v": 0.55, "rev": 0.5, "L": [{"k": "mallet", "f": 392, "t": 0, "d": 1.4, "v": 0.7}, {"k": "mallet", "f": 523.25, "t": 0.05, "d": 1.4, "v": 0.7}, {"k": "mallet", "f": 659.25, "t": 0.1, "d": 1.4, "v": 0.7}, {"k": "mallet", "f": 783.99, "t": 0.15, "d": 1.6, "v": 0.7}, {"k": "osc", "f": 98, "d": 1, "v": 0.3}]},
   "breakthrough": {
    "v": 0.85,
    "rev": 0.6,
@@ -389,143 +125,10 @@
     }
    ]
   },
-  "achieve": {
-   "v": 0.45,
-   "rev": 0.35,
-   "L": [
-    {
-     "k": "osc",
-     "w": "pulse",
-     "f": 784,
-     "t": 0,
-     "d": 0.12,
-     "v": 0.5,
-     "lp": 3000,
-     "c": 1.8
-    },
-    {
-     "k": "osc",
-     "w": "pulse",
-     "f": 988,
-     "t": 0.1,
-     "d": 0.12,
-     "v": 0.5,
-     "lp": 3000,
-     "c": 1.8
-    },
-    {
-     "k": "osc",
-     "w": "pulse",
-     "f": 1175,
-     "t": 0.2,
-     "d": 0.12,
-     "v": 0.5,
-     "lp": 3000,
-     "c": 1.8
-    },
-    {
-     "k": "osc",
-     "w": "pulse",
-     "f": 1568,
-     "t": 0.3,
-     "d": 0.6,
-     "v": 0.5,
-     "lp": 3000,
-     "c": 1.8
-    },
-    {
-     "k": "fm",
-     "f": 3136,
-     "r": 3.5,
-     "i": 1.6,
-     "t": 0.3,
-     "d": 0.8,
-     "v": 0.3,
-     "a": 0.002
-    }
-   ]
-  },
-  "swing": {
-   "v": 0.3,
-   "jit": 2,
-   "gap": 0.03,
-   "rev": 0.05,
-   "L": [
-    {
-     "k": "noise",
-     "bp": 1200,
-     "bp2": 3600,
-     "bq": 1.5,
-     "a": 0.02,
-     "d": 0.15,
-     "v": 1,
-     "c": 2
-    },
-    {
-     "k": "noise",
-     "hp": 5000,
-     "d": 0.06,
-     "v": 0.25
-    }
-   ]
-  },
-  "hit": {
-   "v": 0.4,
-   "jit": 1.5,
-   "gap": 0.03,
-   "L": [
-    {
-     "k": "osc",
-     "f": 160,
-     "f2": 60,
-     "d": 0.09,
-     "v": 1,
-     "c": 2
-    },
-    {
-     "k": "noise",
-     "lp": 2200,
-     "lp2": 600,
-     "d": 0.07,
-     "v": 0.7
-    },
-    {
-     "k": "noise",
-     "hp": 3000,
-     "d": 0.015,
-     "v": 0.4
-    }
-   ]
-  },
-  "crit": {
-   "v": 0.55,
-   "jit": 0.8,
-   "gap": 0.04,
-   "rev": 0.2,
-   "L": [
-    {
-     "k": "fm",
-     "f": 1760,
-     "r": 3.01,
-     "i": 3,
-     "d": 0.38,
-     "v": 0.6
-    },
-    {
-     "k": "osc",
-     "f": 120,
-     "f2": 45,
-     "d": 0.16,
-     "v": 1
-    },
-    {
-     "k": "noise",
-     "bp": 4000,
-     "d": 0.05,
-     "v": 0.5
-    }
-   ]
-  },
+  "achieve": {"v": 0.45, "rev": 0.35, "L": [{"k": "mallet", "f": 783.99, "t": 0, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 987.77, "t": 0.1, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 1174.66, "t": 0.2, "d": 0.6, "v": 0.7}, {"k": "mallet", "f": 1568, "t": 0.3, "d": 1.2, "v": 0.7}]},
+  "swing": {"_note": "Vung kiếm (09/11/2026 09:12 chủ dự án: chói tai): gió vút trầm hơn, bỏ tiếng xì cao", "v": 0.22, "jit": 2, "gap": 0.05, "rev": 0.05, "L": [{"k": "noise", "bp": 600, "bp2": 1800, "bq": 1.3, "a": 0.02, "d": 0.14, "v": 1, "c": 2}]},
+  "hit": {"_note": "Đòn trúng (09/11/2026 01:28 chủ dự án chê ting ting): tiếng xoẹt lưỡi chém quét từ cao xuống + tiếng thịch trầm, không có cao độ", "v": 0.24, "jit": 1.5, "gap": 0.05, "L": [{"k": "noise", "bp": 1800, "bp2": 500, "bq": 1.2, "a": 0.003, "d": 0.09, "v": 1, "c": 2}, {"k": "osc", "f": 150, "f2": 55, "d": 0.12, "v": 0.9, "c": 2}, {"k": "noise", "lp": 1200, "d": 0.05, "v": 0.5}]},
+  "crit": {"_note": "Chí mạng: xoẹt dài hơn, nện trầm sâu, tiếng nứt chát, răng cưa méo cho gắt (bỏ chuông 1760 Hz)", "v": 0.42, "jit": 0.8, "gap": 0.06, "rev": 0.2, "L": [{"k": "noise", "bp": 2400, "bp2": 700, "bq": 1, "a": 0.003, "d": 0.14, "v": 1, "c": 1.8}, {"k": "osc", "f": 110, "f2": 38, "d": 0.26, "v": 1, "c": 1.6}, {"k": "noise", "hp": 3000, "d": 0.025, "v": 0.25}, {"k": "osc", "w": "saw", "f": 220, "f2": 80, "lp": 900, "dist": 2, "d": 0.12, "v": 0.3}]},
   "hurt": {
    "v": 0.42,
    "gap": 0.1,
@@ -1212,59 +815,7 @@
     }
    ]
   },
-  "heal": {
-   "v": 0.45,
-   "rev": 0.5,
-   "L": [
-    {
-     "k": "fm",
-     "f": 1046.5,
-     "r": 3.5,
-     "i": 1.5,
-     "t": 0,
-     "d": 0.8,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 1318.5,
-     "r": 3.5,
-     "i": 1.5,
-     "t": 0.08,
-     "d": 0.8,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 1568,
-     "r": 3.5,
-     "i": 1.5,
-     "t": 0.16,
-     "d": 0.8,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "fm",
-     "f": 2093,
-     "r": 3.5,
-     "i": 1.5,
-     "t": 0.26,
-     "d": 0.8,
-     "v": 0.6,
-     "a": 0.002
-    },
-    {
-     "k": "osc",
-     "f": 523.25,
-     "a": 0.2,
-     "d": 1.0,
-     "v": 0.2
-    }
-   ]
-  },
+  "heal": {"v": 0.45, "rev": 0.5, "L": [{"k": "mallet", "f": 523.25, "t": 0, "d": 1.0, "v": 0.6}, {"k": "mallet", "f": 659.25, "t": 0.08, "d": 1.0, "v": 0.6}, {"k": "mallet", "f": 783.99, "t": 0.16, "d": 1.2, "v": 0.6}, {"k": "noise", "hp": 5000, "a": 0.2, "d": 0.6, "v": 0.06}]},
   "shield": {
    "v": 0.42,
    "rev": 0.45,
@@ -1678,6 +1229,8 @@
    9
   ],
   "zither": 0.16,
+  "arp": {"_note": "Nhạc nền rải hợp âm bằng mộc cầm (src/core/music-arp.js; chủ dự án 09/11/2026 01:28 gửi clip mẫu, chê đàn tranh lác đác, tiếng ting ting chán). on: bật (tắt thì về đàn tranh cũ). tempo: nhân nhịp từng đảo (khúc trùm giữ nhịp). low: nốt chủ đảo thấp hơn mức này (Hz) thì lên một quãng tám. v: âm lượng mỗi nốt, night: nhân khi đêm. swing: lệch ngẫu nhiên tối đa (giây) cho đỡ máy móc. bass: dây trầm mỗi ô nhịp. pad: nền dây ngân (v, lp lọc thấp Hz) vào từ ô nhịp pad_from. prog: bậc hợp âm theo ô nhịp (thứ: i – VI – III – VII; trưởng: I – V – vi – IV). shapes: 8 nốt rải mỗi ô nhịp, bậc tính từ nốt chủ hợp âm (0 chủ, 2 ba, 4 năm, 7 quãng tám…), đổi hình sau mỗi vòng hợp âm, null là nghỉ. 09/11/2026 09:12 chủ dự án: nghe 1 phút đầu ong ong, chỉ cần tiếng nước chảy và \"bing bong\" có nhịp như gõ ly thuỷ tinh đựng nước → voice glass, nhịp 96 thưa nốt, bỏ nền dây (pad.v 0), bass nhỏ, vọng ngắn, bọt nước trầm và hiếm, stream: tiếng suối nền (v, bands: [tần số, Q, nhịp trôi Hz, phần]). 08:48 chủ dự án chọn bản 5 \"Mưa đêm lấp lánh\" trong 5 bản thử (nhịp 120, nốt cao trong, nền ngân từ ô nhịp đầu, vọng dài). 01:39 (clip \"có cảm giác nước và bong bóng\"): voice kiểu nốt (bubble: bọt nước, mallet: mộc cầm), bpm: nhịp chung mọi đảo như clip (~144, bỏ thì theo tempo × nhịp đảo), echo: tiếng vọng nảy hai bên (t giây, fb phần hồi, lp lọc, wet), bubbles: mỗi phách xác suất p có bọt nước nổi (v âm lượng).", "on": true, "voice": "glass", "bpm": 96, "tempo": 1.5, "low": 260, "v": 0.12, "echo": {"t": 0.4688, "fb": 0.28, "lp": 1800, "wet": 0.22}, "bubbles": {"p": 0.06, "v": 0.018, "f": 180, "up": 1.6}, "stream": {"v": 0.03, "bands": [[700, 0.7, 0.13, 1], [1600, 1.2, 0.21, 0.45], [350, 0.6, 0.08, 0.8]]}, "night": 0.7, "swing": 0.012, "bass": 0.04, "pad": {"v": 0, "lp": 1100}, "pad_from": 1, "prog": {"toi": [0, 5, 2, 6], "sang": [0, 4, 5, 3]}, "shapes": [[0, null, 4, null, 7, null, 4, null], [2, null, 4, 7, null, 4, null, null], [0, null, 7, null, 4, null, 2, null], [4, null, 7, null, 9, null, 7, null]]},
+  "note_gap": 0.06,
   "flute": 0.09,
   "drone": 0.05,
   "reverb": {
@@ -1705,7 +1258,7 @@
    },
    "boss": {
     "root": 146.83,
-    "bpm": 104,
+    "bpm": 140,
     "lead": "tranh",
     "amb": [],
     "mood": "toi",
@@ -1991,7 +1544,21 @@
   },
   "bass": 0.12,
   "erhu": 0.045,
-  "erhu_p": 0.4
+  "erhu_p": 0.4,
+  "tran": {
+   "_note": "Lớp nhạc trận ở khúc trùm (src/core/music-tran.js, chủ dự án 08/11/2026 16:27 theo video tham khảo: ~140 nhịp, Rê thứ, bass dày, ngân rồi thả). Chạy khi mức đánh ≥ on (khúc trùm luôn ≥ combat.boss). vol: âm lượng cả lớp, wet: phần gửi vào vang. kick: trống đạp (f → f2 Hz trong sweep giây, click: tiếng cộp đầu búa cho loa điện thoại). snare: trống con phách 2, 4 (f: dải nhiễu, tone: thân trống). hat: xèng nửa phách (hp: lọc cao). chords: hợp âm từng ô nhịp, nửa cung so với nốt chủ (Rê: Rê – Si giáng – Đô – La). bass: mẫu 2 nốt mỗi phách (nửa cung so với hợp âm, null = nghỉ), lp: lọc, q: cộng hưởng. pad: nền ngân hợp âm. drop: mỗi every phách là một đoạn; rise phách cuối nhiễu vút lên, bass nghỉ, dồn trống; phách đầu đoạn sau nện mạnh (crash).",
+   "on": 0.5,
+   "vol": 0.55,
+   "wet": 0.25,
+   "kick": {"f": 120, "f2": 44, "sweep": 0.09, "d": 0.34, "v": 0.9, "click": 900},
+   "snare": {"f": 1900, "tone": 190, "d": 0.14, "v": 0.32},
+   "hat": {"v": 0.07, "hp": 7500},
+   "chords": [0, -4, -2, -5],
+   "bass": {"v": 0.16, "lp": 420, "q": 4, "pat": [0, 0, 12, 0, 0, 7, 0, 10]},
+   "pad": {"v": 0.05, "lp": 1800},
+   "drop": {"every": 16, "rise": 4, "v": 0.09, "crash": 0.12},
+   "lite": {"_note": "Đảo thường khi đánh đông quái (mức đánh ≥ on): trống đạp phách 1, 3, xèng nửa phách, cứ 16 phách dồn trống con; v âm lượng.", "on": 0.65, "v": 0.6}
+  }
  },
  "by_fx": {
   "fire": [

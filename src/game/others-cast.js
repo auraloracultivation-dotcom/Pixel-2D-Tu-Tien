@@ -6,6 +6,8 @@
 import { addFx, shoot } from './combat.js';
 import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 import { vfxOf, vfxCast } from './vfx.js';
+import { openDomain } from './skill-domain.js';
+import { seeCharge } from './skill-charge.js';
 
 const clamp = (v, lo, hi) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : null);
 
@@ -45,6 +47,17 @@ export function castFx(game, o, c, bounds) {
     case 'heal': case 'shield': case 'buff':
       if (V) vfxCast(game, c.k, s, o);   // aura, khiên bám theo người đó
       else { addFx(game, { type: 'ring', x: o.x, y: o.y, r: s.type === 'heal' ? 18 : 14, color: s.color, life: 0.5 }); if (s.fx) selfFx(game, s.fx, o); }
+      break;
+    case 'thunder':   // Thiên Phạt: tụ lực rồi sét toả theo quái máy mình (chỉ hình)
+    case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi quạt sáng theo hướng họ nhìn lúc ra chiêu (chỉ hình)
+      seeCharge(game, o, s, Math.atan2(fy, fx));
+      break;
+    case 'domain':   // Vô Ảnh Trảm Vực: chỉ vẽ lĩnh vực và nhát chém (không gây sát thương)
+      openDomain(game, o, s, x, y, s.color, () => game.mobs, null);   // o: để người đó mờ dần, biến mất như máy họ
+      break;
+    case 'chain':   // Thiểm Ảnh: người đó lướt theo vị trí máy chủ báo, bóng lướt và vệt sáng vẽ theo đường đi (render/draw-chain.js)
+      o.chainT = game.time + Math.min(s.dur || 2, 3); o.chainColor = s.color;
+      addFx(game, { type: 'puff', x, y, r: 10, color: s.color, life: 0.35 });
       break;
     case 'dash':
       if (V) vfxCast(game, c.k, s, who, { sx: x, sy: y });

@@ -15,7 +15,9 @@ export function buildMap(def, tiles, T, data = null) {
   const g = def.grid.map(r => r.padEnd(w, '~'));
   const map = { id: def.id, def, w, h: g.length, g, T, locked: new Set() };
   map.hoi = data ? hoiItems(def, data, T) : [];
-  const hc = hoiCells(map.hoi, T);
+  let hc = hoiCells(map.hoi, T);
+  // Bày cảnh (src/ui/bay-canh.js, chủ dự án 09/11/2026): thay cả danh sách đồ của bản đồ, tính lại chỗ chắn
+  map.setHoi = items => { def.hoi = { ...(def.hoi || {}), do: items }; map.hoi = data ? hoiItems(def, data, T) : []; hc = hoiCells(map.hoi, T); };
   const disc = discOf(def, T);
   const rimOut = (tx, ty) => disc && ((tx + 0.5) * T - disc.cx) ** 2 + ((ty + 0.5) * T - disc.cy) ** 2 > disc.edge * disc.edge;
 

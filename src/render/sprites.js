@@ -26,6 +26,22 @@ export function tintedImage(spr, im, color) {
   return tints[key];
 }
 
+// Bóng đổ theo dáng hình (chủ dự án 09/11/2026 15:10, mẫu game Sheepdog): khung f tô một màu, nằm xuống đất từ chân, ép dẹt
+// (squash: dài bóng / cao hình), xiên sang trái theo độ cao (skew), mờ alpha. Gọi khi ctx đặt chân hình ở gốc toạ độ (ngay trước
+// drawImage(-anchor)); hình lật ngang thì bóng vẫn xiên cùng một phía. Số ở data/config.json → shadow (setShadow mỗi khung).
+let SH = null;
+export const setShadow = s => { SH = s; };
+export function drawShadowFrame(ctx, spr, im, f) {
+  if (!SH || !im) return;
+  const m = ctx.getTransform();
+  if (!m.a) return;
+  ctx.save();
+  ctx.transform(1, 0, SH.skew * Math.abs(m.d) / m.a, -SH.squash, 0, 0);
+  ctx.globalAlpha *= SH.alpha; ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(tintedImage(spr, im, SH.color), (f || 0) * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  ctx.restore();
+}
+
 // Vẽ khung f của hình kèm hiệu ứng trúng đòn: nửa đầu chớp trắng hẳn, nửa sau ám đỏ mờ dần (docs/02).
 // hit: 0 là không trúng, 1 là vừa trúng.
 export function drawHitFrame(ctx, spr, im, f, hit) {

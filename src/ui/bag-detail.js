@@ -1,6 +1,6 @@
 // Tấm chi tiết món đồ trong Túi đồ: trượt lên từ đáy túi khi chạm một món, nên không phải cuộn xuống cuối túi.
-// Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → so với món đang mặc
-// cùng ô → chỉ số, dòng phụ, ngọc → việc khác (cường hoá, luyện, tẩy luyện, phân giải, bán).
+// Thứ tự từ trên xuống: tên + ô + cấp → nút chính (Mặc / Thay / Tháo) và lực chiến đổi bao nhiêu → rèn luyện (khoá, cường hoá,
+// luyện, tẩy luyện, đổi hệ, phân giải, bán) → so với món đang mặc cùng ô → chỉ số, dòng phụ, ngọc (khảm).
 import {
   equip, unequip, salvage, rerollFee, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
 } from '../game/items.js';
@@ -14,6 +14,7 @@ import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã �
 import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
+import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu nguyên liệu: mua nhanh phần thiếu
 import { trial } from '../game/autoequip.js';
 import { gemIcon } from './gem-icon.js';
 
@@ -71,27 +72,30 @@ export function renderDetail(game, st, box, changed, close) {
   const head = el('div', 'd-head');
   const title = el('div', 'd-title', itemName(data, it)); title.style.color = r.color;
   const sub = el('div', 'd-sub', `${r.name} · ${data.items.slots[slot]} · cấp ${it.lvl}`);
-  if (worn) sub.append(el('span', 'd-worn', 'Đang mặc'));
   const txt = el('div', 'd-name'); txt.append(title, sub);
   const x = el('button', 'd-close', '✕'); x.setAttribute('aria-label', 'Đóng chi tiết'); x.onclick = close;
   const ico = icon(data, it); ico.style.borderColor = r.color;
+  if (worn) ico.append(el('span', 'd-worn', 'Đang mặc'));   // nhãn đè chân biểu tượng, chừa chỗ cho tên một dòng
   head.append(ico, txt, x);
   box.append(head);
 
   // nút chính ngay dưới tên
   const main = el('div', 'd-primary');
+  let mainBtn;   // nút Mặc / Thay / Tháo: nằm ô đầu lưới rèn luyện (chủ dự án 07/11/2026 10:52: 6 nút xếp 2 cột × 3 hàng)
   if (worn) {
     const b = el('button', 'act-btn', 'Tháo xuống'); b.onclick = () => { unequip(save, slot); changed(); };
-    main.append(b);
+    mainBtn = b;
   } else {
     const gain = powerGain(game, it);
     const b = el('button', 'act-btn primary', cur ? 'Thay vào' : 'Mặc vào');
     b.onclick = () => { equip(save, data, it.uid); game.sfx('shield'); st.msg = cur ? 'Đã thay.' : 'Đã mặc.'; changed(); };
     const g = el('span', 'd-gain ' + (gain > 0 ? 'up' : gain < 0 ? 'down' : ''), `Lực chiến ${signed(gain)}`);
-    main.append(b, g);
+    main.append(g); mainBtn = b;
   }
-  box.append(main);
-  if (st.msg) { box.append(el('div', 'd-msg', st.msg)); st.msg = ''; }
+  if (main.childNodes.length) box.append(main);
+  const forge = el('div', 'd-forge');   // Rèn luyện ngay dưới nút Mặc / Tháo (chủ dự án 07/11/2026 09:04: người mới không tìm ra chỗ cường hoá)
+  if (st.msg) { box.append(el('div', 'd-msg', st.msg)); st.msg = ''; }   // kết quả vừa rèn: ngay trên các nút rèn
+  box.append(forge);
 
   // so với món đang mặc cùng ô
   const mine = mainStats(data, save, it);
@@ -151,9 +155,11 @@ export function renderDetail(game, st, box, changed, close) {
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
       game.sfx(res === 'up' ? 'anvil' : 'hurt'); changed();
     }), !can);
+    const qb = quickBuyBtn(game, ec.cost, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
+  if (isArt(data, it) && rc != null) { const qb = quickBuyBtn(game, { [rm]: rc }, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb); }
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
@@ -179,7 +185,13 @@ export function renderDetail(game, st, box, changed, close) {
   btn(`Bán (+${sellPrice(game, it)} ${data.shop.name})`, sure('bán', () => { sell(game, it.uid); st.sel = null; game.sfx('pickup'); changed(); }), worn || it.lock);
   const lk = el('button', 'act-btn' + (it.lock ? ' primary' : ''), it.lock ? '🔒 Đã khoá (chạm để mở)' : 'Khoá (không bị bán, phân giải)');   // góp ý #61
   lk.onclick = () => { if (it.lock) delete it.lock; else it.lock = true; changed(); };
-  acts.prepend(lk);
-  box.append(el('div', 'd-label', 'Rèn luyện'), acts);
+  acts.prepend(mainBtn, lk);
+  acts.classList.add('d-grid');
+  for (const b of acts.children) {   // chữ dài "Việc (chi tiết…)": tên việc một dòng, chi tiết chữ nhỏ bên dưới
+    const t = b.textContent, i = t.indexOf(' (');
+    if (i > 0 && t.endsWith(')')) { b.textContent = ''; b.append(el('b', null, t.slice(0, i)), el('small', null, t.slice(i + 2, -1))); }
+    else if (t.includes(': ')) { const j = t.indexOf(': '); b.textContent = ''; b.append(el('b', null, t.slice(0, j)), el('small', null, t.slice(j + 2))); }
+  }
+  forge.append(el('div', 'd-label', 'Rèn luyện'), acts);
   return true;
 }

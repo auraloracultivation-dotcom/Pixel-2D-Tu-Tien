@@ -49,5 +49,119 @@
    ]
   }
  ],
- "spawners": []
+ "spawners": [],
+ "prop_hide": "KAM",
+ "_prop_hide": "Lò đan K, lò rèn A, bồ đoàn M giữ ô (bấm vào vẫn dùng được) nhưng vẽ bằng đồ mới ở khoá hoi (chủ dự án 09/11/2026: bỏ hình bộ cũ viền đậm).",
+ "hoi": {
+  "do": [
+   [
+    "dp.lo-dan-m",
+    3.7,
+    1.5
+   ],
+   [
+    "dp.lo-luyen-m",
+    2,
+    1.5,
+    null,
+    {
+     "s": 0.8
+    }
+   ],
+   [
+    "dp.de-m",
+    7.4,
+    1.5
+   ],
+   [
+    "dp.thung-toi-m",
+    9.2,
+    1.6
+   ],
+   [
+    "dp.ke-sach-m",
+    15.6,
+    1
+   ],
+   [
+    "dp.tranh-cuon-m",
+    0.3,
+    3.1
+   ],
+   [
+    "dp.den-tuong-m",
+    19.6,
+    3.7
+   ],
+   [
+    "dp.chan-nen-m",
+    1.1,
+    5.6
+   ],
+   [
+    "dp.ke-dan-m",
+    17.7,
+    1
+   ],
+   [
+    "dp.dai-toa-m",
+    9.6,
+    5.6
+   ],
+   [
+    "dp.lu-huong-m",
+    5.6,
+    1.5,
+    null,
+    {
+     "s": 1.1
+    }
+   ],
+   [
+    "dp.binh-hoa-m",
+    14,
+    1.2
+   ],
+   [
+    "dp.ruong-m",
+    17.5,
+    2.5
+   ],
+   [
+    "dp.linh-thach-m",
+    19.1,
+    12.8
+   ],
+   [
+    "dp.ban-tra-m",
+    14.5,
+    6.3
+   ],
+   [
+    "dp.bon-sai-m",
+    18.3,
+    6.6
+   ],
+   [
+    "dp.den-tinh-m",
+    1.5,
+    11.9
+   ],
+   [
+    "dp.nam-sang-m",
+    0.5,
+    13.1
+   ],
+   [
+    "dp.den-tuong-m",
+    19.6,
+    7.2
+   ],
+   [
+    "dp.tranh-cuon-m",
+    0.2,
+    6.9
+   ]
+  ]
+ }
 }

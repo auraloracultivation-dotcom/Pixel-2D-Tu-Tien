@@ -15,8 +15,9 @@ import { drawLamps, drawGlow } from './draw-glow.js';
 import { drawHamlets } from './draw-hamlet.js';
 import { drawBanner } from './draw-banner.js';
 import { drawWeather } from './draw-weather.js';
+import { drawAmbient } from './draw-ambient.js';
 import { drawHoiFlat, hoiEnts, drawHoiItem } from './draw-hoi.js';
-import { drawHoiSky } from './draw-hoi-sky.js';
+import { drawHoiSky } from './draw-hoi-sky.js'; import { drawVeil } from './world-veil.js';   // màn che lúc tải bản đồ
 import { drawDatGlints } from '../world/draw-dat.js';
 import { drawSongTu } from './draw-songtu.js';
 import { drawDecor } from './draw-decor.js';
@@ -29,9 +30,12 @@ import { drawSlashes } from './draw-slash.js';
 import { drawBolt, drawBoltLead } from './draw-bolt.js';
 import { drawFocus, textQ } from './draw-focus.js';
 import { drawNumbers } from './draw-numbers.js';
+import { drawNameShield } from './draw-pvp-tag.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
+import { drawMobBar } from './draw-mob-bar.js';
+import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
 import { drawFlyWeapon } from './draw-flyweapon.js';
@@ -48,7 +52,7 @@ import { drawDummy } from './draw-dummy.js';
 import { drawMang } from './draw-mang.js';
 import { duelFoes } from '../game/duel.js';
 import { drawVfx } from './vfx/draw-vfx.js';
-import { vfxOf } from '../game/vfx.js';
+import { vfxOf } from '../game/vfx.js'; import { domainVis } from './draw-domain.js';
 
 const INK = '#1b1830';
 
@@ -77,6 +81,7 @@ export function drawPerson(ctx, e, color, hair, t, flash, face) {
 }
 
 function drawPlayer(ctx, game, t) {
+  if (game.ghost) return drawGhost(ctx, game, t); if (game.player.domain && domainVis(game, game.player) <= 0.01) return;   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js); ẩn trong lĩnh vực Vô Ảnh: cả vũ khí, danh hiệu (draw-domain.js)
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
@@ -125,7 +130,7 @@ function drawMob(ctx, m, t, game) {
   if (m.wboss && drawMang(ctx, game, m, t)) return;   // đầu Cửu Đầu Thôn Thiên Mãng (draw-mang.js)
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
-  shadow(ctx, m.x, m.y + 1, r);
+  if (!(m.def.look && game.data.art.sprites['mob.' + m.id]?.w)) shadow(ctx, m.x, m.y + 1, r);   // quái có hình: bóng đổ theo dáng (draw-mob-sprite.js)
   if (m.tele) drawTele(ctx, m);
   if (m.rare) drawRareGlow(ctx, m, t);
   if (m.elite) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
@@ -175,11 +180,7 @@ function drawMob(ctx, m, t, game) {
   }
   if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - (m.top || r * 2) - 3 + Math.sin(t * 6 + i * 2), 1); }
   if (m.slowT > 0) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
-  if (m.hp < m.maxHp && m.def.ai !== 'boss') {
-    const hy = m.y - (m.top || r * 2) - 5;
-    ctx.fillStyle = INK; ctx.fillRect(m.x - 7, hy, 14, 2.5);
-    ctx.fillStyle = '#e0484a'; ctx.fillRect(m.x - 7, hy, 14 * Math.max(0, m.hp / m.maxHp), 2.5);
-  }
+  drawMobBar(ctx, game, m);   // thanh máu, lực chiến (draw-mob-bar.js)
 }
 
 function drawTele(ctx, m) {
@@ -207,8 +208,7 @@ function drawOther(ctx, o, game, t) {
   if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
   const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
   ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
-  const nm = o.pk ? o.def.name + ' ⚔' : game.data.pvp ? o.def.name + ' 🛡' : o.def.name;   // khiên sau tên (mọi nơi; chỉ Ngoại Vực đánh nhau được) (game/pvp.js): tắt khiên thì tên đỏ ⚔, kèm thanh máu PvP khi vừa trúng đòn
-  ctx.strokeText(nm, o.x, ny); ctx.fillStyle = o.pk ? '#ff5a5a' : el || '#e6ebf7'; ctx.fillText(nm, o.x, ny);
+  drawNameShield(ctx, game, o, ny, q, INK, o.pk ? '#ff5a5a' : el || '#e6ebf7');   // tên + hình khiên PvP (draw-pvp-tag.js); tắt khiên thì tên đỏ, kèm thanh máu PvP khi vừa trúng đòn
   if (o.pk && o.pvpR < 1 && game.time - (o.pvpAt || 0) < 10) { ctx.fillStyle = INK; ctx.fillRect(o.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = '#ff5a5a'; ctx.fillRect(o.x - 10, ny + 1.5, 20 * Math.max(0, o.pvpR), 2.5); }
   if (o.swingT > 0 && !hero) {
     const a = Math.atan2(o.face.y, o.face.x);
@@ -308,16 +308,16 @@ export function drawWorld(game, screen, t) {
   drawQuestPickups(ctx, game, t);
   drawStrikeMarks(ctx, game);
   for (const z of game.zones) {   // vùng chiêu: vòng mờ nhấp nháy theo nhịp (chiêu có hiệu ứng mới vẽ ở lớp trên)
-    if (vfxOf(game, z.sk)) continue;
+    if (z.draw) { z.draw(ctx, z, game); continue; } if (vfxOf(game, z.sk)) continue;   // z.draw: hình riêng (lĩnh vực: render/draw-domain.js)
     const k = 1 - Math.max(0, z.next) / z.tick;
     ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); disc(ctx, z.x, z.y, z.radius, z.color);
     ctx.globalAlpha = 0.6; ring(ctx, z.x, z.y, z.radius, z.color, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.globalAlpha = 1;
   }
   drawAim(ctx, game);   // giữ / kéo nút chiêu: khung đúng hình và tầm của chiêu trên mặt đất
   drawSongTu(ctx, game, t);
-  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife);
+  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife(game));
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].sort((a, b) => a[1].y - b[1].y);
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].filter(e => !game.bay?.on || (e[0] === 'h' && !e[1].khach)).sort((a, b) => a[1].y - b[1].y);   // bày cảnh: chỉ vẽ đồ, ẩn người, quái
   for (const [k, e] of ents) {
     if (k === 'h') drawHoiItem(ctx, game, e, t);   // đồ lễ hội đứng (draw-hoi.js)
     else if (k === 'n') drawNpc(ctx, e, game, t);
@@ -334,7 +334,7 @@ export function drawWorld(game, screen, t) {
   drawLoot(ctx, game, t);   // đồ rơi: viên ngọc thoi pixel theo màu độ hiếm
   drawBullets(ctx, game, t);
   drawStrikeFalls(ctx, game);
-  drawFx(ctx, game);
+  drawFx(ctx, game); drawAmbient(ctx, game, screen.viewRect(), t);   // lá rơi, bướm, cá quẫy, tàn lửa (draw-ambient.js)
   drawFishing(ctx, game, t);
   drawClouds(ctx, game, t);
   drawNumbers(ctx, game);
@@ -371,11 +371,11 @@ export function drawWorld(game, screen, t) {
 export function drawOverlay(game, screen, input) {
   const ctx = screen.ctx;
   screen.screenTransform();
-  if (!game.map || game.dialog.open) return;
+  if (drawVeil(ctx, game, screen) || !game.map || game.dialog.open) return;   // màn che lúc bản đồ chưa tải xong (world-veil.js)
   drawBanner(ctx, game, screen);
   // Mũi tên chỉ đường tới mục tiêu nhiệm vụ
   const c = guideTarget(game);   // việc đang chọn ở khung mục tiêu (src/game/guide.js), mặc định truyện chính
-  if (c) {
+  if (c && !game.recording) {   // đang quay clip: không vẽ mũi tên, cần điều khiển (src/game/record.js)
     const s = screen.toScreen(c.x, c.y), pl = screen.toScreen(game.player.x, game.player.y);
     const d = Math.hypot(s.x - pl.x, s.y - pl.y);
     if (d > 60) {
@@ -388,7 +388,7 @@ export function drawOverlay(game, screen, input) {
       ctx.fillStyle = '#f2c94c'; ctx.beginPath(); ctx.arc(s.x, s.y - 18 + Math.sin(game.time * 5) * 3, 4, 0, Math.PI * 2); ctx.fill();
     }
   }
-  if (input.joy) {
+  if (input.joy && !game.recording) {
     const j = input.joy;
     ctx.fillStyle = 'rgba(255,255,255,0.18)'; ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.arc(j.ox, j.oy, input.JOY_R, 0, Math.PI * 2); ctx.fill(); ctx.stroke();

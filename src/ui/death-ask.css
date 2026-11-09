@@ -1,0 +1,10 @@
+/* Bảng hỏi khi gục (src/ui/death-ask.js) */
+.death-ask { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); z-index: 60; width: min(320px, calc(100vw - 32px));
+  padding: 14px 16px; border-radius: 12px; background: rgba(20, 14, 34, .94); border: 1px solid #c9a24a; box-shadow: 0 10px 40px rgba(0, 0, 0, .7);
+  color: #f3ead2; text-align: center; font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.death-ask b { display: block; font-size: 17px; color: #ffd27a; margin-bottom: 4px; }
+.death-ask p { margin: 0 0 12px; font-size: 13px; color: #d8cfe6; }
+.death-ask .da-row { display: flex; gap: 8px; }
+.death-ask button { flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #8a6ad0; background: #3a2a5a; color: #fff; font: 600 14px system-ui, sans-serif; }
+.death-ask button.da-home { background: #6a4a1a; border-color: #ffd27a; }
+.death-ask button:active { transform: scale(.96); }

@@ -11,7 +11,7 @@ export function autoPills(game) {
     if (!u || !(n > 0) || u.heal || u.mana || u.x2) continue;   // Thăng Linh Đan: để người chơi tự chọn lúc uống
     if (u.qi) {
       const need = qiNeed(s, d.realms);
-      if (s.layer >= d.realms.layers && s.qi + need * u.qi > need) continue;   // sắp đầy tới đỉnh: để dành
+      if (s.layer >= d.realms.layers && s.qi + u.qi > need) continue;   // sắp đầy tới đỉnh: để dành
       if (qiPillLeft(game) <= 0) continue;   // đan độc: tự hành chỉ uống viên còn đủ hiệu quả, viên giảm dần để người chơi tự chọn
     }
     if (u.trib && !atPeak(game)) continue;

@@ -129,7 +129,15 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
 
   // Chạy một lệnh sửa bản lưu ở máy chủ. fn trả về { phien_ban, ... }; mirror(kq) sửa bản lưu trong máy cho giống máy chủ
   // (rồi gọi game.persist như thường). Bản lưu chờ gửi được đẩy lên trước để máy chủ kiểm tra theo bản mới nhất.
-  async function run(job, mirror) {
+  // Các lệnh chạy lần lượt (07/11/2026: người mới bấm nhận nhiều nhiệm vụ Hệ Thống liền tay, mỗi lần nhận lại tự nhận thư, các lệnh
+  // chạy chồng nhau, trả phiên bản lệch thứ tự, phiên bản trong máy lùi lại, lần lưu sau bị máy chủ coi là "đang chơi ở máy khác").
+  let chain = Promise.resolve();
+  function run(job, mirror) {
+    const p = chain.then(() => run1(job, mirror));
+    chain = p.catch(() => {});
+    return p;
+  }
+  async function run1(job, mirror) {
     if (stopped) throw new Error('phien_ban_cu');
     busy++;
     try {
@@ -137,7 +145,7 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
       if (sending) await sending;
       if (pending) { sending = send(); const ok = await sending; sending = null; if (!ok && stopped) throw new Error('phien_ban_cu'); }
       const r = await job();
-      if (r && Number.isInteger(r.phien_ban)) version = r.phien_ban;
+      if (r && Number.isInteger(r.phien_ban)) version = Math.max(version, r.phien_ban);   // phiên bản chỉ tăng, không lùi
       mirror?.(r);
       return r;
     } finally {

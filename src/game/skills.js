@@ -1,12 +1,18 @@
 // Thi triển chiêu theo kiểu trong data/skills.json; chiêu đã mở và 3 ô chiêu người chơi chọn mang.
-import { addFx, hitMob, shoot, dist } from './combat.js';
+import { addFx, hitMob, shoot, dist, impactShake } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
 import { burstFx, zoneFx, selfFx } from './skill-fx.js';
 import { skillMul } from './skill-level.js';
 import { vfxOf, vfxCast, vfxMobHit } from './vfx.js';
 import { castSfx } from './skill-sfx.js';
+import { juiceCast } from './juice.js';
 import { pvpTryHit } from './pvp.js';
+import { sparks } from './sparks.js';
+import { castChain, chainReady } from './skill-chain.js';
+import { castDomain, domainReady } from './skill-domain.js';
+import { castCharge } from './skill-charge.js';
+import { castThunder, thunderReady } from './skill-thunder.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -18,6 +24,7 @@ export function castSkill(game, id) {
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
   castSfx(game, s);   // tiếng theo hệ chiêu (src/game/skill-sfx.js)
+  juiceCast(game, s);   // trận đồ dưới chân; chiêu lớn: chớp màn, rung (src/game/juice.js)
   switch (s.type) {
     case 'projectile':
       shoot(game, {
@@ -59,7 +66,8 @@ export function castSkill(game, id) {
           hitMob(game, m, atk * s.mult, { slow: s.slow, stun: s.stun, color: s.color, fromX: cx, fromY: cy });
         }
       }
-      game.screen.shake(3, 0.2);
+      impactShake(game, s.radius);   // chiêu vùng càng rộng càng rung (config.feel.aoe_shake)
+      sparks(game, cx, cy, 'aoe', s.color);   // vòng tia li ti tóe từ tâm chiêu
       break;
     }
     case 'heal': {
@@ -80,6 +88,18 @@ export function castSkill(game, id) {
       p.buffT = s.dur; p.buffAmt = amount; p.buffColor = s.color;
       if (V) vfxCast(game, id, s, p);
       else { addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: s.color, life: 0.4 }); if (s.fx) selfFx(game, s.fx, p); }
+      break;
+    case 'thunder':   // Thiên Phạt: tụ lực thành quả cầu sét rồi toả sét lướt qua quái (src/game/skill-thunder.js)
+      castThunder(game, s, p.atk * lv);
+      break;
+    case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt sáng tới mép màn (src/game/skill-charge.js); s.mult × đánh thường
+      castCharge(game, s, p.atk * lv);
+      break;
+    case 'domain':   // Vô Ảnh Trảm Vực: lĩnh vực tối, vạn nhát chém (src/game/skill-domain.js); mỗi nhịp s.mult × đánh thường
+      castDomain(game, s, p.atk * lv);
+      break;
+    case 'chain':   // Thiểm Ảnh Liên Trảm: lướt chém qua lại nhiều mục tiêu (src/game/skill-chain.js); mỗi nhát s.mult × đánh thường
+      castChain(game, s, p.atk * lv);
       break;
     case 'dash': {
       const sx = p.x, sy = p.y, steps = 16;
@@ -105,6 +125,12 @@ export function castSkill(game, id) {
   return s.cd;
 }
 
+// Chiêu dùng được lúc này không (kiểm trước khi trừ linh lực): chiêu lướt chain, lĩnh vực domain cần mục tiêu trong tầm
+export function skillReady(game, id) {
+  const s = game.data.skills[id];
+  return s?.type === 'chain' ? chainReady(game, s) : s?.type === 'domain' ? domainReady(game, s) : s?.type === 'thunder' ? thunderReady(game, s) : true;
+}
+
 export function segDist(pt, x1, y1, x2, y2) {
   const dx = x2 - x1, dy = y2 - y1, l = dx * dx + dy * dy || 1;
   const t = Math.max(0, Math.min(1, ((pt.x - x1) * dx + (pt.y - y1) * dy) / l));
@@ -116,13 +142,14 @@ export function weaponSkills(w) {
   return [...(w.skill ? [[w.skill, 0]] : []), ...(w.more || [])];
 }
 
-// Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock)
+// Chiêu đã mở: chiêu vũ khí + các chiêu hệ đủ tầng tu luyện (elements._unlock) + chiêu đã mua (save.boughtSkills)
 export function unlockedSkills(game) {
   const { save, data } = game, out = [];
   const w = data.weapons[weaponId(save, data)], n = totalLayer(save, data.realms);
   for (const [id, at] of weaponSkills(w)) if (n >= at) out.push(id);
   const el = save.element ? data.elements[save.element] : null;
   if (el) el.skills.forEach((id, i) => { if (n >= data.elements._unlock[i]) out.push(id); });
+  for (const id of save.boughtSkills || []) if (Object.hasOwn(data.skills, id) && !out.includes(id)) out.push(id);   // chiêu mua ở Vạn Bảo Lâu (shop.js)
   return out;
 }
 

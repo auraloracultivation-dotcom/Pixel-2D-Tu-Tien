@@ -104,6 +104,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
   ctx.imageSmoothingEnabled = false;
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const ch = map.at(tx, ty), px = tx * T, py = ty * T, cx = px + T / 2, cy = py + T / 2;
+    if (map.def.prop_hide?.includes(ch)) continue;   // ô đã thay bằng đồ mới (động phủ: lò, bồ đoàn): không vẽ hình khối cũ lúc nền chưa tải
     if (PROP_TILES.includes(ch) && (propBaked(map, tx, ty) || drawProp(ctx, game, map, ch, tx, ty, hash(tx, ty), t))) continue;
     if ('LOigolyf='.includes(ch) && groundPainted(ch)) {
       const fx = { L: 'fx.lava-bubble', f: 'fx.void-wisp', '=': 'fx.water-glint' }[ch];

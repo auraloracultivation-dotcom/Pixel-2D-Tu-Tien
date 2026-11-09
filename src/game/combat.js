@@ -1,10 +1,14 @@
 // Trúng đòn, đạn, hiệu ứng, số sát thương. Cảm giác đánh: chớp trắng, đẩy lùi, khựng hình, rung màn hình.
 import { burstFx } from './skill-fx.js';
 import { partyHit, partyKill, partyGhosts, partyHurt } from './party-sync.js';
-import { killQiMul } from './stats.js';
+import { mobLk } from './stats.js';
+import { cpOut, cpIn } from './cp-press.js';   // áp chế lực chiến người chơi / quái
 import { dummyHit } from './dummy.js';
+import { sparks } from './sparks.js';
+import { fxOk, shortNum } from './fx-budget.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
+import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -21,8 +25,14 @@ export function addNumber(game, x, y, text, color = '#fff', big = false) {
   }
   // Chiêu nhiều đòn trúng một con liên tục: cộng vào số vừa hiện trên con đó thay vì chồng hàng chục số (chơi thử 28/10)
   if (/^\d+$/.test(String(text))) {
-    const same = game.numbers.find(n => !n.gain && n.color === color && /^\d+$/.test(n.text) && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
-    if (same) { same.text = String(+same.text + +text); same.big ||= big; return; }
+    const same = game.numbers.find(n => !n.gain && n.color === color && n.v != null && n.t < 0.18 && Math.abs(n.x - x) < 9 && Math.abs(n.y - y) < 9);
+    if (same) { same.v += +text; same.text = shortNum(same.v); same.big ||= big; return; }
+    // đánh đông quái: số đòn của mình chỉ hiện trong hạn mức (data/juice.json → budget.num, num_crit), số đồng đội, hồi máu không giới hạn (09/11/2026)
+    if ((color === '#fff' || color === '#ffd84a') && !fxOk(game, big ? 'num_crit' : 'num')) return;
+    const N = game.data.juice?.budget?.num_max ?? 28;
+    if (game.numbers.length >= N) game.numbers.splice(game.numbers.findIndex(n => !n.big) >>> 0, 1);   // bỏ số thường cũ nhất trước
+    game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: shortNum(+text), v: +text, color, big, t: 0 });   // số lớn rút gọn: 253Tr
+    return;
   }
   if (game.numbers.length > 28) game.numbers.shift();   // giữ màn gọn khi đánh đông quái
   game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: String(text), color, big, t: 0 });
@@ -36,6 +46,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   let crit = false;
   if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
+  if (own) dmg *= rageMul(game, m) * cpOut(game, m);   // Bạo Nộ (src/game/juice.js); áp chế lực chiến (cp-press.js)
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
@@ -45,14 +56,16 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (m.wboss) { m.hp = m.maxHp; mangHit(game, m, dmg); }   // đầu Cửu Đầu Thôn Thiên Mãng: không chết, đếm sát thương (game/thien-mang.js)
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
   const ang = Math.atan2(m.y - (opt.fromY ?? p.y), m.x - (opt.fromX ?? p.x));
-  const kb = opt.soft || m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : m.def.kb ?? feel.knockback; // soft: nhịp của vùng chiêu, không đẩy lùi; kb: bản sao so tài bị đẩy như người chơi
-  m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb;
+  const kb = m.remote ? 0 : m.def.ai === 'boss' ? feel.knockback * 0.15 : (m.def.kb ?? feel.knockback) * (opt.soft ? feel.knockback_soft ?? 0 : 1); // soft: nhịp vùng chiêu, đẩy nhẹ; kb: bản sao so tài bị đẩy như người chơi
+  m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb; m.cutAng = ang;   // cutAng: hướng đòn cuối, xác bị chém đôi theo hướng này
   if (opt.slow && !m.def.noCc) m.slowT = Math.max(m.slowT, opt.slow);   // noCc: bản sao so tài không bị khống chế (nó cũng không khống chế người chơi)
   if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
+  juiceHit(game, m.x - Math.cos(ang) * m.r * 0.6, m.y - m.r * 0.6 - Math.sin(ang) * m.r * 0.4, opt.color, crit, opt.soft);   // tia toả, vụn, Liên Kích, Nộ
+  if (!opt.soft) sparks(game, m.x - Math.cos(ang) * m.r, m.y - Math.sin(ang) * m.r, crit ? 'crit' : 'hit', crit ? '#ffd84a' : opt.color, ang);   // tia li ti tóe về phía sau quái
   if (!opt.soft) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
     game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
@@ -62,11 +75,15 @@ export function hitMob(game, m, dmg, opt = {}) {
 
 export function killMob(game, m) {
   m.dead = true;
-  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y });   // xác chớp trắng rồi tan dần (render/draw-mob-sprite.js)
+  const K = game.data.config.feel.kill?.[m.def.ai === 'boss' ? 'boss' : m.rare ? 'rare' : ''];   // hạ trùm, quái hiếm: rung, khựng, chớp
+  sparks(game, m.x, m.y - m.r * 0.5, K ? 'kill_big' : 'kill', m.def.color);
+  if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); if (K.sfx) game.sfx(K.sfx); }
+  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y, ang: m.cutAng ?? 0, tilt: Math.random() - 0.5 });   // xác chớp trắng, đứt đôi theo đường chém rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
+  juiceKill(game, m);   // vòng sóng, vụn, đốm linh khí bay về người
   addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
-  if (!m.noQi) game.gainQi(Math.max(1, Math.round(m.def.qi * game.eventMul('qi') * killQiMul(game.save, game.data.realms) * (game.farmTeamMul?.() || 1))), m.x, m.y);   // tổ đội farm (src/game/farm-team.js)
+  if (!m.noQi) game.gainQi(Math.round(mobLk(game.data.mobs, m) * game.eventMul('qi') * (game.farmTeamMul?.() || 1) * 10) / 10, m.x, m.y, false, false, true);   // tổ đội farm (src/game/farm-team.js)
   game.onKill(m);
 }
 
@@ -75,6 +92,7 @@ export function hitPlayer(game, dmg, from) {
   if ((p.invT > 0 && !who?.duel) || p.dashT > 0 || game.paused) return;   // bản sao so tài (game/duel.js): đòn nào cũng trúng, như đòn mình đánh nó
   if (who?.def) game.lastHit = who;
   dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0))));   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
+  if (who?.def) dmg = Math.max(1, Math.round(dmg * cpIn(game, who)));   // áp chế lực chiến: quái mạnh hơn đánh đau hơn (cp-press.js)
   if (who?.dmgMul) dmg = Math.max(1, Math.round(dmg * who.dmgMul));   // so tài: đòn hai bên cùng nhẹ đi cho trận kéo dài (data/duel.json dmg)
   if (p.shield > 0) {
     const a = Math.min(p.shield, dmg); p.shield -= a; dmg -= a;
@@ -86,13 +104,16 @@ export function hitPlayer(game, dmg, from) {
     if (who?.duel && who.st.lifesteal) who.hp = Math.min(who.maxHp, who.hp + dmg * who.st.lifesteal);   // bản sao hút máu như người chơi
     if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
+    juiceHurt(game, dmg / p.maxHp);
+    sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', from ? Math.atan2(p.y - from.y, p.x - from.x) : null);
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;
   if (from && !from.soft) {   // soft: phản đòn, linh thú đánh gần: không đẩy lùi (như đòn mình đánh quái)
     const ang = Math.atan2(p.y - from.y, p.x - from.x);
     p.kx = Math.cos(ang) * 70; p.ky = Math.sin(ang) * 70;
   }
-  game.screen.shake(game.data.config.feel.shake * (game.data.config.feel.hurt_shake ?? 1), 0.15);
+  const F = game.data.config.feel, big = Math.min(2, Math.max(0, dmg) / Math.max(1, p.maxHp) * (F.hurt_big ?? 0));   // đòn càng nặng (so với máu tối đa) càng rung
+  game.screen.shake(F.shake * (F.hurt_shake ?? 1) * (1 + big), 0.15 + big * 0.1);
   if (game.noDeath && p.hp < 1) p.hp = 1;
 }
 
@@ -146,4 +167,12 @@ export function updateFx(game, dt) {
   game.fx = game.fx.filter(f => f.t < f.life);
   for (const n of game.numbers) { n.t += dt; n.y -= dt * 22; }
   game.numbers = game.numbers.filter(n => n.t < 0.75);
+}
+
+// Chiêu vùng nổ: rung theo bán kính (config.feel.aoe_shake)
+export function impactShake(game, r) {
+  const A = game.data.config.feel.aoe_shake || { per_r: 0.07, min: 2.5, max: 6 };
+  const a = Math.max(A.min, Math.min(A.max, r * A.per_r));
+  game.screen.shake(a, 0.22);
+  game.sfx?.('impact', 0.5 + 0.5 * (a - A.min) / Math.max(0.01, A.max - A.min));   // tiếng nện trầm lồng dưới tiếng chiêu, to theo độ rung
 }

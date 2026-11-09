@@ -97,7 +97,7 @@ export function findPath(game, tx, ty) {   // auto.js dùng để đi vòng tớ
   const prev = new Map([[sy * W + sx, -1]]), q = [[sx, sy]];
   const goal = (x, y) => Math.abs(x - tx) + Math.abs(y - ty) <= (map.solidTile(tx, ty) ? 1 : 0);
   const gates = new Set(map.def.portals.filter(pt => !pt.fly && (pt.at[0] !== tx || pt.at[1] !== ty)).map(pt => pt.at[1] * W + pt.at[0]));   // không giẫm nhầm cổng khác
-  for (let i = 0; i < q.length && q.length < 6000; i++) {
+  for (let i = 0; i < q.length && q.length < 12000; i++) {
     const [x, y] = q[i];
     if (goal(x, y)) {
       const out = [];

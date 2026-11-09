@@ -1,0 +1,29 @@
+# Đồng bộ ảnh và dữ liệu nặng từ trang game vào kho (chủ dự án 09/11/2026 13:28: "GitLab chính là nhà mới").
+# Máy làm việc của Claude chỉ gửi được code qua công cụ GitLab (mỗi lần ít); ảnh, data lớn đã nằm trên trang game
+# (www.pixel2dtutien.com, đưa lên bằng tools/deploy-vercel.sh) thì job này tải về, kiểm mã git từng tệp khớp danh sách
+# tools/dong-bo/ds.txt (dòng: "<mã git blob> <đường dẫn>"), khớp hết mới commit và đẩy vào nhánh đang chạy.
+# Chạy bằng tay (Build → Pipelines → Run pipeline) hoặc Claude gọi qua công cụ GitLab. Đẩy vào kho cần bật Settings → CI/CD →
+# Job token permissions → "Allow Git push requests to the repository".
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "api"'   # chỉ khi bấm Run pipeline hoặc gọi qua API; đẩy code không tạo pipeline (khỏi thư báo lỗi)
+
+dong-bo:
+  image: alpine:3.20
+  script:
+    - apk add --no-cache git curl
+    - git config user.name "Claude (dong-bo)"; git config user.email "noreply@anthropic.com"
+    - git checkout -B "$CI_COMMIT_REF_NAME"
+    - |
+      ok=1
+      while read -r sha f; do
+        [ -z "$f" ] && continue
+        mkdir -p "$(dirname "$f")"
+        curl -fsS -o "$f" "https://www.pixel2dtutien.com/$f?nocache=$CI_PIPELINE_ID" || { echo "TẢI LỖI $f"; ok=0; continue; }
+        got=$(git hash-object "$f"); [ "$got" = "$sha" ] || { echo "LỆCH MÃ $f ($got != $sha)"; ok=0; }
+      done < tools/dong-bo/ds.txt
+      [ "$ok" = 1 ] || exit 1
+    - git add -A
+    - git diff --cached --quiet && echo "Không có gì mới" && exit 0
+    - git commit -m "Đồng bộ ảnh, dữ liệu từ trang game (tools/dong-bo/ds.txt)"
+    - git push "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git" "HEAD:$CI_COMMIT_REF_NAME"

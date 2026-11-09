@@ -60,6 +60,7 @@ export function createTribulation(game) {
   return {
     get active() { return !!run; },
     get wave() { return run ? run.wave : 0; },
+    get wantsAuto() { return !!run?.shadow; },   // kiếp có tâm ma: cho Tự đánh (chủ dự án 09/11/2026 10:42 báo độ kiếp treo: không tự đánh được, tâm ma máu dày)
     canStart() { return !run && atPeak(game) && !game.dungeon && !game.map.def.no_trib; },
     async start() {
       const cfg = tribOf(game), info = cfg.info;
@@ -74,6 +75,8 @@ export function createTribulation(game) {
       if (!run) return;
       if (run.shadow && !run.shadow.dead && !game.mobs.includes(run.shadow)) spawnShadow();   // đổi bản đồ giữa kiếp: tâm ma cũ mất theo bản đồ, cho hiện lại (trước đây kiếp kẹt mãi)
       keepShadowNear(dt);
+      run.age = (run.age || 0) + dt;
+      if (run.wave >= run.cfg.waves && run.age > (run.cfg.timeout_sec || 1e9)) { if (run.shadow) run.shadow.dead = true; game.toast('Tâm ma tan biến.', 1.6); this.finish(); return; }   // quá giờ mà tâm ma chưa hạ: kiếp vẫn qua, không treo mãi
       run.t -= dt;
       if (run.t > 0) return;
       const c = run.cfg, shadowAlive = run.shadow && !run.shadow.dead;

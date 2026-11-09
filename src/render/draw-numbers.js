@@ -1,5 +1,5 @@
-// Số bay lên (sát thương, hồi máu, nhặt đồ). Số sát thương trắng và vàng (bạo kích) vẽ bằng chữ số pixel ui.digits*;
-// chữ khác, màu khác vẫn vẽ bằng phông chữ thường.
+// Số bay lên (sát thương, hồi máu, nhặt đồ), vẽ bằng phông chữ thường có viền mực (chủ dự án 09/11/2026 16:19: bỏ chữ số pixel
+// ui.digits*, đau mắt; muốn bật lại thì đặt config.numbers.pixel = true).
 import { spriteImage } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
@@ -26,9 +26,9 @@ function pixelNumber(ctx, game, n, fade) {
 export function drawNumbers(ctx, game) {
   for (const n of game.numbers) {
     const a = Math.min(1, (0.75 - n.t) * 4);
-    if (pixelNumber(ctx, game, n, 1 - a)) continue;
+    if (game.data.config.numbers?.pixel && pixelNumber(ctx, game, n, 1 - a)) continue;
     ctx.globalAlpha = n.gain ? a * 0.85 : a;   // dòng nhận linh khí, linh thạch: nhỏ và dịu hơn số sát thương
-    ctx.font = `${n.big ? 11 : n.gain ? 7 : 8}px "Unifont VN", system-ui`; ctx.textAlign = 'center';
+    ctx.font = n.v != null || /^\d+$/.test(n.text) ? `800 ${n.big ? 12 : 9}px system-ui, sans-serif` : `600 ${n.big ? 11 : n.gain ? 7 : 8}px system-ui, sans-serif`; ctx.textAlign = 'center';   // n.v: số sát thương rút gọn (253Tr)
     ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y);
   }
   ctx.globalAlpha = 1;

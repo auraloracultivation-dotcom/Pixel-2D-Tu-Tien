@@ -1,7 +1,7 @@
 // Quái bằng hình pixel (data/mobs.json → look; tools/art/mob_design.py, bản cũ tools/art/mobs.py). Hình gốc nhìn phải,
 // quay trái lật gương. Bản mới 4 khung đi, vẽ chi tiết rồi thu theo spr.scale; đứng yên thì khung đầu nhún 1 đơn vị.
 // Bản cũ 2 khung luân phiên. Quái hiền nảy thì khung theo nhịp nảy. Trả false nếu chưa có hình để vẽ hình khối như cũ.
-import { spriteImage, drawHitFrame } from './sprites.js';
+import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
 // Hình 5 dáng Canva (acts, chủ dự án 30/10/2026: người và thú 4 chân phải bước chân trái phải khi đi): 0 đứng, 1–2 bước, 3 lấy đà, 4 đánh.
@@ -28,6 +28,7 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;
+  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
@@ -62,26 +63,45 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind) ctx.scale(1.1, 0.92);
   ctx.imageSmoothingEnabled = false;
+  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
 }
 
-// Quái vừa chết: khung đầu chớp trắng FLASH giây, rồi tan dần bằng dither Bayer trong FADE giây, bốc lên 2 điểm ảnh.
-// Quái chưa có hình pixel thì chỉ có khói (fx.puff) như cũ.
-const FLASH = 0.08, FADE = 0.34;
-export const corpseLife = FLASH + FADE;
+// Quái vừa chết (chủ dự án 09/11/2026 01:12: "chém chết thì đứt đôi"; số ở data/config.json → feel.split): chớp trắng nguyên con
+// flash giây, rồi xẻ theo đường vuông góc hướng đòn cuối (c.ang, lệch c.tilt), loé đường chém trắng; hai nửa trượt tách theo
+// mép cắt, cả xác văng ra sau (fly, hãm drag), rơi xuống, nghiêng ngược nhau, giữ hold giây rồi tan dither Bayer. Quái chưa có hình pixel chỉ có khói.
+const SPLIT = { fly: 260, drag: 12, flash: 0.06, slide: 0.2, dist: 4, push: 5, fall: 5, rot: 0.3, tilt: 0.9, slash: 0.16, hold: 0.22, fade: 0.3 };
+const SP = game => game.data.config.feel?.split || SPLIT;
+export const corpseLife = game => { const L = SP(game); return L.flash + L.hold + L.fade; };
 export function drawCorpse(ctx, game, c) {
-  const m = c.m, t = game.time - c.t0;
+  const m = c.m, t = game.time - c.t0, L = SP(game);
   const id = m.def.rival ? 'rival.' + m.def.rival : m.def.look ? 'mob.' + m.id : null;
   const spr = id && game.data.art.sprites[id], im = spr && spriteImage(spr);
-  if (!im || t > corpseLife) return;
-  const k = t < FLASH ? 0 : (t - FLASH) / FADE, lift = Math.round(k * 2);
-  ctx.save();
-  const sc = spr.scale || 1;
-  ctx.translate(Math.round(c.x), Math.round(c.y) + 1 - lift);
-  ctx.scale((m.lookX || 1) * sc, sc);
-  ctx.imageSmoothingEnabled = false;
-  drawDissolved(ctx, im, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h, k, t < FLASH);
-  ctx.restore();
+  if (!im || t > corpseLife(game)) return;
+  const sc = spr.scale || 1, fx = (m.lookX || 1) * sc;
+  const fl = (L.fly ?? 0) * (1 - Math.exp(-t * (L.drag ?? 12))) / (L.drag ?? 12);   // bị đòn chí tử hất văng ra sau rồi mới đứt đôi
+  const cx = c.x + Math.cos(c.ang) * fl, cy = c.y + Math.sin(c.ang) * fl + 1 + (spr.h / 2 - spr.anchor[1]) * sc;   // tâm hình (toạ độ bản đồ)
+  const draw = (k, white) => { ctx.save(); ctx.scale(fx, sc); ctx.imageSmoothingEnabled = false;
+    drawDissolved(ctx, im, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1] - (spr.h / 2 - spr.anchor[1]), spr.w, spr.h, k, white); ctx.restore(); };
+  if (t < L.flash) { ctx.save(); ctx.translate(Math.round(cx), Math.round(cy)); draw(0, true); ctx.restore(); return; }
+  const u = t - L.flash, s = 1 - (1 - Math.min(1, u / L.slide)) ** 3, k = Math.max(0, (u - L.hold) / L.fade);
+  const cut = c.ang + Math.PI / 2 + c.tilt * L.tilt, nx = -Math.sin(cut), ny = Math.cos(cut);   // n: pháp tuyến đường cắt
+  const bx = Math.cos(c.ang) * L.push * s, by = Math.sin(c.ang) * L.push * s, fall = L.fall * s * s, R = Math.max(spr.w, spr.h) * sc;
+  for (const side of [1, -1]) {
+    ctx.save();
+    ctx.translate(cx + bx + nx * side * L.dist * s, cy + by + ny * side * L.dist * s + fall * (side > 0 ? 1 : 0.6));
+    ctx.rotate(side * L.rot * s);
+    ctx.rotate(cut); ctx.beginPath(); ctx.rect(-R, side > 0 ? 0 : -R, 2 * R, R); ctx.clip(); ctx.rotate(-cut);   // nửa bên này đường cắt
+    draw(k, false);
+    ctx.restore();
+  }
+  if (u < L.slash) {   // đường chém trắng loé qua tâm, dài ra rồi mờ
+    const a = 1 - u / L.slash, len = R * (0.7 + 0.5 * (u / L.slash)), dx = Math.cos(cut) * len / 2, dy = Math.sin(cut) * len / 2;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = `rgba(255,255,255,${a})`; ctx.lineWidth = 1.6 * a + 0.4;
+    ctx.beginPath(); ctx.moveTo(cx + bx - dx, cy + by - dy); ctx.lineTo(cx + bx + dx, cy + by + dy); ctx.stroke();
+    ctx.restore();
+  }
 }

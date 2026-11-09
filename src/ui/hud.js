@@ -1,4 +1,5 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
+import { skillGrade } from '../game/skill-grade.js';
 import { createDialog } from './dialog.js';
 import { guideLine, guideNext } from '../game/guide.js';
 import { qiNeed, realmLabel, rootOf, artSkill } from '../game/stats.js';
@@ -91,6 +92,11 @@ export function createHud(audio) {
       if (!mb) { const bar = document.createElement('div'); bar.className = 'bar mp'; bar.innerHTML = '<i id="mp-fill"></i><span id="mp-text"></span>'; document.querySelector('#hud .bar.qi')?.before(bar); mb = document.getElementById('mp-fill'); }
       mb.style.width = Math.max(0, (p.mp ?? 0) / (p.mpMax || 1) * 100) + '%';
       $('mp-text').textContent = `Linh lực ${Math.floor(p.mp ?? 0)}/${p.mpMax || 0}`;
+      let rb = document.getElementById('no-fill');   // thanh Nộ (chủ dự án 09/11/2026 00:30, src/game/juice.js): đầy thì Bạo Nộ
+      if (!rb) { const bar = document.createElement('div'); bar.className = 'bar no'; bar.innerHTML = '<i id="no-fill"></i><span id="no-text"></span>'; document.querySelector('#hud .bar.qi')?.before(bar); rb = document.getElementById('no-fill'); }
+      const J = game.juice, rf = J ? J.rage / (d.juice?.rage.full || 100) : 0;
+      rb.style.width = Math.max(0, rf * 100) + '%'; rb.parentNode.classList.toggle('on', J?.rageOn > 0);
+      $('no-text').textContent = J?.rageOn > 0 ? 'Bạo Nộ!' : `Nộ ${Math.floor(rf * 100)}%`;
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
     }
@@ -109,7 +115,7 @@ export function createHud(audio) {
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';
       const lbl = b.querySelector('b');
-      if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); }
+      if (lbl.textContent !== name) { lbl.textContent = name; b.style.backgroundImage = skillIcon(d, id); if (id) b.style.setProperty('--gc', skillGrade(d, id).color); else b.style.removeProperty('--gc'); }   // vòng ngoài theo phẩm chiêu (game/skill-grade.js)
       const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
       css(b, '--cd', cd.toFixed(3));
     }

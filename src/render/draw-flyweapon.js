@@ -33,8 +33,23 @@ function blit(ctx, ws, im, x, y, a, k) {
   ctx.restore();
 }
 
+// Vũ khí của mình vẽ tại (x, y) góc a, cỡ k, phủ đỏ red (0–1): Phá Thiên Tuyệt Trảm tụ lực (render/draw-charge.js). false: chưa có hình
+export function drawWeaponAt(ctx, game, x, y, a, k, red, tint) {
+  const ws = weaponSprite(game);
+  if (!ws?.im) return false;
+  k *= heroLook(game).fw_scale || game.data.heroes.fly.scale;   // k: lần so với cỡ vũ khí bay thường
+  ctx.save(); ctx.imageSmoothingEnabled = k > 2.5;   // phóng to nhiều lần: làm mịn, khỏi thành khối vuông
+  const sm = ws.smooth; ws.smooth = ws.smooth || k > 2.5;
+  blit(ctx, ws, ws.im, x, y, a, k);
+  const A = ctx.globalAlpha;   // độ đậm người gọi đặt (vũ khí bay ra mờ dần)
+  if (red > 0) { ctx.globalAlpha = A * red; blit(ctx, ws, tintedImage(ws.spr, ws.im, tint), x, y, a, k); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = A * red * 0.5; blit(ctx, ws, tintedImage(ws.spr, ws.im, '#ff8a6a'), x, y, a, k); }   // đỏ rực: phủ đỏ, cộng sáng cam
+  ws.smooth = sm;
+  ctx.restore();
+  return true;
+}
+
 export function drawFlyWeapon(ctx, game, layer) {
-  const p = game.player, fw = p?.fw, ws = fw && weaponSprite(game);
+  const p = game.player, fw = p?.fw, ws = fw && !p.charge && weaponSprite(game);   // đang tụ lực Phá Thiên: vũ khí vẽ ở lớp trên (draw-charge.js)
   if (!ws?.im || (layer === 'front') !== !!fw.front) return;
   const { spr, im } = ws, c = game.data.heroes.fly, k = heroLook(game).fw_scale || c.scale, t = game.time;   // chibi thấp đầu to: vũ khí nhỏ lại cho cân
   const el = game.save.element ? game.data.elements[game.save.element].color : '#bff4ff', glow = tintedImage(spr, im, el);

@@ -100,6 +100,7 @@ export function createAudio(cfg) {
     rain: on => { if (on === wantRain) return; wantRain = on; music?.rain(on); },
     night: on => { wantNight = on; music?.night(on); },
     combat: k => music?.combat?.(k),   // 0 yên … 1 đánh dữ: lớp trống nhạc nền (music.js)
+    note: (step, v) => { if (!muted) music?.note?.(step, v); },   // nốt đàn khi đánh trúng (music.js)
     get muted() { return muted; },
     toggle() {
       muted = !muted;

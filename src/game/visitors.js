@@ -94,6 +94,6 @@ async function story(game, npc, st, line) {
   const s = game.save, heard = s.stories ??= {}, i = (heard[npc.id] || 0) % st.stories.length, fresh = (heard[npc.id] || 0) < st.stories.length;
   heard[npc.id] = (heard[npc.id] || 0) + 1; s.storyDay = today();
   await game.dialog.say([[npc.def.name, st.stories[i]]]);
-  if (fresh) { game.gainQi(V(game).story_qi, game.player.x, game.player.y); game.toast(`Nghe chuyện, ngộ ra chút đạo lý. +${V(game).story_qi} linh khí`, 2.4); }
+  if (fresh) game.toast(`Nghe chuyện, ngộ ra chút đạo lý. +${game.gainQi(V(game).story_qi, game.player.x, game.player.y)} linh khí`, 2.4);
   game.persist();
 }

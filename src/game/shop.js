@@ -5,6 +5,7 @@ import { salvageArt } from './refine.js';
 import { dailyEvent } from './daily.js';
 import { quality } from './tiers.js';
 import { noteCoins } from './coin-log.js';
+import { checkUnlocks } from './skills.js';
 
 const C = game => game.data.shop;
 export const coins = save => save.lingshi || 0;
@@ -75,6 +76,7 @@ function label(game, x) {
   const d = game.data;
   if (x.kind === 'gem') return 'Ngọc ngẫu nhiên cấp 1';
   if (x.kind === 'pill') return d.cave.pills[x.ref].name;
+  if (x.kind === 'skill') return `Bí kíp ${d.skills[x.ref].name}`;
   return d.cave.materials[x.ref]?.name || d.items.materials[x.ref]?.name || x.ref;
 }
 
@@ -84,6 +86,12 @@ function buy(game, x) {
   if (coins(s) < price) return null;
   s.lingshi -= price; noteCoins(s, -price, 'van-bao');
   if (x.kind === 'gem') { const g = rollGem(game.data); s.gems[g] = (s.gems[g] || 0) + 1; game.persist(); return gemInfo(game.data, g).name; }
+  if (x.kind === 'skill') {   // chiêu không theo hệ (Thiểm Ảnh Liên Trảm): học một lần, mở vào bảng Chiêu, còn ô trống thì tự mang
+    (s.boughtSkills ??= []).push(x.ref);
+    checkUnlocks(game);
+    game.persist();
+    return label(game, x);
+  }
   const bag = x.kind === 'pill' ? (s.pills ??= {}) : (s.mats ??= {});
   bag[x.ref] = (bag[x.ref] || 0) + x.n;
   game.persist();
@@ -94,8 +102,8 @@ function buy(game, x) {
 export async function talkShop(game, npc) {
   let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
-    const list = C(game).items.filter(x => !x.need || game.save.flags[x.need]);
-    const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${priceOf(game, x).toLocaleString('vi-VN')} ${C(game).name}`, color: coins(game.save) >= priceOf(game, x) ? '#f2c94c' : '#b8b0c8' }));
+    const list = C(game).items.filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && game.save.boughtSkills?.includes(x.ref)));   // chiêu đã học thì thôi bán
+    const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${priceOf(game, x).toLocaleString('vi-VN')} ${C(game).name}${x.kind === 'skill' ? ' · ' + game.data.skills[x.ref].desc : ''}`, color: coins(game.save) >= priceOf(game, x) ? '#f2c94c' : '#b8b0c8' }));
     opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);

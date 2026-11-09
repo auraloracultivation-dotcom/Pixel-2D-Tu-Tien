@@ -1,14 +1,17 @@
 /* Khiên PvP sau tên (src/ui/pvp-btn.js): nhãn "tên 🛡 / ⚔" bám trên đầu nhân vật mình ở Ngoại Vực; chữ trơn viền mực như tên người
    khác vẽ trên khung game. Còn khiên: chữ sáng, biểu tượng xanh; tắt khiên: chữ đỏ. Bảng xác nhận giữa màn hình. */
 .pvp-tag {
-  position: fixed; left: 0; top: 0; z-index: 6; display: flex; align-items: center; gap: 3px; padding: 2px 4px;
-  font: 700 11px/1 var(--f-body); color: #e6ebf7; background: none; border: 0; cursor: pointer; white-space: nowrap;
+  position: fixed; left: 0; top: 0; z-index: 6; display: flex; align-items: center; gap: 2px; padding: 1px 2px;
+  font: 700 8px/1 var(--f-body); color: #e6ebf7; background: none; border: 0; cursor: pointer; white-space: nowrap;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; will-change: transform;
 }
-.pvp-tag b { font-size: 13px; padding: 1px 3px; border-radius: 4px; background: rgba(20, 60, 90, .7); border: 1px solid #000; }
+.pvp-tag b { width: 12px; height: 12px; background: url("../../assets/art/ui-k-khien-bat.png") center / contain no-repeat; }   /* còn khiên: khiên sáng */
 .pvp-tag.off { color: #ff6a6a; }
-.pvp-tag.off b { background: rgba(150, 26, 34, .85); box-shadow: 0 0 6px rgba(255, 70, 70, .7); }
+.pvp-tag.off b { background-image: url("../../assets/art/ui-k-khien-tat.png"); }   /* tắt khiên: khiên kiếm chéo */
 .pvp-tag[hidden], .pvp-ask[hidden] { display: none; }
+/* thanh máu dưới tên (pvp-btn.js) */
+.pvp-hp { position: absolute; left: 50%; width: 26px; margin-left: -13px; bottom: -3px; height: 2px; background: #2a1420; border: 1px solid #1b1830; box-sizing: content-box; }
+.pvp-hp u { display: block; height: 100%; width: 100%; background: #e0484a; text-decoration: none; }
 .pvp-ask { position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; background: rgba(8, 4, 16, .55); padding: 16px; }
 .pvp-ask-card {
   width: min(92vw, 320px); padding: 14px 14px 12px; border-radius: 10px; border: 2px solid #000;
