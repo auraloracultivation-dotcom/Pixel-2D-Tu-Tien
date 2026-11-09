@@ -3,3 +3,6 @@ _site/
 undefined/
 node_modules/
 tools/art/nguon/ai/ui/khung-dang-nhap-goc.png
+# ảnh gốc GPT bộ mới (mỗi tấm ~1 MB, giữ ở máy làm việc; hình đã thu nhỏ nằm trong assets/art): tools/art/tk_moi.py
+tools/art/nguon/ai/le-hoi/*/moi/
+tools/art/nguon/ai/props/nha-gpt-0911.png

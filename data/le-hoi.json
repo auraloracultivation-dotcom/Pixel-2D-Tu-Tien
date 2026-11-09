@@ -163,6 +163,7 @@
   "phang": {"flat": true}
  },
  "kinds": {
+  "tk.chuong": "tru",
   "hb.dien": "nha",
   "hb.lau": "nha",
   "hb.thap": "nha",
@@ -259,11 +260,17 @@
   "hb.vom": "cong",
   "hb.qua-cau": "nho"
  },
- "glow": {"warm": {"c": "255,180,100", "r": 20, "a": 0.2}, "cold": {"c": "140,210,255", "r": 18, "a": 0.16}, "pink": {"c": "255,140,220", "r": 16, "a": 0.16}},
+ "glow": {"warm": {"c": "255,180,100", "r": 20, "a": 0.2}, "cold": {"c": "140,210,255", "r": 18, "a": 0.16}, "pink": {"c": "255,140,220", "r": 16, "a": 0.16}, "jade": {"c": "140,255,170", "r": 16, "a": 0.16}},
  "flame": {"lam": ["#bff4ff", "#5ab8ff", "#2a6ad8"], "hong": ["#ffe0f4", "#ff8ad8", "#c04ab0"], "vang": ["#fff2b0", "#ffb040", "#e0602a"]},
  "_kinds": "kinds khớp phần sau tiền tố tinh cầu (hb.cay khớp cả tk.cay-...), khoá dài nhất thắng.",
  "anim": {
-  "_note": "Chuyển động của đồ hội theo tên (phần sau tiền tố tinh cầu, khoá dài nhất thắng), vẽ ở src/render/draw-hoi-tro.js: wave cờ bay, swing đèn treo đung đưa, float kiếm bay nhấp nhô, pulse trận pháp sáng tắt, trong trống nảy theo nhịp.",
+  "_note": "Chuyển động của đồ hội theo tên (phần sau tiền tố tinh cầu, khoá dài nhất thắng), vẽ ở src/render/draw-hoi-tro.js: wave cờ bay, swing đèn treo đung đưa, float kiếm bay nhấp nhô, pulse trận pháp sáng tắt, trong trống nảy theo nhịp; sway cây, trúc lắc theo gió (gốc đứng yên, ngọn lệch nhiều nhất), sway-s bụi cỏ lắc nhẹ (chủ dự án 09/11/2026 12:00: \"những thứ có chuyển động như cây cối tự code\"). Khói (smoke trong data/art.json) vẽ ở src/render/draw-hoi.js.",
+  "cay-": "sway",
+  "truc": "sway",
+  "dao": "sway",
+  "lieu": "sway",
+  "bui-": "sway-s",
+  "kiem-bay": "float",
   "co-": "wave",
   "bang-1": "wave",
   "bang-2": "wave",

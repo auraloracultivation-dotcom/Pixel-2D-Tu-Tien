@@ -25,6 +25,14 @@ export function drawAnimated(ctx, game, it, im, kind, t) {
     }
     return true;
   }
+  if (kind === 'sway' || kind === 'sway-s') {   // cây, bụi lắc theo gió: gốc (40% dưới) đứng yên, ngọn lệch nhiều nhất; thỉnh thoảng gió mạnh hơn
+    const amp = (kind === 'sway' ? 1.4 : 0.7) * (1 + 0.6 * Math.max(0, Math.sin(t * 0.37 + ph))), rows = Math.ceil(s.h / 2);
+    for (let r = 0; r < rows; r++) {
+      const sy = r * 2, f = Math.max(0, 1 - sy / s.h / 0.6), dx = Math.round(Math.sin(t * 1.25 + ph - f * 0.6) * amp * f * f * 2) / 2;
+      ctx.drawImage(im, 0, sy, s.w, 2, ox + dx, oy + sy * k, W, 2 * k);
+    }
+    return true;
+  }
   if (kind === 'swing') {   // đèn lồng treo: xoay quanh móc ở đỉnh
     ctx.save(); ctx.translate(it.x, oy); ctx.rotate(Math.sin(t * 1.9 + ph) * 0.12);
     ctx.drawImage(im, 0, 0, s.w, s.h, -W / 2, 0, W, Hh); ctx.restore();

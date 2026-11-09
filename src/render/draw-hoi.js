@@ -60,6 +60,7 @@ export function drawHoiItem(ctx, game, it, t) {
   if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x);
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
+  if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
   if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
 
@@ -90,6 +91,17 @@ function flame(ctx, game, it, x, y, t) {
     const u = (t * 0.9 + i / 3 + ph) % 1;
     ctx.globalAlpha = 1 - u; ctx.fillStyle = c[1];
     ctx.fillRect(x + Math.sin(u * 6 + i * 2) * 2.5, y - 4 - u * 12, 0.8, 0.8);
+  }
+  ctx.globalAlpha = 1;
+}
+
+// Khói (ống khói lò rèn, lư hương): năm cụm khói xám nhạt bay lên, nở to, trôi nghiêng theo gió rồi tan
+function smoke(ctx, x, y, t, seed) {
+  ctx.fillStyle = '#d8d4e0';
+  for (let i = 0; i < 5; i++) {
+    const u = (t * 0.22 + i / 5 + seed * 0.01) % 1, r = 1 + u * 3.2;
+    ctx.globalAlpha = 0.45 * (1 - u) * Math.min(1, u * 6);
+    ctx.beginPath(); ctx.arc(x + Math.sin(u * 4 + i) * 1.5 + u * 5, y - u * 18, r, 0, Math.PI * 2); ctx.fill();
   }
   ctx.globalAlpha = 1;
 }

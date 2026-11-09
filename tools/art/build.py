@@ -329,5 +329,7 @@ import ui_kit2  # noqa: E402
 print('khung giao diện GPT 2:', ui_kit2.build(save))
 import le_hoi  # noqa: E402
 print('đồ lễ hội:', le_hoi.build(save))
+import tk_moi  # noqa: E402
+print('bộ mới Thiên Kiếm Phong (ảnh GPT 09/11/2026):', tk_moi.build(save))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')
