@@ -3,12 +3,7 @@
 màu, như ui_pham_cap.py). Dùng ở style-self.css, src/ui/self-*.js.
 - ui-nv-<tên>: 24 biểu tượng (lưới 6 × 4 của ảnh, hàng lệch nhau nên dò từng hình rồi xếp theo hàng, cột): chỉ số, ngũ hành, khôi lỗi,
   lỗ khảm trống, giảm sát thương, lực chiến, danh hiệu, bán nhanh, mặc đồ tốt nhất;
-- ui-nv-be: bệ pháp trận dưới chân nhân vật; ui-nv-nen: nền phù văn mờ sau lưng nhân vật (nv-nen-phu-van.png);
-- ảnh thứ hai (nv-bieu-tuong-2.png, lưới đều 6 × 3, gom theo ô vì dấu chân thú gồm nhiều mảnh rời): ui-nv-cho-<chỗ> hình chờ ô trống
-  (bóng mờ theo chỗ mặc, linh thú, khôi lỗi, thú cưỡi, thời trang, khoá) và biểu tượng chức năng (xếp, lịch sử, khoá, ghép, khảm, cường hoá);
-- ảnh thứ ba (nv-bieu-tuong-3.png, lưới đều 6 × 3, 03:03): ui-nv-tab-<mục> biểu tượng các nút mục, mục con;
-- nv-the-tuong.png (03:03): ui-nv-bang-ten (băng tên nhân vật), ui-nv-bang-lc (bảng lực chiến có song kiếm), ui-nv-giay (khung chi tiết món
-  như tờ giấy cổ; xoá ô vuông nhỏ góc trên vì kéo giãn sẽ méo, hình món do code đặt);
+- ui-nv-be: bệ pháp trận dưới chân nhân vật;
 - ui-nv-khung (khung bảng), ui-nv-the (khung thẻ trong), ui-nv-tab / -tab-on (nút mục tắt / bật), ui-nv-nut / -nut-vang (nút nhỏ),
   ui-nv-dong (nút đóng), ui-nv-o (ô kho trống): dùng kiểu 9 mảnh (border-image). Khung bảng, khung thẻ có hoa văn giữa cạnh trên
   dưới: thay đoạn giữa bằng cạnh trơn kề bên cho khỏi méo khi kéo giãn.
@@ -22,12 +17,6 @@ from px import Canvas
 SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ui'
 ICONS = [['hp', 'cong', 'thu', 'toc', 'bao', 'st-bao'], ['hoi-chieu', 'hut-mau', 'phan-don', 'hoi-mau', 'linh-luc', 'tu-luyen'],
          ['kim', 'moc', 'thuy', 'hoa', 'tho', 'khoi-loi'], ['lo-kham', 'giam-st', 'luc-chien', 'danh-hieu', 'ban', 'mac-tot']]
-ICONS2 = [['cho-vu-khi', 'cho-mu', 'cho-giap', 'cho-ngoc-boi', 'cho-giay', 'cho-nhan'],
-          ['cho-phap-bao', 'cho-linh-thu', 'cho-khoi-loi', 'cho-thu-cuoi', 'cho-thoi-trang', 'cho-khoa'],
-          ['sap-xep', 'lich-su', 'khoa', 'ghep', 'kham', 'cuong-hoa']]
-ICONS3 = [['tab-trang-bi', 'tab-kho', 'tab-cong-phap', 'tab-thoi-trang', 'tab-tat-ca', 'tab-vu-khi'],
-          ['tab-giap', 'tab-nhan', 'tab-phap-bao', 'tab-ngoc', 'tab-nguyen-lieu', 'tab-ca'],
-          ['tab-dan', 'tab-chieu', 'tab-bi-kip', 'tab-danh-hieu', 'tab-la', 'tab-khac']]
 # mảnh bộ khung theo thứ tự diện tích giảm dần (dò được 8 mảnh): tên, đoạn cạnh giữa cần làm trơn (tỉ lệ bề ngang) hoặc None
 KIT = {'khung': (0.33, 0.67), 'the': (0.3, 0.7), 'o-luoi': None, 'tab': None, 'tab-on': None, 'nut': None, 'nut-vang': None, 'dong': None}
 
@@ -76,25 +65,6 @@ def _parts(a, big, thr=128):
     return out
 
 
-def _grid(a, cols, rows, thr=128, least=30):
-    """Gom mọi mảng hình (≥ least điểm) theo ô lưới đều cols × rows của ảnh → [[mảnh]] theo hàng."""
-    h, w = a.shape[:2]; m = a[:, :, 3] >= thr
-    lab, k = nd.label(m, structure=np.ones((3, 3))); sizes = nd.sum(m, lab, range(1, k + 1)); sl = nd.find_objects(lab)
-    cell = {}
-    for i in range(k):
-        if sizes[i] < least: continue
-        cy, cx = (sl[i][0].start + sl[i][0].stop) / 2, (sl[i][1].start + sl[i][1].stop) / 2
-        cell.setdefault((int(cy * rows // h), int(cx * cols // w)), []).append(i + 1)
-    out = []
-    for r in range(rows):
-        row = []
-        for q in range(cols):
-            mask = nd.binary_dilation(np.isin(lab, cell[(r, q)]), iterations=2)
-            piece = a.copy(); piece[~mask, 3] = 0; row.append(_crop(piece))
-        out.append(row)
-    return out
-
-
 def _smooth_mid(a, span, band):
     """Thay đoạn giữa cạnh trên, dưới (span: tỉ lệ bề ngang) bằng cột cạnh trơn ngay bên trái đoạn đó (band: bề dày cạnh)."""
     a = a.copy(); w = a.shape[1]; x0, x1 = int(w * span[0]), int(w * span[1])
@@ -113,25 +83,6 @@ def build(save):
             _save(save, 'ui.nv-' + name, _fit(parts[r * 6 + q][1], 0.48)); n += 1
     be = _crop(_load('nv-be-phap-tran.png', 40))
     _save(save, 'ui.nv-be', _fit(be, 0.3)); n += 1
-    nen = _crop(_load('nv-nen-phu-van.png', 24))
-    _save(save, 'ui.nv-nen', _fit(nen, 0.2)); n += 1
-    g2 = _grid(_load('nv-bieu-tuong-2.png'), 6, 3)
-    for r, row in enumerate(ICONS2):
-        for q, name in enumerate(row):
-            _save(save, 'ui.nv-' + name, _fit(g2[r][q], 0.48)); n += 1
-    g3 = _grid(_load('nv-bieu-tuong-3.png'), 6, 3)
-    for r, row in enumerate(ICONS3):
-        for q, name in enumerate(row):
-            _save(save, 'ui.nv-' + name, _fit(g3[r][q], 0.48)); n += 1
-    tt = sorted(_parts(_load('nv-the-tuong.png', 24), 15000), key=lambda p: (p[0][1].start > 900, p[0][0].start))
-    assert len(tt) == 3, len(tt)
-    _save(save, 'ui.nv-bang-ten', _fit(tt[0][1], 0.5)); n += 1   # băng tên (trên, trái)
-    _save(save, 'ui.nv-bang-lc', _fit(tt[1][1], 0.5)); n += 1    # bảng lực chiến (dưới, trái)
-    giay = tt[2][1].copy(); h, w = giay.shape[:2]   # khung dọc bên phải: xoá ô vuông nhỏ góc trên trái (tỉ lệ theo khung)
-    y0, y1, x0, x1 = int(h * 0.105), int(h * 0.29), int(w * 0.13), int(w * 0.43)
-    lop = giay[int(h * 0.4):int(h * 0.7), int(w * 0.2):int(w * 0.8)].reshape(-1, 4)
-    giay[y0:y1, x0:x1] = np.median(lop, axis=0).astype(np.uint8)
-    _save(save, 'ui.nv-giay', _fit(giay, 0.5)); n += 1
     kit = _load('nv-khung.png', 24)
     pieces = sorted(_parts(kit, 15000), key=lambda p: -p[2])
     assert len(pieces) == len(KIT), len(pieces)
@@ -143,13 +94,9 @@ def build(save):
     for name, p in zip(names, order):
         img = p[1]
         if KIT[name]: img = _smooth_mid(img, KIT[name], int(img.shape[0] * 0.16))
-        if name == 'o-luoi':   # một ô của lưới mẫu (hàng 2, cột 2) làm ô kho trống: dò lòng tối từng ô, cắt kèm nửa nét lưới quanh
-            lum = img[:, :, :3].astype(int).sum(axis=2)
-            lab, k = nd.label((lum < 150) & (img[:, :, 3] > 200)); sz = nd.sum(np.ones_like(lab), lab, range(1, k + 1)); sl = nd.find_objects(lab)
-            cells = sorted([sl[i] for i in range(k) if 2000 < sz[i] < 15000], key=lambda s: (s[0].start // 40, s[1].start))
-            y, x = cells[5] if len(cells) > 5 else cells[0]   # 3 hàng × 4 cột (ô góc trên trái dính khung nên không đếm)
-            m = 6
-            img = np.ascontiguousarray(img[y.start - m:y.stop + m, x.start - m:x.stop + m])
+        if name == 'o-luoi':   # một ô trong lưới mẫu (hàng 2, cột 2) làm ô kho trống
+            h, w = img.shape[:2]
+            img = _crop(img[int(h * 0.33):int(h * 0.67), int(w * 0.255):int(w * 0.505)])
             name = 'o'
         _save(save, 'ui.nv-' + name, _fit(img, 0.5)); n += 1
     return n
