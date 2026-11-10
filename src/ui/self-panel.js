@@ -8,7 +8,7 @@ import { spriteIcon } from './sprite-icon.js';
 import { playerStats, realmLabel, rootOf, qiNeed } from '../game/stats.js';
 import { power, titleOf } from '../game/achieve.js';
 import { el, renderDetail } from './bag-detail.js';
-import { gearCell, buffCell } from './self-gear.js';
+import { gearCell, buffCell, uiIco } from './self-gear.js';
 import { renderSelfBag, BAG_TABS } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
@@ -80,7 +80,7 @@ export function createSelfPanel(game) {
     const c = el('div', 'sv-col ' + side);
     for (const k of slots) {
       if (k) { c.append(gearCell(game, k, side, pick)); continue; }
-      const w = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot spare'); b.disabled = true; b.append(el('span', 'sv-big', '?'), el('span', 'sv-name', 'Sắp mở')); w.append(b); c.append(w);
+      const w = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot spare'); b.disabled = true; b.title = 'Sắp mở'; b.append(uiIco(game.data, 'ui.ic-khoa')); w.append(b); c.append(w);
     }
     return c;
   }
@@ -112,7 +112,7 @@ export function createSelfPanel(game) {
   function renderRail() {   // cột chọn mục túi bên trái (mẫu chủ dự án gửi 11/11/2026 00:50)
     rail.replaceChildren(...BAG_TABS.map(([id, han, name]) => {
       const b = el('button', 'sv-rb' + (st.tab === id ? ' on' : ''));
-      b.append(el('i', null, han), el('small', null, name));
+      b.append(uiIco(game.data, han, 'sv-rico'), el('small', null, name));
       b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; st.coinLog = false; if (id !== 'ngoc') st.pickSocket = null; render(); body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
       return b;
     }));
