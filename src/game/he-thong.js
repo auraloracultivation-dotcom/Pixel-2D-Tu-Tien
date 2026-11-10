@@ -39,6 +39,8 @@ export function htTick(game, dt) {
     s.step = st;
     if (C.steps[st]) return C.steps[st];
   }
+  // đầy linh khí chờ độ kiếp: tự hành không tự độ (pilot.peak), người mới không biết phải bấm (test 10/11/2026: kẹt Luyện Khí 9)
+  if (C.nudge.kiep && game.trib?.canStart?.() && !game.trib.active && ok('kiep')) { s.last.kiep = now; return C.nudge.kiep; }
   // đứng yên không làm gì
   const busy = p.moving || game.auto || game.pilot || game.uiOpen || p.meditating || game.fish;
   s.idle = busy ? 0 : s.idle + dt;
