@@ -116,7 +116,7 @@ export function wantJob(game, routeTo, list) {
     } else if (w.any) {   // hạ quái bất kỳ: đánh con gần nhất, không có thì tới bãi quái, đảo không có bãi thì về Thiên Kiếm Phong
       const m = game.mobs.filter(m => !m.dead && !m.dummy && m.def.ai !== 'boss' && !avoided(game, m.id)).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (m) return { fight: m };
-      const sp = game.map.def.spawners.find(s => flagOk(game, s));
+      const sp = game.map.def.spawners.find(s => flagOk(game, s) && !avoided(game, s.mob));   // bãi của loài đang tạm tránh (vừa hạ mình) thì thôi, kẻo đứng im ở bãi mãi (test 10/11/2026: tân thủ thua Mộc linh, đứng ở bãi Thiên Kiếm Phong không làm gì)
       if (sp) return { go: game.map.center(sp.at[0], sp.at[1]) };
       const j = goPortal(game, routeTo, 'thien-kiem-phong');
       if (j) return j;
@@ -130,6 +130,8 @@ export function wantJob(game, routeTo, list) {
       if (at) return { fish: at };
       const j = goPortal(game, routeTo, 'thien-kiem-phong');
       if (j) return j;
+    } else if (w.visit) {   // việc ngày Về động phủ…: tới bản đồ đó là xong
+      if (game.map.id !== w.visit) { const j = goPortal(game, routeTo, w.visit); if (j) return j; }
     } else if (w.kill) {
       if (avoided(game, w.kill)) continue;   // vừa gục trước loài này: tạm tránh, làm việc khác
       const sp = spawnerOf(game, w.kill, routeTo);

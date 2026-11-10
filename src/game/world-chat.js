@@ -1,5 +1,6 @@
 // Chat lưu trên máy chủ theo kênh (data/social.json → world): kênh thế giới và kênh tông môn. Tin mới máy chủ đẩy qua Realtime (game/chat-push.js), đọc bù định kỳ khi mất kết nối; lọc từ bậy khi gửi và khi hiện.
 import { cleanText } from './social.js';
+import { dailyEvent } from './daily.js';
 
 const W = game => game.data.social.world, M = game => game.data.social.mod;
 
@@ -66,6 +67,7 @@ export async function sendChan(game, kenh, text) {
   try {
     const { sendChat } = await import('../net/chat.js');
     const id = await sendChat(kenh, t);
+    if (Number.isSafeInteger(id)) dailyEvent(game, 'chat', kenh);   // việc ngày Trò chuyện
     if (Number.isSafeInteger(id)) { s.mine.add(id); const m = s.list.find(x => x.id === id); if (m) { m.la_toi = true; s.rev++; } }   // tin đẩy về trước cả lời đáp
   } catch (e) { const m = String(e?.message); return m.includes('nhanh_qua') ? w.wait : m.includes('bi_cam') ? M(game).muted : w.error; }
   await pullChan(game, kenh, true);

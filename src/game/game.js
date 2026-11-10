@@ -192,6 +192,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.fish = null;
     game.save.map = id; game.save.spawn = spawnName || 'vao';
     (game.save.visited ??= {})[id] = true;
+    dailyEvent(game, 'visit', id);   // việc ngày Về động phủ / ghé tinh cầu
     game.portalLock = 0.8;
     joinOnline();
     audio?.music(id);

@@ -49,20 +49,41 @@ function doNow(game, d) {
   return false;
 }
 
+const PILOT = ['kill', 'fish', 'visit'];   // việc tự hành đi làm được (ngoài luyện đan, rèn, thu hoạch, phân giải, đả tọa ở trên)
+
 // → bước cho tự hành, { meditate: true } (pilot.js tự về bồ đoàn), hoặc null khi không còn việc ngày nào làm được
 export function dailyJob(game, routeTo) {
-  const pl = game.pilot;
-  for (const { d } of dailyLeft(game)) {
+  const pl = game.pilot, left = dailyLeft(game), first = left.findIndex(x => x.t.id === pl.daily);
+  if (first > 0) left.unshift(...left.splice(first, 1));   // việc vừa chạm làm trước
+  for (const { d } of left) {
     if (['brew', 'forge', 'harvest', 'salvage'].includes(d.type)) {
       if ((pl.nowT || 0) > Date.now()) return { wait: true };   // vừa làm xong một lần: đợi chút rồi làm tiếp
       if (doNow(game, d)) { pl.nowT = Date.now() + 1200; return { wait: true }; }
       continue;
     }
     if (d.type === 'meditate') return { meditate: true };
-    if (d.type === 'rare' || d.type === 'guard') continue;   // dị chủng, trấn giữ: không nhắm được, để người chơi tự làm
-    const w = d.type === 'fish' ? { fish: true } : d.type === 'kill' && d.mob ? { kill: d.mob } : { any: true };
+    if (!PILOT.includes(d.type)) continue;   // dị chủng, trấn giữ, khảm ngọc, trò chuyện…: người chơi tự làm (nút Đi làm mở bảng)
+    const w = d.type === 'fish' ? { fish: true } : d.type === 'visit' ? { visit: d.map } : d.type === 'kill' && d.mob ? { kill: d.mob } : { any: true };
     const j = wantJob(game, routeTo, [w]);
     if (j) return j;
   }
   return null;
+}
+
+// Chạm "Đi làm" ở nhiệm vụ ngày của Hệ Thống (chủ dự án 10/11/2026 10:09: "chưa có tự đi làm nhiệm vụ"): quái chỉ có trong bí cảnh
+// thì mở bảng Bí cảnh cho người chơi chọn; còn lại bật tự hành làm việc này trước. Trả 'dungeon' | 'pilot' | null.
+export function dailyGo(game, id) {
+  const d = taskDef(game, id);
+  if (!d) return null;
+  if (d.go) {   // việc làm trong bảng (khảm ngọc, cường hoá, trò chuyện…): mở đúng bảng
+    if (d.go.fn && typeof game[d.go.fn] === 'function') { game[d.go.fn](d.go.arg); return 'panel'; }
+    if (d.go.btn && game.openOldPanel) { game.openOldPanel({ btn: d.go.btn }); return 'panel'; }
+  }
+  if (!['kill', 'fish', 'visit', 'meditate', 'brew', 'forge', 'harvest', 'salvage'].includes(d.type)) { game.toast(d.text.replace('{n}', d.n), 2.6); return 'hint'; }   // nói chuyện, vuốt thú, Vạn Bảo Lâu, luận võ: nhắc việc
+  if (d.type === 'kill' && d.mob && !Object.values(game.data.maps).some(m => (m.spawners || []).some(s => s.mob === d.mob))) {
+    if (!game.openDungeons) return null;
+    game.openDungeons(); return 'dungeon';
+  }
+  import('./pilot.js').then(P => P.pilotDaily(game, id));
+  return 'pilot';
 }

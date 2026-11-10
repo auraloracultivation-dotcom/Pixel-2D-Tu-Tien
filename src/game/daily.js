@@ -17,13 +17,22 @@ export function ensureDaily(game) {
   const s = game.save, cfg = game.data.daily, d = today();
   if (s.daily?.day === d) {   // việc đã bỏ (tháp, luận võ, bí cảnh tài nguyên, treo thưởng: 02/11/2026) thì gỡ khỏi việc hôm nay
     if (s.daily.tasks.some(t => !taskDef(game, t.id))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id));
+    if (s.daily.tasks.length < cfg.per_day) addTasks(game, s.daily, d);   // per_day tăng giữa ngày (5 → 20, chủ dự án 10/11/2026 13:15): bốc thêm cho đủ
     return s.daily;
   }
-  const pool = cfg.pool.filter(t => (!t.need || s.flags[t.need]) && !(game.data.dungeon.closed || []).includes(t.id)), rnd = seeded(d + (game.owner || ''));
-  const tasks = [];
-  while (tasks.length < cfg.per_day && pool.length) tasks.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0].id);
-  s.daily = { day: d, tasks: tasks.map(id => ({ id, n: 0, got: false })), chest: false };
+  s.daily = { day: d, tasks: [], chest: false };
+  addTasks(game, s.daily, d);
   return s.daily;
+}
+
+// Bốc việc cho đủ per_day (cùng ngày thì cùng bộ việc; việc đã có giữ nguyên)
+function addTasks(game, dl, d) {
+  const s = game.save, cfg = game.data.daily, have = new Set(dl.tasks.map(t => t.id)), rnd = seeded(d + (game.owner || ''));
+  const pool = cfg.pool.filter(t => (!t.need || s.flags[t.need]) && !(game.data.dungeon.closed || []).includes(t.id));
+  while (dl.tasks.length < cfg.per_day && pool.length) {
+    const id = pool.splice(Math.floor(rnd() * pool.length), 1)[0].id;
+    if (!have.has(id)) dl.tasks.push({ id, n: 0, got: false });
+  }
 }
 
 export const taskDef = (game, id) => game.data.daily.pool.find(t => t.id === id);
@@ -36,7 +45,7 @@ export function dailyEvent(game, type, id, amount = 1) {
   const dl = ensureDaily(game);
   for (const t of dl.tasks) {
     const d = taskDef(game, t.id);
-    if (!d || d.type !== type || (d.mob && d.mob !== id) || t.n >= d.n) continue;
+    if (!d || d.type !== type || (d.mob && d.mob !== id) || (d.map && d.map !== id) || t.n >= d.n) continue;
     t.n = Math.min(d.n, t.n + amount);
     if (game.data.daily.off) continue;   // việc ngày giờ thành nhiệm vụ ngày của Hệ Thống (chủ dự án 06/11/2026): chỉ đếm, nhận điểm ở bảng Hệ Thống
     if (t.n >= d.n && game.pilot) autoClaim(game, dl.tasks.indexOf(t), d);

@@ -7,6 +7,7 @@ import { skillSlots } from './skills.js';
 import { petDef } from './evolve.js';
 import { duelTake } from './duel-cast.js';
 import { updateFoes } from './duel-ai.js';
+import { dailyEvent } from './daily.js';
 
 const D = game => game.data.duel;
 // Hệ số đánh thường theo số chiêu tấn công đang mang (như player.js basicMul)
@@ -89,6 +90,7 @@ function finish(game, res) {
   const f = game.duel;
   if (f.done) return;
   f.done = true; f.res = res; f.endT = D(game).end_wait;
+  dailyEvent(game, 'duel');   // việc ngày Luận võ
   if (f.mob) f.mob.hitQ = null;
   game.bullets = game.bullets.filter(b => b.src !== f.mob); game.zones = game.zones.filter(z => !z.foe);   // dừng tay: đòn đang bay của bản sao tan
   game.sfx(res === 'win' ? 'levelup' : res === 'draw' ? 'warn' : 'hurt');

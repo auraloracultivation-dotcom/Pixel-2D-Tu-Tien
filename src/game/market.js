@@ -85,8 +85,8 @@ export async function claimMail(game) {
   const mail = await peekMail(), s = game.save;
   let free = game.data.items.bag_size - s.bag.length;
   const ids = mail.filter(m => !m.noi_dung.item || free-- > 0).map(m => m.id);
-  if (!ids.length) return [];
-  const got = [];
+  const got = []; got.full = mail.length - ids.length;   // thư có đồ mà túi đầy: để lại, báo người chơi dọn túi (chủ dự án 10/11/2026: "2 thư ẩn không đọc được")
+  if (!ids.length) return got;
   await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
     for (const m of r.thu || []) {
       const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || d.tieu_de || '', lines = [];

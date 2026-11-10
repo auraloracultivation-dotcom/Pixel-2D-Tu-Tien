@@ -1,7 +1,7 @@
 {
- "_note": "Việc hằng ngày và cống hiến tông môn. Mỗi ngày (giờ máy) bốc per_day việc từ pool (need: cờ cốt truyện; việc hạ boss bí cảnh dùng đúng cờ mở cổng bí cảnh đó, việc ở tinh cầu dùng cờ mở tinh cầu, đổi 05/11/2026 vì cờ truyện cũ đã xoá). Xong việc nhận thưởng + cống hiến; xong hết nhận rương. Treo thưởng chỉ có thưởng bounty_per_day lần mỗi ngày. Cống hiến lên chức vị (ranks) và đổi đồ ở shop.",
+ "_note": "per_day 20 (chủ dự án 10/11/2026 13:15: mỗi ngày ~20 nhiệm vụ, farm, khảm, trò chuyện…, 25 điểm mỗi việc). Kiểu việc thêm 10/11: socket (khảm ngọc), merge (ghép ngọc), enhance (cường hoá), reroll (tẩy luyện), sell (bán đồ, tự bán khi đầy túi không tính), skillup (nâng cấp chiêu), chat (gửi tin kênh chat), talk (nói chuyện NPC), pat (vuốt linh thú), buy (Vạn Bảo Lâu), summon (triệu hồi Hệ Thống), duel (luận võ), visit + map (tới bản đồ). go: nút Đi làm mở bảng ({fn: hàm game.*, arg} hoặc {btn: nút cũ}). Việc hằng ngày và cống hiến tông môn. Mỗi ngày (giờ máy) bốc per_day việc từ pool (need: cờ cốt truyện; việc hạ boss bí cảnh dùng đúng cờ mở cổng bí cảnh đó, việc ở tinh cầu dùng cờ mở tinh cầu, đổi 05/11/2026 vì cờ truyện cũ đã xoá). Xong việc nhận thưởng + cống hiến; xong hết nhận rương. Treo thưởng chỉ có thưởng bounty_per_day lần mỗi ngày. Cống hiến lên chức vị (ranks) và đổi đồ ở shop.",
  "off": true, "_off": "Chủ dự án 06/11/2026 16:49: bỏ nhiệm vụ hằng ngày (cột nhiệm vụ trên màn hình, điểm danh, rương); nhiệm vụ hệ thống thay (data/he-thong.json). off = true: không dựng cột nhiệm vụ (src/main.js createQuestDock), không nhắc điểm danh.",
- "per_day": 5,
+ "per_day": 20,
  "guard": {"r": 200, "_": "Việc Trấn giữ vùng an toàn (đề xuất #47 + #48, chủ dự án chốt 01/11): hạ quái thường (không boss) cách NPC dưới r đơn vị trên tinh cầu thì tính tiến độ."},
  "pool": [
   {"id": "giet-quai", "type": "kill", "n": 30, "text": "Hạ {n} quái bất kỳ", "reward": {"stones": 1}},
@@ -30,7 +30,22 @@
   {"id": "dia-cung", "type": "kill", "mob": "toai-son-ma-tuong", "n": 1, "need": "mo-dia-cung", "text": "Hạ Toái Sơn Ma Tướng", "reward": {"gem": 1}},
   {"id": "giet-hu-khong", "type": "kill", "mob": "hu-khong-ma", "n": 12, "need": "vet-nut", "text": "Hạ {n} hư không ma", "reward": {"stones": 5}},
   {"id": "hu-khong-lao", "type": "kill", "mob": "hu-khong-nguc-chu", "n": 1, "need": "mo-hu-khong-lao", "text": "Hạ Hư Không Ngục Chủ", "reward": {"gem": 1}},
-  {"id": "vet-nut", "type": "kill", "mob": "ma-ton", "n": 1, "need": "vao-vet-nut", "text": "Đánh lại Ma Tôn trong Lòng Vết Nứt", "reward": {"gem": 2}}
+  {"id": "vet-nut", "type": "kill", "mob": "ma-ton", "n": 1, "need": "vao-vet-nut", "text": "Đánh lại Ma Tôn trong Lòng Vết Nứt", "reward": {"gem": 2}},
+  {"id": "giet-quai-lon", "type": "kill", "n": 100, "text": "Hạ {n} quái bất kỳ (việc lớn)", "reward": {"stones": 2}},
+  {"id": "da-toa-dai", "type": "meditate", "n": 300, "text": "Đả tọa {n} giây", "reward": {"qi": 60}},
+  {"id": "kham-ngoc", "type": "socket", "n": 1, "text": "Khảm {n} viên ngọc vào trang bị", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "ngoc"}},
+  {"id": "ghep-ngoc", "type": "merge", "n": 1, "text": "Ghép ngọc {n} lần", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "ngoc"}},
+  {"id": "cuong-hoa", "type": "enhance", "n": 3, "text": "Cường hoá trang bị {n} lần", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
+  {"id": "tay-luyen", "type": "reroll", "n": 2, "text": "Tẩy luyện trang bị {n} lần", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
+  {"id": "ban-do", "type": "sell", "n": 5, "text": "Bán {n} món đồ (Túi đồ, Bán nhanh)", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
+  {"id": "nang-chieu", "type": "skillup", "n": 1, "text": "Nâng cấp chiêu {n} lần", "reward": {"stones": 1}, "go": {"btn": "btn-skills"}},
+  {"id": "tro-chuyen", "type": "chat", "n": 3, "text": "Trò chuyện {n} câu ở kênh chat", "reward": {"stones": 1}, "go": {"fn": "openSocial"}},
+  {"id": "noi-chuyen", "type": "talk", "n": 3, "text": "Nói chuyện với {n} người trong làng", "reward": {"stones": 1}},
+  {"id": "vuot-thu", "type": "pat", "n": 3, "text": "Vuốt ve linh thú {n} lần", "reward": {"stones": 1}},
+  {"id": "mua-van-bao", "type": "buy", "n": 1, "text": "Mua {n} món ở Vạn Bảo Lâu", "reward": {"stones": 1}},
+  {"id": "trieu-hoi", "type": "summon", "n": 1, "text": "Triệu hồi Hệ Thống {n} lần", "reward": {"stones": 1}, "go": {"fn": "openHeThong"}},
+  {"id": "luan-vo", "type": "duel", "n": 1, "text": "Luận võ {n} trận", "reward": {"stones": 1}},
+  {"id": "ve-dong-phu", "type": "visit", "n": 1, "map": "dong-phu", "need": "dong-phu", "text": "Về động phủ", "reward": {"stones": 1}}
  ],
  "chest": {
   "stones": 3,

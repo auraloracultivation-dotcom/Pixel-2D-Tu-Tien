@@ -54,7 +54,11 @@ export function makeRoom(game, item) {
 
 export function autoEnhance(game) {
   const s = game.save, d = game.data, keep = d.config.pilot.enhance_keep;
-  const it = equipped(s).filter(i => (i.plus || 0) < d.gear.enhance.drop_from).sort((a, b) => (a.plus || 0) - (b.plus || 0))[0];
+  const safe = equipped(s).filter(i => (i.plus || 0) < d.gear.enhance.drop_from), top = Math.max(0, ...equipped(s).map(i => i.plus || 0));
+  // Còn nhiệm vụ hệ thống cường hoá +N (N tới mức an toàn) chưa đạt thì dồn vào món cao nhất cho nhanh đạt mốc; rải đều thì 6 món
+  // cùng +2 mãi chưa ra +3 (test 10/11/2026: claude_moi2 kẹt nhiệm vụ cuong-hoa-3)
+  const goal = (d['he-thong']?.missions || []).some(m => m.dk?.plus > top && m.dk.plus <= d.gear.enhance.drop_from);
+  const it = safe.sort((a, b) => goal ? (b.plus || 0) - (a.plus || 0) : (a.plus || 0) - (b.plus || 0))[0];
   const c = it && enhanceCost(d, it, s);
   if (!c || c.locked || c.coins || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;   // tự hành không tiêu Linh Thạch vào cường hoá
   const say = r => { if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8); };

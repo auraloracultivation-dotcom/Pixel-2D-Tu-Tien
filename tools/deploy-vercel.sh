@@ -7,4 +7,4 @@ OUT="${1:-/tmp/p2d-site}"
 bash tools/build-site.sh "$OUT"
 cd "$OUT"
 vercel link --yes --project pixel-2d-tu-tien >/dev/null
-vercel deploy --prod --yes
+vercel deploy --prod --yes --archive=tgz   # gói một tệp: gói Free giới hạn 5000 tệp tải lên mỗi ngày (10/11/2026 hết lượt)

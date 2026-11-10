@@ -28,7 +28,9 @@ export function startBayCanh(game) {
     const { layoutsAll, canArrange } = N;
     try { const all = await layoutsAll(); applyLayouts(game, all); try { localStorage.setItem(KEY, JSON.stringify(all)); } catch { /* đầy bộ nhớ */ } } catch { /* không mạng: dùng bố cục có sẵn trong data/maps */ }
     try {
-      if (await canArrange()) (await import('./bay-canh.js')).createBayCanh(game);
+      const ok = await canArrange();
+      if (ok === null) { done = false; return; }   // phiên đăng nhập chưa sẵn: thử lại nhịp sau
+      if (ok) (await import('./bay-canh.js')).createBayCanh(game);
     } catch { /* không có quyền hoặc lỗi mạng: không hiện nút */ }
   };
   setInterval(tick, 2000);

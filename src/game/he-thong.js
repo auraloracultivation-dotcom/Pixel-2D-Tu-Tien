@@ -39,6 +39,8 @@ export function htTick(game, dt) {
     s.step = st;
     if (C.steps[st]) return C.steps[st];
   }
+  // đầy linh khí chờ độ kiếp: tự hành không tự độ (pilot.peak), người mới không biết phải bấm (test 10/11/2026: kẹt Luyện Khí 9)
+  if (C.nudge.kiep && game.trib?.canStart?.() && !game.trib.active && ok('kiep')) { s.last.kiep = now; return C.nudge.kiep; }
   // đứng yên không làm gì
   const busy = p.moving || game.auto || game.pilot || game.uiOpen || p.meditating || game.fish;
   s.idle = busy ? 0 : s.idle + dt;
@@ -72,11 +74,10 @@ export function missionList(game, xong = []) {
   return [...ok, ...todo];
 }
 
-// Nhiệm vụ ngày (data/he-thong.json → ngay): chỉ mở khi đã nhận hết nhiệm vụ hệ thống. Việc ngày lấy từ bản lưu (game/daily.js).
+// Nhiệm vụ ngày (data/he-thong.json → ngay): luôn mở, song hành nhiệm vụ hệ thống. Việc ngày lấy từ bản lưu (game/daily.js).
 // Trả null khi chưa mở; mỗi việc { id, text, ok, got }.
 export function dailyList(game, ht) {
-  const H = game.data['he-thong'], xong = new Set(ht?.xong || []);
-  if (!game.save || (H.missions || []).some(m => !xong.has(m.id))) return null;
+  if (!game.save) return null;   // song hành với nhiệm vụ hệ thống, không chờ làm hết (chủ dự án 10/11/2026 09:47)
   const dl = ensureDaily(game), got = new Set(ht?.ngay_xong || []);
   return dl.tasks.map(t => { const d = taskDef(game, t.id); return d && { id: t.id, text: taskText(d, t.n), ok: t.n >= d.n, got: got.has(t.id) }; }).filter(Boolean);
 }

@@ -33,7 +33,7 @@ export function sell(game, uid) {
   const it = s.bag[i], n = sellPrice(game, it);
   for (const g of it.sockets) if (g) s.gems[g] = (s.gems[g] || 0) + 1;
   s.bag.splice(i, 1);
-  addCoins(game, n, 'ban-do'); game.persist();
+  addCoins(game, n, 'ban-do'); dailyEvent(game, 'sell'); game.persist();   // việc ngày Bán đồ
   return n;
 }
 
@@ -50,7 +50,7 @@ export function quickList(game, tiers) {
 }
 
 // Bán hết danh sách bán nhanh một lần: ngọc đang khảm trả về túi ngọc. Trả { n: số món, coins: Linh Thạch nhận }
-export function quickSell(game, rarities) {
+export function quickSell(game, rarities, auto = false) {   // auto: túi đầy tự bán, không tính việc ngày
   const s = game.save, list = quickList(game, rarities), gone = new Set(list.map(it => it.uid));
   let got = 0;
   for (const it of list) {
@@ -59,6 +59,7 @@ export function quickSell(game, rarities) {
   }
   s.bag = s.bag.filter(it => !gone.has(it.uid));
   if (got) addCoins(game, got, 'ban-do');
+  if (list.length && !auto) dailyEvent(game, 'sell', null, list.length);
   game.persist();
   return { n: list.length, coins: got };
 }
@@ -84,7 +85,7 @@ function buy(game, x) {
   const s = game.save;
   const price = priceOf(game, x);
   if (coins(s) < price) return null;
-  s.lingshi -= price; noteCoins(s, -price, 'van-bao');
+  s.lingshi -= price; noteCoins(s, -price, 'van-bao'); dailyEvent(game, 'buy');   // việc ngày Mua ở Vạn Bảo Lâu
   if (x.kind === 'gem') { const g = rollGem(game.data); s.gems[g] = (s.gems[g] || 0) + 1; game.persist(); return gemInfo(game.data, g).name; }
   if (x.kind === 'skill') {   // chiêu không theo hệ (Thiểm Ảnh Liên Trảm): học một lần, mở vào bảng Chiêu, còn ô trống thì tự mang
     (s.boughtSkills ??= []).push(x.ref);
@@ -144,7 +145,7 @@ export function autoSellFull(game) {
     if (r.n) game.toast?.(`Túi đầy: tự phân giải ${r.n} món, +${r.stones} Tẩy Luyện Thạch, +${r.iron} Tinh Thiết`, 1.8);
     return r.n > 0;
   }
-  const r = quickSell(game, a.tiers);
+  const r = quickSell(game, a.tiers, true);
   if (r.n) game.toast?.(`Túi đầy: tự bán ${r.n} món, +${r.coins.toLocaleString('vi-VN')} ${game.data.shop.name}`, 1.8);
   return r.n > 0;
 }

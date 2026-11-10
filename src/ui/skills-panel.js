@@ -87,6 +87,7 @@ export function createSkillsPanel(game) {
     const e = game.save.element ? data.elements[game.save.element] : null;
     if (e) e.skills.forEach((id, i) => all.push({ id, from: `Hệ ${e.name}`, at: data.elements._unlock[i] }));
     for (const x of data.shop.items) if (x.kind === 'skill' && data.skills[x.ref]) all.push({ id: x.ref, from: 'Vạn Bảo Lâu', buy: x.price });   // chiêu không theo hệ: chưa mua thì hiện khoá kèm giá
+    for (const id of open) if (!all.some(x => x.id === id)) all.push({ id, from: data.skills[id].test_uid ? 'Đang thử' : 'Đã học' });   // chiêu đang thử (test_uid, chủ dự án 10/11/2026 13:26: không thấy Vạn Kiếm Quy Tông trong bảng)
     for (const { id, from, at, buy } of all) {
       const s = data.skills[id], ok = open.includes(id);
       const c = el('button', 'skill-card' + (ok ? '' : ' locked') + (lo.includes(id) ? ' using' : ''));

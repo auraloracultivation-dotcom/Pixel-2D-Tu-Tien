@@ -277,7 +277,7 @@ ed3238f74b9074f98a4200294cec80497693409d assets/art/xd-xich-chan-m.png
 cd5bc0435cc2096e26f0c88008c10451791bf1c4 assets/art/xd-xuong-rong-m.png
 14c283c241f61b1038521b68614c8707f8c92588 data/art.json
 07e78cf3685fb50d5fed804a884fd5538c5ca08d data/cave.json
-05773c2aaa7ea58482c7db3da6356819f0b81f4f data/config.json
+71233cd66e9fcb0dd2dd7543fb9e212189a79ce6 data/config.json
 9e7c66a65856b21713fa414bdeaec0828dd96c04 data/i18n/en.json
 d8841379886af836e2ef0c786784e0e8996b9485 data/i18n/zh-Hant.json
 d4b1705fe6120015ee6c030b755c1501f12fe38d data/le-hoi.json

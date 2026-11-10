@@ -13,7 +13,7 @@ function bodies(game, c) {
     out.push({ e: m, r: m.r * c.sep, w: fixed ? 0 : 1 / (m.def.ai === 'boss' ? c.boss_mass : 1) });
   }
   if (p && !p.dead && !game.ghost && !p.chain) out.push({ e: p, r: (p.r || 5) * c.sep, w: p.domain || p.charge ? 0 : 1 / c.player_mass });   // giữ lĩnh vực (skill-domain.js), tụ lực (skill-charge.js): đứng như cột
-  for (const n of game.npcs || []) out.push({ e: n, r: (n.r || 6) * c.sep, w: 0 });
+  for (const n of game.npcs || []) out.push({ e: n, r: (n.r || 6) * c.sep, w: 0, npc: true });
   return out;
 }
 
@@ -36,6 +36,7 @@ function pass(game, c) {
         if (j <= i) continue;
         const b = B[j], sw = a.w + b.w;
         if (!sw) continue;
+        if (c.npc_pass && ((a.npc && b.e === game.player) || (b.npc && a.e === game.player))) continue;   // người chơi đi xuyên NPC (kẹt lối 1 ô, test 10/11/2026)
         let dx = b.e.x - a.e.x, dy = b.e.y - a.e.y, d = Math.hypot(dx, dy);
         const want = a.r + b.r;
         if (d >= want) continue;

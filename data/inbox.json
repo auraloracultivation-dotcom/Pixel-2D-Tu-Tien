@@ -81,6 +81,7 @@
   "ago_min": "{n} phút trước",
   "ago_hour": "{n} giờ trước",
   "ago_day": "{n} ngày trước",
-  "wait": "📬 Có {n} thư chờ nhận (quà, Linh Thạch, vật phẩm). Chạm để nhận"
+  "wait": "📬 Có {n} thư chờ nhận (quà, Linh Thạch, vật phẩm). Chạm để nhận",
+  "full": "Túi đồ đầy: còn {n} thư có trang bị chưa nhận được. Bán bớt đồ trong Túi đồ (Bán nhanh) rồi chạm nhận lại."
  }
 }

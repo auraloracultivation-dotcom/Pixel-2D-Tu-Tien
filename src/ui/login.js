@@ -10,7 +10,7 @@ function withTimeout(p, ms) {
   return Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('Hết thời gian chờ máy chủ.')), ms))]);
 }
 
-export function createLogin(onPlay0) {
+export function createLogin(onPlay0, opts = {}) {   // opts.google: hiện nút Đăng nhập bằng Google (data/config.json → auth.google)
   let auth = null, session = null, played = false;
   const onPlay = o => { played = true; onPlay0(o); };
 
@@ -48,6 +48,8 @@ export function createLogin(onPlay0) {
   const later = t => t && setTimeout(() => msg(t), 0);
 
   $('btn-login').onclick = () => act(async () => { session = await withTimeout(auth.signIn($('acc').value, $('pwd').value), NET_TIMEOUT); later(await welcomeBack()); });
+  $('btn-google').hidden = !opts.google;
+  $('btn-google').onclick = () => act(async () => { msg('Đang mở trang Google...'); await withTimeout(auth.signInGoogle(), NET_TIMEOUT); });   // trang chuyển sang Google, quay về là có phiên
   $('btn-signup').onclick = () => act(async () => { session = await withTimeout(auth.signUp($('acc').value, $('pwd').value), NET_TIMEOUT); });
   $('btn-logout').onclick = () => act(async () => { await auth.signOut(); session = null; });
   // Xoá tài khoản: bấm hai lần (lần đầu chỉ báo hậu quả), gửi yêu cầu rồi đăng xuất
@@ -96,12 +98,12 @@ export function createLogin(onPlay0) {
     async start() {
       render();
       $('login-form').hidden = false; msg('Đang kết nối máy chủ...');
-      for (const id of ['btn-login', 'btn-signup']) $(id).disabled = true;
+      for (const id of ['btn-login', 'btn-signup', 'btn-google']) $(id).disabled = true;
       try {
         auth = await withTimeout(import('../net/auth.js'), NET_TIMEOUT);
         session = await withTimeout(auth.getSession(), NET_TIMEOUT);
         msg(session ? await welcomeBack() : '');
-        for (const id of ['btn-login', 'btn-signup']) $(id).disabled = false;
+        for (const id of ['btn-login', 'btn-signup', 'btn-google']) $(id).disabled = false;
       } catch {
         auth = null;
         msg('Không kết nối được máy chủ. Bạn vẫn chơi thử được (không mạng).', true);
