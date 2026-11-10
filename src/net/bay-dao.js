@@ -15,7 +15,12 @@ export async function layoutOne(map) {
   if (error) throw error;
   return data;
 }
-export const canArrange = () => rpc('p2d_bay_co_quyen');
+// Chưa có phiên đăng nhập (đang nạp, hết hạn) thì trả null, không gọi: máy chủ chỉ cho người đã đăng nhập, gọi bằng khoá khách sẽ bị 401 rác (10/11/2026: 77 lần/ngày)
+export async function canArrange() {
+  const { data } = await supabase.auth.getSession();
+  if (!data?.session) return null;
+  return rpc('p2d_bay_co_quyen');
+}
 export const saveLayout = (map, items, ver) => rpc('p2d_bay_luu', { p_map: map, p_items: items, p_ver: ver ?? null });
 export const layoutHistory = map => rpc('p2d_bay_lich_su', { p_map: map });
 export const layoutRestore = id => rpc('p2d_bay_lay_lai', { p_id: id });
