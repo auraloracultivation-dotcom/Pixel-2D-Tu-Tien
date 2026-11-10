@@ -22,7 +22,7 @@ function sockets(game, it) {
   const col = el('div', 'sv-sock');
   for (const g of it.sockets || []) {
     const sq = el('i', 'sv-sk' + (g ? ' on' : ''));
-    if (g) { const gi = gemInfo(game.data, g); sq.style.setProperty('--g', gi.color); sq.append(gemIcon(game, g, 12, 'gem-ico')); sq.title = gi.name; }   // có ngọc: hình viên ngọc toả màu; trống: viên đá mờ (CSS)
+    if (g) { const gi = gemInfo(game.data, g); sq.style.setProperty('--g', gi.color); sq.append(gemIcon(game, g, 8, 'gem-ico')); sq.title = gi.name; }   // có ngọc: hình viên ngọc toả màu; trống: viên đá mờ (CSS)
     col.append(sq);
   }
   return col;
@@ -31,7 +31,7 @@ function sockets(game, it) {
 // Ô một món đang mặc (hoặc ô trống của chỗ đó), thanh lỗ khảm dính dưới ô
 export function gearCell(game, slot, side, onPick) {
   const { data, save } = game, it = save.bag.find(i => i.uid === save.equip[slot]);
-  const wrap = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot' + (it ? '' : ' empty'));
+  const wrap = el('div', 'sv-cell'), b = el('button', 'sv-slot' + (it ? '' : ' empty'));
   b.setAttribute('aria-label', data.items.slots[slot]);
   if (!it) {
     const ico = icon(data, { base: Object.keys(data.items.bases).find(k => data.items.bases[k].slot === slot) });
@@ -66,6 +66,6 @@ export function buffCell(game, kind, onOpen) {
   if (spr) { b.style.setProperty('--q', '#9a7ad8'); b.append(spriteIcon(game, spr, 0, 34, 'sv-spr', true)); }
   else b.append(uiIco(data, han));
   if (kind === 'spare') b.disabled = true; else b.onclick = () => onOpen(kind);
-  const w = el('div', 'sv-buff'); w.append(b, el('small', null, nm));   // tên dưới khung cho dễ đọc
-  return w;
+  b.title = nm;
+  return b;
 }
