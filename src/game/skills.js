@@ -13,6 +13,7 @@ import { castChain, chainReady } from './skill-chain.js';
 import { castDomain, domainReady } from './skill-domain.js';
 import { castCharge } from './skill-charge.js';
 import { castThunder, thunderReady } from './skill-thunder.js';
+import { castKiemVu } from './skill-kiem-vu.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -92,6 +93,9 @@ export function castSkill(game, id) {
     case 'thunder':   // Thiên Phạt: tụ lực thành quả cầu sét rồi toả sét lướt qua quái (src/game/skill-thunder.js)
       castThunder(game, s, p.atk * lv);
       break;
+    case 'kiemvu':   // Vạn Kiếm Quy Tông: gọi kiếm xoay vòng, kiếm khí, kiếm vũ đâm xuống (src/game/skill-kiem-vu.js); mỗi thanh s.mult × đánh thường
+      castKiemVu(game, s, p.atk * lv);
+      break;
     case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt sáng tới mép màn (src/game/skill-charge.js); s.mult × đánh thường
       castCharge(game, s, p.atk * lv);
       break;
@@ -150,6 +154,7 @@ export function unlockedSkills(game) {
   const el = save.element ? data.elements[save.element] : null;
   if (el) el.skills.forEach((id, i) => { if (n >= data.elements._unlock[i]) out.push(id); });
   for (const id of save.boughtSkills || []) if (Object.hasOwn(data.skills, id) && !out.includes(id)) out.push(id);   // chiêu mua ở Vạn Bảo Lâu (shop.js)
+  for (const [id, s] of Object.entries(data.skills)) if (s?.test_uid?.includes(game.owner) && !out.includes(id)) out.push(id);   // chiêu đang thử: chỉ tài khoản trong test_uid
   return out;
 }
 
