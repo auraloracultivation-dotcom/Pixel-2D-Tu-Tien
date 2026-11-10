@@ -132,7 +132,7 @@ async function boot() {
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập
-  const login = createLogin(opts => game.begin(opts));
+  const login = createLogin(opts => game.begin(opts), { google: !!game.data.config.auth?.google });
   login.start();
 
   let last = performance.now(), lastErr = '', lastUi = 0;

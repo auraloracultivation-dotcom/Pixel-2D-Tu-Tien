@@ -30,6 +30,13 @@ export async function signIn(account, password) {
   return data.session;
 }
 
+// Đăng nhập bằng Google (chủ dự án 10/11/2026 16:47). Trang chuyển sang Google rồi quay về đúng địa chỉ này; supabase-js tự đọc phiên
+// trên đường dẫn quay về. Cần bật Google trong Supabase → Authentication → Providers và thêm địa chỉ game vào Redirect URLs.
+export async function signInGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+  if (error) throw translate(error);
+}
+
 export async function signUp(account, password) {
   const username = normalize(account);
   if (username.includes('@')) throw new Error('Đăng ký bằng tên tài khoản, không cần email.');
