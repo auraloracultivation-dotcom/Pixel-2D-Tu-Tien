@@ -11,6 +11,7 @@ import { renderStore, SUBS, groupOf } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS } from './self-host.js';
+import { snap, react } from './self-fx.js';
 
 const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
 const SUB0 = { do: 'all', kho: 'ngoc', cp: 'chieu', tt: 'thoi-trang' };
@@ -39,10 +40,18 @@ export function createSelfPanel(game) {
   const goOld = it => { close(); game.openOldPanel?.(it); };
   const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
 
+  let before = null;   // trạng thái lúc vẽ gần nhất, để so sau thao tác mà chạy hiệu ứng (src/ui/self-fx.js)
   function changed(full = true) {
     if (full) { game.refreshStats(); game.persist(); }
     if (st.pickSocket && st.page !== 'kho') { st.page = 'kho'; st.sub = 'ngoc'; st.sel = null; }   // "+ Khảm ngọc": Kho → Ngọc chọn viên
+    const msg = st.msg, prev = before;
     render();
+    if (full) react(game, prev, msg, fxTarget, () => left.querySelector('.sv-center'));
+  }
+  // Ô của món uid: ô đang mặc bên trái nếu đang mặc, không thì hình món ở đầu tấm chi tiết bên phải
+  function fxTarget(uid) {
+    const s = game.save, slot = Object.keys(s.equip).find(k => s.equip[k] === uid);
+    return (slot && left.querySelector(`.sv-slot[aria-label="${game.data.items.slots[slot]}"]`)) || mid.querySelector('.d-head .ico') || left.querySelector('.sv-center');
   }
   const h = {
     pick: (slot, it) => {
@@ -63,6 +72,7 @@ export function createSelfPanel(game) {
 
   function render() {
     const s = game.save, d = game.data, stt = playerStats(s, d);
+    before = snap(game);
     rail.replaceChildren(...PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
     left.replaceChildren(leftCard(game, stt, h));
     subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ

@@ -253,3 +253,5 @@ body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7);
   border-image: url("assets/art/ui-nv-giay.png") 48 22 48 22 fill / 12px 5px stretch; }
 .sv-cpbar { border-width: 0 14px 0 31px !important; border-image-slice: 0 70 0 155 fill !important; border-image-width: 0 14px 0 31px !important; padding-left: 3px; }
 .sv-mid.sheet { padding: 1px 5px; }
+/* hiệu ứng rèn luyện (src/ui/self-fx.js): đè lên trên bảng, không chặn chạm */
+.sv-fx { position: fixed; z-index: 70; pointer-events: none; background-repeat: no-repeat; background-position: 0 0; image-rendering: pixelated; }
