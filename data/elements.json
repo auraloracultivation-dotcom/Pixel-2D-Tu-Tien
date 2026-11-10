@@ -1,11 +1,11 @@
 {
- "_note": "5 hệ linh căn. Mỗi hệ 6 chiêu mở dần theo tổng tầng tu luyện (_unlock, đếm từ 0: 9 = Trúc Cơ tầng 1, 18 = Kim Đan tầng 1). Người chơi chọn mang 3 chiêu (cả chiêu vũ khí) trong bảng Chiêu.",
+ "_note": "_unlock (tổng tầng, LK1 = 0): chiêu hệ 1 mở ở Luyện Khí tầng 2, chiêu 2 ở tầng 5 (chủ dự án 10/11/2026 16:47: mọi chiêu hệ phải tu luyện mới mở cho trân quý; trước đó 2 chiêu đầu có sẵn). 5 hệ linh căn. Mỗi hệ 6 chiêu mở dần theo tổng tầng tu luyện (_unlock, đếm từ 0: 9 = Trúc Cơ tầng 1, 18 = Kim Đan tầng 1). Người chơi chọn mang 3 chiêu (cả chiêu vũ khí) trong bảng Chiêu.",
  "moc": {"name": "Mộc", "color": "#5fd07a", "desc": "Sinh trưởng, trói buộc và hồi phục.", "skills": ["dang-phuoc", "hoi-xuan", "van-moc-cham", "thanh-moc-vuc", "luc-dang-long", "truong-xuan"]},
  "hoa": {"name": "Hỏa", "color": "#ff7a3a", "desc": "Sát thương lớn, thiêu rụi xung quanh.", "skills": ["hoa-cau", "liet-diem", "liet-hoa-tran", "phan-thien", "hoa-long", "phuong-hoang"]},
  "thuy": {"name": "Thủy", "color": "#5ab8f0", "desc": "Làm chậm kẻ địch, che chắn bản thân.", "skills": ["bang-truy", "thuy-thuan", "thuy-long", "han-bang-vuc", "bang-phong", "bang-phach"]},
  "kim": {"name": "Kim", "color": "#f2c94c", "desc": "Lao tới chém xuyên, tăng sức đánh.", "skills": ["kim-quang-tram", "kim-cuong-the", "van-kiem", "kim-luan", "loi-dinh", "kim-than"]},
  "tho": {"name": "Thổ", "color": "#c08850", "desc": "Choáng diện rộng, giáp đá chịu đòn.", "skills": ["dia-chan", "thach-giap", "thach-chuy", "luu-sa", "son-nhac", "dai-dia"]},
- "_unlock": [0, 0, 9, 13, 18, 22],
+ "_unlock": [1, 4, 9, 13, 18, 22],
  "_reroot": {"_note": "Tẩy linh căn: từ cảnh giới realm, nói chuyện với npc để đổi sang hệ khác, tốn cost (coins là Linh Thạch, mats nguyên liệu). Giữ nguyên phẩm linh căn; ô chiêu về mặc định.", "npc": "van-hac", "realm": 2, "cost": {"coins": 3000, "mats": {"ngoc-lo-hoa": 5, "hoa-linh-chi": 5}},
   "label": "Tẩy linh căn", "desc": "Đổi sang hệ khác. Tốn {cost}.", "talk": "Trò chuyện",
   "ask": "Tẩy linh căn là đập đi xây lại. Ngươi muốn đổi sang hệ nào?", "back": "Thôi, giữ hệ cũ",

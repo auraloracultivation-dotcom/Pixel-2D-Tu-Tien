@@ -190,6 +190,6 @@ export function checkUnlocks(game) {
   s.knownSkills.push(...fresh);
   const lo = skillSlots(game);
   for (const id of fresh) { const k = lo.indexOf(null); if (k >= 0 && !lo.includes(id)) { lo[k] = id; s.loadout = lo; } }
-  game.toast(`Lĩnh ngộ chiêu mới: ${fresh.map(id => game.data.skills[id].name).join(', ')}! Mở bảng Chiêu để mang.`, 3);
+  game.toast(`Đinh! Ký chủ tu vi tăng tiến, lĩnh ngộ chiêu mới: ${fresh.map(id => game.data.skills[id].name).join(', ')}! Chiêu đã tự vào ô trống, mở bảng Chiêu để đổi.`, 4);
   game.newSkills = true;
 }
