@@ -139,13 +139,11 @@ export function createBag(game) {
   $('bag-mats').after(logBtn);
   logBtn.onclick = $('bag-mats').onclick = () => { st.coinLog = !st.coinLog; st.sel = null; st.stock = null; st.pickSocket = null; render(); };
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
-  // Nút Túi đồ mở bảng Nhân vật + Kho (src/ui/self-panel.js; chủ dự án 11/11/2026 02:31: đưa bảng mới lên game). Không có bảng đó
-  // thì như cũ: cột mục bên trái (src/ui/side-nav.js)
-  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.toggleSelf) game.toggleSelf('do'); else if (game.openNav) game.openNav('bag'); else open(); });
-  game.openBag = tab => {   // nhiệm vụ ngày "Đi làm" (data/daily.json go.fn), cột mục: mở bảng Nhân vật mới, Trang bị hoặc đúng ô Kho (chủ dự án 10:44)
-    if (game.openSelf) { game.openSelf(!tab || tab === 'do' ? 'do' : 'kho', !tab || tab === 'do' ? undefined : tab); return; }
-    if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open();
-  };
+  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
+  game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
+  // bảng Nhân vật (src/ui/self-panel.js): ô trống mở túi lọc đúng chỗ; "+ Khảm ngọc" mở túi ngọc để chọn viên cho lỗ đó
+  game.openBagSlot = slot => { st.tab = 'do'; st.slot = slot; st.pickSocket = null; st.stock = null; open(); };
+  game.openBagSocket = p => { st.tab = 'ngoc'; st.stock = null; open(); st.pickSocket = p; render(); };
 
   function open() {
     if (!game.save || game.dialog.open) return;
