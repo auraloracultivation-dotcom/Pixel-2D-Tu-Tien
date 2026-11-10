@@ -28234,6 +28234,369 @@
    ],
    "note": "nguồn sáng khung giao diện: m-trophy (ảnh Canva menu-2.png)"
   },
+  "ui.nv-ban": {
+   "file": "assets/art/ui-nv-ban.png",
+   "v": "48444cc5",
+   "w": 91,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    45,
+    101
+   ]
+  },
+  "ui.nv-bao": {
+   "file": "assets/art/ui-nv-bao.png",
+   "v": "aefc592d",
+   "w": 89,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    44,
+    88
+   ]
+  },
+  "ui.nv-be": {
+   "file": "assets/art/ui-nv-be.png",
+   "v": "951dde55",
+   "w": 421,
+   "h": 162,
+   "frames": 1,
+   "anchor": [
+    210,
+    162
+   ]
+  },
+  "ui.nv-cong": {
+   "file": "assets/art/ui-nv-cong.png",
+   "v": "8fd1cf39",
+   "w": 92,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    46,
+    93
+   ]
+  },
+  "ui.nv-danh-hieu": {
+   "file": "assets/art/ui-nv-danh-hieu.png",
+   "v": "21533090",
+   "w": 99,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    49,
+    98
+   ]
+  },
+  "ui.nv-dong": {
+   "file": "assets/art/ui-nv-dong.png",
+   "v": "8b5b3b69",
+   "w": 74,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    37,
+    69
+   ]
+  },
+  "ui.nv-giam-st": {
+   "file": "assets/art/ui-nv-giam-st.png",
+   "v": "1b3cd2a6",
+   "w": 99,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    49,
+    96
+   ]
+  },
+  "ui.nv-hoa": {
+   "file": "assets/art/ui-nv-hoa.png",
+   "v": "b8524c94",
+   "w": 88,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    44,
+    88
+   ]
+  },
+  "ui.nv-hoi-chieu": {
+   "file": "assets/art/ui-nv-hoi-chieu.png",
+   "v": "1a149d18",
+   "w": 79,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    39,
+    95
+   ]
+  },
+  "ui.nv-hoi-mau": {
+   "file": "assets/art/ui-nv-hoi-mau.png",
+   "v": "7d520df0",
+   "w": 81,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    40,
+    95
+   ]
+  },
+  "ui.nv-hp": {
+   "file": "assets/art/ui-nv-hp.png",
+   "v": "8631cfc1",
+   "w": 88,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    44,
+    83
+   ]
+  },
+  "ui.nv-hut-mau": {
+   "file": "assets/art/ui-nv-hut-mau.png",
+   "v": "ebbd7189",
+   "w": 82,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    41,
+    85
+   ]
+  },
+  "ui.nv-khoi-loi": {
+   "file": "assets/art/ui-nv-khoi-loi.png",
+   "v": "a951c16c",
+   "w": 91,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    45,
+    96
+   ]
+  },
+  "ui.nv-khung": {
+   "file": "assets/art/ui-nv-khung.png",
+   "v": "6c7bebf4",
+   "w": 490,
+   "h": 306,
+   "frames": 1,
+   "anchor": [
+    245,
+    306
+   ]
+  },
+  "ui.nv-kim": {
+   "file": "assets/art/ui-nv-kim.png",
+   "v": "80dca3bf",
+   "w": 86,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    43,
+    83
+   ]
+  },
+  "ui.nv-linh-luc": {
+   "file": "assets/art/ui-nv-linh-luc.png",
+   "v": "f07c319a",
+   "w": 80,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    40,
+    90
+   ]
+  },
+  "ui.nv-lo-kham": {
+   "file": "assets/art/ui-nv-lo-kham.png",
+   "v": "d9ed4c76",
+   "w": 105,
+   "h": 99,
+   "frames": 1,
+   "anchor": [
+    52,
+    99
+   ]
+  },
+  "ui.nv-luc-chien": {
+   "file": "assets/art/ui-nv-luc-chien.png",
+   "v": "66b38387",
+   "w": 100,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    50,
+    97
+   ]
+  },
+  "ui.nv-mac-tot": {
+   "file": "assets/art/ui-nv-mac-tot.png",
+   "v": "4f009ed5",
+   "w": 103,
+   "h": 91,
+   "frames": 1,
+   "anchor": [
+    51,
+    91
+   ]
+  },
+  "ui.nv-moc": {
+   "file": "assets/art/ui-nv-moc.png",
+   "v": "f7a5b78a",
+   "w": 87,
+   "h": 87,
+   "frames": 1,
+   "anchor": [
+    43,
+    87
+   ]
+  },
+  "ui.nv-nut": {
+   "file": "assets/art/ui-nv-nut.png",
+   "v": "32b4b998",
+   "w": 163,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    81,
+    56
+   ]
+  },
+  "ui.nv-nut-vang": {
+   "file": "assets/art/ui-nv-nut-vang.png",
+   "v": "6d6650ae",
+   "w": 163,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    81,
+    58
+   ]
+  },
+  "ui.nv-o": {
+   "file": "assets/art/ui-nv-o.png",
+   "v": "b4218645",
+   "w": 54,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    27,
+    53
+   ]
+  },
+  "ui.nv-phan-don": {
+   "file": "assets/art/ui-nv-phan-don.png",
+   "v": "82d0f998",
+   "w": 96,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    48,
+    98
+   ]
+  },
+  "ui.nv-st-bao": {
+   "file": "assets/art/ui-nv-st-bao.png",
+   "v": "c7e6105a",
+   "w": 98,
+   "h": 89,
+   "frames": 1,
+   "anchor": [
+    49,
+    89
+   ]
+  },
+  "ui.nv-tab": {
+   "file": "assets/art/ui-nv-tab.png",
+   "v": "5c213761",
+   "w": 108,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    54,
+    108
+   ]
+  },
+  "ui.nv-tab-on": {
+   "file": "assets/art/ui-nv-tab-on.png",
+   "v": "a2c3a62d",
+   "w": 108,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    54,
+    108
+   ]
+  },
+  "ui.nv-the": {
+   "file": "assets/art/ui-nv-the.png",
+   "v": "01bdf8ce",
+   "w": 230,
+   "h": 302,
+   "frames": 1,
+   "anchor": [
+    115,
+    302
+   ]
+  },
+  "ui.nv-tho": {
+   "file": "assets/art/ui-nv-tho.png",
+   "v": "15160f4c",
+   "w": 87,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    43,
+    88
+   ]
+  },
+  "ui.nv-thu": {
+   "file": "assets/art/ui-nv-thu.png",
+   "v": "4b7a729c",
+   "w": 88,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    44,
+    95
+   ]
+  },
+  "ui.nv-thuy": {
+   "file": "assets/art/ui-nv-thuy.png",
+   "v": "0550a2b1",
+   "w": 88,
+   "h": 87,
+   "frames": 1,
+   "anchor": [
+    44,
+    87
+   ]
+  },
+  "ui.nv-toc": {
+   "file": "assets/art/ui-nv-toc.png",
+   "v": "1d7425a4",
+   "w": 96,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    48,
+    96
+   ]
+  },
+  "ui.nv-tu-luyen": {
+   "file": "assets/art/ui-nv-tu-luyen.png",
+   "v": "2f6cd4b0",
+   "w": 100,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    50,
+    101
+   ]
+  },
   "ui.oillamp": {
    "file": "assets/art/ui-oillamp.png",
    "v": "5329bcb3",

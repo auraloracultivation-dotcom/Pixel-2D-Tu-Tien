@@ -6,7 +6,6 @@ import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
 import { spriteIcon } from './sprite-icon.js';
 
-const HAN = { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' };   // chữ hệ trên ô (ngũ hành)
 
 // Mã phẩm cho khung ảnh [data-o] (style-ui-hoa-dao.css: ui-pc-luc / lam / tim / cam / vang / do / den), như Túi đồ
 export const gradeId = (data, it) => quality(data, it)?.id || rarityOf(data.items, it.rarity).id;
@@ -28,7 +27,7 @@ export function socketCol(game, it) {
   for (const g of it.sockets) {
     const gm = el('i', 'sv-gm' + (g ? '' : ' off'));
     if (g) { const gi = gemInfo(d, g); gm.style.backgroundImage = daUrl(d, DA[g.split(':')[0]] || 'tim'); gm.title = gi.name; }
-    else gm.style.backgroundImage = daUrl(d, 'den');
+    else { const s = d.art.sprites['ui.nv-lo-kham']; gm.style.backgroundImage = s ? `url("${s.file}?v=${s.v}")` : daUrl(d, 'den'); }   // lỗ khảm trống (ảnh GPT)
     col.append(gm);
   }
   return col;
@@ -48,7 +47,7 @@ export function gearCell(game, slot, side, onPick) {
     if (it.plus) b.append(el('b', 'sv-plus', '+' + it.plus));
     const br = el('span', 'sv-br');   // góc dưới phải: số dòng tẩy luyện, chữ hệ
     if (it.lines?.length) br.append(el('span', 'sv-ln', '◆' + it.lines.length));
-    if (it.el) { const e = el('span', 'sv-el', HAN[it.el] || '?'); e.style.setProperty('--e', data.elements[it.el]?.color || '#ccc'); br.append(e); }
+    if (it.el) { const e = uiIco(data, 'ui.nv-' + it.el, 'sv-el'); e.title = data.elements[it.el]?.name || ''; br.append(e); }   // huy hiệu ngũ hành
     b.append(br);
     const gems = socketCol(game, it); if (gems) b.append(gems);
   }
@@ -59,7 +58,7 @@ export function gearCell(game, slot, side, onPick) {
 
 // Ô thứ cộng sức mạnh dưới nhân vật (chủ dự án 11/11/2026 01:07: linh thú, khôi lỗi, thú cưỡi, cái gì buff sức mạnh thì một ô,
 // chừa một ô cho tính năng sau). kind: 'pet' | 'comp' | 'comp2' | 'mount' | 'spare'. Chạm: mở bảng của nó.
-const BUFF = { pet: ['Linh thú', 'ui.ic-linh-thu'], comp: ['Khôi lỗi', 'ui.ic-dao-lu'], comp2: ['Khôi lỗi', 'ui.ic-dao-lu'], mount: ['Thú cưỡi', 'ui.ic-thu-cuoi'], spare: ['Sắp mở', 'ui.ic-khoa'] };
+const BUFF = { pet: ['Linh thú', 'ui.ic-linh-thu'], comp: ['Khôi lỗi', 'ui.nv-khoi-loi'], comp2: ['Khôi lỗi', 'ui.nv-khoi-loi'], mount: ['Thú cưỡi', 'ui.ic-thu-cuoi'], spare: ['Sắp mở', 'ui.ic-khoa'] };
 // Biểu tượng ảnh có sẵn (data/art.json ui.*), làm nền một thẻ i
 export function uiIco(data, key, cls = 'sv-uico') {
   const spr = data.art.sprites[key], i = el('i', cls);

@@ -20,12 +20,12 @@ export const SUBS = {
   do: [['all', 'ui.ic-ruong', 'Tất cả'], ['vk', 'ui.ic-vu-khi', 'Vũ khí'], ['pc', 'ui.ic-giap', 'Giáp'], ['ts', 'ui.ic-nhan', 'Nhẫn'], ['pb', 'ui.ic-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
   kho: [['ngoc', 'ui.ic-ngoc', 'Ngọc'], ['nl', 'ui.ic-tinh-thach', 'N.liệu'], ['ca', 'ui.m-fish', 'Cá'], ['dan', 'ui.ic-dan', 'Đan']],
   cp: [['chieu', 'ui.ic-tu-luyen', 'Chiêu'], ['cong-phap', 'ui.ic-cong-phap', 'Công pháp']],
-  tt: [['thoi-trang', 'ui.ic-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.ic-danh-hieu', 'Danh hiệu']],
+  tt: [['thoi-trang', 'ui.ic-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-danh-hieu', 'Danh hiệu']],
 };
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
-const SORTS = [['moi', 'Mới'], ['manh', 'Mạnh'], ['pham', 'Phẩm'], ['cap', 'Cấp']];   // xếp: mới nhất, mạnh nhất, phẩm cao, cấp cao
-const btn = (txt, cls, fn) => { const b = el('button', cls, txt); b.onclick = fn; return b; };
+const SORTS = [['moi', 'Mới', 'mới nhất'], ['manh', 'Mạnh', 'mạnh nhất'], ['pham', 'Phẩm', 'phẩm cao'], ['cap', 'Cấp', 'cấp cao']];
+const btn = (txt, cls, fn, ico) => { const b = el('button', cls); if (ico) b.append(ico); b.append(txt); b.onclick = fn; return b; };   // ico: biểu tượng ảnh trước chữ
 
 function gearGrid(game, st, box, refresh) {
   const { data, save } = game, g = GROUPS[st.sub] || null;
@@ -61,14 +61,18 @@ export function renderStore(game, st, changed, refresh) {
       st.quick.open = true; renderQuick(game, wrap, st, full => (full ? changed() : refresh()));
     }
     else { gearGrid(game, st, grid, refresh); wrap.append(grid); }
-    const n = el('span', 'sv-cnt'); n.append(uiIco(data, 'ui.ic-tui', 'sv-bico'), `${save.bag.length}/${data.items.bag_size}`);
-    const sort = btn('⇅ ' + SORTS.find(x => x[0] === st.sort)[1], 'sv-bbtn', () => { st.sort = SORTS[(SORTS.findIndex(x => x[0] === st.sort) + 1) % SORTS.length][0]; refresh(); });
-    const quick = btn(st.qs ? 'Xong' : 'Bán', 'sv-bbtn' + (st.qs ? ' on' : ''), () => { st.qs = !st.qs; refresh(); });
-    const best = btn('Mặc tốt', 'sv-bbtn gold', () => {   // góp ý #58
+    const n = el('span', 'sv-cnt', `${save.bag.length}/${data.items.bag_size}`);
+    const sort = btn('', 'sv-bbtn ico', () => {   // nút xếp chỉ có hình cho gọn, bấm thì báo đang xếp theo gì
+      st.sort = SORTS[(SORTS.findIndex(x => x[0] === st.sort) + 1) % SORTS.length][0];
+      game.toast?.(`Xếp: ${SORTS.find(x => x[0] === st.sort)[2]}`, 1.2); refresh();
+    }, uiIco(data, 'ui.ic-sap-xep', 'sv-bico'));
+    sort.title = 'Xếp: ' + SORTS.find(x => x[0] === st.sort)[2];
+    const quick = btn(st.qs ? 'Xong' : 'Bán', 'sv-bbtn' + (st.qs ? ' on' : ''), () => { st.qs = !st.qs; refresh(); }, uiIco(data, 'ui.nv-ban', 'sv-bico'));
+    const best = btn('Mặc', 'sv-bbtn gold', () => {   // mặc đồ tốt nhất   // góp ý #58
       const r = bestGear(game);
       game.toast?.(r.n ? `Đã thay ${r.n} món: lực chiến ${r.gain >= 0 ? '+' : ''}${r.gain.toLocaleString('vi-VN')}` : 'Đồ đang mặc đã là tốt nhất.', 2.2);
       if (r.n) { game.sfx('shield'); changed(); }
-    });
+    }, uiIco(data, 'ui.nv-mac-tot', 'sv-bico'));
     bar.append(n, sort, quick, best);
     return { wrap, bar };
   }

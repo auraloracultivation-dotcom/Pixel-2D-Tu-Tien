@@ -169,3 +169,52 @@ body .sv .sv-hosted #skills-list, body .sv .sv-hosted #achv-list { grid-template
 .sv-gm { width: 6px; height: 7.5px; background-size: 100% 100% !important; }
 .sv-bagc .sv-gems { left: 1.5px; top: 1.5px; }
 .sv-bagc .sv-gm { width: 4.5px; height: 5.5px; }
+
+/* ===== 11/11/2026 02:21: khoác bộ khung, biểu tượng GPT (tools/art/ui_nhan_vat.py → assets/art/ui-nv-*.png), kiểu 9 mảnh ===== */
+body .sv.panel { background: none !important; border-style: solid !important; border-color: transparent !important; border-width: 11px !important; border-radius: 0 !important;
+  border-image: url("assets/art/ui-nv-khung.png") 40 fill / 14px / 0 stretch !important; padding: 1px !important; box-shadow: none; filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .7)); }
+.sv-x { top: -14px; right: -12px; width: 30px; height: 28px; border: 0; border-radius: 0; box-shadow: none; font-size: 0; color: transparent;
+  background: url("assets/art/ui-nv-dong.png") center / contain no-repeat; }
+.sv-left, .sv-right { background: none; border-style: solid; border-color: transparent; border-width: 6px; border-radius: 0; padding: 1px;
+  border-image: url("assets/art/ui-nv-the.png") 30 fill / 9px / 2px stretch; }
+.sv-pg, .sv-sb { background: none; border-style: solid; border-color: transparent; border-radius: 0; box-shadow: none;
+  border-image: url("assets/art/ui-nv-tab.png") 24 fill / 7px stretch; }
+.sv-pg { border-width: 5px; } .sv-sb { border-width: 4px; padding: 0; }
+.sv-sb { border-image-width: 6px; }
+.sv-pg.on, .sv-sb.on { background: none; box-shadow: none; border-image-source: url("assets/art/ui-nv-tab-on.png"); }
+.sv-pg small { color: #e2dcff; text-shadow: 0 1px 0 #000; } .sv-pg.on small, .sv-sb.on small { color: #fff3d6; text-shadow: 0 1px 0 #6a2d00; }
+.sv-bbtn, .sv-cpbar { background: none; border-style: solid; border-color: transparent; border-width: 3px; border-radius: 0;
+  border-image: url("assets/art/ui-nv-nut.png") 14 fill / 5px stretch; }
+.sv-bbtn { display: flex; align-items: center; gap: 2px; padding: 1px 3px; color: #f0ecff; text-shadow: 0 1px 0 #000; }
+.sv-bbtn.gold, .sv-bbtn.on { background: none; border-image-source: url("assets/art/ui-nv-nut-vang.png"); color: #3a1800; text-shadow: none; }
+.sv-cpbar { border-width: 4px; padding: 0 5px; }
+.sv-bar { background: none; padding: 1px 0 0; }
+.sv-empty { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat; border: 0; border-radius: 0; }
+/* biểu tượng ảnh: chỉ số, lực chiến, huy hiệu ngũ hành, bệ pháp trận */
+.sv-sico { width: 10px; height: 10px; background: center / contain no-repeat; }
+.sv-cpico { width: 14px; height: 14px; background: center / contain no-repeat; flex: none; }
+.sv-allstats .sv-row { grid-template-columns: 12px minmax(0, 1fr) auto; gap: 4px; }
+.sv-allstats .sv-sico { width: 12px; height: 12px; }
+.sv-el { width: 11px; height: 11px; background: center / contain no-repeat !important; box-shadow: none; border-radius: 0; font-size: 0; }
+.sv-seal { width: 18px; height: 18px; background: center / contain no-repeat !important; box-shadow: none; border-radius: 0; font-size: 0; filter: drop-shadow(0 0 3px rgba(0, 0, 0, .8)); }
+.sv-be { position: absolute; left: 50%; bottom: 10px; width: 96px; height: 37px; margin-left: -48px; background: center / contain no-repeat; pointer-events: none; }
+.sv-gm.off { filter: none; }
+.sv-buff .sv-uico, .sv-slot.buff .sv-uico { width: 18px; height: 18px; }
+/* 02:30: bảng cao thêm chút cho đủ chỉ số; cảnh giới trải ngang khung nhân vật; mục con nhiều thì chỉ hình; thanh dưới gọn */
+body .sv.panel { height: 326px; }
+.sv-hero-area { position: relative; }
+.sv-hero-area > .sv-realm { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; text-align: center; font-size: 9px; font-weight: 700; color: var(--gold);
+  white-space: nowrap; text-shadow: 0 1px 0 #000, 0 0 3px #000; pointer-events: none; }
+.sv-subs.many small { display: none; }
+.sv-subs.many .sv-rico { width: 18px; height: 18px; }
+.sv-subs.many .sv-sb { padding: 2px 0; }
+.sv-bbtn.ico { padding: 1px 2px; }
+.sv-cnt { font-size: 9px; }
+.sv-grid { gap: 0 4px; padding: 0 1px; }
+.sv-row { grid-template-columns: 10px minmax(0, 1fr) auto; gap: 2px; font-size: 8.3px; }
+/* nút trong phần rèn luyện / ghép / dùng: cùng bộ khung GPT */
+body .sv .sv-mid.sheet .act-btn { background: none !important; border-style: solid !important; border-color: transparent !important; border-width: 4px !important; border-radius: 0 !important;
+  border-image: url("assets/art/ui-nv-nut.png") 14 fill / 6px stretch !important; color: #f0ecff; text-shadow: 0 1px 0 #000; box-shadow: none !important; }
+body .sv .sv-mid.sheet .act-btn.primary { border-image-source: url("assets/art/ui-nv-nut-vang.png") !important; color: #3a1800; text-shadow: none; }
+body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7); }
+.sv-mid.sheet .d-close { background: url("assets/art/ui-nv-dong.png") center / contain no-repeat !important; border: 0 !important; font-size: 0 !important; color: transparent !important; box-shadow: none !important; }

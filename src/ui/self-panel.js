@@ -57,6 +57,7 @@ export function createSelfPanel(game) {
     const s = game.save, d = game.data, stt = playerStats(s, d);
     rail.replaceChildren(...PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
     left.replaceChildren(leftCard(game, stt, h));
+    subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
     subs.replaceChildren(...SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
       st.sub = id; reset(); st.qs = false;
       if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn

@@ -327,6 +327,8 @@ import ui_kit  # noqa: E402
 print('khung giao diện GPT:', ui_kit.build(save))
 import ui_kit2  # noqa: E402
 print('khung giao diện GPT 2:', ui_kit2.build(save))
+import ui_nhan_vat  # noqa: E402
+print('bảng Nhân vật GPT:', ui_nhan_vat.build(save))
 import le_hoi  # noqa: E402
 print('đồ lễ hội:', le_hoi.build(save))
 import tk_moi  # noqa: E402
