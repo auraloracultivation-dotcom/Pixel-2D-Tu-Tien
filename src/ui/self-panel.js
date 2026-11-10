@@ -16,11 +16,17 @@ import { snap, react } from './self-fx.js';
 const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
 const SUB0 = { do: 'all', kho: 'ngoc', cp: 'chieu', tt: 'thoi-trang' };
 // Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
-const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'], [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau']];
-function decorate(game, box) {
+const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Tháo/, 'tab-trang-bi'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'],
+  [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau'], [/^Mua nhanh/, 'lich-su'], [/^Đổi hệ/, 'tho'], [/^Phân giải/, 'st-bao'], [/^Luyện/, 'tab-phap-bao']];
+const SHORT = [[/^Cường hóa/, 'Cường'], [/^Tẩy luyện.*$/, 'Tẩy luyện'], [/^Mặc vào/, 'Mặc'], [/^Thay vào/, 'Thay'], [/^Tháo xuống/, 'Tháo'], [/^Mua nhanh/, 'Mua']];
+function decorate(game, box) {   // nút gọn (chủ dự án 03:26: thấy hết chức năng trong một góc): hình + tên một dòng + giá một dòng nhỏ
   for (const b of box.querySelectorAll('.act-btn, .socket:not(.full)')) {
-    const k = ACT_ICO.find(([re]) => re.test(b.textContent.trim()))?.[1];
+    const t = b.textContent.trim(), k = ACT_ICO.find(([re]) => re.test(t))?.[1];
     if (k) b.prepend(uiIco(game.data, 'ui.nv-' + k, 'sv-aico'));
+    if (/^(Khoá|🔒)/.test(t)) { b.querySelector('small')?.remove(); const bb = b.querySelector('b'); if (bb) bb.textContent = /^🔒/.test(t) ? 'Đã khoá' : 'Khoá'; }
+    const bb = b.querySelector('b') || [...b.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());   // tên: thẻ b, hoặc chữ trần (nút Mặc / Thay)
+    const short = bb && SHORT.find(([re]) => re.test(bb.textContent.trim()));   // tên ngắn cho vừa ô
+    if (short) bb.textContent = bb.textContent.trim().replace(short[0], short[1]);
   }
 }
 

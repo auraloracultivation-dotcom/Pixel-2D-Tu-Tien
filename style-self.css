@@ -255,3 +255,80 @@ body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7);
 .sv-mid.sheet { padding: 1px 5px; }
 /* hiệu ứng rèn luyện (src/ui/self-fx.js): đè lên trên bảng, không chặn chạm */
 .sv-fx { position: fixed; z-index: 70; pointer-events: none; background-repeat: no-repeat; background-position: 0 0; image-rendering: pixelated; }
+
+/* ===== 11/11/2026 03:26 (chủ dự án góp ý 7 ảnh) ===== */
+/* ô đồ chưa mặc, ô linh thú / khôi lỗi / thú cưỡi / ô chừa: khung ô kho cơ bản, không dùng khung phẩm cao nhất */
+.sv .sv-slot.empty { --o: url("assets/art/ui-nv-o.png"); }
+.sv-slot.buff, .sv-slot.spare { background-image: url("assets/art/ui-nv-o.png") !important; }
+.sv-slot.buff:not(.spare)[style*="--q"] { background-image: url("assets/art/ui-nv-o.png") !important; filter: drop-shadow(0 0 2px #b38aff); }
+.sv-slot.empty .ico.cho { background-size: 64% auto, 100% 100% !important; }
+/* kho Ngọc, Nguyên liệu, Cá, Đan: ô vuông khung ô kho, món toả sáng đúng màu phẩm, số lượng góc dưới phải */
+.sv-bag-grid.stock { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; }
+.sv-bag-grid .item.stock { position: relative; aspect-ratio: 1; padding: 0; gap: 0; display: grid; place-items: center; border: 0; border-radius: 0;
+  background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat; }
+.sv-bag-grid .item.stock .ico, .sv-bag-grid .item.stock .gem-ico { width: 62% !important; height: 62% !important; background-size: contain !important;
+  filter: drop-shadow(0 0 1.5px var(--rar)) drop-shadow(0 0 3px var(--rar)); }
+.sv-bag-grid .item.stock .ico.mat-sq { width: 44% !important; height: 44% !important; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5); }
+.sv-bag-grid .item.stock small { position: absolute; right: 3px; bottom: 2px; font: 800 7.5px var(--f-body); color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
+.sv-bag-grid .item.stock.none { opacity: .3; filter: grayscale(.8); }
+.sv-bag-grid .item.stock.sel { filter: brightness(1.35); border: 0; }
+/* phần chi tiết món: nút gọn hai cột (hình, tên một dòng, giá một dòng nhỏ), bỏ chú thích dài */
+.sv-mid.sheet .d-forge > .d-label, .sv-mid.sheet .muted.tiny { display: none !important; }
+.sv-mid.sheet .d-grid { grid-template-columns: 1fr 1fr !important; gap: 2px !important; }
+body .sv .sv-mid.sheet .act-btn { display: grid !important; grid-template-columns: 13px minmax(0, 1fr); align-items: center; column-gap: 3px; text-align: left;
+  min-height: 24px !important; padding: 2px 3px !important; line-height: 1.1; font-size: 8.5px !important; }
+body .sv .sv-mid.sheet .act-btn .sv-aico { grid-row: 1 / span 2; float: none; width: 13px; height: 13px; margin: 0; }
+body .sv .sv-mid.sheet .act-btn b { font-size: 8.5px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body .sv .sv-mid.sheet .act-btn small { grid-column: 2; font-size: 6.5px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sv-mid.sheet .d-head { margin-bottom: 1px; } .sv-mid.sheet .d-primary { margin: 0; } .sv-mid.sheet .d-gain { font-size: 9px; }
+.sv-mid.sheet .d-stats { margin-top: 3px; gap: 1px; }
+.sv-mid.sheet .d-sockets .socket { display: inline-flex; align-items: center; gap: 2px; }
+/* bán nhanh: chỉ chọn phẩm và hai nút, bỏ đoạn giải thích */
+.sv-bag .quick-sell > .muted.tiny { display: none; }
+.sv-bag .quick-sell { gap: 3px; }
+.sv-bag .quick-chips .mini { padding: 2px 5px; font-size: 8.5px; }
+.sv-bag .quick-auto { font-size: 8.5px; display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+.sv-bag .quick-sell .act-btn { font-size: 8.5px !important; padding: 3px 4px !important; min-height: 0 !important; }
+/* Chiêu, Công pháp, Thời trang, Danh hiệu (bảng có sẵn gắn vào): trả về dạng lưới ô như kho */
+.sv-hostbox { position: relative; }
+body .sv .sv-hosted { position: relative !important; }
+body .sv .sv-hosted .gc-on, body .sv .sv-hosted #skills-list.gc-on, body .sv .sv-hosted #achv-list.gc-on { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 5px !important; }
+body .sv .sv-hosted .gc-tile { min-height: 0; padding: 5px 2px 4px; gap: 2px; border-radius: 0; border: 0; box-shadow: none;
+  background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat; aspect-ratio: 1; justify-content: center; }
+body .sv .sv-hosted .gc-tile b { font-size: 11px; -webkit-line-clamp: 2; }
+body .sv .sv-hosted .gc-tile small { display: none; }
+body .sv .sv-hosted .gc-tile.using { filter: drop-shadow(0 0 3px #ffc94a); }
+body .sv .sv-hosted .gc-tile.gc-big .gc-ico { max-height: 52px; }
+body .sv .sv-hosted #skills-slots button { padding: 3px 2px !important; font-size: 11px !important; line-height: 1.15; }
+body .sv .sv-hosted .gc-sheet { max-height: 92%; }
+/* 03:35: ô kho dựng lại (self-bag.js → .sv-stk), nút rèn luyện: tên ngắn một dòng, giá tối đa hai dòng */
+.sv-stk { position: relative; aspect-ratio: 1; min-width: 0; padding: 0; border: 0; cursor: pointer; display: grid; place-items: center;
+  background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat; }
+.sv-stk > .ico, .sv-stk > canvas { position: static !important; width: 62% !important; height: 62% !important; max-width: none; margin: 0 !important; border: 0 !important;
+  background-position: center !important; background-size: contain !important; background-repeat: no-repeat !important; image-rendering: pixelated;
+  filter: drop-shadow(0 0 1.5px var(--rar)) drop-shadow(0 0 3px var(--rar)); }
+.sv-stk > .ico.mat-sq { width: 42% !important; height: 42% !important; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5); }
+.sv-stk small { position: absolute; right: 3px; bottom: 1px; font: 800 7.5px var(--f-body); color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
+.sv-stk.none { opacity: .3; filter: grayscale(.8); }
+.sv-stk.sel { filter: brightness(1.4); }
+.sv-stk:active { transform: scale(.94); }
+body .sv .sv-mid.sheet .act-btn { border-width: 3px !important; padding: 2px !important; min-height: 26px !important; }
+body .sv .sv-mid.sheet .act-btn small { white-space: normal; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.1; }
+body .sv .sv-hosted .gc-tile { width: 100%; overflow: hidden; }
+body .sv .sv-hosted .gc-tile canvas.gc-ico { width: auto !important; height: auto !important; max-width: 92% !important; max-height: 58% !important; flex: 0 1 auto; }
+body .sv .sv-hosted .gc-tile b { max-width: 100%; }
+/* 03:40: nút rèn luyện ba cột dạng ô (hình trên, tên ngắn, giá nhỏ) cho thấy hết chức năng một lúc */
+.sv-mid.sheet .d-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 2px !important; }
+body .sv .sv-mid.sheet .act-btn { display: flex !important; flex-direction: column; align-items: center; justify-content: flex-start; gap: 1px; text-align: center;
+  min-height: 40px !important; padding: 2px 1px !important; }
+body .sv .sv-mid.sheet .act-btn .sv-aico { width: 14px; height: 14px; flex: none; }
+body .sv .sv-mid.sheet .act-btn b { font-size: 7.5px !important; max-width: 100%; }
+body .sv .sv-mid.sheet .act-btn small { font-size: 6px !important; max-width: 100%; text-align: center; }
+.sv-stk > canvas { width: 82% !important; height: 82% !important; }
+body .sv .sv-hosted .gc-on { grid-auto-rows: auto !important; align-items: start !important; }
+body .sv .sv-hosted .gc-tile { aspect-ratio: auto !important; height: 78px !important; min-height: 78px !important; justify-content: flex-start !important; padding-top: 7px !important; }
+body .sv .sv-hosted .gc-tile canvas.gc-ico { max-height: 44px !important; }
+body .sv .sv-hosted .gc-tile b { font-size: 10.5px !important; line-height: 1.15; }
+body .sv .sv-mid.sheet .act-btn { border-width: 2px !important; border-image-width: 4px !important; padding: 2px 0 !important; }
+body .sv .sv-mid.sheet .act-btn b { font-size: 7px !important; letter-spacing: -.15px; }
+body .sv .sv-mid.sheet .act-btn small { font-size: 5.8px !important; }

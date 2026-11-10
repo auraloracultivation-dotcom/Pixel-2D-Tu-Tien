@@ -93,10 +93,13 @@ export function renderStore(game, st, changed, refresh) {
   } else if (st.sub === 'nl' || st.sub === 'ca') renderMatGrid(game, grid, st, pickStock, st.sub === 'ca');
   else renderPillGrid(game, grid, st, pickStock);
   grid.classList.add('stock'); wrap.append(grid);
-  for (const c of grid.querySelectorAll('.item.stock')) {   // ô nhỏ: hình + số lượng, tên hiện khi chạm (tấm chi tiết)
-    const sm = c.querySelector('small'), b = c.querySelector('b');
-    if (sm) sm.textContent = sm.textContent.split(' · ')[0];
-    if (b) c.title = b.textContent;
+  for (const c of [...grid.querySelectorAll('.item.stock')]) {   // dựng lại thành ô vuông khung ô kho: hình toả màu phẩm, số lượng góc dưới (03:26)
+    const t = el('button', 'sv-stk' + (c.classList.contains('sel') ? ' sel' : '') + (c.classList.contains('none') ? ' none' : ''));
+    t.style.setProperty('--rar', c.style.getPropertyValue('--rar') || '#8a84b0');
+    t.title = c.querySelector('b')?.textContent || '';
+    const ico = c.querySelector('.ico, canvas'); if (ico) t.append(ico);
+    t.append(el('small', null, (c.querySelector('small')?.textContent || '').split(' · ')[0]));
+    t.onclick = c.onclick; c.replaceWith(t);
   }
   const money = el('button', 'sv-money');   // Linh Thạch, chạm xem lịch sử vào ra (đề xuất #137)
   money.append(uiIco(data, 'ui.ic-linh-thach', 'sv-bico'), `${coins(save).toLocaleString('vi-VN')}`, uiIco(data, 'ui.nv-lich-su', 'sv-bico'));
