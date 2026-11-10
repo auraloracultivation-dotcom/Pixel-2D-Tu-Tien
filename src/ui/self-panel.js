@@ -81,12 +81,14 @@ export function createSelfPanel(game) {
     mid.scrollTop = keep;
   }
 
-  function open() {
+  function open(page, sub) {   // page, sub: mở thẳng một mục (vd 'kho', 'dan')
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
+    if (SUBS[page]) { st.page = page; st.sub = sub || SUB0[page]; st.qs = false; st.pickSocket = null; }
     game.uiOpen = true; root.hidden = false; reset(); render();
   }
   game.openSelf = open;
+  game.toggleSelf = (page, sub) => (root.hidden ? open(page, sub) : close());   // nút Túi đồ (src/ui/bag.js): bấm lần nữa thì đóng
   const R = document.getElementById('realm');   // chạm khung tên, cảnh giới
   R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);
   document.getElementById('power')?.addEventListener('click', e => { e.stopPropagation(); open(); });
