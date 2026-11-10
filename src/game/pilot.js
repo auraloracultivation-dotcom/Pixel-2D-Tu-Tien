@@ -32,9 +32,10 @@ export function togglePilot(game) {
 }
 
 // Tự hành làm nhiệm vụ hằng ngày (chủ dự án 02/11/2026): chạm dòng việc ngày chưa xong thì bật tự hành ưu tiên việc ngày
-export function pilotDaily(game) {
+// id: chạm một việc cụ thể (bảng Hệ Thống, chủ dự án 10/11/2026 10:09) thì làm việc đó trước, xong rồi làm tiếp việc ngày khác
+export function pilotDaily(game, id) {
   if (!game.player) return;
-  game.pilot = { path: null, key: '', repath: 0, line: 0, daily: true };
+  game.pilot = { path: null, key: '', repath: 0, line: 0, daily: id || true };
   game.auto = false;
   game.toast('Tự hành: làm nhiệm vụ hằng ngày (kéo cần chạy để dừng)', 1.8);
 }

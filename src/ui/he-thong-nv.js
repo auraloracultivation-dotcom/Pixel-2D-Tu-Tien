@@ -86,8 +86,9 @@ export function renderTasks(game, body, api) {
   else for (const d of day) {
     const row = el('div', `ht-mis${d.ok && !d.got ? ' ok' : ''}`), b = el('button', 'ht-btn sm', d.got ? X.claimed_tag : d.ok ? X.claim : X.todo);
     row.append(el('b', null, d.text), el('small', 'ht-qua', fill(X.reward, { r: fill(X.pts_tag, { p: H.points }) })));
-    b.type = 'button'; b.disabled = d.got || !d.ok || !game.cloud;
-    b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await M.htDaily(d.id), {}); } catch (e) { err(e); b.disabled = false; } };
+    b.type = 'button'; b.disabled = d.got || (d.ok && !game.cloud);
+    if (!d.ok) { b.textContent = X.go; b.onclick = async () => { api.minimize(); (await import('../game/dailyjob.js')).dailyGo(game, d.id); }; }   // chưa xong: tự hành đi làm
+    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await M.htDaily(d.id), {}); } catch (e) { err(e); b.disabled = false; } };
     row.append(b); body.append(row);
   }
   if (!game.cloud) body.append(el('p', 'ht-line ht-muted', X.login));
