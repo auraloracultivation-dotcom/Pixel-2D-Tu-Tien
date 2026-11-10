@@ -1,6 +1,6 @@
-// Lưới túi đồ nằm DƯỚI nhân vật trên bảng Nhân vật (chủ dự án 11/11/2026 00:50: màn dọc nên túi để trên dưới, không trái phải;
-// cột chọn mục bên trái). Mục: Trang bị (ô vuông như ô đang mặc, mũi tên xanh khi mặc vào mạnh hơn), Ngọc, Nguyên liệu, Đan dược
-// (dùng lại lưới của Túi đồ, src/ui/bag-stock.js). Chạm ô: tấm chi tiết trượt lên trong bảng (src/ui/self-panel.js vẽ).
+// Kho bên PHẢI thẻ nhân vật trên bảng Nhân vật (chủ dự án 11/11/2026 01:34, kiểu My Heroes: trái nhân vật, phải kho, các mục
+// chọn ngay trên kho). Mục: Trang bị (ô vuông như ô đang mặc, mũi tên xanh khi mặc vào mạnh hơn), Ngọc, Nguyên liệu, Đan dược
+// (dùng lại lưới của Túi đồ, src/ui/bag-stock.js). Chạm ô: phần mặc / rèn hiện ngay trong khung kho (src/ui/self-panel.js vẽ).
 // Trên lưới: Linh Thạch (chạm xem lịch sử), lọc theo loại, bán / phân giải nhanh, mặc đồ tốt nhất (như Túi đồ cũ). Mục Cá riêng.
 // Đang chọn ngọc để khảm (st.pickSocket): mục Ngọc hiện dòng nhắc, chạm viên nào là khảm viên đó.
 import { el, icon, powerGain } from './bag-detail.js';
@@ -14,7 +14,7 @@ import { renderQuick } from './bag-quick.js';
 import { coins } from '../game/shop.js';
 
 // [mục, biểu tượng ảnh có sẵn (data/art.json), tên]
-export const BAG_TABS = [['do', 'ui.ic-vu-khi', 'Trang bị'], ['ngoc', 'ui.ic-ngoc', 'Ngọc'], ['nl', 'ui.ic-tinh-thach', 'Nguyên liệu'], ['ca', 'ui.m-fish', 'Cá'], ['dan', 'ui.ic-dan', 'Đan dược']];
+export const BAG_TABS = [['do', 'ui.ic-vu-khi', 'Trang bị', 'Đồ'], ['ngoc', 'ui.ic-ngoc', 'Ngọc', 'Ngọc'], ['nl', 'ui.ic-tinh-thach', 'Nguyên liệu', 'N.liệu'], ['ca', 'ui.m-fish', 'Cá', 'Cá'], ['dan', 'ui.ic-dan', 'Đan dược', 'Đan']];   // [mục, hình, tên, tên ngắn trên nút]
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
 const SORTS = [['moi', 'Mới nhất'], ['manh', 'Mạnh nhất'], ['pham', 'Phẩm cao'], ['cap', 'Cấp cao']];
 
@@ -47,6 +47,7 @@ export function renderSelfBag(game, st, changed, refresh) {
   const { data, save } = game, wrap = el('div', 'sv-bag'), head = el('div', 'sv-bag-head'), grid = el('div', 'sv-bag-grid');
   const tab = BAG_TABS.find(t => t[0] === st.tab) || BAG_TABS[0];
   head.append(el('b', null, tab[2]));
+  head.firstChild.hidden = true;   // tên mục đã ở hàng mục trên kho
   if (st.tab === 'do') {
     head.append(el('span', 'sv-cnt', `${save.bag.length}/${data.items.bag_size}`));
     const s = el('button', 'sv-sort', '⇅ ' + SORTS.find(x => x[0] === st.sort)[1]);

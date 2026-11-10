@@ -169,3 +169,82 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-uico { margin-top: 0; width: 26px; height: 26px; }
 .sv-plus { font-size: 11px; }
 @media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 46px !important; height: 46px !important; } .sv-buff .sv-slot { width: 44px !important; height: 44px !important; } }
+
+/* ===== 11/11/2026 01:34: bảng ngang giữa màn hình kiểu My Heroes — TRÁI thẻ nhân vật, PHẢI kho (các luật dưới đè luật trên) ===== */
+.sv.panel { top: 50% !important; bottom: auto !important; transform: translateY(-50%); height: min(600px, 86vh); max-height: none; left: 4px; right: 4px; }
+@supports (height: 86dvh) { .sv.panel { height: min(600px, 86dvh); } }
+.sv-two { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 6px; flex: 1; min-height: 0; }
+.sv .self-body { background: var(--card); border: 2px solid var(--edge); border-radius: 10px; padding: 6px; gap: 6px; overflow-y: auto; }
+.sv-right { position: relative; display: flex; flex-direction: column; gap: 5px; min-height: 0; min-width: 0; background: var(--card); border: 2px solid var(--edge); border-radius: 10px; padding: 5px; }
+.sv-tabs2 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; flex: none; }
+.sv-tabs2 .sv-rb { padding: 3px 0 2px; }
+.sv-tabs2 .sv-rico { width: 20px; height: 20px; }
+.sv-tabs2 .sv-rb small { font-size: 8px; white-space: nowrap; overflow: hidden; max-width: 100%; }
+.sv-store { flex: 1; min-height: 0; overflow-y: auto; }
+.sv-store .sv-bag { background: none; border: 0; padding: 0; }
+.sv-sheet { position: static !important; flex: 1; min-height: 0; max-height: none !important; padding: 4px 2px !important; border: 0 !important; box-shadow: none !important; background: none !important; border-radius: 0 !important; animation: none !important; overflow-y: auto; }
+
+/* thẻ nhân vật bên trái, gọn */
+.sv-top { gap: 3px; }
+.sv-info { gap: 5px; }
+.sv-nm { font-size: 13px; max-width: 100%; }
+.sv-realm { font-size: 10.5px; }
+.sv-title { font-size: 9.5px; }
+.sv-qi { height: 10px; } .sv-qi span { font-size: 8px; }
+.sv-hero-area { gap: 2px; }
+.sv-col { gap: 3px; }
+.sv-center { height: 196px; }
+.sv-circle { width: 96px; height: 24px; margin-left: -48px; }
+.sv-hero { margin-bottom: 10px; }
+.sv-seal { width: 18px; height: 18px; font-size: 10px; top: 0; left: 0; }
+.sv-slot, .sv-bagc, .sv-empty { width: 40px !important; height: 40px !important; }
+.sv-plus { font-size: 9.5px; top: 2px; right: 3px; }
+.sv-el { width: 11px; height: 11px; font-size: 7.5px; top: 3px; left: 3px; }
+.sv-ln { font-size: 8px; right: 3px; bottom: 2px; }
+.sv-up { font-size: 10px; left: 3px; top: 1px; }
+/* thanh ngọc khảm dính liền dưới ô đồ */
+.sv-cell, .sv-cell.r { flex-direction: column; gap: 0; align-items: center; }
+.sv-sock { flex-direction: row; justify-content: center; gap: 1px; width: 36px; height: 11px; margin-top: -3px; padding: 0 2px; position: relative; z-index: 1;
+  background: #15131f; border: 1px solid #4a4566; border-top: 0; border-radius: 0 0 5px 5px; }
+.sv-sock.none { visibility: hidden; }
+.sv-sk { width: 9px !important; height: 10px !important; }
+.sv-sk .gem-ico { width: 9px !important; height: 9px !important; }
+.sv-buffs { gap: 2px; }
+.sv-buff .sv-slot { width: 32px !important; height: 32px !important; }
+.sv-buff small { font-size: 7.5px; }
+.sv-buff .sv-uico { width: 17px; height: 17px; }
+.sv-buff .sv-spr { max-width: 28px; max-height: 24px; margin-top: -4px; }
+.sv-cpbar { padding: 3px 8px; gap: 5px; } .sv-cpbar i { font-size: 13px; } .sv-cpbar span { font-size: 12px; } .sv-cpbar b { font-size: 16px; }
+.sv-stats { padding: 3px 6px 1px; }
+.sv-grid { gap: 0 6px; }
+.sv-row { font-size: 9.5px; padding: 2px 0; grid-template-columns: 11px minmax(0, 1fr) auto; gap: 3px; }
+.sv-row i { font-size: 9.5px; }
+.sv-more { font-size: 9.5px; margin: 1px auto 2px; }
+
+/* kho bên phải, gọn */
+.sv-bag-head { margin-bottom: 4px; gap: 4px; flex-wrap: wrap; }
+.sv-cnt { font-size: 10px; }
+.sv-sort { padding: 3px 6px; font-size: 9.5px; }
+.sv-money { padding: 3px 6px; margin-bottom: 4px; gap: 4px; } .sv-money span { font-size: 10.5px; } .sv-money small { font-size: 9px; }
+.sv-chips { gap: 3px; padding-bottom: 4px; } .sv-chips .chip { padding: 2px 6px; font-size: 9.5px; }
+.sv-quick .mini { font-size: 10px; padding: 4px; }
+.sv-bag-grid { grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 4px; }
+.sv-bag-grid.stock { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.sv-bag-grid .item.stock { padding: 4px 2px; } .sv-bag-grid .item.stock .ico { width: 24px !important; height: 24px !important; }
+.sv-bag-grid .item.stock b { font-size: 9.5px; } .sv-bag-grid .item.stock small { font-size: 8.5px; }
+.sv-pick { font-size: 10px; padding: 4px 6px; }
+/* phần mặc / rèn trong khung phải */
+.sv-sheet .d-head .d-title { font-size: 12px; } .sv-sheet .d-head .d-sub { font-size: 9.5px; }
+.sv-sheet .d-grid { grid-template-columns: 1fr !important; gap: 4px !important; }
+.sv-sheet .act-btn { font-size: 10.5px; padding: 5px 4px; min-height: 0; }
+.sv-sheet .act-btn small { font-size: 8.5px; }
+.sv-sheet .d-main { font-size: 11.5px; } .sv-sheet .d-line { font-size: 10px; } .sv-sheet .muted.tiny { font-size: 9px; }
+.sv-sheet .d-label { font-size: 9.5px; } .sv-sheet .d-gain { font-size: 11px; } .sv-sheet .socket { font-size: 10px; padding: 3px 5px; }
+@media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 36px !important; height: 36px !important; } .sv-sock { width: 32px; } .sv-center { height: 176px; } }
+.sv.panel { height: min(520px, 88vh); }
+@supports (height: 88dvh) { .sv.panel { height: min(520px, 88dvh); } }
+body .sv .sv-sheet .act-btn { font-size: 10.5px !important; padding: 4px !important; min-height: 0 !important; line-height: 1.2; }
+body .sv .sv-sheet .act-btn small { font-size: 8.5px !important; }
+body .sv .sv-sheet .d-head { gap: 4px; } body .sv .sv-sheet .d-head .ico { width: 26px !important; height: 26px !important; }
+.sv-money span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.sv-tabs2 .sv-rb small { font-size: 8.5px; }
