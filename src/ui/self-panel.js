@@ -12,23 +12,28 @@ import { gearCell, buffCell, uiIco } from './self-gear.js';
 import { renderSelfBag, BAG_TABS } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
+import { host, unhost } from './self-host.js';
 
 const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
 const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao', null];   // null: ô chừa (chủ dự án 11/11 01:07: mỗi bên 4 ô)
 const BUFFS = ['pet', 'comp', 'comp2', 'mount', 'spare'];
+// Cột chức năng tăng sức mạnh bên phải (chủ dự án 11/11/2026 01:43): [trang, hình, tên]
+const PAGES = [['do', 'ui.ic-vu-khi', 'Trang bị'], ['kho', 'ui.ic-tui', 'Kho'], ['cp', 'ui.ic-cong-phap', 'Công pháp'], ['tt', 'ui.ic-thoi-trang', 'Thời trang']];
+const KHO = ['ngoc', 'nl', 'ca', 'dan'];   // mục trong Kho
 
 export function createSelfPanel(game) {
   const root = el('div', 'panel self-panel sv'); root.hidden = true;
   const head = el('div', 'bag-head'), x = el('button', 'mini', '✕'), body = el('div', 'self-body'), sheet = el('div', 'sv-sheet');
   const two = el('div', 'sv-two'), right = el('div', 'sv-right'), rail = el('div', 'sv-tabs2'), store = el('div', 'sv-store');
+  const pages = el('div', 'sv-pages'), hostBox = el('div', 'sv-hostbox');
   head.append(el('b', null, 'Nhân Vật'), x);
-  right.append(rail, store, sheet);
-  two.append(body, right);
+  right.append(rail, store, sheet, hostBox);
+  two.append(body, right, pages);
   root.append(head, two);
   document.body.append(root);
-  const st = { sel: null, more: false, tab: 'do', sort: 'moi', stock: null, pickSocket: null, slot: 'all', coinLog: false };
-  function close() { root.hidden = true; game.uiOpen = false; st.sel = null; st.stock = null; st.pickSocket = null; }
+  const st = { sel: null, more: false, page: 'do', tab: 'do', sort: 'moi', stock: null, pickSocket: null, slot: 'all', coinLog: false };
+  function close() { unhost(); root.hidden = true; game.uiOpen = false; st.sel = null; st.stock = null; st.pickSocket = null; }
   x.onclick = close;
   const goOld = it => { close(); game.openOldPanel?.(it); };
 
@@ -39,9 +44,9 @@ export function createSelfPanel(game) {
   }
   function pick(slot, it) {
     if (!it) {   // ô trống: kho bên phải lọc đúng chỗ đó, mạnh nhất lên đầu
-      st.tab = 'do'; st.slot = slot; st.sort = 'manh'; st.sel = null; st.stock = null; st.coinLog = false; render(); return;
+      st.page = 'do'; st.tab = 'do'; st.slot = slot; st.sort = 'manh'; st.sel = null; st.stock = null; st.coinLog = false; render(); return;
     }
-    st.sel = st.sel === it.uid ? null : it.uid; st.stock = null; render();
+    st.sel = st.sel === it.uid ? null : it.uid; st.stock = null; st.coinLog = false; if (st.page !== 'do' && st.page !== 'kho') st.page = 'do', st.tab = 'do'; render();
   }
   const openExtra = k => goOld({ btn: 'btn-pets', tabs: 'pets-tabs', tab: k === 'pet' ? 'linh-thu' : k === 'mount' ? 'thu-cuoi' : 'dong-hanh' });
 
@@ -92,10 +97,10 @@ export function createSelfPanel(game) {
   function stats(stt, p) {   // bảng chỉ số có biểu tượng như mẫu; chạm Thêm ra hết
     const box = el('div', 'sv-stats'), grid = el('div', 'sv-grid');
     const row = (ic, k, v, cls) => { const r = el('div', 'sv-row ' + (cls || '')); r.append(el('i', null, ic), el('span', null, k), el('b', null, v)); grid.append(r); };
-    row('❤', 'Sinh lực', vn(stt.maxHp), 'c-hp'); row('★', 'Bạo kích', pct(stt.crit), 'c-cr');
+    row('❤', 'HP', vn(stt.maxHp), 'c-hp'); row('★', 'Bạo', pct(stt.crit), 'c-cr');
     row('⚔', 'Công', vn(stt.atk), 'c-atk'); row('✸', 'ST bạo', pct(stt.critMult), 'c-cr');
-    row('⛨', 'Phòng ngự', vn(stt.def), 'c-def'); row('⟳', 'Giảm hồi', pct(stt.cdr), 'c-mp');
-    row('➤', 'Tốc chạy', pct(stt.speedMul), 'c-spd'); row('✚', 'Hút máu', pct(stt.lifesteal), 'c-hp');
+    row('⛨', 'Thủ', vn(stt.def), 'c-def'); row('⟳', 'Hồi chiêu', pct(stt.cdr), 'c-mp');
+    row('➤', 'Tốc', pct(stt.speedMul), 'c-spd'); row('✚', 'Hút máu', pct(stt.lifesteal), 'c-hp');
     if (st.more) {
       row('◆', 'Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`, 'c-mp'); row('☯', 'Tốc tu', `×${stt.qiMul.toFixed(2)}`, 'c-mp');
       row('↯', 'Phản đòn', pct(stt.thorns), 'c-def'); row('♥', 'Hồi máu', `${vn(stt.regen)}/giây`, 'c-hp');
@@ -108,10 +113,24 @@ export function createSelfPanel(game) {
   }
 
   function renderRail() {   // hàng mục ngay trên kho (mẫu chủ dự án gửi 11/11/2026 01:34)
-    rail.replaceChildren(...BAG_TABS.map(([id, han, name, short]) => {
+    rail.hidden = st.page !== 'kho';
+    rail.replaceChildren(...BAG_TABS.filter(t => KHO.includes(t[0])).map(([id, han, name, short]) => {
       const b = el('button', 'sv-rb' + (st.tab === id ? ' on' : '')); b.title = name;
       b.append(uiIco(game.data, han, 'sv-rico'), el('small', null, short || name));
       b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; st.coinLog = false; if (id !== 'ngoc') st.pickSocket = null; render(); };
+      return b;
+    }));
+  }
+
+  function renderPages() {   // cột chức năng bên phải: Trang bị, Kho, Công pháp, Thời trang
+    pages.replaceChildren(...PAGES.map(([id, ico, name]) => {
+      const b = el('button', 'sv-pg' + (st.page === id ? ' on' : '')); b.title = name;
+      b.append(uiIco(game.data, ico, 'sv-rico'), el('small', null, name));
+      b.onclick = () => {
+        st.page = id; st.sel = null; st.stock = null; st.coinLog = false; st.pickSocket = null;
+        if (id === 'do') st.tab = 'do'; else if (id === 'kho' && !KHO.includes(st.tab)) st.tab = 'ngoc';
+        render();
+      };
       return b;
     }));
   }
@@ -120,6 +139,12 @@ export function createSelfPanel(game) {
     const s = game.save, d = game.data, stt = playerStats(s, d);
     const keep = body.scrollTop, keep2 = store.scrollTop;
     body.replaceChildren(top(s, d), hero(s, d), cpBar(), stats(stt, game.player));
+    if (st.pickSocket) { st.page = 'kho'; st.tab = 'ngoc'; }   // "+ Khảm ngọc": sang Kho → Ngọc chọn viên
+    renderPages();
+    const hosted = st.page === 'cp' || st.page === 'tt';
+    hostBox.hidden = !hosted;
+    if (hosted) { store.hidden = true; sheet.hidden = true; rail.hidden = true; host(hostBox, st.page); return; }
+    unhost();
     store.replaceChildren(renderSelfBag(game, st, changed, render));
     body.scrollTop = keep; store.scrollTop = keep2;
     renderRail();
