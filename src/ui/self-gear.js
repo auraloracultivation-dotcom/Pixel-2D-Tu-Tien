@@ -1,6 +1,6 @@
 // Ô trang bị trên bảng Nhân vật (src/ui/self-panel.js; chủ dự án 11/11/2026 00:39, mẫu My Heroes Dungeon Raid):
 // khung màu theo phẩm, hình món ở giữa, +cường hoá góc trên phải, chữ hệ góc trên trái, số dòng tẩy luyện góc dưới phải,
-// cấp món góc dưới trái; cạnh ô là cột lỗ khảm: mỗi lỗ một ô vuông, có ngọc thì hiện viên ngọc và sáng đúng màu ngọc.
+// ngay dưới ô là thanh lỗ khảm dính liền (chủ dự án 11/11/2026 01:34): lỗ trống là viên đá mờ, có ngọc thì hiện viên ngọc (khung theo cấp ngọc).
 import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
@@ -18,17 +18,17 @@ export function gradeColor(data, it) {
   return q ? (q.edge || q.color) : rarityOf(data.items, it.rarity).color;
 }
 
-function sockets(game, it, side) {
-  const col = el('div', 'sv-sock ' + side);
+function sockets(game, it) {
+  const col = el('div', 'sv-sock');
   for (const g of it.sockets || []) {
     const sq = el('i', 'sv-sk' + (g ? ' on' : ''));
-    if (g) { const gi = gemInfo(game.data, g); sq.style.setProperty('--g', gi.color); sq.append(gemIcon(game, g, 16, 'gem-ico')); sq.title = gi.name; }   // có ngọc: hình viên ngọc toả màu; trống: viên đá mờ (CSS)
+    if (g) { const gi = gemInfo(game.data, g); sq.style.setProperty('--g', gi.color); sq.append(gemIcon(game, g, 12, 'gem-ico')); sq.title = gi.name; }   // có ngọc: hình viên ngọc toả màu; trống: viên đá mờ (CSS)
     col.append(sq);
   }
   return col;
 }
 
-// Ô một món đang mặc (hoặc ô trống của chỗ đó). side: 'l' | 'r' (cột lỗ khảm nằm phía trong, giáp nhân vật)
+// Ô một món đang mặc (hoặc ô trống của chỗ đó), thanh lỗ khảm dính dưới ô
 export function gearCell(game, slot, side, onPick) {
   const { data, save } = game, it = save.bag.find(i => i.uid === save.equip[slot]);
   const wrap = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot' + (it ? '' : ' empty'));
@@ -45,7 +45,7 @@ export function gearCell(game, slot, side, onPick) {
   }
   b.onclick = () => onPick(slot, it);
   wrap.append(b);
-  if (it?.sockets?.length) wrap.append(sockets(game, it, side));
+  wrap.append(it?.sockets?.length ? sockets(game, it) : el('div', 'sv-sock none'));   // không có lỗ: thanh trống giữ hàng thẳng
   return wrap;
 }
 

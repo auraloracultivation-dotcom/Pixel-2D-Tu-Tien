@@ -1,8 +1,8 @@
-// Bảng Nhân vật + Túi đồ một màn (chủ dự án 11/11/2026 00:39–00:57; màn dọc nên túi nằm dưới, nhân vật không đóng khung).
-// Cột trái: chọn mục túi (Trang bị, Ngọc, Nguyên liệu, Đan dược). Trên: tên, cảnh giới, danh hiệu, linh khí. Giữa: nhân vật đứng
-// trên vòng pháp trận mờ, linh thú bên cạnh, ô đang mặc xếp hai bên (src/ui/self-gear.js). Dưới: dòng Lực Chiến, bảng chỉ số có
-// biểu tượng (Thêm ra hết), rồi lưới túi (src/ui/self-bag.js). Chạm món: tấm rèn luyện / mặc trượt lên ngay trong bảng
-// (dùng chung src/ui/bag-detail.js, bag-stock.js với Túi đồ): cường hoá, tẩy luyện, khảm, gỡ ngọc, mặc, tháo. Kiểu ở style-self.css.
+// Bảng Nhân vật + Kho, kiểu My Heroes Dungeon Raid (chủ dự án 11/11/2026 01:34): bảng ngang nằm giữa màn hình dọc, TRÁI là thẻ
+// nhân vật (tên, cảnh giới, linh khí, nhân vật đứng trên vòng pháp trận, mỗi bên 4 ô đồ có thanh ngọc khảm dính dưới, hàng linh thú /
+// khôi lỗi / thú cưỡi, Lực Chiến, chỉ số), PHẢI là kho: hàng mục ngay trên kho (Trang bị, Ngọc, Nguyên liệu, Cá, Đan dược), lưới đồ
+// (src/ui/self-bag.js). Chạm món (đang mặc hoặc trong kho): phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về kho
+// (dùng chung src/ui/bag-detail.js, bag-stock.js với Túi đồ). Kiểu ở style-self.css.
 import { heroLook } from '../render/draw-hero.js';
 import { spriteIcon } from './sprite-icon.js';
 import { playerStats, realmLabel, rootOf, qiNeed } from '../game/stats.js';
@@ -21,13 +21,13 @@ const BUFFS = ['pet', 'comp', 'comp2', 'mount', 'spare'];
 export function createSelfPanel(game) {
   const root = el('div', 'panel self-panel sv'); root.hidden = true;
   const head = el('div', 'bag-head'), x = el('button', 'mini', '✕'), body = el('div', 'self-body'), sheet = el('div', 'sv-sheet');
-  const wrapRow = el('div', 'sv-wrap'), rail = el('div', 'sv-rail');
+  const two = el('div', 'sv-two'), right = el('div', 'sv-right'), rail = el('div', 'sv-tabs2'), store = el('div', 'sv-store');
   head.append(el('b', null, 'Nhân Vật'), x);
-  sheet.hidden = true;
-  wrapRow.append(rail, body);
-  root.append(head, wrapRow, sheet);
+  right.append(rail, store, sheet);
+  two.append(body, right);
+  root.append(head, two);
   document.body.append(root);
-  const st = { sel: null, more: false, tab: 'do', sort: 'moi', stock: null, pickSocket: null };
+  const st = { sel: null, more: false, tab: 'do', sort: 'moi', stock: null, pickSocket: null, slot: 'all', coinLog: false };
   function close() { root.hidden = true; game.uiOpen = false; st.sel = null; st.stock = null; st.pickSocket = null; }
   x.onclick = close;
   const goOld = it => { close(); game.openOldPanel?.(it); };
@@ -35,13 +35,11 @@ export function createSelfPanel(game) {
   function changed(full = true) {
     if (full) { game.refreshStats(); game.persist(); }
     render();
-    if (st.pickSocket) body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' });   // "+ Khảm ngọc": chọn viên ở lưới Ngọc bên dưới
+
   }
   function pick(slot, it) {
-    if (!it) {   // ô trống: về mục Trang bị bên dưới để chọn món mặc vào
-      st.tab = 'do'; st.sort = 'manh'; st.sel = null; st.stock = null; render();
-      game.toast(`Chọn ${game.data.items.slots[slot].toLowerCase()} trong túi bên dưới để mặc vào.`, 2);
-      body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); return;
+    if (!it) {   // ô trống: kho bên phải lọc đúng chỗ đó, mạnh nhất lên đầu
+      st.tab = 'do'; st.slot = slot; st.sort = 'manh'; st.sel = null; st.stock = null; st.coinLog = false; render(); return;
     }
     st.sel = st.sel === it.uid ? null : it.uid; st.stock = null; render();
   }
@@ -64,7 +62,7 @@ export function createSelfPanel(game) {
   // nhân vật đứng tự do trên vòng pháp trận mờ (không đóng khung, chủ dự án 11/11/2026 00:57), ô trang bị xếp hai bên
   function hero(s, d) {
     const g = el('div', 'sv-hero-area'), mid = el('div', 'sv-center'), look = heroLook(game);
-    mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 96, 'sv-hero', true));
+    mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 84, 'sv-hero', true));
     if (s.element) {
       const e = d.elements[s.element], seal = el('span', 'sv-seal', { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' }[s.element] || '?');
       seal.style.setProperty('--e', e.color); seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; mid.append(seal);
@@ -109,28 +107,28 @@ export function createSelfPanel(game) {
     return box;
   }
 
-  function renderRail() {   // cột chọn mục túi bên trái (mẫu chủ dự án gửi 11/11/2026 00:50)
-    rail.replaceChildren(...BAG_TABS.map(([id, han, name]) => {
-      const b = el('button', 'sv-rb' + (st.tab === id ? ' on' : ''));
-      b.append(uiIco(game.data, han, 'sv-rico'), el('small', null, name));
-      b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; st.coinLog = false; if (id !== 'ngoc') st.pickSocket = null; render(); body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
+  function renderRail() {   // hàng mục ngay trên kho (mẫu chủ dự án gửi 11/11/2026 01:34)
+    rail.replaceChildren(...BAG_TABS.map(([id, han, name, short]) => {
+      const b = el('button', 'sv-rb' + (st.tab === id ? ' on' : '')); b.title = name;
+      b.append(uiIco(game.data, han, 'sv-rico'), el('small', null, short || name));
+      b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; st.coinLog = false; if (id !== 'ngoc') st.pickSocket = null; render(); };
       return b;
     }));
   }
 
   function render() {
     const s = game.save, d = game.data, stt = playerStats(s, d);
-    const keep = body.scrollTop;
-    const card = el('div', 'sv-card'); card.append(top(s, d), hero(s, d), cpBar(), stats(stt, game.player));
-    body.replaceChildren(card, renderSelfBag(game, st, changed, render));
-    body.scrollTop = keep;
+    const keep = body.scrollTop, keep2 = store.scrollTop;
+    body.replaceChildren(top(s, d), hero(s, d), cpBar(), stats(stt, game.player));
+    store.replaceChildren(renderSelfBag(game, st, changed, render));
+    body.scrollTop = keep; store.scrollTop = keep2;
     renderRail();
     let has = false;
     if (st.coinLog) has = renderCoinLog(game, sheet, () => { st.coinLog = false; render(); });
     else if (st.sel != null) has = renderDetail(game, st, sheet, changed, () => { st.sel = null; render(); });
     else if (st.stock) has = renderStockSheet(game, st, sheet, changed, () => { st.stock = null; render(); });
     if (!has) { st.sel = null; st.stock = null; st.coinLog = false; }
-    sheet.hidden = !has;
+    sheet.hidden = !has; store.hidden = has;   // món đang chọn: phần mặc / rèn thay chỗ lưới kho
   }
 
   function open() {
