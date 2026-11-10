@@ -269,6 +269,15 @@ try {
   }
 }
 
+// tools/build-site.sh (đưa lên Vercel) chép cùng danh sách tệp với pages.yml (11/11/2026: style-self.css có trong pages.yml mà
+// thiếu ở build-site.sh nên trên game thật bảng Nhân vật mất kiểu)
+{
+  const list = f => readFileSync(f, 'utf8').match(/cp -r ([^\n]*?) (?:_site|"\$OUT")\//)?.[1].split(/\s+/) || [];
+  const gh = list('.github/workflows/pages.yml'), vc = list('tools/build-site.sh');
+  for (const f of gh) if (!vc.includes(f)) errors.push(`.github/workflows/pages.yml chép ${f} nhưng tools/build-site.sh (đưa lên Vercel) không chép`);
+  for (const f of vc) if (!gh.includes(f)) errors.push(`tools/build-site.sh chép ${f} nhưng .github/workflows/pages.yml không chép`);
+}
+
 // Đa ngôn ngữ (data/i18n/<ngôn ngữ>.json, src/core/i18n.js): bản dịch phải giữ đủ chỗ trống {n}; in tỉ lệ đã dịch.
 // Thiếu bản dịch không làm trượt kiểm tra (game tự hiện tiếng Việt), nhưng nên dịch bù: node tools/i18n-extract.mjs --missing en
 {
