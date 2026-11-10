@@ -5,6 +5,7 @@ import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
 import { gemIcon } from './gem-icon.js';
+import { spriteIcon } from './sprite-icon.js';
 
 const HAN = { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' };   // chữ hệ trên ô (ngũ hành)
 
@@ -44,4 +45,19 @@ export function gearCell(game, slot, side, onPick) {
   wrap.append(b);
   if (it?.sockets?.length) wrap.append(sockets(game, it, side));
   return wrap;
+}
+
+// Ô thứ cộng sức mạnh dưới nhân vật (chủ dự án 11/11/2026 01:07: linh thú, khôi lỗi, thú cưỡi, cái gì buff sức mạnh thì một ô,
+// chừa một ô cho tính năng sau). kind: 'pet' | 'comp' | 'comp2' | 'mount' | 'spare'. Chạm: mở bảng của nó.
+const BUFF = { pet: ['Linh thú', '獸'], comp: ['Khôi lỗi', '傀'], comp2: ['Khôi lỗi', '傀'], mount: ['Thú cưỡi', '騎'], spare: ['Sắp mở', '?'] };
+export function buffCell(game, kind, onOpen) {
+  const { data, save } = game, [nm, han] = BUFF[kind], b = el('button', 'sv-slot buff' + (kind === 'spare' ? ' spare' : ''));
+  const id = kind === 'pet' ? save.pet : kind === 'mount' ? save.mount : kind === 'comp' ? save.companion : kind === 'comp2' ? save.companion2 : null;
+  const spr = id && [kind === 'pet' ? 'pet.' + id : kind === 'mount' ? 'mount.' + id : 'comp.' + id, 'npc.' + id].find(k => data.art.sprites[k]);
+  b.setAttribute('aria-label', nm);
+  if (spr) { b.style.setProperty('--q', '#9a7ad8'); b.append(spriteIcon(game, spr, 0, 34, 'sv-spr', true)); }
+  else b.append(el('span', 'sv-big', han));
+  b.append(el('span', 'sv-name', nm));
+  if (kind === 'spare') b.disabled = true; else b.onclick = () => onOpen(kind);
+  return b;
 }
