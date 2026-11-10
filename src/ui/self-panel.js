@@ -62,7 +62,7 @@ export function createSelfPanel(game) {
   // nhân vật đứng tự do trên vòng pháp trận mờ (không đóng khung, chủ dự án 11/11/2026 00:57), ô trang bị xếp hai bên
   function hero(s, d) {
     const g = el('div', 'sv-hero-area'), mid = el('div', 'sv-center'), look = heroLook(game);
-    mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 112, 'sv-hero', true));
+    mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 96, 'sv-hero', true));
     if (s.pet && d.art.sprites['pet.' + s.pet]) {
       const pet = spriteIcon(game, 'pet.' + s.pet, 0, 40, 'sv-pet', true);
       pet.onclick = () => openExtra('pet'); mid.append(pet);

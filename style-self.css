@@ -5,7 +5,8 @@
   --gold: #ffc94a; --gold-2: #e8902a; }
 body .sv.panel { background: var(--bg) !important; border-image: none !important; border: 2px solid var(--edge) !important; border-radius: 14px !important; padding: 8px !important; }
 body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::before, body .sv.panel > .bag-head::after { display: none !important; }
-.sv.panel { position: fixed; top: calc(env(safe-area-inset-top) + 6px); height: auto; max-height: none; z-index: 60; background: var(--bg); }
+.sv.panel { position: fixed; top: auto; height: 64vh; max-height: 64vh; z-index: 60; background: var(--bg); }   /* 2/3 dưới, phía trên vẫn thấy game (chủ dự án 11/11 01:03) */
+@supports (height: 64dvh) { .sv.panel { height: 64dvh; max-height: 64dvh; } }
 .sv .bag-head b { font: 700 17px var(--f-title); color: var(--gold); text-shadow: 0 2px 0 #000; }
 .sv-wrap { display: flex; gap: 6px; flex: 1; min-height: 0; }
 .sv .self-body { overflow-y: auto; min-height: 0; min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 2px 2px 12px; }
@@ -20,7 +21,7 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-rb.on small { color: #4a2600; }
 
 /* khối thông tin nhân vật */
-.sv-card { background: var(--card); border: 2px solid var(--edge); border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 8px;
+.sv-card { background: var(--card); border: 2px solid var(--edge); border-radius: 10px; padding: 6px 8px; display: flex; flex-direction: column; gap: 6px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06); }
 .sv-top { display: flex; flex-direction: column; gap: 5px; }
 .sv-info { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; min-width: 0; }
@@ -33,8 +34,8 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 
 /* nhân vật giữa, ô đồ hai bên, không khung */
 .sv-hero-area { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px; }
-.sv-col { display: flex; flex-direction: column; gap: 8px; }
-.sv-center { position: relative; height: 230px; display: flex; align-items: flex-end; justify-content: center; }
+.sv-col { display: flex; flex-direction: column; gap: 5px; }
+.sv-center { position: relative; height: 196px; display: flex; align-items: flex-end; justify-content: center; }
 .sv-circle { position: absolute; left: 50%; bottom: 6px; width: 132px; height: 34px; margin-left: -66px; border-radius: 50%;
   background: radial-gradient(ellipse, rgba(140, 110, 255, .45), rgba(90, 60, 200, .12) 60%, transparent 72%);
   box-shadow: 0 0 0 2px rgba(150, 120, 255, .35), 0 0 0 7px rgba(150, 120, 255, .12); }
@@ -46,7 +47,7 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 /* ô đồ: khung màu phẩm */
 .sv-cell { display: flex; align-items: center; gap: 3px; }
 .sv-cell.r { flex-direction: row-reverse; }
-.sv-slot { position: relative; width: 52px; height: 52px; padding: 0; flex: none; cursor: pointer; --q: #5c577e;
+.sv-slot { position: relative; width: 46px; height: 46px; padding: 0; flex: none; cursor: pointer; --q: #5c577e;
   background: #1a1828; border: 3px solid var(--q); border-radius: 8px; box-shadow: inset 0 0 10px color-mix(in srgb, var(--q) 35%, transparent), 0 2px 0 #0e0c16; }
 .sv-slot:active { transform: scale(.94); }
 .sv-slot .ico { position: absolute !important; inset: 2px; width: auto !important; height: auto !important; background-size: 70% auto, 0 0 !important; }
@@ -58,19 +59,19 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-plus { position: absolute; top: -1px; right: 2px; font: 900 12px var(--f-body); color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
 .sv-el { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; display: grid; place-items: center; font: 900 9.5px var(--f-title); color: #fff;
   background: var(--e); border-radius: 3px; box-shadow: 0 0 0 1px #000; }
-.sv-lv { position: absolute; left: 3px; bottom: 1px; font: 700 9px var(--f-body); color: var(--ink); text-shadow: 0 1px 0 #000, 0 0 2px #000; }
-.sv-ln { position: absolute; right: 3px; bottom: 1px; font: 800 10px var(--f-body); color: var(--q); text-shadow: 0 1px 0 #000, 0 0 2px #000; filter: brightness(1.3); }
+.sv-lv { position: absolute; left: 2px; bottom: 1px; letter-spacing: -.2px; font: 700 8px var(--f-body); color: var(--ink); text-shadow: 0 1px 0 #000, 0 0 2px #000; }
+.sv-ln { position: absolute; right: 2px; bottom: 1px; font: 800 9px var(--f-body); color: var(--q); text-shadow: 0 1px 0 #000, 0 0 2px #000; filter: brightness(1.3); }
 .sv-up { position: absolute; left: 3px; top: 0; font: 900 12px var(--f-body); color: #4dff7a; text-shadow: 0 1px 0 #000, 0 0 3px #000; }
 .sv-lock { position: absolute; right: 2px; bottom: 0; font-size: 9px; }
 
 /* lỗ khảm: mỗi lỗ một ô vuông, có ngọc thì sáng màu ngọc */
-.sv-sock { display: flex; flex-direction: column; gap: 3px; }
-.sv-sk { width: 15px; height: 15px; display: grid; place-items: center; background: #15131f; border: 1px solid #4a4566; border-radius: 3px; }
+.sv-sock { display: flex; flex-direction: column; gap: 2px; }
+.sv-sk { width: 13px; height: 13px; display: grid; place-items: center; background: #15131f; border: 1px solid #4a4566; border-radius: 3px; }
 .sv-sk.on { background: color-mix(in srgb, var(--g) 45%, #15131f); border-color: var(--g); box-shadow: 0 0 6px var(--g); }
-.sv-sk .gem-ico { width: 13px !important; height: 13px !important; image-rendering: pixelated; }
+.sv-sk .gem-ico { width: 11px !important; height: 11px !important; image-rendering: pixelated; }
 
 /* Lực Chiến và bảng chỉ số */
-.sv-cpbar { display: flex; align-items: center; gap: 8px; padding: 7px 12px; background: var(--card-2); border-radius: 8px; border: 1px solid var(--edge); }
+.sv-cpbar { display: flex; align-items: center; gap: 8px; padding: 4px 12px; background: var(--card-2); border-radius: 8px; border: 1px solid var(--edge); }
 .sv-cpbar i { font-style: normal; font-size: 18px; color: #d8d4f0; }
 .sv-cpbar span { font: 700 15px var(--f-title); color: var(--gold); }
 .sv-cpbar b { margin-left: auto; font: 900 21px var(--f-body); color: var(--gold); text-shadow: 0 2px 0 #4a2a00; }
@@ -113,4 +114,4 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 @keyframes sv-up { from { transform: translateY(40px); opacity: 0; } }
 .sv-sheet .d-main { font-size: 14px; } .sv-sheet .d-line { font-size: 12.5px; } .sv-sheet .d-stats { display: flex; flex-direction: column; gap: 3px; }
 .sv-sheet .muted.tiny { font-size: 11px; } .sv-sheet .socket { font-size: 12px; }
-@media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 46px; height: 46px; } .sv-center { height: 210px; } .sv-rail { width: 46px; } }
+@media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 44px; height: 44px; } .sv-center { height: 180px; } .sv-rail { width: 46px; } }
