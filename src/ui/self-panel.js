@@ -11,6 +11,7 @@ import { el, renderDetail } from './bag-detail.js';
 import { gearCell, buffCell } from './self-gear.js';
 import { renderSelfBag, BAG_TABS } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
+import { renderCoinLog } from './coin-log-sheet.js';
 
 const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
@@ -112,7 +113,7 @@ export function createSelfPanel(game) {
     rail.replaceChildren(...BAG_TABS.map(([id, han, name]) => {
       const b = el('button', 'sv-rb' + (st.tab === id ? ' on' : ''));
       b.append(el('i', null, han), el('small', null, name));
-      b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; if (id !== 'ngoc') st.pickSocket = null; render(); body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
+      b.onclick = () => { st.tab = id; st.sel = null; st.stock = null; st.coinLog = false; if (id !== 'ngoc') st.pickSocket = null; render(); body.querySelector('.sv-bag')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
       return b;
     }));
   }
@@ -125,9 +126,10 @@ export function createSelfPanel(game) {
     body.scrollTop = keep;
     renderRail();
     let has = false;
-    if (st.sel != null) has = renderDetail(game, st, sheet, changed, () => { st.sel = null; render(); });
+    if (st.coinLog) has = renderCoinLog(game, sheet, () => { st.coinLog = false; render(); });
+    else if (st.sel != null) has = renderDetail(game, st, sheet, changed, () => { st.sel = null; render(); });
     else if (st.stock) has = renderStockSheet(game, st, sheet, changed, () => { st.stock = null; render(); });
-    if (!has) { st.sel = null; st.stock = null; }
+    if (!has) { st.sel = null; st.stock = null; st.coinLog = false; }
     sheet.hidden = !has;
   }
 

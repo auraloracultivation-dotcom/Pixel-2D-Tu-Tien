@@ -121,3 +121,14 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-slot.spare { --q: #36324f; opacity: .55; display: grid; place-items: center; cursor: default; }
 .sv-spr { image-rendering: pixelated; max-width: 40px; max-height: 32px; margin-top: -8px; }
 .sv-big { font: 900 18px var(--f-title); color: var(--ink-2); opacity: .55; margin-top: -8px; }
+.sv-money { all: unset; display: flex; align-items: center; gap: 8px; width: 100%; box-sizing: border-box; margin-bottom: 8px; padding: 5px 10px; cursor: pointer;
+  background: var(--card-2); border: 1px solid var(--edge); border-radius: 6px; }
+.sv-money span { flex: 1; font: 800 13px var(--f-body); color: var(--gold); }
+.sv-money small { font-size: 11px; color: var(--ink-2); text-decoration: underline; }
+.sv-chips { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 4px; scrollbar-width: none; }
+.sv-chips .chip { padding: 3px 9px; font-size: 11px; }
+.sv-quick { margin-bottom: 8px; }
+.sv-quick .quick-sell { flex-direction: row; flex-wrap: wrap; }
+.sv-quick .quick-sell > .mini { flex: 1; }
+.sv-quick .quick-sell .act-btn, .sv-quick .quick-sell .quick-chips, .sv-quick .quick-sell .quick-auto, .sv-quick .quick-sell .tiny { flex-basis: 100%; }
+.sv-quick .quick-auto { font-size: 12px; } .sv-quick select { font-size: 12px; } .sv-quick .act-btn { font-size: 12.5px; padding: 7px; }
