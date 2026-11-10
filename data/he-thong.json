@@ -16,8 +16,22 @@
  "tabs": {
   "task": "Nhiệm vụ",
   "gacha": "Triệu hồi",
+  "tra": "Tàng Thư",
   "faq": "Hỏi đáp",
   "ask": "Hỏi thêm"
+ },
+ "tra": {
+  "_note": "Tàng Thư (chủ dự án 10/11/2026 09:16: nâng cấp Hệ Thống thông minh hơn, mọi thông tin game, từ khoá nào cũng bấm xem được; mẫu wiki cotienlo.com). Tự dựng từ data/ (src/game/tra-cuu.js), giao diện src/ui/he-thong-tra.js. kinds: tên loại mục; row: nhãn dòng chỉ số.",
+  "find": "Tìm chiêu, quái, đan, bản đồ… (không dấu cũng được)",
+  "all": "Tất cả",
+  "suggest": "Bổn hệ thống gợi ý cho ký chủ",
+  "count": "Tàng Thư đang chép {n} mục. Gõ tên bất kỳ, hoặc chạm chữ màu ở khắp Hệ Thống để xem.",
+  "none": "Tàng Thư chưa chép thứ này. Ký chủ hỏi ở mục Hỏi thêm nhé.",
+  "related": "Liên quan",
+  "ask_quick": "Bổn hệ thống biết ngay",
+  "ask_quick_none": "Chưa tìm thấy trong Tàng Thư, ký chủ gửi đi để người thật trả lời.",
+  "kinds": {"realm": "Cảnh giới", "root": "Linh căn", "skill": "Chiêu", "tech": "Công pháp", "map": "Bản đồ", "mob": "Quái", "boss": "Boss", "npc": "NPC", "pill": "Đan", "mat": "Nguyên liệu", "pet": "Linh thú", "mount": "Thú cưỡi", "outfit": "Thời trang"},
+  "row": {"layers": "Số tầng", "next": "Cảnh giới kế", "realm_desc": "Cảnh giới thứ {n}, mỗi cảnh giới {l} tầng; đủ tầng thì độ thiên kiếp để đột phá.", "qi": "Linh khí", "chance": "Tỉ lệ thức tỉnh", "cd": "Hồi chiêu", "mp": "Linh lực", "mult": "Sát thương", "range": "Tầm", "level": "cấp", "hp": "Sinh lực", "atk": "Công", "rate": "Tỉ lệ thành", "make": "Mỗi lò ra", "tech_drop": "Rơi bí kíp công pháp", "shop": "Bán ở tiệm", "coin": "Linh Thạch", "gem": "Tiên Ngọc", "evo": "Tiến hoá thành", "speed": "Tốc chạy", "price": "Giá", "drop_from": "Rơi từ", "recipe": "Công thức"}
  },
  "task_head": "Nhiệm vụ hệ thống",
  "task_none": "Ký chủ đã làm hết nhiệm vụ bổn hệ thống giao lúc này. Đi bí cảnh, săn boss, luyện cảnh giới đi, nhiệm vụ mới sẽ tới.",
