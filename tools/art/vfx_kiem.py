@@ -1,4 +1,4 @@
-"""Vạn Kiếm Quy Tông (chủ dự án 10/11/2026 12:35, ba tấm ảnh GPT ở nguon/ai/kiem/):
+"""Vạn Kiếm Thiên Lâm (chủ dự án 10/11/2026 12:35, ba tấm ảnh GPT ở nguon/ai/kiem/):
   kiem.png 8×4 = 32 thanh kiếm sạch (gọi kiếm bay về, cắm đất), kiem-khi.png 8×3 = 24 kiếm quấn kiếm khí (tụ kiếm khí),
   kiem-dam.png 8×3 = 24 kiếm bốc lửa linh khí mũi chúc xuống (kiếm đâm xuống đất).
 Nền ba tấm là màu loang, không trong suốt:
@@ -83,6 +83,6 @@ def build(save):
         sets[name] = [_hue(c) for c in cells]
     pick = lambda hs, pool: min(range(len(pool)), key=lambda j: _hd(hs[0], pool[j][0]) + 0.4 * abs(hs[1] - pool[j][1]) + (0.5 if pool[j][1] < 0.25 else 0))
     pairs = [[pick(h, sets['vfx.vk-khi']), pick(h, sets['vfx.vk-dam'])] for h in sets['vfx.vk-kiem']]
-    DATA.write_text(json.dumps({'_note': 'Sinh tự động bởi tools/art/vfx_kiem.py, đừng sửa tay: mỗi thanh kiếm sạch (vfx.vk-kiem khung i) → [khung vfx.vk-khi, khung vfx.vk-dam] cùng sắc. Chỉ số chiêu ở data/skills.json → van-kiem.', 'pairs': pairs}, ensure_ascii=False) + '\n', encoding='utf-8')
+    DATA.write_text(json.dumps({'_note': 'Sinh tự động bởi tools/art/vfx_kiem.py, đừng sửa tay: mỗi thanh kiếm sạch (vfx.vk-kiem khung i) → [khung vfx.vk-khi, khung vfx.vk-dam] cùng sắc. Chỉ số chiêu ở data/skills.json → van-kiem-thien.', 'pairs': pairs}, ensure_ascii=False) + '\n', encoding='utf-8')
     print('vfx.kiem*', len(pairs), 'cặp')
     return 3

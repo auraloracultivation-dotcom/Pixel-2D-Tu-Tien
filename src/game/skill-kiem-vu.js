@@ -1,10 +1,11 @@
-// Kiểu chiêu 'kiemvu' — Vạn Kiếm Quy Tông (chủ dự án 10/11/2026 12:35, ba tấm kiếm GPT; hình tools/art/vfx_kiem.py, vẽ render/draw-kiem-vu.js).
+// Kiểu chiêu 'kiemvu' — Vạn Kiếm Thiên Lâm (chủ dự án 10/11/2026 12:35, ba tấm kiếm GPT; hình tools/art/vfx_kiem.py, vẽ render/draw-kiem-vu.js;
+// 13:42: gấp đôi kiếm, đâm tới mọi quái trong màn hình, vòng kiếm cao hơn đầu).
 //   0 → s.summon (2,5 giây): kiếm bay từ bốn phía về, xoay vòng trên đầu người chơi (đi lại tự do, vòng kiếm bám theo);
 //   s.summon → s.release (0,3 giây): kiếm khí cuộn quanh từng thanh, vòng xoay nhanh dần;
-//   s.release → + s.fall (1,5 giây): từng thanh rời vòng, vọt tới trên điểm rơi rồi đâm thẳng xuống đất trong vùng s.area quanh nơi ngắm
-//   (vuốt nút: theo hướng vuốt; chạm: quái gần nhất trong s.range, không có thì phía trước s.offset);
-//   cắm đất s.stick giây (0,3) rồi tan. Mỗi thanh trúng quái trong s.hit_r: s.mult × đánh thường (4 lần). Nửa số kiếm nhắm quái trong vùng,
-//   nửa rơi ngẫu nhiên quanh tâm, nên có chỗ trúng 3–4 thanh. Số ở data/skills.json → van-kiem; cặp hình ở data/kiem-vu.json.
+//   s.release → + s.fall (1,5 giây): từng thanh rời vòng, vọt tới trên điểm rơi rồi đâm thẳng xuống đất: mọi quái trong khung màn hình
+//   (gần trước, mỗi con tối đa s.per_mob thanh), thanh thừa rơi quanh trong s.area; không có quái thì phía trước s.offset (vuốt: theo hướng vuốt);
+//   cắm đất s.stick giây (0,3) rồi tan. Mỗi thanh trúng quái trong s.hit_r: s.mult × đánh thường (4 lần).
+//   Số ở data/skills.json → van-kiem-thien; cặp hình ở data/kiem-vu.json.
 import { hitMob, dist, impactShake, addFx } from './combat.js';
 import { pvpTryHit } from './pvp.js';
 
@@ -28,23 +29,28 @@ export function orbitPos(c, w, p) {
   return { x: p.x + Math.cos(a) * s.orbit, y: p.y - s.lift + Math.sin(a) * s.orbit * 0.32, a };
 }
 
-function aim(game, c) {
-  const p = game.player, s = c.s;
-  if (c.hand) { const L = Math.hypot(c.hand.x, c.hand.y) || 1; return { x: p.x + c.hand.x / L * s.offset, y: p.y + c.hand.y / L * s.offset }; }
-  let best = null, bd = 1e9;
-  for (const m of game.mobs) if (!m.dead && dist(p, m) < bd) { bd = dist(p, m); best = m; }
-  return best && bd < s.range ? { x: best.x, y: best.y } : { x: p.x + p.face.x * s.offset, y: p.y + p.face.y * s.offset };
+// Quái trong khung màn hình (không biết khung nhìn thì trong vòng 220 đơn vị), gần người chơi trước
+function inView(game) {
+  const p = game.player, v = game.screen?.viewRect?.();
+  return game.mobs.filter(m => !m.dead && (v ? m.x > v.x0 && m.x < v.x1 && m.y > v.y0 && m.y < v.y1 : dist(p, m) < 220)).sort((a, b) => dist(p, a) - dist(p, b));
 }
 
-// Điểm rơi: nửa số kiếm nhắm quái trong vùng (một con nhận tối đa 4 thanh), còn lại rơi quanh tâm
-function landings(game, c, C) {
-  const s = c.s, inA = game.mobs.filter(m => !m.dead && Math.hypot(m.x - C.x, m.y - C.y) < s.area + m.r), got = new Map();
-  c.swords.forEach((w, i) => {
-    const m = inA.length && i % 2 === 0 ? inA[(i / 2) % inA.length] : null;
-    if (m && (got.get(m) || 0) < 4) { got.set(m, (got.get(m) || 0) + 1); w.lx = m.x + (Math.random() - 0.5) * 8; w.ly = m.y + (Math.random() - 0.5) * 5; return; }
-    const r = s.area * Math.sqrt(Math.random()) * 0.9, a = Math.random() * TAU;
-    w.lx = C.x + Math.cos(a) * r; w.ly = C.y + Math.sin(a) * r * 0.6;
-  });
+// Điểm rơi: chia đều kiếm cho quái trong màn (vòng lượt: con gần trước, mỗi con tối đa s.per_mob thanh), thanh thừa rơi quanh quái
+// trong s.area; không có quái thì rơi quanh phía trước (vuốt nút: theo hướng vuốt)
+function landings(game, c) {
+  const s = c.s, p = game.player, mobs = inView(game), got = new Map(), cap = s.per_mob || 4;
+  let C;
+  if (c.hand) { const L = Math.hypot(c.hand.x, c.hand.y) || 1; C = { x: p.x + c.hand.x / L * s.offset, y: p.y + c.hand.y / L * s.offset }; }
+  else C = mobs[0] ? { x: mobs[0].x, y: mobs[0].y } : { x: p.x + p.face.x * s.offset, y: p.y + p.face.y * s.offset };
+  let k = 0;
+  for (const w of c.swords) {
+    let m = null;
+    for (let tries = 0; tries < mobs.length && !m; tries++, k++) { const q = mobs[k % mobs.length]; if ((got.get(q) || 0) < cap) m = q; }
+    if (m) { got.set(m, (got.get(m) || 0) + 1); k++; w.lx = m.x + (Math.random() - 0.5) * 8; w.ly = m.y + (Math.random() - 0.5) * 5; continue; }
+    const o = mobs.length ? mobs[Math.floor(Math.random() * mobs.length)] : C, r = s.area * Math.sqrt(Math.random()), a = Math.random() * TAU;
+    w.lx = o.x + Math.cos(a) * r; w.ly = o.y + Math.sin(a) * r * 0.6;
+  }
+  return C;
 }
 
 export function updateKiemVu(game, dt) {
@@ -53,7 +59,7 @@ export function updateKiemVu(game, dt) {
   const p = game.player;
   for (const c of L) {
     const s = c.s, t0 = c.t; c.t += dt;
-    if (t0 < s.release && c.t >= s.release) { c.C = aim(game, c); landings(game, c, c.C); pvpTryHit(game); }
+    if (t0 < s.release && c.t >= s.release) { c.C = landings(game, c); pvpTryHit(game); }
     if (t0 < s.summon && c.t >= s.summon) { game.sfx?.('chime', 0.8); game.screen?.shake?.(1.2, 0.2); }   // đủ kiếm: kiếm khí bùng
     for (const w of c.swords) {
       if (c.t < w.go && !w.hx) continue;

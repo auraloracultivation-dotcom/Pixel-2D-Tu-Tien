@@ -178,7 +178,7 @@ export function drawVfx(ctx, game, t) {
   for (const f of fxs) if (f.k !== 'circle' && f.k !== 'ground') drawFx(ctx, game, art, C, t, f);
   if (S?.parts.length) drawParts(ctx, art, S.parts);
   ctx.restore();
-  drawKiemVu(ctx, game, t);   // Vạn Kiếm Quy Tông (src/render/draw-kiem-vu.js)
+  drawKiemVu(ctx, game, t);   // Vạn Kiếm Thiên Lâm (src/render/draw-kiem-vu.js)
   drawJuiceWorld(ctx, game, t);   // cảm giác đánh: tia toả, vụn, khói vòng, đốm linh khí (src/render/draw-juice.js)
   if (game.screen) { game.screen.screenTransform(); drawJuiceScreen(ctx, game, game.screen, t); game.screen.worldTransform(); }
 }
