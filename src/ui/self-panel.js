@@ -89,7 +89,7 @@ export function createSelfPanel(game) {
     })));
     const hosted = !!HOSTS[st.page];
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
-    if (hosted) { host(hostBox, st.page, st.sub); return; }
+    if (hosted) { host(hostBox, st.page, st.sub, game); return; }
     unhost();
     const keep = mid.scrollTop;
     let has = false;   // phần chi tiết thay chỗ lưới
