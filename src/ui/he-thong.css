@@ -147,3 +147,28 @@
 .ht-chao-say::before { content: ''; position: absolute; left: -7px; bottom: 14px; border: 7px solid transparent; border-left: 0; border-right-color: #5fd8ff; }
 .ht-chao-say b { display: block; font-size: 11px; color: #7fe0ff; margin-bottom: 2px; }
 .ht-chao-say p { margin: 0; font-size: 13px; line-height: 1.35; color: #eafaff; }
+/* Tàng Thư (src/ui/he-thong-tra.js, chủ dự án 10/11/2026): từ khoá bấm được, chip loại, thẻ chi tiết */
+.ht-kw { font: inherit; color: var(--kw, #8ff0ff); background: none; border: 0; padding: 0; text-decoration: underline dotted rgba(143, 240, 255, .7); text-underline-offset: 2px; cursor: pointer; }
+.ht-kw:active { filter: brightness(1.4); }
+.ht-tra-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ht-tra-chip { text-decoration: none; display: inline-flex; align-items: baseline; gap: 4px; padding: 4px 8px; border: 1px solid rgba(62, 200, 240, .45); border-radius: 12px; background: rgba(10, 40, 70, .7); font-weight: 700; }
+.ht-tra-chip small { color: #8ab8cc; font-weight: 400; font-size: 10px; }
+.ht-tra-kinds { gap: 4px; }
+.ht-tra-k { font: 700 11px/1 var(--f-body); color: #9fd8ee; background: rgba(20, 70, 110, .5); border: 1px solid #0a1830; border-radius: 10px; padding: 5px 8px; }
+.ht-tra-k.on { color: #0a1830; background: #5fd8f8; }
+.ht-tra-list { display: flex; flex-direction: column; gap: 4px; }
+.ht-tra-item { text-align: left; font: inherit; color: #dff6ff; background: rgba(10, 36, 64, .7); border: 1px solid rgba(62, 200, 240, .25); border-radius: 6px; padding: 6px 8px; display: grid; grid-template-columns: 1fr auto; gap: 1px 8px; }
+.ht-tra-item b { color: var(--kw, #dff6ff); }
+.ht-tra-item i { font-style: normal; font-size: 11px; color: #8ab8cc; }
+.ht-tra-item span { grid-column: 1 / -1; font-size: 11.5px; color: #a9cddc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ht-tra-top { display: flex; align-items: center; gap: 8px; }
+.ht-tra-bk { font: 700 18px/1 var(--f-body); color: #0a1830; background: #5fd8f8; border: 1px solid #0a1830; border-radius: 6px; width: 30px; height: 26px; }
+.ht-tra-kind { font-size: 11px; color: #8ab8cc; letter-spacing: .06em; text-transform: uppercase; }
+.ht-tra-name { font-size: 17px; font-weight: 700; color: var(--kw, #9feaff); text-shadow: 0 0 8px rgba(62, 200, 240, .45); }
+.ht-tra-rows { border: 1px solid rgba(62, 200, 240, .3); border-radius: 6px; overflow: hidden; }
+.ht-tra-row { display: flex; justify-content: space-between; gap: 10px; padding: 4px 8px; font-size: 12px; }
+.ht-tra-row:nth-child(odd) { background: rgba(62, 200, 240, .08); }
+.ht-tra-row span { color: #8ab8cc; white-space: nowrap; }
+.ht-tra-row b { text-align: right; }
+.ht-quick { display: flex; flex-direction: column; gap: 4px; }
+.ht-tab { min-width: 0; white-space: nowrap; }
