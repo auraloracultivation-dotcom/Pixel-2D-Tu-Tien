@@ -1,74 +1,120 @@
-// Nhóm D khung nhân vật (chủ dự án gom 02/11/2026): chạm tên / cảnh giới góc trái trên mở bảng gồm ảnh nhân vật (avatar),
-// tên + đổi tên, danh hiệu (chọn ở Thành tựu → Danh hiệu), cảnh giới, linh căn, máu, linh lực, lực chiến, chỉ số cơ bản.
-import { heroLook } from '../render/draw-hero.js';
-import { spriteIcon } from './sprite-icon.js';
-import { playerStats, realmLabel, rootOf, qiNeed } from '../game/stats.js';
-import { power, titleOf } from '../game/achieve.js';
+// Bảng Nhân vật (chủ dự án 11/11/2026 01:47: khuôn bảng ngang thấp như mẫu gửi, nằm giữa màn hình dọc; game nhiều chức năng hơn mẫu).
+// Cột trái: 4 mục lớn Trang bị, Kho, Công pháp, Thời trang. Giữa: thẻ nhân vật (src/ui/self-left.js). Khung phải: hàng mục con
+// trên đầu (đổi theo mục lớn, src/ui/self-bag.js → SUBS), lưới ô ở giữa, thanh dưới cùng. Chạm món (đang mặc hoặc trong kho):
+// phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về lưới (dùng chung src/ui/bag-detail.js, bag-stock.js với
+// Túi đồ). Công pháp, Thời trang: gắn chính bảng có sẵn của game vào khung phải (src/ui/self-host.js). Kiểu ở style-self.css.
+import { playerStats } from '../game/stats.js';
+import { el, renderDetail } from './bag-detail.js';
+import { uiIco } from './self-gear.js';
+import { leftCard, statsSheet } from './self-left.js';
+import { renderStore, SUBS, groupOf } from './self-bag.js';
+import { renderStockSheet } from './bag-stock.js';
+import { renderCoinLog } from './coin-log-sheet.js';
+import { host, unhost, HOSTS } from './self-host.js';
+import { snap, react } from './self-fx.js';
 
-function el(tag, cls, text) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (text != null) e.textContent = text;
-  return e;
+const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
+const SUB0 = { do: 'all', kho: 'ngoc', cp: 'chieu', tt: 'thoi-trang' };
+// Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
+const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Tháo/, 'tab-trang-bi'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'],
+  [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau'], [/^Mua nhanh/, 'lich-su'], [/^Đổi hệ/, 'tho'], [/^Phân giải/, 'st-bao'], [/^Luyện/, 'tab-phap-bao']];
+const SHORT = [[/^Cường hóa/, 'Cường'], [/^Tẩy luyện.*$/, 'Tẩy luyện'], [/^Mặc vào/, 'Mặc'], [/^Thay vào/, 'Thay'], [/^Tháo xuống/, 'Tháo'], [/^Mua nhanh/, 'Mua']];
+function decorate(game, box) {   // nút gọn (chủ dự án 03:26: thấy hết chức năng trong một góc): hình + tên một dòng + giá một dòng nhỏ
+  for (const b of box.querySelectorAll('.act-btn, .socket:not(.full)')) {
+    const t = b.textContent.trim(), k = ACT_ICO.find(([re]) => re.test(t))?.[1];
+    if (k) b.prepend(uiIco(game.data, 'ui.nv-' + k, 'sv-aico'));
+    if (/^(Khoá|🔒)/.test(t)) { b.querySelector('small')?.remove(); const bb = b.querySelector('b'); if (bb) bb.textContent = /^🔒/.test(t) ? 'Đã khoá' : 'Khoá'; }
+    const bb = b.querySelector('b') || [...b.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());   // tên: thẻ b, hoặc chữ trần (nút Mặc / Thay)
+    const short = bb && SHORT.find(([re]) => re.test(bb.textContent.trim()));   // tên ngắn cho vừa ô
+    if (short) bb.textContent = bb.textContent.trim().replace(short[0], short[1]);
+  }
 }
-const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 
 export function createSelfPanel(game) {
-  const root = el('div', 'panel self-panel'); root.hidden = true;
-  const head = el('div', 'bag-head'), x = el('button', 'mini', '✕'), body = el('div', 'self-body');
-  head.append(el('b', null, 'Nhân vật'), x);
-  root.append(head, body);
+  const root = el('div', 'panel self-panel sv'); root.hidden = true;
+  const x = el('button', 'sv-x', '✕'), frame = el('div', 'sv-frame'), rail = el('div', 'sv-pages'), left = el('div', 'sv-left');
+  const right = el('div', 'sv-right'), subs = el('div', 'sv-subs'), mid = el('div', 'sv-mid'), bar = el('div', 'sv-barbox'), hostBox = el('div', 'sv-hostbox');
+  x.setAttribute('aria-label', 'Đóng');
+  right.append(subs, mid, hostBox, bar);
+  frame.append(rail, left, right);
+  root.append(frame, x);
   document.body.append(root);
-  function close() { root.hidden = true; game.uiOpen = false; }
+  const st = { page: 'do', sub: 'all', sel: null, stock: null, coinLog: false, more: false, pickSocket: null, sort: 'moi', qs: false };
+  const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; };
+  function close() { unhost(); root.hidden = true; game.uiOpen = false; reset(); st.pickSocket = null; st.qs = false; }
   x.onclick = close;
+  const goOld = it => { close(); game.openOldPanel?.(it); };
+  const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
 
-  function row(k, v) { const r = el('div', 'self-row'); r.append(el('span', null, k), el('b', null, v)); return r; }
-  function render() {
-    const s = game.save, d = game.data, p = game.player, st = playerStats(s, d);
-    body.replaceChildren();
-    const top = el('div', 'self-top'), ava = el('div', 'self-ava');
-    const look = heroLook(game);
-    ava.append(spriteIcon(game, look.sprite, 0, 72, 'self-ico', true));
-    const info = el('div', 'self-info'), name = game.cloud?.name || 'Đạo hữu', t = titleOf(game);
-    const nm = el('b', 'self-name', name);
-    const rename = el('button', 'mini', 'Đổi tên'); rename.onclick = () => { close(); game.openRename?.(); };
-    const tt = el('div', 'self-title', t ? `Danh hiệu: ${t.name}` : 'Chưa đeo danh hiệu');
-    if (t?.color) tt.style.color = t.color;
-    const pick = el('button', 'mini', 'Chọn danh hiệu'); pick.onclick = () => { close(); game.openOldPanel?.({ btn: 'btn-achv', tabs: 'achv-tabs', tab: 'danh-hieu' }); };
-    const btns = el('div', 'self-btns'); btns.append(rename, pick);
-    info.append(nm, tt, el('div', 'self-realm', realmLabel(s, d.realms)), btns);
-    top.append(ava, info);
-    const need = qiNeed(s, d.realms);
-    const stats = el('div', 'self-stats');
-    stats.append(
-      row('Linh căn', s.element ? `${d.elements[s.element].name} · ${rootOf(s, d).name}` : 'Chưa thức tỉnh'),
-      row('Lực chiến', vn(power(game))),
-      row('Sinh lực', `${vn(p?.hp)}/${vn(st.maxHp)}`),
-      row('Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`),   // linh lực dùng chiêu (src/game/mana.js)
-      row('Linh khí', `${vn(s.qi)}/${vn(need)}`),   // tu vi để đột phá cảnh giới
-      row('Công', vn(st.atk)),
-      row('Phòng', vn(st.def)),
-      row('Bạo kích', `${Math.round(st.crit * 100)}%`),
-      row('Sát thương bạo', `${Math.round(st.critMult * 100)}%`),
-      row('Giảm hồi chiêu', `${Math.round(st.cdr * 100)}%`),
-      row('Tốc chạy', `${Math.round(st.speedMul * 100)}%`),
-      row('Tốc tu', `×${st.qiMul.toFixed(2)}`),
-      row('Hút máu', `${Math.round(st.lifesteal * 100)}%`),
-      row('Phản đòn', `${Math.round(st.thorns * 100)}%`),
-      row('Hồi máu', `${vn(Math.round(st.regen))}/giây`),
-      row('Giảm sát thương', `${Math.round(st.dr * 100)}%`),
-      row('Hồi linh lực', `${Math.round((game.data.config.mana.regen_pct + st.mpRegen) * 1000) / 10}%/giây`),
-    );
-    body.append(top, stats);
+  let before = null;   // trạng thái lúc vẽ gần nhất, để so sau thao tác mà chạy hiệu ứng (src/ui/self-fx.js)
+  function changed(full = true) {
+    if (full) { game.refreshStats(); game.persist(); }
+    if (st.pickSocket && st.page !== 'kho') { st.page = 'kho'; st.sub = 'ngoc'; st.sel = null; }   // "+ Khảm ngọc": Kho → Ngọc chọn viên
+    const msg = st.msg, prev = before;
+    render();
+    if (full) react(game, prev, msg, fxTarget, () => left.querySelector('.sv-center'));
+  }
+  // Ô của món uid: ô đang mặc bên trái nếu đang mặc, không thì hình món ở đầu tấm chi tiết bên phải
+  function fxTarget(uid) {
+    const s = game.save, slot = Object.keys(s.equip).find(k => s.equip[k] === uid);
+    return (slot && left.querySelector(`.sv-slot[aria-label="${game.data.items.slots[slot]}"]`)) || mid.querySelector('.d-head .ico') || left.querySelector('.sv-center');
+  }
+  const h = {
+    pick: (slot, it) => {
+      if (!it) { st.sort = 'manh'; go('do', groupOf(slot)); return; }   // ô trống: kho lọc đúng nhóm, mạnh nhất lên đầu
+      if (st.page !== 'kho') st.page = 'do';
+      reset(); st.sel = it.uid; render();
+    },
+    openExtra: k => goOld({ btn: 'btn-pets', tabs: 'pets-tabs', tab: k === 'pet' ? 'linh-thu' : k === 'mount' ? 'thu-cuoi' : 'dong-hanh' }),
+    rename: () => { close(); game.openRename?.(); },
+    stats: () => { const m = !st.more; reset(); st.more = m; if (st.page !== 'do' && st.page !== 'kho') st.page = 'do'; render(); },
+  };
+
+  function tabBtn(cls, on, ico, name, fn) {
+    const b = el('button', cls + (on ? ' on' : '')); b.title = name;
+    b.append(uiIco(game.data, ico, 'sv-rico'), el('small', null, name)); b.onclick = fn;
+    return b;
   }
 
-  function open() {
+  function render() {
+    const s = game.save, d = game.data, stt = playerStats(s, d);
+    before = snap(game);
+    rail.replaceChildren(...PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
+    left.replaceChildren(leftCard(game, stt, h));
+    subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
+    subs.replaceChildren(...SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
+      st.sub = id; reset(); st.qs = false;
+      if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
+      render();
+    })));
+    const hosted = !!HOSTS[st.page];
+    hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
+    if (hosted) { host(hostBox, st.page, st.sub); return; }
+    unhost();
+    const keep = mid.scrollTop;
+    let has = false;   // phần chi tiết thay chỗ lưới
+    if (st.more) has = statsSheet(game, stt, mid, () => { st.more = false; render(); });
+    else if (st.coinLog) has = renderCoinLog(game, mid, () => { st.coinLog = false; render(); });
+    else if (st.sel != null) has = renderDetail(game, st, mid, changed, () => { st.sel = null; render(); });
+    else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
+    mid.classList.toggle('sheet', has);
+    if (has) decorate(game, mid);
+    if (has) { bar.hidden = true; mid.scrollTop = 0; return; }
+    reset();
+    const r = renderStore(game, st, changed, render);
+    mid.replaceChildren(r.wrap); bar.replaceChildren(r.bar);
+    mid.scrollTop = keep;
+  }
+
+  function open(page, sub) {   // page, sub: mở thẳng một mục (vd 'kho', 'dan')
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
-    game.uiOpen = true; root.hidden = false; render();
+    if (SUBS[page]) { st.page = page; st.sub = sub || SUB0[page]; st.qs = false; st.pickSocket = null; }
+    game.uiOpen = true; root.hidden = false; reset(); render();
   }
   game.openSelf = open;
-  const R = document.getElementById('realm');   // chạm khung tên, cảnh giới (trước chỉ chạm tên để đổi tên)
-  R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);   // bắt trước nút tên cũ (đổi tên giờ nằm trong bảng)
+  game.toggleSelf = (page, sub) => (root.hidden ? open(page, sub) : close());   // nút Túi đồ (src/ui/bag.js): bấm lần nữa thì đóng
+  const R = document.getElementById('realm');   // chạm khung tên, cảnh giới
+  R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);
   document.getElementById('power')?.addEventListener('click', e => { e.stopPropagation(); open(); });
 }

@@ -139,7 +139,9 @@ export function createBag(game) {
   $('bag-mats').after(logBtn);
   logBtn.onclick = $('bag-mats').onclick = () => { st.coinLog = !st.coinLog; st.sel = null; st.stock = null; st.pickSocket = null; render(); };
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
-  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
+  // Nút Túi đồ mở bảng Nhân vật + Kho (src/ui/self-panel.js; chủ dự án 11/11/2026 02:31: đưa bảng mới lên game). Không có bảng đó
+  // thì như cũ: cột mục bên trái (src/ui/side-nav.js)
+  $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.toggleSelf) game.toggleSelf('do'); else if (game.openNav) game.openNav('bag'); else open(); });
   game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
 
   function open() {
