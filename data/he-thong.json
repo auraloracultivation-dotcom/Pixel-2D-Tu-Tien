@@ -327,6 +327,24 @@
    "go": "btn-bag"
   },
   {
+   "id": "kham-2",
+   "goal": "Khảm 2 viên ngọc vào đồ đang mặc",
+   "dk": {
+    "socket": 2
+   },
+   "qua": [
+    {
+     "gem": "hong-ngoc:1",
+     "n": 2
+    },
+    {
+     "coins": 2000
+    }
+   ],
+   "xong": "Đinh! Hai viên ngọc sáng lấp lánh. Đồ hiếm Linh trở lên mới có lỗ khảm.",
+   "tip": "Đồ Linh có 1 lỗ, Địa 2 lỗ, Thiên 3 lỗ. Ngọc rơi từ quái và quà triệu hồi."
+  },
+  {
    "id": "truyen-4",
    "goal": "Đánh lui ma tộc ở Thanh Khê",
    "dk": {
@@ -419,6 +437,24 @@
     }
    ],
    "xong": "Đinh! Đả tọa ra linh khí, đánh quái ra linh khí, đan dược ra linh khí. Ba đường cùng đi thì lên như diều."
+  },
+  {
+   "id": "luyen-khi-3",
+   "goal": "Tu luyện tới Luyện Khí tầng 3",
+   "dk": {
+    "realm": 0,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-khi-dan",
+     "n": 6
+    },
+    {
+     "coins": 1000
+    }
+   ],
+   "xong": "Đinh! Luyện Khí tầng 3. Nền đã vững, cứ thế mà tiến."
   },
   {
    "id": "truyen-6",
@@ -648,6 +684,24 @@
    "go": "btn-bag"
   },
   {
+   "id": "cong-phap-3",
+   "goal": "Học 3 bộ công pháp",
+   "dk": {
+    "techs": 3
+   },
+   "qua": [
+    {
+     "coins": 5000
+    },
+    {
+     "mat": "tinh-thiet",
+     "n": 8
+    }
+   ],
+   "xong": "Đinh! Ba bộ công pháp, đủ lắp kín ba ô. Công pháp lên cấp khi ký chủ đánh quái.",
+   "tip": "Bí kíp rơi từ boss bí cảnh và boss thế giới."
+  },
+  {
    "id": "hoi-linh-thu",
    "goal": "Muốn có linh thú, ký chủ tìm ai?",
    "hoi": {
@@ -721,6 +775,24 @@
    "go": "btn-pets"
   },
   {
+   "id": "linh-thu-2",
+   "goal": "Có 2 linh thú",
+   "dk": {
+    "pets": 2
+   },
+   "qua": [
+    {
+     "coins": 5000
+    },
+    {
+     "pill": "tu-khi-dan",
+     "n": 3
+    }
+   ],
+   "xong": "Đinh! Thêm một bạn đồng hành. Linh thú đi theo cũng đánh quái giúp.",
+   "tip": "Săn dị chủng (quái phát sáng) ngoài tinh cầu, hạ xong có thể thu phục."
+  },
+  {
    "id": "thu-cuoi-1",
    "goal": "Có một thú cưỡi",
    "dk": {
@@ -758,6 +830,23 @@
    "xong": "Đinh! Đủ bảy món, kín từ đầu tới chân. Giờ cường hoá lên, Tinh Thiết đây.",
    "tip": "Đủ vũ khí, giáp, mũ, giày, nhẫn, ngọc bội, pháp bảo. Đồ hệ thống tặng chọn đúng ô còn trống.",
    "go": "btn-bag"
+  },
+  {
+   "id": "cuong-hoa-5",
+   "goal": "Cường hoá một món đang mặc lên +5",
+   "dk": {
+    "plus": 5
+   },
+   "qua": [
+    {
+     "mat": "tinh-thiet",
+     "n": 15
+    },
+    {
+     "coins": 3000
+    }
+   ],
+   "xong": "Đinh! +5 rồi. Tới +6 vẫn an toàn, từ +7 hỏng có thể tụt cấp."
   },
   {
    "id": "cuong-hoa-6",
@@ -917,6 +1006,24 @@
    "tip": "Uống Tụ Khí Đan, Thăng Linh Đan rồi đả tọa. Đầy tầng 9 thì đột phá."
   },
   {
+   "id": "truc-co-3",
+   "goal": "Tu luyện tới Trúc Cơ tầng 3",
+   "dk": {
+    "realm": 1,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-khi-dan",
+     "n": 6
+    },
+    {
+     "coins": 3000
+    }
+   ],
+   "xong": "Đinh! Trúc Cơ tầng 3. Nền đã vững, cứ thế mà tiến."
+  },
+  {
    "id": "truc-co-5",
    "goal": "Tu luyện tới Trúc Cơ tầng 5",
    "dk": {
@@ -953,6 +1060,24 @@
    "xong": "Đinh! Năm công pháp, chiêu nào cũng có. Kẻ địch sẽ không biết ký chủ ra chiêu gì tiếp.",
    "tip": "Bí kíp rơi từ boss bí cảnh và boss thế giới.",
    "go": "btn-bag"
+  },
+  {
+   "id": "truc-co-7",
+   "goal": "Tu luyện tới Trúc Cơ tầng 7",
+   "dk": {
+    "realm": 1,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-khi-dan",
+     "n": 7
+    },
+    {
+     "coins": 6000
+    }
+   ],
+   "xong": "Đinh! Trúc Cơ tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
   },
   {
    "id": "truc-co-9",
@@ -1018,6 +1143,24 @@
    "tip": "Tu vi đầy tầng 9 Trúc Cơ thì đột phá. Đan dược và đả tọa giúp lên nhanh."
   },
   {
+   "id": "kim-dan-3",
+   "goal": "Tu luyện tới Kim Đan tầng 3",
+   "dk": {
+    "realm": 2,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 4
+    },
+    {
+     "coins": 5000
+    }
+   ],
+   "xong": "Đinh! Kim Đan tầng 3. Nền đã vững, cứ thế mà tiến."
+  },
+  {
    "id": "kim-dan-5",
    "goal": "Tu luyện tới Kim Đan tầng 5",
    "dk": {
@@ -1072,6 +1215,24 @@
    "tip": "Túi đồ → Ngọc: ba viên cùng loại cùng cấp ghép thành một viên cấp cao hơn."
   },
   {
+   "id": "kim-dan-7",
+   "goal": "Tu luyện tới Kim Đan tầng 7",
+   "dk": {
+    "realm": 2,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 4
+    },
+    {
+     "coins": 10000
+    }
+   ],
+   "xong": "Đinh! Kim Đan tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
    "id": "cuong-hoa-10",
    "goal": "Cường hoá một món đang mặc lên +10",
    "dk": {
@@ -1090,6 +1251,25 @@
    "xong": "Đinh! +10! Bổn hệ thống công nhận: ký chủ có chút bản lĩnh. Tặng trang bị phẩm Thiên.",
    "tip": "Cường hoá cao dễ hỏng, chuẩn bị nhiều Tinh Thiết và Tẩy Luyện Thạch.",
    "go": "btn-bag"
+  },
+  {
+   "id": "kim-dan-9",
+   "goal": "Tu luyện tới Kim Đan tầng 9",
+   "dk": {
+    "realm": 2,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 4
+    },
+    {
+     "coins": 20000
+    }
+   ],
+   "xong": "Đinh! Kim Đan tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
   },
   {
    "id": "canh-gioi-3",
@@ -1112,6 +1292,24 @@
    ],
    "xong": "Đinh! Nguyên Anh! Ký chủ đã đứng trên vạn người. Nhưng tinh hà còn rộng lắm, đừng dừng lại.",
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
+  },
+  {
+   "id": "nguyen-anh-3",
+   "goal": "Tu luyện tới Nguyên Anh tầng 3",
+   "dk": {
+    "realm": 3,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 5
+    },
+    {
+     "coins": 10000
+    }
+   ],
+   "xong": "Đinh! Nguyên Anh tầng 3. Nền đã vững, cứ thế mà tiến."
   },
   {
    "id": "nguyen-anh-5",
@@ -1150,6 +1348,24 @@
    "xong": "Đinh! Tám công pháp, chưởng môn tông khác cũng phải nể."
   },
   {
+   "id": "nguyen-anh-7",
+   "goal": "Tu luyện tới Nguyên Anh tầng 7",
+   "dk": {
+    "realm": 3,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 5
+    },
+    {
+     "coins": 20000
+    }
+   ],
+   "xong": "Đinh! Nguyên Anh tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
    "id": "cuong-hoa-13",
    "goal": "Cường hoá một món đang mặc lên +13",
    "dk": {
@@ -1166,6 +1382,60 @@
     }
    ],
    "xong": "Đinh! +13! Ít ai chịu chơi tới mức này. Tặng trang bị phẩm Thiên."
+  },
+  {
+   "id": "nguyen-anh-9",
+   "goal": "Tu luyện tới Nguyên Anh tầng 9",
+   "dk": {
+    "realm": 3,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 5
+    },
+    {
+     "coins": 40000
+    }
+   ],
+   "xong": "Đinh! Nguyên Anh tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
+  },
+  {
+   "id": "kham-12",
+   "goal": "Khảm 12 viên ngọc vào đồ đang mặc",
+   "dk": {
+    "socket": 12
+   },
+   "qua": [
+    {
+     "gem": "hoang-ngoc:3",
+     "n": 1
+    },
+    {
+     "coins": 20000
+    }
+   ],
+   "xong": "Đinh! Mười hai viên ngọc. Ghép ngọc lên cấp cao còn mạnh hơn khảm thêm."
+  },
+  {
+   "id": "linh-thu-5",
+   "goal": "Có 5 linh thú",
+   "dk": {
+    "pets": 5
+   },
+   "qua": [
+    {
+     "coins": 20000
+    },
+    {
+     "pill": "tu-van-dan",
+     "n": 3
+    }
+   ],
+   "xong": "Đinh! Năm linh thú, đủ lập một đội nhỏ.",
+   "tip": "Săn dị chủng (quái phát sáng) ngoài tinh cầu, hạ xong có thể thu phục."
   },
   {
    "id": "canh-gioi-4",
@@ -1188,6 +1458,24 @@
    ],
    "xong": "Đinh! Hóa Thần! Ký chủ đã đứng trên vạn người. Nhưng tinh hà còn rộng lắm, đừng dừng lại.",
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
+  },
+  {
+   "id": "hoa-than-3",
+   "goal": "Tu luyện tới Hóa Thần tầng 3",
+   "dk": {
+    "realm": 4,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 6
+    },
+    {
+     "coins": 15000
+    }
+   ],
+   "xong": "Đinh! Hóa Thần tầng 3. Nền đã vững, cứ thế mà tiến."
   },
   {
    "id": "hoa-than-5",
@@ -1222,6 +1510,74 @@
    "tip": "Thú cưỡi có trong quà triệu hồi Hệ Thống và rơi từ boss."
   },
   {
+   "id": "hoa-than-7",
+   "goal": "Tu luyện tới Hóa Thần tầng 7",
+   "dk": {
+    "realm": 4,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 6
+    },
+    {
+     "coins": 30000
+    }
+   ],
+   "xong": "Đinh! Hóa Thần tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "cong-phap-12",
+   "goal": "Học 12 bộ công pháp",
+   "dk": {
+    "techs": 12
+   },
+   "qua": [
+    {
+     "coins": 40000
+    },
+    {
+     "mat": "tay-luyen-thach",
+     "n": 5
+    }
+   ],
+   "xong": "Đinh! Mười hai bộ công pháp. Đổi công pháp hợp hệ, hợp trận cho từng lúc."
+  },
+  {
+   "id": "hoa-than-9",
+   "goal": "Tu luyện tới Hóa Thần tầng 9",
+   "dk": {
+    "realm": 4,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 6
+    },
+    {
+     "coins": 60000
+    }
+   ],
+   "xong": "Đinh! Hóa Thần tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
+  },
+  {
+   "id": "thu-cuoi-3",
+   "goal": "Có 3 thú cưỡi",
+   "dk": {
+    "mounts": 3
+   },
+   "qua": [
+    {
+     "coins": 40000
+    }
+   ],
+   "xong": "Đinh! Ba thú cưỡi, chuồng đã đông vui.",
+   "tip": "Thú cưỡi có trong quà triệu hồi Hệ Thống và rơi từ boss."
+  },
+  {
    "id": "canh-gioi-5",
    "goal": "Đột phá Luyện Hư",
    "dk": {
@@ -1238,6 +1594,24 @@
    ],
    "xong": "Đinh! Luyện Hư! Ký chủ đã đứng trên vạn người. Nhưng tinh hà còn rộng lắm, đừng dừng lại.",
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
+  },
+  {
+   "id": "luyen-hu-3",
+   "goal": "Tu luyện tới Luyện Hư tầng 3",
+   "dk": {
+    "realm": 5,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 7
+    },
+    {
+     "coins": 25000
+    }
+   ],
+   "xong": "Đinh! Luyện Hư tầng 3. Nền đã vững, cứ thế mà tiến."
   },
   {
    "id": "luyen-hu-5",
@@ -1258,6 +1632,78 @@
    "xong": "Đinh! Luyện Hư tầng 5. Đường còn dài, bổn hệ thống vẫn đi cùng."
   },
   {
+   "id": "cuong-hoa-15",
+   "goal": "Cường hoá một món đang mặc lên +15",
+   "dk": {
+    "plus": 15
+   },
+   "qua": [
+    {
+     "mat": "tinh-thiet",
+     "n": 60
+    },
+    {
+     "mat": "tay-luyen-thach",
+     "n": 6
+    }
+   ],
+   "xong": "Đinh! +15! Món này đã thành thần binh."
+  },
+  {
+   "id": "luyen-hu-7",
+   "goal": "Tu luyện tới Luyện Hư tầng 7",
+   "dk": {
+    "realm": 5,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 7
+    },
+    {
+     "coins": 50000
+    }
+   ],
+   "xong": "Đinh! Luyện Hư tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "luyen-hu-9",
+   "goal": "Tu luyện tới Luyện Hư tầng 9",
+   "dk": {
+    "realm": 5,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 7
+    },
+    {
+     "coins": 100000
+    }
+   ],
+   "xong": "Đinh! Luyện Hư tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
+  },
+  {
+   "id": "kham-16",
+   "goal": "Khảm 16 viên ngọc vào đồ đang mặc",
+   "dk": {
+    "socket": 16
+   },
+   "qua": [
+    {
+     "gem": "hoang-ngoc:4",
+     "n": 1
+    },
+    {
+     "coins": 60000
+    }
+   ],
+   "xong": "Đinh! Mười sáu viên ngọc, khắp người toả hào quang."
+  },
+  {
    "id": "canh-gioi-6",
    "goal": "Đột phá Hợp Thể",
    "dk": {
@@ -1276,6 +1722,24 @@
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
+   "id": "hop-the-3",
+   "goal": "Tu luyện tới Hợp Thể tầng 3",
+   "dk": {
+    "realm": 6,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 8
+    },
+    {
+     "coins": 40000
+    }
+   ],
+   "xong": "Đinh! Hợp Thể tầng 3. Nền đã vững, cứ thế mà tiến."
+  },
+  {
    "id": "hop-the-5",
    "goal": "Tu luyện tới Hợp Thể tầng 5",
    "dk": {
@@ -1292,6 +1756,79 @@
     }
    ],
    "xong": "Đinh! Hợp Thể tầng 5. Ký chủ giờ là nhân vật có máu mặt trong tinh hà."
+  },
+  {
+   "id": "linh-thu-8",
+   "goal": "Có 8 linh thú",
+   "dk": {
+    "pets": 8
+   },
+   "qua": [
+    {
+     "coins": 80000
+    },
+    {
+     "pill": "tu-van-dan",
+     "n": 8
+    }
+   ],
+   "xong": "Đinh! Tám linh thú. Ký chủ sắp thành thú vương rồi.",
+   "tip": "Săn dị chủng (quái phát sáng) ngoài tinh cầu, hạ xong có thể thu phục."
+  },
+  {
+   "id": "hop-the-7",
+   "goal": "Tu luyện tới Hợp Thể tầng 7",
+   "dk": {
+    "realm": 6,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 8
+    },
+    {
+     "coins": 80000
+    }
+   ],
+   "xong": "Đinh! Hợp Thể tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "cuong-hoa-17",
+   "goal": "Cường hoá một món đang mặc lên +17",
+   "dk": {
+    "plus": 17
+   },
+   "qua": [
+    {
+     "mat": "tinh-thiet",
+     "n": 80
+    },
+    {
+     "mat": "tay-luyen-thach",
+     "n": 8
+    }
+   ],
+   "xong": "Đinh! +17! Chỉ còn ba bậc nữa là cực hạn."
+  },
+  {
+   "id": "hop-the-9",
+   "goal": "Tu luyện tới Hợp Thể tầng 9",
+   "dk": {
+    "realm": 6,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 8
+    },
+    {
+     "coins": 160000
+    }
+   ],
+   "xong": "Đinh! Hợp Thể tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
   },
   {
    "id": "canh-gioi-7",
@@ -1316,6 +1853,24 @@
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
+   "id": "dai-thua-3",
+   "goal": "Tu luyện tới Đại Thừa tầng 3",
+   "dk": {
+    "realm": 7,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 9
+    },
+    {
+     "coins": 50000
+    }
+   ],
+   "xong": "Đinh! Đại Thừa tầng 3. Nền đã vững, cứ thế mà tiến."
+  },
+  {
    "id": "dai-thua-5",
    "goal": "Tu luyện tới Đại Thừa tầng 5",
    "dk": {
@@ -1332,6 +1887,74 @@
     }
    ],
    "xong": "Đinh! Đại Thừa tầng 5. Độ Kiếp ở ngay phía trước."
+  },
+  {
+   "id": "cong-phap-16",
+   "goal": "Học 16 bộ công pháp",
+   "dk": {
+    "techs": 16
+   },
+   "qua": [
+    {
+     "coins": 100000
+    },
+    {
+     "mat": "tay-luyen-thach",
+     "n": 10
+    }
+   ],
+   "xong": "Đinh! Mười sáu bộ công pháp, bác học bậc nhất tu chân giới."
+  },
+  {
+   "id": "dai-thua-7",
+   "goal": "Tu luyện tới Đại Thừa tầng 7",
+   "dk": {
+    "realm": 7,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 9
+    },
+    {
+     "coins": 100000
+    }
+   ],
+   "xong": "Đinh! Đại Thừa tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "thu-cuoi-4",
+   "goal": "Có 4 thú cưỡi",
+   "dk": {
+    "mounts": 4
+   },
+   "qua": [
+    {
+     "coins": 100000
+    }
+   ],
+   "xong": "Đinh! Đủ bốn thú cưỡi. Bổn hệ thống cũng phải nể.",
+   "tip": "Thú cưỡi có trong quà triệu hồi Hệ Thống và rơi từ boss."
+  },
+  {
+   "id": "dai-thua-9",
+   "goal": "Tu luyện tới Đại Thừa tầng 9",
+   "dk": {
+    "realm": 7,
+    "layer": 9
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 9
+    },
+    {
+     "coins": 200000
+    }
+   ],
+   "xong": "Đinh! Đại Thừa tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
+   "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
   },
   {
    "id": "canh-gioi-8",
@@ -1352,6 +1975,24 @@
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
   },
   {
+   "id": "do-kiep-3",
+   "goal": "Tu luyện tới Độ Kiếp tầng 3",
+   "dk": {
+    "realm": 8,
+    "layer": 3
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 10
+    },
+    {
+     "coins": 75000
+    }
+   ],
+   "xong": "Đinh! Độ Kiếp tầng 3. Nền đã vững, cứ thế mà tiến."
+  },
+  {
    "id": "do-kiep-5",
    "goal": "Tu luyện tới Độ Kiếp tầng 5",
    "dk": {
@@ -1368,6 +2009,41 @@
     }
    ],
    "xong": "Đinh! Độ Kiếp tầng 5. Còn bốn tầng nữa là đỉnh tinh hà."
+  },
+  {
+   "id": "cuong-hoa-20",
+   "goal": "Cường hoá một món đang mặc lên +20",
+   "dk": {
+    "plus": 20
+   },
+   "qua": [
+    {
+     "mat": "tinh-thiet",
+     "n": 150
+    },
+    {
+     "coins": 200000
+    }
+   ],
+   "xong": "Đinh! +20, cực hạn của luyện khí sư! Ký chủ đã đi tới tận cùng."
+  },
+  {
+   "id": "do-kiep-7",
+   "goal": "Tu luyện tới Độ Kiếp tầng 7",
+   "dk": {
+    "realm": 8,
+    "layer": 7
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 10
+    },
+    {
+     "coins": 150000
+    }
+   ],
+   "xong": "Đinh! Độ Kiếp tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
   },
   {
    "id": "do-kiep-9",
