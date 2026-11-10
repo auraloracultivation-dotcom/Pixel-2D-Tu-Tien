@@ -28757,13 +28757,13 @@
   },
   "ui.nv-o": {
    "file": "assets/art/ui-nv-o.png",
-   "v": "b4218645",
-   "w": 54,
-   "h": 53,
+   "v": "3e4bdafa",
+   "w": 45,
+   "h": 43,
    "frames": 1,
    "anchor": [
-    27,
-    53
+    22,
+    43
    ]
   },
   "ui.nv-phan-don": {

@@ -143,9 +143,13 @@ def build(save):
     for name, p in zip(names, order):
         img = p[1]
         if KIT[name]: img = _smooth_mid(img, KIT[name], int(img.shape[0] * 0.16))
-        if name == 'o-luoi':   # một ô trong lưới mẫu (hàng 2, cột 2) làm ô kho trống
-            h, w = img.shape[:2]
-            img = _crop(img[int(h * 0.33):int(h * 0.67), int(w * 0.255):int(w * 0.505)])
+        if name == 'o-luoi':   # một ô của lưới mẫu (hàng 2, cột 2) làm ô kho trống: dò lòng tối từng ô, cắt kèm nửa nét lưới quanh
+            lum = img[:, :, :3].astype(int).sum(axis=2)
+            lab, k = nd.label((lum < 150) & (img[:, :, 3] > 200)); sz = nd.sum(np.ones_like(lab), lab, range(1, k + 1)); sl = nd.find_objects(lab)
+            cells = sorted([sl[i] for i in range(k) if 2000 < sz[i] < 15000], key=lambda s: (s[0].start // 40, s[1].start))
+            y, x = cells[5] if len(cells) > 5 else cells[0]   # 3 hàng × 4 cột (ô góc trên trái dính khung nên không đếm)
+            m = 6
+            img = np.ascontiguousarray(img[y.start - m:y.stop + m, x.start - m:x.stop + m])
             name = 'o'
         _save(save, 'ui.nv-' + name, _fit(img, 0.5)); n += 1
     return n
