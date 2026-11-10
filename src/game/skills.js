@@ -93,7 +93,7 @@ export function castSkill(game, id) {
     case 'thunder':   // Thiên Phạt: tụ lực thành quả cầu sét rồi toả sét lướt qua quái (src/game/skill-thunder.js)
       castThunder(game, s, p.atk * lv);
       break;
-    case 'kiemvu':   // Vạn Kiếm Quy Tông: gọi kiếm xoay vòng, kiếm khí, kiếm vũ đâm xuống (src/game/skill-kiem-vu.js); mỗi thanh s.mult × đánh thường
+    case 'kiemvu':   // Vạn Kiếm Thiên Lâm: gọi kiếm xoay vòng, kiếm khí, kiếm vũ đâm xuống (src/game/skill-kiem-vu.js); mỗi thanh s.mult × đánh thường
       castKiemVu(game, s, p.atk * lv);
       break;
     case 'charge':   // Phá Thiên Tuyệt Trảm: tụ lực rồi chém quạt sáng tới mép màn (src/game/skill-charge.js); s.mult × đánh thường
