@@ -71,23 +71,13 @@ export function dailyJob(game, routeTo) {
 }
 
 // Chạm "Đi làm" ở nhiệm vụ ngày của Hệ Thống (chủ dự án 10/11/2026 10:09: "chưa có tự đi làm nhiệm vụ"): quái chỉ có trong bí cảnh
-// thì mở bảng Bí cảnh, bí cảnh có quái đó lên đầu và viền vàng (11/11/2026 20:33); còn lại bật tự hành làm việc này trước. Trả 'dungeon' | 'pilot' | null.
+// thì mở bảng Bí cảnh cho người chơi chọn; còn lại bật tự hành làm việc này trước. Trả 'dungeon' | 'pilot' | null.
 export function dailyGo(game, id) {
   const d = taskDef(game, id);
   if (!d) return null;
-  if (d.go) {   // việc làm trong bảng (khảm ngọc, cường hoá, trò chuyện…): mở đúng bảng
-    if (d.go.fn && typeof game[d.go.fn] === 'function') { game[d.go.fn](d.go.arg); return 'panel'; }
-    if (d.go.btn && game.openOldPanel) { game.openOldPanel({ btn: d.go.btn }); return 'panel'; }
-  }
-  if (!['kill', 'fish', 'visit', 'meditate', 'brew', 'forge', 'harvest', 'salvage'].includes(d.type)) { game.toast(d.text.replace('{n}', d.n), 2.6); return 'hint'; }   // nói chuyện, vuốt thú, Vạn Bảo Lâu, luận võ: nhắc việc
   if (d.type === 'kill' && d.mob && !Object.values(game.data.maps).some(m => (m.spawners || []).some(s => s.mob === d.mob))) {
     if (!game.openDungeons) return null;
-    // bí cảnh có loài này (bản đồ có phòng, nhắc tới id quái): mở bảng Bí cảnh với bí cảnh đó lên đầu, viền vàng, kèm lời nhắc
-    const ids = Object.values(game.data.maps).filter(m => (m.rooms || []).length && JSON.stringify(m).includes(`"${d.mob}"`)).map(m => m.id);
-    const mob = game.data.mobs[d.mob]?.name || d.mob, T = game.data.menu.dungeon;
-    game.openDungeons({ mob, ids });
-    if (ids.length) game.toast(T.task_toast.replace('{mob}', mob).replace('{dun}', ids.map(id => game.data.maps[id].name).join(', ')), 3);
-    return 'dungeon';
+    game.openDungeons(); return 'dungeon';
   }
   import('./pilot.js').then(P => P.pilotDaily(game, id));
   return 'pilot';
