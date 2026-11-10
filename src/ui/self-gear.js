@@ -5,7 +5,6 @@ import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
 import { gemIcon } from './gem-icon.js';
-import { spriteIcon } from './sprite-icon.js';
 
 const HAN = { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' };   // chữ hệ trên ô (ngũ hành)
 
@@ -44,21 +43,5 @@ export function gearCell(game, slot, side, onPick) {
   b.onclick = () => onPick(slot, it);
   wrap.append(b);
   if (it?.sockets?.length) wrap.append(sockets(game, it, side));
-  return wrap;
-}
-
-// Ô phụ: linh thú, thú cưỡi, thời trang (chạm mở bảng của nó)
-export function extraCell(game, kind, side, onOpen) {
-  const { data, save } = game, wrap = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot extra');
-  const P = data.pets, nm = { pet: 'Linh thú', mount: 'Thú cưỡi', outfit: 'Thời trang' }[kind];
-  b.setAttribute('aria-label', nm);
-  const id = kind === 'pet' ? save.pet : kind === 'mount' ? save.mount : null;
-  const spr = id && (kind === 'pet' ? 'pet.' + id : 'mount.' + id);
-  if (spr && data.art.sprites[spr]) b.append(spriteIcon(game, spr, 0, 40, 'sv-spr', true));
-  else b.append(el('span', 'sv-big', kind === 'outfit' ? '衣' : kind === 'pet' ? '獸' : '騎'));
-  const label = kind === 'pet' && id ? (P.pets[id]?.name || nm) : kind === 'mount' && id ? (P.mounts[id]?.name || nm) : nm;
-  b.append(el('span', 'sv-name', label));
-  b.onclick = () => onOpen(kind);
-  wrap.append(b);
   return wrap;
 }
