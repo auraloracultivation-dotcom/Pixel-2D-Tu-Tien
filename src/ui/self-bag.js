@@ -5,7 +5,7 @@
 // Đang chọn ngọc để khảm (st.pickSocket): Kho → Ngọc hiện dòng nhắc, chạm viên nào là khảm viên đó.
 import { el, icon, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid } from './bag-stock.js';
-import { gradeColor, gradeId, uiIco } from './self-gear.js';
+import { gradeColor, gradeId, uiIco, socketCol } from './self-gear.js';
 import { kySocket } from '../game/ky-ngoc.js';
 import { bestGems } from '../game/autogem.js';
 import { bestGear } from '../game/autogear.js';
@@ -42,7 +42,8 @@ function gearGrid(game, st, box, refresh) {
     b.append(icon(data, it));
     if (it.plus) b.append(el('b', 'sv-plus', '+' + it.plus));
     if (it.lock) b.append(el('span', 'sv-lock', '🔒'));
-    if (gain.get(it.uid) > 0) b.append(el('span', 'sv-up', '▲'));
+    if (gain.get(it.uid) > 0) b.append(el('span', 'sv-up', '▲'));   // góc dưới phải như mẫu: mặc vào mạnh hơn
+    const gems = socketCol(game, it); if (gems) b.append(gems);   // cột ngọc khảm dọc mép trái
     b.onclick = () => { st.sel = it.uid; st.stock = null; refresh(); };
     box.append(b);
   }

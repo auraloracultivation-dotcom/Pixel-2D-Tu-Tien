@@ -68,13 +68,19 @@ body .sv.panel::before, body .sv.panel::after { display: none !important; }
 .sv-ln { position: absolute; right: 2px; bottom: 1px; font: 800 7px var(--f-body); color: var(--q); text-shadow: 0 1px 0 #000, 0 0 2px #000; filter: brightness(1.3); }
 .sv-up { position: absolute; left: 2px; top: 0; font: 900 8px var(--f-body); color: #4dff7a; text-shadow: 0 1px 0 #000; }
 .sv-lock { position: absolute; right: 1px; bottom: 0; font-size: 7px; }
-/* thanh ngọc khảm dính dưới ô đồ: lỗ trống là viên đá mờ, có ngọc thì hình viên ngọc */
-.sv-sock { display: flex; justify-content: center; gap: 1px; width: 28px; height: 8px; margin-top: -2px; position: relative; z-index: 1;
-  background: #15131f; border: 1px solid #4a4566; border-top: 0; border-radius: 0 0 4px 4px; }
-.sv-sock.none { visibility: hidden; }
-.sv-sk { width: 6px; height: 7px; background: url("assets/art/ui-pc-da-den.png") center / contain no-repeat; opacity: .5; display: grid; place-items: center; }
-.sv-sk.on { background: none; opacity: 1; filter: drop-shadow(0 0 2px var(--g)); }
-.sv-sk .gem-ico { width: 7px !important; height: 7px !important; image-rendering: pixelated; }
+/* cột ngọc khảm dọc mép trái ô đồ (chủ dự án 11/11/2026 01:57, theo mẫu): viên đá màu của ngọc, lỗ trống đá tối */
+.sv-gems { position: absolute; left: 1px; top: 2px; z-index: 2; display: flex; flex-direction: column; pointer-events: none; }
+.sv-gm { width: 6px; height: 8px; background: center / contain no-repeat; image-rendering: pixelated; filter: drop-shadow(0 0 1px #000); }
+.sv-gm.off { filter: grayscale(1) brightness(.45); }
+.sv-bagc .sv-gm { width: 4.5px; height: 6px; }
+.sv-br { position: absolute; right: 2px; bottom: 1px; z-index: 2; display: flex; align-items: center; gap: 1px; }
+.sv-br .sv-ln, .sv-br .sv-el { position: static; }
+.sv-bagc .sv-up { left: auto; top: auto; right: 1px; bottom: 0; font-size: 9px; }
+.sv-bagc .sv-lock { right: auto; left: 50%; bottom: 0; transform: translateX(-50%); }
+/* bỏ thanh dưới ô: ô đồ to hơn một chút */
+.sv-hero-area { grid-template-columns: 36px minmax(0, 1fr) 36px; }
+.sv-left .sv-slot:not(.buff), .sv-col .sv-slot.spare { width: 36px; height: 36px; }
+.sv-center { height: 150px; }
 
 /* khung phải: hàng mục con, lưới, thanh dưới */
 .sv-right { display: flex; flex-direction: column; gap: 3px; min-width: 0; min-height: 0; background: var(--card); border: 2px solid var(--edge); border-radius: 9px; padding: 4px; overflow: hidden; }
@@ -144,3 +150,8 @@ body .sv .sv-hosted #skills-list, body .sv .sv-hosted #achv-list { grid-template
 .sv-bar { gap: 2px; } .sv-bbtn { padding: 3px 4px; }
 .sv-shead { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; font: 700 10px var(--f-title); color: var(--gold); }
 .sv-shead .d-name { flex: 1; } .sv-shead .d-close { width: 20px; height: 20px; padding: 0; font-size: 10px; flex: none; position: static; }
+.sv-gems { left: -1px; top: 1px; }
+.sv-gems .sv-gm + .sv-gm { margin-top: -1px; }
+.sv-gm { width: 7px; height: 10px; }
+.sv-gm.off { filter: grayscale(1) brightness(.6) drop-shadow(0 0 1px #000); }
+.sv-bagc .sv-gm { width: 5px; height: 7px; }
