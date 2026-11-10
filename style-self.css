@@ -155,3 +155,17 @@ body .sv .sv-hosted #skills-list, body .sv .sv-hosted #achv-list { grid-template
 .sv-gm { width: 7px; height: 10px; }
 .sv-gm.off { filter: grayscale(1) brightness(.6) drop-shadow(0 0 1px #000); }
 .sv-bagc .sv-gm { width: 5px; height: 7px; }
+
+/* 11/11/2026 02:10: tên chính giữa trên, cảnh giới chính giữa dưới chân; nhân vật giữ tỉ lệ (không kéo cao); ngọc thẳng hàng */
+.sv-top { justify-content: center; }
+.sv-nm { font-size: 11.5px; text-align: center; max-width: 100%; }
+.sv-center { overflow: hidden; }
+.sv-hero { max-width: none !important; flex: none; margin-bottom: 20px; }
+.sv-circle { bottom: 15px; }
+.sv-center .sv-realm { position: absolute; left: 0; right: 0; bottom: 1px; text-align: center; font-size: 9.5px; font-weight: 700; color: var(--gold);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 0 #000; }
+.sv-gems { left: 2px; top: 2px; gap: 1px; }
+.sv-gems .sv-gm + .sv-gm { margin-top: 0; }
+.sv-gm { width: 6px; height: 7.5px; background-size: 100% 100% !important; }
+.sv-bagc .sv-gems { left: 1.5px; top: 1.5px; }
+.sv-bagc .sv-gm { width: 4.5px; height: 5.5px; }
