@@ -31178,6 +31178,42 @@
    ],
    "note": "hiệu ứng chiêu van-moc-cham (ảnh GPT chieu-1.png)"
   },
+  "vfx.vk-dam": {
+   "file": "assets/art/vfx-vk-dam.png",
+   "v": "78f1cf7c",
+   "w": 64,
+   "h": 113,
+   "frames": 24,
+   "anchor": [
+    32,
+    56
+   ],
+   "note": "Vạn Kiếm Quy Tông: kiem-dam.png (24 kiếm, tâm ô làm neo)"
+  },
+  "vfx.vk-khi": {
+   "file": "assets/art/vfx-vk-khi.png",
+   "v": "140369b5",
+   "w": 64,
+   "h": 113,
+   "frames": 24,
+   "anchor": [
+    32,
+    56
+   ],
+   "note": "Vạn Kiếm Quy Tông: kiem-khi.png (24 kiếm, tâm ô làm neo)"
+  },
+  "vfx.vk-kiem": {
+   "file": "assets/art/vfx-vk-kiem.png",
+   "v": "ae7ced94",
+   "w": 64,
+   "h": 85,
+   "frames": 32,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "Vạn Kiếm Quy Tông: kiem.png (32 kiếm, tâm ô làm neo)"
+  },
   "wpn.ma-than-thuong": {
    "file": "assets/art/wpn-ma-than-thuong.png",
    "v": "b9398a15",
