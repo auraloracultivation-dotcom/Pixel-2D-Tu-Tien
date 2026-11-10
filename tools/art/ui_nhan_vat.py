@@ -6,6 +6,9 @@ màu, như ui_pham_cap.py). Dùng ở style-self.css, src/ui/self-*.js.
 - ui-nv-be: bệ pháp trận dưới chân nhân vật; ui-nv-nen: nền phù văn mờ sau lưng nhân vật (nv-nen-phu-van.png);
 - ảnh thứ hai (nv-bieu-tuong-2.png, lưới đều 6 × 3, gom theo ô vì dấu chân thú gồm nhiều mảnh rời): ui-nv-cho-<chỗ> hình chờ ô trống
   (bóng mờ theo chỗ mặc, linh thú, khôi lỗi, thú cưỡi, thời trang, khoá) và biểu tượng chức năng (xếp, lịch sử, khoá, ghép, khảm, cường hoá);
+- ảnh thứ ba (nv-bieu-tuong-3.png, lưới đều 6 × 3, 03:03): ui-nv-tab-<mục> biểu tượng các nút mục, mục con;
+- nv-the-tuong.png (03:03): ui-nv-bang-ten (băng tên nhân vật), ui-nv-bang-lc (bảng lực chiến có song kiếm), ui-nv-giay (khung chi tiết món
+  như tờ giấy cổ; xoá ô vuông nhỏ góc trên vì kéo giãn sẽ méo, hình món do code đặt);
 - ui-nv-khung (khung bảng), ui-nv-the (khung thẻ trong), ui-nv-tab / -tab-on (nút mục tắt / bật), ui-nv-nut / -nut-vang (nút nhỏ),
   ui-nv-dong (nút đóng), ui-nv-o (ô kho trống): dùng kiểu 9 mảnh (border-image). Khung bảng, khung thẻ có hoa văn giữa cạnh trên
   dưới: thay đoạn giữa bằng cạnh trơn kề bên cho khỏi méo khi kéo giãn.
@@ -22,6 +25,9 @@ ICONS = [['hp', 'cong', 'thu', 'toc', 'bao', 'st-bao'], ['hoi-chieu', 'hut-mau',
 ICONS2 = [['cho-vu-khi', 'cho-mu', 'cho-giap', 'cho-ngoc-boi', 'cho-giay', 'cho-nhan'],
           ['cho-phap-bao', 'cho-linh-thu', 'cho-khoi-loi', 'cho-thu-cuoi', 'cho-thoi-trang', 'cho-khoa'],
           ['sap-xep', 'lich-su', 'khoa', 'ghep', 'kham', 'cuong-hoa']]
+ICONS3 = [['tab-trang-bi', 'tab-kho', 'tab-cong-phap', 'tab-thoi-trang', 'tab-tat-ca', 'tab-vu-khi'],
+          ['tab-giap', 'tab-nhan', 'tab-phap-bao', 'tab-ngoc', 'tab-nguyen-lieu', 'tab-ca'],
+          ['tab-dan', 'tab-chieu', 'tab-bi-kip', 'tab-danh-hieu', 'tab-la', 'tab-khac']]
 # mảnh bộ khung theo thứ tự diện tích giảm dần (dò được 8 mảnh): tên, đoạn cạnh giữa cần làm trơn (tỉ lệ bề ngang) hoặc None
 KIT = {'khung': (0.33, 0.67), 'the': (0.3, 0.7), 'o-luoi': None, 'tab': None, 'tab-on': None, 'nut': None, 'nut-vang': None, 'dong': None}
 
@@ -113,6 +119,19 @@ def build(save):
     for r, row in enumerate(ICONS2):
         for q, name in enumerate(row):
             _save(save, 'ui.nv-' + name, _fit(g2[r][q], 0.48)); n += 1
+    g3 = _grid(_load('nv-bieu-tuong-3.png'), 6, 3)
+    for r, row in enumerate(ICONS3):
+        for q, name in enumerate(row):
+            _save(save, 'ui.nv-' + name, _fit(g3[r][q], 0.48)); n += 1
+    tt = sorted(_parts(_load('nv-the-tuong.png', 24), 15000), key=lambda p: (p[0][1].start > 900, p[0][0].start))
+    assert len(tt) == 3, len(tt)
+    _save(save, 'ui.nv-bang-ten', _fit(tt[0][1], 0.5)); n += 1   # băng tên (trên, trái)
+    _save(save, 'ui.nv-bang-lc', _fit(tt[1][1], 0.5)); n += 1    # bảng lực chiến (dưới, trái)
+    giay = tt[2][1].copy(); h, w = giay.shape[:2]   # khung dọc bên phải: xoá ô vuông nhỏ góc trên trái (tỉ lệ theo khung)
+    y0, y1, x0, x1 = int(h * 0.105), int(h * 0.29), int(w * 0.13), int(w * 0.43)
+    lop = giay[int(h * 0.4):int(h * 0.7), int(w * 0.2):int(w * 0.8)].reshape(-1, 4)
+    giay[y0:y1, x0:x1] = np.median(lop, axis=0).astype(np.uint8)
+    _save(save, 'ui.nv-giay', _fit(giay, 0.5)); n += 1
     kit = _load('nv-khung.png', 24)
     pieces = sorted(_parts(kit, 15000), key=lambda p: -p[2])
     assert len(pieces) == len(KIT), len(pieces)

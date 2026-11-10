@@ -241,3 +241,15 @@ body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7);
 .sv-aico { display: inline-block; width: 12px; height: 12px; margin-right: 3px; vertical-align: -2px; background: center / contain no-repeat; }
 .sv-mid.sheet .act-btn .sv-aico { float: left; width: 14px; height: 14px; margin: 1px 2px 0 0; }
 .sv-money .sv-bico:last-child { margin-left: auto; width: 12px; height: 12px; }
+/* 03:05: băng tên, bảng lực chiến song kiếm, khung giấy cho phần chi tiết món (ảnh GPT nv-the-tuong.png; 3 mảnh ngang / 9 mảnh) */
+.sv-top { height: 24px; align-items: flex-start; padding-top: 4px; margin: 0 1px; border-style: solid; border-color: transparent; border-width: 0 18px;
+  border-image: url("assets/art/ui-nv-bang-ten.png") 0 115 0 115 fill / 0 18px stretch; }
+.sv-nm { font-size: 10.5px; line-height: 1.2; color: #fff3d6; text-shadow: 0 1px 0 #000; }
+.sv-cpbar { height: 24px; box-sizing: border-box; padding: 0 1px 2px; border-width: 0 14px 0 25px !important;
+  border-image: url("assets/art/ui-nv-bang-lc.png") 0 70 0 125 fill / 0 14px 0 25px stretch !important; }
+.sv-cpbar .sv-cpico { display: none; }
+.sv-cpbar span { font-size: 10px; } .sv-cpbar b { font-size: 13.5px; } .sv-cpbar small { display: none; }
+.sv-mid.sheet { border-style: solid; border-color: transparent; border-width: 12px 5px; padding: 1px 3px;
+  border-image: url("assets/art/ui-nv-giay.png") 48 22 48 22 fill / 12px 5px stretch; }
+.sv-cpbar { border-width: 0 14px 0 31px !important; border-image-slice: 0 70 0 155 fill !important; border-image-width: 0 14px 0 31px !important; padding-left: 3px; }
+.sv-mid.sheet { padding: 1px 5px; }
