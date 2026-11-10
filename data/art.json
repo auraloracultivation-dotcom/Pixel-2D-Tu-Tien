@@ -25126,6 +25126,54 @@
    ],
    "note": "khung mảnh 36×36 cắt 12 cho hộp thoại, thông báo: không có ô góc"
   },
+  "ui.fx-kham": {
+   "file": "assets/art/ui-fx-kham.png",
+   "v": "9fb71a07",
+   "w": 48,
+   "h": 48,
+   "frames": 10,
+   "anchor": [
+    24,
+    24
+   ],
+   "note": "hiệu ứng bảng Nhân vật, 10 khung (tools/art/fx_ren.py)"
+  },
+  "ui.fx-luc-chien": {
+   "file": "assets/art/ui-fx-luc-chien.png",
+   "v": "3db0a2aa",
+   "w": 48,
+   "h": 48,
+   "frames": 10,
+   "anchor": [
+    24,
+    24
+   ],
+   "note": "hiệu ứng bảng Nhân vật, 10 khung (tools/art/fx_ren.py)"
+  },
+  "ui.fx-ren-hong": {
+   "file": "assets/art/ui-fx-ren-hong.png",
+   "v": "7f8788c2",
+   "w": 48,
+   "h": 48,
+   "frames": 10,
+   "anchor": [
+    24,
+    24
+   ],
+   "note": "hiệu ứng bảng Nhân vật, 10 khung (tools/art/fx_ren.py)"
+  },
+  "ui.fx-ren-thanh": {
+   "file": "assets/art/ui-fx-ren-thanh.png",
+   "v": "3c6c0375",
+   "w": 48,
+   "h": 48,
+   "frames": 10,
+   "anchor": [
+    24,
+    24
+   ],
+   "note": "hiệu ứng bảng Nhân vật, 10 khung (tools/art/fx_ren.py)"
+  },
   "ui.hd-atk": {
    "file": "assets/art/ui-hd-atk.png",
    "v": "8129071f",
