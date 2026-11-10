@@ -2,6 +2,7 @@
 // lúc vào game, rồi mỗi poll_s giây so trạng thái bản lưu để ghi đổi bản đồ, lên cảnh giới, mua chiêu Vạn Bảo Lâu, bước nhiệm vụ người mới.
 // Tên sự kiện tiếng Việt không dấu cho dễ đọc trên bảng PostHog.
 import { startAnalytics, identify, track, flush } from '../net/analytics.js';
+import { rtTake } from '../net/rt-dem.js';
 
 export function startAnalyticsHook(game) {
   const cfg = game.data.config.analytics, q = new URLSearchParams(location.search);
@@ -37,5 +38,7 @@ export function startAnalyticsHook(game) {
     for (const k of now.skills) if (!last.skills.includes(k)) track('mua_chieu', { chieu: k, ...base() });
     last = now;
   }, (cfg.poll_s || 15) * 1000);
-  addEventListener('pagehide', () => { track('roi_game', { ...base(), phut: Math.round((performance.now() - t0) / 60000) }); flush(true); });
+  const rt = () => { const r = rtTake(); if (r.gui || r.nhan) track('rt_tin', { ...r, tong: r.gui + r.nhan }); };   // tin Realtime máy này gửi, nhận (src/net/rt-dem.js)
+  setInterval(rt, (cfg.rt_s || 300) * 1000);
+  addEventListener('pagehide', () => { rt(); track('roi_game', { ...base(), phut: Math.round((performance.now() - t0) / 60000) }); flush(true); });
 }

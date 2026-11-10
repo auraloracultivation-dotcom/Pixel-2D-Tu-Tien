@@ -3,6 +3,7 @@
 // (game/social.js lọc chữ). Không ghi gì vào cơ sở dữ liệu.
 // Kênh riêng tư: chỉ người đã đăng nhập vào được (chính sách realtime.messages trong migration p2d_chong_gian_lan).
 import { supabase, realtimeAuth } from './client.js';
+import { rtSent, rtGot } from './rt-dem.js';
 
 const SEND_MS = 250;
 
@@ -25,13 +26,14 @@ export function createOnline(me, handlers) {
     const c = supabase.channel(`p2d:${id}`, { config: { private: true, presence: { key: me.id }, broadcast: { self: false } } });
     ch = c;
     c.on('presence', { event: 'sync' }, () => {
+      rtGot();
       if (ch !== c) return;
       const state = c.presenceState();
       const list = Object.entries(state).filter(([k]) => k !== me.id).map(([k, metas]) => ({ id: k, ...metas[metas.length - 1] }));
       handlers.onPresence(list);
     })
-      .on('broadcast', { event: 'move' }, ({ payload }) => { if (ch === c) handlers.onMove(payload); })
-      .on('broadcast', { event: 'say' }, ({ payload }) => { if (ch === c) handlers.onSay?.(payload); })
+      .on('broadcast', { event: 'move' }, ({ payload }) => { rtGot(); if (ch === c) handlers.onMove(payload); })
+      .on('broadcast', { event: 'say' }, ({ payload }) => { rtGot(); if (ch === c) handlers.onSay?.(payload); })
       .subscribe(status => {
         if (status === 'SUBSCRIBED' && ch === c) c.track({ name: me.name, ...prof });
       });
@@ -45,13 +47,13 @@ export function createOnline(me, handlers) {
     const key = `${Math.round(p.x)},${Math.round(p.y)},${extra.act || ''},${extra.sw || ''}`;
     if (gap > 0 && (now - lastSend < gap || (key === lastPos && now - lastSend < idle))) return;
     lastSend = now; lastPos = key;
-    ch.send({ type: 'broadcast', event: 'move', payload: { id: me.id, x: Math.round(p.x), y: Math.round(p.y), fx: +p.face.x.toFixed(2), fy: +p.face.y.toFixed(2), ...extra } });
+    rtSent(); ch.send({ type: 'broadcast', event: 'move', payload: { id: me.id, x: Math.round(p.x), y: Math.round(p.y), fx: +p.face.x.toFixed(2), fy: +p.face.y.toFixed(2), ...extra } });
   }
 
   // Chào hỏi, trò chuyện: { e: id } hoặc { m: chữ }, người gửi gắn id của mình
   function say(body) {
     if (!ch || ch.state !== 'joined') return;
-    ch.send({ type: 'broadcast', event: 'say', payload: { id: me.id, ...body } });
+    rtSent(); ch.send({ type: 'broadcast', event: 'say', payload: { id: me.id, ...body } });
   }
 
   // Đổi tên hiển thị: báo lại cho người cùng đảo

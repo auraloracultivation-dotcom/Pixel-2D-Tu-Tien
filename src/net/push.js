@@ -3,11 +3,12 @@
 // (p2d_gui_chat vẫn là đường ghi duy nhất); "p2dw:<mã tài khoản>" nhận event "ta" = có truyền âm mới (chỉ báo id, nội dung đọc qua
 // p2d_doc_truyen_am). onStatus nhận 'SUBSCRIBED', 'CHANNEL_ERROR', 'TIMED_OUT', 'CLOSED' như supabase-js.
 import { supabase, realtimeAuth } from './client.js';
+import { rtGot } from './rt-dem.js';
 
 export async function listen(topic, onMsg, onStatus) {
   await realtimeAuth();
   const ch = supabase.channel(topic, { config: { private: true } });
-  ch.on('broadcast', { event: '*' }, m => onMsg(m?.event, m?.payload))
+  ch.on('broadcast', { event: '*' }, m => { rtGot(); onMsg(m?.event, m?.payload); })
     .subscribe(st => onStatus?.(st));
   return {
     live: () => ch.state === 'joined',
