@@ -16,11 +16,11 @@ import { coins } from '../game/shop.js';
 
 // Hàng mục trên kho theo từng trang: [mục, hình, tên]
 const GROUPS = { all: null, vk: ['vu-khi'], pc: ['mu', 'giap', 'giay'], ts: ['ngoc-boi', 'nhan'], pb: ['phap-bao'] };
-export const SUBS = {
-  do: [['all', 'ui.ic-ruong', 'Tất cả'], ['vk', 'ui.ic-vu-khi', 'Vũ khí'], ['pc', 'ui.ic-giap', 'Giáp'], ['ts', 'ui.ic-nhan', 'Nhẫn'], ['pb', 'ui.ic-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
-  kho: [['ngoc', 'ui.ic-ngoc', 'Ngọc'], ['nl', 'ui.ic-tinh-thach', 'N.liệu'], ['ca', 'ui.m-fish', 'Cá'], ['dan', 'ui.ic-dan', 'Đan']],
-  cp: [['chieu', 'ui.ic-tu-luyen', 'Chiêu'], ['cong-phap', 'ui.ic-cong-phap', 'Công pháp']],
-  tt: [['thoi-trang', 'ui.ic-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-danh-hieu', 'Danh hiệu']],
+export const SUBS = {   // biểu tượng mục con (ảnh GPT 11/11/2026 03:03, tools/art/ui_nhan_vat.py)
+  do: [['all', 'ui.nv-tab-tat-ca', 'Tất cả'], ['vk', 'ui.nv-tab-vu-khi', 'Vũ khí'], ['pc', 'ui.nv-tab-giap', 'Giáp'], ['ts', 'ui.nv-tab-nhan', 'Nhẫn'], ['pb', 'ui.nv-tab-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
+  kho: [['ngoc', 'ui.nv-tab-ngoc', 'Ngọc'], ['nl', 'ui.nv-tab-nguyen-lieu', 'N.liệu'], ['ca', 'ui.nv-tab-ca', 'Cá'], ['dan', 'ui.nv-tab-dan', 'Đan']],
+  cp: [['chieu', 'ui.nv-tab-chieu', 'Chiêu'], ['cong-phap', 'ui.nv-tab-bi-kip', 'Công pháp']],
+  tt: [['thoi-trang', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-tab-danh-hieu', 'Danh hiệu']],
 };
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);

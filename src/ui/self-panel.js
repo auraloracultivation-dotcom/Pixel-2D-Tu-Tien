@@ -12,7 +12,7 @@ import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS } from './self-host.js';
 
-const PAGES = [['do', 'ui.ic-tui', 'Trang bị'], ['kho', 'ui.ic-ruong', 'Kho'], ['cp', 'ui.ic-cong-phap', 'Công pháp'], ['tt', 'ui.ic-thoi-trang', 'Thời trang']];
+const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
 const SUB0 = { do: 'all', kho: 'ngoc', cp: 'chieu', tt: 'thoi-trang' };
 // Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
 const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'], [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau']];
