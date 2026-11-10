@@ -5,6 +5,7 @@
 
 import { hitSfx } from './skill-sfx.js';
 import { updateJuice } from './juice.js';
+import { updateKiemVu } from './skill-kiem-vu.js';
 
 export const vfxOf = (game, id) => (id && game.data.vfx?.skills?.[id]) || null;
 const st = game => (game.vfx ??= { fx: [], parts: [] });
@@ -92,6 +93,7 @@ export function vfxHit(game, b, x, y, big = 0) {
 // Mỗi khung: hiệu ứng, hạt; đạn có công thức thả hạt đuôi, nhớ vài vị trí trước (bóng mờ); vùng chiêu, hào quang thả hạt
 export function updateVfx(game, dt) {
   updateJuice(game, dt);   // cảm giác đánh (src/game/juice.js)
+  updateKiemVu(game, dt);   // Vạn Kiếm Quy Tông (src/game/skill-kiem-vu.js)
   const S = st(game);
   for (const f of S.fx) {
     f.t += dt;
