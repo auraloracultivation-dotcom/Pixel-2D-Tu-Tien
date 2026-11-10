@@ -248,3 +248,35 @@ body .sv .sv-sheet .act-btn small { font-size: 8.5px !important; }
 body .sv .sv-sheet .d-head { gap: 4px; } body .sv .sv-sheet .d-head .ico { width: 26px !important; height: 26px !important; }
 .sv-money span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .sv-tabs2 .sv-rb small { font-size: 8.5px; }
+
+/* ===== 11/11/2026 01:43: cột chức năng bên phải (Trang bị, Kho, Công pháp, Thời trang), bảng thấp lại ===== */
+.sv.panel { height: min(470px, 84vh); }
+@supports (height: 84dvh) { .sv.panel { height: min(470px, 84dvh); } }
+.sv-two { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) 42px; gap: 5px; }
+.sv-pages { display: flex; flex-direction: column; gap: 5px; }
+.sv-pg { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 5px 0 3px; cursor: pointer; color: var(--ink);
+  background: linear-gradient(#34314f, #262339); border: 2px solid var(--edge); border-radius: 7px; }
+.sv-pg .sv-rico { width: 22px; height: 22px; }
+.sv-pg small { font-size: 8px; font-weight: 700; line-height: 1.1; text-align: center; color: var(--ink-2); }
+.sv-pg.on { background: linear-gradient(#ffd866, var(--gold-2)); border-color: #fff0b8; box-shadow: 0 2px 0 #7a3d00; }
+.sv-pg.on small { color: #4a2600; }
+.sv-tabs2 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.sv-center { height: 168px; }
+.sv-hero { margin-bottom: 8px; }
+/* bảng có sẵn gắn vào khung phải (src/ui/self-host.js) */
+.sv-hostbox { flex: 1; min-height: 0; display: flex; }
+body .sv .sv-hosted { position: static !important; inset: auto !important; transform: none !important; flex: 1; width: auto !important; height: auto !important; max-height: none !important; min-height: 0;
+  margin: 0 !important; padding: 0 !important; border: 0 !important; border-image: none !important; background: none !important; box-shadow: none !important; overflow-y: auto; gap: 4px; font-size: 11px; }
+body .sv .sv-hosted::before, body .sv .sv-hosted::after { display: none !important; }
+body .sv .sv-hosted > .bag-head { display: none !important; }
+body .sv #achv.sv-hosted #achv-tabs { display: none; }
+body .sv .sv-hosted .bag-tabs button { font-size: 10.5px; padding: 4px 8px; }
+body .sv .sv-hosted button { font-size: 10.5px; }
+.sv-right, .sv-hostbox { overflow: hidden; min-width: 0; }
+body .sv .sv-hosted { min-width: 0; overflow-x: hidden; }
+body .sv .sv-hosted #skills-slots { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 3px !important; }
+body .sv .sv-hosted #skills-slots button { min-width: 0 !important; width: auto !important; padding: 3px 2px !important; font-size: 9.5px !important; }
+body .sv .sv-hosted #skills-list, body .sv .sv-hosted #achv-list { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 4px !important; }
+body .sv .sv-hosted .bag-tabs { flex-wrap: nowrap; gap: 3px; }
+.sv-two { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 40px; }
+.sv-row { font-size: 9px; }
