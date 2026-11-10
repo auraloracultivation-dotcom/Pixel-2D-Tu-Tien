@@ -19,7 +19,7 @@ function column(game, side, slots, h) {
   for (const k of slots) {
     if (k) { c.append(gearCell(game, k, side, h.pick)); continue; }
     const w = el('div', 'sv-cell'), b = el('button', 'sv-slot spare'); b.disabled = true; b.title = 'Sắp mở';
-    b.append(uiIco(game.data, 'ui.ic-khoa')); w.append(b, el('div', 'sv-sock none')); c.append(w);
+    b.append(uiIco(game.data, 'ui.ic-khoa')); w.append(b); c.append(w);
   }
   return c;
 }

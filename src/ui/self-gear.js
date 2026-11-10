@@ -1,10 +1,9 @@
 // Ô trang bị trên bảng Nhân vật (src/ui/self-panel.js; chủ dự án 11/11/2026 00:39, mẫu My Heroes Dungeon Raid):
-// khung màu theo phẩm, hình món ở giữa, +cường hoá góc trên phải, chữ hệ góc trên trái, số dòng tẩy luyện góc dưới phải,
-// ngay dưới ô là thanh lỗ khảm dính liền (chủ dự án 11/11/2026 01:34): lỗ trống là viên đá mờ, có ngọc thì hiện viên ngọc (khung theo cấp ngọc).
+// khung ảnh theo phẩm, hình món ở giữa, +cường hoá góc trên phải, số dòng tẩy luyện và chữ hệ góc dưới phải; mép trái là cột ngọc
+// khảm xếp dọc (chủ dự án 11/11/2026 01:57, theo mẫu): mỗi lỗ một viên đá, có ngọc thì viên đá màu của ngọc (ui-pc-da-*), trống thì đá tối.
 import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
-import { gemIcon } from './gem-icon.js';
 import { spriteIcon } from './sprite-icon.js';
 
 const HAN = { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' };   // chữ hệ trên ô (ngũ hành)
@@ -18,17 +17,24 @@ export function gradeColor(data, it) {
   return q ? (q.edge || q.color) : rarityOf(data.items, it.rarity).color;
 }
 
-function sockets(game, it) {
-  const col = el('div', 'sv-sock');
-  for (const g of it.sockets || []) {
-    const sq = el('i', 'sv-sk' + (g ? ' on' : ''));
-    if (g) { const gi = gemInfo(game.data, g); sq.style.setProperty('--g', gi.color); sq.append(gemIcon(game, g, 8, 'gem-ico')); sq.title = gi.name; }   // có ngọc: hình viên ngọc toả màu; trống: viên đá mờ (CSS)
-    col.append(sq);
+// Viên đá theo loại ngọc (assets/art/ui-pc-da-<màu>.png); lỗ trống dùng viên đá tối
+const DA = { 'hong-ngoc': 'do', 'lam-ngoc': 'lam', 'hoang-ngoc': 'vang', 'luc-ngoc': 'luc' };
+const daUrl = (data, c) => { const s = data.art.sprites['ui.pc-da-' + c]; return s ? `url("${s.file}?v=${s.v}")` : 'none'; };
+
+// Cột ngọc khảm dọc mép trái ô đồ (cả ô đang mặc lẫn ô trong kho); null nếu món không có lỗ
+export function socketCol(game, it) {
+  if (!it?.sockets?.length) return null;
+  const col = el('div', 'sv-gems'), d = game.data;
+  for (const g of it.sockets) {
+    const gm = el('i', 'sv-gm' + (g ? '' : ' off'));
+    if (g) { const gi = gemInfo(d, g); gm.style.backgroundImage = daUrl(d, DA[g.split(':')[0]] || 'tim'); gm.title = gi.name; }
+    else gm.style.backgroundImage = daUrl(d, 'den');
+    col.append(gm);
   }
   return col;
 }
 
-// Ô một món đang mặc (hoặc ô trống của chỗ đó), thanh lỗ khảm dính dưới ô
+// Ô một món đang mặc (hoặc ô trống của chỗ đó), cột ngọc khảm dọc mép trái
 export function gearCell(game, slot, side, onPick) {
   const { data, save } = game, it = save.bag.find(i => i.uid === save.equip[slot]);
   const wrap = el('div', 'sv-cell'), b = el('button', 'sv-slot' + (it ? '' : ' empty'));
@@ -40,12 +46,14 @@ export function gearCell(game, slot, side, onPick) {
     b.style.setProperty('--q', gradeColor(data, it)); b.dataset.o = gradeId(data, it);
     b.append(icon(data, it));
     if (it.plus) b.append(el('b', 'sv-plus', '+' + it.plus));
-    if (it.el) { const e = el('span', 'sv-el', HAN[it.el] || '?'); e.style.setProperty('--e', data.elements[it.el]?.color || '#ccc'); b.append(e); }
-    if (it.lines?.length) b.append(el('span', 'sv-ln', '◆' + it.lines.length));
+    const br = el('span', 'sv-br');   // góc dưới phải: số dòng tẩy luyện, chữ hệ
+    if (it.lines?.length) br.append(el('span', 'sv-ln', '◆' + it.lines.length));
+    if (it.el) { const e = el('span', 'sv-el', HAN[it.el] || '?'); e.style.setProperty('--e', data.elements[it.el]?.color || '#ccc'); br.append(e); }
+    b.append(br);
+    const gems = socketCol(game, it); if (gems) b.append(gems);
   }
   b.onclick = () => onPick(slot, it);
   wrap.append(b);
-  wrap.append(it?.sockets?.length ? sockets(game, it) : el('div', 'sv-sock none'));   // không có lỗ: thanh trống giữ hàng thẳng
   return wrap;
 }
 
