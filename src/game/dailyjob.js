@@ -49,6 +49,8 @@ function doNow(game, d) {
   return false;
 }
 
+const PILOT = ['kill', 'fish', 'visit'];   // việc tự hành đi làm được (ngoài luyện đan, rèn, thu hoạch, phân giải, đả tọa ở trên)
+
 // → bước cho tự hành, { meditate: true } (pilot.js tự về bồ đoàn), hoặc null khi không còn việc ngày nào làm được
 export function dailyJob(game, routeTo) {
   const pl = game.pilot, left = dailyLeft(game), first = left.findIndex(x => x.t.id === pl.daily);
@@ -60,8 +62,8 @@ export function dailyJob(game, routeTo) {
       continue;
     }
     if (d.type === 'meditate') return { meditate: true };
-    if (d.type === 'rare' || d.type === 'guard') continue;   // dị chủng, trấn giữ: không nhắm được, để người chơi tự làm
-    const w = d.type === 'fish' ? { fish: true } : d.type === 'kill' && d.mob ? { kill: d.mob } : { any: true };
+    if (!PILOT.includes(d.type)) continue;   // dị chủng, trấn giữ, khảm ngọc, trò chuyện…: người chơi tự làm (nút Đi làm mở bảng)
+    const w = d.type === 'fish' ? { fish: true } : d.type === 'visit' ? { visit: d.map } : d.type === 'kill' && d.mob ? { kill: d.mob } : { any: true };
     const j = wantJob(game, routeTo, [w]);
     if (j) return j;
   }
@@ -73,6 +75,11 @@ export function dailyJob(game, routeTo) {
 export function dailyGo(game, id) {
   const d = taskDef(game, id);
   if (!d) return null;
+  if (d.go) {   // việc làm trong bảng (khảm ngọc, cường hoá, trò chuyện…): mở đúng bảng
+    if (d.go.fn && typeof game[d.go.fn] === 'function') { game[d.go.fn](d.go.arg); return 'panel'; }
+    if (d.go.btn && game.openOldPanel) { game.openOldPanel({ btn: d.go.btn }); return 'panel'; }
+  }
+  if (!['kill', 'fish', 'visit', 'meditate', 'brew', 'forge', 'harvest', 'salvage'].includes(d.type)) { game.toast(d.text.replace('{n}', d.n), 2.6); return 'hint'; }   // nói chuyện, vuốt thú, Vạn Bảo Lâu, luận võ: nhắc việc
   if (d.type === 'kill' && d.mob && !Object.values(game.data.maps).some(m => (m.spawners || []).some(s => s.mob === d.mob))) {
     if (!game.openDungeons) return null;
     game.openDungeons(); return 'dungeon';

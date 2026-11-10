@@ -2,6 +2,7 @@
 // Lưu ở save.skillLv { id: cấp }; chưa có thì cấp 1.
 import { addCoins, coins } from './shop.js';
 import { artSkillMul } from './refine.js';
+import { dailyEvent } from './daily.js';
 
 const L = game => game.data.config.skill_lv;
 
@@ -28,6 +29,7 @@ export function levelUp(game, id) {
   s.mats[c.mat] -= cost.book;
   addCoins(game, -cost.coins, 'cap-chieu');
   (s.skillLv ??= {})[id] = lv + 1;
+  dailyEvent(game, 'skillup');   // việc ngày Nâng cấp chiêu
   game.persist();
   return true;
 }

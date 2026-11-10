@@ -7,6 +7,7 @@ import { reroll } from './items.js';
 import { enhance } from './enhance.js';
 import { rerollEl } from './daovan.js';
 import { noteCoins } from './coin-log.js';
+import { dailyEvent } from './daily.js';
 
 const net = async () => (await import('../net/ky-mon.js')).kyCalls;
 let noFn = false;   // máy chủ chưa có hàm: từ đó về sau tính ở máy
@@ -47,6 +48,7 @@ async function run(game, kind, uid, why, local, quiet = false) {
 // Như items.js reroll: trả { line, last }, { full } khi đã đủ dòng, false / null khi không làm được
 export async function kyReroll(game, uid) {
   const r = await run(game, 'reroll', uid, 'tay-luyen', () => reroll(game.data, game.save, uid));
+  if (r && !r.full && !r.du_dong) dailyEvent(game, 'reroll');   // việc ngày Tẩy luyện
   if (!r || !('mon' in r)) return r;   // tính ở máy: r đã đúng dạng
   return r.du_dong ? { full: true } : { line: r.dong, last: !!r.cuoi };
 }
@@ -54,6 +56,7 @@ export async function kyReroll(game, uid) {
 // Như enhance.js enhance: 'up' | 'fail' | 'drop' | null
 export async function kyEnhance(game, uid, quiet = false) {   // quiet: tự hành, lỗi không báo
   const r = await run(game, 'enhance', uid, 'cuong-hoa', () => enhance(game, uid), quiet);
+  if (r && !quiet) dailyEvent(game, 'enhance');   // việc ngày Cường hoá (tự hành không tính)
   return r && typeof r === 'object' ? r.kq : r;
 }
 

@@ -1,0 +1,6 @@
+-- Nhiệm vụ ngày lên 20 việc mỗi ngày (chủ dự án 10/11/2026 13:15: "mỗi ngày cung cấp khoảng 20 nhiệm vụ, farm nâng khảm hay trò chuyện gì cũng được",
+-- 25 điểm mỗi việc như cũ). Số lượng mỗi việc khớp data/daily.json pool (thêm khảm ngọc, ghép ngọc, cường hoá, tẩy luyện, bán đồ, nâng chiêu,
+-- trò chuyện, nói chuyện NPC, vuốt linh thú, Vạn Bảo Lâu, triệu hồi, luận võ, về động phủ, hạ 100 quái, đả tọa 300 giây). Chỉ đổi số trong p2d_ht_cfg.
+update public.p2d_ht_cfg
+set v = jsonb_set(jsonb_set(v, '{daily}', coalesce(v -> 'daily', '{}'::jsonb) || '{"giet-quai": 30, "giet-moc-linh": 10, "giet-hoa-lang": 12, "giet-ma-binh": 5, "cau-ca": 5, "di-chung": 1, "da-toa": 60, "luyen-dan": 2, "ren-do": 1, "linh-dien": 1, "tran-giu": 10, "phan-giai": 3, "bi-canh": 1, "giet-tuyet-lang": 12, "bang-quat": 1, "giet-phong-yeu": 12, "hac-phong-dong": 1, "giet-moc-yeu": 12, "re-mau-thu": 1, "co-thu-tam": 1, "giet-kim-giap": 12, "kiem-trung": 1, "giet-tho-khoi": 12, "dia-cung": 1, "giet-hu-khong": 12, "hu-khong-lao": 1, "vet-nut": 1, "giet-quai-lon": 100, "da-toa-dai": 300, "kham-ngoc": 1, "ghep-ngoc": 1, "cuong-hoa": 3, "tay-luyen": 2, "ban-do": 5, "nang-chieu": 1, "tro-chuyen": 3, "noi-chuyen": 3, "vuot-thu": 3, "mua-van-bao": 1, "trieu-hoi": 1, "luan-vo": 1, "ve-dong-phu": 1}'::jsonb), '{per_day}', '20'::jsonb)
+where k = 'cfg';

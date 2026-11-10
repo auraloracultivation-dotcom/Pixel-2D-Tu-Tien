@@ -130,6 +130,8 @@ export function wantJob(game, routeTo, list) {
       if (at) return { fish: at };
       const j = goPortal(game, routeTo, 'thien-kiem-phong');
       if (j) return j;
+    } else if (w.visit) {   // việc ngày Về động phủ…: tới bản đồ đó là xong
+      if (game.map.id !== w.visit) { const j = goPortal(game, routeTo, w.visit); if (j) return j; }
     } else if (w.kill) {
       if (avoided(game, w.kill)) continue;   // vừa gục trước loài này: tạm tránh, làm việc khác
       const sp = spawnerOf(game, w.kill, routeTo);

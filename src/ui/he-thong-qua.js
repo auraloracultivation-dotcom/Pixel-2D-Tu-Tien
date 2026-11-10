@@ -4,6 +4,7 @@
 import { itemName, gemInfo } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
 import { grade } from '../game/tiers.js';
+import { dailyEvent } from '../game/daily.js';
 import { spriteIcon } from './sprite-icon.js';
 import { gemIcon } from './gem-icon.js';
 
@@ -147,6 +148,7 @@ export function renderGacha(game, body, ht, onDone) {
     game.toast(fill(X.summon_got, { name: L.name }), 3); game.sfx?.(rk > 1 ? 'levelup' : 'pickup');
     game.htFace?.react(rk > 1 ? 'hiem' : rk ? 'trieu_kha' : 'trieu', rk > 1 ? 'phan-khich' : undefined);
     import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // quà vào túi liền, khỏi đợi lượt dò thư
+    dailyEvent(game, 'summon');   // việc ngày Triệu hồi
     diem = r.diem; busy = false; sync(); onDone(r); setTimeout(loadFeed, 600);   // món trúng để nguyên trên rương (không vẽ lại bảng)
   };
   sync();

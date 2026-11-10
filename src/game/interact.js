@@ -1,5 +1,6 @@
 // Tương tác trên bản đồ: nút ngữ cảnh (nói chuyện, đả tọa, độ kiếp), cổng, vật nhặt theo nhiệm vụ.
 import { dist } from './combat.js';
+import { dailyEvent } from './daily.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvestAll, gotText } from './garden.js';
 import { meditateMul } from './evolve.js';
@@ -45,6 +46,7 @@ function nearStation(game) {
 // Nói chuyện với một NPC: truyện trước, rồi các việc riêng của NPC đó (tự hành gọi thẳng hàm này)
 export function talkTo(game, npc) {
   if (npc.ban) { talkStall(game, npc); return; }
+  dailyEvent(game, 'talk', npc.id);   // việc ngày Nói chuyện với dân làng
   if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }

@@ -5,6 +5,7 @@
 import { socket, unsocket, mergeGems } from './items.js';
 import { refine } from './refine.js';
 import { applyKy, kyErr } from './ky-mon.js';
+import { dailyEvent } from './daily.js';
 
 const net = async () => (await import('../net/ky-mon.js')).kyCalls;
 let noFn = false;   // máy chủ chưa có hàm giai đoạn 2: từ đó về sau tính ở máy (riêng với tẩy luyện, cường hoá)
@@ -39,7 +40,9 @@ const ok = r => !!r;   // máy chủ trả món (object), tính ở máy trả t
 
 // Như items.js socket: true khi đã khảm
 export async function kySocket(game, uid, idx, key, quiet = false) {
-  return ok(await run(game, n => n.socket(uid, idx, key), 'kham-ngoc', () => socket(game.save, uid, idx, key), quiet));
+  const r = ok(await run(game, n => n.socket(uid, idx, key), 'kham-ngoc', () => socket(game.save, uid, idx, key), quiet));
+  if (r && !quiet) dailyEvent(game, 'socket');   // việc ngày Khảm ngọc (tự khảm không tính)
+  return r;
 }
 
 // Như items.js unsocket: true khi đã gỡ
@@ -54,7 +57,9 @@ export async function kyMerge(game, key, keep = 0, n = 1, quiet = false) {
     while (k < n && mergeGems(game.data, game.save, key, keep)) k++;
     return k;
   }, quiet);
-  return typeof r === 'number' ? r : r?.lan || 0;
+  const k = typeof r === 'number' ? r : r?.lan || 0;
+  if (k && !quiet) dailyEvent(game, 'merge', null, k);   // việc ngày Ghép ngọc
+  return k;
 }
 
 // Như refine.js refine: true khi đã luyện lên một bậc
