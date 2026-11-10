@@ -141,6 +141,9 @@ export function createBag(game) {
   $('bag-stats').onclick = () => $('bag-stats').classList.toggle('open');   // dòng chỉ số rút gọn một dòng, chạm để xem hết
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.openNav) game.openNav('bag'); else open(); });   // cột mục bên trái (src/ui/side-nav.js)
   game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
+  // bảng Nhân vật (src/ui/self-panel.js): ô trống mở túi lọc đúng chỗ; "+ Khảm ngọc" mở túi ngọc để chọn viên cho lỗ đó
+  game.openBagSlot = slot => { st.tab = 'do'; st.slot = slot; st.pickSocket = null; st.stock = null; open(); };
+  game.openBagSocket = p => { st.tab = 'ngoc'; st.stock = null; open(); st.pickSocket = p; render(); };
 
   function open() {
     if (!game.save || game.dialog.open) return;
