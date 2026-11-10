@@ -1,20 +1,20 @@
-// Bảng Nhân vật + Túi đồ một màn (chủ dự án 11/11/2026 00:39–00:50, mẫu My Heroes Dungeon Raid; màn dọc nên túi nằm dưới).
-// Cột trái: chọn mục túi (Trang bị, Ngọc, Nguyên liệu, Đan dược). Trên: chân dung, tên, cảnh giới, lực chiến. Giữa: nhân vật và linh
-// thú, hai bên là ô đang mặc (src/ui/self-gear.js) cùng linh thú, thú cưỡi, thời trang; dưới là ba ô sinh lực, công, phòng và chỉ số
-// chi tiết (chạm mới ra). Dưới cùng: lưới túi (src/ui/self-bag.js). Chạm món: tấm rèn luyện / mặc trượt lên ngay trong bảng
+// Bảng Nhân vật + Túi đồ một màn (chủ dự án 11/11/2026 00:39–00:57; màn dọc nên túi nằm dưới, nhân vật không đóng khung).
+// Cột trái: chọn mục túi (Trang bị, Ngọc, Nguyên liệu, Đan dược). Trên: tên, cảnh giới, danh hiệu, linh khí. Giữa: nhân vật đứng
+// trên vòng pháp trận mờ, linh thú bên cạnh, ô đang mặc xếp hai bên (src/ui/self-gear.js). Dưới: dòng Lực Chiến, bảng chỉ số có
+// biểu tượng (Thêm ra hết), rồi lưới túi (src/ui/self-bag.js). Chạm món: tấm rèn luyện / mặc trượt lên ngay trong bảng
 // (dùng chung src/ui/bag-detail.js, bag-stock.js với Túi đồ): cường hoá, tẩy luyện, khảm, gỡ ngọc, mặc, tháo. Kiểu ở style-self.css.
 import { heroLook } from '../render/draw-hero.js';
 import { spriteIcon } from './sprite-icon.js';
 import { playerStats, realmLabel, rootOf, qiNeed } from '../game/stats.js';
 import { power, titleOf } from '../game/achieve.js';
 import { el, renderDetail } from './bag-detail.js';
-import { gearCell, extraCell } from './self-gear.js';
+import { gearCell } from './self-gear.js';
 import { renderSelfBag, BAG_TABS } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 
 const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
-const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao'];
+const LEFT = ['mu', 'giap', 'giay', 'vu-khi'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao'];
 
 export function createSelfPanel(game) {
   const root = el('div', 'panel self-panel sv'); root.hidden = true;
@@ -45,66 +45,63 @@ export function createSelfPanel(game) {
   }
   const openExtra = k => goOld(k === 'outfit' ? { btn: 'btn-achv', tabs: 'achv-tabs', tab: 'thoi-trang' } : { btn: 'btn-pets', tabs: 'pets-tabs', tab: k === 'pet' ? 'linh-thu' : 'thu-cuoi' });
 
-  function top(s, d) {
-    const t = el('div', 'sv-top'), ava = el('div', 'sv-ava'), look = heroLook(game), tt = titleOf(game);
-    ava.append(spriteIcon(game, look.sprite, 0, 40, 'sv-ava-ico', true));
-    const info = el('div', 'sv-info'), nm = el('button', 'sv-nm', game.cloud?.name || 'Đạo hữu');
+  function top(s, d) {   // đầu bảng: tên, cảnh giới, danh hiệu, thanh linh khí
+    const t = el('div', 'sv-top'), tt = titleOf(game), info = el('div', 'sv-info');
+    const nm = el('button', 'sv-nm', game.cloud?.name || 'Đạo hữu');
     nm.onclick = () => { close(); game.openRename?.(); };
-    info.append(nm, el('div', 'sv-realm', realmLabel(s, d.realms)));
     const e = el('button', 'sv-title', tt ? tt.name : 'Chọn danh hiệu ›'); if (tt?.color) e.style.color = tt.color;
-    e.onclick = () => goOld({ btn: 'btn-achv', tabs: 'achv-tabs', tab: 'danh-hieu' }); info.append(e);
-    const pw = el('div', 'sv-pw'); pw.append(el('small', null, 'Lực chiến'), el('b', null, vn(power(game))));
-    t.append(ava, info, pw);
-    return t;
-  }
-
-  function stage(s, d, stt) {
-    const g = el('div', 'sv-stage'), sky = el('div', 'sv-sky'), look = heroLook(game);
-    sky.append(el('i', 'sv-moon'), el('i', 'sv-ring'));
-    if (s.element) { const e = d.elements[s.element], seal = el('span', 'sv-seal', { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' }[s.element] || '?'); seal.style.setProperty('--e', e.color); seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; g.append(seal); }
-    const hero = spriteIcon(game, look.sprite, 0, 120, 'sv-hero', true);
-    g.append(sky, hero);
-    if (s.pet && d.art.sprites['pet.' + s.pet]) g.append(spriteIcon(game, 'pet.' + s.pet, 0, 46, 'sv-pet', true));
-    const foot = el('div', 'sv-foot');
-    foot.append(el('div', 'sv-cp', '⚔ ' + vn(power(game))));
+    e.onclick = () => goOld({ btn: 'btn-achv', tabs: 'achv-tabs', tab: 'danh-hieu' });
+    info.append(nm, el('span', 'sv-realm', realmLabel(s, d.realms)), e);
     const need = qiNeed(s, d.realms), qi = el('div', 'sv-qi'), bar = el('i');
     bar.style.width = Math.min(100, (s.qi || 0) / Math.max(1, need) * 100) + '%';
     qi.append(bar, el('span', null, `Linh khí ${vn(s.qi)}/${vn(need)}`));
-    foot.append(qi);
-    g.append(foot);
+    t.append(info, qi);
+    return t;
+  }
+
+  // nhân vật đứng tự do trên vòng pháp trận mờ (không đóng khung, chủ dự án 11/11/2026 00:57), ô trang bị xếp hai bên
+  function hero(s, d) {
+    const g = el('div', 'sv-hero-area'), mid = el('div', 'sv-center'), look = heroLook(game);
+    mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 112, 'sv-hero', true));
+    if (s.pet && d.art.sprites['pet.' + s.pet]) {
+      const pet = spriteIcon(game, 'pet.' + s.pet, 0, 40, 'sv-pet', true);
+      pet.onclick = () => openExtra('pet'); mid.append(pet);
+    }
+    if (s.element) {
+      const e = d.elements[s.element], seal = el('span', 'sv-seal', { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' }[s.element] || '?');
+      seal.style.setProperty('--e', e.color); seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; mid.append(seal);
+    }
+    g.append(column('l', LEFT), mid, column('r', RIGHT));
     return g;
   }
 
-  function pills(stt) {   // ba ô to dưới nhân vật: sinh lực, công, phòng (mẫu chủ dự án gửi 11/11/2026 00:47)
-    const sub = el('div', 'sv-sub'), pill = (cls, ic, v) => { const e = el('div', 'sv-pill ' + cls); e.append(el('i', null, ic), el('b', null, v)); sub.append(e); };
-    pill('c-hp', '❤', vn(stt.maxHp)); pill('c-atk', '⚔', vn(stt.atk)); pill('c-def', '🛡', vn(stt.def));
-    return sub;
-  }
-
-  function column(side, slots, extras) {
+  function column(side, slots) {
     const c = el('div', 'sv-col ' + side);
     for (const k of slots) c.append(gearCell(game, k, side, pick));
-    for (const k of extras) c.append(extraCell(game, k, side, openExtra));
     return c;
   }
 
-  function stats(stt, p) {
+  function cpBar() {
+    const b = el('div', 'sv-cpbar');
+    b.append(el('i', null, '⚔'), el('span', null, 'Lực Chiến'), el('b', null, vn(power(game))));
+    return b;
+  }
+
+  function stats(stt, p) {   // bảng chỉ số có biểu tượng như mẫu; chạm Thêm ra hết
     const box = el('div', 'sv-stats'), grid = el('div', 'sv-grid');
-    const more = el('button', 'sv-more', st.more ? 'Tổng Quan Chỉ Số ▲' : 'Tổng Quan Chỉ Số ▼');
-    more.onclick = () => { st.more = !st.more; render(); };
-    box.append(more);
-    if (!st.more) return box;
-    const row = (k, v, cls) => { const r = el('div', 'sv-row' + (cls ? ' ' + cls : '')); r.append(el('span', null, k), el('b', null, v)); grid.append(r); };
-    row('Công', vn(stt.atk), 'c-atk'); row('Tốc chạy', pct(stt.speedMul));
-    row('Sinh lực', vn(stt.maxHp), 'c-hp'); row('Bạo kích', pct(stt.crit));
-    row('Phòng ngự', vn(stt.def), 'c-def'); row('Sát thương bạo', pct(stt.critMult));
-    {
-      row('Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`); row('Giảm hồi chiêu', pct(stt.cdr));
-      row('Tốc tu', `×${stt.qiMul.toFixed(2)}`); row('Hút máu', pct(stt.lifesteal));
-      row('Phản đòn', pct(stt.thorns)); row('Hồi máu', `${vn(stt.regen)}/giây`);
-      row('Giảm sát thương', pct(stt.dr)); row('Hồi linh lực', `${Math.round((game.data.config.mana.regen_pct + stt.mpRegen) * 1000) / 10}%/giây`);
+    const row = (ic, k, v, cls) => { const r = el('div', 'sv-row ' + (cls || '')); r.append(el('i', null, ic), el('span', null, k), el('b', null, v)); grid.append(r); };
+    row('❤', 'Sinh lực', vn(stt.maxHp), 'c-hp'); row('★', 'Bạo kích', pct(stt.crit), 'c-cr');
+    row('⚔', 'Công', vn(stt.atk), 'c-atk'); row('✸', 'ST bạo', pct(stt.critMult), 'c-cr');
+    row('⛨', 'Phòng ngự', vn(stt.def), 'c-def'); row('⟳', 'Giảm hồi', pct(stt.cdr), 'c-mp');
+    row('➤', 'Tốc chạy', pct(stt.speedMul), 'c-spd'); row('✚', 'Hút máu', pct(stt.lifesteal), 'c-hp');
+    if (st.more) {
+      row('◆', 'Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`, 'c-mp'); row('☯', 'Tốc tu', `×${stt.qiMul.toFixed(2)}`, 'c-mp');
+      row('↯', 'Phản đòn', pct(stt.thorns), 'c-def'); row('♥', 'Hồi máu', `${vn(stt.regen)}/giây`, 'c-hp');
+      row('⛨', 'Giảm sát thương', pct(stt.dr), 'c-def'); row('◇', 'Hồi linh lực', `${Math.round((game.data.config.mana.regen_pct + stt.mpRegen) * 1000) / 10}%/giây`, 'c-mp');
     }
-    box.append(grid);
+    const more = el('button', 'sv-more', st.more ? 'Thu gọn ▲' : 'Thêm chỉ số ▼');
+    more.onclick = () => { st.more = !st.more; render(); };
+    box.append(grid, more);
     return box;
   }
 
@@ -119,10 +116,9 @@ export function createSelfPanel(game) {
 
   function render() {
     const s = game.save, d = game.data, stt = playerStats(s, d);
-    const mid = el('div', 'sv-mid');
-    mid.append(column('l', LEFT, ['outfit']), stage(s, d, stt), column('r', RIGHT, ['pet', 'mount']));
     const keep = body.scrollTop;
-    body.replaceChildren(top(s, d), mid, pills(stt), stats(stt, game.player), renderSelfBag(game, st, changed, render));
+    const card = el('div', 'sv-card'); card.append(top(s, d), hero(s, d), cpBar(), stats(stt, game.player));
+    body.replaceChildren(card, renderSelfBag(game, st, changed, render));
     body.scrollTop = keep;
     renderRail();
     let has = false;
