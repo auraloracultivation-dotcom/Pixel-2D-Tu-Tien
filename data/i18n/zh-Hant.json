@@ -4143,5 +4143,18 @@
 "{name} · {from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{name} · {from} · 冷卻{cd}秒 · 消耗{x}靈力{x2}",
 "Thiên Phạt": "天罰",
 "Tụ lực 2,5 giây, sét bốn phương dồn thành quả cầu trắng chói rồi nổ tung, mười tia sét toả tám phương lướt qua kẻ địch. Mỗi mục tiêu chịu tổng 15 lần đánh thường, trúng sét choáng 0,3 giây. Bất tử khi tụ lực.": "蓄力 2.5 秒，四方雷霆匯聚成耀眼白球後炸裂，十道雷光向八方穿梭敵陣。每個目標共受普通攻擊 15 倍傷害，被雷擊中暈眩 0.3 秒。蓄力時無敵。",
-"Túi đồ đầy: còn {n} thư có trang bị chưa nhận được. Bán bớt đồ trong Túi đồ (Bán nhanh) rồi chạm nhận lại.": "背包已滿：還有 {n} 封附裝備的信無法領取。請在背包賣掉一些物品（快速出售）後再點擊領取。"
+"Túi đồ đầy: còn {n} thư có trang bị chưa nhận được. Bán bớt đồ trong Túi đồ (Bán nhanh) rồi chạm nhận lại.": "背包已滿：還有 {n} 封附裝備的信無法領取。請在背包賣掉一些物品（快速出售）後再點擊領取。",
+"Hạ {n} quái bất kỳ (việc lớn)": "擊敗 {n} 隻任意妖怪（大任務）",
+"Khảm {n} viên ngọc vào trang bị": "將 {n} 顆寶石鑲嵌到裝備",
+"Ghép ngọc {n} lần": "合成寶石 {n} 次",
+"Cường hoá trang bị {n} lần": "強化裝備 {n} 次",
+"Tẩy luyện trang bị {n} lần": "洗煉裝備 {n} 次",
+"Bán {n} món đồ (Túi đồ, Bán nhanh)": "出售 {n} 件物品（背包，快速出售）",
+"Nâng cấp chiêu {n} lần": "升級招式 {n} 次",
+"Trò chuyện {n} câu ở kênh chat": "在聊天頻道發送 {n} 則訊息",
+"Nói chuyện với {n} người trong làng": "與 {n} 位村民交談",
+"Vuốt ve linh thú {n} lần": "撫摸靈獸 {n} 次",
+"Mua {n} món ở Vạn Bảo Lâu": "在萬寶樓購買 {n} 件物品",
+"Triệu hồi Hệ Thống {n} lần": "系統召喚 {n} 次",
+"Luận võ {n} trận": "論武 {n} 場"
 }

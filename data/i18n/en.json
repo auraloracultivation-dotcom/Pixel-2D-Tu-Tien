@@ -4143,5 +4143,18 @@
 "{name} · {from} · hồi {cd} giây · tốn {x} linh lực{x2}": "{name} · {from} · {cd}s cooldown · {x} mana{x2}",
 "Thiên Phạt": "Heavenly Punishment",
 "Tụ lực 2,5 giây, sét bốn phương dồn thành quả cầu trắng chói rồi nổ tung, mười tia sét toả tám phương lướt qua kẻ địch. Mỗi mục tiêu chịu tổng 15 lần đánh thường, trúng sét choáng 0,3 giây. Bất tử khi tụ lực.": "Charge for 2.5 seconds as lightning from all directions condenses into a blinding white orb, then it bursts: ten bolts streak out in every direction through your foes. Each target takes 15× a normal attack in total and is stunned for 0.3 seconds. Invincible while charging.",
-"Túi đồ đầy: còn {n} thư có trang bị chưa nhận được. Bán bớt đồ trong Túi đồ (Bán nhanh) rồi chạm nhận lại.": "Bag is full: {n} mail with equipment can't be received yet. Sell some items in the Bag (Quick sell), then tap to claim again."
+"Túi đồ đầy: còn {n} thư có trang bị chưa nhận được. Bán bớt đồ trong Túi đồ (Bán nhanh) rồi chạm nhận lại.": "Bag is full: {n} mail with equipment can't be received yet. Sell some items in the Bag (Quick sell), then tap to claim again.",
+"Hạ {n} quái bất kỳ (việc lớn)": "Defeat {n} monsters of any kind (big task)",
+"Khảm {n} viên ngọc vào trang bị": "Socket {n} gem into equipment",
+"Ghép ngọc {n} lần": "Combine gems {n} time(s)",
+"Cường hoá trang bị {n} lần": "Enhance equipment {n} times",
+"Tẩy luyện trang bị {n} lần": "Reforge equipment {n} times",
+"Bán {n} món đồ (Túi đồ, Bán nhanh)": "Sell {n} items (Bag, Quick sell)",
+"Nâng cấp chiêu {n} lần": "Upgrade a skill {n} time(s)",
+"Trò chuyện {n} câu ở kênh chat": "Send {n} messages in chat",
+"Nói chuyện với {n} người trong làng": "Talk to {n} villagers",
+"Vuốt ve linh thú {n} lần": "Pet your spirit beast {n} times",
+"Mua {n} món ở Vạn Bảo Lâu": "Buy {n} item(s) at the Treasure Pavilion",
+"Triệu hồi Hệ Thống {n} lần": "Summon from the System {n} time(s)",
+"Luận võ {n} trận": "Fight {n} sparring match(es)"
 }
