@@ -115,3 +115,9 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-sheet .d-main { font-size: 14px; } .sv-sheet .d-line { font-size: 12.5px; } .sv-sheet .d-stats { display: flex; flex-direction: column; gap: 3px; }
 .sv-sheet .muted.tiny { font-size: 11px; } .sv-sheet .socket { font-size: 12px; }
 @media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 44px; height: 44px; } .sv-center { height: 180px; } .sv-rail { width: 46px; } }
+.sv-heroes { display: flex; flex-direction: column; gap: 6px; }
+.sv-buffs { display: flex; justify-content: center; gap: 6px; }
+.sv-slot.buff { display: grid; place-items: center; }
+.sv-slot.spare { --q: #36324f; opacity: .55; display: grid; place-items: center; cursor: default; }
+.sv-spr { image-rendering: pixelated; max-width: 40px; max-height: 32px; margin-top: -8px; }
+.sv-big { font: 900 18px var(--f-title); color: var(--ink-2); opacity: .55; margin-top: -8px; }

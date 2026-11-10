@@ -8,13 +8,14 @@ import { spriteIcon } from './sprite-icon.js';
 import { playerStats, realmLabel, rootOf, qiNeed } from '../game/stats.js';
 import { power, titleOf } from '../game/achieve.js';
 import { el, renderDetail } from './bag-detail.js';
-import { gearCell } from './self-gear.js';
+import { gearCell, buffCell } from './self-gear.js';
 import { renderSelfBag, BAG_TABS } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 
 const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
-const LEFT = ['mu', 'giap', 'giay', 'vu-khi'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao'];
+const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao', null];   // null: ô chừa (chủ dự án 11/11 01:07: mỗi bên 4 ô)
+const BUFFS = ['pet', 'comp', 'comp2', 'mount', 'spare'];
 
 export function createSelfPanel(game) {
   const root = el('div', 'panel self-panel sv'); root.hidden = true;
@@ -43,7 +44,7 @@ export function createSelfPanel(game) {
     }
     st.sel = st.sel === it.uid ? null : it.uid; st.stock = null; render();
   }
-  const openExtra = k => goOld(k === 'outfit' ? { btn: 'btn-achv', tabs: 'achv-tabs', tab: 'thoi-trang' } : { btn: 'btn-pets', tabs: 'pets-tabs', tab: k === 'pet' ? 'linh-thu' : 'thu-cuoi' });
+  const openExtra = k => goOld({ btn: 'btn-pets', tabs: 'pets-tabs', tab: k === 'pet' ? 'linh-thu' : k === 'mount' ? 'thu-cuoi' : 'dong-hanh' });
 
   function top(s, d) {   // đầu bảng: tên, cảnh giới, danh hiệu, thanh linh khí
     const t = el('div', 'sv-top'), tt = titleOf(game), info = el('div', 'sv-info');
@@ -63,21 +64,23 @@ export function createSelfPanel(game) {
   function hero(s, d) {
     const g = el('div', 'sv-hero-area'), mid = el('div', 'sv-center'), look = heroLook(game);
     mid.append(el('i', 'sv-circle'), spriteIcon(game, look.sprite, 0, 96, 'sv-hero', true));
-    if (s.pet && d.art.sprites['pet.' + s.pet]) {
-      const pet = spriteIcon(game, 'pet.' + s.pet, 0, 40, 'sv-pet', true);
-      pet.onclick = () => openExtra('pet'); mid.append(pet);
-    }
     if (s.element) {
       const e = d.elements[s.element], seal = el('span', 'sv-seal', { kim: '金', moc: '木', thuy: '水', hoa: '火', tho: '土' }[s.element] || '?');
       seal.style.setProperty('--e', e.color); seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; mid.append(seal);
     }
     g.append(column('l', LEFT), mid, column('r', RIGHT));
-    return g;
+    const row = el('div', 'sv-buffs');   // linh thú, khôi lỗi, thú cưỡi, ô chừa
+    for (const k of BUFFS) row.append(buffCell(game, k, openExtra));
+    const box = el('div', 'sv-heroes'); box.append(g, row);
+    return box;
   }
 
   function column(side, slots) {
     const c = el('div', 'sv-col ' + side);
-    for (const k of slots) c.append(gearCell(game, k, side, pick));
+    for (const k of slots) {
+      if (k) { c.append(gearCell(game, k, side, pick)); continue; }
+      const w = el('div', 'sv-cell ' + side), b = el('button', 'sv-slot spare'); b.disabled = true; b.append(el('span', 'sv-big', '?'), el('span', 'sv-name', 'Sắp mở')); w.append(b); c.append(w);
+    }
     return c;
   }
 
