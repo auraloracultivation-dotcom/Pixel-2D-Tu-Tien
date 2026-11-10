@@ -18,7 +18,7 @@ function column(game, side, slots, h) {
   for (const k of slots) {
     if (k) { c.append(gearCell(game, k, side, h.pick)); continue; }
     const w = el('div', 'sv-cell'), b = el('button', 'sv-slot spare'); b.disabled = true; b.title = 'Sắp mở';
-    b.append(uiIco(game.data, 'ui.ic-khoa')); w.append(b); c.append(w);
+    b.append(uiIco(game.data, 'ui.nv-cho-khoa')); w.append(b); c.append(w);
   }
   return c;
 }
@@ -31,7 +31,8 @@ export function leftCard(game, stt, h) {
   top.append(nm);
   const area = el('div', 'sv-hero-area'), mid = el('div', 'sv-center');
   // giữ đúng tỉ lệ hình (khung chibi rộng vì hiệu ứng chiêu: cắt bớt hai bên trong suốt, không ép bề ngang)
-  mid.append(uiIco(d, 'ui.nv-be', 'sv-be'), spriteIcon(game, heroLook(game).sprite, 0, 76, 'sv-hero', true));
+  mid.append(uiIco(d, 'ui.nv-nen', 'sv-nen'), uiIco(d, 'ui.nv-be', 'sv-be'), spriteIcon(   // nền phù văn xoay chậm sau lưng, bệ pháp trận dưới chân
+    game, heroLook(game).sprite, 0, 76, 'sv-hero', true));
   if (s.element) {
     const e = d.elements[s.element], seal = uiIco(d, 'ui.nv-' + s.element, 'sv-seal');   // huy hiệu ngũ hành (ảnh GPT 11/11/2026)
     seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; mid.append(seal);

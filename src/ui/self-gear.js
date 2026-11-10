@@ -38,8 +38,9 @@ export function gearCell(game, slot, side, onPick) {
   const { data, save } = game, it = save.bag.find(i => i.uid === save.equip[slot]);
   const wrap = el('div', 'sv-cell'), b = el('button', 'sv-slot' + (it ? '' : ' empty'));
   b.setAttribute('aria-label', data.items.slots[slot]);
-  if (!it) {
-    const ico = icon(data, { base: Object.keys(data.items.bases).find(k => data.items.bases[k].slot === slot) });
+  if (!it) {   // ô trống: hình chờ bóng mờ đúng chỗ mặc (ảnh GPT 11/11/2026), chưa có hình thì biểu tượng loại món như cũ
+    const sp = data.art.sprites['ui.nv-cho-' + slot], ico = sp ? el('i', 'ico cho') : icon(data, { base: Object.keys(data.items.bases).find(k => data.items.bases[k].slot === slot) });
+    if (sp) ico.style.setProperty('--ic', `url("${sp.file}?v=${sp.v}")`);
     b.append(ico, el('span', 'sv-name', data.items.slots[slot]));
   } else {
     b.style.setProperty('--q', gradeColor(data, it)); b.dataset.o = gradeId(data, it);
@@ -58,7 +59,7 @@ export function gearCell(game, slot, side, onPick) {
 
 // Ô thứ cộng sức mạnh dưới nhân vật (chủ dự án 11/11/2026 01:07: linh thú, khôi lỗi, thú cưỡi, cái gì buff sức mạnh thì một ô,
 // chừa một ô cho tính năng sau). kind: 'pet' | 'comp' | 'comp2' | 'mount' | 'spare'. Chạm: mở bảng của nó.
-const BUFF = { pet: ['Linh thú', 'ui.ic-linh-thu'], comp: ['Khôi lỗi', 'ui.nv-khoi-loi'], comp2: ['Khôi lỗi', 'ui.nv-khoi-loi'], mount: ['Thú cưỡi', 'ui.ic-thu-cuoi'], spare: ['Sắp mở', 'ui.ic-khoa'] };
+const BUFF = { pet: ['Linh thú', 'ui.nv-cho-linh-thu'], comp: ['Khôi lỗi', 'ui.nv-cho-khoi-loi'], comp2: ['Khôi lỗi', 'ui.nv-cho-khoi-loi'], mount: ['Thú cưỡi', 'ui.nv-cho-thu-cuoi'], spare: ['Sắp mở', 'ui.nv-cho-khoa'] };   // chưa có: hình chờ bóng mờ
 // Biểu tượng ảnh có sẵn (data/art.json ui.*), làm nền một thẻ i
 export function uiIco(data, key, cls = 'sv-uico') {
   const spr = data.art.sprites[key], i = el('i', cls);

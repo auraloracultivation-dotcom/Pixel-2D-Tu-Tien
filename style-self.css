@@ -231,3 +231,13 @@ body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7);
   .sv-row { font-size: 7.8px; }
   .sv-pg small { font-size: 7px; }
 }
+/* 02:40: hình chờ ô trống, nền phù văn xoay chậm, biểu tượng nút (ảnh GPT thứ hai) */
+.sv-slot.empty .ico.cho { filter: none; opacity: .95; background-size: 62% auto, 100% 100% !important; }
+.sv-lock { width: 9px; height: 9px; background: center / contain no-repeat; font-size: 0; }
+.sv-nen { position: absolute; left: 50%; top: 2px; width: 108px; height: 108px; margin-left: -54px; background: center / contain no-repeat; opacity: .45;
+  pointer-events: none; animation: sv-xoay 80s linear infinite; }
+@keyframes sv-xoay { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sv-nen { animation: none; } }
+.sv-aico { display: inline-block; width: 12px; height: 12px; margin-right: 3px; vertical-align: -2px; background: center / contain no-repeat; }
+.sv-mid.sheet .act-btn .sv-aico { float: left; width: 14px; height: 14px; margin: 1px 2px 0 0; }
+.sv-money .sv-bico:last-child { margin-left: auto; width: 12px; height: 12px; }
