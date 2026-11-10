@@ -1,4 +1,4 @@
-// Vẽ Vạn Kiếm Quy Tông (src/game/skill-kiem-vu.js; chủ dự án 10/11/2026 12:35). Hình: vfx.vk-kiem (kiếm sạch, ảnh 3),
+// Vẽ Vạn Kiếm Thiên Lâm (src/game/skill-kiem-vu.js; chủ dự án 10/11/2026 12:35). Hình: vfx.vk-kiem (kiếm sạch, ảnh 3),
 // vfx.vk-khi (kiếm quấn kiếm khí, ảnh 1, cộng sáng), vfx.vk-dam (kiếm bốc lửa linh khí đâm xuống, ảnh 2, cộng sáng); cặp cùng sắc ở
 // data/kiem-vu.json. Code vẽ thêm: vệt sáng khi bay về, vòng linh quang trên đầu, kiếm khí cuộn, vệt đâm trắng, loé và vết nứt sáng khi cắm.
 // Vẽ mượt, lớp trên cùng (sau hiệu ứng chiêu).
