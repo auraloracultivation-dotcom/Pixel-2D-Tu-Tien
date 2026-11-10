@@ -132,3 +132,40 @@ body .sv.panel::before, body .sv.panel::after, body .sv.panel > .bag-head::befor
 .sv-quick .quick-sell > .mini { flex: 1; }
 .sv-quick .quick-sell .act-btn, .sv-quick .quick-sell .quick-chips, .sv-quick .quick-sell .quick-auto, .sv-quick .quick-sell .tiny { flex-basis: 100%; }
 .sv-quick .quick-auto { font-size: 12px; } .sv-quick select { font-size: 12px; } .sv-quick .act-btn { font-size: 12.5px; padding: 7px; }
+
+/* 11/11/2026 01:17 (chủ dự án: ô đồ dùng khung riêng từng phẩm đã làm; lỗ khảm khung code nhìn đểu; cột trái thấp còn nửa):
+   ô đồ không vẽ viền bằng code nữa, dùng khung ảnh phẩm (assets/art/ui-pc-*.png qua [data-o] → --o, style-ui-hoa-dao.css) */
+.sv-slot { border: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0; }
+.sv-slot .ico { inset: 0 !important; background-size: 56% auto, 100% 100% !important; }
+.sv-slot .ico.that { background-size: 74% 74%, 100% 100% !important; }
+.sv-slot.empty { --o: url("assets/art/ui-pc-den.png"); }
+.sv-slot.empty .ico { opacity: 1; filter: grayscale(.6) brightness(.7); }
+.sv-slot.buff, .sv-slot.spare { background: url("assets/art/ui-pc-den.png") center / 100% 100% no-repeat !important; }
+.sv-slot.buff:not(.spare)[style*="--q"] { background-image: url("assets/art/ui-pc-tim.png") !important; }
+.sv-slot.sel { filter: brightness(1.25) drop-shadow(0 0 4px #fff); }
+.sv-plus { top: 3px; right: 5px; }
+.sv-el { top: 5px; left: 5px; border-radius: 50%; }
+.sv-lv { left: 5px; bottom: 4px; }
+.sv-ln { right: 5px; bottom: 4px; }
+.sv-up { left: 5px; top: 3px; }
+.sv-slot .sv-name { bottom: 4px; }
+.sv-uico { width: 24px; height: 24px; background: center / contain no-repeat; image-rendering: pixelated; margin-top: -8px; }
+.sv-slot.spare .sv-uico { opacity: .55; }
+/* lỗ khảm: không khung code; trống là viên đá mờ, có ngọc là hình viên ngọc toả màu */
+.sv-sk { width: 14px; height: 16px; border: 0 !important; background: url("assets/art/ui-pc-da-den.png") center / contain no-repeat !important; box-shadow: none !important; opacity: .5; }
+.sv-sk.on { background: none !important; opacity: 1; filter: drop-shadow(0 0 3px var(--g)); }
+.sv-sk .gem-ico { width: 15px !important; height: 15px !important; }
+/* cột chọn mục: thấp còn một nửa, biểu tượng ảnh */
+.sv-rail { gap: 5px; }
+.sv-rb { padding: 3px 0 2px; gap: 0; border-radius: 6px; }
+.sv-rico { width: 22px; height: 22px; background: center / contain no-repeat; image-rendering: pixelated; }
+.sv-rb small { font-size: 9px; }
+.sv-slot, .sv-bagc, .sv-empty { width: 52px !important; height: 52px !important; }
+.sv-slot.empty .sv-name { display: none; }
+.sv-buffs { gap: 4px; }
+.sv-buff { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.sv-buff .sv-slot { width: 50px !important; height: 50px !important; }
+.sv-buff small { font-size: 9.5px; color: var(--ink-2); white-space: nowrap; }
+.sv-uico { margin-top: 0; width: 26px; height: 26px; }
+.sv-plus { font-size: 11px; }
+@media (max-width: 380px) { .sv-slot, .sv-bagc, .sv-empty { width: 46px !important; height: 46px !important; } .sv-buff .sv-slot { width: 44px !important; height: 44px !important; } }

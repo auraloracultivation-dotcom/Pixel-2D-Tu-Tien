@@ -5,7 +5,7 @@
 // Đang chọn ngọc để khảm (st.pickSocket): mục Ngọc hiện dòng nhắc, chạm viên nào là khảm viên đó.
 import { el, icon, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid } from './bag-stock.js';
-import { gradeColor } from './self-gear.js';
+import { gradeColor, gradeId } from './self-gear.js';
 import { kySocket } from '../game/ky-ngoc.js';
 import { bestGems } from '../game/autogem.js';
 import { itemName } from '../game/items.js';
@@ -13,9 +13,10 @@ import { grade } from '../game/tiers.js';
 import { renderQuick } from './bag-quick.js';
 import { coins } from '../game/shop.js';
 
-export const BAG_TABS = [['do', '裝', 'Trang bị'], ['ngoc', '玉', 'Ngọc'], ['nl', '材', 'Nguyên liệu'], ['dan', '丹', 'Đan dược'], ['ca', '魚', 'Cá']];
+// [mục, biểu tượng ảnh có sẵn (data/art.json), tên]
+export const BAG_TABS = [['do', 'ui.ic-vu-khi', 'Trang bị'], ['ngoc', 'ui.ic-ngoc', 'Ngọc'], ['nl', 'ui.ic-tinh-thach', 'Nguyên liệu'], ['ca', 'ui.m-fish', 'Cá'], ['dan', 'ui.ic-dan', 'Đan dược']];
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
-const SORTS = [['moi', 'Mới nhất'], ['manh', 'Mạnh nhất'], ['pham', 'Phẩm cao']];
+const SORTS = [['moi', 'Mới nhất'], ['manh', 'Mạnh nhất'], ['pham', 'Phẩm cao'], ['cap', 'Cấp cao']];
 
 function gearGrid(game, st, box, refresh) {
   const { data, save } = game;
@@ -23,14 +24,14 @@ function gearGrid(game, st, box, refresh) {
   const gain = new Map(items.map(i => [i.uid, powerGain(game, i)]));
   if (st.sort === 'manh') items.sort((a, b) => gain.get(b.uid) - gain.get(a.uid));
   else if (st.sort === 'pham') items.sort((a, b) => grade(data, b).idx - grade(data, a).idx || b.lvl - a.lvl);
+  else if (st.sort === 'cap') items.sort((a, b) => b.lvl - a.lvl || grade(data, b).idx - grade(data, a).idx);
   else items.sort((a, b) => b.uid - a.uid);
   for (const it of items) {
     const b = el('button', 'sv-slot sv-bagc' + (st.sel === it.uid ? ' sel' : ''));
-    b.style.setProperty('--q', gradeColor(data, it));
+    b.style.setProperty('--q', gradeColor(data, it)); b.dataset.o = gradeId(data, it);   // khung ảnh riêng từng phẩm (assets/art/ui-pc-*.png)
     b.setAttribute('aria-label', itemName(data, it));
     b.append(icon(data, it));
     if (it.plus) b.append(el('b', 'sv-plus', '+' + it.plus));
-    if (it.lvl) b.append(el('span', 'sv-lv', 'Cấp ' + it.lvl));
     if (it.lock) b.append(el('span', 'sv-lock', '🔒'));
     if (gain.get(it.uid) > 0) b.append(el('span', 'sv-up', '▲'));   // mặc vào thì lực chiến tăng
     b.onclick = () => { st.sel = st.sel === it.uid ? null : it.uid; st.stock = null; refresh(); };
