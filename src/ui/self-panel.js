@@ -14,6 +14,14 @@ import { host, unhost, HOSTS } from './self-host.js';
 
 const PAGES = [['do', 'ui.ic-tui', 'Trang bị'], ['kho', 'ui.ic-ruong', 'Kho'], ['cp', 'ui.ic-cong-phap', 'Công pháp'], ['tt', 'ui.ic-thoi-trang', 'Thời trang']];
 const SUB0 = { do: 'all', kho: 'ngoc', cp: 'chieu', tt: 'thoi-trang' };
+// Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
+const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'], [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau']];
+function decorate(game, box) {
+  for (const b of box.querySelectorAll('.act-btn, .socket:not(.full)')) {
+    const k = ACT_ICO.find(([re]) => re.test(b.textContent.trim()))?.[1];
+    if (k) b.prepend(uiIco(game.data, 'ui.nv-' + k, 'sv-aico'));
+  }
+}
 
 export function createSelfPanel(game) {
   const root = el('div', 'panel self-panel sv'); root.hidden = true;
@@ -74,6 +82,7 @@ export function createSelfPanel(game) {
     else if (st.sel != null) has = renderDetail(game, st, mid, changed, () => { st.sel = null; render(); });
     else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
     mid.classList.toggle('sheet', has);
+    if (has) decorate(game, mid);
     if (has) { bar.hidden = true; mid.scrollTop = 0; return; }
     reset();
     const r = renderStore(game, st, changed, render);

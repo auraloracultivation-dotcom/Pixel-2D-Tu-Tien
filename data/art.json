@@ -28267,6 +28267,138 @@
     162
    ]
   },
+  "ui.nv-cho-giap": {
+   "file": "assets/art/ui-nv-cho-giap.png",
+   "v": "c2376e91",
+   "w": 108,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    54,
+    98
+   ]
+  },
+  "ui.nv-cho-giay": {
+   "file": "assets/art/ui-nv-cho-giay.png",
+   "v": "b43218ab",
+   "w": 95,
+   "h": 86,
+   "frames": 1,
+   "anchor": [
+    47,
+    86
+   ]
+  },
+  "ui.nv-cho-khoa": {
+   "file": "assets/art/ui-nv-cho-khoa.png",
+   "v": "51a37582",
+   "w": 75,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    37,
+    97
+   ]
+  },
+  "ui.nv-cho-khoi-loi": {
+   "file": "assets/art/ui-nv-cho-khoi-loi.png",
+   "v": "0b4b7af0",
+   "w": 90,
+   "h": 115,
+   "frames": 1,
+   "anchor": [
+    45,
+    115
+   ]
+  },
+  "ui.nv-cho-linh-thu": {
+   "file": "assets/art/ui-nv-cho-linh-thu.png",
+   "v": "b3860c82",
+   "w": 95,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    47,
+    84
+   ]
+  },
+  "ui.nv-cho-mu": {
+   "file": "assets/art/ui-nv-cho-mu.png",
+   "v": "8448aefc",
+   "w": 98,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    49,
+    97
+   ]
+  },
+  "ui.nv-cho-ngoc-boi": {
+   "file": "assets/art/ui-nv-cho-ngoc-boi.png",
+   "v": "1bd6a20b",
+   "w": 93,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    46,
+    96
+   ]
+  },
+  "ui.nv-cho-nhan": {
+   "file": "assets/art/ui-nv-cho-nhan.png",
+   "v": "87fbce43",
+   "w": 87,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    43,
+    96
+   ]
+  },
+  "ui.nv-cho-phap-bao": {
+   "file": "assets/art/ui-nv-cho-phap-bao.png",
+   "v": "d383e6c2",
+   "w": 64,
+   "h": 112,
+   "frames": 1,
+   "anchor": [
+    32,
+    112
+   ]
+  },
+  "ui.nv-cho-thoi-trang": {
+   "file": "assets/art/ui-nv-cho-thoi-trang.png",
+   "v": "0f9175fa",
+   "w": 108,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    54,
+    109
+   ]
+  },
+  "ui.nv-cho-thu-cuoi": {
+   "file": "assets/art/ui-nv-cho-thu-cuoi.png",
+   "v": "50d062cf",
+   "w": 99,
+   "h": 94,
+   "frames": 1,
+   "anchor": [
+    49,
+    94
+   ]
+  },
+  "ui.nv-cho-vu-khi": {
+   "file": "assets/art/ui-nv-cho-vu-khi.png",
+   "v": "7294dfc8",
+   "w": 98,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    49,
+    102
+   ]
+  },
   "ui.nv-cong": {
    "file": "assets/art/ui-nv-cong.png",
    "v": "8fd1cf39",
@@ -28276,6 +28408,17 @@
    "anchor": [
     46,
     93
+   ]
+  },
+  "ui.nv-cuong-hoa": {
+   "file": "assets/art/ui-nv-cuong-hoa.png",
+   "v": "ea13e83a",
+   "w": 107,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    53,
+    109
    ]
   },
   "ui.nv-danh-hieu": {
@@ -28298,6 +28441,17 @@
    "anchor": [
     37,
     69
+   ]
+  },
+  "ui.nv-ghep": {
+   "file": "assets/art/ui-nv-ghep.png",
+   "v": "b00d5644",
+   "w": 102,
+   "h": 89,
+   "frames": 1,
+   "anchor": [
+    51,
+    89
    ]
   },
   "ui.nv-giam-st": {
@@ -28366,6 +28520,28 @@
     85
    ]
   },
+  "ui.nv-kham": {
+   "file": "assets/art/ui-nv-kham.png",
+   "v": "15736281",
+   "w": 85,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    42,
+    108
+   ]
+  },
+  "ui.nv-khoa": {
+   "file": "assets/art/ui-nv-khoa.png",
+   "v": "817f41c2",
+   "w": 86,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    43,
+    102
+   ]
+  },
   "ui.nv-khoi-loi": {
    "file": "assets/art/ui-nv-khoi-loi.png",
    "v": "a951c16c",
@@ -28397,6 +28573,17 @@
    "anchor": [
     43,
     83
+   ]
+  },
+  "ui.nv-lich-su": {
+   "file": "assets/art/ui-nv-lich-su.png",
+   "v": "d57f70f2",
+   "w": 101,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    50,
+    95
    ]
   },
   "ui.nv-linh-luc": {
@@ -28454,6 +28641,17 @@
     87
    ]
   },
+  "ui.nv-nen": {
+   "file": "assets/art/ui-nv-nen.png",
+   "v": "2dc6f23d",
+   "w": 244,
+   "h": 241,
+   "frames": 1,
+   "anchor": [
+    122,
+    241
+   ]
+  },
   "ui.nv-nut": {
    "file": "assets/art/ui-nv-nut.png",
    "v": "32b4b998",
@@ -28496,6 +28694,17 @@
    "anchor": [
     48,
     98
+   ]
+  },
+  "ui.nv-sap-xep": {
+   "file": "assets/art/ui-nv-sap-xep.png",
+   "v": "c025df8c",
+   "w": 96,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    48,
+    104
    ]
   },
   "ui.nv-st-bao": {

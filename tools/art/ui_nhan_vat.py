@@ -3,7 +3,9 @@
 màu, như ui_pham_cap.py). Dùng ở style-self.css, src/ui/self-*.js.
 - ui-nv-<tên>: 24 biểu tượng (lưới 6 × 4 của ảnh, hàng lệch nhau nên dò từng hình rồi xếp theo hàng, cột): chỉ số, ngũ hành, khôi lỗi,
   lỗ khảm trống, giảm sát thương, lực chiến, danh hiệu, bán nhanh, mặc đồ tốt nhất;
-- ui-nv-be: bệ pháp trận dưới chân nhân vật;
+- ui-nv-be: bệ pháp trận dưới chân nhân vật; ui-nv-nen: nền phù văn mờ sau lưng nhân vật (nv-nen-phu-van.png);
+- ảnh thứ hai (nv-bieu-tuong-2.png, lưới đều 6 × 3, gom theo ô vì dấu chân thú gồm nhiều mảnh rời): ui-nv-cho-<chỗ> hình chờ ô trống
+  (bóng mờ theo chỗ mặc, linh thú, khôi lỗi, thú cưỡi, thời trang, khoá) và biểu tượng chức năng (xếp, lịch sử, khoá, ghép, khảm, cường hoá);
 - ui-nv-khung (khung bảng), ui-nv-the (khung thẻ trong), ui-nv-tab / -tab-on (nút mục tắt / bật), ui-nv-nut / -nut-vang (nút nhỏ),
   ui-nv-dong (nút đóng), ui-nv-o (ô kho trống): dùng kiểu 9 mảnh (border-image). Khung bảng, khung thẻ có hoa văn giữa cạnh trên
   dưới: thay đoạn giữa bằng cạnh trơn kề bên cho khỏi méo khi kéo giãn.
@@ -17,6 +19,9 @@ from px import Canvas
 SRC = Path(__file__).resolve().parent / 'nguon' / 'ai' / 'ui'
 ICONS = [['hp', 'cong', 'thu', 'toc', 'bao', 'st-bao'], ['hoi-chieu', 'hut-mau', 'phan-don', 'hoi-mau', 'linh-luc', 'tu-luyen'],
          ['kim', 'moc', 'thuy', 'hoa', 'tho', 'khoi-loi'], ['lo-kham', 'giam-st', 'luc-chien', 'danh-hieu', 'ban', 'mac-tot']]
+ICONS2 = [['cho-vu-khi', 'cho-mu', 'cho-giap', 'cho-ngoc-boi', 'cho-giay', 'cho-nhan'],
+          ['cho-phap-bao', 'cho-linh-thu', 'cho-khoi-loi', 'cho-thu-cuoi', 'cho-thoi-trang', 'cho-khoa'],
+          ['sap-xep', 'lich-su', 'khoa', 'ghep', 'kham', 'cuong-hoa']]
 # mảnh bộ khung theo thứ tự diện tích giảm dần (dò được 8 mảnh): tên, đoạn cạnh giữa cần làm trơn (tỉ lệ bề ngang) hoặc None
 KIT = {'khung': (0.33, 0.67), 'the': (0.3, 0.7), 'o-luoi': None, 'tab': None, 'tab-on': None, 'nut': None, 'nut-vang': None, 'dong': None}
 
@@ -65,6 +70,25 @@ def _parts(a, big, thr=128):
     return out
 
 
+def _grid(a, cols, rows, thr=128, least=30):
+    """Gom mọi mảng hình (≥ least điểm) theo ô lưới đều cols × rows của ảnh → [[mảnh]] theo hàng."""
+    h, w = a.shape[:2]; m = a[:, :, 3] >= thr
+    lab, k = nd.label(m, structure=np.ones((3, 3))); sizes = nd.sum(m, lab, range(1, k + 1)); sl = nd.find_objects(lab)
+    cell = {}
+    for i in range(k):
+        if sizes[i] < least: continue
+        cy, cx = (sl[i][0].start + sl[i][0].stop) / 2, (sl[i][1].start + sl[i][1].stop) / 2
+        cell.setdefault((int(cy * rows // h), int(cx * cols // w)), []).append(i + 1)
+    out = []
+    for r in range(rows):
+        row = []
+        for q in range(cols):
+            mask = nd.binary_dilation(np.isin(lab, cell[(r, q)]), iterations=2)
+            piece = a.copy(); piece[~mask, 3] = 0; row.append(_crop(piece))
+        out.append(row)
+    return out
+
+
 def _smooth_mid(a, span, band):
     """Thay đoạn giữa cạnh trên, dưới (span: tỉ lệ bề ngang) bằng cột cạnh trơn ngay bên trái đoạn đó (band: bề dày cạnh)."""
     a = a.copy(); w = a.shape[1]; x0, x1 = int(w * span[0]), int(w * span[1])
@@ -83,6 +107,12 @@ def build(save):
             _save(save, 'ui.nv-' + name, _fit(parts[r * 6 + q][1], 0.48)); n += 1
     be = _crop(_load('nv-be-phap-tran.png', 40))
     _save(save, 'ui.nv-be', _fit(be, 0.3)); n += 1
+    nen = _crop(_load('nv-nen-phu-van.png', 24))
+    _save(save, 'ui.nv-nen', _fit(nen, 0.2)); n += 1
+    g2 = _grid(_load('nv-bieu-tuong-2.png'), 6, 3)
+    for r, row in enumerate(ICONS2):
+        for q, name in enumerate(row):
+            _save(save, 'ui.nv-' + name, _fit(g2[r][q], 0.48)); n += 1
     kit = _load('nv-khung.png', 24)
     pieces = sorted(_parts(kit, 15000), key=lambda p: -p[2])
     assert len(pieces) == len(KIT), len(pieces)

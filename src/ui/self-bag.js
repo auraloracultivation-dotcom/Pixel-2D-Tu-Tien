@@ -43,7 +43,7 @@ function gearGrid(game, st, box, refresh) {
     b.setAttribute('aria-label', itemName(data, it));
     b.append(icon(data, it));
     if (it.plus) b.append(el('b', 'sv-plus', '+' + it.plus));
-    if (it.lock) b.append(el('span', 'sv-lock', '🔒'));
+    if (it.lock) b.append(uiIco(data, 'ui.nv-khoa', 'sv-lock'));   // đã khoá: không bị bán, phân giải
     if (gain.get(it.uid) > 0) b.append(el('span', 'sv-up', '▲'));   // góc dưới phải như mẫu: mặc vào mạnh hơn
     const gems = socketCol(game, it); if (gems) b.append(gems);   // cột ngọc khảm dọc mép trái
     b.onclick = () => { st.sel = it.uid; st.stock = null; refresh(); };
@@ -67,7 +67,7 @@ export function renderStore(game, st, changed, refresh) {
     const sort = btn('', 'sv-bbtn ico', () => {   // nút xếp chỉ có hình cho gọn, bấm thì báo đang xếp theo gì
       st.sort = SORTS[(SORTS.findIndex(x => x[0] === st.sort) + 1) % SORTS.length][0];
       game.toast?.(`Xếp: ${SORTS.find(x => x[0] === st.sort)[2]}`, 1.2); refresh();
-    }, uiIco(data, 'ui.ic-sap-xep', 'sv-bico'));
+    }, uiIco(data, 'ui.nv-sap-xep', 'sv-bico'));
     sort.title = 'Xếp: ' + SORTS.find(x => x[0] === st.sort)[2];
     const quick = btn(st.qs ? 'Xong' : 'Bán', 'sv-bbtn' + (st.qs ? ' on' : ''), () => { st.qs = !st.qs; refresh(); }, uiIco(data, 'ui.nv-ban', 'sv-bico'));
     const best = btn('Mặc', 'sv-bbtn gold', () => {   // mặc đồ tốt nhất   // góp ý #58
@@ -99,17 +99,17 @@ export function renderStore(game, st, changed, refresh) {
     if (b) c.title = b.textContent;
   }
   const money = el('button', 'sv-money');   // Linh Thạch, chạm xem lịch sử vào ra (đề xuất #137)
-  money.append(uiIco(data, 'ui.ic-linh-thach', 'sv-bico'), `${coins(save).toLocaleString('vi-VN')}`);
+  money.append(uiIco(data, 'ui.ic-linh-thach', 'sv-bico'), `${coins(save).toLocaleString('vi-VN')}`, uiIco(data, 'ui.nv-lich-su', 'sv-bico'));
   money.onclick = () => { st.coinLog = true; st.sel = null; st.stock = null; refresh(); };
   bar.append(money);
   if (st.sub === 'ngoc' && !st.pickSocket && Object.keys(save.gems || {}).length) {   // đề xuất #33: khảm hết bằng một lần bấm
-    const b = btn('Khảm tốt nhất', 'sv-bbtn gold', async () => {
+    const b = btn('Khảm tốt nhất', 'sv-bbtn gold', async () => {   // nút có hình khảm (cuối hàm)
       b.disabled = true; b.textContent = data.items.ky_mon.busy;
       const r = await bestGems(game);
       game.toast(r.n ? `Đã khảm ${r.n} lần: lực chiến +${r.gain.toLocaleString('vi-VN')}` : 'Ngọc đang khảm đã là tốt nhất.', 2.2);
       if (r.n) game.sfx('levelup');
       changed();
-    });
+    }, uiIco(data, 'ui.nv-kham', 'sv-bico'));
     bar.append(b);
   }
   return { wrap, bar };
