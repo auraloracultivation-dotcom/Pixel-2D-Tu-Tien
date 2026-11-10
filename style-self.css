@@ -218,3 +218,16 @@ body .sv .sv-mid.sheet .act-btn { background: none !important; border-style: sol
 body .sv .sv-mid.sheet .act-btn.primary { border-image-source: url("assets/art/ui-nv-nut-vang.png") !important; color: #3a1800; text-shadow: none; }
 body .sv .sv-mid.sheet .act-btn:disabled { filter: grayscale(.7) brightness(.7); }
 .sv-mid.sheet .d-close { background: url("assets/art/ui-nv-dong.png") center / contain no-repeat !important; border: 0 !important; font-size: 0 !important; color: transparent !important; box-shadow: none !important; }
+/* hình nhân vật rộng hơn cột giữa (khung chibi chừa chỗ hiệu ứng chiêu): không để nó che ô đồ hai bên khi chạm (test 11/11 02:35) */
+.sv-hero, .sv-be, .sv-hero-area > .sv-realm { pointer-events: none; }
+/* màn hẹp (≤ 380 điểm, test 360 × 740 ngày 11/11): ô nhỏ lại, nút thanh dưới chỉ còn hình, chữ không xuống dòng */
+.sv-cpbar span, .sv-bbtn span { white-space: nowrap; }
+@media (max-width: 380px) {
+  .sv-frame { grid-template-columns: 34px minmax(0, 1.1fr) minmax(0, 1fr); }
+  .sv-slot.buff { width: 22px; height: 22px; } .sv-buffs { gap: 2px; }
+  .sv-buff .sv-uico, .sv-slot.buff .sv-uico { width: 15px; height: 15px; }
+  .sv-cpbar span { font-size: 9px; } .sv-cpbar b { font-size: 13px; } .sv-cpico { width: 12px; height: 12px; }
+  .sv-bbtn.has-ico > span { display: none; }
+  .sv-row { font-size: 7.8px; }
+  .sv-pg small { font-size: 7px; }
+}

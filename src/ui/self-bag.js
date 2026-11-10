@@ -25,7 +25,9 @@ export const SUBS = {
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
 const SORTS = [['moi', 'Mới', 'mới nhất'], ['manh', 'Mạnh', 'mạnh nhất'], ['pham', 'Phẩm', 'phẩm cao'], ['cap', 'Cấp', 'cấp cao']];
-const btn = (txt, cls, fn, ico) => { const b = el('button', cls); if (ico) b.append(ico); b.append(txt); b.onclick = fn; return b; };   // ico: biểu tượng ảnh trước chữ
+const btn = (txt, cls, fn, ico) => {   // ico: biểu tượng ảnh trước chữ (màn hẹp chỉ hiện hình, style-self.css)
+  const b = el('button', cls + (ico ? ' has-ico' : '')); if (ico) b.append(ico); if (txt) b.append(el('span', null, txt)); b.onclick = fn; return b;
+};
 
 function gearGrid(game, st, box, refresh) {
   const { data, save } = game, g = GROUPS[st.sub] || null;

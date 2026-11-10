@@ -81,43 +81,14 @@ export function createSelfPanel(game) {
     mid.scrollTop = keep;
   }
 
-  function render() {
-    const s = game.save, d = game.data, stt = playerStats(s, d);
-    before = snap(game);
-    patchList(rail, PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
-    patch(left, leftCard(game, stt, h));   // vá thẻ cũ, không thay cả thẻ (src/ui/morph.js)
-    subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
-    patchList(subs, SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
-      st.sub = id; reset(); st.qs = false;
-      if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
-      render();
-    })));
-    const hosted = !!HOSTS[st.page];
-    hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
-    if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
-    unhost();
-    const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
-    lastSel = st.sel;
-    let has = false;   // phần chi tiết thay chỗ lưới
-    if (st.more) has = statsSheet(game, stt, mid, () => { st.more = false; render(); });
-    else if (st.coinLog) has = renderCoinLog(game, mid, () => { st.coinLog = false; render(); });
-    else if (st.sel != null) has = renderDetail(game, st, mid, changed, () => { st.sel = null; render(); });
-    else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
-    mid.classList.toggle('sheet', has);
-    if (has) decorate(game, mid);
-    if (has) { bar.hidden = true; mid.scrollTop = same ? keep : 0; return; }
-    reset();
-    const r = renderStore(game, st, changed, render);
-    mid.replaceChildren(r.wrap); bar.replaceChildren(r.bar);
-    mid.scrollTop = keep;
-  }
-
   function open(page, sub) {   // page, sub: mở thẳng một mục (vd 'kho', 'dan')
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
+    if (SUBS[page]) { st.page = page; st.sub = sub || SUB0[page]; st.qs = false; st.pickSocket = null; }
     game.uiOpen = true; root.hidden = false; reset(); render();
   }
   game.openSelf = open;
+  game.toggleSelf = (page, sub) => (root.hidden ? open(page, sub) : close());   // nút Túi đồ (src/ui/bag.js): bấm lần nữa thì đóng
   const R = document.getElementById('realm');   // chạm khung tên, cảnh giới
   R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);
   document.getElementById('power')?.addEventListener('click', e => { e.stopPropagation(); open(); });
