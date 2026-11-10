@@ -167,12 +167,9 @@ function plan(game) {
     if (waiting(game)) return null;
   }
   if (game.map.def.res || game.map.def.tower || game.map.def.arena) { const m = nearest(game, alive(game)); return m ? { fight: m } : null; }   // trong bí cảnh tài nguyên, tháp, luận võ: đánh hết quái
-  if (game.trib.canStart() && !(u && !waiting(game) && (u.talk || u.reach || u.map || u.collect))) return sit(game, true);   // việc truyện gặp người, tới chỗ, nhặt đồ vẫn làm tiếp (test 10/11/2026: kẹt ở "Gặp sư tỷ" vì đầy linh khí ở Luyện Khí 9 thì tự hành ngồi chờ)
+  if (game.trib.canStart() && !(u && !waiting(game) && (u.talk || u.reach || u.map || u.collect))) return sit(game);   // việc truyện gặp người, tới chỗ, nhặt đồ vẫn làm tiếp (test 10/11/2026: kẹt ở "Gặp sư tỷ" vì đầy linh khí ở Luyện Khí 9 thì tự hành ngồi chờ)
   // đầy linh khí: về bồ đoàn / động phủ chờ, chỗ vắng quái, để người chơi độ kiếp không bị bầy quái vây (chủ dự án gật 31/10, chơi thử máy tính: thua kiếp giữa bầy Hỏa Lang)
-  if (waiting(game)) {   // truyện chờ tu luyện: làm nhiệm vụ ngày còn làm được, hết thì đánh quái quanh đó / đả tọa tại chỗ
-    const j = dailyJob(game, routeTo);
-    return j?.meditate ? sit(game) : j || idle(game);
-  }
+  if (waiting(game)) return choreJob(game, routeTo) || farmJob(game, routeTo) || sit(game);   // chờ tu luyện: việc vặt, đào khoáng, treo máy, rồi mới đả tọa
   const dest = u.map || s.target_map || s.map || game.map.id;
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
