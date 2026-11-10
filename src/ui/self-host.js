@@ -1,5 +1,5 @@
 // Gắn một bảng có sẵn của game vào khung phải bảng Nhân vật (chủ dự án 11/11/2026 01:43: ô Công pháp gồm công pháp và kỹ năng,
-// ô Thời trang). Không viết lại bảng: chuyển chính phần tử bảng đó (#skills, #achv) vào khung, mở nó bằng nút cũ, chọn đúng tab;
+// ô Thời trang). Không viết lại bảng: chuyển chính phần tử bảng đó (#skills, #achv, #pets) vào khung, mở nó bằng nút cũ, chọn đúng tab;
 // rời mục thì trả bảng về chỗ cũ và ẩn đi. Kiểu khi đang gắn: .sv-hosted (style-self.css).
 const $ = id => document.getElementById(id);
 
@@ -7,6 +7,7 @@ const $ = id => document.getElementById(id);
 export const HOSTS = {
   cp: ['skills', 'btn-skills', 'skills-tabs', 'chieu'],
   tt: ['achv', 'btn-achv', 'achv-tabs', 'thoi-trang'],
+  lt: ['pets', 'btn-pets', 'pets-tabs', 'linh-thu'],   // linh thú, thú cưỡi, khôi lỗi (chủ dự án 04:03: không bị dắt ra trang khác)
 };
 
 let cur = null;   // id bảng đang gắn
@@ -15,12 +16,14 @@ let cur = null;   // id bảng đang gắn
 // hình + tên ngắn một dòng + giá chữ nhỏ, xếp ô ba cột; chữ "Việc (giá)" tách thành tên và giá.
 const cut = s => s.replace(/\s*\(.*$/, '');
 const ICO = [[/^Luyện lên cấp/, 'cuong-hoa', s => s.replace(/^Luyện lên cấp (\d+).*/, 'Cấp $1')], [/^Mua nhanh/, 'lich-su', () => 'Mua'],
-  [/^Mang vào ô/, 'mac-tot', s => cut(s).replace('Mang vào ô ', 'Mang ô')], [/^(Mang|Mặc|Thay|Đeo|Cưỡi|Dùng)/, 'mac-tot', cut], [/^(Mua|Đổi)/, 'ban', cut], [/^(Tháo|Bỏ)/, 'tab-trang-bi', s => s]];
+  [/^Mang vào ô/, 'mac-tot', s => cut(s).replace('Mang vào ô ', 'Mang ô')], [/^(Mang|Mặc|Thay|Đeo|Cưỡi|Dùng)/, 'mac-tot', cut], [/^(Mua|Đổi)/, 'ban', cut], [/^(Tháo|Bỏ)/, 'tab-trang-bi', s => s],
+  // linh thú, thú cưỡi, khôi lỗi (src/ui/pets-panel.js): "Bán 4.000 Linh Thạch" tách giá xuống dòng nhỏ, hỏi lại thì "Bán thật?"
+  [/^Tẩy luyện|^Đã đủ dòng/, 'tu-luyen', cut], [/^Tiến hóa/, 'cuong-hoa', () => 'Tiến hóa'], [/^Bấm lần nữa để bán/, 'ban', () => 'Bán thật?'], [/^Bán/, 'ban', () => 'Bán']];
 function tidy(game, sheet) {
   if (sheet.dataset.svTidy) return;
   sheet.dataset.svTidy = 1;
   for (const b of sheet.querySelectorAll('.gc-body button:not(.d-close)')) {
-    const t = b.textContent.trim(), k = ICO.find(([re]) => re.test(t)), cost = (t.match(/\(([^)]*)\)\s*$/) || [])[1];
+    const t = b.textContent.trim(), k = ICO.find(([re]) => re.test(t)), cost = (t.match(/\(([^)]*)\)\s*$/) || t.match(/^Bán ([\d.]+ Linh Thạch)$/) || [])[1];
     b.classList.add('sv-gbtn');
     b.textContent = '';
     const spr = k && game.data.art.sprites['ui.nv-' + k[1]];
@@ -55,8 +58,9 @@ export function host(box, key, tab, game) {
     p.classList.add('sv-hosted'); box.append(p); cur = id;
     if (game) watchSheets(game, box);
     $(btn)?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));   // bảng tự vẽ như khi bấm nút cũ
-    document.querySelector(`#${tabs} [data-tab="${tab || t0}"]`)?.click();   // chỉ chọn tab lúc mới gắn, sau đó giữ tab người chơi đang xem
   } else if (p.parentNode !== box) box.append(p);
+  const tb = document.querySelector(`#${tabs} [data-tab="${tab || t0}"]`);
+  if (tb && !tb.classList.contains('on')) tb.click();   // đúng tab đang chọn ở hàng mục con (bấm ô linh thú / thú cưỡi / khôi lỗi)
   p.hidden = false;
   return true;
 }

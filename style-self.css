@@ -361,3 +361,6 @@ body .sv .sv-gbtn b { font-size: 11px; white-space: nowrap; overflow: hidden; te
 body .sv .sv-gbtn small { font-size: 8.5px; line-height: 1.1; text-align: center; max-width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; opacity: .9; }
 body .sv .sv-gbtn { border-width: 2px !important; padding: 3px 0 !important; }
 body .sv .sv-gbtn b { font-size: 10px; letter-spacing: -.2px; }
+/* 04:03: mục Linh thú (bảng có sẵn #pets gắn vào khung phải); cột trái 5 mục */
+body .sv #pets-tabs { display: none !important; }
+.sv-pages .sv-pg .sv-rico { width: 20px; height: 20px; }
