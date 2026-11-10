@@ -41,6 +41,7 @@ export function createInbox(game) {
       const { claimMail } = await import('../game/market.js');
       const got = await claimMail(game);
       if (got.length) game.toast(got.join(' · '), 3);
+      if (got.full) game.toast(fill(T.full, { n: got.full }), 4);
     } catch { /* thư còn đó */ }
     await peek();
   }

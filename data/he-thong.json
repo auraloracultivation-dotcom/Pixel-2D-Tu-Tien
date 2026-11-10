@@ -1452,7 +1452,7 @@
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
  "ngay": {
-  "_note": "Nhiệm vụ ngày (chủ dự án 06/11/2026 18:03): làm hết nhiệm vụ hệ thống thì mỗi ngày nhận điểm từ các việc ngày (data/daily.json pool, bản lưu daily), mỗi việc points điểm, đủ để triệu hồi mỗi ngày. Máy chủ đếm theo ngày giờ Việt Nam, mỗi ngày tối đa per_day việc.",
+  "_note": "Nhiệm vụ ngày (chủ dự án 06/11/2026 18:03; 10/11/2026 09:47 cho chạy song hành với nhiệm vụ hệ thống, không chờ làm hết): mỗi ngày nhận điểm từ các việc ngày (data/daily.json pool, bản lưu daily), mỗi việc points điểm, đủ để triệu hồi mỗi ngày. Máy chủ đếm theo ngày giờ Việt Nam, mỗi ngày tối đa per_day việc.",
   "head": "Nhiệm vụ ngày",
   "locked": "Làm xong hết nhiệm vụ hệ thống thì mở nhiệm vụ ngày: mỗi ngày đủ điểm triệu hồi một lần.",
   "done": "Hôm nay xong hết rồi. Mai quay lại, bổn hệ thống lại giao việc.",
