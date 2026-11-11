@@ -32,7 +32,7 @@
  },
  "text": {
   "btn": "🎥",
-  "btn_label": "Quay clip",
+  "btn_label": "Quay clip", "btn_stop": "Dừng", "btn_stop_label": "Đang quay, bấm để dừng",
   "rec": "Đang quay",
   "start": "Bắt đầu quay. Bấm nút quay lần nữa để dừng.",
   "muted": "Đang tắt tiếng nên clip sẽ không có tiếng.",

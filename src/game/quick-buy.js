@@ -2,6 +2,8 @@
 // thì một nút mua ngay đúng phần thiếu, giá chợ mỗi cái (data/market.json → quick.price) × quick.mul (đắt hơn 10%), làm tròn lên.
 // Món không có giá trong bảng (đồ hiếm rơi từ boss, đồ lễ hội) không mua nhanh được, phải tự kiếm. Trừ Linh Thạch như mua ở
 // Vạn Bảo Lâu (src/game/shop.js), ghi Lịch sử Linh Thạch mã 'mua-nhanh'.
+// Từ 11/11/2026 23:27 (chủ dự án: "xếp ô mua ở dưới cùng, tất cả tài nguyên nâng cấp đều có nút mua và mua số lượng"): buyMats mua
+// đúng số người chơi chọn cho từng thứ (src/ui/buy-mats.js), không chỉ phần thiếu.
 import { coins, addCoins } from './shop.js';
 
 const Q = game => game.data.market.quick;
@@ -32,4 +34,25 @@ export function quickBuy(game, cost) {
   game.persist();
   game.sfx?.('pickup');
   return q.texts.ok.replace('{n}', price.toLocaleString('vi-VN'));
+}
+
+// Giá một thứ k mua n cái; null khi không bán nhanh
+export function unitPrice(game, k, n = 1) {
+  const q = Q(game), p = q?.price[k];
+  return p ? Math.ceil(p * q.mul * n) : null;
+}
+
+// Mua đúng số { mã: số } (mỗi số 1..999); trả chữ báo
+export function buyMats(game, want) {
+  const q = Q(game), list = Object.entries(want || {}).filter(([, n]) => Number.isInteger(n) && n > 0 && n <= 999);
+  if (!q || !list.length || list.some(([k]) => !q.price[k])) return q?.texts.none;
+  const price = list.reduce((s, [k, n]) => s + unitPrice(game, k, n), 0);
+  if (coins(game.save) < price) return q.texts.poor.replace('{n}', price.toLocaleString('vi-VN'));
+  const s = game.save;
+  addCoins(game, -price, 'mua-nhanh');
+  s.mats ??= {};
+  for (const [k, n] of list) s.mats[k] = (s.mats[k] || 0) + n;
+  game.persist();
+  game.sfx?.('pickup');
+  return (q.texts.bought || q.texts.ok).replace('{n}', price.toLocaleString('vi-VN'));
 }

@@ -38,7 +38,15 @@
   "comp": "Đồng hành",
   "comp_line": "{name} · cấp {lv}",
   "none": "Không có",
-  "note": "So tài với bản sao của người này: bản sao tự đánh như bật Tự đánh, đủ trang bị, chiêu, linh thú, đồng hành. Không mất gì, không có thưởng."
+  "note": "So tài với bản sao của người này: bản sao tự đánh như bật Tự đánh, đủ trang bị, chiêu, linh thú, đồng hành. Không mất gì, không có thưởng.",
+  "friend": "Kết bạn",
+  "tap": "Chạm ô đồ, linh thú để xem chi tiết.",
+  "gems": "Ngọc khảm",
+  "item_lv": "cấp {lvl}",
+  "mount": "Thú cưỡi",
+  "speed": "Tốc chạy +{v}%",
+  "puppet": "Khôi lỗi",
+  "evo": "Tiến hóa"
  },
  "text": {
   "busy": "Đang bận việc khác, so tài để sau.",

@@ -27,15 +27,14 @@
      "q": "Tự đánh và Tự hành khác nhau thế nào?",
      "a": [
       "Tự đánh (cạnh cụm nút đánh): nhân vật đánh quái quanh chỗ bật, không đi xa. Bật ngay cạnh boss thì ưu tiên đánh boss trước.",
-      "Tự hành: nhân vật tự đi làm nhiệm vụ hệ thống, đánh quái, nhặt đồ, đả tọa, hết việc thì treo máy ở bãi quái vừa sức.",
+      "Tự hành: nhân vật chỉ làm nhiệm vụ (truyện và nhiệm vụ ngày): tìm đường, đánh đúng quái, nhặt đồ, gặp người; hết việc thì đánh quái quanh đó, không có quái thì đả tọa tại chỗ.",
       "Kéo cần điều khiển là dừng cả hai."
      ]
     },
     {
      "q": "Tắt bớt việc Tự hành tự làm ở đâu?",
      "a": [
-      "Menu → Tự động: bật tắt từng việc như tự mặc đồ tốt hơn, tự cường hoá an toàn, tự khảm ghép ngọc, tự uống luyện đan, túi đầy tự phân giải đồ rẻ, khuya về động phủ.",
-      "Ở đó cũng chọn được tinh cầu treo máy, để trống thì tự chọn bãi hợp cảnh giới."
+      "Menu → Tự động: bật tắt từng việc tự hành làm tại chỗ: tự mặc đồ tốt hơn, cường hoá an toàn, khảm ghép ngọc, tự uống đan, túi đầy tự phân giải đồ rẻ, gục thì hồi sinh tại chỗ."
      ]
     },
     {
@@ -111,10 +110,10 @@
      ]
     },
     {
-     "q": "Hỏi đáp và Hỏi thêm là gì?",
+     "q": "Mục Hỏi đáp dùng thế nào?",
      "a": [
-      "Hỏi đáp: các câu hỏi thường gặp, chạm câu để xem trả lời.",
-      "Hỏi thêm: chưa thấy câu trả lời thì gõ câu hỏi gửi Hệ Thống (cần đăng nhập, mỗi ngày hỏi có giới hạn). Câu nào nhiều người hỏi sẽ được thêm vào Hỏi đáp."
+      "Gõ vào ô trên cùng: Hệ Thống lọc các câu hỏi thường gặp và tìm tên trong Tàng Thư. Chạm câu để xem trả lời.",
+      "Chưa thấy câu trả lời thì bấm \"Hỏi bổn hệ thống câu này\" để gửi đi (cần đăng nhập, mỗi ngày hỏi có giới hạn). Câu nào nhiều người hỏi sẽ được thêm vào Hỏi đáp."
      ]
     },
     {
@@ -827,7 +826,7 @@
      "q": "Game có tự lưu không? Chơi thử khác gì có tài khoản?",
      "a": [
       "Có tài khoản: game tự lưu lên máy chủ, đổi máy vẫn chơi tiếp.",
-      "Chơi thử (không cần tài khoản) chỉ lưu trong máy, không vào được chợ, chat, tông môn, xếp hạng, PvP, Hỏi thêm."
+      "Chơi thử (không cần tài khoản) chỉ lưu trong máy, không vào được chợ, chat, tông môn, xếp hạng, PvP, hỏi Hệ Thống."
      ]
     },
     {

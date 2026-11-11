@@ -14,7 +14,7 @@ import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã �
 import { quality, tierOf, linesFull } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
-import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu nguyên liệu: mua nhanh phần thiếu
+import { buyBlock } from './buy-mats.js';   // ô mua nguyên liệu nâng cấp ở cuối tấm chi tiết, mua theo số lượng
 import { trial } from '../game/autoequip.js';
 import { gemIcon } from './gem-icon.js';
 
@@ -54,7 +54,7 @@ const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toLocaleS
 
 // box: nơi vẽ; st: trạng thái túi; changed(): lưu, tính lại, vẽ lại túi; close(): đóng tấm chi tiết
 // Dòng phụ tô màu theo bậc (lục → đen; đen có viền đỏ sẫm)
-function tierLine(data, l) {
+export function tierLine(data, l) {   // dòng tẩy luyện: mỗi dòng một màu (cả hồ sơ người khác, src/ui/profile-side.js)
   const t = Number.isInteger(l.t) ? tierOf(data, l.t) : null, d = el('div', 'd-line' + (t?.edge ? ' tier-den' : ''), '◆ ' + statText(data, l.s, l.v));
   if (t) { d.style.color = t.edge ? '#ffd6d6' : t.color; if (t.edge) d.style.setProperty('--edge', t.edge); }
   return d;
@@ -155,11 +155,9 @@ export function renderDetail(game, st, box, changed, close) {
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
       game.sfx(res === 'up' ? 'anvil' : 'hurt'); changed();
     }), !can);
-    const qb = quickBuyBtn(game, ec.cost, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
   if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
-  if (isArt(data, it) && rc != null) { const qb = quickBuyBtn(game, { [rm]: rc }, m => { st.msg = m; changed(); }, 'act-btn'); if (qb) acts.append(qb); }
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
@@ -193,5 +191,10 @@ export function renderDetail(game, st, box, changed, close) {
     else if (t.includes(': ')) { const j = t.indexOf(': '); b.textContent = ''; b.append(el('b', null, t.slice(0, j)), el('small', null, t.slice(j + 2))); }
   }
   forge.append(el('div', 'd-label', 'Rèn luyện'), acts);
+  // Mua nguyên liệu: cuối tấm, xa các nút rèn (chủ dự án 11/11/2026 23:27: bấm nhầm nút Mua nằm giữa các nút rèn)
+  const need = [['tinh-thiet', ec?.cost?.['tinh-thiet'] || 0], ['tay-luyen-thach', Math.max(ec?.cost?.['tay-luyen-thach'] || 0, full || free ? 0 : cost)]];
+  if (isArt(data, it)) need.push([rm, rc || 0]);
+  const bm = buyBlock(game, need, 'mon:' + it.uid, () => changed(false), m => { st.msg = m; changed(); });
+  if (bm) box.append(bm);
   return true;
 }

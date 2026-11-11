@@ -18,7 +18,7 @@
   "gacha": "Triệu hồi",
   "tra": "Tàng Thư",
   "faq": "Hỏi đáp",
-  "ask": "Hỏi thêm"
+  "gop": "Góp ý"
  },
  "tra": {
   "_note": "Tàng Thư (chủ dự án 10/11/2026 09:16: nâng cấp Hệ Thống thông minh hơn, mọi thông tin game, từ khoá nào cũng bấm xem được; mẫu wiki cotienlo.com). Tự dựng từ data/ (src/game/tra-cuu.js), giao diện src/ui/he-thong-tra.js. kinds: tên loại mục; row: nhãn dòng chỉ số.",
@@ -26,7 +26,7 @@
   "all": "Tất cả",
   "suggest": "Bổn hệ thống gợi ý cho ký chủ",
   "count": "Tàng Thư đang chép {n} mục. Gõ tên bất kỳ, hoặc chạm chữ màu ở khắp Hệ Thống để xem.",
-  "none": "Tàng Thư chưa chép thứ này. Ký chủ hỏi ở mục Hỏi thêm nhé.",
+  "none": "Tàng Thư chưa chép thứ này. Ký chủ hỏi ở mục Hỏi đáp nhé.",
   "related": "Liên quan",
   "ask_quick": "Bổn hệ thống biết ngay",
   "ask_quick_none": "Chưa tìm thấy trong Tàng Thư, ký chủ gửi đi để người thật trả lời.",
@@ -41,6 +41,7 @@
  "ask_head": "Không tìm thấy câu trả lời? Hỏi bổn hệ thống. Câu hỏi được ghi lại, câu nào nhiều ký chủ hỏi sẽ có trong Hỏi đáp.",
  "ask_ph": "Ví dụ: làm sao lên Trúc Cơ?",
  "ask_send": "Gửi",
+ "ask_this": "Hỏi bổn hệ thống câu này",
  "ask_ok": "Đinh! Bổn hệ thống ghi nhận rồi. Câu nào nhiều người hỏi sẽ có trả lời trong Hỏi đáp.",
  "ask_err": {
   "chua_dang_nhap": "Cần đăng nhập để hỏi hệ thống.",
@@ -2424,6 +2425,8 @@
   "summon_title": "Triệu hồi quà hệ thống",
   "summon_desc": "Mỗi lần {c} điểm. Mọi thứ mua được trong game: Linh Thạch 20k → 2 triệu, ngọc cấp 1–8, trang bị Phàm → Thượng Cổ, đan, nguyên liệu, thú cưỡi, khôi lỗi, thời trang. Tỷ lệ mọi loại như nhau, ra gì nhờ khí vận. Quà vào Hòm thư.",
   "summon_got": "Đinh! Ký chủ triệu hồi được: {name}",
+  "bk_sum": "Bạo kích x{k}: nhận tổng {t}",
+  "bk_got": "{name} · bạo kích x{k} = {t}",
   "summon_err": "Bổn hệ thống đang bận, thử lại sau.",
   "login": "Đăng nhập để nhận điểm và triệu hồi.",
   "rare": "Khí vận nghịch thiên! Bổn hệ thống cũng phải nể.",
@@ -2446,8 +2449,8 @@
   "k_comp": "Khôi lỗi",
   "k_outfit": "Thời trang",
   "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%",
-  "faq_find": "Tìm câu hỏi... (vd: đột phá, cường hoá, chợ)",
-  "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc sang mục Hỏi thêm hỏi bổn hệ thống.",
+  "faq_find": "Tìm hoặc hỏi bổn hệ thống... (vd: đột phá, cường hoá, chợ)",
+  "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc bấm \"Hỏi bổn hệ thống câu này\" ở trên.",
   "feed_head": "Vừa trúng lớn"
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",

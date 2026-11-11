@@ -114,8 +114,7 @@ def draw(spec, frame=0):
 
 
 CHARS = {
-    'hero.kiem-tu': dict(name='Kiếm Tu', hair=dict(style='bun', pal=[hx('#5a4a86'), hx('#3a2e5c'), hx('#251c3e')]),
-                         robe=[hx('#ffffff'), hx('#e6ebf7'), hx('#b4bedb'), hx('#4a86e8')], belt=hx('#f2c94c')),
+    # hero.kiem-tu (Kiếm Tu vẽ khối) đã xoá vĩnh viễn theo lệnh chủ dự án 11/11/2026 12:15 (xấu, không dùng lại)
     'npc.linh-ho': dict(name='Linh Hồ', hair=dict(style='long', pal=[hx('#ffffff'), hx('#ece6f6'), hx('#bfb3d6')]),
                         robe=[hx('#ffc2d6'), hx('#ff9ac0'), hx('#d9668f'), hx('#ffffff')], acc=['fox-ears', 'mark']),
     'npc.bang-co': dict(name='Băng Cơ', hair=dict(style='long', pal=[hx('#c8f0ff'), hx('#7cc8f2'), hx('#3f86c8')]),

@@ -18,7 +18,7 @@ function el(tag, cls, text) {
 
 export function createMarketPanel(game) {
   const M = game.data.market;
-  let tab = 'buy', rows = [], note = '', pick = null, busy = false, lock = null;   // lock: chợ chưa mở cho tài khoản mới (data/market.json → mo_khoa)
+  let tab = 'buy', rows = [], note = '', pick = null, busy = false, lock = null, drawn = null;   // lock: chợ chưa mở cho tài khoản mới (data/market.json → mo_khoa)
 
   function sub() {
     $('market-sub').textContent = note || `${game.data.shop.name} ${coins(game.save).toLocaleString('vi-VN')} · ${M.sub.replace('{tax}', Math.round(M.tax * 100)).replace('{h}', M.hours)}`;
@@ -74,7 +74,8 @@ export function createMarketPanel(game) {
     if ($('market').hidden) return;
     for (const b of document.querySelectorAll('#market-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     sub();
-    const box = $('market-list'); box.innerHTML = '';
+    const box = $('market-list'), top = tab === drawn ? box.scrollTop : 0; box.innerHTML = '';   // vẽ lại cùng tab (tải xong, chọn món bán) giữ chỗ đang xem
+    drawn = tab; queueMicrotask(() => { box.scrollTop = top; });
     $('market-form').hidden = tab !== 'sell' || !pick;
     if (!canTrade(game)) { box.append(el('div', 'empty', M.offline)); return; }
     if (lock?.ly_do) {   // tài khoản mới: 1 ngày tuổi và 4 tiếng chơi mới mở chợ (chủ dự án 06/11/2026 23:12)
@@ -107,7 +108,7 @@ export function createMarketPanel(game) {
     render();
     if (canTrade(game)) { import('../net/market.js').then(N => N.marketLock()).then(r => { lock = r; render(); }).catch(() => {}); run(() => claimMail(game)); }
   }
-  function close() { game.uiOpen = false; $('market').hidden = true; }
+  function close() { game.uiOpen = false; $('market').hidden = true; drawn = null; }
 
   $('market-title').textContent = M.title;
   $('market-price').placeholder = M.price_ph;

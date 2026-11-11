@@ -78,7 +78,7 @@ function drawHoiBody(ctx, game, it, im, t) {
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng|phun|suoi/.test(it.id));
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);
-  if (it.label) signLabel(ctx, game, it, oy);
+  if (it.label) (s.plaque ? plaqueLabel(ctx, it, ox, oy, k) : signLabel(ctx, game, it, oy));   // nhà có tấm biển trống: viết tên lên biển
   ctx.imageSmoothingEnabled = false;   // trả lại kiểu ô vuông cho người, quái vẽ sau
   if (game.hoiTro) drawTro(ctx, game, it, t);   // trò diễn gắn với món này (tỷ võ, đánh trống, múa kiếm)
 }
@@ -114,6 +114,20 @@ function flame(ctx, game, it, x, y, t) {
     ctx.fillRect(x + Math.sin(u * 6 + i * 2) * 2.5, y - 4 - u * 12, 0.8, 0.8);
   }
   ctx.globalAlpha = 1;
+}
+
+// Tên trên tấm biển trống của nhà (data/art.json → plaque [x, y, w, h] điểm ảnh hình, tools/art/tk_lau.py): luôn hiện, chữ vàng viền nâu,
+// cỡ vừa lòng biển (chủ dự án 11/11/2026 21:26: Vạn Bảo Lâu, Chợ Phiên)
+function plaqueLabel(ctx, it, ox, oy, k) {
+  const s = it.spr, [px, py, pw, ph] = s.plaque, cx = ox + (it.flip ? s.w - px - pw / 2 : px + pw / 2) * k, cy = oy + (py + ph / 2) * k, w = pw * k * 0.88;
+  ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  let fs = Math.min(6, ph * k * 0.7);
+  ctx.font = `${fs}px "Unifont VN", system-ui`;
+  const m = ctx.measureText(it.label).width;
+  if (m > w) { fs *= w / m; ctx.font = `${fs}px "Unifont VN", system-ui`; }
+  ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(0.7, fs * 0.24); ctx.strokeStyle = '#2a1606'; ctx.strokeText(it.label, cx, cy + fs * 0.06);
+  ctx.fillStyle = '#ffd774'; ctx.fillText(it.label, cx, cy + fs * 0.06);
+  ctx.restore();
 }
 
 // Tên vùng trên biển gỗ chỉ lối: hiện dần khi người chơi lại gần (trong near ô), xa thì ẩn cho cảnh gọn

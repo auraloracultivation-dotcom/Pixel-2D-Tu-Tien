@@ -46,8 +46,15 @@ export function cleanSave(data, s) {
     const it = data.items.slots[slot] && bag.find(i => i.uid === uid);
     if (it && data.items.bases[it.base].slot === slot) equip[slot] = uid;
   }
-  const pet = data.pets.pets[s.pet] ? s.pet : null, comp = data.companions.list[s.companion] && data.npcs[s.companion] ? s.companion : null;
-  const pst = obj(obj(s.pets)[pet]), cst = obj(obj(s.comps)[comp]);
+  const pet = data.pets.pets[s.pet] ? s.pet : null, isComp = id => !!(data.companions.list[id] && data.npcs[id]);
+  const comp = isComp(s.companion) ? s.companion : null, comp2 = isComp(s.companion2) && s.companion2 !== comp ? s.companion2 : null;
+  const mount = data.pets.mounts?.[s.mount] ? s.mount : null, pst = obj(obj(s.pets)[pet]);
+  // dòng tẩy luyện của linh thú, khôi lỗi, thú cưỡi (bảng hồ sơ hiện khung phẩm, số dòng như ô trang bị)
+  const lines = ls => (Array.isArray(ls) ? ls : []).filter(l => data.items.stats[l?.s] && Number.isFinite(l.v)).slice(0, 12).map(l => (Number.isInteger(l.t) ? { s: l.s, v: l.v, t: l.t } : { s: l.s, v: l.v }));
+  const beast = b => ({ lv: Math.max(1, num(obj(b).lv, 1)), exp: 0, star: num(obj(b).star), evo: !!obj(b).evo, lines: lines(obj(b).lines) });
+  const comps = {};
+  for (const id of [comp, comp2]) if (id) comps[id] = beast(obj(s.comps)[id]);
+  const ml = mount && obj(obj(s.mountLine)[mount]);
   const techs = {};
   for (const [id, t] of Object.entries(obj(s.techs))) if (data.techniques.list[id]) techs[id] = { lv: num(obj(t).lv) };
   const skillLv = {};
@@ -64,8 +71,9 @@ export function cleanSave(data, s) {
     flags: { boiNguyen: num(obj(s.flags).boiNguyen) },
     loadout: Array.isArray(s.loadout) ? s.loadout.slice(0, 3).map(id => (data.skills[id] ? id : null)) : undefined,
     skillLv,
-    pet, pets: pet ? { [pet]: { lv: Math.max(1, num(pst.lv, 1)), exp: 0, star: num(pst.star), evo: !!pst.evo } } : {},
-    companion: comp, comps: comp ? { [comp]: { lv: Math.max(1, num(cst.lv, 1)), exp: 0 } } : {},
+    pet, pets: pet ? { [pet]: beast(pst) } : {},
+    companion: comp, companion2: comp2, comps,
+    mount, mountLine: ml && data.items.stats[ml.s] && Number.isFinite(ml.v) ? { [mount]: lines([ml])[0] } : {},
     look: data.heroes.list[s.look] ? s.look : data.heroes.default, outfit: typeof s.outfit === 'string' ? s.outfit : undefined, gioi: s.gioi,
   };
 }

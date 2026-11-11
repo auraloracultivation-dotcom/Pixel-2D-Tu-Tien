@@ -39,8 +39,10 @@ export async function createRecord(game, audio) {
 
   function paint() {
     game.recording = !!rec;   // đang quay: khỏi vẽ cần điều khiển, mũi tên chỉ đường lên khung (src/render/draw.js) cho clip sạch
-    if (rec) { btn.classList.add('on'); btn.textContent = `● ${Math.floor(rec.elapsed())}`; }
-    else { btn.classList.remove('on'); btn.textContent = T.btn; }
+    // Đang quay: nút đổi hẳn sang hình dừng đỏ, chữ "Dừng 0:12" đỏ, vòng đỏ nhấp nháy (style-hud-tren.css); chủ dự án 11/11/2026 20:45:
+    // trước khó nhận ra đang quay hay đang tắt
+    if (rec) { const t = Math.floor(rec.elapsed()); btn.classList.add('on'); btn.textContent = `● ${t}`; btn.dataset.s = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; btn.dataset.stop = T.btn_stop || 'Dừng'; btn.title = T.btn_stop_label || btn.title; }
+    else { btn.classList.remove('on'); btn.textContent = T.btn; delete btn.dataset.s; btn.title = T.btn_label; }
     btn.classList.toggle('gift', !rec && loggedIn(game) && giftReady(game));
   }
 

@@ -20,6 +20,7 @@ export const SUBS = {   // biểu tượng mục con (ảnh GPT 11/11/2026 03:03
   do: [['all', 'ui.nv-tab-tat-ca', 'Tất cả'], ['vk', 'ui.nv-tab-vu-khi', 'Vũ khí'], ['pc', 'ui.nv-tab-giap', 'Giáp'], ['ts', 'ui.nv-tab-nhan', 'Nhẫn'], ['pb', 'ui.nv-tab-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
   kho: [['ngoc', 'ui.nv-tab-ngoc', 'Ngọc'], ['nl', 'ui.nv-tab-nguyen-lieu', 'N.liệu'], ['ca', 'ui.nv-tab-ca', 'Cá'], ['dan', 'ui.nv-tab-dan', 'Đan']],
   cp: [['chieu', 'ui.nv-tab-chieu', 'Chiêu'], ['cong-phap', 'ui.nv-tab-bi-kip', 'Công pháp']],
+  lt: [['linh-thu', 'ui.ic-linh-thu', 'Linh thú'], ['thu-cuoi', 'ui.ic-thu-cuoi', 'Thú cưỡi'], ['dong-hanh', 'ui.nv-khoi-loi', 'Khôi lỗi']],
   tt: [['thoi-trang', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-tab-danh-hieu', 'Danh hiệu']],
 };
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';

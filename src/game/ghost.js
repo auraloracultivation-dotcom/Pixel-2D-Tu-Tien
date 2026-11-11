@@ -4,8 +4,10 @@
 // 16:19 cùng ngày: gục ngoài trời thì hiện bảng hỏi "Hồi sinh tại đây / Về động phủ" (src/ui/death-ask.js), ask.sec giây không
 // chọn thì về động phủ. Đài so tài, độ kiếp, bí cảnh, tháp, trong nhà, chưa có động phủ: hồi sinh như cũ, không hỏi.
 import { goHome } from './friends.js';
+import { pilotOpt } from './pilotopt.js';
 
-const canAsk = game => !!(game.data.config.ghost?.ask && game.save?.flags?.['dong-phu'] && !game.duel && !game.trib?.active && !game.dungeon
+// Bật "Gục thì hồi sinh tại chỗ" ở Menu → Tự động (người chơi đề xuất, chủ dự án 11/11/2026 16:53): không hỏi, hồi sinh tại điểm hồi sinh
+const canAsk = game => !!(game.data.config.ghost?.ask && game.save?.flags?.['dong-phu'] && !pilotOpt(game, 'hoi-sinh') && !game.duel && !game.trib?.active && !game.dungeon
   && !game.map.def.tower && !game.map.def.indoor && !(game.map.def.rooms || []).length && game.map.id !== game.data.home.map);
 
 export function startGhost(game) {

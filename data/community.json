@@ -20,12 +20,13 @@
   }
  },
  "tiktok": {
-  "_note": "Kênh TikTok của game (chủ dự án gửi 10/11/2026 02:39): dòng TikTok trong hộp Thư ngay dưới Zalo (src/ui/hop-thu.js), chạm là mở kênh. Không tặng quà (CH Play: tránh kiểu theo dõi để nhận quà). on: false thì ẩn.",
+  "_note": "Kênh TikTok của game (chủ dự án gửi 10/11/2026 02:39): nút TikTok trên màn hình bên phải nút Thư (data/menu.json → hud, src/ui/hud-order.js), chạm là mở kênh. Không tặng quà (CH Play: tránh kiểu theo dõi để nhận quà). on: false thì ẩn.",
   "on": true,
   "url": "https://www.tiktok.com/@pixel2dtutien",
   "label": "TikTok"
  },
  "feedback": {
+  "qtv": {"_note": "Điểm quản trị viên trong Hệ Thống, mục Góp ý (src/ui/he-thong-gop.js qtvCard). cap: mốc tổng điểm lên cấp 1..5 (như data/social.json rank.qtv.rule). Quyền mở theo cấp: chủ dự án chốt sau.", "cap": [20, 60, 150, 300, 600], "title": "Người xây game · Cấp {cap}", "pts": "{tong} điểm QTV · còn đổi được {du}", "next": "Còn {n} điểm lên cấp {cap}", "max": "Đã đạt cấp cao nhất"},
   "on": true,
   "img": {
    "max": 960,
@@ -55,7 +56,8 @@
   },
   "text": {
    "close": "Đóng",
-   "shot": "Ảnh chứng minh (đã tự chụp màn game lúc bấm nút)",
+   "shot": "Ảnh chứng minh (đã tự chụp màn hình đang thấy)",
+   "shooting": "Đang chụp màn hình…",
    "pick": "Chọn ảnh khác trong máy",
    "need_img": "Cần một ảnh chứng minh.",
    "need_name": "Tên cần từ 4 tới 80 chữ.",
