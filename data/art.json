@@ -13057,18 +13057,6 @@
    ],
    "note": "thời trang Huyết Nguyệt (SpriteCook): nghỉ, chạy, chém 1, chém 2, đâm; mỗi động tác 8 khung"
   },
-  "hero.kiem-tu": {
-   "file": "assets/art/hero-kiem-tu.png",
-   "v": "56fdf82d",
-   "w": 22,
-   "h": 26,
-   "frames": 4,
-   "anchor": [
-    11,
-    23
-   ],
-   "note": "Kiếm Tu — khung: đứng, nhún, bước A, bước B"
-  },
   "hero.ly-hoa": {
    "file": "assets/art/hero-ly-hoa.png",
    "v": "53f98159",
