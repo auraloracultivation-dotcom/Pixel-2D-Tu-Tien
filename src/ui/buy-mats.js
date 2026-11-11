@@ -28,7 +28,12 @@ export function buyBlock(game, need, key, redraw, done, cls = '') {
     minus.onclick = e => { e?.stopPropagation(); set(n - 1); };
     plus.onclick = e => { e?.stopPropagation(); set(n + 1); };
     ten.onclick = e => { e?.stopPropagation(); set(n === 1 ? 10 : n + 10); };
-    buy.onclick = e => { e?.stopPropagation(); const m = buyMats(game, { [k]: n }); qty.delete(id); done(m); };
+    buy.onclick = async e => {   // máy chủ mua (src/game/quick-buy.js): tắt nút tới khi có kết quả
+      e?.stopPropagation(); if (buy.disabled) return; buy.disabled = true;
+      const r = await buyMats(game, { [k]: n });
+      if (r.ok) qty.delete(id);
+      done(r.msg);
+    };
     row.append(nm, minus, num, plus, ten, buy);
     box.append(row);
   }

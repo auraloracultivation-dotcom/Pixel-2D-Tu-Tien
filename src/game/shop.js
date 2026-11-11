@@ -6,6 +6,7 @@ import { dailyEvent } from './daily.js';
 import { quality } from './tiers.js';
 import { noteCoins } from './coin-log.js';
 import { checkUnlocks } from './skills.js';
+import { buyMats } from './quick-buy.js';   // nguyên liệu mua ở máy chủ
 
 const C = game => game.data.shop;
 export const coins = save => save.lingshi || 0;
@@ -81,10 +82,16 @@ function label(game, x) {
   return d.cave.materials[x.ref]?.name || d.items.materials[x.ref]?.name || x.ref;
 }
 
-function buy(game, x) {
+async function buy(game, x) {
   const s = game.save;
   const price = priceOf(game, x);
   if (coins(s) < price) return null;
+  if (x.kind === 'mat') {   // nguyên liệu: máy chủ mua giá gốc (src/game/quick-buy.js, không bị trần nhận mỗi ngày cắt mất)
+    const r = await buyMats(game, { [x.ref]: x.n }, false);
+    if (!r.ok) return null;
+    dailyEvent(game, 'buy');
+    return `${x.n} ${label(game, x)}`;
+  }
   s.lingshi -= price; noteCoins(s, -price, 'van-bao'); dailyEvent(game, 'buy');   // việc ngày Mua ở Vạn Bảo Lâu
   if (x.kind === 'gem') { const g = rollGem(game.data); s.gems[g] = (s.gems[g] || 0) + 1; game.persist(); return gemInfo(game.data, g).name; }
   if (x.kind === 'skill') {   // chiêu không theo hệ (Thiểm Ảnh Liên Trảm): học một lần, mở vào bảng Chiêu, còn ô trống thì tự mang
@@ -110,7 +117,7 @@ export async function talkShop(game, npc) {
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);
     if (!pick || pick === 'out') return;
     if (pick === 'tn') { game.openTopup?.(); return; }
-    const got = buy(game, list[+pick]);
+    const got = await buy(game, list[+pick]);
     msg = got ? `Mua được ${got}.` : 'Không đủ Linh Thạch.';
     game.sfx(got ? 'pickup' : 'hurt');
   }
