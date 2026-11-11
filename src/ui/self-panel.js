@@ -12,6 +12,7 @@ import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS } from './self-host.js';
 import { snap, react } from './self-fx.js';
+import { patch, patchList } from './morph.js';
 
 const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
 const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang' };
@@ -62,7 +63,7 @@ export function createSelfPanel(game) {
   function hostedChanged() {
     if (root.hidden || !HOSTS[st.page]) return;
     const prev = before; before = snap(game);
-    left.replaceChildren(leftCard(game, playerStats(game.save, game.data), h));
+    patch(left, leftCard(game, playerStats(game.save, game.data), h));
     react(game, prev, null, fxTarget, () => left.querySelector('.sv-center'));
   }
   const h = {
@@ -85,10 +86,10 @@ export function createSelfPanel(game) {
   function render() {
     const s = game.save, d = game.data, stt = playerStats(s, d);
     before = snap(game);
-    rail.replaceChildren(...PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
-    left.replaceChildren(leftCard(game, stt, h));
+    patchList(rail, PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
+    patch(left, leftCard(game, stt, h));   // vá thẻ cũ, không thay cả thẻ (src/ui/morph.js)
     subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
-    subs.replaceChildren(...SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
+    patchList(subs, SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
       st.sub = id; reset(); st.qs = false;
       if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
       render();

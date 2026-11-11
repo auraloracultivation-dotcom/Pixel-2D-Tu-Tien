@@ -11,7 +11,7 @@ import { gearCell, buffCell, uiIco } from './self-gear.js';
 export const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 export const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
 const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao', null];   // null: ô chừa (chủ dự án 11/11 01:07)
-const BUFFS = ['pet', 'comp', 'comp2', 'mount', 'spare'];
+const BUFFS = ['pet', 'comp', 'comp2', 'mount'];   // bốn ô to bằng ô trang bị (11/11/2026 20:50); ô dự phòng còn ở cột phải
 
 function column(game, side, slots, h) {
   const c = el('div', 'sv-col ' + side);
@@ -31,8 +31,9 @@ export function leftCard(game, stt, h) {
   top.append(nm);
   const area = el('div', 'sv-hero-area'), mid = el('div', 'sv-center');
   // giữ đúng tỉ lệ hình (khung chibi rộng vì hiệu ứng chiêu: cắt bớt hai bên trong suốt, không ép bề ngang)
-  mid.append(uiIco(d, 'ui.nv-nen', 'sv-nen'), uiIco(d, 'ui.nv-be', 'sv-be'), spriteIcon(   // nền phù văn xoay chậm sau lưng, bệ pháp trận dưới chân
-    game, heroLook(game).sprite, 0, 76, 'sv-hero', true));
+  const hero = spriteIcon(game, heroLook(game).sprite, 0, 76, 'sv-hero', true);
+  hero.dataset.k = heroLook(game).sprite;   // cùng hình thì vá giữ canvas cũ (src/ui/morph.js), khỏi trống một khung
+  mid.append(uiIco(d, 'ui.nv-nen', 'sv-nen'), uiIco(d, 'ui.nv-be', 'sv-be'), hero);   // nền phù văn xoay chậm sau lưng, bệ pháp trận dưới chân
   if (s.element) {
     const e = d.elements[s.element], seal = uiIco(d, 'ui.nv-' + s.element, 'sv-seal');   // huy hiệu ngũ hành (ảnh GPT 11/11/2026)
     seal.title = `Linh căn ${e.name} · ${rootOf(s, d).name}`; mid.append(seal);
