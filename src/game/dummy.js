@@ -2,6 +2,7 @@
 // không đánh. Đánh trúng lần đầu thì bắt đầu đếm; đánh liền test_s giây là xong một lượt, sát thương/giây = tổng ÷ test_s.
 // Ngừng đánh idle_s giây thì dừng đếm. Kết quả cao nhất giữ ở save.dpsBest, gửi lên bảng xếp hạng Sát thương/giây.
 import { spawnMob } from './mobs.js';
+import { homeSpot } from './home-spot.js';
 
 const C = game => game.data.home.dummy;
 
@@ -9,7 +10,7 @@ const C = game => game.data.home.dummy;
 export function spawnDummy(game) {
   const D = C(game);
   if (!D || game.map.id !== game.data.home.map || !game.data.mobs[D.mob]) return;
-  const c = game.map.center(D.at[0], D.at[1]);
+  const at = homeSpot(game, 'dummy'), c = game.map.center(at[0], at[1]);   // chỗ bày cảnh dời tới (src/game/home-spot.js)
   spawnMob(game, D.mob, c.x, c.y, { dummy: { on: false, t0: 0, last: 0, sum: 0, show: null, showT: 0 }, aggro: false });
 }
 

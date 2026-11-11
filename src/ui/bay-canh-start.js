@@ -4,6 +4,8 @@
 
 // Nhớ bố cục mới nhất trong máy (chủ dự án 09/11/2026 16:55: vào động phủ thấy đồ đổi chỗ giữa chừng): lần sau mở game dùng ngay
 // bản nhớ, khỏi chờ mạng rồi mới thay đồ. Bố cục chủ dự án đã bày cũng được ghi vào data/maps (def.hoi.do) mỗi lần cập nhật game.
+import { applySpots } from '../game/home-spot.js';
+
 const KEY = 'p2d_bay_cache';
 
 export function applyLayouts(game, all) {
@@ -13,7 +15,7 @@ export function applyLayouts(game, all) {
     if (!def || !Array.isArray(L.items)) continue;
     def.hoi = { ...(def.hoi || {}), do: L.items };
     game.bayVer[id] = L.ver;
-    if (game.map?.id === id) game.map.setHoi(L.items);
+    if (game.map?.id === id) { game.map.setHoi(L.items); applySpots(game); }   // Mộc Nhân dời theo bố cục (home-spot.js)
   }
 }
 

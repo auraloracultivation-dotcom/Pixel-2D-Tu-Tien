@@ -1,13 +1,14 @@
 // Bể cá động phủ (data/home.json → be_ca, src/game/be-ca.js): nước trong lòng bể, cá đã thả (hình ui-vk-<loài>) bơi qua lại,
 // rồi vẽ hình bể (kính trong mờ) đè lên. Thăm nhà bạn thì vẽ cá của nhà bạn (game.visiting.beCa) nếu có.
 import { spriteImage } from './sprites.js';
+import { homeSpot } from '../game/home-spot.js';
 
 export function drawBeCa(ctx, game, t) {
   const c = game.data.home.be_ca, S = game.data.art.sprites;
   if (!c || game.map.id !== game.data.home.map) return;
   const bowl = S['ui.vk-be-ca'], im = bowl && spriteImage(bowl);
   if (!im) return;
-  const at = game.map.center(c.at[0], c.at[1]), W = c.w, H = W * bowl.h / bowl.w, x0 = at.x - W / 2, y0 = at.y + 8 - H;
+  const sp = homeSpot(game, 'be_ca'), at = game.map.center(sp[0], sp[1]), W = c.w, H = W * bowl.h / bowl.w, x0 = at.x - W / 2, y0 = at.y + 8 - H;
   // nước: hình elip trong thân bể (đo trên hình), mặt nước lăn tăn
   const cx = at.x, cy = y0 + H * 0.56, rx = W * 0.4, ry = H * 0.22, top = y0 + H * 0.4;
   ctx.save();

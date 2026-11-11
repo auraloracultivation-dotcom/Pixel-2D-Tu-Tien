@@ -4,6 +4,8 @@
 // Món đang chọn: To, Nhỏ, Lật, Nhân bản, Xoá. Kho: mọi món đồ bộ mới, chọn là đặt giữa màn. Lưu: ghi lên máy chủ (src/net/bay-dao.js),
 // mọi người chơi vào bản đồ đó thấy bố cục mới. Hoàn tác (50 bước), Bản cũ (30 lần lưu gần nhất).
 import { saveLayout, layoutHistory, layoutRestore, layoutOne } from '../net/bay-dao.js';
+import { SPOTS, spotBox, applySpots } from '../game/home-spot.js';
+// Động phủ: Mộc Nhân, bể cá cũng chọn, kéo được (chủ dự án 12/11/2026 02:23), lưu thành món đánh dấu '@dummy' / '@be_ca' (home-spot.js)
 
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
 const r1 = v => Math.round(v * 10) / 10;
@@ -21,18 +23,20 @@ export function createBayCanh(game) {
   const mk = (row, label, fn, cls) => { const b = el('button', 'bay-b' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('pointerdown', e => { e.stopPropagation(); e.preventDefault(); fn(); }); row.append(b); return b; };
 
   const T = () => game.map.T;
+  const spotSel = (key, idx) => { const b = spotBox(game, key); return b && { ...b, spot: key, idx }; };   // khung vẽ ở draw-hoi.js drawSpots
   const entry = () => B.list?.[B.selIdx];
   const snap = () => { B.undo.push(JSON.stringify(B.list)); if (B.undo.length > 50) B.undo.shift(); B.dirty = true; };
   const rebuild = () => {
-    game.map.setHoi(B.list);
-    B.sel = B.selIdx >= 0 ? game.map.hoi.find(h => h.idx === B.selIdx) || null : null;
+    game.map.setHoi(B.list); applySpots(game);
+    const sk = String(entry()?.[0] || '').startsWith('@') ? entry()[0].slice(1) : null;
+    B.sel = B.selIdx < 0 ? null : sk ? spotSel(sk, B.selIdx) : game.map.hoi.find(h => h.idx === B.selIdx) || null;
     if (!B.sel) B.selIdx = -1;
     paint();
   };
   const opt = (e, k, v) => { while (e.length < 4) e.push(null); const o = { ...(e[4] || {}) }; if (v == null || v === 1 && k === 's' || v === false) delete o[k]; else o[k] = v; if (Object.keys(o).length) e[4] = o; else e.length = Math.min(e.length, 4); if (e.length === 4 && e[3] == null) e.length = 3; };
   const paint = () => {
     const e = entry(), n = game.data.art.sprites[e?.[0]]?.note || '';
-    info.textContent = e ? `${e[0]}  ·  ô ${r1(e[1])}, ${r1(e[2])}  ·  cỡ ${Math.round((e[4]?.s || 1) * 100)}%${e[4]?.f ? ' · lật' : ''}` : `${game.map.def.name || game.map.id}: chạm món để chọn · kéo chỗ trống để đi · hai ngón phóng to${B.dirty ? ' · CHƯA LƯU' : ''}`;
+    info.textContent = e ? `${({ '@dummy': 'Mộc Nhân', '@be_ca': 'Bể cá' })[e[0]] || e[0]}  ·  ô ${r1(e[1])}, ${r1(e[2])}  ·  cỡ ${Math.round((e[4]?.s || 1) * 100)}%${e[4]?.f ? ' · lật' : ''}` : `${game.map.def.name || game.map.id}: chạm món để chọn · kéo chỗ trống để đi · hai ngón phóng to${B.dirty ? ' · CHƯA LƯU' : ''}`;
     info.title = n;
     for (const b of selRow.children) b.disabled = !e;
   };
@@ -139,7 +143,19 @@ export function createBayCanh(game) {
   const canvas = game.screen.ctx.canvas, ptrs = new Map();
   let drag = null, pinch = null;
   const world = e => { const r = canvas.getBoundingClientRect(); return game.screen.toWorld(e.clientX - r.left, e.clientY - r.top); };
-  const pick = w => { const hs = [...game.map.hoi].sort((a, b) => b.y - a.y); return hs.find(h => w.x >= h.x - h.w / 2 && w.x <= h.x + h.w / 2 && w.y >= h.y - h.h && w.y <= h.y + 2) || null; };
+  const pick = w => { const hs = [...game.map.hoi].sort((a, b) => b.y - a.y); return hs.find(h => w.x >= h.x - h.w / 2 && w.x <= h.x + h.w / 2 && w.y >= h.y - h.h && w.y <= h.y + 2) || pickSpot(w); };
+  // Mộc Nhân, bể cá: chạm trúng khung thì thêm món đánh dấu vào bố cục (chưa có) rồi chọn như đồ thường
+  function pickSpot(w) {
+    if (game.map.id !== game.data.home?.map) return null;
+    for (const key of Object.keys(SPOTS)) {
+      const b = spotBox(game, key);
+      if (!b || w.x < b.x - b.w / 2 || w.x > b.x + b.w / 2 || w.y < b.y - b.h + 8 || w.y > b.y + 8) continue;
+      let i = B.list.findIndex(e => e[0] === '@' + key);
+      if (i < 0) { B.list.push(['@' + key, r1(b.x / T() - 0.5), r1(b.y / T() - 0.5)]); i = B.list.length - 1; }
+      return spotSel(key, i);
+    }
+    return null;
+  }
   window.addEventListener('pointerdown', e => {
     if (!B.on || e.target !== canvas) return;
     e.stopImmediatePropagation(); e.preventDefault();
@@ -162,7 +178,10 @@ export function createBayCanh(game) {
     if (drag.kind === 'pan') { const z = game.screen.zoom, c = B.cam; c.x -= (e.clientX - drag.x) / z; c.y -= (e.clientY - drag.y) / z; drag.x = e.clientX; drag.y = e.clientY; game.screen.snap(c.x, c.y); return; }
     const w = world(e), h = B.sel, en = entry();
     if (!h || !en) return;
-    h.x = w.x - drag.ox; h.y = w.y - drag.oy; en[1] = r1(h.x / T()); en[2] = r1(h.y / T()); drag.moved = true;
+    h.x = w.x - drag.ox; h.y = w.y - drag.oy; drag.moved = true;
+    const off = h.spot ? 0.5 : 0;   // món đánh dấu lưu theo ô (tâm ô = map.center)
+    en[1] = r1(h.x / T() - off); en[2] = r1(h.y / T() - off);
+    if (h.spot) applySpots(game);
   }, true);
   const up = e => {
     if (!B.on || !ptrs.has(e.pointerId)) return;
