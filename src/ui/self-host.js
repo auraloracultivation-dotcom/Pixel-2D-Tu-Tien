@@ -22,7 +22,7 @@ const ICO = [[/^Luyện lên cấp/, 'cuong-hoa', s => s.replace(/^Luyện lên 
 function tidy(game, sheet) {
   if (sheet.dataset.svTidy) return;
   sheet.dataset.svTidy = 1;
-  for (const b of sheet.querySelectorAll('.gc-body button:not(.d-close)')) {
+  for (const b of sheet.querySelectorAll('.gc-body button:not(.d-close):not(.bm-b)')) {   // ô mua (buy-mats.js) giữ nguyên
     const t = b.textContent.trim(), k = ICO.find(([re]) => re.test(t)), cost = (t.match(/\(([^)]*)\)\s*$/) || t.match(/^Bán ([\d.]+ Linh Thạch)$/) || [])[1];
     b.classList.add('sv-gbtn');
     b.textContent = '';

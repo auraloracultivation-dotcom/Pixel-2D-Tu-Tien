@@ -7,7 +7,7 @@ import { statText } from '../game/items.js';
 import { manaCost } from '../game/mana.js';
 import { skillLv, levelCost, levelUp } from '../game/skill-level.js';
 import { coins } from '../game/shop.js';
-import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu bí kíp: mua nhanh
+import { buyBlock } from './buy-mats.js';   // mua bí kíp: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -102,6 +102,9 @@ export function createSkillsPanel(game) {
       c.onclick = () => { setSlot(game, slot, id); slot = (slot + 1) % 3; game.sfx('pickup'); render(); };
       list.append(c);
       if (ok) list.append(levelRow(id, s));
+      const SL = data.config.skill_lv, lv = ok && skillLv(game, id);   // bí kíp cho lần luyện kế: ô mua cuối tấm chi tiết
+      const bm = ok && lv < SL.max && buyBlock(game, [[SL.mat, levelCost(game, lv).book]], 'chieu:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up');
+      if (bm) list.append(bm);
     }
   }
 
@@ -117,7 +120,6 @@ export function createSkillsPanel(game) {
       b.title = `Đang có ${have} ${mat}`;
       b.onclick = () => { if (levelUp(game, id)) { game.sfx('levelup'); render(); } };
       row.append(b);
-      const qb = quickBuyBtn(game, { [c.mat]: cost.book }, m => { game.toast(m, 2.4); render(); }); if (qb) row.append(qb);
     }
     return row;
   }

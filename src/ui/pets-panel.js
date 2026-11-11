@@ -7,7 +7,7 @@ import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
 import { beastStats, statLine, linesText, rerollCost, costLine, mountLine } from '../game/beast.js';
 import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
-import { quickBuyBtn } from './quick-buy-btn.js';   // thiếu nguyên liệu tiến hoá: mua nhanh
+import { buyBlock } from './buy-mats.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -55,6 +55,13 @@ export function createPetsPanel(game) {
     return row;
   }
   const s0 = () => game.save;
+  // Ô mua nguyên liệu tẩy luyện: cuối tấm chi tiết (sau Tẩy luyện, Bán), mua theo số lượng (src/ui/buy-mats.js)
+  function buyRow(list, id, mount) {
+    const b0 = !mount && s0().pets[id], full = b0 && Number.isInteger(b0.cap) && (b0.lines || []).length >= b0.cap;
+    const cost = mount ? data.pets.beast.mount.reroll : rerollCost(data, b0);
+    const bm = !full && buyBlock(game, Object.entries(cost.mats || {}), (mount ? 'cuoi:' : 'lt:') + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up');
+    if (bm) list.append(bm);
+  }
 
   function renderPets(s, list) {
     $('pets-sub').textContent = 'Chạm để mang theo. Linh thú hưởng nửa linh khí bạn thu được.';
@@ -72,7 +79,8 @@ export function createPetsPanel(game) {
       ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang');
       list.append(c);
       if (P.pets[id]) list.append(rerollRow(id));
-      if (s.pet !== id && P.pets[id]) list.append(sellRow(id));   // bán linh thú ngay trong thẻ (thay ô Bán linh thú ở Động phủ); grid-cards gom dòng .skill-up vào tấm chi tiết
+      if (s.pet !== id && P.pets[id]) list.append(sellRow(id));
+      if (P.pets[id]) buyRow(list, id);   // bán linh thú ngay trong thẻ (thay ô Bán linh thú ở Động phủ); grid-cards gom dòng .skill-up vào tấm chi tiết
     }
     for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
       const st = s.pets[id], M = P.merge.texts, nm = P.pets[id].name;
@@ -87,7 +95,7 @@ export function createPetsPanel(game) {
         `Cần: ${costText(data, E.cost)}, ${E.coins} ${data.shop.name}${ok ? '' : ' (chưa đủ)'}`,
       ], false, () => evolvePet(game, id), 'pet.' + id, 'Tiến hóa');
       c.disabled = !ok; list.append(c);
-      const qb = quickBuyBtn(game, E.cost, m => { game.toast(m, 2.4); render(); }); if (qb) list.append(qb);
+      const bm = buyBlock(game, Object.entries(E.cost), 'tienhoa:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up'); if (bm) list.append(bm);
     }
     const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
     if (missing.length) list.append(el('p', 'muted', t('Chưa thu phục: {list}.', { list: missing.join(', ') })));
@@ -104,7 +112,8 @@ export function createPetsPanel(game) {
       if (!got) c.classList.add('locked');
       list.append(c);
       if (got) list.append(rerollRow(id, true));
-      if (got && s.mount !== id) list.append(sellRow(id, true));   // bán thú cưỡi ngay trong thẻ
+      if (got && s.mount !== id) list.append(sellRow(id, true));
+      if (got) buyRow(list, id, true);   // bán thú cưỡi ngay trong thẻ
     }
   }
 

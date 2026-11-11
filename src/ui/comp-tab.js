@@ -5,6 +5,7 @@ import { compLevel, compNeed, togglePuppet } from '../game/companion.js';
 import { isPuppet, puppetName, puppetPrice, sellPuppet } from '../game/beast-shop.js';
 import { beastStats, statLine, linesText, rerollCost, costLine } from '../game/beast.js';
 import { kyRerollBeast } from '../game/ky-thu.js';
+import { buyBlock } from './buy-mats.js';   // mua nguyên liệu tẩy luyện ở cuối tấm chi tiết
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -41,5 +42,7 @@ export function renderComps(game, list, { render, sub }) {
       const price = puppetPrice(game, id).toLocaleString('vi-VN'), key = 'k:' + id;
       list.append(row(sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`, () => { if (sure !== key) { sure = key; return; } sure = null; game.toast(sellPuppet(game, id), 2.4); }));
     }
+    const bm = !full && buyBlock(game, Object.entries(rerollCost(data, st).mats || {}), 'kl:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up');
+    if (bm) list.append(bm);
   }
 }
