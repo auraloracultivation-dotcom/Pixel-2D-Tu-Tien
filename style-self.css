@@ -375,3 +375,5 @@ body .sv #pets-tabs { display: none !important; }
 .sv-star { position: absolute; left: 2px; bottom: 1px; z-index: 2; font: 800 7px var(--f-body); color: #ffd766; text-shadow: 0 1px 0 #000, 0 0 2px #000; }
 .sv-slot.buff .sv-plus { z-index: 2; font-size: 7px; }
 .sv-slot.buff.evo .sv-bfr { filter: drop-shadow(0 0 3px #ffd766); }
+/* 21:10: ô thú cao 36 (trước 26) đẩy hàng chỉ số cuối (Tốc độ, Hút máu) ra ngoài khung 6 điểm: bảng cao thêm 10 */
+body .sv.panel { height: 336px; }
