@@ -9,7 +9,7 @@ const net = () => import('../net/feedback.js');
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 // Trạng thái giữ qua các lần vẽ (đổi mục, đổi tab không mất chữ đang gõ)
-export const gopState = () => ({ kind: 'loi', img: null, shooting: false, preview: null, name: '', desc: '', msg: '', rows: null, login: null, busy: false });
+export const gopState = () => ({ qtv: null, kind: 'loi', img: null, shooting: false, preview: null, name: '', desc: '', msg: '', rows: null, login: null, busy: false });
 
 // Chụp lại màn (lúc mở mục Góp ý, sau mỗi lần gửi): cả màn đang thấy trừ Hệ Thống (feedback-shot.js shotScreen), xong thì thay ảnh xem trước
 export function gopShot(game, st) {
@@ -24,6 +24,32 @@ function paint(st) {   // ảnh xem trước đang hiện (không vẽ lại c�
   p.hidden = !st.img; if (st.img) p.src = st.img.anh;
   p.previousElementSibling?.classList.toggle('ht-gop-wait', st.shooting);
 }
+
+// Điểm quản trị viên ngay đầu mục (chủ dự án 11/11/2026 23:27: "tích hợp điểm qtv vào hệ thống, mục góp ý, khi điểm đủ nhiều sẽ mở khoá
+// tính năng"; quyền từng cấp chủ dự án chốt sau). Cấp theo tổng điểm đã được (data/community.json → feedback.qtv.cap), sổ điểm máy chủ
+// (src/net/rank.js qtvLedger). Chạm thẻ: Bảng quản trị viên (đổi điểm lấy Tiên Ngọc ở đó).
+function qtvCard(game, body, st, api) {
+  const Q = game.data.community.feedback.qtv;
+  if (!Q) return;
+  const card = el('button', 'ht-qtv'); card.type = 'button';
+  card.onclick = () => { api.minimize(); game.openFame?.(); };
+  body.append(card);
+  const paintQ = () => {
+    card.textContent = '';
+    if (!st.qtv) { card.append(el('span', 'ht-muted', '…')); return; }
+    const tong = st.qtv.tong || 0, cap = Q.cap.filter(n => tong >= n).length, next = Q.cap[cap];
+    const lo = cap ? Q.cap[cap - 1] : 0, pct = next ? Math.round(((tong - lo) / (next - lo)) * 100) : 100;
+    const bar = el('i', 'ht-qtv-bar'), fillBar = el('b'); fillBar.style.width = pct + '%'; bar.append(fillBar);
+    card.append(el('b', null, fill(Q.title, { cap })), el('span', null, fill(Q.pts, { tong: tong.toLocaleString('vi-VN'), du: (st.qtv.du || 0).toLocaleString('vi-VN') })), bar,
+      el('small', null, next ? fill(Q.next, { n: (next - tong).toLocaleString('vi-VN'), cap: cap + 1 }) : Q.max));
+  };
+  if (st.qtv == null) {
+    st.qtv = 0;
+    import('../net/rank.js').then(m => m.qtvLedger()).then(d => { st.qtv = d || { tong: 0, du: 0 }; }).catch(() => { st.qtv = { tong: 0, du: 0 }; }).then(() => { if (card.isConnected) paintQ(); });
+  }
+  paintQ();
+}
+const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
 
 // api: { render(), minimize() }
 export function renderGop(game, body, st, api) {
@@ -45,6 +71,7 @@ export function renderGop(game, body, st, api) {
   if (st.login === 'cho') { body.append(el('p', 'ht-line ht-muted', '…')); return; }
   if (!st.login) { body.append(el('p', 'ht-line', T.login)); return; }
   if (!st.img && !st.shooting) gopShot(game, st);
+  qtvCard(game, body, st, api);
 
   const name = el('input', 'ht-find'), desc = el('textarea', 'ht-ask'), file = el('input'), preview = el('img', 'ht-gop-img');
   name.maxLength = 80; name.placeholder = K.name_ph; name.value = st.name;

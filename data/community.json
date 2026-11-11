@@ -26,6 +26,7 @@
   "label": "TikTok"
  },
  "feedback": {
+  "qtv": {"_note": "Điểm quản trị viên trong Hệ Thống, mục Góp ý (src/ui/he-thong-gop.js qtvCard). cap: mốc tổng điểm lên cấp 1..5 (như data/social.json rank.qtv.rule). Quyền mở theo cấp: chủ dự án chốt sau.", "cap": [20, 60, 150, 300, 600], "title": "Người xây game · Cấp {cap}", "pts": "{tong} điểm QTV · còn đổi được {du}", "next": "Còn {n} điểm lên cấp {cap}", "max": "Đã đạt cấp cao nhất"},
   "on": true,
   "img": {
    "max": 960,
