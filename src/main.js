@@ -104,7 +104,7 @@ async function boot() {
   createRecord(game, audio).catch(() => {});   // nút quay clip cạnh nút tiếng (data/record.json); lỗi thì game vẫn chạy
   createPortraits(game).catch(() => {});   // chân dung NPC trên hộp thoại (data/portraits.json)
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)
-  createFeedback(game);   // nút Báo lỗi, Đề xuất cạnh nút Zalo (data/community.json → feedback)
+  createFeedback(game);   // nút ẩn Báo lỗi, Đề xuất: mở Hệ Thống mục Góp ý (src/ui/he-thong-gop.js; data/community.json → feedback)
   createProfile(game);   // chạm tên ở bảng xếp hạng: hồ sơ, nút So tài (data/duel.json)
   createReferral(game); startReferral(game);   // sự kiện giới thiệu nhận ngọc (data/referral.json)
   game.openFame = () => { game.closeAll?.(); game.rankKind?.('qtv'); game.openSocial?.('rank'); };   // bảng vinh danh góp ý cũ đã thay bằng Bảng quản trị viên (Xếp hạng)

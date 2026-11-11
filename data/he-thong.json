@@ -18,7 +18,8 @@
   "gacha": "Triệu hồi",
   "tra": "Tàng Thư",
   "faq": "Hỏi đáp",
-  "ask": "Hỏi thêm"
+  "ask": "Hỏi thêm",
+  "gop": "Góp ý"
  },
  "tra": {
   "_note": "Tàng Thư (chủ dự án 10/11/2026 09:16: nâng cấp Hệ Thống thông minh hơn, mọi thông tin game, từ khoá nào cũng bấm xem được; mẫu wiki cotienlo.com). Tự dựng từ data/ (src/game/tra-cuu.js), giao diện src/ui/he-thong-tra.js. kinds: tên loại mục; row: nhãn dòng chỉ số.",

@@ -1,14 +1,12 @@
 // Nút Thư gộp (chủ dự án 04/11/2026 09:31: "4 mục Zalo, đề xuất, báo lỗi, thư… dồn hết vào trong thư"): một nút Thư trên màn hình
 // (data/menu.json → hud.list, open: hopThu), chạm mở hộp nhỏ ngay dưới nút với bốn dòng Hòm thư, Zalo, Đề xuất, Báo lỗi. Mỗi dòng
 // bấm hộ nút cũ (các nút cũ vẫn còn, cất trong #hud-menu): Hòm thư nghe pointerdown, Zalo và hai nút góp ý nghe click.
-// Dòng TikTok đã ra màn hình thành nút riêng cạnh Thư (chủ dự án 11/11/2026 11:36, data/menu.json → hud). Chấm đỏ trên nút Thư khi có thư chưa đọc hoặc quà Zalo chưa nhận. Kiểu ở style-ui-kit3.css.
+// Đề xuất, Báo lỗi đã vào Hệ Thống, mục Góp ý (chủ dự án 11/11/2026 23:12, src/ui/he-thong-gop.js). Dòng TikTok đã ra màn hình thành nút riêng cạnh Thư (chủ dự án 11/11/2026 11:36, data/menu.json → hud). Chấm đỏ trên nút Thư khi có thư chưa đọc hoặc quà Zalo chưa nhận. Kiểu ở style-ui-kit3.css.
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const ROWS = [
   { id: 'btn-inbox', label: 'Hòm thư', ev: 'pointerdown' },
   { id: 'btn-zalo', label: 'Zalo', ev: 'click' },
-  { id: 'btn-fb-de_xuat', label: 'Đề xuất', ev: 'click' },
-  { id: 'btn-fb-loi', label: 'Báo lỗi', ev: 'click' },
 ];
 
 export function createHopThu(game) {

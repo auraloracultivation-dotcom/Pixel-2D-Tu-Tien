@@ -1,7 +1,9 @@
 // Hệ Thống Tu Tiên (data/he-thong.json; chủ dự án 06/11/2026 16:15): bảng giữa màn hình kiểu bảng hệ thống của truyện xuyên không.
 // Lần đầu vào: chữ chào hiện dần từng dòng. Chạm ra ngoài bảng: bảng thu nhỏ, bay sang biểu tượng "Hệ" bên phải (cạnh nút pháp bảo);
 // chạm biểu tượng thì bảng phóng to lại từ đó. Mục: Nhiệm vụ / Triệu hồi / Tàng Thư (tra cứu mọi thứ trong data/, he-thong-tra.js) /
-// Hỏi đáp (data/faq.json) / Hỏi thêm (net/he-thong.js; gõ là Hệ Thống tìm trả lời ngay). Tên chiêu, quái, đan… trong chữ thành nút bấm.
+// Hỏi đáp (data/faq.json) / Hỏi thêm (net/he-thong.js; gõ là Hệ Thống tìm trả lời ngay) / Góp ý (báo lỗi, đề xuất: he-thong-gop.js).
+// Tên chiêu, quái, đan… trong chữ thành nút bấm. Hệ Thống nổi trên mọi bảng (chủ dự án 11/11/2026 23:12, he-thong.css); đang mở mà
+// một bảng khác hiện lên (bấm Đi làm, mở Bí cảnh…) thì tự thu nhỏ cho bảng đó khỏi bị che.
 // Hệ thống tự lên tiếng (game/he-thong.js htTick): biểu tượng rung, hiện một dòng nhắc cạnh biểu tượng. Kiểu ở he-thong.css.
 // Biểu tượng là khối tinh thể vẽ bằng canvas (không dùng hình ngoài). Chữ người chơi chỉ gán textContent.
 import { every } from '../core/ticker.js';
@@ -13,6 +15,7 @@ import { createWander } from './he-thong-dao.js';
 import { createGreeter } from './he-thong-chao.js';
 import { makeDraggable } from './he-thong-keo.js';
 import { renderTra, linkText, quickAnswers } from './he-thong-tra.js';
+import { renderGop, gopState, gopShot } from './he-thong-gop.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -61,6 +64,7 @@ export function createHeThong(game) {
   let faqQ = '', faqOpen = new Set();   // Hỏi đáp: chữ đang tìm, nhóm đang mở
   const traSt = { q: '', kind: '', cur: null, back: [] };   // Tàng Thư: chữ tìm, loại lọc, mục đang xem, đường quay lại
   const pick = id => { if (traSt.cur && traSt.cur !== id) traSt.back.push(traSt.cur); else if (!traSt.cur) traSt.back = []; traSt.cur = id; tab = 'tra'; render(); body.scrollTop = 0; };
+  const gopSt = gopState();   // Góp ý: loại, chữ đang gõ, ảnh, danh sách đã gửi
   let tab = 'task', open = false, typing = null, mine = null, ht = { diem: 0, xong: [], ngay_xong: [] }, say = '';
   const H = C, fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
   async function loadHt() {
@@ -89,9 +93,9 @@ export function createHeThong(game) {
   function tabBar() {
     tabs.textContent = '';
     for (const [id, name] of Object.entries(C.tabs)) {
-      if (id === 'faq' && !F) continue;
+      if ((id === 'faq' && !F) || (id === 'gop' && !game.data.community?.feedback?.on)) continue;
       const b = el('button', `ht-tab${id === tab ? ' on' : ''}`, name); b.type = 'button';
-      b.onclick = () => { tab = id; render(); };
+      b.onclick = () => { if (id === 'gop' && tab !== 'gop' && !gopSt.busy) gopShot(game, gopSt); tab = id; render(); body.scrollTop = 0; };
       tabs.append(b);
     }
   }
@@ -102,6 +106,8 @@ export function createHeThong(game) {
       renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; });   // không vẽ lại: món vừa trúng nằm trên rương tới khi người chơi chạm
     } else if (tab === 'tra') {
       renderTra(game, body, traSt, () => { render(); body.scrollTop = 0; });
+    } else if (tab === 'gop') {
+      renderGop(game, body, gopSt, { render: () => { if (open && tab === 'gop') render(); }, minimize });
     } else if (tab === 'faq') {
       // Nhóm thu gọn (chủ dự án 06/11/2026 23:38: kéo xuống lâu quá): chạm tên nhóm mới hiện câu hỏi; ô tìm lọc câu hỏi, câu trả lời
       const T = C.text, find = el('input', 'ht-find'); find.type = 'search'; find.placeholder = T.faq_find; find.value = faqQ;
@@ -248,5 +254,16 @@ export function createHeThong(game) {
   makeDraggable(game, ic, tip, icFace, C.dao || {}, () => wander?.pos || userPos, p => { if (wander) wander.drop(); else userPos = p; });
   createGreeter(game);   // Hệ Thống ra đón ở màn đăng nhập (he-thong-chao.js)
   game.openHeThong = () => show();
+  game.openGopY = kind => {   // Báo lỗi / Đề xuất (hộp thư, thông báo, thư trả lời góp ý): mở thẳng mục Góp ý
+    if (kind && gopSt.kind !== kind) { gopSt.kind = kind; gopSt.msg = ''; }
+    if (!gopSt.busy) gopShot(game, gopSt);   // chụp khung game trước khi bảng che
+    tab = 'gop';
+    if (open) { render(); body.scrollTop = 0; } else show();
+  };
+  // Bảng khác hiện lên khi Hệ Thống đang mở: thu nhỏ Hệ Thống (nó nổi trên cùng, không thu thì che mất bảng vừa mở)
+  new MutationObserver(ms => {
+    if (!open || typing) return;
+    if (ms.some(m => m.target !== back && !m.target.hidden && m.target.matches?.('.panel, #bag, #dialog, .death-ask, .pvp-ask, .bay-kho'))) minimize();
+  }).observe(document.body, { attributes: true, attributeFilter: ['hidden'], subtree: true });
   game.openTangThu = id => { show(); pick(id); };   // bảng khác mở thẳng một mục Tàng Thư: game.openTangThu('mob:hoa-lang')
 }
