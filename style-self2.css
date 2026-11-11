@@ -12,3 +12,5 @@
 #btn-atk .atk-ico { position: absolute; inset: 16%; z-index: 1; background: center / contain no-repeat; image-rendering: pixelated; pointer-events: none;
   filter: drop-shadow(0 0 3px rgba(255, 215, 120, .55)); }
 #btn-atk.has-ico > b { display: none; }
+/* 03:29: có hình bản mệnh pháp bảo thì vòng nút bỏ hai thanh kiếm vàng chéo (ui-k-atk3.png = ui-k-atk2.png xoá lòng giữa) */
+body #btn-atk.has-ico::after, body[data-le] #btn-atk.has-ico::after { background-image: url("assets/art/ui-k-atk3.png") !important; }
