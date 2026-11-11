@@ -66,14 +66,24 @@ export function uiIco(data, key, cls = 'sv-uico') {
   if (spr) i.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
   return i;
 }
+// Ô thú: to bằng ô trang bị hai bên (chủ dự án 11/11/2026 20:50), khung phẩm theo màu các dòng tẩy luyện như trang bị, góc trên phải
+// cấp, góc dưới trái sao, góc dưới phải số dòng tẩy luyện. Thú cưỡi: không cấp, sao; một dòng % (save.mountLine).
 export function buffCell(game, kind, onOpen) {
   const { data, save } = game, [nm, han] = BUFF[kind], b = el('button', 'sv-slot buff' + (kind === 'spare' ? ' spare' : ''));
   const id = kind === 'pet' ? save.pet : kind === 'mount' ? save.mount : kind === 'comp' ? save.companion : kind === 'comp2' ? save.companion2 : null;
   const spr = id && [kind === 'pet' ? 'pet.' + id : kind === 'mount' ? 'mount.' + id : 'comp.' + id, 'npc.' + id].find(k => data.art.sprites[k]);
   b.setAttribute('aria-label', nm);
-  if (spr) { b.style.setProperty('--q', '#9a7ad8'); b.append(spriteIcon(game, spr, 0, 34, 'sv-spr', true)); }
-  else b.append(uiIco(data, han));
+  if (spr) {
+    const st = kind === 'pet' ? save.pets?.[id] : kind === 'mount' ? null : save.comps?.[id];
+    const lines = kind === 'mount' ? [save.mountLine?.[id]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
+    b.dataset.o = q?.id || 'pham'; b.style.setProperty('--q', q ? (q.edge || q.color) : '#9a7ad8');
+    b.append(el('i', 'sv-bfr'), spriteIcon(game, spr, 0, 34, 'sv-spr', true));
+    if (st?.lv) b.append(el('b', 'sv-plus', 'c' + st.lv));
+    if (st?.star) b.append(el('span', 'sv-star', '★' + st.star));
+    if (lines.length) { const br = el('span', 'sv-br'); br.append(el('span', 'sv-ln', '◆' + lines.length)); b.append(br); }
+    if (st?.evo) b.classList.add('evo');
+    b.title = `${nm}${st?.lv ? ' · cấp ' + st.lv : ''}${st?.star ? ' · ★' + st.star : ''}${lines.length ? ' · ' + lines.length + ' dòng' : ''}`;
+  } else { b.append(uiIco(data, han)); b.title = nm; }
   if (kind === 'spare') b.disabled = true; else b.onclick = () => onOpen(kind);
-  b.title = nm;
   return b;
 }

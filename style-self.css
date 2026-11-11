@@ -364,3 +364,14 @@ body .sv .sv-gbtn b { font-size: 10px; letter-spacing: -.2px; }
 /* 04:03: mục Linh thú (bảng có sẵn #pets gắn vào khung phải); cột trái 5 mục */
 body .sv #pets-tabs { display: none !important; }
 .sv-pages .sv-pg .sv-rico { width: 20px; height: 20px; }
+/* 20:50: ô thú (linh thú, khôi lỗi, thú cưỡi) to bằng ô trang bị, khung theo phẩm dòng tẩy luyện, góc: cấp / sao / số dòng (self-gear.js) */
+.sv .sv-buffs { gap: 1px; justify-content: space-between; }
+.sv .sv-buffs .sv-slot.buff { flex: 1 1 0; width: auto; max-width: 36px; height: auto; aspect-ratio: 1; filter: none; background: none !important; }
+.sv .sv-buffs .sv-slot.buff:not([data-o]) { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; }   /* chưa mang: khung cơ bản + bóng chờ */
+.sv .sv-buffs .sv-slot.buff[data-o="pham"] { --o: url("assets/art/ui-nv-o.png"); }   /* chưa tẩy dòng nào: khung cơ bản */
+.sv-bfr { position: absolute; inset: 0; background: var(--o, url("assets/art/ui-nv-o.png")) center / 100% 100% no-repeat; pointer-events: none; }
+.sv .sv-buffs .sv-slot.buff .sv-spr { position: relative; z-index: 1; max-width: 76%; max-height: 72%; }
+.sv .sv-buffs .sv-slot.buff .sv-uico { width: 60%; height: 60%; }
+.sv-star { position: absolute; left: 2px; bottom: 1px; z-index: 2; font: 800 7px var(--f-body); color: #ffd766; text-shadow: 0 1px 0 #000, 0 0 2px #000; }
+.sv-slot.buff .sv-plus { z-index: 2; font-size: 7px; }
+.sv-slot.buff.evo .sv-bfr { filter: drop-shadow(0 0 3px #ffd766); }
