@@ -65,6 +65,7 @@ import { startNetWatch } from './game/net-watch.js';
 import { startCheckinNudge } from './game/checkin-nudge.js';
 import { startThienMa } from './game/thienma.js';
 import { createFarmTeamPanel } from './ui/farm-team-panel.js';
+import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createMangLeave } from './ui/mang-leave.js';
@@ -120,6 +121,7 @@ async function boot() {
   createMangLeave(game);   // nút Rời đi vùng Thôn Thiên Mãng
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
+  createPhapBaoPanel(game);   // Hệ Pháp Bảo Luyện Chế, tài khoản thử (data/phap-bao.json test_uid)
   createFarmTeamPanel(game);   // tổ đội farm ngoài thế giới mở: danh sách đội trên tinh cầu, thưởng +10% mỗi đồng đội cùng chỗ (data/doi-farm.json)
   createChatDock(game); if (!game.data.daily?.off) createQuestDock(game);   // off: bỏ nhiệm vụ hằng ngày (chủ dự án 06/11/2026), hệ thống thay
     // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải

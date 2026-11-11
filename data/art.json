@@ -26,6 +26,234 @@
    "note": "biển gỗ chỉ lối vẽ bằng code (tools/art/tk_moi.py sign)",
    "scale": 0.5333
   },
+  "ck.bao-kich": {
+   "file": "assets/art/ck-bao-kich.png",
+   "v": "dfd5120b",
+   "w": 41,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    20,
+    16
+   ],
+   "note": "Chiêu khảm: ck-bao-kich.png"
+  },
+  "ck.cau-xoay": {
+   "file": "assets/art/ck-cau-xoay.png",
+   "v": "6b65d313",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    16
+   ],
+   "note": "Chiêu khảm: ck-cau-xoay.png"
+  },
+  "ck.danh-lan": {
+   "file": "assets/art/ck-danh-lan.png",
+   "v": "a85dddfa",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    16
+   ],
+   "note": "Chiêu khảm: ck-danh-lan.png"
+  },
+  "ck.hap-huyet": {
+   "file": "assets/art/ck-hap-huyet.png",
+   "v": "927323ed",
+   "w": 39,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    19,
+    16
+   ],
+   "note": "Chiêu khảm: ck-hap-huyet.png"
+  },
+  "ck.hoa": {
+   "file": "assets/art/ck-hoa.png",
+   "v": "68c81fba",
+   "w": 19,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "note": "Chiêu khảm: khung 3 của fx-fire.png"
+  },
+  "ck.kim": {
+   "file": "assets/art/ck-kim.png",
+   "v": "483f08c7",
+   "w": 36,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    16
+   ],
+   "note": "Chiêu khảm: ck-kim.png"
+  },
+  "ck.lien-phat": {
+   "file": "assets/art/ck-lien-phat.png",
+   "v": "a202e71b",
+   "w": 51,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    25,
+    13
+   ],
+   "note": "Chiêu khảm: ck-lien-phat.png"
+  },
+  "ck.loi-kich": {
+   "file": "assets/art/ck-loi-kich.png",
+   "v": "89e47475",
+   "w": 35,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    17,
+    28
+   ],
+   "note": "Chiêu khảm: khung 2 của fx-bolt.png"
+  },
+  "ck.moc": {
+   "file": "assets/art/ck-moc.png",
+   "v": "854ac1aa",
+   "w": 22,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    11,
+    18
+   ],
+   "note": "Chiêu khảm: khung 3 của fx-vine.png"
+  },
+  "ck.nay-bat": {
+   "file": "assets/art/ck-nay-bat.png",
+   "v": "36977d47",
+   "w": 34,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    17,
+    16
+   ],
+   "note": "Chiêu khảm: ck-nay-bat.png"
+  },
+  "ck.phan-chan": {
+   "file": "assets/art/ck-phan-chan.png",
+   "v": "5e6d4373",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    16
+   ],
+   "note": "Chiêu khảm: ck-phan-chan.png"
+  },
+  "ck.tho": {
+   "file": "assets/art/ck-tho.png",
+   "v": "10106ae1",
+   "w": 35,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    17,
+    19
+   ],
+   "note": "Chiêu khảm: khung 3 của fx-rock.png"
+  },
+  "ck.thuy": {
+   "file": "assets/art/ck-thuy.png",
+   "v": "b97e6bf6",
+   "w": 33,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    16,
+    19
+   ],
+   "note": "Chiêu khảm: khung 5 của fx-ice.png"
+  },
+  "ck.tiet-linh": {
+   "file": "assets/art/ck-tiet-linh.png",
+   "v": "df34d69d",
+   "w": 27,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    13,
+    16
+   ],
+   "note": "Chiêu khảm: ck-tiet-linh.png"
+  },
+  "ck.toa-nhanh": {
+   "file": "assets/art/ck-toa-nhanh.png",
+   "v": "9e1aff26",
+   "w": 28,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    14,
+    16
+   ],
+   "note": "Chiêu khảm: ck-toa-nhanh.png"
+  },
+  "ck.toc-kich": {
+   "file": "assets/art/ck-toc-kich.png",
+   "v": "87b441b7",
+   "w": 52,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    26,
+    16
+   ],
+   "note": "Chiêu khảm: ck-toc-kich.png"
+  },
+  "ck.truy-kich": {
+   "file": "assets/art/ck-truy-kich.png",
+   "v": "65aaee22",
+   "w": 50,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    25,
+    13
+   ],
+   "note": "Chiêu khảm: ck-truy-kich.png"
+  },
+  "ck.tu-bao": {
+   "file": "assets/art/ck-tu-bao.png",
+   "v": "1a7d84f5",
+   "w": 32,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    16,
+    16
+   ],
+   "note": "Chiêu khảm: ck-tu-bao.png"
+  },
+  "ck.xuyen-thau": {
+   "file": "assets/art/ck-xuyen-thau.png",
+   "v": "0c0b3588",
+   "w": 86,
+   "h": 26,
+   "frames": 1,
+   "anchor": [
+    43,
+    13
+   ],
+   "note": "Chiêu khảm: ck-xuyen-thau.png"
+  },
   "comp.ho-linh": {
    "file": "assets/art/comp-ho-linh.png",
    "v": "463fd9b4",
@@ -15812,6 +16040,102 @@
    ],
    "note": "Vạn Kiếm Ma Tướng: Canva theo mẫu chibi (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
+  },
+  "pb.dai-an": {
+   "file": "assets/art/pb-dai-an.png",
+   "v": "9a9fe671",
+   "w": 32,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    16,
+    39
+   ],
+   "note": "Pháp bảo: pb-dai-an.png"
+  },
+  "pb.ho-lo": {
+   "file": "assets/art/pb-ho-lo.png",
+   "v": "ab8c0748",
+   "w": 40,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    20,
+    39
+   ],
+   "note": "Pháp bảo: pb-ho-lo.png"
+  },
+  "pb.ho-thuan": {
+   "file": "assets/art/pb-ho-thuan.png",
+   "v": "0d08bbce",
+   "w": 36,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    18,
+    39
+   ],
+   "note": "Pháp bảo: pb-ho-thuan.png"
+  },
+  "pb.linh-chau": {
+   "file": "assets/art/pb-linh-chau.png",
+   "v": "ca65cf54",
+   "w": 44,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    22,
+    39
+   ],
+   "note": "Pháp bảo: pb-linh-chau.png"
+  },
+  "pb.tran-ky": {
+   "file": "assets/art/pb-tran-ky.png",
+   "v": "2ccde2bf",
+   "w": 35,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "note": "Pháp bảo: pb-tran-ky.png"
+  },
+  "pbfx.dai-an": {
+   "file": "assets/art/pbfx-dai-an.png",
+   "v": "34ac39e4",
+   "w": 55,
+   "h": 56,
+   "frames": 8,
+   "anchor": [
+    27,
+    28
+   ],
+   "note": "Hiệu ứng pháp bảo: SpriteCook dai-an.webp (8 khung, thu 1/2)"
+  },
+  "pbfx.ho-lo": {
+   "file": "assets/art/pbfx-ho-lo.png",
+   "v": "6c21599b",
+   "w": 55,
+   "h": 40,
+   "frames": 8,
+   "anchor": [
+    27,
+    20
+   ],
+   "note": "Hiệu ứng pháp bảo: SpriteCook ho-lo.webp (8 khung, thu 1/2)"
+  },
+  "pbfx.linh-chau": {
+   "file": "assets/art/pbfx-linh-chau.png",
+   "v": "79dc8d0a",
+   "w": 115,
+   "h": 33,
+   "frames": 8,
+   "anchor": [
+    57,
+    16
+   ],
+   "note": "Hiệu ứng pháp bảo: SpriteCook linh-chau.webp (8 khung, thu 1/2)"
   },
   "pet.bang-tinh": {
    "file": "assets/art/pet-bang-tinh.png",

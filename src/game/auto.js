@@ -4,6 +4,7 @@
 // Trong động phủ thì đánh Mộc Nhân.
 import { dist } from './combat.js';
 import { skillSlots } from './skills.js';
+import { pbOn, pbWorn } from './phap-bao.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
 import { findPath } from './pilot.js';
@@ -81,7 +82,7 @@ export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.
 export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6 * (game.data.config.slash?.far || 1)) + tgt.r; };   // chém: tầm theo vệt chém (player.js reachW)
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
-  const slots = skillSlots(game);
+  const slots = pbOn(game) ? pbWorn(game) : skillSlots(game);   // hệ pháp bảo mới: tự đánh bấm 3 nút pháp bảo
   if (bd < reach + 30 && see) {
     for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
     if ((p.artCd || 0) <= 0) game.input.pressed.add('art');   // góp ý #111: chiêu pháp bảo đã hồi thì tự dùng (không có pháp bảo thì nút không làm gì)

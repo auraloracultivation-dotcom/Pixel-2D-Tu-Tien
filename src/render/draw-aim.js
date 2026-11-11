@@ -5,6 +5,7 @@
 // Vẽ kiểu pixel: tô từng điểm ảnh ở độ phân giải bản đồ (lưới chấm + viền sáng + viền mực), lưu sẵn theo chiêu và hướng.
 import { skillSlots } from '../game/skills.js';
 import { autoAim } from '../game/player.js';
+import { pbOn } from '../game/phap-bao.js';
 
 const DIRS = 128, INK = [27, 24, 48], cache = new Map();
 const rgb = h => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
@@ -92,7 +93,7 @@ const still = s => ((s.type === 'aoe' || s.type === 'zone') && !s.offset) || !['
 // Gọi trong lớp mặt đất (src/render/draw.js drawWorld, đã ở toạ độ bản đồ)
 export function drawAim(ctx, game) {
   const inp = game.input, act = inp?.aiming?.act || inp?.holding;
-  if (!act || game.dialog?.open) return;
+  if (!act || game.dialog?.open || pbOn(game)) return;   // hệ pháp bảo mới: chưa có khung ngắm riêng
   const id = skillSlots(game)[Number(act.slice(1))], s = id && game.data.skills[id];
   if (!s) return;
   const p = game.player, f = (inp.aiming?.act === act && inp.aiming) || autoAim(game, id) || p.face || { x: 1, y: 0 };

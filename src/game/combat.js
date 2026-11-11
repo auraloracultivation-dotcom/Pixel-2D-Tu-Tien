@@ -70,6 +70,7 @@ export function hitMob(game, m, dmg, opt = {}) {
     game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
     game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
   }
+  opt.onHit?.(m, dmg, crit);   // pháp bảo (src/game/phap-bao-hit.js): hệ, hút máu, nảy, nổ con, Lôi Kích…
   if (m.hp <= 0 && !m.remote) killMob(game, m);
 }
 
@@ -91,7 +92,7 @@ export function hitPlayer(game, dmg, from) {
   const p = game.player, who = from?.def ? from : from?.src;   // quái vừa đánh trúng mình (tự hành gục thì tránh loài này)
   if ((p.invT > 0 && !who?.duel) || p.dashT > 0 || game.paused) return;   // bản sao so tài (game/duel.js): đòn nào cũng trúng, như đòn mình đánh nó
   if (who?.def) game.lastHit = who;
-  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0))));   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
+  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0)) * (1 - (p.pbDr || 0))));   // pbDr: đứng trong vùng Trận Kỳ (src/game/phap-bao-run.js)   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
   if (who?.def) dmg = Math.max(1, Math.round(dmg * cpIn(game, who)));   // áp chế lực chiến: quái mạnh hơn đánh đau hơn (cp-press.js)
   if (who?.dmgMul) dmg = Math.max(1, Math.round(dmg * who.dmgMul));   // so tài: đòn hai bên cùng nhẹ đi cho trận kéo dài (data/duel.json dmg)
   if (p.shield > 0) {
@@ -105,6 +106,7 @@ export function hitPlayer(game, dmg, from) {
     if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
     addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
     juiceHurt(game, dmg / p.maxHp);
+    if (who?.def) game.pbHurt?.(who);   // Phản Chấn (pháp bảo)
     sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', from ? Math.atan2(p.y - from.y, p.x - from.x) : null);
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;

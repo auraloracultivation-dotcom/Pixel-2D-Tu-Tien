@@ -5,6 +5,7 @@ import { pillHp } from './cave.js';
 import { setStats } from './enhance.js';
 import { daoVanStats } from './daovan.js';
 import { wornExtra } from './beast.js';
+import { pbStats } from './phap-bao.js';
 // Linh khí hạ quái nhân theo cảnh giới (data/realms.json → kill_qi): cảnh giới cao hấp thụ linh khí phàm thú chậm hơn
 export const killQiMul = (save, realms) => realms.kill_qi?.[save.realm] ?? 1;
 // Linh khí thật một con quái (data/mobs.json → lk, chủ dự án 09/11/2026: số ghi là số nhận, không nhân ẩn): quái bị nhân mạnh
@@ -58,7 +59,8 @@ export function playerStats(save, data) {
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(setStats(data, save).stats)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(daoVanStats(save, data))) g[s] = (g[s] || 0) + x;   // thưởng bộ Đạo Vận hợp hệ
-  for (const [s, x] of Object.entries(wornExtra(save, data))) g[s] = (g[s] || 0) + x;   // dòng thú cưỡi đang chọn, bộ thời trang đang mặc
+  for (const [s, x] of Object.entries(wornExtra(save, data))) g[s] = (g[s] || 0) + x;
+  for (const [s, x] of Object.entries(pbStats(save, data))) g[s] = (g[s] || 0) + x;   // 3 pháp bảo đang mặc (src/game/phap-bao.js)   // dòng thú cưỡi đang chọn, bộ thời trang đang mặc
   const v = s => g[s] || 0;
   const base = { maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)) };
   return {
