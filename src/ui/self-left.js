@@ -23,11 +23,12 @@ function column(game, side, slots, h) {
   return c;
 }
 
-// h: { pick(slot, it), openExtra(kind), rename(), stats() }; stt: chỉ số (playerStats)
+// h: { pick(slot, it), openExtra(kind), rename(), stats() }; stt: chỉ số (playerStats).
+// Hồ sơ người khác (src/ui/profile-panel.js): game là bản nhìn có save của người đó, h.name tên, h.cp lực chiến máy chủ ghi; không đổi tên
 export function leftCard(game, stt, h) {
   const s = game.save, d = game.data, card = el('div', 'sv-card');
-  const top = el('div', 'sv-top'), nm = el('button', 'sv-nm', game.cloud?.name || 'Đạo hữu');
-  nm.onclick = h.rename;
+  const top = el('div', 'sv-top'), nm = el('button', 'sv-nm', h.name || game.cloud?.name || 'Đạo hữu');
+  nm.onclick = h.rename || null;
   top.append(nm);
   const area = el('div', 'sv-hero-area'), mid = el('div', 'sv-center');
   // giữ đúng tỉ lệ hình (khung chibi rộng vì hiệu ứng chiêu: cắt bớt hai bên trong suốt, không ép bề ngang)
@@ -42,7 +43,7 @@ export function leftCard(game, stt, h) {
   const buffs = el('div', 'sv-buffs');
   for (const k of BUFFS) buffs.append(buffCell(game, k, h.openExtra));
   const cp = el('button', 'sv-cpbar');   // chạm: đủ chỉ số ở khung phải
-  cp.append(uiIco(d, 'ui.nv-luc-chien', 'sv-cpico'), el('span', null, 'Lực Chiến'), el('b', null, vn(power(game))), el('small', null, '›'));
+  cp.append(uiIco(d, 'ui.nv-luc-chien', 'sv-cpico'), el('span', null, 'Lực Chiến'), el('b', null, vn(h.cp ?? power(game))), el('small', null, '›'));
   cp.onclick = h.stats;
   const grid = el('div', 'sv-grid');
   const row = (ic, k, v, cls) => { const r = el('div', 'sv-row ' + cls); r.append(uiIco(d, 'ui.nv-' + ic, 'sv-sico'), el('span', null, k), el('b', null, v)); grid.append(r); };
@@ -54,14 +55,14 @@ export function leftCard(game, stt, h) {
   return card;
 }
 
-// Đủ chỉ số (chạm Lực Chiến), vẽ ở khung phải
-export function statsSheet(game, stt, box, close) {
-  const p = game.player, head = el('div', 'sv-shead'), x = el('button', 'd-close', '✕');
+// Đủ chỉ số (chạm Lực Chiến), vẽ ở khung phải. cp: lực chiến người khác (hồ sơ): không có máu, linh lực hiện tại
+export function statsSheet(game, stt, box, close, cp) {
+  const p = cp == null ? game.player : null, head = el('div', 'sv-shead'), x = el('button', 'd-close', '✕');
   x.onclick = close;
   head.append(el('div', 'd-name', 'Tổng quan chỉ số'), x);
   const d = game.data, list = el('div', 'sv-allstats');
   const row = (ic, k, v) => { const r = el('div', 'sv-row'); r.append(uiIco(d, 'ui.nv-' + ic, 'sv-sico'), el('span', null, k), el('b', null, v)); list.append(r); };
-  row('luc-chien', 'Lực chiến', vn(power(game))); row('hp', 'Sinh lực', `${vn(p?.hp)}/${vn(stt.maxHp)}`); row('linh-luc', 'Linh lực', `${vn(p?.mp)}/${vn(p?.mpMax)}`);
+  row('luc-chien', 'Lực chiến', vn(cp ?? power(game))); row('hp', 'Sinh lực', p ? `${vn(p.hp)}/${vn(stt.maxHp)}` : vn(stt.maxHp)); if (p) row('linh-luc', 'Linh lực', `${vn(p.mp)}/${vn(p.mpMax)}`);
   row('cong', 'Công', vn(stt.atk)); row('thu', 'Phòng ngự', vn(stt.def)); row('bao', 'Bạo kích', pct(stt.crit)); row('st-bao', 'Sát thương bạo', pct(stt.critMult));
   row('hoi-chieu', 'Giảm hồi chiêu', pct(stt.cdr)); row('toc', 'Tốc chạy', pct(stt.speedMul)); row('tu-luyen', 'Tốc tu', `×${stt.qiMul.toFixed(2)}`);
   row('hut-mau', 'Hút máu', pct(stt.lifesteal)); row('phan-don', 'Phản đòn', pct(stt.thorns)); row('hoi-mau', 'Hồi máu', `${vn(stt.regen)}/giây`);

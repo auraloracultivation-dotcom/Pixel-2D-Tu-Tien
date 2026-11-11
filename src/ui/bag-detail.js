@@ -54,7 +54,7 @@ const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toLocaleS
 
 // box: nơi vẽ; st: trạng thái túi; changed(): lưu, tính lại, vẽ lại túi; close(): đóng tấm chi tiết
 // Dòng phụ tô màu theo bậc (lục → đen; đen có viền đỏ sẫm)
-function tierLine(data, l) {
+export function tierLine(data, l) {   // dòng tẩy luyện: mỗi dòng một màu (cả hồ sơ người khác, src/ui/profile-side.js)
   const t = Number.isInteger(l.t) ? tierOf(data, l.t) : null, d = el('div', 'd-line' + (t?.edge ? ' tier-den' : ''), '◆ ' + statText(data, l.s, l.v));
   if (t) { d.style.color = t.edge ? '#ffd6d6' : t.color; if (t.edge) d.style.setProperty('--edge', t.edge); }
   return d;

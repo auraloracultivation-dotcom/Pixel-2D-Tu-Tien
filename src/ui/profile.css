@@ -29,3 +29,30 @@
 #rank-list div.tap { cursor: pointer; }
 #rank-list div.tap span { text-decoration: underline dotted rgba(169, 195, 255, .45); text-underline-offset: 3px; }
 #rank-list div.tap:active { background: rgba(169, 195, 255, .1); }
+
+/* 11/11/2026 21:04: hồ sơ dùng khuôn bảng Nhân vật (style-self.css .sv): hai khối thẻ nhân vật | khung phải, không cột mục */
+body .pf-panel.sv { z-index: 62; }
+.pf-frame { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr) !important; }
+.pf-panel .sv-nm { cursor: default; }
+.pf-panel .sv-nm.co { color: #ff8a8a; }
+.pf-panel .sv-nm.co::before { content: '⚑ '; }
+.pf-panel .sv-slot.sel { filter: brightness(1.3) drop-shadow(0 0 3px #ffd766); }
+.pf-panel .sv-buffs .sv-slot.sel { filter: brightness(1.3) drop-shadow(0 0 3px #ffd766); }
+.pf-wait { height: 100%; background: url("../../assets/art/ui-nv-nen.png") center 30% / 90px no-repeat; opacity: .25; }
+.pf-msg { margin: 8px 4px; font-size: 10px; color: var(--ink-2); }
+.pf-info { display: flex; flex-direction: column; gap: 4px; padding: 1px 2px; }
+.pf-info .pf-line { font-size: 9px; font-weight: 700; color: var(--ink); }
+.pf-flag { font-size: 8.5px; font-weight: 700; color: #ff8a8a; }
+.pf-hint { font-size: 7.5px; color: var(--ink-2); }
+.pf-info .pf-label { font: 700 8.5px var(--f-body); color: var(--gold); border-bottom: 1px solid rgba(160, 150, 210, .25); padding-bottom: 1px; margin-top: 2px; }
+.pf-info .pf-chips { gap: 2px; }
+.pf-info .pf-chip { font-size: 8px; padding: 2px 4px; border-radius: 4px; background: rgba(20, 18, 34, .6); }
+.pf-none { font-size: 8px; color: var(--ink-2); }
+.pf-note { font-size: 7px; line-height: 1.25; color: var(--ink-2); opacity: .85; margin-top: 2px; }
+body .sv .pf-acts2 .sv-gbtn { min-height: 40px; }
+body .sv .pf-acts2 .sv-gbtn b { font-size: 8.5px; white-space: normal; line-height: 1.05; text-align: center; }
+body .sv .pf-acts2 .sv-gbtn .sv-aico { width: 17px; height: 17px; }
+.pf-sheet .d-head .ico { position: relative; width: 26px !important; height: 26px !important; flex: none; }
+.pf-sheet .d-head canvas.pf-spr { flex: none; image-rendering: pixelated; max-width: 30px; max-height: 26px; }
+.pf-sheet .d-sockets .socket { cursor: default; font-size: 8px; padding: 1px 4px; border: 1px solid var(--edge); border-radius: 4px; background: rgba(20, 18, 34, .6); color: var(--ink); }
+.pf-sheet .d-label { font: 700 8px var(--f-body); color: var(--gold); margin: 3px 0 1px; }

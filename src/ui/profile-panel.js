@@ -1,21 +1,19 @@
-// Hồ sơ đạo hữu (data/duel.json profile): chạm tên ở bảng xếp hạng (rank-view.js → game.openProfile) thì mở. Cảnh giới,
-// lực chiến, chỉ số, đồ từng ô kèm cường hoá, dòng phụ, ngọc đang khảm; chiêu đang mang kèm cấp, chiêu pháp bảo, công pháp,
-// linh thú, đồng hành. Nút So tài (game/duel.js) và Truyền âm. Dữ liệu từ game/profile.js (đã lọc), chữ chỉ gán textContent.
+// Hồ sơ đạo hữu (data/duel.json profile): chạm tên ở bảng xếp hạng (rank-view.js → game.openProfile) thì mở.
+// Chủ dự án 11/11/2026 21:04: dùng chung khuôn bảng Nhân vật mới (style-self.css .sv): bên trái thẻ nhân vật của người đó (src/ui/self-left.js:
+// ô đồ khung phẩm, ngọc khảm, linh thú / khôi lỗi / thú cưỡi, Lực Chiến, chỉ số), chỉ xem; bên phải (src/ui/profile-side.js) linh căn,
+// binh khí, nút So tài (game/duel.js), Truyền âm, Kết bạn, chiêu, công pháp; chạm ô thì tấm chi tiết món / con thú.
+// Dữ liệu từ game/profile.js (đã lọc), chữ chỉ gán textContent.
 import { loadPlayer } from '../game/profile.js';
 import { startDuel } from '../game/duel.js';
-import { playerStats, realmLabel, weaponId, artSkill } from '../game/stats.js';
-import { skillSlots } from '../game/skills.js';
-import { petDef } from '../game/evolve.js';
-import { gemIcon } from './gem-icon.js';
-import { itemName, statText, gemInfo } from '../game/items.js';
-import { grade } from '../game/tiers.js';
-import { icon, mainStats } from './bag-detail.js';
+import { playerStats } from '../game/stats.js';
 import { addFriend } from '../game/friends.js';
 import { friendErr } from './friends-panel.js';
+import { leftCard, statsSheet } from './self-left.js';
+import { uiIco } from './self-gear.js';
+import { itemSheet, beastSheet, infoSheet } from './profile-side.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
-const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
-const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
+const BUFFS = ['pet', 'comp', 'comp2', 'mount'];   // thứ tự ô thú dưới nhân vật (self-left.js)
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -24,57 +22,16 @@ function el(tag, cls, text) {
   return e;
 }
 
-function section(title, ...kids) {
-  const s = el('div', 'pf-sec');
-  s.append(el('div', 'pf-label', title), ...kids);
-  return s;
-}
-
-function itemCard(game, save, slot, T) {
-  const { data } = game, it = save.bag.find(i => i.uid === save.equip[slot]), card = el('div', 'pf-item');
-  if (!it) {
-    card.classList.add('empty');
-    card.append(el('span', 'pf-slot', data.items.slots[slot]), el('span', 'muted', T.slot_empty));
-    return card;
-  }
-  const r = grade(data, it), ico = icon(data, it), txt = el('div', 'pf-it');
-  ico.style.borderColor = r.color;
-  const name = el('b', null, itemName(data, it)); name.style.color = r.color;
-  txt.append(name, el('small', 'muted', `${data.items.slots[slot]} · ${fill(T.item_sub, { rarity: r.name, lvl: it.lvl })}`));
-  const st = el('div', 'pf-stats');
-  for (const [s, v] of Object.entries(mainStats(data, save, it))) st.append(el('span', 'd-main', statText(data, s, v)));
-  for (const l of it.lines) { const t = Number.isInteger(l.t) && data.items.line_tiers.list[l.t], d = el('span', 'd-line', '◆ ' + statText(data, l.s, l.v)); if (t) d.style.color = t.edge ? '#ff8a8a' : t.color; st.append(d); }
-  if (it.sockets.length) {
-    const gems = el('div', 'pf-gems');
-    for (const g of it.sockets) {
-      if (!g) { gems.append(el('span', 'pf-gem empty', T.gem_empty)); continue; }
-      const gi = gemInfo(data, g), chip = el('span', 'pf-gem', `${gi.name}: ${statText(data, gi.stat, gi.value)}`);
-      chip.style.borderColor = gi.color; chip.style.color = gi.color; chip.prepend(gemIcon(game, g, 18, 'gem-ico sm'));
-      gems.append(chip);
-    }
-    st.append(gems);
-  }
-  txt.append(st);
-  card.append(ico, txt);
-  return card;
-}
-
-function chips(list) {
-  const d = el('div', 'pf-chips');
-  for (const [text, color] of list) { const c = el('span', 'pf-chip', text); if (color) c.style.borderColor = color; d.append(c); }
-  return d;
-}
-
 export function createProfile(game) {
   const P = game.data.duel?.profile;
   if (!P) return;
   const css = document.createElement('link');
   css.rel = 'stylesheet'; css.href = new URL(`./profile.css?v=${ver()}`, import.meta.url).href;
   document.head.append(css);
-  const root = el('div', 'panel pf-panel'); root.hidden = true;
-  const head = el('div', 'bag-head'), x = el('button', 'mini', P.close), body = el('div', 'pf-body');
-  head.append(el('b', null, P.title), x);
-  root.append(head, body);
+  const root = el('div', 'panel pf-panel sv'); root.hidden = true;
+  const x = el('button', 'sv-x', '✕'), frame = el('div', 'sv-frame pf-frame'), left = el('div', 'sv-left'), right = el('div', 'sv-right'), mid = el('div', 'sv-mid');
+  x.setAttribute('aria-label', P.close);
+  right.append(mid); frame.append(left, right); root.append(frame, x);
   document.body.append(root);
   let ticket = 0, under = false;   // under: bảng Đạo hữu đang mở bên dưới: ẩn tạm cho khỏi chồng hai lớp nền trong mờ
   const social = () => document.getElementById('social');
@@ -89,53 +46,48 @@ export function createProfile(game) {
   root.addEventListener('pointerdown', e => e.stopPropagation());
 
   function msg(text, retry) {
-    body.textContent = '';
-    const d = el('p', 'muted', text);
+    left.replaceChildren(el('div', 'pf-wait'));
+    mid.className = 'sv-mid';
+    const d = el('p', 'pf-msg', text);
     if (retry) { const b = el('button', 'mini', '↻'); b.onclick = retry; d.append(' ', b); }
-    body.append(d);
+    mid.replaceChildren(d);
   }
 
-  function render(prof) {
-    const { data } = game, s = prof.save, st = playerStats(s, data), T = P;
-    body.textContent = '';
-    const top = el('div', 'pf-top'), name = el('div', 'pf-name' + (prof.co ? ' co' : ''), prof.ten);
-    if (prof.co) name.title = T.flag;
-    top.append(name, el('div', 'pf-realm', `${realmLabel(s, data.realms)} · ${fill(T.power, { v: vn(prof.luc_chien) })}`));
-    top.append(el('div', 'pf-line', fill(T.stats, { hp: vn(st.maxHp), atk: vn(st.atk), def: vn(st.def), crit: Math.round(st.crit * 100), cm: Math.round(st.critMult * 100) })));
-    const elm = s.element && data.elements[s.element], line = el('div', 'pf-line', `${elm ? fill(T.element, { name: elm.name }) : T.element_none} · ${fill(T.weapon, { name: data.weapons[weaponId(s, data)].name })}`);
-    if (elm) line.style.color = elm.color;
-    top.append(line);
-    const acts = el('div', 'pf-acts'), duel = el('button', 'act-btn primary', prof.la_toi ? T.duel_self : T.duel);
-    duel.onclick = () => { close(false); game.closeSocial?.(); startDuel(game, prof); };
-    acts.append(duel);
-    if (!prof.la_toi && game.openWhisper) { const w = el('button', 'act-btn', T.whisper); w.onclick = () => { close(false); game.openWhisper(prof.k, prof.ten); }; acts.append(w); }
+  // Nút So tài / Truyền âm / Kết bạn (ô gọn hình + chữ như bảng Nhân vật)
+  function actions(prof) {
+    const row = el('div', 'sv-gacts pf-acts2');
+    const btn = (ico, name, fn, cls = '') => { const b = el('button', 'sv-gbtn ' + cls); b.append(uiIco(game.data, ico, 'sv-aico'), el('b', null, name)); b.onclick = fn; row.append(b); return b; };
+    btn('ui.ic-dau', prof.la_toi ? P.duel_self : P.duel, () => { close(false); game.closeSocial?.(); startDuel(game, prof); }, 'primary');
+    if (!prof.la_toi && game.openWhisper) btn('ui.ic-chat', P.whisper, () => { close(false); game.openWhisper(prof.k, prof.ten); });
     if (!prof.la_toi && prof.k) {   // kết bạn (src/game/friends.js); đã là bạn / đã mời thì máy chủ báo lại
-      const f = el('button', 'act-btn', 'Kết bạn');
-      f.onclick = async () => {
+      const f = btn('ui.ic-dao-lu', P.friend, async () => {
         f.disabled = true;
         try { const r = await addFriend(prof.k); game.toast({ da_gui: `Đã gửi lời mời kết bạn tới ${prof.ten}.`, thanh_ban: `Đã kết bạn với ${prof.ten}!`, da_la_ban: 'Hai người đã là bạn.' }[r] || 'Đã gửi.', 2.4); }
         catch (e) { game.toast(friendErr(e), 2.4); f.disabled = false; }
-      };
-      acts.append(f);
+      });
     }
-    top.append(acts, el('div', 'muted tiny', T.note));
-    body.append(top);
+    return row;
+  }
 
-    const gear = el('div', 'pf-gear');
-    for (const slot of Object.keys(data.items.slots)) gear.append(itemCard(game, s, slot, T));
-    body.append(section(T.gear, gear));
-
-    const lvMax = data.config.skill_lv.max, lv = id => Math.max(1, Math.min(lvMax, s.skillLv[id] || 1));
-    const sk = skillSlots({ data, save: s }).filter(Boolean).map(id => [`${data.skills[id].name} · ${fill(T.skill_lv, { lv: lv(id) })}`, data.skills[id].color]);
-    const art = artSkill(s, data);
-    if (art) sk.push([fill(T.art, { name: `${data.skills[art].name} · ${fill(T.skill_lv, { lv: lv(art) })}` }), data.skills[art].color]);
-    body.append(section(T.skills, sk.length ? chips(sk) : el('span', 'muted', T.none)));
-    const tech = s.techSlots.map(id => [`${data.techniques.list[id].name} · ${fill(T.skill_lv, { lv: s.techs[id]?.lv || 0 })}`, data.techniques.list[id].color]);
-    body.append(section(T.techs, tech.length ? chips(tech) : el('span', 'muted', T.none)));
-    const pet = s.pet && s.pets[s.pet], pd = pet && petDef(data, s, s.pet);
-    body.append(section(T.pet, pet ? chips([[fill(T.pet_line, { name: pd.name, lv: pet.lv, star: pet.star ? ` · ★${pet.star}` : '' }), pd.color]]) : el('span', 'muted', T.none)));
-    const comp = s.companion && s.comps[s.companion];
-    body.append(section(T.comp, comp ? chips([[fill(T.comp_line, { name: data.npcs[s.companion].name, lv: comp.lv }), data.companions.list[s.companion].color]]) : el('span', 'muted', T.none)));
+  function render(prof) {
+    const { data } = game, s = prof.save, st = playerStats(s, data);
+    const view = Object.create(game, { save: { value: s } });   // bản nhìn: mọi thứ của game, riêng bản lưu là của người đó
+    const show = w => {   // w: { slot } | { kind } | { stats } | null (phần mặc định)
+      const back = () => show(null);
+      const sheet = w?.slot ? itemSheet(view, s, w.slot, P, back) : w?.kind ? beastSheet(view, s, w.kind, P, back) : null;
+      if (w && !w.stats && !sheet) return;   // ô trống (chưa mặc, không mang): giữ nguyên khung phải
+      for (const b of left.querySelectorAll('.sv-slot.sel')) b.classList.remove('sel');
+      mid.scrollTop = 0;
+      if (w?.stats) { mid.className = 'sv-mid sheet'; statsSheet(view, st, mid, back, prof.luc_chien); return; }
+      const cell = w?.slot ? left.querySelector(`.sv-col .sv-slot[aria-label="${data.items.slots[w.slot]}"]`) : w?.kind ? left.querySelectorAll('.sv-buffs .sv-slot')[BUFFS.indexOf(w.kind)] : null;
+      if (sheet) { cell?.classList.add('sel'); mid.className = 'sv-mid sheet'; mid.replaceChildren(sheet); return; }
+      mid.className = 'sv-mid pf-home'; mid.replaceChildren(infoSheet(game, prof, P, actions(prof)));
+    };
+    const h = { name: prof.ten, cp: prof.luc_chien, pick: slot => show({ slot }), openExtra: kind => show({ kind }), stats: () => show({ stats: true }) };
+    left.replaceChildren(leftCard(view, st, h));
+    const nm = left.querySelector('.sv-nm');
+    if (prof.co && nm) { nm.classList.add('co'); nm.title = P.flag; }
+    show(null);
   }
 
   async function open(k, ten) {
