@@ -21,7 +21,7 @@
   "run": "đang trong tháp, luận võ hoặc bí cảnh tài nguyên"
  },
  "hud": {
-  "_note": "Nút trên màn hình theo thứ tự (chủ dự án gom A–L 02/11/2026 03:43, dọn lại 10:50: mỗi nút đúng một việc): Túi đồ, Menu, Công pháp, Bí cảnh, Sự kiện (thẳng bảng giới thiệu nhận quà), Nhiệm vụ (điểm danh + nhiệm vụ hằng ngày), Tự đánh, Động phủ (chỉ hiện trong động phủ), Bản đồ, Xếp hạng (thẳng bảng xếp hạng). Nút Đạo Vận đã bỏ. Luôn hiện thêm (13:38): Hòm thư, Báo lỗi, Đề xuất. Nút quay clip và nút TikTok (link: mở kênh ở data/community.json) luôn hiện ở hàng dưới, bên trái nút Thư (chủ dự án 11/11/2026 11:25). Trò chuyện là khung nhỏ dưới màn hình (src/ui/chat-dock.js). Cách mở: nav (cột mục, side-nav.js), dun, open, social, btn (bấm hộ nút cũ); code ở src/ui/hud-order.js. where 'home': chỉ hiện ở động phủ; show 'badge' / 'on'; badge: chấm đỏ theo nút cũ. Tự đánh (btn-auto) dời xuống cạnh nút chiêu linh thú (Hỏa Hồn Linh) ở cụm nút đánh (chủ dự án 02/11/2026 14:39). Nhóm Zalo ra màn hình cạnh Báo lỗi, Đề xuất (chủ dự án 02/11/2026 15:37). Chủ dự án 04/11/2026 09:05: Công pháp thành mục trong Túi đồ; bỏ nút Nhiệm vụ (cột nhiệm vụ có mũi tên đóng / mở riêng); Bản đồ thành khung tròn góc phải trên (src/ui/mini-map.js). 09:31: Hòm thư, Zalo, Đề xuất, Báo lỗi gộp vào một nút Thư (src/ui/hop-thu.js), các nút cũ cất vào #hud-menu.",
+  "_note": "Nút trên màn hình theo thứ tự (chủ dự án gom A–L 02/11/2026 03:43, dọn lại 10:50: mỗi nút đúng một việc): Túi đồ, Menu, Công pháp, Bí cảnh, Sự kiện (thẳng bảng giới thiệu nhận quà), Nhiệm vụ (điểm danh + nhiệm vụ hằng ngày), Tự đánh, Động phủ (chỉ hiện trong động phủ), Bản đồ, Xếp hạng (thẳng bảng xếp hạng). Nút Đạo Vận đã bỏ. Luôn hiện thêm (13:38): Hòm thư, Báo lỗi, Đề xuất. Nút quay clip và nút TikTok (link: mở kênh ở data/community.json) luôn hiện ở hàng dưới, bên phải nút Thư (chủ dự án 11/11/2026 11:25, 11:36); đã gỡ mục Quay clip trong Menu và dòng TikTok trong hộp Thư. Trò chuyện là khung nhỏ dưới màn hình (src/ui/chat-dock.js). Cách mở: nav (cột mục, side-nav.js), dun, open, social, btn (bấm hộ nút cũ); code ở src/ui/hud-order.js. where 'home': chỉ hiện ở động phủ; show 'badge' / 'on'; badge: chấm đỏ theo nút cũ. Tự đánh (btn-auto) dời xuống cạnh nút chiêu linh thú (Hỏa Hồn Linh) ở cụm nút đánh (chủ dự án 02/11/2026 14:39). Nhóm Zalo ra màn hình cạnh Báo lỗi, Đề xuất (chủ dự án 02/11/2026 15:37). Chủ dự án 04/11/2026 09:05: Công pháp thành mục trong Túi đồ; bỏ nút Nhiệm vụ (cột nhiệm vụ có mũi tên đóng / mở riêng); Bản đồ thành khung tròn góc phải trên (src/ui/mini-map.js). 09:31: Hòm thư, Zalo, Đề xuất, Báo lỗi gộp vào một nút Thư (src/ui/hop-thu.js), các nút cũ cất vào #hud-menu.",
   "list": [
    {
     "id": "btn-bag",
@@ -91,9 +91,9 @@
    },
    "tron2": [
     "hud-home",
+    "hud-thu",
     "hud-tiktok",
-    "btn-rec",
-    "hud-thu"
+    "btn-rec"
    ]
   }
  },
