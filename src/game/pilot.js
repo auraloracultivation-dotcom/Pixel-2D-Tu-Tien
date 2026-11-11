@@ -52,8 +52,9 @@ export function pilotDied(game) {
   if (!pl) return;
   pl.deaths = (pl.deaths || []).filter(t => now - t < D.window * 1000).concat(now);
   const out = !(def.rooms || []).length && !def.res && !def.tower && !def.arena && !def.indoor;
-  if (!waiting(game) || !out || game.trib.active || pl.deaths.length >= D.max) { stopPilot(game, D.stop); return; }
   const m = pl.job?.fight || last;   // con đang đánh, không thì con vừa đánh trúng mình
+  // death.max = 1: gục là dừng luôn (chủ dự án 11/11/2026 20:45: yếu, gục, hồi sinh lại chạy ra đúng bãi đó gục tiếp, không kịp tắt)
+  if (!waiting(game) || !out || game.trib.active || pl.deaths.length >= D.max) { stopPilot(game, D.stop.replace('{name}', m?.def?.name || 'quái')); return; }
   if (m?.id) (pl.avoid ??= {})[m.id] = now + D.avoid * 1000;
   pl.path = null; pl.key = '';
   game.toast(D.keep.replace('{name}', m?.def?.name || 'quái'), 2.6);

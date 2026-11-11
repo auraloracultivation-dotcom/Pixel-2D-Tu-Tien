@@ -25876,6 +25876,18 @@
     22
    ]
   },
+  "ui.hud-dung": {
+   "file": "assets/art/ui-hud-dung.png",
+   "v": "58805b61",
+   "w": 30,
+   "h": 30,
+   "frames": 1,
+   "anchor": [
+    15,
+    29
+   ],
+   "note": "nút Quay lúc đang quay: bấm để dừng (tools/art/ui_hud_tren.py, chủ dự án 11/11/2026 20:45)"
+  },
   "ui.hud-kenh": {
    "file": "assets/art/ui-hud-kenh.png",
    "v": "bf98294d",

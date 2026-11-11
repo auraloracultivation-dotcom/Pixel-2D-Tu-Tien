@@ -19,13 +19,23 @@ export function orderHud(game) {
       ev.stopPropagation();
       if (!game.save || game.dialog.open || game.trip) return;
       if (e.nav) { game.openNav?.(e.nav); return; }
-      if (e.link) { const L = game.data.community?.[e.link]; if (L?.url) window.open(L.url, '_blank', 'noopener'); return; }   // TikTok: mở kênh (data/community.json)
+      if (e.link) return;   // TikTok: mở ở sự kiện click bên dưới
       game.closeAll?.();
       if (e.toggle) game.toggleQuestDock?.();   // Nhiệm vụ: ẩn / hiện cột nhiệm vụ hằng ngày trên màn hình (src/ui/quest-dock.js)
       else if (e.dun) game.openDungeons?.();
       else if (e.social) game.openSocial?.(e.social);
       else if (e.open) game['open' + e.open[0].toUpperCase() + e.open.slice(1)]?.();
       else game.openOldPanel?.(e);
+    });
+    // Nút mở trang ngoài (TikTok, data/community.json): mở lúc chạm nhả (click). iPhone chặn mở thẻ mới từ pointerdown nên trước bấm không
+    // ăn (chủ dự án 11/11/2026 20:45). Bị chặn thì dùng thẻ <a> tạm, vẫn trong cùng lần chạm.
+    if (e.link) b.addEventListener('click', ev => {
+      ev.stopPropagation();
+      const L = game.data.community?.[e.link];
+      if (!L?.url) return;
+      const w = window.open(L.url, '_blank');   // không dùng 'noopener' ở đây: có nó thì luôn trả null, khỏi biết mở được chưa
+      if (w) { try { w.opener = null; } catch { /* trang khác nguồn */ } return; }
+      const a = document.createElement('a'); a.href = L.url; a.target = '_blank'; a.rel = 'noopener'; document.body.append(a); a.click(); a.remove();
     });
     return b;
   }

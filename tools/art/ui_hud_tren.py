@@ -1,4 +1,5 @@
 """Hình cho khung trên màn chơi (chân dung, thanh, bản đồ tròn, nút).
+- ui-hud-dung (vẽ bằng code, 11/11/2026 20:45): nút Quay lúc đang quay, vòng đỏ ô vuông dừng.
 - ui-hud-kenh (vẽ bằng code, chủ dự án 11/11/2026 11:25: nút TikTok cạnh nút Thư): điện thoại dựng đứng, màn hình tím có nút phát
   vàng ở giữa và trái tim nhỏ góc dưới. Không vẽ lại logo của hãng nào; chữ "TikTok" là nhãn dưới nút (data/menu.json → hud.tron.lb).
 - Từ ảnh GPT chủ dự án gửi 11/11/2026 11:42 (nguon/ai/ui/hud-*.png, nền trong suốt sẵn; thu nhỏ, giữ nguyên hình như ui_nhan_vat.py):
@@ -63,6 +64,28 @@ def _phone():
         c.px(x, y, HEART[2])
     for (x, y) in [(22, 28), (21, 29), (20, 30)]:
         c.px(x, y, HEART[0])
+    c.outline(INK)
+    return c
+
+
+def _stop():
+    """Nút đang quay (bấm để dừng): vòng đỏ, lòng tối, ô vuông trắng hồng ở giữa (dấu dừng quen thuộc), chấm sáng góc trên."""
+    W = 30
+    c = Canvas(W, W)
+    RED = [hx('#8e0f1e'), hx('#e3343e'), hx('#ff7a82')]
+    cx = cy = (W - 1) / 2
+    for y in range(W):
+        for x in range(W):
+            d = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+            if d <= 13.5:
+                c.px(x, y, RED[2] if d > 12.4 and y < cy - 4 else RED[1] if d > 10.5 else hx('#2a0f18') if d > 9.5 else hx('#3a1420'))
+    for y in range(10, 20):
+        for x in range(10, 20):
+            if (x in (10, 19)) and (y in (10, 19)):
+                continue   # bo góc ô vuông
+            c.px(x, y, hx('#fff0f2') if y < 13 else hx('#ffd0d6') if y < 17 else hx('#f2a6b0'))
+    for (x, y) in [(7, 8), (8, 7), (8, 8)]:
+        c.px(x, y, hx('#ffffff'))
     c.outline(INK)
     return c
 
@@ -157,4 +180,5 @@ def _rings(save):
 
 def build(save):
     save('ui.hud-kenh', [_phone()], (15, 37), 'nút kênh video (TikTok) trên màn chơi (tools/art/ui_hud_tren.py)')
-    return 1 + _bars(save) + _rings(save)
+    save('ui.hud-dung', [_stop()], (15, 29), 'nút Quay lúc đang quay: bấm để dừng (tools/art/ui_hud_tren.py, chủ dự án 11/11/2026 20:45)')
+    return 2 + _bars(save) + _rings(save)
