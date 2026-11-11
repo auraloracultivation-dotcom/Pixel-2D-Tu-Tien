@@ -70,3 +70,34 @@ body.perf-calm #man-dau-fx { display: none; }
   .ld-bar i { left: 2px; right: 2px; width: auto; }
   #man-dau-fx { display: none; }
 }
+
+/* ---- đăng nhập "đêm trăng" (chủ dự án 12/11/2026 07:46, ảnh GPT → tools/art/man_dn_dem.py): khung mái chùa âm dương vẽ sẵn 2 ô nhập
+   và 2 thân nút (chữ trên nút đã xoá); ô nhập, nút thật đặt chồng đúng chỗ vẽ theo % (số in ra khi chạy script), chữ nút là chữ thật
+   (3 thứ tiếng). Nền màn đăng nhập, màn tải: assets/icon/splash-dem.jpg (style-ui-kit2.css). ---- */
+/* màn đăng nhập cao hơn máy thấp (huy hiệu lễ hội, lời chào Hệ Thống, khung mới): giữa màn khi vừa, dài thì cuộn được, không mất tên game */
+body #menu { justify-content: flex-start; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; }
+body #menu > h1 { margin-top: auto !important; }
+body #menu > p.legal:last-of-type { margin-bottom: auto; }
+body #menu #login-form { position: relative; width: min(88vw, 350px, 42dvh); max-width: none; aspect-ratio: 768 / 776; box-sizing: border-box; min-width: 0 !important;
+  border: none !important; border-image: none !important; padding: 0 !important; margin: 0 0 20px; container-type: inline-size;
+  background: url("assets/art/ui-dn-khung-dem.png") center / 100% 100% no-repeat !important; image-rendering: auto; }
+body #menu #login-form:has(#btn-google:not([hidden])) { margin-bottom: 70px; }
+body #menu #login-form input { position: absolute; left: 20.7%; width: 49.8%; height: 9.8%; margin: 0; box-sizing: border-box;
+  border: none !important; border-image: none !important; background: transparent !important; border-radius: 9px !important;
+  padding: 0 7% 0 10.5% !important; font-size: 16px; color: #fff3d2 !important; text-shadow: 0 1px 0 #10082a; }
+body #menu #login-form input::placeholder { color: #b8aee0; opacity: 1; }
+body #menu #login-form input:focus { box-shadow: 0 0 0 2px rgba(255, 214, 120, .75), 0 0 12px rgba(255, 200, 110, .5) !important; }
+body #menu #login-form #acc { top: 34.6%; }
+body #menu #login-form #pwd { top: 47.6%; height: 9.9%; }
+body #menu #login-form .row { display: contents; }
+body #menu #login-form .row .menu-btn { position: absolute; margin: 0; padding: 0 !important; min-width: 0 !important; flex: none;
+  border: none !important; border-image: none !important; background: none !important; box-shadow: none !important;
+  font: 700 19px var(--f-title) !important; font-size: 5.2cqw !important; letter-spacing: .02em; }
+body #menu #login-form #btn-login { left: 22.6%; top: 65.4%; width: 55.7%; height: 11.5%; border-radius: 22% / 50%; color: #3a1206 !important;
+  text-shadow: 0 1px 0 rgba(255, 240, 200, .7) !important; }
+body #menu #login-form #btn-signup { left: 33.2%; top: 80.6%; width: 33.8%; height: 7.4%; border-radius: 18% / 50%; color: #f4ecff !important;
+  font-size: 15px !important; font-size: 4cqw !important; text-shadow: 0 1px 0 #10082a !important; }
+body #menu #login-form .row .menu-btn:active:not(:disabled) { background: rgba(255, 244, 210, .2) !important; }
+body #menu #login-form .row .menu-btn:disabled { background: rgba(20, 10, 40, .35) !important; }
+body #menu #login-form #btn-forgot { position: absolute; top: 100%; left: 0; right: 0; margin: 0; padding: 2px; font-size: 13px; text-shadow: 1px 1px 0 #000, 0 0 6px #000; }
+body #menu #login-form #btn-google { position: absolute; top: calc(100% + 24px); left: 15%; right: 15%; margin: 0; }
