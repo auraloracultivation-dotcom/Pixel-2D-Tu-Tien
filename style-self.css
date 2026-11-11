@@ -377,3 +377,18 @@ body .sv #pets-tabs { display: none !important; }
 .sv-slot.buff.evo .sv-bfr { filter: drop-shadow(0 0 3px #ffd766); }
 /* 21:10: ô thú cao 36 (trước 26) đẩy hàng chỉ số cuối (Tốc độ, Hút máu) ra ngoài khung 6 điểm: bảng cao thêm 10 */
 body .sv.panel { height: 336px; }
+/* 11/11/2026 23:27: ô mua nguyên liệu cuối tấm chi tiết (src/ui/buy-mats.js): dòng 1 tên + đang có, dòng 2 − số + +10, dòng 3 nút Mua kèm giá (khung phải hẹp) */
+.bm-box { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; padding: 5px 2px 2px; border-top: 1px dashed rgba(255, 215, 116, .35); }
+.bm-head { font: 700 9px/1.2 var(--f-body, system-ui); color: #ffd774; letter-spacing: .03em; }
+.bm-row { display: grid; grid-template-columns: auto auto auto auto minmax(0, 1fr); grid-template-areas: "nm nm nm nm nm" "mi n pl ten ." "buy buy buy buy buy"; align-items: center; gap: 3px; min-width: 0; padding-bottom: 3px; }
+.bm-nm { grid-area: nm; display: flex; align-items: baseline; gap: 4px; min-width: 0; line-height: 1.15; }
+.bm-nm b { font: 700 9px/1.15 var(--f-body, system-ui); color: #f2ecff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bm-nm small { flex: none; font-size: 8px; color: #a9a2c8; }
+body .bm-box .bm-b { flex: none; width: auto !important; height: 22px !important; min-width: 22px !important; min-height: 0 !important; margin: 0 !important; padding: 0 4px !important;
+  border-radius: 4px !important; border: 1px solid #5a4f8c !important; border-image: none !important; background: rgba(36, 30, 62, .92) !important; color: #e8e2ff !important;
+  font: 700 9px/20px var(--f-body, system-ui) !important; box-shadow: none !important; filter: none !important; text-shadow: none !important; }
+body .bm-box .bm-b:disabled { opacity: .4; }
+.bm-row > .bm-b:nth-of-type(1) { grid-area: mi; } .bm-row > .bm-n { grid-area: n; } .bm-row > .bm-b:nth-of-type(2) { grid-area: pl; } .bm-row > .bm-b:nth-of-type(3) { grid-area: ten; }
+.bm-n { min-width: 24px; text-align: center; font: 700 9px/1 var(--f-body, system-ui); color: #fff; }
+body .bm-box .bm-buy { grid-area: buy; min-width: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-color: #8a5a10 !important;
+  background: linear-gradient(#ffe08a, #d79a2a) !important; color: #3a1800 !important; }

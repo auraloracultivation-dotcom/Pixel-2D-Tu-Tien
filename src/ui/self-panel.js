@@ -46,6 +46,7 @@ export function createSelfPanel(game) {
   x.onclick = close;
   const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
 
+  let lastSel = null;   // món đang mở chi tiết lần vẽ trước
   let before = null;   // trạng thái lúc vẽ gần nhất, để so sau thao tác mà chạy hiệu ứng (src/ui/self-fx.js)
   function changed(full = true) {
     if (full) { game.refreshStats(); game.persist(); }
@@ -98,7 +99,8 @@ export function createSelfPanel(game) {
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
     if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
     unhost();
-    const keep = mid.scrollTop;
+    const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
+    lastSel = st.sel;
     let has = false;   // phần chi tiết thay chỗ lưới
     if (st.more) has = statsSheet(game, stt, mid, () => { st.more = false; render(); });
     else if (st.coinLog) has = renderCoinLog(game, mid, () => { st.coinLog = false; render(); });
@@ -106,7 +108,7 @@ export function createSelfPanel(game) {
     else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
     mid.classList.toggle('sheet', has);
     if (has) decorate(game, mid);
-    if (has) { bar.hidden = true; mid.scrollTop = 0; return; }
+    if (has) { bar.hidden = true; mid.scrollTop = same ? keep : 0; return; }
     reset();
     const r = renderStore(game, st, changed, render);
     mid.replaceChildren(r.wrap); bar.replaceChildren(r.bar);
