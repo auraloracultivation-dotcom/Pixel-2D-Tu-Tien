@@ -8,3 +8,7 @@
 .sv .sv-buffs > .sv-cell { flex: 1 1 0; max-width: 36px; }
 .sv .sv-buffs > .sv-cell .sv-slot { width: 100%; height: auto; aspect-ratio: 1; }
 .sv-center > .sv-hero { z-index: 1; }
+/* Nút đánh thường (12/11/2026 03:23, src/ui/hud-atk.js): hình bản mệnh pháp bảo đang dùng thay chữ "Đánh" */
+#btn-atk .atk-ico { position: absolute; inset: 16%; z-index: 1; background: center / contain no-repeat; image-rendering: pixelated; pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 120, .55)); }
+#btn-atk.has-ico > b { display: none; }

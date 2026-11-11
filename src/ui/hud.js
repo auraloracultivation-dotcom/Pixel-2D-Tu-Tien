@@ -1,4 +1,5 @@
 // Thanh máu, linh khí, nhiệm vụ, nút chiêu, thông báo, màn bay giữa các đảo, menu đầu game.
+import { atkIcon } from './hud-atk.js';
 import { skillGrade } from '../game/skill-grade.js';
 import { createDialog } from './dialog.js';
 import { guideLine, guideNext } from '../game/guide.js';
@@ -111,8 +112,9 @@ export function createHud(audio) {
     if (boss && $('boss-name').textContent !== boss.def.name) $('boss-name').textContent = boss.def.name;
     if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }
 
-    const slots = skillSlots(game), pbMode = pbOn(game);   // hệ pháp bảo mới (tài khoản thử): nút chiêu, nút Luyện chế do pbHud vẽ
-    if (!pbMode) for (let i = 0; i < 3; i++) {
+    atkIcon(game);   // nút đánh thường: hình bản mệnh pháp bảo (hud-atk.js)
+    const slots = skillSlots(game);
+    for (let i = 0; i < 3; i++) {
       const b = $('btn-s' + i), id = slots[i];
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';
