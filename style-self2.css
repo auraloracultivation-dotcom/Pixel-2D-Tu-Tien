@@ -1,5 +1,5 @@
 /* Bảng Nhân vật 12/11/2026 03:04 (src/ui/self-left.js): linh thú, thú cưỡi ở cột phải (ô 3, ô 4) to bằng ô trang bị;
-   hàng dưới là 4 ô pháp bảo (ô pháp bảo đang mặc + 3 ô khoá); khôi lỗi đứng sau lưng nhân vật hai bên như hộ vệ. */
+   hàng dưới là 4 ô pháp bảo (ô pháp bảo đang mặc + 3 ô khoá); khôi lỗi bỏ khỏi thẻ (03:12). */
 .sv .sv-col .sv-slot.buff { width: 36px; height: 36px; filter: none; background: none !important; }
 .sv .sv-col .sv-slot.buff:not([data-o]) { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; }
 .sv .sv-col .sv-slot.buff[data-o="pham"] { --o: url("assets/art/ui-nv-o.png"); }
@@ -7,13 +7,4 @@
 .sv .sv-col .sv-slot.buff .sv-uico { width: 60%; height: 60%; }
 .sv .sv-buffs > .sv-cell { flex: 1 1 0; max-width: 36px; }
 .sv .sv-buffs > .sv-cell .sv-slot { width: 100%; height: auto; aspect-ratio: 1; }
-.sv-guard { position: absolute; bottom: 50px; z-index: 0; width: 30px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
-  display: flex; align-items: flex-end; justify-content: center; overflow: visible; filter: brightness(.82) drop-shadow(0 0 2px rgba(150, 110, 255, .6)); }
-.sv-guard.comp { left: -10px; }
-.sv-guard.comp2 { right: -10px; }
-.sv-guard.comp2 .sv-gspr { transform: scaleX(-1); }
-.sv-guard .sv-gspr { flex: none; image-rendering: pixelated; height: 34px !important; width: auto !important; display: block; }
-.sv-guard.none { opacity: .35; filter: none; align-items: center; }
-.sv-guard.none .sv-uico { display: block; width: 22px; height: 22px; background: center / contain no-repeat; }
-.sv-guard:active { transform: scale(.94); }
 .sv-center > .sv-hero { z-index: 1; }
