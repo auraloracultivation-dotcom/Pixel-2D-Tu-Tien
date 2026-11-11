@@ -22320,6 +22320,57 @@
     ]
    ]
   },
+  "tk.lau-cho-m": {
+   "file": "assets/art/tk-lau-cho-m.png",
+   "v": "6662612e",
+   "w": 187,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    93,
+    140
+   ],
+   "note": "bộ mới thien-kiem: lau/s01.png (100 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     57,
+     110,
+     "warm"
+    ],
+    [
+     93,
+     47,
+     "warm"
+    ],
+    [
+     133,
+     121,
+     "warm"
+    ],
+    [
+     30,
+     129,
+     "warm"
+    ],
+    [
+     136,
+     50,
+     "warm"
+    ],
+    [
+     84,
+     115,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    73,
+    51,
+    42,
+    13
+   ]
+  },
   "tk.lau-sach-m": {
    "file": "assets/art/tk-lau-sach-m.png",
    "v": "a411ae75",
@@ -22332,6 +22383,52 @@
    ],
    "note": "bộ mới thien-kiem: moi/s01.png (74 đơn vị ngang)",
    "scale": 0.5333
+  },
+  "tk.lau-van-bao-m": {
+   "file": "assets/art/tk-lau-van-bao-m.png",
+   "v": "626d08c6",
+   "w": 225,
+   "h": 219,
+   "frames": 1,
+   "anchor": [
+    112,
+    217
+   ],
+   "note": "bộ mới thien-kiem: lau/s01.png (120 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     120,
+     167,
+     "warm"
+    ],
+    [
+     112,
+     66,
+     "warm"
+    ],
+    [
+     112,
+     110,
+     "warm"
+    ],
+    [
+     210,
+     185,
+     "warm"
+    ],
+    [
+     14,
+     185,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    83,
+    130,
+    59,
+    16
+   ]
   },
   "tk.loi-dai": {
    "file": "assets/art/tk-loi-dai.png",
