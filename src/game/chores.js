@@ -1,14 +1,9 @@
-// Việc vặt cho tự hành khi truyện đang chờ tu luyện: về động phủ nhận quà mỗi ngày của đạo lữ và khách, vuốt ve linh thú,
-// hạ quái cho việc hằng ngày, rảnh thì câu vài con cá, về động phủ thu hoạch dược viên khi chín. Hết việc thì trả null để nhân vật về bồ đoàn đả tọa.
+// Đường tới việc cho tự hành: tới bãi có loài quái cần hạ, ra mép tinh cầu câu cá, tới bản đồ, gặp NPC (dùng cho nhiệm vụ ngày,
+// src/game/dailyjob.js). Việc vặt cũ (về nhà nhận quà, uống trà, vuốt ve linh thú, câu cá lúc rảnh, luyện đan, nấu canh, thu hoạch
+// dược viên) đã xoá: chủ dự án 11/11/2026 16:53 "tự hành đi làm việc chả liên quan tới nhiệm vụ", chọn "Tự hành chỉ làm nhiệm vụ".
 import { dist } from './combat.js';
-import { ensureDaily, taskDef } from './daily.js';
-import { nextRipe } from './garden.js';
-import { daoLuHere } from './affinity.js';
 import { outdoor } from './daynight.js';
-import { brew, canPay } from './cave.js';
-import { visitorToday } from './home.js';
-import { visitJob } from './visitors.js';
-import { pilotOpt, nightRest, avoided } from './pilotopt.js';
+import { avoided } from './pilotopt.js';
 
 const flagOk = (game, o) => (!o.need || game.save.flags[o.need]) && !(o.unless && game.save.flags[o.unless]);
 
@@ -43,62 +38,9 @@ function fishSpot(game) {
   return best;
 }
 
-// Danh sách việc theo thứ tự ưu tiên: { talk: npcId } | { gift: npcId } | { pat: true } | { kill: mobId } | { fish: true } | { any: true } | { brew: pillId }
-function wants(game) {
-  const s = game.save, out = [], day = new Date().toDateString();
-  // Việc nhà mỗi ngày làm trước
-  if (s.flags['dong-phu'] && pilotOpt(game, 'nha')) {   // quà mỗi ngày ở động phủ: đạo lữ và khách ghé chơi
-    const d = daoLuHere(game);
-    if (d && s.companion !== d && (s.homeGift !== day || s.tea !== day)) out.push({ gift: d });
-    const v = visitorToday(game);
-    if (v && visitJob(game, v)) out.push({ gift: v });
-  }
-  const hp = game.data.cave.pill_button;   // đan hồi máu sắp hết thì về luyện thêm cho đủ dùng
-  if (pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[hp].recipe)) out.push({ brew: hp });
-  const mp = game.data.cave.mana_pill;   // đủ đan hồi máu rồi mới luyện đan hồi linh lực
-  if (mp && pilotOpt(game, 'dan') && s.flags['dong-phu'] && (s.pills?.[hp] || 0) >= game.data.config.pilot.pill_keep && (s.pills?.[mp] || 0) < game.data.config.pilot.pill_keep && canPay(game, game.data.cave.pills[mp].recipe)) out.push({ brew: mp });
-  for (const t of ensureDaily(game).tasks) {
-    const d = taskDef(game, t.id);
-    if (d?.type === 'kill' && d.mob && t.n < d.n) out.push({ kill: d.mob });
-    if (d?.type === 'kill' && !d.mob && t.n < d.n) out.push({ any: true });
-    if (d?.type === 'fish' && t.n < d.n && pilotOpt(game, 'cau')) out.push({ fish: true });
-    const pill = game.data.cave.pill_button;
-    if (d?.type === 'brew' && t.n < d.n && pilotOpt(game, 'dan') && s.flags['dong-phu'] && canPay(game, game.data.cave.pills[pill].recipe)) out.push({ brew: pill });
-  }
-  const P = game.data.config.pilot, keep = r => ({ ...r, 'linh-thao': (r['linh-thao'] || 0) + P.herb_keep });   // cá, sâm dư: nấu canh, luyện đan linh khí, chừa linh thảo cho đan hồi máu
-  const soup = pilotOpt(game, 'dan') && s.flags['dong-phu'] && P.auto_brew.find(id => canPay(game, keep(game.data.cave.pills[id].recipe)));
-  if (soup) out.push({ brew: soup });
-  const pt = game.data.pets.pat;   // vuốt ve linh thú mấy lần đầu mỗi ngày
-  if (pilotOpt(game, 'vuot') && game.pet && !(s.pat?.day === new Date().toDateString() && s.pat.n >= pt.per_day)) out.push({ pat: true });
-  if (pilotOpt(game, 'cau') && !nightRest(game)) {   // rảnh thì câu vài con mỗi ngày (cá để nấu canh) rồi mới về đả tọa
-    const n = s.stats?.fish || 0;
-    if (s.idleFish?.day !== day) s.idleFish = { day, base: n };
-    if (n - s.idleFish.base < P.idle_fish) out.push({ fish: true });
-  }
-  return out;
-}
-
 const goPortal = (game, routeTo, dest) => { const pt = routeTo(game, dest); return pt ? { go: game.map.center(pt.at[0], pt.at[1]), to: dest } : null; };
 
-// Tới lò đan thì luyện một mẻ (tự hành gọi)
-export function doBrew(game, id) {
-  const r = brew(game, id), name = game.data.cave.pills[id].name;
-  if (r === false) return;
-  game.sfx(r === 'fail' ? 'hit' : 'levelup');
-  game.toast(r === 'fail' ? `Lò hỏng, mẻ ${name} thất bại.` : `Luyện được ${r} ${name}.`, 1.8);
-}
-
-// Dược viên có luống chín mà không có đạo lữ ở nhà thu giúp: về động phủ, tới luống đầu rồi thu hoạch
-function gardenJob(game, routeTo) {
-  const g = game.data.garden;
-  if (!game.save.flags['dong-phu'] || daoLuHere(game) || nextRipe(game) > 0) return null;
-  if (game.map.id !== g.map) return goPortal(game, routeTo, g.map);
-  return { use: game.map.center(g.plots[0][0], g.plots[0][1]) };
-}
-
-export function choreJob(game, routeTo) { return wantJob(game, routeTo, wants(game)) || gardenJob(game, routeTo); }
-
-// Đổi danh sách việc cần làm thành một bước cho tự hành (dùng chung với việc ngày, src/game/dailyjob.js)
+// Đổi danh sách việc cần làm thành một bước cho tự hành (việc ngày, src/game/dailyjob.js): { talk } | { any } | { fish } | { visit } | { kill }
 export function wantJob(game, routeTo, list) {
   const p = game.player;
   for (const w of list) {
@@ -107,12 +49,6 @@ export function wantJob(game, routeTo, list) {
       if (n) return { talk: n };
       const m = npcMap(game, w.talk), j = m && goPortal(game, routeTo, m);
       if (j) return j;
-    } else if (w.gift) {   // quà ở động phủ: về nhà, tới chỗ người đang ngồi chờ
-      if (game.map.id !== game.data.home.map) { const j = goPortal(game, routeTo, game.data.home.map); if (j) return j; continue; }
-      const n = game.npcs.find(n => n.id === w.gift && (n.home || n.visit));
-      if (n) return { talk: n };
-    } else if (w.pat) {
-      if (game.pet && !game.pet.target) return { pat: game.pet };
     } else if (w.any) {   // hạ quái bất kỳ: đánh con gần nhất, không có thì tới bãi quái, đảo không có bãi thì về Thiên Kiếm Phong
       const m = game.mobs.filter(m => !m.dead && !m.dummy && m.def.ai !== 'boss' && !avoided(game, m.id)).sort((a, b) => dist(a, p) - dist(b, p))[0];
       if (m) return { fight: m };
@@ -120,10 +56,6 @@ export function wantJob(game, routeTo, list) {
       if (sp) return { go: game.map.center(sp.at[0], sp.at[1]) };
       const j = goPortal(game, routeTo, 'thien-kiem-phong');
       if (j) return j;
-    } else if (w.brew) {   // luyện đan: về động phủ, tới lò đan
-      if (game.map.id !== game.data.cave.map) { const j = goPortal(game, routeTo, game.data.cave.map); if (j) return j; continue; }
-      const k = game.map.findTiles('K')[0];
-      if (k) return { brew: w.brew, at: game.map.center(k[0], k[1]) };
     } else if (w.fish) {
       if (game.fish) return { fish: game.fish };   // đang thả câu: đứng yên chờ
       const at = fishSpot(game);

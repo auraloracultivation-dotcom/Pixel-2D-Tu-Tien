@@ -1,14 +1,7 @@
-// Tùy chọn tự hành (data/config.json → pilot.opts): người chơi bật tắt từng việc ở bảng Việc → tab Tự hành. Mặc định bật, trừ việc khai "def": false.
-import { hourNow } from './daynight.js';
-
+// Tùy chọn tự hành (data/config.json → pilot.opts): người chơi bật tắt từng việc ở Menu → Tự động. Mặc định bật, trừ việc khai "def": false.
 export const pilotOpt = (game, id) => {   // chưa chọn thì theo mặc định: bật, trừ việc khai "def": false (vd tự hồi sinh tại chỗ)
   const v = game.save?.pilotOpt?.[id];
   return v === undefined ? game.data?.config?.pilot?.opts?.find(o => o.id === id)?.def !== false : v !== false;
-};
-// Tối về nhà (tùy chọn "dem"): từ pilot.rest[0] giờ tới rest[1] giờ sáng tự hành không nhận việc mới, làm nốt việc đang dở rồi về động phủ
-export const nightRest = game => {
-  const [a, b] = game.data.config.pilot.rest, h = hourNow(game);
-  return pilotOpt(game, 'dem') && !!game.save.flags['dong-phu'] && (h >= a || h < b);
 };
 // Loài quái tự hành đang tạm tránh (vừa hạ mình, pilot.js → pilotDied)
 export const avoided = (game, id) => (game.pilot?.avoid?.[id] || 0) > Date.now();

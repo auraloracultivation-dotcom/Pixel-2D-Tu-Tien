@@ -27,15 +27,14 @@
      "q": "Tự đánh và Tự hành khác nhau thế nào?",
      "a": [
       "Tự đánh (cạnh cụm nút đánh): nhân vật đánh quái quanh chỗ bật, không đi xa. Bật ngay cạnh boss thì ưu tiên đánh boss trước.",
-      "Tự hành: nhân vật tự đi làm nhiệm vụ hệ thống, đánh quái, nhặt đồ, đả tọa, hết việc thì treo máy ở bãi quái vừa sức.",
+      "Tự hành: nhân vật chỉ làm nhiệm vụ (truyện và nhiệm vụ ngày): tìm đường, đánh đúng quái, nhặt đồ, gặp người; hết việc thì đánh quái quanh đó, không có quái thì đả tọa tại chỗ.",
       "Kéo cần điều khiển là dừng cả hai."
      ]
     },
     {
      "q": "Tắt bớt việc Tự hành tự làm ở đâu?",
      "a": [
-      "Menu → Tự động: bật tắt từng việc như tự mặc đồ tốt hơn, tự cường hoá an toàn, tự khảm ghép ngọc, tự uống luyện đan, túi đầy tự phân giải đồ rẻ, khuya về động phủ.",
-      "Ở đó cũng chọn được tinh cầu treo máy, để trống thì tự chọn bãi hợp cảnh giới."
+      "Menu → Tự động: bật tắt từng việc tự hành làm tại chỗ: tự mặc đồ tốt hơn, cường hoá an toàn, khảm ghép ngọc, tự uống đan, túi đầy tự phân giải đồ rẻ, gục thì hồi sinh tại chỗ."
      ]
     },
     {
