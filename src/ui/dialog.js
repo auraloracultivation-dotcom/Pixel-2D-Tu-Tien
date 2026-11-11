@@ -54,13 +54,14 @@ export function createDialog(onLine) {
     else if (next) next();
   };
 
+  let keep = null;   // { key, top }: chỗ cuộn của danh sách lựa chọn vừa chọn
   // options: [{id, label, desc, color}]
   d.choose = (title, options, guard = 0) => queue(resolve => {   // guard: số mili giây đầu bỏ qua chạm (đề xuất #31)
     d.open = true; box.hidden = false; hint.hidden = true; who.textContent = '';
     full = title; shown = title.length; text.textContent = title; clearInterval(timer);
     choices.innerHTML = '';
     quit = () => { quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(null); };
-    const t0 = performance.now();
+    const t0 = performance.now(), key = options.map(o => o.id + o.label).join('|');
     for (const o of options) {
       const b = document.createElement('button');
       b.className = 'choice';
@@ -68,13 +69,20 @@ export function createDialog(onLine) {
       const l = document.createElement('b'); l.textContent = o.label;
       const s = document.createElement('small'); s.textContent = o.desc || '';
       b.append(l, s);
-      b.addEventListener('pointerdown', e => {
+      // Chọn bằng chạm nhả (click), không chọn ngay lúc đặt ngón: vuốt danh sách dài (Vạn Bảo Lâu) không bị mua nhầm món dưới ngón tay
+      // và không bị vẽ lại từ đầu (chủ dự án 11/11/2026 16:53: người chơi không vuốt được chợ trong Vạn Bảo Lâu). Trình duyệt không
+      // phát click khi ngón tay đã kéo cuộn. pointerdown vẫn chặn lan lên hộp thoại (hộp thoại chạm là sang câu).
+      b.addEventListener('pointerdown', e => e.stopPropagation());
+      b.addEventListener('click', e => {
         e.stopPropagation();
         if (performance.now() - t0 < guard) return;   // đang bấm Đánh liên tục thì khỏi chạm trúng lựa chọn vừa hiện
+        keep = { key, top: choices.scrollTop };   // mua xong Vạn Bảo Lâu hỏi lại cùng danh sách: giữ chỗ đang xem
         quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(o.id);
       });
       choices.append(b);
     }
+    if (keep?.key === key) choices.scrollTop = keep.top;
+    keep = null;
   });
   // Hỏi một dòng chữ (đặt tên...): trả về chữ đã gõ, hoặc null nếu bấm thôi
   d.ask = (title, placeholder, max, ok, cancel) => queue(resolve => {
