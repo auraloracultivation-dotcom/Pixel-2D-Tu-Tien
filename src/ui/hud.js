@@ -11,6 +11,8 @@ import { togglePilot, pilotLabel } from '../game/pilot.js';
 import { teaLeft } from '../game/home.js';
 import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
+import { pbOn } from '../game/phap-bao.js';
+import { pbHud } from './phap-bao-hud.js';
 
 const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
@@ -109,8 +111,8 @@ export function createHud(audio) {
     if (boss && $('boss-name').textContent !== boss.def.name) $('boss-name').textContent = boss.def.name;
     if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }
 
-    const slots = skillSlots(game);
-    for (let i = 0; i < 3; i++) {
+    const slots = skillSlots(game), pbMode = pbOn(game);   // hệ pháp bảo mới (tài khoản thử): nút chiêu, nút Luyện chế do pbHud vẽ
+    if (!pbMode) for (let i = 0; i < 3; i++) {
       const b = $('btn-s' + i), id = slots[i];
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';
@@ -139,8 +141,9 @@ export function createHud(audio) {
       if (pb.querySelector('b').textContent !== t) pb.querySelector('b').textContent = t;
       css(pb, '--cd', (Math.max(0, p.pillCd || 0) / d.cave.pills[pid].cd).toFixed(3));
     }
-    const art = artSkill(s, d), ab = $('btn-art');
-    ab.hidden = !art;
+    const art = pbMode ? null : artSkill(s, d), ab = $('btn-art');
+    if (pbMode) pbHud(game);
+    else ab.hidden = !art;
     if (art) {
       if (ab.querySelector('b').textContent !== d.skills[art].name) ab.querySelector('b').textContent = d.skills[art].name;
       css(ab, '--cd', (Math.max(0, p.artCd || 0) / (d.skills[art].cd * (1 - p.st.cdr))).toFixed(3));

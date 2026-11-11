@@ -403,3 +403,12 @@ Ba ngôn ngữ: tiếng Việt (gốc), English (`en`), 繁體中文 (`zh-Hant`)
 - Tin chat, tên người chơi không dịch (`.chat-msg`, `.cd-line`, phần tử có `translate="no"`).
 - Chữ Hán dùng phông hệ thống (Unifont VN chỉ có chữ Latinh). Chữ CSS `content:` có chữ thì thêm vào `langCss()` trong `src/core/i18n.js`.
 - **Thêm câu mới**: sau khi thêm chữ vào `data/` hoặc code, chạy `node tools/i18n-extract.mjs --missing en` (và `zh-Hant`) để thấy câu chưa dịch, thêm vào hai file từ điển. Thiếu bản dịch thì game hiện tiếng Việt câu đó, không lỗi. `node tools/check.mjs` in tỉ lệ đã dịch và trượt nếu bản dịch làm mất chỗ trống `{…}`.
+
+## Hệ Pháp Bảo Luyện Chế (`data/phap-bao.json`, chủ dự án chốt 12/11/2026)
+
+Trang thiết kế: https://claude.ai/artifact/8JeWpJgWcutqtPEuw4kM5z. Đợt 1 chỉ tài khoản trong `test_uid` (Hoa Than) thấy; người chơi khác vẫn dùng chiêu cũ.
+- 3 nút chiêu thành 3 nút pháp bảo đang mặc (`src/game/phap-bao.js` pbOn, pbWorn); nút pháp bảo cũ `#btn-art` thành nút "Luyện chế" mở bảng `src/ui/phap-bao-panel.js` (kiểu `phap-bao.css`, nút trên màn `phap-bao-hud.js`). Mặc pháp bảo nào cộng chỉ số gốc món đó (`pbStats` trong `playerStats`).
+- 8 loại (4 công, 4 thủ) mỗi loại một đòn gốc `types.*.emit`; đòn thủ có bước trước `pre` (khiên Hộ Thuẫn, hút Hồ Lô). 19 chiêu khảm `mods` (Hình Dạng, Ngũ Hành, Kích Phát, Hỗ Trợ), mở theo tổng tầng tu (`at`), không khoá linh căn, khảm tự do, được trùng.
+- Thứ tự khảm: `src/game/phap-bao-build.js` dựng cây đòn, ô sau tác động lên thứ ô trước tạo ra (Đánh Lan sinh nút nổ con, Tỏa Nhánh sau đòn vùng sinh mảnh), nút con chép hệ lúc tạo. Tung đòn, thực thể `game.pbx.list`: `src/game/phap-bao-run.js`; trúng quái, hệ, Lôi Kích, Tử Bạo, Bạo Kích Liên Hoàn: `phap-bao-hit.js` (hook `opt.onHit` trong `hitMob`); Phản Chấn qua `game.pbHurt` trong `hitPlayer`; vùng Trận Kỳ giảm sát thương nhận qua `player.pbDr`. Vẽ: `src/render/draw-phap-bao.js`.
+- Phẩm (`grades`) quyết hệ số chỉ số gốc và tỉ lệ ra 1–3 ô; nâng cấp tốn Linh Thạch, mỗi cấp +5% chỉ số gốc và sát thương, trần theo cảnh giới; Đục ô bằng Đá Khai Khiếu, hụt `pity` lần thì lần sau chắc chắn.
+- Bản lưu `save.phapBao` (items, wear, stones). **Chưa có máy chủ kiểm** (quay số ô, đá, nâng cấp): phải làm hàm máy chủ và chủ dự án duyệt trước khi mở cho mọi người, cùng rơi pháp bảo theo truyện, nâng phẩm, đền bù chiêu cũ, người khác thấy đòn (others-cast), quái có hệ.

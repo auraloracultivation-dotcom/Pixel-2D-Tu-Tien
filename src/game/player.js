@@ -6,6 +6,8 @@ import { addFx, hitMob, dist, shoot } from './combat.js';
 import { weaponSlash } from './slash-fx.js';
 import { heroLook } from '../render/draw-hero.js';
 import { castSkill, skillSlots, skillReady } from './skills.js';
+import { pbOn } from './phap-bao.js';
+import { pbInput } from './phap-bao-run.js';
 import { chainStep } from './skill-chain.js';
 import { domainHold } from './skill-domain.js';
 import { chargeHold } from './skill-charge.js';
@@ -171,7 +173,8 @@ export function updatePlayer(game, dt) {
   updateFlyWeapon(game, dt);
 
   const slots = skillSlots(game);
-  for (let i = 0; i < 3; i++) {
+  if (pbOn(game)) pbInput(game, inp);   // tài khoản thử Hệ Pháp Bảo: 3 nút chiêu là 3 pháp bảo đang mặc (src/game/phap-bao-run.js)
+  else for (let i = 0; i < 3; i++) {
     if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && ready(game, slots[i]) && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
       p.meditating = false; p.calmT = 0; p.riding = false;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
@@ -183,7 +186,7 @@ export function updatePlayer(game, dt) {
 
   // Nút pháp bảo: chiêu riêng của pháp bảo đang mặc
   p.artCd = (p.artCd || 0) - dt;
-  const art = artSkill(game.save, game.data);
+  const art = pbOn(game) ? null : artSkill(game.save, game.data);   // hệ pháp bảo mới: nút này mở bảng Luyện chế (src/ui/phap-bao-panel.js)
   if (inp.consume('art') && art && p.artCd <= 0 && spendMana(game, art)) {
     p.meditating = false; p.calmT = 0; p.riding = false;
     const dir = autoAim(game, art);
