@@ -53,7 +53,7 @@ export function createPvpBtn(game) {
     if (!show) { if (!tag.hidden) tag.hidden = true; key = ''; return; }
     const off = !!game.pvp?.off, name = game.online?.me?.name || game.save.name || '', k = `${off}|${name}`;
     if (k !== key) { key = k; nm.textContent = name; ic.textContent = ''; tag.classList.toggle('off', off); tag.title = off ? T.off : T.on; }   // hình khiên bật / tắt ở pvp.css (ảnh chủ dự án 07/11/2026)
-    const s = game.screen.toScreen(p.x, p.y - (p.top || 24) - (game.save.title ? 20 : 8));
+    const s = game.screen.toScreen(p.x, p.y - (p.top || 24) - (p.riding ? p.lift || 0 : 0) - (game.save.title ? 20 : 8));   // đang cưỡi: nâng tên theo lưng thú (src/render/draw.js đặt p.lift; chủ dự án 11/11/2026 10:44: tên dính vào đầu)
     tag.hidden = false;
     const hk = Math.max(0, Math.min(1, p.hp / (p.maxHp || 1))), hw = `${Math.round(hk * 100)}%`;
     if (hpIn.style.width !== hw) { hpIn.style.width = hw; hpIn.style.background = hk > 0.5 ? '#e0484a' : hk > 0.25 ? '#e8823a' : '#f2c94c'; }
