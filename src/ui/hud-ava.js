@@ -4,6 +4,7 @@
 import { spriteImage } from '../render/sprites.js';
 import { heroLook } from '../render/draw-hero.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
+import { faceCrop } from './ava-crop.js';
 
 // Khung bộ hoa đào (chủ dự án 04/11/2026 10:19, tools/art/ui_hoa_dao.py): mộc hoa đào, kim vàng kim cương, thủy sóng, hỏa lửa, thổ mây vàng.
 // Lòng vòng từng khung đọc ở data/art.json → sprites['ui.hd-ava-<hệ>'].hole = [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng].
@@ -41,20 +42,20 @@ export function createHudAva(game) {
       at(lv, V.plate); at(seal, V.socket);
       seal.style.backgroundImage = s.element ? `url("assets/art/ui-nv-${s.element}.png")` : '';
     }
-    const im = spr && spriteImage(spr), c = cv.getContext('2d');
-    c.clearRect(0, 0, 40, 40); c.fillStyle = '#2a1838'; c.fillRect(0, 0, 40, 40);
+    const im = spr && spriteImage(spr), N = V ? 96 : 40;   // khung mới: vẽ 96 điểm cho hạt nhỏ, nét (trước 40 điểm phóng to nên mờ)
+    if (cv.width !== N) cv.width = cv.height = N;
+    const c = cv.getContext('2d');
+    c.clearRect(0, 0, N, N);
+    if (!V) { c.fillStyle = '#2a1838'; c.fillRect(0, 0, N, N); }
     if (!im) return;
-    // khung đứng (khung 0): tìm đỉnh đầu theo điểm không trong suốt, cắt vuông quanh đầu (cỡ theo bề ngang hình nhân vật)
+    // khung đứng (khung 0): cắt vuông quanh mặt (src/ui/ava-crop.js), phần ngoài hình để trống
     const t = document.createElement('canvas'); t.width = spr.w; t.height = spr.h;
     const tc = t.getContext('2d'); tc.drawImage(im, 0, 0, spr.w, spr.h, 0, 0, spr.w, spr.h);
-    const a = tc.getImageData(0, 0, spr.w, spr.h).data;
-    let y0 = -1, x0 = spr.w, x1 = 0;
-    for (let y = 0; y < spr.h && y0 < 0; y++) for (let x = 0; x < spr.w; x++) if (a[(y * spr.w + x) * 4 + 3] > 40) { y0 = y; break; }
-    for (let y = Math.max(0, y0); y < spr.h; y++) for (let x = 0; x < spr.w; x++) if (a[(y * spr.w + x) * 4 + 3] > 40) { if (x < x0) x0 = x; if (x > x1) x1 = x; }
-    if (y0 < 0) return;
-    const S = Math.max(12, Math.round((x1 - x0 + 1) * 0.8)), cx = (x0 + x1 + 1) / 2;
+    const f = faceCrop(tc.getImageData(0, 0, spr.w, spr.h).data, spr.w, spr.h);
+    if (!f) return;
+    const z = N / f.S, sx = Math.max(0, f.x), sy = Math.max(0, f.y), ex = Math.min(spr.w, f.x + f.S), ey = Math.min(spr.h, f.y + f.S);
     c.imageSmoothingEnabled = false;
-    c.drawImage(im, Math.round(cx - S / 2), Math.max(0, y0 - 2), S, S, 0, 2, 40, 40);
+    if (ex > sx && ey > sy) c.drawImage(t, sx, sy, ex - sx, ey - sy, (sx - f.x) * z, (sy - f.y) * z, (ex - sx) * z, (ey - sy) * z);
   }
   paint(); every(paint, 3000);
 }
