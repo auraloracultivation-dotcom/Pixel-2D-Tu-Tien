@@ -3,6 +3,7 @@
 // thanh dưới: số ô, Xếp, Bán nhanh, Mặc tốt nhất. Kho: Ngọc, Nguyên liệu, Cá, Đan dược (ô hình + số lượng); thanh dưới: Linh Thạch
 // (chạm xem lịch sử), Khảm tốt nhất. Chạm ô: phần mặc / rèn / ghép / dùng hiện ngay trong khung (src/ui/self-panel.js vẽ).
 // Đang chọn ngọc để khảm (st.pickSocket): Kho → Ngọc hiện dòng nhắc, chạm viên nào là khảm viên đó.
+import { pbOn } from '../game/phap-bao.js';
 import { el, icon, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid } from './bag-stock.js';
 import { gradeColor, gradeId, uiIco, socketCol } from './self-gear.js';
@@ -17,12 +18,14 @@ import { coins } from '../game/shop.js';
 // Hàng mục trên kho theo từng trang: [mục, hình, tên]
 const GROUPS = { all: null, vk: ['vu-khi'], pc: ['mu', 'giap', 'giay'], ts: ['ngoc-boi', 'nhan'], pb: ['phap-bao'] };
 export const SUBS = {   // biểu tượng mục con (ảnh GPT 11/11/2026 03:03, tools/art/ui_nhan_vat.py)
-  do: [['all', 'ui.nv-tab-tat-ca', 'Tất cả'], ['vk', 'ui.nv-tab-vu-khi', 'Vũ khí'], ['pc', 'ui.nv-tab-giap', 'Giáp'], ['ts', 'ui.nv-tab-nhan', 'Nhẫn'], ['pb', 'ui.nv-tab-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
+  do: [['all', 'ui.nv-tab-tat-ca', 'Tất cả'], ['vk', 'ui.nv-tab-vu-khi', 'B.mệnh'], ['pc', 'ui.nv-tab-giap', 'Giáp'], ['ts', 'ui.nv-tab-nhan', 'Nhẫn'], ['pb', 'ui.nv-tab-phap-bao', 'P.bảo']],   // Giáp: mũ, giáp, giày; Nhẫn: nhẫn, ngọc bội
   kho: [['ngoc', 'ui.nv-tab-ngoc', 'Ngọc'], ['nl', 'ui.nv-tab-nguyen-lieu', 'N.liệu'], ['ca', 'ui.nv-tab-ca', 'Cá'], ['dan', 'ui.nv-tab-dan', 'Đan']],
   cp: [['chieu', 'ui.nv-tab-chieu', 'Chiêu'], ['cong-phap', 'ui.nv-tab-bi-kip', 'Công pháp']],
   lt: [['linh-thu', 'ui.ic-linh-thu', 'Linh thú'], ['thu-cuoi', 'ui.ic-thu-cuoi', 'Thú cưỡi'], ['dong-hanh', 'ui.nv-khoi-loi', 'Khôi lỗi']],
   tt: [['thoi-trang', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-tab-danh-hieu', 'Danh hiệu']],
 };
+// Mục con hiện được: tài khoản đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js pbOn) ẩn mục Chiêu và P.bảo cũ (chủ dự án 12/11/2026 03:35)
+export const subsOf = (game, page) => (pbOn(game) ? SUBS[page].filter(([id]) => !(page === 'cp' && id === 'chieu') && !(page === 'do' && id === 'pb')) : SUBS[page]);
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
 const SORTS = [['moi', 'Mới', 'mới nhất'], ['manh', 'Mạnh', 'mạnh nhất'], ['pham', 'Phẩm', 'phẩm cao'], ['cap', 'Cấp', 'cấp cao']];

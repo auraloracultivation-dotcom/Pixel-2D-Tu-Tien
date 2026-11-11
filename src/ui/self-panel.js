@@ -7,7 +7,7 @@ import { playerStats } from '../game/stats.js';
 import { el, renderDetail } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { leftCard, statsSheet } from './self-left.js';
-import { renderStore, SUBS, groupOf } from './self-bag.js';
+import { renderStore, SUBS, groupOf, subsOf } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS } from './self-host.js';
@@ -89,8 +89,10 @@ export function createSelfPanel(game) {
     before = snap(game);
     patchList(rail, PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
     patch(left, leftCard(game, stt, h));   // vá thẻ cũ, không thay cả thẻ (src/ui/morph.js)
-    subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
-    patchList(subs, SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
+    const SB = subsOf(game, st.page);   // hệ pháp bảo mới: ẩn mục Chiêu, P.bảo cũ (self-bag.js)
+    if (!SB.some(([id]) => id === st.sub)) st.sub = SB[0][0];
+    subs.classList.toggle('many', SB.length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
+    patchList(subs, SB.map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
       st.sub = id; reset(); st.qs = false;
       if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
       render();

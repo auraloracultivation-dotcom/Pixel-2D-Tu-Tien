@@ -216,6 +216,7 @@ export function gearStats(data, save) {
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
     const b = data.items.bases[it.base], dv = matchMul(data, save, it);   // món cùng hệ linh căn: chỉ số chính mạnh thêm
+    if (save.phapBao && b?.slot === 'phap-bao') continue;   // đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js): pháp bảo cũ ẩn, không cộng (chủ dự án 12/11/2026 03:35)
     const k = enhanceMul(data, it.plus) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);

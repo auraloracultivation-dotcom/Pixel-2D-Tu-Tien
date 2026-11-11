@@ -1,4 +1,5 @@
 // Bảng Chiêu: tab Chiêu (3 ô chiêu đang mang, chiêu đã mở và chưa mở) và tab Công pháp (3 cuốn đang mang, cấp, kinh nghiệm).
+import { pbOn } from '../game/phap-bao.js';
 import { skillGrade } from '../game/skill-grade.js';
 import { unlockedSkills, skillSlots, setSlot, weaponSkills } from '../game/skills.js';
 import { weaponId } from '../game/stats.js';
@@ -26,6 +27,9 @@ export function createSkillsPanel(game) {
   const need = n => `${data.realms.names[Math.floor(n / data.realms.layers)]} tầng ${n % data.realms.layers + 1}`;
 
   function render() {
+    const pb = pbOn(game);   // hệ Pháp Bảo Luyện Chế (tài khoản thử): ẩn chiêu cũ, chỉ còn công pháp (chủ dự án 12/11/2026 03:35)
+    if (pb && tab === 'chieu') tab = 'cong-phap';
+    for (const b of document.querySelectorAll('#skills-tabs [data-tab="chieu"]')) b.hidden = pb;
     for (const b of document.querySelectorAll('#skills-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);
     $('skills-sub').textContent = tab === 'chieu' ? 'Chọn ô rồi chạm chiêu để mang' : 'Chọn ô rồi chạm công pháp để mang';
     if (tab === 'chieu') renderSkills(); else renderTechs();
