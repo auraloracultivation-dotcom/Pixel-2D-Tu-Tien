@@ -139,6 +139,13 @@ export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = D
 }
 
 // Ngọc: khoá "loại:cấp", ví dụ "hong-ngoc:1"
+// Hệ số chỉ số gốc theo cấp cường hoá: data/gear.json → enhance.main_add (cộng dồn từng cấp), không có thì main_per mỗi cấp
+export function enhanceMul(data, plus = 0) {
+  const e = data.gear?.enhance, n = Math.max(0, plus || 0);
+  if (!e) return 1;
+  return e.main_add ? 1 + e.main_add.slice(0, n).reduce((a, b) => a + b, 0) : 1 + n * (e.main_per || 0);
+}
+
 export function gemInfo(data, key) {
   const [type, lv] = key.split(':');
   const t = data.items.gems.types[type];
@@ -209,7 +216,7 @@ export function gearStats(data, save) {
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
     const b = data.items.bases[it.base], dv = matchMul(data, save, it);   // món cùng hệ linh căn: chỉ số chính mạnh thêm
-    const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
+    const k = enhanceMul(data, it.plus) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
     for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); if (gi.stat) add(gi.stat, gi.value); }

@@ -3,7 +3,7 @@
  "enhance": {
   "max": 20, "refund": 0.4, "_refund": "Phân giải món đã cường hoá trả lại refund phần tinh thiết và Tẩy Luyện Thạch đã tốn cho các cấp đã lên (không tính lần hỏng, không trả Linh Thạch). Người chơi minhavart1 báo #7, chủ dự án chốt 40% ngày 29/10/2026.",
   "open": {"_note": "Cấp cường hoá tối đa mở dần theo cảnh giới: base, từ cảnh giới from_realm (Kim Đan = 2) mỗi cảnh giới thêm per_realm, tối đa max. Kim Đan +10, Nguyên Anh +12 ... Đại Thừa +20 (chủ dự án chốt 28/10/2026).", "base": 10, "from_realm": 2, "per_realm": 2},
-  "main_per": 0.1,
+  "main_per": 0.1, "main_add": [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.15, 0.15, 0.15, 0.15, 0.25, 0.25, 0.25, 0.4, 0.4, 0.4, 0.6, 0.6, 0.6, 0.6], "_main_add": "Chỉ số gốc cộng thêm khi lên từng cấp (+1..+20), cộng dồn; thay main_per (chủ dự án 12/11/2026 01:41: giữ độ khó, chỉ cân chỉ số với công sức bỏ ra). Chi phí trung bình tăng theo cấp số nhân từ +7 (tỉ lệ giảm, hỏng 50% tụt cấp) nên cấp cao cho nhiều hơn: +6 ×1,6, +10 ×2,2, +13 ×2,95, +16 ×4,15, +20 ×6,55 (trước +20 chỉ ×3).",
   "iron": [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18, 21, 25, 30, 36, 43, 51, 61, 73, 87],
   "stones": [0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 20],
   "coins": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000, 2700, 3600, 4900, 6600, 8900, 12000, 16200, 21900, 29500],

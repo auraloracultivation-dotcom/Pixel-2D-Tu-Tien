@@ -3,6 +3,7 @@
 // luyện, tẩy luyện, đổi hệ, phân giải, bán) → so với món đang mặc cùng ô → chỉ số, dòng phụ, ngọc (khảm).
 import {
   equip, unequip, salvage, rerollFee, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
+  enhanceMul,
 } from '../game/items.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
@@ -39,7 +40,7 @@ export function icon(data, it) {
 // Chỉ số chính đã nhân cường hoá và hợp hệ Đạo Vận (như lúc tính vào người)
 export function mainStats(data, save, it) {
   const base = data.items.bases[it.base];
-  const k = (1 + (it.plus || 0) * data.gear.enhance.main_per) * matchMul(data, save, it);
+  const k = enhanceMul(data, it.plus) * matchMul(data, save, it);
   return Object.fromEntries(Object.entries(it.main).map(([s, v]) => [s, Math.round(v * k)]));
 }
 
