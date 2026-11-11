@@ -195,3 +195,10 @@ body #toast { z-index: 85; }
 .ht-gop-row.st-da_sua .ht-gop-top i { color: #9fe8b0; border-color: rgba(159, 232, 176, .6); }
 .ht-gop-row.st-khong_lam .ht-gop-top i, .ht-gop-row.st-trung .ht-gop-top i { color: #8fb4c4; border-color: rgba(143, 180, 196, .5); }
 .ht-sub.ht-gop-wait::after { content: ' · ' attr(data-wait); color: #ffe27a; text-transform: none; letter-spacing: 0; animation: ht-blink 1.2s infinite; }
+/* Điểm quản trị viên đầu mục Góp ý */
+.ht-qtv { display: grid; grid-template-columns: 1fr; gap: 2px; text-align: left; padding: 7px 9px; border-radius: 8px; border: 1px solid rgba(255, 210, 90, .55);
+  background: linear-gradient(180deg, rgba(255, 210, 90, .14), rgba(255, 210, 90, .04)); color: #eafaff; font: 12px/1.35 var(--f-body); cursor: pointer; }
+.ht-qtv > b { color: #ffe27a; font-size: 13px; }
+.ht-qtv > small { color: #9fc8d8; font-size: 11px; }
+.ht-qtv-bar { display: block; height: 6px; border-radius: 3px; background: rgba(4, 16, 32, .8); border: 1px solid rgba(255, 210, 90, .4); overflow: hidden; }
+.ht-qtv-bar > b { display: block; height: 100%; background: linear-gradient(90deg, #ffd24a, #ff9a3a); }
