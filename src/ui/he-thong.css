@@ -194,3 +194,4 @@ body #toast { z-index: 85; }
 .ht-gop-top i { flex: none; font-style: normal; font-size: 11px; color: #7fe0ff; border: 1px solid rgba(62, 200, 240, .5); border-radius: 5px; padding: 0 5px; }
 .ht-gop-row.st-da_sua .ht-gop-top i { color: #9fe8b0; border-color: rgba(159, 232, 176, .6); }
 .ht-gop-row.st-khong_lam .ht-gop-top i, .ht-gop-row.st-trung .ht-gop-top i { color: #8fb4c4; border-color: rgba(143, 180, 196, .5); }
+.ht-sub.ht-gop-wait::after { content: ' · ' attr(data-wait); color: #ffe27a; text-transform: none; letter-spacing: 0; animation: ht-blink 1.2s infinite; }

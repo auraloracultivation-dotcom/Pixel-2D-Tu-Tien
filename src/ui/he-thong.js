@@ -1,7 +1,7 @@
 // Hệ Thống Tu Tiên (data/he-thong.json; chủ dự án 06/11/2026 16:15): bảng giữa màn hình kiểu bảng hệ thống của truyện xuyên không.
 // Lần đầu vào: chữ chào hiện dần từng dòng. Chạm ra ngoài bảng: bảng thu nhỏ, bay sang biểu tượng "Hệ" bên phải (cạnh nút pháp bảo);
 // chạm biểu tượng thì bảng phóng to lại từ đó. Mục: Nhiệm vụ / Triệu hồi / Tàng Thư (tra cứu mọi thứ trong data/, he-thong-tra.js) /
-// Hỏi đáp (data/faq.json) / Hỏi thêm (net/he-thong.js; gõ là Hệ Thống tìm trả lời ngay) / Góp ý (báo lỗi, đề xuất: he-thong-gop.js).
+// Hỏi đáp (data/faq.json, gộp cả Hỏi thêm: gõ là Hệ Thống tìm, không thấy thì gửi câu hỏi; he-thong-hoi.js) / Góp ý (báo lỗi, đề xuất: he-thong-gop.js).
 // Tên chiêu, quái, đan… trong chữ thành nút bấm. Hệ Thống nổi trên mọi bảng (chủ dự án 11/11/2026 23:12, he-thong.css); đang mở mà
 // một bảng khác hiện lên (bấm Đi làm, mở Bí cảnh…) thì tự thu nhỏ cho bảng đó khỏi bị che.
 // Hệ thống tự lên tiếng (game/he-thong.js htTick): biểu tượng rung, hiện một dòng nhắc cạnh biểu tượng. Kiểu ở he-thong.css.
@@ -14,7 +14,8 @@ import { createFace } from './he-thong-mat.js';
 import { createWander } from './he-thong-dao.js';
 import { createGreeter } from './he-thong-chao.js';
 import { makeDraggable } from './he-thong-keo.js';
-import { renderTra, linkText, quickAnswers } from './he-thong-tra.js';
+import { renderTra } from './he-thong-tra.js';
+import { renderHoi, hoiState } from './he-thong-hoi.js';
 import { renderGop, gopState, gopShot } from './he-thong-gop.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
@@ -65,7 +66,7 @@ export function createHeThong(game) {
   const traSt = { q: '', kind: '', cur: null, back: [] };   // Tàng Thư: chữ tìm, loại lọc, mục đang xem, đường quay lại
   const pick = id => { if (traSt.cur && traSt.cur !== id) traSt.back.push(traSt.cur); else if (!traSt.cur) traSt.back = []; traSt.cur = id; tab = 'tra'; render(); body.scrollTop = 0; };
   const gopSt = gopState();   // Góp ý: loại, chữ đang gõ, ảnh, danh sách đã gửi
-  let tab = 'task', open = false, typing = null, mine = null, ht = { diem: 0, xong: [], ngay_xong: [] }, say = '';
+  let tab = 'task', open = false, typing = null, ht = { diem: 0, xong: [], ngay_xong: [] }, say = '';
   const H = C, fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
   async function loadHt() {
     if (!game.cloud) return;
@@ -93,7 +94,7 @@ export function createHeThong(game) {
   function tabBar() {
     tabs.textContent = '';
     for (const [id, name] of Object.entries(C.tabs)) {
-      if ((id === 'faq' && !F) || (id === 'gop' && !game.data.community?.feedback?.on)) continue;
+      if ((id === 'gop' && !game.data.community?.feedback?.on)) continue;
       const b = el('button', `ht-tab${id === tab ? ' on' : ''}`, name); b.type = 'button';
       b.onclick = () => { if (id === 'gop' && tab !== 'gop' && !gopSt.busy) gopShot(game, gopSt); tab = id; render(); body.scrollTop = 0; };
       tabs.append(b);
@@ -108,60 +109,8 @@ export function createHeThong(game) {
       renderTra(game, body, traSt, () => { render(); body.scrollTop = 0; });
     } else if (tab === 'gop') {
       renderGop(game, body, gopSt, { render: () => { if (open && tab === 'gop') render(); }, minimize });
-    } else if (tab === 'faq') {
-      // Nhóm thu gọn (chủ dự án 06/11/2026 23:38: kéo xuống lâu quá): chạm tên nhóm mới hiện câu hỏi; ô tìm lọc câu hỏi, câu trả lời
-      const T = C.text, find = el('input', 'ht-find'); find.type = 'search'; find.placeholder = T.faq_find; find.value = faqQ;
-      const list = el('div', 'ht-faq'); body.append(find, list);
-      const norm = t => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
-      const draw = () => {
-        list.textContent = ''; const q = norm(faqQ.trim());
-        for (const gr of F.groups) {
-          const items = q ? gr.list.filter(it => norm(it.q + ' ' + it.a.join(' ')).includes(q)) : gr.list;
-          if (!items.length) continue;
-          const on = !!q || faqOpen.has(gr.title), head = el('button', `ht-grp${on ? ' on' : ''}`); head.type = 'button';
-          head.append(el('span', null, gr.title), el('i', null, `${items.length} ${on ? '▾' : '▸'}`));
-          head.onclick = () => { if (q) return; faqOpen.has(gr.title) ? faqOpen.delete(gr.title) : faqOpen.add(gr.title); draw(); };
-          list.append(head);
-          if (!on) continue;
-          for (const it of items) {
-            const card = el('div', 'ht-qa'), qb = el('button', 'ht-q', it.q), a = el('div', 'ht-a'); qb.type = 'button';
-            for (const l of it.a) a.append(linkText(game, el('p'), l, pick));   // tên chiêu, quái, đan… bấm được
-            qb.onclick = () => card.classList.toggle('on');
-            card.append(qb, a); list.append(card);
-          }
-        }
-        if (!list.childElementCount) list.append(el('p', 'ht-line ht-muted', T.faq_none));
-      };
-      find.oninput = () => { faqQ = find.value; draw(); };
-      draw();
-    } else {
-      body.append(el('p', 'ht-line', C.ask_head));
-      const ta = el('textarea', 'ht-ask'); ta.maxLength = 300; ta.rows = 3; ta.placeholder = C.ask_ph;
-      const send = el('button', 'ht-btn', C.ask_send); send.type = 'button';
-      send.onclick = async () => {
-        const q = ta.value.trim();
-        if (q.length < 4) { game.toast(C.ask_err.ngan, 1.6); return; }
-        send.disabled = true;
-        try { const N = await import('../net/he-thong.js'); await N.askSystem(q, game.save?.step); ta.value = ''; game.toast(C.ask_ok, 2); game.htFace?.react('ask_ok'); mine = null; render(); }
-        catch (e) { const m = String(e?.message || ''); game.htFace?.react('ask_err'); game.toast(C.ask_err[Object.keys(C.ask_err).find(k => m.includes(k))] || (game.cloud ? C.ask_err.other : C.ask_err.chua_dang_nhap), 2.2); }
-        finally { send.disabled = false; }
-      };
-      const quick = el('div', 'ht-quick');
-      ta.oninput = () => {   // gõ tới đâu Hệ Thống tìm tới đó trong Hỏi đáp và Tàng Thư
-        clearTimeout(ta.t); ta.t = setTimeout(() => {
-          quick.textContent = ''; const Q = C.tra, r = quickAnswers(game, ta.value);
-          if (ta.value.trim().length < 4) return;
-          quick.append(el('div', 'ht-sub', r.faq.length || r.ent.length ? Q.ask_quick : Q.ask_quick_none));
-          for (const it of r.faq) { const d = el('div', 'ht-mine'); d.append(el('b', null, it.q)); for (const l of it.a) d.append(linkText(game, el('p'), l, pick)); quick.append(d); }
-          if (r.ent.length) { const d = el('p', 'ht-line'); linkText(game, d, r.ent.map(e => e.name).join(' · '), pick); quick.append(d); }
-        }, 250);
-      };
-      body.append(ta, quick, send);
-      if (mine === null && game.cloud) { mine = []; import('../net/he-thong.js').then(N => N.myQuestions()).then(r => { mine = r; if (open && tab === 'ask') render(); }).catch(() => {}); }
-      if (mine?.length) {
-        body.append(el('div', 'ht-sub', C.ask_mine));
-        for (const m of mine) { const d = el('div', 'ht-mine'); d.append(el('b', null, m.q)); if (m.a) d.append(el('p', null, m.a)); body.append(d); }
-      }
+    } else {   // Hỏi đáp, gồm cả Hỏi thêm (he-thong-hoi.js)
+      renderHoi(game, body, hoiSt, { pick });
     }
   }
 
