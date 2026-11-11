@@ -42,8 +42,11 @@ export function createHudAva(game) {
       at(lv, V.plate); at(seal, V.socket);
       seal.style.backgroundImage = s.element ? `url("assets/art/ui-nv-${s.element}.png")` : '';
     }
-    const im = spr && spriteImage(spr), c = cv.getContext('2d');
-    c.clearRect(0, 0, 40, 40); c.fillStyle = '#2a1838'; c.fillRect(0, 0, 40, 40);
+    const im = spr && spriteImage(spr), N = V ? 96 : 40;   // khung mới: vẽ 96 điểm cho hạt nhỏ, nét (trước 40 điểm phóng to nên mờ)
+    if (cv.width !== N) cv.width = cv.height = N;
+    const c = cv.getContext('2d');
+    c.clearRect(0, 0, N, N);
+    if (!V) { c.fillStyle = '#2a1838'; c.fillRect(0, 0, N, N); }
     if (!im) return;
     // khung đứng (khung 0): cắt vuông quanh mặt (src/ui/ava-crop.js), phần ngoài hình để trống
     const t = document.createElement('canvas'); t.width = spr.w; t.height = spr.h;
