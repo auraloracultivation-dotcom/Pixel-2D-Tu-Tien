@@ -95,3 +95,12 @@ html body .uk-tog#uk-an { right: calc(env(safe-area-inset-right) + 90px) !import
   background: url("assets/art/ui-ic-an.png") center / 80% auto no-repeat !important; filter: drop-shadow(0 1px 2px #000); }
 html body .uk-tog#uk-gon { width: 32px !important; height: 32px !important; right: calc(env(safe-area-inset-right) + 15px) !important; top: calc(var(--cot-top, 120px) + 57px) !important;
   background: url("assets/art/ui-ic-lui.png") center / 72% auto no-repeat !important; }
+
+/* nút Quay lúc đang quay (src/game/record.js thêm .on, data-stop, data-s): hình dừng đỏ, vòng đỏ nhấp nháy, chữ "Dừng 0:12" đỏ
+   (chủ dự án 11/11/2026 20:45: khó nhận ra đang quay hay đang tắt) */
+html body #hud .hud-btns > button.tron#btn-rec.on::before { background-image: url("assets/art/ui-hud-dung.png") !important; image-rendering: pixelated;
+  animation: hud-rec 1s ease-in-out infinite; }
+html body #hud .hud-btns > button.tron#btn-rec.on::after { content: attr(data-stop) " " attr(data-s) !important; color: #ff6a74 !important; font-weight: 800 !important;
+  text-shadow: 0 1px 0 #000, 0 0 4px rgba(255, 40, 60, .6) !important; }
+@keyframes hud-rec { 0%, 100% { filter: drop-shadow(0 0 1px #ff2a3a) drop-shadow(0 0 3px rgba(255, 40, 60, .5)); } 50% { filter: drop-shadow(0 0 3px #ff2a3a) drop-shadow(0 0 9px rgba(255, 40, 60, .95)); } }
+@media (prefers-reduced-motion: reduce) { html body #hud .hud-btns > button.tron#btn-rec.on::before { animation: none; filter: drop-shadow(0 0 4px #ff2a3a); } }
