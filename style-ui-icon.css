@@ -12,6 +12,7 @@ body #hud .hud-btns > button#hud-thu.co { --ico: url("assets/art/ui-k-thu-moi.pn
 body #hud .hud-btns > button#btn-bag { --ico: url("assets/art/ui-ic-tui.png"); }
 body #hud .hud-btns > button#hud-home { --ico: url("assets/art/ui-ic-dong-phu.png"); }
 body #hud .hud-btns > button#btn-rec { --ico: url("assets/art/ui-ic-quay.png"); }
+body #hud .hud-btns > button#hud-tiktok { --ico: url("assets/art/ui-hud-kenh.png"); }   /* kênh TikTok (tools/art/ui_hud_tren.py) */
 body #hud .hud-btns > button.tron::before { width: 30px; height: 28px; top: 8px; }
 
 /* cột mục bên trái: mọi mục có biểu tượng */
@@ -58,8 +59,8 @@ body .ht-row[data-k="btn-fb-loi"] { --ico: url("assets/art/ui-ic-than.png"); }
 body #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; background-size: 80% auto !important; }
 body.ui-an #uk-an { background-image: url("assets/art/ui-ic-an.png") !important; opacity: .6; }
 body .faq-btn { background-image: url("assets/art/ui-ic-than.png") !important; background-size: contain !important; }
-.uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; background-size: 80% auto !important; }
-body.hud-gon .uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; transform: scaleX(-1); }
+.uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; background-size: 80% auto !important; transform: scaleX(-1); }   /* đang mở: mũi tên chỉ phải (thu nút về mép phải) */
+body.hud-gon .uk-tog#uk-gon { background-image: url("assets/art/ui-ic-lui.png") !important; transform: none; }   /* đã thu: chỉ trái (bày nút ra); chủ dự án 11/11/2026 11:25 đổi chiều */
 body .bag-head > button[id$="-close"], body .bag-head > .close-x, body .ib-panel .bag-head > button:last-child { background-image: url("assets/art/ui-ic-dong.png") !important; }
 body #btn-auto.auto-dock::before { background-image: url("assets/art/ui-ic-dau.png") !important; }
 body #bag-mats::before { background-image: url("assets/art/ui-ic-linh-thach.png") !important; width: 14px; }

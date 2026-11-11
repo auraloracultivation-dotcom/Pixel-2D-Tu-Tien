@@ -25870,6 +25870,18 @@
    ],
    "note": "khung vong-mong (ảnh GPT bộ hoa đào)"
   },
+  "ui.hud-kenh": {
+   "file": "assets/art/ui-hud-kenh.png",
+   "v": "bf98294d",
+   "w": 30,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    15,
+    37
+   ],
+   "note": "nút kênh video (TikTok) trên màn chơi (tools/art/ui_hud_tren.py)"
+  },
   "ui.i-bag": {
    "file": "assets/art/ui-i-bag.png",
    "v": "89539be5",
