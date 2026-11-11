@@ -9,12 +9,15 @@ import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 // Lòng vòng từng khung đọc ở data/art.json → sprites['ui.hd-ava-<hệ>'].hole = [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng].
 const ELS = ['moc', 'hoa', 'thuy', 'kim', 'tho'];
 const W = 66;   // bề ngang khung trên màn hình
+// Khung trên mới (ảnh GPT chủ dự án 11/11/2026 11:42, tools/art/ui_hud_tren.py): vòng chân dung một màu cho mọi hệ, rộng W2; 'hole',
+// 'socket' (ổ ngọc: huy hiệu hệ ui-nv-<hệ>), 'plate' (bảng cấp: chữ Lv) đọc ở data/art.json. Kiểu ở style-hud-tren.css.
+const RING2 = 'ui.hud-vong-mat', W2 = 60;
 
 export function createHudAva(game) {
   const box = document.createElement('div'); box.id = 'uk-ava'; box.hidden = true;
   const cv = document.createElement('canvas'); cv.width = 40; cv.height = 40;
-  const fr = document.createElement('i'), lv = document.createElement('b');
-  box.append(cv, fr, lv);
+  const fr = document.createElement('i'), lv = document.createElement('b'), seal = document.createElement('s');
+  box.append(cv, fr, lv, seal);
   box.addEventListener('pointerdown', e => { e.stopPropagation(); document.getElementById('realm')?.click(); });
   let key = '';
   function paint() {
@@ -24,13 +27,20 @@ export function createHudAva(game) {
     box.hidden = false;
     const id = heroLook(game).sprite, spr = game.data.art.sprites[id];   // đúng hình đang vẽ ngoài màn (bộ thời trang chưa có hình chibi thì hình gốc; trước lấy tên chibi không có hình nên mặt trống)
     const fk = s.element === 'moc' || !ELS.includes(s.element) ? 'kim' : s.element,   // Mộc / chưa có hệ: khung vàng kim cương (khung hoa đào hồng đã bỏ, chủ dự án 04/11/2026 11:10)
-      L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
+      L = `Lv.${(s.realm || 0) * 9 + (s.layer || 1)}`, im0 = spr && spriteImage(spr), k = [id, fk, s.element, L, !!(im0 && im0.complete && im0.naturalWidth)].join('|');
     if (k === key) return;
     key = k; lv.textContent = L;
-    fr.style.setProperty('--ava', `url("assets/art/ui-hd-ava-${fk}.png")`);
-    const [hx, hy, hr, ar] = game.data.art.sprites['ui.hd-ava-' + fk]?.hole || [0.5, 0.45, 0.31, 1.1], d = Math.round(hr * W * 2) + 2;   // mặt tròn khớp lòng vòng (lớn hơn 2 điểm cho kín mép)
-    Object.assign(cv.style, { width: d + 'px', height: d + 'px', left: Math.round(hx * W - d / 2) + 'px', top: Math.round(hy * W * ar - d / 2) + 'px' });
-    box.style.height = Math.round(W * ar) + 'px';
+    const V = game.data.art.sprites[RING2], w = V ? W2 : W;   // khung trên mới: một vòng cho mọi hệ, huy hiệu hệ ở ổ ngọc, chữ Lv trong bảng cấp
+    box.classList.toggle('v2', !!V);
+    fr.style.setProperty('--ava', V ? `url("${V.file}?v=${V.v}")` : `url("assets/art/ui-hd-ava-${fk}.png")`);
+    const [hx, hy, hr, ar0] = V ? V.hole : game.data.art.sprites['ui.hd-ava-' + fk]?.hole || [0.5, 0.45, 0.31, 1.1], ar = V ? V.h / V.w : ar0, d = Math.round(hr * w * 2) + 2;   // mặt tròn khớp lòng vòng (lớn hơn 2 điểm cho kín mép)
+    Object.assign(cv.style, { width: d + 'px', height: d + 'px', left: Math.round(hx * w - d / 2) + 'px', top: Math.round(hy * w * ar - d / 2) + 'px' });
+    box.style.height = Math.round(w * ar) + 'px';
+    if (V) {
+      const at = (e, [cx, cy, bw, bh]) => Object.assign(e.style, { left: Math.round((cx - bw / 2) * w) + 'px', top: Math.round((cy - bh / 2) * w * ar) + 'px', width: Math.round(bw * w) + 'px', height: Math.round(bh * w * ar) + 'px' });
+      at(lv, V.plate); at(seal, V.socket);
+      seal.style.backgroundImage = s.element ? `url("assets/art/ui-nv-${s.element}.png")` : '';
+    }
     const im = spr && spriteImage(spr), c = cv.getContext('2d');
     c.clearRect(0, 0, 40, 40); c.fillStyle = '#2a1838'; c.fillRect(0, 0, 40, 40);
     if (!im) return;

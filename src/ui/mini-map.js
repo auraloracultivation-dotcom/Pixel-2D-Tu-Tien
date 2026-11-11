@@ -1,7 +1,7 @@
 // Bản đồ tròn góc phải trên (chủ dự án 04/11/2026 09:05: "biến bản đồ thành khung tròn trên góc phải trên", thay nút Bản đồ):
 // vùng quanh người chơi trên tinh cầu đang đứng (mỗi ô một điểm, cùng màu với bản đồ tinh cầu src/ui/planet-map.js), chấm bãi
 // quái, cổng, việc truyện, NPC; người chơi ở giữa. Khung vòng hoa đào (ui-hd-vong-ban-do), tên nơi đang đứng ở dưới.
-// Chạm thì mở bảng Bản đồ như nút cũ (nút #btn-world vẫn còn, chỉ cất khỏi màn hình). Kiểu ở style-ui-kit3.css.
+// Chạm thì mở bảng Bản đồ như nút cũ (nút #btn-world vẫn còn, chỉ cất khỏi màn hình). Kiểu ở style-ui-kit3.css, khung mới ở style-hud-tren.css.
 import { mini, marks } from './planet-map.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
@@ -21,10 +21,11 @@ export function createMiniMap(game) {
     document.getElementById('btn-world')?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
   });
   const c = cv.getContext('2d');
-  // canvas tròn khớp lòng vòng hoa đào (data/art.json → sprites['ui.hd-vong-ban-do'].hole), khung rộng 96 điểm CSS
-  const hole = game.data.art.sprites['ui.hd-vong-ban-do']?.hole, BW = 96;
+  // canvas tròn khớp lòng vòng (data/art.json → sprites[...].hole): vòng bốn đinh vàng của khung trên mới (ui-hud-vong-ban-do, rộng 84
+  // điểm CSS, style-hud-tren.css; chủ dự án 11/11/2026 11:42), chưa có thì vòng hoa đào cũ rộng 96
+  const S = game.data.art.sprites, rk = S['ui.hud-vong-ban-do'] ? 'ui.hud-vong-ban-do' : 'ui.hd-vong-ban-do', hole = S[rk]?.hole, BW = rk === 'ui.hud-vong-ban-do' ? 84 : 96;
   if (hole) {
-    const [hx, hy, hr, ar] = hole, d = Math.round(hr * BW * 2) + 2;
+    const [hx, hy, hr] = hole, ar = hole[3] ?? S[rk].h / S[rk].w, d = Math.round(hr * BW * 2) + 2;
     box.style.height = Math.round(BW * ar) + 'px';
     Object.assign(cv.style, { width: d + 'px', height: d + 'px', left: Math.round(hx * BW - d / 2) + 'px', top: Math.round(hy * BW * ar - d / 2) + 'px' });
   }
