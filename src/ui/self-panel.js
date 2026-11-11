@@ -58,6 +58,13 @@ export function createSelfPanel(game) {
     const s = game.save, slot = Object.keys(s.equip).find(k => s.equip[k] === uid);
     return (slot && left.querySelector(`.sv-slot[aria-label="${game.data.items.slots[slot]}"]`)) || mid.querySelector('.d-head .ico') || left.querySelector('.sv-center');
   }
+  // Thao tác trong bảng gắn ở khung phải (src/ui/self-host.js): vẽ lại thẻ nhân vật, lực chiến tăng thì chạy hiệu ứng
+  function hostedChanged() {
+    if (root.hidden || !HOSTS[st.page]) return;
+    const prev = before; before = snap(game);
+    left.replaceChildren(leftCard(game, playerStats(game.save, game.data), h));
+    react(game, prev, null, fxTarget, () => left.querySelector('.sv-center'));
+  }
   const h = {
     pick: (slot, it) => {
       if (!it) { st.sort = 'manh'; go('do', groupOf(slot)); return; }   // ô trống: kho lọc đúng nhóm, mạnh nhất lên đầu
@@ -88,7 +95,7 @@ export function createSelfPanel(game) {
     })));
     const hosted = !!HOSTS[st.page];
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
-    if (hosted) { host(hostBox, st.page, st.sub, game); return; }
+    if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
     unhost();
     const keep = mid.scrollTop;
     let has = false;   // phần chi tiết thay chỗ lưới

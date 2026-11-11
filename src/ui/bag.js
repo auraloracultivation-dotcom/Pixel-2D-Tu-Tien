@@ -142,7 +142,10 @@ export function createBag(game) {
   // Nút Túi đồ mở bảng Nhân vật + Kho (src/ui/self-panel.js; chủ dự án 11/11/2026 02:31: đưa bảng mới lên game). Không có bảng đó
   // thì như cũ: cột mục bên trái (src/ui/side-nav.js)
   $('btn-bag').addEventListener('pointerdown', e => { e.stopPropagation(); if (game.toggleSelf) game.toggleSelf('do'); else if (game.openNav) game.openNav('bag'); else open(); });
-  game.openBag = tab => { if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open(); };
+  game.openBag = tab => {   // nhiệm vụ ngày "Đi làm" (data/daily.json go.fn), cột mục: mở bảng Nhân vật mới, Trang bị hoặc đúng ô Kho (chủ dự án 10:44)
+    if (game.openSelf) { game.openSelf(!tab || tab === 'do' ? 'do' : 'kho', !tab || tab === 'do' ? undefined : tab); return; }
+    if (tab) { st.tab = tab; st.pickSocket = null; st.stock = null; } open();
+  };
 
   function open() {
     if (!game.save || game.dialog.open) return;
