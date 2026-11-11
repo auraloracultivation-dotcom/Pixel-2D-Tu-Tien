@@ -1,7 +1,10 @@
-// Tùy chọn tự hành (data/config.json → pilot.opts): người chơi bật tắt từng việc ở bảng Việc → tab Tự hành. Mặc định bật hết.
+// Tùy chọn tự hành (data/config.json → pilot.opts): người chơi bật tắt từng việc ở bảng Việc → tab Tự hành. Mặc định bật, trừ việc khai "def": false.
 import { hourNow } from './daynight.js';
 
-export const pilotOpt = (game, id) => game.save?.pilotOpt?.[id] !== false;
+export const pilotOpt = (game, id) => {   // chưa chọn thì theo mặc định: bật, trừ việc khai "def": false (vd tự hồi sinh tại chỗ)
+  const v = game.save?.pilotOpt?.[id];
+  return v === undefined ? game.data?.config?.pilot?.opts?.find(o => o.id === id)?.def !== false : v !== false;
+};
 // Tối về nhà (tùy chọn "dem"): từ pilot.rest[0] giờ tới rest[1] giờ sáng tự hành không nhận việc mới, làm nốt việc đang dở rồi về động phủ
 export const nightRest = game => {
   const [a, b] = game.data.config.pilot.rest, h = hourNow(game);
