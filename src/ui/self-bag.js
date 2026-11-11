@@ -24,8 +24,8 @@ export const SUBS = {   // biểu tượng mục con (ảnh GPT 11/11/2026 03:03
   lt: [['linh-thu', 'ui.ic-linh-thu', 'Linh thú'], ['thu-cuoi', 'ui.ic-thu-cuoi', 'Thú cưỡi'], ['dong-hanh', 'ui.nv-khoi-loi', 'Khôi lỗi']],
   tt: [['thoi-trang', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-tab-danh-hieu', 'Danh hiệu']],
 };
-// Mục con hiện được: tài khoản đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js pbOn) ẩn mục Chiêu và P.bảo cũ (chủ dự án 12/11/2026 03:35)
-export const subsOf = (game, page) => (pbOn(game) ? SUBS[page].filter(([id]) => !(page === 'cp' && id === 'chieu') && !(page === 'do' && id === 'pb')) : SUBS[page]);
+// Mục con hiện được: hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js pbOn) ẩn mục Chiêu cũ (chủ dự án 12/11/2026 03:35; 04:07 trả lại mục P.bảo cho hệ mới)
+export const subsOf = (game, page) => (pbOn(game) ? SUBS[page].filter(([id]) => !(page === 'cp' && id === 'chieu')) : SUBS[page]);   // mục P.bảo giữ: hiện hệ mới (self-pb-page.js)
 export const groupOf = slot => Object.keys(GROUPS).find(g => GROUPS[g]?.includes(slot)) || 'all';
 const worn = (save, uid) => Object.values(save.equip || {}).includes(uid);
 const SORTS = [['moi', 'Mới', 'mới nhất'], ['manh', 'Mạnh', 'mạnh nhất'], ['pham', 'Phẩm', 'phẩm cao'], ['cap', 'Cấp', 'cấp cao']];
@@ -35,7 +35,8 @@ const btn = (txt, cls, fn, ico) => {   // ico: biểu tượng ảnh trước ch
 
 function gearGrid(game, st, box, refresh) {
   const { data, save } = game, g = GROUPS[st.sub] || null;
-  let items = save.bag.filter(i => !worn(save, i.uid) && (!g || g.includes(data.items.bases[i.base]?.slot)));
+  const oldPb = pbOn(game);   // hệ Pháp Bảo Luyện Chế: pháp bảo cũ ẩn khỏi lưới (mục P.bảo vẽ hệ mới, self-pb-page.js)
+  let items = save.bag.filter(i => !worn(save, i.uid) && (!g || g.includes(data.items.bases[i.base]?.slot)) && !(oldPb && data.items.bases[i.base]?.slot === 'phap-bao'));
   const gain = new Map(items.map(i => [i.uid, powerGain(game, i)]));
   if (st.sort === 'manh') items.sort((a, b) => gain.get(b.uid) - gain.get(a.uid));
   else if (st.sort === 'pham') items.sort((a, b) => grade(data, b).idx - grade(data, a).idx || b.lvl - a.lvl);

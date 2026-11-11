@@ -3,6 +3,7 @@
 // vfx.tran-kim (Trận Kỳ), fx.shield (Hộ Thuẫn), fx.fire / ice / vine (hệ trên quái). Phần còn lại vẽ bằng code: vệt sáng, nón gió,
 // sóng vòng, nổ, mảnh, tia nảy, sét. Vẽ mượt, sau hiệu ứng chiêu.
 import { spriteImage } from './sprites.js';
+import { visOf, shotFx, areaFx } from './draw-pb-fx.js';
 
 const TAU = Math.PI * 2;
 const rgba = (hex, a) => { const n = parseInt((hex || '#ffffff').slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${Math.max(0, Math.min(1, a))})`; };
@@ -41,14 +42,15 @@ function jag(ctx, x0, y0, x1, y1, seed, c, w) {   // tia gấp khúc (nảy, sé
 }
 
 function shot(ctx, game, e, t) {
-  const N = e.node, a = Math.atan2(e.vy, e.vx), c = tint(N), sp = Math.hypot(e.vx, e.vy) || 1;
+  const N = e.node, a = Math.atan2(e.vy, e.vx), c = tint(N), sp = Math.hypot(e.vx, e.vy) || 1, k = visOf(e);
+  shotFx(ctx, e, c, t);   // đuôi sáng, hào quang theo phẩm (draw-pb-fx.js)
   ctx.globalCompositeOperation = 'lighter';
-  streak(ctx, e.x - e.vx / sp * 16, e.y - e.vy / sp * 16, e.x, e.y, N.look === 'manh' ? 1 : 1.8, c, 0.55);
+  streak(ctx, e.x - e.vx / sp * 16 * k, e.y - e.vy / sp * 16 * k, e.x, e.y, (N.look === 'manh' ? 1 : 1.8) * Math.sqrt(k), c, 0.55);
   glow(ctx, e.x, e.y, N.r * 1.6, c, 0.35);
   ctx.globalCompositeOperation = 'source-over';
-  if (N.look === 'kiem') spr(ctx, game, 'vfx.vk-kiem', 3, e.x, e.y, 14, a - Math.PI / 2);
-  else if (N.look === 'chau') spr(ctx, game, 'pbfx.linh-chau', Math.floor(t * 12), e.x, e.y, 50, a, 1, false, 0.86, 0.5);
-  else { ctx.fillStyle = '#fff'; ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(a); ctx.beginPath(); ctx.moveTo(5, 0); ctx.lineTo(0, 2.5); ctx.lineTo(-4, 0); ctx.lineTo(0, -2.5); ctx.fill(); ctx.restore(); }
+  if (N.look === 'kiem') spr(ctx, game, 'vfx.vk-kiem', 3, e.x, e.y, 14 * k, a - Math.PI / 2);
+  else if (N.look === 'chau') spr(ctx, game, 'pbfx.linh-chau', Math.floor(t * 12), e.x, e.y, 50 * k, a, 1, false, 0.86, 0.5);
+  else { ctx.fillStyle = '#fff'; ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(a); ctx.scale(k, k); ctx.beginPath(); ctx.moveTo(5, 0); ctx.lineTo(0, 2.5); ctx.lineTo(-4, 0); ctx.lineTo(0, -2.5); ctx.fill(); ctx.restore(); }
 }
 
 function wave(ctx, game, e, t) {
@@ -58,11 +60,12 @@ function wave(ctx, game, e, t) {
   g.addColorStop(0, rgba(c, 0)); g.addColorStop(0.75, rgba(c, 0.22 * fade)); g.addColorStop(1, rgba('#ffffff', 0.4 * fade));
   ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.arc(e.x, e.y, R, e.ang - half, e.ang + half); ctx.closePath(); ctx.fill();
   ctx.globalCompositeOperation = 'source-over';
+  areaFx(ctx, e, e.x + Math.cos(e.ang) * R * 0.5, e.y + Math.sin(e.ang) * R * 0.5, R * 0.55, c, t, k);
   if (N.look === 'quat') spr(ctx, game, 'fx.slash-quat', Math.min(2, Math.floor(k * 3)), e.x + Math.cos(e.ang) * R * 0.55, e.y + Math.sin(e.ang) * R * 0.55, R * 1.05, e.ang, fade);
   if (N.look === 'holo') {
     const left = Math.cos(e.ang) < 0, la = left ? Math.PI - e.ang : e.ang;
     ctx.save(); ctx.translate(e.x, e.y); if (left) ctx.scale(-1, 1); ctx.rotate(la + 0.6);
-    spr(ctx, game, 'pbfx.ho-lo', Math.floor(t * 12), 6, 0, 46, 0, Math.min(1, 1.6 - k), false, 0.25, 0.7);
+    spr(ctx, game, 'pbfx.ho-lo', Math.floor(t * 12), 6, 0, 46 * visOf(e), 0, Math.min(1, 1.6 - k), false, 0.25, 0.7);
     ctx.restore();
   }
 }
@@ -78,11 +81,13 @@ function ring(ctx, game, e) {
     ctx.beginPath(); ctx.ellipse(e.x, e.y, R, R * 0.62, 0, 0, TAU); ctx.stroke();
   }
   ctx.globalCompositeOperation = 'source-over';
-  if (N.look === 'am') spr(ctx, game, 'vfx.am', 0, e.x, e.y - 14, 26 + k * 12, 0, 1 - k, true);
+  areaFx(ctx, e, e.x, e.y, N.r * k, c, e.t, k);
+  if (N.look === 'am') spr(ctx, game, 'vfx.am', 0, e.x, e.y - 14 * visOf(e), (26 + k * 12) * visOf(e), 0, 1 - k, true);
 }
 
 function blast(ctx, game, e) {
   const N = e.node, k = Math.min(1, e.t / e.life), c = tint(N), R = e.r;
+  if (e.cast) areaFx(ctx, e, e.x, e.y, R * (0.3 + 0.8 * k), c, e.t, k);
   ctx.globalCompositeOperation = 'lighter';
   glow(ctx, e.x, e.y, R * (0.6 + 0.6 * k), c, 0.75 * (1 - k));
   ctx.strokeStyle = rgba(c, 0.8 * (1 - k)); ctx.lineWidth = 2;
@@ -102,24 +107,27 @@ function zone(ctx, game, e, t) {
   spr(ctx, game, 'vfx.tran-kim', 0, 0, 0, N.r * 2, 0, 0.75 * a, true);
   ctx.restore();
   ctx.strokeStyle = rgba(tint(N), 0.6 * a); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.ellipse(e.x, e.y, N.r, N.r * 0.55, 0, 0, TAU); ctx.stroke();
-  spr(ctx, game, 'pb.tran-ky', 0, e.x, e.y, 22, Math.sin(t * 3) * 0.05, a, false, 0.3, 1);
+  areaFx(ctx, e, e.x, e.y, N.r, tint(N), t, 0.3);
+  spr(ctx, game, 'pb.tran-ky', 0, e.x, e.y, 22 * visOf(e), Math.sin(t * 3) * 0.05, a, false, 0.3, 1);
 }
 
 function seal(ctx, game, e) {
-  const N = e.node, k = Math.min(1, e.t / e.life), y = e.y - 80 * (1 - k * k);
+  const N = e.node, k = Math.min(1, e.t / e.life), y = e.y - 80 * visOf(e) * (1 - k * k);
   ctx.fillStyle = `rgba(20,16,40,${0.15 + 0.35 * k})`; ctx.beginPath(); ctx.ellipse(e.x, e.y, N.r * (0.3 + 0.5 * k), N.r * (0.3 + 0.5 * k) * 0.45, 0, 0, TAU); ctx.fill();
   ctx.strokeStyle = rgba('#ffe08a', 0.35 + 0.4 * Math.sin(e.t * 20) ** 2); ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
   ctx.beginPath(); ctx.ellipse(e.x, e.y, N.r, N.r * 0.55, 0, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
-  spr(ctx, game, 'pb.dai-an', 0, e.x, y, 20 + 10 * k, 0, 1, false, 0.5, 1);
+  areaFx(ctx, e, e.x, e.y, N.r, '#ffe08a', e.t, 1 - k);
+  spr(ctx, game, 'pb.dai-an', 0, e.x, y, (20 + 10 * k) * visOf(e), 0, 1, false, 0.5, 1);
 }
 
 function orbit(ctx, game, e, t) {
   const N = e.node, O = N.orbit, c = tint(N), a0 = Math.min(1, (e.life - e.t) / 0.3);
   for (let i = 0; i < O.n; i++) {
     const a = e.t * 4 + i / O.n * TAU, x = e.x + Math.cos(a) * O.rad, y = e.y + Math.sin(a) * O.rad * 0.6;
-    ctx.globalCompositeOperation = 'lighter'; glow(ctx, x, y, 9, c, 0.6 * a0); ctx.globalCompositeOperation = 'source-over';
-    if (N.look === 'kiem') spr(ctx, game, 'vfx.vk-kiem', 3, x, y, 10, a + Math.PI, a0);
-    else if (N.look === 'chau') spr(ctx, game, 'pb.linh-chau', 0, x, y, 12, 0, a0);
+    const vk = visOf(e);
+    ctx.globalCompositeOperation = 'lighter'; glow(ctx, x, y, 9 * vk, c, 0.6 * a0); ctx.globalCompositeOperation = 'source-over';
+    if (N.look === 'kiem') spr(ctx, game, 'vfx.vk-kiem', 3, x, y, 10 * vk, a + Math.PI, a0);
+    else if (N.look === 'chau') spr(ctx, game, 'pb.linh-chau', 0, x, y, 12 * vk, 0, a0);
   }
 }
 
@@ -157,7 +165,7 @@ export function drawPhapBao(ctx, game, t) {
       case 'blast': blast(ctx, game, e); break;
       case 'orbit': orbit(ctx, game, e, t); break;
       case 'anim': { const S2 = game.data.art.sprites[e.spr]; spr(ctx, game, e.spr, Math.min(S2.frames - 1, Math.floor(e.t / e.life * S2.frames)), e.x, e.y + 6, e.w, 0, 1, false, 0.5, 0.8); break; }
-      case 'shield': if (!e.done) spr(ctx, game, 'fx.shield', 2 + Math.floor(t * 8) % 4, p.x, p.y + 2, 34, 0, 0.85, false, 0.5, 0.85); break;
+      case 'shield': if (!e.done) { areaFx(ctx, e, p.x, p.y - 6, 22 * visOf(e), '#7fe0c8', t, 0.2); spr(ctx, game, 'fx.shield', 2 + Math.floor(t * 8) % 4, p.x, p.y + 2, 34 * Math.sqrt(visOf(e)), 0, 0.85, false, 0.5, 0.85); } break;
       case 'suck': {
         const k = e.t / e.life;
         ctx.globalCompositeOperation = 'lighter';

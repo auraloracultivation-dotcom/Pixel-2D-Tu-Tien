@@ -1,4 +1,5 @@
 // Tương tác trên bản đồ: nút ngữ cảnh (nói chuyện, đả tọa, độ kiếp), cổng, vật nhặt theo nhiệm vụ.
+import { mapGate } from './map-gate.js';
 import { dist } from './combat.js';
 import { dailyEvent } from './daily.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
@@ -113,6 +114,7 @@ export function updatePortals(game, dt) {
     const c = game.map.center(pt.at[0], pt.at[1]);
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
+    const gate = mapGate(game, pt.to); if (gate) { game.toast(gate, 2); game.portalLock = 2; return; }   // mở theo tu vi (src/game/map-gate.js)
     if ((game.data.dungeon.closed || []).includes(pt.to)) { game.toast(game.data.menu.dungeon.closed + '.', 1.2); game.portalLock = 1.5; return; }
     const go = () => game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
     if (!isDungeon(game, pt.to) || game.story.busy || game.pilot) { game.dunMode = 0; go(); return; }

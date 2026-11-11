@@ -4,6 +4,8 @@ import { hitMob, dist, addFx } from './combat.js';
 import { PB } from './phap-bao.js';
 import { elementMul } from './phap-bao-build.js';
 
+const HIT_SFX = { hoa: 'fire_hit', thuy: 'ice_hit', moc: 'wood_hit', kim: 'metal_hit', tho: 'earth_hit' };
+
 export const pbx = game => (game.pbx ??= { list: [], t: 0 });
 export const alive = game => game.mobs.filter(m => !m.dead && !m.ghost);
 export function nearest(game, x, y, r, skip) {
@@ -27,6 +29,8 @@ export function pbHit(game, cast, node, m, from, e, opt = {}) {
   if (node.els.includes('tho')) ho.stun = Math.max(ho.stun, M.tho.stun * em.tho);
   if (node.els.includes('moc')) ho.stun = Math.max(ho.stun, M.moc.root * em.moc);
   hitMob(game, m, dmg, ho);
+  const el = node.els[node.els.length - 1], now2 = game.time || 0;   // tiếng trúng theo hệ (chủ dự án 04:14: tiếng hiệu ứng), mỗi món tối đa ~8 lần/giây
+  if (now2 >= (cast.sfxT || 0)) { cast.sfxT = now2 + 0.12; game.sfx?.(HIT_SFX[el] || (node.kind === 'seal' || node.kind === 'blast' ? 'boom' : 'hit'), 0.55); }
   if (node.kb && !m.dead && m.def?.ai !== 'boss') { m.kx *= node.kb; m.ky *= node.kb; }
 }
 

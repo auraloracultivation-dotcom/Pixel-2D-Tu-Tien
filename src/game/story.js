@@ -44,7 +44,7 @@ export function createStory(game) {
       const els = g.data.elements;
       const id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:',
         Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color })));
-      g.save.element = id; g.save.root = rollRoot(g.data); g.refreshStats(); g.checkUnlocks(); g.persist();
+      g.save.element = id; g.save.root = g.save.rootKeep || rollRoot(g.data); delete g.save.rootKeep; g.refreshStats(); g.checkUnlocks(); g.persist();
     }
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
@@ -106,6 +106,7 @@ export function createStory(game) {
 
   function advance() {
     game.save.step += 1; game.save.stepDone = false;
+    game.checkUnlocks?.();   // mốc theo bước truyện (Linh Châu rơi sau boss đầu, src/game/phap-bao-grant.js)
     game.persist();
     runStep();
   }

@@ -33,7 +33,21 @@ export function buildCast(game, it) {
         cur = shape(id, M, cur, T);
     }
   }
+  // Lớn dần theo phẩm, cấp (data/phap-bao.json → fx, chủ dự án 12/11/2026 04:14): nhân cả vùng trúng lẫn hình (draw-phap-bao.js đọc vis, look)
+  const F = D.fx, G = F?.grade?.[it.grade] || {};
+  out.vis = (G.k || 1) * (1 + (F?.lv_k || 0) * (it.lv || 0));
+  out.look = G;
+  grow(root, out.vis, new Set());
   return out;
+}
+
+// Nhân bán kính, tầm, vòng xoay của cả cây đòn (nút con, mảnh) theo k
+function grow(n, k, seen) {
+  if (!n || seen.has(n) || k === 1) return;
+  seen.add(n);
+  for (const f of ['r', 'range', 'reach', 'bounceR']) if (n[f]) n[f] *= k;
+  if (n.orbit) n.orbit = { ...n.orbit, rad: n.orbit.rad * k };
+  grow(n.child, k, seen); grow(n.shards, k, seen);
 }
 
 // Chiêu Hình Dạng: đổi nút đang trỏ, trả nút trỏ mới (nút con nếu vừa sinh ra)
@@ -42,7 +56,7 @@ function shape(id, M, cur, T) {
     case 'toa-nhanh':
       if (DIRECTED.has(cur.kind) && !cur.orbit) { cur.n = Math.min(9, cur.n * M.n); cur.spread = M.spread; cur.mul *= M.mul; return cur; }
       // đòn vùng (nổ, sóng vòng, trận, ấn) hoặc cầu xoay: khi nổ / hết thì bắn 3 mảnh tỏa đều; mảnh thành nút đang trỏ
-      cur.shards = { kind: 'shot', look: 'manh', speed: 230, range: 70, r: 5, mul: T.mult * M.mul, n: M.n, spread: 360, rep: 0, pierce: 0, bounce: 0, chain: 0, els: [...cur.els], color: cur.color };
+      cur.shards = { kind: 'shot', look: 'manh', speed: 300, range: 105, r: 10, mul: T.mult * M.mul, n: M.n, spread: 360, rep: 0, pierce: 0, bounce: 0, chain: 0, els: [...cur.els], color: cur.color };
       return cur.shards;
     case 'lien-phat':
       cur.rep += 1; cur.gap = M.gap; cur.mul *= M.mul;

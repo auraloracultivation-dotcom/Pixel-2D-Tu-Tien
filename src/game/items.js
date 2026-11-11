@@ -43,7 +43,7 @@ export const matchMul = (data, save, it) => (matchEl(data, save, it) ? 1 + (data
 export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, el, rnd = Math.random, maxTier } = {}) {   // maxTier: màu dòng cao nhất (đồ rơi ngoài bí cảnh)
   ensureInv(save);
   const items = data.items;
-  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận
+  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv && !(data['phap-bao']?.all && items.bases[k].slot === 'phap-bao')); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận; pháp bảo cũ thôi rơi (hệ Pháp Bảo Luyện Chế)
   const id = baseId || baseKeys[Math.floor(rnd() * baseKeys.length)];
   const base = items.bases[id];
   const minIdx = minRarity ? items.rarities.findIndex(r => r.id === minRarity) : 0;
@@ -216,7 +216,7 @@ export function gearStats(data, save) {
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
     const b = data.items.bases[it.base], dv = matchMul(data, save, it);   // món cùng hệ linh căn: chỉ số chính mạnh thêm
-    if (save.phapBao && b?.slot === 'phap-bao') continue;   // đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js): pháp bảo cũ ẩn, không cộng (chủ dự án 12/11/2026 03:35)
+    if ((data['phap-bao']?.all || save.phapBao) && b?.slot === 'phap-bao') continue;   // đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js): pháp bảo cũ ẩn, không cộng (chủ dự án 12/11/2026 03:35)
     const k = enhanceMul(data, it.plus) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);

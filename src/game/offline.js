@@ -1,6 +1,6 @@
 // Bế quan khi vắng mặt: lúc vào lại game, cộng linh khí theo thời gian rời đi (data/config.json → offline).
 // Rời game khi đang ở động phủ thì bế quan ở nhà: đồ trang trí và đạo lữ ở nhà làm nhanh thêm.
-import { qiNeed } from './stats.js';
+import { qiNeed, realmBuff } from './stats.js';
 import { daoLuHere } from './affinity.js';
 import { comfort } from './decor.js';
 import { awayGifts } from './offgift.js';
@@ -20,13 +20,14 @@ export async function offlineGains(game, lastSeen) {
   const s = game.save, cfg = game.data.config, o = cfg.offline;
   const away = lastSeen ? (Date.now() - lastSeen) / 1000 : 0;
   if (away < o.min_minutes * 60) { await letter(game, away); return; }
-  const sec = Math.min(away, o.max_hours * 3600);
+  const maxH = o.max_hours + (realmBuff(s, game.data.realms).off || 0);   // cảnh giới gia trì: bế quan lâu hơn
+  const sec = Math.min(away, maxH * 3600);
   noteOffline(game, sec);   // cộng vào giờ bế quan tích luỹ (src/game/retreat.js)
   const layer = s.layer, realm = s.realm;
   const mul = homeOffline(game);
   game.gainQi(cfg.meditate.qi_per_sec * o.rate * sec * mul, game.player.x, game.player.y, true);
   const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60);
-  const capped = away > sec ? ` (tối đa ${o.max_hours} tiếng)` : '';
+  const capped = away > sec ? ` (tối đa ${maxH} tiếng)` : '';
   const full = s.layer >= game.data.realms.layers && s.qi >= qiNeed(s, game.data.realms);
   const up = (s.layer !== layer || s.realm !== realm ? ' Tu vi đã tăng tầng!' : '') + (full ? ' Linh khí đã đầy tới đỉnh, cần độ thiên kiếp.' : '');
   const home = mul > 1 ? ` Bế quan ở động phủ nên nhanh gấp ${String(Math.round(mul * 100) / 100).replace('.', ',')}.` : '';

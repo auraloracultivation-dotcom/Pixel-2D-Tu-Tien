@@ -3,6 +3,8 @@
 // trên đầu (đổi theo mục lớn, src/ui/self-bag.js → SUBS), lưới ô ở giữa, thanh dưới cùng. Chạm món (đang mặc hoặc trong kho):
 // phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về lưới (dùng chung src/ui/bag-detail.js, bag-stock.js với
 // Túi đồ). Công pháp, Thời trang: gắn chính bảng có sẵn của game vào khung phải (src/ui/self-host.js). Kiểu ở style-self.css.
+import { pbOn } from '../game/phap-bao.js';
+import { pbGrid, pbSheet } from './self-pb-page.js';
 import { playerStats } from '../game/stats.js';
 import { el, renderDetail } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
@@ -41,7 +43,7 @@ export function createSelfPanel(game) {
   root.append(frame, x);
   document.body.append(root);
   const st = { page: 'do', sub: 'all', sel: null, stock: null, coinLog: false, more: false, pickSocket: null, sort: 'moi', qs: false };
-  const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; };
+  const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; st.pbSel = null; };
   function close() { unhost(); root.hidden = true; game.uiOpen = false; reset(); st.pickSocket = null; st.qs = false; }
   x.onclick = close;
   const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
@@ -103,15 +105,19 @@ export function createSelfPanel(game) {
     unhost();
     const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
     lastSel = st.sel;
+    if (game.pbPick != null) { st.pbSel = game.pbPick; game.pbPick = null; }   // chạm ô pháp bảo dưới thẻ nhân vật
+    const pbPage = st.page === 'do' && st.sub === 'pb' && pbOn(game);
     let has = false;   // phần chi tiết thay chỗ lưới
     if (st.more) has = statsSheet(game, stt, mid, () => { st.more = false; render(); });
     else if (st.coinLog) has = renderCoinLog(game, mid, () => { st.coinLog = false; render(); });
     else if (st.sel != null) has = renderDetail(game, st, mid, changed, () => { st.sel = null; render(); });
+    else if (pbPage && st.pbSel != null) has = pbSheet(game, st, mid, changed, () => { st.pbSel = null; render(); });   // Trang bị → Pháp bảo (self-pb-page.js)
     else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
     mid.classList.toggle('sheet', has);
     if (has) decorate(game, mid);
     if (has) { bar.hidden = true; mid.scrollTop = same ? keep : 0; return; }
     reset();
+    if (pbPage) { pbGrid(game, st, mid, bar, render); mid.scrollTop = keep; return; }
     const r = renderStore(game, st, changed, render);
     mid.replaceChildren(r.wrap); bar.replaceChildren(r.bar);
     mid.scrollTop = keep;

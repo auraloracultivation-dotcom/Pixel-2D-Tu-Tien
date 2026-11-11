@@ -43,7 +43,7 @@ export function leftCard(game, stt, h) {
   }
   area.append(column(game, 'l', LEFT, h), mid, column(game, 'r', RIGHT, h), el('span', 'sv-realm', realmLabel(s, d.realms)));   // cảnh giới giữa, dưới chân
   const buffs = el('div', 'sv-buffs');
-  for (const k of FABAO) buffs.append(k === 'spare' ? buffCell(game, k, h.openExtra) : gearCell(game, k, 'b', h.pick));
+  if (!pbRow(game, buffs, h)) for (const k of FABAO) buffs.append(k === 'spare' ? buffCell(game, k, h.openExtra) : gearCell(game, k, 'b', h.pick));   // hệ pháp bảo mới: 3 món đang mặc (self-pb.js)
   const cp = el('button', 'sv-cpbar');   // chạm: đủ chỉ số ở khung phải
   cp.append(uiIco(d, 'ui.nv-luc-chien', 'sv-cpico'), el('span', null, 'Lực Chiến'), el('b', null, vn(h.cp ?? power(game))), el('small', null, '›'));
   cp.onclick = h.stats;

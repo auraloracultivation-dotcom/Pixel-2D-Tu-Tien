@@ -1,6 +1,7 @@
-// Hệ Pháp Bảo trên màn chơi (tài khoản thử, src/game/phap-bao.js pbOn): 3 nút chiêu hiện 3 pháp bảo đang mặc (hình, tên, vòng phẩm, hồi chiêu);
-// nút pháp bảo cũ (#btn-art) thành nút "Luyện chế" mở bảng (src/ui/phap-bao-panel.js). src/ui/hud.js gọi pbHud mỗi lần cập nhật.
-import { PB, pbWorn, pbType, pbGrade } from '../game/phap-bao.js';
+// Hệ Pháp Bảo trên màn chơi (src/game/phap-bao.js pbOn): 3 nút chiêu và nút pháp bảo cũ (#btn-art) hiện 4 pháp bảo đang mặc
+// (hình, tên, vòng phẩm, hồi chiêu); ô 4 chưa mở (dưới Nguyên Anh) thì ẩn nút (chủ dự án 12/11/2026 04:07: bỏ chữ "Luyện chế" ở ô 4,
+// luyện chế nằm trong Trang bị → Pháp bảo). src/ui/hud.js gọi pbHud mỗi lần cập nhật.
+import { pbWorn, pbType, pbGrade, slotOpen } from '../game/phap-bao.js';
 import { spriteImage } from '../render/sprites.js';
 
 const cache = new Map();
@@ -24,8 +25,9 @@ const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v
 
 export function pbHud(game) {
   const p = game.player, worn = pbWorn(game);
-  for (let i = 0; i < 3; i++) {
-    const b = document.getElementById('btn-s' + i), it = worn[i], T = pbType(game, it);
+  for (let i = 0; i < 4; i++) {
+    const b = document.getElementById(i < 3 ? 'btn-s' + i : 'btn-art'), it = worn[i], T = pbType(game, it);
+    if (i === 3) { b.hidden = !slotOpen(game, 3) || !it; if (b.hidden) continue; b.style.backgroundSize = b.style.backgroundRepeat = b.style.backgroundPosition = ''; }
     b.classList.toggle('off', !it);
     const lbl = b.querySelector('b'), name = T ? T.name : '—';
     if (lbl.textContent !== name || b._pbIcon !== (T?.icon || '')) {
@@ -36,10 +38,4 @@ export function pbHud(game) {
     const max = p.pbCdMax?.[i] || T?.cd || 1;
     css(b, '--cd', (it ? Math.max(0, p.skillCd[i]) / max : 0).toFixed(3));
   }
-  const ab = document.getElementById('btn-art');
-  ab.hidden = false;
-  const t = PB(game).ui.btn;
-  if (ab.querySelector('b').textContent !== t) ab.querySelector('b').textContent = t;
-  if (!ab._pb) { const u = pbIcon(game, 'pb.linh-chau'); if (u) { ab.style.backgroundImage = u; ab.style.backgroundSize = '30px 30px'; ab.style.backgroundRepeat = 'no-repeat'; ab.style.backgroundPosition = 'center 3px'; ab._pb = true; } }
-  css(ab, '--cd', '0');
 }

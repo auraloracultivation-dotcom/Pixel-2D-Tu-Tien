@@ -1,7 +1,7 @@
 {
  "_note": "Ma Vương tuần (vòng ma khí, chủ dự án 28/10/2026): Ma Tổ mỗi tuần sinh một Ma Vương trấn Phương Thiên Địa (bản đồ map, đi từ tinh đồ). Tuần tính từ epoch (thứ Hai), Ma Vương tuần n là bosses[n % số con] (hình, đòn của boss mob, đổi tên). Mở khi cảnh giới từ need_realm. Ma Vương lúc đầu có máu, công base; mỗi Ma Vương bạn đã hạ thì con sau mạnh tier_mul lần (luật 7 → 14 → 28, không hiện số), quái hộ vệ cũng mạnh theo; thưởng chỉ nhích reward_tier mỗi bậc (Linh Thạch). Hạ xong thì phương thiên địa được tịnh hoá tới tuần sau (mỗi tuần một lần). Lưu ở save.demon { lv: số Ma Vương đã hạ, week: tuần đã hạ }.",
  "map": "phuong-thien-dia",
- "need_realm": 7,
+ "need_realm": 4,
  "epoch": "2026-10-26",
  "base": {"hp": 250000, "atk": 170},
  "tier_mul": 2, "rand_note": "Chủ dự án 03/11/2026 12:11: cấp Ma Vương mỗi tuần NGẪU NHIÊN từ cấp 1 tới rand_max (ai cũng gặp cùng cấp trong tuần, bốc theo số tuần), không leo dần theo số con đã hạ nữa: lâu lâu gặp con yếu, lâu lâu gặp con rất mạnh, không farm mãi một vùng. Máu, công = base × tier_mul^(cấp − 1); thưởng Linh Thạch nhích reward_tier mỗi cấp. save.demon.lv chỉ còn đếm số con đã hạ.", "rand_max": 6,

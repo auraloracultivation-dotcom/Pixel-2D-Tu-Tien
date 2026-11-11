@@ -257,6 +257,25 @@
    "xong": "Đinh! Bật Tự đánh là nhân vật tự tìm quái, tự ra chiêu. Bổn hệ thống khuyên: tự đánh nhưng vẫn phải nhìn máu."
   },
   {
+   "id": "pb-kham-1",
+   "goal": "Khảm chiêu đầu tiên vào pháp bảo",
+   "dk": {
+    "pb_mods": 1
+   },
+   "qua": [
+    {
+     "coins": 2000
+    },
+    {
+     "pill": "hoi-linh-dan",
+     "n": 3
+    }
+   ],
+   "xong": "Đinh! Phi Kiếm đã biết thêm chiêu. Ô khảm chạy theo thứ tự ô 1 → ô 4, thứ sinh ra kế thừa thứ trước. Thử đổi thứ tự xem đòn biến ra sao.",
+   "tip": "Trang bị → mục Pháp bảo → chạm Phi Kiếm → chạm ô 1 rồi chạm Liên Phát.",
+   "go": "btn-bag"
+  },
+  {
    "id": "cuong-hoa-3",
    "goal": "Cường hoá một món đang mặc lên +3",
    "dk": {
@@ -472,7 +491,7 @@
      "n": 5
     }
    ],
-   "xong": "Đinh! Luyện Khí tầng 2, tu vi tăng tiến, ký chủ lĩnh ngộ chiêu hệ đầu tiên! Chiêu đã tự vào ô trống. Chậm hơn bổn hệ thống tưởng, nhưng được rồi."
+   "xong": "Đinh! Luyện Khí tầng 2, tu vi tăng tiến, ký chủ lĩnh ngộ chiêu khảm mới! Vào Trang bị → Pháp bảo khảm vào Phi Kiếm. Chậm hơn bổn hệ thống tưởng, nhưng được rồi."
   },
   {
    "id": "luyen-khi-5",
@@ -490,8 +509,27 @@
      "coins": 3000
     }
    ],
-   "xong": "Đinh! Tầng 5, nửa đường Luyện Khí, lĩnh ngộ thêm chiêu hệ thứ hai. Bí cảnh đang đợi ký chủ, đồ trong đó tốt hơn ngoài này nhiều.",
+   "xong": "Đinh! Tầng 5, nửa đường Luyện Khí, lĩnh ngộ thêm chiêu khảm và nhận Đá Khai Khiếu. Bí cảnh đang đợi ký chủ, đồ trong đó tốt hơn ngoài này nhiều.",
    "tip": "Uống Tụ Khí Đan trong Túi đồ → Đan dược, rồi đả tọa hoặc bật Tự đánh."
+  },
+  {
+   "id": "pb-mac-3",
+   "goal": "Mặc đủ 3 pháp bảo",
+   "dk": {
+    "pb_wear": 3
+   },
+   "qua": [
+    {
+     "coins": 3000
+    },
+    {
+     "pill": "tu-khi-dan",
+     "n": 4
+    }
+   ],
+   "xong": "Đinh! Ba pháp bảo ba nút, công thủ tùy ký chủ phối. Hạ Huyết Nha là có Linh Châu.",
+   "tip": "Hộ Thuẫn nhận ở Luyện Khí tầng 3, Linh Châu rơi khi hạ boss bí cảnh Huyết Nha.",
+   "go": "btn-bag"
   },
   {
    "id": "hoi-bi-canh",
@@ -610,6 +648,25 @@
    "tip": "Bật Tự đánh ở bãi quái, uống Tụ Khí Đan, làm nhiệm vụ ngày để có điểm triệu hồi."
   },
   {
+   "id": "pb-cap-5",
+   "goal": "Nâng một pháp bảo lên cấp 5",
+   "dk": {
+    "pb_lv": 5
+   },
+   "qua": [
+    {
+     "coins": 3000
+    },
+    {
+     "mat": "tinh-thiet",
+     "n": 6
+    }
+   ],
+   "xong": "Đinh! Cấp 5, chạm trần Luyện Khí. Lên Trúc Cơ mới nâng tiếp được.",
+   "tip": "Trang bị → Pháp bảo → chạm món → Nâng cấp (Linh Thạch, không bao giờ hỏng).",
+   "go": "btn-bag"
+  },
+  {
    "id": "hoi-pham",
    "goal": "Dòng chỉ số màu nào là quý nhất?",
    "hoi": {
@@ -680,7 +737,7 @@
      "n": 5
     }
    ],
-   "xong": "Đinh! Công pháp càng nhiều, chiêu càng lắm. Đánh boss bí cảnh để lấy thêm bí kíp.",
+   "xong": "Đinh! Công pháp càng nhiều, nền càng dày. Đánh boss bí cảnh để lấy thêm bí kíp.",
    "tip": "Bí kíp rơi từ boss bí cảnh. Túi đồ → Công pháp để xem.",
    "go": "btn-bag"
   },
@@ -814,9 +871,9 @@
   },
   {
    "id": "mac-7",
-   "goal": "Mặc đủ 7 món trang bị",
+   "goal": "Mặc đủ 6 món trang bị",
    "dk": {
-    "equip": 7
+    "equip": 6
    },
    "qua": [
     {
@@ -828,8 +885,8 @@
      "n": 2
     }
    ],
-   "xong": "Đinh! Đủ bảy món, kín từ đầu tới chân. Giờ cường hoá lên, Tinh Thiết đây.",
-   "tip": "Đủ vũ khí, giáp, mũ, giày, nhẫn, ngọc bội, pháp bảo. Đồ hệ thống tặng chọn đúng ô còn trống.",
+   "xong": "Đinh! Đủ sáu món, kín từ đầu tới chân. Giờ cường hoá lên, Tinh Thiết đây.",
+   "tip": "Đủ bản mệnh pháp bảo, giáp, mũ, giày, nhẫn, ngọc bội. Đồ hệ thống tặng chọn đúng ô còn trống.",
    "go": "btn-bag"
   },
   {
@@ -1003,8 +1060,27 @@
      "n": 3
     }
    ],
-   "xong": "Đinh! Trúc Cơ thành công, lĩnh ngộ chiêu hệ thứ ba! Thọ nguyên tăng, linh lực dày hơn. Ký chủ cuối cùng cũng thoát kiếp phàm nhân. Tặng Thanh Tâm Đan: uống trước khi độ kiếp Kim Đan cho sét đánh nhẹ.",
+   "xong": "Đinh! Trúc Cơ thành công, cảnh giới gia trì: máu, công gốc tăng, linh lực dày hơn! Thọ nguyên tăng, linh lực dày hơn. Ký chủ cuối cùng cũng thoát kiếp phàm nhân. Tặng Thanh Tâm Đan: uống trước khi độ kiếp Kim Đan cho sét đánh nhẹ.",
    "tip": "Uống Tụ Khí Đan, Thăng Linh Đan rồi đả tọa. Đầy tầng 9 thì đột phá."
+  },
+  {
+   "id": "pb-duc-3",
+   "goal": "Đục một pháp bảo lên 3 ô khảm",
+   "dk": {
+    "pb_slots": 3
+   },
+   "qua": [
+    {
+     "coins": 8000
+    },
+    {
+     "pill": "tu-khi-dan",
+     "n": 5
+    }
+   ],
+   "xong": "Đinh! Ba ô, ba tầng biến hoá. Còn ô thứ tư, khó hơn nhiều.",
+   "tip": "Đục ô tốn Đá Khai Khiếu (nhận khi lên tầng). Hụt 10 lần liên tiếp thì lần sau chắc chắn thành.",
+   "go": "btn-bag"
   },
   {
    "id": "truc-co-3",
@@ -1041,7 +1117,7 @@
      "n": 15
     }
    ],
-   "xong": "Đinh! Trúc Cơ tầng 5, tu vi tăng tiến, lĩnh ngộ thêm chiêu hệ thứ tư. Mở bảng Chiêu xem thử."
+   "xong": "Đinh! Trúc Cơ tầng 5, tu vi tăng tiến, lĩnh ngộ thêm chiêu khảm. Vào Trang bị → Pháp bảo thử tổ hợp mới."
   },
   {
    "id": "cong-phap-5",
@@ -1058,7 +1134,7 @@
      "n": 3
     }
    ],
-   "xong": "Đinh! Năm công pháp, chiêu nào cũng có. Kẻ địch sẽ không biết ký chủ ra chiêu gì tiếp.",
+   "xong": "Đinh! Năm công pháp, nền vững như núi. Kẻ địch sẽ không biết ký chủ còn giấu gì.",
    "tip": "Bí kíp rơi từ boss bí cảnh và boss thế giới.",
    "go": "btn-bag"
   },
@@ -1079,6 +1155,25 @@
     }
    ],
    "xong": "Đinh! Trúc Cơ tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "pb-kham-6",
+   "goal": "Khảm 6 chiêu trên các pháp bảo đang mặc",
+   "dk": {
+    "pb_mods": 6
+   },
+   "qua": [
+    {
+     "coins": 8000
+    },
+    {
+     "mat": "tay-luyen-thach",
+     "n": 2
+    }
+   ],
+   "xong": "Đinh! Sáu chiêu cùng chạy. Thử Tỏa Nhánh trước rồi Đánh Lan sau, rồi đảo lại xem.",
+   "tip": "Mỗi pháp bảo có tối đa 4 ô; chiêu mở dần theo tu vi.",
+   "go": "btn-bag"
   },
   {
    "id": "truc-co-9",
@@ -1118,7 +1213,7 @@
   },
   {
    "id": "kim-dan",
-   "goal": "Đột phá Kim Đan (khiêu chiến được Đại Ma Thần)",
+   "goal": "Đột phá Kim Đan",
    "dk": {
     "realm": 2
    },
@@ -1140,7 +1235,7 @@
      "n": 30
     }
    ],
-   "xong": "Đinh! Kim Đan đã thành, lĩnh ngộ chiêu hệ thứ năm! Đây là lúc đi tìm Đại Ma Thần tính sổ. Tặng hai món phẩm Địa và Tinh Thiết để lên +10.",
+   "xong": "Đinh! Kim Đan đã thành, cảnh giới gia trì lên một bậc, bế quan được lâu hơn! Đại Ấn đã về tay. Tặng hai món phẩm Địa và Tinh Thiết để lên +10.",
    "tip": "Tu vi đầy tầng 9 Trúc Cơ thì đột phá. Đan dược và đả tọa giúp lên nhanh."
   },
   {
@@ -1177,7 +1272,26 @@
      "coins": 10000
     }
    ],
-   "xong": "Đinh! Kim Đan tầng 5, lĩnh ngộ chiêu hệ cuối cùng. Đủ sáu chiêu, ký chủ đã thành người có nghề."
+   "xong": "Đinh! Kim Đan tầng 5, Trận Kỳ đã về tay, thêm chiêu khảm mới. Ký chủ đã thành người có nghề."
+  },
+  {
+   "id": "pb-cap-15",
+   "goal": "Nâng một pháp bảo lên cấp 15",
+   "dk": {
+    "pb_lv": 15
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 3
+    },
+    {
+     "coins": 15000
+    }
+   ],
+   "xong": "Đinh! Cấp 15, đòn to và sáng hơn hẳn. Phẩm càng cao, hào quang càng rực.",
+   "tip": "Kim Đan mở tới cấp 15.",
+   "go": "btn-bag"
   },
   {
    "id": "linh-thu-3",
@@ -1232,6 +1346,25 @@
     }
    ],
    "xong": "Đinh! Kim Đan tầng 7, còn hai tầng nữa là chạm đỉnh. Chuẩn bị đan dược đi ký chủ."
+  },
+  {
+   "id": "pb-duc-4",
+   "goal": "Đục một pháp bảo đủ 4 ô khảm",
+   "dk": {
+    "pb_slots": 4
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 4
+    },
+    {
+     "coins": 20000
+    }
+   ],
+   "xong": "Đinh! Bốn ô! Ký chủ vừa mở cánh cửa tổ hợp thật sự. Bổn hệ thống cũng phải ngó.",
+   "tip": "Ô thứ 4 chỉ 10% mỗi lần, có bảo hiểm 10 lần.",
+   "go": "btn-bag"
   },
   {
    "id": "cuong-hoa-10",
@@ -1291,8 +1424,27 @@
      "coins": 20000
     }
    ],
-   "xong": "Đinh! Nguyên Anh! Ký chủ đã đứng trên vạn người. Nhưng tinh hà còn rộng lắm, đừng dừng lại.",
+   "xong": "Đinh! Nguyên Anh! Mở ô pháp bảo thứ 4, bốn pháp bảo cùng ra trận. Tinh hà còn rộng lắm, đừng dừng lại.",
    "tip": "Đầy tu vi tầng 9 thì đột phá. Cày bí cảnh, đả tọa, uống đan cho nhanh."
+  },
+  {
+   "id": "pb-mac-4",
+   "goal": "Mặc đủ 4 pháp bảo",
+   "dk": {
+    "pb_wear": 4
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 5
+    },
+    {
+     "coins": 20000
+    }
+   ],
+   "xong": "Đinh! Bốn pháp bảo bốn nút. Công thủ toàn diện, ký chủ giờ là một cỗ máy.",
+   "tip": "Nguyên Anh mở ô pháp bảo thứ 4 (nút pháp bảo cạnh ba nút chiêu).",
+   "go": "btn-bag"
   },
   {
    "id": "nguyen-anh-3",
@@ -1330,6 +1482,25 @@
     }
    ],
    "xong": "Đinh! Nguyên Anh tầng 5. Tẩy Luyện Thạch đây, tẩy dòng chỉ số cho đẹp."
+  },
+  {
+   "id": "pb-cap-20",
+   "goal": "Nâng một pháp bảo lên cấp 20",
+   "dk": {
+    "pb_lv": 20
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 5
+    },
+    {
+     "coins": 30000
+    }
+   ],
+   "xong": "Đinh! Cấp 20, gấp đôi lúc mới nhận. Hào quang này người khác nhìn là biết đồ xịn.",
+   "tip": "Nguyên Anh mở tới cấp 20.",
+   "go": "btn-bag"
   },
   {
    "id": "cong-phap-8",
@@ -1402,6 +1573,25 @@
    ],
    "xong": "Đinh! Nguyên Anh tầng 9, đỉnh cảnh giới! Đầy linh khí thì bấm Độ thiên kiếp.",
    "tip": "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình."
+  },
+  {
+   "id": "pb-kham-16",
+   "goal": "Khảm đủ 16 chiêu trên 4 pháp bảo đang mặc",
+   "dk": {
+    "pb_mods": 16
+   },
+   "qua": [
+    {
+     "pill": "tu-van-dan",
+     "n": 6
+    },
+    {
+     "coins": 50000
+    }
+   ],
+   "xong": "Đinh! Mười sáu chiêu, bốn pháp bảo đều đủ bốn ô. Đây mới gọi là luyện chế.",
+   "tip": "Cần cả 4 pháp bảo đều đục đủ 4 ô.",
+   "go": "btn-bag"
   },
   {
    "id": "kham-12",

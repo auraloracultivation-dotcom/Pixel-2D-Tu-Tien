@@ -3,6 +3,7 @@
 // quanh đó, không có quái thì đả tọa tại chỗ. Chỉ làm nhiệm vụ (chủ dự án 11/11/2026 16:53): đã xoá việc vặt cũ (về nhà nhận quà, uống trà,
 // vuốt ve linh thú, câu cá lúc rảnh, nấu canh, luyện đan dư, khuya về động phủ, treo máy, khai luống, nâng động phủ). Việc tại chỗ vẫn làm:
 // tự mặc đồ tốt hơn, cường hoá an toàn, khảm ngọc, uống đan, túi đầy phân giải, nhận thưởng thành tựu (Menu → Tự động bật tắt).
+import { mapGate } from './map-gate.js';
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf, clearShot } from './auto.js';
 import { dailyJob } from './dailyjob.js';
@@ -78,7 +79,7 @@ function routeTo(game, dest) {
   while (q.length) {
     const [id, first] = q.shift();
     for (const pt of maps[id].portals) {
-      if ((pt.need && !flags[pt.need]) || seen.has(pt.to) || (game.data.dungeon.closed || []).includes(pt.to)) continue;
+      if ((pt.need && !flags[pt.need]) || seen.has(pt.to) || (game.data.dungeon.closed || []).includes(pt.to) || mapGate(game, pt.to)) continue;   // mapGate: chưa đủ tu vi (src/game/map-gate.js)
       const f = first || pt;
       if (pt.to === dest) return f;
       seen.add(pt.to); q.push([pt.to, f]);

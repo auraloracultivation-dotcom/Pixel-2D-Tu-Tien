@@ -14,17 +14,19 @@ const SFX = { 'phi-kiem': 'metal_cast', 'linh-chau': 'water_cast', 'bao-phien': 
 // Tầm tự ngắm của đòn gốc
 const reach = T => T.emit.range || T.emit.reach || (T.emit.r || 40) * 1.4;
 
-// Mỗi khung (thay vòng 3 ô chiêu trong src/game/player.js khi pbOn)
+// Mỗi khung (thay vòng 3 ô chiêu trong src/game/player.js khi pbOn): ô 1–3 là nút chiêu, ô 4 là nút pháp bảo cũ ('art', mở ở Nguyên Anh)
 export function pbInput(game, inp) {
   const p = game.player, worn = pbWorn(game);
-  for (let i = 0; i < 3; i++) {
-    if (!inp.consume('s' + i)) continue;
+  while (p.skillCd.length < 4) p.skillCd.push(0);
+  for (let i = 0; i < 4; i++) {
+    const key = i < 3 ? 's' + i : 'art';
+    if (!inp.consume(key)) continue;
     const it = worn[i];
     if (!it || p.skillCd[i] > 0) continue;
     const cast = buildCast(game, it), T = cast.T, cost = Math.round(T.mp * cast.mpMul);
     if ((p.mp ?? 0) < cost) { if ((game.time || 0) - (p.mpWarn || -9) > 1.5) { p.mpWarn = game.time || 0; game.number?.(p.x, p.y - 22, 'Thiếu linh lực', '#7ab8ff'); } continue; }
     p.mp -= cost; p.meditating = false; p.calmT = 0; p.riding = false;
-    let dir = inp.aim['s' + i];
+    let dir = inp.aim[key];
     if (!dir) { const m = nearest(game, p.x, p.y, reach(T) + 30); if (m) { const a = Math.atan2(m.y - p.y, m.x - p.x); dir = { x: Math.cos(a), y: Math.sin(a) }; } }
     if (dir) p.face = dir;
     pbCast(game, cast, Math.atan2(p.face.y, p.face.x));
