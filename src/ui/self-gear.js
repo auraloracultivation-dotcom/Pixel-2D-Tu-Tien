@@ -77,7 +77,7 @@ export function buffCell(game, kind, onOpen) {
     const st = kind === 'pet' ? save.pets?.[id] : kind === 'mount' ? null : save.comps?.[id];
     const lines = kind === 'mount' ? [save.mountLine?.[id]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
     b.dataset.o = q?.id || 'pham'; b.style.setProperty('--q', q ? (q.edge || q.color) : '#9a7ad8');
-    b.append(el('i', 'sv-bfr'), spriteIcon(game, spr, 0, kind === 'mount' ? 28 : 32, 'sv-spr', kind !== 'mount'));   // thú cưỡi ngang: vừa theo cạnh dài, không bị bóp méo (12/11/2026 03:12)
+    b.append(el('i', 'sv-bfr'), spriteIcon(game, spr, 0, 32, 'sv-spr'));   // vừa theo cạnh dài: linh thú, thú cưỡi ngang không bị bóp méo (12/11/2026 03:17)
     if (st?.lv) b.append(el('b', 'sv-plus', 'c' + st.lv));
     if (st?.star) b.append(el('span', 'sv-star', '★' + st.star));
     if (lines.length) { const br = el('span', 'sv-br'); br.append(el('span', 'sv-ln', '◆' + lines.length)); b.append(br); }

@@ -3,7 +3,7 @@
 .sv .sv-col .sv-slot.buff { width: 36px; height: 36px; filter: none; background: none !important; }
 .sv .sv-col .sv-slot.buff:not([data-o]) { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; }
 .sv .sv-col .sv-slot.buff[data-o="pham"] { --o: url("assets/art/ui-nv-o.png"); }
-.sv .sv-col .sv-slot.buff .sv-spr { position: relative; z-index: 1; max-width: 76%; max-height: 72%; }
+.sv .sv-col .sv-slot.buff .sv-spr { position: relative; z-index: 1; max-width: 90%; max-height: 80%; }
 .sv .sv-col .sv-slot.buff .sv-uico { width: 60%; height: 60%; }
 .sv .sv-buffs > .sv-cell { flex: 1 1 0; max-width: 36px; }
 .sv .sv-buffs > .sv-cell .sv-slot { width: 100%; height: auto; aspect-ratio: 1; }
