@@ -1,7 +1,7 @@
 // Nút Thư gộp (chủ dự án 04/11/2026 09:31: "4 mục Zalo, đề xuất, báo lỗi, thư… dồn hết vào trong thư"): một nút Thư trên màn hình
 // (data/menu.json → hud.list, open: hopThu), chạm mở hộp nhỏ ngay dưới nút với bốn dòng Hòm thư, Zalo, Đề xuất, Báo lỗi. Mỗi dòng
 // bấm hộ nút cũ (các nút cũ vẫn còn, cất trong #hud-menu): Hòm thư nghe pointerdown, Zalo và hai nút góp ý nghe click.
-// Dòng TikTok (chủ dự án 10/11/2026 02:39) là link mở thẳng kênh, không có nút cũ. Chấm đỏ trên nút Thư khi có thư chưa đọc hoặc quà Zalo chưa nhận. Kiểu ở style-ui-kit3.css.
+// Dòng TikTok đã ra màn hình thành nút riêng cạnh Thư (chủ dự án 11/11/2026 11:36, data/menu.json → hud). Chấm đỏ trên nút Thư khi có thư chưa đọc hoặc quà Zalo chưa nhận. Kiểu ở style-ui-kit3.css.
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const ROWS = [
@@ -12,7 +12,6 @@ const ROWS = [
 ];
 
 export function createHopThu(game) {
-  const TT = game.data.community?.tiktok;
   const box = document.createElement('div'); box.id = 'hop-thu'; box.hidden = true;
   document.body.append(box);
   box.addEventListener('pointerdown', e => e.stopPropagation());
@@ -30,11 +29,6 @@ export function createHopThu(game) {
       const n = hot(r.id); if (n) { const i = document.createElement('i'); i.textContent = n; row.append(i); }
       row.onclick = () => { box.hidden = true; src.dispatchEvent(r.ev === 'click' ? new MouseEvent('click', { bubbles: true }) : new PointerEvent('pointerdown', { bubbles: true })); };
       box.append(row);
-      if (r.id === 'btn-zalo' && TT?.on && TT.url) {   // kênh TikTok ngay dưới Zalo: mở thẳng link, không quà (data/community.json → tiktok)
-        const a = document.createElement('a'); a.className = 'ht-row'; a.dataset.k = 'tiktok'; a.href = TT.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = TT.label || 'TikTok';
-        a.onclick = () => { box.hidden = true; };
-        box.append(a);
-      }
     }
   }
   function place() {

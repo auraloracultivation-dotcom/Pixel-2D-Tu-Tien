@@ -20,7 +20,7 @@
   }
  },
  "tiktok": {
-  "_note": "Kênh TikTok của game (chủ dự án gửi 10/11/2026 02:39): dòng TikTok trong hộp Thư ngay dưới Zalo (src/ui/hop-thu.js), chạm là mở kênh. Không tặng quà (CH Play: tránh kiểu theo dõi để nhận quà). on: false thì ẩn.",
+  "_note": "Kênh TikTok của game (chủ dự án gửi 10/11/2026 02:39): nút TikTok trên màn hình bên phải nút Thư (data/menu.json → hud, src/ui/hud-order.js), chạm là mở kênh. Không tặng quà (CH Play: tránh kiểu theo dõi để nhận quà). on: false thì ẩn.",
   "on": true,
   "url": "https://www.tiktok.com/@pixel2dtutien",
   "label": "TikTok"
