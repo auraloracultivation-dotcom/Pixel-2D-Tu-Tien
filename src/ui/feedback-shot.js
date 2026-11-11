@@ -1,5 +1,5 @@
 // Ảnh và bối cảnh cho báo lỗi, đề xuất (src/ui/feedback-panel.js).
-// - shotGame: chụp khung game ngay lúc bấm nút (trước khi bảng che), thu nhỏ thành JPEG.
+// - shotScreen: chụp cả màn đang thấy trừ Hệ Thống (mục Góp ý, he-thong-gop.js); shotGame: chỉ khung game (dự phòng), thu nhỏ thành JPEG.
 // - fromFile: ảnh người chơi chọn trong máy, thu nhỏ cùng cách.
 // - context: bối cảnh máy tự gắn để dễ tìm lỗi (bản đồ, cảnh giới, vị trí, máy, lỗi JavaScript gần nhất). Không gửi bản lưu.
 import { recentErrors } from '../core/catch-errors.js';
@@ -23,6 +23,21 @@ export function encode(src, w, h, cfg) {
 export function shotGame(cfg) {
   const cv = document.getElementById('game');
   try { return cv?.width ? encode(cv, cv.width, cv.height, cfg) : null; } catch { return null; }
+}
+
+// Chụp cả màn đang thấy (cảnh game và mọi bảng đang mở), trừ Hệ Thống (chủ dự án 11/11/2026 23:3x: "chụp cả màn đang thấy trừ bảng
+// hệ thống, vì lúc ấn vào góp ý thì mình vẫn đang ở trong bảng hệ thống"). Dựng lại trang thành ảnh bằng html2canvas (nạp lười từ
+// jsdelivr như thư viện máy chủ); khung viền vẽ bằng border-image có thể thiếu, chữ, hình, bảng vẫn đủ. Lỗi, quá 8 giây: chỉ chụp cảnh game.
+const SKIP = e => e.classList?.contains('ht-back') || e.classList?.contains('ht-tip') || e.id === 'ht-icon' || e.id === 'toast';
+export async function shotScreen(cfg) {
+  const W = innerWidth, H = innerHeight, k = Math.min(2, cfg.max / Math.max(W, H));
+  const work = (async () => {
+    const h2c = (await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/+esm')).default;
+    const c = await h2c(document.body, { backgroundColor: '#000', scale: k, logging: false, useCORS: true, x: 0, y: 0, width: W, height: H, windowWidth: W, windowHeight: H, scrollX: 0, scrollY: 0, ignoreElements: SKIP });
+    return encode(c, c.width, c.height, cfg);
+  })();
+  const late = new Promise(r => setTimeout(() => r(null), 8000));
+  try { return (await Promise.race([work, late])) || shotGame(cfg); } catch { return shotGame(cfg); }
 }
 
 export function fromFile(file, cfg) {

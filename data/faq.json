@@ -110,10 +110,10 @@
      ]
     },
     {
-     "q": "Hỏi đáp và Hỏi thêm là gì?",
+     "q": "Mục Hỏi đáp dùng thế nào?",
      "a": [
-      "Hỏi đáp: các câu hỏi thường gặp, chạm câu để xem trả lời.",
-      "Hỏi thêm: chưa thấy câu trả lời thì gõ câu hỏi gửi Hệ Thống (cần đăng nhập, mỗi ngày hỏi có giới hạn). Câu nào nhiều người hỏi sẽ được thêm vào Hỏi đáp."
+      "Gõ vào ô trên cùng: Hệ Thống lọc các câu hỏi thường gặp và tìm tên trong Tàng Thư. Chạm câu để xem trả lời.",
+      "Chưa thấy câu trả lời thì bấm \"Hỏi bổn hệ thống câu này\" để gửi đi (cần đăng nhập, mỗi ngày hỏi có giới hạn). Câu nào nhiều người hỏi sẽ được thêm vào Hỏi đáp."
      ]
     },
     {
@@ -826,7 +826,7 @@
      "q": "Game có tự lưu không? Chơi thử khác gì có tài khoản?",
      "a": [
       "Có tài khoản: game tự lưu lên máy chủ, đổi máy vẫn chơi tiếp.",
-      "Chơi thử (không cần tài khoản) chỉ lưu trong máy, không vào được chợ, chat, tông môn, xếp hạng, PvP, Hỏi thêm."
+      "Chơi thử (không cần tài khoản) chỉ lưu trong máy, không vào được chợ, chat, tông môn, xếp hạng, PvP, hỏi Hệ Thống."
      ]
     },
     {

@@ -3,16 +3,27 @@
 // trong máy), mô tả (không bắt buộc); máy tự gắn bối cảnh (src/ui/feedback-shot.js). Dưới là các báo cáo đã gửi, trạng thái, lời đáp
 // của đội làm game. Gửi qua src/net/feedback.js (nạp lười: mất mạng game vẫn chạy). Chữ ở data/community.json → feedback.
 // Chữ người chơi gõ chỉ gán textContent / value.
-import { shotGame, fromFile, context } from './feedback-shot.js';
+import { shotScreen, fromFile, context } from './feedback-shot.js';
 
 const net = () => import('../net/feedback.js');
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 // Trạng thái giữ qua các lần vẽ (đổi mục, đổi tab không mất chữ đang gõ)
-export const gopState = () => ({ kind: 'loi', img: null, name: '', desc: '', msg: '', rows: null, login: null, busy: false });
+export const gopState = () => ({ kind: 'loi', img: null, shooting: false, preview: null, name: '', desc: '', msg: '', rows: null, login: null, busy: false });
 
-// Chụp lại khung game (lúc mở mục Góp ý, sau mỗi lần gửi)
-export function gopShot(game, st) { const F = game.data.community?.feedback; if (F) st.img = shotGame(F.img); }
+// Chụp lại màn (lúc mở mục Góp ý, sau mỗi lần gửi): cả màn đang thấy trừ Hệ Thống (feedback-shot.js shotScreen), xong thì thay ảnh xem trước
+export function gopShot(game, st) {
+  const F = game.data.community?.feedback;
+  if (!F || st.shooting) return;
+  st.shooting = true; st.img = null; paint(st);
+  shotScreen(F.img).then(img => { st.img = img; }).finally(() => { st.shooting = false; paint(st); });
+}
+function paint(st) {   // ảnh xem trước đang hiện (không vẽ lại cả mục: ô đang gõ giữ con trỏ)
+  const p = st.preview;
+  if (!p?.isConnected) return;
+  p.hidden = !st.img; if (st.img) p.src = st.img.anh;
+  p.previousElementSibling?.classList.toggle('ht-gop-wait', st.shooting);
+}
 
 // api: { render(), minimize() }
 export function renderGop(game, body, st, api) {
@@ -33,13 +44,13 @@ export function renderGop(game, body, st, api) {
   }
   if (st.login === 'cho') { body.append(el('p', 'ht-line ht-muted', '…')); return; }
   if (!st.login) { body.append(el('p', 'ht-line', T.login)); return; }
-  if (!st.img) gopShot(game, st);
+  if (!st.img && !st.shooting) gopShot(game, st);
 
   const name = el('input', 'ht-find'), desc = el('textarea', 'ht-ask'), file = el('input'), preview = el('img', 'ht-gop-img');
   name.maxLength = 80; name.placeholder = K.name_ph; name.value = st.name;
   desc.maxLength = 500; desc.rows = 3; desc.placeholder = K.desc_ph; desc.value = st.desc;
   file.type = 'file'; file.accept = 'image/*'; file.hidden = true;
-  preview.alt = ''; preview.hidden = !st.img; if (st.img) preview.src = st.img.anh;
+  preview.alt = ''; st.preview = preview;
   for (const e of [name, desc]) e.addEventListener('keydown', ev => ev.stopPropagation());   // gõ chữ không điều khiển nhân vật
   name.oninput = () => { st.name = name.value; };
   desc.oninput = () => { st.desc = desc.value; };
@@ -55,7 +66,7 @@ export function renderGop(game, body, st, api) {
     if (st.busy) return;
     const t = st.name.trim();
     if (t.length < 4) { msg.textContent = T.need_name; return; }
-    if (!st.img) { msg.textContent = T.need_img; return; }
+    if (!st.img) { msg.textContent = st.shooting ? T.shooting : T.need_img; return; }
     st.busy = true; send.disabled = true; send.textContent = T.sending; msg.textContent = '';
     const r = await net().then(m => m.sendFeedback({ loai: st.kind, tieu_de: t, mo_ta: st.desc.trim(), anh: st.img.anh, anh_nho: st.img.anh_nho, ngu_canh: context(game) })).catch(() => ({ error: 'net' }));
     st.busy = false;
@@ -64,7 +75,9 @@ export function renderGop(game, body, st, api) {
     game.sfx?.('levelup'); game.htFace?.react('ask_ok');
     api.render();
   };
-  body.append(el('div', 'ht-sub', K.name), name, el('div', 'ht-sub', T.shot), preview, pick, file, desc, msg, send);
+  const shotLb = el('div', 'ht-sub', T.shot); shotLb.dataset.wait = T.shooting || '…';
+  body.append(el('div', 'ht-sub', K.name), name, shotLb, preview, pick, file, desc, msg, send);
+  paint(st);
 
   const fame = game.data.referral?.fame;   // thưởng góp ý: mỗi vấn đề được nhận ngọc, Bảng quản trị viên (Xếp hạng)
   if (fame && game.openFame) {

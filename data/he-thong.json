@@ -18,7 +18,6 @@
   "gacha": "Triệu hồi",
   "tra": "Tàng Thư",
   "faq": "Hỏi đáp",
-  "ask": "Hỏi thêm",
   "gop": "Góp ý"
  },
  "tra": {
@@ -27,7 +26,7 @@
   "all": "Tất cả",
   "suggest": "Bổn hệ thống gợi ý cho ký chủ",
   "count": "Tàng Thư đang chép {n} mục. Gõ tên bất kỳ, hoặc chạm chữ màu ở khắp Hệ Thống để xem.",
-  "none": "Tàng Thư chưa chép thứ này. Ký chủ hỏi ở mục Hỏi thêm nhé.",
+  "none": "Tàng Thư chưa chép thứ này. Ký chủ hỏi ở mục Hỏi đáp nhé.",
   "related": "Liên quan",
   "ask_quick": "Bổn hệ thống biết ngay",
   "ask_quick_none": "Chưa tìm thấy trong Tàng Thư, ký chủ gửi đi để người thật trả lời.",
@@ -42,6 +41,7 @@
  "ask_head": "Không tìm thấy câu trả lời? Hỏi bổn hệ thống. Câu hỏi được ghi lại, câu nào nhiều ký chủ hỏi sẽ có trong Hỏi đáp.",
  "ask_ph": "Ví dụ: làm sao lên Trúc Cơ?",
  "ask_send": "Gửi",
+ "ask_this": "Hỏi bổn hệ thống câu này",
  "ask_ok": "Đinh! Bổn hệ thống ghi nhận rồi. Câu nào nhiều người hỏi sẽ có trả lời trong Hỏi đáp.",
  "ask_err": {
   "chua_dang_nhap": "Cần đăng nhập để hỏi hệ thống.",
@@ -2449,8 +2449,8 @@
   "k_comp": "Khôi lỗi",
   "k_outfit": "Thời trang",
   "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%",
-  "faq_find": "Tìm câu hỏi... (vd: đột phá, cường hoá, chợ)",
-  "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc sang mục Hỏi thêm hỏi bổn hệ thống.",
+  "faq_find": "Tìm hoặc hỏi bổn hệ thống... (vd: đột phá, cường hoá, chợ)",
+  "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc bấm \"Hỏi bổn hệ thống câu này\" ở trên.",
   "feed_head": "Vừa trúng lớn"
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",

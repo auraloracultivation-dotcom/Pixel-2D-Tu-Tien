@@ -55,7 +55,8 @@
   },
   "text": {
    "close": "Đóng",
-   "shot": "Ảnh chứng minh (đã tự chụp màn game lúc bấm nút)",
+   "shot": "Ảnh chứng minh (đã tự chụp màn hình đang thấy)",
+   "shooting": "Đang chụp màn hình…",
    "pick": "Chọn ảnh khác trong máy",
    "need_img": "Cần một ảnh chứng minh.",
    "need_name": "Tên cần từ 4 tới 80 chữ.",
