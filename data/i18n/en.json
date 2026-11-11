@@ -1,4 +1,8 @@
 {
+"Nhiệm vụ: {mob} ở đây": "Quest: {mob} is here",
+"{mob} chỉ có trong bí cảnh {dun}. Vào bí cảnh có viền vàng.": "{mob} only appears in the secret realm {dun}. Enter the one with the gold border.",
+"Bạo kích x{k}: nhận tổng {t}": "Critical x{k}: received {t} in total",
+"{name} · bạo kích x{k} = {t}": "{name} · critical x{k} = {t}",
 "_note": "Từ điển dịch: khoá là câu tiếng Việt y nguyên (data/, code, index.html), giá trị là bản dịch. Giữ mọi chỗ trống {n}. Sinh và kiểm bằng tools/i18n-extract.mjs, thuật ngữ ở data/i18n/glossary.md.",
 "Liên Kích": "Combo",
 "Liên Kích {x}!": "Combo {x}!",

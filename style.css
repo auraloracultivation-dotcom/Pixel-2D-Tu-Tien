@@ -438,6 +438,8 @@ body:has(#bag:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn-s1
 .menu-back { align-self: flex-start; }
 .menu-dun { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-left: 3px solid var(--trim); border-radius: 8px; background: var(--panel-2); text-shadow: none; }
 .menu-dun.locked { opacity: .5; border-left-color: var(--line); }
+.menu-dun.md-nv { border-color: #ffc94a; border-left-color: #ffc94a; box-shadow: 0 0 0 1px rgba(255, 201, 74, .5), 0 0 12px rgba(255, 201, 74, .35); }   /* bí cảnh có quái của nhiệm vụ vừa bấm Đi làm */
+.menu-dun .md-goal { color: #ffd766; font-weight: 700; }
 .md-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .md-info b { font: 700 14px var(--f-title); }
 .md-info small { font-size: 11px; color: var(--ink-2); }

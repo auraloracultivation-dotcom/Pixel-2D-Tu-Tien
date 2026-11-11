@@ -2424,6 +2424,8 @@
   "summon_title": "Triệu hồi quà hệ thống",
   "summon_desc": "Mỗi lần {c} điểm. Mọi thứ mua được trong game: Linh Thạch 20k → 2 triệu, ngọc cấp 1–8, trang bị Phàm → Thượng Cổ, đan, nguyên liệu, thú cưỡi, khôi lỗi, thời trang. Tỷ lệ mọi loại như nhau, ra gì nhờ khí vận. Quà vào Hòm thư.",
   "summon_got": "Đinh! Ký chủ triệu hồi được: {name}",
+  "bk_sum": "Bạo kích x{k}: nhận tổng {t}",
+  "bk_got": "{name} · bạo kích x{k} = {t}",
   "summon_err": "Bổn hệ thống đang bận, thử lại sau.",
   "login": "Đăng nhập để nhận điểm và triệu hồi.",
   "rare": "Khí vận nghịch thiên! Bổn hệ thống cũng phải nể.",

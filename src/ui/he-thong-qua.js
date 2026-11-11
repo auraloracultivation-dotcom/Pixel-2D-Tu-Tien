@@ -39,22 +39,30 @@ function tone(game, p, nd) {
 }
 
 // Tên, hình, màu sáng của một ô quà (p: ô trong bảng quà; nd: nội dung thư thật khi đã trúng)
-function look(game, p, nd) { const L = look0(game, p, nd); L.glow = tone(game, p, nd); return L; }
+// Bạo kích ghi kiểu "x3 · 1.000.000": tên là số gốc một lần, dòng phụ ghi tổng đã nhận (chủ dự án 11/11/2026 20:33: ghi tổng cạnh chữ 3x
+// thì ai cũng tưởng nhân thêm lần nữa). L.got: chữ cho thông báo trúng (có tổng khi bạo kích)
+function look(game, p, nd) {
+  const L = look0(game, p, nd), bk = nd?.bk || 1, X = game.data['he-thong'].text;
+  L.glow = tone(game, p, nd); L.got = L.name;
+  if (bk > 1 && L.total) { L.sub = fill(X.bk_sum, { k: bk, t: L.total }); L.got = fill(X.bk_got, { name: L.name, k: bk, t: L.total }); }
+  return L;
+}
+const base = (nd, n) => Math.max(1, Math.round(n / (nd?.bk || 1)));   // số gốc một lần trước bạo kích
 function look0(game, p, nd) {
   const D = game.data, T = D.items.line_tiers.list, X = D['he-thong'].text, sh = D.shop?.name || 'Linh Thạch';
   if (nd?.doi) return { name: `${(nd.coins || 0).toLocaleString('vi-VN')} ${sh}`, sub: fill(X.dup, { x: look0(game, p).name }), ico: () => spriteIcon(game, 'ui.ic-linh-thach', 0, 64), glow: '#ffd24a' };
-  if (p.coins) return { name: `${(nd?.coins || p.coins).toLocaleString('vi-VN')} ${sh}`, ico: s => spriteIcon(game, 'ui.ic-linh-thach', 0, s), glow: '#ffd24a' };
+  if (p.coins) { const c = nd?.coins || p.coins; return { name: `${base(nd, c).toLocaleString('vi-VN')} ${sh}`, total: `${c.toLocaleString('vi-VN')} ${sh}`, ico: s => spriteIcon(game, 'ui.ic-linh-thach', 0, s), glow: '#ffd24a' }; }
   if (p.gem) {
     const key = nd?.gem?.key || `${pickOf(GEMS)}:${p.gem[0]}`, g = gemInfo(D, key);
-    return { name: nd ? `${g?.name || key} ×${nd.gem.n}` : fill(X.pool_gem1, { a: p.gem[0] }), ico: s => gemIcon(game, key, s), glow: g?.color || '#9fe8ff' };
+    return { name: nd ? `${g?.name || key} ×${base(nd, nd.gem.n)}` : fill(X.pool_gem1, { a: p.gem[0] }), total: nd ? `${g?.name || key} ×${nd.gem.n}` : '', ico: s => gemIcon(game, key, s), glow: g?.color || '#9fe8ff' };
   }
   if (p.gear) {
     const ik = b => D.art.sprites['ui.vk-' + b] ? 'ui.vk-' + b : D.art.sprites['gear.' + b] ? 'gear.' + b : null;   // nhẫn, ngọc bội… chỉ có hình gear.*
     const t = T[p.gear[0]], bases = Object.keys(D.items.bases).filter(ik), base = nd?.item?.base || pickOf(bases);
     return { name: nd?.item ? itemName(D, nd.item) : fill(X.pool_gear, { t: t?.name || '' }), sub: nd?.item ? fill(X.grade, { g: grade(D, nd.item).name }) : '', ico: s => spriteIcon(game, ik(base) || 'ui.vk-' + base, 0, s), glow: t?.edge ? '#ff4a5a' : t?.color || '#fff' };   // Thượng Cổ màu đen: sáng đỏ thẫm như viền dòng đen
   }
-  if (p.pill) { const x = D.cave.pills[p.pill]; return { name: `${x?.name || p.pill} ×${nd?.pill?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.pill, 0, s), glow: x?.color || '#ff9ad0' }; }
-  if (p.mat) { const x = matInfo(D, p.mat); return { name: `${x?.name || p.mat} ×${nd?.mat?.n || p.n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.mat, 0, s), glow: x?.color || '#bfe6f4' }; }
+  if (p.pill) { const x = D.cave.pills[p.pill], n = nd?.pill?.n || p.n; return { name: `${x?.name || p.pill} ×${base(nd, n)}`, total: `${x?.name || p.pill} ×${n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.pill, 0, s), glow: x?.color || '#ff9ad0' }; }
+  if (p.mat) { const x = matInfo(D, p.mat), n = nd?.mat?.n || p.n; return { name: `${x?.name || p.mat} ×${base(nd, n)}`, total: `${x?.name || p.mat} ×${n}`, ico: s => spriteIcon(game, 'ui.vk-' + p.mat, 0, s), glow: x?.color || '#bfe6f4' }; }
   if (p.mount) return { name: D.pets.mounts[p.mount]?.name || p.mount, sub: X.k_mount, ico: s => spriteIcon(game, 'mount.' + p.mount, 0, s, 'mt-ico', true), glow: '#c07aff' };
   if (p.comp) return { name: `${X.k_comp} ${D.npcs[p.comp]?.name || p.comp}`, ico: s => spriteIcon(game, 'comp.' + p.comp, 0, s, 'mt-ico', true), glow: '#c07aff' };
   if (p.outfit) { const g = nd?.g || game.save?.gioi || 'nam'; return { name: D.fashion.list[p.outfit]?.name || p.outfit, sub: X.k_outfit, ico: s => spriteIcon(game, `hero.y-${p.outfit}-${g}`, 0, s, 'mt-ico', true), glow: '#c07aff' }; }
@@ -90,7 +98,7 @@ export function renderGacha(game, body, ht, onDone) {
       const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
       // chủ dự án 09/11/2026 10:32: ghi số lần bạo kích ngay đầu, kiểu "4x 2.000.000", "3x Hồi Xuân Đan" (bỏ "×n" sau tên cho khỏi
       // hiểu nhầm nhân hai lần)
-      const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? f.nd.coins.toLocaleString('vi-VN') : bk > 1 ? L.name.replace(/ ×\d+$/, '') : L.name;
+      const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? base(f.nd, f.nd.coins).toLocaleString('vi-VN') : L.name.replace(/ ×1$/, '');   // bạo kích: "3x 1.000.000" (số gốc)
       const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, `${bk > 1 ? bk + 'x ' : ''}${what}`));
       t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
       row.title = `${f.ten}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t); feed.append(row);
@@ -145,7 +153,7 @@ export function renderGacha(game, body, ht, onDone) {
     } stage.classList.add('lit'); stage.classList.toggle('rare', rk > 1);
     if (L.sub) slot.append(el('small', 'ht-hit-sub', L.sub));
     if (rk > 1) slot.append(el('small', 'ht-rare', X.rare));
-    game.toast(fill(X.summon_got, { name: L.name }), 3); game.sfx?.(rk > 1 ? 'levelup' : 'pickup');
+    game.toast(fill(X.summon_got, { name: L.got }), 3); game.sfx?.(rk > 1 ? 'levelup' : 'pickup');
     game.htFace?.react(rk > 1 ? 'hiem' : rk ? 'trieu_kha' : 'trieu', rk > 1 ? 'phan-khich' : undefined);
     import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // quà vào túi liền, khỏi đợi lượt dò thư
     dailyEvent(game, 'summon');   // việc ngày Triệu hồi

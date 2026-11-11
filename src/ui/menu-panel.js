@@ -19,7 +19,7 @@ export function createMenuPanel(game) {
   root.append(head, body);
   document.body.append(root);
 
-  function close() { root.hidden = true; game.uiOpen = false; }
+  function close() { root.hidden = true; game.uiOpen = false; focus = null; }
   const toast = msg => game.toast(msg, 2);
 
   // Mở bảng cũ qua nút cũ, rồi bấm tab nếu có
@@ -30,14 +30,21 @@ export function createMenuPanel(game) {
     if (it.tab) setTimeout(() => document.querySelector(`#${it.tabs} [data-tab="${it.tab}"]`)?.click(), 0);
   }
 
+  // focus: { mob, ids } khi mở từ nút Đi làm của nhiệm vụ hạ quái chỉ có trong bí cảnh (src/game/dailyjob.js): bí cảnh có loài đó
+  // lên đầu, viền vàng, ghi "Nhiệm vụ: … ở đây" (chủ dự án 11/11/2026 20:33: bấm nhiệm vụ tới bảng Bí cảnh không biết chọn cái nào)
+  let focus = null;
   function renderDungeons() {
     title.textContent = D.title; sub.textContent = '';
-    for (const d of dungeonList(game)) {
-      const row = el('div', 'menu-dun' + (d.open ? '' : ' locked')), info = el('div', 'md-info');
+    let list = dungeonList(game);
+    if (focus) list = list.filter(d => focus.ids.includes(d.id)).concat(list.filter(d => !focus.ids.includes(d.id)));
+    for (const d of list) {
+      const goal = focus?.ids.includes(d.id);
+      const row = el('div', 'menu-dun' + (d.open ? '' : ' locked') + (goal ? ' md-nv' : '')), info = el('div', 'md-info');
       info.append(el('b', null, d.name + (game.data.dungeon.coin_dun?.[d.id] ? ' · ' + game.data.dungeon.texts.coin_tag : '')), el('small', null, D.from.replace('{name}', d.from)));
       const tag = el('small', 'md-tag', d.open ? (d.done ? D.done + ' · ' : '') + (d.hint?.text || '') : d.closed ? D.closed : D.locked);
       if (d.hint) tag.style.color = d.hint.color;
       info.append(tag);
+      if (goal) info.append(el('small', 'md-goal', D.task_here.replace('{mob}', focus.mob)));
       const go = el('button', 'mini primary', D.go);
       go.disabled = !d.open;
       go.onclick = () => {
@@ -57,9 +64,10 @@ export function createMenuPanel(game) {
     body.scrollTop = 0;
   }
 
-  function open() {
+  function open(f) {   // f: { mob: tên quái, ids: [bí cảnh có quái đó] } hoặc không có
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
+    focus = f?.ids?.length ? f : null;
     game.uiOpen = true; root.hidden = false; render();
   }
   x.onclick = close;

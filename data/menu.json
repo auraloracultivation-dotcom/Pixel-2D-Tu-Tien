@@ -10,7 +10,9 @@
   "closed": "Tạm đóng cửa",
   "done": "Đã phá",
   "from": "Trên {name}",
-  "busy": "Lúc này chưa vào được: {why}"
+  "busy": "Lúc này chưa vào được: {why}",
+  "task_here": "Nhiệm vụ: {mob} ở đây",
+  "task_toast": "{mob} chỉ có trong bí cảnh {dun}. Vào bí cảnh có viền vàng."
  },
  "busy": {
   "trib": "đang độ kiếp",

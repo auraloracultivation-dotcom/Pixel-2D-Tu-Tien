@@ -1,4 +1,8 @@
 {
+"Nhiệm vụ: {mob} ở đây": "任務：{mob}在這裡",
+"{mob} chỉ có trong bí cảnh {dun}. Vào bí cảnh có viền vàng.": "{mob}只出現在祕境{dun}。請進入金框的祕境。",
+"Bạo kích x{k}: nhận tổng {t}": "暴擊 x{k}：共獲得 {t}",
+"{name} · bạo kích x{k} = {t}": "{name} · 暴擊 x{k} = {t}",
 "_note": "Từ điển dịch: khoá là câu tiếng Việt y nguyên (data/, code, index.html), giá trị là bản dịch. Giữ mọi chỗ trống {n}. Sinh và kiểm bằng tools/i18n-extract.mjs, thuật ngữ ở data/i18n/glossary.md.",
 "Liên Kích": "連擊",
 "Liên Kích {x}!": "{x} 連擊！",
