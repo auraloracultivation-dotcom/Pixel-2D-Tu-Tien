@@ -19,7 +19,7 @@ export function orderHud(game) {
       ev.stopPropagation();
       if (!game.save || game.dialog.open || game.trip) return;
       if (e.nav) { game.openNav?.(e.nav); return; }
-      if (e.link) return;   // TikTok: mở ở sự kiện click bên dưới
+      if (e.link) { const L = game.data.community?.[e.link]; if (L?.url) window.open(L.url, '_blank', 'noopener'); return; }   // TikTok: mở kênh (data/community.json)
       game.closeAll?.();
       if (e.toggle) game.toggleQuestDock?.();   // Nhiệm vụ: ẩn / hiện cột nhiệm vụ hằng ngày trên màn hình (src/ui/quest-dock.js)
       else if (e.dun) game.openDungeons?.();
