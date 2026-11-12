@@ -8,31 +8,44 @@
  "indoor": true,
  "world": true,
  "grid": [
-  "####################",
-  "#qqqqqqqqqqqqqqqqqq#",
-  "#qqKqqqqqqqqqqqqAqq#",
-  "#qqqqqqqqqqqqqqqqqq#",
-  "#qqqqqqqq_qqqqqqqqq#",
-  "#qqqqqqq_M_qqqqqqqq#",
-  "#qqqqqqqq_qqqqqqqqq#",
-  "#GGGGGGGGqqqqqqqqqq#",
-  "#qqqqqqqqqqqqqqqqqq#",
-  "#GGGGGGGGqqqqqqqqqq#",
-  "#qqqqqqqqqqqqqqqqqq#",
-  "#qqqqqqqqqPqqqqqqqq#",
-  "####################"
+  "########################################",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqKqqqqqqqqqqqqAqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqq_qqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqq_M_qqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqq_qqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#GGGGGGGGqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#GGGGGGGGqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqPqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
+  "########################################"
  ],
  "spawns": {
   "vao": [
    10,
-   10
+   23
   ]
  },
  "portals": [
   {
    "at": [
     10,
-    11
+    24
    ],
    "to": "thien-kiem-phong",
    "spawn": "tu-dong-phu",

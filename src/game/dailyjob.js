@@ -49,7 +49,7 @@ function doNow(game, d) {
   return false;
 }
 
-const PILOT = ['kill', 'fish', 'visit'];   // việc tự hành đi làm được (ngoài luyện đan, rèn, thu hoạch, phân giải, đả tọa ở trên)
+const PILOT = ['kill', 'guard', 'fish', 'visit'];   // việc tự hành đi làm được (ngoài luyện đan, rèn, thu hoạch, phân giải, đả tọa ở trên)
 
 // → bước cho tự hành, { meditate: true } (pilot.js tự về bồ đoàn), hoặc null khi không còn việc ngày nào làm được
 export function dailyJob(game, routeTo) {
@@ -79,7 +79,13 @@ export function dailyGo(game, id) {
     if (d.go.fn && typeof game[d.go.fn] === 'function') { game[d.go.fn](d.go.arg); return 'panel'; }
     if (d.go.btn && game.openOldPanel) { game.openOldPanel({ btn: d.go.btn }); return 'panel'; }
   }
-  if (!['kill', 'fish', 'visit', 'meditate', 'brew', 'forge', 'harvest', 'salvage'].includes(d.type)) { game.toast(d.text.replace('{n}', d.n), 2.6); return 'hint'; }   // nói chuyện, vuốt thú, Vạn Bảo Lâu, luận võ: nhắc việc
+  if (d.type === 'buy') { const S = game.data.shop; import('./shop.js').then(M => M.talkShop(game, { id: S.npc, def: game.data.npcs[S.npc] || { name: 'Vạn Bảo Lâu' } })); return 'panel'; }   // mua ở Vạn Bảo Lâu: mở quầy ngay (11:36)
+  if (d.type === 'dungeon' && game.openDungeons) { game.openDungeons(null); return 'dungeon'; }   // Vượt bí cảnh: mở bảng Bí cảnh
+  if (d.type === 'pat' && game.pet) {   // vuốt ve linh thú: Đi làm thì vuốt luôn (chủ dự án 12/11/2026 10:50: không tự làm, không có nút)
+    import('./pat.js').then(P => { for (let i = 0; i < d.n; i++) setTimeout(() => game.pet && P.patPet(game), i * 500); });
+    return 'hint';
+  }
+  if (!['kill', 'guard', 'fish', 'visit', 'meditate', 'brew', 'forge', 'harvest', 'salvage'].includes(d.type)) { game.toast(d.text.replace('{n}', d.n), 2.6); return 'hint'; }   // nói chuyện, vuốt thú, Vạn Bảo Lâu, luận võ: nhắc việc
   if (d.type === 'kill' && d.mob && !Object.values(game.data.maps).some(m => (m.spawners || []).some(s => s.mob === d.mob))) {
     if (!game.openDungeons) return null;
     // bí cảnh có loài này (bản đồ có phòng, nhắc tới id quái): mở bảng Bí cảnh với bí cảnh đó lên đầu, viền vàng, kèm lời nhắc

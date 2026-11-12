@@ -6,6 +6,7 @@
 @import url("style-ui-icon.css");   /* bộ biểu tượng mới 04/11/2026 */
 @import url("style-ui-x.css");   /* nút tắt bảng ở góc trên phải mọi bảng 09/11/2026 */
 @import url("style-self.css");   /* bảng Nhân vật kiểu My Heroes 11/11/2026 (src/ui/self-panel.js) */
+@import url("style-self2.css");   /* bảng Nhân vật 12/11/2026: ô thú cột phải, hàng pháp bảo, khôi lỗi hộ vệ */
 @import url("style-hud-tren.css");   /* khung trên màn chơi mới 11/11/2026: thẻ nhân vật, thanh, bản đồ tròn, khay nút */
 /* Giao diện "đêm hầm ngục" (28/10/2026): nền đá tối, viền vàng cũ, chữ ánh trăng, nút chính màu lửa đuốc.
    Màu chỉ khai ở :root, mọi chỗ khác dùng biến để đổi tông một chỗ. Ghi chú ở docs/03-CAU-TRUC.md (Giao diện). */

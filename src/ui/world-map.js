@@ -20,7 +20,7 @@ function el(tag, cls, text) {
 
 export function createWorldMap(game) {
   const { data } = game, sm = data.starmap, H = data.dungeon.hint;
-  const bodies = bodiesOf(sm, data.maps);
+  let bodies = bodiesOf(sm, data.maps);   // dựng lại mỗi lần mở: tinh cầu khai hoang tải từ máy chủ (src/game/khai-hoang.js)
   const hint = { easy: H.easy_color, fair: H.fair_color, hard: H.hard_color };
   const hintText = { easy: H.easy_text, fair: H.fair_text, hard: H.hard_text };
   let canvas = null, ctx = null, raf = 0, pts = [], sel = null, t0 = 0, view = null, mode = 'sys', lay = null, tabs = null;
@@ -30,7 +30,7 @@ export function createWorldMap(game) {
     : game.map.def.tower || game.map.def.res ? 'Đang trong tháp hoặc bí cảnh, ra cổng trước đã.'
     : game.trib.active ? 'Đang độ kiếp!' : game.story.busy ? 'Đang có chuyện, đợi xong đã.' : null;
 
-  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!data.maps[b.map]?.demon || !!game.save.visited?.[b.map] || (!!b.map && flyOpen(game, b.map));
+  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!data.maps[b.map]?.demon || !!game.save.visited?.[b.map] || !!b.kh || (!!b.map && flyOpen(game, b.map));
 
   function fit() {
     const box = $('world-sky'), dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -65,6 +65,11 @@ export function createWorldMap(game) {
     if (data.maps[b.map]?.demon) box.append(el('p', 'wc-danger', weekLine(game)));   // Ma Vương tuần này
     if (dg) { const p = el('p', 'wc-danger', sm.texts.danger + ' '); const s = el('span', null, hintText[dg]); s.style.color = hint[dg]; p.append(s); box.append(p); }
     if (b.sun || b.kind === 'lost' || b.kind === 'soon') return;
+    if (b.kh && b.trong) {   // tinh cầu khai hoang bỏ trống: tông chủ chưa có tinh cầu khiêu chiến tông chủ cũ (src/game/kh-act.js)
+      const kc = el('button', 'wc-go', data['khai-hoang'].text.kc);
+      kc.onclick = () => { close(); import('../game/kh-act.js').then(M => M.khChallenge(game, game.kh?.list.find(x => x.id === b.map) || { id: b.map, ten: b.name })); };
+      box.append(kc);
+    }
     const here = game.map.id === b.map, why = here ? sm.texts.here : whyNot(game, b) || blocked();
     const go = el('button', 'wc-go', why || sm.texts.fly);
     go.disabled = !!why;
@@ -118,6 +123,7 @@ export function createWorldMap(game) {
   function open() {
     if (!game.save || game.dialog.open || game.trip || game.traveling) return;
     game.uiOpen = true; $('world').hidden = false;
+    bodies = bodiesOf(game.data.starmap, data.maps);
     if (!canvas) {
       canvas = el('canvas'); ctx = canvas.getContext('2d');
       view = panZoom(canvas, { max: 3.5, onTap: tap });
@@ -128,6 +134,9 @@ export function createWorldMap(game) {
         b.onclick = () => setMode(m);
         tabs.append(b);
       }
+      const kh = el('button', 'world-kh', data['khai-hoang'].text.map_btn);   // Khai Hoang Tinh Cầu: mở bảng Tông môn tab Tinh cầu
+      kh.onclick = () => { close(); game.openGuild?.('kh'); };
+      tabs.append(kh);
       $('world-sky').before(tabs);
     }
     tabs.children[0].hidden = !game.map.def.planet;   // trong bí cảnh, động phủ thì chỉ có tinh hệ

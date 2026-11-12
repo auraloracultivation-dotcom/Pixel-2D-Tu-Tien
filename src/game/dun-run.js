@@ -1,8 +1,10 @@
 // Một lượt bí cảnh (chủ dự án chốt 02/11/2026 03:25): chụp túi lúc vào, hết lượt so lại để hiện bảng ô vuông mọi thứ thu được.
 // Mỗi bí cảnh tối đa dungeon.per_day lượt mỗi ngày (vượt hay càn quét đều tính). Càn quét: bậc đã qua, nhận ngay thưởng cố định
 // của bậc đó, không phải đánh. Bảng kết quả (src/ui/dun-result.js) có 3 nút: Tiếp tục (bậc kế), Càn quét, Thoát.
-import { grant } from './daily.js';
+import { grant, dailyEvent } from './daily.js';
 import { sweepKills } from './dun-sweep.js';
+import { pbDrop } from './phap-bao-drop.js';
+import { khDun } from './khai-hoang.js';
 
 const C = game => game.data.dungeon;
 const today = () => new Date().toDateString();
@@ -61,6 +63,8 @@ export function sweep(game, id, L) {
   useRun(game, id);
   grant(game, r, 'can-quet');
   sweepKills(game, id, L);   // đồ rơi của từng quái như đánh thật (góp ý #127)
+  dailyEvent(game, 'dungeon', id);   // việc ngày Vượt bí cảnh (data/daily.json bi-canh)
+  pbDrop(game, 'dun', L); khDun(game);   // càn quét cũng có thể ra pháp bảo, Mảnh Vỡ Tinh Cầu
   return diffRun(game, snap);
 }
 

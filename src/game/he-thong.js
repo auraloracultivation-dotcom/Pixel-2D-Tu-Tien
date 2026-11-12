@@ -62,6 +62,12 @@ export function missionDone(save, dk) {
   for (const k of ['techs', 'pets', 'mounts']) if (dk[k] != null && n(save[k]) < dk[k]) return false;
   if (dk.plus != null && Math.max(0, ...worn.map(it => it.plus || 0)) < dk.plus) return false;
   if (dk.socket != null && worn.reduce((a, it) => a + (it.sockets || []).filter(x => typeof x === 'string').length, 0) < dk.socket) return false;
+  // Hệ Pháp Bảo Luyện Chế (12/11/2026, máy chủ p2d_ht_dk cùng luật): pb_wear món đang mặc, pb_mods chiêu khảm trên món đang mặc, pb_lv / pb_slots cao nhất
+  const pi = save.phapBao?.items || [], pw = (save.phapBao?.wear || []).map(u => pi.find(i => i.uid === u)).filter(Boolean);
+  if (dk.pb_wear != null && pw.length < dk.pb_wear) return false;
+  if (dk.pb_mods != null && pw.reduce((a, it) => a + (it.mods || []).slice(0, it.slots).filter(Boolean).length, 0) < dk.pb_mods) return false;
+  if (dk.pb_lv != null && Math.max(0, ...pi.map(i => i.lv || 0)) < dk.pb_lv) return false;
+  if (dk.pb_slots != null && Math.max(0, ...pi.map(i => i.slots || 0)) < dk.pb_slots) return false;
   return true;
 }
 

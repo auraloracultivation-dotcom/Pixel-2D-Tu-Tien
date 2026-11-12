@@ -6,6 +6,9 @@ Mọi lệnh cần một VÉ tạo bằng SQL (công cụ quản trị cơ sở 
     python3 tools/gop-y/may-chu.py xem <vé> <mã góp ý> [mã ...] [--nho] [--ra thư-mục]
         tải ảnh (mặc định ảnh lớn; --nho: ảnh nhỏ cho Claude xem nhanh) về thư mục (mặc định /tmp/gop-y-anh), in đường dẫn tệp.
         Dòng còn base64 cũ (chưa chuyển) in "cu": xem theo cách cũ bằng tools/gop-y/anh.py.
+    python3 tools/gop-y/may-chu.py kh <vé 'xem'> <mã ảnh p2d_kh_anh> [mã ...] [--ra thư-mục]
+        tải ảnh công trình tông môn gửi (kho kh-anh, Khai Hoang Tinh Cầu) về thư mục (mặc định /tmp/kh-anh) để duyệt và xử lý
+        bằng tools/art/ai_import.py (xem docs/03-CAU-TRUC.md mục Khai Hoang Tinh Cầu).
     python3 tools/gop-y/may-chu.py chuyen <vé>
         chuyển hết ảnh base64 cũ sang kho, mỗi lần gọi 10 dòng; chạy lại bao nhiêu lần cũng được (dòng đã chuyển bỏ qua).
     python3 tools/gop-y/may-chu.py don <vé>
@@ -60,6 +63,29 @@ def xem(ve, args):
         print(a['id'], out)
 
 
+def kh(ve, args):
+    ra, ids, i = '/tmp/kh-anh', [], 0
+    while i < len(args):
+        if args[i] == '--ra':
+            ra = args[i + 1]; i += 2; continue
+        if re.fullmatch(r'[0-9a-f-]{36}', args[i]):
+            ids.append(args[i])
+        i += 1
+    if not ids:
+        print(__doc__); sys.exit(1)
+    r = goi({'hanh_dong': 'xem_kh', 've': ve, 'ids': ids})
+    if 'anh' not in r:
+        print(r); sys.exit(2)
+    os.makedirs(ra, exist_ok=True)
+    for a in r['anh']:
+        if not a.get('url'):
+            print(a['id'], 'khong-co-anh'); continue
+        out = os.path.join(ra, a['id'] + '.' + a['duong'].rsplit('.', 1)[-1])
+        with urllib.request.urlopen(a['url'], timeout=60) as f:
+            open(out, 'wb').write(f.read())
+        print(a['id'], out, json.dumps({k: a[k] for k in ('ten_ct', 'loai', 'ten_npc', 'trang_thai')}, ensure_ascii=False))
+
+
 def chuyen(ve):
     sau, tong, hong = 0, 0, []
     for _ in range(1000):
@@ -79,6 +105,8 @@ def main():
     lenh, ve = sys.argv[1], sys.argv[2].strip()
     if lenh == 'xem':
         xem(ve, sys.argv[3:])
+    elif lenh == 'kh':
+        kh(ve, sys.argv[3:])
     elif lenh == 'chuyen':
         chuyen(ve)
     elif lenh == 'don':

@@ -1,6 +1,8 @@
 // Bể cá động phủ (chủ dự án 04/11/2026 11:57; số, chữ ở data/home.json → be_ca). Đứng gần bể (ở nhà mình) thì nút tương tác
 // hiện "Bể cá": thả cá câu được (save.mats, loài trong data/fishing.json → fish) vào bể, mỗi lần một con, tối đa max.
 // Cá trong bể lưu save.beCa = { loài: số } (thăm nhà bạn thì không thả). Vẽ: src/render/draw-be-ca.js.
+import { homeSpot } from './home-spot.js';
+
 const C = game => game.data.home.be_ca;
 const fill = (t, o) => t.replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 
@@ -9,7 +11,7 @@ export const beCaCount = s => Object.values(s?.beCa || {}).reduce((a, n) => a + 
 export function nearBeCa(game) {
   const c = C(game);
   if (!c || game.map.id !== game.data.home.map || game.visiting) return false;
-  const p = game.map.center(c.at[0], c.at[1]), q = game.player;
+  const at = homeSpot(game, 'be_ca'), p = game.map.center(at[0], at[1]), q = game.player;
   return Math.hypot(p.x - q.x, p.y - q.y) < c.range;
 }
 

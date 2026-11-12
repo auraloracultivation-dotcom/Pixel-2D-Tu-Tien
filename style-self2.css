@@ -1,0 +1,60 @@
+/* Bảng Nhân vật 12/11/2026 03:04 (src/ui/self-left.js): linh thú, thú cưỡi ở cột phải (ô 3, ô 4) to bằng ô trang bị;
+   hàng dưới là 4 ô pháp bảo (ô pháp bảo đang mặc + 3 ô khoá); khôi lỗi bỏ khỏi thẻ (03:12). */
+.sv .sv-col .sv-slot.buff { width: 36px; height: 36px; filter: none; background: none !important; }
+.sv .sv-col .sv-slot.buff:not([data-o]) { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; }
+.sv .sv-col .sv-slot.buff[data-o="pham"] { --o: url("assets/art/ui-nv-o.png"); }
+.sv .sv-col .sv-slot.buff .sv-spr { position: relative; z-index: 1; max-width: 90%; max-height: 80%; }
+.sv .sv-col .sv-slot.buff .sv-uico { width: 60%; height: 60%; }
+.sv .sv-buffs > .sv-cell { flex: 1 1 0; max-width: 36px; }
+.sv .sv-buffs > .sv-cell .sv-slot { width: 100%; height: auto; aspect-ratio: 1; }
+.sv-center > .sv-hero { z-index: 1; }
+/* Nút đánh thường (12/11/2026 03:23, src/ui/hud-atk.js): hình bản mệnh pháp bảo đang dùng thay chữ "Đánh" */
+#btn-atk .atk-ico { position: absolute; inset: 16%; z-index: 1; background: center / contain no-repeat; image-rendering: pixelated; pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 120, .55)); }
+#btn-atk.has-ico > b { display: none; }
+/* 03:29: có hình bản mệnh pháp bảo thì vòng nút bỏ hai thanh kiếm vàng chéo (ui-k-atk3.png = ui-k-atk2.png xoá lòng giữa) */
+body #btn-atk.has-ico::after, body[data-le] #btn-atk.has-ico::after { background-image: url("assets/art/ui-k-atk3.png") !important; }
+/* Hàng pháp bảo hệ mới (src/ui/self-pb.js): hình pháp bảo giữa ô, viền màu phẩm */
+.sv .sv-buffs .sv-slot.buff[data-o="pb"] { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; box-shadow: inset 0 0 0 1px var(--q); border-radius: 3px; }
+.sv-pbi { position: absolute; inset: 14%; z-index: 1; background: center / contain no-repeat; image-rendering: pixelated; pointer-events: none; }
+/* Trang bị → Pháp bảo (12/11/2026 04:07, src/ui/self-pb-page.js): lưới pháp bảo, tấm chi tiết gọn như trang bị, 4 ô khảm, chiêu khảm */
+.spb-wrap { display: flex; flex-direction: column; gap: 4px; }
+.spb-ic { background: center / contain no-repeat; image-rendering: pixelated; }
+.spb-cell { width: 100% !important; height: auto !important; aspect-ratio: 1; }
+.spb-slots { position: absolute; left: 2px; bottom: 1px; z-index: 2; font: 800 7px var(--f-body, system-ui); color: #bfe8ff; text-shadow: 0 1px 0 #000; }
+.spb-at { position: absolute; left: 2px; top: 1px; z-index: 2; min-width: 9px; height: 9px; border-radius: 5px; background: #ffd25a; color: #3a1800; font: 800 7px/9px var(--f-body, system-ui); text-align: center; }
+.spb-empty { color: rgba(220, 210, 255, .35); font: 800 11px var(--f-body, system-ui); }
+.spb-note { margin: 0; font-size: 8px; line-height: 1.3; color: #a9a2c8; }
+.spb-bar { font: 700 9px var(--f-body, system-ui); color: #ffd774; padding: 3px 2px; }
+.sv-mid.sheet .spb-big { width: 26px !important; height: 26px !important; flex: none; border: 1px solid; border-radius: 4px; background-color: rgba(20, 16, 40, .6); }
+.sv-mid.sheet .spb-acts .act-btn small { font-size: 7px; }
+.sv-mid.sheet .spb-lb { display: block !important; margin: 4px 0 2px; font: 700 8px var(--f-body, system-ui); color: #ffd774; letter-spacing: .02em; }
+.spb-socks { display: flex; align-items: stretch; gap: 2px; }
+.spb-sock { flex: 1 1 0; min-width: 0; min-height: 34px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 2px 1px;
+  border: 1px dashed #5a4f8c; border-radius: 4px; background: rgba(36, 30, 62, .7); color: #e8e2ff; cursor: pointer; }
+.spb-sock small { font-size: 7px; line-height: 1.1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.spb-sock.on { border: 1px solid #ffd25a; box-shadow: 0 0 4px rgba(255, 210, 90, .6); }
+.spb-sock.lock { opacity: .45; cursor: default; }
+.spb-arrow { align-self: center; font-size: 8px; color: #a9a2c8; flex: none; }
+.spb-mi { display: block; width: 18px; height: 18px; flex: none; }
+.spb-mods { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.spb-mod { display: grid; grid-template-columns: 18px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 3px; align-items: center; text-align: left; padding: 2px 3px;
+  border: 1px solid #3c3466; border-radius: 4px; background: rgba(30, 26, 52, .85); color: #f0ecff; cursor: pointer; min-width: 0; }
+.spb-mod .spb-mi { grid-row: 1 / 3; }
+.spb-mod b { font-size: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spb-mod small { font-size: 6.5px; line-height: 1.15; color: #b9b2d8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.spb-mod.on { border-color: #ffd25a; box-shadow: inset 0 0 0 1px rgba(255, 210, 90, .5); }
+.spb-mod.lock { opacity: .5; }
+.sv-mid.sheet .spb-gb { font-size: 7.5px; color: #b9b2d8; }
+
+/* Dòng báo (#toast) là lời Hệ Thống: hiện giữa màn trong khung xanh Hệ Thống, không nép góc dưới (chủ dự án 12/11/2026 10:57) */
+html body #toast { top: 50% !important; bottom: auto !important; left: 50% !important; right: auto !important; transform: translate(-50%, -50%) !important;
+  border: 2px solid #3ec8f0 !important; border-image: none !important; border-radius: 10px !important; background: rgba(8, 24, 44, .94) !important;
+  box-shadow: 0 0 18px rgba(62, 200, 240, .55), inset 0 0 12px rgba(62, 200, 240, .18) !important; padding: 12px 16px !important; min-height: 0 !important;
+  width: max-content; max-width: min(86vw, 360px) !important; color: #e8f8ff !important; font-size: 15px !important; text-align: center; }
+html body #toast::before { display: none !important; }
+
+/* Báo lỗi #155 (11/11/2026): Vạn Bảo Lâu không vuốt lên được trên iPhone. Danh sách lựa chọn và mọi nút con trong đó cho vuốt dọc
+   (html, body đặt touch-action: none cho cần gạt; Safari xét cả phần tử con), cuộn mượt kiểu iOS */
+#dialog .choices, #dialog .choices * { touch-action: pan-y; }
+#dialog .choices { -webkit-overflow-scrolling: touch; }

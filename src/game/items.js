@@ -43,7 +43,7 @@ export const matchMul = (data, save, it) => (matchEl(data, save, it) ? 1 + (data
 export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity, el, rnd = Math.random, maxTier } = {}) {   // maxTier: màu dòng cao nhất (đồ rơi ngoài bí cảnh)
   ensureInv(save);
   const items = data.items;
-  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận
+  const baseKeys = Object.keys(items.bases).filter(k => !items.bases[k].set && !items.bases[k].dv && !(data['phap-bao']?.all && items.bases[k].slot === 'phap-bao')); // đồ bộ chỉ rơi ở boss, đồ Đạo Vận chỉ có ở Con Đường Đạo Vận; pháp bảo cũ thôi rơi (hệ Pháp Bảo Luyện Chế)
   const id = baseId || baseKeys[Math.floor(rnd() * baseKeys.length)];
   const base = items.bases[id];
   const minIdx = minRarity ? items.rarities.findIndex(r => r.id === minRarity) : 0;
@@ -139,6 +139,13 @@ export function reroll(data, save, uid, rnd = Math.random, _lock = null, now = D
 }
 
 // Ngọc: khoá "loại:cấp", ví dụ "hong-ngoc:1"
+// Hệ số chỉ số gốc theo cấp cường hoá: data/gear.json → enhance.main_add (cộng dồn từng cấp), không có thì main_per mỗi cấp
+export function enhanceMul(data, plus = 0) {
+  const e = data.gear?.enhance, n = Math.max(0, plus || 0);
+  if (!e) return 1;
+  return e.main_add ? 1 + e.main_add.slice(0, n).reduce((a, b) => a + b, 0) : 1 + n * (e.main_per || 0);
+}
+
 export function gemInfo(data, key) {
   const [type, lv] = key.split(':');
   const t = data.items.gems.types[type];
@@ -209,7 +216,8 @@ export function gearStats(data, save) {
   const add = (s, v) => { sum[s] = (sum[s] || 0) + v; };
   for (const it of equipped(save)) {
     const b = data.items.bases[it.base], dv = matchMul(data, save, it);   // món cùng hệ linh căn: chỉ số chính mạnh thêm
-    const k = (1 + (it.plus || 0) * (data.gear?.enhance.main_per || 0)) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
+    if ((data['phap-bao']?.all || save.phapBao) && b?.slot === 'phap-bao') continue;   // đã sang hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js): pháp bảo cũ ẩn, không cộng (chủ dự án 12/11/2026 03:35)
+    const k = enhanceMul(data, it.plus) * (1 + (b?.slot === 'phap-bao' ? (it.pb || 0) * (data.gear?.refine?.per || 0) : 0)) * dv;   // cường hoá × bậc luyện pháp bảo × hợp hệ
     for (const [s, v] of Object.entries(it.main)) add(s, Math.round(v * k));
     for (const l of it.lines) add(l.s, l.v);
     for (const g of it.sockets) if (g) { const gi = gemInfo(data, g); if (gi.stat) add(gi.stat, gi.value); }

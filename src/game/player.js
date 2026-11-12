@@ -33,7 +33,7 @@ export function createPlayer(game, x, y) {
   return {
     x, y, r: cfg.radius, face: { x: 0, y: 1 }, moving: false, walkT: 0,
     hp: st.maxHp, maxHp: st.maxHp, atk: st.atk, st,
-    atkCd: 0, swingT: 0, skillCd: [0, 0, 0],
+    atkCd: 0, swingT: 0, skillCd: [0, 0, 0, 0],
     invT: 0, flash: 0, kx: 0, ky: 0, dashT: 0,
     shield: 0, shieldT: 0, buffT: 0, buffAmt: 0,
     meditating: false, regenT: 0,
@@ -79,6 +79,7 @@ export function basicMul(game) {
 // Đánh thường kiểu ngự kiếm (flyweapon.js): người vận lực, vũ khí sau lưng lao ra; sát thương tính lúc vũ khí tới nơi (p.hitQ)
 function swing(game) {
   const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], dmg = p.atk * basicMul(game);
+  p.dmgRef = dmg;   // mốc so cỡ số sát thương (src/render/draw-numbers.js)
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
   const target = nearestMob(game, reachW(game, w) + 24);
   if (target) {
@@ -186,7 +187,7 @@ export function updatePlayer(game, dt) {
 
   // Nút pháp bảo: chiêu riêng của pháp bảo đang mặc
   p.artCd = (p.artCd || 0) - dt;
-  const art = pbOn(game) ? null : artSkill(game.save, game.data);   // hệ pháp bảo mới: nút này mở bảng Luyện chế (src/ui/phap-bao-panel.js)
+  const art = pbOn(game) ? null : artSkill(game.save, game.data);   // hệ pháp bảo mới: nút này là ô pháp bảo thứ 4 (src/game/phap-bao-run.js pbInput)
   if (inp.consume('art') && art && p.artCd <= 0 && spendMana(game, art)) {
     p.meditating = false; p.calmT = 0; p.riding = false;
     const dir = autoAim(game, art);

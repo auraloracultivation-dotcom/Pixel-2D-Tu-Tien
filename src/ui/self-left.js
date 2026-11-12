@@ -1,24 +1,27 @@
 // Thẻ nhân vật bên trái bảng Nhân vật (src/ui/self-panel.js; chủ dự án 11/11/2026 01:47: khuôn bảng ngang thấp như mẫu gửi).
 // Tên chính giữa phía trên; nhân vật đứng trên vòng pháp trận, cảnh giới chính giữa dưới chân (chủ dự án 11/11/2026 02:10), mỗi bên 4 ô đồ (thanh ngọc khảm dính dưới ô, src/ui/self-gear.js);
-// hàng linh thú / khôi lỗi / thú cưỡi / ô chừa; dòng Lực Chiến (chạm: xem đủ chỉ số ở khung phải); 8 chỉ số chính.
+// cột phải ô 3 linh thú, ô 4 thú cưỡi; hàng 4 ô pháp bảo; dòng Lực Chiến (chạm: xem đủ chỉ số ở khung phải); 8 chỉ số chính.
 import { heroLook } from '../render/draw-hero.js';
 import { spriteIcon } from './sprite-icon.js';
 import { realmLabel, rootOf } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { el } from './bag-detail.js';
 import { gearCell, buffCell, uiIco } from './self-gear.js';
+import { pbRow } from './self-pb.js';
 
 export const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 export const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
-const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'phap-bao', null];   // null: ô chừa (chủ dự án 11/11 01:07)
-const BUFFS = ['pet', 'comp', 'comp2', 'mount'];   // bốn ô to bằng ô trang bị (11/11/2026 20:50); ô dự phòng còn ở cột phải
+// Chủ dự án 12/11/2026 03:04: linh thú đổi chỗ với pháp bảo (cột phải ô 3), thú cưỡi ô phải thứ 4; hàng 4 ô dưới dành cho pháp bảo
+// (hệ Pháp Bảo Luyện Chế sắp ra: ô 1 là pháp bảo đang mặc, 3 ô còn khoá). 03:12: bỏ khôi lỗi khỏi thẻ (đứng sau lưng thì nhỏ, bị che);
+// khôi lỗi xem ở mục Linh thú → Khôi lỗi. Nhân vật thu từ cao 76 xuống 64.
+const LEFT = ['vu-khi', 'mu', 'giap', 'giay'], RIGHT = ['ngoc-boi', 'nhan', 'b:pet', 'b:mount'];   // 'b:': ô thú (buffCell)
+const FABAO = ['phap-bao', 'spare', 'spare', 'spare'];
 
 function column(game, side, slots, h) {
   const c = el('div', 'sv-col ' + side);
   for (const k of slots) {
-    if (k) { c.append(gearCell(game, k, side, h.pick)); continue; }
-    const w = el('div', 'sv-cell'), b = el('button', 'sv-slot spare'); b.disabled = true; b.title = 'Sắp mở';
-    b.append(uiIco(game.data, 'ui.nv-cho-khoa')); w.append(b); c.append(w);
+    if (!k.startsWith('b:')) { c.append(gearCell(game, k, side, h.pick)); continue; }
+    const w = el('div', 'sv-cell'); w.append(buffCell(game, k.slice(2), h.openExtra)); c.append(w);
   }
   return c;
 }
@@ -32,7 +35,7 @@ export function leftCard(game, stt, h) {
   top.append(nm);
   const area = el('div', 'sv-hero-area'), mid = el('div', 'sv-center');
   // giữ đúng tỉ lệ hình (khung chibi rộng vì hiệu ứng chiêu: cắt bớt hai bên trong suốt, không ép bề ngang)
-  const hero = spriteIcon(game, heroLook(game).sprite, 0, 76, 'sv-hero', true);
+  const hero = spriteIcon(game, heroLook(game).sprite, 0, 64, 'sv-hero', true);
   hero.dataset.k = heroLook(game).sprite;   // cùng hình thì vá giữ canvas cũ (src/ui/morph.js), khỏi trống một khung
   mid.append(uiIco(d, 'ui.nv-nen', 'sv-nen'), uiIco(d, 'ui.nv-be', 'sv-be'), hero);   // nền phù văn xoay chậm sau lưng, bệ pháp trận dưới chân
   if (s.element) {
@@ -41,7 +44,7 @@ export function leftCard(game, stt, h) {
   }
   area.append(column(game, 'l', LEFT, h), mid, column(game, 'r', RIGHT, h), el('span', 'sv-realm', realmLabel(s, d.realms)));   // cảnh giới giữa, dưới chân
   const buffs = el('div', 'sv-buffs');
-  for (const k of BUFFS) buffs.append(buffCell(game, k, h.openExtra));
+  if (!pbRow(game, buffs, h)) for (const k of FABAO) buffs.append(k === 'spare' ? buffCell(game, k, h.openExtra) : gearCell(game, k, 'b', h.pick));   // hệ pháp bảo mới: 3 món đang mặc (self-pb.js)
   const cp = el('button', 'sv-cpbar');   // chạm: đủ chỉ số ở khung phải
   cp.append(uiIco(d, 'ui.nv-luc-chien', 'sv-cpico'), el('span', null, 'Lực Chiến'), el('b', null, vn(h.cp ?? power(game))), el('small', null, '›'));
   cp.onclick = h.stats;

@@ -159,7 +159,8 @@
   "density": 32,
   "day": 0.45
  },
- "_le": "Lễ hội cho khung giao diện (style-khung.css, src/ui/le-hoi.js): from, to là tháng-ngày; from > to là vắt qua năm mới. Tết theo dương lịch gần đúng. Hết mùa thì giữ giao diện lễ vừa qua tới khi lễ sau bắt đầu (chủ dự án 29/10/2026).",
+ "_le": "Lễ hội cho khung giao diện (style-khung.css, src/ui/le-hoi.js): from, to là tháng-ngày; from > to là vắt qua năm mới. Tết theo dương lịch gần đúng. Hết mùa thì giữ giao diện lễ vừa qua tới khi lễ sau bắt đầu (chủ dự án 29/10/2026) khi le_giu = true; 12/11/2026 10:45 chủ dự án: \"tắt quả bí ngô với lễ hội bí ngô đi, hiện tại đâu có event nào\" → le_giu false: hết lễ là thôi.",
+ "le_giu": false,
  "le": [{"id": "halloween", "from": "10-20", "to": "11-03"}, {"id": "giang-sinh", "from": "12-15", "to": "12-30"}, {"id": "tet", "from": "01-20", "to": "02-20"}],
  "_decor": "Đèn trang trí trên bản đồ (src/render/draw-decor.js): đặt trên ô đi được sát vách, nhà, cây; density: tỉ lệ ô như vậy có đèn, halloween: thêm tỉ lệ bí ngô mùa Halloween; sets: các loại đèn và trọng số theo kiểu bản đồ (outdoor ngoài trời, dark hầm tối, void hư không; void_maps: tiền tố id bản đồ hư không); kinds: r bán kính quầng sáng, c màu, fy chỗ ngọn lửa tính từ chân (tỉ lệ cao hình); scale: đơn vị bản đồ mỗi điểm ảnh hình.",
  "decor": {"density": 0.065, "halloween": 0.04, "scale": 0.72, "void_maps": ["vet-nut", "hu-khong", "phuong-thien"],

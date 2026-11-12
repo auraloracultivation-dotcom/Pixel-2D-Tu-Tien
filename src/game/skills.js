@@ -1,4 +1,7 @@
 // Thi triển chiêu theo kiểu trong data/skills.json; chiêu đã mở và 3 ô chiêu người chơi chọn mang.
+import { realmGifts } from './realm-gift.js';
+import { pbOn } from './phap-bao.js';
+import { pbGrants } from './phap-bao-grant.js';
 import { addFx, hitMob, shoot, dist, impactShake } from './combat.js';
 import { addZone } from './zones.js';
 import { totalLayer, weaponId } from './stats.js';
@@ -183,6 +186,8 @@ export function setSlot(game, i, id) {
 
 // Báo chiêu mới mở (gọi sau khi đột phá)
 export function checkUnlocks(game) {
+  realmGifts(game);   // quà tu vi mỗi tầng, đột phá (src/game/realm-gift.js)
+  if (pbOn(game)) { pbGrants(game); return; }   // hệ pháp bảo mới: nhận pháp bảo theo mốc, báo chiêu khảm mới (thay chiêu cũ)
   const s = game.save, open = unlockedSkills(game);
   s.knownSkills ??= open.slice();
   const fresh = open.filter(id => !s.knownSkills.includes(id));

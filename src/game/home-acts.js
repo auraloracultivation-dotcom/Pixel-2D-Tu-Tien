@@ -1,5 +1,6 @@
 // Nhóm E trong Động phủ (chủ dự án gom 02/11/2026): việc bấm từ bảng Động phủ (data/menu.json → hubs.home) mà không phải mở bảng cũ:
 // bế quan (tới bồ đoàn ngồi đả tọa), đạo lữ, khách, trang trí (nói chuyện với người đang ở nhà), hồ cá. Trả về câu báo nếu không làm được.
+import { homeSpot } from './home-spot.js';
 import { talkTo } from './interact.js';
 import { hasDecor } from './decor.js';
 import { goHome } from './friends.js';
@@ -24,7 +25,7 @@ export function homeAct(game, act) {
     return null;
   }
   if (act === 'ho-ca' && H.be_ca) {   // mục Hồ cá: tới đứng cạnh bể cá, mở việc thả cá (chủ dự án 04/11/2026 11:57)
-    const c = game.map.center(H.be_ca.at[0] - 1, H.be_ca.at[1] + 1), p = game.player;
+    const sp = homeSpot(game, 'be_ca'), c = game.map.center(sp[0] - 1, sp[1] + 1), p = game.player;
     p.x = c.x; p.y = c.y; p.meditating = false;
     talkBeCa(game);
     return null;

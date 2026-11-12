@@ -21,7 +21,7 @@ export const canPay = (game, cost) => has(game.save, cost);
 export function addMat(save, id, n = 1) { save.mats[id] = (save.mats[id] || 0) + n; }
 
 // Đan độc giảm dần (data/cave.json → qi_pill_day): số viên đan linh khí đã dùng hôm nay, số viên còn đủ hiệu quả,
-// tỉ lệ linh khí của viên kế tiếp (viên 1–8 đủ, 9–16 một nửa, từ 17 còn 20%; qua 0 giờ đếm lại)
+// tỉ lệ linh khí của viên kế tiếp (viên 1–8 đủ, 9–16 một nửa, 17–24 còn 20%, 25–40 còn 5%, từ 41 còn 1%; data/cave.json; qua 0 giờ đếm lại)
 export const qiPillUsed = game => (game.save.qiPill?.day === new Date().toDateString() ? game.save.qiPill.n : 0);
 export function qiPillLeft(game) {
   const L = game.data.cave.qi_pill_day;

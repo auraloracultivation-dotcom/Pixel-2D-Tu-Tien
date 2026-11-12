@@ -32,7 +32,7 @@ export function autoEquip(game) {
     if (v <= now) continue;
     equip(s, d, it.uid);
     game.refreshStats(); game.persist();
-    game.toast(`Tự mặc [${rarityOf(d.items, it.rarity).name}] ${itemName(d, it)}: lực chiến +${(v - now).toLocaleString('vi-VN')}`, 2.4);
+    game.autoNote(`Tự mặc [${rarityOf(d.items, it.rarity).name}] ${itemName(d, it)}: lực chiến +${(v - now).toLocaleString('vi-VN')}`, 2.4);
   }
 }
 
@@ -46,7 +46,7 @@ export function makeRoom(game, item) {
   if (old) salvage(d, s, old.uid);
   else s.mats['tay-luyen-thach'] = (s.mats['tay-luyen-thach'] || 0) + rarityOf(d.items, item.rarity).salvage;
   salvageIron(game, gone.rarity); salvageArt(game, gone); dailyEvent(game, 'salvage');
-  game.toast(`Túi đầy: tự phân giải ${name}`, 1.6);
+  game.autoNote(`Túi đầy: tự phân giải ${name}`, 1.6);
   if (!old) return false;
   s.bag.push(item);
   return true;
@@ -61,7 +61,7 @@ export function autoEnhance(game) {
   const it = safe.sort((a, b) => goal ? (b.plus || 0) - (a.plus || 0) : (a.plus || 0) - (b.plus || 0))[0];
   const c = it && enhanceCost(d, it, s);
   if (!c || c.locked || c.coins || (s.mats['tinh-thiet'] || 0) - c.cost['tinh-thiet'] < keep) return;   // tự hành không tiêu Linh Thạch vào cường hoá
-  const say = r => { if (r) game.toast(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8); };
+  const say = r => { if (r) game.autoNote(r === 'up' ? `Tự cường hóa thành công: ${itemName(d, it)}` : `Tự cường hóa ${itemName(d, it)} hỏng, giữ nguyên`, 1.8); };
   if (!onServer(game)) return say(enhance(game, it.uid));
   if (kyBusy(game) || (game.aeWait || 0) > performance.now()) return;
   kyEnhance(game, it.uid, true).then(r => { if (!r) game.aeWait = performance.now() + 30000; say(r); });   // máy chủ từ chối: 30 giây sau mới thử lại

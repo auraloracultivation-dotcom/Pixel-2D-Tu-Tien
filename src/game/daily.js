@@ -3,6 +3,9 @@ import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName, baseForSlot } 
 import { totalLayer, weaponId } from './stats.js';
 import { addCoins } from './shop.js';
 import { praise } from './praise.js';
+import { mapGate } from './map-gate.js';
+import { pbDrop } from './phap-bao-drop.js';
+import { khKill } from './khai-hoang.js';
 
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 
@@ -16,7 +19,7 @@ function seeded(str) {
 export function ensureDaily(game) {
   const s = game.save, cfg = game.data.daily, d = today();
   if (s.daily?.day === d) {   // việc đã bỏ (tháp, luận võ, bí cảnh tài nguyên, treo thưởng: 02/11/2026) thì gỡ khỏi việc hôm nay
-    if (s.daily.tasks.some(t => !taskDef(game, t.id))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id));
+    if (s.daily.tasks.some(t => !taskDef(game, t.id) || (!t.n && !reach(game, taskDef(game, t.id))))) s.daily.tasks = s.daily.tasks.filter(t => taskDef(game, t.id) && (t.n || reach(game, taskDef(game, t.id))));   // việc hạ quái ở bản đồ chưa đủ tu vi (chưa làm) thì đổi việc khác
     if (s.daily.tasks.length < cfg.per_day) addTasks(game, s.daily, d);   // per_day tăng giữa ngày (5 → 20, chủ dự án 10/11/2026 13:15): bốc thêm cho đủ
     return s.daily;
   }
@@ -28,11 +31,19 @@ export function ensureDaily(game) {
 // Bốc việc cho đủ per_day (cùng ngày thì cùng bộ việc; việc đã có giữ nguyên)
 function addTasks(game, dl, d) {
   const s = game.save, cfg = game.data.daily, have = new Set(dl.tasks.map(t => t.id)), rnd = seeded(d + (game.owner || ''));
-  const pool = cfg.pool.filter(t => (!t.need || s.flags[t.need]) && !(game.data.dungeon.closed || []).includes(t.id));
+  const pool = cfg.pool.filter(t => (!t.need || s.flags[t.need]) && !(game.data.dungeon.closed || []).includes(t.id) && reach(game, t));
   while (dl.tasks.length < cfg.per_day && pool.length) {
     const id = pool.splice(Math.floor(rnd() * pool.length), 1)[0].id;
     if (!have.has(id)) dl.tasks.push({ id, n: 0, got: false });
   }
+}
+
+// Hạ quái làm được không (chủ dự án 12/11/2026 10:57: nhiệm vụ hạ quái ở tinh cầu chưa đủ tu vi tới thì sao làm): quái có ở bản đồ thường
+// thì phải có ít nhất một bản đồ đó mở theo tu vi (src/game/map-gate.js); quái chỉ có trong bí cảnh, việc khác: giữ như cũ (need lo).
+function reach(game, t) {
+  if (t.type !== 'kill' || !t.mob) return true;
+  const maps = Object.entries(game.data.maps).filter(([, m]) => (m.spawners || []).some(x => x.mob === t.mob));
+  return !maps.length || maps.some(([id]) => !mapGate(game, id));
 }
 
 export const taskDef = (game, id) => game.data.daily.pool.find(t => t.id === id);
@@ -57,8 +68,12 @@ export function dailyEvent(game, type, id, amount = 1) {
 // Hạ quái: việc đánh quái + việc Trấn giữ vùng an toàn (#47, #48: quái thường gần NPC, data/daily.json guard.r)
 export function dailyKill(game, m) {
   dailyEvent(game, 'kill', m.id);
+  if (!game.dungeon && !m.dummy && m.def.ai !== 'boss' && !m.wb) pbDrop(game, 'mob');   // pháp bảo rơi như trang bị (src/game/phap-bao-drop.js)
+  khKill(game, m);   // Mảnh Vỡ Tinh Cầu, trùm trận Khai Tinh (src/game/khai-hoang.js)
   const r = game.data.daily.guard?.r;
-  if (r && m.def.ai !== 'boss' && !m.wb && game.npcs?.some(n => Math.hypot(n.x - m.x, n.y - m.y) < r)) dailyEvent(game, 'guard', m.id);
+  // Trấn giữ (chủ dự án 12/11/2026 11:36: Đi làm không dẫn đi được): hạ quái thường ở tinh cầu có dân làng là tính, ngoài bí cảnh;
+  // tự hành làm như hạ quái bất kỳ (src/game/dailyjob.js)
+  if (r && m.def.ai !== 'boss' && !m.wb && !game.dungeon && game.npcs?.length) dailyEvent(game, 'guard', m.id);
 }
 
 // Đang tự hành: xong việc thì nhận thưởng luôn, đủ hết thì mở rương

@@ -3,14 +3,16 @@
 // trên đầu (đổi theo mục lớn, src/ui/self-bag.js → SUBS), lưới ô ở giữa, thanh dưới cùng. Chạm món (đang mặc hoặc trong kho):
 // phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về lưới (dùng chung src/ui/bag-detail.js, bag-stock.js với
 // Túi đồ). Công pháp, Thời trang: gắn chính bảng có sẵn của game vào khung phải (src/ui/self-host.js). Kiểu ở style-self.css.
+import { pbOn } from '../game/phap-bao.js';
+import { pbGrid, pbSheet } from './self-pb-page.js';
 import { playerStats } from '../game/stats.js';
 import { el, renderDetail } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { leftCard, statsSheet } from './self-left.js';
-import { renderStore, SUBS, groupOf } from './self-bag.js';
+import { renderStore, SUBS, groupOf, subsOf } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
-import { host, unhost, HOSTS } from './self-host.js';
+import { host, unhost, HOSTS, routeOld } from './self-host.js';
 import { snap, react } from './self-fx.js';
 import { patch, patchList } from './morph.js';
 
@@ -41,10 +43,11 @@ export function createSelfPanel(game) {
   root.append(frame, x);
   document.body.append(root);
   const st = { page: 'do', sub: 'all', sel: null, stock: null, coinLog: false, more: false, pickSocket: null, sort: 'moi', qs: false };
-  const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; };
+  const sub0 = page => (page === 'cp' && pbOn(game) ? 'cong-phap' : SUB0[page]);   // hệ pháp bảo mới: mục Chiêu cũ đã ẩn
+  const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; st.pbSel = null; };
   function close() { unhost(); root.hidden = true; game.uiOpen = false; reset(); st.pickSocket = null; st.qs = false; }
   x.onclick = close;
-  const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
+  const go = (page, sub) => { st.page = page; st.sub = sub || sub0(page); reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
 
   let lastSel = null;   // món đang mở chi tiết lần vẽ trước
   let before = null;   // trạng thái lúc vẽ gần nhất, để so sau thao tác mà chạy hiệu ứng (src/ui/self-fx.js)
@@ -89,8 +92,10 @@ export function createSelfPanel(game) {
     before = snap(game);
     patchList(rail, PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
     patch(left, leftCard(game, stt, h));   // vá thẻ cũ, không thay cả thẻ (src/ui/morph.js)
-    subs.classList.toggle('many', SUBS[st.page].length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
-    patchList(subs, SUBS[st.page].map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
+    const SB = subsOf(game, st.page);   // hệ pháp bảo mới: ẩn mục Chiêu, P.bảo cũ (self-bag.js)
+    if (!SB.some(([id]) => id === st.sub)) st.sub = SB[0][0];
+    subs.classList.toggle('many', SB.length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
+    patchList(subs, SB.map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
       st.sub = id; reset(); st.qs = false;
       if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
       render();
@@ -101,15 +106,19 @@ export function createSelfPanel(game) {
     unhost();
     const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
     lastSel = st.sel;
+    if (game.pbPick != null) { st.pbSel = game.pbPick; game.pbPick = null; }   // chạm ô pháp bảo dưới thẻ nhân vật
+    const pbPage = st.page === 'do' && st.sub === 'pb' && pbOn(game);
     let has = false;   // phần chi tiết thay chỗ lưới
     if (st.more) has = statsSheet(game, stt, mid, () => { st.more = false; render(); });
     else if (st.coinLog) has = renderCoinLog(game, mid, () => { st.coinLog = false; render(); });
     else if (st.sel != null) has = renderDetail(game, st, mid, changed, () => { st.sel = null; render(); });
+    else if (pbPage && st.pbSel != null) has = pbSheet(game, st, mid, changed, () => { st.pbSel = null; render(); });   // Trang bị → Pháp bảo (self-pb-page.js)
     else if (st.stock) has = renderStockSheet(game, st, mid, changed, () => { st.stock = null; render(); });
     mid.classList.toggle('sheet', has);
     if (has) decorate(game, mid);
     if (has) { bar.hidden = true; mid.scrollTop = same ? keep : 0; return; }
     reset();
+    if (pbPage) { pbGrid(game, st, mid, bar, render); mid.scrollTop = keep; return; }
     const r = renderStore(game, st, changed, render);
     mid.replaceChildren(r.wrap); bar.replaceChildren(r.bar);
     mid.scrollTop = keep;
@@ -118,10 +127,11 @@ export function createSelfPanel(game) {
   function open(page, sub) {   // page, sub: mở thẳng một mục (vd 'kho', 'dan')
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
-    if (SUBS[page]) { st.page = page; st.sub = sub || SUB0[page]; st.qs = false; st.pickSocket = null; }
+    if (SUBS[page]) { st.page = page; st.sub = sub || sub0(page); st.qs = false; st.pickSocket = null; }
     game.uiOpen = true; root.hidden = false; reset(); render();
   }
   game.openSelf = open;
+  routeOld(game);   // nút cũ mở bảng Chiêu / Linh thú thì vào đây (src/ui/self-host.js)
   game.toggleSelf = (page, sub) => (root.hidden ? open(page, sub) : close());   // nút Túi đồ (src/ui/bag.js): bấm lần nữa thì đóng
   const R = document.getElementById('realm');   // chạm khung tên, cảnh giới
   R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);

@@ -51,21 +51,31 @@ export function weaponId(save, data) {
   return data.items.bases[it?.base]?.weapon || it?.wt || save.weapon;   // Đạo Vận Binh mang loại vũ khí lúc nhận (it.wt)
 }
 
+// Cảnh giới gia trì (chủ dự án 12/11/2026 04:07 duyệt đề xuất 03:42): mỗi lần đột phá cảnh giới máu, công gốc ×(1 + pct%),
+// thêm linh lực %, tốc tu %, giờ bế quan tối đa (off). Viên Mãn (tầng cuối Độ Kiếp) dùng peak. data/realms.json → buff.
+export function realmBuff(save, R) {
+  const B = R.buff || [], b = B[Math.min(B.length - 1, save.realm || 0)] || {};
+  return (save.realm || 0) >= R.names.length - 1 && (save.layer || 1) >= R.layers && R.peak_buff ? { ...b, ...R.peak_buff } : b;
+}
+
 // Chỉ số cuối = gốc theo cảnh giới + vũ khí + trang bị và ngọc khảm
 export function playerStats(save, data) {
   const n = totalLayer(save, data.realms);
   const w = data.weapons[weaponId(save, data)], pc = data.config.player;
   const g = gearStats(data, save), tg = techStats(save, data);
   for (const [s, x] of Object.entries(tg)) g[s] = (g[s] || 0) + x;
+  const rb = realmBuff(save, data.realms);   // cảnh giới gia trì (data/realms.json → buff): linh lực %, tốc tu %
+  g.mp_pct = (g.mp_pct || 0) + (rb.mp || 0); g.qi_gain = (g.qi_gain || 0) + (rb.qi || 0);
   for (const [s, x] of Object.entries(setStats(data, save).stats)) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(daoVanStats(save, data))) g[s] = (g[s] || 0) + x;   // thưởng bộ Đạo Vận hợp hệ
   for (const [s, x] of Object.entries(wornExtra(save, data))) g[s] = (g[s] || 0) + x;
   for (const [s, x] of Object.entries(pbStats(save, data))) g[s] = (g[s] || 0) + x;   // 3 pháp bảo đang mặc (src/game/phap-bao.js)   // dòng thú cưỡi đang chọn, bộ thời trang đang mặc
   const v = s => g[s] || 0;
-  const base = { maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100)) };
+  const rk = 1 + (rb.pct || 0) / 100;   // máu, công gốc nhân theo cảnh giới (riêng, không cộng chung % trang bị)
+  const base = { maxHp: Math.round((pc.hp + n * data.realms.hp_per_layer + v('hp') + pillHp(save, data)) * (1 + v('hp_pct') / 100) * rk) };
   return {
     maxHp: base.maxHp,
-    atk: Math.round((w.atk + n * data.realms.atk_per_layer + v('atk')) * (1 + v('atk_pct') / 100)),
+    atk: Math.round((w.atk + n * data.realms.atk_per_layer + v('atk')) * (1 + v('atk_pct') / 100) * rk),
     crit: pc.crit + v('crit') / 100,
     critMult: pc.crit_mult + v('crit_dmg') / 100,
     cdr: v('cdr') / 100,

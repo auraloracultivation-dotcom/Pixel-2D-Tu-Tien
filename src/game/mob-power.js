@@ -30,7 +30,9 @@ function zoneMul(game) {
 }
 
 // Gọi khi quái mọc từ bãi (game.js updateSpawners), trước nhân vòng ngoài / ma khí
-export function zonePower(game, m) {
+// sp.cp (bãi có lực chiến định sẵn, như trùm trận Khai Tinh src/game/kh-gen.js): kéo thẳng về số đó
+export function zonePower(game, m, sp) {
+  if (sp?.cp && !m.remote) { const k = sp.cp / Math.max(1, mobPower(game, m)); m.def = { ...m.def, hp: Math.round(m.def.hp * k), atk: Math.round(m.def.atk * k * 10) / 10 }; m.hp = m.maxHp = m.def.hp; return; }
   const s = zoneMul(game);
   if (s === 1 || m.remote || m.duel || m.def.ai === 'dummy') return;
   m.def = { ...m.def, hp: Math.round(m.def.hp * s), atk: Math.round(m.def.atk * s * 10) / 10 };

@@ -243,7 +243,7 @@
     {
      "q": "Trang bị có mấy ô?",
      "a": [
-      "7 ô: Vũ khí, Mũ, Giáp, Ngọc bội, Giày, Nhẫn, Pháp bảo.",
+      "7 ô: Bản mệnh pháp bảo (trước gọi là Vũ khí), Mũ, Giáp, Ngọc bội, Giày, Nhẫn, Pháp bảo. Nút đánh thường mang hình bản mệnh pháp bảo đang dùng.",
       "Loại vũ khí (kiếm, thương, quạt, đàn, liềm, cung...) quyết định cách đánh thường và chiêu vũ khí. Quản Binh Khố ở Thiên Kiếm Tinh cho lĩnh miễn phí mỗi loại một món để thử."
      ]
     },

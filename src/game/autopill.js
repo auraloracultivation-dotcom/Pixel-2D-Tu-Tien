@@ -16,6 +16,6 @@ export function autoPills(game) {
     }
     if (u.trib && !atPeak(game)) continue;
     const msg = usePill(game, id);
-    if (msg) { game.toast(`Tự dùng ${P[id].name}: ${msg}`, 2.2); return; }
+    if (msg) { game.autoNote(`Tự dùng ${P[id].name}: ${msg}`, 2.2); return; }
   }
 }

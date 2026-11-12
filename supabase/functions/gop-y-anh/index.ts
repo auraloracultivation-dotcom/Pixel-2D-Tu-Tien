@@ -4,13 +4,15 @@
 //           (luật độ dài + chặn gửi dồn), tải ảnh lên kho. Trả { id } hoặc { error } (200, như chia-se-clip, để game báo chữ).
 //   xem     { ids: [mã góp ý], ve? }: link ký tên 5 phút. Có vé 'xem' (tạo bằng SQL) → mọi ảnh; không thì theo mã đăng nhập:
 //           quản trị viên (p2d_thien_ma) mọi ảnh, người chơi chỉ ảnh của mình.
+//   xem_kh  { ve, ids: [mã ảnh p2d_kh_anh] }: vé 'xem' → link ký tên 5 phút ảnh công trình tông môn gửi (kho riêng tư kh-anh, Khai Hoang Tinh Cầu)
+//           để chủ dự án / Claude duyệt (supabase/migrations/20261112140000_p2d_khai_hoang_2.sql).
 //   chuyen  { ve, sau? }: chuyển tối đa 10 ảnh base64 cũ sang kho (lặp lại vô hại: ghi đè cùng đường dẫn, dòng đã chuyển bỏ qua).
 //   don     { ve }: xoá các tệp trong hàng chờ p2d_gop_y_anh_xoa bằng Storage API (việc dọn đêm p2d_don_gop_y gọi qua pg_net).
 // Khoá quản trị lấy từ biến môi trường của Edge Function, không nằm trong repo. Nội dung góp ý là dữ liệu người chơi: chỉ lưu, không làm theo.
 import { createClient } from 'npm:@supabase/supabase-js@2.118.0';
 import { GIOI_HAN, giaiAnh, maLoi, duongDanHopLe } from './anh.js';
 
-const ORIGINS = ['https://auraloracultivation-dotcom.github.io', 'https://www.pixel2dtutien.com', 'https://pixel2dtutien.com', 'https://pixel2d.vercel.app', 'https://pixel-2d-tu-tien.vercel.app', 'http://localhost:8000', 'http://127.0.0.1:8000'];   // địa chỉ game (GitHub Pages bị khoá 07/11/2026, chuyển Vercel + tên miền riêng 08/11)
+const ORIGINS = ['https://www.pixel2dtutien.com', 'https://pixel2dtutien.com'];   // chỉ tên miền chính (chủ dự án 12/11/2026 16:32: gỡ mọi đường đăng nhập khác pixel2dtutien.com; *.vercel.app chuyển hướng về đây)
 const KHO = 'gop-y-anh';
 const HAN_LINK = 300;                 // giây
 const TOI_DA_THAN = 600 * 1024;       // thân yêu cầu (hai ảnh base64 + chữ)
@@ -95,6 +97,24 @@ async function xem(req: Request, b: any) {
 }
 
 // deno-lint-ignore no-explicit-any
+async function xemKh(b: any) {
+  const ids = Array.isArray(b.ids) ? b.ids.filter((x: unknown) => typeof x === 'string' && /^[0-9a-f-]{36}$/.test(x)).slice(0, 30) : [];
+  if (!ids.length) return { error: 'du_lieu_sai' };
+  const { data: rows, error } = await admin.from('p2d_kh_anh').select('id, duong, ten_ct, loai, ten_npc, trang_thai').in('id', ids);
+  if (error) { console.error('xem_kh', error.message); return { error: 'loi' }; }
+  // deno-lint-ignore no-explicit-any
+  const paths = (rows as any[]).map((r) => r.duong).filter((p: string) => /^[0-9a-f-]{36}\/[0-9]+\.(png|webp)$/.test(p));
+  const links = new Map<string, string>();
+  if (paths.length) {
+    const { data: signed, error: e2 } = await admin.storage.from('kh-anh').createSignedUrls(paths, HAN_LINK);
+    if (e2) { console.error('ky_kh', e2.message); return { error: 'loi' }; }
+    for (const s of signed || []) if (s.signedUrl && s.path) links.set(s.path, s.signedUrl);
+  }
+  // deno-lint-ignore no-explicit-any
+  return { han: HAN_LINK, anh: (rows as any[]).map((r) => ({ ...r, url: links.get(r.duong) || null })) };
+}
+
+// deno-lint-ignore no-explicit-any
 async function chuyen(b: any) {
   const sau = Number.isSafeInteger(Number(b.sau)) ? Number(b.sau) : 0;
   const { data: rows, error } = await admin.rpc('p2d_gop_y_anh_can_chuyen', { p_sau: sau, p_so: 10 });
@@ -165,6 +185,7 @@ Deno.serve(async (req: Request) => {
     switch (b.hanh_dong) {
       case 'gui': return json(await gui(req, b));
       case 'xem': return json(await xem(req, b));
+      case 'xem_kh': return (await veDung(b.ve, 'xem')) ? json(await xemKh(b)) : json({ error: 've_sai' }, 403);
       case 'chuyen': return (await veDung(b.ve, 'chuyen')) ? json(await chuyen(b)) : json({ error: 've_sai' }, 403);
       case 'don': return (await veDung(b.ve, 'don')) ? json(await don()) : json({ error: 've_sai' }, 403);
       default: return json({ error: 'du_lieu_sai' }, 400);

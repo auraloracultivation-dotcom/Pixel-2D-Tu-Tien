@@ -1,4 +1,6 @@
 // Trạng thái ván chơi và vòng cập nhật. Vẽ ở src/render, giao diện ở src/ui.
+import { mapGate } from './map-gate.js';
+import { seasonReset } from './season.js';
 import { fitBag } from './autoequip.js';
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
@@ -65,7 +67,6 @@ import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
 import { updateCombo } from './affinity.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
-
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
   const game = {
@@ -85,7 +86,6 @@ export function createGame(data, screen, input, ui, audio) {
   game.night = on => audio?.night(on);
   game.others = createOthers(game);
   createPvp(game);   // PvP Ngoại Vực (data/pvp.json)
-
   game.persist = () => {
     if (!game.save || !game.map) return;
     stamp(game.save); if (game.save.bag?.length > data.items.bag_size) fitBag(game);   // túi lố thì máy chủ từ chối cả bản lưu
@@ -101,7 +101,6 @@ export function createGame(data, screen, input, ui, audio) {
   game.number = (x, y, t, c) => addNumber(game, x, y, t, c);
   game.refreshStats = () => refreshStats(game);
   game.spawn = (id, x, y, extra) => spawnMob(game, id, x, y, extra);
-
   game.addNpc = (id, at) => {
     const p = at ? game.map.center(at[0], at[1]) : game.map.freeNear(Math.floor(game.player.x / cfg.tile) + 1, Math.floor(game.player.y / cfg.tile) - 1, 1, 6);
     game.npcs.push({ id, def: data.npcs[id], x: p.x, y: p.y, r: 6, bob: Math.random() * 6 });
@@ -131,7 +130,6 @@ export function createGame(data, screen, input, ui, audio) {
     const p = game.map.center(tx, ty);
     game.pickups.push({ item, x: p.x, y: p.y });
   };
-
   game.gainQi = (amount, x, y, quiet, raw, real) => {   // raw: không nhân đôi theo Thăng Linh Đan (đan linh khí); real: số đã là số thật (quái lk, đan), không nhân qi_rate
     amount = Math.round(amount * (game.player?.st.qiMul || 1) * (!raw && (game.save.qiX2 || 0) > Date.now() ? 2 : 1) * (game.daoLuMul?.() || 1) * 10) / 10;   // đạo lữ +5% (src/game/daolu.js)
     const got = Math.round(amount * (real ? 1 : data.realms.qi_rate ?? 1) * 100) / 100, broke = addQi(game.save, data.realms, got);   // qi_rate: mọi nguồn linh khí (data/realms.json); công pháp, linh thú, bạn đồng hành vẫn nhận kinh nghiệm theo số gốc
@@ -152,7 +150,6 @@ export function createGame(data, screen, input, ui, audio) {
     }
     game.persist(); return got;
   };
-
   game.onKill = m => {
     if (m.tower) return; // quái dàn cảnh (tâm ma thiên kiếp, bản sao so tài): không tính
     countKill(game, m);
@@ -176,7 +173,8 @@ export function createGame(data, screen, input, ui, audio) {
     game.map = buildMap(def, data.tiles, cfg.tile, data);
     game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = []; game.vfx = null;
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
-    const c = game.map.center(sp[0], sp[1]);
+    let c = game.map.center(sp[0], sp[1]);
+    if (game.map.blocked(c.x, c.y, game.player?.r || 5)) c = game.map.freeNear(sp[0], sp[1], 0, game.player?.r || 5);   // chỗ ra rơi vào chân cột, nhà: dời sang ô trống gần nhất (chủ dự án 12/11/2026 11:29: ra bí cảnh kẹt ở cổng Thiên Kiếm Phong)
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
@@ -184,7 +182,7 @@ export function createGame(data, screen, input, ui, audio) {
       if ((n.id === game.save.companion || n.id === game.save.companion2) && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game);
+    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game); game.onMapLoad?.(game);   // onMapLoad: NPC công trình tinh cầu khai hoang (khai-hoang.js)
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
@@ -202,6 +200,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   // fly: đi bằng cảnh bay/truyền tống; opts.text là chữ hiện trên đường, opts.with là NPC chở người chơi
   game.travel = async (id, spawnName, fly, opts = {}) => {
+    const gate = !opts.force && mapGate(game, id); if (gate) { if (!(game.gateT > performance.now())) { game.gateT = performance.now() + 4000; game.toast(gate, 2.4); } return; }   // mở theo tu vi (map-gate.js)
     game.traveling = true;
     try {
       if (fly) {
@@ -269,6 +268,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
+    seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
     applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
@@ -318,7 +318,7 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
-      zonePower(game, m);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp)
+      zonePower(game, m, s);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp); s.cp: trùm trận Khai Tinh
       if (s.mul && s.mul !== 1) scaleMobBy(game, m, s.mul, s.tag);
       if (s.farm) { m.lootMul = data.planets.farm.loot; m.farm = true; }
       maybeRare(game, m); s.alive.push(m);

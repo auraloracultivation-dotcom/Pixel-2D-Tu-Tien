@@ -8,6 +8,6 @@ export function quickBuyBtn(game, cost, done, cls = 'mini') {
   const b = document.createElement('button');
   b.className = cls + ' quick-buy'; b.type = 'button';
   b.textContent = q.texts.btn.replace('{n}', price.toLocaleString('vi-VN'));
-  b.onclick = e => { e.stopPropagation(); done(quickBuy(game, cost)); };
+  b.onclick = async e => { e.stopPropagation(); if (b.disabled) return; b.disabled = true; done(await quickBuy(game, cost)); };   // máy chủ mua: chờ kết quả
   return b;
 }

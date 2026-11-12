@@ -4,6 +4,8 @@
 import { canGuild, guildState, loadMine, loadList, guildErr, guildAct, createGuild, guildChat, pullGuildChat, sendGuildChat } from '../game/guild.js';
 import { coins } from '../game/shop.js';
 import { renderHome, renderMembers } from './guild-view.js';
+import { renderKh } from './kh-view.js';
+import { khMine } from '../game/khai-hoang.js';
 import { chatLines } from './chat-line.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
@@ -38,7 +40,7 @@ export function createGuildPanel(game) {
     try { const r = await fn(); msg = typeof ok === 'function' ? ok(r) : ok || ''; }
     catch (e) { msg = guildErr(game, e); }
     busy = false;
-    try { await loadMine(game); if (tab === 'find') await loadList(game, form.query); } catch { /* giữ bản cũ */ }
+    try { await loadMine(game); if (tab === 'find') await loadList(game, form.query); if (tab === 'kh') await khMine(game); } catch { /* giữ bản cũ */ }
     render();
   }
 
@@ -53,6 +55,7 @@ export function createGuildPanel(game) {
     if (!canGuild(game)) return;
     try {
       await loadMine(game);
+      if (tab === 'kh') await khMine(game);
       if (tab === 'find') await loadList(game, form.query);
       if (tab === 'chat') { pullT = Date.now(); await pullGuildChat(game); }
     } catch (e) { msg = guildErr(game, e); }
@@ -71,6 +74,7 @@ export function createGuildPanel(game) {
     if (tab === 'home') renderHome(ctx);
     else if (tab === 'members') renderMembers(ctx);
     else if (tab === 'chat') renderChat(list, m);
+    else if (tab === 'kh') renderKh(ctx, render);
     else renderFind(list, m);
   }
 
@@ -116,6 +120,7 @@ export function createGuildPanel(game) {
     msg = ''; armed = ''; game.uiOpen = true; $('guild').hidden = false; showTab(tab);
   }
   function close() { game.uiOpen = false; $('guild').hidden = true; $('guild-input').blur(); }
+  game.openGuild = t => { if (t) tab = t; open(); };   // mở thẳng một tab (tinh đồ → nút Khai hoang mở tab Tinh cầu)
 
   $('guild-title').textContent = G.name;
   $('btn-guild').textContent = G.name;

@@ -7,6 +7,7 @@ import { drawNpcSprite } from './draw-npc-sprite.js';
 import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
 import { ACT, drawAct, walkFrame } from './draw-acts.js';
 import { drawHero } from './draw-hero.js';
+import { SPOTS, spotBox } from '../game/home-spot.js';
 
 const flat = it => it.foot.flat;
 const flameKind = it => it.spr.flame_c || (it.id.includes('lam') ? 'lam' : it.id.includes('hong') ? 'hong' : 'vang');
@@ -14,8 +15,23 @@ const flameKind = it => it.spr.flame_c || (it.id.includes('lam') ? 'lam' : it.id
 // Đồ phẳng: vẽ ngay sau nền, trước mọi thứ đứng trên đất
 export function drawHoiFlat(ctx, game, t) {
   const items = game.map?.hoi;
+  if (game.bay?.on) drawSpots(ctx, game);
   if (!items?.length) return;
   for (const it of items) if (flat(it)) drawHoiItem(ctx, game, it, t);
+}
+
+// Bày cảnh trong động phủ: khung Mộc Nhân, bể cá (kéo được, src/game/home-spot.js); khung vàng là món đang chọn
+const SPOT_NAME = { dummy: 'Mộc Nhân', be_ca: 'Bể cá' };
+function drawSpots(ctx, game) {
+  if (game.map.id !== game.data.home?.map) return;
+  for (const key of Object.keys(SPOTS)) {
+    const b = spotBox(game, key), on = game.bay.sel?.spot === key;
+    if (!b) continue;
+    ctx.save(); ctx.strokeStyle = on ? '#ffe36a' : 'rgba(150,220,255,0.8)'; ctx.lineWidth = 1; ctx.setLineDash([3, 2]);
+    ctx.strokeRect(b.x - b.w / 2, b.y - b.h + 8, b.w, b.h);
+    ctx.setLineDash([]); ctx.font = '6px sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = ctx.strokeStyle;
+    ctx.fillText(SPOT_NAME[key], b.x, b.y - b.h + 5); ctx.restore();
+  }
 }
 
 // Đồ đứng trong khung nhìn (chừa lề cho hình cao), để draw.js xếp theo chân cùng người, quái

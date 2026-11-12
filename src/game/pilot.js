@@ -3,6 +3,7 @@
 // quanh đó, không có quái thì đả tọa tại chỗ. Chỉ làm nhiệm vụ (chủ dự án 11/11/2026 16:53): đã xoá việc vặt cũ (về nhà nhận quà, uống trà,
 // vuốt ve linh thú, câu cá lúc rảnh, nấu canh, luyện đan dư, khuya về động phủ, treo máy, khai luống, nâng động phủ). Việc tại chỗ vẫn làm:
 // tự mặc đồ tốt hơn, cường hoá an toàn, khảm ngọc, uống đan, túi đầy phân giải, nhận thưởng thành tựu (Menu → Tự động bật tắt).
+import { mapGate } from './map-gate.js';
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf, clearShot } from './auto.js';
 import { dailyJob } from './dailyjob.js';
@@ -78,7 +79,7 @@ function routeTo(game, dest) {
   while (q.length) {
     const [id, first] = q.shift();
     for (const pt of maps[id].portals) {
-      if ((pt.need && !flags[pt.need]) || seen.has(pt.to) || (game.data.dungeon.closed || []).includes(pt.to)) continue;
+      if ((pt.need && !flags[pt.need]) || seen.has(pt.to) || (game.data.dungeon.closed || []).includes(pt.to) || mapGate(game, pt.to)) continue;   // mapGate: chưa đủ tu vi (src/game/map-gate.js)
       const f = first || pt;
       if (pt.to === dest) return f;
       seen.add(pt.to); q.push([pt.to, f]);
@@ -156,7 +157,7 @@ function plan(game) {
     const j = dailyJob(game, routeTo);
     if (j?.meditate) return sit(game);
     if (j) return j;
-    stopPilot(game, 'Tự hành: việc ngày làm được đã xong. Việc còn lại (bí cảnh, thiếu nguyên liệu…) bạn tự làm nhé.');
+    stopPilot(game, 'Tự hành: đã làm hết việc ngày tự làm được. Việc còn lại (bí cảnh, thiếu nguyên liệu…) chưa xong, bạn tự làm nhé.');
     return null;
   }
   if (game.dungeon && game.map.def.rooms?.length) {   // tự hành trong bí cảnh (chủ dự án 02/11): đánh hết quái, sang phòng kế; xong thì chờ bảng kết quả (đang đi truyện thì làm tiếp truyện)

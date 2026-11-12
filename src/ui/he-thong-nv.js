@@ -28,7 +28,7 @@ export function renderTasks(game, body, api) {
   if (api.say) { const s = el('div', 'ht-say'), t = el('div'); t.append(el('b', null, H.name), el('p', null, api.say)); if (api.face) s.append(api.face.node); s.append(t); body.append(s); }
   body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
   const t = htTask(game);
-  if (t && !game.story?.current?.()?.until?.never) {   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
+  if (t && H.story_ui !== false && !game.story?.current?.()?.until?.never) {   // story_ui false: bỏ khung việc truyện (data/he-thong.json)   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
     body.append(el('div', 'ht-sub', X.story_hint), el('p', 'ht-line ht-goal', t));
     const g = el('button', 'ht-btn', game.pilot ? H.guide_on : H.guide); g.type = 'button'; g.disabled = !!game.pilot;
     g.onclick = async () => { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); api.minimize(); };
@@ -40,8 +40,14 @@ export function renderTasks(game, body, api) {
     game.htFace?.react('xong');
     if (m.qua?.length) takeMail(game);
   };
+  // Nhận thưởng: đẩy bản lưu lên máy chủ trước (máy chủ xét theo bản đã lưu; vừa xong việc mà chưa kịp lưu thì báo "chưa xong",
+  // chơi thử 12/11/2026: bấm Nhận 5 lần vẫn không nhận được); máy chủ vẫn báo chưa xong thì đợi lưu xong rồi thử lại một lần
+  const sync = async () => { game.persist?.(); for (let i = 0; i < 3; i++) { await game.cloud?.flush?.(); await new Promise(r => setTimeout(r, 300)); } };
+  const claim = async fn => { await sync(); try { return await fn(); } catch (e) { if (!String(e?.message || '').includes('chua_xong')) throw e; await new Promise(r => setTimeout(r, 1500)); await sync(); return fn(); } };
   const err = e => { const s = String(e?.message || ''); game.htFace?.react('loi'); game.toast(s.includes('chua_xong') ? X.todo : X.summon_err, 2); };
-  const list = missionList(game, ht.xong);
+  // thứ tự (chủ dự án 12/11/2026 10:44): chờ nhận thưởng trên đầu, chưa làm giữa, đã nhận cuối (sort giữ thứ tự gốc trong mỗi nhóm)
+  const rank = d => (d.got ? 2 : d.ok ? 0 : 1);
+  const list = missionList(game, ht.xong).sort((x, y) => rank(x) - rank(y));
   body.append(el('div', 'ht-sub', H.task_head));
   for (const m of list) {
     const row = el('div', `ht-mis${m.ok ? ' ok' : ''}`);
@@ -71,15 +77,21 @@ export function renderTasks(game, body, api) {
       row.append(b, opts);
     } else if (!m.ok && m.go) {
       b.textContent = X.go; b.onclick = () => { api.minimize(); game.openOldPanel?.({ btn: m.go }); }; row.append(b);
+    } else if (!m.ok) {   // chơi thử 12/11/2026: bỏ khung truyện thì việc truyện / tu luyện không còn nút dẫn → Đi làm: truyện, cảnh giới bật Tự hành;
+      // pháp bảo mở Trang bị → P.bảo; trang bị, cường hoá, khảm mở Trang bị
+      const k = m.dk || {}, pb = Object.keys(k).some(x => x.startsWith('pb_'));
+      b.textContent = X.go;
+      b.onclick = async () => { api.minimize(); if (pb) game.openPhapBao?.(); else if ('step' in k || 'realm' in k) { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); } else game.openSelf?.('do'); };
+      row.append(b);
     } else {
       b.textContent = m.ok ? X.claim : X.todo; b.disabled = !m.ok || !game.cloud;
-      b.onclick = async () => { b.disabled = true; try { const N = await import('../net/he-thong.js'); done(await N.htClaim(m.id), m); } catch (e) { err(e); b.disabled = false; } };
+      b.onclick = async () => { b.disabled = true; try { const N = await import('../net/he-thong.js'); done(await claim(() => N.htClaim(m.id)), m); } catch (e) { err(e); b.disabled = false; } };
       row.append(b);
     }
     body.append(row);
   }
   // Nhiệm vụ ngày
-  const N = H.ngay, day = dailyList(game, ht);
+  const N = H.ngay, day = dailyList(game, ht)?.sort((x, y) => rank(x) - rank(y));
   body.append(el('div', 'ht-sub', N.head));
   if (!day) body.append(el('p', 'ht-line ht-muted', N.locked));
   else if (day.every(d => d.got)) body.append(el('p', 'ht-line ht-muted', N.done));
@@ -88,7 +100,7 @@ export function renderTasks(game, body, api) {
     row.append(el('b', null, d.text), el('small', 'ht-qua', fill(X.reward, { r: fill(X.pts_tag, { p: H.points }) })));
     b.type = 'button'; b.disabled = d.got || (d.ok && !game.cloud);
     if (!d.ok) { b.textContent = X.go; b.onclick = async () => { api.minimize(); (await import('../game/dailyjob.js')).dailyGo(game, d.id); }; }   // chưa xong: tự hành đi làm
-    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await M.htDaily(d.id), {}); } catch (e) { err(e); b.disabled = false; } };
+    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await claim(() => M.htDaily(d.id)), {}); } catch (e) { err(e); b.disabled = false; } };
     row.append(b); body.append(row);
   }
   if (!game.cloud) body.append(el('p', 'ht-line ht-muted', X.login));

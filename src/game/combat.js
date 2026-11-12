@@ -31,7 +31,8 @@ export function addNumber(game, x, y, text, color = '#fff', big = false) {
     if ((color === '#fff' || color === '#ffd84a') && !fxOk(game, big ? 'num_crit' : 'num')) return;
     const N = game.data.juice?.budget?.num_max ?? 28;
     if (game.numbers.length >= N) game.numbers.splice(game.numbers.findIndex(n => !n.big) >>> 0, 1);   // bỏ số thường cũ nhất trước
-    game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: shortNum(+text), v: +text, color, big, t: 0 });   // số lớn rút gọn: 253Tr
+    const ref = color === '#fff' || color === '#ffd84a' ? game.player?.dmgRef || game.player?.atk || 0 : 0;   // cỡ số theo đòn đánh thường (draw-numbers.js)
+    game.numbers.push({ x: x + (Math.random() * 6 - 3), y, text: shortNum(+text), v: +text, color, big, t: 0, ref });   // số lớn rút gọn: 253Tr
     return;
   }
   if (game.numbers.length > 28) game.numbers.shift();   // giữ màn gọn khi đánh đông quái
@@ -61,6 +62,8 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (opt.slow && !m.def.noCc) m.slowT = Math.max(m.slowT, opt.slow);   // noCc: bản sao so tài không bị khống chế (nó cũng không khống chế người chơi)
   if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
+  const ratio = own && p.dmgRef ? dmg / p.dmgRef : 0;   // đòn to gấp mấy lần đánh thường: rung màn, khựng (chủ dự án 12/11/2026 04:14)
+  if (ratio >= 3 && !m.dummy) { game.screen.shake(Math.min(7, 1.5 + ratio * 0.35), 0.16); if (ratio >= 10) { game.hitstop = Math.max(game.hitstop, 0.07); game.sfx('impact', 0.7); } }
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
