@@ -2642,7 +2642,7 @@
   "odds_eq": "Tỷ lệ: {n} loại, mỗi loại {p}%",
   "faq_find": "Tìm hoặc hỏi bổn hệ thống... (vd: đột phá, cường hoá, chợ)",
   "faq_none": "Không thấy câu nào. Thử chữ khác, hoặc bấm \"Hỏi bổn hệ thống câu này\" ở trên.",
-  "feed_head": "Vừa trúng lớn"
+  "feed_head": "Vừa trúng lớn", "ls_btn": "Lịch sử triệu hồi", "ls_head": "50 lần triệu hồi gần nhất của ký chủ", "ls_empty": "Ký chủ chưa triệu hồi lần nào."
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
  "ngay": {

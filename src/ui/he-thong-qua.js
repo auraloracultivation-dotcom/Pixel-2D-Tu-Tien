@@ -89,20 +89,23 @@ export function renderGacha(game, body, ht, onDone) {
   const feed = el('div', 'ht-feed');   // 10 lần quay đáng khoe cả máy chủ: bạo kích từ x5 hoặc trang bị phẩm Thiên trở lên (chủ dự án 07/11/2026 00:07)
   const wrap = el('div', 'ht-chest-wrap');   // bảng khoe nằm ngoài sân khấu (sân khấu cắt viền ánh sáng) để kéo lên, ra sát mép bảng
   stage.append(slot, chest); wrap.append(stage, feed);
+  // một dòng quà: biểu tượng, tên người (bảng khoe) hoặc giờ (lịch sử của mình), món kèm số lần bạo kích
+  const feedRow = (f, who) => {
+    const p = H.pool.find(x => x.id === f.qua); if (!p) return null;
+    const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
+    // chủ dự án 09/11/2026 10:32: ghi số lần bạo kích ngay đầu, kiểu "4x 2.000.000", "3x Hồi Xuân Đan" (bỏ "×n" sau tên cho khỏi
+    // hiểu nhầm nhân hai lần)
+    const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? base(f.nd, f.nd.coins).toLocaleString('vi-VN') : L.name.replace(/ ×1$/, '');   // bạo kích: "3x 1.000.000" (số gốc)
+    const t = el('span'); t.append(el('b', null, String(who).slice(0, 11)), el('em', null, `${bk > 1 ? bk + 'x ' : ''}${what}`));
+    t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
+    row.title = `${who}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t);
+    return row;
+  };
   const loadFeed = () => game.cloud && import('../net/he-thong.js').then(N => N.htFeed()).then(list => {
     feed.textContent = '';
     if (!list?.length) return;
     feed.append(el('div', 'ht-feed-h', X.feed_head));
-    for (const f of list) {
-      const p = H.pool.find(x => x.id === f.qua); if (!p) continue;
-      const L = look(game, p, f.nd), bk = f.nd?.bk || 1, row = el('div', 'ht-feed-r'), ic = el('i'); ic.append(L.ico(18));
-      // chủ dự án 09/11/2026 10:32: ghi số lần bạo kích ngay đầu, kiểu "4x 2.000.000", "3x Hồi Xuân Đan" (bỏ "×n" sau tên cho khỏi
-      // hiểu nhầm nhân hai lần)
-      const what = f.nd?.item ? grade(game.data, f.nd.item).name : f.nd?.coins && !f.nd?.doi ? base(f.nd, f.nd.coins).toLocaleString('vi-VN') : L.name.replace(/ ×1$/, '');   // bạo kích: "3x 1.000.000" (số gốc)
-      const t = el('span'); t.append(el('b', null, String(f.ten).slice(0, 10)), el('em', null, `${bk > 1 ? bk + 'x ' : ''}${what}`));
-      t.lastChild.style.color = bk >= 5 ? '#ffa53a' : L.glow;
-      row.title = `${f.ten}: ${L.name}${bk > 1 ? ' x' + bk : ''}`; row.append(ic, t); feed.append(row);
-    }
+    for (const f of list) { const r = feedRow(f, f.ten); if (r) feed.append(r); }
   }).catch(() => {});
   loadFeed();
   const btn = el('button', 'ht-btn big', fill(X.summon, { c: H.cost })), need = el('p', 'ht-line ht-muted');
@@ -164,4 +167,20 @@ export function renderGacha(game, body, ht, onDone) {
   const tb = el('div', 'ht-odds');
   for (const p of H.pool) { const L = look(game, p), r = el('div', `ht-odd${rank(p) > 1 ? ' rare' : ''}`), s = el('span', null, L.name); s.style.color = L.glow; r.append(s); tb.append(r); }
   body.append(tb);
+  // Lịch sử triệu hồi của mình (đề xuất #153): bấm mở / gập, 50 lần gần nhất từ máy chủ
+  if (!game.cloud || !X.ls_btn) return;
+  const lsBtn = el('button', 'ht-btn', X.ls_btn), ls = el('div', 'ht-feed ht-ls');
+  lsBtn.type = 'button'; ls.hidden = true;
+  const hm = d => { const t = new Date(d); return `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')} ${t.getDate()}/${t.getMonth() + 1}`; };
+  lsBtn.onclick = () => {
+    ls.hidden = !ls.hidden;
+    if (ls.hidden) return;
+    ls.textContent = '…';
+    import('../net/he-thong.js').then(N => N.htMine()).then(list => {
+      ls.textContent = '';
+      ls.append(el('div', 'ht-feed-h', list?.length ? X.ls_head : X.ls_empty));
+      for (const f of list || []) { const r = feedRow(f, hm(f.luc)); if (r) ls.append(r); }
+    }).catch(() => { ls.textContent = X.summon_err; });
+  };
+  body.append(lsBtn, ls);
 }
