@@ -8,6 +8,7 @@ import { pbTest } from './phap-bao.js';
 export function seasonReset(game) {
   const S = game.data.config.season, s = game.save;
   if (!S || !s) return false;
+  if (s.element) for (const f of S.open_flags || []) (s.flags ??= {})[f] = true;   // cổng không còn chờ truyện (data/config.json season.open_flags); người mới thức tỉnh linh căn xong mới mở (khỏi bỏ qua làng đầu)
   if ((+s.mua || 1) >= S.id) return false;   // save.mua: số mùa (save.season là mùa trong năm của thời tiết, đừng lẫn)
   if (s.step === 0 && !s.realm && (s.layer || 1) === 1 && !s.qi) { s.mua = S.id; return false; }   // bản mới: chỉ ghi mùa
   if (pbTest(game)) { s.mua = S.id; return false; }
@@ -25,6 +26,7 @@ export function seasonReset(game) {
   }
   if (s.bag) s.bag = s.bag.filter(it => !isOld(it));
   delete s.phapBao;   // hệ pháp bảo mới nhận lại từ đầu theo mốc
+  if (s.element) for (const f of S.open_flags || []) s.flags[f] = true;   // cờ cổng vừa xoá theo story_flags: mở lại
   if (S.hello) setTimeout(() => game.toast?.(S.hello, 7), 2500);   // chào mùa mới
   return true;
 }
