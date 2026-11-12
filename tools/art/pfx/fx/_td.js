@@ -109,16 +109,23 @@ export function groundPatch(p, R, fn, seed = 0, rough = 1) {
   });
 }
 
-/** Đường nứt / vân băng toả từ gần tâm ra mép trên mặt đất: n đường gấp khúc có nhánh, dài tới tỉ lệ grow (0..1) của R. c(u) màu theo chiều dài. */
-export function groundVeins(p, R, n, seed, grow, c, k = 1, from = 0.14) {
+/**
+ * Đường nứt / vân băng toả từ gần tâm ra mép trên mặt đất: n đường gấp khúc có nhánh, dài tới tỉ lệ grow (0..1) của R. c(u) màu theo chiều dài.
+ * o: { jit (độ gấp khúc mỗi đốt, rad; mặc định 0,5), branch (xác suất mọc nhánh mỗi đốt; 0,38), edge(u) (màu mép: vẽ thêm một nét sẫm sát bên
+ * dưới cho khe nứt dày 2 điểm ảnh như khe dung nham; không khai thì nét đơn), straight (càng xa tâm càng ít lệch góc: khe toả thẳng ra mép
+ * chứ không chạy vòng) }
+ */
+export function groundVeins(p, R, n, seed, grow, c, k = 1, from = 0.14, o = {}) {
+  const jit = o.jit ?? 0.5, br = o.branch ?? 0.38;
+  const seg = (x0, y0, x1, y1, u, m = 1) => { if (o.edge) p.line(x0, y0 + 1, x1, y1 + 1, o.edge(u), k * m); p.line(x0, y0, x1, y1, c(u), k * m); };
   for (let i = 0; i < n; i++) {
     let a = (i * TAU) / n + (rand(seed, i, 1) - 0.5) * 0.5, r = R * from, L = R * (0.72 + 0.26 * rand(seed, i, 2)) * grow;
     let [x, y] = gp(a, r);
     for (let st = 0; r < L; st++) {
-      const step = 4 + 3 * rand(seed, i, st, 3); a += (rand(seed, i, st, 4) - 0.5) * 0.5; r = Math.min(L, r + step);
+      const step = 4 + 3 * rand(seed, i, st, 3); const near = o.straight ? Math.min(1, 14 / r) : 1; a += (rand(seed, i, st, 4) - 0.5) * jit * near; r = Math.min(L, r + step);
       const [nx, ny] = gp(a, r), u = r / R;
-      p.line(x, y, nx, ny, c(u), k);
-      if (rand(seed, i, st, 5) < 0.38 && r < L * 0.9) { const b = a + (rand(seed, i, st, 6) < 0.5 ? -1 : 1) * (0.5 + 0.4 * rand(seed, i, st, 7)), [bx, by] = gp(b, r + 3 + 5 * rand(seed, i, st, 8)); p.line(nx, ny, nx + (bx - nx) * 0.8, ny + (by - ny) * 0.8, c(u), k * 0.9); }
+      seg(x, y, nx, ny, u);
+      if (rand(seed, i, st, 5) < br && r < L * 0.9) { const b = a + (rand(seed, i, st, 6) < 0.5 ? -1 : 1) * (0.5 + 0.4 * rand(seed, i, st, 7)) * near, [bx, by] = gp(b, r + 3 + 5 * rand(seed, i, st, 8)); seg(nx, ny, nx + (bx - nx) * 0.8, ny + (by - ny) * 0.8, u, 0.9); }
       x = nx; y = ny;
     }
   }

@@ -5,8 +5,8 @@ export const meta = {
   name: "Rồng",
   desc: "Một con rồng lao tới: đầu có sừng, râu dài, mắt sáng, miệng há phun sáng; thân uốn lượn hình sóng thon dần về đuôi, vảy sáng tối xen kẽ, gai lưng; mỗi hệ một dáng: rồng lửa bốc cháy, rồng mây mộc mọc lá, rồng nước tung bọt.",
   tags: ["p2d", "projectile", "loop", "directional", "showpiece"],
-  size: [156, 76],
-  origin: [124, 38],
+  size: [168, 88],
+  origin: [128, 46],
   duration: 0.6,
   loop: true,
   fps: 30,
@@ -63,35 +63,47 @@ export function draw(p, t, o) {
     for (const sd of [-1, 0, 1]) p.line(x, y, x - 7 - (sd === 0 ? 3 : 0), y + sd * 3.5 + fl, sd === 0 ? C[6] : C[5]); }
   // hai chân trước nhỏ
   for (const s of [L * 0.26, L * 0.62]) { const y = yAt(s), r = rAt(s), sw = ln(t, D, 1, S + s) * 1.5; p.line(-s, y + r, -s - 3 + sw, y + r + 3.5, C[2]); p.px(-s - 4 + sw, y + r + 4, C[6]); p.px(-s - 2 + sw, y + r + 4.5, C[6]); }
-  // đầu nhìn nghiêng: cổ thon nối vào thân, gờ mày, mõm dài có mũi gồ, hàm dưới há rộng (trong miệng tối, họng rực), nanh, mắt dữ, sừng, bờm, râu
-  const X = 3, Y = hy, tl = clamp(slope * 2.2, -1.6, 1.6), H = (x, y) => [X + x, Y + y + tl * clamp((x + 8) / 20)];   // đầu hơi ngóc theo thân
+  // đầu nhìn nghiêng, to hơn thân một cỡ (HS) để đọc ra là đầu rồng ngay cả ở cỡ nhỏ: sọ có gờ mày nhô, mõm dài mũi gồ, miệng há rộng
+  // (trong miệng tối, họng rực lửa), nanh trắng, mắt sáng dưới gờ mày, hai sừng dài vuốt về sau, tai vây, bờm, râu dài, chòm râu cằm
+  const HS = (G / 5.5) * 1.18, X = 4, Y = hy, tl = clamp(slope * 2.2, -1.6, 1.6), H = (x, y) => [X + x * HS, Y + y * HS + tl * clamp((x + 8) / 20)];   // đầu hơi ngóc theo thân
   const P = (pts) => pts.map(([x, y]) => H(x, y)), L2 = (x0, y0, x1, y1, c) => { const [ax, ay] = H(x0, y0), [bx, by] = H(x1, y1); p.line(ax, ay, bx, by, c); };
+  const PX = (x, y, c) => { const [qx, qy] = H(x, y); p.px(qx, qy, c); };
   const grow = (pts, g) => { const cx = pts.reduce((a, q) => a + q[0], 0) / pts.length, cy = pts.reduce((a, q) => a + q[1], 0) / pts.length; return pts.map(([x, y]) => { const l = Math.hypot(x - cx, y - cy) || 1; return [x + ((x - cx) / l) * g, y + ((y - cy) / l) * g]; }); };
-  const skull = P([[-13, -3.4], [-8, -5.4], [-3, -7.2], [1, -6.4], [6, -4.4], [10, -4.2], [13, -3.2], [14, -1.2], [12.5, 0.4], [6, 0.6], [-1, 1.6], [-13, 2.6]]);
-  const jaw = P([[-12, 2], [-3, 2.4], [2, 4.4], [8, 8], [8.6, 9.6], [2, 8.6], [-6, 6.4], [-12, 4.4]]);
-  p.poly(grow(jaw, 1), INK); p.poly(grow(skull, 1), INK);
-  p.poly(P([[-2, 1.6], [12, 0.6], [8, 8], [2, 4.6]]), C[1]);   // trong miệng: tối
-  p.poly(P([[-2, 1.8], [5, 1.4], [3.6, 4.2], [0, 3.4]]), C[6]); L2(-1, 2.4, 3, 2.4, WHITE);   // họng rực
-  p.poly(jaw, C[2]); L2(-10, 3.4, 6, 8, C[3]);
-  p.poly(skull, C[3]);
-  p.poly(P([[-12, -3], [-8, -4.8], [-3, -6.4], [1, -5.6], [5, -3.8], [0, -2.6], [-12, -1]]), C[4]);   // đỉnh đầu bắt sáng
-  L2(-7, -5, -2, -6.6, C[5]); L2(7, -3.6, 12, -2.8, C[5]); L2(-11, 1.6, -2, 0.8, C[2]);
-  for (const [x, y] of [[12, 1.2], [9.6, 1.4], [7, 1.4], [4.6, 1.6], [7, 6.6], [4.4, 5.2]]) { const [qx, qy] = H(x, y); p.px(qx, qy, WHITE); }   // nanh
-  { const [qx, qy] = H(12, 2.2); p.px(qx, qy, WHITE); }
-  { const [ex, ey] = H(2, -3.8); p.px(ex, ey, WHITE); p.px(ex + 1, ey, WHITE); p.px(ex, ey + 1, C[7]); p.px(ex + 1, ey + 1, INK); L2(-1, -5.2, 4.4, -4.4, INK); p.light(ex, ey, C[6], 1); p.light(ex + 1, ey, C[6], 0.8); }
-  { const [nx, ny] = H(13, -2.6); p.px(nx, ny, C[6]); }
-  for (const [x0, y0, x1, y1] of [[-3, -7, -12, -13], [-6, -6, -14, -9]]) { L2(x0, y0, x1, y1, C[7]); L2(x0, y0 + 1, x1 + 1, y1 + 1, C[5]); }   // sừng
-  L2(-8.6, -10.6, -9.4, -13.6, C[7]);
-  for (let i = 0; i < 6; i++) {   // bờm mọc dọc gáy, tung về sau
-    const bx = -6 - i * 2.2, fl = ln(t, D, 2, S + 20 + i) * 1.6, len = 6 + (i % 2) * 3.5 + fl, [ax, ay] = H(bx, -4.6 + i * 0.35), [ex, ey] = H(bx - len, -6.5 - (i % 2) * 2 + fl * 0.5 + i * 0.7);
-    p.tri(ax - 1.4, ay, ax + 1.4, ay, ex, ey, i % 2 ? C[6] : C[5]);
+  const gape = 1 + 0.12 * Math.sin((t / D) * TAU);   // hàm dưới đớp nhẹ theo nhịp bay
+  const skull = P([[-14, -4], [-9, -7], [-3, -8.6], [2, -7.2], [6, -4.6], [11, -5.4], [16, -4], [18.5, -1.6], [17, 0.6], [9, 1], [1, 2], [-14, 3.2]]);
+  const jaw = P([[-13, 2.6], [-2, 3], [2, 5.4 * gape], [9, 9 * gape], [15, 12 * gape], [15.6, 13.6 * gape], [9, 12.6 * gape], [0, 9.6 * gape], [-8, 6.6], [-13, 5]]);
+  for (let i = 0; i < 7; i++) {   // bờm mọc dọc gáy, tung về sau (vẽ trước để nằm sau sọ)
+    const bx = -5 - i * 2.4, fl = ln(t, D, 2, S + 20 + i) * 1.8, len = 8 + (i % 2) * 4.5 + fl, [ax, ay] = H(bx, -5 + i * 0.5), [ex, ey] = H(bx - len, -8 - (i % 2) * 2.4 + fl * 0.5 + i * 0.9);
+    p.tri(ax - 1.8, ay + 1, ax + 1.8, ay, ex, ey, INK); p.tri(ax - 1.2, ay, ax + 1.2, ay, ex + 1, ey + 0.4, i % 2 ? C[6] : C[5]);
   }
+  for (const [x0, y0, x1, y1, w] of [[-4, -8, -16, -18, 1], [-8, -7, -19, -12.5, 0]]) {   // sừng: viền mực, thân sáng, chóp trắng
+    for (const [dx, dy, c] of [[0, -1, INK], [0, 2, INK], [-1, 0, INK], [0, 0, C[6]], [0, 1, C[5]]]) { const [ax, ay] = H(x0, y0), [bx, by] = H(x1, y1); p.line(ax + dx, ay + dy, bx + dx, by + dy, c); }
+    if (w) { const [mx, my] = H(-11, -13); p.line(mx, my, mx - 3 * HS, my + 0.5, C[6]); }   // nhánh sừng
+    PX(x1, y1, WHITE); PX(x1 + 0.9, y1 + 0.8, C[7]);
+  }
+  p.poly(grow(jaw, 1), INK); p.poly(grow(skull, 1), INK);
+  p.poly(P([[0, 2], [17, 0.6], [15, 12 * gape], [2, 5.4 * gape]]), C[0]);   // trong miệng: tối
+  p.poly(P([[0, 2.2], [8, 1.6], [6.4, 6 * gape], [2, 5 * gape]]), C[5]); p.poly(P([[0.6, 2.6], [5.6, 2.2], [4.6, 4.8 * gape], [2, 4.4 * gape]]), C[7]);   // họng rực
+  p.poly(jaw, C[2]); L2(-10, 4, 8, 9.6 * gape, C[3]); L2(-11, 5.4, 6, 11.6 * gape, C[1]);
+  p.poly(skull, C[3]);
+  p.poly(P([[-13, -3.6], [-9, -6.4], [-3, -7.8], [2, -6.4], [5.6, -4], [0, -2.8], [-13, -1.2]]), C[4]);   // đỉnh đầu bắt sáng
+  p.poly(P([[6.4, -4], [11, -4.8], [15.6, -3.4], [17.4, -1.8], [9, -1.6]]), C[4]);                          // sống mũi bắt sáng
+  L2(-8, -6.2, -3, -8, C[6]); L2(11, -4.8, 15.4, -3.6, C[6]); L2(-12, 2, -1, 1.4, C[2]); L2(2, 1.4, 16.4, 0.2, C[1]);
+  for (const [x, y, h] of [[16, 1, 2.4], [13.6, 1.2, 1.6], [11.2, 1.3, 1.2], [8.8, 1.4, 1.6], [6.4, 1.6, 1]]) { L2(x, y, x - 0.3, y + h, WHITE); }   // nanh hàm trên (cái đầu dài nhất)
+  for (const [x, y, h] of [[14, 11 * gape, 2.2], [11, 9.4 * gape, 1.4], [8, 7.8 * gape, 1.4], [5.2, 6.4 * gape, 1]]) { L2(x, y, x + 0.2, y - h, WHITE); }   // nanh hàm dưới
+  { p.poly(P([[0.4, -6.4], [6.4, -5.4], [6, -2.8], [0.8, -3]]), INK);   // hốc mắt tối cho mắt nổi
+    const [ex, ey] = H(2.4, -4.8);   // mắt: lõi trắng rực, đuôi mắt vàng, gờ mày sáng phía trên
+    p.px(ex, ey, WHITE); p.px(ex + 1, ey, WHITE); p.px(ex + 2, ey, C[7]); p.px(ex, ey + 1, C[7]); p.px(ex + 1, ey + 1, C[6]);
+    L2(-1, -7.4, 5.4, -6.4, C[5]); p.light(ex, ey, C[7], 1); p.light(ex + 1, ey, C[7], 1); p.light(ex + 1, ey + 1, C[6], 0.9); }
+  PX(16.4, -2.8, INK); PX(15.6, -2.4, C[6]);   // lỗ mũi
+  p.tri(...H(-9, -3).concat(H(-13, -1)), ...H(-15.5, -6.5), C[5]); L2(-9.4, -3, -15, -6.2, C[7]);   // tai vây sau mắt
+  { const fl = ln(t, D, 1.6, S + 51) * 1.5, [ax, ay] = H(4, 11 * gape), [bx, by] = H(-1 + fl, 15.5 * gape); p.tri(ax - 1.5, ay, ax + 1.5, ay, bx, by, C[5]); p.line(ax, ay, bx, by, C[6]); }   // chòm râu cằm
   for (const sd of [-1, 1]) {   // râu: hai sợi dài uốn theo gió
     const pts = [];
-    for (let i = 0; i <= 10; i++) { const u = i / 10; pts.push(H(13 - u * 26, -1.4 + sd * (0.6 + u * 6) + Math.sin(u * 5 + (t / D) * TAU + sd) * 2.4 * u)); }
-    p.polyline(pts, C[6]);
+    for (let i = 0; i <= 12; i++) { const u = i / 12; pts.push(H(17 - u * 31, -1.6 + sd * (0.8 + u * 7) + Math.sin(u * 5 + (t / D) * TAU + sd) * 2.6 * u)); }
+    p.polyline(pts, C[6]); const [wx, wy] = pts[12]; p.px(wx, wy, C[7]);
   }
   // ánh sáng: dọc thân, quầng lớn ở đầu, họng trắng
   for (let s = 6; s < L; s += 9) p.glow(-s, yAt(s), rAt(s) * 2.4 + 6, C[4], 0.2);
-  p.glow(X + 3, Y, 28, C[4], 0.42); p.glow(X + 6, Y + 3, 9, WHITE, 0.42);
+  p.glow(X + 4 * HS, Y, 30, C[4], 0.42); p.glow(X + 4 * HS, Y + 4 * HS, 6, C[7], 0.3);
 }

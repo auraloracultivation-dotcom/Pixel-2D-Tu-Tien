@@ -1342,10 +1342,11 @@
    "zone": {
     "g": "vong-kim",
     "orbit": {
-     "s": "kim-luan",
+     "s": "kim-luan-to",
      "n": 3,
      "r": 0.9,
-     "spd": 0.8
+     "spd": 0.8,
+     "ghost": 3
     },
     "trail": "sao-vang",
     "rate": 8

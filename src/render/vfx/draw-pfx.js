@@ -11,11 +11,14 @@ const lightK = game => (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_
 const zfade = z => Math.min(1, z.t * 4, (z.dur - z.t) * 2);
 const zones = game => (game.vfx?.pz?.length ? game.zones.concat(game.vfx.pz) : game.zones);   // vùng thật + vùng chỉ hình của người khác (pfx.js)
 const zone = (ctx, art, z, name, Z) => { const fade = zfade(z); if (name && fade > 0) pfxDraw(ctx, art, name, z.x, z.y + (Z.dy || 0), z.t, { loop: true, a: fade * (Z.a ?? 1), k: Z.k }); };
-function orbit(ctx, art, z, O) {   // hình bay vòng quanh tâm vùng (kim luân): con ở nửa xa vẽ trước
+function orbit(ctx, art, z, O) {   // hình bay vòng quanh tâm vùng (kim luân): con ở nửa xa vẽ trước; ghost: số bóng mờ kéo sau mỗi con
   const fade = zfade(z), list = [];
-  for (let i = 0; i < O.n; i++) { const a = z.t * (O.spd || 1) * Math.PI * 2 + (i * Math.PI * 2) / O.n; list.push([z.x + Math.cos(a) * z.radius * O.r, z.y - 8 + Math.sin(a) * z.radius * O.r * 0.84]); }
-  list.sort((a, b) => a[1] - b[1]);
-  for (const [x, y] of list) pfxDraw(ctx, art, O.s, x, y, z.t, { loop: true, a: fade });
+  for (let i = 0; i < O.n; i++) for (let g = O.ghost || 0; g >= 0; g--) {
+    const a = z.t * (O.spd || 1) * Math.PI * 2 + (i * Math.PI * 2) / O.n - g * 0.17;
+    list.push([z.x + Math.cos(a) * z.radius * O.r, z.y - 8 + Math.sin(a) * z.radius * O.r * 0.84, g ? 0.42 / g : 1, g ? 0.3 : 1]);
+  }
+  list.sort((a, b) => a[1] - b[1] || a[2] - b[2]);
+  for (const [x, y, al, li] of list) pfxDraw(ctx, art, O.s, x, y, z.t, { loop: true, a: fade * al, light: li });
 }
 
 function inst(ctx, art, f) {

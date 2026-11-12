@@ -1,9 +1,9 @@
 import { fit, clamp, WHITE, TAU, cycle, sparkle, rand } from "../../core/index.js";
-import { crescent, arcLine, windLines, ln } from "./_td.js";
+import { crescent, windLines, ln } from "./_td.js";
 
 export const meta = {
   name: "Kiếm khí",
-  desc: "Một lưỡi liềm kiếm khí bay sang phải: viền màu, lõi trắng, hai bóng mờ kéo sau, vệt gió và đốm sáng rớt lại.",
+  desc: "Một lưỡi liềm kiếm khí bay sang phải: lưỡi dày viền màu lõi trắng, sau lưỡi là vệt kiếm khí trong mờ tan dần, vệt gió và đốm sáng rớt lại.",
   tags: ["p2d", "projectile", "loop", "directional"],
   size: [84, 56],
   origin: [58, 28],
@@ -16,13 +16,23 @@ export const meta = {
 const D = meta.duration;
 
 export function draw(p, t, o) {
-  const C = fit(o.palette, 7), H = o.half, S = o.seed, R = H * 1.02, d = H * 0.44, R2 = H * 1.06;
-  const breathe = 1 + 0.06 * ln(t, D, 1.2, S), cx = -R + 7 + 0.6 * ln(t, D, 1, S + 1);
-  // bóng mờ phía sau: ba nét cung mảnh, ngắn và sẫm dần
-  for (let i = 3; i >= 1; i--) arcLine(p, cx - 2 - i * 5.5 - 1.5 * ln(t, D, 1.5, S + 40 + i), 0, R * 0.98, 1.05 - i * 0.2, C[5 - i], 1.1 - i * 0.22);
-  windLines(p, t, D, 8, S + 10, cx + R - 6, cx + R - 20, H * 0.75, 130, C);
-  // lưỡi chính
-  crescent(p, cx, 0, R * breathe, d, R2 * breathe, C, { hot: 0.55 + 0.2 * ln(t, D, 2, S + 2) });
+  const C = fit(o.palette, 7), H = o.half, S = o.seed, breathe = 1 + 0.06 * ln(t, D, 1.2, S), R = H * 1.02 * breathe, d = H * 0.5, R2 = H * 1.04 * breathe;
+  const cx = -H * 1.02 + 7 + 0.6 * ln(t, D, 1, S + 1), ix = cx - d;
+  // vệt kiếm khí kéo sau lưỡi: một mảng trong mờ hình liềm, đậm sát lưỡi rồi tan dần về sau, hai đầu thon lại (thay cho mấy nét cung mảnh
+  // trước đây trông như sóng âm)
+  const T = H * 1.05 * (1 + 0.1 * ln(t, D, 1.6, S + 7));
+  p.each(cx - H - T, -H - 1, cx + R + 1, H + 1, (x, y, sx, sy) => {
+    const r2 = Math.hypot(x - ix, y), fwd = (x - ix) / (r2 || 1);   // fwd: 1 là ngay sau giữa lưỡi, 0 là ngang tâm (hết lưỡi)
+    if (r2 >= R2 || fwd <= 0.2) return;
+    const span = clamp((fwd - 0.2) / 0.45) * clamp(1 - (Math.abs(y) / (H * 0.98)) ** 2);
+    if (span <= 0.02) return;
+    const depth = (R2 - r2) / (T * (0.35 + 0.65 * span));   // 0 sát lưỡi … 1 cuối vệt
+    if (depth >= 1) return;
+    p.blendPx(sx, sy, depth < 0.22 ? C[5] : depth < 0.55 ? C[4] : C[3], 0.66 * (1 - depth) ** 1.5 * Math.min(1, span * 2.4));
+  });
+  windLines(p, t, D, 6, S + 10, cx + R - 6, cx + R - 20, H * 0.7, 130, C);
+  // lưỡi chính: dày, lõi trắng
+  crescent(p, cx, 0, R, d, R2, C, { hot: 0.7 + 0.2 * ln(t, D, 2, S + 2) });
   // hai mũi lưỡi lóe sáng, đốm sáng bong ra bay ngược
   for (const s of [-1, 1]) {
     const tw = 0.5 + 0.5 * ln(t, D, 2.2, S + 5 + s);

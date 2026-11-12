@@ -18,7 +18,7 @@ const D = meta.duration, SOOT = hex("#17100f"), SOOT2 = hex("#2a1c18");
 export function drawBack(p, t, o) {
   const C = fit(o.palette, 8), R = o.reach, S = o.seed, breath = 0.5 + 0.5 * Math.sin((t / D) * TAU);
   groundPatch(p, R, (d) => [d > 0.9 ? SOOT2 : SOOT, d > 0.9 ? 0.36 : 0.52 - 0.12 * d], S);
-  groundVeins(p, R, 13, S + 3, 1, (u) => (breath > 0.6 ? (u < 0.45 ? C[7] : C[6]) : u < 0.45 ? C[6] : C[5]), 1);
+  groundVeins(p, R, 11, S + 3, 1, (u) => (breath > 0.6 ? (u < 0.72 ? C[7] : C[6]) : u < 0.72 ? C[6] : C[5]), 1, 0.53, { jit: 0.6, branch: 0.34, straight: true, edge: () => C[3] });   // khe dung nham dày toả từ mép pháp trận ra ngoài
   runeCircle(p, R * 0.5, (t / D) * TAU / 16 * 2, C, 0.9, "hoa", 3);
   for (let i = 0; i < 9; i++) { const [x, y] = gp((i * TAU) / 9 + 0.2, R * (0.3 + 0.5 * rand(S, i, 9))); p.glow(x, y, 18, C[4], 0.1 + 0.08 * breath); }
   p.glowRing(0, 0, R * 0.96, 10, C[4], 0.16 + 0.08 * breath);

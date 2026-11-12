@@ -51,7 +51,8 @@ export function create(o) {
       const fr = front(t), out = 1 - smooth(1.05, meta.duration - 0.03, t), heat = 1 - smooth(0.25, 1.1, t);
       if (out > 0) {
         groundPatch(p, Math.max(8, fr + 1), (d) => [d > 0.9 ? SOOT2 : SOOT, out * (d > 0.9 ? 0.34 : 0.5 - 0.14 * d)], 9);
-        groundVeins(p, REACH, 12, 31, clamp(fr / REACH), (u) => (heat > 0.75 ? (u < 0.5 ? WHITE : C[6]) : heat > 0.45 ? (u < 0.5 ? C[6] : C[5]) : heat > 0.15 ? C[4] : C[2]), out);
+        groundVeins(p, REACH, 11, 31, clamp(fr / REACH), (u) => (heat > 0.75 ? (u < 0.7 ? WHITE : C[6]) : heat > 0.45 ? (u < 0.7 ? C[6] : C[5]) : heat > 0.15 ? C[4] : C[2]), out > 0.6 ? 1 : out * out * 2.6, 0.55,
+          { jit: 0.6, branch: 0.34, straight: true, edge: () => (heat > 0.45 ? C[3] : heat > 0.15 ? C[2] : C[1]) });   // khe dung nham dày 2 điểm ảnh toả từ mép pháp trận ra ngoài (không chồng lên hình giữa), nguội thì tắt nhanh
         runeCircle(p, REACH * 0.52 * clamp(fr / REACH + 0.02), -t * 0.6, heat > 0.3 ? C : C.slice(0, 6), out * 0.95, "hoa", 3);
         for (let i = 0; i < 12; i++) { const [x, y] = gp((i * TAU) / 12 + 0.3, fr * (0.35 + 0.5 * rand(i, 77))); p.glow(x, y, 16, C[4], 0.12 * heat * out); }
       }
