@@ -16293,6 +16293,90 @@
    "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "pfx.bang-truy": {
+   "file": "assets/art/pfx-bang-truy.png",
+   "v": "c7ec4de4",
+   "w": 141,
+   "h": 34,
+   "frames": 12,
+   "anchor": [
+    129,
+    16
+   ],
+   "fps": 15,
+   "loop": true,
+   "note": "hiệu ứng chiêu bang-truy: PixelFX ice/ice-lance (MIT), tools/art/vfx_pfx.py"
+  },
+  "pfx.hoa-cau": {
+   "file": "assets/art/pfx-hoa-cau.png",
+   "v": "f7c179df",
+   "w": 115,
+   "h": 50,
+   "frames": 18,
+   "anchor": [
+    94,
+    25
+   ],
+   "fps": 15,
+   "loop": true,
+   "note": "hiệu ứng chiêu hoa-cau: PixelFX fire/fireball (MIT), tools/art/vfx_pfx.py"
+  },
+  "pfx.kiem-khi": {
+   "file": "assets/art/pfx-kiem-khi.png",
+   "v": "cbd35313",
+   "w": 94,
+   "h": 46,
+   "frames": 8,
+   "anchor": [
+    72,
+    23
+   ],
+   "fps": 15,
+   "loop": true,
+   "note": "hiệu ứng chiêu kiem-khi: PixelFX projectiles/energy-disc (MIT), tools/art/vfx_pfx.py"
+  },
+  "pfx.loi-dinh": {
+   "file": "assets/art/pfx-loi-dinh.png",
+   "v": "16783b64",
+   "w": 135,
+   "h": 156,
+   "frames": 24,
+   "anchor": [
+    67,
+    136
+   ],
+   "fps": 11,
+   "loop": false,
+   "note": "hiệu ứng chiêu loi-dinh: PixelFX lightning/lightning-strike (MIT), tools/art/vfx_pfx.py"
+  },
+  "pfx.no-lua": {
+   "file": "assets/art/pfx-no-lua.png",
+   "v": "69188b82",
+   "w": 126,
+   "h": 119,
+   "frames": 24,
+   "anchor": [
+    61,
+    93
+   ],
+   "fps": 15,
+   "loop": false,
+   "note": "hiệu ứng chiêu no-lua: PixelFX explosions/small-explosion (MIT), tools/art/vfx_pfx.py"
+  },
+  "pfx.tran-hoa": {
+   "file": "assets/art/pfx-tran-hoa.png",
+   "v": "9e89ac5e",
+   "w": 112,
+   "h": 85,
+   "frames": 24,
+   "anchor": [
+    56,
+    66
+   ],
+   "fps": 6,
+   "loop": true,
+   "note": "hiệu ứng chiêu tran-hoa: PixelFX arcane/rune-circle (MIT), tools/art/vfx_pfx.py"
+  },
   "pickup.bang-hoa": {
    "file": "assets/art/pickup-bang-hoa.png",
    "v": "68e2d616",

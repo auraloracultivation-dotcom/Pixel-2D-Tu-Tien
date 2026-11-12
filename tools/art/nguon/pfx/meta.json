@@ -1,0 +1,74 @@
+{
+ "kiem-khi": {
+  "w": 94,
+  "h": 46,
+  "frames": 8,
+  "anchor": [
+   72,
+   23
+  ],
+  "fps": 15,
+  "loop": true,
+  "fx": "projectiles/energy-disc"
+ },
+ "hoa-cau": {
+  "w": 115,
+  "h": 50,
+  "frames": 18,
+  "anchor": [
+   94,
+   25
+  ],
+  "fps": 15,
+  "loop": true,
+  "fx": "fire/fireball"
+ },
+ "bang-truy": {
+  "w": 141,
+  "h": 34,
+  "frames": 12,
+  "anchor": [
+   129,
+   16
+  ],
+  "fps": 15,
+  "loop": true,
+  "fx": "ice/ice-lance"
+ },
+ "loi-dinh": {
+  "w": 135,
+  "h": 156,
+  "frames": 24,
+  "anchor": [
+   67,
+   136
+  ],
+  "fps": 11,
+  "loop": false,
+  "fx": "lightning/lightning-strike"
+ },
+ "no-lua": {
+  "w": 126,
+  "h": 119,
+  "frames": 24,
+  "anchor": [
+   61,
+   93
+  ],
+  "fps": 15,
+  "loop": false,
+  "fx": "explosions/small-explosion"
+ },
+ "tran-hoa": {
+  "w": 112,
+  "h": 85,
+  "frames": 24,
+  "anchor": [
+   56,
+   66
+  ],
+  "fps": 6,
+  "loop": true,
+  "fx": "arcane/rune-circle"
+ }
+}
