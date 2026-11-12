@@ -1,12 +1,12 @@
 // Tải tấm hình trong data/art.json một lần. file?v=<mã nội dung>: đổi hình là đổi đường dẫn, máy không dùng lại tấm cũ còn lưu tạm.
-// Tấm tải về không đúng cỡ data/art.json thì coi như chưa có.
+// Tấm tải về không đúng cỡ data/art.json thì coi như chưa có. Tấm lưới nhiều hàng (hình hiệu ứng pfx.*: rows hàng) thì cao h × rows.
 const imgs = {};
 
 export function spriteImage(spr) {
   const src = spr.v ? `${spr.file}?v=${spr.v}` : spr.file;
   if (!imgs[src]) { const im = new Image(); im.src = src; imgs[src] = im; }
   const im = imgs[src];
-  return im.complete && im.naturalWidth === spr.w * spr.frames && im.naturalHeight === spr.h ? im : null;
+  return im.complete && im.naturalWidth === spr.w * spr.frames && im.naturalHeight === spr.h * (spr.rows || 1) ? im : null;
 }
 
 // Bóng một màu của cả tấm hình (chớp trắng, ám đỏ khi trúng đòn). Không dùng ctx.filter vì Safari iPhone cũ không có.

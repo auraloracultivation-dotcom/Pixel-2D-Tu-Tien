@@ -1,23 +1,23 @@
-"""Hình hiệu ứng chiêu vẽ bằng PixelFX (chủ dự án 13/11/2026 01:53: thay toàn bộ hình chiêu ảnh GPT).
+"""Hình hiệu ứng chiêu vẽ bằng PixelFX (chủ dự án 13/11/2026 01:53: bỏ hình chiêu ảnh GPT, làm lại toàn bộ bằng điểm ảnh, "đẹp và chất").
 
-PixelFX (github.com/patch-gg/pixelfx, MIT, bản ghim PIN) vẽ mỗi hiệu ứng bằng code, đổi màu bằng bảng màu. Công cụ này:
-1. Đọc data/vfx.json → pfx: tên hình → [mã hiệu ứng, bảng màu PAL, tuỳ chọn {fps, span, down, opts}].
-2. Gọi `node <pixelfx>/tools/render.mjs <mã> --sheet --opts {...}` (khung 30 hình/giây, nền trong suốt).
-3. Giữ phần đầu `span`, lấy mẫu về `fps` (mặc định 15), tối đa MAXF khung; cắt khung chung theo vùng có hình; thu nhỏ `down`.
-4. Lưu dải ngang vào tools/art/nguon/pfx/<tên>.png + meta.json (nguồn để build.py dựng lại không cần Node), rồi
-   assets/art/pfx-<tên>.png và mục 'pfx.<tên>' trong data/art.json (anchor = điểm gốc hiệu ứng: tâm, chân, đầu đạn).
+PixelFX (github.com/patch-gg/pixelfx, MIT, bản ghim PIN) vẽ mỗi hiệu ứng bằng code. Quy trình:
+1. tools/art/pfx/sprites.mjs: danh sách hình (hiệu ứng PixelFX nào, bảng màu, khoảng thời gian, số hướng).
+   tools/art/pfx/fx/*.js: hiệu ứng riêng của game viết theo đúng luật PixelFX (nhìn từ trên xuống, đúng bán kính chiêu).
+2. tools/art/pfx/export.mjs (Node) dựng ra tools/art/nguon/pfx/: <tên>.png (lớp màu, điểm ảnh nguyên bản), <tên>.l.png (lớp sáng cộng),
+   meta.json (cỡ ô, khung, hướng, điểm neo, nhịp).
+3. File này chép các tấm đó vào assets/art/pfx-*.png và ghi mục 'pfx.<tên>' (+ 'pfx.<tên>.l') trong data/art.json:
+   w, h cỡ một ô; frames = số cột; rows = số hàng; n khung mỗi hướng; dirs số hướng dựng sẵn (0..90 độ); fps hoặc times; dur; loop;
+   anchor điểm neo trong ô; k đơn vị bản đồ mỗi điểm ảnh; lit: có lớp sáng. Game vẽ ở src/render/vfx/pfx.js.
 
-Chạy: python3 -I tools/art/vfx_pfx.py [tên ...]   (PIXELFX_DIR=thư mục bản PixelFX; không có thì tự clone bản PIN vào nguon/pfx/src)
-build.py gọi build(save) để đưa các dải đã dựng vào bảng hình như mọi hình khác."""
-import hashlib, json, os, re, subprocess, sys
+Chạy: python3 -I tools/art/vfx_pfx.py            (chỉ chép + ghi art.json từ nguon/pfx đã dựng; không cần Node)
+      python3 -I tools/art/vfx_pfx.py --dung [tên ...]   (gọi export.mjs dựng lại trước; cần PIXELFX_DIR hoặc tự tải bản ghim)"""
+import hashlib, json, os, subprocess, sys
 from pathlib import Path
-from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 NGUON = Path(__file__).resolve().parent / 'nguon' / 'pfx'
 PIN = '5294518ce7c72e48b6100a744596e0acf57f2826'
 REPO = 'https://github.com/patch-gg/pixelfx'
-MAXF = 24
 
 
 def pixelfx_dir():
@@ -28,89 +28,41 @@ def pixelfx_dir():
     return d
 
 
-def palettes(d):
-    src = (d / 'src' / 'core' / 'color.js').read_text(encoding='utf-8')
-    body = src[src.index('export const PAL = {'):]
-    body = body[:body.index('};')]
-    return {m.group(1): re.findall(r'"(#[0-9a-fA-F]{3,6})"', m.group(2)) for m in re.finditer(r'(\w+):\s*\[([^\]]*)\]', body)}
-
-
-def render(d, name, fx, pal, o):
-    opts = {'palette': pal, **(o.get('opts') or {})}
-    subprocess.run(['node', 'tools/render.mjs', fx, '--sheet', '--opts', json.dumps(opts)], cwd=d, check=True, capture_output=True)
-    base = fx.split('/')[-1]
-    meta = json.loads((d / 'records' / fx / f'{base}.json').read_text(encoding='utf-8'))
-    sheet = Image.open(d / 'records' / fx / f'{base}.png').convert('RGBA')
-    P = meta['meta']['pixelfx']
-    fw, fh = P['frameSize']
-    frames = [sheet.crop((f['frame']['x'], f['frame']['y'], f['frame']['x'] + fw, f['frame']['y'] + fh)) for f in meta['frames']]
-    keep = max(1, round(len(frames) * o.get('span', 1)))
-    fps = o.get('fps', 15)
-    step = max(1, round(P['fps'] / fps))
-    pick = frames[:keep:step]
-    if len(pick) > MAXF:   # quá dài: lấy đều MAXF khung
-        pick = [pick[round(i * (len(pick) - 1) / (MAXF - 1))] for i in range(MAXF)]
-        fps = max(1, round(len(pick) / (keep / P['fps'])))
-    box = None
-    for im in pick:   # vùng có hình chung mọi khung (bỏ viền trong suốt)
-        b = im.getchannel('A').point(lambda a: 255 if a > 6 else 0).getbbox()
-        if b:
-            box = b if box is None else (min(box[0], b[0]), min(box[1], b[1]), max(box[2], b[2]), max(box[3], b[3]))
-    box = box or (0, 0, fw, fh)
-    k = o.get('down', 1)
-    w, h = box[2] - box[0], box[3] - box[1]
-    W, H = max(1, round(w * k)), max(1, round(h * k))
-    strip = Image.new('RGBA', (W * len(pick), H))
-    for i, im in enumerate(pick):
-        c = im.crop(box)
-        if k != 1:
-            c = c.resize((W, H), Image.LANCZOS)
-        strip.alpha_composite(c, (i * W, 0))
-    ax, ay = P.get('pivot', [fw / 2, fh / 2])
-    NGUON.mkdir(parents=True, exist_ok=True)
-    strip.save(NGUON / f'{name}.png', optimize=True)
-    return {'w': W, 'h': H, 'frames': len(pick), 'anchor': [round((ax - box[0]) * k), round((ay - box[1]) * k)],
-            'fps': fps, 'loop': bool(P.get('loop')), 'fx': fx}
-
-
 def build(save=None):
-    """Đưa dải đã dựng (nguon/pfx) vào data/art.json. save: hàm của build.py; không có thì ghi thẳng art.json."""
-    meta = json.loads((NGUON / 'meta.json').read_text(encoding='utf-8')) if (NGUON / 'meta.json').exists() else {}
+    """Đưa các tấm đã dựng (nguon/pfx) vào assets/art và data/art.json. Trả về số hình."""
+    meta = json.loads((NGUON / 'meta.json').read_text(encoding='utf-8'))
     art_p = ROOT / 'data' / 'art.json'
     art = json.loads(art_p.read_text(encoding='utf-8'))
     out = ROOT / 'assets' / 'art'
+    for k in [k for k in art['sprites'] if k.startswith('pfx.')]:
+        if k.split('.')[1] not in meta:
+            (ROOT / art['sprites'][k]['file']).unlink(missing_ok=True)
+        del art['sprites'][k]
+
+    def put(src, dst):
+        b = (NGUON / src).read_bytes()
+        (out / dst).write_bytes(b)
+        return hashlib.sha1(b).hexdigest()[:8]
+
     for name, m in sorted(meta.items()):
-        png = NGUON / f'{name}.png'
-        if not png.exists():
-            continue
-        dst = out / f'pfx-{name}.png'
-        dst.write_bytes(png.read_bytes())
-        v = hashlib.sha1(dst.read_bytes()).hexdigest()[:8]
-        art['sprites'][f'pfx.{name}'] = {'file': f'assets/art/pfx-{name}.png', 'v': v, 'w': m['w'], 'h': m['h'], 'frames': m['frames'],
-                                         'anchor': m['anchor'], 'fps': m['fps'], 'loop': m['loop'],
-                                         'note': f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/vfx_pfx.py"}
+        e = {'file': f'assets/art/pfx-{name}.png', 'v': put(f'{name}.png', f'pfx-{name}.png'), 'w': m['w'], 'h': m['h'], 'frames': m['cols'], 'rows': m['rows'],
+             'n': m['n'], 'dirs': m['dirs'], 'fps': m['fps'], 'dur': m['dur'], 'loop': m['loop'], 'anchor': m['anchor'], 'k': m['k']}
+        if m.get('times'):
+            e['times'] = m['times']
+        if m.get('lit'):
+            L = m['lit']
+            e['lit'] = 1
+            art['sprites'][f'pfx.{name}.l'] = {'file': f'assets/art/pfx-{name}-l.png', 'v': put(f'{name}.l.png', f'pfx-{name}-l.png'), 'w': L['w'], 'h': L['h'],
+                                              'frames': m['cols'], 'rows': m['rows'], 's': L['s'], 'anchor': [0, 0], 'note': f'lớp sáng của pfx.{name}'}
+        e['note'] = f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/pfx/"
+        art['sprites'][f'pfx.{name}'] = e
     art['sprites'] = dict(sorted(art['sprites'].items()))
     art_p.write_text(json.dumps(art, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return len(meta)
 
 
-def main(only):
-    d = pixelfx_dir()
-    pal = palettes(d)
-    spec = json.loads((ROOT / 'data' / 'vfx.json').read_text(encoding='utf-8'))['pfx']
-    meta_p = NGUON / 'meta.json'
-    meta = json.loads(meta_p.read_text(encoding='utf-8')) if meta_p.exists() else {}
-    for name, row in spec.items():
-        if name.startswith('_') or (only and name not in only):
-            continue
-        fx, p = row[0], row[1]
-        o = row[2] if len(row) > 2 else {}
-        meta[name] = render(d, name, fx, pal[p] if isinstance(p, str) else p, o)
-        print(name, fx, p, f"{meta[name]['frames']}f {meta[name]['w']}x{meta[name]['h']}")
-    NGUON.mkdir(parents=True, exist_ok=True)
-    meta_p.write_text(json.dumps(meta, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print('đưa vào art.json:', build())
-
-
 if __name__ == '__main__':
-    main(set(sys.argv[1:]))
+    a = sys.argv[1:]
+    if a and a[0] == '--dung':
+        subprocess.run(['node', str(ROOT / 'tools' / 'art' / 'pfx' / 'export.mjs'), *a[1:]], check=True, env={**os.environ, 'PIXELFX_DIR': str(pixelfx_dir())})
+    print('pfx → art.json:', build(), 'hình')

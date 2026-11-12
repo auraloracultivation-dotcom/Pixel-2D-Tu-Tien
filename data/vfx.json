@@ -1,60 +1,921 @@
 {
  "_note": "Hiệu ứng chiêu thế hệ mới (chủ dự án 05/11/2026 02:31, docs/02-CHUAN-PIXEL.md → Quy tắc cốt lõi về chiêu): hình chính từ ảnh GPT (vfx.<tên>, tools/art/vfx_chieu.py), chuyển động, quầng sáng, hạt do code (src/game/vfx.js tạo, src/render/vfx/ vẽ ở lớp trên cùng, đè nhà cửa, người). Mỗi chiêu một công thức trong skills; chiêu không có ở đây thì vẫn vẽ kiểu cũ. Trường: img (hình chính, mặc định vfx.<id chiêu>), size (cạnh dài khi vẽ, đơn vị bản đồ; người cao ~24), glow (bán kính quầng màu), color (màu quầng, mặc định màu chiêu), core (độ sáng lõi trắng 0–1), face (đạn xoay theo hướng bay), spin (vòng mỗi giây), ghost (số bóng mờ phía sau đạn), trail (hạt rơi theo đường bay: tên mảnh vfx.<trail>), rate (hạt mỗi giây), hit (hình nổ khi trúng / hết đường), hit_size, hit_n (số hạt tóe), circle (pháp trận dưới chân người lúc tung hoặc dưới vùng chiêu), cast (hình lóe tại người lúc tung), cast_size, show: cách hiện hình chính — shot (đạn bay), ground (nở trên mặt đất ở tâm chiêu, vùng kéo dài thì giữ suốt thời gian), sky (sét giáng từ trời ở tâm chiêu), drop (rơi từ trên xuống ở tâm chiêu), rise (bay lên trên đầu: hồi máu), aura (hào quang sau lưng suốt thời gian tăng sức), dome (bọc quanh người suốt thời gian khiên), sweep (lướt: hình bay dọc đường lướt), orbit (hình xoay quanh người suốt vùng chiêu), center (hình lớn ở tâm, lắc nhẹ: lốc xoáy). flat: hình nằm dẹt trên mặt đất (vòng lửa, rừng, băng vực, cát lún: nhìn chéo từ trên, trong hơn để thấy người, quái bên trong). dome_a: độ đậm khiên (mặc định 0,3), dome_add: khiên cộng sáng (nước, kính). part: mảnh hạt tóe khi nổ (mặc định theo trail). Giới hạn: max_parts hạt trên màn (máy chậm tự giảm còn một nửa). near: hiệu ứng nở ngay trên người tung (vùng quanh người) thì lõi trắng, quầng giảm còn near_mul để không làm trắng nhân vật.",
  "max_parts": 180,
- "core": {"_note": "Lõi sáng trắng giữa mọi hình chiêu: tỉ lệ bán kính lõi so với cỡ hình, độ đậm mặc định. halo: quầng màu ngoài (tỉ lệ so với glow), độ đậm.", "r": 0.26, "a": 0.85, "halo_a": 0.5},
- "skills": {
-  "kiem-khi": {"show": "shot", "size": 22, "glow": 16, "color": "#7fd8ff", "face": true, "ghost": 3, "trail": "thanh-quang", "rate": 26, "hit": "sao-vang", "hit_size": 16, "hit_n": 6},
-  "dang-phuoc": {"show": "ground", "size": 50, "glow": 30, "circle": "tran-moc", "part": "la", "hit_n": 10},
-  "hoi-xuan": {"show": "rise", "size": 22, "glow": 18, "circle": "tran-moc", "trail": "la", "rate": 14, "part": "thanh-quang", "hit_n": 8},
-  "hoa-cau": {"show": "shot", "size": 20, "glow": 16, "face": true, "ghost": 2, "trail": "lua", "rate": 30, "hit": "no-lua", "hit_size": 34, "hit_n": 10},
-  "liet-diem": {"show": "ground", "size": 58, "glow": 34, "circle": "tran-hoa", "part": "lua", "hit_n": 14, "flat": true},
-  "bang-truy": {"show": "shot", "size": 20, "glow": 14, "face": true, "ghost": 3, "trail": "tuyet", "rate": 18, "hit": "no-bang", "hit_size": 24, "hit_n": 8},
-  "thuy-thuan": {"show": "dome", "size": 34, "glow": 20, "part": "giot", "hit_n": 8, "dome_add": true, "dome_a": 0.4},
-  "kim-quang-tram": {"show": "sweep", "size": 34, "glow": 22, "face": true, "ghost": 4, "trail": "sao-vang", "rate": 40, "hit": "sao-vang", "hit_size": 18, "hit_n": 6},
-  "kim-cuong-the": {"show": "aura", "size": 44, "glow": 24, "part": "thanh-quang", "hit_n": 10},
-  "dia-chan": {"show": "ground", "size": 64, "glow": 30, "circle": "tran-tho", "hit": "no-da", "hit_size": 28, "part": "da", "hit_n": 8},
-  "thach-giap": {"show": "dome", "size": 34, "glow": 18, "part": "da", "hit_n": 8, "dome_a": 0.38},
-  "van-moc-cham": {"show": "shot", "img": "la", "size": 10, "glow": 9, "face": true, "ghost": 2, "streak": "#c8f0a0", "trail": "la", "rate": 8, "hit": "no-la", "hit_size": 14, "hit_n": 3, "cast": "van-moc-cham", "cast_size": 26},
-  "thanh-moc-vuc": {"show": "ground", "size": 80, "glow": 36, "circle": "tran-moc", "trail": "la", "rate": 10, "part": "thanh-quang", "hit_n": 10, "flat": true},
-  "luc-dang-long": {"show": "shot", "size": 44, "glow": 24, "face": true, "ghost": 3, "trail": "la", "rate": 30, "hit": "no-la", "hit_size": 30, "hit_n": 10},
-  "truong-xuan": {"show": "rise", "size": 30, "glow": 26, "circle": "tran-moc", "trail": "thanh-quang", "rate": 22, "part": "la", "hit_n": 14},
-  "hoa-long": {"show": "shot", "size": 46, "glow": 26, "face": true, "ghost": 3, "trail": "lua", "rate": 46, "hit": "no-lua", "hit_size": 40, "hit_n": 14},
-  "phan-thien": {"show": "ground", "size": 58, "glow": 34, "circle": "tran-hoa", "trail": "lua", "rate": 16, "part": "lua", "hit_n": 12, "flat": true},
-  "liet-hoa-tran": {"show": "shot", "img": "hoa-cau", "size": 16, "glow": 13, "face": true, "ghost": 2, "trail": "lua", "rate": 22, "hit": "no-lua", "hit_size": 26, "hit_n": 3},
-  "phuong-hoang": {"show": "sweep", "size": 52, "glow": 30, "face": true, "ghost": 4, "trail": "lua", "rate": 60, "hit": "no-lua", "hit_size": 44, "hit_n": 16, "circle": "tran-hoa"},
-  "bang-phong": {"show": "ground", "size": 60, "glow": 34, "circle": "tran-thuy", "hit": "no-bang", "hit_size": 44, "part": "tuyet", "hit_n": 16},
-  "thuy-long": {"show": "shot", "size": 22, "glow": 18, "face": true, "ghost": 3, "trail": "giot", "rate": 24, "hit": "no-nuoc", "hit_size": 24, "hit_n": 3},
-  "han-bang-vuc": {"show": "ground", "size": 86, "glow": 36, "circle": "tran-thuy", "trail": "tuyet", "rate": 12, "part": "tuyet", "hit_n": 10, "flat": true},
-  "bang-phach": {"show": "shot", "img": "bang-truy", "size": 14, "glow": 11, "face": true, "ghost": 2, "trail": "tuyet", "rate": 6, "hit": "no-bang", "hit_size": 16, "hit_n": 3, "cast": "bang-phach", "cast_size": 20},
-  "van-kiem": {"show": "shot", "size": 18, "glow": 14, "face": true, "ghost": 2, "trail": "sao-vang", "rate": 14, "hit": "sao-vang", "hit_size": 14, "hit_n": 3},
-  "kim-luan": {"show": "orbit", "size": 20, "glow": 14, "spin": 3, "circle": "tran-kim", "trail": "sao-vang", "rate": 16, "part": "sao-vang", "hit_n": 8},
-  "loi-dinh": {"show": "sky", "size": 54, "glow": 34, "circle": "tran-kim", "hit": "sao-vang", "hit_size": 26, "part": "set", "hit_n": 12},
-  "kim-than": {"show": "aura", "size": 52, "glow": 30, "part": "thanh-quang", "hit_n": 14},
-  "luu-sa": {"show": "ground", "size": 84, "glow": 26, "spin": 0.25, "circle": "tran-tho", "trail": "da", "rate": 8, "part": "da", "hit_n": 10, "flat": true},
-  "thach-chuy": {"show": "shot", "size": 28, "glow": 14, "face": true, "ghost": 2, "trail": "da", "rate": 14, "hit": "no-da", "hit_size": 36, "hit_n": 12},
-  "son-nhac": {"show": "drop", "size": 50, "glow": 30, "circle": "tran-tho", "hit": "no-da", "hit_size": 56, "part": "da", "hit_n": 10},
-  "dai-dia": {"show": "dome", "size": 38, "glow": 28, "circle": "tran-tho", "part": "thanh-quang", "hit_n": 12, "dome_a": 0.36},
-  "long-thuong": {"show": "sweep", "size": 40, "glow": 22, "face": true, "ghost": 4, "trail": "sao-vang", "rate": 30, "hit": "sao-vang", "hit_size": 20, "hit_n": 6},
-  "cuong-phong": {"show": "center", "size": 48, "glow": 30, "trail": "gio", "rate": 18, "part": "la", "hit_n": 12, "circle": "tran-moc"},
-  "that-huyen": {"show": "shot", "img": "am", "size": 14, "glow": 12, "face": true, "ghost": 2, "trail": "am", "rate": 4, "hit": "am", "hit_size": 14, "hit_n": 3, "cast": "that-huyen", "cast_size": 20},
-  "tu-nguyet-liem": {"show": "shot", "size": 24, "glow": 16, "spin": 3, "ghost": 3, "trail": "am", "rate": 10, "hit": "am", "hit_size": 18, "hit_n": 6},
-  "song-nguyet-tram": {"show": "shot", "img": "tu-nguyet-liem", "size": 18, "glow": 14, "spin": 3, "ghost": 2, "trail": "am", "rate": 8, "hit": "am", "hit_size": 16, "hit_n": 3, "cast": "song-nguyet-tram", "cast_size": 18},
-  "tu-nguyet-luan": {"show": "shot", "img": "tu-nguyet-liem", "size": 18, "glow": 13, "spin": 3, "ghost": 2, "trail": "am", "rate": 4, "hit": "am", "hit_size": 16, "hit_n": 3, "cast": "tu-nguyet-luan", "cast_size": 20},
-  "lien-chau": {"show": "shot", "size": 24, "glow": 12, "face": true, "ghost": 3, "trail": "sao-vang", "rate": 18, "hit": "sao-vang", "hit_size": 14, "hit_n": 4},
-  "phap-kim-luan": {"show": "shot", "img": "kim-luan", "size": 14, "glow": 11, "spin": 2.5, "ghost": 2, "trail": "sao-vang", "rate": 6, "hit": "sao-vang", "hit_size": 14, "hit_n": 3, "cast": "phap-kim-luan", "cast_size": 18},
-  "phap-thanh-moc": {"show": "rise", "size": 22, "glow": 18, "circle": "tran-moc", "trail": "la", "rate": 14, "part": "la", "hit_n": 8},
-  "phap-huyen-thuy": {"show": "dome", "size": 36, "glow": 22, "circle": "tran-thuy", "part": "giot", "hit_n": 10, "dome_add": true, "dome_a": 0.4},
-  "phap-tran-yeu": {"show": "dome", "drop": true, "size": 40, "glow": 26, "circle": "tran-kim", "part": "thanh-quang", "hit_n": 12},
-  "phap-hoa-hon": {"show": "ground", "img": "liet-diem", "size": 58, "glow": 34, "circle": "tran-hoa", "cast": "phap-hoa-hon", "cast_size": 30, "hit": "no-lua", "hit_size": 30, "part": "lua", "hit_n": 14, "flat": true}
+ "core": {
+  "_note": "Lõi sáng trắng giữa mọi hình chiêu: tỉ lệ bán kính lõi so với cỡ hình, độ đậm mặc định. halo: quầng màu ngoài (tỉ lệ so với glow), độ đậm.",
+  "r": 0.26,
+  "a": 0.85,
+  "halo_a": 0.5
  },
- "sparks": {"_note": "Tia lửa li ti (src/game/sparks.js, src/render/draw-sparks.js; chủ dự án 08/11/2026 16:52 theo video tham khảo). Mỗi loại: n số hạt, spd tốc độ (đơn vị bản đồ/giây), cone nửa góc tóe quanh hướng đòn (radian), up đẩy lên lúc đầu, g trọng lực, drag hãm, life giây, big tỉ lệ hạt to, color màu mặc định (đòn có màu riêng thì lấy màu đòn; cứ 4 hạt có 1 hạt trắng). max: tối đa hạt trên màn (máy chậm còn một nửa). 09/11/2026 gộp với cảm giác đánh (data/juice.json: tia toả, vụn, đốm hút về người) nên bớt hạt đòn thường, chí mạng, hạ quái thường cho khỏi rối. budget: true thì chỉ hiện trong hạn mức (data/juice.json → budget.sp_*).", "max": 220,
-  "hit": {"n": 3, "budget": true, "spd": 110, "cone": 0.9, "up": 20, "g": 260, "drag": 3, "life": 0.32, "big": 0.2, "color": "#fff4c8"},
-  "crit": {"n": 8, "budget": true, "spd": 170, "cone": 1.2, "up": 40, "g": 240, "drag": 2.5, "life": 0.45, "big": 0.4, "color": "#ffd84a"},
-  "kill": {"n": 5, "budget": true, "spd": 90, "cone": 3.2, "up": 50, "g": 200, "drag": 2.5, "life": 0.5, "big": 0.3, "color": "#ffffff"},
-  "kill_big": {"n": 34, "spd": 200, "cone": 3.2, "up": 80, "g": 180, "drag": 2, "life": 0.9, "big": 0.5, "color": "#ffd84a"},
-  "aoe": {"n": 18, "spd": 150, "cone": 3.2, "up": 30, "g": 160, "drag": 3, "life": 0.5, "big": 0.3, "color": "#ffffff"},
-  "hurt": {"n": 6, "spd": 100, "cone": 0.8, "up": 20, "g": 260, "drag": 3, "life": 0.3, "big": 0.2, "color": "#ff6a6a"}},
+ "skills": {
+  "kiem-khi": {
+   "show": "shot",
+   "size": 22,
+   "glow": 16,
+   "color": "#7fd8ff",
+   "face": true,
+   "ghost": 3,
+   "trail": "thanh-quang",
+   "rate": 26,
+   "hit": "sao-vang",
+   "hit_size": 16,
+   "hit_n": 6
+  },
+  "dang-phuoc": {
+   "show": "ground",
+   "size": 50,
+   "glow": 30,
+   "circle": "tran-moc",
+   "part": "la",
+   "hit_n": 10
+  },
+  "hoi-xuan": {
+   "show": "rise",
+   "size": 22,
+   "glow": 18,
+   "circle": "tran-moc",
+   "trail": "la",
+   "rate": 14,
+   "part": "thanh-quang",
+   "hit_n": 8
+  },
+  "hoa-cau": {
+   "show": "shot",
+   "size": 20,
+   "glow": 16,
+   "face": true,
+   "ghost": 2,
+   "trail": "lua",
+   "rate": 30,
+   "hit": "no-lua",
+   "hit_size": 34,
+   "hit_n": 10
+  },
+  "liet-diem": {
+   "show": "ground",
+   "size": 58,
+   "glow": 34,
+   "circle": "tran-hoa",
+   "part": "lua",
+   "hit_n": 14,
+   "flat": true
+  },
+  "bang-truy": {
+   "show": "shot",
+   "size": 20,
+   "glow": 14,
+   "face": true,
+   "ghost": 3,
+   "trail": "tuyet",
+   "rate": 18,
+   "hit": "no-bang",
+   "hit_size": 24,
+   "hit_n": 8
+  },
+  "thuy-thuan": {
+   "show": "dome",
+   "size": 34,
+   "glow": 20,
+   "part": "giot",
+   "hit_n": 8,
+   "dome_add": true,
+   "dome_a": 0.4
+  },
+  "kim-quang-tram": {
+   "show": "sweep",
+   "size": 34,
+   "glow": 22,
+   "face": true,
+   "ghost": 4,
+   "trail": "sao-vang",
+   "rate": 40,
+   "hit": "sao-vang",
+   "hit_size": 18,
+   "hit_n": 6
+  },
+  "kim-cuong-the": {
+   "show": "aura",
+   "size": 44,
+   "glow": 24,
+   "part": "thanh-quang",
+   "hit_n": 10
+  },
+  "dia-chan": {
+   "show": "ground",
+   "size": 64,
+   "glow": 30,
+   "circle": "tran-tho",
+   "hit": "no-da",
+   "hit_size": 28,
+   "part": "da",
+   "hit_n": 8
+  },
+  "thach-giap": {
+   "show": "dome",
+   "size": 34,
+   "glow": 18,
+   "part": "da",
+   "hit_n": 8,
+   "dome_a": 0.38
+  },
+  "van-moc-cham": {
+   "show": "shot",
+   "img": "la",
+   "size": 10,
+   "glow": 9,
+   "face": true,
+   "ghost": 2,
+   "streak": "#c8f0a0",
+   "trail": "la",
+   "rate": 8,
+   "hit": "no-la",
+   "hit_size": 14,
+   "hit_n": 3,
+   "cast": "van-moc-cham",
+   "cast_size": 26
+  },
+  "thanh-moc-vuc": {
+   "show": "ground",
+   "size": 80,
+   "glow": 36,
+   "circle": "tran-moc",
+   "trail": "la",
+   "rate": 10,
+   "part": "thanh-quang",
+   "hit_n": 10,
+   "flat": true
+  },
+  "luc-dang-long": {
+   "show": "shot",
+   "size": 44,
+   "glow": 24,
+   "face": true,
+   "ghost": 3,
+   "trail": "la",
+   "rate": 30,
+   "hit": "no-la",
+   "hit_size": 30,
+   "hit_n": 10
+  },
+  "truong-xuan": {
+   "show": "rise",
+   "size": 30,
+   "glow": 26,
+   "circle": "tran-moc",
+   "trail": "thanh-quang",
+   "rate": 22,
+   "part": "la",
+   "hit_n": 14
+  },
+  "hoa-long": {
+   "show": "shot",
+   "size": 46,
+   "glow": 26,
+   "face": true,
+   "ghost": 3,
+   "trail": "lua",
+   "rate": 46,
+   "hit": "no-lua",
+   "hit_size": 40,
+   "hit_n": 14
+  },
+  "phan-thien": {
+   "show": "ground",
+   "size": 58,
+   "glow": 34,
+   "circle": "tran-hoa",
+   "trail": "lua",
+   "rate": 16,
+   "part": "lua",
+   "hit_n": 12,
+   "flat": true
+  },
+  "liet-hoa-tran": {
+   "show": "shot",
+   "img": "hoa-cau",
+   "size": 16,
+   "glow": 13,
+   "face": true,
+   "ghost": 2,
+   "trail": "lua",
+   "rate": 22,
+   "hit": "no-lua",
+   "hit_size": 26,
+   "hit_n": 3
+  },
+  "phuong-hoang": {
+   "show": "sweep",
+   "size": 52,
+   "glow": 30,
+   "face": true,
+   "ghost": 4,
+   "trail": "lua",
+   "rate": 60,
+   "hit": "no-lua",
+   "hit_size": 44,
+   "hit_n": 16,
+   "circle": "tran-hoa"
+  },
+  "bang-phong": {
+   "show": "ground",
+   "size": 60,
+   "glow": 34,
+   "circle": "tran-thuy",
+   "hit": "no-bang",
+   "hit_size": 44,
+   "part": "tuyet",
+   "hit_n": 16
+  },
+  "thuy-long": {
+   "show": "shot",
+   "size": 22,
+   "glow": 18,
+   "face": true,
+   "ghost": 3,
+   "trail": "giot",
+   "rate": 24,
+   "hit": "no-nuoc",
+   "hit_size": 24,
+   "hit_n": 3
+  },
+  "han-bang-vuc": {
+   "show": "ground",
+   "size": 86,
+   "glow": 36,
+   "circle": "tran-thuy",
+   "trail": "tuyet",
+   "rate": 12,
+   "part": "tuyet",
+   "hit_n": 10,
+   "flat": true
+  },
+  "bang-phach": {
+   "show": "shot",
+   "img": "bang-truy",
+   "size": 14,
+   "glow": 11,
+   "face": true,
+   "ghost": 2,
+   "trail": "tuyet",
+   "rate": 6,
+   "hit": "no-bang",
+   "hit_size": 16,
+   "hit_n": 3,
+   "cast": "bang-phach",
+   "cast_size": 20
+  },
+  "van-kiem": {
+   "show": "shot",
+   "size": 18,
+   "glow": 14,
+   "face": true,
+   "ghost": 2,
+   "trail": "sao-vang",
+   "rate": 14,
+   "hit": "sao-vang",
+   "hit_size": 14,
+   "hit_n": 3
+  },
+  "kim-luan": {
+   "show": "orbit",
+   "size": 20,
+   "glow": 14,
+   "spin": 3,
+   "circle": "tran-kim",
+   "trail": "sao-vang",
+   "rate": 16,
+   "part": "sao-vang",
+   "hit_n": 8
+  },
+  "loi-dinh": {
+   "show": "sky",
+   "size": 54,
+   "glow": 34,
+   "circle": "tran-kim",
+   "hit": "sao-vang",
+   "hit_size": 26,
+   "part": "set",
+   "hit_n": 12
+  },
+  "kim-than": {
+   "show": "aura",
+   "size": 52,
+   "glow": 30,
+   "part": "thanh-quang",
+   "hit_n": 14
+  },
+  "luu-sa": {
+   "show": "ground",
+   "size": 84,
+   "glow": 26,
+   "spin": 0.25,
+   "circle": "tran-tho",
+   "trail": "da",
+   "rate": 8,
+   "part": "da",
+   "hit_n": 10,
+   "flat": true
+  },
+  "thach-chuy": {
+   "show": "shot",
+   "size": 28,
+   "glow": 14,
+   "face": true,
+   "ghost": 2,
+   "trail": "da",
+   "rate": 14,
+   "hit": "no-da",
+   "hit_size": 36,
+   "hit_n": 12
+  },
+  "son-nhac": {
+   "show": "drop",
+   "size": 50,
+   "glow": 30,
+   "circle": "tran-tho",
+   "hit": "no-da",
+   "hit_size": 56,
+   "part": "da",
+   "hit_n": 10
+  },
+  "dai-dia": {
+   "show": "dome",
+   "size": 38,
+   "glow": 28,
+   "circle": "tran-tho",
+   "part": "thanh-quang",
+   "hit_n": 12,
+   "dome_a": 0.36
+  },
+  "long-thuong": {
+   "show": "sweep",
+   "size": 40,
+   "glow": 22,
+   "face": true,
+   "ghost": 4,
+   "trail": "sao-vang",
+   "rate": 30,
+   "hit": "sao-vang",
+   "hit_size": 20,
+   "hit_n": 6
+  },
+  "cuong-phong": {
+   "show": "center",
+   "size": 48,
+   "glow": 30,
+   "trail": "gio",
+   "rate": 18,
+   "part": "la",
+   "hit_n": 12,
+   "circle": "tran-moc"
+  },
+  "that-huyen": {
+   "show": "shot",
+   "img": "am",
+   "size": 14,
+   "glow": 12,
+   "face": true,
+   "ghost": 2,
+   "trail": "am",
+   "rate": 4,
+   "hit": "am",
+   "hit_size": 14,
+   "hit_n": 3,
+   "cast": "that-huyen",
+   "cast_size": 20
+  },
+  "tu-nguyet-liem": {
+   "show": "shot",
+   "size": 24,
+   "glow": 16,
+   "spin": 3,
+   "ghost": 3,
+   "trail": "am",
+   "rate": 10,
+   "hit": "am",
+   "hit_size": 18,
+   "hit_n": 6
+  },
+  "song-nguyet-tram": {
+   "show": "shot",
+   "img": "tu-nguyet-liem",
+   "size": 18,
+   "glow": 14,
+   "spin": 3,
+   "ghost": 2,
+   "trail": "am",
+   "rate": 8,
+   "hit": "am",
+   "hit_size": 16,
+   "hit_n": 3,
+   "cast": "song-nguyet-tram",
+   "cast_size": 18
+  },
+  "tu-nguyet-luan": {
+   "show": "shot",
+   "img": "tu-nguyet-liem",
+   "size": 18,
+   "glow": 13,
+   "spin": 3,
+   "ghost": 2,
+   "trail": "am",
+   "rate": 4,
+   "hit": "am",
+   "hit_size": 16,
+   "hit_n": 3,
+   "cast": "tu-nguyet-luan",
+   "cast_size": 20
+  },
+  "lien-chau": {
+   "show": "shot",
+   "size": 24,
+   "glow": 12,
+   "face": true,
+   "ghost": 3,
+   "trail": "sao-vang",
+   "rate": 18,
+   "hit": "sao-vang",
+   "hit_size": 14,
+   "hit_n": 4
+  },
+  "phap-kim-luan": {
+   "show": "shot",
+   "img": "kim-luan",
+   "size": 14,
+   "glow": 11,
+   "spin": 2.5,
+   "ghost": 2,
+   "trail": "sao-vang",
+   "rate": 6,
+   "hit": "sao-vang",
+   "hit_size": 14,
+   "hit_n": 3,
+   "cast": "phap-kim-luan",
+   "cast_size": 18
+  },
+  "phap-thanh-moc": {
+   "show": "rise",
+   "size": 22,
+   "glow": 18,
+   "circle": "tran-moc",
+   "trail": "la",
+   "rate": 14,
+   "part": "la",
+   "hit_n": 8
+  },
+  "phap-huyen-thuy": {
+   "show": "dome",
+   "size": 36,
+   "glow": 22,
+   "circle": "tran-thuy",
+   "part": "giot",
+   "hit_n": 10,
+   "dome_add": true,
+   "dome_a": 0.4
+  },
+  "phap-tran-yeu": {
+   "show": "dome",
+   "drop": true,
+   "size": 40,
+   "glow": 26,
+   "circle": "tran-kim",
+   "part": "thanh-quang",
+   "hit_n": 12
+  },
+  "phap-hoa-hon": {
+   "show": "ground",
+   "img": "liet-diem",
+   "size": 58,
+   "glow": 34,
+   "circle": "tran-hoa",
+   "cast": "phap-hoa-hon",
+   "cast_size": 30,
+   "hit": "no-lua",
+   "hit_size": 30,
+   "part": "lua",
+   "hit_n": 14,
+   "flat": true
+  }
+ },
+ "sparks": {
+  "_note": "Tia lửa li ti (src/game/sparks.js, src/render/draw-sparks.js; chủ dự án 08/11/2026 16:52 theo video tham khảo). Mỗi loại: n số hạt, spd tốc độ (đơn vị bản đồ/giây), cone nửa góc tóe quanh hướng đòn (radian), up đẩy lên lúc đầu, g trọng lực, drag hãm, life giây, big tỉ lệ hạt to, color màu mặc định (đòn có màu riêng thì lấy màu đòn; cứ 4 hạt có 1 hạt trắng). max: tối đa hạt trên màn (máy chậm còn một nửa). 09/11/2026 gộp với cảm giác đánh (data/juice.json: tia toả, vụn, đốm hút về người) nên bớt hạt đòn thường, chí mạng, hạ quái thường cho khỏi rối. budget: true thì chỉ hiện trong hạn mức (data/juice.json → budget.sp_*).",
+  "max": 220,
+  "hit": {
+   "n": 3,
+   "budget": true,
+   "spd": 110,
+   "cone": 0.9,
+   "up": 20,
+   "g": 260,
+   "drag": 3,
+   "life": 0.32,
+   "big": 0.2,
+   "color": "#fff4c8"
+  },
+  "crit": {
+   "n": 8,
+   "budget": true,
+   "spd": 170,
+   "cone": 1.2,
+   "up": 40,
+   "g": 240,
+   "drag": 2.5,
+   "life": 0.45,
+   "big": 0.4,
+   "color": "#ffd84a"
+  },
+  "kill": {
+   "n": 5,
+   "budget": true,
+   "spd": 90,
+   "cone": 3.2,
+   "up": 50,
+   "g": 200,
+   "drag": 2.5,
+   "life": 0.5,
+   "big": 0.3,
+   "color": "#ffffff"
+  },
+  "kill_big": {
+   "n": 34,
+   "spd": 200,
+   "cone": 3.2,
+   "up": 80,
+   "g": 180,
+   "drag": 2,
+   "life": 0.9,
+   "big": 0.5,
+   "color": "#ffd84a"
+  },
+  "aoe": {
+   "n": 18,
+   "spd": 150,
+   "cone": 3.2,
+   "up": 30,
+   "g": 160,
+   "drag": 3,
+   "life": 0.5,
+   "big": 0.3,
+   "color": "#ffffff"
+  },
+  "hurt": {
+   "n": 6,
+   "spd": 100,
+   "cone": 0.8,
+   "up": 20,
+   "g": 260,
+   "drag": 3,
+   "life": 0.3,
+   "big": 0.2,
+   "color": "#ff6a6a"
+  }
+ },
  "near_mul": 0.45,
- "pfx": {"_note": "Hiệu ứng chiêu vẽ bằng PixelFX (chủ dự án 13/11/2026 01:53: thay toàn bộ hình chiêu ảnh GPT; thư viện mã mở MIT github.com/patch-gg/pixelfx, tools/art/vfx_pfx.py dựng). Mỗi tên hình (img, hit, circle, cast ở skills) → [mã hiệu ứng PixelFX, bảng màu (tên PAL của PixelFX), tuỳ chọn]. Tuỳ chọn: fps (khung mỗi giây khi phát, mặc định 15), span (phần đầu hiệu ứng giữ lại, 0–1), down (thu nhỏ khi dựng), opts (tuỳ chọn riêng của hiệu ứng). Có hình pfx.<tên> trong data/art.json thì game phát dải khung này thay ảnh vfx.<tên> (src/render/vfx/pfx.js); hạt nhỏ (lửa, lá, đá...) vẽ ô điểm ảnh theo part_px.", "kiem-khi": ["projectiles/energy-disc", "electric"], "hoa-cau": ["fire/fireball", "fire"], "hoa-long": ["fire/fireball", "lava", {"down": 0.8}], "bang-truy": ["ice/ice-lance", "ice"], "thuy-long": ["projectiles/plasma-shot", "water"], "la": ["projectiles/laser-bolt", "leaf"], "luc-dang-long": ["fire/fireball", "leaf"], "van-kiem": ["projectiles/laser-bolt", "gold"], "am": ["projectiles/plasma-shot", "arcane"], "tu-nguyet-liem": ["projectiles/energy-disc", "arcane"], "lien-chau": ["projectiles/arrow", "gold"], "kim-luan": ["projectiles/energy-disc", "gold"], "thach-chuy": ["fire/fireball", "stone"], "dang-phuoc": ["nature/root-snare", "leaf"], "liet-diem": ["fire/fire-ring", "fire", {"span": 0.6, "down": 0.6}], "dia-chan": ["impacts/ground-slam", "earth", {"span": 0.55, "down": 0.5}], "bang-phong": ["ice/frost-nova", "ice", {"span": 0.7, "down": 0.5}], "son-nhac": ["nature/earth-spike", "earth", {"span": 0.7, "down": 0.6}], "thanh-moc-vuc": ["nature/leaf-storm", "leaf"], "phan-thien": ["fire/fire-tornado", "fire", {"down": 0.8}], "han-bang-vuc": ["ice/blizzard-vortex", "ice"], "luu-sa": ["water/whirlpool", "dust"], "cuong-phong": ["nature/tornado", "heal", {"down": 0.7}], "hoi-xuan": ["holy/heal", "heal"], "phap-thanh-moc": ["holy/heal", "leaf"], "truong-xuan": ["nature/healing-bloom", "heal"], "thuy-thuan": ["holy/divine-shield", "water"], "phap-huyen-thuy": ["holy/divine-shield", "ice"], "thach-giap": ["holy/divine-shield", "stone"], "dai-dia": ["holy/divine-shield", "earth"], "phap-tran-yeu": ["holy/divine-shield", "gold"], "kim-cuong-the": ["holy/blessing", "gold"], "kim-than": ["holy/blessing", "holy"], "kim-quang-tram": ["melee/thrust", "gold"], "long-thuong": ["melee/thrust", "metal"], "phuong-hoang": ["fire/fireball", "holy", {"down": 0.8}], "loi-dinh": ["lightning/lightning-strike", "volt", {"span": 0.7, "down": 0.6}], "sao-vang": ["impacts/hit-spark", "gold"], "no-lua": ["explosions/small-explosion", "fire", {"span": 0.3, "down": 0.6}], "no-bang": ["ice/snowflake-burst", "ice"], "no-la": ["ice/snowflake-burst", "leaf"], "no-da": ["impacts/blunt-hit", "stone"], "no-nuoc": ["water/splash", "water", {"span": 0.7, "down": 0.7}], "tran-hoa": ["arcane/rune-circle", "fire"], "tran-thuy": ["arcane/rune-circle", "water"], "tran-moc": ["arcane/rune-circle", "leaf"], "tran-kim": ["arcane/rune-circle", "gold"], "tran-tho": ["arcane/rune-circle", "earth"], "van-moc-cham": ["arcane/spell-charge", "leaf"], "bang-phach": ["arcane/spell-charge", "ice"], "that-huyen": ["arcane/spell-charge", "arcane"], "song-nguyet-tram": ["arcane/spell-charge", "shadow"], "tu-nguyet-luan": ["arcane/spell-charge", "shadow"], "phap-kim-luan": ["arcane/spell-charge", "gold"], "phap-hoa-hon": ["arcane/spell-charge", "fire"]},
- "part_px": {"_note": "Hạt nhỏ vẽ ô điểm ảnh (thay mảnh ảnh GPT): mỗi loại 3 màu tối → sáng.", "lua": ["#cc3a1a", "#ff8a2a", "#ffe27a"], "tuyet": ["#58b4ec", "#9bdcff", "#ffffff"], "la": ["#357530", "#7cc048", "#e4ffb0"], "da": ["#47321e", "#8e6638", "#dcb47c"], "giot": ["#1c76bc", "#78ccf4", "#ffffff"], "sao-vang": ["#c48412", "#ffe066", "#ffffff"], "am": ["#6b2cc0", "#c684ff", "#ffffff"], "set": ["#e8a218", "#fff08a", "#ffffff"], "gio": ["#3ec466", "#c8ffc4", "#ffffff"], "thanh-quang": ["#3ec466", "#c8ffc4", "#ffffff"]}
+ "part_px": {
+  "_note": "Hạt điểm ảnh theo hệ (src/game/pfx.js): c dải màu sáng → sẫm theo tuổi hạt; g trọng lực (dương rơi, âm bốc lên), up bốc lên lúc sinh, drag cản, big tỉ lệ hạt to, add false: không quầng sáng.",
+  "lua": {
+   "c": [
+    "#fff3a6",
+    "#ffc23d",
+    "#f2561d",
+    "#8a1f17"
+   ],
+   "g": -40,
+   "up": 20,
+   "big": 0.35
+  },
+  "tuyet": {
+   "c": [
+    "#ffffff",
+    "#d8f4ff",
+    "#9bdcff",
+    "#58b4ec"
+   ],
+   "g": 14,
+   "big": 0.25
+  },
+  "la": {
+   "c": [
+    "#e4ffb0",
+    "#b4e070",
+    "#7cc048",
+    "#357530"
+   ],
+   "g": 18,
+   "drag": 2.6,
+   "big": 0.4,
+   "add": false
+  },
+  "da": {
+   "c": [
+    "#dcb47c",
+    "#b88a52",
+    "#8e6638",
+    "#47321e"
+   ],
+   "g": 160,
+   "drag": 0.8,
+   "big": 0.5,
+   "add": false
+  },
+  "giot": {
+   "c": [
+    "#ffffff",
+    "#c4ecff",
+    "#78ccf4",
+    "#36a2e0"
+   ],
+   "g": 120,
+   "drag": 0.8,
+   "big": 0.3
+  },
+  "sao-vang": {
+   "c": [
+    "#ffffff",
+    "#fff6c4",
+    "#ffe066",
+    "#f0b424"
+   ],
+   "g": 0,
+   "big": 0.2
+  },
+  "am": {
+   "c": [
+    "#ffffff",
+    "#ecc8ff",
+    "#c684ff",
+    "#9a48ec"
+   ],
+   "g": -12,
+   "big": 0.2
+  },
+  "thanh-quang": {
+   "c": [
+    "#ffffff",
+    "#c8f4ff",
+    "#7fd8ff",
+    "#3f9cff"
+   ],
+   "g": 0,
+   "big": 0.2
+  },
+  "set": {
+   "c": [
+    "#ffffff",
+    "#fff08a",
+    "#ffd23c",
+    "#e8a218"
+   ],
+   "g": 0,
+   "big": 0.2
+  },
+  "gio": {
+   "c": [
+    "#ffffff",
+    "#d8fff0",
+    "#9af0c8",
+    "#5fd0a0"
+   ],
+   "g": -10,
+   "big": 0.2
+  }
+ },
+ "px_on": false,
+ "px_light": [
+  0.6,
+  0.4
+ ],
+ "px": {
+  "_note": "Công thức hiệu ứng điểm ảnh từng chiêu (src/game/pfx.js giải thích từng mục). Hình pfx.* dựng bằng tools/art/pfx/.",
+  "kiem-khi": {
+   "shot": {
+    "s": "kiem-khi",
+    "trail": "thanh-quang",
+    "rate": 12
+   },
+   "hit": [
+    {
+     "s": "no-kiem"
+    }
+   ]
+  },
+  "hoa-cau": {
+   "shot": {
+    "s": "hoa-cau",
+    "trail": "lua",
+    "rate": 14
+   },
+   "hit": [
+    {
+     "s": "no-lua"
+    }
+   ],
+   "boom": [
+    {
+     "s": "no-lua-to"
+    }
+   ]
+  },
+  "liet-hoa-tran": {
+   "shot": {
+    "s": "hoa-cau",
+    "trail": "lua",
+    "rate": 10
+   },
+   "hit": [
+    {
+     "s": "no-lua"
+    }
+   ],
+   "boom": [
+    {
+     "s": "no-lua-to"
+    }
+   ]
+  },
+  "hoa-long": {
+   "shot": {
+    "s": "hoa-long",
+    "trail": "lua",
+    "rate": 26,
+    "back": 30,
+    "emerge": 66
+   },
+   "hit": [
+    {
+     "s": "no-lua"
+    }
+   ],
+   "boom": [
+    {
+     "s": "no-lua-to"
+    }
+   ]
+  },
+  "bang-truy": {
+   "shot": {
+    "s": "bang-truy",
+    "trail": "tuyet",
+    "rate": 12
+   },
+   "hit": [
+    {
+     "s": "no-bang"
+    }
+   ]
+  },
+  "bang-phach": {
+   "shot": {
+    "s": "bang-truy",
+    "trail": "tuyet",
+    "rate": 5
+   },
+   "hit": [
+    {
+     "s": "no-bang"
+    }
+   ]
+  },
+  "thuy-long": {
+   "shot": {
+    "s": "thuy-long",
+    "trail": "giot",
+    "rate": 12,
+    "back": 18,
+    "emerge": 48
+   },
+   "hit": [
+    {
+     "s": "no-nuoc"
+    }
+   ]
+  },
+  "van-moc-cham": {
+   "shot": {
+    "s": "cham",
+    "trail": "la",
+    "rate": 6
+   },
+   "hit": [
+    {
+     "s": "no-la"
+    }
+   ]
+  },
+  "luc-dang-long": {
+   "shot": {
+    "s": "luc-dang-long",
+    "trail": "la",
+    "rate": 18,
+    "back": 30,
+    "emerge": 66
+   },
+   "hit": [
+    {
+     "s": "no-la"
+    }
+   ]
+  },
+  "van-kiem": {
+   "shot": {
+    "s": "phi-kiem",
+    "trail": "sao-vang",
+    "rate": 8
+   },
+   "hit": [
+    {
+     "s": "no-kim"
+    }
+   ]
+  },
+  "thach-chuy": {
+   "shot": {
+    "s": "da",
+    "trail": "da",
+    "rate": 10
+   },
+   "hit": [
+    {
+     "s": "no-da"
+    }
+   ],
+   "boom": [
+    {
+     "s": "no-da"
+    }
+   ]
+  },
+  "that-huyen": {
+   "shot": {
+    "s": "am-ba",
+    "trail": "am",
+    "rate": 4
+   },
+   "hit": [
+    {
+     "s": "no-am"
+    }
+   ]
+  },
+  "tu-nguyet-liem": {
+   "shot": {
+    "s": "nguyet-liem",
+    "trail": "am",
+    "rate": 10
+   },
+   "hit": [
+    {
+     "s": "no-am"
+    }
+   ]
+  },
+  "song-nguyet-tram": {
+   "shot": {
+    "s": "nguyet-liem",
+    "trail": "am",
+    "rate": 6
+   },
+   "hit": [
+    {
+     "s": "no-am"
+    }
+   ]
+  },
+  "tu-nguyet-luan": {
+   "shot": {
+    "s": "nguyet-liem",
+    "trail": "am",
+    "rate": 4
+   },
+   "hit": [
+    {
+     "s": "no-am"
+    }
+   ]
+  },
+  "lien-chau": {
+   "shot": {
+    "s": "ten",
+    "trail": "sao-vang",
+    "rate": 8
+   },
+   "hit": [
+    {
+     "s": "no-kim"
+    }
+   ]
+  },
+  "phap-kim-luan": {
+   "shot": {
+    "s": "kim-luan",
+    "trail": "sao-vang",
+    "rate": 5
+   },
+   "hit": [
+    {
+     "s": "no-kim"
+    }
+   ]
+  }
+ }
 }

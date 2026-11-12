@@ -51,7 +51,7 @@ import { drawDuelist } from './draw-duel.js';
 import { drawDummy } from './draw-dummy.js';
 import { drawMang } from './draw-mang.js';
 import { duelFoes } from '../game/duel.js';
-import { drawVfx } from './vfx/draw-vfx.js';
+import { drawVfx } from './vfx/draw-vfx.js'; import { drawPxGround } from './vfx/draw-pfx.js';
 import { vfxOf } from '../game/vfx.js'; import { domainVis } from './draw-domain.js';
 
 const INK = '#1b1830';
@@ -313,7 +313,7 @@ export function drawWorld(game, screen, t) {
     ctx.globalAlpha = 0.18 + 0.12 * k * Math.min(1, (z.dur - z.t) * 2); disc(ctx, z.x, z.y, z.radius, z.color);
     ctx.globalAlpha = 0.6; ring(ctx, z.x, z.y, z.radius, z.color, z.t * 3, z.t * 3 + Math.PI * 1.5); ctx.globalAlpha = 1;
   }
-  drawAim(ctx, game);   // giữ / kéo nút chiêu: khung đúng hình và tầm của chiêu trên mặt đất
+  drawPxGround(ctx, game); drawAim(ctx, game);   // hiệu ứng chiêu điểm ảnh lớp dưới chân (vfx/draw-pfx.js); giữ / kéo nút chiêu: khung đúng hình và tầm của chiêu trên mặt đất
   drawSongTu(ctx, game, t);
   if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife(game));
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
