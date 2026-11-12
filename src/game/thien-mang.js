@@ -28,6 +28,7 @@ export function arenaHeads(game) {
 
 // game.js loadMap: vào vùng lúc boss đang ngủ (vd. tải lại trang sau giờ boss) thì đưa về tinh cầu cũ
 export function arenaGuard(game, id) {
+  if (!game.data.maps[id]) return 'thien-kiem-phong';   // bản lưu ở tinh cầu khai hoang / trận Khai Tinh (dựng lúc chạy, src/game/khai-hoang.js) chưa tải: về Thiên Kiếm Tinh
   const a = A(game);
   return !a || id !== a.map || mangOn(game) ? id : backOf(game);
 }

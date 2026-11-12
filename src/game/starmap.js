@@ -49,7 +49,7 @@ export function whyNot(game, b) {
   if (b.kind === 'soon' || !def) return t.soon;
   if (def.demon) return demonWhy(game);
   const gate = mapGate(game, b.map); if (gate) return gate;   // mở theo tu vi (data/realms.json map_open)   // Phương Thiên Địa: mở theo cảnh giới, mỗi tuần một lần
-  if (!game.save.visited?.[b.map] && !flyOpen(game, b.map)) return t.locked;
+  if (!b.kh && !game.save.visited?.[b.map] && !flyOpen(game, b.map)) return t.locked;   // tinh cầu khai hoang: công khai, ai cũng bay tới
   if (!def.world) return t.moon.replace('{parent}', b.parent?.name || '');
   return null;
 }

@@ -318,7 +318,7 @@ export function createGame(data, screen, input, ui, audio) {
       s.timer = s.respawn;
       const p = game.map.freeNear(s.at[0], s.at[1], s.spread, 7);
       const m = game.spawn(s.mob, p.x, p.y);
-      zonePower(game, m);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp)
+      zonePower(game, m, s);   // lực chiến quái theo đảo (mob-power.js, config.mob_cp); s.cp: trùm trận Khai Tinh
       if (s.mul && s.mul !== 1) scaleMobBy(game, m, s.mul, s.tag);
       if (s.farm) { m.lootMul = data.planets.farm.loot; m.farm = true; }
       maybeRare(game, m); s.alive.push(m);

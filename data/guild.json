@@ -16,7 +16,7 @@
   {"pts": 1200, "coins": 6000, "stones": 3}
  ],
  "roles": {"chu": "Tông chủ", "pho": "Phó tông chủ", "lao": "Trưởng lão", "de": "Đệ tử"},
- "tabs": {"home": "Tông môn", "members": "Đồng môn", "chat": "Trò chuyện", "find": "Tìm tông môn"},
+ "tabs": {"home": "Tông môn", "members": "Đồng môn", "chat": "Trò chuyện", "kh": "Tinh cầu", "find": "Tìm tông môn"},
  "text": {
   "offline": "Đăng nhập để vào tông môn cùng đạo hữu khác.",
   "loading": "Đang tải...",

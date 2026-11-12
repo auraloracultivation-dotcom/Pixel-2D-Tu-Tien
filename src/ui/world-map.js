@@ -20,7 +20,7 @@ function el(tag, cls, text) {
 
 export function createWorldMap(game) {
   const { data } = game, sm = data.starmap, H = data.dungeon.hint;
-  const bodies = bodiesOf(sm, data.maps);
+  let bodies = bodiesOf(sm, data.maps);   // dựng lại mỗi lần mở: tinh cầu khai hoang tải từ máy chủ (src/game/khai-hoang.js)
   const hint = { easy: H.easy_color, fair: H.fair_color, hard: H.hard_color };
   const hintText = { easy: H.easy_text, fair: H.fair_text, hard: H.hard_text };
   let canvas = null, ctx = null, raf = 0, pts = [], sel = null, t0 = 0, view = null, mode = 'sys', lay = null, tabs = null;
@@ -30,7 +30,7 @@ export function createWorldMap(game) {
     : game.map.def.tower || game.map.def.res ? 'Đang trong tháp hoặc bí cảnh, ra cổng trước đã.'
     : game.trib.active ? 'Đang độ kiếp!' : game.story.busy ? 'Đang có chuyện, đợi xong đã.' : null;
 
-  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!data.maps[b.map]?.demon || !!game.save.visited?.[b.map] || (!!b.map && flyOpen(game, b.map));
+  const seen = b => b.sun || b.kind === 'lost' || b.kind === 'soon' || !!data.maps[b.map]?.demon || !!game.save.visited?.[b.map] || !!b.kh || (!!b.map && flyOpen(game, b.map));
 
   function fit() {
     const box = $('world-sky'), dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -118,6 +118,7 @@ export function createWorldMap(game) {
   function open() {
     if (!game.save || game.dialog.open || game.trip || game.traveling) return;
     game.uiOpen = true; $('world').hidden = false;
+    bodies = bodiesOf(game.data.starmap, data.maps);
     if (!canvas) {
       canvas = el('canvas'); ctx = canvas.getContext('2d');
       view = panZoom(canvas, { max: 3.5, onTap: tap });

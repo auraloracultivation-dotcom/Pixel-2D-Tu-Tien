@@ -4,6 +4,7 @@
 import { grant, dailyEvent } from './daily.js';
 import { sweepKills } from './dun-sweep.js';
 import { pbDrop } from './phap-bao-drop.js';
+import { khDun } from './khai-hoang.js';
 
 const C = game => game.data.dungeon;
 const today = () => new Date().toDateString();
@@ -63,7 +64,7 @@ export function sweep(game, id, L) {
   grant(game, r, 'can-quet');
   sweepKills(game, id, L);   // đồ rơi của từng quái như đánh thật (góp ý #127)
   dailyEvent(game, 'dungeon', id);   // việc ngày Vượt bí cảnh (data/daily.json bi-canh)
-  pbDrop(game, 'dun', L);   // càn quét cũng có thể ra pháp bảo
+  pbDrop(game, 'dun', L); khDun(game);   // càn quét cũng có thể ra pháp bảo, Mảnh Vỡ Tinh Cầu
   return diffRun(game, snap);
 }
 

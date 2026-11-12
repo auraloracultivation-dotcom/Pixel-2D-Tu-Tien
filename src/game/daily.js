@@ -5,6 +5,7 @@ import { addCoins } from './shop.js';
 import { praise } from './praise.js';
 import { mapGate } from './map-gate.js';
 import { pbDrop } from './phap-bao-drop.js';
+import { khKill } from './khai-hoang.js';
 
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 
@@ -68,6 +69,7 @@ export function dailyEvent(game, type, id, amount = 1) {
 export function dailyKill(game, m) {
   dailyEvent(game, 'kill', m.id);
   if (!game.dungeon && !m.dummy && m.def.ai !== 'boss' && !m.wb) pbDrop(game, 'mob');   // pháp bảo rơi như trang bị (src/game/phap-bao-drop.js)
+  khKill(game, m);   // Mảnh Vỡ Tinh Cầu, trùm trận Khai Tinh (src/game/khai-hoang.js)
   const r = game.data.daily.guard?.r;
   // Trấn giữ (chủ dự án 12/11/2026 11:36: Đi làm không dẫn đi được): hạ quái thường ở tinh cầu có dân làng là tính, ngoài bí cảnh;
   // tự hành làm như hạ quái bất kỳ (src/game/dailyjob.js)
