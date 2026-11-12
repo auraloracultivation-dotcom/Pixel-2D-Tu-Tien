@@ -20,6 +20,7 @@ const fin = v => typeof v === 'number' && Number.isFinite(v);
 // Dấu ss, pb do src/net/profile.js mark() đóng. Bản trong máy chưa có dấu thì nhường máy chủ.
 export function pickSave(local, remote, pb) {
   if (!remote || !local) return remote || local;
+  if ((+remote.mua || 1) > (+local.mua || 1)) return remote;   // máy chủ vừa reset cảnh giới (data/config.json season): bản trong máy là đời trước, không được đè (12/11/2026, tài khoản mở lại bằng máy cũ đè mất reset)
   if ((local.lastSeen || 0) <= (remote.lastSeen || 0)) return remote;
   const same = (local.ss && local.ss === remote.ss) || (fin(local.pb) && local.pb === pb);
   return same ? local : remote;
