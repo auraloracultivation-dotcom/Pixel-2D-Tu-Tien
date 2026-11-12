@@ -28,7 +28,7 @@ export function renderTasks(game, body, api) {
   if (api.say) { const s = el('div', 'ht-say'), t = el('div'); t.append(el('b', null, H.name), el('p', null, api.say)); if (api.face) s.append(api.face.node); s.append(t); body.append(s); }
   body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
   const t = htTask(game);
-  if (t && !game.story?.current?.()?.until?.never) {   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
+  if (t && H.story_ui !== false && !game.story?.current?.()?.until?.never) {   // story_ui false: bỏ khung việc truyện (data/he-thong.json)   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
     body.append(el('div', 'ht-sub', X.story_hint), el('p', 'ht-line ht-goal', t));
     const g = el('button', 'ht-btn', game.pilot ? H.guide_on : H.guide); g.type = 'button'; g.disabled = !!game.pilot;
     g.onclick = async () => { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); api.minimize(); };

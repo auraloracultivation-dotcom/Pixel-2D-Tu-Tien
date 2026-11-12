@@ -1,4 +1,5 @@
 {
+ "story_ui": false, "_story_ui": "Chủ dự án 12/11/2026 11:05: bỏ khung Tự hành / Việc đang làm của cốt truyện cũ (bảng Hệ Thống đã dẫn bốc linh căn, gặp Lạc Tuyết qua nhiệm vụ). false: không hiện Việc đang làm, nút Dẫn đường trong bảng Hệ Thống và khung việc truyện trên màn (#goal); truyện vẫn chạy ngầm để mở cờ.",
  "_note": "Hệ Thống đi theo ký chủ (chủ dự án 06/11/2026 16:15: người chơi là kẻ xuyên không, có hệ thống đi theo; bảng giữa màn hình, chạm ra ngoài thì thu nhỏ bay sang phải thành biểu tượng cạnh nút pháp bảo; chạm biểu tượng mở lại). src/game/he-thong.js, src/ui/he-thong.js, kiểu he-thong.css. Ba mục: Nhiệm vụ (việc truyện đang làm, nút Dẫn đường bật Tự hành), Hỏi đáp (dùng data/faq.json), Hỏi thêm (gửi câu hỏi về máy chủ p2d_ht_hoi, Claude đọc và bổ sung Hỏi đáp). Hệ thống tự lên tiếng (biểu tượng rung + một dòng): đứng yên idle_s giây không làm gì, gục deaths lần trong deaths_s giây, các bước truyện trong steps (bước 10 là chỗ người mới hay bỏ game).",
  "name": "Hệ Thống Bạo Kích Tài Nguyên Vô Hạn",
  "icon": "Hệ",

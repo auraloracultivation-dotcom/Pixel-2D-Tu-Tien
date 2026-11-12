@@ -104,7 +104,9 @@ export function createHud(audio) {
       $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
     }
     const gl = guideLine(game), goals = game.goals().split('\n').map(l => (gl && l === gl && game.goals().includes('\n') ? '➤ ' + l : l)).join('\n');   // nhiều việc: ➤ là việc mũi tên đang chỉ (chạm khung để đổi)
-    const pl = pilotLabel(game), gt = [goals, pl].filter(Boolean).join('\n');   // dòng Con Đường Đạo Vận đã bỏ khỏi khung (chủ dự án 02/11/2026)
+    const noStory = d['he-thong']?.story_ui === false;   // bỏ khung việc truyện cũ (chủ dự án 12/11/2026 11:05): chỉ còn dòng Tự hành khi đang chạy
+    const pl = pilotLabel(game), gt = [noStory ? '' : goals, pl].filter(Boolean).join('\n');
+    $('goal').hidden = !gt;   // dòng Con Đường Đạo Vận đã bỏ khỏi khung (chủ dự án 02/11/2026)
     if ($('goal').textContent !== gt) $('goal').textContent = gt;
 
     const boss = game.mobs.find(m => (m.def.ai === 'boss' || m.arena) && !m.dead && !m.wboss);   // đầu boss thế giới có bảng riêng (ui/mang-panel.js)
