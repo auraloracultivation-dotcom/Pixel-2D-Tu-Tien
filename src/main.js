@@ -1,4 +1,5 @@
 // Khởi động: nạp dữ liệu, dựng màn hình, vòng lặp khung hình.
+import './core/host-guard.js';   // chỉ chạy ở tên miền chính, địa chỉ khác chuyển về www.pixel2dtutien.com
 import './core/clock.js';   // đồng hồ tin được: phải nạp trước mọi thứ dùng Date
 import { loadData } from './core/data.js';
 import { createScreen } from './core/screen.js';
