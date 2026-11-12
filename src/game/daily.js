@@ -67,7 +67,9 @@ export function dailyEvent(game, type, id, amount = 1) {
 export function dailyKill(game, m) {
   dailyEvent(game, 'kill', m.id);
   const r = game.data.daily.guard?.r;
-  if (r && m.def.ai !== 'boss' && !m.wb && game.npcs?.some(n => Math.hypot(n.x - m.x, n.y - m.y) < r)) dailyEvent(game, 'guard', m.id);
+  // Trấn giữ (chủ dự án 12/11/2026 11:36: Đi làm không dẫn đi được): hạ quái thường ở tinh cầu có dân làng là tính, ngoài bí cảnh;
+  // tự hành làm như hạ quái bất kỳ (src/game/dailyjob.js)
+  if (r && m.def.ai !== 'boss' && !m.wb && !game.dungeon && game.npcs?.length) dailyEvent(game, 'guard', m.id);
 }
 
 // Đang tự hành: xong việc thì nhận thưởng luôn, đủ hết thì mở rương
