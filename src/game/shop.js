@@ -149,7 +149,7 @@ export function autoSellFull(game) {
   if (!a?.on || !a.tiers?.length) return false;
   if (a.mode === 'phan_giai') {   // góp ý #146: khi túi đầy tự phân giải thay vì bán
     const r = quickSalvage(game, a.tiers);
-    if (r.n) game.toast?.(`Túi đầy: tự phân giải ${r.n} món, +${r.stones} Tẩy Luyện Thạch, +${r.iron} Tinh Thiết`, 1.8);
+    if (r.n) game.autoNote?.(`Túi đầy: tự phân giải ${r.n} món, +${r.stones} Tẩy Luyện Thạch, +${r.iron} Tinh Thiết`, 1.8);
     return r.n > 0;
   }
   const r = quickSell(game, a.tiers, true);

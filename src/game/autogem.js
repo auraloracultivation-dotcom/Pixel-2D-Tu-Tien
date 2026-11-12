@@ -43,12 +43,12 @@ export async function autoGem(game) {
   if (best) {
     if (!(await kySocket(game, best.it.uid, best.i, best.k, true))) return wait();
     game.refreshStats(); game.persist();
-    game.toast(`Tự khảm ${gemInfo(d, best.k).name} vào ${itemName(d, best.it)}: lực chiến +${best.v.toLocaleString('vi-VN')}`, 2.2);
+    game.autoNote(`Tự khảm ${gemInfo(d, best.k).name} vào ${itemName(d, best.it)}: lực chiến +${best.v.toLocaleString('vi-VN')}`, 2.2);
     return;
   }
   if (equipped(s).some(it => it.sockets.includes(null))) return;
   const k = keys.find(x => canMerge(d, s, x, d.config.pilot.garden_keep));   // luôn chừa lại một ít Linh Thạch
   if (!k) return;
   if (!(await kyMerge(game, k, d.config.pilot.garden_keep, 1, true))) return wait();
-  game.persist(); game.toast(`Tự ghép ngọc: ${gemInfo(d, k).name} thành cấp ${gemInfo(d, k).lv + 1}`, 1.8);
+  game.persist(); game.autoNote(`Tự ghép ngọc: ${gemInfo(d, k).name} thành cấp ${gemInfo(d, k).lv + 1}`, 1.8);
 }

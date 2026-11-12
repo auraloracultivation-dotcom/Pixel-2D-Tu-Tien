@@ -15,6 +15,9 @@ export function createFeed(game) {
   function drop(L) { L.el.remove(); lines.splice(lines.indexOf(L), 1); }
 
   // text: "+12.5 linh khí" (cộng dồn theo đơn vị) hoặc chữ thường ("Nhặt [Linh] Thiết Kiếm"); color: màu chữ
+  // Việc Tự hành tự làm (tự khảm, ghép ngọc, mặc, cường hoá, phân giải, dùng đan, nhận thưởng): ghi vào cột bên trái, không chiếm
+  // giữa màn (chủ dự án 12/11/2026 11:21: dòng báo giữa màn chỉ cho lời Hệ Thống)
+  game.autoNote = (text, sec) => (game.feed ? game.feed(text, '#9fe8ff') : game.toast(text, sec));
   game.feed = (text, color = '#ffe6a0') => {
     const m = /^\+([\d.,]+) (.+)$/.exec(String(text)), now = performance.now() / 1000;
     const key = m ? 'g|' + m[2] : 't|' + text;
