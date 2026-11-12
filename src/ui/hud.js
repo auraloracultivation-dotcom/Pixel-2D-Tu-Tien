@@ -115,8 +115,8 @@ export function createHud(audio) {
     if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }
 
     atkIcon(game);   // nút đánh thường: hình bản mệnh pháp bảo (hud-atk.js)
-    const slots = skillSlots(game);
-    for (let i = 0; i < 3; i++) {
+    const slots = skillSlots(game), pbMode = pbOn(game);   // hệ pháp bảo mới (tài khoản thử): nút chiêu, nút Luyện chế do pbHud vẽ
+    if (!pbMode) for (let i = 0; i < 3; i++) {
       const b = $('btn-s' + i), id = slots[i];
       b.classList.toggle('off', !id);
       const name = id ? d.skills[id].name : '—';

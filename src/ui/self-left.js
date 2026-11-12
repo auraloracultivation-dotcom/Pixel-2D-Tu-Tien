@@ -7,6 +7,7 @@ import { realmLabel, rootOf } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { el } from './bag-detail.js';
 import { gearCell, buffCell, uiIco } from './self-gear.js';
+import { pbRow } from './self-pb.js';
 
 export const vn = n => Math.round(n || 0).toLocaleString('vi-VN');
 export const pct = n => `${Math.round((n || 0) * 1000) / 10}%`;
