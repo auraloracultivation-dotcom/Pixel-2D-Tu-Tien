@@ -77,6 +77,12 @@ export function renderTasks(game, body, api) {
       row.append(b, opts);
     } else if (!m.ok && m.go) {
       b.textContent = X.go; b.onclick = () => { api.minimize(); game.openOldPanel?.({ btn: m.go }); }; row.append(b);
+    } else if (!m.ok) {   // chơi thử 12/11/2026: bỏ khung truyện thì việc truyện / tu luyện không còn nút dẫn → Đi làm: truyện, cảnh giới bật Tự hành;
+      // pháp bảo mở Trang bị → P.bảo; trang bị, cường hoá, khảm mở Trang bị
+      const k = m.dk || {}, pb = Object.keys(k).some(x => x.startsWith('pb_'));
+      b.textContent = X.go;
+      b.onclick = async () => { api.minimize(); if (pb) game.openPhapBao?.(); else if ('step' in k || 'realm' in k) { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); } else game.openSelf?.('do'); };
+      row.append(b);
     } else {
       b.textContent = m.ok ? X.claim : X.todo; b.disabled = !m.ok || !game.cloud;
       b.onclick = async () => { b.disabled = true; try { const N = await import('../net/he-thong.js'); done(await claim(() => N.htClaim(m.id)), m); } catch (e) { err(e); b.disabled = false; } };
