@@ -21311,7 +21311,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu bang-phach dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu bang-phach vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.bang-phong": {
    "file": "assets/art/pxi-bang-phong.png",
@@ -21323,7 +21323,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu bang-phong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu bang-phong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.bang-truy": {
    "file": "assets/art/pxi-bang-truy.png",
@@ -21335,7 +21335,235 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu bang-truy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu bang-truy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-bao-kich": {
+   "file": "assets/art/pxi-ck-bao-kich.png",
+   "v": "336d5d3d",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm bao-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-cau-xoay": {
+   "file": "assets/art/pxi-ck-cau-xoay.png",
+   "v": "a4ff2b91",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm cau-xoay vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-danh-lan": {
+   "file": "assets/art/pxi-ck-danh-lan.png",
+   "v": "3aa596bd",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm danh-lan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-hap-huyet": {
+   "file": "assets/art/pxi-ck-hap-huyet.png",
+   "v": "dd325c3a",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm hap-huyet vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-hoa": {
+   "file": "assets/art/pxi-ck-hoa.png",
+   "v": "513aedfa",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm hoa vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-kim": {
+   "file": "assets/art/pxi-ck-kim.png",
+   "v": "d6a9bafb",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm kim vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-lien-phat": {
+   "file": "assets/art/pxi-ck-lien-phat.png",
+   "v": "8715277e",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm lien-phat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-loi-kich": {
+   "file": "assets/art/pxi-ck-loi-kich.png",
+   "v": "64177be6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm loi-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-moc": {
+   "file": "assets/art/pxi-ck-moc.png",
+   "v": "81e4b8da",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm moc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-nay-bat": {
+   "file": "assets/art/pxi-ck-nay-bat.png",
+   "v": "786020bd",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm nay-bat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-phan-chan": {
+   "file": "assets/art/pxi-ck-phan-chan.png",
+   "v": "7af5ec7d",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm phan-chan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tho": {
+   "file": "assets/art/pxi-ck-tho.png",
+   "v": "6cc7eef7",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tho vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-thuy": {
+   "file": "assets/art/pxi-ck-thuy.png",
+   "v": "c88721d6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm thuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tiet-linh": {
+   "file": "assets/art/pxi-ck-tiet-linh.png",
+   "v": "f221c54a",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tiet-linh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-toa-nhanh": {
+   "file": "assets/art/pxi-ck-toa-nhanh.png",
+   "v": "91404fe7",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm toa-nhanh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-toc-kich": {
+   "file": "assets/art/pxi-ck-toc-kich.png",
+   "v": "7b5b12e6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm toc-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-truy-kich": {
+   "file": "assets/art/pxi-ck-truy-kich.png",
+   "v": "32962fbc",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm truy-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tu-bao": {
+   "file": "assets/art/pxi-ck-tu-bao.png",
+   "v": "c5d4ec87",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tu-bao vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-xuyen-thau": {
+   "file": "assets/art/pxi-ck-xuyen-thau.png",
+   "v": "d5f9111e",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm xuyen-thau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.cuong-phong": {
    "file": "assets/art/pxi-cuong-phong.png",
@@ -21347,7 +21575,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu cuong-phong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu cuong-phong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.dai-dia": {
    "file": "assets/art/pxi-dai-dia.png",
@@ -21359,7 +21587,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu dai-dia dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu dai-dia vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.dang-phuoc": {
    "file": "assets/art/pxi-dang-phuoc.png",
@@ -21371,7 +21599,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu dang-phuoc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu dang-phuoc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.dia-chan": {
    "file": "assets/art/pxi-dia-chan.png",
@@ -21383,7 +21611,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu dia-chan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu dia-chan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.han-bang-vuc": {
    "file": "assets/art/pxi-han-bang-vuc.png",
@@ -21395,7 +21623,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu han-bang-vuc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu han-bang-vuc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.hoa-cau": {
    "file": "assets/art/pxi-hoa-cau.png",
@@ -21407,7 +21635,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu hoa-cau dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu hoa-cau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.hoa-long": {
    "file": "assets/art/pxi-hoa-long.png",
@@ -21419,7 +21647,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu hoa-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu hoa-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.hoi-xuan": {
    "file": "assets/art/pxi-hoi-xuan.png",
@@ -21431,7 +21659,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu hoi-xuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu hoi-xuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.kiem-khi": {
    "file": "assets/art/pxi-kiem-khi.png",
@@ -21443,7 +21671,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu kiem-khi dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu kiem-khi vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.kim-cuong-the": {
    "file": "assets/art/pxi-kim-cuong-the.png",
@@ -21455,7 +21683,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu kim-cuong-the dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu kim-cuong-the vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.kim-luan": {
    "file": "assets/art/pxi-kim-luan.png",
@@ -21467,7 +21695,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu kim-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu kim-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.kim-quang-tram": {
    "file": "assets/art/pxi-kim-quang-tram.png",
@@ -21479,7 +21707,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu kim-quang-tram dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu kim-quang-tram vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.kim-than": {
    "file": "assets/art/pxi-kim-than.png",
@@ -21491,7 +21719,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu kim-than dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu kim-than vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.lien-chau": {
    "file": "assets/art/pxi-lien-chau.png",
@@ -21503,7 +21731,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu lien-chau dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu lien-chau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.liet-diem": {
    "file": "assets/art/pxi-liet-diem.png",
@@ -21515,7 +21743,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu liet-diem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu liet-diem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.liet-hoa-tran": {
    "file": "assets/art/pxi-liet-hoa-tran.png",
@@ -21527,7 +21755,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu liet-hoa-tran dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu liet-hoa-tran vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.loi-dinh": {
    "file": "assets/art/pxi-loi-dinh.png",
@@ -21539,7 +21767,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu loi-dinh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu loi-dinh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.long-thuong": {
    "file": "assets/art/pxi-long-thuong.png",
@@ -21551,7 +21779,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu long-thuong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu long-thuong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.luc-dang-long": {
    "file": "assets/art/pxi-luc-dang-long.png",
@@ -21563,7 +21791,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu luc-dang-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu luc-dang-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.luu-sa": {
    "file": "assets/art/pxi-luu-sa.png",
@@ -21575,7 +21803,103 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu luu-sa dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu luu-sa vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-bao-phien": {
+   "file": "assets/art/pxi-pb-bao-phien.png",
+   "v": "3057a0ce",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo bao-phien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-dai-an": {
+   "file": "assets/art/pxi-pb-dai-an.png",
+   "v": "a0979f47",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo dai-an vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-dong-chung": {
+   "file": "assets/art/pxi-pb-dong-chung.png",
+   "v": "b50629cb",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo dong-chung vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-ho-lo": {
+   "file": "assets/art/pxi-pb-ho-lo.png",
+   "v": "be5de048",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo ho-lo vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-ho-thuan": {
+   "file": "assets/art/pxi-pb-ho-thuan.png",
+   "v": "062b16b0",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo ho-thuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-linh-chau": {
+   "file": "assets/art/pxi-pb-linh-chau.png",
+   "v": "e858cb01",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo linh-chau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-phi-kiem": {
+   "file": "assets/art/pxi-pb-phi-kiem.png",
+   "v": "82e567bf",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo phi-kiem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pb-tran-ky": {
+   "file": "assets/art/pxi-pb-tran-ky.png",
+   "v": "b80c9396",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng pháp bảo tran-ky vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.pha-thien": {
    "file": "assets/art/pxi-pha-thien.png",
@@ -21587,7 +21911,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu pha-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu pha-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phan-thien": {
    "file": "assets/art/pxi-phan-thien.png",
@@ -21599,7 +21923,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phan-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phan-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phap-hoa-hon": {
    "file": "assets/art/pxi-phap-hoa-hon.png",
@@ -21611,7 +21935,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phap-hoa-hon dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phap-hoa-hon vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phap-huyen-thuy": {
    "file": "assets/art/pxi-phap-huyen-thuy.png",
@@ -21623,7 +21947,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phap-huyen-thuy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phap-huyen-thuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phap-kim-luan": {
    "file": "assets/art/pxi-phap-kim-luan.png",
@@ -21635,7 +21959,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phap-kim-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phap-kim-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phap-thanh-moc": {
    "file": "assets/art/pxi-phap-thanh-moc.png",
@@ -21647,7 +21971,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phap-thanh-moc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phap-thanh-moc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phap-tran-yeu": {
    "file": "assets/art/pxi-phap-tran-yeu.png",
@@ -21659,7 +21983,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phap-tran-yeu dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phap-tran-yeu vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.phuong-hoang": {
    "file": "assets/art/pxi-phuong-hoang.png",
@@ -21671,7 +21995,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu phuong-hoang dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu phuong-hoang vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.son-nhac": {
    "file": "assets/art/pxi-son-nhac.png",
@@ -21683,7 +22007,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu son-nhac dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu son-nhac vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.song-nguyet-tram": {
    "file": "assets/art/pxi-song-nguyet-tram.png",
@@ -21695,7 +22019,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu song-nguyet-tram dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu song-nguyet-tram vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thach-chuy": {
    "file": "assets/art/pxi-thach-chuy.png",
@@ -21707,7 +22031,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thach-chuy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thach-chuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thach-giap": {
    "file": "assets/art/pxi-thach-giap.png",
@@ -21719,7 +22043,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thach-giap dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thach-giap vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thanh-moc-vuc": {
    "file": "assets/art/pxi-thanh-moc-vuc.png",
@@ -21731,7 +22055,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thanh-moc-vuc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thanh-moc-vuc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.that-huyen": {
    "file": "assets/art/pxi-that-huyen.png",
@@ -21743,7 +22067,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu that-huyen dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu that-huyen vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thiem-anh": {
    "file": "assets/art/pxi-thiem-anh.png",
@@ -21755,7 +22079,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thiem-anh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thiem-anh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thien-phat": {
    "file": "assets/art/pxi-thien-phat.png",
@@ -21767,7 +22091,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thien-phat dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thien-phat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thuy-long": {
    "file": "assets/art/pxi-thuy-long.png",
@@ -21779,7 +22103,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thuy-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thuy-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.thuy-thuan": {
    "file": "assets/art/pxi-thuy-thuan.png",
@@ -21791,7 +22115,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu thuy-thuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu thuy-thuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.truong-xuan": {
    "file": "assets/art/pxi-truong-xuan.png",
@@ -21803,7 +22127,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu truong-xuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu truong-xuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.tu-nguyet-liem": {
    "file": "assets/art/pxi-tu-nguyet-liem.png",
@@ -21815,7 +22139,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu tu-nguyet-liem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu tu-nguyet-liem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.tu-nguyet-luan": {
    "file": "assets/art/pxi-tu-nguyet-luan.png",
@@ -21827,7 +22151,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu tu-nguyet-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu tu-nguyet-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.van-kiem": {
    "file": "assets/art/pxi-van-kiem.png",
@@ -21839,7 +22163,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu van-kiem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu van-kiem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.van-kiem-thien": {
    "file": "assets/art/pxi-van-kiem-thien.png",
@@ -21851,7 +22175,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu van-kiem-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu van-kiem-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.van-moc-cham": {
    "file": "assets/art/pxi-van-moc-cham.png",
@@ -21863,7 +22187,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu van-moc-cham dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu van-moc-cham vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.vo-anh": {
    "file": "assets/art/pxi-vo-anh.png",
@@ -21875,7 +22199,7 @@
     51,
     51
    ],
-   "note": "biểu tượng chiêu vo-anh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+   "note": "biểu tượng chiêu vo-anh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",

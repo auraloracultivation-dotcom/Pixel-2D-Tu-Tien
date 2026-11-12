@@ -35,6 +35,11 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 - Ghép: hình dựng sẵn + nét điểm ảnh vẽ thẳng (`pfx-shape.js`) + hạt. Đổi màu theo hệ: `pfx-pal.js`, dải ở `data/vfx.json → pb.ramps`.
 - Đo (máy giả, vẽ bằng phần mềm, 7 đòn phẩm cao cùng lúc mỗi 0,75 giây): bộ cũ 21 ms / khung, bộ mới 29–32 ms; phần nặng là lớp sáng cộng và quầng lớn
   → đã bỏ lớp sáng của tấm phù văn lớn, bóng mờ, quầng phủ cả vùng; máy ở mức nhẹ nhất bỏ hẳn lớp sáng. Điện thoại thật vẽ bằng GPU, cần chủ dự án thử.
+- Biểu tượng (13/11 sáng, đợt 2): hình cắt từ hình của đòn bị nhoè trên nút (ô 48 thu phóng lẻ) và bốn món cao quá ô → vẽ riêng bộ biểu tượng:
+  8 pháp bảo ô 34 điểm (`fx/icon-pb.js`: ấn, thuẫn, chuông, cờ, hồ lô vẽ gọn; kiếm, châu, quạt dựng từ hình của đòn qua `ICON_SRC`) và 19 chiêu khảm
+  ô 18 điểm (`fx/icon-ck.js` + lưới vẽ tay `fx/_ck-grids.js`; ô khảm trong trang Pháp bảo đúng 18 điểm nên 1 điểm hình = 3 điểm màn hình iPhone).
+  `export.mjs --icons [tên…]` → `nguon/pfx/ic/` → `vfx_pfx.py` khai `pxi.pb-*`, `pxi.ck-*` (cỡ đọc từ file). Dựng thử ra chỗ khác: `PFX_OUT=<thư mục>`.
+  Xem thử: `<scratchpad>/ic/view.py`, `viewck.py`, `<scratchpad>/pfx/pbpage.mjs` (chụp trang Pháp bảo), `hud.mjs` (chụp nút).
 - Phòng thử: `<scratchpad>/pfx/pblab.mjs <ra> <loại[:phẩm[:cấp[:chiêu+chiêu]]]…> --q pfx=1 [--times …] [--dir x,y] [--mobs n]`, `pbplay.mjs` (ghi tiếng đã phát),
   `play.mjs` (bấm nút thật), `perf.mjs` (đo khung).
 

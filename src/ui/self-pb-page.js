@@ -2,14 +2,14 @@
 // Pháp bảo, không kéo ra màn khác"; thay bảng Luyện chế nổi cũ). Lưới: mọi pháp bảo của ta; chạm: tấm chi tiết như trang bị (đầu tấm, lưới
 // nút Mặc ô 1–4 / Nâng cấp / Đục ô, 4 ô khảm nối mũi tên, danh sách chiêu khảm). Số, chữ ở data/phap-bao.json; logic src/game/phap-bao.js.
 import { PB, pbState, pbItem, pbType, pbGrade, pbItemStats, modOpen, modNeed, pbWear, pbSocket, pbUpgrade, pbUpCost, pbCap, pbDrill, pbMax, slotOpen, wearN } from '../game/phap-bao.js';
-import { pbIcon, typeIcon } from './phap-bao-hud.js';
+import { typeIcon, modIcon } from './phap-bao-hud.js';
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { dailyEvent } from '../game/daily.js';
 import { pbSell, pbPrice } from '../game/phap-bao-drop.js';
 
 const PCT = new Set(['speed', 'atk_pct', 'hp_pct', 'crit', 'crit_dmg', 'cdr', 'dr', 'regen_pct', 'mp_regen']);
-const ico = (game, id, f, cls) => { const i = el('i', cls); i.style.backgroundImage = pbIcon(game, id, f || 0, 48); return i; };
+const icoM = (game, m, cls) => { const i = el('i', cls); i.style.backgroundImage = modIcon(game, m); return i; };   // hình chiêu khảm (px bật: hình điểm ảnh 18 điểm)
 const icoT = (game, T, cls) => { const i = el('i', cls); i.style.backgroundImage = typeIcon(game, T); return i; };   // hình loại pháp bảo (px bật: hình điểm ảnh của đòn)
 let tries = 0;
 const later = (box, redo) => { if ([...box.querySelectorAll('.spb-ic')].some(i => !i.style.backgroundImage) && tries++ < 12) setTimeout(() => { if (box.isConnected) redo(); }, 300); else if (tries > 12) tries = 0; };
@@ -80,7 +80,7 @@ export function pbSheet(game, st, box, changed, close) {
     if (i) socks.append(el('span', 'spb-arrow', '→'));
     const id = it.mods[i], lock = i >= it.slots, c = el('button', 'spb-sock' + (lock ? ' lock' : '') + (!lock && st.pbK === i ? ' on' : ''));
     if (lock) c.append(el('small', null, 'Chưa khai'));
-    else if (id && M[id]) c.append(ico(game, M[id].icon, 0, 'spb-ic spb-mi'), el('small', null, M[id].name));
+    else if (id && M[id]) c.append(icoM(game, M[id], 'spb-ic spb-mi'), el('small', null, M[id].name));
     else c.append(el('small', null, `Ô ${i + 1}`));
     c.onclick = () => { if (!lock) { st.pbK = i; changed(false); } };
     socks.append(c);
@@ -99,7 +99,7 @@ export function pbSheet(game, st, box, changed, close) {
       if (m.group !== grp) continue;
       const open = modOpen(game, id), inK = it.mods[st.pbK] === id, used = it.mods.slice(0, it.slots).map((y, i) => (y === id ? i + 1 : 0)).filter(Boolean);
       const c = el('button', 'spb-mod' + (open ? '' : ' lock') + (inK ? ' on' : ''));
-      c.append(ico(game, m.icon, 0, 'spb-ic spb-mi'), el('b', null, m.name + (used.length ? ` ·${used.join(',')}` : '')), el('small', null, open ? `${m.gain} · ${m.lose}` : U.locked.replace('{realm}', modNeed(game, id))));
+      c.append(icoM(game, m, 'spb-ic spb-mi'), el('b', null, m.name + (used.length ? ` ·${used.join(',')}` : '')), el('small', null, open ? `${m.gain} · ${m.lose}` : U.locked.replace('{realm}', modNeed(game, id))));
       c.onclick = () => {
         if (!open) return say(U.locked.replace('{realm}', modNeed(game, id)));
         pbSocket(game, it, st.pbK, inK ? null : id);

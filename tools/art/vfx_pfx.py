@@ -12,7 +12,7 @@ PixelFX (github.com/patch-gg/pixelfx, MIT, bản ghim PIN) vẽ mỗi hiệu ứ
 
 Chạy: python3 -I tools/art/vfx_pfx.py            (chỉ chép + ghi art.json từ nguon/pfx đã dựng; không cần Node)
       python3 -I tools/art/vfx_pfx.py --dung [tên ...]   (gọi export.mjs dựng lại trước; cần PIXELFX_DIR hoặc tự tải bản ghim)"""
-import hashlib, json, os, subprocess, sys
+import hashlib, json, os, struct, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,16 +59,19 @@ def build(save=None):
                                               'frames': m['cols'], 'rows': m['rows'], 's': L['s'], 'anchor': [0, 0], 'note': f'lớp sáng của pfx.{name}'}
         e['note'] = f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/pfx/"
         art['sprites'][f'pfx.{name}'] = e
-    # biểu tượng chiêu dựng từ hình hiệu ứng (export.mjs --icons): nguon/pfx/ic/<chiêu>.png, 102 × 102 (34 điểm ảnh phóng 3 lần)
+    # biểu tượng dựng bằng export.mjs --icons: nguon/pfx/ic/<tên>.png, điểm ảnh phóng 3 lần. Chiêu: 102 × 102 (ô 34 điểm); 'pb-<loại>': pháp bảo
+    # (ô 34); 'ck-<chiêu khảm>': 54 × 54 (ô 18 điểm, đúng cỡ ô khảm trong trang Pháp bảo). Cỡ đọc từ đầu file PNG.
     for k in [k for k in art['sprites'] if k.startswith('pxi.')]:
         if not (NGUON / 'ic' / (k[4:] + '.png')).exists():
             (ROOT / art['sprites'][k]['file']).unlink(missing_ok=True)
         del art['sprites'][k]
     for f in sorted((NGUON / 'ic').glob('*.png')) if (NGUON / 'ic').exists() else []:
         b = f.read_bytes()
+        w, h = struct.unpack('>II', b[16:24])
+        what = 'pháp bảo ' + f.stem[3:] if f.stem.startswith('pb-') else 'chiêu khảm ' + f.stem[3:] if f.stem.startswith('ck-') else 'chiêu ' + f.stem
         (out / f'pxi-{f.stem}.png').write_bytes(b)
-        art['sprites'][f'pxi.{f.stem}'] = {'file': f'assets/art/pxi-{f.stem}.png', 'v': hashlib.sha1(b).hexdigest()[:8], 'w': 102, 'h': 102, 'frames': 1, 'anchor': [51, 51],
-                                           'note': f'biểu tượng chiêu {f.stem} dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)'}
+        art['sprites'][f'pxi.{f.stem}'] = {'file': f'assets/art/pxi-{f.stem}.png', 'v': hashlib.sha1(b).hexdigest()[:8], 'w': w, 'h': h, 'frames': 1, 'anchor': [w // 2, h // 2],
+                                           'note': f'biểu tượng {what} vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)'}
     art['sprites'] = dict(sorted(art['sprites'].items()))
     art_p.write_text(json.dumps(art, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return len(meta)

@@ -17,7 +17,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url)), ROOT = join(HERE, '..', '..', '..');
 const PFX = process.env.PIXELFX_DIR || join(ROOT, 'tools', 'art', 'nguon', 'pfx', 'src');
-const OUT = join(ROOT, 'tools', 'art', 'nguon', 'pfx');
+const OUT = process.env.PFX_OUT || join(ROOT, 'tools', 'art', 'nguon', 'pfx');   // PFX_OUT: dựng thử ra chỗ khác (không đụng hình thật)
 if (!existsSync(join(PFX, 'src', 'core', 'index.js'))) { console.error('Chưa có PixelFX ở ' + PFX + ' (đặt PIXELFX_DIR hoặc chạy tools/art/vfx_pfx.py để tải bản ghim).'); process.exit(1); }
 
 // hiệu ứng riêng của game → thư mục p2d của PixelFX (đường dẫn import ../../core/index.js giữ nguyên)
@@ -27,7 +27,7 @@ if (existsSync(MINE)) for (const f of readdirSync(MINE)) if (f.endsWith('.js')) 
 
 const imp = p => import(pathToFileURL(join(PFX, p)).href);
 const core = await imp('src/core/index.js'), lib = await imp('tools/lib/fxlib.mjs'), { encodePNG } = await imp('tools/lib/png.mjs');
-const { SPRITES, ICONS } = await import(pathToFileURL(process.env.PFX_SPRITES || join(HERE, 'sprites.mjs')).href + '?v=' + Date.now());   // PFX_SPRITES: danh sách khác (xem thử)
+const { SPRITES, ICONS, ICON_SRC = {} } = await import(pathToFileURL(process.env.PFX_SPRITES || join(HERE, 'sprites.mjs')).href + '?v=' + Date.now());   // PFX_SPRITES: danh sách khác (xem thử)
 
 const args = process.argv.slice(2), F = {}, names = [];
 for (let i = 0; i < args.length; i++) { if (args[i] === '--only-sheet') F.onlySheet = true; else if (args[i] === '--icons') F.icons = true; else if (args[i].startsWith('--')) F[args[i].slice(2)] = args[++i]; else names.push(args[i]); }
@@ -126,15 +126,18 @@ function sheet(r, zoom = 2, max = 14) {
   return img.png();
 }
 
-// Biểu tượng chiêu (nút chiêu, bảng Chiêu): ghép vài hình ở một thời điểm, cắt một ô vuông S quanh (cx, cy), thu về 34 điểm rồi phóng 3 lần
-// (102 × 102, nét điểm ảnh; lớp sáng đổi thành màu có độ trong để nổi trên nền nút tối). ICONS ở sprites.mjs; ra nguon/pfx/ic/<chiêu>.png.
+// Biểu tượng (nút chiêu, bảng Chiêu, nút pháp bảo, chiêu khảm): ghép vài hình ở một thời điểm, cắt một ô vuông S quanh (cx, cy), thu về n điểm
+// (mặc định 34; chiêu khảm 18) rồi phóng 3 lần (nét điểm ảnh; lớp sáng đổi thành màu có độ trong để nổi trên nền nút tối). ICONS ở sprites.mjs;
+// hình chỉ dùng cho biểu tượng khai ở ICON_SRC (không xuất thành hình trong game). Ra nguon/pfx/ic/<tên>.png. Chạy riêng vài cái: --icons <tên> <tên>.
 async function icons() {
-  const N = 34, UP = 3, dir = join(OUT, 'ic'); mkdirSync(dir, { recursive: true });
-  const names = Object.keys(ICONS), sheetCols = 12, sh = F.sheet ? lib.canvas(4 + sheetCols * (N * UP + 4), 4 + Math.ceil(names.length / sheetCols) * (N * UP + 14), [26, 10, 30, 255]) : null;
-  for (const [idx, id] of names.entries()) {
-    const I = ICONS[id], [cx, cy, S] = I.win, acc = new Float32Array(S * S * 4);   // RGB nhân sẵn độ đục + A
-    for (const [name, dx = 0, dy = 0, ang = 0, tt] of I.L) {
-      const base = SPRITES[name]; if (!base) throw new Error(`biểu tượng ${id}: không có hình ${name}`);
+  const UP = 3, dir = join(OUT, 'ic'); mkdirSync(dir, { recursive: true });
+  const all = Object.keys(ICONS), list = names.length ? names : all, bad = list.filter(n => !ICONS[n]);
+  if (bad.length) { console.error('không có biểu tượng: ' + bad.join(', ')); process.exit(1); }
+  const CW = 34 * UP + 4, sheetCols = 12, sh = F.sheet ? lib.canvas(4 + sheetCols * CW, 4 + Math.ceil(list.length / sheetCols) * (CW + 10), [26, 10, 30, 255]) : null;
+  for (const [idx, id] of list.entries()) {
+    const I = ICONS[id], N = I.n || 34, [cx, cy, S] = I.win || [0, 0, N], acc = new Float32Array(S * S * 4);   // RGB nhân sẵn độ đục + A
+    for (const [name, dx = 0, dy = 0, ang = 0, tt] of I.L || []) {
+      const base = SPRITES[name] || ICON_SRC[name]; if (!base) throw new Error(`biểu tượng ${id}: không có hình ${name}`);
       const r = await render(name, { ...base, times: [tt ?? I.t ?? 0], fps: undefined, dirs: 1, angle: ang, pad: 0 }), q = r.cells[0][0];
       const ox = Math.round(S / 2 - cx + dx - r.anchor[0]), oy = Math.round(S / 2 - cy + dy - r.anchor[1]);
       for (let y = 0; y < r.h; y++) for (let x = 0; x < r.w; x++) {
@@ -153,10 +156,10 @@ async function icons() {
       for (let uy = 0; uy < UP; uy++) for (let ux = 0; ux < UP; ux++) { const o = ((y * UP + uy) * N * UP + x * UP + ux) * 4; out[o] = r8; out[o + 1] = g8; out[o + 2] = b8; out[o + 3] = a8; }
     }
     writeFileSync(join(dir, id + '.png'), encodePNG(N * UP, N * UP, out));
-    if (sh) { const X = 4 + (idx % sheetCols) * (N * UP + 4), Y = 4 + Math.floor(idx / sheetCols) * (N * UP + 14); sh.paste(out, N * UP, N * UP, X, Y); sh.text(id.slice(0, 16), X, Y + N * UP + 2, 1, [200, 190, 150]); }
+    if (sh) { const X = 4 + (idx % sheetCols) * CW, Y = 4 + Math.floor(idx / sheetCols) * (CW + 10); sh.paste(out, N * UP, N * UP, X, Y); sh.text(id.slice(0, 16), X, Y + 34 * UP + 2, 1, [200, 190, 150]); }
   }
   if (sh) writeFileSync(join(F.sheet, 'icons.png'), sh.png());
-  console.log(`biểu tượng: ${names.length} chiêu`);
+  console.log(`biểu tượng: ${list.length} cái`);
 }
 
 mkdirSync(OUT, { recursive: true });
