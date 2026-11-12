@@ -15,6 +15,8 @@ const rtBeat = new Set();   // nghe nhịp socket Realtime: 'sent' | 'ok' | 'err
 export const onRealtimeBeat = f => { rtBeat.add(f); return () => rtBeat.delete(f); };
 async function fetchTuLamMoi(url, opts = {}) {
   const res = await fetch(url, opts);
+  // Máy chủ giới hạn 1 thao tác / giây (migration 20261113010000_p2d_gioi_han_1s.sql): báo game hiện "Đang tải…" (src/game/net-watch.js)
+  if (res.status === 400 && String(url).includes('/rest/v1/rpc/')) res.clone().text().then(t => { if (t.includes('qua_nhanh')) dispatchEvent(new Event('p2d-qua-nhanh')); }).catch(() => {});
   if (res.status !== 401 || !String(url).includes('/rest/v1/') || opts.__lai) return res;
   try {
     lamMoi ??= supabase.auth.refreshSession().finally(() => { setTimeout(() => { lamMoi = null; }, 5000); });
