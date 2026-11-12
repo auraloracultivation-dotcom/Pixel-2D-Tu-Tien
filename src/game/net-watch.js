@@ -6,6 +6,7 @@
 export function startNetWatch(game) {
   const c = game.data.config.net_watch;
   if (!c) return;
+  addEventListener('p2d-qua-nhanh', () => game.toast?.(c.text.qua_nhanh || 'Đang tải… vui lòng chờ', 1.4));   // bấm nhanh hơn 1 giây / thao tác
   let lastOk = Date.now(), lostAt = 0, busy = false, nextBeat = 0, box = null, sockOk = 0, beatOk = Date.now(), hooked = false;
   // Realtime (05/11/2026): socket trả nhịp ok trong rt_fresh_s giây thì nhịp sống giãn ra beat_rt_s giây (máy chủ vẫn cộng giờ online
   // khi hai lần liên lạc cách nhau tối đa 15 giây; lần lưu p2d_luu2 cũng tính là liên lạc). Nhịp socket cũng tính là còn liên lạc.
