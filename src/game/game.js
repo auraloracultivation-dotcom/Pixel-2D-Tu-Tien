@@ -173,7 +173,8 @@ export function createGame(data, screen, input, ui, audio) {
     game.map = buildMap(def, data.tiles, cfg.tile, data);
     game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = []; game.vfx = null;
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
-    const c = game.map.center(sp[0], sp[1]);
+    let c = game.map.center(sp[0], sp[1]);
+    if (game.map.blocked(c.x, c.y, game.player?.r || 5)) c = game.map.freeNear(sp[0], sp[1], 0, game.player?.r || 5);   // chỗ ra rơi vào chân cột, nhà: dời sang ô trống gần nhất (chủ dự án 12/11/2026 11:29: ra bí cảnh kẹt ở cổng Thiên Kiếm Phong)
     if (!game.player) game.player = createPlayer(game, c.x, c.y);
     game.player.x = c.x; game.player.y = c.y; game.player.meditating = false;
     for (const n of def.npcs) {
