@@ -12,7 +12,7 @@ import { leftCard, statsSheet } from './self-left.js';
 import { renderStore, SUBS, groupOf, subsOf } from './self-bag.js';
 import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
-import { host, unhost, HOSTS } from './self-host.js';
+import { host, unhost, HOSTS, routeOld } from './self-host.js';
 import { snap, react } from './self-fx.js';
 import { patch, patchList } from './morph.js';
 
@@ -43,10 +43,11 @@ export function createSelfPanel(game) {
   root.append(frame, x);
   document.body.append(root);
   const st = { page: 'do', sub: 'all', sel: null, stock: null, coinLog: false, more: false, pickSocket: null, sort: 'moi', qs: false };
+  const sub0 = page => (page === 'cp' && pbOn(game) ? 'cong-phap' : SUB0[page]);   // hệ pháp bảo mới: mục Chiêu cũ đã ẩn
   const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; st.pbSel = null; };
   function close() { unhost(); root.hidden = true; game.uiOpen = false; reset(); st.pickSocket = null; st.qs = false; }
   x.onclick = close;
-  const go = (page, sub) => { st.page = page; st.sub = sub || SUB0[page]; reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
+  const go = (page, sub) => { st.page = page; st.sub = sub || sub0(page); reset(); st.qs = false; if (page !== 'kho') st.pickSocket = null; render(); };
 
   let lastSel = null;   // món đang mở chi tiết lần vẽ trước
   let before = null;   // trạng thái lúc vẽ gần nhất, để so sau thao tác mà chạy hiệu ứng (src/ui/self-fx.js)
@@ -126,10 +127,11 @@ export function createSelfPanel(game) {
   function open(page, sub) {   // page, sub: mở thẳng một mục (vd 'kho', 'dan')
     if (!game.save || game.dialog.open || game.trip) return;
     for (const p of document.querySelectorAll('.panel, #bag')) if (p !== root && !p.hidden) p.querySelector('[id$="-close"]')?.click();
-    if (SUBS[page]) { st.page = page; st.sub = sub || SUB0[page]; st.qs = false; st.pickSocket = null; }
+    if (SUBS[page]) { st.page = page; st.sub = sub || sub0(page); st.qs = false; st.pickSocket = null; }
     game.uiOpen = true; root.hidden = false; reset(); render();
   }
   game.openSelf = open;
+  routeOld(game);   // nút cũ mở bảng Chiêu / Linh thú thì vào đây (src/ui/self-host.js)
   game.toggleSelf = (page, sub) => (root.hidden ? open(page, sub) : close());   // nút Túi đồ (src/ui/bag.js): bấm lần nữa thì đóng
   const R = document.getElementById('realm');   // chạm khung tên, cảnh giới
   R?.addEventListener('click', e => { e.stopPropagation(); open(); }, true);

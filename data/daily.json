@@ -38,7 +38,7 @@
   {"id": "cuong-hoa", "type": "enhance", "n": 3, "text": "Cường hoá trang bị {n} lần", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
   {"id": "tay-luyen", "type": "reroll", "n": 2, "text": "Tẩy luyện trang bị {n} lần", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
   {"id": "ban-do", "type": "sell", "n": 5, "text": "Bán {n} món đồ (Túi đồ, Bán nhanh)", "reward": {"stones": 1}, "go": {"fn": "openBag", "arg": "do"}},
-  {"id": "nang-chieu", "type": "skillup", "n": 1, "text": "Nâng cấp chiêu {n} lần", "reward": {"stones": 1}, "go": {"btn": "btn-skills"}},
+  {"id": "nang-chieu", "type": "pbup", "n": 1, "text": "Nâng cấp pháp bảo {n} lần", "reward": {"stones": 1}, "go": {"fn": "openPhapBao"}, "_": "Chủ dự án 12/11/2026 10:47: chiêu cũ đã ẩn, việc này thành nâng cấp pháp bảo (Trang bị → P.bảo, src/ui/self-pb-page.js đếm). Giữ mã nang-chieu vì máy chủ nhận điểm theo mã (p2d_ht_cfg daily)."},
   {"id": "tro-chuyen", "type": "chat", "n": 3, "text": "Trò chuyện {n} câu ở kênh chat", "reward": {"stones": 1}, "go": {"fn": "openSocial"}},
   {"id": "noi-chuyen", "type": "talk", "n": 3, "text": "Nói chuyện với {n} người trong làng", "reward": {"stones": 1}},
   {"id": "vuot-thu", "type": "pat", "n": 3, "text": "Vuốt ve linh thú {n} lần", "reward": {"stones": 1}},

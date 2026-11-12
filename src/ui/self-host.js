@@ -12,6 +12,21 @@ export const HOSTS = {
 
 let cur = null;   // id bảng đang gắn
 
+// Nút cũ (nhiệm vụ "Đi làm", ô menu, nút HUD) mở bảng Chiêu / Linh thú thì đưa vào bảng Nhân vật đúng mục, không bật bảng nổi kiểu cũ
+// (chủ dự án 12/11/2026 10:47: "nâng cấp chiêu lại dẫn sang công pháp là cái trang này, tôi bảo bỏ dạng trang này đi rồi").
+// Nghe ở pha bắt trước bộ nghe của bảng cũ; lúc host() tự bấm nút cũ để gắn bảng thì bảng đã mang .sv-hosted nên cho qua.
+// tt (Thành tựu) không đổi: bảng cũ còn mục Thành tựu mà bảng Nhân vật không có.
+export function routeOld(game) {
+  for (const key of ['cp', 'lt']) {
+    const [id, btn] = HOSTS[key];
+    $(btn)?.addEventListener('pointerdown', e => {
+      if ($(id)?.classList.contains('sv-hosted') || !game.openSelf) return;
+      e.stopImmediatePropagation(); e.preventDefault();
+      game.openSelf(key);
+    }, true);
+  }
+}
+
 // Tấm chi tiết của ô (src/ui/grid-cards.js .gc-sheet) trong bảng đang gắn: nút gọn như phần trang bị (chủ dự án 03:54):
 // hình + tên ngắn một dòng + giá chữ nhỏ, xếp ô ba cột; chữ "Việc (giá)" tách thành tên và giá.
 const cut = s => s.replace(/\s*\(.*$/, '');

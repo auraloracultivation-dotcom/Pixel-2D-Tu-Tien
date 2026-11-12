@@ -41,7 +41,9 @@ export function renderTasks(game, body, api) {
     if (m.qua?.length) takeMail(game);
   };
   const err = e => { const s = String(e?.message || ''); game.htFace?.react('loi'); game.toast(s.includes('chua_xong') ? X.todo : X.summon_err, 2); };
-  const list = missionList(game, ht.xong);
+  // thứ tự (chủ dự án 12/11/2026 10:44): chờ nhận thưởng trên đầu, chưa làm giữa, đã nhận cuối (sort giữ thứ tự gốc trong mỗi nhóm)
+  const rank = d => (d.got ? 2 : d.ok ? 0 : 1);
+  const list = missionList(game, ht.xong).sort((x, y) => rank(x) - rank(y));
   body.append(el('div', 'ht-sub', H.task_head));
   for (const m of list) {
     const row = el('div', `ht-mis${m.ok ? ' ok' : ''}`);
@@ -79,7 +81,7 @@ export function renderTasks(game, body, api) {
     body.append(row);
   }
   // Nhiệm vụ ngày
-  const N = H.ngay, day = dailyList(game, ht);
+  const N = H.ngay, day = dailyList(game, ht)?.sort((x, y) => rank(x) - rank(y));
   body.append(el('div', 'ht-sub', N.head));
   if (!day) body.append(el('p', 'ht-line ht-muted', N.locked));
   else if (day.every(d => d.got)) body.append(el('p', 'ht-line ht-muted', N.done));

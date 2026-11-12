@@ -31,6 +31,7 @@ export function createProfile(game) {
   const root = el('div', 'panel pf-panel sv'); root.hidden = true;
   const x = el('button', 'sv-x', '✕'), frame = el('div', 'sv-frame pf-frame'), left = el('div', 'sv-left'), right = el('div', 'sv-right'), mid = el('div', 'sv-mid');
   x.setAttribute('aria-label', P.close);
+  frame.style.gridTemplateColumns = 'minmax(0, 1.08fr) minmax(0, 1fr)';   // hai cột (không có cột mục như bảng Nhân vật); đặt thẳng, khỏi phụ thuộc profile.css tải trễ / hỏng (chủ dự án 12/11/2026 10:44: thẻ bị ép vào cột 38px)
   right.append(mid); frame.append(left, right); root.append(frame, x);
   document.body.append(root);
   let ticket = 0, under = false;   // under: bảng Đạo hữu đang mở bên dưới: ẩn tạm cho khỏi chồng hai lớp nền trong mờ
