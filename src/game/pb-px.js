@@ -129,6 +129,8 @@ function tick(game, e, dt, low) {
       break;
     }
     case 'shield':
+      if (!e.done && p.shield < (X.sh ?? p.shield)) { X.hit = e.t; pxSpray(game, P, p.x, p.y - 10, 6, 90); }   // khiên vừa đỡ một đòn: gợn sáng + hạt tóe
+      X.sh = p.shield;
       if (!e.done) for (X.acc += dt * 5; X.acc >= 1; X.acc--) { const a = rnd(0, TAU); part(game, P, p.x + Math.cos(a) * 16 * vis, p.y - 12 + Math.sin(a) * 18 * vis, 0, -rnd(6, 14), rnd(0.4, 0.7), { g: 0, s: 1 }); }
       break;
   }

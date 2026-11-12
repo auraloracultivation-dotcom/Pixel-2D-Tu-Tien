@@ -152,6 +152,13 @@ function wave(ctx, game, art, e, R, t) {
   }
 }
 
+function shield(ctx, game, art, e, R, pal, t) {   // vòm khiên quanh người: sắp hết giờ thì nháy, vừa đỡ đòn thì gợn một vành sáng
+  if (e.done) return;
+  const p = game.player, K = pbK(game, e, 'khien'), h = e.px.hit != null ? (e.t - e.px.hit) / 0.2 : 2;
+  pfxDraw(ctx, art, 'pb-khien', p.x, p.y - 11 - domeDy(art) * K, t, { loop: true, k: K, pal, a: Math.min(1, e.t * 8) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1), light: h < 1 ? 2 - h : 1 });
+  if (h >= 0 && h < 1) pxArc(ctx, p.x, p.y - 11, (8 + 3 * h) * K, 1, 0, Math.PI * 2, 1, h < 0.4 ? '#ffffff' : rc(R, 0.8), 1 - h, 2);
+}
+
 function sealT(ctx, game, art, e, R) {   // khối ấn treo trên cao rồi giáng xuống
   const vis = pbVis(e), [bx, by] = pbSeal(e, vis), K = pbK(game, e, 'an'), k = Math.min(1, e.t / e.life), u = Math.max(0, (k - 0.55) / 0.45), a = Math.min(1, e.t * 7);
   if (u > 0.12) {
@@ -200,7 +207,7 @@ export function drawPbPx(ctx, game, t) {
       case 'wave': wave(ctx, game, art, e, R, t); break;
       case 'shot': shot(ctx, game, art, e, R, pal); break;
       case 'orbit': orbit(ctx, game, art, e, pal); break;
-      case 'shield': if (!e.done) pfxDraw(ctx, art, 'pb-khien', p.x, p.y - 11 - domeDy(art) * pbK(game, e, 'khien'), t, { loop: true, k: pbK(game, e, 'khien'), pal, a: Math.min(1, e.t * 8) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1) }); break;   // sắp hết giờ thì nháy
+      case 'shield': shield(ctx, game, art, e, R, pal, t); break;
       case 'suck': { const [gx, gy, mx, my] = pbGourd(game, e), K = pbK(game, e, 'holo'); pfxDraw(ctx, art, 'pb-holo', gx, gy, t, { loop: true, k: K, a: Math.min(1, e.t * 8) }); pxGlow(ctx, mx, my, 13 * K, rc(R, 0.75), 0.55); break; }
       case 'zap': zap(ctx, e, R); break;
     }
