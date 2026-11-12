@@ -196,6 +196,17 @@ export class Mang extends DurableObject {
     return (await r.json().catch(() => false)) === true;
   }
 
+  // Nhịp sống gom của một phòng (src/nhip.js): ký cùng khoá, gửi Supabase p2d_nhip_gop; trả { khac: [uid] } hoặc null khi lỗi
+  async nhipGop(rows) {
+    if (!this.env.SUPABASE_URL || !Array.isArray(rows) || !rows.length) return null;
+    const khoa = await this.khoa();
+    if (!khoa) return null;
+    const ts = Date.now(), ds = JSON.stringify({ r: rows.slice(0, 200) });
+    const r = await this.rpc('p2d_nhip_gop', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
+    if (!r.ok) { console.log('nhip_gop', r.status, (await r.text().catch(() => '')).slice(0, 200)); return null; }
+    return await r.json().catch(() => null);
+  }
+
   // Khiên PvP theo tài khoản: phòng hỏi lúc vào, báo lúc tắt khiên / chết
   pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0 }; }
   async pkSet(uid, off, immune) {

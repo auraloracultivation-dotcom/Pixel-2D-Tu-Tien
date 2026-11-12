@@ -49,13 +49,35 @@ export function startNetWatch(game) {
     setTimeout(async () => { try { await (await import('../net/auth.js')).signOut(); } catch { /* vẫn tải lại */ } location.reload(); }, 4000);
   }
 
+  // Nhịp qua phòng Cloudflare (src/net/online-cf.js cfBeat): phòng trả 'p2d-nhip' là còn liên lạc; phòng chưa hỗ trợ (bản máy chủ cũ)
+  // hoặc chưa vào phòng thì gửi nhịp kiểu cũ (src/net/heartbeat.js), 5 phút sau mới thử lại phòng.
+  let cfOffUntil = 0;
+  addEventListener('p2d-khac', () => { if (phien && !kicked) kick(); });
+  const cfAck = ms => new Promise(ok => {
+    const done = v => { removeEventListener('p2d-nhip', yes); clearTimeout(t); ok(v); };
+    const yes = () => done(true), t = setTimeout(() => done(false), ms);
+    addEventListener('p2d-nhip', yes);
+  });
+  async function sendCf() {
+    if (!phien || Date.now() < cfOffUntil) return false;
+    try {
+      const cf = await import('../net/online-cf.js');
+      const wait = cfAck(Math.min(4000, c.timeout_s * 1000));
+      if (!cf.cfBeat(phien)) return false;
+      if (await wait) return true;
+      cfOffUntil = Date.now() + 300000;
+    } catch { /* chưa có phòng */ }
+    return false;
+  }
+
   async function send() {
     busy = true;
     let ok = false;
     try {
       const hb = await import('../net/heartbeat.js');
       if (game.cloud && claimedFor !== game.cloud) await claim(hb);
-      if (phien) { const r = await hb.beat2(phien, c.timeout_s * 1000); ok = r.ok; if (r.khac && !kicked) { busy = false; kick(); return; } }
+      if (await sendCf()) ok = true;
+      else if (phien) { const r = await hb.beat2(phien, c.timeout_s * 1000); ok = r.ok; if (r.khac && !kicked) { busy = false; kick(); return; } }
       else ok = await hb.beat(c.timeout_s * 1000);
     } catch { /* mất mạng lúc tải mã */ }
     busy = false;

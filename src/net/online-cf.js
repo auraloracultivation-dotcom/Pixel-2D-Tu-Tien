@@ -3,6 +3,12 @@
 // Máy chủ gom vị trí 200 ms một gói; tin phát xuống không tính tiền, nên tuyến 40 người vẫn rẻ (cloud/src/phong.js).
 import { openPhong } from './phong-ws.js';
 
+// Nhịp sống qua phòng Cloudflare (chủ dự án 13/11/2026 01:24: online, kết nối giao cho Cloudflare; Supabase giữ kinh tế, chống hack).
+// Phòng gom giây online của cả phòng, 12 giây ký gửi Supabase một lần (cloud/src/nhip.js, p2d_nhip_gop). Game nghe sự kiện
+// 'p2d-nhip' (phòng đã nhận nhịp) và 'p2d-khac' (máy khác vào cùng tài khoản) ở src/game/net-watch.js.
+let nowConn = null;
+export function cfBeat(phien) { return !!(nowConn?.ready() && nowConn.send({ t: 'n', ph: phien || '' })); }
+
 export function createOnline(me, handlers, opts = {}) {
   let conn = null, mapId = null, prof = {}, lastSend = 0, lastPos = '';
   const people = new Map();   // id → hồ sơ (+ vị trí lúc vào)
@@ -18,6 +24,8 @@ export function createOnline(me, handlers, opts = {}) {
   }
 
   function onMsg(m) {
+    if (m.t === 'n1') { dispatchEvent(new Event('p2d-nhip')); return; }
+    if (m.t === 'kh') { dispatchEvent(new Event('p2d-khac')); return; }
     if (m.t === 'b') {
       for (const [id, x, y, fx, fy, sw, act] of m.m || []) if (id !== me.id) handlers.onMove({ id, x, y, fx, fy, sw, ...(act ? { act } : {}) });
       for (const [id, s] of m.s || []) if (id !== me.id) handlers.onSay?.({ id, ...s });
@@ -32,7 +40,7 @@ export function createOnline(me, handlers, opts = {}) {
   }
 
   async function leave() {
-    if (conn) { conn.close(); conn = null; }
+    if (conn) { if (nowConn === conn) nowConn = null; conn.close(); conn = null; }
     people.clear();
     handlers.onClear();
   }
@@ -45,6 +53,7 @@ export function createOnline(me, handlers, opts = {}) {
     if (!id) return;
     const room = `dao:${id}`;
     conn = openPhong({ url: opts.url, room, line: lines.get(id) || 1, onOpen, onMsg, onDown: () => { people.clear(); handlers.onClear(); }, onLine: l => lines.set(id, l) });
+    nowConn = conn;
   }
 
   // Cùng cách giãn nhịp như online.js: gap mili giây tối thiểu giữa hai lần gửi, đứng yên thì chỉ gửi lại sau idle

@@ -10,6 +10,7 @@ const dir = mkdtempSync(join(tmpdir(), 'phong-'));
 writeFileSync(join(dir, 'proto.js'), readFileSync(join(root, 'proto.js'), 'utf8'));
 writeFileSync(join(dir, 'mang-cfg.js'), readFileSync(join(root, 'mang-cfg.js'), 'utf8'));
 writeFileSync(join(dir, 'pvp.js'), readFileSync(join(root, 'pvp.js'), 'utf8'));
+writeFileSync(join(dir, 'nhip.js'), readFileSync(join(root, 'nhip.js'), 'utf8'));
 const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
 writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
 writeFileSync(join(dir, 'mang.js'), readFileSync(join(root, 'mang.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
