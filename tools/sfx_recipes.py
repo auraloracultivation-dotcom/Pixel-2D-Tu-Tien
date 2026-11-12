@@ -92,6 +92,13 @@ BY_FX = {'fire': ['fire_cast', 'fire_hit'], 'ice': ['ice_cast', 'ice_hit'], 'bol
          'liem': ['liem_cast', 'metal_hit'], 'arrow': ['arrow', 'arrow_hit'], 'heal': ['heal', None], 'shield': ['shield', None],
          'shield-earth': ['stone_shield', None], 'buff': ['buff', None]}
 
+# CHẶN GHI ĐÈ (13/11/2026): data/sounds.json đã được chỉnh tay sau khi viết file này (09/11/2026 chủ dự án chê "ting ting", "chói tai":
+# hit, crit, swing, pickup, rare, levelup, layer_up, achieve, chime, heal, combo đổi sang tiếng xoẹt / mộc cầm; thêm impact, sparkle, boss_down).
+# Công thức ở trên là bản CŨ của các tiếng đó: chạy lại sẽ ghi đè mất phần chỉnh tay. Tiếng riêng từng chiêu viết ở tools/sfx_chieu.py
+# (ghi file riêng data/tieng-chieu.json). Chỉ chạy file này khi đã chép các bản chỉnh tay trong data/sounds.json ngược vào đây, thêm --ghi-de.
+import sys
+if '--ghi-de' not in sys.argv:
+    sys.exit('DỪNG: data/sounds.json có phần chỉnh tay mới hơn công thức trong file này, chạy lại sẽ ghi đè mất (đọc ghi chú trong file). Tiếng chiêu: tools/sfx_chieu.py')
 d = json.loads(P.read_text(encoding='utf-8'))
 d['_note'] = ("Âm thanh tổng hợp bằng code, không cần file (chủ dự án 06/11/2026 19:15: làm lại, cổ phong Á Đông pha 16-bit). sfx: công thức "
               "từng tiếng, dựng bằng src/core/synth.js (viết ở tools/sfx_recipes.py, chạy lại thì ghi đè sfx, by_fx, warm, music.drums). by_fx: chiêu theo fx "

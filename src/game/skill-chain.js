@@ -11,6 +11,7 @@ import { slashLine, outfitColor } from './slash-fx.js';
 import { pvpTryHit, pvpMap } from './pvp.js';
 import { heroLook } from '../render/draw-hero.js';
 import { weaponId } from './stats.js';
+import { skillSfx } from './skill-sfx.js';
 
 const alive = t => t && !t.dead && t.hp !== 0;
 
@@ -46,7 +47,7 @@ export function castChain(game, s, dmg) {
   const ok = startChain(game, p, s, () => playerFoes(game), (t, i, c) => {
     pvpTryHit(game);   // người tắt bảo vệ gần nhất trong tầm (máy chủ kiểm nhịp, tầm)
     if (!t.pvp) hitMob(game, t, dmg, { color, fromX: c.hop.sx, fromY: c.hop.sy });
-    game.sfx('swing', 0.9);
+    skillSfx(game, s, 'k', 0.9, 'swing');
     if (i === s.hits - 1) impactShake(game, 40);   // nhát cuối: rung nhẹ
   });
   if (ok) { p.chain.color = color; p.meditating = false; p.riding = false; }

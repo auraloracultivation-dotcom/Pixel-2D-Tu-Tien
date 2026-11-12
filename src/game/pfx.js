@@ -1,6 +1,7 @@
 // Hiệu ứng chiêu điểm ảnh (chủ dự án 13/11/2026: bỏ ảnh GPT, làm lại bằng PixelFX). Công thức từng chiêu ở data/vfx.json → px,
 // hình pfx.* (tools/art/pfx/). File này chỉ giữ trạng thái: game.vfx.px = hình đang diễn, game.vfx.pp = hạt điểm ảnh; vẽ ở
 // src/render/vfx/draw-pfx.js. src/game/vfx.js gọi sang đây trước; chiêu chưa có công thức px (hoặc px đang tắt) thì dùng hiệu ứng cũ.
+// game.vfx.pz = vùng chiêu của người khác (chỉ hình: không nằm trong game.zones nên phải tự giữ tới khi hết giờ).
 //
 // Công thức một chiêu: {
 //   cast: [nhịp...]   lúc tung          hit: [nhịp...]  đạn trúng / hết tầm     boom: [nhịp...]  đạn nổ lan (không có thì dùng hit)
@@ -13,10 +14,10 @@
 //   spray: [tên dải màu, số hạt, tốc độ] hạt tóe lúc tung / lúc trúng }
 // Một nhịp: { s: tên hình, at: 'me' (chân người tung, mặc định) | 'hand' | 'c' (tâm chiêu) | 'start' (đầu đường lướt), dx, dy, delay,
 //   dir: 1 (xoay theo hướng mặt / hướng đạn), flip: 1 (lật khi quay trái), k (phóng), a, g: 1 (nằm dưới chân người, quái), on: 1 (bám theo người), rate }
-import { hitSfx } from './skill-sfx.js';
+import { hitSfx, zoneSfx } from './skill-sfx.js';
 
 const rnd = (a, b) => a + Math.random() * (b - a);
-const st = game => { const S = (game.vfx ??= { fx: [], parts: [] }); S.px ??= []; S.pp ??= []; return S; };
+const st = game => { const S = (game.vfx ??= { fx: [], parts: [] }); S.px ??= []; S.pp ??= []; S.pz ??= []; return S; };
 
 // Bật / tắt: vfx.json → px_on; địa chỉ ?pfx=1 / ?pfx=0 ghi đè và nhớ trên máy đó (chủ dự án xem thử trước khi mở cho mọi người)
 let ON = null;   // một trang một game: hỏi một lần rồi nhớ
@@ -66,7 +67,7 @@ export function pxCast(game, id, s, who, info = {}) {
       sw: { x0: info.sx, y0: info.sy - 8, x1: who.x, y1: who.y - 8, go, end: D.end, trail: D.trail, acc: 0 } });
   }
   if (R.self) { if (s.type === 'shield') who.shieldSk = id; else who.buffSk = id; }
-  if (info.zone) info.zone.sk = id;
+  if (info.zone) { info.zone.sk = id; if (R.zone && !game.zones.includes(info.zone)) st(game).pz.push({ t: 0, ...info.zone }); }
   if (R.spray) pxSpray(game, R.spray[0], cx, cy - 4, R.spray[1], R.spray[2] || 50);
   return true;
 }
@@ -83,7 +84,7 @@ export function pxMobHit(game, id, m) {
 export function pxHit(game, b, x, y, big = 0) {
   const R = pxOf(game, b.sk);
   if (!R) return false;
-  hitSfx(game, b.sk, big ? 0.9 : 0.7);
+  hitSfx(game, b.sk, big ? 0.9 : 0.7, !!big);
   const dir = Math.atan2(b.vy, b.vx);
   for (const c of (big && R.boom) || R.hit || []) play(game, c, x, y, { dir, col: b.color, face: { x: b.vx } });
   const tr = R.shot?.trail || R.spray?.[0];
@@ -122,7 +123,10 @@ export function updatePx(game, dt) {
         g: P.g ?? 0, drag: P.drag ?? 1.8, t: 0, life: rnd(0.25, 0.55), s: Math.random() < (P.big ?? 0.3) ? 2 : 1, ramp: P.c, add: P.add !== false });
     }
   }
-  for (const z of game.zones) {   // vùng kéo dài: hạt bốc lên rải rác trong vùng
+  for (const z of S.pz) z.t += dt;
+  if (S.pz.length) S.pz = S.pz.filter(z => z.t < z.dur);
+  for (const z of game.zones) if (z.sk) zoneSfx(game, z, dt);   // tiếng nền của vùng (lửa cháy, băng rít…): chỉ vùng của mình và của đối thủ so tài
+  for (const z of S.pz.length ? game.zones.concat(S.pz) : game.zones) {   // vùng kéo dài: hạt bốc lên rải rác trong vùng
     const R = z.sk && pxOf(game, z.sk), P = R?.zone?.trail && game.data.vfx.part_px?.[R.zone.trail];
     if (!P) continue;
     z.pacc = (z.pacc || 0) + dt * (R.zone.rate || 8);

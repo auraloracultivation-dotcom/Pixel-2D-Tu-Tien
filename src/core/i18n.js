@@ -111,7 +111,7 @@ function tr(s, ui = true, depth = 0) {
 export { tr };
 
 // 1. Dữ liệu: đổi chữ trùng nguyên câu, bỏ khoá ghi chú "_…"
-const SKIP_TOP = new Set(['art', 'sounds', 'portraits', 'light', 'tiles']);
+const SKIP_TOP = new Set(['art', 'sounds', 'tieng-chieu', 'portraits', 'light', 'tiles']);
 export function translateData(data) {
   if (isVi || !dict.size) return data;
   const walk = o => {

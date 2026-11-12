@@ -27,7 +27,7 @@ export function castSkill(game, id) {
   game.online?.cast?.({ k: id, x: Math.round(p.x), y: Math.round(p.y), fx: +fx.toFixed(2), fy: +fy.toFixed(2) });   // người cùng đảo thấy hiệu ứng (game/others-cast.js)
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
-  castSfx(game, s);   // tiếng theo hệ chiêu (src/game/skill-sfx.js)
+  castSfx(game, s, 1, id);   // tiếng riêng của chiêu, không có thì tiếng theo hệ (src/game/skill-sfx.js)
   juiceCast(game, s, id);   // trận đồ dưới chân (chiêu có hiệu ứng điểm ảnh thì pfx.js vẽ); chiêu lớn: chớp màn, rung (src/game/juice.js)
   switch (s.type) {
     case 'projectile':

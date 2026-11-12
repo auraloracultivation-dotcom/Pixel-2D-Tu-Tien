@@ -9,6 +9,7 @@ import { darkness } from '../draw-lights.js';
 const lightK = game => (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game);   // trời tối: lớp sáng rực hơn
 
 const zfade = z => Math.min(1, z.t * 4, (z.dur - z.t) * 2);
+const zones = game => (game.vfx?.pz?.length ? game.zones.concat(game.vfx.pz) : game.zones);   // vùng thật + vùng chỉ hình của người khác (pfx.js)
 const zone = (ctx, art, z, name, Z) => { const fade = zfade(z); if (name && fade > 0) pfxDraw(ctx, art, name, z.x, z.y + (Z.dy || 0), z.t, { loop: true, a: fade * (Z.a ?? 1), k: Z.k }); };
 function orbit(ctx, art, z, O) {   // hình bay vòng quanh tâm vùng (kim luân): con ở nửa xa vẽ trước
   const fade = zfade(z), list = [];
@@ -53,7 +54,7 @@ export function drawPxGround(ctx, game) {
   const S = game.vfx, art = game.data.art;
   if (!game.data.vfx?.px) return;
   ctx.save(); pfxBegin(ctx, lightK(game));
-  for (const z of game.zones) { const Z = pxOf(game, z.sk)?.zone; if (Z) zone(ctx, art, z, Z.g, Z); }
+  for (const z of zones(game)) { const Z = pxOf(game, z.sk)?.zone; if (Z) zone(ctx, art, z, Z.g, Z); }
   self(ctx, game, art, game.player, 'g');
   for (const e of game.duel?.mob ? game.duel.foes : []) self(ctx, game, art, e, 'g');
   for (const f of S?.px || []) if (f.g) inst(ctx, art, f);
@@ -66,7 +67,7 @@ export function drawPx(ctx, game) {
   if (!game.data.vfx?.px) return;
   warm(game, art);
   ctx.save(); pfxBegin(ctx, lightK(game));
-  for (const z of game.zones) { const Z = pxOf(game, z.sk)?.zone; if (Z) { zone(ctx, art, z, Z.s, Z); if (Z.orbit) orbit(ctx, art, z, Z.orbit); } }
+  for (const z of zones(game)) { const Z = pxOf(game, z.sk)?.zone; if (Z) { zone(ctx, art, z, Z.s, Z); if (Z.orbit) orbit(ctx, art, z, Z.orbit); } }
   self(ctx, game, art, game.player, 's');
   for (const e of game.duel?.mob ? game.duel.foes : []) self(ctx, game, art, e, 's');
   const many = {};   // chiêu bắn nhiều viên: chia bớt độ rực lớp sáng cho khỏi trắng xoá cả màn

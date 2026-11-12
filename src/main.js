@@ -82,7 +82,7 @@ async function boot() {
   const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
   screen = createScreen(canvas, data.config, perf.dpr);
   const input = createInput(canvas);
-  const audio = createAudio(data.sounds);
+  const audio = createAudio(data.sounds, data['tieng-chieu']?.sfx);   // tiếng chung + tiếng riêng từng chiêu (data/tieng-chieu.json)
   const ui = createHud(audio);
   const game = createGame(data, screen, input, ui, audio);
   createBag(game);

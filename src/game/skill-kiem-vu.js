@@ -8,6 +8,7 @@
 //   Số ở data/skills.json → van-kiem-thien; cặp hình ở data/kiem-vu.json.
 import { hitMob, dist, impactShake, addFx } from './combat.js';
 import { pvpTryHit } from './pvp.js';
+import { skillSfx } from './skill-sfx.js';
 
 const TAU = Math.PI * 2;
 const ease = k => k * k * (3 - 2 * k);
@@ -60,16 +61,16 @@ export function updateKiemVu(game, dt) {
   for (const c of L) {
     const s = c.s, t0 = c.t; c.t += dt;
     if (t0 < s.release && c.t >= s.release) { c.C = landings(game, c); pvpTryHit(game); }
-    if (t0 < s.summon && c.t >= s.summon) { game.sfx?.('chime', 0.8); game.screen?.shake?.(1.2, 0.2); }   // đủ kiếm: kiếm khí bùng
+    if (t0 < s.summon && c.t >= s.summon) { skillSfx(game, s, 'r', 0.8, 'chime'); game.screen?.shake?.(1.2, 0.2); }   // đủ kiếm: kiếm khí bùng
     for (const w of c.swords) {
       if (c.t < w.go && !w.hx) continue;
-      if (!w.hx) { const o = orbitPos(c, w, p); w.hx = o.x; w.hy = o.y; game.sfx?.('swing', 0.5); }   // rời vòng: ghi chỗ bắt đầu bay
+      if (!w.hx) { const o = orbitPos(c, w, p); w.hx = o.x; w.hy = o.y; skillSfx(game, s, 's', 0.5, 'swing'); }   // rời vòng: ghi chỗ bắt đầu bay
       const land = w.go + s.leave + s.drop;
       if (!w.hit && c.t >= land) {   // cắm đất: trúng quái quanh điểm rơi
         w.hit = true;
         for (const m of game.mobs) if (!m.dead && Math.hypot(m.x - w.lx, m.y - w.ly) < s.hit_r + m.r) hitMob(game, m, c.dmg * s.mult, { color: s.color, fromX: w.lx, fromY: w.ly - 20 });
         addFx(game, { type: 'ring', x: w.lx, y: w.ly, r: s.hit_r, color: s.color, life: 0.3 });
-        impactShake(game, s.hit_r * 0.6); game.sfx?.('metal_hit', 0.7);
+        impactShake(game, s.hit_r * 0.6); skillSfx(game, s, 'k', 0.7, 'metal_hit');
       }
     }
   }
