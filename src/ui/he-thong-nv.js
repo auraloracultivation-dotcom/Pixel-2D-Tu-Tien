@@ -40,6 +40,10 @@ export function renderTasks(game, body, api) {
     game.htFace?.react('xong');
     if (m.qua?.length) takeMail(game);
   };
+  // Nhận thưởng: đẩy bản lưu lên máy chủ trước (máy chủ xét theo bản đã lưu; vừa xong việc mà chưa kịp lưu thì báo "chưa xong",
+  // chơi thử 12/11/2026: bấm Nhận 5 lần vẫn không nhận được); máy chủ vẫn báo chưa xong thì đợi lưu xong rồi thử lại một lần
+  const sync = async () => { game.persist?.(); for (let i = 0; i < 3; i++) { await game.cloud?.flush?.(); await new Promise(r => setTimeout(r, 300)); } };
+  const claim = async fn => { await sync(); try { return await fn(); } catch (e) { if (!String(e?.message || '').includes('chua_xong')) throw e; await new Promise(r => setTimeout(r, 1500)); await sync(); return fn(); } };
   const err = e => { const s = String(e?.message || ''); game.htFace?.react('loi'); game.toast(s.includes('chua_xong') ? X.todo : X.summon_err, 2); };
   // thứ tự (chủ dự án 12/11/2026 10:44): chờ nhận thưởng trên đầu, chưa làm giữa, đã nhận cuối (sort giữ thứ tự gốc trong mỗi nhóm)
   const rank = d => (d.got ? 2 : d.ok ? 0 : 1);
@@ -75,7 +79,7 @@ export function renderTasks(game, body, api) {
       b.textContent = X.go; b.onclick = () => { api.minimize(); game.openOldPanel?.({ btn: m.go }); }; row.append(b);
     } else {
       b.textContent = m.ok ? X.claim : X.todo; b.disabled = !m.ok || !game.cloud;
-      b.onclick = async () => { b.disabled = true; try { const N = await import('../net/he-thong.js'); done(await N.htClaim(m.id), m); } catch (e) { err(e); b.disabled = false; } };
+      b.onclick = async () => { b.disabled = true; try { const N = await import('../net/he-thong.js'); done(await claim(() => N.htClaim(m.id)), m); } catch (e) { err(e); b.disabled = false; } };
       row.append(b);
     }
     body.append(row);
@@ -90,7 +94,7 @@ export function renderTasks(game, body, api) {
     row.append(el('b', null, d.text), el('small', 'ht-qua', fill(X.reward, { r: fill(X.pts_tag, { p: H.points }) })));
     b.type = 'button'; b.disabled = d.got || (d.ok && !game.cloud);
     if (!d.ok) { b.textContent = X.go; b.onclick = async () => { api.minimize(); (await import('../game/dailyjob.js')).dailyGo(game, d.id); }; }   // chưa xong: tự hành đi làm
-    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await M.htDaily(d.id), {}); } catch (e) { err(e); b.disabled = false; } };
+    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'); done(await claim(() => M.htDaily(d.id)), {}); } catch (e) { err(e); b.disabled = false; } };
     row.append(b); body.append(row);
   }
   if (!game.cloud) body.append(el('p', 'ht-line ht-muted', X.login));
