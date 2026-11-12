@@ -187,7 +187,11 @@ try {
   // Khai Hoang Tinh Cầu: số trong data/khai-hoang.json phải khớp bảng p2d_kh_cfg trên máy chủ
   const khd = read('khai-hoang.json'), khm = lastWith(/insert into public\.p2d_kh_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/);
   const khc = khm ? JSON.parse(khm[1]) : null, khk = ['mat', 'ring', 'per_ring', 'ten_max', 'lose_wait', 'fight_min', 'fight_max', 'idle_days', 'empty_days', 'levels'];
-  need(khc && khk.every(k => JSON.stringify(khc[k]) === JSON.stringify(khd[k])) && JSON.stringify(khc.dat) === JSON.stringify(Object.keys(khd.grounds)), `khai-hoang: số khác bảng p2d_kh_cfg trên máy chủ; đổi số thì thêm migration mới`);
+  need(khc && khk.every(k => JSON.stringify(khc[k]) === JSON.stringify(khd[k])) && JSON.stringify(khc.dat) === JSON.stringify(Object.keys(khd.grounds))
+    && JSON.stringify(khc.ct) === JSON.stringify(Object.fromEntries(Object.entries(khd.ct).map(([k, v]) => [k, { lt: v.lt, loai: v.loai }])))
+    && JSON.stringify(khc.do) === JSON.stringify(khd.do) && khc.do_lt === khd.do_lt && khc.kc_wait === khd.kc_wait
+    && JSON.stringify(khc.anh) === JSON.stringify(Object.fromEntries(Object.entries(khd.anh).filter(([k]) => !k.startsWith('_'))))
+    && JSON.stringify(khc.loai_anh) === JSON.stringify([...new Set(Object.values(khd.ct).filter(c => c.loai === 'cn').map(c => c.npc))].sort().concat('nha')), `khai-hoang: số khác bảng p2d_kh_cfg trên máy chủ; đổi số thì thêm migration mới`);
   // Chữ ký món: máy chủ tự tẩy luyện, cường hoá, đổi hệ theo bảng p2d_ky_cfg; số phải khớp data/ (tools/ky-cfg.mjs dựng)
   { const km = lastWith(/insert into public\.p2d_ky_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/), want = kyCfg(read);
     need(km && sameJson(JSON.parse(km[1]), want), 'items / gear / elements / daovan: số tẩy luyện, cường hoá, đổi hệ khác bảng p2d_ky_cfg trên máy chủ; chạy node tools/ky-cfg.mjs rồi thêm migration mới');

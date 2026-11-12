@@ -16,4 +16,19 @@ export const khCalls = {
   win: ve => rpc('p2d_kh_thang', { p_ve: ve }),                           // tông chủ hạ trùm: máy chủ trừ kho, khai / nâng cấp
   lose: ve => rpc('p2d_kh_thua', { p_ve: ve }),
   visit: id => rpc('p2d_kh_ghe', { p_id: id }),                           // thành viên ghé tinh cầu của mình (giữ khỏi ma khí)
+  buy: (ma, so) => rpc('p2d_kh_mua', { p_ma: ma, p_so: so }),             // tông chủ mua công trình / đồ trang trí bằng kho
+  assign: (k, on) => rpc('p2d_kh_giao', { p_k: k, p_on: on }),            // giao / thôi giao trưởng lão bày tinh cầu
+  saveLayout: (id, items, ver) => rpc('p2d_kh_bay_luu', { p_tinh: id, p_items: items, p_ver: ver ?? null }),
+  history: id => rpc('p2d_kh_bay_ls', { p_tinh: id }),
+  restore: hid => rpc('p2d_kh_bay_lay', { p_id: hid }),
+  challenge: id => rpc('p2d_kh_khieu_chien', { p_tinh: id }),             // khiêu chiến tinh cầu bỏ trống: máy chủ quyết thắng thua
+  // Gửi ảnh công trình: tải lên kho riêng tư kh-anh (thư mục mã tài khoản), rồi xếp hàng chờ duyệt
+  async sendImage(file, tenCt, loai, tenNpc) {
+    const { data: u } = await supabase.auth.getUser();
+    if (!u?.user) throw new Error('chua_luu');
+    const ext = file.type === 'image/webp' ? 'webp' : 'png', path = `${u.user.id}/${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from('kh-anh').upload(path, file, { contentType: file.type, upsert: false });
+    if (error) throw error;
+    return rpc('p2d_kh_anh_gui', { p_duong: path, p_ten_ct: tenCt, p_loai: loai, p_ten_npc: tenNpc });
+  },
 };

@@ -182,7 +182,7 @@ export function createGame(data, screen, input, ui, audio) {
       if ((n.id === game.save.companion || n.id === game.save.companion2) && !game.story.wants(n.id)) continue; // đang đi cùng người chơi
       game.addNpc(n.id, n.at);
     }
-    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game);
+    spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game); game.onMapLoad?.(game);   // onMapLoad: NPC công trình tinh cầu khai hoang (khai-hoang.js)
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
     festSpawn(game, def);
     game.dungeon = createDungeon(game);

@@ -58,9 +58,12 @@ export function hoiCells(items, T) {
 
 // Vùng phố hội (data/le-hoi.json → festivals.<bản đồ>.khu: các khung [x0, y0, x1, y1] theo ô). Chủ dự án 02/11/2026: quái ở ngoài
 // lễ hội, không xông vào cắn người. Quái không bước vào vùng này, người chơi đứng trong vùng thì quái không đuổi (mobs.js).
+// Tinh cầu khai hoang: vùng che chở quanh công trình (def.kh.zones [x, y, r] theo ô, src/game/kh-road.js) cũng tính như phố hội.
 export function inHoi(game, e) {
-  const K = game.data['le-hoi']?.festivals?.[game.map?.id]?.khu;
-  if (!K || !e) return false;
+  const K = game.data['le-hoi']?.festivals?.[game.map?.id]?.khu, Z = game.map?.def?.kh?.zones;
+  if ((!K && !Z?.length) || !e) return false;
   const x = e.x / game.map.T, y = e.y / game.map.T;
+  if (Z?.some(([zx, zy, r]) => (x - zx) ** 2 + (y - zy) ** 2 <= r * r)) return true;
+  if (!K) return false;
   return K.some(([x0, y0, x1, y1]) => x >= x0 && x <= x1 && y >= y0 && y <= y1);
 }

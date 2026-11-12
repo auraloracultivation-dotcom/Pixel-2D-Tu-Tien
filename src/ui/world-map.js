@@ -65,6 +65,11 @@ export function createWorldMap(game) {
     if (data.maps[b.map]?.demon) box.append(el('p', 'wc-danger', weekLine(game)));   // Ma Vương tuần này
     if (dg) { const p = el('p', 'wc-danger', sm.texts.danger + ' '); const s = el('span', null, hintText[dg]); s.style.color = hint[dg]; p.append(s); box.append(p); }
     if (b.sun || b.kind === 'lost' || b.kind === 'soon') return;
+    if (b.kh && b.trong) {   // tinh cầu khai hoang bỏ trống: tông chủ chưa có tinh cầu khiêu chiến tông chủ cũ (src/game/kh-act.js)
+      const kc = el('button', 'wc-go', data['khai-hoang'].text.kc);
+      kc.onclick = () => { close(); import('../game/kh-act.js').then(M => M.khChallenge(game, game.kh?.list.find(x => x.id === b.map) || { id: b.map, ten: b.name })); };
+      box.append(kc);
+    }
     const here = game.map.id === b.map, why = here ? sm.texts.here : whyNot(game, b) || blocked();
     const go = el('button', 'wc-go', why || sm.texts.fly);
     go.disabled = !!why;

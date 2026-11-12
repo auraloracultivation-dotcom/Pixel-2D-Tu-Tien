@@ -3,6 +3,8 @@
 import { guildState } from '../game/guild.js';
 import { coins } from '../game/shop.js';
 import { khState, khErr, khGive, khOpen, khEnter, khQuit, khFly, myShards } from '../game/khai-hoang.js';
+import { khChallenge } from '../game/kh-act.js';
+import { renderKhMore } from './kh-view2.js';
 
 const fmt = n => Number(n || 0).toLocaleString('vi-VN');
 const fill = (s, o) => Object.entries(o).reduce((t, [k, v]) => t.split(`{${k}}`).join(v), s);
@@ -68,4 +70,11 @@ export function renderKh(ctx, redraw) {
 
   // người góp nhiều
   if (km.top.length) list.append(card('#5fa0d0', T.top, km.top.map(x => fill(T.top_row, { name: x.name, manh: fmt(x.manh), lt: fmt(x.lt) }))));
+
+  // tinh cầu bỏ trống: tông chủ chưa có tinh cầu khiêu chiến tông chủ cũ để chiếm (kh-act.js)
+  if (chu && !p) for (const t of khState(game).list.filter(x => x.trong)) {
+    list.append(card('#b0503a', fill(T.planet, { ten: t.ten, cap: t.cap, ground: G[t.mat_dat]?.name || '' }), [fill(T.body_empty, { chu: t.chu_ten || '?', cap: t.cap })],
+      mini(T.kc, () => { document.getElementById('guild-close')?.click(); khChallenge(game, t); })));
+  }
+  renderKhMore(ctx, redraw, km);
 }

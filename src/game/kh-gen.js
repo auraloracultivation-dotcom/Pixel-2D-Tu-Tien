@@ -4,6 +4,8 @@
 // Bãi quái treo máy hai vòng: vòng trong lực chiến mob_in, vòng ngoài mob_out lần trùm của cấp (mob-power.js đọc config.mob_cp.maps).
 // fight: bản đồ trận Khai Tinh (ma khí tối, trùm giữa sân, kéo về lực chiến boss_cp của cấp đánh).
 
+import { ctBuild, paintRoads, inZone } from './kh-road.js';
+
 function rng(seed) {   // mulberry32
   let a = seed >>> 0;
   return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
@@ -11,7 +13,8 @@ function rng(seed) {   // mulberry32
 
 export const levelOf = (K, cap) => K.levels.find(l => l.cap === cap) || K.levels[K.levels.length - 1];
 
-// p: { id, ten, mat_dat, hat, cap } (dòng tinh cầu trên máy chủ, hoặc vé trận); opts.fight: dựng bản đồ trận Khai Tinh cấp opts.cap
+// p: { id, ten, mat_dat, hat, cap, bay, rieng } (dòng tinh cầu trên máy chủ, hoặc vé trận); opts.fight: dựng bản đồ trận Khai Tinh cấp opts.cap;
+// opts.data: game.data (công trình trong bố cục: NPC, vùng che chở, đường tự sinh ở kh-road.js)
 export function genPlanet(K, p, opts = {}) {
   const Gd = K.grounds[p.mat_dat] || Object.values(K.grounds)[0], G = K.gen;
   const cap = opts.fight ? opts.cap : p.cap, L = levelOf(K, cap), d = L.d;
@@ -51,12 +54,15 @@ export function genPlanet(K, p, opts = {}) {
   for (let y = 0; y < d; y++) for (let x = 0; x < d; x++) if (r0(x - c, y - c) <= G.plaza) g[y][x] = 'o';
   const cx = Math.round(c), cy = Math.round(c);
   g[cy - 2][cx] = 'P';
+  const B = !opts.fight && opts.data ? ctBuild(K, p.rieng, p.bay, opts.data.npcs) : { npcs: [], zones: [], doors: [] };
+  if (B.doors.length) paintRoads(g, cx, cy + G.plaza, B.doors, B.zones, opts.data.tiles.types, [...Gd.solid, Gd.deco].filter(Boolean));
   // bãi quái hai vòng; bãi rơi vào vật cản thì freeNear lúc mọc tự dời (game.js updateSpawners)
   const spawners = [];
   for (const ring of G.rings.filter(r => !opts.fight || !r.out)) {   // trận Khai Tinh: chỉ vòng trong, còn lại là trùm
     const off = R() * Math.PI * 2;
     for (let i = 0; i < ring.n; i++) {
       const a = off + i * Math.PI * 2 / ring.n, x = Math.round(c + Math.cos(a) * rad * ring.r), y = Math.round(c + Math.sin(a) * rad * ring.r);
+      if (inZone(B.zones, x, y, 3)) continue;   // bãi rơi vào vùng che chở công trình: bỏ
       const s = { mob: Gd.mobs[i % Gd.mobs.length], at: [x, y], farm: true };
       if (ring.out) s.mul = K.mob_out / K.mob_in;
       spawners.push(s);
@@ -64,11 +70,12 @@ export function genPlanet(K, p, opts = {}) {
   }
   const T = K.text;
   const def = {
-    id: p.id, name: opts.fight ? T.fight_name.replace('{ten}', p.ten) : p.ten, kh: { cap, ground: p.mat_dat, fight: !!opts.fight, ticket: opts.ticket || null },
+    id: p.id, name: opts.fight ? T.fight_name.replace('{ten}', p.ten) : p.ten, kh: { cap, ground: p.mat_dat, fight: !!opts.fight, ticket: opts.ticket || null, zones: B.zones, npcs: B.npcs, tinh: opts.fight ? null : p.id },
     sky: Gd.sky, dark: opts.fight ? 0.45 : 0, ground: Gd.ground, island: Gd.island, world: !opts.fight, planet: { d, kh: 1 },
     grid: g.map(r => r.join('')), spawns: { vao: [cx, cy + 1] },
     portals: [{ at: [cx, cy - 2], to: 'thien-kiem-phong', spawn: 'vao', label: T.back, fly: true }],
-    npcs: [], spawners, rooms: [], hoi: [],
+    npcs: [], spawners,   // NPC công trình thêm sau khi dựng bản đồ (khai-hoang.js khSpawn: tên, hình riêng)
+    rooms: [], hoi: { do: opts.fight ? [] : (p.bay || []) },
   };
   if (opts.fight) def.spawners.unshift({ mob: Gd.boss, at: [cx, cy - Math.round(rad * 0.4)], n: 1, respawn: 1e9, cp: L.boss_cp, kt: true });
   return { def, mobCp: Math.round(L.boss_cp * K.mob_in) };

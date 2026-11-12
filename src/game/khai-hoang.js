@@ -16,7 +16,7 @@ export function khErr(game, e) {
 
 // Đưa một tinh cầu (hoặc bản đồ trận) vào game: bản đồ, mức lực chiến quái
 function inject(game, p, opts) {
-  const { def, mobCp } = genPlanet(K(game), p, opts);
+  const { def, mobCp } = genPlanet(K(game), p, { ...opts, data: game.data });
   game.data.maps[def.id] = def;
   const C = game.data.config.mob_cp;
   if (C?.maps) { C.maps[def.id] = mobCp; if (game.mobCpCache) delete game.mobCpCache[def.id]; }
@@ -30,8 +30,8 @@ function toStarmap(game, list) {
   sm.bodies = sm.bodies.filter(b => !b.kh);
   for (const p of list) {
     const G = Kd.grounds[p.mat_dat] || {};
-    sm.bodies.push({ kh: true, map: p.id, name: p.ten, kind: 'khai', orbit: p.vong, angle: p.goc, size: 3 + p.cap, color: G.ground || '#9a8aff',
-      realm: levelOf(Kd, p.cap).realm, desc: T.body_desc.replace('{bang}', p.bang || '?').replace('{cap}', p.cap) });
+    sm.bodies.push({ kh: true, trong: !!p.trong, map: p.id, name: p.ten, kind: 'khai', orbit: p.vong, angle: p.goc, size: 3 + p.cap, color: G.ground || '#9a8aff',
+      realm: levelOf(Kd, p.cap).realm, desc: p.trong ? T.body_empty.replace('{chu}', p.chu_ten || '?').replace('{cap}', p.cap) : T.body_desc.replace('{bang}', p.bang || '?').replace('{cap}', p.cap) });
   }
 }
 
@@ -128,10 +128,31 @@ export async function khFly(game, id) {
 
 // Ghé tinh cầu tông môn mình: báo máy chủ (giữ khỏi ma khí); kiểm mỗi 20 giây, máy chủ tự bỏ qua nếu chưa đủ một giờ
 export function khWatch(game) {
+  game.onMapLoad = khSpawn;
   khLoad(game).catch(() => {});
   setInterval(() => {
     const s = khState(game), id = game.map?.id, mine = s.mine?.tinh?.id;
     if (game.online && s.mine === undefined) { s.mine = null; khMine(game).catch(() => { s.mine = undefined; }); }
+    if (s.mine?.bay_quyen && !game.khBay) import('../ui/kh-bay.js').then(M => M.setupKhBay(game));   // bày tinh cầu tông môn (bay-canh.js)
     if (game.online && mine && id === mine && Date.now() - s.seenT > 3600e3) { s.seenT = Date.now(); net().then(c => c.visit(id)).catch(() => {}); }
   }, 20e3);
+}
+
+// Dựng lại tinh cầu vừa lưu bố cục (đường, NPC, vùng che chở theo công trình mới) rồi nạp lại bản đồ ngay chỗ đang đứng
+export function khRebuild(game, id, bay) {
+  const s = khState(game), p = s.list.find(x => x.id === id);
+  if (!p) return;
+  p.bay = bay;
+  const def = inject(game, p);
+  if (game.map?.id !== id) return;
+  const T = game.map.T;
+  def.spawns.bay = [Math.floor(game.player.x / T), Math.floor(game.player.y / T)];
+  game.travel(id, 'bay', false, { force: true });
+}
+
+// NPC công trình (game.js loadMap gọi game.onMapLoad): tên, hình, lời riêng từng công trình; đứng trước cửa
+export function khSpawn(game) {
+  const L = game.map?.def?.kh?.npcs;
+  if (!L?.length) return;
+  for (const n of L) { const p = game.map.center(n.at[0], n.at[1]); game.npcs.push({ id: n.id, def: n.def, x: p.x, y: p.y, r: 6, bob: Math.random() * 6 }); }
 }

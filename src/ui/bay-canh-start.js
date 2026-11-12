@@ -32,7 +32,7 @@ export function startBayCanh(game) {
     try {
       const ok = await canArrange();
       if (ok === null) { done = false; return; }   // phiên đăng nhập chưa sẵn: thử lại nhịp sau
-      if (ok) (await import('./bay-canh.js')).createBayCanh(game);
+      if (ok) { game.bayGlobal = true; (await import('./bay-canh.js')).createBayCanh(game); }   // bayGlobal: bày mọi bản đồ (tinh cầu khai hoang: src/ui/kh-bay.js)
     } catch { /* không có quyền hoặc lỗi mạng: không hiện nút */ }
   };
   setInterval(tick, 2000);

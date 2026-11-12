@@ -12,23 +12,238 @@
  "idle_days": 30,
  "empty_days": 30,
  "levels": [
-  {"cap": 1, "manh": 30, "lt": 50000, "realm": 1, "boss_cp": 24000, "d": 44},
-  {"cap": 2, "manh": 80, "lt": 150000, "realm": 1, "boss_cp": 48000, "d": 54},
-  {"cap": 3, "manh": 200, "lt": 400000, "realm": 2, "boss_cp": 96000, "d": 64},
-  {"cap": 4, "manh": 450, "lt": 1000000, "realm": 3, "boss_cp": 180000, "d": 74},
-  {"cap": 5, "manh": 900, "lt": 2500000, "realm": 4, "boss_cp": 320000, "d": 84}
+  {
+   "cap": 1,
+   "manh": 30,
+   "lt": 50000,
+   "realm": 1,
+   "boss_cp": 24000,
+   "d": 44,
+   "ct_max": 3,
+   "do_max": 20
+  },
+  {
+   "cap": 2,
+   "manh": 80,
+   "lt": 150000,
+   "realm": 1,
+   "boss_cp": 48000,
+   "d": 54,
+   "ct_max": 5,
+   "do_max": 40
+  },
+  {
+   "cap": 3,
+   "manh": 200,
+   "lt": 400000,
+   "realm": 2,
+   "boss_cp": 96000,
+   "d": 64,
+   "ct_max": 7,
+   "do_max": 60
+  },
+  {
+   "cap": 4,
+   "manh": 450,
+   "lt": 1000000,
+   "realm": 3,
+   "boss_cp": 180000,
+   "d": 74,
+   "ct_max": 9,
+   "do_max": 80
+  },
+  {
+   "cap": 5,
+   "manh": 900,
+   "lt": 2500000,
+   "realm": 4,
+   "boss_cp": 320000,
+   "d": 84,
+   "ct_max": 12,
+   "do_max": 100
+  }
  ],
- "drop": {"_note": "Mảnh Vỡ Tinh Cầu rơi (src/game/khai-hoang.js khDrop): quái vòng ngoài (bãi mul ≥ 2) mọi tinh cầu rate_out, quái trên tinh cầu khai hoang rate_kh, trùm bí cảnh khi phá bí cảnh dun (số mảnh [ít, nhiều]).", "rate_out": 0.02, "rate_kh": 0.03, "dun": [1, 3]},
- "grounds": {
-  "rung": {"name": "Rừng rêu", "base": "m", "deco": "n", "solid": ["Z"], "water": "=", "sky": "#2e4a3a", "ground": "#4f8a4a", "island": {"top": "#4f8a4a", "under": "#2e4a2e", "trees": "#1f5a32"}, "mobs": ["moc-yeu", "doc-dang"], "boss": "thuc-moc-ma-hau"},
-  "co": {"name": "Đồng cỏ", "base": ".", "deco": "F", "solid": ["T", "R"], "water": "=", "sky": "#9fd8f0", "ground": "#7cc46a", "island": {"top": "#7cc46a", "under": "#4a6a3a", "trees": "#2e6a32"}, "mobs": ["thu-moc-ve", "hac-cuc-mam"], "boss": "co-thu-yeu-vuong"},
-  "tuyet": {"name": "Tuyết", "base": "w", "deco": "i", "solid": ["Y"], "water": "O", "sky": "#cfe6f5", "ground": "#e4eef6", "island": {"top": "#d8e6f0", "under": "#8aa8c0", "trees": "#4a6a80"}, "mobs": ["tuyet-lang", "bang-tinh"], "boss": "han-hon-ma-tuong"},
-  "tro": {"name": "Đất tro núi lửa", "base": "a", "deco": null, "solid": ["R"], "water": "L", "sky": "#f0b890", "ground": "#a88a74", "island": {"top": "#9a8270", "under": "#6a4a3a", "trees": "#3a2a2a"}, "mobs": ["hoa-lang", "viem-linh"], "boss": "hoa-lang-vuong"},
-  "cat": {"name": "Cát vàng", "base": "s", "deco": "h", "solid": ["b"], "water": "=", "sky": "#e8c88a", "ground": "#e0c070", "island": {"top": "#e0c070", "under": "#8a6a3a", "trees": "#a88a4a"}, "mobs": ["sa-ma", "kim-giap-trung"], "boss": "kim-giap-vuong"},
-  "da-den": {"name": "Đá đen", "base": "d", "deco": null, "solid": ["V", "U"], "water": "=", "sky": "#3a3448", "ground": "#5e566a", "island": {"top": "#6a6278", "under": "#3a3446", "trees": "#2a2434"}, "mobs": ["phong-yeu", "hac-diep"], "boss": "hac-phong-ma-quan"},
-  "hau-tho": {"name": "Đất hậu thổ", "base": "t", "deco": "y", "solid": ["I", "^"], "water": "=", "sky": "#c8a07a", "ground": "#b07a4a", "island": {"top": "#b07a4a", "under": "#6a4428", "trees": "#7a6a3a"}, "mobs": ["tho-khoi", "nham-xa"], "boss": "nham-giap-thu"}
+ "drop": {
+  "_note": "Mảnh Vỡ Tinh Cầu rơi (src/game/khai-hoang.js khDrop): quái vòng ngoài (bãi mul ≥ 2) mọi tinh cầu rate_out, quái trên tinh cầu khai hoang rate_kh, trùm bí cảnh khi phá bí cảnh dun (số mảnh [ít, nhiều]).",
+  "rate_out": 0.02,
+  "rate_kh": 0.03,
+  "dun": [
+   1,
+   3
+  ]
  },
- "gen": {"_note": "Dựng bản đồ (kh-gen.js): plaza bán kính ô lát đá giữa đĩa (cổng về Thiên Kiếm Tinh, chỗ ra), roads số đường lát toả ra mép, blobs / lakes số cụm vật cản / hồ trên mỗi 100 ô đất, safe phần bán kính không có bãi quái, rings bãi quái treo máy (r phần bán kính, n bãi, out: vòng ngoài).", "plaza": 4, "roads": 4, "blobs": 1.4, "lakes": 0.25, "safe": 0.42, "rings": [{"r": 0.62, "n": 4, "out": false}, {"r": 0.84, "n": 6, "out": true}]},
+ "grounds": {
+  "rung": {
+   "name": "Rừng rêu",
+   "base": "m",
+   "deco": "n",
+   "solid": [
+    "Z"
+   ],
+   "water": "=",
+   "sky": "#2e4a3a",
+   "ground": "#4f8a4a",
+   "island": {
+    "top": "#4f8a4a",
+    "under": "#2e4a2e",
+    "trees": "#1f5a32"
+   },
+   "mobs": [
+    "moc-yeu",
+    "doc-dang"
+   ],
+   "boss": "thuc-moc-ma-hau"
+  },
+  "co": {
+   "name": "Đồng cỏ",
+   "base": ".",
+   "deco": "F",
+   "solid": [
+    "T",
+    "R"
+   ],
+   "water": "=",
+   "sky": "#9fd8f0",
+   "ground": "#7cc46a",
+   "island": {
+    "top": "#7cc46a",
+    "under": "#4a6a3a",
+    "trees": "#2e6a32"
+   },
+   "mobs": [
+    "thu-moc-ve",
+    "hac-cuc-mam"
+   ],
+   "boss": "co-thu-yeu-vuong"
+  },
+  "tuyet": {
+   "name": "Tuyết",
+   "base": "w",
+   "deco": "i",
+   "solid": [
+    "Y"
+   ],
+   "water": "O",
+   "sky": "#cfe6f5",
+   "ground": "#e4eef6",
+   "island": {
+    "top": "#d8e6f0",
+    "under": "#8aa8c0",
+    "trees": "#4a6a80"
+   },
+   "mobs": [
+    "tuyet-lang",
+    "bang-tinh"
+   ],
+   "boss": "han-hon-ma-tuong"
+  },
+  "tro": {
+   "name": "Đất tro núi lửa",
+   "base": "a",
+   "deco": null,
+   "solid": [
+    "R"
+   ],
+   "water": "L",
+   "sky": "#f0b890",
+   "ground": "#a88a74",
+   "island": {
+    "top": "#9a8270",
+    "under": "#6a4a3a",
+    "trees": "#3a2a2a"
+   },
+   "mobs": [
+    "hoa-lang",
+    "viem-linh"
+   ],
+   "boss": "hoa-lang-vuong"
+  },
+  "cat": {
+   "name": "Cát vàng",
+   "base": "s",
+   "deco": "h",
+   "solid": [
+    "b"
+   ],
+   "water": "=",
+   "sky": "#e8c88a",
+   "ground": "#e0c070",
+   "island": {
+    "top": "#e0c070",
+    "under": "#8a6a3a",
+    "trees": "#a88a4a"
+   },
+   "mobs": [
+    "sa-ma",
+    "kim-giap-trung"
+   ],
+   "boss": "kim-giap-vuong"
+  },
+  "da-den": {
+   "name": "Đá đen",
+   "base": "d",
+   "deco": null,
+   "solid": [
+    "V",
+    "U"
+   ],
+   "water": "=",
+   "sky": "#3a3448",
+   "ground": "#5e566a",
+   "island": {
+    "top": "#6a6278",
+    "under": "#3a3446",
+    "trees": "#2a2434"
+   },
+   "mobs": [
+    "phong-yeu",
+    "hac-diep"
+   ],
+   "boss": "hac-phong-ma-quan"
+  },
+  "hau-tho": {
+   "name": "Đất hậu thổ",
+   "base": "t",
+   "deco": "y",
+   "solid": [
+    "I",
+    "^"
+   ],
+   "water": "=",
+   "sky": "#c8a07a",
+   "ground": "#b07a4a",
+   "island": {
+    "top": "#b07a4a",
+    "under": "#6a4428",
+    "trees": "#7a6a3a"
+   },
+   "mobs": [
+    "tho-khoi",
+    "nham-xa"
+   ],
+   "boss": "nham-giap-thu"
+  }
+ },
+ "gen": {
+  "_note": "Dựng bản đồ (kh-gen.js): plaza bán kính ô lát đá giữa đĩa (cổng về Thiên Kiếm Tinh, chỗ ra), roads số đường lát toả ra mép, blobs / lakes số cụm vật cản / hồ trên mỗi 100 ô đất, safe phần bán kính không có bãi quái, rings bãi quái treo máy (r phần bán kính, n bãi, out: vòng ngoài).",
+  "plaza": 4,
+  "roads": 4,
+  "blobs": 1.4,
+  "lakes": 0.25,
+  "safe": 0.42,
+  "rings": [
+   {
+    "r": 0.62,
+    "n": 4,
+    "out": false
+   },
+   {
+    "r": 0.84,
+    "n": 6,
+    "out": true
+   }
+  ]
+ },
  "text": {
   "tab": "Tinh cầu",
   "body_kind": "Tinh cầu tông môn",
@@ -59,7 +274,50 @@
   "won": "Khai hoang thành công! {ten} đã thành tinh cầu cấp {cap} của tông môn.",
   "lost_wait": "Trận thua. Thử lại sau {s} giây.",
   "back": "Truyền tống về Thiên Kiếm Tinh",
-  "drop": "Nhặt được {n} Mảnh Vỡ Tinh Cầu"
+  "drop": "Nhặt được {n} Mảnh Vỡ Tinh Cầu",
+  "body_empty": "Tinh cầu bỏ trống, tông chủ cũ {chu} (cấp {cap}). Tông chủ chưa có tinh cầu khiêu chiến tông chủ cũ để chiếm; 30 ngày không ai chiếm thì ẩn đi.",
+  "shop": "Mua công trình, đồ trang trí (trả bằng kho Linh Thạch)",
+  "shop_ct": "{name} · {lt} LT · có {n}",
+  "shop_ct_note": "{kind} · vùng che chở {r} ô{npc}",
+  "kind_cn": "Công trình có NPC làm việc",
+  "kind_nha": "Công trình trang trí, có NPC đi lại",
+  "npc_with": " · NPC: {npc}",
+  "shop_do": "Đồ trang trí nhỏ · {lt} LT mỗi món",
+  "buy": "Mua",
+  "buy_ok": "Đã mua {name}. Bấm nút Bày trên tinh cầu để đặt.",
+  "limit": "Cấp {cap}: tối đa {ct} công trình, {do} đồ nhỏ",
+  "bay_hint": "Bay tới tinh cầu, bấm nút Bày ở góc màn hình để đặt công trình. Đường tự nối từ đài trung tâm tới cửa công trình; quanh công trình là vùng che chở, quái không vào.",
+  "tho": "Thợ bày tinh cầu",
+  "tho_note": "Trưởng lão được giao thì bày được tinh cầu (không mua được).",
+  "tho_on": "Giao bày",
+  "tho_off": "Thôi giao",
+  "anh": "Gửi ảnh công trình",
+  "anh_note": "Chỉ ảnh PNG/WebP nền trong suốt, tối đa {mb} MB, cạnh tối đa {px} điểm ảnh, {ngay} ảnh mỗi ngày. Chủ dự án duyệt rồi công trình vào kho tông môn trong bản cập nhật kế tiếp; hình NPC lấy từ NPC có sẵn, lời thoại Claude viết.",
+  "anh_file": "Chọn ảnh",
+  "anh_ten": "Tên công trình (2–24 chữ)",
+  "anh_loai": "Loại công trình",
+  "anh_npc": "Tên NPC (2–16 chữ)",
+  "anh_gui": "Gửi duyệt",
+  "anh_ok": "Đã gửi ảnh {ten}, chờ duyệt.",
+  "anh_loai_nha": "Trang trí (NPC đi lại)",
+  "anh_list": "Ảnh đã gửi",
+  "anh_tt": {
+   "cho": "Chờ duyệt",
+   "duyet": "Đã duyệt, đang làm",
+   "bo": "Không duyệt",
+   "xong": "Đã vào kho"
+  },
+  "anh_bad_type": "Chỉ nhận ảnh PNG hoặc WebP.",
+  "anh_bad_size": "Ảnh nặng quá {mb} MB.",
+  "anh_bad_px": "Ảnh to quá {px} điểm ảnh mỗi cạnh.",
+  "anh_bad_alpha": "Ảnh không có nền trong suốt (bốn góc và viền ngoài phải trong suốt, ít nhất 20% ảnh trong suốt).",
+  "anh_bad_checker": "Ảnh có nền ô ca-rô giả, không phải nền trong suốt thật.",
+  "anh_bad_read": "Không đọc được ảnh.",
+  "kc": "Khiêu chiến tông chủ cũ",
+  "kc_ask": "Khiêu chiến {chu} để chiếm {ten}? Máy chủ so lực chiến hai bên; thua chờ {s} giây.",
+  "kc_win": "Thắng {chu}! {ten} đã thuộc về tông môn.",
+  "kc_lose": "Không thắng nổi {chu} ({ta} / {cu}). Chờ một lát rồi thử lại.",
+  "kc_need": "Chỉ tông chủ chưa có tinh cầu mới khiêu chiến được."
  },
  "err": {
   "khong_co": "Bạn chưa vào tông môn.",
@@ -79,6 +337,253 @@
   "co_tinh_cau": "Mỗi tông chủ chỉ giữ một tinh cầu.",
   "chua_luu": "Chơi thêm chút để bản lưu lên máy chủ rồi thử lại.",
   "bi_khoa": "Tài khoản đang bị tạm khoá tính năng này.",
-  "other": "Máy chủ chưa nhận, thử lại sau."
- }
+  "other": "Máy chủ chưa nhận, thử lại sau.",
+  "ma_sai": "Không có món này.",
+  "khong_quyen": "Bạn không có quyền bày tinh cầu này.",
+  "ver_cu": "Người khác vừa lưu bố cục, mở lại Bày để lấy bản mới.",
+  "ngoai_dia": "Có món đặt ra ngoài mép tinh cầu.",
+  "qua_nhieu": "Quá số công trình / đồ nhỏ của cấp tinh cầu.",
+  "thieu_ct": "Đặt nhiều hơn số tông môn đang có.",
+  "du_lieu_sai": "Bố cục không hợp lệ.",
+  "anh_sai": "Ảnh không hợp lệ.",
+  "het_luot": "Hôm nay đã gửi đủ số ảnh.",
+  "loai_sai": "Chọn loại công trình."
+ },
+ "ct": {
+  "tk.lau-van-bao-m": {
+   "name": "Vạn Bảo Lâu",
+   "loai": "cn",
+   "npc": "van-bao",
+   "r": 7,
+   "lt": 80000
+  },
+  "tk.nha-ren-m": {
+   "name": "Binh Khí Các",
+   "loai": "cn",
+   "npc": "quan-binh-kho",
+   "r": 6,
+   "lt": 60000
+  },
+  "xd.nha-hac-m": {
+   "name": "Ngự Thú Viên",
+   "loai": "cn",
+   "npc": "ngu-thu-su",
+   "r": 6,
+   "lt": 60000
+  },
+  "tk.dien-phu-m": {
+   "name": "Tẩy Linh Điện",
+   "loai": "cn",
+   "npc": "van-hac",
+   "r": 6,
+   "lt": 80000
+  },
+  "tk.dien-nho-m": {
+   "name": "Tổ Đội Đường",
+   "loai": "cn",
+   "npc": "to-doi",
+   "r": 5,
+   "lt": 40000
+  },
+  "tk.lau-cho-m": {
+   "name": "Chợ Phiên",
+   "loai": "cn",
+   "npc": "chu-cho",
+   "r": 6,
+   "lt": 60000
+  },
+  "tk.nha-dan-m": {
+   "name": "Đan Phòng",
+   "loai": "cn",
+   "npc": "tieu-phu",
+   "r": 5,
+   "lt": 40000
+  },
+  "xd.nha-dan-m": {
+   "name": "Thương Hội",
+   "loai": "cn",
+   "npc": "thuong-nhan",
+   "r": 5,
+   "lt": 40000
+  },
+  "xd.lo-ren-m": {
+   "name": "Tinh Thiết Phường",
+   "loai": "cn",
+   "npc": "chi-ganh-da",
+   "r": 5,
+   "lt": 40000
+  },
+  "tk.dien-chinh-m": {
+   "name": "Chính Điện",
+   "loai": "nha",
+   "npc": null,
+   "r": 8,
+   "lt": 30000,
+   "npc_name": "Đệ Tử Trực Điện",
+   "look": "tieu-dao",
+   "lines": [
+    "Chính điện là tim của tinh cầu. Đèn ở đây chưa từng tắt.",
+    "Tông chủ dặn: ai tới farm cũng là khách, đừng làm ồn trong điện.",
+    "Ma khí lùi một bước là nhờ mỗi viên gạch các vị góp."
+   ]
+  },
+  "tk.tien-dai-m": {
+   "name": "Tiên Đài",
+   "loai": "nha",
+   "npc": null,
+   "r": 6,
+   "lt": 30000,
+   "npc_name": "Người Giữ Đài",
+   "look": "a-nham",
+   "lines": [
+    "Đứng trên đài này nhìn ra Vành Khai Hoang, thấy cả tinh hệ đang thở.",
+    "Mỗi lần tông môn thắng trận Khai Tinh, đài lại sáng thêm một vòng."
+   ]
+  },
+  "tk.lau-sach-m": {
+   "name": "Tàng Thư Lâu",
+   "loai": "nha",
+   "npc": null,
+   "r": 6,
+   "lt": 40000,
+   "npc_name": "Thủ Thư",
+   "look": "tieu-dong",
+   "lines": [
+    "Sách ở đây chép tay từ Thiên Kiếm Tinh, mượn đọc thì nhớ trả.",
+    "Ghi chép về ma khí dày nhất là tầng trên cùng. Chưa ai đọc hết."
+   ]
+  },
+  "tk.thap-canh-m": {
+   "name": "Tháp Canh",
+   "loai": "nha",
+   "npc": null,
+   "r": 7,
+   "lt": 30000,
+   "npc_name": "Lính Canh",
+   "look": "a-moc",
+   "lines": [
+    "Ma khí ở mép đĩa dày lên mỗi đêm. Ta canh, các vị cứ tu luyện.",
+    "Quái vòng ngoài hung lắm, ra đó thì đi thành nhóm."
+   ]
+  },
+  "hb.nha-tuyet-m": {
+   "name": "Nhà Tuyết",
+   "loai": "nha",
+   "npc": null,
+   "r": 5,
+   "lt": 25000,
+   "npc_name": "Cư Dân",
+   "look": "tieu-dao",
+   "lines": [
+    "Nhà ta nhỏ nhưng ấm. Tuyết ngoài kia rơi cả năm.",
+    "Tinh cầu này mới khai mà đã có hơi người rồi."
+   ]
+  },
+  "hb.dien-tuyet-m": {
+   "name": "Tuyết Điện",
+   "loai": "nha",
+   "npc": null,
+   "r": 6,
+   "lt": 40000,
+   "npc_name": "Tuyết Nữ",
+   "look": "tieu-linh",
+   "lines": [
+    "Băng ở đây trong như gương, soi được cả tâm người.",
+    "Ở lâu trong điện này, lòng tự khắc tĩnh lại."
+   ]
+  },
+  "hb.thap-tuyet-m": {
+   "name": "Tháp Tuyết",
+   "loai": "nha",
+   "npc": null,
+   "r": 6,
+   "lt": 30000,
+   "npc_name": "Lão Canh Tuyết",
+   "look": "a-nham",
+   "lines": [
+    "Đứng trên tháp này thấy được ánh Linh Nhật từ xa.",
+    "Gió tuyết đêm nay to, đừng đi xa đài trung tâm."
+   ]
+  },
+  "xd.dien-nho-m": {
+   "name": "Hỏa Điện",
+   "loai": "nha",
+   "npc": null,
+   "r": 5,
+   "lt": 30000,
+   "npc_name": "Hỏa Đồng",
+   "look": "tieu-dong",
+   "lines": [
+    "Lửa trong điện là lửa mồi lấy từ Xích Diễm Tinh.",
+    "Lại gần đây sưởi một chút, ma khí sợ lửa lắm."
+   ]
+  },
+  "hb.nha-ca-m": {
+   "name": "Nhà Ven Hồ",
+   "loai": "nha",
+   "npc": null,
+   "r": 5,
+   "lt": 25000,
+   "npc_name": "Người Câu Cá",
+   "look": "a-moc",
+   "lines": [
+    "Hồ trên tinh cầu mới khai, cá chưa sợ người, câu dễ lắm.",
+    "Chiều nào ta cũng ngồi đây, nhìn ma khí lùi dần ra mép đĩa."
+   ]
+  }
+ },
+ "do": [
+  "tk.cay-anh-dao-m",
+  "tk.cay-thong-m",
+  "tk.cay-phong-m",
+  "tk.cay-ngan-hanh-m",
+  "hb.cay-tung-tuyet-m",
+  "hb.cay-mai-m",
+  "xd.cay-hoa-lua-m",
+  "xd.cay-phong-m",
+  "tk.bui-hong-m",
+  "tk.bui-xanh-m",
+  "hb.bui-tuyet-m",
+  "xd.bui-chay-m",
+  "tk.den-da-m",
+  "tk.den-sen-m",
+  "tk.den-treo-m",
+  "hb.den-bang-m",
+  "xd.den-long-m",
+  "xd.den-phuong-m",
+  "tk.da-reu-m",
+  "tk.da-tim-m",
+  "hb.da-tuyet-m",
+  "xd.da-bazan-m",
+  "tk.su-tu-m",
+  "tk.tuong-hac-m",
+  "tk.tuong-rong-m",
+  "xd.tuong-phuong-m",
+  "tk.lan-can-go-m",
+  "tk.lan-can-da-m",
+  "hb.lan-can-tuyet-m",
+  "xd.rao-sat-m",
+  "tk.gieng-m",
+  "tk.lu-huong-m",
+  "tk.thac-m",
+  "tk.voi-nuoc-m",
+  "tk.chuong-m",
+  "tk.quan-tra-m",
+  "hb.nguoi-tuyet-m",
+  "tk.cong-go-m",
+  "tk.cong-kiem-m",
+  "xd.cong-phuong-m",
+  "hb.cong-bang-m"
+ ],
+ "do_lt": 3000,
+ "_note_ct": "Công trình (chủ dự án 12/11/2026 13:21: NPC đi kèm công trình). ct: mã hình (data/art.json) → tên, loai cn (NPC có sẵn trong game làm việc của nó, npc: mã NPC) hoặc nha (trang trí, kèm NPC không chức năng đi qua lại: look mượn hình NPC có sẵn, npc_name, lines Claude viết), r bán kính vùng che chở (ô: quái không mọc, người đứng trong thì quái không đuổi), lt giá trả bằng Linh Thạch trong kho tông môn. do: đồ trang trí nhỏ, mỗi món do_lt Linh Thạch. Mỗi cấp tinh cầu đặt tối đa ct_max công trình, do_max đồ nhỏ. Chỉ tông chủ mua; tông chủ và trưởng lão được giao (thợ) bày. Bày bằng bảng Bày cảnh (src/ui/bay-canh.js, chế độ tinh cầu src/ui/kh-bay.js), máy chủ kiểm số món theo kho.",
+ "anh": {
+  "_note": "Gửi ảnh công trình (đợt 4): tông chủ gửi tối đa ngay ảnh mỗi ngày, mỗi ảnh tối đa mb MB, cạnh tối đa px điểm ảnh, PNG/WebP nền trong suốt (ít nhất min_trong phần trong suốt, bốn góc trong suốt). Kho ảnh riêng tư kh-anh trên Supabase; chủ dự án duyệt, Claude xử lý (tools/art/ai_import.py) rồi thêm thành công trình riêng của tông môn.",
+  "ngay": 3,
+  "mb": 3,
+  "px": 2048,
+  "min_trong": 0.2
+ },
+ "kc_wait": 600,
+ "_note_kc": "Khiêu chiến tinh cầu bỏ trống (chủ dự án 12/11/2026: tông môn giải tán thì tông chủ khác khiêu chiến tông chủ cũ để chiếm; mỗi tông chủ một tinh cầu): máy chủ so lực chiến hai bên (mỗi bên nhân ngẫu nhiên 0,8–1,2 như khiêu chiến Đại Ma Thần), trận so tài với bản sao tông chủ cũ chỉ để xem. Thua chờ kc_wait giây. Thắng thì tinh cầu về tông môn mình, công trình đang đặt thành của tông môn mình."
 }
