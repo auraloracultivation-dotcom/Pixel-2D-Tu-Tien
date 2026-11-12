@@ -14,6 +14,7 @@ import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 import { pbOn } from '../game/phap-bao.js';
 import { pbHud } from './phap-bao-hud.js';
+import { pxOn } from '../game/pfx.js';
 
 const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
@@ -164,6 +165,6 @@ export function createHud(audio) {
 function skillIcon(d, id) {
   const s = id && d.skills[id];
   if (!s) return '';
-  const spr = d.art.sprites['vfx.' + (d.vfx?.skills?.[id]?.icon || id)] || d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
+  const spr = (pxOn({ data: d }) && d.art.sprites['pxi.' + id]) || d.art.sprites['vfx.' + (d.vfx?.skills?.[id]?.icon || id)] || d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
   return spr ? `url("${spr.file}?v=${spr.v}")` : '';
 }

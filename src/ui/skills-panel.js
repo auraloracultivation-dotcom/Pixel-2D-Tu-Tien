@@ -8,6 +8,7 @@ import { statText } from '../game/items.js';
 import { manaCost } from '../game/mana.js';
 import { skillLv, levelCost, levelUp } from '../game/skill-level.js';
 import { coins } from '../game/shop.js';
+import { pxOn } from '../game/pfx.js';
 import { buyBlock } from './buy-mats.js';   // mua bí kíp: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
@@ -100,7 +101,8 @@ export function createSkillsPanel(game) {
       c.dataset.gc = gr.color;
       c.append(el('b', null, s.name), el('small', null, `${gr.name} · ${from} · hồi ${s.cd} giây · tốn ${manaCost(game, id)} linh lực${ok ? '' : buy ? ` · mua ở Vạn Bảo Lâu ${buy.toLocaleString('vi-VN')} ${data.shop.name}` : ` · mở ở ${need(at)}`}`), el('small', null, s.desc || ''));
       c.disabled = !ok;
-      if (data.art.sprites['vfx.' + id]) c.dataset.icon = 'vfx.' + id;   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
+      if (pxOn(game) && data.art.sprites['pxi.' + id]) c.dataset.icon = 'pxi.' + id;   // hiệu ứng điểm ảnh đang bật: biểu tượng dựng từ hình mới (tools/art/pfx/)
+      else if (data.art.sprites['vfx.' + id]) c.dataset.icon = 'vfx.' + id;   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
       else if (data.art.sprites['icon.' + (s.icon || s.fx)]) c.dataset.icon = 'icon.' + (s.icon || s.fx);   // s.icon: biểu tượng riêng khi fx dùng chung (thương mượn vệt chém)   // hình ô lưới, chữ nút chính (src/ui/grid-cards.js)
       c.dataset.act = 'Mang vào ô ' + (slot + 1);
       c.onclick = () => { setSlot(game, slot, id); slot = (slot + 1) % 3; game.sfx('pickup'); render(); };

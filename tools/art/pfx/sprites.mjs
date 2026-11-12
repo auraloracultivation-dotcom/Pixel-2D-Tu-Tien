@@ -68,5 +68,43 @@ export const SPRITES = {
   'long-thuong': { fx: 'p2d/long', pal: 'metal', opts: { kind: 'thuy', len: 58, girth: 4.2 }, fps: 20, dirs: 5 },
   // ---- pháp trận nhỏ dưới chân lúc tung chiêu
   'tran-kim': tran('gold', 'kim'), 'tran-moc': tran('leaf', 'moc'), 'tran-thuy': tran('ice', 'thuy'), 'tran-hoa': tran('fire', 'hoa'), 'tran-tho': tran('earth', 'tho'), 'tran-am': tran('arcane', 'vo'), 'tran-kiem': tran(KIEM, 'kim'),
+  // ---- Vạn Kiếm Thiên Lâm: 6 kiểu linh kiếm lớn (dựng theo hướng), kiếm khí xoắn, lửa linh khí sau kiếm (dựng sẵn mũi chúc xuống)
+  ...Object.fromEntries([[KIEM, 0], ['heal', 1], ['gold', 2], [TIM, 0], ['blood', 1], ['metal', 2]].map(([pal, guard], i) => ['vk-kiem-' + i, { fx: 'p2d/van-kiem', pal, opts: { guard }, fps: 10, dirs: 5, ls: 2 }])),
+  'vk-khi': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'khi' }, fps: 20, dirs: 5 },
+  'vk-dam': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'dam' }, fps: 20, angle: Math.PI / 2 },
   'set': { fx: 'lightning/lightning-strike', pal: 'volt', times: [0.74, 0.77, 0.8, 0.833, 0.867, 0.9, 0.95, 1.0, 1.07, 1.15, 1.25, 1.35, 1.5, 1.65], end: 1.8, box: [-72, -228, 72, 30], edge: 14 },
+};
+
+// Biểu tượng chiêu dựng từ chính hình hiệu ứng (export.mjs --icons): L = các lớp [tên hình, lệch x, lệch y, góc, giây riêng], t = giây lấy khung,
+// win = [tâm x, tâm y, cạnh ô cắt] tính từ điểm neo (ô 34: nguyên nét; 68: thu một nửa; lớn hơn: thu nhiều, chỉ còn dáng).
+const A = -0.7, bay = (name, S = 40, back = 9, t = 0.1) => ({ L: [[name, 0, 0, A]], t, win: [-Math.cos(A) * back, -Math.sin(A) * back, S] });
+const hai = (name, t, win) => ({ L: [[name + '-d'], [name]], t, win });
+export const ICONS = {
+  'kiem-khi': bay('kiem-khi', 40, 5), 'hoa-cau': bay('hoa-cau', 40, 11), 'bang-truy': bay('bang-truy', 44, 14), 'thach-chuy': bay('da', 30, 0), 'that-huyen': bay('am-ba', 34, 4),
+  'hoa-long': bay('hoa-long', 56, 16), 'luc-dang-long': bay('luc-dang-long', 56, 16), 'thuy-long': bay('thuy-long', 48, 13),
+  'liet-hoa-tran': { L: [['hoa-cau', -9, -8, A], ['hoa-cau', 8, 0, A], ['hoa-cau', -3, 12, A]], t: 0.1, win: [-8, 8, 56] },
+  'van-moc-cham': { L: [['cham', -4, -7, A - 0.3], ['cham', 3, 0, A], ['cham', 4, 9, A + 0.3]], t: 0.1, win: [-6, 4, 40] },
+  'van-kiem': { L: [['phi-kiem', -5, -8, A - 0.25], ['phi-kiem', 3, 0, A], ['phi-kiem', 4, 10, A + 0.25]], t: 0.1, win: [-8, 6, 44] },
+  'lien-chau': { L: [['ten', -6, -5, A], ['ten', 1, 1, A], ['ten', 5, 9, A]], t: 0.1, win: [-9, 8, 44] },
+  'bang-phach': { L: [['no-bang']], t: 0.11, win: [0, -3, 44] },
+  'tu-nguyet-liem': { L: [['nguyet-liem']], t: 0.08, win: [0, 0, 40] },
+  'song-nguyet-tram': { L: [['nguyet-liem', -9, -6], ['nguyet-liem', 9, 7, 0, 0.3]], t: 0.08, win: [0, 0, 56] },
+  'tu-nguyet-luan': { L: [['nguyet-liem', 0, -14], ['nguyet-liem', -13, 9, 0, 0.2], ['nguyet-liem', 13, 9, 0, 0.36]], t: 0.08, win: [0, 0, 64] },
+  'phap-kim-luan': { L: [['kim-luan']], t: 0, win: [0, 0, 36] },
+  'kim-luan': { L: [['vong-kim'], ['kim-luan', -22, -10], ['kim-luan', 20, 8, 0, 0.2]], t: 0, win: [0, -4, 80] },
+  'dang-phuoc': hai('dang-phuoc', 0.7, [0, -12, 76]), 'liet-diem': hai('liet-diem', 0.32, [0, -16, 80]), 'bang-phong': hai('bang-phong', 0.5, [0, -14, 80]), 'dia-chan': hai('dia-chan', 0.45, [0, -10, 80]),
+  'cuong-phong': hai('cuong-phong', 0.4, [0, -26, 76]), 'son-nhac': hai('son-nhac', 0.5, [0, -62, 128]), 'phap-hoa-hon': hai('hoa-hon', 0.36, [0, -22, 72]),
+  'loi-dinh': { L: [['set-dat', 0, 0, 0, 0.1], ['set', 0, 0, 0, 0.84]], win: [0, -44, 112] },
+  'thanh-moc-vuc': hai('thanh-moc-vuc', 0.4, [0, -2, 104]), 'phan-thien': hai('phan-thien', 0.4, [0, -6, 104]), 'han-bang-vuc': hai('han-bang-vuc', 0.4, [0, -8, 112]), 'luu-sa': hai('luu-sa', 0.4, [0, 0, 104]),
+  'hoi-xuan': { L: [['hoa-no']], t: 1.4, win: [0, -44, 56] },
+  'truong-xuan': hai('hoi-to', 0.5, [0, -24, 72]), 'phap-thanh-moc': { L: [['tran-moc', 0, 0, 0, 0.3], ['hoi-d'], ['hoi']], t: 0.45, win: [0, -18, 72] },
+  'thuy-thuan': { L: [['khien-thuy']], t: 0.5, win: [0, -22, 68] }, 'phap-huyen-thuy': { L: [['tran-thuy', 0, 0, 0, 0.3], ['khien-thuy']], t: 1.1, win: [0, -18, 76] },
+  'dai-dia': { L: [['tran-tho', 0, 0, 0, 0.3], ['khien-tho']], t: 0.5, win: [0, -18, 76] }, 'phap-tran-yeu': hai('thap', 0.5, [0, -38, 96]),
+  'thach-giap': hai('giap-da', 0.4, [0, -20, 54]), 'kim-cuong-the': hai('hao-quang', 0.3, [0, -16, 52]), 'kim-than': hai('kim-than', 0.3, [0, -30, 62]),
+  'kim-quang-tram': bay('chem-vang', 52, 6), 'phuong-hoang': bay('phuong-hoang', 84, 12, 0.05), 'long-thuong': bay('long-thuong', 52, 14),
+  'van-kiem-thien': { L: [['vk-kiem-3', -12, 2, Math.PI / 2 - 0.35], ['vk-kiem-2', 12, 2, Math.PI / 2 + 0.35], ['vk-kiem-0', 0, -4, Math.PI / 2]], t: 0, win: [0, 0, 68] },
+  'thien-phat': { L: [['set', 0, 0, 0, 0.84]], win: [-6, -150, 136] },
+  'thiem-anh': { L: [['no-kiem']], t: 0.09, win: [0, -3, 44] },
+  'pha-thien': bay('kiem-khi', 34, 2),
+  'vo-anh': { L: [['tran-am', 0, 0, 0, 0.3], ['nguyet-liem', 0, -6, 0, 0.1]], win: [0, -3, 68] },
 };

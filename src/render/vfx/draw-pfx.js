@@ -37,7 +37,7 @@ function warm(game, art) {
   warmed = sig;
   for (const id of ids) {
     const R = pxOf(game, id);
-    if (R) for (const s of [R.shot?.s, R.zone?.s, R.zone?.g, R.zone?.orbit?.s, R.self?.s, R.self?.g, R.dash?.s, ...[R.cast, R.hit, R.boom, R.mob, R.dash?.end].flatMap(l => (l || []).map(c => c.s))]) if (s) pfxWarm(art, s);
+    if (R) for (const s of [R.shot?.s, R.zone?.s, R.zone?.g, R.zone?.orbit?.s, R.self?.s, R.self?.g, R.dash?.s, ...(R.warm || []), ...[R.cast, R.hit, R.boom, R.mob, R.dash?.end].flatMap(l => (l || []).map(c => c.s))]) if (s) pfxWarm(art, s);
   }
 }
 

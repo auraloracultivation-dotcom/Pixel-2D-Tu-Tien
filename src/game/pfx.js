@@ -19,18 +19,23 @@ const rnd = (a, b) => a + Math.random() * (b - a);
 const st = game => { const S = (game.vfx ??= { fx: [], parts: [] }); S.px ??= []; S.pp ??= []; return S; };
 
 // Bật / tắt: vfx.json → px_on; địa chỉ ?pfx=1 / ?pfx=0 ghi đè và nhớ trên máy đó (chủ dự án xem thử trước khi mở cho mọi người)
+let ON = null;   // một trang một game: hỏi một lần rồi nhớ
 function enabled(game) {
-  if (game.pfxOn != null) return game.pfxOn;
+  if (ON != null) return ON;
   let v = null;
   try { const q = new URLSearchParams(location.search).get('pfx'); if (q != null) localStorage.setItem('p2d-pfx', q); v = localStorage.getItem('p2d-pfx'); } catch { /* không có kho nhớ: theo mặc định */ }
-  return (game.pfxOn = v != null ? v === '1' : !!game.data.vfx?.px_on);
+  ON = v != null ? v === '1' : !!game.data.vfx?.px_on;
+  game.pfxOn = ON;
+  return ON;
 }
+export const pxOn = enabled;   // hiệu ứng điểm ảnh có đang bật không (bộ vẽ riêng của chiêu hệ kiếm hỏi)
 export const pxOf = (game, id) => (id && enabled(game) && game.data.vfx?.px?.[id]) || null;
 const durOf = (game, s) => game.data.art.sprites['pfx.' + s]?.dur || 0.5;
+const lightOf = (game, s) => { const q = game.data.art.sprites['pfx.' + s]; return q ? Math.max(q.w, q.h) * (q.k || 0.5) * 0.45 : 0; };   // bán kính quầng sáng hắt ra đất (lớp tối ngày đêm)
 
 function play(game, c, x, y, o = {}) {
   st(game).px.push({ s: c.s, x: x + (c.dx || 0), y: y + (c.dy || 0), t: -(c.delay || 0), dur: durOf(game, c.s), dir: c.dir ? o.dir || 0 : null, flip: !!(c.flip && o.face?.x < 0),
-    k: c.k || 1, a: c.a ?? 1, g: !!c.g, on: c.on ? o.who : null, ox: c.dx || 0, oy: c.dy || 0, rate: c.rate || 1, col: c.col || o.col, lr: c.lr });
+    k: c.k || 1, a: c.a ?? 1, g: !!c.g, on: c.on ? o.who : null, ox: c.dx || 0, oy: c.dy || 0, rate: c.rate || 1, col: c.col || o.col, lr: c.g ? 0 : c.lr ?? lightOf(game, c.s) });
 }
 
 // Hạt điểm ảnh tóe quanh (x, y): ramp = tên dải màu (vfx.json → part_px)

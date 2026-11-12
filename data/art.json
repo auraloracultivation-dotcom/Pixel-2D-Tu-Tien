@@ -19426,6 +19426,278 @@
    ],
    "note": "lớp sáng của pfx.tran-thuy"
   },
+  "pfx.vk-dam": {
+   "file": "assets/art/pfx-vk-dam.png",
+   "v": "a559f470",
+   "w": 26,
+   "h": 104,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    13,
+    69
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-dam: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-dam.l": {
+   "file": "assets/art/pfx-vk-dam-l.png",
+   "v": "4d231fc2",
+   "w": 13,
+   "h": 52,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-dam"
+  },
+  "pfx.vk-khi": {
+   "file": "assets/art/pfx-vk-khi.png",
+   "v": "26f41cfd",
+   "w": 65,
+   "h": 65,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    23,
+    23
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-khi: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-khi.l": {
+   "file": "assets/art/pfx-vk-khi-l.png",
+   "v": "bf1e50ae",
+   "w": 33,
+   "h": 33,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-khi"
+  },
+  "pfx.vk-kiem-0": {
+   "file": "assets/art/pfx-vk-kiem-0.png",
+   "v": "545d483d",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-0: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-0.l": {
+   "file": "assets/art/pfx-vk-kiem-0-l.png",
+   "v": "63656246",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-0"
+  },
+  "pfx.vk-kiem-1": {
+   "file": "assets/art/pfx-vk-kiem-1.png",
+   "v": "1ee1c492",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-1: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-1.l": {
+   "file": "assets/art/pfx-vk-kiem-1-l.png",
+   "v": "ff177085",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-1"
+  },
+  "pfx.vk-kiem-2": {
+   "file": "assets/art/pfx-vk-kiem-2.png",
+   "v": "5ae89237",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-2: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-2.l": {
+   "file": "assets/art/pfx-vk-kiem-2-l.png",
+   "v": "3ebb9156",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-2"
+  },
+  "pfx.vk-kiem-3": {
+   "file": "assets/art/pfx-vk-kiem-3.png",
+   "v": "a601a55e",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-3: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-3.l": {
+   "file": "assets/art/pfx-vk-kiem-3-l.png",
+   "v": "a5858211",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-3"
+  },
+  "pfx.vk-kiem-4": {
+   "file": "assets/art/pfx-vk-kiem-4.png",
+   "v": "8cc9acaf",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-4: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-4.l": {
+   "file": "assets/art/pfx-vk-kiem-4-l.png",
+   "v": "e1195fd4",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-4"
+  },
+  "pfx.vk-kiem-5": {
+   "file": "assets/art/pfx-vk-kiem-5.png",
+   "v": "23d54bbf",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-5: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-5.l": {
+   "file": "assets/art/pfx-vk-kiem-5-l.png",
+   "v": "8230401f",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-5"
+  },
   "pfx.vong-kim": {
    "file": "assets/art/pfx-vong-kim.png",
    "v": "9447a9c7",
@@ -20047,6 +20319,582 @@
     36
    ],
    "note": "cây quả đỏ, hoa đào, hoa trắng (ảnh Canva nguon/ai/props/, 3 biến thể)"
+  },
+  "pxi.bang-phach": {
+   "file": "assets/art/pxi-bang-phach.png",
+   "v": "5cb8bae3",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-phach dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.bang-phong": {
+   "file": "assets/art/pxi-bang-phong.png",
+   "v": "3284ede2",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-phong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.bang-truy": {
+   "file": "assets/art/pxi-bang-truy.png",
+   "v": "019558f0",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-truy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.cuong-phong": {
+   "file": "assets/art/pxi-cuong-phong.png",
+   "v": "8fc7542c",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu cuong-phong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dai-dia": {
+   "file": "assets/art/pxi-dai-dia.png",
+   "v": "87912307",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dai-dia dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dang-phuoc": {
+   "file": "assets/art/pxi-dang-phuoc.png",
+   "v": "1ca1fc3e",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dang-phuoc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dia-chan": {
+   "file": "assets/art/pxi-dia-chan.png",
+   "v": "6224cb38",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dia-chan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.han-bang-vuc": {
+   "file": "assets/art/pxi-han-bang-vuc.png",
+   "v": "9664d6b1",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu han-bang-vuc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoa-cau": {
+   "file": "assets/art/pxi-hoa-cau.png",
+   "v": "8d393a85",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoa-cau dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoa-long": {
+   "file": "assets/art/pxi-hoa-long.png",
+   "v": "31be0d5e",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoa-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoi-xuan": {
+   "file": "assets/art/pxi-hoi-xuan.png",
+   "v": "e1c45586",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoi-xuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kiem-khi": {
+   "file": "assets/art/pxi-kiem-khi.png",
+   "v": "807dfb07",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kiem-khi dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-cuong-the": {
+   "file": "assets/art/pxi-kim-cuong-the.png",
+   "v": "7e9cec33",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-cuong-the dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-luan": {
+   "file": "assets/art/pxi-kim-luan.png",
+   "v": "271d59aa",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-quang-tram": {
+   "file": "assets/art/pxi-kim-quang-tram.png",
+   "v": "39dd2fe6",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-quang-tram dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-than": {
+   "file": "assets/art/pxi-kim-than.png",
+   "v": "2bdf95cb",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-than dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.lien-chau": {
+   "file": "assets/art/pxi-lien-chau.png",
+   "v": "090e1e10",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu lien-chau dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.liet-diem": {
+   "file": "assets/art/pxi-liet-diem.png",
+   "v": "059f3bcf",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu liet-diem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.liet-hoa-tran": {
+   "file": "assets/art/pxi-liet-hoa-tran.png",
+   "v": "746043f8",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu liet-hoa-tran dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.loi-dinh": {
+   "file": "assets/art/pxi-loi-dinh.png",
+   "v": "d5e00df9",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu loi-dinh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.long-thuong": {
+   "file": "assets/art/pxi-long-thuong.png",
+   "v": "ddcd880a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu long-thuong dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.luc-dang-long": {
+   "file": "assets/art/pxi-luc-dang-long.png",
+   "v": "103035bf",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu luc-dang-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.luu-sa": {
+   "file": "assets/art/pxi-luu-sa.png",
+   "v": "fc82df28",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu luu-sa dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pha-thien": {
+   "file": "assets/art/pxi-pha-thien.png",
+   "v": "4fa96b4f",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu pha-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phan-thien": {
+   "file": "assets/art/pxi-phan-thien.png",
+   "v": "da0474cd",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phan-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-hoa-hon": {
+   "file": "assets/art/pxi-phap-hoa-hon.png",
+   "v": "577e412d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-hoa-hon dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-huyen-thuy": {
+   "file": "assets/art/pxi-phap-huyen-thuy.png",
+   "v": "2917282d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-huyen-thuy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-kim-luan": {
+   "file": "assets/art/pxi-phap-kim-luan.png",
+   "v": "f90f7c7b",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-kim-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-thanh-moc": {
+   "file": "assets/art/pxi-phap-thanh-moc.png",
+   "v": "eb8c5545",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-thanh-moc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-tran-yeu": {
+   "file": "assets/art/pxi-phap-tran-yeu.png",
+   "v": "b5d5c32a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-tran-yeu dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phuong-hoang": {
+   "file": "assets/art/pxi-phuong-hoang.png",
+   "v": "890f5336",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phuong-hoang dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.son-nhac": {
+   "file": "assets/art/pxi-son-nhac.png",
+   "v": "24b16cc6",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu son-nhac dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.song-nguyet-tram": {
+   "file": "assets/art/pxi-song-nguyet-tram.png",
+   "v": "3ae987fe",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu song-nguyet-tram dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thach-chuy": {
+   "file": "assets/art/pxi-thach-chuy.png",
+   "v": "f753c4be",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thach-chuy dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thach-giap": {
+   "file": "assets/art/pxi-thach-giap.png",
+   "v": "88ee0f21",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thach-giap dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thanh-moc-vuc": {
+   "file": "assets/art/pxi-thanh-moc-vuc.png",
+   "v": "f80f603a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thanh-moc-vuc dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.that-huyen": {
+   "file": "assets/art/pxi-that-huyen.png",
+   "v": "8493fe09",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu that-huyen dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thiem-anh": {
+   "file": "assets/art/pxi-thiem-anh.png",
+   "v": "b6c548dc",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thiem-anh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thien-phat": {
+   "file": "assets/art/pxi-thien-phat.png",
+   "v": "4589217a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thien-phat dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thuy-long": {
+   "file": "assets/art/pxi-thuy-long.png",
+   "v": "8950e008",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thuy-long dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thuy-thuan": {
+   "file": "assets/art/pxi-thuy-thuan.png",
+   "v": "52901115",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thuy-thuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.truong-xuan": {
+   "file": "assets/art/pxi-truong-xuan.png",
+   "v": "ff07ade3",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu truong-xuan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.tu-nguyet-liem": {
+   "file": "assets/art/pxi-tu-nguyet-liem.png",
+   "v": "22f39428",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu tu-nguyet-liem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.tu-nguyet-luan": {
+   "file": "assets/art/pxi-tu-nguyet-luan.png",
+   "v": "da8d5871",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu tu-nguyet-luan dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-kiem": {
+   "file": "assets/art/pxi-van-kiem.png",
+   "v": "1c1fd2aa",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-kiem dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-kiem-thien": {
+   "file": "assets/art/pxi-van-kiem-thien.png",
+   "v": "ffaa025c",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-kiem-thien dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-moc-cham": {
+   "file": "assets/art/pxi-van-moc-cham.png",
+   "v": "357fef8d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-moc-cham dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.vo-anh": {
+   "file": "assets/art/pxi-vo-anh.png",
+   "v": "9b02548d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu vo-anh dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",

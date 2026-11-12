@@ -56,6 +56,16 @@ def build(save=None):
                                               'frames': m['cols'], 'rows': m['rows'], 's': L['s'], 'anchor': [0, 0], 'note': f'lớp sáng của pfx.{name}'}
         e['note'] = f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/pfx/"
         art['sprites'][f'pfx.{name}'] = e
+    # biểu tượng chiêu dựng từ hình hiệu ứng (export.mjs --icons): nguon/pfx/ic/<chiêu>.png, 102 × 102 (34 điểm ảnh phóng 3 lần)
+    for k in [k for k in art['sprites'] if k.startswith('pxi.')]:
+        if not (NGUON / 'ic' / (k[4:] + '.png')).exists():
+            (ROOT / art['sprites'][k]['file']).unlink(missing_ok=True)
+        del art['sprites'][k]
+    for f in sorted((NGUON / 'ic').glob('*.png')) if (NGUON / 'ic').exists() else []:
+        b = f.read_bytes()
+        (out / f'pxi-{f.stem}.png').write_bytes(b)
+        art['sprites'][f'pxi.{f.stem}'] = {'file': f'assets/art/pxi-{f.stem}.png', 'v': hashlib.sha1(b).hexdigest()[:8], 'w': 102, 'h': 102, 'frames': 1, 'anchor': [51, 51],
+                                           'note': f'biểu tượng chiêu {f.stem} dựng từ hình hiệu ứng điểm ảnh (tools/art/pfx/export.mjs --icons)'}
     art['sprites'] = dict(sorted(art['sprites'].items()))
     art_p.write_text(json.dumps(art, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return len(meta)
@@ -64,5 +74,7 @@ def build(save=None):
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == '--dung':
-        subprocess.run(['node', str(ROOT / 'tools' / 'art' / 'pfx' / 'export.mjs'), *a[1:]], check=True, env={**os.environ, 'PIXELFX_DIR': str(pixelfx_dir())})
+        env = {**os.environ, 'PIXELFX_DIR': str(pixelfx_dir())}
+        subprocess.run(['node', str(ROOT / 'tools' / 'art' / 'pfx' / 'export.mjs'), *a[1:]], check=True, env=env)
+        subprocess.run(['node', str(ROOT / 'tools' / 'art' / 'pfx' / 'export.mjs'), '--icons'], check=True, env=env)
     print('pfx → art.json:', build(), 'hình')

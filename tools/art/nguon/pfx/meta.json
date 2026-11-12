@@ -2278,6 +2278,182 @@
   },
   "fx": "p2d/tran"
  },
+ "vk-dam": {
+  "w": 26,
+  "h": 104,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "fps": 20,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   13,
+   69
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 13,
+   "h": 52,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-khi": {
+  "w": 65,
+  "h": 65,
+  "cols": 8,
+  "rows": 5,
+  "n": 8,
+  "dirs": 5,
+  "fps": 20,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   23,
+   23
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 33,
+   "h": 33,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-0": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-1": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-2": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-3": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-4": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
+ "vk-kiem-5": {
+  "w": 73,
+  "h": 73,
+  "cols": 4,
+  "rows": 5,
+  "n": 4,
+  "dirs": 5,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   38,
+   38
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 37,
+   "h": 37,
+   "s": 2
+  },
+  "fx": "p2d/van-kiem"
+ },
  "vong-kim": {
   "w": 114,
   "h": 114,

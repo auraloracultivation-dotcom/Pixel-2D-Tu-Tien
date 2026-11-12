@@ -27,10 +27,10 @@ if (existsSync(MINE)) for (const f of readdirSync(MINE)) if (f.endsWith('.js')) 
 
 const imp = p => import(pathToFileURL(join(PFX, p)).href);
 const core = await imp('src/core/index.js'), lib = await imp('tools/lib/fxlib.mjs'), { encodePNG } = await imp('tools/lib/png.mjs');
-const { SPRITES } = await import(pathToFileURL(process.env.PFX_SPRITES || join(HERE, 'sprites.mjs')).href + '?v=' + Date.now());   // PFX_SPRITES: danh sách khác (xem thử)
+const { SPRITES, ICONS } = await import(pathToFileURL(process.env.PFX_SPRITES || join(HERE, 'sprites.mjs')).href + '?v=' + Date.now());   // PFX_SPRITES: danh sách khác (xem thử)
 
 const args = process.argv.slice(2), F = {}, names = [];
-for (let i = 0; i < args.length; i++) { if (args[i] === '--only-sheet') F.onlySheet = true; else if (args[i].startsWith('--')) F[args[i].slice(2)] = args[++i]; else names.push(args[i]); }
+for (let i = 0; i < args.length; i++) { if (args[i] === '--only-sheet') F.onlySheet = true; else if (args[i] === '--icons') F.icons = true; else if (args[i].startsWith('--')) F[args[i].slice(2)] = args[++i]; else names.push(args[i]); }
 const MAXW = 2048, TICK = 1 / 120, LT = 2;   // LT: sáng yếu hơn mức này coi như không có (để cắt khung)
 // hiệu ứng PixelFX có nhân vật mẫu (viền sáng theo dáng người mẫu): empty thay bằng dáng rỗng để không in dáng người lạ vào hình
 const EMPTY = { mask: { w: 1, h: 1, data: new Uint8Array(1) }, pixels: new Uint32Array(1), x: 0, y: -1, w: 1, h: 1, k: 2, head: [0, -44], chest: [0, -26] };
@@ -44,8 +44,9 @@ async function render(name, S) {
   const times = S.times || Array.from({ length: Math.max(1, Math.round((t1 - t0) * fps)) }, (_, i) => t0 + i / fps), n = times.length;
   const pal = typeof S.pal === 'string' ? core.PAL[S.pal] : S.pal || null;
   if (S.pal && !pal) throw new Error(`${name}: không có bảng màu ${S.pal}`);
-  const R = dirs > 1 ? Math.ceil(Math.max(...[[box[0], box[1]], [box[2], box[1]], [box[0], box[3]], [box[2], box[3]]].map(([x, y]) => Math.hypot(x, y)))) + 1 : 0;
-  const fw = dirs > 1 ? R * 2 : box[2] - box[0], fh = dirs > 1 ? R * 2 : box[3] - box[1], fox = dirs > 1 ? -R : box[0], foy = dirs > 1 ? -R : box[1];
+  const turn = dirs > 1 || !!S.angle;   // hình xoay: khung vuông đủ chứa mọi góc
+  const R = turn ? Math.ceil(Math.max(...[[box[0], box[1]], [box[2], box[1]], [box[0], box[3]], [box[2], box[3]]].map(([x, y]) => Math.hypot(x, y)))) + 1 : 0;
+  const fw = turn ? R * 2 : box[2] - box[0], fh = turn ? R * 2 : box[3] - box[1], fox = turn ? -R : box[0], foy = turn ? -R : box[1];
   const frame = core.createFrame(fw, fh, fox, foy), E = S.edge ?? 6, cells = [];
   let bx0 = fw, by0 = fh, bx1 = -1, by1 = -1;
   for (let d = 0; d < dirs; d++) {
@@ -125,7 +126,41 @@ function sheet(r, zoom = 2, max = 14) {
   return img.png();
 }
 
+// Biểu tượng chiêu (nút chiêu, bảng Chiêu): ghép vài hình ở một thời điểm, cắt một ô vuông S quanh (cx, cy), thu về 34 điểm rồi phóng 3 lần
+// (102 × 102, nét điểm ảnh; lớp sáng đổi thành màu có độ trong để nổi trên nền nút tối). ICONS ở sprites.mjs; ra nguon/pfx/ic/<chiêu>.png.
+async function icons() {
+  const N = 34, UP = 3, dir = join(OUT, 'ic'); mkdirSync(dir, { recursive: true });
+  const names = Object.keys(ICONS), sheetCols = 12, sh = F.sheet ? lib.canvas(4 + sheetCols * (N * UP + 4), 4 + Math.ceil(names.length / sheetCols) * (N * UP + 14), [26, 10, 30, 255]) : null;
+  for (const [idx, id] of names.entries()) {
+    const I = ICONS[id], [cx, cy, S] = I.win, acc = new Float32Array(S * S * 4);   // RGB nhân sẵn độ đục + A
+    for (const [name, dx = 0, dy = 0, ang = 0, tt] of I.L) {
+      const base = SPRITES[name]; if (!base) throw new Error(`biểu tượng ${id}: không có hình ${name}`);
+      const r = await render(name, { ...base, times: [tt ?? I.t ?? 0], fps: undefined, dirs: 1, angle: ang, pad: 0 }), q = r.cells[0][0];
+      const ox = Math.round(S / 2 - cx + dx - r.anchor[0]), oy = Math.round(S / 2 - cy + dy - r.anchor[1]);
+      for (let y = 0; y < r.h; y++) for (let x = 0; x < r.w; x++) {
+        const X = x + ox, Y = y + oy; if (X < 0 || Y < 0 || X >= S || Y >= S) continue;
+        const c = q.c[y * r.w + x], l = q.l[y * r.w + x], a = (c >>> 24) / 255, o = (Y * S + X) * 4, lr = l & 255, lg = (l >>> 8) & 255, lb = (l >>> 16) & 255, la = Math.max(lr, lg, lb) / 255;
+        acc[o] = (c & 255) * a + acc[o] * (1 - a) + lr; acc[o + 1] = ((c >>> 8) & 255) * a + acc[o + 1] * (1 - a) + lg; acc[o + 2] = ((c >>> 16) & 255) * a + acc[o + 2] * (1 - a) + lb;
+        acc[o + 3] = Math.min(1, Math.max(a + acc[o + 3] * (1 - a), la));
+      }
+    }
+    const f = S / N, out = new Uint8ClampedArray(N * UP * N * UP * 4);
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      let R = 0, G = 0, B = 0, A = 0, n = 0;
+      for (let yy = Math.floor(y * f); yy < Math.max(Math.floor(y * f) + 1, Math.floor((y + 1) * f)); yy++) for (let xx = Math.floor(x * f); xx < Math.max(Math.floor(x * f) + 1, Math.floor((x + 1) * f)); xx++) { const o = (yy * S + xx) * 4; R += acc[o]; G += acc[o + 1]; B += acc[o + 2]; A += acc[o + 3]; n++; }
+      A /= n; if (A < 0.06) continue;
+      const r8 = Math.min(255, R / n / A), g8 = Math.min(255, G / n / A), b8 = Math.min(255, B / n / A), a8 = Math.min(255, A * 255 * (f > 1 ? 1.25 : 1));
+      for (let uy = 0; uy < UP; uy++) for (let ux = 0; ux < UP; ux++) { const o = ((y * UP + uy) * N * UP + x * UP + ux) * 4; out[o] = r8; out[o + 1] = g8; out[o + 2] = b8; out[o + 3] = a8; }
+    }
+    writeFileSync(join(dir, id + '.png'), encodePNG(N * UP, N * UP, out));
+    if (sh) { const X = 4 + (idx % sheetCols) * (N * UP + 4), Y = 4 + Math.floor(idx / sheetCols) * (N * UP + 14); sh.paste(out, N * UP, N * UP, X, Y); sh.text(id.slice(0, 16), X, Y + N * UP + 2, 1, [200, 190, 150]); }
+  }
+  if (sh) writeFileSync(join(F.sheet, 'icons.png'), sh.png());
+  console.log(`biểu tượng: ${names.length} chiêu`);
+}
+
 mkdirSync(OUT, { recursive: true });
+if (F.icons) { if (F.sheet) mkdirSync(F.sheet, { recursive: true }); await icons(); process.exit(0); }
 const metaP = join(OUT, 'meta.json'), META = existsSync(metaP) ? JSON.parse(readFileSync(metaP, 'utf8')) : {};
 const list = names.length ? names : Object.keys(SPRITES);
 let total = 0;

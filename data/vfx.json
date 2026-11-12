@@ -1660,6 +1660,18 @@
      "dy": -6
     }
    ]
+  },
+  "van-kiem-thien": {
+   "warm": [
+    "vk-kiem-0",
+    "vk-kiem-1",
+    "vk-kiem-2",
+    "vk-kiem-3",
+    "vk-kiem-4",
+    "vk-kiem-5",
+    "vk-khi",
+    "vk-dam"
+   ]
   }
  }
 }
