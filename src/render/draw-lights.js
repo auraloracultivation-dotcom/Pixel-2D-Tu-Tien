@@ -4,6 +4,7 @@
 import { weaponId } from '../game/stats.js';
 import { skyPhase } from '../game/daynight.js';
 import { decorLights } from './draw-den.js';
+import { pbLights } from '../game/pb-px.js';
 
 const rgbOf = hex => {
   if (!hex || hex[0] !== '#') return null;
@@ -45,6 +46,7 @@ export function gatherLights(game, t) {
     const c = f.t >= 0 && f.lr && rgbOf(f.col);
     if (c) out.push({ x: f.x, y: f.y - 4, r: f.lr, c, a: 1 - (f.t / f.dur) ** 2 });
   }
+  pbLights(game, out, rgbOf);   // đòn pháp bảo điểm ảnh (src/game/pb-px.js)
   for (const z of game.zones) {
     const c = rgbOf(z.color);
     if (c) out.push({ x: z.x, y: z.y, r: z.radius * 1.3, c, a: G.zone.a * Math.min(1, (z.dur - z.t) * 2) });

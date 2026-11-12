@@ -678,6 +678,26 @@
    ],
    "g": -10,
    "big": 0.2
+  },
+  "ngoc": {
+   "c": [
+    "#ffffff",
+    "#b4fff0",
+    "#4ce8d8",
+    "#18b4b0"
+   ],
+   "g": 0,
+   "big": 0.2
+  },
+  "kim": {
+   "c": [
+    "#ffffff",
+    "#fff6c8",
+    "#ffe27a",
+    "#e8c02c"
+   ],
+   "g": 0,
+   "big": 0.25
   }
  },
  "px_on": false,
@@ -1673,6 +1693,149 @@
     "vk-khi",
     "vk-dam"
    ]
+  }
+ },
+ "pb": {
+  "_note": "Đòn pháp bảo điểm ảnh (chủ dự án 13/11/2026: bỏ ảnh GPT; src/game/pb-px.js giữ nhịp, src/render/draw-pb-px.js vẽ; chỉ chạy khi px_on). ramps: dải màu tối → sáng của từng món (base: loại pháp bảo → dải) và của từng hệ khảm (kim, moc, thuy, hoa, tho); hình pfx.pb-* dựng bằng một dải gốc, game đổi sang dải của đòn (src/render/vfx/pfx-pal.js), nét vẽ thẳng (vành, cung, tia) lấy màu cùng dải. part: dải → hạt điểm ảnh (part_px). hit: hệ → hình tia trúng (không có thì pb-trung đổi màu); boom: hệ → hình nổ lớn (không có thì pb-no đổi màu). k: số điểm khung vẽ cho một điểm hình khi phẩm Phàm cấp 0 (nhân theo cỡ đòn, làm tròn nửa điểm); 2 = to bằng điểm ảnh của thế giới (pháp bảo là vật trong thế giới nên vẽ cùng cỡ điểm với nhân vật), 1 = mịn gấp đôi (tia trúng, hạt). sy: độ dẹt của vòng trên mặt đất (như hình chiêu vùng).",
+  "sy": 0.84,
+  "ramps": {
+   "thanh": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "gio": [
+    "#0c2038",
+    "#1a4670",
+    "#3478b0",
+    "#62a8dc",
+    "#9cd0f4",
+    "#d4eeff",
+    "#ffffff"
+   ],
+   "vang": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "ngoc": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "tim": [
+    "#140a26",
+    "#2b1252",
+    "#5a24a8",
+    "#8a48e8",
+    "#b89af0",
+    "#e4d0ff",
+    "#ffffff"
+   ],
+   "kim": [
+    "#2a1e06",
+    "#5c440c",
+    "#a07c14",
+    "#e8c02c",
+    "#ffe27a",
+    "#fff6c8",
+    "#ffffff"
+   ],
+   "moc": [
+    "#0c1a0e",
+    "#163418",
+    "#225224",
+    "#3f8f34",
+    "#7fdc6a",
+    "#c4f4a0",
+    "#ffffff"
+   ],
+   "thuy": [
+    "#0a1836",
+    "#123a78",
+    "#1f6cc0",
+    "#3fa0f0",
+    "#7ac8ff",
+    "#c4ecff",
+    "#ffffff"
+   ],
+   "hoa": [
+    "#1f0b10",
+    "#4a1118",
+    "#8c1d1c",
+    "#f2701f",
+    "#ffae35",
+    "#ffe27a",
+    "#fff8d6"
+   ],
+   "tho": [
+    "#2a1c08",
+    "#5a3e10",
+    "#8e6638",
+    "#b88a52",
+    "#d8a86a",
+    "#f0d8a0",
+    "#fff4d8"
+   ]
+  },
+  "base": {
+   "phi-kiem": "thanh",
+   "linh-chau": "thanh",
+   "bao-phien": "gio",
+   "dai-an": "vang",
+   "ho-thuan": "ngoc",
+   "dong-chung": "tim",
+   "tran-ky": "vang",
+   "ho-lo": "thanh"
+  },
+  "part": {
+   "thanh": "thanh-quang",
+   "gio": "gio",
+   "vang": "sao-vang",
+   "ngoc": "ngoc",
+   "tim": "am",
+   "kim": "kim",
+   "moc": "la",
+   "thuy": "tuyet",
+   "hoa": "lua",
+   "tho": "da"
+  },
+  "hit": {
+   "moc": "no-la",
+   "thuy": "no-bang",
+   "hoa": "no-lua",
+   "tho": "no-da"
+  },
+  "boom": {
+   "hoa": "no-lua-to"
+  },
+  "k": {
+   "kiem": 2,
+   "chau": 2,
+   "manh": 2,
+   "phong": 2,
+   "quat": 2,
+   "an": 2,
+   "khien": 2,
+   "chuong": 2,
+   "co": 2,
+   "holo": 2,
+   "tran": 2,
+   "trung": 1
   }
  }
 }

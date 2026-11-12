@@ -4,12 +4,15 @@
 // số nguyên, điểm neo đặt đúng lưới khung vẽ, không làm mượt. Hình có hướng: chọn góc dựng sẵn gần nhất, lật ngang / dọc cho đủ vòng,
 // chỉ xoay thêm phần lẻ (tối đa nửa bước góc). Tải hình khi lần đầu cần tới (không tải sẵn cả kho).
 import { spriteImage } from '../sprites.js';
+import { pfxTint } from './pfx-pal.js';
 
-let T = { z: 1, tx: 0, ty: 0, lk: 1 };
+let T = { z: 1, tx: 0, ty: 0, lk: 1, ramps: null };
 const HALF = Math.PI / 2;
 
-// Gọi một lần mỗi khung khi ctx đang ở phép biến đổi thế giới. lk: độ rực lớp sáng theo trời (tối thì rực hơn).
-export function pfxBegin(ctx, lk = 1) { const m = ctx.getTransform(); T = { z: m.a, tx: m.e, ty: m.f, lk }; }
+// Gọi một lần mỗi khung khi ctx đang ở phép biến đổi thế giới. lk: độ rực lớp sáng theo trời (tối thì rực hơn); ramps: các dải màu để đổi
+// màu hình (o.pal, ./pfx-pal.js).
+export function pfxBegin(ctx, lk = 1, ramps = null) { const m = ctx.getTransform(); T = { z: m.a, tx: m.e, ty: m.f, lk, ramps }; }
+export const pfxView = () => T;   // phép biến đổi đang dùng (nét vẽ thẳng ở ./pfx-shape.js)
 
 // Khung ở tuổi age giây (theo giờ game); -1: hình một lượt đã diễn xong hoặc chưa tới lúc
 export function pfxFrame(spr, age, loop = spr.loop) {
@@ -28,7 +31,8 @@ export const pfxReady = (art, name) => { const s = art.sprites['pfx.' + name]; r
 export const pfxScale = (spr, mul = 1) => { const K = T.z * (spr.k || 0.5) * mul, r = Math.round(K); return r >= 1 && Math.abs(K - r) <= 0.13 * K ? r : K; };
 
 // Vẽ khung của hình name tại (x, y) bản đồ. o: dir (góc bay, rad), rot (xoay thẳng, hình không có hướng), flip, k (phóng), a (độ đục),
-// light (nhân độ rực lớp sáng), loop (ép lặp / không lặp), f (khung chỉ định). Trả false nếu hình không có hoặc đã diễn xong.
+// light (nhân độ rực lớp sáng), loop (ép lặp / không lặp), f (khung chỉ định), pal (tên dải màu đổi sang: hình có pal trong art.json),
+// snap (hình có hướng: chỉ dùng góc dựng sẵn, không xoay thêm phần lẻ: nét luôn thẳng lưới). Trả false nếu hình không có hoặc đã diễn xong.
 export function pfxDraw(ctx, art, name, x, y, age, o) {
   const spr = art.sprites['pfx.' + name];
   if (!spr) return false;
@@ -43,20 +47,21 @@ export function pfxDraw(ctx, art, name, x, y, age, o) {
     if (a < 0) { fy = -1; a = -a; }
     if (a > HALF) { fx = -1; a = Math.PI - a; }
     const st = HALF / (spr.dirs - 1);
-    d = Math.round(a / st); rot = a - d * st;
+    d = Math.round(a / st); rot = o?.snap ? 0 : a - d * st;
   }
   const col = f % spr.frames, row = d * wrap + Math.floor(f / spr.frames), c = Math.cos(rot) * K, s = Math.sin(rot) * K, al = Math.max(0, Math.min(1, o?.a ?? 1));
+  const tn = o?.pal && spr.pal && T.ramps ? pfxTint(art, name, T.ramps, o.pal) : null;
   ctx.setTransform(fx * c, fy * s, -fx * s, fy * c, Math.round(T.tx + x * T.z), Math.round(T.ty + y * T.z));
   if (al > 0.01) {
     ctx.imageSmoothingEnabled = K < 1; ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = al;
-    ctx.drawImage(im, col * spr.w, row * spr.h, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+    ctx.drawImage(tn?.c || im, col * spr.w, row * spr.h, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   }
   const lk = T.lk * (o?.light ?? 1) * al;
   if (spr.lit && lk > 0.02) {
     const L = art.sprites['pfx.' + name + '.l'], lim = L && spriteImage(L);
     if (lim) {
       ctx.imageSmoothingEnabled = L.s > 1 || K < 1; ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, lk);
-      ctx.drawImage(lim, col * L.w, row * L.h, L.w, L.h, -spr.anchor[0], -spr.anchor[1], L.w * L.s, L.h * L.s);
+      ctx.drawImage(tn?.l || lim, col * L.w, row * L.h, L.w, L.h, -spr.anchor[0], -spr.anchor[1], L.w * L.s, L.h * L.s);
     }
   }
   return true;
@@ -81,7 +86,7 @@ export function pfxParts(ctx, parts) {
     const R = q.ramp, s = Math.max(1, Math.round(q.s * (k > 0.7 ? 0.5 : 1))) * K;
     const x = Math.round((T.tx + q.x * T.z) / K) * K, y = Math.round((T.ty + q.y * T.z) / K) * K;
     ctx.fillStyle = R[Math.min(R.length - 1, Math.floor(k * R.length))];
-    if (q.add) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.22 * (1 - k) * T.lk; ctx.fillRect(x - s, y - s, s * 3, s * 3); }
+    if (q.add && T.lk > 0.02) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.22 * (1 - k) * T.lk; ctx.fillRect(x - s, y - s, s * 3, s * 3); }
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = k > 0.85 ? 0.6 : 1; ctx.fillRect(x, y, s, s);
   }
 }

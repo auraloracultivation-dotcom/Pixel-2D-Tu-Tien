@@ -75,7 +75,13 @@ for (const [id, O] of Object.entries(chieu.by_skill || {})) {
   for (const [k, v] of Object.entries(O)) { const n = Array.isArray(v) ? v[0] : v; if (!ALL[n]) warn(id, `by_skill.${k} trỏ tới tiếng "${n}" không có`); }
 }
 for (const [id, s] of Object.entries(skills)) if (s && typeof s === 'object' && s.type && !chieu.by_skill?.[id]) warn(id, 'chiêu chưa có tiếng riêng trong data/tieng-chieu.json → by_skill', true);
-const used = new Set(Object.values(chieu.by_skill || {}).flatMap(O => Object.values(O).map(v => (Array.isArray(v) ? v[0] : v))));
+const pbT = J('phap-bao.json').types;
+for (const [id, O] of Object.entries(chieu.by_pb || {})) {   // bảng tiếng đòn pháp bảo: loại phải có thật, tiếng phải có thật
+  if (id !== 'el' && id !== 'fx' && !pbT[id]) warn(id, 'by_pb có loại pháp bảo không có trong data/phap-bao.json');
+  for (const [k, v] of Object.entries(O)) { const n = Array.isArray(v) ? v[0] : v; if (!ALL[n]) warn(id, `by_pb.${k} trỏ tới tiếng "${n}" không có`); }
+}
+for (const id of Object.keys(pbT)) if (!chieu.by_pb?.[id]?.c) warn(id, 'pháp bảo chưa có tiếng riêng trong data/tieng-chieu.json → by_pb', true);
+const used = new Set([...Object.values(chieu.by_skill || {}), ...Object.values(chieu.by_pb || {})].flatMap(O => Object.values(O).map(v => (Array.isArray(v) ? v[0] : v))));
 for (const n of Object.keys(chieu.sfx || {})) if (!used.has(n)) warn(n, 'tiếng trong data/tieng-chieu.json không chiêu nào dùng', true);
 
 const names = Object.keys(onlyChieu ? chieu.sfx : ALL).filter(n => !pick.length || pick.some(p => n === p || n.startsWith(p)));

@@ -79,7 +79,7 @@ async function render(name, S) {
   const cut = buf => { const o = new Uint32Array(w * h); for (let y = 0; y < h; y++) o.set(buf.subarray((y + by0) * fw + bx0, (y + by0) * fw + bx0 + w), y * w); return o; };
   let lit = false;
   for (const row of cells) for (const q of row) { q.c = cut(q.c); q.l = cut(q.l); if (!lit) for (let i = 0; i < q.l.length; i++) if (q.l[i] & 0xffffff) { lit = true; break; } }
-  return { name, S, fx, w, h, n, dirs, cells, lit, fps, times: S.times ? times.map(t => +(t - times[0]).toFixed(4)) : null,
+  return { name, S, fx, w, h, n, dirs, cells, lit, fps, pal: pal || meta.options?.palette || null, times: S.times ? times.map(t => +(t - times[0]).toFixed(4)) : null,
     dur: +(S.times ? (S.end ?? times[n - 1] + (times[n - 1] - (times[n - 2] ?? 0))) - times[0] : n / fps).toFixed(4),
     loop: S.loop ?? meta.loop, anchor: [-fox - bx0, -foy - by0] };
 }
@@ -174,7 +174,7 @@ for (const name of list) {
   writeFileSync(join(OUT, name + '.png'), C.png);
   if (L) writeFileSync(join(OUT, name + '.l.png'), L.png);
   META[name] = { w: r.w, h: r.h, cols: C.cols, rows: C.rows, n: r.n, dirs: r.dirs, fps: r.fps, ...(r.times ? { times: r.times } : {}), dur: r.dur, loop: !!r.loop, anchor: r.anchor, k: S.k ?? 0.5,
-    ...(L ? { lit: { w: L.cw, h: L.ch, s: ls } } : {}), fx: S.fx };
+    ...(L ? { lit: { w: L.cw, h: L.ch, s: ls } } : {}), ...(S.tint && r.pal ? { pal: r.pal } : {}), fx: S.fx };
   total += C.png.length + (L ? L.png.length : 0);
   console.log(`${name}: ${S.fx} ${r.w}x${r.h} × ${r.n} khung${r.dirs > 1 ? ' × ' + r.dirs + ' hướng' : ''}, màu ${(C.png.length / 1024).toFixed(1)} KB${L ? ', sáng ' + (L.png.length / 1024).toFixed(1) + ' KB' : ''}, ${Date.now() - t0} ms`);
 }

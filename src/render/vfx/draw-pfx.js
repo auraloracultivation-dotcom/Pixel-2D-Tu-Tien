@@ -5,8 +5,11 @@ import { pxOf } from '../../game/pfx.js';
 import { pfxBegin, pfxDraw, pfxParts, pfxWarm, pfxReady, pfxClipAhead } from './pfx.js';
 import { skillSlots } from '../../game/skills.js';
 import { darkness } from '../draw-lights.js';
+import { drawPbGround } from '../draw-pb-px.js';
 
-const lightK = game => (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game);   // trời tối: lớp sáng rực hơn
+// trời tối: lớp sáng rực hơn; máy đã tự hạ xuống mức nhẹ nhất (src/core/perf.js, mức 3): bỏ hẳn lớp sáng cộng (phần nặng nhất khi vẽ)
+export const pxLightK = game => (+(document.body.dataset.perf || 0) >= 3 ? 0 : (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game));
+const lightK = pxLightK;
 
 const zfade = z => Math.min(1, z.t * 4, (z.dur - z.t) * 2);
 const zones = game => (game.vfx?.pz?.length ? game.zones.concat(game.vfx.pz) : game.zones);   // vùng thật + vùng chỉ hình của người khác (pfx.js)
@@ -24,7 +27,7 @@ function orbit(ctx, art, z, O) {   // hình bay vòng quanh tâm vùng (kim luâ
 function inst(ctx, art, f) {
   if (f.t < 0) return;
   if (!pfxReady(art, f.s) && (f.wait = (f.wait || 0) + 1) < 150) { f.t = 0; return; }   // hình chưa tải xong (chiêu của người khác, lần đầu): giữ ở khung đầu, tải xong mới diễn
-  const w = f.sw, o = { dir: f.dir, flip: f.flip, k: f.k, a: f.a, loop: !!f.loop };
+  const w = f.sw, o = { dir: f.dir, flip: f.flip, k: f.k, a: f.fo ? f.a * Math.max(0, Math.min(1, (f.dur - f.t) / f.fo)) : f.a, loop: !!f.loop, pal: f.pal, snap: f.snap, rot: f.rot };
   if (w) {   // hình lướt: ba bóng mờ ở các vị trí vừa đi qua, tới nơi thì tan nhanh
     const al = f.t < w.go ? 1 : Math.max(0, 1 - (f.t - w.go) / (f.dur - w.go));
     for (let i = 3; i >= 1; i--) { const u = Math.max(0, Math.min(1, (f.t - i * 0.035) / w.go)), e = 1 - (1 - u) ** 2; pfxDraw(ctx, art, f.s, w.x0 + (w.x1 - w.x0) * e, w.y0 + (w.y1 - w.y0) * e, f.t, { ...o, a: 0.3 * al / i, light: 0.4 }); }
@@ -56,10 +59,11 @@ function self(ctx, game, art, who, layer) {
 export function drawPxGround(ctx, game) {
   const S = game.vfx, art = game.data.art;
   if (!game.data.vfx?.px) return;
-  ctx.save(); pfxBegin(ctx, lightK(game));
+  ctx.save(); pfxBegin(ctx, lightK(game), game.data.vfx.pb?.ramps);
   for (const z of zones(game)) { const Z = pxOf(game, z.sk)?.zone; if (Z) zone(ctx, art, z, Z.g, Z); }
   self(ctx, game, art, game.player, 'g');
   for (const e of game.duel?.mob ? game.duel.foes : []) self(ctx, game, art, e, 'g');
+  if (game.pfxOn) drawPbGround(ctx, game);   // đòn pháp bảo: vòng trận, vành xung kích, bóng ấn (../draw-pb-px.js)
   for (const f of S?.px || []) if (f.g) inst(ctx, art, f);
   ctx.restore();
 }
@@ -69,7 +73,7 @@ export function drawPx(ctx, game) {
   const S = game.vfx, art = game.data.art;
   if (!game.data.vfx?.px) return;
   warm(game, art);
-  ctx.save(); pfxBegin(ctx, lightK(game));
+  ctx.save(); pfxBegin(ctx, lightK(game), game.data.vfx.pb?.ramps);
   for (const z of zones(game)) { const Z = pxOf(game, z.sk)?.zone; if (Z) { zone(ctx, art, z, Z.s, Z); if (Z.orbit) orbit(ctx, art, z, Z.orbit); } }
   self(ctx, game, art, game.player, 's');
   for (const e of game.duel?.mob ? game.duel.foes : []) self(ctx, game, art, e, 's');

@@ -352,6 +352,75 @@ S['sk.vkt_bay'] = {'to': -27, 'jit': 3, 'gap': 0.06, 'pan': 0.5, 'L': [swish(0.1
 S['sk.vkt_cam'] = {'to': -23, 'jit': 2.5, 'gap': 0.05, 'pan': 0.4, 'rev': 0.2, 'L': [
     swish(0.08, 2200, 800, 1.0, q=1.2, a=0.002), *thump(162, 60, 0.14, 0.35), ring(932.33, 0.3, 0.28, i=3.0, r=3.17), gravel(0.2, 0.3, 0.02, 1300, 0.008)]}
 
+# ============ PHÁP BẢO (Pháp Bảo Luyện Chế, Mùa 2: thứ người chơi bấm mỗi vài giây) ============
+# Phi Kiếm: "soạt" rời vỏ rồi vút đi; ngắn, không chói vì bấm liên tục (hồi 2,5 giây)
+S['pb.kiem'] = {'to': -22.5, 'jit': 1.5, 'rev': 0.12, 'gap': 0.05, 'L': [
+    swish(0.07, 2600, 1100, 0.7, q=1.2, a=0.002), swish(0.22, 600, 2400, 1.0, 0.03, a=0.04),
+    ring(880, 0.3, 0.14, 0.02, i=1.5), ring(1320, 0.18, 0.05, 0.03, i=1.2), *thump(220, 120, 0.1, 0.16, 0.03)]}
+S['pb.kiem_ve'] = {'to': -29, 'jit': 2, 'gap': 0.08, 'L': [   # kiếm về tay: tách nhẹ, ngân rất khẽ
+    swish(0.06, 1800, 900, 0.8, q=1.3, a=0.002), ring(660, 0.16, 0.12, i=1.2), *thump(190, 110, 0.07, 0.25)]}
+# Linh Châu: "vuum" tròn, cao độ lên một quãng năm, lấp lánh khẽ
+S['pb.chau'] = {'to': -22, 'jit': 1.2, 'rev': 0.3, 'gap': 0.05, 'L': [
+    O(MI, 0.34, 0.9, f2=MI * 1.5, g=0.22, a=0.012, c=1.8), O(MI * 2.01, 0.26, 0.28, 0.01, f2=MI * 3, g=0.2, a=0.012, c=2.0),
+    glass(SOL * 2, 0.4, 0.1, 0.02, i=1.1), swish(0.3, 500, 1500, 0.4, 0.0, q=1.2, a=0.06), *thump(200, 110, 0.1, 0.18)]}
+S['pb.h_chau'] = {'to': -24.5, 'jit': 1.5, 'gap': 0.06, 'rev': 0.2, 'L': [   # châu vỡ vào quái: "bụp" tròn
+    O(520, 0.12, 0.8, f2=240, g=0.1, a=0.002, c=2.2), N(0.14, 0.6, lp=2600, lp2=600, hp=250, a=0.002, c=2.0),
+    glass(LA * 2, 0.2, 0.07, i=1.0), *thump(170, 70, 0.12, 0.3)]}
+# Bảo Phiến: "phạch" quạt bật mở, rồi một luồng gió lớn cuốn lá
+S['pb.quat'] = {'to': -20.5, 'jit': 1, 'rev': 0.18, 'L': [
+    N(0.022, 0.9, bp=1900, bq=0.9, a=0.001, c=1.4), N(0.02, 0.5, 0.03, bp=1500, bq=1.0, a=0.001, c=1.5),
+    swish(0.42, 350, 1500, 1.0, 0.04, q=0.9, a=0.07, c=1.7), swish(0.3, 1700, 600, 0.5, 0.16, q=1.1, a=0.05),
+    N(0.35, 0.16, 0.1, hp=2600, lp=6000, crackle=0.012, a=0.05, c=1.5), *thump(160, 80, 0.14, 0.2, 0.04)]}
+S['pb.h_gio'] = {'to': -26, 'jit': 2, 'gap': 0.05, 'L': [swish(0.1, 1900, 700, 1.0, q=1.1, a=0.003), *thump(170, 80, 0.1, 0.22)]}
+# Đại Ấn: 0,8 giây tụ lực (ù trầm dâng, gió hút, chiêng khẽ) rồi giáng (nổ đất, chiêng trầm, đá lăn)
+S['pb.an_tu'] = {'to': -19.5, 'rev': 0.35, 'L': [
+    O(98, 0.82, 0.8, w='saw', f2=147, g=0.75, lp=700, lp2=1300, hp=180, am=11, amd=0.45, a=0.3, h=0.3, c=1.4, dist=1.6),
+    swish(0.8, 300, 1500, 0.7, q=1.4, a=0.6, c=1.2), *gong(SOL / 2, 0.8, 0.25, i=3.0),
+    N(0.5, 0.1, 0.3, hp=2500, lp=5500, crackle=0.01, a=0.2, c=1.3)]}
+S['pb.an_giang'] = {'to': -14.5, 'jit': 0.5, 'rev': 0.45, 'L': [
+    *boom(0, 1.35), *gong(DO / 2, 1.3, 0.5, 0.0, i=5.0), rumble(1.0, 0.6, 0.08, am=7), gravel(0.7, 0.3, 0.12, rate=0.004), crack(0.6, 0.0, 0.04, hp=700)]}
+# Hộ Thuẫn: khiên dựng lên (ngân trong, cao độ lên), khiên vỡ (kính vỡ + nổ)
+S['pb.khien'] = {'to': -19.5, 'rev': 0.45, 'L': [
+    O(DO, 0.4, 0.7, f2=SOL, g=0.3, a=0.03, c=1.6), O(DO * 2, 0.35, 0.25, 0.02, f2=SOL * 2, g=0.28, a=0.03, c=1.8),
+    glass(SOL * 2, 0.7, 0.14, 0.12, i=1.4), glass(DO * 4, 0.5, 0.06, 0.2, i=1.0), swish(0.38, 400, 1700, 0.5, q=1.3, a=0.12), *thump(150, 90, 0.16, 0.25)]}
+S['pb.khien_vo'] = {'to': -17, 'jit': 0.8, 'rev': 0.35, 'L': [
+    *boom(0, 0.75), ice_ticks(0.4, 0.5, 0.0, rate=0.02), glass(MI * 4, 0.3, 0.12, 0.0, i=1.6), glass(DO * 4, 0.35, 0.1, 0.05, i=1.4),
+    glass(SOL * 2, 0.45, 0.1, 0.1, i=1.3), swish(0.3, 2400, 600, 0.6, q=1.0, a=0.004)]}
+# Đồng Chung: dùi nện rồi thân chuông đồng ngân dài, hai lớp lệch nhau một chút cho có phách "oang oang"; lọc bớt phần cao cho khỏi chói
+S['pb.chuong'] = {'to': -17.5, 'rev': 0.5, 'L': [
+    *thump(190, 95, 0.16, 0.5), crack(0.3, 0, 0.02, hp=900),
+    F(SOL / 2, 1.7, 0.75, r=1.41, i=4.5, i2=0.5, c=1.3, a=0.004, lp=3200), F(SOL * 1.008, 1.5, 0.4, 0.004, r=2.76, i=2.4, i2=0.2, c=1.5, a=0.004, lp=3000),
+    O(SOL / 2, 1.2, 0.35, f2=SOL / 2 * 0.985, a=0.01, c=1.3, lp=600), swish(0.5, 500, 1400, 0.3, 0.02, q=1.0, a=0.1)]}
+# Trận Kỳ: cờ lao xuống phần phật, cắm đất, trận khởi (ba nốt mộc + ù nền); mỗi nhịp trận một tiếng "uôm" khẽ
+S['pb.co'] = {'to': -18.5, 'rev': 0.4, 'L': [
+    swish(0.16, 1700, 450, 0.8, q=1.2, a=0.01), N(0.12, 0.3, 0.02, hp=1800, lp=5000, crackle=0.02, a=0.01, c=1.4),
+    *thump(150, 60, 0.26, 0.9, 0.15), crack(0.4, 0.15), *mallets([DO, SOL, DO * 2], 0.07, 0.9, 0.3, 0.2),
+    O(DO, 0.9, 0.3, 0.2, w='tri', am=6, amd=0.3, a=0.15, c=1.3, lp=900), swish(0.6, 400, 1200, 0.3, 0.2, q=1.0, a=0.2)]}
+S['pb.tran_nhip'] = {'to': -29, 'jit': 1.5, 'gap': 0.3, 'L': [
+    O(SOL, 0.2, 0.8, f2=SOL * 0.75, g=0.16, a=0.01, c=1.8), N(0.14, 0.3, bp=900, bq=1.2, a=0.02, c=1.8), ring(DO * 2, 0.22, 0.05, i=1.0)]}
+# Hồ Lô: hút 1 giây (gió xoáy dâng dần, ù trầm lên cao) rồi "póc" bật nút, phun
+S['pb.holo_hut'] = {'to': -20, 'rev': 0.3, 'L': [
+    swish(1.0, 280, 1500, 1.0, q=1.6, a=0.75, c=1.1, am=10, amd=0.5), swish(1.0, 600, 2400, 0.4, q=2.2, a=0.8, c=1.1, am=13, amd=0.6),
+    O(82, 1.0, 0.5, w='saw', f2=150, g=0.95, lp=500, lp2=1100, hp=170, a=0.7, c=1.1, dist=1.5, am=10, amd=0.4)]}
+S['pb.holo_phun'] = {'to': -18, 'jit': 0.8, 'rev': 0.3, 'L': [
+    O(430, 0.05, 0.9, f2=190, g=0.04, a=0.001, c=1.6), crack(0.5, 0, 0.02, hp=1200),
+    swish(0.42, 2200, 500, 1.0, 0.02, q=0.8, a=0.012, c=1.8), N(0.4, 0.5, 0.03, lp=1800, lp2=500, hp=200, a=0.01, c=1.8),
+    N(0.45, 0.2, 0.1, hp=2200, lp=5600, crackle=0.02, a=0.03, c=1.6), *thump(170, 70, 0.2, 0.4, 0.02)]}
+# Chiêu khảm: Lôi Kích (một tia sét nhỏ), tia nảy, nổ lan (Đánh Lan, Tử Bạo), mảnh Tỏa Nhánh, Cầu Xoay, quái đóng băng
+S['pb.set'] = {'to': -19.5, 'jit': 1, 'rev': 0.35, 'L': [
+    crack(0.9, 0, 0.035, hp=1400), N(0.16, 0.6, 0.0, hp=1700, lp=5200, crackle=0.03, a=0.001, c=1.6),
+    N(0.5, 0.8, 0.02, lp=1500, lp2=350, hp=150, a=0.004, c=1.7), rumble(0.55, 0.4, 0.08, am=11), *thump(140, 50, 0.22, 0.35)]}
+S['pb.nay'] = {'to': -27.5, 'jit': 2.5, 'gap': 0.05, 'pan': 0.3, 'L': [
+    N(0.07, 1.0, hp=1600, lp=5000, crackle=0.05, a=0.001, c=1.5), O(700, 0.07, 0.3, w='square', f2=350, g=0.06, lp=2200, a=0.001, c=1.8)]}
+S['pb.no'] = {'to': -21, 'jit': 1.5, 'gap': 0.08, 'rev': 0.25, 'L': [*boom(0, 0.5), N(0.2, 0.15, 0.03, hp=2000, lp=5000, crackle=0.01, c=1.6)]}
+S['pb.manh'] = {'to': -25.5, 'jit': 1.5, 'gap': 0.08, 'L': [
+    *[swish(0.09, 1100 + k * 200, 2600 + k * 150, 0.8, k * 0.03, q=1.8, a=0.01) for k in range(3)], ring(990, 0.14, 0.06, i=1.2)]}
+S['pb.xoay'] = {'to': -22, 'jit': 1, 'rev': 0.2, 'L': [
+    N(0.7, 1.0, bp=800, bp2=1500, bq=1.5, am=12, amd=0.85, a=0.1, c=1.5), ring(SOL * 2, 0.4, 0.08, 0.03, i=1.3), *thump(170, 90, 0.12, 0.2)]}
+S['pb.dong_bang'] = {'to': -23.5, 'jit': 1.5, 'gap': 0.15, 'rev': 0.3, 'L': [
+    ice_ticks(0.22, 0.8, rate=0.03), glass(DO * 4, 0.28, 0.14, 0.01, i=1.5), glass(SOL * 2, 0.34, 0.1, 0.04, i=1.3), *thump(180, 90, 0.1, 0.2)]}
+
+
 BY = {
     'kiem-khi': {'c': 'sk.kiem_khi', 'h': 'sk.h_kiem'},
     'van-kiem': {'c': 'sk.van_kiem', 'h': 'sk.h_kiem'},
@@ -403,11 +472,27 @@ BY = {
     'van-kiem-thien': {'c': 'sk.vkt_trieu', 'r': ['sk.vkt_bung', 1.25], 's': ['sk.vkt_bay', 2.0], 'k': ['sk.vkt_cam', 1.4]},   # game gọi 0,8 / 0,5 / 0,7
 }
 
+# Đòn pháp bảo: loại → { c: lúc bấm, h: trúng quái (đòn không khảm hệ), r: mốc sau (ấn giáng, khiên vỡ, hồ lô phun), k: mỗi nhịp trận, ve: kiếm về tay };
+# el: hệ khảm → tiếng trúng theo hệ; fx: tiếng chiêu khảm (set Lôi Kích, nay tia nảy, no nổ lan, manh mảnh bắn ra, xoay Cầu Xoay, bang quái đóng băng, h_manh mảnh trúng)
+BY_PB = {
+    'phi-kiem': {'c': 'pb.kiem', 'h': 'sk.h_kiem', 've': 'pb.kiem_ve'},
+    'linh-chau': {'c': 'pb.chau', 'h': 'pb.h_chau'},
+    'bao-phien': {'c': 'pb.quat', 'h': 'pb.h_gio'},
+    'dai-an': {'c': 'pb.an_tu', 'r': 'pb.an_giang'},
+    'ho-thuan': {'c': 'pb.khien', 'r': 'pb.khien_vo'},
+    'dong-chung': {'c': 'pb.chuong', 'h': 'sk.h_am'},
+    'tran-ky': {'c': 'pb.co', 'k': 'pb.tran_nhip'},
+    'ho-lo': {'c': 'pb.holo_hut', 'r': 'pb.holo_phun', 'h': 'sk.h_nuoc'},
+    'el': {'hoa': 'sk.h_lua', 'thuy': 'sk.h_bang', 'moc': 'sk.h_la', 'kim': 'sk.h_kim', 'tho': 'sk.h_da'},
+    'fx': {'set': 'pb.set', 'nay': 'pb.nay', 'no': 'pb.no', 'manh': 'pb.manh', 'xoay': 'pb.xoay', 'bang': 'pb.dong_bang', 'h_manh': ['sk.h_kiem', 0.7]},
+}
+
 NOTE = ("Tiếng riêng từng chiêu (chủ dự án 13/11/2026), đi cùng bộ hiệu ứng điểm ảnh: chỉ kêu khi hiệu ứng điểm ảnh bật (data/vfx.json → px_on "
         "hoặc địa chỉ ?pfx=1); tắt thì dùng tiếng theo hệ ở data/sounds.json → by_fx. File do tools/sfx_chieu.py ghi toàn bộ, muốn sửa thì sửa ở đó "
         "rồi chạy lại. sfx: công thức (như data/sounds.json → sfx, dựng bằng src/core/synth.js); to: độ to đích trên loa điện thoại (dB), v do công cụ "
         "tính ra để đạt. by_skill: mã chiêu → { c: lúc tung, h: đạn trúng, b: đạn nổ lan, z: [tiếng, chu kỳ giây, âm lượng] lặp khi vùng chiêu còn, "
-        "r / s / k: mốc riêng của chiêu đặc biệt } (src/game/skill-sfx.js). Đo bằng node tools/sfx-check.mjs --chieu.")
+        "r / s / k: mốc riêng của chiêu đặc biệt } (src/game/skill-sfx.js). by_pb: đòn pháp bảo (loại pháp bảo → { c: lúc bấm, h: trúng quái, r: mốc sau như ấn giáng / "
+        "khiên vỡ / hồ lô phun, k: nhịp trận, ve: kiếm về tay }; el: hệ khảm → tiếng trúng; fx: tiếng chiêu khảm). Đo bằng node tools/sfx-check.mjs --chieu.")
 
 
 def rnd(x):   # số gọn cho file dữ liệu
@@ -427,6 +512,8 @@ def write(vol):
     lines += ['  ' + json.dumps(k) + ': ' + json.dumps(v, ensure_ascii=False) + (',' if i < len(sfx) - 1 else '') for i, (k, v) in enumerate(sfx.items())]
     lines += [' },', ' "by_skill": {']
     lines += ['  ' + json.dumps(k) + ': ' + json.dumps(v, ensure_ascii=False) + (',' if i < len(BY) - 1 else '') for i, (k, v) in enumerate(BY.items())]
+    lines += [' },', ' "by_pb": {']
+    lines += ['  ' + json.dumps(k) + ': ' + json.dumps(v, ensure_ascii=False) + (',' if i < len(BY_PB) - 1 else '') for i, (k, v) in enumerate(BY_PB.items())]
     lines += [' }', '}']
     OUT.write_text('\n'.join(lines) + '\n', encoding='utf-8')
     json.loads(OUT.read_text(encoding='utf-8'))
@@ -445,6 +532,6 @@ for k, r in S.items():
         capped.append(f"{k} (cần {v:.2f}: thiếu {20 * __import__('math').log10(v / VMAX):.1f} dB)")
     vol[k] = round(min(VMAX, max(0.05, v)), 3)
 write(vol)
-print(len(S), 'tiếng,', len(BY), 'chiêu →', OUT.name)
+print(len(S), 'tiếng,', len(BY), 'chiêu,', len(BY_PB) - 2, 'pháp bảo →', OUT.name)
 if capped:
     print('Bị chặn ở đỉnh', VMAX, '(còn nhiều trầm quá, nên sửa công thức):', ', '.join(capped))

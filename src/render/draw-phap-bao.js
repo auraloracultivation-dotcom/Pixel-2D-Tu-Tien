@@ -2,8 +2,11 @@
 // (chuyển động SpriteCook 12/11/2026), pb.* (pháp bảo), vfx.vk-kiem (Phi Kiếm), fx.slash-quat (Bảo Phiến), vfx.am (Đồng Chung),
 // vfx.tran-kim (Trận Kỳ), fx.shield (Hộ Thuẫn), fx.fire / ice / vine (hệ trên quái). Phần còn lại vẽ bằng code: vệt sáng, nón gió,
 // sóng vòng, nổ, mảnh, tia nảy, sét. Vẽ mượt, sau hiệu ứng chiêu.
+// Khi hiệu ứng điểm ảnh bật (src/game/pfx.js pxOn; chủ dự án 13/11/2026: bỏ ảnh GPT) thì cả file này nhường cho ./draw-pb-px.js.
 import { spriteImage } from './sprites.js';
 import { visOf, shotFx, areaFx } from './draw-pb-fx.js';
+import { pxOn } from '../game/pfx.js';
+import { drawPbPx } from './draw-pb-px.js';
 
 const TAU = Math.PI * 2;
 const rgba = (hex, a) => { const n = parseInt((hex || '#ffffff').slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${Math.max(0, Math.min(1, a))})`; };
@@ -148,6 +151,7 @@ function status(ctx, game, t) {
 export function drawPhapBao(ctx, game, t) {
   const S = game.pbx;
   if (!S) return;
+  if (pxOn(game)) return drawPbPx(ctx, game, t);
   const p = game.player;
   ctx.save(); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
   status(ctx, game, t);

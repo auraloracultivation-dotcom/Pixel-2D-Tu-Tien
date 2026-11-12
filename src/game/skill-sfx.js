@@ -57,3 +57,32 @@ export function warmSkillSfx(game, slots) {
   for (const id of slots) for (const v of Object.values(T[id] || {})) names.push(Array.isArray(v) ? v[0] : v);
   game.sfxWarm?.(names);
 }
+
+// ---- Đòn pháp bảo (từ Mùa 2 các nút chiêu là pháp bảo). Px bật: data/tieng-chieu.json → by_pb[loại] = { c: lúc bấm, h: trúng quái, r: mốc sau
+// (ấn giáng, khiên vỡ, hồ lô phun), k: mỗi nhịp trận, ve: kiếm về tay }; by_pb.el[hệ]: tiếng trúng theo hệ khảm; by_pb.fx: tiếng chiêu khảm
+// (set, nay, no, manh, xoay, bang). Px tắt, hoặc loại chưa có trong bảng: kêu tiếng cũ old (không truyền: im).
+const pbT = game => (pxOn(game) && game.data['tieng-chieu']?.by_pb) || null;
+export function pbSfx(game, type, key, old, oldVol = 0.8) {
+  const B = pbT(game), v = B?.[type]?.[key];
+  if (v) say(game, v, 1); else if (old && !B?.[type]) game.sfx?.(old, oldVol);
+}
+
+// Một đòn trúng quái: có hệ khảm thì tiếng trúng của hệ sau cùng; không thì tiếng trúng riêng của món; đòn nổ, ấn giáng: im (tiếng nổ đã kêu)
+export function pbHitSfx(game, cast, node, old) {
+  const B = pbT(game);
+  if (!B) { game.sfx?.(old, 0.55); return; }
+  const el = node.els[node.els.length - 1], v = el ? B.el?.[el] : node.kind === 'blast' || node.kind === 'seal' ? null : node.look === 'manh' ? B.fx?.h_manh : B[cast.it.type]?.h;
+  if (v) say(game, v, 0.8);
+}
+
+// Dựng sẵn tiếng của các món đang mặc (types: loại pháp bảo ở các ô; đổi món thì dựng thêm)
+let pbWarmed = null;
+export function warmPbSfx(game, types) {
+  const sig = types.join();
+  if (sig === pbWarmed) return;
+  pbWarmed = sig;
+  const B = pbT(game), names = [];
+  if (!B) return;
+  for (const k of [...types, 'el', 'fx']) for (const v of Object.values(B[k] || {})) names.push(Array.isArray(v) ? v[0] : v);
+  game.sfxWarm?.(names);
+}

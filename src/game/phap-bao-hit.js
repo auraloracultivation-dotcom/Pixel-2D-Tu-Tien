@@ -3,6 +3,8 @@
 import { hitMob, dist, addFx } from './combat.js';
 import { PB } from './phap-bao.js';
 import { elementMul } from './phap-bao-build.js';
+import { pbPxHit, pbPxFreeze } from './pb-px.js';
+import { pbSfx, pbHitSfx } from './skill-sfx.js';
 
 const HIT_SFX = { hoa: 'fire_hit', thuy: 'ice_hit', moc: 'wood_hit', kim: 'metal_hit', tho: 'earth_hit' };
 
@@ -29,8 +31,9 @@ export function pbHit(game, cast, node, m, from, e, opt = {}) {
   if (node.els.includes('tho')) ho.stun = Math.max(ho.stun, M.tho.stun * em.tho);
   if (node.els.includes('moc')) ho.stun = Math.max(ho.stun, M.moc.root * em.moc);
   hitMob(game, m, dmg, ho);
+  pbPxHit(game, node, m, e, !!opt.soft);   // tia trúng điểm ảnh (px bật)
   const el = node.els[node.els.length - 1], now2 = game.time || 0;   // tiếng trúng theo hệ (chủ dự án 04:14: tiếng hiệu ứng), mỗi món tối đa ~8 lần/giây
-  if (now2 >= (cast.sfxT || 0)) { cast.sfxT = now2 + 0.12; game.sfx?.(HIT_SFX[el] || (node.kind === 'seal' || node.kind === 'blast' ? 'boom' : 'hit'), 0.55); }
+  if (now2 >= (cast.sfxT || 0)) { cast.sfxT = now2 + 0.12; pbHitSfx(game, cast, node, HIT_SFX[el] || (node.kind === 'seal' || node.kind === 'blast' ? 'boom' : 'hit')); }
   if (node.kb && !m.dead && m.def?.ai !== 'boss') { m.kx *= node.kb; m.ky *= node.kb; }
 }
 
@@ -43,7 +46,7 @@ function after(game, cast, node, m, d, crit, e, em, src) {
   if (node.els.includes('thuy')) {
     st.coldT = now + M.thuy.slow * em.thuy;
     st.wet = (st.wet || []).filter(x => x > now - M.thuy.win); st.wet.push(now);
-    if (st.wet.length >= M.thuy.need && m.def?.ai !== 'boss' && !m.def?.noCc) { m.stunT = Math.max(m.stunT || 0, M.thuy.freeze * em.thuy); st.iceT = now + M.thuy.freeze * em.thuy; st.wet = []; }
+    if (st.wet.length >= M.thuy.need && m.def?.ai !== 'boss' && !m.def?.noCc) { m.stunT = Math.max(m.stunT || 0, M.thuy.freeze * em.thuy); st.iceT = now + M.thuy.freeze * em.thuy; st.wet = []; pbPxFreeze(game, m); }
   }
   if (node.els.includes('tho') && now > (p.pbThoT || 0)) { p.pbThoT = now + 1; p.shield = Math.min(p.maxHp, (p.shieldT > 0 ? p.shield : 0) + Math.round(p.maxHp * M.tho.shield * em.tho)); p.shieldT = Math.max(p.shieldT || 0, 3); }
   if (cast.steal) heal(game, d * cast.steal);
@@ -54,7 +57,7 @@ function after(game, cast, node, m, d, crit, e, em, src) {
     for (let i = 0; i < node.chain; i++) {
       const n2 = nearest(game, from.x, from.y, node.bounceR || 80, seen);
       if (!n2) break;
-      seen.add(n2); pbx(game).list.push({ kind: 'zap', x: from.x, y: from.y - 6, x2: n2.x, y2: n2.y - 6, t: 0, life: 0.22, color: node.color });
+      seen.add(n2); pbx(game).list.push({ kind: 'zap', x: from.x, y: from.y - 6, x2: n2.x, y2: n2.y - 6, t: 0, life: 0.22, color: node.color, node, cast }); pbSfx(game, 'fx', 'nay');
       pbHit(game, cast, { ...node, chain: 0, child: null }, n2, from, { kids: 9 }, { mul: Math.pow(node.bounceMul || 0.7, i + 1) });
       from = n2;
     }
@@ -65,7 +68,7 @@ function after(game, cast, node, m, d, crit, e, em, src) {
     if (cast.hits >= P['loi-kich'].every && now >= (cast.loiT || 0)) {
       cast.hits = 0; cast.loiT = now + P['loi-kich'].cd;
       pbx(game).list.push({ kind: 'bolt', x: m.x, y: m.y, t: 0, life: 0.35 });
-      game.sfx?.('thunder', 0.6);
+      pbSfx(game, 'fx', 'set', 'thunder', 0.6);
       hitMob(game, m, cast.atk * P['loi-kich'].mul * cast.lvMul, { color: '#bfe0ff', canCrit: false, soft: true });
     }
   }

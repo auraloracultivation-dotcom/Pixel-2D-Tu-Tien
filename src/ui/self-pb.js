@@ -1,7 +1,7 @@
 // Hàng pháp bảo dưới thẻ nhân vật (hệ Pháp Bảo Luyện Chế, src/game/phap-bao.js pbOn; chủ dự án 12/11/2026 03:35, 04:07):
 // 4 ô là 4 pháp bảo đang mặc (hình, khung màu phẩm, cấp); ô 4 khoá tới Nguyên Anh. Chạm: Trang bị → Pháp bảo, mở đúng món đó.
 import { PB, pbOn, pbWorn, pbType, pbGrade, slotOpen, wearN } from '../game/phap-bao.js';
-import { pbIcon } from './phap-bao-hud.js';
+import { typeIcon } from './phap-bao-hud.js';
 import { buffCell } from './self-gear.js';
 import { el } from './bag-detail.js';
 
@@ -16,7 +16,7 @@ export function pbRow(game, row, h = {}) {
     if (T) {
       const g = pbGrade(game, it), ic = el('i', 'sv-pbi');
       b.dataset.o = 'pb'; b.style.setProperty('--q', g.color);
-      ic.style.backgroundImage = pbIcon(game, T.icon, T.icon_f || 0, 48);
+      ic.style.backgroundImage = typeIcon(game, T);
       b.append(el('i', 'sv-bfr'), ic);
       if (it.lv) b.append(el('b', 'sv-plus', '+' + it.lv));
       b.title = `${T.name} · ${g.name}${it.lv ? ' · cấp ' + it.lv : ''}`;

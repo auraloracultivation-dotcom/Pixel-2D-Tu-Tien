@@ -2,7 +2,7 @@
 // Pháp bảo, không kéo ra màn khác"; thay bảng Luyện chế nổi cũ). Lưới: mọi pháp bảo của ta; chạm: tấm chi tiết như trang bị (đầu tấm, lưới
 // nút Mặc ô 1–4 / Nâng cấp / Đục ô, 4 ô khảm nối mũi tên, danh sách chiêu khảm). Số, chữ ở data/phap-bao.json; logic src/game/phap-bao.js.
 import { PB, pbState, pbItem, pbType, pbGrade, pbItemStats, modOpen, modNeed, pbWear, pbSocket, pbUpgrade, pbUpCost, pbCap, pbDrill, pbMax, slotOpen, wearN } from '../game/phap-bao.js';
-import { pbIcon } from './phap-bao-hud.js';
+import { pbIcon, typeIcon } from './phap-bao-hud.js';
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { dailyEvent } from '../game/daily.js';
@@ -10,6 +10,7 @@ import { pbSell, pbPrice } from '../game/phap-bao-drop.js';
 
 const PCT = new Set(['speed', 'atk_pct', 'hp_pct', 'crit', 'crit_dmg', 'cdr', 'dr', 'regen_pct', 'mp_regen']);
 const ico = (game, id, f, cls) => { const i = el('i', cls); i.style.backgroundImage = pbIcon(game, id, f || 0, 48); return i; };
+const icoT = (game, T, cls) => { const i = el('i', cls); i.style.backgroundImage = typeIcon(game, T); return i; };   // hình loại pháp bảo (px bật: hình điểm ảnh của đòn)
 let tries = 0;
 const later = (box, redo) => { if ([...box.querySelectorAll('.spb-ic')].some(i => !i.style.backgroundImage) && tries++ < 12) setTimeout(() => { if (box.isConnected) redo(); }, 300); else if (tries > 12) tries = 0; };
 
@@ -20,7 +21,7 @@ export function pbGrid(game, st, box, bar, redo) {
   for (const it of s.items) {
     const T = pbType(game, it), g = pbGrade(game, it), at = s.wear.indexOf(it.uid), b = el('button', 'sv-slot buff spb-cell');
     b.dataset.o = 'pb'; b.style.setProperty('--q', g.color);
-    b.append(el('i', 'sv-bfr'), ico(game, T.icon, T.icon_f, 'spb-ic sv-pbi'));
+    b.append(el('i', 'sv-bfr'), icoT(game, T, 'spb-ic sv-pbi'));
     if (it.lv) b.append(el('b', 'sv-plus', '+' + it.lv));
     b.append(el('span', 'spb-slots', '◆' + it.slots));
     if (at >= 0 && slotOpen(game, at)) b.append(el('span', 'spb-at', String(at + 1)));
@@ -44,7 +45,7 @@ export function pbSheet(game, st, box, changed, close) {
   const title = el('div', 'd-title', T.name); title.style.color = g.color;
   nm.append(title, el('div', 'd-sub', `Phẩm ${g.name} · ${D.groups[T.group]} · cấp ${it.lv || 0}/${cap} · ${it.slots}/${max} ô`));
   x.onclick = close;
-  const big = ico(game, T.icon, T.icon_f, 'ico spb-ic spb-big'); big.style.borderColor = g.color;
+  const big = icoT(game, T, 'ico spb-ic spb-big'); big.style.borderColor = g.color;
   head.append(big, nm, x);
   box.replaceChildren(head);
   if (st.pbMsg) { box.append(el('div', 'd-msg', st.pbMsg)); st.pbMsg = ''; }

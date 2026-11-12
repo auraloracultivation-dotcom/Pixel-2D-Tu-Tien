@@ -3,23 +3,27 @@
 // luyện chế nằm trong Trang bị → Pháp bảo). src/ui/hud.js gọi pbHud mỗi lần cập nhật.
 import { pbWorn, pbType, pbGrade, slotOpen } from '../game/phap-bao.js';
 import { spriteImage } from '../render/sprites.js';
+import { pxOn } from '../game/pfx.js';
 
 const cache = new Map();
-// Ảnh vuông (data URL) của một khung hình, căn giữa, giữ tỉ lệ; hình chưa tải xong thì trả '' (lần sau thử lại)
-export function pbIcon(game, id, f = 0, size = 48) {
+// Ảnh vuông (data URL) của một khung hình, căn giữa, giữ tỉ lệ; hình chưa tải xong thì trả '' (lần sau thử lại).
+// f đếm cả các hàng của tấm lưới (hình pfx.* nhiều hướng); o: { box: [x, y, rộng, cao] cắt trong khung, flip: lật dọc }
+export function pbIcon(game, id, f = 0, size = 48, o) {
   const key = `${id}:${f}:${size}`;
   if (cache.has(key)) return cache.get(key);
   const S = game.data.art.sprites[id], im = S && spriteImage(S);
   if (!im) return '';
   const c = document.createElement('canvas'); c.width = c.height = size;
-  const x = c.getContext('2d'), k = Math.min(size / S.w, size / S.h) * 0.92, w = S.w * k, h = S.h * k;
+  const [bx, by, bw, bh] = o?.box || [0, 0, S.w, S.h], x = c.getContext('2d'), k = Math.min(size / bw, size / bh) * 0.92, w = bw * k, h = bh * k;
   x.imageSmoothingEnabled = k < 1;
-  x.drawImage(im, (f % S.frames) * S.w, 0, S.w, S.h, (size - w) / 2, (size - h) / 2, w, h);
+  if (o?.flip) { x.translate(0, size); x.scale(1, -1); }
+  x.drawImage(im, (f % S.frames) * S.w + bx, Math.floor(f / S.frames) * S.h + by, bw, bh, (size - w) / 2, (size - h) / 2, w, h);
   const url = `url("${c.toDataURL()}")`;
   cache.set(key, url);
   return url;
 }
-export const typeIcon = (game, T) => pbIcon(game, T.icon, T.icon_f || 0);
+// Hình của một loại pháp bảo: hiệu ứng điểm ảnh bật thì lấy chính hình của đòn (data/phap-bao.json → types.*.px, chủ dự án 13/11/2026: bỏ ảnh GPT), không thì hình cũ
+export const typeIcon = (game, T, size) => (T.px && pxOn(game) ? pbIcon(game, T.px.s, T.px.f || 0, size || 48, T.px) : pbIcon(game, T.icon, T.icon_f || 0, size || 48));
 
 const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 

@@ -39,6 +39,15 @@ function play(game, c, x, y, o = {}) {
     k: c.k || 1, a: c.a ?? 1, g: !!c.g, on: c.on ? o.who : null, ox: c.dx || 0, oy: c.dy || 0, rate: c.rate || 1, col: c.col || o.col, lr: c.g ? 0 : c.lr ?? lightOf(game, c.s) });
 }
 
+// Thêm thẳng một hình đang diễn (đòn pháp bảo, src/game/pb-px.js): o = { s, x, y } + tuỳ chọn k, a, dir, snap, rot, pal (dải màu đổi sang), g (lớp
+// dưới chân), on + ox, oy (bám theo người), loop + dur, fo (giây mờ dần lúc cuối), delay, vx, vy (trôi đều), col (màu hắt sáng), sw (bay từ điểm này tới điểm kia)
+export function pxAdd(game, o) {
+  const f = { dur: durOf(game, o.s), dir: null, flip: false, k: 1, a: 1, g: false, on: null, rate: 1, ...o, t: -(o.delay || 0) };
+  f.lr ??= f.g || !f.col ? 0 : lightOf(game, f.s) * Math.min(2, f.k);
+  st(game).px.push(f);
+  return f;
+}
+
 // Hạt điểm ảnh tóe quanh (x, y): ramp = tên dải màu (vfx.json → part_px)
 export function pxSpray(game, name, x, y, n, spd = 40, o = {}) {
   const P = game.data.vfx.part_px?.[name];
@@ -98,6 +107,7 @@ export function updatePx(game, dt) {
   for (const f of S.px) {
     f.t += dt * f.rate;
     if (f.on) { f.x = f.on.x + (f.ox || 0); f.y = f.on.y + (f.oy || 0); }
+    else if (f.vx != null && f.t > 0) { f.x += f.vx * dt; f.y += f.vy * dt; }
     const w = f.sw;
     if (!w) continue;
     const u = Math.min(1, f.t / w.go), e = 1 - (1 - u) ** 2;   // lao nhanh rồi chậm lại ở cuối

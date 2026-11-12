@@ -4,6 +4,7 @@
 //   t: [từ, tới] giây lấy khung; fps: số khung mỗi giây (ước của 120); times: [giây...] tự chọn từng khung (dày lúc nổ, thưa lúc tàn), end: giây kết thúc
 //   dirs: số góc dựng sẵn từ 0 tới 90 độ (đạn bay: 5 góc = 16 hướng); box: [x0, y0, x1, y1] khung cắt quanh điểm neo
 //   k: đơn vị bản đồ mỗi điểm ảnh (mặc định 0,5 = đúng lưới 2 điểm khung vẽ mỗi đơn vị trên điện thoại); ls: thu nhỏ lớp sáng (mặc định 2 với hình lớn)
+//   tint: hình đổi màu được lúc chạy (đòn pháp bảo khảm hệ): ghi dải màu gốc vào art.json
 const NO = [0.017, 0.05, 0.083, 0.117, 0.15, 0.2, 0.25, 0.3, 0.367, 0.433, 0.5, 0.583, 0.667, 0.767];   // nổ: dày lúc chớp, thưa lúc tàn
 const no = (pal, kind, size = 1, seed = 3) => ({ fx: 'p2d/no', pal, opts: { kind, size }, seed, times: NO, end: 0.88 });
 // chiêu vùng: 30 khung/giây trong `dense` giây đầu (lúc nổ), sau đó `rest` khung/giây tới hết
@@ -15,6 +16,8 @@ const loop2 = (name, fx, pal, opts = {}, fps = 10) => ({ [name + '-d']: { fx, pa
 const tran = (pal, motif) => ({ fx: 'p2d/tran', pal, opts: { motif, radius: 30 }, times: seq(0.9, 0.2, 10), end: 0.9 });
 const THO = ['#2a1c08', '#5a3e10', '#8e6638', '#b88a52', '#dcb47c', '#f0d8a0', '#fff4d8', '#ffffff'];
 const KIEM = ['#0a1a3a', '#12357a', '#1f62c8', '#3f9cff', '#7fd8ff', '#c8f4ff', '#ffffff'], TIM = ['#140a26', '#2b1252', '#5a24a8', '#8a48e8', '#b89af0', '#e4d0ff', '#ffffff'];
+const GIO = ['#0c2038', '#1a4670', '#3478b0', '#62a8dc', '#9cd0f4', '#d4eeff', '#ffffff'];
+const SET_T = [0.74, 0.77, 0.8, 0.833, 0.867, 0.9, 0.95, 1.0, 1.07, 1.15, 1.25, 1.35, 1.5, 1.65];   // sét: bỏ đoạn tụ, lấy từ lúc tia giáng
 
 export const SPRITES = {
   // ---- đạn (hình có hướng: 5 góc dựng sẵn)
@@ -73,7 +76,28 @@ export const SPRITES = {
   ...Object.fromEntries([[KIEM, 0], ['heal', 1], ['gold', 2], [TIM, 0], ['blood', 1], ['metal', 2]].map(([pal, guard], i) => ['vk-kiem-' + i, { fx: 'p2d/van-kiem', pal, opts: { guard }, fps: 10, dirs: 5, ls: 2 }])),
   'vk-khi': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'khi' }, fps: 20, dirs: 5 },
   'vk-dam': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'dam' }, fps: 20, angle: Math.PI / 2 },
-  'set': { fx: 'lightning/lightning-strike', pal: 'volt', times: [0.74, 0.77, 0.8, 0.833, 0.867, 0.9, 0.95, 1.0, 1.07, 1.15, 1.25, 1.35, 1.5, 1.65], end: 1.8, box: [-72, -228, 72, 30], edge: 14 },
+  'set': { fx: 'lightning/lightning-strike', pal: 'volt', times: SET_T, end: 1.8, box: [-72, -228, 72, 30], edge: 14 },
+  // ---- ĐÒN PHÁP BẢO (Pháp Bảo Luyện Chế, thứ người chơi thấy mỗi lần bấm nút). tint: game đổi màu theo hệ khảm (src/render/vfx/pfx-pal.js),
+  // hình dựng bằng một dải màu gốc, ghi dải đó vào art.json (pal) để đổi sang dải của hệ. Vẽ ở src/render/draw-pb-px.js.
+  'pb-kiem': { fx: 'p2d/van-kiem', pal: KIEM, opts: { guard: 0, length: 34, slim: 1 }, fps: 10, dirs: 9, tint: true },      // Phi Kiếm (9 góc dựng sẵn = 32 hướng, game không xoay thêm; vẽ to gấp đôi)
+  'pb-kiem-khi': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'khi', length: 34, slim: 1 }, fps: 20, dirs: 9, tint: true },   // kiếm khí xoắn quanh phi kiếm (phẩm cao)
+  'pb-chau': { fx: 'p2d/chau', pal: KIEM, opts: { radius: 14 }, fps: 20, tint: true },                                     // Linh Châu
+  'pb-manh': { fx: 'p2d/manh', pal: KIEM, fps: 20, dirs: 9, tint: true },                                                  // mảnh Tỏa Nhánh
+  'pb-phong': { fx: 'p2d/kiem-khi', pal: GIO, opts: { half: 26 }, fps: 20, dirs: 9, tint: true },                          // lưỡi gió Bảo Phiến, tia nước Hồ Lô
+  'pb-quat': { fx: 'p2d/quat', pal: GIO, fps: 30, dirs: 9, tint: true },                                                   // Bảo Phiến: chiếc quạt phẩy một nhát
+  'pb-trung': { ...no(KIEM, 'kim', 1, 8), tint: true },                                                                    // tia trúng đòn nhỏ, đổi màu theo hệ
+  'pb-chuong': { fx: 'p2d/chuong', pal: TIM, times: seq(0.7, 0.3, 12), end: 0.7, tint: true },                                       // Đồng Chung
+  'pb-an': { fx: 'p2d/an', pal: 'gold', fps: 10 },                                                                         // Đại Ấn
+  'pb-co': { fx: 'p2d/co', pal: 'gold', fps: 10 },                                                                         // Trận Kỳ
+  'pb-holo': { fx: 'p2d/ho-lo', pal: KIEM, fps: 10 },                                                                      // Hồ Lô
+  'pb-khien': { fx: 'holy/divine-shield', pal: 'cyber', opts: { radius: 16 }, empty: true, fps: 10, tint: true },                               // Hộ Thuẫn
+  'pb-tran': { fx: 'p2d/tran', pal: 'gold', opts: { motif: 'kim', mode: 'loop', radius: 96 }, fps: 10, loop: true, tint: true, box: [-100, -84, 100, 84] },   // pháp trận phủ vùng Trận Kỳ (bán kính 96 điểm, vẽ gấp đôi = đúng vùng 96 đơn vị)
+  'pb-tran-mo': { ...tran('gold', 'kim'), tint: true },                                                                    // pháp trận bật ra lúc đặt đòn
+  'pb-no': { ...no(KIEM, 'kim', 1.5, 5), tint: true },                                                                     // nổ (Đánh Lan, Tử Bạo, khiên vỡ) đổi màu theo hệ
+  'pb-set': { fx: 'lightning/lightning-strike', pal: 'electric', times: SET_T, end: 1.8, box: [-72, -228, 72, 30], edge: 14 },   // Lôi Kích
+  // trạng thái hệ trên quái
+  'tt-lua': { fx: 'p2d/tt', opts: { kind: 'lua' }, fps: 10 }, 'tt-bang': { fx: 'p2d/tt', pal: 'ice', opts: { kind: 'bang' }, fps: 10 }, 'tt-lanh': { fx: 'p2d/tt', pal: 'ice', opts: { kind: 'lanh' }, fps: 10 },
+  'tt-re': { fx: 'p2d/tt', opts: { kind: 're' }, fps: 10 }, 'tt-pha': { fx: 'p2d/tt', opts: { kind: 'pha' }, fps: 10 },
 };
 
 // Biểu tượng chiêu dựng từ chính hình hiệu ứng (export.mjs --icons): L = các lớp [tên hình, lệch x, lệch y, góc, giây riêng], t = giây lấy khung,

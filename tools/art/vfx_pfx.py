@@ -7,7 +7,8 @@ PixelFX (github.com/patch-gg/pixelfx, MIT, bản ghim PIN) vẽ mỗi hiệu ứ
    meta.json (cỡ ô, khung, hướng, điểm neo, nhịp).
 3. File này chép các tấm đó vào assets/art/pfx-*.png và ghi mục 'pfx.<tên>' (+ 'pfx.<tên>.l') trong data/art.json:
    w, h cỡ một ô; frames = số cột; rows = số hàng; n khung mỗi hướng; dirs số hướng dựng sẵn (0..90 độ); fps hoặc times; dur; loop;
-   anchor điểm neo trong ô; k đơn vị bản đồ mỗi điểm ảnh; lit: có lớp sáng. Game vẽ ở src/render/vfx/pfx.js.
+   anchor điểm neo trong ô; k đơn vị bản đồ mỗi điểm ảnh; lit: có lớp sáng; pal: dải màu gốc của hình đổi màu được (đòn pháp bảo khảm hệ).
+   Game vẽ ở src/render/vfx/pfx.js.
 
 Chạy: python3 -I tools/art/vfx_pfx.py            (chỉ chép + ghi art.json từ nguon/pfx đã dựng; không cần Node)
       python3 -I tools/art/vfx_pfx.py --dung [tên ...]   (gọi export.mjs dựng lại trước; cần PIXELFX_DIR hoặc tự tải bản ghim)"""
@@ -49,6 +50,8 @@ def build(save=None):
              'n': m['n'], 'dirs': m['dirs'], 'fps': m['fps'], 'dur': m['dur'], 'loop': m['loop'], 'anchor': m['anchor'], 'k': m['k']}
         if m.get('times'):
             e['times'] = m['times']
+        if m.get('pal'):   # hình đổi màu được lúc chạy (pháp bảo khảm hệ): dải màu gốc tối → sáng
+            e['pal'] = m['pal']
         if m.get('lit'):
             L = m['lit']
             e['lit'] = 1
