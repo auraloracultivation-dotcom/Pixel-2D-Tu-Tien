@@ -59,3 +59,91 @@ export function groundArc(p, r, a0, a1, c, k = 1, cy = 0) {
   for (let j = 0; j <= m; j++) { const a = a0 + ((a1 - a0) * j) / m; p.dot(Math.cos(a) * r, cy + Math.sin(a) * r * SY, c, k); }
 }
 export { TAU };
+
+/**
+ * Pháp trận trên mặt đất bán kính R (điểm ảnh): hai vành, vạch khắc quanh vành, chữ phù, hình giữa theo ngũ hành.
+ * motif: 'kim' (hai hình vuông lồng), 'moc' (lục mang), 'thuy' (ba xoáy nước), 'hoa' (ngũ mang), 'tho' (vuông + thập tự), 'vo' (chỉ vành).
+ * C: dải màu tối → sáng; k: độ đục 0..1 (nét tan qua lưới chấm khi k nhỏ); rot: góc xoay vành ngoài, hình giữa xoay ngược.
+ */
+export function runeCircle(p, R, rot, C, k = 1, motif = "vo", seed = 1) {
+  if (R < 4 || k <= 0.02) return;
+  const n = C.length, hi = C[n - 2], mid = C[n - 3], lo = C[n - 4];
+  const seg = (a0, r0, a1, r1, c, kk = k) => { const [x0, y0] = gp(a0, r0), [x1, y1] = gp(a1, r1); p.line(x0, y0, x1, y1, c, kk); };
+  groundArc(p, R, 0, TAU, hi, k * 1.15);
+  groundArc(p, R - 3, 0, TAU, mid, k * 0.95);
+  const ticks = Math.max(8, Math.round(R / 3.2));
+  for (let i = 0; i < ticks; i++) { const a = rot + (i * TAU) / ticks; if (i % 2) seg(a, R - 3, a, R, lo, k * 0.9); else { const [x, y] = gp(a + 0.5 * TAU / ticks, R - 1.5); p.dot(x, y, hi, k * 1.2); } }
+  // chữ phù: cụm 2–4 điểm sáng đặt đều trên vành trong
+  const glyphs = Math.max(5, Math.round(R / 7));
+  for (let i = 0; i < glyphs; i++) {
+    const a = -rot * 0.6 + (i * TAU) / glyphs, [gx, gy] = gp(a, R * 0.8);
+    for (let j = 0; j < 4; j++) if (rand(seed, i, j) < 0.62) p.dot(gx + (j % 2) * 1.6 - 0.8, gy + (j >> 1) * 1.6 - 0.8, j === 0 ? hi : mid, k * 1.1);
+  }
+  const r2 = R * 0.62, a0 = -rot * 0.8;
+  const poly = (m, r, off, step = 1, c = hi) => { for (let i = 0; i < m; i++) seg(a0 + off + (i * TAU) / m, r, a0 + off + (((i + step) % m) * TAU) / m, r, c); };
+  if (motif === "kim") { poly(4, r2, 0); poly(4, r2, TAU / 8, 1, mid); groundArc(p, r2 * 0.45, 0, TAU, mid, k); }
+  else if (motif === "moc") { poly(3, r2, -TAU / 4); poly(3, r2, TAU / 4, 1, mid); groundArc(p, r2 * 0.4, 0, TAU, mid, k); }
+  else if (motif === "hoa") { poly(5, r2, -TAU / 4, 2); groundArc(p, r2, 0, TAU, lo, k * 0.8); }
+  else if (motif === "tho") { poly(4, r2, TAU / 8); seg(a0, r2 * 0.7, a0 + Math.PI, r2 * 0.7, mid); seg(a0 + TAU / 4, r2 * 0.7, a0 - TAU / 4, r2 * 0.7, mid); groundArc(p, r2 * 0.3, 0, TAU, hi, k); }
+  else if (motif === "thuy") {
+    groundArc(p, r2, 0, TAU, lo, k * 0.8);
+    for (let i = 0; i < 3; i++) for (let u = 0; u <= 1; u += 1 / (r2 * 1.6)) { const a = a0 + (i * TAU) / 3 + u * 2.6, [x, y] = gp(a, r2 * (0.12 + 0.86 * u)); p.dot(x, y, u > 0.75 ? hi : mid, k * (0.5 + u * 0.8)); }
+  }
+  p.glowRing(0, 0, R * 0.92, Math.max(4, R * 0.16), mid, 0.2 * k);   // quầng sáng vành (vẽ tròn, lớp sáng mềm nên không lộ)
+}
+
+/** Bán kính mép gợn nhẹ theo góc (mép mảng phủ không tròn vo như com-pa): 1 ± vài phần trăm, liền mạch quanh vòng. */
+export const wob = (a, seed = 0, k = 1) => 1 + k * (0.035 * Math.sin(3 * a + seed) + 0.025 * Math.sin(7 * a + seed * 2.3) + 0.015 * Math.sin(13 * a + seed * 4.1));
+
+/**
+ * Mảng phủ trong mờ trên mặt đất trong elip bán kính R (băng, cháy sém, cát, cỏ): fn(d, a, x, y) → [màu, độ đục] hoặc null;
+ * d 0..1 từ tâm ra mép (mép gợn theo wob). Độ đục < 1 là trong mờ thật (không lưới chấm), ≥ 1 là điểm đặc.
+ */
+export function groundPatch(p, R, fn, seed = 0, rough = 1) {
+  p.each(-R * 1.1 - 2, -R * SY * 1.1 - 2, R * 1.1 + 2, R * SY * 1.1 + 2, (x, y, sx, sy) => {
+    const yy = y / SY, a = Math.atan2(yy, x), d = Math.hypot(x, yy) / (R * wob(a, seed, rough));
+    if (d > 1) return;
+    const r = fn(d, a, x, y);
+    if (!r) return;
+    if (r[1] >= 1) p.put(sx, sy, r[0], 1); else p.blendPx(sx, sy, r[0], r[1]);
+  });
+}
+
+/** Đường nứt / vân băng toả từ gần tâm ra mép trên mặt đất: n đường gấp khúc có nhánh, dài tới tỉ lệ grow (0..1) của R. c(u) màu theo chiều dài. */
+export function groundVeins(p, R, n, seed, grow, c, k = 1, from = 0.14) {
+  for (let i = 0; i < n; i++) {
+    let a = (i * TAU) / n + (rand(seed, i, 1) - 0.5) * 0.5, r = R * from, L = R * (0.72 + 0.26 * rand(seed, i, 2)) * grow;
+    let [x, y] = gp(a, r);
+    for (let st = 0; r < L; st++) {
+      const step = 4 + 3 * rand(seed, i, st, 3); a += (rand(seed, i, st, 4) - 0.5) * 0.5; r = Math.min(L, r + step);
+      const [nx, ny] = gp(a, r), u = r / R;
+      p.line(x, y, nx, ny, c(u), k);
+      if (rand(seed, i, st, 5) < 0.38 && r < L * 0.9) { const b = a + (rand(seed, i, st, 6) < 0.5 ? -1 : 1) * (0.5 + 0.4 * rand(seed, i, st, 7)), [bx, by] = gp(b, r + 3 + 5 * rand(seed, i, st, 8)); p.line(nx, ny, nx + (bx - nx) * 0.8, ny + (by - ny) * 0.8, c(u), k * 0.9); }
+      x = nx; y = ny;
+    }
+  }
+}
+
+/** Sắp vật đứng quanh tâm theo các vòng: rings = [{ q: tỉ lệ bán kính, n: số vật, ... }]. Trả về [{ x, y (trên đất), a, ring, i, u (ngẫu nhiên 0..1) }] đã xếp xa → gần. */
+export function ringSites(R, rings, rnd) {
+  const out = [];
+  rings.forEach((g, ri) => {
+    const a0 = rnd.range(0, TAU);
+    for (let i = 0; i < g.n; i++) {
+      const a = a0 + ((i + rnd.range(-0.3, 0.3)) * TAU) / g.n, r = R * g.q * rnd.range(0.92, 1.08);
+      out.push({ x: Math.cos(a) * r, y: Math.sin(a) * r * SY, a, d: r, ring: ri, i, u: rnd.next() });
+    }
+  });
+  return byDepth(out);
+}
+
+/** Một ngọn lửa đứng tại (x, y) cao h cho hiệu ứng lặp (chu kỳ D): đốm lửa sinh ở gốc, bốc lên, co lại và nguội dần theo dải F (trắng nóng → đỏ sẫm). */
+export function flameLoop(p, x, y, h, t, D, seed, F, cycle) {
+  cycle(t, D, Math.round(5 + h * 0.45), seed, (g) => 0.28 + 0.26 * g.next(), (age, L, r) => {
+    const u = age / L, px = x + r.range(-1, 1) * (1.6 + h * 0.07) * (1 - u) + Math.sin(age * 9 + r.range(0, 6)) * 1.1, py = y - 1.5 - u * h * r.range(0.7, 1.1), rr = (1.3 + h * 0.1) * (1 - u * 0.72) * r.range(0.8, 1.2);
+    const idx = Math.min(F.length - 3, Math.floor(Math.pow(u, 0.75) * (F.length - 2)));
+    p.circle(px, py, rr + 0.7, F[idx + 2]); p.circle(px, py - 0.3, rr, F[idx]);
+    if (u < 0.3 && rr > 1.5) p.circle(px, py, rr * 0.5, F[0]);
+  });
+  p.glow(x, y - h * 0.4, h * 0.9 + 6, F[4], 0.2);
+}

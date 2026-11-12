@@ -697,6 +697,13 @@
     {
      "s": "no-kiem"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-kiem",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "hoa-cau": {
@@ -714,6 +721,13 @@
     {
      "s": "no-lua-to"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-hoa",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "liet-hoa-tran": {
@@ -730,6 +744,13 @@
    "boom": [
     {
      "s": "no-lua-to"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-hoa",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -750,6 +771,13 @@
     {
      "s": "no-lua-to"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-hoa",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "bang-truy": {
@@ -762,6 +790,13 @@
     {
      "s": "no-bang"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "bang-phach": {
@@ -773,6 +808,13 @@
    "hit": [
     {
      "s": "no-bang"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -788,6 +830,13 @@
     {
      "s": "no-nuoc"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "van-moc-cham": {
@@ -799,6 +848,13 @@
    "hit": [
     {
      "s": "no-la"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-moc",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -814,6 +870,13 @@
     {
      "s": "no-la"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-moc",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "van-kiem": {
@@ -825,6 +888,13 @@
    "hit": [
     {
      "s": "no-kim"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-kim",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -843,6 +913,13 @@
     {
      "s": "no-da"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-tho",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "that-huyen": {
@@ -854,6 +931,13 @@
    "hit": [
     {
      "s": "no-am"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-am",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -867,6 +951,13 @@
     {
      "s": "no-am"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-am",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "song-nguyet-tram": {
@@ -878,6 +969,13 @@
    "hit": [
     {
      "s": "no-am"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-am",
+     "g": 1,
+     "on": 1
     }
    ]
   },
@@ -891,6 +989,13 @@
     {
      "s": "no-am"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-am",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "lien-chau": {
@@ -903,6 +1008,13 @@
     {
      "s": "no-kim"
     }
+   ],
+   "cast": [
+    {
+     "s": "tran-kim",
+     "g": 1,
+     "on": 1
+    }
    ]
   },
   "phap-kim-luan": {
@@ -914,6 +1026,638 @@
    "hit": [
     {
      "s": "no-kim"
+    }
+   ],
+   "cast": [
+    {
+     "s": "tran-kim",
+     "g": 1,
+     "on": 1
+    }
+   ]
+  },
+  "bang-phong": {
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "bang-phong-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "bang-phong",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-bang",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "tuyet",
+    14,
+    70
+   ]
+  },
+  "liet-diem": {
+   "cast": [
+    {
+     "s": "liet-diem-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "liet-diem",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-lua",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "lua",
+    14,
+    70
+   ]
+  },
+  "phap-hoa-hon": {
+   "cast": [
+    {
+     "s": "hoa-hon-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "hoa-hon",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-lua",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "lua",
+    14,
+    70
+   ]
+  },
+  "dia-chan": {
+   "cast": [
+    {
+     "s": "dia-chan-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "dia-chan",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-da",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "da",
+    10,
+    80
+   ]
+  },
+  "dang-phuoc": {
+   "cast": [
+    {
+     "s": "dang-phuoc-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "dang-phuoc",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-la",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "la",
+    10,
+    60
+   ]
+  },
+  "cuong-phong": {
+   "cast": [
+    {
+     "s": "cuong-phong-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "cuong-phong",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-la",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "gio",
+    12,
+    90
+   ]
+  },
+  "son-nhac": {
+   "cast": [
+    {
+     "s": "son-nhac-d",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "son-nhac",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-da",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "da",
+    14,
+    110
+   ]
+  },
+  "loi-dinh": {
+   "cast": [
+    {
+     "s": "set-dat",
+     "at": "c",
+     "g": 1
+    },
+    {
+     "s": "set",
+     "at": "c"
+    }
+   ],
+   "mob": [
+    {
+     "s": "no-kim",
+     "dy": -6
+    }
+   ],
+   "spray": [
+    "set",
+    12,
+    80
+   ]
+  },
+  "phan-thien": {
+   "cast": [
+    {
+     "s": "tran-hoa",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-lua-to",
+     "at": "c"
+    }
+   ],
+   "zone": {
+    "g": "phan-thien-d",
+    "s": "phan-thien",
+    "trail": "lua",
+    "rate": 10
+   },
+   "spray": [
+    "lua",
+    10,
+    60
+   ]
+  },
+  "han-bang-vuc": {
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-bang",
+     "at": "c",
+     "dy": -4
+    }
+   ],
+   "zone": {
+    "g": "han-bang-vuc-d",
+    "s": "han-bang-vuc",
+    "trail": "tuyet",
+    "rate": 8
+   },
+   "spray": [
+    "tuyet",
+    10,
+    60
+   ]
+  },
+  "luu-sa": {
+   "cast": [
+    {
+     "s": "tran-tho",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-da",
+     "at": "c",
+     "dy": -4
+    }
+   ],
+   "zone": {
+    "g": "luu-sa-d",
+    "s": "luu-sa",
+    "trail": "da",
+    "rate": 6
+   },
+   "spray": [
+    "da",
+    8,
+    60
+   ]
+  },
+  "thanh-moc-vuc": {
+   "cast": [
+    {
+     "s": "tran-moc",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-la",
+     "at": "c",
+     "dy": -4
+    }
+   ],
+   "zone": {
+    "g": "thanh-moc-vuc-d",
+    "s": "thanh-moc-vuc",
+    "trail": "la",
+    "rate": 8
+   },
+   "spray": [
+    "la",
+    8,
+    50
+   ]
+  },
+  "kim-luan": {
+   "cast": [
+    {
+     "s": "no-kim",
+     "dy": -10
+    }
+   ],
+   "zone": {
+    "g": "vong-kim",
+    "orbit": {
+     "s": "kim-luan",
+     "n": 3,
+     "r": 0.9,
+     "spd": 0.8
+    },
+    "trail": "sao-vang",
+    "rate": 8
+   },
+   "spray": [
+    "sao-vang",
+    8,
+    50
+   ]
+  },
+  "hoi-xuan": {
+   "cast": [
+    {
+     "s": "hoi-d",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi",
+     "on": 1
+    },
+    {
+     "s": "hoa-no",
+     "dx": 13,
+     "dy": 3
+    }
+   ],
+   "spray": [
+    "la",
+    8,
+    40
+   ]
+  },
+  "truong-xuan": {
+   "cast": [
+    {
+     "s": "hoi-to-d",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi-to",
+     "on": 1
+    },
+    {
+     "s": "hoa-no",
+     "dx": -15,
+     "dy": 3
+    },
+    {
+     "s": "hoa-no",
+     "dx": 15,
+     "dy": 1,
+     "delay": 0.12
+    }
+   ],
+   "spray": [
+    "la",
+    12,
+    50
+   ]
+  },
+  "phap-thanh-moc": {
+   "cast": [
+    {
+     "s": "tran-moc",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi-d",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi",
+     "on": 1
+    }
+   ],
+   "spray": [
+    "la",
+    8,
+    40
+   ]
+  },
+  "thuy-thuan": {
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-nuoc",
+     "dy": -12
+    }
+   ],
+   "self": {
+    "s": "khien-thuy"
+   },
+   "spray": [
+    "giot",
+    8,
+    50
+   ]
+  },
+  "phap-huyen-thuy": {
+   "cast": [
+    {
+     "s": "tran-thuy",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-nuoc",
+     "dy": -12
+    }
+   ],
+   "self": {
+    "s": "khien-thuy"
+   },
+   "spray": [
+    "giot",
+    10,
+    50
+   ]
+  },
+  "thach-giap": {
+   "cast": [
+    {
+     "s": "tran-tho",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-da",
+     "dy": -8
+    }
+   ],
+   "self": {
+    "g": "giap-da-d",
+    "s": "giap-da"
+   },
+   "spray": [
+    "da",
+    8,
+    50
+   ]
+  },
+  "dai-dia": {
+   "cast": [
+    {
+     "s": "tran-tho",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi-d",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "hoi",
+     "on": 1
+    }
+   ],
+   "self": {
+    "s": "khien-tho"
+   },
+   "spray": [
+    "da",
+    8,
+    50
+   ]
+  },
+  "phap-tran-yeu": {
+   "cast": [
+    {
+     "s": "thap-d",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "thap",
+     "on": 1
+    }
+   ],
+   "self": {
+    "s": "khien-kim"
+   },
+   "spray": [
+    "sao-vang",
+    10,
+    50
+   ]
+  },
+  "kim-cuong-the": {
+   "cast": [
+    {
+     "s": "tran-kim",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-kim",
+     "dy": -12
+    }
+   ],
+   "self": {
+    "g": "hao-quang-d",
+    "s": "hao-quang"
+   },
+   "spray": [
+    "sao-vang",
+    10,
+    50
+   ]
+  },
+  "kim-than": {
+   "cast": [
+    {
+     "s": "tran-kim",
+     "g": 1,
+     "on": 1
+    },
+    {
+     "s": "no-kim",
+     "dy": -12
+    }
+   ],
+   "self": {
+    "g": "kim-than-d",
+    "s": "kim-than"
+   },
+   "spray": [
+    "sao-vang",
+    14,
+    60
+   ]
+  },
+  "kim-quang-tram": {
+   "cast": [
+    {
+     "s": "tran-kim",
+     "at": "start",
+     "g": 1
+    }
+   ],
+   "dash": {
+    "s": "chem-vang",
+    "go": 0.16,
+    "trail": "sao-vang",
+    "end": [
+     {
+      "s": "no-kim"
+     }
+    ]
+   },
+   "mob": [
+    {
+     "s": "no-kim",
+     "dy": -6
+    }
+   ]
+  },
+  "phuong-hoang": {
+   "cast": [
+    {
+     "s": "tran-hoa",
+     "at": "start",
+     "g": 1
+    }
+   ],
+   "dash": {
+    "s": "phuong-hoang",
+    "go": 0.24,
+    "trail": "lua",
+    "end": [
+     {
+      "s": "no-lua-to"
+     }
+    ]
+   },
+   "mob": [
+    {
+     "s": "no-lua",
+     "dy": -6
+    }
+   ]
+  },
+  "long-thuong": {
+   "cast": [
+    {
+     "s": "tran-kiem",
+     "at": "start",
+     "g": 1
+    }
+   ],
+   "dash": {
+    "s": "long-thuong",
+    "go": 0.18,
+    "trail": "thanh-quang",
+    "end": [
+     {
+      "s": "no-kiem"
+     }
+    ]
+   },
+   "mob": [
+    {
+     "s": "no-kiem",
+     "dy": -6
     }
    ]
   }

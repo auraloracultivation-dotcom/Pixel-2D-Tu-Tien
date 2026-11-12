@@ -16327,6 +16327,121 @@
    ],
    "note": "lớp sáng của pfx.am-ba"
   },
+  "pfx.bang-phong": {
+   "file": "assets/art/pfx-bang-phong.png",
+   "v": "4c1675d2",
+   "w": 224,
+   "h": 214,
+   "frames": 9,
+   "rows": 3,
+   "n": 23,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.733,
+   "loop": false,
+   "anchor": [
+    116,
+    120
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603,
+    1.703
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu bang-phong: PixelFX p2d/bang-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.bang-phong-d": {
+   "file": "assets/art/pfx-bang-phong-d.png",
+   "v": "2eaed059",
+   "w": 213,
+   "h": 174,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.733,
+   "loop": false,
+   "anchor": [
+    106,
+    90
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu bang-phong-d: PixelFX p2d/bang-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.bang-phong-d.l": {
+   "file": "assets/art/pfx-bang-phong-d-l.png",
+   "v": "5d1e120f",
+   "w": 107,
+   "h": 87,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.bang-phong-d"
+  },
+  "pfx.bang-phong.l": {
+   "file": "assets/art/pfx-bang-phong-l.png",
+   "v": "619cc716",
+   "w": 112,
+   "h": 107,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.bang-phong"
+  },
   "pfx.bang-truy": {
    "file": "assets/art/pfx-bang-truy.png",
    "v": "09a1aeaf",
@@ -16383,17 +16498,156 @@
   },
   "pfx.cham.l": {
    "file": "assets/art/pfx-cham-l.png",
-   "v": "9343f97e",
-   "w": 43,
-   "h": 43,
+   "v": "df6cee09",
+   "w": 22,
+   "h": 22,
    "frames": 8,
    "rows": 5,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
    ],
    "note": "lớp sáng của pfx.cham"
+  },
+  "pfx.chem-vang": {
+   "file": "assets/art/pfx-chem-vang.png",
+   "v": "21f6e338",
+   "w": 67,
+   "h": 69,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    39,
+    41
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu chem-vang: PixelFX p2d/kiem-khi (MIT), tools/art/pfx/"
+  },
+  "pfx.chem-vang.l": {
+   "file": "assets/art/pfx-chem-vang-l.png",
+   "v": "cbc9340c",
+   "w": 34,
+   "h": 35,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.chem-vang"
+  },
+  "pfx.cuong-phong": {
+   "file": "assets/art/pfx-cuong-phong.png",
+   "v": "6bf1b4f0",
+   "w": 165,
+   "h": 149,
+   "frames": 12,
+   "rows": 2,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.133,
+   "loop": false,
+   "anchor": [
+    86,
+    96
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu cuong-phong: PixelFX p2d/cuong-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.cuong-phong-d": {
+   "file": "assets/art/pfx-cuong-phong-d.png",
+   "v": "f8708fdd",
+   "w": 198,
+   "h": 170,
+   "frames": 10,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.133,
+   "loop": false,
+   "anchor": [
+    99,
+    85
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu cuong-phong-d: PixelFX p2d/cuong-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.cuong-phong-d.l": {
+   "file": "assets/art/pfx-cuong-phong-d-l.png",
+   "v": "54fdee12",
+   "w": 99,
+   "h": 85,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.cuong-phong-d"
+  },
+  "pfx.cuong-phong.l": {
+   "file": "assets/art/pfx-cuong-phong-l.png",
+   "v": "5c95793c",
+   "w": 83,
+   "h": 75,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.cuong-phong"
   },
   "pfx.da": {
    "file": "assets/art/pfx-da.png",
@@ -16417,17 +16671,429 @@
   },
   "pfx.da.l": {
    "file": "assets/art/pfx-da-l.png",
-   "v": "4b49b014",
-   "w": 70,
-   "h": 70,
+   "v": "1822188c",
+   "w": 35,
+   "h": 35,
    "frames": 12,
    "rows": 5,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
    ],
    "note": "lớp sáng của pfx.da"
+  },
+  "pfx.dang-phuoc": {
+   "file": "assets/art/pfx-dang-phuoc.png",
+   "v": "af973505",
+   "w": 163,
+   "h": 137,
+   "frames": 12,
+   "rows": 2,
+   "n": 22,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    85,
+    73
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dang-phuoc: PixelFX p2d/dang-phuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.dang-phuoc-d": {
+   "file": "assets/art/pfx-dang-phuoc-d.png",
+   "v": "77eaf9de",
+   "w": 144,
+   "h": 122,
+   "frames": 14,
+   "rows": 2,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    73,
+    62
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dang-phuoc-d: PixelFX p2d/dang-phuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.dang-phuoc-d.l": {
+   "file": "assets/art/pfx-dang-phuoc-d-l.png",
+   "v": "38bdbd72",
+   "w": 72,
+   "h": 61,
+   "frames": 14,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dang-phuoc-d"
+  },
+  "pfx.dang-phuoc.l": {
+   "file": "assets/art/pfx-dang-phuoc-l.png",
+   "v": "066a385e",
+   "w": 82,
+   "h": 69,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dang-phuoc"
+  },
+  "pfx.dia-chan": {
+   "file": "assets/art/pfx-dia-chan.png",
+   "v": "acc0fac8",
+   "w": 220,
+   "h": 181,
+   "frames": 9,
+   "rows": 3,
+   "n": 19,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.383,
+   "loop": false,
+   "anchor": [
+    110,
+    91
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dia-chan: PixelFX p2d/dia-chan (MIT), tools/art/pfx/"
+  },
+  "pfx.dia-chan-d": {
+   "file": "assets/art/pfx-dia-chan-d.png",
+   "v": "d7bee4b5",
+   "w": 171,
+   "h": 141,
+   "frames": 11,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.383,
+   "loop": false,
+   "anchor": [
+    83,
+    71
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dia-chan-d: PixelFX p2d/dia-chan (MIT), tools/art/pfx/"
+  },
+  "pfx.dia-chan-d.l": {
+   "file": "assets/art/pfx-dia-chan-d-l.png",
+   "v": "78e88c06",
+   "w": 86,
+   "h": 71,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dia-chan-d"
+  },
+  "pfx.dia-chan.l": {
+   "file": "assets/art/pfx-dia-chan-l.png",
+   "v": "2c93efe1",
+   "w": 110,
+   "h": 91,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dia-chan"
+  },
+  "pfx.giap-da": {
+   "file": "assets/art/pfx-giap-da.png",
+   "v": "97bfae5d",
+   "w": 63,
+   "h": 58,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    32,
+    51
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu giap-da: PixelFX p2d/giap-da (MIT), tools/art/pfx/"
+  },
+  "pfx.giap-da-d": {
+   "file": "assets/art/pfx-giap-da-d.png",
+   "v": "a315c196",
+   "w": 42,
+   "h": 36,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    21,
+    18
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu giap-da-d: PixelFX p2d/giap-da (MIT), tools/art/pfx/"
+  },
+  "pfx.giap-da-d.l": {
+   "file": "assets/art/pfx-giap-da-d-l.png",
+   "v": "a4cbd32a",
+   "w": 21,
+   "h": 18,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.giap-da-d"
+  },
+  "pfx.giap-da.l": {
+   "file": "assets/art/pfx-giap-da-l.png",
+   "v": "064f987d",
+   "w": 32,
+   "h": 29,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.giap-da"
+  },
+  "pfx.han-bang-vuc": {
+   "file": "assets/art/pfx-han-bang-vuc.png",
+   "v": "87471717",
+   "w": 184,
+   "h": 184,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    92,
+    109
+   ],
+   "k": 0.5,
+   "note": "hiệu ứng chiêu han-bang-vuc: PixelFX p2d/vung-bang (MIT), tools/art/pfx/"
+  },
+  "pfx.han-bang-vuc-d": {
+   "file": "assets/art/pfx-han-bang-vuc-d.png",
+   "v": "41245382",
+   "w": 193,
+   "h": 189,
+   "frames": 10,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    96,
+    96
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu han-bang-vuc-d: PixelFX p2d/vung-bang (MIT), tools/art/pfx/"
+  },
+  "pfx.han-bang-vuc-d.l": {
+   "file": "assets/art/pfx-han-bang-vuc-d-l.png",
+   "v": "1be177a4",
+   "w": 97,
+   "h": 95,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.han-bang-vuc-d"
+  },
+  "pfx.hao-quang": {
+   "file": "assets/art/pfx-hao-quang.png",
+   "v": "bd5d1cda",
+   "w": 43,
+   "h": 66,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    18,
+    57
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hao-quang: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.hao-quang-d": {
+   "file": "assets/art/pfx-hao-quang-d.png",
+   "v": "55caaeb2",
+   "w": 42,
+   "h": 39,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    21,
+    21
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hao-quang-d: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.hao-quang-d.l": {
+   "file": "assets/art/pfx-hao-quang-d-l.png",
+   "v": "d32c2765",
+   "w": 21,
+   "h": 20,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hao-quang-d"
+  },
+  "pfx.hao-quang.l": {
+   "file": "assets/art/pfx-hao-quang-l.png",
+   "v": "751e9378",
+   "w": 22,
+   "h": 33,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hao-quang"
   },
   "pfx.hoa-cau": {
    "file": "assets/art/pfx-hoa-cau.png",
@@ -16463,6 +17129,116 @@
    ],
    "note": "lớp sáng của pfx.hoa-cau"
   },
+  "pfx.hoa-hon": {
+   "file": "assets/art/pfx-hoa-hon.png",
+   "v": "96d4beb3",
+   "w": 208,
+   "h": 205,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    104,
+    120
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-hon: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-hon-d": {
+   "file": "assets/art/pfx-hoa-hon-d.png",
+   "v": "2f19b2dd",
+   "w": 167,
+   "h": 143,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    83,
+    70
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-hon-d: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-hon-d.l": {
+   "file": "assets/art/pfx-hoa-hon-d-l.png",
+   "v": "c5ddc9a8",
+   "w": 84,
+   "h": 72,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-hon-d"
+  },
+  "pfx.hoa-hon.l": {
+   "file": "assets/art/pfx-hoa-hon-l.png",
+   "v": "3881ecca",
+   "w": 104,
+   "h": 103,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-hon"
+  },
   "pfx.hoa-long": {
    "file": "assets/art/pfx-hoa-long.png",
    "v": "a6c9164b",
@@ -16497,6 +17273,356 @@
    ],
    "note": "lớp sáng của pfx.hoa-long"
   },
+  "pfx.hoa-no": {
+   "file": "assets/art/pfx-hoa-no.png",
+   "v": "395a6a87",
+   "w": 118,
+   "h": 117,
+   "frames": 17,
+   "rows": 2,
+   "n": 23,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1.9167,
+   "loop": false,
+   "anchor": [
+    59,
+    106
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-no: PixelFX nature/healing-bloom (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-no.l": {
+   "file": "assets/art/pfx-hoa-no-l.png",
+   "v": "5bf7bd36",
+   "w": 59,
+   "h": 59,
+   "frames": 17,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-no"
+  },
+  "pfx.hoi": {
+   "file": "assets/art/pfx-hoi.png",
+   "v": "2a31a4d6",
+   "w": 80,
+   "h": 84,
+   "frames": 18,
+   "rows": 1,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    40,
+    65
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-d": {
+   "file": "assets/art/pfx-hoi-d.png",
+   "v": "d3dc56cb",
+   "w": 46,
+   "h": 76,
+   "frames": 17,
+   "rows": 1,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    23,
+    55
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-d: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-d.l": {
+   "file": "assets/art/pfx-hoi-d-l.png",
+   "v": "83866722",
+   "w": 23,
+   "h": 38,
+   "frames": 17,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-d"
+  },
+  "pfx.hoi-to": {
+   "file": "assets/art/pfx-hoi-to.png",
+   "v": "f5cddcca",
+   "w": 94,
+   "h": 96,
+   "frames": 18,
+   "rows": 1,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    47,
+    73
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-to: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-to-d": {
+   "file": "assets/art/pfx-hoi-to-d.png",
+   "v": "0b09696f",
+   "w": 60,
+   "h": 81,
+   "frames": 17,
+   "rows": 1,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    30,
+    57
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-to-d: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-to-d.l": {
+   "file": "assets/art/pfx-hoi-to-d-l.png",
+   "v": "d1eb4489",
+   "w": 30,
+   "h": 41,
+   "frames": 17,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-to-d"
+  },
+  "pfx.hoi-to.l": {
+   "file": "assets/art/pfx-hoi-to-l.png",
+   "v": "98eb41cf",
+   "w": 47,
+   "h": 48,
+   "frames": 18,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-to"
+  },
+  "pfx.hoi.l": {
+   "file": "assets/art/pfx-hoi-l.png",
+   "v": "2d0061fe",
+   "w": 40,
+   "h": 42,
+   "frames": 18,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi"
+  },
+  "pfx.khien-kim": {
+   "file": "assets/art/pfx-khien-kim.png",
+   "v": "fe8df5fc",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-kim: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-kim.l": {
+   "file": "assets/art/pfx-khien-kim-l.png",
+   "v": "7723a767",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-kim"
+  },
+  "pfx.khien-tho": {
+   "file": "assets/art/pfx-khien-tho.png",
+   "v": "d34b9c30",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-tho: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-tho.l": {
+   "file": "assets/art/pfx-khien-tho-l.png",
+   "v": "73ed1170",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-tho"
+  },
+  "pfx.khien-thuy": {
+   "file": "assets/art/pfx-khien-thuy.png",
+   "v": "fd7affa4",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-thuy: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-thuy.l": {
+   "file": "assets/art/pfx-khien-thuy-l.png",
+   "v": "6f0a47ea",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-thuy"
+  },
   "pfx.kiem-khi": {
    "file": "assets/art/pfx-kiem-khi.png",
    "v": "9fb0df36",
@@ -16519,12 +17645,12 @@
   },
   "pfx.kiem-khi.l": {
    "file": "assets/art/pfx-kiem-khi-l.png",
-   "v": "40a45dc3",
-   "w": 68,
-   "h": 64,
+   "v": "a8ecf920",
+   "w": 34,
+   "h": 32,
    "frames": 8,
    "rows": 5,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
@@ -16553,17 +17679,229 @@
   },
   "pfx.kim-luan.l": {
    "file": "assets/art/pfx-kim-luan-l.png",
-   "v": "6b794c4b",
-   "w": 49,
-   "h": 50,
+   "v": "fc362529",
+   "w": 25,
+   "h": 25,
    "frames": 8,
    "rows": 1,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
    ],
    "note": "lớp sáng của pfx.kim-luan"
+  },
+  "pfx.kim-than": {
+   "file": "assets/art/pfx-kim-than.png",
+   "v": "aec19a84",
+   "w": 53,
+   "h": 76,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    24,
+    64
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-than: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-than-d": {
+   "file": "assets/art/pfx-kim-than-d.png",
+   "v": "62d92e93",
+   "w": 52,
+   "h": 45,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    26,
+    26
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-than-d: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-than-d.l": {
+   "file": "assets/art/pfx-kim-than-d-l.png",
+   "v": "b57319bb",
+   "w": 26,
+   "h": 23,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-than-d"
+  },
+  "pfx.kim-than.l": {
+   "file": "assets/art/pfx-kim-than-l.png",
+   "v": "c054e366",
+   "w": 27,
+   "h": 38,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-than"
+  },
+  "pfx.liet-diem": {
+   "file": "assets/art/pfx-liet-diem.png",
+   "v": "241d883c",
+   "w": 207,
+   "h": 218,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    105,
+    133
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu liet-diem: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.liet-diem-d": {
+   "file": "assets/art/pfx-liet-diem-d.png",
+   "v": "f5049b65",
+   "w": 159,
+   "h": 137,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    79,
+    67
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu liet-diem-d: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.liet-diem-d.l": {
+   "file": "assets/art/pfx-liet-diem-d-l.png",
+   "v": "ad3f6003",
+   "w": 80,
+   "h": 69,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.liet-diem-d"
+  },
+  "pfx.liet-diem.l": {
+   "file": "assets/art/pfx-liet-diem-l.png",
+   "v": "05aa9f2f",
+   "w": 104,
+   "h": 109,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.liet-diem"
+  },
+  "pfx.long-thuong": {
+   "file": "assets/art/pfx-long-thuong.png",
+   "v": "42056d4b",
+   "w": 102,
+   "h": 102,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    73,
+    73
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu long-thuong: PixelFX p2d/long (MIT), tools/art/pfx/"
+  },
+  "pfx.long-thuong.l": {
+   "file": "assets/art/pfx-long-thuong-l.png",
+   "v": "c34a2196",
+   "w": 51,
+   "h": 51,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.long-thuong"
   },
   "pfx.luc-dang-long": {
    "file": "assets/art/pfx-luc-dang-long.png",
@@ -16599,6 +17937,74 @@
    ],
    "note": "lớp sáng của pfx.luc-dang-long"
   },
+  "pfx.luu-sa": {
+   "file": "assets/art/pfx-luu-sa.png",
+   "v": "bdba00a9",
+   "w": 178,
+   "h": 142,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    88,
+    82
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu luu-sa: PixelFX p2d/vung-cat (MIT), tools/art/pfx/"
+  },
+  "pfx.luu-sa-d": {
+   "file": "assets/art/pfx-luu-sa-d.png",
+   "v": "7611fedc",
+   "w": 182,
+   "h": 151,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    94,
+    74
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu luu-sa-d: PixelFX p2d/vung-cat (MIT), tools/art/pfx/"
+  },
+  "pfx.luu-sa-d.l": {
+   "file": "assets/art/pfx-luu-sa-d-l.png",
+   "v": "8b47450a",
+   "w": 91,
+   "h": 76,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.luu-sa-d"
+  },
+  "pfx.luu-sa.l": {
+   "file": "assets/art/pfx-luu-sa-l.png",
+   "v": "845332e1",
+   "w": 89,
+   "h": 71,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.luu-sa"
+  },
   "pfx.nguyet-liem": {
    "file": "assets/art/pfx-nguyet-liem.png",
    "v": "c04b474c",
@@ -16621,12 +18027,12 @@
   },
   "pfx.nguyet-liem.l": {
    "file": "assets/art/pfx-nguyet-liem-l.png",
-   "v": "2b24a311",
-   "w": 50,
-   "h": 50,
+   "v": "10f8fa61",
+   "w": 25,
+   "h": 25,
    "frames": 10,
    "rows": 1,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
@@ -16671,12 +18077,12 @@
   },
   "pfx.no-am.l": {
    "file": "assets/art/pfx-no-am-l.png",
-   "v": "b9c6e609",
-   "w": 66,
-   "h": 61,
+   "v": "674c01cc",
+   "w": 33,
+   "h": 31,
    "frames": 14,
    "rows": 1,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
@@ -17083,6 +18489,74 @@
    ],
    "note": "lớp sáng của pfx.no-nuoc"
   },
+  "pfx.phan-thien": {
+   "file": "assets/art/pfx-phan-thien.png",
+   "v": "575df2a0",
+   "w": 185,
+   "h": 169,
+   "frames": 11,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.2,
+   "loop": true,
+   "anchor": [
+    92,
+    95
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phan-thien: PixelFX p2d/vung-lua (MIT), tools/art/pfx/"
+  },
+  "pfx.phan-thien-d": {
+   "file": "assets/art/pfx-phan-thien-d.png",
+   "v": "37138853",
+   "w": 172,
+   "h": 171,
+   "frames": 11,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.2,
+   "loop": true,
+   "anchor": [
+    86,
+    86
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phan-thien-d: PixelFX p2d/vung-lua (MIT), tools/art/pfx/"
+  },
+  "pfx.phan-thien-d.l": {
+   "file": "assets/art/pfx-phan-thien-d-l.png",
+   "v": "4dc83a7c",
+   "w": 86,
+   "h": 86,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phan-thien-d"
+  },
+  "pfx.phan-thien.l": {
+   "file": "assets/art/pfx-phan-thien-l.png",
+   "v": "df48b220",
+   "w": 93,
+   "h": 85,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phan-thien"
+  },
   "pfx.phi-kiem": {
    "file": "assets/art/pfx-phi-kiem.png",
    "v": "2dbc4ebe",
@@ -17105,17 +18579,267 @@
   },
   "pfx.phi-kiem.l": {
    "file": "assets/art/pfx-phi-kiem-l.png",
-   "v": "3ac12d2c",
-   "w": 59,
-   "h": 63,
+   "v": "0fb7091e",
+   "w": 30,
+   "h": 32,
    "frames": 8,
    "rows": 5,
-   "s": 1,
+   "s": 2,
    "anchor": [
     0,
     0
    ],
    "note": "lớp sáng của pfx.phi-kiem"
+  },
+  "pfx.phuong-hoang": {
+   "file": "assets/art/pfx-phuong-hoang.png",
+   "v": "b2f4c9ba",
+   "w": 106,
+   "h": 106,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    70,
+    70
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phuong-hoang: PixelFX p2d/phuong-hoang (MIT), tools/art/pfx/"
+  },
+  "pfx.phuong-hoang.l": {
+   "file": "assets/art/pfx-phuong-hoang-l.png",
+   "v": "6e988491",
+   "w": 53,
+   "h": 53,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phuong-hoang"
+  },
+  "pfx.set": {
+   "file": "assets/art/pfx-set.png",
+   "v": "19664504",
+   "w": 144,
+   "h": 258,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.06,
+   "loop": false,
+   "anchor": [
+    72,
+    228
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.03,
+    0.06,
+    0.093,
+    0.127,
+    0.16,
+    0.21,
+    0.26,
+    0.33,
+    0.41,
+    0.51,
+    0.61,
+    0.76,
+    0.91
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu set: PixelFX lightning/lightning-strike (MIT), tools/art/pfx/"
+  },
+  "pfx.set-dat": {
+   "file": "assets/art/pfx-set-dat.png",
+   "v": "757a2c8b",
+   "w": 138,
+   "h": 136,
+   "frames": 14,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.983,
+   "loop": false,
+   "anchor": [
+    69,
+    68
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833,
+    0.933
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu set-dat: PixelFX p2d/set-dat (MIT), tools/art/pfx/"
+  },
+  "pfx.set-dat.l": {
+   "file": "assets/art/pfx-set-dat-l.png",
+   "v": "cb57c859",
+   "w": 69,
+   "h": 68,
+   "frames": 14,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.set-dat"
+  },
+  "pfx.set.l": {
+   "file": "assets/art/pfx-set-l.png",
+   "v": "41ce20fe",
+   "w": 72,
+   "h": 129,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.set"
+  },
+  "pfx.son-nhac": {
+   "file": "assets/art/pfx-son-nhac.png",
+   "v": "38a442a7",
+   "w": 272,
+   "h": 380,
+   "frames": 7,
+   "rows": 4,
+   "n": 22,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    139,
+    262
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu son-nhac: PixelFX p2d/son-nhac (MIT), tools/art/pfx/"
+  },
+  "pfx.son-nhac-d": {
+   "file": "assets/art/pfx-son-nhac-d.png",
+   "v": "f68b0b63",
+   "w": 232,
+   "h": 195,
+   "frames": 8,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    116,
+    97
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu son-nhac-d: PixelFX p2d/son-nhac (MIT), tools/art/pfx/"
+  },
+  "pfx.son-nhac-d.l": {
+   "file": "assets/art/pfx-son-nhac-d-l.png",
+   "v": "3abf9d8a",
+   "w": 116,
+   "h": 98,
+   "frames": 8,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.son-nhac-d"
+  },
+  "pfx.son-nhac.l": {
+   "file": "assets/art/pfx-son-nhac-l.png",
+   "v": "f8266988",
+   "w": 136,
+   "h": 190,
+   "frames": 7,
+   "rows": 4,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.son-nhac"
   },
   "pfx.ten": {
    "file": "assets/art/pfx-ten.png",
@@ -17151,6 +18875,180 @@
    ],
    "note": "lớp sáng của pfx.ten"
   },
+  "pfx.thanh-moc-vuc": {
+   "file": "assets/art/pfx-thanh-moc-vuc.png",
+   "v": "9ba376d3",
+   "w": 166,
+   "h": 165,
+   "frames": 12,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    83,
+    97
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu thanh-moc-vuc: PixelFX p2d/vung-moc (MIT), tools/art/pfx/"
+  },
+  "pfx.thanh-moc-vuc-d": {
+   "file": "assets/art/pfx-thanh-moc-vuc-d.png",
+   "v": "534ab856",
+   "w": 174,
+   "h": 173,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    87,
+    87
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu thanh-moc-vuc-d: PixelFX p2d/vung-moc (MIT), tools/art/pfx/"
+  },
+  "pfx.thanh-moc-vuc-d.l": {
+   "file": "assets/art/pfx-thanh-moc-vuc-d-l.png",
+   "v": "eb5d8d27",
+   "w": 87,
+   "h": 87,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thanh-moc-vuc-d"
+  },
+  "pfx.thanh-moc-vuc.l": {
+   "file": "assets/art/pfx-thanh-moc-vuc-l.png",
+   "v": "c77e26df",
+   "w": 83,
+   "h": 83,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thanh-moc-vuc"
+  },
+  "pfx.thap": {
+   "file": "assets/art/pfx-thap.png",
+   "v": "11da6700",
+   "w": 122,
+   "h": 187,
+   "frames": 16,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.233,
+   "loop": false,
+   "anchor": [
+    61,
+    146
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu thap: PixelFX p2d/thap (MIT), tools/art/pfx/"
+  },
+  "pfx.thap-d": {
+   "file": "assets/art/pfx-thap-d.png",
+   "v": "36dfe7ff",
+   "w": 109,
+   "h": 91,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.233,
+   "loop": false,
+   "anchor": [
+    55,
+    47
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu thap-d: PixelFX p2d/thap (MIT), tools/art/pfx/"
+  },
+  "pfx.thap-d.l": {
+   "file": "assets/art/pfx-thap-d-l.png",
+   "v": "5ac00fde",
+   "w": 55,
+   "h": 46,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thap-d"
+  },
+  "pfx.thap.l": {
+   "file": "assets/art/pfx-thap-l.png",
+   "v": "6175f334",
+   "w": 61,
+   "h": 94,
+   "frames": 16,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thap"
+  },
   "pfx.thuy-long": {
    "file": "assets/art/pfx-thuy-long.png",
    "v": "d76185cc",
@@ -17184,6 +19082,383 @@
     0
    ],
    "note": "lớp sáng của pfx.thuy-long"
+  },
+  "pfx.tran-am": {
+   "file": "assets/art/pfx-tran-am.png",
+   "v": "ab98568b",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-am: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-am.l": {
+   "file": "assets/art/pfx-tran-am-l.png",
+   "v": "c90faec4",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-am"
+  },
+  "pfx.tran-hoa": {
+   "file": "assets/art/pfx-tran-hoa.png",
+   "v": "607396a0",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-hoa: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-hoa.l": {
+   "file": "assets/art/pfx-tran-hoa-l.png",
+   "v": "c931624e",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-hoa"
+  },
+  "pfx.tran-kiem": {
+   "file": "assets/art/pfx-tran-kiem.png",
+   "v": "85812068",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-kiem: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-kiem.l": {
+   "file": "assets/art/pfx-tran-kiem-l.png",
+   "v": "9c99e797",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-kiem"
+  },
+  "pfx.tran-kim": {
+   "file": "assets/art/pfx-tran-kim.png",
+   "v": "fd1cddf1",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-kim: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-kim.l": {
+   "file": "assets/art/pfx-tran-kim-l.png",
+   "v": "56963bac",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-kim"
+  },
+  "pfx.tran-moc": {
+   "file": "assets/art/pfx-tran-moc.png",
+   "v": "b21d2f85",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-moc: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-moc.l": {
+   "file": "assets/art/pfx-tran-moc-l.png",
+   "v": "93045280",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-moc"
+  },
+  "pfx.tran-tho": {
+   "file": "assets/art/pfx-tran-tho.png",
+   "v": "82460ab7",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-tho: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-tho.l": {
+   "file": "assets/art/pfx-tran-tho-l.png",
+   "v": "cab4b277",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-tho"
+  },
+  "pfx.tran-thuy": {
+   "file": "assets/art/pfx-tran-thuy.png",
+   "v": "5a746678",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-thuy: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-thuy.l": {
+   "file": "assets/art/pfx-tran-thuy-l.png",
+   "v": "731c6f6f",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-thuy"
+  },
+  "pfx.vong-kim": {
+   "file": "assets/art/pfx-vong-kim.png",
+   "v": "9447a9c7",
+   "w": 114,
+   "h": 114,
+   "frames": 9,
+   "rows": 1,
+   "n": 9,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.9,
+   "loop": true,
+   "anchor": [
+    57,
+    57
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vong-kim: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.vong-kim.l": {
+   "file": "assets/art/pfx-vong-kim-l.png",
+   "v": "504ab7d3",
+   "w": 57,
+   "h": 57,
+   "frames": 9,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vong-kim"
   },
   "pickup.bang-hoa": {
    "file": "assets/art/pickup-bang-hoa.png",

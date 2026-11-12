@@ -28,7 +28,7 @@ export function castSkill(game, id) {
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
   castSfx(game, s);   // tiếng theo hệ chiêu (src/game/skill-sfx.js)
-  juiceCast(game, s);   // trận đồ dưới chân; chiêu lớn: chớp màn, rung (src/game/juice.js)
+  juiceCast(game, s, id);   // trận đồ dưới chân (chiêu có hiệu ứng điểm ảnh thì pfx.js vẽ); chiêu lớn: chớp màn, rung (src/game/juice.js)
   switch (s.type) {
     case 'projectile':
       shoot(game, {

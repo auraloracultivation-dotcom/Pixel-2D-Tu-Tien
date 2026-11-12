@@ -32,6 +32,8 @@ const { SPRITES } = await import(pathToFileURL(process.env.PFX_SPRITES || join(H
 const args = process.argv.slice(2), F = {}, names = [];
 for (let i = 0; i < args.length; i++) { if (args[i] === '--only-sheet') F.onlySheet = true; else if (args[i].startsWith('--')) F[args[i].slice(2)] = args[++i]; else names.push(args[i]); }
 const MAXW = 2048, TICK = 1 / 120, LT = 2;   // LT: sáng yếu hơn mức này coi như không có (để cắt khung)
+// hiệu ứng PixelFX có nhân vật mẫu (viền sáng theo dáng người mẫu): empty thay bằng dáng rỗng để không in dáng người lạ vào hình
+const EMPTY = { mask: { w: 1, h: 1, data: new Uint8Array(1) }, pixels: new Uint32Array(1), x: 0, y: -1, w: 1, h: 1, k: 2, head: [0, -44], chest: [0, -26] };
 const smooth = u => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
 /** Dựng một hình: trả về { w, h, n, dirs, cells[hướng][khung] = { c: Uint32Array màu, l: Uint32Array sáng }, anchor, ... } */
@@ -40,7 +42,7 @@ async function render(name, S) {
   const box = S.box || [-OX - m, -OY - m, W - OX + m, H - OY + m];   // khung cắt trong toạ độ hiệu ứng (gốc = điểm neo), chưa xoay
   const dirs = S.dirs || 1, fps = S.fps || 20, t0 = S.t?.[0] ?? 0, t1 = S.t?.[1] ?? meta.duration;
   const times = S.times || Array.from({ length: Math.max(1, Math.round((t1 - t0) * fps)) }, (_, i) => t0 + i / fps), n = times.length;
-  const pal = typeof S.pal === 'string' ? core.PAL[S.pal] : S.pal;
+  const pal = typeof S.pal === 'string' ? core.PAL[S.pal] : S.pal || null;
   if (S.pal && !pal) throw new Error(`${name}: không có bảng màu ${S.pal}`);
   const R = dirs > 1 ? Math.ceil(Math.max(...[[box[0], box[1]], [box[2], box[1]], [box[0], box[3]], [box[2], box[3]]].map(([x, y]) => Math.hypot(x, y)))) + 1 : 0;
   const fw = dirs > 1 ? R * 2 : box[2] - box[0], fh = dirs > 1 ? R * 2 : box[3] - box[1], fox = dirs > 1 ? -R : box[0], foy = dirs > 1 ? -R : box[1];
@@ -48,7 +50,7 @@ async function render(name, S) {
   let bx0 = fw, by0 = fh, bx1 = -1, by1 = -1;
   for (let d = 0; d < dirs; d++) {
     const angle = dirs > 1 ? (d / (dirs - 1)) * Math.PI / 2 : S.angle || 0, cs = Math.cos(angle), sn = Math.sin(angle);
-    const inst = core.createFx(fx.mod, { x: 0, y: 0, angle, ...(pal ? { palette: pal } : {}), ...(S.seed !== undefined ? { seed: S.seed } : {}), ...(S.light !== undefined ? { light: S.light } : {}), ...(S.opts || {}) });
+    const inst = core.createFx(fx.mod, { x: 0, y: 0, angle, ...(S.empty ? { actor: EMPTY } : {}), ...(pal ? { palette: pal } : {}), ...(S.seed !== undefined ? { seed: S.seed } : {}), ...(S.light !== undefined ? { light: S.light } : {}), ...(S.opts || {}) });
     let tick = 0; const row = [];
     for (const ts of times) {
       const want = Math.round(ts / TICK);
@@ -82,8 +84,8 @@ async function render(name, S) {
 }
 
 /** Xếp ô thành tấm lưới: mỗi hướng một dải, dải dài quá MAXW thì xuống hàng. layer 'c' màu, 'l' sáng (s: thu nhỏ lớp sáng s lần). */
-function atlas(r, layer, s = 1) {
-  const cw = Math.ceil(r.w / s), ch = Math.ceil(r.h / s), cols = Math.max(1, Math.min(r.n, Math.floor(MAXW / cw))), wrap = Math.ceil(r.n / cols);
+function atlas(r, layer, s = 1, cols0 = 0) {   // cols0: ép số cột (lớp sáng xếp y như lớp màu)
+  const cw = Math.ceil(r.w / s), ch = Math.ceil(r.h / s), cols = cols0 || Math.max(1, Math.min(r.n, Math.floor(MAXW / cw))), wrap = Math.ceil(r.n / cols);
   const AW = cw * cols, AH = ch * wrap * r.dirs, out = new Uint8ClampedArray(AW * AH * 4);
   r.cells.forEach((row, d) => row.forEach((q, f) => {
     const X = (f % cols) * cw, Y = (d * wrap + Math.floor(f / cols)) * ch, src = q[layer];
@@ -133,7 +135,7 @@ for (const name of list) {
   const t0 = Date.now(), r = await render(name, S);
   if (F.sheet) { mkdirSync(F.sheet, { recursive: true }); writeFileSync(join(F.sheet, name + '.png'), sheet(r, +(F.zoom ?? 2), +(F.max ?? 14))); }
   if (F.onlySheet) { console.log(`${name}: ${r.w}x${r.h} ${r.n} khung (chỉ bảng xem)`); continue; }
-  const C = atlas(r, 'c'), ls = S.ls ?? (Math.max(r.w, r.h) > 72 ? 2 : 1), L = r.lit && S.lit !== false ? atlas(r, 'l', ls) : null;
+  const C = atlas(r, 'c'), ls = S.ls ?? (Math.max(r.w, r.h) > 40 ? 2 : 1), L = r.lit && S.lit !== false ? atlas(r, 'l', ls, C.cols) : null;
   writeFileSync(join(OUT, name + '.png'), C.png);
   if (L) writeFileSync(join(OUT, name + '.l.png'), L.png);
   META[name] = { w: r.w, h: r.h, cols: C.cols, rows: C.rows, n: r.n, dirs: r.dirs, fps: r.fps, ...(r.times ? { times: r.times } : {}), dur: r.dur, loop: !!r.loop, anchor: r.anchor, k: S.k ?? 0.5,

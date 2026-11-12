@@ -64,10 +64,10 @@ export function juiceHurt(game, frac) {
 }
 
 // Chiêu lớn vừa tung: chớp màn dịu, rung
-export function juiceCast(game, s) {
+export function juiceCast(game, s, id) {
   const C = J(game)?.cast; if (!C || !s) return;
   const p = game.player, big = s.ult || C.big_types.includes(s.type);
-  push(game, { k: 'rune', x: p.x, y: p.y, r: big ? C.rune_big : C.rune, life: C.rune_life, color: s.color || C.rune_color, rot: Math.random() * TAU });   // trận đồ dưới chân khi tung chiêu (clip)
+  if (!pxOf(game, id)) push(game, { k: 'rune', x: p.x, y: p.y, r: big ? C.rune_big : C.rune, life: C.rune_life, color: s.color || C.rune_color, rot: Math.random() * TAU });   // trận đồ dưới chân khi tung chiêu (clip)
   if (!big) return;
   game.flashT = Math.max(game.flashT || 0, C.flash);
   game.screen.shake(C.shake, 0.25);

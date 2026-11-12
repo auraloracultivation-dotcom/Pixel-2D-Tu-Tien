@@ -7,7 +7,9 @@
 //   mob:  [nhịp...]   mỗi con quái trúng chiêu vùng, đường lướt
 //   shot: { s, trail, rate, back, emerge } hình viên đạn (hình có hướng), hạt đuôi (tên dải màu ở vfx.json → part_px), số hạt mỗi giây,
 //                                        hạt sinh sau đầu đạn back đơn vị; emerge: hình dài chui dần ra trong emerge đơn vị đầu
-//   zone: { s, g }                       hình lặp của vùng chiêu kéo dài       self: { s, dy }  hình lặp bọc người (khiên, tăng sức)
+//   zone: { g, s, trail, rate, orbit }   vùng kéo dài: g hình lặp lớp đất, s hình lặp lớp nổi, hạt bốc trong vùng, orbit { s, n, r, spd } hình bay vòng quanh tâm
+//   self: { g, s, dy }                   hình lặp bọc người (khiên, tăng sức): g lớp dưới chân, s lớp nổi
+//   dash: { s, go, trail, end: [nhịp] }  chiêu lướt: hình bay dọc đường lướt trong go giây (có bóng mờ kéo sau), tới nơi thì diễn các nhịp end
 //   spray: [tên dải màu, số hạt, tốc độ] hạt tóe lúc tung / lúc trúng }
 // Một nhịp: { s: tên hình, at: 'me' (chân người tung, mặc định) | 'hand' | 'c' (tâm chiêu) | 'start' (đầu đường lướt), dx, dy, delay,
 //   dir: 1 (xoay theo hướng mặt / hướng đạn), flip: 1 (lật khi quay trái), k (phóng), a, g: 1 (nằm dưới chân người, quái), on: 1 (bám theo người), rate }
@@ -28,7 +30,7 @@ const durOf = (game, s) => game.data.art.sprites['pfx.' + s]?.dur || 0.5;
 
 function play(game, c, x, y, o = {}) {
   st(game).px.push({ s: c.s, x: x + (c.dx || 0), y: y + (c.dy || 0), t: -(c.delay || 0), dur: durOf(game, c.s), dir: c.dir ? o.dir || 0 : null, flip: !!(c.flip && o.face?.x < 0),
-    k: c.k || 1, a: c.a ?? 1, g: !!c.g, on: c.on ? o.who : null, rate: c.rate || 1, col: c.col || o.col, lr: c.lr });
+    k: c.k || 1, a: c.a ?? 1, g: !!c.g, on: c.on ? o.who : null, ox: c.dx || 0, oy: c.dy || 0, rate: c.rate || 1, col: c.col || o.col, lr: c.lr });
 }
 
 // Hạt điểm ảnh tóe quanh (x, y): ramp = tên dải màu (vfx.json → part_px)
@@ -48,10 +50,15 @@ export function pxCast(game, id, s, who, info = {}) {
   const R = pxOf(game, id);
   if (!R) return false;
   const face = who.face || { x: 1, y: 0 }, dash = info.sx != null, dir = dash ? Math.atan2(who.y - info.sy, who.x - info.sx) : Math.atan2(face.y, face.x);
-  const cx = info.cx ?? who.x, cy = info.cy ?? who.y;
+  const cx = info.cx ?? info.zone?.x ?? who.x, cy = info.cy ?? info.zone?.y ?? who.y;   // tâm chiêu: chiêu vùng tức thời, vùng kéo dài, không thì chân người tung
   for (const c of R.cast || []) {
     const [x, y] = c.at === 'hand' ? [who.x + face.x * 9, who.y - 10 + face.y * 7] : c.at === 'c' ? [cx, cy] : c.at === 'start' && dash ? [info.sx, info.sy] : [who.x, who.y];
     play(game, c, x, y, { dir, who, col: s.color, face });
+  }
+  if (R.dash && dash) {   // hình bay từ đầu đường lướt tới chỗ người vừa đáp
+    const D = R.dash, go = D.go || 0.2;
+    st(game).px.push({ s: D.s, x: info.sx, y: info.sy - 8, t: 0, dur: go + 0.16, dir, flip: false, k: D.k || 1, a: 1, g: false, on: null, rate: 1, col: s.color, loop: true,
+      sw: { x0: info.sx, y0: info.sy - 8, x1: who.x, y1: who.y - 8, go, end: D.end, trail: D.trail, acc: 0 } });
   }
   if (R.self) { if (s.type === 'shield') who.shieldSk = id; else who.buffSk = id; }
   if (info.zone) info.zone.sk = id;
@@ -82,7 +89,16 @@ export function pxHit(game, b, x, y, big = 0) {
 export function updatePx(game, dt) {
   const S = game.vfx;
   if (!S?.px) return;
-  for (const f of S.px) { f.t += dt * f.rate; if (f.on) { f.x = f.on.x; f.y = f.on.y; } }
+  for (const f of S.px) {
+    f.t += dt * f.rate;
+    if (f.on) { f.x = f.on.x + (f.ox || 0); f.y = f.on.y + (f.oy || 0); }
+    const w = f.sw;
+    if (!w) continue;
+    const u = Math.min(1, f.t / w.go), e = 1 - (1 - u) ** 2;   // lao nhanh rồi chậm lại ở cuối
+    f.x = w.x0 + (w.x1 - w.x0) * e; f.y = w.y0 + (w.y1 - w.y0) * e;
+    if (u < 1 && w.trail) for (w.acc += dt * 90; w.acc >= 1; w.acc--) pxSpray(game, w.trail, f.x, f.y, 1, 26);
+    if (u >= 1 && !w.done) { w.done = true; for (const c of w.end || []) play(game, c, w.x1, w.y1, { dir: f.dir, col: f.col }); if (w.trail) pxSpray(game, w.trail, w.x1, w.y1, 10, 70); }
+  }
   S.px = S.px.filter(f => f.t < f.dur);
   for (const q of S.pp) { q.t += dt; q.vy += q.g * dt; q.x += q.vx * dt; q.y += q.vy * dt; const d = Math.max(0, 1 - dt * q.drag); q.vx *= d; q.vy *= q.g ? 1 : d; }
   S.pp = S.pp.filter(q => q.t < q.life);
