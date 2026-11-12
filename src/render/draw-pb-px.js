@@ -18,7 +18,7 @@ const domeDy = art => { const q = art.sprites['pfx.pb-khien']; return q ? (q.h /
 
 // ---- tải sẵn hình và đổi màu sẵn cho các món đang mặc (mỗi khung một tấm, khỏi khựng lúc đánh)
 const COMMON = ['pb-tran-mo', 'pb-trung', 'pb-no', 'pb-manh'];
-const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-khi'], chau: ['pb-chau'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'dia-chan', 'dia-chan-d'], khien: ['pb-khien'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-phong'] };
+const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'dia-chan', 'dia-chan-d'], khien: ['pb-khien'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-phong'] };
 const BY_EL = { hoa: ['tt-lua'], thuy: ['tt-bang', 'tt-lanh'], moc: ['tt-re'], kim: ['tt-pha'] };
 let sig = null;
 const jobs = [];
@@ -121,8 +121,8 @@ function shot(ctx, game, art, e, R, pal) {
   const N = e.node, L = lookOf(e), dir = Math.atan2(e.vy, e.vx), ux = Math.cos(dir), uy = Math.sin(dir), look = N.look === 'kiem' ? 'kiem' : N.look === 'chau' ? 'chau' : 'manh';
   const K = pbK(game, e, look), s = 'pb-' + look, o = { dir, snap: 1, loop: true, k: K, pal }, chau = look === 'chau', kiem = look === 'kiem';
   const b0 = (chau ? 5 : kiem ? 8 : 3) * K, tail = (chau ? 11 : kiem ? 12 : 5) * K, at = d => [e.x - ux * d, e.y - uy * d];
-  pxLine(ctx, [at(b0), at(b0 + tail)], chau ? 3 : 1, rc(R, 0.5), 0.55);   // vệt bay: nét màu dài, nét sáng ngắn
-  pxLine(ctx, [at(b0), at(b0 + tail * 0.5)], chau ? 2 : 1, rc(R, 0.85), 0.85);
+  if (chau) pfxDraw(ctx, art, 'pb-chau-duoi', e.x, e.y, e.t, { ...o, a: Math.min(1, e.t * 6) });   // Linh Châu: đuôi sao chổi
+  else { pxLine(ctx, [at(b0), at(b0 + tail)], 1, rc(R, 0.5), 0.55); pxLine(ctx, [at(b0), at(b0 + tail * 0.5)], 1, rc(R, 0.85), 0.85); }   // kiếm, mảnh: vệt bay (nét màu dài, nét sáng ngắn)
   for (let j = L.trail || 0; j >= 1; j--) pfxDraw(ctx, art, s, e.x - ux * j * (kiem ? 6 : 4.5) * K, e.y - uy * j * (kiem ? 6 : 4.5) * K, e.t, { ...o, a: 0.38 * (1 - j / (L.trail + 1.6)), light: 0 });   // bóng mờ nối đuôi theo phẩm (không lớp sáng)
   pfxDraw(ctx, art, s, e.x, e.y, e.t, o);
   if (kiem && L.aura) pfxDraw(ctx, art, 'pb-kiem-khi', e.x, e.y, e.t, { ...o, pal: L.gold ? 'vang' : pal, a: 0.5 + 0.15 * L.aura });   // kiếm khí xoắn quanh lưỡi

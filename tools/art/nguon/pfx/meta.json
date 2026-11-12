@@ -1668,6 +1668,37 @@
   ],
   "fx": "p2d/chau"
  },
+ "pb-chau-duoi": {
+  "w": 69,
+  "h": 69,
+  "cols": 6,
+  "rows": 9,
+  "n": 6,
+  "dirs": 9,
+  "fps": 10,
+  "dur": 0.6,
+  "loop": true,
+  "anchor": [
+   53,
+   53
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 35,
+   "h": 35,
+   "s": 2
+  },
+  "pal": [
+   "#0a1a3a",
+   "#12357a",
+   "#1f62c8",
+   "#3f9cff",
+   "#7fd8ff",
+   "#c8f4ff",
+   "#ffffff"
+  ],
+  "fx": "p2d/chau"
+ },
  "pb-chuong": {
   "w": 103,
   "h": 94,

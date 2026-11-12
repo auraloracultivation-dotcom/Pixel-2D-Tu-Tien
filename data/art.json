@@ -18586,6 +18586,49 @@
    "lit": 1,
    "note": "hiệu ứng chiêu pb-chau: PixelFX p2d/chau (MIT), tools/art/pfx/"
   },
+  "pfx.pb-chau-duoi": {
+   "file": "assets/art/pfx-pb-chau-duoi.png",
+   "v": "6b7ce9a9",
+   "w": 69,
+   "h": 69,
+   "frames": 6,
+   "rows": 9,
+   "n": 6,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    53,
+    53
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-chau-duoi: PixelFX p2d/chau (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-chau-duoi.l": {
+   "file": "assets/art/pfx-pb-chau-duoi-l.png",
+   "v": "42f40efb",
+   "w": 35,
+   "h": 35,
+   "frames": 6,
+   "rows": 9,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-chau-duoi"
+  },
   "pfx.pb-chau.l": {
    "file": "assets/art/pfx-pb-chau-l.png",
    "v": "4f7818d3",

@@ -82,6 +82,7 @@ export const SPRITES = {
   'pb-kiem': { fx: 'p2d/van-kiem', pal: KIEM, opts: { guard: 0, length: 34, slim: 1 }, fps: 10, dirs: 9, tint: true },      // Phi Kiếm (9 góc dựng sẵn = 32 hướng, game không xoay thêm; vẽ to gấp đôi)
   'pb-kiem-khi': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'khi', length: 34, slim: 1 }, fps: 20, dirs: 9, tint: true },   // kiếm khí xoắn quanh phi kiếm (phẩm cao)
   'pb-chau': { fx: 'p2d/chau', pal: KIEM, opts: { radius: 14 }, fps: 20, tint: true },                                     // Linh Châu
+  'pb-chau-duoi': { fx: 'p2d/chau', pal: KIEM, opts: { radius: 14, part: 'duoi' }, fps: 10, dirs: 9, tint: true, box: [-58, -20, 8, 20] },   // đuôi sao chổi sau Linh Châu
   'pb-manh': { fx: 'p2d/manh', pal: KIEM, fps: 20, dirs: 9, tint: true },                                                  // mảnh Tỏa Nhánh
   'pb-phong': { fx: 'p2d/kiem-khi', pal: GIO, opts: { half: 26 }, fps: 20, dirs: 9, tint: true },                          // lưỡi gió Bảo Phiến, tia nước Hồ Lô
   'pb-quat': { fx: 'p2d/quat', pal: GIO, fps: 30, dirs: 9, tint: true },                                                   // Bảo Phiến: chiếc quạt phẩy một nhát
