@@ -317,7 +317,9 @@
   "kc_ask": "Khiêu chiến {chu} để chiếm {ten}? Máy chủ so lực chiến hai bên; thua chờ {s} giây.",
   "kc_win": "Thắng {chu}! {ten} đã thuộc về tông môn.",
   "kc_lose": "Không thắng nổi {chu} ({ta} / {cu}). Chờ một lát rồi thử lại.",
-  "kc_need": "Chỉ tông chủ chưa có tinh cầu mới khiêu chiến được."
+  "kc_need": "Chỉ tông chủ chưa có tinh cầu mới khiêu chiến được.",
+  "map_btn": "Khai hoang",
+  "no_guild": "Khai hoang tinh cầu là việc của tông môn. Vào một tông môn (hoặc tự lập từ Kim Đan) ở tab Tìm tông môn, cùng đồng môn góp Mảnh Vỡ Tinh Cầu và Linh Thạch, tông chủ mở trận Khai Tinh để giành một tinh cầu ở Vành Khai Hoang."
  },
  "err": {
   "khong_co": "Bạn chưa vào tông môn.",

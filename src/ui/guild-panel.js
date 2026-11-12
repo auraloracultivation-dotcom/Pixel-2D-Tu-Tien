@@ -120,6 +120,7 @@ export function createGuildPanel(game) {
     msg = ''; armed = ''; game.uiOpen = true; $('guild').hidden = false; showTab(tab);
   }
   function close() { game.uiOpen = false; $('guild').hidden = true; $('guild-input').blur(); }
+  game.openGuild = t => { if (t) tab = t; open(); };   // mở thẳng một tab (tinh đồ → nút Khai hoang mở tab Tinh cầu)
 
   $('guild-title').textContent = G.name;
   $('btn-guild').textContent = G.name;

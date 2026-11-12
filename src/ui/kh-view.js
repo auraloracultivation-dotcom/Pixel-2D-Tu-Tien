@@ -12,7 +12,7 @@ const pick = { name: '', ground: '' };   // chữ đang gõ, mặt đất đang 
 
 export function renderKh(ctx, redraw) {
   const { game, list, el, mini, card } = ctx, K = game.data['khai-hoang'], T = K.text, m = guildState(game).mine, km = khState(game).mine;
-  if (!m) { list.append(el('div', 'empty', K.err.khong_co)); return; }
+  if (!m) { list.append(card('#c8c4d0', T.tab, [T.no_guild], mini(ctx.T.create, ctx.goFind))); return; }   // chưa vào tông môn: chỉ đường lập / xin vào
   if (km === undefined) { list.append(el('div', 'empty', ctx.T.loading)); return; }
   if (!km) { list.append(el('div', 'empty', K.err.other)); return; }
   // việc gọi máy chủ: lỗi đổi thành câu của khai-hoang.json

@@ -134,6 +134,9 @@ export function createWorldMap(game) {
         b.onclick = () => setMode(m);
         tabs.append(b);
       }
+      const kh = el('button', 'world-kh', data['khai-hoang'].text.map_btn);   // Khai Hoang Tinh Cầu: mở bảng Tông môn tab Tinh cầu
+      kh.onclick = () => { close(); game.openGuild?.('kh'); };
+      tabs.append(kh);
       $('world-sky').before(tabs);
     }
     tabs.children[0].hidden = !game.map.def.planet;   // trong bí cảnh, động phủ thì chỉ có tinh hệ
