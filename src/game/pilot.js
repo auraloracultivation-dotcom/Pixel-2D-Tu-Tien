@@ -157,7 +157,7 @@ function plan(game) {
     const j = dailyJob(game, routeTo);
     if (j?.meditate) return sit(game);
     if (j) return j;
-    stopPilot(game, 'Tự hành: việc ngày làm được đã xong. Việc còn lại (bí cảnh, thiếu nguyên liệu…) bạn tự làm nhé.');
+    stopPilot(game, 'Tự hành: đã làm hết việc ngày tự làm được. Việc còn lại (bí cảnh, thiếu nguyên liệu…) chưa xong, bạn tự làm nhé.');
     return null;
   }
   if (game.dungeon && game.map.def.rooms?.length) {   // tự hành trong bí cảnh (chủ dự án 02/11): đánh hết quái, sang phòng kế; xong thì chờ bảng kết quả (đang đi truyện thì làm tiếp truyện)
