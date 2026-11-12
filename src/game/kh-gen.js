@@ -77,6 +77,6 @@ export function genPlanet(K, p, opts = {}) {
     npcs: [], spawners,   // NPC công trình thêm sau khi dựng bản đồ (khai-hoang.js khSpawn: tên, hình riêng)
     rooms: [], hoi: { do: opts.fight ? [] : (p.bay || []) },
   };
-  if (opts.fight) def.spawners.unshift({ mob: Gd.boss, at: [cx, cy - Math.round(rad * 0.4)], n: 1, respawn: 1e9, cp: L.boss_cp, kt: true });
+  if (opts.fight) def.spawners.unshift({ mob: Gd.boss, at: [cx, cy - Math.round(rad * 0.4)], n: 1, spread: 1, respawn: 1e9, cp: L.boss_cp, kt: true });
   return { def, mobCp: Math.round(L.boss_cp * K.mob_in) };
 }

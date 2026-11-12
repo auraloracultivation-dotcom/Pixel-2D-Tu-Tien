@@ -11,6 +11,8 @@ const fill = (s, o) => Object.entries(o).reduce((t, [k, v]) => t.split(`{${k}}`)
 const form = { file: null, ten: '', loai: '', npc: '' };   // ô gửi ảnh (giữ khi vẽ lại)
 
 export function renderKhMore(ctx, redraw, km) {
+  if (km.ct === undefined) return;   // máy chủ chưa có đợt 2 (migration 20261112140000): chưa hiện mua, bày, gửi ảnh
+  km = { rieng: {}, tho: [], anh: [], ...km };
   const { game, list, el, mini, card } = ctx, K = game.data['khai-hoang'], T = K.text, N = game.data.npcs, chu = km.chuc === 'chu';
   const act = (fn, ok) => ctx.run(async () => { try { return fill(ok, await fn() || {}); } catch (e) { const m = String(e?.message || ''); return Object.keys(K.err).some(k => m.includes(k)) ? khErr(game, e) : /[À-ỹ]/.test(m) ? m : K.err.other; } }, r => r);
   const head = t => list.append(el('div', 'guild-head', t));
