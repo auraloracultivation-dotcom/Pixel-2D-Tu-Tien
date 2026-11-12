@@ -110,7 +110,7 @@ async function buy(game, x) {
 export async function talkShop(game, npc) {
   let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
-    const list = C(game).items.filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && game.save.boughtSkills?.includes(x.ref)));   // chiêu đã học thì thôi bán
+    const list = C(game).items.filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && (game.save.boughtSkills?.includes(x.ref) || game.data['phap-bao']?.all)));   // chiêu đã học thì thôi bán; hệ pháp bảo mới (12/11/2026): chiêu cũ thôi bán (báo lỗi #155: danh sách dài, khó vuốt)
     const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${priceOf(game, x).toLocaleString('vi-VN')} ${C(game).name}${x.kind === 'skill' ? ' · ' + game.data.skills[x.ref].desc : ''}`, color: coins(game.save) >= priceOf(game, x) ? '#f2c94c' : '#b8b0c8' }));
     opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });

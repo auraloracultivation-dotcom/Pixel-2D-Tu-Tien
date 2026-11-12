@@ -53,3 +53,8 @@ html body #toast { top: 50% !important; bottom: auto !important; left: 50% !impo
   box-shadow: 0 0 18px rgba(62, 200, 240, .55), inset 0 0 12px rgba(62, 200, 240, .18) !important; padding: 12px 16px !important; min-height: 0 !important;
   width: max-content; max-width: min(86vw, 360px) !important; color: #e8f8ff !important; font-size: 15px !important; text-align: center; }
 html body #toast::before { display: none !important; }
+
+/* Báo lỗi #155 (11/11/2026): Vạn Bảo Lâu không vuốt lên được trên iPhone. Danh sách lựa chọn và mọi nút con trong đó cho vuốt dọc
+   (html, body đặt touch-action: none cho cần gạt; Safari xét cả phần tử con), cuộn mượt kiểu iOS */
+#dialog .choices, #dialog .choices * { touch-action: pan-y; }
+#dialog .choices { -webkit-overflow-scrolling: touch; }
