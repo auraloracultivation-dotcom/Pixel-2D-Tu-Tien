@@ -79,6 +79,7 @@ export function dailyGo(game, id) {
     if (d.go.fn && typeof game[d.go.fn] === 'function') { game[d.go.fn](d.go.arg); return 'panel'; }
     if (d.go.btn && game.openOldPanel) { game.openOldPanel({ btn: d.go.btn }); return 'panel'; }
   }
+  if (d.type === 'dungeon' && game.openDungeons) { game.openDungeons(null); return 'dungeon'; }   // Vượt bí cảnh: mở bảng Bí cảnh
   if (d.type === 'pat' && game.pet) {   // vuốt ve linh thú: Đi làm thì vuốt luôn (chủ dự án 12/11/2026 10:50: không tự làm, không có nút)
     import('./pat.js').then(P => { for (let i = 0; i < d.n; i++) setTimeout(() => game.pet && P.patPet(game), i * 500); });
     return 'hint';
