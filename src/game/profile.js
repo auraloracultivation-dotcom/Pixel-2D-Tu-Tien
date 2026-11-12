@@ -60,6 +60,12 @@ export function cleanSave(data, s) {
   const skillLv = {};
   for (const [id, lv] of Object.entries(obj(s.skillLv))) if (data.skills[id]) skillLv[id] = num(lv, 1);
   const snack = obj(s.snack);
+  // pháp bảo đang mặc (hệ Pháp Bảo Luyện Chế, chủ dự án 12/11/2026 11:01: hồ sơ người khác phải thấy): loại, phẩm, chiêu khảm phải có thật
+  const PBD = data['phap-bao'], pbIn = obj(s.phapBao), pbItems = (Array.isArray(pbIn.items) ? pbIn.items : []).slice(0, 4).map(i => obj(i))
+    .filter(i => PBD?.types?.[i.type] && (PBD.grades || []).some(g => g.id === i.grade) && Number.isFinite(i.uid))
+    .map(i => ({ uid: i.uid, type: i.type, grade: i.grade, lv: Math.max(0, Math.floor(num(i.lv))), slots: Math.max(1, Math.min(4, Math.floor(num(i.slots, 1)))),
+      mods: (Array.isArray(i.mods) ? i.mods : []).slice(0, 4).map(m => (PBD.mods?.[m] ? m : null)), miss: 0 }));
+  const phapBao = { items: pbItems, wear: [0, 1, 2, 3].map(k => (pbItems.some(i => i.uid === (Array.isArray(pbIn.wear) ? pbIn.wear[k] : null)) ? pbIn.wear[k] : null)), stones: 0, next: 1, got: [] };
   return {
     realm: Math.max(0, Math.min(R.names.length - 1, Math.floor(num(s.realm)))),
     layer: Math.max(1, Math.min(R.layers, Math.floor(num(s.layer, 1)))),
@@ -74,6 +80,7 @@ export function cleanSave(data, s) {
     pet, pets: pet ? { [pet]: beast(pst) } : {},
     companion: comp, companion2: comp2, comps,
     mount, mountLine: ml && data.items.stats[ml.s] && Number.isFinite(ml.v) ? { [mount]: lines([ml])[0] } : {},
+    phapBao,
     look: data.heroes.list[s.look] ? s.look : data.heroes.default, outfit: typeof s.outfit === 'string' ? s.outfit : undefined, gioi: s.gioi,
   };
 }
