@@ -2258,6 +2258,8 @@
  ],
  "points": 25,
  "cost": 100,
+ "ls_on": false,
+ "_ls_on": "Nút Lịch sử triệu hồi (đề xuất #153, src/ui/he-thong-qua.js): bật true SAU KHI migration 20261113030000_p2d_ht_ls_cua_toi.sql đã áp lên máy chủ (chờ chủ dự án nói \"áp lên\"); đang false để bản đưa lên không lộ nút chưa có hàm máy chủ.",
  "show_n": 3,
  "_missions": "Nhiệm vụ hệ thống (chủ dự án 06/11/2026 16:49–18:03): dắt người mới từ không biết gì, không có gì thành có đủ mọi thứ. Mỗi nhiệm vụ points điểm như nhau và quà qua (vào Hòm thư): nhiệm vụ trước cho đúng thứ cần cho nhiệm vụ sau (đồ cho mặc, Tinh Thiết cho cường hoá, đồ có ô và ngọc cho khảm, đan cho lên tầng). qua: coins | mat+n | gem \"loại:cấp\"+n | pill+n | gear bậc màu (slot \"thieu\": máy chủ chọn ô ký chủ chưa mặc). hoi: nhiệm vụ câu hỏi lựa chọn (dap: đáp án đúng, máy chủ kiểm; sai: câu trêu riêng cho từng đáp án sai theo thứ tự opts, chỗ đáp án đúng để null; chọn lại được). xong: câu hệ thống nói khi nhận. dk: step, realm (+layer), equip, techs, plus, socket, pets, mounts, dap. Máy chủ kiểm lại trên bản lưu trên máy chủ (bảng p2d_ht_nv sinh bằng tools/he-thong-sql.py). Hiện show_n nhiệm vụ chưa nhận đầu tiên.",
  "pool": [

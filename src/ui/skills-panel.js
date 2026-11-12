@@ -28,7 +28,7 @@ export function createSkillsPanel(game) {
   const need = n => `${data.realms.names[Math.floor(n / data.realms.layers)]} tầng ${n % data.realms.layers + 1}`;
 
   function render() {
-    const pb = pbOn(game);   // hệ Pháp Bảo Luyện Chế (tài khoản thử): ẩn chiêu cũ, chỉ còn công pháp (chủ dự án 12/11/2026 03:35)
+    const pb = pbOn(game);   // hệ Pháp Bảo Luyện Chế (từ Mùa 2: mọi tài khoản): ẩn chiêu cũ, chỉ còn công pháp (chủ dự án 12/11/2026 03:35)
     if (pb && tab === 'chieu') tab = 'cong-phap';
     for (const b of document.querySelectorAll('#skills-tabs [data-tab="chieu"]')) b.hidden = pb;
     for (const b of document.querySelectorAll('#skills-tabs [data-tab]')) b.classList.toggle('on', b.dataset.tab === tab);

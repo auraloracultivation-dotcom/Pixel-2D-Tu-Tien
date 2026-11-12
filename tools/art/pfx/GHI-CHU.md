@@ -21,7 +21,25 @@ hiệu ứng đẹp âm thanh tốt là thứ cần nhất". Làm xong phải **
   Bật thử: địa chỉ `?pfx=1` (nhớ trên máy), tắt `?pfx=0`; mặc định theo `vfx.json → px_on`.
 - Thử trong game: `<scratchpad>/pfx/lab.mjs` (máy giả iPhone, đặt quái, tung chiêu, chép khung vẽ theo từng mốc thời gian) + `sheet.py`.
 
+## Đòn pháp bảo (13/11/2026 sáng)
+
+Từ Mùa 2 (12/11/2026 04:07, `data/phap-bao.json → all: true`) 3 nút chiêu + nút pháp bảo cũ là 4 ô **pháp bảo**; 48 chiêu cũ ẩn với mọi người (chỉ còn ở So tài).
+Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm lại toàn bộ phần hình + tiếng của 8 pháp bảo và 19 chiêu khảm (bộ cũ: ảnh GPT `vfx.vk-kiem`, `vfx.am`,
+`vfx.tran-kim`, chuyển động SpriteCook `pbfx.*`, hình `pb.*` phóng to, nét vectơ mảnh).
+
+- Hình: `pb-kiem` (+ `pb-kiem-khi`), `pb-chau`, `pb-manh`, `pb-quat`, `pb-phong`, `pb-an`, `pb-khien`, `pb-chuong`, `pb-co`, `pb-tran`, `pb-tran-mo`, `pb-holo`,
+  `pb-no`, `pb-trung`, `pb-set`, `tt-lua / bang / lanh / re / pha` (dấu hệ trên quái). Nguồn mới: `fx/chau.js`, `manh.js`, `quat.js`, `an.js`, `co.js`, `ho-lo.js`,
+  `chuong.js`, `tt.js`; `van-kiem.js` thêm kiếm mảnh (`slim`) và tô lưỡi bằng `p.shade` (trước chấm từng điểm: rỗ ở góc 45°).
+- Cỡ: vật vẽ `k: 2` (cùng cỡ điểm nhân vật), nhân theo `vis` của món (phẩm × cấp), làm tròn nửa điểm; tia trúng `k: 1`. Hình vùng (`pb-tran` bán kính 96 điểm)
+  dựng đúng bán kính đòn. Nổ không to quá 3 (Đánh Lan 2,5).
+- Ghép: hình dựng sẵn + nét điểm ảnh vẽ thẳng (`pfx-shape.js`) + hạt. Đổi màu theo hệ: `pfx-pal.js`, dải ở `data/vfx.json → pb.ramps`.
+- Đo (máy giả, vẽ bằng phần mềm, 7 đòn phẩm cao cùng lúc mỗi 0,75 giây): bộ cũ 21 ms / khung, bộ mới 29–32 ms; phần nặng là lớp sáng cộng và quầng lớn
+  → đã bỏ lớp sáng của tấm phù văn lớn, bóng mờ, quầng phủ cả vùng; máy ở mức nhẹ nhất bỏ hẳn lớp sáng. Điện thoại thật vẽ bằng GPU, cần chủ dự án thử.
+- Phòng thử: `<scratchpad>/pfx/pblab.mjs <ra> <loại[:phẩm[:cấp[:chiêu+chiêu]]]…> --q pfx=1 [--times …] [--dir x,y] [--mobs n]`, `pbplay.mjs` (ghi tiếng đã phát),
+  `play.mjs` (bấm nút thật), `perf.mjs` (đo khung).
+
 ## Việc còn lại
 
-Xem danh sách việc trong phiên làm việc (đạn + nổ, chiêu vùng + trận + vùng kéo dài, khiên / hồi máu / lướt / chiêu kiếm, âm thanh,
-quay đoạn xem trước). Cập nhật mục này mỗi khi xong một cụm.
+- Chủ dự án xem trước → duyệt → `px_on: true`.
+- Người khác chưa thấy đòn pháp bảo của nhau (bộ cũ cũng chưa có).
+- 48 chiêu cũ: chủ dự án chưa trả lời có mở lại không; nếu có thì rà thêm biểu tượng và cỡ điểm cho cùng chuẩn với pháp bảo.

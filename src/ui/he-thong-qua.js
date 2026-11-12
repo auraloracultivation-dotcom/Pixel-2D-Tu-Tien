@@ -168,7 +168,7 @@ export function renderGacha(game, body, ht, onDone) {
   for (const p of H.pool) { const L = look(game, p), r = el('div', `ht-odd${rank(p) > 1 ? ' rare' : ''}`), s = el('span', null, L.name); s.style.color = L.glow; r.append(s); tb.append(r); }
   body.append(tb);
   // Lịch sử triệu hồi của mình (đề xuất #153): bấm mở / gập, 50 lần gần nhất từ máy chủ
-  if (!game.cloud || !X.ls_btn) return;
+  if (!game.cloud || !X.ls_btn || !H.ls_on) return;   // ls_on: bật sau khi hàm máy chủ p2d_ht_ls_cua_toi đã áp lên (data/he-thong.json)
   const lsBtn = el('button', 'ht-btn', X.ls_btn), ls = el('div', 'ht-feed ht-ls');
   lsBtn.type = 'button'; ls.hidden = true;
   const hm = d => { const t = new Date(d); return `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')} ${t.getDate()}/${t.getMonth() + 1}`; };
