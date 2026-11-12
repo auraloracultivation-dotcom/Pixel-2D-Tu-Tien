@@ -2,6 +2,7 @@
 // game.dunMode = chỉ số bậc L đếm từ 0 (0 = Dễ bậc 1, 10 = Trung bậc 1, ...). Qua cấp cuối thì đánh số tiếp (Vô Gian 2…).
 import { grant, dailyEvent } from './daily.js';
 import { runsLeft, useRun, rewardOf, finishRun, sweep } from './dun-run.js';
+import { pbDrop } from './phap-bao-drop.js';
 
 const C = game => game.data.dungeon;
 
@@ -75,6 +76,7 @@ export function dungeonDone(game) {
   const s = game.save, id = game.map.id, D = C(game), L = game.dunMode || 0, T = D.texts;
   const pt = game.party, guest = !!pt?.run && pt.roster[0]?.id !== pt.me;   // tổ đội: chỉ đội trưởng tăng bậc (chủ dự án chốt 30/10), thành viên vẫn nhận quà lượt ngày
   const was = cleared(game, id), first = !guest && L >= was;
+  if (!guest) pbDrop(game, 'dun', L);   // phá bí cảnh có thể ra pháp bảo (src/game/phap-bao-drop.js)
   dailyEvent(game, 'dungeon', id);   // việc ngày Vượt bí cảnh: phá bất kỳ bí cảnh nào (chủ dự án 12/11/2026 11:30)
   if (!guest) (s.dunLv2 ??= {})[id] = Math.max(was, L + 1);
   else game.toast(T.guest, 2.4);

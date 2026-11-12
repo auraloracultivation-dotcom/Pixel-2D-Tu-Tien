@@ -6,6 +6,7 @@ import { pbIcon } from './phap-bao-hud.js';
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { dailyEvent } from '../game/daily.js';
+import { pbSell, pbPrice } from '../game/phap-bao-drop.js';
 
 const PCT = new Set(['speed', 'atk_pct', 'hp_pct', 'crit', 'crit_dmg', 'cdr', 'dr', 'regen_pct', 'mp_regen']);
 const ico = (game, id, f, cls) => { const i = el('i', cls); i.style.backgroundImage = pbIcon(game, id, f || 0, 48); return i; };
@@ -65,6 +66,11 @@ export function pbSheet(game, st, box, changed, close) {
   btn(U.up_btn, upOff ? U.cap : `${pbUpCost(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => { const m = pbUpgrade(game, it); if (!m) dailyEvent(game, 'pbup'); say(m || `${T.name} lên cấp ${it.lv}!`); }, upOff, false, 'cuong-hoa');
   const drOff = it.slots >= max;
   btn(U.drill_btn, drOff ? U.max : `${Math.round((D.drill.rate[it.slots - 1] ?? 0) * 100)}% · có ${s.stones || 0} đá`, () => say(pbDrill(game, it).msg), drOff || !(s.stones > 0), false, 'kham');
+  if (s.wear.includes(it.uid)) btn(U.sell_btn, U.sell_worn, () => {}, true, false, 'ban');   // bán: món không mặc, chạm hai lần (src/game/phap-bao-drop.js)
+  else btn(st.pbSell === it.uid ? U.sell_sure : U.sell_btn, `${pbPrice(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => {
+    if (st.pbSell !== it.uid) { st.pbSell = it.uid; return changed(false); }
+    st.pbSell = null; const m = pbSell(game, it); st.pbSel = null; game.toast(m, 2.4); changed();
+  }, false, st.pbSell === it.uid, 'ban');
   box.append(acts);
   // 4 ô khảm nối mũi tên (chạm chọn ô, rồi chạm chiêu bên dưới)
   box.append(el('div', 'd-label spb-lb', `${U.slots} · ${U.order}`));
