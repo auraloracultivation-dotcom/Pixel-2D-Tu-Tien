@@ -15,5 +15,15 @@ perl -pi -e "s#(style-[a-z0-9-]+\.css)#\$1?v=$V#g" style.css
 sed -i "s#const BUILD = 'dev'#const BUILD = '$V'#" src/core/data.js
 node -e "const fs=require('fs');const src=fs.readFileSync('src/core/data.js','utf8');const F=JSON.parse(src.match(/const FILES = (\[[^\]]*\])/)[1].replace(/'/g,'\"'));const d={maps:{}};for(const f of F)d[f]=JSON.parse(fs.readFileSync('data/'+f+'.json','utf8'));for(const id of d.config.maps)d.maps[id]=JSON.parse(fs.readFileSync('data/maps/'+id+'.json','utf8'));fs.writeFileSync('data/_all.json',JSON.stringify(d))"   # gộp data một file (src/core/data.js)
 sed -i "s#const V = 'dev'#const V = '$V'#" sw.js
+# Nén code (chủ dự án 13/11/2026 12:49): bỏ chú thích, rút gọn tên biến trong từng file JS, CSS; giữ nguyên tên file và đường import
+# nên game chạy y như cũ, tải nhẹ hơn (~25%), khó đọc hơn. Dùng esbuild có sẵn (ESBUILD=<đường dẫn>, hoặc bản đi kèm Vercel CLI);
+# không có thì bỏ qua bước này, vẫn đưa bản chưa nén. Không áp cho file trong src/vendor (đã nén sẵn).
+ES="${ESBUILD:-$(npm root -g 2>/dev/null)/vercel/node_modules/@esbuild/linux-x64/bin/esbuild}"
+if [ -x "$ES" ]; then
+  "$ES" $(find src -name '*.js' -not -path 'src/vendor/*') --minify --format=esm --charset=utf8 --outdir=. --outbase=. --allow-overwrite --log-level=warning
+  "$ES" sw.js --minify --charset=utf8 --outfile=sw.js --allow-overwrite --log-level=warning   # sw.js không phải module
+  "$ES" $(ls *.css src/ui/*.css 2>/dev/null) --minify --charset=utf8 --outdir=. --outbase=. --allow-overwrite --log-level=warning
+  echo "đã nén JS, CSS"
+else echo "không thấy esbuild: bỏ qua bước nén"; fi
 printf '.env*\n.vercel\n' > .vercelignore   # không bao giờ đưa khoá (vercel env pull) lên trang công khai
 echo "built $OUT ($V)"
