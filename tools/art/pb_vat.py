@@ -333,10 +333,16 @@ def ho_lo_src():
 def ho_lo(xem=None):
     than, nut = ho_lo_src()
     B = Bang(over(than, nut), HL_MAU); T, N = B.lop(than), B.lop(nut)
-    k, n, piv, axis = HL['k'], cell(HL['k'], HL['R']), HL['piv'], HL['axis']
+    piv, axis = HL['piv'], HL['axis']
     bx, by, br = HL['bulb']
     if xem:
         show(B.rgba(np.where(T > 0, T, N)), Path(xem) / 'ho-lo-ban-ve.png', 2); print(' sắc độ tìm được:', B.auto())
+    for sfx, k in (('', HL['k']), ('-2', HL['k'] / 1.5)):          # '-2': cỡ lớn cho phẩm cao, dựng thẳng từ bản vẽ (không phóng điểm ảnh)
+        ho_lo_co(B, T, N, piv, axis, (bx, by, br), k, sfx, xem)
+
+
+def ho_lo_co(B, T, N, piv, axis, bulb, k, sfx, xem):
+    n = cell(k, HL['R']); bx, by, br = bulb
 
     def khung(q, deg, turn=0.0):
         """Thân ở dáng q + nút gỗ treo lệch deg độ (nút nằm sau thân)."""
@@ -351,11 +357,11 @@ def ho_lo(xem=None):
         u = (i + 0.3) / 12
         f = khung(Q[v], -58 + 14 * max(0, 1 - u * 5) + 7 * math.sin(u * math.tau * 4))
         fr.append(loang(f, B, k, -170 + ((u * 2) % 1) * 340, 16, ['vang']))
-    xuat('pb-holo', [fr], B, {'fps': 12, 'dur': 1.0, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải'}, xem)
+    xuat('pb-holo' + sfx, [fr], B, {'fps': 12, 'dur': 1.0, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải'}, xem)
     # phun: ba thế × 9 hướng (0..90 độ, miệng chúc theo hướng đánh): 0 căng phồng lấy đà, 1 đang phun (vươn tới, nút gỗ bị hất ngược ra sau), 2 xẹp lại
     P = [(-12, dict(squash=(0.9, 1.08), bulge=(bx, by, br * 1.4, 0.3))), (-100, dict(squash=(1.07, 0.95), bulge=(bx, by, br * 1.4, 0.1))), (-70, dict(squash=(1, 1)))]
     cells = [[khung(q, deg, d * 90 / 8 - HL['aim']) for deg, q in P] for d in range(9)]
-    xuat('pb-holo-phun', cells, B, {'fps': 10, 'times': [0, 0.08, 0.42], 'dur': 0.62, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh'}, xem)
+    xuat('pb-holo-phun' + sfx, cells, B, {'fps': 10, 'times': [0, 0.08, 0.42], 'dur': 0.62, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh'}, xem)
 
 
 # ================================================================ Đại Ấn
@@ -370,15 +376,20 @@ DA_MAU = [   # ngọc bích (kỳ lân, khối ấn), nẹp vàng hồi văn
 
 def dai_an(xem=None):
     a = biggest(load('pb-dai-an.png'))
-    B = Bang(a, DA_MAU); T = B.lop(a)
-    k, n, piv = DA['k'], cell(DA['k'], DA['R']), DA['piv']
+    B = Bang(a, DA_MAU); T = B.lop(a); piv = DA['piv']
     if xem:
         show(B.rgba(T), Path(xem) / 'dai-an-ban-ve.png', 2); print(' sắc độ tìm được:', B.auto())
+    for sfx, k in (('', DA['k']), ('-2', DA['k'] / 1.5)):          # '-2': cỡ lớn cho phẩm cao
+        dai_an_co(B, T, piv, k, sfx, xem)
+
+
+def dai_an_co(B, T, piv, k, sfx, xem):
+    n = cell(k, DA['R'])
     than = ve(T, n, dang(piv, k, n, -90), B)
     fr = [loang(than, B, k, -400 + i / 8 * 640, 26, ['ngoc', 'vang']) for i in range(8)]
-    xuat('pb-an', [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy'}, xem)
+    xuat('pb-an' + sfx, [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy'}, xem)
     fr = [ve(T, n, dang(piv, k, n, -90, squash=q), B) for q in [(0.86, 1.1), (0.95, 1.04)]] + [than]
-    xuat('pb-an-dap', [fr], B, {'fps': 10, 'times': [0, 0.07, 0.15], 'dur': 0.6, 'loop': False, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp'}, xem)
+    xuat('pb-an-dap' + sfx, [fr], B, {'fps': 10, 'times': [0, 0.07, 0.15], 'dur': 0.6, 'loop': False, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp'}, xem)
 
 
 # ================================================================ Hộ Thuẫn
@@ -420,9 +431,14 @@ def tran_ky(xem=None):
     B = Bang(a, TK_MAU); T = B.lop(a)
     for t in (2, 3, 4, 5):
         B.w[B.base[B.name['vang']] + t] = 1.45       # nét thêu vàng mảnh hơn một điểm hình: cho nặng phiếu để hình bát quái còn liền nét
-    k, n, piv = TK['k'], cell(TK['k'], TK['R']), TK['piv']
     if xem:
         show(B.rgba(T), Path(xem) / 'tran-ky-ban-ve.png', 1); print(' sắc độ tìm được:', B.auto())
+    for sfx, k in (('', TK['k']), ('-2', TK['k'] / 1.5)):          # '-2': cỡ lớn cho phẩm cao
+        tran_ky_co(B, T, k, sfx, xem)
+
+
+def tran_ky_co(B, T, k, sfx, xem):
+    n, piv = cell(k, TK['R']), TK['piv']
     vai = np.isin(np.array(B.mat), [B.name['lam'], B.name['tim'], B.name['vang']]); up, down = np.array(B.up), np.array(B.down)
 
     def song(x, y, w):
@@ -443,7 +459,7 @@ def tran_ky(xem=None):
         c = np.cos(ph + 0.9); fold = (A > 4) & vai[f]                      # nếp vải: sườn đón sáng nhạt lên một nấc, sườn khuất sẫm xuống một nấc
         f = np.where(fold & (c > 0.6), up[f], np.where(fold & (c < -0.6), down[f], f))
         fr.append(f)
-    xuat('pb-co', [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-tran-ky.png', 'note': 'Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất'}, xem)
+    xuat('pb-co' + sfx, [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-tran-ky.png', 'note': 'Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất'}, xem)
 
 
 # ================================================================ Phi Kiếm

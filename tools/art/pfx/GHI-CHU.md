@@ -80,7 +80,8 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 
 - Ba món còn lại đồ lại theo tranh mẫu như năm món đã làm (thứ tự đề nghị: Linh Châu, Bảo Phiến, Đồng Chung),
   mỗi món hiệu ứng riêng, không mượn hình của món khác.
-- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh). Hộ Thuẫn đã có; Hồ Lô, Đại Ấn chưa (món vẫn vẽ k 1, chỉ hiệu ứng to lên).
+- Món phẩm cao: cả năm món đã có bản lớn gấp rưỡi `-2` dựng thẳng từ bản vẽ phẳng (`ve()` với k nhỏ hơn); game chọn bằng `pbBig` / `pbT2` (cỡ đòn từ 1,5), khoảng cách
+  gắn hiệu ứng (miệng hồ lô, vạch tốc độ của ấn…) nhân 1,5 theo. Việc còn lại: chỉ tải sẵn đúng cỡ món đang mặc (hiện tải cả hai cỡ).
 - Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.
 - Người khác chưa thấy đòn pháp bảo của nhau (bộ cũ cũng chưa có).
 - 48 chiêu cũ: chủ dự án muốn xoá (13/11 07:17). Chưa đụng; So tài còn dùng, phải hỏi lại trước khi gỡ.

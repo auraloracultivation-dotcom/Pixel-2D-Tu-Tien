@@ -7,7 +7,7 @@ import { pfxBegin, pfxDraw, pfxWarm } from './vfx/pfx.js';
 import { pfxTint } from './vfx/pfx-pal.js';
 import { pxRing, pxArc, pxLine, pxDot, pxGlow } from './vfx/pfx-shape.js';
 import { darkness } from './draw-lights.js';
-import { pbRamp, pbK, pbVis, pbSeal, pbGourd } from '../game/pb-px.js';
+import { pbRamp, pbK, pbVis, pbSeal, pbGourd, pbBig as big, pbT2 } from '../game/pb-px.js';
 import { pbWorn } from '../game/phap-bao.js';
 
 const TAU = Math.PI * 2, GOLD = '#ffd25a';
@@ -15,11 +15,10 @@ const cfg = game => game.data.vfx.pb;
 const lightK = game => (+(document.body.dataset.perf || 0) >= 3 ? 0 : (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game));   // như draw-pfx.js: máy ở mức nhẹ nhất thì bỏ lớp sáng cộng
 const rc = (R, u) => R[Math.max(0, Math.min(R.length - 1, Math.round(u * (R.length - 1))))];   // màu ở vị trí u (0 tối .. 1 sáng) của dải
 const lookOf = e => e.cast?.look || {};
-const big = e => pbVis(e) >= 1.5;   // phẩm cao: món đồ theo tranh mẫu dùng bản dựng sẵn lớn gấp rưỡi ('-2'), không phóng điểm ảnh
 
 // ---- tải sẵn hình và đổi màu sẵn cho các món đang mặc (mỗi khung một tấm, khỏi khựng lúc đánh)
 const COMMON = ['pb-tran-mo', 'pb-trung', 'pb-no', 'pb-manh'];
-const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-2', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien', 'pb-thuan', 'pb-khien-vo', 'pb-khien-2', 'pb-thuan-2', 'pb-khien-vo-2'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
+const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-2', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-2', 'pb-an-dap-2', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien', 'pb-thuan', 'pb-khien-vo', 'pb-khien-2', 'pb-thuan-2', 'pb-khien-vo-2'], am: ['pb-chuong'], tran: ['pb-co', 'pb-co-2', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-2', 'pb-holo-phun-2', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
 const BY_EL = { hoa: ['tt-lua'], thuy: ['tt-bang', 'tt-lanh'], moc: ['tt-re'], kim: ['tt-pha'] };
 let sig = null;
 const jobs = [];
@@ -163,25 +162,26 @@ function shieldG(ctx, game, art, e, t) {
   if (e.done) return;
   const p = game.player, h = e.px.hit != null ? (e.t - e.px.hit) / 0.3 : 2, drop = e.t < 0.18 ? (1 - e.t / 0.18) ** 2 * 12 : 0;
   const base = e.t < 0.45 ? Math.min(1, e.t / 0.1) : Math.max(0.5, 1 - (e.t - 0.45) / 0.4), a = Math.max(base, h < 1 ? 1 - 0.5 * h : 0) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1);
-  pfxDraw(ctx, art, big(e) ? 'pb-thuan-2' : 'pb-thuan', p.x, p.y - 11 - drop, t, { loop: true, k: 1, a });
+  pfxDraw(ctx, art, 'pb-thuan' + pbT2(e), p.x, p.y - 11 - drop, t, { loop: true, k: 1, a });
 }
 // Lớp trên: vòm mai rùa bọc quanh người (hiệu ứng riêng), vừa đỡ đòn thì gợn một vành sáng
 function shield(ctx, game, art, e, R, pal, t) {
   if (e.done) return;
   const p = game.player, K = big(e) ? 1.5 : 1, h = e.px.hit != null ? (e.t - e.px.hit) / 0.2 : 2;
-  pfxDraw(ctx, art, big(e) ? 'pb-khien-2' : 'pb-khien', p.x, p.y - 11, t, { loop: true, k: 1, pal, a: Math.min(1, e.t * 6) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1), light: h < 1 ? 2 - h : 1 });
+  pfxDraw(ctx, art, 'pb-khien' + pbT2(e), p.x, p.y - 11, t, { loop: true, k: 1, pal, a: Math.min(1, e.t * 6) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1), light: h < 1 ? 2 - h : 1 });
   if (h >= 0 && h < 1) pxArc(ctx, p.x, p.y - 11, (17 + 6 * h) * K, 1, 0, Math.PI * 2, 1, h < 0.4 ? '#ffffff' : rc(R, 0.8), 1 - h, 2);
 }
 
 function sealT(ctx, game, art, e, R) {   // khối ấn treo trên cao rồi giáng xuống
   // Khối ấn đồ theo tranh mẫu (tools/art/pb_vat.py), vẽ 1 điểm hình = 1 điểm màn hình như nhân vật: cao 48 đơn vị trên điểm neo (tâm đáy), rộng 48
-  const vis = pbVis(e), [bx, by] = pbSeal(e, vis), k = Math.min(1, e.t / e.life), u = Math.max(0, (k - 0.55) / 0.45), a = Math.min(1, e.t * 7);
+  // (phẩm cao: bản dựng sẵn lớn gấp rưỡi, mọi khoảng cách nhân q)
+  const vis = pbVis(e), [bx, by] = pbSeal(e, vis), k = Math.min(1, e.t / e.life), u = Math.max(0, (k - 0.55) / 0.45), a = Math.min(1, e.t * 7), q = big(e) ? 1.5 : 1, s = 'pb-an' + pbT2(e);
   if (u > 0.12) {
-    for (let i = 2; i >= 1; i--) pfxDraw(ctx, art, 'pb-an', bx, by - i * 20 * u, e.t, { loop: true, k: 1, a: 0.28 / i, light: 0 });   // bóng mờ kéo phía trên
-    for (const dx of [-18, 0, 18]) pxLine(ctx, [[bx + dx, by - (dx ? 40 : 50)], [bx + dx, by - (dx ? 40 : 50) - 52 * u]], 1, rc(R, dx ? 0.7 : 0.9), 0.65 * u, 2);   // vạch tốc độ
+    for (let i = 2; i >= 1; i--) pfxDraw(ctx, art, s, bx, by - i * 20 * u * q, e.t, { loop: true, k: 1, a: 0.28 / i, light: 0 });   // bóng mờ kéo phía trên
+    for (const dx of [-18, 0, 18]) pxLine(ctx, [[bx + dx * q, by - (dx ? 40 : 50) * q], [bx + dx * q, by - ((dx ? 40 : 50) + 52 * u) * q]], 1, rc(R, dx ? 0.7 : 0.9), 0.65 * u, 2);   // vạch tốc độ
   }
-  pfxDraw(ctx, art, 'pb-an', bx, by, e.t, { loop: true, k: 1, a });
-  pxGlow(ctx, bx, by - 24, 52, rc(R, 0.65), 0.22 + 0.25 * k);
+  pfxDraw(ctx, art, s, bx, by, e.t, { loop: true, k: 1, a });
+  pxGlow(ctx, bx, by - 24 * q, 52 * q, rc(R, 0.65), 0.22 + 0.25 * k);
 }
 
 function zap(ctx, e, R) {   // tia nảy sang con kế: gấp khúc, đổi dáng liên tục
@@ -217,7 +217,7 @@ export function drawPbPx(ctx, game, t) {
     if (!e.px) continue;
     const pal = pbRamp(game, e), R = C.ramps[pal];
     switch (e.kind) {
-      case 'zone': { const a = Math.min(1, e.t / 0.1, (e.life - e.t) / 0.4), d = e.t < 0.16 ? 1 - (e.t / 0.16) ** 2 : 0; pfxDraw(ctx, art, 'pb-co', e.x, e.y - d * 70, t, { loop: true, k: 1, a }); break; }   // cờ trận (đồ theo tranh mẫu, cỡ điểm nhân vật) rơi xuống cắm giữa vùng, phất trong gió
+      case 'zone': { const a = Math.min(1, e.t / 0.1, (e.life - e.t) / 0.4), d = e.t < 0.16 ? 1 - (e.t / 0.16) ** 2 : 0; pfxDraw(ctx, art, 'pb-co' + pbT2(e), e.x, e.y - d * 70, t, { loop: true, k: 1, a }); break; }   // cờ trận (đồ theo tranh mẫu, cỡ điểm nhân vật) rơi xuống cắm giữa vùng, phất trong gió
       case 'seal': sealT(ctx, game, art, e, R); break;
       case 'wave': wave(ctx, e, R); break;
       case 'shot': shot(ctx, game, art, e, R, pal); break;
@@ -225,7 +225,7 @@ export function drawPbPx(ctx, game, t) {
       case 'shield': shield(ctx, game, art, e, R, pal, t); break;
       case 'suck': {   // Hồ Lô hít: trái hồ lô (đồ theo tranh mẫu, bụng phồng dần) lơ lửng trên đầu, phễu linh khí xoáy vào miệng
         const [gx, gy, mx, my, K, flip] = pbGourd(game, e), f = Math.min(11, Math.floor(e.t / e.life * 12)), a = Math.min(1, e.t * 9);
-        pfxDraw(ctx, art, 'pb-holo', gx, gy, 0, { f, k: 1, flip, a }); pfxDraw(ctx, art, 'pb-holo-xoay', mx, my, 0, { f, k: K, flip, pal, a });
+        pfxDraw(ctx, art, 'pb-holo' + pbT2(e), gx, gy, 0, { f, k: 1, flip, a }); pfxDraw(ctx, art, 'pb-holo-xoay', mx, my, 0, { f, k: K, flip, pal, a });
         pxGlow(ctx, mx, my, 12 * K, rc(R, 0.75), 0.3 + 0.3 * e.t / e.life);
         break;
       }

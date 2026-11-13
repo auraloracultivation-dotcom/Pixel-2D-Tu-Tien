@@ -18542,6 +18542,25 @@
    "k": 0.5,
    "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy (tools/art/pb_vat.py)"
   },
+  "pfx.pb-an-2": {
+   "file": "assets/art/pfx-pb-an-2.png",
+   "v": "ea3f9bd1",
+   "w": 146,
+   "h": 180,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    74,
+    145
+   ],
+   "k": 0.5,
+   "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy (tools/art/pb_vat.py)"
+  },
   "pfx.pb-an-dap": {
    "file": "assets/art/pfx-pb-an-dap.png",
    "v": "66205e65",
@@ -18557,6 +18576,30 @@
    "anchor": [
     54,
     97
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.07,
+    0.15
+   ],
+   "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-dap-2": {
+   "file": "assets/art/pfx-pb-an-dap-2.png",
+   "v": "d1d85ca6",
+   "w": 160,
+   "h": 180,
+   "frames": 3,
+   "rows": 1,
+   "n": 3,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    81,
+    145
    ],
    "k": 0.5,
    "times": [
@@ -18860,6 +18903,25 @@
    "k": 0.5,
    "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất (tools/art/pb_vat.py)"
   },
+  "pfx.pb-co-2": {
+   "file": "assets/art/pfx-pb-co-2.png",
+   "v": "182c68b0",
+   "w": 174,
+   "h": 196,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    51,
+    194
+   ],
+   "k": 0.5,
+   "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất (tools/art/pb_vat.py)"
+  },
   "pfx.pb-holo": {
    "file": "assets/art/pfx-pb-holo.png",
    "v": "a6c7f7d7",
@@ -18870,11 +18932,30 @@
    "n": 12,
    "dirs": 1,
    "fps": 12,
-   "dur": 1,
+   "dur": 1.0,
    "loop": false,
    "anchor": [
     44,
     80
+   ],
+   "k": 0.5,
+   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-2": {
+   "file": "assets/art/pfx-pb-holo-2.png",
+   "v": "f06bce2a",
+   "w": 159,
+   "h": 202,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1.0,
+   "loop": false,
+   "anchor": [
+    66,
+    120
    ],
    "k": 0.5,
    "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải (tools/art/pb_vat.py)"
@@ -18894,6 +18975,30 @@
    "anchor": [
     76,
     60
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.08,
+    0.42
+   ],
+   "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-phun-2": {
+   "file": "assets/art/pfx-pb-holo-phun-2.png",
+   "v": "3d2d8fac",
+   "w": 234,
+   "h": 207,
+   "frames": 3,
+   "rows": 9,
+   "n": 3,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.62,
+   "loop": false,
+   "anchor": [
+    113,
+    89
    ],
    "k": 0.5,
    "times": [

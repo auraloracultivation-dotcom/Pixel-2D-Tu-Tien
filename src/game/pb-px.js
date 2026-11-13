@@ -16,6 +16,8 @@ export const pbPx = game => pxOn(game) && !!game.data.vfx.pb;
 // Dải màu của một đòn: hệ khảm sau cùng của nút, không thì dải riêng của món
 export function pbRamp(game, e) { const N = e.node || e.cast?.root, el = N?.els?.[N.els.length - 1]; return el || cfg(game).base[e.cast?.it?.type] || 'vang'; }
 export const pbVis = e => e.cast?.vis || 1;
+// Phẩm cao (cỡ đòn từ 1,5): món đồ theo tranh mẫu dùng bản dựng sẵn lớn gấp rưỡi (tên hình thêm '-2'), không phóng điểm ảnh
+export const pbBig = e => pbVis(e) >= 1.5, pbT2 = e => (pbBig(e) ? '-2' : '');
 // Số điểm khung vẽ cho một điểm hình kiểu look (lớn dần theo phẩm, cấp; làm tròn nửa điểm cho nét đều)
 export const pbK = (game, e, look, mul = 1) => half((cfg(game).k[look] || 1) * pbVis(e) * mul);
 // Món vẽ theo cỡ điểm của nhân vật (đồ lại bằng điểm ảnh theo tranh mẫu, tools/art/pb_vat.py): chỉ phóng số nguyên, nét mới đều
@@ -34,9 +36,9 @@ export function pbSeal(e, vis = 1) {
 // Trái hồ lô luôn vẽ đúng cỡ điểm nhân vật (k = 1, nét mịn); phẩm cao, cấp cao thì phần hiệu ứng quanh nó (phễu, luồng, sóng) to gấp đôi.
 const HOLO = { m: 35.2, ax: Math.cos(-40 * Math.PI / 180), ay: Math.sin(-40 * Math.PI / 180), low: 56 };
 export function pbGourd(game, e) {
-  const p = game.player, sd = (p.lookX || Math.sign(p.face?.x || 1) || 1) < 0 ? -1 : 1;
-  const x = p.x + sd * 2, y = p.y - 26 - HOLO.low * 0.5 + Math.sin((game.time || 0) * 5) * 1.5;
-  return [x, y, x + sd * HOLO.m * HOLO.ax * 0.5, y + HOLO.m * HOLO.ay * 0.5, pbKi(game, e, 'holo'), sd < 0];
+  const p = game.player, sd = (p.lookX || Math.sign(p.face?.x || 1) || 1) < 0 ? -1 : 1, q = pbBig(e) ? 1.5 : 1;
+  const x = p.x + sd * 2, y = p.y - 26 - HOLO.low * 0.5 * q + Math.sin((game.time || 0) * 5) * 1.5;
+  return [x, y, x + sd * HOLO.m * q * HOLO.ax * 0.5, y + HOLO.m * q * HOLO.ay * 0.5, pbKi(game, e, 'holo'), sd < 0];
 }
 
 // Một hạt điểm ảnh tự đặt vận tốc (đuôi đạn, linh khí hút vào, bụi sáng bốc lên)
@@ -65,9 +67,9 @@ function born(game, e) {
     case 'wave': {
       const hf = N.arc * Math.PI / 360, go = N.dur;
       if (N.look === 'holo') {   // Hồ Lô phun: trái hồ lô lơ lửng trên đầu chúc miệng xuống vùng trước mặt (lấy đà, phun, xẹp; giật lùi), luồng linh tuyền dội xuống, ba con sóng lan theo hình nón
-        const K = pbKi(game, e, 'holo'), c = Math.cos(e.ang), sn = Math.sin(e.ang), gx = c * 5, gy = -42;
-        const aim = Math.atan2(sn * N.range * 0.42 - 6 - gy, c * N.range * 0.42 - gx), ca = Math.cos(aim), sa = Math.sin(aim), mx = gx + ca * HOLO.m * 0.5, my = gy + sa * HOLO.m * 0.5, rc = { x: -ca * 8, y: -sa * 8, k: 9 };
-        pxAdd(game, { s: 'pb-holo-phun', x: p.x + gx, y: p.y + gy, on: p, ox: gx, oy: gy, dir: aim, snap: 1, k: 1, col, fo: 0.14, rc });
+        const K = pbKi(game, e, 'holo'), q = pbBig(e) ? 1.5 : 1, c = Math.cos(e.ang), sn = Math.sin(e.ang), gx = c * 5, gy = -42 * q;
+        const aim = Math.atan2(sn * N.range * 0.42 - 6 - gy, c * N.range * 0.42 - gx), ca = Math.cos(aim), sa = Math.sin(aim), mx = gx + ca * HOLO.m * 0.5 * q, my = gy + sa * HOLO.m * 0.5 * q, rc = { x: -ca * 8, y: -sa * 8, k: 9 };
+        pxAdd(game, { s: 'pb-holo-phun' + pbT2(e), x: p.x + gx, y: p.y + gy, on: p, ox: gx, oy: gy, dir: aim, snap: 1, k: 1, col, fo: 0.14, rc });
         pxAdd(game, { s: 'pb-holo-tia', x: p.x + mx, y: p.y + my, on: p, ox: mx, oy: my, rot: aim, k: K, pal, col, loop: true, dur: go + 0.14, delay: 0.06, fo: 0.14, rc });
         for (const f of [-0.52, 0.52, 0]) {
           const a = e.ang + f * hf, wx = Math.cos(a), wy = Math.sin(a), d0 = N.range * (f ? 0.34 : 0.44), d1 = N.range * (f ? 0.86 : 0.97);
@@ -93,10 +95,10 @@ function born(game, e) {
       if (N.look === 'an') {   // ấn giáng (hiệu ứng riêng của Đại Ấn, đổi màu theo hệ khảm): dấu triện in xuống đất, đất nứt, tia sáng dựng đứng; khối ấn bẹp xuống, nảy lại, nằm một nhịp rồi tan
         const K = Math.min(3, half(e.r / 40)), tint = pal === 'vang' ? null : pal;   // không phóng quá 3 (điểm ảnh to quá thì thô); vòng xung kích nét mảnh ở lớp đất vẫn chạy tới đúng tầm
         pxAdd(game, { s: 'pb-an-giang-d', x, y, g: true, k: K, pal: tint }); pxAdd(game, { s: 'pb-an-giang', x, y, k: K, pal: tint, col });
-        pxAdd(game, { s: 'pb-an-dap', x, y, k: 1, fo: 0.3 });
+        pxAdd(game, { s: 'pb-an-dap' + pbT2(e), x, y, k: 1, fo: 0.3 });
         pxSpray(game, 'da', x, y - 4, 14, 150); pxSpray(game, P, x, y - 8, 12, 120);
       } else if (N.look === 'khien') {   // khiên vỡ: vòm mai rùa bung thành từng mảnh (hiệu ứng riêng của Hộ Thuẫn), nổ phản kích theo màu khiên, mảnh sáng văng
-        pxAdd(game, { s: pbVis(e) >= 1.5 ? 'pb-khien-vo-2' : 'pb-khien-vo', x, y: y - 11, k: 1, pal, col });   // phẩm cao: bản dựng sẵn cỡ lớn
+        pxAdd(game, { s: 'pb-khien-vo' + pbT2(e), x, y: y - 11, k: 1, pal, col });   // phẩm cao: bản dựng sẵn cỡ lớn
         pxAdd(game, { s, pal: tp, x, y: y - 4, k: fitK(game, s, e.r), col });
         pxSpray(game, P, x, y - 6, 18, 170); pxSpray(game, 'tuyet', x, y - 10, 10, 150);
       } else {   // nổ lan (Đánh Lan, Tử Bạo): nổ vừa; nhiều vụ cùng lúc thì từ vụ thứ ba chỉ còn vành xung kích + hạt (khỏi phủ kín màn)
@@ -134,7 +136,7 @@ function tick(game, e, dt, low) {
       break;
     }
     case 'seal': {   // linh khí tụ về khối ấn lúc còn treo
-      const k = e.t / e.life, [bx, by] = pbSeal(e, vis), cy = by - 24;   // 24: giữa khối ấn (hình cao 97 điểm trên điểm neo, vẽ 1 điểm hình = 1 điểm màn hình)
+      const k = e.t / e.life, [bx, by] = pbSeal(e, vis), cy = by - (pbBig(e) ? 36 : 24);   // giữa khối ấn (hình cao 97 điểm trên điểm neo, vẽ 1 điểm hình = 1 điểm màn hình; bản lớn gấp rưỡi)
       if (k < 0.55) for (X.acc += dt * 26 * q; X.acc >= 1; X.acc--) { const a = rnd(0, TAU), d = rnd(26, 48) * vis, x = bx + Math.cos(a) * d, y = cy + Math.sin(a) * d, L = rnd(0.22, 0.4); part(game, P, x, y, (bx - x) / L, (cy - y) / L, L, { g: 0 }); }
       break;
     }

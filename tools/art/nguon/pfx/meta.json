@@ -1634,6 +1634,25 @@
   "fx": "đồ theo tranh pb-dai-an.png",
   "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy"
  },
+ "pb-an-2": {
+  "w": 146,
+  "h": 180,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "anchor": [
+   74,
+   145
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "dur": 0.8,
+  "loop": true,
+  "fx": "đồ theo tranh pb-dai-an.png",
+  "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy"
+ },
  "pb-an-dap": {
   "w": 107,
   "h": 121,
@@ -1644,6 +1663,30 @@
   "anchor": [
    54,
    97
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "times": [
+   0,
+   0.07,
+   0.15
+  ],
+  "dur": 0.6,
+  "loop": false,
+  "fx": "đồ theo tranh pb-dai-an.png",
+  "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp"
+ },
+ "pb-an-dap-2": {
+  "w": 160,
+  "h": 180,
+  "cols": 3,
+  "rows": 1,
+  "n": 3,
+  "dirs": 1,
+  "anchor": [
+   81,
+   145
   ],
   "k": 0.5,
   "ext": true,
@@ -1892,6 +1935,25 @@
   "fx": "đồ theo tranh pb-tran-ky.png",
   "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất"
  },
+ "pb-co-2": {
+  "w": 174,
+  "h": 196,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "anchor": [
+   51,
+   194
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "dur": 0.8,
+  "loop": true,
+  "fx": "đồ theo tranh pb-tran-ky.png",
+  "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất"
+ },
  "pb-holo": {
   "w": 106,
   "h": 135,
@@ -1906,7 +1968,26 @@
   "k": 0.5,
   "ext": true,
   "fps": 12,
-  "dur": 1,
+  "dur": 1.0,
+  "loop": false,
+  "fx": "đồ theo tranh hu-ho-lo.png",
+  "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
+ },
+ "pb-holo-2": {
+  "w": 159,
+  "h": 202,
+  "cols": 12,
+  "rows": 1,
+  "n": 12,
+  "dirs": 1,
+  "anchor": [
+   66,
+   120
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 12,
+  "dur": 1.0,
   "loop": false,
   "fx": "đồ theo tranh hu-ho-lo.png",
   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
@@ -1921,6 +2002,30 @@
   "anchor": [
    76,
    60
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "times": [
+   0,
+   0.08,
+   0.42
+  ],
+  "dur": 0.62,
+  "loop": false,
+  "fx": "đồ theo tranh hu-ho-lo.png",
+  "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh"
+ },
+ "pb-holo-phun-2": {
+  "w": 234,
+  "h": 207,
+  "cols": 3,
+  "rows": 9,
+  "n": 3,
+  "dirs": 9,
+  "anchor": [
+   113,
+   89
   ],
   "k": 0.5,
   "ext": true,
