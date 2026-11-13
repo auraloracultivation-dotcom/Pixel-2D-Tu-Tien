@@ -98,7 +98,9 @@ So với thước My Heroes: quái loé trắng 0,1 giây (bằng); tia lửa 6�
 khựng chí mạng của mẫu 0,05 giây, bản này 0,10 giây (cố ý nặng tay hơn, chờ chủ dự án cảm nhận). Tia lửa mang màu linh căn người chơi (chưa có
 linh căn: vàng). Một nhát trúng nhiều con đứng chụm chỉ hiện một tia lửa (các con đều loé trắng, có số). Code: `src/game/hit-feel.js`, số ở
 `data/juice.json → hit2`, hình `tools/art/pfx/fx/trung.js`, `bui-chan.js`. Công tắc `hit2.on` đang **tắt**; xem thử trên một máy bằng địa chỉ có `?don=1`.
-Phòng đo trong máy làm việc: bước game từng 1/60 giây, chụp từng khung quanh chỗ đánh, ghi giờ khựng, loé, bật lùi, tiếng (kịch bản ở thư mục tạm, chưa đưa vào repo).
+Phòng đo (`tools/do-don/`, dùng lại cho việc 3–5): `do-nhat.mjs` bước game từng 1/60 giây, chụp từng khung quanh chỗ đánh, ghi giờ khựng, loé,
+bật lùi, số, rung, tiếng; `quay-canh.mjs` quay một cảnh theo kịch bản ở đúng cỡ điện thoại (60 khung / giây + giờ từng tiếng); `bang-nhat.py`, `bang-canh.py`
+xếp khung thành bảng để soi; `ghep-tieng.py` ghép khung + tiếng thành mp4 gửi chủ dự án.
 
 Chưa làm trong việc 2 (để chủ dự án cảm nhận rồi quyết): đổi tiếng chém (chỉ thêm tiếng nện trầm ở nhát kết liễu), dáng người chơi lúc ra đòn.
 
