@@ -48,6 +48,16 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
   đa số từng ô → một bảng 30 màu chung → viền mực. `pb-holo` (hít, dáng như tranh: miệng chếch −40°, quay trái thì lật), `pb-holo-phun`
   (9 hướng 0..90°, game lật cho đủ vòng). Hiệu ứng: `fx/ho-lo.js` (phễu xoáy, dựng sẵn góc −40°), `fx/ho-lo-nuoc.js` (luồng, sóng; game xoay).
   Trong game hồ lô lơ lửng trên đầu cả lúc hít lẫn lúc phun (chúc miệng dội xuống vùng trước mặt, không che nhân vật), có giật lùi (`rc`).
+- **08:17 chủ dự án đổi cách: KHÔNG cho tranh GPT cử động nữa**, tranh chỉ làm mẫu để đồ ("sao chép điểm ảnh rồi biến nó thành của bạn tự vẽ ra thì
+  được, ảnh GPT nhìn không hợp chuyển động"). `pb_vat.py` viết lại: dọn tranh như cũ → `Bang` (chia chất liệu theo sắc, mỗi chất liệu một dải
+  sắc độ khai tay `'màu trong tranh>màu vẽ ra'`; `--xem` in dải tự tìm để dò) → `lop()` đồ ra bản vẽ phẳng ở cỡ tranh → `ve()` dựng từng dáng
+  bằng bỏ phiếu 4 × 4 mẫu mỗi điểm hình (nét tối nặng phiếu hơn để nét mảnh không bị nuốt) → `loang()` vệt sáng = đẩy sắc độ → `vien()` → `xuat()`.
+  Thân chỉ dựng vài dáng rồi dùng lại (Hồ Lô: 4 mức phồng theo ba hơi hít) nên điểm ảnh đứng yên giữa các khung; nút gỗ dựng riêng từng góc.
+  Hồ Lô 16 màu (k 2,7), Đại Ấn 12 màu (k 3,6). Tên hình, điểm neo, cách game vẽ giữ như lần 2.
+- **Đại Ấn:** khối ấn đồ theo `pb-dai-an.png` (`pb-an` treo / rơi có vệt sáng lướt, `pb-an-dap` bẹp rồi nảy lúc nện); hiệu ứng riêng
+  `fx/an-giang.js` (lớp đất: đất sém, khe nứt có linh quang, DẤU TRIỆN khung vuông hồi văn đặt chéo + thái cực, to hơn chân ấn, nằm lại sau khi
+  khối ấn tan; lớp nổi: tia sáng dựng đứng, bụi, đá vụn) thay cho `dia-chan` đi mượn; đổi màu theo hệ khảm; game phóng theo tầm đòn, tối đa 3.
+  Bỏ `fx/an.js` (khối ấn vẽ bằng code của lần 1).
 - Tranh gốc của các món khác: `pb-dai-an.png` + `hu-dai-an.png`, `pb-linh-chau.png` + `hu-linh-chau.png`, `pb-ho-thuan.png`, `pb-tran-ky.png`;
   Phi Kiếm: `nguon/ai/kiem/kiem.png` (kiếm số 3 đang làm hình trên nút); Bảo Phiến: `gear.ba-tieu-phien`; Đồng Chung: ô chuông trong `nguon/ai/chieu/chieu-3.png`.
 - `export.mjs --icons [tên…]`, `PFX_OUT=<thư mục>` (dựng thử ra chỗ khác), `vfx_pfx.py` đọc cỡ biểu tượng từ file.
@@ -56,9 +66,9 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 
 ## Việc còn lại
 
-- Bảy món còn lại làm lại hình từ tranh gốc như Hồ Lô (thứ tự đề nghị: Đại Ấn, Linh Châu, Trận Kỳ, Hộ Thuẫn, Phi Kiếm, Bảo Phiến, Đồng Chung),
-  mỗi món hiệu ứng riêng (ấn: dấu triện in xuống đất thay cho hình `dia-chan` đang mượn của chiêu cũ).
-- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ tranh gốc (đừng phóng điểm ảnh).
+- Sáu món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn (thứ tự đề nghị: Hộ Thuẫn, Linh Châu, Trận Kỳ, Phi Kiếm, Bảo Phiến, Đồng Chung),
+  mỗi món hiệu ứng riêng, không mượn hình của món khác.
+- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh).
 - Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.
 - Người khác chưa thấy đòn pháp bảo của nhau (bộ cũ cũng chưa có).
 - 48 chiêu cũ: chủ dự án muốn xoá (13/11 07:17). Chưa đụng; So tài còn dùng, phải hỏi lại trước khi gỡ.

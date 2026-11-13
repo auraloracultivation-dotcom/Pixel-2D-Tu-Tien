@@ -18525,9 +18525,9 @@
   },
   "pfx.pb-an": {
    "file": "assets/art/pfx-pb-an.png",
-   "v": "7e0ed326",
-   "w": 71,
-   "h": 64,
+   "v": "7940447d",
+   "w": 97,
+   "h": 121,
    "frames": 8,
    "rows": 1,
    "n": 8,
@@ -18536,26 +18536,165 @@
    "dur": 0.8,
    "loop": true,
    "anchor": [
-    34,
-    50
+    49,
+    97
    ],
    "k": 0.5,
-   "lit": 1,
-   "note": "hiệu ứng chiêu pb-an: PixelFX p2d/an (MIT), tools/art/pfx/"
+   "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy (tools/art/pb_vat.py)"
   },
-  "pfx.pb-an.l": {
-   "file": "assets/art/pfx-pb-an-l.png",
-   "v": "39e0cc8f",
-   "w": 36,
-   "h": 32,
-   "frames": 8,
+  "pfx.pb-an-dap": {
+   "file": "assets/art/pfx-pb-an-dap.png",
+   "v": "66205e65",
+   "w": 107,
+   "h": 121,
+   "frames": 3,
    "rows": 1,
+   "n": 3,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    54,
+    97
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.07,
+    0.15
+   ],
+   "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-giang": {
+   "file": "assets/art/pfx-pb-an-giang.png",
+   "v": "f2d8087e",
+   "w": 204,
+   "h": 181,
+   "frames": 10,
+   "rows": 2,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    105,
+    101
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-an-giang: PixelFX p2d/an-giang (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-an-giang-d": {
+   "file": "assets/art/pfx-pb-an-giang-d.png",
+   "v": "30096084",
+   "w": 167,
+   "h": 140,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    83,
+    70
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-an-giang-d: PixelFX p2d/an-giang (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-an-giang-d.l": {
+   "file": "assets/art/pfx-pb-an-giang-d-l.png",
+   "v": "cd485072",
+   "w": 84,
+   "h": 70,
+   "frames": 12,
+   "rows": 2,
    "s": 2,
    "anchor": [
     0,
     0
    ],
-   "note": "lớp sáng của pfx.pb-an"
+   "note": "lớp sáng của pfx.pb-an-giang-d"
+  },
+  "pfx.pb-an-giang.l": {
+   "file": "assets/art/pfx-pb-an-giang-l.png",
+   "v": "0985af06",
+   "w": 102,
+   "h": 91,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-an-giang"
   },
   "pfx.pb-chau": {
    "file": "assets/art/pfx-pb-chau.png",
@@ -18738,28 +18877,28 @@
   },
   "pfx.pb-holo": {
    "file": "assets/art/pfx-pb-holo.png",
-   "v": "5c21dc17",
+   "v": "5ca67155",
    "w": 106,
-   "h": 138,
+   "h": 135,
    "frames": 12,
    "rows": 1,
    "n": 12,
    "dirs": 1,
    "fps": 12,
-   "dur": 1,
+   "dur": 1.0,
    "loop": false,
    "anchor": [
-    45,
-    82
+    44,
+    80
    ],
    "k": 0.5,
-   "note": "Hồ Lô lúc hít linh khí (tranh gốc của chủ dự án, gỡ nước, cho phồng bụng, nút gỗ đung đưa): 12 khung, miệng chếch lên phải (tools/art/pb_vat.py)"
+   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải (tools/art/pb_vat.py)"
   },
   "pfx.pb-holo-phun": {
    "file": "assets/art/pfx-pb-holo-phun.png",
-   "v": "b02d8c12",
-   "w": 156,
-   "h": 138,
+   "v": "880c6df0",
+   "w": 157,
+   "h": 139,
    "frames": 3,
    "rows": 9,
    "n": 3,
@@ -18768,8 +18907,8 @@
    "dur": 0.62,
    "loop": false,
    "anchor": [
-    75,
-    59
+    76,
+    60
    ],
    "k": 0.5,
    "times": [
@@ -18777,7 +18916,7 @@
     0.08,
     0.42
    ],
-   "note": "Hồ Lô lúc phun (tranh gốc của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
+   "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
   },
   "pfx.pb-holo-song": {
    "file": "assets/art/pfx-pb-holo-song.png",

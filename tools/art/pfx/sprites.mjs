@@ -88,7 +88,8 @@ export const SPRITES = {
   'pb-quat': { fx: 'p2d/quat', pal: GIO, fps: 30, dirs: 9, tint: true },                                                   // Bảo Phiến: chiếc quạt phẩy một nhát
   'pb-trung': { ...no(KIEM, 'kim', 1, 8), tint: true },                                                                    // tia trúng đòn nhỏ, đổi màu theo hệ
   'pb-chuong': { fx: 'p2d/chuong', pal: TIM, times: seq(0.7, 0.3, 12), end: 0.7, tint: true },                                       // Đồng Chung
-  'pb-an': { fx: 'p2d/an', pal: 'gold', fps: 10 },                                                                         // Đại Ấn
+  // Đại Ấn: khối ấn đồ lại bằng điểm ảnh theo tranh mẫu ('pb-an', 'pb-an-dap': tools/art/pb_vat.py); ở đây là hiệu ứng riêng lúc ấn nện xuống (dấu triện in đất, tia vàng dựng đứng)
+  ...aoe('pb-an-giang', 'p2d/an-giang', 'gold', 1.5, { reach: 80 }, { tint: true }),
   'pb-co': { fx: 'p2d/co', pal: 'gold', fps: 10 },                                                                         // Trận Kỳ
   // Hồ Lô: trái hồ lô là tranh gốc của chủ dự án ('pb-holo', 'pb-holo-phun': tools/art/pb_vat.py); ở đây chỉ có phần hiệu ứng vẽ quanh nó
   'pb-holo-xoay': { fx: 'p2d/ho-lo', pal: KIEM, times: Array.from({ length: 12 }, (_, i) => +(i / 12 + 0.04).toFixed(3)), end: 1.0, angle: -40 * Math.PI / 180, box: [-8, -38, 60, 38], tint: true },   // phễu linh khí xoáy vào miệng (miệng hình pb-holo chếch −40 độ)

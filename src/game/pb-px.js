@@ -18,7 +18,7 @@ export function pbRamp(game, e) { const N = e.node || e.cast?.root, el = N?.els?
 export const pbVis = e => e.cast?.vis || 1;
 // Số điểm khung vẽ cho một điểm hình kiểu look (lớn dần theo phẩm, cấp; làm tròn nửa điểm cho nét đều)
 export const pbK = (game, e, look, mul = 1) => half((cfg(game).k[look] || 1) * pbVis(e) * mul);
-// Món vẽ theo cỡ điểm của nhân vật (tranh gốc thu về, tools/art/pb_vat.py): chỉ phóng số nguyên, nét mới đều
+// Món vẽ theo cỡ điểm của nhân vật (đồ lại bằng điểm ảnh theo tranh mẫu, tools/art/pb_vat.py): chỉ phóng số nguyên, nét mới đều
 export const pbKi = (game, e, look) => Math.max(1, Math.round((cfg(game).k[look] || 1) * pbVis(e)));
 export const pbCol = (game, ramp, u = 0.6) => { const R = cfg(game).ramps[ramp]; return R[Math.round(u * (R.length - 1))]; };
 // Cỡ để nửa bề ngang của hình s phủ bán kính r (đơn vị bản đồ) × f; không quá max (điểm ảnh to quá 1,5 lần điểm thế giới thì thô)
@@ -29,7 +29,7 @@ export function pbSeal(e, vis = 1) {
   const k = Math.min(1, e.t / e.life), u = Math.max(0, (k - 0.55) / 0.45), H = 78 * Math.sqrt(vis);
   return [e.x, e.y - H * (1 - u * u * u) + (u ? 0 : Math.sin(e.t * 7) * 1.5)];
 }
-// Trái hồ lô lúc hít (hình pb-holo, dáng như tranh gốc: miệng chếch lên 40 độ về phía mặt nhân vật): điểm tựa của hình lơ lửng trên đầu,
+// Trái hồ lô lúc hít (hình pb-holo, dáng như tranh mẫu: miệng chếch lên 40 độ về phía mặt nhân vật): điểm tựa của hình lơ lửng trên đầu,
 // tâm miệng (linh khí bị hút về đó), cỡ hiệu ứng, có lật không. HOLO: tâm miệng cách điểm tựa 35,2 điểm hình theo hướng miệng.
 // Trái hồ lô luôn vẽ đúng cỡ điểm nhân vật (k = 1, nét mịn); phẩm cao, cấp cao thì phần hiệu ứng quanh nó (phễu, luồng, sóng) to gấp đôi.
 const HOLO = { m: 35.2, ax: Math.cos(-40 * Math.PI / 180), ay: Math.sin(-40 * Math.PI / 180), low: 56 };
@@ -90,11 +90,10 @@ function born(game, e) {
     }
     case 'blast': {
       const big = C.boom[pal], s = big || 'pb-no', tp = big ? null : pal, x = e.x, y = e.y;
-      if (N.look === 'an') {   // ấn giáng: đất nứt, đá văng, khối ấn nằm lại một nhịp rồi tan
-        const K = half(e.r / 40);
-        pxAdd(game, { s: 'dia-chan-d', x, y, g: true, k: K }); pxAdd(game, { s: 'dia-chan', x, y, k: K, col });
-        pxAdd(game, { s: 'pb-an', x, y, k: pbK(game, e, 'an'), loop: true, dur: 0.5, fo: 0.3 });
-        if (pal !== 'vang') pxAdd(game, { s, pal: tp, x, y: y - 4, k: fitK(game, s, e.r, 0.9), col });
+      if (N.look === 'an') {   // ấn giáng (hiệu ứng riêng của Đại Ấn, đổi màu theo hệ khảm): dấu triện in xuống đất, đất nứt, tia sáng dựng đứng; khối ấn bẹp xuống, nảy lại, nằm một nhịp rồi tan
+        const K = Math.min(3, half(e.r / 40)), tint = pal === 'vang' ? null : pal;   // không phóng quá 3 (điểm ảnh to quá thì thô); vòng xung kích nét mảnh ở lớp đất vẫn chạy tới đúng tầm
+        pxAdd(game, { s: 'pb-an-giang-d', x, y, g: true, k: K, pal: tint }); pxAdd(game, { s: 'pb-an-giang', x, y, k: K, pal: tint, col });
+        pxAdd(game, { s: 'pb-an-dap', x, y, k: 1, fo: 0.3 });
         pxSpray(game, 'da', x, y - 4, 14, 150); pxSpray(game, P, x, y - 8, 12, 120);
       } else if (N.look === 'khien') {   // khiên vỡ: nổ lớn theo màu khiên, mảnh sáng văng
         pxAdd(game, { s, pal: tp, x, y: y - 4, k: fitK(game, s, e.r), col });
@@ -134,7 +133,7 @@ function tick(game, e, dt, low) {
       break;
     }
     case 'seal': {   // linh khí tụ về khối ấn lúc còn treo
-      const k = e.t / e.life, [bx, by] = pbSeal(e, vis), cy = by - 14 * pbK(game, e, 'an');
+      const k = e.t / e.life, [bx, by] = pbSeal(e, vis), cy = by - 24;   // 24: giữa khối ấn (hình cao 97 điểm trên điểm neo, vẽ 1 điểm hình = 1 điểm màn hình)
       if (k < 0.55) for (X.acc += dt * 26 * q; X.acc >= 1; X.acc--) { const a = rnd(0, TAU), d = rnd(26, 48) * vis, x = bx + Math.cos(a) * d, y = cy + Math.sin(a) * d, L = rnd(0.22, 0.4); part(game, P, x, y, (bx - x) / L, (cy - y) / L, L, { g: 0 }); }
       break;
     }

@@ -1,17 +1,23 @@
-"""Món pháp bảo hiện ra lúc đánh, dựng từ TRANH GỐC của chủ dự án (ảnh GPT ở tools/art/nguon/ai/phap-bao/goc/).
+"""Món pháp bảo hiện ra lúc đánh: ĐỒ LẠI bằng điểm ảnh theo tranh mẫu của chủ dự án (ảnh GPT ở tools/art/nguon/ai/phap-bao/goc/).
 
-Chủ dự án 13/11/2026 07:39: "tui không thích dùng ảnh GPT làm HIỆU ỨNG skill chứ không nói không thích ảnh GPT; icon cũ giữ nguyên; nếu có thể
-thì tận dụng ảnh GPT để biến nó thành đồ của bạn". → món bay ra lúc đánh phải chính là món trong hình trên nút. File này lấy tranh gốc, gỡ phần
-"hiệu ứng" vẽ sẵn trong tranh (nước, khói, tia), vá chỗ bị che, cho món cử động ở cỡ tranh gốc (phồng bụng, co giãn, xoay theo hướng đánh,
-vệt sáng lướt) rồi mới thu về cỡ điểm của nhân vật (1 điểm hình = 0,5 đơn vị bản đồ) bằng màu đa số từng ô, gom về một bảng màu chung cho mọi
-khung, viền mực như mọi hình nhân vật (tools/art/ai_import.py). Hiệu ứng quanh món (xoáy hút, luồng phun, sóng, hạt) vẫn vẽ bằng code điểm ảnh
-(tools/art/pfx/fx/).
+Chủ dự án 13/11/2026 08:17: "cái vụ lấy ảnh GPT để tạo chuyển động thì thôi; nếu lấy ảnh đó để sao chép điểm ảnh rồi biến nó thành của bạn
+tự vẽ ra thì được, chứ ảnh GPT nhìn không hợp chuyển động". → tranh GPT chỉ là MẪU ĐỂ ĐỒ. Không còn kéo giãn, xoay chính tấm tranh (bản 08:04
+làm thế: tranh tô loang nhiều màu, mỗi khung thu nhỏ lại một lần nên điểm ảnh bên trong nhấp nháy như ảnh chụp bị bóp méo).
+
+Cách làm:
+  1. Dọn tranh mẫu: gỡ phần "hiệu ứng" vẽ sẵn (nước, khói), vá chỗ bị che, tách phần treo (nút gỗ, dây).
+  2. ĐỒ: chia món thành vài chất liệu (vàng, dây đỏ, ngọc...), mỗi chất liệu một dải ít sắc độ từ tối tới sáng (bảng màu của game, không lấy
+     màu loang của tranh); mỗi điểm tranh về đúng một sắc độ, dọn điểm lẻ → một bản vẽ phẳng, mảng màu rõ (kiểu tô điểm ảnh).
+  3. Cho cử động TRÊN BẢN VẼ ĐÓ: mỗi dáng dựng bằng cách bỏ phiếu từng điểm hình (lớp màu nào chiếm nhiều thì thắng, không pha màu). Thân
+     chỉ có vài dáng cố định, giữ nguyên từng điểm giữa các khung (không nhấp nháy); phần treo đung đưa riêng; vệt sáng lướt là đẩy sắc độ
+     lên một, hai nấc chứ không cộng sáng.
+  4. Viền mực 1 điểm như mọi hình nhân vật (tools/art/ai_import.py), xếp tấm, ghi meta.
 
 Ra: tools/art/nguon/pfx/<tên>.png + một mục trong meta.json (ext: true: không phải hình PixelFX, export.mjs không xoá) →
 python3 -I tools/art/vfx_pfx.py đưa vào assets/art và data/art.json thành 'pfx.<tên>' (game vẽ bằng src/render/vfx/pfx.js như mọi hình pfx:
-n khung mỗi hướng, dirs hướng dựng sẵn 0..90 độ, điểm neo = điểm tựa của món).
+n khung mỗi hướng, dirs hướng dựng sẵn 0..90 độ, điểm neo = điểm tựa của món). Cỡ: 1 điểm hình = 1 điểm màn hình, như nhân vật.
 
-Chạy: python3 -I tools/art/pb_vat.py [tên ...] [--xem <thư mục>]   (--xem: xuất thêm bảng phóng to để xem thử)"""
+Chạy: python3 -I tools/art/pb_vat.py [tên ...] [--xem <thư mục>]   (--xem: xuất thêm bảng phóng to và bản vẽ phẳng để xem thử)"""
 import json
 import math
 import sys
@@ -30,6 +36,7 @@ OUT = HERE / 'nguon' / 'pfx'
 YY = XX = None
 
 
+# ================================================================ 1. dọn tranh mẫu
 def load(name):
     global YY, XX
     a = np.array(Image.open(SRC / name).convert('RGBA'))
@@ -99,15 +106,6 @@ def mouth(a, c, normal_deg, A, B):
     return out
 
 
-def pm(a):
-    f = a.astype(np.float32); f[:, :, :3] *= f[:, :, 3:4] / 255; return f
-
-
-def unpm(f):
-    al = np.clip(f[:, :, 3], 0, 255); rgb = np.where(al[..., None] > 1, f[:, :, :3] * 255 / np.maximum(al[..., None], 1), 0)
-    return np.dstack([np.clip(rgb, 0, 255), al]).astype(np.uint8)
-
-
 def cut(a, poly):
     """Tách một phần của món ra khỏi tranh (nút gỗ treo dây): poly là đa giác khoanh phần đó. Trả (phần tách, phần còn lại)."""
     m = Image.new('L', (a.shape[1], a.shape[0]), 0)
@@ -119,7 +117,7 @@ def cut(a, poly):
 
 
 def tether(piece, piv, w=6, col=((84, 10, 14, 255), (206, 36, 30, 255))):
-    """Nối dài sợi dây của phần đã tách tới điểm buộc piv (đoạn dây khuất sau thân trong tranh gốc), để lúc đung đưa dây không hở khỏi thân."""
+    """Nối dài sợi dây của phần đã tách tới điểm buộc piv (đoạn dây khuất sau thân trong tranh mẫu), để lúc đung đưa dây không hở khỏi thân."""
     ys, xs = np.nonzero(piece[:, :, 3] > 127)
     i = int(np.argmin((xs - piv[0]) ** 2 + (ys - piv[1]) ** 2)); p0 = (int(xs[i]), int(ys[i]))
     im = Image.new('RGBA', (piece.shape[1], piece.shape[0]), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
@@ -129,95 +127,153 @@ def tether(piece, piv, w=6, col=((84, 10, 14, 255), (206, 36, 30, 255))):
     return out
 
 
-def swing(rest, piece, piv, deg):
-    """Gắn lại phần đã tách, xoay deg độ quanh điểm buộc piv (dương = thuận kim đồng hồ trên màn hình). Phần xoay nằm SAU thân
-    (dây buộc ở phía khuất của cổ)."""
-    if deg:
-        P = pm(piece); t = math.radians(-deg); c, sn = math.cos(t), math.sin(t)
-        dx, dy = XX - piv[0] + 0.0, YY - piv[1] + 0.0
-        sx, sy = dx * c - dy * sn + piv[0], dx * sn + dy * c + piv[1]
-        piece = unpm(np.dstack([nd.map_coordinates(P[:, :, i], [sy, sx], order=1, mode='constant', cval=0) for i in range(4)]))
-    out = piece.copy(); top = rest[:, :, 3] > 127
-    out[top] = rest[top]
+def over(top, under):
+    out = under.copy(); m = top[:, :, 3] > 127
+    out[m] = top[m]
     return out
 
 
-def pose(a, piv, axis_deg, R, turn=0.0, squash=(1, 1), bulge=None, sheen=None):
-    """Một dáng của món ở cỡ tranh gốc, trên khung vuông cạnh 2R tâm là điểm tựa piv. turn: xoay thêm (độ, thuận kim đồng hồ trên màn hình);
-    squash: (dọc trục, ngang trục) co giãn quanh điểm tựa; bulge: (x, y, r, k) phồng quanh một điểm; sheen: (vị trí, rộng) vệt sáng lướt chéo."""
-    src = a
-    if sheen is not None:
-        s0, wd = sheen
-        r, g, b = [a[:, :, i].astype(int) for i in range(3)]
-        gold = (a[:, :, 3] > 127) & (r > 150) & (g > 90) & (r > b + 60) & (g > b + 25)
-        d = (XX - piv[0]) * 0.8 + (YY - piv[1]) * 0.6 - s0
-        band = gold & (np.abs(d) < wd)
-        src = a.copy(); add = (70 * (1 - np.abs(d) / wd))[..., None] * np.array([1, 0.95, 0.7])
-        src[band, :3] = np.clip(src[band, :3] + add[band], 0, 255).astype(np.uint8)
-    P = pm(src)
-    n = int(2 * R)
-    oy, ox = np.mgrid[0:n, 0:n].astype(np.float32)
-    x, y = ox - R + 0.5, oy - R + 0.5                                   # toạ độ quanh điểm tựa (khung ra)
+# ================================================================ 2. đồ: tranh mẫu → bản vẽ phẳng (mỗi điểm một lớp màu)
+def hexrgb(h):
+    return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
+
+
+def hue(lo, hi):
+    """Luật chọn chất liệu theo sắc (độ): lo..hi, vòng qua 360 nếu lo > hi."""
+    return (lambda h: (h >= lo) & (h < hi)) if lo <= hi else (lambda h: (h >= lo) | (h < hi))
+
+
+class Bang:
+    """Bảng màu của một món. mats: [(tên, luật sắc, [sắc độ từ tối tới sáng])]. Mỗi sắc độ khai 'màu trong tranh>màu vẽ ra' (điểm tranh gần
+    màu trước nhất thì vẽ bằng màu sau), hoặc một màu dùng cho cả hai; để None hết thì tự gom cụm màu của tranh (dùng lúc dò, in ra bằng --xem).
+    Lớp 0 = trống; lớp cuối = mực."""
+
+    def __init__(self, a, mats):
+        self.mats = mats; self.pal = [(0, 0, 0)]; self.cen = {}; self.base = {}; self.name = {}
+        m, rgb = self.chat(a), self.mem(a)
+        for j, (ten, _, cols) in enumerate(mats, 1):
+            if cols[0] is None:
+                px = rgb[m == j].astype(np.uint8)
+                q = Image.fromarray(px.reshape(1, -1, 3)).quantize(colors=len(cols), method=Image.Quantize.MEDIANCUT, kmeans=6, dither=Image.Dither.NONE)
+                c = np.array(q.getpalette()[:len(cols) * 3], np.float32).reshape(-1, 3)
+                self.cen[j] = c[np.argsort(c @ np.array([0.3, 0.59, 0.11]))]; out = [tuple(int(v) for v in x) for x in self.cen[j]]
+            else:
+                self.cen[j] = np.array([hexrgb(h.split('>')[0]) for h in cols], np.float32); out = [hexrgb(h.split('>')[-1]) for h in cols]
+            self.base[j] = len(self.pal); self.name[ten] = j
+            self.pal += out
+        self.ink = len(self.pal); self.pal.append(ai.INK[:3])
+        self.up = list(range(len(self.pal)))          # lớp sáng hơn một nấc trong cùng chất liệu
+        self.mat = [0] * len(self.pal); self.w = [1.0] * len(self.pal)   # w: nét tối nhất của mỗi chất liệu nặng phiếu hơn (nét mảnh không bị nuốt)
+        for j, (_, _, cols) in enumerate(mats, 1):
+            for t in range(len(cols)):
+                self.up[self.base[j] + t] = self.base[j] + min(t + 1, len(cols) - 1); self.mat[self.base[j] + t] = j
+            self.w[self.base[j]] = 1.7
+
+    def auto(self):
+        return {ten: ['#%02x%02x%02x' % tuple(int(v) for v in c) for c in self.cen[j]] for ten, j in self.name.items()}
+
+    @staticmethod
+    def mem(a):
+        """Màu đã làm dịu nhẹ (bỏ hạt nhiễu của tranh), không lem màu từ vùng trống."""
+        al = nd.gaussian_filter((a[:, :, 3] > 127).astype(np.float32), 0.8)
+        return np.dstack([nd.gaussian_filter(a[:, :, i].astype(np.float32) * (a[:, :, 3] > 127), 0.8) / np.maximum(al, 1e-3) for i in range(3)])
+
+    def chat(self, a):
+        """Chất liệu của từng điểm tranh. Điểm màu rõ thì theo luật sắc; điểm xám, tối (nét viền, bóng) theo chất liệu của điểm rõ gần nhất."""
+        p = a[:, :, :3].astype(np.float32) / 255; op = a[:, :, 3] > 127
+        mx, mn = p.max(2), p.min(2); d = np.maximum(mx - mn, 1e-6)
+        r, g, b = p[:, :, 0], p[:, :, 1], p[:, :, 2]
+        h = np.where(mx == r, ((g - b) / d) % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4)) * 60
+        sure = op & ((mx - mn) / np.maximum(mx, 1e-6) > 0.28) & (mx > 0.22)
+        lab = np.zeros(op.shape, np.int32)
+        for j, (_, luat, _) in enumerate(self.mats, 1):
+            lab[sure & (lab == 0) & luat(h)] = j
+        i = nd.distance_transform_edt(lab == 0, return_distances=False, return_indices=True)
+        return np.where(op, lab[i[0], i[1]], 0)
+
+    def lop(self, a, mode=1):
+        """Đồ: mỗi điểm tranh về một lớp màu (sắc độ gần nhất trong chất liệu của nó), rồi dọn điểm lẻ bằng bỏ phiếu 3 × 3 (mode lượt)."""
+        m, rgb = self.chat(a), self.mem(a); out = np.zeros(m.shape, np.int32)
+        for j in self.cen:
+            sel = m == j
+            d = ((rgb[sel][:, None, :] - self.cen[j][None, :, :]) ** 2 * np.array([0.9, 1.2, 0.8])).sum(axis=2)
+            out[sel] = self.base[j] + np.argmin(d, axis=1)
+        for _ in range(mode):
+            vote = np.dstack([nd.uniform_filter((out == c).astype(np.float32), 3) for c in range(1, self.ink)])
+            out = np.where(out > 0, vote.argmax(2) + 1, 0)
+        return out
+
+    def rgba(self, i):
+        pal = np.array(self.pal, np.uint8)
+        return np.dstack([pal[i], np.where(i > 0, 255, 0).astype(np.uint8)])
+
+
+# ================================================================ 3. cho cử động trên bản vẽ
+def cell(k, R):
+    return int(2 * R / k / 2) * 2
+
+
+def dang(piv, k, n, axis=0.0, turn=0.0, squash=(1, 1), bulge=None, quay=None):
+    """Một dáng: phép đưa điểm hình (khung n × n, điểm tựa piv nằm giữa khung) về toạ độ tranh mẫu. k: số điểm tranh trên một điểm hình;
+    turn: xoay cả món (độ, thuận kim đồng hồ trên màn hình); squash: (dọc trục, ngang trục) co giãn quanh điểm tựa, axis: hướng trục thân;
+    bulge: (x, y, r, k) phồng quanh một điểm; quay: ((x, y), độ) phần treo xoay quanh điểm buộc."""
     tr = math.radians(-turn); c, s = math.cos(tr), math.sin(tr)
-    x, y = x * c - y * s, x * s + y * c                                 # bỏ phép xoay
-    t = math.radians(axis_deg); ax, ay = math.cos(t), math.sin(t)
-    al, ac = x * ax + y * ay, -x * ay + y * ax                          # theo trục thân / ngang thân
-    al, ac = al / squash[0], ac / squash[1]
-    x, y = al * ax - ac * ay + piv[0], al * ay + ac * ax + piv[1]
-    if bulge:
-        bx, by, br, bk = bulge
-        dx, dy = x - bx, y - by; d2 = (dx * dx + dy * dy) / (br * br)
-        f = 1 / (1 + bk * np.clip(1 - d2, 0, 1) ** 1.5)
-        x, y = bx + dx * f, by + dy * f
-    out = np.dstack([nd.map_coordinates(P[:, :, i], [y - 0.5, x - 0.5], order=1, mode='constant', cval=0) for i in range(4)])
-    return unpm(out)
+    t = math.radians(axis); ax, ay = math.cos(t), math.sin(t)
+
+    def inv(ox, oy):
+        x, y = (ox - n / 2) * k, (oy - n / 2) * k
+        x, y = x * c - y * s, x * s + y * c
+        al, ac = (x * ax + y * ay) / squash[0], (-x * ay + y * ax) / squash[1]
+        x, y = al * ax - ac * ay + piv[0], al * ay + ac * ax + piv[1]
+        if bulge:
+            bx, by, br, bk = bulge
+            dx, dy = x - bx, y - by; d2 = (dx * dx + dy * dy) / (br * br)
+            f = 1 / (1 + bk * np.clip(1 - d2, 0, 1) ** 1.5)
+            x, y = bx + dx * f, by + dy * f
+        if quay:
+            (px, py), deg = quay; q = math.radians(-deg); qc, qs = math.cos(q), math.sin(q); dx, dy = x - px, y - py
+            x, y = dx * qc - dy * qs + px, dx * qs + dy * qc + py
+        return x, y
+    return inv
 
 
-def shrink(a, k):
-    """Thu nhỏ k lần (k điểm tranh = 1 điểm hình) bằng màu đa số từng ô; khung vuông, tâm khung rơi đúng mép ô (điểm neo = giữa hình ra)."""
-    n = a.shape[0]; m = int(n / k / 2) * 2; off = n / 2 - m / 2 * k
-    out = np.zeros((m, m, 4), np.uint8)
-    for j in range(m):
-        y0, y1 = int(off + j * k), max(int(off + j * k) + 1, int(off + (j + 1) * k))
-        row = a[y0:y1]
-        if not (row[:, :, 3] > 127).any():
-            continue
-        for i in range(m):
-            x0, x1 = int(off + i * k), max(int(off + i * k) + 1, int(off + (i + 1) * k))
-            cell = row[:, x0:x1].reshape(-1, 4)
-            solid = cell[cell[:, 3] >= 128]
-            if len(solid) * 2 < len(cell):
-                continue
-            q = (solid[:, :3] // 12).astype(np.int32)
-            key = q[:, 0] * 10000 + q[:, 1] * 100 + q[:, 2]
-            vals, cnt = np.unique(key, return_counts=True)
-            out[j, i, :3] = solid[key == vals[np.argmax(cnt)]][:, :3].mean(axis=0)
-            out[j, i, 3] = 255
+def ve(cls, n, inv, B, ss=4):
+    """Dựng một khung n × n từ bản vẽ phẳng cls: mỗi điểm hình lấy ss × ss mẫu, lớp màu nhiều phiếu nhất thắng (không pha màu);
+    quá nửa mẫu rơi vào chỗ trống thì điểm đó trống. Phiếu nhân trọng số B.w (nét tối mảnh nặng phiếu hơn)."""
+    H, W = cls.shape
+    acc = np.zeros((n, n, len(B.pal)), np.float32); rr, cc = np.mgrid[0:n, 0:n]
+    for j in range(ss):
+        for i in range(ss):
+            sx, sy = inv(cc + (i + 0.5) / ss, rr + (j + 0.5) / ss)
+            xi, yi = np.floor(sx).astype(np.int32), np.floor(sy).astype(np.int32)
+            ok = (xi >= 0) & (xi < W) & (yi >= 0) & (yi < H)
+            acc[rr, cc, np.where(ok, cls[np.clip(yi, 0, H - 1), np.clip(xi, 0, W - 1)], 0)] += 1
+    solid = acc[:, :, 1:].sum(2) * 2 >= ss * ss
+    acc = acc * np.asarray(B.w, np.float32)
+    return np.where(solid, acc[:, :, 1:].argmax(2) + 1, 0)
+
+
+def loang(i, B, k, s0, wd, mats, dx=0.8, dy=0.6):
+    """Vệt sáng lướt chéo: trong dải rộng wd (điểm tranh) quanh vị trí s0, các lớp thuộc chất liệu mats sáng lên một nấc, lõi dải hai nấc."""
+    n = i.shape[0]; rr, cc = np.mgrid[0:n, 0:n]
+    d = np.abs(((cc - n / 2) * dx + (rr - n / 2) * dy) * k - s0)
+    ok = np.isin(np.array(B.mat)[i], [B.name[m] for m in mats])
+    up = np.array(B.up); out = np.where(ok & (d < wd), up[i], i)
+    return np.where(ok & (d < wd * 0.45), up[out], out)
+
+
+def vien(i, ink):
+    """Viền mực 1 điểm quanh hình (khung rộng thêm 1 điểm mỗi phía)."""
+    out = np.zeros((i.shape[0] + 2, i.shape[1] + 2), np.int32); out[1:-1, 1:-1] = i
+    s = out > 0; g = np.zeros_like(s)
+    g[1:, :] |= s[:-1, :]; g[:-1, :] |= s[1:, :]; g[:, 1:] |= s[:, :-1]; g[:, :-1] |= s[:, 1:]
+    out[g & ~s] = ink
     return out
 
 
-def palette(frames, n, keep=()):
-    """Bảng n màu chung cho mọi khung (cắt trung vị) + các màu keep phải có (màu ít điểm dễ bị gộp mất: hạt ngọc)."""
-    px = np.concatenate([f[f[:, :, 3] > 0][:, :3] for f in frames])
-    im = Image.fromarray(px.reshape(1, -1, 3)).quantize(colors=n - len(keep), method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
-    pal = np.array(im.getpalette()[:(n - len(keep)) * 3], np.float32).reshape(-1, 3)
-    return np.vstack([pal, np.array([[int(h[i:i + 2], 16) for i in (1, 3, 5)] for h in keep], np.float32)]) if keep else pal
-
-
-def to_pal(a, pal):
-    m = a[:, :, 3] > 0
-    if m.any():
-        p = a[m][:, :3].astype(np.float32)
-        d = ((p[:, None, :] - pal[None, :, :]) ** 2 * np.array([0.9, 1.2, 0.8])).sum(axis=2)
-        a[m, :3] = pal[np.argmin(d, axis=1)].astype(np.uint8)
-    return a
-
-
-def build(name, cells, meta, pal_n=30, keep=(), xem=None):
-    """cells[hướng][khung] = hình RGBA vuông cùng cỡ (điểm neo ở giữa). Gom màu, viền mực, cắt khung chung, xếp tấm, ghi meta."""
-    flat = [c for row in cells for c in row]
-    pal = palette(flat[:max(1, len(cells[0]))], pal_n, keep)
-    flat = [ai.outline(to_pal(c, pal)) for c in flat]
+def xuat(name, cells, B, meta, xem=None):
+    """cells[hướng][khung] = khung lớp màu vuông cùng cỡ (điểm neo ở giữa). Viền mực, cắt khung chung, xếp tấm, ghi meta."""
+    flat = [B.rgba(vien(c, B.ink)) for row in cells for c in row]
     n = flat[0].shape[0]; m = np.zeros((n, n), bool)
     for c in flat:
         m |= c[:, :, 3] > 0
@@ -232,20 +288,26 @@ def build(name, cells, meta, pal_n=30, keep=(), xem=None):
     M[name] = {'w': int(w), 'h': int(h), 'cols': nf, 'rows': nd_, 'n': nf, 'dirs': nd_, 'anchor': [int(n // 2 - x0), int(n // 2 - y0)], 'k': 0.5, 'ext': True, **meta}
     mp.write_text(json.dumps(dict(sorted(M.items())), ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if xem:
-        Path(xem).mkdir(parents=True, exist_ok=True)
-        z = Image.fromarray(sheet, 'RGBA'); z = z.resize((z.width * 3, z.height * 3), Image.NEAREST)
-        bg = Image.new('RGBA', z.size, (92, 140, 96, 255)); bg.alpha_composite(z); bg.save(Path(xem) / f'{name}.png')
-    print(f'{name}: {w}x{h} × {nf} khung × {nd_} hướng, neo {M[name]["anchor"]}, {len(pal)} màu')
+        show(sheet, Path(xem) / f'{name}.png', 3)
+    print(f'{name}: {w}x{h} × {nf} khung × {nd_} hướng, neo {M[name]["anchor"]}, {len(B.pal) - 1} màu')
 
 
-# ---------------------------------------------------------------- Hồ Lô
-# Tranh hu-ho-lo.png (640 × 427): trái hồ lô đã bật nút, miệng chếch lên phải, đang phun nước. Gỡ nước, vẽ lại miệng.
+def show(rgba, path, z):
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    im = Image.fromarray(rgba, 'RGBA'); im = im.resize((im.width * z, im.height * z), Image.NEAREST)
+    bg = Image.new('RGBA', im.size, (92, 140, 96, 255)); bg.alpha_composite(im); bg.save(path)
+
+
+# ================================================================ Hồ Lô
+# Tranh mẫu hu-ho-lo.png (640 × 427): trái hồ lô đã bật nút, miệng chếch lên phải, đang phun nước. Gỡ nước, vẽ lại miệng.
 # axis: trục thân (co giãn); aim: hướng miệng nhìn ra (xoay theo hướng đánh); piv: điểm tựa, nằm sau miệng 95 điểm tranh theo hướng aim
 HL = dict(axis=-57.0, aim=-40.0, piv=(220, 229), bulb=(210, 290, 84), bulb2=(250, 197, 48), mouth=(293, 168), k=2.7, R=246)
-
-
 NUT = dict(poly=[(246, 156), (258, 130), (300, 117), (330, 121), (424, 136), (424, 40), (246, 40)], piv=(277, 153))   # nút gỗ + dây vắt qua cổ; điểm buộc nằm khuất sau vành miệng
-NGOC = ('#1e7a78', '#58c8c0', '#b8f0e8')   # hạt ngọc lam
+HL_MAU = [   # vỏ hồ lô sơn vàng cam (cả nút gỗ, vành miệng, hạt vàng), dây + tua đỏ, hạt ngọc lam
+    ('vang', hue(14, 75), ['#351608>#3a1608', '#8a3410>#96400e', '#c35215>#cc5e12', '#ee8418>#f08a16', '#f9b93b>#fbb934', '#fadd7d>#fddc78', '#fcf5d2>#fff6d0']),
+    ('do', hue(335, 14), ['#240304>#3a0610', '#6a1012>#7c1016', '#a82418>#b81e1e', '#e62a22>#e8322a', '#ff6a50>#ff7858']),
+    ('ngoc', hue(140, 215), ['#1f1b1c>#143c40', '#51aba7>#3fb6ae', '#aae4d4>#b8f4e6']),
+]
 
 
 def ho_lo_src():
@@ -257,25 +319,56 @@ def ho_lo_src():
 
 def ho_lo(xem=None):
     than, nut = ho_lo_src()
+    B = Bang(over(than, nut), HL_MAU); T, N = B.lop(than), B.lop(nut)
+    k, n, piv, axis = HL['k'], cell(HL['k'], HL['R']), HL['piv'], HL['axis']
     bx, by, br = HL['bulb']
-    # hít 1 giây (dáng như tranh gốc: miệng chếch lên phải; quay trái thì game lật): bụng phồng dần theo ba hơi, vệt sáng lướt hai lần,
-    # nút gỗ bật lên phía trên miệng rồi rung theo gió hút (không che phễu xoáy)
+    if xem:
+        show(B.rgba(np.where(T > 0, T, N)), Path(xem) / 'ho-lo-ban-ve.png', 2); print(' sắc độ tìm được:', B.auto())
+
+    def khung(q, deg, turn=0.0):
+        """Thân ở dáng q + nút gỗ treo lệch deg độ (nút nằm sau thân)."""
+        t = ve(T, n, dang(piv, k, n, axis, turn, **q), B)
+        return np.where(t > 0, t, ve(N, n, dang(piv, k, n, axis, turn, quay=(NUT['piv'], deg), **q), B))
+
+    # hít 1 giây (dáng như tranh mẫu: miệng chếch lên phải; quay trái thì game lật). Thân chỉ có 4 dáng phồng (0..3), giữ nguyên giữa các khung;
+    # ba hơi hít, hơi sau phồng hơn hơi trước. Nút gỗ bật lên phía trên miệng rồi rung theo gió hút. Vệt sáng lướt hai lần.
+    Q = [dict(squash=(1 - 0.015 * v, 1 + 0.015 * v), bulge=(bx, by, br * 1.4, 0.1 * v)) for v in range(4)]
     fr = []
-    for i in range(12):
+    for i, v in enumerate([0, 1, 1, 0, 1, 2, 2, 1, 2, 3, 3, 3]):
         u = (i + 0.3) / 12
-        sw = (3 * u * u - 2 * u ** 3) * 0.9 + 0.09 * math.sin(u * math.tau * 3) * (1 - 0.4 * u)
-        g = 1 + 0.03 * math.sin(u * math.tau * 3)
-        b = swing(than, nut, NUT['piv'], -58 + 14 * max(0, 1 - u * 5) + 7 * math.sin(u * math.tau * 4))
-        fr.append(shrink(pose(b, HL['piv'], HL['axis'], HL['R'], squash=(2 - g, g), bulge=(bx, by, br * 1.4, 0.26 * sw), sheen=(-170 + ((u * 2) % 1) * 340, 16)), HL['k']))
-    build('pb-holo', [fr], {'fps': 12, 'dur': 1.0, 'loop': False, 'fx': 'tranh gốc hu-ho-lo.png', 'note': 'Hồ Lô lúc hít linh khí (tranh gốc của chủ dự án, gỡ nước, cho phồng bụng, nút gỗ đung đưa): 12 khung, miệng chếch lên phải'}, keep=NGOC, xem=xem)
+        f = khung(Q[v], -58 + 14 * max(0, 1 - u * 5) + 7 * math.sin(u * math.tau * 4))
+        fr.append(loang(f, B, k, -170 + ((u * 2) % 1) * 340, 16, ['vang']))
+    xuat('pb-holo', [fr], B, {'fps': 12, 'dur': 1.0, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải'}, xem)
     # phun: ba thế × 9 hướng (0..90 độ, miệng chúc theo hướng đánh): 0 căng phồng lấy đà, 1 đang phun (vươn tới, nút gỗ bị hất ngược ra sau), 2 xẹp lại
     P = [(-12, dict(squash=(0.9, 1.08), bulge=(bx, by, br * 1.4, 0.3))), (-100, dict(squash=(1.07, 0.95), bulge=(bx, by, br * 1.4, 0.1))), (-70, dict(squash=(1, 1)))]
-    S = [swing(than, nut, NUT['piv'], deg) for deg, _ in P]
-    cells = [[shrink(pose(S[j], HL['piv'], HL['axis'], HL['R'], turn=d * 90 / 8 - HL['aim'], **q), HL['k']) for j, (_, q) in enumerate(P)] for d in range(9)]
-    build('pb-holo-phun', cells, {'fps': 10, 'times': [0, 0.08, 0.42], 'dur': 0.62, 'loop': False, 'fx': 'tranh gốc hu-ho-lo.png', 'note': 'Hồ Lô lúc phun (tranh gốc của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh'}, keep=NGOC, xem=xem)
+    cells = [[khung(q, deg, d * 90 / 8 - HL['aim']) for deg, q in P] for d in range(9)]
+    xuat('pb-holo-phun', cells, B, {'fps': 10, 'times': [0, 0.08, 0.42], 'dur': 0.62, 'loop': False, 'fx': 'đồ theo tranh hu-ho-lo.png', 'note': 'Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh'}, xem)
 
 
-ALL = {'ho-lo': ho_lo}
+# ================================================================ Đại Ấn
+# Tranh mẫu pb-dai-an.png (640 × 640): khối ấn ngọc nẹp vàng hồi văn, kỳ lân ngọc nằm trên, nhìn chếch từ trên xuống. Không có hiệu ứng vẽ sẵn.
+# piv: tâm đáy khối ấn (chỗ ấn chạm đất).
+DA = dict(piv=(322, 470), k=3.6, R=356)
+DA_MAU = [   # ngọc bích (kỳ lân, khối ấn), nẹp vàng hồi văn
+    ('ngoc', hue(62, 215), ['#0b2022>#0c2226', '#195648>#15564a', '#418767>#34896a', '#71b882>#60bd86', '#b0df9d>#a8e6a6', '#e4f3cc>#e8f8d4']),
+    ('vang', hue(10, 62), ['#0d1117>#1a120e', '#503725>#5c3a1c', '#a16437>#aa6a2c', '#dd9e49>#e8a83e', '#f0d985>#ffe488']),
+]
+
+
+def dai_an(xem=None):
+    a = biggest(load('pb-dai-an.png'))
+    B = Bang(a, DA_MAU); T = B.lop(a)
+    k, n, piv = DA['k'], cell(DA['k'], DA['R']), DA['piv']
+    if xem:
+        show(B.rgba(T), Path(xem) / 'dai-an-ban-ve.png', 2); print(' sắc độ tìm được:', B.auto())
+    than = ve(T, n, dang(piv, k, n, -90), B)
+    fr = [loang(than, B, k, -400 + i / 8 * 640, 26, ['ngoc', 'vang']) for i in range(8)]
+    xuat('pb-an', [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy'}, xem)
+    fr = [ve(T, n, dang(piv, k, n, -90, squash=q), B) for q in [(0.86, 1.1), (0.95, 1.04)]] + [than]
+    xuat('pb-an-dap', [fr], B, {'fps': 10, 'times': [0, 0.07, 0.15], 'dur': 0.6, 'loop': False, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp'}, xem)
+
+
+ALL = {'ho-lo': ho_lo, 'dai-an': dai_an}
 
 if __name__ == '__main__':
     args = sys.argv[1:]; xem = None

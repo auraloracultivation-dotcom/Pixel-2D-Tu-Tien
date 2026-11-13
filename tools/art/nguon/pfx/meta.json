@@ -1616,26 +1616,153 @@
   "fx": "p2d/no"
  },
  "pb-an": {
-  "w": 71,
-  "h": 64,
+  "w": 97,
+  "h": 121,
   "cols": 8,
   "rows": 1,
   "n": 8,
   "dirs": 1,
+  "anchor": [
+   49,
+   97
+  ],
+  "k": 0.5,
+  "ext": true,
   "fps": 10,
   "dur": 0.8,
   "loop": true,
+  "fx": "đồ theo tranh pb-dai-an.png",
+  "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy"
+ },
+ "pb-an-dap": {
+  "w": 107,
+  "h": 121,
+  "cols": 3,
+  "rows": 1,
+  "n": 3,
+  "dirs": 1,
   "anchor": [
-   34,
-   50
+   54,
+   97
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "times": [
+   0,
+   0.07,
+   0.15
+  ],
+  "dur": 0.6,
+  "loop": false,
+  "fx": "đồ theo tranh pb-dai-an.png",
+  "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp"
+ },
+ "pb-an-giang": {
+  "w": 204,
+  "h": 181,
+  "cols": 10,
+  "rows": 2,
+  "n": 20,
+  "dirs": 1,
+  "fps": 20,
+  "times": [
+   0,
+   0.033,
+   0.066,
+   0.1,
+   0.133,
+   0.166,
+   0.2,
+   0.233,
+   0.303,
+   0.403,
+   0.503,
+   0.603,
+   0.703,
+   0.803,
+   0.903,
+   1.003,
+   1.103,
+   1.203,
+   1.303,
+   1.403
+  ],
+  "dur": 1.483,
+  "loop": false,
+  "anchor": [
+   105,
+   101
   ],
   "k": 0.5,
   "lit": {
-   "w": 36,
-   "h": 32,
+   "w": 102,
+   "h": 91,
    "s": 2
   },
-  "fx": "p2d/an"
+  "pal": [
+   "#1e1206",
+   "#4a2c08",
+   "#86520c",
+   "#c48412",
+   "#f0b424",
+   "#ffe066",
+   "#fff6c4",
+   "#ffffff"
+  ],
+  "fx": "p2d/an-giang"
+ },
+ "pb-an-giang-d": {
+  "w": 167,
+  "h": 140,
+  "cols": 12,
+  "rows": 2,
+  "n": 18,
+  "dirs": 1,
+  "fps": 20,
+  "times": [
+   0,
+   0.033,
+   0.066,
+   0.1,
+   0.133,
+   0.166,
+   0.2,
+   0.233,
+   0.266,
+   0.345,
+   0.47,
+   0.596,
+   0.721,
+   0.846,
+   0.971,
+   1.096,
+   1.221,
+   1.346
+  ],
+  "dur": 1.483,
+  "loop": false,
+  "anchor": [
+   83,
+   70
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 84,
+   "h": 70,
+   "s": 2
+  },
+  "pal": [
+   "#1e1206",
+   "#4a2c08",
+   "#86520c",
+   "#c48412",
+   "#f0b424",
+   "#ffe066",
+   "#fff6c4",
+   "#ffffff"
+  ],
+  "fx": "p2d/an-giang"
  },
  "pb-chau": {
   "w": 61,
@@ -1770,33 +1897,33 @@
  },
  "pb-holo": {
   "w": 106,
-  "h": 138,
+  "h": 135,
   "cols": 12,
   "rows": 1,
   "n": 12,
   "dirs": 1,
   "anchor": [
-   45,
-   82
+   44,
+   80
   ],
   "k": 0.5,
   "ext": true,
   "fps": 12,
-  "dur": 1,
+  "dur": 1.0,
   "loop": false,
-  "fx": "tranh gốc hu-ho-lo.png",
-  "note": "Hồ Lô lúc hít linh khí (tranh gốc của chủ dự án, gỡ nước, cho phồng bụng, nút gỗ đung đưa): 12 khung, miệng chếch lên phải"
+  "fx": "đồ theo tranh hu-ho-lo.png",
+  "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
  },
  "pb-holo-phun": {
-  "w": 156,
-  "h": 138,
+  "w": 157,
+  "h": 139,
   "cols": 3,
   "rows": 9,
   "n": 3,
   "dirs": 9,
   "anchor": [
-   75,
-   59
+   76,
+   60
   ],
   "k": 0.5,
   "ext": true,
@@ -1808,8 +1935,8 @@
   ],
   "dur": 0.62,
   "loop": false,
-  "fx": "tranh gốc hu-ho-lo.png",
-  "note": "Hồ Lô lúc phun (tranh gốc của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh"
+  "fx": "đồ theo tranh hu-ho-lo.png",
+  "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh"
  },
  "pb-holo-song": {
   "w": 54,
