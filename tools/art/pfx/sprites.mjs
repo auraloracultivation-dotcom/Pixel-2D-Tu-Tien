@@ -91,7 +91,7 @@ export const SPRITES = {
   'pb-chuong': { fx: 'p2d/chuong', pal: TIM, times: seq(0.7, 0.3, 12), end: 0.7, tint: true },                                       // Đồng Chung
   // Đại Ấn: khối ấn đồ lại bằng điểm ảnh theo tranh mẫu ('pb-an', 'pb-an-dap': tools/art/pb_vat.py); ở đây là hiệu ứng riêng lúc ấn nện xuống (dấu triện in đất, tia vàng dựng đứng)
   ...aoe('pb-an-giang', 'p2d/an-giang', 'gold', 1.5, { reach: 80 }, { tint: true }),
-  'pb-co': { fx: 'p2d/co', pal: 'gold', fps: 10 },                                                                         // Trận Kỳ
+  // Trận Kỳ: lá cờ đồ theo tranh mẫu ('pb-co': tools/art/pb_vat.py, 8 khung phất trong gió); pháp trận dưới chân là 'pb-tran' bên dưới
   // Hồ Lô: trái hồ lô là tranh gốc của chủ dự án ('pb-holo', 'pb-holo-phun': tools/art/pb_vat.py); ở đây chỉ có phần hiệu ứng vẽ quanh nó
   'pb-holo-xoay': { fx: 'p2d/ho-lo', pal: KIEM, times: Array.from({ length: 12 }, (_, i) => +(i / 12 + 0.04).toFixed(3)), end: 1.0, angle: -40 * Math.PI / 180, box: [-8, -38, 60, 38], tint: true },   // phễu linh khí xoáy vào miệng (miệng hình pb-holo chếch −40 độ)
   'pb-holo-tia': { fx: 'p2d/ho-lo-nuoc', pal: KIEM, opts: { kind: 'tia' }, fps: 20, box: [-2, -56, 132, 56], tint: true },   // luồng linh tuyền vọt ra từ miệng (game xoay theo hướng đánh)

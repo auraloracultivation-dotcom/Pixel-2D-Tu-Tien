@@ -18843,9 +18843,9 @@
   },
   "pfx.pb-co": {
    "file": "assets/art/pfx-pb-co.png",
-   "v": "b54477ee",
-   "w": 44,
-   "h": 63,
+   "v": "2842a116",
+   "w": 117,
+   "h": 132,
    "frames": 8,
    "rows": 1,
    "n": 8,
@@ -18854,26 +18854,11 @@
    "dur": 0.8,
    "loop": true,
    "anchor": [
-    19,
-    53
+    35,
+    130
    ],
    "k": 0.5,
-   "lit": 1,
-   "note": "hiệu ứng chiêu pb-co: PixelFX p2d/co (MIT), tools/art/pfx/"
-  },
-  "pfx.pb-co.l": {
-   "file": "assets/art/pfx-pb-co-l.png",
-   "v": "a0098439",
-   "w": 22,
-   "h": 32,
-   "frames": 8,
-   "rows": 1,
-   "s": 2,
-   "anchor": [
-    0,
-    0
-   ],
-   "note": "lớp sáng của pfx.pb-co"
+   "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất (tools/art/pb_vat.py)"
   },
   "pfx.pb-holo": {
    "file": "assets/art/pfx-pb-holo.png",

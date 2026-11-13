@@ -63,6 +63,9 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
   `fx/mai-rua.js` (quả cầu chia mảnh mai rùa bằng ô Voronoi trên mặt cầu: 1 đỉnh + 3 vòng 6 mảnh + 1 đáy, xoay 60 độ mỗi vòng lặp nên liền mạch,
   đường nối mặt sau mờ, lòng mảnh lưới chấm thưa, vệt sáng lướt) và `fx/khien-vo.js` (vòm loé trắng rồi từng mảnh bung ra theo hướng chỗ nó nằm,
   dùng lại tâm mảnh `VIEW` của mai-rua.js). Bản `-2` dựng ở bán kính 60 cho phẩm cao (không phóng điểm ảnh).
+- **Trận Kỳ:** lá cờ đồ theo `pb-tran-ky.png` (`pb-co` 117 × 132, 21 màu: cán gỗ, vàng, lụa lam, vải tím). Cờ phất bằng cách dựng 8 dáng từ bản vẽ:
+  điểm càng xa cán càng bị sóng đẩy lệch (sóng chạy dọc lá cờ), cán và đầu cán đứng yên; nếp vải = sườn đón sáng nhạt lên một nấc, sườn khuất sẫm
+  xuống một nấc (`Bang.down`). Nét thêu vàng mảnh hơn một điểm hình nên cho nặng phiếu (`B.w`) để còn liền nét. Bỏ `fx/co.js` (cờ đỏ vàng vẽ bằng code).
 - Tranh gốc của các món khác: `pb-dai-an.png` + `hu-dai-an.png`, `pb-linh-chau.png` + `hu-linh-chau.png`, `pb-ho-thuan.png`, `pb-tran-ky.png`;
   Phi Kiếm: `nguon/ai/kiem/kiem.png` (kiếm số 3 đang làm hình trên nút); Bảo Phiến: `gear.ba-tieu-phien`; Đồng Chung: ô chuông trong `nguon/ai/chieu/chieu-3.png`.
 - `export.mjs --icons [tên…]`, `PFX_OUT=<thư mục>` (dựng thử ra chỗ khác), `vfx_pfx.py` đọc cỡ biểu tượng từ file.
@@ -71,7 +74,7 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 
 ## Việc còn lại
 
-- Năm món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn, Hộ Thuẫn (thứ tự đề nghị: Linh Châu, Trận Kỳ, Phi Kiếm, Bảo Phiến, Đồng Chung),
+- Bốn món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn, Hộ Thuẫn, Trận Kỳ (thứ tự đề nghị: Linh Châu, Phi Kiếm, Bảo Phiến, Đồng Chung),
   mỗi món hiệu ứng riêng, không mượn hình của món khác.
 - Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh). Hộ Thuẫn đã có; Hồ Lô, Đại Ấn chưa (món vẫn vẽ k 1, chỉ hiệu ứng to lên).
 - Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.

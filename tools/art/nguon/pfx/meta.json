@@ -1874,26 +1874,23 @@
   "fx": "p2d/chuong"
  },
  "pb-co": {
-  "w": 44,
-  "h": 63,
+  "w": 117,
+  "h": 132,
   "cols": 8,
   "rows": 1,
   "n": 8,
   "dirs": 1,
+  "anchor": [
+   35,
+   130
+  ],
+  "k": 0.5,
+  "ext": true,
   "fps": 10,
   "dur": 0.8,
   "loop": true,
-  "anchor": [
-   19,
-   53
-  ],
-  "k": 0.5,
-  "lit": {
-   "w": 22,
-   "h": 32,
-   "s": 2
-  },
-  "fx": "p2d/co"
+  "fx": "đồ theo tranh pb-tran-ky.png",
+  "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất"
  },
  "pb-holo": {
   "w": 106,

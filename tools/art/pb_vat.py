@@ -172,10 +172,12 @@ class Bang:
             self.pal += out
         self.ink = len(self.pal); self.pal.append(ai.INK[:3])
         self.up = list(range(len(self.pal)))          # lớp sáng hơn một nấc trong cùng chất liệu
+        self.down = list(range(len(self.pal)))        # lớp tối hơn một nấc (không xuống tới nét tối nhất: đó là nét viền)
         self.mat = [0] * len(self.pal); self.w = [1.0] * len(self.pal)   # w: nét tối nhất của mỗi chất liệu nặng phiếu hơn (nét mảnh không bị nuốt)
         for j, (_, _, cols) in enumerate(mats, 1):
             for t in range(len(cols)):
                 self.up[self.base[j] + t] = self.base[j] + min(t + 1, len(cols) - 1); self.mat[self.base[j] + t] = j
+                self.down[self.base[j] + t] = self.base[j] + (max(t - 1, 1) if t else 0)
             self.w[self.base[j]] = 1.7
 
     def auto(self):
@@ -400,7 +402,50 @@ def ho_thuan(xem=None):
         xuat(ten, [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-ho-thuan.png', 'note': 'Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm'}, xem)
 
 
-ALL = {'ho-lo': ho_lo, 'dai-an': dai_an, 'ho-thuan': ho_thuan}
+# ================================================================ Trận Kỳ
+# Tranh mẫu pb-tran-ky.png (616 × 640): cờ đuôi nheo tím thêu bát quái vàng, cán gỗ nghiêng 10,5 độ, đầu cán bọc vàng có ngọc, dải lụa lam và kem.
+# piv: mũi nhọn dưới cán (chỗ cắm xuống đất). Trục cán: x = 0,186 y + 124,5.
+TK = dict(piv=(236, 598), k=4.4, R=600)
+TK_MAU = [   # cán gỗ, vàng (viền, hình thêu, đầu cán, dải lụa kem), dải lụa lam, lá cờ tím
+    ('go', hue(350, 24), ['#0d0605>#170a08', '#3f1c16>#45201a', '#713627>#783a28', '#954c31>#9c5230', '#c07047>#c87a48']),
+    ('vang', hue(24, 70), ['#140f0a>#1a120c', '#745a38>#7a5426', '#c78e43>#c48a34', '#b49f7a>#d8b46a', '#f2c75f>#f6cc62', '#f3dd91>#ffe9a0']),
+    ('lam', hue(200, 243), ['#06070e>#0a0c1e', '#1c214b>#1c2458', '#2e357e>#2e3c92', '#4558a6>#4a66c4', '#6c7db7>#86a6e8']),
+    ('tim', hue(243, 300), ['#372d69>#2a1f5e', '#4e3f7e>#3d2f82', '#5d4991>#5340a2', '#6e5792>#6c58bc', '#8e7b85>#9484d6']),
+]
+
+
+def tran_ky(xem=None):
+    a = biggest(load('pb-tran-ky.png'))
+    B = Bang(a, TK_MAU); T = B.lop(a)
+    for t in (2, 3, 4, 5):
+        B.w[B.base[B.name['vang']] + t] = 1.45       # nét thêu vàng mảnh hơn một điểm hình: cho nặng phiếu để hình bát quái còn liền nét
+    k, n, piv = TK['k'], cell(TK['k'], TK['R']), TK['piv']
+    if xem:
+        show(B.rgba(T), Path(xem) / 'tran-ky-ban-ve.png', 1); print(' sắc độ tìm được:', B.auto())
+    vai = np.isin(np.array(B.mat), [B.name['lam'], B.name['tim'], B.name['vang']]); up, down = np.array(B.up), np.array(B.down)
+
+    def song(x, y, w):
+        """Gió thổi lá cờ: d = khoảng cách ra xa cán; càng xa cán càng phất mạnh, sóng chạy dọc lá cờ. Trả (biên độ, pha)."""
+        d = (x - (0.186 * y + 124.5)) * 0.983
+        return 13 * np.clip((d - 16) / 44, 0, 1) * (0.3 + 0.7 * np.clip(d / 420, 0, 1.2)), d / 240 * math.tau - w
+
+    fr = []
+    for i in range(8):
+        w = i / 8 * math.tau
+
+        def inv(ox, oy):
+            x, y = (ox - n / 2) * k + piv[0], (oy - n / 2) * k + piv[1]
+            A, ph = song(x, y, w)
+            return x + 0.3 * A * np.cos(ph), y + A * np.sin(ph)
+        f = ve(T, n, inv, B)
+        rr, cc = np.mgrid[0:n, 0:n]; A, ph = song((cc - n / 2) * k + piv[0], (rr - n / 2) * k + piv[1], w)
+        c = np.cos(ph + 0.9); fold = (A > 4) & vai[f]                      # nếp vải: sườn đón sáng nhạt lên một nấc, sườn khuất sẫm xuống một nấc
+        f = np.where(fold & (c > 0.6), up[f], np.where(fold & (c < -0.6), down[f], f))
+        fr.append(f)
+    xuat('pb-co', [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-tran-ky.png', 'note': 'Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất'}, xem)
+
+
+ALL = {'ho-lo': ho_lo, 'dai-an': dai_an, 'ho-thuan': ho_thuan, 'tran-ky': tran_ky}
 
 if __name__ == '__main__':
     args = sys.argv[1:]; xem = None

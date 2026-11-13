@@ -216,7 +216,7 @@ export function drawPbPx(ctx, game, t) {
     if (!e.px) continue;
     const pal = pbRamp(game, e), R = C.ramps[pal];
     switch (e.kind) {
-      case 'zone': { const a = Math.min(1, e.t / 0.1, (e.life - e.t) / 0.4), d = e.t < 0.16 ? 1 - (e.t / 0.16) ** 2 : 0; pfxDraw(ctx, art, 'pb-co', e.x, e.y - d * 70, t, { loop: true, k: pbK(game, e, 'co'), a }); break; }   // cờ trận rơi xuống cắm giữa vùng
+      case 'zone': { const a = Math.min(1, e.t / 0.1, (e.life - e.t) / 0.4), d = e.t < 0.16 ? 1 - (e.t / 0.16) ** 2 : 0; pfxDraw(ctx, art, 'pb-co', e.x, e.y - d * 70, t, { loop: true, k: 1, a }); break; }   // cờ trận (đồ theo tranh mẫu, cỡ điểm nhân vật) rơi xuống cắm giữa vùng, phất trong gió
       case 'seal': sealT(ctx, game, art, e, R); break;
       case 'wave': wave(ctx, e, R); break;
       case 'shot': shot(ctx, game, art, e, R, pal); break;
