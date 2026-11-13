@@ -16,7 +16,7 @@ await p.goto('http://localhost:8792/?thu=1&' + q); await p.waitForSelector('#btn
 await p.click('#btn-guest'); await p.waitForFunction(() => window.__game?.save, null, { timeout: 30000 });
 const info = await p.evaluate(async ({ HIGH }) => {
   const g = window.__game, wait = ms => new Promise(r => setTimeout(r, ms));
-  g.data.config.perf.slow_ms = 1e9; g.data.config.power_pop.min = 1e12;   // bảng "Lực chiến tăng" không liên quan tới cảm giác ra đòn: tắt trong cảnh quay
+  g.data.config.perf.slow_ms = 1e9; g.data.config.power_pop.min = 1e12;   // kịch bản ép chí mạng (đổi chỉ số giữa cảnh) làm bảng "Lực chiến tăng" nhảy giả: tắt bảng đó trong cảnh quay
   for (let quiet = 0, i = 0; i < 400 && quiet < 12; i++) { const c = document.querySelector('#dlg-choices .choice'); if (c) { c.click(); quiet = 0; } else if (g.dialog.open) { g.dialog.skip(); g.dialog.skip(); quiet = 0; } else quiet++; await wait(60); }
   g.dialog.say = () => Promise.resolve(); g.dialog.choose = () => Promise.resolve(null); g.dialog.ask = () => Promise.resolve(null); g.persist = () => {};
   const MB = await import('/src/game/mobs.js'); await wait(1500);
