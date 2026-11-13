@@ -103,6 +103,7 @@ export function createLogin(onPlay0, opts = {}) {   // opts.google: hiện nút 
         auth = await withTimeout(import('../net/auth.js'), NET_TIMEOUT);
         session = await withTimeout(auth.getSession(), NET_TIMEOUT);
         msg(session ? await welcomeBack() : '');
+        if (session && !played && opts.tuVao?.(() => $('menu-continue').onclick())) return;   // vừa tự tải lại lúc đang chơi: vào thẳng (src/ui/tu-vao.js)
         for (const id of ['btn-login', 'btn-signup', 'btn-google']) $(id).disabled = false;
       } catch {
         auth = null;

@@ -96,6 +96,7 @@ export function startNetWatch(game) {
     if (!lostAt && (now - lastOk > c.lost_s * 1000 || now - beatOk > (c.lost_s + gapS()) * 1000)) { lostAt = now; show(true); }
     if (lostAt && now - lostAt > c.reload_s * 1000) {
       try { game.persist?.(); } catch { /* vẫn tải lại */ }
+      dispatchEvent(new Event('p2d-tai-lai'));   // src/ui/tu-vao.js: tải lại xong tự vào game
       location.reload();
     }
   }
