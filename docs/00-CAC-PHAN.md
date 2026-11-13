@@ -48,4 +48,4 @@ Bảy phần đầu theo thứ tự chủ dự án để ý nhất.
 |---|---|---|---|
 | 13/11/2026 | 1 Máy chủ | Lưu tiến độ chiếm tải lớn nhất (64 nghìn lần, có lúc 7–8 giây) | Gom lưu 30–60 giây; nhịp sống chuyển hẳn sang Cloudflare; đo tải thật (chờ chủ dự án) |
 | 13/11/2026 | 20 Sự kiện | Nút Sự kiện trỏ vào sự kiện giới thiệu đã hết; thông báo cũ | Bảng "Đang diễn ra"; giờ vàng; lễ theo ngày thật (chờ chủ dự án) |
-
+| 14/11/2026 | 2 Chống hack | 7 ngày: 595 nghi vấn của 20 người, riêng `luc_chien` 236 và `thu_nhieu` 154; tài khoản chủ dự án (đáng tin) cũng dính 102, ba người đứng đầu chiếm quá nửa → tín hiệu thật (ví dụ Thánh: cảnh giới 1 mà 9,1 triệu Linh Thạch) lẫn trong nhiễu; chỉ 1 cờ đỏ. Pháp bảo mới chưa ký tên. Hàm chặn 1 giây quên quyền service_role làm hỏng đăng ký 21 giờ (đã sửa 13/11 23:41) | (1) Gộp nghi vấn theo người/ngày + bỏ tài khoản tin cậy khỏi bảng canh; (2) nới ngưỡng `luc_chien` theo số liệu thật; (3) ký tên pháp bảo (giai đoạn 5); (4) sau mỗi migration tự thử đăng ký (đã ghi luật). Chờ chủ dự án |
