@@ -8,6 +8,8 @@ import { drawPhapBao } from '../draw-phap-bao.js';
 import { vfxOf } from '../../game/vfx.js';
 import { glow, core, vimg, groundCircle, ease, back } from './glow.js';
 import { spriteImage } from '../sprites.js';
+import { pxOf } from '../../game/pfx.js';
+import { drawPx } from './draw-pfx.js';
 
 const TAU = Math.PI * 2;
 
@@ -22,7 +24,7 @@ function lit(ctx, art, C, name, x, y, size, color, o = {}) {
 function drawZones(ctx, game, art, C, t) {
   for (const z of game.zones) {
     const V = vfxOf(game, z.sk);
-    if (!V) continue;
+    if (!V || pxOf(game, z.sk)?.zone) continue;
     const color = V.color || z.color, fade = Math.min(1, z.t * 4, (z.dur - z.t) * 2), r = z.radius;
     if (V.circle) groundCircle(ctx, art, V.circle, z.x, z.y + 1, r * 0.95, t * 0.5, 0.55 * fade);
     if (V.show === 'orbit') {   // kim luân: hai vòng kim xoay quanh người, sáng lóe theo vòng
@@ -41,13 +43,13 @@ function drawZones(ctx, game, art, C, t) {
 
 // Khiên bọc người, hào quang tăng sức (người chơi, bản sao so tài)
 function drawSelf(ctx, game, art, C, t, who) {
-  const Vs = who.shield > 0 && who.shieldT > 0 && vfxOf(game, who.shieldSk);
+  const Vs = who.shield > 0 && who.shieldT > 0 && !pxOf(game, who.shieldSk)?.self && vfxOf(game, who.shieldSk);
   if (Vs) {
     const p = 0.5 + 0.5 * Math.sin(t * 4), color = Vs.color || who.shieldColor;
     glow(ctx, who.x, who.y - 10, Vs.glow * 1.4, color, 0.1 + 0.05 * p);   // quầng rộng nhạt: không làm trắng nhân vật
     vimg(ctx, art, Vs.img || who.shieldSk, who.x, who.y - 11, Vs.size * (1 + 0.03 * p), { a: (Vs.dome_a ?? 0.3) + 0.05 * p, add: !!Vs.dome_add });   // khiên trong như kính: vẫn thấy rõ nhân vật
   }
-  const Vb = who.buffT > 0 && vfxOf(game, who.buffSk);
+  const Vb = who.buffT > 0 && !pxOf(game, who.buffSk)?.self && vfxOf(game, who.buffSk);
   if (Vb) {
     const p = 0.5 + 0.5 * Math.sin(t * 5), color = Vb.color || who.buffColor;
     glow(ctx, who.x, who.y - 12, Vb.glow * 1.5, color, 0.08 + 0.05 * p);
@@ -167,7 +169,7 @@ let warmed = false;
 export function drawVfx(ctx, game, t) {
   const S = game.vfx, art = game.data.art, C = game.data.vfx?.core;
   if (!C) return;
-  if (!warmed) { warmed = true; for (const [k, spr] of Object.entries(art.sprites)) if (k.startsWith('vfx.')) spriteImage(spr); }   // tải sẵn mọi hình chiêu: lần tung đầu không bị trống
+  if (!warmed && !game.pfxOn) { warmed = true; for (const [k, spr] of Object.entries(art.sprites)) if (k.startsWith('vfx.')) spriteImage(spr); }   // tải sẵn mọi hình chiêu: lần tung đầu không bị trống
   ctx.save();
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
   drawZones(ctx, game, art, C, t);
@@ -175,10 +177,11 @@ export function drawVfx(ctx, game, t) {
   for (const f of fxs) if (f.k === 'circle' || f.k === 'ground') drawFx(ctx, game, art, C, t, f);
   drawSelf(ctx, game, art, C, t, game.player);
   for (const e of game.duel?.mob ? game.duel.foes : []) drawSelf(ctx, game, art, C, t, e);
-  for (const b of game.bullets) { const V = vfxOf(game, b.sk); if (V) drawBullet(ctx, game, art, C, t, b, V); }
+  for (const b of game.bullets) { const V = vfxOf(game, b.sk); if (V && !pxOf(game, b.sk)?.shot) drawBullet(ctx, game, art, C, t, b, V); }
   for (const f of fxs) if (f.k !== 'circle' && f.k !== 'ground') drawFx(ctx, game, art, C, t, f);
   if (S?.parts.length) drawParts(ctx, art, S.parts);
   ctx.restore();
+  drawPx(ctx, game);   // hiệu ứng điểm ảnh PixelFX (./draw-pfx.js)
   drawPhapBao(ctx, game, t);   // Hệ Pháp Bảo (src/render/draw-phap-bao.js)
   drawKiemVu(ctx, game, t);   // Vạn Kiếm Thiên Lâm (src/render/draw-kiem-vu.js)
   drawJuiceWorld(ctx, game, t);   // cảm giác đánh: tia toả, vụn, khói vòng, đốm linh khí (src/render/draw-juice.js)

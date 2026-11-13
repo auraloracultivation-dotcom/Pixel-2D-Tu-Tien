@@ -1,0 +1,20 @@
+/* Tắt màn hình khi treo game (src/ui/man-toi.js). Nút nằm ngay trên nút Tự đánh (#btn-auto.auto-dock, src/ui/docks.css), cùng bề ngang. */
+#btn-man-toi { position: absolute; right: 124px; bottom: 206px; width: 112px; height: 28px; padding: 0 8px 0 22px; pointer-events: auto; white-space: nowrap;
+  border: 1px solid #b08a3c; border-radius: 14px; background: rgba(18, 12, 30, .86); color: #f1dfa8; font: 700 12px/1 var(--f-body, system-ui, sans-serif);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .45); -webkit-tap-highlight-color: transparent; }
+#btn-man-toi::before { content: ""; position: absolute; left: 12px; top: 50%; width: 11px; height: 11px; margin-top: -6px; border-radius: 50%; box-shadow: inset -4px -1px 0 0 #f1dfa8; }   /* trăng khuyết */
+#btn-man-toi:active { background: rgba(60, 40, 14, .92); }
+#buttons:has(#btn-act:not([hidden])) #btn-man-toi { bottom: 236px; }   /* nút tương tác hiện ra thì Tự đánh lên một nấc, nút này lên theo */
+body:has(.panel:not([hidden])) #btn-man-toi, body:has(#bag:not([hidden])) #btn-man-toi, body:has(#dialog:not([hidden])) #btn-man-toi { visibility: hidden; }
+
+/* Lớp đen kín màn hình: trên mọi thứ, nuốt mọi cú chạm */
+#man-toi { position: fixed; inset: 0; z-index: 2147483000; background: #000; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+#man-toi .mt-box { position: absolute; left: 12%; top: 30%; max-width: 66vw; display: flex; flex-direction: column; gap: 5px; color: #2c2c2c; font: 500 13px/1.4 var(--f-body, system-ui, sans-serif); transition: color .8s; }
+#man-toi .mt-box b { font: 700 36px/1.05 var(--f-body, system-ui, sans-serif); letter-spacing: .02em; }
+#man-toi .mt-box small { font-size: 12px; }
+#man-toi .mt-warn { color: #5a3c1e; }
+#man-toi.mt-ro .mt-box { color: #a8a8a8; transition: color .15s; }
+#man-toi.mt-ro .mt-warn { color: #d89a4a; }
+
+/* Đang tắt màn: mọi thứ bên dưới thôi vẽ */
+body.man-toi #game, body.man-toi #hud, body.man-toi #buttons { visibility: hidden; }

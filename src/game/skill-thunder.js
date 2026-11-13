@@ -10,6 +10,7 @@ import { hitMob, dist, impactShake, addFx } from './combat.js';
 import { addZone } from './zones.js';
 import { pvpTryHit } from './pvp.js';
 import { startCharge } from './skill-charge.js';
+import { skillSfx } from './skill-sfx.js';
 
 const inR = (o, R, t) => t && !t.dead && dist(o, t) <= R + (t.r || 0);
 const angGap = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
@@ -71,5 +72,5 @@ export function thunderRelease(game, a, c) {
   addZone(game, { x: o.x, y: o.y, radius: 1, dur: end + 0.1, tick: 0.02, ev, i: 0, draw() {}, onTick: z => {
     while (z.i < z.ev.length && z.ev[z.i].at <= z.t) { const e = z.ev[z.i++]; if (!e.t.dead) c.hit(e.t, s.mult / hits.get(e.t)); }
   } });
-  if (a === game.player) { pvpTryHit(game); impactShake(game, 160); game.flashT = Math.max(game.flashT || 0, 0.16); game.sfx?.('impact', 1); }
+  if (a === game.player) { pvpTryHit(game); impactShake(game, 160); game.flashT = Math.max(game.flashT || 0, 0.16); game.sfx?.('impact', 1); skillSfx(game, s, 'r'); }
 }

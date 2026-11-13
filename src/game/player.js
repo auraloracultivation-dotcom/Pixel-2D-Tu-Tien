@@ -11,6 +11,7 @@ import { pbInput } from './phap-bao-run.js';
 import { chainStep } from './skill-chain.js';
 import { domainHold } from './skill-domain.js';
 import { chargeHold } from './skill-charge.js';
+import { warmSkillSfx } from './skill-sfx.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed } from './pets.js';
@@ -174,7 +175,8 @@ export function updatePlayer(game, dt) {
   updateFlyWeapon(game, dt);
 
   const slots = skillSlots(game);
-  if (pbOn(game)) pbInput(game, inp);   // tài khoản thử Hệ Pháp Bảo: 3 nút chiêu là 3 pháp bảo đang mặc (src/game/phap-bao-run.js)
+  warmSkillSfx(game, slots);   // dựng sẵn tiếng của chiêu đang mang (src/game/skill-sfx.js)
+  if (pbOn(game)) pbInput(game, inp);   // Hệ Pháp Bảo (từ Mùa 2: mọi tài khoản): các nút chiêu là pháp bảo đang mặc (src/game/phap-bao-run.js)
   else for (let i = 0; i < 3; i++) {
     if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && ready(game, slots[i]) && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
       p.meditating = false; p.calmT = 0; p.riding = false;

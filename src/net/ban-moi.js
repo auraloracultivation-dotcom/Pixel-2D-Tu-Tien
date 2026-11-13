@@ -38,6 +38,7 @@ export function watchBuild(c, { toast, flush }) {
       try { toast?.(String(c.text || '').replace('{n}', wait), wait); } catch { /* chưa có giao diện */ }
       setTimeout(async () => {
         try { await flush?.(); } catch { /* mạng hỏng: bản trong máy vẫn còn */ }
+        dispatchEvent(new Event('p2d-tai-lai'));   // src/ui/tu-vao.js: tải lại xong tự vào game
         location.reload();
       }, wait * 1000);
     } catch { /* mất mạng: lần sau thử lại */ }

@@ -9,6 +9,8 @@ import { createGame } from './game/game.js';
 import { startBayCanh } from './ui/bay-canh-start.js';
 import { startDeathAsk } from './ui/death-ask.js';
 import { createFrameDim } from './ui/frame-dim.js';
+import { createManToi } from './ui/man-toi.js';
+import { watchTuVao, tuVao } from './ui/tu-vao.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
 import { drawTrip } from './render/flight.js';
 import { createHud } from './ui/hud.js';
@@ -82,7 +84,7 @@ async function boot() {
   const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
   screen = createScreen(canvas, data.config, perf.dpr);
   const input = createInput(canvas);
-  const audio = createAudio(data.sounds);
+  const audio = createAudio(data.sounds, data['tieng-chieu']?.sfx);   // tiếng chung + tiếng riêng từng chiêu (data/tieng-chieu.json)
   const ui = createHud(audio);
   const game = createGame(data, screen, input, ui, audio);
   createBag(game);
@@ -133,10 +135,12 @@ async function boot() {
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 
   createFrameDim(game);   // dải trên, dải dưới tối đi, phần giữa là khung chơi và khung quay video (src/ui/frame-dim.js)
+  createManToi(game);   // nút Tắt màn khi treo game: lớp đen kín màn hình, game vẫn chạy nhưng thôi vẽ (src/ui/man-toi.js)
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập
-  const login = createLogin(opts => game.begin(opts), { google: !!game.data.config.auth?.google });
+  watchTuVao(game);   // trang tự tải lại (bản mới, mất kết nối lâu) thì vào lại game, bật lại Tự đánh / Tự hành (src/ui/tu-vao.js)
+  const login = createLogin(opts => game.begin(opts), { google: !!game.data.config.auth?.google, tuVao: go => tuVao(game, go) });
   login.start();
 
   let last = performance.now(), lastErr = '', lastUi = 0;
@@ -147,9 +151,10 @@ async function boot() {
     last = now;
     try {
       game.update(dt);
-      if (game.trip) drawTrip(game, screen);
+      if (game.manToi) { /* đang tắt màn (src/ui/man-toi.js): game vẫn chạy, không vẽ gì */ }
+      else if (game.trip) drawTrip(game, screen);
       else { drawWorld(game, screen, now / 1000); drawOverlay(game, screen, input); }
-      if (now - lastUi >= data.config.perf.hud_ms) { lastUi = now; ui.update(game); }   // chữ, thanh máu HUD: 15 lần mỗi giây là đủ
+      if (now - lastUi >= (game.manToi ? 1000 : data.config.perf.hud_ms)) { lastUi = now; ui.update(game); }   // chữ, thanh máu HUD: 15 lần mỗi giây là đủ (tắt màn: mỗi giây một lần)
     } catch (e) {
       if (e.message !== lastErr) { lastErr = e.message; setTimeout(() => { throw e; }); }   // báo một lần (core/catch-errors.js gửi về máy chủ)
     }

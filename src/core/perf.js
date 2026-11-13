@@ -18,7 +18,7 @@ export function createPerf(cfg, onChange) {
   // Điện thoại: đứng yên thì fps_mobile (mát máy), đang chạy / máy quay đang trôi thì fps_move (chủ dự án 09/11/2026 13:53: chạy thấy
   // cảnh xung quanh giật giật mỏi mắt — 30 khung lúc cuộn cảnh bị nấc). Đo bằng vị trí máy quay giữa hai lần hỏi.
   P.moving = game => { const s = game?.screen, m = s && (Math.abs(s.camX - (P.cx ?? s.camX)) + Math.abs(s.camY - (P.cy ?? s.camY)) > 0.05); if (s) { P.cx = s.camX; P.cy = s.camY; } if (m) P.moveT = performance.now(); return performance.now() - (P.moveT || -1e9) < 400; };
-  P.fps = game => (game?.uiOpen || game?.dialog?.open || game?.view || (game?.player?.meditating && !game.trib?.active) ? C.fps_ui : phone ? (P.moving(game) && P.level <= 1 ? (C.fps_move ?? 60) : Math.min(C.fps[P.level], C.fps_mobile ?? 99)) : C.fps[P.level]);   // mở bảng, hộp thoại, ngắm cảnh, đả tọa: cảnh gần như đứng yên
+  P.fps = game => game?.manToi ? (cfg.man_toi?.fps || 30) : (game?.uiOpen || game?.dialog?.open || game?.view || (game?.player?.meditating && !game.trib?.active) ? C.fps_ui : phone ? (P.moving(game) && P.level <= 1 ? (C.fps_move ?? 60) : Math.min(C.fps[P.level], C.fps_mobile ?? 99)) : C.fps[P.level]);   // mở bảng, hộp thoại, ngắm cảnh, đả tọa: cảnh gần như đứng yên; đang tắt màn (src/ui/man-toi.js): không vẽ, chỉ cần đủ nhịp cho game chạy đúng tốc độ
 
   // Gọi đầu mỗi lần trình duyệt mời vẽ: true = vẽ khung này
   // Nhịp vẽ cộng dồn theo khoảng khung (P.last), không đặt lại bằng now: màn 60 Hz với 45 khung vẽ 3 trong 4 lần mời

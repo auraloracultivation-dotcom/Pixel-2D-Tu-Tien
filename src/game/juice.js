@@ -3,6 +3,7 @@
 // đạn chiêu kéo khói vòng trắng, lướt để bụi; chiêu lớn chớp màn + rung; Liên Kích (đếm đòn liên tiếp, mốc thì hô to);
 // thanh Nộ đầy thì Bạo Nộ: sát thương tăng, quầng lửa, nhạc dồn. Vẽ ở src/render/draw-juice.js.
 import { fxOk } from './fx-budget.js';
+import { pxOf } from './pfx.js';
 const TAU = Math.PI * 2;
 const J = game => game.data.juice;
 export const juice = game => (game.juice ||= { parts: [], combo: 0, comboT: 0, comboPop: 0, call: null, rage: 0, rageOn: 0, idle: 99, vig: 0, trailT: 0, dashT: 0 });
@@ -63,10 +64,10 @@ export function juiceHurt(game, frac) {
 }
 
 // Chiêu lớn vừa tung: chớp màn dịu, rung
-export function juiceCast(game, s) {
+export function juiceCast(game, s, id) {
   const C = J(game)?.cast; if (!C || !s) return;
   const p = game.player, big = s.ult || C.big_types.includes(s.type);
-  push(game, { k: 'rune', x: p.x, y: p.y, r: big ? C.rune_big : C.rune, life: C.rune_life, color: s.color || C.rune_color, rot: Math.random() * TAU });   // trận đồ dưới chân khi tung chiêu (clip)
+  if (!pxOf(game, id)) push(game, { k: 'rune', x: p.x, y: p.y, r: big ? C.rune_big : C.rune, life: C.rune_life, color: s.color || C.rune_color, rot: Math.random() * TAU });   // trận đồ dưới chân khi tung chiêu (clip)
   if (!big) return;
   game.flashT = Math.max(game.flashT || 0, C.flash);
   game.screen.shake(C.shake, 0.25);
@@ -115,7 +116,7 @@ export function updateJuice(game, dt) {
   // khói vòng sau đạn chiêu của mình, bụi khi lướt
   if ((S.trailT -= dt) <= 0) {
     S.trailT = D.trail.every;
-    for (const b of game.bullets) if (b.sk) push(game, { k: 'smoke', x: b.x, y: b.y, r: D.trail.r, life: D.trail.life, a: D.trail.alpha });
+    for (const b of game.bullets) if (b.sk && !pxOf(game, b.sk)?.shot) push(game, { k: 'smoke', x: b.x, y: b.y, r: D.trail.r, life: D.trail.life, a: D.trail.alpha });   // đạn có hình điểm ảnh (pfx.js) đã có đuôi riêng
   }
   if (p.dashT > 0 && (S.dashT -= dt) <= 0) { S.dashT = D.trail.dash_every; push(game, { k: 'smoke', x: p.x + (Math.random() - 0.5) * 4, y: p.y - 1, r: 2.5, life: 0.4, a: 0.45, grow: 2.2 }); }
   for (const q of S.parts) {

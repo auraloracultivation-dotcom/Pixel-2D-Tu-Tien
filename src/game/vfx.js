@@ -7,6 +7,7 @@ import { hitSfx } from './skill-sfx.js';
 import { updateJuice } from './juice.js';
 import { updateKiemVu } from './skill-kiem-vu.js';
 import { updatePhapBao } from './phap-bao-run.js';
+import { pxOf, pxCast, pxMobHit, pxHit, updatePx } from './pfx.js';   // hiệu ứng điểm ảnh PixelFX (13/11/2026): có công thức px thì dùng, không thì hiệu ứng cũ bên dưới
 
 export const vfxOf = (game, id) => (id && game.data.vfx?.skills?.[id]) || null;
 const st = game => (game.vfx ??= { fx: [], parts: [] });
@@ -36,6 +37,7 @@ const fx = (game, o) => st(game).fx.push({ t: 0, life: 0.6, ...o });
 export function vfxCast(game, id, s, who, info = {}) {
   const V = vfxOf(game, id);
   if (!V) return false;
+  if (pxCast(game, id, s, who, info)) return true;
   const color = V.color || s.color, cx = info.cx ?? who.x, cy = info.cy ?? who.y;
   if (V.cast) fx(game, { k: 'flash', img: V.cast, x: who.x + (who.face?.x || 0) * 8, y: who.y - 10, size: V.cast_size || 26, color, life: 0.5, sk: id });
   if (V.circle && s.type !== 'zone') fx(game, { k: 'circle', img: V.circle, x: s.type === 'aoe' ? cx : who.x, y: (s.type === 'aoe' ? cy : who.y) + 1, r: Math.max(16, (s.radius || 18) * 0.9), color, life: s.type === 'dash' ? 0.6 : 0.9, sk: id });
@@ -72,6 +74,7 @@ export function vfxCast(game, id, s, who, info = {}) {
 export function vfxMobHit(game, id, m) {
   const V = vfxOf(game, id);
   if (!V) return false;
+  if (pxMobHit(game, id, m)) return true;
   spray(game, V.part || V.trail, m.x, m.y - 6, Math.ceil((V.hit_n || 6) / 3), 40, { size: 5 });
   hitSfx(game, id, 0.5);
   if (V.show === 'sweep' && V.hit) fx(game, { k: 'burst', img: V.hit, x: m.x, y: m.y - 6, size: V.hit_size, color: V.color, life: 0.35 });
@@ -82,6 +85,7 @@ export function vfxMobHit(game, id, m) {
 export function vfxHit(game, b, x, y, big = 0) {
   const V = vfxOf(game, b.sk);
   if (!V) return false;
+  if (pxHit(game, b, x, y, big)) return true;
   const size = Math.max(V.hit_size || 14, big * 1.8);
   hitSfx(game, b.sk, big ? 0.9 : 0.7);
   if (V.hit) fx(game, { k: 'burst', img: V.hit, x, y: y - 3, size, color: V.color || b.color, life: big ? 0.5 : 0.38 });
@@ -97,6 +101,7 @@ export function updateVfx(game, dt) {
   updateKiemVu(game, dt);
   updatePhapBao(game, dt);   // Hệ Pháp Bảo (src/game/phap-bao-run.js)   // Vạn Kiếm Thiên Lâm (src/game/skill-kiem-vu.js)
   const S = st(game);
+  updatePx(game, dt);
   for (const f of S.fx) {
     f.t += dt;
     if (f.k === 'drop' && !f.landed && f.t >= f.land) {   // núi, tháp chạm đất: nổ, tóe
@@ -111,7 +116,7 @@ export function updateVfx(game, dt) {
   S.parts = S.parts.filter(q => q.t < q.life);
   for (const b of game.bullets) {
     const V = b.sk && vfxOf(game, b.sk);
-    if (!V) continue;
+    if (!V || pxOf(game, b.sk)?.shot) continue;
     (b.hist ||= []).push(b.x, b.y); if (b.hist.length > 2 * ((V.ghost || 0) + 1) * 2) b.hist.splice(0, 2);
     if (!V.trail) continue;
     b.acc = (b.acc || 0) + dt * (V.rate || 10);
@@ -124,7 +129,7 @@ export function updateVfx(game, dt) {
   }
   for (const z of game.zones) {   // vùng chiêu kéo dài: hạt bốc lên rải rác trong vùng
     const V = z.sk && vfxOf(game, z.sk);
-    if (!V?.trail) continue;
+    if (!V?.trail || pxOf(game, z.sk)?.zone) continue;
     z.vacc = (z.vacc || 0) + dt * (V.rate || 8);
     while (z.vacc >= 1) {
       z.vacc--; const a = rnd(0, 6.28), d = Math.sqrt(Math.random()) * z.radius;

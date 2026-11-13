@@ -13,6 +13,7 @@ import { addZone } from './zones.js';
 import { slashLine, outfitColor } from './slash-fx.js';
 import { pvpTryHit } from './pvp.js';
 import { weaponId } from './stats.js';
+import { skillSfx } from './skill-sfx.js';
 import { drawDomain } from '../render/draw-domain.js';
 
 const inZone = (z, t) => t && !t.dead && Math.hypot(t.x - z.x, t.y - z.y) <= z.radius + (t.r || 0);
@@ -68,7 +69,7 @@ function step(game, z) {
     if (z.hit && t >= z.nextHit && z.hitN < Math.round(s.main / s.hit_every)) {   // nhịp sát thương: đúng main / hit_every nhát
       z.nextHit += s.hit_every; z.hitN++;
       for (const m of tgt) z.hit(m, s.mult, false);
-      if (z.hitN % 2) game.sfx?.('swing', 0.45);
+      if (z.hitN % 2) skillSfx(game, s, 'k', 0.45, 'swing');
     }
   }
   if (t >= o2 && z.done === 1) {   // kết: nhát chém lớn xé ngang lĩnh vực
@@ -77,6 +78,6 @@ function step(game, z) {
     slashLine(game, { x: z.x - Math.cos(ang) * R, y: z.y - 8 - Math.sin(ang) * R, ang, len: R * 1.35, from: 0, color: z.color, w: 14 });
     slashLine(game, { x: z.x - Math.cos(ang + 1.7) * R * 0.6, y: z.y - 8 - Math.sin(ang + 1.7) * R * 0.6, ang: ang + 1.7, len: R * 0.8, from: 0, color: z.color, w: 9 });
     z.cut = ang;
-    if (z.hit) { for (const m of z.foes()) if (inZone(z, m)) z.hit(m, s.end_mult, true); impactShake(game, z.radius); game.flashT = Math.max(game.flashT || 0, 0.12); }
+    if (z.hit) { for (const m of z.foes()) if (inZone(z, m)) z.hit(m, s.end_mult, true); impactShake(game, z.radius); game.flashT = Math.max(game.flashT || 0, 0.12); skillSfx(game, s, 'r'); }
   }
 }

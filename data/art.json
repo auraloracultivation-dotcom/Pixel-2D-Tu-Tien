@@ -16293,6 +16293,4990 @@
    "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "pfx.am-ba": {
+   "file": "assets/art/pfx-am-ba.png",
+   "v": "a3bdb94f",
+   "w": 36,
+   "h": 36,
+   "frames": 6,
+   "rows": 5,
+   "n": 6,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.3,
+   "loop": true,
+   "anchor": [
+    17,
+    17
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu am-ba: PixelFX p2d/am-ba (MIT), tools/art/pfx/"
+  },
+  "pfx.am-ba.l": {
+   "file": "assets/art/pfx-am-ba-l.png",
+   "v": "e3261572",
+   "w": 36,
+   "h": 36,
+   "frames": 6,
+   "rows": 5,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.am-ba"
+  },
+  "pfx.bang-phong": {
+   "file": "assets/art/pfx-bang-phong.png",
+   "v": "4c1675d2",
+   "w": 224,
+   "h": 214,
+   "frames": 9,
+   "rows": 3,
+   "n": 23,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.733,
+   "loop": false,
+   "anchor": [
+    116,
+    120
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603,
+    1.703
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu bang-phong: PixelFX p2d/bang-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.bang-phong-d": {
+   "file": "assets/art/pfx-bang-phong-d.png",
+   "v": "2eaed059",
+   "w": 213,
+   "h": 174,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.733,
+   "loop": false,
+   "anchor": [
+    106,
+    90
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu bang-phong-d: PixelFX p2d/bang-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.bang-phong-d.l": {
+   "file": "assets/art/pfx-bang-phong-d-l.png",
+   "v": "5d1e120f",
+   "w": 107,
+   "h": 87,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.bang-phong-d"
+  },
+  "pfx.bang-phong.l": {
+   "file": "assets/art/pfx-bang-phong-l.png",
+   "v": "619cc716",
+   "w": 112,
+   "h": 107,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.bang-phong"
+  },
+  "pfx.bang-truy": {
+   "file": "assets/art/pfx-bang-truy.png",
+   "v": "09a1aeaf",
+   "w": 75,
+   "h": 74,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 15,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    60,
+    59
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu bang-truy: PixelFX ice/ice-lance (MIT), tools/art/pfx/"
+  },
+  "pfx.bang-truy.l": {
+   "file": "assets/art/pfx-bang-truy-l.png",
+   "v": "76fa2263",
+   "w": 38,
+   "h": 37,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.bang-truy"
+  },
+  "pfx.cham": {
+   "file": "assets/art/pfx-cham.png",
+   "v": "6194c913",
+   "w": 43,
+   "h": 43,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    33,
+    33
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu cham: PixelFX p2d/cham (MIT), tools/art/pfx/"
+  },
+  "pfx.cham.l": {
+   "file": "assets/art/pfx-cham-l.png",
+   "v": "df6cee09",
+   "w": 22,
+   "h": 22,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.cham"
+  },
+  "pfx.chem-vang": {
+   "file": "assets/art/pfx-chem-vang.png",
+   "v": "b83ef048",
+   "w": 65,
+   "h": 67,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    37,
+    39
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu chem-vang: PixelFX p2d/kiem-khi (MIT), tools/art/pfx/"
+  },
+  "pfx.chem-vang.l": {
+   "file": "assets/art/pfx-chem-vang-l.png",
+   "v": "a0aef52d",
+   "w": 33,
+   "h": 34,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.chem-vang"
+  },
+  "pfx.cuong-phong": {
+   "file": "assets/art/pfx-cuong-phong.png",
+   "v": "df116239",
+   "w": 201,
+   "h": 181,
+   "frames": 10,
+   "rows": 2,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.133,
+   "loop": false,
+   "anchor": [
+    100,
+    101
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu cuong-phong: PixelFX p2d/cuong-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.cuong-phong-d": {
+   "file": "assets/art/pfx-cuong-phong-d.png",
+   "v": "e47c5a89",
+   "w": 198,
+   "h": 172,
+   "frames": 10,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.133,
+   "loop": false,
+   "anchor": [
+    99,
+    86
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu cuong-phong-d: PixelFX p2d/cuong-phong (MIT), tools/art/pfx/"
+  },
+  "pfx.cuong-phong-d.l": {
+   "file": "assets/art/pfx-cuong-phong-d-l.png",
+   "v": "4ee6abac",
+   "w": 99,
+   "h": 86,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.cuong-phong-d"
+  },
+  "pfx.cuong-phong.l": {
+   "file": "assets/art/pfx-cuong-phong-l.png",
+   "v": "96222aad",
+   "w": 101,
+   "h": 91,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.cuong-phong"
+  },
+  "pfx.da": {
+   "file": "assets/art/pfx-da.png",
+   "v": "0444654a",
+   "w": 70,
+   "h": 70,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    54,
+    54
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu da: PixelFX p2d/da (MIT), tools/art/pfx/"
+  },
+  "pfx.da.l": {
+   "file": "assets/art/pfx-da-l.png",
+   "v": "1822188c",
+   "w": 35,
+   "h": 35,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.da"
+  },
+  "pfx.dang-phuoc": {
+   "file": "assets/art/pfx-dang-phuoc.png",
+   "v": "af973505",
+   "w": 163,
+   "h": 137,
+   "frames": 12,
+   "rows": 2,
+   "n": 22,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    85,
+    73
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dang-phuoc: PixelFX p2d/dang-phuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.dang-phuoc-d": {
+   "file": "assets/art/pfx-dang-phuoc-d.png",
+   "v": "77eaf9de",
+   "w": 144,
+   "h": 122,
+   "frames": 14,
+   "rows": 2,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    73,
+    62
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dang-phuoc-d: PixelFX p2d/dang-phuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.dang-phuoc-d.l": {
+   "file": "assets/art/pfx-dang-phuoc-d-l.png",
+   "v": "38bdbd72",
+   "w": 72,
+   "h": 61,
+   "frames": 14,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dang-phuoc-d"
+  },
+  "pfx.dang-phuoc.l": {
+   "file": "assets/art/pfx-dang-phuoc-l.png",
+   "v": "066a385e",
+   "w": 82,
+   "h": 69,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dang-phuoc"
+  },
+  "pfx.dia-chan": {
+   "file": "assets/art/pfx-dia-chan.png",
+   "v": "acc0fac8",
+   "w": 220,
+   "h": 181,
+   "frames": 9,
+   "rows": 3,
+   "n": 19,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.383,
+   "loop": false,
+   "anchor": [
+    110,
+    91
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dia-chan: PixelFX p2d/dia-chan (MIT), tools/art/pfx/"
+  },
+  "pfx.dia-chan-d": {
+   "file": "assets/art/pfx-dia-chan-d.png",
+   "v": "d7bee4b5",
+   "w": 171,
+   "h": 141,
+   "frames": 11,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.383,
+   "loop": false,
+   "anchor": [
+    83,
+    71
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dia-chan-d: PixelFX p2d/dia-chan (MIT), tools/art/pfx/"
+  },
+  "pfx.dia-chan-d.l": {
+   "file": "assets/art/pfx-dia-chan-d-l.png",
+   "v": "78e88c06",
+   "w": 86,
+   "h": 71,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dia-chan-d"
+  },
+  "pfx.dia-chan.l": {
+   "file": "assets/art/pfx-dia-chan-l.png",
+   "v": "2c93efe1",
+   "w": 110,
+   "h": 91,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dia-chan"
+  },
+  "pfx.giap-da": {
+   "file": "assets/art/pfx-giap-da.png",
+   "v": "97bfae5d",
+   "w": 63,
+   "h": 58,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    32,
+    51
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu giap-da: PixelFX p2d/giap-da (MIT), tools/art/pfx/"
+  },
+  "pfx.giap-da-d": {
+   "file": "assets/art/pfx-giap-da-d.png",
+   "v": "a315c196",
+   "w": 42,
+   "h": 36,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    21,
+    18
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu giap-da-d: PixelFX p2d/giap-da (MIT), tools/art/pfx/"
+  },
+  "pfx.giap-da-d.l": {
+   "file": "assets/art/pfx-giap-da-d-l.png",
+   "v": "a4cbd32a",
+   "w": 21,
+   "h": 18,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.giap-da-d"
+  },
+  "pfx.giap-da.l": {
+   "file": "assets/art/pfx-giap-da-l.png",
+   "v": "064f987d",
+   "w": 32,
+   "h": 29,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.giap-da"
+  },
+  "pfx.han-bang-vuc": {
+   "file": "assets/art/pfx-han-bang-vuc.png",
+   "v": "87471717",
+   "w": 184,
+   "h": 184,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    92,
+    109
+   ],
+   "k": 0.5,
+   "note": "hiệu ứng chiêu han-bang-vuc: PixelFX p2d/vung-bang (MIT), tools/art/pfx/"
+  },
+  "pfx.han-bang-vuc-d": {
+   "file": "assets/art/pfx-han-bang-vuc-d.png",
+   "v": "41245382",
+   "w": 193,
+   "h": 189,
+   "frames": 10,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    96,
+    96
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu han-bang-vuc-d: PixelFX p2d/vung-bang (MIT), tools/art/pfx/"
+  },
+  "pfx.han-bang-vuc-d.l": {
+   "file": "assets/art/pfx-han-bang-vuc-d-l.png",
+   "v": "1be177a4",
+   "w": 97,
+   "h": 95,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.han-bang-vuc-d"
+  },
+  "pfx.hao-quang": {
+   "file": "assets/art/pfx-hao-quang.png",
+   "v": "fa9b5d1e",
+   "w": 49,
+   "h": 68,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    24,
+    58
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hao-quang: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.hao-quang-d": {
+   "file": "assets/art/pfx-hao-quang-d.png",
+   "v": "b9777417",
+   "w": 44,
+   "h": 41,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    22,
+    22
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hao-quang-d: PixelFX p2d/hao-quang (MIT), tools/art/pfx/"
+  },
+  "pfx.hao-quang-d.l": {
+   "file": "assets/art/pfx-hao-quang-d-l.png",
+   "v": "9a130626",
+   "w": 22,
+   "h": 21,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hao-quang-d"
+  },
+  "pfx.hao-quang.l": {
+   "file": "assets/art/pfx-hao-quang-l.png",
+   "v": "66887b89",
+   "w": 25,
+   "h": 34,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hao-quang"
+  },
+  "pfx.hoa-cau": {
+   "file": "assets/art/pfx-hoa-cau.png",
+   "v": "18f8aa63",
+   "w": 86,
+   "h": 89,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 1.2,
+   "loop": true,
+   "anchor": [
+    59,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-cau: PixelFX fire/fireball (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-cau.l": {
+   "file": "assets/art/pfx-hoa-cau-l.png",
+   "v": "dd5f4b51",
+   "w": 43,
+   "h": 45,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-cau"
+  },
+  "pfx.hoa-hon": {
+   "file": "assets/art/pfx-hoa-hon.png",
+   "v": "96d4beb3",
+   "w": 208,
+   "h": 205,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    104,
+    120
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-hon: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-hon-d": {
+   "file": "assets/art/pfx-hoa-hon-d.png",
+   "v": "924bcf93",
+   "w": 167,
+   "h": 143,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    83,
+    70
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-hon-d: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-hon-d.l": {
+   "file": "assets/art/pfx-hoa-hon-d-l.png",
+   "v": "c5ddc9a8",
+   "w": 84,
+   "h": 72,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-hon-d"
+  },
+  "pfx.hoa-hon.l": {
+   "file": "assets/art/pfx-hoa-hon-l.png",
+   "v": "3881ecca",
+   "w": 104,
+   "h": 103,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-hon"
+  },
+  "pfx.hoa-long": {
+   "file": "assets/art/pfx-hoa-long.png",
+   "v": "468b8074",
+   "w": 130,
+   "h": 130,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    95,
+    95
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-long: PixelFX p2d/long (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-long.l": {
+   "file": "assets/art/pfx-hoa-long-l.png",
+   "v": "db0115eb",
+   "w": 65,
+   "h": 65,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-long"
+  },
+  "pfx.hoa-no": {
+   "file": "assets/art/pfx-hoa-no.png",
+   "v": "395a6a87",
+   "w": 118,
+   "h": 117,
+   "frames": 17,
+   "rows": 2,
+   "n": 23,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1.9167,
+   "loop": false,
+   "anchor": [
+    59,
+    106
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoa-no: PixelFX nature/healing-bloom (MIT), tools/art/pfx/"
+  },
+  "pfx.hoa-no.l": {
+   "file": "assets/art/pfx-hoa-no-l.png",
+   "v": "5bf7bd36",
+   "w": 59,
+   "h": 59,
+   "frames": 17,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoa-no"
+  },
+  "pfx.hoi": {
+   "file": "assets/art/pfx-hoi.png",
+   "v": "2a31a4d6",
+   "w": 80,
+   "h": 84,
+   "frames": 18,
+   "rows": 1,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    40,
+    65
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-d": {
+   "file": "assets/art/pfx-hoi-d.png",
+   "v": "d3dc56cb",
+   "w": 46,
+   "h": 76,
+   "frames": 17,
+   "rows": 1,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    23,
+    55
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-d: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-d.l": {
+   "file": "assets/art/pfx-hoi-d-l.png",
+   "v": "83866722",
+   "w": 23,
+   "h": 38,
+   "frames": 17,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-d"
+  },
+  "pfx.hoi-to": {
+   "file": "assets/art/pfx-hoi-to.png",
+   "v": "f5cddcca",
+   "w": 94,
+   "h": 96,
+   "frames": 18,
+   "rows": 1,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    47,
+    73
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-to: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-to-d": {
+   "file": "assets/art/pfx-hoi-to-d.png",
+   "v": "0b09696f",
+   "w": 60,
+   "h": 81,
+   "frames": 17,
+   "rows": 1,
+   "n": 17,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.283,
+   "loop": false,
+   "anchor": [
+    30,
+    57
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu hoi-to-d: PixelFX p2d/hoi (MIT), tools/art/pfx/"
+  },
+  "pfx.hoi-to-d.l": {
+   "file": "assets/art/pfx-hoi-to-d-l.png",
+   "v": "d1eb4489",
+   "w": 30,
+   "h": 41,
+   "frames": 17,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-to-d"
+  },
+  "pfx.hoi-to.l": {
+   "file": "assets/art/pfx-hoi-to-l.png",
+   "v": "98eb41cf",
+   "w": 47,
+   "h": 48,
+   "frames": 18,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi-to"
+  },
+  "pfx.hoi.l": {
+   "file": "assets/art/pfx-hoi-l.png",
+   "v": "2d0061fe",
+   "w": 40,
+   "h": 42,
+   "frames": 18,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.hoi"
+  },
+  "pfx.khien-kim": {
+   "file": "assets/art/pfx-khien-kim.png",
+   "v": "fe8df5fc",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-kim: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-kim.l": {
+   "file": "assets/art/pfx-khien-kim-l.png",
+   "v": "7723a767",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-kim"
+  },
+  "pfx.khien-tho": {
+   "file": "assets/art/pfx-khien-tho.png",
+   "v": "d34b9c30",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-tho: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-tho.l": {
+   "file": "assets/art/pfx-khien-tho-l.png",
+   "v": "73ed1170",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-tho"
+  },
+  "pfx.khien-thuy": {
+   "file": "assets/art/pfx-khien-thuy.png",
+   "v": "fd7affa4",
+   "w": 74,
+   "h": 76,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    37,
+    62
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu khien-thuy: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+  },
+  "pfx.khien-thuy.l": {
+   "file": "assets/art/pfx-khien-thuy-l.png",
+   "v": "6f0a47ea",
+   "w": 37,
+   "h": 38,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.khien-thuy"
+  },
+  "pfx.kiem-khi": {
+   "file": "assets/art/pfx-kiem-khi.png",
+   "v": "7f6640e6",
+   "w": 67,
+   "h": 59,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    41,
+    33
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kiem-khi: PixelFX p2d/kiem-khi (MIT), tools/art/pfx/"
+  },
+  "pfx.kiem-khi.l": {
+   "file": "assets/art/pfx-kiem-khi-l.png",
+   "v": "707f6e7a",
+   "w": 34,
+   "h": 30,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kiem-khi"
+  },
+  "pfx.kim-luan": {
+   "file": "assets/art/pfx-kim-luan.png",
+   "v": "6689e726",
+   "w": 49,
+   "h": 50,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    22,
+    22
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-luan: PixelFX p2d/kim-luan (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-luan-to": {
+   "file": "assets/art/pfx-kim-luan-to.png",
+   "v": "b2447f0c",
+   "w": 53,
+   "h": 54,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    25,
+    26
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-luan-to: PixelFX p2d/kim-luan (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-luan-to.l": {
+   "file": "assets/art/pfx-kim-luan-to-l.png",
+   "v": "a1ef452b",
+   "w": 27,
+   "h": 27,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-luan-to"
+  },
+  "pfx.kim-luan.l": {
+   "file": "assets/art/pfx-kim-luan-l.png",
+   "v": "fc362529",
+   "w": 25,
+   "h": 25,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-luan"
+  },
+  "pfx.kim-than": {
+   "file": "assets/art/pfx-kim-than.png",
+   "v": "3998ea4d",
+   "w": 66,
+   "h": 84,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    29,
+    75
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-than: PixelFX p2d/kim-chung (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-than-d": {
+   "file": "assets/art/pfx-kim-than-d.png",
+   "v": "5a426e93",
+   "w": 66,
+   "h": 53,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    33,
+    33
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu kim-than-d: PixelFX p2d/kim-chung (MIT), tools/art/pfx/"
+  },
+  "pfx.kim-than-d.l": {
+   "file": "assets/art/pfx-kim-than-d-l.png",
+   "v": "e1c0a4b9",
+   "w": 33,
+   "h": 27,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-than-d"
+  },
+  "pfx.kim-than.l": {
+   "file": "assets/art/pfx-kim-than-l.png",
+   "v": "972b3a49",
+   "w": 33,
+   "h": 42,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.kim-than"
+  },
+  "pfx.liet-diem": {
+   "file": "assets/art/pfx-liet-diem.png",
+   "v": "241d883c",
+   "w": 207,
+   "h": 218,
+   "frames": 9,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    105,
+    133
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu liet-diem: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.liet-diem-d": {
+   "file": "assets/art/pfx-liet-diem-d.png",
+   "v": "f4636c99",
+   "w": 159,
+   "h": 137,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    79,
+    67
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu liet-diem-d: PixelFX p2d/liet-diem (MIT), tools/art/pfx/"
+  },
+  "pfx.liet-diem-d.l": {
+   "file": "assets/art/pfx-liet-diem-d-l.png",
+   "v": "ad3f6003",
+   "w": 80,
+   "h": 69,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.liet-diem-d"
+  },
+  "pfx.liet-diem.l": {
+   "file": "assets/art/pfx-liet-diem-l.png",
+   "v": "05aa9f2f",
+   "w": 104,
+   "h": 109,
+   "frames": 9,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.liet-diem"
+  },
+  "pfx.long-thuong": {
+   "file": "assets/art/pfx-long-thuong.png",
+   "v": "c339ce3d",
+   "w": 105,
+   "h": 105,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    73,
+    73
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu long-thuong: PixelFX p2d/long (MIT), tools/art/pfx/"
+  },
+  "pfx.long-thuong.l": {
+   "file": "assets/art/pfx-long-thuong-l.png",
+   "v": "a8b83d80",
+   "w": 53,
+   "h": 53,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.long-thuong"
+  },
+  "pfx.luc-dang-long": {
+   "file": "assets/art/pfx-luc-dang-long.png",
+   "v": "da0438c9",
+   "w": 129,
+   "h": 129,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    96,
+    96
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu luc-dang-long: PixelFX p2d/long (MIT), tools/art/pfx/"
+  },
+  "pfx.luc-dang-long.l": {
+   "file": "assets/art/pfx-luc-dang-long-l.png",
+   "v": "6d73946e",
+   "w": 65,
+   "h": 65,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.luc-dang-long"
+  },
+  "pfx.luu-sa": {
+   "file": "assets/art/pfx-luu-sa.png",
+   "v": "bdba00a9",
+   "w": 178,
+   "h": 142,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    88,
+    82
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu luu-sa: PixelFX p2d/vung-cat (MIT), tools/art/pfx/"
+  },
+  "pfx.luu-sa-d": {
+   "file": "assets/art/pfx-luu-sa-d.png",
+   "v": "7611fedc",
+   "w": 182,
+   "h": 151,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    94,
+    74
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu luu-sa-d: PixelFX p2d/vung-cat (MIT), tools/art/pfx/"
+  },
+  "pfx.luu-sa-d.l": {
+   "file": "assets/art/pfx-luu-sa-d-l.png",
+   "v": "8b47450a",
+   "w": 91,
+   "h": 76,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.luu-sa-d"
+  },
+  "pfx.luu-sa.l": {
+   "file": "assets/art/pfx-luu-sa-l.png",
+   "v": "845332e1",
+   "w": 89,
+   "h": 71,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.luu-sa"
+  },
+  "pfx.nguyet-liem": {
+   "file": "assets/art/pfx-nguyet-liem.png",
+   "v": "c04b474c",
+   "w": 50,
+   "h": 50,
+   "frames": 10,
+   "rows": 1,
+   "n": 10,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.5,
+   "loop": true,
+   "anchor": [
+    23,
+    26
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu nguyet-liem: PixelFX p2d/nguyet-liem (MIT), tools/art/pfx/"
+  },
+  "pfx.nguyet-liem.l": {
+   "file": "assets/art/pfx-nguyet-liem-l.png",
+   "v": "10f8fa61",
+   "w": 25,
+   "h": 25,
+   "frames": 10,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.nguyet-liem"
+  },
+  "pfx.no-am": {
+   "file": "assets/art/pfx-no-am.png",
+   "v": "89d6f483",
+   "w": 66,
+   "h": 61,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    33,
+    33
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-am: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-am.l": {
+   "file": "assets/art/pfx-no-am-l.png",
+   "v": "674c01cc",
+   "w": 33,
+   "h": 31,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-am"
+  },
+  "pfx.no-bang": {
+   "file": "assets/art/pfx-no-bang.png",
+   "v": "e1311cf0",
+   "w": 103,
+   "h": 97,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    47,
+    37
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-bang: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-bang.l": {
+   "file": "assets/art/pfx-no-bang-l.png",
+   "v": "fe266878",
+   "w": 52,
+   "h": 49,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-bang"
+  },
+  "pfx.no-da": {
+   "file": "assets/art/pfx-no-da.png",
+   "v": "fbb40a14",
+   "w": 114,
+   "h": 111,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    56,
+    44
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-da: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-da.l": {
+   "file": "assets/art/pfx-no-da-l.png",
+   "v": "7501bb99",
+   "w": 57,
+   "h": 56,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-da"
+  },
+  "pfx.no-kiem": {
+   "file": "assets/art/pfx-no-kiem.png",
+   "v": "a55150f8",
+   "w": 81,
+   "h": 77,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    38,
+    34
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-kiem: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-kiem.l": {
+   "file": "assets/art/pfx-no-kiem-l.png",
+   "v": "acffa33e",
+   "w": 41,
+   "h": 39,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-kiem"
+  },
+  "pfx.no-kim": {
+   "file": "assets/art/pfx-no-kim.png",
+   "v": "1875498d",
+   "w": 79,
+   "h": 63,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    46,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-kim: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-kim.l": {
+   "file": "assets/art/pfx-no-kim-l.png",
+   "v": "8b340ae9",
+   "w": 40,
+   "h": 32,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-kim"
+  },
+  "pfx.no-la": {
+   "file": "assets/art/pfx-no-la.png",
+   "v": "bb989eac",
+   "w": 79,
+   "h": 84,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    45,
+    50
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-la: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-la.l": {
+   "file": "assets/art/pfx-no-la-l.png",
+   "v": "6073ca04",
+   "w": 40,
+   "h": 42,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-la"
+  },
+  "pfx.no-lua": {
+   "file": "assets/art/pfx-no-lua.png",
+   "v": "3c7da2d8",
+   "w": 86,
+   "h": 94,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    46,
+    67
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-lua: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-lua-to": {
+   "file": "assets/art/pfx-no-lua-to.png",
+   "v": "add1f802",
+   "w": 113,
+   "h": 129,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    54,
+    68
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-lua-to: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-lua-to.l": {
+   "file": "assets/art/pfx-no-lua-to-l.png",
+   "v": "e4a063ce",
+   "w": 57,
+   "h": 65,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-lua-to"
+  },
+  "pfx.no-lua.l": {
+   "file": "assets/art/pfx-no-lua-l.png",
+   "v": "ebb611b8",
+   "w": 43,
+   "h": 47,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-lua"
+  },
+  "pfx.no-nuoc": {
+   "file": "assets/art/pfx-no-nuoc.png",
+   "v": "60a246cb",
+   "w": 85,
+   "h": 83,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    45,
+    45
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu no-nuoc: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.no-nuoc.l": {
+   "file": "assets/art/pfx-no-nuoc-l.png",
+   "v": "5bc7bf3f",
+   "w": 43,
+   "h": 42,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.no-nuoc"
+  },
+  "pfx.pb-an": {
+   "file": "assets/art/pfx-pb-an.png",
+   "v": "7940447d",
+   "w": 97,
+   "h": 121,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    49,
+    97
+   ],
+   "k": 0.5,
+   "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-2": {
+   "file": "assets/art/pfx-pb-an-2.png",
+   "v": "ea3f9bd1",
+   "w": 146,
+   "h": 180,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    74,
+    145
+   ],
+   "k": 0.5,
+   "note": "Đại Ấn treo trên cao / đang giáng (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 8 khung, vệt sáng lướt qua vàng và ngọc; neo ở tâm đáy (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-dap": {
+   "file": "assets/art/pfx-pb-an-dap.png",
+   "v": "66205e65",
+   "w": 107,
+   "h": 121,
+   "frames": 3,
+   "rows": 1,
+   "n": 3,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    54,
+    97
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.07,
+    0.15
+   ],
+   "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-dap-2": {
+   "file": "assets/art/pfx-pb-an-dap-2.png",
+   "v": "d1d85ca6",
+   "w": 160,
+   "h": 180,
+   "frames": 3,
+   "rows": 1,
+   "n": 3,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    81,
+    145
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.07,
+    0.15
+   ],
+   "note": "Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-an-giang": {
+   "file": "assets/art/pfx-pb-an-giang.png",
+   "v": "f2d8087e",
+   "w": 204,
+   "h": 181,
+   "frames": 10,
+   "rows": 2,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    105,
+    101
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403
+   ],
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-an-giang: PixelFX p2d/an-giang (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-an-giang-d": {
+   "file": "assets/art/pfx-pb-an-giang-d.png",
+   "v": "30096084",
+   "w": 167,
+   "h": 140,
+   "frames": 12,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.483,
+   "loop": false,
+   "anchor": [
+    83,
+    70
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346
+   ],
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-an-giang-d: PixelFX p2d/an-giang (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-an-giang-d.l": {
+   "file": "assets/art/pfx-pb-an-giang-d-l.png",
+   "v": "cd485072",
+   "w": 84,
+   "h": 70,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-an-giang-d"
+  },
+  "pfx.pb-an-giang.l": {
+   "file": "assets/art/pfx-pb-an-giang-l.png",
+   "v": "0985af06",
+   "w": 102,
+   "h": 91,
+   "frames": 10,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-an-giang"
+  },
+  "pfx.pb-chau": {
+   "file": "assets/art/pfx-pb-chau.png",
+   "v": "9cc327bb",
+   "w": 61,
+   "h": 61,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    30,
+    31
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-chau: PixelFX p2d/chau (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-chau-duoi": {
+   "file": "assets/art/pfx-pb-chau-duoi.png",
+   "v": "6b7ce9a9",
+   "w": 69,
+   "h": 69,
+   "frames": 6,
+   "rows": 9,
+   "n": 6,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    53,
+    53
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-chau-duoi: PixelFX p2d/chau (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-chau-duoi.l": {
+   "file": "assets/art/pfx-pb-chau-duoi-l.png",
+   "v": "42f40efb",
+   "w": 35,
+   "h": 35,
+   "frames": 6,
+   "rows": 9,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-chau-duoi"
+  },
+  "pfx.pb-chau.l": {
+   "file": "assets/art/pfx-pb-chau-l.png",
+   "v": "4f7818d3",
+   "w": 31,
+   "h": 31,
+   "frames": 12,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-chau"
+  },
+  "pfx.pb-chuong": {
+   "file": "assets/art/pfx-pb-chuong.png",
+   "v": "8180abf8",
+   "w": 103,
+   "h": 94,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.683,
+   "loop": false,
+   "anchor": [
+    51,
+    117
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.325,
+    0.408,
+    0.491,
+    0.575,
+    0.658
+   ],
+   "pal": [
+    "#140a26",
+    "#2b1252",
+    "#5a24a8",
+    "#8a48e8",
+    "#b89af0",
+    "#e4d0ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-chuong: PixelFX p2d/chuong (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-chuong.l": {
+   "file": "assets/art/pfx-pb-chuong-l.png",
+   "v": "a9d6312a",
+   "w": 52,
+   "h": 47,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-chuong"
+  },
+  "pfx.pb-co": {
+   "file": "assets/art/pfx-pb-co.png",
+   "v": "2842a116",
+   "w": 117,
+   "h": 132,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    35,
+    130
+   ],
+   "k": 0.5,
+   "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-co-2": {
+   "file": "assets/art/pfx-pb-co-2.png",
+   "v": "182c68b0",
+   "w": 174,
+   "h": 196,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    51,
+    194
+   ],
+   "k": 0.5,
+   "note": "Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo": {
+   "file": "assets/art/pfx-pb-holo.png",
+   "v": "a6c7f7d7",
+   "w": 106,
+   "h": 135,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1.0,
+   "loop": false,
+   "anchor": [
+    44,
+    80
+   ],
+   "k": 0.5,
+   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-2": {
+   "file": "assets/art/pfx-pb-holo-2.png",
+   "v": "f06bce2a",
+   "w": 159,
+   "h": 202,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1.0,
+   "loop": false,
+   "anchor": [
+    66,
+    120
+   ],
+   "k": 0.5,
+   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-phun": {
+   "file": "assets/art/pfx-pb-holo-phun.png",
+   "v": "6e044020",
+   "w": 157,
+   "h": 139,
+   "frames": 3,
+   "rows": 9,
+   "n": 3,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.62,
+   "loop": false,
+   "anchor": [
+    76,
+    60
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.08,
+    0.42
+   ],
+   "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-phun-2": {
+   "file": "assets/art/pfx-pb-holo-phun-2.png",
+   "v": "3d2d8fac",
+   "w": 234,
+   "h": 207,
+   "frames": 3,
+   "rows": 9,
+   "n": 3,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.62,
+   "loop": false,
+   "anchor": [
+    113,
+    89
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.08,
+    0.42
+   ],
+   "note": "Hồ Lô lúc phun (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-song": {
+   "file": "assets/art/pfx-pb-holo-song.png",
+   "v": "648e1d5b",
+   "w": 54,
+   "h": 68,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    25,
+    32
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-holo-song: PixelFX p2d/ho-lo-nuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-holo-song.l": {
+   "file": "assets/art/pfx-pb-holo-song-l.png",
+   "v": "2ac59d72",
+   "w": 27,
+   "h": 34,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-holo-song"
+  },
+  "pfx.pb-holo-tia": {
+   "file": "assets/art/pfx-pb-holo-tia.png",
+   "v": "adbe4ec1",
+   "w": 117,
+   "h": 111,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    2,
+    55
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-holo-tia: PixelFX p2d/ho-lo-nuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-holo-tia.l": {
+   "file": "assets/art/pfx-pb-holo-tia-l.png",
+   "v": "18e16edf",
+   "w": 59,
+   "h": 56,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-holo-tia"
+  },
+  "pfx.pb-holo-xoay": {
+   "file": "assets/art/pfx-pb-holo-xoay.png",
+   "v": "a7afe934",
+   "w": 81,
+   "h": 81,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.96,
+   "loop": false,
+   "anchor": [
+    21,
+    57
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.083,
+    0.167,
+    0.25,
+    0.333,
+    0.417,
+    0.5,
+    0.583,
+    0.667,
+    0.75,
+    0.833,
+    0.917
+   ],
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-holo-xoay: PixelFX p2d/ho-lo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-holo-xoay.l": {
+   "file": "assets/art/pfx-pb-holo-xoay-l.png",
+   "v": "56775ca1",
+   "w": 41,
+   "h": 41,
+   "frames": 12,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-holo-xoay"
+  },
+  "pfx.pb-khien": {
+   "file": "assets/art/pfx-pb-khien.png",
+   "v": "933a2806",
+   "w": 84,
+   "h": 84,
+   "frames": 24,
+   "rows": 1,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    42,
+    42
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien: PixelFX p2d/mai-rua (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-2": {
+   "file": "assets/art/pfx-pb-khien-2.png",
+   "v": "afccb323",
+   "w": 124,
+   "h": 124,
+   "frames": 16,
+   "rows": 2,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    62,
+    62
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-2: PixelFX p2d/mai-rua (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-2.l": {
+   "file": "assets/art/pfx-pb-khien-2-l.png",
+   "v": "436bf529",
+   "w": 62,
+   "h": 62,
+   "frames": 16,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-2"
+  },
+  "pfx.pb-khien-vo": {
+   "file": "assets/art/pfx-pb-khien-vo.png",
+   "v": "fe6a6bae",
+   "w": 240,
+   "h": 217,
+   "frames": 8,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    120,
+    107
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-vo: PixelFX p2d/khien-vo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-vo-2": {
+   "file": "assets/art/pfx-pb-khien-vo-2.png",
+   "v": "e7cdaf5a",
+   "w": 360,
+   "h": 330,
+   "frames": 5,
+   "rows": 3,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    180,
+    160
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-vo-2: PixelFX p2d/khien-vo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-vo-2.l": {
+   "file": "assets/art/pfx-pb-khien-vo-2-l.png",
+   "v": "8a93a4b4",
+   "w": 180,
+   "h": 165,
+   "frames": 5,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-vo-2"
+  },
+  "pfx.pb-khien-vo.l": {
+   "file": "assets/art/pfx-pb-khien-vo-l.png",
+   "v": "ac931c4f",
+   "w": 120,
+   "h": 109,
+   "frames": 8,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-vo"
+  },
+  "pfx.pb-khien.l": {
+   "file": "assets/art/pfx-pb-khien-l.png",
+   "v": "04b83d4c",
+   "w": 42,
+   "h": 42,
+   "frames": 24,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien"
+  },
+  "pfx.pb-kiem": {
+   "file": "assets/art/pfx-pb-kiem.png",
+   "v": "46397e08",
+   "w": 71,
+   "h": 71,
+   "frames": 4,
+   "rows": 9,
+   "n": 4,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    35,
+    35
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-kiem-2": {
+   "file": "assets/art/pfx-pb-kiem-2.png",
+   "v": "c36fbd5e",
+   "w": 107,
+   "h": 107,
+   "frames": 4,
+   "rows": 9,
+   "n": 4,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    53,
+    53
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-kiem-khi": {
+   "file": "assets/art/pfx-pb-kiem-khi.png",
+   "v": "dd081c64",
+   "w": 49,
+   "h": 49,
+   "frames": 8,
+   "rows": 9,
+   "n": 8,
+   "dirs": 9,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    18,
+    18
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-kiem-khi: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-kiem-khi.l": {
+   "file": "assets/art/pfx-pb-kiem-khi-l.png",
+   "v": "f1f779e4",
+   "w": 25,
+   "h": 25,
+   "frames": 8,
+   "rows": 9,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-kiem-khi"
+  },
+  "pfx.pb-manh": {
+   "file": "assets/art/pfx-pb-manh.png",
+   "v": "eccc8740",
+   "w": 39,
+   "h": 39,
+   "frames": 6,
+   "rows": 9,
+   "n": 6,
+   "dirs": 9,
+   "fps": 20,
+   "dur": 0.3,
+   "loop": true,
+   "anchor": [
+    26,
+    26
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-manh: PixelFX p2d/manh (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-manh.l": {
+   "file": "assets/art/pfx-pb-manh-l.png",
+   "v": "3343c8a9",
+   "w": 39,
+   "h": 39,
+   "frames": 6,
+   "rows": 9,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-manh"
+  },
+  "pfx.pb-no": {
+   "file": "assets/art/pfx-pb-no.png",
+   "v": "da1fa0f0",
+   "w": 84,
+   "h": 93,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    44,
+    45
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-no: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-no.l": {
+   "file": "assets/art/pfx-pb-no-l.png",
+   "v": "9f015e8d",
+   "w": 42,
+   "h": 47,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-no"
+  },
+  "pfx.pb-phong": {
+   "file": "assets/art/pfx-pb-phong.png",
+   "v": "97ad9cfd",
+   "w": 70,
+   "h": 70,
+   "frames": 8,
+   "rows": 9,
+   "n": 8,
+   "dirs": 9,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    41,
+    41
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0c2038",
+    "#1a4670",
+    "#3478b0",
+    "#62a8dc",
+    "#9cd0f4",
+    "#d4eeff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-phong: PixelFX p2d/kiem-khi (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-phong.l": {
+   "file": "assets/art/pfx-pb-phong-l.png",
+   "v": "8d4e01c6",
+   "w": 35,
+   "h": 35,
+   "frames": 8,
+   "rows": 9,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-phong"
+  },
+  "pfx.pb-quat": {
+   "file": "assets/art/pfx-pb-quat.png",
+   "v": "06eda511",
+   "w": 63,
+   "h": 62,
+   "frames": 10,
+   "rows": 9,
+   "n": 10,
+   "dirs": 9,
+   "fps": 30,
+   "dur": 0.3333,
+   "loop": false,
+   "anchor": [
+    31,
+    30
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0c2038",
+    "#1a4670",
+    "#3478b0",
+    "#62a8dc",
+    "#9cd0f4",
+    "#d4eeff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-quat: PixelFX p2d/quat (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-quat.l": {
+   "file": "assets/art/pfx-pb-quat-l.png",
+   "v": "8ec1c6fb",
+   "w": 32,
+   "h": 31,
+   "frames": 10,
+   "rows": 9,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-quat"
+  },
+  "pfx.pb-set": {
+   "file": "assets/art/pfx-pb-set.png",
+   "v": "b36fc949",
+   "w": 144,
+   "h": 258,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.06,
+   "loop": false,
+   "anchor": [
+    72,
+    228
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.03,
+    0.06,
+    0.093,
+    0.127,
+    0.16,
+    0.21,
+    0.26,
+    0.33,
+    0.41,
+    0.51,
+    0.61,
+    0.76,
+    0.91
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-set: PixelFX lightning/lightning-strike (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-set.l": {
+   "file": "assets/art/pfx-pb-set-l.png",
+   "v": "a4cfb28c",
+   "w": 72,
+   "h": 129,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-set"
+  },
+  "pfx.pb-thuan": {
+   "file": "assets/art/pfx-pb-thuan.png",
+   "v": "51a8cecb",
+   "w": 76,
+   "h": 84,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    38,
+    42
+   ],
+   "k": 0.5,
+   "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-thuan-2": {
+   "file": "assets/art/pfx-pb-thuan-2.png",
+   "v": "7de97de3",
+   "w": 112,
+   "h": 126,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    56,
+    63
+   ],
+   "k": 0.5,
+   "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-tran": {
+   "file": "assets/art/pfx-pb-tran.png",
+   "v": "b4e94349",
+   "w": 198,
+   "h": 168,
+   "frames": 9,
+   "rows": 1,
+   "n": 9,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.9,
+   "loop": true,
+   "anchor": [
+    99,
+    84
+   ],
+   "k": 0.5,
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-tran: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-tran-mo": {
+   "file": "assets/art/pfx-pb-tran-mo.png",
+   "v": "fd1cddf1",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "pal": [
+    "#1e1206",
+    "#4a2c08",
+    "#86520c",
+    "#c48412",
+    "#f0b424",
+    "#ffe066",
+    "#fff6c4",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-tran-mo: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-tran-mo.l": {
+   "file": "assets/art/pfx-pb-tran-mo-l.png",
+   "v": "56963bac",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-tran-mo"
+  },
+  "pfx.pb-tran.l": {
+   "file": "assets/art/pfx-pb-tran-l.png",
+   "v": "47555de5",
+   "w": 99,
+   "h": 84,
+   "frames": 9,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-tran"
+  },
+  "pfx.pb-trung": {
+   "file": "assets/art/pfx-pb-trung.png",
+   "v": "a55150f8",
+   "w": 81,
+   "h": 77,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.863,
+   "loop": false,
+   "anchor": [
+    38,
+    34
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.183,
+    0.233,
+    0.283,
+    0.35,
+    0.416,
+    0.483,
+    0.566,
+    0.65,
+    0.75
+   ],
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-trung: PixelFX p2d/no (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-trung.l": {
+   "file": "assets/art/pfx-pb-trung-l.png",
+   "v": "acffa33e",
+   "w": 41,
+   "h": 39,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-trung"
+  },
+  "pfx.phan-thien": {
+   "file": "assets/art/pfx-phan-thien.png",
+   "v": "575df2a0",
+   "w": 185,
+   "h": 169,
+   "frames": 11,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.2,
+   "loop": true,
+   "anchor": [
+    92,
+    95
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phan-thien: PixelFX p2d/vung-lua (MIT), tools/art/pfx/"
+  },
+  "pfx.phan-thien-d": {
+   "file": "assets/art/pfx-phan-thien-d.png",
+   "v": "66824905",
+   "w": 172,
+   "h": 171,
+   "frames": 11,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.2,
+   "loop": true,
+   "anchor": [
+    86,
+    86
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phan-thien-d: PixelFX p2d/vung-lua (MIT), tools/art/pfx/"
+  },
+  "pfx.phan-thien-d.l": {
+   "file": "assets/art/pfx-phan-thien-d-l.png",
+   "v": "4dc83a7c",
+   "w": 86,
+   "h": 86,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phan-thien-d"
+  },
+  "pfx.phan-thien.l": {
+   "file": "assets/art/pfx-phan-thien-l.png",
+   "v": "df48b220",
+   "w": 93,
+   "h": 85,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phan-thien"
+  },
+  "pfx.phi-kiem": {
+   "file": "assets/art/pfx-phi-kiem.png",
+   "v": "2dbc4ebe",
+   "w": 59,
+   "h": 63,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    45,
+    49
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phi-kiem: PixelFX p2d/phi-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.phi-kiem.l": {
+   "file": "assets/art/pfx-phi-kiem-l.png",
+   "v": "0fb7091e",
+   "w": 30,
+   "h": 32,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phi-kiem"
+  },
+  "pfx.phuong-hoang": {
+   "file": "assets/art/pfx-phuong-hoang.png",
+   "v": "b2f4c9ba",
+   "w": 106,
+   "h": 106,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    70,
+    70
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu phuong-hoang: PixelFX p2d/phuong-hoang (MIT), tools/art/pfx/"
+  },
+  "pfx.phuong-hoang.l": {
+   "file": "assets/art/pfx-phuong-hoang-l.png",
+   "v": "6e988491",
+   "w": 53,
+   "h": 53,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.phuong-hoang"
+  },
+  "pfx.set": {
+   "file": "assets/art/pfx-set.png",
+   "v": "19664504",
+   "w": 144,
+   "h": 258,
+   "frames": 14,
+   "rows": 1,
+   "n": 14,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.06,
+   "loop": false,
+   "anchor": [
+    72,
+    228
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.03,
+    0.06,
+    0.093,
+    0.127,
+    0.16,
+    0.21,
+    0.26,
+    0.33,
+    0.41,
+    0.51,
+    0.61,
+    0.76,
+    0.91
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu set: PixelFX lightning/lightning-strike (MIT), tools/art/pfx/"
+  },
+  "pfx.set-dat": {
+   "file": "assets/art/pfx-set-dat.png",
+   "v": "757a2c8b",
+   "w": 138,
+   "h": 136,
+   "frames": 14,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.983,
+   "loop": false,
+   "anchor": [
+    69,
+    68
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833,
+    0.933
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu set-dat: PixelFX p2d/set-dat (MIT), tools/art/pfx/"
+  },
+  "pfx.set-dat.l": {
+   "file": "assets/art/pfx-set-dat-l.png",
+   "v": "cb57c859",
+   "w": 69,
+   "h": 68,
+   "frames": 14,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.set-dat"
+  },
+  "pfx.set.l": {
+   "file": "assets/art/pfx-set-l.png",
+   "v": "41ce20fe",
+   "w": 72,
+   "h": 129,
+   "frames": 14,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.set"
+  },
+  "pfx.son-nhac": {
+   "file": "assets/art/pfx-son-nhac.png",
+   "v": "38a442a7",
+   "w": 272,
+   "h": 380,
+   "frames": 7,
+   "rows": 4,
+   "n": 22,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    139,
+    262
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203,
+    1.303,
+    1.403,
+    1.503,
+    1.603
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu son-nhac: PixelFX p2d/son-nhac (MIT), tools/art/pfx/"
+  },
+  "pfx.son-nhac-d": {
+   "file": "assets/art/pfx-son-nhac-d.png",
+   "v": "f68b0b63",
+   "w": 232,
+   "h": 195,
+   "frames": 8,
+   "rows": 3,
+   "n": 20,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.683,
+   "loop": false,
+   "anchor": [
+    116,
+    97
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096,
+    1.221,
+    1.346,
+    1.471,
+    1.596
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu son-nhac-d: PixelFX p2d/son-nhac (MIT), tools/art/pfx/"
+  },
+  "pfx.son-nhac-d.l": {
+   "file": "assets/art/pfx-son-nhac-d-l.png",
+   "v": "3abf9d8a",
+   "w": 116,
+   "h": 98,
+   "frames": 8,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.son-nhac-d"
+  },
+  "pfx.son-nhac.l": {
+   "file": "assets/art/pfx-son-nhac-l.png",
+   "v": "f8266988",
+   "w": 136,
+   "h": 190,
+   "frames": 7,
+   "rows": 4,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.son-nhac"
+  },
+  "pfx.ten": {
+   "file": "assets/art/pfx-ten.png",
+   "v": "0b5b5da4",
+   "w": 89,
+   "h": 88,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    79,
+    80
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu ten: PixelFX projectiles/arrow (MIT), tools/art/pfx/"
+  },
+  "pfx.ten.l": {
+   "file": "assets/art/pfx-ten-l.png",
+   "v": "5cc7227f",
+   "w": 45,
+   "h": 44,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.ten"
+  },
+  "pfx.thanh-moc-vuc": {
+   "file": "assets/art/pfx-thanh-moc-vuc.png",
+   "v": "9ba376d3",
+   "w": 166,
+   "h": 165,
+   "frames": 12,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    83,
+    97
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu thanh-moc-vuc: PixelFX p2d/vung-moc (MIT), tools/art/pfx/"
+  },
+  "pfx.thanh-moc-vuc-d": {
+   "file": "assets/art/pfx-thanh-moc-vuc-d.png",
+   "v": "534ab856",
+   "w": 174,
+   "h": 173,
+   "frames": 11,
+   "rows": 2,
+   "n": 16,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 1.6,
+   "loop": true,
+   "anchor": [
+    87,
+    87
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu thanh-moc-vuc-d: PixelFX p2d/vung-moc (MIT), tools/art/pfx/"
+  },
+  "pfx.thanh-moc-vuc-d.l": {
+   "file": "assets/art/pfx-thanh-moc-vuc-d-l.png",
+   "v": "eb5d8d27",
+   "w": 87,
+   "h": 87,
+   "frames": 11,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thanh-moc-vuc-d"
+  },
+  "pfx.thanh-moc-vuc.l": {
+   "file": "assets/art/pfx-thanh-moc-vuc-l.png",
+   "v": "c77e26df",
+   "w": 83,
+   "h": 83,
+   "frames": 12,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thanh-moc-vuc"
+  },
+  "pfx.thap": {
+   "file": "assets/art/pfx-thap.png",
+   "v": "11da6700",
+   "w": 122,
+   "h": 187,
+   "frames": 16,
+   "rows": 2,
+   "n": 18,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.233,
+   "loop": false,
+   "anchor": [
+    61,
+    146
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.303,
+    0.403,
+    0.503,
+    0.603,
+    0.703,
+    0.803,
+    0.903,
+    1.003,
+    1.103,
+    1.203
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu thap: PixelFX p2d/thap (MIT), tools/art/pfx/"
+  },
+  "pfx.thap-d": {
+   "file": "assets/art/pfx-thap-d.png",
+   "v": "36dfe7ff",
+   "w": 109,
+   "h": 91,
+   "frames": 16,
+   "rows": 1,
+   "n": 16,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 1.233,
+   "loop": false,
+   "anchor": [
+    55,
+    47
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.2,
+    0.233,
+    0.266,
+    0.345,
+    0.47,
+    0.596,
+    0.721,
+    0.846,
+    0.971,
+    1.096
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu thap-d: PixelFX p2d/thap (MIT), tools/art/pfx/"
+  },
+  "pfx.thap-d.l": {
+   "file": "assets/art/pfx-thap-d-l.png",
+   "v": "5ac00fde",
+   "w": 55,
+   "h": 46,
+   "frames": 16,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thap-d"
+  },
+  "pfx.thap.l": {
+   "file": "assets/art/pfx-thap-l.png",
+   "v": "6175f334",
+   "w": 61,
+   "h": 94,
+   "frames": 16,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thap"
+  },
+  "pfx.thuy-long": {
+   "file": "assets/art/pfx-thuy-long.png",
+   "v": "2b10ffca",
+   "w": 96,
+   "h": 96,
+   "frames": 12,
+   "rows": 5,
+   "n": 12,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": true,
+   "anchor": [
+    63,
+    63
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu thuy-long: PixelFX p2d/long (MIT), tools/art/pfx/"
+  },
+  "pfx.thuy-long.l": {
+   "file": "assets/art/pfx-thuy-long-l.png",
+   "v": "78265711",
+   "w": 48,
+   "h": 48,
+   "frames": 12,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.thuy-long"
+  },
+  "pfx.tran-am": {
+   "file": "assets/art/pfx-tran-am.png",
+   "v": "ab98568b",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-am: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-am.l": {
+   "file": "assets/art/pfx-tran-am-l.png",
+   "v": "c90faec4",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-am"
+  },
+  "pfx.tran-hoa": {
+   "file": "assets/art/pfx-tran-hoa.png",
+   "v": "607396a0",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-hoa: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-hoa.l": {
+   "file": "assets/art/pfx-tran-hoa-l.png",
+   "v": "c931624e",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-hoa"
+  },
+  "pfx.tran-kiem": {
+   "file": "assets/art/pfx-tran-kiem.png",
+   "v": "85812068",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-kiem: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-kiem.l": {
+   "file": "assets/art/pfx-tran-kiem-l.png",
+   "v": "9c99e797",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-kiem"
+  },
+  "pfx.tran-kim": {
+   "file": "assets/art/pfx-tran-kim.png",
+   "v": "fd1cddf1",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-kim: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-kim.l": {
+   "file": "assets/art/pfx-tran-kim-l.png",
+   "v": "56963bac",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-kim"
+  },
+  "pfx.tran-moc": {
+   "file": "assets/art/pfx-tran-moc.png",
+   "v": "b21d2f85",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-moc: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-moc.l": {
+   "file": "assets/art/pfx-tran-moc-l.png",
+   "v": "93045280",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-moc"
+  },
+  "pfx.tran-tho": {
+   "file": "assets/art/pfx-tran-tho.png",
+   "v": "82460ab7",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-tho: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-tho.l": {
+   "file": "assets/art/pfx-tran-tho-l.png",
+   "v": "cab4b277",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-tho"
+  },
+  "pfx.tran-thuy": {
+   "file": "assets/art/pfx-tran-thuy.png",
+   "v": "5a746678",
+   "w": 77,
+   "h": 70,
+   "frames": 13,
+   "rows": 1,
+   "n": 13,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.883,
+   "loop": false,
+   "anchor": [
+    39,
+    35
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.033,
+    0.066,
+    0.1,
+    0.133,
+    0.166,
+    0.233,
+    0.333,
+    0.433,
+    0.533,
+    0.633,
+    0.733,
+    0.833
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu tran-thuy: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.tran-thuy.l": {
+   "file": "assets/art/pfx-tran-thuy-l.png",
+   "v": "731c6f6f",
+   "w": 39,
+   "h": 35,
+   "frames": 13,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tran-thuy"
+  },
+  "pfx.tt-bang": {
+   "file": "assets/art/pfx-tt-bang.png",
+   "v": "d5abb927",
+   "w": 44,
+   "h": 45,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    22,
+    34
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu tt-bang: PixelFX p2d/tt (MIT), tools/art/pfx/"
+  },
+  "pfx.tt-bang.l": {
+   "file": "assets/art/pfx-tt-bang-l.png",
+   "v": "4f7c602e",
+   "w": 22,
+   "h": 23,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tt-bang"
+  },
+  "pfx.tt-lanh": {
+   "file": "assets/art/pfx-tt-lanh.png",
+   "v": "b94e62e3",
+   "w": 32,
+   "h": 36,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    16,
+    32
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu tt-lanh: PixelFX p2d/tt (MIT), tools/art/pfx/"
+  },
+  "pfx.tt-lanh.l": {
+   "file": "assets/art/pfx-tt-lanh-l.png",
+   "v": "85681f92",
+   "w": 32,
+   "h": 36,
+   "frames": 8,
+   "rows": 1,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tt-lanh"
+  },
+  "pfx.tt-lua": {
+   "file": "assets/art/pfx-tt-lua.png",
+   "v": "ba8ffede",
+   "w": 37,
+   "h": 33,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    17,
+    23
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu tt-lua: PixelFX p2d/tt (MIT), tools/art/pfx/"
+  },
+  "pfx.tt-lua.l": {
+   "file": "assets/art/pfx-tt-lua-l.png",
+   "v": "d1e139d3",
+   "w": 37,
+   "h": 33,
+   "frames": 8,
+   "rows": 1,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tt-lua"
+  },
+  "pfx.tt-pha": {
+   "file": "assets/art/pfx-tt-pha.png",
+   "v": "87fc978f",
+   "w": 18,
+   "h": 19,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    9,
+    15
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu tt-pha: PixelFX p2d/tt (MIT), tools/art/pfx/"
+  },
+  "pfx.tt-pha.l": {
+   "file": "assets/art/pfx-tt-pha-l.png",
+   "v": "b41da47b",
+   "w": 18,
+   "h": 19,
+   "frames": 8,
+   "rows": 1,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tt-pha"
+  },
+  "pfx.tt-re": {
+   "file": "assets/art/pfx-tt-re.png",
+   "v": "aec2a688",
+   "w": 27,
+   "h": 23,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    13,
+    14
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu tt-re: PixelFX p2d/tt (MIT), tools/art/pfx/"
+  },
+  "pfx.tt-re.l": {
+   "file": "assets/art/pfx-tt-re-l.png",
+   "v": "f5963dc0",
+   "w": 27,
+   "h": 23,
+   "frames": 8,
+   "rows": 1,
+   "s": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.tt-re"
+  },
+  "pfx.vk-dam": {
+   "file": "assets/art/pfx-vk-dam.png",
+   "v": "a559f470",
+   "w": 26,
+   "h": 104,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    13,
+    69
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-dam: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-dam.l": {
+   "file": "assets/art/pfx-vk-dam-l.png",
+   "v": "4d231fc2",
+   "w": 13,
+   "h": 52,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-dam"
+  },
+  "pfx.vk-khi": {
+   "file": "assets/art/pfx-vk-khi.png",
+   "v": "26f41cfd",
+   "w": 65,
+   "h": 65,
+   "frames": 8,
+   "rows": 5,
+   "n": 8,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    23,
+    23
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-khi: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-khi.l": {
+   "file": "assets/art/pfx-vk-khi-l.png",
+   "v": "bf1e50ae",
+   "w": 33,
+   "h": 33,
+   "frames": 8,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-khi"
+  },
+  "pfx.vk-kiem-0": {
+   "file": "assets/art/pfx-vk-kiem-0.png",
+   "v": "bc006581",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-0: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-0.l": {
+   "file": "assets/art/pfx-vk-kiem-0-l.png",
+   "v": "63656246",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-0"
+  },
+  "pfx.vk-kiem-1": {
+   "file": "assets/art/pfx-vk-kiem-1.png",
+   "v": "4ffd919b",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-1: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-1.l": {
+   "file": "assets/art/pfx-vk-kiem-1-l.png",
+   "v": "ff177085",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-1"
+  },
+  "pfx.vk-kiem-2": {
+   "file": "assets/art/pfx-vk-kiem-2.png",
+   "v": "ac4a2d41",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-2: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-2.l": {
+   "file": "assets/art/pfx-vk-kiem-2-l.png",
+   "v": "3ebb9156",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-2"
+  },
+  "pfx.vk-kiem-3": {
+   "file": "assets/art/pfx-vk-kiem-3.png",
+   "v": "e655f840",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-3: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-3.l": {
+   "file": "assets/art/pfx-vk-kiem-3-l.png",
+   "v": "a5858211",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-3"
+  },
+  "pfx.vk-kiem-4": {
+   "file": "assets/art/pfx-vk-kiem-4.png",
+   "v": "a88d7411",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-4: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-4.l": {
+   "file": "assets/art/pfx-vk-kiem-4-l.png",
+   "v": "e1195fd4",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-4"
+  },
+  "pfx.vk-kiem-5": {
+   "file": "assets/art/pfx-vk-kiem-5.png",
+   "v": "6a73a556",
+   "w": 73,
+   "h": 73,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    38,
+    38
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vk-kiem-5: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+  },
+  "pfx.vk-kiem-5.l": {
+   "file": "assets/art/pfx-vk-kiem-5-l.png",
+   "v": "8230401f",
+   "w": 37,
+   "h": 37,
+   "frames": 4,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vk-kiem-5"
+  },
+  "pfx.vong-kim": {
+   "file": "assets/art/pfx-vong-kim.png",
+   "v": "9447a9c7",
+   "w": 114,
+   "h": 114,
+   "frames": 9,
+   "rows": 1,
+   "n": 9,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.9,
+   "loop": true,
+   "anchor": [
+    57,
+    57
+   ],
+   "k": 0.5,
+   "lit": 1,
+   "note": "hiệu ứng chiêu vong-kim: PixelFX p2d/tran (MIT), tools/art/pfx/"
+  },
+  "pfx.vong-kim.l": {
+   "file": "assets/art/pfx-vong-kim-l.png",
+   "v": "504ab7d3",
+   "w": 57,
+   "h": 57,
+   "frames": 9,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.vong-kim"
+  },
   "pickup.bang-hoa": {
    "file": "assets/art/pickup-bang-hoa.png",
    "v": "68e2d616",
@@ -16880,6 +21864,810 @@
     36
    ],
    "note": "cây quả đỏ, hoa đào, hoa trắng (ảnh Canva nguon/ai/props/, 3 biến thể)"
+  },
+  "pxi.bang-phach": {
+   "file": "assets/art/pxi-bang-phach.png",
+   "v": "5cb8bae3",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-phach vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.bang-phong": {
+   "file": "assets/art/pxi-bang-phong.png",
+   "v": "3284ede2",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-phong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.bang-truy": {
+   "file": "assets/art/pxi-bang-truy.png",
+   "v": "019558f0",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu bang-truy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-bao-kich": {
+   "file": "assets/art/pxi-ck-bao-kich.png",
+   "v": "336d5d3d",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm bao-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-cau-xoay": {
+   "file": "assets/art/pxi-ck-cau-xoay.png",
+   "v": "a4ff2b91",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm cau-xoay vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-danh-lan": {
+   "file": "assets/art/pxi-ck-danh-lan.png",
+   "v": "3aa596bd",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm danh-lan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-hap-huyet": {
+   "file": "assets/art/pxi-ck-hap-huyet.png",
+   "v": "dd325c3a",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm hap-huyet vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-hoa": {
+   "file": "assets/art/pxi-ck-hoa.png",
+   "v": "513aedfa",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm hoa vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-kim": {
+   "file": "assets/art/pxi-ck-kim.png",
+   "v": "d6a9bafb",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm kim vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-lien-phat": {
+   "file": "assets/art/pxi-ck-lien-phat.png",
+   "v": "8715277e",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm lien-phat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-loi-kich": {
+   "file": "assets/art/pxi-ck-loi-kich.png",
+   "v": "64177be6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm loi-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-moc": {
+   "file": "assets/art/pxi-ck-moc.png",
+   "v": "81e4b8da",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm moc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-nay-bat": {
+   "file": "assets/art/pxi-ck-nay-bat.png",
+   "v": "786020bd",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm nay-bat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-phan-chan": {
+   "file": "assets/art/pxi-ck-phan-chan.png",
+   "v": "7af5ec7d",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm phan-chan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tho": {
+   "file": "assets/art/pxi-ck-tho.png",
+   "v": "6cc7eef7",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tho vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-thuy": {
+   "file": "assets/art/pxi-ck-thuy.png",
+   "v": "c88721d6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm thuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tiet-linh": {
+   "file": "assets/art/pxi-ck-tiet-linh.png",
+   "v": "f221c54a",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tiet-linh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-toa-nhanh": {
+   "file": "assets/art/pxi-ck-toa-nhanh.png",
+   "v": "91404fe7",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm toa-nhanh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-toc-kich": {
+   "file": "assets/art/pxi-ck-toc-kich.png",
+   "v": "7b5b12e6",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm toc-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-truy-kich": {
+   "file": "assets/art/pxi-ck-truy-kich.png",
+   "v": "32962fbc",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm truy-kich vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-tu-bao": {
+   "file": "assets/art/pxi-ck-tu-bao.png",
+   "v": "c5d4ec87",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm tu-bao vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.ck-xuyen-thau": {
+   "file": "assets/art/pxi-ck-xuyen-thau.png",
+   "v": "d5f9111e",
+   "w": 54,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    27,
+    27
+   ],
+   "note": "biểu tượng chiêu khảm xuyen-thau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.cuong-phong": {
+   "file": "assets/art/pxi-cuong-phong.png",
+   "v": "a70e1c10",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu cuong-phong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dai-dia": {
+   "file": "assets/art/pxi-dai-dia.png",
+   "v": "87912307",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dai-dia vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dang-phuoc": {
+   "file": "assets/art/pxi-dang-phuoc.png",
+   "v": "1ca1fc3e",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dang-phuoc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.dia-chan": {
+   "file": "assets/art/pxi-dia-chan.png",
+   "v": "6224cb38",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu dia-chan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.han-bang-vuc": {
+   "file": "assets/art/pxi-han-bang-vuc.png",
+   "v": "9664d6b1",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu han-bang-vuc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoa-cau": {
+   "file": "assets/art/pxi-hoa-cau.png",
+   "v": "8d393a85",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoa-cau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoa-long": {
+   "file": "assets/art/pxi-hoa-long.png",
+   "v": "e4647388",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoa-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.hoi-xuan": {
+   "file": "assets/art/pxi-hoi-xuan.png",
+   "v": "e1c45586",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu hoi-xuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kiem-khi": {
+   "file": "assets/art/pxi-kiem-khi.png",
+   "v": "13b8b93e",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kiem-khi vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-cuong-the": {
+   "file": "assets/art/pxi-kim-cuong-the.png",
+   "v": "fc4ca615",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-cuong-the vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-luan": {
+   "file": "assets/art/pxi-kim-luan.png",
+   "v": "271d59aa",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-quang-tram": {
+   "file": "assets/art/pxi-kim-quang-tram.png",
+   "v": "3f0846f9",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-quang-tram vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.kim-than": {
+   "file": "assets/art/pxi-kim-than.png",
+   "v": "9b59c677",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu kim-than vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.lien-chau": {
+   "file": "assets/art/pxi-lien-chau.png",
+   "v": "090e1e10",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu lien-chau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.liet-diem": {
+   "file": "assets/art/pxi-liet-diem.png",
+   "v": "bba92b52",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu liet-diem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.liet-hoa-tran": {
+   "file": "assets/art/pxi-liet-hoa-tran.png",
+   "v": "746043f8",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu liet-hoa-tran vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.loi-dinh": {
+   "file": "assets/art/pxi-loi-dinh.png",
+   "v": "d5e00df9",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu loi-dinh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.long-thuong": {
+   "file": "assets/art/pxi-long-thuong.png",
+   "v": "fc19da78",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu long-thuong vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.luc-dang-long": {
+   "file": "assets/art/pxi-luc-dang-long.png",
+   "v": "eebe1f85",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu luc-dang-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.luu-sa": {
+   "file": "assets/art/pxi-luu-sa.png",
+   "v": "fc82df28",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu luu-sa vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.pha-thien": {
+   "file": "assets/art/pxi-pha-thien.png",
+   "v": "31b190b6",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu pha-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phan-thien": {
+   "file": "assets/art/pxi-phan-thien.png",
+   "v": "38b04c10",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phan-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-hoa-hon": {
+   "file": "assets/art/pxi-phap-hoa-hon.png",
+   "v": "a8099ef4",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-hoa-hon vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-huyen-thuy": {
+   "file": "assets/art/pxi-phap-huyen-thuy.png",
+   "v": "2917282d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-huyen-thuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-kim-luan": {
+   "file": "assets/art/pxi-phap-kim-luan.png",
+   "v": "f90f7c7b",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-kim-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-thanh-moc": {
+   "file": "assets/art/pxi-phap-thanh-moc.png",
+   "v": "eb8c5545",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-thanh-moc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phap-tran-yeu": {
+   "file": "assets/art/pxi-phap-tran-yeu.png",
+   "v": "b5d5c32a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phap-tran-yeu vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.phuong-hoang": {
+   "file": "assets/art/pxi-phuong-hoang.png",
+   "v": "890f5336",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu phuong-hoang vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.son-nhac": {
+   "file": "assets/art/pxi-son-nhac.png",
+   "v": "24b16cc6",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu son-nhac vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.song-nguyet-tram": {
+   "file": "assets/art/pxi-song-nguyet-tram.png",
+   "v": "3ae987fe",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu song-nguyet-tram vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thach-chuy": {
+   "file": "assets/art/pxi-thach-chuy.png",
+   "v": "f753c4be",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thach-chuy vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thach-giap": {
+   "file": "assets/art/pxi-thach-giap.png",
+   "v": "88ee0f21",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thach-giap vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thanh-moc-vuc": {
+   "file": "assets/art/pxi-thanh-moc-vuc.png",
+   "v": "f80f603a",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thanh-moc-vuc vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.that-huyen": {
+   "file": "assets/art/pxi-that-huyen.png",
+   "v": "8493fe09",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu that-huyen vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thiem-anh": {
+   "file": "assets/art/pxi-thiem-anh.png",
+   "v": "b6c548dc",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thiem-anh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thien-phat": {
+   "file": "assets/art/pxi-thien-phat.png",
+   "v": "e0bc0371",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thien-phat vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thuy-long": {
+   "file": "assets/art/pxi-thuy-long.png",
+   "v": "0bdaedfe",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thuy-long vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.thuy-thuan": {
+   "file": "assets/art/pxi-thuy-thuan.png",
+   "v": "52901115",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu thuy-thuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.truong-xuan": {
+   "file": "assets/art/pxi-truong-xuan.png",
+   "v": "ff07ade3",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu truong-xuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.tu-nguyet-liem": {
+   "file": "assets/art/pxi-tu-nguyet-liem.png",
+   "v": "22f39428",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu tu-nguyet-liem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.tu-nguyet-luan": {
+   "file": "assets/art/pxi-tu-nguyet-luan.png",
+   "v": "da8d5871",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu tu-nguyet-luan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-kiem": {
+   "file": "assets/art/pxi-van-kiem.png",
+   "v": "1c1fd2aa",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-kiem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-kiem-thien": {
+   "file": "assets/art/pxi-van-kiem-thien.png",
+   "v": "30ba4278",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-kiem-thien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.van-moc-cham": {
+   "file": "assets/art/pxi-van-moc-cham.png",
+   "v": "357fef8d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu van-moc-cham vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
+  },
+  "pxi.vo-anh": {
+   "file": "assets/art/pxi-vo-anh.png",
+   "v": "9b02548d",
+   "w": 102,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    51,
+    51
+   ],
+   "note": "biểu tượng chiêu vo-anh vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "rival.bach-lien": {
    "file": "assets/art/rival-bach-lien.png",

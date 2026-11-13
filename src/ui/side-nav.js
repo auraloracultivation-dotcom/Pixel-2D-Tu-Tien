@@ -2,6 +2,7 @@
 // cạnh. Túi đồ cũng vậy… mỗi mục 1 tính năng"). Nút Túi đồ, Menu, Động phủ mở cột mục bên trái (data/menu.json → nav); chạm
 // một mục thì bảng của mục đó mở ngay bên phải, khoá đúng phần đó (thanh tab của bảng cũ đã ẩn, không nhảy sang bảng khác).
 // Mục không có bảng riêng (Tự động, Âm thanh, Ngôn ngữ, Đăng xuất) hiện trong khung #nav-pane. Đóng bảng bên phải là đóng hết.
+import { boDauChoi } from './tu-vao.js';
 import { itemLock, busyWhy, talkMenu } from '../game/menu-acts.js';
 import { homeAct } from '../game/home-acts.js';
 import { renderPilotOpts } from './pilot-tab.js';
@@ -73,7 +74,7 @@ export function createSideNav(game) {
     } else if (it.relog) {   // Đổi tài khoản (chủ dự án 05/11/2026): lưu, đăng xuất, về màn đăng nhập
       body.append(card('#7ab8ff', it.label, [it.text], mini(sure === it.id ? it.sure : it.btn, () => {
         if (sure !== it.id) { sure = it.id; return; }
-        game.persist();
+        game.persist(); boDauChoi();
         Promise.resolve(game.cloud?.flush?.()).catch(() => {})
           .then(() => import('../net/auth.js')).then(a => a.signOut()).catch(() => {})
           .finally(() => setTimeout(() => location.reload(), 300));

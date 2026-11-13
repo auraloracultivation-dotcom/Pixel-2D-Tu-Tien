@@ -1,13 +1,14 @@
-// Âm thanh tổng hợp theo data/sounds.json: tiếng hiệu ứng (dựng bằng src/core/synth.js thành buffer, lần đầu phát mới dựng),
-// nhạc nền ở music.js. Trình duyệt chỉ cho phát tiếng sau lần chạm đầu tiên, nên khởi động âm thanh lúc đó.
+// Âm thanh tổng hợp theo data/sounds.json: tiếng hiệu ứng (dựng bằng src/core/synth.js thành buffer, lần đầu phát mới dựng; tiếng chiêu
+// đang mang thì dựng sẵn từng chút một qua nhiều khung hình, hàm warm), nhạc nền ở music.js. more: bảng tiếng thêm (data/tieng-chieu.json → sfx). Trình duyệt chỉ cho phát tiếng sau lần chạm đầu tiên, nên khởi động âm thanh lúc đó.
 import { createMusic } from './music.js';
-import { renderSfx } from './synth.js';
+import { sfxJob } from './synth.js';
 
 const MUTE_KEY = 'p2d.mute';
 
-export function createAudio(cfg) {
+export function createAudio(cfg, more) {
+  const SFX = more ? { ...cfg.sfx, ...more } : cfg.sfx;
   let ac = null, sfxGain = null, musicGain = null, noise = null, sfxVerb = null;
-  const bufs = new Map();   // tiếng đã dựng
+  const bufs = new Map(), jobs = new Map(), hot = new Set();   // tiếng đã dựng, tiếng đang dựng dở, tiếng cần dựng sẵn
   let muted = false;
   try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch { /* không có bộ nhớ: mặc định bật tiếng */ }
   const lastPlay = {};
@@ -26,8 +27,8 @@ export function createAudio(cfg) {
     const len = Math.floor(ac.sampleRate * 1.4), ir = ac.createBuffer(2, len, ac.sampleRate);
     for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 4); }
     sfxVerb = ac.createConvolver(); sfxVerb.buffer = ir; sfxVerb.connect(sfxGain);
-    bufs.clear();
-    setTimeout(() => { for (const k of cfg.warm || []) buf(k); }, 50);   // dựng sẵn tiếng hay dùng (đánh, trúng, nhặt) cho lần đầu khỏi trễ
+    bufs.clear(); jobs.clear();
+    setTimeout(() => { for (const k of cfg.warm || []) buf(k); pump(); }, 50);   // dựng sẵn tiếng hay dùng (đánh, trúng, nhặt) cho lần đầu khỏi trễ
     noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
     const d = noise.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -66,19 +67,34 @@ export function createAudio(cfg) {
   for (const ev of ['pointerdown', 'touchend', 'keydown']) window.addEventListener(ev, wake, { capture: true });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && ac) wake(); });
 
+  const job = name => jobs.get(name) || jobs.set(name, sfxJob(SFX[name], ac.sampleRate, name.length * 7919 + 1)).get(name);
+  function keep(name, d) { const b = ac.createBuffer(1, d.length, ac.sampleRate); b.getChannelData(0).set(d); bufs.set(name, b); jobs.delete(name); return b; }
   function buf(name) {
     if (bufs.has(name)) return bufs.get(name);
-    const rec = cfg.sfx[name];
-    if (!rec || !ac) return null;
-    const d = renderSfx(rec, ac.sampleRate, name.length * 7919 + 1), b = ac.createBuffer(1, d.length, ac.sampleRate);
-    b.getChannelData(0).set(d); bufs.set(name, b);
-    return b;
+    if (!SFX[name] || !ac) return null;
+    const j = job(name);   // đang dựng dở thì dựng nốt
+    while (!j.step());
+    return keep(name, j.out);
   }
+  // Dựng sẵn các tiếng trong hot: mỗi nhịp chỉ làm khoảng 4 ms rồi nhường cho khung hình (tiếng chiêu lớn dài 2–3 giây, chục lớp:
+  // dựng liền một hơi mất cả trăm ms, khựng hình). Tiếng chưa kịp dựng mà đã cần phát thì buf() dựng nốt ngay.
+  let pumping = false;
+  function tick() {
+    let name = null;
+    if (ac) for (const n of hot) if (SFX[n] && !bufs.has(n)) { name = n; break; }
+    if (!name) { pumping = false; return; }
+    const j = job(name), t0 = performance.now();
+    let fin = false;
+    while (!(fin = j.step(4096)) && performance.now() - t0 < 4);
+    if (fin) keep(name, j.out);
+    setTimeout(tick, 12);
+  }
+  function pump() { if (!pumping && ac && hot.size) { pumping = true; setTimeout(tick, 30); } }
 
   // vol: nhân âm lượng; rec.gap: tối thiểu giây giữa hai lần cùng tiếng (trúng nhiều quái một lúc), rec.jit: lệch cao độ ngẫu nhiên (cung)
   function play(name, vol = 1) {
     if (!ac || muted) return;
-    const rec = cfg.sfx[name], now = ac.currentTime;
+    const rec = SFX[name], now = ac.currentTime;
     if (!rec) return;
     if (lastPlay[name] && now - lastPlay[name] < (rec.gap ?? 0.045)) return;
     lastPlay[name] = now;
@@ -96,6 +112,7 @@ export function createAudio(cfg) {
 
   const api = {
     play,
+    warm(names) { for (const n of names) if (n) hot.add(n); pump(); },   // tiếng sắp cần (chiêu đang mang): dựng sẵn lúc rảnh
     music: id => { want = id; music?.play(id); },
     rain: on => { if (on === wantRain) return; wantRain = on; music?.rain(on); },
     night: on => { wantNight = on; music?.night(on); },

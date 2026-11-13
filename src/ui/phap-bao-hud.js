@@ -19,7 +19,8 @@ export function pbIcon(game, id, f = 0, size = 48) {
   cache.set(key, url);
   return url;
 }
-export const typeIcon = (game, T) => pbIcon(game, T.icon, T.icon_f || 0);
+// Hình trên nút và trong bảng giữ hình cũ (chủ dự án 13/11/2026 07:39: không thích ảnh GPT làm HIỆU ỨNG chiêu chứ hình pháp bảo thì giữ)
+export const typeIcon = (game, T, size) => pbIcon(game, T.icon, T.icon_f || 0, size || 48);
 
 const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 

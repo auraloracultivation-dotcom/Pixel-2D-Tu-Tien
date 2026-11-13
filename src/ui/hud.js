@@ -14,6 +14,7 @@ import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 import { pbOn } from '../game/phap-bao.js';
 import { pbHud } from './phap-bao-hud.js';
+import { pxOn } from '../game/pfx.js';
 
 const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
@@ -115,7 +116,7 @@ export function createHud(audio) {
     if (boss) { css($('boss-fill'), 'width', (boss.hp / boss.maxHp * 100).toFixed(1) + '%'); }
 
     atkIcon(game);   // nút đánh thường: hình bản mệnh pháp bảo (hud-atk.js)
-    const slots = skillSlots(game), pbMode = pbOn(game);   // hệ pháp bảo mới (tài khoản thử): nút chiêu, nút Luyện chế do pbHud vẽ
+    const slots = skillSlots(game), pbMode = pbOn(game);   // hệ pháp bảo (từ Mùa 2: mọi tài khoản): 4 nút pháp bảo do pbHud vẽ
     if (!pbMode) for (let i = 0; i < 3; i++) {
       const b = $('btn-s' + i), id = slots[i];
       b.classList.toggle('off', !id);
@@ -164,6 +165,6 @@ export function createHud(audio) {
 function skillIcon(d, id) {
   const s = id && d.skills[id];
   if (!s) return '';
-  const spr = d.art.sprites['vfx.' + (d.vfx?.skills?.[id]?.icon || id)] || d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
+  const spr = (pxOn({ data: d }) && d.art.sprites['pxi.' + id]) || d.art.sprites['vfx.' + (d.vfx?.skills?.[id]?.icon || id)] || d.art.sprites['icon.' + (s.icon || s.fx || { heal: 'heal', shield: 'shield', buff: 'buff' }[s.type] || 'orb')];   // hình riêng từng chiêu (ảnh GPT 05/11/2026)
   return spr ? `url("${spr.file}?v=${spr.v}")` : '';
 }

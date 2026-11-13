@@ -8,6 +8,8 @@ import { juiceCast } from './juice.js';
 import { pbOn, pbWorn, PB } from './phap-bao.js';
 import { buildCast } from './phap-bao-build.js';
 import { pbHit, pbx, nearest, pbStatusTick } from './phap-bao-hit.js';
+import { pbPxCast, updatePbPx } from './pb-px.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
+import { pbSfx } from './skill-sfx.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
 
 const SFX = { 'phi-kiem': 'metal_cast', 'linh-chau': 'water_cast', 'bao-phien': 'wind_cast', 'dai-an': 'earth_cast', 'ho-thuan': 'shield', 'dong-chung': 'chime', 'tran-ky': 'earth_cast', 'ho-lo': 'water_cast' };
 
@@ -41,7 +43,8 @@ export function pbCast(game, cast, ang) {
   cast.atk = p.atk * game.data.config.combat.skill;
   cast.ang = ang;
   if (cast.procs['phan-chan']) (pbx(game).thorn ||= []).push(cast);
-  game.sfx?.(SFX[cast.it.type] || 'shoot', 0.8);
+  pbSfx(game, cast.it.type, 'c', SFX[cast.it.type] || 'shoot');
+  pbPxCast(game, cast);
   juiceCast(game, { grade: 'huyen', color: T.color, type: ['seal', 'zone'].includes(T.emit.kind) ? 'aoe' : 'projectile' });   // chỉ Đại Ấn, Trận Kỳ chớp màn + rung
   pvpTryHit(game);
   if (T.pre?.kind === 'shield') {
@@ -142,7 +145,7 @@ export function updatePhapBao(game, dt) {
         if (e.t >= e.life && !e.done) {
           e.done = true;
           S.list.push({ kind: 'anim', spr: 'pbfx.dai-an', x: e.x, y: e.y, w: N.r * 2.4, t: 0, life: 0.65 });
-          game.sfx?.('boom', 0.9);
+          pbSfx(game, e.cast.it.type, 'r', 'boom', 0.9);
           blast(game, e.cast, { ...N, shards: null }, e.x, e.y, {});
           ended(game, e);
         }
@@ -164,7 +167,7 @@ export function updatePhapBao(game, dt) {
         if (p.shield < e.last) e.got += e.last - p.shield;
         e.last = p.shield;
         if ((p.shield <= 0 || e.t >= e.life) && !e.done) {
-          e.done = true; e.t = e.life;
+          e.done = true; e.t = e.life; pbSfx(game, e.cast.it.type, 'r');
           if (e.cast.root.orbit) fire(game, e.cast, e.cast.root, { x: p.x, y: p.y - 4, ang: e.cast.ang, src: 'player' });
           else blast(game, e.cast, e.cast.root, p.x, p.y, { flat: e.got * e.cast.T.pre.absorb });
           if (e.cast.root.rep) for (let r = 1; r <= e.cast.root.rep; r++) S.list.push({ kind: 'wait', t: 0, life: e.cast.root.gap * r, then: () => blast(game, e.cast, e.cast.root, p.x, p.y, {}) });
@@ -182,11 +185,12 @@ export function updatePhapBao(game, dt) {
           if (m.def?.ai !== 'boss' && !m.remote) game.map.move(m, (p.x - m.x) / d * P.pull * dt, (p.y - m.y) / d * P.pull * dt);
         }
         if (n && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + p.maxHp * P.heal * n * dt / P.dur);
-        if (e.t >= e.life && !e.done) { e.done = true; game.sfx?.('wind_cast', 0.8); fire(game, e.cast, e.cast.root, { x: p.x, y: p.y - 4, ang: Math.atan2(p.face.y, p.face.x), src: 'player' }); }
+        if (e.t >= e.life && !e.done) { e.done = true; pbSfx(game, e.cast.it.type, 'r', 'wind_cast'); fire(game, e.cast, e.cast.root, { x: p.x, y: p.y - 4, ang: Math.atan2(p.face.y, p.face.x), src: 'player' }); }
         break;
       }
     }
   }
+  updatePbPx(game, dt);
   S.list = S.list.filter(e => (e.kind === 'wait' ? !e.done : e.t < e.life));
   if (S.thorn?.length) S.thorn = S.thorn.slice(-6);
 }

@@ -136,6 +136,8 @@
 .ht-feed-r span { min-width: 0; display: flex; flex-direction: column; line-height: 1.05; }
 .ht-feed-r b { font-size: 9px; color: #dff6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .ht-feed-r em { font-style: normal; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ht-ls { position: static; width: auto; max-height: 260px; overflow-y: auto; pointer-events: auto; margin-top: 6px; }   /* lịch sử triệu hồi của mình (đề xuất #153) */
+.ht-ls[hidden] { display: none; }
 .ht-chest-stage .ht-slot { left: 92px; right: 92px; }
 /* Kéo Hệ Thống (src/ui/he-thong-keo.js) */
 .ht-icon { touch-action: none; -webkit-user-select: none; user-select: none; }

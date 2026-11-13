@@ -10,6 +10,7 @@ import { outfitColor } from './slash-fx.js';
 import { pvpTryHit } from './pvp.js';
 import { weaponId } from './stats.js';
 import { thunderRelease } from './skill-thunder.js';
+import { skillSfx } from './skill-sfx.js';
 
 // Độ dài vệt: từ gốc theo hướng ang tới mép khung nhìn (+ s.over), không có khung nhìn thì s.range
 function reach(game, x, y, ang, s) {
@@ -77,7 +78,7 @@ function release(game, a) {
   c.fire?.(ang, L);
   if (!c.fire) return;   // người khác ra chiêu: chỉ hình, không rung, không chớp máy mình
   impactShake(game, 200); game.flashT = Math.max(game.flashT || 0, 0.18);
-  game.sfx?.('impact', 1); game.sfx?.('swing', 1);
+  game.sfx?.('impact', 1); skillSfx(game, s, 'r', 1, 'swing');   // nhát chém: tiếng riêng (data/tieng-chieu.json), chưa bật thì tiếng vút cũ
 }
 
 // Người khác ra chiêu (others-cast.js): chỉ hình tụ lực rồi vệt chém theo hướng họ nhìn lúc ra chiêu

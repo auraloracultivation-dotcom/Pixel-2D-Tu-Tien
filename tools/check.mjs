@@ -95,7 +95,7 @@ try {
     need(!bad.length, `chữ {nam|nữ} viết sai: ${bad.slice(0, 3).join(', ')}`); }
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.uid?.length || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || f.from.fest, `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
-  for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h, `art/${id}: cỡ ${a.file} không khớp w×frames, h`); }
+  for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h * (a.rows || 1), `art/${id}: cỡ ${a.file} không khớp w×frames, h×rows`); }
   { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
   for (const [id, h] of Object.entries(read('heroes.json').list)) {
     if (!h.sprite) continue;

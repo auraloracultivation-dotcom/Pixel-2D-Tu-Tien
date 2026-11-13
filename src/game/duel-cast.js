@@ -92,7 +92,7 @@ export function castFoe(game, m, id) {
   const atk = m.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
   const fx = m.face.x, fy = m.face.y, base = Math.atan2(fy, fx), V = vfxOf(game, id);   // V: hiệu ứng mới như người chơi (src/game/vfx.js)
   // dùng chiêu không ra động tác đánh (chủ dự án 05/11/2026)
-  castSfx(game, s, 0.7);
+  castSfx(game, s, 0.7, id);
   switch (s.type) {
     case 'projectile': bullet(game, m, s, base, atk * s.mult, id); if (V) vfxCast(game, id, s, m); break;
     case 'multi': {
