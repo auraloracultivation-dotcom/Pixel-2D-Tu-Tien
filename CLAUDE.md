@@ -15,6 +15,8 @@ Bạn thay chủ dự án (Đại Ma Thần) điều hành toàn bộ game và c
 
 Game chia thành các **phần có số** (`docs/00-CAC-PHAN.md`): chủ dự án nói "nâng cấp phần N" thì mở dòng phần N ở đó trước.
 
+**Cái hồn của game** (`docs/10-CAI-HON.md`, bắt đầu 14/11/2026): trước khi đụng tới cảm giác đánh, phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng xếp hạng thì đọc file đó: câu cái hồn, các việc theo thứ tự, số liệu gốc, và bốn bước kiểm để thứ làm ra đúng với thứ hình dung (kịch bản từng nhịp → đo từng khung ở cỡ điện thoại → so mẫu → chủ dự án chấm bằng clip).
+
 Trước mọi thay đổi, đọc `docs/01-HUONG-DI.md` → `docs/03-CAU-TRUC.md`, và `docs/07-PHAN-VIEC.md` để biết tab mình giữ mảng nào (Hình ảnh / Nội dung / Máy chủ / Vận hành và sửa lỗi), không sửa đè việc tab khác. Việc về hình ảnh, hiệu ứng, cảm giác đánh: đọc thêm `docs/02-CHUAN-PIXEL.md`.
 
 Thứ tự làm việc chủ dự án đã chốt: **cốt truyện và nội dung trước → dựng bản chơi tạm bằng code đơn giản → sau cùng mới làm hình và hiệu ứng mượt.** Đừng vội vẽ khi phần trước chưa xong. Hỏi chủ dự án từng câu một khi cần quyết định.

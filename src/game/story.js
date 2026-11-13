@@ -1,7 +1,7 @@
 // Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
 // Chọn hệ linh căn ở đá linh căn. Bảng chọn bị đóng ngang (đổi bản đồ, bảng khác bật lên) thì hộp thoại trả null: hỏi lại tới khi chọn
-// (báo lỗi 13/11/2026: tài khoản Hà Nhân, Rio đi qua bước này mà không có hệ, không hiện linh căn). Phẩm linh căn đã có thì giữ.
+// (báo lỗi 13/11/2026: hai tài khoản người chơi đi qua bước này mà không có hệ, không hiện linh căn). Phẩm linh căn đã có thì giữ.
 async function chooseElement(g) {
   const els = g.data.elements, opts = Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color }));
   let id = null;
