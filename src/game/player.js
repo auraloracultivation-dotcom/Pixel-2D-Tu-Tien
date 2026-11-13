@@ -1,4 +1,5 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
+import { hit2On } from './hit-feel.js';
 import { manaTick, spendMana } from './mana.js';
 import { ensureWornLines } from './beast.js';
 import { openAllSocket4 } from './socket4.js';
@@ -112,7 +113,7 @@ function strike(game, q) {
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
   const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
   if (heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
-  if (!['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });
+  if (!hit2On(game) && !['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });   // bản ra đòn mới: tia lửa nằm ở chỗ chạm quái (src/game/hit-feel.js)
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);

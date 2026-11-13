@@ -22,13 +22,14 @@ function debris(game, x, y, n, color, sp = 70) {
 }
 
 // Đòn của mình trúng quái. soft: nhịp vùng chiêu (rất nhiều đòn nhỏ): chỉ hiện mỗi soft_every đòn
-export function juiceHit(game, x, y, color, crit, soft) {
+export function juiceHit(game, x, y, color, crit, soft, noVis) {   // noVis: chỉ tính Liên Kích, Nộ, nốt đàn; hình do src/game/hit-feel.js lo
   const C = J(game)?.hit; if (!C) return;
   const S = juice(game);
   S.idle = 0; addRage(game, J(game).rage.hit);
   combo(game);
   const N = J(game).note;   // nốt đàn theo Liên Kích, leo dần (data/juice.json → note)
   if (N?.on && (!soft || crit)) game.note?.((S.combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v);
+  if (noVis) return;
   if (soft && S.combo % (C.soft_every || 3) && !crit) return;
   if (!fxOk(game, crit ? 'crit' : 'hit')) return;   // đánh đông quái: tia toả đòn thường trong hạn mức (src/game/fx-budget.js)
   const n = crit ? C.rays_crit : C.rays, rot = Math.random() * TAU;
@@ -37,12 +38,12 @@ export function juiceHit(game, x, y, color, crit, soft) {
   debris(game, x, y, crit ? C.debris_crit : C.debris, '#e8e2d0');
 }
 
-export function juiceKill(game, m) {
+export function juiceKill(game, m, noRing) {
   const C = J(game)?.kill; if (!C) return;
   const boss = m.def.ai === 'boss';
   if (!boss && !fxOk(game, 'kill')) { if (!m.remote) addRage(game, J(game).rage.kill); return; }   // hạ hàng loạt: vòng sóng, vụn, đốm chỉ trong hạn mức
-  push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
-  debris(game, m.x, m.y - m.r * 0.5, C.debris, m.def.color || '#ccc', 110);
+  if (!noRing) push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
+  debris(game, m.x, m.y - m.r * 0.5, C.debris, (noRing && m.tone) || m.def.color || '#ccc', 110);   // bản ra đòn mới: vụn đúng màu hình con quái (src/render/sprites.js spriteTone)
   if (m.remote) return;
   const N = J(game).note;
   if (N?.on) setTimeout(() => game.note?.(N.kill + (boss ? N.crit_up : 0), N.v_crit), 70);   // hạ quái: thêm một nốt cao ngân sau tiếng chém

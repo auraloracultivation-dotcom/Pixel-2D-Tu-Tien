@@ -16,6 +16,12 @@ export function drawMobBar(ctx, game, m) {
   ctx.fillStyle = INK; ctx.fillRect(m.x - w / 2 - 0.5, hy - 0.5, w + 1, 3.5);
   ctx.fillStyle = '#3a1820'; ctx.fillRect(m.x - w / 2, hy, w, 2.5);
   ctx.fillStyle = k > 0.5 ? '#e0484a' : k > 0.25 ? '#e8823a' : '#f2c94c'; ctx.fillRect(m.x - w / 2, hy, w * k, 2.5);
+  if (m.bk > k) {   // khúc máu vừa mất (m.bk, m.bt do src/game/hit-feel.js ghi): hiện trắng bar_hold giây cho thấy mất bao nhiêu, rồi rút dần về mức thật
+    const h = game.data.juice.hit2, now = game.time;
+    if (now - m.bt > h.bar_hold) m.bk = Math.max(k, m.bk - h.bar_drain * Math.max(0, now - (m.bd ?? now)));
+    m.bd = now;
+    ctx.fillStyle = '#fff'; ctx.fillRect(m.x - w / 2 + w * k, hy, w * (m.bk - k), 2.5);
+  }
   if (!B.cp) return;
   const cp = mobPower(game, m), me = power(game) || 1, r = cp / me;
   ctx.font = `${B.font}px "Unifont VN", system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';

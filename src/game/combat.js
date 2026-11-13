@@ -9,6 +9,7 @@ import { fxOk, shortNum } from './fx-budget.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
 import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
+import { hit2On, hitFeel, numUp } from './hit-feel.js';   // cảm giác ra đòn kiểu mới (docs/10-CAI-HON.md việc 2)
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -61,17 +62,22 @@ export function hitMob(game, m, dmg, opt = {}) {
   m.kx = Math.cos(ang) * kb; m.ky = Math.sin(ang) * kb; m.cutAng = ang;   // cutAng: hướng đòn cuối, xác bị chém đôi theo hướng này
   if (opt.slow && !m.def.noCc) m.slowT = Math.max(m.slowT, opt.slow);   // noCc: bản sao so tài không bị khống chế (nó cũng không khống chế người chơi)
   if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
-  addNumber(game, m.x, m.y - m.r - 6, dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
+  addNumber(game, m.x, m.y - m.r - (own ? numUp(game) : 6), dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
   const ratio = own && p.dmgRef ? dmg / p.dmgRef : 0;   // đòn to gấp mấy lần đánh thường: rung màn, khựng (chủ dự án 12/11/2026 04:14)
   if (ratio >= 3 && !m.dummy) { game.screen.shake(Math.min(7, 1.5 + ratio * 0.35), 0.16); if (ratio >= 10) { game.hitstop = Math.max(game.hitstop, 0.07); game.sfx('impact', 0.7); } }
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
-  addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
-  juiceHit(game, m.x - Math.cos(ang) * m.r * 0.6, m.y - m.r * 0.6 - Math.sin(ang) * m.r * 0.4, opt.color, crit, opt.soft);   // tia toả, vụn, Liên Kích, Nộ
-  if (!opt.soft) sparks(game, m.x - Math.cos(ang) * m.r, m.y - Math.sin(ang) * m.r, crit ? 'crit' : 'hit', crit ? '#ffd84a' : opt.color, ang);   // tia li ti tóe về phía sau quái
-  if (!opt.soft) {
-    game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
-    game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
+  if (!opt.soft && hit2On(game)) {   // bản mới: tia lửa điểm ảnh có hướng, quái nảy lùi, máy quay hích; không còn quầng trắng phủ con quái
+    juiceHit(game, 0, 0, opt.color, crit, false, true);
+    game.hitstop = Math.max(game.hitstop, hitFeel(game, m, ang, crit, m.hp <= 0 && !m.remote && !m.dummy && !m.wboss, dmg));
+  } else {
+    addFx(game, { type: 'spark', x: m.x - Math.cos(ang) * m.r, y: m.y - Math.sin(ang) * m.r, life: 0.18, color: opt.color || '#fff' });
+    juiceHit(game, m.x - Math.cos(ang) * m.r * 0.6, m.y - m.r * 0.6 - Math.sin(ang) * m.r * 0.4, opt.color, crit, opt.soft);   // tia toả, vụn, Liên Kích, Nộ
+    if (!opt.soft) sparks(game, m.x - Math.cos(ang) * m.r, m.y - Math.sin(ang) * m.r, crit ? 'crit' : 'hit', crit ? '#ffd84a' : opt.color, ang);   // tia li ti tóe về phía sau quái
+    if (!opt.soft) {
+      game.hitstop = Math.max(game.hitstop, crit ? feel.hitstop * 1.6 : feel.hitstop);
+      game.screen.shake(feel.shake * (crit ? feel.crit_shake ?? 1.5 : feel.hit_shake ?? 0.6), 0.12);   // đánh thường không rung (dịu mắt), chí mạng rung nhẹ
+    }
   }
   opt.onHit?.(m, dmg, crit);   // pháp bảo (src/game/phap-bao-hit.js): hệ, hút máu, nảy, nổ con, Lôi Kích…
   if (m.hp <= 0 && !m.remote) killMob(game, m);
@@ -80,13 +86,14 @@ export function hitMob(game, m, dmg, opt = {}) {
 export function killMob(game, m) {
   m.dead = true;
   const K = game.data.config.feel.kill?.[m.def.ai === 'boss' ? 'boss' : m.rare ? 'rare' : ''];   // hạ trùm, quái hiếm: rung, khựng, chớp
-  sparks(game, m.x, m.y - m.r * 0.5, K ? 'kill_big' : 'kill', m.def.color);
+  const h2 = hit2On(game);   // bản ra đòn mới: tia lửa kết liễu đã có ở hitFeel, bỏ vòng nét mượt và cụm khói trắng che xác; vụn đúng màu hình con quái
+  sparks(game, m.x, m.y - m.r * 0.5, K ? 'kill_big' : 'kill', (h2 && m.tone) || m.def.color);
   if (K && !m.remote) { game.screen.shake(K.shake, K.t); game.hitstop = Math.max(game.hitstop, K.hitstop); if (K.flash) game.flashT = Math.max(game.flashT || 0, K.flash); if (K.sfx) game.sfx(K.sfx); }
-  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y, ang: m.cutAng ?? 0, tilt: Math.random() - 0.5 });   // xác chớp trắng, đứt đôi theo đường chém rồi tan dần (render/draw-mob-sprite.js)
+  if (!m.remote) (game.corpses ??= []).push({ m, t0: game.time, x: m.x, y: m.y, ang: m.cutAng ?? 0, tilt: Math.random() - 0.5, wait: m.jolt?.t === game.time ? m.jolt.w : 0 });   // xác chớp trắng, đứt đôi theo đường chém rồi tan dần (render/draw-mob-sprite.js)
   partyKill(game, m);
   game.sfx('die');
-  juiceKill(game, m);   // vòng sóng, vụn, đốm linh khí bay về người
-  addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
+  juiceKill(game, m, h2);   // vòng sóng, vụn, đốm linh khí bay về người
+  if (!h2) addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
   if (!m.noQi) game.gainQi(Math.round(mobLk(game.data.mobs, m) * game.eventMul('qi') * (game.farmTeamMul?.() || 1) * 10) / 10, m.x, m.y, false, false, true);   // tổ đội farm (src/game/farm-team.js)
   game.onKill(m);
 }

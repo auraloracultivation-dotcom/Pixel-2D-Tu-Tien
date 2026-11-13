@@ -67,7 +67,8 @@ export function drawJuiceWorld(ctx, game, t) {
   ctx.globalCompositeOperation = 'source-over';
   for (const q of S.parts) {
     const k = Math.min(1, q.t / q.life), f = 1 - k;
-    if (q.k === 'deb') { ctx.fillStyle = rgba(q.color, f * f + 0.1); ctx.fillRect(q.x - q.s / 2, q.y - q.s / 2, q.s, q.s); }
+    if (q.k === 'deb') { if (q.t <= 0 && game.hit2) continue;   // vụn vừa sinh lúc khựng hình: hết khựng mới văng ra (src/game/hit-feel.js)
+      ctx.fillStyle = rgba(q.color, f * f + 0.1); ctx.fillRect(q.x - q.s / 2, q.y - q.s / 2, q.s, q.s); }
     else if (q.k === 'smoke') {   // khói vòng trắng (clip): vòng tròn rỗng nở ra, mờ dần
       ctx.strokeStyle = `rgba(240,244,255,${q.a * f})`; ctx.lineWidth = 1.1;
       ctx.beginPath(); ctx.arc(q.x, q.y, q.r * (1 + k * (q.grow || 1.3)), 0, TAU); ctx.stroke();

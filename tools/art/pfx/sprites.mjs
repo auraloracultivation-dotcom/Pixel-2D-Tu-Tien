@@ -20,7 +20,16 @@ const NGOC = ['#041418', '#08303a', '#0c5260', '#108088', '#18b4b0', '#4ce8d8', 
 const GIO = ['#0c2038', '#1a4670', '#3478b0', '#62a8dc', '#9cd0f4', '#d4eeff', '#ffffff'];
 const SET_T = [0.74, 0.77, 0.8, 0.833, 0.867, 0.9, 0.95, 1.0, 1.07, 1.15, 1.25, 1.35, 1.5, 1.65];   // sét: bỏ đoạn tụ, lấy từ lúc tia giáng
 
+// Mốc sáu khung của đòn trúng theo lưới 1/60 giây. Game cộng tuổi hình ngay trong khung chạm rồi mới khựng (hình đứng yên lúc khựng), nên khung 0 phải dài
+// 2/60 giây mới kịp hiện suốt lúc khựng; sau đó các khung dài 2, 2, 3, 4, 5 phần 60 giây (tan dần chậm lại). Hình vẽ theo số khung n = round(t × 60) trong trung.js.
+const HIT_T = [1, 3, 5, 7, 10, 14].map(n => +(n / 60).toFixed(4));
+const LUA_VANG = ['#3a1608', '#9c420c', '#d0620e', '#ee8a14', '#fbb934', '#fddc78', '#fff6d0', '#ffffff'], BUI = ['#5c5340', '#7d7258', '#a39878', '#c4ba98', '#ddd4b6', '#eee8d2', '#f8f4e6', '#ffffff'];
+
 export const SPRITES = {
+  // ---- đòn đánh thường trúng quái (docs/10-CAI-HON.md việc 2): tia lửa chạm có hướng (khung 0–1 hiện trong lúc game khựng), bản chí mạng to gấp rưỡi, bụi dưới chân lúc bật lùi
+  'trung': { fx: 'p2d/trung', pal: LUA_VANG, opts: { kind: 'thuong' }, times: HIT_T, end: 0.3167, dirs: 5, box: [-40, -40, 56, 40], tint: true },
+  'trung-cm': { fx: 'p2d/trung', pal: LUA_VANG, opts: { kind: 'cm' }, times: HIT_T, end: 0.3167, dirs: 5, box: [-54, -56, 80, 56], tint: true },
+  'bui-chan': { fx: 'p2d/bui-chan', pal: BUI, times: [1, 3, 7, 11, 16].map(n => +(n / 60).toFixed(4)), end: 0.34, box: [-22, -16, 22, 3] },
   // ---- đạn (hình có hướng: 5 góc dựng sẵn)
   'kiem-khi': { fx: 'p2d/kiem-khi', pal: KIEM, fps: 20, dirs: 5 },
   'hoa-cau': { fx: 'fire/fireball', pal: 'fire', opts: { radius: 5.5 }, dirs: 5, fps: 10, box: [-58, -26, 18, 26], edge: 12 },

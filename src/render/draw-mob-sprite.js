@@ -1,7 +1,8 @@
 // Quái bằng hình pixel (data/mobs.json → look; tools/art/mob_design.py, bản cũ tools/art/mobs.py). Hình gốc nhìn phải,
 // quay trái lật gương. Bản mới 4 khung đi, vẽ chi tiết rồi thu theo spr.scale; đứng yên thì khung đầu nhún 1 đơn vị.
 // Bản cũ 2 khung luân phiên. Quái hiền nảy thì khung theo nhịp nảy. Trả false nếu chưa có hình để vẽ hình khối như cũ.
-import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
+import { joltOff } from '../game/hit-feel.js';
+import { spriteImage, drawHitFrame, drawShadowFrame, flashImage, spriteTone } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
 // Hình 5 dáng Canva (acts, chủ dự án 30/10/2026: người và thú 4 chân phải bước chân trái phải khi đi): 0 đứng, 1–2 bước, 3 lấy đà, 4 đánh.
@@ -24,12 +25,14 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   if (Math.abs(m.fx || 0) > 0.2) m.lookX = Math.sign(m.fx);
   const { f, bob } = spr.acts ? actFrame(m, t, wind) : spr.atk ? { f: wind ? 1 : 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 } : mobFrame(spr, m, t);   // ảnh AI 5 dáng / 2 khung đứng, ra đòn
   ctx.save();
-  ctx.translate(m.x, m.y + 1 - bob);
+  const jo = joltOff(game, m.jolt);   // vừa trúng đòn của mình: giật lùi rồi rung tại chỗ trong lúc khựng (src/game/hit-feel.js)
+  if (game.hit2) m.tone ??= spriteTone(spr, im);   // bản ra đòn mới: màu chính của hình, vụn văng lúc chết đúng màu con quái
+  ctx.translate(m.x + (jo ? m.jolt.x * jo : 0), m.y + 1 - bob + (jo ? m.jolt.y * jo : 0));
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;
-  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
-  drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
+  if (!game.topPass) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js); lượt vẽ đè lên vệt chém thì không đổ bóng lần hai
+  drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0, !!m.jolt && game.time - m.jolt.t < 0.5);
   ctx.restore();
   return true;
 }
@@ -63,7 +66,7 @@ export function drawRivalSprite(ctx, game, m, t, wind) {
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind) ctx.scale(1.1, 0.92);
   ctx.imageSmoothingEnabled = false;
-  drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
+  if (!game.topPass) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0);
   ctx.restore();
   return true;
@@ -76,15 +79,19 @@ const SPLIT = { fly: 260, drag: 12, flash: 0.06, slide: 0.2, dist: 4, push: 5, f
 const SP = game => game.data.config.feel?.split || SPLIT;
 export const corpseLife = game => { const L = SP(game); return L.flash + L.hold + L.fade; };
 export function drawCorpse(ctx, game, c) {
-  const m = c.m, t = game.time - c.t0, L = SP(game);
+  const m = c.m, L = SP(game), hold = c.wait && game.time - c.t0 < c.wait, t = hold ? 0 : game.time - c.t0 - (c.wait ? c.wait - L.flash : 0);   // c.wait: nhát kết liễu kiểu mới, xác chờ hết khựng hình mới đứt đôi
   const id = m.def.rival ? 'rival.' + m.def.rival : m.def.look ? 'mob.' + m.id : null;
   const spr = id && game.data.art.sprites[id], im = spr && spriteImage(spr);
   if (!im || t > corpseLife(game)) return;
   const sc = spr.scale || 1, fx = (m.lookX || 1) * sc;
   const fl = (L.fly ?? 0) * (1 - Math.exp(-t * (L.drag ?? 12))) / (L.drag ?? 12);   // bị đòn chí tử hất văng ra sau rồi mới đứt đôi
   const cx = c.x + Math.cos(c.ang) * fl, cy = c.y + Math.sin(c.ang) * fl + 1 + (spr.h / 2 - spr.anchor[1]) * sc;   // tâm hình (toạ độ bản đồ)
-  const draw = (k, white) => { ctx.save(); ctx.scale(fx, sc); ctx.imageSmoothingEnabled = false;
-    drawDissolved(ctx, im, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1] - (spr.h / 2 - spr.anchor[1]), spr.w, spr.h, k, white); ctx.restore(); };
+  const draw = (k, white, src = im) => { ctx.save(); ctx.scale(fx, sc); ctx.imageSmoothingEnabled = false;
+    drawDissolved(ctx, src, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1] - (spr.h / 2 - spr.anchor[1]), spr.w, spr.h, k, white); ctx.restore(); };
+  if (hold) {   // đang khựng hình: con quái còn nguyên, loé trắng giữ viền mực, rung tại chỗ theo hướng đòn (src/game/hit-feel.js)
+    const o = joltOff(game, m.jolt);
+    ctx.save(); ctx.translate(Math.round(cx) + (o ? m.jolt.x * o : 0), Math.round(cy) + (o ? m.jolt.y * o : 0)); draw(0, false, flashImage(spr, im)); ctx.restore(); return;
+  }
   if (t < L.flash) { ctx.save(); ctx.translate(Math.round(cx), Math.round(cy)); draw(0, true); ctx.restore(); return; }
   const u = t - L.flash, s = 1 - (1 - Math.min(1, u / L.slide)) ** 3, k = Math.max(0, (u - L.hold) / L.fade);
   const cut = c.ang + Math.PI / 2 + c.tilt * L.tilt, nx = -Math.sin(cut), ny = Math.cos(cut);   // n: pháp tuyến đường cắt

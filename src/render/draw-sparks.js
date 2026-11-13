@@ -5,6 +5,7 @@ export function drawSparks(ctx, game) {
   if (!list?.length) return;
   ctx.save();
   for (const p of list) {
+    if (p.t <= 0 && game.hit2) continue;   // bản ra đòn mới: hạt vừa sinh lúc khựng hình chưa hiện (kẻo đọng thành cục giữa tia lửa chạm), hết khựng mới tóe ra
     const k = p.t / p.life, a = k < 0.7 ? 1 : (Math.floor(p.t * 30) % 2 ? 0.25 : 0.85) * (1 - k) / 0.3;
     const x = Math.round(p.x), y = Math.round(p.y), s = p.s;
     ctx.fillStyle = p.c;

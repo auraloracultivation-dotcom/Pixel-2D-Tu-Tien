@@ -134,6 +134,30 @@
   },
   "fx": "ice/ice-lance"
  },
+ "bui-chan": {
+  "w": 43,
+  "h": 18,
+  "cols": 5,
+  "rows": 1,
+  "n": 5,
+  "dirs": 1,
+  "fps": 20,
+  "times": [
+   0,
+   0.0333,
+   0.1,
+   0.1666,
+   0.25
+  ],
+  "dur": 0.3233,
+  "loop": false,
+  "anchor": [
+   21,
+   15
+  ],
+  "k": 0.5,
+  "fx": "p2d/bui-chan"
+ },
  "cham": {
   "w": 43,
   "h": 43,
@@ -1968,7 +1992,7 @@
   "k": 0.5,
   "ext": true,
   "fps": 12,
-  "dur": 1.0,
+  "dur": 1,
   "loop": false,
   "fx": "đồ theo tranh hu-ho-lo.png",
   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
@@ -1987,7 +2011,7 @@
   "k": 0.5,
   "ext": true,
   "fps": 12,
-  "dur": 1.0,
+  "dur": 1,
   "loop": false,
   "fx": "đồ theo tranh hu-ho-lo.png",
   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
@@ -3388,6 +3412,86 @@
    "s": 2
   },
   "fx": "p2d/tran"
+ },
+ "trung": {
+  "w": 94,
+  "h": 94,
+  "cols": 6,
+  "rows": 5,
+  "n": 6,
+  "dirs": 5,
+  "fps": 20,
+  "times": [
+   0,
+   0.0333,
+   0.0666,
+   0.1,
+   0.15,
+   0.2166
+  ],
+  "dur": 0.3,
+  "loop": false,
+  "anchor": [
+   39,
+   39
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 47,
+   "h": 47,
+   "s": 2
+  },
+  "pal": [
+   "#3a1608",
+   "#9c420c",
+   "#d0620e",
+   "#ee8a14",
+   "#fbb934",
+   "#fddc78",
+   "#fff6d0",
+   "#ffffff"
+  ],
+  "fx": "p2d/trung"
+ },
+ "trung-cm": {
+  "w": 133,
+  "h": 133,
+  "cols": 6,
+  "rows": 5,
+  "n": 6,
+  "dirs": 5,
+  "fps": 20,
+  "times": [
+   0,
+   0.0333,
+   0.0666,
+   0.1,
+   0.15,
+   0.2166
+  ],
+  "dur": 0.3,
+  "loop": false,
+  "anchor": [
+   55,
+   55
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 67,
+   "h": 67,
+   "s": 2
+  },
+  "pal": [
+   "#3a1608",
+   "#9c420c",
+   "#d0620e",
+   "#ee8a14",
+   "#fbb934",
+   "#fddc78",
+   "#fff6d0",
+   "#ffffff"
+  ],
+  "fx": "p2d/trung"
  },
  "tt-bang": {
   "w": 44,

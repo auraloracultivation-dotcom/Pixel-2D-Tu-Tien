@@ -79,9 +79,33 @@ AI không nhìn chuyển động, không nghe âm thanh như người; chỉ soi
 
 Sau khi đưa lên: nhìn số người chơi thật (người mới qua ba bước đầu, quay lại hôm sau). Mỗi lần chỉ đưa lên một việc để biết việc nào làm số đổi.
 
+## Việc 2: kịch bản từng nhịp của một đòn đánh thường (thước đo, 14/11/2026)
+
+Bản cũ đo được (quay 60 khung / giây ở cỡ điện thoại, kiếm đánh Mộc linh và Tiểu ma): lúc chạm, vệt đâm trắng dày ~14 đơn vị kéo 0,56 giây
+cùng tia nét mượt và quầng sáng **che kín con quái ~0,3 giây**; số sát thương đè lên bảng tên; rung 0,3 đơn vị không thấy được; quái loé trắng 70%
+(hồng nhạt) nằm dưới kiếm. Người chơi không thấy con quái bị đánh.
+
+| Mốc | Người chơi phải thấy | Bản mới đo được |
+|---|---|---|
+| Bấm đánh | Tiếng vút, kiếm lao ra | Chạm sau 9 khung (0,15 giây), như cũ |
+| 0,00 chạm | Hình khựng. Con quái loé trắng hẳn (giữ viền mực), rung tại chỗ, nổi trên kiếm và vệt chém. Sao lửa bốn cánh đúng mũi kiếm. Số nảy to trên bảng tên. Thanh máu hiện khúc trắng vừa mất. Máy quay hích theo hướng chém. Tiếng trúng rơi đúng khung này | Khựng 4 khung (0,066 giây); quái trắng 6 khung (0,10 giây); số to 1,4 lần trong 0,08 giây; hích 2,5 đơn vị |
+| 0,07 – 0,10 hết khựng | Quái ám đỏ, bật lùi, bụi bật hai bên chân; sao vỡ thành mảnh nhọn văng hình quạt theo hướng đòn | Bật lùi 5 đơn vị trong 5 khung |
+| 0,25 | Vệt chém đã tan, quái về chỗ; khúc trắng trên thanh máu rút dần | Vệt chém tan trong 0,3 giây (cũ 0,56), mảnh còn 0,45 lần; quái vẽ đè lên vệt chém 0,2 giây |
+| Chí mạng | Như trên nhưng nặng hơn: khựng lâu hơn, sao lớn có tia chéo và vòng chấn, số vàng to, hích mạnh, rung nhẹ | Khựng 6 khung (0,10 giây); hích 5,3 đơn vị |
+| Kết liễu | Khựng lâu nhất với con quái còn nguyên, loé trắng, rung; thêm tiếng nện trầm. Hết khựng xác mới văng ra, đứt đôi, vụn đúng màu con quái, linh khí bay về người | Khựng 7 khung (0,12 giây) |
+
+So với thước My Heroes: quái loé trắng 0,1 giây (bằng); tia lửa 6–14 (sao bốn cánh + sáu mảnh); giật lùi 3–4 điểm ảnh nghệ thuật (5 đơn vị);
+khựng chí mạng của mẫu 0,05 giây, bản này 0,10 giây (cố ý nặng tay hơn, chờ chủ dự án cảm nhận). Tia lửa mang màu linh căn người chơi (chưa có
+linh căn: vàng). Một nhát trúng nhiều con đứng chụm chỉ hiện một tia lửa (các con đều loé trắng, có số). Code: `src/game/hit-feel.js`, số ở
+`data/juice.json → hit2`, hình `tools/art/pfx/fx/trung.js`, `bui-chan.js`. Công tắc `hit2.on` đang **tắt**; xem thử trên một máy bằng địa chỉ có `?don=1`.
+Phòng đo trong máy làm việc: bước game từng 1/60 giây, chụp từng khung quanh chỗ đánh, ghi giờ khựng, loé, bật lùi, tiếng (kịch bản ở thư mục tạm, chưa đưa vào repo).
+
+Chưa làm trong việc 2 (để chủ dự án cảm nhận rồi quyết): đổi tiếng chém (chỉ thêm tiếng nện trầm ở nhát kết liễu), dáng người chơi lúc ra đòn.
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
 |---|---|---|
 | 14/11/2026 | Lập kế hoạch, đo số liệu | Xong |
 | 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |
+| 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chờ chủ dự án chấm clip, chưa đưa lên |

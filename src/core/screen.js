@@ -31,6 +31,8 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
   s.resize = resize;
 
   // Rung dịu mắt (config.comfort): nhỏ lại, có trần, lắc mượt và nhỏ dần tới hết thay vì nhảy ngẫu nhiên mỗi khung
+  // Hích máy quay theo hướng đòn rồi trả về (src/game/hit-feel.js): lệch (dx, dy) đơn vị, tắt dần trong time giây; cùng hệ số dịu mắt với rung
+  s.kick = (dx, dy, time = 0.12) => { const m = cfg.comfort?.shake_mul ?? 1; s.kx = dx * m; s.ky = dy * m; s.kt = s.k0 = time; };
   s.shake = (amount, time = 0.18) => {
     const c = cfg.comfort || {}, a = Math.min(c.shake_max ?? 99, amount * (c.shake_mul ?? 1));
     if (a <= 0) return;
@@ -63,6 +65,7 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
       s.sx = Math.sin(s.shakeP * w) * a; s.sy = Math.sin(s.shakeP * w * 1.31 + 1.7) * a * 0.7;
       if (s.shakeT <= 0) { s.shakeA = 0; s.shake0 = 0; }
     } else { s.sx = 0; s.sy = 0; }
+    if (s.kt > 0) { s.kt -= dt; const k = Math.max(0, s.kt / s.k0); s.sx += s.kx * k * k; s.sy += s.ky * k * k; }   // hích theo hướng đòn rồi trả về
   };
 
   s.snap = (x, y) => { s.camX = x; s.camY = y; };
