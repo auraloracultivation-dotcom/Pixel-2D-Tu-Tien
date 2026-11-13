@@ -15,7 +15,7 @@
 /* 03:29: có hình bản mệnh pháp bảo thì vòng nút bỏ hai thanh kiếm vàng chéo (ui-k-atk3.png = ui-k-atk2.png xoá lòng giữa) */
 body #btn-atk.has-ico::after, body[data-le] #btn-atk.has-ico::after { background-image: url("assets/art/ui-k-atk3.png") !important; }
 /* Hàng pháp bảo hệ mới (src/ui/self-pb.js): hình pháp bảo giữa ô, viền màu phẩm */
-.sv .sv-buffs .sv-slot.buff[data-o="pb"] { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; box-shadow: inset 0 0 0 1px var(--q); border-radius: 3px; }
+.sv .sv-buffs .sv-slot.buff.pbs { background: url("assets/art/ui-nv-o.png") center / 100% 100% no-repeat !important; box-shadow: inset 0 0 0 1px var(--q); border-radius: 3px; }
 .sv-pbi { position: absolute; inset: 14%; z-index: 1; background: center / contain no-repeat; image-rendering: pixelated; pointer-events: none; }
 /* Trang bị → Pháp bảo (12/11/2026 04:07, src/ui/self-pb-page.js): lưới pháp bảo, tấm chi tiết gọn như trang bị, 4 ô khảm, chiêu khảm */
 .spb-wrap { display: flex; flex-direction: column; gap: 4px; }

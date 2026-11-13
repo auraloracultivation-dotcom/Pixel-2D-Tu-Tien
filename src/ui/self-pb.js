@@ -15,7 +15,7 @@ export function pbRow(game, row, h = {}) {
     b.setAttribute('aria-label', T ? T.name : `Pháp bảo ${i + 1}`);
     if (T) {
       const g = pbGrade(game, it), ic = el('i', 'sv-pbi');
-      b.dataset.o = 'pb'; b.style.setProperty('--q', g.color);
+      b.dataset.o = g.id; b.classList.add('pbs'); b.style.setProperty('--q', g.color);   // khung ảnh theo phẩm như trang bị (style-ui-hoa-dao.css [data-o]); trước để 'pb' nên khung luôn trắng (báo 13/11/2026 11:09)
       ic.style.backgroundImage = typeIcon(game, T);
       b.append(el('i', 'sv-bfr'), ic);
       if (it.lv) b.append(el('b', 'sv-plus', '+' + it.lv));

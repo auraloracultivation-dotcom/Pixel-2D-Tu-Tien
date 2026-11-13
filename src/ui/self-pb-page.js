@@ -21,7 +21,7 @@ export function pbGrid(game, st, box, bar, redo) {
   if (!s.items.length) wrap.append(el('p', 'spb-note', D.ui.page_none));
   for (const it of s.items) {
     const T = pbType(game, it), g = pbGrade(game, it), at = s.wear.indexOf(it.uid), b = el('button', 'sv-slot buff spb-cell');
-    b.dataset.o = 'pb'; b.style.setProperty('--q', g.color);
+    b.dataset.o = g.id; b.classList.add('pbs'); b.style.setProperty('--q', g.color);
     b.append(el('i', 'sv-bfr'), icoT(game, T, 'spb-ic sv-pbi'));
     if (it.lv) b.append(el('b', 'sv-plus', '+' + it.lv));
     b.append(el('span', 'spb-slots', '◆' + it.slots));
