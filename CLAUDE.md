@@ -25,7 +25,7 @@ Luật cứng:
 - Chỉ số và nội dung nằm trong `data/`, code chỉ tham chiếu ID.
 - Chỉ `src/net/` được gọi Supabase (dự án Supabase riêng Pixel2DTuTien, chỉ khoá publishable).
 - Không gom code vào một file (tối đa 400 dòng). Không có logic trong `index.html`.
-- Schema chỉ đổi bằng migration mới trong `supabase/migrations/`.
+- Schema chỉ đổi bằng migration mới trong `supabase/migrations/`. Áp xong phải tự thử lại **đăng ký một tài khoản mới và đăng nhập** (13/11/2026: hàm chặn 1 giây quên cấp quyền service_role làm đăng ký hỏng gần 21 giờ, 7 người không vào được).
 - Không đưa secret/service_role key vào repo.
 - Cỡ nhân vật theo chỉ số, NPC là người chuẩn **1m80, 70kg** (~24 đơn vị bản đồ): nhân vật 1m75 thấp hơn NPC một xíu, nặng hơn thì bè hơn. Mỗi nhân vật bằng hình khai `body` (điểm ảnh thân người), `cm`, `kg` trong `data/heroes.json`, game tự thu phóng. Không chỉnh cỡ bằng mắt.
 - Khi chủ dự án nhờ tạo nhân vật mới: **đưa bảng điền chỉ số trước** (mẫu ở `docs/04-BANG-NHAN-VAT.md`), chờ điền xong mới làm.
