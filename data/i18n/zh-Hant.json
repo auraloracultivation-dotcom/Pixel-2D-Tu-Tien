@@ -4290,5 +4290,15 @@
 "Sinh lực {n}%": "生命 {n}%",
 "Đã treo {n} phút": "已掛機 {n} 分鐘",
 "Chạm hai lần để bật lại màn hình": "連點兩下即可重新開啟螢幕",
-"Máy này không tự giữ sáng màn hình được. Hãy tắt chế độ tự khoá màn hình của máy, nếu không máy khoá là game dừng.": "此裝置無法自行保持螢幕常亮。請到裝置設定關閉自動鎖定，否則裝置一鎖定遊戲就會停止。"
+"Máy này không tự giữ sáng màn hình được. Hãy tắt chế độ tự khoá màn hình của máy, nếu không máy khoá là game dừng.": "此裝置無法自行保持螢幕常亮。請到裝置設定關閉自動鎖定，否則裝置一鎖定遊戲就會停止。",
+"Bán / Rã nhanh": "快速出售 / 分解",
+"Đóng bán / rã nhanh": "關閉快速出售 / 分解",
+"Bán {n} món (+{c} Linh Thạch)": "出售 {n} 件（+{c} 靈石）",
+"Rã {n} món (+{s} Đá Khai Khiếu)": "分解 {n} 件（+{s} 開竅石）",
+"Không có món nào": "沒有可處理的物品",
+"Bấm lần nữa để làm": "再點一次確認",
+"Đã bán {n} pháp bảo, nhận {c} Linh Thạch": "已出售 {n} 件法寶，獲得 {c} 靈石",
+"Đã rã {n} pháp bảo, nhận {s} Đá Khai Khiếu": "已分解 {n} 件法寶，獲得 {s} 開竅石",
+"Chọn phẩm. Không đụng pháp bảo đang mặc và pháp bảo đã nâng cấp.": "選擇品階。不會處理已裝備及已升級的法寶。",
+"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "開竅石已接近修為上限：多出的 {n} 顆將被捨棄。"
 }

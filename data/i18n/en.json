@@ -4290,5 +4290,15 @@
 "Sinh lực {n}%": "HP {n}%",
 "Đã treo {n} phút": "Idle for {n} min",
 "Chạm hai lần để bật lại màn hình": "Double-tap to turn the screen back on",
-"Máy này không tự giữ sáng màn hình được. Hãy tắt chế độ tự khoá màn hình của máy, nếu không máy khoá là game dừng.": "This device cannot keep the screen awake by itself. Turn off auto-lock in your device settings, or the game stops when the device locks."
+"Máy này không tự giữ sáng màn hình được. Hãy tắt chế độ tự khoá màn hình của máy, nếu không máy khoá là game dừng.": "This device cannot keep the screen awake by itself. Turn off auto-lock in your device settings, or the game stops when the device locks.",
+"Bán / Rã nhanh": "Quick Sell / Dismantle",
+"Đóng bán / rã nhanh": "Close quick sell / dismantle",
+"Bán {n} món (+{c} Linh Thạch)": "Sell {n} items (+{c} Spirit Stones)",
+"Rã {n} món (+{s} Đá Khai Khiếu)": "Dismantle {n} items (+{s} Socket Stones)",
+"Không có món nào": "No items",
+"Bấm lần nữa để làm": "Tap again to confirm",
+"Đã bán {n} pháp bảo, nhận {c} Linh Thạch": "Sold {n} treasures for {c} Spirit Stones",
+"Đã rã {n} pháp bảo, nhận {s} Đá Khai Khiếu": "Dismantled {n} treasures for {s} Socket Stones",
+"Chọn phẩm. Không đụng pháp bảo đang mặc và pháp bảo đã nâng cấp.": "Pick grades. Equipped and upgraded treasures are never touched.",
+"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "Socket Stones are near the limit for your cultivation: {n} extra stones are lost."
 }

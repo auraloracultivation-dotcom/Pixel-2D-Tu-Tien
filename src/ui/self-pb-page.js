@@ -7,6 +7,7 @@ import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { dailyEvent } from '../game/daily.js';
 import { pbSell, pbPrice } from '../game/phap-bao-drop.js';
+import { pbQuick } from './self-pb-quick.js';
 
 const PCT = new Set(['speed', 'atk_pct', 'hp_pct', 'crit', 'crit_dmg', 'cdr', 'dr', 'regen_pct', 'mp_regen']);
 const ico = (game, id, f, cls) => { const i = el('i', cls); i.style.backgroundImage = pbIcon(game, id, f || 0, 48); return i; };
@@ -29,7 +30,7 @@ export function pbGrid(game, st, box, bar, redo) {
     b.onclick = () => { st.pbSel = it.uid; st.pbK = 0; redo(); };
     grid.append(b);
   }
-  wrap.append(grid, el('p', 'spb-note', D.ui.pick));
+  wrap.append(grid, el('p', 'spb-note', D.ui.pick), pbQuick(game, st, redo));   // bán nhanh, rã nhanh theo phẩm
   box.replaceChildren(wrap);
   bar.replaceChildren(el('div', 'spb-bar', `${D.drill.name}: ${s.stones || 0} · Linh Thạch: ${(game.save.lingshi || 0).toLocaleString('vi-VN')}`));
   later(box, redo);
