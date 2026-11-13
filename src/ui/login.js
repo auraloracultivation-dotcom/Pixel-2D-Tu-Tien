@@ -1,6 +1,7 @@
 // Màn đầu: đăng nhập tài khoản, hoặc chơi thử không mạng.
 // Phần mạng nạp lười: mất mạng thì vẫn chơi thử được.
 import { loadSave } from '../core/save.js';
+import { boDauChoi } from './tu-vao.js';
 import { langRow } from './lang-pick.js';
 
 const $ = id => document.getElementById(id);
@@ -51,7 +52,7 @@ export function createLogin(onPlay0, opts = {}) {   // opts.google: hiện nút 
   $('btn-google').hidden = !opts.google;
   $('btn-google').onclick = () => act(async () => { msg('Đang mở trang Google...'); await withTimeout(auth.signInGoogle(), NET_TIMEOUT); });   // trang chuyển sang Google, quay về là có phiên
   $('btn-signup').onclick = () => act(async () => { session = await withTimeout(auth.signUp($('acc').value, $('pwd').value), NET_TIMEOUT); });
-  $('btn-logout').onclick = () => act(async () => { await auth.signOut(); session = null; });
+  $('btn-logout').onclick = () => act(async () => { boDauChoi(); await auth.signOut(); session = null; });
   // Xoá tài khoản: bấm hai lần (lần đầu chỉ báo hậu quả), gửi yêu cầu rồi đăng xuất
   let armT = 0;
   $('btn-delete').onclick = () => {
