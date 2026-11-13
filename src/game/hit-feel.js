@@ -7,7 +7,7 @@
 //   · máy quay hích theo hướng đòn; số sát thương nảy to, nằm trên bảng tên; thanh máu quái hiện khúc trắng vừa mất rồi rút dần (draw-mob-bar.js);
 //   · vệt chém mảnh lại, tan nhanh, bớt quầng (slashCfg); nhát kết liễu thêm tiếng nện trầm, xác chờ hết khựng mới văng và đứt đôi (draw-mob-sprite.js),
 //     vụn đúng màu hình con quái (spriteTone).
-// Số ở data/juice.json → hit2. Bật cho mọi người: hit2.on (chưa bật: chờ chủ dự án duyệt); xem trước trên một máy: địa chỉ ?don=1 (tắt ?don=0), nhớ trên máy đó.
+// Số ở data/juice.json → hit2. Công tắc cho mọi người: hit2.on (chủ dự án xem clip rồi duyệt "Đưa lên" 14/11/2026 06:22); riêng một máy: địa chỉ ?don=1 / ?don=0, nhớ trên máy đó.
 import { pxAdd, pxOn } from './pfx.js';
 import { fxOk } from './fx-budget.js';
 

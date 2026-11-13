@@ -97,7 +97,7 @@ cùng tia nét mượt và quầng sáng **che kín con quái ~0,3 giây**; số
 So với thước My Heroes: quái loé trắng 0,1 giây (bằng); tia lửa 6–14 (sao bốn cánh + sáu mảnh); giật lùi 3–4 điểm ảnh nghệ thuật (5 đơn vị);
 khựng chí mạng của mẫu 0,05 giây, bản này 0,10 giây (cố ý nặng tay hơn, chờ chủ dự án cảm nhận). Tia lửa mang màu linh căn người chơi (chưa có
 linh căn: vàng). Một nhát trúng nhiều con đứng chụm chỉ hiện một tia lửa (các con đều loé trắng, có số). Code: `src/game/hit-feel.js`, số ở
-`data/juice.json → hit2`, hình `tools/art/pfx/fx/trung.js`, `bui-chan.js`. Công tắc `hit2.on` đang **tắt**; xem thử trên một máy bằng địa chỉ có `?don=1`.
+`data/juice.json → hit2`, hình `tools/art/pfx/fx/trung.js`, `bui-chan.js`. Công tắc `hit2.on` **bật** từ 14/11/2026 06:22 (chủ dự án duyệt); riêng một máy muốn về bản cũ: địa chỉ có `?don=0`.
 Phòng đo (`tools/do-don/`, dùng lại cho việc 3–5): `do-nhat.mjs` bước game từng 1/60 giây, chụp từng khung quanh chỗ đánh, ghi giờ khựng, loé,
 bật lùi, số, rung, tiếng; `quay-canh.mjs` quay một cảnh theo kịch bản ở đúng cỡ điện thoại (60 khung / giây + giờ từng tiếng); `bang-nhat.py`, `bang-canh.py`
 xếp khung thành bảng để soi; `ghep-tieng.py` ghép khung + tiếng thành mp4 gửi chủ dự án.
@@ -110,4 +110,4 @@ Chưa làm trong việc 2 (để chủ dự án cảm nhận rồi quyết): đ�
 |---|---|---|
 | 14/11/2026 | Lập kế hoạch, đo số liệu | Xong |
 | 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |
-| 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
