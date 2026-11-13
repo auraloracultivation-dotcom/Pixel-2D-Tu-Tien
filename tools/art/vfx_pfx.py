@@ -57,7 +57,7 @@ def build(save=None):
             e['lit'] = 1
             art['sprites'][f'pfx.{name}.l'] = {'file': f'assets/art/pfx-{name}-l.png', 'v': put(f'{name}.l.png', f'pfx-{name}-l.png'), 'w': L['w'], 'h': L['h'],
                                               'frames': m['cols'], 'rows': m['rows'], 's': L['s'], 'anchor': [0, 0], 'note': f'lớp sáng của pfx.{name}'}
-        e['note'] = f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/pfx/"
+        e['note'] = m['note'] + ' (tools/art/pb_vat.py)' if m.get('ext') else f"hiệu ứng chiêu {name}: PixelFX {m['fx']} (MIT), tools/art/pfx/"
         art['sprites'][f'pfx.{name}'] = e
     # biểu tượng dựng bằng export.mjs --icons: nguon/pfx/ic/<tên>.png, điểm ảnh phóng 3 lần. Chiêu: 102 × 102 (ô 34 điểm); 'pb-<loại>': pháp bảo
     # (ô 34); 'ck-<chiêu khảm>': 54 × 54 (ô 18 điểm, đúng cỡ ô khảm trong trang Pháp bảo). Cỡ đọc từ đầu file PNG.

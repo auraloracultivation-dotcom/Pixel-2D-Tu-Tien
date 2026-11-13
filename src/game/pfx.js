@@ -19,7 +19,7 @@ import { hitSfx, zoneSfx } from './skill-sfx.js';
 const rnd = (a, b) => a + Math.random() * (b - a);
 const st = game => { const S = (game.vfx ??= { fx: [], parts: [] }); S.px ??= []; S.pp ??= []; S.pz ??= []; return S; };
 
-// Bật / tắt: vfx.json → px_on; địa chỉ ?pfx=1 / ?pfx=0 ghi đè và nhớ trên máy đó (chủ dự án xem thử trước khi mở cho mọi người)
+// Bật / tắt: vfx.json → px_on (bật cho mọi người từ 13/11/2026 08:04, chủ dự án duyệt); địa chỉ ?pfx=1 / ?pfx=0 ghi đè và nhớ trên máy đó (so bộ cũ, bộ mới)
 let ON = null;   // một trang một game: hỏi một lần rồi nhớ
 function enabled(game) {
   if (ON != null) return ON;
@@ -40,7 +40,8 @@ function play(game, c, x, y, o = {}) {
 }
 
 // Thêm thẳng một hình đang diễn (đòn pháp bảo, src/game/pb-px.js): o = { s, x, y } + tuỳ chọn k, a, dir, snap, rot, pal (dải màu đổi sang), g (lớp
-// dưới chân), on + ox, oy (bám theo người), loop + dur, fo (giây mờ dần lúc cuối), delay, vx, vy (trôi đều), col (màu hắt sáng), sw (bay từ điểm này tới điểm kia)
+// dưới chân), on + ox, oy (bám theo người), loop + dur, fo (giây mờ dần lúc cuối), delay, vx, vy (trôi đều), col (màu hắt sáng), sw (bay từ điểm này tới điểm kia),
+// rc { x, y, k } (giật lùi lúc đầu rồi về chỗ: lệch (x, y) tắt dần theo e^(-k·t); chỉ với hình bám theo người)
 export function pxAdd(game, o) {
   const f = { dur: durOf(game, o.s), dir: null, flip: false, k: 1, a: 1, g: false, on: null, rate: 1, ...o, t: -(o.delay || 0) };
   f.lr ??= f.g || !f.col ? 0 : lightOf(game, f.s) * Math.min(2, f.k);
@@ -106,7 +107,7 @@ export function updatePx(game, dt) {
   if (!S?.px) return;
   for (const f of S.px) {
     f.t += dt * f.rate;
-    if (f.on) { f.x = f.on.x + (f.ox || 0); f.y = f.on.y + (f.oy || 0); }
+    if (f.on) { const r = f.rc ? Math.exp(-Math.max(0, f.t) * f.rc.k) : 0; f.x = f.on.x + (f.ox || 0) + (r ? f.rc.x * r : 0); f.y = f.on.y + (f.oy || 0) + (r ? f.rc.y * r : 0); }
     else if (f.vx != null && f.t > 0) { f.x += f.vx * dt; f.y += f.vy * dt; }
     const w = f.sw;
     if (!w) continue;

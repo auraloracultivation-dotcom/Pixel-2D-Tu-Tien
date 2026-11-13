@@ -700,7 +700,7 @@
    "big": 0.25
   }
  },
- "px_on": false,
+ "px_on": true,
  "px_light": [
   0.6,
   0.4
@@ -1696,7 +1696,7 @@
   }
  },
  "pb": {
-  "_note": "Đòn pháp bảo điểm ảnh (chủ dự án 13/11/2026: bỏ ảnh GPT; src/game/pb-px.js giữ nhịp, src/render/draw-pb-px.js vẽ; chỉ chạy khi px_on). ramps: dải màu tối → sáng của từng món (base: loại pháp bảo → dải) và của từng hệ khảm (kim, moc, thuy, hoa, tho); hình pfx.pb-* dựng bằng một dải gốc, game đổi sang dải của đòn (src/render/vfx/pfx-pal.js), nét vẽ thẳng (vành, cung, tia) lấy màu cùng dải. part: dải → hạt điểm ảnh (part_px). hit: hệ → hình tia trúng (không có thì pb-trung đổi màu); boom: hệ → hình nổ lớn (không có thì pb-no đổi màu). k: số điểm khung vẽ cho một điểm hình khi phẩm Phàm cấp 0 (nhân theo cỡ đòn, làm tròn nửa điểm); 2 = to bằng điểm ảnh của thế giới (pháp bảo là vật trong thế giới nên vẽ cùng cỡ điểm với nhân vật), 1 = mịn gấp đôi (tia trúng, hạt). sy: độ dẹt của vòng trên mặt đất (như hình chiêu vùng).",
+  "_note": "Đòn pháp bảo điểm ảnh (chủ dự án 13/11/2026: hiệu ứng vẽ bằng code, món pháp bảo lấy tranh gốc của chủ dự án; bật cho mọi người 13/11/2026 08:04; src/game/pb-px.js giữ nhịp, src/render/draw-pb-px.js vẽ; chỉ chạy khi px_on). ramps: dải màu tối → sáng của từng món (base: loại pháp bảo → dải) và của từng hệ khảm (kim, moc, thuy, hoa, tho); hình pfx.pb-* dựng bằng một dải gốc, game đổi sang dải của đòn (src/render/vfx/pfx-pal.js), nét vẽ thẳng (vành, cung, tia) lấy màu cùng dải. part: dải → hạt điểm ảnh (part_px). hit: hệ → hình tia trúng (không có thì pb-trung đổi màu); boom: hệ → hình nổ lớn (không có thì pb-no đổi màu). k: số điểm khung vẽ cho một điểm hình khi phẩm Phàm cấp 0 (nhân theo cỡ đòn, làm tròn nửa điểm); 1 = cỡ điểm của nhân vật (món làm lại từ tranh gốc như Hồ Lô: holo, tools/art/pb_vat.py; tia trúng, hạt), 2 = cỡ điểm của ô đất, thô gấp đôi nhân vật (hình lần 1 của bảy món kia, sẽ làm lại dần). sy: độ dẹt của vòng trên mặt đất (như hình chiêu vùng).",
   "sy": 0.84,
   "ramps": {
    "thanh": [
@@ -1833,7 +1833,7 @@
    "khien": 2,
    "chuong": 2,
    "co": 2,
-   "holo": 2,
+   "holo": 1,
    "tran": 2,
    "trung": 1
   }

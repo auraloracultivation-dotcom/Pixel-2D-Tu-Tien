@@ -3,7 +3,6 @@
 // luyện chế nằm trong Trang bị → Pháp bảo). src/ui/hud.js gọi pbHud mỗi lần cập nhật.
 import { pbWorn, pbType, pbGrade, slotOpen } from '../game/phap-bao.js';
 import { spriteImage } from '../render/sprites.js';
-import { pxOn } from '../game/pfx.js';
 
 const cache = new Map();
 // Ảnh vuông (data URL) của một khung hình, căn giữa, giữ tỉ lệ; hình chưa tải xong thì trả '' (lần sau thử lại)
@@ -20,12 +19,8 @@ export function pbIcon(game, id, f = 0, size = 48) {
   cache.set(key, url);
   return url;
 }
-// Biểu tượng điểm ảnh vẽ bằng code (pxi.*, tools/art/pfx/export.mjs --icons; chủ dự án 13/11/2026: bỏ ảnh GPT): hiệu ứng điểm ảnh bật thì dùng thẳng
-// file hình (đã phóng 3 lần đúng lưới: ô 34 điểm cho nút pháp bảo, ô 18 điểm cho chiêu khảm), không vẽ lại qua khung phụ kẻo nhoè nét.
-const pxi = (game, id) => { const S = id && pxOn(game) && game.data.art.sprites[id]; return S ? `url("${S.file}?v=${S.v}")` : ''; };
-// Hình của một loại pháp bảo (data/phap-bao.json → types.*.px.i) và của một chiêu khảm ('pxi.' + mã hình cũ đổi '.' thành '-'); px tắt: hình cũ
-export const typeIcon = (game, T, size) => pxi(game, T.px?.i) || pbIcon(game, T.icon, T.icon_f || 0, size || 48);
-export const modIcon = (game, m) => pxi(game, 'pxi.' + m.icon.replace('.', '-')) || pbIcon(game, m.icon, 0, 48);
+// Hình trên nút và trong bảng giữ hình cũ (chủ dự án 13/11/2026 07:39: không thích ảnh GPT làm HIỆU ỨNG chiêu chứ hình pháp bảo thì giữ)
+export const typeIcon = (game, T, size) => pbIcon(game, T.icon, T.icon_f || 0, size || 48);
 
 const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 
@@ -33,11 +28,7 @@ export function pbHud(game) {
   const p = game.player, worn = pbWorn(game);
   for (let i = 0; i < 4; i++) {
     const b = document.getElementById(i < 3 ? 'btn-s' + i : 'btn-art'), it = worn[i], T = pbType(game, it);
-    if (i === 3) {   // ô 4 là nút pháp bảo cũ (46 điểm, không có cỡ nền sẵn): hình điểm ảnh 102 điểm phải ép về ô 34 như ba nút kia
-      b.hidden = !slotOpen(game, 3) || !it; if (b.hidden) continue;
-      const px = !!T?.px?.i && pxOn(game);
-      b.style.backgroundSize = px ? '34px 34px' : ''; b.style.backgroundRepeat = px ? 'no-repeat' : ''; b.style.backgroundPosition = px ? 'center' : '';
-    }
+    if (i === 3) { b.hidden = !slotOpen(game, 3) || !it; if (b.hidden) continue; b.style.backgroundSize = b.style.backgroundRepeat = b.style.backgroundPosition = ''; }
     b.classList.toggle('off', !it);
     const lbl = b.querySelector('b'), name = T ? T.name : '—';
     if (lbl.textContent !== name || b._pbIcon !== (T?.icon || '')) {

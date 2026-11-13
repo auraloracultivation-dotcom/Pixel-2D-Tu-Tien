@@ -1769,25 +1769,153 @@
   "fx": "p2d/co"
  },
  "pb-holo": {
-  "w": 44,
-  "h": 58,
+  "w": 106,
+  "h": 138,
+  "cols": 12,
+  "rows": 1,
+  "n": 12,
+  "dirs": 1,
+  "anchor": [
+   45,
+   82
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 12,
+  "dur": 1,
+  "loop": false,
+  "fx": "tranh gốc hu-ho-lo.png",
+  "note": "Hồ Lô lúc hít linh khí (tranh gốc của chủ dự án, gỡ nước, cho phồng bụng, nút gỗ đung đưa): 12 khung, miệng chếch lên phải"
+ },
+ "pb-holo-phun": {
+  "w": 156,
+  "h": 138,
+  "cols": 3,
+  "rows": 9,
+  "n": 3,
+  "dirs": 9,
+  "anchor": [
+   75,
+   59
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "times": [
+   0,
+   0.08,
+   0.42
+  ],
+  "dur": 0.62,
+  "loop": false,
+  "fx": "tranh gốc hu-ho-lo.png",
+  "note": "Hồ Lô lúc phun (tranh gốc của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh"
+ },
+ "pb-holo-song": {
+  "w": 54,
+  "h": 68,
   "cols": 8,
   "rows": 1,
   "n": 8,
   "dirs": 1,
-  "fps": 10,
-  "dur": 0.8,
+  "fps": 20,
+  "dur": 0.4,
   "loop": true,
   "anchor": [
-   22,
-   52
+   25,
+   32
   ],
   "k": 0.5,
   "lit": {
-   "w": 22,
-   "h": 29,
+   "w": 27,
+   "h": 34,
    "s": 2
   },
+  "pal": [
+   "#0a1a3a",
+   "#12357a",
+   "#1f62c8",
+   "#3f9cff",
+   "#7fd8ff",
+   "#c8f4ff",
+   "#ffffff"
+  ],
+  "fx": "p2d/ho-lo-nuoc"
+ },
+ "pb-holo-tia": {
+  "w": 117,
+  "h": 111,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "fps": 20,
+  "dur": 0.4,
+  "loop": true,
+  "anchor": [
+   2,
+   55
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 59,
+   "h": 56,
+   "s": 2
+  },
+  "pal": [
+   "#0a1a3a",
+   "#12357a",
+   "#1f62c8",
+   "#3f9cff",
+   "#7fd8ff",
+   "#c8f4ff",
+   "#ffffff"
+  ],
+  "fx": "p2d/ho-lo-nuoc"
+ },
+ "pb-holo-xoay": {
+  "w": 81,
+  "h": 81,
+  "cols": 12,
+  "rows": 1,
+  "n": 12,
+  "dirs": 1,
+  "fps": 20,
+  "times": [
+   0,
+   0.083,
+   0.167,
+   0.25,
+   0.333,
+   0.417,
+   0.5,
+   0.583,
+   0.667,
+   0.75,
+   0.833,
+   0.917
+  ],
+  "dur": 0.96,
+  "loop": false,
+  "anchor": [
+   21,
+   57
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 41,
+   "h": 41,
+   "s": 2
+  },
+  "pal": [
+   "#0a1a3a",
+   "#12357a",
+   "#1f62c8",
+   "#3f9cff",
+   "#7fd8ff",
+   "#c8f4ff",
+   "#ffffff"
+  ],
   "fx": "p2d/ho-lo"
  },
  "pb-khien": {

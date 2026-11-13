@@ -18,6 +18,8 @@ export function pbRamp(game, e) { const N = e.node || e.cast?.root, el = N?.els?
 export const pbVis = e => e.cast?.vis || 1;
 // Số điểm khung vẽ cho một điểm hình kiểu look (lớn dần theo phẩm, cấp; làm tròn nửa điểm cho nét đều)
 export const pbK = (game, e, look, mul = 1) => half((cfg(game).k[look] || 1) * pbVis(e) * mul);
+// Món vẽ theo cỡ điểm của nhân vật (tranh gốc thu về, tools/art/pb_vat.py): chỉ phóng số nguyên, nét mới đều
+export const pbKi = (game, e, look) => Math.max(1, Math.round((cfg(game).k[look] || 1) * pbVis(e)));
 export const pbCol = (game, ramp, u = 0.6) => { const R = cfg(game).ramps[ramp]; return R[Math.round(u * (R.length - 1))]; };
 // Cỡ để nửa bề ngang của hình s phủ bán kính r (đơn vị bản đồ) × f; không quá max (điểm ảnh to quá 1,5 lần điểm thế giới thì thô)
 const fitK = (game, s, r, f = 1, max = 3) => { const q = game.data.art.sprites['pfx.' + s]; return q ? Math.min(max, half(r * f / (q.w * (q.k || 0.5) * 0.5))) : 1; };
@@ -27,10 +29,14 @@ export function pbSeal(e, vis = 1) {
   const k = Math.min(1, e.t / e.life), u = Math.max(0, (k - 0.55) / 0.45), H = 78 * Math.sqrt(vis);
   return [e.x, e.y - H * (1 - u * u * u) + (u ? 0 : Math.sin(e.t * 7) * 1.5)];
 }
-// Chỗ trái hồ lô lơ lửng lúc hút (đáy hồ lô) và miệng hồ lô
+// Trái hồ lô lúc hít (hình pb-holo, dáng như tranh gốc: miệng chếch lên 40 độ về phía mặt nhân vật): điểm tựa của hình lơ lửng trên đầu,
+// tâm miệng (linh khí bị hút về đó), cỡ hiệu ứng, có lật không. HOLO: tâm miệng cách điểm tựa 35,2 điểm hình theo hướng miệng.
+// Trái hồ lô luôn vẽ đúng cỡ điểm nhân vật (k = 1, nét mịn); phẩm cao, cấp cao thì phần hiệu ứng quanh nó (phễu, luồng, sóng) to gấp đôi.
+const HOLO = { m: 35.2, ax: Math.cos(-40 * Math.PI / 180), ay: Math.sin(-40 * Math.PI / 180), low: 56 };
 export function pbGourd(game, e) {
-  const p = game.player, K = pbK(game, e, 'holo'), x = p.x + (p.face?.x || 0) * 10, y = p.y - 24 + Math.sin((game.time || 0) * 6) * 1.5;
-  return [x, y, x, y - 19 * K];
+  const p = game.player, sd = (p.lookX || Math.sign(p.face?.x || 1) || 1) < 0 ? -1 : 1;
+  const x = p.x + sd * 2, y = p.y - 26 - HOLO.low * 0.5 + Math.sin((game.time || 0) * 5) * 1.5;
+  return [x, y, x + sd * HOLO.m * HOLO.ax * 0.5, y + HOLO.m * HOLO.ay * 0.5, pbKi(game, e, 'holo'), sd < 0];
 }
 
 // Một hạt điểm ảnh tự đặt vận tốc (đuôi đạn, linh khí hút vào, bụi sáng bốc lên)
@@ -56,15 +62,30 @@ function born(game, e) {
   switch (e.kind) {
     case 'shot': pxSpray(game, P, e.x, e.y, N.look === 'manh' ? 2 : 6, 70, { dir: Math.atan2(e.vy, e.vx), cone: 0.5 }); if (N.look === 'manh') pbSfx(game, 'fx', 'manh'); break;
     case 'orbit': pbSfx(game, 'fx', 'xoay'); break;
-    case 'wave': {   // Bảo Phiến: chiếc quạt phẩy + ba lưỡi gió toả theo hình nón; Hồ Lô phun: ba tia
-      const hf = N.arc * Math.PI / 360, quat = N.look === 'quat', K = pbK(game, e, 'phong', quat ? 1 : 0.75), go = N.dur;
-      if (quat) pxAdd(game, { s: 'pb-quat', x: e.x, y: e.y, on: e.follow ? p : null, ox: Math.cos(e.ang) * 7, oy: -4 + Math.sin(e.ang) * 5, dir: e.ang, snap: 1, k: pbK(game, e, 'quat'), pal, col });
-      for (const f of quat ? [-0.62, 0.62, 0] : [-0.5, 0.5, 0]) {
+    case 'wave': {
+      const hf = N.arc * Math.PI / 360, go = N.dur;
+      if (N.look === 'holo') {   // Hồ Lô phun: trái hồ lô lơ lửng trên đầu chúc miệng xuống vùng trước mặt (lấy đà, phun, xẹp; giật lùi), luồng linh tuyền dội xuống, ba con sóng lan theo hình nón
+        const K = pbKi(game, e, 'holo'), c = Math.cos(e.ang), sn = Math.sin(e.ang), gx = c * 5, gy = -42;
+        const aim = Math.atan2(sn * N.range * 0.42 - 6 - gy, c * N.range * 0.42 - gx), ca = Math.cos(aim), sa = Math.sin(aim), mx = gx + ca * HOLO.m * 0.5, my = gy + sa * HOLO.m * 0.5, rc = { x: -ca * 8, y: -sa * 8, k: 9 };
+        pxAdd(game, { s: 'pb-holo-phun', x: p.x + gx, y: p.y + gy, on: p, ox: gx, oy: gy, dir: aim, snap: 1, k: 1, col, fo: 0.14, rc });
+        pxAdd(game, { s: 'pb-holo-tia', x: p.x + mx, y: p.y + my, on: p, ox: mx, oy: my, rot: aim, k: K, pal, col, loop: true, dur: go + 0.14, delay: 0.06, fo: 0.14, rc });
+        for (const f of [-0.52, 0.52, 0]) {
+          const a = e.ang + f * hf, wx = Math.cos(a), wy = Math.sin(a), d0 = N.range * (f ? 0.34 : 0.44), d1 = N.range * (f ? 0.86 : 0.97);
+          pxAdd(game, { s: 'pb-holo-song', x: e.x + wx * d0, y: e.y + wy * d0, rot: a, k: K, pal, col, loop: true, dur: go + 0.2, delay: f ? 0.12 : 0.09, fo: 0.16,
+            sw: { x0: e.x + wx * d0, y0: e.y + wy * d0, x1: e.x + wx * d1, y1: e.y + wy * d1, go: go + 0.06, acc: 0 } });
+        }
+        pxSpray(game, P, p.x + mx + ca * 20, p.y + my + sa * 20, 30, 240, { dir: e.ang, cone: hf * 0.9, life: 0.9 });
+        break;
+      }
+      // Bảo Phiến: chiếc quạt phẩy + ba lưỡi gió toả theo hình nón
+      const K = pbK(game, e, 'phong');
+      pxAdd(game, { s: 'pb-quat', x: e.x, y: e.y, on: e.follow ? p : null, ox: Math.cos(e.ang) * 7, oy: -4 + Math.sin(e.ang) * 5, dir: e.ang, snap: 1, k: pbK(game, e, 'quat'), pal, col });
+      for (const f of [-0.62, 0.62, 0]) {
         const a = e.ang + f * hf, c = Math.cos(a), s = Math.sin(a), d0 = N.range * (f ? 0.2 : 0.3), d1 = N.range * (f ? 0.84 : 0.95);
         pxAdd(game, { s: 'pb-phong', x: e.x + c * d0, y: e.y + s * d0, dir: a, snap: 1, k: K, pal, col, loop: true, dur: go + 0.16, delay: f ? 0 : 0.03,
           sw: { x0: e.x + c * d0, y0: e.y + s * d0, x1: e.x + c * d1, y1: e.y + s * d1, go, acc: 0 } });
       }
-      pxSpray(game, P, e.x + Math.cos(e.ang) * 14, e.y + Math.sin(e.ang) * 14, quat ? 14 : 26, quat ? 190 : 230, { dir: e.ang, cone: hf * 0.9, life: 0.9 });
+      pxSpray(game, P, e.x + Math.cos(e.ang) * 14, e.y + Math.sin(e.ang) * 14, 14, 190, { dir: e.ang, cone: hf * 0.9, life: 0.9 });
       break;
     }
     case 'blast': {
@@ -176,6 +197,7 @@ export function pbLights(game, out, rgbOf) {
     else if (e.kind === 'zone') out.push({ x: e.x, y: e.y, r: N.r * 1.15, c, a: 0.75 * Math.min(1, (e.life - e.t) * 2) });
     else if (e.kind === 'seal') out.push({ x: e.x, y: e.y, r: N.r * (0.5 + 0.6 * k), c, a: 0.8 });
     else if (e.kind === 'ring' && e.t >= 0) out.push({ x: e.x, y: e.y, r: N.r * (0.4 + 0.7 * k), c, a: 1 - k });
+    else if (e.kind === 'suck') { const [, , mx, my] = pbGourd(game, e); out.push({ x: mx, y: my, r: 44 * v, c, a: 0.5 + 0.5 * k }); }
     else if (e.kind === 'wave') out.push({ x: e.x + Math.cos(e.ang) * N.range * 0.5, y: e.y + Math.sin(e.ang) * N.range * 0.5, r: N.range * 0.6, c, a: 1 - 0.5 * k });
     else if (e.kind === 'shield' && !e.done) out.push({ x: game.player.x, y: game.player.y - 10, r: 34 * v, c, a: 0.6 });
     else if (e.kind === 'orbit') out.push({ x: e.x, y: e.y, r: N.orbit.rad * 1.5, c, a: 0.7 });

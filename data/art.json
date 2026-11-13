@@ -18738,29 +18738,81 @@
   },
   "pfx.pb-holo": {
    "file": "assets/art/pfx-pb-holo.png",
-   "v": "eb71503c",
-   "w": 44,
-   "h": 58,
+   "v": "5c21dc17",
+   "w": 106,
+   "h": 138,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 12,
+   "dur": 1,
+   "loop": false,
+   "anchor": [
+    45,
+    82
+   ],
+   "k": 0.5,
+   "note": "Hồ Lô lúc hít linh khí (tranh gốc của chủ dự án, gỡ nước, cho phồng bụng, nút gỗ đung đưa): 12 khung, miệng chếch lên phải (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-phun": {
+   "file": "assets/art/pfx-pb-holo-phun.png",
+   "v": "b02d8c12",
+   "w": 156,
+   "h": 138,
+   "frames": 3,
+   "rows": 9,
+   "n": 3,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.62,
+   "loop": false,
+   "anchor": [
+    75,
+    59
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.08,
+    0.42
+   ],
+   "note": "Hồ Lô lúc phun (tranh gốc của chủ dự án): ba thế × 9 hướng, miệng chúc theo hướng đánh (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-holo-song": {
+   "file": "assets/art/pfx-pb-holo-song.png",
+   "v": "648e1d5b",
+   "w": 54,
+   "h": 68,
    "frames": 8,
    "rows": 1,
    "n": 8,
    "dirs": 1,
-   "fps": 10,
-   "dur": 0.8,
+   "fps": 20,
+   "dur": 0.4,
    "loop": true,
    "anchor": [
-    22,
-    52
+    25,
+    32
    ],
    "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
    "lit": 1,
-   "note": "hiệu ứng chiêu pb-holo: PixelFX p2d/ho-lo (MIT), tools/art/pfx/"
+   "note": "hiệu ứng chiêu pb-holo-song: PixelFX p2d/ho-lo-nuoc (MIT), tools/art/pfx/"
   },
-  "pfx.pb-holo.l": {
-   "file": "assets/art/pfx-pb-holo-l.png",
-   "v": "9f4fd9d9",
-   "w": 22,
-   "h": 29,
+  "pfx.pb-holo-song.l": {
+   "file": "assets/art/pfx-pb-holo-song-l.png",
+   "v": "2ac59d72",
+   "w": 27,
+   "h": 34,
    "frames": 8,
    "rows": 1,
    "s": 2,
@@ -18768,7 +18820,107 @@
     0,
     0
    ],
-   "note": "lớp sáng của pfx.pb-holo"
+   "note": "lớp sáng của pfx.pb-holo-song"
+  },
+  "pfx.pb-holo-tia": {
+   "file": "assets/art/pfx-pb-holo-tia.png",
+   "v": "adbe4ec1",
+   "w": 117,
+   "h": 111,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    2,
+    55
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-holo-tia: PixelFX p2d/ho-lo-nuoc (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-holo-tia.l": {
+   "file": "assets/art/pfx-pb-holo-tia-l.png",
+   "v": "18e16edf",
+   "w": 59,
+   "h": 56,
+   "frames": 8,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-holo-tia"
+  },
+  "pfx.pb-holo-xoay": {
+   "file": "assets/art/pfx-pb-holo-xoay.png",
+   "v": "a7afe934",
+   "w": 81,
+   "h": 81,
+   "frames": 12,
+   "rows": 1,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.96,
+   "loop": false,
+   "anchor": [
+    21,
+    57
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.083,
+    0.167,
+    0.25,
+    0.333,
+    0.417,
+    0.5,
+    0.583,
+    0.667,
+    0.75,
+    0.833,
+    0.917
+   ],
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-holo-xoay: PixelFX p2d/ho-lo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-holo-xoay.l": {
+   "file": "assets/art/pfx-pb-holo-xoay-l.png",
+   "v": "56775ca1",
+   "w": 41,
+   "h": 41,
+   "frames": 12,
+   "rows": 1,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-holo-xoay"
   },
   "pfx.pb-khien": {
    "file": "assets/art/pfx-pb-khien.png",
@@ -21804,102 +21956,6 @@
     51
    ],
    "note": "biểu tượng chiêu luu-sa vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-bao-phien": {
-   "file": "assets/art/pxi-pb-bao-phien.png",
-   "v": "3057a0ce",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo bao-phien vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-dai-an": {
-   "file": "assets/art/pxi-pb-dai-an.png",
-   "v": "a0979f47",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo dai-an vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-dong-chung": {
-   "file": "assets/art/pxi-pb-dong-chung.png",
-   "v": "b50629cb",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo dong-chung vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-ho-lo": {
-   "file": "assets/art/pxi-pb-ho-lo.png",
-   "v": "be5de048",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo ho-lo vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-ho-thuan": {
-   "file": "assets/art/pxi-pb-ho-thuan.png",
-   "v": "062b16b0",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo ho-thuan vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-linh-chau": {
-   "file": "assets/art/pxi-pb-linh-chau.png",
-   "v": "e858cb01",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo linh-chau vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-phi-kiem": {
-   "file": "assets/art/pxi-pb-phi-kiem.png",
-   "v": "82e567bf",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo phi-kiem vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
-  },
-  "pxi.pb-tran-ky": {
-   "file": "assets/art/pxi-pb-tran-ky.png",
-   "v": "b80c9396",
-   "w": 102,
-   "h": 102,
-   "frames": 1,
-   "anchor": [
-    51,
-    51
-   ],
-   "note": "biểu tượng pháp bảo tran-ky vẽ bằng code điểm ảnh (tools/art/pfx/export.mjs --icons)"
   },
   "pxi.pha-thien": {
    "file": "assets/art/pxi-pha-thien.png",

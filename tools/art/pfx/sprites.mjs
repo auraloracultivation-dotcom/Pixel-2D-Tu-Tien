@@ -90,7 +90,10 @@ export const SPRITES = {
   'pb-chuong': { fx: 'p2d/chuong', pal: TIM, times: seq(0.7, 0.3, 12), end: 0.7, tint: true },                                       // Đồng Chung
   'pb-an': { fx: 'p2d/an', pal: 'gold', fps: 10 },                                                                         // Đại Ấn
   'pb-co': { fx: 'p2d/co', pal: 'gold', fps: 10 },                                                                         // Trận Kỳ
-  'pb-holo': { fx: 'p2d/ho-lo', pal: KIEM, fps: 10 },                                                                      // Hồ Lô
+  // Hồ Lô: trái hồ lô là tranh gốc của chủ dự án ('pb-holo', 'pb-holo-phun': tools/art/pb_vat.py); ở đây chỉ có phần hiệu ứng vẽ quanh nó
+  'pb-holo-xoay': { fx: 'p2d/ho-lo', pal: KIEM, times: Array.from({ length: 12 }, (_, i) => +(i / 12 + 0.04).toFixed(3)), end: 1.0, angle: -40 * Math.PI / 180, box: [-8, -38, 60, 38], tint: true },   // phễu linh khí xoáy vào miệng (miệng hình pb-holo chếch −40 độ)
+  'pb-holo-tia': { fx: 'p2d/ho-lo-nuoc', pal: KIEM, opts: { kind: 'tia' }, fps: 20, box: [-2, -56, 132, 56], tint: true },   // luồng linh tuyền vọt ra từ miệng (game xoay theo hướng đánh)
+  'pb-holo-song': { fx: 'p2d/ho-lo-nuoc', pal: KIEM, opts: { kind: 'song' }, fps: 20, box: [-34, -42, 84, 42], tint: true },   // con sóng đầu luồng
   'pb-khien': { fx: 'holy/divine-shield', pal: 'cyber', opts: { radius: 16 }, empty: true, fps: 10, tint: true },                               // Hộ Thuẫn
   'pb-tran': { fx: 'p2d/tran', pal: 'gold', opts: { motif: 'kim', mode: 'loop', radius: 96 }, fps: 10, loop: true, tint: true, box: [-100, -84, 100, 84] },   // pháp trận phủ vùng Trận Kỳ (bán kính 96 điểm, vẽ gấp đôi = đúng vùng 96 đơn vị)
   'pb-tran-mo': { ...tran('gold', 'kim'), tint: true },                                                                    // pháp trận bật ra lúc đặt đòn
@@ -102,15 +105,8 @@ export const SPRITES = {
 };
 
 const CK = ['hoa', 'thuy', 'moc', 'kim', 'tho', 'toa-nhanh', 'lien-phat', 'danh-lan', 'xuyen-thau', 'nay-bat', 'cau-xoay', 'truy-kich', 'loi-kich', 'phan-chan', 'tu-bao', 'bao-kich', 'hap-huyet', 'toc-kich', 'tiet-linh'];   // 19 chiêu khảm (data/phap-bao.json → mods)
-// Hình chỉ dùng để dựng biểu tượng (không xuất thành hình trong game): pháp bảo vẽ gọn cho vừa ô 34 điểm (fx/icon-pb.js), kiếm và châu cỡ biểu tượng.
-export const ICON_SRC = {
-  'ic-kiem': { fx: 'p2d/van-kiem', pal: KIEM, opts: { guard: 0, length: 38, slim: 1 } },
-  'ic-chau': { fx: 'p2d/chau', pal: ['#0a1a3a', '#0e2a66', '#12357a', '#1f62c8', '#3f9cff', '#7fd8ff', '#c8f4ff'], opts: { radius: 12 } },   // dải màu sẫm hơn một bậc: châu trong biểu tượng có khối, không loá trắng
-  'ic-an': { fx: 'p2d/icon-pb', pal: 'gold', opts: { kind: 'an' } }, 'ic-khien': { fx: 'p2d/icon-pb', opts: { kind: 'khien' } },
-  'ic-chuong': { fx: 'p2d/icon-pb', pal: TIM, opts: { kind: 'chuong' } }, 'ic-co': { fx: 'p2d/icon-pb', pal: 'gold', opts: { kind: 'co' } },
-  'ic-holo': { fx: 'p2d/icon-pb', pal: KIEM, opts: { kind: 'holo' } },
-  ...Object.fromEntries(CK.map(id => ['ick-' + id, { fx: 'p2d/icon-ck', opts: { kind: id } }])),   // chiêu khảm: ô 18 điểm (fx/icon-ck.js, fx/_ck-grids.js)
-};
+// Hình chỉ dùng để dựng biểu tượng (không xuất thành hình trong game): chiêu khảm ô 18 điểm (fx/icon-ck.js, fx/_ck-grids.js).
+export const ICON_SRC = Object.fromEntries(CK.map(id => ['ick-' + id, { fx: 'p2d/icon-ck', opts: { kind: id } }]));
 
 // Biểu tượng chiêu dựng từ chính hình hiệu ứng (export.mjs --icons): L = các lớp [tên hình, lệch x, lệch y, góc, giây riêng], t = giây lấy khung,
 // win = [tâm x, tâm y, cạnh ô cắt] tính từ điểm neo (ô 34: nguyên nét; 68: thu một nửa; lớn hơn: thu nhiều, chỉ còn dáng).
@@ -143,12 +139,6 @@ export const ICONS = {
   'thien-phat': { L: [['set-dat', 0, 0, 0, 0.1], ['set', -22, -6, 0, 0.8], ['set', 20, 4, 0, 0.87]], win: [0, -52, 120] },
   'thiem-anh': { L: [['no-kiem']], t: 0.09, win: [0, -3, 44] },
   'pha-thien': bay('kiem-khi', 34, 2),
-  'vo-anh': { L: [['tran-am', 0, 0, 0, 0.3], ['nguyet-liem', 0, -6, 0, 0.1]], win: [0, -3, 68] },  // ---- pháp bảo (nút trên màn chơi, lưới Pháp bảo): ô 34 nguyên nét; tên = 'pb-' + mã loại (data/phap-bao.json → types.*.px.i = 'pxi.pb-<mã>')
-  'pb-phi-kiem': { L: [['ic-kiem', 0, 0, -Math.PI / 4]], t: 0.1, win: [-1, 1, 34] },
-  'pb-linh-chau': { L: [['ic-chau']], t: 0.48, win: [0, 0, 34] },
-  'pb-bao-phien': { L: [['pb-quat', 0, 0, -Math.PI / 2 - 1, 0.2]], win: [0, -10, 34] },
-  'pb-dai-an': { L: [['ic-an']], win: [0, 0, 34] }, 'pb-ho-thuan': { L: [['ic-khien']], win: [0, 0, 34] }, 'pb-dong-chung': { L: [['ic-chuong']], win: [0, 0, 34] },
-  'pb-tran-ky': { L: [['ic-co']], win: [0, 0, 34] }, 'pb-ho-lo': { L: [['ic-holo']], win: [0, 0, 34] },
-  // ---- chiêu khảm (trang Pháp bảo): ô 18 nguyên nét; tên = 'ck-' + mã chiêu (game tìm 'pxi.' + icon cũ đổi '.' thành '-')
+  'vo-anh': { L: [['tran-am', 0, 0, 0, 0.3], ['nguyet-liem', 0, -6, 0, 0.1]], win: [0, -3, 68] },  // ---- chiêu khảm: ô 18 nguyên nét, tên = 'ck-' + mã chiêu. CHƯA dùng trong game (13/11/2026 chủ dự án: hình trên nút giữ hình cũ; bộ này chờ chủ dự án xem rồi mới quyết)
   ...Object.fromEntries(CK.map(id => ['ck-' + id, { L: [['ick-' + id]], n: 18, win: [0, 0, 18] }])),
 };

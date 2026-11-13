@@ -35,16 +35,30 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 - Ghép: hình dựng sẵn + nét điểm ảnh vẽ thẳng (`pfx-shape.js`) + hạt. Đổi màu theo hệ: `pfx-pal.js`, dải ở `data/vfx.json → pb.ramps`.
 - Đo (máy giả, vẽ bằng phần mềm, 7 đòn phẩm cao cùng lúc mỗi 0,75 giây): bộ cũ 21 ms / khung, bộ mới 29–32 ms; phần nặng là lớp sáng cộng và quầng lớn
   → đã bỏ lớp sáng của tấm phù văn lớn, bóng mờ, quầng phủ cả vùng; máy ở mức nhẹ nhất bỏ hẳn lớp sáng. Điện thoại thật vẽ bằng GPU, cần chủ dự án thử.
-- Biểu tượng (13/11 sáng, đợt 2): hình cắt từ hình của đòn bị nhoè trên nút (ô 48 thu phóng lẻ) và bốn món cao quá ô → vẽ riêng bộ biểu tượng:
-  8 pháp bảo ô 34 điểm (`fx/icon-pb.js`: ấn, thuẫn, chuông, cờ, hồ lô vẽ gọn; kiếm, châu, quạt dựng từ hình của đòn qua `ICON_SRC`) và 19 chiêu khảm
-  ô 18 điểm (`fx/icon-ck.js` + lưới vẽ tay `fx/_ck-grids.js`; ô khảm trong trang Pháp bảo đúng 18 điểm nên 1 điểm hình = 3 điểm màn hình iPhone).
-  `export.mjs --icons [tên…]` → `nguon/pfx/ic/` → `vfx_pfx.py` khai `pxi.pb-*`, `pxi.ck-*` (cỡ đọc từ file). Dựng thử ra chỗ khác: `PFX_OUT=<thư mục>`.
-  Xem thử: `<scratchpad>/ic/view.py`, `viewck.py`, `<scratchpad>/pfx/pbpage.mjs` (chụp trang Pháp bảo), `hud.mjs` (chụp nút).
+- **13/11 07:23–08:04, chủ dự án xem lần 1 rồi chốt:** "hiệu ứng tốt, hình ảnh chưa tốt lắm, Hồ Lô chưa có hồn"; "không thích ảnh GPT làm HIỆU ỨNG
+  chứ không phải không thích ảnh GPT; icon cũ giữ nguyên; tận dụng ảnh GPT để biến nó thành đồ của bạn"; "đừng râu ông nọ cắm cằm bà kia";
+  thứ chuyển động + âm thanh: Claude; ảnh tĩnh, biểu tượng, công trình, đồ vật: GPT; vật sống: SpriteCook; bản đồ: Claude code. Rồi bảo đẩy lên game.
+  → gỡ bộ 8 biểu tượng pháp bảo điểm ảnh vừa vẽ (hình trên nút giữ hình cũ); 19 biểu tượng chiêu khảm (`fx/icon-ck.js`, `_ck-grids.js`,
+  `pxi.ck-*`) còn trong kho nhưng KHÔNG dùng. `px_on: true` từ 08:04.
+- **Lần 1 đo nhầm cỡ điểm:** nhân vật vẽ 1 điểm hình = 1 điểm khung vẽ (thân 42–45 điểm cho 24 đơn vị), chỉ ô đất / cây mới thô gấp đôi. Món
+  pháp bảo lần 1 vẽ `k: 2` nên thô gấp đôi nhân vật đứng cạnh → một phần lý do "hình ảnh chưa tốt". Món làm lại vẽ `k: 1`.
+- **Hồ Lô lần 2 (mẫu cho bảy món còn lại):** `tools/art/pb_vat.py` lấy tranh gốc `nguon/ai/phap-bao/goc/hu-ho-lo.png` (hồ lô đã bật nút đang
+  phun): gỡ nước theo màu (xanh trội + trắng dính liền, chừa hạt ngọc), vá chỗ nước đè lên thân, vẽ lại miệng (elip), tách nút gỗ + dây ra
+  để đung đưa quanh điểm buộc khuất sau vành miệng, rồi với mỗi khung: phồng bụng / co giãn / xoay ở cỡ tranh gốc → thu 2,7 lần bằng màu
+  đa số từng ô → một bảng 30 màu chung → viền mực. `pb-holo` (hít, dáng như tranh: miệng chếch −40°, quay trái thì lật), `pb-holo-phun`
+  (9 hướng 0..90°, game lật cho đủ vòng). Hiệu ứng: `fx/ho-lo.js` (phễu xoáy, dựng sẵn góc −40°), `fx/ho-lo-nuoc.js` (luồng, sóng; game xoay).
+  Trong game hồ lô lơ lửng trên đầu cả lúc hít lẫn lúc phun (chúc miệng dội xuống vùng trước mặt, không che nhân vật), có giật lùi (`rc`).
+- Tranh gốc của các món khác: `pb-dai-an.png` + `hu-dai-an.png`, `pb-linh-chau.png` + `hu-linh-chau.png`, `pb-ho-thuan.png`, `pb-tran-ky.png`;
+  Phi Kiếm: `nguon/ai/kiem/kiem.png` (kiếm số 3 đang làm hình trên nút); Bảo Phiến: `gear.ba-tieu-phien`; Đồng Chung: ô chuông trong `nguon/ai/chieu/chieu-3.png`.
+- `export.mjs --icons [tên…]`, `PFX_OUT=<thư mục>` (dựng thử ra chỗ khác), `vfx_pfx.py` đọc cỡ biểu tượng từ file.
 - Phòng thử: `<scratchpad>/pfx/pblab.mjs <ra> <loại[:phẩm[:cấp[:chiêu+chiêu]]]…> --q pfx=1 [--times …] [--dir x,y] [--mobs n]`, `pbplay.mjs` (ghi tiếng đã phát),
   `play.mjs` (bấm nút thật), `perf.mjs` (đo khung).
 
 ## Việc còn lại
 
-- Chủ dự án xem trước → duyệt → `px_on: true`.
+- Bảy món còn lại làm lại hình từ tranh gốc như Hồ Lô (thứ tự đề nghị: Đại Ấn, Linh Châu, Trận Kỳ, Hộ Thuẫn, Phi Kiếm, Bảo Phiến, Đồng Chung),
+  mỗi món hiệu ứng riêng (ấn: dấu triện in xuống đất thay cho hình `dia-chan` đang mượn của chiêu cũ).
+- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ tranh gốc (đừng phóng điểm ảnh).
+- Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.
 - Người khác chưa thấy đòn pháp bảo của nhau (bộ cũ cũng chưa có).
-- 48 chiêu cũ: chủ dự án chưa trả lời có mở lại không; nếu có thì rà thêm biểu tượng và cỡ điểm cho cùng chuẩn với pháp bảo.
+- 48 chiêu cũ: chủ dự án muốn xoá (13/11 07:17). Chưa đụng; So tài còn dùng, phải hỏi lại trước khi gỡ.

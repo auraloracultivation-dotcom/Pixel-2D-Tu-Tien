@@ -182,7 +182,7 @@ for (const name of list) {
   console.log(`${name}: ${S.fx} ${r.w}x${r.h} × ${r.n} khung${r.dirs > 1 ? ' × ' + r.dirs + ' hướng' : ''}, màu ${(C.png.length / 1024).toFixed(1)} KB${L ? ', sáng ' + (L.png.length / 1024).toFixed(1) + ' KB' : ''}, ${Date.now() - t0} ms`);
 }
 if (!F.onlySheet) {
-  for (const k of Object.keys(META)) if (!SPRITES[k]) delete META[k];
+  for (const k of Object.keys(META)) if (!SPRITES[k] && !META[k].ext) delete META[k];   // ext: hình không phải PixelFX (món pháp bảo từ tranh gốc, tools/art/pb_vat.py)
   writeFileSync(metaP, JSON.stringify(Object.fromEntries(Object.entries(META).sort()), null, 1) + '\n');
   console.log(`xong ${list.length} hình, ${(total / 1024).toFixed(0)} KB`);
 }
