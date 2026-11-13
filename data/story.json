@@ -9,7 +9,10 @@
      "say": [
       [
        "he-thong",
-       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn."
+       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -54,7 +57,10 @@
      "say": [
       [
        "truong-thon",
-       "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."
+       "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -416,7 +422,10 @@
       ],
       [
        "{lac-tuyet|tieu-dao}",
-       "Cẩn thận! Là... Đại Ma Thần!"
+       "Cẩn thận! Là... Đại Ma Thần!",
+       {
+        "tap": true
+       }
       ]
      ]
     },
@@ -430,7 +439,10 @@
      "say": [
       [
        "",
-       "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất."
+       "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -459,7 +471,10 @@
       ],
       [
        "he-thong",
-       "Tới Kim Đan, ngươi khiêu chiến được Đại Ma Thần ở Đài Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng."
+       "Tới Kim Đan, ngươi khiêu chiến được Đại Ma Thần ở Đài Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng.",
+       {
+        "tap": true
+       }
       ]
      ]
     },

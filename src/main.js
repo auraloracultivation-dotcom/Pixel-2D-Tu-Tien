@@ -85,7 +85,7 @@ async function boot() {
   screen = createScreen(canvas, data.config, perf.dpr);
   const input = createInput(canvas);
   const audio = createAudio(data.sounds, data['tieng-chieu']?.sfx);   // tiếng chung + tiếng riêng từng chiêu (data/tieng-chieu.json)
-  const ui = createHud(audio);
+  const ui = createHud(audio, data.config.dialog);
   const game = createGame(data, screen, input, ui, audio);
   createBag(game);
   createSkillsPanel(game);

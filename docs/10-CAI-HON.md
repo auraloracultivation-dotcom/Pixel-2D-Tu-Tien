@@ -21,6 +21,12 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
 - 14/11 00:46: "Một phút làm thần thì không cần. Có thể từ cầm kiếm chém từng phát mới chết 1 con slime, và nhận thưởng 1 trang bị, xong đi chém con
   mạnh hơn slime một chút, đạt số lượng thì nhận thưởng, tôi thấy thú vị hơn… hiệu ứng chiến đấu và hiệu ứng nhận quà của game chưa tốt, chưa cảm
   thấy đang đánh, và bị đánh, chưa thấy khó, chưa thấy hiệu ứng, cảm xúc"
+- 14/11 01:00: "nên học từ My Heroes Dungeon Raid: mỗi phút chơi game đều như đang xem một bộ phim pixel art, mỗi cảnh quay đều là cảnh thật sau đó
+  chuyển hoá thành pixel. Thiết kế kiểu vô hạn sáng tạo nhưng đơn giản cách vẽ. Hãy thiết kế tỉ mỉ như một người dùng rất nhiều thời gian để sửa
+  từng điểm ảnh chứ không phải một con AI tổng hợp rồi ghép lại… game này gắn liền với mạng sống mình" (thước đo My Heroes đã tách từ 12 video:
+  tài liệu dự án `claude/phan-tich-my-heroes-dungeon-raid.md`: vệt chém gấp 3–4 lần nhân vật trong 0,25–0,35 giây; quái loé trắng 0,1 giây, 6–14 tia
+  lửa, giật lùi 3–4 điểm ảnh; số sát thương bay 20 điểm ảnh tan trong 0,6 giây; chết nổ hạt, đồ rơi hút về người trong 0,4 giây). Cách làm: vẽ từng
+  khung ở đúng cỡ điểm ảnh, soi từng khung, gửi chủ dự án bảng khung hình kèm clip; mỗi đêm hoàn thiện một khoảnh khắc.
 - 14/11 00:52: "bạn có thể tự phán đoán được làm sao để giữ người chơi… quan trọng là cái bạn làm ra nó phải đúng với cái bạn hình dung, nếu không
   thì thất bại rồi" (AI hiểu là: giao AI tự quyết phần hình dung, chủ dự án chấm bằng kết quả; chủ dự án chưa nhắn chữ "chốt").
 
@@ -78,3 +84,4 @@ Sau khi đưa lên: nhìn số người chơi thật (người mới qua ba bư�
 | Ngày | Việc | Trạng thái |
 |---|---|---|
 | 14/11/2026 | Lập kế hoạch, đo số liệu | Xong |
+| 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |

@@ -20,8 +20,8 @@ const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
 const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 
-export function createHud(audio) {
-  const dialog = createDialog(() => audio.play('talk'));
+export function createHud(audio, dlgCfg) {
+  const dialog = createDialog(() => audio.play('talk'), dlgCfg);   // dlgCfg: data/config.json → dialog (nhịp chữ)
   let toastTimer = null, nextTimer = null, shownAt = 0;
   const ui = { dialog }, queue = [], MIN = 1400, MAXQ = 4;
 

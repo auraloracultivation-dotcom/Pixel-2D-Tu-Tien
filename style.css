@@ -85,6 +85,9 @@ canvas#game { position: fixed; inset: 0; display: block; image-rendering: -webki
 .who:empty { display: none; }
 .text { font-size: 15px; line-height: 1.5; color: var(--ink); }
 .hint { position: absolute; right: 12px; bottom: 5px; font-size: 11px; color: var(--muted); }
+/* câu phải chạm mới sang (data/story.json cờ tap): gợi ý chạm sáng lên và nhấp nháy */
+#dialog.must-tap .hint { color: #ffe08a !important; animation: dlg-tap .9s ease-in-out infinite; }
+@keyframes dlg-tap { 50% { opacity: .35; transform: translateY(1px); } }
 .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
 .choices:empty { display: none; }
 /* nhiều lựa chọn (bể cá: cả chục loài cá) thì cuộn trong khung, không tràn màn (chủ dự án 04/11/2026 15:09) */

@@ -258,11 +258,13 @@ function flyLink(game, go) {
   return game.map.def.portals.find(pt => pt.fly && pt.at[0] === tx && pt.at[1] === ty) || null;
 }
 
-// Tự lật lời thoại khi đang tự hành (lựa chọn thì vẫn chờ người chơi)
+// Tự lật lời thoại khi đang tự hành (lựa chọn thì vẫn chờ người chơi). Câu đứng đủ giờ đọc theo độ dài (src/ui/dialog.js holdSec, ít nhất
+// pilot.line giây); câu có cờ phải chạm thì chờ người chơi (chủ dự án 14/11/2026 00:05: chữ tự lướt qua không ai đọc kịp).
 export function pilotDialog(game, dt) {
-  const pl = game.pilot;
-  if (!pl || !game.dialog.open) { if (pl) pl.line = 0; return; }
-  if ((pl.line += dt) < C(game).line) return;
+  const pl = game.pilot, d = game.dialog;
+  if (!pl || !d.open) { if (pl) pl.line = 0; return; }
+  if (pl.lineNo !== d.lineNo) { pl.lineNo = d.lineNo; pl.line = 0; }   // câu mới (kể cả do người chơi tự chạm): đếm lại từ đầu
+  if ((pl.line += dt) < Math.max(C(game).line, d.holdSec?.() ?? 0)) return;
   pl.line = 0;
-  game.dialog.skip?.();
+  d.skip?.();
 }
