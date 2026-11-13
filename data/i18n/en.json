@@ -4281,5 +4281,14 @@
 "Đinh! Đủ bốn thú cưỡi. Bổn hệ thống cũng phải nể.": "Ding! All four mounts. Even this System is impressed.",
 "Đả tọa, uống đan linh khí, cày bí cảnh. Đầy tu vi tầng 9 thì nút Độ thiên kiếp hiện giữa màn hình.": "Meditate, drink qi pills, run secret realms. At full layer 9 the Face Tribulation button appears in the middle of the screen.",
 "Đầy thanh linh khí ở tầng 9 thì bấm Đột phá. Lúc sét đánh nhớ chạy né vòng đỏ.": "When the qi bar is full at layer 9, press Break Through. When lightning strikes, run out of the red circles.",
-"Đồ Linh có 1 lỗ, Địa 2 lỗ, Thiên 3 lỗ. Ngọc rơi từ quái và quà triệu hồi.": "Spirit gear has 1 socket, Earth 2, Heaven 3. Gems drop from monsters and summon rewards."
+"Đồ Linh có 1 lỗ, Địa 2 lỗ, Thiên 3 lỗ. Ngọc rơi từ quái và quà triệu hồi.": "Spirit gear has 1 socket, Earth 2, Heaven 3. Gems drop from monsters and summon rewards.",
+"Tắt màn": "Screen Off",
+"Đang tự đánh": "Auto-Fight is on",
+"Đang tự hành": "Auto-Quest is on",
+"Đang đả tọa": "Meditating",
+"Đang đứng yên": "Standing still",
+"Sinh lực {n}%": "HP {n}%",
+"Đã treo {n} phút": "Idle for {n} min",
+"Chạm hai lần để bật lại màn hình": "Double-tap to turn the screen back on",
+"Máy này không tự giữ sáng màn hình được. Hãy tắt chế độ tự khoá màn hình của máy, nếu không máy khoá là game dừng.": "This device cannot keep the screen awake by itself. Turn off auto-lock in your device settings, or the game stops when the device locks."
 }
