@@ -91,12 +91,29 @@ function vignette(ctx, w, h, c, a) {
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
 }
 
+// Viền màu dọc bốn cạnh màn, đậm ở mép rồi nhạt dần vào trong theo sáu nấc (kiểu điểm ảnh, không loang mượt). Viền tròn ở trên chỉ thấy rõ ở đầu và cuối
+// màn hình dọc, hai bên gần như không có; bản bị đánh mới dùng viền này để khoé mắt bên nào cũng thấy đỏ. thick: bề dày cả viền (điểm màn), a: độ đậm ở mép
+const BAND = [1, 0.7, 0.46, 0.28, 0.15, 0.06];
+function edgeGlow(ctx, w, h, c, a, thick) {
+  const b = Math.max(2, Math.round(thick / BAND.length));
+  ctx.fillStyle = c;
+  for (let i = 0; i < BAND.length; i++) {
+    const o = i * b; ctx.globalAlpha = Math.max(0, Math.min(1, a * BAND[i]));
+    ctx.fillRect(o, o, w - 2 * o, b); ctx.fillRect(o, h - o - b, w - 2 * o, b);
+    ctx.fillRect(o, o + b, b, h - 2 * (o + b)); ctx.fillRect(w - o - b, o + b, b, h - 2 * (o + b));
+  }
+  ctx.globalAlpha = 1;
+}
+
 // Lớp màn hình (toạ độ điểm màn): Liên Kích, chữ mốc, viền đỏ/lửa
 export function drawJuiceScreen(ctx, game, screen, t) {
   const S = game.juice, D = game.data.juice;
   if (!S || !D) return;
   const w = screen.w, h = screen.h;
   if (S.vig > 0) vignette(ctx, w, h, '#ff1a2a', 0.38 * S.vig / D.hurt.life);
+  const hv = game.h2vig, lw = game.h2low, H2 = D.hurt2;   // bản bị đánh mới (src/game/hurt-feel.js): viền đỏ mỗi lần trúng đòn + viền phập phồng theo nhịp tim lúc máu thấp
+  if (hv && game.time - hv.t < H2.vig_t) edgeGlow(ctx, w, h, '#ff1a2a', hv.a * (1 - (game.time - hv.t) / H2.vig_t) ** 1.5, w * H2.vig_w);
+  if (lw?.on) edgeGlow(ctx, w, h, '#c00818', H2.low.vig * (0.3 + 0.7 * Math.max(0, 1 - (game.time - lw.beat) / 0.4)), w * H2.vig_w);
   if (S.rageOn > 0) vignette(ctx, w, h, D.rage.color, 0.16 + 0.06 * Math.sin(t * 8));
   const C = D.combo;
   if (S.combo >= C.show_from) {

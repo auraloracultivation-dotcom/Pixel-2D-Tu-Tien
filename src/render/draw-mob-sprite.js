@@ -2,6 +2,7 @@
 // quay trái lật gương. Bản mới 4 khung đi, vẽ chi tiết rồi thu theo spr.scale; đứng yên thì khung đầu nhún 1 đơn vị.
 // Bản cũ 2 khung luân phiên. Quái hiền nảy thì khung theo nhịp nảy. Trả false nếu chưa có hình để vẽ hình khối như cũ.
 import { joltOff } from '../game/hit-feel.js';
+import { lungeOff } from '../game/hurt-feel.js';
 import { spriteImage, drawHitFrame, drawShadowFrame, flashImage, spriteTone } from './sprites.js';
 import { drawDissolved } from './dither.js';
 
@@ -27,7 +28,8 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   ctx.save();
   const jo = joltOff(game, m.jolt);   // vừa trúng đòn của mình: giật lùi rồi rung tại chỗ trong lúc khựng (src/game/hit-feel.js)
   if (game.hit2) m.tone ??= spriteTone(spr, im);   // bản ra đòn mới: màu chính của hình, vụn văng lúc chết đúng màu con quái
-  ctx.translate(m.x + (jo ? m.jolt.x * jo : 0), m.y + 1 - bob + (jo ? m.jolt.y * jo : 0));
+  const lu = m.lun ? lungeOff(game, m) : 0, tg = lu ? m.tgt || game.player : null, td = tg ? Math.hypot(tg.x - m.x, tg.y - m.y) || 1 : 1;   // quái đánh gần: lùi lấy đà rồi chồm tới mục tiêu (src/game/hurt-feel.js)
+  ctx.translate(m.x + (jo ? m.jolt.x * jo : 0) + (lu ? (tg.x - m.x) / td * lu : 0), m.y + 1 - bob + (jo ? m.jolt.y * jo : 0) + (lu ? (tg.y - m.y) / td * lu : 0));
   ctx.scale((m.lookX || 1) * sc, sc);
   if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;

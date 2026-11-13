@@ -10,6 +10,7 @@ import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
 import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
 import { hit2On, hitFeel, numUp } from './hit-feel.js';   // cảm giác ra đòn kiểu mới (docs/10-CAI-HON.md việc 2)
+import { hurt2On, hurtFeel, hurtUp } from './hurt-feel.js';   // cảm giác bị đánh kiểu mới (việc 3)
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -114,10 +115,12 @@ export function hitPlayer(game, dmg, from) {
     game.sfx('hurt');
     if (who?.duel && who.st.lifesteal) who.hp = Math.min(who.maxHp, who.hp + dmg * who.st.lifesteal);   // bản sao hút máu như người chơi
     if (p.st.thorns && from?.def && !from.dead) hitMob(game, from, dmg * p.st.thorns, { canCrit: false, soft: true, reflect: true, color: '#f2c94c' }); // phản đòn
-    addNumber(game, p.x, p.y - 14, dmg, '#ff6a6a');
+    const h2 = hurt2On(game), ang = from ? Math.atan2(p.y - from.y, p.x - from.x) : null;
+    addNumber(game, p.x, p.y - hurtUp(game), dmg, '#ff6a6a');
+    if (h2) { const n = game.numbers[game.numbers.length - 1]; if (n) n.hurt = 1; }   // số máu mình mất: nảy to (src/render/draw-numbers.js)
     juiceHurt(game, dmg / p.maxHp);
     if (who?.def) game.pbHurt?.(who);   // Phản Chấn (pháp bảo)
-    sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', from ? Math.atan2(p.y - from.y, p.x - from.x) : null);
+    if (h2) hurtFeel(game, dmg, ang); else sparks(game, p.x, p.y - 8, 'hurt', '#ff6a6a', ang);   // bản mới: vết đau điểm ảnh có hướng, khựng hình, hích máy quay, viền đỏ
   }
   p.invT = game.data.config.player.invuln; p.flash = 0.12;
   if (from && !from.soft) {   // soft: phản đòn, linh thú đánh gần: không đẩy lùi (như đòn mình đánh quái)

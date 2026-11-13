@@ -7,6 +7,7 @@ import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
 import { drawChainGhosts } from './draw-chain.js';
 import { domainVis } from './draw-domain.js';
+import { joltOff } from '../game/hit-feel.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -116,17 +117,18 @@ function heroBody(ctx, game, p, t, flash, save) {
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
   const breath = look.breath && name === 'idle' && Math.sin(t * 2.2) > 0.55 ? n : 0;   // chibi đứng: thở nhún 1 điểm ảnh
   const P = look.breath && p === game.player && !own ? strikePose(p.fw?.act?.move, atk) : strikePose(null, null);   // chibi: dáng thân theo kiểu đòn
-  const side = (p.lookX || 1) * P.flip, px = p.x + dx + (p.lookX || 1) * P.dx;
+  const jo = p.jolt ? joltOff(game, p.jolt) : 0;   // vừa trúng đòn (bản bị đánh mới): giật lùi rồi rung tại chỗ (src/game/hurt-feel.js)
+  const side = (p.lookX || 1) * P.flip, px = p.x + dx + (p.lookX || 1) * P.dx + (jo ? p.jolt.x * jo : 0);
   const G = game.data.heroes.glow;   // nhân vật hơi phát quang (quy tắc chiêu 05/11/2026): quầng mềm sau lưng theo màu hệ, đêm rõ hơn ngày
   if (G) {
     const el = save?.element && game.data.elements[save.element]?.color, a = G.day + (G.night - G.day) * darkness(game);
     ctx.save(); ctx.imageSmoothingEnabled = true; glow(ctx, p.x, p.y - p.top * 0.5, p.top * G.r, el || G.color, a); ctx.restore();
   }
   if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
-  ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy) + m.f - breath));
+  ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy + (jo ? p.jolt.y * jo : 0)) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
   if (!p.riding) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
-  drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0);
+  drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0, !!game.hurt2);   // bản bị đánh mới: loé trắng hẳn, giữ viền mực
   ctx.restore();
   if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);
   if (look.trail?.style === 'kiem' && atk != null && look.attacks?.includes(name)) drawKiemTrail(ctx, look.trail, look.trail.kinds?.[look.attacks.indexOf(name)] ?? look.attacks.indexOf(name), atk, px, p.y - p.top * 0.45, p.lookX || 1, p.top);   // kiếm khí Huyết Nguyệt (src/render/draw-huyet.js)

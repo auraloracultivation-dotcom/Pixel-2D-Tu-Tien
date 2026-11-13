@@ -16476,6 +16476,31 @@
    ],
    "note": "lớp sáng của pfx.bang-truy"
   },
+  "pfx.bao-don": {
+   "file": "assets/art/pfx-bao-don.png",
+   "v": "37e3e914",
+   "w": 42,
+   "h": 42,
+   "frames": 4,
+   "rows": 5,
+   "n": 4,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.3033,
+   "loop": false,
+   "anchor": [
+    14,
+    14
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.05,
+    0.1333,
+    0.2333
+   ],
+   "note": "hiệu ứng chiêu bao-don: PixelFX p2d/bao-don (MIT), tools/art/pfx/"
+  },
   "pfx.bui-chan": {
    "file": "assets/art/pfx-bui-chan.png",
    "v": "12af996d",
@@ -16822,6 +16847,90 @@
     0
    ],
    "note": "lớp sáng của pfx.dang-phuoc"
+  },
+  "pfx.dau": {
+   "file": "assets/art/pfx-dau.png",
+   "v": "edee67a0",
+   "w": 70,
+   "h": 73,
+   "frames": 6,
+   "rows": 5,
+   "n": 6,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.3,
+   "loop": false,
+   "anchor": [
+    31,
+    31
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.0333,
+    0.0666,
+    0.1,
+    0.15,
+    0.2166
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dau: PixelFX p2d/dau (MIT), tools/art/pfx/"
+  },
+  "pfx.dau-to": {
+   "file": "assets/art/pfx-dau-to.png",
+   "v": "b8048749",
+   "w": 101,
+   "h": 108,
+   "frames": 6,
+   "rows": 5,
+   "n": 6,
+   "dirs": 5,
+   "fps": 20,
+   "dur": 0.3,
+   "loop": false,
+   "anchor": [
+    43,
+    46
+   ],
+   "k": 0.5,
+   "times": [
+    0,
+    0.0333,
+    0.0666,
+    0.1,
+    0.15,
+    0.2166
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu dau-to: PixelFX p2d/dau (MIT), tools/art/pfx/"
+  },
+  "pfx.dau-to.l": {
+   "file": "assets/art/pfx-dau-to-l.png",
+   "v": "a559155e",
+   "w": 51,
+   "h": 54,
+   "frames": 6,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dau-to"
+  },
+  "pfx.dau.l": {
+   "file": "assets/art/pfx-dau-l.png",
+   "v": "9169af12",
+   "w": 35,
+   "h": 37,
+   "frames": 6,
+   "rows": 5,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.dau"
   },
   "pfx.dia-chan": {
    "file": "assets/art/pfx-dia-chan.png",

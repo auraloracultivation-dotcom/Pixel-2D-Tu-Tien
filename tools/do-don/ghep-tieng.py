@@ -46,8 +46,9 @@ for name, (m, T) in mixes.items():
     w = wave.open(f"{out}/{name}.wav", 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes((x.T * 32767).astype(np.int16).tobytes()); w.close()
     # hình dừng thêm 0,9 giây ở khung cuối cho tiếng ngân hết rồi mới lặp
-    cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(json.load(open(f"{raw}/{name}/sfx.json"))['fps']), '-i', f"{raw}/{name}/f-%04d.png", '-i', f"{out}/{name}.wav",
-           '-vf', 'tpad=stop_mode=clone:stop_duration=0.6,scale=iw*2:ih*2:flags=neighbor', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '21', '-preset', 'slow',
+    jpg = os.path.exists(f"{raw}/{name}/f-0001.jpg")   # quay-man.mjs chụp cả màn ở đúng cỡ điểm máy (jpg): giữ nguyên cỡ; quay-canh.mjs chép khung vẽ game (png): phóng gấp đôi
+    cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(json.load(open(f"{raw}/{name}/sfx.json"))['fps']), '-i', f"{raw}/{name}/f-%04d.{'jpg' if jpg else 'png'}", '-i', f"{out}/{name}.wav",
+           '-vf', 'tpad=stop_mode=clone:stop_duration=0.6' + ('' if jpg else ',scale=iw*2:ih*2:flags=neighbor'), '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '21', '-preset', 'slow',
            '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', f"{out}/{name}.mp4"]
     subprocess.run(cmd, check=True)
     os.remove(f"{out}/{name}.wav")

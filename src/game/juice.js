@@ -3,6 +3,7 @@
 // đạn chiêu kéo khói vòng trắng, lướt để bụi; chiêu lớn chớp màn + rung; Liên Kích (đếm đòn liên tiếp, mốc thì hô to);
 // thanh Nộ đầy thì Bạo Nộ: sát thương tăng, quầng lửa, nhạc dồn. Vẽ ở src/render/draw-juice.js.
 import { fxOk } from './fx-budget.js';
+import { hurtTick } from './hurt-feel.js';
 import { pxOf } from './pfx.js';
 const TAU = Math.PI * 2;
 const J = game => game.data.juice;
@@ -61,7 +62,7 @@ export function juiceHurt(game, frac) {
   const R = J(game)?.rage; if (!R) return;
   const S = juice(game);
   S.idle = 0; addRage(game, R.hurt * frac * 100);
-  if (frac >= J(game).hurt.vig) S.vig = J(game).hurt.life;
+  if (frac >= J(game).hurt.vig && !game.hurt2) S.vig = J(game).hurt.life;   // bản bị đánh mới có viền đỏ riêng (game.h2vig)
 }
 
 // Chiêu lớn vừa tung: chớp màn dịu, rung
@@ -104,6 +105,7 @@ export function rageMul(game, m) {
 
 export function updateJuice(game, dt) {
   const D = J(game); if (!D) return;
+  hurtTick(game, dt);   // máu thấp: tim đập (src/game/hurt-feel.js)
   const S = juice(game), p = game.player;
   S.comboT -= dt; S.comboPop = Math.max(0, S.comboPop - dt); S.vig = Math.max(0, S.vig - dt);
   if (S.comboT <= 0) S.combo = 0;

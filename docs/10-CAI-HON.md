@@ -104,6 +104,29 @@ xếp khung thành bảng để soi; `ghep-tieng.py` ghép khung + tiếng thàn
 
 Chưa làm trong việc 2 (để chủ dự án cảm nhận rồi quyết): đổi tiếng chém (chỉ thêm tiếng nện trầm ở nhát kết liễu), dáng người chơi lúc ra đòn.
 
+## Việc 3: kịch bản từng nhịp lúc bị đánh (thước đo, 14/11/2026)
+
+Bản cũ đo được (quay cả màn hình điện thoại, 60 khung / giây, Tiểu ma cắn 6 máu và Ma binh nện 30 máu trên 100): trúng đòn chỉ có số đỏ nằm lẫn với bảng
+tên quái, người chớp nhạt hai khung, vài tia li ti, rung 1,5 đơn vị; quái đứng yên mà cắn, không có dấu gì báo trước; **đòn mất 30% máu trông y như đòn mất
+6%**; viền đỏ kiểu tròn chỉ thấy ở đầu và cuối màn hình dọc (hai bên gần như không có); thanh Sinh lực chỉ đổi số.
+
+| Mốc | Người chơi phải thấy | Bản mới đo được |
+|---|---|---|
+| −0,35 giây: quái lấy đà | Ba vạch báo đòn đỏ cam bật ra bên đầu quái, chĩa về phía mình; quái lùi lấy đà | Vạch hiện 0,3 giây; lùi 4 đơn vị |
+| −0,08 → 0 | Quái chồm tới | Chồm 11 đơn vị trong 5 khung, tới nơi đúng khung đòn trúng |
+| 0,00: trúng đòn | Hình khựng. Người loé trắng (giữ viền mực), giật lùi rồi rung. Chùm gai đỏ lõi trắng ngay chỗ trúng. Số máu mất nảy to trên đầu. Viền đỏ dọc bốn cạnh màn. Máy quay hích theo hướng đòn. Thanh Sinh lực rung, hiện khúc trắng vừa mất. Tiếng đau; đòn nặng thêm tiếng nện trầm | Khựng 3 khung (0,05 giây), đòn nặng (mất từ 12% máu) 5–6 khung (0,09 giây), hai lần khựng cách nhau ít nhất 0,35 giây |
+| 0,05 → 0,25 | Ba vết cào quét qua người theo hướng đòn (đòn nặng: năm vết và một cung chấn); người ám đỏ, bị đẩy lùi, rồi nhấp nháy bất tử như cũ | |
+| 0,3 → 0,7 | Khúc trắng trên thanh Sinh lực rút dần, viền đỏ tan | Viền tan trong 0,4 giây |
+| Né đòn | Thấy vạch báo đòn mà lùi ra khỏi tầm thì đòn hụt (cơ chế có sẵn từ trước, nay nhìn thấy được) | |
+| Máu dưới 30% | Tim đập "lụp, bụp"; viền đỏ và thanh Sinh lực phập phồng theo nhịp; máu càng cạn nhịp càng dồn; hồi lên trên 38% thì hết | Nhịp 0,9 giây lúc vừa chạm ngưỡng, dồn tới 0,54 giây; tiếng tim to ngang tiếng đau trên loa điện thoại rồi phát ở 65% |
+
+Code: `src/game/hurt-feel.js`, `src/ui/hud-hurt.js` (thanh Sinh lực, tính theo giờ game), số ở `data/juice.json → hurt2`, hình `tools/art/pfx/fx/dau.js` (vết đau),
+`bao-don.js` (vạch báo đòn), tiếng `tim` trong `data/sounds.json`. Công tắc `hurt2.on` đang **tắt**; xem thử trên một máy bằng địa chỉ có `?dau=1` (tắt `?dau=0`).
+Quay cả màn hình (có giao diện): `tools/do-don/quay-man.mjs`.
+
+Chưa làm trong việc 3: rung máy (Android rung được, iPhone thì không; cần thêm nút tắt trong cài đặt nên để sau); quái bắn xa chưa có vạch báo đòn (trùm đã
+có vùng báo riêng từ trước).
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -111,3 +134,4 @@ Chưa làm trong việc 2 (để chủ dự án cảm nhận rồi quyết): đ�
 | 14/11/2026 | Lập kế hoạch, đo số liệu | Xong |
 | 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |
 | 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
+| 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |

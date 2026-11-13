@@ -1,5 +1,6 @@
 // Quái: lang thang, đuổi, bắn xa, và boss (chém, lao, triệu hồi, vòng đạn, gọi lửa rơi nếu có meteor).
 import { inHoi } from '../world/hoi-foot.js';
+import { teleStart } from './hurt-feel.js';
 import { addFx, hitPlayer, shoot, dist } from './combat.js';
 import { addStrike } from './strikes.js';
 import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
@@ -112,7 +113,7 @@ function meleeThink(game, m, d, dt) {
     }
     return;
   }
-  if (d < reach && m.cd <= 0) { m.state = 'windup'; m.t = 0; return; }
+  if (d < reach && m.cd <= 0) { m.state = 'windup'; m.t = 0; m.lun = 1; teleStart(game, m, p); return; }   // lun: quái đánh gần, có lùi lấy đà rồi chồm tới (src/game/hurt-feel.js)
   if (d > reach - 2) moveToward(game, m, p.x, p.y, m.def.speed, dt);
 }
 

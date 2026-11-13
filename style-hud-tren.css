@@ -50,6 +50,9 @@ html body #hud .bars .bar.hp { grid-area: hp; }
 html body #hud .bars .bar::before, html body #hud .bars .bar::after { display: none !important; }
 html body #hud .bars .bar i { position: absolute !important; top: 0 !important; bottom: 0 !important; left: 0 !important; border: 0 !important; border-image: none !important;
   border-radius: 6px !important; box-shadow: none !important; background: url("assets/art/ui-hud-thanh-do.png") left center / auto 100% no-repeat !important; }
+/* khúc máu vừa mất (src/ui/hud-hurt.js): vệt trắng nằm dưới phần máu đỏ, hiện một nhịp rồi rút dần */
+html body #hud .bars .bar i#hp-lag { background: #fff !important; z-index: 0; }
+html body #hud .bars .bar i#hp-fill { z-index: 1; }
 html body #hud .bars .bar span { position: absolute !important; inset: 0 !important; z-index: 2; display: flex; align-items: center; justify-content: center;
   font: 800 8.5px/1 system-ui, sans-serif !important; color: #fff !important; letter-spacing: 0; white-space: nowrap;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
