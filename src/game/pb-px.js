@@ -95,7 +95,8 @@ function born(game, e) {
         pxAdd(game, { s: 'pb-an-giang-d', x, y, g: true, k: K, pal: tint }); pxAdd(game, { s: 'pb-an-giang', x, y, k: K, pal: tint, col });
         pxAdd(game, { s: 'pb-an-dap', x, y, k: 1, fo: 0.3 });
         pxSpray(game, 'da', x, y - 4, 14, 150); pxSpray(game, P, x, y - 8, 12, 120);
-      } else if (N.look === 'khien') {   // khiên vỡ: nổ lớn theo màu khiên, mảnh sáng văng
+      } else if (N.look === 'khien') {   // khiên vỡ: vòm mai rùa bung thành từng mảnh (hiệu ứng riêng của Hộ Thuẫn), nổ phản kích theo màu khiên, mảnh sáng văng
+        pxAdd(game, { s: pbVis(e) >= 1.5 ? 'pb-khien-vo-2' : 'pb-khien-vo', x, y: y - 11, k: 1, pal, col });   // phẩm cao: bản dựng sẵn cỡ lớn
         pxAdd(game, { s, pal: tp, x, y: y - 4, k: fitK(game, s, e.r), col });
         pxSpray(game, P, x, y - 6, 18, 170); pxSpray(game, 'tuyet', x, y - 10, 10, 150);
       } else {   // nổ lan (Đánh Lan, Tử Bạo): nổ vừa; nhiều vụ cùng lúc thì từ vụ thứ ba chỉ còn vành xung kích + hạt (khỏi phủ kín màn)

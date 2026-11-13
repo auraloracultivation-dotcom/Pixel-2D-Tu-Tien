@@ -1909,7 +1909,7 @@
   "k": 0.5,
   "ext": true,
   "fps": 12,
-  "dur": 1.0,
+  "dur": 1,
   "loop": false,
   "fx": "đồ theo tranh hu-ho-lo.png",
   "note": "Hồ Lô lúc hít linh khí (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): 12 khung, bụng phồng theo ba hơi, nút gỗ đung đưa, miệng chếch lên phải"
@@ -2046,8 +2046,8 @@
   "fx": "p2d/ho-lo"
  },
  "pb-khien": {
-  "w": 48,
-  "h": 52,
+  "w": 84,
+  "h": 84,
   "cols": 24,
   "rows": 1,
   "n": 24,
@@ -2056,13 +2056,13 @@
   "dur": 2.4,
   "loop": true,
   "anchor": [
-   24,
-   50
+   42,
+   42
   ],
   "k": 0.5,
   "lit": {
-   "w": 24,
-   "h": 26,
+   "w": 42,
+   "h": 42,
    "s": 2
   },
   "pal": [
@@ -2075,7 +2075,103 @@
    "#b4fff0",
    "#ffffff"
   ],
-  "fx": "holy/divine-shield"
+  "fx": "p2d/mai-rua"
+ },
+ "pb-khien-2": {
+  "w": 124,
+  "h": 124,
+  "cols": 16,
+  "rows": 2,
+  "n": 24,
+  "dirs": 1,
+  "fps": 10,
+  "dur": 2.4,
+  "loop": true,
+  "anchor": [
+   62,
+   62
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 62,
+   "h": 62,
+   "s": 2
+  },
+  "pal": [
+   "#041418",
+   "#08303a",
+   "#0c5260",
+   "#108088",
+   "#18b4b0",
+   "#4ce8d8",
+   "#b4fff0",
+   "#ffffff"
+  ],
+  "fx": "p2d/mai-rua"
+ },
+ "pb-khien-vo": {
+  "w": 240,
+  "h": 217,
+  "cols": 8,
+  "rows": 2,
+  "n": 12,
+  "dirs": 1,
+  "fps": 20,
+  "dur": 0.6,
+  "loop": false,
+  "anchor": [
+   120,
+   107
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 120,
+   "h": 109,
+   "s": 2
+  },
+  "pal": [
+   "#041418",
+   "#08303a",
+   "#0c5260",
+   "#108088",
+   "#18b4b0",
+   "#4ce8d8",
+   "#b4fff0",
+   "#ffffff"
+  ],
+  "fx": "p2d/khien-vo"
+ },
+ "pb-khien-vo-2": {
+  "w": 360,
+  "h": 330,
+  "cols": 5,
+  "rows": 3,
+  "n": 12,
+  "dirs": 1,
+  "fps": 20,
+  "dur": 0.6,
+  "loop": false,
+  "anchor": [
+   180,
+   160
+  ],
+  "k": 0.5,
+  "lit": {
+   "w": 180,
+   "h": 165,
+   "s": 2
+  },
+  "pal": [
+   "#041418",
+   "#08303a",
+   "#0c5260",
+   "#108088",
+   "#18b4b0",
+   "#4ce8d8",
+   "#b4fff0",
+   "#ffffff"
+  ],
+  "fx": "p2d/khien-vo"
  },
  "pb-kiem": {
   "w": 53,
@@ -2316,6 +2412,44 @@
    "s": 2
   },
   "fx": "lightning/lightning-strike"
+ },
+ "pb-thuan": {
+  "w": 76,
+  "h": 84,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "anchor": [
+   38,
+   42
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "dur": 0.8,
+  "loop": true,
+  "fx": "đồ theo tranh pb-ho-thuan.png",
+  "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm"
+ },
+ "pb-thuan-2": {
+  "w": 112,
+  "h": 126,
+  "cols": 8,
+  "rows": 1,
+  "n": 8,
+  "dirs": 1,
+  "anchor": [
+   56,
+   63
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "dur": 0.8,
+  "loop": true,
+  "fx": "đồ theo tranh pb-ho-thuan.png",
+  "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm"
  },
  "pb-tran": {
   "w": 198,

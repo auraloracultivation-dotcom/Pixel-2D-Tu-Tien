@@ -18885,7 +18885,7 @@
    "n": 12,
    "dirs": 1,
    "fps": 12,
-   "dur": 1.0,
+   "dur": 1,
    "loop": false,
    "anchor": [
     44,
@@ -19063,9 +19063,9 @@
   },
   "pfx.pb-khien": {
    "file": "assets/art/pfx-pb-khien.png",
-   "v": "b96decb0",
-   "w": 48,
-   "h": 52,
+   "v": "933a2806",
+   "w": 84,
+   "h": 84,
    "frames": 24,
    "rows": 1,
    "n": 24,
@@ -19074,8 +19074,8 @@
    "dur": 2.4,
    "loop": true,
    "anchor": [
-    24,
-    50
+    42,
+    42
    ],
    "k": 0.5,
    "pal": [
@@ -19089,13 +19089,145 @@
     "#ffffff"
    ],
    "lit": 1,
-   "note": "hiệu ứng chiêu pb-khien: PixelFX holy/divine-shield (MIT), tools/art/pfx/"
+   "note": "hiệu ứng chiêu pb-khien: PixelFX p2d/mai-rua (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-2": {
+   "file": "assets/art/pfx-pb-khien-2.png",
+   "v": "afccb323",
+   "w": 124,
+   "h": 124,
+   "frames": 16,
+   "rows": 2,
+   "n": 24,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 2.4,
+   "loop": true,
+   "anchor": [
+    62,
+    62
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-2: PixelFX p2d/mai-rua (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-2.l": {
+   "file": "assets/art/pfx-pb-khien-2-l.png",
+   "v": "436bf529",
+   "w": 62,
+   "h": 62,
+   "frames": 16,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-2"
+  },
+  "pfx.pb-khien-vo": {
+   "file": "assets/art/pfx-pb-khien-vo.png",
+   "v": "fe6a6bae",
+   "w": 240,
+   "h": 217,
+   "frames": 8,
+   "rows": 2,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    120,
+    107
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-vo: PixelFX p2d/khien-vo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-vo-2": {
+   "file": "assets/art/pfx-pb-khien-vo-2.png",
+   "v": "e7cdaf5a",
+   "w": 360,
+   "h": 330,
+   "frames": 5,
+   "rows": 3,
+   "n": 12,
+   "dirs": 1,
+   "fps": 20,
+   "dur": 0.6,
+   "loop": false,
+   "anchor": [
+    180,
+    160
+   ],
+   "k": 0.5,
+   "pal": [
+    "#041418",
+    "#08303a",
+    "#0c5260",
+    "#108088",
+    "#18b4b0",
+    "#4ce8d8",
+    "#b4fff0",
+    "#ffffff"
+   ],
+   "lit": 1,
+   "note": "hiệu ứng chiêu pb-khien-vo-2: PixelFX p2d/khien-vo (MIT), tools/art/pfx/"
+  },
+  "pfx.pb-khien-vo-2.l": {
+   "file": "assets/art/pfx-pb-khien-vo-2-l.png",
+   "v": "8a93a4b4",
+   "w": 180,
+   "h": 165,
+   "frames": 5,
+   "rows": 3,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-vo-2"
+  },
+  "pfx.pb-khien-vo.l": {
+   "file": "assets/art/pfx-pb-khien-vo-l.png",
+   "v": "ac931c4f",
+   "w": 120,
+   "h": 109,
+   "frames": 8,
+   "rows": 2,
+   "s": 2,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "lớp sáng của pfx.pb-khien-vo"
   },
   "pfx.pb-khien.l": {
    "file": "assets/art/pfx-pb-khien-l.png",
-   "v": "307d0f84",
-   "w": 24,
-   "h": 26,
+   "v": "04b83d4c",
+   "w": 42,
+   "h": 42,
    "frames": 24,
    "rows": 1,
    "s": 2,
@@ -19428,6 +19560,44 @@
     0
    ],
    "note": "lớp sáng của pfx.pb-set"
+  },
+  "pfx.pb-thuan": {
+   "file": "assets/art/pfx-pb-thuan.png",
+   "v": "51a8cecb",
+   "w": 76,
+   "h": 84,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    38,
+    42
+   ],
+   "k": 0.5,
+   "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-thuan-2": {
+   "file": "assets/art/pfx-pb-thuan-2.png",
+   "v": "7de97de3",
+   "w": 112,
+   "h": 126,
+   "frames": 8,
+   "rows": 1,
+   "n": 8,
+   "dirs": 1,
+   "fps": 10,
+   "dur": 0.8,
+   "loop": true,
+   "anchor": [
+    56,
+    63
+   ],
+   "k": 0.5,
+   "note": "Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm (tools/art/pb_vat.py)"
   },
   "pfx.pb-tran": {
    "file": "assets/art/pfx-pb-tran.png",

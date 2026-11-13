@@ -58,6 +58,11 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
   `fx/an-giang.js` (lớp đất: đất sém, khe nứt có linh quang, DẤU TRIỆN khung vuông hồi văn đặt chéo + thái cực, to hơn chân ấn, nằm lại sau khi
   khối ấn tan; lớp nổi: tia sáng dựng đứng, bụi, đá vụn) thay cho `dia-chan` đi mượn; đổi màu theo hệ khảm; game phóng theo tầm đòn, tối đa 3.
   Bỏ `fx/an.js` (khối ấn vẽ bằng code của lần 1).
+- **Hộ Thuẫn:** tấm thuẫn đồ theo `pb-ho-thuan.png` (`pb-thuan` 76 × 84, `pb-thuan-2` 112 × 126 cho phẩm cao; 13 màu, vệt sáng lướt), game vẽ ở lớp
+  dưới sau lưng người (`shieldG`): rõ lúc mới bật, mờ còn một nửa làm nền, đỡ đòn thì rực lên. Hiệu ứng riêng thay vòm lưới có sẵn của PixelFX:
+  `fx/mai-rua.js` (quả cầu chia mảnh mai rùa bằng ô Voronoi trên mặt cầu: 1 đỉnh + 3 vòng 6 mảnh + 1 đáy, xoay 60 độ mỗi vòng lặp nên liền mạch,
+  đường nối mặt sau mờ, lòng mảnh lưới chấm thưa, vệt sáng lướt) và `fx/khien-vo.js` (vòm loé trắng rồi từng mảnh bung ra theo hướng chỗ nó nằm,
+  dùng lại tâm mảnh `VIEW` của mai-rua.js). Bản `-2` dựng ở bán kính 60 cho phẩm cao (không phóng điểm ảnh).
 - Tranh gốc của các món khác: `pb-dai-an.png` + `hu-dai-an.png`, `pb-linh-chau.png` + `hu-linh-chau.png`, `pb-ho-thuan.png`, `pb-tran-ky.png`;
   Phi Kiếm: `nguon/ai/kiem/kiem.png` (kiếm số 3 đang làm hình trên nút); Bảo Phiến: `gear.ba-tieu-phien`; Đồng Chung: ô chuông trong `nguon/ai/chieu/chieu-3.png`.
 - `export.mjs --icons [tên…]`, `PFX_OUT=<thư mục>` (dựng thử ra chỗ khác), `vfx_pfx.py` đọc cỡ biểu tượng từ file.
@@ -66,9 +71,9 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 
 ## Việc còn lại
 
-- Sáu món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn (thứ tự đề nghị: Hộ Thuẫn, Linh Châu, Trận Kỳ, Phi Kiếm, Bảo Phiến, Đồng Chung),
+- Năm món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn, Hộ Thuẫn (thứ tự đề nghị: Linh Châu, Trận Kỳ, Phi Kiếm, Bảo Phiến, Đồng Chung),
   mỗi món hiệu ứng riêng, không mượn hình của món khác.
-- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh).
+- Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh). Hộ Thuẫn đã có; Hồ Lô, Đại Ấn chưa (món vẫn vẽ k 1, chỉ hiệu ứng to lên).
 - Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.
 - Người khác chưa thấy đòn pháp bảo của nhau (bộ cũ cũng chưa có).
 - 48 chiêu cũ: chủ dự án muốn xoá (13/11 07:17). Chưa đụng; So tài còn dùng, phải hỏi lại trước khi gỡ.

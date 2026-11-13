@@ -16,6 +16,7 @@ const loop2 = (name, fx, pal, opts = {}, fps = 10) => ({ [name + '-d']: { fx, pa
 const tran = (pal, motif) => ({ fx: 'p2d/tran', pal, opts: { motif, radius: 30 }, times: seq(0.9, 0.2, 10), end: 0.9 });
 const THO = ['#2a1c08', '#5a3e10', '#8e6638', '#b88a52', '#dcb47c', '#f0d8a0', '#fff4d8', '#ffffff'];
 const KIEM = ['#0a1a3a', '#12357a', '#1f62c8', '#3f9cff', '#7fd8ff', '#c8f4ff', '#ffffff'], TIM = ['#140a26', '#2b1252', '#5a24a8', '#8a48e8', '#b89af0', '#e4d0ff', '#ffffff'];
+const NGOC = ['#041418', '#08303a', '#0c5260', '#108088', '#18b4b0', '#4ce8d8', '#b4fff0', '#ffffff'];
 const GIO = ['#0c2038', '#1a4670', '#3478b0', '#62a8dc', '#9cd0f4', '#d4eeff', '#ffffff'];
 const SET_T = [0.74, 0.77, 0.8, 0.833, 0.867, 0.9, 0.95, 1.0, 1.07, 1.15, 1.25, 1.35, 1.5, 1.65];   // sét: bỏ đoạn tụ, lấy từ lúc tia giáng
 
@@ -95,7 +96,12 @@ export const SPRITES = {
   'pb-holo-xoay': { fx: 'p2d/ho-lo', pal: KIEM, times: Array.from({ length: 12 }, (_, i) => +(i / 12 + 0.04).toFixed(3)), end: 1.0, angle: -40 * Math.PI / 180, box: [-8, -38, 60, 38], tint: true },   // phễu linh khí xoáy vào miệng (miệng hình pb-holo chếch −40 độ)
   'pb-holo-tia': { fx: 'p2d/ho-lo-nuoc', pal: KIEM, opts: { kind: 'tia' }, fps: 20, box: [-2, -56, 132, 56], tint: true },   // luồng linh tuyền vọt ra từ miệng (game xoay theo hướng đánh)
   'pb-holo-song': { fx: 'p2d/ho-lo-nuoc', pal: KIEM, opts: { kind: 'song' }, fps: 20, box: [-34, -42, 84, 42], tint: true },   // con sóng đầu luồng
-  'pb-khien': { fx: 'holy/divine-shield', pal: 'cyber', opts: { radius: 16 }, empty: true, fps: 10, tint: true },                               // Hộ Thuẫn
+  // Hộ Thuẫn: tấm thuẫn đồ theo tranh mẫu ('pb-thuan': tools/art/pb_vat.py); ở đây là vòm mai rùa bọc quanh người và lúc vòm vỡ (cỡ điểm nhân vật, đổi màu theo hệ khảm)
+  // '-2': cỡ lớn cho phẩm cao, dựng thẳng ở bán kính 60 (không phóng điểm ảnh)
+  'pb-khien': { fx: 'p2d/mai-rua', pal: NGOC, fps: 10, tint: true },
+  'pb-khien-2': { fx: 'p2d/mai-rua', pal: NGOC, opts: { radius: 60 }, box: [-64, -64, 64, 64], fps: 10, tint: true },
+  'pb-khien-vo': { fx: 'p2d/khien-vo', pal: NGOC, fps: 20, tint: true },
+  'pb-khien-vo-2': { fx: 'p2d/khien-vo', pal: NGOC, opts: { radius: 60 }, box: [-180, -160, 180, 170], fps: 20, tint: true },
   'pb-tran': { fx: 'p2d/tran', pal: 'gold', opts: { motif: 'kim', mode: 'loop', radius: 96 }, fps: 10, loop: true, tint: true, box: [-100, -84, 100, 84] },   // pháp trận phủ vùng Trận Kỳ (bán kính 96 điểm, vẽ gấp đôi = đúng vùng 96 đơn vị)
   'pb-tran-mo': { ...tran('gold', 'kim'), tint: true },                                                                    // pháp trận bật ra lúc đặt đòn
   'pb-no': { ...no(KIEM, 'kim', 1.5, 5), tint: true },                                                                     // nổ (Đánh Lan, Tử Bạo, khiên vỡ) đổi màu theo hệ

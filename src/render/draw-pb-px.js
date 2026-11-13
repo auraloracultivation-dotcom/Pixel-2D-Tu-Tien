@@ -15,11 +15,10 @@ const cfg = game => game.data.vfx.pb;
 const lightK = game => (+(document.body.dataset.perf || 0) >= 3 ? 0 : (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game));   // như draw-pfx.js: máy ở mức nhẹ nhất thì bỏ lớp sáng cộng
 const rc = (R, u) => R[Math.max(0, Math.min(R.length - 1, Math.round(u * (R.length - 1))))];   // màu ở vị trí u (0 tối .. 1 sáng) của dải
 const lookOf = e => e.cast?.look || {};
-const domeDy = art => { const q = art.sprites['pfx.pb-khien']; return q ? (q.h / 2 - q.anchor[1]) * 0.5 : 0; };   // tâm vòm khiên lệch khỏi điểm neo (đơn vị bản đồ khi k = 1): vẽ sao cho tâm vòm nằm ngang ngực
 
 // ---- tải sẵn hình và đổi màu sẵn cho các món đang mặc (mỗi khung một tấm, khỏi khựng lúc đánh)
 const COMMON = ['pb-tran-mo', 'pb-trung', 'pb-no', 'pb-manh'];
-const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
+const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien', 'pb-thuan', 'pb-khien-vo', 'pb-khien-2', 'pb-thuan-2', 'pb-khien-vo-2'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
 const BY_EL = { hoa: ['tt-lua'], thuy: ['tt-bang', 'tt-lanh'], moc: ['tt-re'], kim: ['tt-pha'] };
 let sig = null;
 const jobs = [];
@@ -118,6 +117,7 @@ export function drawPbGround(ctx, game) {
       case 'ring': ringG(ctx, e, C, R); break;
       case 'blast': blastG(ctx, e, C, R); break;
       case 'suck': suckG(ctx, game, e, C, R); break;
+      case 'shield': shieldG(ctx, game, art, e, game.time || 0); break;
     }
   }
 }
@@ -154,11 +154,22 @@ function wave(ctx, e, R) {
   if (N.look === 'holo') pxArc(ctx, e.x, e.y, r + 3, 1, a0, a1, 2, '#ffffff', 0.9 * fade, 2, [0.07, 0.06], X.seed + e.t * 6);   // Hồ Lô: bọt trắng sủi dọc mặt sóng (hồ lô, luồng nước, con sóng là hình riêng: pb-px.js)
 }
 
-function shield(ctx, game, art, e, R, pal, t) {   // vòm khiên quanh người: sắp hết giờ thì nháy, vừa đỡ đòn thì gợn một vành sáng
+// Hộ Thuẫn. Hình vẽ 1 điểm hình = 1 điểm màn hình như nhân vật; phẩm cao (cỡ đòn từ 1,5) dùng bản dựng sẵn lớn gấp rưỡi ('-2'), không phóng điểm ảnh.
+// Lớp dưới (sau lưng người): tấm thuẫn mai rùa (đồ theo tranh mẫu, tools/art/pb_vat.py) hiện rõ lúc mới bật rồi mờ đi làm nền, mỗi lần đỡ đòn lại
+// rực lên; sắp hết giờ thì nháy cùng vòm.
+const big = e => pbVis(e) >= 1.5;
+function shieldG(ctx, game, art, e, t) {
   if (e.done) return;
-  const p = game.player, K = pbK(game, e, 'khien'), h = e.px.hit != null ? (e.t - e.px.hit) / 0.2 : 2;
-  pfxDraw(ctx, art, 'pb-khien', p.x, p.y - 11 - domeDy(art) * K, t, { loop: true, k: K, pal, a: Math.min(1, e.t * 8) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1), light: h < 1 ? 2 - h : 1 });
-  if (h >= 0 && h < 1) pxArc(ctx, p.x, p.y - 11, (8 + 3 * h) * K, 1, 0, Math.PI * 2, 1, h < 0.4 ? '#ffffff' : rc(R, 0.8), 1 - h, 2);
+  const p = game.player, h = e.px.hit != null ? (e.t - e.px.hit) / 0.3 : 2, drop = e.t < 0.18 ? (1 - e.t / 0.18) ** 2 * 12 : 0;
+  const base = e.t < 0.45 ? Math.min(1, e.t / 0.1) : Math.max(0.5, 1 - (e.t - 0.45) / 0.4), a = Math.max(base, h < 1 ? 1 - 0.5 * h : 0) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1);
+  pfxDraw(ctx, art, big(e) ? 'pb-thuan-2' : 'pb-thuan', p.x, p.y - 11 - drop, t, { loop: true, k: 1, a });
+}
+// Lớp trên: vòm mai rùa bọc quanh người (hiệu ứng riêng), vừa đỡ đòn thì gợn một vành sáng
+function shield(ctx, game, art, e, R, pal, t) {
+  if (e.done) return;
+  const p = game.player, K = big(e) ? 1.5 : 1, h = e.px.hit != null ? (e.t - e.px.hit) / 0.2 : 2;
+  pfxDraw(ctx, art, big(e) ? 'pb-khien-2' : 'pb-khien', p.x, p.y - 11, t, { loop: true, k: 1, pal, a: Math.min(1, e.t * 6) * (e.life - e.t < 0.6 ? 0.6 + 0.4 * Math.sin(e.t * 34) : 1), light: h < 1 ? 2 - h : 1 });
+  if (h >= 0 && h < 1) pxArc(ctx, p.x, p.y - 11, (17 + 6 * h) * K, 1, 0, Math.PI * 2, 1, h < 0.4 ? '#ffffff' : rc(R, 0.8), 1 - h, 2);
 }
 
 function sealT(ctx, game, art, e, R) {   // khối ấn treo trên cao rồi giáng xuống

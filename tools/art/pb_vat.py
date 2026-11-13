@@ -378,7 +378,29 @@ def dai_an(xem=None):
     xuat('pb-an-dap', [fr], B, {'fps': 10, 'times': [0, 0.07, 0.15], 'dur': 0.6, 'loop': False, 'fx': 'đồ theo tranh pb-dai-an.png', 'note': 'Đại Ấn vừa nện xuống đất (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): bẹp xuống rồi nảy lại, nằm một nhịp'}, xem)
 
 
-ALL = {'ho-lo': ho_lo, 'dai-an': dai_an}
+# ================================================================ Hộ Thuẫn
+# Tranh mẫu pb-ho-thuan.png (640 × 640): tấm thuẫn mai rùa ngọc bích, khung vàng, giữa là bát quái + thái cực, hai viên ngọc trên dưới; nhìn thẳng.
+# piv: tâm tấm thuẫn.
+HT = dict(piv=(320, 316), k=5.6, R=260)
+HT_MAU = [   # mảnh mai ngọc bích (cả mặt bát quái sáng màu), khung vàng
+    ('ngoc', hue(62, 215), ['#112726>#0c2226', '#084e4d>#0a4e4c', '#26584a>#1f5e52', '#2d745f>#2c7a64', '#4f9571>#4c9c78', '#7fba8b>#84c492', '#c9e0ac>#d4ecb8']),
+    ('vang', hue(10, 62), ['#170a0c>#1a120e', '#723e16>#7a4418', '#c77d2e>#c8802c', '#f1b94b>#f2bc4a', '#d9d38a>#ffe9a0']),
+]
+
+
+def ho_thuan(xem=None):
+    a = biggest(load('pb-ho-thuan.png'))
+    B = Bang(a, HT_MAU); T = B.lop(a)
+    piv = HT['piv']
+    if xem:
+        show(B.rgba(T), Path(xem) / 'ho-thuan-ban-ve.png', 1); print(' sắc độ tìm được:', B.auto())
+    for ten, k in (('pb-thuan', HT['k']), ('pb-thuan-2', HT['k'] / 1.5)):      # '-2': cỡ lớn cho phẩm cao, dựng thẳng từ bản vẽ (không phóng điểm ảnh)
+        n = cell(k, HT['R']); than = ve(T, n, dang(piv, k, n), B)
+        fr = [loang(than, B, k, -380 + i / 8 * 760, 30, ['ngoc', 'vang']) for i in range(8)]
+        xuat(ten, [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-ho-thuan.png', 'note': 'Hộ Thuẫn (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): tấm thuẫn mai rùa bát quái hiện sau lưng người trong vòm khiên, 8 khung vệt sáng lướt; neo ở tâm'}, xem)
+
+
+ALL = {'ho-lo': ho_lo, 'dai-an': dai_an, 'ho-thuan': ho_thuan}
 
 if __name__ == '__main__':
     args = sys.argv[1:]; xem = None
