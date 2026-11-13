@@ -1,5 +1,18 @@
 // Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
+// Chọn hệ linh căn ở đá linh căn. Bảng chọn bị đóng ngang (đổi bản đồ, bảng khác bật lên) thì hộp thoại trả null: hỏi lại tới khi chọn
+// (báo lỗi 13/11/2026: tài khoản Hà Nhân, Rio đi qua bước này mà không có hệ, không hiện linh căn). Phẩm linh căn đã có thì giữ.
+async function chooseElement(g) {
+  const els = g.data.elements, opts = Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color }));
+  let id = null;
+  for (let i = 0; i < 20 && !els[id]; i++) id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:', opts);
+  if (!els[id]) return false;
+  g.save.element = id; g.save.root = g.save.root || g.save.rootKeep || rollRoot(g.data); delete g.save.rootKeep;
+  for (const f of g.data.config.season?.open_flags || []) g.save.flags[f] = true;
+  g.refreshStats(); g.checkUnlocks(); g.persist();
+  return true;
+}
+
 export function createStory(game) {
   pickStory(game);   // bản lưu truyện cũ: sang bước cuối truyện mới
   const steps = game.data.story.steps;
@@ -40,12 +53,7 @@ export function createStory(game) {
       const o = a.sys_ask.opts[id ?? 0];
       if (o?.reply) await g.dialog.say([[H, fill(o.reply)]]);
     }
-    else if (a.choose_element) {
-      const els = g.data.elements;
-      const id = await g.dialog.choose('Đá linh căn sáng lên... Linh căn của bạn là:',
-        Object.entries(els).filter(([k]) => !k.startsWith('_')).map(([k, e]) => ({ id: k, label: e.name, desc: e.desc, color: e.color })));
-      g.save.element = id; g.save.root = g.save.rootKeep || rollRoot(g.data); delete g.save.rootKeep; for (const f of g.data.config.season?.open_flags || []) g.save.flags[f] = true; g.refreshStats(); g.checkUnlocks(); g.persist();
-    }
+    else if (a.choose_element) await chooseElement(g);
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
     else if (a.spawn) {
@@ -114,6 +122,8 @@ export function createStory(game) {
   return {
     // Mở lại game: làm lại bước đang dở từ đầu (trừ bước chơi tự do và bước "once" đã làm: có thưởng, không phát lại)
     start() {
+      // bản lưu đã qua bước đá linh căn (bước 1) mà chưa có hệ: hỏi chọn hệ ngay khi vào game
+      if (game.save.step > 1 && !game.data.elements[game.save.element]) { st.busy = true; return chooseElement(game).finally(() => { st.busy = false; }).then(ok => ok && this.start()); }
       const s = step();
       if (s && !s.until.never && !s.once) game.save.stepDone = false;
       return runStep().then(restorePickups);
