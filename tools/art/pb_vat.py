@@ -22,6 +22,7 @@ import json
 import math
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 from PIL import Image, ImageDraw
@@ -139,8 +140,16 @@ def hexrgb(h):
 
 
 def hue(lo, hi):
-    """Luật chọn chất liệu theo sắc (độ): lo..hi, vòng qua 360 nếu lo > hi."""
-    return (lambda h: (h >= lo) & (h < hi)) if lo <= hi else (lambda h: (h >= lo) | (h < hi))
+    """Luật chọn chất liệu theo sắc (độ): lo..hi, vòng qua 360 nếu lo > hi. Luật nhận F (h sắc, r g b 0..1 của từng điểm tranh)."""
+    return (lambda F: (F.h >= lo) & (F.h < hi)) if lo <= hi else (lambda F: (F.h >= lo) | (F.h < hi))
+
+
+def do_tuoi(lo=335, hi=12, near=5):
+    """Dây, tua đỏ: sắc đỏ nằm sát chỗ đỏ tươi. Bóng đỏ sẫm của vỏ (cùng sắc đỏ nhưng không sát chỗ nào đỏ tươi) không tính, để nó thuộc về vỏ."""
+    def luat(F):
+        red = hue(lo, hi)(F)
+        return red & nd.binary_dilation(red & (F.r > 0.8) & (F.g < 0.2 * F.r), iterations=near)
+    return luat
 
 
 class Bang:
@@ -186,8 +195,9 @@ class Bang:
         h = np.where(mx == r, ((g - b) / d) % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4)) * 60
         sure = op & ((mx - mn) / np.maximum(mx, 1e-6) > 0.28) & (mx > 0.22)
         lab = np.zeros(op.shape, np.int32)
-        for j, (_, luat, _) in enumerate(self.mats, 1):
-            lab[sure & (lab == 0) & luat(h)] = j
+        F = SimpleNamespace(h=h, r=r, g=g, b=b)
+        for j, (_, luat, _) in enumerate(self.mats, 1):       # luật khai trước được chọn trước
+            lab[sure & (lab == 0) & luat(F)] = j
         i = nd.distance_transform_edt(lab == 0, return_distances=False, return_indices=True)
         return np.where(op, lab[i[0], i[1]], 0)
 
@@ -303,9 +313,9 @@ def show(rgba, path, z):
 # axis: trục thân (co giãn); aim: hướng miệng nhìn ra (xoay theo hướng đánh); piv: điểm tựa, nằm sau miệng 95 điểm tranh theo hướng aim
 HL = dict(axis=-57.0, aim=-40.0, piv=(220, 229), bulb=(210, 290, 84), bulb2=(250, 197, 48), mouth=(293, 168), k=2.7, R=246)
 NUT = dict(poly=[(246, 156), (258, 130), (300, 117), (330, 121), (424, 136), (424, 40), (246, 40)], piv=(277, 153))   # nút gỗ + dây vắt qua cổ; điểm buộc nằm khuất sau vành miệng
-HL_MAU = [   # vỏ hồ lô sơn vàng cam (cả nút gỗ, vành miệng, hạt vàng), dây + tua đỏ, hạt ngọc lam
-    ('vang', hue(14, 75), ['#351608>#3a1608', '#8a3410>#96400e', '#c35215>#cc5e12', '#ee8418>#f08a16', '#f9b93b>#fbb934', '#fadd7d>#fddc78', '#fcf5d2>#fff6d0']),
-    ('do', hue(335, 14), ['#240304>#3a0610', '#6a1012>#7c1016', '#a82418>#b81e1e', '#e62a22>#e8322a', '#ff6a50>#ff7858']),
+HL_MAU = [   # dây + tua đỏ, vỏ hồ lô sơn vàng cam (cả nút gỗ, vành miệng, hạt vàng; bóng của vỏ ngả đỏ sẫm), hạt ngọc lam
+    ('do', do_tuoi(), ['#240304>#3a0610', '#6a1012>#7c1016', '#a82418>#b81e1e', '#e62a22>#e8322a', '#ff6a50>#ff7858']),
+    ('vang', hue(335, 75), ['#351608>#3a1608', '#8a3410>#9c420c', '#c35215>#d0620e', '#ee8418>#ee8a14', '#f9b93b>#fbb934', '#fadd7d>#fddc78', '#fcf5d2>#fff6d0']),
     ('ngoc', hue(140, 215), ['#1f1b1c>#143c40', '#51aba7>#3fb6ae', '#aae4d4>#b8f4e6']),
 ]
 
