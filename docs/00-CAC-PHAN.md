@@ -41,3 +41,11 @@ Bảy phần đầu theo thứ tự chủ dự án để ý nhất.
 | 28 | **Thành tựu, xếp hạng, Đạo Vận, thời trang** | Thành tựu, bảng xếp hạng, bộ Đạo Vận, áo thời trang | `data/daovan.json`, `data/fashion.json`, `src/game/achieve.js`, `rank.js`, `daovan.js`, `fashion.js`, `src/net/rank.js` |
 | 29 | **Quay clip, chia sẻ** | Nút quay video trong game, xem lại, chia sẻ TikTok, nhóm Zalo | `data/record.json`, `data/community.json`, `src/game/record*.js`, `src/core/recorder*.js`, `src/ui/record-panel.js`, `src/ui/zalo.js` |
 | 30 | **Người mới** | Màn mở đầu, chọn giới tính, hướng dẫn, mũi tên chỉ việc, mẹo | `data/man-dau.json`, `data/gender.json`, `data/hints.json`, `src/ui/man-dau.js`, `src/game/guide.js`, `src/ui/hints.js`, `src/ui/login.js` |
+
+## Nhật ký rà (mỗi đêm trước khi gộp GitHub, mỗi lần một phần, theo vòng 1 → 30)
+
+| Ngày | Phần | Chỗ yếu | Đề xuất |
+|---|---|---|---|
+| 13/11/2026 | 1 Máy chủ | Lưu tiến độ chiếm tải lớn nhất (64 nghìn lần, có lúc 7–8 giây) | Gom lưu 30–60 giây; nhịp sống chuyển hẳn sang Cloudflare; đo tải thật (chờ chủ dự án) |
+| 13/11/2026 | 20 Sự kiện | Nút Sự kiện trỏ vào sự kiện giới thiệu đã hết; thông báo cũ | Bảng "Đang diễn ra"; giờ vàng; lễ theo ngày thật (chờ chủ dự án) |
+
