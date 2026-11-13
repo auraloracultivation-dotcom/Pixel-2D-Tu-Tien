@@ -26,7 +26,7 @@ Bảy phần đầu theo thứ tự chủ dự án để ý nhất.
 | 13 | **Tu luyện** | Cảnh giới, đả tọa, linh khí, độ kiếp, linh căn | `data/realms.json`, `data/elements.json`, `src/game/mana.js`, `src/game/tribulation.js`, `src/game/reroot.js`, `src/game/retreat.js` |
 | 14 | **Trang bị, đồ, đan dược** | Túi đồ, trang bị, cường hoá, tẩy luyện, ngọc khảm, luyện đan | `data/items.json`, `data/gear.json`, `src/game/items.js`, `enhance.js`, `refine.js`, `special-pills.js`, `src/ui/bag*.js`, `src/ui/self-*.js` |
 | 15 | **Kinh tế** | Linh Thạch, Tiên Ngọc, cửa hàng, chợ, nạp tiền | `data/shop.json`, `data/market.json`, `data/topup.json`, `src/game/shop.js`, `market.js`, `topup.js`, `src/net/market.js` (đụng là hỏi chủ dự án) |
-| 16 | **Bí cảnh, boss** | Bí cảnh, tháp, boss thế giới, Thôn Thiên Mãng, Thiên Ma | `data/dungeon.json`, `data/worldboss.json`, `data/thien-mang.json`, `data/demon.json`, `src/game/dun*.js`, `worldboss.js`, `thien-mang.js`, `thienma.js` |
+| 16 | **Bí cảnh, boss** | Bí cảnh, tháp, boss thế giới, Thôn Thiên Mãng, Thiên Ma, vùng ma khí Ngoại Vực | `data/dungeon.json`, `data/worldboss.json`, `data/thien-mang.json`, `data/demon.json`, `src/game/dun*.js`, `worldboss.js`, `thien-mang.js`, `thienma.js` |
 | 17 | **Xã hội, PvP** | Trò chuyện, bạn bè, tông môn, đạo lữ, tổ đội, so tài, PvP | `data/social.json`, `data/guild.json`, `data/party.json`, `data/pvp.json`, `data/duel.json`, `src/game/guild.js`, `friends.js`, `party*.js`, `daolu.js`, `pvp.js`, `duel*.js`, `src/ui/chat-*.js` |
 | 18 | **Giao diện** | Nút trên màn hình, bảng, khung, chữ, bố cục điện thoại | `src/ui/`, `style*.css`, `data/menu.json`, `index.html` (không logic) |
 | 19 | **Tự động, treo game** | Tự đánh, tự hành, tự mặc đồ, tắt màn, nhận thưởng lúc vắng, tự vào lại | `src/game/auto*.js`, `pilot*.js`, `offline.js`, `src/ui/man-toi.js`, `src/ui/tu-vao.js` |
@@ -34,3 +34,10 @@ Bảy phần đầu theo thứ tự chủ dự án để ý nhất.
 | 21 | **Ngôn ngữ** | Tiếng Việt gốc, tiếng Anh, tiếng Trung phồn thể | `data/i18n/`, `src/core/i18n.js` |
 | 22 | **Nhẹ máy** | Khung hình, độ phân giải, máy nóng, pin | `src/core/perf.js`, `data/config.json → perf`, `src/game/fx-budget.js` |
 | 23 | **Vận hành** | Báo lỗi, đề xuất, lỗi máy người chơi, đo người chơi (PostHog), báo cáo hằng ngày | `src/ui/feedback*.js`, `src/net/feedback.js`, `src/net/errlog.js`, `src/net/analytics.js`, `p2d_gop_y`, `p2d_loi`; `docs/07-PHAN-VIEC.md` |
+| 24 | **Động phủ** (cách chơi) | Nhà riêng: bày đồ, bể cá, khách ghé thăm, thăm nhà bạn (hình đồ vật thuộc phần 5) | `data/home.json`, `data/cave.json`, `data/visitors.json`, `src/game/home*.js`, `cave.js`, `be-ca.js`, `visitors.js`, `src/ui/cave-panel.js` |
+| 25 | **Bạn đồng hành, đạo lữ NPC** | Thiện cảm, tặng quà, đi cùng, khen, cổ vũ lúc đánh, kỷ niệm | `data/affinity.json`, `data/praise.json`, `src/game/affinity.js`, `praise.js`, `cheer.js`, `anniv.js` |
+| 26 | **Câu cá, vườn** | Câu cá, trồng cây, thu hoạch | `data/fishing.json`, `data/garden.json`, `src/game/fishing.js`, `garden.js`, `src/ui/garden-tab.js` |
+| 27 | **Linh thú, thú cưỡi, khôi lỗi** (cách chơi) | Bắt, nuôi, tiến hoá, chiêu linh thú, cưỡi (hình thuộc phần 6) | `data/pets.json`, `src/game/pets.js`, `beast*.js`, `evolve.js`, `home-pets.js`, `src/ui/pets-panel.js` |
+| 28 | **Thành tựu, xếp hạng, Đạo Vận, thời trang** | Thành tựu, bảng xếp hạng, bộ Đạo Vận, áo thời trang | `data/daovan.json`, `data/fashion.json`, `src/game/achieve.js`, `rank.js`, `daovan.js`, `fashion.js`, `src/net/rank.js` |
+| 29 | **Quay clip, chia sẻ** | Nút quay video trong game, xem lại, chia sẻ TikTok, nhóm Zalo | `data/record.json`, `data/community.json`, `src/game/record*.js`, `src/core/recorder*.js`, `src/ui/record-panel.js`, `src/ui/zalo.js` |
+| 30 | **Người mới** | Màn mở đầu, chọn giới tính, hướng dẫn, mũi tên chỉ việc, mẹo | `data/man-dau.json`, `data/gender.json`, `data/hints.json`, `src/ui/man-dau.js`, `src/game/guide.js`, `src/ui/hints.js`, `src/ui/login.js` |
