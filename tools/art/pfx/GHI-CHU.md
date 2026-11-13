@@ -66,6 +66,10 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 - **Trận Kỳ:** lá cờ đồ theo `pb-tran-ky.png` (`pb-co` 117 × 132, 21 màu: cán gỗ, vàng, lụa lam, vải tím). Cờ phất bằng cách dựng 8 dáng từ bản vẽ:
   điểm càng xa cán càng bị sóng đẩy lệch (sóng chạy dọc lá cờ), cán và đầu cán đứng yên; nếp vải = sườn đón sáng nhạt lên một nấc, sườn khuất sẫm
   xuống một nấc (`Bang.down`). Nét thêu vàng mảnh hơn một điểm hình nên cho nặng phiếu (`B.w`) để còn liền nét. Bỏ `fx/co.js` (cờ đỏ vàng vẽ bằng code).
+- **Phi Kiếm:** thanh kiếm số 3 (băng lam, hình trên nút) cắt từ `nguon/ai/kiem/kiem.png` (ô 192 × 256), cả thanh một chất liệu: tự gom 7 sắc độ theo độ sáng
+  rồi vẽ bằng đúng dải `thanh` của game (khai `'>màu'`), ghi `pal` vào meta → `pfx-pal.js` đổi cả thanh kiếm sang dải của hệ khảm như trước. `pb-kiem`
+  71 × 71 (kiếm dài 70 điểm), `pb-kiem-2` 107 × 107 cho phẩm cao; 9 góc (`turn = góc − 90` vì tranh mũi kiếm chúc xuống), vệt sáng chạy từ chuôi ra mũi.
+  Game: kiếm vẽ k 1; K (2 hoặc 3) chỉ còn để giãn vệt bay, bóng nối đuôi và kiếm khí. Bỏ dòng `pb-kiem` vẽ bằng code trong sprites.mjs.
 - Tranh gốc của các món khác: `pb-dai-an.png` + `hu-dai-an.png`, `pb-linh-chau.png` + `hu-linh-chau.png`, `pb-ho-thuan.png`, `pb-tran-ky.png`;
   Phi Kiếm: `nguon/ai/kiem/kiem.png` (kiếm số 3 đang làm hình trên nút); Bảo Phiến: `gear.ba-tieu-phien`; Đồng Chung: ô chuông trong `nguon/ai/chieu/chieu-3.png`.
 - `export.mjs --icons [tên…]`, `PFX_OUT=<thư mục>` (dựng thử ra chỗ khác), `vfx_pfx.py` đọc cỡ biểu tượng từ file.
@@ -74,7 +78,7 @@ Thứ người chơi thấy mỗi lần bấm là đòn pháp bảo → làm l�
 
 ## Việc còn lại
 
-- Bốn món còn lại đồ lại theo tranh mẫu như Hồ Lô, Đại Ấn, Hộ Thuẫn, Trận Kỳ (thứ tự đề nghị: Linh Châu, Phi Kiếm, Bảo Phiến, Đồng Chung),
+- Ba món còn lại đồ lại theo tranh mẫu như năm món đã làm (thứ tự đề nghị: Linh Châu, Bảo Phiến, Đồng Chung),
   mỗi món hiệu ứng riêng, không mượn hình của món khác.
 - Món phẩm cao: dựng thêm cỡ 1,5 lần ngay từ bản vẽ phẳng (`ve()` với k nhỏ hơn; đừng phóng điểm ảnh). Hộ Thuẫn đã có; Hồ Lô, Đại Ấn chưa (món vẫn vẽ k 1, chỉ hiệu ứng to lên).
 - Điện thoại thật có giật không: chờ chủ dự án và người chơi báo; giật thì tắt lại bằng `px_on: false`.

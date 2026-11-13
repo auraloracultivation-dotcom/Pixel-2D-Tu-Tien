@@ -154,18 +154,19 @@ def do_tuoi(lo=335, hi=12, near=5):
 
 class Bang:
     """Bảng màu của một món. mats: [(tên, luật sắc, [sắc độ từ tối tới sáng])]. Mỗi sắc độ khai 'màu trong tranh>màu vẽ ra' (điểm tranh gần
-    màu trước nhất thì vẽ bằng màu sau), hoặc một màu dùng cho cả hai; để None hết thì tự gom cụm màu của tranh (dùng lúc dò, in ra bằng --xem).
+    màu trước nhất thì vẽ bằng màu sau), hoặc một màu dùng cho cả hai; để None hết thì tự gom cụm màu của tranh (dùng lúc dò, in ra bằng --xem);
+    khai '>màu vẽ ra' hết thì tự gom cụm theo độ sáng rồi vẽ bằng dải màu khai (món một chất liệu vẽ bằng dải màu của game để đổi màu theo hệ được).
     Lớp 0 = trống; lớp cuối = mực."""
 
     def __init__(self, a, mats):
         self.mats = mats; self.pal = [(0, 0, 0)]; self.cen = {}; self.base = {}; self.name = {}
         m, rgb = self.chat(a), self.mem(a)
         for j, (ten, _, cols) in enumerate(mats, 1):
-            if cols[0] is None:
+            if cols[0] is None or cols[0].startswith('>'):
                 px = rgb[m == j].astype(np.uint8)
                 q = Image.fromarray(px.reshape(1, -1, 3)).quantize(colors=len(cols), method=Image.Quantize.MEDIANCUT, kmeans=6, dither=Image.Dither.NONE)
                 c = np.array(q.getpalette()[:len(cols) * 3], np.float32).reshape(-1, 3)
-                self.cen[j] = c[np.argsort(c @ np.array([0.3, 0.59, 0.11]))]; out = [tuple(int(v) for v in x) for x in self.cen[j]]
+                self.cen[j] = c[np.argsort(c @ np.array([0.3, 0.59, 0.11]))]; out = [tuple(int(v) for v in x) for x in self.cen[j]] if cols[0] is None else [hexrgb(h[1:]) for h in cols]
             else:
                 self.cen[j] = np.array([hexrgb(h.split('>')[0]) for h in cols], np.float32); out = [hexrgb(h.split('>')[-1]) for h in cols]
             self.base[j] = len(self.pal); self.name[ten] = j
@@ -445,7 +446,30 @@ def tran_ky(xem=None):
     xuat('pb-co', [fr], B, {'fps': 10, 'dur': 0.8, 'loop': True, 'fx': 'đồ theo tranh pb-tran-ky.png', 'note': 'Trận Kỳ (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án): cờ đuôi nheo tím thêu bát quái, 8 khung phất trong gió (sóng chạy dọc lá cờ, nếp vải đổi sáng tối); neo ở mũi cán cắm đất'}, xem)
 
 
-ALL = {'ho-lo': ho_lo, 'dai-an': dai_an, 'ho-thuan': ho_thuan, 'tran-ky': tran_ky}
+# ================================================================ Phi Kiếm
+# Tranh mẫu nguon/ai/kiem/kiem.png (tấm 8 × 4 thanh kiếm, mỗi ô 192 × 256): thanh số 3, băng lam, đang là hình trên nút. Mũi kiếm chúc xuống.
+# Cả thanh kiếm một chất liệu, vẽ bằng đúng dải 'thanh' của game (data/vfx.json → pb.ramps) và ghi dải đó vào meta (pal): khảm hệ thì game đổi cả
+# thanh kiếm sang dải màu của hệ (src/render/vfx/pfx-pal.js), như thanh kiếm vẽ bằng code trước đây. piv: giữa thân kiếm.
+PK = dict(o=(576, 0, 768, 256), piv=(104, 133), k=3.5, R=140)
+THANH = ['#0a1a3a', '#12357a', '#1f62c8', '#3f9cff', '#7fd8ff', '#c8f4ff', '#ffffff']
+PK_MAU = [('bang', lambda F: F.h >= 0, ['>' + c for c in THANH])]
+
+
+def phi_kiem(xem=None):
+    x0, y0, x1, y1 = PK['o']
+    a = biggest(load(HERE / 'nguon' / 'ai' / 'kiem' / 'kiem.png')[y0:y1, x0:x1].copy())
+    B = Bang(a, PK_MAU); T = B.lop(a); piv = PK['piv']
+    if xem:
+        show(B.rgba(T), Path(xem) / 'phi-kiem-ban-ve.png', 3); print(' sắc độ tìm được:', B.auto())
+    for ten, k in (('pb-kiem', PK['k']), ('pb-kiem-2', PK['k'] / 1.5)):          # '-2': cỡ lớn cho phẩm cao, dựng thẳng từ bản vẽ
+        n = cell(k, PK['R']); cells = []
+        for d in range(9):                                                        # 9 góc 0..90 độ (game lật cho đủ 32 hướng); 0 = mũi kiếm chỉ sang phải
+            th = math.radians(d * 90 / 8); than = ve(T, n, dang(piv, k, n, turn=d * 90 / 8 - 90), B)
+            cells.append([loang(than, B, k, -150 + f * 100, 26, ['bang'], dx=math.cos(th), dy=math.sin(th)) for f in range(4)])   # vệt sáng chạy từ chuôi ra mũi
+        xuat(ten, cells, B, {'fps': 10, 'dur': 0.4, 'loop': True, 'pal': THANH, 'fx': 'đồ theo tranh kiem.png (thanh số 3)', 'note': 'Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu'}, xem)
+
+
+ALL = {'ho-lo': ho_lo, 'dai-an': dai_an, 'ho-thuan': ho_thuan, 'tran-ky': tran_ky, 'phi-kiem': phi_kiem}
 
 if __name__ == '__main__':
     args = sys.argv[1:]; xem = None

@@ -19224,9 +19224,9 @@
   },
   "pfx.pb-kiem": {
    "file": "assets/art/pfx-pb-kiem.png",
-   "v": "81d51e35",
-   "w": 53,
-   "h": 53,
+   "v": "46397e08",
+   "w": 71,
+   "h": 71,
    "frames": 4,
    "rows": 9,
    "n": 4,
@@ -19235,8 +19235,8 @@
    "dur": 0.4,
    "loop": true,
    "anchor": [
-    29,
-    29
+    35,
+    35
    ],
    "k": 0.5,
    "pal": [
@@ -19248,8 +19248,35 @@
     "#c8f4ff",
     "#ffffff"
    ],
-   "lit": 1,
-   "note": "hiệu ứng chiêu pb-kiem: PixelFX p2d/van-kiem (MIT), tools/art/pfx/"
+   "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu (tools/art/pb_vat.py)"
+  },
+  "pfx.pb-kiem-2": {
+   "file": "assets/art/pfx-pb-kiem-2.png",
+   "v": "c36fbd5e",
+   "w": 107,
+   "h": 107,
+   "frames": 4,
+   "rows": 9,
+   "n": 4,
+   "dirs": 9,
+   "fps": 10,
+   "dur": 0.4,
+   "loop": true,
+   "anchor": [
+    53,
+    53
+   ],
+   "k": 0.5,
+   "pal": [
+    "#0a1a3a",
+    "#12357a",
+    "#1f62c8",
+    "#3f9cff",
+    "#7fd8ff",
+    "#c8f4ff",
+    "#ffffff"
+   ],
+   "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu (tools/art/pb_vat.py)"
   },
   "pfx.pb-kiem-khi": {
    "file": "assets/art/pfx-pb-kiem-khi.png",
@@ -19293,20 +19320,6 @@
     0
    ],
    "note": "lớp sáng của pfx.pb-kiem-khi"
-  },
-  "pfx.pb-kiem.l": {
-   "file": "assets/art/pfx-pb-kiem-l.png",
-   "v": "22f74047",
-   "w": 27,
-   "h": 27,
-   "frames": 4,
-   "rows": 9,
-   "s": 2,
-   "anchor": [
-    0,
-    0
-   ],
-   "note": "lớp sáng của pfx.pb-kiem"
   },
   "pfx.pb-manh": {
    "file": "assets/art/pfx-pb-manh.png",

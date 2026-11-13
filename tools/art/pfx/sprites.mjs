@@ -80,7 +80,7 @@ export const SPRITES = {
   'set': { fx: 'lightning/lightning-strike', pal: 'volt', times: SET_T, end: 1.8, box: [-72, -228, 72, 30], edge: 14 },
   // ---- ĐÒN PHÁP BẢO (Pháp Bảo Luyện Chế, thứ người chơi thấy mỗi lần bấm nút). tint: game đổi màu theo hệ khảm (src/render/vfx/pfx-pal.js),
   // hình dựng bằng một dải màu gốc, ghi dải đó vào art.json (pal) để đổi sang dải của hệ. Vẽ ở src/render/draw-pb-px.js.
-  'pb-kiem': { fx: 'p2d/van-kiem', pal: KIEM, opts: { guard: 0, length: 34, slim: 1 }, fps: 10, dirs: 9, tint: true },      // Phi Kiếm (9 góc dựng sẵn = 32 hướng, game không xoay thêm; vẽ to gấp đôi)
+  // Phi Kiếm: thanh kiếm đồ theo tranh mẫu ('pb-kiem', 'pb-kiem-2': tools/art/pb_vat.py, 9 góc dựng sẵn, vẽ bằng dải thanh nên khảm hệ vẫn đổi màu); ở đây là kiếm khí quanh lưỡi
   'pb-kiem-khi': { fx: 'p2d/van-kiem', pal: KIEM, opts: { part: 'khi', length: 34, slim: 1 }, fps: 20, dirs: 9, tint: true },   // kiếm khí xoắn quanh phi kiếm (phẩm cao)
   'pb-chau': { fx: 'p2d/chau', pal: KIEM, opts: { radius: 14 }, fps: 20, tint: true },                                     // Linh Châu
   'pb-chau-duoi': { fx: 'p2d/chau', pal: KIEM, opts: { radius: 14, part: 'duoi' }, fps: 10, dirs: 9, tint: true, box: [-58, -20, 8, 20] },   // đuôi sao chổi sau Linh Châu

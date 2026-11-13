@@ -2171,25 +2171,21 @@
   "fx": "p2d/khien-vo"
  },
  "pb-kiem": {
-  "w": 53,
-  "h": 53,
+  "w": 71,
+  "h": 71,
   "cols": 4,
   "rows": 9,
   "n": 4,
   "dirs": 9,
+  "anchor": [
+   35,
+   35
+  ],
+  "k": 0.5,
+  "ext": true,
   "fps": 10,
   "dur": 0.4,
   "loop": true,
-  "anchor": [
-   29,
-   29
-  ],
-  "k": 0.5,
-  "lit": {
-   "w": 27,
-   "h": 27,
-   "s": 2
-  },
   "pal": [
    "#0a1a3a",
    "#12357a",
@@ -2199,7 +2195,36 @@
    "#c8f4ff",
    "#ffffff"
   ],
-  "fx": "p2d/van-kiem"
+  "fx": "đồ theo tranh kiem.png (thanh số 3)",
+  "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu"
+ },
+ "pb-kiem-2": {
+  "w": 107,
+  "h": 107,
+  "cols": 4,
+  "rows": 9,
+  "n": 4,
+  "dirs": 9,
+  "anchor": [
+   53,
+   53
+  ],
+  "k": 0.5,
+  "ext": true,
+  "fps": 10,
+  "dur": 0.4,
+  "loop": true,
+  "pal": [
+   "#0a1a3a",
+   "#12357a",
+   "#1f62c8",
+   "#3f9cff",
+   "#7fd8ff",
+   "#c8f4ff",
+   "#ffffff"
+  ],
+  "fx": "đồ theo tranh kiem.png (thanh số 3)",
+  "note": "Phi Kiếm (đồ lại bằng điểm ảnh theo tranh mẫu của chủ dự án, thanh kiếm băng lam trên nút): 4 khung vệt sáng chạy dọc lưỡi × 9 góc; vẽ bằng dải thanh, khảm hệ thì đổi màu"
  },
  "pb-kiem-khi": {
   "w": 49,

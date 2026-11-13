@@ -15,10 +15,11 @@ const cfg = game => game.data.vfx.pb;
 const lightK = game => (+(document.body.dataset.perf || 0) >= 3 ? 0 : (game.data.vfx.px_light?.[0] ?? 0.6) + (game.data.vfx.px_light?.[1] ?? 0.4) * darkness(game));   // như draw-pfx.js: máy ở mức nhẹ nhất thì bỏ lớp sáng cộng
 const rc = (R, u) => R[Math.max(0, Math.min(R.length - 1, Math.round(u * (R.length - 1))))];   // màu ở vị trí u (0 tối .. 1 sáng) của dải
 const lookOf = e => e.cast?.look || {};
+const big = e => pbVis(e) >= 1.5;   // phẩm cao: món đồ theo tranh mẫu dùng bản dựng sẵn lớn gấp rưỡi ('-2'), không phóng điểm ảnh
 
 // ---- tải sẵn hình và đổi màu sẵn cho các món đang mặc (mỗi khung một tấm, khỏi khựng lúc đánh)
 const COMMON = ['pb-tran-mo', 'pb-trung', 'pb-no', 'pb-manh'];
-const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien', 'pb-thuan', 'pb-khien-vo', 'pb-khien-2', 'pb-thuan-2', 'pb-khien-vo-2'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
+const BY_LOOK = { kiem: ['pb-kiem', 'pb-kiem-2', 'pb-kiem-khi'], chau: ['pb-chau', 'pb-chau-duoi'], quat: ['pb-quat', 'pb-phong'], an: ['pb-an', 'pb-an-dap', 'pb-an-giang', 'pb-an-giang-d'], khien: ['pb-khien', 'pb-thuan', 'pb-khien-vo', 'pb-khien-2', 'pb-thuan-2', 'pb-khien-vo-2'], am: ['pb-chuong'], tran: ['pb-co', 'pb-tran'], holo: ['pb-holo', 'pb-holo-phun', 'pb-holo-xoay', 'pb-holo-tia', 'pb-holo-song'] };
 const BY_EL = { hoa: ['tt-lua'], thuy: ['tt-bang', 'tt-lanh'], moc: ['tt-re'], kim: ['tt-pha'] };
 let sig = null;
 const jobs = [];
@@ -125,19 +126,20 @@ export function drawPbGround(ctx, game) {
 // ===================== LỚP TRÊN CÙNG =====================
 function shot(ctx, game, art, e, R, pal) {
   const N = e.node, L = lookOf(e), dir = Math.atan2(e.vy, e.vx), ux = Math.cos(dir), uy = Math.sin(dir), look = N.look === 'kiem' ? 'kiem' : N.look === 'chau' ? 'chau' : 'manh';
-  const K = pbK(game, e, look), s = 'pb-' + look, o = { dir, snap: 1, loop: true, k: K, pal }, chau = look === 'chau', kiem = look === 'kiem';
+  // Phi Kiếm đồ theo tranh mẫu: vẽ 1 điểm hình = 1 điểm màn hình (phẩm cao dùng bản dựng sẵn lớn gấp rưỡi 'pb-kiem-2'); K của kiếm chỉ còn để giãn vệt bay, bóng nối đuôi, kiếm khí
+  const chau = look === 'chau', kiem = look === 'kiem', K = kiem ? (big(e) ? 3 : 2) : pbK(game, e, look), s = kiem ? (big(e) ? 'pb-kiem-2' : 'pb-kiem') : 'pb-' + look, o = { dir, snap: 1, loop: true, k: kiem ? 1 : K, pal };
   const b0 = (chau ? 5 : kiem ? 8 : 3) * K, tail = (chau ? 11 : kiem ? 12 : 5) * K, at = d => [e.x - ux * d, e.y - uy * d];
   if (chau) pfxDraw(ctx, art, 'pb-chau-duoi', e.x, e.y, e.t, { ...o, a: Math.min(1, e.t * 6) });   // Linh Châu: đuôi sao chổi
   else { pxLine(ctx, [at(b0), at(b0 + tail)], 1, rc(R, 0.5), 0.55); pxLine(ctx, [at(b0), at(b0 + tail * 0.5)], 1, rc(R, 0.85), 0.85); }   // kiếm, mảnh: vệt bay (nét màu dài, nét sáng ngắn)
   for (let j = L.trail || 0; j >= 1; j--) pfxDraw(ctx, art, s, e.x - ux * j * (kiem ? 6 : 4.5) * K, e.y - uy * j * (kiem ? 6 : 4.5) * K, e.t, { ...o, a: 0.38 * (1 - j / (L.trail + 1.6)), light: 0 });   // bóng mờ nối đuôi theo phẩm (không lớp sáng)
   pfxDraw(ctx, art, s, e.x, e.y, e.t, o);
-  if (kiem && L.aura) pfxDraw(ctx, art, 'pb-kiem-khi', e.x, e.y, e.t, { ...o, pal: L.gold ? 'vang' : pal, a: 0.5 + 0.15 * L.aura });   // kiếm khí xoắn quanh lưỡi
+  if (kiem && L.aura) pfxDraw(ctx, art, 'pb-kiem-khi', e.x, e.y, e.t, { ...o, k: K, pal: L.gold ? 'vang' : pal, a: 0.5 + 0.15 * L.aura });   // kiếm khí xoắn quanh lưỡi
   if (chau) for (let i = 0; i < (L.aura || 0); i++) pxArc(ctx, e.x, e.y, 7 * K + 4 + i * 3, 1, 0, TAU, 0.5, L.gold && i === L.aura - 1 ? GOLD : rc(R, 0.8), 0.7 - i * 0.15, 1, [0.5, 0.4], (i % 2 ? -1 : 1) * e.t * 3);   // vành hào quang xoay
   if (L.spark) for (let i = 0; i < 3; i++) { const a = e.t * 9 + i * 2.1, d = (5 + ((e.t * 40 + i * 7) % 12)) * K; pxDot(ctx, e.x - ux * d + Math.cos(a) * 4 * K, e.y - uy * d + Math.sin(a) * 4 * K, 2, L.gold ? GOLD : '#ffffff', 0.9); }
 }
 
 function orbit(ctx, game, art, e, pal) {   // Cầu Xoay: ba món bay vòng quanh người, kéo hai bóng mờ; con ở nửa xa vẽ trước
-  const N = e.node, O = N.orbit, a0 = Math.min(1, (e.life - e.t) / 0.3, e.t / 0.15), kiem = N.look === 'kiem', s = kiem ? 'pb-kiem' : 'pb-chau', K = kiem ? pbK(game, e, 'kiem') : pbK(game, e, 'chau', 0.5), list = [];
+  const N = e.node, O = N.orbit, a0 = Math.min(1, (e.life - e.t) / 0.3, e.t / 0.15), kiem = N.look === 'kiem', s = kiem ? (big(e) ? 'pb-kiem-2' : 'pb-kiem') : 'pb-chau', K = kiem ? 1 : pbK(game, e, 'chau', 0.5), list = [];
   for (let i = 0; i < O.n; i++) for (let g = 2; g >= 0; g--) { const a = e.t * 4 + i / O.n * TAU - g * 0.2; list.push([e.x + Math.cos(a) * O.rad, e.y + Math.sin(a) * O.rad * 0.6, a, g]); }
   list.sort((u, v) => u[1] - v[1] || v[3] - u[3]);
   for (const [x, y, a, g] of list) pfxDraw(ctx, art, s, x, y, e.t, { dir: Math.atan2(Math.cos(a) * 0.6, -Math.sin(a)), snap: 1, loop: true, k: K, pal, a: a0 * (g ? 0.3 / g : 1), light: g ? 0 : 1 });
@@ -154,10 +156,9 @@ function wave(ctx, e, R) {
   if (N.look === 'holo') pxArc(ctx, e.x, e.y, r + 3, 1, a0, a1, 2, '#ffffff', 0.9 * fade, 2, [0.07, 0.06], X.seed + e.t * 6);   // Hồ Lô: bọt trắng sủi dọc mặt sóng (hồ lô, luồng nước, con sóng là hình riêng: pb-px.js)
 }
 
-// Hộ Thuẫn. Hình vẽ 1 điểm hình = 1 điểm màn hình như nhân vật; phẩm cao (cỡ đòn từ 1,5) dùng bản dựng sẵn lớn gấp rưỡi ('-2'), không phóng điểm ảnh.
+// Hộ Thuẫn. Hình vẽ 1 điểm hình = 1 điểm màn hình như nhân vật; phẩm cao dùng bản '-2' (big).
 // Lớp dưới (sau lưng người): tấm thuẫn mai rùa (đồ theo tranh mẫu, tools/art/pb_vat.py) hiện rõ lúc mới bật rồi mờ đi làm nền, mỗi lần đỡ đòn lại
 // rực lên; sắp hết giờ thì nháy cùng vòm.
-const big = e => pbVis(e) >= 1.5;
 function shieldG(ctx, game, art, e, t) {
   if (e.done) return;
   const p = game.player, h = e.px.hit != null ? (e.t - e.px.hit) / 0.3 : 2, drop = e.t < 0.18 ? (1 - e.t / 0.18) ** 2 * 12 : 0;
