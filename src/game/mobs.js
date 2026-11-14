@@ -34,18 +34,21 @@ export function scaleMobBy(game, m, mul, tag) {   // tag: chữ trước tên (v
   m.hp = m.maxHp = m.def.hp; m.elite = mul > 1 ? mul : 0;
 }
 
-function moveToward(game, m, tx, ty, speed, dt) {
+function moveToward(game, m, tx, ty, speed, dt, ghost = true) {   // ghost false: bước lùi ra xa người chơi, không được xuyên vật cản (xem dưới)
   const dx = tx - m.x, dy = ty - m.y, d = Math.hypot(dx, dy);
   if (d < 1) return d;
   const s = speed * (m.slowT > 0 ? 0.45 : 1) * dt, mx = dx / d * Math.min(s, d), my = dy / d * Math.min(s, d);
   if (m.def.ai !== 'boss' && !inHoi(game, m) && inHoi(game, { x: m.x + mx, y: m.y + my })) { m.fx = dx / d; m.fy = dy / d; return d; }   // không bước vào phố lễ hội
-  // Đề xuất #49: quái kẹt sau đá, nhà quá ghost_after giây thì đi xuyên vật cản ghost_sec giây (kẹt giữa vật thì xuyên tiếp tới chỗ trống)
+  // Đề xuất #49: quái kẹt sau đá, nhà quá ghost_after giây thì đi xuyên vật cản ghost_sec giây (kẹt giữa vật thì xuyên tiếp tới chỗ trống).
+  // Chỉ khi đang ĐUỔI: quái bắn xa lùi ra xa người chơi mà chạm tường thì đứng lại. 15/11/2026: Ma tiễn trong bí cảnh lùi vào tường 0,8 giây rồi xuyên ra ngoài
+  // phòng, người chơi không tới được, phòng không bao giờ sạch (trước đó nó 24 máu nên thường chết trước khi kịp lùi; từ khi có sàn máu thì sống đủ lâu).
   const G = game.data.config.mob_ghost, T = game.map.T, inWall = () => game.map.solidTile(Math.floor(m.x / T), Math.floor(m.y / T));
+  if (!ghost && m.ghostT > 0 && !inWall()) m.ghostT = 0;
   if (G && (m.ghostT > 0 || (m.ghostT === 0 && inWall()))) { m.x = Math.max(0, Math.min(game.map.w * T, m.x + mx)); m.y = Math.max(0, Math.min(game.map.h * T, m.y + my)); m.ghostT = Math.max(0, m.ghostT - dt); }
   else {
     const bx = m.x, by = m.y;
     game.map.move(m, mx, my);
-    if (G && Math.hypot(m.x - bx, m.y - by) < Math.hypot(mx, my) * 0.3) { if ((m.blkT = (m.blkT || 0) + dt) > G.after) { m.blkT = 0; m.ghostT = G.sec; } }
+    if (G && ghost && Math.hypot(m.x - bx, m.y - by) < Math.hypot(mx, my) * 0.3) { if ((m.blkT = (m.blkT || 0) + dt) > G.after) { m.blkT = 0; m.ghostT = G.sec; } }
     else m.blkT = 0;
   }
   m.fx = dx / d; m.fy = dy / d;
@@ -129,7 +132,7 @@ function rangedThink(game, m, d, dt) {
   }
   if (d < m.def.range && m.cd <= 0) { m.state = 'windup'; m.t = 0; return; }
   if (d > want + 8) moveToward(game, m, p.x, p.y, m.def.speed, dt);
-  else if (d < want - 12) moveToward(game, m, m.x * 2 - p.x, m.y * 2 - p.y, m.def.speed * 0.8, dt);
+  else if (d < want - 12) moveToward(game, m, m.x * 2 - p.x, m.y * 2 - p.y, m.def.speed * 0.8, dt, false);
 }
 
 // Boss: xoay vòng chém → lao → (dưới 50% máu) vòng đạn; triệu hồi ở 70% và 35% máu
