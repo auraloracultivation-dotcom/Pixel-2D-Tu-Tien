@@ -231,23 +231,30 @@ Số gốc: 62 / 95 tài khoản chỉ chơi trong 24 giờ đầu, trong đó 3
 |---|---|---|
 | 0,00 | Nền tối nhẹ, thẻ trượt lên giữa màn, dải chữ "Hẹn ngày mai"; một tiếng chuông | Nền tối 62%; thẻ vào trong 0,22 giây |
 | 0,30 | Hàng "Bế quan lúc vắng": thang chín ô tầng của cảnh giới đang tu, các ô đã đạt sáng vàng | |
-| 0,45 → 1,0 | Các ô một đêm bế quan sẽ lấp sáng lên từng ô màu lam, mỗi ô nảy một nhịp kèm một nốt đàn cao dần; thanh linh khí chạy theo. Chữ: "Nghỉ 8 tiếng: +7.200 linh khí → lên Luyện Khí tầng 9, đầy linh khí: về là độ kiếp được" | Người mới ở tầng 4: năm ô, cách nhau 0,11 giây |
+| 0,45 → 1,0 | Các ô một đêm bế quan sẽ lấp sáng lên từng ô màu lam, mỗi ô nảy một nhịp kèm một nốt đàn cao dần; thanh linh khí chạy theo. Chữ: "Nghỉ chừng 2 tiếng là đầy linh khí (+1.091) → lên Luyện Khí tầng 9: về là độ kiếp được" (chưa đầy tới đỉnh thì "Nghỉ 8 tiếng: +N linh khí → lên …") | Người mới ở tầng 4: năm ô, cách nhau 0,11 giây |
 | 1,3 | Hàng "Quà ngày mai": "Điểm danh ngày 2: 500 Linh Thạch", "Còn 5 ngày tới mốc 7 ngày: 3.000 Linh Thạch, 1 Khóa Linh Thạch, ngọc cấp 6" (khách: "Tạo tài khoản để nhận quà điểm danh mỗi ngày và giữ tiến độ") | |
 | 1,65 | Hàng "Bậc kế tiếp": "Luyện Khí tầng 6: nhận pháp bảo Linh Châu", "bế quan đêm nay là tới" (xa hơn tầm một đêm thì "còn N tầng nữa") | |
 | 2,3 | Lời Hệ Thống "Ký chủ cứ nghỉ. Bổn hệ thống canh lò cho." và nút **Chơi tiếp** | Nút bấm được sau 2,27 giây kể từ lúc thẻ mở; chạm sớm thì hiện hết luôn |
 
-Số trên thẻ tính bằng đúng công thức của game (`restForecast` dùng `addQi` như lúc cộng linh khí thật), là mức thấp nhất (chưa tính đan nhân đôi, bế quan ở động phủ).
+Số trên thẻ tính bằng đúng công thức của game (`restSpan` leo tầng như `addQi` lúc cộng linh khí thật, chỉ đếm phần linh khí dùng được: đầy tới đỉnh thì phần thừa
+bỏ), là mức thấp nhất (chưa tính đan nhân đôi, bế quan ở động phủ). Ghi cho việc 6: người mới ở tầng 4 chỉ cần bế quan 2 tiếng là đầy cả cảnh giới Luyện Khí.
 Không doạ mất gì, không đếm ngược: chỉ hứa điều sẽ có (đúng mục "Không làm" ở trên).
 
 Lúc thẻ tự hiện (một lần mỗi ngày trên mỗi máy, chỉ lúc yên: không thoại, không bảng, không quái đang đánh, không ở bí cảnh): người mới thì ngay khi đi hết truyện
 mở đầu (đúng lúc 36 người kia rời đi; đang đi truyện thì không chen ngang); người đã qua truyện thì sau 10 phút chơi. Người đã tu từ Nguyên Anh trở lên thẻ không tự
 hiện: một đêm bế quan chỉ nhích chưa tới 1% một tầng (đo ở Nguyên Anh tầng 5), lời hứa nhạt.
 
-Code: `src/game/hen-mai.js` (`restForecast`, `nextStep`, `giftTomorrow`, lúc tự hiện), `src/ui/hen-mai.js` + `.css` (thẻ), số và chữ ở `data/juice.json → mai`.
+Code: `src/game/hen-mai.js` (`restSpan`, `restForecast`, `nextStep`, `giftTomorrow`, lúc tự hiện), `src/ui/hen-mai.js` + `.css` (hai thẻ), `src/game/offline.js` (gọi thẻ
+Xuất quan), số và chữ ở `data/juice.json → mai`. Quay: `tools/do-don/quay-mai.mjs` (`VE=<giờ vắng>` quay thẻ Xuất quan).
 Công tắc `mai.on` đang **tắt**; xem thử trên một máy: địa chỉ có `?mai=1` (tắt `?mai=0`).
 
-Chưa làm trong việc 5b: nghi lễ "xuất quan" lúc quay lại (thay dòng thoại bằng màn cho thấy linh khí nhận được, từng tầng sáng lên, rồi nút điểm danh nhận quà:
-lời hứa hôm trước phải có màn trả hôm sau); chỗ tự mở thẻ khi muốn xem (bảng Việc, tab Hằng ngày); dịch chữ (en, zh-Hant).
+**Thẻ "Xuất quan" lúc quay lại** (lời hứa hôm trước được trả; cùng công tắc `mai.on`): vắng từ 5 phút trở lên, lúc vào lại thay cho dòng thoại "Bạn bế quan…" là
+thẻ cùng kiểu: thang tầng với các ô vừa lên sáng dần kèm nốt đàn, "Bế quan 7 giờ 12 phút: +1.091 linh khí → đã lên Luyện Khí tầng 9, linh khí đầy: độ kiếp được
+rồi"; hàng "Pháp bảo mới" ghi các pháp bảo nhận ở những mốc vừa qua (vừa qua mốc phải chọn pháp bảo thì chọn xong thẻ mới mở); quà linh thú, bạn đồng hành mang
+về; "Quà hôm nay" nếu chưa điểm danh; lời Hệ Thống "Về rồi à. Lò vẫn ấm…" và nút **Vào game** (truyện chờ bấm nút mới chạy tiếp, quá 2 phút thì tự đi tiếp). Thử đường
+thật (sửa giờ lần cuối vào game trong bản lưu rồi vào lại): thẻ mở, chạy đủ, bấm là đóng; công tắc tắt thì vẫn dòng thoại cũ.
+
+Chưa làm trong việc 5b: nút điểm danh ngay trong thẻ (hiện chỉ chỉ đường tới bảng Việc); chỗ tự mở thẻ Hẹn ngày mai khi muốn xem; dịch chữ (en, zh-Hant).
 
 ## Nhật ký
 
@@ -259,4 +266,4 @@ lời hứa hôm trước phải có màn trả hôm sau); chỗ tự mở thẻ
 | 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
 | 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chờ chủ dự án chấm clip, chưa đưa lên |
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Chờ chủ dự án chấm clip và duyệt bảng bậc, chưa đưa lên |
-| 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); quay clip gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |

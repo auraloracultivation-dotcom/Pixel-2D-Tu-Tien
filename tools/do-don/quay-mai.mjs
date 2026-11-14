@@ -3,18 +3,19 @@
 // Kịch bản: người mới vừa đi hết truyện mở đầu. CANH=<cảnh giới 0…8, mặc định 0 Luyện Khí>, TANG=<tầng, mặc định 4>, KHI=<linh khí đang có, mặc định 30>.
 // TK=1 (mặc định): coi như đã có tài khoản và đã điểm danh NGAY ngày thứ nhất (bảng điểm danh giả, thay src/game/checkin.js bằng bản đóng thế trong
 // phòng đo, không gọi máy chủ); TK=0: khách. Giây 0,6 mở thẻ; chờ CHO giây (mặc định 2,2) sau khi nút sáng thì bấm Chơi tiếp.
+// VE=<số giờ đã vắng>: quay thẻ "Xuất quan" lúc quay lại (chạy đúng hàm offlineGains của game); DD=0: hôm nay chưa điểm danh.
 // Ra: f-0001.jpg… + sfx.json (ghép tiếng: ghep-tieng.py).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { serve } from './may-chu.mjs';
 const PORT = +(process.env.CONG || 8797);
 const { chromium } = await import('playwright'); const stop = serve(PORT);
 const [out, name, secs = '6', dpr = '2'] = process.argv.slice(2), E = process.env, FPS = 60, NMAX = Math.round(+secs * FPS), dir = `${out}/${name}`;
-const O = { realm: +(E.CANH ?? 0), layer: +(E.TANG ?? 4), qi: +(E.KHI ?? 30), hold: +(E.CHO ?? 2.2) }, ACC = E.TK !== '0';
+const O = { realm: +(E.CANH ?? 0), layer: +(E.TANG ?? 4), qi: +(E.KHI ?? 30), hold: +(E.CHO ?? 2.2), ve: +(E.VE ?? 0) }, ACC = E.TK !== '0', DD = E.DD !== '0';
 mkdirSync(dir, { recursive: true });
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: +dpr, hasTouch: true, isMobile: true, locale: 'vi-VN' });
 await ctx.route(/posthog\.com|supabase\.co|workers\.dev/, r => r.abort());
-if (ACC) await ctx.route(/\/src\/game\/checkin\.js/, r => r.fulfill({ contentType: 'text/javascript', body: `const st = { vi_tri: 1, hom_nay: true, ngay: 'x' };
+if (ACC) await ctx.route(/\/src\/game\/checkin\.js/, r => r.fulfill({ contentType: 'text/javascript', body: `const st = { vi_tri: 1, hom_nay: ${DD}, ngay: 'x' };
 export const checkinOn = game => !!game.save; export const checkinCached = () => st; export async function loadCheckin() { return { data: st }; } export async function doCheckin() { return { data: st }; }` }));
 await ctx.addInitScript(() => { let s = 20261114; Math.random = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; });
 const p = await ctx.newPage(); const errs = [];
@@ -45,7 +46,7 @@ let n = 0, ready = -1, clicked = -1;
 while (n < NMAX) {
   const st = await p.evaluate(async O => {
     const g = window.__game;
-    if (g.__sim >= 0.6 && !g.__opened) { g.__opened = 1; g.henMaiShow(); }
+    if (g.__sim >= 0.6 && !g.__opened) { g.__opened = 1; if (O.ve) import('/src/game/offline.js').then(M => M.offlineGains(g, Date.now() - O.ve * 3600000)); else g.henMaiShow(); }
     const ok = document.querySelector('#hen-mai .m-ok');
     if (ok?.classList.contains('ready') && g.__ready == null) g.__ready = g.__sim;
     if (g.__ready != null && g.__clicked == null && g.__sim - g.__ready >= O.hold) { g.__clicked = g.__sim; ok.click(); }

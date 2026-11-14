@@ -5,7 +5,7 @@
 // Thẻ tự hiện một lần mỗi ngày trên mỗi máy, lúc yên (không thoại, không bảng, không quái đang đánh): người mới thì ngay khi đi hết truyện mở đầu
 // (lúc 36 / 62 người chỉ chơi một ngày đã rời đi; đang đi truyện thì không chen ngang), người đã qua truyện thì sau after_min phút chơi.
 import { every } from '../core/ticker.js';
-import { addQi, qiNeed, realmBuff, realmLabel, totalLayer } from './stats.js';
+import { qiNeed, realmBuff, realmLabel, totalLayer } from './stats.js';
 import { checkinOn, checkinCached, loadCheckin } from './checkin.js';
 import { PB, pbOn, pbState, pbType } from './phap-bao.js';
 
@@ -18,16 +18,28 @@ export function maiOn(game) {
   return (ON = !!M(game) && (v != null ? v === '1' : !!M(game).on));
 }
 
+// Leo tầng bằng một lượng linh khí, như addQi (stats.js) nhưng đếm cả số linh khí thật sự dùng được: đầy tới đỉnh cảnh giới thì phần thừa bỏ đi.
+// Trả { qi: số dùng được, from, to, up: số tầng lên, full: đầy tới đỉnh, label: tên tầng tới được, p0, p1: phần đường tới tầng kế trước / sau }
+export function restSpan(R, from, amount) {
+  const to = { ...from }; let left = amount;
+  for (;;) {
+    const need = qiNeed(to, R) - to.qi;
+    if (left < need) { to.qi += left; left = 0; break; }
+    if (to.layer >= R.layers) { to.qi = qiNeed(to, R); left -= need; break; }
+    left -= need; to.qi = 0; to.layer += 1;
+  }
+  const frac = c => Math.min(1, c.qi / qiNeed(c, R));
+  return { qi: Math.round(amount - left), from, to, up: totalLayer(to, R) - totalLayer(from, R), full: to.layer >= R.layers && frac(to) >= 1, label: realmLabel(to, R), p0: frac(from), p1: frac(to) };
+}
+
 // Nghỉ đủ số giờ bế quan tối đa thì được gì. Tính như offline.js + game.gainQi (không tính đan nhân đôi và hệ số động phủ: con số hứa là mức thấp nhất).
-// Trả { hours, qi, from: {realm, layer, qi}, to: {realm, layer, qi}, up: số tầng lên, full: đầy tới đỉnh cảnh giới, label: tên tầng tới được, p0, p1: phần đường tới tầng kế trước / sau }
+// Thêm hours: số giờ nêu trên thẻ (đầy tới đỉnh sớm thì chỉ cần chừng ấy giờ)
 export function restForecast(game) {
   const s = game.save, R = game.data.realms, cfg = game.data.config, o = cfg.offline;
-  const hours = o.max_hours + (realmBuff(s, R).off || 0);
-  const amount = Math.round(cfg.meditate.qi_per_sec * o.rate * hours * 3600 * (game.player?.st.qiMul || 1) * (game.daoLuMul?.() || 1) * 10) / 10;
-  const qi = Math.round(amount * (R.qi_rate ?? 1)), from = { realm: s.realm, layer: s.layer, qi: s.qi }, to = { ...from };
-  addQi(to, R, qi);
-  const frac = c => Math.min(1, c.qi / qiNeed(c, R));
-  return { hours, qi, from, to, up: totalLayer(to, R) - totalLayer(from, R), full: to.layer >= R.layers && frac(to) >= 1, label: realmLabel(to, R), p0: frac(from), p1: frac(to) };
+  const maxH = o.max_hours + (realmBuff(s, R).off || 0);
+  const perH = cfg.meditate.qi_per_sec * o.rate * 3600 * (game.player?.st.qiMul || 1) * (game.daoLuMul?.() || 1) * (R.qi_rate ?? 1);
+  const F = restSpan(R, { realm: s.realm, layer: s.layer, qi: s.qi }, Math.round(perH * maxH));
+  return { ...F, hours: F.full ? Math.max(1, Math.min(maxH, Math.ceil(F.qi / perH))) : maxH };
 }
 
 // Bậc kế tiếp: mốc nhận pháp bảo gần nhất chưa tới (theo tổng số tầng), không còn mốc nào thì cảnh giới kế. Trả { label, name, pick, far } hoặc { realm } hoặc null
