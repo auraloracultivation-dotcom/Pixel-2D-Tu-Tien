@@ -8,7 +8,7 @@ const near = (game, list) => {
   return best ? { x: best.x, y: best.y } : null;
 };
 const npcPos = (game, id) => near(game, game.npcs.filter(n => n.id === id));
-const mobPos = (game, id) => near(game, game.mobs.filter(m => !m.dead && m.id === id));
+const mobPos = (game, id) => near(game, game.mobs.filter(m => !m.dead && (id === '*' || m.id === id)));   // '*': con nào cũng tính (bậc dọn phòng bí cảnh)
 
 // [{ key, pos }] theo đúng thứ tự dòng mục tiêu (game.goals); pos null khi không có chỗ trên bản đồ này
 export function guideList(game) {

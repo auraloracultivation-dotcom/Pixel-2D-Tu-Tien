@@ -34,17 +34,28 @@ export function createStory(game) {
   // một bước), số bước truyện save.step đứng yên nên mọi chỗ đang dựa vào số bước không lệch. Bậc đang leo ghi ở save.bac = { s: mã bước, i: số bậc đã xong }.
   // Leo hết bậc thì tới chính bước truyện, với phần mở đầu thay bằng bac.thay[mã bước] nếu có (lời thoại khớp với việc vừa đánh xong).
   // Bước khác (không có bậc) mà có bac.thay thì cũng dùng bản thay khi người chơi đã leo bậc (cờ 'leo-bac'): quà không trùng với quà của các bậc.
-  const pre = s => (s && bacOn(game) && B.truoc?.[s.id]) || null;
+  const pre = s => (s && bacOn(game) && (s === steps[0] || game.save.flags['leo-bac']) && B.truoc?.[s.id]) || null;   // bậc ở các bước sau chỉ dành cho người đã vào chặng từ đầu (bản lưu đang đi dở truyện cũ thì thôi)
   const subI = s => (game.save.bac?.s === s.id ? game.save.bac.i : 0);
   const unit = () => {
     const s = step(), P = pre(s);
     if (P && subI(s) < P.length) return P[subI(s)];
     return s && B?.thay?.[s.id] && (P || game.save.flags['leo-bac']) && bacOn(game) ? { ...s, do: B.thay[s.id] } : s;
   };
-  const rung = () => { const s = step(), P = pre(s), i = P ? subI(s) : 0; return P && i < P.length ? { i: i + 1, n: P.length, u: P[i] } : null; };   // bậc đang leo (null: không ở chặng leo bậc)
-  // Pháp bảo đầu tiên còn chờ trao trong truyện: đang leo bậc, hoặc vừa leo xong mà phần mở đầu thay thế chưa chạy tới lệnh phap_bao. Lúc đó chưa nhận pháp bảo
-  // theo mốc (phap-bao-grant.js pbGrants), kẻo món quà của bậc cuối tự rơi vào túi trước, mất nghi lễ.
-  const pbHold = () => { const s = step(), k = game.save.stepPaid; return !!rung() || !!(s && pre(s) && (B.thay?.[s.id] || []).some(a => a.phap_bao) && !(k?.s === s.id && k.k.phap_bao1)); };
+  // Bậc đang leo (null: không ở chặng leo bậc): { i: số bậc (so của bậc, tính chung cả chặng), n: tổng số bậc (bac.tong), u: bậc }. Ngoài các bậc chạy trước bước
+  // truyện (truoc), một bước truyện cũng có thể tự là một bậc (bac.buoc[mã bước] = { so, goal, thuong }: trận boss vốn là điều kiện của chính bước đó).
+  const onLadder = () => bacOn(game) && !!game.save.flags['leo-bac'];
+  const rung = () => {
+    const s = step(), P = pre(s), i = P ? subI(s) : 0, n = B?.tong;
+    if (P && i < P.length) return { i: P[i].so ?? i + 1, n: n ?? P.length, u: P[i] };
+    const b = s && onLadder() && B.buoc?.[s.id];
+    return b && game.save.stepDone ? { i: b.so, n, u: { ...s, ...b } } : null;
+  };
+  // Chặng leo bậc chưa cho Tự đánh ('danh') / Tự hành ('hanh'): đang ở một bậc, hoặc đã vào chặng mà chưa tới chỗ truyện mở khoá (cờ bac-mo-danh, bac-mo-hanh)
+  const khoa = kind => !game.khoaBo && bacOn(game) && !game.save.flags['bac-mo-' + kind] && !!(rung() || game.save.flags['leo-bac']);   // khoaBo: phòng thử cho Tự hành chạy cả chặng
+  // Pháp bảo là phần thưởng của các bậc (lệnh phap_bao trong bac.thay, có nghi lễ) thì trong lúc còn ở chặng leo bậc chưa nhận theo mốc (phap-bao-grant.js
+  // pbGrants), kẻo món quà của bậc tự rơi vào túi trước kèm một dòng báo. Trả tập các loại đang giữ lại, hoặc null. Pháp bảo khác (Hộ Thuẫn…) vẫn nhận như thường.
+  const HELD = new Set(Object.values(B?.thay || {}).flat().filter(a => a.phap_bao).map(a => a.phap_bao.type));
+  const pbHold = () => (bacOn(game) && HELD.size && (rung() || pre(step()) || (game.save.flags['leo-bac'] && !game.save.flags['bac-xong'])) ? HELD : null);
   // Lệnh phát quà của một bước chỉ chạy một lần dù bước chạy lại từ đầu (mở lại game giữa bước). Trước 14/11/2026 mỗi lần mở lại game ở bước đánh lui ma tộc,
   // bước chờ vào bí cảnh… lại nhận thêm một viên ngọc cấp 5 và một món đồ. Ghi ở save.stepPaid = { s: mã bước, k: { lệnh + thứ tự: 1 } }, sang bước mới thì ghi đè.
   const GIVE = ['reward', 'gem', 'mats', 'pills', 'item', 'phap_bao'];
@@ -92,9 +103,9 @@ export function createStory(game) {
       const T = g.map.T || 16, at = a.near ? [Math.floor(g.player.x / T) + a.near[0], Math.floor(g.player.y / T) + a.near[1]] : a.at;
       for (let i = 0; i < a.n; i++) {
         const p = g.map.freeNear(at[0], at[1], a.spread || 1, 6), m = g.spawn(a.spawn, p.x, p.y, { story: true });
+        if (a.mul) scaleMobBy(g, m, a.mul, a.tag);
         if (a.hp) m.hp = m.maxHp = a.hp;
         if (a.atk != null) m.def = { ...m.def, atk: a.atk };
-        if (a.mul) scaleMobBy(g, m, a.mul, a.tag);
         if (a.loot != null) m.lootMul = a.loot;
       }
     }
@@ -179,7 +190,7 @@ export function createStory(game) {
     },
     notify(type, id) {
       if (type === 'collect') st.counters[id] = (st.counters[id] || 0) + 1;
-      else if (type === 'kill') st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1;
+      else if (type === 'kill') { st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1; st.counters['kill:*'] = (st.counters['kill:*'] || 0) + 1; }   // until.kill '*': con nào cũng tính
       else st.events[type + (id ? ':' + id : '')] = true;
       if (type === 'boss') st.events.boss_dead = true;
       if (type === 'enter') restorePickups();
@@ -194,7 +205,7 @@ export function createStory(game) {
     },
     // Bậc đang leo của chặng leo bậc: { i: bậc thứ mấy, n: tổng số bậc, u: bậc (goal, until, thuong) }, null khi không ở chặng này. Đang leo bậc thì chưa dùng
     // Tự hành, Tự đánh (người chơi tự tay đánh): src/game/pilot.js, auto.js hỏi game.story.rung()
-    rung, pbHold,
+    rung, pbHold, khoa,
     // Bước đang chạy và đã tới phần chờ điều kiện chưa (cho tự hành)
     current() { return game.save.stepDone ? unit() : null; },
     // NPC này đang được nhiệm vụ chờ nói chuyện?

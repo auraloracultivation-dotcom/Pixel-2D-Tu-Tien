@@ -38,7 +38,7 @@ export function createBacHud(game) {
       box.hidden = false;
     }
     if (G.n !== n) { if (G.n > n) { popT = game.time; game.sfx?.('click'); } n = G.n; }
-    const t = `${G.n}/${G.of}`;
+    const t = G.of ? `${G.n}/${G.of}` : '';   // bậc không đếm (hạ boss): không hiện số
     if (cnt.textContent !== t) cnt.textContent = t;
     if (!raf) raf = requestAnimationFrame(paint);
   }

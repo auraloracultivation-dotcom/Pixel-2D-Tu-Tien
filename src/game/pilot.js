@@ -22,9 +22,9 @@ import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 const C = game => game.data.config.pilot;
 
 // Đang ở chặng leo bậc đầu game (src/game/story.js rung, docs/10-CAI-HON.md việc 5): báo một dòng rồi trả true, nơi gọi thôi không bật Tự hành / Tự đánh
-export function leoBac(game) {
-  if (!game.story?.rung?.()) return false;
-  game.toast(game.data.story.bac?.text?.lock || 'Chưa dùng được lúc này.', 2.2);
+export function leoBac(game, kind = 'hanh') {   // kind: 'hanh' Tự hành, 'danh' Tự đánh (mỗi thứ mở ở một bậc: story.js khoa)
+  if (!game.story?.khoa?.(kind)) return false;
+  game.toast(game.data.story.bac?.text?.['lock_' + kind] || 'Chưa dùng được lúc này.', 2.6);
   return true;
 }
 
@@ -191,7 +191,7 @@ function plan(game) {
   if (u.talk) { const n = game.npcs.find(n => n.id === u.talk); return n ? { talk: n } : s.target ? { go: tileOf(game, s.target) } : null; }
   if (u.reach) return { go: tileOf(game, u.reach) };
   if (u.collect) { const k = nearest(game, game.pickups.filter(k => k.item === u.collect)); if (k) return { go: k }; }
-  if (u.kill) { const m = nearest(game, alive(game).filter(m => m.id === u.kill)); if (m) return { fight: m }; }
+  if (u.kill) { const m = nearest(game, alive(game).filter(m => u.kill === '*' || m.id === u.kill)); if (m) return { fight: m }; }
   if (u.boss_dead || u.kill_all || u.any || u.kill) {
     const m = nearest(game, alive(game).filter(m => m.story || m.room || m.aggro || m.id === u.kill));
     if (m) return { fight: m };

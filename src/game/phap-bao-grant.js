@@ -9,13 +9,15 @@ const total = s => (s.realm || 0) * 9 + (s.layer || 1) - 1;
 let picking = false;
 
 export function pbGrants(game, quiet = false) {
-  if (!pbOn(game) || !game.save || game.story?.pbHold?.()) return;   // chặng leo bậc đầu game (story.js): pháp bảo đầu tiên là phần thưởng của một bậc (pbGive, có nghi lễ), các mốc khác chờ trao xong
+  if (!pbOn(game) || !game.save) return;
+  const hold = game.story?.pbHold?.();   // chặng leo bậc đầu game (story.js): pháp bảo là phần thưởng của một bậc thì chờ truyện trao (pbGive, có nghi lễ), chưa nhận theo mốc
   const D = PB(game), U = D.ui, s = game.save, st = pbState(game);
   st.got ??= [];
   const have = t => st.items.some(i => i.type === t), n = total(s);
   let changed = false;
   D.grants.forEach((g, k) => {
     if (st.got.includes(k) || !(n >= g.at || (g.step != null && (s.step || 0) >= g.step))) return;
+    if (hold && g.type && hold.has(g.type) && !have(g.type)) return;
     if (g.stones) { st.got.push(k); st.stones = (st.stones || 0) + g.stones; changed = true; if (!quiet) game.toast(U.stones_got.replace('{n}', g.stones), 2.4); return; }
     if (g.pick) {
       const left = g.pick.filter(t => !have(t));
