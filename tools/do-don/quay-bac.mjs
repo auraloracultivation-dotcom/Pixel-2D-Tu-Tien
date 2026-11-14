@@ -4,6 +4,7 @@
 // nhịp vẽ 30 / 60 khung của game, hẹn giờ… đều đúng như trên máy thật. Người chơi kịch bản: đọc xong câu thoại thì chạm (đọc 22 ký tự / giây + 0,7 giây),
 // chọn giới tính đầu tiên, thấy quái cần hạ thì đi tới rồi giữ nút Đánh, nghi lễ nhận thưởng hiện đủ 1,3 giây thì bấm nút đang sáng, bảng chào của Hệ Thống
 // đọc 4 giây rồi chạm ra ngoài, có ô đích thì đi tới. Dừng khi DUNG=<điều kiện> đúng (mặc định: tới bước truyện 1) hoặc hết giờ.
+// LAI=1: ngoài các bậc cho Tự hành dắt đi (hái linh thảo, lên tông môn…: kịch bản đi thẳng không biết tránh vật cản), tới bậc thì tự tay đánh.
 // Ra: f-0001.jpg… + sfx.json (tiếng theo giờ ảo, ghép bằng ghep-tieng.py) + moc.json (mốc: nhát đầu, con đầu, món đầu… tính bằng giây).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { serve } from './may-chu.mjs';
@@ -24,7 +25,8 @@ await p.waitForTimeout(600);
 await p.clock.pauseAt(new Date(Date.now() + 2000));   // từ đây giờ của trang đứng yên, chỉ chạy khi kịch bản cho chạy
 await p.evaluate(() => { document.getElementById('btn-guest').click(); });
 for (let i = 0; i < 600 && !(await p.evaluate(() => !!window.__game?.save && !!window.__game.player)); i++) await p.clock.runFor(50);
-await p.evaluate(STOP => {
+await p.evaluate(async () => { window.__P = await import('/src/game/pilot.js'); });
+await p.evaluate(([STOP, LAI]) => {
   const g = window.__game, L = window.__L = { log: [], moc: {}, t0: performance.now(), read: 0, line: -1, ready: 0, ht: 0, hits: 0, stop: new Function('g', 'return ' + STOP) };
   const now = () => (performance.now() - L.t0) / 1000, mark = k => { L.moc[k] ??= +now().toFixed(2); };
   const sf = g.sfx; g.sfx = (n, v) => {
@@ -55,8 +57,15 @@ await p.evaluate(STOP => {
     if (g.uiOpen === 'he-thong') { L.ht ||= t; mark('bang_he_thong'); if (t - L.ht > 4) { document.querySelector('.ht-back')?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); document.querySelector('.ht-back')?.click(); L.ht = 0; } return; }
     L.ht = 0;
     if (g.story.busy || g.uiOpen) return;
+    // LAI=1: ngoài các bậc thì cho Tự hành dắt đi (bỏ khoá riêng cho phòng đo, game.khoaBo), tới bậc ở làng và tông môn thì tắt Tự hành, kịch bản tự tay đánh
+    if (LAI) {
+      const hand = g.story.rung() && g.map.id !== 'bi-canh';
+      g.khoaBo = true;
+      if (hand && g.pilot) g.pilot = null;
+      if (!hand) { if (!g.pilot && window.__P) window.__P.togglePilot(g); return; }
+    }
     const G = g.story.goal();
-    const mobs = g.mobs.filter(m => !m.dead && (G?.kill ? m.id === G.kill : m.story));
+    const mobs = g.mobs.filter(m => !m.dead && (G?.kill ? (G.kill === '*' || m.id === G.kill) && (m.story || !LAI) : m.story));
     let tgt = null, bd = 1e9; for (const m of mobs) { const d = Math.hypot(m.x - pl.x, m.y - pl.y); if (d < bd) { bd = d; tgt = m; } }
     const go = (x, y, near) => { const dx = x - pl.x, dy = y - pl.y; if (Math.hypot(dx, dy) <= near) return true; if (dx > 3) inp.keys.add('KeyD'); else if (dx < -3) inp.keys.add('KeyA'); if (dy > 3) inp.keys.add('KeyS'); else if (dy < -3) inp.keys.add('KeyW'); return false; };
     if (tgt) { if (go(tgt.x, tgt.y, tgt.r + 15)) inp.held.add('atk'); return; }
@@ -66,7 +75,7 @@ await p.evaluate(STOP => {
     if (u?.layer) { if (!pl.meditating && g.actLabel && t - (L.act || 0) > 0.8) { inp.pressed.add('act'); L.act = t; } return; }   // đả tọa tại chỗ được thì ngồi (bước tu luyện)
     if (G?.target) { const c = g.map.center(G.target[0], G.target[1]); go(c.x, c.y, 6); }
   };
-}, STOP_AT);
+}, [STOP_AT, process.env.LAI === '1']);
 let n = 0, end = 0;
 while (n < NMAX && end < 90) {
   const st = await p.evaluate(() => { window.__drive(); const g = window.__game, L = window.__L; return { stop: !!L.stop(g) }; });

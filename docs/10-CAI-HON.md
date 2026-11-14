@@ -221,6 +221,25 @@ tên chỉ con quái gần nhất), `src/game/he-thong.js` `needIntro`. Quay c�
 Còn phải làm trước khi bật cho mọi người: dịch chữ của chặng (en, zh-Hant); người chơi thử tự động (`tools/playtest.mjs`) biết tự tay đánh trong chặng; nhiệm vụ Hệ
 Thống đầu tiên ("Tới đá linh căn…") lùi sau chặng; dựng các bậc 3 – 6 sau khi chủ dự án duyệt.
 
+**Sáu bậc đã dựng xong và bật cho người mới 14/11/2026** (chủ dự án 11:05 "Đưa lên… rất thích cách thiết kế", 11:27 "bạn xem hợp lý thì làm, vài tiếng tới tự do
+quyết định"; công tắc `bac.on` bật, riêng một máy tắt bằng `?bac=0`). Quà của các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi
+Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ, phẩm tăng dần (Phàm → Linh → Huyền → Huyền → Địa → Linh Châu): không phát thêm món nào.
+
+| Bậc | Ở đâu (dữ liệu) | Việc | Thưởng | Đo được |
+|---|---|---|---|---|
+| 1 | Thanh Khê (`truoc le-thuc-tinh`) | Hạ 1 Mộc linh | Bố Y phẩm Phàm | 6 nhát; nhát đầu giây 17 |
+| 2 | Thanh Khê | Hạ 3 Ma nhiễm Mộc linh (60 máu, công 7,5) | Phi Kiếm | 8 nhát một con, mất khoảng 1/3 máu |
+| 3 | Thanh Khê (`truoc nv-3-bay`) | Đánh lui 4 Tiểu ma, rồi 1 Ma nhiễm Tiểu ma đầu đàn (120 máu, công 8) | Mũ phẩm Huyền + Lam Ngọc | Không dùng Phi Kiếm: 16 nhát cho bốn con, con đầu đàn 150 máu công 10 làm máu tụt còn 23% → hạ xuống 120 / 8 |
+| 4 | Thiên Kiếm Phong (`truoc nv-3`) | Nhận binh khí, thử trên 5 Tiểu ma | Giày phẩm Huyền, mở **Tự đánh** | Một nhát một con (trước bốn nhát gậy); lực chiến +442 khi cầm binh khí |
+| 5 | Bí cảnh Huyết Nha (`truoc bi-canh`, đếm mọi con) | Dọn hai phòng đầu (9 con) | Nhẫn phẩm Địa + Hoàng Ngọc | |
+| 6 | Bí cảnh Huyết Nha (`buoc bi-canh`) | Hạ Phân thân Huyết Nha | Linh Châu có nghi lễ, mở **Tự hành**, hết chặng | Tự hành chạy cả chặng (bỏ khoá riêng cho phòng thử) trong 80–90 giây tua nhanh thoại, 0 lỗi JS |
+
+Trong chặng: bấm Tự hành / Tự đánh lúc chưa mở thì chỉ hiện lời nhắc (đã thử); ở làng Thanh Khê không gục được; linh vật Hệ Thống im lặng và không đậu lên thẻ
+bậc. Bậc 4 không dùng Mộc linh vì Mộc linh hoang ở Thiên Kiếm Phong có 1.161 máu (gấp 29 lần con ở làng), trông y hệt: đánh nhầm là kẹt, Tự hành còn gục vì chúng
+(ghi cho việc 6). Bài chơi thử tự động chạy bằng Tự hành nên bỏ khoá riêng (`game.khoaBo`); khoá thật thử bằng `tools/do-don/quay-bac.mjs` (`LAI=1`: ngoài bậc cho
+Tự hành dắt, trong bậc tự tay đánh). Chữ đã dịch en, zh-Hant. Chưa có: clip bậc 3–6 cho chủ dự án (mới có ảnh), người chơi tự tay đi trong bí cảnh chưa được thử
+bằng kịch bản (mới thử bằng Tự hành).
+
 ## Việc 5b: lý do quay lại ngày mai (bản dựng thử thẻ "Hẹn ngày mai", 14/11/2026)
 
 Game đã có sẵn ba lý do để quay lại nhưng không ai chỉ cho người chơi trước lúc họ rời đi: bế quan khi vắng (linh khí chảy vào người tối đa 8 tiếng,
@@ -249,7 +268,7 @@ hiện: một đêm bế quan chỉ nhích chưa tới 1% một tầng (đo ở 
 
 Code: `src/game/hen-mai.js` (`restSpan`, `restForecast`, `nextStep`, `giftTomorrow`, lúc tự hiện), `src/ui/hen-mai.js` + `.css` (hai thẻ), `src/game/offline.js` (gọi thẻ
 Xuất quan), số và chữ ở `data/juice.json → mai`. Quay: `tools/do-don/quay-mai.mjs` (`VE=<giờ vắng>` quay thẻ Xuất quan).
-Công tắc `mai.on` đang **tắt**; xem thử trên một máy: địa chỉ có `?mai=1` (tắt `?mai=0`).
+Công tắc `mai.on` **bật cho mọi người từ 14/11/2026** (riêng một máy tắt bằng `?mai=0`); chữ đã dịch en, zh-Hant.
 
 **Thẻ "Xuất quan" lúc quay lại** (lời hứa hôm trước được trả; cùng công tắc `mai.on`): vắng từ 5 phút trở lên, lúc vào lại thay cho dòng thoại "Bạn bế quan…" là
 thẻ cùng kiểu: thang tầng với các ô vừa lên sáng dần kèm nốt đàn, "Bế quan 7 giờ 12 phút: +1.091 linh khí → đã lên Luyện Khí tầng 9, linh khí đầy: độ kiếp được
@@ -295,6 +314,6 @@ việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đ�
 | 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
 | 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chủ dự án nhắn "Đưa lên… tôi rất thích cách thiết kế" 14/11 11:05 → bật `hurt2.on`, đã đưa lên game |
 | 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chủ dự án nhắn "Đưa lên" 14/11 11:05 → bật `reward.on`, đã đưa lên game (câu thoại nhận đạo bào đổi cho khớp nút Mặc ngay) |
-| 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Chờ chủ dự án chấm clip và duyệt bảng bậc, chưa đưa lên |
-| 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Đủ sáu bậc, bật `bac.on`, đã đưa lên game 14/11 |
+| 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |

@@ -169,15 +169,16 @@ export function createHeThong(game) {
     const hud = document.getElementById('hud'), live = !!game.save && hud && !hud.hidden && !game.trip;
     ic.hidden = !live; if (!live) { tip.hidden = true; return; }
     if (!wander && !userPos && !ic.classList.contains('keo')) place();
+    const quiet = !!game.story?.rung?.();   // đang leo bậc đầu game: Hệ Thống im lặng đứng xem, không lẩm bẩm, không nhắc việc (dòng nhắc từng che mất thẻ bậc giữa trận)
     const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
-    if (mum && !open && tip.hidden) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
+    if (mum && !open && tip.hidden && !quiet) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);
-    if (say && !open) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
+    if (say && !open && !quiet) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
     // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
     if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
-    if (!say && !open && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
+    if (!say && !open && !quiet && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
     // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
     if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }
   }, 1000);

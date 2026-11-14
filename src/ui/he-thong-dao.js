@@ -57,6 +57,8 @@ export function createWander(game, ic, face, D) {
         }
       }
       const lim = dlgTop() - SH - 10;   // có khung thoại: lướt lên trên mép khung (kể cả khi đang đứng nhắc việc)
+      const chip = document.getElementById('bac-hud');   // thẻ bậc của chặng leo bậc (góc trái dưới khung nhân vật): không đậu đè lên
+      if (chip && !chip.hidden && pos.x < 200 && pos.y > 62 && pos.y < 172) { pos.y += (172 - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < 200 && st.tgt.y > 62 && st.tgt.y < 172) st.tgt.y = 172; }
       if (pos.y > lim) { pos.y += (lim - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.y > lim) st.tgt.y = lim; }
       pos.x = Math.max(4, Math.min(innerWidth - S - 4, pos.x)); pos.y = Math.max(40, Math.min(innerHeight - SH - 8, pos.y));
       const bob = Math.sin(performance.now() / (st.mode === 'move' ? 160 : 420)) * (st.mode === 'move' ? 3 : 1.5);
