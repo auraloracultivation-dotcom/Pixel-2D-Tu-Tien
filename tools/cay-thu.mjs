@@ -110,7 +110,7 @@ for (let min = 0; min < SIM_MIN && !done;) {
   min++;
   const s = await p.evaluate(() => {
     const g = window.__game, sv = g.save, R = g.data.realms;
-    const need = i => Math.round(R.qi_base * R.qi_growth ** Math.min(i, R.qi_soft_from) * R.qi_soft_growth ** Math.max(0, i - R.qi_soft_from));
+    const need = i => R.need_layer?.[Math.floor(i / R.layers)]?.[i % R.layers] ?? Math.round(R.qi_base * R.qi_growth ** Math.min(i, R.qi_soft_from) * R.qi_soft_growth ** Math.max(0, i - R.qi_soft_from));
     let tot = sv.qi; for (let i = 0; i < sv.realm * R.layers + sv.layer - 1; i++) tot += need(i);
     const mats = Object.values(sv.mats || {}).reduce((a, v) => a + (+v || 0), 0);
     return { step: sv.step, realm: sv.realm, layer: sv.layer, tot: Math.round(tot), ls: Math.round(sv.lingshi || 0), kills: sv.stats?.kills || 0, mats, pills: { ...sv.pills }, map: g.map.id, trib: g.tribTries || 0,

@@ -9,7 +9,7 @@ const C = JSON.parse(readFileSync(new URL('../data/config.json', import.meta.url
 const lk = [1, 2.4, 5, 8, 12, 15, 18, 20, 20], cave = [2, 2.4, 2.8, 3.3, 4, 4, 4, 4, 4];   // linh khí mỗi con theo bản đồ, hệ số động phủ
 const med = C.meditate.qi_per_sec * R.qi_rate * 60, off = C.meditate.qi_per_sec * C.offline.rate * R.qi_rate * C.offline.max_hours * 3600;
 const pills = 8 * 4000 + 8 * 2000;   // Tử Vân Đan 4.000 linh khí: 8 viên đủ, 8 viên nửa
-const need = (r, l) => { const n = r * 9 + l - 1, s = R.qi_soft_from; return R.qi_base * R.qi_growth ** Math.min(n, s) * R.qi_soft_growth ** Math.max(0, n - s) * R.need_mul[r]; };
+const need = (r, l) => { const n = r * 9 + l - 1, s = R.qi_soft_from, T = R.need_layer?.[r]; return (T ? T[l - 1] : R.qi_base * R.qi_growth ** Math.min(n, s) * R.qi_soft_growth ** Math.max(0, n - s)) * R.need_mul[r]; };   // need_layer: bảng riêng từng tầng (Luyện Khí)
 let cum = 0;
 for (let r = 0; r < R.names.length; r++) {
   let q = 0; for (let l = 1; l <= R.layers; l++) q += need(r, l);

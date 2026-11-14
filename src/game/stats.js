@@ -17,8 +17,10 @@ export function totalLayer(save, realms) {
 }
 
 export function qiNeed(save, realms) {
-  const n = totalLayer(save, realms), soft = realms.qi_soft_from ?? Infinity;
-  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, Math.min(n, soft)) * Math.pow(realms.qi_soft_growth || 1, Math.max(0, n - soft)) * (realms.need_mul?.[save.realm] ?? 1));   // need_mul: cảnh giới càng cao cần càng gấp (chủ dự án 09/11/2026)
+  const n = totalLayer(save, realms), soft = realms.qi_soft_from ?? Infinity, mul = realms.need_mul?.[save.realm] ?? 1;   // need_mul: cảnh giới càng cao cần càng gấp (chủ dự án 09/11/2026)
+  const T = realms.need_layer?.[save.realm];   // cảnh giới có bảng riêng từng tầng (Luyện Khí: tầng sau gấp đôi tầng trước, chủ dự án 14/11/2026 23:25)
+  if (T) return Math.round(T[Math.max(1, Math.min(save.layer || 1, T.length)) - 1] * mul);
+  return Math.round(realms.qi_base * Math.pow(realms.qi_growth, Math.min(n, soft)) * Math.pow(realms.qi_soft_growth || 1, Math.max(0, n - soft)) * mul);
 }
 
 export function realmLabel(save, realms) {

@@ -215,6 +215,12 @@ try {
   need(['m7', 'm28', 'm112'].every(k => cki.names[k] && cki.mail['diem_danh_' + k] && cki.rules[k]?.moi > 0) && cki.mail.diem_danh_ngay && cki.rules.vong > 0, 'checkin: thiếu tên mốc, tiêu đề thư hoặc số ngày mốc');
   const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
   need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
+  // Bảng linh khí riêng từng tầng (realms.need_layer, việc 6 dòng 18d): đủ số tầng, tăng dần, và không tầng nào cần ít hơn công thức gốc của máy chủ
+  // (máy khách cần ít hơn thì mỗi lần lên tầng máy chủ thấy tổng linh khí nhảy vọt, cắt và ghi cờ người chơi thật)
+  { const goc = i => Math.round(rl.qi_base * rl.qi_growth ** Math.min(i, rl.qi_soft_from) * rl.qi_soft_growth ** Math.max(0, i - rl.qi_soft_from));
+    need(Object.entries(rl.need_layer || {}).every(([r, a]) => rl.names[+r] && Array.isArray(a) && a.length === rl.layers
+      && a.every((v, i) => v > 0 && (i === 0 || v > a[i - 1]) && v * (rl.need_mul?.[+r] ?? 1) >= goc(+r * rl.layers + i))),
+    'realms.need_layer: mỗi cảnh giới phải đủ số tầng, tăng dần, không tầng nào thấp hơn công thức gốc (qi_base × qi_growth^n) mà máy chủ đang tính'); }
   need(['chu', 'pho', 'lao', 'de'].every(r => gdd.roles[r]) && ['home', 'members', 'chat', 'find'].every(t => gdd.tabs[t]), 'guild: thiếu tên chức vụ hoặc tên tab');
   const pt = read('party.json');
   need(read('npcs.json')[pt.npc] && maps[pt.home] && maps[pt.home].npcs.some(n => n.id === pt.npc) && pt.max >= 2, 'party: npc, đảo về hoặc số người sai');

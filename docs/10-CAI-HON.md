@@ -417,6 +417,59 @@ việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đ�
 Số đo thêm 14/11 tối: người mới thật đầu tiên trong 11 phút nhận 22.000 Linh Thạch từ 20 thư nhiệm vụ Hệ Thống (11 nhiệm vụ) và 60.000 từ MỘT lượt triệu hồi (20 nghìn nhân ba);
 quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí / giây, bế quan lúc vắng 0,25 / giây (8 tiếng = 7.200), treo quái đảo đầu chừng 0,6 / giây.
 
+## Việc 6 · dòng 18e (quái đầu game) và 18d (Luyện Khí): làm 15/11/2026
+
+Chủ dự án 14/11 23:25 duyệt cả bảy dòng ("Làm hết đi… khó phải đi kèm với lôi cuốn"). Hai dòng này không đụng máy chủ nên làm trước. Đo bằng
+`tools/do-don/di-tay.mjs`: người mới kịch bản chỉ đi theo mũi tên và giữ nút Đánh, không né, không bấm pháp bảo, không uống đan (trường hợp yếu tay nhất);
+mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đòn ăn và máu mất. Sát thương một nhát của người mới dao động 15–26 tuỳ dòng chỉ số của món vừa nhận.
+
+**18e · trước / sau**
+
+| Chỗ | Trước (đo) | Sau (đo) | Số nằm ở |
+|---|---|---|---|
+| Bậc 4: thử binh khí trên 5 Tiểu ma | 30 máu, một hai nhát một con, cả năm con tan trong 2,4 giây | "Ma nhiễm Tiểu ma" 84 máu, công 6: 4–5 nhát một con; cả lứa khoảng 4–6 giây vì một nhát chém lan nhiều con | `data/story.json → bac.truoc.nv-3` (`hp`, `atk`, `mul`, `tag`) |
+| Hai phòng đầu Bí cảnh Huyết Nha (7 Tiểu ma, 2 Ma tiễn) | 30 / 24 máu, một hai nhát; hai phòng hết trong 9–11 giây | Sàn máu 3,5: 105 / 84 máu, 4–6 nhát một con; hai phòng khoảng 27 giây | `data/dungeon.json → floor.bi-canh.mob` |
+| Phân thân Huyết Nha lượt đầu | 700 máu: 15–25 giây; không né chỉ mất 45–67 máu (26–39%) | Sàn máu 1,4: 980 máu. Người mới đúng Luyện Khí tầng 2 chỉ giữ Đánh, không né: 16–27 giây, ăn 7–14 đòn, mất 55–70% máu (bốn lần thử với bốn hạt ngẫu nhiên, một lần cạn máu và được `nodeath` giữ ở 1). Bật Tự đánh (có pháp bảo) thì nhanh hơn nhiều | `floor.bi-canh.boss` |
+| Mộc linh hoang trên đảo tông môn | Lực chiến 1.800: 847 máu, công 106. Người mới ra bãi 60 giây gục 6 lần, không hạ nổi con nào | Lực chiến 360: 169 máu, công 21 (vòng ngoài 338 / 42). Chỉ giữ Đánh giữa bãi: 8 con / phút (8 nhát một con), không uống đan thì gục chừng 30 giây một lần vì cả bầy bị chém lan cùng cắn lại; bật Tự đánh (pháp bảo đánh xa): 13 con / phút, 90 giây không gục | `data/config.json → mob_cp.maps` |
+
+- Sàn máu bí cảnh: máu quái phòng và trùm ít nhất bằng sàn × máu gốc, công vẫn nhân đôi mỗi bậc. Bậc 2, 3 của Bí cảnh Huyết Nha vì thế máu quái phòng bằng bậc 1
+  (công gấp 2, gấp 4), từ bậc 4 trở lên như cũ (`src/game/dun-mode.js scaleMob`). Sáu bí cảnh khác không có sàn.
+- Áp chế lực chiến (`cp-press.js`) làm số máu không tỉ lệ thẳng với độ khó: trùm 700 máu thì người mới đánh × 1,5 và chỉ ăn 46% sát thương; lên 1.400 máu thì lực chiến
+  trùm ngang người chơi, hai bên đánh nhau đủ số. Vì vậy mỗi mức đều phải đo, không tính nhẩm được.
+- Không gục trong chặng mở đầu (`nodeath`, máu dừng ở 1) kéo dài tới hết trận Huyết Nha (trước chỉ tới hết bậc 3): quái từ bậc 4 đã trâu, trùm đầu để người mới
+  thấy nguy mà không mất trắng ở phút thứ năm. Ra khỏi chặng (bước `nv-5-ve`) là gục thật.
+- Thử các mức khác: bậc 4 để 120 máu thì bảy tới chín nhát một con, dài quá; 72 máu có lượt chỉ ba nhát. Sàn quái phòng 4 thì năm sáu nhát. Đảo tông môn 510 thì chỉ
+  giữ Đánh gục 15 giây một lần, Tự đánh 90 giây gục 2 lần.
+- **Trùm đầu không làm đúng "gấp đôi máu" như bảng đề xuất.** Đo ở đúng sức người mới (Luyện Khí tầng 2, 173–188 máu): gấp đôi (1.400 máu) thì cả 4 lần thử người
+  không né đều cạn máu, trận 31–58 giây; 1,6 (1.120 máu) cạn máu 3/4 lần; 1,4 (980 máu) cạn máu 1/4 lần, ba lần còn lại còn 29–45% máu; 1,3 (910 máu) có lượt 12,6 giây
+  là xong. Lý do là áp chế lực chiến (dòng trên): máu trùm lên thì mỗi đòn của nó cũng đau lên (từ 4 thành 12 máu một đòn). Chọn 1,4: người không né thắng sát nút,
+  người né một hai đòn thì dư máu. Muốn khó hơn chỉ đổi một số (`floor.bi-canh.boss`).
+- **Lỗi tìm ra khi đo (đã sửa):** Ma tiễn lùi ra xa người chơi, chạm tường 0,8 giây thì đi xuyên tường ra ngoài phòng (luật "quái kẹt thì đi xuyên vật cản" áp cả lúc
+  lùi), người chơi không tới được, phòng không bao giờ sạch: một lượt chạy thử đứng ở "Dọn hai phòng quái (8/9)" suốt 10 phút. Trước đây nó 24 máu nên thường chết trước
+  khi kịp lùi; ở bậc bí cảnh cao (máu × 2 mỗi bậc) lỗi này có thể đã xảy ra với người chơi thật. Sửa: chỉ quái đang đuổi mới được xuyên vật cản (`src/game/mobs.js`
+  `moveToward`), và quái của phòng lọt ra ngoài phòng quá một ô thì được đưa về giữa phòng (`src/game/dungeon.js keepIn`).
+- Chặng leo bậc sáu bậc sau khi đổi: người mới kịch bản đi hết trong khoảng 300 giây ảo (trước 285–312), không kẹt, 0 lỗi JS.
+
+**18d · Luyện Khí tầng sau cần gấp đôi tầng trước** (`data/realms.json → need_layer`, `src/game/stats.js qiNeed`)
+
+| Lên tầng | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | đầy tầng 9 (độ kiếp) | Cả cảnh giới |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Trước | 40 | 52 | 68 | 88 | 114 | 149 | 193 | 251 | 326 | 1.281 |
+| Sau | 40 | 80 | 160 | 320 | 640 | 1.280 | 2.560 | 5.120 | 10.240 | 20.440 |
+
+- Nguồn linh khí của người ở Luyện Khí (đo): đả tọa 0,5 / giây (trong động phủ gấp đôi), bế quan lúc vắng 0,25 / giây (8 giờ = 7.200), Tự đánh ở bãi đảo tông môn
+  khoảng 0,25–0,7 / giây, Tụ Khí Đan 200 mỗi viên (8 viên đầu mỗi ngày đủ hiệu quả = 1.600; chuỗi nhiệm vụ Hệ Thống ở Luyện Khí tặng 61 viên). Người chơi mỗi ngày
+  một hai buổi: bốn tầng đầu trong buổi đầu, tầng 6–7 trong ngày đầu, tầng 8–9 sau đêm thứ nhất, đầy tầng 9 sau đêm thứ hai: **khoảng 2–3 ngày** (trước: 40 phút).
+  Người có động phủ ngồi đả tọa liền một mạch thì khoảng 6 giờ.
+- Trúc Cơ tầng 1 cần 7.380, ít hơn tầng 9 Luyện Khí (10.240): sau thiên kiếp có một tầng dễ thở rồi mới tăng tiếp (9.594, 12.472…). Trúc Cơ cả cảnh giới 236 nghìn,
+  gấp 12 lần Luyện Khí (trước gấp 184 lần).
+- Máy chủ (`p2d_tong_lk`) vẫn tính theo công thức gốc: máy khách cần nhiều hơn thì chỉ chậm hơn, không bị coi là linh khí nhảy vọt. `tools/check.mjs` chặn bảng nào
+  có tầng thấp hơn công thức gốc. Lúc đổi không ai đang dở Luyện Khí (121 nhân vật tầng 1 chưa có linh khí, 1 nhân vật tầng 2 có 7 linh khí); tầng và linh khí giữ nguyên.
+- **Khó đi kèm lôi cuốn:** mỗi tầng Luyện Khí đều mở một thứ có tên: chiêu khảm mới mỗi tầng (Hỏa, Tỏa Nhánh, Thủy, Đánh Lan, Mộc, Xuyên Thấu, Thổ, Lôi Kích), pháp bảo
+  Hộ Thuẫn ở tầng 3, 2 Đá Khai Khiếu ở tầng 5, chọn Bảo Phiến / Đồng Chung ở tầng 8, quà tu vi mỗi tầng từ tầng 5. Thẻ lên tầng (việc 4b) thêm một dòng nói trước
+  tầng kế sẽ mở gì ("Luyện Khí tầng 3 sẽ mở: pháp bảo Hộ Thuẫn · chiêu khảm Tỏa Nhánh"; `src/game/phap-bao-grant.js pbNext`, chữ `mung.text.next`), để tầng dài
+  nào cũng có cái để mong. Thẻ Hẹn ngày mai (việc 5b) tự tính theo bảng mới.
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |

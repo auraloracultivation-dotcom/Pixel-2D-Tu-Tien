@@ -4,6 +4,7 @@
 import { PB, pbOn, pbState, pbAdd, pbType, pbGrade } from './phap-bao.js';
 import { power } from './achieve.js';
 import { rewardOn } from './reward.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const total = s => (s.realm || 0) * 9 + (s.layer || 1) - 1;
 let picking = false;
@@ -36,6 +37,22 @@ export function pbGrants(game, quiet = false) {
   });
   if (changed) { game.refreshStats?.(); game.persist?.(); }
   newMods(game, quiet);
+}
+
+// Tầng kế tiếp sẽ mở gì (thẻ lên tầng nhắc trước, src/game/len-tang.js: Luyện Khí từ 15/11/2026 mỗi tầng dài gấp đôi tầng trước nên tầng nào cũng phải có
+// thứ để mong): pháp bảo và Đá Khai Khiếu theo mốc chưa nhận, chiêu khảm mới. Trả mảng chữ (rỗng: không có gì).
+export function pbNext(game) {
+  if (!pbOn(game) || !game.save) return [];
+  const D = PB(game), st = pbState(game), n = total(game.save) + 1, have = x => st.items.some(i => i.type === x), name = x => t(pbType(game, { type: x }).name), out = [];
+  D.grants.forEach((g, k) => {
+    if (g.at !== n || (st.got || []).includes(k)) return;
+    if (g.stones) return void out.push(t('{n} Đá Khai Khiếu', { n: g.stones }));
+    const list = g.pick ? g.pick.filter(x => !have(x)) : [g.type || (g.other || []).find(x => !have(x))].filter(x => x && !have(x));
+    if (list.length) out.push(t('pháp bảo {name}', { name: list.map(name).join(t(' hoặc ')) }));
+  });
+  const mods = Object.values(D.mods).filter(m => m.at === n).map(m => t(m.name));
+  if (mods.length) out.push(t('chiêu khảm {names}', { names: mods.join(', ') }));
+  return out;
 }
 
 // Pháp bảo trao hẳn hoi trong truyện (lệnh phap_bao ở data/story.json, chặng leo bậc): thêm vào túi pháp bảo (tự mặc vào ô trống) rồi diễn nghi lễ nhận thưởng

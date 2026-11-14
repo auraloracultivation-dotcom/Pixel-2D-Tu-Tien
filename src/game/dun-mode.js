@@ -29,7 +29,7 @@ export function hintOf(game, id, L) {
   const mul = levelMul(game, L), pc = game.data.config.player;
   const dps = st.atk * (1 + st.crit * (st.critMult - 1)) * H.dps_per_atk;
   const hit = Math.max(def.atk * mul * (pc.def_min_take ?? 0), def.atk * mul - st.def);
-  const r = (st.maxHp / Math.max(0.1, hit * H.hit_rate / (def.cd || 1))) / (def.hp * mul / Math.max(1, dps));
+  const r = (st.maxHp / Math.max(0.1, hit * H.hit_rate / (def.cd || 1))) / (def.hp * Math.max(mul, floorOf(game, id, true)) / Math.max(1, dps));
   return r >= H.easy ? { text: H.easy_text, color: H.easy_color } : r >= H.hard ? { text: H.fair_text, color: H.fair_color } : { text: H.hard_text, color: H.hard_color };
 }
 
@@ -63,12 +63,15 @@ export async function pickMode(game, id) {
   return true;
 }
 
-// Quái trong bí cảnh theo bậc: máu và công nhân hệ số ẩn, linh khí chỉ nhích
+// Sàn máu của bí cảnh id (dungeon.json → floor): máu quái phòng / trùm ít nhất bằng chừng ấy lần máu gốc dù đang ở bậc thấp (việc 6 dòng 18e)
+const floorOf = (game, id, boss) => C(game).floor?.[id]?.[boss ? 'boss' : 'mob'] || 1;
+
+// Quái trong bí cảnh theo bậc: máu và công nhân hệ số ẩn, linh khí chỉ nhích. Máu không thấp hơn sàn của bí cảnh (công vẫn theo bậc)
 export function scaleMob(game, m) {
-  const L = game.dunMode || 0, D = C(game);
-  if (!L) return;
-  const mul = levelMul(game, L), q = D.reward_tier ** tierOf(game, L) * (1 + D.reward_step * (L % D.steps));
-  m.def = { ...m.def, hp: Math.round(m.def.hp * mul), atk: Math.round(m.def.atk * mul * 10) / 10, qi: Math.round(m.def.qi * q) };
+  const L = game.dunMode || 0, D = C(game), mul = levelMul(game, L), hp = Math.max(mul, floorOf(game, game.map.id, m.def.ai === 'boss'));
+  if (!L && hp === 1) return;
+  const q = D.reward_tier ** tierOf(game, L) * (1 + D.reward_step * (L % D.steps));
+  m.def = { ...m.def, hp: Math.round(m.def.hp * hp), atk: Math.round(m.def.atk * mul * 10) / 10, qi: L ? Math.round(m.def.qi * q) : m.def.qi };
   m.hp = m.maxHp = m.def.hp;
 }
 
