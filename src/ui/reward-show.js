@@ -35,7 +35,8 @@ export function createRewardShow(game) {
   const grid = size => { const dpr = window.devicePixelRatio || 1, m = Math.max(1, Math.round(C.px * dpr)), n = Math.round(size * dpr / m); return { n, css: n * m / dpr }; };
 
   // Tờ khai của một phần thưởng cho màn diễn. Món trang bị trong túi: tự khai từ món. Phần thưởng khác (pháp bảo trao trong truyện…): nơi gọi đưa sẵn
-  // { qua: { ray: màu vầng sáng, ink: màu tên, lvl, name, tag: nhãn phẩm, sub, lines: [{ text, color, main, desc }], spr: { id, frame } hình trong data/art.json,
+  // { qua: { ray: màu vầng sáng, ink: màu tên, lvl, name, tag: nhãn phẩm, sub, lines: [{ text, color, main, desc }], spr: { id, frame } hình trong data/art.json
+  // (hoặc node: hàm (cỡ) trả phần tử hình),
   // gain: lực chiến đã tăng (null: không ghi) } }: coi như đã nhận xong, chỉ có một nút Tiếp tục.
   function khai(it) {
     if (it.qua) return { worn: true, cur: false, inBag: false, lines: [], ...it.qua };
@@ -58,7 +59,9 @@ export function createRewardShow(game) {
     const stage = el('div', 'q-stage'), rays = createRays(K.ray, lvl, G.n), ico = el('i', 'q-ico');
     stage.style.width = stage.style.height = G.css + 'px'; rays.canvas.className = 'q-rays';
     ico.style.width = ico.style.height = C.icon + 'px';
-    if (K.spr) ico.append(spriteIcon(game, K.spr.id, K.spr.frame || 0, C.icon * 1.5, 'q-spr')); else ico.style.backgroundImage = K.ico;   // hình là một khung trong tấm hình nhiều khung (pháp bảo): vẽ lên canvas
+    if (K.spr) ico.append(spriteIcon(game, K.spr.id, K.spr.frame || 0, C.icon * 1.5, 'q-spr'));   // hình là một khung trong tấm hình nhiều khung (pháp bảo): vẽ lên canvas
+    else if (K.node) { const n = K.node(Math.round(C.icon * 0.9)); Object.assign(n.style, { position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }); ico.append(n); }   // nơi gọi tự dựng hình (quà triệu hồi: ngọc, thú cưỡi, áo…)
+    else ico.style.backgroundImage = K.ico;
     stage.append(rays.canvas, ico, title);
     title.style.top = Math.round(G.css / 2 - C.icon / 2 - 46) + 'px';
     const plate = el('div', 'q-plate'), name = el('div', 'q-name', K.name), sub = el('div', 'q-sub');

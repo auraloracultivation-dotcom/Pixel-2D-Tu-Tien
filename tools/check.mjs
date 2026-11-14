@@ -213,6 +213,18 @@ try {
   const cki = read('checkin.json'), ckm = lastWith(/function public\.p2d_dd_luat/).match(/select '(\{[^']*\})'::jsonb/);
   need(ckm && JSON.stringify(JSON.parse(ckm[1])) === JSON.stringify(cki.rules), 'checkin.rules khác hàm p2d_dd_luat trên máy chủ (supabase/migrations); đổi số thì thêm migration mới');
   need(['m7', 'm28', 'm112'].every(k => cki.names[k] && cki.mail['diem_danh_' + k] && cki.rules[k]?.moi > 0) && cki.mail.diem_danh_ngay && cki.rules.vong > 0, 'checkin: thiếu tên mốc, tiêu đề thư hoặc số ngày mốc');
+  // Triệu hồi chia bậc (he-thong.json → bac, pool[].b; việc 6 dòng 18a): bậc hợp lệ, tỉ lệ các bậc cộng đủ 100, món bậc báo kênh thế giới có tên; bảng trong
+  // migration mới nhất (chuỗi sinh bằng tools/he-thong-sql.py bac) phải khớp data, kẻo bảng tỉ lệ người chơi thấy khác bảng máy chủ quay
+  { const H = read('he-thong.json'), B = H.bac;
+    if (B) {
+      const n = B.list.map((_, i) => H.pool.filter(e => (e.b || 0) === i).length);
+      need(H.pool.every(e => Number.isInteger(e.b) && e.b >= 0 && e.b < B.list.length) && n.every(k => k > 0) && Math.abs(B.list.reduce((a, t) => a + t.pct, 0) - 100) < 1e-9, 'he-thong.bac: mỗi món phải có bậc b hợp lệ, bậc nào cũng có món, tỉ lệ các bậc cộng lại 100');
+      need(H.pool.filter(e => e.b >= B.loa).every(e => B.ten[e.id]) && B.bao_hiem.hiem > 1 && B.bao_hiem.cuc > B.bao_hiem.hiem && B.lvl.length === B.list.length, 'he-thong.bac: món bậc báo kênh thế giới thiếu tên (ten), hoặc bảo hiểm / cỡ nghi lễ sai');
+      const mg = lastWith(/update public\.p2d_ht_cfg set v = v \|\| '\{"pool"/), m = mg && mg.match(/update public\.p2d_ht_cfg set v = v \|\| '(\{"pool"[^']*\})'::jsonb where k = 'cfg'/), srv = m && JSON.parse(m[1]);
+      const pool = H.pool.map(e => { const { w, ...o } = e; return { ...o, b: e.b, w: Math.round(B.list[e.b].pct / n[e.b] * 1e6) / 1e6 }; });
+      need(srv && sameJson(srv.pool, pool) && sameJson(srv.bh, B.bao_hiem) && sameJson(srv.loa, { b: B.loa, ten: B.ten }), 'he-thong.bac / pool: bảng quà chia bậc khác migration mới nhất (chạy python3 tools/he-thong-sql.py bac rồi thêm migration mới)');
+      need(!B.on || (srv && srv.qua_dau === H.qua_dau.diem), 'he-thong.qua_dau.diem khác số quà gặp mặt trong migration triệu hồi chia bậc');
+    } }
   const rl = read('realms.json'), lk = lastWith(/function public\.p2d_tong_lk/).match(/round\((\d+) \* power\(([\d.]+), least\(i, (\d+)\)\) \* power\(([\d.]+), greatest/);
   need(lk && +lk[1] === rl.qi_base && +lk[2] === rl.qi_growth && +lk[3] === rl.qi_soft_from && +lk[4] === rl.qi_soft_growth, 'realms: linh khí mỗi tầng khác hàm p2d_tong_lk trên máy chủ (hạn mức linh khí); đổi số thì thêm migration mới');
   // Bảng linh khí riêng từng tầng (realms.need_layer, việc 6 dòng 18d): đủ số tầng, tăng dần, và không tầng nào cần ít hơn công thức gốc của máy chủ
