@@ -256,6 +256,33 @@ thật (sửa giờ lần cuối vào game trong bản lưu rồi vào lại): t
 
 Chưa làm trong việc 5b: nút điểm danh ngay trong thẻ (hiện chỉ chỉ đường tới bảng Việc); chỗ tự mở thẻ Hẹn ngày mai khi muốn xem; dịch chữ (en, zh-Hant).
 
+## Việc 6: con số cả game — số đo ban đầu (14/11/2026 11:00, chưa có đề xuất được duyệt)
+
+Mới đo, chưa đổi gì. Mọi thay đổi ở việc này đụng kinh tế và máy chủ: phải có bảng trước / sau cho chủ dự án duyệt rồi "áp lên".
+
+**Linh Thạch phát ra trong 72 giờ gần nhất** (bảng `p2d_hom_thu`, cộng `coins` theo lý do):
+
+| Nguồn | Số thư | Số người | Linh Thạch |
+|---|---|---|---|
+| Quà triệu hồi Hệ Thống (`he_thong_qua`) | 454 | 17 | **64,7 triệu** |
+| Quà nhiệm vụ Hệ Thống (`he_thong_nv`) | 2.526 | 23 | 22,8 triệu |
+| Thôn Thiên Mãng (hai loại thư) | 62 | 6 | 1,8 triệu |
+| Tiền bán chợ (`ban`, người chơi trả cho nhau) | 43 | 7 | 8,3 triệu |
+
+- **Triệu hồi** (`data/he-thong.json → pool`, máy chủ quay `p2d_ht_trieu`): 53 loại quà tỉ lệ ngang nhau (mỗi loại 1,9%). 7 loại là Linh Thạch (20k → 2 triệu): trung bình
+  73k mỗi lượt theo bảng, đo thật **142k mỗi lượt** vì có "bạo kích" nhân đôi, nhân bốn. Giải từ 1 triệu trở lên: 16 / 454 lượt (3,5%). Sáu giải lớn (đồ bậc 5–6,
+  ngọc cấp 7–8, 1 triệu, 2 triệu): 58 / 454 lượt (12,8%).
+- **Điểm triệu hồi**: quà gặp mặt 1.000 điểm = 10 lượt ngay phút đầu; 110 nhiệm vụ × 25 điểm = 27,5 lượt nữa; cộng 3,45 triệu Linh Thạch quà nhiệm vụ. Một người
+  mới làm hết chuỗi nhiệm vụ trông đợi khoảng 37 lượt ≈ 5,3 triệu Linh Thạch từ triệu hồi. Ví dụ thật: tài khoản 2 ngày tuổi có 9,25 triệu từ 39 lượt.
+- So với các nguồn khác: điểm danh 500 Linh Thạch mỗi ngày (285 ngày điểm danh mới bằng một lượt triệu hồi trung bình); đồ treo chợ 200k–500k một món.
+- **Tu luyện**: tài khoản tạo 2 ngày trước trung bình đã tu 7,8 tầng, có 1,07 triệu Linh Thạch, lực chiến 5.255. Người mới ở tầng 4 bế quan 2 tiếng là đầy cả cảnh
+  giới Luyện Khí (đo ở việc 5b); trước lần reset có người lên Độ Kiếp sau 5 ngày.
+- **Đánh quái đầu game**: Tiểu ma 30 máu chết bởi một phát Phi Kiếm; bốn con tan trong 1 giây (đo ở việc 5).
+
+Hướng đề xuất sẽ soạn thành bảng trước / sau (chưa gửi chủ dự án): triệu hồi chia bậc (Thường / Khá / Hiếm / Cực hiếm / Truyền thuyết, giải từ 1 triệu thành cực
+hiếm, có nghi lễ và báo cả máy chủ); quà gặp mặt và điểm nhiệm vụ bớt dồn dập; quà điểm danh đáng kể hơn so với triệu hồi; quái đầu game trâu hơn theo thang của
+việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đồ và Linh Thạch người chơi đang có giữ nguyên.
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -267,3 +294,4 @@ Chưa làm trong việc 5b: nút điểm danh ngay trong thẻ (hiện chỉ ch�
 | 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chờ chủ dự án chấm clip, chưa đưa lên |
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Chờ chủ dự án chấm clip và duyệt bảng bậc, chưa đưa lên |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
