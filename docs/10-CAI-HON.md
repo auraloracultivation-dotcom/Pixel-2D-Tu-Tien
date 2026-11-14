@@ -42,6 +42,10 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
   oan đó; làm cả bảy dòng của bảng việc 6 theo mức AI đề nghị chính (18a1, 18d1), dòng 18f đo thêm rồi làm; nguyên tắc cho mọi con số: khó hơn nhưng mỗi chỗ khó phải có
   thứ lôi cuốn đi kèm, đi tới đích chậm lại để game kịp làm tỉ mỉ).
 
+- 15/11 01:53 (trả lời câu 19 "pháp bảo: cho dời cấp sang món mới cùng loại khi đổi?" và câu 20 "đặt lại hẹn rà + gộp 00:00"): "19 hoàn linh thạch. 20 không cần làm gì, chỉ tập
+  trung vào xây game với toàn bộ tâm huyết là được" (AI hiểu là: 19 làm cách hoàn Linh Thạch khi hạ cấp pháp bảo cũ, đi qua máy chủ, AI đề nghị hoàn 80%; 20 không đặt
+  lại hẹn đêm, việc rà một phần và gộp GitHub làm trong buổi làm việc khi tiện).
+
 ## Câu cái hồn
 
 > Vào đây bạn là nhân vật chính, từ phàm nhân đi lên thành thần: mỗi nhát chém có cảm giác, mỗi phần thưởng có nghi lễ,
@@ -419,6 +423,10 @@ quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí /
 
 ## Việc 6 · dòng 18e (quái đầu game) và 18d (Luyện Khí): làm 15/11/2026
 
+**Tình trạng: làm xong 15/11/2026 02:17 (commit `91109d56`, `14048bb9`), CHƯA đưa lên.** 02:32 AI thử đưa lên thì bị chặn: mỗi đợt đưa bản mới cần lời "đưa lên" của chủ dự án
+cho đúng đợt đó ("Làm hết đi" 14/11 23:25 là duyệt làm, chưa phải duyệt đưa đợt này). Đã gửi clip `quai-dau-game-sau.mp4` (51 giây: bậc 4 → hai phòng bí cảnh → trùm đầu)
+và hỏi ở bảng câu hỏi, câu 21.
+
 Chủ dự án 14/11 23:25 duyệt cả bảy dòng ("Làm hết đi… khó phải đi kèm với lôi cuốn"). Hai dòng này không đụng máy chủ nên làm trước. Đo bằng
 `tools/do-don/di-tay.mjs`: người mới kịch bản chỉ đi theo mũi tên và giữ nút Đánh, không né, không bấm pháp bảo, không uống đan (trường hợp yếu tay nhất);
 mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đòn ăn và máu mất. Sát thương một nhát của người mới dao động 15–26 tuỳ dòng chỉ số của món vừa nhận.
@@ -482,4 +490,5 @@ mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đ�
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Đủ sáu bậc, bật `bac.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
+| 15/11/2026 | 6 dòng 18e (quái đầu game) + 18d (Luyện Khí tầng sau gấp đôi tầng trước): làm xong, đo trước / sau bằng người mới kịch bản; sửa lỗi Ma tiễn lùi xuyên tường làm kẹt phòng bí cảnh; thẻ lên tầng báo trước tầng kế mở gì; kiểm tra, chơi thử tự động (cả đúng nhịp thật 7 phút), tự tay đi đều đạt | Đã gửi clip, chờ chủ dự án nhắn "đưa lên" (bảng câu hỏi câu 21) |
 | 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
