@@ -40,7 +40,7 @@ Bảy phần đầu theo thứ tự chủ dự án để ý nhất.
 | 27 | **Linh thú, thú cưỡi, khôi lỗi** (cách chơi) | Bắt, nuôi, tiến hoá, chiêu linh thú, cưỡi (hình thuộc phần 6) | `data/pets.json`, `src/game/pets.js`, `beast*.js`, `evolve.js`, `home-pets.js`, `src/ui/pets-panel.js` |
 | 28 | **Thành tựu, xếp hạng, Đạo Vận, thời trang** | Thành tựu, bảng xếp hạng, bộ Đạo Vận, áo thời trang | `data/daovan.json`, `data/fashion.json`, `src/game/achieve.js`, `rank.js`, `daovan.js`, `fashion.js`, `src/net/rank.js` |
 | 29 | **Quay clip, chia sẻ** | Nút quay video trong game, xem lại, chia sẻ TikTok, nhóm Zalo | `data/record.json`, `data/community.json`, `src/game/record*.js`, `src/core/recorder*.js`, `src/ui/record-panel.js`, `src/ui/zalo.js` |
-| 30 | **Người mới** | Màn mở đầu, chọn giới tính, hướng dẫn, mũi tên chỉ việc, mẹo | `data/man-dau.json`, `data/gender.json`, `data/hints.json`, `src/ui/man-dau.js`, `src/game/guide.js`, `src/ui/hints.js`, `src/ui/login.js` |
+| 30 | **Người mới** | Màn mở đầu, chọn giới tính, hướng dẫn, mũi tên chỉ việc, mẹo | `data/man-dau.json`, `data/gender.json`, `data/hints.json`, `src/ui/man-dau.js`, `src/game/guide.js`, `src/ui/hints.js`, `src/ui/login.js`; chặng leo bậc đầu game (bản dựng thử, công tắc `bac.on` tắt): `data/story.json → bac`, `src/game/story.js`, `src/ui/bac-hud.js`, `docs/10-CAI-HON.md` việc 5 |
 
 ## Nhật ký rà (mỗi đêm trước khi gộp GitHub, mỗi lần một phần, theo vòng 1 → 30)
 

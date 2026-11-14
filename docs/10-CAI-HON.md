@@ -159,6 +159,65 @@ Code: `src/game/reward.js` (món nào diễn kiểu nào; `rewardItem(game, món
 Chưa làm trong việc 4: báo cả máy chủ khi có người nhận món cực hiếm (đụng máy chủ, phải hỏi); nghi lễ cho phần thưởng không phải trang bị (Linh Thạch, ngọc,
 quà triệu hồi đã có sân khấu rương riêng); viên rơi trên đất của món quý chưa có cột sáng (đồ tự bay vào người sau 0,45 giây nên khó thấy).
 
+## Việc 5: mười lăm phút đầu kiểu leo bậc (bản dựng thử hai bậc đầu + đề xuất, 14/11/2026)
+
+Lời chủ dự án: "chém từng phát mới chết 1 con slime, và nhận thưởng 1 trang bị, xong đi chém con mạnh hơn slime một chút, đạt số lượng thì nhận thưởng".
+
+**Bản hiện tại đo được** (người mới, Tự hành, nhịp thật): tới đá linh căn 0:22 · có linh căn, gặp sư tỷ 1:02 · hái xong linh thảo 1:23 · **trận đầu tiên 1:47**:
+bốn Tiểu ma tan trong khoảng 1 giây, mỗi con một phát Phi Kiếm (món này có sẵn từ giây 0) · lên tông môn 2:06 · ngồi đả tọa 2 phút tới 4:06 · vào bí cảnh 4:43 ·
+hết truyện mở đầu 5:18 · phút 15: Luyện Khí tầng 7, lực chiến 742 → 2.409, mặc 5 món. Không trận nào phải chém quá hai nhát, không món nào được trao có nghi lễ.
+
+**Kịch bản từng nhịp của hai bậc đầu** (thước đo; người chơi kịch bản tự tay đánh, đo 4 lần với số ngẫu nhiên khác nhau, `tools/do-don/quay-bac.mjs`):
+
+| Mốc | Người chơi phải thấy | Bản dựng thử đo được |
+|---|---|---|
+| 0:00 | Ba câu thoại: Hệ Thống báo "đang liên kết", Trưởng thôn kêu Mộc linh hoá dữ, Hệ Thống bảo giữ nút Đánh, hạ được có quà | Đọc hết khoảng 14 giây |
+| 0:15 | Một con Mộc linh hiện ngay cạnh (cách 3 ô). Thẻ bậc góc trái dưới khung nhân vật: "Bậc 1/2 · Thưởng [hình áo]" và "Hạ Mộc linh 0/1"; mũi tên chỉ tới con quái | |
+| 0:17 | Nhát chém đầu tiên | 16,7 – 17,2 giây (bản hiện tại: 1:47) |
+| 0:20 | Con đầu tiên tan sau 6 nhát; số đếm nảy lên 1/1 kèm tiếng gõ | 5 – 6 nhát (40 máu, gậy gỗ 7 – 8 mỗi nhát); 19,1 – 20,0 giây |
+| 0:23 | Hệ Thống: "Quà đây, mặc vào kẻo trầy da" → nghi lễ nhận thưởng: Bố Y Đạo Bào phẩm Phàm (vầng sáng nhỏ, 8 tia) → Mặc ngay, Lực chiến +35 | Nghi lễ mở 22,7 – 23,6 giây; mặc xong 25,8 – 26,7 giây |
+| 0:35 | "Bậc 2/2 · Thưởng [hình Phi Kiếm]", "Hạ Ma nhiễm Mộc linh 0/3": ba con có quầng tím dưới chân, trâu hơn và cắn đau hơn con đầu | 60 máu, công 7,5 (con đầu 40 máu, công 5) |
+| 0:36 → 0:48 | Chém tám nhát mới tan một con; bị cắn thì viền đỏ, giật lùi (việc 3); số đếm 1/3, 2/3, 3/3 | 23 – 25 nhát cả ba; bị cắn 5 – 7 lần, máu thấp nhất còn 61 – 70% |
+| 0:52 | Hệ Thống: "Đủ tư cách nhận pháp bảo đầu tiên" → nghi lễ nhận Phi Kiếm phẩm Linh (vầng sáng 12 tia, lớn hơn món trước), Lực chiến +72 → nút Phi Kiếm hiện cạnh nút Đánh | Nghi lễ mở 50,6 – 53,4 giây |
+| 1:05 | Bảng chào của Hệ Thống ("liên kết thành công"), rồi mới đi tới đá linh căn theo truyện cũ | Tới đá 1:07 – 1:12 (bản hiện tại 0:22) |
+
+Luật của chặng leo bậc (`data/story.json → bac`, công tắc `bac.on` đang **tắt**; xem thử trên một máy: địa chỉ có `?bac=1&qua=1&dau=1`, tắt `?bac=0`):
+
+- Các bậc chạy lần lượt **trước** một bước truyện (`bac.truoc[mã bước]`), số bước truyện đứng yên nên nhiệm vụ Hệ Thống, mốc pháp bảo… không lệch. Leo xong thì phần mở
+  đầu của bước truyện đổi sang bản `bac.thay` (lời thoại khớp với việc vừa đánh xong, quà không trùng quà của bậc).
+- Đang leo bậc: chưa dùng Tự hành, Tự đánh (bấm thì hiện lời nhắc); người chơi không gục được (máu dừng ở 1); bảng chào của Hệ Thống chờ leo xong.
+- Quái của bậc không rơi đồ: món duy nhất là phần thưởng của bậc, hiện sẵn trên thẻ bậc từ đầu. Quà của bậc có phẩm định sẵn (`reward.tier`), bậc sau cao hơn bậc
+  trước để nghi lễ lớn dần. Quà truyện thường vẫn bốc phẩm ngẫu nhiên (1,6% ra phẩm Tiên ngay món đầu).
+- Phi Kiếm (trước tự có từ giây 0) thành phần thưởng của bậc 2: hai bậc đầu chỉ có đánh thường nên mới phải "chém từng phát".
+- Quái bậc 2 dùng đúng cách "nhiễm ma khí" của vòng ngoài tinh cầu (`mul` 1,5 + chữ "Ma nhiễm" + quầng tím), vẫn là quái hiền (bị đánh mới cắn lại). Đã thử cho
+  chúng tự lao vào người: người chơi kịch bản kẹt cạnh gốc cây 20 giây, chưa hạ được con nào thì gục ở giây 58. Người mới đứng đọc màn hình cũng sẽ gục như thế → bỏ.
+
+**Đề xuất các bậc sau** (chưa dựng, chờ chủ dự án duyệt danh sách và số). Nguyên tắc: mỗi bậc quái trâu hơn bậc trước khoảng 1,3 – 1,5 lần so với sức mình lúc đó
+(4 – 8 nhát một con), cả trận mất 20 – 35% máu, quà bậc sau phẩm cao hơn bậc trước; truyện giữ nguyên, chỉ đổi chỗ trận đánh và món quà.
+
+| Bậc | Ở đâu | Việc (có số đếm) | Thưởng (có nghi lễ) |
+|---|---|---|---|
+| 1 ✔ | Làng Thanh Khê | Hạ 1 Mộc linh (40 máu, 6 nhát) | Bố Y Đạo Bào, phẩm Phàm |
+| 2 ✔ | Làng Thanh Khê | Hạ 3 Ma nhiễm Mộc linh (60 máu, 8 nhát, cắn 7,5) | Pháp bảo Phi Kiếm, phẩm Linh |
+| 3 | Làng Thanh Khê, sau lễ linh căn và hái linh thảo | Đánh lui ma tộc: 4 Tiểu ma (Phi Kiếm một phát một con: thấy mình mạnh lên hẳn) rồi 1 con đầu đàn trâu (khoảng 8 nhát + 2 phát Phi Kiếm) | Ngọc bội phẩm Huyền + Hồng Ngọc cấp 5 |
+| 4 | Thiên Kiếm Phong | Nhận Thanh Phong Kiếm (có nghi lễ) rồi thử kiếm: hạ 5 Mộc linh, mỗi con 3 nhát thay vì 6 | Bố Hài phẩm Huyền; mở **Tự đánh** |
+| 5 | Bí cảnh Huyết Nha | Dọn hai phòng quái (đếm theo con) | Thiết Giới phẩm Địa |
+| 6 | Bí cảnh Huyết Nha | Hạ Phân thân Huyết Nha (700 máu; hiện một đòn của nó mất 60 – 88% máu, cần hạ xuống quanh 35%) | Pháp bảo Linh Châu (nghi lễ lớn) + mở **Tự hành** |
+
+Hết bậc 6 (khoảng phút 8 – 10) người chơi có 5 món đồ, 2 pháp bảo, biết đánh tay, rồi mới được Tự hành; phút 10 – 15 nhiệm vụ Hệ Thống dắt tiếp như hiện nay.
+Chỗ chưa có lời giải: 2 phút ngồi đả tọa ở tông môn (bước "Đả tọa tới Luyện Khí tầng 2") là quãng chết giữa chặng; rút ngắn thì đụng tốc độ tu luyện (việc 6), phải hỏi.
+
+Sửa kèm, có ích cả khi công tắc tắt: linh vật Hệ Thống không đậu đè lên khung thoại nữa (trước nó bay tới nút nằm dưới khung thoại, che nửa câu đang đọc); số Liên
+Kích và chữ "Bạo Nộ!" không treo cạnh khung thoại suốt lúc nói chuyện; bảng chào của Hệ Thống không chen vào giữa một chuỗi lệnh truyện (khe hở giữa câu thoại và
+nghi lễ); câu mô tả dài trong nghi lễ (pháp bảo) tự xuống dòng.
+
+Code: `src/game/story.js` (`bacOn`, bậc `rung()`, `pbHold()`, lệnh `spawn` có `near` / `loot` / `mul` + `tag`, lệnh `phap_bao`, `nodeath`), `src/ui/bac-hud.js` + `.css`
+(thẻ bậc), `src/game/phap-bao-grant.js` (`pbGive`: trao pháp bảo có nghi lễ), `src/game/pilot.js` `leoBac` + `auto.js` (khoá Tự hành, Tự đánh), `src/game/guide.js` (mũi
+tên chỉ con quái gần nhất), `src/game/he-thong.js` `needIntro`. Quay cảnh bằng đồng hồ ảo: `tools/do-don/quay-bac.mjs` (`KHONG_CHUP=1` chỉ đo mốc, `HAT=<số>` đổi số ngẫu nhiên).
+
+Còn phải làm trước khi bật cho mọi người: dịch chữ của chặng (en, zh-Hant); người chơi thử tự động (`tools/playtest.mjs`) biết tự tay đánh trong chặng; nhiệm vụ Hệ
+Thống đầu tiên ("Tới đá linh căn…") lùi sau chặng; dựng các bậc 3 – 6 sau khi chủ dự án duyệt.
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -168,3 +227,4 @@ quà triệu hồi đã có sân khấu rương riêng); viên rơi trên đất
 | 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
 | 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
 | 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Chờ chủ dự án chấm clip và duyệt bảng bậc, chưa đưa lên |

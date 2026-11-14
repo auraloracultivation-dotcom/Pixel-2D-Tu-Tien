@@ -35,7 +35,7 @@ export function createRewardShow(game) {
   const grid = size => { const dpr = window.devicePixelRatio || 1, m = Math.max(1, Math.round(C.px * dpr)), n = Math.round(size * dpr / m); return { n, css: n * m / dpr }; };
 
   // Tờ khai của một phần thưởng cho màn diễn. Món trang bị trong túi: tự khai từ món. Phần thưởng khác (pháp bảo trao trong truyện…): nơi gọi đưa sẵn
-  // { qua: { ray: màu vầng sáng, ink: màu tên, lvl, name, tag: nhãn phẩm, sub, lines: [{ text, color, main }], spr: { id, frame } hình trong data/art.json,
+  // { qua: { ray: màu vầng sáng, ink: màu tên, lvl, name, tag: nhãn phẩm, sub, lines: [{ text, color, main, desc }], spr: { id, frame } hình trong data/art.json,
   // gain: lực chiến đã tăng (null: không ghi) } }: coi như đã nhận xong, chỉ có một nút Tiếp tục.
   function khai(it) {
     if (it.qua) return { worn: true, cur: false, inBag: false, lines: [], ...it.qua };
@@ -66,7 +66,7 @@ export function createRewardShow(game) {
     name.style.color = K.ink; plate.style.setProperty('--g', K.ink); plate.style.marginTop = -Math.round(G.css / 2 - C.icon / 2 - 28) + 'px';   // bảng tên kéo lên dưới chân món, nằm trên phần đuôi tia đã thưa
     plate.append(name, sub);
     const stats = el('div', 'q-stats'), lines = [];
-    for (const l of K.lines) { const d = stats.appendChild(el('div', l.main ? 'q-main' : 'q-line', l.text)); if (l.color) d.style.color = l.color; lines.push(d); }
+    for (const l of K.lines) { const d = stats.appendChild(el('div', l.desc ? 'q-line q-desc' : l.main ? 'q-main' : 'q-line', l.text)); if (l.color) d.style.color = l.color; lines.push(d); }   // desc: câu mô tả dài (pháp bảo), cho xuống dòng
     const worn = K.worn, cur = K.cur, inBag = K.inBag, gain = K.gain ?? 0, noPow = K.gain == null;
     const pow = el('div', 'q-pow' + (gain > 0 ? ' up' : gain < 0 ? ' down' : '')), pv = el('b');
     pow.append(noPow ? X.worn : X.power + ' ', pv);

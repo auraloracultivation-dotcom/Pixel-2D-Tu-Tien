@@ -10,12 +10,12 @@ import { serve } from './may-chu.mjs';
 const PORT = +(process.env.CONG || 8786);
 const { chromium } = await import('playwright'); const stop = serve(PORT);
 const [out, name, q, secs = '70', dpr = '2'] = process.argv.slice(2), FPS = 60, NMAX = Math.round(+secs * FPS), dir = `${out}/${name}`;
-const STOP_AT = process.env.DUNG || 'g.save.step >= 1', NO_SHOT = process.env.KHONG_CHUP === '1';   // KHONG_CHUP=1: chỉ đo các mốc, không chụp khung (chạy nhanh)
+const STOP_AT = process.env.DUNG || 'g.save.step >= 1', NO_SHOT = process.env.KHONG_CHUP === '1', EVERY = +(process.env.CHUP_MOI || 1);   // KHONG_CHUP=1: chỉ đo các mốc, không chụp khung (chạy nhanh); CHUP_MOI=<n>: chỉ chụp mỗi n khung (xem lướt)
 mkdirSync(dir, { recursive: true });
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: +dpr, hasTouch: true, isMobile: true, locale: 'vi-VN' });
 await ctx.route(/posthog\.com|supabase\.co|workers\.dev|supabase-js/, r => r.abort());
-await ctx.addInitScript(() => { let s = 20261114; Math.random = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; });
+await ctx.addInitScript(h => { let s = h; Math.random = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }, +(process.env.HAT || 20261114));   // HAT=<số>: hạt số ngẫu nhiên khác (thử nhiều lần cho biết kết quả có ổn định không)
 const p = await ctx.newPage(); const errs = [];
 p.on('pageerror', e => { errs.push(e.message); console.log('LỖI JS', e.message, (e.stack || '').split('\n')[1]); });
 await p.clock.install();
@@ -30,7 +30,7 @@ await p.evaluate(STOP => {
   const sf = g.sfx; g.sfx = (n, v) => {
     if (n === 'pickup' && new Error().stack.includes('/ui/he-thong.js')) return;
     if (n) L.log.push([+now().toFixed(3), n, v ?? 1]);
-    if (n === 'swing') mark('nhat_dau'); if (n === 'hit' || n === 'crit') { mark('trung_dau'); L.hits++; } if (n === 'die') { mark('ha_dau'); (L.moc.nhat_moi_con ??= []).push(L.hits); L.hits = 0; } if (n === 'qua-mo') mark('mon_dau');
+    if (n === 'swing') mark('nhat_dau'); if (n === 'hit' || n === 'crit') { mark('trung_dau'); L.hits++; } if (n === 'die') { mark('ha_dau'); (L.moc.nhat_moi_con ??= []).push(L.hits); L.hits = 0; } if (n === 'qua-mo') { mark(L.moc.mon_dau ? 'mon_hai' : 'mon_dau'); } if (n === 'hurt') L.moc.bi_danh = (L.moc.bi_danh || 0) + 1; if (n === 'death' || n === 'revive') L.moc.guc = (L.moc.guc || 0) + 1;
     return sf(n, v);
   };
   g.persist = () => {};
@@ -39,6 +39,8 @@ await p.evaluate(STOP => {
   window.__drive = () => {
     const t = now(), pl = g.player, Q = document.getElementById('qua'), dlg = document.getElementById('dialog');
     for (const k of KEYS) inp.keys.delete(k); inp.held.delete('atk');
+    L.moc.mau_thap_nhat = Math.min(L.moc.mau_thap_nhat ?? 1e9, Math.round(pl.hp)); L.moc.mau_toi_da = Math.round(pl.maxHp);
+    if (g.save.bac?.i >= 1) mark('xong_bac_1'); if (g.save.bac?.i >= 2) mark('xong_bac_2'); if (g.save.phapBao?.items?.length) mark('co_phap_bao');
     if (g.save.step >= 1) mark('toi_da'); if (g.save.element) mark('co_linh_can'); if (Object.keys(g.save.equip).length) mark('mac_mon_dau'); if (g.map.id === 'thien-kiem-phong') mark('len_tong_mon');
     const ch = document.querySelector('#dlg-choices .choice');
     if (ch && ch.offsetParent) { L.pick ||= t; if (t - L.pick > 1.2) { ch.click(); L.pick = 0; } return; }
@@ -69,12 +71,12 @@ let n = 0, end = 0;
 while (n < NMAX && end < 90) {
   const st = await p.evaluate(() => { window.__drive(); const g = window.__game, L = window.__L; return { stop: !!L.stop(g) }; });
   await p.clock.runFor(1000 / FPS);
-  n++; if (!NO_SHOT) await p.screenshot({ path: `${dir}/f-${String(n).padStart(4, '0')}.jpg`, type: 'jpeg', quality: 92 });
+  n++; if (!NO_SHOT && n % EVERY === 0) await p.screenshot({ path: `${dir}/f-${String(n).padStart(4, '0')}.jpg`, type: 'jpeg', quality: 92 });
   if (st.stop) end++;   // đạt điều kiện dừng: quay thêm 1,5 giây
   if (n % (NO_SHOT ? 1800 : 300) === 0) console.log(n, JSON.stringify(await p.evaluate(() => ({ t: +((performance.now() - window.__L.t0) / 1000).toFixed(1), moc: window.__L.moc, step: window.__game.save.step, bac: window.__game.save.bac || null }))));
 }
-const res = await p.evaluate(() => ({ log: window.__L.log, moc: window.__L.moc, lc: document.getElementById('power')?.textContent, eq: Object.keys(window.__game.save.equip) }));
+const res = await p.evaluate(() => ({ log: window.__L.log, moc: window.__L.moc, lc: document.getElementById('power')?.textContent, eq: Object.keys(window.__game.save.equip), pb: (window.__game.save.phapBao?.items || []).map(i => `${i.type}:${i.grade}:${JSON.stringify(i.slots)}`) }));
 writeFileSync(`${dir}/sfx.json`, JSON.stringify({ fps: FPS, n, log: res.log }));
 writeFileSync(`${dir}/moc.json`, JSON.stringify(res.moc));
-console.log(name, n, 'khung ·', JSON.stringify(res.moc), '·', res.lc, '· mặc', res.eq.join(','), '· lỗi JS', errs.length, '·', [...new Set(res.log.map(l => l[1]))].join(','));
+console.log(name, n, 'khung ·', JSON.stringify(res.moc), '·', res.lc, '· mặc', res.eq.join(','), '· pháp bảo', res.pb.join(' '), '· lỗi JS', errs.length, '·', [...new Set(res.log.map(l => l[1]))].join(','));
 await b.close(); stop();

@@ -9,7 +9,7 @@ const total = s => (s.realm || 0) * 9 + (s.layer || 1) - 1;
 let picking = false;
 
 export function pbGrants(game, quiet = false) {
-  if (!pbOn(game) || !game.save || game.story?.rung?.()) return;   // đang leo bậc đầu game (story.js): pháp bảo đầu tiên là phần thưởng của một bậc (pbGive), các mốc khác chờ leo xong
+  if (!pbOn(game) || !game.save || game.story?.pbHold?.()) return;   // chặng leo bậc đầu game (story.js): pháp bảo đầu tiên là phần thưởng của một bậc (pbGive, có nghi lễ), các mốc khác chờ trao xong
   const D = PB(game), U = D.ui, s = game.save, st = pbState(game);
   st.got ??= [];
   const have = t => st.items.some(i => i.type === t), n = total(s);
@@ -43,7 +43,7 @@ export function pbGive(game, r) {
   const p0 = power(game), it = pbAdd(game, r.type, r.grade || 'pham'), T = pbType(game, it), G = pbGrade(game, it), U = PB(game).ui;
   game.refreshStats?.(); game.persist?.(); game.newItems = true;
   if (!rewardOn(game) || !game.rewardGive) { game.toast(U.got.replace('{name}', T.name), 3); game.sfx?.('rare'); return undefined; }
-  return game.rewardGive({ qua: { ray: G.color, ink: G.color, lvl: 1, name: T.name, tag: `Phẩm ${G.name}`, sub: U.title, spr: { id: T.icon, frame: T.icon_f || 0 }, lines: [{ text: T.desc, main: true }], gain: power(game) - p0 } });
+  return game.rewardGive({ qua: { ray: G.color, ink: G.color, lvl: 1, name: T.name, tag: `Phẩm ${G.name}`, sub: U.title, spr: { id: T.icon, frame: T.icon_f || 0 }, lines: [{ text: T.desc, desc: true }], gain: power(game) - p0 } });
 }
 
 function give(game, type, g, quiet) {

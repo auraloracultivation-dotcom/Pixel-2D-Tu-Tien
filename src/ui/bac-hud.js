@@ -18,7 +18,7 @@ export function createBacHud(game) {
   const tag = el('b', 'bh-tag'), goal = el('span', 'bh-goal'), cnt = el('em', 'bh-cnt'), gift = el('i', 'bh-gift'), lab = el('small', null, B.text.reward);
   const top = el('div', 'bh-row'), bot = el('div', 'bh-row'), right = el('span', 'bh-right'); right.append(lab, gift);
   top.append(tag, right); bot.append(goal, cnt); box.append(top, bot); document.body.append(box);
-  let key = '', n = -1, popT = -9, inT = -9, raf = 0;
+  let key = '', n = -1, popT = -9, inT = -9, raf = 0, fit = true;
 
   // Đọc trạng thái bậc (10 lần mỗi giây là đủ); có thay đổi thì ghi chữ, số đếm tăng thì cho nảy
   function sync() {
@@ -29,6 +29,7 @@ export function createBacHud(game) {
       key = k; n = G.n; inT = game.time;
       tag.textContent = B.text.chip.replace('{i}', R.i).replace('{n}', R.n);
       goal.textContent = (R.u.goal || '').replace(/\s*\(\{n\}\/\d+\)\s*$/, '');
+      goal.style.fontSize = ''; fit = false;   // tên việc dài quá bề ngang thẻ: chữ nhỏ lại một nấc (đo ở khung hình đầu thẻ hiện, hàm paint)
       // món sẽ nhận: mã gốc trang bị, hoặc { pb: loại pháp bảo } (hình là một khung trong tấm hình nhiều khung: vẽ lên canvas)
       const S = game.data.art.sprites, th = R.u.thuong, pb = th?.pb && game.data['phap-bao']?.types[th.pb], spr = typeof th === 'string' && (S['ui.vk-' + th] || S['ui.ic-' + game.data.items.bases[th]?.slot]);
       gift.textContent = ''; gift.style.backgroundImage = spr ? `url("${spr.file}?v=${spr.v}")` : '';
@@ -44,6 +45,7 @@ export function createBacHud(game) {
   function paint() {
     raf = 0;
     if (box.hidden) return;
+    if (!fit && goal.clientWidth) { fit = true; if (goal.scrollWidth > goal.clientWidth) goal.style.fontSize = '12px'; }
     const a = game.time - popT, b = game.time - inT, k = a < 0.28 ? 1 + 0.6 * (1 - a / 0.28) : 1, ki = Math.min(1, b / 0.2);
     set(cnt, 'transform', k > 1.001 ? `scale(${k.toFixed(3)})` : '');
     set(cnt, 'color', a < 0.28 ? '#fff' : '');

@@ -115,9 +115,9 @@ export function createGame(data, screen, input, ui, audio) {
     }
     game.refreshStats(); game.persist();
   };
-  // Phần thưởng cốt truyện: một món đồ định sẵn phẩm chất (r.base, r.rarity) và/hoặc đá tẩy luyện
+  // Phần thưởng cốt truyện: một món đồ định sẵn phẩm chất (r.base, r.rarity; r.tier: màu dòng định sẵn, không có thì bốc ngẫu nhiên) và/hoặc đá tẩy luyện
   game.giveReward = r => {
-    const it = r.base && rollItem(data, game.save, { base: r.base, rarity: r.rarity, lvl: totalLayer(game.save, data.realms) }), got = it && addItem(data, game.save, it);
+    const it = r.base && rollItem(data, game.save, { base: r.base, rarity: r.rarity, tier: r.tier, lvl: totalLayer(game.save, data.realms) }), got = it && addItem(data, game.save, it);
     if (got) game.newItems = (game.newItems || 0) + 1;
     if (r.stones) game.save.mats['tay-luyen-thach'] = (game.save.mats['tay-luyen-thach'] || 0) + r.stones;
     game.persist();

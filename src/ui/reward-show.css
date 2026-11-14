@@ -26,6 +26,7 @@
 #qua .q-main, #qua .q-line { font: 700 15px/20px var(--f-body); text-shadow: var(--ink); opacity: 0; white-space: nowrap; }
 #qua .q-main { color: #fff; }
 #qua .q-line { font-size: 14px; }
+#qua .q-desc { max-width: 290px; font: 600 13px/18px var(--f-body); color: #e6dcf6; white-space: normal; text-align: center; text-wrap: balance; }   /* câu mô tả (pháp bảo): dài thì xuống dòng, không tràn hai mép màn */
 #qua .q-pow { margin-top: 9px; font: 800 17px/22px var(--f-body); color: #ffd84a; text-shadow: var(--ink); opacity: 0; }
 #qua .q-pow.up b { color: #7dff8a; }
 #qua .q-pow.down b { color: #ff8a8a; }

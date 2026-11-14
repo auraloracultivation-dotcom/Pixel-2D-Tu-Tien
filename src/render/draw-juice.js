@@ -116,7 +116,9 @@ export function drawJuiceScreen(ctx, game, screen, t) {
   if (lw?.on) edgeGlow(ctx, w, h, '#c00818', H2.low.vig * (0.3 + 0.7 * Math.max(0, 1 - (game.time - lw.beat) / 0.4)), w * H2.vig_w);
   if (S.rageOn > 0) vignette(ctx, w, h, D.rage.color, 0.16 + 0.06 * Math.sin(t * 8));
   const C = D.combo;
-  if (S.combo >= C.show_from) {
+  const talk = game.dialog?.open || game.uiOpen === 'qua';   // đang nói chuyện, đang diễn nghi lễ nhận thưởng: thế giới đứng yên nên số Liên Kích, chữ mốc không tự tắt được, treo mãi cạnh khung thoại
+  if (talk) S.call = null;
+  if (S.combo >= C.show_from && !talk) {
     const tier = C.marks.filter(m => S.combo >= m).length, col = C.colors[Math.min(C.colors.length - 1, tier)];
     const a = Math.min(1, S.comboT / 0.6), s = 1 + S.comboPop * 3, x = w - 18, y = h * (C.y ?? 0.47), sz = C.size ?? 30;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);

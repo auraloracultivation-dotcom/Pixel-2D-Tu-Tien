@@ -1,6 +1,7 @@
 // Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
 import { pbGive } from './phap-bao-grant.js';
+import { scaleMobBy } from './mobs.js';
 // Chọn hệ linh căn ở đá linh căn. Bảng chọn bị đóng ngang (đổi bản đồ, bảng khác bật lên) thì hộp thoại trả null: hỏi lại tới khi chọn
 // (báo lỗi 13/11/2026: hai tài khoản người chơi đi qua bước này mà không có hệ, không hiện linh căn). Phẩm linh căn đã có thì giữ.
 async function chooseElement(g) {
@@ -41,6 +42,9 @@ export function createStory(game) {
     return s && B?.thay?.[s.id] && (P || game.save.flags['leo-bac']) && bacOn(game) ? { ...s, do: B.thay[s.id] } : s;
   };
   const rung = () => { const s = step(), P = pre(s), i = P ? subI(s) : 0; return P && i < P.length ? { i: i + 1, n: P.length, u: P[i] } : null; };   // bậc đang leo (null: không ở chặng leo bậc)
+  // Pháp bảo đầu tiên còn chờ trao trong truyện: đang leo bậc, hoặc vừa leo xong mà phần mở đầu thay thế chưa chạy tới lệnh phap_bao. Lúc đó chưa nhận pháp bảo
+  // theo mốc (phap-bao-grant.js pbGrants), kẻo món quà của bậc cuối tự rơi vào túi trước, mất nghi lễ.
+  const pbHold = () => { const s = step(), k = game.save.stepPaid; return !!rung() || !!(s && pre(s) && (B.thay?.[s.id] || []).some(a => a.phap_bao) && !(k?.s === s.id && k.k.phap_bao1)); };
   // Lệnh phát quà của một bước chỉ chạy một lần dù bước chạy lại từ đầu (mở lại game giữa bước). Trước 14/11/2026 mỗi lần mở lại game ở bước đánh lui ma tộc,
   // bước chờ vào bí cảnh… lại nhận thêm một viên ngọc cấp 5 và một món đồ. Ghi ở save.stepPaid = { s: mã bước, k: { lệnh + thứ tự: 1 } }, sang bước mới thì ghi đè.
   const GIVE = ['reward', 'gem', 'mats', 'pills', 'item', 'phap_bao'];
@@ -83,12 +87,14 @@ export function createStory(game) {
     else if (a.choose_element) await chooseElement(g);
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
-    else if (a.spawn) {   // at: ô trên bản đồ; near: [lệch ngang, lệch dọc] tính bằng ô so với chỗ người chơi đang đứng; hp, atk: máu, công riêng cho lứa quái này; loot: 0 = không rơi đồ
+    else if (a.spawn) {   // at: ô trên bản đồ; near: [lệch ngang, lệch dọc] tính bằng ô so với chỗ người chơi đang đứng; hp, atk: máu, công riêng cho lứa quái này; loot: 0 = không rơi đồ;
+      // mul + tag: quái nhiễm ma khí như vòng ngoài tinh cầu (máu, công gấp mul lần, chữ tag trước tên, quầng tím dưới chân)
       const T = g.map.T || 16, at = a.near ? [Math.floor(g.player.x / T) + a.near[0], Math.floor(g.player.y / T) + a.near[1]] : a.at;
       for (let i = 0; i < a.n; i++) {
         const p = g.map.freeNear(at[0], at[1], a.spread || 1, 6), m = g.spawn(a.spawn, p.x, p.y, { story: true });
         if (a.hp) m.hp = m.maxHp = a.hp;
         if (a.atk != null) m.def = { ...m.def, atk: a.atk };
+        if (a.mul) scaleMobBy(g, m, a.mul, a.tag);
         if (a.loot != null) m.lootMul = a.loot;
       }
     }
@@ -188,7 +194,7 @@ export function createStory(game) {
     },
     // Bậc đang leo của chặng leo bậc: { i: bậc thứ mấy, n: tổng số bậc, u: bậc (goal, until, thuong) }, null khi không ở chặng này. Đang leo bậc thì chưa dùng
     // Tự hành, Tự đánh (người chơi tự tay đánh): src/game/pilot.js, auto.js hỏi game.story.rung()
-    rung,
+    rung, pbHold,
     // Bước đang chạy và đã tới phần chờ điều kiện chưa (cho tự hành)
     current() { return game.save.stepDone ? unit() : null; },
     // NPC này đang được nhiệm vụ chờ nói chuyện?

@@ -12,7 +12,9 @@ export function htState(game) { return (game.htS ??= { idle: 0, deaths: [], last
 
 // Còn chưa chào: 'new' (người mới, bước truyện đầu) | 'old' | null
 export function needIntro(game) {
-  if (!game.save || game.save.ht?.intro || game.story?.rung?.()) return null;   // đang leo bậc đầu game (story.js rung): để người chơi đánh xong đã rồi mới chào
+  // đang leo bậc đầu game (story.js rung): để người chơi đánh xong đã rồi mới chào. Truyện đang chạy dở một chuỗi lệnh (busy: giữa hai câu thoại, sắp diễn nghi lễ
+  // nhận thưởng): chờ chuỗi đó xong, kẻo bảng chào chen vào khe hở nửa giây giữa câu thoại và nghi lễ (đo 14/11/2026)
+  if (!game.save || game.save.ht?.intro || game.story?.rung?.() || game.story?.busy) return null;
   return (game.save.step || 0) <= 2 ? 'new' : 'old';
 }
 export function doneIntro(game) { (game.save.ht ??= {}).intro = 1; game.persist?.(); }
