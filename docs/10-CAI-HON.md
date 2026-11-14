@@ -396,6 +396,21 @@ Hướng đề xuất sẽ soạn thành bảng trước / sau (chưa gửi ch�
 hiếm, có nghi lễ và báo cả máy chủ); quà gặp mặt và điểm nhiệm vụ bớt dồn dập; quà điểm danh đáng kể hơn so với triệu hồi; quái đầu game trâu hơn theo thang của
 việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đồ và Linh Thạch người chơi đang có giữ nguyên.
 
+**Bảng trước / sau đã gửi chủ dự án 14/11/2026 19:40** (tài liệu dự án `claude/de-xuat-viec-6-con-so-14-11.md`, bảng câu hỏi câu 18; chưa dòng nào được duyệt):
+
+| Mã | Dòng | Bây giờ (đo) | Đề xuất | Đụng |
+|---|---|---|---|---|
+| 18a | Triệu hồi chia bậc | 53 loại ngang nhau (1,9%); sáu giải lớn 11–13% số lượt; 142 nghìn Linh Thạch mỗi lượt | Thường 62% · Khá 26% · Hiếm 9,5% · Cực hiếm 2,2% · Truyền thuyết 0,3% (bảng nhẹ: 55 / 28 / 12 / 4 / 1); bảo hiểm 10 lượt ra Hiếm, 80 lượt ra Cực hiếm; khoảng 19 nghìn mỗi lượt | Máy chủ + nghi lễ |
+| 18b | Quà gặp mặt | 1.000 điểm (10 lượt phút đầu); người mới thật chỉ quay 2 lượt trong 11 phút | 300 điểm | Máy chủ |
+| 18c | Điểm danh | 500 mỗi ngày; mốc 7 ngày 3.000 | 5.000 + 100 điểm mỗi ngày; mốc 7 ngày 30.000 + 300 điểm; mốc 28 ngày 100.000; 112 ngày 300.000 | Máy chủ |
+| 18d | Luyện Khí | Tổng 1.281 linh khí (40 phút chơi); Trúc Cơ gấp 184 lần | Tầng sau gấp đôi tầng trước: 40 … 10.240, tổng 20.440 (2–3 ngày; Trúc Cơ gấp 12 lần). Bảng nhẹ: gấp 1,6, tổng 4.500 | Chỉ máy khách |
+| 18e | Quái đầu game | Từ bậc 4: 5 Tiểu ma tan trong 2,4 giây, 9 con bí cảnh 9 giây, trùm 16 giây; Mộc linh hoang đảo tông môn 1.161 máu | Bậc 4 và hai phòng bí cảnh lượt đầu 4–5 nhát một con; trùm lượt đầu gấp đôi máu; Mộc linh hoang đảo tông môn khoảng 240 máu | Dữ liệu |
+| 18f | Đồ rơi | Tiểu ma 7% rơi trang bị (gần 3 món mỗi phút khi treo), 60% là Phàm | Số món còn một phần ba, phân giải ra gấp ba nguyên liệu, bớt Phàm; AI đề nghị đo thêm rồi mới làm | Dữ liệu |
+| 18g | Bí kíp công pháp trùng | 1 cuốn / 5 phút (154 cờ `thu_nhieu` / 7 ngày) | 1,5 cuốn / phút, dồn 30 cuốn | Máy chủ |
+
+Số đo thêm 14/11 tối: người mới thật đầu tiên trong 11 phút nhận 22.000 Linh Thạch từ 20 thư nhiệm vụ Hệ Thống (11 nhiệm vụ) và 60.000 từ MỘT lượt triệu hồi (20 nghìn nhân ba);
+quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí / giây, bế quan lúc vắng 0,25 / giây (8 tiếng = 7.200), treo quái đảo đầu chừng 0,6 / giây.
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
