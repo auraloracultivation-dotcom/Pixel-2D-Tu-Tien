@@ -8,6 +8,8 @@ import { uiIco } from './self-gear.js';
 import { dailyEvent } from '../game/daily.js';
 import { pbSell, pbPrice } from '../game/phap-bao-drop.js';
 import { pbQuick } from './self-pb-quick.js';
+import { mungPbUp, mungPbDrill } from './mung-mon.js';
+import { power } from '../game/achieve.js';
 
 const PCT = new Set(['speed', 'atk_pct', 'hp_pct', 'crit', 'crit_dmg', 'cdr', 'dr', 'regen_pct', 'mp_regen']);
 const ico = (game, id, f, cls) => { const i = el('i', cls); i.style.backgroundImage = pbIcon(game, id, f || 0, 48); return i; };
@@ -65,9 +67,19 @@ export function pbSheet(game, st, box, changed, close) {
     btn(at === i ? U.worn.replace('{i}', i + 1) : U.wear_to.replace('{i}', i + 1), null, () => { pbWear(game, i, it.uid); changed(); }, false, at === i, 'mac-tot');
   }
   const upOff = (it.lv || 0) >= cap;
-  btn(U.up_btn, upOff ? U.cap : `${pbUpCost(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => { const m = pbUpgrade(game, it); if (!m) dailyEvent(game, 'pbup'); say(m || `${T.name} lên cấp ${it.lv}!`); }, upOff, false, 'cuong-hoa');
+  // màn mừng mạnh lên (src/ui/mung.js; công tắc mung tắt thì game.mung không có): nâng cấp lên +N, đục ô thành công
+  const txt = o => Object.fromEntries(Object.entries(o).map(([k, v]) => [D.stats[k] || k, `+${v}${PCT.has(k) ? '%' : ''}`])), worn = s.wear.includes(it.uid);
+  btn(U.up_btn, upOff ? U.cap : `${pbUpCost(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => {
+    const s0 = pbItemStats(D, it), p0 = power(game), m = pbUpgrade(game, it);
+    if (!m) { dailyEvent(game, 'pbup'); game.mung?.(mungPbUp(game, it, T, g, typeIcon(game, T, 96), txt(s0), txt(pbItemStats(D, it)), worn ? power(game) - p0 : 0, cap)); }
+    say(m || `${T.name} lên cấp ${it.lv}!`);
+  }, upOff, false, 'cuong-hoa');
   const drOff = it.slots >= max;
-  btn(U.drill_btn, drOff ? U.max : `${Math.round((D.drill.rate[it.slots - 1] ?? 0) * 100)}% · có ${s.stones || 0} đá`, () => say(pbDrill(game, it).msg), drOff || !(s.stones > 0), false, 'kham');
+  btn(U.drill_btn, drOff ? U.max : `${Math.round((D.drill.rate[it.slots - 1] ?? 0) * 100)}% · có ${s.stones || 0} đá`, () => {
+    const r = pbDrill(game, it);
+    if (r.ok) game.mung?.(mungPbDrill(game, it, g, typeIcon(game, T, 96)));
+    say(r.msg);
+  }, drOff || !(s.stones > 0), false, 'kham');
   if (s.wear.includes(it.uid)) btn(U.sell_btn, U.sell_worn, () => {}, true, false, 'ban');   // bán: món không mặc, chạm hai lần (src/game/phap-bao-drop.js)
   else btn(st.pbSell === it.uid ? U.sell_sure : U.sell_btn, `${pbPrice(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => {
     if (st.pbSell !== it.uid) { st.pbSell = it.uid; return changed(false); }

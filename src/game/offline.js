@@ -28,7 +28,9 @@ export async function offlineGains(game, lastSeen) {
   const layer = s.layer, realm = s.realm;
   const mul = homeOffline(game);
   const before = { realm: s.realm, layer: s.layer, qi: s.qi }, pb0 = pbOn(game) ? pbState(game).items.map(i => i.uid) : [];
+  game.mungMute = true;   // lên tầng trong lúc vắng: thẻ Xuất quan bên dưới kể từng tầng, thẻ mừng lên tầng (src/game/len-tang.js) khỏi hiện chồng
   const got = game.gainQi(cfg.meditate.qi_per_sec * o.rate * sec * mul, game.player.x, game.player.y, true);
+  game.mungMute = false;
   const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60);
   const capped = away > sec ? ` (tối đa ${maxH} tiếng)` : '';
   const full = s.layer >= game.data.realms.layers && s.qi >= qiNeed(s, game.data.realms);

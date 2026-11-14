@@ -59,6 +59,14 @@ export function drawJuiceWorld(ctx, game, t) {
         ctx.stroke();
       }
       ctx.restore();
+    } else if (q.k === 'pillar') {   // cột sáng lúc tu vi vừa lên: vọt lên từ chân người, to nhanh rồi thu hẹp dần; viền màu cảnh giới, lõi trắng, đỉnh tan vào trời
+      const x = q.on.x, y = q.on.y + 2, h = q.h * easeOut(Math.min(1, k * 5)), w = q.w * (k < 0.12 ? k / 0.12 : 1 - 0.9 * (k - 0.12) / 0.88);
+      for (const [ww, c, al] of [[w, q.color, 0.55], [w * 0.42, '#ffffff', 0.85]]) {
+        const g = ctx.createLinearGradient(0, y - h, 0, y);
+        g.addColorStop(0, rgba(c, 0)); g.addColorStop(0.45, rgba(c, al * 0.6 * f)); g.addColorStop(1, rgba(c, al * f));
+        ctx.fillStyle = g; ctx.fillRect(x - ww / 2, y - h, ww, h);
+      }
+      glow(ctx, x, y - 3, q.w * 1.1 * (1 - k * 0.5), q.color, 0.7 * f);
     } else if (q.k === 'orb' || q.k === 'ember') {
       const a = q.k === 'orb' ? Math.min(1, q.t * 6) : f;
       glow(ctx, q.x, q.y, q.k === 'orb' ? 4 : 2.2, q.color, a);

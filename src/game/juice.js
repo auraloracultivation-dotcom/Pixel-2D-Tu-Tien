@@ -75,6 +75,18 @@ export function juiceCast(game, s, id) {
   game.screen.shake(C.shake, 0.25);
 }
 
+// Tu vi vừa lên (src/game/len-tang.js): trận đồ nở dưới chân, cột sáng vọt lên từ chỗ đứng (bám theo người), tia toả quanh thân, vòng sóng, rồi đốm sáng
+// bay lên quanh người thêm một lúc. big: đột phá cảnh giới (mọi thứ lớn hơn mung.world.big lần). color: màu cảnh giới.
+export function juiceUp(game, big, color) {
+  const C = J(game)?.mung?.world; if (!C) return;
+  const p = game.player, k = big ? C.big : 1;
+  push(game, { k: 'rune', x: p.x, y: p.y, r: C.rune * k, life: C.rune_life * k, color, rot: Math.random() * TAU });
+  push(game, { k: 'pillar', on: p, w: C.pillar_w * k, h: C.pillar_h * k, life: C.pillar_life * k, color });
+  push(game, { k: 'burst', x: p.x, y: p.y - 9, n: big ? 12 : 8, rot: Math.random() * TAU, len: C.burst * k, core: 6 * k, life: 0.32, color, crit: big });
+  push(game, { k: 'ring', x: p.x, y: p.y - 8, r: C.ring * k, life: 0.5, color });
+  juice(game).up = { t: C.ember_t * k, n: C.ember_n * k, color };
+}
+
 function combo(game) {
   const S = juice(game), C = J(game).combo;
   S.combo = S.comboT > 0 ? S.combo + 1 : 1; S.comboT = C.window; S.comboPop = 0.12;
@@ -116,6 +128,9 @@ export function updateJuice(game, dt) {
     if (S.rageOn <= 0) S.rage = 0;
     if (Math.random() < dt * 30) push(game, { k: 'ember', x: p.x + (Math.random() - 0.5) * 16, y: p.y - Math.random() * 6, vx: (Math.random() - 0.5) * 10, vy: -30 - Math.random() * 30, life: 0.7, color: Math.random() < 0.5 ? D.rage.color : D.rage.core });
   } else if (S.idle > D.rage.idle) S.rage = Math.max(0, S.rage - D.rage.decay * dt);
+  if (S.up && (S.up.t -= dt) > 0) {   // vừa lên tầng / đột phá: đốm sáng bay lên quanh người
+    if (Math.random() < dt * S.up.n) push(game, { k: 'ember', x: p.x + (Math.random() - 0.5) * 26, y: p.y - Math.random() * 12, vx: (Math.random() - 0.5) * 8, vy: -26 - Math.random() * 34, life: 0.95, color: Math.random() < 0.3 ? '#ffffff' : S.up.color });
+  } else if (S.up) S.up = null;
   // khói vòng sau đạn chiêu của mình, bụi khi lướt
   if ((S.trailT -= dt) <= 0) {
     S.trailT = D.trail.every;

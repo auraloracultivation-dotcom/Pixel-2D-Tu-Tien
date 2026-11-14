@@ -32,6 +32,9 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
 - 14/11 11:05 (sau khi xem clip việc 3, 4, 5, 5b): "Đưa lên, sau đó tiếp tục làm! Nếu có vấn đề thì tạo bảng câu hỏi, không để vấn đề ngủ quên. Tôi rất thích cách
   thiết kế của bạn, phải nói là rất thích, tiếp tục cố gắng, dùng linh hồn mà hôm qua tôi truyền đạt để tiếp tục xây" (AI hiểu là: đưa lên những thứ đã xem clip và
   đã xong: sửa lỗi, việc 3, việc 4; việc 5 và 5b làm cho xong rồi đưa lên; việc cần quyết gom vào bảng câu hỏi `claude/bang-cau-hoi.md` trong tài liệu dự án).
+- 14/11 17:25: "Tiếp đi, cái tẩy luyện với nâng cấp cũng có hiệu ứng chúc mừng nha. Nói chung mạnh lên là phải chúc mừng. Xong rồi làm tiếp kế hoạch đi nha"
+- 14/11 17:38: "Với cả hiệu ứng thăng tiểu cảnh giới và đại cảnh giới" (AI hiểu là: mọi lúc người chơi mạnh lên đều phải có màn mừng nhìn thấy được; làm trước bốn chỗ
+  chủ dự án nêu: tẩy luyện, nâng cấp, lên tầng, đột phá cảnh giới. Thành việc 4b bên dưới; "nâng cấp" AI làm cả hai nghĩa: cường hoá trang bị và nút Nâng cấp của pháp bảo).
 
 ## Câu cái hồn
 
@@ -49,6 +52,7 @@ dài. Bắt đầu yếu rồi mạnh dần, không cho "làm thần" sẵn ở 
 | 2 | Cảm giác ra đòn | Khựng, bật lùi, loé đúng chỗ trúng, số nảy, thanh máu tụt thấy rõ, tiếng chém, nhát kết liễu. Clip trước, chủ dự án ưng mới đưa lên |
 | 3 | Cảm giác bị đánh | Quái ra dấu trước khi đánh; viền đỏ, giật lùi, rung, tiếng đau, thanh máu rung; máu thấp có tiếng tim đập |
 | 4 | Nghi lễ nhận thưởng | Nền tối, món đồ giữa màn hình, vầng sáng xoay, "Chúc mừng nhận được…", chỉ số hiện lần lượt, nút Mặc ngay; phẩm càng cao diễn càng lớn; món cực hiếm báo cả máy chủ |
+| 4b | Mừng mạnh lên | Mỗi lần người chơi mạnh lên đều có màn mừng: cường hoá, tẩy luyện, nâng cấp và đục ô pháp bảo (không dừng tay), lên tầng (thẻ trên đầu nhân vật, thang chín ô), đột phá cảnh giới (nghi lễ cả màn). Việc càng khó diễn càng lớn |
 | 5 | Mười lăm phút đầu kiểu leo bậc | Cầm kiếm chém ngay phút đầu; diệt đủ số (bộ đếm) → một món trang bị kèm nghi lễ → con mạnh hơn một chút; quái đầu game 4–6 nhát mới chết, đánh mình thấy đau; chưa mở Tự hành trong chặng này. Cần chủ dự án duyệt danh sách bước + bảng số |
 | 5b | Lý do quay lại ngày mai | Trước khi rời game thấy: quà ngày mai, bậc tiếp theo còn bao xa, bế quan lúc vắng được gì |
 | 6 | Con số cả game | Triệu hồi chia bậc (giải lớn hiếm), đồ rơi ít mà đáng nhặt, thưởng Hệ Thống bớt dồn dập, lên cảnh giới chậm lại, quái trâu hơn. Đồ đang có giữ nguyên. Bảng trước / sau, chủ dự án duyệt, "áp lên" |
@@ -162,6 +166,74 @@ Code: `src/game/reward.js` (món nào diễn kiểu nào; `rewardItem(game, món
 Chưa làm trong việc 4: báo cả máy chủ khi có người nhận món cực hiếm (đụng máy chủ, phải hỏi); nghi lễ cho phần thưởng không phải trang bị (Linh Thạch, ngọc,
 quà triệu hồi đã có sân khấu rương riêng); viên rơi trên đất của món quý chưa có cột sáng (đồ tự bay vào người sau 0,45 giây nên khó thấy).
 
+## Việc 4b: mừng mạnh lên (kịch bản từng nhịp, 14/11/2026)
+
+Chủ dự án 14/11 17:25: "cái tẩy luyện với nâng cấp cũng có hiệu ứng chúc mừng… nói chung mạnh lên là phải chúc mừng"; 17:38: "cả hiệu ứng thăng tiểu cảnh giới và
+đại cảnh giới". Câu cái hồn nói "mỗi bậc đi lên đều được nhìn thấy": trước việc này, mạnh lên chỉ là một dòng chữ.
+
+Bản cũ (đọc từ code, chưa quay): cường hoá / tẩy luyện thành công có tiếng búa, một hình nhỏ 48 điểm trên ô đồ và một dòng chữ trong tấm chi tiết; chữ "Lực chiến ▲"
+nổ ngoài bản đồ nên bị bảng che. Nâng cấp pháp bảo: tiếng búa và dòng "Hộ Thuẫn lên cấp 5!". Lên tầng: dòng báo "Đột phá! Luyện Khí tầng 4" 2,2 giây, một vòng tròn xanh
+0,8 giây; quà tu vi và chiêu khảm mới là hai dòng báo khác xếp hàng đè lên nhau giữa màn, che cả nhân vật. Qua thiên kiếp: chớp trắng, một vòng tròn, dòng báo
+"Độ kiếp thành công! Trúc Cơ tầng 1" 3 giây; 3,2 giây sau mới có một dòng báo dài kể cảnh giới gia trì và quà.
+
+Ba màn, cùng một ngôn ngữ hình (dải chữ khung ảnh GPT, vầng sáng điểm ảnh của việc 4, chữ "a → b", dòng cuối luôn là "Lực chiến ▲ +N" chạy số):
+
+**1. Trong bảng: cường hoá, tẩy luyện, luyện ★, nâng cấp pháp bảo, đục ô** (không dừng tay: lớp mừng không nhận chạm, bấm tiếp được ngay, lần thành công kế diễn lại từ đầu)
+
+| Mốc (giây từ lúc bấm) | Người chơi phải thấy |
+|---|---|
+| 0,00 | Tiếng búa (tẩy luyện: tiếng lấp lánh). Nền tối nhẹ 50%. Món bật ra giữa màn, loé trắng 0,14 giây; tia lửa toé lên rồi rơi (rèn) hoặc bụi sao màu dòng mới bay lên (tẩy luyện, đục ô) |
+| 0,05 → 0,33 | Vầng sáng nở sau món (màu: cường hoá cam lửa, tẩy luyện theo màu dòng mới, pháp bảo theo màu phẩm của món) |
+| 0,14 | Số **+N** (đục ô: **◆N**, luyện: **★N**) từ to gấp 2,4 đập vào góc món; tiếng mừng theo độ lớn |
+| 0,30 | Dải chữ thả xuống: "Cường hóa thành công" / "Tẩy luyện thành công" / "Nâng cấp thành công" / "Khai khiếu thành công"; mốc thì "Cường hóa +5!", "Hộ Thuẫn +5!", "Dòng Thiên!" |
+| 0,46 → | Từng dòng trên tấm nền tối, cách nhau 0,15 giây, mỗi dòng một nốt đàn: "Công 13 → 14"; tẩy luyện: dòng mới to, màu của dòng, "Phẩm món: Địa → Thiên" khi phẩm lên, "Đã mở đủ 4 dòng" |
+| sau dòng cuối | "Lực chiến ▲ +N" chạy số trong 0,4 giây (món không đang mặc thì không có dòng này) |
+| + 0,55 … 1,1 | Giữ rồi tan trong 0,22 giây |
+
+Việc càng khó diễn càng lớn (4 nấc: vầng sáng 176 → 288 điểm màn, 12 → 34 hạt, chớp trắng tới 30%, tiếng dày dần, giữ lâu hơn): cường hoá theo cấp vừa lên (+1…+4 nhỏ, +5…+7, +8…+10,
+từ +11 lớn nhất; cứ 5 cấp là một mốc); tẩy luyện theo màu dòng (Phàm–Huyền nhỏ, Địa, Thiên, Tiên / Thượng Cổ lớn nhất; dòng cuối của món lớn thêm một nấc); nâng cấp pháp bảo
+(bấm liền nhiều cấp) cấp thường nhỏ nhất, mốc 5 cấp một nấc, chạm cấp tối đa của cảnh giới thêm nấc nữa; đục ô theo số ô vừa có (ô 4 chỉ 10% nên lớn nhất). Hỏng thì không mừng.
+
+**2. Lên tầng (thăng tiểu cảnh giới)**: không dừng game, đang đánh quái vẫn đánh.
+
+| Mốc (giây từ lúc linh khí đầy) | Người chơi phải thấy | Đo được trong phòng quay |
+|---|---|---|
+| 0,00 | Trên nhân vật: trận đồ nở dưới chân, cột sáng vọt lên (0,6 giây), tia toả, vòng sóng, rung nhẹ; tiếng mộc cầm "lên tầng". Trên đầu cột sáng: dải chữ "Đột phá" thả xuống | Cột sáng cao tới ngay đáy thẻ |
+| 0,10 | Tên tầng "Luyện Khí tầng 6" từ to đập xuống (0,2 giây) | |
+| 0,30 | Thang chín ô (cùng kiểu thang của thẻ Hẹn ngày mai): ô đã đạt vàng sẵn, ô vừa đạt loé trắng, nảy to rồi thành vàng; một nốt đàn. Lên nhiều tầng một lúc: mỗi ô cách 0,12 giây, nốt cao dần | Nốt đàn rơi ở 0,32 giây |
+| 0,50 → | Thẻ mở dần xuống: "Sinh lực 157 → 170 · Công 21 → 23", "Quà tu vi: 500 Linh Thạch · 1 Đá Khai Khiếu"; đủ chín tầng có thêm "Đủ chín tầng: đầy linh khí là độ thiên kiếp" | |
+| ~0,77 | "Lực chiến ▲ +N" chạy số (chữ nổ giữa màn sẵn có không báo lần nữa) | 0,77 giây |
+| ~2,4 → 2,6 | Thẻ tan. Sau đó mới tới các dòng báo khác nổ ra cùng lúc (chiêu khảm mới, pháp bảo mới): mừng trước, lời dặn sau, không che nhân vật đang toả sáng | |
+
+Thẻ đặt theo ĐÁY (45% bề cao màn, ngay trên đầu nhân vật) nên không che nhân vật, không đè thanh trên; máy thấp (360 × 640) thì lấn lên vùng nút chứ không che người. Màu
+theo cảnh giới (hào quang của cảnh giới ấy; Luyện Khí: màu linh khí). Bế quan lúc vắng không hiện thẻ này (thẻ Xuất quan đã kể từng tầng).
+
+**3. Đột phá cảnh giới (thăng đại cảnh giới)**: nghi lễ cả màn sau khi qua thiên kiếp; thế giới dừng lại (đang Tự hành / Tự đánh thì không dừng, nghi lễ tự đóng).
+
+| Mốc (giây từ lúc qua kiếp) | Người chơi phải thấy | Đo được trong phòng quay |
+|---|---|---|
+| 0,00 | Chớp trắng, rung, tiếng chiêng trầm (sẵn có); nền tối tới 80% trong 0,25 giây | |
+| 0,10 → 0,40 | Vầng sáng 16 tia, vòng hạt đôi, màu của cảnh giới MỚI nở ra (Trúc Cơ lam băng, Kim Đan vàng, Nguyên Anh tím…) | Rộng 288 điểm màn |
+| 0,15 | Nhân vật (đúng bộ đang mặc) bật ra giữa vầng sáng, loé trắng, có viền mực; đốm sáng bay lên quanh người suốt nghi lễ | Cao 84–90 điểm màn |
+| 0,32 | Dải chữ "Độ kiếp thành công" trên đầu | |
+| 0,58 | **Tên cảnh giới** cỡ 34 từ to gấp 2,7 đập xuống dưới chân: chớp trắng lần hai, hạt toé, bảng tên nảy; đàn tranh rải hai quãng tám có chiêng | Tiếng rơi ở 0,58 giây |
+| 0,82 | "Luyện Khí → Trúc Cơ" | |
+| 1,02 → | Từng dòng cách 0,15 giây, mỗi dòng một nốt đàn đi lên: "Sinh lực 208 → 232", "Công 29 → 34", "Trúc Cơ gia trì: Máu, Công gốc +5% · Linh lực +10%", "Quà đột phá: 10.000 Linh Thạch · 3 Đá Khai Khiếu" | Dòng đầu 1,03 giây |
+| ~1,7 | "Lực chiến ▲ +N" chạy số | 1,68 giây (4 dòng) |
+| ~2,5 | Nút **Tiếp tục** sáng theo nhịp; trước đó chạm màn là hiện hết luôn (0,6 giây đầu chưa nhận chạm) | |
+| Bấm Tiếp tục | Nghi lễ tan 0,25 giây; ngoài bản đồ nhân vật vẫn toả sáng: trận đồ và cột sáng lớn gấp 1,7 lần lúc lên tầng, đốm sáng bay lên, tiếng hào quang dâng. 1,5 giây sau mới tới các dòng báo đã giữ (pháp bảo mới, chiêu khảm mới) | |
+
+Màn thấp thì cả khối tự thu lại cho nút không lọt khỏi màn (thử 360 × 640). Đã thử chữ tiếng Anh và tiếng Trung phồn thể (câu gia trì dài tự xuống dòng).
+
+Code: `src/ui/mung.js` (màn trong bảng) + `src/ui/mung-mon.js` (tờ khai cho từng việc; nơi gọi: `src/ui/bag-detail.js`, `src/ui/self-pb-page.js`); `src/game/len-tang.js`
+(lên tầng, đột phá: việc phải làm lúc tu vi vừa lên và tờ khai; nơi gọi: `game.gainQi`, `tribulation.finish`) + `src/ui/mung-canh.js` (thẻ lên tầng, nghi lễ đột phá);
+hiệu ứng trên nhân vật: `src/game/juice.js juiceUp` + cột sáng trong `src/render/draw-juice.js`; kiểu `src/ui/mung.css`; số, chữ, tiếng `data/juice.json → mung`.
+Công tắc `mung.on` **đang TẮT** (chỉ máy mở địa chỉ có `?mung=1` thấy; tắt lại `?mung=0`): tắt thì mọi thứ y như cũ. Quay cảnh: `tools/do-don/quay-mung.mjs`
+(`VIEC=cuong | tay | luyen | pbup | pbduc | tang | canh`, thử máy thấp `MAN=360x640`, thử bản dịch `NGON=en`).
+
+Chưa làm trong việc 4b (cùng một câu "mạnh lên là phải chúc mừng", làm tiếp khi chủ dự án ưng kiểu này): nâng cấp động phủ, linh thú lên cấp / tiến hoá / ghép sao,
+công pháp lên tầng, khảm và ghép ngọc, mặc món mạnh hơn từ túi. Cảnh quay lên tầng đang là nhân vật đứng yên; chưa quay cảnh lên tầng giữa trận đánh thật.
+
 ## Việc 5: mười lăm phút đầu kiểu leo bậc (bản dựng thử hai bậc đầu + đề xuất, 14/11/2026)
 
 Lời chủ dự án: "chém từng phát mới chết 1 con slime, và nhận thưởng 1 trang bị, xong đi chém con mạnh hơn slime một chút, đạt số lượng thì nhận thưởng".
@@ -240,6 +312,17 @@ bậc. Bậc 4 không dùng Mộc linh vì Mộc linh hoang ở Thiên Kiếm Ph
 Tự hành dắt, trong bậc tự tay đánh). Chữ đã dịch en, zh-Hant. Chưa có: clip bậc 3–6 cho chủ dự án (mới có ảnh), người chơi tự tay đi trong bí cảnh chưa được thử
 bằng kịch bản (mới thử bằng Tự hành).
 
+**Người thật đầu tiên đi chặng leo bậc (tạo tài khoản 14/11 17:34):** chơi 11 phút, qua bậc 1–4, ngồi đả tọa lên tầng 2, rồi dừng ở bước truyện "Vào Bí cảnh Huyết Nha
+(cổng phía đông)" lúc 17:52, chưa vào bí cảnh. Soi lại thì đúng chỗ ấy có **lỗ hổng do chặng leo bậc gây ra**: bước này không có ô đích nên mũi tên chỉ đường không
+hiện, mà Tự hành thì chặng leo bậc đang khoá (trước 12:07 người mới có Tự hành dắt tới cổng). Người mới phải tự tìm cổng cách bồ đoàn 28 ô chỉ bằng mấy chữ "cổng
+phía đông". **Đã sửa 14/11 19:1x:** bước `nv-4` thêm ô đích là cổng bí cảnh (`data/story.json`, `"target": [61, 48]`), mũi tên chỉ đường hiện ngay khi nhận việc (thử bằng
+kịch bản: mũi tên chỉ đúng tâm cổng; Tự hành của người đã mở vẫn đi theo cổng như cũ). Rà luôn các bước khác của đoạn đang khoá Tự hành thì thấy bốn bước nữa không
+có mũi tên: gặp Lạc Tuyết / Tiêu Dao, hái linh thảo, đánh lui ma tộc ở làng, và đoạn "Dọn từng phòng, hạ Huyết Nha" trong bí cảnh sau khi xong bậc 5. Mũi tên chỉ đường
+(`src/game/guide.js`) giờ theo đúng việc bước đang chờ, như Tự hành vẫn làm: gặp người → người đó, nhặt đồ → món gần nhất, dọn quái / hạ trùm → con quái của truyện
+hoặc của phòng gần nhất, hết quái thì giữa phòng bí cảnh chưa vào (`story.goal()` trả thêm `talk`, `collect`, `hunt`). Đã thử bằng kịch bản ở cả sáu chỗ, 0 lỗi; kiểm
+tra và chơi thử tự động đạt. Bài học: khoá Tự hành ở đâu thì từng bước truyện trong đoạn ấy phải có mũi tên hoặc số đếm; rà bằng cách tự tay đi (không Tự hành) qua
+từng bước, không chỉ thử trong bậc.
+
 ## Việc 5b: lý do quay lại ngày mai (bản dựng thử thẻ "Hẹn ngày mai", 14/11/2026)
 
 Game đã có sẵn ba lý do để quay lại nhưng không ai chỉ cho người chơi trước lúc họ rời đi: bế quan khi vắng (linh khí chảy vào người tối đa 8 tiếng,
@@ -317,3 +400,4 @@ việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đ�
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Đủ sáu bậc, bật `bac.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
+| 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chờ chủ dự án xem clip rồi nói "đưa lên" |

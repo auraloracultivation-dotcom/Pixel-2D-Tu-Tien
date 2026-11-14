@@ -8,8 +8,8 @@ import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { zonePower } from './mob-power.js';
 import { startGhost, ghostTick, afterGhost } from './ghost.js';
-import { updateBullets, updateFx, addFx, addNumber, dist } from './combat.js';
-import { addQi, realmLabel, totalLayer, rollRoot } from './stats.js';
+import { updateBullets, updateFx, addNumber, dist } from './combat.js';
+import { addQi, totalLayer, rollRoot } from './stats.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
@@ -25,6 +25,7 @@ import { updateInteract, updatePortals, updatePickups } from './interact.js';
 import { updateStrikes } from './strikes.js';
 import { updateZones } from './zones.js';
 import { checkUnlocks } from './skills.js';
+import { layerUp } from './len-tang.js';
 import { ensureTech, techDrop, gainTechExp, learnTech } from './techniques.js';
 import { createTribulation } from './tribulation.js';
 import { ensureCave, matDrop } from './cave.js';
@@ -136,14 +137,8 @@ export function createGame(data, screen, input, ui, audio) {
     gainPetExp(game, amount);
     gainCompExp(game, amount);
     if (!quiet) addNumber(game, x, y - 18, `+${got} linh khí`, '#bff4ff');
-    if (broke > 0) {
-      game.refreshStats(); game.player.hp = game.player.maxHp;
-      checkUnlocks(game);
-      addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
-      game.toast(`Đột phá! ${realmLabel(game.save, data.realms)}`, 2.2);
-      game.sfx('layer_up');
-      game.screen.shake(3, 0.3);
-    } else if (broke === -1 && !game.capWarned) {
+    if (broke > 0) layerUp(game, broke);   // lên tầng: hồi đầy máu, quà tu vi, mừng (src/game/len-tang.js)
+    else if (broke === -1 && !game.capWarned) {
       game.capWarned = true;
       game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
