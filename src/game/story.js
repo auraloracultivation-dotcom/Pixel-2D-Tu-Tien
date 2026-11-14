@@ -19,6 +19,10 @@ export function createStory(game) {
   const st = { busy: false, counters: {}, events: {} };
 
   const step = () => steps[game.save.step];
+  // Lệnh phát quà của một bước chỉ chạy một lần dù bước chạy lại từ đầu (mở lại game giữa bước). Trước 14/11/2026 mỗi lần mở lại game ở bước đánh lui ma tộc,
+  // bước chờ vào bí cảnh… lại nhận thêm một viên ngọc cấp 5 và một món đồ. Ghi ở save.stepPaid = { s: mã bước, k: { lệnh + thứ tự: 1 } }, sang bước mới thì ghi đè.
+  const GIVE = ['reward', 'gem', 'mats', 'pills', 'item'];
+  const paid = s => (game.save.stepPaid?.s === s.id ? game.save.stepPaid : (game.save.stepPaid = { s: s.id, k: {} })).k;
 
   async function runStep() {
     const s = step();
@@ -27,7 +31,7 @@ export function createStory(game) {
     if (s.map && game.map.id !== s.map && !game.save.stepDone) await game.travel(s.map, null, false);
     if (!game.save.stepDone) {
       st.busy = true;
-      try { for (const a of s.do || []) await act(a); }
+      try { const seen = {}; for (const a of s.do || []) await act(a, s, seen); }
       catch (e) { console.error('story', s.id, e); }   // một lệnh truyện lỗi: vẫn mở khoá, không kẹt "đang có chuyện" mãi (góp ý #55 kẹt map)
       finally { st.busy = false; }
       game.save.stepDone = true;
@@ -44,8 +48,9 @@ export function createStory(game) {
     for (const a of s.do || []) if (a.pickups === item) for (const [x, y] of a.at.slice(0, left)) game.addPickup(item, x, y);
   }
 
-  async function act(a) {
-    const g = game;
+  async function act(a, s, seen) {
+    const g = game, kind = GIVE.find(k => k in a);
+    if (kind) { const k = paid(s), key = kind + (seen[kind] = (seen[kind] || 0) + 1); if (k[key]) return; k[key] = 1; }   // quà của bước này phát rồi: không phát lại
     if (a.fly) await g.travel(a.fly, a.spawn, true, { text: a.text, with: a.with, kind: a.kind });
     else if (a.say) await g.dialog.say(a.say.map(([who, text, opt]) => [who === 'he-thong' ? g.data['he-thong']?.short || g.data['he-thong']?.name || 'Hệ Thống' : who ? (g.data.npcs[who]?.name || who) : '', fill(text), opt]));   // 'he-thong': Hệ Thống Tu Tiên nói (data/he-thong.json)
     else if (a.sys_ask) {   // câu hỏi lựa chọn của hệ thống (chủ dự án 06/11/2026): chọn xong hệ thống đáp một câu
@@ -82,7 +87,7 @@ export function createStory(game) {
     else if (a.weapon) { g.save.weapon = a.weapon; g.refreshStats(); g.checkUnlocks(); }
     else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
-    else if (a.reward) g.giveReward(a.reward);
+    else if (a.reward) await g.giveReward(a.reward);   // chờ người chơi xem xong nghi lễ nhận thưởng rồi mới nói tiếp
     else if (a.mats) for (const [k, n] of Object.entries(a.mats)) g.save.mats[k] = (g.save.mats[k] || 0) + n;
     else if (a.gem) g.save.gems[a.gem] = (g.save.gems[a.gem] || 0) + 1;   // ngọc ("loại:cấp"), cốt truyện người mới
     else if (a.pills) for (const [k, n] of Object.entries(a.pills)) g.save.pills[k] = (g.save.pills[k] || 0) + n;
@@ -125,7 +130,10 @@ export function createStory(game) {
       // bản lưu đã qua bước đá linh căn (bước 1) mà chưa có hệ: hỏi chọn hệ ngay khi vào game
       if (game.save.step > 1 && !game.data.elements[game.save.element]) { st.busy = true; return chooseElement(game).finally(() => { st.busy = false; }).then(ok => ok && this.start()); }
       const s = step();
-      if (s && !s.until.never && !s.once) game.save.stepDone = false;
+      if (s && !s.until.never && !s.once) {
+        if (game.save.stepDone) { const k = paid(s), seen = {}; for (const a of s.do || []) { const kind = GIVE.find(x => x in a); if (kind) k[kind + (seen[kind] = (seen[kind] || 0) + 1)] = 1; } }   // bản lưu cũ: bước đã chạy xong một lần thì quà coi như đã phát
+        game.save.stepDone = false;
+      }
       return runStep().then(restorePickups);
     },
     get busy() { return st.busy; },
