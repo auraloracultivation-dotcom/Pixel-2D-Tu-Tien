@@ -1,0 +1,16 @@
+/* Thẻ bậc của chặng leo bậc đầu game (src/ui/bac-hud.js): góc trái, ngay dưới khung nhân vật, bên trái bảng nút. Chuyển động do JS đặt theo giờ game,
+   ở đây chỉ có bố cục. Hai dòng: "Bậc 1/2 · Thưởng [món]" rồi việc phải làm và số đếm. */
+#bac-hud { position: fixed; left: calc(env(safe-area-inset-left) + 6px); top: calc(env(safe-area-inset-top) + 113px); z-index: 6; display: flex; flex-direction: column; justify-content: center; gap: 3px;
+  box-sizing: border-box; width: 190px; height: 54px; padding: 0 3px; border: 8px solid transparent; border-image: url("../../assets/art/ui-k-btn.png") 12 fill / 8px / 0 stretch; pointer-events: none;
+  transform-origin: left center; font: 700 12px/1 var(--f-body); color: #f3e8cf; text-shadow: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030; white-space: nowrap; }
+#bac-hud[hidden] { display: none; }
+#bac-hud .bh-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-width: 0; }
+#bac-hud .bh-tag { color: #ffd98a; font: 800 12px/1 var(--f-body); }
+#bac-hud .bh-goal { font: 700 14px/1 var(--f-body); overflow: hidden; text-overflow: ellipsis; }
+#bac-hud .bh-cnt { flex: none; display: inline-block; min-width: 28px; font: 800 18px/1 var(--f-body); font-style: normal; color: #7dff8a; text-align: right; transform-origin: right center; }
+#bac-hud .bh-right { display: flex; align-items: center; gap: 4px; }
+#bac-hud .bh-right[hidden] { display: none; }
+#bac-hud small { font: 600 10px/1 var(--f-body); color: #d9cfee; }
+#bac-hud .bh-gift { position: relative; display: block; width: 22px; height: 22px; background: center / contain no-repeat; }
+#bac-hud .bh-gift canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); image-rendering: pixelated; }
+body:has(.panel:not([hidden])) #bac-hud, body:has(#bag:not([hidden])) #bac-hud, body:has(#dialog:not([hidden])) #bac-hud, body:has(#qua:not([hidden])) #bac-hud { display: none; }

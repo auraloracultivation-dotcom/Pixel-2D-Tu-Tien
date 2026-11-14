@@ -10,6 +10,12 @@ import { startBayCanh } from './ui/bay-canh-start.js';
 import { startDeathAsk } from './ui/death-ask.js';
 import { createFrameDim } from './ui/frame-dim.js';
 import { createManToi } from './ui/man-toi.js';
+import { createRewardShow } from './ui/reward-show.js';
+import { createBacHud } from './ui/bac-hud.js';
+import { createHenMai } from './ui/hen-mai.js';
+import { createMung } from './ui/mung.js';
+import { createMungCanh } from './ui/mung-canh.js';
+import { startHenMai } from './game/hen-mai.js';
 import { watchTuVao, tuVao } from './ui/tu-vao.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
 import { drawTrip } from './render/flight.js';
@@ -85,7 +91,7 @@ async function boot() {
   screen = createScreen(canvas, data.config, perf.dpr);
   const input = createInput(canvas);
   const audio = createAudio(data.sounds, data['tieng-chieu']?.sfx);   // tiếng chung + tiếng riêng từng chiêu (data/tieng-chieu.json)
-  const ui = createHud(audio);
+  const ui = createHud(audio, data.config.dialog);
   const game = createGame(data, screen, input, ui, audio);
   createBag(game);
   createSkillsPanel(game);
@@ -136,6 +142,10 @@ async function boot() {
 
   createFrameDim(game);   // dải trên, dải dưới tối đi, phần giữa là khung chơi và khung quay video (src/ui/frame-dim.js)
   createManToi(game);   // nút Tắt màn khi treo game: lớp đen kín màn hình, game vẫn chạy nhưng thôi vẽ (src/ui/man-toi.js)
+  createBacHud(game);   // thẻ bậc của chặng leo bậc đầu game (src/ui/bac-hud.js, docs/10-CAI-HON.md việc 5)
+  createHenMai(game); startHenMai(game);   // thẻ "Hẹn ngày mai": bế quan được gì, quà ngày mai, bậc kế tiếp (docs/10-CAI-HON.md việc 5b)
+  createRewardShow(game);   // nghi lễ nhận thưởng: nền tối, vầng sáng xoay sau món đồ (src/ui/reward-show.js, docs/10-CAI-HON.md việc 4)
+  createMung(game); createMungCanh(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); docs/10-CAI-HON.md việc 4b
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập

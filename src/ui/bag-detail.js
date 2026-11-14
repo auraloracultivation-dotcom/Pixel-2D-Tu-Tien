@@ -18,6 +18,7 @@ import { power } from '../game/achieve.js';
 import { buyBlock } from './buy-mats.js';   // ô mua nguyên liệu nâng cấp ở cuối tấm chi tiết, mua theo số lượng
 import { trial } from '../game/autoequip.js';
 import { gemIcon } from './gem-icon.js';
+import { mungEnhance, mungReroll, mungRefine } from './mung-mon.js';   // màn mừng mạnh lên (src/ui/mung.js): có game.mung thì diễn thay tiếng báo cũ
 
 const bonusText = (s, v) => ({ lifesteal: `hút máu ${v}%`, thorns: `phản đòn ${v}%`, regen: `hồi ${v} máu/giây`, regen_pct: `hồi ${v}% máu/giây`, dr: `giảm sát thương ${v}%`, mp_pct: `linh lực tối đa +${v}%`, mp_regen: `hồi linh lực +${v}%/giây` })[s] || null;
 
@@ -151,23 +152,27 @@ export function renderDetail(game, st, box, changed, close) {
   else if (ec) {
     const can = Object.entries(ec.cost).every(([m, n]) => (save.mats[m] || 0) >= n) && (save.lingshi || 0) >= ec.coins;
     btn(`Cường hóa +${(it.plus || 0) + 1} (${costText(data, ec.cost)}${ec.coins ? `, ${ec.coins.toLocaleString('vi-VN')} ${data.shop.name}` : ''}, ${Math.round(ec.rate * 100)}%)`, wait(async () => {
+      const m0 = mainStats(data, save, it), p0 = power(game, playerStats(save, data));
       const res = await kyEnhance(game, it.uid);
       if (!res) { changed(); return; }
       st.msg = res === 'up' ? `Thành công! +${it.plus}` : res === 'drop' ? `Hỏng, tụt còn +${it.plus}` : 'Hỏng, giữ nguyên cấp';
-      game.sfx(res === 'up' ? 'anvil' : 'hurt'); changed();
+      if (res === 'up' && game.mung) game.mung(mungEnhance(game, it, m0, mainStats(data, save, it), worn ? power(game, playerStats(save, data)) - p0 : 0));
+      else game.sfx(res === 'up' ? 'anvil' : 'hurt');
+      changed();
     }), !can);
   }
   const rc = refineCost(data, it), rm = data.gear.refine.mat;   // pháp bảo: luyện bằng mảnh
-  if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
+  if (isArt(data, it)) btn(rc == null ? `Luyện: đã tối đa ★${it.pb}` : `Luyện ★${(it.pb || 0) + 1} (${rc} ${data.cave.materials[rm].name}, có ${save.mats[rm] || 0})`, wait(async () => { const p0 = power(game, playerStats(save, data)); if (await kyRefine(game, it)) { st.msg = `Luyện thành công! ★${it.pb}`; if (game.mung) game.mung(mungRefine(game, it, worn ? power(game, playerStats(save, data)) - p0 : 0)); else game.sfx('levelup'); } changed(); }), rc == null || (save.mats[rm] || 0) < rc);
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
-    const p0 = power(game, playerStats(save, data));
+    const p0 = power(game, playerStats(save, data)), q0 = quality(data, it);
     const res = await kyReroll(game, it.uid);
     if (!res || res.full) { changed(); return; }
     const t = tierOf(data, res.line.t), gain = Math.round(power(game, playerStats(save, data)) - p0);   // góp ý #77: hiện rõ món mạnh lên bao nhiêu (phẩm có thể tụt khi dòng mới màu thấp)
     st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
-    game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal'); changed();
+    if (game.mung) game.mung(mungReroll(game, it, res, q0, worn ? gain : 0)); else game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal');
+    changed();
   }), full || (!free && (stones < cost || (save.lingshi || 0) < fee)));
   const iron = data.cave.salvage_iron[it.rarity] || 0;
   if (it.el) {   // đổi hệ bằng Đạo Vận Thạch (mọi món); món Đạo Vận cũ: phân giải, bán cho tiệm phải bấm hai lần (không rao chợ)

@@ -130,10 +130,10 @@ function drawMob(ctx, m, t, game) {
   if (m.wboss && drawMang(ctx, game, m, t)) return;   // đầu Cửu Đầu Thôn Thiên Mãng (draw-mang.js)
   const squash = m.def.ai === 'passive' ? Math.abs(Math.sin(m.hop)) * 0.15 : 0;
   const r = m.r, wind = m.state === 'windup';
-  if (!(m.def.look && game.data.art.sprites['mob.' + m.id]?.w)) shadow(ctx, m.x, m.y + 1, r);   // quái có hình: bóng đổ theo dáng (draw-mob-sprite.js)
-  if (m.tele) drawTele(ctx, m);
-  if (m.rare) drawRareGlow(ctx, m, t);
-  if (m.elite) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
+  if (!game.topPass && !(m.def.look && game.data.art.sprites['mob.' + m.id]?.w)) shadow(ctx, m.x, m.y + 1, r);   // quái có hình: bóng đổ theo dáng (draw-mob-sprite.js)
+  if (m.tele && !game.topPass) drawTele(ctx, m);
+  if (m.rare && !game.topPass) drawRareGlow(ctx, m, t);
+  if (m.elite && !game.topPass) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
   if (m.def.look && drawMobSprite(ctx, game, m, t, wind)) {   // quái đã có hình pixel (tools/art/mobs.py)
   } else if (m.def.person) {   // đấu sĩ luận võ: chibi pixel theo màu áo tóc (chưa có hình thì hình người, đai màu theo đối thủ)
     if (!(m.def.rival && drawRivalSprite(ctx, game, m, t, wind))) {
@@ -179,7 +179,7 @@ function drawMob(ctx, m, t, game) {
     ctx.restore();
   }
   if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - (m.top || r * 2) - 3 + Math.sin(t * 6 + i * 2), 1); }
-  if (m.slowT > 0) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
+  if (m.slowT > 0 && !game.topPass) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
   drawMobBar(ctx, game, m);   // thanh máu, lực chiến (draw-mob-bar.js)
 }
 
@@ -315,7 +315,7 @@ export function drawWorld(game, screen, t) {
   }
   drawPxGround(ctx, game); drawAim(ctx, game);   // hiệu ứng chiêu điểm ảnh lớp dưới chân (vfx/draw-pfx.js); giữ / kéo nút chiêu: khung đúng hình và tầm của chiêu trên mặt đất
   drawSongTu(ctx, game, t);
-  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 <= corpseLife(game));
+  if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 - (c.wait || 0) <= corpseLife(game));
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
   const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].filter(e => !game.bay?.on || (e[0] === 'h' && !e[1].khach) || (e[0] === 'm' && e[1].dummy)).sort((a, b) => a[1].y - b[1].y);   // bày cảnh: chỉ vẽ đồ (và Mộc Nhân để kéo), ẩn người, quái
   for (const [k, e] of ents) {
@@ -359,7 +359,7 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
   drawBloom(ctx, game, screen, lights);
-  screen.worldTransform(); drawSlashes(ctx, game);   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước
+  screen.worldTransform(); drawSlashes(ctx, game); game.topPass = 1; for (const m of game.mobs) if (!m.dead && m.jolt && game.time - m.jolt.t < (game.data.juice.hit2?.top_t || 0)) drawMob(ctx, m, t, game); for (const c of game.corpses || []) if (c.wait && game.time - c.t0 < c.wait + 0.1) drawCorpse(ctx, game, c); game.topPass = 0;   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước; quái vừa trúng đòn của mình vẽ lại đè lên vũ khí và vệt chém trong top_t giây (src/game/hit-feel.js)
   drawVfx(ctx, game, t); screen.screenTransform();   // hiệu ứng chiêu: lớp trên cùng, đè nhà cửa, người (quy tắc chiêu 05/11/2026)
   if (game.flashT > 0) {   // chớp dịu (config.comfort): màu ấm, không trắng toát cả màn
     const c = game.data.config.comfort || {};

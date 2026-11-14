@@ -5,6 +5,8 @@ import { daoLuHere } from './affinity.js';
 import { comfort } from './decor.js';
 import { awayGifts } from './offgift.js';
 import { noteOffline } from './retreat.js';
+import { maiOn, restSpan } from './hen-mai.js';
+import { pbOn, pbState, pbType } from './phap-bao.js';
 
 // Hệ số bế quan ở nhà: đồ trang trí cộng phần trăm, đạo lữ ở nhà thì song tu
 function homeOffline(game) {
@@ -25,13 +27,26 @@ export async function offlineGains(game, lastSeen) {
   noteOffline(game, sec);   // cộng vào giờ bế quan tích luỹ (src/game/retreat.js)
   const layer = s.layer, realm = s.realm;
   const mul = homeOffline(game);
-  game.gainQi(cfg.meditate.qi_per_sec * o.rate * sec * mul, game.player.x, game.player.y, true);
+  const before = { realm: s.realm, layer: s.layer, qi: s.qi }, pb0 = pbOn(game) ? pbState(game).items.map(i => i.uid) : [];
+  game.mungMute = true;   // lên tầng trong lúc vắng: thẻ Xuất quan bên dưới kể từng tầng, thẻ mừng lên tầng (src/game/len-tang.js) khỏi hiện chồng
+  const got = game.gainQi(cfg.meditate.qi_per_sec * o.rate * sec * mul, game.player.x, game.player.y, true);
+  game.mungMute = false;
   const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60);
   const capped = away > sec ? ` (tối đa ${maxH} tiếng)` : '';
   const full = s.layer >= game.data.realms.layers && s.qi >= qiNeed(s, game.data.realms);
   const up = (s.layer !== layer || s.realm !== realm ? ' Tu vi đã tăng tầng!' : '') + (full ? ' Linh khí đã đầy tới đỉnh, cần độ thiên kiếp.' : '');
   const home = mul > 1 ? ` Bế quan ở động phủ nên nhanh gấp ${String(Math.round(mul * 100) / 100).replace('.', ',')}.` : '';
-  await game.dialog.say([['', `Bạn bế quan ${h ? h + ' giờ ' : ''}${m} phút khi vắng mặt${capped}. Linh khí chảy vào người.${home}${up}`], ...awayGifts(game, sec)]);
+  const gifts = awayGifts(game, sec);
+  // Màn "Xuất quan" (docs/10-CAI-HON.md việc 5b, src/ui/hen-mai.js): thay dòng thoại bằng thẻ cho thấy từng tầng sáng lên; công tắc mai tắt thì như cũ
+  let shown = false;
+  if (maiOn(game) && game.xuatQuanShow) {
+    await new Promise(r => setTimeout(r, 250));   // chờ một nhịp: mốc vừa qua có thể bật bảng chọn pháp bảo
+    for (let i = 0; i < 300 && game.dialog?.open; i++) await new Promise(r => setTimeout(r, 200));   // đang chọn pháp bảo: chọn xong mới mở thẻ
+    const pb = pbOn(game) ? pbState(game).items.filter(i => !pb0.includes(i.uid)).map(i => pbType(game, i).name) : [];   // pháp bảo nhận ở các mốc vừa qua
+    try { await game.xuatQuanShow({ ...restSpan(game.data.realms, before, got), time: `${h ? h + ' giờ ' : ''}${m} phút`, home: mul > 1 ? String(Math.round(mul * 100) / 100).replace('.', ',') : '', gifts, pb }); shown = true; }
+    catch (e) { console.error('xuat quan', e); }   // thẻ lỗi thì báo bằng dòng thoại như cũ, không để kẹt lúc vào game
+  }
+  if (!shown) await game.dialog.say([['', `Bạn bế quan ${h ? h + ' giờ ' : ''}${m} phút khi vắng mặt${capped}. Linh khí chảy vào người.${home}${up}`], ...gifts]);
   await letter(game, away);
 }
 

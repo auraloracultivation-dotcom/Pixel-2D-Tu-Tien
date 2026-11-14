@@ -2,6 +2,8 @@
 // ui.digits*, đau mắt; muốn bật lại thì đặt config.numbers.pixel = true).
 import { spriteImage } from './sprites.js';
 import { drawDissolved } from './dither.js';
+import { numPop } from '../game/hit-feel.js';
+import { hurtPop } from '../game/hurt-feel.js';
 
 const INK = '#1b1830';
 const SHEET = { '#fff': 'ui.digits', '#ffd84a': 'ui.digits-crit' };
@@ -33,8 +35,8 @@ export function drawNumbers(ctx, game) {
     const a = Math.min(1, (0.75 - n.t) * 4);
     if (game.data.config.numbers?.pixel && pixelNumber(ctx, game, n, 1 - a)) continue;
     ctx.globalAlpha = n.gain ? a * 0.85 : a;   // dòng nhận linh khí, linh thạch: nhỏ và dịu hơn số sát thương
-    const r = n.ref ? n.v / n.ref : 0, k = n.ref ? scaleOf(r) : 1, huge = r >= 10;
-    ctx.font = n.v != null || /^\d+$/.test(n.text) ? `${huge ? 900 : 800} ${n.ref ? Math.round(9 * k * (n.big ? 1.15 : 1) * 10) / 10 : n.big ? 12 : 9}px system-ui, sans-serif` : `600 ${n.big ? 11 : n.gain ? 7 : 8}px system-ui, sans-serif`; ctx.textAlign = 'center';   // n.v: số sát thương rút gọn (253Tr)
+    const r = n.ref ? n.v / n.ref : 0, k = (n.ref ? scaleOf(r) : 1) * numPop(game, n), huge = r >= 10;   // numPop: số của mình nảy to lúc vừa hiện (src/game/hit-feel.js)
+    ctx.font = n.v != null || /^\d+$/.test(n.text) ? `${huge ? 900 : 800} ${n.ref ? Math.round(9 * k * (n.big ? 1.15 : 1) * 10) / 10 : Math.round((n.big ? 12 : 9) * hurtPop(game, n) * 10) / 10}px system-ui, sans-serif` : `600 ${n.big ? 11 : n.gain ? 7 : 8}px system-ui, sans-serif`; ctx.textAlign = 'center';   // n.v: số sát thương rút gọn (253Tr)
     ctx.lineWidth = huge ? 3.5 : k < 1 ? 1.6 : 2.5; ctx.strokeStyle = INK; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = huge ? '#ff8a1e' : n.color; ctx.fillText(n.text, n.x, n.y);
   }
   ctx.globalAlpha = 1;

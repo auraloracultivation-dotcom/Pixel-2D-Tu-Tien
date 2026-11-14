@@ -1,19 +1,23 @@
 // Nhận pháp bảo theo mốc tu vi (chủ dự án 12/11/2026 04:07, data/phap-bao.json → grants) và báo chiêu khảm mới mở.
 // Gọi lúc vào game (đủ mốc thì nhận bù, không chọn) và mỗi lần lên tầng, qua bước truyện (src/game/skills.js checkUnlocks).
 // save.phapBao.got: chỉ số mốc đã nhận; save.phapBao.mods: chiêu khảm đã biết (để chỉ báo chiêu mới).
-import { PB, pbOn, pbState, pbAdd, pbType } from './phap-bao.js';
+import { PB, pbOn, pbState, pbAdd, pbType, pbGrade } from './phap-bao.js';
+import { power } from './achieve.js';
+import { rewardOn } from './reward.js';
 
 const total = s => (s.realm || 0) * 9 + (s.layer || 1) - 1;
 let picking = false;
 
 export function pbGrants(game, quiet = false) {
   if (!pbOn(game) || !game.save) return;
+  const hold = game.story?.pbHold?.();   // chặng leo bậc đầu game (story.js): pháp bảo là phần thưởng của một bậc thì chờ truyện trao (pbGive, có nghi lễ), chưa nhận theo mốc
   const D = PB(game), U = D.ui, s = game.save, st = pbState(game);
   st.got ??= [];
   const have = t => st.items.some(i => i.type === t), n = total(s);
   let changed = false;
   D.grants.forEach((g, k) => {
     if (st.got.includes(k) || !(n >= g.at || (g.step != null && (s.step || 0) >= g.step))) return;
+    if (hold && g.type && hold.has(g.type) && !have(g.type)) return;
     if (g.stones) { st.got.push(k); st.stones = (st.stones || 0) + g.stones; changed = true; if (!quiet) game.toast(U.stones_got.replace('{n}', g.stones), 2.4); return; }
     if (g.pick) {
       const left = g.pick.filter(t => !have(t));
@@ -32,6 +36,16 @@ export function pbGrants(game, quiet = false) {
   });
   if (changed) { game.refreshStats?.(); game.persist?.(); }
   newMods(game, quiet);
+}
+
+// Pháp bảo trao hẳn hoi trong truyện (lệnh phap_bao ở data/story.json, chặng leo bậc): thêm vào túi pháp bảo (tự mặc vào ô trống) rồi diễn nghi lễ nhận thưởng
+// (ui/reward-show.js). Trả lời hứa, xong khi người chơi đóng nghi lễ. Đã có món loại này thì thôi. r: { type, grade }
+export function pbGive(game, r) {
+  if (!pbOn(game) || pbState(game).items.some(i => i.type === r.type)) return undefined;
+  const p0 = power(game), it = pbAdd(game, r.type, r.grade || 'pham'), T = pbType(game, it), G = pbGrade(game, it), U = PB(game).ui;
+  game.refreshStats?.(); game.persist?.(); game.newItems = true;
+  if (!rewardOn(game) || !game.rewardGive) { game.toast(U.got.replace('{name}', T.name), 3); game.sfx?.('rare'); return undefined; }
+  return game.rewardGive({ qua: { ray: G.color, ink: G.color, lvl: 1, name: T.name, tag: `Phẩm ${G.name}`, sub: U.title, spr: { id: T.icon, frame: T.icon_f || 0 }, lines: [{ text: T.desc, desc: true }], gain: power(game) - p0 } });
 }
 
 function give(game, type, g, quiet) {

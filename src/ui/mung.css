@@ -1,0 +1,82 @@
+/* Màn mừng mạnh lên (docs/10-CAI-HON.md việc 4b). Ba lớp cùng một kiểu, đều mang lớp "mung":
+     #mung       mừng trong bảng: cường hoá, tẩy luyện, luyện pháp bảo (src/ui/mung.js): không nhận chạm, tự tan
+     #mung-tang  thẻ lên tầng (src/ui/mung-canh.js): hiện phía trên nhân vật lúc đang đánh, không che, không nhận chạm, tự tan
+     #mung-canh  nghi lễ đột phá cảnh giới sau thiên kiếp (src/ui/mung-canh.js): cả màn, có nút Tiếp tục
+   Mọi chuyển động do JS đặt theo giờ game từng khung: ở đây chỉ có bố cục và kiểu chữ, không dùng transition / animation. Dải chữ và nút dùng khung ảnh GPT
+   của chủ dự án (ui-k-bang, ui-k-btn); vầng sáng, tia lửa, bụi sao, thang tầng vẽ bằng điểm ảnh, màu phẳng. */
+.mung { user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  --ink: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030, 1px 1px #1b1030, -1px -1px #1b1030, 1px -1px #1b1030, -1px 1px #1b1030, 0 2px 0 rgba(10, 4, 20, .9), 0 0 6px rgba(10, 4, 20, .95); }
+.mung[hidden] { display: none; }
+#mung, #mung-canh { position: fixed; inset: 0; z-index: 87; overflow: hidden; }
+#mung { pointer-events: none; }
+#mung-canh { touch-action: none; }
+.mung .m-dim { position: absolute; inset: 0; background: #07040f; opacity: 0; }
+.mung .m-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+.mung .m-col { position: absolute; left: 0; right: 0; transform-origin: 50% 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+.mung .m-stage { position: relative; flex: none; }
+.mung .m-rays, .mung .m-fx { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; }
+.mung .m-ico { position: absolute; left: 50%; top: 50%; background: center / contain no-repeat; }
+.mung .m-ico canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); image-rendering: pixelated; }   /* hình là một khung trong tấm hình nhiều khung */
+.mung .m-badge { position: absolute; left: 50%; top: 50%; margin: -52px 0 0 14px; min-width: 44px; text-align: center; font: 800 30px/32px var(--f-body); color: #ffe27a;
+  text-shadow: 2px 0 #3a1505, -2px 0 #3a1505, 0 2px #3a1505, 0 -2px #3a1505, 2px 2px #3a1505, -2px -2px #3a1505, 2px -2px #3a1505, -2px 2px #3a1505, 0 4px 0 rgba(10, 4, 20, .85);
+  transform-origin: 50% 60%; opacity: 0; white-space: nowrap; }
+.mung .m-badge:empty { display: none; }
+.mung .m-title { position: absolute; left: 50%; z-index: 2; display: flex; justify-content: center; box-sizing: border-box; height: 34px; border: solid transparent; border-width: 0 54px;
+  border-image: url("../../assets/art/ui-k-bang.png") 0 150 fill / 0 54px / 0 stretch; font: 700 15px/32px var(--f-body); color: #ffe9a8; white-space: nowrap;
+  text-shadow: 1px 0 #2a0f3c, -1px 0 #2a0f3c, 0 1px #2a0f3c, 0 -1px #2a0f3c; opacity: 0; }
+.mung .m-title span { margin: 0 -20px; }   /* hai đầu dải có khoảng trống trong lòng: chữ lấn vào cho dải ôm vừa chữ */
+/* Tấm nền tối dưới các dòng chữ: chữ màu phẩm (đỏ, tím…) nằm trên tia sáng cùng màu vẫn đọc được; hai mép tan dần, hai vạch mảnh màu của màn mừng (--g) */
+.mung .m-lines { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; box-sizing: border-box; min-width: 236px; max-width: 100%; padding: 4px 44px 5px;
+  background: linear-gradient(90deg, rgba(7, 4, 15, 0), rgba(7, 4, 15, .78) 22%, rgba(7, 4, 15, .78) 78%, rgba(7, 4, 15, 0)); opacity: 0; }
+.mung .m-lines::before, .mung .m-lines::after { content: ""; position: absolute; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--g, #ffe9a8) 28%, var(--g, #ffe9a8) 72%, transparent); opacity: .8; }
+.mung .m-lines::before { top: 0; }
+.mung .m-lines::after { bottom: 0; }
+.mung .m-lines:empty { display: none; }
+.mung .m-line { font: 700 15px/20px var(--f-body); color: #fff; text-shadow: var(--ink); opacity: 0; white-space: nowrap; }
+.mung .m-line.big { font-size: 19px; line-height: 25px; }
+.mung .m-line.soft { font-size: 13.5px; line-height: 18px; color: #d6ecff; }   /* cảnh giới gia trì: dòng phụ */
+.mung .m-line.gift { font-size: 13.5px; line-height: 19px; color: #ffe27a; }   /* quà tu vi, quà đột phá */
+.mung .m-line.wrap { max-width: min(360px, 94vw); white-space: normal; text-align: center; text-wrap: balance; }   /* câu dài (cảnh giới gia trì, quà): xuống dòng ở dấu · giữa các ý (trong một ý là dấu cách không ngắt), không tràn hai mép màn */
+.mung .m-line s { text-decoration: none; color: #cfc4e4; }
+.mung .m-line i { font-style: normal; color: #cfc4e4; }
+.mung .m-line b { color: #7dff8a; }
+.mung .m-pow { position: relative; z-index: 1; margin-top: 5px; font: 800 17px/22px var(--f-body); color: #ffd84a; text-shadow: var(--ink); opacity: 0; }
+.mung .m-pow b { color: #7dff8a; }
+.mung .m-pow[hidden] { display: none; }
+
+/* Thẻ lên tầng: dải chữ "Đột phá" → tên tầng → thang chín ô (cùng kiểu thang của thẻ Hẹn ngày mai: ô đã đạt vàng, ô vừa đạt sáng lên) → chỉ số, quà */
+#mung-tang { position: fixed; left: 0; right: 0; z-index: 87; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+#mung-tang .m-title { position: relative; left: auto; flex: none; }
+#mung-tang .m-lines { padding: 0 30px 6px; gap: 1px; }
+#mung-tang .t-top { margin-top: -7px; padding: 10px 30px 0; }   /* tấm trên: tên tầng, thang ô (vạch mảnh phía trên); tấm dưới: chỉ số, quà, lực chiến (vạch mảnh phía dưới) */
+#mung-tang .t-top::after, #mung-tang .t-more::before { display: none; }
+#mung-tang .m-pow { margin-top: 2px; }
+#mung-tang .t-name { font: 800 21px/27px var(--f-body); color: #fff3b8; text-shadow: var(--ink); white-space: nowrap; opacity: 0; }
+#mung-tang .t-lad { display: flex; gap: 4px; margin: 4px 0 5px; opacity: 0; }
+#mung-tang .t-lad i { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; box-sizing: border-box; border: 2px solid #3a2a5c; background: #120a22; color: #6f6190;
+  font: 800 11px/1 var(--f-body); font-style: normal; }
+#mung-tang .t-lad i.on { border-color: #fff0b0; background: #ffcf5a; color: #3a2400; }
+#mung-tang .m-line { font-size: 14px; line-height: 19px; }
+body.trip #mung-tang { display: none !important; }   /* đang bay trong chuyến du hành: không hiện thẻ (như thanh trên, dòng báo) */
+
+/* Nghi lễ đột phá cảnh giới: nền tối → vầng sáng màu cảnh giới mới → nhân vật giữa màn → dải chữ → tên cảnh giới đập xuống → từng dòng → lực chiến → nút */
+#mung-canh .c-hero { position: absolute; transform-origin: 50% 100%; opacity: 0;   /* viền mực quanh dáng người: áo sáng màu vẫn tách khỏi lõi trắng của vầng sáng */
+  filter: drop-shadow(1px 0 #24143c) drop-shadow(-1px 0 #24143c) drop-shadow(0 1px #24143c) drop-shadow(0 -1px #24143c); }
+#mung-canh .c-hero canvas { display: block; image-rendering: pixelated; }
+#mung-canh .c-plate { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; min-width: 250px; max-width: 100%; padding: 2px 44px 5px; opacity: 0;
+  background: linear-gradient(90deg, rgba(7, 4, 15, 0), rgba(7, 4, 15, .8) 22%, rgba(7, 4, 15, .8) 78%, rgba(7, 4, 15, 0)); }
+#mung-canh .c-plate::before, #mung-canh .c-plate::after { content: ""; position: absolute; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--g) 28%, var(--g) 72%, transparent); opacity: .85; }
+#mung-canh .c-plate::before { top: 0; }
+#mung-canh .c-plate::after { bottom: 0; }
+#mung-canh .c-name { font: 800 34px/42px var(--f-body); letter-spacing: 1px; color: var(--g); white-space: nowrap; transform-origin: 50% 55%;
+  text-shadow: 2px 0 #1b1030, -2px 0 #1b1030, 0 2px #1b1030, 0 -2px #1b1030, 2px 2px #1b1030, -2px -2px #1b1030, 2px -2px #1b1030, -2px 2px #1b1030, 0 4px 0 rgba(10, 4, 20, .9), 0 0 10px rgba(10, 4, 20, .95); }
+#mung-canh .c-sub { font: 600 13px/17px var(--f-body); color: #e6dcf6; text-shadow: var(--ink); white-space: nowrap; opacity: 0; }
+#mung-canh .m-lines { margin-top: 8px; padding: 0; max-width: none; background: none; opacity: 1; }
+#mung-canh .m-lines::before, #mung-canh .m-lines::after { display: none; }
+#mung-canh .m-pow { margin-top: 8px; }
+#mung-canh .c-btn { margin-top: 14px; pointer-events: none; box-sizing: border-box; min-width: 150px; height: 46px; padding: 0 4px; border: 8px solid transparent; border-image: url("../../assets/art/ui-k-btn.png") 12 fill / 8px / 0 stretch;
+  background: none; color: #fff3b8; font: 700 15px/1 var(--f-body); text-shadow: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030; filter: brightness(1.45) saturate(1.15); opacity: 0; }
+#mung-canh.ready .c-btn { pointer-events: auto; }
+#mung-canh .c-btn:active { filter: brightness(.8); }
+#mung-canh .c-hint { position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 40px); text-align: center; font: 500 12px/16px var(--f-body); color: #c9bfe0; opacity: 0; pointer-events: none; }
+body:has(#mung-canh:not([hidden])) .ht-tip, body:has(#mung-canh:not([hidden])) #toast { visibility: hidden; }   /* đang diễn: lời nhắc của linh vật Hệ Thống, dòng báo (nằm dưới lớp nền tối) tạm ẩn cho khỏi lờ mờ sau chữ */

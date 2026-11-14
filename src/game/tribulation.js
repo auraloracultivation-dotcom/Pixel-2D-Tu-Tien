@@ -4,6 +4,7 @@
 import { qiNeed, realmLabel } from './stats.js';
 import { addStrike } from './strikes.js';
 import { addFx } from './combat.js';
+import { upSnap, realmUp } from './len-tang.js';
 
 export function atPeak(game) {
   const s = game.save, r = game.data.realms;
@@ -96,7 +97,7 @@ export function createTribulation(game) {
     },
     finish() {
       run = null;
-      const s = game.save;
+      const s = game.save, before = upSnap(game);   // chỉ số trước khi sang cảnh giới mới, cho nghi lễ đột phá so (src/game/len-tang.js)
       s.realm += 1; s.layer = 1; s.qi = 0; delete s.flags.thanhTam;
       game.capWarned = false;
       game.darkTarget = game.map.def.dark || 0;
@@ -104,8 +105,7 @@ export function createTribulation(game) {
       game.flashT = 0.35;
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 70, color: '#fff7d6', life: 1.2, fill: true });
       game.sfx('breakthrough'); game.screen.shake(6, 0.6);
-      game.toast(`Độ kiếp thành công! ${realmLabel(s, game.data.realms)}`, 3);
-      game.checkUnlocks();
+      if (!realmUp(game, before)) { game.toast(`Độ kiếp thành công! ${realmLabel(s, game.data.realms)}`, 3); game.checkUnlocks(); }   // nghi lễ đột phá cả màn; công tắc mung tắt thì dòng báo như cũ
       game.story.notify('realm');
       game.persist();
     },

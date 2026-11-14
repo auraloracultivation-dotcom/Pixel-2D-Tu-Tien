@@ -3,6 +3,7 @@
 // đạn chiêu kéo khói vòng trắng, lướt để bụi; chiêu lớn chớp màn + rung; Liên Kích (đếm đòn liên tiếp, mốc thì hô to);
 // thanh Nộ đầy thì Bạo Nộ: sát thương tăng, quầng lửa, nhạc dồn. Vẽ ở src/render/draw-juice.js.
 import { fxOk } from './fx-budget.js';
+import { hurtTick } from './hurt-feel.js';
 import { pxOf } from './pfx.js';
 const TAU = Math.PI * 2;
 const J = game => game.data.juice;
@@ -22,13 +23,14 @@ function debris(game, x, y, n, color, sp = 70) {
 }
 
 // Đòn của mình trúng quái. soft: nhịp vùng chiêu (rất nhiều đòn nhỏ): chỉ hiện mỗi soft_every đòn
-export function juiceHit(game, x, y, color, crit, soft) {
+export function juiceHit(game, x, y, color, crit, soft, noVis) {   // noVis: chỉ tính Liên Kích, Nộ, nốt đàn; hình do src/game/hit-feel.js lo
   const C = J(game)?.hit; if (!C) return;
   const S = juice(game);
   S.idle = 0; addRage(game, J(game).rage.hit);
   combo(game);
   const N = J(game).note;   // nốt đàn theo Liên Kích, leo dần (data/juice.json → note)
   if (N?.on && (!soft || crit)) game.note?.((S.combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v);
+  if (noVis) return;
   if (soft && S.combo % (C.soft_every || 3) && !crit) return;
   if (!fxOk(game, crit ? 'crit' : 'hit')) return;   // đánh đông quái: tia toả đòn thường trong hạn mức (src/game/fx-budget.js)
   const n = crit ? C.rays_crit : C.rays, rot = Math.random() * TAU;
@@ -37,12 +39,12 @@ export function juiceHit(game, x, y, color, crit, soft) {
   debris(game, x, y, crit ? C.debris_crit : C.debris, '#e8e2d0');
 }
 
-export function juiceKill(game, m) {
+export function juiceKill(game, m, noRing) {
   const C = J(game)?.kill; if (!C) return;
   const boss = m.def.ai === 'boss';
   if (!boss && !fxOk(game, 'kill')) { if (!m.remote) addRage(game, J(game).rage.kill); return; }   // hạ hàng loạt: vòng sóng, vụn, đốm chỉ trong hạn mức
-  push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
-  debris(game, m.x, m.y - m.r * 0.5, C.debris, m.def.color || '#ccc', 110);
+  if (!noRing) push(game, { k: 'ring', x: m.x, y: m.y - m.r * 0.5, r: C.ring + m.r, life: 0.32, color: m.def.color || '#fff' });
+  debris(game, m.x, m.y - m.r * 0.5, C.debris, (noRing && m.tone) || m.def.color || '#ccc', 110);   // bản ra đòn mới: vụn đúng màu hình con quái (src/render/sprites.js spriteTone)
   if (m.remote) return;
   const N = J(game).note;
   if (N?.on) setTimeout(() => game.note?.(N.kill + (boss ? N.crit_up : 0), N.v_crit), 70);   // hạ quái: thêm một nốt cao ngân sau tiếng chém
@@ -60,7 +62,7 @@ export function juiceHurt(game, frac) {
   const R = J(game)?.rage; if (!R) return;
   const S = juice(game);
   S.idle = 0; addRage(game, R.hurt * frac * 100);
-  if (frac >= J(game).hurt.vig) S.vig = J(game).hurt.life;
+  if (frac >= J(game).hurt.vig && !game.hurt2) S.vig = J(game).hurt.life;   // bản bị đánh mới có viền đỏ riêng (game.h2vig)
 }
 
 // Chiêu lớn vừa tung: chớp màn dịu, rung
@@ -71,6 +73,18 @@ export function juiceCast(game, s, id) {
   if (!big) return;
   game.flashT = Math.max(game.flashT || 0, C.flash);
   game.screen.shake(C.shake, 0.25);
+}
+
+// Tu vi vừa lên (src/game/len-tang.js): trận đồ nở dưới chân, cột sáng vọt lên từ chỗ đứng (bám theo người), tia toả quanh thân, vòng sóng, rồi đốm sáng
+// bay lên quanh người thêm một lúc. big: đột phá cảnh giới (mọi thứ lớn hơn mung.world.big lần). color: màu cảnh giới.
+export function juiceUp(game, big, color) {
+  const C = J(game)?.mung?.world; if (!C) return;
+  const p = game.player, k = big ? C.big : 1;
+  push(game, { k: 'rune', x: p.x, y: p.y, r: C.rune * k, life: C.rune_life * k, color, rot: Math.random() * TAU });
+  push(game, { k: 'pillar', on: p, w: C.pillar_w * k, h: C.pillar_h * k, life: C.pillar_life * k, color });
+  push(game, { k: 'burst', x: p.x, y: p.y - 9, n: big ? 12 : 8, rot: Math.random() * TAU, len: C.burst * k, core: 6 * k, life: 0.32, color, crit: big });
+  push(game, { k: 'ring', x: p.x, y: p.y - 8, r: C.ring * k, life: 0.5, color });
+  juice(game).up = { t: C.ember_t * k, n: C.ember_n * k, color };
 }
 
 function combo(game) {
@@ -103,6 +117,7 @@ export function rageMul(game, m) {
 
 export function updateJuice(game, dt) {
   const D = J(game); if (!D) return;
+  hurtTick(game, dt);   // máu thấp: tim đập (src/game/hurt-feel.js)
   const S = juice(game), p = game.player;
   S.comboT -= dt; S.comboPop = Math.max(0, S.comboPop - dt); S.vig = Math.max(0, S.vig - dt);
   if (S.comboT <= 0) S.combo = 0;
@@ -113,6 +128,9 @@ export function updateJuice(game, dt) {
     if (S.rageOn <= 0) S.rage = 0;
     if (Math.random() < dt * 30) push(game, { k: 'ember', x: p.x + (Math.random() - 0.5) * 16, y: p.y - Math.random() * 6, vx: (Math.random() - 0.5) * 10, vy: -30 - Math.random() * 30, life: 0.7, color: Math.random() < 0.5 ? D.rage.color : D.rage.core });
   } else if (S.idle > D.rage.idle) S.rage = Math.max(0, S.rage - D.rage.decay * dt);
+  if (S.up && (S.up.t -= dt) > 0) {   // vừa lên tầng / đột phá: đốm sáng bay lên quanh người
+    if (Math.random() < dt * S.up.n) push(game, { k: 'ember', x: p.x + (Math.random() - 0.5) * 26, y: p.y - Math.random() * 12, vx: (Math.random() - 0.5) * 8, vy: -26 - Math.random() * 34, life: 0.95, color: Math.random() < 0.3 ? '#ffffff' : S.up.color });
+  } else if (S.up) S.up = null;
   // khói vòng sau đạn chiêu của mình, bụi khi lướt
   if ((S.trailT -= dt) <= 0) {
     S.trailT = D.trail.every;

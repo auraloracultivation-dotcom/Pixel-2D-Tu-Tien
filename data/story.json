@@ -1,5 +1,482 @@
 {
- "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply).",
+ "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply). Bước có quà trang bị (14/11/2026, docs/10-CAI-HON.md việc 4): câu báo quà nói trước, rồi ngọc và món đồ (lệnh reward: nghi lễ nhận thưởng, lời thoại chờ người chơi đóng nghi lễ), sau đó mới tới các câu còn lại.",
+ "bac": {
+  "_note": "Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; src/game/story.js, thẻ bậc src/ui/bac-hud.js). Bật cho người mới từ 14/11/2026 (chủ dự án 11:05 \"Đưa lên… rất thích cách thiết kế\", 11:27 \"bạn xem hợp lý thì làm, vài tiếng tới tự do quyết định\"). on: bật cho người mới (riêng một máy tắt bằng địa chỉ có ?bac=0, bật lại ?bac=1). truoc: các bậc chạy lần lượt TRƯỚC một bước truyện, số bước truyện đứng yên (mỗi bậc: id, do, goal, until như một bước; thuong: món sẽ nhận khi xong bậc, hiện trên thẻ bậc). thay: phần mở đầu (do) thay cho bước truyện khi người chơi đã leo bậc: lời thoại khớp với việc vừa đánh xong, quà không trùng quà của các bậc. Đang leo bậc thì chưa dùng Tự hành, Tự đánh (text.lock) và bảng chào của Hệ Thống chờ leo xong mới hiện. Quái các bậc dùng chỉ số sẵn có, không rơi đồ (loot 0): món đồ duy nhất là phần thưởng của bậc. Bậc 1: một Mộc linh thường (40 máu, đánh thường 7–8 mỗi nhát: khoảng 6 nhát, không tự đánh người). Bậc 2: ba con nhiễm ma khí như vòng ngoài tinh cầu (mul 1,5 + tag Ma nhiễm: 60 máu, công 7,5, quầng tím dưới chân), mạnh hơn bậc 1 một chút; vẫn là quái hiền (bị đánh mới cắn lại): thử cho chúng tự lao vào người (14/11/2026) thì người mới đứng đọc màn hình 20 giây là gục ngay phút đầu. Trong chặng leo bậc người chơi không gục được (nodeath: máu dừng ở 1), hết chặng trả lại như thường. Pháp bảo Phi Kiếm (trước tự có từ giây đầu) thành phần thưởng của bậc 2 (lệnh phap_bao), nên hai bậc đầu chỉ có đánh thường. Quà của bậc có màu dòng định sẵn (reward.tier: 0 lục Phàm → 6 đen Thượng Cổ), bậc sau cao hơn bậc trước để nghi lễ lớn dần; quà truyện thường (không có tier) vẫn bốc màu ngẫu nhiên như cũ. Sáu bậc (so: số bậc chung cả chặng, tong: tổng): 1–2 ở làng Thanh Khê; 3 đánh lui ma tộc (truoc nv-3-bay: bốn Tiểu ma rồi một con đầu đàn nhiễm ma khí 120 máu, công 8 (thử 150 máu, công 10: người chơi kịch bản không dùng Phi Kiếm còn 23% máu)) → mũ + Lam Ngọc; 4 nhận binh khí rồi thử trên năm Tiểu ma bám theo lên núi (truoc nv-3; không dùng Mộc linh vì Mộc linh hoang ở Thiên Kiếm Phong trâu gấp 29 lần, trông y hệt, đánh nhầm là kẹt) → giày, mở Tự đánh (cờ bac-mo-danh); 5 dọn hai phòng đầu bí cảnh (truoc bi-canh, until kill '*': con nào cũng tính) → nhẫn + Hoàng Ngọc; 6 hạ Phân thân Huyết Nha (buoc bi-canh: bước truyện tự là một bậc) → pháp bảo Linh Châu, mở Tự hành (cờ bac-mo-hanh), hết chặng (cờ bac-xong: các mốc pháp bảo đã qua được nhận bù). Quà các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ: không phát thêm món nào. text.lock_danh / lock_hanh: lời nhắc khi bấm Tự đánh / Tự hành lúc chưa mở.",
+  "on": true,
+  "text": {
+   "chip": "Bậc {i}/{n}",
+   "reward": "Thưởng",
+   "lock_danh": "Chặng mở đầu: tự tay đánh đã. Lên tông môn nhận binh khí, thử xong là có Tự đánh.",
+   "lock_hanh": "Chặng mở đầu: tự tay đi và đánh đã. Hạ Huyết Nha xong, Hệ Thống mở Tự hành."
+  },
+  "truoc": {
+   "le-thuc-tinh": [
+    {
+     "id": "bac-1",
+     "do": [
+      {
+       "nodeath": true
+      },
+      {
+       "say": [
+        [
+         "he-thong",
+         "Đinh! Linh hồn ký chủ đã ổn định ở Tinh cầu Thanh Khê. Bổn hệ thống đang liên kết, chờ một lát.",
+         {
+          "tap": true
+         }
+        ],
+        [
+         "truong-thon",
+         "Con ơi cẩn thận! Ma khí làm lũ Mộc linh quanh làng hoá dữ rồi!"
+        ],
+        [
+         "he-thong",
+         "Vừa hay, luyện tay trong lúc chờ. Giữ nút Đánh, chém tới khi nó tan. Hạ được thì bổn hệ thống có quà."
+        ]
+       ]
+      },
+      {
+       "spawn": "moc-linh",
+       "n": 1,
+       "near": [
+        3,
+        0
+       ],
+       "loot": 0
+      }
+     ],
+     "goal": "Hạ Mộc linh ({n}/1)",
+     "until": {
+      "kill": "moc-linh",
+      "n": 1
+     },
+     "thuong": "bo-y",
+     "so": 1
+    },
+    {
+     "id": "bac-2",
+     "do": [
+      {
+       "nodeath": true
+      },
+      {
+       "say": [
+        [
+         "he-thong",
+         "Đinh! Con đầu tiên. Quà đây, mặc vào kẻo trầy da."
+        ]
+       ]
+      },
+      {
+       "reward": {
+        "base": "bo-y",
+        "rarity": "dia",
+        "tier": 0
+       }
+      },
+      {
+       "say": [
+        [
+         "truong-thon",
+         "Ba con nhiễm ma khí đang phá ruộng linh thảo! Con đánh là chúng cắn lại đấy, cẩn thận!"
+        ],
+        [
+         "he-thong",
+         "Ba con, mạnh hơn con vừa rồi một chút. Bổn hệ thống đếm giùm, xong có quà lớn hơn."
+        ]
+       ]
+      },
+      {
+       "spawn": "moc-linh",
+       "n": 3,
+       "at": [
+        22,
+        21
+       ],
+       "spread": 2,
+       "loot": 0,
+       "mul": 1.5,
+       "tag": "Ma nhiễm"
+      }
+     ],
+     "goal": "Hạ Ma nhiễm Mộc linh ({n}/3)",
+     "until": {
+      "kill": "moc-linh",
+      "n": 3
+     },
+     "thuong": {
+      "pb": "phi-kiem"
+     },
+     "so": 2
+    }
+   ],
+   "nv-3-bay": [
+    {
+     "id": "bac-3a",
+     "so": 3,
+     "do": [
+      {
+       "nodeath": true
+      },
+      {
+       "spawn": "ma-tieu",
+       "n": 4,
+       "at": [
+        25,
+        13
+       ],
+       "spread": 2,
+       "loot": 0
+      }
+     ],
+     "goal": "Đánh lui Tiểu ma ({n}/4)",
+     "until": {
+      "kill": "ma-tieu",
+      "n": 4
+     },
+     "thuong": "bo-can"
+    },
+    {
+     "id": "bac-3b",
+     "so": 3,
+     "do": [
+      {
+       "nodeath": true
+      },
+      {
+       "say": [
+        [
+         "he-thong",
+         "Đinh! Bốn con. Nhưng con đầu đàn nhiễm ma khí mới tới, trâu gấp mấy lần lũ kia."
+        ]
+       ]
+      },
+      {
+       "spawn": "ma-tieu",
+       "n": 1,
+       "at": [
+        25,
+        13
+       ],
+       "spread": 2,
+       "loot": 0,
+       "mul": 1.5,
+       "tag": "Ma nhiễm",
+       "hp": 120,
+       "atk": 8
+      }
+     ],
+     "goal": "Hạ Ma nhiễm Tiểu ma ({n}/1)",
+     "until": {
+      "kill": "ma-tieu",
+      "n": 1
+     },
+     "thuong": "bo-can"
+    }
+   ],
+   "nv-3": [
+    {
+     "id": "bac-4",
+     "so": 4,
+     "do": [
+      {
+       "stand_by": "van-hac"
+      },
+      {
+       "say": [
+        [
+         "van-hac",
+         "Đệ tử mới à. Cầm lấy {thanh kiếm|cây liềm} này."
+        ],
+        [
+         "he-thong",
+         "Binh khí đầu tiên. Đừng làm rơi."
+        ]
+       ]
+      },
+      {
+       "weapon": "{kiem|liem}"
+      },
+      {
+       "gear": [
+        "{thiet-kiem|tu-nguyet-liem}"
+       ]
+      },
+      {
+       "say": [
+        [
+         "van-hac",
+         "Có mấy con Tiểu ma bám theo các ngươi lên núi kìa. Thử {kiếm|liềm} mới đi."
+        ],
+        [
+         "he-thong",
+         "Hồi nãy phải nhờ Phi Kiếm mới hạ nhanh được chúng. Giờ chém thường thôi, xem mấy nhát thì tan."
+        ]
+       ]
+      },
+      {
+       "spawn": "ma-tieu",
+       "n": 5,
+       "near": [
+        0,
+        3
+       ],
+       "spread": 2,
+       "loot": 0
+      }
+     ],
+     "goal": "Thử {kiếm|liềm}: hạ Tiểu ma ({n}/5)",
+     "until": {
+      "kill": "ma-tieu",
+      "n": 5
+     },
+     "thuong": "bo-hai"
+    }
+   ],
+   "bi-canh": [
+    {
+     "id": "bac-5",
+     "so": 5,
+     "do": [],
+     "goal": "Dọn hai phòng quái ({n}/9)",
+     "until": {
+      "kill": "*",
+      "n": 9
+     },
+     "thuong": "thiet-gioi"
+    }
+   ]
+  },
+  "thay": {
+   "le-thuc-tinh": [
+    {
+     "nodeath": false
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Dọn sạch cả ba. Đủ tư cách nhận pháp bảo đầu tiên rồi đấy."
+      ]
+     ]
+    },
+    {
+     "phap_bao": {
+      "type": "phi-kiem",
+      "grade": "linh"
+     }
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Phi Kiếm nằm ở nút tròn cạnh nút Đánh. Bấm là kiếm tự bay tới chém rồi quay về."
+      ],
+      [
+       "truong-thon",
+       "Giỏi lắm! Hôm nay là lễ thức tỉnh linh căn, mau tới đá linh căn giữa làng, cả làng đang chờ."
+      ]
+     ]
+    }
+   ],
+   "nv-2": [
+    {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Giỏi lắm! Tặng ngươi viên Hồng Ngọc cấp 5."
+      ]
+     ]
+    },
+    {
+     "gem": "hong-ngoc:5"
+    },
+    {
+     "say": [
+      [
+       "",
+       "Trời bỗng tối sầm. Ma khí bò lên từ mép tinh cầu."
+      ],
+      [
+       "he-thong",
+       "Cảnh báo! Ma tộc xâm nhập. Vừa có Phi Kiếm, thử luôn: bấm nút tròn cạnh nút Đánh."
+      ],
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Ma tộc! Cùng ta đánh lui chúng!"
+      ]
+     ]
+    },
+    {
+     "dark": 0.35
+    }
+   ],
+   "nv-3-bay": [
+    {
+     "nodeath": false
+    },
+    {
+     "dark": 0
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
+      ]
+     ]
+    },
+    {
+     "gem": "lam-ngoc:5"
+    },
+    {
+     "reward": {
+      "base": "bo-can",
+      "rarity": "dia",
+      "tier": 2
+     }
+    },
+    {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Theo ta lên Thiên Kiếm Phong. Ở đó mới tu luyện được."
+      ]
+     ]
+    },
+    {
+     "fly": "thien-kiem-phong",
+     "spawn": "vao",
+     "with": "{lac-tuyet|tieu-dao}",
+     "text": "{Lạc Tuyết|Tiêu Dao} ngự kiếm đưa bạn lên Thiên Kiếm Phong"
+    }
+   ],
+   "nv-3": [
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Chém thường mà chúng cũng tan nhanh thế. Có binh khí khác hẳn chưa? Thưởng đôi giày."
+      ]
+     ]
+    },
+    {
+     "reward": {
+      "base": "bo-hai",
+      "rarity": "pham",
+      "tier": 2
+     }
+    },
+    {
+     "flag": "bac-mo-danh"
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Từ giờ ký chủ được bật Tự đánh. Nhiệm vụ: ngồi lên bồ đoàn, đả tọa tới Luyện Khí tầng 2. Tu tiên mà không ngồi yên được thì về làng trồng rau đi."
+      ]
+     ]
+    }
+   ],
+   "nv-4": [
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đột phá Luyện Khí tầng 2. Linh khí chảy trong kinh mạch sướng chưa?"
+      ],
+      [
+       "he-thong",
+       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông. Dọn sạch hai phòng đầu, bổn hệ thống thưởng chiếc nhẫn. Hạ được Huyết Nha thì có pháp bảo thứ hai."
+      ]
+     ]
+    },
+    {
+     "flag": "mo-bi-canh"
+    }
+   ],
+   "bi-canh": [
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Hai phòng sạch bóng. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Đeo vào rồi hẵng gặp Huyết Nha."
+      ]
+     ]
+    },
+    {
+     "gem": "hoang-ngoc:5"
+    },
+    {
+     "reward": {
+      "base": "thiet-gioi",
+      "rarity": "dia",
+      "tier": 3
+     }
+    }
+   ],
+   "nv-5-ve": [
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Huyết Nha gục. Leo hết sáu bậc rồi đấy. Pháp bảo thứ hai của ký chủ đây."
+      ]
+     ]
+    },
+    {
+     "phap_bao": {
+      "type": "linh-chau",
+      "grade": "linh"
+     }
+    },
+    {
+     "flag": "bac-mo-hanh"
+    },
+    {
+     "flag": "bac-xong"
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Từ giờ ký chủ được dùng Tự hành: bổn hệ thống dắt đi, ký chủ rảnh tay. Đừng có ỷ lại quá."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "",
+       "Huyết Nha tan thành khói đen."
+      ],
+      [
+       "he-thong",
+       "Đinh! Hạ Huyết Nha. Bí cảnh mỗi ngày có lượt, nhớ quay lại vét đồ. Giờ về gặp {Lạc Tuyết|Tiêu Dao}."
+      ]
+     ]
+    },
+    {
+     "fly": "thien-kiem-phong",
+     "spawn": "tu-bi-canh",
+     "kind": "flight",
+     "text": "Ngự kiếm về Thiên Kiếm Phong"
+    }
+   ]
+  },
+  "tong": 6,
+  "buoc": {
+   "bi-canh": {
+    "so": 6,
+    "goal": "Hạ Huyết Nha",
+    "thuong": {
+     "pb": "linh-chau"
+    }
+   }
+  }
+ },
  "steps": [
   {
    "id": "le-thuc-tinh",
@@ -9,7 +486,10 @@
      "say": [
       [
        "he-thong",
-       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn."
+       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -54,7 +534,10 @@
      "say": [
       [
        "truong-thon",
-       "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi."
+       "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -151,6 +634,14 @@
    "map": "thanh-khe",
    "do": [
     {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Giỏi lắm! Tặng ngươi Hồng Ngọc cấp 5 và tấm đạo bào."
+      ]
+     ]
+    },
+    {
      "gem": "hong-ngoc:5"
     },
     {
@@ -162,12 +653,8 @@
     {
      "say": [
       [
-       "{lac-tuyet|tieu-dao}",
-       "Giỏi lắm! Tặng ngươi Hồng Ngọc cấp 5 và tấm đạo bào."
-      ],
-      [
        "he-thong",
-       "Đinh! Nhận đạo bào. Mở Túi mặc vào ngay, đừng để bổn hệ thống thấy ký chủ ra trận với bộ đồ ngủ."
+       "Đinh! Nhận đạo bào. Mặc lên người chưa đấy? Đừng để bổn hệ thống thấy ký chủ ra trận với bộ đồ ngủ."
       ],
       [
        "",
@@ -209,6 +696,14 @@
      "dark": 0
     },
     {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
+      ]
+     ]
+    },
+    {
      "gem": "lam-ngoc:5"
     },
     {
@@ -219,10 +714,6 @@
     },
     {
      "say": [
-      [
-       "he-thong",
-       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
-      ],
       [
        "{lac-tuyet|tieu-dao}",
        "Theo ta lên Thiên Kiếm Phong. Ở đó mới tu luyện được."
@@ -292,6 +783,14 @@
    "map": "thien-kiem-phong",
    "do": [
     {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đột phá Luyện Khí tầng 2. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Linh khí chảy trong kinh mạch sướng chưa?"
+      ]
+     ]
+    },
+    {
      "gem": "hoang-ngoc:5"
     },
     {
@@ -304,10 +803,6 @@
      "say": [
       [
        "he-thong",
-       "Đinh! Đột phá Luyện Khí tầng 2. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Linh khí chảy trong kinh mạch sướng chưa?"
-      ],
-      [
-       "he-thong",
        "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông, hạ Huyết Nha. Bên trong nhiều đồ tốt, nhặt hết cho bổn hệ thống."
       ]
      ]
@@ -317,6 +812,10 @@
     }
    ],
    "goal": "Việc 4/5: Vào Bí cảnh Huyết Nha (cổng phía đông)",
+   "target": [
+    61,
+    48
+   ],
    "until": {
     "map": "bi-canh"
    }
@@ -382,6 +881,14 @@
    "map": "thien-kiem-phong",
    "do": [
     {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Lục Ngọc cấp 5 và binh khí này, ta giữ đã lâu. Từ nay ngươi đủ sức tự đi rồi..."
+      ]
+     ]
+    },
+    {
      "gem": "luc-ngoc:5"
     },
     {
@@ -389,14 +896,6 @@
       "base": "{thiet-kiem|tu-nguyet-liem}",
       "rarity": "dia"
      }
-    },
-    {
-     "say": [
-      [
-       "{lac-tuyet|tieu-dao}",
-       "Lục Ngọc cấp 5 và binh khí này, ta giữ đã lâu. Từ nay ngươi đủ sức tự đi rồi..."
-      ]
-     ]
     },
     {
      "dark": 0.5
@@ -416,7 +915,10 @@
       ],
       [
        "{lac-tuyet|tieu-dao}",
-       "Cẩn thận! Là... Đại Ma Thần!"
+       "Cẩn thận! Là... Đại Ma Thần!",
+       {
+        "tap": true
+       }
       ]
      ]
     },
@@ -430,7 +932,10 @@
      "say": [
       [
        "",
-       "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất."
+       "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất.",
+       {
+        "tap": true
+       }
       ],
       [
        "he-thong",
@@ -459,7 +964,10 @@
       ],
       [
        "he-thong",
-       "Tới Kim Đan, ngươi khiêu chiến được Đại Ma Thần ở Đài Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng."
+       "Tới Kim Đan, ngươi khiêu chiến được Đại Ma Thần ở Đài Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng.",
+       {
+        "tap": true
+       }
       ]
      ]
     },

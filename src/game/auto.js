@@ -7,13 +7,14 @@ import { skillSlots } from './skills.js';
 import { pbOn, pbWorn } from './phap-bao.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
-import { findPath } from './pilot.js';
+import { findPath, leoBac } from './pilot.js';
 
 // Trong nhà không tự đánh, trừ động phủ có Mộc Nhân (góp ý #114: tự đánh Mộc Nhân để đo sát thương/giây, game/dummy.js)
 const indoorOk = game => !game.map.def.indoor || (game.map.id === game.data.home.map && game.mobs.some(m => m.dummy));
 export const autoAllowed = game => !game.map.def.tower && !game.map.def.res && indoorOk(game) && !(game.trib.active && !game.trib.wantsAuto);   // độ kiếp: được Tự đánh để hạ tâm ma (tribulation.js wantsAuto)
 
 export function toggleAuto(game) {
+  if (!game.auto && leoBac(game, 'danh')) return;   // chặng leo bậc đầu game: tự tay đánh
   if (!game.auto && !autoAllowed(game)) { game.toast('Không tự đánh được ở đây.', 1.4); return; }
   game.auto = !game.auto;
   game.autoTgt = null; game.autoPath = null; game.unstuck = null;   // bật lại thì bỏ trạng thái cũ (bước ngang dở, đường cũ)

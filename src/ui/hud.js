@@ -15,13 +15,14 @@ import { season } from '../game/weather.js';
 import { pbOn } from '../game/phap-bao.js';
 import { pbHud } from './phap-bao-hud.js';
 import { pxOn } from '../game/pfx.js';
+import { hudHurt } from './hud-hurt.js';
 
 const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
 const css = (el, k, v) => { const m = el._css ||= {}; if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } };
 
-export function createHud(audio) {
-  const dialog = createDialog(() => audio.play('talk'));
+export function createHud(audio, dlgCfg) {
+  const dialog = createDialog(() => audio.play('talk'), dlgCfg);   // dlgCfg: data/config.json → dialog (nhịp chữ)
   let toastTimer = null, nextTimer = null, shownAt = 0;
   const ui = { dialog }, queue = [], MIN = 1400, MAXQ = 4;
 
@@ -74,6 +75,7 @@ export function createHud(audio) {
     const p = game.player, s = game.save, d = game.data;
     gameRef = game;
     (hints ??= createHints(game))();
+    hudHurt(game);   // thanh Sinh lực rung, hiện khúc máu vừa mất (bản bị đánh mới)
     const need = qiNeed(s, d.realms);
     const key = [Math.ceil(p.hp), p.maxHp, Math.floor(p.mp ?? 0), p.mpMax, Math.floor(s.qi), need, s.realm, s.layer, Math.ceil(p.shield), s.element, game.cloud?.name, (s.qiX2 || 0) > Date.now()].join();
     if (key !== last) {

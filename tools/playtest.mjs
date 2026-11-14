@@ -19,6 +19,9 @@ const server = createServer(async (req, res) => {
 const { chromium } = await import('playwright');
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+// Chặng leo bậc đầu game khoá Tự hành tới khi hạ boss đầu (src/game/story.js khoa). Bài chơi thử chạy bằng Tự hành nên bỏ khoá riêng cho nó (game.khoaBo):
+// vẫn đi qua đủ các bậc, nghi lễ, cờ mở khoá; riêng cái khoá thì phòng đo tools/do-don/quay-bac.mjs thử bằng người chơi tự tay đánh.
+await ctx.addInitScript(() => { const t = setInterval(() => { if (window.__game) { window.__game.khoaBo = true; clearInterval(t); } }, 20); });
 await ctx.addInitScript(`window.__FAKE = ${JSON.stringify(FAKE)}`);
 await ctx.addInitScript(() => { const D = Date, off = new D(window.__FAKE) - D.now();
   class F extends D { constructor(...a) { if (!a.length) super(D.now() + off); else super(...a); } static now() { return D.now() + off; } } window.Date = F; });

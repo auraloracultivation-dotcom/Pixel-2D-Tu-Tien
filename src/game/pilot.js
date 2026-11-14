@@ -21,7 +21,15 @@ import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const C = game => game.data.config.pilot;
 
+// Đang ở chặng leo bậc đầu game (src/game/story.js rung, docs/10-CAI-HON.md việc 5): báo một dòng rồi trả true, nơi gọi thôi không bật Tự hành / Tự đánh
+export function leoBac(game, kind = 'hanh') {   // kind: 'hanh' Tự hành, 'danh' Tự đánh (mỗi thứ mở ở một bậc: story.js khoa)
+  if (!game.story?.khoa?.(kind)) return false;
+  game.toast(game.data.story.bac?.text?.['lock_' + kind] || 'Chưa dùng được lúc này.', 2.6);
+  return true;
+}
+
 export function togglePilot(game) {
+  if (!game.pilot && leoBac(game)) return;   // chặng leo bậc đầu game: tự tay đánh, chưa dùng Tự hành
   game.pilot = game.pilot ? null : { path: null, key: '', repath: 0, line: 0 };
   if (game.pilot) game.auto = false;
   game.toast(game.pilot ? 'Tự hành: tự đi làm nhiệm vụ' : 'Tắt tự hành', 1.4);
@@ -30,7 +38,7 @@ export function togglePilot(game) {
 // Tự hành làm nhiệm vụ hằng ngày (chủ dự án 02/11/2026): chạm dòng việc ngày chưa xong thì bật tự hành ưu tiên việc ngày
 // id: chạm một việc cụ thể (bảng Hệ Thống, chủ dự án 10/11/2026 10:09) thì làm việc đó trước, xong rồi làm tiếp việc ngày khác
 export function pilotDaily(game, id) {
-  if (!game.player) return;
+  if (!game.player || leoBac(game)) return;
   game.pilot = { path: null, key: '', repath: 0, line: 0, daily: id || true };
   game.auto = false;
   game.toast('Tự hành: làm nhiệm vụ hằng ngày (kéo cần chạy để dừng)', 1.8);
@@ -183,7 +191,7 @@ function plan(game) {
   if (u.talk) { const n = game.npcs.find(n => n.id === u.talk); return n ? { talk: n } : s.target ? { go: tileOf(game, s.target) } : null; }
   if (u.reach) return { go: tileOf(game, u.reach) };
   if (u.collect) { const k = nearest(game, game.pickups.filter(k => k.item === u.collect)); if (k) return { go: k }; }
-  if (u.kill) { const m = nearest(game, alive(game).filter(m => m.id === u.kill)); if (m) return { fight: m }; }
+  if (u.kill) { const m = nearest(game, alive(game).filter(m => u.kill === '*' || m.id === u.kill)); if (m) return { fight: m }; }
   if (u.boss_dead || u.kill_all || u.any || u.kill) {
     const m = nearest(game, alive(game).filter(m => m.story || m.room || m.aggro || m.id === u.kill));
     if (m) return { fight: m };
@@ -258,11 +266,13 @@ function flyLink(game, go) {
   return game.map.def.portals.find(pt => pt.fly && pt.at[0] === tx && pt.at[1] === ty) || null;
 }
 
-// Tự lật lời thoại khi đang tự hành (lựa chọn thì vẫn chờ người chơi)
+// Tự lật lời thoại khi đang tự hành (lựa chọn thì vẫn chờ người chơi). Câu đứng đủ giờ đọc theo độ dài (src/ui/dialog.js holdSec, ít nhất
+// pilot.line giây); câu có cờ phải chạm thì chờ người chơi (chủ dự án 14/11/2026 00:05: chữ tự lướt qua không ai đọc kịp).
 export function pilotDialog(game, dt) {
-  const pl = game.pilot;
-  if (!pl || !game.dialog.open) { if (pl) pl.line = 0; return; }
-  if ((pl.line += dt) < C(game).line) return;
+  const pl = game.pilot, d = game.dialog;
+  if (!pl || !d.open) { if (pl) pl.line = 0; return; }
+  if (pl.lineNo !== d.lineNo) { pl.lineNo = d.lineNo; pl.line = 0; }   // câu mới (kể cả do người chơi tự chạm): đếm lại từ đầu
+  if ((pl.line += dt) < Math.max(C(game).line, d.holdSec?.() ?? 0)) return;
   pl.line = 0;
-  game.dialog.skip?.();
+  d.skip?.();
 }
