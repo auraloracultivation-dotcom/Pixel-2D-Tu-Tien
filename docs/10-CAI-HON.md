@@ -315,7 +315,7 @@ bằng kịch bản (mới thử bằng Tự hành).
 **Người thật đầu tiên đi chặng leo bậc (tạo tài khoản 14/11 17:34):** chơi 11 phút, qua bậc 1–4, ngồi đả tọa lên tầng 2, rồi dừng ở bước truyện "Vào Bí cảnh Huyết Nha
 (cổng phía đông)" lúc 17:52, chưa vào bí cảnh. Soi lại thì đúng chỗ ấy có **lỗ hổng do chặng leo bậc gây ra**: bước này không có ô đích nên mũi tên chỉ đường không
 hiện, mà Tự hành thì chặng leo bậc đang khoá (trước 12:07 người mới có Tự hành dắt tới cổng). Người mới phải tự tìm cổng cách bồ đoàn 28 ô chỉ bằng mấy chữ "cổng
-phía đông". **Đã sửa 14/11 19:1x:** bước `nv-4` thêm ô đích là cổng bí cảnh (`data/story.json`, `"target": [61, 48]`), mũi tên chỉ đường hiện ngay khi nhận việc (thử bằng
+phía đông". **Đã sửa trong mã 14/11 19:00 (commit `d63ce30`), CHƯA đưa lên cho người chơi: chờ chủ dự án nói "đưa lên" (bảng câu hỏi, câu 17).** Bước `nv-4` thêm ô đích là cổng bí cảnh (`data/story.json`, `"target": [61, 48]`), mũi tên chỉ đường hiện ngay khi nhận việc (thử bằng
 kịch bản: mũi tên chỉ đúng tâm cổng; Tự hành của người đã mở vẫn đi theo cổng như cũ). Rà luôn các bước khác của đoạn đang khoá Tự hành thì thấy bốn bước nữa không
 có mũi tên: gặp Lạc Tuyết / Tiêu Dao, hái linh thảo, đánh lui ma tộc ở làng, và đoạn "Dọn từng phòng, hạ Huyết Nha" trong bí cảnh sau khi xong bậc 5. Mũi tên chỉ đường
 (`src/game/guide.js`) giờ theo đúng việc bước đang chờ, như Tự hành vẫn làm: gặp người → người đó, nhặt đồ → món gần nhất, dọn quái / hạ trùm → con quái của truyện
