@@ -253,7 +253,8 @@
      "goal": "Dọn hai phòng quái ({n}/9)",
      "until": {
       "kill": "*",
-      "n": 9
+      "n": 9,
+      "in": "bi-canh"
      },
      "thuong": "thiet-gioi"
     }

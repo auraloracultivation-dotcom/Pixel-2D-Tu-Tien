@@ -1,0 +1,34 @@
+-- Lược đồ tối thiểu cho máy chủ thử của triệu hồi (tools/may-chu-thu/trieu-hoi.sh): chỉ những bảng và hàm mà p2d_ht_trieu, p2d_ht_trang_thai, p2d_ht_vinh_danh,
+-- p2d_ht_qua_dau đụng tới, cột giống máy chủ thật (so 15/11/2026), bảng quà là bảng cũ 53 món ngang nhau. Không có dữ liệu người chơi, không có cấu hình bạo kích
+-- ('bk' chỉ nằm trên máy chủ thật): hàm quay tự coi như không bạo kích, số Linh Thạch đo ra là số trước bạo kích.
+create role anon; create role authenticated;
+create schema auth;
+create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+create function public.p2d_uid() returns uuid language sql stable as $$ select auth.uid() $$;
+create table public.p2d_nhan_vat (user_id uuid primary key, ten text, data jsonb not null default '{}', canh_gioi int default 0, tang int default 1, updated_at timestamptz default now(), luu_luc timestamptz default now());
+create table public.p2d_ht_diem (user_id uuid primary key, diem integer not null default 0, xong text[] not null default '{}', so_lan integer not null default 0, luc timestamptz not null default now(), ngay date, ngay_xong text[] not null default '{}', qua_dau timestamptz);
+create table public.p2d_ht_cfg (k text primary key, v jsonb not null);
+create table public.p2d_hom_thu (id bigserial primary key, user_id uuid, noi_dung jsonb, ly_do text, nhan_luc timestamptz, tao_luc timestamptz default now());
+create table public.p2d_ht_lich_su (id bigserial primary key, user_id uuid, qua text, noi_dung jsonb, luc timestamptz default now());
+create table public.p2d_chat (id bigint generated always as identity primary key, kenh text not null check (kenh ~ '^(the-gioi|bang:[0-9a-f-]{36})$'), user_id uuid not null, ten text not null, noi_dung text not null check (char_length(noi_dung) between 1 and 120), tao_luc timestamptz not null default now());
+create function public.p2d_ht_do(p_t integer, p_lvl integer) returns jsonb language sql as $$ select jsonb_build_object('base', 'thiet-kiem', 'el', 'kim', 'rarity', 'pham', 'lvl', p_lvl, 'main', '{}'::jsonb, 'lines', jsonb_build_array(jsonb_build_object('s', 'atk', 'v', 1, 't', p_t))) $$;
+insert into public.p2d_ht_cfg values ('cfg', '{"cost": 100, "points": 25, "mail": "Quà triệu hồi hệ thống", "gems": ["hong-ngoc", "lam-ngoc", "hoang-ngoc", "luc-ngoc"], "pool": [{"id": "lt-20k", "w": 1, "coins": 20000}, {"id": "lt-50k", "w": 1, "coins": 50000}, {"id": "lt-100k", "w": 1, "coins": 100000}, {"id": "lt-200k", "w": 1, "coins": 200000}, {"id": "lt-500k", "w": 1, "coins": 500000}, {"id": "lt-1tr", "w": 1, "coins": 1000000}, {"id": "lt-2tr", "w": 1, "coins": 2000000}, {"id": "ngoc-1", "w": 1, "gem": [1, 1], "n": 1}, {"id": "ngoc-2", "w": 1, "gem": [2, 2], "n": 1}, {"id": "ngoc-3", "w": 1, "gem": [3, 3], "n": 1}, {"id": "ngoc-4", "w": 1, "gem": [4, 4], "n": 1}, {"id": "ngoc-5", "w": 1, "gem": [5, 5], "n": 1}, {"id": "ngoc-6", "w": 1, "gem": [6, 6], "n": 1}, {"id": "ngoc-7", "w": 1, "gem": [7, 7], "n": 1}, {"id": "ngoc-8", "w": 1, "gem": [8, 8], "n": 1}, {"id": "do-0", "w": 1, "gear": [0]}, {"id": "do-1", "w": 1, "gear": [1]}, {"id": "do-2", "w": 1, "gear": [2]}, {"id": "do-3", "w": 1, "gear": [3]}, {"id": "do-4", "w": 1, "gear": [4]}, {"id": "do-5", "w": 1, "gear": [5]}, {"id": "do-6", "w": 1, "gear": [6]}, {"id": "dan-hoi-xuan-dan", "w": 1, "pill": "hoi-xuan-dan", "n": 10}, {"id": "dan-hoi-linh-dan", "w": 1, "pill": "hoi-linh-dan", "n": 10}, {"id": "dan-tu-khi-dan", "w": 1, "pill": "tu-khi-dan", "n": 5}, {"id": "dan-boi-nguyen-dan", "w": 1, "pill": "boi-nguyen-dan", "n": 2}, {"id": "dan-thanh-tam-dan", "w": 1, "pill": "thanh-tam-dan", "n": 2}, {"id": "dan-tinh-lien-dan", "w": 1, "pill": "tinh-lien-dan", "n": 1}, {"id": "dan-tu-van-dan", "w": 1, "pill": "tu-van-dan", "n": 3}, {"id": "dan-tay-tuy-dan", "w": 1, "pill": "tay-tuy-dan", "n": 1}, {"id": "nl-linh-thao", "w": 1, "mat": "linh-thao", "n": 20}, {"id": "nl-yeu-huyet", "w": 1, "mat": "yeu-huyet", "n": 10}, {"id": "nl-tinh-thiet", "w": 1, "mat": "tinh-thiet", "n": 20}, {"id": "nl-hoa-linh-chi", "w": 1, "mat": "hoa-linh-chi", "n": 5}, {"id": "nl-tay-luyen-thach", "w": 1, "mat": "tay-luyen-thach", "n": 10}, {"id": "nl-khoa-linh-thach", "w": 1, "mat": "khoa-linh-thach", "n": 2}, {"id": "nl-dao-van-thach", "w": 1, "mat": "dao-van-thach", "n": 1}, {"id": "nl-manh-phap-bao", "w": 1, "mat": "manh-phap-bao", "n": 3}, {"id": "cuoi-bach-loc", "w": 1, "mount": "bach-loc", "gia": 5000}, {"id": "cuoi-phong-lang", "w": 1, "mount": "phong-lang", "gia": 12000}, {"id": "cuoi-tuyet-ly", "w": 1, "mount": "tuyet-ly", "gia": 15000}, {"id": "cuoi-hoa-ky-lan", "w": 1, "mount": "hoa-ky-lan", "gia": 25000}, {"id": "khoi-tieu-hoa", "w": 1, "comp": "tieu-hoa", "gia": 8000}, {"id": "khoi-ho-linh", "w": 1, "comp": "ho-linh", "gia": 8000}, {"id": "khoi-thanh-diep", "w": 1, "comp": "thanh-diep", "gia": 10000}, {"id": "khoi-mac-anh", "w": 1, "comp": "mac-anh", "gia": 12000}, {"id": "khoi-thach-sinh", "w": 1, "comp": "thach-sinh", "gia": 15000}, {"id": "khoi-thiet-lan", "w": 1, "comp": "thiet-lan", "gia": 18000}, {"id": "ao-thanh-sam", "w": 1, "outfit": "thanh-sam", "gia": 800}, {"id": "ao-hac-y", "w": 1, "outfit": "hac-y", "gia": 1500}, {"id": "ao-hong-y", "w": 1, "outfit": "hong-y", "gia": 1500}, {"id": "ao-tien-nhan", "w": 1, "outfit": "tien-nhan", "gia": 10000}, {"id": "ao-hoang-kim", "w": 1, "outfit": "hoang-kim", "gia": 10000}], "qua_dau": 1000}'::jsonb), ('bk', '{"p": 0.3, "max": 10, "cap": 20000000}'::jsonb);
+insert into public.p2d_nhan_vat (user_id, ten, data) values ('00000000-0000-0000-0000-000000000001', 'Thử Nhất', '{"gioi": "nam", "mounts": {}, "comps": {}, "outfits": {}}'), ('00000000-0000-0000-0000-000000000002', 'Thử Hai', '{"gioi": "nu"}');
+
+-- Quà gặp mặt: bản đang chạy trên máy chủ thật (migration triệu hồi chia bậc không đổi hàm này, chỉ đổi số qua_dau trong cấu hình)
+create or replace function public.p2d_ht_qua_dau()
+returns jsonb
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare v_uid uuid := public.p2d_uid(); v_n int := coalesce(((select v from public.p2d_ht_cfg where k = 'cfg') ->> 'qua_dau')::int, 0); v_row public.p2d_ht_diem%rowtype;
+begin
+  if v_uid is null then raise exception 'chua_dang_nhap' using errcode = '42501'; end if;
+  if not exists (select 1 from public.p2d_nhan_vat where user_id = v_uid) then return jsonb_build_object('them', 0); end if;   -- chưa có nhân vật
+  insert into public.p2d_ht_diem (user_id) values (v_uid) on conflict (user_id) do nothing;
+  update public.p2d_ht_diem set diem = diem + v_n, qua_dau = now(), luc = now() where user_id = v_uid and qua_dau is null returning * into v_row;
+  if not found then return jsonb_build_object('them', 0); end if;
+  return jsonb_build_object('them', v_n, 'diem', v_row.diem);
+end;
+$$;

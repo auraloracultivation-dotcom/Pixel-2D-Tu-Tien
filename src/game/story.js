@@ -190,7 +190,7 @@ export function createStory(game) {
     },
     notify(type, id) {
       if (type === 'collect') st.counters[id] = (st.counters[id] || 0) + 1;
-      else if (type === 'kill') { st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1; st.counters['kill:*'] = (st.counters['kill:*'] || 0) + 1; }   // until.kill '*': con nào cũng tính
+      else if (type === 'kill') { const at = unit()?.until?.in; if (at && game.map.id !== at) return; st.counters['kill:' + id] = (st.counters['kill:' + id] || 0) + 1; st.counters['kill:*'] = (st.counters['kill:*'] || 0) + 1; }   // until.kill '*': con nào cũng tính; until.in: chỉ tính quái hạ ở bản đồ đó (bậc "Dọn hai phòng quái": lỡ ra ngoài hạ quái bãi thì không tính)
       else st.events[type + (id ? ':' + id : '')] = true;
       if (type === 'boss') st.events.boss_dead = true;
       if (type === 'enter') restorePickups();

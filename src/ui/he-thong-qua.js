@@ -166,21 +166,22 @@ export function renderGacha(game, body, ht, onDone) {
       return;
     }
     const hit = hitOf(r), rk = rank(hit, B), L = hitL || look(game, hit, r.noi_dung), bac = B ? Math.min(B.list.length - 1, r.bac ?? r.noi_dung?.bac ?? hit.b ?? 0) : -1;
+    const cer = !!B && bac >= B.le && !r.noi_dung?.doi;   // sẽ có nghi lễ cả màn: tiếng mừng để nghi lễ lo, trên rương chỉ một tiếng tách lúc món dừng (chủ dự án 15/11/2026 04:39: "bị lồng 2 âm thanh chúc mừng")
     show(L, true); slot.className = `ht-slot hit${rk > 1 ? ' rare' : ''}`;
     if (B) { stage.style.setProperty('--g', B.list[bac].color); const t = slot.appendChild(el('small', 'ht-bac', fill(X.bac_tag, { name: B.list[bac].name }))); t.style.color = B.list[bac].color; bh = [r.bh2 ?? bh[0], r.bh3 ?? bh[1]]; }
     const bk = r.bk || r.noi_dung?.bk || 1;
     if (bk > 1) {   // bạo kích: chữ x2, x3... to, không viền, chỉ có màu, góc trên phải ngoài món (chủ dự án 06/11/2026 23:52)
       const b = el('span', `ht-bk k${Math.min(bk, 10)}`, `x${bk}`); slot.querySelector('.ht-hit-ico')?.append(b);
-      game.sfx?.(bk >= 5 ? 'boom' : 'crit');
+      if (!cer) game.sfx?.(bk >= 5 ? 'boom' : 'crit');
     } stage.classList.add('lit'); stage.classList.toggle('rare', rk > 1);
     if (L.sub) slot.append(el('small', 'ht-hit-sub', L.sub));
     if (rk > 1 && !B) slot.append(el('small', 'ht-rare', X.rare));
     if (!B) game.toast(fill(X.summon_got, { name: L.got }), 3);   // có bậc: món và bậc hiện ngay trên rương, từ bậc bac.le có nghi lễ; dòng báo giữa màn sẽ che đúng tên món nên thôi
-    game.sfx?.(rk > 1 ? 'levelup' : 'pickup');
+    game.sfx?.(cer ? 'click' : rk > 1 ? 'levelup' : 'pickup');
     game.htFace?.react(rk > 1 ? 'hiem' : rk ? 'trieu_kha' : 'trieu', rk > 1 ? 'phan-khich' : undefined);
     import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // quà vào túi liền, khỏi đợi lượt dò thư
     dailyEvent(game, 'summon');   // việc ngày Triệu hồi
-    if (B && bac >= B.le && !r.noi_dung?.doi) setTimeout(() => ceremony(game, B, bac, L), 650);   // thấy món nằm trên rương đã, rồi mới vào nghi lễ
+    if (cer) setTimeout(() => ceremony(game, B, bac, L), 500);   // thấy món nằm trên rương đã, rồi mới vào nghi lễ
     diem = r.diem; busy = false; sync(); onDone(r); setTimeout(loadFeed, 600);   // món trúng để nguyên trên rương (không vẽ lại bảng)
   };
   sync();

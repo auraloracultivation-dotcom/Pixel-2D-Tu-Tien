@@ -113,6 +113,7 @@ export function updatePortals(game, dt) {
     if (pt.fly) continue;   // nối hai tinh cầu: đi bằng Bản đồ, không còn cổng giẫm phải (chủ dự án chốt 28/10/2026)
     const c = game.map.center(pt.at[0], pt.at[1]);
     if (Math.hypot(c.x - game.player.x, c.y - game.player.y) > 9) continue;
+    if (holdExit(game, dt)) return;
     if (pt.need && !game.save.flags[pt.need]) { game.toast('Cổng chưa mở.', 1.2); game.portalLock = 1.5; return; }
     const gate = mapGate(game, pt.to); if (gate) { game.toast(gate, 2); game.portalLock = 2; return; }   // mở theo tu vi (src/game/map-gate.js)
     if ((game.data.dungeon.closed || []).includes(pt.to)) { game.toast(game.data.menu.dungeon.closed + '.', 1.2); game.portalLock = 1.5; return; }
@@ -122,6 +123,18 @@ export function updatePortals(game, dt) {
     pickMode(game, pt.to).then(ok => { if (ok) go(); else game.portalLock = 2; });
     return;
   }
+  game.portalHold = 0;
+}
+
+// Bí cảnh đang đánh dở (có phòng đã vào mà chưa dọn xong): giẫm cổng ra chưa đi ngay, phải đứng yên trên cổng, không ra đòn, đủ dungeon.exit_hold giây.
+// 15/11/2026: người mới kịch bản đang đánh ở phòng đầu Bí cảnh Huyết Nha lỡ chân giẫm cổng ra (cổng nằm ngay trong phòng), bị đưa ra bãi vòng ngoài giữa trận.
+function holdExit(game, dt) {
+  const D = game.data.dungeon, p = game.player;
+  if (!D.exit_hold || !game.dungeon?.rooms?.some(r => r.entered && !r.cleared)) return false;
+  if (!(game.portalHint > game.time)) { game.portalHint = game.time + 4; game.toast(D.texts.exit_wait, 1.6); }
+  const still = Math.hypot(p.vx || 0, p.vy || 0) < 1 && !(p.atkCd > 0) && !(p.swingT > 0);
+  game.portalHold = still ? (game.portalHold || 0) + dt : 0;
+  return game.portalHold < D.exit_hold;
 }
 
 export function updatePickups(game) {
