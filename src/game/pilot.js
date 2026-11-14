@@ -21,7 +21,15 @@ import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const C = game => game.data.config.pilot;
 
+// Đang ở chặng leo bậc đầu game (src/game/story.js rung, docs/10-CAI-HON.md việc 5): báo một dòng rồi trả true, nơi gọi thôi không bật Tự hành / Tự đánh
+export function leoBac(game) {
+  if (!game.story?.rung?.()) return false;
+  game.toast(game.data.story.bac?.text?.lock || 'Chưa dùng được lúc này.', 2.2);
+  return true;
+}
+
 export function togglePilot(game) {
+  if (!game.pilot && leoBac(game)) return;   // chặng leo bậc đầu game: tự tay đánh, chưa dùng Tự hành
   game.pilot = game.pilot ? null : { path: null, key: '', repath: 0, line: 0 };
   if (game.pilot) game.auto = false;
   game.toast(game.pilot ? 'Tự hành: tự đi làm nhiệm vụ' : 'Tắt tự hành', 1.4);
@@ -30,7 +38,7 @@ export function togglePilot(game) {
 // Tự hành làm nhiệm vụ hằng ngày (chủ dự án 02/11/2026): chạm dòng việc ngày chưa xong thì bật tự hành ưu tiên việc ngày
 // id: chạm một việc cụ thể (bảng Hệ Thống, chủ dự án 10/11/2026 10:09) thì làm việc đó trước, xong rồi làm tiếp việc ngày khác
 export function pilotDaily(game, id) {
-  if (!game.player) return;
+  if (!game.player || leoBac(game)) return;
   game.pilot = { path: null, key: '', repath: 0, line: 0, daily: id || true };
   game.auto = false;
   game.toast('Tự hành: làm nhiệm vụ hằng ngày (kéo cần chạy để dừng)', 1.8);

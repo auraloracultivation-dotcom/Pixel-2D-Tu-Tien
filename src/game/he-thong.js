@@ -12,7 +12,7 @@ export function htState(game) { return (game.htS ??= { idle: 0, deaths: [], last
 
 // Còn chưa chào: 'new' (người mới, bước truyện đầu) | 'old' | null
 export function needIntro(game) {
-  if (!game.save || game.save.ht?.intro) return null;
+  if (!game.save || game.save.ht?.intro || game.story?.rung?.()) return null;   // đang leo bậc đầu game (story.js rung): để người chơi đánh xong đã rồi mới chào
   return (game.save.step || 0) <= 2 ? 'new' : 'old';
 }
 export function doneIntro(game) { (game.save.ht ??= {}).intro = 1; game.persist?.(); }

@@ -15,7 +15,7 @@ export function guideList(game) {
   const s = game.save, out = [];
   if (!s || !game.map) return out;
   const g = game.story?.goal();
-  if (g) out.push({ key: 'story', pos: g.target ? game.map.center(g.target[0], g.target[1]) : null });
+  if (g) out.push({ key: 'story', pos: g.target ? game.map.center(g.target[0], g.target[1]) : g.kill ? mobPos(game, g.kill) : null });   // việc diệt quái (chặng leo bậc): chỉ tới con gần nhất
   return out;
 }
 

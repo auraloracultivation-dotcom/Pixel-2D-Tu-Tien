@@ -1,5 +1,6 @@
 // Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
+import { pbGive } from './phap-bao-grant.js';
 // Chọn hệ linh căn ở đá linh căn. Bảng chọn bị đóng ngang (đổi bản đồ, bảng khác bật lên) thì hộp thoại trả null: hỏi lại tới khi chọn
 // (báo lỗi 13/11/2026: hai tài khoản người chơi đi qua bước này mà không có hệ, không hiện linh căn). Phẩm linh căn đã có thì giữ.
 async function chooseElement(g) {
@@ -13,26 +14,47 @@ async function chooseElement(g) {
   return true;
 }
 
+// Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; data/story.json → bac): công tắc cho mọi người bac.on, riêng một máy ?bac=1 / ?bac=0 (nhớ trên máy đó)
+let BAC = null;
+export function bacOn(game) {
+  if (BAC != null) return BAC;
+  const B = game.data.story.bac; let v = null;
+  try { const q = new URLSearchParams(location.search).get('bac'); if (q != null) localStorage.setItem('p2d-bac', q); v = localStorage.getItem('p2d-bac'); } catch { /* không có kho nhớ: theo mặc định */ }
+  return (BAC = !!B && (v != null ? v === '1' : !!B.on));
+}
+
 export function createStory(game) {
   pickStory(game);   // bản lưu truyện cũ: sang bước cuối truyện mới
-  const steps = game.data.story.steps;
+  const steps = game.data.story.steps, B = game.data.story.bac;
   const st = { busy: false, counters: {}, events: {} };
 
   const step = () => steps[game.save.step];
+  // Leo bậc: bước truyện có danh sách bậc ở bac.truoc[mã bước] thì các bậc chạy lần lượt TRƯỚC khi bước đó bắt đầu (mỗi bậc cũng có do / goal / until như
+  // một bước), số bước truyện save.step đứng yên nên mọi chỗ đang dựa vào số bước không lệch. Bậc đang leo ghi ở save.bac = { s: mã bước, i: số bậc đã xong }.
+  // Leo hết bậc thì tới chính bước truyện, với phần mở đầu thay bằng bac.thay[mã bước] nếu có (lời thoại khớp với việc vừa đánh xong).
+  // Bước khác (không có bậc) mà có bac.thay thì cũng dùng bản thay khi người chơi đã leo bậc (cờ 'leo-bac'): quà không trùng với quà của các bậc.
+  const pre = s => (s && bacOn(game) && B.truoc?.[s.id]) || null;
+  const subI = s => (game.save.bac?.s === s.id ? game.save.bac.i : 0);
+  const unit = () => {
+    const s = step(), P = pre(s);
+    if (P && subI(s) < P.length) return P[subI(s)];
+    return s && B?.thay?.[s.id] && (P || game.save.flags['leo-bac']) && bacOn(game) ? { ...s, do: B.thay[s.id] } : s;
+  };
+  const rung = () => { const s = step(), P = pre(s), i = P ? subI(s) : 0; return P && i < P.length ? { i: i + 1, n: P.length, u: P[i] } : null; };   // bậc đang leo (null: không ở chặng leo bậc)
   // Lệnh phát quà của một bước chỉ chạy một lần dù bước chạy lại từ đầu (mở lại game giữa bước). Trước 14/11/2026 mỗi lần mở lại game ở bước đánh lui ma tộc,
   // bước chờ vào bí cảnh… lại nhận thêm một viên ngọc cấp 5 và một món đồ. Ghi ở save.stepPaid = { s: mã bước, k: { lệnh + thứ tự: 1 } }, sang bước mới thì ghi đè.
-  const GIVE = ['reward', 'gem', 'mats', 'pills', 'item'];
+  const GIVE = ['reward', 'gem', 'mats', 'pills', 'item', 'phap_bao'];
   const paid = s => (game.save.stepPaid?.s === s.id ? game.save.stepPaid : (game.save.stepPaid = { s: s.id, k: {} })).k;
 
   async function runStep() {
-    const s = step();
+    const s = step(), u = unit();
     if (!s) return;
     st.counters = {}; st.events = {};
     if (s.map && game.map.id !== s.map && !game.save.stepDone) await game.travel(s.map, null, false);
     if (!game.save.stepDone) {
       st.busy = true;
-      try { const seen = {}; for (const a of s.do || []) await act(a, s, seen); }
-      catch (e) { console.error('story', s.id, e); }   // một lệnh truyện lỗi: vẫn mở khoá, không kẹt "đang có chuyện" mãi (góp ý #55 kẹt map)
+      try { const seen = {}; for (const a of u.do || []) await act(a, u, seen); }
+      catch (e) { console.error('story', u.id, e); }   // một lệnh truyện lỗi: vẫn mở khoá, không kẹt "đang có chuyện" mãi (góp ý #55 kẹt map)
       finally { st.busy = false; }
       game.save.stepDone = true;
       game.persist();
@@ -42,8 +64,8 @@ export function createStory(game) {
   // Bước nhặt đồ đã chạy xong phần "do" mà vào lại bản đồ (chết, đi rồi về, tải lại trang với bước once): rải lại số món còn
   // thiếu, kẻo tự hành và người chơi đứng mãi ở chỗ chỉ đường (chơi thử 28/10: kẹt "Lấy băng tâm ở bờ đông bắc" ở Hàn Băng)
   function restorePickups() {
-    const s = step(), item = s?.until?.collect;
-    if (!item || !game.save.stepDone || (s.target_map || s.map || game.map.id) !== game.map.id || game.pickups.some(k => k.item === item && !k.side)) return;
+    const s = unit(), item = s?.until?.collect;
+    if (!item || !game.save.stepDone || (s.target_map || s.map || step().map || game.map.id) !== game.map.id || game.pickups.some(k => k.item === item && !k.side)) return;
     const left = Math.max(0, s.until.n - (st.counters[item] || 0));
     for (const a of s.do || []) if (a.pickups === item) for (const [x, y] of a.at.slice(0, left)) game.addPickup(item, x, y);
   }
@@ -61,10 +83,13 @@ export function createStory(game) {
     else if (a.choose_element) await chooseElement(g);
     else if (a.pickups) for (const [x, y] of a.at) g.addPickup(a.pickups, x, y);
     else if ('dark' in a) g.darkTarget = a.dark;
-    else if (a.spawn) {
+    else if (a.spawn) {   // at: ô trên bản đồ; near: [lệch ngang, lệch dọc] tính bằng ô so với chỗ người chơi đang đứng; hp, atk: máu, công riêng cho lứa quái này; loot: 0 = không rơi đồ
+      const T = g.map.T || 16, at = a.near ? [Math.floor(g.player.x / T) + a.near[0], Math.floor(g.player.y / T) + a.near[1]] : a.at;
       for (let i = 0; i < a.n; i++) {
-        const p = g.map.freeNear(a.at[0], a.at[1], a.spread || 1, 6);
-        g.spawn(a.spawn, p.x, p.y, { story: true });
+        const p = g.map.freeNear(at[0], at[1], a.spread || 1, 6), m = g.spawn(a.spawn, p.x, p.y, { story: true });
+        if (a.hp) m.hp = m.maxHp = a.hp;
+        if (a.atk != null) m.def = { ...m.def, atk: a.atk };
+        if (a.loot != null) m.lootMul = a.loot;
       }
     }
     else if ('nodeath' in a) g.noDeath = a.nodeath;
@@ -88,6 +113,7 @@ export function createStory(game) {
     else if (a.gear) g.giveGear(a.gear);
     else if (a.item) g.save.items[a.item] = (g.save.items[a.item] || 0) + 1;
     else if (a.reward) await g.giveReward(a.reward);   // chờ người chơi xem xong nghi lễ nhận thưởng rồi mới nói tiếp
+    else if (a.phap_bao) await pbGive(g, a.phap_bao);   // pháp bảo trao trong truyện (chặng leo bậc), cũng có nghi lễ
     else if (a.mats) for (const [k, n] of Object.entries(a.mats)) g.save.mats[k] = (g.save.mats[k] || 0) + n;
     else if (a.gem) g.save.gems[a.gem] = (g.save.gems[a.gem] || 0) + 1;   // ngọc ("loại:cấp"), cốt truyện người mới
     else if (a.pills) for (const [k, n] of Object.entries(a.pills)) g.save.pills[k] = (g.save.pills[k] || 0) + n;
@@ -118,7 +144,10 @@ export function createStory(game) {
   }
 
   function advance() {
-    game.save.step += 1; game.save.stepDone = false;
+    const s = step(), P = pre(s);
+    if (P && subI(s) < P.length) { game.save.bac = { s: s.id, i: subI(s) + 1 }; game.save.flags['leo-bac'] = true; }   // xong một bậc: sang bậc kế, hết bậc thì tới chính bước truyện
+    else game.save.step += 1;
+    game.save.stepDone = false;
     game.checkUnlocks?.();   // mốc theo bước truyện (Linh Châu rơi sau boss đầu, src/game/phap-bao-grant.js)
     game.persist();
     runStep();
@@ -129,7 +158,7 @@ export function createStory(game) {
     start() {
       // bản lưu đã qua bước đá linh căn (bước 1) mà chưa có hệ: hỏi chọn hệ ngay khi vào game
       if (game.save.step > 1 && !game.data.elements[game.save.element]) { st.busy = true; return chooseElement(game).finally(() => { st.busy = false; }).then(ok => ok && this.start()); }
-      const s = step();
+      const s = unit();
       if (s && !s.until.never && !s.once) {
         if (game.save.stepDone) { const k = paid(s), seen = {}; for (const a of s.do || []) { const kind = GIVE.find(x => x in a); if (kind) k[kind + (seen[kind] = (seen[kind] || 0) + 1)] = 1; } }   // bản lưu cũ: bước đã chạy xong một lần thì quà coi như đã phát
         game.save.stepDone = false;
@@ -138,7 +167,7 @@ export function createStory(game) {
     },
     get busy() { return st.busy; },
     update() {
-      const s = step();
+      const s = unit();
       if (!s || st.busy || !game.save.stepDone || game.traveling) return;
       if (check(s.until)) advance();
     },
@@ -151,16 +180,19 @@ export function createStory(game) {
     },
     // Chữ nhiệm vụ và ô chỉ đường đang hiện
     goal() {
-      const s = step();
+      const s = unit();
       if (!s || !game.save.stepDone || !s.goal || s.until.never) return null;   // hết truyện (cày bí cảnh + nhiệm vụ): không còn khung nhiệm vụ truyện, chỉ còn cột nhiệm vụ ngày
       const key = s.until.collect || (s.until.kill && 'kill:' + s.until.kill);
       const n = key ? Math.min(st.counters[key] || 0, s.until.n) : 0;
-      return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map) === game.map.id ? s.target : null };
+      return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map || step().map) === game.map.id ? s.target : null, kill: s.until.kill || null, n, of: key ? s.until.n : 0 };
     },
+    // Bậc đang leo của chặng leo bậc: { i: bậc thứ mấy, n: tổng số bậc, u: bậc (goal, until, thuong) }, null khi không ở chặng này. Đang leo bậc thì chưa dùng
+    // Tự hành, Tự đánh (người chơi tự tay đánh): src/game/pilot.js, auto.js hỏi game.story.rung()
+    rung,
     // Bước đang chạy và đã tới phần chờ điều kiện chưa (cho tự hành)
-    current() { return game.save.stepDone ? step() : null; },
+    current() { return game.save.stepDone ? unit() : null; },
     // NPC này đang được nhiệm vụ chờ nói chuyện?
-    wants(npcId) { const s = step(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
+    wants(npcId) { const s = unit(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
   };
 }
 

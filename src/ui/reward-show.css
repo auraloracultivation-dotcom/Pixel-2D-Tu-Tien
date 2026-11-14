@@ -9,6 +9,7 @@
 #qua .q-stage { position: relative; flex: none; }
 #qua .q-rays { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; }
 #qua .q-ico { position: absolute; left: 50%; top: 50%; background: center / contain no-repeat; opacity: 0; filter: none; }
+#qua .q-ico canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); image-rendering: pixelated; }   /* hình là một khung trong tấm hình nhiều khung (pháp bảo) */
 #qua .q-title { position: absolute; left: 50%; z-index: 2; display: flex; justify-content: center; box-sizing: border-box; height: 34px; border: solid transparent; border-width: 0 54px;
   border-image: url("../../assets/art/ui-k-bang.png") 0 150 fill / 0 54px / 0 stretch; font: 700 15px/32px var(--f-body); color: #ffe9a8; white-space: nowrap;
   text-shadow: 1px 0 #2a0f3c, -1px 0 #2a0f3c, 0 1px #2a0f3c, 0 -1px #2a0f3c; opacity: 0; }

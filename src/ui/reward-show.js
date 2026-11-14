@@ -10,6 +10,7 @@ import { grade } from '../game/tiers.js';
 import { equip, itemName, statText } from '../game/items.js';
 import { mainStats, powerGain } from './bag-detail.js';
 import { rewardOn, rewardSettled } from '../game/reward.js';
+import { spriteIcon } from './sprite-icon.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -33,36 +34,45 @@ export function createRewardShow(game) {
   // khung vầng sáng: mỗi điểm ảnh phủ một số nguyên điểm thật của màn hình (máy 3x: 4 điểm) cho mẫu chấm đều, không vằn
   const grid = size => { const dpr = window.devicePixelRatio || 1, m = Math.max(1, Math.round(C.px * dpr)), n = Math.round(size * dpr / m); return { n, css: n * m / dpr }; };
 
+  // Tờ khai của một phần thưởng cho màn diễn. Món trang bị trong túi: tự khai từ món. Phần thưởng khác (pháp bảo trao trong truyện…): nơi gọi đưa sẵn
+  // { qua: { ray: màu vầng sáng, ink: màu tên, lvl, name, tag: nhãn phẩm, sub, lines: [{ text, color, main }], spr: { id, frame } hình trong data/art.json,
+  // gain: lực chiến đã tăng (null: không ghi) } }: coi như đã nhận xong, chỉ có một nút Tiếp tục.
+  function khai(it) {
+    if (it.qua) return { worn: true, cur: false, inBag: false, lines: [], ...it.qua };
+    const { g, ray, ink, lvl } = tierOf(it), slot = data.items.bases[it.base].slot, inBag = game.save.bag.includes(it);
+    const worn = game.save.equip[slot] === it.uid, cur = !worn && game.save.equip[slot] != null;
+    const lines = Object.entries(mainStats(data, game.save, it)).map(([k, v]) => ({ text: statText(data, k, v), main: true }));
+    for (const l of it.lines || []) { const t = Number.isInteger(l.t) ? data.items.line_tiers.list[l.t] : null; lines.push({ text: '◆ ' + statText(data, l.s, l.v), color: t ? (t.edge ? '#ffd6d6' : t.color) : '' }); }
+    return { ray, ink, lvl, name: itemName(data, it), tag: g.name, sub: fill(X.sub, { slot: data.items.slots[slot], lvl: it.lvl || 0 }), lines, ico: icoUrl(it), inBag, worn, cur, gain: inBag && !worn ? Math.round(powerGain(game, it)) : worn ? null : 0 };
+  }
+
   // tap: người chơi tự chạm thẻ nhỏ để xem (không tự đóng dù đang Tự hành / Tự đánh)
   function open(it, tap) {
     style();
     if (game.rwWait?.it === it) game.rwWait = null;
     if (M?.it === it) hideMini();
-    const { g, ray, ink, lvl } = tierOf(it), slot = data.items.bases[it.base].slot, G = grid(Math.min(C.size[lvl], window.innerWidth - 8)), inBag = game.save.bag.includes(it);
+    const K = khai(it), lvl = K.lvl, G = grid(Math.min(C.size[lvl], window.innerWidth - 8));
     root ||= document.body.appendChild(el('div')); root.id = 'qua'; root.className = ''; root.textContent = ''; root.hidden = false;
     const dim = el('div', 'q-dim'), flash = el('div', 'q-flash'), col = el('div', 'q-col'), title = el('div', 'q-title');
     title.append(el('span', null, X.title));
-    const stage = el('div', 'q-stage'), rays = createRays(ray, lvl, G.n), ico = el('i', 'q-ico');
+    const stage = el('div', 'q-stage'), rays = createRays(K.ray, lvl, G.n), ico = el('i', 'q-ico');
     stage.style.width = stage.style.height = G.css + 'px'; rays.canvas.className = 'q-rays';
-    ico.style.backgroundImage = icoUrl(it); ico.style.width = ico.style.height = C.icon + 'px';
+    ico.style.width = ico.style.height = C.icon + 'px';
+    if (K.spr) ico.append(spriteIcon(game, K.spr.id, K.spr.frame || 0, C.icon * 1.5, 'q-spr')); else ico.style.backgroundImage = K.ico;   // hình là một khung trong tấm hình nhiều khung (pháp bảo): vẽ lên canvas
     stage.append(rays.canvas, ico, title);
     title.style.top = Math.round(G.css / 2 - C.icon / 2 - 46) + 'px';
-    const plate = el('div', 'q-plate'), name = el('div', 'q-name', itemName(data, it)), sub = el('div', 'q-sub');
-    sub.append(el('b', null, g.name), el('span', null, fill(X.sub, { slot: data.items.slots[slot], lvl: it.lvl || 0 })));   // nhãn phẩm tô màu phẩm, rồi ô và cấp
-    name.style.color = ink; plate.style.setProperty('--g', ink); plate.style.marginTop = -Math.round(G.css / 2 - C.icon / 2 - 28) + 'px';   // bảng tên kéo lên dưới chân món, nằm trên phần đuôi tia đã thưa
+    const plate = el('div', 'q-plate'), name = el('div', 'q-name', K.name), sub = el('div', 'q-sub');
+    sub.append(el('b', null, K.tag), el('span', null, K.sub));   // nhãn phẩm tô màu phẩm, rồi ô và cấp
+    name.style.color = K.ink; plate.style.setProperty('--g', K.ink); plate.style.marginTop = -Math.round(G.css / 2 - C.icon / 2 - 28) + 'px';   // bảng tên kéo lên dưới chân món, nằm trên phần đuôi tia đã thưa
     plate.append(name, sub);
     const stats = el('div', 'q-stats'), lines = [];
-    for (const [s, v] of Object.entries(mainStats(data, game.save, it))) lines.push(stats.appendChild(el('div', 'q-main', statText(data, s, v))));
-    for (const l of it.lines || []) {
-      const t = Number.isInteger(l.t) ? data.items.line_tiers.list[l.t] : null, d = stats.appendChild(el('div', 'q-line', '◆ ' + statText(data, l.s, l.v)));
-      if (t) d.style.color = t.edge ? '#ffd6d6' : t.color;
-      lines.push(d);
-    }
-    const worn = game.save.equip[slot] === it.uid, cur = !worn && game.save.equip[slot] != null, gain = inBag && !worn ? Math.round(powerGain(game, it)) : 0;
+    for (const l of K.lines) { const d = stats.appendChild(el('div', l.main ? 'q-main' : 'q-line', l.text)); if (l.color) d.style.color = l.color; lines.push(d); }
+    const worn = K.worn, cur = K.cur, inBag = K.inBag, gain = K.gain ?? 0, noPow = K.gain == null;
     const pow = el('div', 'q-pow' + (gain > 0 ? ' up' : gain < 0 ? ' down' : '')), pv = el('b');
-    pow.append(worn ? X.worn : X.power + ' ', pv);
+    pow.append(noPow ? X.worn : X.power + ' ', pv);
+    if (noPow && it.qua) pow.hidden = true;
     const btns = el('div', 'q-btns'), bWear = el('button', 'q-btn', cur ? X.swap : X.wear), bKeep = el('button', 'q-btn', worn || !inBag ? X.ok : X.keep);
-    bWear.type = bKeep.type = 'button'; (gain > 0 ? bWear : bKeep).classList.add('go');
+    bWear.type = bKeep.type = 'button'; (gain > 0 && !worn && inBag ? bWear : bKeep).classList.add('go');
     if (worn || !inBag) bWear.hidden = true;
     btns.append(bWear, bKeep);
     const hint = el('div', 'q-hint', X.skip);
@@ -71,7 +81,7 @@ export function createRewardShow(game) {
     const H = window.innerHeight, need = col.offsetHeight, over = Math.max(0, G.css / 2 - C.icon / 2 - 54), k = Math.min(1, (H - 10) / (need - over));
     col.style.top = Math.round(Math.min(H * C.y - G.css / 2, H - 6 - need * k)) + 'px'; col.style.transform = k < 1 ? `scale(${k.toFixed(3)})` : '';
     const tPow = T.stats + lines.length * T.line + 0.08, tEnd = tPow + T.end;
-    S = { it, lvl, gain, worn, tap, born: performance.now(), t0: game.time, tPow, tEnd, rays, dim, flash, col, title, stage, ico, plate, name, sub, lines, go: gain > 0 ? bWear : bKeep, pow, pv, btns, hint, fired: {}, out: null, mine: !game.uiOpen, shown: performance.now() };
+    S = { it, lvl, gain, worn: noPow, tap, born: performance.now(), t0: game.time, tPow, tEnd, rays, dim, flash, col, title, stage, ico, plate, name, sub, lines, go: gain > 0 && !worn && inBag ? bWear : bKeep, pow, pv, btns, hint, fired: {}, out: null, mine: !game.uiOpen, shown: performance.now() };
     if (S.mine) game.uiOpen = 'qua';
     game.fpsHi = performance.now() + (tEnd + 0.5) * 1000;   // lúc món hiện ra, chỉ số chạy: vẽ đủ khung cho mượt (core/perf.js), xong lại về nhịp tiết kiệm
     bWear.onclick = e => { e.stopPropagation(); close('wear'); };
