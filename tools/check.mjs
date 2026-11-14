@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { kyCfg, sameJson } from './ky-cfg.mjs';
+import { kyCfg, bcCfg, sameJson } from './ky-cfg.mjs';
 
 const errors = [];
 const SKIP = new Set(['.git', 'node_modules']);
@@ -193,7 +193,7 @@ try {
     && JSON.stringify(khc.anh) === JSON.stringify(Object.fromEntries(Object.entries(khd.anh).filter(([k]) => !k.startsWith('_'))))
     && JSON.stringify(khc.loai_anh) === JSON.stringify([...new Set(Object.values(khd.ct).filter(c => c.loai === 'cn').map(c => c.npc))].sort().concat('nha')), `khai-hoang: số khác bảng p2d_kh_cfg trên máy chủ; đổi số thì thêm migration mới`);
   // Chữ ký món: máy chủ tự tẩy luyện, cường hoá, đổi hệ theo bảng p2d_ky_cfg; số phải khớp data/ (tools/ky-cfg.mjs dựng)
-  { const km = lastWith(/insert into public\.p2d_ky_cfg/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/), want = kyCfg(read);
+  { const km = lastWith(/insert into public\.p2d_ky_cfg[^;]*values \('cfg'/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/), want = kyCfg(read);
     need(km && sameJson(JSON.parse(km[1]), want), 'items / gear / elements / daovan: số tẩy luyện, cường hoá, đổi hệ khác bảng p2d_ky_cfg trên máy chủ; chạy node tools/ky-cfg.mjs rồi thêm migration mới');
     need(items.ky_mon?.busy && items.ky_mon.err?.other, 'items.ky_mon: thiếu chữ báo');
     // Mức nhận đồ rơi mới (migration 20261105030000_p2d_ky_roi.sql): thùng Thiên phải chứa đủ một túi và hồi đủ thưởng bí cảnh mỗi ngày
@@ -201,6 +201,10 @@ try {
     need(rb && ['phut', 'gio', 'tran'].every(k => rids.every(r => rb[k][r] >= 0)) && rb.tran.thien >= items.bag_size && rb.gio.thien * 24 >= dg.per_day * nDun
       && rb.mau.t >= 0 && rb.mau.tran > 0 && rb.nang >= 1 && rb.nho > 0 && read('config.json').guard.texts.roi?.includes('{n}'),
       `items.drop_budget: thiếu số, thùng Thiên < túi (${items.bag_size}) hoặc hồi Thiên mỗi ngày < thưởng bí cảnh (${dg.per_day} × ${nDun}), hoặc thiếu chữ config.guard.texts.roi`); }
+  // Thưởng bí cảnh: máy chủ không tính thưởng cấp và Linh Thạch rơi của lượt bí cảnh vào thùng hạn mức (p2d_mien_bi_canh, bảng p2d_ky_cfg
+  // dòng 'bi_canh'); đổi dungeon.json, quái trong phòng bí cảnh, shop.drop, sự kiện tuần mà không thêm migration thì người chơi thật bị cờ linh_thach
+  { const bm = lastWith(/insert into public\.p2d_ky_cfg[^;]*values \('bi_canh'/).match(/values \('bi_canh', '(\{[^']*\})'::jsonb\)/);
+    need(bm && sameJson(JSON.parse(bm[1]), bcCfg(read)), "dungeon / mobs / maps / shop.drop / events.weekly: thưởng bí cảnh khác bảng p2d_ky_cfg dòng 'bi_canh' trên máy chủ; chạy tools/ky-cfg.mjs bcCfg rồi thêm migration mới"); }
   // Sự kiện giới thiệu, thưởng góp ý: số trong data/referral.json phải khớp hàm p2d_gt_luat, p2d_gop_y_thuong trên máy chủ
   const rf = read('referral.json'), gt = lastWith(/function public\.p2d_gt_luat/), gtv = k => +(gt.match(new RegExp(`'${k}', (\\d+)`)) || [])[1];
   need(gt.includes(`'${rf.starts}'::timestamptz`) && gt.includes(`'${rf.ends}'::timestamptz`) && gtv('phut') === rf.minutes && gtv('ngat_phut') === rf.gap && gtv('cap_gt') === rf.gem_ref && gtv('cap_moi') === rf.gem_new && gtv('nhap_ngay') === rf.join_days, 'referral: ngày, số phút, cấp ngọc khác hàm p2d_gt_luat trên máy chủ (supabase/migrations)');

@@ -64,10 +64,44 @@ function thuCfg(read) {
   };
 }
 
+// Thưởng bí cảnh (bảng p2d_ky_cfg dòng 'bi_canh', hàm p2d_mien_bi_canh, migration 20261114060000_p2d_mien_bi_canh.sql). Mỗi lượt vượt /
+// càn quét, máy khách tự cộng thưởng cấp (dungeon.json modes[].reward.coins × coin_dun, nhích reward_step mỗi bậc) và Linh Thạch rơi
+// của mọi quái trong các phòng (src/game/dun-sweep.js, shop.js coinDrop). Máy chủ cần đúng các số này để không coi khoản đó là Linh Thạch lố.
+//   luot: lượt mỗi ngày · buoc: số bậc mỗi cấp · nhich: thưởng nhích mỗi bậc · cap: linh khí quái nhích mỗi cấp · thuong: Linh Thạch thưởng từng cấp
+//   tuan: hệ số Linh Thạch rơi của từng sự kiện tuần (events.json weekly, xoay vòng theo số tuần)
+//   bc[bí cảnh] = [hệ số thưởng cấp, Linh Thạch rơi nhiều nhất một lượt ở bậc 1 (con nào cũng rơi, mức cao nhất, có đạo lữ), số quái]
+export function bcCfg(read) {
+  const D = read('dungeon.json'), M = read('mobs.json'), S = read('shop.json').drop, E = read('events.json'), SO = read('social.json');
+  const hi = 1.3 * (1 + (SO.dao_lu?.bonus || 0)), bc = {};   // coinDrop: × (0,7 + ngẫu nhiên × 0,6), đạo lữ + bonus
+  for (const id of read('config.json').maps) {
+    const m = read(`maps/${id}.json`);
+    if (!(m.rooms || []).length || m.demon) continue;   // Phương Thiên Địa (Ma Vương) không tính lượt bí cảnh
+    let roi = 0, n = 0;
+    for (const r of m.rooms) for (const { mob, n: k = 1 } of r.mobs || []) {
+      if (!M[mob]?.qi) continue;
+      roi += k * M[mob].qi * S.per_qi * (M[mob].ai === 'boss' ? S.boss_mul : 1) * hi; n += k;
+    }
+    bc[id] = [D.coin_dun?.[id]?.coins_mul || 1, Math.ceil(roi), n];
+  }
+  return { luot: D.per_day, buoc: D.steps, nhich: D.reward_step, cap: D.reward_tier, thuong: D.modes.map(m => m.reward?.coins || 0), tuan: E.weekly.map(w => w.mul?.coin || 1), bc };
+}
+
+// Một lượt ở bậc L trở xuống (L đếm từ 0) của bí cảnh id cộng nhiều nhất bao nhiêu Linh Thạch: cùng phép tính với hàm p2d_mien_bi_canh
+// trên máy chủ (phép thử trong migration so hai bên). tuan: hệ số sự kiện tuần đang chạy. Qua cấp cuối (Vô Gian 2, 3…) thưởng cấp
+// quay vòng theo bậc nên lấy mức nhích cao nhất; + 1 và + 2 mỗi quái: phần làm tròn.
+export function bcLuot(c, id, L, tuan = 1) {
+  const b = c.bc[id], cap = Math.floor(L / c.buoc), buoc = L % c.buoc, cuoi = c.thuong.length - 1;
+  const len = x => Math.ceil(x - 1e-9);   // máy chủ tính bằng số thập phân đúng, ở đây số thực lệch một phần tỉ
+  if (!b) return 0;
+  return len(c.thuong[Math.min(cap, cuoi)] * b[0] * (1 + c.nhich * (cap > cuoi ? c.buoc - 1 : buoc))) + 1
+    + len(b[1] * c.cap ** cap * (1 + c.nhich * buoc) * tuan) + 2 * b[2];
+}
+
 // So hai giá trị JSON không kể thứ tự khoá
 export const sameJson = (a, b) => {
   const norm = v => Array.isArray(v) ? v.map(norm) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, norm(v[k])])) : v;
   return JSON.stringify(norm(a)) === JSON.stringify(norm(b));
 };
 
-if (process.argv[1]?.endsWith('ky-cfg.mjs')) console.log(JSON.stringify(kyCfg(f => JSON.parse(readFileSync(join('data', f), 'utf8')))));
+// node tools/ky-cfg.mjs: chuỗi JSON dòng 'cfg' · node tools/ky-cfg.mjs bi_canh: chuỗi JSON dòng 'bi_canh'
+if (process.argv[1]?.endsWith('ky-cfg.mjs')) { const read = f => JSON.parse(readFileSync(join('data', f), 'utf8')); console.log(JSON.stringify(process.argv[2] === 'bi_canh' ? bcCfg(read) : kyCfg(read))); }
