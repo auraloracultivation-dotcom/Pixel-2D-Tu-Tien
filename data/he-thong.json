@@ -2659,7 +2659,7 @@
    "gia": 10000
   }
  ],
- "bac": {"_note": "Triệu hồi chia năm bậc (docs/10-CAI-HON.md việc 6 dòng 18a; chủ dự án 14/11/2026 23:25 duyệt bảng 18a1: \"phải xây lại tỉ lệ triệu hồi ra đồ tốt\"). Mỗi món trong pool có b = bậc (0 Thường … 4 Truyền thuyết); tỉ lệ một món = pct của bậc / số món trong bậc. Bảo hiểm (bao_hiem): hiem lượt liền chưa ra bậc Hiếm trở lên thì lượt thứ hiem chắc chắn ra một món bậc Hiếm; cuc lượt liền chưa ra Cực hiếm trở lên thì chắc chắn ra một món Cực hiếm. le: từ bậc này trở lên món trúng có nghi lễ nhận thưởng (lvl: cỡ nghi lễ theo bậc). loa: bậc này máy chủ báo lên kênh thế giới (ten: tên món trong lời báo). on: false = máy khách còn hiện bảng tỉ lệ ngang nhau cũ; bật true CÙNG LÚC với lúc áp migration 20261115010000_p2d_trieu_hoi_bac.sql lên máy chủ (chờ chủ dự án nói \"áp lên\"), kẻo bảng tỉ lệ hiện một đằng máy chủ quay một nẻo. Máy chủ quay (p2d_ht_trieu) theo bản sao của bảng này trong p2d_ht_cfg (tools/he-thong-sql.py bac).", "on": false, "list": [{"name": "Thường", "pct": 62, "color": "#c9ced8"}, {"name": "Khá", "pct": 26, "color": "#7fdc8a"}, {"name": "Hiếm", "pct": 9.5, "color": "#72b6ff"}, {"name": "Cực hiếm", "pct": 2.2, "color": "#c792ff"}, {"name": "Truyền thuyết", "pct": 0.3, "color": "#ffd25a"}], "bao_hiem": {"hiem": 10, "cuc": 80}, "le": 2, "lvl": [0, 0, 1, 2, 3], "loa": 4, "ten": {"lt-1tr": "1 triệu Linh Thạch", "lt-2tr": "2 triệu Linh Thạch", "ngoc-7": "ngọc cấp 7", "ngoc-8": "ngọc cấp 8", "do-5": "trang bị phẩm Tiên", "do-6": "trang bị Thượng Cổ"}},
+ "bac": {"_note": "Triệu hồi chia năm bậc (docs/10-CAI-HON.md việc 6 dòng 18a; chủ dự án 14/11/2026 23:25 duyệt bảng 18a1: \"phải xây lại tỉ lệ triệu hồi ra đồ tốt\"). Mỗi món trong pool có b = bậc (0 Thường … 4 Truyền thuyết); tỉ lệ một món = pct của bậc / số món trong bậc. Bảo hiểm (bao_hiem): hiem lượt liền chưa ra bậc Hiếm trở lên thì lượt thứ hiem chắc chắn ra một món bậc Hiếm; cuc lượt liền chưa ra Cực hiếm trở lên thì chắc chắn ra một món Cực hiếm. le: từ bậc này trở lên món trúng có nghi lễ nhận thưởng (lvl: cỡ nghi lễ theo bậc). loa: bậc này máy chủ báo lên kênh thế giới (ten: tên món trong lời báo). on: false = máy khách còn hiện bảng tỉ lệ ngang nhau cũ; bật true CÙNG LÚC với lúc áp migration 20261115010000_p2d_trieu_hoi_bac.sql lên máy chủ (chờ chủ dự án nói \"áp lên\"), kẻo bảng tỉ lệ hiện một đằng máy chủ quay một nẻo. Máy chủ quay (p2d_ht_trieu) theo bản sao của bảng này trong p2d_ht_cfg (tools/he-thong-sql.py bac).", "on": true, "list": [{"name": "Thường", "pct": 62, "color": "#c9ced8"}, {"name": "Khá", "pct": 26, "color": "#7fdc8a"}, {"name": "Hiếm", "pct": 9.5, "color": "#72b6ff"}, {"name": "Cực hiếm", "pct": 2.2, "color": "#c792ff"}, {"name": "Truyền thuyết", "pct": 0.3, "color": "#ffd25a"}], "bao_hiem": {"hiem": 10, "cuc": 80}, "le": 2, "lvl": [0, 0, 1, 2, 3], "loa": 4, "ten": {"lt-1tr": "1 triệu Linh Thạch", "lt-2tr": "2 triệu Linh Thạch", "ngoc-7": "ngọc cấp 7", "ngoc-8": "ngọc cấp 8", "do-5": "trang bị phẩm Tiên", "do-6": "trang bị Thượng Cổ"}},
  "_pool": "Bảng quà triệu hồi (chủ dự án 06/11/2026 22:37: mọi thứ mua được trong game đều có, trừ ngọc cấp 9 trở lên; Linh Thạch 20k → 2 triệu 7 mức; mọi loại tỉ lệ ngang nhau — w = 1 hết, 53 loại thì mỗi loại 1/53). gem [cấp, cấp] loại ngẫu nhiên; gear [bậc màu dòng] trang bị ngẫu nhiên mọi ô; pill / mat + n; mount (thú cưỡi), comp (khôi lỗi), outfit (thời trang bán bằng Linh Thạch, bản theo giới tính; bỏ bộ chỉ một giới): đã có (hoặc đang chờ trong Hòm thư) thì đổi ra gia Linh Thạch. Quà vào Hòm thư; máy chủ quay (p2d_ht_trieu).",
  "text": {
   "points": "Điểm hệ thống: {p}",
@@ -2913,7 +2913,7 @@
  },
  "qua_dau": {
   "_note": "Quà gặp mặt (chủ dự án 06/11/2026 22:59): ai mới chơi hoặc lần đầu gặp hệ thống được diem điểm, mỗi tài khoản một lần (máy chủ p2d_ht_qua_dau, cfg qua_dau).",
-  "diem": 1000,
+  "diem": 300,
   "say": "Đinh! Quà gặp mặt của bổn hệ thống: {p} điểm hệ thống. Vào mục Triệu hồi thử khí vận đi ký chủ, đừng để phí!"
  },
  "short": "Hệ Thống",
@@ -2923,7 +2923,7 @@
   "k": 1,
   "hello": [
    "Đinh! Hoan nghênh quý khách quang lâm Pixel 2D Tu Tiên! Bổn hệ thống là Hệ Thống Bạo Kích Tài Nguyên Vô Hạn, xin cúi chào ạ.",
-   "Từ giờ bổn hệ thống sẽ dẫn đường cho quý khách. Vào game là có ngay quà gặp mặt 1.000 điểm hệ thống, không lấy một xu!"
+   "Từ giờ bổn hệ thống sẽ dẫn đường cho quý khách. Vào game là có ngay quà gặp mặt 300 điểm hệ thống, không lấy một xu!"
   ],
   "wait": "Đang nối linh mạch tới máy chủ... quý khách đợi bổn hệ thống một xíu nha.",
   "off": "Ối, linh mạch đứt mất rồi! Quý khách kiểm tra mạng giúp, rồi tải lại trang là bổn hệ thống đón tiếp tiếp ạ.",
