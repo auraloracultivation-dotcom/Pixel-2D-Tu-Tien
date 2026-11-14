@@ -2,7 +2,9 @@
 // Mùa 2 (chủ dự án 12/11/2026 04:07): mọi tài khoản (data all: true); 3 nút chiêu + nút pháp bảo cũ thành 4 nút pháp bảo
 // (ô 4 mở ở Nguyên Anh), tối đa 4 ô khảm. Tài khoản test_uid được tặng đủ 8 món; người khác nhận dần (src/game/phap-bao-grant.js).
 // Bản lưu: save.phapBao = { items: [{ uid, type, grade, lv, slots, mods: [id|null ×4], miss }], wear: [uid|null ×4], stones, next, got }.
-// Chưa có máy chủ kiểm: dữ liệu đi trong bản lưu như khoá thường (đợt sau thêm hàm máy chủ quay số ô, kiểm Đá Khai Khiếu).
+// Máy chủ kiểm bản lưu pháp bảo từ mùa 2 (p2d_kiem_phap_bao, migration 20261112050000_p2d_mua_2.sql): loại, phẩm, cấp theo trần cảnh giới, tối đa 4 ô,
+// chiêu khảm có thật, 30 món, Đá Khai Khiếu theo tu vi; sai thì kẹp lại và ghi nghi vấn 'phap_bao'. Chưa có: chữ ký từng món (phẩm, số ô do máy khách quay,
+// máy chủ chỉ kiểm trong trần).
 const totalLayer = (save, R) => save.realm * R.layers + (save.layer - 1);   // như stats.js (không nhập để khỏi vòng nhập: stats.js gọi pbStats)
 
 export const PB = game => game.data['phap-bao'];
