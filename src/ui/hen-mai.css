@@ -1,0 +1,30 @@
+/* Thẻ "Hẹn ngày mai" (src/ui/hen-mai.js, docs/10-CAI-HON.md việc 5b). Mọi chuyển động do JS đặt theo giờ game từng khung: ở đây chỉ có bố cục và kiểu chữ,
+   không dùng transition / animation. Dải chữ và nút dùng khung ảnh GPT sẵn có (ui-k-bang, ui-k-btn); thang tầng là ô vuông điểm ảnh, màu phẳng. */
+#hen-mai { position: fixed; inset: 0; z-index: 87; display: flex; align-items: center; justify-content: center; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+#hen-mai[hidden] { display: none; }
+#hen-mai .m-dim { position: absolute; inset: 0; background: #07040f; opacity: 0; }
+#hen-mai .m-card { position: relative; box-sizing: border-box; width: min(340px, 92vw); padding: 30px 12px 14px; display: flex; flex-direction: column; gap: 9px; opacity: 0;
+  border: 2px solid #c9a24a; outline: 2px solid #120a22; background: #1d1233; box-shadow: 0 6px 0 rgba(0, 0, 0, .4); color: #efe6ff; font: 600 13px/18px var(--f-body); }
+#hen-mai .m-title { position: absolute; left: 50%; top: -18px; margin-left: -110px; width: 220px; display: flex; justify-content: center; box-sizing: border-box; height: 34px; border: solid transparent; border-width: 0 54px;
+  border-image: url("../../assets/art/ui-k-bang.png") 0 150 fill / 0 54px / 0 stretch; font: 700 15px/32px var(--f-body); color: #ffe9a8; white-space: nowrap;
+  text-shadow: 1px 0 #2a0f3c, -1px 0 #2a0f3c, 0 1px #2a0f3c, 0 -1px #2a0f3c; }
+#hen-mai .m-title span { margin: 0 -20px; }
+#hen-mai .m-row { display: flex; flex-direction: column; gap: 3px; padding: 7px 9px 8px; border-left: 3px solid #8f6fd0; background: #271a44; opacity: 0; }
+#hen-mai .m-row small { font: 800 10px/12px var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: #c9b6f0; }
+#hen-mai .m-row b { font: 700 14px/19px var(--f-body); color: #fff; }
+#hen-mai .m-row em { font: 700 13px/18px var(--f-body); font-style: normal; color: #8fe6ff; }
+#hen-mai .m-row u { font: 600 12px/16px var(--f-body); text-decoration: none; color: #ffd98a; }
+#hen-mai .m-lad { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin: 3px 0 2px; }
+#hen-mai .m-lad i { display: flex; align-items: center; justify-content: center; height: 22px; box-sizing: border-box; border: 2px solid #3a2a5c; background: #120a22; color: #6f6190; font: 800 11px/1 var(--f-body); font-style: normal; }
+#hen-mai .m-lad i.on { border-color: #fff0b0; background: #ffcf5a; color: #3a2400; }
+#hen-mai .m-lad i.new { border-color: #d8f6ff; background: #6fdcff; color: #04263a; }
+#hen-mai .m-bar { position: relative; height: 6px; box-sizing: border-box; border: 1px solid #3a2a5c; background: #120a22; }
+#hen-mai .m-bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; }
+#hen-mai .m-b1 { background: #6fdcff; }
+#hen-mai .m-b0 { background: #ffcf5a; }
+#hen-mai .m-say { margin: 1px 4px 0; text-align: center; font: 600 12px/17px var(--f-body); color: #cfc4e4; opacity: 0; }
+#hen-mai .m-ok { align-self: center; pointer-events: none; box-sizing: border-box; min-width: 150px; height: 44px; padding: 0 4px; border: 8px solid transparent; border-image: url("../../assets/art/ui-k-btn.png") 12 fill / 8px / 0 stretch;
+  background: none; color: #fff3b8; font: 700 15px/1 var(--f-body); text-shadow: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030; filter: brightness(1.4) saturate(1.15); opacity: 0; -webkit-tap-highlight-color: transparent; }
+#hen-mai .m-ok.ready { pointer-events: auto; }
+#hen-mai .m-ok:active { filter: brightness(.85); }
+body:has(#hen-mai:not([hidden])) .ht-tip { visibility: hidden; }
