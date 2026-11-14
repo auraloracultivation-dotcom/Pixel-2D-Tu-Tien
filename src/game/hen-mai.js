@@ -78,7 +78,8 @@ export function startHenMai(game) {
     if (game.dialog?.open || game.uiOpen || game.traveling || game.trip || game.story?.busy || game.story?.rung?.() || game.dungeon) return;
     if (game.mobs.some(m => !m.dead && m.aggro && !m.dummy && (m.x - p.x) ** 2 + (m.y - p.y) ** 2 < C.calm_r * C.calm_r)) return;
     game.maiSeen = true; try { localStorage.setItem('p2d-mai-d', dayKey()); } catch { /* bỏ qua */ }
-    if (checkinOn(game) && !checkinCached()) loadCheckin(game).catch(() => {}).finally(() => game.henMaiShow());   // đọc bảng điểm danh trước cho hàng "Quà ngày mai" có số
-    else game.henMaiShow();
+    const show = () => { try { game.henMaiShow(); } catch (e) { console.error('hen mai', e); } };
+    if (checkinOn(game) && !checkinCached()) loadCheckin(game).catch(() => {}).finally(show);   // đọc bảng điểm danh trước cho hàng "Quà ngày mai" có số
+    else show();
   }, 2000);
 }

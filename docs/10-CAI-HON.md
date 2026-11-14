@@ -29,6 +29,9 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
   khung ở đúng cỡ điểm ảnh, soi từng khung, gửi chủ dự án bảng khung hình kèm clip; mỗi đêm hoàn thiện một khoảnh khắc.
 - 14/11 00:52: "bạn có thể tự phán đoán được làm sao để giữ người chơi… quan trọng là cái bạn làm ra nó phải đúng với cái bạn hình dung, nếu không
   thì thất bại rồi" (AI hiểu là: giao AI tự quyết phần hình dung, chủ dự án chấm bằng kết quả; chủ dự án chưa nhắn chữ "chốt").
+- 14/11 11:05 (sau khi xem clip việc 3, 4, 5, 5b): "Đưa lên, sau đó tiếp tục làm! Nếu có vấn đề thì tạo bảng câu hỏi, không để vấn đề ngủ quên. Tôi rất thích cách
+  thiết kế của bạn, phải nói là rất thích, tiếp tục cố gắng, dùng linh hồn mà hôm qua tôi truyền đạt để tiếp tục xây" (AI hiểu là: đưa lên những thứ đã xem clip và
+  đã xong: sửa lỗi, việc 3, việc 4; việc 5 và 5b làm cho xong rồi đưa lên; việc cần quyết gom vào bảng câu hỏi `claude/bang-cau-hoi.md` trong tài liệu dự án).
 
 ## Câu cái hồn
 
@@ -121,7 +124,7 @@ tên quái, người chớp nhạt hai khung, vài tia li ti, rung 1,5 đơn v�
 | Máu dưới 30% | Tim đập "lụp, bụp"; viền đỏ và thanh Sinh lực phập phồng theo nhịp; máu càng cạn nhịp càng dồn; hồi lên trên 38% thì hết | Nhịp 0,9 giây lúc vừa chạm ngưỡng, dồn tới 0,54 giây; tiếng tim to ngang tiếng đau trên loa điện thoại rồi phát ở 65% |
 
 Code: `src/game/hurt-feel.js`, `src/ui/hud-hurt.js` (thanh Sinh lực, tính theo giờ game), số ở `data/juice.json → hurt2`, hình `tools/art/pfx/fx/dau.js` (vết đau),
-`bao-don.js` (vạch báo đòn), tiếng `tim` trong `data/sounds.json`. Công tắc `hurt2.on` đang **tắt**; xem thử trên một máy bằng địa chỉ có `?dau=1` (tắt `?dau=0`).
+`bao-don.js` (vạch báo đòn), tiếng `tim` trong `data/sounds.json`. Công tắc `hurt2.on` **bật cho mọi người từ 14/11/2026 11:1x** (riêng một máy tắt bằng `?dau=0`).
 Quay cả màn hình (có giao diện): `tools/do-don/quay-man.mjs`.
 
 Chưa làm trong việc 3: rung máy (Android rung được, iPhone thì không; cần thêm nút tắt trong cài đặt nên để sau); quái bắn xa chưa có vạch báo đòn (trùm đã
@@ -153,8 +156,8 @@ không diễn. Màn thấp (cầm ngang, máy nhỏ) thì cả khối tự thu l
 
 Code: `src/game/reward.js` (món nào diễn kiểu nào; `rewardItem(game, món, { full: true })` cho phần thưởng trao hẳn hoi, việc 5 sẽ dùng), `src/ui/reward-show.js`
 (màn diễn, tính theo giờ game từng khung), `src/ui/reward-rays.js` (vầng sáng điểm ảnh), `src/ui/reward-show.css`; số, chữ ở `data/juice.json → reward`; tiếng
-`qua-mo`, `qua-no`, `qua-no-lon`, `qua-d1…5` trong `data/sounds.json`. Dải chữ và nút dùng khung ảnh GPT sẵn có (`ui-k-bang`, `ui-k-btn`). Công tắc `reward.on` đang
-**tắt**; xem thử trên một máy bằng địa chỉ có `?qua=1` (tắt `?qua=0`). Quay cảnh: `tools/do-don/quay-qua.mjs`.
+`qua-mo`, `qua-no`, `qua-no-lon`, `qua-d1…5` trong `data/sounds.json`. Dải chữ và nút dùng khung ảnh GPT sẵn có (`ui-k-bang`, `ui-k-btn`). Công tắc `reward.on` **bật cho mọi người từ 14/11/2026 11:1x**
+(riêng một máy tắt bằng `?qua=0`). Quay cảnh: `tools/do-don/quay-qua.mjs`.
 
 Chưa làm trong việc 4: báo cả máy chủ khi có người nhận món cực hiếm (đụng máy chủ, phải hỏi); nghi lễ cho phần thưởng không phải trang bị (Linh Thạch, ngọc,
 quà triệu hồi đã có sân khấu rương riêng); viên rơi trên đất của món quý chưa có cột sáng (đồ tự bay vào người sau 0,45 giây nên khó thấy).
@@ -290,8 +293,8 @@ việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đ�
 | 14/11/2026 | Lập kế hoạch, đo số liệu | Xong |
 | 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |
 | 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
-| 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
-| 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chủ dự án nhắn "Đưa lên… tôi rất thích cách thiết kế" 14/11 11:05 → bật `hurt2.on`, đã đưa lên game |
+| 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chủ dự án nhắn "Đưa lên" 14/11 11:05 → bật `reward.on`, đã đưa lên game (câu thoại nhận đạo bào đổi cho khớp nút Mặc ngay) |
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Chờ chủ dự án chấm clip và duyệt bảng bậc, chưa đưa lên |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
