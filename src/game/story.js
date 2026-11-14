@@ -201,7 +201,8 @@ export function createStory(game) {
       if (!s || !game.save.stepDone || !s.goal || s.until.never) return null;   // hết truyện (cày bí cảnh + nhiệm vụ): không còn khung nhiệm vụ truyện, chỉ còn cột nhiệm vụ ngày
       const key = s.until.collect || (s.until.kill && 'kill:' + s.until.kill);
       const n = key ? Math.min(st.counters[key] || 0, s.until.n) : 0;
-      return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map || step().map) === game.map.id ? s.target : null, kill: s.until.kill || null, n, of: key ? s.until.n : 0 };
+      const u = s.until;   // talk, collect, hunt: cho mũi tên chỉ đường (src/game/guide.js) khi bước không có ô đích: gặp ai, nhặt gì, hay dọn quái / hạ trùm
+      return { text: s.goal.replace('{n}', n), target: (s.target_map || s.map || step().map) === game.map.id ? s.target : null, kill: u.kill || null, talk: u.talk || null, collect: u.collect || null, hunt: !!(u.boss_dead || u.kill_all), n, of: key ? u.n : 0 };
     },
     // Bậc đang leo của chặng leo bậc: { i: bậc thứ mấy, n: tổng số bậc, u: bậc (goal, until, thuong) }, null khi không ở chặng này. Đang leo bậc thì chưa dùng
     // Tự hành, Tự đánh (người chơi tự tay đánh): src/game/pilot.js, auto.js hỏi game.story.rung()

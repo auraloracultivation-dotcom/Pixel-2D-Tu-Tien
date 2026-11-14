@@ -9,13 +9,25 @@ const near = (game, list) => {
 };
 const npcPos = (game, id) => near(game, game.npcs.filter(n => n.id === id));
 const mobPos = (game, id) => near(game, game.mobs.filter(m => !m.dead && (id === '*' || m.id === id)));   // '*': con nào cũng tính (bậc dọn phòng bí cảnh)
+function huntPos(game) {   // như Tự hành (src/game/pilot.js): quái của truyện / của phòng / đang hung hăng gần nhất; hết thì giữa phòng bí cảnh chưa vào
+  const m = near(game, game.mobs.filter(m => !m.dead && !m.dummy && (m.story || m.room || m.aggro)));
+  if (m) return m;
+  const room = game.dungeon?.rooms.find(r => !r.entered);
+  if (!room) return null;
+  const [x, y, w, h] = room.rect;
+  return game.map.center(Math.floor(x + w / 2), Math.floor(y + h / 2));
+}
 
 // [{ key, pos }] theo đúng thứ tự dòng mục tiêu (game.goals); pos null khi không có chỗ trên bản đồ này
 export function guideList(game) {
   const s = game.save, out = [];
   if (!s || !game.map) return out;
   const g = game.story?.goal();
-  if (g) out.push({ key: 'story', pos: g.target ? game.map.center(g.target[0], g.target[1]) : g.kill ? mobPos(game, g.kill) : null });   // việc diệt quái (chặng leo bậc): chỉ tới con gần nhất
+  // Truyện chính: ô đích nếu bước có; không thì theo việc đang chờ: diệt quái → con gần nhất, gặp người → người đó, nhặt đồ → món gần nhất, dọn quái / hạ trùm
+  // → con quái của truyện hoặc của phòng gần nhất, hết quái thì phòng bí cảnh chưa vào. Chặng leo bậc đầu game khoá Tự hành nên bước nào cũng phải có mũi
+  // tên (14/11/2026: người mới đầu tiên dừng ở bước "Vào Bí cảnh" vì không có gì chỉ đường; docs/10-CAI-HON.md việc 5).
+  if (g) out.push({ key: 'story', pos: g.target ? game.map.center(g.target[0], g.target[1]) : g.kill ? mobPos(game, g.kill) : g.talk ? npcPos(game, g.talk)
+    : g.collect ? near(game, game.pickups.filter(k => k.item === g.collect && !k.taken)) : g.hunt ? huntPos(game) : null });
   return out;
 }
 

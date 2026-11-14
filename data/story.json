@@ -812,6 +812,10 @@
     }
    ],
    "goal": "Việc 4/5: Vào Bí cảnh Huyết Nha (cổng phía đông)",
+   "target": [
+    61,
+    48
+   ],
    "until": {
     "map": "bi-canh"
    }
