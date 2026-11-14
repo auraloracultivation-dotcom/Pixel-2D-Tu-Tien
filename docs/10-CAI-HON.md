@@ -323,6 +323,14 @@ hoặc của phòng gần nhất, hết quái thì giữa phòng bí cảnh chư
 tra và chơi thử tự động đạt. Bài học: khoá Tự hành ở đâu thì từng bước truyện trong đoạn ấy phải có mũi tên hoặc số đếm; rà bằng cách tự tay đi (không Tự hành) qua
 từng bước, không chỉ thử trong bậc.
 
+**Người mới kịch bản tự tay đi cả chặng (`tools/do-don/di-tay.mjs`, 14/11 19:2x):** kịch bản chỉ làm theo thứ thấy trên màn (đọc thoại rồi chạm, bấm nút đang sáng, đi
+theo mũi tên, gần quái thì giữ nút Đánh, tới người thì bấm Nói chuyện, ngồi đả tọa), không dùng Tự hành; truyện chờ mà không có mũi tên quá 8 giây thì ghi KẸT. Lần
+chạy đầu lộ thêm một chỗ: bậc 5 "Dọn hai phòng quái" hạ xong 3 con phòng đầu là hết mũi tên (quái phòng sau chỉ hiện khi bước vào) → đã sửa: hết quái để chỉ thì chỉ tới
+phòng chưa vào. Chạy lại: **đi hết sáu bậc trong 4 phút 45 giây, không kẹt, không gục (máu thấp nhất 53/200), 0 lỗi.** Mốc đo được (giây): bậc 1 xong 20 · bậc 2 xong 47 ·
+đá linh căn 65 · gặp Lạc Tuyết 104 · hái linh thảo 121 · bậc 3 (4 Tiểu ma + đầu đàn) 135–158 · bậc 4 (5 Tiểu ma) 191–193 · đả tọa lên tầng 2 210–225 · tới cổng bí cảnh
+246 · bậc 5 (9 con, hai phòng) 246–255 · hạ Huyết Nha 264–280. Ghi cho việc 6: từ lúc cầm kiếm ở bậc 4, quái lại tan quá nhanh (5 Tiểu ma trong 2,4 giây; 9 con bí cảnh
+trong 9 giây; trùm 16 giây), ngồi đả tọa chỉ còn 15 giây vì linh khí hạ quái đã gần đầy; cả chặng "mười lăm phút đầu" người đọc nhanh đi hết trong chưa tới 5 phút.
+
 ## Việc 5b: lý do quay lại ngày mai (bản dựng thử thẻ "Hẹn ngày mai", 14/11/2026)
 
 Game đã có sẵn ba lý do để quay lại nhưng không ai chỉ cho người chơi trước lúc họ rời đi: bế quan khi vắng (linh khí chảy vào người tối đa 8 tiếng,
