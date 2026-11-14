@@ -35,6 +35,12 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
 - 14/11 17:25: "Tiếp đi, cái tẩy luyện với nâng cấp cũng có hiệu ứng chúc mừng nha. Nói chung mạnh lên là phải chúc mừng. Xong rồi làm tiếp kế hoạch đi nha"
 - 14/11 17:38: "Với cả hiệu ứng thăng tiểu cảnh giới và đại cảnh giới" (AI hiểu là: mọi lúc người chơi mạnh lên đều phải có màn mừng nhìn thấy được; làm trước bốn chỗ
   chủ dự án nêu: tẩy luyện, nâng cấp, lên tầng, đột phá cảnh giới. Thành việc 4b bên dưới; "nâng cấp" AI làm cả hai nghĩa: cường hoá trang bị và nút Nâng cấp của pháp bảo).
+- 14/11 23:25 (trả lời bốn việc AI hỏi lúc 19:50: đưa bản sửa mũi tên, bật màn mừng, gỡ cờ đỏ oan của một người chơi, bảng trước / sau việc 6): "Làm hết đi, vừa khó mới biết trân
+  trọng những thứ đơn giản và quà game tặng, nhưng khó phải đi kèm với lôi cuốn; với thiết kế bạn làm khá tốt ở điểm: cực kỳ sáng tạo ở nội dung nhưng cách thể hiện thì đơn
+  giản đồ hoạ như My Heroes Dungeon Raid. Nói chung là bạn cứ làm đi, chúng ta càng kéo dài thì gamer tới đích càng lâu, game mới có thể làm tỉ mỉ được; tôi nói thì nói thế sợ
+  cậu hiểu nhầm, chứ những gì đã làm, giúp tôi đưa lên. Những gì cậu đề xuất, giúp tôi tiếp tục hoàn thiện" (AI hiểu là: đưa lên bản sửa mũi tên và bật màn mừng; gỡ cờ đỏ
+  oan đó; làm cả bảy dòng của bảng việc 6 theo mức AI đề nghị chính (18a1, 18d1), dòng 18f đo thêm rồi làm; nguyên tắc cho mọi con số: khó hơn nhưng mỗi chỗ khó phải có
+  thứ lôi cuốn đi kèm, đi tới đích chậm lại để game kịp làm tỉ mỉ).
 
 ## Câu cái hồn
 
@@ -228,7 +234,7 @@ Màn thấp thì cả khối tự thu lại cho nút không lọt khỏi màn (t
 Code: `src/ui/mung.js` (màn trong bảng) + `src/ui/mung-mon.js` (tờ khai cho từng việc; nơi gọi: `src/ui/bag-detail.js`, `src/ui/self-pb-page.js`); `src/game/len-tang.js`
 (lên tầng, đột phá: việc phải làm lúc tu vi vừa lên và tờ khai; nơi gọi: `game.gainQi`, `tribulation.finish`) + `src/ui/mung-canh.js` (thẻ lên tầng, nghi lễ đột phá);
 hiệu ứng trên nhân vật: `src/game/juice.js juiceUp` + cột sáng trong `src/render/draw-juice.js`; kiểu `src/ui/mung.css`; số, chữ, tiếng `data/juice.json → mung`.
-Công tắc `mung.on` **đang TẮT** (chỉ máy mở địa chỉ có `?mung=1` thấy; tắt lại `?mung=0`): tắt thì mọi thứ y như cũ. Quay cảnh: `tools/do-don/quay-mung.mjs`
+Công tắc `mung.on` **bật cho mọi người từ 14/11/2026 23:38** (bản `6d1d959a`; chủ dự án 23:25 "những gì đã làm, giúp tôi đưa lên"; riêng một máy tắt bằng `?mung=0`; tắt thì mọi thứ y như cũ). Trước khi đưa: `tools/check.mjs` đạt, bài tự hành và bài người mới tự tay đi đều đạt với công tắc bật (0 lỗi JS); sau khi đưa: bản đã nén chạy thử lên một tầng có thẻ mừng, 0 lỗi JS; 3 người chơi lưu bình thường, bảng lỗi máy khách `p2d_loi` 6 giờ không có dòng nào. Quay cảnh: `tools/do-don/quay-mung.mjs`
 (`VIEC=cuong | tay | luyen | pbup | pbduc | tang | canh`, thử máy thấp `MAN=360x640`, thử bản dịch `NGON=en`).
 
 Chưa làm trong việc 4b (cùng một câu "mạnh lên là phải chúc mừng", làm tiếp khi chủ dự án ưng kiểu này): nâng cấp động phủ, linh thú lên cấp / tiến hoá / ghép sao,
@@ -315,7 +321,7 @@ bằng kịch bản (mới thử bằng Tự hành).
 **Người thật đầu tiên đi chặng leo bậc (tạo tài khoản 14/11 17:34):** chơi 11 phút, qua bậc 1–4, ngồi đả tọa lên tầng 2, rồi dừng ở bước truyện "Vào Bí cảnh Huyết Nha
 (cổng phía đông)" lúc 17:52, chưa vào bí cảnh. Soi lại thì đúng chỗ ấy có **lỗ hổng do chặng leo bậc gây ra**: bước này không có ô đích nên mũi tên chỉ đường không
 hiện, mà Tự hành thì chặng leo bậc đang khoá (trước 12:07 người mới có Tự hành dắt tới cổng). Người mới phải tự tìm cổng cách bồ đoàn 28 ô chỉ bằng mấy chữ "cổng
-phía đông". **Đã sửa trong mã 14/11 19:00 (commit `d63ce30`), CHƯA đưa lên cho người chơi: chờ chủ dự án nói "đưa lên" (bảng câu hỏi, câu 17).** Bước `nv-4` thêm ô đích là cổng bí cảnh (`data/story.json`, `"target": [61, 48]`), mũi tên chỉ đường hiện ngay khi nhận việc (thử bằng
+phía đông". **Đã sửa trong mã 14/11 19:00 (commit `d63ce30`); đưa lên 14/11 23:38 (bản `6d1d959a`) sau khi chủ dự án nhắn 23:25 "những gì đã làm, giúp tôi đưa lên".** Bước `nv-4` thêm ô đích là cổng bí cảnh (`data/story.json`, `"target": [61, 48]`), mũi tên chỉ đường hiện ngay khi nhận việc (thử bằng
 kịch bản: mũi tên chỉ đúng tâm cổng; Tự hành của người đã mở vẫn đi theo cổng như cũ). Rà luôn các bước khác của đoạn đang khoá Tự hành thì thấy bốn bước nữa không
 có mũi tên: gặp Lạc Tuyết / Tiêu Dao, hái linh thảo, đánh lui ma tộc ở làng, và đoạn "Dọn từng phòng, hạ Huyết Nha" trong bí cảnh sau khi xong bậc 5. Mũi tên chỉ đường
 (`src/game/guide.js`) giờ theo đúng việc bước đang chờ, như Tự hành vẫn làm: gặp người → người đó, nhặt đồ → món gần nhất, dọn quái / hạ trùm → con quái của truyện
@@ -423,4 +429,4 @@ quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí /
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Đủ sáu bậc, bật `bac.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
-| 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chờ chủ dự án xem clip rồi nói "đưa lên" |
+| 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
