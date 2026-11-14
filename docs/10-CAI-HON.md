@@ -45,6 +45,7 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
 - 15/11 01:53 (trả lời câu 19 "pháp bảo: cho dời cấp sang món mới cùng loại khi đổi?" và câu 20 "đặt lại hẹn rà + gộp 00:00"): "19 hoàn linh thạch. 20 không cần làm gì, chỉ tập
   trung vào xây game với toàn bộ tâm huyết là được" (AI hiểu là: 19 làm cách hoàn Linh Thạch khi hạ cấp pháp bảo cũ, đi qua máy chủ, AI đề nghị hoàn 80%; 20 không đặt
   lại hẹn đêm, việc rà một phần và gộp GitHub làm trong buổi làm việc khi tiện).
+- 15/11 06:33 (sau hai clip làm lại): "Đưa lên. Đưa lên. Tiếp" (AI hiểu là: câu 21 đưa lên; câu 22 áp migration triệu hồi chia bậc lên máy chủ + bật + đưa lên; rồi làm tiếp việc kế). Đã làm 06:34–06:40.
 - 15/11 04:39 (sau khi xem hai clip `quai-dau-game-sau.mp4` và `trieu-hoi-chia-bac.mp4`): "Cái 1 tốc đánh có vẻ cần chậm hơn. Cái 2 thì cảm giác bị lồng 2 âm thanh chúc
   mừng. Rồi làm tiếp đi nè" (AI hiểu là: clip 1: nhịp đánh thường của người chơi chậm lại, làm cho mọi vũ khí theo nhịp mẫu My Heroes (kiếm 1,6 đòn / giây), đo lại quái
   đầu game theo nhịp mới rồi gửi clip mới; clip 2: món có nghi lễ thì chỉ còn tiếng mừng của nghi lễ, trên rương không kêu tiếng mừng nữa. Đây chưa phải lời "đưa lên" /
@@ -431,6 +432,8 @@ quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí /
 cho đúng đợt đó ("Làm hết đi" 14/11 23:25 là duyệt làm, chưa phải duyệt đưa đợt này). Đã gửi clip `quai-dau-game-sau.mp4` (51 giây: bậc 4 → hai phòng bí cảnh → trùm đầu)
 và hỏi ở bảng câu hỏi, câu 21.
 
+**ĐÃ ĐƯA LÊN 15/11/2026 06:37 cùng bản `5138e46b` (chủ dự án 06:33 "Đưa lên").**
+
 **15/11 04:39 chủ dự án xem clip: "tốc đánh có vẻ cần chậm hơn".** Đã làm (mục "Nhịp đánh thường chậm lại" cuối phần này): nhịp đánh thường của mọi vũ khí chậm lại 1,64 lần,
 đo lại cả chặng, chỉnh sàn trùm và bãi đảo tông môn theo nhịp mới, quay clip mới `quai-dau-game-cham.mp4`. Vẫn CHƯA đưa lên, chờ lời "đưa lên" (câu 21).
 
@@ -517,7 +520,9 @@ mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đ�
 
 ## Việc 6 · dòng 18a (triệu hồi chia năm bậc + bảo hiểm) và 18b (quà gặp mặt 300 điểm): chuẩn bị xong 15/11/2026
 
-**Tình trạng: chuẩn bị xong 15/11/2026 03:59 (commit `197c8c08`), CHƯA áp lên máy chủ, CHƯA bật.** Công tắc `data/he-thong.json → bac.on` đang tắt: bản đang chạy
+**Tình trạng: ĐÃ ÁP + ĐÃ ĐƯA LÊN 15/11/2026 06:37 (bản `5138e46b`; chủ dự án 06:33 "Đưa lên / Đưa lên / Tiếp" trả lời câu 21 và 22).** Sau khi áp: đăng ký tài khoản mới + đăng nhập được, `p2d_ht_trang_thai` trả `bh2`, `bh3`, quà gặp mặt trên máy chủ 300; tệp trên mạng khớp bản dựng, vào game 0 lỗi JS, bảng `p2d_loi` 15 phút sau không có lỗi mới. Phần dưới là ghi chép lúc chuẩn bị:
+
+(Lúc đó: chuẩn bị xong 15/11/2026 03:59 (commit `197c8c08`), CHƯA áp lên máy chủ, CHƯA bật.) Công tắc `data/he-thong.json → bac.on` đang tắt: bản đang chạy
 vẫn quay theo bảng cũ. Hai việc còn lại đều cần lời chủ dự án cho đúng đợt này: "áp lên" (migration `20261115010000_p2d_trieu_hoi_bac.sql`) và "đưa lên"
 (bản máy khách bật công tắc). Đã gửi clip `trieu-hoi-chia-bac.mp4` (41 giây: hai lượt Thường → lượt bảo hiểm ra Hiếm → lượt bảo hiểm ra Cực hiếm → Truyền thuyết →
 bảng tỉ lệ) và hỏi ở bảng câu hỏi, câu 22.
