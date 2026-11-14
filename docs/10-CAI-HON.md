@@ -127,6 +127,38 @@ Quay cả màn hình (có giao diện): `tools/do-don/quay-man.mjs`.
 Chưa làm trong việc 3: rung máy (Android rung được, iPhone thì không; cần thêm nút tắt trong cài đặt nên để sau); quái bắn xa chưa có vạch báo đòn (trùm đã
 có vùng báo riêng từ trước).
 
+## Việc 4: kịch bản từng nhịp của nghi lễ nhận thưởng (thước đo, 14/11/2026)
+
+Bản cũ đo được (quay cả màn hình điện thoại, 60 khung / giây, chém chết một con Mộc linh rơi ra áo giáp phẩm Địa): viên rơi nhỏ 7 điểm bay vào người,
+một dòng chữ nhạt "Nhặt [Địa] Huyền Thiết Gi…" (bị cắt cụt) hiện ở mép trái 3 giây cùng hai nốt nhặt đồ. Không thấy món đồ, không biết nó mạnh hơn
+đồ đang mặc bao nhiêu, muốn mặc phải tự mở túi tìm.
+
+| Mốc (giây từ lúc nhặt) | Người chơi phải thấy | Bản mới đo được |
+|---|---|---|
+| 0,00 | Game đứng lại, nền tối dần. Tiếng gió dâng cùng một tiếng trống trầm | Nền tối tới 80% trong 0,25 giây; dòng "Nhặt…" không hiện nữa (nghi lễ thay) |
+| 0,12 → 0,42 | Vầng sáng nở ra từ giữa màn rồi xoay: tia dài quay một chiều, tia mảnh quay ngược, màu theo phẩm của món | Vầng sáng rộng 288 điểm màn (phẩm Địa), vẽ từng điểm ảnh, quay theo nấc 2 độ |
+| 0,22 | Món đồ bật ra giữa vầng sáng: loé trắng, phóng to quá đà rồi về cỡ. Tiếng đàn tranh rải năm cung đi lên | Món 116 điểm màn, nảy trong 0,22 giây; tiếng đàn rơi đúng khung món hiện (0,23 giây) |
+| 0,42 | Dải chữ "Chúc mừng nhận được" thả xuống trên đầu món; ba tiếng mộc cầm ngân | |
+| 0,60 | Bảng tên: tên món theo màu phẩm, nhãn phẩm, ô, cấp | |
+| 0,86 → | Từng dòng chỉ số hiện lần lượt, mỗi dòng một nốt đàn cao dần | Cách nhau 0,16 giây; món mới rơi có 2–3 dòng |
+| ~1,3 | "Lực chiến ▲ +N" (xanh: mạnh hơn đồ đang mặc; đỏ ▼: yếu hơn), số chạy từ 0 lên | |
+| ~1,7 | Hai nút: **Mặc ngay** (hoặc Thay ngay) và **Cất vào túi**; nút nên bấm sáng lên theo nhịp | Nút nhận chạm sau 1,72 giây; trước đó chạm màn là hiện hết luôn (0,6 giây đầu chưa nhận chạm) |
+| Bấm Mặc ngay | Món loé sáng bay lên, nền sáng lại, chữ "Lực chiến … ▲ +N" nổ giữa màn như cũ | Đóng trong 0,28 giây; số ở nghi lễ và số nổ giữa màn bằng nhau |
+
+Phẩm càng cao diễn càng lớn (`reward.lvl`): Địa 12 tia + tia mảnh; Thiên vầng sáng rộng hơn, thêm vòng hạt chạy quanh, chớp trắng cả màn, tiếng đàn rải hai
+quãng tám có chiêng; Tiên / Thượng Cổ 16 tia, vòng hạt đôi (Thượng Cổ: tia đỏ sẫm). Phẩm Huyền chỉ hiện **thẻ nhỏ** giữa màn 2,8 giây, không dừng game.
+Không chen ngang trận đánh: nhặt món quý lúc còn quái đang đánh mình thì hiện thẻ nhỏ trước, hạ hết quái và nhát kết liễu diễn xong (0,6 giây) mới mở nghi
+lễ. Đang Tự hành / Tự đánh chỉ có thẻ nhỏ (chạm thẻ để xem đầy đủ); hai lần diễn đầy đủ cách nhau ít nhất 20 giây; càn quét và nhặt hàng loạt lúc rời bản đồ
+không diễn. Màn thấp (cầm ngang, máy nhỏ) thì cả khối tự thu lại cho vừa.
+
+Code: `src/game/reward.js` (món nào diễn kiểu nào; `rewardItem(game, món, { full: true })` cho phần thưởng trao hẳn hoi, việc 5 sẽ dùng), `src/ui/reward-show.js`
+(màn diễn, tính theo giờ game từng khung), `src/ui/reward-rays.js` (vầng sáng điểm ảnh), `src/ui/reward-show.css`; số, chữ ở `data/juice.json → reward`; tiếng
+`qua-mo`, `qua-no`, `qua-no-lon`, `qua-d1…5` trong `data/sounds.json`. Dải chữ và nút dùng khung ảnh GPT sẵn có (`ui-k-bang`, `ui-k-btn`). Công tắc `reward.on` đang
+**tắt**; xem thử trên một máy bằng địa chỉ có `?qua=1` (tắt `?qua=0`). Quay cảnh: `tools/do-don/quay-qua.mjs`.
+
+Chưa làm trong việc 4: báo cả máy chủ khi có người nhận món cực hiếm (đụng máy chủ, phải hỏi); nghi lễ cho phần thưởng không phải trang bị (Linh Thạch, ngọc,
+quà triệu hồi đã có sân khấu rương riêng); viên rơi trên đất của món quý chưa có cột sáng (đồ tự bay vào người sau 0,45 giây nên khó thấy).
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -135,3 +167,4 @@ có vùng báo riêng từ trước).
 | 14/11/2026 | 1 Chữ truyện đọc kịp: 34 ký tự / giây (trước ~91), nghỉ ở dấu câu; Tự hành đứng đủ giờ đọc (câu 63 ký tự 5 giây, 177 ký tự 12,4 giây; trước là 2,2 giây mọi câu); 5 câu chính phải chạm (`data/config.json → dialog`, cờ `tap` trong `data/story.json`) | Đã đưa lên game |
 | 14/11/2026 | 2 Cảm giác ra đòn: dựng xong bản mới sau công tắc `hit2.on` (tắt), quay clip trước / sau + bảng từng khung gửi chủ dự án; kiểm tra và chơi thử tự động đạt cả hai chế độ | Chủ dự án xem clip, nhắn "Đưa lên" 14/11 06:22 → bật `hit2.on`, đã đưa lên game |
 | 14/11/2026 | 3 Cảm giác bị đánh: dựng xong sau công tắc `hurt2.on` (tắt): quái ra dấu và chồm tới, khựng hình, vết đau đỏ có hướng, viền đỏ bốn cạnh, thanh Sinh lực rung + khúc trắng, tim đập lúc máu thấp; quay clip trước / sau cả màn hình gửi chủ dự án | Chờ chủ dự án chấm clip, chưa đưa lên |
+| 14/11/2026 | 4 Nghi lễ nhận thưởng: dựng xong sau công tắc `reward.on` (tắt): nền tối, vầng sáng điểm ảnh xoay theo màu phẩm, món bật ra giữa màn, dải chữ chúc mừng, chỉ số hiện lần lượt có tiếng đàn, nút Mặc ngay / Cất vào túi; phẩm cao diễn lớn hơn; thẻ nhỏ cho phẩm Huyền và lúc đang bận; quay clip trước / sau cả màn hình gửi chủ dự án. Kèm sửa việc 3: thanh Sinh lực rung vẽ đủ từng khung (trước chỉ 15 lần / giây) | Chờ chủ dự án chấm clip, chưa đưa lên |

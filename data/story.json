@@ -1,5 +1,5 @@
 {
- "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply).",
+ "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply). Bước có quà trang bị (14/11/2026, docs/10-CAI-HON.md việc 4): câu báo quà nói trước, rồi ngọc và món đồ (lệnh reward: nghi lễ nhận thưởng, lời thoại chờ người chơi đóng nghi lễ), sau đó mới tới các câu còn lại.",
  "steps": [
   {
    "id": "le-thuc-tinh",
@@ -157,6 +157,14 @@
    "map": "thanh-khe",
    "do": [
     {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Giỏi lắm! Tặng ngươi Hồng Ngọc cấp 5 và tấm đạo bào."
+      ]
+     ]
+    },
+    {
      "gem": "hong-ngoc:5"
     },
     {
@@ -167,10 +175,6 @@
     },
     {
      "say": [
-      [
-       "{lac-tuyet|tieu-dao}",
-       "Giỏi lắm! Tặng ngươi Hồng Ngọc cấp 5 và tấm đạo bào."
-      ],
       [
        "he-thong",
        "Đinh! Nhận đạo bào. Mở Túi mặc vào ngay, đừng để bổn hệ thống thấy ký chủ ra trận với bộ đồ ngủ."
@@ -215,6 +219,14 @@
      "dark": 0
     },
     {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
+      ]
+     ]
+    },
+    {
      "gem": "lam-ngoc:5"
     },
     {
@@ -225,10 +237,6 @@
     },
     {
      "say": [
-      [
-       "he-thong",
-       "Đinh! Đánh lui ma tộc. Thưởng Lam Ngọc cấp 5 và chiếc mũ. Ký chủ tiến bộ nhanh hơn bổn hệ thống tưởng, một chút."
-      ],
       [
        "{lac-tuyet|tieu-dao}",
        "Theo ta lên Thiên Kiếm Phong. Ở đó mới tu luyện được."
@@ -298,6 +306,14 @@
    "map": "thien-kiem-phong",
    "do": [
     {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Đột phá Luyện Khí tầng 2. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Linh khí chảy trong kinh mạch sướng chưa?"
+      ]
+     ]
+    },
+    {
      "gem": "hoang-ngoc:5"
     },
     {
@@ -308,10 +324,6 @@
     },
     {
      "say": [
-      [
-       "he-thong",
-       "Đinh! Đột phá Luyện Khí tầng 2. Thưởng Hoàng Ngọc cấp 5 và chiếc nhẫn. Linh khí chảy trong kinh mạch sướng chưa?"
-      ],
       [
        "he-thong",
        "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông, hạ Huyết Nha. Bên trong nhiều đồ tốt, nhặt hết cho bổn hệ thống."
@@ -388,6 +400,14 @@
    "map": "thien-kiem-phong",
    "do": [
     {
+     "say": [
+      [
+       "{lac-tuyet|tieu-dao}",
+       "Lục Ngọc cấp 5 và binh khí này, ta giữ đã lâu. Từ nay ngươi đủ sức tự đi rồi..."
+      ]
+     ]
+    },
+    {
      "gem": "luc-ngoc:5"
     },
     {
@@ -395,14 +415,6 @@
       "base": "{thiet-kiem|tu-nguyet-liem}",
       "rarity": "dia"
      }
-    },
-    {
-     "say": [
-      [
-       "{lac-tuyet|tieu-dao}",
-       "Lục Ngọc cấp 5 và binh khí này, ta giữ đã lâu. Từ nay ngươi đủ sức tự đi rồi..."
-      ]
-     ]
     },
     {
      "dark": 0.5

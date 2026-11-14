@@ -4300,5 +4300,15 @@
 "Đã bán {n} pháp bảo, nhận {c} Linh Thạch": "已出售 {n} 件法寶，獲得 {c} 靈石",
 "Đã rã {n} pháp bảo, nhận {s} Đá Khai Khiếu": "已分解 {n} 件法寶，獲得 {s} 開竅石",
 "Chọn phẩm. Không đụng pháp bảo đang mặc và pháp bảo đã nâng cấp.": "選擇品階。不會處理已裝備及已升級的法寶。",
-"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "開竅石已接近修為上限：多出的 {n} 顆將被捨棄。"
+"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "開竅石已接近修為上限：多出的 {n} 顆將被捨棄。",
+"Chúc mừng nhận được": "恭喜獲得",
+"{slot} · cấp {lvl}": "{slot} · {lvl}級",
+"Mặc ngay": "立即穿上",
+"Thay ngay": "立即替換",
+"Cất vào túi": "收進背包",
+"Tiếp tục": "繼續",
+"Đã tự mặc": "已自動穿上",
+"Chạm để xem nhanh": "點擊快速查看",
+"Nhận được": "獲得",
+"chạm để xem": "點擊查看"
 }

@@ -4300,5 +4300,15 @@
 "Đã bán {n} pháp bảo, nhận {c} Linh Thạch": "Sold {n} treasures for {c} Spirit Stones",
 "Đã rã {n} pháp bảo, nhận {s} Đá Khai Khiếu": "Dismantled {n} treasures for {s} Socket Stones",
 "Chọn phẩm. Không đụng pháp bảo đang mặc và pháp bảo đã nâng cấp.": "Pick grades. Equipped and upgraded treasures are never touched.",
-"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "Socket Stones are near the limit for your cultivation: {n} extra stones are lost."
+"Đá Khai Khiếu đã gần đầy theo tu vi: {n} viên dư bị bỏ.": "Socket Stones are near the limit for your cultivation: {n} extra stones are lost.",
+"Chúc mừng nhận được": "Congratulations! You got",
+"{slot} · cấp {lvl}": "{slot} · level {lvl}",
+"Mặc ngay": "Equip now",
+"Thay ngay": "Swap now",
+"Cất vào túi": "Keep in bag",
+"Tiếp tục": "Continue",
+"Đã tự mặc": "Auto-equipped",
+"Chạm để xem nhanh": "Tap to skip ahead",
+"Nhận được": "Obtained",
+"chạm để xem": "tap to view"
 }
