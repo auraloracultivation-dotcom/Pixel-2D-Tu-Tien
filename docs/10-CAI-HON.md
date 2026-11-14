@@ -478,6 +478,56 @@ mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đ�
   tầng kế sẽ mở gì ("Luyện Khí tầng 3 sẽ mở: pháp bảo Hộ Thuẫn · chiêu khảm Tỏa Nhánh"; `src/game/phap-bao-grant.js pbNext`, chữ `mung.text.next`), để tầng dài
   nào cũng có cái để mong. Thẻ Hẹn ngày mai (việc 5b) tự tính theo bảng mới.
 
+## Việc 6 · dòng 18a (triệu hồi chia năm bậc + bảo hiểm) và 18b (quà gặp mặt 300 điểm): chuẩn bị xong 15/11/2026
+
+**Tình trạng: chuẩn bị xong 15/11/2026 03:59 (commit `197c8c08`), CHƯA áp lên máy chủ, CHƯA bật.** Công tắc `data/he-thong.json → bac.on` đang tắt: bản đang chạy
+vẫn quay theo bảng cũ. Hai việc còn lại đều cần lời chủ dự án cho đúng đợt này: "áp lên" (migration `20261115010000_p2d_trieu_hoi_bac.sql`) và "đưa lên"
+(bản máy khách bật công tắc). Đã gửi clip `trieu-hoi-chia-bac.mp4` (41 giây: hai lượt Thường → lượt bảo hiểm ra Hiếm → lượt bảo hiểm ra Cực hiếm → Truyền thuyết →
+bảng tỉ lệ) và hỏi ở bảng câu hỏi, câu 22.
+
+**Trước / sau** (cột "Sau" đo trên máy chủ thử: PostgreSQL 16 dựng tạm trong máy làm việc, lược đồ tối thiểu + đúng migration mới, 200.000 lượt quay chia 100 mẻ;
+một mô hình Python viết độc lập theo cùng luật, 2 triệu lượt, ra 58,58 / 24,54 / 14,10 / 2,51 / 0,282%)
+
+| | Trước | Sau |
+|---|---|---|
+| Cách chia | 53 loại quà trọng số ngang nhau, mỗi loại 1,9% | Năm bậc: Thường 62% (14 món) · Khá 26% (14) · Hiếm 9,5% (11) · Cực hiếm 2,2% (8) · Truyền thuyết 0,3% (6); trong một bậc các món ngang nhau |
+| Tỉ lệ thật có bảo hiểm | | 58,69 / 24,46 / 14,07 / 2,51 / 0,276% |
+| Sáu giải lớn (Linh Thạch 1–2 triệu, ngọc 7–8, đồ Tiên, Thượng Cổ) | 11,2% số lượt: 9 lượt một giải | 0,276%: 363 lượt một giải |
+| Bảo hiểm | không có | 10 lượt liền chưa ra Hiếm trở lên thì lượt thứ 10 ra một món Hiếm; 80 lượt liền chưa ra Cực hiếm trở lên thì ra một món Cực hiếm. Chuỗi dài nhất đo được: 9 và 79 |
+| Linh Thạch mỗi lượt, trước bạo kích | 70.202 | 10.209 (còn một phần bảy; bạo kích giữ nguyên) |
+| Ra giải lớn | chữ trên rương + dòng báo | Truyền thuyết: Hệ Thống báo lên kênh Thế giới ("【Hệ Thống】Khí vận nghịch thiên! … triệu hồi được 1 triệu Linh Thạch!"), 200.000 lượt có 551 lần |
+| Quà gặp mặt (18b) | 1.000 điểm = 10 lượt ngay phút đầu | 300 điểm = 3 lượt (ai đã nhận 1.000 không bị trừ) |
+
+- Bậc của từng món: `data/he-thong.json → pool[].b`; tỉ lệ, màu, bảo hiểm, bậc có nghi lễ, bậc báo kênh thế giới: `bac`. Chuỗi cấu hình trong migration sinh bằng
+  `python3 tools/he-thong-sql.py bac 300`; `tools/check.mjs` so chuỗi đó với `data/` (lệch là báo đỏ), và khi `bac.on` bật thì đòi `qua_dau.diem` bằng số trong migration.
+- Máy chủ (`p2d_ht_trieu`): số đếm bảo hiểm ở `p2d_ht_diem.bh2`, `bh3`; lượt bảo hiểm chỉ quay trong ĐÚNG bậc được bảo hiểm (Cực hiếm xét trước), nên tỉ lệ Truyền thuyết
+  của lượt thường không đổi; bậc ghi vào thư và lịch sử (`noi_dung.bac`); hàm trả thêm `bac`, `bh2`, `bh3`; máy khách cũ vẫn chạy được (các trường cũ giữ nguyên).
+  Bảng "Vừa trúng lớn" lấy lượt từ Cực hiếm trở lên hoặc bạo kích từ x5; lượt cũ chưa ghi bậc giữ điều kiện cũ. Bảng quà trong migration khớp từng món với bảng đang
+  chạy trên máy chủ thật (53 món, chỉ thêm trọng số và bậc; đã so 15/11 03:55).
+- Máy khách (`src/ui/he-thong-qua.js`, chỉ khi `bac.on`): số đếm bảo hiểm của mình ở mép trái sân khấu rương ("Hiếm: còn 3 lượt"), đối xứng bảng khoe bên phải, luôn
+  thấy cùng rương; món trúng hiện kèm tên bậc theo màu bậc; từ bậc Hiếm có nghi lễ cả màn của việc 4 (`src/ui/reward-show.js`, vầng sáng xanh / tím / vàng, bậc cao
+  diễn lớn hơn); bảng tỉ lệ xếp theo bậc, bậc hiếm nhất ở trên. Dòng báo "Đinh! Ký chủ triệu hồi được…" giữa màn che đúng tên món nên ở chế độ bậc không hiện nữa
+  (món và bậc đã hiện trên rương); câu "Khí vận nghịch thiên!" của Hệ Thống chuyển vào nghi lễ Cực hiếm, Truyền thuyết.
+- **Khó đi kèm lôi cuốn:** giải lớn hiếm đi 40 lần, đổi lại (1) lúc nào cũng thấy còn mấy lượt nữa là chắc chắn có món Hiếm / Cực hiếm; (2) cứ khoảng 6 lượt có một
+  nghi lễ (Hiếm trở lên 16,9% số lượt); (3) Truyền thuyết thì cả máy chủ biết tên.
+- Đã thử: 390 × 844, 360 × 640, 375 × 559; chữ Việt, Anh, Trung; công tắc tắt thì mục Triệu hồi y như bản đang chạy; `tools/check.mjs` và chơi thử tự động đạt.
+
+**Sửa kèm ở mục Triệu hồi, có hiệu lực cả khi công tắc tắt** (lỗi có sẵn, thấy ra lúc thử máy màn thấp)
+
+- Nút Triệu hồi nằm dưới mép khung: sân khấu rương cao cứng 260px, khung Hệ Thống cao `min(72vh, 560px)`, nên màn thấp hơn 708px phải vuốt mới thấy nút. PostHog 7
+  ngày gần nhất (sự kiện `vao_game`, điện thoại cầm dọc): 22 trong 52 người có màn thấp hơn 708px. Sửa: sân khấu cao `clamp(150px, min(72vh, 560px) − 250px, 260px)`,
+  rương nhỏ theo; màn rất thấp (dưới 622px) món thu nhỏ còn 0,8 và rương mờ đi lúc món trúng đang khoe. Đo lại ở 360 × 640, 375 × 559, 360 × 560, 393 × 659, 412 × 780,
+  390 × 844: nút nằm trọn trong khung ở cả sáu cỡ; từ 708px trở lên không đổi gì.
+- Món lướt qua lúc rương mở nhiều khi chỉ có tên, không có hình: hình mỗi món là một tệp riêng (100 tệp, 12 MB), tải chậm hơn nhịp lướt. Sửa: bấm Triệu hồi là chọn
+  sẵn 18 món sẽ lướt và gọi hình ngay; hình món trúng được gọi lúc máy chủ vừa trả lời (trước đó phải đợi tới lúc hiện). Số tệp tải không tăng, chỉ sớm hơn. Đo (chụp 10 khung lúc
+  món lướt, lần quay đầu sau khi mở game): trước sửa 5 khung món chỉ có tên; sau sửa cả 9 khung món đã lên tới chỗ đều có hình (khung đầu món còn đang bay lên từ rương).
+- Tên mục "Tàng Thư" chưa có bản dịch (bản Anh, Trung vẫn hiện chữ Việt): thêm "Archive", "藏書閣".
+
+**Lúc chủ dự án nói "áp lên" + "đưa lên" thì làm đúng thứ tự này:** (1) áp migration; (2) thử đăng ký một tài khoản mới và đăng nhập; quay thử một lượt, xem `bh2`,
+`bh3` tăng và thư có `bac`; (3) `bac.on = true`, `qua_dau.diem = 300`, câu chào "quà gặp mặt 1.000 điểm" → 300 (cả bản Anh, Trung); (4) kiểm tra, đưa bản máy khách lên
+ngay (giữa bước 1 và 4 máy khách cũ vẫn quay được nhưng còn ghi "tỷ lệ mọi loại như nhau"); (5) kiểm sau khi đưa: tệp trên máy chủ khớp bản dựng, vào game được,
+bảng `p2d_loi` không có lỗi mới. Muốn lùi: đặt lại `bac.on = false` và bảng quà cũ bằng một migration mới (số đếm `bh2`, `bh3` để nguyên không sao).
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -491,4 +541,5 @@ mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đ�
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
 | 15/11/2026 | 6 dòng 18e (quái đầu game) + 18d (Luyện Khí tầng sau gấp đôi tầng trước): làm xong, đo trước / sau bằng người mới kịch bản; sửa lỗi Ma tiễn lùi xuyên tường làm kẹt phòng bí cảnh; thẻ lên tầng báo trước tầng kế mở gì; kiểm tra, chơi thử tự động (cả đúng nhịp thật 7 phút), tự tay đi đều đạt | Đã gửi clip, chờ chủ dự án nhắn "đưa lên" (bảng câu hỏi câu 21) |
+| 15/11/2026 | 6 dòng 18a (triệu hồi chia năm bậc + bảo hiểm) + 18b (quà gặp mặt 300 điểm): chuẩn bị xong sau công tắc `bac.on` (tắt) + migration chưa áp; thử 200.000 lượt trên máy chủ thử; mục Triệu hồi thêm số đếm bảo hiểm, tên bậc, nghi lễ từ bậc Hiếm, bảng tỉ lệ theo bậc; sửa kèm nút Triệu hồi khuất dưới khung ở máy màn thấp, món lướt qua thiếu hình | Đã gửi clip, chờ chủ dự án nhắn "áp lên" + "đưa lên" (bảng câu hỏi câu 22) |
 | 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
