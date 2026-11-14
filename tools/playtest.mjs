@@ -22,6 +22,7 @@ const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, hasTouch
 // Chặng leo bậc đầu game khoá Tự hành tới khi hạ boss đầu (src/game/story.js khoa). Bài chơi thử chạy bằng Tự hành nên bỏ khoá riêng cho nó (game.khoaBo):
 // vẫn đi qua đủ các bậc, nghi lễ, cờ mở khoá; riêng cái khoá thì phòng đo tools/do-don/quay-bac.mjs thử bằng người chơi tự tay đánh.
 await ctx.addInitScript(() => { const t = setInterval(() => { if (window.__game) { window.__game.khoaBo = true; clearInterval(t); } }, 20); });
+await ctx.addInitScript(() => { setInterval(() => { const g = window.__game; if (!g?.player) return; const d = g.player.hp <= 0 || !!g.ghost; if (d && !window.__dd) window.__deaths = (window.__deaths || 0) + 1; window.__dd = d; }, 100); });   // đếm số lần gục
 await ctx.addInitScript(`window.__FAKE = ${JSON.stringify(FAKE)}`);
 await ctx.addInitScript(() => { const D = Date, off = new D(window.__FAKE) - D.now();
   class F extends D { constructor(...a) { if (!a.length) super(D.now() + off); else super(...a); } static now() { return D.now() + off; } } window.Date = F; });
@@ -34,8 +35,8 @@ await p.waitForTimeout(800);
 await p.tap('#btn-guest');
 await p.waitForFunction(() => window.__game?.save, null, { timeout: 30000 });
 // Bài này bắt lỗi kẹt truyện, không đo nhịp tu luyện (đo bằng tools/cay-thu.mjs): mặc định tu nhanh (linh khí cần mỗi tầng × PLAY_NEED,
-// đả tọa đủ qi_rate 1) cho truyện đi kịp trong SEC giây; PLAY_NEED=1 để chạy đúng nhịp thật.
-await p.evaluate(k => { const R = window.__game.data.realms; R.qi_rate = 1; R.need_mul = Array(R.names.length).fill(k); }, +(process.env.PLAY_NEED || 0.1));
+// đả tọa đủ qi_rate 1) cho truyện đi kịp trong SEC giây; PLAY_NEED=1 PLAY_RATE=0.1 để chạy đúng nhịp thật (xem Tự hành làm gì ở Luyện Khí dài, việc 6 dòng 18d).
+await p.evaluate(([k, r]) => { const R = window.__game.data.realms; R.qi_rate = r; if (k !== 1) R.need_mul = Array(R.names.length).fill(k); }, [+(process.env.PLAY_NEED || 0.1), +(process.env.PLAY_RATE || 1)]);
 const step0 = await p.evaluate(() => window.__game.save.step);
 // Không còn nút Tự hành (02/11/2026): bật tự hành như chạm khung nhiệm vụ
 const pilotOn = () => p.evaluate(async () => { const P = await import('/src/game/pilot.js'); if (!window.__game.pilot) P.togglePilot(window.__game); });
@@ -48,10 +49,10 @@ while (Date.now() < end) {
   if (!(await p.evaluate(() => !!window.__game.pilot))) await pilotOn().catch(() => {});
   await p.waitForTimeout(500);
 }
-const r = await p.evaluate(() => { const g = window.__game; return { step: g.save.step, map: g.map.id, realm: g.save.realm, layer: g.save.layer, goal: g.story.current()?.goal || '' }; });
+const r = await p.evaluate(() => { const g = window.__game; return { step: g.save.step, map: g.map.id, realm: g.save.realm, layer: g.save.layer, goal: g.story.current()?.goal || '', qi: Math.round(g.save.qi), kills: g.save.stats?.kills || 0, deaths: window.__deaths || 0, lc: document.getElementById('power')?.textContent || '' }; });
 await b.close(); server.close();
 const steps = r.step - step0;
-console.log(`Chơi thử ${SEC} giây (ngày giả ${FAKE}): qua ${steps} bước truyện, đang ở bước ${r.step} (${r.map}, cảnh giới ${r.realm} tầng ${r.layer}). Mục tiêu: ${r.goal}`);
+console.log(`Chơi thử ${SEC} giây (ngày giả ${FAKE}): qua ${steps} bước truyện, đang ở bước ${r.step} (${r.map}, cảnh giới ${r.realm} tầng ${r.layer}, linh khí ${r.qi}, hạ ${r.kills} quái, gục ${r.deaths} lần, ${r.lc}). Mục tiêu: ${r.goal}`);
 const bad = [...errs.map(e => 'Lỗi JavaScript: ' + e), ...(steps < MIN_STEPS ? [`Truyện chỉ đi ${steps} bước, cần ít nhất ${MIN_STEPS}: có thể bị kẹt.`] : [])];
 if (bad.length) { console.error('❌ Chơi thử TRƯỢT:\n' + bad.map(x => ' - ' + x).join('\n')); process.exit(1); }
 console.log('✅ Chơi thử đạt');

@@ -1,7 +1,7 @@
 {
  "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đánh bại Đại Ma Thần. Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply). Bước có quà trang bị (14/11/2026, docs/10-CAI-HON.md việc 4): câu báo quà nói trước, rồi ngọc và món đồ (lệnh reward: nghi lễ nhận thưởng, lời thoại chờ người chơi đóng nghi lễ), sau đó mới tới các câu còn lại.",
  "bac": {
-  "_note": "Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; src/game/story.js, thẻ bậc src/ui/bac-hud.js). Bật cho người mới từ 14/11/2026 (chủ dự án 11:05 \"Đưa lên… rất thích cách thiết kế\", 11:27 \"bạn xem hợp lý thì làm, vài tiếng tới tự do quyết định\"). on: bật cho người mới (riêng một máy tắt bằng địa chỉ có ?bac=0, bật lại ?bac=1). truoc: các bậc chạy lần lượt TRƯỚC một bước truyện, số bước truyện đứng yên (mỗi bậc: id, do, goal, until như một bước; thuong: món sẽ nhận khi xong bậc, hiện trên thẻ bậc). thay: phần mở đầu (do) thay cho bước truyện khi người chơi đã leo bậc: lời thoại khớp với việc vừa đánh xong, quà không trùng quà của các bậc. Đang leo bậc thì chưa dùng Tự hành, Tự đánh (text.lock) và bảng chào của Hệ Thống chờ leo xong mới hiện. Quái các bậc dùng chỉ số sẵn có, không rơi đồ (loot 0): món đồ duy nhất là phần thưởng của bậc. Bậc 1: một Mộc linh thường (40 máu, đánh thường 7–8 mỗi nhát: khoảng 6 nhát, không tự đánh người). Bậc 2: ba con nhiễm ma khí như vòng ngoài tinh cầu (mul 1,5 + tag Ma nhiễm: 60 máu, công 7,5, quầng tím dưới chân), mạnh hơn bậc 1 một chút; vẫn là quái hiền (bị đánh mới cắn lại): thử cho chúng tự lao vào người (14/11/2026) thì người mới đứng đọc màn hình 20 giây là gục ngay phút đầu. Trong chặng leo bậc người chơi không gục được (nodeath: máu dừng ở 1), hết chặng trả lại như thường. Pháp bảo Phi Kiếm (trước tự có từ giây đầu) thành phần thưởng của bậc 2 (lệnh phap_bao), nên hai bậc đầu chỉ có đánh thường. Quà của bậc có màu dòng định sẵn (reward.tier: 0 lục Phàm → 6 đen Thượng Cổ), bậc sau cao hơn bậc trước để nghi lễ lớn dần; quà truyện thường (không có tier) vẫn bốc màu ngẫu nhiên như cũ. Sáu bậc (so: số bậc chung cả chặng, tong: tổng): 1–2 ở làng Thanh Khê; 3 đánh lui ma tộc (truoc nv-3-bay: bốn Tiểu ma rồi một con đầu đàn nhiễm ma khí 120 máu, công 8 (thử 150 máu, công 10: người chơi kịch bản không dùng Phi Kiếm còn 23% máu)) → mũ + Lam Ngọc; 4 nhận binh khí rồi thử trên năm Tiểu ma bám theo lên núi (truoc nv-3; không dùng Mộc linh vì Mộc linh hoang ở Thiên Kiếm Phong trâu gấp 29 lần, trông y hệt, đánh nhầm là kẹt) → giày, mở Tự đánh (cờ bac-mo-danh); 5 dọn hai phòng đầu bí cảnh (truoc bi-canh, until kill '*': con nào cũng tính) → nhẫn + Hoàng Ngọc; 6 hạ Phân thân Huyết Nha (buoc bi-canh: bước truyện tự là một bậc) → pháp bảo Linh Châu, mở Tự hành (cờ bac-mo-hanh), hết chặng (cờ bac-xong: các mốc pháp bảo đã qua được nhận bù). Quà các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ: không phát thêm món nào. text.lock_danh / lock_hanh: lời nhắc khi bấm Tự đánh / Tự hành lúc chưa mở.",
+  "_note": "Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; src/game/story.js, thẻ bậc src/ui/bac-hud.js). Bật cho người mới từ 14/11/2026 (chủ dự án 11:05 \"Đưa lên… rất thích cách thiết kế\", 11:27 \"bạn xem hợp lý thì làm, vài tiếng tới tự do quyết định\"). on: bật cho người mới (riêng một máy tắt bằng địa chỉ có ?bac=0, bật lại ?bac=1). truoc: các bậc chạy lần lượt TRƯỚC một bước truyện, số bước truyện đứng yên (mỗi bậc: id, do, goal, until như một bước; thuong: món sẽ nhận khi xong bậc, hiện trên thẻ bậc). thay: phần mở đầu (do) thay cho bước truyện khi người chơi đã leo bậc: lời thoại khớp với việc vừa đánh xong, quà không trùng quà của các bậc. Đang leo bậc thì chưa dùng Tự hành, Tự đánh (text.lock) và bảng chào của Hệ Thống chờ leo xong mới hiện. Quái các bậc dùng chỉ số sẵn có, không rơi đồ (loot 0): món đồ duy nhất là phần thưởng của bậc. Bậc 1: một Mộc linh thường (40 máu, đánh thường 7–8 mỗi nhát: khoảng 6 nhát, không tự đánh người). Bậc 2: ba con nhiễm ma khí như vòng ngoài tinh cầu (mul 1,5 + tag Ma nhiễm: 60 máu, công 7,5, quầng tím dưới chân), mạnh hơn bậc 1 một chút; vẫn là quái hiền (bị đánh mới cắn lại): thử cho chúng tự lao vào người (14/11/2026) thì người mới đứng đọc màn hình 20 giây là gục ngay phút đầu. Trong chặng leo bậc người chơi không gục được (nodeath: máu dừng ở 1; từ 15/11/2026 giữ tới hết trận Huyết Nha vì quái từ bậc 4 đã trâu hơn), hết chặng (bước nv-5-ve) trả lại như thường. Pháp bảo Phi Kiếm (trước tự có từ giây đầu) thành phần thưởng của bậc 2 (lệnh phap_bao), nên hai bậc đầu chỉ có đánh thường. Quà của bậc có màu dòng định sẵn (reward.tier: 0 lục Phàm → 6 đen Thượng Cổ), bậc sau cao hơn bậc trước để nghi lễ lớn dần; quà truyện thường (không có tier) vẫn bốc màu ngẫu nhiên như cũ. Sáu bậc (so: số bậc chung cả chặng, tong: tổng): 1–2 ở làng Thanh Khê; 3 đánh lui ma tộc (truoc nv-3-bay: bốn Tiểu ma rồi một con đầu đàn nhiễm ma khí 120 máu, công 8 (thử 150 máu, công 10: người chơi kịch bản không dùng Phi Kiếm còn 23% máu)) → mũ + Lam Ngọc; 4 nhận binh khí rồi thử trên năm Tiểu ma nhiễm ma khí bám theo lên núi (truoc nv-3; từ 15/11/2026 mỗi con 84 máu, công 6: tay không (mỗi nhát 8–9) phải chín mười nhát, có kiếm (mỗi nhát 15–26 tuỳ dòng chỉ số của món vừa nhận) còn bốn năm nhát, vừa thấy binh khí mạnh vừa vẫn phải đánh; trước đó 30 máu, một hai nhát là tan, cả năm con hết trong 2,4 giây; thử 120 máu thì bảy tới chín nhát một con, năm con mất 20 giây, dài quá. Chủ dự án 14/11/2026 23:25 duyệt việc 6 dòng 18e) → giày, mở Tự đánh (cờ bac-mo-danh); 5 dọn hai phòng đầu bí cảnh (truoc bi-canh, until kill '*': con nào cũng tính) → nhẫn + Hoàng Ngọc; 6 hạ Phân thân Huyết Nha (buoc bi-canh: bước truyện tự là một bậc) → pháp bảo Linh Châu, mở Tự hành (cờ bac-mo-hanh), hết chặng (cờ bac-xong: các mốc pháp bảo đã qua được nhận bù). Quà các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ: không phát thêm món nào. text.lock_danh / lock_hanh: lời nhắc khi bấm Tự đánh / Tự hành lúc chưa mở.",
   "on": true,
   "text": {
    "chip": "Bậc {i}/{n}",
@@ -181,6 +181,9 @@
      "so": 4,
      "do": [
       {
+       "nodeath": true
+      },
+      {
        "stand_by": "van-hac"
       },
       {
@@ -207,11 +210,11 @@
        "say": [
         [
          "van-hac",
-         "Có mấy con Tiểu ma bám theo các ngươi lên núi kìa. Thử {kiếm|liềm} mới đi."
+         "Có mấy con Tiểu ma bám theo các ngươi lên núi kìa, ma khí ngấm vào chúng rồi. Thử {kiếm|liềm} mới đi."
         ],
         [
          "he-thong",
-         "Hồi nãy phải nhờ Phi Kiếm mới hạ nhanh được chúng. Giờ chém thường thôi, xem mấy nhát thì tan."
+         "Lũ này ngấm ma khí, trâu gấp đôi lũ dưới làng: tay không thì tám chín nhát một con. Giờ có binh khí, xem còn mấy nhát."
         ]
        ]
       },
@@ -223,10 +226,14 @@
         3
        ],
        "spread": 2,
-       "loot": 0
+       "loot": 0,
+       "mul": 1.5,
+       "tag": "Ma nhiễm",
+       "hp": 84,
+       "atk": 6
       }
      ],
-     "goal": "Thử {kiếm|liềm}: hạ Tiểu ma ({n}/5)",
+     "goal": "Thử {kiếm|liềm}: hạ Ma nhiễm Tiểu ma ({n}/5)",
      "until": {
       "kill": "ma-tieu",
       "n": 5
@@ -238,11 +245,16 @@
     {
      "id": "bac-5",
      "so": 5,
-     "do": [],
+     "do": [
+      {
+       "nodeath": true
+      }
+     ],
      "goal": "Dọn hai phòng quái ({n}/9)",
      "until": {
       "kill": "*",
-      "n": 9
+      "n": 9,
+      "in": "bi-canh"
      },
      "thuong": "thiet-gioi"
     }
@@ -357,7 +369,7 @@
      "say": [
       [
        "he-thong",
-       "Đinh! Chém thường mà chúng cũng tan nhanh thế. Có binh khí khác hẳn chưa? Thưởng đôi giày."
+       "Đinh! Bốn năm nhát một con, tay không thì phải gấp đôi. Có binh khí khác hẳn chưa? Thưởng đôi giày."
       ]
      ]
     },
@@ -399,6 +411,9 @@
    ],
    "bi-canh": [
     {
+     "nodeath": true
+    },
+    {
      "say": [
       [
        "he-thong",
@@ -418,6 +433,9 @@
     }
    ],
    "nv-5-ve": [
+    {
+     "nodeath": false
+    },
     {
      "say": [
       [

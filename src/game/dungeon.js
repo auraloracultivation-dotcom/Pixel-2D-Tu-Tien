@@ -14,9 +14,14 @@ export function createDungeon(game) {
   const doors = map.findTiles('D');
   for (const [x, y] of doors) map.locked.add(x + ',' + y);
 
-  function inside(r, p) {
+  function inside(r, p, pad = 0) {   // pad: nới thêm mấy ô
     const [x, y, w, h] = r.rect;
-    return p.x >= x * T && p.x <= (x + w) * T && p.y >= y * T && p.y <= (y + h) * T;
+    return p.x >= (x - pad) * T && p.x <= (x + w + pad) * T && p.y >= (y - pad) * T && p.y <= (y + h + pad) * T;
+  }
+  // Quái của phòng lọt ra ngoài phòng quá một ô (đi xuyên tường lúc đuổi, bị đẩy lùi): đưa về giữa phòng, kẻo người chơi không tới được và cửa không bao giờ mở
+  function keepIn(r) {
+    const [x, y, w, h] = r.rect;
+    for (const m of r.mobs) if (!m.dead && !inside(r, m, 1)) { const c = map.freeNear(Math.floor(x + w / 2), Math.floor(y + h / 2), Math.min(w, h) / 2 - 1, 6); m.x = c.x; m.y = c.y; m.ghostT = 0; m.blkT = 0; }
   }
 
   function enter(r) {
@@ -45,6 +50,7 @@ export function createDungeon(game) {
         if (!r.entered && team.some(p => inside(r, p))) enter(r);
         if (r.entered && !r.cleared) {
           r.mobs = r.mobs.filter(m => !m.dead);
+          keepIn(r);
           const summonsLeft = r.boss && game.mobs.some(m => !m.dead);
           if (!r.mobs.length && !summonsLeft) {
             r.cleared = true;

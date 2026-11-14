@@ -41,6 +41,7 @@
   "next": "Tiếp tục: {level}",
   "again": "Càn quét {level}",
   "exit": "Thoát",
+  "exit_wait": "Đứng yên trên cổng để rời bí cảnh",
   "close": "Đóng",
   "coins": "Linh Thạch",
   "coin_tag": "Bí cảnh Linh Thạch"
@@ -148,6 +149,15 @@
   "vet-nut": "phap-bao"
  },
  "step_mul": 2,
+ "exit_hold": 1.2,
+ "_exit_hold": "Cổng ra của bí cảnh lúc đang đánh dở (có phòng đã vào mà chưa dọn xong): phải đứng yên trên cổng, không ra đòn, đủ chừng này giây mới rời (src/game/interact.js holdExit); lỡ chân giẫm cổng lúc đang đánh thì không bị đưa ra ngoài. Phòng đã dọn xong hoặc chưa vào phòng nào: giẫm cổng là đi ngay như cũ. 0: tắt.",
+ "floor": {
+  "bi-canh": {
+   "mob": 3.5,
+   "boss": 1.3
+  }
+ },
+ "_floor": "Sàn máu của bí cảnh (src/game/dun-mode.js scaleMob; chủ dự án 14/11/2026 23:25 duyệt việc 6 dòng 18e): quái phòng (mob) và trùm (boss) có máu ít nhất bằng sàn × máu gốc, công vẫn theo bậc. Bí cảnh Huyết Nha là bí cảnh đầu: lượt đầu người mới vừa cầm kiếm chém một hai nhát tan một con (9 con hai phòng hết trong 9 giây), trùm 15–25 giây không cần né. Sàn quái phòng 3,5 → Tiểu ma 105 máu, Ma tiễn 84 máu (bốn tới sáu nhát; thử sàn 4 thì năm sáu nhát). Sàn trùm 1,4 → 980 máu: người mới đúng Luyện Khí tầng 2 chỉ giữ Đánh, không né hạ trùm trong 16–27 giây, mất 55–70% máu (bốn lần thử, một lần cạn máu). Đã thử gấp đôi (1.400 máu) và 1,6 (1.120 máu): cạn máu ở 4/4 và 3/4 lần thử (máu dừng ở 1 nhờ nodeath của chặng leo bậc) vì trùm lên gần lực chiến người chơi thì hết bị áp chế (cp_press), mỗi đòn của nó từ 4 thành 12 máu; 1,3 (910 máu) có lượt 12,6 giây là xong. 15/11/2026 05:30: nhịp đánh thường chậm lại 1,64 lần (data/weapons.json _pace) nên sàn trùm 1,4 → 1,3 (910 máu) cho đúng sức đã chọn: 22–25 giây, ăn 10–13 đòn, mất 49–79% máu, bốn lần thử một lần cạn máu (để 1,4 với nhịp mới thì cạn máu 2/4 lần, trận 18–40 giây; 1,2 thì chỉ mất 18–46%). Quái phòng vẫn ba tới sáu nhát một con, hai phòng 20–27 giây. Bậc 2, 3 máu quái phòng giữ ở sàn (công vẫn gấp đôi mỗi bậc), từ bậc 4 (× 8) trở lên như cũ.",
  "closed_note": "Bí cảnh tạm đóng cửa (chủ dự án 02/11/2026 18:04: cuối game, chưa có gì riêng, giữ game gọn). Danh sách bí cảnh xếp cuối, cổng không vào được, việc ngày cùng id không ra. Mở lại: bỏ id khỏi closed.",
  "closed": ["hu-khong-lao", "vet-nut"],
  "coin_note": "Bí cảnh Linh Thạch (chủ dự án 02/11 19:56, góp ý #63): thưởng cấp chỉ có Linh Thạch, gấp coins_mul lần (không trang bị, ngọc, đá, bí kíp). Vượt hay càn quét đều được.",

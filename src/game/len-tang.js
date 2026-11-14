@@ -2,7 +2,7 @@
 // (docs/10-CAI-HON.md việc 4b; chủ dự án 14/11/2026 17:25 "nói chung mạnh lên là phải chúc mừng", 17:38 "cả hiệu ứng thăng tiểu cảnh giới và đại cảnh giới").
 //   layerUp: src/game/game.js gainQi gọi khi linh khí vừa đầy một tầng (broke = số tầng vừa lên). Trên nhân vật: trận đồ nở dưới chân, cột sáng vọt lên,
 //     đốm sáng bay lên (juice.js juiceUp). Trên màn: thẻ "Đột phá" ngay trên đầu cột sáng: tên tầng, thang chín ô sáng thêm ô mới, chỉ số trước → sau,
-//     quà tu vi, lực chiến tăng bao nhiêu. Không dừng game (đang đánh quái vẫn đánh).
+//     quà tu vi, tầng kế sẽ mở gì (pháp bảo, chiêu khảm: phap-bao-grant.js pbNext), lực chiến tăng bao nhiêu. Không dừng game (đang đánh quái vẫn đánh).
 //   realmUp: src/game/tribulation.js finish gọi sau khi đã sang cảnh giới mới. Nghi lễ cả màn: nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới
 //     đập xuống, chỉ số trước → sau, cảnh giới gia trì, quà đột phá, lực chiến, nút Tiếp tục.
 //   Cả hai: lực chiến đã nằm trong màn mừng nên chữ nổ giữa màn (power-pop.js) không báo lần nữa; các dòng báo khác nổ ra đúng lúc ấy (pháp bảo mới,
@@ -14,9 +14,11 @@ import { realmLabel } from './stats.js';
 import { power } from './achieve.js';
 import { juiceUp } from './juice.js';
 import { buffBits } from './realm-gift.js';
+import { pbNext } from './phap-bao-grant.js';
+import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
-const list = parts => parts.map(p => p.replace(/ /g, '\u00a0')).join('\u00a0· ');   // nhiều ý nối bằng dấu ·: câu dài chỉ xuống dòng sau dấu · giữa hai ý, không ngắt giữa "Linh Thạch"
+const list = parts => parts.map(p => [...p.replace(/ /g, '\u00a0')].join('\u2060')).join('\u00a0· ');   // nhiều ý nối bằng dấu ·: câu dài chỉ xuống dòng sau dấu · giữa hai ý, không ngắt giữa "Linh Thạch" (dấu nối chữ U+2060 giữa mọi ký tự: chữ Hán cũng không bị ngắt giữa "法寶")
 const num = n => Math.round(n).toLocaleString('vi-VN');
 const cfg = game => game.data.juice.mung;
 // Màu của cảnh giới: hào quang quanh người ở cảnh giới ấy (data/status.json → auras); Luyện Khí chưa có hào quang thì màu linh khí.
@@ -55,6 +57,7 @@ export function layerUp(game, broke) {
   const color = hue(game, s.realm, C.tang.color), pairs = statLines(game, a), lines = pairs.length ? [{ pairs }] : [];   // thẻ nhỏ: sinh lực và công chung một dòng
   if (gift) lines.push({ text: fill(C.text.gift, { list: gift }), gift: true, wrap: true });
   if (s.layer >= R.layers && s.realm < R.names.length - 1) lines.push({ text: C.text.peak, soft: true, wrap: true });   // đủ chín tầng: nhắc bậc kế tiếp là thiên kiếp
+  else if (s.layer < R.layers) { const nx = pbNext(game); if (nx.length) lines.push({ text: fill(C.text.next, { name: t('{x} tầng {layer}', { x: R.names[s.realm], layer: s.layer + 1 }), list: list(nx) }), soft: true, wrap: true }); }   // tầng kế sẽ mở gì: có cái để mong (tên tầng dịch ngay ở đây: câu ghép lẫn hai thứ tiếng thì bộ dịch khuôn "… tầng …" nuốt cả câu)
   juiceUp(game, false, color);
   game.mungTang({ color, title: C.text.tang, name: realmLabel(s, R), cells: { n: R.layers, from: Math.max(0, s.layer - broke), to: s.layer }, lines, gain: powGain(game, a), done: later(game, hold) });
 }

@@ -98,12 +98,14 @@
 @keyframes ht-float { 50% { transform: translateY(-3px); } }
 @keyframes ht-rays { to { transform: rotate(360deg); } }
 /* Sân khấu rương triệu hồi (src/ui/he-thong-qua.js): rương ở dưới, món lơ lửng phía trên; --g màu sáng theo phẩm */
-.ht-chest-stage { position: relative; flex-shrink: 0; height: 260px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; border-radius: 10px;
+/* Cao 260px; màn thấp thì thấp lại cho nút Triệu hồi luôn nằm trong khung, khỏi phải vuốt mới thấy (khung cao min(72vh, 560px), trừ 250px gồm đầu bảng,
+   các mục, dòng điểm và nút; 15/11/2026: 7 ngày gần nhất 4 trong 10 người chơi điện thoại có màn thấp hơn 708px, nút nằm dưới mép khung). Rương nhỏ theo. */
+.ht-chest-stage { --sh: clamp(150px, calc(min(72vh, 560px) - 250px), 260px); position: relative; flex-shrink: 0; height: var(--sh); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; border-radius: 10px;
   background: radial-gradient(ellipse at 50% 85%, rgba(255, 210, 90, .18), transparent 60%); overflow: hidden; }
 .ht-chest-stage.lit { background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--g, #7ff0ff) 55%, transparent) 0%, color-mix(in srgb, var(--g, #7ff0ff) 18%, transparent) 32%, transparent 62%),
   radial-gradient(ellipse at 50% 85%, rgba(255, 210, 90, .18), transparent 60%); }
 .ht-chest-stage.rare { animation: ht-flash .6s 2; }
-.ht-chest { image-rendering: pixelated; margin-bottom: 6px; transition: transform .2s; }
+.ht-chest { image-rendering: pixelated; margin-bottom: 6px; transition: transform .2s; max-height: max(64px, calc(var(--sh) - 134px)); object-fit: contain; }
 .ht-chest.pop { animation: ht-pop-open .45s ease-out; }
 .ht-slot { position: absolute; left: 0; right: 0; top: 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; pointer-events: none; text-align: center; padding: 0 10px; }
 .ht-slot b { font-size: 13px; color: #fff; text-shadow: 0 1px 0 #0a1830; }
@@ -139,6 +141,11 @@
 .ht-ls { position: static; width: auto; max-height: 260px; overflow-y: auto; pointer-events: auto; margin-top: 6px; }   /* lịch sử triệu hồi của mình (đề xuất #153) */
 .ht-ls[hidden] { display: none; }
 .ht-chest-stage .ht-slot { left: 92px; right: 92px; }
+@media (max-width: 380px) { .ht-slot.hit b { font-size: 14px; } }   /* màn hẹp: ô giữa chỉ còn ~120px, tên món 16px gãy ba dòng đè lên rương */
+@media (max-height: 621px) {   /* màn rất thấp (sân khấu dưới 198px, rương nhỏ nhất): món thu nhỏ một chút; lúc món trúng đang khoe thì rương mờ đi cho chữ đè lên vẫn đọc được */
+  .ht-chest-stage .ht-slot { zoom: .8; }
+  .ht-chest-stage.lit .ht-chest { opacity: .22; }
+}
 /* Kéo Hệ Thống (src/ui/he-thong-keo.js) */
 .ht-icon { touch-action: none; -webkit-user-select: none; user-select: none; }
 .ht-icon.keo { cursor: grabbing; transform: scale(1.15) rotate(-8deg); filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .45)); transition: transform .12s; }
@@ -204,3 +211,10 @@ body #toast { z-index: 85; }
 .ht-qtv > small { color: #9fc8d8; font-size: 11px; }
 .ht-qtv-bar { display: block; height: 6px; border-radius: 3px; background: rgba(4, 16, 32, .8); border: 1px solid rgba(255, 210, 90, .4); overflow: hidden; }
 .ht-qtv-bar > b { display: block; height: 100%; background: linear-gradient(90deg, #ffd24a, #ff9a3a); }
+/* Triệu hồi chia bậc (data/he-thong.json → bac; docs/10-CAI-HON.md việc 6 dòng 18a): số đếm bảo hiểm ở mép trái sân khấu (đối xứng bảng khoe bên phải), tên bậc dưới món trúng, đầu mục từng bậc của bảng tỉ lệ */
+.ht-bh { position: absolute; left: 0; top: 6px; width: 90px; display: flex; flex-direction: column; pointer-events: none; font-size: 10px; line-height: 1.25; }
+.ht-bh[hidden] { display: none; }
+.ht-bh b { margin-top: 3px; font-size: 11px; text-shadow: 0 1px 0 #0a1830; }
+.ht-bh span { color: #dff6ff; }
+.ht-slot .ht-bac { font-size: 12px; font-weight: 700; text-shadow: 0 1px 0 #0a1830; }
+.ht-bac-h { margin: 8px 0 3px; font-size: 12px; font-weight: 700; text-shadow: 0 1px 0 #0a1830; }

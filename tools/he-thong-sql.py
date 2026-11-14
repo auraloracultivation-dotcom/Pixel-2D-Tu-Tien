@@ -16,6 +16,15 @@ cfg = {
   'pool': H['pool'], 'cost': H['cost'], 'points': H['points'], 'mail': H['text']['mail'], 'quest_mail': H['text']['quest_mail'],
   'daily': {t['id']: t['n'] for t in DL['pool']}, 'per_day': DL['per_day'],
 }
+# python3 tools/he-thong-sql.py bac: in miếng vá cho p2d_ht_cfg dòng 'cfg' khi triệu hồi chia bậc (data/he-thong.json → bac, việc 6 dòng 18a + 18b):
+# pool kèm bậc b và trọng số w = tỉ lệ của bậc / số món trong bậc, bh (bảo hiểm), loa (bậc báo kênh thế giới + tên món), qua_dau (điểm quà gặp mặt).
+# Chép chuỗi này vào migration mới (update public.p2d_ht_cfg set v = v || '…'::jsonb where k = 'cfg'); tools/check.mjs so migration mới nhất với chuỗi này.
+def bac_patch(qua_dau=None):
+    B = H['bac']; n = [sum(1 for e in H['pool'] if e.get('b', 0) == i) for i in range(len(B['list']))]
+    pool = [{**{k: v for k, v in e.items() if k != 'w'}, 'b': e.get('b', 0), 'w': round(B['list'][e.get('b', 0)]['pct'] / n[e.get('b', 0)], 6)} for e in H['pool']]
+    return {'pool': pool, 'bh': B['bao_hiem'], 'loa': {'b': B['loa'], 'ten': B['ten']}, 'qua_dau': H['qua_dau']['diem'] if qua_dau is None else qua_dau}
+if len(sys.argv) > 1 and sys.argv[1] == 'bac':
+    print(json.dumps(bac_patch(int(sys.argv[2]) if len(sys.argv) > 2 else None), ensure_ascii=False, separators=(',', ':'))); sys.exit()
 out = sys.stdout
 out.write("""-- Hệ Thống Tu Tiên: điểm nhiệm vụ và triệu hồi quà (chủ dự án 06/11/2026 16:49–17:05: hệ thống thay cốt truyện và nhiệm vụ hằng
 -- ngày; mỗi nhiệm vụ điểm như nhau, đủ điểm triệu hồi quà ngẫu nhiên như nhau cho mọi người: Linh Thạch, ngọc cấp 1–8, Tẩy Luyện Thạch,

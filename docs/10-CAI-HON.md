@@ -42,6 +42,15 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
   oan đó; làm cả bảy dòng của bảng việc 6 theo mức AI đề nghị chính (18a1, 18d1), dòng 18f đo thêm rồi làm; nguyên tắc cho mọi con số: khó hơn nhưng mỗi chỗ khó phải có
   thứ lôi cuốn đi kèm, đi tới đích chậm lại để game kịp làm tỉ mỉ).
 
+- 15/11 01:53 (trả lời câu 19 "pháp bảo: cho dời cấp sang món mới cùng loại khi đổi?" và câu 20 "đặt lại hẹn rà + gộp 00:00"): "19 hoàn linh thạch. 20 không cần làm gì, chỉ tập
+  trung vào xây game với toàn bộ tâm huyết là được" (AI hiểu là: 19 làm cách hoàn Linh Thạch khi hạ cấp pháp bảo cũ, đi qua máy chủ, AI đề nghị hoàn 80%; 20 không đặt
+  lại hẹn đêm, việc rà một phần và gộp GitHub làm trong buổi làm việc khi tiện).
+- 15/11 06:33 (sau hai clip làm lại): "Đưa lên. Đưa lên. Tiếp" (AI hiểu là: câu 21 đưa lên; câu 22 áp migration triệu hồi chia bậc lên máy chủ + bật + đưa lên; rồi làm tiếp việc kế). Đã làm 06:34–06:40.
+- 15/11 04:39 (sau khi xem hai clip `quai-dau-game-sau.mp4` và `trieu-hoi-chia-bac.mp4`): "Cái 1 tốc đánh có vẻ cần chậm hơn. Cái 2 thì cảm giác bị lồng 2 âm thanh chúc
+  mừng. Rồi làm tiếp đi nè" (AI hiểu là: clip 1: nhịp đánh thường của người chơi chậm lại, làm cho mọi vũ khí theo nhịp mẫu My Heroes (kiếm 1,6 đòn / giây), đo lại quái
+  đầu game theo nhịp mới rồi gửi clip mới; clip 2: món có nghi lễ thì chỉ còn tiếng mừng của nghi lễ, trên rương không kêu tiếng mừng nữa. Đây chưa phải lời "đưa lên" /
+  "áp lên": sửa xong gửi clip lại rồi hỏi tiếp).
+
 ## Câu cái hồn
 
 > Vào đây bạn là nhân vật chính, từ phàm nhân đi lên thành thần: mỗi nhát chém có cảm giác, mỗi phần thưởng có nghi lễ,
@@ -417,6 +426,153 @@ việc 5; tốc độ tu luyện chậm lại ở các cảnh giới đầu. Đ�
 Số đo thêm 14/11 tối: người mới thật đầu tiên trong 11 phút nhận 22.000 Linh Thạch từ 20 thư nhiệm vụ Hệ Thống (11 nhiệm vụ) và 60.000 từ MỘT lượt triệu hồi (20 nghìn nhân ba);
 quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí / giây, bế quan lúc vắng 0,25 / giây (8 tiếng = 7.200), treo quái đảo đầu chừng 0,6 / giây.
 
+## Việc 6 · dòng 18e (quái đầu game) và 18d (Luyện Khí): làm 15/11/2026
+
+**Tình trạng: làm xong 15/11/2026 02:17 (commit `91109d56`, `14048bb9`), CHƯA đưa lên.** 02:32 AI thử đưa lên thì bị chặn: mỗi đợt đưa bản mới cần lời "đưa lên" của chủ dự án
+cho đúng đợt đó ("Làm hết đi" 14/11 23:25 là duyệt làm, chưa phải duyệt đưa đợt này). Đã gửi clip `quai-dau-game-sau.mp4` (51 giây: bậc 4 → hai phòng bí cảnh → trùm đầu)
+và hỏi ở bảng câu hỏi, câu 21.
+
+**ĐÃ ĐƯA LÊN 15/11/2026 06:37 cùng bản `5138e46b` (chủ dự án 06:33 "Đưa lên").**
+
+**15/11 04:39 chủ dự án xem clip: "tốc đánh có vẻ cần chậm hơn".** Đã làm (mục "Nhịp đánh thường chậm lại" cuối phần này): nhịp đánh thường của mọi vũ khí chậm lại 1,64 lần,
+đo lại cả chặng, chỉnh sàn trùm và bãi đảo tông môn theo nhịp mới, quay clip mới `quai-dau-game-cham.mp4`. Vẫn CHƯA đưa lên, chờ lời "đưa lên" (câu 21).
+
+Chủ dự án 14/11 23:25 duyệt cả bảy dòng ("Làm hết đi… khó phải đi kèm với lôi cuốn"). Hai dòng này không đụng máy chủ nên làm trước. Đo bằng
+`tools/do-don/di-tay.mjs`: người mới kịch bản chỉ đi theo mũi tên và giữ nút Đánh, không né, không bấm pháp bảo, không uống đan (trường hợp yếu tay nhất);
+mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đòn ăn và máu mất. Sát thương một nhát của người mới dao động 15–26 tuỳ dòng chỉ số của món vừa nhận.
+
+**18e · trước / sau**
+
+| Chỗ | Trước (đo) | Sau (đo) | Số nằm ở |
+|---|---|---|---|
+| Bậc 4: thử binh khí trên 5 Tiểu ma | 30 máu, một hai nhát một con, cả năm con tan trong 2,4 giây | "Ma nhiễm Tiểu ma" 84 máu, công 6: 4–5 nhát một con; cả lứa khoảng 4–6 giây vì một nhát chém lan nhiều con | `data/story.json → bac.truoc.nv-3` (`hp`, `atk`, `mul`, `tag`) |
+| Hai phòng đầu Bí cảnh Huyết Nha (7 Tiểu ma, 2 Ma tiễn) | 30 / 24 máu, một hai nhát; hai phòng hết trong 9–11 giây | Sàn máu 3,5: 105 / 84 máu, 4–6 nhát một con; hai phòng khoảng 27 giây | `data/dungeon.json → floor.bi-canh.mob` |
+| Phân thân Huyết Nha lượt đầu | 700 máu: 15–25 giây; không né chỉ mất 45–67 máu (26–39%) | Sàn máu 1,4: 980 máu. Người mới đúng Luyện Khí tầng 2 chỉ giữ Đánh, không né: 16–27 giây, ăn 7–14 đòn, mất 55–70% máu (bốn lần thử với bốn hạt ngẫu nhiên, một lần cạn máu và được `nodeath` giữ ở 1). Bật Tự đánh (có pháp bảo) thì nhanh hơn nhiều | `floor.bi-canh.boss` |
+| Mộc linh hoang trên đảo tông môn | Lực chiến 1.800: 847 máu, công 106. Người mới ra bãi 60 giây gục 6 lần, không hạ nổi con nào | Lực chiến 360: 169 máu, công 21 (vòng ngoài 338 / 42). Chỉ giữ Đánh giữa bãi: 8 con / phút (8 nhát một con), không uống đan thì gục chừng 30 giây một lần vì cả bầy bị chém lan cùng cắn lại; bật Tự đánh (pháp bảo đánh xa): 13 con / phút, 90 giây không gục | `data/config.json → mob_cp.maps` |
+
+- Sàn máu bí cảnh: máu quái phòng và trùm ít nhất bằng sàn × máu gốc, công vẫn nhân đôi mỗi bậc. Bậc 2, 3 của Bí cảnh Huyết Nha vì thế máu quái phòng bằng bậc 1
+  (công gấp 2, gấp 4), từ bậc 4 trở lên như cũ (`src/game/dun-mode.js scaleMob`). Sáu bí cảnh khác không có sàn.
+- Áp chế lực chiến (`cp-press.js`) làm số máu không tỉ lệ thẳng với độ khó: trùm 700 máu thì người mới đánh × 1,5 và chỉ ăn 46% sát thương; lên 1.400 máu thì lực chiến
+  trùm ngang người chơi, hai bên đánh nhau đủ số. Vì vậy mỗi mức đều phải đo, không tính nhẩm được.
+- Không gục trong chặng mở đầu (`nodeath`, máu dừng ở 1) kéo dài tới hết trận Huyết Nha (trước chỉ tới hết bậc 3): quái từ bậc 4 đã trâu, trùm đầu để người mới
+  thấy nguy mà không mất trắng ở phút thứ năm. Ra khỏi chặng (bước `nv-5-ve`) là gục thật.
+- Thử các mức khác: bậc 4 để 120 máu thì bảy tới chín nhát một con, dài quá; 72 máu có lượt chỉ ba nhát. Sàn quái phòng 4 thì năm sáu nhát. Đảo tông môn 510 thì chỉ
+  giữ Đánh gục 15 giây một lần, Tự đánh 90 giây gục 2 lần.
+- **Trùm đầu không làm đúng "gấp đôi máu" như bảng đề xuất.** Đo ở đúng sức người mới (Luyện Khí tầng 2, 173–188 máu): gấp đôi (1.400 máu) thì cả 4 lần thử người
+  không né đều cạn máu, trận 31–58 giây; 1,6 (1.120 máu) cạn máu 3/4 lần; 1,4 (980 máu) cạn máu 1/4 lần, ba lần còn lại còn 29–45% máu; 1,3 (910 máu) có lượt 12,6 giây
+  là xong. Lý do là áp chế lực chiến (dòng trên): máu trùm lên thì mỗi đòn của nó cũng đau lên (từ 4 thành 12 máu một đòn). Chọn 1,4: người không né thắng sát nút,
+  người né một hai đòn thì dư máu. Muốn khó hơn chỉ đổi một số (`floor.bi-canh.boss`).
+- **Lỗi tìm ra khi đo (đã sửa):** Ma tiễn lùi ra xa người chơi, chạm tường 0,8 giây thì đi xuyên tường ra ngoài phòng (luật "quái kẹt thì đi xuyên vật cản" áp cả lúc
+  lùi), người chơi không tới được, phòng không bao giờ sạch: một lượt chạy thử đứng ở "Dọn hai phòng quái (8/9)" suốt 10 phút. Trước đây nó 24 máu nên thường chết trước
+  khi kịp lùi; ở bậc bí cảnh cao (máu × 2 mỗi bậc) lỗi này có thể đã xảy ra với người chơi thật. Sửa: chỉ quái đang đuổi mới được xuyên vật cản (`src/game/mobs.js`
+  `moveToward`), và quái của phòng lọt ra ngoài phòng quá một ô thì được đưa về giữa phòng (`src/game/dungeon.js keepIn`).
+- Chặng leo bậc sáu bậc sau khi đổi: người mới kịch bản đi hết trong khoảng 300 giây ảo (trước 285–312), không kẹt, 0 lỗi JS.
+
+**18d · Luyện Khí tầng sau cần gấp đôi tầng trước** (`data/realms.json → need_layer`, `src/game/stats.js qiNeed`)
+
+| Lên tầng | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | đầy tầng 9 (độ kiếp) | Cả cảnh giới |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Trước | 40 | 52 | 68 | 88 | 114 | 149 | 193 | 251 | 326 | 1.281 |
+| Sau | 40 | 80 | 160 | 320 | 640 | 1.280 | 2.560 | 5.120 | 10.240 | 20.440 |
+
+- Nguồn linh khí của người ở Luyện Khí (đo): đả tọa 0,5 / giây (trong động phủ gấp đôi), bế quan lúc vắng 0,25 / giây (8 giờ = 7.200), Tự đánh ở bãi đảo tông môn
+  khoảng 0,25–0,7 / giây, Tụ Khí Đan 200 mỗi viên (8 viên đầu mỗi ngày đủ hiệu quả = 1.600; chuỗi nhiệm vụ Hệ Thống ở Luyện Khí tặng 61 viên). Người chơi mỗi ngày
+  một hai buổi: bốn tầng đầu trong buổi đầu, tầng 6–7 trong ngày đầu, tầng 8–9 sau đêm thứ nhất, đầy tầng 9 sau đêm thứ hai: **khoảng 2–3 ngày** (trước: 40 phút).
+  Người có động phủ ngồi đả tọa liền một mạch thì khoảng 6 giờ.
+- Trúc Cơ tầng 1 cần 7.380, ít hơn tầng 9 Luyện Khí (10.240): sau thiên kiếp có một tầng dễ thở rồi mới tăng tiếp (9.594, 12.472…). Trúc Cơ cả cảnh giới 236 nghìn,
+  gấp 12 lần Luyện Khí (trước gấp 184 lần).
+- Máy chủ (`p2d_tong_lk`) vẫn tính theo công thức gốc: máy khách cần nhiều hơn thì chỉ chậm hơn, không bị coi là linh khí nhảy vọt. `tools/check.mjs` chặn bảng nào
+  có tầng thấp hơn công thức gốc. Lúc đổi không ai đang dở Luyện Khí (121 nhân vật tầng 1 chưa có linh khí, 1 nhân vật tầng 2 có 7 linh khí); tầng và linh khí giữ nguyên.
+- **Khó đi kèm lôi cuốn:** mỗi tầng Luyện Khí đều mở một thứ có tên: chiêu khảm mới mỗi tầng (Hỏa, Tỏa Nhánh, Thủy, Đánh Lan, Mộc, Xuyên Thấu, Thổ, Lôi Kích), pháp bảo
+  Hộ Thuẫn ở tầng 3, 2 Đá Khai Khiếu ở tầng 5, chọn Bảo Phiến / Đồng Chung ở tầng 8, quà tu vi mỗi tầng từ tầng 5. Thẻ lên tầng (việc 4b) thêm một dòng nói trước
+  tầng kế sẽ mở gì ("Luyện Khí tầng 3 sẽ mở: pháp bảo Hộ Thuẫn · chiêu khảm Tỏa Nhánh"; `src/game/phap-bao-grant.js pbNext`, chữ `mung.text.next`), để tầng dài
+  nào cũng có cái để mong. Thẻ Hẹn ngày mai (việc 5b) tự tính theo bảng mới.
+
+**Nhịp đánh thường chậm lại (chủ dự án 15/11/2026 04:39: "tốc đánh có vẻ cần chậm hơn")**
+
+- `data/weapons.json → cooldown` (giây giữa hai đòn) của mọi vũ khí nhân 1,64, lấy theo nhịp mẫu trong bản phân tích My Heroes (kiếm 1,6 đòn / giây): kiếm 0,38 → 0,62
+  (2,6 → 1,6 đòn / giây) · gậy gỗ, quạt 0,42 → 0,68 · liềm 0,48 → 0,78 · thương, cung 0,5 → 0,8 · đàn 0,55 → 0,9. Sát thương mỗi đòn không đổi nên số nhát mỗi con như cũ,
+  thời gian mỗi con dài ra; chiêu, pháp bảo, linh thú, nhịp đánh của quái không đổi. **Đổi cho mọi người chơi, không riêng người mới** (đánh thường ra đòn thưa hơn 39%;
+  người đã có pháp bảo và bật Tự đánh ít bị ảnh hưởng hơn: bãi đảo tông môn Tự đánh vẫn 14 con / phút).
+- Đo lại bằng người mới kịch bản (chỉ giữ Đánh, không né), bốn hạt ngẫu nhiên từ đầu bậc 4 + một lượt đi cả chặng:
+
+| Chỗ | Nhịp cũ (2,6 đòn / giây) | Nhịp mới (1,6 đòn / giây) |
+|---|---|---|
+| Bậc 1: Mộc linh 40 máu | 6 nhát, khoảng 3 giây | 6 nhát, 4,0 giây |
+| Bậc 2: ba Ma nhiễm Mộc linh 60 máu | 8 nhát một con | 8–9 nhát một con, cả ba con trong khoảng 12 giây |
+| Bậc 3: Ma nhiễm Tiểu ma 120 máu | 13 nhát | 13 nhát, 9,7 giây |
+| Bậc 4: năm Ma nhiễm Tiểu ma 84 máu | 4–5 nhát một con, cả lứa 4–6 giây | 3–6 nhát (trung bình 4,2), cả lứa 7–11 giây |
+| Hai phòng đầu bí cảnh (9 con) | 4–6 nhát một con | 3–6 nhát (trung bình 4,3), hai phòng 20–27 giây |
+| Phân thân Huyết Nha | sàn 1,4 (980 máu): 16–27 giây, mất 55–70% máu, 1 / 4 lần cạn máu | sàn 1,3 (910 máu): 22–27 giây, ăn 10–13 đòn, mất 49–80% máu, 2 / 5 lần cạn máu (được giữ ở 1 máu, vẫn thắng) |
+| Bãi đảo tông môn, chỉ giữ Đánh | lực chiến 360 (169 máu, công 21): 8 con / phút, gục chừng 30 giây một lần | lực chiến 240 (113 máu, công 14): 6 con / phút, khoảng 8 nhát một con, gục chừng 30 giây một lần |
+| Bãi đảo tông môn, Tự đánh | 13 con / phút, 90 giây không gục | 14 con / phút, 90 giây không gục |
+| Cả chặng leo bậc | khoảng 300 giây ảo | 344 giây ảo, không kẹt, 0 lỗi JS |
+
+- Vì sao phải chỉnh lại hai số: để nguyên sàn trùm 1,4 với nhịp mới thì trận dài 18–40 giây, người không né cạn máu 2 / 4 lần và mất tới 88% máu; sàn 1,2 thì chỉ mất
+  18–46% (lại dễ như trước khi làm 18e). Bãi đảo tông môn để nguyên 360 thì 11 nhát một con, chỉ giữ Đánh hạ 4 con / phút và 90 giây gục 4 lần.
+- **Lỗi tìm ra khi đo (đã sửa): lỡ chân giẫm cổng ra giữa trận.** Cổng "Về Thiên Kiếm Tinh" nằm ngay trong phòng đầu Bí cảnh Huyết Nha, cách chỗ vào hai ô. Một lượt
+  đo, người mới đang đánh ở phòng đầu thì giẫm trúng cổng, bị đưa ra bãi vòng ngoài (Mộc linh 338 máu, công 42) giữa trận, đứng đánh 130 giây và cạn máu. Trận dài
+  hơn thì dễ gặp hơn. Sửa: bí cảnh đang đánh dở (có phòng đã vào mà chưa dọn xong) thì giẫm cổng chưa đi, hiện dòng "Đứng yên trên cổng để rời bí cảnh", phải đứng yên
+  không ra đòn 1,2 giây mới rời (`src/game/interact.js holdExit`, `data/dungeon.json → exit_hold`); phòng đã dọn xong thì giẫm cổng là đi ngay như cũ. Đã thử cả ba
+  trường hợp.
+- **Lỗi thứ hai lộ ra cùng lúc (đã sửa):** bậc 5 "Dọn hai phòng quái (n/9)" đếm mọi con quái hạ được, kể cả quái ngoài bãi: lượt đo trên hạ 8 Mộc linh ngoài đảo mà
+  bậc vẫn tính là dọn xong hai phòng. Giờ chỉ đếm quái hạ trong bí cảnh (`data/story.json → bac … until.in`, `src/game/story.js`).
+
+## Việc 6 · dòng 18a (triệu hồi chia năm bậc + bảo hiểm) và 18b (quà gặp mặt 300 điểm): chuẩn bị xong 15/11/2026
+
+**Tình trạng: ĐÃ ÁP + ĐÃ ĐƯA LÊN 15/11/2026 06:37 (bản `5138e46b`; chủ dự án 06:33 "Đưa lên / Đưa lên / Tiếp" trả lời câu 21 và 22).** Sau khi áp: đăng ký tài khoản mới + đăng nhập được, `p2d_ht_trang_thai` trả `bh2`, `bh3`, quà gặp mặt trên máy chủ 300; tệp trên mạng khớp bản dựng, vào game 0 lỗi JS, bảng `p2d_loi` 15 phút sau không có lỗi mới. Phần dưới là ghi chép lúc chuẩn bị:
+
+(Lúc đó: chuẩn bị xong 15/11/2026 03:59 (commit `197c8c08`), CHƯA áp lên máy chủ, CHƯA bật.) Công tắc `data/he-thong.json → bac.on` đang tắt: bản đang chạy
+vẫn quay theo bảng cũ. Hai việc còn lại đều cần lời chủ dự án cho đúng đợt này: "áp lên" (migration `20261115010000_p2d_trieu_hoi_bac.sql`) và "đưa lên"
+(bản máy khách bật công tắc). Đã gửi clip `trieu-hoi-chia-bac.mp4` (41 giây: hai lượt Thường → lượt bảo hiểm ra Hiếm → lượt bảo hiểm ra Cực hiếm → Truyền thuyết →
+bảng tỉ lệ) và hỏi ở bảng câu hỏi, câu 22.
+
+**Trước / sau** (cột "Sau" đo trên máy chủ thử: PostgreSQL 16 dựng tạm trong máy làm việc, lược đồ tối thiểu + đúng migration mới, 200.000 lượt quay chia 100 mẻ;
+một mô hình Python viết độc lập theo cùng luật, 2 triệu lượt, ra 58,58 / 24,54 / 14,10 / 2,51 / 0,282%)
+
+| | Trước | Sau |
+|---|---|---|
+| Cách chia | 53 loại quà trọng số ngang nhau, mỗi loại 1,9% | Năm bậc: Thường 62% (14 món) · Khá 26% (14) · Hiếm 9,5% (11) · Cực hiếm 2,2% (8) · Truyền thuyết 0,3% (6); trong một bậc các món ngang nhau |
+| Tỉ lệ thật có bảo hiểm | | 58,69 / 24,46 / 14,07 / 2,51 / 0,276% |
+| Sáu giải lớn (Linh Thạch 1–2 triệu, ngọc 7–8, đồ Tiên, Thượng Cổ) | 11,2% số lượt: 9 lượt một giải | 0,276%: 363 lượt một giải |
+| Bảo hiểm | không có | 10 lượt liền chưa ra Hiếm trở lên thì lượt thứ 10 ra một món Hiếm; 80 lượt liền chưa ra Cực hiếm trở lên thì ra một món Cực hiếm. Chuỗi dài nhất đo được: 9 và 79 |
+| Linh Thạch mỗi lượt, trước bạo kích | 70.202 | 10.209 (còn một phần bảy; bạo kích giữ nguyên) |
+| Ra giải lớn | chữ trên rương + dòng báo | Truyền thuyết: Hệ Thống báo lên kênh Thế giới ("【Hệ Thống】Khí vận nghịch thiên! … triệu hồi được 1 triệu Linh Thạch!"), 200.000 lượt có 551 lần |
+| Quà gặp mặt (18b) | 1.000 điểm = 10 lượt ngay phút đầu | 300 điểm = 3 lượt (ai đã nhận 1.000 không bị trừ) |
+
+- Bậc của từng món: `data/he-thong.json → pool[].b`; tỉ lệ, màu, bảo hiểm, bậc có nghi lễ, bậc báo kênh thế giới: `bac`. Chuỗi cấu hình trong migration sinh bằng
+  `python3 tools/he-thong-sql.py bac 300`; `tools/check.mjs` so chuỗi đó với `data/` (lệch là báo đỏ), và khi `bac.on` bật thì đòi `qua_dau.diem` bằng số trong migration.
+- Máy chủ (`p2d_ht_trieu`): số đếm bảo hiểm ở `p2d_ht_diem.bh2`, `bh3`; lượt bảo hiểm chỉ quay trong ĐÚNG bậc được bảo hiểm (Cực hiếm xét trước), nên tỉ lệ Truyền thuyết
+  của lượt thường không đổi; bậc ghi vào thư và lịch sử (`noi_dung.bac`); hàm trả thêm `bac`, `bh2`, `bh3`; máy khách cũ vẫn chạy được (các trường cũ giữ nguyên).
+  Bảng "Vừa trúng lớn" lấy lượt từ Cực hiếm trở lên hoặc bạo kích từ x5; lượt cũ chưa ghi bậc giữ điều kiện cũ. Bảng quà trong migration khớp từng món với bảng đang
+  chạy trên máy chủ thật (53 món, chỉ thêm trọng số và bậc; đã so 15/11 03:55).
+- Máy khách (`src/ui/he-thong-qua.js`, chỉ khi `bac.on`): số đếm bảo hiểm của mình ở mép trái sân khấu rương ("Hiếm: còn 3 lượt"), đối xứng bảng khoe bên phải, luôn
+  thấy cùng rương; món trúng hiện kèm tên bậc theo màu bậc; từ bậc Hiếm có nghi lễ cả màn của việc 4 (`src/ui/reward-show.js`, vầng sáng xanh / tím / vàng, bậc cao
+  diễn lớn hơn); bảng tỉ lệ xếp theo bậc, bậc hiếm nhất ở trên. Dòng báo "Đinh! Ký chủ triệu hồi được…" giữa màn che đúng tên món nên ở chế độ bậc không hiện nữa
+  (món và bậc đã hiện trên rương); câu "Khí vận nghịch thiên!" của Hệ Thống chuyển vào nghi lễ Cực hiếm, Truyền thuyết.
+- **15/11 04:39 chủ dự án xem clip: "cảm giác bị lồng 2 âm thanh chúc mừng".** Đúng: món trúng hiện trên rương đã kêu tiếng mừng (`pickup`, bậc cao là `levelup`, bạo kích
+  thêm `crit`), 0,65 giây sau nghi lễ lại kêu tiếng mở và tiếng nổ của nó. Sửa: món nào có nghi lễ thì trên rương chỉ một tiếng tách lúc món dừng, tiếng mừng để nghi lễ
+  lo, nghi lễ vào sớm hơn (0,5 giây); món không có nghi lễ (Thường, Khá) vẫn một tiếng nhặt như cũ. Clip mới: `trieu-hoi-chia-bac-2.mp4`.
+- **Khó đi kèm lôi cuốn:** giải lớn hiếm đi 40 lần, đổi lại (1) lúc nào cũng thấy còn mấy lượt nữa là chắc chắn có món Hiếm / Cực hiếm; (2) cứ khoảng 6 lượt có một
+  nghi lễ (Hiếm trở lên 16,9% số lượt); (3) Truyền thuyết thì cả máy chủ biết tên.
+- Đã thử: 390 × 844, 360 × 640, 375 × 559; chữ Việt, Anh, Trung; công tắc tắt thì mục Triệu hồi y như bản đang chạy; `tools/check.mjs` và chơi thử tự động đạt.
+
+**Sửa kèm ở mục Triệu hồi, có hiệu lực cả khi công tắc tắt** (lỗi có sẵn, thấy ra lúc thử máy màn thấp)
+
+- Nút Triệu hồi nằm dưới mép khung: sân khấu rương cao cứng 260px, khung Hệ Thống cao `min(72vh, 560px)`, nên màn thấp hơn 708px phải vuốt mới thấy nút. PostHog 7
+  ngày gần nhất (sự kiện `vao_game`, điện thoại cầm dọc): 22 trong 52 người có màn thấp hơn 708px. Sửa: sân khấu cao `clamp(150px, min(72vh, 560px) − 250px, 260px)`,
+  rương nhỏ theo; màn rất thấp (dưới 622px) món thu nhỏ còn 0,8 và rương mờ đi lúc món trúng đang khoe. Đo lại ở 360 × 640, 375 × 559, 360 × 560, 393 × 659, 412 × 780,
+  390 × 844: nút nằm trọn trong khung ở cả sáu cỡ; từ 708px trở lên không đổi gì.
+- Món lướt qua lúc rương mở nhiều khi chỉ có tên, không có hình: hình mỗi món là một tệp riêng (100 tệp, 12 MB), tải chậm hơn nhịp lướt. Sửa: bấm Triệu hồi là chọn
+  sẵn 18 món sẽ lướt và gọi hình ngay; hình món trúng được gọi lúc máy chủ vừa trả lời (trước đó phải đợi tới lúc hiện). Số tệp tải không tăng, chỉ sớm hơn. Đo (chụp 10 khung lúc
+  món lướt, lần quay đầu sau khi mở game): trước sửa 5 khung món chỉ có tên; sau sửa cả 9 khung món đã lên tới chỗ đều có hình (khung đầu món còn đang bay lên từ rương).
+- Tên mục "Tàng Thư" chưa có bản dịch (bản Anh, Trung vẫn hiện chữ Việt): thêm "Archive", "藏書閣".
+
+**Lúc chủ dự án nói "áp lên" + "đưa lên" thì làm đúng thứ tự này:** (1) áp migration; (2) thử đăng ký một tài khoản mới và đăng nhập; quay thử một lượt, xem `bh2`,
+`bh3` tăng và thư có `bac`; (3) `bac.on = true`, `qua_dau.diem = 300`, câu chào "quà gặp mặt 1.000 điểm" → 300 (cả bản Anh, Trung); (4) kiểm tra, đưa bản máy khách lên
+ngay (giữa bước 1 và 4 máy khách cũ vẫn quay được nhưng còn ghi "tỷ lệ mọi loại như nhau"); (5) kiểm sau khi đưa: tệp trên máy chủ khớp bản dựng, vào game được,
+bảng `p2d_loi` không có lỗi mới. Muốn lùi: đặt lại `bac.on = false` và bảng quà cũ bằng một migration mới (số đếm `bh2`, `bh3` để nguyên không sao).
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |
@@ -429,4 +585,7 @@ quay 2 trong 10 lượt được tặng. Tu luyện: đả tọa 0,5 linh khí /
 | 14/11/2026 | 5 Mười lăm phút đầu kiểu leo bậc: đo bản hiện tại (trận đầu ở 1:47, quái tan trong 1 giây); dựng thử hai bậc đầu sau công tắc `bac.on` (tắt): thẻ bậc có số đếm và hình phần thưởng, 1 Mộc linh 6 nhát → áo có nghi lễ → 3 con nhiễm ma khí 8 nhát → pháp bảo Phi Kiếm có nghi lễ, chưa mở Tự hành trong chặng; quay clip cả màn hình + clip so với bản hiện tại gửi chủ dự án kèm bảng đề xuất 6 bậc. Sửa kèm: linh vật Hệ Thống không che khung thoại, số Liên Kích / chữ Bạo Nộ không treo lúc nói chuyện | Đủ sáu bậc, bật `bac.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 5b Lý do quay lại ngày mai: dựng thử thẻ "Hẹn ngày mai" sau công tắc `mai.on` (tắt): thang chín ô tầng sáng lên theo số linh khí một đêm bế quan, quà điểm danh ngày mai và mốc 7 ngày, mốc pháp bảo kế tiếp; tự hiện một lần mỗi ngày lúc yên (người mới: ngay khi hết truyện mở đầu); thẻ "Xuất quan" lúc quay lại thay dòng thoại bế quan (tầng vừa lên, pháp bảo mới, quà hôm nay); quay clip gửi chủ dự án | Bật `mai.on`, đã đưa lên game 14/11 |
 | 14/11/2026 | 6 Con số cả game: đo số gốc (72 giờ: triệu hồi phát 64,7 triệu Linh Thạch cho 17 người, 142k mỗi lượt; nhiệm vụ Hệ Thống 22,8 triệu); chưa có đề xuất | Đang soạn bảng trước / sau |
+| 15/11/2026 | 6 dòng 18e (quái đầu game) + 18d (Luyện Khí tầng sau gấp đôi tầng trước): làm xong, đo trước / sau bằng người mới kịch bản; sửa lỗi Ma tiễn lùi xuyên tường làm kẹt phòng bí cảnh; thẻ lên tầng báo trước tầng kế mở gì; kiểm tra, chơi thử tự động (cả đúng nhịp thật 7 phút), tự tay đi đều đạt | Đã gửi clip, chờ chủ dự án nhắn "đưa lên" (bảng câu hỏi câu 21) |
+| 15/11/2026 | 6 dòng 18a (triệu hồi chia năm bậc + bảo hiểm) + 18b (quà gặp mặt 300 điểm): chuẩn bị xong sau công tắc `bac.on` (tắt) + migration chưa áp; thử 200.000 lượt trên máy chủ thử; mục Triệu hồi thêm số đếm bảo hiểm, tên bậc, nghi lễ từ bậc Hiếm, bảng tỉ lệ theo bậc; sửa kèm nút Triệu hồi khuất dưới khung ở máy màn thấp, món lướt qua thiếu hình | Đã gửi clip, chờ chủ dự án nhắn "áp lên" + "đưa lên" (bảng câu hỏi câu 22) |
+| 15/11/2026 | Chủ dự án xem hai clip (04:39: "tốc đánh có vẻ cần chậm hơn", "bị lồng 2 âm thanh chúc mừng"): nhịp đánh thường mọi vũ khí chậm lại 1,64 lần (kiếm 2,6 → 1,6 đòn / giây), đo lại cả chặng, sàn trùm đầu 1,4 → 1,3, bãi đảo tông môn 360 → 240; sửa lỡ chân giẫm cổng ra bí cảnh giữa trận và bậc 5 đếm cả quái ngoài bãi; triệu hồi: món có nghi lễ chỉ còn một tiếng mừng | Đã gửi hai clip mới, chờ "đưa lên" (câu 21), "áp lên + đưa lên" (câu 22) |
 | 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
