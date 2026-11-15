@@ -22,6 +22,9 @@ const later = (box, redo) => { if ([...box.querySelectorAll('.spb-ic')].some(i =
 export function pbGrid(game, st, box, bar, redo) {
   const D = PB(game), s = pbState(game), wrap = el('div', 'spb-wrap'), grid = el('div', 'sv-bag-grid spb-grid');
   if (!s.items.length) wrap.append(el('p', 'spb-note', D.ui.page_none));
+  // Dấu ▲ "tốt hơn món đang mặc": món không mặc có sức (phẩm × cấp) hơn món yếu nhất đang mặc (rà phần 3 Pháp bảo 15/11/2026: món tốt nằm trong túi vì không có dấu)
+  const sc = it => pbGrade(game, it).mul * (1 + D.level.per * (it.lv || 0)), worn = s.items.filter(it => s.wear.includes(it.uid));
+  const weak = worn.length >= s.wear.filter((u, i) => slotOpen(game, i)).length ? Math.min(...worn.map(sc)) : 0;
   for (const it of s.items) {
     const T = pbType(game, it), g = pbGrade(game, it), at = s.wear.indexOf(it.uid), b = el('button', 'sv-slot buff spb-cell');
     b.dataset.o = g.id; b.classList.add('pbs'); b.style.setProperty('--q', g.color);
@@ -29,7 +32,8 @@ export function pbGrid(game, st, box, bar, redo) {
     if (it.lv) b.append(el('b', 'sv-plus', '+' + it.lv));
     b.append(el('span', 'spb-slots', '◆' + it.slots));
     if (at >= 0 && slotOpen(game, at)) b.append(el('span', 'spb-at', String(at + 1)));
-    b.title = `${T.name} · ${g.name}`;
+    else if (at < 0 && sc(it) > weak) { b.append(el('span', 'spb-up', '▲')); b.title = D.ui.better; }
+    b.title ||= `${T.name} · ${g.name}`;
     b.onclick = () => { st.pbSel = it.uid; st.pbK = 0; redo(); };
     grid.append(b);
   }
