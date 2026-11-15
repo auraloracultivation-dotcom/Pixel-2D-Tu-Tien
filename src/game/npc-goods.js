@@ -11,6 +11,9 @@ export const goodsOf = (data, id) => (id && !id.startsWith('_') ? G(data)[id] : 
 export function goodsName(data, g) {
   return g.kind === 'pill' ? data.cave.pills[g.id]?.name : g.kind === 'outfit' ? data.fashion.list[g.id]?.name : data.cave.materials[g.id]?.name || g.id;
 }
+// Bộ chỉ một giới (data/fashion.json → only): người giới kia không mua được → tên giới được mặc, hoặc null
+const onlyFor = (game, g) => { const o = g.kind === 'outfit' && game.data.fashion.list[g.id]?.only, H = game.data.heroes, look = H.list[game.save.look] ? game.save.look : H.default;
+  return o && o !== look ? (o === 'nu' ? 'nhân vật nữ' : 'nhân vật nam') : null; };
 const boughtToday = (game, id) => (game.save.npcBuy?.day === today() ? game.save.npcBuy[id] || 0 : 0);
 
 // Trả về câu báo (đã mua / lý do không mua được)
@@ -18,6 +21,7 @@ export function buyGoods(game, npcId) {
   const g = goodsOf(game.data, npcId), s = game.save, d = game.data;
   if (!g) return null;
   const name = goodsName(d, g);
+  if (onlyFor(game, g)) return `${name} chỉ dành cho ${onlyFor(game, g)}.`;
   if (g.kind === 'outfit' && hasOutfit(game, g.id)) return `Bạn đã có ${name}.`;
   if (g.kind !== 'outfit' && boughtToday(game, npcId) >= g.per_day) return `Hôm nay đã mua đủ ${g.per_day} lần, mai quay lại nhé.`;
   const price = g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price;   // đan linh khí đắt dần theo cảnh giới (shop.js)
@@ -34,7 +38,7 @@ export function buyGoods(game, npcId) {
 
 export async function talkGoods(game, npc) {
   const d = game.data, g = goodsOf(d, npc.id), name = goodsName(d, g);
-  const left = g.kind === 'outfit' ? (hasOutfit(game, g.id) ? 'đã có' : 'mua một lần') : `còn ${Math.max(0, g.per_day - boughtToday(game, npc.id))}/${g.per_day} lần hôm nay`;
+  const left = onlyFor(game, g) ? `chỉ dành cho ${onlyFor(game, g)}` : g.kind === 'outfit' ? (hasOutfit(game, g.id) ? 'đã có' : 'mua một lần') : `còn ${Math.max(0, g.per_day - boughtToday(game, npc.id))}/${g.per_day} lần hôm nay`;
   const pick = await game.dialog.choose(`${npc.def.name}: ${g.line}`, [
     { id: 'buy', label: `Mua ${name} (${(g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price).toLocaleString('vi-VN')} ${d.shop.name})`, desc: `${left} · có ${coins(game.save).toLocaleString('vi-VN')}`, color: '#f2c94c' },
     { id: 'talk', label: 'Trò chuyện', desc: '' },

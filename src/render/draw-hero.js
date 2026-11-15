@@ -1,7 +1,7 @@
 // Nhân vật chính bằng tấm hình (data/heroes.json + data/art.json). Hình gốc nhìn phải, quay trái thì lật gương.
 import { spriteImage, drawHitFrame, drawShadowFrame } from './sprites.js';
 import { strikeLean } from '../game/flyweapon.js';
-import { curOutfit } from '../game/fashion.js';
+import { curOutfit, defOutfit } from '../game/fashion.js';
 import { drawKiemTrail, drawBloodAura, AURA } from './draw-huyet.js';
 import { glow } from './vfx/glow.js';
 import { darkness } from './draw-lights.js';
@@ -12,8 +12,8 @@ import { joltOff } from '../game/hit-feel.js';
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
 // save: bản lưu của người được vẽ (mặc định người chơi; bản sao so tài truyền bản lưu hồ sơ người kia, game/duel.js)
-// Bộ không còn trong data/fashion.json, hoặc chỉ cho hình kia (only), thì như đồng phục
-const wornId = (game, key, save) => { const id = curOutfit(game, save), f = game.data.fashion.list[id]; return !f.only || f.only === key ? id : 'dong-phuc'; };
+// Bộ không còn trong data/fashion.json, hoặc chỉ cho hình kia (only), thì là áo có sẵn của giới đó (src/game/fashion.js defOutfit)
+const wornId = (game, key, save) => { const id = curOutfit(game, save), f = game.data.fashion.list[id]; return !f.only || f.only === key ? id : defOutfit(game, key); };
 export const outfitSprite = (game, key, save = game.save) => `hero.y-${wornId(game, key, save)}-${key}`;
 export function heroLook(game, save = game.save) {
   const H = game.data.heroes, key = H.list[save?.look] ? save.look : H.default, base = H.list[key], id = outfitSprite(game, key, save);

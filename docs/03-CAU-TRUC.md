@@ -47,7 +47,7 @@ Lễ hội nhẹ cho phần chill, cũng là chỗ người chơi gặp nhau bu�
 
 **Tự hành rảnh tay** (`src/game/farmjob.js`): khi truyện chờ tu luyện mà hết việc vặt, tự hành đào mạch linh khoáng còn trên bản đồ (tùy chọn `dao`, đào dở thì đào cho xong rồi mới đánh), rồi tới bãi treo máy vừa sức nhất (tùy chọn `treo`): bãi mạnh nhất mà `foeRatio` (cùng công thức màu gợi ý cổng bí cảnh) vẫn từ mức vừa trở lên; bản đồ không có bãi thì bay tới tinh cầu đã tới có `realm` cao nhất không quá cảnh giới. Khuya (tùy chọn `dem`) thì thôi, về động phủ.
 
-**Thời trang theo tinh cầu** (`data/fashion.json`, nguồn `elite`): mỗi tinh cầu một bộ (Kiếm bào Thiên Kiếm, Hỏa bào Xích Diễm, Băng y Hàn Băng, Phong bào Hắc Phong, Lục bào Thanh Mộc, Kim y Thiên Kim, Thổ bào Hậu Thổ, Hư Không Tử Y), mở khi hạ đủ 300 quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu đó (Thiên Kiếm 200). Đếm ở `save.elite` (`eliteKill` ở `src/game/fashion.js`), bảng Thời trang hiện tiến độ. Mục tiêu dài hạn cho người treo máy.
+**Thời trang theo tinh cầu** (`data/fashion.json`, nguồn `elite`): còn ba bộ (Băng y Hàn Băng chỉ nữ, Lục bào Thanh Mộc, Thổ bào Hậu Thổ; chủ dự án 15/11/2026 11:39 gỡ năm bộ Thiên Kiếm, Xích Diễm, Hắc Phong, Thiên Kim, Hư Không để dồn tiền SpriteCook làm nhân vật mới), mở khi hạ đủ 300 quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu đó (Thiên Kiếm 200). Đếm ở `save.elite` (`eliteKill` ở `src/game/fashion.js`), bảng Thời trang hiện tiến độ. Mục tiêu dài hạn cho người treo máy.
 
 **Ánh đèn ban đêm** (`data/light.json` → night, `src/render/draw-glow.js`): đêm và hoàng hôn ngoài trời, cửa sổ nhà, đèn lồng, lò, dung nham, nấm phát sáng, tinh thể tím, truyền tống trận hắt quầng sáng cộng lên lớp tối (trời càng tối càng rõ, lập loè nhẹ); mỗi xóm mới có một cột đèn lồng ở sân.
 

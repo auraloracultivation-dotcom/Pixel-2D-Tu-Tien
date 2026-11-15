@@ -19,7 +19,7 @@ async function genderPill(game) {
   for (const [m, n] of Object.entries(P.mats)) s.mats[m] -= n;
   s.gioi = to;
   if (game.data.heroes.list[G.list[to].look]) s.look = G.list[to].look;
-  if (!owned(game, curOutfit(game), s.look)) s.outfit = 'dong-phuc';   // bộ đang mặc không có bản giới tính mới
+  if (!owned(game, curOutfit(game), s.look)) delete s.outfit;   // bộ đang mặc không có bản giới tính mới: về áo có sẵn của giới mới
   applyWords(game); game.refreshStats(); game.persist(); game.sfx('levelup');
   game.toast(P.done.replace('{to}', label), 2.6);
 }

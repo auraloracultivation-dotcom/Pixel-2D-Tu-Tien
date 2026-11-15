@@ -8,6 +8,7 @@ import { petDef } from './evolve.js';
 import { duelTake } from './duel-cast.js';
 import { updateFoes } from './duel-ai.js';
 import { dailyEvent } from './daily.js';
+import { curOutfit } from './fashion.js';
 
 const D = game => game.data.duel;
 // Hệ số đánh thường theo số chiêu tấn công đang mang (như player.js basicMul)
@@ -37,7 +38,7 @@ export async function startDuel(game, prof) {
 
 function cloneDef(game, f) {
   const cfg = game.data.config.player, s = f.save, el = s.element && game.data.elements[s.element]?.color;
-  const F = game.data.fashion.list, fit = F[s.outfit] || F['dong-phuc'];
+  const fit = game.data.fashion.list[curOutfit(game, s)];
   return {
     ...game.data.mobs[D(game).base], ai: 'duel', person: true, name: f.prof.ten, radius: cfg.radius, speed: cfg.speed,
     hp: f.st.maxHp, atk: f.st.atk, kb: D(game).knockback, noCc: true, aggro: 999,
