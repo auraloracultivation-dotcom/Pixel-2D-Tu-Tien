@@ -7,7 +7,8 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.118.0';
 
 const DOMAIN = 'nguoichoi.invalid'; // đồng bộ src/net/auth.js
-const ORIGINS = ['https://www.pixel2dtutien.com', 'https://pixel2dtutien.com'];   // chỉ tên miền chính (chủ dự án 12/11/2026 16:32: gỡ mọi đường đăng nhập khác pixel2dtutien.com; *.vercel.app chuyển hướng về đây)
+const ORIGINS = ['https://www.pixel2dtutien.com', 'https://pixel2dtutien.com', 'https://auraloracultivation-dotcom.github.io'];   // + GitHub Pages TẠM (chủ dự án 16/11/2026 03:09: Vercel khoá tên miền chính, cho chơi tạm ở link GitHub)
+//   // chỉ tên miền chính (chủ dự án 12/11/2026 16:32: gỡ mọi đường đăng nhập khác pixel2dtutien.com; *.vercel.app chuyển hướng về đây)
 const PER_HOUR = 3, PER_DAY = 10;
 
 const corsFor = (req: Request) => {
