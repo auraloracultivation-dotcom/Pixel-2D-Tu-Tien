@@ -573,6 +573,27 @@ một mô hình Python viết độc lập theo cùng luật, 2 triệu lượt,
 ngay (giữa bước 1 và 4 máy khách cũ vẫn quay được nhưng còn ghi "tỷ lệ mọi loại như nhau"); (5) kiểm sau khi đưa: tệp trên máy chủ khớp bản dựng, vào game được,
 bảng `p2d_loi` không có lỗi mới. Muốn lùi: đặt lại `bac.on = false` và bảng quà cũ bằng một migration mới (số đếm `bh2`, `bh3` để nguyên không sao).
 
+## Việc 6 · dòng 18g (bí kíp trùng) và câu 19 (hạ cấp pháp bảo hoàn Linh Thạch): chuẩn bị xong 15/11/2026, CHƯA áp
+
+**18g.** Thùng bí kíp công pháp mới / trùng trên máy chủ (`p2d_ky_cfg → thu.sv.cp_moi`): 0,2 cuốn / phút, tối đa 6 → 1,5 cuốn / phút, tối đa 30
+(`data/techniques.json → server.moi`; migration `20261115090000_p2d_bi_kip_trung.sql`, chuỗi dựng bằng `node tools/ky-cfg.mjs`). Trước khi soạn đã so từng phần
+bảng `p2d_ky_cfg` trên máy chủ với bản dựng từ `data/` (băm từng khoá): khớp hết, chỉ khác thứ tự danh sách `thu.chieu.ids` (máy chủ chỉ xét có / không). 7 ngày
+tới 15/11: 128 cờ `thu_nhieu`, 9 người (không phạt ai).
+
+**Câu 19 (chủ dự án 15/11 01:53: "hoàn linh thạch").** Nâng cấp pháp bảo trước nay tính trên điện thoại; máy chủ chỉ kẹp cấp theo trần cảnh giới, không biết người
+chơi đã trả bao nhiêu. Hoàn theo cấp thì sửa cấp lên rồi hạ là ra Linh Thạch. Nên (migration `20261115100000_p2d_pb_ha_cap.sql`):
+- Máy chủ giữ sổ `p2d_pb_tra` (Linh Thạch đã trả cho từng món). Nâng cấp qua `p2d_pb_nang_cap` (trừ tiền, lên cấp, ghi sổ); hạ cấp qua `p2d_pb_ha_cap` (cấp về 0,
+  hoàn 80% số trong sổ, sổ về 0). Cấp nâng ngoài hàm không có trong sổ, không được hoàn, ghi nghi vấn `pb_ha_cap` để soi.
+- Cấp đang có lúc áp được ghi sổ một lần theo giá chuẩn: người đã nâng thật trước đó không thiệt.
+- Máy khách: nút "Hạ cấp" ở trang món (chạm hai lần, ghi trước "Về cấp 0, hoàn … Linh Thạch"); nâng cấp đi qua máy chủ khi đã đăng nhập; chơi thử không mạng
+  nâng cấp như cũ, không hạ được. Lịch sử Linh Thạch có hai dòng mới "Nâng cấp pháp bảo", "Hoàn Linh Thạch khi hạ cấp pháp bảo".
+- `tools/check.mjs` so giá nâng cấp, trần cấp, tỉ lệ hoàn trong hàm máy chủ với `data/phap-bao.json → level`.
+- Đã thử trên PostgreSQL dựng tạm: nâng 300 rồi 360, hạ hoàn 528 (= 80% × 660); món có trước sổ cấp 3 phẩm Linh hoàn 1.310; sửa cấp ngoài hàm lên 5 rồi hạ hoàn 0
+  và có dòng nghi vấn; thiếu tiền, chạm trần, chưa đăng nhập đều bị chặn. Giao diện thử với máy chủ giả: Linh Thạch trừ, cộng đúng số máy chủ trả, 0 lỗi JS.
+
+**Lúc chủ dự án nói "áp lên":** áp hai migration (18g trước), thử đăng ký + đăng nhập, gọi thử nâng / hạ bằng một tài khoản thử, rồi đưa bản máy khách lên
+(máy khách cũ vẫn nâng cấp trên điện thoại như trước, chỉ là phần đó không vào sổ).
+
 ## Nhật ký
 
 | Ngày | Việc | Trạng thái |

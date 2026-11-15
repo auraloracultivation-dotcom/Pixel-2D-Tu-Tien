@@ -1,7 +1,8 @@
 // Mục Pháp bảo trong Trang bị (chủ dự án 12/11/2026 04:07: "toàn bộ luyện chế gọn như các mục nâng cấp trang bị, nằm trong Trang bị → mục
 // Pháp bảo, không kéo ra màn khác"; thay bảng Luyện chế nổi cũ). Lưới: mọi pháp bảo của ta; chạm: tấm chi tiết như trang bị (đầu tấm, lưới
 // nút Mặc ô 1–4 / Nâng cấp / Đục ô, 4 ô khảm nối mũi tên, danh sách chiêu khảm). Số, chữ ở data/phap-bao.json; logic src/game/phap-bao.js.
-import { PB, pbState, pbItem, pbType, pbGrade, pbItemStats, modOpen, modNeed, pbWear, pbSocket, pbUpgrade, pbUpCost, pbCap, pbDrill, pbMax, slotOpen, wearN } from '../game/phap-bao.js';
+import { PB, pbState, pbItem, pbType, pbGrade, pbItemStats, modOpen, modNeed, pbWear, pbSocket, pbUpCost, pbCap, pbDrill, pbMax, slotOpen, wearN } from '../game/phap-bao.js';
+import { pbUpgradeNet, pbDowngrade, pbRefund, pbCanDown } from '../game/phap-bao-cap.js';
 import { pbIcon, typeIcon } from './phap-bao-hud.js';
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
@@ -69,11 +70,16 @@ export function pbSheet(game, st, box, changed, close) {
   const upOff = (it.lv || 0) >= cap;
   // màn mừng mạnh lên (src/ui/mung.js; công tắc mung tắt thì game.mung không có): nâng cấp lên +N, đục ô thành công
   const txt = o => Object.fromEntries(Object.entries(o).map(([k, v]) => [D.stats[k] || k, `+${v}${PCT.has(k) ? '%' : ''}`])), worn = s.wear.includes(it.uid);
-  btn(U.up_btn, upOff ? U.cap : `${pbUpCost(game, it).toLocaleString('vi-VN')} Linh Thạch`, () => {
-    const s0 = pbItemStats(D, it), p0 = power(game), m = pbUpgrade(game, it);
+  btn(U.up_btn, upOff ? U.cap : `${pbUpCost(game, it).toLocaleString('vi-VN')} Linh Thạch`, async () => {
+    const s0 = pbItemStats(D, it), p0 = power(game), m = await pbUpgradeNet(game, it);
+    if (m === '') return;   // đang chờ máy chủ trả lời lần bấm trước
     if (!m) { dailyEvent(game, 'pbup'); game.mung?.(mungPbUp(game, it, T, g, typeIcon(game, T, 96), txt(s0), txt(pbItemStats(D, it)), worn ? power(game) - p0 : 0, cap)); }
     say(m || `${T.name} lên cấp ${it.lv}!`);
   }, upOff, false, 'cuong-hoa');
+  if (it.lv > 0 && pbCanDown(game)) btn(st.pbDown === it.uid ? U.down_sure : U.down_btn, U.down_note.replace('{n}', pbRefund(game, it).toLocaleString('vi-VN')), async () => {   // hạ cấp, hoàn Linh Thạch: chạm hai lần
+    if (st.pbDown !== it.uid) { st.pbDown = it.uid; return changed(false); }
+    st.pbDown = null; const r = await pbDowngrade(game, it); if (r.msg) game.toast(r.msg, 2.6); changed();
+  }, false, st.pbDown === it.uid, 'ban');
   const drOff = it.slots >= max;
   btn(U.drill_btn, drOff ? U.max : `${Math.round((D.drill.rate[it.slots - 1] ?? 0) * 100)}% · có ${s.stones || 0} đá`, () => {
     const r = pbDrill(game, it);
