@@ -2,7 +2,8 @@
 // Mở game ở địa chỉ khác (*.vercel.app, bản GitHub Pages cũ, bản đưa lên riêng lẻ của Vercel) thì chuyển ngay về www.pixel2dtutien.com,
 // giữ nguyên đường dẫn và tham số. localhost / 127.0.0.1 để chạy thử trong máy làm việc. Tên miền Vercel cũng tự chuyển hướng (308).
 const MAIN = 'www.pixel2dtutien.com';
-const OK = [MAIN, 'pixel2dtutien.com', 'localhost', '127.0.0.1'];
+// TẠM (chủ dự án 16/11/2026 03:09): Vercel khoá tên miền chính vì vượt giới hạn gói miễn phí, cho chơi ở bản GitHub Pages tới khi có tên miền mới.
+const OK = [MAIN, 'pixel2dtutien.com', 'auraloracultivation-dotcom.github.io', 'localhost', '127.0.0.1'];
 
 const h = location.hostname;
 if (h && !OK.includes(h) && location.protocol.startsWith('http')) {
