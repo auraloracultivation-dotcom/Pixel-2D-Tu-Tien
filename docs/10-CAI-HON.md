@@ -573,7 +573,9 @@ một mô hình Python viết độc lập theo cùng luật, 2 triệu lượt,
 ngay (giữa bước 1 và 4 máy khách cũ vẫn quay được nhưng còn ghi "tỷ lệ mọi loại như nhau"); (5) kiểm sau khi đưa: tệp trên máy chủ khớp bản dựng, vào game được,
 bảng `p2d_loi` không có lỗi mới. Muốn lùi: đặt lại `bac.on = false` và bảng quà cũ bằng một migration mới (số đếm `bh2`, `bh3` để nguyên không sao).
 
-## Việc 6 · dòng 18g (bí kíp trùng) và câu 19 (hạ cấp pháp bảo hoàn Linh Thạch): chuẩn bị xong 15/11/2026, CHƯA áp
+## Việc 6 · dòng 18g (bí kíp trùng) và câu 19 (hạ cấp pháp bảo hoàn Linh Thạch): ĐÃ ÁP + ĐƯA LÊN 15/11/2026 09:25
+
+**Chủ dự án 09:19 "Áp lên".** Đã áp hai migration (18g trên máy chủ chỉ đổi đúng khoá `thu.sv.cp_moi`, kết quả như tệp trong kho), sổ ghi một lần 85 món của 18 người (15,36 triệu Linh Thạch đã trả); đăng ký + đăng nhập thử đạt; đưa lên bản `8914b20b` (kèm dấu ▲ "mạnh hơn món đang mặc" trong túi pháp bảo), tệp trên mạng khớp bản dựng, vào game 0 lỗi JS.
 
 **18g.** Thùng bí kíp công pháp mới / trùng trên máy chủ (`p2d_ky_cfg → thu.sv.cp_moi`): 0,2 cuốn / phút, tối đa 6 → 1,5 cuốn / phút, tối đa 30
 (`data/techniques.json → server.moi`; migration `20261115090000_p2d_bi_kip_trung.sql`, chuỗi dựng bằng `node tools/ky-cfg.mjs`). Trước khi soạn đã so từng phần
@@ -593,6 +595,16 @@ chơi đã trả bao nhiêu. Hoàn theo cấp thì sửa cấp lên rồi hạ l
 
 **Lúc chủ dự án nói "áp lên":** áp hai migration (18g trước), thử đăng ký + đăng nhập, gọi thử nâng / hạ bằng một tài khoản thử, rồi đưa bản máy khách lên
 (máy khách cũ vẫn nâng cấp trên điện thoại như trước, chỉ là phần đó không vào sổ).
+
+## Luật tự khoá (bảng câu hỏi câu 13a): ĐÃ ÁP 15/11/2026 09:35
+
+Chủ dự án 09:19 "Ok". Lỗi cũ: lệnh tự khoá chạy ngay trong lần lưu bị bắt hack, rồi chính lần lưu đó bị trigger `p2d_chan_bi_cam` chặn vì "tài khoản đang bị
+khoá", cả giao dịch lùi lại nên lệnh khoá cũng mất (người hack không bị khoá, không để lại dấu). Migration `20261115110000_p2d_khoa_that.sql`: lệnh khoá đánh dấu
+`p2d.vua_khoa` trong giao dịch để lần lưu đó ghi xong, khoá giữ nguyên, phiên đăng nhập bị thu; luật "tài khoản dưới 3 ngày, 3 lần Linh Thạch lố / 24 giờ" thôi
+khoá, chỉ cắm cờ đỏ. Thử trên PostgreSQL dựng tạm cả bản cũ lẫn bản mới (mô phỏng đúng thứ tự một lần lưu): bản cũ không khoá được ai; bản mới khoá hack rõ, có
+sổ sao lưu, tài khoản mới chỉ bị cờ đỏ, người thường lưu bình thường. Sau khi áp: đăng ký + đăng nhập đạt, người chơi lưu bình thường.
+
+Cùng lúc (câu 15, chủ dự án "Gỡ"): gỡ cờ đỏ tự động của một người chơi (12 triệu Linh Thạch là thật, từ triệu hồi máy chủ phát theo bảng cũ), sổ `p2d_xu_ly` dòng 587.
 
 ## Nhật ký
 
