@@ -1,5 +1,5 @@
 {
- "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: các tài khoản trong danh sách có sẵn (ai cũng thấy bộ trong bảng); soon: chưa bán, hiện \"Sắp mở bán\". only: bộ chỉ cho hình nam hoặc nữ. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi; cm: chiều cao riêng theo hình (nam/nu) khi mặc bộ này, đè cm trong data/heroes.json.",
+ "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: các tài khoản trong danh sách có sẵn (ai cũng thấy bộ trong bảng); soon: chưa bán, hiện \"Sắp mở bán\". only: bộ chỉ cho hình nam hoặc nữ. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi; cm: chiều cao riêng theo hình (nam/nu) khi mặc bộ này, đè cm trong data/heroes.json. Áo có sẵn theo giới tính: bộ from.start đúng giới (only) là áo mặc định của giới đó (nam: dong-phuc, nữ: thanh-sam; src/game/fashion.js defOutfit). Chủ dự án 15/11/2026 11:39 gỡ bớt bản nam / nữ để dồn tiền SpriteCook làm nhân vật mới: bộ còn một giới ghi only; bỏ hẳn kim-bao, tu-bao và năm bộ ma khí (thien-kiem-bao, hoa-bao-xich-diem, phong-bao-hac-phong, kim-y-thien-kim, hu-khong-tu-y); Thanh sam nữ thành áo có sẵn của nữ (đồng phục nữ bỏ). Bản đã mua bị gỡ: hoàn Linh Thạch đúng giá qua Hòm thư (migration 20261115120000_p2d_go_thoi_trang.sql); bản lưu còn bản đã gỡ thì máy khách tự bỏ (fashion.js cleanOutfits).",
  "renamed": {
   "_note": "id bộ cũ đã đổi tên → id mới theo giới tính: bản lưu đang mặc bộ cũ vẫn mặc đúng bộ mới (src/game/fashion.js curOutfit). Mỗi bộ không có only có bản nam và bản nữ, mua riêng từng bản (chủ dự án 02/11/2026).",
   "spritecook-thu": {
@@ -10,6 +10,7 @@
  "list": {
   "dong-phuc": {
    "name": "Đồng phục Kiếm tông",
+   "only": "nam",
    "robe": "#e6ebf7",
    "hair": "#3a2e5c",
    "from": {
@@ -41,10 +42,11 @@
   },
   "thanh-sam": {
    "name": "Thanh sam thư sinh",
+   "only": "nu",
    "robe": "#bfe0d8",
    "hair": "#2a2a3a",
    "from": {
-    "shop": 800
+    "start": true
    }
   },
   "hac-y": {
@@ -58,32 +60,16 @@
   },
   "hong-y": {
    "name": "Hồng y hoa đào",
+   "only": "nu",
    "robe": "#ffc2d6",
    "hair": "#5a2a3a",
    "from": {
     "shop": 1500
    }
   },
-  "kim-bao": {
-   "name": "Kim bào Kim Đan",
-   "robe": "#ffe8a0",
-   "hair": "#4a3a20",
-   "sash": "#ffb03a",
-   "from": {
-    "achv": "kim-dan"
-   }
-  },
-  "tu-bao": {
-   "name": "Tử bào Nguyên Anh",
-   "robe": "#d8c4ff",
-   "hair": "#2a1a4a",
-   "sash": "#b48aff",
-   "from": {
-    "achv": "nguyen-anh"
-   }
-  },
   "huyet-giap": {
    "name": "Huyết giáp săn yêu",
+   "only": "nam",
    "robe": "#c0505a",
    "hair": "#1a1a1a",
    "sash": "#ffd24a",
@@ -93,6 +79,7 @@
   },
   "bi-ngo": {
    "name": "Áo choàng Bí Ngô",
+   "only": "nam",
    "robe": "#ff8a2a",
    "hair": "#2a1a2a",
    "sash": "#5a2a7a",
@@ -102,6 +89,7 @@
   },
   "tuyet-lanh": {
    "name": "Áo lông Tuyết Lành",
+   "only": "nu",
    "robe": "#d84a4a",
    "hair": "#f4f4fa",
    "sash": "#ffffff",
@@ -111,6 +99,7 @@
   },
   "tien-nhan": {
    "name": "Tiên Nhân Bạch Y",
+   "only": "nu",
    "robe": "#fbfbff",
    "hair": "#c8d8f0",
    "sash": "#7ae0ff",
@@ -120,6 +109,7 @@
   },
   "hoang-kim": {
    "name": "Hoàng Kim Long Bào",
+   "only": "nam",
    "robe": "#ffd24a",
    "hair": "#2a1a0a",
    "sash": "#c0302a",
@@ -129,6 +119,7 @@
   },
   "tet-do": {
    "name": "Áo Tết đỏ thắm",
+   "only": "nam",
    "robe": "#ff4a4a",
    "hair": "#2a1a1a",
    "sash": "#ffd24a",
@@ -138,6 +129,7 @@
   },
   "thien-mach-bao": {
    "name": "Thiên Mạch bào",
+   "only": "nu",
    "robe": "#f4f0ff",
    "hair": "#e8e0f8",
    "sash": "#c06aff",
@@ -145,50 +137,15 @@
     "achv": "va-thien-mach"
    }
   },
-  "thien-kiem-bao": {
-   "name": "Kiếm bào Thiên Kiếm",
-   "robe": "#dfeaf7",
-   "hair": "#2a2a4a",
-   "sash": "#7ad0ff",
-   "from": {
-    "elite": {
-     "map": "thien-kiem-phong",
-     "n": 200
-    }
-   }
-  },
-  "hoa-bao-xich-diem": {
-   "name": "Hỏa bào Xích Diễm",
-   "robe": "#e0603a",
-   "hair": "#2a1a1a",
-   "sash": "#ffd24a",
-   "from": {
-    "elite": {
-     "map": "dao-xich-dien",
-     "n": 300
-    }
-   }
-  },
   "bang-y-han-bang": {
    "name": "Băng y Hàn Băng",
+   "only": "nu",
    "robe": "#cfe8f8",
    "hair": "#f4f6fa",
    "sash": "#7ab0d8",
    "from": {
     "elite": {
      "map": "dao-han-bang",
-     "n": 300
-    }
-   }
-  },
-  "phong-bao-hac-phong": {
-   "name": "Phong bào Hắc Phong",
-   "robe": "#4a4258",
-   "hair": "#d8d2e8",
-   "sash": "#8a7ab0",
-   "from": {
-    "elite": {
-     "map": "hac-phong-dao",
      "n": 300
     }
    }
@@ -205,18 +162,6 @@
     }
    }
   },
-  "kim-y-thien-kim": {
-   "name": "Kim y Thiên Kim",
-   "robe": "#f0d890",
-   "hair": "#3a2a10",
-   "sash": "#c8963a",
-   "from": {
-    "elite": {
-     "map": "dao-thien-kim",
-     "n": 300
-    }
-   }
-  },
   "tho-bao-hau-tho": {
    "name": "Thổ bào Hậu Thổ",
    "robe": "#b08a5a",
@@ -225,18 +170,6 @@
    "from": {
     "elite": {
      "map": "dao-hau-tho",
-     "n": 300
-    }
-   }
-  },
-  "hu-khong-tu-y": {
-   "name": "Hư Không Tử Y",
-   "robe": "#3a2458",
-   "hair": "#e8d8ff",
-   "sash": "#c06aff",
-   "from": {
-    "elite": {
-     "map": "vet-nut-ngoai",
      "n": 300
     }
    }

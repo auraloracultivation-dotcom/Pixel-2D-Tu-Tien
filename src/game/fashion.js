@@ -7,12 +7,28 @@ import { coins, addCoins } from './shop.js';
 const F = game => game.data.fashion.list;
 const lookOf = game => (game.data.heroes.list[game.save?.look] ? game.save.look : game.data.heroes.default);
 
-// Bộ đang mặc (đã đổi tên bộ cũ: data/fashion.json → renamed), không còn trong danh sách thì như đồng phục
+// Áo có sẵn của một giới: bộ from.start không ghi only hoặc only đúng giới (nam: dong-phuc, nữ: thanh-sam; chủ dự án 15/11/2026)
+export function defOutfit(game, look) {
+  const L = F(game), ids = Object.keys(L);
+  return ids.find(id => L[id].from.start && (!L[id].only || L[id].only === look)) || ids[0];
+}
+
+// Bộ đang mặc (đã đổi tên bộ cũ: data/fashion.json → renamed). Không còn trong danh sách, hoặc chỉ cho giới kia (only), thì là áo có sẵn của giới mình
 export function curOutfit(game, save = game.save) {
   const D = game.data.fashion, id = save?.outfit, r = D.renamed?.[id];
   const look = game.data.heroes.list[save?.look] ? save.look : game.data.heroes.default;
-  const x = r ? (typeof r === 'string' ? r : r[look]) : id;
-  return D.list[x] ? x : 'dong-phuc';
+  const x = r ? (typeof r === 'string' ? r : r[look]) : id, f = D.list[x];
+  return f && (!f.only || f.only === look) ? x : defOutfit(game, look);
+}
+
+// Bản lưu còn bộ / bản giới đã gỡ khỏi data/fashion.json (chủ dự án 15/11/2026 11:39 gỡ bớt): bỏ khỏi outfits, đang mặc thì về áo có sẵn.
+// Linh Thạch của bản đã mua do máy chủ hoàn qua Hòm thư (migration 20261115120000_p2d_go_thoi_trang.sql), máy khách không tự cộng.
+export function cleanOutfits(game) {
+  const s = game.save, L = F(game), look = lookOf(game), bad = (id, g) => !L[id] || (L[id].only && L[id].only !== g);
+  let n = 0;
+  for (const k of Object.keys(s.outfits || {})) { const [id, g = look] = k.split(':'); if (bad(id, g)) { delete s.outfits[k]; n++; } }
+  if (s.outfit) { const r = game.data.fashion.renamed?.[s.outfit], x = r ? (typeof r === 'string' ? r : r[look]) : s.outfit; if (bad(x, look)) { delete s.outfit; n++; } }
+  return n;
 }
 
 // Bộ có những bản nào (bộ only: một bản)

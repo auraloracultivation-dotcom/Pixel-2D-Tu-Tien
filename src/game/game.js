@@ -48,7 +48,7 @@ import { cloudHooks, pickSave, startGuard } from './cloud-guard.js';
 import { updateStroll } from './stroll.js';
 import { updateVfx } from './vfx.js';
 import { spawnWild, updateWild } from './wildlife.js';
-import { eliteKill } from './fashion.js';
+import { eliteKill, cleanOutfits } from './fashion.js';
 import { updatePilotLog } from './pilotlog.js';
 import { updateEta } from './eta.js';
 import { updateAnniv } from './anniv.js';
@@ -264,6 +264,7 @@ export function createGame(data, screen, input, ui, audio) {
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
+    cleanOutfits(game);   // bộ thời trang đã gỡ (src/game/fashion.js)
     applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     if (game.save.step > 0 && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp
