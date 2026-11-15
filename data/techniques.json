@@ -44,6 +44,7 @@
  "server": {
   "_note": "Máy chủ kiểm công pháp mỗi lần lưu (migration 20261105120000_p2d_ky_thu.sql): kinh nghiệm các cuốn đang mang tăng tối đa exp_k × tốc linh khí trần mỗi giây còn liên lạc (3 cuốn cùng nhận đủ linh khí, gấp đôi); cuốn mới (bí kíp rơi, cốt truyện) tối đa moi.phut mỗi phút, đầy moi.tran; bí kíp trùng tốn một phần thùng moi, cộng kinh nghiệm một cấp. Số đo sao lưu đêm: tới 12 cuốn mới / ngày, mọi người chơi đều lên tầng 10 rất nhanh.",
   "exp_k": 6,
-  "moi": {"phut": 0.2, "tran": 6}
+  "moi": {"phut": 1.5, "tran": 30},
+  "_moi": "Việc 6 dòng 18g (chủ dự án duyệt 14/11/2026 23:25, câu 14 cũ): 0,2 / 6 → 1,5 / 30. Người treo máy nhặt bí kíp trùng nhanh hơn 1 cuốn / 5 phút nên bị trả kinh nghiệm và ghi cờ thu_nhieu (7 ngày tới 15/11: 128 cờ, 9 người, không phạt ai). 1,5 cuốn / phút, dồn tối đa 30 cuốn: treo máy bình thường không vướng; hack nhặt hàng trăm cuốn vẫn bị chặn."
  }
 }

@@ -213,6 +213,15 @@ try {
   const cki = read('checkin.json'), ckm = lastWith(/function public\.p2d_dd_luat/).match(/select '(\{[^']*\})'::jsonb/);
   need(ckm && JSON.stringify(JSON.parse(ckm[1])) === JSON.stringify(cki.rules), 'checkin.rules khác hàm p2d_dd_luat trên máy chủ (supabase/migrations); đổi số thì thêm migration mới');
   need(['m7', 'm28', 'm112'].every(k => cki.names[k] && cki.mail['diem_danh_' + k] && cki.rules[k]?.moi > 0) && cki.mail.diem_danh_ngay && cki.rules.vong > 0, 'checkin: thiếu tên mốc, tiêu đề thư hoặc số ngày mốc');
+  // Pháp bảo hạ cấp hoàn Linh Thạch (migration p2d_pb_ha_cap): giá nâng cấp, trần cấp, tỉ lệ hoàn trong hàm máy chủ phải khớp data/phap-bao.json → level
+  { const L = read('phap-bao.json').level, t = lastWith(/function public\.p2d_pb_gia/);
+    if (t) {
+      need(t.includes(`round(${L.base} * power(${L.grow}::numeric, p_lv) * (1 + 0.5 *`), 'phap-bao.json level.base / grow khác hàm p2d_pb_gia trên máy chủ: thêm migration thay hàm');
+      need(t.includes(`v_cap int[] := '{${L.cap.join(',')}}'`), 'phap-bao.json level.cap khác hàm p2d_pb_nang_cap: thêm migration thay hàm');
+      need(t.includes(`floor(${L.refund} * coalesce(v_tra, 0))`), 'phap-bao.json level.refund khác hàm p2d_pb_ha_cap: thêm migration thay hàm');
+      need(JSON.stringify(read('phap-bao.json').grades.map(g => g.id)) === JSON.stringify(['pham', 'linh', 'huyen', 'dia', 'thien']) && t.includes("array['pham', 'linh', 'huyen', 'dia', 'thien']"), 'phap-bao.json grades khác danh sách phẩm trong p2d_pb_gia');
+    }
+  }
   // Triệu hồi chia bậc (he-thong.json → bac, pool[].b; việc 6 dòng 18a): bậc hợp lệ, tỉ lệ các bậc cộng đủ 100, món bậc báo kênh thế giới có tên; bảng trong
   // migration mới nhất (chuỗi sinh bằng tools/he-thong-sql.py bac) phải khớp data, kẻo bảng tỉ lệ người chơi thấy khác bảng máy chủ quay
   { const H = read('he-thong.json'), B = H.bac;
