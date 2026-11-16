@@ -83,7 +83,8 @@ export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.
 // Đánh một con: tới tầm vũ khí, đánh thường, bấm chiêu đã hồi. Tầm chém = tầm vệt chém (player.js reachW: tầm × slash.far) × keep.slash;
 // tắt keep thì như cũ (× 0.6, áp sát vào hình quái lớn)
 const keepCfg = game => { const K = game.data.config.auto?.keep; return K?.on ? K : null; };
-export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)], K = keepCfg(game); return w.range * (w.attack === 'shot' ? K?.shot ?? 0.7 : (K?.slash ?? 0.6) * (game.data.config.slash?.far || 1)) + tgt.r; };
+// Đang cưỡi thì thú đánh (player.js mountSwing): tầm là tầm thú (data/pets.json → ride.reach), không theo vũ khí
+export const reachOf = (game, tgt) => { const K = keepCfg(game), w = game.player?.riding ? { range: game.data.pets.ride.reach, attack: 'arc' } : game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? K?.shot ?? 0.7 : (K?.slash ?? 0.6) * (game.data.config.slash?.far || 1)) + tgt.r; };
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
   const slots = pbOn(game) ? pbWorn(game) : skillSlots(game);   // hệ pháp bảo mới: tự đánh bấm 3 nút pháp bảo
