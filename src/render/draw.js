@@ -118,7 +118,7 @@ function drawComp(ctx, e, t, art) {
   if (isAct(art, id)) {
     const f = actFrame(art.sprites[id], e, t, e.def.cd), dir = e.face < 0 ? -1 : 1;
     if (e.moving) drawRunDust(ctx, e, t, dir);
-    if (drawAct(ctx, art, id, f, e.x, e.y + 1, dir)) {
+    if (drawAct(ctx, art, id, f, e.x, e.y + 1, dir, 0, e.px || 0)) {   // cỡ khôi lỗi: data/companions.json px (chủ dự án 17/11/2026 00:0x: khôi lỗi cao lớn quá, nhỏ ngang nhân vật chính)
       if (f === ACT.hit) drawHitSwoosh(ctx, e, e.npc.color, dir, Math.min(1, (e.def.cd - e.cd) / 0.32));
       return;
     }

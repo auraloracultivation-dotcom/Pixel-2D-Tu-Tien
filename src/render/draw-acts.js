@@ -27,11 +27,11 @@ export const UNIT_PER_PX = 24 / 45;
 export function isAct(art, id) { const s = art && art.sprites[id]; return !!s && s.frames >= 6; }
 
 // Vẽ khung f của hình id, chân ở (x, y). Trả false nếu chưa có hình 6 động tác.
-export function drawAct(ctx, art, id, f, x, y, dir, bob = 0) {
+export function drawAct(ctx, art, id, f, x, y, dir, bob = 0, px = 0) {   // px: ép cỡ (đơn vị bản đồ mỗi điểm hình), như spr.px; khôi lỗi dùng (draw.js drawComp)
   const spr = art && art.sprites[id], im = spr && spriteImage(spr);
   if (!im || f == null || spr.frames < 6) return false;
-  const d = Math.abs(ctx.getTransform().d) || 1, k = spr.px || Math.max(1, Math.round(UNIT_PER_PX * d)) / d;   // spr.px: hình chi tiết hơn, giữ đúng cỡ cũ (thu nhỏ có làm mịn)
-  ctx.save(); ctx.translate(Math.round(x), Math.round(y - bob)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = !!spr.px && spr.px * d < 0.98;
+  const d = Math.abs(ctx.getTransform().d) || 1, k = px || spr.px || Math.max(1, Math.round(UNIT_PER_PX * d)) / d;   // spr.px: hình chi tiết hơn, giữ đúng cỡ cũ (thu nhỏ có làm mịn)
+  ctx.save(); ctx.translate(Math.round(x), Math.round(y - bob)); ctx.scale(dir * k, k); ctx.imageSmoothingEnabled = !!(px || spr.px) && (px || spr.px) * d < 0.98;
   drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js)
   ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
