@@ -97,6 +97,15 @@ export function updateMobs(game, dt) {
   game.mobs = game.mobs.filter(m => !m.dead);
 }
 
+// Luật mới: đệ tử boss gọi ra nhẹ hơn quái cùng loài (data/he-chien.json → summon_k). Pháp bảo hồi 2–5 phút (chủ dự án 16/11/2026) nên không
+// còn quét đệ tử bằng chiêu liên tục; sáu đệ tử bắn xa nguyên sức đứng ngoài bắn trong lúc Tự đánh dồn boss thì gục (đo bằng Playwright).
+function summonK(game, s) {
+  const H = game.data['he-chien'], K = H?.on && H.summon_k;
+  if (!K || !s?.def) return;
+  s.def = { ...s.def, hp: Math.max(1, Math.round(s.def.hp * (K.hp ?? 1))), atk: +(s.def.atk * (K.atk ?? 1)).toFixed(2) };
+  s.hp = s.maxHp = s.def.hp;
+}
+
 const nearNpc = (game, p, r) => !!p && game.npcs.some(n => Math.abs(n.x - p.x) < r && Math.abs(n.y - p.y) < r && Math.hypot(n.x - p.x, n.y - p.y) < r);
 
 function wander(game, m, dt) {
@@ -149,10 +158,17 @@ function bossThink(game, m, d, dt) {
       const a = Math.random() * Math.PI * 2;
       const s = game.spawn(def.summon, m.x + Math.cos(a) * 30, m.y + Math.sin(a) * 30, { noQi: true });
       s.aggro = true;
+      summonK(game, s);
     }
   }
   if (m.state === 'idle') {
-    moveToward(game, m, p.x, p.y, def.speed, dt);
+    // Không sát dính (data/config.json mob_cp.space): đã vào tầm chém vòng thì đứng, quay mặt về người; người bị dồn vào góc mà boss
+    // đứng lấn vào hình người (dưới boss_back × tầm đứng) thì boss lùi ra, không xuyên tường, mỗi lượt lùi tối đa boss_back_t giây
+    // (lùi mãi không giãn ra được thì thôi, chờ người lùi; tránh boss bị dắt đi khắp nơi)
+    const S = game.data.config.mob_cp?.space, stop = S?.boss_stop, at = (def.reach || 0) + m.r + (p.r || 5) + 10 - (stop || 0);
+    if (stop == null || d > at) { moveToward(game, m, p.x, p.y, def.speed, dt); m.backT = 0; }
+    else if (S.boss_back && d < at * S.boss_back && (m.backT || 0) < (S.boss_back_t ?? 0.6)) { m.backT = (m.backT || 0) + dt; moveToward(game, m, m.x * 2 - p.x, m.y * 2 - p.y, def.speed * 0.5, dt, false); }
+    else { m.fx = (p.x - m.x) / (d || 1); m.fy = (p.y - m.y) / (d || 1); if (!S.boss_back || d >= at * S.boss_back) m.backT = 0; }
     if (m.cd <= 0) {
       const pick = m.phase++ % (hpf < 0.5 ? (def.meteor ? 4 : 3) : 2);
       m.t = 0;

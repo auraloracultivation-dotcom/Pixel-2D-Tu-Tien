@@ -254,3 +254,6 @@ body.perf-calm #btn-dash::after, body.perf-calm #btn-pill::after, body.perf-calm
 #btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after {
   filter: drop-shadow(0 0 3px var(--el-line, transparent));
 }
+/* pháp bảo hồi 2–5 phút (chủ dự án 16/11/2026): thời gian còn lại nằm giữa hình pháp bảo, trên quạt tối (src/ui/phap-bao-hud.js data-t) */
+.btn .cd[data-t]:not([data-t=""])::after { content: attr(data-t); position: absolute; left: 0; right: 0; top: 9px; text-align: center;
+  font-size: 12px; line-height: 14px; color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000; }
