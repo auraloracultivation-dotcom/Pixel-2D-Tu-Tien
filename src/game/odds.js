@@ -9,7 +9,8 @@ export function giveOdds(data, give) {
     const sum = rars.reduce((a, r) => a + r.weight, 0);
     out.push(O.rarity.replace('{list}', rars.map(r => `${r.name} ${pct(r.weight / sum)}`).join(', ')));
     const n = Object.values(items.bases).filter(b => !b.set && !b.dv).length;   // đồ Đạo Vận không rơi ngẫu nhiên
-    out.push(O.base.replace('{n}', n).replace('{p}', pct(1 / n)), O.lines);
+    const T = give.tier != null && items.line_tiers?.list?.[give.tier];   // rương định sẵn màu dòng (rương Tiên phẩm)
+    out.push(O.base.replace('{n}', n).replace('{p}', pct(1 / n)), T && O.tier ? O.tier.replace('{name}', T.name) : O.lines);
   }
   if (give.gem) {
     const types = Object.values(items.gems.types);

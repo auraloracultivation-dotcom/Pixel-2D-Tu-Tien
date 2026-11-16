@@ -50,14 +50,6 @@
  },
  "shop": [
   {
-   "id": "da-tay",
-   "label": "10 Tẩy Luyện Thạch",
-   "tn": 60,
-   "give": {
-    "stones": 10
-   }
-  },
-  {
    "id": "dao-van-thach",
    "label": "1 Đạo Vận Thạch (đổi hệ trang bị)",
    "tn": 50,
@@ -69,22 +61,16 @@
    }
   },
   {
-   "id": "ngoc-3",
-   "label": "3 viên ngọc khảm",
-   "tn": 90,
-   "give": {
-    "gem": 3
-   }
-  },
-  {
    "id": "ruong-dia",
-   "label": "Rương trang bị Địa phẩm",
+   "label": "Rương trang bị Tiên phẩm",
    "tn": 180,
    "give": {
-    "item": "dia"
+    "item": "thien",
+    "tier": 5
    }
   }
  ],
+ "_shop_17_11": "Chủ dự án 17/11/2026 03:51: bỏ 10 Tẩy Luyện Thạch (da-tay) và 3 viên ngọc khảm (ngoc-3) khỏi quầy; Rương trang bị Địa phẩm thành Tiên phẩm, giá giữ 180 (mã ruong-dia giữ nguyên để khớp bảng giá máy chủ p2d_tn_gia): món phẩm Thiên, dòng chỉ số màu Tiên (đỏ, line_tiers bậc 5).",
  "wrong_look": "Bộ này khác giới tính nhân vật",
  "title": "Quầy Tiên Ngọc",
  "packs_head": "Gói nạp",
@@ -99,7 +85,7 @@
   "head": "Tỉ lệ:",
   "rarity": "phẩm {list}",
   "base": "1 trong {n} loại đồ thường, mỗi loại {p}",
-  "lines": "dòng chỉ số ngẫu nhiên theo phẩm",
+  "lines": "dòng chỉ số ngẫu nhiên theo phẩm", "tier": "dòng chỉ số màu {name}",
   "gem": "mỗi viên là ngọc cấp 1, {list}"
  },
  "got": "Nhận: {got}.",

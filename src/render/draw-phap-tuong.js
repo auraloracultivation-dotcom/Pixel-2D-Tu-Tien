@@ -24,7 +24,8 @@ export function drawPhapTuong(ctx, game, p, t, save, look, name, fx, fy) {
   const below = dy + (spr.h - spr.anchor[1]) * K;   // đáy pháp tượng so với chân, điểm ảnh nhân vật
   if (below > -(C.foot ?? 0)) dy -= below + (C.foot ?? 0);   // không trùm xuống dưới chân
   ctx.save();
-  ctx.setTransform(k * side, 0, 0, k, Math.round(m.a * fx + m.e), Math.round(m.d * fy + m.f + dy * n));
+  const back = (C.back ?? 0) * side * n;   // lùi ra sau lưng (ngược hướng mặt) chừng này điểm ảnh nhân vật (chủ dự án 17/11/2026 03:51: "nhìn cứ bị lệch về phía trước")
+  ctx.setTransform(k * side, 0, 0, k, Math.round(m.a * fx + m.e - back), Math.round(m.d * fy + m.f + dy * n));
   ctx.imageSmoothingEnabled = k < 0.98;
   ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();

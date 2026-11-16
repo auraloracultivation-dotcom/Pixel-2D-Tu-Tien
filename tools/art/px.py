@@ -3,6 +3,7 @@ import hashlib, json, math, random
 from pathlib import Path
 import numpy as np
 from PIL import Image
+from png_nho import luu   # cùng thư mục tools/art (build.py chạy với đường dẫn này)
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = ROOT / 'assets' / 'art'
@@ -83,15 +84,19 @@ def clean():
             (ROOT / v['file']).unlink(missing_ok=True)
 
 
-def save(sid, frames, anchor, note=''):
-    """frames: list[Canvas] cùng cỡ → một tấm ngang. anchor: điểm neo (chân) tính từ góc trên trái một khung."""
+def save(sid, frames, anchor, note='', webp=None):
+    """frames: list[Canvas] cùng cỡ → một tấm ngang. anchor: điểm neo (chân) tính từ góc trên trái một khung.
+    webp: chất lượng WebP có mất mát (chỉ cho hiệu ứng nhiều màu, không cho nhân vật chính; 17/11/2026), mặc định PNG không mất điểm."""
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     w, h = frames[0].w, frames[0].h
     sheet = Image.new('RGBA', (w * len(frames), h))
     for i, f in enumerate(frames):
         sheet.alpha_composite(f.img(), (i * w, 0))
-    name = sid.replace('.', '-') + '.png'
-    sheet.save(OUT_DIR / name, optimize=True)
+    name = sid.replace('.', '-') + ('.webp' if webp else '.png')
+    if webp:
+        sheet.save(OUT_DIR / name, 'WEBP', quality=webp, method=6)
+    else:
+        luu(sheet, OUT_DIR / name)   # PNG nhỏ nhất, không đổi điểm ảnh (png_nho.py)
     v = hashlib.sha1((OUT_DIR / name).read_bytes()).hexdigest()[:8]   # mã nội dung: đổi hình thì đổi đường dẫn tải
     MANIFEST[sid] = {'file': f'assets/art/{name}', 'v': v, 'w': w, 'h': h, 'frames': len(frames), 'anchor': list(anchor)}
     if note:

@@ -2654,7 +2654,7 @@
  },
  "mat": {
   "_note": "Biểu cảm Hệ Thống (chủ dự án 06/11/2026 19:03: ảnh GPT chủ dự án tạo, Claude phụ trách). Dải khung src (tools/art/he_thong_mat.py cắt từ tools/art/nguon/ai/he-thong/), mỗi khung w×h, thứ tự frames. anim: chuỗi khung chạy mỗi ms. ev: sự việc → biểu cảm (danh sách thì bốc ngẫu nhiên; \"chuỗi>biểu cảm\" chạy chuỗi rồi đứng ở biểu cảm đó). src/ui/he-thong-mat.js.",
-  "src": "assets/art/he-thong/mat.png",
+  "src": "assets/art/he-thong/mat.webp",
   "w": 74,
   "h": 64,
   "frames": [
