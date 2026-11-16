@@ -99,5 +99,66 @@
    "w": 50,
    "h": 51
   }
- ]
+ ],
+ "ngoi": {
+  "01": {
+   "w": 43,
+   "h": 51,
+   "cau": [
+    29.2,
+    35.0
+   ],
+   "k": 0.2579,
+   "mat": [
+    45,
+    46
+   ]
+  }
+ },
+ "bo": {
+  "01": {
+   "khung": [
+    60,
+    60
+   ],
+   "chan": [
+    32,
+    59
+   ],
+   "fps": {
+    "dung": 8,
+    "chay": 12,
+    "danh": 12
+   },
+   "danh1": {
+    "hit": 3,
+    "tay": [
+     55,
+     43.5
+    ]
+   },
+   "danh2": {
+    "hit": 4,
+    "tay": [
+     53,
+     44.5
+    ],
+    "ket_an": [
+     46,
+     42
+    ],
+    "tu_khi": [
+     1,
+     3
+    ]
+   },
+   "mau": {
+    "core": "#fff6d6",
+    "mid": "#ffc93c",
+    "outer": "#ff7a2f",
+    "edge": "#e5323f"
+   },
+   "_note": "Bộ #1: hit = khung tay vươn xa nhất (chỗ bắn pháp lực), tay = chỗ bàn tay khung đó (điểm khung 60×60), ket_an = chỗ hai tay chụm lúc kết ấn (khung tu_khi[0]..hit-1), mau = màu hiệu ứng vẽ bằng code (tạm, theo áo trắng đỏ viền vàng)."
+  }
+ }
 }

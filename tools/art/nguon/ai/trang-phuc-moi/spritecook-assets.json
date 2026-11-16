@@ -1,0 +1,151 @@
+{
+ "note": "SpriteCook asset của bộ 16 trang phục mới (chủ dự án 16/11/2026 18:57 \"Làm trước 1 bộ đi\"). Ảnh tĩnh ở tinh/ (bảng ảnh chủ dự án gửi 18:24), câu lệnh ở cau-lenh.json (tools/art/trang_phuc_cau_lenh.py); nguồn tải lên ở nguon-sc/; chuyển động đã làm sạch nền ở sc/NN-<dung|chay|danh1|danh2>.webp, ảnh ngồi ở ngoi/. jobs: sổ việc đã gửi (không gửi lại việc đang chạy). Kết quả bộ #1 (16/11/2026 19:03–19:08): 5/5 xong, đúng 116 credit (ảnh ngồi 12 + 4 × 26), còn 1.453; kiem_dac_diem: giữ đủ đặc điểm cả 4 chuyển động; mắt luôn mở; hai đòn đánh sang phải (tay vươn tới x 55–56 trong khung 60). Khung ra đòn, chỗ bàn tay, chỗ kết ấn, tâm khí cầu ghi ở ds.json → bo.01.",
+ "params": {
+  "model": "pixel-engine-v1.5",
+  "output_frames": 8,
+  "credits_per_animation": 26,
+  "auto_enhance_prompt": false,
+  "edge_margin": 6,
+  "ngoi": {
+   "model": "gemini-nano-banana-2.1",
+   "pixel": true,
+   "size_hint": "128x128",
+   "credits": 12,
+   "edit": "nguon-sc/NN-hd.png",
+   "style": "nguon-sc/mau-ngoi.png"
+  }
+ },
+ "assets": [
+  {
+   "n": 1,
+   "kind": "still-dem",
+   "label": "Trang phục mới #01 (tĩnh, đệm)",
+   "asset_id": "21a77f00-0ab5-4a0d-879a-924988a292f7",
+   "file": "nguon-sc/01-dem.png",
+   "sha12": "e556f42601e9",
+   "size": "71x51",
+   "note": "tinh/01.png đệm trái 6, phải 18"
+  },
+  {
+   "n": 1,
+   "kind": "hd",
+   "label": "Trang phục mới #01 (tranh gốc)",
+   "asset_id": "58a32790-4f9d-41eb-ae55-9d375841edd3",
+   "file": "nguon-sc/01-hd.png",
+   "sha12": "68e7af71714e",
+   "size": "322x344"
+  },
+  {
+   "n": 0,
+   "kind": "mau-ngoi",
+   "label": "Trang phục mới: mẫu ngồi xếp bằng",
+   "asset_id": "88163b38-428f-4762-9db7-0e72bf8000fb",
+   "file": "nguon-sc/mau-ngoi.png",
+   "sha12": "de9dabdbad55",
+   "size": "720x790"
+  },
+  {
+   "n": 1,
+   "kind": "dung",
+   "label": "Trang phục mới #01 dung",
+   "asset_id": "8cb7e781-0d39-4fcd-b71e-6c18d01416ed",
+   "file": "sc/01-dung.webp",
+   "sha12": "abfadee2f50e",
+   "size": "60x60x8"
+  },
+  {
+   "n": 1,
+   "kind": "danh1",
+   "label": "Trang phục mới #01 danh1",
+   "asset_id": "c6373f8c-7058-455e-b072-709117d7e1ab",
+   "file": "sc/01-danh1.webp",
+   "sha12": "80e6e10f9632",
+   "size": "60x60x8"
+  },
+  {
+   "n": 1,
+   "kind": "chay",
+   "label": "Trang phục mới #01 chay",
+   "asset_id": "11efef54-fc62-494c-a374-6e25a0e1c95c",
+   "file": "sc/01-chay.webp",
+   "sha12": "35ac20c901bf",
+   "size": "60x60x8"
+  },
+  {
+   "n": 1,
+   "kind": "danh2",
+   "label": "Trang phục mới #01 danh2",
+   "asset_id": "491296b1-729f-4a4d-ac80-a06754db6ff3",
+   "file": "sc/01-danh2.webp",
+   "sha12": "f889d69f011c",
+   "size": "60x60x8"
+  },
+  {
+   "n": 1,
+   "kind": "ngoi",
+   "label": "Trang phục mới #01 ngồi xếp bằng",
+   "asset_id": "601ca812-a0a9-4273-ba7a-254237112d08",
+   "file": "ngoi/01-sc.png",
+   "sha12": "d0652b37b856",
+   "size": "190x190"
+  }
+ ],
+ "jobs": [
+  {
+   "n": 1,
+   "motion": "dung",
+   "job_id": "79ea01b1-10bb-4412-b4c6-9777a8964c92",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "The chibi cultivator in a white robe stands in place in a calm idle stance in 3/4 view facing right, breathing slowly so the body rises and falls by one pixel while the ponytail, the gold ribbons and the long sleeves sway gently. Keep every detail identical in every frame: the long dark brown hair tied in a high ponytail that flows down behind the back, the small gold crown ornament on top of the head, the gold ribbons hanging from the ponytail, the red eyes, the white robe with wide sleeves and a red crossed collar, the gold belt over the dark sash, the dark under-robe at the front, the red tassel cord hanging at the side and the dark brown boots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The eyes stay open in every frame. No new objects or effects appear: no energy, no glow, no sparks, no projectiles. It faces right and stays on the same spot.",
+   "asset_id": "8cb7e781-0d39-4fcd-b71e-6c18d01416ed",
+   "check": "ok"
+  },
+  {
+   "n": 1,
+   "motion": "danh1",
+   "job_id": "12506e9c-f6eb-4deb-a2ed-430c68a14750",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "Side view facing right; the attack moves horizontally to the RIGHT, never toward the camera. The chibi cultivator in a white robe draws one hand back to the waist, then leans forward and thrusts that open palm straight out to the RIGHT at chest height until the arm is fully extended, holds the push for a moment, then pulls the hand back and returns to the same standing pose. The feet stay planted on the same spot. Keep every detail identical in every frame: the long dark brown hair tied in a high ponytail that flows down behind the back, the small gold crown ornament on top of the head, the gold ribbons hanging from the ponytail, the red eyes, the white robe with wide sleeves and a red crossed collar, the gold belt over the dark sash, the dark under-robe at the front, the red tassel cord hanging at the side and the dark brown boots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The eyes stay open in every frame. No new objects or effects appear: no energy, no glow, no sparks, no projectiles. It faces right and stays on the same spot.",
+   "asset_id": "c6373f8c-7058-455e-b072-709117d7e1ab",
+   "check": "ok"
+  },
+  {
+   "n": 1,
+   "motion": "ngoi",
+   "job_id": "88094c51-97e0-4b58-af26-3f27cbc6cee2",
+   "credits": 12,
+   "status": "xong",
+   "prompt": "Redraw the chibi character from the edited image in a new pose: sitting cross-legged on the ground in meditation, in 3/4 view facing right, like the sitting pose in the other image (use that image only for the pose; ignore its swirling aura and its background). Both hands are held together in front of the chest, cupping a small round glowing golden orb of spiritual energy at the center between the hands, above the crossed legs. The eyes are wide open, looking calmly forward at the orb; the eyes are not closed. Keep the same character design: long dark brown hair tied in a high ponytail that flows down behind the back, small gold crown ornament on top of the head, gold ribbons hanging from the ponytail, red eyes, white robe with wide sleeves and a red crossed collar, gold belt over the dark sash, dark under-robe at the front, red tassel cord hanging at the side and dark brown boots. Same chibi proportions, same colors and the same pixel art style as the edited image. Only the character and the small orb: no aura, no flames, no swirling energy, no sparkles, no background, no shadow, no text.",
+   "note": "lần gửi đầu (edit + reference cùng lúc) bị từ chối, không tính credit; gửi lại với mẫu ngồi là style_asset_ids",
+   "asset_id": "601ca812-a0a9-4273-ba7a-254237112d08",
+   "check": "ok",
+   "file": "ngoi/01-sc.png"
+  },
+  {
+   "n": 1,
+   "motion": "chay",
+   "job_id": "e27621cd-64cb-48b3-856b-e02857899652",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "11efef54-fc62-494c-a374-6e25a0e1c95c",
+   "check": "ok",
+   "prompt": "The chibi cultivator in a white robe runs to the right in a fast running loop while staying in place: the legs stride forward and push back in turn, the arms swing, the body leans forward a little and the ponytail, the gold ribbons and the sleeves stream back behind. Side view facing right. Keep every detail identical in every frame: the long dark brown hair tied in a high ponytail that flows down behind the back, the small gold crown ornament on top of the head, the gold ribbons hanging from the ponytail, the red eyes, the white robe with wide sleeves and a red crossed collar, the gold belt over the dark sash, the dark under-robe at the front, the red tassel cord hanging at the side and the dark brown boots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The eyes stay open in every frame. No new objects or effects appear: no energy, no glow, no sparks, no projectiles. It faces right and stays on the same spot."
+  },
+  {
+   "n": 1,
+   "motion": "danh2",
+   "job_id": "c33a22ab-0e31-4f0e-b1c3-207e26c13b42",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "491296b1-729f-4a4d-ac80-a06754db6ff3",
+   "check": "ok",
+   "prompt": "Side view facing right; the attack moves horizontally to the RIGHT, never toward the camera. The chibi cultivator in a white robe brings both hands together in front of the chest in a hand seal and bends the knees a little to gather strength, then leans forward and pushes both open palms straight out to the RIGHT together until the arms are fully extended, holds the push for a moment, then returns to the same standing pose. The feet stay planted on the same spot. Keep every detail identical in every frame: the long dark brown hair tied in a high ponytail that flows down behind the back, the small gold crown ornament on top of the head, the gold ribbons hanging from the ponytail, the red eyes, the white robe with wide sleeves and a red crossed collar, the gold belt over the dark sash, the dark under-robe at the front, the red tassel cord hanging at the side and the dark brown boots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The eyes stay open in every frame. No new objects or effects appear: no energy, no glow, no sparks, no projectiles. It faces right and stays on the same spot."
+  }
+ ]
+}
