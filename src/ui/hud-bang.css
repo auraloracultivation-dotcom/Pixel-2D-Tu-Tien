@@ -10,7 +10,7 @@ html body.hud-bang {
   --tren-h: 88px;   /* cao bảng trên */
   --row: 76px;   /* cao hàng trong bảng trên */
   --av: 56px;   /* ảnh đại diện và bản đồ: vuông cùng cỡ */
-  --o-w: 35px; --o-h: 37px; --o-g: 2px;   /* ô chức năng: 4 cột × 2 hàng */
+  --o-w: 34px; --o-h: 37px; --o-g: 3px;   /* ô chức năng: 4 cột × 2 hàng */
   --o-r: calc(var(--sr) + 12px + var(--av) + 8px);   /* mép phải khay ô chức năng (bên trái bản đồ) */
   --sk: 42px; --sg: 4px; --atk: 68px;   /* bảng dưới: ô 42, nút Đánh 68 */
   --tray-r: calc(var(--sr) + 16px + var(--atk) + 14px);   /* mép phải khay pháp bảo (chừa vòng nút Đánh lồi ra) */
@@ -80,8 +80,7 @@ html body.hud-bang #buttons { position: fixed !important; left: 0 !important; ri
 html body.hud-bang #buttons :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill, #btn-ride, #btn-dash, #btn-auto) { position: absolute !important; }
 html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill, #btn-ride, #hud .hud-btns > button.tron#btn-bag) {
   top: auto !important; width: var(--sk) !important; height: var(--sk) !important; margin: 0 !important; padding: 0 !important; transform: none;
-  box-sizing: border-box !important; border: 2px solid var(--gc, #a8853a) !important; border-image: none !important; border-radius: 5px !important;
-  background-color: rgba(30, 18, 46, .96) !important; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .7), 0 2px 0 rgba(0, 0, 0, .5) !important; overflow: hidden !important; z-index: 6;
+  box-sizing: border-box !important; border-image: none !important; overflow: hidden !important; z-index: 6;
   pointer-events: auto !important; filter: none !important; }
 html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill, #btn-ride, #btn-dash)::after { display: none !important; }
 html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill, #btn-ride, #btn-dash, #btn-auto):active { transform: scale(.92); }
@@ -148,3 +147,61 @@ html body.hud-bang #btn-man-toi { position: fixed !important; left: calc(var(--s
 html body.hud-bang #btn-man-toi::before { left: 7px !important; }
 /* đang có khung thoại: bảng dưới ẩn (như các nút đánh) thì Túi đồ, Tự đánh cũng ẩn, không lơ lửng một mình */
 body.hud-bang:has(#dialog:not([hidden])) :is(#hud .hud-btns > button.tron#btn-bag, #btn-auto) { visibility: hidden; }
+
+/* ==== Chất liệu khung (chủ dự án 17/11/2026 01:49, tham khảo Soul Knight: "khung trong suốt, và vài cái khung nền gỗ như phím gỗ").
+   Vẽ bằng CSS, điểm ảnh vuông (bo góc ≤ 3px), không ảnh: đổi màu chỉ cần sửa các biến dưới.
+   - Nền hai bảng: trong suốt, chỉ một vệt tối mờ dần cho chữ dễ đọc.
+   - Gỗ khung (thẻ nhân vật, ảnh đại diện, bản đồ, thẻ bậc): viền gỗ vát sáng trên trái / tối dưới phải, viền mực trong ngoài, lòng xám tím đậm.
+   - Phím gỗ (ô chức năng, mũi tên thu gọn, Túi đồ, Đan, Cưỡi): mặt gỗ có thớ, gờ sáng trên, gờ tối dưới như phím nổi; bấm thì lún.
+   - Trong suốt (4 ô pháp bảo, Lướt, Tự đánh, Đánh): lòng tối mờ, viền trắng mờ; nhìn xuyên thấy cảnh. ==== */
+html body.hud-bang {
+  --go: #9a6334; --go-sang: #c99258; --go-toi: #5e3818; --muc: #22120a;
+  --long: rgba(34, 30, 44, .88);
+  --kinh: rgba(8, 10, 22, .28); --kinh-vien: rgba(255, 255, 255, .6);
+}
+#bang-tren, #bang-duoi { border: 0; border-radius: 0; box-shadow: none; }
+#bang-tren { background: linear-gradient(rgba(0, 0, 0, .42), rgba(0, 0, 0, .18) 70%, transparent); }
+#bang-duoi { background: linear-gradient(transparent, rgba(0, 0, 0, .2) 30%, rgba(0, 0, 0, .42)); }
+
+/* gỗ khung */
+html body.hud-bang #hud .bars::before { content: '' !important; display: block !important; position: absolute !important; left: calc(var(--av) + 1px) !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
+  z-index: -1 !important; box-sizing: border-box; border: 3px solid !important; border-color: var(--go-sang) var(--go-toi) var(--go-toi) var(--go-sang) !important; border-radius: 3px !important;
+  background: var(--long) !important; box-shadow: 0 0 0 1px var(--muc), inset 0 0 0 1px var(--muc) !important; width: auto !important; height: auto !important; transform: none !important; }
+html body.hud-bang #hud .bars { padding: 5px 7px 5px 0 !important; row-gap: 1.5px; column-gap: 9px; }
+html body.hud-bang :is(#uk-ava.v2 canvas, #mini-map canvas) { border: 3px solid !important; border-color: var(--go-sang) var(--go-toi) var(--go-toi) var(--go-sang) !important;
+  border-radius: 3px !important; box-shadow: 0 0 0 1px var(--muc), inset 0 0 0 1px var(--muc) !important; }
+html body.hud-bang #bac-hud { border: 3px solid !important; border-color: var(--go-sang) var(--go-toi) var(--go-toi) var(--go-sang) !important; border-image: none !important;
+  border-radius: 3px; background: var(--long) !important; box-shadow: 0 0 0 1px var(--muc), inset 0 0 0 1px var(--muc); padding: 0 6px !important; }
+html body.hud-bang #mini-map b { border: 0 !important; border-image: none !important; background: rgba(20, 12, 8, .82) !important; padding: 0 3px !important; }
+
+/* thanh: chữ nhật điểm ảnh, rãnh xám đậm, ruột hai nấc sáng (nửa trên sáng hơn) */
+html body.hud-bang #hud .bars .bar { border-radius: 0 !important; background: #2a2632 !important; box-shadow: 0 0 0 1px #0c0a10 !important; }
+html body.hud-bang #hud .bars .bar i { border-radius: 0 !important; background-image: none !important; }
+html body.hud-bang #hud .bars .bar i#hp-fill { background: linear-gradient(#ff8676 0 40%, #d8343a 40%) !important; }
+html body.hud-bang #hud .bars .bar.mp i { background: linear-gradient(#8ac4ff 0 40%, #2f6fd8 40%) !important; }
+html body.hud-bang #hud .bars .bar.no i { background: linear-gradient(#ffe27a 0 40%, #e0a420 40%) !important; }
+html body.hud-bang #hud .bars .bar.qi i { background: linear-gradient(#d6a2ff 0 40%, #8a4ad8 40%) !important; }
+html body.hud-bang #hud .bars .bar i#hp-lag { background: #fff !important; }
+html body.hud-bang #hud .bars .bar span { font-size: 8px !important; }
+html body.hud-bang #hud .bars .bar:is(.mp, .no, .qi) span { font-size: 7px !important; }
+
+/* phím gỗ */
+html body.hud-bang :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], #hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #uk-gon.uk-tog.go) {
+  background: repeating-linear-gradient(0deg, rgba(70, 34, 10, .2) 0 1px, transparent 1px 6px), linear-gradient(#a86c39, #8b582c) !important;
+  border: 2px solid var(--muc) !important; border-image: none !important; border-radius: 3px !important;
+  box-shadow: inset 0 2px 0 var(--go-sang), inset 0 -3px 0 var(--go-toi), 0 2px 0 rgba(0, 0, 0, .55) !important; filter: none !important; }
+html body.hud-bang :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], #hud .hud-btns > button.tron#btn-bag, .uk-tog#uk-gon, #buttons #btn-pill, #buttons #btn-ride):active {
+  transform: translateY(2px) !important; box-shadow: inset 0 2px 0 var(--go-toi), inset 0 -1px 0 var(--go-sang) !important; }
+html body.hud-bang .uk-tog#uk-gon { background: url("../../assets/art/ui-ic-lui.png") center / 70% auto no-repeat, repeating-linear-gradient(0deg, rgba(70, 34, 10, .2) 0 1px, transparent 1px 6px), linear-gradient(#a86c39, #8b582c) !important;
+  border: 2px solid var(--muc) !important; border-radius: 3px !important; box-shadow: inset 0 2px 0 var(--go-sang), inset 0 -3px 0 var(--go-toi), 0 2px 0 rgba(0, 0, 0, .55) !important; filter: none !important; }
+html body.hud-bang #hud .hud-btns > button.tron.on { box-shadow: inset 0 2px 0 #ffe6a0, inset 0 -3px 0 var(--go-toi), 0 0 6px rgba(255, 210, 120, .9) !important; }
+
+/* trong suốt */
+html body.hud-bang #buttons :is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { background-color: var(--kinh) !important; border: 2px solid var(--kinh-vien) !important; border-radius: 6px !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .35), inset 0 0 0 1px rgba(0, 0, 0, .25), 0 0 6px var(--gc, transparent) !important; }
+html body.hud-bang #buttons :is(#btn-dash, #btn-auto) { background: var(--kinh) !important; border: 2px solid var(--kinh-vien) !important; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35) !important; }
+html body.hud-bang #buttons #btn-auto.on { border-color: #ffe08a !important; background: rgba(255, 190, 70, .28) !important; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35), 0 0 9px rgba(255, 210, 120, .8) !important; }
+html body.hud-bang #buttons #btn-atk { background: var(--kinh) !important; border: 2px solid var(--kinh-vien) !important; border-radius: 50% !important; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35), inset 0 0 12px rgba(255, 255, 255, .12) !important; }
+html body.hud-bang #buttons #btn-atk::after { display: none !important; }
+html body.hud-bang #buttons #btn-atk:active { background: rgba(255, 255, 255, .18) !important; }
+html body.hud-bang #btn-man-toi { background: var(--kinh) !important; border: 2px solid var(--kinh-vien) !important; border-radius: 12px !important; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35) !important; color: #fff3d6 !important; }
