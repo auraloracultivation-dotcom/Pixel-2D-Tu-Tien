@@ -3,7 +3,8 @@
 File này làm ảnh tĩnh đúng chuẩn pixel game (docs/02-CHUAN-PIXEL.md):
 1. Mặt nạ hồng = ĐÚNG những điểm màu hồng của 16 mảng hồng lớn (mảng liền trên 2000 điểm), cộng mép lem hồng với nền trắng sát mảng đó.
    Không lấy theo khung chữ nhật: yên, khoen vàng, tai, pha lê vẽ đè lên mảng hồng phải giữ nguyên (chủ dự án 16/11/2026 17:18: "chỉ cần
-   xoá màu hồng là được, có phải nền hồng nào cũng hình vuông đâu"; bản trước cắt theo khung, ăn vào yên). Mép lem hồng với viền mực trả về màu mực.
+   xoá màu hồng là được, có phải nền hồng nào cũng hình vuông đâu"; bản trước cắt theo khung, ăn vào yên). Mép lem hồng với viền mực trả về màu mực;
+   mép lem hồng với yên, khoen vàng lấy màu điểm không hồng sát bên (hong_lem), không còn sợi hồng nào trên mặt yên.
 2. Tách từng con theo khe nền giữa các con (hàng trước, rồi cột trong hàng; hai con chạm nhau thì cắt ở cột ít điểm nhất giữa hai mảng hồng).
 3. Bỏ nền (ai_import.remove_bg) với mảng hồng làm tường chắn (nền không tràn qua chỗ hồng vào lông trắng); rồi điểm hồng thành trong suốt
    (chỗ người ngồi, không vẽ thêm gì), gỡ túi nền trắng kẹt giữa mảng hồng và thân.
@@ -109,7 +110,8 @@ def seg(rgb, q):
 
 
 def pink_masks(rgb):
-    """big: điểm hồng của các mảng hồng lớn; bg: mép lem hồng–trắng sát mảng (thành nền); ink: mép lem hồng–mực sát mảng (thành màu mực)."""
+    """big: điểm hồng của các mảng hồng lớn; bg: mép lem hồng–trắng sát mảng (thành nền); ink: mép lem hồng–mực sát mảng (thành màu mực);
+    near: dải 3 điểm quanh mảng hồng (chỗ còn mép lem hồng với yên, khoen vàng... xử lý ở hong_lem)."""
     from scipy import ndimage
     r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
     core = (r > 200) & (g < 60) & (b > 170)
@@ -119,10 +121,26 @@ def pink_masks(rgb):
     tw, dw = seg(rgb, (252, 252, 252)); tk, dk = seg(rgb, INK[:3])
     bg = near & (dw < 34) & (tw < 0.92)
     ink = near & ~bg & (dk < 40) & (tk > 0.25)
-    return big, bg, ink, lab
+    return big, bg, ink, near
 
 
-def one(rgb, cell, n, big, bgm, ink):
+def hong_lem(a, ring):
+    """Mép lem hồng còn sót trong dải quanh mảng hồng (hồng trộn với yên, khoen vàng, mực nhạt): điểm sắc tím hồng đậm (hue 285–340°,
+    bão hoà > 0,5, sáng > 0,35) lấy màu điểm không hồng gần nhất bên trong (giữ đúng hình yên, chỉ bỏ sắc hồng); xa quá 3 điểm thì bỏ."""
+    from scipy import ndimage
+    c = a[..., :3].astype(float) / 255; mx, mn = c.max(-1), c.min(-1); d = mx - mn + 1e-9
+    r, g, b = c[..., 0], c[..., 1], c[..., 2]
+    h = np.where(mx == r, ((g - b) / d) % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4)) * 60
+    fr = ring & (a[..., 3] > 0) & (h > 285) & (h < 340) & (d / np.maximum(mx, 1e-9) > 0.5) & (mx > 0.35)
+    keep = (a[..., 3] > 0) & ~fr
+    if not fr.any() or not keep.any(): return a
+    dist, (iy, ix) = ndimage.distance_transform_edt(~keep, return_indices=True)
+    a[fr, :3] = a[iy[fr], ix[fr], :3]
+    a[fr & (dist > 3), 3] = 0
+    return a
+
+
+def one(rgb, cell, n, big, bgm, ink, near):
     x0, y0, x1, y1 = cell
     a = np.dstack([rgb[y0:y1, x0:x1], np.full((y1 - y0, x1 - x0), 255)]).astype(np.uint8)
     pm, bm = big[y0:y1, x0:x1], bgm[y0:y1, x0:x1]
@@ -133,6 +151,7 @@ def one(rgb, cell, n, big, bgm, ink):
     gone = pm | bm
     clean[gone, 3] = 0
     clean[pockets(a, gone), 3] = 0
+    clean = hong_lem(clean, near[y0:y1, x0:x1] & ~gone)
     clean = drop_specks(clean, 0.0015)
     ys, xs = np.nonzero(clean[..., 3] > 0)
     cy0, cy1, cx0, cx1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
@@ -157,10 +176,10 @@ def one(rgb, cell, n, big, bgm, ink):
 def main():
     rgb = np.array(Image.open(D / 'goc.png').convert('RGB')).astype(int)
     (D / 'tinh').mkdir(exist_ok=True); (D / 'xem').mkdir(exist_ok=True)
-    big, bgm, ink, _ = pink_masks(rgb)
+    big, bgm, ink, near = pink_masks(rgb)
     B = boxes(rgb)
     assert len(B) == 16, f'tìm thấy {len(B)} mảng hồng, cần 16'
-    res = [one(rgb, c, i + 1, big, bgm, ink) for i, (c, b) in enumerate(cells(rgb, B))]
+    res = [one(rgb, c, i + 1, big, bgm, ink, near) for i, (c, b) in enumerate(cells(rgb, B))]
     json.dump({'_note': 'Thú cưỡi mới (chủ dự án 16/11/2026): ảnh tĩnh ở tinh/NN.png, cỡ điểm game (1 điểm = 0,5333 đơn vị); chỉ xoá đúng điểm hồng (17:18); seat: chỗ chân người cưỡi trên ảnh ra (giữa mảng hồng, ngay trên mặt yên); ten: tên tả tạm; hong: số điểm hồng đã xoá (cỡ tranh).', 'k': K, 'thu': res},
               open(D / 'ds.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     for r in res: print(r)
