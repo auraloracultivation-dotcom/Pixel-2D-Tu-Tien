@@ -1,5 +1,5 @@
 {
- "_note": "SpriteCook bộ giao diện khung tím viền bạc (chủ dự án 17/11/2026 02:03–02:05). Ảnh mẫu tải lên không tốn credit; 1 tấm khung rỗng 22 credit. Cắt về game: tools/art/khung_ui.py.",
+ "_note": "SpriteCook bộ giao diện khung tím viền bạc (chủ dự án 17/11/2026 02:03–02:05). Ảnh mẫu tải lên không tốn credit; 1 tấm khung rỗng 22 credit. Chủ dự án chê không giống (02:17), đã gỡ khỏi game; khung trong game dùng ảnh của chủ dự án (tools/art/khung_kg.py).",
  "ui_kit_id": "d4ad18be-4c19-42ca-acc6-a31b58150a61",
  "assets": [
   {
