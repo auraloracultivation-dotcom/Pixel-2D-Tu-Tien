@@ -27,7 +27,7 @@ export function pbInput(game, inp) {
     if (!it || p.skillCd[i] > 0) continue;
     const cast = buildCast(game, it), T = cast.T, cost = Math.round(T.mp * cast.mpMul);
     if ((p.mp ?? 0) < cost) { if ((game.time || 0) - (p.mpWarn || -9) > 1.5) { p.mpWarn = game.time || 0; game.number?.(p.x, p.y - 22, 'Thiếu linh lực', '#7ab8ff'); } continue; }
-    p.mp -= cost; p.meditating = false; p.calmT = 0; p.riding = false;
+    p.mp -= cost; p.meditating = false; p.calmT = 0;   // cưỡi thú vẫn dùng pháp bảo (chủ dự án 16/11/2026)
     let dir = inp.aim[key];
     if (!dir) { const m = nearest(game, p.x, p.y, reach(T) + 30); if (m) { const a = Math.atan2(m.y - p.y, m.x - p.x); dir = { x: Math.cos(a), y: Math.sin(a) }; } }
     if (dir) p.face = dir;

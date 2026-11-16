@@ -59,6 +59,7 @@ export const mountPrice = (game, id) => {
 export function sellMount(game, id) {
   const s = game.save, m = game.data.pets.mounts[id];
   if (!m || !s.mounts?.[id]) return 'Không có thú cưỡi này.';
+  if (game.data.pets.thu_lenh) return 'Thú cưỡi đổi bằng Thú Lệnh, không bán được.';   // chủ dự án 16/11/2026
   if (id === s.mount) return 'Đang cưỡi con này, đổi thú cưỡi khác rồi mới bán.';
   const price = mountPrice(game, id);
   delete s.mounts[id];

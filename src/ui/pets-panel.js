@@ -103,16 +103,15 @@ export function createPetsPanel(game) {
   }
 
   function renderMounts(s, list) {
-    $('pets-sub').textContent = 'Đi trên đảo lúc yên ổn là tự cưỡi. Đánh nhau thì xuống.';
+    $('pets-sub').textContent = `Chọn thú rồi bấm nút Cưỡi / Xuống. Cưỡi thì thú công kích, người đả tọa. Thú mới đổi bằng ${P.thu_lenh.per_mount} ${P.thu_lenh.name} ở Ngự Thú Sư (làm đủ việc ngày được 1 ${P.thu_lenh.name}).`;
     for (const [id, m] of Object.entries(P.mounts)) {
       const got = s.mounts[id];
       const ml = got && mountLine(game, id);
-      const c = card(m.color, m.name + (s.mount === id ? ' ' + t('· đang dùng') : got ? '' : ' ' + t('· chưa có')), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Cưỡi', 'Đang cưỡi');
+      const c = card(m.color, m.name + (s.mount === id ? ' ' + t('· đang dùng') : got ? '' : ' ' + t('· chưa có')), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Chọn', 'Đang chọn');
       c.disabled = !got;
       if (!got) c.classList.add('locked');
       list.append(c);
       if (got) list.append(rerollRow(id, true));
-      if (got && s.mount !== id) list.append(sellRow(id, true));
       if (got) buyRow(list, id, true);   // bán thú cưỡi ngay trong thẻ
     }
   }

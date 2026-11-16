@@ -8,6 +8,7 @@ import { darkness } from './draw-lights.js';
 import { drawChainGhosts } from './draw-chain.js';
 import { domainVis } from './draw-domain.js';
 import { joltOff } from '../game/hit-feel.js';
+import { drawPhapTuong, drawOrb } from './draw-phap-tuong.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -25,6 +26,7 @@ export function heroLook(game, save = game.save) {
 
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
 function anim(game, p, look, t) {
+  if ((p.riding || p.meditating) && look.anims.ngoi) return ['ngoi', 0];   // trang phục mới: cưỡi thú, đả tọa thì ngồi xếp bằng (chủ dự án 16/11/2026 21:57)
   const walkName = p.moving && !p.meditating && !p.riding && !p.sword ? 'walk' : 'idle';
   if (game.data.heroes.fly) {   // ngự kiếm: động tác đánh do flyweapon.js chọn (p.heroAnim), chạy cùng lúc vũ khí bay lao ra
     const ha = p.heroAnim, list = ha && look.anims[ha.name];
@@ -84,6 +86,14 @@ function build(H, look) {
   return Math.abs(r - 1) < 0.1 ? 1 : r;
 }
 
+// Cỡ điểm ảnh của hình nhân vật trên màn (m: phép biến đổi đang dùng): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm.
+// Làm tròn lên mà to quá 15% (hình ít điểm ảnh, như Tử Linh Ma Yêu body 64 ở màn ~0.75) thì giữ đúng cỡ, vẽ có làm mịn (chủ dự án 06/11/2026 20:54)
+export function heroScale(game, look, m) {
+  const H = game.data.heroes, want = H.char_height / look.body * m.d, r0 = Math.max(1, Math.round(want));
+  const n0 = want >= 0.75 && r0 <= want * 1.15 ? r0 : want;
+  return { n0, n: n0 * (look.cm || H.npc_cm) / H.npc_cm };
+}
+
 // Trả về true nếu đã vẽ bằng hình; false thì nơi gọi vẽ hình khối như cũ.
 // Ẩn mình trong lĩnh vực Vô Ảnh (render/draw-domain.js domainVis): mờ dần rồi biến mất; biến mất hẳn vẫn trả true (khỏi vẽ hình khối thay)
 export function drawHero(ctx, game, p, t, flash, save = game.save) {
@@ -108,10 +118,10 @@ function heroBody(ctx, game, p, t, flash, save) {
   // Màn quá nhỏ (dưới 0.75 điểm mỗi điểm ảnh) thì thu nhỏ có làm mịn để khỏi rụng nét.
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
   // để 1m75 vẫn thấp hơn NPC một xíu dù làm tròn (lệch vài phần trăm, điểm ảnh gần như vẫn vuông)
-  const H = game.data.heroes, m = ctx.getTransform(), want = H.char_height / look.body * m.d;
+  const H = game.data.heroes, m = ctx.getTransform();
   p.top = H.char_height * (look.cm || H.npc_cm) / H.npc_cm;   // cao thân (đơn vị bản đồ): danh hiệu đặt trên đầu theo số này
-  // làm tròn lên mà to quá 15% (hình ít điểm ảnh, như Tử Linh Ma Yêu body 64 ở màn ~0.75) thì giữ đúng cỡ, vẽ có làm mịn (chủ dự án 06/11/2026 20:54: to hơn NPC)
-  const r0 = Math.max(1, Math.round(want)), n0 = want >= 0.75 && r0 <= want * 1.15 ? r0 : want, n = n0 * (look.cm || H.npc_cm) / H.npc_cm, wide = build(H, look);
+  const { n0, n } = heroScale(game, look, m), wide = build(H, look);
+  if (!p.riding) drawPhapTuong(ctx, game, p, t, save, look, name, p.x, p.y);   // pháp tượng sau lưng (cưỡi thú thì vẽ trước thú, src/render/draw.js)
   ctx.save();
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực
   const dx = atk != null && lunge ? (p.lookX || 1) * lunge * Math.sin(Math.PI * atk) : 0;   // đòn đánh: nhún người tới trước rồi lùi về
@@ -129,6 +139,7 @@ function heroBody(ctx, game, p, t, flash, save) {
   ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
   if (!p.riding) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0, !!game.hurt2);   // bản bị đánh mới: loé trắng hẳn, giữ viền mực
+  if (name === 'ngoi' && look.orb && look.mau) drawOrb(ctx, look.orb[0] - spr.anchor[0], look.orb[1] - spr.anchor[1], look.mau, t);   // khí cầu giữa hai tay
   ctx.restore();
   if (AURA[look.aura]) drawBloodAura(ctx, p.x, p.y, p.top, t, false, p.riding, look.aura);
   if (look.trail?.style === 'kiem' && atk != null && look.attacks?.includes(name)) drawKiemTrail(ctx, look.trail, look.trail.kinds?.[look.attacks.indexOf(name)] ?? look.attacks.indexOf(name), atk, px, p.y - p.top * 0.45, p.lookX || 1, p.top);   // kiếm khí Huyết Nguyệt (src/render/draw-huyet.js)

@@ -9,7 +9,7 @@ import { heroLook } from './draw-hero.js';
 // Chủ dự án 04/11/2026 15:02: vũ khí bay phải đúng món đang mặc → món có hình thật (ui-vk-<món>, ảnh GPT) thì bay hình đó
 function weaponSprite(game) {
   const s = game.save, S = game.data.art.sprites, eq = s.bag?.find(i => i.uid === s.equip?.['vu-khi']), real = eq && S['ui.vk-' + eq.base];
-  if (real) return { spr: real, im: spriteImage(real), dirs: 0, size: 22, smooth: true };
+  if (real) return { spr: real, im: spriteImage(real), dirs: 0, size: 22, smooth: true, flip: !!game.data.items.bases[eq.base]?.fw_flip };   // ảnh mũi chĩa xuống trái (Thanh Vân, Thiên Mạch Kiếm): xoay thêm nửa vòng cho mũi đi trước
   const wid = weaponId(s, game.data), fw = S['fw.' + wid];
   if (fw) return { spr: fw, im: spriteImage(fw), dirs: fw.frames };
   const it = s.bag?.find(i => i.uid === s.equip?.['vu-khi']), id = it && 'gear.' + it.base, spr = id && game.data.art.sprites[id];
@@ -27,7 +27,7 @@ function blit(ctx, ws, im, x, y, a, k) {
     ctx.scale(k, k);
     ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   } else {
-    ctx.rotate(a + Math.PI / 4); ctx.scale(k * (ws.size || 16) / spr.w, k * (ws.size || 16) / spr.w);
+    ctx.rotate(a + Math.PI / 4 + (ws.flip ? Math.PI : 0)); ctx.scale(k * (ws.size || 16) / spr.w, k * (ws.size || 16) / spr.w);
     ctx.drawImage(im, 0, 0, spr.w, spr.h, -spr.w / 2, -spr.h / 2, spr.w, spr.h);
   }
   ctx.restore();

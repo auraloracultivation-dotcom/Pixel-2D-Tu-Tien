@@ -67,6 +67,7 @@ import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
 import { updateCombo } from './affinity.js';
+import { doiMoi } from './doi-moi.js';
 import { ensurePets, maybeRare, petKill, gainPetExp, spawnPet, updatePet, updateRide } from './pets.js';
 export function createGame(data, screen, input, ui, audio) {
   const cfg = data.config;
@@ -264,7 +265,7 @@ export function createGame(data, screen, input, ui, audio) {
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
-    cleanOutfits(game);   // bộ thời trang đã gỡ (src/game/fashion.js)
+    cleanOutfits(game); doiMoi(game);   // bộ thời trang đã gỡ (src/game/fashion.js); ngọc bội → pháp tượng, thú cưỡi cũ (src/game/doi-moi.js)
     applyWords(game);   // lời thoại theo nam / nữ
     if (game.save.element && !game.save.root) game.save.root = rollRoot(data); // bản lưu trước khi có phẩm linh căn
     if (game.save.step > 0 && !Object.keys(game.save.techs).length) game.pendingTech = data.techniques.starter; // bản lưu trước khi có công pháp

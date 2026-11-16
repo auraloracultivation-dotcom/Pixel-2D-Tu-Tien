@@ -13333,6 +13333,198 @@
    ],
    "note": "thời trang Thần Nguyên Y (SpriteCook): đứng, chạy, đòn 1, đòn 2; mỗi động tác 8 khung"
   },
+  "hero.tp-01": {
+   "file": "assets/art/hero-tp-01.png",
+   "v": "f177bd94",
+   "w": 60,
+   "h": 60,
+   "frames": 33,
+   "anchor": [
+    31,
+    59
+   ],
+   "note": "trang phục mới #1 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-02": {
+   "file": "assets/art/hero-tp-02.png",
+   "v": "77ea3f54",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    32,
+    57
+   ],
+   "note": "trang phục mới #2 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-03": {
+   "file": "assets/art/hero-tp-03.png",
+   "v": "eced4d25",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    30,
+    55
+   ],
+   "note": "trang phục mới #3 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-04": {
+   "file": "assets/art/hero-tp-04.png",
+   "v": "1c33cb4d",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    31,
+    57
+   ],
+   "note": "trang phục mới #4 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-05": {
+   "file": "assets/art/hero-tp-05.png",
+   "v": "5d67b926",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    32,
+    55
+   ],
+   "note": "trang phục mới #5 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-06": {
+   "file": "assets/art/hero-tp-06.png",
+   "v": "e625af60",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #6 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-07": {
+   "file": "assets/art/hero-tp-07.png",
+   "v": "0717516e",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #7 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-08": {
+   "file": "assets/art/hero-tp-08.png",
+   "v": "51b61cfb",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #8 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-09": {
+   "file": "assets/art/hero-tp-09.png",
+   "v": "b73a5593",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    31,
+    57
+   ],
+   "note": "trang phục mới #9 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-10": {
+   "file": "assets/art/hero-tp-10.png",
+   "v": "4e351575",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    33,
+    55
+   ],
+   "note": "trang phục mới #10 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-11": {
+   "file": "assets/art/hero-tp-11.png",
+   "v": "d39e4875",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #11 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-12": {
+   "file": "assets/art/hero-tp-12.png",
+   "v": "8a8e3a12",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #12 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-13": {
+   "file": "assets/art/hero-tp-13.png",
+   "v": "e76f7bd2",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    34,
+    57
+   ],
+   "note": "trang phục mới #13 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-14": {
+   "file": "assets/art/hero-tp-14.png",
+   "v": "dbf473c0",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    34,
+    57
+   ],
+   "note": "trang phục mới #14 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-15": {
+   "file": "assets/art/hero-tp-15.png",
+   "v": "6d70fc82",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #15 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-16": {
+   "file": "assets/art/hero-tp-16.png",
+   "v": "dfcb75d8",
+   "w": 60,
+   "h": 60,
+   "frames": 33,
+   "anchor": [
+    32,
+    59
+   ],
+   "note": "trang phục mới #16 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
   "hero.tu-linh": {
    "file": "assets/art/hero-tu-linh.png",
    "v": "7b6cd42d",
@@ -24517,6 +24709,230 @@
     36
    ],
    "note": "cây quả đỏ, hoa đào, hoa trắng (ảnh Canva nguon/ai/props/, 3 biến thể)"
+  },
+  "pt.01": {
+   "file": "assets/art/pt-01.png",
+   "v": "d6e12166",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    84
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #1 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.02": {
+   "file": "assets/art/pt-02.png",
+   "v": "18dd30b3",
+   "w": 144,
+   "h": 144,
+   "frames": 16,
+   "anchor": [
+    72,
+    76
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #2 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.03": {
+   "file": "assets/art/pt-03.png",
+   "v": "4803f41f",
+   "w": 150,
+   "h": 150,
+   "frames": 16,
+   "anchor": [
+    76,
+    117
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #3 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.04": {
+   "file": "assets/art/pt-04.png",
+   "v": "e93c5bba",
+   "w": 154,
+   "h": 154,
+   "frames": 16,
+   "anchor": [
+    76,
+    119
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #4 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.05": {
+   "file": "assets/art/pt-05.png",
+   "v": "e6e9b7da",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    67
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #5 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.06": {
+   "file": "assets/art/pt-06.png",
+   "v": "8405f1c8",
+   "w": 166,
+   "h": 166,
+   "frames": 16,
+   "anchor": [
+    94,
+    80
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #6 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.07": {
+   "file": "assets/art/pt-07.png",
+   "v": "c21a9ac5",
+   "w": 146,
+   "h": 146,
+   "frames": 16,
+   "anchor": [
+    73,
+    74
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #7 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.08": {
+   "file": "assets/art/pt-08.png",
+   "v": "d7b3a44d",
+   "w": 144,
+   "h": 144,
+   "frames": 16,
+   "anchor": [
+    72,
+    71
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #8 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.09": {
+   "file": "assets/art/pt-09.png",
+   "v": "ab34203e",
+   "w": 158,
+   "h": 158,
+   "frames": 16,
+   "anchor": [
+    79,
+    87
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #9 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.10": {
+   "file": "assets/art/pt-10.png",
+   "v": "e7a60945",
+   "w": 142,
+   "h": 142,
+   "frames": 16,
+   "anchor": [
+    70,
+    110
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #10 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.11": {
+   "file": "assets/art/pt-11.png",
+   "v": "a3549987",
+   "w": 136,
+   "h": 136,
+   "frames": 16,
+   "anchor": [
+    68,
+    107
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #11 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.12": {
+   "file": "assets/art/pt-12.png",
+   "v": "2c74cda0",
+   "w": 154,
+   "h": 154,
+   "frames": 16,
+   "anchor": [
+    78,
+    116
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #12 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.13": {
+   "file": "assets/art/pt-13.png",
+   "v": "36d36b3b",
+   "w": 150,
+   "h": 150,
+   "frames": 16,
+   "anchor": [
+    74,
+    65
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #13 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.14": {
+   "file": "assets/art/pt-14.png",
+   "v": "1808c05c",
+   "w": 158,
+   "h": 158,
+   "frames": 16,
+   "anchor": [
+    80,
+    121
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #14 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.15": {
+   "file": "assets/art/pt-15.png",
+   "v": "a1825e33",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    117
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #15 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.16": {
+   "file": "assets/art/pt-16.png",
+   "v": "50cd40c9",
+   "w": 160,
+   "h": 160,
+   "frames": 16,
+   "anchor": [
+    80,
+    86
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #16 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
   },
   "pxi.bang-phach": {
    "file": "assets/art/pxi-bang-phach.png",
@@ -39736,6 +40152,198 @@
     157
    ],
    "note": "nguyen-lieu phong-ngu (ảnh GPT ca-1.png)"
+  },
+  "ui.vk-pt-bang-lien": {
+   "file": "assets/art/ui-vk-pt-bang-lien.png",
+   "v": "d4b7c0a3",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-bang-lien (ảnh GPT goc/10.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-bang-tinh-hoan": {
+   "file": "assets/art/ui-vk-pt-bang-tinh-hoan.png",
+   "v": "daa45ec1",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-bang-tinh-hoan (ảnh GPT goc/02.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-hoa-long": {
+   "file": "assets/art/ui-vk-pt-hoa-long.png",
+   "v": "de4b90d2",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-hoa-long (ảnh GPT goc/06.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-diem-quan": {
+   "file": "assets/art/ui-vk-pt-kim-diem-quan.png",
+   "v": "a3924be3",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-diem-quan (ảnh GPT goc/01.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-duong": {
+   "file": "assets/art/ui-vk-pt-kim-duong.png",
+   "v": "ddb0d403",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-duong (ảnh GPT goc/08.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-kiem-tran": {
+   "file": "assets/art/ui-vk-pt-kim-kiem-tran.png",
+   "v": "a64186f1",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-kiem-tran (ảnh GPT goc/11.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-phan-lien": {
+   "file": "assets/art/ui-vk-pt-phan-lien.png",
+   "v": "8f179e78",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-phan-lien (ảnh GPT goc/04.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-phuong-hoang": {
+   "file": "assets/art/ui-vk-pt-phuong-hoang.png",
+   "v": "41873d8d",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-phuong-hoang (ảnh GPT goc/14.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thanh-dang": {
+   "file": "assets/art/ui-vk-pt-thanh-dang.png",
+   "v": "bd89213a",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thanh-dang (ảnh GPT goc/07.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thuong-lang": {
+   "file": "assets/art/ui-vk-pt-thuong-lang.png",
+   "v": "b8920a47",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thuong-lang (ảnh GPT goc/05.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thuy-long": {
+   "file": "assets/art/ui-vk-pt-thuy-long.png",
+   "v": "edf77aa6",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thuy-long (ảnh GPT goc/13.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tinh-lien": {
+   "file": "assets/art/ui-vk-pt-tinh-lien.png",
+   "v": "5c5419e5",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tinh-lien (ảnh GPT goc/15.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tinh-van": {
+   "file": "assets/art/ui-vk-pt-tinh-van.png",
+   "v": "d6d8c632",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tinh-van (ảnh GPT goc/16.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-diem-duc": {
+   "file": "assets/art/ui-vk-pt-tu-diem-duc.png",
+   "v": "86c727a9",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-diem-duc (ảnh GPT goc/09.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-nguyet": {
+   "file": "assets/art/ui-vk-pt-tu-nguyet.png",
+   "v": "f7e5b5d9",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-nguyet (ảnh GPT goc/03.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-tinh": {
+   "file": "assets/art/ui-vk-pt-tu-tinh.png",
+   "v": "affb4e9e",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-tinh (ảnh GPT goc/12.png, quầng sáng như icon-16.png)"
   },
   "ui.vk-tay-luyen-thach": {
    "file": "assets/art/ui-vk-tay-luyen-thach.png",

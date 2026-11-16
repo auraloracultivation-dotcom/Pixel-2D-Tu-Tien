@@ -12,7 +12,11 @@ from px import Canvas, MANIFEST
 
 ART = Path(__file__).resolve().parent
 SRC = ART / 'nguon' / 'ai' / 'ui'
-SHEETS = {'vu-khi': 'vu-khi-1.png', 'mu': 'mu-1.png', 'giap': 'giap-1.png', 'ngoc-boi': 'ngoc-boi-1.png', 'giay': 'giay-1.png', 'phap-bao': 'phap-bao-1.png'}
+SHEETS = {'vu-khi': 'vu-khi-1.png', 'mu': 'mu-1.png', 'giap': 'giap-1.png', 'giay': 'giay-1.png', 'phap-bao': 'phap-bao-1.png'}
+# Pháp tượng thay ô Ngọc bội (chủ dự án 16/11/2026 21:57 gửi ảnh 16 icon pháp tượng có quầng sáng; ô trên ảnh không đều, nền loang màu):
+# hình lấy từ bảng gốc nền trong suốt cùng nét vẽ (nguon/ai/phap-tuong/goc/NN.png, ảnh GPT của chủ dự án 20:36), thêm quầng sáng màu chính của
+# pháp tượng như ảnh icon (làm mờ mặt nạ, đặt dưới hình), giữa nền vuông trong suốt; món nào dùng hình nào theo bases.*.pt
+PT_SHEET = ART / 'nguon' / 'ai' / 'phap-tuong' / 'goc' / 'icon-16.png'
 # thứ tự vũ khí trên ảnh khác thứ tự trong data (ba kiếm đứng liền nhau)
 ORDER = {'vu-khi': ['thiet-kiem', 'thanh-van-kiem', 'thien-mach-kiem', 'thiet-thuong', 'ba-tieu-phien', 'moc-cam', 'tu-nguyet-liem', 'truc-cung', 'dao-van-binh']}
 # nguyên liệu (chủ dự án 11:43, 11:45): mỗi hàng một danh sách, id theo data/cave.json → materials, data/items.json → materials
@@ -86,6 +90,18 @@ def build(save):
             save('ui.vk-' + k, [cv], (S // 2, S // 2), f'{slot} {k} (ảnh GPT {f})'); n += 1
             if k.startswith('chau-'): MANIFEST['ui.vk-' + k]['soil'] = _soil(sq)   # mặt đất trong chậu: cây đứng trên đó, không vượt thành trước
         print(slot, len(rows), 'hàng', len(boxes), 'ô /', len(names), 'món')
+    from PIL import ImageFilter
+    for k, v in bases.items():
+        if not v.get('pt'): continue
+        g = Image.open(PT_SHEET.parent / f"{v['pt']}.png").convert('RGBA'); g.thumbnail((292, 292), Image.LANCZOS)
+        q = np.array(g).astype(float); m = q[:, :, 3] > 128; lum = q[:, :, :3].sum(2)
+        sel = m & (lum > np.percentile(lum[m], 60)); col = q[:, :, :3][sel].mean(0)   # màu sáng chính của pháp tượng
+        sq = Image.new('RGBA', (ONE_S, ONE_S), (0, 0, 0, 0)); ox, oy = (ONE_S - g.width) // 2, (ONE_S - g.height) // 2
+        al = Image.new('L', (ONE_S, ONE_S), 0); al.paste(g.getchannel('A'), (ox, oy)); al = al.filter(ImageFilter.GaussianBlur(16))
+        halo = Image.new('RGBA', (ONE_S, ONE_S), tuple(int(c) for c in col) + (0,)); halo.putalpha(al.point(lambda x: min(255, int(x * 1.1))))
+        sq.alpha_composite(halo); sq.alpha_composite(g, (ox, oy))
+        cv = Canvas(ONE_S, ONE_S); cv.a = np.ascontiguousarray(np.array(sq))
+        save('ui.vk-' + k, [cv], (ONE_S // 2, ONE_S // 2), f"pháp tượng {k} (ảnh GPT goc/{v['pt']}.png, quầng sáng như {PT_SHEET.name})"); n += 1
     for f, k in ONE.items():
         a = np.array(Image.open(SRC / f).convert('RGBA')); a[:, :, 3] = np.where(a[:, :, 3] >= 64, a[:, :, 3], 0)
         ys, xs = np.nonzero(a[:, :, 3]); c = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]

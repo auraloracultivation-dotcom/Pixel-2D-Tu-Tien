@@ -55,7 +55,7 @@ function thuCfg(read) {
     pet: { ids: Object.keys(P.pets), max: P.max_level, evo_max: E.max_level, evo_lv: E.level, evo_lt: E.coins, evo_mats: E.cost, exp: [P.exp_base, P.exp_pow], starter: P.starter_pet },
     comp: { ids: Object.keys(P.shop.puppets).filter(id => C.list[id]), max: C.max_level, exp: [C.exp_base, C.exp_pow], gia: P.shop.puppets },
     tech: { ids: Object.keys(T.list), max: T.max_level, exp: [T.exp_base, T.exp_pow], slots: T.slots, starter: T.starter },
-    cuoi: { ids: Object.keys(P.mounts), gia: P.shop.mounts, roi, starter: P.starter_mount },
+    cuoi: { ids: Object.keys(P.mounts), gia: P.shop.mounts, roi, starter: P.starter_mount, lenh: P.thu_lenh?.per_mount ?? null, lenh_ngay: P.thu_lenh?.daily_need ?? null },   // Thú Lệnh (migration 20261116230000_p2d_doi_moi_trang_bi.sql)
     dong: { pool: B.pool, phi: [B.reroll.coins, B.reroll.mul], mats: B.reroll.mats, mpool: B.mount.pool, mphi: B.mount.reroll.coins, mmats: B.mount.reroll.mats },
     thoi: { pool: FB.pool, bo, look: Object.keys(H.list), def: H.default, tn: Object.fromEntries(TP.shop.filter(x => x.outfit).map(x => [x.id, x.outfit])) },
     chieu: { ids: Object.keys(SK).filter(k => !k.startsWith('_')), max: K.max, mat: K.mat, book: [K.book_base, K.book_r], coins: [K.coins_base, K.coins_r] },

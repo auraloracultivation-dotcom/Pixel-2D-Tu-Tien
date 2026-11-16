@@ -341,5 +341,9 @@ import quai_moi_game  # noqa: E402
 print('Bộ Quái Mới (SpriteCook 16/11/2026, đè mob.* cũ):', quai_moi_game.build_into(MANIFEST))
 import thu_cuoi_moi_game  # noqa: E402
 print('16 thú cưỡi mới (SpriteCook 16/11/2026):', thu_cuoi_moi_game.build_into(MANIFEST))
+import trang_phuc_game  # noqa: E402
+print('16 trang phục mới làm nhân vật (SpriteCook 16/11/2026):', len(trang_phuc_game.build_into(MANIFEST)))
+import phap_tuong_game  # noqa: E402
+print('16 pháp tượng (SpriteCook 16/11/2026):', phap_tuong_game.build_into(MANIFEST))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

@@ -1,5 +1,5 @@
 // Linh thú (data/pets.json): thu phục từ quái dị chủng, đi theo đánh cùng, lên cấp bằng linh khí.
-// Thú cưỡi: tự lên khi đi trên đảo lúc yên, đánh nhau thì xuống.
+// Thú cưỡi: nhận bằng Thú Lệnh (việc ngày), lên / xuống bằng nút.
 import { talkBeastShop } from './beast-shop.js';
 import { hitMob, shoot, addFx, dist } from './combat.js';
 import { petDef, petMax } from './evolve.js';
@@ -20,8 +20,7 @@ export function maybeRare(game, m) {
 }
 
 export function petKill(game, m) {
-  const cfg = P(game), md = cfg.mount_drops[m.id];
-  if (md && Math.random() < md[1]) gainMount(game, md[0]);
+  const cfg = P(game);
   if (!m.rare) return;
   const id = m.id, def = cfg.pets[id];
   if (game.save.pets[id]) {   // đã có loài này: thêm kinh nghiệm và một bản sao để gộp
@@ -30,7 +29,6 @@ export function petKill(game, m) {
     game.toast(cfg.merge.texts.copy.replace('{name}', def.name).replace('{n}', st.copies), 2.4); game.newPets = true;
   }
   else gainPet(game, id);
-  if (def.mount && Math.random() < def.mount[1]) gainMount(game, def.mount[0]);
 }
 
 export function gainPet(game, id) {
@@ -63,7 +61,7 @@ export function gainPetExp(game, amount, only) {
 }
 
 export function setPet(game, id) { game.save.pet = id; spawnPet(game); game.refreshStats(); game.persist(); }   // thưởng bộ Đạo Vận tính linh thú cùng hệ
-export function setMount(game, id) { game.save.mount = id; game.player.riding = false; game.refreshStats(); game.persist(); }   // dòng % của thú cưỡi cộng vào chỉ số (src/game/beast.js)
+export function setMount(game, id) { game.save.mount = id; game.refreshStats(); game.persist(); }   // dòng % của thú cưỡi cộng vào chỉ số (src/game/beast.js)
 
 export function spawnPet(game) {
   const id = game.save.pet, p = game.player;
@@ -161,15 +159,25 @@ export function mergePet(game, id) {
   return true;
 }
 
-// Thú cưỡi: lên khi đang đi, không đánh nhau một lúc, không ở bí cảnh
+// Thú cưỡi (chủ dự án 16/11/2026 21:57): lên / xuống bằng nút Cưỡi / Xuống (src/ui/ride-btn.js), nhớ trong bản lưu (save.ride).
+// Cưỡi thì thú công kích (src/game/player.js mountSwing), người ngồi đả tọa, vũ khí vẫn hiện nhưng không dùng, pháp bảo dùng bình thường.
+// Không cưỡi được trong nhà và ngoài không gian (ngự kiếm, thien-mang.js)
+export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && game.save.mounts?.[id] && P(game).mounts[id] && !d.indoor && !d.space); };
 export function updateRide(game, dt) {
-  const p = game.player, id = game.save.mount;
+  const p = game.player;
   p.sword = !!game.map.def.space;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)
   p.calmT = (p.calmT || 0) + dt;
-  if (p.atkCd > 0 || p.invT > 0) { p.calmT = 0; p.riding = false; }
-  const ok = id && game.save.mounts[id] && !(game.map.def.rooms || []).length && !game.map.def.indoor && !game.map.def.space;   // vùng không gian: ngự kiếm (thien-mang.js)
-  if (!ok || p.meditating) { p.riding = false; return; }   // đả tọa thì xuống thú (chơi thử 01/11: ngồi đả tọa ở hội đèn mà vẫn cưỡi sói)
-  if (!p.riding && p.moving && p.calmT > P(game).ride_calm) { p.riding = true; game.sfx('pickup'); }
+  const was = p.riding; p.riding = !!game.save.ride && canRide(game);
+  if (p.riding && !was) p.meditating = false;
+}
+export function toggleRide(game) {
+  if (!canRide(game)) {
+    game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6);
+    return false;
+  }
+  game.save.ride = !game.save.ride; game.player.riding = game.save.ride; game.player.meditating = false;
+  game.sfx('pickup'); game.persist();
+  return true;
 }
 
 export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + P(game).mounts[game.save.mount].speed : 1;   // vùng không gian: ngự kiếm bay nhanh
@@ -180,9 +188,9 @@ export async function talkBeast(game, npc) {
   if (s.flags.nguThu) { await talkBeastShop(game, npc); return; }   // đã nhận linh thú đầu: bán thú cưỡi, khôi lỗi (src/game/beast-shop.js)
   await game.dialog.say([
     [name, 'Ngươi là đệ tử mới? Đệ tử Kiếm tông ai cũng nên có một linh thú bầu bạn.'],
-    [name, `Con ${cfg.pets[cfg.starter_pet].name} này ta nuôi từ hạt mầm, cho ngươi. Con ${cfg.mounts[cfg.starter_mount].name} cũng theo ngươi luôn: cứ đi trên đảo lúc yên ổn là nó chở.`],
+    [name, `Con ${cfg.pets[cfg.starter_pet].name} này ta nuôi từ hạt mầm, cho ngươi. Muốn thú cưỡi thì chăm làm nhiệm vụ ngày, gom đủ ${cfg.thu_lenh.per_mount} ${cfg.thu_lenh.name} rồi tới ta đổi con mình thích.`],
     [name, 'Muốn linh thú khác thì săn quái dị chủng: con nào ánh vàng quanh người, mạnh gấp mấy lần. Hạ được là thu phục được.'],
   ]);
   s.flags.nguThu = true;
-  gainPet(game, cfg.starter_pet); gainMount(game, cfg.starter_mount);
+  gainPet(game, cfg.starter_pet); if (cfg.starter_mount) gainMount(game, cfg.starter_mount);
 }
