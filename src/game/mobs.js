@@ -200,6 +200,6 @@ function meteor(game, m) {
   game.say(m.def.name, m.def.meteor.line || 'Thiêu rụi hết đi!', 1.2);
   for (let i = 0; i < mt.n; i++) {
     const a = Math.random() * Math.PI * 2, d = i ? 20 + Math.random() * 60 : 0;
-    addStrike(game, { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: mt.r, delay: mt.delay + i * 0.12, dmg: m.def.atk * mt.dmg, kind: 'meteor', color: mt.color || '#ff7a3a' });
+    addStrike(game, { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: mt.r, delay: mt.delay + i * 0.12, dmg: m.def.atk * mt.dmg, kind: 'meteor', color: mt.color || '#ff7a3a', src: m });   // src: Công của boss đọ Thủ của mình (luật mới)
   }
 }

@@ -6,6 +6,7 @@ import { mainStats } from './bag-detail.js';
 import { trial } from '../game/autoequip.js';
 import { power } from '../game/achieve.js';
 import { playerStats } from '../game/stats.js';
+import { lineText, gemText } from './hc-text.js';
 
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
@@ -23,13 +24,13 @@ export function itemStats(game, it) {
   const d = game.data, T = d.market.stats, box = el('div', 'it-stats');
   for (const [s, v] of Object.entries(mainStats(d, game.save, it))) box.append(el('span', 'd-main', statText(d, s, v)));
   for (const l of it.lines || []) {
-    const t = Number.isInteger(l.t) && d.items.line_tiers.list[l.t], x = el('span', 'd-line', `◆ ${statText(d, l.s, l.v)}`);
+    const t = Number.isInteger(l.t) && d.items.line_tiers.list[l.t], x = el('span', 'd-line', `◆ ${lineText(d, l)}`);
     if (t) { x.style.color = t.edge ? '#ff8a8a' : t.color; x.title = t.name; }
     box.append(x);
   }
   for (const g of it.sockets || []) {
     const gi = g && gemInfo(d, g);
-    const c = el('span', `it-gem${gi ? '' : ' empty'}`, gi ? `${gi.name}: ${statText(d, gi.stat, gi.value)}` : T.gem_empty);
+    const c = el('span', `it-gem${gi ? '' : ' empty'}`, gi ? `${gi.name}: ${gemText(d, g)}` : T.gem_empty);
     if (gi) { c.style.borderColor = gi.color; c.style.color = gi.color; }
     box.append(c);
   }

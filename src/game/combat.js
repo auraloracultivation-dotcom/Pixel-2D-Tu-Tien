@@ -11,6 +11,7 @@ import { vfxHit, vfxOf } from './vfx.js';
 import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
 import { hit2On, hitFeel, numUp } from './hit-feel.js';   // cảm giác ra đòn kiểu mới (docs/10-CAI-HON.md việc 2)
 import { hurt2On, hurtFeel, hurtUp } from './hurt-feel.js';   // cảm giác bị đánh kiểu mới (việc 3)
+import { takeK, hitAtk, mobTake } from './he-chien.js';   // luật chiến đấu mới: Công đọ Thủ
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -49,7 +50,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   let crit = false;
   if (own && opt.canCrit !== false && Math.random() < p.st.crit) { dmg *= p.st.critMult; crit = true; }
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
-  if (own) dmg *= rageMul(game, m) * cpOut(game, m);   // Bạo Nộ (src/game/juice.js); áp chế lực chiến (cp-press.js)
+  if (own) dmg *= rageMul(game, m) * cpOut(game, m) * (opt.reflect ? 1 : mobTake(p.st.atk, m));   // Bạo Nộ (src/game/juice.js); áp chế lực chiến (cp-press.js); luật mới: Công đọ Thủ của quái (he-chien.js)
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
@@ -103,7 +104,8 @@ export function hitPlayer(game, dmg, from) {
   const p = game.player, who = from?.def ? from : from?.src;   // quái vừa đánh trúng mình (tự hành gục thì tránh loài này)
   if ((p.invT > 0 && !who?.duel) || p.dashT > 0 || game.paused) return;   // bản sao so tài (game/duel.js): đòn nào cũng trúng, như đòn mình đánh nó
   if (who?.def) game.lastHit = who;
-  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0)) * (1 - (p.pbDr || 0))));   // pbDr: đứng trong vùng Trận Kỳ (src/game/phap-bao-run.js)   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
+  if (p.st.hc) dmg = Math.max(1, Math.round(dmg * takeK(hitAtk(who, dmg), p.st.def) * (1 - (p.pbDr || 0))));   // luật mới (he-chien.js): Công kẻ đánh đọ Thủ của mình, Công gấp đôi Thủ thì ăn 2/3 đòn
+  else dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - p.st.def) * (1 - (p.st.dr || 0)) * (1 - (p.pbDr || 0))));   // pbDr: đứng trong vùng Trận Kỳ (src/game/phap-bao-run.js)   // phòng ngự trừ thẳng nhưng luôn còn một phần đòn; dr: công pháp giảm sát thương %
   if (who?.def) dmg = Math.max(1, Math.round(dmg * cpIn(game, who)));   // áp chế lực chiến: quái mạnh hơn đánh đau hơn (cp-press.js)
   if (who?.dmgMul) dmg = Math.max(1, Math.round(dmg * who.dmgMul));   // so tài: đòn hai bên cùng nhẹ đi cho trận kéo dài (data/duel.json dmg)
   if (p.shield > 0) {

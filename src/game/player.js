@@ -28,6 +28,7 @@ import { songTuMul } from './affinity.js';
 import { homeMul, teaMul } from './home.js';
 import { bump } from './achieve.js';
 import { startStrike, updateFlyWeapon, weaponPoint } from './flyweapon.js';
+import { mobTake } from './he-chien.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -81,9 +82,9 @@ export function basicMul(game) {
 // Đánh thường kiểu ngự kiếm (flyweapon.js): người vận lực, vũ khí sau lưng lao ra; sát thương tính lúc vũ khí tới nơi (p.hitQ)
 function swing(game) {
   const p = game.player, w = game.data.weapons[weaponId(game.save, game.data)], dmg = p.atk * basicMul(game);
-  p.dmgRef = dmg;   // mốc so cỡ số sát thương (src/render/draw-numbers.js)
   // Tự quay về phía quái gần nhất (dễ đánh trên điện thoại)
   const target = nearestMob(game, reachW(game, w) + 24);
+  p.dmgRef = dmg * mobTake(p.st.atk, target);   // mốc so cỡ số sát thương (src/render/draw-numbers.js); luật mới: đã trừ Thủ của quái
   if (target) {
     const a = Math.atan2(target.y - p.y, target.x - p.x);
     p.face = { x: Math.cos(a), y: Math.sin(a) };
