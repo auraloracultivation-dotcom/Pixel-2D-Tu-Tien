@@ -1,0 +1,103 @@
+{
+ "_note": "Bộ 16 trang phục mới (chủ dự án 16/11/2026 18:24): ảnh tĩnh ở tinh/NN.png, cỡ điểm game (1 điểm = 0,5333 đơn vị); ten: tên tả tạm.",
+ "k": 0.1638,
+ "cao": 50,
+ "ds": [
+  {
+   "n": 1,
+   "ten": "Huyết y kiếm khách",
+   "w": 47,
+   "h": 51
+  },
+  {
+   "n": 2,
+   "ten": "Băng vương",
+   "w": 43,
+   "h": 50
+  },
+  {
+   "n": 3,
+   "ten": "Tử hoa tiểu thư",
+   "w": 44,
+   "h": 48
+  },
+  {
+   "n": 4,
+   "ten": "Đào hoa tiên tử",
+   "w": 44,
+   "h": 49
+  },
+  {
+   "n": 5,
+   "ten": "Băng lam tiên nữ",
+   "w": 45,
+   "h": 47
+  },
+  {
+   "n": 6,
+   "ten": "Hỏa bào vương gia",
+   "w": 47,
+   "h": 50
+  },
+  {
+   "n": 7,
+   "ten": "Mộc linh tiên tử",
+   "w": 45,
+   "h": 50
+  },
+  {
+   "n": 8,
+   "ten": "Ngân phát hắc bào",
+   "w": 45,
+   "h": 50
+  },
+  {
+   "n": 9,
+   "ten": "Long giác tiên cơ",
+   "w": 45,
+   "h": 50
+  },
+  {
+   "n": 10,
+   "ten": "Lam hoa thiếu nữ",
+   "w": 45,
+   "h": 47
+  },
+  {
+   "n": 11,
+   "ten": "Hắc phát hoàng tử",
+   "w": 44,
+   "h": 50
+  },
+  {
+   "n": 12,
+   "ten": "Tử đinh hương",
+   "w": 46,
+   "h": 50
+  },
+  {
+   "n": 13,
+   "ten": "Thanh long cơ",
+   "w": 46,
+   "h": 50
+  },
+  {
+   "n": 14,
+   "ten": "Xích hồ công tử",
+   "w": 48,
+   "h": 49
+  },
+  {
+   "n": 15,
+   "ten": "Huyết hoa bạch phát",
+   "w": 47,
+   "h": 49
+  },
+  {
+   "n": 16,
+   "ten": "Đấu lạp hiệp khách",
+   "w": 50,
+   "h": 51
+  }
+ ]
+}

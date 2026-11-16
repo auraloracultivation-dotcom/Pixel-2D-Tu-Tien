@@ -1,5 +1,5 @@
 // Quay thử 16 thú cưỡi mới trong game ở đúng cỡ điện thoại (chủ dự án 16/11/2026 17:35 "Tạo đi, tạo 16 thú cưỡi"):
-//   node tools/do-don/quay-thu-cuoi.mjs <thư mục ra> [mã thú …] [--giay=N]
+//   node tools/do-don/quay-thu-cuoi.mjs <thư mục ra> [mã thú …] [--giay=N] [--cao=N]
 // Mỗi con: người chơi cưỡi đứng yên (đứng nghỉ 8 khung), chạy sang phải, quay đầu chạy sang trái; người cưỡi đứng theo yên từng khung
 // (data/art.json → mount.<mã>.seat / seat_x). Thú chưa có trong data/pets.json (chờ chủ dự án chốt cách có thú) thì chỉ thêm tạm trong trang
 // để quay. Ra: <thư mục ra>/<mã>/f-0001.jpg… (30 khung / giây, dải ngang quanh người chơi); ghép mp4 bằng ffmpeg.
@@ -11,7 +11,7 @@ const argv = process.argv.slice(2), opt = Object.fromEntries(argv.filter(a => a.
 const [out, ...ids0] = argv.filter(a => !a.startsWith('--'));
 const art = JSON.parse(readFileSync(new URL('../../data/art.json', import.meta.url), 'utf8')).sprites;
 const ids = ids0.length ? ids0 : Object.keys(art).filter(k => k.startsWith('mount.') && art[k].idle).map(k => k.slice(6));
-const FPS = 30, SECS = +(opt.giay || 4), HIGH = 520;
+const FPS = 30, SECS = +(opt.giay || 4), HIGH = +(opt.cao || 520);   // --cao: chiều cao khung quay (điểm máy)
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true, locale: 'vi-VN' });
 await ctx.route(/posthog\.com|supabase\.co|workers\.dev/, r => r.abort());
