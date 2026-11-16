@@ -1,0 +1,43 @@
+{
+ "note": "SpriteCook asset của 16 pháp tượng (chủ dự án 16/11/2026 20:36 gửi bảng ảnh GPT 4×4 goc/bang-16.png, 20:44 \"Làm trước cho tui 1 cái pháp tượng trên spritecook xem đi, tận dụng tối đa giá trị credit, hiệu ứng linh lực\"). Ảnh tĩnh tinh/NN.png: cắt từ bảng (alpha ≥ 128), thu về rộng 128 (lỗ giữa ôm vừa đầu người ngồi xếp bằng, cỡ game), 32 màu, không viền mực (pháp tượng là ánh sáng). Chuyển động sc/NN.webp: pixel-engine-v1.1 (SpriteCook khuyên dùng cho vòng lặp, 20 credit, giá không đổi theo số khung) 16 khung, tắt tự viết câu lệnh, có negative prompt, vertical_align center, edge_margin 8, matte #0000ff, colors 32. #01 (20:48–20:50): đúng 20 credit, còn 753; khung 152×152, vòng lặp khép (khung 15 → 0 lệch mặt nạ 3%), 16 màu; lửa bập bùng, linh lực chạy, kim cương lóe, đốm lửa bay.",
+ "params": {
+  "model": "pixel-engine-v1.1",
+  "output_frames": 16,
+  "credits_per_animation": 20,
+  "auto_enhance_prompt": false,
+  "edge_margin": 8,
+  "vertical_align": "center",
+  "colors": 32,
+  "removebg": "Basic"
+ },
+ "assets": [
+  {
+   "n": 1,
+   "kind": "tinh",
+   "asset_id": "b4508c91-93c8-4a01-a90d-5403fbde16ed",
+   "file": "tinh/01.png",
+   "sha12": "5e6cbcfef531",
+   "size": "128x102"
+  },
+  {
+   "n": 1,
+   "kind": "dong",
+   "asset_id": "c6892ea5-4e38-497e-94a0-0493fe1e5d2a",
+   "file": "sc/01.webp",
+   "sha12": "01348e292143",
+   "size": "152x152x16"
+  }
+ ],
+ "jobs": [
+  {
+   "n": 1,
+   "job_id": "f049cf29-8805-4192-b857-78dedae5e70f",
+   "credits": 20,
+   "matte": "#0000ff",
+   "status": "xong",
+   "asset_id": "c6892ea5-4e38-497e-94a0-0493fe1e5d2a",
+   "prompt": "A glowing golden flame emblem floating in the air, front view and symmetrical: two great curved branches of golden fire form a ring around an empty heart-shaped center, flame tongues curl outward along both sides and at the bottom, and a bright white-gold diamond crystal sits at the top center. Seamless looping animation of glowing spiritual energy: every flame tongue flickers and dances upward like living fire, bright waves of golden light run along both fire branches from the bottom up into the diamond crystal, the diamond crystal pulses brighter and flashes a small four-pointed white star sparkle, and tiny glowing golden embers rise and drift upward around the emblem and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first.",
+   "negative_prompt": "background, sky, ground, shadow, person, character, creature, face, text, border, frame, smoke, rotation, camera movement, zoom, shape change, blur"
+  }
+ ]
+}
