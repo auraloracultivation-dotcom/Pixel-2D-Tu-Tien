@@ -1,0 +1,151 @@
+{
+ "note": "SpriteCook asset của Bộ Quái Mới (chủ dự án 16/11/2026: làm toàn bộ bằng SpriteCook). Ảnh tĩnh ở tinh/, chuyển động đã làm sạch nền ở sc/ (8 khung, 125 ms, nền trong suốt, cùng cỡ điểm với ảnh tĩnh).",
+ "params": {
+  "model": "pixel-engine-v1.5",
+  "output_frames": 8,
+  "credits_per_animation": 26,
+  "auto_enhance_prompt": false,
+  "matte_color": "#00ff00",
+  "vertical_align": "center",
+  "edge_margin": 6
+ },
+ "assets": [
+  {
+   "n": 1,
+   "kind": "still",
+   "label": "Quái mới #01 Tiểu ma (tĩnh)",
+   "asset_id": "b6cb18f8-d806-4d91-a6e7-4d1049cca24b",
+   "file": "tinh/01.png",
+   "sha12": "2b5c4239107a",
+   "size": "44x38"
+  },
+  {
+   "n": 1,
+   "kind": "animation",
+   "motion": "dung",
+   "source_asset_id": "b6cb18f8-d806-4d91-a6e7-4d1049cca24b",
+   "asset_id": "f1d0a652-3b5f-4fbd-8233-9371b0d89c8b",
+   "file": "sc/01-dung.webp",
+   "sha12": "80aac2cfe3a1",
+   "size": "52x52",
+   "check": "ok",
+   "prompt": "The small purple imp hovers in place facing right, gently bobbing up and down by one or two pixels in a calm breathing rhythm. Its purple bat wing flaps slowly, the two ends of its red scarf flutter slightly, and the two small lavender flame wisps floating at its left and right sides flicker in place. Keep every detail of the character identical in every frame: the two curved crimson horns, the pale white face with two slanted yellow eyes, the purple bat wing, the red scarf, the tattered purple cloak and both lavender flame wisps must stay clearly visible and unchanged in shape and color. The imp stays centered on the same spot and does not turn around."
+  },
+  {
+   "n": 1,
+   "kind": "animation",
+   "motion": "di",
+   "source_asset_id": "b6cb18f8-d806-4d91-a6e7-4d1049cca24b",
+   "asset_id": "11e57788-85ce-4176-bd25-7cf343732db6",
+   "file": "sc/01-di.webp",
+   "sha12": "a03d640a6b81",
+   "size": "52x52",
+   "check": "ok",
+   "prompt": "The small purple imp flies forward to the right while staying centered in place, like a flying loop: its body tilts slightly forward, its purple bat wing beats quickly up and down, the tattered purple cloak and the two ends of the red scarf stream backward, and the two small lavender flame wisps trail a little behind it. Keep every detail identical in every frame: the two curved crimson horns, the pale white face with two slanted yellow eyes, the bat wing, the red scarf, the tattered cloak and both lavender flame wisps stay clearly visible and unchanged in shape and color. The imp keeps facing right and does not move across the frame."
+  },
+  {
+   "n": 1,
+   "kind": "animation",
+   "motion": "danh",
+   "source_asset_id": "b6cb18f8-d806-4d91-a6e7-4d1049cca24b",
+   "asset_id": "8b750efb-279e-498c-b550-d43f8bd26ef8",
+   "file": "sc/01-danh.webp",
+   "sha12": "a510685e80d7",
+   "size": "52x52",
+   "check": "ok",
+   "prompt": "The small purple imp attacks to the right: it first draws back, pulling its body and wing back for a moment, then lunges forward and slashes with a quick claw swipe while its bat wing spreads wide, then returns to its hovering pose where it started. Keep every detail identical in every frame: the two curved crimson horns, the pale white face with two slanted yellow eyes, the bat wing, the red scarf, the tattered purple cloak and both lavender flame wisps stay clearly visible and unchanged in shape and color. The imp keeps facing right."
+  },
+  {
+   "n": 2,
+   "kind": "still",
+   "label": "Quái mới #02 Ma tiễn (tĩnh)",
+   "asset_id": "6f142b53-96e1-4915-bbe0-21c70d957683",
+   "file": "tinh/02.png",
+   "sha12": "5c17bf972290",
+   "size": "50x44"
+  },
+  {
+   "n": 2,
+   "kind": "animation",
+   "motion": "dung",
+   "source_asset_id": "6f142b53-96e1-4915-bbe0-21c70d957683",
+   "asset_id": "44aa9f4c-fb07-4e09-99f7-1ea8e296f081",
+   "file": "sc/02-dung.webp",
+   "sha12": "b1bf1771dc74",
+   "size": "58x58",
+   "check": "ok",
+   "prompt": "The lavender smoke ghost floats in place facing right, gently bobbing up and down by one or two pixels while its wispy smoke body slowly swirls and its smoke tails wave softly. It keeps holding the long arrow steady, pointing down and to the right. Keep every detail identical in every frame: the dark purple hood with two short horns, the white mask face with two red eyes, the swirling lavender smoke body and the full long arrow with its dark shaft and pink-white arrowhead stay clearly visible and unchanged in shape and color. The ghost stays centered on the same spot."
+  },
+  {
+   "n": 2,
+   "kind": "animation",
+   "motion": "di",
+   "source_asset_id": "6f142b53-96e1-4915-bbe0-21c70d957683",
+   "asset_id": "98b3be6c-13f6-4e76-b14d-6a55b67b6f51",
+   "file": "sc/02-di.webp",
+   "sha12": "7c30dc9679fb",
+   "size": "58x58",
+   "check": "ok",
+   "prompt": "The lavender smoke ghost glides forward to the right while staying centered in place: its body leans slightly forward and its smoke tails stream out behind it in long waves, while it keeps holding the long arrow pointing forward. Keep every detail identical in every frame: the dark purple hood with two short horns, the white mask face with two red eyes, the lavender smoke body and the full arrow with its dark shaft and pink-white arrowhead stay clearly visible and unchanged in shape and color. It keeps facing right and does not move across the frame."
+  },
+  {
+   "n": 2,
+   "kind": "animation",
+   "motion": "danh",
+   "source_asset_id": "6f142b53-96e1-4915-bbe0-21c70d957683",
+   "asset_id": "73aab3a9-1cea-4b53-bd6d-21cbcc8f0bdc",
+   "file": "sc/02-danh.webp",
+   "sha12": "b043c3726395",
+   "size": "58x58",
+   "check": "warn",
+   "check_note": "khung cuối mũi tên nằm ngang, dáng đứng chúc xuống: nối bằng code",
+   "prompt": "The lavender smoke ghost attacks to the right: it pulls the long arrow back toward its body to wind up while its smoke swells, then thrusts the arrow sharply forward to the right in a quick throwing jab and immediately settles back to its starting pose. The arrow never leaves its grip and stays whole in every frame. Keep the dark purple hood with two short horns, the white mask face with two red eyes, the lavender smoke body and the pink-white arrowhead clearly visible and unchanged in shape and color in every frame. It keeps facing right."
+  },
+  {
+   "n": 3,
+   "kind": "still",
+   "label": "Quái mới #03 Phân thân Huyết Nha (tĩnh)",
+   "asset_id": "83085f44-be01-43d9-996c-2615fff4e386",
+   "file": "tinh/03.png",
+   "sha12": "011a3bfaa4bd",
+   "size": "96x84"
+  },
+  {
+   "n": 3,
+   "kind": "animation",
+   "motion": "dung",
+   "source_asset_id": "83085f44-be01-43d9-996c-2615fff4e386",
+   "asset_id": "7c1b1c37-837f-4e16-bd9a-a28d9c209ea9",
+   "file": "sc/03-dung.webp",
+   "sha12": "61fcbc39beae",
+   "size": "108x108",
+   "check": "ok",
+   "prompt": "Three white wolf heads with glowing red eyes snarl and sway out of sync, each head bobbing slightly at its own rhythm, while the dark maroon smoky mane around them billows and the crimson flame wisps behind them flicker. Keep every detail identical in every frame: all three white wolf heads with their red eyes, pointed ears and open snarling jaws, the dark maroon smoky mane and the crimson flame wisps stay clearly visible and unchanged in shape and color. The cluster faces right and stays centered on the same spot."
+  },
+  {
+   "n": 3,
+   "kind": "animation",
+   "motion": "di",
+   "source_asset_id": "83085f44-be01-43d9-996c-2615fff4e386",
+   "asset_id": "7a7716ec-a4d0-4790-9337-d5e18106c2a6",
+   "file": "sc/03-di.webp",
+   "sha12": "8924079962cf",
+   "size": "108x108",
+   "check": "ok",
+   "prompt": "The cluster of three white wolf heads surges forward to the right while staying centered in place, like a running loop: the three heads bob up and down in turn while the dark maroon smoky mane and the crimson flame wisps stream backward. Keep every detail identical in every frame: all three white wolf heads with their red eyes, pointed ears and open jaws, the dark maroon smoky mane and the crimson flame wisps stay clearly visible and unchanged in shape and color. It keeps facing right and does not move across the frame."
+  },
+  {
+   "n": 3,
+   "kind": "animation",
+   "motion": "danh",
+   "source_asset_id": "83085f44-be01-43d9-996c-2615fff4e386",
+   "asset_id": "8a478cfb-2b08-4294-8047-98ea3447872c",
+   "file": "sc/03-danh.webp",
+   "sha12": "e376abdcc168",
+   "size": "108x108",
+   "check": "bad",
+   "check_note": "khung 4–6 chỉ thấy 2 đầu, khung 5–7 bờm khói hoá lửa đỏ; chờ chủ dự án chấm",
+   "prompt": "The three white wolf heads attack to the right: they rear back together, then lunge forward one after another, snapping their jaws open and shut in a quick staggered bite, while the dark maroon smoky mane flares and the crimson flame wisps burst brighter, then all return to the starting pose. Keep every detail identical in every frame: all three white wolf heads with their red eyes, pointed ears and jaws, the dark maroon smoky mane and the crimson flame wisps stay clearly visible and unchanged in shape and color. The cluster keeps facing right and stays centered."
+  }
+ ]
+}
