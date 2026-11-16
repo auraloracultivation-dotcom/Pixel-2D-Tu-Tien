@@ -171,6 +171,7 @@ export function updatePlayer(game, dt) {
     p.face = { x: ax.x / d, y: ax.y / d };
     p.walkT += dt;
   }
+  if (auto.face) p.face = auto.face;   // Tự đánh đang lùi giữ khoảng cách: bước lùi, mặt vẫn hướng quái (auto.js keepStep)
 
   if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = swing(game); }
   if (p.hitQ && (p.hitQ.t -= dt) <= 0) { const q = p.hitQ; p.hitQ = null; strike(game, q); }

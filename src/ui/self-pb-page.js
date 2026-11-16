@@ -112,7 +112,7 @@ export function pbSheet(game, st, box, changed, close) {
   // chỉ số, mô tả
   const stats = el('div', 'd-stats'), S = D.stats;
   stats.append(el('div', 'd-main', Object.entries(pbItemStats(D, it)).map(([k, v]) => `${S[k] || k} +${v}${PCT.has(k) ? '%' : ''}`).join(' · ')));
-  stats.append(el('div', 'd-line', `${T.desc} Hồi ${T.cd} giây · ${T.mp} linh lực.`), el('div', 'd-line spb-gb', `Mạnh: ${T.good} · Yếu: ${T.bad}`));
+  stats.append(el('div', 'd-line', `${T.desc} Hồi ${T.cd >= 60 ? `${(T.cd / 60).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} phút` : `${T.cd} giây`} · ${T.mp} linh lực.`), el('div', 'd-line spb-gb', `Mạnh: ${T.good} · Yếu: ${T.bad}`));
   box.append(stats);
   // chiêu khảm theo nhóm
   for (const [grp, gname] of Object.entries(D.mod_groups)) {

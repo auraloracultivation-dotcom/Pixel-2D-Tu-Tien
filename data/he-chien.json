@@ -15,6 +15,11 @@
     "pill": 5
   },
   "_extra_cap": "Chủ dự án 16/11/2026 16:20 \"thưởng nhỏ có trần\": công pháp, bộ đồ, Đạo Vận, đan Bồi Nguyên theo luật cũ đổi ra %, mỗi nguồn mỗi chỉ số tối đa số này tính theo Công % tương đương (nhân tỷ giá dòng line_f: Máu × 1,52, Thủ × 3,9, ST bạo × 12…). Thời trang: dòng của bộ đang mặc tính như một dòng tẩy luyện cùng màu. Cảnh giới gia trì (máu, công × %) bỏ vì thang cảnh giới mới đã thay.",
+  "summon_k": {
+    "hp": 0.5,
+    "atk": 0.3
+  },
+  "_summon_k": "Đệ tử boss, thủ lĩnh gọi ra (70% và 35% máu) chỉ còn chừng này máu, công so với quái cùng loài (src/game/mobs.js summonK). Chủ dự án 16/11/2026 đổi pháp bảo hồi 2–5 phút: không còn chiêu quét đệ tử liên tục, đo bằng Playwright sáu Độc Đằng bắn xa nguyên sức làm tu sĩ Kim Đan chuẩn gục trước Cổ Thụ Yêu Vương. Bỏ khoá này thì đệ tử như quái thường.",
   "skip_mobs": [
     "dau-si",
     "dau-si-xa",
@@ -33,74 +38,85 @@
       4,
       9,
       17,
-      22
+      22,
+      33
     ],
     "hp": {
       "thuong": [
-        0.7,
-        3.4,
-        3.4,
-        2.4
+        0.35,
+        1.05,
+        0.87,
+        0.72,
+        0.61
       ],
       "tinh_anh": [
-        0.85,
-        5.8,
-        5.8,
-        3.6
+        0.43,
+        1.46,
+        1.24,
+        1.05,
+        0.7
       ],
       "thu_linh": [
-        1,
-        6.5,
-        6.5,
-        4
+        0.5,
+        2.4,
+        2.02,
+        1.7,
+        1.28
       ],
       "boss_dao": [
-        1,
-        7.6,
-        7.6,
-        5.0
+        0.5,
+        2.3,
+        1.79,
+        1.37,
+        1.3
       ],
       "boss": [
-        1,
-        6.7,
-        6.7,
-        4.8
+        0.5,
+        2.07,
+        1.61,
+        1.23,
+        1.17
       ]
     },
     "atk": {
       "thuong": [
         1,
-        2.7,
-        2.7,
-        2
+        2.0,
+        1.81,
+        1.66,
+        1.2
       ],
       "tinh_anh": [
         1,
-        3.2,
-        3.2,
-        1.9
+        2.3,
+        1.65,
+        1.1,
+        0.9
       ],
       "thu_linh": [
         1,
-        3,
-        3,
-        1.6
+        2.6,
+        1.59,
+        0.75,
+        1.07
       ],
       "boss_dao": [
         1,
-        2.8,
-        2.8,
-        2.0
+        1.35,
+        1.21,
+        1.1,
+        0.9
       ],
       "boss": [
         1,
-        3.8,
-        3.8,
-        2.7
+        1.82,
+        1.63,
+        1.49,
+        1.22
       ]
     }
   },
-  "_game_k": "Chủ dự án 16/11/2026 17:29–17:40: \"Kim Đan mà 40k lực chiến, tất cả đảo tới được đều dễ farm kể cả boss\". Đo bằng Playwright (nhân vật đủ bộ như tu sĩ chuẩn, dùng chiêu pháp bảo, không né): trận thật người chơi gây sát thương gấp khoảng 5 lần mô hình (pháp bảo, linh thú, đánh thường), Kim Đan hạ boss đảo 20 giây còn 80% máu. Hệ số máu (hp) và công (atk) của quái trong trận thật theo vai trò, mốc tầng [4, 9, 17, 22]: tầng 0–4 giữ như cũ (người mới, bài chơi thử Tự hành), Trúc Cơ (tầng 9–17) cần nhiều hơn Kim Đan (đo được: cùng hệ số thì đảo Trúc Cơ dễ hơn hẳn), từ Kim Đan trở lên giữ mốc cuối. Đích: người chuẩn đánh quái đúng đảo của mình, không né: quái thường vài giây, tinh anh 12–20 giây còn nửa máu, thủ lĩnh 30–45 giây nguy hiểm, boss đảo 60–90 giây còn dưới 20% máu.",
+  "_game_k": "Hệ số máu (hp) và công (atk) của quái trong trận thật theo vai trò, nối thẳng giữa các mốc tầng tang, ngoài mốc cuối giữ nguyên (src/game/he-chien.js gameK). Lần 1 (16/11/2026 17:29–17:40, chủ dự án: \"Kim Đan mà 40k lực chiến, tất cả đảo tới được đều dễ farm kể cả boss\"): đo bằng Playwright, người chơi gây sát thương gấp khoảng 5 lần mô hình vì pháp bảo hồi 2,5–12 giây, quái × 3–8 máu. Lần 2 (16/11/2026 18:1x, chủ dự án đổi pháp bảo hồi 2–5 phút): đo lại bằng Tự đánh thật (nhân vật đủ bộ như tu sĩ chuẩn cảnh giới đó; quái thường, tinh anh đánh lúc pháp bảo đang hồi; thủ lĩnh, boss có pháp bảo mở màn một lượt; không né, không uống đan), mốc [4, 9, 17, 22, 33], tầng 0–4 giữ như cũ cho người mới. Mục tiêu: quái thường 3–5 giây; tinh anh 12–18 giây còn 40–70% máu; thủ lĩnh 30–45 giây còn 30–50%; boss đảo 60–90 giây còn 10–50%. Bảng đo: docs/11-HE-CHIEN-DAU.md mục 12. Tầng 0–4 máu × 0,5 so với trước (người mới mất Phi Kiếm hồi 2,5 giây, Bí cảnh Huyết Nha của bài chơi thử Tự hành từ 26 giây thành 39 giây; × 0,5 về lại 26 giây).",
   "dun_step_mul": 1.15,
   "demon_role": "boss_dao",
   "_skip": "skip_mobs: bản sao người chơi (Luận Võ Đài, Tâm Ma) lấy chỉ số của người, không đổi. dun_step_mul: bí cảnh không đáy mỗi bậc quái × số này thay cho × 2 của luật cũ (một cảnh giới mới chỉ mạnh × 1,8). demon_role: Ma Vương tuần là boss đảo của cảnh giới mở Phương Thiên Địa, rồi nhân theo bậc như cũ.",

@@ -36,7 +36,9 @@ export function pbHud(game) {
       if (url || !T) { lbl.textContent = name; b.style.backgroundImage = url; b._pbIcon = T?.icon || ''; }
       if (T) b.style.setProperty('--gc', pbGrade(game, it).color); else b.style.removeProperty('--gc');
     }
-    const max = p.pbCdMax?.[i] || T?.cd || 1;
-    css(b, '--cd', (it ? Math.max(0, p.skillCd[i]) / max : 0).toFixed(3));
+    const max = p.pbCdMax?.[i] || T?.cd || 1, left = it ? Math.max(0, p.skillCd[i]) : 0, cd = b.querySelector('.cd');
+    css(b, '--cd', (left / max).toFixed(3));
+    const t = left >= 1 ? (left >= 60 ? `${Math.floor(left / 60)}:${String(Math.floor(left % 60)).padStart(2, '0')}` : `${Math.ceil(left)}`) : '';
+    if (cd && cd.dataset.t !== t) cd.dataset.t = t;   // hồi 2–5 phút (chủ dự án 16/11/2026): hiện thời gian còn lại trên nút
   }
 }

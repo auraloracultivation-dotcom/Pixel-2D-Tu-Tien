@@ -3,6 +3,7 @@
 // mới đánh quái thường. 10:43: không ép ai farm boss — bật ở chỗ khác (xa boss quá boss_on) thì không đánh boss, như trước.
 // Trong động phủ thì đánh Mộc Nhân.
 import { dist } from './combat.js';
+import { reachOf as mobReach } from './mob-power.js';
 import { skillSlots } from './skills.js';
 import { pbOn, pbWorn } from './phap-bao.js';
 import { weaponId } from './stats.js';
@@ -79,8 +80,10 @@ const nearBoss = game => { const p = game.player, r = game.data.config.auto.boss
 
 export const toward = (p, x, y) => { const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy) || 1; return { x: dx / d, y: dy / d }; };
 
-// Đánh một con: áp sát tới tầm vũ khí, đánh thường, bấm chiêu đã hồi
-export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)]; return w.range * (w.attack === 'shot' ? 0.7 : 0.6 * (game.data.config.slash?.far || 1)) + tgt.r; };   // chém: tầm theo vệt chém (player.js reachW)
+// Đánh một con: tới tầm vũ khí, đánh thường, bấm chiêu đã hồi. Tầm chém = tầm vệt chém (player.js reachW: tầm × slash.far) × keep.slash;
+// tắt keep thì như cũ (× 0.6, áp sát vào hình quái lớn)
+const keepCfg = game => { const K = game.data.config.auto?.keep; return K?.on ? K : null; };
+export const reachOf = (game, tgt) => { const w = game.data.weapons[weaponId(game.save, game.data)], K = keepCfg(game); return w.range * (w.attack === 'shot' ? K?.shot ?? 0.7 : (K?.slash ?? 0.6) * (game.data.config.slash?.far || 1)) + tgt.r; };
 export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   const p = game.player, bd = dist(tgt, p), reach = reachOf(game, tgt), see = clearShot(game, p, tgt);
   const slots = pbOn(game) ? pbWorn(game) : skillSlots(game);   // hệ pháp bảo mới: tự đánh bấm 3 nút pháp bảo
@@ -88,7 +91,37 @@ export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
     for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
     if ((p.artCd || 0) <= 0) game.input.pressed.add('art');   // góp ý #111: chiêu pháp bảo đã hồi thì tự dùng (không có pháp bảo thì nút không làm gì)
   }
-  return bd > reach || !see ? { ax: toward(p, tgt.x, tgt.y), atk: false } : { ax, atk: true };
+  if (bd > reach || !see) { p.keepOut = null; return { ax: toward(p, tgt.x, tgt.y), atk: false }; }
+  return keepStep(game, tgt, bd, reach, ax);
+}
+
+// Giữ khoảng cách (chủ dự án 16/11/2026 18:1x: "khi auto luôn duy trì khoảng cách vừa đủ tầm chém thường với quái và vừa đủ tầm chém
+// của quái, không sát dính lại nhau"): đứng trong tầm mình mà chờ quái tự tới mép tầm của nó (mobs.js: quái đứng lại khi vừa vào tầm);
+// quái lấn vào dưới keep × back thì lùi tới keep, mặt vẫn hướng quái, vẫn chém. Lùi tối đa back_max giây (vướng tường, bị vây), sau đó
+// nghỉ back_rest giây; sau lưng là tường thì đứng đánh. Số ở data/config.json → auto.keep.
+function keepStep(game, tgt, bd, reach, ax) {
+  const p = game.player, K = keepCfg(game), now = game.time || 0;
+  if (!K || Math.hypot(ax.x, ax.y) > 0.1) return { ax, atk: true };
+  const keep = keepDist(game, tgt, reach);
+  let k = p.keepOut;
+  if (k && (k.m !== tgt || bd >= keep || now - k.t0 > K.back_max)) { if (k.m === tgt && bd < keep) p.keepRest = now + K.back_rest; p.keepOut = k = null; }
+  if (!k && bd < keep * K.back && now >= (p.keepRest || 0)) k = p.keepOut = { m: tgt, t0: now };
+  const dir = k && backDir(game, p, Math.atan2(p.y - tgt.y, p.x - tgt.x));
+  if (!dir) return { ax, atk: true };
+  return { ax: { x: dir.x * K.back_speed, y: dir.y * K.back_speed }, atk: true, face: toward(p, tgt.x, tgt.y) };
+}
+
+// Hướng lùi: thẳng ra xa quái; sau lưng vướng tường, cây thì chếch 45°, 90° (trượt dọc vật cản); kẹt cả thì null (đứng đánh)
+const SIDE = [0, 0.785, -0.785, 1.571, -1.571];
+function backDir(game, p, base) {
+  for (const s of SIDE) { const x = Math.cos(base + s), y = Math.sin(base + s); if (!game.map.blocked(p.x + x * 8, p.y + y * 8, p.r)) return { x, y }; }
+  return null;
+}
+
+// Khoảng muốn đứng với con đang đánh: tầm đánh của mình, hoặc tầm vồ của quái nếu ngắn hơn (quái bắn xa: theo tầm của mình)
+export function keepDist(game, tgt, reach = reachOf(game, tgt)) {
+  const p = game.player, K = keepCfg(game), near = tgt.def?.ai !== 'ranged' && tgt.def?.reach != null ? tgt.r + p.r + mobReach(game, tgt) : Infinity;
+  return Math.max(tgt.r + p.r + 2, Math.min(reach, near) - (K?.pad ?? 2));
 }
 
 // Có bắn thẳng tới được không: không vướng vách, cây, nhà giữa hai bên (đạn chạm vách là tan, combat.js).
