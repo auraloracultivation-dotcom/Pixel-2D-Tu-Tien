@@ -18744,160 +18744,544 @@
    "note": "Hiệu ứng pháp bảo: SpriteCook linh-chau.webp (8 khung, thu 1/2)"
   },
   "pet.bang-tinh": {
-   "file": "assets/art/pet-bang-tinh.png",
-   "v": "42c85503",
-   "w": 46,
-   "h": 27,
-   "frames": 7,
+   "file": "assets/art/linh-thu-bang-tinh.png",
+   "v": "b8ff43b0",
+   "w": 63,
+   "h": 43,
+   "frames": 24,
    "anchor": [
-    23,
-    25
+    31,
+    42
    ],
-   "note": "Băng Tinh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Băng Tinh Nhi: hình thú mới ho-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.hoa-lang": {
-   "file": "assets/art/pet-hoa-lang.png",
-   "v": "e09ec362",
-   "w": 50,
-   "h": 26,
-   "frames": 7,
+   "file": "assets/art/linh-thu-hoa-lang.png",
+   "v": "8bbc5de0",
+   "w": 61,
+   "h": 40,
+   "frames": 24,
    "anchor": [
-    25,
-    24
+    30,
+    39
    ],
-   "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Hỏa Lang: hình thú mới hoa-long thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.hu-anh": {
-   "file": "assets/art/pet-hu-anh.png",
-   "v": "4d80a02a",
-   "w": 50,
-   "h": 33,
-   "frames": 7,
-   "anchor": [
-    25,
-    31
-   ],
-   "note": "Tiểu U Ảnh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.kiem-hon": {
-   "file": "assets/art/pet-kiem-hon.png",
-   "v": "d39fc8ac",
-   "w": 50,
-   "h": 31,
-   "frames": 7,
-   "anchor": [
-    25,
-    29
-   ],
-   "note": "Tiểu Kiếm Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.ma-cung": {
-   "file": "assets/art/pet-ma-cung.png",
-   "v": "af750955",
-   "w": 72,
-   "h": 31,
-   "frames": 7,
-   "anchor": [
-    36,
-    29
-   ],
-   "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.ma-tieu": {
-   "file": "assets/art/pet-ma-tieu.png",
-   "v": "d886e3bd",
-   "w": 44,
-   "h": 24,
-   "frames": 7,
-   "anchor": [
-    22,
-    22
-   ],
-   "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.moc-linh": {
-   "file": "assets/art/pet-moc-linh.png",
-   "v": "7bca2855",
-   "w": 46,
-   "h": 27,
-   "frames": 7,
-   "anchor": [
-    23,
-    25
-   ],
-   "note": "Tiểu Mộc Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.moc-yeu": {
-   "file": "assets/art/pet-moc-yeu.png",
-   "v": "40e34e43",
-   "w": 58,
-   "h": 34,
-   "frames": 7,
-   "anchor": [
-    29,
-    32
-   ],
-   "note": "Tiểu Thụ Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.phong-yeu": {
-   "file": "assets/art/pet-phong-yeu.png",
-   "v": "eb992d88",
-   "w": 42,
-   "h": 33,
-   "frames": 7,
-   "anchor": [
-    21,
-    31
-   ],
-   "note": "Tiểu Phong Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.tho-khoi": {
-   "file": "assets/art/pet-tho-khoi.png",
-   "v": "18f7ff84",
+   "file": "assets/art/linh-thu-hu-anh.png",
+   "v": "ea033ecc",
    "w": 52,
-   "h": 34,
-   "frames": 7,
+   "h": 48,
+   "frames": 24,
    "anchor": [
     26,
-    32
+    48
    ],
-   "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu U Ảnh: hình thú mới huou-sao thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.kiem-hon": {
+   "file": "assets/art/linh-thu-kiem-hon.png",
+   "v": "5ca90342",
+   "w": 63,
+   "h": 63,
+   "frames": 24,
+   "anchor": [
+    31,
+    62
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Kiếm Linh: hình thú mới su-thuu thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.ma-cung": {
+   "file": "assets/art/linh-thu-ma-cung.png",
+   "v": "8e5c8d64",
+   "w": 62,
+   "h": 45,
+   "frames": 24,
+   "anchor": [
+    30,
+    44
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Ma Tiễn Đồng: hình thú mới bach-tuoc thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.ma-tieu": {
+   "file": "assets/art/linh-thu-ma-tieu.png",
+   "v": "a17d1a1c",
+   "w": 56,
+   "h": 43,
+   "frames": 24,
+   "anchor": [
+    26,
+    42
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Quỷ: hình thú mới nhen-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.moc-linh": {
+   "file": "assets/art/linh-thu-moc-linh.png",
+   "v": "516ecab5",
+   "w": 52,
+   "h": 42,
+   "frames": 24,
+   "anchor": [
+    25,
+    41
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Mộc Linh: hình thú mới coc-sen thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.moc-yeu": {
+   "file": "assets/art/linh-thu-moc-yeu.png",
+   "v": "35964e4c",
+   "w": 60,
+   "h": 46,
+   "frames": 24,
+   "anchor": [
+    29,
+    45
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Thụ Yêu: hình thú mới rua-non-bo thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.phong-yeu": {
+   "file": "assets/art/linh-thu-phong-yeu.png",
+   "v": "3899cc61",
+   "w": 60,
+   "h": 50,
+   "frames": 24,
+   "anchor": [
+    30,
+    49
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 18,
+   "fps": 8,
+   "note": "Tiểu Phong Yêu: hình thú mới huou-may thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.tho-khoi": {
+   "file": "assets/art/linh-thu-tho-khoi.png",
+   "v": "ef92da44",
+   "w": 58,
+   "h": 47,
+   "frames": 24,
+   "anchor": [
+    29,
+    46
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Thạch Khôi: hình thú mới su-tu-da thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.tuyet-lang": {
-   "file": "assets/art/pet-tuyet-lang.png",
-   "v": "cc3c5307",
-   "w": 44,
-   "h": 24,
-   "frames": 7,
+   "file": "assets/art/linh-thu-tuyet-lang.png",
+   "v": "cec13066",
+   "w": 59,
+   "h": 37,
+   "frames": 24,
    "anchor": [
-    22,
-    22
+    28,
+    37
    ],
-   "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Tuyết Lang: hình thú mới cuu-vi-ho thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.viem-linh": {
-   "file": "assets/art/pet-viem-linh.png",
-   "v": "6f0442f2",
-   "w": 48,
-   "h": 27,
-   "frames": 7,
+   "file": "assets/art/linh-thu-viem-linh.png",
+   "v": "faa14d05",
+   "w": 63,
+   "h": 63,
+   "frames": 24,
    "anchor": [
-    24,
-    25
+    31,
+    63
    ],
-   "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Viêm Linh Nhi: hình thú mới phuong-hoang thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pfx.am-ba": {
    "file": "assets/art/pfx-am-ba.png",

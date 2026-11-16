@@ -1,5 +1,5 @@
 {
- "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
+ "_note_hinh": "Chủ dự án 16/11/2026 22:58: linh thú đi theo người cũng dùng hình 16 thú mới. pets.<mã>.hinh là mã thú (mounts) lấy hình: tấm pet.<mã> thu nửa cỡ từ mount-<hinh>.png (tools/art/linh_thu_moi.py), đứng nghỉ, chạy, tấn công 8 khung.", "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
  "npc": "ngu-thu-su",
  "rare_chance": 0.04,
  "rare": {
@@ -37,7 +37,7 @@
  "lv_bonus": 0.08,
  "follow": 24,
  "pets": {
-  "moc-linh": {
+  "moc-linh": {"hinh": "coc-sen", 
    "name": "Tiểu Mộc Linh",
    "evo": "Thanh Mộc Tinh Quân",
    "color": "#5fd07a",
@@ -51,7 +51,7 @@
     "cd": 10
    }
   },
-  "ma-tieu": {
+  "ma-tieu": {"hinh": "nhen-pha-le", 
    "name": "Tiểu Quỷ",
    "evo": "Ám Dạ Quỷ Vương",
    "color": "#7a4ab0",
@@ -67,7 +67,7 @@
     "cd": 8
    }
   },
-  "hoa-lang": {
+  "hoa-lang": {"hinh": "hoa-long", 
    "name": "Tiểu Hỏa Lang",
    "evo": "Liệt Hỏa Lang Vương",
    "color": "#ff7a3a",
@@ -83,7 +83,7 @@
     "cd": 8
    }
   },
-  "viem-linh": {
+  "viem-linh": {"hinh": "phuong-hoang", 
    "name": "Viêm Linh Nhi",
    "evo": "Viêm Hoàng Tiên Tử",
    "color": "#ffb03a",
@@ -98,7 +98,7 @@
     "cd": 12
    }
   },
-  "ma-cung": {
+  "ma-cung": {"hinh": "bach-tuoc", 
    "name": "Ma Tiễn Đồng",
    "evo": "U Minh Tiễn Thần",
    "color": "#b04a9a",
@@ -113,7 +113,7 @@
     "cd": 9
    }
   },
-  "tuyet-lang": {
+  "tuyet-lang": {"hinh": "cuu-vi-ho", 
    "name": "Tiểu Tuyết Lang",
    "evo": "Băng Nguyên Lang Vương",
    "color": "#dfe8f2",
@@ -129,7 +129,7 @@
     "cd": 8
    }
   },
-  "moc-yeu": {
+  "moc-yeu": {"hinh": "rua-non-bo", 
    "name": "Tiểu Thụ Yêu",
    "evo": "Cổ Mộc Thần Thụ",
    "color": "#7ab05a",
@@ -144,7 +144,7 @@
     "cd": 10
    }
   },
-  "kiem-hon": {
+  "kiem-hon": {"hinh": "su-thuu", 
    "name": "Tiểu Kiếm Linh",
    "evo": "Vạn Kiếm Linh Tôn",
    "color": "#d8e0f0",
@@ -159,7 +159,7 @@
     "cd": 8
    }
   },
-  "tho-khoi": {
+  "tho-khoi": {"hinh": "su-tu-da", 
    "name": "Tiểu Thạch Khôi",
    "evo": "Bàn Sơn Thạch Thần",
    "color": "#a87a4a",
@@ -175,7 +175,7 @@
     "cd": 10
    }
   },
-  "hu-anh": {
+  "hu-anh": {"hinh": "huou-sao", 
    "name": "Tiểu U Ảnh",
    "evo": "Thái Hư Ảnh Quân",
    "color": "#6a4a9a",
@@ -191,7 +191,7 @@
     "cd": 9
    }
   },
-  "phong-yeu": {
+  "phong-yeu": {"hinh": "huou-may", 
    "name": "Tiểu Phong Yêu",
    "evo": "Cuồng Phong Yêu Hoàng",
    "color": "#a8b8d0",
@@ -207,7 +207,7 @@
     "cd": 9
    }
   },
-  "bang-tinh": {
+  "bang-tinh": {"hinh": "ho-pha-le", 
    "name": "Băng Tinh Nhi",
    "evo": "Hàn Băng Tinh Hậu",
    "color": "#9ad8ff",

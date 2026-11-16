@@ -31,7 +31,13 @@ export function drawPet(ctx, pet, t, art) {
 }
 
 function drawBody(ctx, pet, t, art) {
-  const id = 'pet.' + pet.id;
+  const id = 'pet.' + pet.id, ns = art?.sprites[id];
+  if (ns?.idle) {   // hình thú mới thu nửa cỡ (tools/art/linh_thu_moi.py, 16/11/2026 22:58): đứng nghỉ / chạy / tấn công mỗi thứ 8 khung
+    const since = pet.def.cd && pet.cd != null ? pet.def.cd - pet.cd : 99, ak = Math.floor(since * 12);   // vừa ra đòn: chạy 8 khung tấn công
+    const f = ak >= 0 && ak < ns.atk.length ? ns.atk[ak] : pet.moving ? walkFrame(ns, t) : ns.idle[pet.sleep ? 0 : Math.floor(t * (ns.fps || 8)) % ns.idle.length];
+    drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1);
+    return;
+  }
   if (isAct(art, id)) {   // ảnh 6 động tác: ngủ dùng khung nằm, vừa ra đòn thì lấy đà rồi đánh
     const f = pet.sleep && !pet.moving ? ACT.down : actFrame(art.sprites[id], pet, t, pet.def.cd);
     drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1, f === ACT.idle && Math.sin(t * 3) > 0.6 ? 0.5 : 0);
