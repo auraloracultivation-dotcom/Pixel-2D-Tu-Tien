@@ -68,6 +68,27 @@ def nen_tai():
     Image.fromarray(out[106:]).save(os.path.join(R, 'assets/icon/nen-tai.jpg'), quality=86, optimize=True)   # bỏ thanh trạng thái điện thoại (106 điểm trên)
 
 
+def bang_menu():
+    """Khung bảng (chủ dự án 02:35 gửi bo-khung-bang.png: cột mục trái có vương miện, 9 ô mục; bảng nội dung phải có vương miện,
+    hoa văn góc, nút X đỏ). Ra: ui-kg-cot.png (cột trái, đã xoá 9 ô mục để co giãn), ui-kg-muc.png (một ô mục),
+    ui-kg-bang-to.png (bảng phải, đã xoá nút X), ui-kg-x.png (nút X đỏ cho mọi nút tắt bảng)."""
+    a = np.array(Image.open(os.path.join(R, 'tools/art/nguon/ai/khung-ui/bo-khung-bang.png')).convert('RGBA'))
+    a[a[:, :, 3] >= 200, 3] = 255
+    cot = a[:, 5:362].copy()
+    muc = a[183:290, 43:330].copy()
+    g = np.linspace(0, 1, 1218 - 172)[:, None, None]   # xoá 9 ô mục: tô lòng cột màu nền tím (đậm trên, nhạt dần xuống như ảnh)
+    cot[172:1218, 41:327, :3] = (np.array([49, 27, 77]) * (1 - g) + np.array([62, 36, 96]) * g).astype(np.uint8)
+    cot[172:1218, 41:327, 3] = 255
+    big = a[:, 374:1204].copy()
+    x = a[110:184, 1074:1150].copy()
+    big[100:196, 690:780] = big[100:196, 600:690]   # xoá nút X: chép mảng nền bên trái sang
+    for name, p in (('cot', cot), ('muc', muc), ('bang-to', big), ('x', x)):
+        ys, xs = np.nonzero(p[:, :, 3] > 0)
+        p = p[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        Image.fromarray(p, 'RGBA').save(os.path.join(R, f'assets/art/ui-kg-{name}.png'), optimize=True)
+        print(name, p.shape[1], p.shape[0])
+
+
 def main():
     a = np.array(Image.open(SRC).convert('RGBA'))
     for name in BOX:
@@ -81,6 +102,7 @@ def main():
         print(name, p.shape[1], p.shape[0])
     hop(a).save(os.path.join(R, 'assets/art/ui-kg-hop.png'), optimize=True)
     nen_tai()
+    bang_menu()
 
 
 if __name__ == '__main__':

@@ -100,3 +100,27 @@ html body.hud-bang #bac-hud .bh-goal { font-size: 8px !important; }
 html body.hud-bang #bac-hud .bh-cnt { font-size: 10px !important; min-width: 12px !important; }
 html body.hud-bang #bac-hud .bh-gift, html body.hud-bang #bac-hud .bh-gift canvas { width: 11px !important; height: 11px !important; }
 body.hud-bang:has(#bac-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 44px) !important; }
+
+/* ---- bảng (Menu, Chợ, Xếp hạng, Túi đồ… mọi .panel trừ bảng Nhân vật) theo bộ khung bảng chủ dự án (02:35, bo-khung-bang.png):
+   bảng nội dung có vương miện, hoa văn góc dưới (ui-kg-bang-to.png, cắt 9 mảnh, hệ số 0,32); nút tắt là nút X đỏ (ui-kg-x.png);
+   cột mục trái có vương miện, dòng tiêu đề, mỗi mục một ô khung (ui-kg-cot.png, ui-kg-muc.png) ---- */
+html body.hud-bang :is(#bag, .panel:not(.sv)) { border-style: solid !important; border-color: transparent !important; border-width: 30px 15px 28px !important;
+  border-image: url("../../assets/art/ui-kg-bang-to.png") 100 55 150 fill / 32px 18px 48px / 0 stretch !important; image-rendering: auto !important;
+  background: none !important; padding: 4px 6px !important; box-shadow: none !important; outline: none !important; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .5)); }
+html body.hud-bang :is(#bag, .panel:not(.sv))::before { display: none !important; }
+html body.hud-bang :is(#bag > .bag-head > button:last-child, .panel > .bag-head > button:last-child, .bag-head > button[id$="-close"], .bag-head > .close-x) {
+  top: -6px !important; right: -2px !important; width: 26px !important; height: 26px !important;
+  background: url("../../assets/art/ui-kg-x.png") center / contain no-repeat !important; image-rendering: auto !important; }
+html body.hud-bang { --nav-w: 104px; }
+html body.hud-bang .side-nav { border-style: solid !important; border-color: transparent !important; border-width: 27px 12px 18px !important;
+  border-image: url("../../assets/art/ui-kg-cot.png") 170 45 70 fill / 49px 13px 20px / 0 stretch !important; image-rendering: auto !important;
+  background: none !important; padding: 0 2px 2px !important; gap: 6px !important; }
+html body.hud-bang .sn-title { height: 18px; line-height: 18px !important; padding: 0 2px !important; margin-bottom: 4px; border: 0 !important; color: #ffc44a !important; font-size: 13px !important; }
+html body.hud-bang .sn-item { min-height: 34px; padding: 6px 8px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important;
+  border-image: url("../../assets/art/ui-kg-muc.png") 24 fill / 7px / 0 stretch !important; image-rendering: auto !important; color: #fff1d6 !important; }
+html body.hud-bang .sn-item.on { filter: brightness(1.35) drop-shadow(0 0 4px rgba(255, 200, 90, .8)); color: #ffe08a !important; }
+html body.hud-bang .sn-item[data-nav] { padding-left: 27px !important; }
+html body.hud-bang .sn-item[data-nav]::before { left: 6px !important; }
+/* đang mở bảng / túi / thoại: dòng chat và Túi đồ dưới góc trái ẩn đi, không đè lên bảng */
+html body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden]), #dialog:not([hidden])) #chat-dock { display: none !important; }
+body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden])) #hud .hud-btns > button.tron#btn-bag { visibility: hidden; }
