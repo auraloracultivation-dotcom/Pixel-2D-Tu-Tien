@@ -14,8 +14,8 @@ from scipy import ndimage
 
 R = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC = os.path.join(R, 'tools/art/nguon/ai/khung-ui/bo-khung-chu-du-an.png')
-# tên: (x, y, rộng, cao) trên ảnh gốc 2172 × 724 (tìm bằng vùng alpha > 40)
-BOX = {'tren': (23, 3, 1585, 387), 'danh': (1852, 397, 290, 299), 'bang-mien': (33, 400, 578, 185), 'bang': (646, 416, 608, 270),
+# tên: (x, y, rộng, cao) trên ảnh gốc 2172 × 724 (tìm bằng vùng alpha > 40); bảng miền (33, 400, 578, 185) bỏ 17/11/2026 vì game không dùng
+BOX = {'tren': (23, 3, 1585, 387), 'danh': (1852, 397, 290, 299), 'bang': (646, 416, 608, 270),
        'o': (1286, 459, 130, 131), 'the': (35, 600, 322, 99), 'vien-tron': (1396, 617, 260, 87)}
 BARS = (300, 182, 662, 353)   # vùng 4 thanh vẽ sẵn trong bảng trên (x0, y0, x1, y1, ảnh gốc)
 
