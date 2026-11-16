@@ -21,7 +21,7 @@ function petGifts(game, hours) {
 // Đạo lữ ở động phủ: cứ every_hours giờ câu được một con, tối đa max
 function compFish(game, hours) {
   const a = game.data.fishing.away, who = daoLuHere(game);
-  if (!a || !who || game.save.map !== game.data.home.map) return null;
+  if (!a || !who) return null;   // vào game giờ ở Thiên Kiếm Tinh (data/home.json start_map): đạo lữ ở nhà vẫn câu giùm
   const n = Math.min(a.max, Math.floor(hours / a.every_hours));
   if (n <= 0) return null;
   const got = grant(game, { mats: { [a.mat]: n } });

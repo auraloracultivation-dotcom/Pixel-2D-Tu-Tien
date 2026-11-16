@@ -4,8 +4,8 @@
   - bảng trên (cả bố cục: ô ảnh đại diện, 4 thanh, 8 ô chức năng, ô bản đồ, vương miện): xoá 4 thanh vẽ sẵn (game vẽ thanh thật đè lên đúng chỗ);
   - ô vuông nhỏ: thêm bản chỉ còn viền (-vien) để đè lên hình pháp bảo.
 Thêm (02:28): nền màn tải / đăng nhập từ ảnh chủ dự án (nen-tai-goc.png): bỏ thanh trạng thái điện thoại, xoá hộp "Đang tải" và dòng mẹo
-vẽ sẵn (hộp thật của game nằm đúng chỗ đó) → assets/icon/nen-tai.jpg; hộp màn tải ui-kg-hop.png = khung tím lớn + vương miện của bảng trên.
-Ra assets/art/ui-kg-<tên>.png; số đo vị trí các ô trong bảng trên (điểm ảnh của ảnh gốc) dùng ở src/ui/hud-khung.css.
+vẽ sẵn (hộp thật của game nằm đúng chỗ đó) → assets/icon/nen-tai.jpg; hộp màn tải ui-kg-hop.webp = khung tím lớn + vương miện của bảng trên.
+Ra assets/art/ui-kg-<tên>.webp (WebP có mất mát chất lượng 88: tranh mịn nên nhẹ gấp ~8 lần PNG mà nhìn như nhau; chủ dự án 02:46 "nóng máy, load chậm, cái gì nén được thì nén"); số đo vị trí các ô trong bảng trên (điểm ảnh của ảnh gốc) dùng ở src/ui/hud-khung.css.
 Chạy: python3 -I tools/art/khung_kg.py"""
 import os
 import numpy as np
@@ -70,8 +70,8 @@ def nen_tai():
 
 def bang_menu():
     """Khung bảng (chủ dự án 02:35 gửi bo-khung-bang.png: cột mục trái có vương miện, 9 ô mục; bảng nội dung phải có vương miện,
-    hoa văn góc, nút X đỏ). Ra: ui-kg-cot.png (cột trái, đã xoá 9 ô mục để co giãn), ui-kg-muc.png (một ô mục),
-    ui-kg-bang-to.png (bảng phải, đã xoá nút X), ui-kg-x.png (nút X đỏ cho mọi nút tắt bảng)."""
+    hoa văn góc, nút X đỏ). Ra: ui-kg-cot.webp (cột trái, đã xoá 9 ô mục để co giãn), ui-kg-muc.webp (một ô mục),
+    ui-kg-bang-to.webp (bảng phải, đã xoá nút X), ui-kg-x.webp (nút X đỏ cho mọi nút tắt bảng)."""
     a = np.array(Image.open(os.path.join(R, 'tools/art/nguon/ai/khung-ui/bo-khung-bang.png')).convert('RGBA'))
     a[a[:, :, 3] >= 200, 3] = 255
     cot = a[:, 5:362].copy()
@@ -85,8 +85,14 @@ def bang_menu():
     for name, p in (('cot', cot), ('muc', muc), ('bang-to', big), ('x', x)):
         ys, xs = np.nonzero(p[:, :, 3] > 0)
         p = p[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-        Image.fromarray(p, 'RGBA').save(os.path.join(R, f'assets/art/ui-kg-{name}.png'), optimize=True)
+        save(p, name)
         print(name, p.shape[1], p.shape[0])
+
+
+def save(im, name):
+    if not isinstance(im, Image.Image):
+        im = Image.fromarray(im, 'RGBA')
+    im.save(os.path.join(R, f'assets/art/ui-kg-{name}.webp'), 'WEBP', quality=88, method=6)
 
 
 def main():
@@ -96,11 +102,11 @@ def main():
         if name == 'tren':   # xoá 4 thanh vẽ sẵn: chép cột nền ngay bên trái vùng thanh sang cả vùng
             x0, y0, x1, y1 = (v - o for v, o in zip(BARS, (23, 3, 23, 3)))
             p[y0:y1, x0:x1] = p[y0:y1, x0 - 6:x0 - 5]
-        Image.fromarray(p, 'RGBA').save(os.path.join(R, f'assets/art/ui-kg-{name}.png'), optimize=True)
+        save(p, name)
         if name == 'o':
-            Image.fromarray(rim(p), 'RGBA').save(os.path.join(R, 'assets/art/ui-kg-o-vien.png'), optimize=True)
+            save(rim(p), 'o-vien')
         print(name, p.shape[1], p.shape[0])
-    hop(a).save(os.path.join(R, 'assets/art/ui-kg-hop.png'), optimize=True)
+    save(hop(a), 'hop')
     nen_tai()
     bang_menu()
 

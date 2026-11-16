@@ -61,3 +61,8 @@ html body #toast::before { display: none !important; }
 #dialog .choices { -webkit-overflow-scrolling: touch; }
 /* Cảnh nhân vật + thú cưỡi + pháp tượng (src/ui/self-hero-view.js): canvas vẽ gấp 2, thu bằng làm mịn cho khỏi rỗ */
 .sv-center > .sv-scene { image-rendering: auto; margin-bottom: 0; }
+/* Pháp bảo dùng mã phẩm riêng (data/phap-bao.json grades: pham, linh, huyen, dia, thien) trùng tên mã cũ của trang bị: [data-o="pham"] của trang bị là
+   khung đen Thượng Cổ (style-ui-icon.css), [data-o="thien"] là khung cam. Chủ dự án 17/11/2026 02:46: "pháp bảo phàm phẩm mà dùng khung Thượng Cổ".
+   Ô pháp bảo (.pbs) lấy khung theo màu phẩm pháp bảo: Phàm khung cơ bản, Linh lục, Huyền lam, Địa tím, Thiên vàng. */
+body .pbs[data-o="pham"] { --o: url("assets/art/ui-nv-o.png") !important; }
+body .pbs[data-o="thien"] { --o: url("assets/art/ui-pc-vang.png") !important; }
