@@ -219,6 +219,17 @@ export function playerStatsHC(save, data, old = {}, ext = {}) {
   };
 }
 
+// Hệ số trận thật theo vai trò và tầng quái (data/he-chien.json → game_k: mốc tầng, mỗi vai trò một dãy hệ số, nối thẳng giữa các mốc,
+// ngoài mốc đầu / cuối giữ nguyên). Chưa khai game_k thì dùng hp_game / atk_game cũ (một số cho mọi tầng).
+export function gameK(H, key, role, tang) {
+  const G = H.game_k, a = G?.[key]?.[role];
+  if (!G || !a) return (key === 'hp' ? H.hp_game : H.atk_game)?.[role] ?? 1;
+  const T = G.tang;
+  if (tang <= T[0]) return a[0];
+  for (let i = 1; i < T.length; i++) if (tang <= T[i]) return a[i - 1] + (a[i] - a[i - 1]) * (tang - T[i - 1]) / (T[i] - T[i - 1]);
+  return a[a.length - 1];
+}
+
 // Bật luật mới cho cả bảng số (gọi một lần sau khi nạp data, src/main.js): quái lấy máu, công theo cảnh giới × vai trò
 // (mobFor); công mỗi đòn = công mỗi giây × nhịp đánh thật của con quái (vồ + nghỉ), đã tính bạo kích trung bình. def.hc giữ chỉ số
 // gốc cho combat.js (Công đọ Thủ, takeK) và lực chiến quái. Tắt áp chế lực chiến và hệ số đảo của luật cũ (trừ tinh cầu Khai Hoang);
@@ -231,9 +242,10 @@ export function hcData(data) {
     if (id.startsWith('_') || !d || typeof d !== 'object' || H.skip_mobs?.includes(id)) continue;
     const m = mobFor(H, id, d);
     if (!m) continue;
+    m.atk *= gameK(H, 'atk', m.role, m.tang);   // trận thật: người chơi có pháp bảo, linh thú, chiêu nên mạnh hơn mô hình nhiều (đo bằng Playwright 16/11)
     const cyc = Math.max(0.5, (d.windup || 0) + (d.cd || 1)), ca = 1 + m.crit / 100 * ((H.base.crit_mult + m.cd) / 100 - 1);
     const hit = +(m.atk * m.spd * cyc * ca).toFixed(2);
-    data.mobs[id] = { ...d, hp: Math.round(m.hp * (H.hp_game?.[m.role] ?? 1)), atk: hit, hc: { tang: m.tang, role: m.role, atk: m.atk, def: m.def, hit, old: { hp: d.hp, atk: d.atk } } };
+    data.mobs[id] = { ...d, hp: Math.round(m.hp * gameK(H, 'hp', m.role, m.tang)), atk: hit, hc: { tang: m.tang, role: m.role, atk: m.atk, def: m.def, hit, old: { hp: d.hp, atk: d.atk } } };
   }
   const C = data.config || {};
   if (C.cp_press) C.cp_press = { ...C.cp_press, on: false };
