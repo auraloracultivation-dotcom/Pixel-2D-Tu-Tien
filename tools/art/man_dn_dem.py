@@ -2,7 +2,7 @@
 Theo lệ màn đăng nhập (02/11/2026 22:51: giao diện giữ độ phân giải gốc, không thu về điểm ảnh), chỉ cắt, làm sạch, thu cỡ vừa máy, nén:
   - nền: nguon/ai/ui/nen-dem-trang-goc.png (1145×1374, trăng, chùa, thác, hoa đào) → assets/icon/splash-dem.jpg (ngang 960, JPEG)
   - khung: nguon/ai/ui/khung-dn-dem-goc.png (1218×1291, nền trong suốt, mái chùa âm dương, 2 ô nhập, nút Đăng nhập / Đăng ký vẽ sẵn; chữ trên nút xoá, chữ thật do trang đặt)
-    → assets/art/ui-dn-khung-dem.png (cắt sát hình, mép mờ GPT (alpha 1–2) bỏ, lòng đặc alpha 253 thành 255, ngang 768, gom 256 màu)
+    → assets/art/ui-dn-khung-dem.webp (cắt sát hình, mép mờ GPT (alpha 1–2) bỏ, lòng đặc alpha 253 thành 255, ngang 768, gom 256 màu)
 Ô nhập và nút thật đặt chồng đúng chỗ vẽ (tỉ lệ % in ra khi chạy, dùng ở style-man-dau.css). Ảnh gốc không đưa vào kho (.gitignore).
 Chạy: python3 -I tools/art/man_dn_dem.py"""
 from pathlib import Path
@@ -47,7 +47,7 @@ def khung():
     im = Image.fromarray(a, 'RGBA')
     h = round(H * FR_W / W)
     im = im.resize((FR_W, h), Image.LANCZOS).quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
-    im.save(ROOT / 'assets' / 'art' / 'ui-dn-khung-dem.png', optimize=True)
+    im.save(ROOT / 'assets' / 'art' / 'ui-dn-khung-dem.webp', 'WEBP', lossless=True, method=6, quality=100)   # WebP không mất điểm (17/11/2026)
     print('khung', FR_W, h, 'tỉ lệ', W, '/', H)
     for k, (a0, b0, a1, b1) in SPOTS.items():
         print(f'  {k}: left {(a0 - x0) / W * 100:.1f}% top {(b0 - y0) / H * 100:.1f}% width {(a1 - a0) / W * 100:.1f}% height {(b1 - b0) / H * 100:.1f}%')

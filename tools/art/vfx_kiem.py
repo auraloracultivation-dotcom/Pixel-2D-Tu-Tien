@@ -79,7 +79,7 @@ def build(save):
             im = Image.fromarray(c).resize((c.shape[1] // K, c.shape[0] // K), Image.LANCZOS)
             cv = Canvas(im.width, im.height); cv.a = np.array(im); frames.append(cv)
         w, h = frames[0].w, frames[0].h
-        save(name, frames, (w // 2, h // 2), f'Vạn Kiếm Quy Tông: {f} ({len(frames)} kiếm, tâm ô làm neo)')
+        save(name, frames, (w // 2, h // 2), f'Vạn Kiếm Quy Tông: {f} ({len(frames)} kiếm, tâm ô làm neo)', webp=90)   # WebP 90: kiếm khí phát sáng nhiều màu, PNG 890 KB → ~380 KB (17/11/2026 "nén cho load nhanh")
         sets[name] = [_hue(c) for c in cells]
     pick = lambda hs, pool: min(range(len(pool)), key=lambda j: _hd(hs[0], pool[j][0]) + 0.4 * abs(hs[1] - pool[j][1]) + (0.5 if pool[j][1] < 0.25 else 0))
     pairs = [[pick(h, sets['vfx.vk-khi']), pick(h, sets['vfx.vk-dam'])] for h in sets['vfx.vk-kiem']]

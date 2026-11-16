@@ -6,7 +6,7 @@ Nguồn: tools/art/nguon/ai/he-thong/
   khen-9.png       lưới 3×3: chuỗi khung "khen" (giơ ngón cái, cười)
   dam-9.png        lưới 3×3: chuỗi khung "vung nắm đấm" (đắc ý trêu tức)
 Cắt từng ô theo khe trống, bỏ điểm mờ (viền nhoè đỏ vàng của ảnh GPT), xếp chung một khung, thu về điểm ảnh thật bằng màu đa số
-(tools/art/ai_import.py), gom màu, viền mực. Ra một dải khung assets/art/he-thong/mat.png (mọi khung cùng cỡ, xếp ngang) và in
+(tools/art/ai_import.py), gom màu, viền mực. Ra một dải khung assets/art/he-thong/mat.webp (mọi khung cùng cỡ, xếp ngang) và in
 danh sách khung cho data/he-thong.json → mat.
 Chạy: python3 -I tools/art/he_thong_mat.py [--h 56]
 """
@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ai_import import shrink, quantize, outline
 
 SRC = 'tools/art/nguon/ai/he-thong'
-OUT = 'assets/art/he-thong/mat.png'
+OUT = 'assets/art/he-thong/mat.webp'   # WebP không mất điểm: 160 → 59 KB (17/11/2026)
 SHEETS = [('bieu-cam-16', ['thuong', 'dinh', 'kieu', 'le-luoi', 'cuoi-lan', 'nhech', 'vo-tay', 'om-mat', 'gian', 'soc', 'khoc-gia', 'ngap',
                            'nhay-mat', 'phan-khich', 'nguong', 'muu-mo']),
           ('khen-9', [f'khen-{i}' for i in range(9)]),
@@ -90,7 +90,7 @@ def main():
     small = [(n, s) if s.shape[:2] == (fh, fw) else (n, np.array(Image.fromarray(s).resize((fw, fh), Image.NEAREST))) for n, s in small]
     strip = np.concatenate([s for _, s in small], axis=1)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    Image.fromarray(strip, 'RGBA').save(OUT, optimize=True)
+    Image.fromarray(strip, 'RGBA').save(OUT, 'WEBP', lossless=True, method=6, quality=100)
     Image.fromarray(strip, 'RGBA').resize((strip.shape[1] * 3, strip.shape[0] * 3), Image.NEAREST).save('/tmp/he-thong-mat-zoom.png')
     print(json.dumps({'src': OUT, 'w': fw, 'h': fh, 'frames': [n for n, _ in small]}, ensure_ascii=False))
 

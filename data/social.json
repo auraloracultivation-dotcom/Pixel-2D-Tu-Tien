@@ -149,7 +149,7 @@
  },
  "rank": {
   "_note": "Bảng xếp hạng (game/rank.js, ui/rank-view.js). titles: danh hiệu tuần trong status.json cho top 10 tuần trước của từng bảng. flag: cờ cạnh tên người bị gắn cờ nghi vấn (nghi_van >= 10, máy chủ trả \"co\"); tên tô đỏ, vẫn hiện trên bảng nhưng không nhận danh hiệu tuần. Bảng mới (chủ dự án 02/11/2026, nhóm L): Góp ý (báo lỗi + đề xuất được nhận), Đánh Ma Thần (số lần khiêu chiến), Bí cảnh (bậc đã qua, chọn 1 trong 7 bí cảnh ở hàng nút thứ hai) lấy từ hàm p2d_bxh2 (supabase/migrations/20261102031000_p2d_bxh_moi.sql); bảng Tháp đã gỡ (tháp bỏ).",
-  "tab": "Xếp hạng",
+  "tab": "Xếp hạng", "_bo_dmt": "Chủ dự án 17/11/2026 03:51: bỏ bảng xếp hạng Đánh Ma Thần (tab dmt).",
   "chat_tab": "Trò chuyện",
   "tabs": [
    {
@@ -163,10 +163,6 @@
    {
     "id": "qtv",
     "label": "Quản trị viên"
-   },
-   {
-    "id": "dmt",
-    "label": "Đánh Ma Thần"
    },
    {
     "id": "bc",

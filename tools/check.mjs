@@ -95,7 +95,13 @@ try {
     need(!bad.length, `chữ {nam|nữ} viết sai: ${bad.slice(0, 3).join(', ')}`); }
   for (const [id, f] of Object.entries(read('fashion.json').list)) need(f.from.start || f.from.uid?.length || f.from.shop > 0 || f.from.tn > 0 || f.from.elite || read('status.json').achievements.some(a => a.id === f.from.achv) || f.from.fest, `fashion/${id}: nguồn có không đúng`);
   const art = read('art.json').sprites;   // hình: cỡ tấm PNG khớp art.json; khung động tác nhân vật và hiệu ứng chiêu phải có
-  for (const [id, a] of Object.entries(art)) { const b = readFileSync(a.file); need(b.readUInt32BE(16) === a.w * a.frames && b.readUInt32BE(20) === a.h * (a.rows || 1), `art/${id}: cỡ ${a.file} không khớp w×frames, h×rows`); }
+  // cỡ ảnh: PNG (IHDR) hoặc WebP (VP8X / VP8L / VP8; hiệu ứng nhiều màu ghi WebP từ 17/11/2026)
+  const imgSize = b => { if (b.toString('ascii', 0, 4) !== 'RIFF') return [b.readUInt32BE(16), b.readUInt32BE(20)];
+    const k = b.toString('ascii', 12, 16);
+    if (k === 'VP8X') return [b.readUIntLE(24, 3) + 1, b.readUIntLE(27, 3) + 1];
+    if (k === 'VP8L') { const v = b.readUInt32LE(21); return [(v & 0x3fff) + 1, ((v >> 14) & 0x3fff) + 1]; }
+    return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff]; };
+  for (const [id, a] of Object.entries(art)) { const [w, h] = imgSize(readFileSync(a.file)); need(w === a.w * a.frames && h === a.h * (a.rows || 1), `art/${id}: cỡ ${a.file} không khớp w×frames, h×rows`); }
   { const H = read('heroes.json'); need(H.char_height > 0 && H.npc_cm > 0 && H.npc_kg > 0, 'heroes: thiếu char_height, npc_cm, npc_kg (người chuẩn NPC)'); }
   for (const [id, h] of Object.entries(read('heroes.json').list)) {
     if (!h.sprite) continue;
@@ -158,7 +164,7 @@ try {
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');
   for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
-  const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'qi', 'contrib', 'mats', 'pills'].includes(k));
+  const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && (g.tier == null || (g.item && items.line_tiers.list[g.tier])) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'tier', 'qi', 'contrib', 'mats', 'pills'].includes(k));   // tier: màu dòng định sẵn (rương Tiên phẩm, 17/11/2026)
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   const tp = read('topup.json'), fl = read('fashion.json').list;
   for (const x of tp.shop) need(x.tn > 0 && (x.outfit ? fl[x.outfit]?.from.tn === x.tn : giftOk(x.give)), `topup/${x.id}: giá, thời trang hoặc quà sai`);

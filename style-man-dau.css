@@ -80,7 +80,7 @@ body #menu > h1 { margin-top: auto !important; }
 body #menu > p.legal:last-of-type { margin-bottom: auto; }
 body #menu #login-form { position: relative; width: min(88vw, 350px, 42dvh); max-width: none; aspect-ratio: 768 / 776; box-sizing: border-box; min-width: 0 !important;
   border: none !important; border-image: none !important; padding: 0 !important; margin: 0 0 20px; container-type: inline-size;
-  background: url("assets/art/ui-dn-khung-dem.png") center / 100% 100% no-repeat !important; image-rendering: auto; }
+  background: url("assets/art/ui-dn-khung-dem.webp") center / 100% 100% no-repeat !important; image-rendering: auto; }
 body #menu #login-form:has(#btn-google:not([hidden])) { margin-bottom: 70px; }
 body #menu #login-form input { position: absolute; left: 20.7%; width: 49.8%; height: 9.8%; margin: 0; box-sizing: border-box;
   border: none !important; border-image: none !important; background: transparent !important; border-radius: 9px !important;
@@ -112,3 +112,6 @@ html body #loading .ld-box { box-sizing: border-box; width: min(290px, 76vw); as
   border-image: url("assets/art/ui-kg-hop.webp") 70 48 48 fill / 34px 23px 23px / 0 stretch !important; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .55)); }
 html body #loading .ld-title { font-size: 26px; }
 html body #loading #ld-tip { text-shadow: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030; }
+/* hai ô hướng dẫn di chuyển và khuyến nghị giờ chơi: khung bạc đinh vàng nền tím của bộ khung chủ dự án (17/11/2026 03:51) */
+html body #menu .help, html body #menu .health { border-style: solid !important; border-color: transparent !important; border-width: 9px 12px !important;
+  border-image: url("assets/art/ui-kg-the.webp") 30 fill / 9px / 0 stretch !important; background: none !important; box-shadow: none !important; padding: 2px 6px !important; }

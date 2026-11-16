@@ -92,7 +92,7 @@ export function grant(game, r, why = 'thuong') {   // why: mã lý do Lịch s�
   for (const [k, n] of Object.entries(r.mats || {})) { save.mats[k] = (save.mats[k] || 0) + n; got.push(`${n} ${data.cave.materials[k]?.name || k}`); }
   for (const [k, n] of Object.entries(r.pills || {})) { save.pills[k] = (save.pills[k] || 0) + n; got.push(`${n} ${data.cave.pills[k].name}`); }
   if (r.item) {
-    const it = rollItem(data, save, { lvl: totalLayer(save, data.realms), minRarity: r.item, base: r.slot ? baseForSlot(data, r.slot, weaponId(save, data)) : undefined });   // bí cảnh rơi đúng ô trang bị
+    const it = rollItem(data, save, { lvl: totalLayer(save, data.realms), minRarity: r.item, tier: r.tier, base: r.slot ? baseForSlot(data, r.slot, weaponId(save, data)) : undefined });   // bí cảnh rơi đúng ô trang bị; tier: màu dòng định sẵn (rương Tiên phẩm quầy Tiên Ngọc, data/topup.json)
     if (addItem(data, save, it)) { got.push(`[${rarityOf(data.items, it.rarity).name}] ${itemName(data, it)}`); game.newItems = (game.newItems || 0) + 1; }
     else got.push('(túi đầy, mất trang bị)');
   }

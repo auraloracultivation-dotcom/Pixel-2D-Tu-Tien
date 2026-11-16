@@ -42650,8 +42650,8 @@
    "note": "hiệu ứng chiêu van-moc-cham (ảnh GPT chieu-1.png)"
   },
   "vfx.vk-dam": {
-   "file": "assets/art/vfx-vk-dam.png",
-   "v": "78f1cf7c",
+   "file": "assets/art/vfx-vk-dam.webp",
+   "v": "21976b8e",
    "w": 64,
    "h": 113,
    "frames": 24,
@@ -42662,8 +42662,8 @@
    "note": "Vạn Kiếm Quy Tông: kiem-dam.png (24 kiếm, tâm ô làm neo)"
   },
   "vfx.vk-khi": {
-   "file": "assets/art/vfx-vk-khi.png",
-   "v": "140369b5",
+   "file": "assets/art/vfx-vk-khi.webp",
+   "v": "a706b693",
    "w": 64,
    "h": 113,
    "frames": 24,
@@ -42674,8 +42674,8 @@
    "note": "Vạn Kiếm Quy Tông: kiem-khi.png (24 kiếm, tâm ô làm neo)"
   },
   "vfx.vk-kiem": {
-   "file": "assets/art/vfx-vk-kiem.png",
-   "v": "ae7ced94",
+   "file": "assets/art/vfx-vk-kiem.webp",
+   "v": "a8067e2b",
    "w": 64,
    "h": 85,
    "frames": 32,

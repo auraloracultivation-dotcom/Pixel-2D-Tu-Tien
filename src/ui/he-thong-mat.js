@@ -1,4 +1,4 @@
-// Biểu cảm Hệ Thống (data/he-thong.json → mat; hình assets/art/he-thong/mat.png do tools/art/he_thong_mat.py cắt từ ảnh chủ dự án
+// Biểu cảm Hệ Thống (data/he-thong.json → mat; hình assets/art/he-thong/mat.webp do tools/art/he_thong_mat.py cắt từ ảnh chủ dự án
 // tạo, 06/11/2026 19:03). Một dải khung cùng cỡ xếp ngang; mỗi hình là một ô CSS dời vị trí nền (giữ điểm ảnh sắc nét).
 // face(k): tạo một ô biểu cảm phóng k lần. show(tên): đứng yên một biểu cảm. play(tên chuỗi): chạy chuỗi khung rồi về biểu cảm sau.
 // react(sự việc): chọn biểu cảm theo data mat.ev (một tên, hoặc danh sách để bốc ngẫu nhiên; tên chuỗi khung thì chạy chuỗi).

@@ -8,7 +8,6 @@ html body.hud-bang {
   --s: calc(var(--pw) / 1585);   /* ảnh gốc bảng trên rộng 1585 */
   --L: calc(var(--sl) + 4px); --T: calc(var(--st) + 2px);   /* góc trái trên của tấm (điểm 23, 3 trên ảnh gốc) */
   --tren-h: calc(var(--s) * 387);
-  --atk: 70px; --tron: 44px;
 }
 
 /* ---- bảng trên: nguyên tấm ---- */
@@ -50,7 +49,8 @@ html body.hud-bang #mini-map { left: calc(var(--L) + 1290 * var(--s)) !important
   width: calc(234 * var(--s)) !important; height: calc(219 * var(--s)) !important; }
 html body.hud-bang #mini-map canvas { left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; border: 0 !important; border-radius: 3px !important; box-shadow: none !important; }
 html body.hud-bang #mini-map i { display: none !important; }
-html body.hud-bang #mini-map b { bottom: 1px !important; max-width: 96% !important; font-size: 7px !important; }
+html body.hud-bang #mini-map b { bottom: 1px !important; max-width: 96% !important; height: auto !important; padding: 0 2px !important; font-size: 7.5px !important; line-height: 10px !important;
+  border: 0 !important; border-image: none !important; background: none !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }   /* 03:51: bỏ khung dải tên nơi đứng (đè lên viền bản đồ), chỉ còn chữ viền đen */
 html body.hud-bang .uk-tog#uk-an { left: calc(var(--L) + 1524 * var(--s) - 20px) !important; right: auto !important; top: calc(var(--T) + 104 * var(--s)) !important;
   width: 20px !important; height: 20px !important; background-color: rgba(30, 16, 50, .75) !important; border-radius: 4px !important; }
 
