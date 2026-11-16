@@ -5,7 +5,7 @@
  "exp_base": 60,
  "exp_pow": 1.4,
  "lv_bonus": 0.06,
- "follow": 30,
+ "follow": 40, "_ranged": "Chủ dự án 16/11/2026 23:34: \"khôi lỗi cứ đứng chắn, để nó thành công kích tầm xa\": cả 8 khôi lỗi bắn từ sau lưng (melee false), đứng lùi xa hơn (follow 30 → 40).",
  "lift": 10,
  "list": {
   "tieu-hoa": {
@@ -41,7 +41,7 @@
    "mult": 0.75,
    "cd": 0.9,
    "range": 80,
-   "melee": true,
+   "melee": false,
    "color": "#b08ad0",
    "skill": {
     "type": "slow",
@@ -98,7 +98,7 @@
    "mult": 0.8,
    "cd": 0.85,
    "range": 80,
-   "melee": true,
+   "melee": false,
    "color": "#ffd24a",
    "skill": {
     "type": "aoe",
@@ -113,7 +113,7 @@
    "mult": 0.75,
    "cd": 1.0,
    "range": 75,
-   "melee": true,
+   "melee": false,
    "color": "#c8a070",
    "skill": {
     "type": "buff",

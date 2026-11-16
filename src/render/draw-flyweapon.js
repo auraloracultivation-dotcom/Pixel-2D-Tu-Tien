@@ -50,7 +50,10 @@ export function drawWeaponAt(ctx, game, x, y, a, k, red, tint) {
 
 export function drawFlyWeapon(ctx, game, layer) {
   const p = game.player, fw = p?.fw, ws = fw && !p.charge && weaponSprite(game);   // đang tụ lực Phá Thiên: vũ khí vẽ ở lớp trên (draw-charge.js)
-  if (!ws?.im || (layer === 'front') !== !!fw.front) return;
+  if (!ws?.im) return;
+  // Đang ra đòn: vẽ ở lớp trên cùng (layer 'top', src/render/draw.js), trên quái, thú, pháp tượng, hiệu ứng (chủ dự án 16/11/2026 23:35:
+  // "vũ khí phải hiện lên trên tất cả, hiệu ứng chém cũng vậy"); lúc treo sau lưng vẫn theo trước / sau thân người như cũ
+  if (layer === 'top' ? !fw.act : fw.act || (layer === 'front') !== !!fw.front) return;
   const { spr, im } = ws, c = game.data.heroes.fly, k = heroLook(game).fw_scale || c.scale, t = game.time;   // chibi thấp đầu to: vũ khí nhỏ lại cho cân
   const el = game.save.element ? game.data.elements[game.save.element].color : '#bff4ff', glow = tintedImage(spr, im, el);
   ctx.save();

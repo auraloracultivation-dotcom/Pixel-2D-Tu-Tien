@@ -35,7 +35,7 @@
  "exp_base": 40,
  "exp_pow": 1.35,
  "lv_bonus": 0.08,
- "follow": 24,
+ "follow": 38,
  "pets": {
   "moc-linh": {
    "name": "Tiểu Mộc Linh",
@@ -421,11 +421,11 @@
  "starter_mount": null,
  "fly_realm": 3,
  "ride_calm": 2.5,
- "side": 12,
+ "side": 18,
  "spread": {
   "_note": "Tách linh thú, bạn đồng hành, người chơi (src/game/pets.js updateFollower): mỗi kẻ đi theo đứng lệch sang một bên hướng nhìn (side, đơn vị bản đồ; linh thú dương, bạn đồng hành âm) và bị đẩy ra nếu đứng gần người chơi dưới player hoặc gần kẻ đi theo khác dưới other.",
-  "player": 14,
-  "other": 16
+  "player": 26,
+  "other": 18
  },
  "home": {
   "_note": "Linh thú bắt được sống trong động phủ (chủ dự án chốt 02/11/2026, thay linh cầm): pen là ô x, y, rộng, cao trên bản đồ động phủ; max con hiện; speed px/giây; sell giá bán = base + cấp × per_lv + sao × per_star (+ evo nếu đã tiến hoá). src/game/home-pets.js. Chủ dự án 04/11/2026 12:54: mỗi con một chỗ riêng ở góc phải trên (spots: ô x, y theo thứ tự con), chỉ lững thững quanh chỗ mình trong bán kính roam ô.",
