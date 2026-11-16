@@ -11,7 +11,8 @@ const H = HC(data), mid = r => r + 4 / 9;
 
 // 1. Lực chiến tu sĩ chuẩn (giữa mỗi cảnh giới) tăng 1,4–2,5 lần mỗi cảnh giới; Luyện Khí → Nguyên Anh tới 3,3 lần vì người chơi thật nhặt thêm pháp bảo, khôi lỗi
 const LC = [...Array(9).keys()].map(r => powerOf(H, stdPlayer(H, mid(r)), r));
-for (let r = 1; r < 9; r++) { const k = powerOf(H, stdPlayer(H, mid(r)), r - 1) / powerOf(H, stdPlayer(H, mid(r - 1)), r - 1); assert.ok(k > 1.4 && k < (r <= 3 ? 3.3 : 2.5), `lên cảnh giới ${r}: × ${k.toFixed(2)}`); }
+// Luyện Khí cân theo người chơi thật mới vào (4 món Phàm, 16/11 17:30) nên Luyện Khí → Trúc Cơ nhảy tới 8 lần (đủ 12 món, phẩm Huyền +5)
+for (let r = 1; r < 9; r++) { const k = powerOf(H, stdPlayer(H, mid(r)), r - 1) / powerOf(H, stdPlayer(H, mid(r - 1)), r - 1); assert.ok(k > 1.4 && k < (r === 1 ? 8 : r <= 3 ? 3.3 : 2.5), `lên cảnh giới ${r}: × ${k.toFixed(2)}`); }
 
 // 2. Phẩm dễ kiếm chỉ cộng ít: Thượng Cổ so với Phàm cùng cảnh giới dưới 1,9 lần
 {
@@ -74,7 +75,7 @@ function fight(A, B, T = 240) {   // như Thí Luyện Đài: Công² / (Công +
   }
 }
 const GOAL = {   // [số đòn ít nhất, nhiều nhất, thắng ít nhất, máu còn ít nhất, nhiều nhất]
-  thuong: [5, 12, 0.99, 0.75, 1], tinh_anh: [14, 36, 0.95, 0.25, 0.65], thu_linh: [35, 85, 0.6, 0, 0.45], boss_dao: [70, 160, 0.8, 0, 0.35],
+  thuong: [3, 12, 0.99, 0.75, 1], tinh_anh: [9, 36, 0.95, 0.25, 0.75], thu_linh: [25, 85, 0.6, 0, 0.6], boss_dao: [60, 160, 0.8, 0, 0.45],   // đầu game (tầng 0–2) cân theo người vừa vào: ít đòn hơn
 };
 for (const [id, [tang, role]] of Object.entries(H.mobs)) {
   assert.ok(data.mobs[id], `quái ${id} có trong data/mobs.json`);

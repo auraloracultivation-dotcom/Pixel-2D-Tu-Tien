@@ -336,16 +336,11 @@
     "0": {
       "kinds": [
         "vu-khi",
-        "mu",
         "giap",
-        "giay",
-        "ngoc-boi",
-        "nhan",
-        "linh-thu",
-        "thu-cuoi",
+        "mu",
         "pb-cong"
       ],
-      "pham": 1,
+      "pham": 0,
       "plus": 1
     },
     "1": {
@@ -638,17 +633,11 @@
   "_mobs": "Mỗi loài quái: [tầng quái (0–80, như tầng tu: Luyện Khí 0–8, Trúc Cơ 9–17…), vai trò]. Tầng theo đảo người chơi thật đang đánh (16/11: Hàn Băng tầng 10, Hắc Phong 14, Thanh Mộc 22, Thiên Kim 27). Loài thiếu trong bảng: tính theo bãi quái của bản đồ. Chưa đổi: Mộc Nhân, đầu boss thế giới (đếm sát thương), bản sao Luận Võ Đài và Tâm Ma (theo chỉ số người chơi), bí cảnh nhân bậc (step_mul) tính sau.",
   "std_kit_new": {
     "to_tang": 1,
-    "kinds": [
-      "vu-khi",
-      "giap",
-      "mu",
-      "giay",
-      "pb-cong"
-    ],
+    "kinds": [],
     "pham": 0,
     "plus": 0
   },
-  "_std_kit_new": "Người mới (tầng 0–1: Mảnh Vỡ Thanh Khê, Thiên Kiếm Tinh, lượt đầu bí cảnh Huyết Nha): quái tầng tới to_tang cân theo người vừa cầm kiếm, 4 trang bị phẩm Phàm, chưa cường hoá, một pháp bảo.",
+  "_std_kit_new": "Người mới (tầng 0–1: Mảnh Vỡ Thanh Khê, Thiên Kiếm Tinh, lượt đầu bí cảnh Huyết Nha): quái tầng tới to_tang cân theo người vừa cầm kiếm, 4 trang bị phẩm Phàm, chưa cường hoá, một pháp bảo. 16/11 17:30 (đo trong game, khách mới Tự hành 150 giây chỉ qua 6 bước truyện thay vì 10): tầng 0–1 cân theo người vừa vào game chưa có món nào (Sinh lực 100, Công 10, Thủ 5: quái thường 4–6 nhát, đúng docs/10-CAI-HON.md việc 5); Luyện Khí giữa theo 4 món Phàm cấp 1 như người chơi thật đang có.",
   "soft": {
     "atk_pct": 200,
     "hp_pct": 200,
