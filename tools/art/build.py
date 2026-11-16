@@ -339,5 +339,7 @@ import tk_moi  # noqa: E402
 print('bộ mới Thiên Kiếm Phong (ảnh GPT 09/11/2026):', tk_moi.build(save))
 import quai_moi_game  # noqa: E402
 print('Bộ Quái Mới (SpriteCook 16/11/2026, đè mob.* cũ):', quai_moi_game.build_into(MANIFEST))
+import thu_cuoi_moi_game  # noqa: E402
+print('16 thú cưỡi mới (SpriteCook 16/11/2026):', thu_cuoi_moi_game.build_into(MANIFEST))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

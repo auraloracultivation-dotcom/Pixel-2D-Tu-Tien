@@ -69,8 +69,9 @@ export function drawMount(ctx, p, m, t, art, id) {
   const spr = isAct(art, 'mount.' + id) && art.sprites['mount.' + id], big = !!spr?.seat;
   if (!spr) { ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill(); }   // có hình: bóng đổ theo dáng (drawAct)
   if (spr) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
-    const fly = p.fly && spr.walk?.includes(4);   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
-    const f = fly ? 4 : p.moving ? walkFrame(spr, p.walkT) : ACT.idle, bob = fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0;
+    const fly = p.fly && (spr.fly != null || spr.walk?.includes(4));   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
+    const still = spr.idle ? spr.idle[Math.floor(t * (spr.fps || 8)) % spr.idle.length] : ACT.idle;   // thú cưỡi mới (16/11/2026): đứng nghỉ 8 khung
+    const f = fly ? spr.fly ?? 4 : p.moving ? walkFrame(spr, p.walkT) : still, bob = fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0;
     drawAct(ctx, art, 'mount.' + id, f, p.x, p.y + 1 - bob, dir);
     if (big) {   // chỗ đứng đo theo yên trên từng khung (tools/art/thu_cuoi.py): người cưỡi nhấp nhô đúng theo lưng thú, chân không hở
       p.seatX = dir * spr.seat_x[f]; p.seatSync = true;
