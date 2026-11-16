@@ -1,0 +1,597 @@
+{
+  "_note": "Hệ chiến đấu mới (docs/11-HE-CHIEN-DAU.md; chủ dự án 16/11/2026 13:35 cân 14 món đang có, 13:50 đồ mạnh theo cảnh giới lúc nhặt, 14:08 thử tẩy luyện, 14:26 duyệt hướng). Code: src/game/he-chien.js. Số thử ở Thí Luyện Đài bản 8. on=false: chưa bật cho ai; test_uid: tài khoản được chơi thử bản tạm (như phap-bao.json). Chỉ số: Máu, Công, Thủ phẳng + % ; Bạo kích, ST bạo, Hồi chiêu, Hút máu, Phản đòn tính bằng %.",
+  "on": false,
+  "test_uid": [
+    "625e027c-36b4-4bb7-bd0c-21572612bc50"
+  ],
+  "base": {
+    "hp": 100,
+    "atk": 10,
+    "def": 5,
+    "grow": 1.1,
+    "crit": 5,
+    "crit_mult": 200,
+    "spd": 1.2
+  },
+  "_base": "Gốc theo cảnh giới (nhỏ): hp, atk, def × grow^cảnh giới. crit: bạo kích gốc %, crit_mult: sát thương bạo %, spd: đòn mỗi giây (chỉ để tính lực chiến).",
+  "realm_grow": 1.45,
+  "pham_step": 6,
+  "plus_per": 3,
+  "plus_cap": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45
+  ],
+  "skill_share": 40,
+  "pb4_realm": 3,
+  "_grow": "Chỉ số phẳng một món = gốc × realm_grow^(cảnh giới lúc nhặt, theo tầng tu: lvl/9) × (1 + pham_step% × phẩm) × (1 + plus_per% × cấp); cấp tính tới plus_cap[cảnh giới người mặc]. skill_share: phần sát thương của chiêu (%), Hồi chiêu làm phần này dày hơn.",
+  "lines": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4
+  ],
+  "_lines": "Số dòng phụ theo phẩm 0 Phàm … 6 Thượng Cổ: 3 dòng, riêng Thượng Cổ 4 (16/11 14:55: dòng giờ đáng giá hơn sau khi cân tỷ giá, 2–4 dòng làm phẩm lệch quá 2 lần). Món có nhiều dòng hơn (đồ cũ) chỉ tính những dòng tốt nhất.",
+  "tiers": [
+    {
+      "w": 40,
+      "min": 2,
+      "max": 3
+    },
+    {
+      "w": 28,
+      "min": 3,
+      "max": 4
+    },
+    {
+      "w": 17,
+      "min": 4,
+      "max": 5
+    },
+    {
+      "w": 9,
+      "min": 5,
+      "max": 6
+    },
+    {
+      "w": 4,
+      "min": 6,
+      "max": 8
+    },
+    {
+      "w": 1.6,
+      "min": 8,
+      "max": 10
+    },
+    {
+      "w": 0.4,
+      "min": 10,
+      "max": 12
+    }
+  ],
+  "_tiers": "Giá trị dòng theo màu dòng t (0 lục … 6 đen, trọng số w như items.json line_tiers), nhân thêm hệ số f của chỉ số.",
+  "line_f": {
+    "atk_pct": 1,
+    "hp_pct": 1.52,
+    "def_pct": 3.9,
+    "crit": 0.8,
+    "crit_dmg": 12,
+    "cdr": 2,
+    "lifesteal": 2.1,
+    "thorns": 1.9
+  },
+  "line_from": {
+    "atk_pct": "atk_pct",
+    "hp_pct": "hp_pct",
+    "atk": "atk_pct",
+    "hp": "hp_pct",
+    "def": "def_pct",
+    "crit": "crit",
+    "crit_dmg": "crit_dmg",
+    "cdr": "cdr",
+    "lifesteal": "lifesteal",
+    "thorns": "thorns",
+    "dr": "def_pct"
+  },
+  "_line_from": "Dòng cũ đổi sang dòng mới: Công / Máu / Thủ phẳng thành %; tốc chạy, hấp thu linh khí không tính vào sức đánh.",
+  "cap": {
+    "atk_pct": 24,
+    "hp_pct": 35,
+    "def_pct": 92,
+    "crit": 18,
+    "crit_dmg": 205,
+    "cdr": 41,
+    "lifesteal": 40,
+    "thorns": 38
+  },
+  "_cap": "Cân theo plunworld (chủ dự án 16/11/2026 14:55 \"tham khảo thêm một lượt\"): dòng + chỉ số chính % đi qua đường cong càng dồn càng ít thêm x × soft / (x + soft) như hàm hyp của plunworld, rồi mới kẹp trần cứng cap. line_f là tỷ giá dòng: thêm một dòng cam của chỉ số nào cũng tăng lực chiến như nhau ở mọi cảnh giới. Trần cứng đặt khoảng 1,75 lần mức dòng trung bình, để tẩy tới trần cộng ngọc tới trần vẫn thua người chuẩn cảnh giới trên (chủ dự án 14:26). Sát thương bạo gốc 200% như plunworld.",
+  "pieces": {
+    "vu-khi": {
+      "atk": 6
+    },
+    "mu": {
+      "def": 8
+    },
+    "giap": {
+      "hp": 175
+    },
+    "giay": {
+      "def": 6
+    },
+    "ngoc-boi": {
+      "hp": 100,
+      "cdr": [
+        3,
+        1
+      ]
+    },
+    "nhan": {
+      "atk": 4,
+      "crit": [
+        3,
+        1
+      ]
+    },
+    "linh-thu": {
+      "hp": 75,
+      "lifesteal": [
+        1,
+        0.5
+      ]
+    },
+    "thu-cuoi": {
+      "hp": 80
+    },
+    "pb-cong": {
+      "atk": 3
+    },
+    "pb-thu": {
+      "hp": 90
+    },
+    "khoi-loi": {
+      "atk": 3,
+      "hp": 30
+    }
+  },
+  "_pieces": "14 món: 6 trang bị (theo ô), linh thú, thú cưỡi, 4 pháp bảo (hệ Công / Thủ), 2 khôi lỗi. Số: gốc ở đồ Luyện Khí, phẩm Phàm, cấp 0; [a, b]: chỉ số % = a + b × phẩm. Chỉ 6 trang bị mang cảnh giới lúc nhặt; pháp bảo, linh thú, thú cưỡi, khôi lỗi lớn theo cảnh giới của chủ.",
+  "std_pham": [
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    6
+  ],
+  "_std": "Tu sĩ chuẩn của mỗi cảnh giới (mốc làm quái): đủ món, phẩm std_pham, cấp chạm trần, dòng trung bình. Theo số thật 16/11: Luyện Khí đa số Địa, Kim Đan đa số Thiên.",
+  "roles": {
+    "thuong": {
+      "plus": 0,
+      "hp": 0.3,
+      "atk": 0.86,
+      "def": 0.6,
+      "spd": 0.8
+    },
+    "tinh_anh": {
+      "plus": 1,
+      "hp": 0.8,
+      "atk": 0.83,
+      "def": 0.8,
+      "spd": 0.9,
+      "crit": 5
+    },
+    "thu_linh": {
+      "plus": 2,
+      "hp": 1.58,
+      "atk": 1.18,
+      "def": 0.9,
+      "spd": 0.33,
+      "crit": 8,
+      "lifesteal": 3
+    },
+    "boss_dao": {
+      "plus": 2,
+      "hp": 2.73,
+      "atk": 0.73,
+      "def": 1,
+      "spd": 0.4,
+      "crit": 10,
+      "crit_dmg": 20
+    },
+    "boss": {
+      "plus": 2,
+      "hp": 11.5,
+      "atk": 2.85,
+      "def": 1,
+      "spd": 0.6,
+      "crit": 10,
+      "crit_dmg": 30,
+      "thorns": 5
+    }
+  },
+  "_roles": "Quái = tu sĩ chuẩn cùng cảnh giới (cấp thêm plus) nhân theo vai trò. Nhịp (đòn thường): thường 6–9 đòn, tinh anh 19–27, thủ lĩnh 41–61 thắng còn ~23% máu, boss cần 5–7 người trong 60 giây. boss_dao: boss đảo đánh một mình (Ma Tướng, Ma Quân, Ma Hậu, Huyết Nha…), người chuẩn thắng sát nút; boss: boss nhóm (Ma Tôn).",
+  "gems": {
+    "hong-ngoc": [
+      "atk_pct",
+      0.5
+    ],
+    "lam-ngoc": [
+      "hp_pct",
+      0.5
+    ],
+    "luc-ngoc": [
+      "def_pct",
+      0.5
+    ],
+    "hoang-ngoc": [
+      "crit",
+      0.25
+    ]
+  },
+  "_gems": "Ngọc khảm (chủ dự án 16/11/2026 14:44: \"cân bằng cả ngọc khảm\"): giữ ngọc, giữ cấp, đổi số: mỗi cấp +0,5% Công / Máu / Thủ, Hoàng Ngọc +0,25% Bạo kích. Ghép 3 → 1 như cũ (chi cấp số nhân, mạnh cấp số cộng). Trần riêng của ngọc gem_cap, cộng thêm ngoài trần dòng.",
+  "gem_cap": {
+    "atk_pct": 15,
+    "hp_pct": 15,
+    "def_pct": 15,
+    "crit": 5
+  },
+  "sockets": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    3,
+    3
+  ],
+  "std_gem": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    15,
+    15
+  ],
+  "_std_gem": "Ngọc của tu sĩ chuẩn: % mỗi chỉ số Công / Máu / Thủ (Bạo kích bằng một nửa), theo số thật 16/11: Luyện Khí người giữa 7 viên cấp 3–4, Trúc Cơ trở lên 13 viên cấp 5.",
+  "std_kit": {
+    "0": {
+      "kinds": [
+        "vu-khi",
+        "mu",
+        "giap",
+        "giay",
+        "ngoc-boi",
+        "nhan",
+        "linh-thu",
+        "thu-cuoi",
+        "pb-cong"
+      ],
+      "pham": 1,
+      "plus": 1
+    },
+    "1": {
+      "kinds": [
+        "vu-khi",
+        "mu",
+        "giap",
+        "giay",
+        "ngoc-boi",
+        "nhan",
+        "linh-thu",
+        "thu-cuoi",
+        "pb-cong",
+        "pb-thu",
+        "pb-cong",
+        "khoi-loi"
+      ],
+      "pham": 2,
+      "plus": 5
+    },
+    "2": {
+      "kinds": [
+        "vu-khi",
+        "mu",
+        "giap",
+        "giay",
+        "ngoc-boi",
+        "nhan",
+        "linh-thu",
+        "thu-cuoi",
+        "pb-cong",
+        "pb-thu",
+        "pb-cong",
+        "khoi-loi",
+        "khoi-loi"
+      ],
+      "pham": 3,
+      "plus": 10
+    }
+  },
+  "_std_kit": "Tu sĩ chuẩn thật hơn ở cảnh giới thấp (số thật 16/11 sau khi thử đổi luật): Luyện Khí trung bình 5 trang bị, hiếm pháp bảo, khôi lỗi (người giữa đủ trang bị ~1 900); Trúc Cơ trở lên trung bình 3 pháp bảo, gần 2 khôi lỗi (người giữa ~6 500). Quái Luyện Khí, Trúc Cơ, Kim Đan cân theo các bộ này; từ Nguyên Anh theo đủ 14 món.",
+  "ai_net": {
+    "ranged": {
+      "hp": 0.85,
+      "atk": 1.1
+    },
+    "passive": {
+      "hp": 1.1,
+      "atk": 0.85
+    }
+  },
+  "mobs": {
+    "moc-linh": [
+      1,
+      "thuong"
+    ],
+    "ma-tieu": [
+      2,
+      "thuong"
+    ],
+    "ma-cung": [
+      2,
+      "thuong"
+    ],
+    "huyet-nha": [
+      1,
+      "tinh_anh"
+    ],
+    "moc-linh-vuong": [
+      2,
+      "thu_linh"
+    ],
+    "nguoi-tuyet-yeu": [
+      2,
+      "thuong"
+    ],
+    "bi-ngo-yeu": [
+      2,
+      "thuong"
+    ],
+    "hoa-lang": [
+      5,
+      "thuong"
+    ],
+    "viem-linh": [
+      5,
+      "thuong"
+    ],
+    "ma-binh": [
+      6,
+      "tinh_anh"
+    ],
+    "ma-phap": [
+      6,
+      "thuong"
+    ],
+    "hoa-lang-vuong": [
+      6,
+      "thu_linh"
+    ],
+    "huyet-nha-that": [
+      6,
+      "boss_dao"
+    ],
+    "tuyet-lang": [
+      10,
+      "thuong"
+    ],
+    "bang-tinh": [
+      10,
+      "thuong"
+    ],
+    "ma-bang-tien": [
+      10,
+      "thuong"
+    ],
+    "han-ma-ve": [
+      11,
+      "tinh_anh"
+    ],
+    "tuyet-lang-vuong": [
+      11,
+      "thu_linh"
+    ],
+    "han-hon-ma-tuong": [
+      12,
+      "boss_dao"
+    ],
+    "phong-yeu": [
+      14,
+      "thuong"
+    ],
+    "hac-diep": [
+      14,
+      "thuong"
+    ],
+    "ma-phong-ve": [
+      15,
+      "tinh_anh"
+    ],
+    "phong-yeu-vuong": [
+      15,
+      "thu_linh"
+    ],
+    "hac-phong-ma-quan": [
+      16,
+      "boss_dao"
+    ],
+    "moc-yeu": [
+      19,
+      "thuong"
+    ],
+    "doc-dang": [
+      19,
+      "thuong"
+    ],
+    "ma-tham-tu": [
+      20,
+      "tinh_anh"
+    ],
+    "thu-moc-ve": [
+      22,
+      "tinh_anh"
+    ],
+    "hac-cuc-mam": [
+      22,
+      "thuong"
+    ],
+    "re-ma": [
+      22,
+      "thuong"
+    ],
+    "gai-ma-ve": [
+      23,
+      "tinh_anh"
+    ],
+    "co-thu-yeu-vuong": [
+      21,
+      "thu_linh"
+    ],
+    "thuc-moc-ma-hau": [
+      23,
+      "boss_dao"
+    ],
+    "hac-cuc-ma-chung": [
+      24,
+      "boss_dao"
+    ],
+    "kim-giap-trung": [
+      27,
+      "thuong"
+    ],
+    "sa-ma": [
+      27,
+      "thuong"
+    ],
+    "kiem-hon": [
+      27,
+      "thuong"
+    ],
+    "kim-ma-ve": [
+      28,
+      "tinh_anh"
+    ],
+    "kim-giap-vuong": [
+      28,
+      "thu_linh"
+    ],
+    "van-kiem-ma-tuong": [
+      29,
+      "boss_dao"
+    ],
+    "tho-khoi": [
+      32,
+      "thuong"
+    ],
+    "nham-xa": [
+      32,
+      "thuong"
+    ],
+    "thach-doi": [
+      32,
+      "thuong"
+    ],
+    "tho-ma-ve": [
+      33,
+      "tinh_anh"
+    ],
+    "nham-giap-thu": [
+      33,
+      "thu_linh"
+    ],
+    "toai-son-ma-tuong": [
+      34,
+      "boss_dao"
+    ],
+    "hu-khong-ma": [
+      37,
+      "thuong"
+    ],
+    "u-minh-phap": [
+      37,
+      "thuong"
+    ],
+    "hu-anh": [
+      37,
+      "thuong"
+    ],
+    "u-minh-ve": [
+      38,
+      "tinh_anh"
+    ],
+    "hu-khong-cu-thu": [
+      38,
+      "thu_linh"
+    ],
+    "hu-khong-nguc-chu": [
+      39,
+      "boss_dao"
+    ],
+    "tan-hon-huyet-nha": [
+      40,
+      "boss_dao"
+    ],
+    "tan-hon-han-hon": [
+      40,
+      "boss_dao"
+    ],
+    "tan-hon-hac-phong": [
+      41,
+      "boss_dao"
+    ],
+    "tan-hon-thuc-moc": [
+      41,
+      "boss_dao"
+    ],
+    "ma-ton": [
+      44,
+      "boss"
+    ],
+    "linh-thach-tinh": [
+      2,
+      "thuong"
+    ],
+    "linh-thao-tinh": [
+      2,
+      "thuong"
+    ]
+  },
+  "_mobs": "Mỗi loài quái: [tầng quái (0–80, như tầng tu: Luyện Khí 0–8, Trúc Cơ 9–17…), vai trò]. Tầng theo đảo người chơi thật đang đánh (16/11: Hàn Băng tầng 10, Hắc Phong 14, Thanh Mộc 22, Thiên Kim 27). Loài thiếu trong bảng: tính theo bãi quái của bản đồ. Chưa đổi: Mộc Nhân, đầu boss thế giới (đếm sát thương), bản sao Luận Võ Đài và Tâm Ma (theo chỉ số người chơi), bí cảnh nhân bậc (step_mul) tính sau.",
+  "std_kit_new": {
+    "to_tang": 1,
+    "kinds": [
+      "vu-khi",
+      "giap",
+      "mu",
+      "giay",
+      "pb-cong"
+    ],
+    "pham": 0,
+    "plus": 0
+  },
+  "_std_kit_new": "Người mới (tầng 0–1: Mảnh Vỡ Thanh Khê, Thiên Kiếm Tinh, lượt đầu bí cảnh Huyết Nha): quái tầng tới to_tang cân theo người vừa cầm kiếm, 4 trang bị phẩm Phàm, chưa cường hoá, một pháp bảo.",
+  "soft": {
+    "atk_pct": 200,
+    "hp_pct": 200,
+    "def_pct": 600,
+    "crit": 150,
+    "crit_dmg": 400,
+    "cdr": 150,
+    "lifesteal": 120,
+    "thorns": 120
+  }
+}

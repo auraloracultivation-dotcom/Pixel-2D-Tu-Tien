@@ -338,6 +338,12 @@ try {
   if (n.status !== 0) errors.push(`cloud: bài thử nhịp sống trượt — ${(n.stderr || n.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
 }
 
+// Luật chiến đấu mới (src/game/he-chien.js, data/he-chien.json): bài thử thuần Node
+{
+  const r = spawnSync(process.execPath, [join('tools', 'he-chien.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`he-chien: bài thử luật chiến đấu mới trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);
