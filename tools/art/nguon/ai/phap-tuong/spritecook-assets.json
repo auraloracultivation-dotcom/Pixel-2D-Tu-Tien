@@ -1,5 +1,5 @@
 {
- "note": "SpriteCook asset của 16 pháp tượng (chủ dự án 16/11/2026 20:36 gửi bảng ảnh GPT 4×4 goc/bang-16.png, 20:44 \"Làm trước cho tui 1 cái pháp tượng trên spritecook xem đi, tận dụng tối đa giá trị credit, hiệu ứng linh lực\"). Ảnh tĩnh tinh/NN.png: cắt từ bảng (alpha ≥ 128), thu về rộng 128 (lỗ giữa ôm vừa đầu người ngồi xếp bằng, cỡ game), 32 màu, không viền mực (pháp tượng là ánh sáng). Chuyển động sc/NN.webp: pixel-engine-v1.1 (SpriteCook khuyên dùng cho vòng lặp, 20 credit, giá không đổi theo số khung) 16 khung, tắt tự viết câu lệnh, có negative prompt, vertical_align center, edge_margin 8, matte #0000ff, colors 32. #01 (20:48–20:50): đúng 20 credit, còn 753; khung 152×152, vòng lặp khép (khung 15 → 0 lệch mặt nạ 3%), 16 màu; lửa bập bùng, linh lực chạy, kim cương lóe, đốm lửa bay.",
+ "note": "SpriteCook asset của 16 pháp tượng (chủ dự án 16/11/2026 20:36 gửi bảng ảnh GPT 4×4 goc/bang-16.png, 20:44 \"Làm trước cho tui 1 cái pháp tượng trên spritecook xem đi, tận dụng tối đa giá trị credit, hiệu ứng linh lực\"). Ảnh tĩnh tinh/NN.png: cắt từ bảng (alpha ≥ 128), thu về rộng 128 (lỗ giữa ôm vừa đầu người ngồi xếp bằng, cỡ game), 32 màu, không viền mực (pháp tượng là ánh sáng). Chuyển động sc/NN.webp: pixel-engine-v1.1 (SpriteCook khuyên dùng cho vòng lặp, 20 credit, giá không đổi theo số khung) 16 khung, tắt tự viết câu lệnh, có negative prompt, vertical_align center, edge_margin 8, matte là màu thuần xa màu ảnh nhất (#00ff00, #00ffff, #0000ff hoặc #ff00ff, ghi từng job), colors 32. #01 (20:48–20:50): đúng 20 credit, còn 753; khung 152×152, vòng lặp khép (khung 15 → 0 lệch mặt nạ 3%), 16 màu; lửa bập bùng, linh lực chạy, kim cương lóe, đốm lửa bay. #02–#16 (21:1x; chủ dự án 21:04 \"Sửa xong thì đẩy lên sprite để hoàn thiện nốt\", sau khi chấm lệch 6 ảnh ghép #02 #04 #08 #11 #12 #14 và em đặt lại người ngồi đúng trục): 15 × 20 = 300 credit đúng dự tính, cả 16 cái 320, còn 453; không làm lại cái nào, không sót màu nền. Câu lệnh #02–#16 chép lại từ SpriteCook (get_asset_metadata), cùng khuôn với #01; SpriteCook không trả lại negative prompt nên không ghi ở đây.",
  "params": {
   "model": "pixel-engine-v1.1",
   "output_frames": 16,
@@ -26,6 +26,246 @@
    "file": "sc/01.webp",
    "sha12": "01348e292143",
    "size": "152x152x16"
+  },
+  {
+   "n": 2,
+   "kind": "tinh",
+   "asset_id": "e7bb9668-a692-42b2-9b07-68a9d30aca33",
+   "file": "tinh/02.png",
+   "sha12": "74c3f6eb141d",
+   "size": "124x105"
+  },
+  {
+   "n": 2,
+   "kind": "dong",
+   "asset_id": "5b213890-2fc1-43e1-bf22-ade7474e9cc1",
+   "file": "sc/02.webp",
+   "sha12": "213424c8f63a",
+   "size": "144x144x16"
+  },
+  {
+   "n": 3,
+   "kind": "tinh",
+   "asset_id": "a56c7f0a-cb3b-4f1f-91b9-04471fbc4f05",
+   "file": "tinh/03.png",
+   "sha12": "65dc8d475dea",
+   "size": "126x100"
+  },
+  {
+   "n": 3,
+   "kind": "dong",
+   "asset_id": "1879e5e5-d750-4e56-b6d1-ff68ad2544e2",
+   "file": "sc/03.webp",
+   "sha12": "aedd171cb71a",
+   "size": "150x150x16"
+  },
+  {
+   "n": 4,
+   "kind": "tinh",
+   "asset_id": "33fe368b-4ba1-45ec-980f-c31b18ffc735",
+   "file": "tinh/04.png",
+   "sha12": "db345d844e52",
+   "size": "130x100"
+  },
+  {
+   "n": 4,
+   "kind": "dong",
+   "asset_id": "424e9103-6956-43cc-bafa-273cead10a1f",
+   "file": "sc/04.webp",
+   "sha12": "ddbbfba2a3a7",
+   "size": "154x154x16"
+  },
+  {
+   "n": 5,
+   "kind": "tinh",
+   "asset_id": "3b6220fe-8a3e-4cb2-8b42-dc9b8a13f669",
+   "file": "tinh/05.png",
+   "sha12": "e396955a1c8d",
+   "size": "127x98"
+  },
+  {
+   "n": 5,
+   "kind": "dong",
+   "asset_id": "1adf9cb4-6f37-4e97-b373-a92284cfdfd8",
+   "file": "sc/05.webp",
+   "sha12": "a67e452904fb",
+   "size": "152x152x16"
+  },
+  {
+   "n": 6,
+   "kind": "tinh",
+   "asset_id": "3ddd7610-fb6a-4a0e-b125-30a694f2a4c7",
+   "file": "tinh/06.png",
+   "sha12": "0868193fad9d",
+   "size": "142x96"
+  },
+  {
+   "n": 6,
+   "kind": "dong",
+   "asset_id": "cd40b085-f48d-4338-b571-e26d09c2ce9f",
+   "file": "sc/06.webp",
+   "sha12": "0272ae522fca",
+   "size": "166x166x16"
+  },
+  {
+   "n": 7,
+   "kind": "tinh",
+   "asset_id": "c87251e2-0aba-4bc0-8cd4-993511b2c39d",
+   "file": "tinh/07.png",
+   "sha12": "f8b1721ea005",
+   "size": "125x101"
+  },
+  {
+   "n": 7,
+   "kind": "dong",
+   "asset_id": "2d1577c3-50e0-4d69-bec1-4e0d30584444",
+   "file": "sc/07.webp",
+   "sha12": "7c7dfe8efa85",
+   "size": "146x146x16"
+  },
+  {
+   "n": 8,
+   "kind": "tinh",
+   "asset_id": "9b2390b4-b0b2-4c6d-b8b4-10c41d06a498",
+   "file": "tinh/08.png",
+   "sha12": "367549e78a03",
+   "size": "123x101"
+  },
+  {
+   "n": 8,
+   "kind": "dong",
+   "asset_id": "7dfb9535-9d19-40cb-ae7e-eb19f14cfd30",
+   "file": "sc/08.webp",
+   "sha12": "7f293f5128f5",
+   "size": "144x144x16"
+  },
+  {
+   "n": 9,
+   "kind": "tinh",
+   "asset_id": "74967c4e-ef10-4ece-ae10-7b548517ec8c",
+   "file": "tinh/09.png",
+   "sha12": "798a68b5484f",
+   "size": "134x93"
+  },
+  {
+   "n": 9,
+   "kind": "dong",
+   "asset_id": "63bd4f00-60f0-4eea-a246-62ad41d3d42a",
+   "file": "sc/09.webp",
+   "sha12": "f49f08465646",
+   "size": "158x158x16"
+  },
+  {
+   "n": 10,
+   "kind": "tinh",
+   "asset_id": "35eb49e6-e509-4857-bee4-b48f643f4810",
+   "file": "tinh/10.png",
+   "sha12": "e9a5260d1c31",
+   "size": "121x92"
+  },
+  {
+   "n": 10,
+   "kind": "dong",
+   "asset_id": "d6c23bd7-2855-4df2-807f-19bc3a03f54b",
+   "file": "sc/10.webp",
+   "sha12": "9a9ece39270b",
+   "size": "142x142x16"
+  },
+  {
+   "n": 11,
+   "kind": "tinh",
+   "asset_id": "d8a753ad-c57d-42ee-8122-7d95a07cfafb",
+   "file": "tinh/11.png",
+   "sha12": "5a1dbda82b1a",
+   "size": "116x94"
+  },
+  {
+   "n": 11,
+   "kind": "dong",
+   "asset_id": "106d7e51-69ff-4995-a8e0-d25e24d4ecf7",
+   "file": "sc/11.webp",
+   "sha12": "1a917fe4b426",
+   "size": "136x136x16"
+  },
+  {
+   "n": 12,
+   "kind": "tinh",
+   "asset_id": "6d96af4f-7beb-4e78-bccd-335e2ff269a1",
+   "file": "tinh/12.png",
+   "sha12": "8a2e78d931ca",
+   "size": "130x94"
+  },
+  {
+   "n": 12,
+   "kind": "dong",
+   "asset_id": "e3ed2d47-1e7e-460c-ab48-df567630f286",
+   "file": "sc/12.webp",
+   "sha12": "4e17331eda3b",
+   "size": "154x154x16"
+  },
+  {
+   "n": 13,
+   "kind": "tinh",
+   "asset_id": "d34be4b9-6875-429c-a1e7-0b0b3bb42e60",
+   "file": "tinh/13.png",
+   "sha12": "cab20c44fd3d",
+   "size": "126x105"
+  },
+  {
+   "n": 13,
+   "kind": "dong",
+   "asset_id": "735b516d-dff1-422b-8785-d569921e270d",
+   "file": "sc/13.webp",
+   "sha12": "2939244e5897",
+   "size": "150x150x16"
+  },
+  {
+   "n": 14,
+   "kind": "tinh",
+   "asset_id": "540979ab-041c-484a-95f6-b8fedcc1361b",
+   "file": "tinh/14.png",
+   "sha12": "949a284d5fde",
+   "size": "133x100"
+  },
+  {
+   "n": 14,
+   "kind": "dong",
+   "asset_id": "dc761890-c720-44bd-8a26-261b6148d75b",
+   "file": "sc/14.webp",
+   "sha12": "7815e354e7f4",
+   "size": "158x158x16"
+  },
+  {
+   "n": 15,
+   "kind": "tinh",
+   "asset_id": "9c75c7bd-2607-4b7a-9174-d0e2dbb5c973",
+   "file": "tinh/15.png",
+   "sha12": "3e750a452a70",
+   "size": "128x98"
+  },
+  {
+   "n": 15,
+   "kind": "dong",
+   "asset_id": "a5ce1b2a-20f6-4b1a-8bc7-d935c5a0140d",
+   "file": "sc/15.webp",
+   "sha12": "aac88605d13d",
+   "size": "152x152x16"
+  },
+  {
+   "n": 16,
+   "kind": "tinh",
+   "asset_id": "d5306cfb-bc68-470f-bfed-b92e45cbf27d",
+   "file": "tinh/16.png",
+   "sha12": "9195eff718df",
+   "size": "135x106"
+  },
+  {
+   "n": 16,
+   "kind": "dong",
+   "asset_id": "c67be334-34cf-42e5-b87b-1c37c65f2b2e",
+   "file": "sc/16.webp",
+   "sha12": "997955f54e7e",
+   "size": "160x160x16"
   }
  ],
  "jobs": [
@@ -38,6 +278,141 @@
    "asset_id": "c6892ea5-4e38-497e-94a0-0493fe1e5d2a",
    "prompt": "A glowing golden flame emblem floating in the air, front view and symmetrical: two great curved branches of golden fire form a ring around an empty heart-shaped center, flame tongues curl outward along both sides and at the bottom, and a bright white-gold diamond crystal sits at the top center. Seamless looping animation of glowing spiritual energy: every flame tongue flickers and dances upward like living fire, bright waves of golden light run along both fire branches from the bottom up into the diamond crystal, the diamond crystal pulses brighter and flashes a small four-pointed white star sparkle, and tiny glowing golden embers rise and drift upward around the emblem and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first.",
    "negative_prompt": "background, sky, ground, shadow, person, character, creature, face, text, border, frame, smoke, rotation, camera movement, zoom, shape change, blur"
+  },
+  {
+   "n": 2,
+   "job_id": "63a6fb9c-dacc-4049-8053-f79c2bdcc00d",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "5b213890-2fc1-43e1-bf22-ade7474e9cc1",
+   "prompt": "A glowing ice crystal emblem floating in the air, front view and symmetrical: sharp blue ice crystal shards stand in a ring around an empty center, with a large crystal at the top center and a small crystal at the bottom center. Seamless looping animation of glowing spiritual energy: bright white glints travel across the crystal shards one after another around the ring, a cold blue light pulses softly through all the crystals, and tiny sparkling ice motes twinkle and drift upward around the emblem and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 3,
+   "job_id": "d149d93e-6bbf-4cf5-acac-90f1cb31c455",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "1879e5e5-d750-4e56-b6d1-ff68ad2544e2",
+   "prompt": "A glowing purple spirit emblem floating in the air, front view and symmetrical: tall purple flames rise on both sides like wings around a round dark violet night sky in the middle, which holds a white crescent moon at the top, a second crescent moon below and small white stars. Seamless looping animation of glowing spiritual energy: the purple flames flicker and dance upward, the two crescent moons glow brighter and softer in turn, the small stars twinkle, and tiny violet sparks drift upward around the emblem and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 4,
+   "job_id": "6540d111-680f-40e1-8281-49e985509cd0",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "424e9103-6956-43cc-bafa-273cead10a1f",
+   "prompt": "A glowing pink lotus emblem floating in the air, front view and symmetrical: layers of pointed pink lotus petals open around a small empty heart-shaped center, with a few loose petals floating below. Seamless looping animation of glowing spiritual energy: soft pink light breathes outward from the center through the petals, the petal tips shimmer, the loose petals drift gently up and down, and tiny pink sparkles rise and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 5,
+   "job_id": "a3e7c264-43f2-4da8-9cf1-98432f4be580",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "1adf9cb4-6f37-4e97-b373-a92284cfdfd8",
+   "prompt": "A glowing water emblem floating in the air, front view: curling blue ocean waves with white foam crests form a ring around an empty center, with small round water bubbles at the right. Seamless looping animation of glowing spiritual energy: the waves roll and flow continuously around the ring, the white foam crests shimmer, small droplets splash up and fall back, and bright blue light ripples along the water. The emblem keeps the same overall shape, size and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 6,
+   "job_id": "a7455c27-23d7-4b09-b8ab-1787924193eb",
+   "credits": 20,
+   "matte": "#00ffff",
+   "status": "xong",
+   "asset_id": "cd40b085-f48d-4338-b571-e26d09c2ce9f",
+   "prompt": "A glowing fire dragon emblem floating in the air, front view: an orange and red dragon made of flames curls into a ring around an empty center, with its head at the upper right and flame plumes curling at the bottom. Seamless looping animation of glowing spiritual energy: the flames along the dragon's body flicker and stream backward, bright light flows along its body from the tail to the head, the dragon's eye glows, and tiny embers drift upward and fade out. The dragon keeps the same pose, shape, size and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 7,
+   "job_id": "d9f1c924-d6b7-4df2-99e8-7adb642f8def",
+   "credits": 20,
+   "matte": "#0000ff",
+   "status": "xong",
+   "asset_id": "2d1577c3-50e0-4d69-bec1-4e0d30584444",
+   "prompt": "A glowing green vine emblem floating in the air, front view and symmetrical: two twisting green vines with leaves form a ring around an empty center, with a bright pale green flower at the top center. Seamless looping animation of glowing spiritual energy: the leaves sway and rustle gently, the flower glows brighter and softer like breathing, light green energy flows along the vines up to the flower, and tiny green motes of light drift upward and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 8,
+   "job_id": "64efc7ad-c387-45fe-9794-892fa6e6cf2e",
+   "credits": 20,
+   "matte": "#0000ff",
+   "status": "xong",
+   "asset_id": "7dfb9535-9d19-40cb-ae7e-eb19f14cfd30",
+   "prompt": "A glowing golden sun emblem floating in the air, front view and symmetrical: a thick golden ring with sharp golden spikes all around it like sun rays, a large spike at the top, and a four-pointed star at the bottom center, with an empty center. Seamless looping animation of glowing spiritual energy: bright light runs around the ring, the spikes flash one after another around the circle, the four-pointed star pulses and sparkles, and tiny golden sparks drift outward and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 9,
+   "job_id": "92777bdc-9077-48b8-ab80-4cf2f19f7491",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "63bd4f00-60f0-4eea-a246-62ad41d3d42a",
+   "prompt": "A glowing purple flame wings emblem floating in the air, front view and symmetrical: two great wings of purple flame spread to both sides around an empty heart-shaped center, with a white four-pointed crystal star at the top center. Seamless looping animation of glowing spiritual energy: the purple flames flicker and rise, waves of bright violet light run along both wings up to the star, the star pulses and flashes a small sparkle, and tiny violet embers drift upward and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 10,
+   "job_id": "f55f449c-ed00-4838-9376-b88b0f10fffc",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "d6c23bd7-2855-4df2-807f-19bc3a03f54b",
+   "prompt": "A glowing ice crystal lotus emblem floating in the air, front view and symmetrical: layers of sharp blue crystal petals form a wide lotus with a large crystal in the middle. Seamless looping animation of glowing spiritual energy: bright white glints sweep across the crystal petals from the center outward, a cold blue light pulses through the lotus, the middle crystal flashes, and tiny ice sparkles twinkle and drift upward and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 11,
+   "job_id": "ad226f86-899b-4ce0-aa59-10e024da1128",
+   "credits": 20,
+   "matte": "#0000ff",
+   "status": "xong",
+   "asset_id": "106d7e51-69ff-4995-a8e0-d25e24d4ecf7",
+   "prompt": "A glowing golden sword array emblem floating in the air, front view and symmetrical: many small golden swords stand pointing outward around a thin glowing golden ring with an empty center, and a four-pointed star sits at the bottom center inside the ring. Seamless looping animation of glowing spiritual energy: a bright glint runs along each sword blade one after another around the ring, the ring glows and pulses, the star flashes, and tiny golden sparks drift and fade out. The swords stay in place, the emblem keeps the same overall shape, size, symmetry and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 12,
+   "job_id": "25400673-65c4-4223-88be-f3a008b7d2e1",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "e3ed2d47-1e7e-460c-ab48-df567630f286",
+   "prompt": "A glowing purple crystal emblem floating in the air, front view and symmetrical: sharp violet crystal spires rise in a crown shape, the tallest crystal at the top center and smaller crystals spreading to both sides, with small floating crystal shards around. Seamless looping animation of glowing spiritual energy: the crystals light up one after another with a bright inner glow, violet light pulses through the cluster, glints flash on the crystal tips, the small shards float gently, and tiny purple sparkles drift upward and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 13,
+   "job_id": "cd8ac154-c2b6-4971-8cf8-1419314deedc",
+   "credits": 20,
+   "matte": "#ff00ff",
+   "status": "xong",
+   "asset_id": "735b516d-dff1-422b-8785-d569921e270d",
+   "prompt": "A glowing water dragon emblem floating in the air, front view: a cyan dragon made of flowing water curls into a ring around an empty center, with its head at the upper right and water waves curling at the bottom. Seamless looping animation of glowing spiritual energy: water flows continuously along the dragon's body from head to tail, white foam and small droplets splash from its curls, the dragon's eye glows, and bright light ripples along the water. The dragon keeps the same pose, shape, size and position in every frame, the center stays empty, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 14,
+   "job_id": "c325927a-6e06-4dcf-ae98-c0eff7bc6e34",
+   "credits": 20,
+   "matte": "#0000ff",
+   "status": "xong",
+   "asset_id": "dc761890-c720-44bd-8a26-261b6148d75b",
+   "prompt": "A glowing fire phoenix emblem floating in the air, front view and symmetrical: an orange and red phoenix made of flames spreads its wings wide, its head raised at the top center, with flame plumes curling below on both sides. Seamless looping animation of glowing spiritual energy: the phoenix gently beats its spread wings a little, its flame feathers flicker and dance, bright light flows from its body out to the wing tips, and tiny embers drift upward and fade out. The phoenix keeps the same pose, size, symmetry and position in every frame, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 15,
+   "job_id": "bbfda1f0-8180-4aca-9e90-01ba0ab9f59c",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "a5ce1b2a-20f6-4b1a-8bc7-d935c5a0140d",
+   "prompt": "A glowing pink lotus emblem floating in the air, front view and symmetrical: layers of pointed pink lotus petals open wide with a bright golden four-pointed star at the center, and a few loose petals floating below. Seamless looping animation of glowing spiritual energy: the golden star twinkles and flashes rays of light, soft pink light breathes through the petals from the center outward, the loose petals drift gently, and tiny sparkles rise and fade out. The emblem keeps the same overall shape, size, symmetry and position in every frame, and the last frame flows smoothly back into the first."
+  },
+  {
+   "n": 16,
+   "job_id": "5825b99b-f975-4f68-8641-af24d74123ff",
+   "credits": 20,
+   "matte": "#00ff00",
+   "status": "xong",
+   "asset_id": "c67be334-34cf-42e5-b87b-1c37c65f2b2e",
+   "prompt": "A glowing night sky emblem floating in the air, front view: a round deep blue night sky full of small stars, framed by soft white clouds on both sides and below, with a big bright four-pointed star at the top center. Seamless looping animation of glowing spiritual energy: the clouds drift and billow slowly, the small stars twinkle one after another, the big star pulses and flashes its rays, and tiny star sparkles drift upward and fade out. The emblem keeps the same overall shape, size and position in every frame, and the last frame flows smoothly back into the first."
   }
  ]
 }
