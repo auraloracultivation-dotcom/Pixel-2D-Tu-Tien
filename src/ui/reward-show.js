@@ -9,6 +9,7 @@ import { createRays } from './reward-rays.js';
 import { grade } from '../game/tiers.js';
 import { equip, itemName, statText } from '../game/items.js';
 import { mainStats, powerGain } from './bag-detail.js';
+import { lineText } from './hc-text.js';
 import { rewardOn, rewardSettled } from '../game/reward.js';
 import { spriteIcon } from './sprite-icon.js';
 
@@ -43,7 +44,7 @@ export function createRewardShow(game) {
     const { g, ray, ink, lvl } = tierOf(it), slot = data.items.bases[it.base].slot, inBag = game.save.bag.includes(it);
     const worn = game.save.equip[slot] === it.uid, cur = !worn && game.save.equip[slot] != null;
     const lines = Object.entries(mainStats(data, game.save, it)).map(([k, v]) => ({ text: statText(data, k, v), main: true }));
-    for (const l of it.lines || []) { const t = Number.isInteger(l.t) ? data.items.line_tiers.list[l.t] : null; lines.push({ text: '◆ ' + statText(data, l.s, l.v), color: t ? (t.edge ? '#ffd6d6' : t.color) : '' }); }
+    for (const l of it.lines || []) { const t = Number.isInteger(l.t) ? data.items.line_tiers.list[l.t] : null; lines.push({ text: '◆ ' + lineText(data, l), color: t ? (t.edge ? '#ffd6d6' : t.color) : '' }); }
     return { ray, ink, lvl, name: itemName(data, it), tag: g.name, sub: fill(X.sub, { slot: data.items.slots[slot], lvl: it.lvl || 0 }), lines, ico: icoUrl(it), inBag, worn, cur, gain: inBag && !worn ? Math.round(powerGain(game, it)) : worn ? null : 0 };
   }
 

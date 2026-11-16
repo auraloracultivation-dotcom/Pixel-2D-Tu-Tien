@@ -100,13 +100,18 @@ export function outfitLine(game, key, f) {
   return s.outfitLine[key];
 }
 
+// Dòng của bộ thời trang đang mặc (null nếu chưa có); luật chiến đấu mới tính nó như một dòng tẩy luyện cùng màu (stats.js)
+export function outfitLineOf(save, data) {
+  const look = data.heroes.list[save.look] ? save.look : data.heroes.default;
+  const r = data.fashion.renamed?.[save.outfit], oid = r ? (typeof r === 'string' ? r : r[look]) : save.outfit;   // bộ cũ đã đổi tên
+  return (oid && save.outfitLine?.[`${oid}:${look}`]) || null;
+}
+
 // Cộng vào chỉ số nhân vật (src/game/stats.js): dòng thú cưỡi đang chọn + dòng bộ thời trang đang mặc
 export function wornExtra(save, data) {
   const out = {}, add = l => { if (l && data.items.stats[l.s]) out[l.s] = (out[l.s] || 0) + l.v; };
   if (save.mount) add(save.mountLine?.[save.mount]);
-  const look = data.heroes.list[save.look] ? save.look : data.heroes.default;
-  const r = data.fashion.renamed?.[save.outfit], oid = r ? (typeof r === 'string' ? r : r[look]) : save.outfit;   // bộ cũ đã đổi tên
-  if (oid) add(save.outfitLine?.[`${oid}:${look}`]);
+  add(outfitLineOf(save, data));
   return out;
 }
 

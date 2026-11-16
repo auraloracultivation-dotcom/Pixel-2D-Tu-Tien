@@ -80,12 +80,13 @@ import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createMangLeave } from './ui/mang-leave.js';
 import { startAnalyticsHook } from './game/analytics-hook.js';
+import { hcData } from './game/he-chien.js';
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
   initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
-  const data = await loadData();
+  const data = hcData(await loadData());   // luật chiến đấu mới (data/he-chien.json on): đổi bảng quái một lần lúc nạp (src/game/he-chien.js)
   let screen = null;
   const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
   screen = createScreen(canvas, data.config, perf.dpr);

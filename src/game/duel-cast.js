@@ -12,6 +12,7 @@ import { castSfx } from './skill-sfx.js';
 import { startChain } from './skill-chain.js';
 import { openDomain } from './skill-domain.js';
 import { startCharge, inBeam } from './skill-charge.js';   // Thiên Phạt cũng tụ lực qua đây (skill-thunder.js)
+import { takeK } from './he-chien.js';
 
 
 // Sát thương bản sao gây ra: bạo kích (đòn của chính nó; linh thú, đồng hành không bạo như của người chơi), tăng lực, ±10%
@@ -30,7 +31,8 @@ export function hit(game, m, dmg, at) {
 // phản đòn (như hitPlayer)
 export function duelTake(game, m, dmg, opt) {
   if (m.dashT > 0) return 0;
-  dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - m.st.def) * (1 - (m.st.dr || 0)) * m.dmgMul));
+  if (m.st.hc) dmg = Math.max(1, Math.round(dmg * takeK(game.player.st.atk, m.st.def) * m.dmgMul));   // luật mới: Công đọ Thủ (src/game/he-chien.js)
+  else dmg = Math.max(1, Math.round(Math.max(dmg * (game.data.config.player.def_min_take ?? 0), dmg - m.st.def) * (1 - (m.st.dr || 0)) * m.dmgMul));
   if (m.shield > 0) {
     const a = Math.min(m.shield, dmg); m.shield -= a; dmg -= a;
     addNumber(game, m.x, m.y - 14, a, '#7ad0ff');

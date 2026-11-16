@@ -12,6 +12,8 @@ import { bestGems } from '../game/autogem.js';
 import { quality, grade } from '../game/tiers.js';
 import { startCoinLog } from '../game/coin-log.js';
 import { renderCoinLog } from './coin-log-sheet.js';
+import { playerStats } from '../game/stats.js';
+import { hcSummary } from '../game/he-chien.js';
 
 const $ = id => document.getElementById(id);
 const SORTS = [['moi', 'Mới nhặt'], ['pham', 'Phẩm chất'], ['cap', 'Cấp'], ['manh', 'Lực chiến']];
@@ -59,8 +61,8 @@ export function createBag(game) {
       }
       box.append(cell);
     }
-    const g = gearStats(data, save());
-    $('bag-stats').textContent = Object.keys(g).length
+    const g = gearStats(data, save()), H = data['he-chien'], hs = H?.on && playerStats(save(), data).hc;   // luật mới: tổng chỉ số thật trong trận
+    $('bag-stats').textContent = hs ? hcSummary(H, hs) : Object.keys(g).length
       ? Object.entries(g).map(([s, v]) => statText(data, s, v)).join(' · ')
       : 'Chưa mặc đồ.';
     $('bag-mats').textContent = `${coins(save()).toLocaleString('vi-VN')} ${data.shop.name}`;

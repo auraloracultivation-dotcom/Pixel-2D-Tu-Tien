@@ -1,9 +1,66 @@
 {
-  "_note": "Hệ chiến đấu mới (docs/11-HE-CHIEN-DAU.md; chủ dự án 16/11/2026 13:35 cân 14 món đang có, 13:50 đồ mạnh theo cảnh giới lúc nhặt, 14:08 thử tẩy luyện, 14:26 duyệt hướng). Code: src/game/he-chien.js. Số thử ở Thí Luyện Đài bản 8. on=false: chưa bật cho ai; test_uid: tài khoản được chơi thử bản tạm (như phap-bao.json). Chỉ số: Máu, Công, Thủ phẳng + % ; Bạo kích, ST bạo, Hồi chiêu, Hút máu, Phản đòn tính bằng %.",
-  "on": false,
-  "test_uid": [
-    "625e027c-36b4-4bb7-bd0c-21572612bc50"
+  "_note": "Hệ chiến đấu mới (docs/11-HE-CHIEN-DAU.md; chủ dự án 16/11/2026 13:35 cân 14 món đang có, 13:50 đồ mạnh theo cảnh giới lúc nhặt, 14:08 thử tẩy luyện, 14:26 duyệt hướng). Code: src/game/he-chien.js. Số thử ở Thí Luyện Đài bản 8. on=true: bật cho mọi người (chủ dự án 16/11/2026 16:20); test_uid: tài khoản được chơi thử khi on=false (như phap-bao.json). Chỉ số: Máu, Công, Thủ phẳng + % ; Bạo kích, ST bạo, Hồi chiêu, Hút máu, Phản đòn tính bằng %.",
+  "on": true,
+  "test_uid": [],
+  "_on": "Chủ dự án 16/11/2026 16:04 \"đẩy hệ thống sức mạnh mới lên game\", 16:20 \"bật cho mọi người luôn\": on=true thì src/main.js gọi hcData (đổi bảng quái, tắt áp chế lực chiến cp_press và hệ số đảo mob_cp, bí cảnh mỗi bậc × dun_step_mul), stats.js tính chỉ số người chơi theo luật này. Tắt lại: on=false (bản luật cũ còn nguyên).",
+  "power_k": 40,
+  "_power_k": "Lực chiến = căn(máu hiệu dụng × sát thương mỗi giây) × power_k. 40: số cỡ như luật cũ (Trúc Cơ giữa ~26 nghìn), thành tựu 5.000 lực chiến và Khai Hoang (máy chủ đòi lực chiến ≥ 10% lực chiến trùm) vẫn hợp.",
+  "lines_all": true,
+  "lines_max": 10,
+  "_lines_all": "Chủ dự án 16/11/2026 16:20 chọn \"giữ hên xui\": số dòng mỗi món vẫn theo trần ẩn 1–10 của tẩy luyện (items.json line_tiers.cap_w), mọi dòng đều tính; trần từng chỉ số (soft, cap) chặn không cho lố. lines[] bên dưới chỉ dùng cho tu sĩ chuẩn (mốc làm quái).",
+  "extra_cap": {
+    "tech": 10,
+    "set": 6,
+    "dao": 6,
+    "pill": 5
+  },
+  "_extra_cap": "Chủ dự án 16/11/2026 16:20 \"thưởng nhỏ có trần\": công pháp, bộ đồ, Đạo Vận, đan Bồi Nguyên theo luật cũ đổi ra %, mỗi nguồn mỗi chỉ số tối đa số này tính theo Công % tương đương (nhân tỷ giá dòng line_f: Máu × 1,52, Thủ × 3,9, ST bạo × 12…). Thời trang: dòng của bộ đang mặc tính như một dòng tẩy luyện cùng màu. Cảnh giới gia trì (máu, công × %) bỏ vì thang cảnh giới mới đã thay.",
+  "skip_mobs": [
+    "dau-si",
+    "dau-si-xa",
+    "dau-si-ba",
+    "tam-ma",
+    "thon-thien-mang",
+    "moc-nhan"
   ],
+  "hp_game": {
+    "thuong": 0.7,
+    "tinh_anh": 0.85
+  },
+  "_hp_game": "Máu quái trong trận thật nhân thêm theo vai trò: quái thường × 0,7 cho người chơi chuẩn hạ trong khoảng 5–6 nhát đánh thường đủ lực (docs/10-CAI-HON.md việc 5: quái đầu game 4–6 nhát mới chết; có chiêu thì nhanh hơn), tinh anh × 0,85. Thủ lĩnh, boss giữ như mô hình.",
+  "dun_step_mul": 1.15,
+  "demon_role": "boss_dao",
+  "_skip": "skip_mobs: bản sao người chơi (Luận Võ Đài, Tâm Ma) lấy chỉ số của người, không đổi. dun_step_mul: bí cảnh không đáy mỗi bậc quái × số này thay cho × 2 của luật cũ (một cảnh giới mới chỉ mạnh × 1,8). demon_role: Ma Vương tuần là boss đảo của cảnh giới mở Phương Thiên Địa, rồi nhân theo bậc như cũ.",
+  "nhan": {
+    "tinh_anh": {
+      "t": "Tinh Anh",
+      "c": "#5ab8f0"
+    },
+    "thu_linh": {
+      "t": "Thủ Lĩnh",
+      "c": "#b070ff"
+    },
+    "boss_dao": {
+      "t": "Boss",
+      "c": "#ff9a3a"
+    },
+    "boss": {
+      "t": "Boss Tổ Đội",
+      "c": "#ff4a4a"
+    }
+  },
+  "_nhan": "Nhãn loại quái trên đầu (chủ dự án 16/11/2026 16:04: \"gắn chữ lên trên quái, thêm màu làm điểm nhấn để người chơi dễ nhận diện boss, tinh anh hay quái thường\"). Quái thường không nhãn. Màu theo thang màu dòng của game: lam, tím, cam, đỏ. Vai trò lấy từ bảng mobs bên dưới; quái boss chưa có trong bảng coi là Boss.",
+  "ten": {
+    "atk_pct": "Công",
+    "hp_pct": "Sinh lực",
+    "def_pct": "Phòng ngự",
+    "crit": "Tỉ lệ bạo kích",
+    "crit_dmg": "Sát thương bạo kích",
+    "cdr": "Giảm hồi chiêu",
+    "lifesteal": "Hút máu",
+    "thorns": "Phản đòn"
+  },
+  "_ten": "Tên chỉ số hiện trên món đồ theo luật mới (src/ui/hc-text.js): dòng tẩy luyện, ngọc khảm hiện đúng số tính trong trận, đều là %.",
   "base": {
     "hp": 100,
     "atk": 10,

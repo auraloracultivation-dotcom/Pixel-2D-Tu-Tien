@@ -5,6 +5,8 @@ import {
   equip, unequip, salvage, rerollFee, gemInfo, rarityOf, itemName, statText, artOf, enhanceRefund, matchEl, matchMul,
   enhanceMul,
 } from '../game/items.js';
+import { lineText } from './hc-text.js';
+import { hcMain } from '../game/he-chien.js';
 import { salvageIron, costText } from '../game/cave.js';
 import { sell, sellPrice } from '../game/shop.js';
 import { dailyEvent } from '../game/daily.js';
@@ -40,6 +42,8 @@ export function icon(data, it) {
 
 // Chỉ số chính đã nhân cường hoá và hợp hệ Đạo Vận (như lúc tính vào người)
 export function mainStats(data, save, it) {
+  const H = data['he-chien'], hm = H?.on && hcMain(H, data, save, it);   // luật mới: chỉ số chính theo cảnh giới món, phẩm, cấp (he-chien.js)
+  if (hm) return hm;
   const base = data.items.bases[it.base];
   const k = enhanceMul(data, it.plus) * matchMul(data, save, it);
   return Object.fromEntries(Object.entries(it.main).map(([s, v]) => [s, Math.round(v * k)]));
@@ -57,7 +61,7 @@ const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toLocaleS
 // box: nơi vẽ; st: trạng thái túi; changed(): lưu, tính lại, vẽ lại túi; close(): đóng tấm chi tiết
 // Dòng phụ tô màu theo bậc (lục → đen; đen có viền đỏ sẫm)
 export function tierLine(data, l) {   // dòng tẩy luyện: mỗi dòng một màu (cả hồ sơ người khác, src/ui/profile-side.js)
-  const t = Number.isInteger(l.t) ? tierOf(data, l.t) : null, d = el('div', 'd-line' + (t?.edge ? ' tier-den' : ''), '◆ ' + statText(data, l.s, l.v));
+  const t = Number.isInteger(l.t) ? tierOf(data, l.t) : null, d = el('div', 'd-line' + (t?.edge ? ' tier-den' : ''), '◆ ' + lineText(data, l));
   if (t) { d.style.color = t.edge ? '#ffd6d6' : t.color; if (t.edge) d.style.setProperty('--edge', t.edge); }
   return d;
 }
@@ -170,7 +174,7 @@ export function renderDetail(game, st, box, changed, close) {
     const res = await kyReroll(game, it.uid);
     if (!res || res.full) { changed(); return; }
     const t = tierOf(data, res.line.t), gain = Math.round(power(game, playerStats(save, data)) - p0);   // góp ý #77: hiện rõ món mạnh lên bao nhiêu (phẩm có thể tụt khi dòng mới màu thấp)
-    st.msg = `Dòng ${it.lines.length}: ${statText(data, res.line.s, res.line.v)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
+    st.msg = `Dòng ${it.lines.length}: ${lineText(data, res.line)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
     if (game.mung) game.mung(mungReroll(game, it, res, q0, worn ? gain : 0)); else game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal');
     changed();
   }), full || (!free && (stones < cost || (save.lingshi || 0) < fee)));

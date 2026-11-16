@@ -2,6 +2,7 @@
 //   Tấm chi tiết món đồ (bag-detail.js gọi sau khi máy chủ báo thành công): cường hoá lên +N, tẩy luyện mở dòng mới, luyện pháp bảo lên ★N.
 //   Tấm chi tiết pháp bảo (self-pb-page.js): nâng cấp lên +N, đục ô thành công.
 import { statText } from '../game/items.js';
+import { lineText } from './hc-text.js';
 import { tierOf, quality } from '../game/tiers.js';
 
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
@@ -23,7 +24,7 @@ export function mungEnhance(game, it, m0, m1, gain) {
 // dòng màu cao diễn lớn hơn (mung.lvl_tier), dòng cuối của món lớn thêm một nấc. Phẩm món lên thì báo; phẩm tụt (dòng mới màu thấp) thì không nhắc.
 export function mungReroll(game, it, res, q0, gain) {
   const data = game.data, C = data.juice.mung, X = C.text, t = tierOf(data, res.line.t), up = at(C.lvl_tier, res.line.t), q1 = quality(data, it), L = tiers(data);
-  const lines = [{ text: '◆ ' + statText(data, res.line.s, res.line.v), color: t.edge ? '#ffd6d6' : t.color, big: true }];
+  const lines = [{ text: '◆ ' + lineText(data, res.line), color: t.edge ? '#ffd6d6' : t.color, big: true }];
   if (q0 && q1 && L.indexOf(q1) > L.indexOf(q0)) lines.push({ text: fill(X.quality, { a: q0.name, b: q1.name }), color: q1.edge ? '#ffd6d6' : q1.color });
   if (res.last) lines.push({ text: fill(X.last, { n: it.lines.length }) });
   return { kind: 'reroll', fx: 'sao', lvl: Math.min(3, up + (res.last ? 1 : 0)), ray: t.edge || t.color, ico: icoUrl(data, it), gain, lines,

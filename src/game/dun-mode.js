@@ -4,6 +4,7 @@ import { grant, dailyEvent } from './daily.js';
 import { runsLeft, useRun, rewardOf, finishRun, sweep } from './dun-run.js';
 import { pbDrop } from './phap-bao-drop.js';
 import { khDun } from './khai-hoang.js';
+import { takeK } from './he-chien.js';
 
 const C = game => game.data.dungeon;
 
@@ -26,9 +27,9 @@ export function hintOf(game, id, L) {
   const H = C(game).hint, boss = (game.data.maps[id].rooms || []).find(r => r.boss)?.mobs?.[0];
   const def = boss && game.data.mobs[boss.mob], st = game.player?.st;
   if (!def || !st) return { text: H.fair_text, color: H.fair_color };
-  const mul = levelMul(game, L), pc = game.data.config.player;
-  const dps = st.atk * (1 + st.crit * (st.critMult - 1)) * H.dps_per_atk;
-  const hit = Math.max(def.atk * mul * (pc.def_min_take ?? 0), def.atk * mul - st.def);
+  const mul = levelMul(game, L), pc = game.data.config.player, hc = def.hc && st.hc;   // luật mới: Công đọ Thủ (he-chien.js)
+  const dps = st.atk * (1 + st.crit * (st.critMult - 1)) * H.dps_per_atk * (hc ? takeK(st.atk, def.hc.def) : 1);
+  const hit = hc ? def.atk * mul * takeK(def.hc.atk * mul, st.def) : Math.max(def.atk * mul * (pc.def_min_take ?? 0), def.atk * mul - st.def);
   const r = (st.maxHp / Math.max(0.1, hit * H.hit_rate / (def.cd || 1))) / (def.hp * Math.max(mul, floorOf(game, id, true)) / Math.max(1, dps));
   return r >= H.easy ? { text: H.easy_text, color: H.easy_color } : r >= H.hard ? { text: H.fair_text, color: H.fair_color } : { text: H.hard_text, color: H.hard_color };
 }

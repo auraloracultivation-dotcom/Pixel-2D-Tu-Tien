@@ -5,6 +5,7 @@
 import { gemMergeFee, gemInfo, statText } from '../game/items.js';
 import { kyMerge } from '../game/ky-ngoc.js';   // đã đăng nhập: máy chủ ghép ngọc
 import { el } from './bag-detail.js';
+import { gemText } from './hc-text.js';
 import { gemIcon } from './gem-icon.js';
 import { usePill, qiPillLeft, qiPillRate } from '../game/cave.js';
 
@@ -31,7 +32,7 @@ export function renderGemGrid(game, box, st, onPick, onSocket) {
   const keys = Object.keys(gems).sort((a, b) => a.split(':')[0].localeCompare(b.split(':')[0]) || b.split(':')[1] - a.split(':')[1]);
   for (const k of keys) {
     const gi = gemInfo(data, k), color = data.items.gems.types[gi.type]?.color || '#ccc';
-    box.append(cell(st.stock?.id === k, gemIcon(game, k, 24, 'ico gem-ico'), `${gi.name}`, `×${vn(gems[k])} · ${statText(data, gi.stat, gi.value)}`, color,
+    box.append(cell(st.stock?.id === k, gemIcon(game, k, 24, 'ico gem-ico'), `${gi.name}`, `×${vn(gems[k])} · ${gemText(data, k)}`, color,
       () => (st.pickSocket ? onSocket(k) : onPick({ kind: 'gem', id: k }))));
   }
   return keys.length;
@@ -99,7 +100,7 @@ export function renderStockSheet(game, st, box, changed, close) {
   }
   if (!(s.gems[k] > 0)) return false;
   const gi = gemInfo(data, k), G = data.items.gems;
-  txt.append(el('div', 'd-title', gi.name), el('div', 'd-sub', `Đang có ${vn(s.gems[k])} · ${statText(data, gi.stat, gi.value)}`));
+  txt.append(el('div', 'd-title', gi.name), el('div', 'd-sub', `Đang có ${vn(s.gems[k])} · ${gemText(data, k)}`));
   head.append(gemIcon(game, k, 40, 'ico gem-ico'), txt, x);
   box.append(head, el('div', 'd-line', 'Khảm vào lỗ trên trang bị: chạm món đồ ở phần Trang bị, chọn lỗ trống rồi chọn ngọc.'));
   if (gi.lv >= G.max_level) { box.append(el('div', 'd-line', 'Đã là cấp cao nhất.')); return true; }

@@ -5,6 +5,7 @@ import { el, icon, mainStats, tierLine } from './bag-detail.js';
 import { spriteIcon } from './sprite-icon.js';
 import { gemIcon } from './gem-icon.js';
 import { itemName, statText, gemInfo, rarityOf } from '../game/items.js';
+import { gemText } from './hc-text.js';
 import { quality } from '../game/tiers.js';
 import { weaponId, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
@@ -36,7 +37,7 @@ export function itemSheet(game, save, slot, T, close) {
     const row = el('div', 'd-sockets');
     for (const g of it.sockets) {
       const c = el('span', 'socket' + (g ? ' full' : ''));
-      if (g) { const gi = gemInfo(data, g); c.append(gemIcon(game, g, 18, 'gem-ico sm'), `${gi.name}: ${statText(data, gi.stat, gi.value)}`); c.style.borderColor = gi.color; }
+      if (g) { const gi = gemInfo(data, g); c.append(gemIcon(game, g, 18, 'gem-ico sm'), `${gi.name}: ${gemText(data, g)}`); c.style.borderColor = gi.color; }
       else c.textContent = T.gem_empty;
       row.append(c);
     }

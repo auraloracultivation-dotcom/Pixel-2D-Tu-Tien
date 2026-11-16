@@ -1,5 +1,6 @@
 // Lực chiến, thành tựu và danh hiệu (data/status.json). Đếm hạ quái ở save.stats; thành tựu xét mỗi 2 giây.
 import { beastPower } from './beast.js';
+import { powerOf } from './he-chien.js';
 import { grant } from './daily.js';
 
 const C = game => game.data.status;
@@ -7,6 +8,7 @@ const C = game => game.data.status;
 export function power(game, st = game.player?.st) {
   const w = C(game).power;
   if (!st) return 0;
+  if (st.hc) return powerOf(game.data['he-chien'], st.hc, st.hc.realm);   // luật mới: linh thú, khôi lỗi, pháp bảo đã nằm trong 14 món (he-chien.js)
   let n = 0;
   for (const [k, v] of Object.entries(w)) n += (k === 'critMult' || k === 'speedMul' ? (st[k] || 1) - 1 : st[k] || 0) * v;
   if (st === game.player?.st) n += beastPower(game);   // linh thú, khôi lỗi đang mang cộng lực chiến (src/game/beast.js)

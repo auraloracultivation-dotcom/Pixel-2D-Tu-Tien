@@ -44,7 +44,7 @@ const lo = loadout(save, data);
 assert.equal(lo.length, 10, 'đủ 6 trang bị, linh thú, 2 khôi lỗi, thú cưỡi');
 for (const p of lo) assert.ok(p.ir <= (save.realm * 9 + save.layer - 1) / 9 + 1e-9, `${p.kind}: cảnh giới món không vượt người mặc`);
 for (const p of lo) assert.ok(p.plus <= H.plus_cap[save.realm], `${p.kind}: cấp kẹp trần +${H.plus_cap[save.realm]}`);
-assert.equal(keptLines(H, save.bag[0].lines, 6).length, linesOf(H, 6), 'đồ 10 dòng chỉ tính số dòng của phẩm');
+assert.equal(keptLines(H, save.bag[0].lines, 6).length, H.lines_all ? Math.min(10, H.lines_max ?? 10) : linesOf(H, 6), 'giữ hên xui (16/11 16:20): mọi dòng đều tính, tối đa lines_max');
 const st = playerStatsHC(save, data, { speedMul: 1.1, qiMul: 1 });
 const std = stdPlayer(H, (save.realm * 9 + save.layer - 1) / 9);
 assert.ok(st.atk < std.atk * 2.2 && st.maxHp < std.hp * 2.2, `bộ đồ cực hạn + dòng hack vẫn trong khoảng: công ${st.atk} / chuẩn ${std.atk}, máu ${st.maxHp} / ${std.hp}`);

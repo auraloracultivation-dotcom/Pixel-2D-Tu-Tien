@@ -188,7 +188,9 @@ Chạy một lần trên máy chủ (migration, sao lưu `p2d_xu_ly` trước, t
 | Dòng tẩy luyện | Giữ màu và loại chỉ số; số mới theo màu: lục 2,5% · lam 3,5% · tím 4,5% · cam 5,5% · vàng 7% · đỏ 9% · đen 11% (Bạo kích × 0,6, Hồi chiêu × 0,5, Hút máu và Phản đòn × 0,4, ST bạo × 1,5) |
 | Dòng Công / Máu / Thủ cộng thẳng | Thành Công % / Máu % / Thủ % cùng màu |
 | Dòng tốc chạy, hấp thu linh khí | Giữ tác dụng cũ (đi lại, tu luyện), không tính vào số dòng |
-| Số dòng mỗi món | Giữ những dòng màu cao nhất tới 2–4 dòng theo phẩm; dòng thừa hoàn Linh Thạch và Tẩy Luyện Thạch (tính theo số lần đã tẩy ghi trên món, `rr`) |
+| Số dòng mỗi món | **Giữ đủ** (chủ dự án 16/11 16:20 "giữ hên xui"): trần ẩn 1–10 dòng của tẩy luyện giữ nguyên, mọi dòng đều tính (`lines_all`, tối đa `lines_max` 10); trần từng chỉ số chặn lố. Không cắt, không hoàn |
+| Thời trang | Giữ dòng của bộ đang mặc, tính như một dòng tẩy luyện cùng màu (16:20) |
+| Công pháp, bộ đồ, Đạo Vận, đan Bồi Nguyên | Đổi ra % (số phẳng theo tổng luật cũ), mỗi nguồn mỗi chỉ số tối đa `extra_cap` (công pháp 10, bộ đồ 6, Đạo Vận 6, đan 5; tính theo Công % tương đương × tỷ giá dòng). Cảnh giới gia trì máu, công bỏ (16:20) |
 | Linh thú, khôi lỗi | Sao + tiến hoá thành phẩm; cấp giữ, tính tới trần |
 | Pháp bảo | Giữ phẩm, giữ cấp (trần cấp pháp bảo vốn trùng trần mới) |
 | Ngọc khảm | Giữ nguyên ngọc đang khảm và cấp ngọc, chỉ đổi số theo bảng ngọc ở mục 10 |
@@ -208,11 +210,11 @@ Chạy một lần trên máy chủ (migration, sao lưu `p2d_xu_ly` trước, t
 
 ## 12. Thứ tự làm
 
-1. Chốt luật (mục 13). Chủ dự án 14:26 "thấy cũng ổn rồi": duyệt hướng; phần đụng đồ đã mua hỏi lại lúc chuyển đổi.
+1. Chốt luật (mục 13). Chủ dự án 14:26 "thấy cũng ổn rồi": duyệt hướng; phần đụng đồ đã mua hỏi lại lúc chuyển đổi. **16:04–16:20:** "đẩy hệ thống sức mạnh mới lên game", bật cho mọi người luôn, giữ hên xui số dòng, thời trang giữ dòng, nguồn khác thành thưởng nhỏ có trần.
 2. Viết luật vào `data/he-chien.json` và `src/game/he-chien.js` (thuần tính toán, chạy được cả máy khách lẫn máy chủ). **Xong 16/11 (máy làm việc, chưa đưa lên):** bài thử `tools/he-chien.test.mjs` (chạy trong `node tools/check.mjs`) khớp Thí Luyện Đài bản 8: lực chiến tu sĩ chuẩn 3 456 → 158 199, phẩm Thượng Cổ / Phàm dưới 1,85 lần, đồ cũ 10 dòng chỉ tính số dòng của phẩm, dòng hack số triệu không nổ, nhịp quái thường / tinh anh / thủ lĩnh đúng mục tiêu, boss không đánh một mình được. `on: false`, chỉ `test_uid` sẽ thấy khi nối xong.
    Còn lại của bước này: nối vào trận khi bật (`stats.js` playerStats → `playerStatsHC`; `achieve.js` lực chiến → `powerOf`, bỏ cộng riêng linh thú / khôi lỗi; quái mọc theo cảnh giới của đảo × vai trò (`mobStats`); `combat.js` đòn nhân `takeK` thay cho trừ thẳng phòng ngự; tắt áp chế lực chiến `cp_press` khi bật; quy đổi nhịp đánh thật của quái và chiêu cho khớp sát thương mỗi giây), rồi đo nhịp thật bằng Mộc Nhân trong động phủ.
-3. Bản chơi tạm sau cờ: chỉ tài khoản chủ dự án thấy luật mới; chủ dự án chơi và chấm bằng clip.
-4. Viết chuyển đổi + hoàn trả, thử trên bản sao dữ liệu thật.
+3. ~~Bản chơi tạm sau cờ~~: chủ dự án 16:20 chọn bật cho mọi người luôn. **Đã nối vào trận (16/11):** `src/main.js` gọi `hcData` (đổi bảng quái: máu, công mỗi đòn theo cảnh giới × vai trò × nhịp đánh thật của con quái; tắt `cp_press`, `mob_cp` hệ số đảo; bí cảnh mỗi bậc × `dun_step_mul` 1,15; Ma Vương tuần theo boss đảo); `stats.js` → `playerStatsHC`; `combat.js`, `duel-cast.js` Công đọ Thủ (`takeK`) thay cho trừ thẳng; `achieve.js`, `mob-power.js` lực chiến bằng `powerOf` (`power_k` 40: số cỡ như luật cũ); máu quái trong trận `hp_game` (thường × 0,7, tinh anh × 0,85) cho quái thường chết sau 5–6 nhát đánh thường; nhãn loại quái `nhan` (`src/render/draw-mob-bar.js`).
+4. ~~Chuyển đổi + hoàn trả~~: không cần, đồ cũ đọc thẳng theo luật mới lúc tính chỉ số (không ghi gì vào cơ sở dữ liệu), không cắt dòng nên không hoàn.
 5. Chủ dự án nói "đưa lên" và "áp lên": bật cho mọi người cùng lúc, thư báo trong game.
 6. Sau cùng mới làm hiệu ứng tiến hoá.
 
@@ -226,3 +228,4 @@ Rung và khựng mỗi đòn đã giảm còn khoảng hai phần ba (`data/juic
 4. Đổi chỉ số chính của Mũ (Máu → Thủ), Giày (thêm Thủ), Ngọc bội (Bạo kích → Máu + Hồi chiêu), Nhẫn (thêm Công) như bảng mục 5.
 5. Thời trang chỉ để đẹp. (Ngọc khảm: chủ dự án 14:44 chọn giữ và cân lại, xem mục 10.)
 6. Có "luyện lại theo cảnh giới mới" cho trang bị cũ (giữ phẩm, cấp, dòng; tốn Linh Thạch).
+7. Chủ dự án 16/11/2026 16:20: bật cho mọi người luôn; giữ hên xui số dòng (mọi dòng đều tính, không cắt, không hoàn); thời trang giữ dòng, đổi theo màu; công pháp, bộ đồ, Đạo Vận, đan dược thành thưởng nhỏ có trần. Lực chiến nhân 40 thay cho 10 (số trong mục 8, 11 là thang × 10 cũ, nhân 4 để ra số trong game).
