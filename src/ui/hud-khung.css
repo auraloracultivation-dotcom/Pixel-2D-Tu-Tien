@@ -89,3 +89,14 @@ html body.hud-bang #buttons #btn-atk:active { filter: brightness(1.25); }
 html body.hud-bang #btn-man-toi { height: 28px !important; padding: 0 12px 0 24px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; color: #fff1c8 !important;
   background: url("../../assets/art/ui-kg-vien-tron.png") 0 0 / 100% 100% no-repeat !important; }
 html body.hud-bang #btn-man-toi::before { left: 10px !important; }
+
+/* thẻ bậc (Bậc 1/6 · việc · 0/1) nhỏ lại cỡ thẻ trong ảnh mẫu (chủ dự án 17/11/2026 02:28: "giảm xuống nhỏ bằng 1/4 ảnh kia": ~1/2 mỗi chiều) */
+html body.hud-bang #bac-hud { width: 98px !important; height: 30px !important; padding: 0 2px !important; gap: 1px !important; border-width: 4px 5px !important;
+  border-image: url("../../assets/art/ui-kg-the.png") 30 fill / 7px / 0 stretch !important; }
+html body.hud-bang #bac-hud .bh-row { gap: 3px !important; }
+html body.hud-bang #bac-hud .bh-tag { font-size: 7px !important; }
+html body.hud-bang #bac-hud small { font-size: 6px !important; }
+html body.hud-bang #bac-hud .bh-goal { font-size: 8px !important; }
+html body.hud-bang #bac-hud .bh-cnt { font-size: 10px !important; min-width: 12px !important; }
+html body.hud-bang #bac-hud .bh-gift, html body.hud-bang #bac-hud .bh-gift canvas { width: 11px !important; height: 11px !important; }
+body.hud-bang:has(#bac-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 44px) !important; }

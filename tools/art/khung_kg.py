@@ -3,6 +3,8 @@
 điểm ảnh 1:1 làm mất chi tiết, chủ dự án chê "xấu, không giống"), chỉ cắt từng món, làm đặc nền (alpha ≥ 200 thành 255) và:
   - bảng trên (cả bố cục: ô ảnh đại diện, 4 thanh, 8 ô chức năng, ô bản đồ, vương miện): xoá 4 thanh vẽ sẵn (game vẽ thanh thật đè lên đúng chỗ);
   - ô vuông nhỏ: thêm bản chỉ còn viền (-vien) để đè lên hình pháp bảo.
+Thêm (02:28): nền màn tải / đăng nhập từ ảnh chủ dự án (nen-tai-goc.png): bỏ thanh trạng thái điện thoại, xoá hộp "Đang tải" và dòng mẹo
+vẽ sẵn (hộp thật của game nằm đúng chỗ đó) → assets/icon/nen-tai.jpg; hộp màn tải ui-kg-hop.png = khung tím lớn + vương miện của bảng trên.
 Ra assets/art/ui-kg-<tên>.png; số đo vị trí các ô trong bảng trên (điểm ảnh của ảnh gốc) dùng ở src/ui/hud-khung.css.
 Chạy: python3 -I tools/art/khung_kg.py"""
 import os
@@ -39,6 +41,33 @@ def rim(p):
     return out
 
 
+def hop(a):
+    """Khung hộp màn tải: khung tím lớn (bang) chừa 22 điểm trên, vương miện cắt từ giữa mép trên bảng trên đặt lên giữa."""
+    b = cut(a, 'bang'); t = cut(a, 'tren')
+    cr = t[0:56, 520:1065]   # vương miện (trên ảnh bảng trên đã cắt): cánh bạc + đá tím, phần nhô trên viền
+    k = 0.5
+    cr = np.array(Image.fromarray(cr, 'RGBA').resize((round(cr.shape[1] * k), round(cr.shape[0] * k)), Image.LANCZOS))
+    out = np.zeros((b.shape[0] + 22, b.shape[1], 4), np.uint8)
+    out[22:] = b
+    x = (out.shape[1] - cr.shape[1]) // 2
+    im = Image.fromarray(out, 'RGBA'); im.alpha_composite(Image.fromarray(cr, 'RGBA'), (x, max(0, 22 + 12 - cr.shape[0])))   # chân vương miện đè lên viền trên
+    return im
+
+
+def nen_tai():
+    import cv2
+    a = np.array(Image.open(os.path.join(R, 'tools/art/nguon/ai/khung-ui/nen-tai-goc.png')).convert('RGB'))
+    m = np.zeros(a.shape[:2], np.uint8)
+    m[738:1085, 128:726] = 255   # hộp "Pixel 2D Tu Tiên / Đang tải" vẽ sẵn
+    m[1100:1180, 140:712] = 255   # dòng mẹo vẽ sẵn
+    out = cv2.inpaint(np.ascontiguousarray(a[:, :, ::-1]), m, 12, cv2.INPAINT_TELEA)[:, :, ::-1]
+    # vết vá loang thành vệt chéo: phủ bản làm mờ mạnh, mép mờ dần, cho giống sương mù quanh thác (hộp thật che phần lớn)
+    soft = cv2.GaussianBlur(out, (0, 0), 22)
+    w = cv2.GaussianBlur(m.astype(np.float32) / 255, (0, 0), 14)[:, :, None]
+    out = (out * (1 - w) + soft * w).astype(np.uint8)
+    Image.fromarray(out[106:]).save(os.path.join(R, 'assets/icon/nen-tai.jpg'), quality=86, optimize=True)   # bỏ thanh trạng thái điện thoại (106 điểm trên)
+
+
 def main():
     a = np.array(Image.open(SRC).convert('RGBA'))
     for name in BOX:
@@ -50,6 +79,8 @@ def main():
         if name == 'o':
             Image.fromarray(rim(p), 'RGBA').save(os.path.join(R, 'assets/art/ui-kg-o-vien.png'), optimize=True)
         print(name, p.shape[1], p.shape[0])
+    hop(a).save(os.path.join(R, 'assets/art/ui-kg-hop.png'), optimize=True)
+    nen_tai()
 
 
 if __name__ == '__main__':
