@@ -34,7 +34,7 @@ import { drawNameShield } from './draw-pvp-tag.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
-import { drawMobBar } from './draw-mob-bar.js';
+import { drawMobBar, rankOf } from './draw-mob-bar.js';
 import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
@@ -135,6 +135,8 @@ function drawMob(ctx, m, t, game) {
   if (m.tele && !game.topPass) drawTele(ctx, game, m, t);   // khung đỏ báo đòn (draw-tele.js)
   if (m.rare && !game.topPass) drawRareGlow(ctx, m, t);
   if (m.elite && !game.topPass) { ctx.fillStyle = `rgba(150,70,210,${(0.22 + 0.1 * Math.sin(t * 3 + m.x)).toFixed(2)})`; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.6, r * 0.8, 0, 0, Math.PI * 2); ctx.fill(); }   // nhiễm ma khí: vòng ngoài tinh cầu, mạnh gấp bội
+  const rk = !game.topPass && rankOf(game, m);   // nhãn loại quái (draw-mob-bar.js): quầng màu dưới chân Tinh Anh, Thủ Lĩnh, Boss
+  if (rk) { ctx.save(); ctx.globalAlpha = (rk.glow ?? 0.24) + 0.08 * Math.sin(t * 3 + m.x); ctx.fillStyle = rk.c; ctx.beginPath(); ctx.ellipse(m.x, m.y, r * 1.5 + 2, r * 0.7 + 1, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
   if (m.def.look && drawMobSprite(ctx, game, m, t, wind)) {   // quái đã có hình pixel (tools/art/mobs.py)
   } else if (m.def.person) {   // đấu sĩ luận võ: chibi pixel theo màu áo tóc (chưa có hình thì hình người, đai màu theo đối thủ)
     if (!(m.def.rival && drawRivalSprite(ctx, game, m, t, wind))) {

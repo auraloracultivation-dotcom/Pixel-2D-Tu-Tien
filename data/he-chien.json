@@ -34,22 +34,30 @@
   "nhan": {
     "tinh_anh": {
       "t": "Tinh Anh",
-      "c": "#5ab8f0"
+      "c": "#5ab8f0",
+      "big": 2,
+      "glow": 0.26
     },
     "thu_linh": {
       "t": "Thủ Lĩnh",
-      "c": "#b070ff"
+      "c": "#b070ff",
+      "big": 2,
+      "glow": 0.32
     },
     "boss_dao": {
       "t": "Boss",
-      "c": "#ff9a3a"
+      "c": "#ff9a3a",
+      "big": 3,
+      "glow": 0.4
     },
     "boss": {
       "t": "Boss Tổ Đội",
-      "c": "#ff4a4a"
+      "c": "#ff4a4a",
+      "big": 3,
+      "glow": 0.45
     }
   },
-  "_nhan": "Nhãn loại quái trên đầu (chủ dự án 16/11/2026 16:04: \"gắn chữ lên trên quái, thêm màu làm điểm nhấn để người chơi dễ nhận diện boss, tinh anh hay quái thường\"). Quái thường không nhãn. Màu theo thang màu dòng của game: lam, tím, cam, đỏ. Vai trò lấy từ bảng mobs bên dưới; quái boss chưa có trong bảng coi là Boss.",
+  "_nhan": "Nhãn loại quái trên đầu (chủ dự án 16/11/2026 16:04: \"gắn chữ lên trên quái, thêm màu làm điểm nhấn để người chơi dễ nhận diện boss, tinh anh hay quái thường\"). Quái thường không nhãn. Màu theo thang màu dòng của game: lam, tím, cam, đỏ. Vai trò lấy từ bảng mobs bên dưới; quái boss chưa có trong bảng coi là Boss. big: chữ to hơn chữ lực chiến bao nhiêu; glow: độ đậm quầng màu dưới chân (src/render/draw.js).",
   "ten": {
     "atk_pct": "Công",
     "hp_pct": "Sinh lực",
