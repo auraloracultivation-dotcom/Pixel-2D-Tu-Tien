@@ -21,8 +21,26 @@ function orb(ctx, x, y, base, top) {
 }
 
 export function drawLoot(ctx, game, t) {
+  const C = game.data.config.loot;
+  if (C?.beam) for (const l of game.loot) beam(ctx, Math.round(l.x), Math.round(l.y), lootColor(game, l), t, C.beam, l);
   for (const l of game.loot) gem(ctx, Math.round(l.x), Math.round(l.y + Math.sin(t * 8 + l.x)), lootColor(game, l), t);
 }
+
+// Cột sáng đánh dấu chỗ có đồ (chủ dự án 16/11/2026 23:39): vòng sáng ôm món trên đất, cột chiếu thẳng lên trời, lên cao nhạt dần;
+// màu theo phẩm của món. Cột mọc lên lúc món vừa nằm xuống. Số ở data/config.json → loot.beam.
+function beam(ctx, x, y, c, t, B, l) {
+  const grow = Math.min(1, Math.max(0, (l.t - 0.3) / 0.35)), h = B.h * grow, a = B.a * (0.85 + 0.15 * Math.sin(t * 3 + x));
+  if (grow <= 0) return;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const g = ctx.createLinearGradient(0, y, 0, y - h);
+  g.addColorStop(0, hexA(c, a)); g.addColorStop(0.35, hexA(c, a * 0.55)); g.addColorStop(1, hexA(c, 0));
+  ctx.fillStyle = g; ctx.fillRect(x - B.w / 2, y - h, B.w, h);
+  ctx.fillStyle = hexA(c, a * 0.9); ctx.fillRect(x - 0.5, y - h * 0.8, 1, h * 0.8);   // lõi sáng giữa cột
+  ctx.globalAlpha = a; ctx.strokeStyle = c; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.ellipse(x, y + 1, B.ring + Math.sin(t * 4 + x) * 0.6, B.ring * 0.42, 0, 0, Math.PI * 2); ctx.stroke();   // vòng sáng quanh món
+  ctx.restore();
+}
+const hexA = (c, a) => { const n = parseInt(c.slice(1, 7), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${Math.max(0, Math.min(1, a)).toFixed(3)})`; };
 
 export function drawQuestPickups(ctx, game, t) {
   for (const k of game.pickups) {

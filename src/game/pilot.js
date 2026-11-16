@@ -4,6 +4,7 @@
 // vuốt ve linh thú, câu cá lúc rảnh, nấu canh, luyện đan dư, khuya về động phủ, treo máy, khai luống, nâng động phủ). Việc tại chỗ vẫn làm:
 // tự mặc đồ tốt hơn, cường hoá an toàn, khảm ngọc, uống đan, túi đầy phân giải, nhận thưởng thành tựu (Menu → Tự động bật tắt).
 import { mapGate } from './map-gate.js';
+import { lootStep } from './loot.js';
 import { dist } from './combat.js';
 import { fightStep, toward, reachOf, clearShot } from './auto.js';
 import { dailyJob } from './dailyjob.js';
@@ -230,6 +231,8 @@ function pilotMove(game, ax, dt) {
   if (Math.hypot(ax.x, ax.y) > 0.3) { stopPilot(game, 'Tắt tự hành'); return none; }   // tự tay kéo cần chạy là tắt tự hành (chủ dự án 02/11/2026: không còn nút tắt)
   if ((game.pilot.aeT = (game.pilot.aeT || 0) - dt) <= 0) { game.pilot.aeT = 2; if (pilotOpt(game, 'mac')) autoEquip(game); if (pilotOpt(game, 'cuong')) autoEnhance(game); if (pilotOpt(game, 'ngoc')) autoGem(game); if (pilotOpt(game, 'dan')) autoPills(game); autoClaim(game); }
   if (game.trib.active) { game.pilot.job = null; return none; }   // người chơi tự độ kiếp: tự hành đứng yên, nhường người chơi né
+  const pick = lootStep(game);   // đồ rơi chạy qua mới nhặt (src/game/loot.js)
+  if (pick) return { ax: pick, atk: false };
   const job = game.pilot.job = plan(game);
   if (!job) return none;
   if (job.fight) { p.meditating = false; const r = engage(game, job.fight, dt); stuckCheck(game, job.fight, r, dt); return r; }
