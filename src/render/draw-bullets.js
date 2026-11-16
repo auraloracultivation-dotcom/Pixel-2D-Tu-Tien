@@ -1,9 +1,10 @@
 // Đạn bay: chiêu có fx thì vẽ hình pixel proj.<fx> xoay theo hướng bay (tools/art/fx_proj.py), quầng màu chiêu cộng nhẹ phía dưới.
-// Đạn thường (quái, linh thú, chiêu chưa có hình) vẫn là chấm tròn màu.
+// Đạn quái có kiểu đòn (mk, data/mobs.json → fx) vẽ theo kiểu (draw-mob-fx.js); đạn thường (linh thú, chiêu chưa có hình) vẫn là chấm tròn màu.
 import { circle } from '../world/draw-map.js';
 import { spriteImage } from './sprites.js';
 import { drawDragon } from './draw-ult.js';
 import { vfxOf } from '../game/vfx.js';
+import { drawMobShot } from './draw-mob-fx.js';
 
 // Đạn tròn theo bài Đạn trong trang Xưởng VFX Pixel: quầng mềm cộng sáng, viền sẫm mỏng (đọc được trên nền sáng khi máy quay xa),
 // vành màu đậm, lõi trắng lệch về phía bay; đạn quái có viền sẫm rõ hơn để nhìn là biết phải né.
@@ -32,7 +33,7 @@ export function drawBullets(ctx, game, t) {
     if (vfxOf(game, b.sk)) continue;   // đạn chiêu có hiệu ứng mới: vẽ ở lớp trên cùng (src/render/vfx/draw-vfx.js)
     if (b.ult === 'dragon') { drawDragon(ctx, b, t); continue; }
     const spr = b.fx && sprites['proj.' + b.fx], im = spr && spriteImage(spr);
-    if (!im) { drawShape(ctx, b); continue; }
+    if (!im) { if (!(b.mk && drawMobShot(ctx, game, b, t))) drawShape(ctx, b); continue; }   // đạn quái theo kiểu đòn (mũi tên, cầu phép, gai, cát, đá: draw-mob-fx.js)
     const i = Math.floor(t * 12) % spr.frames, s = Math.max(0.6, b.r / 4.5);
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';

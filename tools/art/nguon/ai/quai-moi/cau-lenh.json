@@ -1,0 +1,430 @@
+{
+ "4": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The small wooden forest sprite sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while its leaves rustle softly. Keep every detail identical in every frame: the tan wooden head shaped like an open hand with finger-like twigs, the glowing green eye, the bushy green leaf crown with two white flowers, the leafy green body and the two short curled wooden arms stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The small wooden forest sprite hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the tan wooden head shaped like an open hand with finger-like twigs, the glowing green eye, the bushy green leaf crown with two white flowers, the leafy green body and the two short curled wooden arms stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The small wooden forest sprite attacks: it leans back, then swings one curled wooden arm forward in a quick slap, then returns exactly to its starting pose. Keep every detail identical in every frame: the tan wooden head shaped like an open hand with finger-like twigs, the glowing green eye, the bushy green leaf crown with two white flowers, the leafy green body and the two short curled wooden arms stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "5": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The fire wolf stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while the flames on its back and tail flicker. Keep every detail identical in every frame: the dark maroon wolf body, the orange and yellow flames along its back, the flaming tail, the glowing orange eye and the pointed ears stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot.",
+   "di": "The fire wolf walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark maroon wolf body, the orange and yellow flames along its back, the flaming tail, the glowing orange eye and the pointed ears stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot.",
+   "danh": "The fire wolf attacks: it crouches back, then lunges forward and snaps its jaws in a quick bite, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark maroon wolf body, the orange and yellow flames along its back, the flaming tail, the glowing orange eye and the pointed ears stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot."
+  }
+ },
+ "6": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The little fire spirit floats in place, gently bobbing up and down by one or two pixels while its head flame flickers and the rock fragments drift slightly. Keep every detail identical in every frame: the red mask-like face with two glowing yellow eyes, the orange and yellow flame on top of its head, the brown ring circling around it and the small brown rock fragments floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The little fire spirit attacks: it pulls back, then pushes forward in a quick headbutt while its flame leans forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the red mask-like face with two glowing yellow eyes, the orange and yellow flame on top of its head, the brown ring circling around it and the small brown rock fragments floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "7": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The cursed demon sword floats in place, gently bobbing up and down by one or two pixels while the prayer beads sway slightly. Keep every detail identical in every frame: the dark curved blade with red streaks and a white cutting edge, the tan crossguard, the red wrapped grip with a tan pommel and the loop of brown prayer beads around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The cursed demon sword attacks: it tilts back to wind up, then swings itself forward in one fast diagonal slash, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark curved blade with red streaks and a white cutting edge, the tan crossguard, the red wrapped grip with a tan pommel and the loop of brown prayer beads around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "8": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The hooded purple mage hovers just above the ground in place, swaying gently while the lavender flames flicker and the orb glows. Keep every detail identical in every frame: the purple hood with two dark red horns, the pale face with two red eyes, the purple robe, the wooden staff topped with a glowing purple orb and the lavender flames beside it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The hooded purple mage attacks: it raises the staff so the purple orb glows brighter, then thrusts the staff forward as if casting a spell; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the purple hood with two dark red horns, the pale face with two red eyes, the purple robe, the wooden staff topped with a glowing purple orb and the lavender flames beside it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "9": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The white blood wolf stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while its crimson mane and tail ripple. Keep every detail identical in every frame: the white wolf head with a red eye and sharp fangs, the white fur body with a dark maroon underside and the long flowing crimson mane and tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The white blood wolf walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the white wolf head with a red eye and sharp fangs, the white fur body with a dark maroon underside and the long flowing crimson mane and tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The white blood wolf attacks: it rears back, then lunges forward and bites hard with its jaws wide open, then returns exactly to its starting pose. Keep every detail identical in every frame: the white wolf head with a red eye and sharp fangs, the white fur body with a dark maroon underside and the long flowing crimson mane and tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "10": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The ice wolf stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while the floating ice crystal bobs. Keep every detail identical in every frame: the white fluffy wolf body, the light blue ice crystal spikes on its back, the blue legs and tail tip, the cyan eye and the small ice crystal floating near its tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The ice wolf walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the white fluffy wolf body, the light blue ice crystal spikes on its back, the blue legs and tail tip, the cyan eye and the small ice crystal floating near its tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The ice wolf attacks: it crouches back, then lunges forward and snaps its jaws in a quick bite, then returns exactly to its starting pose. Keep every detail identical in every frame: the white fluffy wolf body, the light blue ice crystal spikes on its back, the blue legs and tail tip, the cyan eye and the small ice crystal floating near its tail stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "11": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The ice crystal spirit floats in place, gently bobbing up and down by one or two pixels while the ring slowly turns and the ice shards drift. Keep every detail identical in every frame: the large light blue crystal body with glowing white eyes, the light blue ring circling its middle and the small ice shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ice crystal spirit attacks: it pulls back, then pushes forward in a quick bump while the ice shards spin closer, then returns exactly to its starting pose. Keep every detail identical in every frame: the large light blue crystal body with glowing white eyes, the light blue ring circling its middle and the small ice shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "12": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The icy ghost archer floats in place, gently bobbing up and down by one or two pixels while its smoke tails wave softly and it holds the arrow steady. Keep every detail identical in every frame: the pale blue ghost head with dark eye holes, the wispy pale blue smoke body, the long arrow with a cyan ice arrowhead held in its grip and the small ice shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The icy ghost archer attacks: it pulls the arrow back toward its body to wind up, then thrusts it sharply forward in a quick jab; the arrow never leaves its grip and stays whole, then returns exactly to its starting pose. Keep every detail identical in every frame: the pale blue ghost head with dark eye holes, the wispy pale blue smoke body, the long arrow with a cyan ice arrowhead held in its grip and the small ice shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "13": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The ice demon guard stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while it grips the spear upright. Keep every detail identical in every frame: the dark blue helmet with two light blue horns, the glowing cyan eyes, the light blue ice crystal armor and shoulder spikes, the dark blue body and the long spear with an ice blade stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The ice demon guard walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark blue helmet with two light blue horns, the glowing cyan eyes, the light blue ice crystal armor and shoulder spikes, the dark blue body and the long spear with an ice blade stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ice demon guard attacks: it pulls the spear back, then thrusts it forward in a strong stab, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark blue helmet with two light blue horns, the glowing cyan eyes, the light blue ice crystal armor and shoulder spikes, the dark blue body and the long spear with an ice blade stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "14": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The ice demon general stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while the two ghost flames flicker. Keep every detail identical in every frame: the dark blue helmet with two light blue horns and glowing cyan eyes, the thick white fur mantle, the ice blue armor plates and the two cyan ghost flames at its shoulders stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "di": "The ice demon general walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark blue helmet with two light blue horns and glowing cyan eyes, the thick white fur mantle, the ice blue armor plates and the two cyan ghost flames at its shoulders stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ice demon general attacks: it raises both arms high, then slams them down forward in a heavy strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark blue helmet with two light blue horns and glowing cyan eyes, the thick white fur mantle, the ice blue armor plates and the two cyan ghost flames at its shoulders stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "15": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The wind spirit dragon riding a cloud floats in place, gently bobbing up and down by one or two pixels while the cloud slowly swirls and the wind streaks drift around it. Keep every detail identical in every frame: the white dragon head with a cyan eye and long swept-back horns, the swirling white cloud body and the mint green wind streaks around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The wind spirit dragon riding a cloud attacks: it rears its head back, then lunges forward and bites while the wind streaks whirl, then returns exactly to its starting pose. Keep every detail identical in every frame: the white dragon head with a cyan eye and long swept-back horns, the swirling white cloud body and the mint green wind streaks around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "16": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The dark butterfly fairy floats in place, gently bobbing up and down by one or two pixels while its wings flap slowly. Keep every detail identical in every frame: the two bright purple butterfly wings with dark veins, the white face with glowing purple eyes, the dark curled antennae and hair, the white and purple dress and the small purple crystal shards floating below stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The dark butterfly fairy attacks: it beats its wings hard and leans forward with both hands out as if casting a spell; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the two bright purple butterfly wings with dark veins, the white face with glowing purple eyes, the dark curled antennae and hair, the white and purple dress and the small purple crystal shards floating below stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "17": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The wind ghost guard floats in place, gently bobbing up and down by one or two pixels while its wind wisps swirl. Keep every detail identical in every frame: the white mask with dark eye holes, the swirling pale blue wind wisps forming its body and the dark purple lower robe stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The wind ghost guard attacks: it pulls back, then lunges forward in a swirling strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the white mask with dark eye holes, the swirling pale blue wind wisps forming its body and the dark purple lower robe stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "18": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The dark wind lord hovers just above the ground in place, swaying gently while the black smoke wisps sway. Keep every detail identical in every frame: the cream bone mask with two big curved horns and glowing purple eyes, the dark purple cloak and the black smoky wisps around its head stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The dark wind lord attacks: it rises up, then sweeps its dark cloak forward in a wide heavy strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the cream bone mask with two big curved horns and glowing purple eyes, the dark purple cloak and the black smoky wisps around its head stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "19": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The flower dryad sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while its leaves sway. Keep every detail identical in every frame: the big pink flower on its head, the green leafy hair, the pale face with green eyes and the white root body stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The flower dryad hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the big pink flower on its head, the green leafy hair, the pale face with green eyes and the white root body stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The flower dryad attacks: it leans back, then whips its leafy hair forward in a quick strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the big pink flower on its head, the green leafy hair, the pale face with green eyes and the white root body stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "20": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The carnivorous vine plant rests in place while the flytrap head sways and the jaws open and close slightly. Keep every detail identical in every frame: the magenta flytrap head with yellow-green jagged teeth, the dark twisting vines and the green leaves stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The carnivorous vine plant crawls forward in a loop while staying centered in place, its dark twisting vines rippling and pulling in turn. Keep every detail identical in every frame: the magenta flytrap head with yellow-green jagged teeth, the dark twisting vines and the green leaves stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The carnivorous vine plant attacks: it pulls the flytrap head back, then lunges it forward and snaps the jaws open wide; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the magenta flytrap head with yellow-green jagged teeth, the dark twisting vines and the green leaves stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "21": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The ghost detective stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while the pipe smoke curls and the lantern sways. Keep every detail identical in every frame: the purple wide-brimmed hat with a tan clover badge, the pale face with a round gold monocle, the dark purple coat, the magnifying glass, the small lantern and the curling pipe smoke stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The ghost detective walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the purple wide-brimmed hat with a tan clover badge, the pale face with a round gold monocle, the dark purple coat, the magnifying glass, the small lantern and the curling pipe smoke stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ghost detective attacks: it raises the magnifying glass, then swings it forward in a quick strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the purple wide-brimmed hat with a tan clover badge, the pale face with a round gold monocle, the dark purple coat, the magnifying glass, the small lantern and the curling pipe smoke stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "22": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The tree guard stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while its leaves rustle. Keep every detail identical in every frame: the brown wooden body with bark texture, the green leaf crown on its head and shoulders, the glowing green eyes and the two gray stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The tree guard walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the brown wooden body with bark texture, the green leaf crown on its head and shoulders, the glowing green eyes and the two gray stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The tree guard attacks: it pulls one stone fist back, then punches forward hard, then returns exactly to its starting pose. Keep every detail identical in every frame: the brown wooden body with bark texture, the green leaf crown on its head and shoulders, the glowing green eyes and the two gray stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "23": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The flower demon queen hovers just above the ground in place, swaying gently while her petals and vines sway. Keep every detail identical in every frame: the gold crown, the large pink flower petals around her head, the white face with magenta eyes, the green vine hair and the pink petal skirt stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The flower demon queen attacks: it spreads her petals wide, then lashes her green vines forward in a sweeping strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the gold crown, the large pink flower petals around her head, the white face with magenta eyes, the green vine hair and the pink petal skirt stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "24": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The dark seed sprout sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while the sprout on top sways. Keep every detail identical in every frame: the round dark purple seed body with a cream hood and glowing pink eyes, the green sprout on top, the green leaves at its base and the pink berries stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The dark seed sprout hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the round dark purple seed body with a cream hood and glowing pink eyes, the green sprout on top, the green leaves at its base and the pink berries stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The dark seed sprout attacks: it leans back, then springs forward in a quick headbutt, then returns exactly to its starting pose. Keep every detail identical in every frame: the round dark purple seed body with a cream hood and glowing pink eyes, the green sprout on top, the green leaves at its base and the pink berries stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "25": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The root demon rests in place while its roots slowly writhe. Keep every detail identical in every frame: the tangled brown roots forming its body, the dark face hollow with two glowing yellow eyes and the small floating seed particles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The root demon crawls forward in a loop while staying centered in place, its tangled brown roots rippling and pulling in turn. Keep every detail identical in every frame: the tangled brown roots forming its body, the dark face hollow with two glowing yellow eyes and the small floating seed particles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The root demon attacks: it pulls its roots back, then whips them forward; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the tangled brown roots forming its body, the dark face hollow with two glowing yellow eyes and the small floating seed particles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "26": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The thorn demon guard stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while its thorny vines sway. Keep every detail identical in every frame: the dark purple body wrapped in green thorny vines, the pink thorn spikes, the purple horned head and the glowing yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The thorn demon guard walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark purple body wrapped in green thorny vines, the pink thorn spikes, the purple horned head and the glowing yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The thorn demon guard attacks: it pulls its thorny arm back, then slashes forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark purple body wrapped in green thorny vines, the pink thorn spikes, the purple horned head and the glowing yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "27": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The dark lotus demon rests in place while its tentacle roots sway. Keep every detail identical in every frame: the large dark purple lotus petals, the gold crescent at its top, the dark face with two glowing yellow eyes and the purple tentacle roots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The dark lotus demon crawls forward in a loop while staying centered in place, its purple tentacle roots rippling and pulling in turn. Keep every detail identical in every frame: the large dark purple lotus petals, the gold crescent at its top, the dark face with two glowing yellow eyes and the purple tentacle roots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The dark lotus demon attacks: it opens its petals wide, then lashes its tentacle roots forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the large dark purple lotus petals, the gold crescent at its top, the dark face with two glowing yellow eyes and the purple tentacle roots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "28": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The golden horned beetle rests in place while its spiky plates shift slightly. Keep every detail identical in every frame: the golden armored shell with spiky plates, the two big curved golden horns, the dark head with glowing yellow eyes and the dark mandible stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The golden horned beetle crawls forward in a loop while staying centered in place, its six short legs rippling and pulling in turn. Keep every detail identical in every frame: the golden armored shell with spiky plates, the two big curved golden horns, the dark head with glowing yellow eyes and the dark mandible stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The golden horned beetle attacks: it pulls back, then rams forward with its horns, then returns exactly to its starting pose. Keep every detail identical in every frame: the golden armored shell with spiky plates, the two big curved golden horns, the dark head with glowing yellow eyes and the dark mandible stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "29": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The sand ghost hovers just above the ground in place, swaying gently while its sand body ripples and the particles drift. Keep every detail identical in every frame: the tan sand body flowing like cloth, the pointed sand hood, the dark face hollow with two glowing yellow eyes and the floating sand particles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The sand ghost attacks: it raises one sandy arm, then flings it forward as if throwing sand; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the tan sand body flowing like cloth, the pointed sand hood, the dark face hollow with two glowing yellow eyes and the floating sand particles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "30": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The sword spirit floats in place, gently bobbing up and down by one or two pixels while the sash flutters and the cyan flames flicker. Keep every detail identical in every frame: the light blue sword blade pointing down, the white and gold crossguard with a small dark face, the purple cloth sash wrapped around it and the cyan ghost flames around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The sword spirit attacks: it rises up, then stabs downward and forward in one fast thrust, then returns exactly to its starting pose. Keep every detail identical in every frame: the light blue sword blade pointing down, the white and gold crossguard with a small dark face, the purple cloth sash wrapped around it and the cyan ghost flames around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "31": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The golden armored guard stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while it flexes its claws. Keep every detail identical in every frame: the golden armor plates, the golden ring behind its head, the dark face with glowing yellow eyes and the claw-like golden gauntlets stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The golden armored guard walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the golden armor plates, the golden ring behind its head, the dark face with glowing yellow eyes and the claw-like golden gauntlets stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The golden armored guard attacks: it pulls one clawed gauntlet back, then swipes forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the golden armor plates, the golden ring behind its head, the dark face with glowing yellow eyes and the claw-like golden gauntlets stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "32": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The sword demon general hovers just above the ground in place, swaying gently while its cape sways. Keep every detail identical in every frame: the white horned mask with a red eye, the fan of many silver swords with gold hilts behind its back, the red and black cape and the gold trim stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The sword demon general attacks: it spreads its fan of swords wider, then thrusts forward in a heavy strike while every sword stays in place, then returns exactly to its starting pose. Keep every detail identical in every frame: the white horned mask with a red eye, the fan of many silver swords with gold hilts behind its back, the red and black cape and the gold trim stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "33": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The mossy rock golem sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while it sits heavily. Keep every detail identical in every frame: the round body made of gray boulders, the mossy green crystal spikes on its back and the small face with two yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The mossy rock golem hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the round body made of gray boulders, the mossy green crystal spikes on its back and the small face with two yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The mossy rock golem attacks: it leans back, then slams forward in a heavy body bump, then returns exactly to its starting pose. Keep every detail identical in every frame: the round body made of gray boulders, the mossy green crystal spikes on its back and the small face with two yellow eyes stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "34": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The lava rock serpent rests in place while its coils shift slightly. Keep every detail identical in every frame: the gray rock serpent body coiled in an S shape, the glowing orange lava cracks, the rocky spikes along its back and the glowing orange eye stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The lava rock serpent crawls forward in a loop while staying centered in place, its coiled rock body rippling and pulling in turn. Keep every detail identical in every frame: the gray rock serpent body coiled in an S shape, the glowing orange lava cracks, the rocky spikes along its back and the glowing orange eye stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The lava rock serpent attacks: it rears its head back, then strikes forward with its mouth open; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the gray rock serpent body coiled in an S shape, the glowing orange lava cracks, the rocky spikes along its back and the glowing orange eye stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "35": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The rock bat floats in place, gently bobbing up and down by one or two pixels while its stone wings flap slowly. Keep every detail identical in every frame: the two gray stone wings with orange lava cracks, the round gray rock body with glowing orange eyes, the stone spike on its head and the small stone hanging below stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The rock bat attacks: it pulls its wings up, then dives forward in a quick strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the two gray stone wings with orange lava cracks, the round gray rock body with glowing orange eyes, the stone spike on its head and the small stone hanging below stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "36": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The stone demon guard stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while it holds its shield ready. Keep every detail identical in every frame: the gray stone body with an orange swirl rune on its chest, the glowing orange eyes, the rocky head crest and the big stone shield with an orange rune stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The stone demon guard walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the gray stone body with an orange swirl rune on its chest, the glowing orange eyes, the rocky head crest and the big stone shield with an orange rune stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The stone demon guard attacks: it pulls the stone shield back, then bashes forward with it, then returns exactly to its starting pose. Keep every detail identical in every frame: the gray stone body with an orange swirl rune on its chest, the glowing orange eyes, the rocky head crest and the big stone shield with an orange rune stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "37": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The mountain-breaker stone general stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while it stands heavily. Keep every detail identical in every frame: the dark stone body with light orange crack lines, the two curved tan horns, the glowing orange eyes and the two huge stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The mountain-breaker stone general walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark stone body with light orange crack lines, the two curved tan horns, the glowing orange eyes and the two huge stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The mountain-breaker stone general attacks: it raises both stone fists high, then brings them down forward in a heavy punch, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark stone body with light orange crack lines, the two curved tan horns, the glowing orange eyes and the two huge stone fists stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "38": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The void orb demon floats in place, gently bobbing up and down by one or two pixels while the ring slowly turns and the smoke wisps sway. Keep every detail identical in every frame: the black void orb with a glowing purple rim, the purple ring circling it, the dark purple smoke wisps and the small dark shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The void orb demon attacks: it pulls back as its purple rim glows brighter, then lunges forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the black void orb with a glowing purple rim, the purple ring circling it, the dark purple smoke wisps and the small dark shards floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "39": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The netherworld mage hovers just above the ground in place, swaying gently while the purple flame on its staff flickers. Keep every detail identical in every frame: the dark gray witch hat with gold stitching and a hanging charm, the pale skull face, the tattered dark robe and the staff topped with a purple flame stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The netherworld mage attacks: it raises the staff, then points it forward as if casting a spell; no projectile appears, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark gray witch hat with gold stitching and a hanging charm, the pale skull face, the tattered dark robe and the staff topped with a purple flame stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "40": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The void phantom floats in place, gently bobbing up and down by one or two pixels while its robe streaks flow. Keep every detail identical in every frame: the lavender hooded phantom with a dark face hollow and one glowing eye, the flowing lavender robe streaks and the small lavender crystals floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The void phantom attacks: it pulls back, then lunges forward in a quick strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the lavender hooded phantom with a dark face hollow and one glowing eye, the flowing lavender robe streaks and the small lavender crystals floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "41": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The netherworld guard hovers just above the ground in place, swaying gently while the purple flames on its hood flicker. Keep every detail identical in every frame: the dark gray hood with purple flames, the dark face with glowing blue eyes, the tattered gray robe and the spear with a pale blade stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The netherworld guard attacks: it pulls the spear back, then thrusts it forward in a strong stab, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark gray hood with purple flames, the dark face with glowing blue eyes, the tattered gray robe and the spear with a pale blade stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "42": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The void prison lord floats in place, gently bobbing up and down by one or two pixels while the chains and crystal pendants sway. Keep every detail identical in every frame: the stone frame with purple crystal spikes, the glowing purple void eye in its center, the hanging blue chains and the lavender crystal pendants stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The void prison lord attacks: it pulls back as the void eye glows brighter, then swings its chains forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the stone frame with purple crystal spikes, the glowing purple void eye in its center, the hanging blue chains and the lavender crystal pendants stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "43": {
+  "mv": "luot",
+  "prompts": {
+   "dung": "The demon sovereign hovers just above the ground in place, swaying gently while its long cape sways. Keep every detail identical in every frame: the white skull mask with a gold crown, the two pairs of big curved horns, one dark and one gold, the glowing purple gem on the chest, the gold shoulder plates and the long dark red cape stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The demon sovereign attacks: it spreads its arms and cape wide, then thrusts forward in a heavy strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the white skull mask with a gold crown, the two pairs of big curved horns, one dark and one gold, the glowing purple gem on the chest, the gold shoulder plates and the long dark red cape stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "44": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The heart demon floats in place, gently bobbing up and down by one or two pixels while its smoke hair sways and the four red crystals bob. Keep every detail identical in every frame: the white face with red eyes, the black and purple smoke hair and body and the four glowing red diamond crystals floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The heart demon attacks: it pulls back, then lunges forward while the four red crystals stay around it, then returns exactly to its starting pose. Keep every detail identical in every frame: the white face with red eyes, the black and purple smoke hair and body and the four glowing red diamond crystals floating around it stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "45": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The spirit crystal sprite sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while the floating crystals bob. Keep every detail identical in every frame: the light blue round body with blue eyes, the purple crystal cluster on its head, the curled tail and the floating purple and blue crystals stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The spirit crystal sprite hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the light blue round body with blue eyes, the purple crystal cluster on its head, the curled tail and the floating purple and blue crystals stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The spirit crystal sprite attacks: it leans back, then springs forward in a quick headbutt, then returns exactly to its starting pose. Keep every detail identical in every frame: the light blue round body with blue eyes, the purple crystal cluster on its head, the curled tail and the floating purple and blue crystals stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "46": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The spirit herb sprite sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while its leaves sway. Keep every detail identical in every frame: the pink lotus flower on its head, the green leafy hair, the pale face with dark eyes, the leafy green body and the round green bud hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The spirit herb sprite hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the pink lotus flower on its head, the green leafy hair, the pale face with dark eyes, the leafy green body and the round green bud hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The spirit herb sprite attacks: it swings both vine arms forward in a quick slap, then returns exactly to its starting pose. Keep every detail identical in every frame: the pink lotus flower on its head, the green leafy hair, the pale face with dark eyes, the leafy green body and the round green bud hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "47": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The little snow yeti sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while its scarf ends flutter. Keep every detail identical in every frame: the round white snow body, the blue eyes, the orange carrot nose, the dark red scarf and the blue ice spikes on its back and hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The little snow yeti hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the round white snow body, the blue eyes, the orange carrot nose, the dark red scarf and the blue ice spikes on its back and hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The little snow yeti attacks: it raises one icy hand, then swipes forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the round white snow body, the blue eyes, the orange carrot nose, the dark red scarf and the blue ice spikes on its back and hands stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "48": {
+  "mv": "nay",
+  "prompts": {
+   "dung": "The pumpkin witch sits in place and breathes with a soft squash and stretch, squishing down and back up by one or two pixels while the hat tip and vines sway. Keep every detail identical in every frame: the orange pumpkin head with a carved grin, the dark purple witch hat with an orange band, the green leaves and the curling vines stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The pumpkin witch hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash. Keep every detail identical in every frame: the orange pumpkin head with a carved grin, the dark purple witch hat with an orange band, the green leaves and the curling vines stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The pumpkin witch attacks: it leans back, then lunges forward and chomps with its carved mouth, then returns exactly to its starting pose. Keep every detail identical in every frame: the orange pumpkin head with a carved grin, the dark purple witch hat with an orange band, the green leaves and the curling vines stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "49": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The wood dragon king rests in place while its vines and leaves sway. Keep every detail identical in every frame: the long cream serpent dragon body, the green vine and leaf coils, the branching wooden antlers, the glowing green eye and the pale pink lotus flower stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The wood dragon king crawls forward in a loop while staying centered in place, its serpent body rippling and pulling in turn. Keep every detail identical in every frame: the long cream serpent dragon body, the green vine and leaf coils, the branching wooden antlers, the glowing green eye and the pale pink lotus flower stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The wood dragon king attacks: it rears its head back, then strikes forward and bites, then returns exactly to its starting pose. Keep every detail identical in every frame: the long cream serpent dragon body, the green vine and leaf coils, the branching wooden antlers, the glowing green eye and the pale pink lotus flower stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "50": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The fire wolf king stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while the flames on its back and tail flicker. Keep every detail identical in every frame: the dark red body with molten orange cracks, the two white curved horns, the glowing yellow eye, the cream fangs, the flames along its back and tail and the floating flame wisp stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot.",
+   "di": "The fire wolf king walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark red body with molten orange cracks, the two white curved horns, the glowing yellow eye, the cream fangs, the flames along its back and tail and the floating flame wisp stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot.",
+   "danh": "The fire wolf king attacks: it crouches back, then lunges forward and bites with its fangs bared, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark red body with molten orange cracks, the two white curved horns, the glowing yellow eye, the cream fangs, the flames along its back and tail and the floating flame wisp stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces right and stays centered on the same spot."
+  }
+ },
+ "51": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The ice wolf king stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while its fur ripples. Keep every detail identical in every frame: the white fluffy wolf body, the large light blue ice crystal spikes on its back and tail, the glowing blue eye and the blue-tipped legs stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The ice wolf king walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the white fluffy wolf body, the large light blue ice crystal spikes on its back and tail, the glowing blue eye and the blue-tipped legs stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The ice wolf king attacks: it crouches back, then lunges forward and bites, then returns exactly to its starting pose. Keep every detail identical in every frame: the white fluffy wolf body, the large light blue ice crystal spikes on its back and tail, the glowing blue eye and the blue-tipped legs stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "52": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The wind spirit king floats in place, gently bobbing up and down by one or two pixels while the gold rings slowly turn and the cloud swirls. Keep every detail identical in every frame: the dark round face with two glowing yellow eyes, the white cloud body and hood, the blue wind wisps, the gold rings circling it and the gold collar stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The wind spirit king attacks: it pulls back, then lunges forward in a swirling strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark round face with two glowing yellow eyes, the white cloud body and hood, the blue wind wisps, the gold rings circling it and the gold collar stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "53": {
+  "mv": "bo",
+  "prompts": {
+   "dung": "The ancient tree king rests in place while its leafy canopy sways. Keep every detail identical in every frame: the large green leafy canopy, the brown trunk with a face, the two glowing green eyes, the yellow gem on the forehead, the white root beard and the green root feet stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "di": "The ancient tree king crawls forward in a loop while staying centered in place, its green root feet rippling and pulling in turn. Keep every detail identical in every frame: the large green leafy canopy, the brown trunk with a face, the two glowing green eyes, the yellow gem on the forehead, the white root beard and the green root feet stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ancient tree king attacks: it raises its branch arms, then swings them down forward in a heavy strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the large green leafy canopy, the brown trunk with a face, the two glowing green eyes, the yellow gem on the forehead, the white root beard and the green root feet stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "54": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The golden beetle king floats in place, gently bobbing up and down by one or two pixels while its white wings buzz slowly. Keep every detail identical in every frame: the golden spiked armor plates, the huge curved golden horn, the dark head with a glowing yellow eye and the white translucent wings stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The golden beetle king attacks: it pulls back, then charges forward horn first, then returns exactly to its starting pose. Keep every detail identical in every frame: the golden spiked armor plates, the huge curved golden horn, the dark head with a glowing yellow eye and the white translucent wings stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "55": {
+  "mv": "chan",
+  "prompts": {
+   "dung": "The stone armored beast stands in place in a steady idle stance, breathing slowly so its body rises and falls by one pixel while it breathes heavily. Keep every detail identical in every frame: the dark stone shell with golden yellow cracks, the gray stone spikes with golden tips on its back, the gold horn, the glowing orange eye and the stubby stone legs with yellow claws stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "di": "The stone armored beast walks forward in a steady walking loop, stepping its legs in turn, while staying centered in place. Keep every detail identical in every frame: the dark stone shell with golden yellow cracks, the gray stone spikes with golden tips on its back, the gold horn, the glowing orange eye and the stubby stone legs with yellow claws stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The stone armored beast attacks: it pulls back, then charges forward head first, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark stone shell with golden yellow cracks, the gray stone spikes with golden tips on its back, the gold horn, the glowing orange eye and the stubby stone legs with yellow claws stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "56": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The void whale beast floats in place, gently bobbing up and down by one or two pixels while its tentacle fins sway and the sparkles twinkle. Keep every detail identical in every frame: the dark purple whale body with a lavender belly, the glowing white eye, the purple halo ring above its head, the purple tentacle fins and the small dark sparkles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The void whale beast attacks: it pulls back, then lunges forward and bites, then returns exactly to its starting pose. Keep every detail identical in every frame: the dark purple whale body with a lavender belly, the glowing white eye, the purple halo ring above its head, the purple tentacle fins and the small dark sparkles stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "57": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The skeletal blood wolf floats in place, gently bobbing up and down by one or two pixels while its crimson mane ripples. Keep every detail identical in every frame: the white wolf skull with a red eye, the white ribcage and bone legs, the dark maroon smoky body and the flowing crimson mane stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces right and stays centered on the same spot.",
+   "danh": "The skeletal blood wolf attacks: it rears back, then lunges forward and bites with the skull jaws open wide, then returns exactly to its starting pose. Keep every detail identical in every frame: the white wolf skull with a red eye, the white ribcage and bone legs, the dark maroon smoky body and the flowing crimson mane stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces right and stays centered on the same spot."
+  }
+ },
+ "58": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The ice general ghost floats in place, gently bobbing up and down by one or two pixels while the cyan flames flicker and the robe sways. Keep every detail identical in every frame: the pale blue spiked horned crown, the dark face with glowing cyan eyes, the white skull on its shoulder, the tattered blue ghostly robe and the cyan ghost flames stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot.",
+   "danh": "The ice general ghost attacks: it raises its arms, then sweeps forward in a heavy strike, then returns exactly to its starting pose. Keep every detail identical in every frame: the pale blue spiked horned crown, the dark face with glowing cyan eyes, the white skull on its shoulder, the tattered blue ghostly robe and the cyan ghost flames stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The flames only sway and flicker, they do not grow or change color. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "59": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The dark wind lord ghost floats in place, gently bobbing up and down by one or two pixels while its tentacle robe and smoke wisps sway. Keep every detail identical in every frame: the wide dark purple hat with a gold rim and gold emblem, the glowing magenta eyes, the dark purple tentacle-like robe, the gold ring on its chest and the purple smoke wisps stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The dark wind lord ghost attacks: it pulls back, then lashes its tentacle robe forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the wide dark purple hat with a gold rim and gold emblem, the glowing magenta eyes, the dark purple tentacle-like robe, the gold ring on its chest and the purple smoke wisps stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ },
+ "60": {
+  "mv": "bay",
+  "prompts": {
+   "dung": "The flower queen ghost floats in place, gently bobbing up and down by one or two pixels while her vine tendrils sway. Keep every detail identical in every frame: the coral pink flower petals with yellow centers on its head, the green leaf hood, the pale face with magenta eyes, the green vine tendrils and the cream body stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot.",
+   "danh": "The flower queen ghost attacks: it pulls back, then lashes her vine tendrils forward, then returns exactly to its starting pose. Keep every detail identical in every frame: the coral pink flower petals with yellow centers on its head, the green leaf hood, the pale face with magenta eyes, the green vine tendrils and the cream body stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. No new objects or effects appear. It faces the viewer and stays centered on the same spot."
+  }
+ }
+}

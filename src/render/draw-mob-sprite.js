@@ -22,21 +22,48 @@ export function drawMobSprite(ctx, game, m, t, wind) {
   const spr = m.def.look && game.data.art.sprites['mob.' + m.id], im = spr && spriteImage(spr);
   if (!im) return false;
   const sc = spr.scale || 1;
-  m.top = spr.anchor[1] * sc - 2;   // đỉnh hình: thanh máu, sao choáng đặt trên đó
+  m.top = (spr.top ?? spr.anchor[1]) * sc - 2;   // đỉnh hình: thanh máu, sao choáng đặt trên đó (Bộ Quái Mới khai top: chân tới đỉnh đầu, khung có chừa trống)
   if (Math.abs(m.fx || 0) > 0.2) m.lookX = Math.sign(m.fx);
-  const { f, bob } = spr.acts ? actFrame(m, t, wind) : spr.atk ? { f: wind ? 1 : 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 } : mobFrame(spr, m, t);   // ảnh AI 5 dáng / 2 khung đứng, ra đòn
+  const { f, bob = 0, lean = 0 } = spr.anim ? animFrame(game, spr, m, t) : spr.acts ? actFrame(m, t, wind) : spr.atk ? { f: wind ? 1 : 0, bob: Math.floor(t * 2 + (m.uid || 0) * 0.37) % 2 } : mobFrame(spr, m, t);   // Bộ Quái Mới / ảnh AI 5 dáng / 2 khung đứng, ra đòn
   ctx.save();
   const jo = joltOff(game, m.jolt);   // vừa trúng đòn của mình: giật lùi rồi rung tại chỗ trong lúc khựng (src/game/hit-feel.js)
   if (game.hit2) m.tone ??= spriteTone(spr, im);   // bản ra đòn mới: màu chính của hình, vụn văng lúc chết đúng màu con quái
   const lu = m.lun ? lungeOff(game, m) : 0, tg = lu ? m.tgt || game.player : null, td = tg ? Math.hypot(tg.x - m.x, tg.y - m.y) || 1 : 1;   // quái đánh gần: lùi lấy đà rồi chồm tới mục tiêu (src/game/hurt-feel.js)
   ctx.translate(m.x + (jo ? m.jolt.x * jo : 0) + (lu ? (tg.x - m.x) / td * lu : 0), m.y + 1 - bob + (jo ? m.jolt.y * jo : 0) + (lu ? (tg.y - m.y) / td * lu : 0));
   ctx.scale((m.lookX || 1) * sc, sc);
-  if (wind && !spr.acts) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng đã có khung lấy đà)
+  if (wind && !spr.acts && !spr.anim) ctx.scale(1.12, 0.9);   // lấy đà trước khi đánh (hình 5 dáng, Bộ Quái Mới đã có khung lấy đà)
   ctx.imageSmoothingEnabled = false;
   if (!game.topPass) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng (sprites.js); lượt vẽ đè lên vệt chém thì không đổ bóng lần hai
+  if (lean) ctx.transform(1, 0, -lean, 1, 0, 0);   // con bay, lướt đang đi: xiên người về phía trước theo từng hàng điểm ảnh (không xoay hình)
   drawHitFrame(ctx, spr, im, f, m.flash > 0 ? m.flash / game.data.config.feel.flash : 0, !!m.jolt && game.time - m.jolt.t < 0.5);
   ctx.restore();
   return true;
+}
+
+// Bộ Quái Mới (SpriteCook 16/11/2026, tools/art/quai_moi_game.py): tấm ngang đứng | đi | công kích, spr.anim = {dung: [khung đầu, số khung], di,
+// danh, hit: khung đòn chạm, fps}. Đứng lặp dung; đi lặp di (con bay, lướt không có di: lặp dung, xiên người về phía trước). Lấy đà (windup, boss
+// chém / lao / vòng đạn) chạy khung đầu tới khung chạm theo tiến độ lấy đà, khung chạm hiện ngay trước lúc đòn trúng (khựng hình thì đứng thế); ra
+// đòn xong chạy nốt theo đồng hồ quái m.ak (src/game/mobs.js). Boss đang lao: giữ khung chạm; gọi lửa rơi (m.cast): chạy trọn đòn. Quái của đội
+// trưởng chỉ biết bận / rảnh: tính từ lúc thấy đổi. Lượt vẽ đè sau vệt chém (topPass) không tính lại đi / đứng.
+const BUSY = { windup: 1, slash: 1, nova: 1, charge: 1 }, LEAN = 0.12;
+function animFrame(game, spr, m, t) {
+  const A = spr.anim, fps = A.fps || 8, [a0, an] = A.danh, h = A.hit, ak = m.ak ?? t;
+  if (m.state !== m.aSt) { if (BUSY[m.aSt] && !BUSY[m.state]) m.aRa = ak; m.aSt = m.state; m.aS0 = ak; }
+  if (!game.topPass) {
+    if (Math.abs(m.x - (m.aPx ?? m.x)) + Math.abs(m.y - (m.aPy ?? m.y)) > 0.04) m.aMvT = t;
+    m.aPx = m.x; m.aPy = m.y;
+  }
+  if (BUSY[m.state]) {
+    if (m.state === 'charge' && !m.tele && !m.remote) return { f: a0 + h };   // đang lao
+    const dur = m.state === 'nova' ? 0.6 : m.state === 'charge' ? 0.75 : m.def.windup || 0.5;
+    const k = m.tele ? m.tele.k : m.remote ? (ak - m.aS0) / dur : m.t / dur;
+    return { f: a0 + Math.max(0, Math.min(h, Math.floor(k * h + 0.5))) };
+  }
+  if (m.cast != null && ak - m.cast < an / fps) return { f: a0 + Math.max(0, Math.floor((ak - m.cast) * fps)) };
+  if (m.aRa != null && ak - m.aRa < (an - h) / fps) return { f: a0 + h + Math.floor((ak - m.aRa) * fps) };
+  const mv = t - (m.aMvT ?? -9) < 0.15, c = mv && A.di ? A.di : A.dung;
+  if (!game.topPass) m.aLn = (m.aLn || 0) + ((mv && !A.di ? 1 : 0) - (m.aLn || 0)) * 0.15;
+  return { f: c[0] + Math.floor(t * fps + (m.uid || 0) * 2.9) % c[1], lean: (m.aLn || 0) * LEAN };
 }
 
 function mobFrame(spr, m, t) {
