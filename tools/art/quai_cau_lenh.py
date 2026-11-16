@@ -72,8 +72,8 @@ M = {
      'while its stone wings flap slowly', 'pulls its wings up, then dives forward in a quick strike', None),
  36: ('The stone demon guard', 'the gray stone body with an orange swirl rune on its chest, the glowing orange eyes, the rocky head crest and the big stone shield with an orange rune', V,
      'while it holds its shield ready', 'pulls the stone shield back, then bashes forward with it', None),
- 37: ('The mountain-breaker stone general', 'the dark stone body with glowing orange lava cracks, the two curved tan horns, the glowing orange eyes and the two huge stone fists', V,
-     'while it stands heavily', 'raises both stone fists high, then slams them down forward in a heavy ground strike', None),
+ 37: ('The mountain-breaker stone general', 'the dark stone body with light orange crack lines, the two curved tan horns, the glowing orange eyes and the two huge stone fists', V,
+     'while it stands heavily', 'raises both stone fists high, then brings them down forward in a heavy punch', None),
  38: ('The void orb demon', 'the black void orb with a glowing purple rim, the purple ring circling it, the dark purple smoke wisps and the small dark shards floating around it', V,
      'while the ring slowly turns and the smoke wisps sway', 'pulls back as its purple rim glows brighter, then lunges forward', None),
  39: ('The netherworld mage', 'the dark gray witch hat with gold stitching and a hanging charm, the pale skull face, the tattered dark robe and the staff topped with a purple flame', V,
@@ -108,7 +108,7 @@ M = {
      'while its leafy canopy sways', 'raises its branch arms, then swings them down forward in a heavy strike', 'green root feet'),
  54: ('The golden beetle king', 'the golden spiked armor plates, the huge curved golden horn, the dark head with a glowing yellow eye and the white translucent wings', F,
      'while its white wings buzz slowly', 'pulls back, then charges forward horn first', None),
- 55: ('The lava armored beast', 'the dark stone shell with glowing yellow-orange lava cracks, the tan stone spikes on its back, the gold horn, the glowing orange eye and the stubby stone legs with yellow claws', F,
+ 55: ('The stone armored beast', 'the dark stone shell with golden yellow cracks, the gray stone spikes with golden tips on its back, the gold horn, the glowing orange eye and the stubby stone legs with yellow claws', F,
      'while it breathes heavily', 'pulls back, then charges forward head first', None),
  56: ('The void whale beast', 'the dark purple whale body with a lavender belly, the glowing white eye, the purple halo ring above its head, the purple tentacle fins and the small dark sparkles', F,
      'while its tentacle fins sway and the sparkles twinkle', 'pulls back, then lunges forward and bites', None),
@@ -131,8 +131,18 @@ MOVE = {'chan': '{s} walks forward in a steady walking loop, stepping its legs i
         'nay': '{s} hops forward in a bouncy loop while staying centered in place: it squashes down, springs up one or two pixels and lands with a small squash.',
         'bo': '{s} crawls forward in a loop while staying centered in place, its {p} rippling and pulling in turn.'}
 
+FIRE = ('flame', 'fire')
+SMOKE = ('smoke', 'smoky')
+
 def keep(f, facing):
-    t = f'Keep every detail identical in every frame: {f} stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. Smoke and flames only sway and flicker, they do not grow or change color.'
+    # Chỉ nhắc đúng thứ con đó CÓ. Nhắc chữ "flames" cho con không có lửa thì SpriteCook vẽ thêm lửa:
+    # #4, #7 (không lửa không khói) mọc lửa; #21 (chỉ có khói tẩu xanh) khói hoá lửa cam.
+    t = f'Keep every detail identical in every frame: {f} stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part.'
+    fire, smoke = any(w in f for w in FIRE), any(w in f for w in SMOKE)
+    if fire and smoke: t += ' The smoke and flames only sway and flicker, they do not grow or change color.'
+    elif fire: t += ' The flames only sway and flicker, they do not grow or change color.'
+    elif smoke: t += ' The smoke only drifts and curls gently and keeps exactly the same colors. No new objects or effects appear.'
+    else: t += ' No new objects or effects appear.'
     return t + (' It faces right and stays centered on the same spot.' if facing == F else ' It faces the viewer and stays centered on the same spot.')
 
 def build(mons):
