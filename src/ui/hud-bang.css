@@ -1,0 +1,130 @@
+/* Bố cục hai bảng (chủ dự án 17/11/2026 00:11, ảnh mẫu GPT): giữa màn hình để trống cho dễ quay video. Bảng trên ôm thẻ nhân vật
+   (ảnh đại diện khung vuông, tên, lực chiến, bốn thanh) và các ô chức năng; bản đồ nhỏ khung vuông treo ngay dưới góc phải bảng trên.
+   Bảng dưới ôm mọi nút đánh: hàng trên Túi đồ, Đan, Cưỡi, Tự đánh, Lướt; hàng dưới Chat, bốn ô pháp bảo; nút Đánh lớn bên phải.
+   Khung, nền là tạm bằng code (đồ hoạ khung chủ dự án làm sau trên SpriteCook). Bật / tắt: data/menu.json → hud.bang
+   (src/ui/hud-bang.js gắn body.hud-bang, dựng #bang-tren, #bang-duoi, nạp tệp này sau style.css); luật "html body.hud-bang" + !important thắng các bộ khung cũ. */
+
+html body.hud-bang {
+  --sl: env(safe-area-inset-left, 0px); --sr: env(safe-area-inset-right, 0px); --st: env(safe-area-inset-top, 0px); --sb: env(safe-area-inset-bottom, 0px);
+  --tren-h: 104px;   /* cao bảng trên */
+  --o-w: 38px; --o-h: 44px; --o-g: 2px;   /* ô chức năng bảng trên: 5 cột × 2 hàng */
+  --d-h: 52px; --d-g: 4px; --atk: 84px;   /* bảng dưới: ô cao 52, nút Đánh 96 */
+  --cw: min(56px, calc((100vw - var(--sl) - var(--sr) - 30px - var(--atk) * 1.25 - 5 * var(--d-g)) / 5));   /* chừa chỗ vòng nút Đánh lồi ra */
+  --d-top: calc(2 * var(--d-h) + var(--d-g) + 16px);   /* cao bảng dưới */
+}
+
+/* ---- nền hai bảng ---- */
+#bang-tren, #bang-duoi { position: fixed; box-sizing: border-box; pointer-events: none;
+  border: 2px solid #b8913f; border-radius: 8px; background: linear-gradient(rgba(44, 28, 66, .94), rgba(22, 14, 36, .94));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .7), inset 0 0 0 3px rgba(255, 214, 120, .12), 0 3px 8px rgba(0, 0, 0, .55); }
+#bang-tren[hidden], #bang-duoi[hidden] { display: none; }
+#bang-tren { left: calc(var(--sl) + 4px); right: calc(var(--sr) + 4px); top: calc(var(--st) + 4px); height: var(--tren-h); }
+#bang-duoi { left: calc(var(--sl) + 4px); right: calc(var(--sr) + 4px); bottom: calc(var(--sb) + 4px); height: var(--d-top); }
+html body.hud-bang #hud-khay { display: none !important; }
+html body.hud-bang.ui-an #bang-tren { display: none; }
+body.hud-bang:has(.panel:not([hidden])) #bang-duoi, body.hud-bang:has(#bag:not([hidden])) #bang-duoi, body.hud-bang:has(#dialog:not([hidden])) #bang-duoi { visibility: hidden; }
+
+/* ---- bảng trên: thẻ nhân vật bên trái ---- */
+html body.hud-bang #hud .bars {
+  left: calc(var(--sl) + 12px) !important; top: calc(var(--st) + 10px) !important; z-index: 5;
+  width: calc(100vw - var(--sl) - var(--sr) - 30px - 5 * var(--o-w) - 4 * var(--o-g)) !important; max-width: 240px !important; height: calc(var(--tren-h) - 12px);
+  padding: 0 !important; border: 0 !important; border-image: none !important; background: none !important;
+  grid-template-columns: 56px minmax(0, 1fr); column-gap: 6px; row-gap: 3px; align-content: center;
+}
+/* ảnh đại diện khung vuông (chủ dự án: "ảnh đại diện và map, sửa thành khung vuông"); Lv dải dưới, huy hiệu hệ góc trên phải */
+html body.hud-bang #uk-ava.v2 { width: 56px !important; height: 56px !important; }
+html body.hud-bang #uk-ava.v2 i { display: none !important; }
+html body.hud-bang #uk-ava.v2 canvas { left: 0 !important; top: 0 !important; width: 56px !important; height: 56px !important; box-sizing: border-box;
+  border-radius: 3px !important; border: 2px solid #d9b04f; box-shadow: 0 0 0 1px #000, inset 0 0 0 1px rgba(0, 0, 0, .6) !important;
+  background: linear-gradient(#4a4478, #17142a) !important; }
+html body.hud-bang #uk-ava.v2 b { left: 2px !important; right: 2px !important; top: auto !important; bottom: 2px !important; width: auto !important; height: 11px !important;
+  background: rgba(10, 6, 20, .78) !important; font-size: 8.5px !important; }
+html body.hud-bang #uk-ava.v2 s { left: auto !important; right: -4px !important; top: -4px !important; width: 16px !important; height: 16px !important; }
+
+/* ---- bảng trên: ô chức năng bên phải, 5 cột × 2 hàng canh mép phải; mũi tên thu gọn ở ô cuối hàng dưới ---- */
+html body.hud-bang #hud .hud-btns > button.tron[data-cot], html body.hud-bang #hud .hud-btns > button.tron[data-tron2] {
+  width: var(--o-w) !important; height: var(--o-h) !important; left: auto !important; z-index: 6; }
+html body.hud-bang #hud .hud-btns > button.tron[data-cot] { right: calc(var(--sr) + 12px + var(--cot) * (var(--o-w) + var(--o-g))) !important; top: calc(var(--st) + 10px) !important; }
+html body.hud-bang #hud .hud-btns > button.tron[data-tron2] { right: calc(var(--sr) + 12px + var(--tron2) * (var(--o-w) + var(--o-g))) !important;
+  top: calc(var(--st) + 12px + var(--o-h) + var(--o-g)) !important; }
+html body.hud-bang #hud .hud-btns > button.tron[data-cot]::before, html body.hud-bang #hud .hud-btns > button.tron[data-tron2]::before { width: 26px !important; height: 25px !important; top: 3px !important; }
+html body.hud-bang #hud .hud-btns > button.tron[data-cot]::after, html body.hud-bang #hud .hud-btns > button.tron[data-tron2]::after { left: -3px !important; right: -3px !important; bottom: 2px !important; font-size: 8px !important; }
+html body.hud-bang .uk-tog#uk-gon { right: calc(var(--sr) + 15px) !important; top: calc(var(--st) + 18px + var(--o-h) + var(--o-g)) !important; width: 32px !important; height: 32px !important; z-index: 6; }
+
+/* ---- dưới bảng trên: bản đồ nhỏ khung vuông góc phải; mùa, nút "!", nút mắt bên trái bản đồ; việc truyện, thẻ bậc góc trái ---- */
+html body.hud-bang #mini-map { right: calc(var(--sr) + 6px) !important; top: calc(var(--st) + var(--tren-h) + 8px) !important; width: 76px !important; height: 76px !important; }
+html body.hud-bang #mini-map canvas { left: 0 !important; top: 0 !important; width: 76px !important; height: 76px !important; box-sizing: border-box; border-radius: 3px !important;
+  border: 2px solid #d9b04f; box-shadow: 0 0 0 1px #000, 0 3px 6px rgba(0, 0, 0, .55); }
+html body.hud-bang #mini-map i { display: none !important; }
+html body.hud-bang #mini-map b { bottom: -15px !important; }
+html body.hud-bang #sky { right: calc(var(--sr) + 88px) !important; top: calc(var(--st) + var(--tren-h) + 66px) !important; }
+html body.hud-bang #btn-faq { right: calc(var(--sr) + 88px) !important; top: calc(var(--st) + var(--tren-h) + 8px) !important; left: auto !important; }
+html body.hud-bang .uk-tog#uk-an { right: calc(var(--sr) + 88px) !important; top: calc(var(--st) + var(--tren-h) + 38px) !important; left: auto !important; }
+html body.hud-bang.ui-an .uk-tog#uk-an { top: calc(var(--st) + 8px) !important; }
+html body.hud-bang #bac-hud { top: calc(var(--st) + var(--tren-h) + 8px) !important; }
+html body.hud-bang #goal { left: calc(var(--sl) + 6px) !important; right: auto !important; top: calc(var(--st) + var(--tren-h) + 8px) !important; max-width: calc(100vw - 140px) !important; }
+body.hud-bang:has(#bac-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 68px) !important; }
+html body.hud-bang .quest-dock { top: calc(var(--st) + var(--tren-h) + 100px) !important; }
+
+/* ---- bảng dưới: khung ô chung ---- */
+html body.hud-bang #buttons { position: fixed !important; left: 0 !important; right: 0 !important; bottom: 0 !important; top: auto !important; width: auto !important; height: 0 !important; margin: 0 !important; z-index: 5; }
+html body.hud-bang #buttons :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride, #btn-auto) { position: absolute !important; }
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride, #btn-auto, #hud .hud-btns > button.tron#btn-bag, #chat-dock) {
+  top: auto !important; right: auto !important; width: var(--cw) !important; height: var(--d-h) !important; margin: 0 !important; padding: 0 !important; transform: none;
+  box-sizing: border-box !important; border: 2px solid var(--gc, #a8853a) !important; border-image: none !important; border-radius: 6px !important;
+  background-color: rgba(30, 18, 46, .96) !important; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .7), 0 2px 0 rgba(0, 0, 0, .5) !important; overflow: hidden !important; z-index: 6;
+  pointer-events: auto !important; filter: none !important; }
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride)::after { display: none !important; }
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride, #btn-auto):active, html body.hud-bang #chat-dock:active { transform: scale(.94); }
+html body.hud-bang #buttons .btn .cd { border-radius: 4px !important; }
+html body.hud-bang #buttons .btn .cd[data-t]:not([data-t=""])::after { top: 12px; }
+/* chữ dưới mỗi ô */
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride, #btn-auto) b {
+  position: absolute !important; left: 1px !important; right: 1px !important; bottom: 2px !important; top: auto !important; z-index: 3; display: block !important;
+  padding: 0 !important; max-height: 10px !important; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; opacity: 1 !important;
+  font: 700 9px/10px system-ui, sans-serif !important; color: #fff3d6 !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
+/* ô pháp bảo: hình giữa ô, viền màu phẩm (--gc do src/ui/phap-bao-hud.js đặt) */
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { background-position: center 4px !important; background-size: 34px 34px !important; background-repeat: no-repeat !important; }
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art).off { opacity: .55; }
+
+/* vị trí: cột c (0–4) từ trái, hàng 0 trên / 1 dưới */
+html body.hud-bang :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-dash, #btn-pill, #btn-ride, #btn-auto, #hud .hud-btns > button.tron#btn-bag, #chat-dock) {
+  left: calc(var(--sl) + 12px + var(--c) * (var(--cw) + var(--d-g))) !important; bottom: calc(var(--sb) + 12px + (1 - var(--r)) * (var(--d-h) + var(--d-g))) !important; }
+html body.hud-bang #hud .hud-btns > button.tron#btn-bag { --c: 0; --r: 0; }
+html body.hud-bang #btn-pill { --c: 1; --r: 0; }
+html body.hud-bang #btn-ride { --c: 2; --r: 0; }
+html body.hud-bang #btn-auto { --c: 3; --r: 0; }
+html body.hud-bang #btn-dash { --c: 4; --r: 0; }
+html body.hud-bang #chat-dock { --c: 0; --r: 1; }
+html body.hud-bang #btn-s0 { --c: 1; --r: 1; }
+html body.hud-bang #btn-s1 { --c: 2; --r: 1; }
+html body.hud-bang #btn-s2 { --c: 3; --r: 1; }
+html body.hud-bang #btn-art { --c: 4; --r: 1; }
+
+/* Túi đồ: biểu tượng túi, chữ dưới */
+html body.hud-bang #hud .hud-btns > button.tron#btn-bag { position: fixed !important; background-image: none !important; }
+html body.hud-bang #hud .hud-btns > button.tron#btn-bag::before { top: 5px !important; width: 30px !important; height: 28px !important; }
+html body.hud-bang #hud .hud-btns > button.tron#btn-bag::after { left: 0 !important; right: 0 !important; bottom: 2px !important; font: 700 9px/10px system-ui, sans-serif !important; }
+/* Chat: ô bấm mở bảng trò chuyện (src/ui/chat-dock.js); tin nhắn không hiện giữa màn hình nữa */
+html body.hud-bang #chat-dock { position: fixed !important; display: block; max-width: none !important; gap: 0; cursor: pointer; }
+html body.hud-bang #chat-dock > * { display: none !important; }
+html body.hud-bang #chat-dock::before { content: ''; position: absolute; left: 50%; top: 8px; width: 26px; height: 18px; margin-left: -13px; border-radius: 9px;
+  background: #e9e3f5; box-shadow: inset 0 -3px 0 #b9b0d0, 0 0 0 1px #000; }
+html body.hud-bang #chat-dock::after { content: 'Chat'; position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font: 700 9px/10px system-ui, sans-serif;
+  color: #fff3d6; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+html body.hud-bang #chat-dock.moi::before { box-shadow: inset 0 -3px 0 #b9b0d0, 0 0 0 1px #000, 14px -6px 0 -4px #ff4a4a; }   /* có tin mới: chấm đỏ */
+/* Tự đánh: ô sáng khi đang bật; Lướt, Đan, Cưỡi: chữ giữa ô */
+html body.hud-bang #btn-auto::before { width: 22px !important; height: 22px !important; top: 6px !important; left: 50% !important; margin: 0 0 0 -11px !important; position: absolute !important; }
+html body.hud-bang #btn-auto { padding-top: 26px !important; display: flex !important; align-items: center; justify-content: center; text-align: center; font: 700 10px/1 system-ui, sans-serif !important; color: #fff3d6 !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; white-space: normal !important; }
+html body.hud-bang #btn-auto.on { border-color: #ffd766 !important; background-color: rgba(110, 60, 20, .96) !important; box-shadow: 0 0 8px rgba(255, 200, 90, .7), inset 0 0 0 1px #000 !important; }
+html body.hud-bang :is(#btn-dash, #btn-pill, #btn-ride) { background-image: none !important; }
+html body.hud-bang :is(#btn-dash, #btn-pill, #btn-ride) b { top: 50% !important; bottom: auto !important; transform: translateY(-50%); font-size: 11px !important; line-height: 12px !important; max-height: 12px !important; }
+
+/* Đánh: nút tròn lớn bên phải bảng dưới (giữ khung vòng cũ, vòng lồi ra ~15% nên nút 84 cho vừa bảng) */
+html body.hud-bang #btn-atk { position: absolute !important; left: auto !important; top: auto !important; right: calc(var(--sr) + 12px) !important;
+  bottom: calc(var(--sb) + 10px + (var(--d-top) - var(--atk)) / 2) !important; width: var(--atk) !important; height: var(--atk) !important; margin: 0 !important; z-index: 6; }
+/* nút tương tác (nói chuyện, nhặt…) ngay trên nút Đánh; nút Tắt màn hình trên bảng dưới, bên trái */
+html body.hud-bang #btn-act { position: absolute !important; left: auto !important; top: auto !important; right: calc(var(--sr) + 22px) !important; bottom: calc(var(--sb) + var(--d-top) + 14px) !important; z-index: 6; }
+html body.hud-bang #btn-man-toi { position: fixed !important; left: calc(var(--sl) + 60px) !important; right: auto !important; bottom: calc(var(--sb) + var(--d-top) + 14px) !important; }
+/* đang có khung thoại: bảng dưới ẩn (như các nút đánh) thì Túi đồ cũng ẩn, không lơ lửng một mình */
+body.hud-bang:has(#dialog:not([hidden])) #hud .hud-btns > button.tron#btn-bag { visibility: hidden; }

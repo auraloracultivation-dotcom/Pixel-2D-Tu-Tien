@@ -57,6 +57,7 @@ import { createDailyPanel } from './ui/daily-panel.js';
 import { createAchvPanel } from './ui/achv-panel.js';
 import { createWorldMap } from './ui/world-map.js';
 import { createMiniMap } from './ui/mini-map.js';
+import { createHudBang } from './ui/hud-bang.js';
 import { createHopThu } from './ui/hop-thu.js';
 import { createSocialPanel } from './ui/social-panel.js';
 import { initPwa, recoverStale } from './core/pwa.js';
@@ -137,7 +138,7 @@ async function boot() {
   createChatDock(game); if (!game.data.daily?.off) createQuestDock(game);   // off: bỏ nhiệm vụ hằng ngày (chủ dự án 06/11/2026), hệ thống thay
     // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
-  orderHud(game); createHudGon(game); createHudAva(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo
+  orderHud(game); createHudGon(game); createHudAva(game); createHudBang(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo; bố cục hai bảng trên / dưới (hud-bang.js)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 

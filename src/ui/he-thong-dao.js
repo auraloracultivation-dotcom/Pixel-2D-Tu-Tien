@@ -10,6 +10,9 @@ export function createWander(game, ic, face, D) {
   const label = e => (e.getAttribute('aria-label') || e.title || e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 18);
   const skip = new Set(D.skip || []);
   let dTop = Infinity, dAt = 0;
+  // bố cục hai bảng (src/ui/hud-bang.js): chỉ đi trong khoảng trống giữa bảng trên và bảng dưới, không ngó nút trong bảng (đứng cạnh là đè ô bên)
+  let zAt = 0, zone = null;
+  const band = () => { const now = performance.now(); if (zone && now - zAt < 500) return zone; zAt = now; const t = document.getElementById('bang-tren'), b = document.getElementById('bang-duoi'); return (zone = { t: t && !t.hidden ? t.getBoundingClientRect().bottom + 4 : 40, b: b && !b.hidden ? b.getBoundingClientRect().top - 4 : innerHeight - 8 }); };
   function dlgTop() {   // mép trên khung thoại đang mở, kể cả thẻ tên và hình người nói (đo lại mỗi 0,3 giây); không có thoại: vô cực
     if (!game.dialog?.open) return (dTop = Infinity);
     const now = performance.now();
@@ -20,18 +23,18 @@ export function createWander(game, ic, face, D) {
     return dTop;
   }
   function pick() {
-    const W = innerWidth, H = innerHeight, S = ic.offsetWidth || 56, SH = ic.offsetHeight || 50, top = dlgTop();
+    const W = innerWidth, S = ic.offsetWidth || 56, SH = ic.offsetHeight || 50, Z = band(), H = Z.b + 10, top = dlgTop();
     const list = [...document.querySelectorAll('button')].filter(e => {
       if (skip.has(e.id) || e === ic || !e.offsetParent || e.closest('.panel, #dialog, .ht-back, .ht-icon, #bag')) return false;
       const r = e.getBoundingClientRect();
-      return r.width > 12 && r.width < W * 0.6 && r.top > 40 && r.bottom < Math.min(H - 10, top - 6) && r.left >= 0 && r.right <= W;
+      return r.width > 12 && r.width < W * 0.6 && r.top > Z.t && r.bottom < Math.min(H - 10, top - 6) && r.left >= 0 && r.right <= W;
     });
     if (list.length && Math.random() < 0.8) {
       const e = list[Math.floor(Math.random() * list.length)], r = e.getBoundingClientRect();
       const left = r.left > S + 8 && (r.right + S + 8 > W || Math.random() < 0.5);   // ngó từ bên cạnh, không đè lên nút
       return { x: left ? r.left - S + 6 : r.right - 6, y: r.top + r.height / 2 - SH / 2 - 6, name: label(e) };
     }
-    return { x: 20 + Math.random() * (W - S - 40), y: 90 + Math.random() * Math.max(10, Math.min(H - SH - 260, top - SH - 110)), name: '' };
+    return { x: 20 + Math.random() * (W - S - 40), y: Z.t + 50 + Math.random() * Math.max(10, Math.min(H - Z.t - SH - 210, top - Z.t - SH - 60)), name: '' };
   }
   function arrive() {
     face.react('tim');
@@ -60,7 +63,7 @@ export function createWander(game, ic, face, D) {
       const chip = document.getElementById('bac-hud');   // thẻ bậc của chặng leo bậc (góc trái dưới khung nhân vật): không đậu đè lên
       if (chip && !chip.hidden && pos.x < 200 && pos.y > 62 && pos.y < 172) { pos.y += (172 - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < 200 && st.tgt.y > 62 && st.tgt.y < 172) st.tgt.y = 172; }
       if (pos.y > lim) { pos.y += (lim - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.y > lim) st.tgt.y = lim; }
-      pos.x = Math.max(4, Math.min(innerWidth - S - 4, pos.x)); pos.y = Math.max(40, Math.min(innerHeight - SH - 8, pos.y));
+      pos.x = Math.max(4, Math.min(innerWidth - S - 4, pos.x)); const Z = band(); pos.y = Math.max(Z.t, Math.min(Z.b - SH, pos.y));
       const bob = Math.sin(performance.now() / (st.mode === 'move' ? 160 : 420)) * (st.mode === 'move' ? 3 : 1.5);
       ic.style.left = `${Math.round(pos.x)}px`; ic.style.top = `${Math.round(pos.y + bob)}px`;
       face.node.style.transform = st.flip < 0 ? 'scaleX(-1)' : '';

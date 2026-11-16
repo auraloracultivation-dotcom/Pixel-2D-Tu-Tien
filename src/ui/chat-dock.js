@@ -32,6 +32,7 @@ export function createChatDock(game) {
     const L = [...w.slice(-SHOW), ...here.slice(-1)].slice(-SHOW);
     const k = on + L.map(m => m.t).join(',');
     if (k === key) return;
+    if (key && L.length && document.getElementById('social')?.hidden !== false) dock.classList.add('moi');   // có tin mới lúc bảng trò chuyện đóng: chấm đỏ trên ô Chat (bố cục hai bảng)
     key = k; log.replaceChildren();
     if (!L.length) log.append(el('div', 'cd-empty', on ? S.world.empty : S.world.offline));
     for (const m of L) { const d = el('div', 'cd-line'); if (m.r != null) d.append(el('small', null, `[${names[m.r]}] `)); d.append(el('b', null, m.n + ': '), m.c); log.append(d); }
@@ -39,7 +40,7 @@ export function createChatDock(game) {
 
   function expand() {
     if (!game.save || game.dialog.open || game.trip) return;
-    game.closeAll?.();
+    game.closeAll?.(); dock.classList.remove('moi');
     game.openSocial?.('world');
     fromDock = true;
     setTimeout(() => document.getElementById('social-input')?.focus(), 50);
