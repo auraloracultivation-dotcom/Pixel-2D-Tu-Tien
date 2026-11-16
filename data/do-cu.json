@@ -1,5 +1,5 @@
 {
- "_note": "Đồ cũ thành khôi lỗi và NPC (chủ dự án 17/11/2026 00:1x–00:2x, tools/do_cu.py ghi vào companions / npcs / pets / shop / maps / art). khoi_loi: 20 bộ thời trang cũ, mỗi bộ một khôi lỗi đánh xa (hinh: tấm 7 động tác hero.y-<bộ>-<giới>; look: tấm nhiều khung, công cụ dựng tấm 7 động tác), gia: Linh Thạch ở Ngự Thú Sư (đề xuất, chờ chủ dự án duyệt); ai từng có bộ đó được tặng khôi lỗi bộ đó (migration). npc: bản giới tính còn lại của 14 bộ thành NPC bán hàng (ban: bán y như NPC đó, cùng giá, cùng lượt ngày), 7 bộ đã bỏ 15/11 cả hai giới thành NPC đứng ở công trình.",
+ "_note": "Đồ cũ thành khôi lỗi và NPC (chủ dự án 17/11/2026 00:1x–00:2x, tools/do_cu.py ghi vào companions / npcs / pets / shop / maps / art). khoi_loi: 20 bộ thời trang cũ, mỗi bộ một khôi lỗi đánh xa (hinh: tấm 7 động tác hero.y-<bộ>-<giới>; look: tấm nhiều khung, công cụ dựng tấm 7 động tác), gia: Linh Thạch ở Ngự Thú Sư (chủ dự án 17/11/2026 03:00: mỗi con 40 000); ai từng có bộ đó được tặng khôi lỗi bộ đó (migration). npc: bản giới tính còn lại của 14 bộ thành NPC bán hàng (ban: bán y như NPC đó, cùng giá, cùng lượt ngày), 7 bộ đã bỏ 15/11 cả hai giới thành NPC đứng ở công trình.",
  "looks": {
   "nam": {
    "sprite": "hero.nam",
@@ -355,7 +355,7 @@
     "cd": 9
    },
    "join": "Sư huynh dẫn đường, đệ theo sau!",
-   "gia": 8000,
+   "gia": 40000,
    "lines": [
     "Sư huynh dẫn đường, đệ theo sau!",
     "Ta vốn là Đồng phục Kiếm tông, giờ làm khôi lỗi theo ngươi."
@@ -377,7 +377,7 @@
     "cd": 11
    },
    "join": "Đi đường xa, có ta đọc sách cho nghe.",
-   "gia": 8000,
+   "gia": 40000,
    "lines": [
     "Đi đường xa, có ta đọc sách cho nghe.",
     "Ta vốn là Thanh sam thư sinh, giờ làm khôi lỗi theo ngươi."
@@ -400,7 +400,7 @@
     "cd": 9
    },
    "join": "Ta đi trong bóng tối, ngươi cứ đi trước.",
-   "gia": 8000,
+   "gia": 40000,
    "lines": [
     "Ta đi trong bóng tối, ngươi cứ đi trước.",
     "Ta vốn là Hắc y dạ hành, giờ làm khôi lỗi theo ngươi."
@@ -423,7 +423,7 @@
     "cd": 12
    },
    "join": "Hoa đào nở rồi, đi ngắm với ta nhé!",
-   "gia": 8000,
+   "gia": 40000,
    "lines": [
     "Hoa đào nở rồi, đi ngắm với ta nhé!",
     "Ta vốn là Hồng y hoa đào, giờ làm khôi lỗi theo ngươi."
@@ -446,7 +446,7 @@
     "cd": 9
    },
    "join": "Kiếm trong tay, đường dưới chân.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Kiếm trong tay, đường dưới chân.",
     "Ta vốn là Bạch Kiếm Bào, giờ làm khôi lỗi theo ngươi."
@@ -469,7 +469,7 @@
     "cd": 9
    },
    "join": "Trăng lên rồi, đi săn thôi.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Trăng lên rồi, đi săn thôi.",
     "Ta vốn là Tử Liềm Y, giờ làm khôi lỗi theo ngươi."
@@ -492,7 +492,7 @@
     "cd": 12
    },
    "join": "Ngàn con yêu quái rồi, thêm vài con nữa thôi.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Ngàn con yêu quái rồi, thêm vài con nữa thôi.",
     "Ta vốn là Huyết giáp săn yêu, giờ làm khôi lỗi theo ngươi."
@@ -515,7 +515,7 @@
     "cd": 9
    },
    "join": "Ăn kẹo hay bị ghẹo? Đi thôi!",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Ăn kẹo hay bị ghẹo? Đi thôi!",
     "Ta vốn là Áo choàng Bí Ngô, giờ làm khôi lỗi theo ngươi."
@@ -538,7 +538,7 @@
     "cd": 9
    },
    "join": "Tuyết rơi đẹp quá, đi cùng nhau nhé.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Tuyết rơi đẹp quá, đi cùng nhau nhé.",
     "Ta vốn là Áo lông Tuyết Lành, giờ làm khôi lỗi theo ngươi."
@@ -560,7 +560,7 @@
     "cd": 11
    },
    "join": "Đạo hữu, ta theo một đoạn đường.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Đạo hữu, ta theo một đoạn đường.",
     "Ta vốn là Tiên Nhân Bạch Y, giờ làm khôi lỗi theo ngươi."
@@ -583,7 +583,7 @@
     "cd": 12
    },
    "join": "Theo ta, vàng bạc không thiếu.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Theo ta, vàng bạc không thiếu.",
     "Ta vốn là Hoàng Kim Long Bào, giờ làm khôi lỗi theo ngươi."
@@ -606,7 +606,7 @@
     "cd": 9
    },
    "join": "Năm mới phát tài, đi đánh quái lấy lộc!",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Năm mới phát tài, đi đánh quái lấy lộc!",
     "Ta vốn là Áo Tết đỏ thắm, giờ làm khôi lỗi theo ngươi."
@@ -629,7 +629,7 @@
     "cd": 9
    },
    "join": "Linh mạch dẫn lối, ta đi cùng.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Linh mạch dẫn lối, ta đi cùng.",
     "Ta vốn là Thiên Mạch bào, giờ làm khôi lỗi theo ngươi."
@@ -652,7 +652,7 @@
     "cd": 9
    },
    "join": "Lạnh một chút thôi, đừng sợ.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Lạnh một chút thôi, đừng sợ.",
     "Ta vốn là Băng y Hàn Băng, giờ làm khôi lỗi theo ngươi."
@@ -674,7 +674,7 @@
     "cd": 11
    },
    "join": "Rừng xanh gửi ta theo giúp ngươi.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Rừng xanh gửi ta theo giúp ngươi.",
     "Ta vốn là Lục bào Thanh Mộc, giờ làm khôi lỗi theo ngươi."
@@ -697,7 +697,7 @@
     "cd": 12
    },
    "join": "Đất dày trời rộng, ta đỡ cho.",
-   "gia": 12000,
+   "gia": 40000,
    "lines": [
     "Đất dày trời rộng, ta đỡ cho.",
     "Ta vốn là Thổ bào Hậu Thổ, giờ làm khôi lỗi theo ngươi."
@@ -720,7 +720,7 @@
     "cd": 9
    },
    "join": "Thần nguyên hộ thể, đi thôi.",
-   "gia": 25000,
+   "gia": 40000,
    "lines": [
     "Thần nguyên hộ thể, đi thôi.",
     "Ta vốn là Thần Nguyên Y, giờ làm khôi lỗi theo ngươi."
@@ -743,7 +743,7 @@
     "cd": 9
    },
    "join": "Trăng máu đã lên.",
-   "gia": 30000,
+   "gia": 40000,
    "lines": [
     "Trăng máu đã lên.",
     "Ta vốn là Huyết Nguyệt, giờ làm khôi lỗi theo ngươi."
@@ -766,7 +766,7 @@
     "cd": 9
    },
    "join": "Hì, để ta chơi với lũ quái một chút.",
-   "gia": 45000,
+   "gia": 40000,
    "lines": [
     "Hì, để ta chơi với lũ quái một chút.",
     "Ta vốn là Tử Linh Ma Yêu, giờ làm khôi lỗi theo ngươi."
@@ -788,7 +788,7 @@
     "cd": 11
    },
    "join": "Hoa nở theo bước chân ngươi.",
-   "gia": 35000,
+   "gia": 40000,
    "lines": [
     "Hoa nở theo bước chân ngươi.",
     "Ta vốn là Ly Hoa, giờ làm khôi lỗi theo ngươi."
