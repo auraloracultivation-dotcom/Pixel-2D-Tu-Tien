@@ -15,7 +15,7 @@ import { chargeHold } from './skill-charge.js';
 import { warmSkillSfx } from './skill-sfx.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
-import { rideSpeed } from './pets.js';
+import { rideSpeed, toggleRide } from './pets.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
@@ -97,6 +97,21 @@ function swing(game) {
   return w.cooldown;
 }
 
+// Đang cưỡi thú (chủ dự án 16/11/2026 21:57): đòn đánh thường là đòn của thú (chuyển động tấn công của thú, src/render/draw-pet.js),
+// vũ khí bay vẫn treo sau lưng không dùng. Sát thương như đòn thường; trúng lúc khung đòn chạm (mount.<mã>.hit), cung arc trước mặt (data/pets.json → ride)
+function mountSwing(game) {
+  const p = game.player, c = game.data.pets.ride, dmg = p.atk * basicMul(game), id = game.save.mount, spr = game.data.art.sprites['mount.' + id];
+  const w = { range: c.reach, arc: c.arc, attack: 'arc', color: game.data.pets.mounts[id]?.accent || '#ffffff' };
+  const target = nearestMob(game, c.reach + 24);
+  p.dmgRef = dmg * mobTake(p.st.atk, target);
+  if (target) { const a = Math.atan2(target.y - p.y, target.x - p.x); p.face = { x: Math.cos(a), y: Math.sin(a) }; }
+  const ang = Math.atan2(p.face.y, p.face.x), hitF = spr?.atk ? Math.max(1, spr.atk.indexOf(spr.hit)) : 3;
+  p.mountAtkT = performance.now() / 1000;   // cùng đồng hồ với lúc vẽ (main.js drawWorld)
+  p.hitQ = { t: hitF / 10, ang, half: c.arc / 2 * Math.PI / 180, w, dmg, move: 'thu' };
+  game.sfx('swing', 0.7);
+  return c.cooldown;
+}
+
 // Tầm chém thường = đúng tầm vệt chém vẽ ra (tầm vũ khí × config.slash.far; chủ dự án 09/11/2026 15:58: "mở rộng phạm vi công kích
 // bằng vệt chém"); vũ khí bắn giữ tầm cũ
 export const reachW = (game, w) => (w.attack === 'shot' ? w.range : w.range * (game.data.config.slash?.far || 1));
@@ -113,7 +128,7 @@ function strike(game, q) {
   const R = reachW(game, w), cx = p.x, cy = p.y - 8, tip = { x: cx + ca * R, y: cy + sa * R };
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
   const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
-  if (heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
+  if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!hit2On(game) && !['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });   // bản ra đòn mới: tia lửa nằm ở chỗ chạm quái (src/game/hit-feel.js)
   for (const m of game.mobs) {
     if (m.dead) continue;
@@ -152,10 +167,11 @@ export function updatePlayer(game, dt) {
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
+  if (inp.consume('ride')) toggleRide(game);   // nút Cưỡi / Xuống (chủ dự án 16/11/2026)
   if (inp.consume('dash') && p.dashCd <= 0) {
     const dc = cfg.dash, d = p.moving ? Math.hypot(ax.x, ax.y) : 1, dir = p.moving ? { x: ax.x / d, y: ax.y / d } : p.face;
     p.dashCd = dc.cd; p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
-    p.meditating = false; p.riding = false; p.calmT = 0; p.face = dir;
+    p.meditating = false; p.calmT = 0; p.face = dir;
     addFx(game, { type: 'ring', x: p.x, y: p.y, r: 8, color: '#e6ebf7', life: 0.25 });
     game.sfx('dash');
   }
@@ -171,8 +187,9 @@ export function updatePlayer(game, dt) {
     p.face = { x: ax.x / d, y: ax.y / d };
     p.walkT += dt;
   }
+  if (auto.face) p.face = auto.face;   // Tự đánh đang lùi giữ khoảng cách: bước lùi, mặt vẫn hướng quái (auto.js keepStep)
 
-  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = swing(game); }
+  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = p.riding ? mountSwing(game) : swing(game); }   // cưỡi thì thú đánh
   if (p.hitQ && (p.hitQ.t -= dt) <= 0) { const q = p.hitQ; p.hitQ = null; strike(game, q); }
   updateFlyWeapon(game, dt);
 
@@ -181,7 +198,7 @@ export function updatePlayer(game, dt) {
   if (pbOn(game)) pbInput(game, inp);   // Hệ Pháp Bảo (từ Mùa 2: mọi tài khoản): các nút chiêu là pháp bảo đang mặc (src/game/phap-bao-run.js)
   else for (let i = 0; i < 3; i++) {
     if (inp.consume('s' + i) && slots[i] && p.skillCd[i] <= 0 && ready(game, slots[i]) && spendMana(game, slots[i])) {   // chiêu tốn linh lực (src/game/mana.js)
-      p.meditating = false; p.calmT = 0; p.riding = false;
+      p.meditating = false; p.calmT = 0;
       const dir = inp.aim['s' + i] || autoAim(game, slots[i]);
       if (dir) p.face = dir;
       p.castAim = inp.aim['s' + i] || null;   // hướng vuốt tay (null: chạm, tự ngắm), chiêu tụ lực dùng lúc chém (skill-charge.js)
@@ -193,7 +210,7 @@ export function updatePlayer(game, dt) {
   p.artCd = (p.artCd || 0) - dt;
   const art = pbOn(game) ? null : artSkill(game.save, game.data);   // hệ pháp bảo mới: nút này là ô pháp bảo thứ 4 (src/game/phap-bao-run.js pbInput)
   if (inp.consume('art') && art && p.artCd <= 0 && spendMana(game, art)) {
-    p.meditating = false; p.calmT = 0; p.riding = false;
+    p.meditating = false; p.calmT = 0;
     const dir = autoAim(game, art);
     if (dir) p.face = dir;
     p.artCd = castSkill(game, art) * (1 - p.st.cdr);

@@ -13333,6 +13333,198 @@
    ],
    "note": "thời trang Thần Nguyên Y (SpriteCook): đứng, chạy, đòn 1, đòn 2; mỗi động tác 8 khung"
   },
+  "hero.tp-01": {
+   "file": "assets/art/hero-tp-01.png",
+   "v": "f177bd94",
+   "w": 60,
+   "h": 60,
+   "frames": 33,
+   "anchor": [
+    31,
+    59
+   ],
+   "note": "trang phục mới #1 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-02": {
+   "file": "assets/art/hero-tp-02.png",
+   "v": "77ea3f54",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    32,
+    57
+   ],
+   "note": "trang phục mới #2 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-03": {
+   "file": "assets/art/hero-tp-03.png",
+   "v": "eced4d25",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    30,
+    55
+   ],
+   "note": "trang phục mới #3 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-04": {
+   "file": "assets/art/hero-tp-04.png",
+   "v": "1c33cb4d",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    31,
+    57
+   ],
+   "note": "trang phục mới #4 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-05": {
+   "file": "assets/art/hero-tp-05.png",
+   "v": "5d67b926",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    32,
+    55
+   ],
+   "note": "trang phục mới #5 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-06": {
+   "file": "assets/art/hero-tp-06.png",
+   "v": "e625af60",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #6 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-07": {
+   "file": "assets/art/hero-tp-07.png",
+   "v": "0717516e",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #7 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-08": {
+   "file": "assets/art/hero-tp-08.png",
+   "v": "51b61cfb",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #8 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-09": {
+   "file": "assets/art/hero-tp-09.png",
+   "v": "b73a5593",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    31,
+    57
+   ],
+   "note": "trang phục mới #9 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-10": {
+   "file": "assets/art/hero-tp-10.png",
+   "v": "4e351575",
+   "w": 56,
+   "h": 56,
+   "frames": 33,
+   "anchor": [
+    33,
+    55
+   ],
+   "note": "trang phục mới #10 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-11": {
+   "file": "assets/art/hero-tp-11.png",
+   "v": "d39e4875",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #11 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-12": {
+   "file": "assets/art/hero-tp-12.png",
+   "v": "8a8e3a12",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "trang phục mới #12 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-13": {
+   "file": "assets/art/hero-tp-13.png",
+   "v": "e76f7bd2",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    34,
+    57
+   ],
+   "note": "trang phục mới #13 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-14": {
+   "file": "assets/art/hero-tp-14.png",
+   "v": "dbf473c0",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    34,
+    57
+   ],
+   "note": "trang phục mới #14 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-15": {
+   "file": "assets/art/hero-tp-15.png",
+   "v": "6d70fc82",
+   "w": 58,
+   "h": 58,
+   "frames": 33,
+   "anchor": [
+    33,
+    57
+   ],
+   "note": "trang phục mới #15 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
+  "hero.tp-16": {
+   "file": "assets/art/hero-tp-16.png",
+   "v": "dfcb75d8",
+   "w": 60,
+   "h": 60,
+   "frames": 33,
+   "anchor": [
+    32,
+    59
+   ],
+   "note": "trang phục mới #16 (SpriteCook 16/11/2026): đứng, chạy, đòn 1, đòn 2 mỗi thứ 8 khung, khung 32 ngồi xếp bằng"
+  },
   "hero.tu-linh": {
    "file": "assets/art/hero-tu-linh.png",
    "v": "7b6cd42d",
@@ -15960,6 +16152,495 @@
     -3.27
    ]
   },
+  "mount.bach-tuoc": {
+   "file": "assets/art/mount-bach-tuoc.png",
+   "v": "a29e01df",
+   "w": 124,
+   "h": 89,
+   "frames": 24,
+   "anchor": [
+    61,
+    88
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    26.73,
+    25.66,
+    26.2,
+    27.26,
+    28.33,
+    28.86,
+    27.8,
+    27.26,
+    26.73,
+    25.66,
+    27.26,
+    28.33,
+    27.26,
+    25.66,
+    25.66,
+    26.73,
+    26.73,
+    27.8,
+    31.0,
+    33.13,
+    32.6,
+    32.6,
+    29.4,
+    26.73
+   ],
+   "seat_x": [
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -4.27,
+    -5.87,
+    -5.87,
+    -4.27,
+    -3.2,
+    -2.67,
+    -2.67
+   ],
+   "note": "thú cưỡi mới #14 Bạch tuộc đèn lồng (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 12
+  },
+  "mount.ca-voi-may": {
+   "file": "assets/art/mount-ca-voi-may.png",
+   "v": "0003046d",
+   "w": 112,
+   "h": 81,
+   "frames": 24,
+   "anchor": [
+    57,
+    80
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "seat": [
+    27.26,
+    26.2,
+    25.13,
+    25.13,
+    26.2,
+    27.26,
+    28.33,
+    28.86,
+    27.26,
+    26.73,
+    26.73,
+    28.33,
+    29.4,
+    29.4,
+    29.4,
+    28.33,
+    27.26,
+    27.26,
+    27.26,
+    27.26,
+    27.26,
+    27.26,
+    27.26,
+    27.26
+   ],
+   "seat_x": [
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -3.2,
+    -3.2,
+    -3.2,
+    -2.67,
+    -2.67,
+    -2.67,
+    -2.67,
+    -5.33,
+    -4.27,
+    -1.07,
+    -3.2,
+    -3.2,
+    -2.67,
+    -2.67
+   ],
+   "note": "thú cưỡi mới #8 Cá voi mây (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung"
+  },
+  "mount.coc-sen": {
+   "file": "assets/art/mount-coc-sen.png",
+   "v": "8ac4cc23",
+   "w": 103,
+   "h": 84,
+   "frames": 24,
+   "anchor": [
+    51,
+    81
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "seat": [
+    24.6,
+    23.53,
+    24.07,
+    25.13,
+    25.66,
+    26.2,
+    25.66,
+    24.6,
+    24.6,
+    21.93,
+    25.13,
+    28.33,
+    28.86,
+    27.26,
+    24.6,
+    21.4,
+    24.6,
+    22.47,
+    25.66,
+    26.73,
+    25.66,
+    27.8,
+    25.66,
+    24.6
+   ],
+   "seat_x": [
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    1.6,
+    0.53,
+    0.53,
+    3.73,
+    4.27,
+    1.6,
+    1.6,
+    1.6
+   ],
+   "note": "thú cưỡi mới #9 Cóc sen (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 13
+  },
+  "mount.cuu-vi-ho": {
+   "file": "assets/art/mount-cuu-vi-ho.png",
+   "v": "a1f469d4",
+   "w": 118,
+   "h": 73,
+   "frames": 24,
+   "anchor": [
+    57,
+    73
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "seat": [
+    21.4,
+    20.87,
+    20.33,
+    19.8,
+    20.33,
+    20.87,
+    21.4,
+    21.4,
+    21.4,
+    23.53,
+    21.93,
+    20.33,
+    21.4,
+    23.53,
+    21.93,
+    20.33,
+    21.4,
+    20.87,
+    20.33,
+    18.73,
+    18.73,
+    18.73,
+    19.8,
+    21.4
+   ],
+   "seat_x": [
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    4.8,
+    3.73,
+    3.73,
+    5.33,
+    4.8,
+    4.8,
+    4.8,
+    4.8
+   ],
+   "note": "thú cưỡi mới #1 Cửu vĩ hồ trắng (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 9
+  },
+  "mount.ho-pha-le": {
+   "file": "assets/art/mount-ho-pha-le.png",
+   "v": "ede67141",
+   "w": 126,
+   "h": 85,
+   "frames": 24,
+   "anchor": [
+    62,
+    84
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    23.0,
+    22.47,
+    21.93,
+    22.47,
+    23.53,
+    23.53,
+    23.53,
+    23.0,
+    23.0,
+    24.07,
+    27.26,
+    26.2,
+    23.53,
+    24.07,
+    27.26,
+    27.26,
+    23.0,
+    20.33,
+    20.87,
+    23.0,
+    20.87,
+    20.87,
+    21.4,
+    23.0
+   ],
+   "seat_x": [
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    0.53,
+    -0.53,
+    -0.53,
+    -1.6,
+    1.6,
+    2.67,
+    1.6,
+    0.53
+   ],
+   "note": "thú cưỡi mới #10 Hổ pha lê (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 10
+  },
   "mount.hoa-ky-lan": {
    "file": "assets/art/mount-hoa-ky-lan.png",
    "v": "4da96ca9",
@@ -16005,6 +16686,496 @@
     2.15
    ]
   },
+  "mount.hoa-long": {
+   "file": "assets/art/mount-hoa-long.png",
+   "v": "a0d11da9",
+   "w": 122,
+   "h": 79,
+   "frames": 24,
+   "anchor": [
+    61,
+    78
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    22.47,
+    21.93,
+    21.4,
+    20.87,
+    20.33,
+    20.33,
+    20.87,
+    21.93,
+    22.47,
+    21.93,
+    22.47,
+    23.53,
+    24.07,
+    23.0,
+    22.47,
+    23.0,
+    22.47,
+    21.4,
+    20.87,
+    19.8,
+    19.8,
+    20.33,
+    21.93,
+    22.47
+   ],
+   "seat_x": [
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -1.6,
+    -2.67,
+    0.53,
+    1.07,
+    1.07,
+    0.0,
+    -0.53
+   ],
+   "note": "thú cưỡi mới #5 Hỏa long dung nham (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 12
+  },
+  "mount.huou-may": {
+   "file": "assets/art/mount-huou-may.png",
+   "v": "c0b819b1",
+   "w": 120,
+   "h": 99,
+   "frames": 24,
+   "anchor": [
+    61,
+    98
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 18,
+   "fps": 8,
+   "seat": [
+    24.07,
+    23.0,
+    22.47,
+    23.0,
+    24.07,
+    24.6,
+    24.07,
+    23.53,
+    24.07,
+    26.2,
+    28.86,
+    27.8,
+    25.66,
+    23.53,
+    26.73,
+    28.86,
+    24.07,
+    24.07,
+    24.07,
+    23.53,
+    23.53,
+    23.53,
+    24.07,
+    24.07
+   ],
+   "seat_x": [
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -2.13,
+    -4.8,
+    -6.4,
+    -7.47,
+    -5.87,
+    -3.73,
+    -2.13
+   ],
+   "note": "thú cưỡi mới #15 Hươu mây (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 11
+  },
+  "mount.huou-sao": {
+   "file": "assets/art/mount-huou-sao.png",
+   "v": "6eb138aa",
+   "w": 104,
+   "h": 96,
+   "frames": 24,
+   "anchor": [
+    52,
+    95
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    23.0,
+    23.0,
+    22.47,
+    21.93,
+    21.4,
+    21.93,
+    21.93,
+    23.0,
+    23.0,
+    24.6,
+    26.2,
+    25.66,
+    24.07,
+    22.47,
+    24.6,
+    26.2,
+    23.0,
+    22.47,
+    21.93,
+    21.93,
+    21.93,
+    21.93,
+    22.47,
+    23.0
+   ],
+   "seat_x": [
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.07,
+    -1.6,
+    -4.8,
+    -8.0,
+    -6.4,
+    -3.2,
+    -0.53,
+    -0.53,
+    -1.07
+   ],
+   "note": "thú cưỡi mới #4 Hươu sao đêm (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 12
+  },
+  "mount.meo-co-quan": {
+   "file": "assets/art/mount-meo-co-quan.png",
+   "v": "d22a7d67",
+   "w": 119,
+   "h": 73,
+   "frames": 24,
+   "anchor": [
+    58,
+    72
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    21.93,
+    21.4,
+    20.87,
+    21.93,
+    22.47,
+    23.0,
+    21.93,
+    21.4,
+    21.93,
+    22.47,
+    24.07,
+    24.07,
+    23.0,
+    21.93,
+    23.53,
+    24.07,
+    21.93,
+    19.8,
+    23.0,
+    24.07,
+    21.4,
+    19.8,
+    20.33,
+    21.93
+   ],
+   "seat_x": [
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -1.6,
+    -2.67,
+    -2.13,
+    0.53,
+    0.0,
+    -0.53,
+    -1.07,
+    -1.6
+   ],
+   "note": "thú cưỡi mới #7 Mèo cơ quan (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 10
+  },
+  "mount.nhen-pha-le": {
+   "file": "assets/art/mount-nhen-pha-le.png",
+   "v": "d037bcb7",
+   "w": 112,
+   "h": 85,
+   "frames": 24,
+   "anchor": [
+    53,
+    84
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    25.13,
+    24.07,
+    25.13,
+    25.66,
+    26.2,
+    26.73,
+    25.66,
+    25.13,
+    25.13,
+    23.53,
+    25.66,
+    26.73,
+    25.13,
+    23.53,
+    25.13,
+    26.73,
+    25.13,
+    28.33,
+    28.86,
+    28.33,
+    25.66,
+    28.86,
+    28.33,
+    25.13
+   ],
+   "seat_x": [
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    1.07,
+    0.53,
+    0.53,
+    0.53,
+    1.07,
+    0.53,
+    0.53,
+    1.07
+   ],
+   "note": "thú cưỡi mới #16 Nhện pha lê (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 8
+  },
   "mount.phong-lang": {
    "file": "assets/art/mount-phong-lang.png",
    "v": "e1557ac3",
@@ -16049,6 +17220,593 @@
     -1.73,
     -1.04
    ]
+  },
+  "mount.phuong-hoang": {
+   "file": "assets/art/mount-phuong-hoang.png",
+   "v": "f12c1d21",
+   "w": 125,
+   "h": 126,
+   "frames": 24,
+   "anchor": [
+    62,
+    125
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    24.6,
+    24.07,
+    24.6,
+    25.13,
+    25.66,
+    26.2,
+    25.13,
+    24.6,
+    24.6,
+    26.2,
+    27.26,
+    27.8,
+    25.66,
+    24.6,
+    25.13,
+    25.13,
+    24.6,
+    27.26,
+    30.46,
+    31.0,
+    31.0,
+    30.46,
+    27.26,
+    24.6
+   ],
+   "seat_x": [
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    5.33,
+    3.73,
+    1.6,
+    1.6,
+    4.8,
+    5.33,
+    5.33,
+    5.33
+   ],
+   "note": "thú cưỡi mới #11 Phượng hoàng lửa (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 11
+  },
+  "mount.rua-nam": {
+   "file": "assets/art/mount-rua-nam.png",
+   "v": "4766e954",
+   "w": 123,
+   "h": 77,
+   "frames": 24,
+   "anchor": [
+    62,
+    77
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    23.0,
+    22.47,
+    21.93,
+    23.0,
+    23.53,
+    24.07,
+    23.53,
+    23.0,
+    23.0,
+    21.93,
+    24.6,
+    26.2,
+    24.6,
+    22.47,
+    24.07,
+    26.2,
+    23.0,
+    23.0,
+    23.0,
+    21.93,
+    23.0,
+    22.47,
+    21.93,
+    23.0
+   ],
+   "seat_x": [
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -0.53,
+    -2.67,
+    -2.13,
+    1.07,
+    2.13,
+    0.53,
+    -1.07,
+    -0.53
+   ],
+   "note": "thú cưỡi mới #6 Rùa nấm đỏ (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 8
+  },
+  "mount.rua-non-bo": {
+   "file": "assets/art/mount-rua-non-bo.png",
+   "v": "366af6cf",
+   "w": 119,
+   "h": 91,
+   "frames": 24,
+   "anchor": [
+    59,
+    90
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "seat": [
+    22.47,
+    21.93,
+    21.4,
+    20.87,
+    21.4,
+    21.93,
+    23.0,
+    23.0,
+    22.47,
+    21.93,
+    21.93,
+    23.0,
+    23.53,
+    23.0,
+    22.47,
+    21.93,
+    22.47,
+    21.93,
+    21.93,
+    21.4,
+    21.4,
+    20.87,
+    21.4,
+    22.47
+   ],
+   "seat_x": [
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    8.53,
+    6.4,
+    7.47,
+    10.67,
+    10.67,
+    8.53,
+    8.53,
+    8.53
+   ],
+   "note": "thú cưỡi mới #2 Rùa non bộ (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 8
+  },
+  "mount.su-thuu": {
+   "file": "assets/art/mount-su-thuu.png",
+   "v": "1f14294d",
+   "w": 126,
+   "h": 125,
+   "frames": 24,
+   "anchor": [
+    63,
+    124
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    21.93,
+    20.87,
+    20.33,
+    20.87,
+    21.93,
+    22.47,
+    21.4,
+    20.87,
+    21.93,
+    25.13,
+    26.73,
+    26.2,
+    23.0,
+    26.2,
+    26.73,
+    26.73,
+    21.93,
+    23.53,
+    26.73,
+    28.86,
+    28.33,
+    27.8,
+    24.6,
+    21.93
+   ],
+   "seat_x": [
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    4.27,
+    2.13,
+    1.07,
+    2.13,
+    5.33,
+    5.33,
+    5.33,
+    4.27
+   ],
+   "note": "thú cưỡi mới #3 Sư thứu trắng (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 15
+  },
+  "mount.su-tu-da": {
+   "file": "assets/art/mount-su-tu-da.png",
+   "v": "345a0263",
+   "w": 115,
+   "h": 93,
+   "frames": 24,
+   "anchor": [
+    58,
+    92
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "seat": [
+    26.73,
+    26.2,
+    25.66,
+    26.2,
+    27.26,
+    27.8,
+    27.8,
+    27.26,
+    26.73,
+    28.33,
+    30.46,
+    29.4,
+    28.33,
+    26.73,
+    29.93,
+    30.46,
+    26.73,
+    27.8,
+    29.4,
+    27.8,
+    24.6,
+    23.0,
+    25.66,
+    26.73
+   ],
+   "seat_x": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.07,
+    -1.6,
+    -1.6,
+    0.53,
+    0.53,
+    0.53,
+    0.0
+   ],
+   "note": "thú cưỡi mới #13 Sư tử đá rêu (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung",
+   "fly": 15
+  },
+  "mount.sua-den-long": {
+   "file": "assets/art/mount-sua-den-long.png",
+   "v": "a65cb347",
+   "w": 112,
+   "h": 100,
+   "frames": 24,
+   "anchor": [
+    56,
+    100
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "seat": [
+    29.93,
+    29.4,
+    28.33,
+    27.8,
+    28.86,
+    29.4,
+    30.46,
+    31.0,
+    29.93,
+    29.93,
+    30.46,
+    31.0,
+    31.0,
+    31.0,
+    30.46,
+    29.93,
+    29.93,
+    28.86,
+    29.4,
+    30.46,
+    31.0,
+    31.53,
+    30.46,
+    29.93
+   ],
+   "seat_x": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "note": "thú cưỡi mới #12 Sứa đèn lồng (SpriteCook 16/11/2026): đứng nghỉ, chạy, tấn công mỗi thứ 8 khung"
   },
   "mount.tuyet-ly": {
    "file": "assets/art/mount-tuyet-ly.png",
@@ -16986,160 +18744,544 @@
    "note": "Hiệu ứng pháp bảo: SpriteCook linh-chau.webp (8 khung, thu 1/2)"
   },
   "pet.bang-tinh": {
-   "file": "assets/art/pet-bang-tinh.png",
-   "v": "42c85503",
-   "w": 46,
-   "h": 27,
-   "frames": 7,
+   "file": "assets/art/linh-thu-bang-tinh.png",
+   "v": "b8ff43b0",
+   "w": 63,
+   "h": 43,
+   "frames": 24,
    "anchor": [
-    23,
-    25
+    31,
+    42
    ],
-   "note": "Băng Tinh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Băng Tinh Nhi: hình thú mới ho-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.hoa-lang": {
-   "file": "assets/art/pet-hoa-lang.png",
-   "v": "e09ec362",
-   "w": 50,
-   "h": 26,
-   "frames": 7,
+   "file": "assets/art/linh-thu-hoa-lang.png",
+   "v": "8bbc5de0",
+   "w": 61,
+   "h": 40,
+   "frames": 24,
    "anchor": [
-    25,
-    24
+    30,
+    39
    ],
-   "note": "Tiểu Hỏa Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Hỏa Lang: hình thú mới hoa-long thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.hu-anh": {
-   "file": "assets/art/pet-hu-anh.png",
-   "v": "4d80a02a",
-   "w": 50,
-   "h": 33,
-   "frames": 7,
-   "anchor": [
-    25,
-    31
-   ],
-   "note": "Tiểu U Ảnh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.kiem-hon": {
-   "file": "assets/art/pet-kiem-hon.png",
-   "v": "d39fc8ac",
-   "w": 50,
-   "h": 31,
-   "frames": 7,
-   "anchor": [
-    25,
-    29
-   ],
-   "note": "Tiểu Kiếm Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.ma-cung": {
-   "file": "assets/art/pet-ma-cung.png",
-   "v": "af750955",
-   "w": 72,
-   "h": 31,
-   "frames": 7,
-   "anchor": [
-    36,
-    29
-   ],
-   "note": "Ma Tiễn Đồng (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.ma-tieu": {
-   "file": "assets/art/pet-ma-tieu.png",
-   "v": "d886e3bd",
-   "w": 44,
-   "h": 24,
-   "frames": 7,
-   "anchor": [
-    22,
-    22
-   ],
-   "note": "Tiểu Quỷ (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.moc-linh": {
-   "file": "assets/art/pet-moc-linh.png",
-   "v": "7bca2855",
-   "w": 46,
-   "h": 27,
-   "frames": 7,
-   "anchor": [
-    23,
-    25
-   ],
-   "note": "Tiểu Mộc Linh (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.moc-yeu": {
-   "file": "assets/art/pet-moc-yeu.png",
-   "v": "40e34e43",
-   "w": 58,
-   "h": 34,
-   "frames": 7,
-   "anchor": [
-    29,
-    32
-   ],
-   "note": "Tiểu Thụ Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.phong-yeu": {
-   "file": "assets/art/pet-phong-yeu.png",
-   "v": "eb992d88",
-   "w": 42,
-   "h": 33,
-   "frames": 7,
-   "anchor": [
-    21,
-    31
-   ],
-   "note": "Tiểu Phong Yêu (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
-  },
-  "pet.tho-khoi": {
-   "file": "assets/art/pet-tho-khoi.png",
-   "v": "18f7ff84",
+   "file": "assets/art/linh-thu-hu-anh.png",
+   "v": "ea033ecc",
    "w": 52,
-   "h": 34,
-   "frames": 7,
+   "h": 48,
+   "frames": 24,
    "anchor": [
     26,
-    32
+    48
    ],
-   "note": "Tiểu Thạch Khôi (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu U Ảnh: hình thú mới huou-sao thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.kiem-hon": {
+   "file": "assets/art/linh-thu-kiem-hon.png",
+   "v": "5ca90342",
+   "w": 63,
+   "h": 63,
+   "frames": 24,
+   "anchor": [
+    31,
+    62
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Kiếm Linh: hình thú mới su-thuu thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.ma-cung": {
+   "file": "assets/art/linh-thu-ma-cung.png",
+   "v": "8e5c8d64",
+   "w": 62,
+   "h": 45,
+   "frames": 24,
+   "anchor": [
+    30,
+    44
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Ma Tiễn Đồng: hình thú mới bach-tuoc thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.ma-tieu": {
+   "file": "assets/art/linh-thu-ma-tieu.png",
+   "v": "a17d1a1c",
+   "w": 56,
+   "h": 43,
+   "frames": 24,
+   "anchor": [
+    26,
+    42
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Quỷ: hình thú mới nhen-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.moc-linh": {
+   "file": "assets/art/linh-thu-moc-linh.png",
+   "v": "516ecab5",
+   "w": 52,
+   "h": 42,
+   "frames": 24,
+   "anchor": [
+    25,
+    41
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Mộc Linh: hình thú mới coc-sen thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.moc-yeu": {
+   "file": "assets/art/linh-thu-moc-yeu.png",
+   "v": "35964e4c",
+   "w": 60,
+   "h": 46,
+   "frames": 24,
+   "anchor": [
+    29,
+    45
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Thụ Yêu: hình thú mới rua-non-bo thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.phong-yeu": {
+   "file": "assets/art/linh-thu-phong-yeu.png",
+   "v": "3899cc61",
+   "w": 60,
+   "h": 50,
+   "frames": 24,
+   "anchor": [
+    30,
+    49
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 18,
+   "fps": 8,
+   "note": "Tiểu Phong Yêu: hình thú mới huou-may thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+  },
+  "pet.tho-khoi": {
+   "file": "assets/art/linh-thu-tho-khoi.png",
+   "v": "ef92da44",
+   "w": 58,
+   "h": 47,
+   "frames": 24,
+   "anchor": [
+    29,
+    46
+   ],
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Thạch Khôi: hình thú mới su-tu-da thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.tuyet-lang": {
-   "file": "assets/art/pet-tuyet-lang.png",
-   "v": "cc3c5307",
-   "w": 44,
-   "h": 24,
-   "frames": 7,
+   "file": "assets/art/linh-thu-tuyet-lang.png",
+   "v": "cec13066",
+   "w": 59,
+   "h": 37,
+   "frames": 24,
    "anchor": [
-    22,
-    22
+    28,
+    37
    ],
-   "note": "Tiểu Tuyết Lang (thu nhỏ từ ảnh quái Canva 5 dáng cùng loài, tự theo khi quái đổi ảnh) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Tuyết Lang: hình thú mới cuu-vi-ho thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pet.viem-linh": {
-   "file": "assets/art/pet-viem-linh.png",
-   "v": "6f0442f2",
-   "w": 48,
-   "h": 27,
-   "frames": 7,
+   "file": "assets/art/linh-thu-viem-linh.png",
+   "v": "faa14d05",
+   "w": 63,
+   "h": 63,
+   "frames": 24,
    "anchor": [
-    24,
-    25
+    31,
+    63
    ],
-   "note": "Viêm Linh Nhi (thu nhỏ từ ảnh quái Canva cùng loài, 30/10) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333
+   "px": 0.5333,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Viêm Linh Nhi: hình thú mới phuong-hoang thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
   },
   "pfx.am-ba": {
    "file": "assets/art/pfx-am-ba.png",
@@ -22951,6 +25093,230 @@
     36
    ],
    "note": "cây quả đỏ, hoa đào, hoa trắng (ảnh Canva nguon/ai/props/, 3 biến thể)"
+  },
+  "pt.01": {
+   "file": "assets/art/pt-01.png",
+   "v": "d6e12166",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    84
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #1 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.02": {
+   "file": "assets/art/pt-02.png",
+   "v": "18dd30b3",
+   "w": 144,
+   "h": 144,
+   "frames": 16,
+   "anchor": [
+    72,
+    76
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #2 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.03": {
+   "file": "assets/art/pt-03.png",
+   "v": "4803f41f",
+   "w": 150,
+   "h": 150,
+   "frames": 16,
+   "anchor": [
+    76,
+    117
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #3 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.04": {
+   "file": "assets/art/pt-04.png",
+   "v": "e93c5bba",
+   "w": 154,
+   "h": 154,
+   "frames": 16,
+   "anchor": [
+    76,
+    119
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #4 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.05": {
+   "file": "assets/art/pt-05.png",
+   "v": "e6e9b7da",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    67
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #5 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.06": {
+   "file": "assets/art/pt-06.png",
+   "v": "8405f1c8",
+   "w": 166,
+   "h": 166,
+   "frames": 16,
+   "anchor": [
+    94,
+    80
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #6 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.07": {
+   "file": "assets/art/pt-07.png",
+   "v": "c21a9ac5",
+   "w": 146,
+   "h": 146,
+   "frames": 16,
+   "anchor": [
+    73,
+    74
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #7 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.08": {
+   "file": "assets/art/pt-08.png",
+   "v": "d7b3a44d",
+   "w": 144,
+   "h": 144,
+   "frames": 16,
+   "anchor": [
+    72,
+    71
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #8 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.09": {
+   "file": "assets/art/pt-09.png",
+   "v": "ab34203e",
+   "w": 158,
+   "h": 158,
+   "frames": 16,
+   "anchor": [
+    79,
+    87
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #9 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.10": {
+   "file": "assets/art/pt-10.png",
+   "v": "e7a60945",
+   "w": 142,
+   "h": 142,
+   "frames": 16,
+   "anchor": [
+    70,
+    110
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #10 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.11": {
+   "file": "assets/art/pt-11.png",
+   "v": "a3549987",
+   "w": 136,
+   "h": 136,
+   "frames": 16,
+   "anchor": [
+    68,
+    107
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #11 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.12": {
+   "file": "assets/art/pt-12.png",
+   "v": "2c74cda0",
+   "w": 154,
+   "h": 154,
+   "frames": 16,
+   "anchor": [
+    78,
+    116
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #12 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.13": {
+   "file": "assets/art/pt-13.png",
+   "v": "36d36b3b",
+   "w": 150,
+   "h": 150,
+   "frames": 16,
+   "anchor": [
+    74,
+    65
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #13 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.14": {
+   "file": "assets/art/pt-14.png",
+   "v": "1808c05c",
+   "w": 158,
+   "h": 158,
+   "frames": 16,
+   "anchor": [
+    80,
+    121
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #14 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.15": {
+   "file": "assets/art/pt-15.png",
+   "v": "a1825e33",
+   "w": 152,
+   "h": 152,
+   "frames": 16,
+   "anchor": [
+    76,
+    117
+   ],
+   "lo": false,
+   "fps": 10,
+   "note": "pháp tượng #15 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
+  },
+  "pt.16": {
+   "file": "assets/art/pt-16.png",
+   "v": "50cd40c9",
+   "w": 160,
+   "h": 160,
+   "frames": 16,
+   "anchor": [
+    80,
+    86
+   ],
+   "lo": true,
+   "fps": 10,
+   "note": "pháp tượng #16 (SpriteCook 16/11/2026): 16 khung lặp; anchor đặt vào mặt người (có lỗ) hoặc chân (không lỗ)"
   },
   "pxi.bang-phach": {
    "file": "assets/art/pxi-bang-phach.png",
@@ -38170,6 +40536,198 @@
     157
    ],
    "note": "nguyen-lieu phong-ngu (ảnh GPT ca-1.png)"
+  },
+  "ui.vk-pt-bang-lien": {
+   "file": "assets/art/ui-vk-pt-bang-lien.png",
+   "v": "d4b7c0a3",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-bang-lien (ảnh GPT goc/10.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-bang-tinh-hoan": {
+   "file": "assets/art/ui-vk-pt-bang-tinh-hoan.png",
+   "v": "daa45ec1",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-bang-tinh-hoan (ảnh GPT goc/02.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-hoa-long": {
+   "file": "assets/art/ui-vk-pt-hoa-long.png",
+   "v": "de4b90d2",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-hoa-long (ảnh GPT goc/06.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-diem-quan": {
+   "file": "assets/art/ui-vk-pt-kim-diem-quan.png",
+   "v": "a3924be3",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-diem-quan (ảnh GPT goc/01.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-duong": {
+   "file": "assets/art/ui-vk-pt-kim-duong.png",
+   "v": "ddb0d403",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-duong (ảnh GPT goc/08.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-kim-kiem-tran": {
+   "file": "assets/art/ui-vk-pt-kim-kiem-tran.png",
+   "v": "a64186f1",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-kim-kiem-tran (ảnh GPT goc/11.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-phan-lien": {
+   "file": "assets/art/ui-vk-pt-phan-lien.png",
+   "v": "8f179e78",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-phan-lien (ảnh GPT goc/04.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-phuong-hoang": {
+   "file": "assets/art/ui-vk-pt-phuong-hoang.png",
+   "v": "41873d8d",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-phuong-hoang (ảnh GPT goc/14.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thanh-dang": {
+   "file": "assets/art/ui-vk-pt-thanh-dang.png",
+   "v": "bd89213a",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thanh-dang (ảnh GPT goc/07.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thuong-lang": {
+   "file": "assets/art/ui-vk-pt-thuong-lang.png",
+   "v": "b8920a47",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thuong-lang (ảnh GPT goc/05.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-thuy-long": {
+   "file": "assets/art/ui-vk-pt-thuy-long.png",
+   "v": "edf77aa6",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-thuy-long (ảnh GPT goc/13.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tinh-lien": {
+   "file": "assets/art/ui-vk-pt-tinh-lien.png",
+   "v": "5c5419e5",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tinh-lien (ảnh GPT goc/15.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tinh-van": {
+   "file": "assets/art/ui-vk-pt-tinh-van.png",
+   "v": "d6d8c632",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tinh-van (ảnh GPT goc/16.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-diem-duc": {
+   "file": "assets/art/ui-vk-pt-tu-diem-duc.png",
+   "v": "86c727a9",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-diem-duc (ảnh GPT goc/09.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-nguyet": {
+   "file": "assets/art/ui-vk-pt-tu-nguyet.png",
+   "v": "f7e5b5d9",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-nguyet (ảnh GPT goc/03.png, quầng sáng như icon-16.png)"
+  },
+  "ui.vk-pt-tu-tinh": {
+   "file": "assets/art/ui-vk-pt-tu-tinh.png",
+   "v": "affb4e9e",
+   "w": 360,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    180,
+    180
+   ],
+   "note": "pháp tượng pt-tu-tinh (ảnh GPT goc/12.png, quầng sáng như icon-16.png)"
   },
   "ui.vk-tay-luyen-thach": {
    "file": "assets/art/ui-vk-tay-luyen-thach.png",

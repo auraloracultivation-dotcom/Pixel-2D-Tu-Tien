@@ -156,6 +156,9 @@ export function createHud(audio, dlgCfg) {
       css(ab, '--cd', (Math.max(0, p.artCd || 0) / (d.skills[art].cd * (1 - p.st.cdr))).toFixed(3));
     }
     css($('btn-dash'), '--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
+    const rb = $('btn-ride'), rl = p.riding ? 'Xuống' : 'Cưỡi';   // nút Cưỡi / Xuống: hiện khi đã có thú cưỡi (src/game/pets.js toggleRide)
+    rb.hidden = !(s.mount && s.mounts?.[s.mount] && d.pets.mounts[s.mount]);
+    if (rb.firstChild.textContent !== rl) rb.firstChild.textContent = rl;
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

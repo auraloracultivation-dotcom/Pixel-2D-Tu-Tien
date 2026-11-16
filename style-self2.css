@@ -59,3 +59,5 @@ html body #toast::before { display: none !important; }
    (html, body đặt touch-action: none cho cần gạt; Safari xét cả phần tử con), cuộn mượt kiểu iOS */
 #dialog .choices, #dialog .choices * { touch-action: pan-y; }
 #dialog .choices { -webkit-overflow-scrolling: touch; }
+/* Cảnh nhân vật + thú cưỡi + pháp tượng (src/ui/self-hero-view.js): canvas vẽ gấp 2, thu bằng làm mịn cho khỏi rỗ */
+.sv-center > .sv-scene { image-rendering: auto; margin-bottom: 0; }

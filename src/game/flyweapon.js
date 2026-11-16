@@ -15,6 +15,7 @@ function rest(game, p, t) {
     const q = t * Math.PI * 2 * c.orbit.speed;
     return { x: p.x + Math.cos(q) * c.orbit.r, y: p.y - 8 + Math.sin(q) * c.orbit.r * 0.45, a: q + Math.PI / 2, front: Math.sin(q) > 0 };
   }
+  if (p.riding) return { x: p.x + side * (c.back[0] - 5), y: p.y + c.back[1] + Math.sin(t * 2.2) * c.bob, a: -Math.PI / 2 + side * (c.tilt ?? 0.35), front: true };   // cưỡi thú: treo xa vai hơn, vẽ trên người cho khỏi bị che (chủ dự án 16/11/2026: vũ khí phải hiện, chỉ là không dùng)
   return { x: p.x + side * c.back[0], y: p.y + c.back[1] + Math.sin(t * 2.2) * c.bob, a: -Math.PI / 2 + side * (c.tilt ?? 0.35), front: false };
 }
 

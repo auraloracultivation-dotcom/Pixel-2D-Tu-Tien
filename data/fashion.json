@@ -1,345 +1,442 @@
 {
- "_note": "Thời trang: chỉ đổi màu áo (robe), tóc (hair) và đai (sash, mặc định màu hệ). Có được từ: start (sẵn có), achv (xong thành tựu), shop (mua bằng Linh Thạch), fest (nhận quà lễ), elite (hạ đủ n quái nhiễm ma khí ở bãi vòng ngoài của tinh cầu map; mỗi tinh cầu một bộ, chủ dự án 28/10/2026). Không cộng chỉ số. uid: các tài khoản trong danh sách có sẵn (ai cũng thấy bộ trong bảng); soon: chưa bán, hiện \"Sắp mở bán\". only: bộ chỉ cho hình nam hoặc nữ. sprite \"goc\": mặc bộ này thì dùng hình gốc của nhân vật (data/heroes.json list, động tác SpriteCook đầy đủ) thay hình chibi; cm: chiều cao riêng theo hình (nam/nu) khi mặc bộ này, đè cm trong data/heroes.json. Áo có sẵn theo giới tính: bộ from.start đúng giới (only) là áo mặc định của giới đó (nam: dong-phuc, nữ: thanh-sam; src/game/fashion.js defOutfit). Chủ dự án 15/11/2026 11:39 gỡ bớt bản nam / nữ để dồn tiền SpriteCook làm nhân vật mới: bộ còn một giới ghi only; bỏ hẳn kim-bao, tu-bao và năm bộ ma khí (thien-kiem-bao, hoa-bao-xich-diem, phong-bao-hac-phong, kim-y-thien-kim, hu-khong-tu-y); Thanh sam nữ thành áo có sẵn của nữ (đồng phục nữ bỏ). Bản đã mua bị gỡ: hoàn Linh Thạch đúng giá qua Hòm thư (migration 20261115120000_p2d_go_thoi_trang.sql); bản lưu còn bản đã gỡ thì máy khách tự bỏ (fashion.js cleanOutfits).",
+ "_note": "Thời trang (chủ dự án 16/11/2026 21:57–22:0x: bỏ toàn bộ thời trang, nhân vật cũ, thay bằng 16 bộ trang phục mới làm SpriteCook; xem data/heroes.json). Mỗi bộ là một nhân vật có hình, động tác riêng (look: sprite hero.tp-NN, body, cm, kg, anims đứng / chạy / 2 đòn / ngồi xếp bằng, orb: chỗ khí cầu lúc ngồi, mau: màu linh lực của bộ), nam nữ đều mặc được (gioi chỉ để xếp bảng). def: áo mặc định của giới đó, chọn lúc tạo nhân vật (nam: tp-02 Băng Vương, nữ: tp-10 Lam Hoa Thiếu Nữ; chủ dự án chọn #2 và #10). from.start: ai cũng có (2 bộ mặc định + 4 bộ tặng tp-05, tp-07, tp-08, tp-16, chủ dự án \"tặng thêm 4 bộ, tổng mọi người nhận 6 bộ\", em chọn 2 nam 2 nữ). from.shop: 10 bộ còn lại bán bằng Linh Thạch (giá đề xuất, chờ chủ dự án duyệt). Thời trang chỉ để đẹp, giữ dòng chỉ số của bộ đang mặc (docs/11-HE-CHIEN-DAU.md). Bộ cũ trong bản lưu: máy khách bỏ (fashion.js cleanOutfits), máy chủ dọn bằng migration.",
  "renamed": {
-  "_note": "id bộ cũ đã đổi tên → id mới theo giới tính: bản lưu đang mặc bộ cũ vẫn mặc đúng bộ mới (src/game/fashion.js curOutfit). Mỗi bộ không có only có bản nam và bản nữ, mua riêng từng bản (chủ dự án 02/11/2026).",
-  "spritecook-thu": {
-   "nam": "bach-kiem-bao",
-   "nu": "tu-liem-y"
-  }
+  "_note": "id bộ cũ đã đổi tên → id mới theo giới tính: bản lưu đang mặc bộ cũ vẫn mặc đúng bộ mới (src/game/fashion.js curOutfit). Mỗi bộ không có only có bản nam và bản nữ, mua riêng từng bản (chủ dự án 02/11/2026)."
  },
  "list": {
-  "dong-phuc": {
-   "name": "Đồng phục Kiếm tông",
-   "only": "nam",
-   "robe": "#e6ebf7",
-   "hair": "#3a2e5c",
-   "from": {
-    "start": true
-   }
-  },
-  "bach-kiem-bao": {
-   "name": "Bạch Kiếm Bào",
-   "robe": "#e8eef8",
-   "hair": "#2a2a3a",
-   "sprite": "goc",
-   "only": "nam",
-   "from": {
-    "shop": 10000
-   }
-  },
-  "tu-liem-y": {
-   "name": "Tử Liềm Y",
-   "robe": "#3a3446",
-   "hair": "#c8b8f0",
-   "sprite": "goc",
-   "only": "nu",
-   "cm": {
-    "nu": 165
-   },
-   "from": {
-    "tn": 10
-   }
-  },
-  "thanh-sam": {
-   "name": "Thanh sam thư sinh",
-   "only": "nu",
-   "robe": "#bfe0d8",
-   "hair": "#2a2a3a",
-   "from": {
-    "start": true
-   }
-  },
-  "hac-y": {
-   "name": "Hắc y dạ hành",
-   "robe": "#3a3446",
-   "hair": "#c8c0e0",
-   "sash": "#8a7ab0",
-   "from": {
-    "shop": 1500
-   }
-  },
-  "hong-y": {
-   "name": "Hồng y hoa đào",
-   "only": "nu",
-   "robe": "#ffc2d6",
-   "hair": "#5a2a3a",
-   "from": {
-    "shop": 1500
-   }
-  },
-  "huyet-giap": {
-   "name": "Huyết giáp săn yêu",
-   "only": "nam",
-   "robe": "#c0505a",
-   "hair": "#1a1a1a",
-   "sash": "#ffd24a",
-   "from": {
-    "achv": "ngan-quai"
-   }
-  },
-  "bi-ngo": {
-   "name": "Áo choàng Bí Ngô",
-   "only": "nam",
-   "robe": "#ff8a2a",
-   "hair": "#2a1a2a",
-   "sash": "#5a2a7a",
-   "from": {
-    "fest": "halloween-2026"
-   }
-  },
-  "tuyet-lanh": {
-   "name": "Áo lông Tuyết Lành",
-   "only": "nu",
-   "robe": "#d84a4a",
-   "hair": "#f4f4fa",
-   "sash": "#ffffff",
-   "from": {
-    "fest": "giang-sinh-2026"
-   }
-  },
-  "tien-nhan": {
-   "name": "Tiên Nhân Bạch Y",
-   "only": "nu",
-   "robe": "#fbfbff",
-   "hair": "#c8d8f0",
-   "sash": "#7ae0ff",
-   "from": {
-    "shop": 10000
-   }
-  },
-  "hoang-kim": {
-   "name": "Hoàng Kim Long Bào",
-   "only": "nam",
-   "robe": "#ffd24a",
-   "hair": "#2a1a0a",
-   "sash": "#c0302a",
-   "from": {
-    "shop": 10000
-   }
-  },
-  "tet-do": {
-   "name": "Áo Tết đỏ thắm",
-   "only": "nam",
-   "robe": "#ff4a4a",
-   "hair": "#2a1a1a",
-   "sash": "#ffd24a",
-   "from": {
-    "fest": "tet-2027"
-   }
-  },
-  "thien-mach-bao": {
-   "name": "Thiên Mạch bào",
-   "only": "nu",
-   "robe": "#f4f0ff",
-   "hair": "#e8e0f8",
-   "sash": "#c06aff",
-   "from": {
-    "achv": "va-thien-mach"
-   }
-  },
-  "bang-y-han-bang": {
-   "name": "Băng y Hàn Băng",
-   "only": "nu",
-   "robe": "#cfe8f8",
-   "hair": "#f4f6fa",
-   "sash": "#7ab0d8",
-   "from": {
-    "elite": {
-     "map": "dao-han-bang",
-     "n": 300
-    }
-   }
-  },
-  "luc-bao-thanh-moc": {
-   "name": "Lục bào Thanh Mộc",
-   "robe": "#6ab060",
-   "hair": "#3a2a1a",
-   "sash": "#f0e070",
-   "from": {
-    "elite": {
-     "map": "dao-moc",
-     "n": 300
-    }
-   }
-  },
-  "tho-bao-hau-tho": {
-   "name": "Thổ bào Hậu Thổ",
-   "robe": "#b08a5a",
-   "hair": "#2a1a0a",
-   "sash": "#6a8a3a",
-   "from": {
-    "elite": {
-     "map": "dao-hau-tho",
-     "n": 300
-    }
-   }
-  },
-  "than-nguyen-y": {
-   "name": "Thần Nguyên Y",
-   "robe": "#3a4ab8",
-   "hair": "#f0eaff",
-   "line": {
-    "s": "crit_dmg"
-   },
-   "from": {
-    "uid": [
-     "625e027c-36b4-4bb7-bd0c-21572612bc50"
-    ],
-    "shop": 25000
-   },
+  "tp-02": {
+   "name": "Băng Vương",
+   "gioi": "nam",
+   "robe": "#3f8fe0",
+   "hair": "#2a4fb0",
+   "from": { "start": true },
    "look": {
-    "sprite": "hero.tny",
-    "body": 81,
-    "cm": 180,
-    "kg": 75,
-    "trail": "#4aa8ff",
+    "sprite": "hero.tp-02",
+    "body": 49,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#8fd8ff", "#f4fbff"],
+    "orb": [37.4, 42.7],
+    "ngoi_h": 50,
+    "mau": { "core": "#f4fbff", "mid": "#8fd8ff", "outer": "#3f8fe0", "edge": "#2a4fb0" },
     "anims": {
-     "idle": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7
-     ],
-     "walk": [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15
-     ],
-     "phep1": [
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23
-     ],
-     "phep2": [
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31
-     ]
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
     },
-    "fps": {
-     "idle": 10,
-     "walk": 11,
-     "phep1": 14,
-     "phep2": 14
-    },
-    "attacks": [
-     "phep1",
-     "phep2"
-    ]
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
    },
-   "_note": "Chủ dự án 04/11/2026 13:15–13:32: hình chủ dự án gửi, động tác SpriteCook (tools/art/hero_tny.py → hero.tny), cao 1m90, nặng 75kg, đánh ra vệt phép xanh (draw-hero.js drawTrail), dòng cố định Sát thương bạo kích (line). Tạm chỉ tài khoản chủ dự án (uid) để thử; cách có được cho người chơi: chờ chủ dự án chốt. 13:50: trông như 2m2 → body 70 → 81 (tính cả búi tóc, không tính mũ miện). 14:07: bán 25.000 Linh Thạch trong mục Thời trang (uid đứng đầu: dòng bậc như bản chủ dự án đã thử), cao 1m80."
+   "def": "nam"
   },
-  "huyet-nguyet": {
-   "name": "Huyết Nguyệt",
-   "robe": "#2a1418",
-   "hair": "#f0eaff",
-   "line": {"s": "atk_pct"},
-   "from": {"tn": 60},
-   "look": {"sprite": "hero.huyet-nguyet", "body": 114, "cm": 180, "kg": 70, "trail": {"style": "kiem", "color": "#ff1a2e", "core": "#fff4ee", "w": 11, "size": 1.4}, "aura": "huyet", "anims": {"idle": [0, 1, 2, 3, 4, 5, 6, 7], "walk": [8, 9, 10, 11, 12, 13, 14, 15], "chem1": [16, 17, 18, 19, 20, 21, 22, 23], "chem2": [24, 25, 26, 27, 28, 29, 30, 31], "dam": [32, 33, 34, 35, 36, 37, 38, 39]}, "fps": {"idle": 8, "walk": 11, "chem1": 14, "chem2": 14, "dam": 14}, "attacks": ["chem1", "chem2", "dam"]},
-   "_note": "Chủ dự án 04/11/2026 23:04–23:26: ảnh chủ dự án gửi, SpriteCook bỏ khói nền (chủ dự án duyệt ảnh tĩnh), 5 động tác (tools/art/hero_hn.py → hero.huyet-nguyet): nghỉ thở nhẹ, chạy, chém chéo xuống phía phải, chém ngược quét về trái, đâm thẳng tới; giữ mặt trăng, rồng đỏ phía sau. Cao 1m80, nặng 70kg; body 165 điểm ảnh (đỉnh tóc tới chân, không tính mặt trăng, rồng); 23:49 chủ dự án: đầu nhỏ hơn hẳn các nhân vật khác, phóng to cả hình (không sửa riêng đầu) cho đầu xấp xỉ Thần Nguyên Y, Ly Hoa: đầu nhỏ hơn ~1,45 lần → body 114. Bán ở Quầy Tiên Ngọc 60 Tiên Ngọc (topup.json ao-huyet-nguyet, giá trên máy chủ p2d_tn_gia). Vệt chém đỏ to, xa, lõi sáng mịn (trail.style kiem) và hào quang máu (aura huyet): src/render/draw-huyet.js. Dòng chỉ số cố định Công % (line), phẩm theo giá Tiên Ngọc."
-  },
-  "tu-linh-ma-yeu": {
-   "name": "Tử Linh Ma Yêu",
-   "robe": "#2a1838",
-   "hair": "#e8dcff",
-   "line": {"s": "atk_pct"},
-   "from": {"uid": ["625e027c-36b4-4bb7-bd0c-21572612bc50"], "shop": 45000},
-   "look": {"sprite": "hero.tu-linh", "body": 73, "cm": 178, "kg": 62, "trail": {"style": "kiem", "color": "#9a3cff", "mid": "#c890ff", "core": "#f6eeff", "w": 10, "size": 1.3, "kinds": [0, 2]}, "aura": "tu-linh", "anims": {"idle": [0, 1, 2, 3, 4, 5, 6, 7], "walk": [8, 9, 10, 11, 12, 13, 14, 15], "bo": [16, 17, 18, 19, 20, 21, 22, 23], "dam": [24, 25, 26, 27, 28, 29, 30, 31]}, "fps": {"idle": 8, "walk": 11, "bo": 14, "dam": 14}, "attacks": ["bo", "dam"]},
-   "_note": "Chủ dự án 06/11/2026 20:31: bộ chủ dự án tạo trên SpriteCook (nguon/ai/tu-linh/, tools/art/hero_tl.py → hero.tu-linh), cao 1m78; 20:35 duyệt bảng: nặng 62kg, vệt chém tím to lõi sáng (trail kiem, kinds: bổ = đường chém 1, đâm = tia thẳng), quầng tử khí tím (aura tu-linh, src/render/draw-huyet.js), chuỗi bổ + đâm. body 64 = đỉnh tóc tới chân (không tính sừng, cờ, trượng); 21:34 chủ dự án: vẫn hơi cao so với NPC (sừng nhô) → body 73 = tính cả sừng, cả hình cao bằng NPC. 20:54: bán 45.000 Linh Thạch trong mục Thời trang (uid giữ cho tài khoản chủ dự án đã có); to hơn NPC vì làm tròn cỡ lên (want 0,75 → 1), draw-hero.js giữ đúng cỡ khi làm tròn lố 15%."
-  },
-
-  "ly-hoa": {
-   "name": "Ly Hoa",
-   "robe": "#5fc8a8",
-   "hair": "#f0eaff",
-   "from": {
-    "uid": [
-     "625e027c-36b4-4bb7-bd0c-21572612bc50"
-    ],
-    "shop": 35000
-   },
+  "tp-10": {
+   "name": "Lam Hoa Thiếu Nữ",
+   "gioi": "nu",
+   "robe": "#6fb4f0",
+   "hair": "#3a78c8",
+   "from": { "start": true },
    "look": {
-    "sprite": "hero.ly-hoa",
-    "body": 70,
-    "cm": 170,
+    "sprite": "hero.tp-10",
+    "body": 47,
+    "cm": 166,
     "kg": 50,
-    "trail": [
-     "#5fe0c8",
-     "#ffe9a0"
-    ],
+    "fw_scale": 0.95,
+    "trail": ["#bfe3ff", "#f4fbff"],
+    "orb": [39.1, 44.6],
+    "ngoi_h": 44,
+    "mau": { "core": "#f4fbff", "mid": "#bfe3ff", "outer": "#6fb4f0", "edge": "#3a78c8" },
     "anims": {
-     "idle": [
-      0,
-      1,
-      2,
-      1,
-      0,
-      7,
-      6,
-      7
-     ],
-     "walk": [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15
-     ],
-     "don1": [
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23
-     ],
-     "don2": [
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31
-     ]
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
     },
-    "fps": {
-     "idle": 10,
-     "walk": 11,
-     "don1": 14,
-     "don2": 14
-    },
-    "attacks": [
-     "don1",
-     "don2"
-    ]
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
    },
-   "_note": "Chủ dự án 04/11/2026 14:23: hình chủ dự án gửi (đã nghiêng phải), động tác SpriteCook (tools/art/hero_tny.py → hero.ly-hoa): đứng, chạy (vung hai tay, ngả tới), đòn 1 chưởng tay trái, đòn 2 quét tay phải, đều sang ngang về phía trước; cao 1m70, nặng 50kg; vệt chưởng màu phượng hoàng (lục lam ngoài, vàng trong). Giá như Thần Nguyên Y (25.000 LT); dòng chỉ số: bốc ngẫu nhiên tới khi chủ dự án chốt. 14:41: đứng nghỉ nhún nông và nhanh hơn: chỉ dùng các khung gần dáng đứng (đầu lệch tối đa 3 điểm thay vì 6), 10 khung / giây. 14:48: giá 35.000 Linh Thạch."
+   "def": "nu"
+  },
+  "tp-05": {
+   "name": "Băng Lam Tiên Nữ",
+   "gioi": "nu",
+   "robe": "#4cc4f0",
+   "hair": "#2a7fc8",
+   "from": { "start": true },
+   "look": {
+    "sprite": "hero.tp-05",
+    "body": 47,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#a8ecff", "#f2feff"],
+    "orb": [36.6, 39.0],
+    "ngoi_h": 47,
+    "mau": { "core": "#f2feff", "mid": "#a8ecff", "outer": "#4cc4f0", "edge": "#2a7fc8" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-07": {
+   "name": "Mộc Linh Tiên Tử",
+   "gioi": "nu",
+   "robe": "#5cc84a",
+   "hair": "#2f8a3a",
+   "from": { "start": true },
+   "look": {
+    "sprite": "hero.tp-07",
+    "body": 49,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#b8f070", "#f6ffe8"],
+    "orb": [36.1, 45.1],
+    "ngoi_h": 50,
+    "mau": { "core": "#f6ffe8", "mid": "#b8f070", "outer": "#5cc84a", "edge": "#2f8a3a" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-08": {
+   "name": "Ngân Phát Hắc Bào",
+   "gioi": "nam",
+   "robe": "#e09a2a",
+   "hair": "#7a3f12",
+   "from": { "start": true },
+   "look": {
+    "sprite": "hero.tp-08",
+    "body": 50,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#ffd36b", "#fff8e0"],
+    "orb": [37.7, 44.2],
+    "ngoi_h": 50,
+    "mau": { "core": "#fff8e0", "mid": "#ffd36b", "outer": "#e09a2a", "edge": "#7a3f12" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-16": {
+   "name": "Đấu Lạp Hiệp Khách",
+   "gioi": "nam",
+   "robe": "#8c9ee8",
+   "hair": "#4a56a8",
+   "from": { "start": true },
+   "look": {
+    "sprite": "hero.tp-16",
+    "body": 51,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#cfd9ff", "#f8fbff"],
+    "orb": [36.6, 47.5],
+    "ngoi_h": 50,
+    "mau": { "core": "#f8fbff", "mid": "#cfd9ff", "outer": "#8c9ee8", "edge": "#4a56a8" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-01": {
+   "name": "Xích Diễm Kiếm Khách",
+   "gioi": "nam",
+   "robe": "#ff7a2f",
+   "hair": "#e5323f",
+   "from": { "shop": 60000 },
+   "look": {
+    "sprite": "hero.tp-01",
+    "body": 51,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#ffc93c", "#fff6d6"],
+    "orb": [34.9, 44.0],
+    "ngoi_h": 51,
+    "mau": { "core": "#fff6d6", "mid": "#ffc93c", "outer": "#ff7a2f", "edge": "#e5323f" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-09": {
+   "name": "Long Giác Tiên Cơ",
+   "gioi": "nu",
+   "robe": "#b48cf0",
+   "hair": "#7a54c8",
+   "from": { "shop": 60000 },
+   "look": {
+    "sprite": "hero.tp-09",
+    "body": 49,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#e5c6ff", "#fdf6ff"],
+    "orb": [34.0, 42.9],
+    "ngoi_h": 50,
+    "mau": { "core": "#fdf6ff", "mid": "#e5c6ff", "outer": "#b48cf0", "edge": "#7a54c8" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-11": {
+   "name": "Hắc Phát Hoàng Tử",
+   "gioi": "nam",
+   "robe": "#7aa8e8",
+   "hair": "#34508f",
+   "from": { "shop": 60000 },
+   "look": {
+    "sprite": "hero.tp-11",
+    "body": 50,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#d8ecff", "#ffffff"],
+    "orb": [32.9, 42.6],
+    "ngoi_h": 50,
+    "mau": { "core": "#ffffff", "mid": "#d8ecff", "outer": "#7aa8e8", "edge": "#34508f" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-04": {
+   "name": "Đào Hoa Tiên Tử",
+   "gioi": "nu",
+   "robe": "#ff6fa8",
+   "hair": "#d63b7a",
+   "from": { "shop": 45000 },
+   "look": {
+    "sprite": "hero.tp-04",
+    "body": 49,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#ffb3d1", "#fff4f8"],
+    "orb": [32.3, 44.6],
+    "ngoi_h": 49,
+    "mau": { "core": "#fff4f8", "mid": "#ffb3d1", "outer": "#ff6fa8", "edge": "#d63b7a" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-06": {
+   "name": "Hỏa Bào Vương Gia",
+   "gioi": "nam",
+   "robe": "#ff5a1f",
+   "hair": "#c0201a",
+   "from": { "shop": 45000 },
+   "look": {
+    "sprite": "hero.tp-06",
+    "body": 50,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#ffb43c", "#fff2c4"],
+    "orb": [35.6, 41.6],
+    "ngoi_h": 50,
+    "mau": { "core": "#fff2c4", "mid": "#ffb43c", "outer": "#ff5a1f", "edge": "#c0201a" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-13": {
+   "name": "Thanh Long Cơ",
+   "gioi": "nu",
+   "robe": "#36c8b0",
+   "hair": "#1a8a80",
+   "from": { "shop": 45000 },
+   "look": {
+    "sprite": "hero.tp-13",
+    "body": 50,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#9ff0dc", "#effffb"],
+    "orb": [39.4, 46.4],
+    "ngoi_h": 50,
+    "mau": { "core": "#effffb", "mid": "#9ff0dc", "outer": "#36c8b0", "edge": "#1a8a80" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-14": {
+   "name": "Xích Hồ Công Tử",
+   "gioi": "nam",
+   "robe": "#f0502a",
+   "hair": "#a8201f",
+   "from": { "shop": 45000 },
+   "look": {
+    "sprite": "hero.tp-14",
+    "body": 49,
+    "cm": 178,
+    "kg": 66,
+    "fw_scale": 0.95,
+    "trail": ["#ff9a4a", "#fff0d8"],
+    "orb": [41.2, 43.8],
+    "ngoi_h": 49,
+    "mau": { "core": "#fff0d8", "mid": "#ff9a4a", "outer": "#f0502a", "edge": "#a8201f" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-03": {
+   "name": "Tử Hoa Tiểu Thư",
+   "gioi": "nu",
+   "robe": "#a35cf0",
+   "hair": "#6a2fc0",
+   "from": { "shop": 30000 },
+   "look": {
+    "sprite": "hero.tp-03",
+    "body": 48,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#d6a8ff", "#fbf2ff"],
+    "orb": [40.1, 41.2],
+    "ngoi_h": 48,
+    "mau": { "core": "#fbf2ff", "mid": "#d6a8ff", "outer": "#a35cf0", "edge": "#6a2fc0" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-12": {
+   "name": "Tử Đinh Hương",
+   "gioi": "nu",
+   "robe": "#c890e6",
+   "hair": "#8a58b8",
+   "from": { "shop": 30000 },
+   "look": {
+    "sprite": "hero.tp-12",
+    "body": 50,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#f0c4f0", "#fff4fd"],
+    "orb": [35.0, 44.8],
+    "ngoi_h": 50,
+    "mau": { "core": "#fff4fd", "mid": "#f0c4f0", "outer": "#c890e6", "edge": "#8a58b8" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
+  },
+  "tp-15": {
+   "name": "Huyết Hoa Bạch Phát",
+   "gioi": "nu",
+   "robe": "#f0465a",
+   "hair": "#b01e3a",
+   "from": { "shop": 30000 },
+   "look": {
+    "sprite": "hero.tp-15",
+    "body": 49,
+    "cm": 166,
+    "kg": 50,
+    "fw_scale": 0.95,
+    "trail": ["#ff9aa8", "#fff2f2"],
+    "orb": [37.8, 43.3],
+    "ngoi_h": 49,
+    "mau": { "core": "#fff2f2", "mid": "#ff9aa8", "outer": "#f0465a", "edge": "#b01e3a" },
+    "anims": {
+     "idle": [0, 1, 2, 3, 4, 5, 6, 7],
+     "walk": [8, 9, 10, 11, 12, 13, 14, 15],
+     "danh1": [16, 17, 18, 19, 20, 21, 22, 23],
+     "danh2": [24, 25, 26, 27, 28, 29, 30, 31],
+     "ngoi": [32]
+    },
+    "fps": { "idle": 8, "walk": 12, "danh1": 12, "danh2": 12, "ngoi": 1 },
+    "attacks": ["danh1", "danh2"]
+   }
   }
  }
 }

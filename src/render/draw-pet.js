@@ -31,7 +31,13 @@ export function drawPet(ctx, pet, t, art) {
 }
 
 function drawBody(ctx, pet, t, art) {
-  const id = 'pet.' + pet.id;
+  const id = 'pet.' + pet.id, ns = art?.sprites[id];
+  if (ns?.idle) {   // hình thú mới thu nửa cỡ (tools/art/linh_thu_moi.py, 16/11/2026 22:58): đứng nghỉ / chạy / tấn công mỗi thứ 8 khung
+    const since = pet.def.cd && pet.cd != null ? pet.def.cd - pet.cd : 99, ak = Math.floor(since * 12);   // vừa ra đòn: chạy 8 khung tấn công
+    const f = ak >= 0 && ak < ns.atk.length ? ns.atk[ak] : pet.moving ? walkFrame(ns, t) : ns.idle[pet.sleep ? 0 : Math.floor(t * (ns.fps || 8)) % ns.idle.length];
+    drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1);
+    return;
+  }
   if (isAct(art, id)) {   // ảnh 6 động tác: ngủ dùng khung nằm, vừa ra đòn thì lấy đà rồi đánh
     const f = pet.sleep && !pet.moving ? ACT.down : actFrame(art.sprites[id], pet, t, pet.def.cd);
     drawAct(ctx, art, id, f, pet.x, pet.y + 1, pet.face < 0 ? -1 : 1, f === ACT.idle && Math.sin(t * 3) > 0.6 ? 0.5 : 0);
@@ -69,8 +75,10 @@ export function drawMount(ctx, p, m, t, art, id) {
   const spr = isAct(art, 'mount.' + id) && art.sprites['mount.' + id], big = !!spr?.seat;
   if (!spr) { ctx.fillStyle = 'rgba(27,24,48,0.25)'; ctx.beginPath(); ctx.ellipse(p.x, p.y + 1, 9, 3, 0, 0, Math.PI * 2); ctx.fill(); }   // có hình: bóng đổ theo dáng (drawAct)
   if (spr) {   // ảnh 6 động tác: đứng / bước; chỗ ngồi tỉ lệ như hình code (11 trên cao 42)
-    const fly = p.fly && spr.walk?.includes(4);   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
-    const f = fly ? 4 : p.moving ? walkFrame(spr, p.walkT) : ACT.idle, bob = fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0;
+    const fly = p.fly && (spr.fly != null || spr.walk?.includes(4));   // bay giữa tinh cầu: giữ dáng vươn mình (khung phi dài nhất), nhấp nhô theo gió thay vì chạy trên không
+    const still = spr.idle ? spr.idle[Math.floor(t * (spr.fps || 8)) % spr.idle.length] : ACT.idle;   // thú cưỡi mới (16/11/2026): đứng nghỉ 8 khung
+    const ak = spr.atk && p.mountAtkT != null ? Math.floor((t - p.mountAtkT) * 10) : -1;   // đòn của thú khi đang cưỡi (src/game/player.js mountSwing), 10 khung / giây
+    const f = fly ? spr.fly ?? 4 : ak >= 0 && ak < spr.atk.length ? spr.atk[ak] : p.moving ? walkFrame(spr, p.walkT) : still, bob = fly ? Math.sin(p.walkT * 2.6) * 1.5 : 0;
     drawAct(ctx, art, 'mount.' + id, f, p.x, p.y + 1 - bob, dir);
     if (big) {   // chỗ đứng đo theo yên trên từng khung (tools/art/thu_cuoi.py): người cưỡi nhấp nhô đúng theo lưng thú, chân không hở
       p.seatX = dir * spr.seat_x[f]; p.seatSync = true;

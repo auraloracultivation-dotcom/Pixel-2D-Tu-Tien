@@ -25,6 +25,7 @@ import { drawWild } from './draw-critter.js';
 import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
+import { drawPhapTuong } from './draw-phap-tuong.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
 import { drawBolt, drawBoltLead } from './draw-bolt.js';
@@ -86,6 +87,7 @@ function drawPlayer(ctx, game, t) {
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
+  if (p.riding) { const lk = heroLook(game); drawPhapTuong(ctx, game, p, t, game.save, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', p.x + (p.seatX || 0), p.y - (p.lift || 0)); }   // pháp tượng sau lưng người cưỡi, sau cả thú (chỗ ngồi của khung trước)
   if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); p.lift = lift; ctx.save(); ctx.translate(p.seatX || 0, -lift - (!p.seatSync && p.moving && Math.floor(p.walkT * 7) % 2 ? 1 : 0)); }   // người cưỡi nhún theo nhịp phi (thú cưỡi có chỗ đứng theo khung thì đã nhấp nhô theo lưng, không nhún thêm)
   if (p.meditating) {
     ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
@@ -189,8 +191,10 @@ function drawMob(ctx, m, t, game) {
 // Người chơi khác (game/others.js): hình nhân vật theo hình dáng, thời trang họ báo (bản game cũ chưa báo thì vẽ hình khối), tên trên đầu
 function drawOther(ctx, o, game, t) {
   const el = o.element ? game.data.elements[o.element]?.color : null;
-  const fit = { look: o.look, outfit: o.outfit }, md = o.mount && game.data.pets.mounts[o.mount];
-  if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
+  const fit = { look: o.look, outfit: o.outfit, pt: o.pt || null }, md = o.mount && game.data.pets.mounts[o.mount];
+  o.riding = !!md;   // trang phục mới ngồi xếp bằng trên thú
+  if (md && o.look) { const lk = heroLook(game, fit); drawPhapTuong(ctx, game, o, t, fit, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', o.x + (o.seatX || 0), o.y - (o.lift || 0)); }
+  if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); o.lift = lift; ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
   if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
   const hero = o.look && drawHero(ctx, game, o, t, false, fit);
   if (!hero) drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);

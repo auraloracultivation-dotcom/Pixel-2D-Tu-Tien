@@ -21,3 +21,4 @@ export const htWelcome = () => rpc('p2d_ht_qua_dau');   // quà gặp mặt, m�
 export const htFeed = () => rpc('p2d_ht_vinh_danh');   // 10 lần quay đáng khoe gần nhất cả máy chủ
 export const htMine = () => rpc('p2d_ht_ls_cua_toi');   // 50 lần triệu hồi gần nhất của mình (đề xuất #153)
 export const htDaily = task => rpc('p2d_ht_ngay', { p_task: task });
+export const htDoiThu = id => rpc('p2d_doi_thu_cuoi', { p_id: id });   // đổi Thú Lệnh lấy thú cưỡi (supabase/migrations/20261116230000_p2d_doi_moi_trang_bi.sql)

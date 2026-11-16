@@ -7,10 +7,11 @@ import { coins, addCoins } from './shop.js';
 const F = game => game.data.fashion.list;
 const lookOf = game => (game.data.heroes.list[game.save?.look] ? game.save.look : game.data.heroes.default);
 
-// Áo có sẵn của một giới: bộ from.start không ghi only hoặc only đúng giới (nam: dong-phuc, nữ: thanh-sam; chủ dự án 15/11/2026)
+// Áo mặc định của một giới: bộ ghi def đúng giới (chủ dự án 16/11/2026: nam tp-02 Băng Vương, nữ tp-10 Lam Hoa Thiếu Nữ, chọn lúc tạo nhân vật);
+// không có thì bộ from.start không ghi only hoặc only đúng giới
 export function defOutfit(game, look) {
   const L = F(game), ids = Object.keys(L);
-  return ids.find(id => L[id].from.start && (!L[id].only || L[id].only === look)) || ids[0];
+  return ids.find(id => L[id].def === look) || ids.find(id => L[id].from.start && (!L[id].only || L[id].only === look)) || ids[0];
 }
 
 // Bộ đang mặc (đã đổi tên bộ cũ: data/fashion.json → renamed). Không còn trong danh sách, hoặc chỉ cho giới kia (only), thì là áo có sẵn của giới mình
@@ -37,7 +38,8 @@ export const versions = (game, id) => (F(game)[id]?.only ? [F(game)[id].only] : 
 export function owned(game, id, g = lookOf(game)) {
   const f = F(game)[id]?.from, s = game.save;
   if (!f || (F(game)[id].only && F(game)[id].only !== g)) return false;
-  return !!(f.start || s.outfits?.[`${id}:${g}`] || (s.outfits?.[id] === true && g === lookOf(game)) || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n) || (f.uid && f.uid.includes(game.owner)));
+  const any = F(game)[id].look && Object.keys(game.data.heroes.list).some(k => s.outfits?.[`${id}:${k}`]);   // bộ có hình riêng: mua bản giới nào cũng mặc được (đổi giới không mất)
+  return !!(f.start || any || s.outfits?.[`${id}:${g}`] || (s.outfits?.[id] === true && g === lookOf(game)) || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n) || (f.uid && f.uid.includes(game.owner)));
 }
 
 export function grantOutfit(game, id, g = lookOf(game)) { (game.save.outfits ??= {})[`${id}:${g}`] = true; }

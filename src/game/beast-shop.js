@@ -1,4 +1,4 @@
-// Ngự Thú Sư bán thú cưỡi và khôi lỗi (chủ dự án 02/11/2026 14:39; giá ở data/pets.json → shop). Bán lại: thú cưỡi ở
+// Ngự Thú Sư đổi thú cưỡi lấy Thú Lệnh (chủ dự án 16/11/2026) và bán khôi lỗi (chủ dự án 02/11/2026 14:39; giá ở data/pets.json → shop). Bán lại: thú cưỡi ở
 // src/game/home-pets.js (sellMount), khôi lỗi ở đây (sellPuppet), bấm ngay trong thẻ ở Túi đồ → Thú cưỡi / Khôi lỗi.
 import { coins, addCoins } from './shop.js';
 import { mountLine } from './beast.js';
@@ -12,14 +12,22 @@ export const puppetPrice = (game, id) => {   // đúng resell_max × giá mua (c
   return c.resell_max != null ? Math.floor(buy * c.resell_max) : v;
 };
 
-export function buyMount(game, id) {
-  const s = game.save, price = S(game).mounts[id], m = game.data.pets.mounts[id];
-  if (!m || price == null) return 'Không bán con này.';
+// Đổi thú cưỡi bằng Thú Lệnh (chủ dự án 16/11/2026 21:57: thú cưỡi nhận bằng nhiệm vụ ngày). Thú Lệnh máy chủ giữ (p2d_ht_diem.thu_lenh),
+// máy chủ trừ và ghi thú vào bản lưu (hàm p2d_doi_thu_cuoi); máy khách chỉ ghi theo kết quả trả về.
+export async function buyMount(game, id) {
+  const s = game.save, m = game.data.pets.mounts[id], L = game.data.pets.thu_lenh;
+  if (!m) return 'Không có con này.';
   if (s.mounts?.[id]) return `Đã có ${m.name}.`;
-  if (coins(s) < price) return `Thiếu Linh Thạch (cần ${vn(price)}).`;
-  addCoins(game, -price, 'mua-thu'); s.mounts[id] = true; mountLine(game, id);
-  game.persist(); game.sfx('levelup');
-  return `Mua ${m.name}. Chọn cưỡi ở Túi đồ → Thú cưỡi.`;
+  if (!game.cloud) return 'Đăng nhập tài khoản để đổi thú cưỡi.';
+  try {
+    const M = await import('../net/he-thong.js');   // máy chủ sửa bản lưu, trả phien_ban: chạy qua game.cloud.run cho khỏi lệch phiên bản
+    await game.cloud.run(() => M.htDoiThu(id), r => { s.mounts[id] = true; if (!s.mount || !s.mounts[s.mount]) s.mount = id; game.thuLenh = r?.thu_lenh ?? game.thuLenh; });
+    mountLine(game, id); game.persist(); game.sfx('levelup');
+    return `Đổi được ${m.name}! Bấm nút Cưỡi để lên thú.`;
+  } catch (e) {
+    const c = String(e?.message || e);
+    return c.includes('thieu') ? `Chưa đủ ${L.per_mount} ${L.name}.` : c.includes('da_co') ? `Đã có ${m.name}.` : 'Chưa đổi được, thử lại sau.';
+  }
 }
 
 export function buyPuppet(game, id) {
@@ -46,17 +54,21 @@ export function sellPuppet(game, id) {
 export async function talkBeastShop(game, npc) {
   const name = npc.def.name, s = game.save;
   const pick = await game.dialog.choose(`${name}: Muốn mua gì?`, [
-    { id: 'mount', label: 'Mua thú cưỡi', desc: 'Tăng tốc chạy và 1 dòng chỉ số' },
+    { id: 'mount', label: `Đổi thú cưỡi (${game.data.pets.thu_lenh.per_mount} ${game.data.pets.thu_lenh.name})`, desc: 'Tăng tốc chạy và 1 dòng chỉ số; cưỡi thì thú công kích' },
     { id: 'puppet', label: 'Mua khôi lỗi', desc: 'Đi theo đánh cùng, mang tối đa 2 con' },
     { id: 'talk', label: 'Trò chuyện', desc: '' },
   ]);
   if (pick === 'talk') { await game.dialog.say([[name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]); return; }
+  if (pick === 'mount') {   // số Thú Lệnh hỏi máy chủ (chơi không mạng thì không đổi được)
+    try { const M = await import('../net/he-thong.js'); game.thuLenh = (await M.htStatus())?.thu_lenh ?? 0; } catch { game.thuLenh = null; }
+  }
+  const L = game.data.pets.thu_lenh;
   const list = pick === 'mount'
-    ? Object.entries(S(game).mounts).map(([id, p]) => ({ id, label: `${game.data.pets.mounts[id].name} · ${vn(p)} LT`, desc: s.mounts?.[id] ? 'Đã có' : `Tốc chạy +${Math.round(game.data.pets.mounts[id].speed * 100)}%`, color: game.data.pets.mounts[id].color }))
+    ? Object.entries(game.data.pets.mounts).map(([id, m]) => ({ id, label: `${m.name} · ${L.per_mount} ${L.name}`, desc: s.mounts?.[id] ? 'Đã có' : `Tốc chạy +${Math.round(m.speed * 100)}%`, color: m.color }))
     : pick === 'puppet' ? Object.entries(S(game).puppets).map(([id, p]) => ({ id, label: `${puppetName(game, id)} · ${vn(p)} LT`, desc: s.comps?.[id] ? 'Đã có' : game.data.companions.list[id]?.desc || '', color: game.data.companions.list[id]?.color })) : null;
   if (!list) return;
-  list.push({ id: 'thoi', label: 'Thôi', desc: `Đang có ${vn(coins(s))} Linh Thạch` });
+  list.push({ id: 'thoi', label: 'Thôi', desc: pick === 'mount' ? (game.thuLenh == null ? 'Cần mạng để đổi thú' : `Đang có ${game.thuLenh} ${L.name}`) : `Đang có ${vn(coins(s))} Linh Thạch` });
   const id = await game.dialog.choose(`${name}: Chọn đi.`, list);
   if (id === 'thoi' || !id) return;
-  game.toast(pick === 'mount' ? buyMount(game, id) : buyPuppet(game, id), 2.6);
+  game.toast(pick === 'mount' ? await buyMount(game, id) : buyPuppet(game, id), 2.6);
 }

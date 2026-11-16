@@ -1,5 +1,5 @@
 {
- "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
+ "_note_hinh": "Chủ dự án 16/11/2026 22:58: linh thú đi theo người cũng dùng hình 16 thú mới. pets.<mã>.hinh là mã thú (mounts) lấy hình: tấm pet.<mã> thu nửa cỡ từ mount-<hinh>.png (tools/art/linh_thu_moi.py), đứng nghỉ, chạy, tấn công 8 khung.", "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
  "npc": "ngu-thu-su",
  "rare_chance": 0.04,
  "rare": {
@@ -37,7 +37,7 @@
  "lv_bonus": 0.08,
  "follow": 24,
  "pets": {
-  "moc-linh": {
+  "moc-linh": {"hinh": "coc-sen", 
    "name": "Tiểu Mộc Linh",
    "evo": "Thanh Mộc Tinh Quân",
    "color": "#5fd07a",
@@ -51,7 +51,7 @@
     "cd": 10
    }
   },
-  "ma-tieu": {
+  "ma-tieu": {"hinh": "nhen-pha-le", 
    "name": "Tiểu Quỷ",
    "evo": "Ám Dạ Quỷ Vương",
    "color": "#7a4ab0",
@@ -67,7 +67,7 @@
     "cd": 8
    }
   },
-  "hoa-lang": {
+  "hoa-lang": {"hinh": "hoa-long", 
    "name": "Tiểu Hỏa Lang",
    "evo": "Liệt Hỏa Lang Vương",
    "color": "#ff7a3a",
@@ -81,13 +81,9 @@
     "radius": 30,
     "dmg": 1.6,
     "cd": 8
-   },
-   "mount": [
-    "phong-lang",
-    0.35
-   ]
+   }
   },
-  "viem-linh": {
+  "viem-linh": {"hinh": "phuong-hoang", 
    "name": "Viêm Linh Nhi",
    "evo": "Viêm Hoàng Tiên Tử",
    "color": "#ffb03a",
@@ -102,7 +98,7 @@
     "cd": 12
    }
   },
-  "ma-cung": {
+  "ma-cung": {"hinh": "bach-tuoc", 
    "name": "Ma Tiễn Đồng",
    "evo": "U Minh Tiễn Thần",
    "color": "#b04a9a",
@@ -117,7 +113,7 @@
     "cd": 9
    }
   },
-  "tuyet-lang": {
+  "tuyet-lang": {"hinh": "cuu-vi-ho", 
    "name": "Tiểu Tuyết Lang",
    "evo": "Băng Nguyên Lang Vương",
    "color": "#dfe8f2",
@@ -131,13 +127,9 @@
     "radius": 38,
     "dur": 3,
     "cd": 8
-   },
-   "mount": [
-    "tuyet-ly",
-    0.3
-   ]
+   }
   },
-  "moc-yeu": {
+  "moc-yeu": {"hinh": "rua-non-bo", 
    "name": "Tiểu Thụ Yêu",
    "evo": "Cổ Mộc Thần Thụ",
    "color": "#7ab05a",
@@ -152,7 +144,7 @@
     "cd": 10
    }
   },
-  "kiem-hon": {
+  "kiem-hon": {"hinh": "su-thuu", 
    "name": "Tiểu Kiếm Linh",
    "evo": "Vạn Kiếm Linh Tôn",
    "color": "#d8e0f0",
@@ -167,7 +159,7 @@
     "cd": 8
    }
   },
-  "tho-khoi": {
+  "tho-khoi": {"hinh": "su-tu-da", 
    "name": "Tiểu Thạch Khôi",
    "evo": "Bàn Sơn Thạch Thần",
    "color": "#a87a4a",
@@ -183,7 +175,7 @@
     "cd": 10
    }
   },
-  "hu-anh": {
+  "hu-anh": {"hinh": "huou-sao", 
    "name": "Tiểu U Ảnh",
    "evo": "Thái Hư Ảnh Quân",
    "color": "#6a4a9a",
@@ -199,7 +191,7 @@
     "cd": 9
    }
   },
-  "phong-yeu": {
+  "phong-yeu": {"hinh": "huou-may", 
    "name": "Tiểu Phong Yêu",
    "evo": "Cuồng Phong Yêu Hoàng",
    "color": "#a8b8d0",
@@ -215,7 +207,7 @@
     "cd": 9
    }
   },
-  "bang-tinh": {
+  "bang-tinh": {"hinh": "ho-pha-le", 
    "name": "Băng Tinh Nhi",
    "evo": "Hàn Băng Tinh Hậu",
    "color": "#9ad8ff",
@@ -231,49 +223,136 @@
   }
  },
  "mounts": {
-  "bach-loc": {
+  "cuu-vi-ho": {
    "look": "deer",
-   "name": "Bạch Lộc",
-   "color": "#f4efe2",
-   "accent": "#c9a46a",
-   "speed": 0.35,
-   "desc": "Hươu trắng hiền lành của Ngự Thú Sư. Nhanh hơn 35%.",
-   "seat": 18
-  },
-  "phong-lang": {
-   "look": "wolf",
-   "name": "Phong Lang",
-   "color": "#8a8aa0",
-   "accent": "#ff7a3a",
+   "name": "Cửu vĩ hồ trắng",
+   "color": "#f4f6ff",
+   "accent": "#9ab8ff",
    "speed": 0.5,
-   "desc": "Sói gió. Đôi khi theo về khi hạ Dị chủng Hỏa lang. Nhanh hơn 50%.",
-   "seat": 17
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
   },
-  "hoa-ky-lan": {
-   "look": "qilin",
-   "name": "Hỏa Kỳ Lân",
+  "rua-non-bo": {
+   "look": "deer",
+   "name": "Rùa non bộ",
+   "color": "#5a9a4a",
+   "accent": "#c8a46a",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "su-thuu": {
+   "look": "deer",
+   "name": "Sư thứu trắng",
+   "color": "#f4efe2",
+   "accent": "#ffcf4a",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "huou-sao": {
+   "look": "deer",
+   "name": "Hươu sao đêm",
+   "color": "#3a3a6a",
+   "accent": "#ffe27a",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "hoa-long": {
+   "look": "deer",
+   "name": "Hỏa long dung nham",
+   "color": "#c8401a",
+   "accent": "#ffb43c",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "rua-nam": {
+   "look": "deer",
+   "name": "Rùa nấm đỏ",
+   "color": "#d8402a",
+   "accent": "#f4e2c8",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "meo-co-quan": {
+   "look": "deer",
+   "name": "Mèo cơ quan",
+   "color": "#e8b46a",
+   "accent": "#5fc8e0",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "ca-voi-may": {
+   "look": "deer",
+   "name": "Cá voi mây",
+   "color": "#8fd8ff",
+   "accent": "#ffffff",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "coc-sen": {
+   "look": "deer",
+   "name": "Cóc sen",
+   "color": "#7ab84a",
+   "accent": "#ff9ac8",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "ho-pha-le": {
+   "look": "deer",
+   "name": "Hổ pha lê",
+   "color": "#9ad8ff",
+   "accent": "#e8f6ff",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "phuong-hoang": {
+   "look": "deer",
+   "name": "Phượng hoàng lửa",
    "color": "#ff6a3a",
    "accent": "#ffe27a",
-   "speed": 0.65,
-   "desc": "Thần thú lửa. Có khi xuất hiện sau trận Huyết Nha. Nhanh hơn 65%.",
-   "seat": 15
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
   },
-  "tuyet-ly": {
-   "look": "lynx",
-   "name": "Tuyết Ly",
-   "color": "#f4f8fc",
-   "accent": "#9ad8ff",
-   "speed": 0.55,
-   "desc": "Hồ ly tuyết nhiều đuôi. Đôi khi theo về khi hạ Dị chủng Tuyết lang. Nhanh hơn 55%.",
-   "seat": 15
+  "sua-den-long": {
+   "look": "deer",
+   "name": "Sứa đèn lồng",
+   "color": "#c890ff",
+   "accent": "#ffb4e0",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "su-tu-da": {
+   "look": "deer",
+   "name": "Sư tử đá rêu",
+   "color": "#7a8a6a",
+   "accent": "#5fa84a",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "bach-tuoc": {
+   "look": "deer",
+   "name": "Bạch tuộc đèn lồng",
+   "color": "#b45ad8",
+   "accent": "#ffcf4a",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "huou-may": {
+   "look": "deer",
+   "name": "Hươu mây",
+   "color": "#e8f0ff",
+   "accent": "#9ab8ff",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
+  },
+  "nhen-pha-le": {
+   "look": "deer",
+   "name": "Nhện pha lê",
+   "color": "#b48cf0",
+   "accent": "#e8d8ff",
+   "speed": 0.5,
+   "desc": "Đổi bằng 7 Thú Lệnh ở Ngự Thú Sư. Nhanh hơn 50%; cưỡi thì thú công kích, người ngồi đả tọa."
   }
  },
- "mount_drops": {
-  "huyet-nha-that": [
-   "hoa-ky-lan",
-   0.25
-  ]
- },
+ "mount_drops": {},
  "fetch": {
   "_note": "Linh thú tha đồ về: chủ đả tọa đủ every giây liền thì có chance linh thú chạy đi tha về một món nhỏ, tối đa per_day lần mỗi ngày. Khi vắng mặt: cứ away_hours giờ tha về một món, vẫn tính vào per_day. give như daily (qi, coins, stones, mats). {name} là tên linh thú.",
   "every": 100,
@@ -339,7 +418,7 @@
   "tired": "{name} đã được vuốt ve đủ rồi, nằm ngủ ngon lành."
  },
  "starter_pet": "moc-linh",
- "starter_mount": "bach-loc",
+ "starter_mount": null,
  "fly_realm": 3,
  "ride_calm": 2.5,
  "side": 12,
@@ -530,12 +609,7 @@
  },
  "shop": {
   "_note": "Ngự Thú Sư bán thú cưỡi và khôi lỗi (chủ dự án 02/11/2026 14:39: thú cưỡi mua từ NPC, khôi lỗi mua bán ở NPC; src/game/beast-shop.js). Giá Linh Thạch. puppets: id trong data/companions.json (chỉ những con này là khôi lỗi); bán lại: puppet_sell × giá mua + cấp × puppet_per_lv.",
-  "mounts": {
-   "bach-loc": 5000,
-   "phong-lang": 12000,
-   "tuyet-ly": 15000,
-   "hoa-ky-lan": 25000
-  },
+  "mounts": {},
   "puppets": {
    "tieu-hoa": 8000,
    "ho-linh": 8000,
@@ -560,5 +634,18 @@
   "_dau": "Tài khoản mới (lần lưu đầu): thùng loài mới, bản sao, công pháp mới, thú cưỡi rơi bắt đầu ở dau × đầy (đủ 1 loài linh thú mới, 2 công pháp mới, ~80 bản sao), thùng kinh nghiệm bắt đầu rỗng; người chơi cũ chưa có kyThu thì đầy.",
   "ban": {"giay": 20, "tran": 60000, "toc_giay": 7200},
   "_ban": "Tiền bán linh thú, thú cưỡi, đồ (p2d_mien_tran: không tính vào thùng Linh Thạch thường, không tính trần ngày) nay cũng có thùng riêng theo giờ còn liên lạc: hồi giay + tốc Linh Thạch của cảnh giới (6 × 1,6^cảnh giới) mỗi giây, đầy tran + toc_giay × tốc đó; phần vượt tính như Linh Thạch thường (thùng lt_xo, ghi ban_lo). Lý do 05/11/2026: tài khoản hack tải lên 12 linh thú cấp 40 / 20 sao rồi bán, Linh Thạch 1.023 → 261.970 trong 46 giây."
+ },
+ "_starter_mount": "Chủ dự án 16/11/2026 21:57: thú cưỡi chỉ nhận bằng nhiệm vụ ngày (Thú Lệnh), Ngự Thú Sư không còn tặng thú cưỡi đầu.",
+ "thu_lenh": {
+  "_note": "Thú Lệnh (chủ dự án 16/11/2026 21:57–22:0x: thú cưỡi nhận bằng nhiệm vụ ngày, chọn \"tích điểm đổi thú\"): mỗi ngày làm đủ daily_need việc ngày được 1 Thú Lệnh (máy chủ đếm, giữ ở p2d_ht_diem.thu_lenh, hàm p2d_ht_ngay); đủ per_mount Thú Lệnh đổi 1 thú cưỡi tự chọn ở Ngự Thú Sư (hàm p2d_doi_thu_cuoi).",
+  "name": "Thú Lệnh",
+  "per_mount": 7,
+  "daily_need": 10
+ },
+ "ride": {
+  "_note": "Cưỡi / Xuống bằng nút (chủ dự án 16/11/2026 21:57): cưỡi thì thú công kích (đòn đánh thường thành đòn của thú, chuyển động tấn công của thú), người ngồi đả tọa, vũ khí vẫn hiện nhưng không dùng, pháp bảo dùng bình thường; xuống thì chém thường bằng vũ khí. Đòn thú: tầm reach (đơn vị bản đồ), cung arc độ, nghỉ cooldown giây, sát thương như đòn thường của người.",
+  "reach": 30,
+  "arc": 150,
+  "cooldown": 0.75
  }
 }

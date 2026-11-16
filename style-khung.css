@@ -194,6 +194,12 @@ body[data-le="halloween"] #btn-menu::before { content: ''; display: inline-block
 #btn-pill { right: 175px !important; bottom: 19px !important; width: 46px !important; height: 46px !important; }
 #btn-dash { right: 157px !important; bottom: 92px !important; width: 46px !important; height: 46px !important; }
 #btn-art { right: 46px !important; bottom: 173px !important; width: 46px !important; height: 46px !important; }
+/* nút Cưỡi / Xuống (chủ dự án 16/11/2026): ngoài cung ngoài, trên nút pháp bảo */
+#btn-ride { right: 50px !important; bottom: 228px !important; width: 46px !important; height: 46px !important; border-radius: 50%; background-color: rgba(26, 10, 30, .92);
+  border: 2px solid #e0a040 !important; color: #ffe6a0; }
+/* màn ngang: bảng Menu nằm chỗ đó (nút Cưỡi đè Sự kiện), dời xuống giữa nút Lướt và nút Đánh */
+@media (orientation: landscape) and (max-height: 520px) { #btn-ride { right: 58px !important; bottom: 104px !important; } }
+#btn-ride b { font-size: 11px !important; line-height: 11px !important; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
 /* tên chiêu: chữ pixel, tối đa hai dòng nằm gọn trong lòng nút, biểu tượng dịch lên */
 /* biểu tượng 16 điểm phóng đúng 2 lần (32px) cho nét điểm ảnh sắc, không nhoè như 22px; tên chiêu nằm trên lớp hồi chiêu để vẫn đọc được khi chờ */
 #btn-s0, #btn-s1, #btn-s2 { background-position: center 2px !important; background-size: 32px 32px !important; }
@@ -250,3 +256,6 @@ body.perf-calm #btn-dash::after, body.perf-calm #btn-pill::after, body.perf-calm
 #btn-atk::after, #btn-s0::after, #btn-s1::after, #btn-s2::after, #btn-dash::after, #btn-pill::after, #btn-art::after {
   filter: drop-shadow(0 0 3px var(--el-line, transparent));
 }
+/* pháp bảo hồi 2–5 phút (chủ dự án 16/11/2026): thời gian còn lại nằm giữa hình pháp bảo, trên quạt tối (src/ui/phap-bao-hud.js data-t) */
+.btn .cd[data-t]:not([data-t=""])::after { content: attr(data-t); position: absolute; left: 0; right: 0; top: 9px; text-align: center;
+  font-size: 12px; line-height: 14px; color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000; }

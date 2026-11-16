@@ -2,7 +2,7 @@
 // Tên chính giữa phía trên; nhân vật đứng trên vòng pháp trận, cảnh giới chính giữa dưới chân (chủ dự án 11/11/2026 02:10), mỗi bên 4 ô đồ (thanh ngọc khảm dính dưới ô, src/ui/self-gear.js);
 // cột phải ô 3 linh thú, ô 4 thú cưỡi; hàng 4 ô pháp bảo; dòng Lực Chiến (chạm: xem đủ chỉ số ở khung phải); 8 chỉ số chính.
 import { heroLook } from '../render/draw-hero.js';
-import { spriteIcon } from './sprite-icon.js';
+import { heroScene, sceneKey } from './self-hero-view.js';
 import { realmLabel, rootOf } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { el } from './bag-detail.js';
@@ -35,8 +35,8 @@ export function leftCard(game, stt, h) {
   top.append(nm);
   const area = el('div', 'sv-hero-area'), mid = el('div', 'sv-center');
   // giữ đúng tỉ lệ hình (khung chibi rộng vì hiệu ứng chiêu: cắt bớt hai bên trong suốt, không ép bề ngang)
-  const hero = spriteIcon(game, heroLook(game).sprite, 0, 64, 'sv-hero', true);
-  hero.dataset.k = heroLook(game).sprite;   // cùng hình thì vá giữ canvas cũ (src/ui/morph.js), khỏi trống một khung
+  const hero = heroScene(game, 108);   // thú cưỡi đang chọn, pháp tượng đang đeo vẽ cùng nhân vật (src/ui/self-hero-view.js)
+  hero.dataset.k = sceneKey(game);   // cùng hình thì vá giữ canvas cũ (src/ui/morph.js), khỏi trống một khung
   mid.append(uiIco(d, 'ui.nv-nen', 'sv-nen'), uiIco(d, 'ui.nv-be', 'sv-be'), hero);   // nền phù văn xoay chậm sau lưng, bệ pháp trận dưới chân
   if (s.element) {
     const e = d.elements[s.element], seal = uiIco(d, 'ui.nv-' + s.element, 'sv-seal');   // huy hiệu ngũ hành (ảnh GPT 11/11/2026)
