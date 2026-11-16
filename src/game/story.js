@@ -88,6 +88,7 @@ export function createStory(game) {
   async function act(a, s, seen) {
     const g = game, kind = GIVE.find(k => k in a);
     if (kind) { const k = paid(s), key = kind + (seen[kind] = (seen[kind] || 0) + 1); if (k[key]) return; k[key] = 1; }   // quà của bước này phát rồi: không phát lại
+    if (a.say) { const k = paid(s), key = 'say' + (seen.say = (seen.say || 0) + 1); if (k[key]) return; k[key] = 1; }   // lời thoại của bước đã hiện rồi: mở lại game không nói lại (chủ dự án 17/11/2026 02:45: sư tỷ Lạc Tuyết "Ngươi về rồi!" lần nào vào game cũng nói)
     if (a.fly) await g.travel(a.fly, a.spawn, true, { text: a.text, with: a.with, kind: a.kind });
     else if (a.say) await g.dialog.say(a.say.map(([who, text, opt]) => [who === 'he-thong' ? g.data['he-thong']?.short || g.data['he-thong']?.name || 'Hệ Thống' : who ? (g.data.npcs[who]?.name || who) : '', fill(text), opt]));   // 'he-thong': Hệ Thống Tu Tiên nói (data/he-thong.json)
     else if (a.sys_ask) {   // câu hỏi lựa chọn của hệ thống (chủ dự án 06/11/2026): chọn xong hệ thống đáp một câu
@@ -177,7 +178,7 @@ export function createStory(game) {
       if (game.save.step > 1 && !game.data.elements[game.save.element]) { st.busy = true; return chooseElement(game).finally(() => { st.busy = false; }).then(ok => ok && this.start()); }
       const s = unit();
       if (s && !s.until.never && !s.once) {
-        if (game.save.stepDone) { const k = paid(s), seen = {}; for (const a of s.do || []) { const kind = GIVE.find(x => x in a); if (kind) k[kind + (seen[kind] = (seen[kind] || 0) + 1)] = 1; } }   // bản lưu cũ: bước đã chạy xong một lần thì quà coi như đã phát
+        if (game.save.stepDone) { const k = paid(s), seen = {}; for (const a of s.do || []) { const kind = GIVE.find(x => x in a) || (a.say && 'say'); if (kind) k[kind + (seen[kind] = (seen[kind] || 0) + 1)] = 1; } }   // bản lưu cũ: bước đã chạy xong một lần thì quà coi như đã phát, lời thoại coi như đã nghe
         game.save.stepDone = false;
       }
       return runStep().then(restorePickups);

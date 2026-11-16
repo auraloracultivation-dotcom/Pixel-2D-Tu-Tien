@@ -104,7 +104,7 @@ export function updateFollower(game, f, mul, follow, dt, lift = 0, side = 0) {
   let gx = p.x - fx * follow - fy * side, gy = p.y - fy * follow + fx * side + 2 - lift;
   f.sleep = p.meditating && !tgt;   // chủ đả tọa: cuộn tròn ngủ cạnh bồ đoàn
   if (f.sleep) { gx = p.x + (lift ? -11 : 11); gy = p.y + 3; }
-  if (tgt && def.melee) { gx = tgt.x - Math.sign(tgt.x - f.x) * (tgt.r + 4); gy = tgt.y; }
+  if (tgt && def.melee) { gx = tgt.x + Math.sign((tgt.x - p.x) || 1) * (tgt.r + 4); gy = tgt.y; }   // đứng phía bên kia con quái, không chen giữa người và quái che hình nhân vật (chủ dự án 16/11/2026 23:34)
   const dx = gx - f.x, dy = gy - f.y, d = Math.hypot(dx, dy);
   if (d > 160) { f.x = gx; f.y = gy; }
   else if (d > 2) { const s = Math.min(d, (60 + d * 1.5) * dt); f.x += dx / d * s; f.y += dy / d * s; if (Math.abs(dx) > 1) f.face = Math.sign(dx); }

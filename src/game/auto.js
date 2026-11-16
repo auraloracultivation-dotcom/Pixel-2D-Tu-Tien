@@ -9,6 +9,7 @@ import { pbOn, pbWorn } from './phap-bao.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
 import { findPath, leoBac } from './pilot.js';
+import { lootStep } from './loot.js';
 
 // Trong nhà không tự đánh, trừ động phủ có Mộc Nhân (góp ý #114: tự đánh Mộc Nhân để đo sát thương/giây, game/dummy.js)
 const indoorOk = game => !game.map.def.indoor || (game.map.id === game.data.home.map && game.mobs.some(m => m.dummy));
@@ -33,6 +34,8 @@ export function autoStep(game, ax, dt = 0) {
   // Thiên Kim Tinh nhân vật chạy về một góc thay vì đánh quái gần, vì còn nhớ chỗ săn ở tinh cầu trước)
   if (game.autoHomeMap !== game.map.id) { game.autoHomeMap = game.map.id; game.autoHome = { x: p.x, y: p.y }; game.autoTgt = null; game.autoPath = null; }
   const home = game.autoHome ??= { x: p.x, y: p.y };   // bật từ chỗ khác chưa ghi chỗ săn thì lấy chỗ đang đứng
+  const lootDir = lootStep(game);   // đồ rơi chạy qua mới nhặt: hết quái đang đánh mình thì đi nhặt trước (src/game/loot.js)
+  if (lootDir) return { ax: lootDir, atk: false };
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
   let R = cfg.radius;
   const ok = m => m && !m.dead && m.hp > 0 && !m.story && !m.remote && (dun || game.autoBoss || !isBoss(m)) && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? R : R));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được

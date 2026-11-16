@@ -90,7 +90,7 @@ function swing(game) {
     p.face = { x: Math.cos(a), y: Math.sin(a) };
   }
   const ang = Math.atan2(p.face.y, p.face.x), shot = w.attack === 'shot', half = shot ? 0 : w.arc / 2 * Math.PI / 180;
-  const t = startStrike(game, shot ? 'shot' : 'arc', ang, w.range, half);
+  const t = startStrike(game, shot ? 'shot' : 'arc', ang, shot ? w.range : reachW(game, w), half);   // chém: vũ khí bay tới đúng tầm vệt chém (chủ dự án 16/11/2026 23:35)
   p.hitQ = { t, ang, half, w, dmg, move: p.fw.act.move };
   p.swingT = 0.18;
   if (!shot) game.sfx('swing', 0.8);   // tiếng vút lúc vũ khí lao ra

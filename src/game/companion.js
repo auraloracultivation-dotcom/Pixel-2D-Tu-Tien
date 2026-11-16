@@ -12,7 +12,7 @@ export const away = (game, id) => !!game.save.flags[C(game).list[id]?.unless];
 export const isCarry = (game, id) => !!C(game).list[id] && !!game.data.pets.shop?.puppets?.[id];
 export const canInvite = (game, id) => isCarry(game, id) && !!game.save.comps?.[id] && !away(game, id);   // khôi lỗi: phải mua rồi mới mang được
 
-const mk = (game, id, dx) => { const p = game.player; return id && p && C(game).list[id] ? { id, def: C(game).list[id], npc: game.data.npcs[id], x: p.x - dx, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null; };
+const mk = (game, id, dx) => { const p = game.player; return id && p && C(game).list[id] ? { id, def: C(game).list[id], npc: game.data.npcs[id], px: C(game).px || 0, x: p.x - dx, y: p.y - 8, cd: 1, skillCd: 4, hop: 0, face: 1 } : null; };
 export function spawnCompanion(game) {
   const s = game.save;   // bản lưu cũ còn mang người không phải khôi lỗi (Lạc Tuyết, Tiêu Dao): cho về, nhường ô
   if (s.companion2 && !isCarry(game, s.companion2)) s.companion2 = null;

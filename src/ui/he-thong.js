@@ -158,7 +158,9 @@ export function createHeThong(game) {
     const ref = [document.getElementById('btn-art'), document.getElementById('btn-s2')].find(e => e && !e.hidden && e.offsetParent);
     const S = ic.offsetWidth || 44, SH = ic.offsetHeight || 44, W = window.innerWidth;
     let x = W - S - 8, y = window.innerHeight * 0.5;
-    if (ref) { const r = ref.getBoundingClientRect(); x = r.right + 6; y = r.top + (r.height - SH) / 2; if (x + S > W - 4) { x = r.left + (r.width - S) / 2; y = r.top - SH - 8; } }
+    const bang = document.getElementById('bang-duoi');   // bố cục hai bảng (src/ui/hud-bang.js): ngồi ngay trên bảng dưới, góc trái
+    if (bang && !bang.hidden) { const r = bang.getBoundingClientRect(); x = r.left + 4; y = r.top - SH - 6; }
+    else if (ref) { const r = ref.getBoundingClientRect(); x = r.right + 6; y = r.top + (r.height - SH) / 2; if (x + S > W - 4) { x = r.left + (r.width - S) / 2; y = r.top - SH - 8; } }
     ic.style.left = `${Math.round(x)}px`; ic.style.top = `${Math.round(y)}px`;
     tip.style.right = `${Math.round(W - x + 6)}px`; tip.style.top = `${Math.round(y)}px`;
   }

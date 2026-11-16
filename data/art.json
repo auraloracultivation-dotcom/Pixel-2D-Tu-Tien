@@ -267,6 +267,266 @@
    "note": "Hồ Linh: Canva theo mẫu chibi chủ dự án (29/10), 5 dáng đứng, chạy ×2, lấy đà, đánh; ngã = đứng xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "comp.kl-bach-kiem-bao": {
+   "file": "assets/art/kl-bach-kiem-bao.png",
+   "v": "17421669",
+   "w": 63,
+   "h": 63,
+   "frames": 7,
+   "anchor": [
+    30,
+    61
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Bạch Kiếm Bào (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-bang-y-han-bang": {
+   "file": "assets/art/hero-y-bang-y-han-bang-nu.png",
+   "v": "1aaef5d5",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Khôi lỗi Băng y Hàn Băng: dùng chung hero.y-bang-y-han-bang-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-bi-ngo": {
+   "file": "assets/art/hero-y-bi-ngo-nam.png",
+   "v": "ae4d5a73",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Khôi lỗi Áo choàng Bí Ngô: dùng chung hero.y-bi-ngo-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-dong-phuc": {
+   "file": "assets/art/hero-y-dong-phuc-nam.png",
+   "v": "c02c5e9f",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Khôi lỗi Đồng phục Kiếm tông: dùng chung hero.y-dong-phuc-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-hac-y": {
+   "file": "assets/art/hero-y-hac-y-nam.png",
+   "v": "d52ab827",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Khôi lỗi Hắc y dạ hành: dùng chung hero.y-hac-y-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-hoang-kim": {
+   "file": "assets/art/hero-y-hoang-kim-nam.png",
+   "v": "4a4c88b2",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "Khôi lỗi Hoàng Kim Long Bào: dùng chung hero.y-hoang-kim-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-hong-y": {
+   "file": "assets/art/hero-y-hong-y-nu.png",
+   "v": "bd7d11cc",
+   "w": 80,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    40,
+    42
+   ],
+   "note": "Khôi lỗi Hồng y hoa đào: dùng chung hero.y-hong-y-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-huyet-giap": {
+   "file": "assets/art/hero-y-huyet-giap-nam.png",
+   "v": "dbe59ccb",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "Khôi lỗi Huyết giáp săn yêu: dùng chung hero.y-huyet-giap-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-huyet-nguyet": {
+   "file": "assets/art/kl-huyet-nguyet.png",
+   "v": "bfa10285",
+   "w": 99,
+   "h": 99,
+   "frames": 7,
+   "anchor": [
+    49,
+    98
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Huyết Nguyệt (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-luc-bao-thanh-moc": {
+   "file": "assets/art/hero-y-luc-bao-thanh-moc-nam.png",
+   "v": "7ee925b1",
+   "w": 60,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    30,
+    42
+   ],
+   "note": "Khôi lỗi Lục bào Thanh Mộc: dùng chung hero.y-luc-bao-thanh-moc-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-ly-hoa": {
+   "file": "assets/art/kl-ly-hoa.png",
+   "v": "5b7e650e",
+   "w": 63,
+   "h": 63,
+   "frames": 7,
+   "anchor": [
+    31,
+    61
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Ly Hoa (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-tet-do": {
+   "file": "assets/art/hero-y-tet-do-nam.png",
+   "v": "c753897c",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Khôi lỗi Áo Tết đỏ thắm: dùng chung hero.y-tet-do-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-than-nguyen-y": {
+   "file": "assets/art/kl-than-nguyen-y.png",
+   "v": "59cd69c5",
+   "w": 70,
+   "h": 70,
+   "frames": 7,
+   "anchor": [
+    35,
+    68
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Thần Nguyên Y (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-thanh-sam": {
+   "file": "assets/art/hero-y-thanh-sam-nu.png",
+   "v": "682dd893",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "Khôi lỗi Thanh sam thư sinh: dùng chung hero.y-thanh-sam-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-thien-mach-bao": {
+   "file": "assets/art/hero-y-thien-mach-bao-nu.png",
+   "v": "01d94730",
+   "w": 82,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    41,
+    42
+   ],
+   "note": "Khôi lỗi Thiên Mạch bào: dùng chung hero.y-thien-mach-bao-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-tho-bao-hau-tho": {
+   "file": "assets/art/hero-y-tho-bao-hau-tho-nam.png",
+   "v": "e3dc323e",
+   "w": 58,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    29,
+    42
+   ],
+   "note": "Khôi lỗi Thổ bào Hậu Thổ: dùng chung hero.y-tho-bao-hau-tho-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-tien-nhan": {
+   "file": "assets/art/hero-y-tien-nhan-nu.png",
+   "v": "abc94d49",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "Khôi lỗi Tiên Nhân Bạch Y: dùng chung hero.y-tien-nhan-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "comp.kl-tu-liem-y": {
+   "file": "assets/art/kl-tu-liem-y.png",
+   "v": "2799d143",
+   "w": 108,
+   "h": 79,
+   "frames": 7,
+   "anchor": [
+    63,
+    77
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Tử Liềm Y (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-tu-linh-ma-yeu": {
+   "file": "assets/art/kl-tu-linh-ma-yeu.png",
+   "v": "985276b5",
+   "w": 52,
+   "h": 52,
+   "frames": 7,
+   "anchor": [
+    26,
+    50
+   ],
+   "scale": 0.5333,
+   "note": "Khôi lỗi Tử Linh Ma Yêu (đồ cũ, tools/do_cu.py)"
+  },
+  "comp.kl-tuyet-lanh": {
+   "file": "assets/art/hero-y-tuyet-lanh-nu.png",
+   "v": "b439323e",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "Khôi lỗi Áo lông Tuyết Lành: dùng chung hero.y-tuyet-lanh-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
   "comp.lac-tuyet": {
    "file": "assets/art/comp-lac-tuyet.png",
    "v": "f68719e6",
@@ -18008,6 +18268,370 @@
    "note": "Đại Ma Thần (Đài Ma Thần, Thiên Kiếm Phong): Canva chibi 31/10/2026 (bản đầu đầu nhỏ bị chủ dự án chê), 5 dáng; cao hơn NPC chuẩn, sừng, lửa tím · ảnh chủ dự án 7 khung",
    "scale": 0.5333
   },
+  "npc.dc-bang-y-han-bang-nam": {
+   "file": "assets/art/hero-y-bang-y-han-bang-nam.png",
+   "v": "e3ecaec7",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "NPC Hàn Băng kiếm khách: dùng chung hero.y-bang-y-han-bang-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-bi-ngo-nu": {
+   "file": "assets/art/hero-y-bi-ngo-nu.png",
+   "v": "511152a2",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "NPC Cô bé Bí Ngô: dùng chung hero.y-bi-ngo-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-dong-phuc-nu": {
+   "file": "assets/art/hero-y-dong-phuc-nu.png",
+   "v": "d77cef86",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "NPC Nữ đệ tử Kiếm tông: dùng chung hero.y-dong-phuc-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hac-y-nu": {
+   "file": "assets/art/hero-y-hac-y-nu.png",
+   "v": "ddb1ee18",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "NPC Nữ hiệp dạ hành: dùng chung hero.y-hac-y-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hoa-bao-xich-diem-nam": {
+   "file": "assets/art/hero-y-hoa-bao-xich-diem-nam.png",
+   "v": "845f6ae3",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "NPC Lữ khách Hỏa bào Xích Diễm: dùng chung hero.y-hoa-bao-xich-diem-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hoa-bao-xich-diem-nu": {
+   "file": "assets/art/hero-y-hoa-bao-xich-diem-nu.png",
+   "v": "f22e88ed",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Hỏa bào Xích Diễm: dùng chung hero.y-hoa-bao-xich-diem-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hoang-kim-nu": {
+   "file": "assets/art/hero-y-hoang-kim-nu.png",
+   "v": "b4d8630b",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "NPC Kim y quý nữ: dùng chung hero.y-hoang-kim-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hong-y-nam": {
+   "file": "assets/art/hero-y-hong-y-nam.png",
+   "v": "6b0fa4bb",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "NPC Công tử áo hồng: dùng chung hero.y-hong-y-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hu-khong-tu-y-nam": {
+   "file": "assets/art/hero-y-hu-khong-tu-y-nam.png",
+   "v": "2a5f43fa",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "NPC Lữ khách Hư Không Tử Y: dùng chung hero.y-hu-khong-tu-y-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-hu-khong-tu-y-nu": {
+   "file": "assets/art/hero-y-hu-khong-tu-y-nu.png",
+   "v": "87320095",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    36,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Hư Không Tử Y: dùng chung hero.y-hu-khong-tu-y-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-huyet-giap-nu": {
+   "file": "assets/art/hero-y-huyet-giap-nu.png",
+   "v": "0a53b220",
+   "w": 78,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    39,
+    42
+   ],
+   "note": "NPC Nữ thợ săn yêu: dùng chung hero.y-huyet-giap-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-kim-bao-nam": {
+   "file": "assets/art/hero-y-kim-bao-nam.png",
+   "v": "e31c496d",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "NPC Lữ khách Kim bào: dùng chung hero.y-kim-bao-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-kim-bao-nu": {
+   "file": "assets/art/hero-y-kim-bao-nu.png",
+   "v": "71cc6e9a",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Kim bào: dùng chung hero.y-kim-bao-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-kim-y-thien-kim-nam": {
+   "file": "assets/art/hero-y-kim-y-thien-kim-nam.png",
+   "v": "593dfedd",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "NPC Lữ khách Kim y Thiên Kim: dùng chung hero.y-kim-y-thien-kim-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-kim-y-thien-kim-nu": {
+   "file": "assets/art/hero-y-kim-y-thien-kim-nu.png",
+   "v": "2f81a9a1",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Kim y Thiên Kim: dùng chung hero.y-kim-y-thien-kim-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-luc-bao-thanh-moc-nu": {
+   "file": "assets/art/hero-y-luc-bao-thanh-moc-nu.png",
+   "v": "4206d500",
+   "w": 70,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    35,
+    42
+   ],
+   "note": "NPC Thanh Mộc dược nữ: dùng chung hero.y-luc-bao-thanh-moc-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-phong-bao-hac-phong-nam": {
+   "file": "assets/art/hero-y-phong-bao-hac-phong-nam.png",
+   "v": "ead70c01",
+   "w": 62,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    31,
+    42
+   ],
+   "note": "NPC Lữ khách Phong bào Hắc Phong: dùng chung hero.y-phong-bao-hac-phong-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-phong-bao-hac-phong-nu": {
+   "file": "assets/art/hero-y-phong-bao-hac-phong-nu.png",
+   "v": "e3383030",
+   "w": 80,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    40,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Phong bào Hắc Phong: dùng chung hero.y-phong-bao-hac-phong-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tet-do-nu": {
+   "file": "assets/art/hero-y-tet-do-nu.png",
+   "v": "891e81bb",
+   "w": 72,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    36,
+    42
+   ],
+   "note": "NPC Cô nương áo Tết: dùng chung hero.y-tet-do-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-thanh-sam-nam": {
+   "file": "assets/art/hero-y-thanh-sam-nam.png",
+   "v": "fe9c0171",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "NPC Thư sinh áo xanh: dùng chung hero.y-thanh-sam-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-thien-kiem-bao-nam": {
+   "file": "assets/art/hero-y-thien-kiem-bao-nam.png",
+   "v": "79fcb4e1",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "NPC Lữ khách Thiên Kiếm bào: dùng chung hero.y-thien-kiem-bao-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-thien-kiem-bao-nu": {
+   "file": "assets/art/hero-y-thien-kiem-bao-nu.png",
+   "v": "4cd6997c",
+   "w": 76,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    38,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Thiên Kiếm bào: dùng chung hero.y-thien-kiem-bao-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-thien-mach-bao-nam": {
+   "file": "assets/art/hero-y-thien-mach-bao-nam.png",
+   "v": "d8c27543",
+   "w": 66,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "NPC Thiên Mạch đạo nhân: dùng chung hero.y-thien-mach-bao-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tho-bao-hau-tho-nu": {
+   "file": "assets/art/hero-y-tho-bao-hau-tho-nu.png",
+   "v": "8844021f",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "NPC Hậu Thổ nữ thương: dùng chung hero.y-tho-bao-hau-tho-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tien-nhan-nam": {
+   "file": "assets/art/hero-y-tien-nhan-nam.png",
+   "v": "412fb95a",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "NPC Bạch y tiên khách: dùng chung hero.y-tien-nhan-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tu-bao-nam": {
+   "file": "assets/art/hero-y-tu-bao-nam.png",
+   "v": "053f165e",
+   "w": 68,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    34,
+    42
+   ],
+   "note": "NPC Lữ khách Tử bào: dùng chung hero.y-tu-bao-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tu-bao-nu": {
+   "file": "assets/art/hero-y-tu-bao-nu.png",
+   "v": "7ace9cf4",
+   "w": 74,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    37,
+    42
+   ],
+   "note": "NPC Nữ lữ khách Tử bào: dùng chung hero.y-tu-bao-nu (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
+  "npc.dc-tuyet-lanh-nam": {
+   "file": "assets/art/hero-y-tuyet-lanh-nam.png",
+   "v": "c70c02d4",
+   "w": 64,
+   "h": 44,
+   "frames": 7,
+   "anchor": [
+    32,
+    42
+   ],
+   "note": "NPC Chàng trai Tuyết Lành: dùng chung hero.y-tuyet-lanh-nam (đồ cũ, tools/do_cu.py)",
+   "scale": 0.5333
+  },
   "npc.du-tang": {
    "file": "assets/art/npc-du-tang.png",
    "v": "13cf9434",
@@ -18744,286 +19368,16 @@
    "note": "Hiệu ứng pháp bảo: SpriteCook linh-chau.webp (8 khung, thu 1/2)"
   },
   "pet.bang-tinh": {
-   "file": "assets/art/linh-thu-bang-tinh.png",
-   "v": "b8ff43b0",
-   "w": 63,
-   "h": 43,
-   "frames": 24,
-   "anchor": [
-    31,
-    42
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Băng Tinh Nhi: hình thú mới ho-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.hoa-lang": {
-   "file": "assets/art/linh-thu-hoa-lang.png",
-   "v": "8bbc5de0",
-   "w": 61,
-   "h": 40,
-   "frames": 24,
-   "anchor": [
-    30,
-    39
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Tiểu Hỏa Lang: hình thú mới hoa-long thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.hu-anh": {
-   "file": "assets/art/linh-thu-hu-anh.png",
-   "v": "ea033ecc",
+   "file": "assets/art/qm-bang-tinh.png",
+   "v": "f1b9750b",
    "w": 52,
-   "h": 48,
-   "frames": 24,
-   "anchor": [
-    26,
-    48
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Tiểu U Ảnh: hình thú mới huou-sao thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.kiem-hon": {
-   "file": "assets/art/linh-thu-kiem-hon.png",
-   "v": "5ca90342",
-   "w": 63,
-   "h": 63,
-   "frames": 24,
-   "anchor": [
-    31,
-    62
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Tiểu Kiếm Linh: hình thú mới su-thuu thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.ma-cung": {
-   "file": "assets/art/linh-thu-ma-cung.png",
-   "v": "8e5c8d64",
-   "w": 62,
-   "h": 45,
-   "frames": 24,
-   "anchor": [
-    30,
-    44
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Ma Tiễn Đồng: hình thú mới bach-tuoc thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.ma-tieu": {
-   "file": "assets/art/linh-thu-ma-tieu.png",
-   "v": "a17d1a1c",
-   "w": 56,
-   "h": 43,
-   "frames": 24,
-   "anchor": [
-    26,
-    42
-   ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 20,
-   "fps": 8,
-   "note": "Tiểu Quỷ: hình thú mới nhen-pha-le thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.moc-linh": {
-   "file": "assets/art/linh-thu-moc-linh.png",
-   "v": "516ecab5",
-   "w": 52,
-   "h": 42,
-   "frames": 24,
+   "h": 52,
+   "frames": 16,
    "anchor": [
     25,
-    41
+    50
    ],
-   "px": 0.5333,
+   "px": 0.4,
    "idle": [
     0,
     1,
@@ -19035,41 +19389,6 @@
     7
    ],
    "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 19,
-   "fps": 8,
-   "note": "Tiểu Mộc Linh: hình thú mới coc-sen thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.moc-yeu": {
-   "file": "assets/art/linh-thu-moc-yeu.png",
-   "v": "35964e4c",
-   "w": 60,
-   "h": 46,
-   "frames": 24,
-   "anchor": [
-    29,
-    45
-   ],
-   "px": 0.5333,
-   "idle": [
     0,
     1,
     2,
@@ -19079,7 +19398,7 @@
     6,
     7
    ],
-   "walk": [
+   "atk": [
     8,
     9,
     10,
@@ -19089,76 +19408,21 @@
     14,
     15
    ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 19,
+   "hit": 11,
    "fps": 8,
-   "note": "Tiểu Thụ Yêu: hình thú mới rua-non-bo thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+   "note": "Băng Tinh Nhi: dùng chung tấm hình quái bang-tinh (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
   },
-  "pet.phong-yeu": {
-   "file": "assets/art/linh-thu-phong-yeu.png",
-   "v": "3899cc61",
-   "w": 60,
-   "h": 50,
+  "pet.hoa-lang": {
+   "file": "assets/art/qm-hoa-lang.png",
+   "v": "9fa9ccc9",
+   "w": 56,
+   "h": 56,
    "frames": 24,
    "anchor": [
-    30,
-    49
+    27,
+    56
    ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 18,
-   "fps": 8,
-   "note": "Tiểu Phong Yêu: hình thú mới huou-may thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.tho-khoi": {
-   "file": "assets/art/linh-thu-tho-khoi.png",
-   "v": "ef92da44",
-   "w": 58,
-   "h": 47,
-   "frames": 24,
-   "anchor": [
-    29,
-    46
-   ],
-   "px": 0.5333,
+   "px": 0.4,
    "idle": [
     0,
     1,
@@ -19191,64 +19455,379 @@
    ],
    "hit": 20,
    "fps": 8,
-   "note": "Tiểu Thạch Khôi: hình thú mới su-tu-da thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+   "note": "Tiểu Hỏa Lang: dùng chung tấm hình quái hoa-lang (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.hu-anh": {
+   "file": "assets/art/qm-hu-anh.png",
+   "v": "954bbdcc",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    28,
+    56
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "atk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "hit": 12,
+   "fps": 8,
+   "note": "Tiểu U Ảnh: dùng chung tấm hình quái hu-anh (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.kiem-hon": {
+   "file": "assets/art/qm-kiem-hon.png",
+   "v": "1d4e1b86",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    57
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "atk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "hit": 10,
+   "fps": 8,
+   "note": "Tiểu Kiếm Linh: dùng chung tấm hình quái kiem-hon (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.ma-cung": {
+   "file": "assets/art/qm-ma-cung.png",
+   "v": "1cb2b2eb",
+   "w": 58,
+   "h": 58,
+   "frames": 24,
+   "anchor": [
+    29,
+    56
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Ma Tiễn Đồng: dùng chung tấm hình quái ma-cung (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.ma-tieu": {
+   "file": "assets/art/qm-ma-tieu.png",
+   "v": "f15bb197",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    26,
+    50
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Quỷ: dùng chung tấm hình quái ma-tieu (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.moc-linh": {
+   "file": "assets/art/qm-moc-linh.png",
+   "v": "3ac96c4d",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    26,
+    47
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 21,
+   "fps": 8,
+   "note": "Tiểu Mộc Linh: dùng chung tấm hình quái moc-linh (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.moc-yeu": {
+   "file": "assets/art/qm-moc-yeu.png",
+   "v": "96a00538",
+   "w": 62,
+   "h": 62,
+   "frames": 24,
+   "anchor": [
+    31,
+    58
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 20,
+   "fps": 8,
+   "note": "Tiểu Thụ Yêu: dùng chung tấm hình quái moc-yeu (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.phong-yeu": {
+   "file": "assets/art/qm-phong-yeu.png",
+   "v": "f1adb4ee",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    28,
+    54
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "atk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "hit": 11,
+   "fps": 8,
+   "note": "Tiểu Phong Yêu: dùng chung tấm hình quái phong-yeu (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.tho-khoi": {
+   "file": "assets/art/qm-tho-khoi.png",
+   "v": "79d14c8b",
+   "w": 66,
+   "h": 66,
+   "frames": 24,
+   "anchor": [
+    33,
+    59
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "atk": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "hit": 19,
+   "fps": 8,
+   "note": "Tiểu Thạch Khôi: dùng chung tấm hình quái tho-khoi (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
   },
   "pet.tuyet-lang": {
-   "file": "assets/art/linh-thu-tuyet-lang.png",
-   "v": "cec13066",
-   "w": 59,
-   "h": 37,
+   "file": "assets/art/qm-tuyet-lang.png",
+   "v": "7345e1e4",
+   "w": 56,
+   "h": 56,
    "frames": 24,
    "anchor": [
     28,
-    37
+    56
    ],
-   "px": 0.5333,
-   "idle": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-   ],
-   "walk": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15
-   ],
-   "atk": [
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-   ],
-   "hit": 19,
-   "fps": 8,
-   "note": "Tiểu Tuyết Lang: hình thú mới cuu-vi-ho thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
-  },
-  "pet.viem-linh": {
-   "file": "assets/art/linh-thu-viem-linh.png",
-   "v": "faa14d05",
-   "w": 63,
-   "h": 63,
-   "frames": 24,
-   "anchor": [
-    31,
-    63
-   ],
-   "px": 0.5333,
+   "px": 0.4,
    "idle": [
     0,
     1,
@@ -19281,7 +19860,52 @@
    ],
    "hit": 20,
    "fps": 8,
-   "note": "Viêm Linh Nhi: hình thú mới phuong-hoang thu nửa cỡ (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 22:58)"
+   "note": "Tiểu Tuyết Lang: dùng chung tấm hình quái tuyet-lang (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
+  },
+  "pet.viem-linh": {
+   "file": "assets/art/qm-viem-linh.png",
+   "v": "7551ea69",
+   "w": 52,
+   "h": 52,
+   "frames": 16,
+   "anchor": [
+    26,
+    50
+   ],
+   "px": 0.4,
+   "idle": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "walk": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "atk": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "hit": 12,
+   "fps": 8,
+   "note": "Viêm Linh Nhi: dùng chung tấm hình quái viem-linh (Bộ Quái Mới), vẽ bằng 0.75 lần cỡ quái (tools/art/linh_thu_moi.py, chủ dự án 16/11/2026 23:3x)"
   },
   "pfx.am-ba": {
    "file": "assets/art/pfx-am-ba.png",

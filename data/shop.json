@@ -35,6 +35,20 @@
   "ong-hai-nam": {"kind": "pill", "id": "tay-tuy-dan", "price": 50000, "per_day": 1, "line": "Tẩy Tủy Đan từ nấm linh chi vạn năm, nâng phẩm linh căn."},
   "co-ban-nuoc": {"kind": "mat", "id": "dao-van-thach", "price": 50000, "per_day": 1, "line": "Đá dưới đáy giếng kim sa đã nhiễm đạo vận, đổi hệ trang bị được."},
   "lao-nong": {"kind": "mat", "id": "manh-phap-bao", "price": 3000, "per_day": 2, "line": "Cày ruộng hay gặp mảnh pháp bảo cổ, ngươi cần thì mua."},
-  "chi-ganh-da": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."}, "thuong-nhan": {"kind": "mat", "id": "hoa-linh-chi", "price": 500, "per_day": 3, "line": "Hỏa Linh Chi hái trên miệng núi lửa, luyện đan rèn đồ đều cần tới."}, "hoa-su": {"kind": "mat", "id": "linh-thao", "price": 150, "per_day": 5, "line": "Linh thảo ta vẽ xong thì hái luôn, tươi rói, mua đi đạo hữu."}, "ong-do": {"kind": "pill", "id": "hoi-linh-dan", "price": 60, "per_day": 5, "line": "Mua chữ thì không bán, chứ Hồi Linh Đan thì có. Ông đồ cũng phải sống chứ."}
+  "chi-ganh-da": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."}, "thuong-nhan": {"kind": "mat", "id": "hoa-linh-chi", "price": 500, "per_day": 3, "line": "Hỏa Linh Chi hái trên miệng núi lửa, luyện đan rèn đồ đều cần tới."}, "hoa-su": {"kind": "mat", "id": "linh-thao", "price": 150, "per_day": 5, "line": "Linh thảo ta vẽ xong thì hái luôn, tươi rói, mua đi đạo hữu."}, "ong-do": {"kind": "pill", "id": "hoi-linh-dan", "price": 60, "per_day": 5, "line": "Mua chữ thì không bán, chứ Hồi Linh Đan thì có. Ông đồ cũng phải sống chứ."},
+  "dc-dong-phuc-nu": {"kind": "mat", "id": "linh-thao", "price": 150, "per_day": 5, "line": "Linh thảo ta vẽ xong thì hái luôn, tươi rói, mua đi đạo hữu."},
+  "dc-thanh-sam-nam": {"kind": "pill", "id": "hoi-linh-dan", "price": 60, "per_day": 5, "line": "Mua chữ thì không bán, chứ Hồi Linh Đan thì có. Ông đồ cũng phải sống chứ."},
+  "dc-hac-y-nu": {"kind": "pill", "id": "tinh-lien-dan", "price": 4000, "per_day": 1, "line": "Tĩnh Liên Đan, cả tinh hệ chỉ ta còn giữ công thức."},
+  "dc-hong-y-nam": {"kind": "mat", "id": "linh-thao", "price": 150, "per_day": 5, "line": "Linh thảo ta vẽ xong thì hái luôn, tươi rói, mua đi đạo hữu."},
+  "dc-huyet-giap-nu": {"kind": "mat", "id": "hoa-linh-chi", "price": 500, "per_day": 3, "line": "Hỏa Linh Chi hái trên miệng núi lửa, luyện đan rèn đồ đều cần tới."},
+  "dc-bi-ngo-nu": {"kind": "pill", "id": "tu-van-dan", "price": 1200, "per_day": 2, "line": "Tử Vân Đan của làng tinh linh, linh khí tím biếc."},
+  "dc-tuyet-lanh-nam": {"kind": "pill", "id": "thanh-tam-dan", "price": 1500, "per_day": 2, "line": "Thanh Tâm Đan làm từ tuyết liên, giữ tâm tĩnh khi độ kiếp."},
+  "dc-tien-nhan-nam": {"kind": "pill", "id": "boi-nguyen-dan", "price": 2000, "per_day": 1, "line": "Lửa lò than này nung ra Bồi Nguyên Đan, bồi bổ khí huyết."},
+  "dc-hoang-kim-nu": {"kind": "mat", "id": "dao-van-thach", "price": 50000, "per_day": 1, "line": "Đá dưới đáy giếng kim sa đã nhiễm đạo vận, đổi hệ trang bị được."},
+  "dc-tet-do-nu": {"kind": "pill", "id": "hoi-linh-dan", "price": 60, "per_day": 5, "line": "Mua chữ thì không bán, chứ Hồi Linh Đan thì có. Ông đồ cũng phải sống chứ."},
+  "dc-thien-mach-bao-nam": {"kind": "mat", "id": "manh-phap-bao", "price": 3000, "per_day": 2, "line": "Cày ruộng hay gặp mảnh pháp bảo cổ, ngươi cần thì mua."},
+  "dc-bang-y-han-bang-nam": {"kind": "pill", "id": "thanh-tam-dan", "price": 1500, "per_day": 2, "line": "Thanh Tâm Đan làm từ tuyết liên, giữ tâm tĩnh khi độ kiếp."},
+  "dc-luc-bao-thanh-moc-nu": {"kind": "pill", "id": "tu-khi-dan", "price": 300, "per_day": 3, "line": "Đan này ta luyện từ nhựa thông ngàn năm, uống vào linh khí dồi dào."},
+  "dc-tho-bao-hau-tho-nu": {"kind": "mat", "id": "tinh-thiet", "price": 400, "per_day": 5, "line": "Tinh thiết đãi từ đá núi Hậu Thổ, rèn đồ tốt lắm."}
  }
 }

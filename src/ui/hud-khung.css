@@ -1,0 +1,126 @@
+/* Hình khung bố cục hai bảng theo tấm bộ khung chủ dự án gửi (17/11/2026 02:20: "áp dụng thử đi, tôi muốn kết quả giống ảnh 2").
+   Ảnh của chủ dự án dùng thẳng, chỉ cắt món (tools/art/khung_kg.py → assets/art/ui-kg-*.png), hiện mịn đúng như ảnh (không thu về điểm ảnh).
+   Bảng trên là nguyên một tấm có sẵn ô ảnh đại diện, chỗ 4 thanh, 8 ô chức năng, ô bản đồ, vương miện: tấm co theo bề ngang màn
+   (--s = điểm CSS cho mỗi điểm ảnh gốc), các nút, thanh, ảnh đặt đúng vào ô vẽ sẵn theo số đo trên ảnh gốc (khung_kg.py).
+   Vị trí phần còn lại ở src/ui/hud-bang.css (nạp trước). Thay bản khung SpriteCook 02:1x (chủ dự án chê không giống). */
+html body.hud-bang {
+  --pw: calc(100vw - var(--sl) - var(--sr) - 8px);   /* bề ngang bảng trên */
+  --s: calc(var(--pw) / 1585);   /* ảnh gốc bảng trên rộng 1585 */
+  --L: calc(var(--sl) + 4px); --T: calc(var(--st) + 2px);   /* góc trái trên của tấm (điểm 23, 3 trên ảnh gốc) */
+  --tren-h: calc(var(--s) * 387);
+  --atk: 70px; --tron: 44px;
+}
+
+/* ---- bảng trên: nguyên tấm ---- */
+#bang-tren { left: var(--L); top: var(--T); right: auto; width: var(--pw); height: var(--tren-h); border: 0; border-radius: 0; box-shadow: none;
+  background: url("../../assets/art/ui-kg-tren.webp") 0 0 / 100% 100% no-repeat; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .5)); }
+
+/* thẻ nhân vật: ô ảnh đại diện (73, 96, 210 × 223), lực chiến trên, 4 thanh đè đúng chỗ thanh vẽ sẵn (x 305–655, mỗi thanh cao 34, cách 7,7) */
+html body.hud-bang #hud .bars { left: calc(var(--L) + 50 * var(--s)) !important; top: calc(var(--T) + 93 * var(--s)) !important;
+  width: calc(582 * var(--s)) !important; max-width: none !important; height: calc(251 * var(--s)) !important; padding: 0 !important;
+  grid-template-columns: calc(210 * var(--s)) minmax(0, 1fr) !important; column-gap: calc(22 * var(--s)) !important; row-gap: calc(7.7 * var(--s)) !important;
+  grid-template-rows: calc(84.3 * var(--s)) repeat(4, calc(34 * var(--s))) !important; grid-template-areas: "ava pow" "ava hp" "ava mp" "ava no" "ava qi" !important; align-content: start !important; }
+html body.hud-bang #hud .bars::before { content: none !important; }
+html body.hud-bang #realm { display: none !important; }   /* tên đã hiện trên đầu nhân vật; ảnh mẫu chỉ có lực chiến */
+html body.hud-bang #power { align-self: end; height: 16px !important; }
+html body.hud-bang #hud .bars .bar { height: auto !important; align-self: stretch !important; border-radius: 99px !important; box-shadow: 0 0 0 1px #6b4a2c, inset 0 0 0 1px #000 !important; }
+html body.hud-bang #hud .bars .bar i { border-radius: 99px !important; }
+html body.hud-bang #hud .bars .bar span { font-size: 7.5px !important; }
+html body.hud-bang #uk-ava.v2 { width: calc(210 * var(--s)) !important; height: calc(223 * var(--s)) !important; align-self: start !important; }
+html body.hud-bang #uk-ava.v2 canvas { left: calc(11 * var(--s)) !important; top: calc(11 * var(--s)) !important; width: calc(188 * var(--s)) !important; height: calc(201 * var(--s)) !important;
+  border: 0 !important; border-radius: 3px !important; box-shadow: none !important; }
+html body.hud-bang #uk-ava.v2 i { display: none !important; }
+html body.hud-bang #uk-ava.v2 b { left: calc(11 * var(--s)) !important; right: calc(11 * var(--s)) !important; bottom: calc(11 * var(--s)) !important; }
+
+/* 8 ô chức năng: cột x 702 + c × 146,3 (c 0–3 từ trái), hàng y 85 / 225, ô 128 × 122; --cot / --tron2 đếm từ phải */
+html body.hud-bang :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], #uk-gon.uk-tog.kg) {
+  width: calc(128 * var(--s)) !important; height: calc(122 * var(--s)) !important; right: auto !important;
+  background: none !important; border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important; filter: none !important; }
+html body.hud-bang #hud .hud-btns > button.tron[data-cot] { left: calc(var(--L) + (679 + (3 - var(--cot)) * 146.3) * var(--s)) !important; top: calc(var(--T) + 82 * var(--s)) !important; }
+html body.hud-bang #hud .hud-btns > button.tron[data-tron2] { left: calc(var(--L) + (679 + (3 - var(--tron2)) * 146.3) * var(--s)) !important; top: calc(var(--T) + 222 * var(--s)) !important; }
+html body.hud-bang #hud .hud-btns > button.tron:is([data-cot], [data-tron2])::before { width: 19px !important; height: 18px !important; top: 2px !important; }
+html body.hud-bang #hud .hud-btns > button.tron:is([data-cot], [data-tron2])::after { bottom: 1px !important; font-size: 7px !important; left: -4px !important; right: -4px !important; }
+html body.hud-bang #hud .hud-btns > button.tron:is([data-cot], [data-tron2]):active { filter: brightness(1.3) !important; }
+html body.hud-bang .uk-tog#uk-gon { left: calc(var(--L) + 1117.9 * var(--s)) !important; right: auto !important; top: calc(var(--T) + 222 * var(--s)) !important;
+  width: calc(128 * var(--s)) !important; height: calc(122 * var(--s)) !important; border: 0 !important; border-image: none !important; box-shadow: none !important;
+  background: url("../../assets/art/ui-ic-lui.png") center / 55% auto no-repeat !important; }
+
+/* ô bản đồ (1302, 94, 256 × 241): bản đồ trong lòng ô, nút mắt góc trên phải, tên nơi đứng dải dưới */
+html body.hud-bang #mini-map { left: calc(var(--L) + 1290 * var(--s)) !important; right: auto !important; top: calc(var(--T) + 102 * var(--s)) !important;
+  width: calc(234 * var(--s)) !important; height: calc(219 * var(--s)) !important; }
+html body.hud-bang #mini-map canvas { left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; border: 0 !important; border-radius: 3px !important; box-shadow: none !important; }
+html body.hud-bang #mini-map i { display: none !important; }
+html body.hud-bang #mini-map b { bottom: 1px !important; max-width: 96% !important; font-size: 7px !important; }
+html body.hud-bang .uk-tog#uk-an { left: calc(var(--L) + 1524 * var(--s) - 20px) !important; right: auto !important; top: calc(var(--T) + 104 * var(--s)) !important;
+  width: 20px !important; height: 20px !important; background-color: rgba(30, 16, 50, .75) !important; border-radius: 4px !important; }
+
+/* ---- dưới bảng trên: thẻ bậc dùng khung thẻ dài ---- */
+html body.hud-bang #bac-hud { border-image: url("../../assets/art/ui-kg-the.webp") 30 fill / calc(30 * var(--s) * 1.6) / 0 stretch !important; background: none !important; box-shadow: none !important; }
+
+/* ---- bảng dưới: khung tím lớn cắt 9 mảnh (đá góc cùng cỡ đá bảng trên) ---- */
+#bang-duoi { border: 0; border-radius: 0; box-shadow: none; background: none; filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, .45));
+  border-image: url("../../assets/art/ui-kg-bang.webp") 52 fill / calc(52 * var(--s)) / 0 stretch; }
+
+/* 4 ô pháp bảo: viền ô vuông đè lên hình pháp bảo (hình là nền của nút) */
+html body.hud-bang #buttons > button.btn.skill:is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { border: 0 !important; border-image: none !important; border-radius: 6px !important;
+  background-color: rgba(34, 18, 58, .95) !important; box-shadow: 0 0 6px var(--gc, transparent) !important; overflow: visible !important; }
+html body.hud-bang #buttons > button.btn.skill:is(#btn-s0, #btn-s1, #btn-s2, #btn-art)::after { display: block !important; content: '' !important; position: absolute !important; inset: 0 !important;
+  z-index: 3; pointer-events: none; background: url("../../assets/art/ui-kg-o-vien.webp") 0 0 / 100% 100% no-repeat !important; border: 0 !important; filter: none !important;
+  animation: none !important; -webkit-mask: none !important; mask: none !important; }
+html body.hud-bang #buttons > button.btn.skill .cd { inset: 3px !important; border-radius: 4px !important; }
+html body.hud-bang #buttons > button.btn.skill b { z-index: 4 !important; }
+
+/* Túi đồ, Đan, Cưỡi, Lướt, Tự đánh: ô vuông có đá góc */
+html body.hud-bang :is(#hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #buttons #btn-dash, #buttons #btn-auto) {
+  background: url("../../assets/art/ui-kg-o.webp") 0 0 / 100% 100% no-repeat !important; border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important; }
+html body.hud-bang #buttons :is(#btn-dash, #btn-auto) { width: var(--tron) !important; height: var(--tron) !important; }
+html body.hud-bang #buttons #btn-dash .cd { inset: 4px !important; border-radius: 5px !important; }
+html body.hud-bang #buttons #btn-auto.on { filter: brightness(1.25) drop-shadow(0 0 5px rgba(255, 200, 90, .95)) !important; color: #ffe08a !important; }
+
+/* Đánh: khung viền lửa cam 70 × 72, hình vũ khí đang cầm nằm trên */
+html body.hud-bang #buttons #btn-atk { height: 72px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  background: url("../../assets/art/ui-kg-danh.webp") 0 0 / 100% 100% no-repeat !important; }
+html body.hud-bang #buttons #btn-atk::after { display: none !important; }
+html body.hud-bang #buttons #btn-atk .atk-ico { inset: 20% !important; z-index: 1; }
+html body.hud-bang #buttons #btn-atk > b { z-index: 2; }
+html body.hud-bang #buttons #btn-atk:active { filter: brightness(1.25); }
+
+/* Tắt màn hình: viên tròn dài */
+html body.hud-bang #btn-man-toi { height: 28px !important; padding: 0 12px 0 24px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; color: #fff1c8 !important;
+  background: url("../../assets/art/ui-kg-vien-tron.webp") 0 0 / 100% 100% no-repeat !important; }
+html body.hud-bang #btn-man-toi::before { left: 10px !important; }
+
+/* thẻ bậc (Bậc 1/6 · việc · 0/1) nhỏ lại cỡ thẻ trong ảnh mẫu (chủ dự án 17/11/2026 02:28: "giảm xuống nhỏ bằng 1/4 ảnh kia": ~1/2 mỗi chiều) */
+html body.hud-bang #bac-hud { width: 98px !important; height: 30px !important; padding: 0 2px !important; gap: 1px !important; border-width: 4px 5px !important;
+  border-image: url("../../assets/art/ui-kg-the.webp") 30 fill / 7px / 0 stretch !important; }
+html body.hud-bang #bac-hud .bh-row { gap: 3px !important; }
+html body.hud-bang #bac-hud .bh-tag { font-size: 7px !important; }
+html body.hud-bang #bac-hud small { font-size: 6px !important; }
+html body.hud-bang #bac-hud .bh-goal { font-size: 8px !important; }
+html body.hud-bang #bac-hud .bh-cnt { font-size: 10px !important; min-width: 12px !important; }
+html body.hud-bang #bac-hud .bh-gift, html body.hud-bang #bac-hud .bh-gift canvas { width: 11px !important; height: 11px !important; }
+body.hud-bang:has(#bac-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 44px) !important; }
+
+/* ---- bảng (Menu, Chợ, Xếp hạng, Túi đồ… mọi .panel trừ bảng Nhân vật) theo bộ khung bảng chủ dự án (02:35, bo-khung-bang.png):
+   bảng nội dung có vương miện, hoa văn góc dưới (ui-kg-bang-to.webp, cắt 9 mảnh, hệ số 0,32); nút tắt là nút X đỏ (ui-kg-x.webp);
+   cột mục trái có vương miện, dòng tiêu đề, mỗi mục một ô khung (ui-kg-cot.webp, ui-kg-muc.webp) ---- */
+html body.hud-bang :is(#bag, .panel:not(.sv)) { border-style: solid !important; border-color: transparent !important; border-width: 30px 15px 28px !important;
+  border-image: url("../../assets/art/ui-kg-bang-to.webp") 100 55 150 fill / 32px 18px 48px / 0 stretch !important; image-rendering: auto !important;
+  background: none !important; padding: 4px 6px !important; box-shadow: none !important; outline: none !important; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .5)); }
+html body.hud-bang :is(#bag, .panel:not(.sv))::before { display: none !important; }
+html body.hud-bang :is(#bag > .bag-head > button:last-child, .panel > .bag-head > button:last-child, .bag-head > button[id$="-close"], .bag-head > .close-x) {
+  top: -6px !important; right: -2px !important; width: 26px !important; height: 26px !important;
+  background: url("../../assets/art/ui-kg-x.webp") center / contain no-repeat !important; image-rendering: auto !important; }
+html body.hud-bang { --nav-w: 104px; }
+html body.hud-bang .side-nav { border-style: solid !important; border-color: transparent !important; border-width: 27px 12px 18px !important;
+  border-image: url("../../assets/art/ui-kg-cot.webp") 170 45 70 fill / 49px 13px 20px / 0 stretch !important; image-rendering: auto !important;
+  background: none !important; padding: 0 2px 2px !important; gap: 6px !important; }
+html body.hud-bang .sn-title { height: 18px; line-height: 18px !important; padding: 0 2px !important; margin-bottom: 4px; border: 0 !important; color: #ffc44a !important; font-size: 13px !important; }
+html body.hud-bang .sn-item { min-height: 34px; padding: 6px 8px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important;
+  border-image: url("../../assets/art/ui-kg-muc.webp") 24 fill / 7px / 0 stretch !important; image-rendering: auto !important; color: #fff1d6 !important; }
+html body.hud-bang .sn-item.on { filter: brightness(1.35) drop-shadow(0 0 4px rgba(255, 200, 90, .8)); color: #ffe08a !important; }
+html body.hud-bang .sn-item[data-nav] { padding-left: 27px !important; }
+html body.hud-bang .sn-item[data-nav]::before { left: 6px !important; }
+/* đang mở bảng / túi / thoại: dòng chat và Túi đồ dưới góc trái ẩn đi, không đè lên bảng */
+html body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden]), #dialog:not([hidden])) #chat-dock { display: none !important; }
+body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden])) #hud .hud-btns > button.tron#btn-bag { visibility: hidden; }

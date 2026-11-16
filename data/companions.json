@@ -5,7 +5,7 @@
  "exp_base": 60,
  "exp_pow": 1.4,
  "lv_bonus": 0.06,
- "follow": 30,
+ "follow": 40, "px": 0.42, "_px": "Cỡ hình khôi lỗi (đơn vị bản đồ mỗi điểm hình; trước tự lấy ~0,5 nên cao ~22 bằng nhân vật chính, rộng hơn mắt). Chủ dự án 17/11/2026 00:0x: \"khôi lỗi cao lớn quá, nhỏ ngang nhân vật chính\": 0,42 → cao ~18, nhỏ hơn nhân vật chính một chút để nhân vật chính luôn nổi bật.", "_ranged": "Chủ dự án 16/11/2026 23:34: \"khôi lỗi cứ đứng chắn, để nó thành công kích tầm xa\": cả 8 khôi lỗi bắn từ sau lưng (melee false), đứng lùi xa hơn (follow 30 → 40).",
  "lift": 10,
  "list": {
   "tieu-hoa": {
@@ -41,7 +41,7 @@
    "mult": 0.75,
    "cd": 0.9,
    "range": 80,
-   "melee": true,
+   "melee": false,
    "color": "#b08ad0",
    "skill": {
     "type": "slow",
@@ -98,7 +98,7 @@
    "mult": 0.8,
    "cd": 0.85,
    "range": 80,
-   "melee": true,
+   "melee": false,
    "color": "#ffd24a",
    "skill": {
     "type": "aoe",
@@ -113,7 +113,7 @@
    "mult": 0.75,
    "cd": 1.0,
    "range": 75,
-   "melee": true,
+   "melee": false,
    "color": "#c8a070",
    "skill": {
     "type": "buff",
@@ -122,7 +122,27 @@
     "cd": 10
    },
    "join": "...Đi."
-  }
+  },
+  "kl-dong-phuc": {"desc": "Kiếm tông đệ tử. Bắn kiếm khí. Cứ 9 giây vung kiếm quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#e6ebf7", "skill": {"type": "aoe", "radius": 34, "dmg": 1.8, "cd": 9}, "join": "Sư huynh dẫn đường, đệ theo sau!", "tu_do_cu": "dong-phuc"},
+  "kl-thanh-sam": {"desc": "Thư sinh áo xanh. Bắn bút lông. Cứ 11 giây hồi 8% máu cho bạn.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#bfe0d8", "skill": {"type": "heal", "amount": 0.08, "cd": 11}, "join": "Đi đường xa, có ta đọc sách cho nghe.", "tu_do_cu": "thanh-sam"},
+  "kl-hac-y": {"desc": "Dạ hành khách. Phóng ám tiêu. Cứ 9 giây rải khói làm chậm quái quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#3a3446", "skill": {"type": "slow", "radius": 40, "dur": 3.5, "cd": 9}, "join": "Ta đi trong bóng tối, ngươi cứ đi trước.", "tu_do_cu": "hac-y"},
+  "kl-hong-y": {"desc": "Thiếu nữ hoa đào. Ném cánh hoa. Cứ 12 giây tăng 18% công cho bạn 5 giây.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#ffc2d6", "skill": {"type": "buff", "amount": 0.18, "dur": 5, "cd": 12}, "join": "Hoa đào nở rồi, đi ngắm với ta nhé!", "tu_do_cu": "hong-y"},
+  "kl-bach-kiem-bao": {"desc": "Bạch y kiếm tu. Phóng kiếm khí trắng. Cứ 9 giây quét kiếm quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#e8eef8", "skill": {"type": "aoe", "radius": 36, "dmg": 2, "cd": 9}, "join": "Kiếm trong tay, đường dưới chân.", "tu_do_cu": "bach-kiem-bao"},
+  "kl-tu-liem-y": {"desc": "Liềm tu áo tím. Ném liềm trăng. Cứ 9 giây xoay liềm quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#3a3446", "skill": {"type": "aoe", "radius": 36, "dmg": 2, "cd": 9}, "join": "Trăng lên rồi, đi săn thôi.", "tu_do_cu": "tu-liem-y"},
+  "kl-huyet-giap": {"desc": "Thợ săn yêu giáp máu. Bắn tên máu. Cứ 12 giây tăng 20% công cho bạn 5 giây.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#c0505a", "skill": {"type": "buff", "amount": 0.2, "dur": 5, "cd": 12}, "join": "Ngàn con yêu quái rồi, thêm vài con nữa thôi.", "tu_do_cu": "huyet-giap"},
+  "kl-bi-ngo": {"desc": "Áo choàng Bí Ngô. Ném bí ngô lửa. Cứ 9 giây nổ bí ngô quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#ff8a2a", "skill": {"type": "aoe", "radius": 34, "dmg": 1.9, "cd": 9}, "join": "Ăn kẹo hay bị ghẹo? Đi thôi!", "tu_do_cu": "bi-ngo"},
+  "kl-tuyet-lanh": {"desc": "Áo lông Tuyết Lành. Bắn bông tuyết. Cứ 9 giây gọi gió tuyết làm chậm quái.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#d84a4a", "skill": {"type": "slow", "radius": 44, "dur": 3.5, "cd": 9}, "join": "Tuyết rơi đẹp quá, đi cùng nhau nhé.", "tu_do_cu": "tuyet-lanh"},
+  "kl-tien-nhan": {"desc": "Tiên nhân bạch y. Phóng tiên quang. Cứ 11 giây hồi 10% máu cho bạn.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#fbfbff", "skill": {"type": "heal", "amount": 0.1, "cd": 11}, "join": "Đạo hữu, ta theo một đoạn đường.", "tu_do_cu": "tien-nhan"},
+  "kl-hoang-kim": {"desc": "Hoàng kim long bào. Phóng kim long. Cứ 12 giây tăng 20% công cho bạn 5 giây.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#ffd24a", "skill": {"type": "buff", "amount": 0.2, "dur": 5, "cd": 12}, "join": "Theo ta, vàng bạc không thiếu.", "tu_do_cu": "hoang-kim"},
+  "kl-tet-do": {"desc": "Áo Tết đỏ thắm. Ném pháo hoa. Cứ 9 giây nổ pháo quanh mình.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#ff4a4a", "skill": {"type": "aoe", "radius": 34, "dmg": 1.9, "cd": 9}, "join": "Năm mới phát tài, đi đánh quái lấy lộc!", "tu_do_cu": "tet-do"},
+  "kl-thien-mach-bao": {"desc": "Thiên Mạch bào. Bắn linh mạch. Cứ 9 giây trói quái bằng linh mạch.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#f4f0ff", "skill": {"type": "slow", "radius": 44, "dur": 3.5, "cd": 9}, "join": "Linh mạch dẫn lối, ta đi cùng.", "tu_do_cu": "thien-mach-bao"},
+  "kl-bang-y-han-bang": {"desc": "Băng y Hàn Băng. Phóng băng trùy. Cứ 9 giây đóng băng làm chậm quái.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#cfe8f8", "skill": {"type": "slow", "radius": 46, "dur": 3.5, "cd": 9}, "join": "Lạnh một chút thôi, đừng sợ.", "tu_do_cu": "bang-y-han-bang"},
+  "kl-luc-bao-thanh-moc": {"desc": "Lục bào Thanh Mộc. Bắn lá xanh. Cứ 11 giây hồi 9% máu cho bạn.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#6ab060", "skill": {"type": "heal", "amount": 0.09, "cd": 11}, "join": "Rừng xanh gửi ta theo giúp ngươi.", "tu_do_cu": "luc-bao-thanh-moc"},
+  "kl-tho-bao-hau-tho": {"desc": "Thổ bào Hậu Thổ. Ném đá tảng. Cứ 12 giây dựng giáp đất, tăng 20% công cho bạn 5 giây.", "mult": 0.6, "cd": 1.1, "range": 100, "melee": false, "color": "#b08a5a", "skill": {"type": "buff", "amount": 0.2, "dur": 5, "cd": 12}, "join": "Đất dày trời rộng, ta đỡ cho.", "tu_do_cu": "tho-bao-hau-tho"},
+  "kl-than-nguyen-y": {"desc": "Thần Nguyên Y. Phóng pháp lực lam. Cứ 9 giây nổ pháp lực quanh mình.", "mult": 0.65, "cd": 1.1, "range": 100, "melee": false, "color": "#3a4ab8", "skill": {"type": "aoe", "radius": 40, "dmg": 2.2, "cd": 9}, "join": "Thần nguyên hộ thể, đi thôi.", "tu_do_cu": "than-nguyen-y"},
+  "kl-huyet-nguyet": {"desc": "Huyết Nguyệt. Phóng kiếm khí máu. Cứ 9 giây chém trăng máu quanh mình.", "mult": 0.65, "cd": 1.1, "range": 100, "melee": false, "color": "#2a1418", "skill": {"type": "aoe", "radius": 42, "dmg": 2.3, "cd": 9}, "join": "Trăng máu đã lên.", "tu_do_cu": "huyet-nguyet"},
+  "kl-tu-linh-ma-yeu": {"desc": "Tử Linh Ma Yêu. Phóng ma khí tím. Cứ 9 giây trói quái bằng ma khí.", "mult": 0.65, "cd": 1.1, "range": 100, "melee": false, "color": "#2a1838", "skill": {"type": "slow", "radius": 48, "dur": 3.5, "cd": 9}, "join": "Hì, để ta chơi với lũ quái một chút.", "tu_do_cu": "tu-linh-ma-yeu"},
+  "kl-ly-hoa": {"desc": "Ly Hoa. Bắn cánh hoa ngọc. Cứ 11 giây hồi 12% máu cho bạn.", "mult": 0.65, "cd": 1.1, "range": 100, "melee": false, "color": "#5fc8a8", "skill": {"type": "heal", "amount": 0.12, "cd": 11}, "join": "Hoa nở theo bước chân ngươi.", "tu_do_cu": "ly-hoa"}
  },
  "side": -12
 }

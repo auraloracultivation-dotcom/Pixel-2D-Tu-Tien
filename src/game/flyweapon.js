@@ -46,11 +46,11 @@ function strikePose(A, O, k) {
   const ca = Math.cos(A.dir), sa = Math.sin(A.dir), sd = A.side, R = A.reach;
   if (A.move === 'quet') {   // quét ngang: lượn cung quanh người từ bên này sang bên kia, mũi hướng ra ngoài
     const q = A.dir - A.half + 2 * A.half * k;
-    return { x: O.x + Math.cos(q) * R * 0.85, y: O.y + Math.sin(q) * R * 0.85, a: q };
+    return { x: O.x + Math.cos(q) * R, y: O.y + Math.sin(q) * R, a: q };
   }
   if (A.move === 'xoay') {   // chém vòng: xoay trọn một vòng quanh người, dừng ở trước mặt
     const q = A.dir - Math.PI * 2 * (1 - k);
-    return { x: O.x + Math.cos(q) * R * 0.8, y: O.y + Math.sin(q) * R * 0.8, a: q + 0.5 * sd };
+    return { x: O.x + Math.cos(q) * R, y: O.y + Math.sin(q) * R, a: q + 0.5 * sd };
   }
   if (A.move === 'hat') {   // hất lên: từ sát đất phía trước vút lên cao, mũi từ chúc xuống chuyển sang chĩa lên
     return { x: bez(O.x + ca * R * 0.5, O.x + ca * R * 1.05, O.x + ca * R * 0.75, k), y: bez(O.y + sa * R * 0.5 + 12, O.y + sa * R - 2, O.y + sa * R * 0.75 - 18, k), a: A.dir + sd * (1 - 2.3 * k) };

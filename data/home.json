@@ -1,7 +1,7 @@
 {
  "_note": "Song tu ở nhà (song_tu): người chơi đả tọa trong tầm range của đạo lữ đang ngồi ở nhà thì linh khí nhân thêm mul, có vệt linh quang nối hai người. Đạo lữ ở nhà: khi có đạo lữ (và người đó không đang đi cùng, không vắng mặt theo truyện) thì người đó ngồi cạnh bồ đoàn trong động phủ (at). Trò chuyện: câu theo pha ngày đêm (lines[người][pha], thiếu thì dùng default). Mỗi ngày một món quà nhỏ (gifts, chọn ngẫu nhiên), kèm câu gift_lines.",
  "map": "dong-phu",
- "start_home": true,
+ "start_home": false, "start_map": {"map": "thien-kiem-phong", "spawn": "tu-dong-phu", "_note": "Chủ dự án 17/11/2026 02:46: vào game hiện động phủ rồi bị truyện kéo ra Thiên Kiếm Tinh, \"nếu đã là Thiên Kiếm Tinh thì mọi người đều phải đồng bộ\": người đã có động phủ vào game luôn ở Thiên Kiếm Tinh, cạnh cổng động phủ (thay start_home 02/11/2026). Người mới chưa có động phủ đi theo truyện như cũ."},
  "_start_home": "Chủ dự án chốt 02/11/2026: người đã có động phủ vào game luôn xuất hiện trong động phủ (src/game/cave.js → ensureCave).",
  "at": [
   11,

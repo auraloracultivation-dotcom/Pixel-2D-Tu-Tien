@@ -1,4 +1,6 @@
-// Đồ rơi khi hạ quái: bật ra quanh xác rồi tự bay vào người chơi.
+// Đồ rơi khi hạ quái: bật ra quanh xác rồi nằm trên đất, có cột sáng theo phẩm (src/render/draw-loot.js); chạy qua mới nhặt được
+// (chủ dự án 16/11/2026 23:39; trước đây tự bay vào người). Tự đánh / Tự hành tự đi nhặt khi quanh mình hết quái (lootStep).
+// Số ở data/config.json → loot.
 import { rollItem, addItem, rollGem, gemInfo, rarityOf, itemName } from './items.js';
 import { totalLayer } from './stats.js';
 import { quality } from './tiers.js';
@@ -36,7 +38,9 @@ export function updateLoot(game, dt) {
   const p = game.player;
   for (const l of game.loot) {
     l.t += dt;
-    if (l.t < 0.45) { l.x += l.vx * dt; l.y += l.vy * dt; l.vx *= 0.9; l.vy *= 0.9; continue; }
+    if (l.t < 0.45) { if (!game.map?.blocked?.(l.x + l.vx * dt, l.y + l.vy * dt, 3)) { l.x += l.vx * dt; l.y += l.vy * dt; } l.vx *= 0.9; l.vy *= 0.9; continue; }   // không bật vào tường, cây
+    const C = game.data.config.loot;
+    if (C?.walk) { if (Math.hypot(p.x - l.x, p.y - l.y) < C.pick) { l.taken = true; take(game, l); } continue; }   // chạy qua mới nhặt
     const dx = p.x - l.x, dy = p.y - 6 - l.y, d = Math.hypot(dx, dy), s = Math.min(d, (120 + l.t * 200) * dt);
     l.x += dx / d * s; l.y += dy / d * s;
     if (d < 6) { l.taken = true; take(game, l); }
@@ -85,4 +89,17 @@ export function lootColor(game, l) {
   if (l.kind === 'item') return rewardOn(game) ? grade(game.data, l.payload).color : rarityOf(game.data.items, l.payload.rarity).color;   // bản nghi lễ: viên rơi cùng màu phẩm với dòng Nhặt… và vầng sáng
   if (l.kind === 'gem') return gemInfo(game.data, l.payload).color;
   return game.data.items.materials['tay-luyen-thach'].color;
+}
+
+// Tự đánh / Tự hành: quanh mình không còn quái đang đánh mình (trong busy đơn vị) thì đi nhặt món gần nhất trong seek đơn vị.
+// Trả về hướng đi, hoặc null nếu không có gì để nhặt.
+export function lootStep(game) {
+  const C = game.data.config.loot, p = game.player;
+  if (!C?.walk || !game.loot.length || !p) return null;
+  if (game.mobs.some(m => !m.dead && m.aggro && !m.dummy && Math.hypot(m.x - p.x, m.y - p.y) < C.busy)) return null;
+  let best = null, bd = C.seek;
+  for (const l of game.loot) { if (l.t < 0.45 || (l.seek || 0) > C.give_up) continue; const d = Math.hypot(l.x - p.x, l.y - p.y); if (d < bd) { bd = d; best = l; } }
+  if (!best) return null;
+  best.seek = (best.seek || 0) + (game.dt || 1 / 60);   // đi mãi không tới (kẹt sau vật cản) thì thôi, rời bản đồ vẫn tự vào túi
+  return { x: (best.x - p.x) / (bd || 1), y: (best.y - p.y) / (bd || 1) };
 }

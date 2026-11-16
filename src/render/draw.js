@@ -118,7 +118,7 @@ function drawComp(ctx, e, t, art) {
   if (isAct(art, id)) {
     const f = actFrame(art.sprites[id], e, t, e.def.cd), dir = e.face < 0 ? -1 : 1;
     if (e.moving) drawRunDust(ctx, e, t, dir);
-    if (drawAct(ctx, art, id, f, e.x, e.y + 1, dir)) {
+    if (drawAct(ctx, art, id, f, e.x, e.y + 1, dir, 0, e.px || 0)) {   // cỡ khôi lỗi: data/companions.json px (chủ dự án 17/11/2026 00:0x: khôi lỗi cao lớn quá, nhỏ ngang nhân vật chính)
       if (f === ACT.hit) drawHitSwoosh(ctx, e, e.npc.color, dir, Math.min(1, (e.def.cd - e.cd) / 0.32));
       return;
     }
@@ -341,8 +341,9 @@ export function drawWorld(game, screen, t) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, screen.w, screen.h);
   }
   drawBloom(ctx, game, screen, lights);
-  screen.worldTransform(); drawSlashes(ctx, game); game.topPass = 1; for (const m of game.mobs) if (!m.dead && m.jolt && game.time - m.jolt.t < (game.data.juice.hit2?.top_t || 0)) drawMob(ctx, m, t, game); for (const c of game.corpses || []) if (c.wait && game.time - c.t0 < c.wait + 0.1) drawCorpse(ctx, game, c); game.topPass = 0;   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước; quái vừa trúng đòn của mình vẽ lại đè lên vũ khí và vệt chém trong top_t giây (src/game/hit-feel.js)
-  drawVfx(ctx, game, t); screen.worldTransform(); drawMobFx(ctx, game); screen.screenTransform();   // hiệu ứng chiêu: lớp trên cùng, đè nhà cửa, người (quy tắc chiêu 05/11/2026); đòn quái, dấu chấm than (draw-mob-fx.js)
+  screen.worldTransform(); game.topPass = 1; for (const m of game.mobs) if (!m.dead && m.jolt && game.time - m.jolt.t < (game.data.juice.hit2?.top_t || 0)) drawMob(ctx, m, t, game); for (const c of game.corpses || []) if (c.wait && game.time - c.t0 < c.wait + 0.1) drawCorpse(ctx, game, c); game.topPass = 0;   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước; quái vừa trúng đòn của mình vẽ lại đè lên vũ khí và vệt chém trong top_t giây (src/game/hit-feel.js)
+  drawVfx(ctx, game, t); screen.worldTransform(); drawMobFx(ctx, game);
+  drawSlashes(ctx, game); drawFlyWeapon(ctx, game, 'top'); screen.screenTransform();   // vệt chém và vũ khí đang ra đòn trên cùng, trên cả hiệu ứng chiêu (chủ dự án 16/11/2026 23:35)   // hiệu ứng chiêu: lớp trên cùng, đè nhà cửa, người (quy tắc chiêu 05/11/2026); đòn quái, dấu chấm than (draw-mob-fx.js)
   if (game.flashT > 0) {   // chớp dịu (config.comfort): màu ấm, không trắng toát cả màn
     const c = game.data.config.comfort || {};
     ctx.fillStyle = `rgba(${c.flash_rgb || '255,255,255'},${Math.min(1, game.flashT / 0.35) * (c.flash_max ?? 1)})`; ctx.fillRect(0, 0, screen.w, screen.h);

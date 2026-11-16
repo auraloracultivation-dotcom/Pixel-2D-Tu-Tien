@@ -13,4 +13,9 @@ export function doiMoi(game) {
     setTimeout(() => game.toast(`Đền bù đồ cũ: nhận ${s.denBu16.length} thú cưỡi mới (${names}). Bấm nút Cưỡi để lên thú.`, 6), 2500);
     delete s.denBu16; game.persist?.();
   }
+  if (Array.isArray(s.quaKL17) && s.quaKL17.length) {   // đồ cũ thành khôi lỗi (data/do-cu.json, migration 20261117010000_p2d_do_cu_khoi_loi.sql)
+    const names = s.quaKL17.map(id => D.npcs[id]?.name).filter(Boolean).join(', ');
+    setTimeout(() => game.toast(`Thời trang cũ của bạn thành khôi lỗi: ${names}. Mang theo ở Ngự Thú Sư.`, 6), 9000);
+    delete s.quaKL17; game.persist?.();
+  }
 }

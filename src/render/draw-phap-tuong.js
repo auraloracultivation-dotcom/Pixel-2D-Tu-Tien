@@ -18,11 +18,15 @@ export function drawPhapTuong(ctx, game, p, t, save, look, name, fx, fy) {
   if (!im || !look?.body) return;
   const m = ctx.getTransform(), { n } = heroScale(game, look, m), side = p.lookX || 1;
   const H = name === 'ngoi' && look.ngoi_h ? look.ngoi_h : look.body, f = Math.floor((t + (p.ptPhase ?? 0)) * (spr.fps || 10)) % spr.frames;
-  const dy = spr.lo ? -H * 0.7 : 0;   // mặt người: 30% chiều cao tính từ đỉnh đầu
+  // Cỡ: K lần mật độ điểm của nhân vật (chủ dự án 16/11/2026 23:34: "pháp tượng quá to, trùm xuống thấp hơn chân"; data/config.json phap_tuong)
+  const C = game.data.config.phap_tuong || {}, K = C.scale ?? 1, k = n * K;
+  let dy = spr.lo ? -H * 0.7 : 0;   // mặt người: 30% chiều cao tính từ đỉnh đầu (điểm ảnh nhân vật)
+  const below = dy + (spr.h - spr.anchor[1]) * K;   // đáy pháp tượng so với chân, điểm ảnh nhân vật
+  if (below > -(C.foot ?? 0)) dy -= below + (C.foot ?? 0);   // không trùm xuống dưới chân
   ctx.save();
-  ctx.setTransform(n * side, 0, 0, n, Math.round(m.a * fx + m.e), Math.round(m.d * fy + m.f));
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], Math.round(dy) - spr.anchor[1], spr.w, spr.h);
+  ctx.setTransform(k * side, 0, 0, k, Math.round(m.a * fx + m.e), Math.round(m.d * fy + m.f + dy * n));
+  ctx.imageSmoothingEnabled = k < 0.98;
+  ctx.drawImage(im, f * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
 }
 

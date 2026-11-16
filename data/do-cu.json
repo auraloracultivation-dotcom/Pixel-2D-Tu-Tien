@@ -1,0 +1,1235 @@
+{
+ "_note": "Đồ cũ thành khôi lỗi và NPC (chủ dự án 17/11/2026 00:1x–00:2x, tools/do_cu.py ghi vào companions / npcs / pets / shop / maps / art). khoi_loi: 20 bộ thời trang cũ, mỗi bộ một khôi lỗi đánh xa (hinh: tấm 7 động tác hero.y-<bộ>-<giới>; look: tấm nhiều khung, công cụ dựng tấm 7 động tác), gia: Linh Thạch ở Ngự Thú Sư (chủ dự án 17/11/2026 03:00: mỗi con 40 000); ai từng có bộ đó được tặng khôi lỗi bộ đó (migration). npc: bản giới tính còn lại của 14 bộ thành NPC bán hàng (ban: bán y như NPC đó, cùng giá, cùng lượt ngày), 7 bộ đã bỏ 15/11 cả hai giới thành NPC đứng ở công trình.",
+ "looks": {
+  "nam": {
+   "sprite": "hero.nam",
+   "body": 45,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "chem": [
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "bo": [
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "hat": [
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39
+    ],
+    "ngang": [
+     41,
+     42,
+     43,
+     44,
+     45,
+     46
+    ]
+   },
+   "attacks": [
+    "bo",
+    "hat",
+    "ngang",
+    "chem"
+   ]
+  },
+  "nu": {
+   "sprite": "hero.nu",
+   "body": 43,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "cheo": [
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "ngang": [
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "moc": [
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39
+    ]
+   },
+   "attacks": [
+    "cheo",
+    "ngang",
+    "moc"
+   ]
+  },
+  "tny": {
+   "sprite": "hero.tny",
+   "body": 81,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "phep1": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "phep2": [
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ]
+   },
+   "attacks": [
+    "phep1",
+    "phep2"
+   ]
+  },
+  "huyet-nguyet": {
+   "sprite": "hero.huyet-nguyet",
+   "body": 114,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "chem1": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "chem2": [
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "dam": [
+     32,
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39
+    ]
+   },
+   "attacks": [
+    "chem1",
+    "chem2",
+    "dam"
+   ]
+  },
+  "tu-linh": {
+   "sprite": "hero.tu-linh",
+   "body": 73,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "bo": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "dam": [
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ]
+   },
+   "attacks": [
+    "bo",
+    "dam"
+   ]
+  },
+  "ly-hoa": {
+   "sprite": "hero.ly-hoa",
+   "body": 70,
+   "anims": {
+    "idle": [
+     0,
+     1,
+     2,
+     1,
+     0,
+     7,
+     6,
+     7
+    ],
+    "walk": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "don1": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23
+    ],
+    "don2": [
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ]
+   },
+   "attacks": [
+    "don1",
+    "don2"
+   ]
+  }
+ },
+ "khoi_loi": {
+  "dong-phuc": {
+   "name": "Đồng phục Kiếm tông",
+   "g": "nam",
+   "desc": "Kiếm tông đệ tử. Bắn kiếm khí. Cứ 9 giây vung kiếm quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#e6ebf7",
+   "hair": "#3a2e5c",
+   "skill": {
+    "type": "aoe",
+    "radius": 34,
+    "dmg": 1.8,
+    "cd": 9
+   },
+   "join": "Sư huynh dẫn đường, đệ theo sau!",
+   "gia": 40000,
+   "lines": [
+    "Sư huynh dẫn đường, đệ theo sau!",
+    "Ta vốn là Đồng phục Kiếm tông, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-dong-phuc-nam"
+  },
+  "thanh-sam": {
+   "name": "Thanh sam thư sinh",
+   "g": "nu",
+   "desc": "Thư sinh áo xanh. Bắn bút lông. Cứ 11 giây hồi 8% máu cho bạn.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#bfe0d8",
+   "hair": "#2a2a3a",
+   "skill": {
+    "type": "heal",
+    "amount": 0.08,
+    "cd": 11
+   },
+   "join": "Đi đường xa, có ta đọc sách cho nghe.",
+   "gia": 40000,
+   "lines": [
+    "Đi đường xa, có ta đọc sách cho nghe.",
+    "Ta vốn là Thanh sam thư sinh, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-thanh-sam-nu"
+  },
+  "hac-y": {
+   "name": "Hắc y dạ hành",
+   "g": "nam",
+   "desc": "Dạ hành khách. Phóng ám tiêu. Cứ 9 giây rải khói làm chậm quái quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#3a3446",
+   "hair": "#c8c0e0",
+   "skill": {
+    "type": "slow",
+    "radius": 40,
+    "dur": 3.5,
+    "cd": 9
+   },
+   "join": "Ta đi trong bóng tối, ngươi cứ đi trước.",
+   "gia": 40000,
+   "lines": [
+    "Ta đi trong bóng tối, ngươi cứ đi trước.",
+    "Ta vốn là Hắc y dạ hành, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-hac-y-nam"
+  },
+  "hong-y": {
+   "name": "Hồng y hoa đào",
+   "g": "nu",
+   "desc": "Thiếu nữ hoa đào. Ném cánh hoa. Cứ 12 giây tăng 18% công cho bạn 5 giây.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#ffc2d6",
+   "hair": "#5a2a3a",
+   "skill": {
+    "type": "buff",
+    "amount": 0.18,
+    "dur": 5,
+    "cd": 12
+   },
+   "join": "Hoa đào nở rồi, đi ngắm với ta nhé!",
+   "gia": 40000,
+   "lines": [
+    "Hoa đào nở rồi, đi ngắm với ta nhé!",
+    "Ta vốn là Hồng y hoa đào, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-hong-y-nu"
+  },
+  "bach-kiem-bao": {
+   "name": "Bạch Kiếm Bào",
+   "g": "nam",
+   "desc": "Bạch y kiếm tu. Phóng kiếm khí trắng. Cứ 9 giây quét kiếm quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#e8eef8",
+   "hair": "#2a2a3a",
+   "skill": {
+    "type": "aoe",
+    "radius": 36,
+    "dmg": 2,
+    "cd": 9
+   },
+   "join": "Kiếm trong tay, đường dưới chân.",
+   "gia": 40000,
+   "lines": [
+    "Kiếm trong tay, đường dưới chân.",
+    "Ta vốn là Bạch Kiếm Bào, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "nam"
+  },
+  "tu-liem-y": {
+   "name": "Tử Liềm Y",
+   "g": "nu",
+   "desc": "Liềm tu áo tím. Ném liềm trăng. Cứ 9 giây xoay liềm quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#3a3446",
+   "hair": "#c8b8f0",
+   "skill": {
+    "type": "aoe",
+    "radius": 36,
+    "dmg": 2,
+    "cd": 9
+   },
+   "join": "Trăng lên rồi, đi săn thôi.",
+   "gia": 40000,
+   "lines": [
+    "Trăng lên rồi, đi săn thôi.",
+    "Ta vốn là Tử Liềm Y, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "nu"
+  },
+  "huyet-giap": {
+   "name": "Huyết giáp săn yêu",
+   "g": "nam",
+   "desc": "Thợ săn yêu giáp máu. Bắn tên máu. Cứ 12 giây tăng 20% công cho bạn 5 giây.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#c0505a",
+   "hair": "#1a1a1a",
+   "skill": {
+    "type": "buff",
+    "amount": 0.2,
+    "dur": 5,
+    "cd": 12
+   },
+   "join": "Ngàn con yêu quái rồi, thêm vài con nữa thôi.",
+   "gia": 40000,
+   "lines": [
+    "Ngàn con yêu quái rồi, thêm vài con nữa thôi.",
+    "Ta vốn là Huyết giáp săn yêu, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-huyet-giap-nam"
+  },
+  "bi-ngo": {
+   "name": "Áo choàng Bí Ngô",
+   "g": "nam",
+   "desc": "Áo choàng Bí Ngô. Ném bí ngô lửa. Cứ 9 giây nổ bí ngô quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#ff8a2a",
+   "hair": "#2a1a2a",
+   "skill": {
+    "type": "aoe",
+    "radius": 34,
+    "dmg": 1.9,
+    "cd": 9
+   },
+   "join": "Ăn kẹo hay bị ghẹo? Đi thôi!",
+   "gia": 40000,
+   "lines": [
+    "Ăn kẹo hay bị ghẹo? Đi thôi!",
+    "Ta vốn là Áo choàng Bí Ngô, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-bi-ngo-nam"
+  },
+  "tuyet-lanh": {
+   "name": "Áo lông Tuyết Lành",
+   "g": "nu",
+   "desc": "Áo lông Tuyết Lành. Bắn bông tuyết. Cứ 9 giây gọi gió tuyết làm chậm quái.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#d84a4a",
+   "hair": "#f4f4fa",
+   "skill": {
+    "type": "slow",
+    "radius": 44,
+    "dur": 3.5,
+    "cd": 9
+   },
+   "join": "Tuyết rơi đẹp quá, đi cùng nhau nhé.",
+   "gia": 40000,
+   "lines": [
+    "Tuyết rơi đẹp quá, đi cùng nhau nhé.",
+    "Ta vốn là Áo lông Tuyết Lành, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-tuyet-lanh-nu"
+  },
+  "tien-nhan": {
+   "name": "Tiên Nhân Bạch Y",
+   "g": "nu",
+   "desc": "Tiên nhân bạch y. Phóng tiên quang. Cứ 11 giây hồi 10% máu cho bạn.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#fbfbff",
+   "hair": "#c8d8f0",
+   "skill": {
+    "type": "heal",
+    "amount": 0.1,
+    "cd": 11
+   },
+   "join": "Đạo hữu, ta theo một đoạn đường.",
+   "gia": 40000,
+   "lines": [
+    "Đạo hữu, ta theo một đoạn đường.",
+    "Ta vốn là Tiên Nhân Bạch Y, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-tien-nhan-nu"
+  },
+  "hoang-kim": {
+   "name": "Hoàng Kim Long Bào",
+   "g": "nam",
+   "desc": "Hoàng kim long bào. Phóng kim long. Cứ 12 giây tăng 20% công cho bạn 5 giây.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#ffd24a",
+   "hair": "#2a1a0a",
+   "skill": {
+    "type": "buff",
+    "amount": 0.2,
+    "dur": 5,
+    "cd": 12
+   },
+   "join": "Theo ta, vàng bạc không thiếu.",
+   "gia": 40000,
+   "lines": [
+    "Theo ta, vàng bạc không thiếu.",
+    "Ta vốn là Hoàng Kim Long Bào, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-hoang-kim-nam"
+  },
+  "tet-do": {
+   "name": "Áo Tết đỏ thắm",
+   "g": "nam",
+   "desc": "Áo Tết đỏ thắm. Ném pháo hoa. Cứ 9 giây nổ pháo quanh mình.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#ff4a4a",
+   "hair": "#2a1a1a",
+   "skill": {
+    "type": "aoe",
+    "radius": 34,
+    "dmg": 1.9,
+    "cd": 9
+   },
+   "join": "Năm mới phát tài, đi đánh quái lấy lộc!",
+   "gia": 40000,
+   "lines": [
+    "Năm mới phát tài, đi đánh quái lấy lộc!",
+    "Ta vốn là Áo Tết đỏ thắm, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-tet-do-nam"
+  },
+  "thien-mach-bao": {
+   "name": "Thiên Mạch bào",
+   "g": "nu",
+   "desc": "Thiên Mạch bào. Bắn linh mạch. Cứ 9 giây trói quái bằng linh mạch.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#f4f0ff",
+   "hair": "#e8e0f8",
+   "skill": {
+    "type": "slow",
+    "radius": 44,
+    "dur": 3.5,
+    "cd": 9
+   },
+   "join": "Linh mạch dẫn lối, ta đi cùng.",
+   "gia": 40000,
+   "lines": [
+    "Linh mạch dẫn lối, ta đi cùng.",
+    "Ta vốn là Thiên Mạch bào, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-thien-mach-bao-nu"
+  },
+  "bang-y-han-bang": {
+   "name": "Băng y Hàn Băng",
+   "g": "nu",
+   "desc": "Băng y Hàn Băng. Phóng băng trùy. Cứ 9 giây đóng băng làm chậm quái.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#cfe8f8",
+   "hair": "#f4f6fa",
+   "skill": {
+    "type": "slow",
+    "radius": 46,
+    "dur": 3.5,
+    "cd": 9
+   },
+   "join": "Lạnh một chút thôi, đừng sợ.",
+   "gia": 40000,
+   "lines": [
+    "Lạnh một chút thôi, đừng sợ.",
+    "Ta vốn là Băng y Hàn Băng, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-bang-y-han-bang-nu"
+  },
+  "luc-bao-thanh-moc": {
+   "name": "Lục bào Thanh Mộc",
+   "g": "nam",
+   "desc": "Lục bào Thanh Mộc. Bắn lá xanh. Cứ 11 giây hồi 9% máu cho bạn.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#6ab060",
+   "hair": "#3a2a1a",
+   "skill": {
+    "type": "heal",
+    "amount": 0.09,
+    "cd": 11
+   },
+   "join": "Rừng xanh gửi ta theo giúp ngươi.",
+   "gia": 40000,
+   "lines": [
+    "Rừng xanh gửi ta theo giúp ngươi.",
+    "Ta vốn là Lục bào Thanh Mộc, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-luc-bao-thanh-moc-nam"
+  },
+  "tho-bao-hau-tho": {
+   "name": "Thổ bào Hậu Thổ",
+   "g": "nam",
+   "desc": "Thổ bào Hậu Thổ. Ném đá tảng. Cứ 12 giây dựng giáp đất, tăng 20% công cho bạn 5 giây.",
+   "mult": 0.6,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#b08a5a",
+   "hair": "#2a1a0a",
+   "skill": {
+    "type": "buff",
+    "amount": 0.2,
+    "dur": 5,
+    "cd": 12
+   },
+   "join": "Đất dày trời rộng, ta đỡ cho.",
+   "gia": 40000,
+   "lines": [
+    "Đất dày trời rộng, ta đỡ cho.",
+    "Ta vốn là Thổ bào Hậu Thổ, giờ làm khôi lỗi theo ngươi."
+   ],
+   "hinh": "hero.y-tho-bao-hau-tho-nam"
+  },
+  "than-nguyen-y": {
+   "name": "Thần Nguyên Y",
+   "g": "nam",
+   "desc": "Thần Nguyên Y. Phóng pháp lực lam. Cứ 9 giây nổ pháp lực quanh mình.",
+   "mult": 0.65,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#3a4ab8",
+   "hair": "#f0eaff",
+   "skill": {
+    "type": "aoe",
+    "radius": 40,
+    "dmg": 2.2,
+    "cd": 9
+   },
+   "join": "Thần nguyên hộ thể, đi thôi.",
+   "gia": 40000,
+   "lines": [
+    "Thần nguyên hộ thể, đi thôi.",
+    "Ta vốn là Thần Nguyên Y, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "tny"
+  },
+  "huyet-nguyet": {
+   "name": "Huyết Nguyệt",
+   "g": "nam",
+   "desc": "Huyết Nguyệt. Phóng kiếm khí máu. Cứ 9 giây chém trăng máu quanh mình.",
+   "mult": 0.65,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#2a1418",
+   "hair": "#f0eaff",
+   "skill": {
+    "type": "aoe",
+    "radius": 42,
+    "dmg": 2.3,
+    "cd": 9
+   },
+   "join": "Trăng máu đã lên.",
+   "gia": 40000,
+   "lines": [
+    "Trăng máu đã lên.",
+    "Ta vốn là Huyết Nguyệt, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "huyet-nguyet"
+  },
+  "tu-linh-ma-yeu": {
+   "name": "Tử Linh Ma Yêu",
+   "g": "nu",
+   "desc": "Tử Linh Ma Yêu. Phóng ma khí tím. Cứ 9 giây trói quái bằng ma khí.",
+   "mult": 0.65,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#2a1838",
+   "hair": "#e8dcff",
+   "skill": {
+    "type": "slow",
+    "radius": 48,
+    "dur": 3.5,
+    "cd": 9
+   },
+   "join": "Hì, để ta chơi với lũ quái một chút.",
+   "gia": 40000,
+   "lines": [
+    "Hì, để ta chơi với lũ quái một chút.",
+    "Ta vốn là Tử Linh Ma Yêu, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "tu-linh"
+  },
+  "ly-hoa": {
+   "name": "Ly Hoa",
+   "g": "nu",
+   "desc": "Ly Hoa. Bắn cánh hoa ngọc. Cứ 11 giây hồi 12% máu cho bạn.",
+   "mult": 0.65,
+   "cd": 1.1,
+   "range": 100,
+   "color": "#5fc8a8",
+   "hair": "#f0eaff",
+   "skill": {
+    "type": "heal",
+    "amount": 0.12,
+    "cd": 11
+   },
+   "join": "Hoa nở theo bước chân ngươi.",
+   "gia": 40000,
+   "lines": [
+    "Hoa nở theo bước chân ngươi.",
+    "Ta vốn là Ly Hoa, giờ làm khôi lỗi theo ngươi."
+   ],
+   "look": "ly-hoa"
+  }
+ },
+ "npc": {
+  "dong-phuc-nu": {
+   "name": "Nữ đệ tử Kiếm tông",
+   "hinh": "hero.y-dong-phuc-nu",
+   "color": "#e6ebf7",
+   "hair": "#3a2e5c",
+   "map": "thien-kiem-phong",
+   "at": [
+    42,
+    44
+   ],
+   "ban": "hoa-su",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "thanh-sam-nam": {
+   "name": "Thư sinh áo xanh",
+   "hinh": "hero.y-thanh-sam-nam",
+   "color": "#bfe0d8",
+   "hair": "#2a2a3a",
+   "map": "thien-kiem-phong",
+   "at": [
+    57,
+    56
+   ],
+   "ban": "ong-do",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "hac-y-nu": {
+   "name": "Nữ hiệp dạ hành",
+   "hinh": "hero.y-hac-y-nu",
+   "color": "#3a3446",
+   "hair": "#c8c0e0",
+   "map": "hac-phong-dao",
+   "at": [
+    19,
+    21
+   ],
+   "ban": "ba-do-den",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "hong-y-nam": {
+   "name": "Công tử áo hồng",
+   "hinh": "hero.y-hong-y-nam",
+   "color": "#ffc2d6",
+   "hair": "#5a2a3a",
+   "map": "thanh-khe",
+   "at": [
+    18,
+    19
+   ],
+   "ban": "hoa-su",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "huyet-giap-nu": {
+   "name": "Nữ thợ săn yêu",
+   "hinh": "hero.y-huyet-giap-nu",
+   "color": "#c0505a",
+   "hair": "#1a1a1a",
+   "map": "dao-xich-dien",
+   "at": [
+    38,
+    45
+   ],
+   "ban": "thuong-nhan",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "bi-ngo-nu": {
+   "name": "Cô bé Bí Ngô",
+   "hinh": "hero.y-bi-ngo-nu",
+   "color": "#ff8a2a",
+   "hair": "#2a1a2a",
+   "map": "lang-tinh-linh",
+   "at": [
+    18,
+    18
+   ],
+   "ban": "tieu-moc-linh",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "tuyet-lanh-nam": {
+   "name": "Chàng trai Tuyết Lành",
+   "hinh": "hero.y-tuyet-lanh-nam",
+   "color": "#d84a4a",
+   "hair": "#f4f4fa",
+   "map": "dao-han-bang",
+   "at": [
+    36,
+    45
+   ],
+   "ban": "tuyet-nhi",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "tien-nhan-nam": {
+   "name": "Bạch y tiên khách",
+   "hinh": "hero.y-tien-nhan-nam",
+   "color": "#fbfbff",
+   "hair": "#c8d8f0",
+   "map": "thien-kiem-phong",
+   "at": [
+    48,
+    38
+   ],
+   "ban": "lao-than",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "hoang-kim-nu": {
+   "name": "Kim y quý nữ",
+   "hinh": "hero.y-hoang-kim-nu",
+   "color": "#ffd24a",
+   "hair": "#2a1a0a",
+   "map": "thien-kiem-phong",
+   "at": [
+    61,
+    56
+   ],
+   "ban": "co-ban-nuoc",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "tet-do-nu": {
+   "name": "Cô nương áo Tết",
+   "hinh": "hero.y-tet-do-nu",
+   "color": "#ff4a4a",
+   "hair": "#2a1a1a",
+   "map": "thanh-khe",
+   "at": [
+    14,
+    19
+   ],
+   "ban": "ong-do",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "thien-mach-bao-nam": {
+   "name": "Thiên Mạch đạo nhân",
+   "hinh": "hero.y-thien-mach-bao-nam",
+   "color": "#f4f0ff",
+   "hair": "#e8e0f8",
+   "map": "dao-thien-kim",
+   "at": [
+    16,
+    29
+   ],
+   "ban": "lao-nong",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "bang-y-han-bang-nam": {
+   "name": "Hàn Băng kiếm khách",
+   "hinh": "hero.y-bang-y-han-bang-nam",
+   "color": "#cfe8f8",
+   "hair": "#f4f6fa",
+   "map": "dao-han-bang",
+   "at": [
+    32,
+    48
+   ],
+   "ban": "tuyet-nhi",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "luc-bao-thanh-moc-nu": {
+   "name": "Thanh Mộc dược nữ",
+   "hinh": "hero.y-luc-bao-thanh-moc-nu",
+   "color": "#6ab060",
+   "hair": "#3a2a1a",
+   "map": "dao-moc",
+   "at": [
+    23,
+    47
+   ],
+   "ban": "tieu-phu",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "tho-bao-hau-tho-nu": {
+   "name": "Hậu Thổ nữ thương",
+   "hinh": "hero.y-tho-bao-hau-tho-nu",
+   "color": "#b08a5a",
+   "hair": "#2a1a0a",
+   "map": "dao-hau-tho",
+   "at": [
+    17,
+    30
+   ],
+   "ban": "chi-ganh-da",
+   "lines": [
+    "Ghé xem hàng đi đạo hữu.",
+    "Hàng tốt giá phải chăng."
+   ]
+  },
+  "hoa-bao-xich-diem-nam": {
+   "name": "Lữ khách Hỏa bào Xích Diễm",
+   "hinh": "hero.y-hoa-bao-xich-diem-nam",
+   "color": "#e8583a",
+   "map": "dao-xich-dien",
+   "at": [
+    52,
+    71
+   ],
+   "lines": [
+    "Bộ Hỏa bào Xích Diễm này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "hoa-bao-xich-diem-nu": {
+   "name": "Nữ lữ khách Hỏa bào Xích Diễm",
+   "hinh": "hero.y-hoa-bao-xich-diem-nu",
+   "color": "#e8583a",
+   "map": "dao-xich-dien",
+   "at": [
+    44,
+    51
+   ],
+   "lines": [
+    "Bộ Hỏa bào Xích Diễm này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "hu-khong-tu-y-nam": {
+   "name": "Lữ khách Hư Không Tử Y",
+   "hinh": "hero.y-hu-khong-tu-y-nam",
+   "color": "#7a5ac8",
+   "map": "phuong-thien-dia",
+   "at": [
+    5,
+    7
+   ],
+   "lines": [
+    "Bộ Hư Không Tử Y này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "hu-khong-tu-y-nu": {
+   "name": "Nữ lữ khách Hư Không Tử Y",
+   "hinh": "hero.y-hu-khong-tu-y-nu",
+   "color": "#7a5ac8",
+   "map": "phuong-thien-dia",
+   "at": [
+    8,
+    7
+   ],
+   "lines": [
+    "Bộ Hư Không Tử Y này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "kim-bao-nam": {
+   "name": "Lữ khách Kim bào",
+   "hinh": "hero.y-kim-bao-nam",
+   "color": "#e8c050",
+   "map": "thien-kiem-phong",
+   "at": [
+    64,
+    58
+   ],
+   "lines": [
+    "Bộ Kim bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "kim-bao-nu": {
+   "name": "Nữ lữ khách Kim bào",
+   "hinh": "hero.y-kim-bao-nu",
+   "color": "#e8c050",
+   "map": "thien-kiem-phong",
+   "at": [
+    57,
+    46
+   ],
+   "lines": [
+    "Bộ Kim bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "kim-y-thien-kim-nam": {
+   "name": "Lữ khách Kim y Thiên Kim",
+   "hinh": "hero.y-kim-y-thien-kim-nam",
+   "color": "#f0d070",
+   "map": "dao-thien-kim",
+   "at": [
+    36,
+    50
+   ],
+   "lines": [
+    "Bộ Kim y Thiên Kim này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "kim-y-thien-kim-nu": {
+   "name": "Nữ lữ khách Kim y Thiên Kim",
+   "hinh": "hero.y-kim-y-thien-kim-nu",
+   "color": "#f0d070",
+   "map": "dao-thien-kim",
+   "at": [
+    20,
+    27
+   ],
+   "lines": [
+    "Bộ Kim y Thiên Kim này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "phong-bao-hac-phong-nam": {
+   "name": "Lữ khách Phong bào Hắc Phong",
+   "hinh": "hero.y-phong-bao-hac-phong-nam",
+   "color": "#6a7a9a",
+   "map": "hac-phong-dao",
+   "at": [
+    34,
+    12
+   ],
+   "lines": [
+    "Bộ Phong bào Hắc Phong này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "phong-bao-hac-phong-nu": {
+   "name": "Nữ lữ khách Phong bào Hắc Phong",
+   "hinh": "hero.y-phong-bao-hac-phong-nu",
+   "color": "#6a7a9a",
+   "map": "hac-phong-dao",
+   "at": [
+    18,
+    26
+   ],
+   "lines": [
+    "Bộ Phong bào Hắc Phong này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "thien-kiem-bao-nam": {
+   "name": "Lữ khách Thiên Kiếm bào",
+   "hinh": "hero.y-thien-kiem-bao-nam",
+   "color": "#b8d8f0",
+   "map": "thien-kiem-phong",
+   "at": [
+    44,
+    36
+   ],
+   "lines": [
+    "Bộ Thiên Kiếm bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "thien-kiem-bao-nu": {
+   "name": "Nữ lữ khách Thiên Kiếm bào",
+   "hinh": "hero.y-thien-kiem-bao-nu",
+   "color": "#b8d8f0",
+   "map": "thien-kiem-phong",
+   "at": [
+    38,
+    50
+   ],
+   "lines": [
+    "Bộ Thiên Kiếm bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "tu-bao-nam": {
+   "name": "Lữ khách Tử bào",
+   "hinh": "hero.y-tu-bao-nam",
+   "color": "#9a5ad8",
+   "map": "lang-tinh-linh",
+   "at": [
+    22,
+    15
+   ],
+   "lines": [
+    "Bộ Tử bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  },
+  "tu-bao-nu": {
+   "name": "Nữ lữ khách Tử bào",
+   "hinh": "hero.y-tu-bao-nu",
+   "color": "#9a5ad8",
+   "map": "lang-tinh-linh",
+   "at": [
+    14,
+    21
+   ],
+   "lines": [
+    "Bộ Tử bào này giờ không ai may nữa, ta giữ làm kỷ niệm.",
+    "Công trình này đẹp nhỉ, ta đứng ngắm hoài.",
+    "Đạo hữu đi đâu đấy? Đường này yên bình lắm."
+   ]
+  }
+ }
+}
