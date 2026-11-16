@@ -353,7 +353,15 @@
     55,
     24
    ]
-  }
+  },
+  {"id": "dc-dong-phuc-nu", "at": [42, 44]},
+  {"id": "dc-thanh-sam-nam", "at": [57, 56]},
+  {"id": "dc-tien-nhan-nam", "at": [48, 38]},
+  {"id": "dc-hoang-kim-nu", "at": [61, 56]},
+  {"id": "dc-kim-bao-nam", "at": [64, 58]},
+  {"id": "dc-kim-bao-nu", "at": [57, 46]},
+  {"id": "dc-thien-kiem-bao-nam", "at": [44, 36]},
+  {"id": "dc-thien-kiem-bao-nu", "at": [38, 50]}
  ],
  "spawners": [
   {

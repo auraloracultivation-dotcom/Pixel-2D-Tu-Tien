@@ -104,7 +104,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.refreshStats = () => refreshStats(game);
   game.spawn = (id, x, y, extra) => spawnMob(game, id, x, y, extra);
   game.addNpc = (id, at) => {
-    const p = at ? game.map.center(at[0], at[1]) : game.map.freeNear(Math.floor(game.player.x / cfg.tile) + 1, Math.floor(game.player.y / cfg.tile) - 1, 1, 6);
+    const p = at ? (game.map.blocked(game.map.center(at[0], at[1]).x, game.map.center(at[0], at[1]).y, 6) ? game.map.freeNear(Math.floor(at[0]), Math.floor(at[1]), 1, 6) : game.map.center(at[0], at[1])) : game.map.freeNear(Math.floor(game.player.x / cfg.tile) + 1, Math.floor(game.player.y / cfg.tile) - 1, 1, 6);   // chỗ đứng vướng nhà, cây: dời sang ô trống gần nhất (NPC đồ cũ, data/do-cu.json)
     game.npcs.push({ id, def: data.npcs[id], x: p.x, y: p.y, r: 6, bob: Math.random() * 6 });
   };
   // Trang bị khởi đầu (Phàm) và tự mặc vào

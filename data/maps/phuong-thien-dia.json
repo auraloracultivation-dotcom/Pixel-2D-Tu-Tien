@@ -22,7 +22,7 @@
  ],
  "spawns": {"vao": [4, 6]},
  "portals": [{"at": [2, 6], "to": "vet-nut-ngoai", "spawn": "vao", "label": "Truyền tống về Ngoại Vực Vết Nứt"}],
- "npcs": [],
+ "npcs": [{"id": "dc-hu-khong-tu-y-nam", "at": [5, 7]}, {"id": "dc-hu-khong-tu-y-nu", "at": [8, 7]}],
  "spawners": [],
  "rooms": [{"rect": [1, 1, 12, 11], "door_x": 14, "mobs": [{"mob": "hu-khong-ma", "n": 4}, {"mob": "u-minh-phap", "n": 2}], "intro": "Ma khí đặc quánh. Hộ vệ của Ma Vương lao tới!"}, {"rect": [16, 1, 12, 11], "door_x": 29, "mobs": [{"mob": "u-minh-ve", "n": 3}, {"mob": "hu-anh", "n": 3}]}, {"rect": [31, 1, 22, 11], "mobs": [{"mob": "hu-khong-nguc-chu", "n": 1}], "boss": true}]
 }
