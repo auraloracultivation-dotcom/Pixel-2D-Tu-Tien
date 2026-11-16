@@ -9,6 +9,7 @@ import { drawChainGhosts } from './draw-chain.js';
 import { domainVis } from './draw-domain.js';
 import { joltOff } from '../game/hit-feel.js';
 import { drawPhapTuong, drawOrb } from './draw-phap-tuong.js';
+import { UNIT_PER_PX } from './draw-acts.js';
 
 // Hình nhân vật: bộ thời trang đang mặc có hình chibi hero.y-<bộ>-<nam|nu> thì dùng hình đó và động tác chibi (data/heroes.json chibi),
 // chưa có thì hình gốc của nhân vật
@@ -88,8 +89,12 @@ function build(H, look) {
 
 // Cỡ điểm ảnh của hình nhân vật trên màn (m: phép biến đổi đang dùng): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm.
 // Làm tròn lên mà to quá 15% (hình ít điểm ảnh, như Tử Linh Ma Yêu body 64 ở màn ~0.75) thì giữ đúng cỡ, vẽ có làm mịn (chủ dự án 06/11/2026 20:54)
+// Chuẩn là cỡ NPC ĐANG VẼ thật (draw-acts.js làm tròn NPC lên / xuống theo điểm màn), không phải cỡ lý thuyết char_height: trước đây ở
+// màn 3 điểm (điện thoại zoom 1,5 × DPR 2) NPC được làm tròn lên 2 điểm mỗi điểm ảnh (cao ~30) còn nhân vật chính làm tròn xuống 1 (cao ~16),
+// chủ dự án 17/11/2026 00:29: "nhân vật bé xíu mà NPC to khủng lồ". Nhân vật chính không bao giờ nhỏ hơn NPC (00:05: "nhân vật chính k đc hạ").
 export function heroScale(game, look, m) {
-  const H = game.data.heroes, want = H.char_height / look.body * m.d, r0 = Math.max(1, Math.round(want));
+  const H = game.data.heroes, d = Math.abs(m.d) || 1, npcH = H.char_height * (Math.max(1, Math.round(UNIT_PER_PX * d)) / d) / UNIT_PER_PX;
+  const want = npcH / look.body * d, r0 = Math.max(1, Math.round(want));
   const n0 = want >= 0.75 && r0 <= want * 1.15 ? r0 : want;
   return { n0, n: n0 * (look.cm || H.npc_cm) / H.npc_cm };
 }
@@ -119,8 +124,8 @@ function heroBody(ctx, game, p, t, flash, save) {
   // Cỡ theo chỉ số (data/heroes.json): làm tròn cỡ người chuẩn NPC trước, rồi nhân đúng tỉ lệ cm / npc_cm và bề ngang,
   // để 1m75 vẫn thấp hơn NPC một xíu dù làm tròn (lệch vài phần trăm, điểm ảnh gần như vẫn vuông)
   const H = game.data.heroes, m = ctx.getTransform();
-  p.top = H.char_height * (look.cm || H.npc_cm) / H.npc_cm;   // cao thân (đơn vị bản đồ): danh hiệu đặt trên đầu theo số này
   const { n0, n } = heroScale(game, look, m), wide = build(H, look);
+  p.top = look.body * n / (Math.abs(m.d) || 1);   // cao thân đang vẽ (đơn vị bản đồ): danh hiệu đặt trên đầu theo số này
   if (!p.riding) drawPhapTuong(ctx, game, p, t, save, look, name, p.x, p.y);   // pháp tượng sau lưng (cưỡi thú thì vẽ trước thú, src/render/draw.js)
   ctx.save();
   const fly = game.data.heroes.fly, lunge = fly && !own ? fly.lean : look.lunge;   // động tác đánh của nhân vật: nhún như cũ; không có thì nhún nhẹ vận lực

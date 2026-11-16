@@ -16,7 +16,12 @@ export function createHudBang(game) {
   const cv = document.getElementById('game');   // nền nằm ngay trên canvas, dưới mọi nút (#hud, #buttons vẽ sau nên đè lên)
   const mk = id => { const e = document.createElement('div'); e.id = id; e.hidden = true; if (cv) cv.after(e); else document.body.prepend(e); return e; };
   const top = mk('bang-tren'), bot = mk('bang-duoi'), hud = document.getElementById('hud');
-  const sync = () => { const on = !!(game.save && game.player && hud && !hud.hidden && !game.trip); top.hidden = bot.hidden = !on; };
+  let n2 = -1;
+  const sync = () => {
+    const on = !!(game.save && game.player && hud && !hud.hidden && !game.trip); top.hidden = bot.hidden = !on;
+    const k = document.querySelectorAll('#hud .hud-btns > button.tron[data-tron2]:not([hidden])').length;   // ô hàng Thư… đang hiện: hàng Menu… nối liền bên trái
+    if (k !== n2) { n2 = k; document.body.style.setProperty('--n2', k); }
+  };
   sync(); every(sync, 500);
   if (hud) new MutationObserver(sync).observe(hud, { attributes: true, attributeFilter: ['hidden'] });   // màn chơi vừa hiện: dựng ngay
 }
