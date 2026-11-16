@@ -48,7 +48,7 @@ export function createManToi(game) {
   document.addEventListener('visibilitychange', () => { if (game.manToi && !document.hidden) hold(); });
   every(() => {
     const hud = document.getElementById('hud'), p = game.player;
-    btn.hidden = !(game.save && hud && !hud.hidden && p && (game.auto || game.pilot || p.meditating));
+    btn.hidden = !(game.save && hud && !hud.hidden && p && (game.auto || game.pilot));   // chủ dự án 17/11/2026 00:40: chỉ hiện khi đang bật Tự đánh / Tự hành
     if (!game.manToi) return;
     if (game.ghost?.ask && !game.ghost.choice) { off(); return; }
     paint();

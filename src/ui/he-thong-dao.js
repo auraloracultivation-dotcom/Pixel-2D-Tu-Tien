@@ -12,7 +12,7 @@ export function createWander(game, ic, face, D) {
   let dTop = Infinity, dAt = 0;
   // bố cục hai bảng (src/ui/hud-bang.js): chỉ đi trong khoảng trống giữa bảng trên và bảng dưới, không ngó nút trong bảng (đứng cạnh là đè ô bên)
   let zAt = 0, zone = null;
-  const band = () => { const now = performance.now(); if (zone && now - zAt < 500) return zone; zAt = now; const t = document.getElementById('bang-tren'), b = document.getElementById('bang-duoi'); return (zone = { t: t && !t.hidden ? t.getBoundingClientRect().bottom + 4 : 40, b: b && !b.hidden ? b.getBoundingClientRect().top - 4 : innerHeight - 8 }); };
+  const band = () => { const now = performance.now(); if (zone && now - zAt < 500) return zone; zAt = now; const t = document.getElementById('bang-tren'), b = document.getElementById('bang-duoi'); return (zone = { t: t && !t.hidden ? t.getBoundingClientRect().bottom + 4 : 40, b: b && !b.hidden ? b.getBoundingClientRect().top - 58 : innerHeight - 8 }); };   // chừa hàng Lướt, Tự đánh ngay trên bảng dưới
   function dlgTop() {   // mép trên khung thoại đang mở, kể cả thẻ tên và hình người nói (đo lại mỗi 0,3 giây); không có thoại: vô cực
     if (!game.dialog?.open) return (dTop = Infinity);
     const now = performance.now();
