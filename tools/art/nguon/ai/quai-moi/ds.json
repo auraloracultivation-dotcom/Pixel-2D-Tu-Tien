@@ -1,0 +1,566 @@
+{
+ "_note": "Bộ Quái Mới (chủ dự án 16/11/2026): số thứ tự → mã quái trong data/mobs.json; mv kiểu đi (chan có chân, bay, luot lướt, nay nảy, bo bò); fx kiểu đòn vẽ bằng code (cao cào, can cắn, nen nện, chem chém, quat quất, dam đâm, xoay gió xoáy; quái bắn xa: ten mũi tên, cau cầu phép, gai gai độc, cat cát, da đá nóng); mau màu hiệu ứng; tam: chuyển động đang chờ làm lại, tạm dựng từ ảnh tĩnh nhún bằng code (tools/art/quai_moi_game.py); hit: khung đòn chạm soát bằng mắt (ghi đè cách tự tìm của quai_moi_game.py).",
+ "quai": [
+  {
+   "n": 1,
+   "id": "ma-tieu",
+   "ten": "Tiểu ma",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "cao",
+   "mau": "#c48cff"
+  },
+  {
+   "n": 2,
+   "id": "ma-cung",
+   "ten": "Ma tiễn",
+   "vai": "Đánh xa",
+   "mv": "bay",
+   "fx": "ten",
+   "mau": "#7ee8ff"
+  },
+  {
+   "n": 3,
+   "id": "huyet-nha",
+   "ten": "Phân thân Huyết Nha",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "can",
+   "mau": "#ff5a6a"
+  },
+  {
+   "n": 4,
+   "id": "moc-linh",
+   "ten": "Mộc linh",
+   "vai": "Hiền",
+   "mv": "nay",
+   "fx": "nen",
+   "mau": "#9be07a",
+   "tam": [
+    "dung",
+    "di",
+    "danh"
+   ]
+  },
+  {
+   "n": 5,
+   "id": "hoa-lang",
+   "ten": "Hỏa lang",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "can",
+   "mau": "#ff9a3a"
+  },
+  {
+   "n": 6,
+   "id": "viem-linh",
+   "ten": "Viêm linh",
+   "vai": "Hiền",
+   "mv": "bay",
+   "fx": "nen",
+   "mau": "#ffb03a"
+  },
+  {
+   "n": 7,
+   "id": "ma-binh",
+   "ten": "Ma binh",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "chem",
+   "mau": "#ff6a7a",
+   "tam": [
+    "dung"
+   ]
+  },
+  {
+   "n": 8,
+   "id": "ma-phap",
+   "ten": "Ma pháp sư",
+   "vai": "Đánh xa",
+   "mv": "luot",
+   "fx": "cau",
+   "mau": "#c070ff"
+  },
+  {
+   "n": 9,
+   "id": "huyet-nha-that",
+   "ten": "Huyết Nha",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "can",
+   "mau": "#ff4a5a"
+  },
+  {
+   "n": 10,
+   "id": "tuyet-lang",
+   "ten": "Tuyết lang",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "can",
+   "mau": "#a8e8ff"
+  },
+  {
+   "n": 11,
+   "id": "bang-tinh",
+   "ten": "Băng tinh",
+   "vai": "Hiền",
+   "mv": "bay",
+   "fx": "nen",
+   "mau": "#9fe8ff"
+  },
+  {
+   "n": 12,
+   "id": "ma-bang-tien",
+   "ten": "Ma băng tiễn",
+   "vai": "Đánh xa",
+   "mv": "bay",
+   "fx": "ten",
+   "mau": "#8ff0ff"
+  },
+  {
+   "n": 13,
+   "id": "han-ma-ve",
+   "ten": "Hàn ma vệ",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "dam",
+   "mau": "#9fd8ff"
+  },
+  {
+   "n": 14,
+   "id": "han-hon-ma-tuong",
+   "ten": "Hàn Hồn Ma Tướng",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "nen",
+   "mau": "#7ee0ff"
+  },
+  {
+   "n": 15,
+   "id": "phong-yeu",
+   "ten": "Phong yêu",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "can",
+   "mau": "#b8f0e0"
+  },
+  {
+   "n": 16,
+   "id": "hac-diep",
+   "ten": "Hắc điệp",
+   "vai": "Đánh xa",
+   "mv": "bay",
+   "fx": "cau",
+   "mau": "#d080ff"
+  },
+  {
+   "n": 17,
+   "id": "ma-phong-ve",
+   "ten": "Ma Phong Vệ",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "xoay",
+   "mau": "#d8e8f0"
+  },
+  {
+   "n": 18,
+   "id": "hac-phong-ma-quan",
+   "ten": "Hắc Phong Ma Quân",
+   "vai": "Boss",
+   "mv": "luot",
+   "fx": "chem",
+   "mau": "#b070ff"
+  },
+  {
+   "n": 19,
+   "id": "moc-yeu",
+   "ten": "Mộc yêu",
+   "vai": "Cận chiến",
+   "mv": "nay",
+   "fx": "quat",
+   "mau": "#8fd06a"
+  },
+  {
+   "n": 20,
+   "id": "doc-dang",
+   "ten": "Độc đằng",
+   "vai": "Đánh xa",
+   "mv": "bo",
+   "fx": "gai",
+   "mau": "#c8e04a"
+  },
+  {
+   "n": 21,
+   "id": "ma-tham-tu",
+   "ten": "Ma thám tử",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "chem",
+   "mau": "#b8a0ff",
+   "tam": [
+    "dung",
+    "di",
+    "danh"
+   ]
+  },
+  {
+   "n": 22,
+   "id": "thu-moc-ve",
+   "ten": "Thụ Mộc Vệ",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "nen",
+   "mau": "#c8a070",
+   "hit": 4
+  },
+  {
+   "n": 23,
+   "id": "thuc-moc-ma-hau",
+   "ten": "Thực Mộc Ma Hậu",
+   "vai": "Boss",
+   "mv": "luot",
+   "fx": "quat",
+   "mau": "#ff8ab8"
+  },
+  {
+   "n": 24,
+   "id": "hac-cuc-mam",
+   "ten": "Mầm Hắc Cức",
+   "vai": "Cận chiến",
+   "mv": "nay",
+   "fx": "nen",
+   "mau": "#ff70b0"
+  },
+  {
+   "n": 25,
+   "id": "re-ma",
+   "ten": "Rễ ma",
+   "vai": "Đánh xa",
+   "mv": "bo",
+   "fx": "gai",
+   "mau": "#e0c070"
+  },
+  {
+   "n": 26,
+   "id": "gai-ma-ve",
+   "ten": "Gai Ma Vệ",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "chem",
+   "mau": "#ff7ab0"
+  },
+  {
+   "n": 27,
+   "id": "hac-cuc-ma-chung",
+   "ten": "Hắc Cức Ma Chủng",
+   "vai": "Boss",
+   "mv": "bo",
+   "fx": "quat",
+   "mau": "#b070e0"
+  },
+  {
+   "n": 28,
+   "id": "kim-giap-trung",
+   "ten": "Kim giáp trùng",
+   "vai": "Cận chiến",
+   "mv": "bo",
+   "fx": "dam",
+   "mau": "#ffd24a"
+  },
+  {
+   "n": 29,
+   "id": "sa-ma",
+   "ten": "Sa ma",
+   "vai": "Đánh xa",
+   "mv": "luot",
+   "fx": "cat",
+   "mau": "#e8c890"
+  },
+  {
+   "n": 30,
+   "id": "kiem-hon",
+   "ten": "Kiếm hồn",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "dam",
+   "mau": "#9fe8ff"
+  },
+  {
+   "n": 31,
+   "id": "kim-ma-ve",
+   "ten": "Kim Ma Vệ",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "cao",
+   "mau": "#ffd24a"
+  },
+  {
+   "n": 32,
+   "id": "van-kiem-ma-tuong",
+   "ten": "Vạn Kiếm Ma Tướng",
+   "vai": "Boss",
+   "mv": "luot",
+   "fx": "chem",
+   "mau": "#ff5a6a",
+   "hit": 3
+  },
+  {
+   "n": 33,
+   "id": "tho-khoi",
+   "ten": "Thổ khôi",
+   "vai": "Cận chiến",
+   "mv": "nay",
+   "fx": "nen",
+   "mau": "#c8b48a"
+  },
+  {
+   "n": 34,
+   "id": "nham-xa",
+   "ten": "Nham xà",
+   "vai": "Đánh xa",
+   "mv": "bo",
+   "fx": "da",
+   "mau": "#ff8a3a"
+  },
+  {
+   "n": 35,
+   "id": "thach-doi",
+   "ten": "Thạch dơi",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "cao",
+   "mau": "#ff9a4a"
+  },
+  {
+   "n": 36,
+   "id": "tho-ma-ve",
+   "ten": "Thổ Ma Vệ",
+   "vai": "Cận chiến",
+   "mv": "chan",
+   "fx": "nen",
+   "mau": "#ffa050"
+  },
+  {
+   "n": 37,
+   "id": "toai-son-ma-tuong",
+   "ten": "Toái Sơn Ma Tướng",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "nen",
+   "mau": "#ff9a4a",
+   "tam": [
+    "dung",
+    "danh"
+   ]
+  },
+  {
+   "n": 38,
+   "id": "hu-khong-ma",
+   "ten": "Hư không ma",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "nen",
+   "mau": "#c080ff"
+  },
+  {
+   "n": 39,
+   "id": "u-minh-phap",
+   "ten": "U minh pháp sư",
+   "vai": "Đánh xa",
+   "mv": "luot",
+   "fx": "cau",
+   "mau": "#c070ff"
+  },
+  {
+   "n": 40,
+   "id": "hu-anh",
+   "ten": "Hư ảnh",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "cao",
+   "mau": "#d8c8ff"
+  },
+  {
+   "n": 41,
+   "id": "u-minh-ve",
+   "ten": "U Minh Vệ",
+   "vai": "Cận chiến",
+   "mv": "luot",
+   "fx": "dam",
+   "mau": "#b080ff"
+  },
+  {
+   "n": 42,
+   "id": "hu-khong-nguc-chu",
+   "ten": "Hư Không Ngục Chủ",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "quat",
+   "mau": "#9fb8ff",
+   "hit": 4
+  },
+  {
+   "n": 43,
+   "id": "ma-ton",
+   "ten": "Ma Tôn",
+   "vai": "Boss",
+   "mv": "luot",
+   "fx": "chem",
+   "mau": "#ff4a6a"
+  },
+  {
+   "n": 44,
+   "id": "tam-ma",
+   "ten": "Tâm Ma",
+   "vai": "Cận chiến",
+   "mv": "bay",
+   "fx": "cao",
+   "mau": "#ff4a6a"
+  },
+  {
+   "n": 45,
+   "id": "linh-thach-tinh",
+   "ten": "Linh Thạch Tinh",
+   "vai": "Cận chiến",
+   "mv": "nay",
+   "fx": "nen",
+   "mau": "#b8a0ff"
+  },
+  {
+   "n": 46,
+   "id": "linh-thao-tinh",
+   "ten": "Linh Thảo Tinh",
+   "vai": "Cận chiến",
+   "mv": "nay",
+   "fx": "quat",
+   "mau": "#9be07a"
+  },
+  {
+   "n": 47,
+   "id": "nguoi-tuyet-yeu",
+   "ten": "Người tuyết yêu",
+   "vai": "Hiền",
+   "mv": "nay",
+   "fx": "cao",
+   "mau": "#bfe8ff"
+  },
+  {
+   "n": 48,
+   "id": "bi-ngo-yeu",
+   "ten": "Bí ngô yêu",
+   "vai": "Hiền",
+   "mv": "nay",
+   "fx": "can",
+   "mau": "#ffa040"
+  },
+  {
+   "n": 49,
+   "id": "moc-linh-vuong",
+   "ten": "Mộc Linh Vương",
+   "vai": "Boss",
+   "mv": "bo",
+   "fx": "can",
+   "mau": "#a8e07a"
+  },
+  {
+   "n": 50,
+   "id": "hoa-lang-vuong",
+   "ten": "Hỏa Lang Vương",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "can",
+   "mau": "#ff8a2a"
+  },
+  {
+   "n": 51,
+   "id": "tuyet-lang-vuong",
+   "ten": "Tuyết Lang Vương",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "can",
+   "mau": "#9fe8ff"
+  },
+  {
+   "n": 52,
+   "id": "phong-yeu-vuong",
+   "ten": "Phong Yêu Vương",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "xoay",
+   "mau": "#e8f0ff"
+  },
+  {
+   "n": 53,
+   "id": "co-thu-yeu-vuong",
+   "ten": "Cổ Thụ Yêu Vương",
+   "vai": "Boss",
+   "mv": "bo",
+   "fx": "nen",
+   "mau": "#9be07a"
+  },
+  {
+   "n": 54,
+   "id": "kim-giap-vuong",
+   "ten": "Kim Giáp Trùng Vương",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "dam",
+   "mau": "#ffd24a"
+  },
+  {
+   "n": 55,
+   "id": "nham-giap-thu",
+   "ten": "Nham Giáp Thú",
+   "vai": "Boss",
+   "mv": "chan",
+   "fx": "nen",
+   "mau": "#ffc04a"
+  },
+  {
+   "n": 56,
+   "id": "hu-khong-cu-thu",
+   "ten": "Hư Không Cự Thú",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "can",
+   "mau": "#c080ff"
+  },
+  {
+   "n": 57,
+   "id": "tan-hon-huyet-nha",
+   "ten": "Tàn hồn Huyết Nha",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "can",
+   "mau": "#ff4a5a"
+  },
+  {
+   "n": 58,
+   "id": "tan-hon-han-hon",
+   "ten": "Tàn hồn Hàn Hồn Ma Tướng",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "chem",
+   "mau": "#7ee8ff",
+   "hit": 5
+  },
+  {
+   "n": 59,
+   "id": "tan-hon-hac-phong",
+   "ten": "Tàn hồn Hắc Phong Ma Quân",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "quat",
+   "mau": "#c060ff"
+  },
+  {
+   "n": 60,
+   "id": "tan-hon-thuc-moc",
+   "ten": "Tàn hồn Thực Mộc Ma Hậu",
+   "vai": "Boss",
+   "mv": "bay",
+   "fx": "quat",
+   "mau": "#ff8a9a"
+  }
+ ]
+}

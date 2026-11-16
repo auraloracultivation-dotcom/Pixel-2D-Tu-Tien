@@ -1,7 +1,7 @@
 // Quái: lang thang, đuổi, bắn xa, và boss (chém, lao, triệu hồi, vòng đạn, gọi lửa rơi nếu có meteor).
 import { inHoi } from '../world/hoi-foot.js';
 import { teleStart } from './hurt-feel.js';
-import { addFx, hitPlayer, shoot, dist } from './combat.js';
+import { hitPlayer, shoot, dist } from './combat.js';
 import { addStrike } from './strikes.js';
 import { partyHostRun, nearestTarget, partyHurt, partyShot } from './party-sync.js';
 import { duelThink } from './duel-ai.js';
@@ -9,6 +9,7 @@ import { tickDummy } from './dummy.js';
 import { tickMang } from './thien-mang.js';
 import { reachOf, aggroCheck } from './mob-power.js';
 import { crowd } from './crowd.js';
+import { mobHitFx, mobShotFx, noticeTick } from './mob-fx.js';
 
 let UID = 0;   // số riêng của từng con quái, để tổ đội gọi đúng con
 
@@ -66,7 +67,7 @@ export function updateMobs(game, dt) {
   const host = partyHostRun(game), S = game.data.config.npc_safe;
   for (const m of game.mobs) {
     if (m.dead) continue;
-    m.flash -= dt; m.slowT -= dt; m.stunT -= dt; m.t += dt; m.cd -= dt; m.hop += dt * 6;
+    m.flash -= dt; m.slowT -= dt; m.stunT -= dt; m.t += dt; m.cd -= dt; m.hop += dt * 6; m.ak = (m.ak || 0) + dt;   // ak: đồng hồ riêng của con quái, không quay về 0 (hình động, dấu chấm than)
     if (m.remote) {   // quái của đội trưởng: chỉ trượt tới vị trí được báo
       const dx = (m.tx ?? m.x) - m.x, dy = (m.ty ?? m.y) - m.y, k = Math.min(1, dt * 10);
       if (Math.abs(dx) + Math.abs(dy) > 0.5) { m.fx = Math.sign(dx); m.fy = Math.sign(dy); }
@@ -85,6 +86,7 @@ export function updateMobs(game, dt) {
     if (S && m.def.ai !== 'boss' && m.def.ai !== 'duel' && !(game.time - (m.hurtT ?? -1e9) < S.grace) && (nearNpc(game, p, S.r) || inHoi(game, p))) { m.state = 'idle'; wander(game, m, dt); continue; }   // vùng an toàn quanh NPC (data/config.json npc_safe) và phố lễ hội (hoi-foot.js)
     const d = dist(m, p);
     m.aggro = !!aggroCheck(game, m, p, d);   // chỉ chủ động đánh khi vào tầm, chạy xa thì thôi đuổi (mob-power.js)
+    noticeTick(game, m, p, d);   // vừa nhận ra mình: dấu chấm than (mob-fx.js)
     if (m.def.ai === 'duel') duelThink(game, m, d, dt);   // bản sao so tài (game/duel.js)
     else if (m.def.ai === 'boss') bossThink(game, m, d, dt);
     else if (m.aggro && m.def.ai === 'ranged') rangedThink(game, m, d, dt);
@@ -111,7 +113,7 @@ function meleeThink(game, m, d, dt) {
   if (m.state === 'windup') {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;
-      addFx(game, { type: 'bite', x: m.x + (m.fx || 0) * m.r, y: m.y + (m.fy || 0) * m.r, life: 0.15, color: m.def.color });
+      mobHitFx(game, m, p);   // hình đòn theo kiểu đòn của con quái (mob-fx.js; chưa khai kiểu thì vết cắn cũ)
       if (dist(m, p) < reach + 4) strike(game, m, m.def.atk);
     }
     return;
@@ -126,7 +128,8 @@ function rangedThink(game, m, d, dt) {
     if (m.t >= m.def.windup) {
       m.state = 'idle'; m.cd = m.def.cd;
       const a = Math.atan2(p.y - m.y, p.x - m.x);
-      mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: '#e070ff', life: 2 });
+      mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y - 3, vx: Math.cos(a) * m.def.bullet, vy: Math.sin(a) * m.def.bullet, r: 3, dmg: m.def.atk, color: m.def.fx?.c || '#e070ff', mk: m.def.fx?.k, life: 2 });
+      mobShotFx(game, m, a);   // loé chỗ đạn rời tay; đạn vẽ theo kiểu mk (draw-mob-fx.js)
     }
     return;
   }
@@ -156,13 +159,13 @@ function bossThink(game, m, d, dt) {
       if (pick === 3) { meteor(game, m); m.cd = def.cd; }
       else if (pick === 0 && d < 60) { m.state = 'slash'; }
       else if (pick === 2) { m.state = 'nova'; }
-      else { m.state = 'charge'; m.ca = Math.atan2(p.y - m.y, p.x - m.x); game.sfx('warn'); }
+      else { m.state = 'charge'; m.ca = Math.atan2(p.y - m.y, p.x - m.x); m.chFx = 0; game.sfx('warn'); }
     }
   } else if (m.state === 'slash') {
     m.tele = { type: 'circle', r: def.reach + m.r + 10, k: m.t / def.windup };
     if (m.t >= def.windup) {
       m.tele = null; m.state = 'idle'; m.cd = def.cd;
-      addFx(game, { type: 'ring', x: m.x, y: m.y, r: def.reach + m.r + 10, color: '#ff4a5a', life: 0.25, fill: true });
+      mobHitFx(game, m, m, { k: 'vong', self: 1, r: def.reach + m.r + 10, s: 1.5, old: { type: 'ring', x: m.x, y: m.y, r: def.reach + m.r + 10, color: '#ff4a5a', life: 0.25, fill: true } });   // chém vòng đúng bán kính khung đỏ
       if (dist(m, p) < def.reach + m.r + 10 + p.r) strike(game, m, def.atk);
     }
   } else if (m.state === 'charge') {
@@ -172,18 +175,19 @@ function bossThink(game, m, d, dt) {
     const s = 230 * dt, bx = m.x, by = m.y;
     game.map.move(m, Math.cos(m.ca) * s, Math.sin(m.ca) * s);
     const stuck = Math.hypot(m.x - bx, m.y - by) < s * 0.5;
-    if (dist(m, p) < m.r + p.r + 2) strike(game, m, def.atk * 1.3);
+    if (dist(m, p) < m.r + p.r + 2) { strike(game, m, def.atk * 1.3); if (!m.chFx) { m.chFx = 1; mobHitFx(game, m, p, { k: 'dam', s: 1.8 }); } }
     if (stuck || m.t > tele + 0.55) {
       m.state = 'idle'; m.cd = def.cd * 1.2;
-      if (stuck) { game.screen.shake(4, 0.2); m.stunT = 0.6; }
+      if (stuck) { game.screen.shake(4, 0.2); m.stunT = 0.6; mobHitFx(game, m, { x: m.x + Math.cos(m.ca) * 9, y: m.y + Math.sin(m.ca) * 9 }, { k: 'nen', s: 1.8 }); }   // húc tường: sóng đất trước mặt
     }
   } else if (m.state === 'nova') {
-    m.tele = { type: 'circle', r: m.r + 6, k: m.t / 0.6 };
+    m.tele = { type: 'nova', r: m.r + 6, a: m.phase * 0.3, k: m.t / 0.6 };   // a: góc tia đầu, khung đỏ vẽ 14 tia đúng hướng đạn (draw-tele.js)
     if (m.t >= 0.6) {
       m.tele = null; m.state = 'idle'; m.cd = def.cd;
+      mobHitFx(game, m, m, { k: 'no', self: 1, r: m.r + 6, s: 1.4, old: { type: 'ring', x: m.x, y: m.y, r: m.r + 8, color: '#ff4a5a', life: 0.2 } });
       for (let i = 0; i < 14; i++) {
         const a = i / 14 * Math.PI * 2 + m.phase * 0.3;
-        mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', life: 2.5 });
+        mobShoot(game, { from: 'mob', src: m, x: m.x, y: m.y, vx: Math.cos(a) * def.bullet, vy: Math.sin(a) * def.bullet, r: 3.5, dmg: def.atk * 0.7, color: '#ff4a5a', mk: def.fx ? 'cau' : null, life: 2.5 });
       }
     }
   }
@@ -192,6 +196,7 @@ function bossThink(game, m, d, dt) {
 // Lửa rơi: một quả vào chỗ người chơi đứng, các quả khác rải quanh
 function meteor(game, m) {
   const mt = m.def.meteor, p = game.player;
+  m.cast = m.ak;   // hình động: chạy trọn đòn công kích lúc gọi lửa (draw-mob-sprite.js)
   game.say(m.def.name, m.def.meteor.line || 'Thiêu rụi hết đi!', 1.2);
   for (let i = 0; i < mt.n; i++) {
     const a = Math.random() * Math.PI * 2, d = i ? 20 + Math.random() * 60 : 0;

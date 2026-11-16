@@ -14228,844 +14228,1692 @@
    "note": "kiếm bay cạnh nhân vật, chĩa lên phải"
   },
   "mob.bang-tinh": {
-   "file": "assets/art/mob-bang-tinh.png",
-   "v": "cb99f53e",
-   "w": 70,
-   "h": 38,
-   "frames": 2,
-   "anchor": [
-    35,
-    36
-   ],
-   "note": "Băng tinh (slime): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.bi-ngo-yeu": {
-   "file": "assets/art/mob-bi-ngo-yeu.png",
-   "v": "05620486",
-   "w": 94,
-   "h": 43,
-   "frames": 2,
-   "anchor": [
-    47,
-    41
-   ],
-   "note": "Bí ngô yêu (pumpkin): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.co-thu-yeu-vuong": {
-   "file": "assets/art/mob-co-thu-yeu-vuong.png",
-   "v": "4b095b4d",
-   "w": 164,
-   "h": 100,
-   "frames": 7,
-   "anchor": [
-    82,
-    98
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.doc-dang": {
-   "file": "assets/art/mob-doc-dang.png",
-   "v": "5c5a3f89",
-   "w": 98,
-   "h": 45,
-   "frames": 2,
-   "anchor": [
-    49,
-    43
-   ],
-   "note": "Độc đằng (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.gai-ma-ve": {
-   "file": "assets/art/mob-gai-ma-ve.png",
-   "v": "0828a8e4",
-   "w": 88,
-   "h": 56,
-   "frames": 7,
-   "anchor": [
-    44,
-    54
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.hac-cuc-ma-chung": {
-   "file": "assets/art/mob-hac-cuc-ma-chung.png",
-   "v": "9972f10e",
-   "w": 98,
-   "h": 101,
-   "frames": 2,
-   "anchor": [
-    49,
-    99
-   ],
-   "note": "Hắc Cức Ma Chủng (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.hac-cuc-mam": {
-   "file": "assets/art/mob-hac-cuc-mam.png",
-   "v": "5513efa0",
-   "w": 110,
-   "h": 45,
-   "frames": 2,
-   "anchor": [
-    55,
-    43
-   ],
-   "note": "Mầm Hắc Cức (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.hac-diep": {
-   "file": "assets/art/mob-hac-diep.png",
-   "v": "32d51a7e",
-   "w": 64,
-   "h": 43,
-   "frames": 2,
-   "anchor": [
-    32,
-    41
-   ],
-   "note": "Hắc điệp (wing): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.hac-phong-ma-quan": {
-   "file": "assets/art/mob-hac-phong-ma-quan.png",
-   "v": "dc50661d",
-   "w": 168,
-   "h": 108,
-   "frames": 7,
-   "anchor": [
-    84,
-    106
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.han-hon-ma-tuong": {
-   "file": "assets/art/mob-han-hon-ma-tuong.png",
-   "v": "d31420f7",
-   "w": 222,
-   "h": 87,
-   "frames": 7,
-   "anchor": [
-    111,
-    85
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.han-ma-ve": {
-   "file": "assets/art/mob-han-ma-ve.png",
-   "v": "9e99276a",
-   "w": 62,
-   "h": 46,
-   "frames": 7,
-   "anchor": [
-    31,
-    44
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.hoa-lang": {
-   "file": "assets/art/mob-hoa-lang.png",
-   "v": "6ac5ff4a",
-   "w": 72,
-   "h": 37,
-   "frames": 7,
-   "anchor": [
-    36,
-    35
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.hoa-lang-vuong": {
-   "file": "assets/art/mob-hoa-lang-vuong.png",
-   "v": "8f8c0901",
-   "w": 188,
-   "h": 122,
-   "frames": 7,
-   "anchor": [
-    94,
-    120
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.hu-anh": {
-   "file": "assets/art/mob-hu-anh.png",
-   "v": "d5997f42",
-   "w": 70,
-   "h": 47,
-   "frames": 2,
-   "anchor": [
-    35,
-    45
-   ],
-   "note": "Hư ảnh (shade): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.hu-khong-cu-thu": {
-   "file": "assets/art/mob-hu-khong-cu-thu.png",
-   "v": "3a33199e",
-   "w": 210,
-   "h": 110,
-   "frames": 7,
-   "anchor": [
-    105,
-    108
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.hu-khong-ma": {
-   "file": "assets/art/mob-hu-khong-ma.png",
-   "v": "40b7ef1b",
-   "w": 78,
-   "h": 49,
-   "frames": 2,
-   "anchor": [
-    39,
-    47
-   ],
-   "note": "Hư không ma (imp): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.hu-khong-nguc-chu": {
-   "file": "assets/art/mob-hu-khong-nguc-chu.png",
-   "v": "019b92dc",
-   "w": 85,
-   "h": 98,
-   "frames": 2,
-   "anchor": [
-    42,
-    96
-   ],
-   "note": "Hư Không Ngục Chủ (lord): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.huyet-nha": {
-   "file": "assets/art/mob-huyet-nha.png",
-   "v": "dfc94854",
-   "w": 140,
-   "h": 94,
-   "frames": 7,
-   "anchor": [
-    70,
-    92
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.huyet-nha-that": {
-   "file": "assets/art/mob-huyet-nha-that.png",
-   "v": "77ec16fa",
-   "w": 182,
-   "h": 120,
-   "frames": 7,
-   "anchor": [
-    91,
-    118
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.kiem-hon": {
-   "file": "assets/art/mob-kiem-hon.png",
-   "v": "1721fee5",
-   "w": 72,
-   "h": 45,
-   "frames": 2,
-   "anchor": [
-    36,
-    43
-   ],
-   "note": "Kiếm hồn (blade): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.kim-giap-trung": {
-   "file": "assets/art/mob-kim-giap-trung.png",
-   "v": "4946740a",
-   "w": 72,
-   "h": 36,
-   "frames": 7,
-   "anchor": [
-    36,
-    34
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.kim-giap-vuong": {
-   "file": "assets/art/mob-kim-giap-vuong.png",
-   "v": "6cc4e573",
-   "w": 194,
-   "h": 134,
-   "frames": 7,
-   "anchor": [
-    97,
-    132
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.kim-ma-ve": {
-   "file": "assets/art/mob-kim-ma-ve.png",
-   "v": "518edd4b",
-   "w": 118,
-   "h": 60,
-   "frames": 7,
-   "anchor": [
-    59,
-    58
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.linh-thach-tinh": {
-   "file": "assets/art/mob-linh-thach-tinh.png",
-   "v": "f5886380",
-   "w": 74,
-   "h": 42,
-   "frames": 7,
-   "anchor": [
-    37,
-    40
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.linh-thao-tinh": {
-   "file": "assets/art/mob-linh-thao-tinh.png",
-   "v": "965fee60",
-   "w": 72,
-   "h": 42,
-   "frames": 7,
-   "anchor": [
-    36,
-    40
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-bang-tien": {
-   "file": "assets/art/mob-ma-bang-tien.png",
-   "v": "a53e9d1e",
-   "w": 88,
-   "h": 44,
-   "frames": 7,
-   "anchor": [
-    44,
-    42
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-binh": {
-   "file": "assets/art/mob-ma-binh.png",
-   "v": "085e0713",
-   "w": 78,
-   "h": 46,
-   "frames": 7,
-   "anchor": [
-    39,
-    44
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = đứng xoay nằm (chủ dự án: người phải bước chân khi đi) · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-cung": {
-   "file": "assets/art/mob-ma-cung.png",
-   "v": "0612b0cc",
-   "w": 104,
-   "h": 44,
-   "frames": 7,
-   "anchor": [
-    52,
-    42
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-phap": {
-   "file": "assets/art/mob-ma-phap.png",
-   "v": "f639bad7",
-   "w": 88,
-   "h": 46,
-   "frames": 7,
-   "anchor": [
-    44,
-    44
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-phong-ve": {
-   "file": "assets/art/mob-ma-phong-ve.png",
-   "v": "b794fe99",
-   "w": 74,
-   "h": 46,
-   "frames": 7,
-   "anchor": [
-    37,
-    44
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-tham-tu": {
-   "file": "assets/art/mob-ma-tham-tu.png",
-   "v": "a6382a64",
-   "w": 78,
-   "h": 44,
-   "frames": 7,
-   "anchor": [
-    39,
-    42
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-tieu": {
-   "file": "assets/art/mob-ma-tieu.png",
-   "v": "17c417b3",
-   "w": 64,
-   "h": 34,
-   "frames": 7,
-   "anchor": [
-    32,
-    32
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.ma-ton": {
-   "file": "assets/art/mob-ma-ton.png",
-   "v": "77b982c5",
-   "w": 182,
-   "h": 108,
-   "frames": 7,
-   "anchor": [
-    91,
-    106
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.moc-linh": {
-   "file": "assets/art/mob-moc-linh.png",
-   "v": "22231338",
-   "w": 66,
-   "h": 38,
-   "frames": 2,
-   "anchor": [
-    33,
-    36
-   ],
-   "note": "Mộc linh (slime): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.moc-linh-vuong": {
-   "file": "assets/art/mob-moc-linh-vuong.png",
-   "v": "8108e670",
-   "w": 64,
-   "h": 73,
-   "frames": 2,
-   "anchor": [
-    32,
-    71
-   ],
-   "note": "Mộc Linh Vương (slime): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.moc-yeu": {
-   "file": "assets/art/mob-moc-yeu.png",
-   "v": "f4f93eaa",
-   "w": 84,
-   "h": 49,
-   "frames": 2,
-   "anchor": [
-    42,
-    47
-   ],
-   "note": "Mộc yêu (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.nguoi-tuyet-yeu": {
-   "file": "assets/art/mob-nguoi-tuyet-yeu.png",
-   "v": "1a8290c2",
-   "w": 94,
-   "h": 47,
-   "frames": 2,
-   "anchor": [
-    47,
-    45
-   ],
-   "note": "Người tuyết yêu (snowman): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.nham-giap-thu": {
-   "file": "assets/art/mob-nham-giap-thu.png",
-   "v": "f220863d",
-   "w": 206,
-   "h": 132,
-   "frames": 7,
-   "anchor": [
-    103,
-    130
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.nham-xa": {
-   "file": "assets/art/mob-nham-xa.png",
-   "v": "76a8fb6a",
-   "w": 142,
-   "h": 43,
-   "frames": 2,
-   "anchor": [
-    71,
-    41
-   ],
-   "note": "Nham xà (snake): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.phong-yeu": {
-   "file": "assets/art/mob-phong-yeu.png",
-   "v": "741e5ec1",
-   "w": 72,
-   "h": 47,
-   "frames": 2,
-   "anchor": [
-    36,
-    45
-   ],
-   "note": "Phong yêu (wing): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.phong-yeu-vuong": {
-   "file": "assets/art/mob-phong-yeu-vuong.png",
-   "v": "bb9be559",
-   "w": 66,
-   "h": 98,
-   "frames": 2,
-   "anchor": [
-    33,
-    96
-   ],
-   "note": "Phong Yêu Vương (wing): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.re-ma": {
-   "file": "assets/art/mob-re-ma.png",
-   "v": "90750185",
-   "w": 120,
-   "h": 45,
-   "frames": 2,
-   "anchor": [
-    60,
-    43
-   ],
-   "note": "Rễ ma (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.sa-ma": {
-   "file": "assets/art/mob-sa-ma.png",
-   "v": "84eb83cf",
-   "w": 86,
-   "h": 46,
-   "frames": 7,
-   "anchor": [
-    43,
-    44
-   ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
-   "scale": 0.5333,
-   "acts": true
-  },
-  "mob.tam-ma": {
-   "file": "assets/art/mob-tam-ma.png",
-   "v": "bc1ae938",
-   "w": 60,
-   "h": 43,
-   "frames": 2,
-   "anchor": [
-    30,
-    41
-   ],
-   "note": "Tâm Ma (shade): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.tan-hon-hac-phong": {
-   "file": "assets/art/mob-tan-hon-hac-phong.png",
-   "v": "3dada8b0",
-   "w": 75,
-   "h": 92,
-   "frames": 2,
-   "anchor": [
-    37,
-    90
-   ],
-   "note": "Tàn hồn Hắc Phong Ma Quân (lord): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.tan-hon-han-hon": {
-   "file": "assets/art/mob-tan-hon-han-hon.png",
-   "v": "5da491a9",
-   "w": 105,
-   "h": 92,
-   "frames": 2,
-   "anchor": [
-    52,
-    90
-   ],
-   "note": "Tàn hồn Hàn Hồn Ma Tướng (lord): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.tan-hon-huyet-nha": {
-   "file": "assets/art/mob-tan-hon-huyet-nha.png",
-   "v": "685ad5b2",
-   "w": 98,
-   "h": 92,
-   "frames": 2,
-   "anchor": [
-    49,
-    90
-   ],
-   "note": "Tàn hồn Huyết Nha (lord): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.tan-hon-thuc-moc": {
-   "file": "assets/art/mob-tan-hon-thuc-moc.png",
-   "v": "ea59c004",
-   "w": 80,
-   "h": 101,
-   "frames": 2,
-   "anchor": [
-    40,
-    99
-   ],
-   "note": "Tàn hồn Thực Mộc Ma Hậu (plant): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.thach-doi": {
-   "file": "assets/art/mob-thach-doi.png",
-   "v": "19e35a52",
-   "w": 80,
-   "h": 47,
-   "frames": 2,
-   "anchor": [
-    40,
-    45
-   ],
-   "note": "Thạch dơi (wing): đứng, bước · ảnh Canva",
-   "scale": 0.5333,
-   "atk": true
-  },
-  "mob.tho-khoi": {
-   "file": "assets/art/mob-tho-khoi.png",
-   "v": "5c77e024",
-   "w": 80,
+   "file": "assets/art/qm-bang-tinh.png",
+   "v": "f1b9750b",
+   "w": 52,
    "h": 52,
-   "frames": 7,
+   "frames": 16,
    "anchor": [
-    40,
+    25,
     50
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 44,
+   "note": "Bộ Quái Mới #11 Băng tinh (SpriteCook 16/11/2026): dung, danh"
   },
-  "mob.tho-ma-ve": {
-   "file": "assets/art/mob-tho-ma-ve.png",
-   "v": "96a2100e",
+  "mob.bi-ngo-yeu": {
+   "file": "assets/art/qm-bi-ngo-yeu.png",
+   "v": "061688dc",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    26,
+    48
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 44,
+   "note": "Bộ Quái Mới #48 Bí ngô yêu (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.co-thu-yeu-vuong": {
+   "file": "assets/art/qm-co-thu-yeu-vuong.png",
+   "v": "e0b7ccb1",
+   "w": 120,
+   "h": 120,
+   "frames": 24,
+   "anchor": [
+    60,
+    120
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 95,
+   "note": "Bộ Quái Mới #53 Cổ Thụ Yêu Vương (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.doc-dang": {
+   "file": "assets/art/qm-doc-dang.png",
+   "v": "9b5de1f0",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 47,
+   "note": "Bộ Quái Mới #20 Độc đằng (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.gai-ma-ve": {
+   "file": "assets/art/qm-gai-ma-ve.png",
+   "v": "1e62f220",
    "w": 68,
-   "h": 54,
-   "frames": 7,
+   "h": 68,
+   "frames": 24,
    "anchor": [
-    34,
+    33,
+    68
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 60,
+   "note": "Bộ Quái Mới #26 Gai Ma Vệ (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.hac-cuc-ma-chung": {
+   "file": "assets/art/qm-hac-cuc-ma-chung.png",
+   "v": "c8de5fca",
+   "w": 120,
+   "h": 120,
+   "frames": 24,
+   "anchor": [
+    60,
+    120
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 96,
+   "note": "Bộ Quái Mới #27 Hắc Cức Ma Chủng (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.hac-cuc-mam": {
+   "file": "assets/art/qm-hac-cuc-mam.png",
+   "v": "f225c1bf",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    27,
     52
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 48,
+   "note": "Bộ Quái Mới #24 Mầm Hắc Cức (SpriteCook 16/11/2026): dung, di, danh"
   },
-  "mob.thu-moc-ve": {
-   "file": "assets/art/mob-thu-moc-ve.png",
-   "v": "013330ed",
-   "w": 76,
-   "h": 54,
-   "frames": 7,
+  "mob.hac-diep": {
+   "file": "assets/art/qm-hac-diep.png",
+   "v": "2e177194",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
    "anchor": [
-    38,
-    52
+    28,
+    56
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 52,
+   "note": "Bộ Quái Mới #16 Hắc điệp (SpriteCook 16/11/2026): dung, danh"
   },
-  "mob.thuc-moc-ma-hau": {
-   "file": "assets/art/mob-thuc-moc-ma-hau.png",
-   "v": "ab4705b7",
-   "w": 64,
-   "h": 96,
-   "frames": 2,
+  "mob.hac-phong-ma-quan": {
+   "file": "assets/art/qm-hac-phong-ma-quan.png",
+   "v": "120dabda",
+   "w": 108,
+   "h": 108,
+   "frames": 16,
    "anchor": [
-    32,
-    94
+    54,
+    103
    ],
-   "note": "Thực Mộc Ma Hậu (plant): đứng, bước · ảnh Canva",
    "scale": 0.5333,
-   "atk": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 97,
+   "note": "Bộ Quái Mới #18 Hắc Phong Ma Quân (SpriteCook 16/11/2026): dung, danh"
   },
-  "mob.toai-son-ma-tuong": {
-   "file": "assets/art/mob-toai-son-ma-tuong.png",
-   "v": "030a91b4",
-   "w": 156,
-   "h": 135,
-   "frames": 7,
+  "mob.han-hon-ma-tuong": {
+   "file": "assets/art/qm-han-hon-ma-tuong.png",
+   "v": "faea0434",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
    "anchor": [
-    78,
-    133
+    54,
+    108
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 96,
+   "note": "Bộ Quái Mới #14 Hàn Hồn Ma Tướng (SpriteCook 16/11/2026): dung, di, danh"
   },
-  "mob.tuyet-lang": {
-   "file": "assets/art/mob-tuyet-lang.png",
-   "v": "8e2d5d43",
+  "mob.han-ma-ve": {
+   "file": "assets/art/qm-han-ma-ve.png",
+   "v": "9d192041",
    "w": 62,
-   "h": 34,
-   "frames": 7,
+   "h": 62,
+   "frames": 24,
    "anchor": [
     31,
-    32
+    62
    ],
-   "note": "Canva 30/10/2026: 5 dáng sói đứng, bước, bước, thu mình, vồ; ngã = xoay nằm (chủ dự án: thú 4 chân phải bước) · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 54,
+   "note": "Bộ Quái Mới #13 Hàn ma vệ (SpriteCook 16/11/2026): dung, di, danh"
   },
-  "mob.tuyet-lang-vuong": {
-   "file": "assets/art/mob-tuyet-lang-vuong.png",
-   "v": "e6671083",
-   "w": 176,
-   "h": 86,
-   "frames": 7,
+  "mob.hoa-lang": {
+   "file": "assets/art/qm-hoa-lang.png",
+   "v": "9fa9ccc9",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
    "anchor": [
-    88,
-    84
+    27,
+    56
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 41,
+   "note": "Bộ Quái Mới #5 Hỏa lang (SpriteCook 16/11/2026): dung, di, danh"
   },
-  "mob.u-minh-phap": {
-   "file": "assets/art/mob-u-minh-phap.png",
-   "v": "ee66ca62",
-   "w": 96,
-   "h": 47,
-   "frames": 2,
+  "mob.hoa-lang-vuong": {
+   "file": "assets/art/qm-hoa-lang-vuong.png",
+   "v": "c61c8db4",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
    "anchor": [
-    48,
-    45
+    53,
+    108
    ],
-   "note": "U minh pháp sư (mage): đứng, bước · ảnh Canva",
    "scale": 0.5333,
-   "atk": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 82,
+   "note": "Bộ Quái Mới #50 Hỏa Lang Vương (SpriteCook 16/11/2026): dung, di, danh"
   },
-  "mob.u-minh-ve": {
-   "file": "assets/art/mob-u-minh-ve.png",
-   "v": "cfaac217",
-   "w": 80,
-   "h": 54,
-   "frames": 7,
+  "mob.hu-anh": {
+   "file": "assets/art/qm-hu-anh.png",
+   "v": "954bbdcc",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
    "anchor": [
-    40,
-    52
+    28,
+    56
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 50,
+   "note": "Bộ Quái Mới #40 Hư ảnh (SpriteCook 16/11/2026): dung, danh"
   },
-  "mob.van-kiem-ma-tuong": {
-   "file": "assets/art/mob-van-kiem-ma-tuong.png",
-   "v": "f62036d6",
-   "w": 194,
-   "h": 111,
-   "frames": 7,
+  "mob.hu-khong-cu-thu": {
+   "file": "assets/art/qm-hu-khong-cu-thu.png",
+   "v": "ca361c9c",
+   "w": 132,
+   "h": 132,
+   "frames": 16,
    "anchor": [
-    97,
+    66,
+    124
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 110,
+   "note": "Bộ Quái Mới #56 Hư Không Cự Thú (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.hu-khong-ma": {
+   "file": "assets/art/qm-hu-khong-ma.png",
+   "v": "87a6d68a",
+   "w": 62,
+   "h": 62,
+   "frames": 16,
+   "anchor": [
+    31,
+    60
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 52,
+   "note": "Bộ Quái Mới #38 Hư không ma (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.hu-khong-nguc-chu": {
+   "file": "assets/art/qm-hu-khong-nguc-chu.png",
+   "v": "71e039a8",
+   "w": 126,
+   "h": 126,
+   "frames": 16,
+   "anchor": [
+    63,
+    123
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 115,
+   "note": "Bộ Quái Mới #42 Hư Không Ngục Chủ (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.huyet-nha": {
+   "file": "assets/art/qm-huyet-nha.png",
+   "v": "d96630e3",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
+   "anchor": [
+    54,
+    101
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 89,
+   "note": "Bộ Quái Mới #3 Phân thân Huyết Nha (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.huyet-nha-that": {
+   "file": "assets/art/qm-huyet-nha-that.png",
+   "v": "01f01fd7",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
+   "anchor": [
+    53,
+    108
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 73,
+   "note": "Bộ Quái Mới #9 Huyết Nha (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.kiem-hon": {
+   "file": "assets/art/qm-kiem-hon.png",
+   "v": "1d4e1b86",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    57
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 2,
+    "fps": 8
+   },
+   "top": 53,
+   "note": "Bộ Quái Mới #30 Kiếm hồn (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.kim-giap-trung": {
+   "file": "assets/art/qm-kim-giap-trung.png",
+   "v": "ba53a2c4",
+   "w": 62,
+   "h": 62,
+   "frames": 24,
+   "anchor": [
+    31,
+    62
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 45,
+   "note": "Bộ Quái Mới #28 Kim giáp trùng (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.kim-giap-vuong": {
+   "file": "assets/art/qm-kim-giap-vuong.png",
+   "v": "eaae7884",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
     109
    ],
-   "note": "Canva 30/10/2026: 5 dáng đứng, bước trái, bước phải, lấy đà, đánh; ngã = xoay nằm · ảnh chủ dự án 7 khung",
    "scale": 0.5333,
-   "acts": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 93,
+   "note": "Bộ Quái Mới #54 Kim Giáp Trùng Vương (SpriteCook 16/11/2026): dung, danh"
   },
-  "mob.viem-linh": {
-   "file": "assets/art/mob-viem-linh.png",
-   "v": "b435c25f",
+  "mob.kim-ma-ve": {
+   "file": "assets/art/qm-kim-ma-ve.png",
+   "v": "c955b504",
    "w": 68,
-   "h": 38,
-   "frames": 2,
+   "h": 68,
+   "frames": 24,
    "anchor": [
     34,
-    36
+    68
    ],
-   "note": "Viêm linh (slime): đứng, bước · ảnh Canva",
    "scale": 0.5333,
-   "atk": true
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 56,
+   "note": "Bộ Quái Mới #31 Kim Ma Vệ (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.linh-thach-tinh": {
+   "file": "assets/art/qm-linh-thach-tinh.png",
+   "v": "379da8e5",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    51
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 47,
+   "note": "Bộ Quái Mới #45 Linh Thạch Tinh (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.linh-thao-tinh": {
+   "file": "assets/art/qm-linh-thao-tinh.png",
+   "v": "a1a063e2",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    52
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 48,
+   "note": "Bộ Quái Mới #46 Linh Thảo Tinh (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.ma-bang-tien": {
+   "file": "assets/art/qm-ma-bang-tien.png",
+   "v": "ced22bab",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    28,
+    52
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 42,
+   "note": "Bộ Quái Mới #12 Ma băng tiễn (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.ma-binh": {
+   "file": "assets/art/qm-ma-binh.png",
+   "v": "910fa112",
+   "w": 62,
+   "h": 62,
+   "frames": 16,
+   "anchor": [
+    31,
+    63
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 59,
+   "note": "Bộ Quái Mới #7 Ma binh (SpriteCook 16/11/2026): dung, danh; tạm từ ảnh tĩnh: dung"
+  },
+  "mob.ma-cung": {
+   "file": "assets/art/qm-ma-cung.png",
+   "v": "1cb2b2eb",
+   "w": 58,
+   "h": 58,
+   "frames": 24,
+   "anchor": [
+    29,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 49,
+   "note": "Bộ Quái Mới #2 Ma tiễn (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.ma-phap": {
+   "file": "assets/art/qm-ma-phap.png",
+   "v": "13585289",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    28,
+    52
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 46,
+   "note": "Bộ Quái Mới #8 Ma pháp sư (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.ma-phong-ve": {
+   "file": "assets/art/qm-ma-phong-ve.png",
+   "v": "cca2b1b3",
+   "w": 62,
+   "h": 62,
+   "frames": 16,
+   "anchor": [
+    31,
+    63
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 59,
+   "note": "Bộ Quái Mới #17 Ma Phong Vệ (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.ma-tham-tu": {
+   "file": "assets/art/qm-ma-tham-tu.png",
+   "v": "e10d9ee7",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 46,
+   "note": "Bộ Quái Mới #21 Ma thám tử (SpriteCook 16/11/2026): dung, di, danh; tạm từ ảnh tĩnh: dung, di, danh"
+  },
+  "mob.ma-tieu": {
+   "file": "assets/art/qm-ma-tieu.png",
+   "v": "f15bb197",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    26,
+    50
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 43,
+   "note": "Bộ Quái Mới #1 Tiểu ma (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.ma-ton": {
+   "file": "assets/art/qm-ma-ton.png",
+   "v": "acfc3efd",
+   "w": 140,
+   "h": 140,
+   "frames": 16,
+   "anchor": [
+    70,
+    127
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 111,
+   "note": "Bộ Quái Mới #43 Ma Tôn (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.moc-linh": {
+   "file": "assets/art/qm-moc-linh.png",
+   "v": "3ac96c4d",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    26,
+    47
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 43,
+   "note": "Bộ Quái Mới #4 Mộc linh (SpriteCook 16/11/2026): dung, di, danh; tạm từ ảnh tĩnh: dung, di, danh"
+  },
+  "mob.moc-linh-vuong": {
+   "file": "assets/art/qm-moc-linh-vuong.png",
+   "v": "a20081c4",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
+   "anchor": [
+    53,
+    108
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 91,
+   "note": "Bộ Quái Mới #49 Mộc Linh Vương (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.moc-yeu": {
+   "file": "assets/art/qm-moc-yeu.png",
+   "v": "96a00538",
+   "w": 62,
+   "h": 62,
+   "frames": 24,
+   "anchor": [
+    31,
+    58
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 54,
+   "note": "Bộ Quái Mới #19 Mộc yêu (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.nguoi-tuyet-yeu": {
+   "file": "assets/art/qm-nguoi-tuyet-yeu.png",
+   "v": "d1d8888d",
+   "w": 52,
+   "h": 52,
+   "frames": 24,
+   "anchor": [
+    25,
+    47
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 41,
+   "note": "Bộ Quái Mới #47 Người tuyết yêu (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.nham-giap-thu": {
+   "file": "assets/art/qm-nham-giap-thu.png",
+   "v": "10642c8a",
+   "w": 126,
+   "h": 126,
+   "frames": 24,
+   "anchor": [
+    63,
+    126
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 100,
+   "note": "Bộ Quái Mới #55 Nham Giáp Thú (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.nham-xa": {
+   "file": "assets/art/qm-nham-xa.png",
+   "v": "b380f4d0",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 47,
+   "note": "Bộ Quái Mới #34 Nham xà (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.phong-yeu": {
+   "file": "assets/art/qm-phong-yeu.png",
+   "v": "f1adb4ee",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    28,
+    54
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 48,
+   "note": "Bộ Quái Mới #15 Phong yêu (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.phong-yeu-vuong": {
+   "file": "assets/art/qm-phong-yeu-vuong.png",
+   "v": "b07288bf",
+   "w": 108,
+   "h": 108,
+   "frames": 16,
+   "anchor": [
+    54,
+    100
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 88,
+   "note": "Bộ Quái Mới #52 Phong Yêu Vương (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.re-ma": {
+   "file": "assets/art/qm-re-ma.png",
+   "v": "9b21cc42",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 45,
+   "note": "Bộ Quái Mới #25 Rễ ma (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.sa-ma": {
+   "file": "assets/art/qm-sa-ma.png",
+   "v": "9bb4e595",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    54
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 50,
+   "note": "Bộ Quái Mới #29 Sa ma (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tam-ma": {
+   "file": "assets/art/qm-tam-ma.png",
+   "v": "beca1b1e",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    54
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 47,
+   "note": "Bộ Quái Mới #44 Tâm Ma (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tan-hon-hac-phong": {
+   "file": "assets/art/qm-tan-hon-hac-phong.png",
+   "v": "6f5c058a",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
+    111
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 97,
+   "note": "Bộ Quái Mới #59 Tàn hồn Hắc Phong Ma Quân (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tan-hon-han-hon": {
+   "file": "assets/art/qm-tan-hon-han-hon.png",
+   "v": "20d4cac1",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
+    112
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 98,
+   "note": "Bộ Quái Mới #58 Tàn hồn Hàn Hồn Ma Tướng (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tan-hon-huyet-nha": {
+   "file": "assets/art/qm-tan-hon-huyet-nha.png",
+   "v": "dfb66748",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
+    112
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 100,
+   "note": "Bộ Quái Mới #57 Tàn hồn Huyết Nha (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tan-hon-thuc-moc": {
+   "file": "assets/art/qm-tan-hon-thuc-moc.png",
+   "v": "d8adbf20",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
+    110
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 95,
+   "note": "Bộ Quái Mới #60 Tàn hồn Thực Mộc Ma Hậu (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.thach-doi": {
+   "file": "assets/art/qm-thach-doi.png",
+   "v": "a59faf83",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    50
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 40,
+   "note": "Bộ Quái Mới #35 Thạch dơi (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.tho-khoi": {
+   "file": "assets/art/qm-tho-khoi.png",
+   "v": "79d14c8b",
+   "w": 66,
+   "h": 66,
+   "frames": 24,
+   "anchor": [
+    33,
+    59
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 53,
+   "note": "Bộ Quái Mới #33 Thổ khôi (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.tho-ma-ve": {
+   "file": "assets/art/qm-tho-ma-ve.png",
+   "v": "3e11f845",
+   "w": 68,
+   "h": 68,
+   "frames": 24,
+   "anchor": [
+    33,
+    68
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 50,
+   "note": "Bộ Quái Mới #36 Thổ Ma Vệ (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.thu-moc-ve": {
+   "file": "assets/art/qm-thu-moc-ve.png",
+   "v": "886e8669",
+   "w": 68,
+   "h": 68,
+   "frames": 24,
+   "anchor": [
+    33,
+    68
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 59,
+   "note": "Bộ Quái Mới #22 Thụ Mộc Vệ (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.thuc-moc-ma-hau": {
+   "file": "assets/art/qm-thuc-moc-ma-hau.png",
+   "v": "bb6620cb",
+   "w": 108,
+   "h": 108,
+   "frames": 16,
+   "anchor": [
+    53,
+    100
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 90,
+   "note": "Bộ Quái Mới #23 Thực Mộc Ma Hậu (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.toai-son-ma-tuong": {
+   "file": "assets/art/qm-toai-son-ma-tuong.png",
+   "v": "2407375d",
+   "w": 126,
+   "h": 126,
+   "frames": 24,
+   "anchor": [
+    63,
+    126
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 91,
+   "note": "Bộ Quái Mới #37 Toái Sơn Ma Tướng (SpriteCook 16/11/2026): dung, di, danh; tạm từ ảnh tĩnh: dung, danh"
+  },
+  "mob.tuyet-lang": {
+   "file": "assets/art/qm-tuyet-lang.png",
+   "v": "7345e1e4",
+   "w": 56,
+   "h": 56,
+   "frames": 24,
+   "anchor": [
+    28,
+    56
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 39,
+   "note": "Bộ Quái Mới #10 Tuyết lang (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.tuyet-lang-vuong": {
+   "file": "assets/art/qm-tuyet-lang-vuong.png",
+   "v": "cda14f35",
+   "w": 108,
+   "h": 108,
+   "frames": 24,
+   "anchor": [
+    54,
+    108
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "di": [
+     8,
+     8
+    ],
+    "danh": [
+     16,
+     8
+    ],
+    "hit": 5,
+    "fps": 8
+   },
+   "top": 85,
+   "note": "Bộ Quái Mới #51 Tuyết Lang Vương (SpriteCook 16/11/2026): dung, di, danh"
+  },
+  "mob.u-minh-phap": {
+   "file": "assets/art/qm-u-minh-phap.png",
+   "v": "416dfd9b",
+   "w": 56,
+   "h": 56,
+   "frames": 16,
+   "anchor": [
+    27,
+    51
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 43,
+   "note": "Bộ Quái Mới #39 U minh pháp sư (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.u-minh-ve": {
+   "file": "assets/art/qm-u-minh-ve.png",
+   "v": "6a467c3a",
+   "w": 68,
+   "h": 68,
+   "frames": 16,
+   "anchor": [
+    33,
+    65
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 2,
+    "fps": 8
+   },
+   "top": 59,
+   "note": "Bộ Quái Mới #41 U Minh Vệ (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.van-kiem-ma-tuong": {
+   "file": "assets/art/qm-van-kiem-ma-tuong.png",
+   "v": "5fdbf797",
+   "w": 120,
+   "h": 120,
+   "frames": 16,
+   "anchor": [
+    60,
+    112
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 3,
+    "fps": 8
+   },
+   "top": 102,
+   "note": "Bộ Quái Mới #32 Vạn Kiếm Ma Tướng (SpriteCook 16/11/2026): dung, danh"
+  },
+  "mob.viem-linh": {
+   "file": "assets/art/qm-viem-linh.png",
+   "v": "7551ea69",
+   "w": 52,
+   "h": 52,
+   "frames": 16,
+   "anchor": [
+    26,
+    50
+   ],
+   "scale": 0.5333,
+   "anim": {
+    "dung": [
+     0,
+     8
+    ],
+    "danh": [
+     8,
+     8
+    ],
+    "hit": 4,
+    "fps": 8
+   },
+   "top": 44,
+   "note": "Bộ Quái Mới #6 Viêm linh (SpriteCook 16/11/2026): dung, danh"
   },
   "mount.bach-loc": {
    "file": "assets/art/mount-bach-loc.png",
