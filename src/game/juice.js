@@ -105,7 +105,7 @@ function addRage(game, v) {
   S.rageOn = R.dur; S.rage = R.full;   // Bạo Nộ: thanh rút dần theo thời gian
   S.call = { text: 'Bạo Nộ!', t: 0, color: R.color, big: true };
   game.sfx('rage'); game.flashT = Math.max(game.flashT || 0, 0.3);
-  game.screen.shake(4, 0.4); game.hitstop = Math.max(game.hitstop, 0.08);
+  game.screen.shake(3, 0.3);   // không đứng hình (chủ dự án 16/11/2026 17:15: khựng đau mắt)
   push(game, { k: 'ring', x: game.player.x, y: game.player.y - 8, r: 46, life: 0.5, color: R.color });
 }
 

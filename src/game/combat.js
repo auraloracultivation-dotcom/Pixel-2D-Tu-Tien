@@ -66,7 +66,8 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (opt.stun && m.def.ai !== 'boss' && !m.def.noCc) m.stunT = Math.max(m.stunT, opt.stun);
   addNumber(game, m.x, m.y - m.r - (own ? numUp(game) : 6), dmg, crit ? '#ffd84a' : own ? '#fff' : '#b8d8ff', crit);
   const ratio = own && p.dmgRef ? dmg / p.dmgRef : 0;   // đòn to gấp mấy lần đánh thường: rung màn, khựng (chủ dự án 12/11/2026 04:14)
-  if (ratio >= 3 && !m.dummy) { game.screen.shake(Math.min(7, 1.5 + ratio * 0.35), 0.16); if (ratio >= 10) { game.hitstop = Math.max(game.hitstop, 0.07); game.sfx('impact', 0.7); } }
+  // Chủ dự án 16/11/2026 17:15 ("khựng lại khi tấn công trúng đau mắt lắm, giật lag"): không đứng hình nữa, chỉ đòn to gấp 5 lần đánh thường mới rung nhẹ
+  if (ratio >= 5 && !m.dummy) { game.screen.shake(Math.min(4, 1 + ratio * 0.2), 0.14); if (ratio >= 10) game.sfx('impact', 0.7); }
   if (!own) { if (m.hp <= 0) killMob(game, m); return; }
   game.sfx(crit ? 'crit' : 'hit');
   if (!opt.soft && hit2On(game)) {   // bản mới: tia lửa điểm ảnh có hướng, quái nảy lùi, máy quay hích; không còn quầng trắng phủ con quái
