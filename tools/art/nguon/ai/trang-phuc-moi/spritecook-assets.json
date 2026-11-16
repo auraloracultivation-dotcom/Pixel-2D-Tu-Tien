@@ -1,5 +1,5 @@
 {
- "note": "SpriteCook asset của bộ 16 trang phục mới (chủ dự án 16/11/2026 18:57 \"Làm trước 1 bộ đi\"). Ảnh tĩnh ở tinh/ (bảng ảnh chủ dự án gửi 18:24), câu lệnh ở cau-lenh.json (tools/art/trang_phuc_cau_lenh.py); nguồn tải lên ở nguon-sc/; chuyển động đã làm sạch nền ở sc/NN-<dung|chay|danh1|danh2>.webp, ảnh ngồi ở ngoi/. jobs: sổ việc đã gửi (không gửi lại việc đang chạy). Kết quả bộ #1 (16/11/2026 19:03–19:08): 5/5 xong, đúng 116 credit (ảnh ngồi 12 + 4 × 26), còn 1.453; kiem_dac_diem: giữ đủ đặc điểm cả 4 chuyển động; mắt luôn mở; hai đòn đánh sang phải (tay vươn tới x 55–56 trong khung 60). Khung ra đòn, chỗ bàn tay, chỗ kết ấn, tâm khí cầu ghi ở ds.json → bo.01.",
+ "note": "SpriteCook asset của bộ 16 trang phục mới (chủ dự án 16/11/2026 18:57 \"Làm trước 1 bộ đi\"). Ảnh tĩnh ở tinh/ (bảng ảnh chủ dự án gửi 18:24), câu lệnh ở cau-lenh.json (tools/art/trang_phuc_cau_lenh.py); nguồn tải lên ở nguon-sc/; chuyển động đã làm sạch nền ở sc/NN-<dung|chay|danh1|danh2>.webp, ảnh ngồi ở ngoi/. jobs: sổ việc đã gửi (không gửi lại việc đang chạy). Kết quả bộ #1 (16/11/2026 19:03–19:08): 5/5 xong, đúng 116 credit (ảnh ngồi 12 + 4 × 26), còn 1.453; kiem_dac_diem: giữ đủ đặc điểm cả 4 chuyển động; mắt luôn mở; hai đòn đánh sang phải (tay vươn tới x 55–56 trong khung 60). Khung ra đòn, chỗ bàn tay, chỗ kết ấn, tâm khí cầu ghi ở ds.json → bo.01. Kết quả 15 bộ còn lại (chủ dự án 16/11/2026 19:24 \"làm hết all đi\", làm 19:3x–20:01): đủ 16 bộ × 5 món, cả đợt 1.740 credit đúng dự tính (16 bộ 1.856), không làm lại món nào; số dư còn 773 (SpriteCook tự cộng thêm 60 giữa đợt). kiem_dac_diem 64/64 chuyển động giữ đủ đặc điểm; 16 ảnh ngồi mắt mở, có khí cầu. #14 ảnh ngồi ra 30x30 hỏng điểm ảnh: lấy raw_url 1K bỏ nền ở máy, không tốn thêm. Đánh dấu xem kỹ: đòn 1 của #03, #10, #15 tay đẩy ra ngắn (chưa ló khỏi tóc, áo quá 1 điểm). Mốc hiệu ứng ở ds.json → bo (trang_phuc_bo.py: bàn tay = điểm da mới, kết ấn = mảng da tay ở tầm ngực).",
  "params": {
   "model": "pixel-engine-v1.5",
   "output_frames": 8,
@@ -88,6 +88,952 @@
    "file": "ngoi/01-sc.png",
    "sha12": "d0652b37b856",
    "size": "190x190"
+  },
+  {
+   "n": 2,
+   "kind": "hd",
+   "label": "Trang phục mới #02 (tranh gốc)",
+   "asset_id": "80ce221e-997f-4135-afec-dc117a929adf",
+   "file": "nguon-sc/02-hd.png",
+   "sha12": "577d4f81ba86",
+   "size": "303x343"
+  },
+  {
+   "n": 2,
+   "kind": "still-dem",
+   "label": "Trang phục mới #02 (tĩnh, đệm)",
+   "asset_id": "b4d691d1-0201-439c-b45e-a395ecd5c3c8",
+   "file": "nguon-sc/02-dem.png",
+   "sha12": "8a74a3336b43",
+   "size": "67x50"
+  },
+  {
+   "n": 2,
+   "kind": "ngoi",
+   "label": "Trang phục mới #02 ngoi",
+   "asset_id": "af78cdde-43e5-4316-b866-a2f6f8739150",
+   "file": "ngoi/02-sc.png",
+   "sha12": "c4d7ae2083c3",
+   "size": "162x162"
+  },
+  {
+   "n": 2,
+   "kind": "dung",
+   "label": "Trang phục mới #02 dung",
+   "asset_id": "5067df9e-cd34-4142-bbbb-1982ea4a3fd2",
+   "file": "sc/02-dung.webp",
+   "sha12": "6a2547c4d064",
+   "size": "58x58x8"
+  },
+  {
+   "n": 2,
+   "kind": "chay",
+   "label": "Trang phục mới #02 chay",
+   "asset_id": "d27a44cd-f199-4d16-86b5-8db3e43da4dc",
+   "file": "sc/02-chay.webp",
+   "sha12": "f8a48eb1d2e4",
+   "size": "58x58x8"
+  },
+  {
+   "n": 2,
+   "kind": "danh1",
+   "label": "Trang phục mới #02 danh1",
+   "asset_id": "0876d7c8-c011-4961-ba1c-b2d1feb36ad7",
+   "file": "sc/02-danh1.webp",
+   "sha12": "ef0e4bb628fc",
+   "size": "58x58x8"
+  },
+  {
+   "n": 2,
+   "kind": "danh2",
+   "label": "Trang phục mới #02 danh2",
+   "asset_id": "f59917cb-db66-45f5-b71f-5c1d6bb85fb7",
+   "file": "sc/02-danh2.webp",
+   "sha12": "1c4d86355f84",
+   "size": "58x58x8"
+  },
+  {
+   "n": 3,
+   "kind": "hd",
+   "label": "Trang phục mới #03 (tranh gốc)",
+   "asset_id": "7df9ee3e-4195-4a00-bf93-eb2059342f79",
+   "file": "nguon-sc/03-hd.png",
+   "sha12": "53fa9a775563",
+   "size": "302x329"
+  },
+  {
+   "n": 3,
+   "kind": "still-dem",
+   "label": "Trang phục mới #03 (tĩnh, đệm)",
+   "asset_id": "39648713-de4b-4cfe-ad2b-963751e5e4e9",
+   "file": "nguon-sc/03-dem.png",
+   "sha12": "ef0b661fe4d0",
+   "size": "68x48"
+  },
+  {
+   "n": 3,
+   "kind": "ngoi",
+   "label": "Trang phục mới #03 ngoi",
+   "asset_id": "697c2b68-6694-49b9-980c-298214036afc",
+   "file": "ngoi/03-sc.png",
+   "sha12": "1e56b1cf63b5",
+   "size": "90x90"
+  },
+  {
+   "n": 3,
+   "kind": "dung",
+   "label": "Trang phục mới #03 dung",
+   "asset_id": "b4dfeda5-d1e4-4a35-826d-aa6a69a7f678",
+   "file": "sc/03-dung.webp",
+   "sha12": "385c8e68d654",
+   "size": "56x56x8"
+  },
+  {
+   "n": 3,
+   "kind": "chay",
+   "label": "Trang phục mới #03 chay",
+   "asset_id": "5d9c4842-2a87-46cc-aa43-3ab3aaa1f052",
+   "file": "sc/03-chay.webp",
+   "sha12": "60acd12970d0",
+   "size": "56x56x8"
+  },
+  {
+   "n": 3,
+   "kind": "danh1",
+   "label": "Trang phục mới #03 danh1",
+   "asset_id": "96b2b8cf-b909-4741-8873-e276ade2720e",
+   "file": "sc/03-danh1.webp",
+   "sha12": "c6c9a5a11cb5",
+   "size": "56x56x8"
+  },
+  {
+   "n": 3,
+   "kind": "danh2",
+   "label": "Trang phục mới #03 danh2",
+   "asset_id": "bd73e5e9-6d28-41e9-aa99-e79ecc8a22a3",
+   "file": "sc/03-danh2.webp",
+   "sha12": "585b8d010b7f",
+   "size": "56x56x8"
+  },
+  {
+   "n": 4,
+   "kind": "hd",
+   "label": "Trang phục mới #04 (tranh gốc)",
+   "asset_id": "0aada730-5b7d-4b4d-baf2-0c64493315cb",
+   "file": "nguon-sc/04-hd.png",
+   "sha12": "2af57c1795bb",
+   "size": "303x332"
+  },
+  {
+   "n": 4,
+   "kind": "still-dem",
+   "label": "Trang phục mới #04 (tĩnh, đệm)",
+   "asset_id": "664c50aa-0df5-4e2b-aacd-155089a06c3a",
+   "file": "nguon-sc/04-dem.png",
+   "sha12": "ac708711a310",
+   "size": "68x49"
+  },
+  {
+   "n": 4,
+   "kind": "ngoi",
+   "label": "Trang phục mới #04 ngoi",
+   "asset_id": "b231b4da-94a4-4b50-9d42-d6533a219c77",
+   "file": "ngoi/04-sc.png",
+   "sha12": "21cd25130323",
+   "size": "184x184"
+  },
+  {
+   "n": 4,
+   "kind": "dung",
+   "label": "Trang phục mới #04 dung",
+   "asset_id": "f345edce-5090-4437-92e1-fa7cfd68c16c",
+   "file": "sc/04-dung.webp",
+   "sha12": "5c6a769b2b43",
+   "size": "58x58x8"
+  },
+  {
+   "n": 4,
+   "kind": "chay",
+   "label": "Trang phục mới #04 chay",
+   "asset_id": "e5548d7d-9f49-4431-8bed-b9125d6719f1",
+   "file": "sc/04-chay.webp",
+   "sha12": "973f7e0c1d4c",
+   "size": "58x58x8"
+  },
+  {
+   "n": 4,
+   "kind": "danh1",
+   "label": "Trang phục mới #04 danh1",
+   "asset_id": "b11155d7-e14e-4f4c-a8a7-2cf793e786c9",
+   "file": "sc/04-danh1.webp",
+   "sha12": "6ea9c1e0bf29",
+   "size": "58x58x8"
+  },
+  {
+   "n": 4,
+   "kind": "danh2",
+   "label": "Trang phục mới #04 danh2",
+   "asset_id": "b3ae9fab-a9bd-41a4-97b5-35fa9912218d",
+   "file": "sc/04-danh2.webp",
+   "sha12": "69a920ed1065",
+   "size": "58x58x8"
+  },
+  {
+   "n": 5,
+   "kind": "hd",
+   "label": "Trang phục mới #05 (tranh gốc)",
+   "asset_id": "5732159d-372b-443b-bed6-44e6012f1081",
+   "file": "nguon-sc/05-hd.png",
+   "sha12": "f9845f766529",
+   "size": "315x325"
+  },
+  {
+   "n": 5,
+   "kind": "still-dem",
+   "label": "Trang phục mới #05 (tĩnh, đệm)",
+   "asset_id": "faed72ae-c442-4e04-a5a6-beff81c20b28",
+   "file": "nguon-sc/05-dem.png",
+   "sha12": "b3bacabbe370",
+   "size": "69x47"
+  },
+  {
+   "n": 5,
+   "kind": "ngoi",
+   "label": "Trang phục mới #05 ngoi",
+   "asset_id": "6bd6c430-0d79-4e9c-95c1-cda031f99bee",
+   "file": "ngoi/05-sc.png",
+   "sha12": "f091608a8058",
+   "size": "292x292"
+  },
+  {
+   "n": 5,
+   "kind": "dung",
+   "label": "Trang phục mới #05 dung",
+   "asset_id": "92981f29-eb55-4df6-8056-450ce11dadbf",
+   "file": "sc/05-dung.webp",
+   "sha12": "f8906ce0e9cd",
+   "size": "56x56x8"
+  },
+  {
+   "n": 5,
+   "kind": "chay",
+   "label": "Trang phục mới #05 chay",
+   "asset_id": "f34a7694-2f95-4664-bd2f-5cb248870633",
+   "file": "sc/05-chay.webp",
+   "sha12": "1a522fd5a3c9",
+   "size": "56x56x8"
+  },
+  {
+   "n": 5,
+   "kind": "danh1",
+   "label": "Trang phục mới #05 danh1",
+   "asset_id": "5f8c85ce-7671-4f59-a780-3fc7129a40d1",
+   "file": "sc/05-danh1.webp",
+   "sha12": "2b4025c4a831",
+   "size": "56x56x8"
+  },
+  {
+   "n": 5,
+   "kind": "danh2",
+   "label": "Trang phục mới #05 danh2",
+   "asset_id": "f80abd7a-ee30-470b-ae2a-002c4813b503",
+   "file": "sc/05-danh2.webp",
+   "sha12": "830ffd4722fa",
+   "size": "56x56x8"
+  },
+  {
+   "n": 6,
+   "kind": "hd",
+   "label": "Trang phục mới #06 (tranh gốc)",
+   "asset_id": "6bb5f991-7f68-4f63-a6b4-f02b7abcfc01",
+   "file": "nguon-sc/06-hd.png",
+   "sha12": "25217a3677ee",
+   "size": "325x341"
+  },
+  {
+   "n": 6,
+   "kind": "still-dem",
+   "label": "Trang phục mới #06 (tĩnh, đệm)",
+   "asset_id": "88278b58-5c34-4f9f-a239-ba5ef9228696",
+   "file": "nguon-sc/06-dem.png",
+   "sha12": "2f9877ad7ae7",
+   "size": "71x50"
+  },
+  {
+   "n": 6,
+   "kind": "ngoi",
+   "label": "Trang phục mới #06 ngoi",
+   "asset_id": "3b3e0bd1-b17b-422d-9a74-358bf16beb8e",
+   "file": "ngoi/06-sc.png",
+   "sha12": "db1906576d1c",
+   "size": "186x186"
+  },
+  {
+   "n": 6,
+   "kind": "dung",
+   "label": "Trang phục mới #06 dung",
+   "asset_id": "1a82d9d5-9feb-4f39-82c1-fdf8b8fe7691",
+   "file": "sc/06-dung.webp",
+   "sha12": "a3e9cc9074b0",
+   "size": "58x58x8"
+  },
+  {
+   "n": 6,
+   "kind": "chay",
+   "label": "Trang phục mới #06 chay",
+   "asset_id": "afbea5ad-4584-4214-9a42-6f3a82031105",
+   "file": "sc/06-chay.webp",
+   "sha12": "e416599dec03",
+   "size": "58x58x8"
+  },
+  {
+   "n": 6,
+   "kind": "danh1",
+   "label": "Trang phục mới #06 danh1",
+   "asset_id": "d4938ecd-9192-4a8a-a5dc-ec2fe42e1848",
+   "file": "sc/06-danh1.webp",
+   "sha12": "0d82d21934da",
+   "size": "58x58x8"
+  },
+  {
+   "n": 6,
+   "kind": "danh2",
+   "label": "Trang phục mới #06 danh2",
+   "asset_id": "853d8e7c-9ecc-4652-be7b-6f9ba4a96da1",
+   "file": "sc/06-danh2.webp",
+   "sha12": "3f0e87aaa938",
+   "size": "58x58x8"
+  },
+  {
+   "n": 7,
+   "kind": "hd",
+   "label": "Trang phục mới #07 (tranh gốc)",
+   "asset_id": "52c71f2e-0724-4191-8d6a-ef8f8248f602",
+   "file": "nguon-sc/07-hd.png",
+   "sha12": "397def8d41fa",
+   "size": "310x343"
+  },
+  {
+   "n": 7,
+   "kind": "still-dem",
+   "label": "Trang phục mới #07 (tĩnh, đệm)",
+   "asset_id": "14f373be-9b4d-4a73-9cde-eb39ea283f05",
+   "file": "nguon-sc/07-dem.png",
+   "sha12": "bb604f7f052b",
+   "size": "69x50"
+  },
+  {
+   "n": 7,
+   "kind": "ngoi",
+   "label": "Trang phục mới #07 ngoi",
+   "asset_id": "232cf255-f7c7-4e3f-aa86-a5a1d3d02474",
+   "file": "ngoi/07-sc.png",
+   "sha12": "330c1c4f8075",
+   "size": "102x102"
+  },
+  {
+   "n": 7,
+   "kind": "dung",
+   "label": "Trang phục mới #07 dung",
+   "asset_id": "3acad783-7a16-4cb1-9370-bc8cdf282ab7",
+   "file": "sc/07-dung.webp",
+   "sha12": "31e5916da775",
+   "size": "58x58x8"
+  },
+  {
+   "n": 7,
+   "kind": "chay",
+   "label": "Trang phục mới #07 chay",
+   "asset_id": "2cb945ac-a1dd-4cac-aa2c-3354c6b9f02b",
+   "file": "sc/07-chay.webp",
+   "sha12": "78e077d059c4",
+   "size": "58x58x8"
+  },
+  {
+   "n": 7,
+   "kind": "danh1",
+   "label": "Trang phục mới #07 danh1",
+   "asset_id": "81a09b99-f3c7-438e-9322-795831107159",
+   "file": "sc/07-danh1.webp",
+   "sha12": "d44dbc6a0629",
+   "size": "58x58x8"
+  },
+  {
+   "n": 7,
+   "kind": "danh2",
+   "label": "Trang phục mới #07 danh2",
+   "asset_id": "15af77dc-74e6-45a2-899c-705edcd71af7",
+   "file": "sc/07-danh2.webp",
+   "sha12": "f6d646739688",
+   "size": "58x58x8"
+  },
+  {
+   "n": 8,
+   "kind": "hd",
+   "label": "Trang phục mới #08 (tranh gốc)",
+   "asset_id": "a30fb19e-9ad9-4ff9-ae47-e658a389cce2",
+   "file": "nguon-sc/08-hd.png",
+   "sha12": "856011dd53f9",
+   "size": "314x343"
+  },
+  {
+   "n": 8,
+   "kind": "still-dem",
+   "label": "Trang phục mới #08 (tĩnh, đệm)",
+   "asset_id": "754957d7-9ba8-4812-9ec1-90dce3f21225",
+   "file": "nguon-sc/08-dem.png",
+   "sha12": "6757b2dbc2fd",
+   "size": "69x50"
+  },
+  {
+   "n": 8,
+   "kind": "ngoi",
+   "label": "Trang phục mới #08 ngoi",
+   "asset_id": "97112fa4-e371-46b6-830c-829c6d189484",
+   "file": "ngoi/08-sc.png",
+   "sha12": "599b404abad2",
+   "size": "132x132"
+  },
+  {
+   "n": 8,
+   "kind": "dung",
+   "label": "Trang phục mới #08 dung",
+   "asset_id": "a7d02106-e499-471a-885b-4a1ff530daab",
+   "file": "sc/08-dung.webp",
+   "sha12": "7aed66f8d152",
+   "size": "58x58x8"
+  },
+  {
+   "n": 8,
+   "kind": "chay",
+   "label": "Trang phục mới #08 chay",
+   "asset_id": "8bdf2e34-343f-45a7-ba4c-273efbc39f17",
+   "file": "sc/08-chay.webp",
+   "sha12": "4ad3b1d65dee",
+   "size": "58x58x8"
+  },
+  {
+   "n": 8,
+   "kind": "danh1",
+   "label": "Trang phục mới #08 danh1",
+   "asset_id": "6630b211-7833-4a00-8b3b-8a2558e0f48d",
+   "file": "sc/08-danh1.webp",
+   "sha12": "156cb2cae376",
+   "size": "58x58x8"
+  },
+  {
+   "n": 8,
+   "kind": "danh2",
+   "label": "Trang phục mới #08 danh2",
+   "asset_id": "e2a6d1ad-be79-408f-9f2b-893c0eb0212a",
+   "file": "sc/08-danh2.webp",
+   "sha12": "754477f65ef7",
+   "size": "58x58x8"
+  },
+  {
+   "n": 9,
+   "kind": "hd",
+   "label": "Trang phục mới #09 (tranh gốc)",
+   "asset_id": "ca3e1b3d-310e-42e2-bb00-83b68e998436",
+   "file": "nguon-sc/09-hd.png",
+   "sha12": "99a7365c84b9",
+   "size": "313x344"
+  },
+  {
+   "n": 9,
+   "kind": "still-dem",
+   "label": "Trang phục mới #09 (tĩnh, đệm)",
+   "asset_id": "d0b28ce3-2f50-43b1-9127-8d7cd8b9eeac",
+   "file": "nguon-sc/09-dem.png",
+   "sha12": "b8e1ca2eeef5",
+   "size": "69x50"
+  },
+  {
+   "n": 9,
+   "kind": "ngoi",
+   "label": "Trang phục mới #09 ngoi",
+   "asset_id": "da3c4a3d-a6db-470d-b3cb-d29d14a5dd54",
+   "file": "ngoi/09-sc.png",
+   "sha12": "63df788b0a9e",
+   "size": "192x192"
+  },
+  {
+   "n": 9,
+   "kind": "dung",
+   "label": "Trang phục mới #09 dung",
+   "asset_id": "13ae7d79-2ed9-4fdc-ac69-b86c41276f2b",
+   "file": "sc/09-dung.webp",
+   "sha12": "7630cabf9a0e",
+   "size": "58x58x8"
+  },
+  {
+   "n": 9,
+   "kind": "chay",
+   "label": "Trang phục mới #09 chay",
+   "asset_id": "7bbff8b0-b806-4d7a-b880-e20063e56399",
+   "file": "sc/09-chay.webp",
+   "sha12": "918757880cf4",
+   "size": "58x58x8"
+  },
+  {
+   "n": 9,
+   "kind": "danh1",
+   "label": "Trang phục mới #09 danh1",
+   "asset_id": "ac5e3ced-488f-4ecc-9fb4-2c88627ac830",
+   "file": "sc/09-danh1.webp",
+   "sha12": "966d24aec817",
+   "size": "58x58x8"
+  },
+  {
+   "n": 9,
+   "kind": "danh2",
+   "label": "Trang phục mới #09 danh2",
+   "asset_id": "a5734a8f-66b4-483b-b0cc-e09e6debedc6",
+   "file": "sc/09-danh2.webp",
+   "sha12": "70442f2d5fbb",
+   "size": "58x58x8"
+  },
+  {
+   "n": 10,
+   "kind": "hd",
+   "label": "Trang phục mới #10 (tranh gốc)",
+   "asset_id": "db2e8c1d-14ef-47c4-90e1-97f9ffc6b20d",
+   "file": "nguon-sc/10-hd.png",
+   "sha12": "5d66f595ada4",
+   "size": "312x325"
+  },
+  {
+   "n": 10,
+   "kind": "still-dem",
+   "label": "Trang phục mới #10 (tĩnh, đệm)",
+   "asset_id": "932d776d-c9fe-4be4-8c77-20e4045517e5",
+   "file": "nguon-sc/10-dem.png",
+   "sha12": "fc2253512ef5",
+   "size": "69x47"
+  },
+  {
+   "n": 10,
+   "kind": "ngoi",
+   "label": "Trang phục mới #10 ngoi",
+   "asset_id": "bce9a01a-c969-4d37-9605-e77c35962cc5",
+   "file": "ngoi/10-sc.png",
+   "sha12": "ce084c68dfac",
+   "size": "214x214"
+  },
+  {
+   "n": 10,
+   "kind": "dung",
+   "label": "Trang phục mới #10 dung",
+   "asset_id": "61f71f84-3d49-4367-9bf2-f40f4e55dc4b",
+   "file": "sc/10-dung.webp",
+   "sha12": "dee463d9e42c",
+   "size": "56x56x8"
+  },
+  {
+   "n": 10,
+   "kind": "chay",
+   "label": "Trang phục mới #10 chay",
+   "asset_id": "c34ed482-93c0-4dc5-bead-283c4a1ac7a1",
+   "file": "sc/10-chay.webp",
+   "sha12": "cb87c3c478aa",
+   "size": "56x56x8"
+  },
+  {
+   "n": 10,
+   "kind": "danh1",
+   "label": "Trang phục mới #10 danh1",
+   "asset_id": "529ff029-2343-41f1-a2d7-4fae19d8c163",
+   "file": "sc/10-danh1.webp",
+   "sha12": "f18ceb48fbb3",
+   "size": "56x56x8"
+  },
+  {
+   "n": 10,
+   "kind": "danh2",
+   "label": "Trang phục mới #10 danh2",
+   "asset_id": "f4eb0803-b359-4469-9466-804718635946",
+   "file": "sc/10-danh2.webp",
+   "sha12": "5c87d26d1bc7",
+   "size": "56x56x8"
+  },
+  {
+   "n": 11,
+   "kind": "hd",
+   "label": "Trang phục mới #11 (tranh gốc)",
+   "asset_id": "f07198e0-1c1a-4bb1-95e5-b8d4f73c05fc",
+   "file": "nguon-sc/11-hd.png",
+   "sha12": "38bb8a89ff54",
+   "size": "305x344"
+  },
+  {
+   "n": 11,
+   "kind": "still-dem",
+   "label": "Trang phục mới #11 (tĩnh, đệm)",
+   "asset_id": "fda4d6d0-82b0-41b6-8645-b9678a7745a4",
+   "file": "nguon-sc/11-dem.png",
+   "sha12": "69f2c63c43c2",
+   "size": "68x50"
+  },
+  {
+   "n": 11,
+   "kind": "ngoi",
+   "label": "Trang phục mới #11 ngoi",
+   "asset_id": "0e216709-ec0a-4f1d-8dfd-affe46edf5dc",
+   "file": "ngoi/11-sc.png",
+   "sha12": "c937539e2a42",
+   "size": "98x98"
+  },
+  {
+   "n": 11,
+   "kind": "dung",
+   "label": "Trang phục mới #11 dung",
+   "asset_id": "03dc7899-3e66-44ed-83b4-1c87ae7536d4",
+   "file": "sc/11-dung.webp",
+   "sha12": "aa1183d11f33",
+   "size": "58x58x8"
+  },
+  {
+   "n": 11,
+   "kind": "chay",
+   "label": "Trang phục mới #11 chay",
+   "asset_id": "50ead6e7-ec08-4d45-84cb-06d900c37aeb",
+   "file": "sc/11-chay.webp",
+   "sha12": "39993aa10fb7",
+   "size": "58x58x8"
+  },
+  {
+   "n": 11,
+   "kind": "danh1",
+   "label": "Trang phục mới #11 danh1",
+   "asset_id": "43e3208a-57dc-4211-a330-d14a8abe21b1",
+   "file": "sc/11-danh1.webp",
+   "sha12": "ace442257eb5",
+   "size": "58x58x8"
+  },
+  {
+   "n": 11,
+   "kind": "danh2",
+   "label": "Trang phục mới #11 danh2",
+   "asset_id": "f4ad9837-5413-4533-92f1-47820a7bc041",
+   "file": "sc/11-danh2.webp",
+   "sha12": "59e873a345a5",
+   "size": "58x58x8"
+  },
+  {
+   "n": 12,
+   "kind": "hd",
+   "label": "Trang phục mới #12 (tranh gốc)",
+   "asset_id": "0682e263-7729-4b35-ab65-edd9346fc9fc",
+   "file": "nguon-sc/12-hd.png",
+   "sha12": "aa788f1a2316",
+   "size": "314x340"
+  },
+  {
+   "n": 12,
+   "kind": "still-dem",
+   "label": "Trang phục mới #12 (tĩnh, đệm)",
+   "asset_id": "9c55dfb1-404e-4086-b4d6-b64caaf3cd7c",
+   "file": "nguon-sc/12-dem.png",
+   "sha12": "9c84d830f68b",
+   "size": "70x50"
+  },
+  {
+   "n": 12,
+   "kind": "ngoi",
+   "label": "Trang phục mới #12 ngoi",
+   "asset_id": "b4de2124-a30e-41ab-834f-965e2c8a0e49",
+   "file": "ngoi/12-sc.png",
+   "sha12": "f126973dcf17",
+   "size": "180x180"
+  },
+  {
+   "n": 12,
+   "kind": "dung",
+   "label": "Trang phục mới #12 dung",
+   "asset_id": "51078b27-7cba-4483-8caf-a5fad8242bdd",
+   "file": "sc/12-dung.webp",
+   "sha12": "1863b59b5d8d",
+   "size": "58x58x8"
+  },
+  {
+   "n": 12,
+   "kind": "chay",
+   "label": "Trang phục mới #12 chay",
+   "asset_id": "680a88e0-b3b4-495c-8f2f-b7b06b540e10",
+   "file": "sc/12-chay.webp",
+   "sha12": "b409c86495a5",
+   "size": "58x58x8"
+  },
+  {
+   "n": 12,
+   "kind": "danh1",
+   "label": "Trang phục mới #12 danh1",
+   "asset_id": "0be591c5-71c2-447d-bf3a-57ea45160788",
+   "file": "sc/12-danh1.webp",
+   "sha12": "4e33e22867d7",
+   "size": "58x58x8"
+  },
+  {
+   "n": 12,
+   "kind": "danh2",
+   "label": "Trang phục mới #12 danh2",
+   "asset_id": "ac7f4aba-c1bf-4559-aaf1-6a911baabcac",
+   "file": "sc/12-danh2.webp",
+   "sha12": "60400353ef2c",
+   "size": "58x58x8"
+  },
+  {
+   "n": 13,
+   "kind": "hd",
+   "label": "Trang phục mới #13 (tranh gốc)",
+   "asset_id": "0f821285-81ab-4691-936d-507aeba8e93b",
+   "file": "nguon-sc/13-hd.png",
+   "sha12": "c763e34a5f5b",
+   "size": "315x341"
+  },
+  {
+   "n": 13,
+   "kind": "still-dem",
+   "label": "Trang phục mới #13 (tĩnh, đệm)",
+   "asset_id": "e6397cbe-b61a-46cd-9389-08539e7fad0f",
+   "file": "nguon-sc/13-dem.png",
+   "sha12": "406e360a2a06",
+   "size": "70x50"
+  },
+  {
+   "n": 13,
+   "kind": "ngoi",
+   "label": "Trang phục mới #13 ngoi",
+   "asset_id": "98edd003-37c0-495e-916c-c7ac89fc5c6b",
+   "file": "ngoi/13-sc.png",
+   "sha12": "eb39ae66d009",
+   "size": "186x186"
+  },
+  {
+   "n": 13,
+   "kind": "dung",
+   "label": "Trang phục mới #13 dung",
+   "asset_id": "3b01f7e9-dfe7-49fc-a1f8-b277aaf3bc41",
+   "file": "sc/13-dung.webp",
+   "sha12": "ca96604c7ea9",
+   "size": "58x58x8"
+  },
+  {
+   "n": 13,
+   "kind": "chay",
+   "label": "Trang phục mới #13 chay",
+   "asset_id": "0af0c705-c9f8-498a-a375-3347611f7bf6",
+   "file": "sc/13-chay.webp",
+   "sha12": "dd0121960cc6",
+   "size": "58x58x8"
+  },
+  {
+   "n": 13,
+   "kind": "danh1",
+   "label": "Trang phục mới #13 danh1",
+   "asset_id": "7eee0125-56af-412c-ae5f-6299c0cf2338",
+   "file": "sc/13-danh1.webp",
+   "sha12": "7754d553b87e",
+   "size": "58x58x8"
+  },
+  {
+   "n": 13,
+   "kind": "danh2",
+   "label": "Trang phục mới #13 danh2",
+   "asset_id": "331e3227-45c5-46d1-a5d4-937218a76461",
+   "file": "sc/13-danh2.webp",
+   "sha12": "2aa430fae588",
+   "size": "58x58x8"
+  },
+  {
+   "n": 14,
+   "kind": "hd",
+   "label": "Trang phục mới #14 (tranh gốc)",
+   "asset_id": "74492c77-917f-4362-b455-66fa3612a15f",
+   "file": "nguon-sc/14-hd.png",
+   "sha12": "929b5c1391f1",
+   "size": "326x335"
+  },
+  {
+   "n": 14,
+   "kind": "still-dem",
+   "label": "Trang phục mới #14 (tĩnh, đệm)",
+   "asset_id": "341c3c3b-00dc-486f-a1e7-9a754431ac51",
+   "file": "nguon-sc/14-dem.png",
+   "sha12": "9bf94545a5f0",
+   "size": "72x49"
+  },
+  {
+   "n": 14,
+   "kind": "ngoi",
+   "label": "Trang phục mới #14 ngoi",
+   "asset_id": "f676b146-e3af-4297-b2c8-947cf1c3d89f",
+   "file": "ngoi/14-sc.png",
+   "sha12": "55d648d28991",
+   "size": "876x910",
+   "note": "SpriteCook trả ảnh 30x30 hỏng điểm ảnh (ngoi/14-sc-30.png); lấy raw_url 1K của chính asset này, bỏ nền trắng ở máy (ngoi/14-raw.png → 14-sc.png), không tốn thêm credit"
+  },
+  {
+   "n": 14,
+   "kind": "dung",
+   "label": "Trang phục mới #14 dung",
+   "asset_id": "0aca1087-7b1f-4d53-9abc-a409dfe2711e",
+   "file": "sc/14-dung.webp",
+   "sha12": "54d1fe498edf",
+   "size": "58x58x8"
+  },
+  {
+   "n": 14,
+   "kind": "chay",
+   "label": "Trang phục mới #14 chay",
+   "asset_id": "50ea72d3-3950-4cfb-aea7-d28e2bcc7b0e",
+   "file": "sc/14-chay.webp",
+   "sha12": "457ce97ccc3f",
+   "size": "58x58x8"
+  },
+  {
+   "n": 14,
+   "kind": "danh1",
+   "label": "Trang phục mới #14 danh1",
+   "asset_id": "b79db478-3638-4ae4-9dca-f30c9563d2ee",
+   "file": "sc/14-danh1.webp",
+   "sha12": "76b5b4b78c60",
+   "size": "58x58x8"
+  },
+  {
+   "n": 14,
+   "kind": "danh2",
+   "label": "Trang phục mới #14 danh2",
+   "asset_id": "a111bb75-5f19-48a6-b933-4c7a559e6269",
+   "file": "sc/14-danh2.webp",
+   "sha12": "c11cfe9a990e",
+   "size": "58x58x8"
+  },
+  {
+   "n": 15,
+   "kind": "hd",
+   "label": "Trang phục mới #15 (tranh gốc)",
+   "asset_id": "ddf2b049-d9ca-4529-ac76-90e8e662b8f4",
+   "file": "nguon-sc/15-hd.png",
+   "sha12": "39fdcef9ffca",
+   "size": "323x333"
+  },
+  {
+   "n": 15,
+   "kind": "still-dem",
+   "label": "Trang phục mới #15 (tĩnh, đệm)",
+   "asset_id": "c1340456-c8ab-409c-979d-e1981ab6add2",
+   "file": "nguon-sc/15-dem.png",
+   "sha12": "2fecb5ca7915",
+   "size": "71x49"
+  },
+  {
+   "n": 15,
+   "kind": "ngoi",
+   "label": "Trang phục mới #15 ngoi",
+   "asset_id": "dbb1b356-6159-48c2-a757-e849c84fdf9a",
+   "file": "ngoi/15-sc.png",
+   "sha12": "2ed33024dd46",
+   "size": "82x82"
+  },
+  {
+   "n": 15,
+   "kind": "dung",
+   "label": "Trang phục mới #15 dung",
+   "asset_id": "59eb4b02-421c-4b1d-adaf-d997c3b685c9",
+   "file": "sc/15-dung.webp",
+   "sha12": "79785358bcd8",
+   "size": "58x58x8"
+  },
+  {
+   "n": 15,
+   "kind": "chay",
+   "label": "Trang phục mới #15 chay",
+   "asset_id": "7e800a92-59e5-430d-abf6-86576e094429",
+   "file": "sc/15-chay.webp",
+   "sha12": "87f5ad29089d",
+   "size": "58x58x8"
+  },
+  {
+   "n": 15,
+   "kind": "danh1",
+   "label": "Trang phục mới #15 danh1",
+   "asset_id": "0d399c05-ee56-45f6-a0d1-a1bbeee602d1",
+   "file": "sc/15-danh1.webp",
+   "sha12": "bf660b110b87",
+   "size": "58x58x8"
+  },
+  {
+   "n": 15,
+   "kind": "danh2",
+   "label": "Trang phục mới #15 danh2",
+   "asset_id": "ffd65576-ff0a-4f1b-8b29-c5ddb6fb1d49",
+   "file": "sc/15-danh2.webp",
+   "sha12": "7453a729fd44",
+   "size": "58x58x8"
+  },
+  {
+   "n": 16,
+   "kind": "hd",
+   "label": "Trang phục mới #16 (tranh gốc)",
+   "asset_id": "6b808a9a-8c88-477f-8162-51903f1f7232",
+   "file": "nguon-sc/16-hd.png",
+   "sha12": "c5f7d96acf1d",
+   "size": "343x347"
+  },
+  {
+   "n": 16,
+   "kind": "still-dem",
+   "label": "Trang phục mới #16 (tĩnh, đệm)",
+   "asset_id": "afbbf6e0-57d9-4b62-95cb-d7bfcf472369",
+   "file": "nguon-sc/16-dem.png",
+   "sha12": "44d098238d46",
+   "size": "74x51"
+  },
+  {
+   "n": 16,
+   "kind": "ngoi",
+   "label": "Trang phục mới #16 ngoi",
+   "asset_id": "259ed465-2de8-4af2-9518-d9d470334109",
+   "file": "ngoi/16-sc.png",
+   "sha12": "a3eb2f70f85a",
+   "size": "152x152"
+  },
+  {
+   "n": 16,
+   "kind": "dung",
+   "label": "Trang phục mới #16 dung",
+   "asset_id": "106e82f8-0c12-4af0-ba20-4a3c7ae65a21",
+   "file": "sc/16-dung.webp",
+   "sha12": "e33e288aacdc",
+   "size": "60x60x8"
+  },
+  {
+   "n": 16,
+   "kind": "chay",
+   "label": "Trang phục mới #16 chay",
+   "asset_id": "2a573eb8-91cd-46ca-855a-9c9301e6a715",
+   "file": "sc/16-chay.webp",
+   "sha12": "12cf983ed29b",
+   "size": "60x60x8"
+  },
+  {
+   "n": 16,
+   "kind": "danh1",
+   "label": "Trang phục mới #16 danh1",
+   "asset_id": "861970c1-b69a-4582-8fe9-b3e64fdb483a",
+   "file": "sc/16-danh1.webp",
+   "sha12": "743416a4fb2e",
+   "size": "60x60x8"
+  },
+  {
+   "n": 16,
+   "kind": "danh2",
+   "label": "Trang phục mới #16 danh2",
+   "asset_id": "9a65f691-5bd3-407d-a7da-7d0390e10fbd",
+   "file": "sc/16-danh2.webp",
+   "sha12": "44db353d1623",
+   "size": "60x60x8"
   }
  ],
  "jobs": [
@@ -146,6 +1092,831 @@
    "asset_id": "491296b1-729f-4a4d-ac80-a06754db6ff3",
    "check": "ok",
    "prompt": "Side view facing right; the attack moves horizontally to the RIGHT, never toward the camera. The chibi cultivator in a white robe brings both hands together in front of the chest in a hand seal and bends the knees a little to gather strength, then leans forward and pushes both open palms straight out to the RIGHT together until the arms are fully extended, holds the push for a moment, then returns to the same standing pose. The feet stay planted on the same spot. Keep every detail identical in every frame: the long dark brown hair tied in a high ponytail that flows down behind the back, the small gold crown ornament on top of the head, the gold ribbons hanging from the ponytail, the red eyes, the white robe with wide sleeves and a red crossed collar, the gold belt over the dark sash, the dark under-robe at the front, the red tassel cord hanging at the side and the dark brown boots stay clearly visible and unchanged in shape and color; nothing disappears or hides behind another part. The eyes stay open in every frame. No new objects or effects appear: no energy, no glow, no sparks, no projectiles. It faces right and stays on the same spot."
+  },
+  {
+   "n": 2,
+   "motion": "ngoi",
+   "job_id": "29395a89-5654-4257-8b53-86bf13276e24",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 2.prompts.ngoi",
+   "asset_id": "af78cdde-43e5-4316-b866-a2f6f8739150",
+   "check": "ok"
+  },
+  {
+   "n": 2,
+   "motion": "dung",
+   "job_id": "92fbc4c8-d9fc-4dcf-ba7f-83ff3867523e",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 2.prompts.dung",
+   "asset_id": "5067df9e-cd34-4142-bbbb-1982ea4a3fd2",
+   "check": "ok"
+  },
+  {
+   "n": 2,
+   "motion": "chay",
+   "job_id": "ad20c03b-664d-4cda-9021-dac11d7c003f",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 2.prompts.chay",
+   "asset_id": "d27a44cd-f199-4d16-86b5-8db3e43da4dc",
+   "check": "ok"
+  },
+  {
+   "n": 2,
+   "motion": "danh1",
+   "job_id": "d81d5981-4d71-4f4e-b866-c37fd9953b44",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 2.prompts.danh1",
+   "asset_id": "0876d7c8-c011-4961-ba1c-b2d1feb36ad7",
+   "check": "ok"
+  },
+  {
+   "n": 2,
+   "motion": "danh2",
+   "job_id": "22f737d7-0f86-4f91-aff6-630d6b0ef1dc",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 2.prompts.danh2",
+   "asset_id": "f59917cb-db66-45f5-b71f-5c1d6bb85fb7",
+   "check": "ok"
+  },
+  {
+   "n": 3,
+   "motion": "ngoi",
+   "job_id": "b483fa41-3127-4f68-9c97-bbda766ad388",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 3.prompts.ngoi",
+   "asset_id": "697c2b68-6694-49b9-980c-298214036afc",
+   "check": "ok"
+  },
+  {
+   "n": 3,
+   "motion": "dung",
+   "job_id": "4e24bf79-13c0-4570-bdf8-78819a43a04e",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 3.prompts.dung",
+   "asset_id": "b4dfeda5-d1e4-4a35-826d-aa6a69a7f678",
+   "check": "ok"
+  },
+  {
+   "n": 3,
+   "motion": "chay",
+   "job_id": "b41094a0-1b9c-4030-9517-ff0f3079fda3",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 3.prompts.chay",
+   "asset_id": "5d9c4842-2a87-46cc-aa43-3ab3aaa1f052",
+   "check": "ok"
+  },
+  {
+   "n": 3,
+   "motion": "danh1",
+   "job_id": "a2279ec7-616a-4081-8d3c-987bf4daf931",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 3.prompts.danh1",
+   "asset_id": "96b2b8cf-b909-4741-8873-e276ade2720e",
+   "check": "ok"
+  },
+  {
+   "n": 3,
+   "motion": "danh2",
+   "job_id": "ac3bb5a9-c8f4-48eb-a471-c41c45ae3e8e",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 3.prompts.danh2",
+   "asset_id": "bd73e5e9-6d28-41e9-aa99-e79ecc8a22a3",
+   "check": "ok"
+  },
+  {
+   "n": 4,
+   "motion": "ngoi",
+   "job_id": "13891df6-342f-4fbe-81ae-057899975f84",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 4.prompts.ngoi",
+   "asset_id": "b231b4da-94a4-4b50-9d42-d6533a219c77",
+   "check": "ok"
+  },
+  {
+   "n": 4,
+   "motion": "dung",
+   "job_id": "28c15384-39ec-4887-bd02-c853db86ece3",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 4.prompts.dung",
+   "asset_id": "f345edce-5090-4437-92e1-fa7cfd68c16c",
+   "check": "ok"
+  },
+  {
+   "n": 4,
+   "motion": "chay",
+   "job_id": "323535a8-0b10-49b5-88d2-096453ed3ab7",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 4.prompts.chay",
+   "asset_id": "e5548d7d-9f49-4431-8bed-b9125d6719f1",
+   "check": "ok"
+  },
+  {
+   "n": 4,
+   "motion": "danh1",
+   "job_id": "b00ef829-d906-4501-9a04-5f8497fcff8e",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 4.prompts.danh1",
+   "asset_id": "b11155d7-e14e-4f4c-a8a7-2cf793e786c9",
+   "check": "ok"
+  },
+  {
+   "n": 4,
+   "motion": "danh2",
+   "job_id": "d871d19e-acd2-4f13-b6e9-385817244b4d",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 4.prompts.danh2",
+   "asset_id": "b3ae9fab-a9bd-41a4-97b5-35fa9912218d",
+   "check": "ok"
+  },
+  {
+   "n": 5,
+   "motion": "ngoi",
+   "job_id": "226e3f69-2667-40ae-a377-9ddcb897309e",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 5.prompts.ngoi",
+   "asset_id": "6bd6c430-0d79-4e9c-95c1-cda031f99bee",
+   "check": "ok"
+  },
+  {
+   "n": 5,
+   "motion": "dung",
+   "job_id": "f27daad9-a6c6-47df-81c5-18bfdef37688",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 5.prompts.dung",
+   "asset_id": "92981f29-eb55-4df6-8056-450ce11dadbf",
+   "check": "ok"
+  },
+  {
+   "n": 5,
+   "motion": "chay",
+   "job_id": "31c4a2e6-b1b1-457a-b4ce-a9ef168f6dce",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 5.prompts.chay",
+   "asset_id": "f34a7694-2f95-4664-bd2f-5cb248870633",
+   "check": "ok"
+  },
+  {
+   "n": 5,
+   "motion": "danh1",
+   "job_id": "038ac8be-ffde-41aa-ba48-676db118eb28",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 5.prompts.danh1",
+   "asset_id": "5f8c85ce-7671-4f59-a780-3fc7129a40d1",
+   "check": "ok"
+  },
+  {
+   "n": 5,
+   "motion": "danh2",
+   "job_id": "1c980ac6-d49e-4a3d-8458-84f3e7f59040",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 5.prompts.danh2",
+   "asset_id": "f80abd7a-ee30-470b-ae2a-002c4813b503",
+   "check": "ok"
+  },
+  {
+   "n": 6,
+   "motion": "ngoi",
+   "job_id": "bd0212da-b38c-4e5c-b418-fbcbc3521e5d",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 6.prompts.ngoi",
+   "asset_id": "3b3e0bd1-b17b-422d-9a74-358bf16beb8e",
+   "check": "ok"
+  },
+  {
+   "n": 6,
+   "motion": "dung",
+   "job_id": "b0d662ec-1a64-4aaa-b65c-76ba78535683",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 6.prompts.dung",
+   "asset_id": "1a82d9d5-9feb-4f39-82c1-fdf8b8fe7691",
+   "check": "ok"
+  },
+  {
+   "n": 6,
+   "motion": "chay",
+   "job_id": "6e1fa121-bec7-46cc-b03c-1686e741cfe9",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 6.prompts.chay",
+   "asset_id": "afbea5ad-4584-4214-9a42-6f3a82031105",
+   "check": "ok"
+  },
+  {
+   "n": 6,
+   "motion": "danh1",
+   "job_id": "889d8166-7f38-42f9-b3dd-2cc428a05d7f",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 6.prompts.danh1",
+   "asset_id": "d4938ecd-9192-4a8a-a5dc-ec2fe42e1848",
+   "check": "ok"
+  },
+  {
+   "n": 6,
+   "motion": "danh2",
+   "job_id": "53b95109-acd8-46ee-8559-f4ce0df1d6ad",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 6.prompts.danh2",
+   "asset_id": "853d8e7c-9ecc-4652-be7b-6f9ba4a96da1",
+   "check": "ok"
+  },
+  {
+   "n": 7,
+   "motion": "ngoi",
+   "job_id": "9e51f081-6d31-4749-8c61-d276117ee999",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 7.prompts.ngoi",
+   "asset_id": "232cf255-f7c7-4e3f-aa86-a5a1d3d02474",
+   "check": "ok"
+  },
+  {
+   "n": 7,
+   "motion": "dung",
+   "job_id": "bc2212ec-4ba4-49e7-9319-0aab1f542a9a",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 7.prompts.dung",
+   "asset_id": "3acad783-7a16-4cb1-9370-bc8cdf282ab7",
+   "check": "ok"
+  },
+  {
+   "n": 7,
+   "motion": "chay",
+   "job_id": "d2f9ab08-65bf-4749-a24c-c2aa4e1e722e",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 7.prompts.chay",
+   "asset_id": "2cb945ac-a1dd-4cac-aa2c-3354c6b9f02b",
+   "check": "ok"
+  },
+  {
+   "n": 7,
+   "motion": "danh1",
+   "job_id": "808381e9-1a45-43e8-a5ba-79edeee4e015",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 7.prompts.danh1",
+   "asset_id": "81a09b99-f3c7-438e-9322-795831107159",
+   "check": "ok"
+  },
+  {
+   "n": 7,
+   "motion": "danh2",
+   "job_id": "dcdcd6fa-0fd8-47fc-8b7d-3c1111d3d29e",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 7.prompts.danh2",
+   "asset_id": "15af77dc-74e6-45a2-899c-705edcd71af7",
+   "check": "ok"
+  },
+  {
+   "n": 8,
+   "motion": "ngoi",
+   "job_id": "d011355e-4b25-45a3-9284-9d7e919fbab1",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 8.prompts.ngoi",
+   "asset_id": "97112fa4-e371-46b6-830c-829c6d189484",
+   "check": "ok"
+  },
+  {
+   "n": 8,
+   "motion": "dung",
+   "job_id": "1cbde9a8-06b5-4ccf-9912-732e918bfd5e",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 8.prompts.dung",
+   "asset_id": "a7d02106-e499-471a-885b-4a1ff530daab",
+   "check": "ok"
+  },
+  {
+   "n": 8,
+   "motion": "chay",
+   "job_id": "b7f44274-cc8c-4e42-ab26-2e6ee52024d3",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 8.prompts.chay",
+   "asset_id": "8bdf2e34-343f-45a7-ba4c-273efbc39f17",
+   "check": "ok"
+  },
+  {
+   "n": 8,
+   "motion": "danh1",
+   "job_id": "fd0432dc-2a98-4385-905d-b086341f6a6f",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 8.prompts.danh1",
+   "asset_id": "6630b211-7833-4a00-8b3b-8a2558e0f48d",
+   "check": "ok"
+  },
+  {
+   "n": 8,
+   "motion": "danh2",
+   "job_id": "f1b1ed64-0fb2-4394-992b-ea5d6db521c6",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 8.prompts.danh2",
+   "asset_id": "e2a6d1ad-be79-408f-9f2b-893c0eb0212a",
+   "check": "ok"
+  },
+  {
+   "n": 9,
+   "motion": "ngoi",
+   "job_id": "bed6ef8d-894d-40a3-9670-7357cc4af8ba",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 9.prompts.ngoi",
+   "asset_id": "da3c4a3d-a6db-470d-b3cb-d29d14a5dd54",
+   "check": "ok"
+  },
+  {
+   "n": 9,
+   "motion": "dung",
+   "job_id": "efe4730c-9482-4790-98b4-860bd605d58f",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 9.prompts.dung",
+   "asset_id": "13ae7d79-2ed9-4fdc-ac69-b86c41276f2b",
+   "check": "ok"
+  },
+  {
+   "n": 9,
+   "motion": "chay",
+   "job_id": "478463c2-4bb3-49c5-a541-dd7709b5aa2c",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 9.prompts.chay",
+   "asset_id": "7bbff8b0-b806-4d7a-b880-e20063e56399",
+   "check": "ok"
+  },
+  {
+   "n": 9,
+   "motion": "danh1",
+   "job_id": "d8920ff7-7e88-43bb-aa5e-2a49523a41b9",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 9.prompts.danh1",
+   "asset_id": "ac5e3ced-488f-4ecc-9fb4-2c88627ac830",
+   "check": "ok"
+  },
+  {
+   "n": 9,
+   "motion": "danh2",
+   "job_id": "51554762-5130-4be2-8537-0bdb4892481b",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 9.prompts.danh2",
+   "asset_id": "a5734a8f-66b4-483b-b0cc-e09e6debedc6",
+   "check": "ok"
+  },
+  {
+   "n": 10,
+   "motion": "ngoi",
+   "job_id": "b445ad86-83ab-4838-9e11-4afd1be540af",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 10.prompts.ngoi",
+   "asset_id": "bce9a01a-c969-4d37-9605-e77c35962cc5",
+   "check": "ok"
+  },
+  {
+   "n": 10,
+   "motion": "dung",
+   "job_id": "6eed5a62-f649-4146-943b-8667ee6261a0",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 10.prompts.dung",
+   "asset_id": "61f71f84-3d49-4367-9bf2-f40f4e55dc4b",
+   "check": "ok"
+  },
+  {
+   "n": 10,
+   "motion": "chay",
+   "job_id": "a835fcf4-620f-45aa-b817-609025b9f18d",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 10.prompts.chay",
+   "asset_id": "c34ed482-93c0-4dc5-bead-283c4a1ac7a1",
+   "check": "ok"
+  },
+  {
+   "n": 10,
+   "motion": "danh1",
+   "job_id": "2b392930-d880-445b-a973-b35221461afd",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 10.prompts.danh1",
+   "asset_id": "529ff029-2343-41f1-a2d7-4fae19d8c163",
+   "check": "ok"
+  },
+  {
+   "n": 10,
+   "motion": "danh2",
+   "job_id": "492815f8-5125-4c9e-b7f9-13f80b739bab",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 10.prompts.danh2",
+   "asset_id": "f4eb0803-b359-4469-9466-804718635946",
+   "check": "ok"
+  },
+  {
+   "n": 11,
+   "motion": "ngoi",
+   "job_id": "062312d2-f37b-4ae2-bd24-687c74f0b602",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 11.prompts.ngoi",
+   "asset_id": "0e216709-ec0a-4f1d-8dfd-affe46edf5dc",
+   "check": "ok"
+  },
+  {
+   "n": 11,
+   "motion": "dung",
+   "job_id": "8baa24b6-bfe7-400f-bda2-6fca3c79f8a6",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 11.prompts.dung",
+   "asset_id": "03dc7899-3e66-44ed-83b4-1c87ae7536d4",
+   "check": "ok"
+  },
+  {
+   "n": 11,
+   "motion": "chay",
+   "job_id": "a900ee43-b8c4-437b-bafc-e10ef2dbb1a4",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 11.prompts.chay",
+   "asset_id": "50ead6e7-ec08-4d45-84cb-06d900c37aeb",
+   "check": "ok"
+  },
+  {
+   "n": 11,
+   "motion": "danh1",
+   "job_id": "f5d5f3e4-2da0-4767-8f86-d85dc037c2cf",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 11.prompts.danh1",
+   "asset_id": "43e3208a-57dc-4211-a330-d14a8abe21b1",
+   "check": "ok"
+  },
+  {
+   "n": 11,
+   "motion": "danh2",
+   "job_id": "c68cb2e5-bcc7-4458-8ef4-8e5e33318235",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 11.prompts.danh2",
+   "asset_id": "f4ad9837-5413-4533-92f1-47820a7bc041",
+   "check": "ok"
+  },
+  {
+   "n": 12,
+   "motion": "ngoi",
+   "job_id": "ac1a7676-05fe-495d-95a1-7dd73312739c",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 12.prompts.ngoi",
+   "asset_id": "b4de2124-a30e-41ab-834f-965e2c8a0e49",
+   "check": "ok"
+  },
+  {
+   "n": 12,
+   "motion": "dung",
+   "job_id": "fec0444f-4cc8-417f-a3a7-10acd2fadfa6",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 12.prompts.dung",
+   "asset_id": "51078b27-7cba-4483-8caf-a5fad8242bdd",
+   "check": "ok"
+  },
+  {
+   "n": 12,
+   "motion": "chay",
+   "job_id": "3c11cf8b-e76d-40e7-bfda-ae11fda57953",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 12.prompts.chay",
+   "asset_id": "680a88e0-b3b4-495c-8f2f-b7b06b540e10",
+   "check": "ok"
+  },
+  {
+   "n": 12,
+   "motion": "danh1",
+   "job_id": "b49954a0-ca34-4025-a16f-522e5b439101",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 12.prompts.danh1",
+   "asset_id": "0be591c5-71c2-447d-bf3a-57ea45160788",
+   "check": "ok"
+  },
+  {
+   "n": 12,
+   "motion": "danh2",
+   "job_id": "b2810d4d-fd88-44db-ae62-8ba59cd596a6",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 12.prompts.danh2",
+   "asset_id": "ac7f4aba-c1bf-4559-aaf1-6a911baabcac",
+   "check": "ok"
+  },
+  {
+   "n": 13,
+   "motion": "ngoi",
+   "job_id": "e8cd7674-6069-4284-937e-b8ce27e94224",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 13.prompts.ngoi",
+   "asset_id": "98edd003-37c0-495e-916c-c7ac89fc5c6b",
+   "check": "ok"
+  },
+  {
+   "n": 13,
+   "motion": "dung",
+   "job_id": "f7aa4f71-a016-4c59-b932-34e5d66ba72f",
+   "credits": 26,
+   "matte": "#ff00ff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 13.prompts.dung",
+   "asset_id": "3b01f7e9-dfe7-49fc-a1f8-b277aaf3bc41",
+   "check": "ok"
+  },
+  {
+   "n": 13,
+   "motion": "chay",
+   "job_id": "b8513a75-8508-4572-9958-ed8f54a4d1b6",
+   "credits": 26,
+   "matte": "#ff00ff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 13.prompts.chay",
+   "asset_id": "0af0c705-c9f8-498a-a375-3347611f7bf6",
+   "check": "ok"
+  },
+  {
+   "n": 13,
+   "motion": "danh1",
+   "job_id": "cab28c31-ef38-41d8-b2ed-1c61d5409865",
+   "credits": 26,
+   "matte": "#ff00ff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 13.prompts.danh1",
+   "asset_id": "7eee0125-56af-412c-ae5f-6299c0cf2338",
+   "check": "ok"
+  },
+  {
+   "n": 13,
+   "motion": "danh2",
+   "job_id": "db3102a4-6e34-42bf-b73e-ab5b6c9cb384",
+   "credits": 26,
+   "matte": "#ff00ff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 13.prompts.danh2",
+   "asset_id": "331e3227-45c5-46d1-a5d4-937218a76461",
+   "check": "ok"
+  },
+  {
+   "n": 14,
+   "motion": "ngoi",
+   "job_id": "219238b1-40e1-4563-8c9b-e45cea7b78b5",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 14.prompts.ngoi",
+   "asset_id": "f676b146-e3af-4297-b2c8-947cf1c3d89f",
+   "check": "ok"
+  },
+  {
+   "n": 14,
+   "motion": "dung",
+   "job_id": "8467afa2-96d2-469e-ada6-e5e90a7d0c73",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 14.prompts.dung",
+   "asset_id": "0aca1087-7b1f-4d53-9abc-a409dfe2711e",
+   "check": "ok"
+  },
+  {
+   "n": 14,
+   "motion": "chay",
+   "job_id": "ad4e5e80-3dba-4468-b3ac-eef1d6df30e3",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 14.prompts.chay",
+   "asset_id": "50ea72d3-3950-4cfb-aea7-d28e2bcc7b0e",
+   "check": "ok"
+  },
+  {
+   "n": 14,
+   "motion": "danh1",
+   "job_id": "8a8c80df-396f-4ae1-84a7-a1b0fba8943b",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 14.prompts.danh1",
+   "asset_id": "b79db478-3638-4ae4-9dca-f30c9563d2ee",
+   "check": "ok"
+  },
+  {
+   "n": 14,
+   "motion": "danh2",
+   "job_id": "032d0318-0bf9-42b8-b5b1-33f8ef09636a",
+   "credits": 26,
+   "matte": "#00ffff",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 14.prompts.danh2",
+   "asset_id": "a111bb75-5f19-48a6-b933-4c7a559e6269",
+   "check": "ok"
+  },
+  {
+   "n": 15,
+   "motion": "ngoi",
+   "job_id": "3502f49d-b728-45ad-b7cc-855dc53b1c05",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 15.prompts.ngoi",
+   "asset_id": "dbb1b356-6159-48c2-a757-e849c84fdf9a",
+   "check": "ok"
+  },
+  {
+   "n": 15,
+   "motion": "dung",
+   "job_id": "611acfbd-1eec-4a43-84dd-eeeb5645fa7f",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 15.prompts.dung",
+   "asset_id": "59eb4b02-421c-4b1d-adaf-d997c3b685c9",
+   "check": "ok"
+  },
+  {
+   "n": 15,
+   "motion": "chay",
+   "job_id": "12100837-eb7c-4cc3-9291-48dab6561b89",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 15.prompts.chay",
+   "asset_id": "7e800a92-59e5-430d-abf6-86576e094429",
+   "check": "ok"
+  },
+  {
+   "n": 15,
+   "motion": "danh1",
+   "job_id": "a192ec6b-f098-42ce-a894-b3b7a19af327",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 15.prompts.danh1",
+   "asset_id": "0d399c05-ee56-45f6-a0d1-a1bbeee602d1",
+   "check": "ok"
+  },
+  {
+   "n": 15,
+   "motion": "danh2",
+   "job_id": "a6873fb2-f5e5-4ae5-aa20-0180b5647305",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 15.prompts.danh2",
+   "asset_id": "ffd65576-ff0a-4f1b-8b29-c5ddb6fb1d49",
+   "check": "ok"
+  },
+  {
+   "n": 16,
+   "motion": "ngoi",
+   "job_id": "f8b87de6-81c7-4f18-b9c0-fd5b70a1eacc",
+   "credits": 12,
+   "matte": null,
+   "status": "xong",
+   "prompt": "cau-lenh.json → 16.prompts.ngoi",
+   "asset_id": "259ed465-2de8-4af2-9518-d9d470334109",
+   "check": "ok"
+  },
+  {
+   "n": 16,
+   "motion": "dung",
+   "job_id": "5ea00658-dc42-4563-a306-6d971296730a",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 16.prompts.dung",
+   "asset_id": "106e82f8-0c12-4af0-ba20-4a3c7ae65a21",
+   "check": "ok"
+  },
+  {
+   "n": 16,
+   "motion": "chay",
+   "job_id": "a0aef58f-acc7-4684-81e7-186f9cb3d52f",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 16.prompts.chay",
+   "asset_id": "2a573eb8-91cd-46ca-855a-9c9301e6a715",
+   "check": "ok"
+  },
+  {
+   "n": 16,
+   "motion": "danh1",
+   "job_id": "8f89a279-cec8-4d81-9809-963745130119",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 16.prompts.danh1",
+   "asset_id": "861970c1-b69a-4582-8fe9-b3e64fdb483a",
+   "check": "ok"
+  },
+  {
+   "n": 16,
+   "motion": "danh2",
+   "job_id": "dc2febc1-3f76-4e42-9ce2-30e7c010026c",
+   "credits": 26,
+   "matte": "#00ff00",
+   "status": "xong",
+   "prompt": "cau-lenh.json → 16.prompts.danh2",
+   "asset_id": "9a65f691-5bd3-407d-a7da-7d0390e10fbd",
+   "check": "ok"
   }
  ]
 }

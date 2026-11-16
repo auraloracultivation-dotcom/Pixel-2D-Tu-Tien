@@ -35,9 +35,10 @@ def face(a):
 
 
 def orb(a):
-    """Lõi khí cầu: vàng trắng rất sáng (R, G cao, B vừa); da (G thấp hơn) và áo trắng (B cao) không lọt."""
-    c = a[..., :3].astype(int)
-    f = biggest((a[..., 3] >= 200) & (c[..., 0] >= 250) & (c[..., 1] >= 230) & (c[..., 2] >= 150) & (c[..., 2] <= 215))
+    """Lõi khí cầu: vàng trắng rất sáng (R, G cao, B vừa); da (G thấp hơn) và áo trắng (B cao) không lọt. Chỉ tìm ở tầm ngực
+    (45–90% chiều cao): sừng, trâm vàng nhạt trên đầu cũng sáng như lõi khí cầu (#13 sừng vàng)."""
+    c = a[..., :3].astype(int); h = a.shape[0]; zone = np.zeros(a.shape[:2], bool); zone[int(h * 0.45):int(h * 0.9)] = True
+    f = biggest(zone & (a[..., 3] >= 200) & (c[..., 0] >= 250) & (c[..., 1] >= 230) & (c[..., 2] >= 150) & (c[..., 2] <= 215))
     return None if f is None else (f[4], f[5])
 
 
