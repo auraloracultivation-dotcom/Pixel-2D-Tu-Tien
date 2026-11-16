@@ -1,0 +1,60 @@
+/* Hình khung bố cục hai bảng (chủ dự án 17/11/2026 02:03 gửi ảnh khung mong muốn: tím đậm viền bạc, đá vàng bốn góc, vương miện đá tím
+   giữa bảng trên, nút Đánh viền lửa cam; 02:05 "tôi cần kết quả"). Ảnh mẫu của chủ dự án → SpriteCook vẽ các khung rỗng → tools/art/khung_ui.py
+   cắt, đưa về điểm ảnh thật (assets/art/ui-kt-*.png, 1 điểm ảnh = 1 điểm CSS, -vien: chỉ còn viền để đè lên ảnh). Cắt 9 mảnh bằng border-image
+   nên co giãn theo ô mà góc, đá không méo. Vị trí ở src/ui/hud-bang.css (nạp trước). */
+html body.hud-bang { --atk: 70px; --tron: 44px; }
+
+/* bảng trên, bảng dưới: khung tím lớn; vương miện giữa mép trên bảng trên */
+#bang-tren, #bang-duoi { border: 0; border-radius: 0; box-shadow: 0 3px 6px rgba(0, 0, 0, .45); background: none;
+  border-image: url("../../assets/art/ui-kt-bang.png") 16 fill / 16px / 0 stretch; image-rendering: pixelated; }
+#bang-tren::after { content: ''; position: absolute; left: 50%; top: -5px; width: 70px; height: 22px; margin-left: -35px;
+  background: url("../../assets/art/ui-kt-vuong-mien.png") no-repeat; image-rendering: pixelated; }
+
+/* thẻ nhân vật (ảnh đại diện + thanh) và thẻ bậc: khung thẻ nhỏ */
+html body.hud-bang #hud .bars::before { content: '' !important; display: block !important; position: absolute !important; left: calc(var(--av) + 2px) !important; right: 0 !important;
+  top: 0 !important; bottom: 0 !important; z-index: -1 !important; width: auto !important; height: auto !important; transform: none !important;
+  border: 0 !important; background: none !important; box-shadow: none !important; border-image: url("../../assets/art/ui-kt-the.png") 12 fill / 12px / 0 stretch !important; image-rendering: pixelated; }
+html body.hud-bang #hud .bars { padding: 6px 7px 6px 0 !important; row-gap: 1.5px; column-gap: 9px; }
+html body.hud-bang #hud .bars .bar span { font-size: 8px !important; letter-spacing: -.2px; }
+html body.hud-bang #bac-hud { border-image: url("../../assets/art/ui-kt-the.png") 12 fill / 12px / 0 stretch !important; image-rendering: pixelated; background: none !important; }
+
+/* ảnh đại diện, bản đồ: khung chỉ còn viền đè lên ảnh (lớp i có sẵn trong hud-ava.js, mini-map.js) */
+html body.hud-bang :is(#uk-ava.v2 canvas, #mini-map canvas) { border: 0 !important; box-shadow: none !important; border-radius: 6px !important; }
+html body.hud-bang :is(#uk-ava.v2 i, #mini-map i) { display: block !important; position: absolute !important; inset: 0 !important; z-index: 2; pointer-events: none;
+  background: none !important; filter: none !important; box-shadow: none !important; image-rendering: pixelated !important;
+  border: 0 !important; border-image: url("../../assets/art/ui-kt-mat-vien.png") 14 / 14px / 0 stretch !important; }
+html body.hud-bang #mini-map i { border-image-source: url("../../assets/art/ui-kt-ban-do-vien.png") !important; }
+html body.hud-bang #uk-ava.v2 :is(b, s) { z-index: 3; }
+html body.hud-bang #mini-map b { z-index: 3; }
+
+/* phím chức năng, mũi tên thu gọn, Túi đồ, Đan, Cưỡi: phím tím nhỏ */
+html body.hud-bang :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], #hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #uk-gon.uk-tog.kt) {
+  background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; filter: none !important; image-rendering: pixelated;
+  border-image: url("../../assets/art/ui-kt-phim.png") 11 fill / 11px / 0 stretch !important; }
+html body.hud-bang .uk-tog#uk-gon { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  border-image: url("../../assets/art/ui-kt-phim.png") 11 fill / 11px / 0 stretch !important; image-rendering: pixelated; }
+html body.hud-bang .uk-tog#uk-gon::before { display: block !important; margin: 0 !important; width: auto !important; height: auto !important; content: ''; position: absolute; inset: 7px; background: url("../../assets/art/ui-ic-lui.png") center / contain no-repeat; }   /* lòng phím vẽ đè lên nền nên mũi tên nằm ở lớp trên */
+html body.hud-bang :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], #hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride):active { transform: translateY(1px) !important; filter: brightness(1.2) !important; }
+html body.hud-bang #hud .hud-btns > button.tron.on { filter: brightness(1.25) drop-shadow(0 0 4px rgba(255, 210, 120, .9)) !important; }
+
+/* 4 ô pháp bảo: khung chỉ còn viền đè lên hình pháp bảo (hình là nền của nút), quầng màu phẩm */
+html body.hud-bang #buttons > button.btn.skill:is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { border: 0 !important; border-radius: 7px !important; background-color: rgba(30, 20, 54, .94) !important;
+  border-image: url("../../assets/art/ui-kt-o-vien.png") 12 / 12px / 0 stretch !important; image-rendering: pixelated; box-shadow: 0 0 6px var(--gc, transparent) !important; }
+html body.hud-bang #buttons > button.btn.skill .cd { inset: 4px !important; border-radius: 4px !important; }   /* quạt hồi chiêu nằm trong viền, không che khung */
+
+/* Lướt, Tự đánh: nút vuông tím vẽ đúng cỡ 45 × 44 */
+html body.hud-bang #buttons :is(#btn-dash, #btn-auto) { width: 45px !important; height: 44px !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  background: url("../../assets/art/ui-kt-nut.png") no-repeat !important; image-rendering: pixelated; }
+html body.hud-bang #buttons #btn-dash .cd { border-radius: 6px !important; inset: 5px !important; }
+html body.hud-bang #buttons #btn-auto.on { background: url("../../assets/art/ui-kt-nut.png") no-repeat !important; box-shadow: none !important; filter: brightness(1.2) drop-shadow(0 0 5px rgba(255, 200, 90, .95)) !important; color: #ffe08a !important; }
+
+/* Đánh: khung viền lửa cam, đá kim cương trên dưới, vẽ đúng cỡ 70 × 72; hình vũ khí đang cầm nằm trên */
+html body.hud-bang #buttons #btn-atk { height: 72px !important; background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+html body.hud-bang #buttons #btn-atk::after { display: block !important; content: '' !important; position: absolute !important; inset: 0 !important; z-index: 0;
+  background: url("../../assets/art/ui-kt-danh.png") no-repeat !important; image-rendering: pixelated !important; animation: none !important; filter: none !important; -webkit-mask: none !important; mask: none !important; }
+html body.hud-bang #buttons #btn-atk .atk-ico { inset: 20% !important; z-index: 1; }
+html body.hud-bang #buttons #btn-atk > b { z-index: 2; }
+html body.hud-bang #buttons #btn-atk:active { filter: brightness(1.25); }
+
+/* Tắt màn hình: viên tím viền vàng */
+html body.hud-bang #btn-man-toi { background: rgba(48, 30, 84, .94) !important; border: 2px solid #d8b25a !important; border-radius: 12px !important; color: #fff1c8 !important; box-shadow: 0 2px 0 rgba(0, 0, 0, .5) !important; }

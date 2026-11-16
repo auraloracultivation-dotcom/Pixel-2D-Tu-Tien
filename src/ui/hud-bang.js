@@ -9,9 +9,11 @@ const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
 export function createHudBang(game) {
   if (!game.data.menu?.hud?.bang) return;
-  const css = document.createElement('link');   // kiểu ở src/ui/hud-bang.css, nạp sau style.css nên thắng các bộ khung cũ
-  css.rel = 'stylesheet'; css.href = new URL(`./hud-bang.css?v=${ver()}`, import.meta.url).href;
-  document.head.append(css);
+  for (const f of ['hud-bang', 'hud-khung']) {   // vị trí (hud-bang.css) rồi hình khung (hud-khung.css), nạp sau style.css nên thắng các bộ khung cũ
+    const css = document.createElement('link');
+    css.rel = 'stylesheet'; css.href = new URL(`./${f}.css?v=${ver()}`, import.meta.url).href;
+    document.head.append(css);
+  }
   document.body.classList.add('hud-bang');
   const cv = document.getElementById('game');   // nền nằm ngay trên canvas, dưới mọi nút (#hud, #buttons vẽ sau nên đè lên)
   const mk = id => { const e = document.createElement('div'); e.id = id; e.hidden = true; if (cv) cv.after(e); else document.body.prepend(e); return e; };
