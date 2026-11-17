@@ -10,7 +10,8 @@ export function drawBubbles(ctx, game) {
     const b = n?.bubble;
     if (!b) continue;
     const a = Math.min(1, b.t * 5, ((b.sec || sec) - b.t) * 3), w = ctx.measureText(b.text).width + 8, h = 10;
-    const top = n.y - (n.def && (n.khach || game.npcs.includes(n)) ? 37 : 34) + h + 3.5, q = textQ(game, 6);   // máy quay xa: phóng cả bong bóng quanh đuôi
+    const up = (n.riding || n.flying || n.def?.cuoi ? n.lift || 0 : 0) + (n.def?.ten_luon ? 8 : 0);   // đang cưỡi / bay / NPC ngồi thú: nâng theo; tên luôn hiện: chừa chỗ cho tên
+    const top = n.y - up - (n.def && (n.khach || game.npcs.includes(n)) ? 37 : 34) + h + 3.5, q = textQ(game, 6);   // máy quay xa: phóng cả bong bóng quanh đuôi
     ctx.save(); ctx.translate(n.x, top); ctx.scale(q, q); ctx.translate(-n.x, -top);
     const x = n.x - w / 2, y = top - h - 3.5 - (1 - Math.min(1, b.t * 5)) * 2;   // NPC chibi cao hơn
     ctx.globalAlpha = a * 0.92;

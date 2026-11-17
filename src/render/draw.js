@@ -216,12 +216,25 @@ function drawNpc(ctx, n, game, t) {
   // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>; ma khí (draw-ma-khi.js) hai lớp
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'back');
   if (n.def.vu_khi) drawNpcWeapon(ctx, game, n, t, n.def.vu_khi);
+  const cuoi = n.def.cuoi && game.data.pets.mounts[n.def.cuoi];   // NPC ngồi trên thú cưỡi (Ngự Thú Sư, 18/11/2026; data/npcs.json → cuoi)
+  if (cuoi) { n.face ||= { x: 1, y: 0 }; n.lift = drawMount(ctx, n, cuoi, t, game.data.art, n.def.cuoi); ctx.save(); ctx.translate(n.seatX || 0, -n.lift); }
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
+  if (cuoi) ctx.restore();
+  if (n.def.ten_luon) npcName(ctx, game, n);
   if (game.story.wants(n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
   }
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'front');
+}
+
+// Tên luôn hiện trên đầu NPC (data/npcs.json → ten_luon: màu chữ), phóng theo máy quay như chữ danh hiệu
+function npcName(ctx, game, n) {
+  const y = n.y - 30 - (n.lift || 0), q = textQ(game, 6);
+  ctx.save(); ctx.translate(n.x, y); ctx.scale(q, q);
+  ctx.font = 'bold 6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.fillStyle = n.def.ten_luon;
+  ctx.strokeText(n.def.name, 0, 0); ctx.fillText(n.def.name, 0, 0);
+  ctx.restore();
 }
 
 function drawFx(ctx, game) {
