@@ -10,6 +10,7 @@ import { pilotOpt } from './pilotopt.js';
 import { rewardItem, rewardTick, rewardOn } from './reward.js';
 import { grade } from './tiers.js';
 import { lootSpot } from './loot-spot.js';
+import { nlTick, nlOk, nlTaken, nlCapped } from './nl-roi.js';
 
 export function dropLoot(game, m) {
   const d = game.data.items.drops[m.id];
@@ -51,12 +52,14 @@ export function updateLoot(game, dt) {
     const pd = Math.hypot(p.x - l.x, p.y - l.y);
     // đang bay (nút Bay) hoặc món kẹt chỗ không đứng được mà người chơi đã tới gần: món tự hút về chân
     const pull = (p.flying && pd < (C?.fly_pull || 160)) || (pd < (C?.stuck_pull || 48) && game.map?.blocked?.(l.x, l.y, 2));
-    if (C?.walk && !pull) { if (pd < C.pick) { l.taken = true; take(game, l); } continue; }   // chạy qua mới nhặt
+    if (C?.walk && !pull) { if (pd < C.pick && (!l.nl || nlOk(game))) { l.taken = true; take(game, l); } continue; }   // chạy qua mới nhặt
     const dx = p.x - l.x, dy = p.y - 6 - l.y, d = Math.hypot(dx, dy), s = Math.min(d, (120 + l.t * 200) * dt);
     l.x += dx / d * s; l.y += dy / d * s;
+    if (l.nl && d < 24 && !nlOk(game)) continue;   // nguyên liệu rơi bên đường: đủ phần giờ này thì nằm yên
     if (d < 6) { l.taken = true; take(game, l); }
   }
   game.loot = game.loot.filter(l => !l.taken);
+  nlTick(game, dt);   // nguyên liệu rơi ngẫu nhiên trên bản đồ (nl-roi.js)
   rewardTick(game);   // món quý nhặt giữa trận: hết quái quanh mình mới diễn nghi lễ (reward.js)
 }
 
@@ -82,6 +85,12 @@ function take(game, l, quiet) {
   } else if (l.kind === 'gem') {
     save.gems[l.payload] = (save.gems[l.payload] || 0) + 1;
     if (game.feed) game.feed(`Nhặt ${gemInfo(data, l.payload).name}`, '#9fe8ff'); else game.toast(`Nhặt ${gemInfo(data, l.payload).name}`, 1.2);
+  } else if (l.kind === 'mat') {   // nguyên liệu rơi bên đường (nl-roi.js)
+    const { id, n } = l.payload, mi = data.cave.materials[id] || data.items.materials[id];
+    save.mats[id] = (save.mats[id] || 0) + n;
+    const msg = (data['nl-roi']?.text?.pick || 'Nhặt {n} {name}').replace('{n}', n).replace('{name}', mi?.name || id);
+    if (game.feed) game.feed(msg, mi?.color || '#bff4ff'); else game.toast(msg, 1.4);
+    if (l.nl) nlTaken(game, l);
   } else {
     save.mats['tay-luyen-thach'] = (save.mats['tay-luyen-thach'] || 0) + l.payload;
     game.number(game.player.x, game.player.y - 20, `+${l.payload} Tẩy Luyện Thạch`, '#bff4ff');
@@ -92,13 +101,14 @@ function take(game, l, quiet) {
 
 // Rời bản đồ: đồ còn rơi trên đất tự vào túi, không mất
 export function collectAll(game) {
-  for (const l of game.loot) take(game, l, true);
+  for (const l of game.loot) if (!l.nl) take(game, l, true);   // nguyên liệu bên đường không tự vào túi
   game.loot = [];
 }
 
 export function lootColor(game, l) {
   if (l.kind === 'item') return rewardOn(game) ? grade(game.data, l.payload).color : rarityOf(game.data.items, l.payload.rarity).color;   // bản nghi lễ: viên rơi cùng màu phẩm với dòng Nhặt… và vầng sáng
   if (l.kind === 'gem') return gemInfo(game.data, l.payload).color;
+  if (l.kind === 'mat') return (game.data.cave.materials[l.payload.id] || game.data.items.materials[l.payload.id])?.color || '#bff4ff';
   return game.data.items.materials['tay-luyen-thach'].color;
 }
 
@@ -109,7 +119,7 @@ export function lootStep(game) {
   if (!C?.walk || !game.loot.length || !p) return null;
   if (game.mobs.some(m => !m.dead && m.aggro && !m.dummy && Math.hypot(m.x - p.x, m.y - p.y) < C.busy)) return null;
   let best = null, bd = C.seek;
-  for (const l of game.loot) { if (l.t < 0.45 || (l.seek || 0) > C.give_up) continue; const d = Math.hypot(l.x - p.x, l.y - p.y); if (d < bd) { bd = d; best = l; } }
+  for (const l of game.loot) { if (l.t < 0.45 || (l.seek || 0) > C.give_up || (l.nl && nlCapped(game))) continue; const d = Math.hypot(l.x - p.x, l.y - p.y); if (d < bd) { bd = d; best = l; } }
   if (!best) return null;
   best.seek = (best.seek || 0) + (game.dt || 1 / 60);   // đi mãi không tới (kẹt sau vật cản) thì thôi, rời bản đồ vẫn tự vào túi
   return { x: (best.x - p.x) / (bd || 1), y: (best.y - p.y) / (bd || 1) };

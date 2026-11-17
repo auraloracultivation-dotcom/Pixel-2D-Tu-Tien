@@ -37,7 +37,7 @@ const small = new Map();
 function lootIcon(game, l, I) {
   const S = game.data.art.sprites, p = l.payload;
   const spr = l.kind === 'item' ? (S['ui.vk-' + p.base] || S['ui.ic-' + (game.data.items.bases[p.base]?.slot || '')])
-    : l.kind === 'gem' ? S['gem.' + String(p).replace(':', '-')] : S['ui.vk-tay-luyen-thach'];
+    : l.kind === 'gem' ? S['gem.' + String(p).replace(':', '-')] : S['ui.vk-' + (l.kind === 'mat' ? p.id : 'tay-luyen-thach')];
   if (!spr) return null;
   const key = spr.file + '|' + I.px;
   let c = small.get(key);

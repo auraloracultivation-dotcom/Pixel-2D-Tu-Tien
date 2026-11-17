@@ -1,0 +1,24 @@
+{
+  "_note": "Nguyên liệu rơi ngẫu nhiên trên bản đồ, không cần đánh quái, ai tới trước thì nhặt (chủ dự án 17/11/2026). Mỗi slot_s giây mỗi bản đồ rơi per_slot món ở chỗ ngẫu nhiên đi được, nằm life_s giây. Mọi máy cùng bản đồ tính ra cùng chỗ cùng món (hạt giống theo bản đồ + khung giờ), ai nhặt thì báo cả tuyến qua phòng Cloudflare (tin chiêu k = nl-...), máy khác xoá món đó. Mỗi người nhặt tối đa cap_h món mỗi giờ; món đã nhặt ghi vào save.nlGot nên đổi tuyến / tải lại không nhặt lại được. Không rơi ở phó bản, bí cảnh, đài, trong nhà, vùng không gian, động phủ (src/game/nl-roi.js).",
+  "on": true,
+  "slot_s": 240,
+  "per_slot": 2,
+  "life_s": 150,
+  "cap_h": 8,
+  "pick": 14,
+  "ring_px": 40,
+  "pool": [
+    { "id": "linh-thao", "w": 30, "n": [1, 3] },
+    { "id": "tinh-thiet", "w": 22, "n": [1, 2] },
+    { "id": "yeu-huyet", "w": 14, "n": [1, 2] },
+    { "id": "linh-dau", "w": 10, "n": [1, 3] },
+    { "id": "linh-mach", "w": 10, "n": [1, 3] },
+    { "id": "ngoc-lo-hoa", "w": 6, "n": [1, 1] },
+    { "id": "tay-luyen-thach", "w": 6, "n": [1, 1] },
+    { "id": "manh-phap-bao", "w": 2, "n": [1, 1] }
+  ],
+  "text": {
+    "pick": "Nhặt được {n} {name} rơi bên đường",
+    "cap": "Giờ này đã nhặt đủ đồ rơi bên đường, lát nữa quay lại."
+  }
+}
