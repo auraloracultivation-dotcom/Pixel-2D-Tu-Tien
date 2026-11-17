@@ -15,3 +15,8 @@ body #bag, body .panel { overflow: visible !important; }   /* nút đè lên gó
 body #bag > .bag-head::after, body .panel > .bag-head::after { display: none; }   /* nến, bí ngô cuối hàng tiêu đề: góc đã có nút tắt */
 body .d-head, body .gc-head { position: relative; padding-right: 36px !important; }
 body .d-head > .d-close, body .gc-head > .d-close { top: 0 !important; right: 0 !important; }
+
+/* Bảng tổng kết Hòm thư khi bấm Đọc hết (src/ui/mail-sum.js, 18/11/2026): bảng nhỏ giữa màn, nền mờ phía sau, chạm nền mờ thì đóng */
+body .ms-bg { position: fixed; inset: 0; z-index: 70; background: rgba(6, 4, 12, .55); }
+html body .panel.ms-panel { inset: auto 14px !important; top: 50% !important; bottom: auto !important; transform: translateY(-50%); max-height: 72vh; z-index: 71; overflow-y: auto; }
+body:has(.ms-panel:not([hidden])) #ht-icon { visibility: hidden; }   /* biểu tượng Hệ Thống bay giữa màn: ẩn khi xem tổng kết */

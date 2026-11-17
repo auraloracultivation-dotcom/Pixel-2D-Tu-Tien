@@ -4,6 +4,7 @@
 // Bảng dựng bằng code (không thêm vào index.html), chữ người chơi chỉ gán textContent.
 import { inboxState, unreadCount, markRead, readAll } from '../game/inbox.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
+import { createMailSum, sumGifts } from './mail-sum.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -95,7 +96,16 @@ export function createInbox(game) {
 
   function close() { root.hidden = true; game.uiOpen = false; }
   x.onclick = close;
-  all.onclick = () => { readAll(game); paint(); render(); };
+  createMailSum(game);
+  // Đọc hết: nhận nốt thư chờ, gộp quà của các tin chưa đọc thành bảng tổng kết (src/ui/mail-sum.js, chủ dự án 18/11/2026 00:07)
+  all.onclick = async () => {
+    all.disabled = true;
+    await claim();
+    const unread = inboxState(game).items.filter(it => !it.read);
+    readAll(game); paint(); render();
+    all.disabled = false;
+    if (unread.length) game.openMailSum?.(unread.length, sumGifts(unread));
+  };
   root.addEventListener('pointerdown', e => e.stopPropagation());
   btn.addEventListener('pointerdown', e => {
     e.stopPropagation();
