@@ -13,7 +13,8 @@ import { join, resolve } from 'node:path';
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const BOTS = +arg('bot', 300), SECS = +arg('giay', 60), URL_ = arg('url', ''), MAP = arg('map', 'thanh-khe');
-const MOVE_GAP = +arg('gap', 1000);   // ms giữa hai lần gửi vị trí khi đang chạy (src/net/online-cf.js send gap mặc định)
+const CAST_S = +arg('chieu', 1 / 8);   // số lần tung chiêu mỗi giây mỗi bot (bang chiến: --chieu 2)
+const MOVE_GAP = +arg('gap', 1000), ROOM_CAP = +arg('cap', 0);   // --cap: thử một phòng đông hơn 40 (bang hội chiến)   // ms giữa hai lần gửi vị trí khi đang chạy (src/net/online-cf.js send gap mặc định)
 const pct = (a, p) => { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.floor(p / 100 * s.length))]; };
 const r1 = v => Math.round(v * 10) / 10;
 
@@ -26,7 +27,7 @@ function botStep(b, t, send) {
     send({ t: 'm', x: Math.round(b.x), y: Math.round(b.y), fx: 1, fy: 0, sw: Math.random() < 0.3 ? 1 : 0, ts: t });
   }
   if (Math.random() < 1 / 40 / 10) send({ t: 's', e: 'chao' });
-  if (Math.random() < 1 / 8 / 10) send({ t: 'k', k: 'kiem-khi', x: Math.round(b.x), y: Math.round(b.y), fx: 1, fy: 0 });
+  if (Math.random() < CAST_S / 10) send({ t: 'k', k: 'kiem-khi', x: Math.round(b.x), y: Math.round(b.y), fx: 1, fy: 0 });
 }
 
 // ---------- 1) Trong máy ----------
@@ -50,6 +51,7 @@ async function local() {
   globalThis.setTimeout = f => { timers.push(f); return timers.length; };
   const P = await import(join(dir, 'proto.js'));
   const { Phong } = await import(join(dir, 'phong.js'));
+  if (ROOM_CAP) P.CAP.dao = ROOM_CAP;
   const CAP = P.CAP.dao, rooms = [];
   const env = { SUPABASE_URL: 'http://x', SUPABASE_KEY: 'x' };
   // chia tuyến như máy khách: đầy 40 người thì sang tuyến kế
