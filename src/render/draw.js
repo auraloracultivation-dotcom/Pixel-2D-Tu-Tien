@@ -26,6 +26,7 @@ import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
 import { drawFlySword } from './draw-fly.js';
+import { drawCele } from './draw-trib.js';
 import { drawPhapTuong } from './draw-phap-tuong.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
@@ -240,7 +241,7 @@ function npcName(ctx, game, n) {
 function drawFx(ctx, game) {
   for (const f of game.fx) {
     const k = f.t / f.life;
-    ctx.globalAlpha = 1 - k;
+    ctx.globalAlpha = 1 - k; if (f.draw) { f.draw(ctx, f, k, game); ctx.globalAlpha = 1; continue; }   // hiệu ứng tự vẽ (kiếm khí: draw-kiem-khi.js)
     if (f.type === 'arc') {
       const rr = f.r * (0.7 + 0.3 * k);   // cung chém: viền màu dày mỏng dần, lõi trắng
       ring(ctx, f.x, f.y, rr + 2, f.color, f.a - f.half, f.a + f.half, 4 * (1 - k) + 1);
@@ -277,6 +278,7 @@ function drawFx(ctx, game) {
 }
 
 function drawStrikeFalls(ctx, game) {
+  drawCele(ctx, game, game.time || 0);   // lễ ăn mừng độ kiếp: hạt linh khí xoáy vào người (draw-trib.js)
   for (const s of game.strikes) {
     const left = s.delay - s.t;
     if (s.kind === 'thunder') {   // vệt tiên dẫn rơi xuống trước lúc giáng; tia sét là hiệu ứng 'bolt' thêm lúc giáng

@@ -18,6 +18,7 @@ import { usePill } from './cave.js';
 import { rideSpeed, toggleRide } from './pets.js';
 import { toggleFly, updateFly, flyMove } from './fly.js';
 import { comboSwing } from './juice.js';
+import { drawKiemKhi } from '../render/draw-kiem-khi.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
@@ -130,7 +131,9 @@ function strike(game, q) {
   const R = reachW(game, w), cx = p.x, cy = p.y - 8, tip = { x: cx + ca * R, y: cy + sa * R };
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
   const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
-  if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
+  if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);
+  const KK = game.data.config.kiem_khi;   // kiếm khí đánh thường (draw-kiem-khi.js): lưỡi liềm bay ngắn theo hướng chém, màu hệ
+  if (KK?.on && q.move !== 'thu') addFx(game, { draw: drawKiemKhi, x: cx, y: cy, ang: q.ang, from: R * KK.from, len: KK.len, r: KK.r, half: KK.half, life: KK.life, color: game.data.elements[game.save.element]?.color || w.color || '#9ad8ff' });   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!hit2On(game) && !['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });   // bản ra đòn mới: tia lửa nằm ở chỗ chạm quái (src/game/hit-feel.js)
   let any = false;
   for (const m of game.mobs) {

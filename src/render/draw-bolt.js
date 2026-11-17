@@ -70,8 +70,8 @@ function plot(paths, px, cw, core, rim, edge, dis, seed) {
   }
 }
 
-function fill(ctx, C, paths) {
-  for (let i = 2; i >= 0; i--) { ctx.fillStyle = C.colors[i]; ctx.fill(paths[i]); }   // tím, xanh, trắng: lõi đè lên viền
+function fill(ctx, C, paths, pal) {
+  for (let i = 2; i >= 0; i--) { ctx.fillStyle = (pal || C.colors)[i]; ctx.fill(paths[i]); }   // tím, xanh, trắng: lõi đè lên viền; pal: dải màu riêng (sét thiên kiếp theo cảnh giới)
 }
 
 function glowLine(ctx, pts, w, color, a) {
@@ -88,15 +88,16 @@ export function drawBolt(ctx, game, f) {
   const shape = shapeOf(C, f.x, f.y, f.h, f.seed * 31 + Math.floor(Math.min(f.t, C.strike - 1e-3) / C.reshape));
   ctx.save();
   ctx.globalCompositeOperation = 'lighter'; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-  glowLine(ctx, shape.main, strike ? 7 : 5, C.colors[1], C.glow * (1 - k));
-  const rx = f.h > 110 ? 11 : 7;
-  ctx.globalAlpha = C.glow * (1 - k); ctx.fillStyle = C.colors[1];
+  const COL = f.pal || C.colors;   // sét thiên kiếp (src/game/trib-sky.js): dải màu theo cảnh giới, thân to hơn (f.w)
+  glowLine(ctx, shape.main, (strike ? 7 : 5) * (f.w || 1), COL[1], C.glow * (1 - k));
+  const rx = (f.h > 110 ? 11 : 7) * (f.w || 1);
+  ctx.globalAlpha = C.glow * (1 - k); ctx.fillStyle = COL[1];
   ctx.beginPath(); ctx.ellipse(f.x, f.y, rx * 1.6, rx * 0.55, 0, 0, Math.PI * 2); ctx.fill();
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   const paths = [new Path2D(), new Path2D(), new Path2D()], dis = Math.floor(k * 16);
   // thân: lõi trắng 2 điểm nửa đầu lúc sáng, rồi 1 điểm; tan: trắng → xanh → tím
   const [core, rim, edge] = k < 0.35 ? [0, 1, 2] : k < 0.7 ? [1, 2, null] : [2, null, null];
-  plot(paths, pixels(shape.main), strike && f.t < C.strike / 2 ? 2 : 1, core, rim, edge, dis, f.seed);
+  plot(paths, pixels(shape.main), (strike && f.t < C.strike / 2 ? 2 : 1) + Math.max(0, Math.round((f.w || 1) - 1)), core, rim, edge, dis, f.seed);
   if (k < 0.35) for (const b of shape.branches) plot(paths, pixels(b), 1, strike ? 0 : 1, strike ? 1 : 2, null, dis, f.seed + 7);
   if (k < 0.6) {   // chân sét: vệt bầu dục dẹt điểm ảnh, trong trắng ngoài xanh
     const ry = Math.max(1, Math.round(rx * 0.35));
@@ -109,7 +110,7 @@ export function drawBolt(ctx, game, f) {
       }
     }
   }
-  fill(ctx, C, paths);
+  fill(ctx, C, paths, f.pal);
   ctx.restore();
 }
 

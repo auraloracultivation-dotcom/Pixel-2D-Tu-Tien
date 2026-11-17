@@ -3,10 +3,10 @@ import { addFx } from './combat.js';
 import { slashArc, slashSpin } from './slash-fx.js';
 
 // Sét giáng tại chân (x, y): tia điểm ảnh vẽ mỗi khung (src/render/draw-bolt.js), rồi vết cháy xém (hình fx.bolt khung 4–6)
-export function boltFx(game, x, y, sky = false, seed = Math.floor(Math.random() * 1e6)) {
+export function boltFx(game, x, y, sky = false, seed = Math.floor(Math.random() * 1e6), o = {}) {   // o: { pal dải 3 màu, w độ to, h cao, life } (sét thiên kiếp, src/game/trib-sky.js)
   const C = game.data.config.bolt;
   if (!C) { addFx(game, { type: 'sprite', id: 'fx.bolt', x, y, life: 0.5 }); return; }
-  addFx(game, { type: 'bolt', x, y, h: sky ? C.h_sky : C.h_skill, seed, life: C.strike + C.fade });
+  addFx(game, { type: 'bolt', x, y, h: o.h || (sky ? C.h_sky : C.h_skill), seed, life: (o.life || 1) * (C.strike + C.fade), pal: o.pal, w: o.w });
   addFx(game, { type: 'sprite', id: 'fx.bolt', frames: [4, 5, 6], x, y, life: 0.6, fade: true });
 }
 
