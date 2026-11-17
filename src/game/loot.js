@@ -119,7 +119,7 @@ export function lootStep(game) {
   if (!C?.walk || !game.loot.length || !p) return null;
   if (game.mobs.some(m => !m.dead && m.aggro && !m.dummy && Math.hypot(m.x - p.x, m.y - p.y) < C.busy)) return null;
   let best = null, bd = C.seek;
-  for (const l of game.loot) { if (l.t < 0.45 || (l.seek || 0) > C.give_up || (l.nl && nlCapped(game))) continue; const d = Math.hypot(l.x - p.x, l.y - p.y); if (d < bd) { bd = d; best = l; } }
+  for (const l of game.loot) { if (l.t < 0.45 || (l.seek || 0) > C.give_up || (l.nl && (game.pilot || nlCapped(game)))) continue; const d = Math.hypot(l.x - p.x, l.y - p.y); if (d < bd) { bd = d; best = l; } }
   if (!best) return null;
   best.seek = (best.seek || 0) + (game.dt || 1 / 60);   // đi mãi không tới (kẹt sau vật cản) thì thôi, rời bản đồ vẫn tự vào túi
   return { x: (best.x - p.x) / (bd || 1), y: (best.y - p.y) / (bd || 1) };
