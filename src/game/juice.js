@@ -5,6 +5,7 @@
 import { fxOk } from './fx-budget.js';
 import { hurtTick } from './hurt-feel.js';
 import { pxOf } from './pfx.js';
+import { comboMoc } from './combo-moc.js';
 const TAU = Math.PI * 2;
 const J = game => game.data.juice;
 export const juice = game => (game.juice ||= { parts: [], combo: 0, comboT: 0, comboPop: 0, call: null, rage: 0, rageOn: 0, idle: 99, vig: 0, trailT: 0, dashT: 0 });
@@ -26,8 +27,7 @@ function debris(game, x, y, n, color, sp = 70) {
 export function juiceHit(game, x, y, color, crit, soft, noVis) {   // noVis: chỉ tính Liên Kích, Nộ, nốt đàn; hình do src/game/hit-feel.js lo
   const C = J(game)?.hit; if (!C) return;
   const S = juice(game);
-  S.idle = 0; addRage(game, J(game).rage.hit);
-  combo(game);
+  S.idle = 0; addRage(game, J(game).rage.hit);   // Liên Kích nay chỉ đếm nhát đánh thường / thú cưỡi trúng (comboSwing)
   const N = J(game).note;   // nốt đàn theo Liên Kích, leo dần (data/juice.json → note)
   if (N?.on && (!soft || crit)) game.note?.((S.combo - 1) % N.steps + (crit ? N.crit_up : 0), crit ? N.v_crit : N.v);
   if (noVis) return;
@@ -87,14 +87,16 @@ export function juiceUp(game, big, color) {
   juice(game).up = { t: C.ember_t * k, n: C.ember_n * k, color };
 }
 
-function combo(game) {
-  const S = juice(game), C = J(game).combo;
+// Một nhát đánh thường / đòn thú cưỡi có trúng quái (src/game/player.js strike, đạn đánh thường ở combat.js): Liên Kích +1,
+// window giây không trúng thì đứt; nhát chia hết cho mốc nào thì nhận hiệu ứng mốc đó (src/game/combo-moc.js, chủ dự án 17/11/2026)
+export function comboSwing(game) {
+  const S = juice(game), C = J(game)?.combo;
+  if (!C) return;
   S.combo = S.comboT > 0 ? S.combo + 1 : 1; S.comboT = C.window; S.comboPop = 0.12;
-  if (C.marks.includes(S.combo)) {
-    const i = C.marks.indexOf(S.combo);
-    S.call = { text: `Liên Kích ${S.combo}!`, t: 0, color: C.colors[Math.min(C.colors.length - 1, i + 1)] };
-    game.sfx('combo', 0.6 + i * 0.1);
-  }
+  const r = comboMoc(game, S.combo);
+  if (!r) return;
+  S.call = { text: r.text, t: 0, color: r.color, big: r.big };
+  game.sfx('combo', 0.6 + Math.min(0.5, Math.log2(S.combo / 5) * 0.1));
 }
 
 function addRage(game, v) {

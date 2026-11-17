@@ -17,6 +17,7 @@ import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed, toggleRide } from './pets.js';
 import { toggleFly, updateFly, flyMove } from './fly.js';
+import { comboSwing } from './juice.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
@@ -122,7 +123,7 @@ function strike(game, q) {
   const p = game.player, w = q.w, ca = Math.cos(q.ang), sa = Math.sin(q.ang);
   if (q.move === 'ban') {   // đàn, cung: đạn bay ra từ vũ khí trước mặt
     const o = weaponPoint(game);
-    shoot(game, { from: 'player', x: o.x, y: o.y, vx: ca * w.speed, vy: sa * w.speed, r: w.radius, dmg: q.dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx });
+    shoot(game, { from: 'player', x: o.x, y: o.y, vx: ca * w.speed, vy: sa * w.speed, r: w.radius, dmg: q.dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx, normal: true });
     game.sfx('shoot', 0.6);
     return;
   }
@@ -131,14 +132,16 @@ function strike(game, q) {
   const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
   if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!hit2On(game) && !['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });   // bản ra đòn mới: tia lửa nằm ở chỗ chạm quái (src/game/hit-feel.js)
+  let any = false;
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
     if (d > R + m.r) continue;
     let da = Math.atan2(m.y - p.y, m.x - p.x) - q.ang;
     da = Math.atan2(Math.sin(da), Math.cos(da));
-    if (Math.abs(da) <= q.half || d < m.r + p.r + 2) hitMob(game, m, q.dmg, { color: w.color });
+    if (Math.abs(da) <= q.half || d < m.r + p.r + 2) { hitMob(game, m, q.dmg, { color: w.color, normal: true }); any = true; }
   }
+  if (any) comboSwing(game);   // Liên Kích: mỗi nhát trúng tính một (src/game/juice.js, combo-moc.js)
 }
 
 // Chiêu chưa dùng được (lướt Thiểm Ảnh, lĩnh vực không có mục tiêu trong tầm): không trừ linh lực, báo cách nhau 1,5 giây (tự đánh thì im)
