@@ -50,14 +50,16 @@ export function sellPuppet(game, id) {
   return `Đã bán ${puppetName(game, id)}, nhận ${vn(price)} Linh Thạch.`;
 }
 
-// Hộp thoại ở Ngự Thú Sư (sau lần đầu tặng linh thú)
-export async function talkBeastShop(game, npc) {
-  const name = npc.def.name, s = game.save;
-  const pick = await game.dialog.choose(`${name}: Muốn mua gì?`, [
+// Hộp thoại ở Ngự Thú Sư (sau lần đầu tặng linh thú): đổi thú cưỡi. Khôi lỗi bán ở quầy Khôi Lỗi Sư bên cạnh (chủ dự án 18/11/2026
+// 06:08: hai quầy riêng, data/pets.json → puppet_npc); bản đồ chưa có Khôi Lỗi Sư thì Ngự Thú Sư bán cả khôi lỗi như cũ.
+export async function talkBeastShop(game, npc, only) {
+  const name = npc.def.name, s = game.save, sep = !only && game.npcs?.some(n => n.id === game.data.pets.puppet_npc);
+  const opts = [
     { id: 'mount', label: `Đổi thú cưỡi (${game.data.pets.thu_lenh.per_mount} ${game.data.pets.thu_lenh.name})`, desc: 'Tăng tốc chạy và 1 dòng chỉ số; cưỡi thì thú công kích' },
     { id: 'puppet', label: 'Mua khôi lỗi', desc: 'Đi theo đánh cùng, mang tối đa 2 con' },
     { id: 'talk', label: 'Trò chuyện', desc: '' },
-  ]);
+  ].filter(o => o.id === 'talk' || (only ? o.id === only : !(sep && o.id === 'puppet')));
+  const pick = await game.dialog.choose(`${name}: Muốn mua gì?`, opts);
   if (pick === 'talk') { await game.dialog.say([[name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]); return; }
   if (pick === 'mount') {   // số Thú Lệnh hỏi máy chủ (chơi không mạng thì không đổi được)
     try { const M = await import('../net/he-thong.js'); game.thuLenh = (await M.htStatus())?.thu_lenh ?? 0; } catch { game.thuLenh = null; }
@@ -72,3 +74,6 @@ export async function talkBeastShop(game, npc) {
   if (id === 'thoi' || !id) return;
   game.toast(pick === 'mount' ? await buyMount(game, id) : buyPuppet(game, id), 2.6);
 }
+
+// Quầy Khôi Lỗi Sư: chỉ bán khôi lỗi
+export const talkPuppetShop = (game, npc) => talkBeastShop(game, npc, 'puppet');

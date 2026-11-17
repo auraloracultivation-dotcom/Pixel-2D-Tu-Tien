@@ -10,6 +10,7 @@ import { waterDir, fishAct, fishLabel } from './fishing.js';
 
 const isDungeon = (game, id) => (game.data.maps[id].rooms || []).length > 0;
 import { talkBeast } from './pets.js';
+import { talkPuppetShop } from './beast-shop.js';
 import { talkShop } from './shop.js';
 import { canInvite, talkCompanion } from './companion.js';
 import { challenge as challengeTm } from './thienma.js';
@@ -51,6 +52,7 @@ export function talkTo(game, npc) {
   if (game.story.wants(npc.id)) { game.story.notify('talk', npc.id); return; }
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
+  if (npc.id === game.data.pets.puppet_npc) { talkPuppetShop(game, npc); return; }
   if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }

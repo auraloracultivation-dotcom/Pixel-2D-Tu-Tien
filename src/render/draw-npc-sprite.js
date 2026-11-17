@@ -10,13 +10,14 @@ import { drawRunDust } from './draw-act-fx.js';
 export function drawNpcSprite(ctx, game, n, t) {
   const art = game.data.art;
   if (n.face && Math.abs(n.face.x) > 0.2) n.lookX = Math.sign(n.face.x);
-  const id = isAct(art, 'comp.' + n.id) ? 'comp.' + n.id : isAct(art, 'npc.' + n.id) ? 'npc.' + n.id : null;
+  const k = n.def?.hinh || n.id;   // hinh: mượn hình NPC khác (data/npcs.json), NPC mới chưa có hình riêng
+  const id = isAct(art, 'comp.' + k) ? 'comp.' + k : isAct(art, 'npc.' + k) ? 'npc.' + k : null;
   if (id) {   // bóng đổ theo dáng vẽ trong drawAct
     if (n.moving) drawRunDust(ctx, n, t);
     const bob = !n.moving && Math.sin(t * 2.2 + (n.bob || 0) * 3) > 0.55 ? 0.5 : 0;   // đứng thì thở nhẹ
     return drawAct(ctx, art, id, n.moving ? walkFrame(art.sprites[id], t) : ACT.idle, n.x, n.y + 1, n.lookX || 1, bob);
   }
-  const spr = art.sprites['npc.' + n.id], im = spr && spriteImage(spr);
+  const spr = art.sprites['npc.' + k], im = spr && spriteImage(spr);
   if (!im) return false;
   const f = n.moving ? 2 + Math.floor(t * 6) % 2 : Math.floor(t * 1.5 + (n.bob || 0)) % 2;
   ctx.save();

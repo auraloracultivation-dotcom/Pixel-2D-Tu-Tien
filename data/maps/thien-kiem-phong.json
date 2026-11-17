@@ -321,10 +321,11 @@
   {
    "id": "ngu-thu-su",
    "at": [
-    35.5,
-    52.5
+    33,
+    54.3
    ]
   },
+    {"id": "khoi-loi-su", "at": [38.4, 54.1]},
   {
    "id": "van-bao",
    "at": [
@@ -548,8 +549,8 @@
    ],
    [
     "tk.sap-vai-m",
-    40.1,
-    57.2,
+    41.6,
+    58.8,
     null,
     {
      "s": 1.5
@@ -860,10 +861,16 @@
     "→ Bãi Mộc linh"
    ],
    [
-    "chung.bien-go",
-    32.6,
-    53.4,
-    "Ngự Thú Sư · Đổi thú cưỡi"
+    "tk.sap-thu-m",
+    33,
+    53,
+    "Ngự Thú"
+   ],
+   [
+    "tk.sap-khoi-loi-m",
+    39,
+    53,
+    "Khôi Lỗi"
    ],
    [
     "tk.den-da-m",
