@@ -16,6 +16,7 @@ import { warmSkillSfx } from './skill-sfx.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed, toggleRide } from './pets.js';
+import { toggleFly, updateFly, flyMove } from './fly.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
@@ -163,11 +164,14 @@ export function updatePlayer(game, dt) {
     if (Math.abs(p.kx) + Math.abs(p.ky) < 2) { p.kx = 0; p.ky = 0; }
   }
 
-  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = auto.ax;
+  const drift = updateFly(game, dt);   // nút Bay (src/game/fly.js): trừ linh lực, tự đáp; đang trôi vào bờ để đáp thì bỏ đi lại
+  const mv = p.flying ? (dx, dy) => flyMove(game, dx, dy) : (dx, dy) => game.map.move(p, dx, dy);
+  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = drift ? { x: 0, y: 0 } : auto.ax;
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
   if (inp.consume('ride')) toggleRide(game);   // nút Cưỡi / Xuống (chủ dự án 16/11/2026)
+  if (inp.consume('fly')) toggleFly(game);   // nút Bay / Đáp (chủ dự án 17/11/2026 12:41)
   if (inp.consume('dash') && p.dashCd <= 0) {
     const dc = cfg.dash, d = p.moving ? Math.hypot(ax.x, ax.y) : 1, dir = p.moving ? { x: ax.x / d, y: ax.y / d } : p.face;
     p.dashCd = dc.cd; p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
@@ -177,19 +181,19 @@ export function updatePlayer(game, dt) {
   }
   if (p.dashT > 0 && p.dashV) {
     const sx = p.x, sy = p.y;
-    game.map.move(p, p.dashV.x * dt, p.dashV.y * dt);
+    mv(p.dashV.x * dt, p.dashV.y * dt);
     addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: '#e6ebf7', life: 0.2 });
   } else if (p.moving) {
     p.meditating = false;
-    const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
+    const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * (p.flying ? cfg.fly?.speed || 1 : 1) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);
-    game.map.move(p, ax.x / d * sp * dt, ax.y / d * sp * dt);
+    mv(ax.x / d * sp * dt, ax.y / d * sp * dt);
     p.face = { x: ax.x / d, y: ax.y / d };
     p.walkT += dt;
   }
   if (auto.face) p.face = auto.face;   // Tự đánh đang lùi giữ khoảng cách: bước lùi, mặt vẫn hướng quái (auto.js keepStep)
 
-  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = p.riding ? mountSwing(game) : swing(game); }   // cưỡi thì thú đánh
+  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0 && !p.flying) { p.meditating = false; p.atkCd = p.riding ? mountSwing(game) : swing(game); }   // cưỡi thì thú đánh
   if (p.hitQ && (p.hitQ.t -= dt) <= 0) { const q = p.hitQ; p.hitQ = null; strike(game, q); }
   updateFlyWeapon(game, dt);
 

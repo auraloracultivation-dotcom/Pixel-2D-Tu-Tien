@@ -159,6 +159,9 @@ export function createHud(audio, dlgCfg) {
     const rb = $('btn-ride'), rl = p.riding ? 'Xuống' : 'Cưỡi';   // nút Cưỡi / Xuống: hiện khi đã có thú cưỡi (src/game/pets.js toggleRide)
     rb.hidden = !(s.mount && s.mounts?.[s.mount] && d.pets.mounts[s.mount]);
     if (rb.firstChild.textContent !== rl) rb.firstChild.textContent = rl;
+    const fb = $('btn-fly'), fl = p.flying ? 'Đáp' : 'Bay', md = game.map?.def || {};   // nút Bay / Đáp (src/game/fly.js): ẩn trong nhà, vùng không gian
+    fb.hidden = !d.config.fly?.on || !!(md.indoor || md.space);
+    if (fb.firstChild.textContent !== fl) fb.firstChild.textContent = fl;
     const act = $('btn-act');
     act.hidden = !game.actLabel;
     if (game.actLabel && act.textContent !== game.actLabel) act.textContent = game.actLabel;

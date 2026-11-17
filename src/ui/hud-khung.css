@@ -71,7 +71,7 @@ html body.hud-bang #buttons > button.btn.skill .cd { inset: 3px !important; bord
 html body.hud-bang #buttons > button.btn.skill b { z-index: 4 !important; }
 
 /* Túi đồ, Đan, Cưỡi, Lướt, Tự đánh: ô vuông có đá góc */
-html body.hud-bang :is(#hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #buttons #btn-dash, #buttons #btn-auto) {
+html body.hud-bang :is(#hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #buttons #btn-fly, #buttons #btn-dash, #buttons #btn-auto) {
   background: url("../../assets/art/ui-kg-o.webp") 0 0 / 100% 100% no-repeat !important; border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important; }
 html body.hud-bang #buttons :is(#btn-dash, #btn-auto) { width: var(--tron) !important; height: var(--tron) !important; }
 html body.hud-bang #buttons #btn-dash .cd { inset: 4px !important; border-radius: 5px !important; }

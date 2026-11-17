@@ -37,7 +37,7 @@ export function hopTo(game, tx, ty, name) {
   const p = game.player, to = game.map.center(land[0], land[1]), col = game.save.element ? game.data.elements[game.save.element].color : '#bff4ff';
   addFx(game, { type: 'ring', x: p.x, y: p.y, r: 16, color: col, life: 0.45 });
   p.x = to.x; p.y = to.y;
-  p.meditating = false; p.riding = false; p.hitQ = null;
+  p.meditating = false; p.riding = false; p.hitQ = null; p.flying = false; p.landTo = null;
   addFx(game, { type: 'ring', x: to.x, y: to.y, r: 18, color: col, life: 0.55, fill: true });
   if (game.auto) game.autoHome = { x: to.x, y: to.y };   // Tự đánh: săn quanh chỗ mới
   if (game.pilot) game.pilot.path = null;

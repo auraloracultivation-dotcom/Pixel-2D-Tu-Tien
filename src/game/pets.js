@@ -165,12 +165,13 @@ export function mergePet(game, id) {
 export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && game.save.mounts?.[id] && P(game).mounts[id] && !d.indoor && !d.space); };
 export function updateRide(game, dt) {
   const p = game.player;
-  p.sword = !!game.map.def.space;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)
+  p.sword = !!game.map.def.space || !!p.flying;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)
   p.calmT = (p.calmT || 0) + dt;
-  const was = p.riding; p.riding = !!game.save.ride && canRide(game);
+  const was = p.riding; p.riding = !!game.save.ride && canRide(game) && !p.flying;
   if (p.riding && !was) p.meditating = false;
 }
 export function toggleRide(game) {
+  if (game.player.flying) { game.toast('Đang bay không cưỡi thú được.', 1.6); return false; }
   if (!canRide(game)) {
     game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6);
     return false;

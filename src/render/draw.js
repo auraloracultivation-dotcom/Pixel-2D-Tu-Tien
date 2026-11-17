@@ -25,6 +25,7 @@ import { drawWild } from './draw-critter.js';
 import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
+import { drawFlySword } from './draw-fly.js';
 import { drawPhapTuong } from './draw-phap-tuong.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
@@ -89,6 +90,7 @@ function drawPlayer(ctx, game, t) {
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
   if (p.riding) { const lk = heroLook(game); drawPhapTuong(ctx, game, p, t, game.save, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', p.x + (p.seatX || 0), p.y - (p.lift || 0)); }   // pháp tượng sau lưng người cưỡi, sau cả thú (chỗ ngồi của khung trước)
   if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); p.lift = lift; ctx.save(); ctx.translate(p.seatX || 0, -lift - (!p.seatSync && p.moving && Math.floor(p.walkT * 7) % 2 ? 1 : 0)); }   // người cưỡi nhún theo nhịp phi (thú cưỡi có chỗ đứng theo khung thì đã nhấp nhô theo lưng, không nhún thêm)
+  if (p.flying) { p.lift = drawFlySword(ctx, game, p, t); ctx.save(); ctx.translate(0, -p.lift); }   // nút Bay: đứng trên kiếm (draw-fly.js)
   if (p.meditating) {
     ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
   }
@@ -105,7 +107,7 @@ function drawPlayer(ctx, game, t) {
   if (p.buffT > 0 && !vfxOf(game, p.buffSk)) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
   drawTitle(ctx, game, p);
-  if (p.riding) ctx.restore();
+  if (p.riding || p.flying) ctx.restore();
 }
 
 // Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo

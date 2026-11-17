@@ -166,6 +166,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile, data);
+    if (game.player) { game.player.flying = false; game.player.landTo = null; }   // sang bản đồ khác thì đáp (src/game/fly.js)
     game.mobs = []; game.bullets = []; game.pickups = []; game.loot = []; game.npcs = []; game.fx = []; game.numbers = []; game.strikes = []; game.zones = []; game.vfx = null;
     const sp = def.spawns[spawnName || 'vao'] || def.spawns.vao;
     let c = game.map.center(sp[0], sp[1]);
