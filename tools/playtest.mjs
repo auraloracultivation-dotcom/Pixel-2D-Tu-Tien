@@ -50,7 +50,21 @@ while (Date.now() < end) {
   await p.waitForTimeout(500);
 }
 const r = await p.evaluate(() => { const g = window.__game; return { step: g.save.step, map: g.map.id, realm: g.save.realm, layer: g.save.layer, goal: g.story.current()?.goal || '', qi: Math.round(g.save.qi), kills: g.save.stats?.kills || 0, deaths: window.__deaths || 0, lc: document.getElementById('power')?.textContent || '' }; });
+// Đồ rơi chỗ chạy tới được (17/11/2026: đồ rơi xuống ao không nhặt được): quái chết giữa ô chắn (nước, vách, cây) gần người chơi
+// thì không món nào được nằm trên ô chắn
+const loot = await p.evaluate(async () => {
+  const g = window.__game, L = await import('/src/game/loot.js'), m = g.map, T = m.T, px = Math.floor(g.player.x / T), py = Math.floor(g.player.y / T);
+  let w = null;
+  for (let d = 2; d < 14 && !w; d++) for (let dy = -d; dy <= d && !w; dy++) for (let dx = -d; dx <= d && !w; dx++) if (m.solidTile(px + dx, py + dy) && !m.edge(px + dx, py + dy)) w = [px + dx, py + dy];
+  if (!w) return { bad: 0, n: 0 };
+  const c = m.center(w[0], w[1]), id = Object.keys(g.data.items.drops).find(k => g.data.items.drops[k].item > 0), d0 = g.data.items.drops[id];
+  g.loot = []; g.data.items.drops[id] = { ...d0, item: 1, items: 4, gem: 1 };
+  L.dropLoot(g, { id, x: c.x, y: c.y }); g.data.items.drops[id] = d0;
+  for (let k = 0; k < 30; k++) L.updateLoot(g, 0.03);
+  return { bad: g.loot.filter(l => !l.taken && m.blocked(l.x, l.y, 2)).length, n: g.loot.length };
+});
 await b.close(); server.close();
+if (loot.bad) errs.push(`Đồ rơi nằm trên ô chắn (${loot.bad}/${loot.n} món): người chơi không nhặt được`);
 const steps = r.step - step0;
 console.log(`Chơi thử ${SEC} giây (ngày giả ${FAKE}): qua ${steps} bước truyện, đang ở bước ${r.step} (${r.map}, cảnh giới ${r.realm} tầng ${r.layer}, linh khí ${r.qi}, hạ ${r.kills} quái, gục ${r.deaths} lần, ${r.lc}). Mục tiêu: ${r.goal}`);
 const bad = [...errs.map(e => 'Lỗi JavaScript: ' + e), ...(steps < MIN_STEPS ? [`Truyện chỉ đi ${steps} bước, cần ít nhất ${MIN_STEPS}: có thể bị kẹt.`] : [])];
