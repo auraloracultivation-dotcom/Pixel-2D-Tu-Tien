@@ -91,6 +91,7 @@ export async function claimMail(game) {
     for (const m of r.thu || []) {
       const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || d.tieu_de || '', lines = [];
       if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); }
+      if (d.tn > 0) lines.push(`+${d.tn} ${game.data.topup.name}`);   // Tiên Ngọc: máy chủ cộng, số dư lấy theo r.tn bên dưới
       if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
       if (d.pill && game.data.cave.pills[d.pill.id]) { s.pills ??= {}; s.pills[d.pill.id] = (s.pills[d.pill.id] || 0) + d.pill.n; lines.push(`${game.data.cave.pills[d.pill.id].name} ×${d.pill.n}`); }   // đan dược thưởng nhiệm vụ hệ thống
       const D = game.data;   // quà Hệ Thống: thú cưỡi, khôi lỗi, thời trang (máy chủ đã cộng vào bản lưu trên máy chủ)
@@ -107,6 +108,7 @@ export async function claimMail(game) {
       if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: '', read: false });
     }
     s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
+    if (typeof r.tn === 'number') s.tn = r.tn;
     game.refreshStats(); game.persist();
   });
   return got;

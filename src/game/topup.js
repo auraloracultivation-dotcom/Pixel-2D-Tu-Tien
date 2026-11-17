@@ -10,6 +10,7 @@ const ymd = d => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 const calls = async () => (await import('../net/profile.js')).topupCalls;
 
 export const tn = game => game.save.tn || 0;
+let dangDoi = false;   // đang đổi Tiên Ngọc (chặn bấm trùng)
 function addTn(game, n) { game.save.tn = tn(game) + n; }
 
 // Quà ra mắt một lần để người chơi thử quầy
@@ -74,10 +75,14 @@ export async function buyTn(game, id) {
     return grant(game, x.give);
   };
   if (game.cloud) {
-    const k = await calls();
-    let got = null;
-    await game.cloud.run(() => k.buy(id), r => { s.tn = r.tn; got = give(); game.persist(); });
-    return got;
+    if (dangDoi) return false;   // bấm hai lần liền: chờ lần đầu xong
+    dangDoi = true;
+    try {
+      const k = await calls(), khoa = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      let got = null;
+      await game.cloud.run(() => k.buy(id, khoa), r => { s.tn = r.tn; got = give(); game.persist(); });
+      return got;
+    } finally { dangDoi = false; }
   }
   addTn(game, -x.tn);
   return give();

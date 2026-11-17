@@ -1,5 +1,6 @@
 // Mục "Nhập mã quà" trong Menu (chủ dự án 04/11/2026 17:38; data/menu.json → nav.menu, chữ ở data/menu.json → ma_qua):
-// ô nhập + nút Nhận, máy chủ kiểm (src/net/rank.js → redeemCode); đúng thì cộng điểm QTV hoặc điểm hệ thống (loai 'ht').
+// ô nhập + nút Nhận, máy chủ kiểm (src/net/rank.js → redeemCode); đúng thì cộng điểm QTV hoặc điểm hệ thống (loai 'ht'),
+// hoặc mã dùng chung (loai 'chung', 18/11/2026: mã tân thủ TikTok) gửi các lá thư quà vào Hòm thư.
 const net = () => import('../net/rank.js');
 
 export function renderCodePane(game, body) {
@@ -14,7 +15,8 @@ export function renderCodePane(game, body) {
     go.disabled = true; msg.textContent = T.wait;
     try {
       const r = await (await net()).redeemCode(ma);
-      msg.textContent = r?.ok ? (r.loai === 'ht' && T.ok_ht ? T.ok_ht : T.ok).replace('{n}', r.diem) : T[r?.ly_do] || T.sai_ma;
+      msg.textContent = r?.ok ? (r.loai === 'chung' ? T.ok_chung.replace('{n}', r.thu) : (r.loai === 'ht' && T.ok_ht ? T.ok_ht : T.ok).replace('{n}', r.diem)) : T[r?.ly_do] || T.sai_ma;
+      if (r?.ok && r.loai === 'chung') import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // mã dùng chung (18/11/2026): quà vào Hòm thư, nhận luôn
       if (r?.ok) { inp.value = ''; game.sfx?.('levelup'); game.toast(msg.textContent, 2.5); }
     } catch (e) { msg.textContent = e.message === 'chua_dang_nhap' ? T.login : T.net; }
     go.disabled = false;
