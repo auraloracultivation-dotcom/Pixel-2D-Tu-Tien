@@ -6,13 +6,26 @@
 import { dangerOf } from '../game/starmap.js';
 import { spriteImage } from './sprites.js';
 import { drawMangSky } from './draw-mang-sky.js';
-import { sprite, khDeco, placeLabels, tongMau } from './draw-starmap.js';
+import { sprite, khDeco, tongMau } from './draw-starmap.js';
 import { maNgang } from './draw-tv-ma-ngang.js';
 import { drawKetGioi } from './draw-tv-ket-gioi.js';
 
 const TAU = Math.PI * 2, RAD = Math.PI / 180;
 let low = null;
 const hash = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+
+// Tên ngắn, không khung (chủ dự án 04:27): chữ viền tối; tên đè tên đã đặt thì bỏ (trừ chỗ đang đứng, đang chọn)
+function chu(ctx, list, px) {
+  ctx.font = `${px}px "Unifont VN", system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.lineJoin = 'round';
+  const boxes = [];
+  for (const l of list.sort((a, b) => a.pri - b.pri)) {
+    const w = ctx.measureText(l.text).width + 4, bx = { x0: l.x - w / 2, x1: l.x + w / 2, y0: l.y, y1: l.y + px * 1.2 };
+    if (!l.must && boxes.some(o => bx.x0 < o.x1 && bx.x1 > o.x0 && bx.y0 < o.y1 && bx.y1 > o.y0)) continue;
+    boxes.push(bx);
+    ctx.lineWidth = Math.max(2, px * 0.3); ctx.strokeStyle = 'rgba(14,8,24,.95)'; ctx.strokeText(l.text, l.x, l.y);
+    ctx.fillStyle = l.color; ctx.fillText(l.text, l.x, l.y);
+  }
+}
 
 function put(ctx, art, id, x, y, k, flip) {
   const s = art[id], im = s && spriteImage(s); if (!im) return;
@@ -117,7 +130,7 @@ export function drawNgang(ctx, w, h, sm, bodies, st) {
   if (st.mang) {
     const mv = out.find(p => p.b.id === 'ma-vuong'), [ccx, ccy] = S(cx, cy);
     const m = drawMangSky(ctx, st.mang.spr, st.mang.sky, { cx: ccx, cy: ccy, rx: vrx * s * 1.3, ry: vry * s * 1.3 }, mv ? mv.r : 20, t);
-    if (m && st.mang.name) labels.push({ text: st.mang.name, x: m.x, y: m.y + m.r * 0.95, color: '#e0a8ff', pri: 2 });
+    if (m && st.mang.name) labels.push({ text: N.ten['thon-thien-mang'] || st.mang.name, x: m.x, y: m.y + m.r * 0.95, color: '#e0a8ff', pri: 2 });
     if (m) out.push({ b: { id: 'thon-thien-mang', mang: true, name: st.mang.name }, x: m.x, y: m.y, r: m.r * 0.8 });
   }
   for (const p of out) {
@@ -126,10 +139,10 @@ export function drawNgang(ctx, w, h, sm, bodies, st) {
     if (here) labels.push({ text: sm.texts.here, x: p.x, y: p.y - p.r - N.chu * s * 1.6 - 4, color: '#ffd24a', pri: 0, must: true });
     if (b.parent && !sel && !here && z < 1.8) continue;
     const seen = st.seen(b), dg = seen && dangerOf(b, st.realm);
-    labels.push({ text: seen ? b.name + (b.kh && !b.trong && b.cap ? ` · cấp ${b.cap}` : '') : sm.texts.unknown, x: p.x, y: p.y + p.r * 1.05,
-      color: dg ? st.hint[dg] : b.sun ? '#ffe48a' : '#f4ead8', edge: b.kh ? (b.trong ? '#6e6e78' : tongMau(b)) : null,
+    labels.push({ text: seen ? (N.ten[b.sun ? 'sun' : b.id] || b.name) + (b.kh && !b.trong && b.cap ? ` ${b.cap}` : '') : '?', x: p.x, y: p.y + p.r * 1.05,
+      color: dg ? st.hint[dg] : b.sun ? '#ffe48a' : b.kh && !b.trong ? tongMau(b) : '#f4ead8',
       pri: here || sel ? 1 : b.sun ? 30 : b.parent ? 20 : 10 - (b.size || 0) / 2, must: here || sel });
   }
-  placeLabels(ctx, labels, T.labels, Math.max(9, Math.round(N.chu * s)));
+  chu(ctx, labels, Math.max(9, Math.round(N.chu * s)));
   return out;
 }
