@@ -2800,6 +2800,7 @@
    "_note": "Rương triệu hồi (ảnh GPT chủ dự án tạo 06/11/2026 23:19, tools/art/he_thong_ruong.py), hiện phóng 1,7 lần."
   }
  },
+ "khoa": {"_note": "Nút khoá ở góc biểu tượng Hệ Thống (chủ dự án 18/11/2026 08:55): khoá thì đứng yên, đầu có dấu !; chấm đỏ khi có nhiệm vụ chưa nhận. src/ui/he-thong-khoa.js", "title": "Khoá / mở cho Hệ Thống đi lại", "on": "Hệ Thống sẽ đứng yên ở đây.", "off": "Hệ Thống lại đi dạo."},
  "dao": {
   "_note": "Hệ Thống chạy lung tung trên màn hình như thú cưng tò mò (chủ dự án 06/11/2026 19:29): đi tới các nút trên màn hình, dừng lại ngó nghiêng (mat.ev.tim), lâu lâu lẩm bẩm. Đang nhắc việc hoặc mở bảng thì đứng yên. src/ui/he-thong-dao.js.",
   "on": true,

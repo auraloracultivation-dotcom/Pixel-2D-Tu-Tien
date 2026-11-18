@@ -14,6 +14,7 @@ import { createFace } from './he-thong-mat.js';
 import { createWander } from './he-thong-dao.js';
 import { createGreeter } from './he-thong-chao.js';
 import { makeDraggable } from './he-thong-keo.js';
+import { addLock } from './he-thong-khoa.js';
 import { renderTra } from './he-thong-tra.js';
 import { renderHoi, hoiState } from './he-thong-hoi.js';
 import { renderGop, gopState, gopShot } from './he-thong-gop.js';
@@ -53,6 +54,7 @@ export function createHeThong(game) {
   const cv = document.createElement('canvas'); cv.width = 88; cv.height = 88;
   const MT = C.mat, icFace = createFace(game, MT?.icon_k || 0.75), headFace = createFace(game, MT?.head_k || 0.75), bigFace = createFace(game, MT?.big_k || 1);   // biểu cảm (he-thong-mat.js); chưa có hình thì vẽ tinh thể
   if (MT) { ic.append(icFace.node); ic.classList.add('has-face'); } else ic.append(cv);
+  const khoa = addLock(game, ic, C);   // nút khoá đứng yên, dấu !, chấm đỏ nhiệm vụ chưa nhận (he-thong-khoa.js)
   game.htFace = { react: (ev, then) => { headFace.react(ev, then); icFace.react(ev, then); bigFace.react(ev, then); } };
   const tip = el('div', 'ht-tip'); tip.hidden = true;
   // Bảng
@@ -180,7 +182,8 @@ export function createHeThong(game) {
     if (say && !open && !quiet) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
     // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
     if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
-    if (!say && !open && !quiet && !game.uiOpen && now - (nudge.claim || 0) > 180000 && missionList(game, ht.xong).some(m => m.ok)) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
+    const claim = missionList(game, ht.xong).some(m => m.ok); khoa.tick(claim);
+    if (!say && !open && !quiet && !game.uiOpen && now - (nudge.claim || 0) > 180000 && claim) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
     // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
     if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }
   }, 1000);
@@ -192,7 +195,7 @@ export function createHeThong(game) {
       if (t - t0 < 32) { requestAnimationFrame(loop); return; }   // tối đa ~30 lần/giây (máy nóng, 09/11/2026)
       const dt = Math.min(0.1, (t - t0) / 1000); t0 = t;
       if (!ic.hidden) {
-        const p = wander.step(dt, open || ic.classList.contains('wake') || ic.classList.contains('keo') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
+        const p = wander.step(dt, khoa.locked() || open || ic.classList.contains('wake') || ic.classList.contains('keo') || !tip.hidden), W = innerWidth, S = ic.offsetWidth || 56;
         if (p.x > W / 2) { tip.style.left = ''; tip.style.right = `${Math.round(W - p.x + 6)}px`; } else { tip.style.right = ''; tip.style.left = `${Math.round(p.x + S + 6)}px`; }
         tip.style.top = `${Math.round(p.y)}px`;
       }

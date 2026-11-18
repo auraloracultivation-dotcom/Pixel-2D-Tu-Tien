@@ -49,7 +49,8 @@ export function drawWeaponAt(ctx, game, x, y, a, k, red, tint) {
 }
 
 export function drawFlyWeapon(ctx, game, layer) {
-  const p = game.player, fw = p?.fw, ws = fw && !p.charge && weaponSprite(game);   // đang tụ lực Phá Thiên: vũ khí vẽ ở lớp trên (draw-charge.js)
+  const p = game.player, fw = p?.fw, ws = fw && !p.charge && weaponSprite(game);
+  if (p?.flying) return;   // đang bay: vũ khí nằm dưới chân làm phi kiếm (draw-fly.js)   // đang tụ lực Phá Thiên: vũ khí vẽ ở lớp trên (draw-charge.js)
   if (!ws?.im) return;
   // Đang ra đòn: vẽ ở lớp trên cùng (layer 'top', src/render/draw.js), trên quái, thú, pháp tượng, hiệu ứng (chủ dự án 16/11/2026 23:35:
   // "vũ khí phải hiện lên trên tất cả, hiệu ứng chém cũng vậy"); lúc treo sau lưng vẫn theo trước / sau thân người như cũ

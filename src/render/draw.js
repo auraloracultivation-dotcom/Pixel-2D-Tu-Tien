@@ -221,19 +221,19 @@ function drawNpc(ctx, n, game, t) {
   if (cuoi) { n.face ||= { x: 1, y: 0 }; n.lift = drawMount(ctx, n, cuoi, t, game.data.art, n.def.cuoi); ctx.save(); ctx.translate(n.seatX || 0, -n.lift); }
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
   if (cuoi) ctx.restore();
-  if (n.def.ten_luon) npcName(ctx, game, n);
+  if (game.peek?.e !== n) npcName(ctx, game, n);   // tên mọi NPC luôn hiện (chủ dự án 18/11/2026 08:55); đang chạm xem thì nhãn xem đã có tên
   if (game.story.wants(n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
-    ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
+    ctx.fillText('!', n.x, n.y - 38 - (n.lift || 0) + Math.sin(t * 5) * 1.5);   // trên tên
   }
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'front');
 }
 
-// Tên luôn hiện trên đầu NPC (data/npcs.json → ten_luon: màu chữ), phóng theo máy quay như chữ danh hiệu
+// Tên luôn hiện trên đầu mọi NPC (data/npcs.json → ten_luon: màu chữ riêng, không có thì trắng), phóng theo máy quay như chữ danh hiệu
 function npcName(ctx, game, n) {
   const y = n.y - 30 - (n.lift || 0), q = textQ(game, 6);
   ctx.save(); ctx.translate(n.x, y); ctx.scale(q, q);
-  ctx.font = 'bold 6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.fillStyle = n.def.ten_luon;
+  ctx.font = 'bold 6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.fillStyle = n.def.ten_luon || '#eef4ff';
   ctx.strokeText(n.def.name, 0, 0); ctx.fillText(n.def.name, 0, 0);
   ctx.restore();
 }
