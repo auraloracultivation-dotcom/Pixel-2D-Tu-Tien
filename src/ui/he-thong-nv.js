@@ -115,7 +115,6 @@ function dayQi(game, last) {
   const N = game.data['he-thong'].ngay, n = needPct(game, N.qi_pct), big = last ? needPct(game, N.qi_all) : 0;
   if (n) game.gainQi(n, game.player.x, game.player.y, false, true, true);   // số thật, không nhân đôi Thăng Linh Đan
   if (!big) return;
-  const p = +(N.qi_all * 100).toFixed(2);
   game.gainQi(big, game.player.x, game.player.y, false, true, true);   // cộng ngay, màn mừng chỉ để xem (tải lại giữa chừng không mất)
-  game.rewardGive?.({ qua: { ray: '#9fe8ff', ink: '#bff4ff', lvl: 2, name: `+${big.toLocaleString('vi-VN')} ${N.all_name}`, tag: N.all_tag, sub: fill(N.all_sub, { p }), spr: { id: 'ui.ic-tu-luyen' } } });
+  game.rewardGive?.({ qua: { ray: '#9fe8ff', ink: '#bff4ff', lvl: 2, name: `+${big.toLocaleString('vi-VN')} ${N.all_name}`, tag: N.all_tag, sub: N.all_sub, spr: { id: 'ui.ic-tu-luyen' } } });
 }

@@ -5,17 +5,21 @@ import { spriteIcon } from './sprite-icon.js';
 import { gemIcon } from './gem-icon.js';
 import { gemInfo } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
+import { qiNeed } from '../game/stats.js';
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 const short = n => n >= 1e6 ? `${+(n / 1e6).toFixed(1)}tr`.replace('.', ',') : n >= 1e4 ? `${Math.round(n / 1e3)}k` : n.toLocaleString('vi-VN');
 
-// Điểm hệ thống: rương triệu hồi của Hệ Thống (data/he-thong.json → mat.ruong, cùng hình ở tab Triệu hồi)
-function chest(game, S) {
-  const R = game.data['he-thong'].mat?.ruong, im = document.createElement('img');
-  if (R) im.src = new URL(`../../${R.dong}`, import.meta.url).href;
-  im.alt = ''; im.draggable = false; im.style.width = im.style.height = S + 'px';
-  return im;
+// Điểm hệ thống: mặt Hệ Thống (data/he-thong.json → mat, khung đầu "thuong"), nhãn "+25 điểm" (chủ dự án 19/11/2026 04:24: rương ×25
+// nhìn như nhận 25 cái rương)
+function face(game, S) {
+  const M = game.data['he-thong'].mat, cv = document.createElement('canvas');
+  if (!M) return cv;
+  cv.width = M.w; cv.height = M.h; cv.style.width = S + 'px'; cv.style.height = Math.round(S * M.h / M.w) + 'px';
+  const im = new Image(); im.onload = () => cv.getContext('2d').drawImage(im, 0, 0, M.w, M.h, 0, 0, M.w, M.h);
+  im.src = new URL(`../../${M.src}`, import.meta.url).href;
+  return cv;
 }
 
 // Một món quà → { ico: nút hình, n: số, name: tên đủ, color }
@@ -29,8 +33,11 @@ function look(game, q, S) {
     const T = D.items.line_tiers.list[q.gear] || {}, t = T.name || '';
     return { ico: spriteIcon(game, 'ui.ic-ruong', 0, S), n: 1, name: fill(M.gear_name || 'Hộp trang bị {t}', { t }), tip: fill(M.gear_tip || '', { t }), color: T.edge ? '#ff4a5a' : T.color || '#fff', box: t };
   }
-  if (q.qi_pct) { const p = +(q.qi_pct * 100).toFixed(2); return { ico: spriteIcon(game, 'ui.ic-tu-luyen', 0, S), pct: p, name: `${M.qi_name || 'Linh khí'} +${p}%`, tip: fill(M.qi_tip || '', { p }), color: '#9fe8ff' }; }
-  if (q.pts) return { ico: chest(game, S), n: q.pts, name: `${M.pts_name || 'Lượt Triệu hồi'} ×${q.pts}`, color: '#c07aff' };
+  if (q.qi_pct) {   // linh khí theo tầng đang tu: ghi số thật (chủ dự án 19/11/2026 04:24 "đừng ghi +5%, ghi số liệu")
+    const n = game.save ? Math.round(qiNeed(game.save, D.realms) * q.qi_pct) : 0;
+    return { ico: spriteIcon(game, 'ui.ic-tu-luyen', 0, S), n, plus: true, name: `${n.toLocaleString('vi-VN')} ${M.qi_name || 'Linh khí'}`, tip: M.qi_tip || '', color: '#9fe8ff' };
+  }
+  if (q.pts) return { ico: face(game, S), n: q.pts, plus: true, unit: M.pts_unit || 'điểm', name: `${q.pts} ${M.pts_name || 'Điểm Triệu hồi'}`, color: '#c07aff' };
   return null;
 }
 
@@ -44,7 +51,7 @@ export function quaRow(game, qua = [], size = 26) {
     c.style.setProperty('--qc', L.color); c.title = L.name;
     c.append(L.ico);
     if (L.box) c.append(el('em', 'qt-q', '?'));
-    c.append(el('b', 'qt-n', L.pct != null ? `+${L.pct}%` : L.box ? L.box : `×${short(L.n)}`));
+    c.append(el('b', 'qt-n', L.box ? L.box : L.plus ? `+${short(L.n)}${L.unit ? ' ' + L.unit : ''}` : `×${short(L.n)}`));
     c.onclick = e => { e.stopPropagation(); game.toast?.(L.tip ? `${L.name}: ${L.tip}` : L.name, 2.2); };
     row.append(c);
   }
