@@ -7,7 +7,7 @@ import { spriteImage } from './sprites.js';
 
 let st = { map: null, t0: 0, done: 0 };
 
-const ready = map => groundReady(map) && (map.hoi || []).every(it => !it.spr || spriteImage(it.spr));
+const ready = (map, game) => groundReady(map, game) && (map.hoi || []).every(it => !it.spr || spriteImage(it.spr));
 
 // Vẽ màn che theo toạ độ màn hình; true khi đang che hẳn (khỏi vẽ mũi tên, cần điều khiển đè lên)
 export function drawVeil(ctx, game, screen) {
@@ -15,7 +15,7 @@ export function drawVeil(ctx, game, screen) {
   if (!V?.on || !map) return false;
   const now = performance.now();
   if (st.map !== map) st = { map, t0: now, done: 0 };
-  if (!st.done && (ready(map) || now - st.t0 > V.max * 1000)) st.done = now;
+  if (!st.done && (ready(map, game) || now - st.t0 > V.max * 1000)) st.done = now;
   const a = st.done ? 1 - (now - st.done) / (V.fade * 1000) : 1;
   if (a <= 0) return false;
   ctx.save();

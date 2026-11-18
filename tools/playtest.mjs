@@ -6,7 +6,8 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
-const SEC = +(process.env.PLAY_SEC || 150), MIN_STEPS = +(process.env.PLAY_MIN_STEPS || 8);
+// 18/11/2026: Thiên Kiếm Tinh dựng lại, cổng bí cảnh ra sau chợ nên đường truyện dài hơn (đo: bước 8 đạt ở giây 131): cho 180 giây để máy CI chậm không trượt oan.
+const SEC = +(process.env.PLAY_SEC || 180), MIN_STEPS = +(process.env.PLAY_MIN_STEPS || 8);
 const FAKE = process.env.PLAY_DATE || '2026-10-30T12:00:00Z', PORT = 8790;
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 

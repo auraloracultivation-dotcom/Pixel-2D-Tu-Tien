@@ -8,7 +8,7 @@
   {"id": "giet-moc-linh", "type": "kill", "mob": "moc-linh", "n": 10, "text": "Hạ {n} mộc linh", "reward": {"qi": 40}},
   {"id": "giet-hoa-lang", "type": "kill", "mob": "hoa-lang", "n": 12, "need": "ngu-kiem", "text": "Hạ {n} hỏa lang", "reward": {"stones": 2}},
   {"id": "giet-ma-binh", "type": "kill", "mob": "ma-binh", "n": 5, "need": "ngu-kiem", "text": "Hạ {n} ma binh", "reward": {"stones": 2}},
-  {"id": "cau-ca", "type": "fish", "n": 5, "text": "Câu {n} con cá ở mép tinh cầu", "reward": {"qi": 60}},
+  {"id": "cau-ca", "type": "fish", "n": 5, "text": "Câu {n} con cá", "reward": {"qi": 60}},
   {"id": "di-chung", "type": "rare", "n": 1, "need": "nguThu", "text": "Hạ {n} quái dị chủng", "reward": {"gem": 1}},
   {"id": "da-toa", "type": "meditate", "n": 60, "text": "Đả tọa {n} giây", "reward": {"qi": 60}},
   {"id": "luyen-dan", "type": "brew", "n": 2, "need": "dong-phu", "text": "Luyện đan {n} lần", "reward": {"mats": {"linh-thao": 3}}},

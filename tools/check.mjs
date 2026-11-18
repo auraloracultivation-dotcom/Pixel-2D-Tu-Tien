@@ -278,6 +278,7 @@ try {
   const both = v => String(v).match(/^\{([^|{}]*)\|([^|{}]*)\}$/)?.slice(1) || [v];   // {nam|nữ}: kiểm cả hai
   for (const s of story.steps) {
     need(!s.map || maps[s.map], `story/${s.id}: bản đồ "${s.map}" không có`);
+    need(typeof s.target !== 'string' || maps[s.target_map || s.map]?.moc?.[s.target], `story/${s.id}: mốc "${s.target}" không có trong moc của bản đồ`);   // ô đích theo tên mốc (docs/12-LUAT-THE-GIOI.md)
     for (const a of s.do || []) {
       if (a.say) for (const [w] of a.say) for (const who of both(w)) need(!who || who === 'he-thong' || npcs[who], `story/${s.id}: NPC "${who}" không có`);
       if (a.spawn && !a.fly) need(mobs[a.spawn], `story/${s.id}: quái "${a.spawn}" không có`);
