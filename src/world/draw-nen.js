@@ -1,9 +1,10 @@
 // Nền bộ 15 mảnh lưới đôi của SpriteCook (chủ dự án 18/11/2026 11:03: sông hồ, đất đá do SpriteCook làm; luật gốc 1: một cỡ điểm
-// cho cả thế giới). Bản đồ khai "nen": { nuoc, dat } (mã hình data/art.json, lưới 4×4 ô 32 điểm) thì nền vẽ ở đây thay cho tấm đệm
-// 16 điểm mỗi ô của draw-ground.js: 1 ô bản đồ = 32 điểm, tức 1 điểm = 0,5 đơn vị như nhân vật.
+// cho cả thế giới). Bản đồ khai "nen": { nuoc, dat, san?, gach? } (mã hình data/art.json, lưới 4×4 ô 32 điểm) thì nền vẽ ở đây thay
+// cho tấm đệm 16 điểm mỗi ô của draw-ground.js: 1 ô bản đồ = 32 điểm, tức 1 điểm = 0,5 đơn vị như nhân vật.
+// Các lớp từ dưới lên: cỏ → nước và bờ cát (nuoc) → sân lát đá ô '2' và '1' (san) → phố gạch ô '1' lọt trong sân (gach) → đường đất (dat).
 // Lưới đôi: mỗi mảnh nằm lệch nửa ô, chọn theo 4 ô quanh góc (mặt nạ trên-trái 1, trên-phải 2, dưới-trái 4, dưới-phải 8 → FRAME).
 // Sức máy: không dựng một tấm cả bản đồ (92 ô = 2 944² điểm ≈ 35 MB) mà dựng từng mảng 8×8 ô (256² điểm) khi máy quay tới,
-// giữ tối đa KEEP mảng gần nhất. Ô sân gạch, phố lát chưa có bộ SpriteCook: dán hình ô cũ phóng 2 lần.
+// giữ tối đa KEEP mảng gần nhất. Bản đồ không khai san / gach thì ô sân, phố dán hình ô cũ phóng 2 lần.
 import { spriteImage } from '../render/sprites.js';
 import { discOf } from './map.js';
 
@@ -16,7 +17,7 @@ const img = (game, id) => { const s = game.data.art.sprites[id]; return s ? spri
 // Hình nền của bản đồ này đã tải đủ chưa (màn che lúc tải, src/render/world-veil.js)
 export function nenReady(game, map) {
   const n = map.def.nen;
-  return !!n && !!img(game, n.nuoc) && !!img(game, n.dat);
+  return !!n && ['nuoc', 'dat', 'san', 'gach'].every(k => !n[k] || img(game, n[k]));
 }
 
 function piece(g, im, f, x, y) {
@@ -24,29 +25,34 @@ function piece(g, im, f, x, y) {
 }
 
 function build(game, map, tiles, hash, cx, cy) {
-  const n = map.def.nen, nuoc = img(game, n.nuoc), dat = img(game, n.dat), T = map.T;
+  const n = map.def.nen, nuoc = img(game, n.nuoc), dat = img(game, n.dat), san = n.san && img(game, n.san), gach = n.gach && img(game, n.gach), T = map.T;
   const cv = document.createElement('canvas'); cv.width = cv.height = N * P;
   const g = cv.getContext('2d'); g.imageSmoothingEnabled = false;
   const x0 = cx * N, y0 = cy * N, at = (x, y) => map.at(x, y);
+  // cổng, bồ đoàn, đá linh căn đứng trên nền của ô đi được bên cạnh (sân lát, cỏ…), như draw-ground.js
+  const under = (tx, ty) => { const ch = at(tx, ty); return 'PMS'.includes(ch) ? [[0, 1], [1, 0], [-1, 0], [0, -1]].map(([dx, dy]) => at(tx + dx, ty + dy)).find(c => !'PMS'.includes(c) && !tiles.types[c]?.solid) || '.' : ch; };
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
-    const tx = x0 + i, ty = y0 + j, ch = at(tx, ty), k = tiles.types[ch] || {}, h = hash(tx, ty);
+    const tx = x0 + i, ty = y0 + j, ch = under(tx, ty), k = tiles.types[ch] || {}, h = hash(tx, ty);
     if (k.void) continue;
-    if (k.tex && img(game, 'ground.' + ch)) { g.drawImage(img(game, 'ground.' + ch), Math.floor(h * 4) * T, 0, T, T, i * P, j * P, P, P); continue; }
-    if ('.,=^'.includes(ch) || !k.color) {   // cỏ đặc (khung 6), lật ngẫu nhiên cho đỡ lặp
+    if (k.tex && !(san && '12'.includes(ch)) && img(game, 'ground.' + ch)) { g.drawImage(img(game, 'ground.' + ch), Math.floor(h * 4) * T, 0, T, T, i * P, j * P, P, P); continue; }
+    if ('.,=^'.includes(ch) || !k.color || (san && '12'.includes(ch))) {   // cỏ đặc (khung 6), lật ngẫu nhiên cho đỡ lặp; sân, phố lát phủ lên sau
       const fx = h < 0.5 ? 1 : -1, fy = (h * 2) % 1 < 0.5 ? 1 : -1;
       g.save(); g.translate(i * P + (fx < 0 ? P : 0), j * P + (fy < 0 ? P : 0)); g.scale(fx, fy); piece(g, nuoc, 6, 0, 0); g.restore();
     } else { g.fillStyle = k.color; g.fillRect(i * P, j * P, P, P); }
   }
-  const layer = (im, full, zero) => {   // một lớp lưới đôi: full(ô) = ô "đầy"; zero = khung khi 4 ô đều không đầy (-1: bỏ)
+  // một lớp lưới đôi: full(ô) = ô "đầy"; zero = khung khi 4 ô đều không đầy (-1: bỏ); skip15: bỏ mảnh đầy cả 4 góc (đã có ở lớp dưới)
+  const layer = (im, full, zero, skip15) => {
     for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) {
       const x = x0 + i, y = y0 + j, a = full(x - 1, y - 1), b = full(x, y - 1), c = full(x - 1, y), d = full(x, y);
       const m = (a ? 1 : 0) | (b ? 2 : 0) | (c ? 4 : 0) | (d ? 8 : 0), f = m ? FRAME[m] : zero;
-      if (m === 15 || f < 0) continue;
+      if ((skip15 && m === 15) || f < 0) continue;
       piece(g, im, f, i * P - P / 2, j * P - P / 2);
     }
   };
-  layer(nuoc, (x, y) => at(x, y) !== '=', 12);   // nước và bờ cát
-  layer(dat, (x, y) => at(x, y) === ',', -1);     // đường đất phủ lên cỏ
+  layer(nuoc, (x, y) => at(x, y) !== '=', 12, true);   // nước và bờ cát (ô toàn đất: giữ nền cỏ, sân đã vẽ)
+  if (san) layer(san, (x, y) => '12'.includes(under(x, y)), -1, false);   // sân lát đá, viền cỏ bo tròn
+  if (gach) layer(gach, (x, y) => under(x, y) === '1', -1, false);   // phố gạch lọt trong sân đá
+  layer(dat, (x, y) => at(x, y) === ',', -1, false);   // đường đất phủ lên cỏ
   const d = discOf(map.def, T);
   if (d) {   // cắt theo mép đĩa tinh cầu
     g.globalCompositeOperation = 'destination-in';

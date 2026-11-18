@@ -8,13 +8,18 @@ import { applySpots } from '../game/home-spot.js';
 
 const KEY = 'p2d_bay_cache';
 
+// Bản đồ dựng lại từ đầu (data/maps → hoi.bay_tu, vd. Thiên Kiếm Tinh 18/11/2026) thì bố cục bày từ bản bay_tu trở về trước là của
+// bản đồ cũ: bỏ qua, dùng bố cục mới trong data/maps. Chủ dự án bày và lưu lại (bản lớn hơn) thì bố cục máy chủ lại được dùng.
+export const bayCu = (def, ver) => ver <= (def?.hoi?.bay_tu || 0);
+
 export function applyLayouts(game, all) {
   game.bayVer = game.bayVer || {};
   for (const [id, L] of Object.entries(all || {})) {
     const def = game.data.maps[id];
     if (!def || !Array.isArray(L.items)) continue;
+    game.bayVer[id] = L.ver;   // vẫn nhớ số bản: lần lưu sau phải khớp bản trên máy chủ
+    if (bayCu(def, L.ver)) continue;
     def.hoi = { ...(def.hoi || {}), do: L.items };
-    game.bayVer[id] = L.ver;
     if (game.map?.id === id) { game.map.setHoi(L.items); applySpots(game); }   // Mộc Nhân dời theo bố cục (home-spot.js)
   }
 }

@@ -15,3 +15,6 @@ tools/art/nguon/pfx/src/
 tools/art/nguon/ai/phap-tuong/goc/bang-16.png
 tools/art/nguon/ai/phap-tuong/goc/icon-16.png
 tools/art/nguon/ai/le-hoi/*/quay/
+
+# bản nháp bản đồ (tools/the-gioi/tk_moi.py --nhap)
+tools/the-gioi/nhap/

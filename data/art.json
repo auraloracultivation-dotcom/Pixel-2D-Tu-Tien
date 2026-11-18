@@ -45244,6 +45244,32 @@
    ],
    "note": "SpriteCook: cầu đá vòm (tools/art/sc_tk.py)",
    "scale": 0.5333
+  },
+  "nen.tk-san": {
+   "file": "assets/art/nen-tk-san.png",
+   "v": "81e6e4e9",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá, viền cỏ: TẠM, dáng mép lấy từ bộ đường đất, mặt đá vẽ bằng code (tools/art/sc_tk.py)"
+  },
+  "nen.tk-gach": {
+   "file": "assets/art/nen-tk-gach.png",
+   "v": "9aba34dc",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch lọt trong sân đá: TẠM như trên, không viền (tools/art/sc_tk.py)"
   }
  }
 }

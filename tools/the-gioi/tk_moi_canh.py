@@ -1,4 +1,4 @@
-"""Cảnh tự nhiên và đồ trang trí của Thiên Kiếm Tinh mới (gọi từ tk_moi.py), theo luật thế giới:
+"""Cảnh tự nhiên và đồ trang trí của Thiên Kiếm Tinh (gọi từ tk_moi.py), theo luật thế giới:
 cây trong phố thành hàng, ngoài hoang thành cụm có khoảng trống, cây ưa nước ở ven bờ, không mọc trên đường;
 đèn chỉ theo phố và cửa nhà; đá gần núi và bờ nước; thạch anh mọc cụm ở nơi linh khí (thác, Kiếm Trủng); mép tinh cầu để trống."""
 import math
@@ -56,29 +56,23 @@ def nature(S, KHU):
     camp = lambda x, y: any(math.hypot(x - cx, y - cy) < cr for cx, cy, cr in S.clear)
     rr = lambda x, y: math.hypot(x - C, y - C)
 
-    # 1. đèn đá dọc bốn phố gạch, so le hai bên (ngoài hoang không có đèn)
-    for i, t in enumerate(range(38, 44, 3)):
-        P('tk.den-da-m', 44.4 if i % 2 else 47.6, t + 0.5)
-    for i, t in enumerate(range(54, 71, 4)):
-        P('tk.den-da-m', 44.4 if i % 2 else 47.6, t + 0.6)
-    for i, t in enumerate(range(54, 75, 5)):
-        P('tk.den-da-m', t + 0.5, 46.6 if i % 2 else 50.6)
-    for i, t in enumerate(range(31, 39, 4)):
-        P('tk.den-da-m', t + 0.5, 46.6 if i % 2 else 50.6)
-    for x, y in ((24.9, 47.2), (21.1, 47.2), (58.2, 45.9), (72.8, 45.9), (42.4, 63.6), (49.6, 63.6), (28.6, 67.2), (44.6, 85.6), (47.4, 85.6)):
-        P('tk.den-da-m', x, y)   # đầu cầu, cửa lầu, suối, bến câu, Tiên Đài
+    # 1. đèn đá: hai bên phố gạch, cửa lầu, đầu cầu, suối, bến câu, cổng, đài ngắm sao (ngoài hoang không có đèn)
+    for x, y in ((44.3, 41.4), (48.7, 41.4), (44.3, 55.6), (48.7, 55.6), (44.3, 68.6), (48.7, 68.6), (42.6, 64.4), (50.4, 64.4),
+                 (54.5, 46.4), (54.5, 50.8), (75.6, 46.4), (75.6, 50.8), (65.8, 46.4), (57.5, 63.7), (73.5, 63.7),
+                 (35.5, 46.4), (38.6, 50.8), (24.9, 47.2), (21.1, 47.2), (29.4, 67.4), (17.6, 46.8), (62.4, 72.8), (43.4, 86.4), (49.8, 86.4)):
+        P('tk.den-da-m', x, y)
 
-    # 2. cây trong phố: hàng anh đào xen ngân hạnh hai bên phố, cách đều
-    for i, y in enumerate(range(55, 71, 4)):
+    # 2. cây trong phố: hàng anh đào xen ngân hạnh hai bên phố nam; phố tây chỉ trồng bờ bắc (cây bờ nam sẽ che người đi trên phố)
+    for i, y in enumerate(range(56, 71, 4)):
         for x in (42.6, 49.4):
             P(CHERRY if i % 2 == 0 else GINKGO, x, y + 0.4, s=0.85)
-    for i, x in enumerate(range(31, 40, 4)):
-        for y in (45.6, 52.2):
-            P(CHERRY, x + 0.5, y, s=0.85)
+    for x in (31.5, 35.5):
+        P(CHERRY, x, 45.6, s=0.85)
+    P('tk.bui-hong-m', 32.2, 51.2); P('tk.bui-cuc-m', 29.4, 51.6)
     for x in (36.2, 55.8):
         for y in (29.2, 26.4):
             P(PINE, x, y, s=0.9)
-    for x, y in ((56, 61.5), (62, 62), (74.5, 61), (75.5, 44), (55.5, 44.4)):
+    for x, y in ((55.6, 66.8), (75.2, 66.6), (75.5, 44.4), (55.5, 44.4), (82.4, 51.6)):
         P(GINKGO, x, y, s=0.85)
 
     # 3. ven nước: liễu, trúc trên bờ; lau, cỏ nến sát mép; sen trong hồ; đá rêu
@@ -151,10 +145,13 @@ def nature(S, KHU):
 
 
 def khach():
-    """Lối khách hội dạo: quảng trường, bốn phố, sân tông môn, sân chợ, xóm dân. Điểm 4 số là chỗ đứng xem trò."""
-    nodes = [[46, 50.5], [46, 44.5], [46, 40], [46, 35], [42, 31.5], [50, 31.5], [46, 31.5], [52.5, 48.5], [58, 48.5], [65, 49.5], [72, 49.5],
-             [62, 52], [68, 52], [63.5, 57], [46, 54.5], [46, 59.5], [43, 62.5], [49, 62.5], [46, 66.5], [39.5, 48.5], [35, 48.5], [31, 50.6],
-             [37.5, 35, 34.5, 34.6], [53.5, 37.6, 57.5, 37.6], [50.6, 36.6, 52.6, 35.8], [40.5, 49], [51.5, 49]]
+    """Lối khách hội dạo (toạ độ ô thật): quảng trường, bốn phố, sân tông môn, hai dãy sạp chợ (đi qua khe giữa các sạp), xóm dân.
+    Điểm 4 số là chỗ đứng xem trò: [x, y, nhìn x, nhìn y]."""
+    nodes = [[46, 50.6], [46, 44.6], [46.5, 40], [46.5, 35.2], [42, 31.6], [50.5, 31.6], [46.5, 31.6], [52.6, 48.6], [57.6, 48.6], [62.5, 49.6],
+             [72.4, 49.6], [62.4, 56], [67.4, 56], [63.5, 62.4], [46.5, 54.6], [46.5, 59.6], [43.4, 62.6], [49.6, 62.6], [46.5, 66.6], [39.6, 48.6],
+             [35, 48.6], [31.4, 50.4], [37.6, 35.2, 34.5, 34.5], [54.4, 37.4, 57.5, 37.4], [51, 36.4, 52.6, 35.6], [40.6, 49], [51.4, 49],
+             [62.5, 51.4], [67.5, 51.4], [63.5, 57.6], [67.5, 49.6]]
     links = [[0, 25], [0, 26], [25, 19], [26, 7], [0, 1], [1, 2], [2, 3], [3, 6], [6, 4], [6, 5], [4, 22], [5, 23], [3, 24], [7, 8], [8, 9],
-             [9, 10], [9, 11], [9, 12], [11, 13], [12, 13], [11, 12], [0, 14], [14, 15], [15, 16], [15, 17], [16, 18], [17, 18], [19, 20], [20, 21]]
+             [9, 30], [30, 10], [9, 27], [27, 11], [30, 28], [28, 12], [11, 12], [11, 29], [29, 13], [0, 14], [14, 15], [15, 16], [15, 17],
+             [16, 18], [17, 18], [19, 20], [20, 21]]
     return {'nodes': nodes, 'links': links}

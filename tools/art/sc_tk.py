@@ -4,6 +4,7 @@ Nguồn: tools/art/nguon/ai/the-gioi/thu/ (sổ ở spritecook-assets.json). Ra:
       nen.tk-nuoc: cỏ ↔ nước, giữ nguyên (khung 6 = cỏ đặc, khung 12 = nước đặc);
       nen.tk-dat:  đường đất; SpriteCook để trắng phần ngoài đường → đổi thành trong suốt, viền cỏ đổi về đúng bảng màu cỏ của
                    bộ nước (luật 4: một bảng màu chung) để phủ lên nền cỏ không lộ mép.
+      nen.tk-san, nen.tk-gach: sân lát đá, phố gạch TẠM (chưa mua bộ SpriteCook): lấy dáng mép của bộ đường đất, mặt lát vẽ bằng code.
   - Tấm 8 đồ ven sông: cắt rời, chân ở giữa đáy hình.
 Chạy: python3 tools/art/sc_tk.py"""
 import hashlib
@@ -54,7 +55,55 @@ def tiles():
     L = lum(dat)[m]
     rank = np.argsort(np.argsort(L)) / max(1, len(L) - 1)
     dat[m] = ref[(rank * (len(ref) - 1)).astype(int)]
-    return {'nen.tk-nuoc': (nuoc, 'cỏ ↔ nước, bờ cát'), 'nen.tk-dat': (Image.fromarray(dat), 'đường đất phủ lên cỏ')}
+    return {'nen.tk-nuoc': (nuoc, 'cỏ ↔ nước, bờ cát'), 'nen.tk-dat': (Image.fromarray(dat), 'đường đất phủ lên cỏ'),
+            'nen.tk-san': (Image.fromarray(lat(dat, m, san, True)), 'sân lát đá, viền cỏ: TẠM, dáng mép lấy từ bộ đường đất, mặt đá vẽ bằng code'),
+            'nen.tk-gach': (Image.fromarray(lat(dat, m, gach, False)), 'phố gạch lọt trong sân đá: TẠM như trên, không viền')}
+
+
+def h2(x, y):
+    n = (x * 374761393 + y * 668265263) & 0xffffffff
+    n = ((n ^ (n >> 13)) * 1274126177) & 0xffffffff
+    return ((n ^ (n >> 16)) & 0xffff) / 65535
+
+
+def san(u, v):
+    """Mặt sân lát đá (lặp mỗi 32 điểm = 1 ô): phiến 16×16 so le, mạch sẫm, vài phiến sáng tối khác nhau."""
+    row = v // 16
+    uu = (u + (8 if row % 2 else 0)) % 32
+    if v % 16 == 0 or uu % 16 == 0:
+        return (118, 118, 126)
+    k = h2(uu // 16 + row * 7, row)
+    c = (164, 164, 168) if k < 0.55 else (176, 176, 180) if k < 0.8 else (150, 150, 156)
+    return (142, 142, 150) if h2(u + 31, v + 17) < 0.035 else c
+
+
+def gach(u, v):
+    """Mặt phố gạch: viên 16×8 so le, màu đá xanh sẫm hơn sân."""
+    row = v // 8
+    uu = (u + (8 if row % 2 else 0)) % 32
+    if v % 8 == 0 or uu % 16 == 0:
+        return (92, 94, 110)
+    k = h2(uu // 16 + row * 5, row + 3)
+    return (128, 130, 146) if k < 0.6 else (138, 140, 156) if k < 0.85 else (116, 118, 134)
+
+
+def lat(dat, co, tex, rim):
+    """Bộ 15 mảnh nền lát suy ra từ bộ đường đất: chỗ là đất thay bằng mặt lát tex(u, v) (toạ độ thế giới: mảnh lưới đôi lệch nửa ô
+    nên cộng 16), viền cỏ giữ (rim) hoặc bỏ; mép mặt lát sẫm một điểm cho thành gờ. Khung 6 (đầy cả bốn góc) lát kín."""
+    out = dat.copy()
+    dirt = (dat[..., 3] > 0) & ~co
+    dirt[32:64, 64:96] = True
+    for y in range(128):
+        for x in range(128):
+            if not dirt[y, x]:
+                continue
+            fx, fy = x % 32, y % 32
+            c = tex((fx + 16) % 32, (fy + 16) % 32)
+            edge = any(0 <= fy + dy < 32 and 0 <= fx + dx < 32 and not dirt[y + dy, x + dx] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            out[y, x] = tuple(int(v * 0.78) for v in c) + (255,) if edge else c + (255,)
+    if not rim:
+        out[~dirt] = (0, 0, 0, 0)
+    return out
 
 
 def main():

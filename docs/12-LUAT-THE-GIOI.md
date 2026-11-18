@@ -49,10 +49,16 @@ Chủ dự án 18/11/2026 11:03: **sông hồ, đất đá, cây cỏ của bả
 | Tệp | Việc |
 |---|---|
 | `tools/the-gioi/ban_do.py` | Lưới ô, đĩa tinh cầu, chân món (chép `src/world/hoi-foot.js`), đường ngắn nhất, đường cong |
-| `tools/the-gioi/tk_moi.py`, `tk_moi_canh.py` | Máy sinh Thiên Kiếm Tinh mới → bản nháp `tools/the-gioi/nhap/` (chưa thay bản đồ đang chạy) |
+| `tools/the-gioi/tk_moi.py`, `tk_moi_canh.py` | Máy sinh Thiên Kiếm Tinh: ghi bản đồ thật, vùng phố và lối khách hội (`data/le-hoi.json`), chỗ NPC đồ cũ (`data/do-cu.json`); thêm `--nhap` thì chỉ ghi bản nháp `tools/the-gioi/nhap/` để xem trước |
 | `tools/the-gioi/toan_canh.py` | Ảnh toàn cảnh để duyệt bố cục |
 | `tools/the-gioi/soat.py` | Bộ soát luật cho mọi tinh cầu |
-| `tools/art/sc_tk.py` | Máy lọc hình SpriteCook: bộ nền 15 mảnh, cắt tấm đồ vật |
+| `tools/art/sc_tk.py` | Máy lọc hình SpriteCook: bộ nền 15 mảnh (cỏ–nước, đường đất), cắt tấm đồ vật; sân lát đá và phố gạch TẠM suy từ dáng bộ đường đất, mặt lát vẽ bằng code |
 | `src/world/draw-nen.js` | Vẽ nền bộ 15 mảnh lưới đôi trong game cho bản đồ có khoá `nen` |
 
-Bản đồ theo luật mới thêm các khoá: `planet.luat`, `nen` (mã hình bộ nền), `moc` (tên mốc → ô), `le_hoi` (vùng phố và lối khách hội của bản nháp; lúc đưa vào game chép sang `data/le-hoi.json`).
+Bản đồ theo luật mới thêm các khoá: `planet.luat`, `nen` (mã hình bộ nền: nuoc, dat, san, gach), `moc` (tên mốc → ô, truyện trỏ theo tên), `hoi.bay_tu` (bố cục Bày cảnh cũ trên máy chủ bị bỏ qua tới bản đó).
+
+## Thiên Kiếm Tinh (đưa lên game 18/11/2026, chủ dự án 12:02 "Đẩy lên game đi")
+
+Đĩa 92 ô, tâm 46. Giữa: quảng trường, một Pháp Trận Truyền Tống (mọi lối sang tinh cầu khác tụ quanh đó), Nhiệm Vụ Đường. Bắc: Thiên Kiếm Tông dưới dãy núi (điện chính, Luyện Võ Đường, Truyền Công Đường, Tàng Kinh Các, tháp canh, bồ đoàn đả toạ trong sân). Đông: chợ (Vạn Bảo Lâu, Chợ Phiên, Binh Khố, hai dãy sạp), cổng Bí cảnh Huyết Nha sau chợ. Nam: xóm dân, Suối Vọng Nguyệt, cuối lối là Tiên Đài ngắm sao ở mép. Tây: Nguyệt Môn, Cầu Vọng Tiên qua sông sang cổng động phủ. Sông từ Thác Kiếm Tuyền chảy xuống hồ Bích Thủy, có bến câu. Vòng ngoài: rừng theo vùng, 5 bãi quái vòng trong và 5 bãi vòng ngoài (quái gấp đôi), Kiếm Trủng, Cổ Thụ Ngàn Năm.
+
+Còn tạm, chờ làm tiếp: núi (hình cũ, cỡ điểm cũ), sân lát và phố gạch (suy từ bộ đường đất), mép tinh cầu (chưa có dạng đất vỡ), game chưa làm mờ vật cao khi người đứng sau.

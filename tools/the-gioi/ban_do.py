@@ -94,8 +94,8 @@ def box(sid, x, y, s=1.0):
 
 # ---------- đĩa tinh cầu ----------
 class Disk:
-    def __init__(self, D):
-        self.D, self.c, self.R = D, D / 2, D / 2 - 0.5
+    def __init__(self, D, R=None):
+        self.D, self.c, self.R = D, D / 2, R or D / 2 - 0.5   # R: bán kính phần có ô đất (mặc định như tools/planetize.py)
 
     def inside(self, x, y):
         return 0 <= x < self.D and 0 <= y < self.D and (x + 0.5 - self.c) ** 2 + (y + 0.5 - self.c) ** 2 <= self.R ** 2
@@ -109,8 +109,8 @@ class Disk:
 
 
 class Grid:
-    def __init__(self, D, fill='.', void='~'):
-        self.disk = Disk(D)
+    def __init__(self, D, fill='.', void='~', R=None):
+        self.disk = Disk(D, R)
         self.D = D
         self.g = [[fill if self.disk.inside(x, y) else void for x in range(D)] for y in range(D)]
 
@@ -146,6 +146,103 @@ class Grid:
 
     def rows(self):
         return [''.join(r) for r in self.g]
+
+
+TALL = ('cay', 'nha', 'tru', 'tuong', 'cong', 'sap')   # kiểu món có hình cao, che được người đứng sau
+ROADS = '12,PM'
+
+
+class Canh:
+    """Cảnh đang dựng: lưới ô + đồ đặt theo chân; tự soát chắn lối, đè nước, chồng hình, che người, che đường (luật che khuất)."""
+
+    def __init__(self, D, R=None, seed=1):
+        self.D, self.C = D, D / 2
+        self.G = Grid(D, R=R)
+        self.items, self.solid, self.open, self.boxes, self.cover = [], set(), set(), [], set()
+        self.keep, self.clear = [], []   # mốc phải chừa (x, y, bán kính ô); bãi trống (x, y, bán kính)
+        self.cay, self.cap_cay = [], 12  # chân các cây đã trồng; số cây tối đa trong một màn dọc điện thoại (17×38 ô) quanh mỗi cây
+        self.R = random.Random(seed)
+        self.must, self.why = True, ''
+
+    def walk_r(self, x, y):   # trong vòng đi được của đĩa (src/world/map.js discOf: lùi 1,46 ô)
+        return math.hypot(x + 0.5 - self.C, y + 0.5 - self.C) <= self.D / 2 - 1.46
+
+    def put(self, sid, x, y, s=1.0, label=None, f=0, on='.2', force=False):
+        """Đặt một món chân ở (x, y). Trả False (và ghi why) nếu phạm luật."""
+        sol, opn = foot(sid, x, y, s)
+        b, k = box(sid, x, y, s), kind_of(sid)
+        if not force and not self._ok(x, y, sol, b, k, on):
+            if self.must:
+                print('  KHÔNG ĐẶT ĐƯỢC:', sid, x, y, self.why)
+            return False
+        self.solid |= sol
+        self.open |= opn
+        if k in TALL:
+            self.boxes.append(b)
+        if k == 'cay':
+            self.cay.append((x, y))
+        if k in ('nha', 'tru', 'tuong', 'sap'):   # ô nằm sau hình cao (trên chân hình): đường mòn tránh đi qua kẻo người đi bị che
+            self.cover |= {(cx, cy) for cx in range(int(b[0]), int(b[2]) + 1) for cy in range(int(b[1]), int(y))
+                           if b[0] < cx + 0.5 < b[2] and b[1] < cy + 0.5 < y - 0.3}
+        it = [sid, round(x, 1), round(y, 1)]
+        if label or s != 1 or f:
+            it.append(label)
+        if s != 1 or f:
+            it.append({**({'s': s} if s != 1 else {}), **({'f': 1} if f else {})})
+        self.items.append(it)
+        return True
+
+    def _ok(self, x, y, sol, b, k, on):
+        for c in sol:   # chân món: đúng loại nền, không chồng món khác, trong vòng đi được
+            if self.G.get(*c) not in on or c in self.solid or not self.walk_r(*c):
+                self.why = f'ô {c} {self.G.get(*c)!r}'
+                return False
+        for kx, ky, kr in self.keep:   # không chắn, không che người và cổng
+            if any(abs(cx + 0.5 - kx) < kr and abs(cy + 0.5 - ky) < kr for cx, cy in sol) or (b[0] < kx < b[2] and b[1] < ky - 0.4 and ky < y):
+                self.why = f'mốc {kx, ky}'
+                return False
+        if k == 'cay':
+            if sum(1 for tx, ty in self.cay if abs(tx - x) <= 8.5 and abs(ty - y) <= 19) >= self.cap_cay:   # luật sức máy: rừng không dày quá
+                self.why = 'rừng quá dày'
+                return False
+            for ob in self.boxes:   # cây không đè lên nhà, cây khác quá nửa hình
+                ix, iy = min(b[2], ob[2]) - max(b[0], ob[0]), min(b[3], ob[3]) - max(b[1], ob[1])
+                if ix > 0 and iy > 0 and ix * iy > 0.5 * min((b[2] - b[0]) * (b[3] - b[1]), (ob[2] - ob[0]) * (ob[3] - ob[1])):
+                    self.why = 'đè hình'
+                    return False
+            for cx in range(int(b[0]), int(b[2]) + 1):   # tán cây không trùm lên đường, sân (người đi đường luôn thấy được)
+                for cy in range(int(b[1]), int(y) + 1):
+                    if b[0] < cx + 0.5 < b[2] and b[1] < cy + 0.5 < y and self.G.get(cx, cy) in ROADS:
+                        self.why = f'tán che đường {cx, cy}'
+                        return False
+            for cx, cy, cr in self.clear:   # tán cây không trùm vào giữa bãi quái
+                nx, ny = min(max(cx, b[0]), b[2]), min(max(cy, b[1]), b[3])
+                if math.hypot(nx - cx, ny - cy) < cr - 1.5:
+                    self.why = 'che bãi quái'
+                    return False
+        return True
+
+    def passable(self, x, y):
+        if (x, y) in self.open:
+            return True
+        return self.G.get(x, y) not in '~^=' and (x, y) not in self.solid and self.walk_r(x, y)
+
+    def trail(self, a, b, wide=False):
+        """Đường mòn đất từ a tới b: vòng qua vật cản, ưa nhập vào đường có sẵn, tránh luồn sau nhà (luật đường 09/11, luật che khuất)."""
+
+        def cost(x, y):
+            if not self.passable(x, y):
+                return None
+            ch = self.G.get(x, y)
+            return (0.35 if ch == ',' else 0.6 if ch in '12' else 1 + ((x * 7 + y * 13) % 5) * 0.12) + (6 if (x, y) in self.cover else 0)
+
+        p = astar(self.D, a, b, cost)
+        assert p, f'không nối được {a} → {b}'
+        for x, y in p:   # vệt chân rộng hai ô (ô lưới đôi vẽ ra lối đi liền, không đứt khúc)
+            for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1)) if wide else ((0, 0), (1, 0), (0, 1)):
+                if self.passable(x + dx, y + dy) and (not (dx or dy) or (x + dx, y + dy) not in self.cover):   # không nới vệt vào sau mái nhà
+                    self.G.set(x + dx, y + dy, ',', keep='~=^12PM')
+        return p
 
 
 def smooth(pts, n=8):
@@ -201,6 +298,3 @@ def astar(D, start, goal, cost):
         path.append(v)
     return path[::-1]
 
-
-def rng(seed):
-    return random.Random(seed)

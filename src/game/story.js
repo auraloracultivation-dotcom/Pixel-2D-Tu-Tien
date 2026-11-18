@@ -27,6 +27,8 @@ export function bacOn(game) {
 export function createStory(game) {
   pickStory(game);   // bản lưu truyện cũ: sang bước cuối truyện mới
   const steps = game.data.story.steps, B = game.data.story.bac;
+  // Ô đích viết theo tên mốc của bản đồ (data/maps/<bản đồ>.json → moc; luật thế giới: truyện trỏ tên mốc, không trỏ toạ độ số): đổi ra ô một lần
+  for (const s of steps) if (typeof s.target === 'string') s.target = game.data.maps[s.target_map || s.map]?.moc?.[s.target] || null;
   const st = { busy: false, counters: {}, events: {} };
 
   const step = () => steps[game.save.step];

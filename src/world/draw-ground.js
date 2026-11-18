@@ -211,7 +211,7 @@ export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
 export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
   if (map.def.nen) {   // nền bộ 15 mảnh SpriteCook, vẽ theo mảng (draw-nen.js)
-    if (cache.map !== map) cache = { map: null, cv: null, painted: new Set(['=']), baked: null };
+    if (cache.nen !== map) cache = { map: null, nen: map, cv: null, painted: new Set(['=']), baked: null };   // nước đã vẽ ở nền: draw-map.js chỉ thêm ánh nước
     return drawNen(ctx, game, map, tiles, view, hash);
   }
   if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); cache.baked = null; return false; } cache = { map, cv, painted: cache.painted, baked: cache.baked }; }

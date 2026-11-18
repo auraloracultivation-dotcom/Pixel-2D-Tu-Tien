@@ -61,23 +61,25 @@ def ground(m):
                 dm.rectangle([x * P - P, y * P - P, x * P + 2 * P - 1, y * P + 2 * P - 1], fill=255)
     out.paste(w, (0, 0), Image.composite(w.split()[3], Image.new('L', out.size, 0), wm))
     d = ImageDraw.Draw(out)
-    for y in range(D):   # sân lát, phố gạch: khối màu tạm (chưa có bộ nền SpriteCook)
+    lat = bool(nen.get('san'))   # có bộ nền lát (sân đá, phố gạch) thì vẽ lưới đôi như game; không thì khối màu
+    under = lambda x, y: (next((c for c in (at(x, y + 1), at(x + 1, y), at(x - 1, y), at(x, y - 1)) if c in '.,12_'), '.') if at(x, y) in 'PMS' else at(x, y))
+    for y in range(D):
         for x in range(D):
-            ch = at(x, y)
-            if ch in COL:
+            ch = under(x, y)
+            if ch in COL and not (lat and ch in '12'):
                 c = COL[ch]
                 k = 0.95 + h2(x + 9, y) * 0.1
                 d.rectangle([x * P, y * P, x * P + P - 1, y * P + P - 1], fill=tuple(int(v * k) for v in c) + (255,))
-                step = 16 if ch == '1' else 32
-                for i in range(0, P, step):
-                    d.line([x * P, y * P + i, x * P + P - 1, y * P + i], fill=(0, 0, 0, 34))
-                    d.line([x * P + (i + (8 if (y + i // step) % 2 else 0)) % P, y * P + i, x * P + (i + (8 if (y + i // step) % 2 else 0)) % P, y * P + i + step - 1], fill=(0, 0, 0, 26))
-            elif ch == '^':
+            elif ch == '^':   # núi: khối tạm (trong game là hình núi cũ)
                 k = 0.8 + h2(x, y + 5) * 0.3
                 d.rectangle([x * P, y * P, x * P + P - 1, y * P + P - 1], fill=(int(118 * k), int(112 * k), int(124 * k), 255))
                 d.polygon([(x * P, y * P + P - 1), (x * P + 16, y * P + 4), (x * P + P - 1, y * P + P - 1)], fill=(int(150 * k), int(146 * k), int(158 * k), 255))
                 if at(x, y - 1) != '^':
                     d.polygon([(x * P + 9, y * P + 14), (x * P + 16, y * P + 4), (x * P + 23, y * P + 14)], fill=(236, 240, 248, 255))
+    if lat:
+        dual(out, sheet(nen['san'])[0], lambda x, y: under(x, y) in '12', D)
+        if nen.get('gach'):
+            dual(out, sheet(nen['gach'])[0], lambda x, y: under(x, y) == '1', D)
     dat, _ = sheet(nen.get('dat', 'nen.tk-dat'))
     dual(out, dat, lambda x, y: at(x, y) == ',', D)
     return out
@@ -131,7 +133,7 @@ def annotate(out, m):
         d.ellipse([(x - 5) * P, (y - 5) * P, (x + 6) * P, (y + 6) * P], outline=col, width=5)
         text((x + 0.5) * P, (y - 0.4) * P, 'Bãi quái ×2' if s.get('mul') else 'Bãi quái', fs, col)
     for n in m['npcs']:
-        x, y = n['at']
+        x, y = n['at'][0] + 0.5, n['at'][1] + 0.5   # game đặt NPC ở tâm ô
         d.ellipse([x * P - 9, y * P - 22, x * P + 9, y * P - 4], fill=(90, 220, 255, 255), outline=(10, 10, 20, 255), width=3)
     for p in m['portals']:
         if not p.get('fly'):

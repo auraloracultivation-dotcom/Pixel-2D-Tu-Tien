@@ -7,7 +7,7 @@ import { manaMax } from './mana.js';
 
 export function ensureCave(save, data) {
   save.mats ??= {}; save.pills ??= {}; save.garden ??= {}; save.flags ??= {};
-  // Vào game ở một chỗ chung cho mọi người đã có động phủ (data/home.json → start_map: Thiên Kiếm Tinh, cạnh cổng động phủ; chủ dự án
+  // Vào game ở một chỗ chung cho mọi người đã có động phủ (data/home.json → start_map: Thiên Kiếm Tinh, ở pháp trận giữa quảng trường; chủ dự án
   // 17/11/2026 02:46, trước 02/11/2026 là trong động phủ: start_home); đang trong bí cảnh, tháp... cũng về đó
   const H = data?.home, S = H?.start_map;
   if (S && save.flags['dong-phu'] && data.maps[S.map]) { save.map = S.map; save.spawn = data.maps[S.map].spawns?.[S.spawn] ? S.spawn : Object.keys(data.maps[S.map].spawns || {})[0] || 'vao'; }

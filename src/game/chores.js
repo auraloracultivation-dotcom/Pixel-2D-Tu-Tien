@@ -31,7 +31,7 @@ function fishSpot(game) {
   const gates = new Set(map.def.portals.filter(pt => !pt.fly).map(pt => pt.at.join(',')));
   let best = null, bd = Infinity;
   for (let y = 1; y < map.h - 1; y++) for (let x = 1; x < map.w - 1; x++) {
-    if (map.solidTile(x, y) || gates.has(x + ',' + y) || ![[0, 1], [1, 0], [-1, 0], [0, -1]].some(([dx, dy]) => map.at(x + dx, y + dy) === '=' || map.edge(x + dx, y + dy))) continue;
+    if (map.solidTile(x, y) || gates.has(x + ',' + y) || ![[0, 1], [1, 0], [-1, 0], [0, -1]].some(([dx, dy]) => map.at(x + dx, y + dy) === '=' || (map.edge(x + dx, y + dy) && !map.def.planet?.luat))) continue;   // bản đồ theo luật thế giới: chỉ câu ở nước thật (fishing.js)
     const c = map.center(x, y), d = Math.hypot(c.x - p.x, c.y - p.y);
     if (d < bd) { bd = d; best = c; }
   }

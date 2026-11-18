@@ -44,11 +44,12 @@ def soat(m):
                 seen.add(n)
                 todo.append(n)
     near = lambda c, r=1: any((c[0] + dx, c[1] + dy) in seen for dx in range(-r, r + 1) for dy in range(-r, r + 1))
+    npc_at = lambda n: (n['at'][0] + 0.5, n['at'][1] + 0.5)   # game đặt NPC, điểm tới ở TÂM ô (map.center), đồ hoi.do thì theo toạ độ ô thật
     for n in m.get('npcs', []):
-        if not near(cell(n['at'])):
+        if not near(cell(npc_at(n))):
             loi.append(f"NPC {n['id']} {n['at']} không đi tới được")
     for p in m.get('portals', []):
-        if not near(tuple(p['at'])):
+        if (tuple(p['at']) not in seen) if p.get('fly') else not near(tuple(p['at'])):   # lối bay: tự hành bước lên đúng ô đó
             loi.append(f"cổng {p.get('label') or p['to']} {p['at']} không đi tới được")
     for k, v in m['spawns'].items():
         if cell(v) not in seen:
@@ -75,13 +76,20 @@ def soat(m):
                 for dx, dy in ((1, 0), (0, 1)):
                     if at(x - dx, y - dy) in ROAD and at(x + dx, y + dy) in ROAD:
                         loi.append(f'đường cắt nước ở ô {(x, y)} mà không có cầu')
+    che = []
     for it, b, k in boxes:
         c = cell((it[1], it[2] - 0.1))
         if k == 'cay' and at(*c) in ROAD:
             loi.append(f'cây {it[0]} mọc trên đường ở {c}')
         if k in ('nha', 'cong', 'tru', 'sap') and d and math.hypot(it[1] - d / 2, it[2] - d / 2) > d / 2 - 3.5 and 'tien-dai' not in it[0]:
             nhac.append(f'{it[0]} sát mép tinh cầu ở {it[1], it[2]} (mép chỉ có đài ngắm sao)')
+        if k in ('cay', 'nha', 'tru', 'tuong', 'sap') and (m.get('planet') or {}).get('luat'):   # che khuất: hình cao trùm lên đường, sân
+            hid = sum(1 for cx in range(int(b[0]), int(b[2]) + 1) for cy in range(int(b[1]), int(it[2]))
+                      if b[0] + 0.3 < cx + 0.5 < b[2] - 0.3 and b[1] < cy + 0.5 < it[2] - (0.2 if k == 'cay' else 2.2) and at(cx, cy) in ('12,' if k == 'cay' else '1,'))   # nhà, sạp đứng trên sân thì sân sau lưng không tính
+            if hid > (0 if k == 'cay' else 3):
+                che.append((hid, f'{it[0]} ở {it[1], it[2]} trùm lên {hid} ô đường, sân phía sau (người đi qua bị che)'))
 
+    nhac += [t for _, t in sorted(che, reverse=True)[:6]]
     # 4. đèn, lửa phải ở chỗ có người: trong phố hoặc cách đường không quá 3 ô
     road = {(x, y) for y in range(H) for x in range(W) if at(x, y) in ROAD + 'P'}
     lit = [(it, b) for it, b, k in boxes if ART[it[0]].get('lights') and any(t in it[0] for t in ('.den-', '.vac-', '.lua-', '.cot-den', '.lu-huong'))]
@@ -94,9 +102,14 @@ def soat(m):
         if worst > 24:
             nhac.append(f'một màn có tới {worst} đèn, lửa (giới hạn sức máy 24)')
 
+    cay = [(it[1], it[2]) for it, b, k in boxes if k == 'cay']   # sức máy: số cây trong một màn dọc điện thoại (17×38 ô)
+    if cay:
+        day = max(sum(1 for x, y in cay if cx <= x < cx + 17 and cy <= y < cy + 38) for cx in range(0, W, 3) for cy in range(0, H, 3))
+        if day > 30:
+            nhac.append(f'rừng dày: có màn chứa {day} cây (nên dưới 30: mỗi cây vài lần dán hình mỗi khung, lại che người)')
     # 5. che khuất: hình đứng trước (chân thấp hơn) trùm lên NPC
     for n in m.get('npcs', []):
-        x, y = n['at']
+        x, y = npc_at(n)
         for it, b, k in boxes:
             if k != 'phang' and b[0] + 0.2 < x < b[2] - 0.2 and b[1] < y - 1.2 and y < it[2] - 0.3:
                 nhac.append(f"NPC {n['id']} bị {it[0]} che")

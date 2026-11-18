@@ -16,7 +16,7 @@
  "steps": [
   {"name": "Ngộ đạo", "text": "Ngồi tĩnh tâm, lắng nghe nhịp đạo của linh căn mình.", "need": {"type": "sit", "n": 30}, "day": 0, "give": {"slot": "vu-khi"}},
   {"name": "Thử kiếm", "text": "Đạo vận chỉ hiện ra trong trận đánh. Hạ quái để thấy nó.", "need": {"type": "kills", "n": 200}, "day": 0, "give": {"mats": {"dao-van-thach": 2}}},
-  {"name": "Tĩnh tâm bên tinh hải", "text": "Câu cá ở mép tinh cầu, để lòng lặng như nước.", "need": {"type": "fish", "n": 5}, "day": 1, "give": {"slot": "mu"}},
+  {"name": "Tĩnh tâm bên tinh hải", "text": "Câu cá bên bờ nước, để lòng lặng như nước.", "need": {"type": "fish", "n": 5}, "day": 1, "give": {"slot": "mu"}},
   {"name": "Trảm yêu vương", "text": "Đạo vận cứng lại khi đối đầu kẻ mạnh. Hạ boss.", "need": {"type": "bosses", "n": 3}, "day": 1, "give": {"mats": {"dao-van-thach": 2}}},
   {"name": "Linh khí tụ hội", "text": "Tu vi lên thêm, đạo vận theo đó mà dày.", "need": {"type": "layer", "n": 2}, "day": 2, "give": {"slot": "giap"}},
   {"name": "Thiên chuy bách luyện", "text": "Ngàn lần chém mới thành một nhát có hồn.", "need": {"type": "kills", "n": 400}, "day": 2, "give": {"mats": {"dao-van-thach": 2}}},
