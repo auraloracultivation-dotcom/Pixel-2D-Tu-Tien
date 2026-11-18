@@ -7,6 +7,7 @@ import { drawMount } from './draw-pet.js';
 import { outfit } from '../game/fashion.js';
 import { circle } from '../world/draw-map.js';
 import { drawSpace } from './draw-space.js';
+import { drawWeaponAt } from './draw-flyweapon.js';
 
 const INK = '#1b1830';
 
@@ -28,6 +29,15 @@ function sword(ctx, len, color, t) {
   ctx.fillStyle = '#6a3a2a'; ctx.fillRect(-len * 0.55, -1, len * 0.1, 2);
 }
 
+// Đi đường một mình: đứng trên chính vũ khí đang mặc (chủ dự án 18/11/2026 09:17 "cây phi kiếm này cũng vậy"), vệt kiếm khí giữ như cũ;
+// chưa có hình vũ khí thì thanh kiếm vẽ bằng code
+function ownWeapon(ctx, len, t) {
+  const g = ctx.createLinearGradient(-len * 3, 0, -len * 0.4, 0);
+  g.addColorStop(0, 'rgba(200,246,255,0)'); g.addColorStop(1, 'rgba(200,246,255,0.75)');
+  ctx.fillStyle = g; ctx.fillRect(-len * 3, -1.5 + Math.sin(t * 20) * 0.4, len * 2.6, 3);
+  return drawWeaponAt(ctx, heroGame, 0, 0, 0, len / 18, 0);   // false: chưa có hình, người gọi vẽ kiếm code
+}
+
 // Người chơi trên đường bay: vẽ bằng hình nhân vật chính như ngoài bản đồ (chơi thử 28/10: trước đây là người khối, lạ hẳn)
 let heroGame = null;
 const FLY = { x: 0, y: 0, face: { x: 1, y: 0.2 }, moving: false, walkT: 0, swingT: 0, lookX: 1 };
@@ -47,7 +57,7 @@ function rider(ctx, who, x, y, s, t, color, hair, sash, swordLen, npcId) {
   if (!own) drawPerson(ctx, { x: 0, y: 0, moving: false, bob: who }, color, hair, t, false, { x: 1, y: 0.2 });
   if (sash && !own) { ctx.fillStyle = sash; ctx.fillRect(-4, -6, 8, 1.5); }
   ctx.translate(0, 1.5);
-  if (swordLen) sword(ctx, swordLen, '#c8f6ff', t);
+  if (swordLen && !(who === 0 && heroGame && ownWeapon(ctx, swordLen, t))) sword(ctx, swordLen, '#c8f6ff', t);   // mình bay: đứng trên chính vũ khí đang mặc
   ctx.restore();
 }
 
