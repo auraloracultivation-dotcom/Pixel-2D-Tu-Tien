@@ -74,6 +74,84 @@
    "label": "ma-vuong (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
    "asset_id": "6a5619da-afee-45cf-abae-60e95fc7f6d0",
    "credit": 12
+  },
+  {
+   "asset_id": "aec89509-bf01-4a08-8b47-34de2e326c78",
+   "sha12": "a27771195b1b",
+   "label": "dong/thien-kiem-tinh.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "bbc04d9b-3f03-4a71-bbc3-edfcd3e3f1b4",
+   "sha12": "0d35ab90648f",
+   "label": "dong/linh-nhat.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "eed40491-e1db-45c2-8139-8714f1e2554e",
+   "sha12": "9c5392335ed6",
+   "label": "dong/hac-phong.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "deb53b4d-06cd-4f4b-b6d1-580ddc3fb556",
+   "sha12": "d4779520141e",
+   "label": "dong/thanh-khe.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "f1477e50-7a2d-4c9a-9dce-85aaa4562120",
+   "sha12": "793a436105e9",
+   "label": "dong/xich-diem.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "0b52009a-651e-489a-bff9-d332dee0dff3",
+   "sha12": "dd465024d77c",
+   "label": "dong/han-bang.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "b550eab6-9f85-42fb-b33c-c542344d4cf8",
+   "sha12": "ac12214e7fa5",
+   "label": "dong/thanh-moc.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "7c6b79b8-6dfd-49aa-b49d-e83a7e860f52",
+   "sha12": "675f46354bc0",
+   "label": "dong/thien-kim.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "ff3ef537-df6f-42d9-a42c-252b341c9ed5",
+   "sha12": "88fe90413258",
+   "label": "dong/hau-tho.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "ae7096b7-949a-49d4-b2a4-114a1ecd6863",
+   "sha12": "61409bc6c4fc",
+   "label": "dong/vet-nut-ngoai.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "2570bc27-1bd4-4508-be60-6b42b59b6f25",
+   "sha12": "8d9fef292167",
+   "label": "dong/mat-1.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "c0332d0e-a9e1-4539-9249-f029b3e4137e",
+   "sha12": "7ffe3322f9a8",
+   "label": "dong/mat-2.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "a497d883-2020-443c-a075-c4ec3123adea",
+   "sha12": "0f47158af21c",
+   "label": "dong/ma-vuong.webp",
+   "credit": 20
   }
  ]
 }
