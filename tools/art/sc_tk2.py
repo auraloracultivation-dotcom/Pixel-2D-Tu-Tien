@@ -139,43 +139,53 @@ def cat(sheet, box, o):
     return Image.fromarray(out, 'RGBA'), bb
 
 
+def mon(S, sheet, sid, box, note, o, nguon='sc_tk2.py'):
+    """Cắt một món khỏi tấm, ghi tệp hình và dòng data/art.json; trả (dòng, mảng điểm ảnh, khung thật trong khung cắt)."""
+    im, bb = cat(sheet, box, o)
+    a = np.array(im)
+    f = OUT / (sid.replace('.', '-') + '.png')
+    luu(im, f)
+    e = {'file': f'assets/art/{f.name}', 'v': hashlib.sha1(f.read_bytes()).hexdigest()[:8], 'w': im.width, 'h': im.height, 'frames': 1,
+         'anchor': [im.width // 2, (o['neo'] - bb[1]) if o.get('neo') else im.height - 2], 'note': f'SpriteCook: {note} (tools/art/{nguon})', 'scale': SCALE}
+    if o.get('den'):
+        li = den(a, o['den'], o.get('den_n', 5))
+        if li:
+            e['lights'] = li
+    if o.get('bien'):
+        x, y, w, h = o['bien']
+        e['plaque'] = [x - box[0] - bb[0], y - box[1] - bb[1], w, h]
+    if o.get('khoi'):   # miệng ống khói: hàng trên cùng của hình
+        xs = np.where(a[1, :, 3] > 0)[0]
+        e['smoke'] = [int(xs.mean()), 2]
+    if o.get('lap_lanh'):   # điểm lấp lánh trên mặt nước: rải đều trong vùng nước sáng
+        ys, xs = np.where((a[..., 2] > 200) & (a[..., 0] < 185) & (a[..., 3] > 0))
+        step = max(1, len(xs) // o['lap_lanh'])
+        e['glints'] = [[int(xs[i]), int(ys[i])] for i in range(step // 2, len(xs), step)][:o['lap_lanh']]
+    S[sid] = e
+    print(f'{sid:26s} {im.width:3d}×{im.height:3d}  {im.width / 32:4.1f}×{im.height / 32:4.1f} ô  {len(im.getcolors(1 << 20))} màu', e.get('lights', ''), e.get('plaque', ''), e.get('smoke', ''))
+    return e, a, bb
+
+
+def ghi_le_hoi(foot, kinds, anim, anim_bo=(), glow=None):
+    """Thêm kiểu chân, kiểu chuyển động (và màu quầng sáng) của hình mới vào data/le-hoi.json, giữ nguyên cách viết của tệp."""
+    old = LE_HOI.read_text(encoding='utf-8')
+    d, tail = json.loads(old), '\n' if old.endswith('\n') else ''
+    assert json.dumps(d, ensure_ascii=False, indent=1) + tail == old, 'data/le-hoi.json: cách viết lạ, không dám ghi đè'
+    d['foot'].update(foot); d['kinds'].update(kinds); d['anim'].update(anim); d['glow'].update(glow or {})
+    for k in anim_bo:
+        d['anim'].pop(k, None)
+    LE_HOI.write_text(json.dumps(d, ensure_ascii=False, indent=1) + tail, encoding='utf-8')
+
+
 def main():
     art = json.loads(ART.read_text(encoding='utf-8'))
     S = art['sprites']
     for tam, items in TAM.items():
         sheet = Image.open(SRC2 / f'{tam}.png').convert('RGBA')
         for sid, box, note, *rest in items:
-            o = rest[0] if rest else {}
-            im, bb = cat(sheet, box, o)
-            a = np.array(im)
-            f = OUT / (sid.replace('.', '-') + '.png')
-            luu(im, f)
-            e = {'file': f'assets/art/{f.name}', 'v': hashlib.sha1(f.read_bytes()).hexdigest()[:8], 'w': im.width, 'h': im.height, 'frames': 1,
-                 'anchor': [im.width // 2, (o['neo'] - bb[1]) if o.get('neo') else im.height - 2], 'note': f'SpriteCook: {note} (tools/art/sc_tk2.py)', 'scale': SCALE}
-            if o.get('den'):
-                li = den(a, o['den'])
-                if li:
-                    e['lights'] = li
-            if o.get('bien'):
-                x, y, w, h = o['bien']
-                e['plaque'] = [x - box[0] - bb[0], y - box[1] - bb[1], w, h]
-            if o.get('khoi'):   # miệng ống khói: hàng trên cùng của hình
-                xs = np.where(a[1, :, 3] > 0)[0]
-                e['smoke'] = [int(xs.mean()), 2]
-            if o.get('lap_lanh'):   # điểm lấp lánh trên mặt nước: rải đều trong vùng nước sáng
-                ys, xs = np.where((a[..., 2] > 200) & (a[..., 0] < 185) & (a[..., 3] > 0))
-                step = max(1, len(xs) // o['lap_lanh'])
-                e['glints'] = [[int(xs[i]), int(ys[i])] for i in range(step // 2, len(xs), step)][:o['lap_lanh']]
-            S[sid] = e
-            print(f'{sid:26s} {im.width:3d}×{im.height:3d}  {im.width / 32:4.1f}×{im.height / 32:4.1f} ô  {len(im.getcolors(1 << 20))} màu', e.get('lights', ''), e.get('plaque', ''), e.get('smoke', ''))
+            mon(S, sheet, sid, box, note, rest[0] if rest else {})
     ART.write_text(json.dumps(art, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    old = LE_HOI.read_text(encoding='utf-8')
-    d, tail = json.loads(old), '\n' if old.endswith('\n') else ''
-    assert json.dumps(d, ensure_ascii=False, indent=1) + tail == old, 'data/le-hoi.json: cách viết lạ, không dám ghi đè'
-    d['foot'].update(FOOT); d['kinds'].update(KINDS); d['anim'].update(ANIM)
-    for k in ANIM_BO:
-        d['anim'].pop(k, None)
-    LE_HOI.write_text(json.dumps(d, ensure_ascii=False, indent=1) + tail, encoding='utf-8')
+    ghi_le_hoi(FOOT, KINDS, ANIM, ANIM_BO)
 
 
 if __name__ == '__main__':

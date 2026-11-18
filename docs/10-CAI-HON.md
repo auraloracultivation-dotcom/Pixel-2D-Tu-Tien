@@ -517,6 +517,10 @@ mỗi con quái ghi số nhát trúng và số giây, mỗi chặng ghi số đ�
   trường hợp.
 - **Lỗi thứ hai lộ ra cùng lúc (đã sửa):** bậc 5 "Dọn hai phòng quái (n/9)" đếm mọi con quái hạ được, kể cả quái ngoài bãi: lượt đo trên hạ 8 Mộc linh ngoài đảo mà
   bậc vẫn tính là dọn xong hai phòng. Giờ chỉ đếm quái hạ trong bí cảnh (`data/story.json → bac … until.in`, `src/game/story.js`).
+- **Còn sót, sửa 19/11/2026 (lộ ra khi chơi thử bản Thiên Kiếm Tinh đợt ba, trượt 1 trong 3 lượt; bản đang chạy cũng bị):** vừa dọn xong phòng đầu, chưa sang phòng
+  kế thì không phòng nào "đang đánh", người đang đứng sát cổng ra (cổng cách chỗ vào hai ô) là bị đưa ra ngoài ngay. Ra ngoài rồi, bậc 5 chỉ tính quái hạ trong bí cảnh
+  nhưng Tự hành không biết quay vào: đứng đánh Mộc linh bãi vòng ngoài tới hết giờ (lượt trượt: 73 giây, hạ thêm 26 con không được tính). Sửa: còn phòng chưa dọn là
+  còn phải đứng yên 1,2 giây mới rời (`holdExit`); việc có `until.in` thì Tự hành coi bản đồ đó là đích, lỡ ra ngoài thì đi vào lại (`src/game/pilot.js` plan).
 
 ## Việc 6 · dòng 18a (triệu hồi chia năm bậc + bảo hiểm) và 18b (quà gặp mặt 300 điểm): chuẩn bị xong 15/11/2026
 

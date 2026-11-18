@@ -183,7 +183,7 @@ function plan(game) {
     const j = dailyJob(game, routeTo);
     return j?.meditate ? sit(game) : j || idle(game);
   }
-  const dest = u.map || s.target_map || s.map || game.map.id;
+  const dest = u.map || u.in || s.target_map || s.map || game.map.id;   // u.in: việc chỉ tính quái hạ trong bản đồ đó (bậc "Dọn hai phòng quái" của bí cảnh): lỡ ra ngoài thì quay vào, không đứng ngoài đánh quái bãi mãi (19/11/2026)
   if (game.map.id !== dest) {
     const pt = routeTo(game, dest);
     return pt ? { go: tileOf(game, pt.at), to: dest } : sit(game);
