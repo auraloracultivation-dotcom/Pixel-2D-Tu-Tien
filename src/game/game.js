@@ -10,6 +10,7 @@ import { zonePower } from './mob-power.js';
 import { startGhost, ghostTick, afterGhost } from './ghost.js';
 import { updateBullets, updateFx, addNumber, dist } from './combat.js';
 import { addQi, totalLayer, rollRoot } from './stats.js';
+import { mocTang } from './moc-tang.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
@@ -143,6 +144,7 @@ export function createGame(data, screen, input, ui, audio) {
       game.capWarned = true;
       game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
+    mocTang(game);   // qua mỗi 10% tầng: quà nhỏ (src/game/moc-tang.js)
     game.persist(); return got;
   };
   game.onKill = m => {

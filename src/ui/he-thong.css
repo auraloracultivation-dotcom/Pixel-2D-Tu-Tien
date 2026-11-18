@@ -228,3 +228,61 @@ body #toast { z-index: 85; }
 @keyframes ht-bang { 50% { transform: translate(-50%, -3px); } }
 .ht-cham { position: absolute; right: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #ff3a3a; border: 1.5px solid #fff; box-shadow: 0 0 4px #ff3a3a; pointer-events: none; }
 .ht-bang[hidden], .ht-cham[hidden] { display: none; }
+
+/* Quà bằng hình + số (src/ui/qua-icons.js; chủ dự án 19/11/2026 03:26) */
+.qt-row { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+.qt { position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 2px; border-radius: 6px;
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--qc) 35%, transparent), rgba(8, 20, 40, .75) 70%); border: 1px solid color-mix(in srgb, var(--qc) 70%, #0a1830); cursor: pointer; }
+.qt canvas { image-rendering: pixelated; max-width: 28px; max-height: 28px; }
+.qt-n { position: absolute; right: -2px; bottom: -4px; font: 700 10px/1 var(--f-body); color: #fff; padding: 1px 3px; border-radius: 4px; background: rgba(6, 14, 30, .9);
+  text-shadow: 0 1px 0 #000; white-space: nowrap; }
+.qt-box { box-shadow: 0 0 6px color-mix(in srgb, var(--qc) 70%, transparent); }
+.qt-box .qt-n { color: var(--qc); }
+.qt-q { position: absolute; top: -3px; right: 1px; font: 900 13px/1 var(--f-body); font-style: normal; color: #fff; text-shadow: 0 0 3px var(--qc), 0 1px 0 #000; animation: ht-blink 1.4s infinite; }
+.ht-mis .qt-row { grid-column: 1; }
+
+/* Tab Mốc quà (src/ui/he-thong-moc.js) */
+.ht-tab.co { position: relative; }
+.ht-tab.co::after { content: ''; position: absolute; top: 2px; right: 3px; width: 7px; height: 7px; border-radius: 50%; background: #e0484a; border: 1px solid #1b1830; }
+.moc-g { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 9px; border: 1px solid color-mix(in srgb, var(--mc) 55%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mc) 14%, transparent), transparent 60%); }
+.moc-h { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: center; }
+.moc-hop { grid-row: 1 / span 2; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--mc) 45%, transparent), transparent 70%); }
+.moc-hop canvas { filter: hue-rotate(var(--hr)) drop-shadow(0 0 3px var(--mc)); }
+.moc-ht { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.moc-ht b { color: var(--mc); font-size: 14px; }
+.moc-ht small { color: #dff4ff; font-size: 12px; }
+.moc-bar { position: relative; height: 14px; border-radius: 7px; background: rgba(6, 14, 30, .8); border: 1px solid #0a1830; overflow: hidden; }
+.moc-bar i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, color-mix(in srgb, var(--mc) 60%, #000), var(--mc)); }
+.moc-bar span { position: relative; display: block; text-align: center; font: 700 10px/14px var(--f-body); color: #fff; text-shadow: 0 1px 0 #000; }
+.moc-r { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; padding: 6px 8px; border-radius: 7px; border: 1px solid rgba(62, 200, 240, .25); opacity: .72; }
+.moc-r b { font-size: 12px; color: #dff4ff; }
+.moc-r .ht-btn { grid-row: 1 / span 2; grid-column: 2; }
+.moc-r.ok { opacity: 1; border-color: #ffd24a; box-shadow: 0 0 8px rgba(255, 210, 74, .35); }
+.moc-da { color: #9fc8d8; font-size: 11px; text-align: right; }
+
+/* Thẻ mốc 10% tầng (src/ui/moc-chip.js) */
+.moc-chip { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 92px); z-index: 60; display: flex; align-items: center; gap: 8px; padding: 6px 12px 8px;
+  border-radius: 18px; background: rgba(10, 24, 48, .88); border: 1px solid #5fd8f8; box-shadow: 0 0 10px rgba(95, 216, 248, .45); pointer-events: none;
+  opacity: 0; transform: translate(-50%, -10px); transition: opacity .35s, transform .35s; }
+.moc-chip.on { opacity: 1; transform: translate(-50%, 0); }
+.moc-chip b { font: 700 13px/1 var(--f-body); color: #bff4ff; white-space: nowrap; }
+.moc-chip .qt-row { margin: 0; }
+.qt img { image-rendering: pixelated; object-fit: contain; }
+.moc-chip { z-index: 9000; }
+/* 6 tab (thêm Mốc quà 19/11/2026): điện thoại dọc xếp 2 hàng × 3 cho đọc đủ chữ */
+@media (max-width: 520px) {
+  .ht-tabs { flex-wrap: wrap; }
+  .ht-tabs .ht-tab { flex: 1 1 calc(33.3% - 6px); overflow: visible; text-overflow: clip; }
+}
+/* hàng quà trải hết bề ngang dưới tên mốc, nút Nhận ở hàng tên */
+.moc-r .qt-row, .ht-mis .qt-row { grid-column: 1 / -1; gap: 6px 7px; padding-bottom: 3px; }
+.moc-r .ht-btn, .ht-mis:has(> .qt-row) > .ht-btn { grid-row: 1; }
+.qt { min-width: 38px; }
+.qt canvas[class="gem-ico"] { max-width: 30px; max-height: 30px; }
+.moc-chip { width: max-content; max-width: 92vw; }
+.moc-chip .qt-row { flex-wrap: nowrap; gap: 10px; }
+/* nhãn số nằm dưới hình, không đè ô bên cạnh (chủ dự án 19/11/2026 04:24) */
+.qt { flex-direction: column; height: auto; min-height: 40px; padding: 3px 5px 2px; gap: 1px; }
+.qt-n { position: static; background: none; padding: 0; font-size: 10px; }

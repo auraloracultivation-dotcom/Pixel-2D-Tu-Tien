@@ -10,6 +10,9 @@ import { every } from '../core/ticker.js';
 import { needIntro, doneIntro, htTick, missionList, dailyList } from '../game/he-thong.js';
 import { renderTasks } from './he-thong-nv.js';
 import { renderGacha } from './he-thong-qua.js';
+import { renderMoc } from './he-thong-moc.js';
+import { mocReady } from '../game/moc.js';
+import { setupMocChip } from './moc-chip.js';
 import { createFace } from './he-thong-mat.js';
 import { createWander } from './he-thong-dao.js';
 import { createGreeter } from './he-thong-chao.js';
@@ -48,6 +51,7 @@ export function createHeThong(game) {
   const css = document.createElement('link');
   css.rel = 'stylesheet'; css.href = new URL(`./he-thong.css?v=${ver()}`, import.meta.url).href;
   document.head.append(css);
+  setupMocChip(game);   // thẻ quà mốc 10% tầng
 
   // Biểu tượng
   const ic = el('button', 'ht-icon'); ic.type = 'button'; ic.id = 'ht-icon'; ic.hidden = true; ic.title = C.name;
@@ -98,6 +102,7 @@ export function createHeThong(game) {
     for (const [id, name] of Object.entries(C.tabs)) {
       if ((id === 'gop' && !game.data.community?.feedback?.on)) continue;
       const b = el('button', `ht-tab${id === tab ? ' on' : ''}`, name); b.type = 'button';
+      if (id === 'moc' && mocReady(game, ht)) b.classList.add('co');   // chấm đỏ: có mốc nhận được
       b.onclick = () => { if (id === 'gop' && tab !== 'gop' && !gopSt.busy) gopShot(game, gopSt); tab = id; render(); body.scrollTop = 0; };
       tabs.append(b);
     }
@@ -105,6 +110,7 @@ export function createHeThong(game) {
   function render() {
     tabBar(); body.textContent = '';
     if (tab === 'task') renderTasks(game, body, { ht, say, face: MT ? bigFace : null, setHt: (h, line) => { ht = h; say = line || say; render(); }, render, minimize });
+    else if (tab === 'moc') renderMoc(game, body, { ht, setHt: (h, line) => { ht = h; say = line || say; render(); }, render });   // Mốc quà (chủ dự án 19/11/2026 03:26)
     else if (tab === 'gacha') {
       renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; });   // không vẽ lại: món vừa trúng nằm trên rương tới khi người chơi chạm
     } else if (tab === 'tra') {
@@ -182,7 +188,7 @@ export function createHeThong(game) {
     if (say && !open && !quiet) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
     // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
     if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
-    const claim = missionList(game, ht.xong).some(m => m.ok) || !!dailyList(game, ht)?.some(d => d.ok && !d.got); khoa.tick(claim);   // chấm đỏ, nhắc nhận: cả nhiệm vụ hệ thống lẫn nhiệm vụ ngày đã xong chưa nhận
+    const claim = missionList(game, ht.xong).some(m => m.ok) || !!dailyList(game, ht)?.some(d => d.ok && !d.got) || mocReady(game, ht); khoa.tick(claim);   // chấm đỏ, nhắc nhận: cả nhiệm vụ hệ thống lẫn nhiệm vụ ngày đã xong chưa nhận
     if (!say && !open && !quiet && !game.uiOpen && now - (nudge.claim || 0) > 180000 && claim) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
     // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
     if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }

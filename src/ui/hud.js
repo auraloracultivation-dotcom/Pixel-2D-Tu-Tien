@@ -104,7 +104,7 @@ export function createHud(audio, dlgCfg) {
       rb.style.width = Math.max(0, rf * 100) + '%'; rb.parentNode.classList.toggle('on', J?.rageOn > 0);
       $('no-text').textContent = J?.rageOn > 0 ? 'Bạo Nộ!' : `Nộ ${Math.floor(rf * 100)}%`;
       $('qi-fill').style.width = Math.min(100, s.qi / need * 100) + '%';
-      $('qi-text').textContent = `Linh khí ${Math.floor(s.qi)}/${need}` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');
+      $('qi-text').textContent = `Linh khí ${(Math.floor(Math.min(1, s.qi / need) * 10000) / 100).toFixed(2).replace('.', ',')}%` + ((s.qiX2 || 0) > Date.now() ? ' ×2' : '');   // phần trăm thay số thô (chủ dự án 19/11/2026 03:21: số linh khí to quá nhìn không thấy nhích)
     }
     const gl = guideLine(game), goals = game.goals().split('\n').map(l => (gl && l === gl && game.goals().includes('\n') ? '➤ ' + l : l)).join('\n');   // nhiều việc: ➤ là việc mũi tên đang chỉ (chạm khung để đổi)
     const noStory = d['he-thong']?.story_ui === false;   // bỏ khung việc truyện cũ (chủ dự án 12/11/2026 11:05): chỉ còn dòng Tự hành khi đang chạy

@@ -16,6 +16,7 @@
  ],
  "tabs": {
   "task": "Nhiệm vụ",
+  "moc": "Mốc quà",
   "gacha": "Triệu hồi",
   "tra": "Tàng Thư",
   "faq": "Hỏi đáp",
@@ -2645,8 +2646,63 @@
   "feed_head": "Vừa trúng lớn", "ls_btn": "Lịch sử triệu hồi", "ls_head": "50 lần triệu hồi gần nhất của ký chủ", "ls_empty": "Ký chủ chưa triệu hồi lần nào."
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
+ "moc": {
+  "_note": "Mốc quà (chủ dự án 19/11/2026 03:26 \"làm thêm nhiệm vụ chạm mốc nhận quà: giết bao nhiêu quái, onl bao nhiêu tiếng, triệu hồi bao nhiêu lần, thăng tới cảnh giới nào… quà đặt icon và số lượng, tối kị chỉ viết nhận được gì\"). Mỗi mốc là một nhiệm vụ hệ thống trên máy chủ (p2d_ht_nv, id moc-*; sinh migration bằng python3 tools/moc-sql.py): máy chủ kiểm số quái trong bản lưu, giờ chơi choi_giay, số lần triệu hồi so_lan, cảnh giới; nhận xong cộng điểm như mọi nhiệm vụ (points, 4 mốc đủ 1 lượt triệu hồi) và gửi quà vào Hòm thư. gear: hộp trang bị bí ẩn (ô chưa mặc, máy chủ bốc). qi_pct: linh khí theo phần trăm tầng đang tu, máy khách cộng sau khi máy chủ nhận (src/ui/he-thong-moc.js).", "_hue": "Hộp quà mỗi nhóm một màu: xoay màu ảnh hộp quà của chủ dự án (ui.ic-qua) bằng CSS, không vẽ hình mới.", "head": "Mốc quà", "intro": "Chạm mốc là nhận quà. Mỗi mốc còn kèm điểm Triệu hồi như nhiệm vụ.", "gear_name": "Hộp trang bị {t}", "gear_tip": "Mở ra trang bị phẩm {t} cho ô còn trống, chưa biết là món gì", "qi_name": "Linh khí", "qi_tip": "tính theo tầng đang tu lúc nhận, lên cao nhận nhiều hơn", "pts_unit": "điểm", "pts_name": "Điểm Triệu hồi", "claim_all": "Nhận hết", "next": "Mốc kế: {a} / {b} {u}", "all_done": "Đã nhận hết mốc nhóm này", "need_login": "Đăng nhập để nhận mốc quà",
+  "tang": {"_note": "Mốc nhỏ trong tầng (chủ dự án 19/11/2026 03:21–03:26, cách 1): linh khí qua mỗi 10% của tầng đang tu thì tặng một quà nhỏ ngay (src/game/moc-tang.js), mỗi tầng 9 lần (10%…90%; 100% là lên tầng). coins_r: Linh Thạch × (cảnh giới + 1). Mỗi tầng chỉ tặng một lần (save.mocT).", "say": "Linh khí {p}%", "list": [{"pill": "hoi-xuan-dan", "n": 2}, {"coins_r": 300}, {"pill": "hoi-linh-dan", "n": 2}, {"coins_r": 300}, {"pill": "tu-khi-dan", "n": 2}, {"coins_r": 500}, {"pill": "hoi-xuan-dan", "n": 3}, {"coins_r": 500}, {"pill": "hoi-linh-dan", "n": 3}]},
+  "groups": [
+   {"k": "kills", "name": "Diệt yêu", "unit": "quái", "goal": "Hạ {n} quái", "mau": "#e0484a", "hue": 60, "list": [
+    {"id": "moc-q-100", "n": 100, "qua": [{"coins": 2000}, {"pill": "hoi-xuan-dan", "n": 5}]},
+    {"id": "moc-q-500", "n": 500, "qua": [{"coins": 5000}, {"pill": "tu-khi-dan", "n": 5}]},
+    {"id": "moc-q-1000", "n": 1000, "qua": [{"coins": 10000}, {"gem": "hong-ngoc:2", "n": 1}]},
+    {"id": "moc-q-3000", "n": 3000, "qua": [{"gear": 2, "slot": "thieu"}, {"pill": "hoi-linh-dan", "n": 10}]},
+    {"id": "moc-q-10000", "n": 10000, "qua": [{"coins": 30000}, {"pill": "tu-van-dan", "n": 3}]},
+    {"id": "moc-q-30000", "n": 30000, "qua": [{"gear": 3, "slot": "thieu"}, {"gem": "hong-ngoc:3", "n": 1}]},
+    {"id": "moc-q-60000", "n": 60000, "qua": [{"coins": 80000}, {"gem": "hong-ngoc:4", "n": 1}]},
+    {"id": "moc-q-100000", "n": 100000, "qua": [{"gear": 4, "slot": "thieu"}, {"pill": "tu-van-dan", "n": 5}]},
+    {"id": "moc-q-200000", "n": 200000, "qua": [{"coins": 150000}, {"pill": "tu-van-dan", "n": 10}]},
+    {"id": "moc-q-350000", "n": 350000, "qua": [{"gear": 5, "slot": "thieu"}, {"gem": "hong-ngoc:5", "n": 1}]},
+    {"id": "moc-q-500000", "n": 500000, "qua": [{"coins": 300000}, {"gem": "hong-ngoc:6", "n": 1}]},
+    {"id": "moc-q-750000", "n": 750000, "qua": [{"gear": 5, "slot": "thieu"}, {"gear": 5, "slot": "thieu"}]},
+    {"id": "moc-q-1000000", "n": 1000000, "qua": [{"gear": 6, "slot": "thieu"}, {"coins": 500000}]}
+   ]},
+   {"k": "gio", "name": "Bế quan", "unit": "giờ", "goal": "Chơi {n} giờ", "mau": "#5ab8f0", "hue": -95, "list": [
+    {"id": "moc-g-1", "n": 1, "qua": [{"coins": 3000}, {"pill": "hoi-linh-dan", "n": 5}]},
+    {"id": "moc-g-3", "n": 3, "qua": [{"pill": "thang-linh-dan", "n": 1}, {"coins": 5000}]},
+    {"id": "moc-g-6", "n": 6, "qua": [{"coins": 10000}, {"gem": "lam-ngoc:2", "n": 1}]},
+    {"id": "moc-g-12", "n": 12, "qua": [{"gear": 2, "slot": "thieu"}, {"pill": "tu-khi-dan", "n": 5}]},
+    {"id": "moc-g-24", "n": 24, "qua": [{"pill": "thang-linh-dan", "n": 2}, {"coins": 20000}]},
+    {"id": "moc-g-48", "n": 48, "qua": [{"gear": 3, "slot": "thieu"}, {"gem": "lam-ngoc:3", "n": 1}]},
+    {"id": "moc-g-100", "n": 100, "qua": [{"coins": 60000}, {"pill": "tu-van-dan", "n": 5}]},
+    {"id": "moc-g-200", "n": 200, "qua": [{"gear": 4, "slot": "thieu"}, {"gem": "lam-ngoc:4", "n": 1}]},
+    {"id": "moc-g-300", "n": 300, "qua": [{"coins": 100000}, {"gem": "lam-ngoc:5", "n": 1}]},
+    {"id": "moc-g-500", "n": 500, "qua": [{"gear": 5, "slot": "thieu"}, {"pill": "tu-van-dan", "n": 10}]},
+    {"id": "moc-g-750", "n": 750, "qua": [{"coins": 300000}, {"pill": "tu-van-dan", "n": 15}]},
+    {"id": "moc-g-1000", "n": 1000, "qua": [{"gear": 6, "slot": "thieu"}, {"gem": "lam-ngoc:6", "n": 1}]}
+   ]},
+   {"k": "trieu", "name": "Triệu hồi", "unit": "lần", "goal": "Triệu hồi {n} lần", "mau": "#b070ff", "hue": 0, "list": [
+    {"id": "moc-t-1", "n": 1, "qua": [{"coins": 2000}, {"pill": "hoi-xuan-dan", "n": 5}]},
+    {"id": "moc-t-5", "n": 5, "qua": [{"gem": "hoang-ngoc:2", "n": 1}, {"coins": 5000}]},
+    {"id": "moc-t-10", "n": 10, "qua": [{"gear": 2, "slot": "thieu"}, {"coins": 10000}]},
+    {"id": "moc-t-20", "n": 20, "qua": [{"coins": 30000}, {"gem": "hoang-ngoc:3", "n": 1}]},
+    {"id": "moc-t-50", "n": 50, "qua": [{"gear": 3, "slot": "thieu"}, {"gem": "hoang-ngoc:4", "n": 1}]},
+    {"id": "moc-t-100", "n": 100, "qua": [{"gear": 4, "slot": "thieu"}, {"coins": 80000}]},
+    {"id": "moc-t-200", "n": 200, "qua": [{"gear": 5, "slot": "thieu"}, {"gem": "hoang-ngoc:5", "n": 1}]},
+    {"id": "moc-t-365", "n": 365, "qua": [{"gear": 6, "slot": "thieu"}, {"coins": 300000}]}
+   ]},
+   {"k": "realm", "name": "Phá cảnh", "unit": "", "goal": "Lên {r}", "mau": "#ffd24a", "hue": 115, "list": [
+    {"id": "moc-c-1", "n": 1, "qua": [{"qi_pct": 0.1}, {"coins": 5000}, {"pill": "thang-linh-dan", "n": 1}]},
+    {"id": "moc-c-2", "n": 2, "qua": [{"qi_pct": 0.1}, {"gear": 2, "slot": "thieu"}, {"coins": 10000}, {"pill": "thang-linh-dan", "n": 1}]},
+    {"id": "moc-c-3", "n": 3, "qua": [{"qi_pct": 0.1}, {"gem": "luc-ngoc:4", "n": 1}, {"coins": 20000}, {"pill": "thang-linh-dan", "n": 2}]},
+    {"id": "moc-c-4", "n": 4, "qua": [{"qi_pct": 0.1}, {"gear": 4, "slot": "thieu"}, {"coins": 50000}, {"pill": "thang-linh-dan", "n": 2}]},
+    {"id": "moc-c-5", "n": 5, "qua": [{"qi_pct": 0.1}, {"gem": "luc-ngoc:5", "n": 1}, {"coins": 80000}, {"pill": "thang-linh-dan", "n": 2}]},
+    {"id": "moc-c-6", "n": 6, "qua": [{"qi_pct": 0.1}, {"gear": 5, "slot": "thieu"}, {"coins": 120000}]},
+    {"id": "moc-c-7", "n": 7, "qua": [{"qi_pct": 0.1}, {"gem": "luc-ngoc:6", "n": 1}, {"coins": 200000}]},
+    {"id": "moc-c-8", "n": 8, "qua": [{"qi_pct": 0.1}, {"gear": 6, "slot": "thieu"}, {"coins": 300000}]}
+   ]}
+  ]
+ },
  "ngay": {
-  "_note": "Nhiệm vụ ngày (chủ dự án 06/11/2026 18:03; 10/11/2026 09:47 cho chạy song hành với nhiệm vụ hệ thống, không chờ làm hết): mỗi ngày nhận điểm từ các việc ngày (data/daily.json pool, bản lưu daily), mỗi việc points điểm, đủ để triệu hồi mỗi ngày. Máy chủ đếm theo ngày giờ Việt Nam, mỗi ngày tối đa per_day việc.",
+  "qi_pct": 0.0025, "qi_all": 0.05, "_qi_pct": "Chủ dự án 19/11/2026 03:13 \"Nhiệm vụ ngày tặng thêm linh khí cho người chơi\": mỗi việc ngày nhận xong thêm qi_pct linh khí cần của tầng đang tu (0,25%), nhận đủ cả ngày thêm một đợt lớn qi_all (5%) kèm màn mừng (chủ dự án 03:21–03:26 duyệt ba cách chống chán: đợt lớn có mừng). Tổng một ngày vẫn 10% một tầng như số đã tính. Tính theo tầng nên lên cao vẫn đáng làm (src/ui/he-thong-nv.js).", "all_name": "Linh khí cả ngày", "all_tag": "Xong hết việc ngày", "_note": "Nhiệm vụ ngày (chủ dự án 06/11/2026 18:03; 10/11/2026 09:47 cho chạy song hành với nhiệm vụ hệ thống, không chờ làm hết): mỗi ngày nhận điểm từ các việc ngày (data/daily.json pool, bản lưu daily), mỗi việc points điểm, đủ để triệu hồi mỗi ngày. Máy chủ đếm theo ngày giờ Việt Nam, mỗi ngày tối đa per_day việc.",
   "head": "Nhiệm vụ ngày",
   "locked": "Làm xong hết nhiệm vụ hệ thống thì mở nhiệm vụ ngày: mỗi ngày đủ điểm triệu hồi một lần.",
   "done": "Hôm nay xong hết rồi. Mai quay lại, bổn hệ thống lại giao việc.",
