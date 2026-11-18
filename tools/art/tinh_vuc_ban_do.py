@@ -12,14 +12,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 TV = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'nguon/ai/tinh-vuc')
 SW, SH = 1920, 1080
-N, FPS = 144, 12          # 12 giây một vòng
+N, FPS = 288, 12          # 24 giây một vòng: mọi thứ chậm (chủ dự án 02:37)
 TAU = 2 * math.pi
 GX, GY = SW / 1671, SH / 941   # đổi toạ độ từ ảnh GPT
 FONT = '/usr/share/fonts/opentype/unifont/unifont_jp.otf'
 
 # (mã hình, tên, x, y trên ảnh GPT, đường kính trên màn 1080)
 THIEN_THE = [
-    ('linh-nhat', 'Linh Nhật', 722, 405, 230),
+    ('linh-nhat', 'Linh Nhật', 722, 405, 150),
     ('thanh-moc', 'Thanh Mộc Tinh', 687, 195, 74),
     ('xich-diem', 'Xích Diễm Tinh', 1050, 255, 62),
     ('mat-1', 'Tinh cầu đã mất', 1362, 282, 66),
@@ -33,6 +33,7 @@ THIEN_THE = [
     ('hau-tho', 'Hậu Thổ Tinh', 615, 693, 68),
     ('mat-2', 'Tinh cầu đã mất', 1063, 760, 66),
 ]
+DAO_CHIEU = ('linh-nhat', 'thien-kiem-tinh', 'hau-tho')   # đo: chỗ nối lệch > 1,6 lần bước thường
 VK = 3.6                                   # vòng kết giới phóng 3,6 lần (tâm ảnh vòng 258,139; bán kính 210 × 132)
 VCX, VCY, VRX, VRY = SW / 2, SH / 2, 210 * VK, 132 * VK
 
@@ -91,6 +92,8 @@ def main():
     tinh_the, tru, nut = (doc(f'{HU}/{n}.png')[0] for n in ('tinh-the', 'tru-kiem', 'vet-nut'))
     tru = to(tru, 0.62); tinh_the = to(tinh_the, 1.3); nut = to(nut, 0.95)
     hinh = {m: [to(f, d / f.width * 1.18) for f in doc(f'{TV}/dong/{m}.webp')] for m, _, _, _, d in THIEN_THE}
+    for m in DAO_CHIEU:   # khung cuối không khớp khung đầu: chạy tới rồi chạy lùi để nối vòng liền (0..15, 15..0)
+        hinh[m] = hinh[m] + hinh[m][::-1]
     nen, sao = nen_sao()
     mg = MaGioi(SW // 3, SH // 3, VCX / 3, VCY / 3, 200 * VK / 3, 125 * VK / 3, N)
     font, font_to = ImageFont.truetype(FONT, 20), ImageFont.truetype(FONT, 34)
@@ -136,10 +139,12 @@ def main():
             c = (250, 240, 170) if q < 0.4 else (150, 220, 90)
             dr.rectangle((x, y, x + 2, y + 2), fill=c)
         # ma khí trôi qua lại chậm, tinh thể bồng bềnh
+        for im, x, y, ph in MAY:   # mây ma khí SpriteCook giữ nguyên, lớp code chỉ lấp chỗ trống bên dưới
+            dan(img, im, x + 10 * math.sin(a + ph), y + 4 * math.sin(a + ph * 2))
         for x, y, ph in TINH_THE:
             dan(img, tinh_the, x, y + 8 * math.sin(a + ph))
         # vòng kết giới: sáng tối theo nhịp thở
-        dan(img, vong, VCX, VCY, 0.82 + 0.18 * math.sin(a * 2))
+        dan(img, vong, VCX, VCY, 0.85 + 0.15 * math.sin(a * 3))
         for g in TRU:
             x, y = tren_vong(g)
             dan(img, tru, x, y - 10 + 4 * math.sin(a + g))
@@ -150,7 +155,7 @@ def main():
                 dan(img, to(nut, 0.7 + 0.4 * k), x, y, min(1, k * 1.3))
         # tinh cầu
         for m, ten, gx, gy, d in THIEN_THE:
-            fr = hinh[m][(i * 8 // FPS) % len(hinh[m])]
+            fr = hinh[m][(i // 3) % len(hinh[m])]   # 4 khung/giây (bản gốc 8): chậm lại
             x, y = gx * GX, gy * GY
             if m == 'thien-kiem-tinh':   # quầng xanh và kiếm trấn phía trên như ảnh mẫu
                 for j in range(40):

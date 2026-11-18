@@ -54,7 +54,7 @@ class MaGioi:
         ng, bay, xx, yy = self.ngoai, self.bay, self.xx, self.yy
         # lớp 2: biển ma vân, hai lớp trôi ngang (vân rộng gấp đôi màn nên nối vòng liền)
         for v, toc, lech, nguong in ((self.v1, 1, 0.0, (0.35, 0.55, 0.75)), (self.v2, 2, 0.2, (0.6, 0.75, 0.88))):
-            o = int(i * toc * 0.5) % v.shape[1]
+            o = int(i * toc * 0.25) % v.shape[1]   # trôi rất chậm
             d = np.roll(v, -o, axis=1)[:, :W] * (0.85 + 0.25 * np.clip(self.e - 1, 0, 1))
             for k, n0 in enumerate(nguong):
                 img[ng & (d + 0.06 * (bay - 0.5) > n0)] = MAY[k + (1 if v is self.v2 else 0)]
