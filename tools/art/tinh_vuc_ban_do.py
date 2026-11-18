@@ -4,13 +4,15 @@ chỗ ma khí chọc vào kết giới loé vết nứt. Tinh cầu, mây ma kh�
 (dong/*.webp, hieu-ung/*.png). Code chỉ đặt chỗ, cho trôi / nhấp nháy nhẹ, chấm quỹ đạo, hạt linh khí, nhãn tên.
 Chạy: python3 -I tools/art/tinh_vuc_ban_do.py → tools/art/nguon/ai/tinh-vuc/tinh-do-ngang.mp4 (+ .png)
 """
-import math, os, subprocess
+import math, os, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tinh_vuc_ma_gioi import MaGioi
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 TV = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'nguon/ai/tinh-vuc')
 SW, SH = 1920, 1080
-N, FPS = 96, 12           # 8 giây một vòng
+N, FPS = 144, 12          # 12 giây một vòng
 TAU = 2 * math.pi
 GX, GY = SW / 1671, SH / 941   # đổi toạ độ từ ảnh GPT
 FONT = '/usr/share/fonts/opentype/unifont/unifont_jp.otf'
@@ -90,6 +92,7 @@ def main():
     tru = to(tru, 0.62); tinh_the = to(tinh_the, 1.3); nut = to(nut, 0.95)
     hinh = {m: [to(f, d / f.width * 1.18) for f in doc(f'{TV}/dong/{m}.webp')] for m, _, _, _, d in THIEN_THE}
     nen, sao = nen_sao()
+    mg = MaGioi(SW // 3, SH // 3, VCX / 3, VCY / 3, 200 * VK / 3, 125 * VK / 3, N)
     font, font_to = ImageFont.truetype(FONT, 20), ImageFont.truetype(FONT, 34)
     # Ma khí bên ngoài: (hình, x, y, phóng, lật, pha) — dày bên phải như ảnh mẫu
     MAY = [(may2, 1790, 250, 1.6, False, 0), (may2, 1830, 640, 1.7, False, 1.5), (may2, 1700, 980, 1.4, False, 3),
@@ -106,8 +109,12 @@ def main():
     tam = f'{TV}/tinh-do-ngang-khung'; os.makedirs(tam, exist_ok=True)
     for i in range(N):
         t = i / N; a = TAU * t
-        img = nen.copy(); dr = ImageDraw.Draw(img)
+        ma = mg.khung(i)
+        img = Image.fromarray(np.where(mg.ngoai[..., None], ma, np.array(nen.convert('RGB'))[::3, ::3])).resize((SW, SH), Image.NEAREST).convert('RGBA')
+        dr = ImageDraw.Draw(img)
         for x, y, s in sao:
+            if mg.ngoai[min(y, mg.H - 1), min(x, mg.W - 1)]:
+                continue
             if math.sin(a * 2 + s * 40) > -0.3:
                 c = (255, 244, 216) if s > 0.85 else (150, 140, 200)
                 dr.rectangle((x * 3, y * 3, x * 3 + 2, y * 3 + 2), fill=c)
@@ -129,8 +136,6 @@ def main():
             c = (250, 240, 170) if q < 0.4 else (150, 220, 90)
             dr.rectangle((x, y, x + 2, y + 2), fill=c)
         # ma khí trôi qua lại chậm, tinh thể bồng bềnh
-        for im, x, y, ph in MAY:
-            dan(img, im, x + 14 * math.sin(a + ph), y + 6 * math.sin(a * 2 + ph))
         for x, y, ph in TINH_THE:
             dan(img, tinh_the, x, y + 8 * math.sin(a + ph))
         # vòng kết giới: sáng tối theo nhịp thở
