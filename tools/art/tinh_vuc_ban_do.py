@@ -116,6 +116,10 @@ def nhan(dr, x, y, ten, font, to_=False):
 def main():
     HU = f'{TV}/hieu-ung'
     vong = to(doc(f'{HU}/vong.png')[0], VK)
+    # 02:52 "thu mỏng vòng": gọt mặt nạ trong suốt (lọc min) cho dải sét mảnh lại, giữ nguyên màu điểm ảnh còn lại
+    from PIL import ImageFilter
+    am = vong.split()[3].filter(ImageFilter.MinFilter(7))
+    vong.putalpha(am)
     vs = np.array(vong).astype(float)                       # bản sáng: kéo về vàng trắng, giữ nét
     vs[..., :3] = np.clip(vs[..., :3] * 0.55 + np.array([235, 255, 190]) * 0.45, 0, 255)
     vong_sang = Image.fromarray(vs.astype(np.uint8))
@@ -191,7 +195,7 @@ def main():
             dan(img, tinh_the, x, y + 8 * math.sin(a + ph))
         # vòng kết giới: sáng tối theo nhịp thở
         # pháp trận hộ tông: bình thường tối dần, bị đánh thì sáng lên, đánh càng dồn càng sáng, rồi mờ dần (02:47)
-        E = sum(0.6 * math.exp(-((i - k0) % N) / 14) for k0, _ in CHOP) + sum(0.35 * math.exp(-((i - k0) % N) / 14) for k0, _, _ in SET)
+        E = sum(0.6 * math.exp(-((i - k0) % N) / 6) for k0, _ in CHOP) + sum(0.35 * math.exp(-((i - k0) % N) / 6) for k0, _, _ in SET)
         dan(img, vong, VCX, VCY, 0.38 + 0.3 * min(1, E) + 0.04 * math.sin(a * 3))
         if E > 0.04:
             dan(img, vong_sang, VCX, VCY, min(1.0, E * 0.8))
