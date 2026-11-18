@@ -3,6 +3,7 @@
 // Luật ở src/game/dun-run.js; mở bằng game.openDunResult({ id, L, loot, inside, swept, party }).
 import { el, icon } from './bag-detail.js';
 import { gemIcon } from './gem-icon.js';
+import { spriteIcon } from './sprite-icon.js';
 import { gemInfo, rarityOf, itemName } from '../game/items.js';
 import { quality } from '../game/tiers.js';
 import { matInfo } from '../game/cave.js';
@@ -20,8 +21,10 @@ export function lootCell(game, x) {
   else {
     const m = x.kind === 'coins' ? { name: T.coins, color: '#f2c94c' } : x.kind === 'tn' ? { name: data.topup.name, color: '#7fe0ff' } : x.kind === 'name' ? { name: x.name, color: x.color }
       : x.kind === 'pill' ? data.cave.pills[x.id] : matInfo(data, x.id);
-    const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color;
-    c.append(dot); name = m?.name || x.id; color = m?.color || color;
+    const S = data.art.sprites, key = x.kind === 'coins' ? 'ui.ic-linh-thach' : (x.kind === 'pill' || x.kind === 'mat') && S['ui.vk-' + x.id] ? 'ui.vk-' + x.id : null;
+    if (key) { const box = el('div', 'dr-gem'); box.append(spriteIcon(game, key, 0, 40, 'dr-ico')); c.append(box); }   // đan, nguyên liệu, Linh Thạch: hình thật như trong túi (chủ dự án 18/11/2026 09:47)
+    else { const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color; c.append(dot); }
+    name = m?.name || x.id; color = m?.color || color;
   }
   c.style.borderColor = color; c.title = name;
   c.append(el('small', null, name));

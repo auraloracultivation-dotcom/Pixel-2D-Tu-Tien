@@ -628,3 +628,4 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
   body::after { content: "Xoay điện thoại dọc để chơi"; position: fixed; inset: 0; z-index: 2147483647; display: flex; align-items: center;
     justify-content: center; padding: 24px; background: #0d0a16; color: #f3e9ff; font-size: 20px; font-weight: 700; text-align: center; }
 }
+.dr-gem canvas.dr-ico { max-width: 40px; max-height: 40px; object-fit: contain; }
