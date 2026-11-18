@@ -136,3 +136,9 @@ html body.hud-bang #hud .hud-btns > button.tron#hud-home::before { position: abs
 html body.hud-bang #hud .hud-btns > button.tron#hud-home::after { left: 0 !important; right: 0 !important; bottom: 8px !important; text-align: center !important; line-height: 8px !important; transform: none !important; font: 700 7.5px/1 system-ui, sans-serif !important; color: #fff3d6 !important;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
 body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden]), #dialog:not([hidden])) #hud .hud-btns > button.tron#hud-home { visibility: hidden; }
+
+/* chấm báo trên ô chức năng: một kiểu cho mọi ô (chấm 8 điểm, đỏ viền tối, sát góc phải trên trong ô) (19/11/2026 01:37 chủ dự án: Menu chấm cam tròn, Thư chấm đỏ vẽ kiểu khác, không giống nhau) */
+html body.hud-bang #hud .hud-btns > button.tron > i { top: 0 !important; right: 0 !important; width: 8px !important; height: 8px !important; box-sizing: border-box;
+  border-radius: 50% !important; background: #e0484a !important; border: 1.5px solid #1b1830 !important; box-shadow: none !important; }
+html body.hud-bang #hud .hud-btns > button.tron#hud-thu.co { background: none !important; }   /* chấm vẽ bằng nền cũ nằm dưới biểu tượng: thay bằng chấm <i> (src/ui/hop-thu.js) */
+html body.hud-bang #hud .hud-btns > button.tron > i[hidden] { display: none !important; }
