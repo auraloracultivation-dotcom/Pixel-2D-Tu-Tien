@@ -6,6 +6,7 @@
 import { pxOn, pxAdd, pxSpray } from './pfx.js';
 import { pbSfx, warmPbSfx } from './skill-sfx.js';
 import { pbWorn } from './phap-bao.js';
+import { heroAt } from './tu-linh.js';   // chỗ người đang ở (nhấc theo thú cưỡi / phi kiếm)
 
 const TAU = Math.PI * 2, rnd = (a, b) => a + Math.random() * (b - a);
 const cfg = game => game.data.vfx.pb;
@@ -37,7 +38,7 @@ export function pbSeal(e, vis = 1) {
 const HOLO = { m: 35.2, ax: Math.cos(-40 * Math.PI / 180), ay: Math.sin(-40 * Math.PI / 180), low: 56 };
 export function pbGourd(game, e) {
   const p = game.player, sd = (p.lookX || Math.sign(p.face?.x || 1) || 1) < 0 ? -1 : 1, q = pbBig(e) ? 1.5 : 1;
-  const x = p.x + sd * 2, y = p.y - 26 - HOLO.low * 0.5 * q + Math.sin((game.time || 0) * 5) * 1.5;
+  const o = heroAt(p), x = o.x + sd * 2, y = o.y + 4 - 26 - HOLO.low * 0.5 * q + Math.sin((game.time || 0) * 5) * 1.5;
   return [x, y, x + sd * HOLO.m * q * HOLO.ax * 0.5, y + HOLO.m * q * HOLO.ay * 0.5, pbKi(game, e, 'holo'), sd < 0];
 }
 
@@ -152,9 +153,9 @@ function tick(game, e, dt, low) {
       break;
     }
     case 'shield':
-      if (!e.done && p.shield < (X.sh ?? p.shield)) { X.hit = e.t; pxSpray(game, P, p.x, p.y - 10, 6, 90); }   // khiên vừa đỡ một đòn: gợn sáng + hạt tóe
+      if (!e.done && p.shield < (X.sh ?? p.shield)) { X.hit = e.t; { const o = heroAt(p); pxSpray(game, P, o.x, o.y - 6, 6, 90); } }   // khiên vừa đỡ một đòn: gợn sáng + hạt tóe
       X.sh = p.shield;
-      if (!e.done) for (X.acc += dt * 5; X.acc >= 1; X.acc--) { const a = rnd(0, TAU); part(game, P, p.x + Math.cos(a) * 16 * vis, p.y - 12 + Math.sin(a) * 18 * vis, 0, -rnd(6, 14), rnd(0.4, 0.7), { g: 0, s: 1 }); }
+      if (!e.done) for (X.acc += dt * 5; X.acc >= 1; X.acc--) { const a = rnd(0, TAU), o = heroAt(p); part(game, P, o.x + Math.cos(a) * 16 * vis, o.y - 8 + Math.sin(a) * 18 * vis, 0, -rnd(6, 14), rnd(0.4, 0.7), { g: 0, s: 1 }); }
       break;
   }
 }
@@ -201,7 +202,7 @@ export function pbLights(game, out, rgbOf) {
     else if (e.kind === 'ring' && e.t >= 0) out.push({ x: e.x, y: e.y, r: N.r * (0.4 + 0.7 * k), c, a: 1 - k });
     else if (e.kind === 'suck') { const [, , mx, my] = pbGourd(game, e); out.push({ x: mx, y: my, r: 44 * v, c, a: 0.5 + 0.5 * k }); }
     else if (e.kind === 'wave') out.push({ x: e.x + Math.cos(e.ang) * N.range * 0.5, y: e.y + Math.sin(e.ang) * N.range * 0.5, r: N.range * 0.6, c, a: 1 - 0.5 * k });
-    else if (e.kind === 'shield' && !e.done) out.push({ x: game.player.x, y: game.player.y - 10, r: 34 * v, c, a: 0.6 });
+    else if (e.kind === 'shield' && !e.done) out.push({ ...heroAt(game.player, -6), r: 34 * v, c, a: 0.6 });
     else if (e.kind === 'orbit') out.push({ x: e.x, y: e.y, r: N.orbit.rad * 1.5, c, a: 0.7 });
   }
 }

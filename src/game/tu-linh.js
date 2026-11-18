@@ -5,6 +5,10 @@
 import { addFx } from './combat.js';
 import { pbx } from './phap-bao-hit.js';
 
+// Chỗ người đang ở trên màn: đang cưỡi / bay thì nhấc theo lưng thú, phi kiếm (p.lift, p.seatX do src/render/draw.js đặt mỗi khung).
+// Chủ dự án 18/11/2026 10:19: lúc cưỡi phải tụ lực ở giữa nhân vật, không ở bụng con thú. Pháp bảo cũng bắn ra từ chỗ này (phap-bao-run.js).
+export const heroAt = (p, dy = 0) => ({ x: p.x + (p.riding ? p.seatX || 0 : 0), y: p.y - 4 + dy - (p.riding || p.flying ? p.lift || 0 : 0) });
+
 export const tuLinhCfg = game => game.data['phap-bao'].tu_linh || {};
 
 // Bắt đầu tụ; fire(ang) chạy khi tụ xong
@@ -16,13 +20,13 @@ export function startTuLinh(game, color, aimFn, fire) {
   addFx(game, { type: 'tu-linh', x: p.x, y: p.y, life: s, color, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
   game.sfx?.(C.sfx || 'chime', 0.35);
   pbx(game).list.push({ kind: 'wait', t: 0, life: s, then: () => {
-    addFx(game, { type: 'ring', x: p.x, y: p.y - 6, r: C.burst_r || 16, color, life: 0.18, fill: true });   // chớp nhỏ lúc bắn
+    const o = heroAt(p); addFx(game, { type: 'ring', x: o.x, y: o.y - 2, r: C.burst_r || 16, color, life: 0.18, fill: true });   // chớp nhỏ lúc bắn
     fire(aimFn());
   } });
 }
 
 function drawTuLinh(ctx, game, f, k, C, seed) {
-  const p = game.player, x = Math.round(p.x), y = Math.round(p.y - 8), R0 = C.r || 26, n = C.motes || 12;
+  const p = game.player, o = heroAt(p), x = Math.round(o.x), y = Math.round(o.y - 4), R0 = C.r || 26, n = C.motes || 12;
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   ctx.globalAlpha = 0.25 + 0.5 * k; ctx.strokeStyle = f.color; ctx.lineWidth = 2;   // vòng tụ co dần về người
   ctx.beginPath(); ctx.ellipse(x, y + 6, R0 * (1 - 0.7 * k), R0 * 0.45 * (1 - 0.7 * k), 0, 0, Math.PI * 2); ctx.stroke();

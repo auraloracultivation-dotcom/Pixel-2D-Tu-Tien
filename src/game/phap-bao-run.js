@@ -10,7 +10,7 @@ import { buildCast } from './phap-bao-build.js';
 import { pbHit, pbx, nearest, pbStatusTick } from './phap-bao-hit.js';
 import { pbPxCast, updatePbPx } from './pb-px.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
 import { pbSfx } from './skill-sfx.js';
-import { startTuLinh } from './tu-linh.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
+import { startTuLinh, heroAt } from './tu-linh.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
 
 const SFX = { 'phi-kiem': 'metal_cast', 'linh-chau': 'water_cast', 'bao-phien': 'wind_cast', 'dai-an': 'earth_cast', 'ho-thuan': 'shield', 'dong-chung': 'chime', 'tran-ky': 'earth_cast', 'ho-lo': 'water_cast' };
 
@@ -60,13 +60,13 @@ export function pbCast(game, cast, ang) {
     return;
   }
   if (T.pre?.kind === 'suck') { pbx(game).list.push({ kind: 'suck', cast, t: 0, life: T.pre.dur }); return; }
-  fire(game, cast, cast.root, { x: p.x, y: p.y - 4, ang, src: 'player' });
+  fire(game, cast, cast.root, { ...heroAt(p), ang, src: 'player' });
 }
 
 // Phát một nút: Liên Phát lặp lại sau gap giây
 export function fire(game, cast, node, at) {
   emit(game, cast, node, at);
-  for (let r = 1; r <= (node.rep || 0); r++) pbx(game).list.push({ kind: 'wait', t: 0, life: node.gap * r, then: () => emit(game, cast, node, at.src === 'player' ? { ...at, x: game.player.x, y: game.player.y - 4 } : at) });
+  for (let r = 1; r <= (node.rep || 0); r++) pbx(game).list.push({ kind: 'wait', t: 0, life: node.gap * r, then: () => emit(game, cast, node, at.src === 'player' ? { ...at, ...heroAt(game.player) } : at) });
 }
 
 // Chỗ đặt đòn vùng: quái gần nhất trong tầm (Truy Kích: luôn đặt lên quái), không có thì phía trước
@@ -115,7 +115,7 @@ export function updatePhapBao(game, dt) {
   const S = pbx(game), p = game.player, now = game.time || 0;
   game.pbFire = (cast, node, at) => fire(game, cast, node, at);
   game.pbHurt = from => pbHurt(game, from);
-  game.pbRefire = (cast, m) => fire(game, cast, cast.root, { x: p.x, y: p.y - 4, ang: Math.atan2(m.y - p.y, m.x - p.x), src: 'player' });
+  game.pbRefire = (cast, m) => fire(game, cast, cast.root, { ...heroAt(p), ang: Math.atan2(m.y - p.y, m.x - p.x), src: 'player' });
   p.pbDr = 0;
   pbStatusTick(game);
   for (const e of S.list) {
@@ -125,7 +125,7 @@ export function updatePhapBao(game, dt) {
       case 'wait': if (e.t >= e.life && !e.done) { e.done = true; e.then(); } break;
       case 'shot': stepShot(game, e, dt); break;
       case 'wave': {
-        if (e.follow) { e.x = p.x; e.y = p.y - 4; }
+        if (e.follow) { const o = heroAt(p); e.x = o.x; e.y = o.y; }
         const k = Math.min(1, e.t / e.life), R = N.range * (0.35 + 0.65 * k), half = N.arc * Math.PI / 360;
         for (const m of game.mobs) {
           if (m.dead || e.hit.has(m)) continue;
@@ -157,7 +157,7 @@ export function updatePhapBao(game, dt) {
         }
         break;
       case 'orbit': {
-        if (e.follow) { e.x = p.x; e.y = p.y - 4; }
+        if (e.follow) { const o = heroAt(p); e.x = o.x; e.y = o.y; }
         const O = N.orbit;
         for (let i = 0; i < O.n; i++) {
           const a = e.t * 4 + i / O.n * Math.PI * 2, ox = e.x + Math.cos(a) * O.rad, oy = e.y + Math.sin(a) * O.rad * 0.6;
@@ -174,7 +174,7 @@ export function updatePhapBao(game, dt) {
         e.last = p.shield;
         if ((p.shield <= 0 || e.t >= e.life) && !e.done) {
           e.done = true; e.t = e.life; pbSfx(game, e.cast.it.type, 'r');
-          if (e.cast.root.orbit) fire(game, e.cast, e.cast.root, { x: p.x, y: p.y - 4, ang: e.cast.ang, src: 'player' });
+          if (e.cast.root.orbit) fire(game, e.cast, e.cast.root, { ...heroAt(p), ang: e.cast.ang, src: 'player' });
           else blast(game, e.cast, e.cast.root, p.x, p.y, { flat: e.got * e.cast.T.pre.absorb });
           if (e.cast.root.rep) for (let r = 1; r <= e.cast.root.rep; r++) S.list.push({ kind: 'wait', t: 0, life: e.cast.root.gap * r, then: () => blast(game, e.cast, e.cast.root, p.x, p.y, {}) });
         }
@@ -191,7 +191,7 @@ export function updatePhapBao(game, dt) {
           if (m.def?.ai !== 'boss' && !m.remote) game.map.move(m, (p.x - m.x) / d * P.pull * dt, (p.y - m.y) / d * P.pull * dt);
         }
         if (n && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + p.maxHp * P.heal * n * dt / P.dur);
-        if (e.t >= e.life && !e.done) { e.done = true; pbSfx(game, e.cast.it.type, 'r', 'wind_cast'); fire(game, e.cast, e.cast.root, { x: p.x, y: p.y - 4, ang: Math.atan2(p.face.y, p.face.x), src: 'player' }); }
+        if (e.t >= e.life && !e.done) { e.done = true; pbSfx(game, e.cast.it.type, 'r', 'wind_cast'); fire(game, e.cast, e.cast.root, { ...heroAt(p), ang: Math.atan2(p.face.y, p.face.x), src: 'player' }); }
         break;
       }
     }
@@ -238,7 +238,7 @@ export function pbHurt(game, from) {
     const P = c.procs['phan-chan'];
     if (now < (c.phanT || 0)) continue;
     c.phanT = now + P.cd;
-    fire(game, c, c.root.kind === 'blast' ? { ...c.root, r: c.root.r * 0.7 } : c.root, { x: p.x, y: p.y - 4, ang: Math.atan2(from.y - p.y, from.x - p.x), src: 'player' });
+    fire(game, c, c.root.kind === 'blast' ? { ...c.root, r: c.root.r * 0.7 } : c.root, { ...heroAt(p), ang: Math.atan2(from.y - p.y, from.x - p.x), src: 'player' });
     break;
   }
 }
