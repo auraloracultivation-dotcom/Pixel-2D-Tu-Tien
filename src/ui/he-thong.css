@@ -218,3 +218,13 @@ body #toast { z-index: 85; }
 .ht-bh span { color: #dff6ff; }
 .ht-slot .ht-bac { font-size: 12px; font-weight: 700; text-shadow: 0 1px 0 #0a1830; }
 .ht-bac-h { margin: 8px 0 3px; font-size: 12px; font-weight: 700; text-shadow: 0 1px 0 #0a1830; }
+/* Khoá Hệ Thống (18/11/2026, he-thong-khoa.js): nút khoá góc dưới phải, dấu ! trên đầu khi khoá, chấm đỏ góc trên phải */
+.ht-icon { overflow: visible; }
+.ht-lock { position: absolute; right: -6px; bottom: -4px; width: 18px; height: 18px; border-radius: 50%; background: rgba(20, 16, 40, .85); border: 1px solid #c9b6ff;
+  font-size: 10px; line-height: 16px; text-align: center; color: #fff; z-index: 2; touch-action: manipulation; }
+.ht-lock.on { background: #6a3a14; border-color: #ffd27a; }
+.ht-bang { position: absolute; left: 50%; top: -14px; transform: translateX(-50%); font: 900 15px/1 system-ui, sans-serif; color: #ffd23a;
+  -webkit-text-stroke: 1px #3a1a00; text-shadow: 0 1px 0 #3a1a00; animation: ht-bang 1s ease-in-out infinite; pointer-events: none; }
+@keyframes ht-bang { 50% { transform: translate(-50%, -3px); } }
+.ht-cham { position: absolute; right: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #ff3a3a; border: 1.5px solid #fff; box-shadow: 0 0 4px #ff3a3a; pointer-events: none; }
+.ht-bang[hidden], .ht-cham[hidden] { display: none; }
