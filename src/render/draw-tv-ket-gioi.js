@@ -66,7 +66,7 @@ function set(ctx, v, h, f, P) {
 }
 
 // Kết giới, trụ kiếm, đòn công kích. Trả về độ sáng hiện tại (0..1+) để chỗ khác dùng nếu cần
-export function drawKetGioi(ctx, art, T, v, t, P) {
+export function drawKetGioi(ctx, art, T, v, t, P, truK = 0.75) {
   lenLich(T, t);
   const D = T.danh, V = T.vong;
   let E = 0;
@@ -80,7 +80,7 @@ export function drawKetGioi(ctx, art, T, v, t, P) {
     ctx.globalAlpha = 1;
   }
   const tru = sheet(art, 'tv.tru'), kt = v.rx / 756;
-  for (let i = 0; i < T.tru; i++) { const [x, y] = on(v, i * TAU / T.tru); put(ctx, tru, x, y - 6 * kt + 3 * kt * Math.sin(t * 0.6 + i), kt * 0.75); }
+  for (let i = 0; i < T.tru; i++) { const [x, y] = on(v, i * TAU / T.tru); put(ctx, tru, x, y - 6 * kt + 3 * kt * Math.sin(t * 0.6 + i), kt * truK); }
   const nut = sheet(art, 'tv.nut');
   for (const h of hits) {
     const f = (t - h.t) * 12;

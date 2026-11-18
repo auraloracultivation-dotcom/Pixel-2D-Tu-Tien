@@ -2,6 +2,7 @@
 // "Tinh hệ": tinh đồ Thiên Kiếm Tinh Hệ vẽ bằng canvas; chạm thiên thể để xem, nơi đã tới hoặc đã mở đường bay thì bay tới (ngoài bí cảnh).
 import { bodiesOf, dangerOf, whyNot, flyOpen } from '../game/starmap.js';
 import { drawStarmap } from '../render/draw-starmap.js';
+import { drawNgang } from '../render/draw-tv-ngang.js';   // giống video tinh-do-ngang (19/11/2026)
 import { panZoom } from './pan-zoom.js';
 import { weekLine } from '../game/demon.js';
 import { drawPlanet, tapPlanet } from './planet-map.js';
@@ -45,7 +46,7 @@ export function createWorldMap(game) {
     if ($('world').hidden) { raf = 0; return; }
     const { w, h } = fit();
     if (mode === 'here') { lay = drawPlanet(ctx, w, h, (performance.now() - t0) / 1000, game); raf = requestAnimationFrame(frame); return; }
-    pts = drawStarmap(ctx, w, h, sm, bodies, {
+    pts = (sm.tv?.ngang ? drawNgang : drawStarmap)(ctx, w, h, sm, bodies, {   // dọc lẫn ngang đều theo video 2 (04:21)
       min: Date.now() / 60000, t: (performance.now() - t0) / 1000, realm: game.save.realm || 0,
       here: game.map.id, sel: sel?.id, seen, hint, view, art: data.art.sprites,
       mang: data['thien-mang']?.sky && { spr: data.art.sprites['boss.mang'], sky: data['thien-mang'].sky, name: data['thien-mang'].name },   // boss lượn ngoài kết giới

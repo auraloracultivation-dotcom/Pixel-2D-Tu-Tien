@@ -14,7 +14,7 @@ const hue = {};   // ảnh khai hoang đã lệch sắc / lật, theo mã tinh c
 
 function hash(i) { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
 function hashStr(s) { let h = 7; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) % 1000003; return h; }
-const tongMau = b => `hsl(${hashStr(b.desc || b.name) % 360},70%,62%)`;   // màu cờ / viền tên theo tông (chưa có màu tông trên máy chủ)
+export const tongMau = b => `hsl(${hashStr(b.desc || b.name) % 360},70%,62%)`;   // màu cờ / viền tên theo tông (chưa có màu tông trên máy chủ)
 const px = (ctx, c, x, y, w = 1, h = 1) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); };
 
 // Khung nhìn: elip kết giới (tỉ lệ tv.tilt) vừa khung, chừa chỗ cho ma giới
@@ -57,7 +57,7 @@ function khImage(spr, im, b) {
 }
 
 // Vẽ hình thiên thể: đường kính D trên màn; khung theo giờ (8 khung/giây như SpriteCook, chậm lại còn 4)
-function sprite(ctx, art, b, x, y, D, t, dim) {
+export function sprite(ctx, art, b, x, y, D, t, dim) {
   const s = art[b.kh ? 'tv.kh.' + (b.ground || 'co') : b.parent ? 'tv.trang.' + b.map : 'tv.' + (b.sun ? 'sun' : b.id)];
   const im = s && spriteImage(s);
   if (!im) return false;
@@ -69,7 +69,7 @@ function sprite(ctx, art, b, x, y, D, t, dim) {
 }
 
 // Trang trí khai hoang: vành sáng (cấp 3+), quầng (cấp 5), cờ tông môn
-function khDeco(ctx, b, x, y, D, t, back) {
+export function khDeco(ctx, b, x, y, D, t, back) {
   const cap = b.cap || 1, ph = hashStr(b.map) % 100 / 16;
   if (b.trong) return;
   const P = Math.max(1, Math.round(D / 40));
@@ -91,20 +91,20 @@ function orbitDots(ctx, v, r) {
 }
 
 // Bảng tên viền vàng như ảnh mẫu; khai hoang viền theo màu tông
-function plaque(ctx, l, L) {
-  ctx.font = '10px "Unifont VN", system-ui';
-  const w = ctx.measureText(l.text).width + 8, x0 = Math.round(l.x - w / 2), y0 = Math.round(l.y);
-  ctx.fillStyle = L.fill; ctx.fillRect(x0, y0, w, 14);
-  ctx.strokeStyle = l.edge || L.edge; ctx.lineWidth = 1.5; ctx.strokeRect(x0 + 0.75, y0 + 0.75, w - 1.5, 12.5);
-  ctx.fillStyle = l.color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(l.text, l.x, y0 + 7.5);
+function plaque(ctx, l, L, px) {
+  ctx.font = `${px}px "Unifont VN", system-ui`;
+  const hh = Math.round(px * 1.4), w = ctx.measureText(l.text).width + px * 0.8, x0 = Math.round(l.x - w / 2), y0 = Math.round(l.y);
+  ctx.fillStyle = L.fill; ctx.fillRect(x0, y0, w, hh);
+  ctx.strokeStyle = l.edge || L.edge; ctx.lineWidth = Math.max(1, px * 0.15); ctx.strokeRect(x0 + 0.75, y0 + 0.75, w - 1.5, hh - 1.5);
+  ctx.fillStyle = l.color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(l.text, l.x, y0 + hh / 2 + 0.5);
 }
-function placeLabels(ctx, list, L) {
-  ctx.font = '10px "Unifont VN", system-ui';
+export function placeLabels(ctx, list, L, px = 10) {
+  ctx.font = `${px}px "Unifont VN", system-ui`;
   const boxes = [];
   for (const l of list.sort((a, b) => a.pri - b.pri)) {
-    const w = ctx.measureText(l.text).width + 12, bx = { x0: l.x - w / 2, x1: l.x + w / 2, y0: l.y, y1: l.y + 16 };
+    const w = ctx.measureText(l.text).width + px * 1.2, bx = { x0: l.x - w / 2, x1: l.x + w / 2, y0: l.y, y1: l.y + px * 1.6 };
     if (!l.must && boxes.some(o => bx.x0 < o.x1 && bx.x1 > o.x0 && bx.y0 < o.y1 && bx.y1 > o.y0)) continue;
-    boxes.push(bx); plaque(ctx, l, L);
+    boxes.push(bx); plaque(ctx, l, L, px);
   }
 }
 
