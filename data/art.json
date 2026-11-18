@@ -45152,7 +45152,7 @@
     148
    ],
    "note": "SpriteCook: liễu rủ ven nước (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.bui-lau-sc": {
    "file": "assets/art/tk-bui-lau-sc.png",
@@ -45165,7 +45165,7 @@
     89
    ],
    "note": "SpriteCook: bụi lau (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.bui-co-nen-sc": {
    "file": "assets/art/tk-bui-co-nen-sc.png",
@@ -45178,7 +45178,7 @@
     78
    ],
    "note": "SpriteCook: cỏ nến (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.sen-la-sc": {
    "file": "assets/art/tk-sen-la-sc.png",
@@ -45191,7 +45191,7 @@
     63
    ],
    "note": "SpriteCook: lá sen, một bông sen hồng (nổi trên nước) (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.da-reu-lon-sc": {
    "file": "assets/art/tk-da-reu-lon-sc.png",
@@ -45204,7 +45204,7 @@
     72
    ],
    "note": "SpriteCook: đá rêu lớn (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.soi-reu-sc": {
    "file": "assets/art/tk-soi-reu-sc.png",
@@ -45217,7 +45217,7 @@
     37
    ],
    "note": "SpriteCook: hai hòn đá rêu nhỏ (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "scale": 0.5
   },
   "tk.cau-ben-sc": {
    "file": "assets/art/tk-cau-ben-sc.png",
@@ -45229,8 +45229,8 @@
     48,
     82
    ],
-   "note": "SpriteCook: bến gỗ câu cá (đi lên được) (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "note": "SpriteCook: bến gỗ câu cá vẽ chéo góc (bản mới dùng tk.cau-tau-*-sc) (tools/art/sc_tk.py)",
+   "scale": 0.5
   },
   "tk.cau-da-vom-sc": {
    "file": "assets/art/tk-cau-da-vom-sc.png",
@@ -45242,12 +45242,12 @@
     79,
     115
    ],
-   "note": "SpriteCook: cầu đá vòm (tools/art/sc_tk.py)",
-   "scale": 0.5333
+   "note": "SpriteCook: cầu đá vòm vẽ chéo góc (không dùng; bản mới là tk.cau-da-sc) (tools/art/sc_tk.py)",
+   "scale": 0.5
   },
   "nen.tk-san": {
    "file": "assets/art/nen-tk-san.png",
-   "v": "81e6e4e9",
+   "v": "b6342021",
    "w": 32,
    "h": 32,
    "frames": 4,
@@ -45256,11 +45256,11 @@
     0,
     0
    ],
-   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá, viền cỏ: TẠM, dáng mép lấy từ bộ đường đất, mặt đá vẽ bằng code (tools/art/sc_tk.py)"
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá phiến lớn, mép trong suốt (hạ sáng một chút cho đỡ chói giữa nền cỏ) (tools/art/sc_tk.py)"
   },
   "nen.tk-gach": {
    "file": "assets/art/nen-tk-gach.png",
-   "v": "9aba34dc",
+   "v": "962ab98d",
    "w": 32,
    "h": 32,
    "frames": 4,
@@ -45269,7 +45269,1570 @@
     0,
     0
    ],
-   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch lọt trong sân đá: TẠM như trên, không viền (tools/art/sc_tk.py)"
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch xanh xám, mép trong suốt (đã làm sáng) (tools/art/sc_tk.py)"
+  },
+  "nen.tk-nui": {
+   "file": "assets/art/nen-tk-nui.png",
+   "v": "a799765c",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi, mép trong suốt (tools/art/sc_tk.py)"
+  },
+  "nen.tk-mep": {
+   "file": "assets/art/nen-tk-mep.png",
+   "v": "ba506e31",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu: cỏ, viền đất đá, rễ rủ ở mép nam (tools/art/sc_tk.py)"
+  },
+  "nen.tk-vach": {
+   "file": "assets/art/nen-tk-vach.png",
+   "v": "c6c4ec44",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook: dải vách đá dưới đáy tinh cầu, dán uốn theo mép nam, lặp ngang kiểu soi gương (src/world/draw-nen.js)"
+  },
+  "nen.tk-hoa": {
+   "file": "assets/art/nen-tk-hoa.png",
+   "v": "f85d9e05",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 cụm hoa cỏ nhỏ in vào nền cỏ (hoa đỏ, lam, vàng trắng, nấm, sỏi), src/world/draw-nen.js"
+  },
+  "tk.nui-1-sc": {
+   "file": "assets/art/tk-nui-1-sc.png",
+   "v": "825ee381",
+   "w": 116,
+   "h": 184,
+   "frames": 1,
+   "anchor": [
+    58,
+    182
+   ],
+   "note": "SpriteCook: núi kiếm một ngọn (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nui-2-sc": {
+   "file": "assets/art/tk-nui-2-sc.png",
+   "v": "a32d8be3",
+   "w": 156,
+   "h": 182,
+   "frames": 1,
+   "anchor": [
+    78,
+    180
+   ],
+   "note": "SpriteCook: núi kiếm hai ngọn (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nui-3-sc": {
+   "file": "assets/art/tk-nui-3-sc.png",
+   "v": "0bd1fd59",
+   "w": 190,
+   "h": 180,
+   "frames": 1,
+   "anchor": [
+    95,
+    178
+   ],
+   "note": "SpriteCook: núi kiếm lớn nhiều ngọn (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nui-4-sc": {
+   "file": "assets/art/tk-nui-4-sc.png",
+   "v": "24ccdfbe",
+   "w": 135,
+   "h": 179,
+   "frames": 1,
+   "anchor": [
+    67,
+    177
+   ],
+   "note": "SpriteCook: núi kiếm ba mũi nhọn (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.thac-nho-sc": {
+   "file": "assets/art/tk-thac-nho-sc.png",
+   "v": "6d778f65",
+   "w": 79,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    39,
+    95
+   ],
+   "note": "SpriteCook: thác nhỏ trên vách đá (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "glints": [
+    [
+     26,
+     12
+    ],
+    [
+     30,
+     16
+    ],
+    [
+     47,
+     23
+    ],
+    [
+     37,
+     30
+    ],
+    [
+     46,
+     35
+    ],
+    [
+     50,
+     42
+    ],
+    [
+     45,
+     55
+    ],
+    [
+     47,
+     62
+    ],
+    [
+     43,
+     69
+    ],
+    [
+     46,
+     82
+    ]
+   ]
+  },
+  "tk.nui-doi-1-sc": {
+   "file": "assets/art/tk-nui-doi-1-sc.png",
+   "v": "147461d1",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "note": "SpriteCook: gờ đá thấp (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nui-doi-2-sc": {
+   "file": "assets/art/tk-nui-doi-2-sc.png",
+   "v": "e4dbae02",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "note": "SpriteCook: đồi đá phủ tuyết có hai gốc thông (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-nui-1-sc": {
+   "file": "assets/art/tk-da-nui-1-sc.png",
+   "v": "d28e784f",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "note": "SpriteCook: mỏm đá rêu (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-nui-2-sc": {
+   "file": "assets/art/tk-da-nui-2-sc.png",
+   "v": "6d0d4004",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "note": "SpriteCook: đống đá tảng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-nui-3-sc": {
+   "file": "assets/art/tk-da-nui-3-sc.png",
+   "v": "cd63a824",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "note": "SpriteCook: đoạn vách đá có cỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-nui-4-sc": {
+   "file": "assets/art/tk-da-nui-4-sc.png",
+   "v": "5472c779",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "note": "SpriteCook: mũi đá nhọn hình kiếm (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.cau-da-sc": {
+   "file": "assets/art/tk-cau-da-sc.png",
+   "v": "5516cf41",
+   "w": 273,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    136,
+    80
+   ],
+   "note": "SpriteCook: cầu đá ba vòm nhìn thẳng, mặt cầu đi được (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.cau-go-sc": {
+   "file": "assets/art/tk-cau-go-sc.png",
+   "v": "780f767c",
+   "w": 269,
+   "h": 88,
+   "frames": 1,
+   "anchor": [
+    134,
+    80
+   ],
+   "note": "SpriteCook: cầu ván dây thừng nhìn thẳng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.cau-tau-1-sc": {
+   "file": "assets/art/tk-cau-tau-1-sc.png",
+   "v": "4791e456",
+   "w": 86,
+   "h": 174,
+   "frames": 1,
+   "anchor": [
+    43,
+    172
+   ],
+   "note": "SpriteCook: bến gỗ dài chạy xuống nước (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.cau-tau-2-sc": {
+   "file": "assets/art/tk-cau-tau-2-sc.png",
+   "v": "5a5ade34",
+   "w": 84,
+   "h": 146,
+   "frames": 1,
+   "anchor": [
+    42,
+    144
+   ],
+   "note": "SpriteCook: bến gỗ sẫm chạy xuống nước (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.thuyen-1-sc": {
+   "file": "assets/art/tk-thuyen-1-sc.png",
+   "v": "68a28d89",
+   "w": 134,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    67,
+    75
+   ],
+   "note": "SpriteCook: thuyền gỗ có mái chèo (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.thuyen-2-sc": {
+   "file": "assets/art/tk-thuyen-2-sc.png",
+   "v": "1f0bf517",
+   "w": 90,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    45,
+    48
+   ],
+   "note": "SpriteCook: thuyền gỗ nhỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.cau-da-buoc-sc": {
+   "file": "assets/art/tk-cau-da-buoc-sc.png",
+   "v": "67f46808",
+   "w": 148,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    74,
+    30
+   ],
+   "note": "SpriteCook: ba phiến đá bước qua suối (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-lon-sc": {
+   "file": "assets/art/tk-da-lon-sc.png",
+   "v": "acefda2e",
+   "w": 136,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    68,
+    115
+   ],
+   "note": "SpriteCook: đá tảng lớn phủ rêu (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-vua-sc": {
+   "file": "assets/art/tk-da-vua-sc.png",
+   "v": "3f35d4d2",
+   "w": 67,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    33,
+    51
+   ],
+   "note": "SpriteCook: đá tảng vừa (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-nho-sc": {
+   "file": "assets/art/tk-da-nho-sc.png",
+   "v": "03f08cc4",
+   "w": 39,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    19,
+    29
+   ],
+   "note": "SpriteCook: đá nhỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-cum-sc": {
+   "file": "assets/art/tk-da-cum-sc.png",
+   "v": "6c1da580",
+   "w": 72,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    36,
+    54
+   ],
+   "note": "SpriteCook: cụm đá rêu (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-dung-sc": {
+   "file": "assets/art/tk-da-dung-sc.png",
+   "v": "1727af5a",
+   "w": 69,
+   "h": 122,
+   "frames": 1,
+   "anchor": [
+    34,
+    120
+   ],
+   "note": "SpriteCook: đá dựng phủ dây leo (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.da-phien-sc": {
+   "file": "assets/art/tk-da-phien-sc.png",
+   "v": "e6f7d268",
+   "w": 93,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    46,
+    39
+   ],
+   "note": "SpriteCook: phiến đá phẳng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.soi-sc": {
+   "file": "assets/art/tk-soi-sc.png",
+   "v": "bb778d96",
+   "w": 65,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    32,
+    35
+   ],
+   "note": "SpriteCook: đám sỏi (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.pha-le-lon-sc": {
+   "file": "assets/art/tk-pha-le-lon-sc.png",
+   "v": "221ca2cf",
+   "w": 90,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    45,
+    107
+   ],
+   "note": "SpriteCook: cụm thạch anh lam trên đá (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     43,
+     16,
+     "cold"
+    ],
+    [
+     71,
+     30,
+     "cold"
+    ],
+    [
+     44,
+     51,
+     "cold"
+    ],
+    [
+     21,
+     37,
+     "cold"
+    ],
+    [
+     26,
+     75,
+     "cold"
+    ]
+   ]
+  },
+  "tk.pha-le-tim-sc": {
+   "file": "assets/art/tk-pha-le-tim-sc.png",
+   "v": "dfc9f6ae",
+   "w": 47,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    23,
+    60
+   ],
+   "note": "SpriteCook: thạch anh tím (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.pha-le-lam-sc": {
+   "file": "assets/art/tk-pha-le-lam-sc.png",
+   "v": "9880d86e",
+   "w": 39,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    19,
+    42
+   ],
+   "note": "SpriteCook: thạch anh lam nhỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     15,
+     10,
+     "cold"
+    ],
+    [
+     5,
+     20,
+     "cold"
+    ],
+    [
+     34,
+     21,
+     "cold"
+    ],
+    [
+     24,
+     11,
+     "cold"
+    ],
+    [
+     31,
+     34,
+     "cold"
+    ]
+   ]
+  },
+  "tk.pha-le-luc-sc": {
+   "file": "assets/art/tk-pha-le-luc-sc.png",
+   "v": "20b28462",
+   "w": 33,
+   "h": 54,
+   "frames": 1,
+   "anchor": [
+    16,
+    52
+   ],
+   "note": "SpriteCook: mảnh ngọc lục (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.kiem-da-1-sc": {
+   "file": "assets/art/tk-kiem-da-1-sc.png",
+   "v": "00834387",
+   "w": 58,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    29,
+    102
+   ],
+   "note": "SpriteCook: kiếm đá cổ cắm đất (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.kiem-da-2-sc": {
+   "file": "assets/art/tk-kiem-da-2-sc.png",
+   "v": "071f7c2f",
+   "w": 55,
+   "h": 112,
+   "frames": 1,
+   "anchor": [
+    27,
+    110
+   ],
+   "note": "SpriteCook: kiếm đá cổ quấn dây leo (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bia-co-sc": {
+   "file": "assets/art/tk-bia-co-sc.png",
+   "v": "1ee917ab",
+   "w": 65,
+   "h": 95,
+   "frames": 1,
+   "anchor": [
+    32,
+    93
+   ],
+   "note": "SpriteCook: bia đá khắc cổ tự (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-xanh-lon-sc": {
+   "file": "assets/art/tk-bui-xanh-lon-sc.png",
+   "v": "13210b63",
+   "w": 74,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    37,
+    63
+   ],
+   "note": "SpriteCook: bụi xanh lớn (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-xanh-nho-sc": {
+   "file": "assets/art/tk-bui-xanh-nho-sc.png",
+   "v": "07f2d6f0",
+   "w": 50,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    25,
+    40
+   ],
+   "note": "SpriteCook: bụi xanh nhỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-do-quyen-sc": {
+   "file": "assets/art/tk-bui-do-quyen-sc.png",
+   "v": "d67d71a8",
+   "w": 69,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    34,
+    55
+   ],
+   "note": "SpriteCook: bụi đỗ quyên hồng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-cuc-vang-sc": {
+   "file": "assets/art/tk-bui-cuc-vang-sc.png",
+   "v": "5a068945",
+   "w": 67,
+   "h": 55,
+   "frames": 1,
+   "anchor": [
+    33,
+    53
+   ],
+   "note": "SpriteCook: bụi cúc vàng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-hoa-trang-sc": {
+   "file": "assets/art/tk-bui-hoa-trang-sc.png",
+   "v": "a8314537",
+   "w": 68,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    34,
+    54
+   ],
+   "note": "SpriteCook: bụi hoa trắng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-mau-don-sc": {
+   "file": "assets/art/tk-bui-mau-don-sc.png",
+   "v": "3450860e",
+   "w": 70,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    35,
+    55
+   ],
+   "note": "SpriteCook: bụi mẫu đơn đỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-co-cao-sc": {
+   "file": "assets/art/tk-bui-co-cao-sc.png",
+   "v": "61527b42",
+   "w": 68,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    34,
+    56
+   ],
+   "note": "SpriteCook: bụi cỏ cao (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.bui-duong-xi-sc": {
+   "file": "assets/art/tk-bui-duong-xi-sc.png",
+   "v": "6d5f17a1",
+   "w": 78,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    39,
+    55
+   ],
+   "note": "SpriteCook: dương xỉ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hoa-do-sc": {
+   "file": "assets/art/tk-hoa-do-sc.png",
+   "v": "f6b47bdc",
+   "w": 46,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    23,
+    36
+   ],
+   "note": "SpriteCook: khóm hoa dại đỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hoa-lam-sc": {
+   "file": "assets/art/tk-hoa-lam-sc.png",
+   "v": "014128f2",
+   "w": 43,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    21,
+    35
+   ],
+   "note": "SpriteCook: khóm hoa dại lam (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hoa-vang-sc": {
+   "file": "assets/art/tk-hoa-vang-sc.png",
+   "v": "8bdab7ec",
+   "w": 50,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    25,
+    38
+   ],
+   "note": "SpriteCook: khóm hoa dại trắng vàng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nam-nau-sc": {
+   "file": "assets/art/tk-nam-nau-sc.png",
+   "v": "604ee82b",
+   "w": 43,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    21,
+    30
+   ],
+   "note": "SpriteCook: cụm nấm nâu (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.goc-cay-sc": {
+   "file": "assets/art/tk-goc-cay-sc.png",
+   "v": "148b1246",
+   "w": 69,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    34,
+    51
+   ],
+   "note": "SpriteCook: gốc cây cụt phủ rêu (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.khuc-go-sc": {
+   "file": "assets/art/tk-khuc-go-sc.png",
+   "v": "9fae27a4",
+   "w": 89,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    44,
+    54
+   ],
+   "note": "SpriteCook: khúc gỗ mục (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.truc-non-sc": {
+   "file": "assets/art/tk-truc-non-sc.png",
+   "v": "d75f5e57",
+   "w": 57,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    28,
+    58
+   ],
+   "note": "SpriteCook: khóm trúc non (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.linh-thao-sc": {
+   "file": "assets/art/tk-linh-thao-sc.png",
+   "v": "586d755b",
+   "w": 50,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    25,
+    55
+   ],
+   "note": "SpriteCook: linh thảo lam phát sáng (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     38,
+     19,
+     "cold"
+    ],
+    [
+     27,
+     8,
+     "cold"
+    ],
+    [
+     14,
+     15,
+     "cold"
+    ],
+    [
+     37,
+     35,
+     "cold"
+    ],
+    [
+     15,
+     33,
+     "cold"
+    ]
+   ]
+  },
+  "tk.hon-noi-1-sc": {
+   "file": "assets/art/tk-hon-noi-1-sc.png",
+   "v": "a91b8847",
+   "w": 43,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    21,
+    37
+   ],
+   "note": "SpriteCook: hòn đất nổi nhỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hon-noi-2-sc": {
+   "file": "assets/art/tk-hon-noi-2-sc.png",
+   "v": "2dce3718",
+   "w": 68,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    34,
+    98
+   ],
+   "note": "SpriteCook: hòn đất nổi có gốc thông (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hon-noi-3-sc": {
+   "file": "assets/art/tk-hon-noi-3-sc.png",
+   "v": "4a44054a",
+   "w": 71,
+   "h": 89,
+   "frames": 1,
+   "anchor": [
+    35,
+    87
+   ],
+   "note": "SpriteCook: hòn đất nổi có thạch anh (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hon-noi-4-sc": {
+   "file": "assets/art/tk-hon-noi-4-sc.png",
+   "v": "281488d6",
+   "w": 88,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    44,
+    72
+   ],
+   "note": "SpriteCook: hòn đất nổi có bụi cây (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.hon-noi-5-sc": {
+   "file": "assets/art/tk-hon-noi-5-sc.png",
+   "v": "297986c0",
+   "w": 39,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    19,
+    42
+   ],
+   "note": "SpriteCook: hòn đất nổi nhỏ có rễ rủ (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.tran-truyen-tong-sc": {
+   "file": "assets/art/tk-tran-truyen-tong-sc.png",
+   "v": "e0d4557c",
+   "w": 390,
+   "h": 359,
+   "frames": 1,
+   "anchor": [
+    195,
+    357
+   ],
+   "note": "SpriteCook: pháp trận truyền tống: đài đá, bát quái, cổ tự lam, kiếm ấn (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     194,
+     175,
+     "cold"
+    ],
+    [
+     195,
+     165,
+     "cold"
+    ],
+    [
+     194,
+     84,
+     "cold"
+    ],
+    [
+     194,
+     242,
+     "cold"
+    ],
+    [
+     194,
+     100,
+     "cold"
+    ]
+   ]
+  },
+  "tk.thac-sc": {
+   "file": "assets/art/tk-thac-sc.png",
+   "v": "29b43a19",
+   "w": 165,
+   "h": 186,
+   "frames": 1,
+   "anchor": [
+    82,
+    184
+   ],
+   "note": "SpriteCook: thác Kiếm Tuyền đổ xuống hồ đá (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "glints": [
+    [
+     118,
+     13
+    ],
+    [
+     71,
+     20
+    ],
+    [
+     81,
+     24
+    ],
+    [
+     78,
+     28
+    ],
+    [
+     93,
+     37
+    ],
+    [
+     78,
+     45
+    ],
+    [
+     95,
+     51
+    ],
+    [
+     94,
+     57
+    ],
+    [
+     89,
+     63
+    ],
+    [
+     80,
+     69
+    ],
+    [
+     81,
+     75
+    ],
+    [
+     82,
+     81
+    ],
+    [
+     78,
+     87
+    ],
+    [
+     97,
+     92
+    ],
+    [
+     86,
+     98
+    ],
+    [
+     75,
+     104
+    ],
+    [
+     98,
+     109
+    ],
+    [
+     75,
+     116
+    ],
+    [
+     105,
+     124
+    ],
+    [
+     123,
+     136
+    ],
+    [
+     76,
+     145
+    ],
+    [
+     123,
+     148
+    ],
+    [
+     84,
+     154
+    ],
+    [
+     122,
+     160
+    ],
+    [
+     117,
+     169
+    ],
+    [
+     128,
+     180
+    ]
+   ]
+  },
+  "tk.nui-thien-kiem-sc": {
+   "file": "assets/art/tk-nui-thien-kiem-sc.png",
+   "v": "dc4d028e",
+   "w": 301,
+   "h": 386,
+   "frames": 1,
+   "anchor": [
+    150,
+    384
+   ],
+   "note": "SpriteCook: Thiên Kiếm Phong: ngọn núi hình thanh kiếm khắc cổ tự (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.dien-chinh-sc": {
+   "file": "assets/art/tk-dien-chinh-sc.png",
+   "v": "5f75baac",
+   "w": 378,
+   "h": 381,
+   "frames": 1,
+   "anchor": [
+    189,
+    379
+   ],
+   "note": "SpriteCook: Thiên Kiếm Điện (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     260,
+     226,
+     "warm"
+    ],
+    [
+     117,
+     226,
+     "warm"
+    ],
+    [
+     127,
+     255,
+     "warm"
+    ],
+    [
+     93,
+     249,
+     "warm"
+    ],
+    [
+     253,
+     226,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lau-sach-sc": {
+   "file": "assets/art/tk-lau-sach-sc.png",
+   "v": "2e9bb316",
+   "w": 163,
+   "h": 190,
+   "frames": 1,
+   "anchor": [
+    81,
+    188
+   ],
+   "note": "SpriteCook: Tàng Kinh Các (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     151,
+     114,
+     "warm"
+    ],
+    [
+     10,
+     114,
+     "warm"
+    ],
+    [
+     32,
+     173,
+     "warm"
+    ]
+   ]
+  },
+  "tk.dien-nho-sc": {
+   "file": "assets/art/tk-dien-nho-sc.png",
+   "v": "cd1ae148",
+   "w": 177,
+   "h": 189,
+   "frames": 1,
+   "anchor": [
+    88,
+    187
+   ],
+   "note": "SpriteCook: Nhiệm Vụ Đường (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     46,
+     127,
+     "warm"
+    ],
+    [
+     131,
+     127,
+     "warm"
+    ],
+    [
+     133,
+     108,
+     "warm"
+    ],
+    [
+     43,
+     108,
+     "warm"
+    ],
+    [
+     90,
+     173,
+     "warm"
+    ]
+   ]
+  },
+  "tk.nha-ren-sc": {
+   "file": "assets/art/tk-nha-ren-sc.png",
+   "v": "737a2bac",
+   "w": 171,
+   "h": 171,
+   "frames": 1,
+   "anchor": [
+    85,
+    169
+   ],
+   "note": "SpriteCook: lò rèn Binh Khố (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     70,
+     130,
+     "warm"
+    ],
+    [
+     22,
+     117,
+     "warm"
+    ]
+   ],
+   "smoke": [
+    72,
+    2
+   ]
+  },
+  "tk.quan-tra-sc": {
+   "file": "assets/art/tk-quan-tra-sc.png",
+   "v": "b8eab2d5",
+   "w": 176,
+   "h": 178,
+   "frames": 1,
+   "anchor": [
+    88,
+    176
+   ],
+   "note": "SpriteCook: Trà Quán (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     139,
+     109,
+     "warm"
+    ],
+    [
+     123,
+     109,
+     "warm"
+    ],
+    [
+     154,
+     109,
+     "warm"
+    ],
+    [
+     93,
+     94,
+     "warm"
+    ],
+    [
+     72,
+     88,
+     "warm"
+    ]
+   ]
+  },
+  "tk.nha-thuoc-sc": {
+   "file": "assets/art/tk-nha-thuoc-sc.png",
+   "v": "c9064853",
+   "w": 155,
+   "h": 182,
+   "frames": 1,
+   "anchor": [
+    77,
+    180
+   ],
+   "note": "SpriteCook: tiệm đan dược (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     93,
+     23,
+     "warm"
+    ]
+   ]
+  },
+  "tk.thap-canh-sc": {
+   "file": "assets/art/tk-thap-canh-sc.png",
+   "v": "8144e7ea",
+   "w": 119,
+   "h": 189,
+   "frames": 1,
+   "anchor": [
+    59,
+    187
+   ],
+   "note": "SpriteCook: tháp canh (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.tien-dai-sc": {
+   "file": "assets/art/tk-tien-dai-sc.png",
+   "v": "583356e4",
+   "w": 116,
+   "h": 183,
+   "frames": 1,
+   "anchor": [
+    58,
+    181
+   ],
+   "note": "SpriteCook: tượng tiên nhân Tiên Đài (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.kiem-trung-sc": {
+   "file": "assets/art/tk-kiem-trung-sc.png",
+   "v": "502b2172",
+   "w": 104,
+   "h": 189,
+   "frames": 1,
+   "anchor": [
+    52,
+    187
+   ],
+   "note": "SpriteCook: Kiếm Trủng: cổ kiếm cắm mỏm đá (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     54,
+     137,
+     "cold"
+    ],
+    [
+     54,
+     114,
+     "cold"
+    ],
+    [
+     53,
+     95,
+     "cold"
+    ],
+    [
+     44,
+     96,
+     "cold"
+    ],
+    [
+     54,
+     63,
+     "cold"
+    ]
+   ]
+  },
+  "tk.dien-phu-sc": {
+   "file": "assets/art/tk-dien-phu-sc.png",
+   "v": "a89c8c97",
+   "w": 232,
+   "h": 253,
+   "frames": 1,
+   "anchor": [
+    116,
+    251
+   ],
+   "note": "SpriteCook: điện phụ (Luyện Võ Đường, Truyền Công Đường) (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     189,
+     185,
+     "warm"
+    ],
+    [
+     43,
+     186,
+     "warm"
+    ],
+    [
+     107,
+     215,
+     "warm"
+    ],
+    [
+     171,
+     161,
+     "warm"
+    ],
+    [
+     62,
+     161,
+     "warm"
+    ]
+   ]
+  },
+  "tk.lau-cho-sc": {
+   "file": "assets/art/tk-lau-cho-sc.png",
+   "v": "0b771cc5",
+   "w": 231,
+   "h": 176,
+   "frames": 1,
+   "anchor": [
+    115,
+    174
+   ],
+   "note": "SpriteCook: Chợ Phiên (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     69,
+     137,
+     "warm"
+    ],
+    [
+     45,
+     159,
+     "warm"
+    ],
+    [
+     166,
+     147,
+     "warm"
+    ],
+    [
+     115,
+     55,
+     "warm"
+    ],
+    [
+     56,
+     136,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    88,
+    63,
+    54,
+    16
+   ]
+  },
+  "tk.lau-van-bao-sc": {
+   "file": "assets/art/tk-lau-van-bao-sc.png",
+   "v": "4834de5a",
+   "w": 234,
+   "h": 228,
+   "frames": 1,
+   "anchor": [
+    117,
+    226
+   ],
+   "note": "SpriteCook: Vạn Bảo Lâu (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     123,
+     177,
+     "warm"
+    ],
+    [
+     110,
+     178,
+     "warm"
+    ],
+    [
+     117,
+     114,
+     "warm"
+    ],
+    [
+     117,
+     67,
+     "warm"
+    ],
+    [
+     158,
+     37,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    86,
+    135,
+    62,
+    17
+   ]
+  },
+  "tk.nguyet-mon-sc": {
+   "file": "assets/art/tk-nguyet-mon-sc.png",
+   "v": "59ca0eeb",
+   "w": 230,
+   "h": 203,
+   "frames": 1,
+   "anchor": [
+    115,
+    201
+   ],
+   "note": "SpriteCook: Nguyệt Môn (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     36,
+     97,
+     "warm"
+    ],
+    [
+     191,
+     101,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cong-kiem-sc": {
+   "file": "assets/art/tk-cong-kiem-sc.png",
+   "v": "7de1ef70",
+   "w": 374,
+   "h": 368,
+   "frames": 1,
+   "anchor": [
+    187,
+    366
+   ],
+   "note": "SpriteCook: cổng Thiên Kiếm Tông (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.dinh-ho-sc": {
+   "file": "assets/art/tk-dinh-ho-sc.png",
+   "v": "eb5af0d5",
+   "w": 160,
+   "h": 185,
+   "frames": 1,
+   "anchor": [
+    80,
+    183
+   ],
+   "note": "SpriteCook: đình lục giác ven hồ (ba căn nhà vẽ chéo góc của tấm này không dùng) (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nha-dan-1-sc": {
+   "file": "assets/art/tk-nha-dan-1-sc.png",
+   "v": "f2c6f2e3",
+   "w": 170,
+   "h": 141,
+   "frames": 1,
+   "anchor": [
+    85,
+    139
+   ],
+   "note": "SpriteCook: nhà dân tường trắng (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.nha-dan-2-sc": {
+   "file": "assets/art/tk-nha-dan-2-sc.png",
+   "v": "fc577e69",
+   "w": 168,
+   "h": 189,
+   "frames": 1,
+   "anchor": [
+    84,
+    187
+   ],
+   "note": "SpriteCook: nhà dân hai tầng lan can đỏ (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     60,
+     139,
+     "warm"
+    ],
+    [
+     108,
+     139,
+     "warm"
+    ],
+    [
+     53,
+     150,
+     "warm"
+    ],
+    [
+     115,
+     145,
+     "warm"
+    ]
+   ]
+  },
+  "tk.nha-dan-3-sc": {
+   "file": "assets/art/tk-nha-dan-3-sc.png",
+   "v": "ebf7c825",
+   "w": 157,
+   "h": 141,
+   "frames": 1,
+   "anchor": [
+    78,
+    139
+   ],
+   "note": "SpriteCook: nhà gỗ có hiên (tools/art/sc_tk2.py)",
+   "scale": 0.5
+  },
+  "tk.mieu-sc": {
+   "file": "assets/art/tk-mieu-sc.png",
+   "v": "4b0d7f76",
+   "w": 163,
+   "h": 169,
+   "frames": 1,
+   "anchor": [
+    81,
+    167
+   ],
+   "note": "SpriteCook: miếu nhỏ có lư hương (tools/art/sc_tk2.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     81,
+     8,
+     "warm"
+    ]
+   ]
   }
  }
 }

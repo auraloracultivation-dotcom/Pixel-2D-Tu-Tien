@@ -53,6 +53,10 @@ export function drawAnimated(ctx, game, it, im, kind, t) {
     ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy - 3 + b, W, Hh);
     return true;
   }
+  if (kind === 'bob') {   // hòn đất nổi ngoài mép tinh cầu: trôi lên xuống thật chậm, mỗi hòn một nhịp
+    ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy + Math.round(Math.sin(t * 0.6 + ph) * 5) / 2, W, Hh);
+    return true;
+  }
   if (kind === 'trong') {   // trống: nảy lên khi bị đánh (xem trò trong)
     const st = troState(game, it), p = st?.pulse || 0, sc = 1 + p * 0.05;
     ctx.save(); ctx.translate(it.x, it.y); ctx.scale(sc, 1 + p * 0.03);
