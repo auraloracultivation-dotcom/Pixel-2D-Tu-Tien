@@ -2,6 +2,8 @@
  "_note": "Số liệu chung của bản chơi tạm. Đổi số ở đây, không sửa trong code.",
  "tile": 16,
  "view_tiles": 19,
+ "view_tiles_ngang": 19,
+ "_view_ngang": "Điện thoại cầm ngang (bề cao dưới 520 điểm, chủ dự án 19/11/2026 chơi được cả dọc lẫn ngang, ưu tiên Galaxy S22 780 × 360): số ô thấy theo bề cao; bằng view_tiles thì nhân vật cùng cỡ như cầm dọc trên cùng máy (bề cao lúc ngang = bề ngang lúc dọc). 19/11/2026 02:00 chủ dự án: kéo máy quay xa ra cho nhân vật ngang và dọc bằng nhau: 17 → 19 (src/core/screen.js).",
  "pixel_snap": true,
  "snap_tol": 0.2,
  "cam_pad": {"_note": "Màn dọc (điện thoại): máy quay được lố mép trên bản đồ top, mép dưới bottom (tỉ lệ chiều cao màn), lộ nền trời bên ngoài đảo, để người đứng sát mép (hội đèn Thiên Kiếm Phong) không nằm dưới cột nút HUD, nút đánh (chơi thử 01/11/2026).", "top": 0.2, "bottom": 0.1},

@@ -622,10 +622,5 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 .it-gain.up { color: #5fd07a; }
 .it-gain.down { color: #ff8a8a; }
 
-/* Chỉ chơi màn dọc (chủ dự án 16/11/2026 23:37: "khoá màn hình dọc, game không hỗ trợ màn hình ngang"). Bản cài (manifest orientation
-   portrait) tự khoá; trình duyệt điện thoại không khoá được thì xoay ngang hiện lớp che nhắc xoay lại, game chạy tiếp phía sau. */
-@media (orientation: landscape) and (pointer: coarse) and (max-height: 600px) {
-  body::after { content: "Xoay điện thoại dọc để chơi"; position: fixed; inset: 0; z-index: 2147483647; display: flex; align-items: center;
-    justify-content: center; padding: 24px; background: #0d0a16; color: #f3e9ff; font-size: 20px; font-weight: 700; text-align: center; }
-}
+/* Màn ngang: 16/11/2026 23:37 chủ dự án khoá màn dọc; 19/11/2026 01:02 mở lại, chơi được cả dọc lẫn ngang (bố cục ngang: src/ui/hud-ngang.css). */
 .dr-gem canvas.dr-ico { max-width: 40px; max-height: 40px; object-fit: contain; }

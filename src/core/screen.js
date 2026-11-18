@@ -24,7 +24,8 @@ export function createScreen(canvas, cfg, dpr = () => Math.min(window.devicePixe
     s.w = window.innerWidth; s.h = window.innerHeight;
     canvas.width = Math.round(s.w * s.dpr); canvas.height = Math.round(s.h * s.dpr);
     canvas.style.width = s.w + 'px'; canvas.style.height = s.h + 'px';
-    s.base = snapZ(cfg, Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles), s.dpr); s.zoom = s.mul === 1 ? s.base : snapZ(cfg, s.base * s.mul, s.dpr);
+    const ngang = s.w > s.h && s.h < 520 && cfg.view_tiles_ngang;   // điện thoại cầm ngang (chủ dự án 19/11/2026: Galaxy S22 780 × 360): nhân vật cùng cỡ như cầm dọc
+    s.base = snapZ(cfg, ngang ? s.h / (cfg.tile * cfg.view_tiles_ngang) : Math.min(s.w, s.h * 0.75) / (cfg.tile * cfg.view_tiles), s.dpr); s.zoom = s.mul === 1 ? s.base : snapZ(cfg, s.base * s.mul, s.dpr);
   }
   window.addEventListener('resize', resize);
   resize();
