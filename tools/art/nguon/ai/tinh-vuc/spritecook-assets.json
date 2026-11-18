@@ -152,6 +152,66 @@
    "sha12": "0f47158af21c",
    "label": "dong/ma-vuong.webp",
    "credit": 20
+  },
+  {
+   "asset_id": "a6f4950c-bfe1-4cf9-83f0-0abaa19b34d1",
+   "sha12": "0e1e4d3b0a87",
+   "label": "hieu-ung/may-1.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5d48e4e4-f622-4e7c-b7da-b17403c8589a",
+   "sha12": "e91aaef32b3e",
+   "label": "hieu-ung/may-2.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "e07fb47a-4e98-41b7-af19-16cbe4ac862d",
+   "sha12": "59dd528e7304",
+   "label": "hieu-ung/may-3.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "ee279101-ba9b-4728-8041-cfd35a8b1c4b",
+   "sha12": "ba9fd407a8ea",
+   "label": "hieu-ung/tinh-the.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "6f9972e7-85a3-439d-8f05-16cd8eeeacf8",
+   "sha12": "e70fe27356ec",
+   "label": "hieu-ung/tru-kiem.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5da71c95-d4e5-4f9f-9824-d13ea6ada7ab",
+   "sha12": "e3799179e29a",
+   "label": "hieu-ung/vet-nut.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "d51f9789-3863-4ccf-b1e9-16dea98a9051",
+   "sha12": "39a9e1d3b3c9",
+   "label": "hieu-ung/vong.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "8a0d1f37-de4e-401d-ba32-298b245b2732",
+   "sha12": "3ebe456ae011",
+   "label": "hieu-ung/soi-linh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "80761ec4-afc3-4a1d-8df1-7df24382fc87",
+   "sha12": "c6ae9d2b8bd0",
+   "label": "mau/ma-khi-pixel.png",
+   "credit": 0
+  },
+  {
+   "asset_id": "4ab1a2a0-ebe0-441a-8ad5-6d566c583d13",
+   "sha12": "16ff018e3911",
+   "label": "mau/bo-cuc-gpt.png",
+   "credit": 0
   }
  ]
 }
