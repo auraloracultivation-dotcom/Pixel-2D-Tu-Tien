@@ -7,7 +7,8 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
 // 18/11/2026: Thiên Kiếm Tinh dựng lại, cổng bí cảnh ra sau chợ nên đường truyện dài hơn (đo: bước 8 đạt ở giây 131): cho 180 giây để máy CI chậm không trượt oan.
-const SEC = +(process.env.PLAY_SEC || 180), MIN_STEPS = +(process.env.PLAY_MIN_STEPS || 8);
+// Cùng ngày, bản đĩa 128 ô: bước 8 đạt ở giây 130 lúc máy rảnh, giây 156 lúc máy bận việc khác → cho 220 giây (vẫn đòi đủ 8 bước, không lỗi JavaScript).
+const SEC = +(process.env.PLAY_SEC || 220), MIN_STEPS = +(process.env.PLAY_MIN_STEPS || 8);
 const FAKE = process.env.PLAY_DATE || '2026-10-30T12:00:00Z', PORT = 8790;
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 

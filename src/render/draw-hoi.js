@@ -5,11 +5,12 @@
 import { spriteImage, setShadow, drawShadowFrame } from './sprites.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
+import { hoiFade } from './hoi-fade.js';
 import { ACT, drawAct, walkFrame } from './draw-acts.js';
 import { drawHero } from './draw-hero.js';
 import { SPOTS, spotBox } from '../game/home-spot.js';
 
-const flat = it => it.foot.flat;
+const flat = it => it.foot.flat || it.foot.walk;   // sân, trận pháp và cả cầu, bến (đi lên trên được): nằm dưới chân người, không xếp theo hàng
 const flameKind = it => it.spr.flame_c || (it.id.includes('lam') ? 'lam' : it.id.includes('hong') ? 'hong' : 'vang');
 
 // Đồ phẳng: vẽ ngay sau nền, trước mọi thứ đứng trên đất
@@ -17,7 +18,8 @@ export function drawHoiFlat(ctx, game, t) {
   const items = game.map?.hoi;
   if (game.bay?.on) drawSpots(ctx, game);
   if (!items?.length) return;
-  for (const it of items) if (flat(it)) drawHoiItem(ctx, game, it, t);
+  const v = game.screen?.viewRect?.();   // chỉ vẽ món đang trong khung nhìn (cầu, bến, trận pháp giờ cũng là đồ nằm dưới chân)
+  for (const it of items) if (flat(it) && !(v && (it.x + it.w / 2 < v.x0 || it.x - it.w / 2 > v.x1 || it.y + it.h < v.y0 || it.y - it.h > v.y1))) drawHoiItem(ctx, game, it, t);
 }
 
 // Bày cảnh trong động phủ: khung Mộc Nhân, bể cá (kéo được, src/game/home-spot.js); khung vàng là món đang chọn
@@ -41,7 +43,7 @@ export function hoiEnts(game, view) {
   if (!items.length && !game.khach) return [];
   const out = [];
   for (const it of items) {
-    if (flat(it) || it.x + it.w / 2 < view.x0 || it.x - it.w / 2 > view.x1 || it.y < view.y0 || it.y - it.h > view.y1) continue;
+    if (flat(it) || it.foot.bake || it.x + it.w / 2 < view.x0 || it.x - it.w / 2 > view.x1 || it.y < view.y0 || it.y - it.h > view.y1) continue;
     out.push(['h', it]);
   }
   for (const n of game.khach || []) if (n.x > view.x0 - 20 && n.x < view.x1 + 20 && n.y > view.y0 && n.y < view.y1 + 50) out.push(['h', n]);   // khách đi hội (hoi-khach.js)
@@ -90,7 +92,10 @@ function drawHoiBody(ctx, game, it, im, t) {
   }
   if (!game.data.config.shadow?.skip?.includes(it.kind)) { ctx.save(); ctx.translate(it.x, it.y); ctx.scale(k, k); drawShadowFrame(ctx, s, im, 0); ctx.restore(); }   // bóng đổ theo dáng (mặt hồ, cầu: không)
   const an = it.anim === undefined ? (it.anim = hoiAnim(game, it.id)) : it.anim;
+  const fa = flat(it) ? 1 : hoiFade(game, it, im);   // nhân vật mình đứng sau và bị hình này che: vẽ mờ (hoi-fade.js)
+  if (fa < 1) ctx.globalAlpha = fa;
   if (an) drawAnimated(ctx, game, it, im, an, t); else ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy, s.w * k, s.h * k);
+  if (fa < 1) ctx.globalAlpha = 1;
   if (s.glints) glints(ctx, s.glints, ox, oy, k, t, it.x, /thac|voi|gieng|phun|suoi/.test(it.id));
   if (s.flame) flame(ctx, game, it, ox + s.flame[0] * k, oy + s.flame[1] * k, t);
   if (s.smoke) smoke(ctx, ox + s.smoke[0] * k, oy + s.smoke[1] * k, t, it.x);

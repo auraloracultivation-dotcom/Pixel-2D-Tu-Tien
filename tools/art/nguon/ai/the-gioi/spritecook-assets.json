@@ -61,5 +61,387 @@
   ],
   "spent": 66,
   "_note_xem": "Xem 18/11 11:20: bộ nền 15 mảnh là lưới 4×4 ô 32 điểm, khung theo frameByMask của SpriteCook; ô 'đầy' (mask 15, khung 6) là mặt thứ nhất (cỏ / đất), khung 12 là mặt thứ hai (nước) — bản a của nước và cả hai bản đất để trắng mặt thứ hai, xử lý ở tools/art/nen_sc.py.",
-  "_ket_qua": "Bản thử 18/11: dùng bản b của nước (nen.tk-nuoc) và bản b của đất (nen.tk-dat; bản a có bãi cỏ giữa khung đặc). Tấm đồ ven sông cắt 8 món tk.*-sc. Cầu đá vòm và bến gỗ vẽ chéo góc: bến dùng được, cầu vòm chưa dùng. Tiêu 66 credit, còn 365."
+  "_ket_qua": "Bản thử 18/11: dùng bản b của nước (nen.tk-nuoc) và bản b của đất (nen.tk-dat; bản a có bãi cỏ giữa khung đặc). Tấm đồ ven sông cắt 8 món tk.*-sc. Cầu đá vòm và bến gỗ vẽ chéo góc: bến dùng được, cầu vòm chưa dùng. Tiêu 66 credit, còn 365.",
+  "dot_2": {
+    "_note": "Đợt 2 (chủ dự án 18/11/2026 13:23 \"làm tiếp đi… tinh cầu chưa đủ rộng… giúp tui làm lại toàn bộ\", đã nạp; duyệt danh sách ~300 credit báo lúc 13:17 và phần làm lại nhà cửa 200–300 credit). Giá thật như bản thử: bộ nền 12 credit mỗi bản, ảnh 2K 18 credit. Cỡ điểm do máy SpriteCook tự chọn (lưới ~400 hoặc ~200 cho ảnh vuông 2K), ảnh mẫu lưới 400 thì ra lưới 400. Chưa làm: chuyển động thác (26 credit, chờ chủ dự án xem ảnh tĩnh theo luật 04/11).",
+    "jobs": [
+      {
+        "job_id": "43d60164-af0c-406f-88fd-e45e42ba47f0",
+        "kind": "tileset",
+        "what": "sân lát đá phiến (mép trong suốt), 2 bản",
+        "cost": 24
+      },
+      {
+        "job_id": "2bc1fa58-5256-4181-ac7e-c22a26ffd753",
+        "kind": "tileset",
+        "what": "phố gạch xanh xám (mép trong suốt), 2 bản",
+        "cost": 24
+      },
+      {
+        "job_id": "b987b24f-96df-4817-8aa5-c09876da9b95",
+        "kind": "tileset",
+        "what": "nền đá chân núi (mép trong suốt), 2 bản",
+        "cost": 24
+      },
+      {
+        "job_id": "b54113da-0d79-43a7-956d-14ae4865dd47",
+        "kind": "tileset",
+        "what": "mép tinh cầu: cỏ, viền đất đá, rễ rủ, 2 bản",
+        "cost": 24
+      },
+      {
+        "job_id": "44c157a3-02c0-4e36-935e-980e8e725c31",
+        "kind": "game_art 2K",
+        "what": "tấm núi lớn (4 ngọn + đá núi)",
+        "cost": 18
+      },
+      {
+        "job_id": "0149fa61-0ee9-4baf-83db-1274e91f8ecb",
+        "kind": "game_art 2K",
+        "what": "tấm chân núi: thác nhỏ, gờ đá (ra lưới 200 vì ảnh mẫu lưới 200)",
+        "cost": 18
+      },
+      {
+        "job_id": "4cd23662-f4d7-459a-832f-9564875a4b07",
+        "kind": "game_art 2K",
+        "what": "tấm cầu, bến, thuyền, đá bước",
+        "cost": 18
+      },
+      {
+        "job_id": "b4219946-7c6d-4007-8af4-afec218e4588",
+        "kind": "game_art 2K",
+        "what": "tấm đá, sỏi, thạch anh, kiếm đá, bia cổ",
+        "cost": 18
+      },
+      {
+        "job_id": "884cc3a8-d344-4cec-aa2e-4e6888f6cd43",
+        "kind": "game_art 2K",
+        "what": "tấm hoa, bụi, nấm, gốc cây, khúc gỗ, trúc non, linh thảo",
+        "cost": 18
+      },
+      {
+        "job_id": "49d0c387-afc9-4394-95b5-8e713461dcd4",
+        "kind": "game_art 2K",
+        "what": "tấm mép đất vỡ và hòn đất nổi",
+        "cost": 18
+      },
+      {
+        "job_id": "588065f3-20f6-4fe4-b2c5-8d39794d9e9d",
+        "kind": "game_art 2K",
+        "what": "Thiên Kiếm Điện (bộ dò lưới của SpriteCook ra 110×110 méo: lấy ảnh thô 2048² rồi về lưới bằng tools/art/sc_luoi.py)",
+        "cost": 18
+      },
+      {
+        "job_id": "5fce3efd-2498-4058-b4a4-98475f09edaa",
+        "kind": "game_art 2K",
+        "what": "Pháp Trận Truyền Tống",
+        "cost": 18
+      },
+      {
+        "job_id": "3920175a-aae5-43f2-a865-cf684791bd97",
+        "kind": "game_art 2K",
+        "what": "Thác Kiếm Tuyền (lưới 200)",
+        "cost": 18
+      },
+      {
+        "job_id": "939e49e7-8f6d-4d37-a1cd-1c561603eaa6",
+        "kind": "game_art 2K",
+        "what": "Thiên Kiếm Phong (núi hình thanh kiếm)",
+        "cost": 18
+      },
+      {
+        "job_id": "9df1fa1b-cf51-493b-b4a8-2c17c54578e1",
+        "kind": "game_art 2K",
+        "what": "tấm nhà A: Tàng Kinh Các, Nhiệm Vụ Đường, lò rèn Binh Khố, Trà Quán",
+        "cost": 18
+      },
+      {
+        "job_id": "2ea2c08e-ec08-46a9-95bc-ce442b9e44ac",
+        "kind": "game_art 2K",
+        "what": "tấm nhà B: tiệm đan dược, tháp canh, tượng Tiên Đài, Kiếm Trủng",
+        "cost": 18
+      },
+      {
+        "job_id": "69486151-8072-4bd3-9675-56dba978c681",
+        "kind": "game_art 2K",
+        "what": "tấm nhà C: điện phụ, Chợ Phiên",
+        "cost": 18
+      },
+      {
+        "job_id": "6ac04645-fe85-49e5-82ed-26a997fe11e6",
+        "kind": "game_art 2K",
+        "what": "tấm nhà D: Vạn Bảo Lâu, Nguyệt Môn",
+        "cost": 18
+      },
+      {
+        "job_id": "1dba71fd-b958-4e79-90e5-73a5a3eded3f",
+        "kind": "game_art 2K",
+        "what": "tấm nhà E: cổng Thiên Kiếm Tông (ra to kín khung 374×368, giữ làm cổng lớn)",
+        "cost": 18
+      },
+      {
+        "job_id": "f412996e-935f-432f-8d31-4fa0a070f962",
+        "kind": "game_art 2K",
+        "what": "tấm nhà F: nhà dân bản đầu vẽ chéo góc (chỉ dùng Vọng Nguyệt Đình)",
+        "cost": 18
+      },
+      {
+        "job_id": "de1c6fe3-9706-4630-a3bc-d3864aea4f8e",
+        "kind": "game_art 2K",
+        "what": "tấm nhà G: ba nhà dân và miếu vẽ chính diện (bộ dò lưới ra 42×202: lấy ảnh thô rồi về lưới)",
+        "cost": 18
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "130b56ca-4cdb-4c13-94f7-34065fe4fc19",
+        "file": "tk2/nen-san-a.png",
+        "sha12": "8caa09d1cf44",
+        "label": "sân lát bản a"
+      },
+      {
+        "asset_id": "0fd73478-3074-43b7-b666-d2cf59d75394",
+        "file": "tk2/nen-san-b.png",
+        "sha12": "f27203d0887e",
+        "label": "sân lát bản b — dùng (nen.tk-san)"
+      },
+      {
+        "asset_id": "462a27e1-bff0-4abe-8efb-07137c0eef07",
+        "file": "tk2/nen-gach-a.png",
+        "sha12": "7fa3f7ddc22b",
+        "label": "phố gạch bản a"
+      },
+      {
+        "asset_id": "ab9eb8ab-9e90-46e8-bbf0-2a9b802fd875",
+        "file": "tk2/nen-gach-b.png",
+        "sha12": "907771c4b6ea",
+        "label": "phố gạch bản b — dùng (nen.tk-gach, đã làm sáng)"
+      },
+      {
+        "asset_id": "1214f4e1-b3f6-4ae1-85a9-789c68a3b811",
+        "file": "tk2/nen-nui-a.png",
+        "sha12": "784eb51cd15c",
+        "label": "nền đá chân núi bản a"
+      },
+      {
+        "asset_id": "3c4f60c5-f98f-4086-b524-5d726b191c9a",
+        "file": "tk2/nen-nui-b.png",
+        "sha12": "d5f53785f44d",
+        "label": "nền đá chân núi bản b — dùng (nen.tk-nui)"
+      },
+      {
+        "asset_id": "7db82f6a-a0c9-481e-89ce-e30403a5860f",
+        "file": "tk2/nen-mep-a.png",
+        "sha12": "72d8a15ec208",
+        "label": "mép tinh cầu bản a — dùng (nen.tk-mep, cỏ kéo về bảng cỏ nền)"
+      },
+      {
+        "asset_id": "7554c7e6-1f75-4fd8-bdd3-7b65bd548d34",
+        "file": "tk2/nen-mep-b.png",
+        "sha12": "ad03907b344e",
+        "label": "mép tinh cầu bản b"
+      },
+      {
+        "asset_id": "587145c1-5979-47bb-9a56-a1afcd8ff16e",
+        "file": "tk2/nui-lon.png",
+        "sha12": "510632f638f2",
+        "label": "tấm núi lớn → tk.nui-1..4-sc, tk.da-nui-*-sc"
+      },
+      {
+        "asset_id": "4561a4f5-e310-42b6-abec-cef30a6ac465",
+        "file": "tk2/nui-chan.png",
+        "sha12": "1f133731a738",
+        "label": "tấm chân núi → tk.thac-nho-sc, tk.nui-doi-*-sc"
+      },
+      {
+        "asset_id": "e542b035-43bf-46fa-9266-f59af2bf4234",
+        "file": "tk2/cau-ben.png",
+        "sha12": "1509b3d8da4e",
+        "label": "tấm cầu bến → tk.cau-da-sc, tk.cau-go-sc, tk.cau-tau-*-sc, tk.thuyen-*-sc, tk.cau-da-buoc-sc"
+      },
+      {
+        "asset_id": "54ced6fb-d5fd-4bbd-807c-2a88d674b2ca",
+        "file": "tk2/da.png",
+        "sha12": "c93eb433a719",
+        "label": "tấm đá → tk.da-*-sc, tk.soi-sc, tk.pha-le-*-sc, tk.kiem-da-*-sc, tk.bia-co-sc"
+      },
+      {
+        "asset_id": "b7e508c4-a55f-4a86-b6b4-94d450b02b99",
+        "file": "tk2/hoa-bui.png",
+        "sha12": "3aa04edb4623",
+        "label": "tấm hoa bụi → tk.bui-*-sc, tk.hoa-*-sc, tk.nam-nau-sc, tk.goc-cay-sc, tk.khuc-go-sc, tk.truc-non-sc, tk.linh-thao-sc; 4 cụm in nền (nen.tk-hoa)"
+      },
+      {
+        "asset_id": "2c93a27d-1cbd-4e89-b66f-8e30281adb06",
+        "file": "tk2/mep-vo.png",
+        "sha12": "ed93c76d55b0",
+        "label": "tấm mép đất vỡ → dải vách nen.tk-vach, tk.hon-noi-1..5-sc"
+      },
+      {
+        "asset_id": "da54ef6f-f08d-4c36-ac55-0b839ff5b728",
+        "file": "tk2/dien-chinh.png",
+        "sha12": "524bc10e9ef9",
+        "label": "Thiên Kiếm Điện: tệp trong kho là ảnh thô đã về lưới 378×381 (bản điểm ảnh SpriteCook trả bị méo) → tk.dien-chinh-sc"
+      },
+      {
+        "asset_id": "18668ac2-9b8a-48b9-b099-2cbd05a33b89",
+        "file": "tk2/phap-tran.png",
+        "sha12": "7468f5ca411d",
+        "label": "Pháp Trận Truyền Tống → tk.tran-truyen-tong-sc"
+      },
+      {
+        "asset_id": "e46e179a-e586-4b52-9781-891d644714b9",
+        "file": "tk2/thac.png",
+        "sha12": "d603e1da2c08",
+        "label": "Thác Kiếm Tuyền → tk.thac-sc"
+      },
+      {
+        "asset_id": "9f460cf8-3c1a-44ae-9250-fbefa405a7ba",
+        "file": "tk2/nui-thien-kiem.png",
+        "sha12": "11ac9b804d98",
+        "label": "Thiên Kiếm Phong → tk.nui-thien-kiem-sc"
+      },
+      {
+        "asset_id": "d4e719aa-ec25-425e-954a-252ab7ca75a0",
+        "file": "tk2/nha-a.png",
+        "sha12": "82e579d53551",
+        "label": "tấm nhà A → tk.lau-sach-sc, tk.dien-nho-sc, tk.nha-ren-sc, tk.quan-tra-sc"
+      },
+      {
+        "asset_id": "be798d8e-a43c-4fb8-a8d0-f8c227be0f90",
+        "file": "tk2/nha-b.png",
+        "sha12": "1fff3d4ebc63",
+        "label": "tấm nhà B → tk.nha-thuoc-sc, tk.thap-canh-sc, tk.tien-dai-sc, tk.kiem-trung-sc"
+      },
+      {
+        "asset_id": "356e0193-fcdf-4ee4-8312-bbd58d3827b0",
+        "file": "tk2/nha-c.png",
+        "sha12": "e9aa73fbd8f8",
+        "label": "tấm nhà C → tk.dien-phu-sc, tk.lau-cho-sc"
+      },
+      {
+        "asset_id": "dfbc70f4-fdc3-416d-88f0-4ed73dada51c",
+        "file": "tk2/nha-d.png",
+        "sha12": "2c58c4b1e0f8",
+        "label": "tấm nhà D → tk.lau-van-bao-sc, tk.nguyet-mon-sc"
+      },
+      {
+        "asset_id": "5f70d2de-5f20-41c8-bfd5-2928e16523ec",
+        "file": "tk2/nha-e.png",
+        "sha12": "74b2c541e5f9",
+        "label": "tấm nhà E → tk.cong-kiem-sc"
+      },
+      {
+        "asset_id": "67ddc527-f6b6-4c36-b2d6-11b52cbd6aa7",
+        "file": "tk2/nha-f.png",
+        "sha12": "748cc16a6c9f",
+        "label": "tấm nhà F: tệp trong kho là ảnh thô đã về lưới → tk.dinh-ho-sc"
+      },
+      {
+        "asset_id": "6c521dba-10d7-4b5d-adee-f256c0291d71",
+        "file": "tk2/nha-g.png",
+        "sha12": "41bfbdbe4e0e",
+        "label": "tấm nhà G: tệp trong kho là ảnh thô đã về lưới → tk.nha-dan-1..3-sc, tk.mieu-sc"
+      }
+    ],
+    "uploads": [
+      {
+        "asset_id": "ed6d3462-40fd-4e0d-946f-3d91d99a769a",
+        "label": "ảnh mẫu Thiên Kiếm Điện (ảnh của chủ dự án đang dùng trong game)",
+        "cost": 0
+      },
+      {
+        "asset_id": "14e6587a-4815-48c9-83fa-f620336e3c61",
+        "label": "ảnh mẫu điện phụ",
+        "cost": 0
+      },
+      {
+        "asset_id": "a98e6555-5f5c-4b84-b537-4fd873f99592",
+        "label": "ảnh mẫu cổng tông môn",
+        "cost": 0
+      },
+      {
+        "asset_id": "008fabec-e081-4532-bc3a-6f28ca1d98f2",
+        "label": "ảnh mẫu Vạn Bảo Lâu",
+        "cost": 0
+      },
+      {
+        "asset_id": "9d82ec24-fc02-4964-a6ff-0da24b955c0b",
+        "label": "ảnh mẫu Chợ Phiên",
+        "cost": 0
+      },
+      {
+        "asset_id": "e808f238-b5bd-42c9-9fdc-0c6a602831a5",
+        "label": "ảnh mẫu Nguyệt Môn",
+        "cost": 0
+      },
+      {
+        "asset_id": "d714ab7a-6df3-48c2-95e1-ee5a114e0b5a",
+        "label": "ảnh mẫu Tàng Kinh Các",
+        "cost": 0
+      },
+      {
+        "asset_id": "423fb8a3-0bf4-41d2-ab34-2f612e02d450",
+        "label": "ảnh mẫu tháp canh",
+        "cost": 0
+      },
+      {
+        "asset_id": "041cbee7-7a19-409b-bf1a-b361d072aa4a",
+        "label": "ảnh mẫu Nhiệm Vụ Đường",
+        "cost": 0
+      },
+      {
+        "asset_id": "f1a89689-8626-4452-8658-ba9b9edd7778",
+        "label": "ảnh mẫu lò rèn",
+        "cost": 0
+      },
+      {
+        "asset_id": "2dff81cd-b52b-4989-b8a1-01c82b8249af",
+        "label": "ảnh mẫu nhà dân",
+        "cost": 0
+      },
+      {
+        "asset_id": "16f8d182-4b30-45dd-91cb-d462099b4010",
+        "label": "ảnh mẫu Trà Quán",
+        "cost": 0
+      },
+      {
+        "asset_id": "3f3ac75b-ac6a-45b9-9f92-35986583e562",
+        "label": "tấm ghép A (bố cục và cỡ mong muốn cho tấm nhà A)",
+        "cost": 0
+      },
+      {
+        "asset_id": "f035a79c-211e-45a3-8d9f-5116d58254d5",
+        "label": "tấm ghép B",
+        "cost": 0
+      },
+      {
+        "asset_id": "7d72bb23-bf1b-43aa-9927-f818685030f6",
+        "label": "tấm ghép C",
+        "cost": 0
+      },
+      {
+        "asset_id": "faa93b3e-7ef5-4ecb-aa67-2bd71e06ff72",
+        "label": "tấm ghép D",
+        "cost": 0
+      },
+      {
+        "asset_id": "2dabaf18-db08-448e-89d2-f3e7529b2a4e",
+        "label": "tấm ghép E",
+        "cost": 0
+      },
+      {
+        "asset_id": "d016e0a8-36cf-47ce-8ba4-f9c484d92661",
+        "label": "Thiên Kiếm Điện mới đã về lưới (tải lên làm ảnh mẫu phong cách cho các tấm nhà)",
+        "cost": 0
+      }
+    ],
+    "spent": 402,
+    "balance": {
+      "truoc": 2703,
+      "sau": 2301
+    },
+    "_ket_qua": "75 hình tk.*-sc mới + 6 lớp nền (san, gach, nui, mep, vach, hoa); cắt và lọc bằng tools/art/sc_tk.py, sc_tk2.py, sc_luoi.py. Đợt 2 tiêu 402 credit (nền, núi, đồ vật, pháp trận, thác, Thiên Kiếm Phong 258; nhà cửa 144), cả Thiên Kiếm Tinh 468 credit tính cả bản thử 66. Còn 2 301."
+  },
+  "spent_tong": 468
 }

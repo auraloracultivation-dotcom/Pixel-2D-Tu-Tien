@@ -148,7 +148,7 @@ class Grid:
         return [''.join(r) for r in self.g]
 
 
-TALL = ('cay', 'nha', 'tru', 'tuong', 'cong', 'sap')   # kiểu món có hình cao, che được người đứng sau
+TALL = ('cay', 'nha', 'tru', 'tuong', 'cong', 'cong-to', 'cong-tron', 'sap', 'nui')   # kiểu món có hình cao, che được người đứng sau
 ROADS = '12,PM'
 
 
