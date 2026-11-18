@@ -1,6 +1,6 @@
 // Trạng thái ván chơi và vòng cập nhật. Vẽ ở src/render, giao diện ở src/ui.
 import { mapGate } from './map-gate.js';
-import { seasonReset, needBump } from './season.js';
+import { seasonReset } from './season.js';
 import { fitBag } from './autoequip.js';
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
@@ -9,7 +9,8 @@ import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { zonePower } from './mob-power.js';
 import { startGhost, ghostTick, afterGhost } from './ghost.js';
 import { updateBullets, updateFx, addNumber, dist } from './combat.js';
-import { addQi, totalLayer, rollRoot } from './stats.js';
+import { addQi, totalLayer, rollRoot, qiNeed } from './stats.js';
+import { mocTang } from './moc-tang.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
@@ -137,12 +138,14 @@ export function createGame(data, screen, input, ui, audio) {
     gainTechExp(game, amount);
     gainPetExp(game, amount);
     gainCompExp(game, amount);
-    if (!quiet) addNumber(game, x, y - 18, `+${got} linh khí`, '#bff4ff');
+    const need = qiNeed(game.save, data.realms), pct = need ? got / need * 100 : 0;   // lần cộng lớn (việc ngày, mốc quà, đan): kèm phần trăm tầng (chủ dự án 19/11/2026 03:21)
+    if (!quiet) addNumber(game, x, y - 18, `+${got} linh khí` + (pct >= 0.1 ? ` (${String(+pct.toFixed(2)).replace('.', ',')}%)` : ''), '#bff4ff');
     if (broke > 0) layerUp(game, broke);   // lên tầng: hồi đầy máu, quà tu vi, mừng (src/game/len-tang.js)
     else if (broke === -1 && !game.capWarned) {
       game.capWarned = true;
       game.toast('Linh khí đã đầy tới đỉnh! Bấm "Độ thiên kiếp" để đột phá.', 3);
     }
+    mocTang(game);   // qua mỗi 10% tầng: quà nhỏ (src/game/moc-tang.js)
     game.persist(); return got;
   };
   game.onKill = m => {
@@ -264,7 +267,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
-    seasonReset(game); needBump(game);   // needBump: đổi linh khí cần mỗi tầng thì giữ phần trăm (src/game/season.js). mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
+    seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
     cleanOutfits(game); doiMoi(game);   // bộ thời trang đã gỡ (src/game/fashion.js); ngọc bội → pháp tượng, thú cưỡi cũ (src/game/doi-moi.js)
     applyWords(game);   // lời thoại theo nam / nữ
