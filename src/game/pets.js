@@ -171,15 +171,17 @@ export function updateRide(game, dt) {
   if (p.riding && !was) p.meditating = false;
 }
 export function toggleRide(game) {
-  if (game.player.flying) { game.toast('Đang bay không cưỡi thú được.', 1.6); return false; }
-  if (!canRide(game)) {
-    game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6);
-    return false;
+  if (game.player.flying) {   // đang bay mà bấm Cưỡi: đáp xuống rồi cưỡi luôn (chủ dự án 18/11/2026 09:10: chuyển đổi cho tiện)
+    if (!canRide(game)) return toggleRide.no(game);
+    game.save.ride = true; game.player.meditating = false; game.sfx('pickup'); game.persist(); return true;
   }
+  if (!canRide(game)) return toggleRide.no(game);
   game.save.ride = !game.save.ride; game.player.riding = game.save.ride; game.player.meditating = false;
   game.sfx('pickup'); game.persist();
   return true;
 }
+
+toggleRide.no = game => { game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6); return false; };
 
 export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + P(game).mounts[game.save.mount].speed : 1;   // vùng không gian: ngự kiếm bay nhanh
 

@@ -33,7 +33,7 @@ export function toggleFly(game) {
   if (p.flying) { land(game); return true; }
   const why = noFly(game);
   if (why) { if (why !== 'off') game.toast(why, 1.8); return false; }
-  if (game.auto || game.pilot) { game.toast('Tắt Tự đánh / Tự hành rồi mới bay.', 1.8); return false; }
+  if (game.auto || game.pilot) { game.auto = null; game.pilot = null; game.autoTgt = null; game.autoPath = null; }   // bấm Bay thì tự tắt Tự đánh / Tự hành (chủ dự án 18/11/2026 09:10)
   const C = F(game);
   if ((p.mp ?? 0) < (C.min_mp || 0) * (p.mpMax || 1)) { game.number?.(p.x, p.y - 22, 'Thiếu linh lực', '#7ab8ff'); return false; }
   if (p.riding) { game.save.ride = false; p.riding = false; }
@@ -67,7 +67,7 @@ export function updateFly(game, dt) {
   }
   p.mp = Math.max(0, (p.mp ?? 0) - (C.mp_s || 0.06) * (p.mpMax || 100) * dt);
   const why = noFly(game);
-  if (p.mp <= 0 || (why && why !== 'off') || game.auto || game.pilot) {
+  if (p.mp <= 0 || (why && why !== 'off') || game.auto || game.pilot || game.save.ride) {   // bật Tự đánh / Cưỡi khi đang bay: đáp xuống
     if (p.mp <= 0) game.number?.(p.x, p.y - 22, 'Hết linh lực, đáp xuống', '#7ab8ff');
     land(game);
   }
