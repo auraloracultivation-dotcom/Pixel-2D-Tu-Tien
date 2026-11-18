@@ -9,7 +9,8 @@ import { pbOn, pbWorn, PB } from './phap-bao.js';
 import { buildCast } from './phap-bao-build.js';
 import { pbHit, pbx, nearest, pbStatusTick } from './phap-bao-hit.js';
 import { pbPxCast, updatePbPx } from './pb-px.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
-import { pbSfx } from './skill-sfx.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
+import { pbSfx } from './skill-sfx.js';
+import { startTuLinh } from './tu-linh.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
 
 const SFX = { 'phi-kiem': 'metal_cast', 'linh-chau': 'water_cast', 'bao-phien': 'wind_cast', 'dai-an': 'earth_cast', 'ho-thuan': 'shield', 'dong-chung': 'chime', 'tran-ky': 'earth_cast', 'ho-lo': 'water_cast' };
 
@@ -28,10 +29,14 @@ export function pbInput(game, inp) {
     const cast = buildCast(game, it), T = cast.T, cost = Math.round(T.mp * cast.mpMul);
     if ((p.mp ?? 0) < cost) { if ((game.time || 0) - (p.mpWarn || -9) > 1.5) { p.mpWarn = game.time || 0; game.number?.(p.x, p.y - 22, 'Thiếu linh lực', '#7ab8ff'); } continue; }
     p.mp -= cost; p.meditating = false; p.calmT = 0;   // cưỡi thú vẫn dùng pháp bảo (chủ dự án 16/11/2026)
-    let dir = inp.aim[key];
-    if (!dir) { const m = nearest(game, p.x, p.y, reach(T) + 30); if (m) { const a = Math.atan2(m.y - p.y, m.x - p.x); dir = { x: Math.cos(a), y: Math.sin(a) }; } }
-    if (dir) p.face = dir;
-    pbCast(game, cast, Math.atan2(p.face.y, p.face.x));
+    const aim = inp.aim[key];
+    const aimFn = () => {   // hướng bắn chốt lúc tụ linh xong (tu-linh.js): tự ngắm thì giữ, không thì quay về quái gần nhất lúc đó
+      let dir = aim;
+      if (!dir) { const m = nearest(game, p.x, p.y, reach(T) + 30); if (m) { const a = Math.atan2(m.y - p.y, m.x - p.x); dir = { x: Math.cos(a), y: Math.sin(a) }; } }
+      if (dir) p.face = dir;
+      return Math.atan2(p.face.y, p.face.x);
+    };
+    startTuLinh(game, T.color, aimFn, ang => pbCast(game, cast, ang));   // khựng một nhịp tụ linh rồi mới bắn
     p.skillCd[i] = T.cd * cast.cdMul * (1 - (p.st.cdr || 0));
     (p.pbCdMax ||= [])[i] = p.skillCd[i];   // vòng hồi chiêu trên nút (src/ui/phap-bao-hud.js)
     (p.pbCastT ||= [])[i] = game.time || 0;   // lúc tung: mốc Liên Kích rút hồi chiêu không cho vòng hồi ngắn hơn pb_floor (combo-moc.js)

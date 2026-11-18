@@ -157,7 +157,7 @@ function ready(game, id) {
 
 export function updatePlayer(game, dt) {
   const p = game.player, inp = game.input, cfg = game.data.config;
-  p.invT -= dt; p.flash -= dt; p.atkCd -= dt; p.swingT -= dt; p.dashT -= dt;
+  p.invT -= dt; p.flash -= dt; p.atkCd -= dt; p.swingT -= dt; p.dashT -= dt; p.tuLinhT = (p.tuLinhT || 0) - dt;
   p.skillCd = p.skillCd.map(c => c - dt);
   if (p.shieldT > 0 && (p.shieldT -= dt) <= 0) p.shield = 0;
   if (p.buffT > 0) p.buffT -= dt;
@@ -189,7 +189,7 @@ export function updatePlayer(game, dt) {
     const sx = p.x, sy = p.y;
     mv(p.dashV.x * dt, p.dashV.y * dt);
     addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: '#e6ebf7', life: 0.2 });
-  } else if (p.moving) {
+  } else if (p.moving && !(p.tuLinhT > 0)) {   // đang tụ linh trước pháp bảo (tu-linh.js): khựng tại chỗ
     p.meditating = false;
     const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * (p.flying ? cfg.fly?.speed || 1 : 1) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);
