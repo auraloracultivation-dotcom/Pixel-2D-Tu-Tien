@@ -43,7 +43,13 @@ export function createHopThu(game) {
   addEventListener('pointerdown', e => { if (!box.hidden && !box.contains(e.target) && e.target.id !== 'hud-thu') box.hidden = true; }, true);
   every(() => {
     const t = document.getElementById('hud-thu');
-    if (t) t.classList.toggle('co', !!(hot('btn-inbox') || hot('btn-zalo')));
+    if (t) {
+      const co = !!(hot('btn-inbox') || hot('btn-zalo'));
+      t.classList.toggle('co', co);
+      let dot = t.querySelector(':scope > i');   // chấm báo cùng kiểu chấm của ô Menu (19/11/2026: hai chấm phải giống nhau; src/ui/hud-khung.css)
+      if (co && !dot) { dot = document.createElement('i'); t.append(dot); }
+      if (dot) dot.hidden = !co;
+    }
     if (!box.hidden && (game.trip || game.dialog.open)) box.hidden = true;
   }, 1000);
 }

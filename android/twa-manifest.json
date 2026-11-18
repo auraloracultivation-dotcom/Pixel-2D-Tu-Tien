@@ -4,7 +4,7 @@
   "name": "Pixel 2D Tu Tiên",
   "launcherName": "Tu Tiên",
   "display": "fullscreen",
-  "orientation": "portrait",
+  "orientation": "any",
   "themeColor": "#0d0b16",
   "themeColorDark": "#0d0b16",
   "navigationColor": "#0d0b16",

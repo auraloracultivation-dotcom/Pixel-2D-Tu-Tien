@@ -9,12 +9,13 @@ const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
 export function createHudBang(game) {
   if (!game.data.menu?.hud?.bang) return;
-  for (const f of ['hud-bang', 'hud-khung']) {   // vị trí (hud-bang.css) rồi hình khung (hud-khung.css), nạp sau style.css nên thắng các bộ khung cũ
+  for (const f of ['hud-bang', 'hud-khung', 'hud-ngang']) {   // vị trí (hud-bang.css) rồi hình khung (hud-khung.css), rồi bố cục cầm ngang (hud-ngang.css); nạp sau style.css nên thắng các bộ khung cũ
     const css = document.createElement('link');
     css.rel = 'stylesheet'; css.href = new URL(`./${f}.css?v=${ver()}`, import.meta.url).href;
     document.head.append(css);
   }
-  document.body.classList.add('hud-bang');
+  document.body.classList.add('hud-bang', 'ngang-' + (game.data.menu.hud.ngang || 'a'));   // kiểu bố cục lúc cầm ngang (src/ui/hud-ngang.css)
+  document.body.style.setProperty('--nk', game.data.menu.hud.ngang_co || 1);   // cỡ các khung lúc cầm ngang
   const cv = document.getElementById('game');   // nền nằm ngay trên canvas, dưới mọi nút (#hud, #buttons vẽ sau nên đè lên)
   const mk = id => { const e = document.createElement('div'); e.id = id; e.hidden = true; if (cv) cv.after(e); else document.body.prepend(e); return e; };
   const top = mk('bang-tren'), bot = mk('bang-duoi'), hud = document.getElementById('hud');

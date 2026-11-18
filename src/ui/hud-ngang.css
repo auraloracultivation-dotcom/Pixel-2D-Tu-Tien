@@ -1,0 +1,105 @@
+/* Bố cục lúc điện thoại cầm ngang (chủ dự án 19/11/2026 01:02: chơi được cả dọc lẫn ngang, ưu tiên Samsung Galaxy S22 cầm ngang 780 × 360 điểm).
+   Nạp sau src/ui/hud-bang.css và src/ui/hud-khung.css (src/ui/hud-bang.js), chỉ áp khi màn ngang và thấp (dưới 520 điểm: điện thoại, không phải máy tính).
+   Hai kiểu, chọn ở data/menu.json → hud.ngang (body.ngang-a / body.ngang-b); 01:18 chủ dự án xem ảnh bản đầu rồi dặn:
+   a: bốn khung ở bốn góc, giữa trống: trên trái thẻ nhân vật và chỉ số, trên phải ô chức năng và bản đồ; dưới trái Túi đồ, Đan, Cưỡi, Bay, chat;
+      dưới phải pháp bảo, Đánh. Nút, thanh vẫn đặt theo toạ độ trên tấm khung gốc (hud-khung.css, --s), nhóm bên phải dời sang mép phải bằng --L riêng.
+   b: hai bảng như cầm dọc nhưng thấp, kéo hết bề ngang: mọi thứ xếp một hàng (bảng trên cao 62, bảng dưới cao 58).
+   Khung các ô dùng tấm khung tím cắt 9 mảnh của bảng dưới (ui-kg-bang.webp). Máy quay lúc cầm ngang: data/config.json → view_tiles_ngang. */
+@media (orientation: landscape) and (max-height: 520px) {
+  html body.hud-bang { --khung: url("../../assets/art/ui-kg-bang.webp"); }
+
+  /* ================= kiểu a: bốn khung ================= */
+  /* --nk: cỡ cả bốn khung (data/menu.json → hud.ngang_co; 01:25 chủ dự án "ảnh 1, nhưng thu nhỏ xuống còn 1/4 của hiện tại") */
+  html body.hud-bang.ngang-a { --pw: calc(380px * var(--nk, 1)); --sk: calc(42px * var(--nk, 1)); --sg: calc(4px * var(--nk, 1)); --atk: calc(70px * var(--nk, 1));
+    --tron: calc(44px * var(--nk, 1)); --L2: calc(100vw - var(--sr) - 4px - 1585 * var(--s));
+    --trai-w: calc(270px * var(--nk, 1));   /* khung nhân vật (trên trái) và khung Túi đồ (dưới trái) cùng bề ngang (01:37 chủ dự án: hai khung phải đồng bộ, thanh máu đang chật) */ --phai-w: calc(var(--atk) + 2 * var(--sk) + var(--sg) + 46px); }
+  /* trên trái: thẻ nhân vật (cột 0–665 của tấm gốc); trên phải (cột 655–1585, dời sát mép phải) là ::after */
+  html body.hud-bang.ngang-a #bang-tren { width: var(--trai-w); background: none; border-image: var(--khung) 52 fill / calc(13px * var(--nk, 1)) / 0 stretch; }
+  html body.hud-bang.ngang-a #bang-tren::after { content: ''; position: absolute; top: 0; height: 100%; left: calc(var(--L2) + 620 * var(--s) - var(--L)); width: calc(965 * var(--s));
+    border-image: var(--khung) 52 fill / 13px / 0 stretch; }
+  html body.hud-bang.ngang-a :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], .uk-tog#uk-gon, #mini-map, .uk-tog#uk-an) { --L: var(--L2); }
+  /* mùa, nút hỏi đáp: dưới khung trên phải; dòng báo: giữa hai khung trên */
+  html body.hud-bang.ngang-a #sky { top: calc(var(--st) + var(--tren-h) + 4px) !important; }
+  html body.hud-bang.ngang-a #btn-faq { top: calc(var(--st) + var(--tren-h) + 20px) !important; }
+  html body.hud-bang.ngang-a #toast { top: calc(var(--st) + 8px) !important; bottom: auto !important; left: 50% !important; right: auto !important;
+    transform: translateX(-50%) !important; max-width: 320px !important; }
+  /* cột nhận đồ (#feed): chữ nhỏ, nằm dưới việc Tự hành, không chạy ngang qua giữa cảnh */
+  html body.hud-bang.ngang-a #feed { top: calc(var(--st) + var(--tren-h) + 50px) !important; max-width: 300px !important; }
+  html body.hud-bang.ngang-a .feed-line { font-size: 11px !important; line-height: 14px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+  /* dưới: hai khung nhỏ ở hai góc */
+  html body.hud-bang.ngang-a #bang-duoi { right: auto; width: var(--trai-w); border-image-width: 13px; }
+  html body.hud-bang.ngang-a #bang-duoi::after { content: ''; position: absolute; top: 0; height: 100%; width: var(--phai-w);
+    left: calc(100vw - var(--sl) - var(--sr) - 8px - var(--phai-w)); border-image: var(--khung) 52 fill / 13px / 0 stretch; }
+  html body.hud-bang.ngang-a #buttons #btn-atk { height: var(--atk) !important; }
+  /* biểu tượng, chữ trong ô co theo cỡ khung (01:27 chủ dự án: thu nhỏ thì biểu tượng phải nằm gọn trong ô) */
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron:is([data-cot], [data-tron2])::before { width: calc(19px * var(--nk, 1)) !important; height: calc(18px * var(--nk, 1)) !important; top: calc(2px * var(--nk, 1)) !important; }
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron:is([data-cot], [data-tron2])::after { font-size: max(5px, calc(7px * var(--nk, 1))) !important; line-height: 1 !important; bottom: 0 !important; }
+  /* 01:31 chủ dự án: chữ trên thanh bị cắt, chữ hàng dưới chạm khung → khung trên cao thêm 8 điểm; thanh không nhỏ hơn 7,5 điểm, chữ vừa lòng thanh */
+  html body.hud-bang.ngang-a { --tren-h: calc(387 * var(--s) + 8px); }
+  html body.hud-bang.ngang-a #hud .bars { top: calc(var(--T) + 80 * var(--s)) !important; height: auto !important; width: calc(var(--trai-w) - 100 * var(--s)) !important;
+    grid-template-rows: max(10px, calc(84.3 * var(--s))) repeat(4, max(7.5px, calc(34 * var(--s)))) !important; row-gap: max(1px, calc(7.7 * var(--s))) !important; }
+  html body.hud-bang.ngang-a #hud .bars .bar span { font-size: max(6px, calc(7.5px * var(--nk, 1))) !important; line-height: max(7.5px, calc(34 * var(--s))) !important; top: 0 !important; bottom: 0 !important; }
+  html body.hud-bang.ngang-a #power { font-size: 0 !important; height: auto !important; overflow: visible !important; }
+  html body.hud-bang.ngang-a #power::before { width: max(9px, calc(14px * var(--nk, 1))) !important; height: max(9px, calc(14px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a #power::after { font-size: max(9px, calc(12px * var(--nk, 1))) !important; line-height: 1 !important; }
+  html body.hud-bang.ngang-a #uk-ava.v2 b { font-size: max(6px, calc(8.5px * var(--nk, 1))) !important; height: max(8px, calc(11px * var(--nk, 1))) !important; line-height: 1 !important; }
+  html body.hud-bang.ngang-a #mini-map b { font-size: max(5px, calc(7.5px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a .uk-tog#uk-an { width: calc(20px * var(--nk, 1)) !important; height: calc(20px * var(--nk, 1)) !important; left: calc(var(--L) + 1524 * var(--s) - 20px * var(--nk, 1)) !important; }
+  html body.hud-bang.ngang-a :is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { background-size: calc(28px * var(--nk, 1)) calc(28px * var(--nk, 1)) !important; }
+  html body.hud-bang.ngang-a :is(#btn-s0, #btn-s1, #btn-s2, #btn-art, #btn-pill, #btn-ride, #btn-fly, #btn-dash) b { font-size: max(6px, calc(8px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron#btn-bag::before { width: calc(26px * var(--nk, 1)) !important; height: calc(24px * var(--nk, 1)) !important; }
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron#btn-bag::after { font-size: max(6px, calc(8px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a #chat-dock :is(.cd-line, .cd-empty) { font-size: max(7px, calc(10px * var(--nk, 1))) !important; line-height: 1.3 !important; }
+  html body.hud-bang.ngang-a #buttons #btn-atk > b { font-size: max(9px, calc(15px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a #buttons #btn-auto { font-size: max(6px, calc(7.5px * var(--nk, 1))) !important; }
+  html body.hud-bang.ngang-a #buttons #btn-auto::before { width: calc(18px * var(--nk, 1)) !important; height: calc(18px * var(--nk, 1)) !important; top: calc(8px * var(--nk, 1)) !important; }
+  html body.hud-bang.ngang-a :is(#bang-duoi, #bang-duoi::after, #bang-tren::after) { border-image-width: calc(13px * var(--nk, 1)); }
+  html body.hud-bang.ngang-a #chat-dock { right: auto !important; width: calc(var(--trai-w) - 24px) !important; }
+  /* ô Quay rộng hơn các ô khác (luật chung của nút quay) nên biểu tượng lệch: ép đúng cỡ ô */
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron#btn-rec { width: calc(128 * var(--s)) !important; min-width: 0 !important; max-width: none !important; padding: 0 !important; }
+  html body.hud-bang.ngang-a #hud .hud-btns > button.tron#btn-rec::before { left: 50% !important; right: auto !important; margin: 0 !important; transform: translateX(-50%) !important; }
+
+  /* ================= kiểu b: hai bảng thấp, kéo hết bề ngang, mọi thứ một hàng ================= */
+  html body.hud-bang.ngang-b { --tren-h: 62px; --q: 40px; --qg: 4px; --mm: 52px;
+    --sk: 40px; --atk: 54px; --d-top: 58px;
+    --R0: calc(100vw - var(--sr) - 14px - var(--mm) - 8px - var(--q));   /* chỗ nút "thu gọn": ngay trái bản đồ; hàng hai đếm từ đó sang trái */ }
+  html body.hud-bang.ngang-b #bang-tren { background: none; border-image: var(--khung) 52 fill / 13px / 0 stretch; }
+  html body.hud-bang.ngang-b #bang-duoi { border-image-width: 13px; }
+  /* ảnh đại diện + lực chiến + 4 thanh ở đầu trái */
+  html body.hud-bang.ngang-b #hud .bars { left: calc(var(--L) + 10px) !important; top: calc(var(--T) + 6px) !important; width: 230px !important; height: 50px !important;
+    grid-template-columns: 50px minmax(0, 1fr) !important; column-gap: 8px !important; row-gap: 1.5px !important;
+    grid-template-rows: 12px repeat(4, 7.5px) !important; }
+  html body.hud-bang.ngang-b #power { height: 12px !important; font-size: 11px !important; }
+  html body.hud-bang.ngang-b #hud .bars .bar span { font-size: 6.5px !important; line-height: 7.5px !important; }
+  html body.hud-bang.ngang-b #uk-ava.v2 { width: 50px !important; height: 50px !important; }
+  html body.hud-bang.ngang-b #uk-ava.v2 canvas { left: 3px !important; top: 3px !important; width: 44px !important; height: 44px !important; }
+  html body.hud-bang.ngang-b #uk-ava.v2 b { left: 3px !important; right: 3px !important; bottom: 3px !important; }
+  /* ô chức năng một hàng: hàng một (Menu, Bí cảnh, Sự kiện, Xếp hạng) sau thẻ nhân vật; hàng hai (Động phủ, Thư, TikTok, Quay) và nút thu gọn sát bản đồ */
+  html body.hud-bang.ngang-b :is(#hud .hud-btns > button.tron[data-cot], #hud .hud-btns > button.tron[data-tron2], .uk-tog#uk-gon) {
+    width: var(--q) !important; height: calc(var(--q) - 2px) !important; top: calc(var(--T) + 12px) !important; }
+  html body.hud-bang.ngang-b #hud .hud-btns > button.tron[data-cot] { left: calc(var(--L) + 252px + (3 - var(--cot)) * (var(--q) + var(--qg))) !important; }
+  html body.hud-bang.ngang-b #hud .hud-btns > button.tron[data-tron2] { left: calc(var(--R0) - var(--tron2) * (var(--q) + var(--qg))) !important; }
+  html body.hud-bang.ngang-b .uk-tog#uk-gon { left: var(--R0) !important; }
+  html body.hud-bang.ngang-b #mini-map { left: calc(100vw - var(--sr) - 14px - var(--mm)) !important; top: calc(var(--T) + 5px) !important; width: var(--mm) !important; height: var(--mm) !important; }
+  html body.hud-bang.ngang-b .uk-tog#uk-an { left: calc(100vw - var(--sr) - 14px - 18px) !important; top: calc(var(--T) + 6px) !important; width: 18px !important; height: 18px !important; }
+  html body.hud-bang.ngang-b #toast { top: calc(var(--st) + var(--tren-h) + 8px) !important; bottom: auto !important; transform: translateX(-50%) !important; max-width: 420px !important; }
+  html body.hud-bang.ngang-b #sky { top: calc(var(--st) + var(--tren-h) + 4px) !important; }
+  html body.hud-bang.ngang-b #btn-faq { top: calc(var(--st) + var(--tren-h) + 20px) !important; }
+  /* bảng dưới một hàng: Túi đồ, Đan, Cưỡi, Bay, chat, rồi 4 pháp bảo một hàng, Đánh */
+  html body.hud-bang.ngang-b :is(#hud .hud-btns > button.tron#btn-bag, #btn-pill, #btn-ride, #btn-fly) { bottom: calc(var(--sb) + 9px) !important; }
+  html body.hud-bang.ngang-b :is(#btn-s0, #btn-s1, #btn-s2, #btn-art) { --r: 1; bottom: calc(var(--sb) + 9px) !important; }
+  html body.hud-bang.ngang-b #btn-s0 { --c: -2; }
+  html body.hud-bang.ngang-b #btn-s1 { --c: -1; }
+  html body.hud-bang.ngang-b #btn-s2 { --c: 0; }
+  html body.hud-bang.ngang-b #btn-art { --c: 1; }
+  html body.hud-bang.ngang-b #chat-dock { left: calc(var(--sl) + 12px + 4 * (var(--sk) + var(--sg)) + 6px) !important; bottom: calc(var(--sb) + 9px) !important;
+    right: calc(var(--tray-r) + 4 * (var(--sk) + var(--sg)) + 6px) !important; }
+  html body.hud-bang.ngang-b #buttons #btn-atk { height: var(--atk) !important; }
+}
+
+/* Màn dọc hẹp (Galaxy S22 cầm dọc rộng 360 điểm): hàng Túi đồ, Đan, Cưỡi, Bay chạm khay pháp bảo (nút Bay đè ô Bảo Phiến, thấy lúc chụp 19/11/2026):
+   ô nhỏ lại 38, nút Đánh 64 cho đủ chỗ. */
+@media (orientation: portrait) and (max-width: 374px) {
+  html body.hud-bang { --sk: 38px; --sg: 3px; --atk: 64px; }
+  html body.hud-bang #buttons #btn-atk { height: 66px !important; }
+}
