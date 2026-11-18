@@ -1,0 +1,331 @@
+{
+ "_note": "Tinh Vực vẽ lại bằng SpriteCook (chủ dự án 19/11/2026 01:07 chọn gói vừa: mặt trời + 12 tinh cầu có chuyển động, 12 mặt trăng ảnh tĩnh, 4 mảng ma khí; ~700 credit). Mẫu đầu: Thiên Kiếm Tinh có Cây Thế Giới.",
+ "assets": [
+  {
+   "label": "thien-kiem-tinh mau a",
+   "asset_id": "7e4bcfb2-9a4b-4b0d-bfa9-a1fd273caa3f",
+   "sha12": "66703623bf6c",
+   "file": "tkt-a.png",
+   "credit": 12
+  },
+  {
+   "label": "thien-kiem-tinh mau b",
+   "asset_id": "ef05ca9e-8b09-42f4-b3e7-3f54e0dda451",
+   "sha12": "9b8c4c5d0375",
+   "file": "tkt-b.png",
+   "credit": 12
+  },
+  {
+   "label": "linh-nhat (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "4f316376-1c36-4ca3-8ed1-74e67c03d882",
+   "credit": 12
+  },
+  {
+   "label": "thanh-khe (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "96f32aef-25ac-49f4-ab38-1c67db6979b4",
+   "credit": 12
+  },
+  {
+   "label": "xich-diem (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "9f3c64ef-f814-49ba-a12e-c897f9aa896b",
+   "credit": 12
+  },
+  {
+   "label": "han-bang (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "03b10d44-0823-45da-b436-72acbb5a27d8",
+   "credit": 12
+  },
+  {
+   "label": "hac-phong (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "f924b428-f04c-4d26-a057-805d9cbb9799",
+   "credit": 12
+  },
+  {
+   "label": "thanh-moc (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "d30b4cd9-c6fb-43af-b5cc-fefa8da1fc55",
+   "credit": 12
+  },
+  {
+   "label": "thien-kim (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "e40f7d29-7deb-42e8-a399-5666225e2a64",
+   "credit": 12
+  },
+  {
+   "label": "hau-tho (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "1134e13c-a312-46cc-937d-8432d47bd4c9",
+   "credit": 12
+  },
+  {
+   "label": "vet-nut-ngoai (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "b2737387-663f-4071-bb8d-e320389ccc34",
+   "credit": 12
+  },
+  {
+   "label": "mat-1 (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "1e553fba-c033-4dbb-9094-9261672a83a1",
+   "credit": 12
+  },
+  {
+   "label": "mat-2 (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "32bde7ab-3ef0-41f5-89ad-79d34a15d1ce",
+   "credit": 12
+  },
+  {
+   "label": "ma-vuong (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "6a5619da-afee-45cf-abae-60e95fc7f6d0",
+   "credit": 12
+  },
+  {
+   "asset_id": "aec89509-bf01-4a08-8b47-34de2e326c78",
+   "sha12": "a27771195b1b",
+   "label": "dong/thien-kiem-tinh.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "bbc04d9b-3f03-4a71-bbc3-edfcd3e3f1b4",
+   "sha12": "0d35ab90648f",
+   "label": "dong/linh-nhat.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "eed40491-e1db-45c2-8139-8714f1e2554e",
+   "sha12": "9c5392335ed6",
+   "label": "dong/hac-phong.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "deb53b4d-06cd-4f4b-b6d1-580ddc3fb556",
+   "sha12": "d4779520141e",
+   "label": "dong/thanh-khe.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "f1477e50-7a2d-4c9a-9dce-85aaa4562120",
+   "sha12": "793a436105e9",
+   "label": "dong/xich-diem.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "0b52009a-651e-489a-bff9-d332dee0dff3",
+   "sha12": "dd465024d77c",
+   "label": "dong/han-bang.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "b550eab6-9f85-42fb-b33c-c542344d4cf8",
+   "sha12": "ac12214e7fa5",
+   "label": "dong/thanh-moc.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "7c6b79b8-6dfd-49aa-b49d-e83a7e860f52",
+   "sha12": "675f46354bc0",
+   "label": "dong/thien-kim.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "ff3ef537-df6f-42d9-a42c-252b341c9ed5",
+   "sha12": "88fe90413258",
+   "label": "dong/hau-tho.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "ae7096b7-949a-49d4-b2a4-114a1ecd6863",
+   "sha12": "61409bc6c4fc",
+   "label": "dong/vet-nut-ngoai.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "2570bc27-1bd4-4508-be60-6b42b59b6f25",
+   "sha12": "8d9fef292167",
+   "label": "dong/mat-1.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "c0332d0e-a9e1-4539-9249-f029b3e4137e",
+   "sha12": "7ffe3322f9a8",
+   "label": "dong/mat-2.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "a497d883-2020-443c-a075-c4ec3123adea",
+   "sha12": "0f47158af21c",
+   "label": "dong/ma-vuong.webp",
+   "credit": 20
+  },
+  {
+   "asset_id": "a6f4950c-bfe1-4cf9-83f0-0abaa19b34d1",
+   "sha12": "0e1e4d3b0a87",
+   "label": "hieu-ung/may-1.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5d48e4e4-f622-4e7c-b7da-b17403c8589a",
+   "sha12": "e91aaef32b3e",
+   "label": "hieu-ung/may-2.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "e07fb47a-4e98-41b7-af19-16cbe4ac862d",
+   "sha12": "59dd528e7304",
+   "label": "hieu-ung/may-3.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "ee279101-ba9b-4728-8041-cfd35a8b1c4b",
+   "sha12": "ba9fd407a8ea",
+   "label": "hieu-ung/tinh-the.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "6f9972e7-85a3-439d-8f05-16cd8eeeacf8",
+   "sha12": "e70fe27356ec",
+   "label": "hieu-ung/tru-kiem.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5da71c95-d4e5-4f9f-9824-d13ea6ada7ab",
+   "sha12": "e3799179e29a",
+   "label": "hieu-ung/vet-nut.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "d51f9789-3863-4ccf-b1e9-16dea98a9051",
+   "sha12": "39a9e1d3b3c9",
+   "label": "hieu-ung/vong.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "8a0d1f37-de4e-401d-ba32-298b245b2732",
+   "sha12": "3ebe456ae011",
+   "label": "hieu-ung/soi-linh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "80761ec4-afc3-4a1d-8df1-7df24382fc87",
+   "sha12": "c6ae9d2b8bd0",
+   "label": "mau/ma-khi-pixel.png",
+   "credit": 0
+  },
+  {
+   "asset_id": "4ab1a2a0-ebe0-441a-8ad5-6d566c583d13",
+   "sha12": "16ff018e3911",
+   "label": "mau/bo-cuc-gpt.png",
+   "credit": 0
+  },
+  {
+   "asset_id": "b033c70f-da43-4db6-a9f1-83b124fefd5a",
+   "sha12": "0ff57fd5832f",
+   "label": "trang/dong-phu.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "98b45312-2163-4cd2-8ca7-3f5996a899c5",
+   "sha12": "788d6bbb7ff6",
+   "label": "trang/bi-canh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "25d30faf-08f0-4fbf-901e-2ea06287270d",
+   "sha12": "31c6ef8aa6df",
+   "label": "trang/hoa-quat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5a6b1b17-ec4a-4829-aade-e4b41b9f726e",
+   "sha12": "08ad53240d2e",
+   "label": "trang/han-bang-quat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "04da45dc-81e2-4a1f-a084-3b105a940af5",
+   "sha12": "69b99111be08",
+   "label": "trang/hac-phong-dong.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "145e2e54-2093-4524-b32a-64d58234a840",
+   "sha12": "741297c5cca0",
+   "label": "trang/lang-tinh-linh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "73b8d638-84f3-4791-a86a-81e5f855db97",
+   "sha12": "4dbb5c6bccb5",
+   "label": "trang/co-thu-tam.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "dc02d479-6729-4a26-85b6-7e0e7dd293e0",
+   "sha12": "7132f8513e7a",
+   "label": "trang/re-mau-thu.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "8bb61c80-cc75-40b6-92ae-c2fe1ff8f9e9",
+   "sha12": "701a8ab4a5be",
+   "label": "trang/kiem-trung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "375357ba-4229-46fd-bc56-0edc84a7ad76",
+   "sha12": "ee8ba7b2fcfc",
+   "label": "trang/dia-cung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "dfe5f8f7-77cf-4f5a-96f4-29a9dfc920d6",
+   "sha12": "0f0315702b86",
+   "label": "trang/hu-khong-lao.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "a493d389-2ba1-49ae-a72c-af07d47e69a7",
+   "sha12": "34d46618fc27",
+   "label": "trang/vet-nut.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "30189ea3-59c0-4e42-a02a-1b5eb706bee4",
+   "sha12": "7fdc9e169901",
+   "label": "khai-hoang/rung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "47614656-15f2-40f8-98ce-b91c31ac452e",
+   "sha12": "0f4485b97046",
+   "label": "khai-hoang/co.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "d7c280bc-570a-4472-8d1a-dd635b56c1be",
+   "sha12": "bd850a02d85a",
+   "label": "khai-hoang/tuyet.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "0c36b3a8-1b36-4361-8089-b01fab94bc60",
+   "sha12": "822f1443bda9",
+   "label": "khai-hoang/tro.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "f4f4d314-9327-4bdb-aa8a-8c6209f8105d",
+   "sha12": "98b9d8c9dd79",
+   "label": "khai-hoang/cat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "57a7b04f-640e-4e29-9057-578e61ce5393",
+   "sha12": "1958513e3f65",
+   "label": "khai-hoang/da-den.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "2f3346ad-cad9-4a91-86ab-5785ad358508",
+   "sha12": "00cd3d463885",
+   "label": "khai-hoang/hau-tho.png",
+   "credit": 12
+  }
+ ]
+}

@@ -347,5 +347,7 @@ import trang_phuc_game  # noqa: E402
 print('16 trang phục mới làm nhân vật (SpriteCook 16/11/2026):', len(trang_phuc_game.build_into(MANIFEST)))
 import phap_tuong_game  # noqa: E402
 print('16 pháp tượng (SpriteCook 16/11/2026):', phap_tuong_game.build_into(MANIFEST))
+import tinh_vuc_game  # noqa: E402
+print('Tinh Vực mới (SpriteCook 19/11/2026):', tinh_vuc_game.build_into(MANIFEST))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')
