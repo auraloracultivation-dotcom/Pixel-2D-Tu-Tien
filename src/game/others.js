@@ -12,6 +12,7 @@ import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
 import { chargeHold } from './skill-charge.js';
 import { castFx } from './others-cast.js';
+import { nlSeen } from './nl-roi.js';
 
 const MIN_SPEED = 30;
 
@@ -56,7 +57,7 @@ export function createOthers(game) {
       refresh();
     },
     // Chiêu người khác vừa dùng: chỉ vẽ hiệu ứng ở chỗ họ (không sát thương, không trúng ai) — game/others-cast.js
-    cast(raw) { castFx(game, list.get(raw?.id), raw, bounds()); },
+    cast(raw) { if (!nlSeen(game, raw)) castFx(game, list.get(raw?.id), raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js)
     move(raw) {
       const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;

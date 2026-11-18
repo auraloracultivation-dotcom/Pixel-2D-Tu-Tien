@@ -1,6 +1,7 @@
 {
  "_note_hinh": "Linh thú là con quái farm được (thu phục dị chủng cùng loài): hình đi theo người là hình Bộ Quái Mới của chính loài đó thu nửa cỡ (tools/art/linh_thu_moi.py; chủ dự án 16/11/2026 23:3x, bản 23:08 lấy nhầm hình thú cưỡi).", "_note": "Linh thú và thú cưỡi. Quái mọc từ bãi có xác suất rare_chance thành dị chủng (máu, công, linh khí nhân theo rare). Hạ dị chủng có tên trong pets thì thu phục được linh thú đó (đã có thì cộng kinh nghiệm). Linh thú mang 1 con, đi theo đánh cùng, lên cấp bằng linh khí. Thú cưỡi: tự lên khi đi trên đảo, không đánh nhau calm giây; đánh thì xuống. seat (thú cưỡi): độ cao người cưỡi trên lưng, đơn vị bản đồ (đo theo lưng ảnh, trừ chân người); thú cưỡi hình SpriteCook thì chỗ đứng đo theo yên trên từng khung ở data/art.json (tools/art/thu_cuoi.py), seat ở đây chỉ dùng khi chưa có hình. follow, side, spread: chỗ linh thú đứng sau lưng, lệch bên, giãn cách.",
  "npc": "ngu-thu-su",
+ "puppet_npc": "khoi-loi-su",
  "rare_chance": 0.04,
  "rare": {
   "hp": 3,

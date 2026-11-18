@@ -8,7 +8,7 @@ import { sparks } from './sparks.js';
 import { fxOk, shortNum } from './fx-budget.js';
 import { mangHit } from './thien-mang.js';
 import { vfxHit, vfxOf } from './vfx.js';
-import { juiceHit, juiceKill, juiceHurt, rageMul } from './juice.js';
+import { juiceHit, juiceKill, juiceHurt, rageMul, comboSwing } from './juice.js';
 import { hit2On, hitFeel, numUp } from './hit-feel.js';   // cảm giác ra đòn kiểu mới (docs/10-CAI-HON.md việc 2)
 import { hurt2On, hurtFeel, hurtUp } from './hurt-feel.js';   // cảm giác bị đánh kiểu mới (việc 3)
 import { takeK, hitAtk, mobTake } from './he-chien.js';   // luật chiến đấu mới: Công đọ Thủ
@@ -52,6 +52,7 @@ export function hitMob(game, m, dmg, opt = {}) {
   if (own && p.buffT > 0) dmg *= 1 + p.buffAmt;
   if (own) dmg *= rageMul(game, m) * cpOut(game, m) * (opt.reflect ? 1 : mobTake(p.st.atk, m));   // Bạo Nộ (src/game/juice.js); áp chế lực chiến (cp-press.js); luật mới: Công đọ Thủ của quái (he-chien.js)
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
+  if (opt.normal && p.comboBuff?.end > (game.time || 0)) dmg = Math.round(dmg * p.comboBuff.mul);   // mốc Liên Kích tăng sát thương đánh thường (combo-moc.js)
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
   if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
   m.hp -= dmg; m.flash = feel.flash; m.aggro = true; m.hurtT = game.time;   // hurtT: vừa bị đánh thì đánh trả cả trong vùng an toàn quanh NPC
@@ -148,7 +149,8 @@ export function updateBullets(game, dt) {
       for (const m of game.mobs) {
         if (m.dead || b.hit.has(m) || dist(b, m) > m.r + b.r) continue;
         b.hit.add(m);
-        hitMob(game, m, b.dmg, { slow: b.slow, stun: b.stun, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy });
+        hitMob(game, m, b.dmg, { slow: b.slow, stun: b.stun, color: b.color, fromX: b.x - b.vx, fromY: b.y - b.vy, normal: b.normal });
+        if (b.normal && !b.counted) { b.counted = true; comboSwing(game); }   // đạn đánh thường (đàn, cung): một phát trúng tính một Liên Kích
         if (!(b.sk && vfxHit(game, b, m.x, m.y, b.pierce ? 0 : b.explode || 0)) && b.fx) burstFx(game, b.fx, m.x, m.y, b.explode || 10, Math.atan2(b.vy, b.vx));
         if (b.sk && !b.pierce) b.vfxDone = true;
         if (!b.pierce) { b.life = 0; burst(game, b); break; }

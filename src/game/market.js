@@ -89,24 +89,27 @@ export async function claimMail(game) {
   if (!ids.length) return got;
   await game.cloud.run(() => { const from = s.nextUid; s.nextUid += ids.length; return takeMail(ids, from); }, r => {
     for (const m of r.thu || []) {
-      const d = m.noi_dung, head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || d.tieu_de || '', lines = [];
-      if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); }
-      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); }
-      if (d.pill && game.data.cave.pills[d.pill.id]) { s.pills ??= {}; s.pills[d.pill.id] = (s.pills[d.pill.id] || 0) + d.pill.n; lines.push(`${game.data.cave.pills[d.pill.id].name} ×${d.pill.n}`); }   // đan dược thưởng nhiệm vụ hệ thống
+      const d = m.noi_dung, gift = [], head = M(game).mail[m.ly_do] || game.data.referral?.mail?.[m.ly_do] || game.data.checkin?.mail?.[m.ly_do] || game.data['thien-mang']?.mail?.[m.ly_do] || game.data.pvp?.mail?.[m.ly_do] || (m.ly_do === 'dao_lu' ? `Quà đạo lữ${d.tu ? ' từ ' + d.tu : ''}` : '') || d.tieu_de || '', lines = [];
+      // gift: món quà dạng có cấu trúc, gắn vào tin Hòm thư để bảng tổng kết "Đọc hết" gộp lại (src/ui/mail-sum.js, chủ dự án 18/11/2026 00:07)
+      if (d.coins) { addCoins(game, d.coins, 'thu'); lines.push(`+${d.coins} ${game.data.shop.name}`); gift.push({ kind: 'coins', n: d.coins }); }
+      if (d.tn > 0) { lines.push(`+${d.tn} ${game.data.topup.name}`); gift.push({ kind: 'tn', n: d.tn }); }   // Tiên Ngọc: máy chủ cộng, số dư lấy theo r.tn bên dưới
+      if (d.item && game.data.items.bases[d.item.base]) { addItem(game.data, s, d.item); lines.push(itemName(game.data, d.item)); gift.push({ kind: 'item', it: d.item }); }
+      if (d.pill && game.data.cave.pills[d.pill.id]) { s.pills ??= {}; s.pills[d.pill.id] = (s.pills[d.pill.id] || 0) + d.pill.n; lines.push(`${game.data.cave.pills[d.pill.id].name} ×${d.pill.n}`); gift.push({ kind: 'pill', id: d.pill.id, n: d.pill.n }); }   // đan dược thưởng nhiệm vụ hệ thống
       const D = game.data;   // quà Hệ Thống: thú cưỡi, khôi lỗi, thời trang (máy chủ đã cộng vào bản lưu trên máy chủ)
-      if (d.mount && D.pets.mounts[d.mount]) { (s.mounts ??= {})[d.mount] = true; import('./beast.js').then(B => { B.mountLine(game, d.mount); game.persist(); }).catch(() => {}); lines.push(D.pets.mounts[d.mount].name); }
-      if (d.comp && D.companions.list[d.comp]) { s.comps ??= {}; s.comps[d.comp] ??= { lv: 1, exp: 0 }; lines.push(`Khôi lỗi ${D.npcs[d.comp]?.name || D.companions.list[d.comp].name || d.comp}`); }
-      if (d.outfit && D.fashion.list[d.outfit] && (d.g === 'nam' || d.g === 'nu')) { (s.outfits ??= {})[`${d.outfit}:${d.g}`] = true; lines.push(D.fashion.list[d.outfit].name); }
-      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); }
+      if (d.mount && D.pets.mounts[d.mount]) { (s.mounts ??= {})[d.mount] = true; import('./beast.js').then(B => { B.mountLine(game, d.mount); game.persist(); }).catch(() => {}); lines.push(D.pets.mounts[d.mount].name); gift.push({ kind: 'name', name: D.pets.mounts[d.mount].name, color: '#ffd27a' }); }
+      if (d.comp && D.companions.list[d.comp]) { s.comps ??= {}; s.comps[d.comp] ??= { lv: 1, exp: 0 }; const nm = `Khôi lỗi ${D.npcs[d.comp]?.name || D.companions.list[d.comp].name || d.comp}`; lines.push(nm); gift.push({ kind: 'name', name: nm, color: '#c9b6ff' }); }
+      if (d.outfit && D.fashion.list[d.outfit] && (d.g === 'nam' || d.g === 'nu')) { (s.outfits ??= {})[`${d.outfit}:${d.g}`] = true; lines.push(D.fashion.list[d.outfit].name); gift.push({ kind: 'name', name: D.fashion.list[d.outfit].name, color: '#ff9fd0' }); }
+      if (d.mat && matInfo(game.data, d.mat.id)) { addMat(s, d.mat.id, d.mat.n); lines.push(`${matInfo(game.data, d.mat.id).name} ×${d.mat.n}`); gift.push({ kind: 'mat', id: d.mat.id, n: d.mat.n }); }
       if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)
-        s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
+        s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; gift.push({ kind: 'gem', id: d.gem.key, n: d.gem.n }); lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
       }
       for (const l of lines) got.push(head ? `${head}: ${l}` : l);
       // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư. Thư nào cũng tới dạng chưa đọc (phong bì niêm), chạm thì
       // thành đã đọc, không kéo sang chợ (chủ dự án 07/11/2026 10:52: chạm thư bị kéo ra chợ; mua lần hai thư đã mở sẵn)
-      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: '', read: false });
+      if (lines.length) notify(game, { key: 'mail:' + m.id, kind: M(game).mail[m.ly_do] ? 'cho' : 'thu', title: head || m.ly_do || '', text: lines.join(' · '), go: '', read: false, gift });
     }
     s.nextUid = Math.max(s.nextUid, r.next_uid || 0);
+    if (typeof r.tn === 'number') s.tn = r.tn;
     game.refreshStats(); game.persist();
   });
   return got;

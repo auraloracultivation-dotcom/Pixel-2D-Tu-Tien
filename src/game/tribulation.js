@@ -5,6 +5,8 @@ import { qiNeed, realmLabel } from './stats.js';
 import { addStrike } from './strikes.js';
 import { addFx } from './combat.js';
 import { upSnap, realmUp } from './len-tang.js';
+import { tribSkyTick, tribSkyEnd, scorchTick, tribPal } from './trib-sky.js';   // mưa sét theo cảnh giới, vết cháy (17/11/2026)
+import { startCele, celeTick } from './trib-cele.js';   // lễ ăn mừng độ kiếp thành công
 
 export function atPeak(game) {
   const s = game.save, r = game.data.realms;
@@ -23,7 +25,7 @@ export function createTribulation(game) {
   function strike(x, y, k, kind = 'set') {
     const c = run.cfg, hoa = kind === 'hoa';
     addStrike(game, {
-      x, y, r: c.r * (hoa ? 1.35 : 1), delay: c.delay * (hoa ? 1.15 : 1),
+      x, y, r: c.r * (hoa ? 1.35 : 1) * (1 + (game.save.realm || 0) * (game.data.config.trib_fx?.sky?.r_realm || 0)), delay: c.delay * (hoa ? 1.15 : 1), trib: !hoa, pal: hoa ? null : tribPal(game),
       dmg: game.player.maxHp * c.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)),
       kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color,
     });
@@ -62,7 +64,7 @@ export function createTribulation(game) {
     get active() { return !!run; },
     get wave() { return run ? run.wave : 0; },
     get wantsAuto() { return !!run?.shadow; },   // kiếp có tâm ma: cho Tự đánh (chủ dự án 09/11/2026 10:42 báo độ kiếp treo: không tự đánh được, tâm ma máu dày)
-    canStart() { return !run && atPeak(game) && !game.dungeon && !game.map.def.no_trib; },
+    canStart() { return !run && !game.cele && atPeak(game) && !game.dungeon && !game.map.def.no_trib; },
     async start() {
       const cfg = tribOf(game), info = cfg.info;
       await game.dialog.say([['', `Linh khí trong người đã đầy tới đỉnh. ${info.intro}`], ['', `${info.name}, ${cfg.waves} đợt. ${info.tip}`]]);
@@ -73,7 +75,9 @@ export function createTribulation(game) {
       if (cfg.kind === 'tam-ma' || cfg.kind === 'mix') spawnShadow();
     },
     update(dt) {
+      scorchTick(game, dt); celeTick(game, dt);
       if (!run) return;
+      tribSkyTick(game, dt);
       if (run.shadow && !run.shadow.dead && !game.mobs.includes(run.shadow)) spawnShadow();   // đổi bản đồ giữa kiếp: tâm ma cũ mất theo bản đồ, cho hiện lại (trước đây kiếp kẹt mãi)
       keepShadowNear(dt);
       run.age = (run.age || 0) + dt;
@@ -96,7 +100,11 @@ export function createTribulation(game) {
       }
     },
     finish() {
-      run = null;
+      const color = run?.cfg?.info?.color || '#fff7d6';
+      run = null; tribSkyEnd(game);
+      startCele(game, color, () => this.ascend());   // tụ linh khí rồi bùm (trib-cele.js), lúc bùm mới lên cảnh giới
+    },
+    ascend() {
       const s = game.save, before = upSnap(game);   // chỉ số trước khi sang cảnh giới mới, cho nghi lễ đột phá so (src/game/len-tang.js)
       s.realm += 1; s.layer = 1; s.qi = 0; delete s.flags.thanhTam;
       game.capWarned = false;
@@ -114,7 +122,7 @@ export function createTribulation(game) {
       if (!run) return;
       const c = run.cfg;
       if (run.shadow) run.shadow.dead = true;
-      run = null; game.strikes = [];
+      run = null; game.strikes = []; tribSkyEnd(game);
       game.save.qi = Math.floor(game.save.qi * (1 - c.fail_qi));
       game.darkTarget = game.map.def.dark || 0;
       game.toast(`Độ kiếp thất bại... mất ${Math.round(c.fail_qi * 100)}% linh khí. Tu luyện thêm rồi thử lại.`, 3);

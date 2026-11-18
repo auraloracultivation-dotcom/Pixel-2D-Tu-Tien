@@ -25,6 +25,8 @@ import { drawWild } from './draw-critter.js';
 import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
+import { drawFlySword } from './draw-fly.js';
+import { drawCele } from './draw-trib.js';
 import { drawPhapTuong } from './draw-phap-tuong.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
@@ -89,6 +91,7 @@ function drawPlayer(ctx, game, t) {
   if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
   if (p.riding) { const lk = heroLook(game); drawPhapTuong(ctx, game, p, t, game.save, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', p.x + (p.seatX || 0), p.y - (p.lift || 0)); }   // pháp tượng sau lưng người cưỡi, sau cả thú (chỗ ngồi của khung trước)
   if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); p.lift = lift; ctx.save(); ctx.translate(p.seatX || 0, -lift - (!p.seatSync && p.moving && Math.floor(p.walkT * 7) % 2 ? 1 : 0)); }   // người cưỡi nhún theo nhịp phi (thú cưỡi có chỗ đứng theo khung thì đã nhấp nhô theo lưng, không nhún thêm)
+  if (p.flying) { p.lift = drawFlySword(ctx, game, p, t); ctx.save(); ctx.translate(0, -p.lift); }   // nút Bay: đứng trên kiếm (draw-fly.js)
   if (p.meditating) {
     ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
   }
@@ -105,7 +108,7 @@ function drawPlayer(ctx, game, t) {
   if (p.buffT > 0 && !vfxOf(game, p.buffSk)) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
   drawTitle(ctx, game, p);
-  if (p.riding) ctx.restore();
+  if (p.riding || p.flying) ctx.restore();
 }
 
 // Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo
@@ -214,7 +217,11 @@ function drawNpc(ctx, n, game, t) {
   // Hình NPC (draw-npc-sprite.js): người đồng hành dùng comp.<id> như lúc đi theo, NPC khác npc.<id>; ma khí (draw-ma-khi.js) hai lớp
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'back');
   if (n.def.vu_khi) drawNpcWeapon(ctx, game, n, t, n.def.vu_khi);
+  const cuoi = n.def.cuoi && game.data.pets.mounts[n.def.cuoi];   // NPC ngồi trên thú cưỡi (Ngự Thú Sư, 18/11/2026; data/npcs.json → cuoi)
+  if (cuoi) { n.face ||= { x: 1, y: 0 }; n.lift = drawMount(ctx, n, cuoi, t, game.data.art, n.def.cuoi); ctx.save(); ctx.translate(n.seatX || 0, -n.lift); }
   if (!drawNpcSprite(ctx, game, n, t)) drawPerson(ctx, n, n.def.color, n.def.hair || '#5a4a86', t, false, n.face || { x: 0, y: 1 });
+  if (cuoi) ctx.restore();
+  if (n.def.ten_luon) npcName(ctx, game, n);
   if (game.story.wants(n.id) || (n.id === game.data.pets.npc && !game.save.flags.nguThu)) {
     ctx.fillStyle = '#f2c94c'; ctx.font = '10px "Unifont VN", system-ui'; ctx.textAlign = 'center';
     ctx.fillText('!', n.x, n.y - 27 + Math.sin(t * 5) * 1.5);
@@ -222,10 +229,19 @@ function drawNpc(ctx, n, game, t) {
   if (n.def.ma_khi) drawMaKhi(ctx, n, t, n.def.ma_khi, 'front');
 }
 
+// Tên luôn hiện trên đầu NPC (data/npcs.json → ten_luon: màu chữ), phóng theo máy quay như chữ danh hiệu
+function npcName(ctx, game, n) {
+  const y = n.y - 30 - (n.lift || 0), q = textQ(game, 6);
+  ctx.save(); ctx.translate(n.x, y); ctx.scale(q, q);
+  ctx.font = 'bold 6px "Unifont VN", system-ui'; ctx.textAlign = 'center'; ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.fillStyle = n.def.ten_luon;
+  ctx.strokeText(n.def.name, 0, 0); ctx.fillText(n.def.name, 0, 0);
+  ctx.restore();
+}
+
 function drawFx(ctx, game) {
   for (const f of game.fx) {
     const k = f.t / f.life;
-    ctx.globalAlpha = 1 - k;
+    ctx.globalAlpha = 1 - k; if (f.draw) { f.draw(ctx, f, k, game); ctx.globalAlpha = 1; continue; }   // hiệu ứng tự vẽ (kiếm khí: draw-kiem-khi.js)
     if (f.type === 'arc') {
       const rr = f.r * (0.7 + 0.3 * k);   // cung chém: viền màu dày mỏng dần, lõi trắng
       ring(ctx, f.x, f.y, rr + 2, f.color, f.a - f.half, f.a + f.half, 4 * (1 - k) + 1);
@@ -262,6 +278,7 @@ function drawFx(ctx, game) {
 }
 
 function drawStrikeFalls(ctx, game) {
+  drawCele(ctx, game, game.time || 0);   // lễ ăn mừng độ kiếp: hạt linh khí xoáy vào người (draw-trib.js)
   for (const s of game.strikes) {
     const left = s.delay - s.t;
     if (s.kind === 'thunder') {   // vệt tiên dẫn rơi xuống trước lúc giáng; tia sét là hiệu ứng 'bolt' thêm lúc giáng

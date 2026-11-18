@@ -66,6 +66,9 @@
  "text": {
   "title": "Hòm thư",
   "read_all": "Đọc hết",
+  "sum_title": "Đã đọc {n} thư",
+  "sum_empty": "Các thư không kèm quà.",
+  "sum_hint": "Quà đã vào túi. Chạm ra ngoài hoặc bấm X để đóng.",
   "close": "Đóng",
   "empty": "Chưa có tin nào.",
   "login": "Đăng nhập tài khoản để nhận tin chợ, truyền âm, tông môn.",

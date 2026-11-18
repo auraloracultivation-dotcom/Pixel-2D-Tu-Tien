@@ -34,6 +34,7 @@ export function pbInput(game, inp) {
     pbCast(game, cast, Math.atan2(p.face.y, p.face.x));
     p.skillCd[i] = T.cd * cast.cdMul * (1 - (p.st.cdr || 0));
     (p.pbCdMax ||= [])[i] = p.skillCd[i];   // vòng hồi chiêu trên nút (src/ui/phap-bao-hud.js)
+    (p.pbCastT ||= [])[i] = game.time || 0;   // lúc tung: mốc Liên Kích rút hồi chiêu không cho vòng hồi ngắn hơn pb_floor (combo-moc.js)
   }
 }
 

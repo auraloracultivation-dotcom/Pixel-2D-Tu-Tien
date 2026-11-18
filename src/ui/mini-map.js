@@ -8,6 +8,12 @@ import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 const R = 14;   // bán kính vùng thấy được (ô)
 const COL = { camp: '#ff5a4a', gate: '#b47cff', goal: '#ffd86b', npc: '#fff2d0' };
 
+// Dấu móng thú: đệm lớn và bốn ngón, viền mực
+function paw(c, x, y) {
+  c.fillStyle = '#ffd27a'; c.strokeStyle = '#1b1830'; c.lineWidth = 1;
+  for (const [dx, dy, r] of [[0, 1.2, 2.2], [-2.6, -1.4, 1.1], [-0.9, -2.8, 1.1], [0.9, -2.8, 1.1], [2.6, -1.4, 1.1]]) { c.beginPath(); c.arc(x + dx, y + dy, r, 0, Math.PI * 2); c.stroke(); c.fill(); }
+}
+
 export function createMiniMap(game) {
   const box = document.createElement('div'); box.id = 'mini-map'; box.hidden = true;
   const cv = document.createElement('canvas'), ring = document.createElement('i'), name = document.createElement('b');
@@ -43,6 +49,7 @@ export function createMiniMap(game) {
       const x = (m.at[0] + 0.5 - px + R) * s, y = (m.at[1] + 0.5 - py + R) * s;
       if (x < 2 || y < 2 || x > N - 2 || y > N - 2) continue;
       c.fillStyle = COL[m.k] || '#fff'; c.strokeStyle = '#1b1830'; c.lineWidth = 1.5;
+      if (m.mini === 'thu') { paw(c, x, y); continue; }   // Ngự Thú Sư: dấu móng thú vàng (data/npcs.json → mini)
       c.beginPath(); c.arc(x, y, m.k === 'npc' ? 2 : 3, 0, Math.PI * 2); c.stroke(); c.fill();
     }
     c.fillStyle = '#1b1830'; c.beginPath(); c.arc(N / 2, N / 2, 4.5, 0, Math.PI * 2); c.fill();

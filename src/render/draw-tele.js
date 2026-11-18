@@ -6,6 +6,7 @@
 // = một đơn vị bản đồ): nền mờ cả vùng, phần đầy dần tới lúc ra đòn, viền màu có lót tối cho rõ trên tuyết, cát; từ tiến độ hot viền nháy trắng.
 // Lớp dưới chân (trước người, quái); ban đêm, trong hầm vẫn sáng vì khung là nguồn sáng (draw-lights.js). Số ở data/juice.json → mob2.tele.
 import { pfxBegin } from './vfx/pfx.js';
+import { drawScorch } from './draw-trib.js';
 import { pxArc, pxLine, pxRing, pxDot } from './vfx/pfx-shape.js';
 
 const DEF = { fill: 0.16, full: 0.28, edge: 0.95, hot: 0.78, hz: 14, red: '#ff3448', hot_c: '#ffe0e4', dark: '#4a0612' };
@@ -68,6 +69,7 @@ export function drawTele(ctx, game, m, t) {
 
 // Đòn từ trời chưa giáng (src/game/strikes.js): khung tròn đúng bán kính, đầy dần tới lúc giáng
 export function drawStrikeMarks(ctx, game, t) {
+  drawScorch(ctx, game, t);   // vết cháy thiên lôi trên đất (draw-trib.js)
   if (!game.strikes.length) return;
   const Q = S(game), red = [Q.red, Q.hot_c, Q.dark];
   ctx.save(); pfxBegin(ctx);

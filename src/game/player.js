@@ -16,6 +16,9 @@ import { warmSkillSfx } from './skill-sfx.js';
 import { playerStats, weaponId, artSkill } from './stats.js';
 import { usePill } from './cave.js';
 import { rideSpeed, toggleRide } from './pets.js';
+import { toggleFly, updateFly, flyMove } from './fly.js';
+import { comboSwing } from './juice.js';
+import { drawKiemKhi } from '../render/draw-kiem-khi.js';
 import { dailyEvent } from './daily.js';
 import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
@@ -121,23 +124,27 @@ function strike(game, q) {
   const p = game.player, w = q.w, ca = Math.cos(q.ang), sa = Math.sin(q.ang);
   if (q.move === 'ban') {   // đàn, cung: đạn bay ra từ vũ khí trước mặt
     const o = weaponPoint(game);
-    shoot(game, { from: 'player', x: o.x, y: o.y, vx: ca * w.speed, vy: sa * w.speed, r: w.radius, dmg: q.dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx });
+    shoot(game, { from: 'player', x: o.x, y: o.y, vx: ca * w.speed, vy: sa * w.speed, r: w.radius, dmg: q.dmg, pierce: !!w.pierce, color: w.color, life: w.range / w.speed, fx: w.fx, normal: true });
     game.sfx('shoot', 0.6);
     return;
   }
   const R = reachW(game, w), cx = p.x, cy = p.y - 8, tip = { x: cx + ca * R, y: cy + sa * R };
   // Vệt chém vẽ mượt, nổi trên mọi thứ (src/game/slash-fx.js, chủ dự án xin 29/10/2026); bổ và đâm thêm tia lửa ở chỗ trúng
   const hit = q.move === 'bo' ? { x: cx + ca * R * 0.8, y: cy + sa * R * 0.8 } : tip;
-  if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
+  if (q.move !== 'thu' && heroLook(game).trail?.style !== 'kiem') weaponSlash(game, p, w, q.move, q.ang, hit);
+  const KK = game.data.config.kiem_khi;   // kiếm khí đánh thường (draw-kiem-khi.js): lưỡi liềm bay ngắn theo hướng chém, màu hệ
+  if (KK?.on && q.move !== 'thu') addFx(game, { draw: drawKiemKhi, x: cx, y: cy, ang: q.ang, from: R * KK.from, len: KK.len, r: KK.r, half: KK.half, life: KK.life, color: game.data.elements[game.save.element]?.color || w.color || '#9ad8ff' });   // bộ có vệt kiếm khí riêng (Huyết Nguyệt, src/render/draw-huyet.js) thì bỏ vệt chém chung (chủ dự án 04/11/2026 23:42)
   if (!hit2On(game) && !['quet', 'xoay', 'hat', 'moc'].includes(q.move)) addFx(game, { type: 'sprite', id: 'fx.spark', x: hit.x, y: hit.y, s: 1.3, life: 0.2 });   // bản ra đòn mới: tia lửa nằm ở chỗ chạm quái (src/game/hit-feel.js)
+  let any = false;
   for (const m of game.mobs) {
     if (m.dead) continue;
     const d = dist(p, m);
     if (d > R + m.r) continue;
     let da = Math.atan2(m.y - p.y, m.x - p.x) - q.ang;
     da = Math.atan2(Math.sin(da), Math.cos(da));
-    if (Math.abs(da) <= q.half || d < m.r + p.r + 2) hitMob(game, m, q.dmg, { color: w.color });
+    if (Math.abs(da) <= q.half || d < m.r + p.r + 2) { hitMob(game, m, q.dmg, { color: w.color, normal: true }); any = true; }
   }
+  if (any) comboSwing(game);   // Liên Kích: mỗi nhát trúng tính một (src/game/juice.js, combo-moc.js)
 }
 
 // Chiêu chưa dùng được (lướt Thiểm Ảnh, lĩnh vực không có mục tiêu trong tầm): không trừ linh lực, báo cách nhau 1,5 giây (tự đánh thì im)
@@ -163,11 +170,14 @@ export function updatePlayer(game, dt) {
     if (Math.abs(p.kx) + Math.abs(p.ky) < 2) { p.kx = 0; p.ky = 0; }
   }
 
-  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = auto.ax;
+  const drift = updateFly(game, dt);   // nút Bay (src/game/fly.js): trừ linh lực, tự đáp; đang trôi vào bờ để đáp thì bỏ đi lại
+  const mv = p.flying ? (dx, dy) => flyMove(game, dx, dy) : (dx, dy) => game.map.move(p, dx, dy);
+  const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = drift ? { x: 0, y: 0 } : auto.ax;
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
   if (inp.consume('ride')) toggleRide(game);   // nút Cưỡi / Xuống (chủ dự án 16/11/2026)
+  if (inp.consume('fly')) toggleFly(game);   // nút Bay / Đáp (chủ dự án 17/11/2026 12:41)
   if (inp.consume('dash') && p.dashCd <= 0) {
     const dc = cfg.dash, d = p.moving ? Math.hypot(ax.x, ax.y) : 1, dir = p.moving ? { x: ax.x / d, y: ax.y / d } : p.face;
     p.dashCd = dc.cd; p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
@@ -177,19 +187,19 @@ export function updatePlayer(game, dt) {
   }
   if (p.dashT > 0 && p.dashV) {
     const sx = p.x, sy = p.y;
-    game.map.move(p, p.dashV.x * dt, p.dashV.y * dt);
+    mv(p.dashV.x * dt, p.dashV.y * dt);
     addFx(game, { type: 'line', x: sx, y: sy, x2: p.x, y2: p.y, color: '#e6ebf7', life: 0.2 });
   } else if (p.moving) {
     p.meditating = false;
-    const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
+    const sp = cfg.player.speed * p.st.speedMul * rideSpeed(game) * (p.flying ? cfg.fly?.speed || 1 : 1) * Math.min(1, Math.hypot(ax.x, ax.y) * 1.3);
     const d = Math.hypot(ax.x, ax.y);
-    game.map.move(p, ax.x / d * sp * dt, ax.y / d * sp * dt);
+    mv(ax.x / d * sp * dt, ax.y / d * sp * dt);
     p.face = { x: ax.x / d, y: ax.y / d };
     p.walkT += dt;
   }
   if (auto.face) p.face = auto.face;   // Tự đánh đang lùi giữ khoảng cách: bước lùi, mặt vẫn hướng quái (auto.js keepStep)
 
-  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0) { p.meditating = false; p.atkCd = p.riding ? mountSwing(game) : swing(game); }   // cưỡi thì thú đánh
+  if ((inp.held.has('atk') || auto.atk) && p.atkCd <= 0 && !p.flying) { p.meditating = false; p.atkCd = p.riding ? mountSwing(game) : swing(game); }   // cưỡi thì thú đánh
   if (p.hitQ && (p.hitQ.t -= dt) <= 0) { const q = p.hitQ; p.hitQ = null; strike(game, q); }
   updateFlyWeapon(game, dt);
 

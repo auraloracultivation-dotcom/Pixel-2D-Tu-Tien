@@ -33564,6 +33564,62 @@
     ]
    ]
   },
+  "tk.sap-khoi-loi-m": {
+   "file": "assets/art/tk-sap-khoi-loi-m.png",
+   "v": "fcbd5d53",
+   "w": 150,
+   "h": 132,
+   "frames": 1,
+   "anchor": [
+    75,
+    130
+   ],
+   "note": "bộ mới thien-kiem: quay/s01.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     13,
+     76,
+     "warm"
+    ],
+    [
+     112,
+     112,
+     "warm"
+    ],
+    [
+     85,
+     94,
+     "warm"
+    ],
+    [
+     139,
+     74,
+     "warm"
+    ],
+    [
+     49,
+     40,
+     "warm"
+    ],
+    [
+     49,
+     13,
+     "warm"
+    ],
+    [
+     58,
+     75,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    51,
+    38,
+    48,
+    14
+   ]
+  },
   "tk.sap-kiem-m": {
    "file": "assets/art/tk-sap-kiem-m.png",
    "v": "bedaa25e",
@@ -33688,6 +33744,52 @@
      58,
      "warm"
     ]
+   ]
+  },
+  "tk.sap-thu-m": {
+   "file": "assets/art/tk-sap-thu-m.png",
+   "v": "1b210ad3",
+   "w": 150,
+   "h": 128,
+   "frames": 1,
+   "anchor": [
+    75,
+    126
+   ],
+   "note": "bộ mới thien-kiem: quay/s01.png (80 đơn vị ngang)",
+   "scale": 0.5333,
+   "lights": [
+    [
+     76,
+     21,
+     "warm"
+    ],
+    [
+     40,
+     111,
+     "warm"
+    ],
+    [
+     114,
+     93,
+     "warm"
+    ],
+    [
+     138,
+     75,
+     "warm"
+    ],
+    [
+     13,
+     69,
+     "warm"
+    ]
+   ],
+   "plaque": [
+    53,
+    30,
+    46,
+    14
    ]
   },
   "tk.sap-thuoc-m": {

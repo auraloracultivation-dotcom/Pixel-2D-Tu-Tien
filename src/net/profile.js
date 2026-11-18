@@ -179,7 +179,12 @@ export async function setDisplayName(ten) {
 // Tiên Ngọc: máy chủ giữ số dư
 export const topupCalls = {
   starter: () => rpc('p2d_qua_tn'),
-  buy: ma => rpc('p2d_doi_tn', { p_ma: ma }),
+  // khoá chống trùng (18/11/2026): mạng gửi lại cùng khoá thì máy chủ trả kết quả lần đầu, không trừ hai lần;
+  // máy chủ chưa có p2d_doi_tn2 (chưa áp migration 20261118030000) thì dùng hàm cũ
+  buy: (ma, khoa) => rpc('p2d_doi_tn2', { p_ma: ma, p_khoa: khoa }).catch(e => {
+    if (e?.code === 'PGRST202' || /p2d_doi_tn2/.test(e?.message || '')) return rpc('p2d_doi_tn', { p_ma: ma });
+    throw e;
+  }),
   card: () => rpc('p2d_nhan_the'),
 };
 

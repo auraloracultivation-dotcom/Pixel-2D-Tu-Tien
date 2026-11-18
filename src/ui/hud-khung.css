@@ -71,7 +71,7 @@ html body.hud-bang #buttons > button.btn.skill .cd { inset: 3px !important; bord
 html body.hud-bang #buttons > button.btn.skill b { z-index: 4 !important; }
 
 /* Túi đồ, Đan, Cưỡi, Lướt, Tự đánh: ô vuông có đá góc */
-html body.hud-bang :is(#hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #buttons #btn-dash, #buttons #btn-auto) {
+html body.hud-bang :is(#hud .hud-btns > button.tron#btn-bag, #buttons #btn-pill, #buttons #btn-ride, #buttons #btn-fly, #buttons #btn-dash, #buttons #btn-auto) {
   background: url("../../assets/art/ui-kg-o.webp") 0 0 / 100% 100% no-repeat !important; border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important; }
 html body.hud-bang #buttons :is(#btn-dash, #btn-auto) { width: var(--tron) !important; height: var(--tron) !important; }
 html body.hud-bang #buttons #btn-dash .cd { inset: 4px !important; border-radius: 5px !important; }
@@ -124,3 +124,15 @@ html body.hud-bang .sn-item[data-nav]::before { left: 6px !important; }
 /* đang mở bảng / túi / thoại: dòng chat và Túi đồ dưới góc trái ẩn đi, không đè lên bảng */
 html body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden]), #dialog:not([hidden])) #chat-dock { display: none !important; }
 body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden])) #hud .hud-btns > button.tron#btn-bag { visibility: hidden; }
+
+/* Ô Động phủ (chỉ hiện khi đang ở động phủ): trước nằm thứ 9 ở bảng trên, tràn đè chữ Linh khí. Chủ dự án 17/11/2026 16:29: "kéo xuống
+   để bên cạnh nút Tự đánh, kích cỡ như nhau" → ô vuông đá góc cỡ --tron, bên trái Tự đánh, cùng hàng với Tự đánh và Lướt. */
+html body.hud-bang #hud .hud-btns > button.tron#hud-home {
+  position: fixed !important; top: auto !important; left: auto !important; width: var(--tron) !important; height: var(--tron) !important; margin: 0 !important; padding: 0 !important;
+  right: calc(var(--sr) + 28px + (var(--atk) - var(--tron)) / 2 + 2 * var(--tron)) !important; bottom: calc(var(--sb) + var(--d-top) + 10px) !important;
+  background: url("../../assets/art/ui-kg-o.webp") 0 0 / 100% 100% no-repeat !important; border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important;
+  z-index: 6; pointer-events: auto !important; box-sizing: border-box !important; }
+html body.hud-bang #hud .hud-btns > button.tron#hud-home::before { position: absolute !important; left: 0 !important; right: 0 !important; top: 8px !important; width: 18px !important; height: 18px !important; margin: 0 auto !important; transform: none !important; background-position: center !important; }   /* 18/11 06:08 "icon chưa chính giữa": icon + chữ thành một khối giữa ô */
+html body.hud-bang #hud .hud-btns > button.tron#hud-home::after { left: 0 !important; right: 0 !important; bottom: 8px !important; text-align: center !important; line-height: 8px !important; transform: none !important; font: 700 7.5px/1 system-ui, sans-serif !important; color: #fff3d6 !important;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000 !important; }
+body.hud-bang:has(.panel:not([hidden]), #bag:not([hidden]), #dialog:not([hidden])) #hud .hud-btns > button.tron#hud-home { visibility: hidden; }

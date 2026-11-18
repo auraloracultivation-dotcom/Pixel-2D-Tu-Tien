@@ -36,7 +36,7 @@ export function marks(game) {
   for (const pt of def.portals) if (!pt.fly && (!pt.need || game.save.flags[pt.need])) out.push({ k: 'gate', at: pt.at, name: T.gate.replace('{name}', D.maps[pt.to]?.name || pt.label) });
   const g = game.story?.goal?.();
   if (g?.target) out.push({ k: 'goal', at: g.target, name: g.text });
-  for (const n of game.npcs) out.push({ k: 'npc', at: [Math.floor(n.x / game.map.T), Math.floor(n.y / game.map.T)], name: n.def?.name });
+  for (const n of game.npcs) out.push({ k: 'npc', at: [Math.floor(n.x / game.map.T), Math.floor(n.y / game.map.T)], name: n.def?.name, mini: n.def?.mini });
   return out;
 }
 

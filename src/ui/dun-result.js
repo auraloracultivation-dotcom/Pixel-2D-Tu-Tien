@@ -9,6 +9,26 @@ import { matInfo } from '../game/cave.js';
 import { levelName, cleared } from '../game/dun-mode.js';
 import { runsLeft, sweep, enterLevel, leaveRun } from '../game/dun-run.js';
 
+// Một ô thu được (dùng chung cho bảng tổng kết Hòm thư src/ui/mail-sum.js): kind item / gem / coins / tn / pill / mat / name
+export function lootCell(game, x) {
+  const data = game.data, T = data.dungeon.texts, c = el('div', 'dr-cell');
+  let name = '', color = '#c8c4d0';
+  if (x.kind === 'item') {
+    const q = quality(data, x.it) || rarityOf(data.items, x.it.rarity);
+    c.append(icon(data, x.it)); name = itemName(data, x.it); color = q?.color || color;
+  } else if (x.kind === 'gem') { const g = gemInfo(data, x.id); const box = el('div', 'dr-gem'); box.append(gemIcon(game, x.id, g.lv < 6 ? 84 : 56)); c.append(box); name = g.name; color = g.color || color; }   // ngọc cấp thấp hình nhỏ giữa khung: phóng to, cắt viền trống
+  else {
+    const m = x.kind === 'coins' ? { name: T.coins, color: '#f2c94c' } : x.kind === 'tn' ? { name: data.topup.name, color: '#7fe0ff' } : x.kind === 'name' ? { name: x.name, color: x.color }
+      : x.kind === 'pill' ? data.cave.pills[x.id] : matInfo(data, x.id);
+    const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color;
+    c.append(dot); name = m?.name || x.id; color = m?.color || color;
+  }
+  c.style.borderColor = color; c.title = name;
+  c.append(el('small', null, name));
+  if (x.n > 1 || x.kind === 'coins' || x.kind === 'tn') c.append(el('b', 'dr-n', '×' + x.n.toLocaleString('vi-VN')));
+  return c;
+}
+
 export function createDunResult(game) {
   const data = game.data, T = data.dungeon.texts;
   const root = el('div', 'panel dr-panel'); root.hidden = true;
@@ -16,24 +36,7 @@ export function createDunResult(game) {
   head.append(title);
   root.append(head, grid, note, acts);
   document.body.append(root);
-
-  function cell(x) {
-    const c = el('div', 'dr-cell');
-    let name = '', color = '#c8c4d0';
-    if (x.kind === 'item') {
-      const q = quality(data, x.it) || rarityOf(data.items, x.it.rarity);
-      c.append(icon(data, x.it)); name = itemName(data, x.it); color = q?.color || color;
-    } else if (x.kind === 'gem') { const g = gemInfo(data, x.id); const box = el('div', 'dr-gem'); box.append(gemIcon(game, x.id, g.lv < 6 ? 84 : 56)); c.append(box); name = g.name; color = g.color || color; }   // ngọc cấp thấp hình nhỏ giữa khung: phóng to, cắt viền trống
-    else {
-      const m = x.kind === 'coins' ? { name: T.coins, color: '#f2c94c' } : x.kind === 'pill' ? data.cave.pills[x.id] : matInfo(data, x.id);
-      const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color;
-      c.append(dot); name = m?.name || x.id; color = m?.color || color;
-    }
-    c.style.borderColor = color; c.title = name;
-    c.append(el('small', null, name));
-    if (x.n > 1 || x.kind === 'coins') c.append(el('b', 'dr-n', '×' + x.n.toLocaleString('vi-VN')));
-    return c;
-  }
+  const cell = x => lootCell(game, x);
 
   function btn(text, fn, off) { const b = el('button', 'act-btn', text); b.disabled = !!off; b.onclick = fn; acts.append(b); }
   function close() { root.hidden = true; game.uiOpen = false; }

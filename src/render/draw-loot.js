@@ -23,7 +23,40 @@ function orb(ctx, x, y, base, top) {
 export function drawLoot(ctx, game, t) {
   const C = game.data.config.loot;
   if (C?.beam) for (const l of game.loot) beam(ctx, Math.round(l.x), Math.round(l.y), lootColor(game, l), t, C.beam, l);
-  for (const l of game.loot) gem(ctx, Math.round(l.x), Math.round(l.y + Math.sin(t * 8 + l.x)), lootColor(game, l), t);
+  for (const l of game.loot) {
+    const x = Math.round(l.x), y = Math.round(l.y + (l.down ? Math.sin(t * 3 + l.x) * 0.8 : 0)), ic = C?.icon && lootIcon(game, l, C.icon);
+    if (ic) { drawIcon(ctx, ic, x, y, C.icon, lootColor(game, l)); continue; }
+    gem(ctx, x, y, lootColor(game, l), t);   // chưa có hình (hoặc hình chưa tải): viên ngọc thoi như cũ
+  }
+}
+
+// Icon món trên đất (chủ dự án 17/11/2026 11:55: "trang bị vật liệu rơi ra mặt đất biến thành hình icon chứ không phải một đốm ánh sáng").
+// Hình icon là ảnh to (ui.vk-<món> 340 điểm, ui.ic-<ô> ~140 điểm): thu một lần vào tấm nhỏ cỡ icon.px điểm (khử răng cưa lúc thu)
+// rồi giữ lại, mỗi khung chỉ vẽ tấm nhỏ đó (nhẹ máy). Số ở data/config.json → loot.icon.
+const small = new Map();
+function lootIcon(game, l, I) {
+  const S = game.data.art.sprites, p = l.payload;
+  const spr = l.kind === 'item' ? (S['ui.vk-' + p.base] || S['ui.ic-' + (game.data.items.bases[p.base]?.slot || '')])
+    : l.kind === 'gem' ? S['gem.' + String(p).replace(':', '-')] : S['ui.vk-' + (l.kind === 'mat' ? p.id : 'tay-luyen-thach')];
+  if (!spr) return null;
+  const key = spr.file + '|' + I.px;
+  let c = small.get(key);
+  if (c) return c;
+  const im = spriteImage(spr);
+  if (!im) return null;
+  const k = I.px / Math.max(spr.w, spr.h), w = Math.max(1, Math.round(spr.w * k)), h = Math.max(1, Math.round(spr.h * k));
+  c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  g.drawImage(im, 0, 0, spr.w, spr.h, 0, 0, w, h);
+  small.set(key, c);
+  return c;
+}
+
+function drawIcon(ctx, c, x, y, I, col) {
+  const s = I.size, w = c.width * s / I.px, h = c.height * s / I.px;
+  ctx.globalAlpha = 0.35; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, y + 1, w * 0.42, 1.6, 0, 0, Math.PI * 2); ctx.fill();   // bóng dưới đất
+  ctx.globalAlpha = 1; ctx.strokeStyle = col; ctx.lineWidth = 0.6;
+  ctx.drawImage(c, Math.round(x - w / 2), Math.round(y - h - 1), w, h);
 }
 
 // Cột sáng đánh dấu chỗ có đồ (chủ dự án 16/11/2026 23:39): vòng sáng ôm món trên đất, cột chiếu thẳng lên trời, lên cao nhạt dần;
