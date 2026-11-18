@@ -47,11 +47,15 @@ function trong(c, Wl, Hl, ox, oy, sun, e, t) {
 // st như drawStarmap; trả về chỗ chạm được (toạ độ màn)
 export function drawNgang(ctx, w, h, sm, bodies, st) {
   const T = sm.tv, N = T.ngang, art = st.art || {}, t = st.t, z = st.view?.z || 1;
-  const Wd = Math.max(1920, 1080 * w / h), Hd = Math.max(1080, 1920 * h / w), ox = (Wd - 1920) / 2, oy = (Hd - 1080) / 2;
+  const Wd = Math.max(w < h ? 1560 : 1920, 1080 * w / h),   // màn dọc: cắt bớt hai mép cho kết giới to ra
+    Hd = Math.max(1080, (w < h ? 1560 : 1920) * h / w), ox = (Wd - 1920) / 2, oy = (Hd - 1080) / 2;
   const s = Math.min(w / Wd, h / Hd) * z, tx = w / 2 + (st.view?.x || 0) - Wd / 2 * s, ty = h / 2 + (st.view?.y || 0) - Hd / 2 * s;
   // Màn rộng / cao hơn 16:9: mây, tinh thể ở mép vẽ thêm một bản dạt ra sát mép màn, khỏi lộ chỗ trống
-  const mep = (x, y) => { const L = [[x + ox, y + oy]], dx = x < 480 ? -ox : x > 1440 ? ox : 0, dy = y < 200 ? -oy : y > 880 ? oy : 0;
-    if (Math.abs(dx) > 40 || Math.abs(dy) > 40) L.unshift([x + ox + dx, y + oy + dy]); return L; };
+  const mep = (x, y) => {
+    const L = [], px = Math.max(0, ox), dx = x < 480 ? -px : x > 1440 ? px : 0, dy = y < 200 ? -oy : y > 880 ? oy : 0;
+    if (Math.abs(dy) > 40) { L.push([x + ox, y + oy + dy]); if (Math.abs(dy) > 160) L.push([x + ox, y + oy + dy / 2]); }   // màn dọc: lấp trên dưới
+    if (Math.abs(dx) > 40) L.push([x + ox + dx, y + oy]);
+    L.push([x + ox, y + oy]); return L; };
   // Khai hoang: vòng theo cấp; cấp cao vượt rìa thì kết giới nở theo
   const kh = bodies.filter(b => b.kh), khR = cap => N.kh[0] + N.kh[1] * (Math.max(1, cap) - 1);
   const no = Math.max(1, ...kh.map(b => (khR(b.cap) + 0.1) / 0.92));
@@ -70,6 +74,7 @@ export function drawNgang(ctx, w, h, sm, bodies, st) {
   ctx.drawImage(low, 0, 0, Wl * 3, Hl * 3); ctx.restore();
   // Mây, tinh thể ma khí (SpriteCook) đúng chỗ video
   N.may.forEach(([id, x, y, k, lat], i) => { for (const [X, Y] of mep(x, y)) put(ctx, art, 'tv.' + id, X + 10 * Math.sin(t / 24 * TAU + i), Y + 4 * Math.sin(t / 12 * TAU + i * 2), k, !!lat); });
+  if (oy > 40) (N.may_doc || []).forEach(([id, x, y, k, lat], i) => put(ctx, art, 'tv.' + id, x + ox + 8 * Math.sin(t / 24 * TAU + i), y + oy + 3 * Math.sin(t / 12 * TAU + i), k, !!lat));   // màn dọc: mây lấp trên dưới
   N.tinh_the.forEach(([x, y, ph]) => { for (const [X, Y] of mep(x, y)) put(ctx, art, 'tv.tinh-the', X, Y + 8 * Math.sin(t / 24 * TAU + ph), 1.3); });
   drawKetGioi(ctx, art, T, { cx, cy, rx: vrx, ry: vry }, t, 3, N.tru_k * 756 / vrx);
   // Thiên thể

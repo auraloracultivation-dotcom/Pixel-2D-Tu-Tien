@@ -66,7 +66,7 @@ body:has(.panel:not([hidden])) #btn-auto.auto-dock, body:has(#bag:not([hidden]))
 #world-sub { display: none; }
 #world-sky { flex: 1; min-height: 0; }
 /* Màn ngang: tinh đồ mở gần kín màn như video tinh-do-ngang (chủ dự án 19/11/2026 04:09) */
-@media (orientation: landscape) { .panel#world { max-width: none; height: auto; max-height: none; inset: calc(env(safe-area-inset-top) + 4px) calc(env(safe-area-inset-right) + 6px) calc(env(safe-area-inset-bottom) + 4px) calc(env(safe-area-inset-left) + 6px); }
+@media (orientation: landscape) { .panel#world { max-width: none; height: auto; max-height: none; inset: 9dvh 13vw; }   /* 04:21: nhỏ lại, không che hết màn cho khỏi ngợp */
   .panel#world > .bag-head { position: absolute; top: 8px; right: 10px; z-index: 2; border: 0; padding: 0; }
   #world-title { display: none; }
   #world .world-tabs { margin-right: 46px; }

@@ -28,7 +28,7 @@ export function maNgang(art, W, H, cx, cy, rx, ry, t, dx) {
     for (let x = -o; x < W; x += s.w) c.drawImage(im, x, 0, s.w, H);
   }
   // Vòng xoáy ma khí ở mép phải (theo video: tâm 0,97 W gốc, bán kính 0,55 H)
-  const vx = W - 640 * 0.03, vy = H * 0.46, vr = H * 0.55, x0 = Math.max(0, Math.floor(vx - vr)), y0 = Math.max(0, Math.floor(vy - vr / 1.4));
+  const vx = W - 640 * 0.03, vy = H / 2 - 360 * 0.04, vr = 360 * 0.55, x0 = Math.max(0, Math.floor(vx - vr)), y0 = Math.max(0, Math.floor(vy - vr / 1.4));
   const x1 = Math.min(W, Math.ceil(vx + vr)), y1 = Math.min(H, Math.ceil(vy + vr / 1.4));
   if (x1 > x0 && y1 > y0) {
     const id = c.getImageData(x0, y0, x1 - x0, y1 - y0), d = id.data;
@@ -73,7 +73,7 @@ export function maNgang(art, W, H, cx, cy, rx, ry, t, dx) {
   for (const [fx, ph] of [[0.04, 1.0], [0.075, 2.7], [0.9, 0.3], [0.955, 1.9], [0.62, 4.0], [0.3, 5.2]]) {
     const x0c = fx < 0.5 ? fx * 640 : W - (1 - fx) * 640, w = 9 + 3 * Math.sin(a + ph);
     for (let y = 0; y < H; y++) {
-      const cao = (H - y) / H; if (cao > 0.55 + 0.1 * Math.sin(a + ph)) continue;
+      const cao = (H - y) / 360; if (cao > 0.55 + 0.1 * Math.sin(a + ph)) continue;
       const cc = x0c + 3 * Math.sin(y * 0.08 + a * 2 + ph), hw = w * (1 - cao);
       for (let x = Math.floor(cc - hw); x <= cc + hw; x++) if (ng(x, y)) { c.fillStyle = (y + f * 2) % 6 < 3 ? DONG[1] : 'rgb(50,24,80)'; c.fillRect(x, y, 1, 1); }
       if (ng(cc, y) && (y + f * 3) % 9 < 2) { c.fillStyle = DIEN[0]; c.fillRect(Math.floor(cc), y, 1, 1); }
