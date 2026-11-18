@@ -1,0 +1,65 @@
+{
+  "_note": "Sổ việc SpriteCook phần xây lại Thiên Kiếm Tinh (chủ dự án 18/11/2026 11:08 \"Ok, làm đi nha\": duyệt bản thử khoảng 80 credit). Giá thật: bộ nền 15 mảnh ô 32 điểm (Nano Banana 2.1, 1K) 12 credit mỗi bản; tấm đồ vật 2K 18 credit. Số dư trước bản thử 431.",
+  "style_refs": [
+    {
+      "asset_id": "3a7712d5-334b-478a-9ec5-3313b2e3056f",
+      "label": "mau-phong-cach-tk.png (cây, bụi, đá, cầu của chủ dự án ghép, ×2)",
+      "cost": 0
+    }
+  ],
+  "jobs": [
+    {
+      "job_id": "9bd83815-6b6c-440a-ae11-75e2e8545d8c",
+      "kind": "tileset",
+      "what": "cỏ ↔ nước (two_surfaces), 2 bản",
+      "cost": 24
+    },
+    {
+      "job_id": "d8d8c957-45da-49fe-b598-54c04a7ef084",
+      "kind": "tileset",
+      "what": "cỏ ↔ đường đất (two_surfaces), 2 bản",
+      "cost": 24
+    },
+    {
+      "job_id": "eb764ef8-7413-4de8-8bee-f46c3b464ebf",
+      "kind": "game_art 2K",
+      "what": "tấm 8 đồ ven sông: liễu, lau, cỏ nến, lá sen, đá rêu lớn, đá nhỏ, bến câu, cầu đá vòm",
+      "cost": 18
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "df22773b-e7c7-4cf5-b1f5-7b19932b7d27",
+      "file": "thu/tk-co-nuoc-a.png",
+      "sha12": "22f2c936b6e2",
+      "label": "cỏ ↔ nước bản a (cỏ sẫm #3d702e; khung 12 trắng, thiếu nước)"
+    },
+    {
+      "asset_id": "233467e2-4019-459f-b653-4b4714876bb2",
+      "file": "thu/tk-co-nuoc-b.png",
+      "sha12": "8a717f7515f6",
+      "label": "cỏ ↔ nước bản b (cỏ #468034, nước #1d5286, đủ 16 khung) — dùng"
+    },
+    {
+      "asset_id": "83ddfc53-68b0-4afa-a7ea-5f33af8da2c1",
+      "file": "thu/tk-co-dat-a.png",
+      "sha12": "96bb031c528b",
+      "label": "đường đất bản a (đất vàng #b8915a; ngoài đường để trắng, viền cỏ #6ca837)"
+    },
+    {
+      "asset_id": "6a554fe7-961f-4985-b951-a3436b4b5546",
+      "file": "thu/tk-co-dat-b.png",
+      "sha12": "f574c3c6abae",
+      "label": "đường đất bản b (đất nâu #9b7045; ngoài đường để trắng)"
+    },
+    {
+      "asset_id": "dc3e1a62-6e02-4243-b5c5-261656c5467b",
+      "file": "thu/tk-do-ven-song.png",
+      "sha12": "39255ce5dfc5",
+      "label": "tấm 8 đồ ven sông 478×268 (liễu, lau, cỏ nến, lá sen, đá rêu lớn, đá nhỏ, bến gỗ, cầu đá vòm)"
+    }
+  ],
+  "spent": 66,
+  "_note_xem": "Xem 18/11 11:20: bộ nền 15 mảnh là lưới 4×4 ô 32 điểm, khung theo frameByMask của SpriteCook; ô 'đầy' (mask 15, khung 6) là mặt thứ nhất (cỏ / đất), khung 12 là mặt thứ hai (nước) — bản a của nước và cả hai bản đất để trắng mặt thứ hai, xử lý ở tools/art/nen_sc.py.",
+  "_ket_qua": "Bản thử 18/11: dùng bản b của nước (nen.tk-nuoc) và bản b của đất (nen.tk-dat; bản a có bãi cỏ giữa khung đặc). Tấm đồ ven sông cắt 8 món tk.*-sc. Cầu đá vòm và bến gỗ vẽ chéo góc: bến dùng được, cầu vòm chưa dùng. Tiêu 66 credit, còn 365."
+}

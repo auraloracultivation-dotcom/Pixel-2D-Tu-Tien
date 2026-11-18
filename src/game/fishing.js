@@ -12,7 +12,8 @@ export function waterDir(game) {
   if (!outdoor(game) || game.map.def.no_fish) return null;
   const T = game.map.T, p = game.player, tx = Math.floor(p.x / T), ty = Math.floor(p.y / T);
   for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]]) {
-    if (game.map.at(tx + dx, ty + dy) !== '=' && !game.map.edge(tx + dx, ty + dy)) continue;   // mép tinh cầu hoặc sông, hồ
+    // sông, hồ; mép tinh cầu chỉ còn ở tinh cầu chưa dựng lại theo luật thế giới (chủ dự án 18/11/2026 11:03: câu ở nước thật, bỏ câu mép)
+    if (game.map.at(tx + dx, ty + dy) !== '=' && !(game.map.edge(tx + dx, ty + dy) && !game.map.def.planet?.luat)) continue;
     const c = game.map.center(tx + dx, ty + dy);
     if (Math.hypot(c.x - p.x, c.y - p.y) < T * 1.3) return { x: dx, y: dy };
   }

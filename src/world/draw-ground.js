@@ -4,6 +4,7 @@ import { spriteImage } from '../render/sprites.js';
 import { roundRim } from './draw-rim.js';
 import { bakeDat } from './draw-dat.js';
 import { paintNature } from './draw-nature.js';
+import { drawNen, nenReady } from './draw-nen.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -204,11 +205,15 @@ function scatter(c, map, hash, dirt, bush) {
 
 // Ô có vật đã vẽ sẵn trong tấm đệm nền (draw-map.js khỏi vẽ lại)
 // Tấm đệm nền của bản đồ này đã dựng xong (màn che lúc tải, src/render/world-veil.js)
-export const groundReady = map => cache.map === map;
+export const groundReady = (map, game) => cache.map === map || (!!map.def.nen && !!game && nenReady(game, map));
 export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty * map.w + tx] === 1;
 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
 export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
+  if (map.def.nen) {   // nền bộ 15 mảnh SpriteCook, vẽ theo mảng (draw-nen.js)
+    if (cache.map !== map) cache = { map: null, cv: null, painted: new Set(['=']), baked: null };
+    return drawNen(ctx, game, map, tiles, view, hash);
+  }
   if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); cache.baked = null; return false; } cache = { map, cv, painted: cache.painted, baked: cache.baked }; }
   const T = map.T, x0 = Math.max(0, Math.floor(view.x0)), y0 = Math.max(0, Math.floor(view.y0));
   const w = Math.min(cache.cv.width, Math.ceil(view.x1)) - x0, h = Math.min(cache.cv.height, Math.ceil(view.y1)) - y0;

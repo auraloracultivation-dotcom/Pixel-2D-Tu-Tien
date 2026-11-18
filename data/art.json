@@ -45114,6 +45114,136 @@
      "warm"
     ]
    ]
+  },
+  "nen.tk-nuoc": {
+   "file": "assets/art/nen-tk-nuoc.png",
+   "v": "a375c73a",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: cỏ ↔ nước, bờ cát (tools/art/sc_tk.py)"
+  },
+  "nen.tk-dat": {
+   "file": "assets/art/nen-tk-dat.png",
+   "v": "8277843e",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: đường đất phủ lên cỏ (tools/art/sc_tk.py)"
+  },
+  "tk.lieu-sc": {
+   "file": "assets/art/tk-lieu-sc.png",
+   "v": "e8e4c195",
+   "w": 138,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    69,
+    148
+   ],
+   "note": "SpriteCook: liễu rủ ven nước (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.bui-lau-sc": {
+   "file": "assets/art/tk-bui-lau-sc.png",
+   "v": "cbf51058",
+   "w": 68,
+   "h": 91,
+   "frames": 1,
+   "anchor": [
+    34,
+    89
+   ],
+   "note": "SpriteCook: bụi lau (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.bui-co-nen-sc": {
+   "file": "assets/art/tk-bui-co-nen-sc.png",
+   "v": "5fb3fdf4",
+   "w": 66,
+   "h": 80,
+   "frames": 1,
+   "anchor": [
+    33,
+    78
+   ],
+   "note": "SpriteCook: cỏ nến (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.sen-la-sc": {
+   "file": "assets/art/tk-sen-la-sc.png",
+   "v": "7cbb007a",
+   "w": 96,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    48,
+    63
+   ],
+   "note": "SpriteCook: lá sen, một bông sen hồng (nổi trên nước) (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.da-reu-lon-sc": {
+   "file": "assets/art/tk-da-reu-lon-sc.png",
+   "v": "791f8c18",
+   "w": 88,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    44,
+    72
+   ],
+   "note": "SpriteCook: đá rêu lớn (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.soi-reu-sc": {
+   "file": "assets/art/tk-soi-reu-sc.png",
+   "v": "2e31bc6b",
+   "w": 56,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    28,
+    37
+   ],
+   "note": "SpriteCook: hai hòn đá rêu nhỏ (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.cau-ben-sc": {
+   "file": "assets/art/tk-cau-ben-sc.png",
+   "v": "d31d3636",
+   "w": 96,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    48,
+    82
+   ],
+   "note": "SpriteCook: bến gỗ câu cá (đi lên được) (tools/art/sc_tk.py)",
+   "scale": 0.5333
+  },
+  "tk.cau-da-vom-sc": {
+   "file": "assets/art/tk-cau-da-vom-sc.png",
+   "v": "519a4847",
+   "w": 158,
+   "h": 117,
+   "frames": 1,
+   "anchor": [
+    79,
+    115
+   ],
+   "note": "SpriteCook: cầu đá vòm (tools/art/sc_tk.py)",
+   "scale": 0.5333
   }
  }
 }
