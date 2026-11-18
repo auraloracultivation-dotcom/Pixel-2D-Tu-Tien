@@ -65,6 +65,12 @@ body:has(.panel:not([hidden])) #btn-auto.auto-dock, body:has(#bag:not([hidden]))
 #world-close { flex: none; }
 #world-sub { display: none; }
 #world-sky { flex: 1; min-height: 0; }
+/* Màn ngang: tinh đồ mở gần kín màn như video tinh-do-ngang (chủ dự án 19/11/2026 04:09) */
+@media (orientation: landscape) { .panel#world { max-width: none; height: auto; max-height: none; inset: calc(env(safe-area-inset-top) + 4px) calc(env(safe-area-inset-right) + 6px) calc(env(safe-area-inset-bottom) + 4px) calc(env(safe-area-inset-left) + 6px); }
+  .panel#world > .bag-head { position: absolute; top: 8px; right: 10px; z-index: 2; border: 0; padding: 0; }
+  #world-title { display: none; }
+  #world .world-tabs { margin-right: 46px; }
+  #world .world-tabs button { padding: 4px 8px; font-size: 12px; } }
 
 /* Đầu mọi bảng (Tông môn, Chợ… báo lỗi #97, #98; như Bản đồ): tiêu đề + chữ phụ + ✕ một hàng. Chữ phụ dài thì cắt "…" thay vì
    dựng đứng từng chữ đẩy nội dung xuống. */

@@ -47929,6 +47929,30 @@
     94
    ],
    "note": "Tinh Vực: vet-nut (SpriteCook 19/11/2026)"
+  },
+  "tv.van-1": {
+   "file": "assets/art/tv-van-1.png",
+   "v": "0a72bfc8",
+   "w": 1280,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    640,
+    180
+   ],
+   "note": "biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang"
+  },
+  "tv.van-2": {
+   "file": "assets/art/tv-van-2.png",
+   "v": "1557375a",
+   "w": 1280,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    640,
+    180
+   ],
+   "note": "biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang"
   }
  }
 }

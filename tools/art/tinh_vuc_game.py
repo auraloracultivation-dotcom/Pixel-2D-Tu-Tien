@@ -65,6 +65,20 @@ def build_into(sprites):
                      ('tinh-the', 'tv.tinh-the'), ('vet-nut', 'tv.nut')):
         im = Image.open(f'{HU}/{ten}.png').convert('RGBA')
         ghi(sprites, sid, [im.crop(im.getbbox())], f'Tinh Vực: {ten} (SpriteCook 19/11/2026)'); n += 1
+    # Biển ma vân màn ngang: đúng vân nhiễu của video (tinh_vuc_ma_gioi.van, 640×360 lặp ngang 1280), tô sẵn bậc màu + chấm Bayer + mép sáng
+    from tinh_vuc_ma_gioi import van, MAY, VIEN_MAY, BAYER
+    W, H = 640, 360
+    yy, xx = np.mgrid[0:H, 0:W * 2]; bay = BAYER[yy % 4, xx % 4]
+    for k, (v, nguong, lech) in enumerate(((van(W * 2, H, 1, 1.8, 4 / (W * 2)), (0.35, 0.55, 0.75), 0),
+                                            (van(W * 2, H, 2, 1.6, 9 / (W * 2)), (0.6, 0.75, 0.88), 1))):
+        d = v * 0.9
+        im = np.zeros((H, W * 2, 4), np.uint8)
+        for j, n0 in enumerate(nguong):
+            m = d + 0.06 * (bay - 0.5) > n0
+            im[m, :3] = MAY[j + lech]; im[m, 3] = 255
+        ria = (d > nguong[-1]) & (np.roll(d, 2, axis=0) <= nguong[-1]) & (bay < 0.75)
+        im[ria, :3] = VIEN_MAY; im[ria, 3] = 255
+        ghi(sprites, f'tv.van-{k + 1}', [Image.fromarray(im)], 'biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang'); n += 1
     return n
 
 
