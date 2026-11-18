@@ -62,6 +62,34 @@ def tren_vong(g, d=0.0):
     return VCX + math.cos(g) * (VRX + d), VCY + math.sin(g) * (VRY + d)
 
 
+def set_danh(img, g, hat, f):
+    """Một tia sét gấp khúc từ ngoài ma khí đánh vào điểm góc g trên kết giới; khung 0 lõi trắng, sau nhạt dần. Bám lưới 3 điểm."""
+    r = np.random.default_rng(hat)
+    tx, ty = tren_vong(g)
+    dai = r.uniform(160, 340)
+    sx_, sy_ = tx + math.cos(g + r.uniform(-0.5, 0.5)) * dai, ty + math.sin(g + r.uniform(-0.5, 0.5)) * dai * 0.8
+    pts = [(sx_, sy_)]
+    n = 7
+    for j in range(1, n):
+        u = j / n
+        x = sx_ + (tx - sx_) * u + r.uniform(-28, 28) * (1 - u * 0.6)
+        y = sy_ + (ty - sy_) * u + r.uniform(-28, 28) * (1 - u * 0.6)
+        pts.append((x, y))
+    pts.append((tx, ty))
+    nhanh = []
+    for _ in range(2):
+        j = int(r.integers(1, n - 1)); x, y = pts[j]
+        nhanh.append([(x, y), (x + r.uniform(-60, 60), y + r.uniform(-50, 50)), (x + r.uniform(-90, 90), y + r.uniform(-80, 80))])
+    luoi = lambda q: [(round(x / 3) * 3, round(y / 3) * 3) for x, y in q]
+    dr = ImageDraw.Draw(img)
+    lop = [((150, 50, 220), 18), ((230, 110, 255), 9), ((255, 240, 255), 4)] if f == 0 else \
+          [((150, 50, 220), 12), ((240, 140, 255), 6)] if f == 1 else [((120, 40, 190), 6), ((200, 100, 240), 3)] if f == 2 else [((90, 30, 140), 3)]
+    for mau, w in lop:
+        dr.line(luoi(pts), fill=mau, width=w)
+        for q in nhanh:
+            dr.line(luoi(q), fill=mau, width=max(3, w - 3))
+
+
 def nen_sao():
     rng = np.random.default_rng(11)
     img = np.zeros((SH // 3, SW // 3, 3), np.uint8); img[:] = (12, 10, 30)
@@ -101,10 +129,25 @@ def main():
     MAY = [(may2, 1790, 250, 1.6, False, 0), (may2, 1830, 640, 1.7, False, 1.5), (may2, 1700, 980, 1.4, False, 3),
            (may1, 1650, 70, 1.4, False, 2), (may1, 1500, 1030, 1.5, True, 4), (may1, 160, 1030, 1.3, False, 5),
            (may1, 120, 60, 1.2, True, 1), (may2, 60, 520, 1.2, True, 2.5),
-           (may3, 1560, 160, 0.9, False, 0.7), (may3, 1600, 860, 1.0, False, 2.2), (may3, 300, 950, 0.8, False, 3.3)]
+           (may3, 1560, 160, 0.9, False, 0.7), (may3, 1600, 860, 1.0, False, 2.2), (may3, 300, 950, 0.8, False, 3.3),
+           # 02:44: che mép bằng của tường mây (ảnh may-2 bị cắt phẳng trên dưới) và hai góc dưới còn hở
+           (may1, 110, 300, 1.1, True, 0.9), (may3, 50, 250, 0.9, False, 1.7),
+           (may1, 110, 800, 1.4, False, 2.9), (may1, 40, 930, 1.3, True, 4.4), (may3, 250, 770, 0.9, False, 5.5),
+           (may1, 1720, 880, 1.4, True, 3.6), (may1, 1860, 1010, 1.3, False, 0.4), (may3, 1640, 990, 1.0, False, 1.2),
+           (may3, 1860, 840, 0.9, False, 2.8)]
     MAY = [(to(im.transpose(Image.FLIP_LEFT_RIGHT) if lat else im, k), x, y, ph) for im, x, y, k, lat, ph in MAY]
     TINH_THE = [(1760, 120, 0), (1840, 420, 1.3), (1700, 560, 2.6), (1820, 820, 3.9), (1610, 330, 5.1)]
-    NUT = [(-0.62, 0), (0.05, 2.1), (0.55, 4.2)]           # góc trên vòng kết giới (phía phải)
+    # Ma tộc công kích rìa tinh hệ (chủ dự án 02:42: nhanh, lâu lâu một chớp, lâu lâu vài tia sét đánh vào rìa):
+    # mỗi vòng 24 giây có 9 chớp vết nứt và 6 loạt sét 2–4 tia; mỗi lần chỉ sáng vài khung rồi tắt. Phía phải (ma khí dày) nhiều hơn.
+    rc = np.random.default_rng(42)
+    def goc_ra():
+        return float(rc.uniform(-1.1, 1.1)) if rc.random() < 0.75 else float(rc.uniform(math.pi - 0.9, math.pi + 0.9))
+    CHOP = [(int(k * N / 9 + rc.integers(0, N // 12)), goc_ra()) for k in range(9)]
+    SET = []
+    for k in range(6):
+        k0, g0 = int(k * N / 6 + rc.integers(N // 24, N // 10)), goc_ra()
+        for j in range(int(rc.integers(2, 5))):
+            SET.append((k0 + int(rc.integers(0, 6)), g0 + float(rc.uniform(-0.25, 0.25)), int(rc.integers(0, 10 ** 6))))
     TRU = [k * TAU / 8 for k in range(8)]
     rng = np.random.default_rng(5)
     HAT = [(rng.random() * TAU, rng.random(), 0.8 + rng.random() * 0.6) for _ in range(90)]
@@ -148,11 +191,18 @@ def main():
         for g in TRU:
             x, y = tren_vong(g)
             dan(img, tru, x, y - 10 + 4 * math.sin(a + g))
-        for g, ph in NUT:   # vết nứt loé lên rồi tắt dần, mỗi chỗ lệch pha
-            k = (math.sin(a + ph) + 1) / 2
-            if k > 0.25:
+        for k0, g in CHOP:   # chớp vết nứt: bùng to rồi co lại trong 5 khung (~0,4 giây)
+            f = (i - k0) % N
+            if f < 5:
                 x, y = tren_vong(g)
-                dan(img, to(nut, 0.7 + 0.4 * k), x, y, min(1, k * 1.3))
+                dan(img, to(nut, (1.25, 1.05, 0.85, 0.7, 0.55)[f]), x, y, (1, 1, 0.8, 0.55, 0.3)[f])
+        for k0, g, hat in SET:   # tia sét từ ma khí đánh vào rìa kết giới, sáng 4 khung
+            f = (i - k0) % N
+            if f < 4:
+                set_danh(img, g, hat, f)
+                if f < 2:
+                    x, y = tren_vong(g)
+                    dan(img, to(nut, 0.45 - 0.1 * f), x, y, 0.9)
         # tinh cầu
         for m, ten, gx, gy, d in THIEN_THE:
             fr = hinh[m][(i // 3) % len(hinh[m])]   # 4 khung/giây (bản gốc 8): chậm lại
