@@ -1,0 +1,79 @@
+{
+ "_note": "Tinh Vực vẽ lại bằng SpriteCook (chủ dự án 19/11/2026 01:07 chọn gói vừa: mặt trời + 12 tinh cầu có chuyển động, 12 mặt trăng ảnh tĩnh, 4 mảng ma khí; ~700 credit). Mẫu đầu: Thiên Kiếm Tinh có Cây Thế Giới.",
+ "assets": [
+  {
+   "label": "thien-kiem-tinh mau a",
+   "asset_id": "7e4bcfb2-9a4b-4b0d-bfa9-a1fd273caa3f",
+   "sha12": "66703623bf6c",
+   "file": "tkt-a.png",
+   "credit": 12
+  },
+  {
+   "label": "thien-kiem-tinh mau b",
+   "asset_id": "ef05ca9e-8b09-42f4-b3e7-3f54e0dda451",
+   "sha12": "9b8c4c5d0375",
+   "file": "tkt-b.png",
+   "credit": 12
+  },
+  {
+   "label": "linh-nhat (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "4f316376-1c36-4ca3-8ed1-74e67c03d882",
+   "credit": 12
+  },
+  {
+   "label": "thanh-khe (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "96f32aef-25ac-49f4-ab38-1c67db6979b4",
+   "credit": 12
+  },
+  {
+   "label": "xich-diem (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "9f3c64ef-f814-49ba-a12e-c897f9aa896b",
+   "credit": 12
+  },
+  {
+   "label": "han-bang (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "03b10d44-0823-45da-b436-72acbb5a27d8",
+   "credit": 12
+  },
+  {
+   "label": "hac-phong (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "f924b428-f04c-4d26-a057-805d9cbb9799",
+   "credit": 12
+  },
+  {
+   "label": "thanh-moc (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "d30b4cd9-c6fb-43af-b5cc-fefa8da1fc55",
+   "credit": 12
+  },
+  {
+   "label": "thien-kim (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "e40f7d29-7deb-42e8-a399-5666225e2a64",
+   "credit": 12
+  },
+  {
+   "label": "hau-tho (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "1134e13c-a312-46cc-937d-8432d47bd4c9",
+   "credit": 12
+  },
+  {
+   "label": "vet-nut-ngoai (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "b2737387-663f-4071-bb8d-e320389ccc34",
+   "credit": 12
+  },
+  {
+   "label": "mat-1 (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "1e553fba-c033-4dbb-9094-9261672a83a1",
+   "credit": 12
+  },
+  {
+   "label": "mat-2 (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "32bde7ab-3ef0-41f5-89ad-79d34a15d1ce",
+   "credit": 12
+  },
+  {
+   "label": "ma-vuong (tinh, chua duyet, chu du an tam dung 01:12 de gui anh GPT mau)",
+   "asset_id": "6a5619da-afee-45cf-abae-60e95fc7f6d0",
+   "credit": 12
+  }
+ ]
+}
