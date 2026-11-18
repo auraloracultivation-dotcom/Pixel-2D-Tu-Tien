@@ -284,6 +284,48 @@
    "sha12": "34d46618fc27",
    "label": "trang/vet-nut.png",
    "credit": 12
+  },
+  {
+   "asset_id": "30189ea3-59c0-4e42-a02a-1b5eb706bee4",
+   "sha12": "7fdc9e169901",
+   "label": "khai-hoang/rung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "47614656-15f2-40f8-98ce-b91c31ac452e",
+   "sha12": "0f4485b97046",
+   "label": "khai-hoang/co.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "d7c280bc-570a-4472-8d1a-dd635b56c1be",
+   "sha12": "bd850a02d85a",
+   "label": "khai-hoang/tuyet.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "0c36b3a8-1b36-4361-8089-b01fab94bc60",
+   "sha12": "822f1443bda9",
+   "label": "khai-hoang/tro.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "f4f4d314-9327-4bdb-aa8a-8c6209f8105d",
+   "sha12": "98b9d8c9dd79",
+   "label": "khai-hoang/cat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "57a7b04f-640e-4e29-9057-578e61ce5393",
+   "sha12": "1958513e3f65",
+   "label": "khai-hoang/da-den.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "2f3346ad-cad9-4a91-86ab-5785ad358508",
+   "sha12": "00cd3d463885",
+   "label": "khai-hoang/hau-tho.png",
+   "credit": 12
   }
  ]
 }

@@ -7,6 +7,7 @@ Chạy: python3 -I tools/art/tinh_vuc_ban_do.py → tools/art/nguon/ai/tinh-vuc/
 import math, os, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tinh_vuc_ma_gioi import MaGioi
+from tinh_vuc_khai_hoang import KhaiHoang
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
@@ -134,6 +135,15 @@ def main():
     may1, may2, may3 = (doc(f'{HU}/{n}.png')[0] for n in ('may-1', 'may-2', 'may-3'))
     tinh_the, tru, nut = (doc(f'{HU}/{n}.png')[0] for n in ('tinh-the', 'tru-kiem', 'vet-nut'))
     tru = to(tru, 0.62); tinh_the = to(tinh_the, 1.3); nut = to(nut, 0.95)
+    # Tinh cầu khai hoang mẫu (tên tông bịa để xem): quỹ đạo ngoài cùng trong kết giới (chủ dự án 03:08)
+    def kh_vt(g):
+        return VCX + math.cos(g) * VRX * 0.85, VCY + math.sin(g) * VRY * 0.82
+    KH_MAU = [('rung', 5, False, 'Thanh Vân Tông', (80, 200, 120), 1, -2.55), ('co', 2, False, 'Bạch Hạc Môn', (230, 230, 240), 2, -1.3),
+              ('tuyet', 4, False, 'Hàn Nguyệt Cung', (120, 180, 255), 3, -0.95), ('tro', 3, False, 'Xích Hỏa Bang', (230, 80, 60), 4, 0.75),
+              ('cat', 1, False, 'Kim Sa Phái', (240, 200, 80), 5, 1.9), ('da-den', 2, True, 'Tinh cầu vô chủ', (0, 0, 0), 6, 2.3),
+              ('hau-tho', 3, False, 'Địa Long Các', (200, 130, 70), 7, 2.75)]
+    kh = KhaiHoang(f'{TV}/khai-hoang', to, [(d_, c, tr, t, m, h, *kh_vt(g)) for d_, c, tr, t, m, h, g in KH_MAU])
+    font_kh = ImageFont.truetype(FONT, 16)
     anh_trang = {t: to(doc(f'{TV}/trang/{t}.png')[0], d / 128) for _, t, _, _, d, _ in TRANG}
     hinh = {m: [to(f, d / f.width * 1.18) for f in doc(f'{TV}/dong/{m}.webp')] for m, _, _, _, d in THIEN_THE}
     for m in DAO_CHIEU:   # khung cuối không khớp khung đầu: chạy tới rồi chạy lùi để nối vòng liền (0..15, 15..0)
@@ -245,9 +255,11 @@ def main():
         for sau, x, y, t_ in vt_trang:
             if not sau:
                 dan(img, anh_trang[t_], x, y)
+        kh.ve(img, ImageDraw.Draw(img), a, dan)
         dr = ImageDraw.Draw(img)
         for m, ten, gx, gy, d in THIEN_THE:
             nhan(dr, gx * GX, gy * GY + d * 0.55, ten, font)
+        kh.nhan(dr, font_kh)
         # bảng tên tinh hệ góc trái trên
         dr.rounded_rectangle((24, 22, 440, 132), radius=10, fill=(26, 16, 34), outline=(214, 160, 70), width=4)
         dr.text((232, 58), 'Tinh Hệ Thiên Kiếm', font=font_to, anchor='mm', fill=(255, 214, 110))
