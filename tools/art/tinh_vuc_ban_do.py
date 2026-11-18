@@ -33,6 +33,14 @@ THIEN_THE = [
     ('hau-tho', 'Hậu Thổ Tinh', 615, 693, 68),
     ('mat-2', 'Tinh cầu đã mất', 1063, 760, 66),
 ]
+# Mặt trăng (SpriteCook, trang/*.png): tinh cầu mẹ, hình, khoảng cách quỹ đạo (lần bán kính mẹ), góc đầu, đường kính, chiều quay.
+# Quay đúng 1 vòng mỗi vòng video (24 giây) nên nối liền; nửa sau quỹ đạo vẽ sau lưng tinh cầu mẹ.
+TRANG = [('thien-kiem-tinh', 'dong-phu', 1.25, 0.6, 42, 1), ('thien-kiem-tinh', 'bi-canh', 1.6, 3.4, 38, -1),
+         ('xich-diem', 'hoa-quat', 1.5, 1.0, 34, 1), ('han-bang', 'han-bang-quat', 1.5, 4.0, 34, -1),
+         ('hac-phong', 'hac-phong-dong', 1.5, 2.0, 34, 1), ('thanh-moc', 'lang-tinh-linh', 1.35, 0.2, 40, 1),
+         ('thanh-moc', 'co-thu-tam', 1.75, 2.3, 34, 1), ('thanh-moc', 're-mau-thu', 2.1, 4.4, 34, 1),
+         ('thien-kim', 'kiem-trung', 1.5, 5.0, 36, -1), ('hau-tho', 'dia-cung', 1.5, 3.0, 36, 1),
+         ('vet-nut-ngoai', 'hu-khong-lao', 1.4, 0.8, 38, -1), ('vet-nut-ngoai', 'vet-nut', 1.85, 3.9, 40, -1)]
 DAO_CHIEU = ('linh-nhat', 'thien-kiem-tinh', 'hau-tho')   # đo: chỗ nối lệch > 1,6 lần bước thường
 VK = 3.6                                   # vòng kết giới phóng 3,6 lần (tâm ảnh vòng 258,139; bán kính 210 × 132)
 VCX, VCY, VRX, VRY = SW / 2, SH / 2, 210 * VK, 132 * VK
@@ -126,6 +134,7 @@ def main():
     may1, may2, may3 = (doc(f'{HU}/{n}.png')[0] for n in ('may-1', 'may-2', 'may-3'))
     tinh_the, tru, nut = (doc(f'{HU}/{n}.png')[0] for n in ('tinh-the', 'tru-kiem', 'vet-nut'))
     tru = to(tru, 0.62); tinh_the = to(tinh_the, 1.3); nut = to(nut, 0.95)
+    anh_trang = {t: to(doc(f'{TV}/trang/{t}.png')[0], d / 128) for _, t, _, _, d, _ in TRANG}
     hinh = {m: [to(f, d / f.width * 1.18) for f in doc(f'{TV}/dong/{m}.webp')] for m, _, _, _, d in THIEN_THE}
     for m in DAO_CHIEU:   # khung cuối không khớp khung đầu: chạy tới rồi chạy lùi để nối vòng liền (0..15, 15..0)
         hinh[m] = hinh[m] + hinh[m][::-1]
@@ -215,6 +224,15 @@ def main():
                     x, y = tren_vong(g)
                     dan(img, to(nut, 0.45 - 0.1 * f), x, y, 0.9)
         # tinh cầu
+        vt_trang = []
+        for me, t_, kc, g0, dd, chieu in TRANG:
+            pm = next(v for v in THIEN_THE if v[0] == me)
+            g = g0 + chieu * a
+            r = pm[4] / 2 * kc + dd / 2
+            vt_trang.append((math.sin(g) < 0, pm[2] * GX + math.cos(g) * r, pm[3] * GY + math.sin(g) * r * 0.55, t_))
+        for sau, x, y, t_ in vt_trang:
+            if sau:
+                dan(img, anh_trang[t_], x, y)
         for m, ten, gx, gy, d in THIEN_THE:
             fr = hinh[m][(i // 3) % len(hinh[m])]   # 4 khung/giây (bản gốc 8): chậm lại
             x, y = gx * GX, gy * GY
@@ -224,6 +242,9 @@ def main():
                     dr.rectangle((x + math.cos(g) * d * 0.78, y + 8 + math.sin(g) * d * 0.3, x + math.cos(g) * d * 0.78 + 3, y + 11 + math.sin(g) * d * 0.3), fill=(120, 230, 90))
                 dan(img, to(tru, 0.6), x, y - d * 0.95 + 3 * math.sin(a * 2))
             dan(img, fr, x, y)
+        for sau, x, y, t_ in vt_trang:
+            if not sau:
+                dan(img, anh_trang[t_], x, y)
         dr = ImageDraw.Draw(img)
         for m, ten, gx, gy, d in THIEN_THE:
             nhan(dr, gx * GX, gy * GY + d * 0.55, ten, font)

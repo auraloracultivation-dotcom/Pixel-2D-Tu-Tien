@@ -212,6 +212,78 @@
    "sha12": "16ff018e3911",
    "label": "mau/bo-cuc-gpt.png",
    "credit": 0
+  },
+  {
+   "asset_id": "b033c70f-da43-4db6-a9f1-83b124fefd5a",
+   "sha12": "0ff57fd5832f",
+   "label": "trang/dong-phu.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "98b45312-2163-4cd2-8ca7-3f5996a899c5",
+   "sha12": "788d6bbb7ff6",
+   "label": "trang/bi-canh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "25d30faf-08f0-4fbf-901e-2ea06287270d",
+   "sha12": "31c6ef8aa6df",
+   "label": "trang/hoa-quat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "5a6b1b17-ec4a-4829-aade-e4b41b9f726e",
+   "sha12": "08ad53240d2e",
+   "label": "trang/han-bang-quat.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "04da45dc-81e2-4a1f-a084-3b105a940af5",
+   "sha12": "69b99111be08",
+   "label": "trang/hac-phong-dong.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "145e2e54-2093-4524-b32a-64d58234a840",
+   "sha12": "741297c5cca0",
+   "label": "trang/lang-tinh-linh.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "73b8d638-84f3-4791-a86a-81e5f855db97",
+   "sha12": "4dbb5c6bccb5",
+   "label": "trang/co-thu-tam.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "dc02d479-6729-4a26-85b6-7e0e7dd293e0",
+   "sha12": "7132f8513e7a",
+   "label": "trang/re-mau-thu.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "8bb61c80-cc75-40b6-92ae-c2fe1ff8f9e9",
+   "sha12": "701a8ab4a5be",
+   "label": "trang/kiem-trung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "375357ba-4229-46fd-bc56-0edc84a7ad76",
+   "sha12": "ee8ba7b2fcfc",
+   "label": "trang/dia-cung.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "dfe5f8f7-77cf-4f5a-96f4-29a9dfc920d6",
+   "sha12": "0f0315702b86",
+   "label": "trang/hu-khong-lao.png",
+   "credit": 12
+  },
+  {
+   "asset_id": "a493d389-2ba1-49ae-a72c-af07d47e69a7",
+   "sha12": "34d46618fc27",
+   "label": "trang/vet-nut.png",
+   "credit": 12
   }
  ]
 }
