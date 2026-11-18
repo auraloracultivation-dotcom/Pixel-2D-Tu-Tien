@@ -116,6 +116,9 @@ def nhan(dr, x, y, ten, font, to_=False):
 def main():
     HU = f'{TV}/hieu-ung'
     vong = to(doc(f'{HU}/vong.png')[0], VK)
+    vs = np.array(vong).astype(float)                       # bản sáng: kéo về vàng trắng, giữ nét
+    vs[..., :3] = np.clip(vs[..., :3] * 0.55 + np.array([235, 255, 190]) * 0.45, 0, 255)
+    vong_sang = Image.fromarray(vs.astype(np.uint8))
     may1, may2, may3 = (doc(f'{HU}/{n}.png')[0] for n in ('may-1', 'may-2', 'may-3'))
     tinh_the, tru, nut = (doc(f'{HU}/{n}.png')[0] for n in ('tinh-the', 'tru-kiem', 'vet-nut'))
     tru = to(tru, 0.62); tinh_the = to(tinh_the, 1.3); nut = to(nut, 0.95)
@@ -138,14 +141,14 @@ def main():
     MAY = [(to(im.transpose(Image.FLIP_LEFT_RIGHT) if lat else im, k), x, y, ph) for im, x, y, k, lat, ph in MAY]
     TINH_THE = [(1760, 120, 0), (1840, 420, 1.3), (1700, 560, 2.6), (1820, 820, 3.9), (1610, 330, 5.1)]
     # Ma tộc công kích rìa tinh hệ (chủ dự án 02:42: nhanh, lâu lâu một chớp, lâu lâu vài tia sét đánh vào rìa):
-    # mỗi vòng 24 giây có 9 chớp vết nứt và 6 loạt sét 2–4 tia; mỗi lần chỉ sáng vài khung rồi tắt. Phía phải (ma khí dày) nhiều hơn.
+    # mỗi vòng 24 giây có 6 chớp vết nứt và 4 loạt sét 2–4 tia; mỗi lần chỉ sáng vài khung rồi tắt. Phía phải (ma khí dày) nhiều hơn.
     rc = np.random.default_rng(42)
     def goc_ra():
         return float(rc.uniform(-1.1, 1.1)) if rc.random() < 0.75 else float(rc.uniform(math.pi - 0.9, math.pi + 0.9))
-    CHOP = [(int(k * N / 9 + rc.integers(0, N // 12)), goc_ra()) for k in range(9)]
+    CHOP = [(int(k * N / 6 + rc.integers(0, N // 12)), goc_ra()) for k in range(6)]
     SET = []
-    for k in range(6):
-        k0, g0 = int(k * N / 6 + rc.integers(N // 24, N // 10)), goc_ra()
+    for k in range(4):
+        k0, g0 = int(k * N / 4 + rc.integers(N // 24, N // 10)), goc_ra()
         for j in range(int(rc.integers(2, 5))):
             SET.append((k0 + int(rc.integers(0, 6)), g0 + float(rc.uniform(-0.25, 0.25)), int(rc.integers(0, 10 ** 6))))
     TRU = [k * TAU / 8 for k in range(8)]
@@ -187,7 +190,11 @@ def main():
         for x, y, ph in TINH_THE:
             dan(img, tinh_the, x, y + 8 * math.sin(a + ph))
         # vòng kết giới: sáng tối theo nhịp thở
-        dan(img, vong, VCX, VCY, 0.85 + 0.15 * math.sin(a * 3))
+        # pháp trận hộ tông: bình thường tối dần, bị đánh thì sáng lên, đánh càng dồn càng sáng, rồi mờ dần (02:47)
+        E = sum(0.6 * math.exp(-((i - k0) % N) / 14) for k0, _ in CHOP) + sum(0.35 * math.exp(-((i - k0) % N) / 14) for k0, _, _ in SET)
+        dan(img, vong, VCX, VCY, 0.38 + 0.3 * min(1, E) + 0.04 * math.sin(a * 3))
+        if E > 0.04:
+            dan(img, vong_sang, VCX, VCY, min(1.0, E * 0.8))
         for g in TRU:
             x, y = tren_vong(g)
             dan(img, tru, x, y - 10 + 4 * math.sin(a + g))
