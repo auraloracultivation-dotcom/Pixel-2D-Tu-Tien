@@ -5,8 +5,9 @@ núi là đồ đứng xếp nhiều hàng trên nền đá, Thiên Kiếm Phong
 import math
 
 C, D = 64, 128
-CHERRY, GINKGO, PINE, MAPLE, OLD, BAMBOO, WILLOW = ('tk.cay-anh-dao-m', 'tk.cay-ngan-hanh-m', 'tk.cay-thong-m', 'tk.cay-phong-m',
-                                                     'tk.cay-co-thu-m', 'tk.truc-m', 'tk.lieu-sc')
+CHERRY, GINKGO, PINE, MAPLE, OLD, BAMBOO, WILLOW = ('tk.cay-anh-dao-sc', 'tk.cay-ngan-hanh-sc', 'tk.cay-thong-sc', 'tk.cay-phong-sc',
+                                                     'tk.cay-co-thu-sc', 'tk.truc-sc', 'tk.lieu-sc')
+CO = {PINE: 0.85, MAPLE: 0.9}   # thông, phong SpriteCook vẽ cao hơn cây cũ 1,35 và 1,2 lần: trong rừng thu bớt cho tán không trùm quá rộng
 BUI = ['tk.bui-xanh-lon-sc', 'tk.bui-xanh-nho-sc', 'tk.bui-xanh-nho-sc', 'tk.bui-co-cao-sc', 'tk.bui-duong-xi-sc']
 BUI_HOA = ['tk.bui-do-quyen-sc', 'tk.bui-cuc-vang-sc', 'tk.bui-hoa-trang-sc', 'tk.bui-mau-don-sc']
 DA = ['tk.da-vua-sc', 'tk.da-nho-sc', 'tk.da-nho-sc', 'tk.da-cum-sc', 'tk.da-phien-sc', 'tk.soi-sc']
@@ -14,9 +15,9 @@ DA_NUI = ['tk.da-nui-1-sc', 'tk.da-nui-2-sc', 'tk.da-nui-3-sc', 'tk.da-nui-4-sc'
 NUI = ['tk.nui-3-sc'] * 7 + ['tk.nui-2-sc'] * 6 + ['tk.nui-4-sc'] * 4 + ['tk.nui-1-sc'] * 3
 # đèn đá: hai bên đại lộ, cửa lầu, đầu cầu, quảng trường suối, bến câu, cổng, đài ngắm sao (ngoài hoang không có đèn)
 DEN = [(60.8, 63.6), (67.2, 63.6), (80.6, 73.4), (91, 73.4), (101, 73.4), (109, 73.4), (80.6, 78.8), (95, 78.6), (109.2, 78.8), (115.4, 74.6),
-       (82.6, 95.8), (105.4, 95.8), (60.8, 88.6), (67.2, 88.6), (60.8, 105.6), (67.2, 105.6), (58.6, 95.2), (69.4, 95.2), (58.6, 101.6), (69.4, 101.6),
-       (48.6, 74.4), (37.4, 74.4), (37.4, 77.8), (27.6, 74.4), (27.6, 77.8), (21.6, 74.4), (37.8, 96.6), (23.8, 93.2), (44.8, 103.8), (37.2, 103.8),
-       (90.4, 108.8), (60.2, 122), (68.8, 122), (84.6, 44.8), (91.4, 44.8), (47.6, 70.8), (57.2, 70.8), (46.4, 49.8), (81.6, 49.8)]
+       (82.6, 95.8), (105.4, 95.8), (61.4, 88.6), (66.6, 88.6), (61.4, 105.6), (66.6, 105.6), (58.6, 95.2), (69.4, 95.2), (58.6, 101.6), (69.4, 101.6),
+       (48.6, 74.4), (37.4, 74.4), (37.4, 77.8), (27.6, 74.4), (27.6, 77.8), (37.8, 96.6), (23.8, 93.2), (44.8, 103.8), (37.2, 103.8),
+       (89.4, 112.2), (60.2, 122), (68.8, 122), (84.6, 44.8), (91.4, 44.8), (47.6, 70.8), (57.2, 70.8), (46.4, 49.8), (81.6, 49.8)]
 
 
 def vnoise(seed):
@@ -55,6 +56,11 @@ def dist_map(S, chars, maxd=8):
     return d
 
 
+def gan(S, sid, x, y):
+    """Đặt món ở (x, y); không được thì thử các ô sát bên (trái phải trước, rồi trên dưới, rồi chéo)."""
+    return any(S.put(sid, x + ox, y + oy) for ox, oy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1), (2, 0), (-2, 0)))
+
+
 def nature(S, KHU):
     R, P, G = S.R, S.put, S.G
     road, water, peak = dist_map(S, '12,P'), dist_map(S, '='), dist_map(S, '^')
@@ -66,27 +72,31 @@ def nature(S, KHU):
     rr = lambda x, y: math.hypot(x - C, y - C)
     fl = lambda: R.random() < 0.5
 
-    # 1. đèn đá
+    # 1. đèn đá (chỗ đã khai mà vướng đường mòn, vướng người đứng thì nhích sang ô bên cạnh, không bỏ đèn)
     for x, y in DEN:
-        P('tk.den-da-m', x, y)
+        gan(S, 'tk.den-da-sc', x, y)
 
-    # 2. cây trong phố: thành hàng, đứng ngoài lề để tán không trùm đường
-    for y in (53, 57):
-        P(PINE, 55.6, y, s=0.9); P(PINE, 72.4, y, s=0.9)                    # hai bên lối lên tông môn
-    for x in (45.4, 81.6):
-        for y in (36.6, 41, 45.4):
-            P(PINE, x, y, s=0.9)                                            # hai bên sân tông môn
-    P(CHERRY, 57.6, 64.6, s=0.85); P(CHERRY, 70.4, 64.6, s=0.85)            # cửa bắc quảng trường
+    # 2. cây trong phố: thành hàng, đứng ngoài lề để tán không trùm đường. Chỗ khai sẵn mà không đặt được thì báo ra
+    # (bản 18/11 lặng lẽ bỏ 20 cây khai sẵn vì tán trùm sân, trùm đèn: hàng cây bên có bên không)
+    def co_dinh(sid, x, y, **o):
+        if not P(sid, x, y, **o):
+            print('  KHÔNG ĐẶT ĐƯỢC (cây khai sẵn):', sid, x, y, S.why)
+
+    for y in (54.8, 59.2):
+        co_dinh(PINE, 55.6, y, s=0.8); co_dinh(PINE, 72.4, y, s=0.8)        # hai bên cổng tông môn
+    for x in (45.4, 82.6):
+        for y in (36.6, 41):
+            co_dinh(PINE, x, y, s=0.8)                                      # hai bên sân tông môn (chừa lối mòn ra ở hàng 44)
+    co_dinh(CHERRY, 57.6, 64.6, s=0.85); co_dinh(CHERRY, 70.4, 64.6, s=0.85)   # cửa bắc quảng trường
     for i, y in enumerate((90.4, 106.4, 110.6)):                            # đại lộ nam: anh đào xen ngân hạnh
         for x in (59.6, 68.4):
-            P(CHERRY if i % 2 == 0 else GINKGO, x, y, s=0.85)
-    for x, y, sid in ((47.6, 73.6, CHERRY), (51.2, 88.4, GINKGO), (77, 88.4, GINKGO), (81, 99.4, GINKGO), (107.6, 99.2, GINKGO),
-                      (108.6, 84, CHERRY), (108.6, 92, GINKGO), (83.4, 82.6, GINKGO), (104.6, 89, CHERRY), (79.6, 71.6, CHERRY), (117.4, 71.6, GINKGO), (50.4, 111.4, CHERRY), (78.6, 110, GINKGO)):
-        P(sid, x, y, s=0.85)
-    # vườn Nguyệt Môn: trúc ở góc, anh đào bên ao, bụi hoa viền lối, linh thảo cạnh suối
-    for x, y in ((38.8, 57.6), (46.6, 57.4), (47.2, 70.8), (38.2, 71.6)):
-        P(BAMBOO, x, y)
-    P(CHERRY, 47.4, 64.8, s=0.8); P(CHERRY, 38.4, 63.4, s=0.8); P('tk.linh-thao-sc', 44.6, 60.6); P('tk.sen-la-sc', 42.8, 63.4, s=0.5, force=True)
+            co_dinh(CHERRY if i % 2 == 0 else GINKGO, x, y, s=0.85)
+    for x, y, sid in ((51.2, 88.4, GINKGO), (77, 88.4, GINKGO), (81, 99.4, GINKGO), (108.2, 99.4, GINKGO), (108.6, 84, CHERRY), (108, 92, GINKGO),
+                      (79.6, 71.6, CHERRY), (117.4, 71.6, GINKGO), (78.6, 110, GINKGO)):
+        co_dinh(sid, x, y, s=0.85)
+    # vườn Nguyệt Môn: trúc ở hai góc bắc, anh đào bên ao, bụi hoa viền lối, linh thảo cạnh suối
+    co_dinh(BAMBOO, 39.6, 58.8); co_dinh(BAMBOO, 46.6, 57.4)                # (bụi trúc tây lùi xuống cho khỏi trùm bãi quái phía bắc vườn)
+    co_dinh(CHERRY, 47.4, 64.8, s=0.8); P('tk.linh-thao-sc', 44.6, 60.6); P('tk.sen-la-sc', 42.8, 63.4, s=0.5, force=True)
     for i, (x, y) in enumerate(((40.6, 66.6), (44.8, 66.8), (39.4, 62.6), (46, 63.2), (41, 58), (44.4, 57.8), (38.4, 67.4), (47, 61.4), (40.8, 69.4), (44.6, 69.6))):
         P(BUI_HOA[i % 4], x, y)
     # (bốn góc quảng trường là sân lát, đã có vạc lửa: không đặt bụi hoa trên đá)
@@ -122,9 +132,10 @@ def nature(S, KHU):
     for cx, cy in ((35.4, 33.4), (25.6, 33)):
         P('tk.pha-le-lon-sc', cx, cy); P('tk.pha-le-lam-sc', cx + 1.6, cy + 0.5); P('tk.linh-thao-sc', cx - 1.4, cy + 0.6)
     for x, y, sid, f in ((100.4, 34, 'tk.kiem-da-1-sc', 0), (107.6, 34.2, 'tk.kiem-da-2-sc', 0), (101.6, 37.6, 'tk.kiem-da-2-sc', 1), (107, 37.8, 'tk.kiem-da-1-sc', 1),
-                         (98.6, 36.6, 'tk.pha-le-tim-sc', 0), (109.4, 36.4, 'tk.pha-le-luc-sc', 0), (105.8, 33, 'tk.pha-le-tim-sc', 1), (99, 39.6, 'tk.bia-co-sc', 0),
-                         (36.6, 36.2, 'tk.bia-co-sc', 0), (61.4, 119.6, 'tk.pha-le-lam-sc', 0), (67.8, 119.4, 'tk.pha-le-lam-sc', 1)):
+                         (98.6, 36.6, 'tk.pha-le-tim-sc', 0), (109.4, 36.4, 'tk.pha-le-luc-sc', 0), (105.8, 33, 'tk.pha-le-tim-sc', 1),
+                         (61.4, 119.6, 'tk.pha-le-lam-sc', 0), (67.8, 119.4, 'tk.pha-le-lam-sc', 1)):
         P(sid, x, y, f=f)
+    gan(S, 'tk.bia-co-sc', 99, 39.6); gan(S, 'tk.bia-co-sc', 36.6, 36.2)
 
     # 5. rừng ngoài hoang: mọc theo cụm (nhiễu), loài theo vùng; chừa đường, bãi quái, mép tinh cầu
     f1, f2 = vnoise(7), vnoise(23)
@@ -149,7 +160,7 @@ def nature(S, KHU):
             sid = PINE if R.random() < 0.5 else MAPLE
         if R.random() < 0.06:
             sid = OLD
-        P(sid, x, y, s=round(0.85 + R.random() * 0.3, 2), f=fl())
+        P(sid, x, y, s=round((0.85 + R.random() * 0.3) * CO.get(sid, 1), 2), f=fl())
 
     # 6. tầng thấp: bụi hoa gần phố, bụi xanh và dương xỉ trong rừng, gốc cây, khúc gỗ, nấm; đá gần núi; vài tảng đá lớn làm mốc
     for x, y, sid in ((52.6, 57.4, 'tk.da-lon-sc'), (108.4, 110.2, 'tk.da-lon-sc'), (12.6, 68.4, 'tk.da-dung-sc'), (88.6, 60.4, 'tk.da-dung-sc'),

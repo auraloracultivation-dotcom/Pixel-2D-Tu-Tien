@@ -46175,122 +46175,17 @@
   },
   "tk.thac-sc": {
    "file": "assets/art/tk-thac-sc.png",
-   "v": "29b43a19",
+   "v": "6b961070",
    "w": 165,
    "h": 186,
-   "frames": 1,
+   "frames": 16,
+   "fps": 8,
    "anchor": [
     82,
     184
    ],
-   "note": "SpriteCook: thác Kiếm Tuyền đổ xuống hồ đá (tools/art/sc_tk2.py)",
-   "scale": 0.5,
-   "glints": [
-    [
-     118,
-     13
-    ],
-    [
-     71,
-     20
-    ],
-    [
-     81,
-     24
-    ],
-    [
-     78,
-     28
-    ],
-    [
-     93,
-     37
-    ],
-    [
-     78,
-     45
-    ],
-    [
-     95,
-     51
-    ],
-    [
-     94,
-     57
-    ],
-    [
-     89,
-     63
-    ],
-    [
-     80,
-     69
-    ],
-    [
-     81,
-     75
-    ],
-    [
-     82,
-     81
-    ],
-    [
-     78,
-     87
-    ],
-    [
-     97,
-     92
-    ],
-    [
-     86,
-     98
-    ],
-    [
-     75,
-     104
-    ],
-    [
-     98,
-     109
-    ],
-    [
-     75,
-     116
-    ],
-    [
-     105,
-     124
-    ],
-    [
-     123,
-     136
-    ],
-    [
-     76,
-     145
-    ],
-    [
-     123,
-     148
-    ],
-    [
-     84,
-     154
-    ],
-    [
-     122,
-     160
-    ],
-    [
-     117,
-     169
-    ],
-    [
-     128,
-     180
-    ]
-   ]
+   "note": "SpriteCook: thác Kiếm Tuyền chảy, 16 khung; đá lấy từ ảnh tĩnh (tools/art/sc_tk3.py)",
+   "scale": 0.5
   },
   "tk.nui-thien-kiem-sc": {
    "file": "assets/art/tk-nui-thien-kiem-sc.png",
@@ -46830,6 +46725,739 @@
     [
      81,
      8,
+     "warm"
+    ]
+   ]
+  },
+  "tk.cay-anh-dao-sc": {
+   "file": "assets/art/tk-cay-anh-dao-sc.png",
+   "v": "f2fc7414",
+   "w": 113,
+   "h": 141,
+   "frames": 1,
+   "anchor": [
+    56,
+    139
+   ],
+   "note": "SpriteCook: cây anh đào (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.cay-ngan-hanh-sc": {
+   "file": "assets/art/tk-cay-ngan-hanh-sc.png",
+   "v": "5c8d992a",
+   "w": 103,
+   "h": 141,
+   "frames": 1,
+   "anchor": [
+    51,
+    139
+   ],
+   "note": "SpriteCook: cây ngân hạnh lá vàng (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.cay-phong-sc": {
+   "file": "assets/art/tk-cay-phong-sc.png",
+   "v": "7ea9900e",
+   "w": 134,
+   "h": 168,
+   "frames": 1,
+   "anchor": [
+    67,
+    166
+   ],
+   "note": "SpriteCook: cây phong lá đỏ (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.cay-thong-sc": {
+   "file": "assets/art/tk-cay-thong-sc.png",
+   "v": "0ca20c38",
+   "w": 118,
+   "h": 184,
+   "frames": 1,
+   "anchor": [
+    59,
+    182
+   ],
+   "note": "SpriteCook: cây thông (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-thu-lon-sc": {
+   "file": "assets/art/tk-co-thu-lon-sc.png",
+   "v": "94f090c4",
+   "w": 207,
+   "h": 225,
+   "frames": 1,
+   "anchor": [
+    103,
+    223
+   ],
+   "note": "SpriteCook: Cổ Thụ Ngàn Năm (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.cay-co-thu-sc": {
+   "file": "assets/art/tk-cay-co-thu-sc.png",
+   "v": "70113728",
+   "w": 96,
+   "h": 126,
+   "frames": 1,
+   "anchor": [
+    48,
+    124
+   ],
+   "note": "SpriteCook: cây cổ thụ thân vặn (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.truc-sc": {
+   "file": "assets/art/tk-truc-sc.png",
+   "v": "71ee715a",
+   "w": 90,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    45,
+    100
+   ],
+   "note": "SpriteCook: khóm trúc (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.sen-chau-sc": {
+   "file": "assets/art/tk-sen-chau-sc.png",
+   "v": "7089d060",
+   "w": 53,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    26,
+    45
+   ],
+   "note": "SpriteCook: cụm sen (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.sen-chau-2-sc": {
+   "file": "assets/art/tk-sen-chau-2-sc.png",
+   "v": "a0929ead",
+   "w": 49,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    24,
+    56
+   ],
+   "note": "SpriteCook: sen trồng chậu sứ lam (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.sap-kiem-sc": {
+   "file": "assets/art/tk-sap-kiem-sc.png",
+   "v": "306b1c25",
+   "w": 131,
+   "h": 110,
+   "frames": 1,
+   "anchor": [
+    65,
+    108
+   ],
+   "note": "SpriteCook: sạp binh khí (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     11,
+     39,
+     "warm"
+    ],
+    [
+     119,
+     39,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-mi-sc": {
+   "file": "assets/art/tk-sap-mi-sc.png",
+   "v": "06288b60",
+   "w": 135,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    67,
+    117
+   ],
+   "note": "SpriteCook: sạp mì (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     12,
+     57,
+     "warm"
+    ],
+    [
+     122,
+     57,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-thuoc-sc": {
+   "file": "assets/art/tk-sap-thuoc-sc.png",
+   "v": "1311aefc",
+   "w": 128,
+   "h": 113,
+   "frames": 1,
+   "anchor": [
+    64,
+    111
+   ],
+   "note": "SpriteCook: sạp thảo dược (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     113,
+     52,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-vai-sc": {
+   "file": "assets/art/tk-sap-vai-sc.png",
+   "v": "c046045c",
+   "w": 121,
+   "h": 67,
+   "frames": 1,
+   "anchor": [
+    60,
+    65
+   ],
+   "note": "SpriteCook: sạp vải (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     110,
+     29,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-thu-sc": {
+   "file": "assets/art/tk-sap-thu-sc.png",
+   "v": "fe8db209",
+   "w": 160,
+   "h": 138,
+   "frames": 1,
+   "anchor": [
+    80,
+    136
+   ],
+   "note": "SpriteCook: quầy Ngự Thú (theo ảnh của chủ dự án 18/11) (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "plaque": [
+    55,
+    32,
+    50,
+    15
+   ],
+   "lights": [
+    [
+     33,
+     71,
+     "warm"
+    ],
+    [
+     123,
+     71,
+     "warm"
+    ]
+   ]
+  },
+  "tk.sap-khoi-loi-sc": {
+   "file": "assets/art/tk-sap-khoi-loi-sc.png",
+   "v": "aef49405",
+   "w": 160,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    80,
+    140
+   ],
+   "note": "SpriteCook: quầy Khôi Lỗi (theo ảnh của chủ dự án 18/11) (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "plaque": [
+    55,
+    37,
+    50,
+    15
+   ],
+   "lights": [
+    [
+     40,
+     79,
+     "warm"
+    ],
+    [
+     121,
+     78,
+     "warm"
+    ]
+   ]
+  },
+  "tk.gieng-sc": {
+   "file": "assets/art/tk-gieng-sc.png",
+   "v": "d4e8c68b",
+   "w": 73,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    36,
+    83
+   ],
+   "note": "SpriteCook: giếng đá mái ngói (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.voi-nuoc-sc": {
+   "file": "assets/art/tk-voi-nuoc-sc.png",
+   "v": "b88f2bfd",
+   "w": 68,
+   "h": 68,
+   "frames": 1,
+   "anchor": [
+    34,
+    66
+   ],
+   "note": "SpriteCook: vòi nước máng trúc (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "glints": [
+    [
+     18,
+     33
+    ],
+    [
+     26,
+     33
+    ],
+    [
+     34,
+     33
+    ],
+    [
+     42,
+     33
+    ],
+    [
+     38,
+     18
+    ],
+    [
+     36,
+     22
+    ]
+   ]
+  },
+  "tk.tuong-hac-sc": {
+   "file": "assets/art/tk-tuong-hac-sc.png",
+   "v": "fcb29c58",
+   "w": 43,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    21,
+    82
+   ],
+   "note": "SpriteCook: tượng hạc đá (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.tuong-rong-sc": {
+   "file": "assets/art/tk-tuong-rong-sc.png",
+   "v": "40575cfa",
+   "w": 61,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    30,
+    98
+   ],
+   "note": "SpriteCook: tượng rồng đá (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.tuong-tien-sc": {
+   "file": "assets/art/tk-tuong-tien-sc.png",
+   "v": "422503eb",
+   "w": 57,
+   "h": 89,
+   "frames": 1,
+   "anchor": [
+    28,
+    87
+   ],
+   "note": "SpriteCook: tượng tiên nhân ngồi (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.den-da-sc": {
+   "file": "assets/art/tk-den-da-sc.png",
+   "v": "745b8d4a",
+   "w": 35,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    17,
+    48
+   ],
+   "note": "SpriteCook: đèn đá (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     17,
+     21,
+     "warm"
+    ]
+   ]
+  },
+  "tk.vac-lua-sc": {
+   "file": "assets/art/tk-vac-lua-sc.png",
+   "v": "9fea2311",
+   "w": 38,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    19,
+    59
+   ],
+   "note": "SpriteCook: vạc lửa đồng (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "flame": [
+    18,
+    29
+   ]
+  },
+  "tk.lu-huong-sc": {
+   "file": "assets/art/tk-lu-huong-sc.png",
+   "v": "f1b88790",
+   "w": 39,
+   "h": 62,
+   "frames": 1,
+   "anchor": [
+    19,
+    60
+   ],
+   "note": "SpriteCook: lư hương đồng (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "smoke": [
+    22,
+    2
+   ]
+  },
+  "tk.chuong-sc": {
+   "file": "assets/art/tk-chuong-sc.png",
+   "v": "2c888c34",
+   "w": 62,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    31,
+    69
+   ],
+   "note": "SpriteCook: chuông đồng treo giá gỗ đỏ (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.trong-rong-sc": {
+   "file": "assets/art/tk-trong-rong-sc.png",
+   "v": "34bc42dd",
+   "w": 50,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    25,
+    67
+   ],
+   "note": "SpriteCook: trống rồng (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.bia-kiem-sc": {
+   "file": "assets/art/tk-bia-kiem-sc.png",
+   "v": "8798a24f",
+   "w": 38,
+   "h": 75,
+   "frames": 1,
+   "anchor": [
+    19,
+    73
+   ],
+   "note": "SpriteCook: bia đá khắc kiếm (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.bia-cung-sc": {
+   "file": "assets/art/tk-bia-cung-sc.png",
+   "v": "48bb0af4",
+   "w": 62,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    31,
+    55
+   ],
+   "note": "SpriteCook: bia bắn cung (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.tru-moc-nhan-sc": {
+   "file": "assets/art/tk-tru-moc-nhan-sc.png",
+   "v": "1fab83d4",
+   "w": 36,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    18,
+    50
+   ],
+   "note": "SpriteCook: mộc nhân (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.kiem-gia-vo-sc": {
+   "file": "assets/art/tk-kiem-gia-vo-sc.png",
+   "v": "4a777814",
+   "w": 63,
+   "h": 80,
+   "frames": 1,
+   "anchor": [
+    31,
+    78
+   ],
+   "note": "SpriteCook: giá binh khí (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.kiem-bay-sc": {
+   "file": "assets/art/tk-kiem-bay-sc.png",
+   "v": "126361b1",
+   "w": 41,
+   "h": 80,
+   "frames": 1,
+   "anchor": [
+    20,
+    78
+   ],
+   "note": "SpriteCook: linh kiếm lơ lửng (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     20,
+     41,
+     "cold"
+    ]
+   ]
+  },
+  "tk.co-do-sc": {
+   "file": "assets/art/tk-co-do-sc.png",
+   "v": "6a504672",
+   "w": 61,
+   "h": 156,
+   "frames": 1,
+   "anchor": [
+    30,
+    154
+   ],
+   "note": "SpriteCook: cờ đỏ phượng vàng (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-tong-sc": {
+   "file": "assets/art/tk-co-tong-sc.png",
+   "v": "67599eb8",
+   "w": 57,
+   "h": 150,
+   "frames": 1,
+   "anchor": [
+    28,
+    148
+   ],
+   "note": "SpriteCook: cờ tông môn âm dương (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-hoa-sc": {
+   "file": "assets/art/tk-co-hoa-sc.png",
+   "v": "ab197f8c",
+   "w": 41,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    20,
+    102
+   ],
+   "note": "SpriteCook: cờ Hoả (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-kim-sc": {
+   "file": "assets/art/tk-co-kim-sc.png",
+   "v": "a7888ca8",
+   "w": 40,
+   "h": 105,
+   "frames": 1,
+   "anchor": [
+    20,
+    103
+   ],
+   "note": "SpriteCook: cờ Kim (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-moc-sc": {
+   "file": "assets/art/tk-co-moc-sc.png",
+   "v": "8dc2661e",
+   "w": 39,
+   "h": 107,
+   "frames": 1,
+   "anchor": [
+    19,
+    105
+   ],
+   "note": "SpriteCook: cờ Mộc (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-tho-sc": {
+   "file": "assets/art/tk-co-tho-sc.png",
+   "v": "75bc388f",
+   "w": 40,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    20,
+    102
+   ],
+   "note": "SpriteCook: cờ Thổ (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.co-thuy-sc": {
+   "file": "assets/art/tk-co-thuy-sc.png",
+   "v": "945792d7",
+   "w": 39,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    19,
+    102
+   ],
+   "note": "SpriteCook: cờ Thuỷ (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.thung-go-sc": {
+   "file": "assets/art/tk-thung-go-sc.png",
+   "v": "635f0a86",
+   "w": 72,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    36,
+    63
+   ],
+   "note": "SpriteCook: ba thùng gỗ (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.thung-hom-sc": {
+   "file": "assets/art/tk-thung-hom-sc.png",
+   "v": "b59f588c",
+   "w": 76,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    38,
+    67
+   ],
+   "note": "SpriteCook: hòm gỗ và vò sành (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.ro-gio-sc": {
+   "file": "assets/art/tk-ro-gio-sc.png",
+   "v": "4838340a",
+   "w": 127,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    63,
+    75
+   ],
+   "note": "SpriteCook: rổ giỏ, bao tải (tools/art/sc_tk3.py)",
+   "scale": 0.5
+  },
+  "tk.cong-bi-canh-sc": {
+   "file": "assets/art/tk-cong-bi-canh-sc.png",
+   "v": "9caef04e",
+   "w": 216,
+   "h": 239,
+   "frames": 1,
+   "anchor": [
+    108,
+    237
+   ],
+   "note": "SpriteCook: cổng Bí cảnh Huyết Nha: cổng đá hình hàm thú, xoáy đỏ tím (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "lights": [
+    [
+     110,
+     114,
+     "huyet"
+    ],
+    [
+     25,
+     196,
+     "huyet"
+    ],
+    [
+     197,
+     178,
+     "huyet"
+    ]
+   ],
+   "glints": [
+    [
+     8,
+     172
+    ],
+    [
+     31,
+     198
+    ],
+    [
+     33,
+     203
+    ],
+    [
+     67,
+     222
+    ],
+    [
+     193,
+     183
+    ],
+    [
+     200,
+     198
+    ],
+    [
+     210,
+     184
+    ]
+   ]
+  },
+  "tk.cong-dong-phu-sc": {
+   "file": "assets/art/tk-cong-dong-phu-sc.png",
+   "v": "a7eb97a1",
+   "w": 225,
+   "h": 248,
+   "frames": 1,
+   "anchor": [
+    112,
+    246
+   ],
+   "note": "SpriteCook: cổng động phủ: hang đá cửa tròn, biển trống, hai đèn lồng (tools/art/sc_tk3.py)",
+   "scale": 0.5,
+   "plaque": [
+    87,
+    109,
+    48,
+    12
+   ],
+   "lights": [
+    [
+     58,
+     152,
+     "warm"
+    ],
+    [
+     161,
+     152,
      "warm"
     ]
    ]

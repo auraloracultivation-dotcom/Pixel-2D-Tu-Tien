@@ -114,6 +114,7 @@ export function createBayCanh(game) {
         if (q.value && !id.includes(q.value.trim().toLowerCase())) continue;
         const c = el('button', 'bay-kho-o'); c.type = 'button';
         const im = el('img'); im.loading = 'lazy'; im.src = S[id].file + '?v=' + S[id].v; im.alt = id;
+        if (S[id].frames > 1) Object.assign(im.style, { objectFit: 'cover', objectPosition: 'left', width: Math.min(64, Math.round(64 * S[id].w / S[id].h)) + 'px' });   // hình nhiều khung (thác chảy): chỉ hiện khung đầu
         c.append(im, el('span', null, id.replace(/^[a-z]+\./, '').replace(/-m$/, '')));
         c.addEventListener('click', () => { place(id); box.remove(); });
         grid.append(c);

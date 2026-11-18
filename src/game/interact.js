@@ -128,11 +128,13 @@ export function updatePortals(game, dt) {
   game.portalHold = 0;
 }
 
-// Bí cảnh đang đánh dở (có phòng đã vào mà chưa dọn xong): giẫm cổng ra chưa đi ngay, phải đứng yên trên cổng, không ra đòn, đủ dungeon.exit_hold giây.
+// Bí cảnh đang đánh dở (đã vào phòng mà còn phòng chưa dọn xong): giẫm cổng ra chưa đi ngay, phải đứng yên trên cổng, không ra đòn, đủ dungeon.exit_hold giây.
 // 15/11/2026: người mới kịch bản đang đánh ở phòng đầu Bí cảnh Huyết Nha lỡ chân giẫm cổng ra (cổng nằm ngay trong phòng), bị đưa ra bãi vòng ngoài giữa trận.
+// 19/11/2026: vừa dọn xong một phòng, chưa sang phòng kế (không phòng nào "đang đánh") mà người đang đứng sát cổng ra, hay chạy ngang qua ô cổng, vẫn bị
+// đưa ra ngoài ngay (bài chơi thử trượt 1 trong 3 lượt): nay còn phòng chưa dọn là còn phải đứng yên. Khách trong tổ đội không tự theo dõi phòng (entered luôn false): như cũ.
 function holdExit(game, dt) {
-  const D = game.data.dungeon, p = game.player;
-  if (!D.exit_hold || !game.dungeon?.rooms?.some(r => r.entered && !r.cleared)) return false;
+  const D = game.data.dungeon, p = game.player, R = game.dungeon?.rooms;
+  if (!D.exit_hold || !R?.some(r => r.entered) || R.every(r => r.cleared)) return false;
   if (!(game.portalHint > game.time)) { game.portalHint = game.time + 4; game.toast(D.texts.exit_wait, 1.6); }
   const still = Math.hypot(p.vx || 0, p.vy || 0) < 1 && !(p.atkCd > 0) && !(p.swingT > 0);
   game.portalHold = still ? (game.portalHold || 0) + dt : 0;

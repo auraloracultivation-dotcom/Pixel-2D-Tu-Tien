@@ -150,7 +150,7 @@
  },
  "step_mul": 2,
  "exit_hold": 1.2,
- "_exit_hold": "Cổng ra của bí cảnh lúc đang đánh dở (có phòng đã vào mà chưa dọn xong): phải đứng yên trên cổng, không ra đòn, đủ chừng này giây mới rời (src/game/interact.js holdExit); lỡ chân giẫm cổng lúc đang đánh thì không bị đưa ra ngoài. Phòng đã dọn xong hoặc chưa vào phòng nào: giẫm cổng là đi ngay như cũ. 0: tắt.",
+ "_exit_hold": "Cổng ra của bí cảnh lúc đang đánh dở (đã vào phòng mà còn phòng chưa dọn xong, kể cả lúc vừa dọn xong một phòng chưa sang phòng kế: 19/11/2026): phải đứng yên trên cổng, không ra đòn, đủ chừng này giây mới rời (src/game/interact.js holdExit); lỡ chân giẫm cổng lúc đang đánh, lúc chạy ngang qua thì không bị đưa ra ngoài. Dọn xong hết các phòng hoặc chưa vào phòng nào: giẫm cổng là đi ngay như cũ. 0: tắt.",
  "floor": {
   "bi-canh": {
    "mob": 3.5,

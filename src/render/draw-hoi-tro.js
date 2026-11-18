@@ -1,5 +1,6 @@
 // Chuyển động của đồ hội và trò diễn (lễ hội tinh cầu). Đồ đứng yên mà có hồn: cờ bay phần phật (mỗi hàng điểm ảnh lệch theo sóng,
-// gốc cán đứng yên), đèn lồng treo đung đưa, kiếm bay nhấp nhô có vòng sáng, trận pháp sáng lên tắt xuống, trống nảy theo nhịp.
+// gốc cán đứng yên), đèn lồng treo đung đưa, kiếm bay nhấp nhô có vòng sáng, trận pháp sáng lên tắt xuống, trống nảy theo nhịp,
+// thác chảy theo từng khung hình (khung).
 // Kiểu chuyển động theo tên món ở data/le-hoi.json → anim (khớp phần sau tiền tố tinh cầu, khoá dài nhất thắng).
 // Trò diễn (trạng thái ở src/game/hoi-tro.js): tỷ võ trên lôi đài, người đánh trống, người múa kiếm.
 import { spriteImage } from './sprites.js';
@@ -55,6 +56,10 @@ export function drawAnimated(ctx, game, it, im, kind, t) {
   }
   if (kind === 'bob') {   // hòn đất nổi ngoài mép tinh cầu: trôi lên xuống thật chậm, mỗi hòn một nhịp
     ctx.drawImage(im, 0, 0, s.w, s.h, ox, oy + Math.round(Math.sin(t * 0.6 + ph) * 5) / 2, W, Hh);
+    return true;
+  }
+  if (kind === 'khung') {   // hình nhiều khung xếp ngang chạy lần lượt (thác Kiếm Tuyền 16 khung, data/art.json → frames, fps)
+    ctx.drawImage(im, (Math.floor(t * (s.fps || 8)) % s.frames) * s.w, 0, s.w, s.h, ox, oy, W, Hh);
     return true;
   }
   if (kind === 'trong') {   // trống: nảy lên khi bị đánh (xem trò trong)

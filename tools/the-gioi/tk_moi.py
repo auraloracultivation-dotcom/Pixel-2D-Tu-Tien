@@ -1,6 +1,8 @@
 """Thiên Kiếm Tinh dựng theo luật thế giới (docs/12-LUAT-THE-GIOI.md). Chủ dự án 18/11/2026 11:03 "tôi muốn xây lại thiên kiếm tinh",
 13:23 "đẹp nhưng tinh cầu chưa đủ rộng, nên hơi chật… giúp tui làm lại toàn bộ": đĩa nới từ 92 lên 128 ô (rộng gần gấp đôi), các khu
-giãn ra, nhà cửa, núi, cầu, đá, hoa bụi, mép tinh cầu dùng hình SpriteCook mới (tools/art/sc_tk.py, sc_tk2.py).
+giãn ra, nhà cửa, núi, cầu, đá, hoa bụi, mép tinh cầu dùng hình SpriteCook mới (tools/art/sc_tk.py, sc_tk2.py). 23:06 "Làm tiếp":
+cây, đèn đá, tượng, cờ, vạc lửa, sạp hàng cũng đổi sang hình SpriteCook, thác chạy 16 khung, cổng Bí cảnh Huyết Nha và cửa động phủ
+có công trình riêng (tools/art/sc_tk3.py).
 Máy này sinh ra data/maps/thien-kiem-phong.json — KHÔNG sửa tay tệp đó: sửa ở đây rồi chạy lại.
 Bố cục (đĩa 128 ô, tâm 64): pháp trận truyền tống ở quảng trường (64, 76), ba đại lộ gạch rộng 4 ô và một lối vườn rộng 2 ô —
   bắc: cổng tông môn, sân Thiên Kiếm Tông, Thiên Kiếm Điện tựa vào Thiên Kiếm Phong;   đông: phường chợ;
@@ -36,7 +38,7 @@ NPCS = [
     ('dc-dong-phuc-nu', 58.5, 94.4), ('dc-thanh-sam-nam', 83.4, 79.6), ('dc-tien-nhan-nam', 74.2, 44.4), ('dc-hoang-kim-nu', 112, 74.3),
     ('dc-kim-bao-nam', 84.4, 86.3), ('dc-kim-bao-nu', 90.9, 86.3), ('dc-thien-kiem-bao-nam', 57, 45.6), ('dc-thien-kiem-bao-nu', 70, 106),
 ]
-GATES = {'bi-canh': (92, 108), 'dong-phu': (20, 76)}   # ô P: cổng riêng ngoài phố (luật pháp trận)
+GATES = {'bi-canh': (92, 108), 'dong-phu': (20, 76)}   # ô P: cổng riêng ngoài phố (luật pháp trận); công trình cổng đứng ngay trên ô P, mặt quay xuống nam
 DA_TOA = [(58, 47), (22, 78)]                          # ô M bồ đoàn: sân tông môn (tự hành ngồi ở đây), trước động phủ
 FLY = [('dao-xich-dien', 'ngu-kiem', 'Xích Diễm Tinh', 'tu-xich-dien'), ('dao-han-bang', 'han-bang', 'Hàn Băng Tinh', 'tu-han-bang'),
        ('hac-phong-dao', 'hac-phong', 'Hắc Phong Tinh', 'tu-hac-phong'), ('dao-moc', 'dao-moc', 'Thanh Mộc Tinh', 'tu-dao-moc'),
@@ -89,6 +91,10 @@ def terrain(S):
     G.rect(38, 100, 44, 103, '2', keep='~=')          # thềm đình ven hồ
     G.rect(109, 72, 115, 73, '2')                     # thềm tiệm đan dược cuối phố đông
     G.disc(64.5, 120.8, 4.4, '2', ry=2.0)             # đài ngắm sao trước mặt tượng Tiên Đài
+    gx, gy = GATES['bi-canh']
+    G.disc(gx + 0.5, gy + 1.9, 3.6, ',', keep='~=^12', ry=2.1)   # sân đất dưới chân bậc cổng bí cảnh (lối tới vòng bên tây, tránh bãi quái phía đông)
+    dx, dy = GATES['dong-phu']
+    G.rect(dx - 1, dy, dx + 2, dy + 1, ',', keep='~=^12')          # thềm đất trước cửa động phủ
     for x, y in GATES.values():
         G.set(x, y, 'P')
     for x, y in DA_TOA:
@@ -111,60 +117,66 @@ def build(S):
     P('tk.dien-phu-sc', 52, 43, label='Luyện Võ Đường'); P('tk.dien-phu-sc', 76, 43, label='Truyền Công Đường')
     P('tk.cong-kiem-sc', 64, 60, on='.12', label='Thiên Kiếm Tông')
     P('tk.lau-sach-sc', 88, 42.6, label='Tàng Kinh Các'); P('tk.thap-canh-sc', 40, 41)
-    for i, sid in enumerate(['tk.co-moc-m', 'tk.co-hoa-m', 'tk.co-tho-m', 'tk.co-kim-m', 'tk.co-thuy-m']):
-        P(sid, 59.4, 39.4 + i * 2); P(sid, 68.6, 39.4 + i * 2)
-    P('tk.co-tong-m', 60.4, 49.8); P('tk.co-do-m', 67.6, 49.8); P('tk.lu-huong-m', 64, 41.6)
-    P('tk.vac-lua-m', 61.2, 38.4); P('tk.vac-lua-m', 66.8, 38.4); P('tk.kiem-bay-m', 64, 45.6)
-    P('tk.sen-chau-m', 57.8, 37.2); P('tk.sen-chau-2-m', 70.2, 37.2); P('tk.tuong-hac-m', 48.6, 36.4); P('tk.tuong-hac-m', 79.4, 36.4, f=1)
-    P('tk.chuong-m', 56.5, 48.8); P('tk.trong-rong-m', 71.5, 48.8); P('tk.tuong-rong-m', 77, 47.8)
-    P('tk.tru-moc-nhan-m', 47.8, 47.6); P('tk.tru-moc-nhan-m', 49.8, 47.6); P('tk.kiem-gia-vo-m', 47.6, 45.4)
+    for i, sid in enumerate(['tk.co-moc-sc', 'tk.co-hoa-sc', 'tk.co-tho-sc', 'tk.co-kim-sc', 'tk.co-thuy-sc']):
+        P(sid, 59.4, 38.2 + i * 2.4); P(sid, 68.6, 38.2 + i * 2.4)   # cờ mới cao 3,25 ô: cách nhau 2,4 ô cho lá cờ sau không che lá cờ trước
+    P('tk.co-tong-sc', 61.3, 49.8); P('tk.co-do-sc', 66.7, 49.8); P('tk.lu-huong-sc', 64, 41.6)
+    P('tk.vac-lua-sc', 61.2, 38.4); P('tk.vac-lua-sc', 66.8, 38.4); P('tk.kiem-bay-sc', 64, 45.6)
+    P('tk.sen-chau-sc', 57.8, 37.2); P('tk.sen-chau-2-sc', 70.2, 37.2); P('tk.tuong-hac-sc', 48.6, 36.4); P('tk.tuong-hac-sc', 79.4, 36.4, f=1)
+    P('tk.chuong-sc', 56.5, 48.8); P('tk.trong-rong-sc', 71.5, 48.8); P('tk.tuong-rong-sc', 77, 47.8)
+    P('tk.tru-moc-nhan-sc', 47.8, 47.6); P('tk.tru-moc-nhan-sc', 49.8, 47.6); P('tk.kiem-gia-vo-sc', 48.6, 45.4)
     # --- giữa: pháp trận truyền tống (một cái duy nhất), Nhiệm Vụ Đường ---
     P('tk.tran-truyen-tong-sc', TRAN[0], TRAN[1] + 5.6, force=True, label='Pháp Trận Truyền Tống')
     P('tk.dien-nho-sc', 52, 67, label='Nhiệm Vụ Đường')
     for dx, dy in ((-11.4, -3.6), (11.4, -3.6), (-11.4, 4.4), (11.4, 4.4)):
-        P('tk.vac-lua-m', PLAZA[0] + dx, PLAZA[1] + dy)
-    P('tk.tuong-hac-m', 59.6, 67.4); P('tk.tuong-hac-m', 68.4, 67.4, f=1)
+        P('tk.vac-lua-sc', PLAZA[0] + dx, PLAZA[1] + dy)
+    P('tk.tuong-hac-sc', 59.6, 67.4); P('tk.tuong-hac-sc', 68.4, 67.4, f=1)
     # --- đông: phường chợ (bốn lầu quay mặt ra đại lộ; hai dãy sạp cách nhau một lối rộng, dãy sau không che người đứng trước dãy trước) ---
     P('tk.lau-van-bao-sc', 86, 73, label='Vạn Bảo Lâu'); P('tk.lau-cho-sc', 96, 73, label='Chợ Phiên')
     P('tk.nha-ren-sc', 105.5, 73, label='Binh Khố'); P('tk.nha-thuoc-sc', 112, 73, label='Đan Dược Phường')
-    for sid, x in (('tk.sap-kiem-m', 86), ('tk.sap-thuoc-m', 92.5), ('tk.sap-mi-m', 99)):
+    for sid, x in (('tk.sap-kiem-sc', 86), ('tk.sap-thuoc-sc', 92.5), ('tk.sap-mi-sc', 99)):
         P(sid, x, 85)
-    P('tk.sap-thu-m', 87, 94, label='Ngự Thú'); P('tk.sap-khoi-loi-m', 94.5, 94, label='Khôi Lỗi'); P('tk.sap-vai-m', 101.5, 93.8)
-    P('tk.thung-hom-m', 103.4, 85); P('tk.ro-gio-m', 82.8, 85.4); P('tk.thung-go-m', 104.8, 93.8); P('tk.thung-go-m', 83.2, 93.6); P('tk.ro-gio-m', 104.6, 79.6)
-    P('tk.co-do-m', 88.2, 79.2); P('tk.co-do-m', 99.8, 79.2); P('tk.vac-lua-m', 90.8, 80.2); P('tk.vac-lua-m', 97.4, 80.2)
+    P('tk.sap-thu-sc', 87, 94, label='Ngự Thú'); P('tk.sap-khoi-loi-sc', 94.5, 94, label='Khôi Lỗi'); P('tk.sap-vai-sc', 101.5, 93.8)
+    for sid, x, y in (('tk.thung-hom-sc', 103.4, 85), ('tk.ro-gio-sc', 82.8, 85.4), ('tk.thung-go-sc', 104.8, 93.8), ('tk.thung-go-sc', 83.2, 93.6), ('tk.ro-gio-sc', 104.6, 79.6)):
+        P(sid, x, y, s=0.6)   # tấm SpriteCook vẽ thùng, sọt to gấp đôi món cũ: thu lại cho vừa tầm người
+    P('tk.co-do-sc', 88.2, 81); P('tk.co-do-sc', 99.8, 81); P('tk.vac-lua-sc', 90.8, 80.2); P('tk.vac-lua-sc', 97.4, 80.2)
     # --- nam: xóm dân quanh Suối Vọng Nguyệt ---
-    P('tk.voi-nuoc-m', 64, 98.8, label='Suối Vọng Nguyệt')
+    P('tk.voi-nuoc-sc', 64, 98.8, label='Suối Vọng Nguyệt')
     P('tk.nha-dan-1-sc', 55, 93); P('tk.nha-dan-2-sc', 73, 93); P('tk.nha-dan-3-sc', 55, 105)
-    P('tk.quan-tra-sc', 73, 105.5, label='Trà Quán'); P('tk.mieu-sc', 73.5, 114, label='Thổ Địa Miếu'); P('tk.gieng-m', 53.2, 109.6)
+    P('tk.quan-tra-sc', 73, 105.5, label='Trà Quán'); P('tk.mieu-sc', 73.5, 114, label='Thổ Địa Miếu'); P('tk.gieng-sc', 53.2, 109.6)
     # --- tây: Nguyệt Môn vào vườn ven sông, Cầu Vọng Tiên sang động phủ ---
     P('tk.nguyet-mon-sc', 42.5, 74, on='.12', label='Nguyệt Môn'); P('tk.cau-da-sc', 32.5, 77, on='.=,12', label='Cầu Vọng Tiên')
-    P('tk.thac-nho-sc', 42.5, 60.4, on='.='); P('tk.tuong-tien-m', 39.6, 65.6); P('tk.sen-chau-m', 45.8, 61.4); P('tk.sen-chau-2-m', 39.2, 60.8)
+    P('tk.thac-nho-sc', 42.5, 60.4, on='.='); P('tk.tuong-tien-sc', 39.6, 65.6); P('tk.sen-chau-sc', 45.8, 61.4); P('tk.sen-chau-2-sc', 39.2, 60.8)
     P('tk.cau-go-sc', 30.5, 47, on='.=,', label='Cầu Dây'); P('tk.cau-da-buoc-sc', 30.5, 88.9, on='.=,')
     # --- hồ Bích Thủy: hai bến câu, thuyền, đình ven hồ ---
     P('tk.cau-tau-1-sc', 36, 101, on='.=,', label='Bến Câu Bích Thủy'); P('tk.cau-tau-2-sc', 22, 98.4, on='.=,')
     P('tk.thuyen-1-sc', 27, 100.8, force=True); P('tk.thuyen-2-sc', 31.5, 105.6, force=True, f=1)
     P('tk.dinh-ho-sc', 41, 102, label='Vọng Nguyệt Đình')
     # --- di tích cuối đường mòn (mỗi hướng một cảnh lớn); lối tới luôn ở phía trước mặt hình ---
-    P('tk.kiem-trung-sc', 104, 35.6, label='Kiếm Trủng'); P('tk.co-thu-lon-m', 119, 77.6, s=1.3, label='Cổ Thụ Ngàn Năm')
+    P('tk.kiem-trung-sc', 104, 35.6, label='Kiếm Trủng'); P('tk.co-thu-lon-sc', 119, 77.6, label='Cổ Thụ Ngàn Năm')
     P('tk.tien-dai-sc', 64.5, 118.6, label='Tiên Đài Ngắm Sao'); P('tk.thac-sc', 30, 29.3, on='.=^', label='Thác Kiếm Tuyền')
-    P('tk.bia-kiem-m', 94.4, 106.8); P('tk.bia-cung-m', 18.4, 74.8)
+    # --- hai cổng riêng: công trình đứng ngay trên ô P (ô cổng nằm dưới chân bậc), người đi vòng ra trước mặt mới vào được ---
+    gx, gy = GATES['bi-canh']
+    dx, dy = GATES['dong-phu']
+    P('tk.cong-bi-canh-sc', gx - 0.4, gy, force=True, label='Bí cảnh Huyết Nha')   # bậc thềm trong hình lệch phải 0,9 ô: chân bậc rơi đúng ô P
+    P('tk.cong-dong-phu-sc', dx + 0.5, dy, force=True, label='Động phủ')            # tên viết lên tấm biển đá trên cửa
+    P('tk.bia-kiem-sc', gx + 4.6, gy + 1.6); P('tk.bia-cung-sc', dx - 2.6, dy + 2.2)
 
 
 def roads(S):
     T = S.trail
-    T((28, 76), (21, 76))                                              # tây: qua cầu đá tới động phủ
+    T((28, 76), (21, 76))                                              # tây: qua cầu đá tới trước cửa động phủ
     T((46, 44), (41, 43)); T((41, 43), (35, 46))                       # tây bắc: sân tông môn → tháp canh → đầu cầu dây
     T((36, 74), (36, 48))                                              # men bờ đông từ cầu đá lên cầu dây (lách giữa vườn và sông)
     T((35, 45), (33, 32))                                              # men bờ đông lên Thác Kiếm Tuyền
-    T((26, 46), (21, 41)); T((26, 46), (22, 74))                       # bờ tây: lên rừng thông, xuống động phủ
+    T((26, 46), (21, 41))                                              # bờ tây: lên rừng thông (xuống động phủ thì đi bờ đông rồi qua cầu đá)
     T((22, 79), (22, 92))                                              # động phủ → bến câu tây hồ
     T((81, 44), (84, 43)); T((92, 42), (104, 37), wide=True)           # đông bắc: Tàng Kinh Các rồi Kiếm Trủng
     T((111, 76), (117, 79))                                            # đông: cổ thụ
-    T((95, 98), (92, 106), wide=True)                                  # nam chợ: cổng bí cảnh
+    T((90, 97), (86, 102), wide=True); T((86, 102), (86, 109), wide=True); T((86, 109), (91, 110), wide=True)   # nam chợ: vòng bên tây ra trước mặt cổng bí cảnh
     T((64, 109), (71, 117), wide=True); T((71, 117), (68, 121))        # nam: vòng sang bên rồi ra đài ngắm sao trước mặt tượng
     T((58, 99), (45, 102)); T((38, 99), (36, 96))                      # tây nam: đình ven hồ, bến câu
     T((37, 77), (33, 88)); T((28, 88), (23, 84))                       # bờ đông xuống đá bước, sang bờ tây
-    for sx, sy, text in ((36.6, 73.2, '↑ Thác Kiếm Tuyền'), (93.6, 44.6, '→ Kiếm Trủng'), (93.4, 99.6, '↓ Bí cảnh Huyết Nha'),
+    for sx, sy, text in ((36.6, 73.2, '↑ Thác Kiếm Tuyền'), (93.6, 44.6, '→ Kiếm Trủng'), (92.6, 98.6, '↓ Bí cảnh Huyết Nha'),
                          (66.6, 110.6, '↓ Tiên Đài'), (57.4, 100.8, '← Bến Câu'), (111.6, 78.6, '→ Cổ Thụ'), (27.4, 74.4, '← Động phủ'),
                          (36.4, 44.2, '← Cầu Dây')):
         S.put('chung.bien-go', sx, sy, label=text)
@@ -174,7 +186,7 @@ def data(S):
     """Điểm tới, cổng, NPC, bãi quái. Mọi lối sang tinh cầu khác tụ quanh pháp trận (luật: một pháp trận mỗi tinh cầu)."""
     gx, gy = GATES['bi-canh']
     dx, dy = GATES['dong-phu']
-    spawns = {'vao': [64, 84], 'tu-bi-canh': [gx, gy - 2], 'tu-bi-canh-tn': [gx - 1, gy - 2], 'tu-dong-phu': [dx + 2, dy], 'tu-thap': [60, 85], 'tu-luan-vo': [67, 85]}
+    spawns = {'vao': [64, 84], 'tu-bi-canh': [gx, gy + 2], 'tu-bi-canh-tn': [gx - 1, gy + 2], 'tu-dong-phu': [dx + 2, dy], 'tu-thap': [60, 85], 'tu-luan-vo': [67, 85]}
     portals = [{'at': [gx, gy], 'to': 'bi-canh', 'spawn': 'vao', 'need': 'mo-bi-canh', 'label': 'Bí cảnh Huyết Nha'},
                {'at': [dx, dy], 'to': 'dong-phu', 'spawn': 'vao', 'need': 'dong-phu', 'kind': 'portal', 'label': 'Vào động phủ'}]
     for i, (to, need, name, sp) in enumerate(FLY):   # bảy điểm bay quanh vành pháp trận (đài đá 12 × 11 ô), chừa phía nam cho điểm vào game
@@ -231,11 +243,11 @@ def main():
     assert not soat_khach(S, khach()), 'lối khách hội xuyên vật cản: sửa nodes / links trong tk_moi_canh.py'
     m = {'id': 'thien-kiem-phong', 'name': 'Thiên Kiếm Tinh',
          '_note': 'Dựng theo luật thế giới 18/11/2026 bằng tools/the-gioi/tk_moi.py (KHÔNG sửa tay: sửa máy sinh rồi chạy lại). nen: nền bộ 15 mảnh '
-                  'SpriteCook, mép tinh cầu, vách đá, hoa cỏ in nền (src/world/draw-nen.js). prop_hide "^": núi là đồ đứng tk.nui-*, không vẽ ô núi cũ. '
+                  'SpriteCook, mép tinh cầu, vách đá, hoa cỏ in nền (src/world/draw-nen.js). prop_hide "^P": núi là đồ đứng tk.nui-*, hai cổng riêng là công trình tk.cong-*: không vẽ ô núi, ô cổng xoáy cũ. '
                   'moc: tên mốc → ô, truyện trỏ theo tên (data/story.json target). hoi.bay_tu: bố cục Bày cảnh trên máy chủ tới bản đó là của bản đồ cũ, '
                   'game bỏ qua. planet.luat: câu cá chỉ ở nước thật; các cờ terrain, settle, open, grown giữ để công cụ một lần cũ (tools/terrain.py…) không đụng vào.',
          'sky': '#b8d8f8', 'dark': 0, 'island': {'top': '#9cd08a', 'under': '#8a7a6a', 'hall': True}, 'world': True,
-         'planet': {'d': D, 'luat': 1, 'terrain': 1, 'settle': 1, 'open': 1, 'grown': 1}, 'nen': NEN, 'prop_hide': '^',
+         'planet': {'d': D, 'luat': 1, 'terrain': 1, 'settle': 1, 'open': 1, 'grown': 1}, 'nen': NEN, 'prop_hide': '^P',
          'grid': S.G.rows(), 'spawns': spawns, 'portals': portals, 'npcs': npcs, 'spawners': spawners, 'rooms': [],
          'hoi': {'le': 'cuu-tong-tranh-phong', 'bay_tu': BAY_TU, 'do': S.items},
          'moc': {'da-toa': list(DA_TOA[0]), 'bi-canh': list(GATES['bi-canh']), 'dong-phu': list(GATES['dong-phu']), 'phap-tran': list(TRAN), 'ben-cau': [36, 96]}}
@@ -249,10 +261,11 @@ def main():
         def le_hoi(d):
             f = d['festivals']['thien-kiem-phong']
             f['khu'] = KHU
-            f['_khu'] = 'Vùng phố của bản đồ dựng 18/11/2026: tools/the-gioi/tk_moi.py ghi (khu, khach.nodes, khach.links, khach.ban, tro[0].item), không sửa tay.'
+            f['_khu'] = 'Vùng phố của bản đồ dựng 18/11/2026: tools/the-gioi/tk_moi.py ghi (khu, khach.nodes, khach.links, khach.ban, tro[].item), không sửa tay.'
             f['khach'].update(khach())
             f['khach']['ban'] = BAN
-            f['tro'][0]['item'] = 'tk.dien-phu-sc'   # tỷ võ trước Luyện Võ Đường (hình mới)
+            for tro, sid in zip(f['tro'], ('tk.dien-phu-sc', 'tk.trong-rong-sc', 'tk.tuong-rong-sc')):   # tỷ võ trước Luyện Võ Đường, trống rồng, múa kiếm quanh tượng rồng (hình mới)
+                tro['item'] = sid
         rewrite(ROOT / 'data/le-hoi.json', le_hoi)
 
         def do_cu(d):

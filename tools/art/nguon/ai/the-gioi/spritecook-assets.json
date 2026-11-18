@@ -443,5 +443,164 @@
     },
     "_ket_qua": "75 hình tk.*-sc mới + 6 lớp nền (san, gach, nui, mep, vach, hoa); cắt và lọc bằng tools/art/sc_tk.py, sc_tk2.py, sc_luoi.py. Đợt 2 tiêu 402 credit (nền, núi, đồ vật, pháp trận, thác, Thiên Kiếm Phong 258; nhà cửa 144), cả Thiên Kiếm Tinh 468 credit tính cả bản thử 66. Còn 2 301."
   },
-  "spent_tong": 468
+  "dot_3": {
+    "_note": "Đợt 3 (chủ dự án 18/11/2026 23:06 \"Làm tiếp\", trả lời ba mục có số: 1 chuyển động thác 26 credit; 2 cây, đèn đá, tượng, cờ, vạc lửa, sạp hàng 110–130 credit; 3 công trình riêng cho cổng bí cảnh và cổng động phủ 18–36 credit; trần đã báo 192). Tấm 2K Nano Banana 2.1 có ảnh mẫu là tấm ghép hình cũ (reference_asset_id) và ảnh phong cách lưới 400 (style_asset_ids): 18 credit; chuyển động pixel-engine-v1.1 16 khung: 20 credit (báo giá 26). Không làm lại tấm nào.",
+    "style_refs": [
+      {
+        "asset_id": "b7e508c4-a55f-4a86-b6b4-94d450b02b99",
+        "label": "tấm hoa bụi đợt 2 (lưới 400)"
+      },
+      {
+        "asset_id": "d4e719aa-ec25-425e-954a-252ab7ca75a0",
+        "label": "tấm nhà a đợt 2"
+      },
+      {
+        "asset_id": "d016e0a8-36cf-47ce-8ba4-f9c484d92661",
+        "label": "Thiên Kiếm Điện đã về lưới"
+      },
+      {
+        "asset_id": "54ced6fb-d5fd-4bbd-807c-2a88d674b2ca",
+        "label": "tấm đá đợt 2"
+      }
+    ],
+    "jobs": [
+      {
+        "job_id": "e1c3124b-b7f6-4183-b69c-21f0101abe0b",
+        "kind": "art",
+        "what": "tấm cay-1: cây anh đào, ngân hạnh, phong, thông (4 cây)",
+        "cost": 18
+      },
+      {
+        "job_id": "7c07b4ec-1db9-4536-a04b-86688066d234",
+        "kind": "art",
+        "what": "tấm cay-2: Cổ Thụ Ngàn Năm, cây cổ thụ thân vặn, khóm trúc, hai chậu sen",
+        "cost": 18
+      },
+      {
+        "job_id": "efc76851-98b9-4d9b-b473-0c3de53e4dbc",
+        "kind": "art",
+        "what": "tấm sap-1: bốn sạp: binh khí, mì, thảo dược, vải",
+        "cost": 18
+      },
+      {
+        "job_id": "63307442-773d-4c4f-a2b8-52da3889b274",
+        "kind": "art",
+        "what": "tấm sap-2: quầy Ngự Thú, quầy Khôi Lỗi (theo hai ảnh của chủ dự án), giếng, vòi nước, tượng hạc, tượng rồng, tượng tiên",
+        "cost": 18
+      },
+      {
+        "job_id": "2ddf0039-8c66-45ea-91e6-5a2ba85b49e4",
+        "kind": "art",
+        "what": "tấm do-1: đèn đá, vạc lửa, lư hương, chuông, trống rồng, bia kiếm, bia cung, mộc nhân, giá binh khí, linh kiếm",
+        "cost": 18
+      },
+      {
+        "job_id": "de3bed90-569b-4608-b00d-ab6bc5c2d9a2",
+        "kind": "art",
+        "what": "tấm do-2: hai cờ lớn, năm cờ ngũ hành, thùng gỗ, hòm gỗ, rổ giỏ",
+        "cost": 18
+      },
+      {
+        "job_id": "1b4182de-8213-4b89-88d4-4a7b143ea6e2",
+        "kind": "art",
+        "what": "tấm cong: cổng Bí cảnh Huyết Nha (cổng đá hàm thú, xoáy đỏ), cổng động phủ (hang đá cửa tròn)",
+        "cost": 18
+      },
+      {
+        "job_id": "ed1d3556-9560-435f-ae2a-4bb512d09059",
+        "kind": "animation",
+        "what": "thác Kiếm Tuyền chảy: pixel-engine-v1.1, 16 khung 186×186, 8 khung mỗi giây (từ ảnh tĩnh e46e179a-e586-4b52-9781-891d644714b9 của đợt 2)",
+        "cost": 20
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "fe56503f-a017-44cc-94b8-86e7621239f3",
+        "file": "tk3/cay-1.png",
+        "sha12": "b0b8beefd36f",
+        "label": "tấm cay-1 — dùng (cây anh đào, ngân hạnh, phong, thông (4 cây))"
+      },
+      {
+        "asset_id": "af51a510-8f71-4689-b548-5f8900488c54",
+        "file": "tk3/cay-2.png",
+        "sha12": "06ce7c22a760",
+        "label": "tấm cay-2 — dùng (Cổ Thụ Ngàn Năm, cây cổ thụ thân vặn, khóm trúc, hai chậu sen)"
+      },
+      {
+        "asset_id": "137a5590-6b86-4765-8846-17299efc73fb",
+        "file": "tk3/sap-1.png",
+        "sha12": "b5e03a8edf8a",
+        "label": "tấm sap-1 — dùng (bốn sạp: binh khí, mì, thảo dược, vải)"
+      },
+      {
+        "asset_id": "e807834c-ed3a-484e-a058-48646f702c23",
+        "file": "tk3/sap-2.png",
+        "sha12": "559057bef7ba",
+        "label": "tấm sap-2 — dùng (quầy Ngự Thú, quầy Khôi Lỗi (theo hai ảnh của chủ dự án), giếng, vòi nước, tượng hạc, tượng rồng, tượng tiên)"
+      },
+      {
+        "asset_id": "81e9af74-4423-4946-94b3-97a84569c6a4",
+        "file": "tk3/do-1.png",
+        "sha12": "d4e1fac1685a",
+        "label": "tấm do-1 — dùng (đèn đá, vạc lửa, lư hương, chuông, trống rồng, bia kiếm, bia cung, mộc nhân, giá binh khí, linh kiếm)"
+      },
+      {
+        "asset_id": "d0aa853d-e01a-4743-99d0-e5ebe1532dad",
+        "file": "tk3/do-2.png",
+        "sha12": "cd814ce877ff",
+        "label": "tấm do-2 — dùng (hai cờ lớn, năm cờ ngũ hành, thùng gỗ, hòm gỗ, rổ giỏ)"
+      },
+      {
+        "asset_id": "7fe56765-03cd-4adc-b2f6-3699d1c09977",
+        "file": "tk3/cong.png",
+        "sha12": "d3b4a1bececf",
+        "label": "tấm cong — dùng (tk.cong-bi-canh-sc, tk.cong-dong-phu-sc)"
+      },
+      {
+        "asset_id": "ed9210a6-9537-4f8d-b484-3e7ef94b96fd",
+        "file": "tk3/thac-dong.png",
+        "sha12": "44837bab3110",
+        "label": "dải 16 khung thác chảy — dùng (tk.thac-sc; đá lấy từ ảnh tĩnh tk2/thac.png)"
+      }
+    ],
+    "uploads": [
+      {
+        "asset_id": "2e9131ee-d5b3-4b75-a113-2606713dd90a",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm cay-1 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      },
+      {
+        "asset_id": "45dcf540-848a-4cea-9307-29132967c14e",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm cay-2 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      },
+      {
+        "asset_id": "ceeb12f6-63b7-457c-8dc0-b40778cd9f08",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm sap-1 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      },
+      {
+        "asset_id": "e6ea7630-0dee-4e16-8f91-e3d398ca076f",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm sap-2 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      },
+      {
+        "asset_id": "cc67633f-7c90-46b5-94fa-03194f92f69e",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm do-1 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      },
+      {
+        "asset_id": "d5f01abd-4c88-48d4-87e8-9e2df0069c44",
+        "label": "tấm ghép hình cũ làm ảnh mẫu cho tấm do-2 (nền trắng, đúng chỗ và cỡ điểm muốn có)",
+        "cost": 0
+      }
+    ],
+    "spent": 146,
+    "balance": {
+      "truoc": 2301,
+      "sau": 2155
+    },
+    "_ket_qua": "42 hình tk.*-sc mới (cây, trúc, sen, sạp, quầy, giếng, vòi nước, tượng, đèn đá, vạc, lư hương, chuông, trống, bia, mộc nhân, giá binh khí, linh kiếm, cờ, thùng, hòm, rổ, hai cổng) và tk.thac-sc thành dải 16 khung; cắt và lọc bằng tools/art/sc_tk3.py. Tấm dày thì SpriteCook giữ đúng cỡ mẫu; tấm thưa (cờ, thùng) bị vẽ to 1,7–2 lần. Đợt 3 tiêu 146 credit (cây và đồ 108, cổng 18, thác 20), cả Thiên Kiếm Tinh 614. Còn 2 155."
+  },
+  "spent_tong": 614
 }

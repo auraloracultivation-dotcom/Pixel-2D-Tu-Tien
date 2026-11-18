@@ -486,7 +486,7 @@
      ]
     },
     {
-     "item": "tk.trong-rong-m",
+     "item": "tk.trong-rong-sc",
      "kind": "trong",
      "dx": -22,
      "dy": 3,
@@ -508,7 +508,7 @@
      ]
     },
     {
-     "item": "tk.tuong-rong-m",
+     "item": "tk.tuong-rong-sc",
      "kind": "mua-kiem",
      "dx": 0,
      "dy": -2,
@@ -1057,7 +1057,7 @@
      45
     ]
    ],
-   "_khu": "Vùng phố của bản đồ dựng 18/11/2026: tools/the-gioi/tk_moi.py ghi (khu, khach.nodes, khach.links, khach.ban, tro[0].item), không sửa tay."
+   "_khu": "Vùng phố của bản đồ dựng 18/11/2026: tools/the-gioi/tk_moi.py ghi (khu, khach.nodes, khach.links, khach.ban, tro[].item), không sửa tay."
   }
  },
  "foot": {
@@ -1269,7 +1269,9 @@
   "tk.nui-doi": "tuong",
   "tk.hoa-do-sc": "nho",
   "tk.hoa-lam-sc": "nho",
-  "tk.hoa-vang-sc": "nho"
+  "tk.hoa-vang-sc": "nho",
+  "tk.cong-bi-canh-sc": "nha",
+  "tk.cong-dong-phu-sc": "nha"
  },
  "glow": {
   "warm": {
@@ -1291,6 +1293,11 @@
    "c": "140,255,170",
    "r": 16,
    "a": 0.16
+  },
+  "huyet": {
+   "c": "255,84,104",
+   "r": 20,
+   "a": 0.2
   }
  },
  "flame": {
@@ -1337,6 +1344,9 @@
   "hoa-do-sc": "sway-s",
   "hoa-lam-sc": "sway-s",
   "hoa-vang-sc": "sway-s",
-  "linh-thao-sc": "sway-s"
+  "linh-thao-sc": "sway-s",
+  "thac-sc": "khung",
+  "co-thuy-sc": "wave",
+  "cong-bi-canh-sc": "pulse"
  }
 }
