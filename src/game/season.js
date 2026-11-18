@@ -30,3 +30,14 @@ export function seasonReset(game) {
   if (S.hello) setTimeout(() => game.toast?.(S.hello, 7), 2500);   // chào mùa mới
   return true;
 }
+
+// Đổi linh khí cần mỗi tầng (data/realms.json → need_bump: {id, from, mul}): người đang ở cảnh giới from trở lên giữ đúng phần trăm đường tới
+// tầng kế (linh khí đang có × mul), không thấy thanh linh khí tụt. Mỗi bản lưu chỉ đổi một lần (save.needV). 19/11/2026: Nguyên Anh trở lên × 3.
+export function needBump(game) {
+  const B = game.data.realms.need_bump, s = game.save;
+  if (!B || !s || (s.needV || 0) >= B.id) return false;
+  s.needV = B.id;
+  if ((s.realm || 0) < B.from || !s.qi) return false;
+  s.qi *= B.mul;
+  return true;
+}

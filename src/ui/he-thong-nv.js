@@ -2,6 +2,7 @@
 // (câu xong của nhiệm vụ vừa nhận), điểm, việc truyện đang làm, các nhiệm vụ kèm quà; nhiệm vụ câu hỏi lựa chọn trả lời ngay trong
 // bảng (sai thì hệ thống trêu, chọn lại). Làm hết nhiệm vụ hệ thống thì hiện nhiệm vụ ngày (việc ngày trong bản lưu). Nhận xong thì
 // gọi nhận thư luôn để quà vào túi. Máy chủ kiểm mọi thứ (net/he-thong.js).
+import { qiNeed } from '../game/stats.js';
 import { htTask, missionList, dailyList } from '../game/he-thong.js';
 import { gemInfo } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
@@ -98,11 +99,21 @@ export function renderTasks(game, body, api) {
   else if (day.every(d => d.got)) body.append(el('p', 'ht-line ht-muted', N.done));
   else for (const d of day) {
     const row = el('div', `ht-mis${d.ok && !d.got ? ' ok' : ''}`), b = el('button', 'ht-btn sm', d.got ? X.claimed_tag : d.ok ? X.claim : X.todo);
-    row.append(el('b', null, d.text), el('small', 'ht-qua', fill(X.reward, { r: fill(X.pts_tag, { p: H.points }) })));
+    row.append(el('b', null, d.text), el('small', 'ht-qua', fill(X.reward, { r: (dayQiN(game) ? `${dayQiN(game).toLocaleString('vi-VN')} linh khí · ` : '') + fill(X.pts_tag, { p: H.points }) })));
     b.type = 'button'; b.disabled = d.got || (d.ok && !game.cloud);
     if (!d.ok) { b.textContent = X.go; b.onclick = async () => { api.minimize(); (await import('../game/dailyjob.js')).dailyGo(game, d.id); }; }   // chưa xong: tự hành đi làm
-    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'), r = await claim(() => M.htDaily(d.id)); if (r?.thu_lenh_them) { const L = game.data.pets.thu_lenh; game.thuLenh = r.thu_lenh; game.toast(`+1 ${L.name} (đang có ${r.thu_lenh}/${L.per_mount}). Đủ ${L.per_mount} thì đổi thú cưỡi ở Ngự Thú Sư.`, 4); } done(r, {}); } catch (e) { err(e); b.disabled = false; } };
+    else b.onclick = async () => { b.disabled = true; try { const M = await import('../net/he-thong.js'), r = await claim(() => M.htDaily(d.id)); if (r?.thu_lenh_them) { const L = game.data.pets.thu_lenh; game.thuLenh = r.thu_lenh; game.toast(`+1 ${L.name} (đang có ${r.thu_lenh}/${L.per_mount}). Đủ ${L.per_mount} thì đổi thú cưỡi ở Ngự Thú Sư.`, 4); } if (r) dayQi(game); done(r, {}); } catch (e) { err(e); b.disabled = false; } };
     row.append(b); body.append(row);
   }
   if (!game.cloud) body.append(el('p', 'ht-line ht-muted', X.login));
+}
+
+// Việc ngày tặng thêm linh khí (chủ dự án 19/11/2026 03:13; data/he-thong.json → ngay.qi_pct): một phần linh khí cần của tầng đang tu
+function dayQiN(game) {
+  const k = game.data['he-thong']?.ngay?.qi_pct;
+  return k && game.save ? Math.round(qiNeed(game.save, game.data.realms) * k) : 0;
+}
+function dayQi(game) {
+  const n = dayQiN(game);
+  if (n) game.gainQi(n, game.player.x, game.player.y, false, true, true);   // số thật, không nhân đôi Thăng Linh Đan
 }

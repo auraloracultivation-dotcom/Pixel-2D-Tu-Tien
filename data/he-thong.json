@@ -2646,6 +2646,8 @@
  },
  "_go": "missions[].go: nút Đi làm mở bảng (id nút cũ, game.openOldPanel). Dẫn đường (Tự hành theo truyện) chỉ hiện khi truyện chưa tới bước chơi tự do.",
  "ngay": {
+  "qi_pct": 0.005,
+  "_qi_pct": "Chủ dự án 19/11/2026 03:13 \"Nhiệm vụ ngày tặng thêm linh khí cho người chơi\": mỗi việc ngày nhận xong thêm linh khí bằng qi_pct linh khí cần của tầng đang tu (0,5%; đủ 20 việc là 10% một tầng mỗi ngày), tính theo tầng nên lên cao vẫn đáng làm (src/ui/he-thong-nv.js).",
   "_note": "Nhiệm vụ ngày (chủ dự án 06/11/2026 18:03; 10/11/2026 09:47 cho chạy song hành với nhiệm vụ hệ thống, không chờ làm hết): mỗi ngày nhận điểm từ các việc ngày (data/daily.json pool, bản lưu daily), mỗi việc points điểm, đủ để triệu hồi mỗi ngày. Máy chủ đếm theo ngày giờ Việt Nam, mỗi ngày tối đa per_day việc.",
   "head": "Nhiệm vụ ngày",
   "locked": "Làm xong hết nhiệm vụ hệ thống thì mở nhiệm vụ ngày: mỗi ngày đủ điểm triệu hồi một lần.",

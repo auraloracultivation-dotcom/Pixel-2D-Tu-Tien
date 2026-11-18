@@ -1,6 +1,6 @@
 // Trạng thái ván chơi và vòng cập nhật. Vẽ ở src/render, giao diện ở src/ui.
 import { mapGate } from './map-gate.js';
-import { seasonReset } from './season.js';
+import { seasonReset, needBump } from './season.js';
 import { fitBag } from './autoequip.js';
 import { buildMap } from '../world/map.js';
 import { loadSave, newSave, writeSave } from '../core/save.js';
@@ -264,7 +264,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.save = fresh || !saved ? newSave(cfg) : saved;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
-    seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
+    seasonReset(game); needBump(game);   // needBump: đổi linh khí cần mỗi tầng thì giữ phần trăm (src/game/season.js). mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)
     ensureInv(game.save); fixGearPct(game.data, game.save); ensureTech(game.save); ensureCave(game.save, data); ensurePets(game.save); ensureStats(game.save);
     cleanOutfits(game); doiMoi(game);   // bộ thời trang đã gỡ (src/game/fashion.js); ngọc bội → pháp tượng, thú cưỡi cũ (src/game/doi-moi.js)
     applyWords(game);   // lời thoại theo nam / nữ
