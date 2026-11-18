@@ -19,6 +19,7 @@
  "swap_cd": 3,
  "groups": {"cong": "Công", "thu": "Thủ"},
  "_types_18_11": "Chủ dự án 18/11/2026 06:08: hồi chiêu gốc 60–150 giây (trước 120–300), sát thương mỗi lần tung giảm 50% (mult chia đôi).",
+ "tu_linh": {"_note": "Chủ dự án 18/11/2026 09:59: trước khi tung pháp bảo khựng một nhịp nhỏ tụ linh rồi mới bắn (src/game/tu-linh.js). s giây khựng, r bán kính vòng tụ, motes số hạt linh khí, burst_r vòng chớp lúc bắn, sfx tiếng lúc bắt đầu tụ; on: false thì bắn ngay như cũ.", "on": true, "s": 0.25, "r": 26, "motes": 16, "burst_r": 16, "sfx": "chime"},
  "types": {
   "phi-kiem": {"name": "Phi Kiếm", "group": "cong", "icon": "vfx.vk-kiem", "icon_f": 3, "cd": 60, "mp": 12, "mult": 0.75, "color": "#9fd8ff", "base": {"atk_pct": 4, "crit": 3}, "emit": {"kind": "shot", "look": "kiem", "speed": 390, "range": 255, "r": 14, "ret": true}, "desc": "Phóng một thanh phi kiếm chém xuyên tới mục tiêu rồi bay về.", "good": "Đánh boss, đánh đơn", "bad": "Quái đông"},
   "linh-chau": {"name": "Linh Châu", "group": "cong", "icon": "pb.linh-chau", "cd": 70, "mp": 16, "mult": 1.1, "color": "#8fd0ff", "base": {"atk_pct": 4, "speed": 4}, "emit": {"kind": "shot", "look": "chau", "speed": 162, "range": 345, "r": 20}, "desc": "Bắn một cầu sáng to, bay chậm, tầm xa.", "good": "An toàn, đánh từ xa", "bad": "Dễ bị né"},

@@ -401,7 +401,7 @@
       ],
       [
        "he-thong",
-       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông. Dọn sạch hai phòng đầu, bổn hệ thống thưởng chiếc nhẫn. Hạ được Huyết Nha thì có pháp bảo thứ hai."
+       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông nam, sau chợ. Dọn sạch hai phòng đầu, bổn hệ thống thưởng chiếc nhẫn. Hạ được Huyết Nha thì có pháp bảo thứ hai."
       ]
      ]
     },
@@ -788,10 +788,7 @@
     }
    ],
    "goal": "Việc 3/5: Đả tọa tới Luyện Khí tầng 2",
-   "target": [
-    33,
-    43
-   ],
+   "target": "da-toa",
    "until": {
     "layer": 2
    }
@@ -821,7 +818,7 @@
      "say": [
       [
        "he-thong",
-       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông, hạ Huyết Nha. Bên trong nhiều đồ tốt, nhặt hết cho bổn hệ thống."
+       "Nhiệm vụ: vào Bí cảnh Huyết Nha ở cổng phía đông nam, sau chợ, hạ Huyết Nha. Bên trong nhiều đồ tốt, nhặt hết cho bổn hệ thống."
       ]
      ]
     },
@@ -829,11 +826,8 @@
      "flag": "mo-bi-canh"
     }
    ],
-   "goal": "Việc 4/5: Vào Bí cảnh Huyết Nha (cổng phía đông)",
-   "target": [
-    61,
-    48
-   ],
+   "goal": "Việc 4/5: Vào Bí cảnh Huyết Nha (cổng đông nam, sau chợ)",
+   "target": "bi-canh",
    "until": {
     "map": "bi-canh"
    }

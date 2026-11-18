@@ -4,6 +4,7 @@
 // Món đang chọn: To, Nhỏ, Lật, Nhân bản, Xoá. Kho: mọi món đồ bộ mới, chọn là đặt giữa màn. Lưu: ghi lên máy chủ (src/net/bay-dao.js),
 // mọi người chơi vào bản đồ đó thấy bố cục mới. Hoàn tác (50 bước), Bản cũ (30 lần lưu gần nhất).
 import { saveLayout, layoutHistory, layoutRestore, layoutOne } from '../net/bay-dao.js';
+import { bayCu } from './bay-canh-start.js';
 import { SPOTS, spotBox, applySpots } from '../game/home-spot.js';
 // Động phủ: Mộc Nhân, bể cá cũng chọn, kéo được (chủ dự án 12/11/2026 02:23), lưu thành món đánh dấu '@dummy' / '@be_ca' (home-spot.js)
 // Tinh cầu khai hoang (chủ dự án 12/11/2026): tông chủ và trưởng lão được giao bày tinh cầu của tông môn; kho chỉ có công trình, đồ tông môn
@@ -70,7 +71,7 @@ export function createBayCanh(game) {
 
   async function toggle(on) {
     if (on && B.dirty === false) {   // lấy bản mới nhất trên máy chủ trước khi bày (máy khác có thể vừa lưu)
-      try { const L = await A().fetchOne(game.map.id); if (L) game.map.setHoi(L.items); } catch { /* dùng bản đang có */ }
+      try { const L = await A().fetchOne(game.map.id); if (L && !(A() === GLOBAL && bayCu(game.map.def, L.ver))) game.map.setHoi(L.items); } catch { /* dùng bản đang có */ }   // bố cục của bản đồ cũ (bay-canh-start.js bayCu): không lấy
     }
     if (!on && B.dirty && !(await ask('Còn thay đổi chưa lưu. Thoát và bỏ chúng?'))) return;
     if (!on && B.dirty) { B.list = JSON.parse(B.undo[0] || JSON.stringify(B.list)); rebuild(); }

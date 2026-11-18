@@ -7,7 +7,7 @@
 // Hệ thống tự lên tiếng (game/he-thong.js htTick): biểu tượng rung, hiện một dòng nhắc cạnh biểu tượng. Kiểu ở he-thong.css.
 // Biểu tượng là khối tinh thể vẽ bằng canvas (không dùng hình ngoài). Chữ người chơi chỉ gán textContent.
 import { every } from '../core/ticker.js';
-import { needIntro, doneIntro, htTick, missionList } from '../game/he-thong.js';
+import { needIntro, doneIntro, htTick, missionList, dailyList } from '../game/he-thong.js';
 import { renderTasks } from './he-thong-nv.js';
 import { renderGacha } from './he-thong-qua.js';
 import { createFace } from './he-thong-mat.js';
@@ -182,7 +182,7 @@ export function createHeThong(game) {
     if (say && !open && !quiet) nudge(say, say === C.nudge.death ? 'death' : say === C.nudge.idle ? 'idle' : 'step');
     // nhiệm vụ hệ thống xong mà chưa nhận điểm: nhắc (dò lại điểm mỗi 2 phút, nhắc cách nhau 3 phút)
     if (game.cloud && now - (loadHt.at || 0) > 120000) { loadHt.at = now; loadHt(); }
-    const claim = missionList(game, ht.xong).some(m => m.ok); khoa.tick(claim);
+    const claim = missionList(game, ht.xong).some(m => m.ok) || !!dailyList(game, ht)?.some(d => d.ok && !d.got); khoa.tick(claim);   // chấm đỏ, nhắc nhận: cả nhiệm vụ hệ thống lẫn nhiệm vụ ngày đã xong chưa nhận
     if (!say && !open && !quiet && !game.uiOpen && now - (nudge.claim || 0) > 180000 && claim) { nudge.claim = now; nudge(C.nudge.claim, 'claim'); }
     // lâu lâu biểu tượng tự làm trò (mat.ambient_s giây một lần)
     if (MT && !open && tip.hidden && now > (nudge.amb ||= now + 20000)) { const [a, b] = MT.ambient_s || [25, 45]; nudge.amb = now + (a + Math.random() * (b - a)) * 1000; icFace.react('ambient'); }
