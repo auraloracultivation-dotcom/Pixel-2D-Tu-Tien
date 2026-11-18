@@ -47461,6 +47461,498 @@
      "warm"
     ]
    ]
+  },
+  "tv.sun": {
+   "file": "assets/art/tv-sun.png",
+   "v": "4a226323",
+   "w": 174,
+   "h": 174,
+   "frames": 32,
+   "anchor": [
+    87,
+    87
+   ],
+   "note": "Tinh Vực 19/11/2026: linh-nhat (SpriteCook), 8 khung/giây, chạy tới rồi lùi"
+  },
+  "tv.thien-kiem-phong": {
+   "file": "assets/art/tv-thien-kiem-phong.png",
+   "v": "b3aba60b",
+   "w": 172,
+   "h": 172,
+   "frames": 32,
+   "anchor": [
+    86,
+    86
+   ],
+   "note": "Tinh Vực 19/11/2026: thien-kiem-tinh (SpriteCook), 8 khung/giây, chạy tới rồi lùi"
+  },
+  "tv.thanh-khe": {
+   "file": "assets/art/tv-thanh-khe.png",
+   "v": "9cda579b",
+   "w": 128,
+   "h": 128,
+   "frames": 16,
+   "anchor": [
+    64,
+    64
+   ],
+   "note": "Tinh Vực 19/11/2026: thanh-khe (SpriteCook), 8 khung/giây"
+  },
+  "tv.dao-xich-dien": {
+   "file": "assets/art/tv-dao-xich-dien.png",
+   "v": "268c7d37",
+   "w": 168,
+   "h": 168,
+   "frames": 16,
+   "anchor": [
+    84,
+    84
+   ],
+   "note": "Tinh Vực 19/11/2026: xich-diem (SpriteCook), 8 khung/giây"
+  },
+  "tv.dao-han-bang": {
+   "file": "assets/art/tv-dao-han-bang.png",
+   "v": "9d699481",
+   "w": 168,
+   "h": 168,
+   "frames": 16,
+   "anchor": [
+    84,
+    84
+   ],
+   "note": "Tinh Vực 19/11/2026: han-bang (SpriteCook), 8 khung/giây"
+  },
+  "tv.hac-phong-dao": {
+   "file": "assets/art/tv-hac-phong-dao.png",
+   "v": "984ce3f5",
+   "w": 180,
+   "h": 180,
+   "frames": 16,
+   "anchor": [
+    90,
+    90
+   ],
+   "note": "Tinh Vực 19/11/2026: hac-phong (SpriteCook), 8 khung/giây"
+  },
+  "tv.dao-moc": {
+   "file": "assets/art/tv-dao-moc.png",
+   "v": "4b7aa9fc",
+   "w": 162,
+   "h": 162,
+   "frames": 16,
+   "anchor": [
+    81,
+    81
+   ],
+   "note": "Tinh Vực 19/11/2026: thanh-moc (SpriteCook), 8 khung/giây"
+  },
+  "tv.dao-thien-kim": {
+   "file": "assets/art/tv-dao-thien-kim.png",
+   "v": "a025efea",
+   "w": 164,
+   "h": 164,
+   "frames": 16,
+   "anchor": [
+    82,
+    82
+   ],
+   "note": "Tinh Vực 19/11/2026: thien-kim (SpriteCook), 8 khung/giây"
+  },
+  "tv.dao-hau-tho": {
+   "file": "assets/art/tv-dao-hau-tho.png",
+   "v": "a88c462e",
+   "w": 168,
+   "h": 168,
+   "frames": 32,
+   "anchor": [
+    84,
+    84
+   ],
+   "note": "Tinh Vực 19/11/2026: hau-tho (SpriteCook), 8 khung/giây, chạy tới rồi lùi"
+  },
+  "tv.vet-nut-ngoai": {
+   "file": "assets/art/tv-vet-nut-ngoai.png",
+   "v": "29bbfb6b",
+   "w": 148,
+   "h": 148,
+   "frames": 16,
+   "anchor": [
+    74,
+    74
+   ],
+   "note": "Tinh Vực 19/11/2026: vet-nut-ngoai (SpriteCook), 8 khung/giây"
+  },
+  "tv.mat-1": {
+   "file": "assets/art/tv-mat-1.png",
+   "v": "cb1c0840",
+   "w": 166,
+   "h": 166,
+   "frames": 16,
+   "anchor": [
+    83,
+    83
+   ],
+   "note": "Tinh Vực 19/11/2026: mat-1 (SpriteCook), 8 khung/giây"
+  },
+  "tv.mat-2": {
+   "file": "assets/art/tv-mat-2.png",
+   "v": "f7a22c02",
+   "w": 154,
+   "h": 154,
+   "frames": 16,
+   "anchor": [
+    77,
+    77
+   ],
+   "note": "Tinh Vực 19/11/2026: mat-2 (SpriteCook), 8 khung/giây"
+  },
+  "tv.ma-vuong": {
+   "file": "assets/art/tv-ma-vuong.png",
+   "v": "7937e80a",
+   "w": 166,
+   "h": 166,
+   "frames": 16,
+   "anchor": [
+    83,
+    83
+   ],
+   "note": "Tinh Vực 19/11/2026: ma-vuong (SpriteCook), 8 khung/giây"
+  },
+  "tv.trang.bi-canh": {
+   "file": "assets/art/tv-trang-bi-canh.png",
+   "v": "c5d7f23a",
+   "w": 132,
+   "h": 132,
+   "frames": 1,
+   "anchor": [
+    66,
+    66
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.co-thu-tam": {
+   "file": "assets/art/tv-trang-co-thu-tam.png",
+   "v": "c8479565",
+   "w": 130,
+   "h": 130,
+   "frames": 1,
+   "anchor": [
+    65,
+    65
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.dia-cung": {
+   "file": "assets/art/tv-trang-dia-cung.png",
+   "v": "ae0dcd20",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.dong-phu": {
+   "file": "assets/art/tv-trang-dong-phu.png",
+   "v": "b02ab007",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.hac-phong-dong": {
+   "file": "assets/art/tv-trang-hac-phong-dong.png",
+   "v": "e65a9756",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.han-bang-quat": {
+   "file": "assets/art/tv-trang-han-bang-quat.png",
+   "v": "b5049182",
+   "w": 134,
+   "h": 134,
+   "frames": 1,
+   "anchor": [
+    67,
+    67
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.hoa-quat": {
+   "file": "assets/art/tv-trang-hoa-quat.png",
+   "v": "3909bcbb",
+   "w": 130,
+   "h": 130,
+   "frames": 1,
+   "anchor": [
+    65,
+    65
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.hu-khong-lao": {
+   "file": "assets/art/tv-trang-hu-khong-lao.png",
+   "v": "41fec2ee",
+   "w": 132,
+   "h": 132,
+   "frames": 1,
+   "anchor": [
+    66,
+    66
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.kiem-trung": {
+   "file": "assets/art/tv-trang-kiem-trung.png",
+   "v": "a7bdc0b3",
+   "w": 138,
+   "h": 138,
+   "frames": 1,
+   "anchor": [
+    69,
+    69
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.lang-tinh-linh": {
+   "file": "assets/art/tv-trang-lang-tinh-linh.png",
+   "v": "1bf18809",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.re-mau-thu": {
+   "file": "assets/art/tv-trang-re-mau-thu.png",
+   "v": "35e363af",
+   "w": 132,
+   "h": 132,
+   "frames": 1,
+   "anchor": [
+    66,
+    66
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.trang.vet-nut": {
+   "file": "assets/art/tv-trang-vet-nut.png",
+   "v": "9f3efff0",
+   "w": 122,
+   "h": 122,
+   "frames": 1,
+   "anchor": [
+    61,
+    61
+   ],
+   "note": "mặt trăng Tinh Vực (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.cat": {
+   "file": "assets/art/tv-kh-cat.png",
+   "v": "6e5a46e1",
+   "w": 136,
+   "h": 136,
+   "frames": 1,
+   "anchor": [
+    68,
+    68
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.co": {
+   "file": "assets/art/tv-kh-co.png",
+   "v": "cb07adfc",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.da-den": {
+   "file": "assets/art/tv-kh-da-den.png",
+   "v": "4528ce66",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.hau-tho": {
+   "file": "assets/art/tv-kh-hau-tho.png",
+   "v": "c0414278",
+   "w": 138,
+   "h": 138,
+   "frames": 1,
+   "anchor": [
+    69,
+    69
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.rung": {
+   "file": "assets/art/tv-kh-rung.png",
+   "v": "edd3fbfe",
+   "w": 142,
+   "h": 142,
+   "frames": 1,
+   "anchor": [
+    71,
+    71
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.tro": {
+   "file": "assets/art/tv-kh-tro.png",
+   "v": "060f850f",
+   "w": 140,
+   "h": 140,
+   "frames": 1,
+   "anchor": [
+    70,
+    70
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.kh.tuyet": {
+   "file": "assets/art/tv-kh-tuyet.png",
+   "v": "eea78771",
+   "w": 140,
+   "h": 140,
+   "frames": 1,
+   "anchor": [
+    70,
+    70
+   ],
+   "note": "tinh cầu khai hoang theo loại đất (SpriteCook 19/11/2026)"
+  },
+  "tv.vong": {
+   "file": "assets/art/tv-vong.png",
+   "v": "0965048f",
+   "w": 1536,
+   "h": 864,
+   "frames": 2,
+   "anchor": [
+    768,
+    432
+   ],
+   "note": "vòng kết giới (SpriteCook, phóng 3, gọt mỏng): khung 0 thường, khung 1 sáng; tâm 756,410, bán kính giữa 612×372 (đo ở hàng, cột giữa)"
+  },
+  "tv.tru": {
+   "file": "assets/art/tv-tru.png",
+   "v": "643f3171",
+   "w": 70,
+   "h": 222,
+   "frames": 1,
+   "anchor": [
+    35,
+    111
+   ],
+   "note": "Tinh Vực: tru-kiem (SpriteCook 19/11/2026)"
+  },
+  "tv.may-1": {
+   "file": "assets/art/tv-may-1.png",
+   "v": "5cdda984",
+   "w": 371,
+   "h": 212,
+   "frames": 1,
+   "anchor": [
+    185,
+    106
+   ],
+   "note": "Tinh Vực: may-1 (SpriteCook 19/11/2026)"
+  },
+  "tv.may-2": {
+   "file": "assets/art/tv-may-2.png",
+   "v": "da733101",
+   "w": 188,
+   "h": 370,
+   "frames": 1,
+   "anchor": [
+    94,
+    185
+   ],
+   "note": "Tinh Vực: may-2 (SpriteCook 19/11/2026)"
+  },
+  "tv.may-3": {
+   "file": "assets/art/tv-may-3.png",
+   "v": "1bf8dee8",
+   "w": 144,
+   "h": 146,
+   "frames": 1,
+   "anchor": [
+    72,
+    73
+   ],
+   "note": "Tinh Vực: may-3 (SpriteCook 19/11/2026)"
+  },
+  "tv.tinh-the": {
+   "file": "assets/art/tv-tinh-the.png",
+   "v": "ba876925",
+   "w": 87,
+   "h": 145,
+   "frames": 1,
+   "anchor": [
+    43,
+    72
+   ],
+   "note": "Tinh Vực: tinh-the (SpriteCook 19/11/2026)"
+  },
+  "tv.nut": {
+   "file": "assets/art/tv-nut.png",
+   "v": "e9391711",
+   "w": 188,
+   "h": 188,
+   "frames": 1,
+   "anchor": [
+    94,
+    94
+   ],
+   "note": "Tinh Vực: vet-nut (SpriteCook 19/11/2026)"
+  },
+  "tv.van-1": {
+   "file": "assets/art/tv-van-1.png",
+   "v": "0a72bfc8",
+   "w": 1280,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    640,
+    180
+   ],
+   "note": "biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang"
+  },
+  "tv.van-2": {
+   "file": "assets/art/tv-van-2.png",
+   "v": "1557375a",
+   "w": 1280,
+   "h": 360,
+   "frames": 1,
+   "anchor": [
+    640,
+    180
+   ],
+   "note": "biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang"
   }
  }
 }

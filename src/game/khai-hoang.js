@@ -2,6 +2,7 @@
 // dựng bản đồ từng tinh cầu (kh-gen.js) đưa vào data.maps, thêm thiên thể vào tinh đồ (data.starmap.bodies), mức lực chiến quái vào
 // config.mob_cp.maps. Mảnh Vỡ Tinh Cầu rơi (khKill, khDun). Trận Khai Tinh: tông chủ mở vé trên máy chủ, bay vào bản đồ trận (trùm giữa sân),
 // tự hạ trùm thì báo thắng, máy chủ trừ kho và khai / nâng cấp. Đồng môn vào cùng vé để trợ chiến.
+import { khOrbit } from './starmap.js';
 import { genPlanet, levelOf } from './kh-gen.js';
 import { addCoins } from './shop.js';
 
@@ -30,7 +31,7 @@ function toStarmap(game, list) {
   sm.bodies = sm.bodies.filter(b => !b.kh);
   for (const p of list) {
     const G = Kd.grounds[p.mat_dat] || {};
-    sm.bodies.push({ kh: true, trong: !!p.trong, map: p.id, name: p.ten, kind: 'khai', orbit: p.vong, angle: p.goc, size: 3 + p.cap, color: G.ground || '#9a8aff',
+    sm.bodies.push({ kh: true, trong: !!p.trong, map: p.id, name: p.ten, kind: 'khai', orbit: khOrbit(sm, p.cap) ?? p.vong, cap: p.cap, ground: p.mat_dat, angle: p.goc, size: 3 + p.cap, color: G.ground || '#9a8aff',
       realm: levelOf(Kd, p.cap).realm, desc: p.trong ? T.body_empty.replace('{chu}', p.chu_ten || '?').replace('{cap}', p.cap) : T.body_desc.replace('{bang}', p.bang || '?').replace('{cap}', p.cap) });
   }
 }

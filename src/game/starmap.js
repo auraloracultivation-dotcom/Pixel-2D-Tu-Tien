@@ -18,6 +18,11 @@ export function bodiesOf(sm, maps) {
 
 export function orbitR(sm, orbit) { return sm.orbits.first + sm.orbits.step * (orbit - 1); }
 
+// Khai hoang (chủ dự án 19/11/2026 03:16): cấp càng cao tinh cầu càng ra rìa tinh hà (data/starmap.json → tv.kh_orbit)
+export const khOrbit = (sm, cap) => sm.tv?.kh_orbit ? sm.tv.kh_orbit.first + sm.tv.kh_orbit.step * (Math.max(1, cap) - 1) : null;
+// Rìa tinh hà (vòng của kết giới): vòng xa nhất đang có + tv.pad; tinh cầu khai hoang cấp cao vượt rìa thì kết giới nở theo
+export const rimOrbit = (sm, bodies) => Math.max(...bodies.filter(b => b.orbit && !b.parent).map(b => b.orbit)) + (sm.tv?.pad ?? 0.6);
+
 // Toạ độ trên mặt phẳng tinh hệ, đơn vị = nửa bề rộng tinh đồ (chưa nghiêng); min = phút theo giờ thật
 export function flatPos(sm, b, min) {
   if (b.sun) return { x: 0, y: 0 };
