@@ -16,7 +16,7 @@ import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
 import { caveRoom } from './friends.js';
-import { updateParty } from './party-sync.js';
+import { updateParty, partyGuest } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
 import { ensureInv, rollItem, addItem, equip, fixGearPct, bagCap } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
@@ -309,6 +309,7 @@ export function createGame(data, screen, input, ui, audio) {
   }
 
   function updateSpawners(dt) {
+    if (partyGuest(game)) return;   // tổ đội: quái trên bản đồ chung do máy đội trưởng sinh (trận Khai Tinh tổ đội, src/game/kh-doi.js)
     for (const s of game.spawners) {
       if ((s.need && !game.save.flags[s.need]) || (s.unless && game.save.flags[s.unless])) continue;
       s.alive = s.alive.filter(m => !m.dead);

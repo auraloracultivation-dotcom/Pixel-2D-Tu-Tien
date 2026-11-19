@@ -5,6 +5,7 @@
 import { khOrbit } from './starmap.js';
 import { genPlanet, levelOf } from './kh-gen.js';
 import { addCoins } from './shop.js';
+import { khTeamAfterEnter } from './kh-doi.js';
 
 const K = game => game.data['khai-hoang'];
 const net = async () => (await import('../net/khai-hoang.js')).khCalls;
@@ -64,8 +65,8 @@ function addShards(game, n, why) {
 // Mỗi lần hạ quái (daily.js dailyKill): Mảnh Vỡ rơi; hạ trùm trận Khai Tinh thì báo thắng
 export function khKill(game, m) {
   const kh = game.map?.def?.kh, D = K(game)?.drop;
+  if (kh?.fight && m.def.ai === 'boss' && !m.dummy) { fightWon(game); return; }   // trùm hạ trên máy đội trưởng tổ đội cũng tính (m.remote): tông chủ báo thắng
   if (!D || m.dummy || m.wb || m.remote) return;
-  if (kh?.fight && m.def.ai === 'boss') { fightWon(game); return; }
   if (game.dungeon || m.def.ai === 'boss') return;
   const rate = kh ? D.rate_kh : (m.elite >= 2 ? D.rate_out : 0);
   if (rate && Math.random() < rate) addShards(game, 1);
@@ -98,6 +99,7 @@ export async function khEnter(game, t) {
   s.fight = { ve: t.ve, cap: t.cap, ten: t.ten, mine: !!t.cua_toi, id };
   const def = inject(game, { id, ten: t.ten, mat_dat: t.mat_dat, hat: t.hat, cap: t.cap }, { fight: true, cap: t.cap, ticket: t.ve });
   await game.travel(id, 'vao', true, { force: true, text: def.name });
+  khTeamAfterEnter(game, t, id);   // đang trong tổ đội Khai Tinh: cả đội vào cùng (src/game/kh-doi.js)
   const boss = game.data.mobs[K(game).grounds[t.mat_dat]?.boss]?.name || '';
   game.toast(K(game).text.fight_toast.replace('{boss}', boss).replace('{ten}', t.ten), 3);
 }
@@ -112,7 +114,7 @@ export async function khQuit(game) {
 async function fightWon(game) {
   const s = khState(game), f = s.fight, T = K(game).text;
   if (!f || game.map.id !== f.id) return;
-  if (!f.mine) { game.toast(T.fight_note, 3); return; }
+  if (!f.mine) { s.fight = null; return; }   // đồng môn trợ chiến: thưởng như hạ trùm thường đã nhận lúc trùm gục, tông chủ báo thắng
   try {
     const p = await (await net()).win(f.ve);
     s.fight = null;
