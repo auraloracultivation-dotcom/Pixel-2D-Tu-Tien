@@ -33,7 +33,7 @@ NEN = {'nuoc': 'nen.tk-nuoc', 'dat': 'nen.tk-dat', 'san': 'nen.tk-san', 'gach': 
 # ---- mốc cố định: NPC, cổng, bãi quái (đặt trước, mọi thứ khác né ra) ----
 NPCS = [
     ('van-hac', 64, 37.6), ('lac-tuyet', 70.5, 82.6, {'unless': 'lac-tuyet-vang'}), ('tieu-dao', 57.5, 82.6, {'unless': 'tieu-dao-vang'}),
-    ('chap-su', 52, 68.3), ('ho-linh', 45.4, 64.6), ('quan-binh-kho', 105.5, 74.3), ('ngu-thu-su', 87.5, 95.5), ('khoi-loi-su', 95, 95.5),
+    ('chap-su', 52, 68.3), ('ho-linh', 45.4, 64.6), ('quan-binh-kho', 105.5, 74.3), ('ngu-thu-su', 87.5, 95.5), ('khoi-loi-su', 95, 95.5), ('tiem-thoi-trang', 102, 95.5),
     ('van-bao', 86, 74.2), ('chu-cho', 96, 74.2), ('to-doi', 69.5, 85, {'need': 'mo-bi-canh'}), ('tieu-phu', 96, 44.6),
     ('dc-dong-phuc-nu', 58.5, 94.4), ('dc-thanh-sam-nam', 83.4, 79.6), ('dc-tien-nhan-nam', 74.2, 44.4), ('dc-hoang-kim-nu', 112, 74.3),
     ('dc-kim-bao-nam', 84.4, 86.3), ('dc-kim-bao-nu', 90.9, 86.3), ('dc-thien-kiem-bao-nam', 57, 45.6), ('dc-thien-kiem-bao-nu', 70, 106),
@@ -52,7 +52,7 @@ CAMPS = [(46, 112, {'n': 4, 'spread': 6, 'respawn': 6}), (40, 51, {'farm': True}
 # phố (quái không vào): tông môn, quảng trường + Nhiệm Vụ Đường, vườn và lối tây, chợ, cuối phố đông, xóm dân, Tàng Kinh Các
 KHU = [[45, 22, 83, 62], [47, 61, 80, 88], [36, 55, 48, 78], [80, 64, 108, 99], [108, 66, 116, 79], [50, 86, 79, 115], [84, 36, 92, 45]]
 # người bán của hội (data/le-hoi.json → khach.ban): bốn người đứng sạp (game tự kéo về góc phải sạp gần nhất), bốn người đứng chỗ khai
-BAN = [['thuong-nhan', 86, 85], ['lao-than', 92.5, 85], ['ba-do-den', 99, 85], ['co-ban-nuoc', 101.5, 93.8],
+BAN = [['thuong-nhan', 86, 85], ['lao-than', 92.5, 85], ['ba-do-den', 99, 85], ['co-ban-nuoc', 106, 95],
        ['tho-kim-sa', 102.6, 80.4], ['ong-hai-nam', 76.6, 106.8], ['ong-do', 60.4, 100.6], ['lao-nong', 58.6, 106.4]]
 
 
@@ -135,7 +135,7 @@ def build(S):
     P('tk.nha-ren-sc', 105.5, 73, label='Binh Khố'); P('tk.nha-thuoc-sc', 112, 73, label='Đan Dược Phường')
     for sid, x in (('tk.sap-kiem-sc', 86), ('tk.sap-thuoc-sc', 92.5), ('tk.sap-mi-sc', 99)):
         P(sid, x, 85)
-    P('tk.sap-thu-sc', 87, 94, label='Ngự Thú'); P('tk.sap-khoi-loi-sc', 94.5, 94, label='Khôi Lỗi'); P('tk.sap-vai-sc', 101.5, 93.8)
+    P('tk.sap-thu-sc', 87, 94, label='Ngự Thú'); P('tk.sap-khoi-loi-sc', 94.5, 94, label='Khôi Lỗi'); P('tk.sap-vai-sc', 101.5, 93.8, label='Thời Trang')
     for sid, x, y in (('tk.thung-hom-sc', 103.4, 85), ('tk.ro-gio-sc', 82.8, 85.4), ('tk.thung-go-sc', 104.8, 93.8), ('tk.thung-go-sc', 83.2, 93.6), ('tk.ro-gio-sc', 104.6, 79.6)):
         P(sid, x, y, s=0.6)   # tấm SpriteCook vẽ thùng, sọt to gấp đôi món cũ: thu lại cho vừa tầm người
     P('tk.co-do-sc', 88.2, 81); P('tk.co-do-sc', 99.8, 81); P('tk.vac-lua-sc', 90.8, 80.2); P('tk.vac-lua-sc', 97.4, 80.2)

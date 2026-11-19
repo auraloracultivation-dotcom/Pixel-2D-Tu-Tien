@@ -1,5 +1,8 @@
 {
  "_note": "Thời trang (chủ dự án 16/11/2026 21:57–22:0x: bỏ toàn bộ thời trang, nhân vật cũ, thay bằng 16 bộ trang phục mới làm SpriteCook; xem data/heroes.json). Mỗi bộ là một nhân vật có hình, động tác riêng (look: sprite hero.tp-NN, body, cm, kg, anims đứng / chạy / 2 đòn / ngồi xếp bằng, orb: chỗ khí cầu lúc ngồi, mau: màu linh lực của bộ), nam nữ đều mặc được (gioi chỉ để xếp bảng). def: áo mặc định của giới đó, chọn lúc tạo nhân vật (nam: tp-02 Băng Vương, nữ: tp-10 Lam Hoa Thiếu Nữ; chủ dự án chọn #2 và #10). from.start: ai cũng có (2 bộ mặc định + 4 bộ tặng tp-05, tp-07, tp-08, tp-16, chủ dự án \"tặng thêm 4 bộ, tổng mọi người nhận 6 bộ\", em chọn 2 nam 2 nữ). from.shop: 10 bộ còn lại bán bằng Linh Thạch (giá đề xuất, chờ chủ dự án duyệt). Thời trang chỉ để đẹp, giữ dòng chỉ số của bộ đang mặc (docs/11-HE-CHIEN-DAU.md). Bộ cũ trong bản lưu: máy khách bỏ (fashion.js cleanOutfits), máy chủ dọn bằng migration.",
+ "shop_npc": "tiem-thoi-trang",
+ "_shop_npc": "Tiệm thời trang (chủ dự án 19/11/2026 12:57): bộ chưa có không hiện trong bảng Thời trang, mua ở NPC này (src/game/fashion-shop.js), đứng ở sạp vải chợ Thiên Kiếm Tinh (tools/the-gioi/tk_moi.py).",
+ "shop_text": {"ask": "Vải mới về, đạo hữu xem bộ nào?", "owned": "Đã có", "talk": "Trò chuyện", "no": "Thôi", "have": "Đang có {n} Linh Thạch", "already": "Đã có {name}.", "poor": "Chưa đủ Linh Thạch ({n}).", "done": "Đã mua và mặc {name}."},
  "renamed": {
   "_note": "id bộ cũ đã đổi tên → id mới theo giới tính: bản lưu đang mặc bộ cũ vẫn mặc đúng bộ mới (src/game/fashion.js curOutfit). Mỗi bộ không có only có bản nam và bản nữ, mua riêng từng bản (chủ dự án 02/11/2026)."
  },

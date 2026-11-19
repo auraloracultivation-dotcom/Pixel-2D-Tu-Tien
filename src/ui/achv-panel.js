@@ -75,11 +75,11 @@ export function createAchvPanel(game) {
         : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id, g)) { if (mine) wear(game, id); msg = `Đã mua ${f.name} (${gName(g)}).`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
       const FB = data.pets.beast.fashion, T = FB.tier, pt = (f.from.shop && FB.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && FB.tn_tier?.find(([lim]) => f.from.tn < lim)), t = pt ? pt[1] : T[Object.keys(f.from).find(k => T[k] != null)] ?? 0;   // phẩm theo giá
       const bonus = own ? `Cộng khi mặc: ${linesText(data, [outfitLine(game, `${id}:${g}`, f)])[0] || '…'}` : `Có bộ thì bốc 1 dòng chỉ số màu ${tierOf(data, t).name}, cố định mãi`;
-      if (!own && !btn) continue;   // chưa có, không mua được ở đây thì không hiện (chủ dự án 19/11/2026 12:47)
+      if (!own) continue;   // chưa có thì không hiện; mua ở tiệm thời trang (chủ dự án 19/11/2026 12:47–12:57, src/game/fashion-shop.js)
       const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f), bonus], btn);
       const ol = own && outfitLine(game, `${id}:${g}`, f);
       c.dataset.o = tierOf(data, ol && Number.isInteger(ol.t) ? ol.t : t).id;   // ô kiểu trang bị: khung theo phẩm dòng của bộ
-      if (on) c.classList.add('using'); else if (!own) c.classList.add('locked');
+      if (on) c.classList.add('using');
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
       c.prepend(sw); icon(c, f.look?.sprite || `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);   // bộ có hình riêng (look): hiện hình bộ
     }
