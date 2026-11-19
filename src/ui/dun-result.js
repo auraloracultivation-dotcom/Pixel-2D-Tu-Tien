@@ -21,8 +21,8 @@ export function lootCell(game, x) {
   else {
     const m = x.kind === 'coins' ? { name: T.coins, color: '#f2c94c' } : x.kind === 'tn' ? { name: data.topup.name, color: '#7fe0ff' } : x.kind === 'name' ? { name: x.name, color: x.color }
       : x.kind === 'pill' ? data.cave.pills[x.id] : matInfo(data, x.id);
-    const S = data.art.sprites, key = x.kind === 'coins' ? 'ui.ic-linh-thach' : (x.kind === 'pill' || x.kind === 'mat') && S['ui.vk-' + x.id] ? 'ui.vk-' + x.id : null;
-    if (key) { const box = el('div', 'dr-gem'); box.append(spriteIcon(game, key, 0, 40, 'dr-ico')); c.append(box); }   // đan, nguyên liệu, Linh Thạch: hình thật như trong túi (chủ dự án 18/11/2026 09:47)
+    const S = data.art.sprites, key = x.kind === 'coins' ? 'ui.ic-linh-thach' : (x.kind === 'pill' || x.kind === 'mat') && S['ui.vk-' + x.id] ? 'ui.vk-' + x.id : x.spr && S[x.spr] ? x.spr : null;   // thú cưỡi, khôi lỗi, trang phục: hình của chính con / bộ đó
+    if (key) { const box = el('div', 'dr-gem'); box.append(spriteIcon(game, key, 0, 40, 'dr-ico', !!x.spr)); c.append(box); }   // đan, nguyên liệu, Linh Thạch: hình thật như trong túi (chủ dự án 18/11/2026 09:47)
     else { const dot = el('i', 'dr-dot'); dot.style.background = m?.color || color; c.append(dot); }
     name = m?.name || x.id; color = m?.color || color;
   }

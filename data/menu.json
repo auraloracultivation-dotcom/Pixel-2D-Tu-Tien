@@ -331,7 +331,7 @@
   "wait": "Đang kiểm tra…",
   "ok": "Nhận thành công +{n} điểm QTV!",
   "ok_ht": "Nhận thành công +{n} điểm hệ thống! Mở Hệ Thống → Triệu hồi để dùng.",
-  "ok_chung": "Nhận thành công! Quà đã gửi vào Hòm thư ({n} thư).",
+  "ok_chung": "Nhận thành công! Quà đã gửi vào Hòm thư ({n} thư).", "ok_tl": " Thêm {n} Thú Lệnh.", "ok_qtv": " Thêm {n} điểm Quản trị viên.",
   "het_han": "Mã đã hết hạn.",
   "chua_luu": "Vào game chơi một lúc cho tài khoản được lưu rồi nhập lại.",
   "sai_ma": "Mã không đúng.",

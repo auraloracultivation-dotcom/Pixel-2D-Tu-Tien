@@ -19,11 +19,20 @@ function chu(ctx, list, px) {
   ctx.font = `${px}px "Unifont VN", system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.lineJoin = 'round';
   const boxes = [];
   for (const l of list.sort((a, b) => a.pri - b.pri)) {
-    const w = ctx.measureText(l.text).width + 4, bx = { x0: l.x - w / 2, x1: l.x + w / 2, y0: l.y, y1: l.y + px * 1.2 };
-    if (!l.must && boxes.some(o => bx.x0 < o.x1 && bx.x1 > o.x0 && bx.y0 < o.y1 && bx.y1 > o.y0)) continue;
-    boxes.push(bx);
-    ctx.lineWidth = Math.max(2, px * 0.3); ctx.strokeStyle = 'rgba(14,8,24,.95)'; ctx.strokeText(l.text, l.x, l.y);
-    ctx.fillStyle = l.color; ctx.fillText(l.text, l.x, l.y);
+    const f = l.small ? Math.max(8, Math.round(px * 0.8)) : px, w = (ctx.font = `${f}px "Unifont VN", system-ui`, ctx.measureText(l.text).width + 4), h = f * 1.2;
+    // chỗ đặt tên: dưới hình; vướng tên khác thì thử trên hình, bên phải, bên trái, thấp hơn (chủ dự án 19/11/2026 11:07: vài tinh cầu không hiện tên)
+    const up = l.top != null ? l.top - h : l.y - h * 2, side = (l.r || h) + w / 2 + 2;
+    const tries = l.must ? [[l.x, l.y]] : [[l.x, l.y], [l.x, up], [l.x + side, l.y - h], [l.x - side, l.y - h], [l.x, l.y + h]];
+    let at = null;
+    const cw = ctx.canvas.width / (ctx.getTransform().a || 1);
+    for (const [x0, y] of tries) {
+      const x = Math.min(cw - w / 2 - 2, Math.max(w / 2 + 2, x0));   // không cắt chữ ở mép
+      const bx = { x0: x - w / 2, x1: x + w / 2, y0: y, y1: y + h };
+      if (l.must || !boxes.some(o => bx.x0 < o.x1 && bx.x1 > o.x0 && bx.y0 < o.y1 && bx.y1 > o.y0)) { at = [x, y]; boxes.push(bx); break; }
+    }
+    if (!at) continue;
+    ctx.lineWidth = Math.max(2, f * 0.3); ctx.strokeStyle = 'rgba(14,8,24,.95)'; ctx.strokeText(l.text, at[0], at[1]);
+    ctx.fillStyle = l.color; ctx.fillText(l.text, at[0], at[1]);
   }
 }
 
@@ -137,11 +146,10 @@ export function drawNgang(ctx, w, h, sm, bodies, st) {
     const b = p.b, here = b.map && b.map === st.here, sel = b.id === st.sel;
     if (b.mang) continue;
     if (here) labels.push({ text: sm.texts.here, x: p.x, y: p.y - p.r - N.chu * s * 1.6 - 4, color: '#ffd24a', pri: 0, must: true });
-    if (b.parent && !sel && !here && z < 1.8) continue;
-    const seen = st.seen(b), dg = seen && dangerOf(b, st.realm);
-    labels.push({ text: seen ? (N.ten[b.sun ? 'sun' : b.id] || b.name) + (b.kh && !b.trong && b.cap ? ` ${b.cap}` : '') : '?', x: p.x, y: p.y + p.r * 1.05,
+    const seen = st.seen(b), dg = seen && dangerOf(b, st.realm);   // mặt trăng cũng hiện tên (chữ nhỏ hơn, nhường tinh cầu lớn)
+    labels.push({ text: seen ? (N.ten[b.sun ? 'sun' : b.id] || b.name) + (b.kh && !b.trong && b.cap ? ` ${b.cap}` : '') : '?', x: p.x, y: p.y + p.r * 1.05, top: p.y - p.r * 1.05, r: p.r, small: !!b.parent && !sel && !here && z < 1.8,
       color: dg ? st.hint[dg] : b.sun ? '#ffe48a' : b.kh && !b.trong ? tongMau(b) : '#f4ead8',
-      pri: here || sel ? 1 : b.sun ? 30 : b.parent ? 20 : 10 - (b.size || 0) / 2, must: here || sel });
+      pri: here || sel ? 1 : b.sun ? 5 : b.parent ? 20 : 10 - (b.size || 0) / 2, must: here || sel });
   }
   chu(ctx, labels, Math.max(9, Math.round(N.chu * s)));
   return out;

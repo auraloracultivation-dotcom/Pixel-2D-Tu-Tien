@@ -40,16 +40,23 @@ export function duelThink(game, m, d, dt) {
   if (m.hitQ && (m.hitQ.t -= dt) <= 0) { const q = m.hitQ; m.hitQ = null; strikeFoe(game, m, q); }
   m.moving = false;
   if (!f || f.done || f.wait > 0 || p.hp <= 0) return;
-  const w = game.data.weapons[m.wid], reach = w.range * (w.attack === 'shot' ? 0.7 : 0.6) + p.r, see = clearShot(game, m, p);
+  // Giữ khoảng cách vừa đủ tầm vũ khí như Tự đánh (data/config.json → auto.keep; chủ dự án 19/11/2026 11:40: "so tài mà cứ dí sát vào tui")
+  const w = game.data.weapons[m.wid], K = game.data.config.auto?.keep, shot = w.attack === 'shot';
+  // vũ khí chém: đứng sát mép tầm trúng (strikeFoe trúng khi d ≤ tầm + bán kính người chơi), không áp vào người; vũ khí bắn: 0,7 tầm đạn
+  const reach = shot ? w.range * (K?.on ? K.shot : 0.7) + p.r : w.range + p.r - 3, see = clearShot(game, m, p);
   const a = Math.atan2(p.y - m.y, p.x - m.x);
   m.face = { x: Math.cos(a), y: Math.sin(a) };
   if (d < reach + 30 && see) useSkills(game, m);
-  const sp = game.data.config.player.speed * m.st.speedMul * dt;
+  const sp = game.data.config.player.speed * m.st.speedMul * dt * (d > reach ? 0.85 : 1);   // đuổi theo chậm hơn người chơi một chút: chạy được, thả diều được
   if (d > reach || !see) {
     game.map.move(m, m.face.x * sp, m.face.y * sp);
     m.moving = true; m.walkT = (m.walkT || 0) + dt;
   } else {
-    if (d < 11) game.map.move(m, -m.face.x * sp * 0.6, -m.face.y * sp * 0.6);   // đứng chồng lên người chơi thì lùi ra chút cho dễ nhìn
+    m.backRest = Math.max(0, (m.backRest || 0) - dt);
+    if (K?.on && d < reach * K.back && !m.backRest) {   // người chơi lấn vào: lùi ra tới tầm (mặt vẫn hướng người chơi, vẫn chém), lùi lâu quá thì nghỉ
+      game.map.move(m, -m.face.x * sp * K.back_speed, -m.face.y * sp * K.back_speed); m.moving = true;
+      if ((m.backT = (m.backT || 0) + dt) > K.back_max) { m.backT = 0; m.backRest = K.back_rest; }
+    } else { m.backT = 0; if (d < 11) game.map.move(m, -m.face.x * sp * 0.6, -m.face.y * sp * 0.6); }   // đứng chồng lên người chơi thì lùi ra chút cho dễ nhìn
     if (m.atkCd <= 0) m.atkCd = swingFoe(game, m);
   }
 }

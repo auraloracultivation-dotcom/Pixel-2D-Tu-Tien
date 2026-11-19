@@ -1,13 +1,105 @@
 {
- "_note": "Gói quà của mã dùng chung (chủ dự án 18/11/2026 00:07–00:13: mã tân thủ phát trên TikTok). Mã KHÔNG ghi ở đây (kho công khai): tạo trên máy chủ bằng `node tools/ma-chung-sql.mjs <MÃ> <gói> [hạn YYYY-MM-DD] [trần lượt]` rồi chạy câu SQL in ra (bảng p2d_ma_chung, migration 20261118030000). Mỗi phần tử của `thu` là một lá thư vào Hòm thư, cùng khoá như p2d_hom_thu.noi_dung (coins, tn, pill, mat, gem, item). Gói do Claude đề xuất 18/11 00:07, chủ dự án chưa sửa.",
+ "_note": "Gói quà của mã dùng chung (chủ dự án 18/11/2026 00:07–00:13: mã tân thủ phát trên TikTok). Mã KHÔNG ghi ở đây (kho công khai): tạo trên máy chủ bằng `node tools/ma-chung-sql.mjs <MÃ> <gói> [hạn YYYY-MM-DD] [trần lượt]` rồi chạy câu SQL in ra (bảng p2d_ma_chung, migration 20261118030000). Mỗi phần tử của `thu` là một lá thư vào Hòm thư, cùng khoá như p2d_hom_thu.noi_dung (coins, tn, pill, mat, gem, item). Gói do Claude đề xuất 18/11 00:07, chủ dự án chưa sửa. Từ 19/11 (migration 20261119120000) phần tử còn có thể là {\"thu_lenh\": n}, {\"qtv\": n} (cộng thẳng, không thành thư) hoặc {\"do\": bậc} (trang bị sinh theo cảnh giới người nhập).",
  "goi": {
   "tan_thu": {
    "ten": "Quà tân thủ",
    "thu": [
-    { "coins": 20000, "tieu_de": "Quà tân thủ" },
-    { "pill": { "id": "tu-khi-dan", "n": 10 }, "tieu_de": "Quà tân thủ" },
-    { "pill": { "id": "hoi-linh-dan", "n": 5 }, "tieu_de": "Quà tân thủ" },
-    { "item": { "el": "thuy", "cap": 7, "lvl": 1, "base": "bo-y", "main": { "hp": 32 }, "lines": [{ "s": "hp_pct", "t": 2, "v": 11 }], "rarity": "huyen", "sockets": [null] }, "tieu_de": "Quà tân thủ" }
+    {
+     "coins": 20000,
+     "tieu_de": "Quà tân thủ"
+    },
+    {
+     "pill": {
+      "id": "tu-khi-dan",
+      "n": 10
+     },
+     "tieu_de": "Quà tân thủ"
+    },
+    {
+     "pill": {
+      "id": "hoi-linh-dan",
+      "n": 5
+     },
+     "tieu_de": "Quà tân thủ"
+    },
+    {
+     "item": {
+      "el": "thuy",
+      "cap": 7,
+      "lvl": 1,
+      "base": "bo-y",
+      "main": {
+       "hp": 32
+      },
+      "lines": [
+       {
+        "s": "hp_pct",
+        "t": 2,
+        "v": 11
+       }
+      ],
+      "rarity": "huyen",
+      "sockets": [
+       null
+      ]
+     },
+     "tieu_de": "Quà tân thủ"
+    }
+   ]
+  },
+  "qua_19_11": {
+   "ten": "Quà Đại Ma Thần",
+   "_note": "Chủ dự án 19/11/2026 12:02–12:05. thu_lenh, qtv, do: máy chủ xử lý lúc nhập mã (migration 20261119120000); do 5 = trang bị Tiên phẩm sinh theo cảnh giới người nhập.",
+   "thu": [
+    {
+     "thu_lenh": 7
+    },
+    {
+     "qtv": 10
+    },
+    {
+     "coins": 499999,
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "pill": {
+      "id": "tay-tuy-dan",
+      "n": 1
+     },
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "gem": {
+      "key": "hong-ngoc:1",
+      "n": 10
+     },
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "gem": {
+      "key": "lam-ngoc:1",
+      "n": 10
+     },
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "gem": {
+      "key": "luc-ngoc:1",
+      "n": 10
+     },
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "gem": {
+      "key": "hoang-ngoc:1",
+      "n": 10
+     },
+     "tieu_de": "Quà Đại Ma Thần"
+    },
+    {
+     "do": 5,
+     "tieu_de": "Quà Đại Ma Thần"
+    }
    ]
   }
  }

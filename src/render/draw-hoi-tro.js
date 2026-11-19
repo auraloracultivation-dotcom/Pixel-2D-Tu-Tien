@@ -29,12 +29,33 @@ function strips(ctx, im, s, ox, oy, k, W, dxOf) {
   }
 }
 
+// Dò tấm vải của hình cờ (một lần mỗi hình): hàng có điểm đặc rộng hơn 35% bề ngang là vải, hàng hẹp hơn là cán / chân cột
+const CLOTH = new WeakMap();
+function cloth(im, s) {
+  if (CLOTH.has(im)) return CLOTH.get(im);
+  let r = null;
+  try {
+    const c = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+    const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0, s.w, s.h, 0, 0, s.w, s.h);
+    const d = g.getImageData(0, 0, s.w, s.h).data, wide = [];
+    for (let y = 0; y < s.h; y += 2) { let x0 = s.w, x1 = -1; for (let x = 0; x < s.w; x++) if (d[(y * s.w + x) * 4 + 3] > 40) { if (x < x0) x0 = x; x1 = x; } wide.push(x1 - x0 + 1 > s.w * 0.35); }
+    const first = wide.indexOf(true), last = wide.lastIndexOf(true);
+    if (first >= 0) r = { top: first * 2, bot: last * 2, narrow: wide.map(w => !w) };
+  } catch { r = null; }
+  CLOTH.set(im, r); return r;
+}
+
 // Vẽ món it theo kiểu chuyển động; trả false nếu kiểu không có (để vẽ thường)
 export function drawAnimated(ctx, game, it, im, kind, t) {
   const s = it.spr, k = it.k, ph = (it.x * 0.37 + it.y * 0.11) % 6.28, W = s.w * k, Hh = s.h * k;
   const ox = it.x - s.anchor[0] * k, oy = it.y - s.anchor[1] * k;
-  if (kind === 'wave') {   // cờ: hàng trên (gần cán ngang) đứng yên, càng xuống càng lệch; 20% dưới cùng (chân cột) đứng yên
-    strips(ctx, im, s, ox, oy, k, W, sy => { const f = Math.min(sy / s.h, Math.max(0, (s.h - sy) / s.h * 5)); return Math.round(Math.sin(t * 3.4 - f * 5 + ph) * 1.6 * f * 2) / 2; });
+  if (kind === 'wave') {   // cờ: chỉ tấm vải bay (hàng rộng), cột cờ (hàng hẹp chỉ có cán) đứng yên; vải càng xa chỗ treo càng lệch
+    const C = cloth(im, s);   // chủ dự án 19/11/2026 11:23: "lá cờ bay chứ cậu code cột cờ bay"
+    strips(ctx, im, s, ox, oy, k, W, sy => {
+      if (!C || sy < C.top || sy > C.bot || C.narrow[sy >> 1]) return 0;
+      const f = (sy - C.top) / Math.max(1, C.bot - C.top);
+      return Math.round(Math.sin(t * 3.4 - f * 5 + ph) * 1.4 * f * 2) / 2;
+    });
     return true;
   }
   if (kind === 'sway' || kind === 'sway-s') {   // cây, bụi lắc theo gió: gốc (40% dưới) đứng yên, ngọn lệch nhiều nhất; thỉnh thoảng gió mạnh hơn

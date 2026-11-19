@@ -124,3 +124,12 @@ export const duelGoal = game => fill(D(game).text.goal, { name: game.duel.prof.t
 
 // Linh thú, đồng hành của bản sao để vẽ (render/draw.js): [kiểu vẽ, đối tượng]
 export const duelFoes = game => (game.duel?.mob ? game.duel.foes.map(e => [e.kind, e]) : []);
+
+// Rời đài giữa trận (chủ dự án 19/11/2026 11:23: "solo không có nút thoát"): tính thua, về chỗ cũ ngay
+export function duelQuit(game) {
+  const f = game.duel;
+  if (!f || f.left) return;
+  if (!f.done) { f.done = true; f.res = 'lose'; dailyEvent(game, 'duel'); }
+  game.bullets = game.bullets.filter(b => b.src !== f.mob); game.zones = game.zones.filter(z => !z.foe);
+  f.left = true; leave(game, D(game).text.quit_msg);
+}
