@@ -40,7 +40,7 @@ const make = (game, who, n, mine) => { const K = cfgOf(game); return { t: 0, n, 
 
 export function startKetDan(game, cfg, done) {
   const p = game.player, st = make(game, p, cfg.waves, true);
-  st.done = done;
+  st.done = done; st.dmg = cfg.dmg_mul ?? 1;   // hệ số sát thương kiếp từng cảnh giới (data/realms.json → tribulation.by_realm[i].dmg_mul, tab Đại Quản Sự 20/11): chưa có thì 1
   p.kd = game.kd = st; p.kdLift = 0;
   p.meditating = false; p.riding = false; p.moving = false; p.kx = p.ky = 0;
   if (p.flying) land(game);
@@ -107,7 +107,7 @@ function hitBolt(game, st, i) {
   const p = game.player;
   p.invT = 0;   // chỉ thiên lôi của nghi lễ trúng được; đòn của quái bị chặn suốt nghi lễ
   const lift = p.kdLift || 0; p.y -= lift;   // số máu, vết đau hiện ở thân người đang lơ lửng chứ không phải dưới đất
-  hitPlayer(game, p.maxHp * K.hit_pct * (1 + i * K.hit_grow) * (1 - (game.save.flags.thanhTam || 0)), { x: p.x, y: p.y - 80, soft: true });
+  hitPlayer(game, p.maxHp * K.hit_pct * (1 + i * K.hit_grow) * (st.dmg || 1) * (1 - (game.save.flags.thanhTam || 0)), { x: p.x, y: p.y - 80, soft: true });
   p.y += lift;
   p.invT = 2;
 }
