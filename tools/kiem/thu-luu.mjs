@@ -1,38 +1,21 @@
-// Bài thử bắt buộc trước khi áp migration (chủ dự án 20/11/2026 00:12, sau vụ 19/11 hàm lưu chê món phẩm mới 8 tiếng):
-// đăng nhập tài khoản thử riêng (claude_kiem, bảng Người chơi bỏ qua tài khoản claude_*), lưu một bản có túi đồ đủ MỌI phẩm trong
-// data/items.json → rarities: máy chủ phải NHẬN bản lưu (món chưa ký thì máy chủ gỡ đi là đúng luật chống hack, không tính trượt;
-// trượt là khi cả bản lưu bị từ chối như 19/11). Chạy: NODE_USE_ENV_PROXY=1 node tools/kiem/thu-luu.mjs  (trượt thì thoát mã 1, KHÔNG áp).
-// Chỉ dùng khoá publishable và RPC công khai như máy người chơi; mật khẩu tài khoản thử lấy từ biến môi trường P2D_KIEM_MK.
+// Bài thử bắt buộc trước và sau khi áp migration (chủ dự án 20/11/2026, sau vụ 19/11 hàm lưu chê món phẩm mới 8 tiếng; docs/13-CANH-GAC.md).
+// In ra một đoạn SQL chạy bằng execute_sql (Supabase MCP): trong MỘT giao dịch có ROLLBACK, đóng vai tài khoản thử claude_kiem,
+// gọi p2d_luu2 với túi đồ đủ MỌI phẩm trong data/items.json → rarities. Đạt: trả về {"pb": ...}; trượt: lỗi (vd do_sai) → KHÔNG áp.
+// Vì rollback nên không gì được ghi lại (kể cả cờ chống hack: món thử chưa ký, gửi thẳng qua mạng thì tài khoản bị khoá như hack thật).
+// Chạy: node tools/kiem/thu-luu.mjs  → dán SQL in ra vào execute_sql.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const URL = 'https://idlzqbpszxexcxhhamzm.supabase.co', KEY = 'sb_publishable_Sv6fxGfRtmDOiVHK5VieEg_GsaFriNL';
-const USER = 'claude_kiem', PASS = process.env.P2D_KIEM_MK;
-if (!PASS) { console.error('Thiếu P2D_KIEM_MK'); process.exit(2); }
-const root = resolve(import.meta.dirname, '../..');
-const items = JSON.parse(readFileSync(resolve(root, 'data/items.json'), 'utf8'));
-const rar = items.rarities.map(r => r.id);
-const H = t => ({ apikey: KEY, 'Content-Type': 'application/json', ...(t ? { Authorization: `Bearer ${t}` } : {}) });
-const post = async (path, body, t) => { const r = await fetch(URL + path, { method: 'POST', headers: H(t), body: JSON.stringify(body) }); return { ok: r.ok, j: await r.json().catch(() => null) }; };
-
-async function token() {
-  let r = await post('/auth/v1/token?grant_type=password', { email: `${USER}@nguoichoi.invalid`, password: PASS });
-  if (!r.ok) { await post('/functions/v1/dang-ky', { username: USER, password: PASS }); r = await post('/auth/v1/token?grant_type=password', { email: `${USER}@nguoichoi.invalid`, password: PASS }); }
-  if (!r.ok) throw new Error('đăng nhập hỏng: ' + JSON.stringify(r.j));
-  return r.j.access_token;
-}
-
-const t = await token();
-const tai = await post('/rest/v1/rpc/p2d_tai', {}, t);
-if (!tai.ok) throw new Error('p2d_tai hỏng: ' + JSON.stringify(tai.j));
-const d = tai.j?.data || { realm: 0, layer: 1, qi: 0, step: 0, lingshi: 0, mats: {}, equip: {} };
+const items = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../data/items.json'), 'utf8'));
+const rar = items.rarities.map(r => `'${r.id.replace(/'/g, "''")}'`).join(', ');
 const base = Object.keys(items.bases)[0];
-d.bag = rar.map((r, i) => ({ uid: 900000 + i, base, rarity: r, lvl: 1, lines: [], sockets: [] }));
-d.nextUid = 900000 + rar.length;
-const luu = await post('/rest/v1/rpc/p2d_luu2', { p_data: d, p_phien_ban: tai.j?.phien_ban || 0 }, t);
-const fails = [];
-if (!luu.ok) fails.push('lưu bị từ chối: ' + JSON.stringify(luu.j));
-const lai = await post('/rest/v1/rpc/p2d_tai', {}, t);
-if (!lai.ok) fails.push('tải lại hỏng: ' + JSON.stringify(lai.j));
-if (fails.length) { console.error('❌ Thử lưu TRƯỢT:\n- ' + fails.join('\n- ')); process.exit(1); }
-console.log(`✅ Thử lưu đạt: máy chủ nhận bản lưu có đủ ${rar.length} phẩm (${rar.join(', ')}), tải lại được`);
+const who = "(select id from auth.users where email = 'claude_kiem@nguoichoi.invalid')";
+console.log(`begin;
+update auth.users set banned_until = null where id = ${who};
+select set_config('request.jwt.claims', json_build_object('sub', ${who}, 'role', 'authenticated')::text, true);
+set local role authenticated;
+select public.p2d_luu2(
+  (select data || jsonb_build_object('bag', (select jsonb_agg(jsonb_build_object('uid', 910000 + i, 'base', '${base}', 'rarity', r, 'lvl', 1, 'lines', '[]'::jsonb, 'sockets', '[]'::jsonb))
+     from unnest(array[${rar}]) with ordinality as t(r, i))) from public.p2d_nhan_vat where user_id = auth.uid()),
+  (select phien_ban from public.p2d_nhan_vat where user_id = auth.uid()))::text as kq;
+rollback;`);

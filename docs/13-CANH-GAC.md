@@ -21,14 +21,15 @@ về bản trước ngay (mục 3).
 ## 2. Bài thử bắt buộc trước khi áp migration
 
 ```
-NODE_USE_ENV_PROXY=1 P2D_KIEM_MK=<mật khẩu tài khoản thử> node tools/kiem/thu-luu.mjs
+node tools/kiem/thu-luu.mjs   # in SQL, dán vào execute_sql
 ```
 
-Đăng nhập tài khoản thử `claude_kiem` (bảng Người chơi bỏ qua tài khoản `claude_*`), lưu một bản có túi đồ đủ mọi phẩm trong
-`data/items.json → rarities`. Máy chủ phải nhận bản lưu. Trượt thì không áp. Mật khẩu ở Project của chủ dự án
-(`claude/tai-khoan-kiem.md`), không ghi vào kho. Chạy cả TRƯỚC khi áp (máy chủ cũ phải nhận dữ liệu máy khách mới) và SAU khi áp.
-Thêm loại dữ liệu mới (phẩm, loại món, khoá trong bản lưu) thì tìm mọi hàm máy chủ còn danh sách cứng loại đó (`pg_get_functiondef ... like`)
-trước khi viết migration.
+SQL chạy trong một giao dịch có ROLLBACK: đóng vai tài khoản thử `claude_kiem` (bảng Người chơi bỏ qua tài khoản `claude_*`), gọi `p2d_luu2`
+với túi đồ đủ mọi phẩm trong `data/items.json → rarities`. Đạt khi trả về `{"pb": ...}` (món chưa ký bị gỡ trong `sua.roi` là đúng luật);
+lỗi như `do_sai` là trượt, không áp. Không gì được ghi lại. Không gửi món chưa ký qua mạng thật: bộ chống hack khoá tài khoản ngay
+(20/11/2026 00:2x tài khoản thử đã bị khoá đúng như vậy, bằng chứng bộ chống hack chạy). Chạy cả TRƯỚC khi áp (máy chủ cũ phải nhận dữ liệu
+máy khách mới) và SAU khi áp. Thêm loại dữ liệu mới (phẩm, loại món, khoá trong bản lưu) thì tìm mọi hàm máy chủ còn danh sách cứng loại đó
+(`pg_get_functiondef ... like`) trước khi viết migration.
 
 ## 3. Áp xong: theo dõi 10 phút, hỏng thì lùi
 
