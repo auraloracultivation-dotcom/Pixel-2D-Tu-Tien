@@ -22,12 +22,13 @@ export function tribOf(game) {
 export function createTribulation(game) {
   let run = null;
 
-  function strike(x, y, k, kind = 'set') {
+  // follow: sét chính bám theo người tới lúc giáng, không né được (chủ dự án 20/11/2026 01:4x: "khó một chút, ăn hết đan, gần chết mới hợp lý")
+  function strike(x, y, k, kind = 'set', follow = false) {
     const c = run.cfg, hoa = kind === 'hoa';
     addStrike(game, {
       x, y, r: c.r * (hoa ? 1.35 : 1) * (1 + (game.save.realm || 0) * (game.data.config.trib_fx?.sky?.r_realm || 0)), delay: c.delay * (hoa ? 1.15 : 1), trib: !hoa, pal: hoa ? null : tribPal(game),
-      dmg: game.player.maxHp * c.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)),
-      kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color,
+      dmg: game.player.maxHp * c.dmg_pct * (c.dmg_mul || 1) * k * (1 - (game.save.flags.thanhTam || 0)),
+      kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color, follow: follow && c.follow ? game.player : null,
     });
   }
 
@@ -92,7 +93,7 @@ export function createTribulation(game) {
       const kind = c.kind === 'mix' ? ['set', 'loi', 'hoa'][Math.floor(Math.random() * 3)] : c.kind;
       const light = kind === 'tam-ma';          // tâm ma: sét nhẹ và thưa
       const extra = light ? 0 : c.extra + Math.floor(run.wave / 3) + (kind === 'hoa' ? 1 : 0);
-      strike(p.x, p.y, light ? k * 0.5 : k, kind);
+      strike(p.x, p.y, light ? k * 0.5 : k, kind, true);
       if (kind === 'loi' && run.wave % 2 === 0) line(p, k);
       for (let i = 0; i < extra; i++) {
         const a = Math.random() * Math.PI * 2, d = 18 + Math.random() * (kind === 'hoa' ? 60 : 40);

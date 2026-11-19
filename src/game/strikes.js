@@ -10,6 +10,7 @@ export function updateStrikes(game, dt) {
   const p = game.player;
   for (const s of game.strikes) {
     s.t += dt;
+    if (s.follow && !s.hit) { s.x = s.follow.x; s.y = s.follow.y; }   // sét kiếp chính bám người tới lúc giáng (tribulation.js)
     if (s.hit || s.t < s.delay) continue;
     s.hit = true;
     game.sfx(s.kind);
