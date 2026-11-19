@@ -1,4 +1,5 @@
 {
+ "qty": {"_note": "Chọn số lượng khi mua ở quầy (src/game/so-luong.js; chủ dự án 20/11/2026 01:20 \"mua số lượng lớn\").", "steps": [1, 10, 50], "max": "Tối đa", "type": "Nhập số", "ask": "Mua bao nhiêu? (tối đa {n})", "ok": "Mua", "no": "Thôi", "cur": "Linh Thạch"},
  "_note": "Linh Thạch: tiền chung. Quái rơi khi hạ (chance, số = linh khí quái × per_qi, boss chắc chắn và gấp boss_mul). Bán đồ cho tiệm theo độ hiếm (sell). Vạn Bảo Lâu bán đan, nguyên liệu, ngọc cấp 1 theo giá price; need: cờ cần có mới bán.",
  "name": "Linh Thạch",
  "coin_log": {"_note": "Lịch sử Linh Thạch (đề xuất #137, chủ dự án chốt 04/11/2026: cách nhẹ nhất, chỉ lưu trong máy, không tốn máy chủ). Giữ keep dòng mới nhất mỗi tài khoản trong localStorage, không vào bản lưu máy chủ. Lý do trong merge gộp thành một dòng mỗi phút; lý do khác gộp khi trùng dòng trên cùng trong cùng phút. watch_s: mỗi bao nhiêu giây so số dư, lệch mà không chỗ nào ghi thì thành dòng 'khac'. why: chữ của từng mã lý do. src/game/coin-log.js, src/ui/coin-log-sheet.js.", "keep": 100, "watch_s": 2, "merge": ["nhat", "can-quet", "khac"],

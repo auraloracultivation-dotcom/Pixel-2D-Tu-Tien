@@ -1,4 +1,5 @@
 // Linh Thạch (data/shop.json): quái rơi, bán đồ cho tiệm, mua ở Vạn Bảo Lâu.
+import { pickQty } from './so-luong.js';
 import { rollGem, gemInfo, isEquipped, salvage } from './items.js';
 import { salvageIron } from './cave.js';
 import { salvageArt } from './refine.js';
@@ -109,7 +110,16 @@ async function buy(game, x) {
   return `${x.n} ${label(game, x)}`;
 }
 
-// Vạn Bảo Lâu: chọn món, mua từng lần, tới khi bấm Thôi
+// Mua q phần một món: nguyên liệu gộp một lần gọi máy chủ; còn lại mua lần lượt tới khi hết tiền
+async function buyN(game, x, q) {
+  if (x.kind === 'mat') return buy(game, { ...x, n: x.n * q });
+  let k = 0, last = null;
+  for (; k < q; k++) { const g = await buy(game, x); if (!g) break; last = g; }
+  if (!k) return null;
+  return x.kind === 'gem' ? (k > 1 ? `${k} ngọc ngẫu nhiên` : last) : x.kind === 'skill' ? last : `${x.n * k} ${label(game, x)}`;
+}
+
+// Vạn Bảo Lâu: chọn món, chọn số lượng, tới khi bấm Thôi
 export async function talkShop(game, npc) {
   let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
@@ -120,7 +130,12 @@ export async function talkShop(game, npc) {
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);
     if (!pick || pick === 'out') return;
     if (pick === 'tn') { game.openTopup?.(); return; }
-    const got = await buy(game, list[+pick]);
+    const x = list[+pick], unit = priceOf(game, x);
+    // số lượng (góp ý 19/11/2026: bấm từng cái mỏi tay): nguyên liệu một lần gọi máy chủ (trần 999 mỗi lần), đan / ngọc mua liền tay
+    const max = x.kind === 'skill' ? 1 : Math.min(Math.floor(coins(game.save) / Math.max(1, unit)), x.kind === 'mat' ? Math.floor(999 / Math.max(1, x.n)) : 999);
+    const q = max < 1 ? 1 : await pickQty(game, `${label(game, x)}${x.n > 1 ? ' ×' + x.n : ''}: ${unit.toLocaleString('vi-VN')} mỗi phần`, unit, max);
+    if (!q) continue;
+    const got = await buyN(game, x, q);
     msg = got ? `Mua được ${got}.` : 'Không đủ Linh Thạch.';
     game.sfx(got ? 'pickup' : 'hurt');
   }
