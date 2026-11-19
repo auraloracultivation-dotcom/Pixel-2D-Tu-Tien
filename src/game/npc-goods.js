@@ -1,6 +1,7 @@
 // Mỗi NPC một món riêng (data/shop.json → npc_goods, chủ dự án chốt 02/11/2026; thay linh thực, đào khoáng):
 // một loại đan, một bộ đồ, hoặc nguyên liệu không có ở bí cảnh / nhiệm vụ. Mua bằng Linh Thạch, giới hạn số lần mỗi ngày.
 import { coins, addCoins, pillPrice } from './shop.js';
+import { pickQty } from './so-luong.js';
 import { addMat } from './cave.js';
 import { owned as hasOutfit, grantOutfit } from './fashion.js';
 
@@ -43,6 +44,14 @@ export async function talkGoods(game, npc) {
     { id: 'buy', label: name, spr: g.kind === 'outfit' ? (d.art.sprites['hero.' + g.id] ? 'hero.' + g.id : 'ui.ic-qua') : 'ui.vk-' + g.id, price: (g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', tag: g.kind === 'outfit' ? (hasOutfit(game, g.id) ? 'Đã có' : '') : `${Math.max(0, g.per_day - boughtToday(game, npc.id))}/${g.per_day}`, desc: left, color: '#f2c94c' },   // ô lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
     { id: 'talk', label: 'Trò chuyện', desc: '' },
   ]);
-  if (pick === 'buy') { const msg = buyGoods(game, npc.id); if (msg) game.toast(msg, 2.2); }
+  if (pick === 'buy') {   // số lượng (chủ dự án 20/11/2026 01:20): tối đa số lượt còn trong ngày và số Linh Thạch đủ mua
+    const price = g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price;
+    const max = g.kind === 'outfit' ? 1 : Math.min(Math.max(0, g.per_day - boughtToday(game, npc.id)), Math.floor(coins(game.save) / Math.max(1, price)));
+    const q = max <= 1 ? 1 : await pickQty(game, `${name}: ${price.toLocaleString('vi-VN')} mỗi cái`, price, max);
+    let msg = null, k = 0;
+    for (let i = 0; i < q; i++) { const m = buyGoods(game, npc.id); if (!m?.startsWith('Đã mua')) { msg = msg || m; break; } k++; msg = m; }
+    if (k > 1) msg = `Đã mua ${k} ${name}.`;
+    if (msg) game.toast(msg, 2.2);
+  }
   else if (pick === 'talk') { const L = npc.def.lines || ['…']; await game.dialog.say([[npc.def.name, L[Math.floor(Math.random() * L.length)]]]); }
 }
