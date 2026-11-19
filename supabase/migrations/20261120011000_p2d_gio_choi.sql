@@ -2,8 +2,7 @@
 -- Trước: trigger p2d_dem_choi chỉ cộng giờ khi hai lần LƯU cách nhau ≤ 3 phút, nên treo Tự đánh, tắt màn hình, lưu hỏng đều bị bỏ giờ;
 -- đồng hồ lại chỉ có từ 06/11. Mốc quà (giờ, quái chặn 6 con / giây chơi), chợ (khoá dưới 4 giờ) đọc số hụt này.
 -- Sau: giờ chơi = choi_giay (mốc nền, không cộng thêm nữa) + p2d_nhip.tong (giây còn liên lạc, nhịp sống 5 giây, khoảng ≤ 15 giây mới tính,
--- như hạn mức Linh Thạch). Mọi chỗ đọc giờ chơi gọi p2d_choi_giay(uid). Bù một lần: choi_giay = max(choi_giay, số quái ÷ 6) cho tài khoản
--- không cờ đỏ (p2d_la_co_do). Không đổi updated_at / luu_luc (bảng Người chơi đếm theo luu_luc).
+-- như hạn mức Linh Thạch). Mọi chỗ đọc giờ chơi gọi p2d_choi_giay(uid). Bù một lần ở cuối file. Không đổi updated_at / luu_luc (bảng Người chơi đếm theo luu_luc).
 
 alter table public.p2d_nhip add column if not exists tong numeric not null default 0;
 
@@ -58,9 +57,15 @@ begin
   end loop;
 end $$;
 
--- Bù giờ cũ một lần: số quái ÷ 6 (đúng mức chặn của Mốc quà), trừ tài khoản cờ đỏ
+-- Bù giờ cũ một lần (chủ dự án 20/11/2026 00:4x–01:0x): max(choi_giay, số quái ÷ 6, mỗi ngày tuổi tài khoản 1 giờ tối đa 4 giờ),
+-- trừ tài khoản cờ đỏ. Số quái ÷ 6 đúng mức chặn của Mốc quà; phần tuổi tài khoản để người chơi cũ mở được chợ (khoá dưới 4 giờ).
 update public.p2d_nhan_vat n
-   set choi_giay = floor((n.data -> 'stats' ->> 'kills')::numeric / 6)::int
- where jsonb_typeof(n.data -> 'stats' -> 'kills') = 'number'
-   and floor((n.data -> 'stats' ->> 'kills')::numeric / 6) > n.choi_giay
-   and not public.p2d_la_co_do(n.user_id);
+   set choi_giay = greatest(n.choi_giay,
+         case when jsonb_typeof(n.data -> 'stats' -> 'kills') = 'number' then floor((n.data -> 'stats' ->> 'kills')::numeric / 6)::int else 0 end,
+         least(4 * 3600, floor(extract(epoch from (now() - u.created_at)) / 86400)::int * 3600))
+  from auth.users u
+ where u.id = n.user_id
+   and not public.p2d_la_co_do(n.user_id)
+   and greatest(
+         case when jsonb_typeof(n.data -> 'stats' -> 'kills') = 'number' then floor((n.data -> 'stats' ->> 'kills')::numeric / 6)::int else 0 end,
+         least(4 * 3600, floor(extract(epoch from (now() - u.created_at)) / 86400)::int * 3600)) > n.choi_giay;
