@@ -103,7 +103,7 @@ function hitBolt(game, st, i) {
   if (!last) game.sfx?.('kd-dien', 0.6);
   game.screen?.shake?.((st.mine ? K.shake.set : K.shake.xem * 2) * (big ? 1.3 : 0.8), 0.22);
   if (st.mine) game.screen?.kick?.(0, K.kick[big ? 1 : 0], 0.12);
-  if (!st.mine) return;
+  if (!st.mine) return hitNear(game, st, i, big, pal);
   const p = game.player;
   p.invT = 0;   // chỉ thiên lôi của nghi lễ trúng được; đòn của quái bị chặn suốt nghi lễ
   const lift = p.kdLift || 0; p.y -= lift;   // số máu, vết đau hiện ở thân người đang lơ lửng chứ không phải dưới đất
@@ -196,6 +196,21 @@ function skyRain(game, st, dt) {
     tribBolt(game, x, y, { pal: pick(K.set_pals), boom: Math.random() < 0.5 });
     if (Math.random() < 0.3 && st.t < st.T.z - 1.6) game.sfx?.('thunder', 0.4);   // gần tia cuối thì thôi tiếng rền xa (đuôi dài, lấn quãng lặng)
   }
+}
+
+// Máy người đứng gần người đang kết đan (chủ dự án 20/11/2026 04:4x): ai trong tầm sét (ket_dan.gan.r tính từ chân người độ kiếp) cũng bị đánh
+// cùng, đau gấp gan.k lần người độ kiếp (theo máu tối đa của chính mình, không có Tĩnh Liên / Thanh Tâm vì đan đó chỉ cho kiếp của mình)
+function hitNear(game, st, i, big, pal) {
+  const G = st.K.gan, p = game.player, w = st.who;
+  if (!G || game.ghost || game.duel || game.kd || !(p.hp > 0) || Math.hypot(p.x - w.x, p.y - w.y) > G.r) return;
+  const kd = game.data.realms?.tribulation?.by_realm?.find(r => r?.kind === 'ket-dan');
+  addFx(game, { type: 'ring', x: p.x, y: p.y - 12, r: big ? 22 : 15, color: pal[1], life: 0.3, fill: true });
+  for (let k = 0; k < 8; k++) {   // tia lửa điện trên người mình
+    const a = Math.random() * Math.PI * 2, sp = 50 + Math.random() * 90;
+    st.sparks.push({ x: p.x, y: p.y - 12, ox: p.x, oy: p.y - 12, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * 0.7 - 40, life: 0, max: 0.3 + Math.random() * 0.35, c: pal[k % 2 ? 0 : 3] });
+  }
+  game.screen?.kick?.(0, st.K.kick[big ? 1 : 0], 0.12);
+  hitPlayer(game, p.maxHp * st.K.hit_pct * (1 + i * st.K.hit_grow) * (kd?.dmg_mul || 1) * G.k, { x: w.x, y: w.y - 80, soft: true });
 }
 
 // Mỗi khung (tribulation.js update): nghi lễ của mình và các nghi lễ đang xem của người cùng hành tinh
