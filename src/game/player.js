@@ -24,11 +24,7 @@ import { autoStep } from './auto.js';
 import { pilotStep } from './pilot.js';
 import { noteQi } from './eta.js';
 import { pilotOpt } from './pilotopt.js';
-import { meditateMul } from './evolve.js';
-import { nightMul } from './daynight.js';
-import { rainMul } from './weather.js';
-import { songTuMul } from './affinity.js';
-import { homeMul, teaMul } from './home.js';
+import { medPerSec } from './da-toa.js';
 import { bump } from './achieve.js';
 import { startStrike, updateFlyWeapon, weaponPoint } from './flyweapon.js';
 import { mobTake } from './he-chien.js';
@@ -251,6 +247,6 @@ export function updatePlayer(game, dt) {
 
   if (p.meditating) {
     p.medT = (p.medT || 0) + dt;
-    if (p.medT >= 0.5) { p.medT -= 0.5; const q = cfg.meditate.qi_per_sec * 0.5 * meditateMul(game) * nightMul(game) * rainMul(game) * songTuMul(game) * homeMul(game) * teaMul(game) * game.eventMul('qi'); noteQi(game, game.gainQi(q, p.x, p.y, true)); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }
+    if (p.medT >= 0.5) { p.medT -= 0.5; const q = medPerSec(game) * 0.5 * game.eventMul('qi'); noteQi(game, game.gainQi(q, p.x, p.y, true, false, true)); dailyEvent(game, 'meditate', null, 0.5); bump(game, 'sit', 0.5 / 60); }   // đả tọa mọi nơi theo vòng tinh hệ, trần 1/2 chém quái (src/game/da-toa.js)
   }
 }
