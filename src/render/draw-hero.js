@@ -27,7 +27,7 @@ export function heroLook(game, save = game.save) {
 
 // → [tên động tác, số khung trong danh sách]. Đòn đánh chạy hết một lượt rồi mới về đứng/đi.
 function anim(game, p, look, t) {
-  if ((p.riding || p.meditating) && look.anims.ngoi) return ['ngoi', 0];   // trang phục mới: cưỡi thú, đả tọa thì ngồi xếp bằng (chủ dự án 16/11/2026 21:57)
+  if ((p.riding || p.meditating || p.kd) && look.anims.ngoi) return ['ngoi', 0];   // trang phục mới: cưỡi thú, đả tọa thì ngồi xếp bằng (chủ dự án 16/11/2026 21:57)
   const walkName = p.moving && !p.meditating && !p.riding && !p.sword ? 'walk' : 'idle';
   if (game.data.heroes.fly) {   // ngự kiếm: động tác đánh do flyweapon.js chọn (p.heroAnim), chạy cùng lúc vũ khí bay lao ra
     const ha = p.heroAnim, list = ha && look.anims[ha.name];
@@ -142,7 +142,7 @@ function heroBody(ctx, game, p, t, flash, save) {
   if (AURA[look.aura]) { ctx.save(); ctx.setTransform(m); drawBloodAura(ctx, p.x, p.y, p.top, t, true, p.riding, look.aura); ctx.restore(); }   // hào quang máu sau lưng (Huyết Nguyệt)
   ctx.setTransform(n * wide * side * P.sx, 0, 0, n * P.sy, Math.round(m.a * px + m.e), Math.round(m.d * (p.y + P.dy + (jo ? p.jolt.y * jo : 0)) + m.f - breath));
   ctx.imageSmoothingEnabled = n0 !== Math.round(n0);
-  if (!p.riding) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
+  if (!p.riding && !p.kdLift) drawShadowFrame(ctx, spr, im, f);   // bóng đổ theo dáng; đang cưỡi thì bóng của thú (bóng người đè lên yên trông như chân hở, chủ dự án 04/11/2026 19:01)
   drawHitFrame(ctx, spr, im, f, flash ? Math.min(1, p.flash / 0.12) : 0, !!game.hurt2);   // bản bị đánh mới: loé trắng hẳn, giữ viền mực
   if (name === 'ngoi' && look.orb && look.mau) drawOrb(ctx, look.orb[0] - spr.anchor[0], look.orb[1] - spr.anchor[1], look.mau, t);   // khí cầu giữa hai tay
   ctx.restore();

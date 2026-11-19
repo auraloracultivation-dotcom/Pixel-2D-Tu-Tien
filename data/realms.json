@@ -44,9 +44,10 @@
   "grow": 0.04,
   "extra": 1,
   "fail_qi": 0.3,
-  "_note_kinds": "by_realm[cảnh giới hiện tại] = kiểu kiếp để lên cảnh giới kế. set: sét giáng vào chỗ đứng. loi: sét kèm hàng sét quét ngang/dọc. hoa: lửa trời, vòng to hơn, nhiều hơn. tam-ma: đánh bóng của chính mình (máu = lớn hơn của máu tối đa × hp và công × hp_atk, công = công × atk), sét nhẹ vẫn giáng. mix: mỗi đợt ngẫu nhiên set/loi/hoa và có tâm ma. waves, extra, grow ghi đè số chung.",
+  "_note_kinds": "by_realm[cảnh giới hiện tại] = kiểu kiếp để lên cảnh giới kế. ket-dan: nghi lễ kết đan lên Kim Đan (chủ dự án 20/11/2026 01:35): linh khí tụ, vòng khói, hút vào đan điền, bay lên, chịu waves tia sét không né được, sóng linh lực, cột sáng, hạ xuống (số ở data/config.json → ket_dan). set: sét giáng vào chỗ đứng. loi: sét kèm hàng sét quét ngang/dọc. hoa: lửa trời, vòng to hơn, nhiều hơn. tam-ma: đánh bóng của chính mình (máu = lớn hơn của máu tối đa × hp và công × hp_atk, công = công × atk), sét nhẹ vẫn giáng. mix: mỗi đợt ngẫu nhiên set/loi/hoa và có tâm ma. waves, extra, grow ghi đè số chung.",
   "kinds": {
    "set": {"name": "Lôi kiếp", "color": "#bff4ff", "intro": "Mây đen tụ lại trên đầu... Lôi kiếp sắp giáng xuống!", "tip": "Chạy né vòng sáng. Trụ hết các đạo sét để đột phá."},
+   "ket-dan": {"name": "Kết Đan Lôi Kiếp", "color": "#ffd98a", "intro": "Linh khí bốn phương ùn ùn kéo về đan điền... Thiên lôi sắp giáng xuống thử viên đan đang kết!", "tip": "Ngồi vững giữa không trung, chịu đủ các đạo thiên lôi là kết đan. Sinh lực thấp thì uống đan."},
    "loi": {"name": "Cửu Tiêu Lôi Kiếp", "color": "#9ad8ff", "intro": "Sấm rền chín tầng trời. Kim Đan phải chịu sét thành hàng!", "tip": "Sét giáng cả hàng ngang và dọc. Nhìn vạch báo mà né."},
    "tam-ma": {"name": "Tâm Ma Kiếp", "color": "#b08ad0", "intro": "Trời không đổ sét. Trong lòng bạn, một bóng đen đứng dậy... là chính bạn.", "tip": "Hạ tâm ma (bóng của chính mình) để đột phá. Sét nhẹ vẫn giáng.", "hp": 2.2, "hp_atk": 25, "atk": 0.45},
    "hoa": {"name": "Thiên Hỏa Kiếp", "color": "#ff9a3a", "intro": "Bầu trời đỏ rực. Lửa trời trút xuống như mưa!", "tip": "Vòng lửa to và nhiều hơn sét. Chạy liên tục."},
@@ -54,7 +55,7 @@
   },
   "by_realm": [
    {"kind": "set"},
-   {"kind": "loi", "waves": 10, "grow": 0.05},
+   {"kind": "ket-dan", "waves": 5},
    {"kind": "tam-ma", "waves": 6},
    {"kind": "hoa", "waves": 10, "extra": 2, "grow": 0.05},
    {"kind": "mix", "waves": 10, "extra": 2, "grow": 0.06},

@@ -26,7 +26,7 @@ import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
 import { drawHero, heroLook } from './draw-hero.js';
 import { drawFlySword } from './draw-fly.js';
-import { drawCele } from './draw-trib.js';
+import { drawCele } from './draw-trib.js'; import { drawKdBack, drawKdFront } from './draw-ket-dan.js';   // nghi lễ kết đan (src/game/ket-dan.js)
 import { drawPhapTuong } from './draw-phap-tuong.js';
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
@@ -88,10 +88,10 @@ function drawPlayer(ctx, game, t) {
   if (game.ghost) return drawGhost(ctx, game, t); if (game.player.domain && domainVis(game, game.player) <= 0.01) return;   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js); ẩn trong lĩnh vực Vô Ảnh: cả vũ khí, danh hiệu (draw-domain.js)
   const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
   const w = game.data.weapons[weaponId(game.save, game.data)];
-  if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0) ctx.globalAlpha = 0.5;
+  if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0 && !p.kd) ctx.globalAlpha = 0.5;
   if (p.riding) { const lk = heroLook(game); drawPhapTuong(ctx, game, p, t, game.save, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', p.x + (p.seatX || 0), p.y - (p.lift || 0)); }   // pháp tượng sau lưng người cưỡi, sau cả thú (chỗ ngồi của khung trước)
   if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); p.lift = lift; ctx.save(); ctx.translate(p.seatX || 0, -lift - (!p.seatSync && p.moving && Math.floor(p.walkT * 7) % 2 ? 1 : 0)); }   // người cưỡi nhún theo nhịp phi (thú cưỡi có chỗ đứng theo khung thì đã nhấp nhô theo lưng, không nhún thêm)
-  if (p.flying) { p.lift = drawFlySword(ctx, game, p, t); ctx.save(); ctx.translate(0, -p.lift); }   // nút Bay: đứng trên kiếm (draw-fly.js)
+  if (p.flying) { p.lift = drawFlySword(ctx, game, p, t); ctx.save(); ctx.translate(0, -p.lift); } if (p.kd) { drawKdBack(ctx, game, p, t); ctx.save(); ctx.translate(0, -(p.kdLift || 0)); }   // nút Bay: đứng trên kiếm (draw-fly.js); kết đan: lơ lửng, nửa sau vòng khói vẽ trước thân
   if (p.meditating) {
     ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
   }
@@ -108,7 +108,7 @@ function drawPlayer(ctx, game, t) {
   if (p.buffT > 0 && !vfxOf(game, p.buffSk)) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
   ctx.globalAlpha = 1;
   drawTitle(ctx, game, p);
-  if (p.riding || p.flying) ctx.restore();
+  if (p.riding || p.flying) ctx.restore(); if (p.kd) ctx.restore();
 }
 
 // Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo
@@ -195,7 +195,7 @@ function drawMob(ctx, m, t, game) {
 function drawOther(ctx, o, game, t) {
   const el = o.element ? game.data.elements[o.element]?.color : null;
   const fit = { look: o.look, outfit: o.outfit, pt: o.pt || null }, md = o.mount && game.data.pets.mounts[o.mount];
-  o.riding = !!md;   // trang phục mới ngồi xếp bằng trên thú
+  o.riding = !!md; if (o.kd) { drawKdBack(ctx, game, o, t); ctx.save(); ctx.translate(0, -(o.kdLift || 0)); }   // trang phục mới ngồi xếp bằng trên thú; người đang kết đan lơ lửng
   if (md && o.look) { const lk = heroLook(game, fit); drawPhapTuong(ctx, game, o, t, fit, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', o.x + (o.seatX || 0), o.y - (o.lift || 0)); }
   if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); o.lift = lift; ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
   if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
@@ -210,7 +210,7 @@ function drawOther(ctx, o, game, t) {
     const a = Math.atan2(o.face.y, o.face.x);
     ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
   }
-  if (md) ctx.restore();
+  if (md) ctx.restore(); if (o.kd) ctx.restore();
 }
 
 function drawNpc(ctx, n, game, t) {
@@ -359,7 +359,7 @@ export function drawWorld(game, screen, t) {
   }
   drawBloom(ctx, game, screen, lights);
   screen.worldTransform(); game.topPass = 1; for (const m of game.mobs) if (!m.dead && m.jolt && game.time - m.jolt.t < (game.data.juice.hit2?.top_t || 0)) drawMob(ctx, m, t, game); for (const c of game.corpses || []) if (c.wait && game.time - c.t0 < c.wait + 0.1) drawCorpse(ctx, game, c); game.topPass = 0;   // vệt chém nổi trên mọi thứ, nhát sau chồng lên nhát trước; quái vừa trúng đòn của mình vẽ lại đè lên vũ khí và vệt chém trong top_t giây (src/game/hit-feel.js)
-  drawVfx(ctx, game, t); screen.worldTransform(); drawMobFx(ctx, game);
+  drawVfx(ctx, game, t); screen.worldTransform(); drawMobFx(ctx, game); drawKdFront(ctx, game, t);
   drawSlashes(ctx, game); drawFlyWeapon(ctx, game, 'top'); screen.screenTransform();   // vệt chém và vũ khí đang ra đòn trên cùng, trên cả hiệu ứng chiêu (chủ dự án 16/11/2026 23:35)   // hiệu ứng chiêu: lớp trên cùng, đè nhà cửa, người (quy tắc chiêu 05/11/2026); đòn quái, dấu chấm than (draw-mob-fx.js)
   if (game.flashT > 0) {   // chớp dịu (config.comfort): màu ấm, không trắng toát cả màn
     const c = game.data.config.comfort || {};
