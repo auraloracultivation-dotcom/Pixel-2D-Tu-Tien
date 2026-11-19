@@ -65,7 +65,7 @@ export function drawKdBack(ctx, game, w, t) {
   }
   const gk = e < T.in ? Math.min(1, e / T.b) : Math.max(0, 1 - (e - T.in) / 0.5);   // quầng tụ khí trên đất quanh chỗ ngồi
   if (gk > 0.01) soft(ctx, w.x, w.y - 1, 22 + 26 * gk, K.pal_khi[2], 0.28 * gk, 0.42);
-  if (e >= T.in && e < T.d) soft(ctx, w.x, w.y, 20 + 1.5 * Math.sin(e * 3), K.pal_khi[2], 0.16 * Math.min(1, (e - T.in) / 0.5), 0.4);   // lơ lửng: vũng sáng nhạt trên đất ngay dưới người
+  if (e >= T.in && e < T.q) soft(ctx, w.x, w.y, 20 + 1.5 * Math.sin(e * 3), K.pal_khi[2], 0.16 * Math.min(1, (e - T.in) / 0.5), 0.4);   // lơ lửng: vũng sáng nhạt trên đất ngay dưới người
   if (e >= T.d && e < T.g) soft(ctx, w.x, w.y, 30, K.pal_dan[2], 0.3 * Math.min(1, (T.g - e) / 0.6), 0.42);   // kết đan xong: đất dưới chân ánh vàng
   ctx.globalAlpha = 1;
   rings(ctx, st, false);
@@ -94,15 +94,16 @@ function dan(ctx, st, x, y) {
     ctx.fillStyle = Q[0]; px(ctx, x - 0.5, y - 0.5, 2, 2);
     return;
   }
-  const done = e >= T.x, g = done ? 1 : st.hit / st.n, burst = Math.max(0, 1 - (e - T.in) / 0.4), tw = Math.floor(e * 8) % 2, c1 = g > 0.15 ? D[1] : Q[1];
-  soft(ctx, x, y, 6 + 4 * g + 13 * burst + (done ? 3 + 1.5 * Math.sin(e * 9) : 0), g > 0.15 ? D[2] : Q[2], 0.42 + 0.3 * g + 0.4 * burst);
+  const still = (e >= T.q && e < T.x) || (e >= T.y && e < T.d) || (e >= T.w + K.wave_life && e < T.e);   // quãng lặng: viên đan đứng yên, không nhấp nháy
+  const done = e >= T.x, g = done ? 1 : st.hit / st.n, burst = Math.max(0, 1 - (e - T.in) / 0.4), tw = still ? 0 : Math.floor(e * 8) % 2, c1 = g > 0.15 ? D[1] : Q[1];
+  soft(ctx, x, y, 6 + 4 * g + 13 * burst + (done ? 3 + (still ? 0 : 1.5 * Math.sin(e * 9)) : 0), g > 0.15 ? D[2] : Q[2], 0.42 + 0.3 * g + 0.4 * burst);
   ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 1;
   const R = 1 + Math.round(g * 2);   // viên đan: đĩa nhỏ lớn dần theo số đạo sét đã chịu
   ctx.fillStyle = g > 0.5 ? D[2] : c1;
   for (let yy = -R; yy <= R; yy++) { const half = Math.round(Math.sqrt(R * R + R - yy * yy)); px(ctx, x - half / 2, y + yy / 2, half * 2, 1); }
   ctx.fillStyle = c1; px(ctx, x - R / 2 + 0.25, y - R / 2, R + 1, R);
   ctx.fillStyle = D[0]; px(ctx, x - 0.5, y - 0.5, 2, 2);
-  const ray = 3 + Math.round(5 * g) + (done ? 4 : 0);   // tia lấp lánh bốn hướng, đổi chéo / thẳng
+  const ray = still ? 2 : 3 + Math.round(5 * g) + (done ? 4 : 0);   // tia lấp lánh bốn hướng, đổi chéo / thẳng
   ctx.fillStyle = c1;
   for (let m = R + 2; m <= R + ray; m++) for (const [ax, ay] of tw ? [[1, 0], [-1, 0], [0, 1], [0, -1]] : [[1, 1], [-1, 1], [1, -1], [-1, -1]]) { ctx.globalAlpha = 0.85 * (1 - (m - R - 2) / ray); px(ctx, x + ax * m / 2, y + ay * m / 2); }
 }
@@ -110,10 +111,10 @@ function dan(ctx, st, x, y) {
 // Đợt tụ khí cuối trước khi phóng sóng: các vành sáng co nhanh về người nối nhau, càng sát càng sáng, đổi dần từ màu linh khí sang vàng kim
 function gather2(ctx, st, x, y) {
   const K = st.K, T = st.T, e = st.t;
-  if (e < T.x || e >= T.d) return;
+  if (e < T.x || e >= T.y) return;
   const k = (e - T.x) / K.t.tu2, life = 0.55, gap = 0.22;
   ctx.globalCompositeOperation = 'lighter';
-  for (let i = 0, n = Math.floor((T.d - 0.3 - T.x) / gap); i <= n; i++) {
+  for (let i = 0, n = Math.floor((T.y - 0.5 - T.x) / gap); i <= n; i++) {
     const u = (e - T.x - i * gap) / life;
     if (u < 0 || u >= 1) continue;
     const r = 150 * (1 - u) ** 1.7 + 4;
@@ -126,9 +127,9 @@ function gather2(ctx, st, x, y) {
 // Sóng linh lực: vành bầu dục nở rất nhanh nối nhau, lõi trắng viền vàng, kèm vệt sáng phóng ra bốn phía
 function waves(ctx, st, x, y) {
   const K = st.K, T = st.T, e = st.t, D = K.pal_dan;
-  if (e < T.d || e >= T.e + K.wave_life) return;
+  if (e < T.d || e >= T.w + K.wave_life) return;
   ctx.globalCompositeOperation = 'lighter';
-  const last = Math.floor((Math.min(e, T.e - 0.25) - T.d) / K.wave_gap);
+  const last = Math.floor((Math.min(e, T.w - 0.25) - T.d) / K.wave_gap);
   for (let i = 0; i <= last; i++) {
     const u = (e - T.d - i * K.wave_gap) / K.wave_life;
     if (u < 0 || u >= 1) continue;
@@ -140,7 +141,7 @@ function waves(ctx, st, x, y) {
     ctx.globalAlpha = 0.95 * a; ctx.strokeStyle = i % 2 ? D[0] : '#ffffff'; ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.62, 0, 0, TAU); ctx.stroke();
   }
-  const live = Math.min(1, (T.e - e) / 0.4);
+  const live = Math.min(1, (T.w - e) / 0.4);
   if (live <= 0) return;
   for (let i = 0; i < 46; i++) {   // vệt sáng phóng ra
     const ang = hash(i * 1.7) * TAU, f = (e * (1.5 + hash(i) * 1.2) + hash(i * 5.3)) % 1, d = 10 + f * 190, c = Math.cos(ang), s = Math.sin(ang) * 0.7;
@@ -199,7 +200,7 @@ export function drawKdFront(ctx, game, t) {
     parts(ctx, st);
     ctx.globalAlpha = 1;
     rings(ctx, st, true);
-    if (e >= T.d && e < T.e) soft(ctx, x, y - 3, 20 + 3 * Math.sin(e * 10), K.pal_dan[2], 0.5 * Math.min(1, (T.e - e) / 0.5));   // người rực vàng lúc phát sóng
+    if (e >= T.d && e < T.w) soft(ctx, x, y - 3, 20 + 3 * Math.sin(e * 10), K.pal_dan[2], 0.5 * Math.min(1, (T.w - e) / 0.5));   // người rực vàng lúc phát sóng
     gather2(ctx, st, x, y);
     waves(ctx, st, x, y - 2);
     dan(ctx, st, x, y);

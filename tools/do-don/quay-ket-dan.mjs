@@ -61,7 +61,7 @@ console.log(JSON.stringify(info));
 await p.evaluate(O => { const g = window.__game; if (O.xem) g.__bd(); else g.trib.start(); }, O);
 const NMAX = Math.round(+secs * FPS), per = Math.round(60 / FPS);
 let n = 0, closed = false, sentOk = false;
-const ok = async t => { if (O.xem && !sentOk && await p.evaluate(t => t >= window.__game.__T.x - 0.05, t)) { sentOk = true; await p.evaluate(() => window.__game.__ok()); } };   // máy người xem: tin 'kd-ok' tới ngay trước lúc phát sóng
+const ok = async t => { if (O.xem && !sentOk && await p.evaluate(t => t >= window.__game.__T.q, t)) { sentOk = true; await p.evaluate(() => window.__game.__ok()); } };   // máy người xem: tin 'kd-ok' tới ngay trước lúc phát sóng
 const shot = async file => p.screenshot({ path: file, type: 'jpeg', quality: 93 });
 if (stills) {
   for (const at of stills) {

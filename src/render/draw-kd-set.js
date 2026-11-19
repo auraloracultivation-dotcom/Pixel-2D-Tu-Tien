@@ -106,8 +106,8 @@ export function drawKdBolts(ctx, game, st) {
 
 export function drawKdWrap(ctx, st, front) {
   const K = st.K, e = st.t, dt = e - st.hitT, P = st.hitPal;
-  if (!P || dt < 0 || dt > K.wrap_s) return;
-  const w = st.who, cx = w.x, base = w.y - (w.kdLift || 0) - 1, H = 24, life = 1 - dt / K.wrap_s, strands = Math.min(2, 1 + Math.floor(st.hit / 5)) + (st.hitBig ? 1 : 0), tick = Math.floor(e * 20);
+  if (!P || dt < 0 || dt > K.wrap_s || e >= st.T.q) return;   // tới quãng lặng sau sét thì điện tắt hẳn
+  const w = st.who, cx = w.x, base = w.y - (w.kdLift || 0) - 1, H = 24, life = Math.min(1 - dt / K.wrap_s, (st.T.q - e) / 0.35), strands = Math.min(2, 1 + Math.floor(st.hit / 5)) + (st.hitBig ? 1 : 0), tick = Math.floor(e * 20);
   const deep = new Path2D(), col = new Path2D(), hot = new Path2D(), halo = [];
   for (let s = 0; s < strands; s++) {   // mỗi sợi: xoắn ốc quanh thân từ chân lên đầu, gấp khúc đổi hình 20 lần / giây, chạy vòng quanh người
     const turns = 1.7 + s * 0.4, spin = (s % 2 ? -1 : 1) * e * (6 + s * 1.5) + s * 2.1, N = 38;
