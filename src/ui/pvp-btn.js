@@ -1,8 +1,8 @@
-// Khiên PvP ngay sau tên (chủ dự án 06/11/2026 10:49; 10:56: hiện ở mọi nơi, tắt ở đâu cũng được, chỉ Ngoại Vực mới đánh nhau): trên đầu nhân vật mình hiện "tên 🛡" (còn khiên) hoặc
+// Khiên PvP ngay sau tên (chủ dự án 06/11/2026 10:49; 10:56: hiện ở mọi nơi, tắt ở đâu cũng được; 19/11/2026: đánh nhau ở mọi nơi trừ vòng pháp trận): trên đầu nhân vật mình hiện "tên 🛡" (còn khiên) hoặc
 // "tên ⚔" (đã tắt khiên); người khác cũng thấy biểu tượng sau tên mình (render/draw.js drawOther). Chạm biểu tượng của mình → bảng
 // xác nhận "Bạn có muốn tắt khiên không?". Khiên chỉ bật lại khi chết hồi sinh (máy chủ phòng cloud/src/pvp.js giữ). Chữ ở
 // data/pvp.json → text, kiểu ở pvp.css. Nhãn là chữ HTML bám theo đầu nhân vật mỗi khung hình (chạm được, không vẽ lên khung game).
-import { togglePvp } from '../game/pvp.js';
+import { togglePvp, pvpLeft } from '../game/pvp.js';
 
 const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
@@ -40,7 +40,7 @@ export function createPvpBtn(game) {
   tag.addEventListener('pointerdown', ev => ev.stopPropagation());
   tag.addEventListener('click', ev => {
     ev.stopPropagation();
-    if (game.pvp?.off) { game.toast(T.only_death, 2.4); return; }
+    if (game.pvp?.off) { const s = pvpLeft(game); game.toast(s === null ? T.only_death : T.wait_on.replace('{s}', s), 2.4); return; }   // 19/11/2026: ngoài Ngoại Vực khiên tự bật sau 10 phút không giao chiến
     if (!game.online?.pvpOff) { game.toast(T.offline, 2); return; }
     box.hidden = false; if (!game.uiOpen) game.uiOpen = 'pvp-ask';
   });

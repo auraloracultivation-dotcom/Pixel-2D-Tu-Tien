@@ -113,6 +113,7 @@ export function updateInteract(game) {
 
 export function updatePortals(game, dt) {
   game.portalLock -= dt;
+  if (game.auto && !game.pilot) { game.portalHold = 0; return; }   // Tự đánh không giẫm cổng (góp ý người chơi 19/11/2026: đang farm Thanh Mộc Tinh chạy dính cổng về làng, treo ở làng tới sáng); muốn qua cổng thì tắt Tự đánh hoặc dùng Tự hành
   if (game.portalLock > 0 || game.story.busy || game.trib?.active) return;   // truyện đang chạy lời thoại, cảnh: không giẫm cổng đi mất giữa chừng (chơi thử 28/10: bước Mộc Trưởng Lão); đang độ kiếp: né sét lỡ giẫm cổng thì tâm ma kẹt lại bản đồ cũ, kiếp không bao giờ xong (cày thử 28/10 tối)
   for (const pt of game.map.def.portals) {
     if (pt.fly) continue;   // nối hai tinh cầu: đi bằng Bản đồ, không còn cổng giẫm phải (chủ dự án chốt 28/10/2026)

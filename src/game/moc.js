@@ -33,9 +33,11 @@ export function mocGroups(game, ht) {
   if (!M || !game.save) return [];
   const g = playSec(game);
   return M.groups.map(G => {
-    const v = mocValue(game, G.k, ht);
-    const reach = n => v != null && v >= n && (G.k !== 'kills' || (g != null && g * KILL_PER_S >= n));
-    return { ...G, v, list: G.list.map(m => ({ ...m, got: xong.has(m.id), ok: !xong.has(m.id) && reach(m.n) })) };
+    const raw = mocValue(game, G.k, ht);
+    // quái: hiện đúng số máy chủ tính (chặn 6 con mỗi giây chơi), không để thanh đầy mà bấm Nhận báo chưa xong (góp ý người chơi 19/11/2026)
+    const v = G.k === 'kills' && raw != null && g != null ? Math.min(raw, Math.floor(g * KILL_PER_S)) : raw;
+    const reach = n => v != null && v >= n && (G.k !== 'kills' || g != null);
+    return { ...G, v, raw, list: G.list.map(m => ({ ...m, got: xong.has(m.id), ok: !xong.has(m.id) && reach(m.n) })) };
   });
 }
 

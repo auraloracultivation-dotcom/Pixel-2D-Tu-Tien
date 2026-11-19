@@ -11,7 +11,7 @@ export const NEAR = 26 * 16;
 // Vùng không gian Thôn Thiên Mãng (chủ dự án 06/11/2026 15:03): HEAD là danh sách chín đầu (data/thien-mang.json → arena, sky.mouths,
 // cỡ hình boss.mang), đứng gần đầu nào cũng tính; FARM_LT_S như nhau cho mọi người (arena.farm_lt_s).
 // PvP Ngoại Vực (bản sao data/pvp.json → server; chủ dự án 06/11/2026)
-export const PVP = {"map": "vet-nut-ngoai", "range": 160, "gap_s": 0.5, "dt_max": 1.5, "dps_k": 0.1, "hp_k": 2, "pw_min": 100, "regen_s": 10, "immune_s": 10};
+export const PVP = {"map": "vet-nut-ngoai", "range": 160, "gap_s": 0.5, "dt_max": 1.5, "dps_k": 0.1, "hp_k": 2, "pw_min": 100, "regen_s": 10, "immune_s": 10, "safe": {"map": "thien-kiem-phong", "x": 1032, "y": 1224, "r": 100}, "reshield_s": 600};
 // Lịch boss (bản sao data/thien-mang.json → lich; chủ dự án 06/11/2026 20:59): mở nhận sát thương từ phút from tới to mỗi ngày theo giờ
 // múi tz (giờ VN = +7). Hết giờ thì worker tự tổng kết (index.js scheduled → mang.js tongKet).
 export const LICH = { tz: 7, from: 20 * 60 + 30, to: 21 * 60 };
