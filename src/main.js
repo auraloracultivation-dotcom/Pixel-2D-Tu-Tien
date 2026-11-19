@@ -79,6 +79,10 @@ import { createFarmTeamPanel } from './ui/farm-team-panel.js';
 import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
+import { createOtherMenu } from './ui/other-menu.js';
+import { createSapXep } from './ui/sap-xep.js';
+import { gemIcon } from './ui/gem-icon.js';
+import { spriteIcon } from './ui/sprite-icon.js';
 import { createMangLeave } from './ui/mang-leave.js';
 import { startAnalyticsHook } from './game/analytics-hook.js';
 import { hcData } from './game/he-chien.js';
@@ -131,6 +135,8 @@ async function boot() {
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
   createMangLeave(game);   // nút Rời đi vùng Thôn Thiên Mãng
+  createOtherMenu(game);   // chạm người chơi khác: Trò chuyện / Xem thông tin / Kết bạn
+  game.dialog.iconOf = (k, size) => (k.startsWith('gem:') ? gemIcon(game, k.slice(4), size) : spriteIcon(game, k, 0, size, 'mt-ico', true));   // hình món ở lưới quầy bán (ui/dialog.js)
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
   createPhapBaoPanel(game);   // Hệ Pháp Bảo Luyện Chế: game.openPhapBao mở Trang bị → Pháp bảo (src/ui/self-pb-page.js)
@@ -139,6 +145,7 @@ async function boot() {
     // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
   orderHud(game); createHudGon(game); createHudAva(game); createHudBang(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo; bố cục hai bảng trên / dưới (hud-bang.js)
+  createSapXep(game);   // Menu → Sắp xếp giao diện: kéo, co giãn khung, lưu trong máy (chủ dự án 19/11/2026 10:50)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 

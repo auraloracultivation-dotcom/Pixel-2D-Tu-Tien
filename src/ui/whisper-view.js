@@ -32,9 +32,10 @@ export function renderWhisper(game, ui) {
   const back = el('button', 'mini', W.back);
   back.onclick = () => { s.with = null; s.withName = ''; ui.redraw(); };
   log.append(back);
+  const me = game.online?.me?.name || game.save?.name || W.me || 'Ta';   // lời mình cũng hiện tên mình (chủ dự án 19/11/2026 10:21)
   for (const m of threadOf(game, s.with)) {
-    const d = el('div', m.la_toi ? 'me' : 'chat-msg');
-    d.append(el('b', null, m.la_toi ? '' : m.ten), m.chu);
+    const d = el('div', m.la_toi ? 'chat-msg wh-me' : 'chat-msg');
+    d.append(el('b', null, (m.la_toi ? me : m.ten) + ' '), m.chu);
     log.append(d);
   }
   log.scrollTop = log.scrollHeight;

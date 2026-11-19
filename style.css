@@ -624,3 +624,21 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 
 /* Màn ngang: 16/11/2026 23:37 chủ dự án khoá màn dọc; 19/11/2026 01:02 mở lại, chơi được cả dọc lẫn ngang (bố cục ngang: src/ui/hud-ngang.css). */
 .dr-gem canvas.dr-ico { max-width: 40px; max-height: 40px; object-fit: contain; }
+.wh-me b { color: var(--torch); }
+
+/* Quầy NPC bán đồ: lưới ô có hình + tên, giá nằm dưới ô (src/ui/dialog.js; chủ dự án 19/11/2026 10:24) */
+.choice-grid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 10px 8px; }
+#dialog .choices:has(.choice-grid) { max-height: 46vh; }
+.gc { display: flex; flex-direction: column; align-items: stretch; gap: 3px; min-width: 0; }
+.gcell { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 3px; min-height: 84px; padding: 6px 4px 5px;
+  border-radius: 8px; border: 1px solid color-mix(in srgb, var(--gc, #f2c94c) 60%, var(--line-hi)); background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--gc, #f2c94c) 22%, transparent), var(--panel-2) 70%);
+  font: inherit; color: var(--ink); }
+.gcell:active { border-color: var(--torch); filter: brightness(1.2); }
+.gcell.dim { opacity: .55; }
+.gc-img { display: grid; place-items: center; width: 44px; height: 44px; }
+.gc-img canvas, .gc-img img { max-width: 44px; max-height: 44px; image-rendering: pixelated; }
+.gcell b { font-size: 11.5px; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+.gc-tag { position: absolute; top: 3px; right: 3px; font: 700 9.5px/1 var(--f-body); font-style: normal; color: #fff; background: rgba(6, 14, 30, .85); padding: 2px 4px; border-radius: 4px; }
+.gc-price { text-align: center; font: 700 12px/1.1 var(--f-body); color: #ffd84a; text-shadow: 0 1px 0 #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gc-price { display: flex; align-items: center; justify-content: center; gap: 3px; }
+.gc-price canvas { flex: none; image-rendering: pixelated; }

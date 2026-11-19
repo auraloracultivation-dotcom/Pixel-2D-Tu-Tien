@@ -23,3 +23,11 @@
 .pvp-ask-row button { font: 700 13px/1 var(--f-body); padding: 9px 14px; border-radius: 7px; border: 1px solid #000; cursor: pointer; }
 .pvp-no { background: #4a3c5c; color: #f1e8ff; }
 .pvp-yes { background: #b0222c; color: #fff; }
+
+/* Thẻ chạm người chơi khác (src/ui/other-menu.js; chủ dự án 19/11/2026 10:21) */
+.om-card { position: fixed; left: 0; top: 0; z-index: 40; display: flex; pointer-events: auto; }
+.om-card[hidden] { display: none; }
+.om-name { font: 700 13px/1.1 var(--f-body); color: #ffe7a8; text-shadow: 0 1px 0 #000; white-space: nowrap; }
+.om-row { display: flex; gap: 2px; }
+.om-btn { padding: 2px 4px; box-shadow: 0 0 0 1px #000, 0 1px 3px rgba(0, 0, 0, .5); border-radius: 4px; border: 1px solid #ffd27a; background: linear-gradient(#5a3a9a, #3a2470); color: #fff; font: 700 8px/1 var(--f-body); white-space: nowrap; }   /* nhỏ gọn vừa trên đầu (chủ dự án 10:40) */
+.om-btn:active { filter: brightness(1.3); }

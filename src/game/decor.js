@@ -15,7 +15,7 @@ export async function talkDecor(game, npc) {
   if (game.visiting) { await game.dialog.say([[name, c.visiting]]); return; }   // báo lỗi #78: thăm nhà bạn thì mua vào nhà mình, nhìn tưởng mất tiền
   const left = Object.entries(c.items).filter(([id]) => !hasDecor(game, id)).sort((a, b) => a[1].cost - b[1].cost);
   if (!left.length) { await game.dialog.say([[name, c.full]]); return; }
-  const opts = left.slice(0, 3).map(([id, d]) => ({ id, label: `${d.name} (${d.cost} LT)`, desc: `${d.desc} Đả tọa ở nhà +${d.comfort}%`, color: coins(game.save) >= d.cost ? '#f2c94c' : '#8a8498' }));
+  const opts = left.slice(0, 3).map(([id, d]) => ({ id, label: d.name, spr: game.data.art.sprites[`dp.${id}-m`] ? `dp.${id}-m` : 'ui.ic-qua', price: d.cost.toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', tag: `+${d.comfort}%`, dim: coins(game.save) < d.cost, desc: `${d.desc} Đả tọa ở nhà +${d.comfort}%`, color: '#f2c94c' }));   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
   opts.push({ id: 'thoi', label: 'Để sau', desc: `Đang có ${coins(game.save)} Linh Thạch` });
   const ch = await game.dialog.choose(`${name}: ${pick(c.lines)}`, opts);
   const d = c.items[ch];

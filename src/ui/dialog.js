@@ -90,8 +90,26 @@ export function createDialog(onLine, T = {}) {
     choices.innerHTML = '';
     quit = () => { quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(null); };
     const t0 = performance.now(), key = options.map(o => o.id + o.label).join('|');
+    // Món bán có hình (o.spr) xếp lưới: ô có hình + tên, giá nằm dưới ô (chủ dự án 19/11/2026 10:24: mọi NPC bán đồ hiện lưới có ảnh, tên;
+    // giá ở ngoài ô). Hình lấy qua d.iconOf(spr, cỡ) do hud.js gắn. Lựa chọn không có hình (Thôi, Trò chuyện) vẫn là nút dài bên dưới.
+    const grid = d.iconOf && options.some(o => o.spr) ? document.createElement('div') : null;
+    if (grid) { grid.className = 'choice-grid'; choices.append(grid); }
     for (const o of options) {
       const b = document.createElement('button');
+      if (grid && o.spr) {
+        b.className = 'gcell' + (o.dim ? ' dim' : ''); b.type = 'button'; b.title = o.desc || '';
+        if (o.color) b.style.setProperty('--gc', o.color);
+        const im = document.createElement('i'); im.className = 'gc-img'; im.append(d.iconOf(o.spr, 40));
+        const nm = document.createElement('b'); nm.textContent = o.label;
+        b.append(im, nm);
+        if (o.tag) { const t = document.createElement('em'); t.className = 'gc-tag'; t.textContent = o.tag; b.append(t); }
+        const w = document.createElement('div'); w.className = 'gc';
+        const pr = document.createElement('small'); pr.className = 'gc-price'; if (o.cur) pr.append(d.iconOf(o.cur, 16)); pr.append(o.price || '');   // cur: hình tiền (Linh Thạch) trước số
+        w.append(b, pr); grid.append(w);
+        b.addEventListener('pointerdown', e => e.stopPropagation());
+        b.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - t0 < guard) return; keep = { key, top: choices.scrollTop }; quit = null; choices.innerHTML = ''; d.open = false; box.hidden = true; resolve(o.id); });
+        continue;
+      }
       b.className = 'choice';
       b.style.borderLeft = `6px solid ${o.color || 'var(--line-hi)'}`;
       const l = document.createElement('b'); l.textContent = o.label;

@@ -103,3 +103,6 @@
   html body.hud-bang { --sk: 38px; --sg: 3px; --atk: 64px; }
   html body.hud-bang #buttons #btn-atk { height: 66px !important; }
 }
+
+/* Sắp xếp giao diện (src/ui/sap-ap.js): khung trên phải / dưới phải là ::after của khung bên trái, dời theo nhóm của nó */
+html body.hud-bang :is(#bang-tren, #bang-duoi)::after { translate: var(--sap-pt, 0 0); scale: var(--sap-pk, 1); transform-origin: 0 0; }

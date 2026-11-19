@@ -74,6 +74,9 @@ export function pillPrice(game, id, price) {
 }
 const priceOf = (game, x) => (x.kind === 'pill' ? pillPrice(game, x.ref, x.price) : x.price);
 
+// Hình món ở lưới quầy (dialog.js iconOf)
+const sprOf = x => (x.kind === 'gem' ? 'ui.ic-ngoc' : x.kind === 'skill' ? 'ui.vk-bi-kip-chieu' : 'ui.vk-' + x.ref);
+
 function label(game, x) {
   const d = game.data;
   if (x.kind === 'gem') return 'Ngọc ngẫu nhiên cấp 1';
@@ -111,7 +114,7 @@ export async function talkShop(game, npc) {
   let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
     const list = C(game).items.filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && (game.save.boughtSkills?.includes(x.ref) || game.data['phap-bao']?.all)));   // chiêu đã học thì thôi bán; hệ pháp bảo mới (12/11/2026): chiêu cũ thôi bán (báo lỗi #155: danh sách dài, khó vuốt)
-    const opts = list.map((x, i) => ({ id: String(i), label: `${x.n > 1 ? x.n + ' ' : ''}${label(game, x)}`, desc: `${priceOf(game, x).toLocaleString('vi-VN')} ${C(game).name}${x.kind === 'skill' ? ' · ' + game.data.skills[x.ref].desc : ''}`, color: coins(game.save) >= priceOf(game, x) ? '#f2c94c' : '#b8b0c8' }));
+    const opts = list.map((x, i) => ({ id: String(i), label: label(game, x), spr: sprOf(x), tag: x.n > 1 ? '×' + x.n : '', price: priceOf(game, x).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', desc: x.kind === 'skill' ? game.data.skills[x.ref].desc : '', dim: coins(game.save) < priceOf(game, x), color: '#f2c94c' }));   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
     opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
     const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);

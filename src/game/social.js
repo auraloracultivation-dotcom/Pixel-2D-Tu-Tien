@@ -57,7 +57,7 @@ function showEmote(game, who, e, name) {
 
 // Nhận từ người khác: tra người nói trong danh sách cùng đảo, bỏ tin dồn dập
 // Người đã chặn (save.blocked giữ mã chat 12 ký tự): tính mã từ mã tài khoản giống p2d_chat_key ở máy chủ
-const chatKey = uid => md5('chat:' + uid).slice(0, 12);
+export const chatKey = uid => md5('chat:' + uid).slice(0, 12);
 function blockedHere(game, o, uid) {
   const L = game.save?.blocked;
   return !!L?.length && L.some(b => b.k === (o.chatK ??= chatKey(uid)));
