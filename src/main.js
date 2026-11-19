@@ -80,6 +80,7 @@ import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createOtherMenu } from './ui/other-menu.js';
+import { createSapXep } from './ui/sap-xep.js';
 import { gemIcon } from './ui/gem-icon.js';
 import { spriteIcon } from './ui/sprite-icon.js';
 import { createMangLeave } from './ui/mang-leave.js';
@@ -144,6 +145,7 @@ async function boot() {
     // khung trò chuyện nhỏ dưới màn hình, cột nhiệm vụ hằng ngày bên phải
   createSideNav(game);   // nút Túi đồ, Menu, Động phủ: cột mục bên trái, nội dung bên cạnh (data/menu.json → nav)
   orderHud(game); createHudGon(game); createHudAva(game); createHudBang(game);   // thu gọn nút, ẩn giao diện (hud-gon.js); nút trên màn hình theo nhóm A–L (data/menu.json → hud), sau khi các nút đã được tạo; bố cục hai bảng trên / dưới (hud-bang.js)
+  createSapXep(game);   // Menu → Sắp xếp giao diện: kéo, co giãn khung, lưu trong máy (chủ dự án 19/11/2026 10:50)
   document.getElementById('loading').hidden = true;
   try { sessionStorage.removeItem('p2d-recover'); } catch { /* chế độ riêng tư */ }
 
