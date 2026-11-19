@@ -40,7 +40,7 @@ export class Phong extends DurableObject {
     const pk = kind === 'dao' ? await pvpLoad(this.env, uid) : null;   // khiên PvP giữ theo tài khoản (src/pvp.js)
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
-    server.serializeAttachment({ id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
+    server.serializeAttachment({ id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, pvpAt: pk?.at || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
     if (pk?.off) server.send(JSON.stringify({ t: 'pk', id: uid, on: 1 }));   // máy mình biết đang tắt khiên
     server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })) }));
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });

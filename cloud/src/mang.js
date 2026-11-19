@@ -37,7 +37,7 @@ export class Mang extends DurableObject {
     this.bud = new Map();      // uid → { b: sát thương còn được tính, at } (trần theo lực chiến)
     this.sum = 0; this.payAt = 0; this.changed = false;
     this.moTo = 0;             // boss mở tới lúc này (ms); hết giờ thì không nhận sát thương, không trả Linh Thạch (lệnh 'mo' / 'tat')
-    this.pk = new Map();       // uid → { off, immune } khiên PvP (src/pvp.js)
+    this.pk = new Map();       // uid → { off, immune, at } khiên PvP (src/pvp.js; at: lúc tắt khiên / giao chiến cuối)
     ctx.blockConcurrencyWhile(async () => {
       const q = ctx.storage.sql;
       q.exec('CREATE TABLE IF NOT EXISTS anh (k TEXT PRIMARY KEY, j TEXT)');
@@ -47,7 +47,7 @@ export class Mang extends DurableObject {
         for (const [uid, name, v] of b.d || []) { this.tot.set(uid, { name, v }); this.sum += v; }
         for (const [uid, lt] of b.p || []) this.pend.set(uid, lt);
         this.payAt = b.at || 0; this.moTo = b.mo || 0;
-        for (const [uid, off, immune] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0 });
+        for (const [uid, off, immune, at] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0, at: at || 0 });
       } else {   // bản cũ lưu mỗi người một dòng (bảng dmg, pay): đọc một lần rồi chuyển sang một dòng
         q.exec('CREATE TABLE IF NOT EXISTS dmg (uid TEXT PRIMARY KEY, name TEXT, v REAL)');
         q.exec('CREATE TABLE IF NOT EXISTS pay (uid TEXT PRIMARY KEY, lt REAL)');
@@ -89,7 +89,7 @@ export class Mang extends DurableObject {
   save() {
     this.changed = false;
     const d = [...this.tot].filter(([, x]) => x.v > 0).map(([uid, x]) => [uid, x.name, x.v]);
-    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, mo: this.moTo, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune]) }));
+    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, mo: this.moTo, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune, x.at || 0]) }));
   }
 
   async alarm() {
@@ -185,12 +185,13 @@ export class Mang extends DurableObject {
     return k ? hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(k))) : null;
   }
 
-  // PvP Ngoại Vực (src/pvp.js): báo Supabase một lần hạ, ký bằng cùng khoá; true khi Supabase ghi nợ (cùng cặp trong 1 giờ thì không)
-  async pvp(ke, nan) {
+  // PvP (src/pvp.js): báo Supabase một lần hạ, ký bằng cùng khoá; true khi Supabase ghi nợ (cùng cặp trong 1 giờ thì không).
+  // noi: 'ngoai' (Ngoại Vực, rơi món + 10% Linh Thạch) hoặc 'thuong' (nơi khác, 5% Linh Thạch), Supabase p2d_pvp_tra đọc
+  async pvp(ke, nan, noi = 'ngoai') {
     if (!this.env.SUPABASE_URL || typeof ke !== 'string' || typeof nan !== 'string') return false;
     const khoa = await this.khoa();
     if (!khoa) return false;
-    const ts = Date.now(), ds = JSON.stringify({ k: ke, v: nan });
+    const ts = Date.now(), ds = JSON.stringify({ k: ke, v: nan, n: noi === 'thuong' ? 'thuong' : 'ngoai' });
     const r = await this.rpc('p2d_pvp_ghi', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
     if (!r.ok) { console.log('pvp_ghi', r.status, await r.text().catch(() => '')); return false; }
     return (await r.json().catch(() => false)) === true;
@@ -208,10 +209,10 @@ export class Mang extends DurableObject {
   }
 
   // Khiên PvP theo tài khoản: phòng hỏi lúc vào, báo lúc tắt khiên / chết
-  pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0 }; }
-  async pkSet(uid, off, immune) {
+  pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0, at: 0 }; }
+  async pkSet(uid, off, immune, lastAt = 0) {
     if (typeof uid !== 'string') return;
-    this.pk.set(uid, { off: !!off, immune: immune || 0 });
+    this.pk.set(uid, { off: !!off, immune: immune || 0, at: lastAt || 0 });
     this.changed = true;
     const now = Date.now(), at = await this.ctx.storage.getAlarm();
     if (!at || at > now + SAVE_MS) await this.ctx.storage.setAlarm(now + SAVE_MS);

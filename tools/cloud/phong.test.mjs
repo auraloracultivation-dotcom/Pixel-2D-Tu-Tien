@@ -275,7 +275,7 @@ console.log('phong.test: ok');
   console.log('mang.test: ok');
 }
 
-// PvP Ngoại Vực: chỉ khi cả hai tắt bảo vệ, trong tầm, máy chủ tính máu theo lực chiến; gục thì Mang báo Supabase
+// PvP (mọi tinh cầu từ 19/11/2026, trừ vòng pháp trận): chỉ khi cả hai tắt bảo vệ, trong tầm, máy chủ tính máu theo lực chiến; gục thì Mang báo Supabase
 {
   const C = await import(join(dir, 'mang-cfg.js'));
   const PV = JSON.parse(readFileSync(resolve(root, '../../data/pvp.json'), 'utf8'));
@@ -285,8 +285,8 @@ console.log('phong.test: ok');
     getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
   const kills = [];
   const pks = new Map();
-  const env3 = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v) => { kills.push([k, v]); return true; },
-    pkGet: async u => pks.get(u) || { off: false, immune: 0 }, pkSet: async (u, off, immune) => { pks.set(u, { off, immune }); } }) } };
+  const env3 = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v, n) => { kills.push([k, v, n]); return true; },
+    pkGet: async u => pks.get(u) || { off: false, immune: 0, at: 0 }, pkSet: async (u, off, immune, at) => { pks.set(u, { off, immune, at }); } }) } };
   const r3 = new Phong(ctx3, env3);
   const hh = (uid, pw, map = C.PVP.map) => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', map], ['x-name', encodeURIComponent('N' + uid)], ['x-power', String(pw)], ['x-co', '0']]);
   await r3.fetch({ headers: hh('k1', 10000) }); const k1 = ctx3.list.at(-1);
@@ -305,7 +305,7 @@ console.log('phong.test: ok');
   await m3(k1, { t: 'h', to: 'v1' });   // 10000 × 0,1 × 1 giây = 1000 ≥ máu 100 × 2 → gục
   const pd = v1.out.find(o => o.t === 'pd');
   assert.ok(pd && pd.to === 'v1' && pd.from === 'k1' && pd.loot === 1, JSON.stringify(v1.out.slice(-3)));
-  assert.deepEqual(kills, [['k1', 'v1']]);
+  assert.deepEqual(kills, [['k1', 'v1', 'ngoai']]);
   assert.equal(v1.deserializeAttachment().pk, false);   // gục: bảo vệ bật lại
   await m3(v1, { t: 'bv', off: true });
   assert.equal(v1.out.at(-1).e, 'immune');
@@ -318,21 +318,39 @@ console.log('phong.test: ok');
   const nph = k1.out.filter(o => o.t === 'ph').length;
   await m3(v1, { t: 'h', to: 'k1' });   // nhịp quá nhanh: bỏ
   assert.equal(k1.out.filter(o => o.t === 'ph').length, nph);
-  await m3(v1, { t: 'bv', off: false });   // khiên chỉ bật lại khi chết
+  await m3(v1, { t: 'bv', off: false });   // Ngoại Vực: khiên chỉ bật lại khi chết
   assert.equal(v1.out.at(-1).e, 'only_death');
   // vào lại (đổi tuyến, mất mạng): vẫn tắt khiên
   await r3.fetch({ headers: hh('v1', 100) }); const v1b = ctx3.list.at(-1);
   assert.equal(v1b.deserializeAttachment().pk, true);
   assert.ok(v1b.out.some(o => o.t === 'pk' && o.id === 'v1' && o.on === 1));
   assert.equal(pks.get('k1').off, true);
-  // bản đồ khác: không tắt bảo vệ được
+  // tinh cầu khác (19/11/2026): đánh được, rơi kiểu 'thuong'; khiên bật lại sau reshield_s giây không giao chiến
   await r3.fetch({ headers: hh('z1', 100, 'thanh-khe') }); const z1 = ctx3.list.at(-1);
-  await m3(z1, { t: 'bv', off: true });   // tinh cầu khác: tắt khiên được (10:56) nhưng không đánh nhau được
+  await m3(z1, { t: 'bv', off: true });
   assert.deepEqual(z1.out.at(-1), { t: 'pk', id: 'z1', on: 1 });
   await r3.fetch({ headers: hh('z2', 99999, 'thanh-khe') }); const z2 = ctx3.list.at(-1);
   await m3(z1, { t: 'm', x: 10, y: 10 }); await m3(z2, { t: 'm', x: 20, y: 10 }); await m3(z2, { t: 'bv', off: true }); T += 1000;
+  await m3(z2, { t: 'bv', off: false });   // vừa tắt: chưa đủ giờ
+  assert.equal(z2.out.at(-1).e, 'wait_on');
   await m3(z2, { t: 'h', to: 'z1' });
-  assert.ok(!z1.out.some(o => o.t === 'ph' || o.t === 'pd'));
+  assert.ok(z1.out.some(o => o.t === 'pd' && o.to === 'z1'));
+  assert.deepEqual(kills.at(-1), ['z2', 'z1', 'thuong']);
+  T += C.PVP.reshield_s * 1000 + 1;
+  await m3(z2, { t: 'bv', off: false });
+  assert.deepEqual(z2.out.at(-1), { t: 'pk', id: 'z2', on: 0 });
+  assert.equal(pks.get('z2').off, false);
+  // vòng pháp trận Thiên Kiếm Tinh: không tính đòn khi một trong hai đứng trong vòng
+  const S = C.PVP.safe;
+  await r3.fetch({ headers: hh('s1', 99999, S.map) }); const s1 = ctx3.list.at(-1);
+  await r3.fetch({ headers: hh('s2', 100, S.map) }); const s2 = ctx3.list.at(-1);
+  await m3(s1, { t: 'm', x: S.x + S.r + 60, y: S.y }); await m3(s2, { t: 'm', x: S.x + S.r - 10, y: S.y });
+  await m3(s1, { t: 'bv', off: true }); await m3(s2, { t: 'bv', off: true }); T += 1000;
+  await m3(s1, { t: 'h', to: 's2' });
+  assert.ok(!s2.out.some(o => (o.t === 'ph' || o.t === 'pd') && o.to === 's2'), 'trong vòng pháp trận vẫn bị đánh');
+  await m3(s2, { t: 'm', x: S.x + S.r + 20, y: S.y }); T += 1000;
+  await m3(s1, { t: 'h', to: 's2' });
+  assert.ok(s2.out.some(o => o.t === 'pd' && o.to === 's2'), 'ra khỏi vòng mà không bị đánh');
   Date.now = D0;
   console.log('pvp.test: ok');
 }

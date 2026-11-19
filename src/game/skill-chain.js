@@ -8,17 +8,17 @@
 // Hình: bóng lướt (render/draw-chain.js theo a.chain), vệt chém chữ thập lõi trắng viền màu trang phục (slash-fx.js) mỗi nhát.
 import { hitMob, dist, impactShake } from './combat.js';
 import { slashLine, outfitColor } from './slash-fx.js';
-import { pvpTryHit, pvpMap } from './pvp.js';
+import { pvpTryHit, pvpMap, pvpSafe } from './pvp.js';
 import { heroLook } from '../render/draw-hero.js';
 import { weaponId } from './stats.js';
 import { skillSfx } from './skill-sfx.js';
 
 const alive = t => t && !t.dead && t.hp !== 0;
 
-// Mục tiêu của người chơi: quái còn sống; ở Ngoại Vực đang tắt bảo vệ thì cả người khác cũng tắt bảo vệ (o.pk)
+// Mục tiêu của người chơi: quái còn sống; đang tắt bảo vệ (mọi nơi trừ vòng pháp trận, 19/11/2026) thì cả người khác cũng tắt bảo vệ (o.pk)
 function playerFoes(game) {
   const out = game.mobs.filter(m => !m.dead);
-  if (game.pvp?.off && pvpMap(game)) for (const o of game.others.list.values()) if (o.pk && o.x !== null) out.push({ x: o.x, y: o.y, r: 5, pvp: o.id });
+  if (game.pvp?.off && pvpMap(game) && game.player && !pvpSafe(game, game.player.x, game.player.y)) for (const o of game.others.list.values()) if (o.pk && o.x !== null && !pvpSafe(game, o.x, o.y)) out.push({ x: o.x, y: o.y, r: 5, pvp: o.id });
   return out;
 }
 
