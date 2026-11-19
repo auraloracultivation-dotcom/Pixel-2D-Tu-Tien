@@ -7,6 +7,7 @@
 import { newLine, lineValue, addLine, ensureCap, tierOf } from './tiers.js';
 import { coins, addCoins } from './shop.js';
 import { curOutfit, owned } from './fashion.js';
+import { mountKeyOf } from './inst.js';
 
 const B = data => data.pets.beast;
 // Đã đăng nhập và máy chủ đã kiểm linh thú (bản lưu có kyThu, migration 20261105120000_p2d_ky_thu): dòng thú cưỡi / thời trang mới
@@ -90,10 +91,12 @@ export function outfitLine(game, key, f) {
   // bộ bán bằng Linh Thạch: phẩm theo giá (pets.json → beast.fashion.price_tier); khác thì theo nguồn
   const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = (f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && F.tn_tier?.find(([lim]) => f.from.tn < lim));   // Tiên Ngọc: bảng riêng
   const t = pt ? pt[1] : F.tier[src] ?? 0;
-  if (s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
-  if (!s.outfitLine[key] && srvLines(game)) { s.outfitLine[key] = { t, wait: 1 }; game.persist(); }   // máy chủ bốc (migration 20261105120000_p2d_ky_thu)
+  const many = key.includes('#');   // bản mua thêm (src/game/inst.js): phẩm ngẫu nhiên Phàm → Tiên, máy chủ bốc, không bốc lại theo giá
+  if (!many && s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
+  if (!s.outfitLine[key] && srvLines(game)) { s.outfitLine[key] = many ? { wait: 1 } : { t, wait: 1 }; game.persist(); }   // máy chủ bốc (migration 20261105120000_p2d_ky_thu)
   if (!s.outfitLine[key]) {
     const st = f.line?.s || F.pool[Math.floor(Math.random() * F.pool.length)];   // bộ có dòng định sẵn (Thần Nguyên Y: sát thương bạo kích)
+    if (many) { s.outfitLine[key] = newLine(game.data, F.pool, 0); game.persist(); return s.outfitLine[key]; }   // chơi không mạng: bốc ngẫu nhiên phẩm
     s.outfitLine[key] = { s: st, v: lineValue(game.data, st, 0, t, Math.random()), t };
     game.persist();
   }
@@ -104,13 +107,14 @@ export function outfitLine(game, key, f) {
 export function outfitLineOf(save, data) {
   const look = data.heroes.list[save.look] ? save.look : data.heroes.default;
   const r = data.fashion.renamed?.[save.outfit], oid = r ? (typeof r === 'string' ? r : r[look]) : save.outfit;   // bộ cũ đã đổi tên
-  return (oid && save.outfitLine?.[`${oid}:${look}`]) || null;
+  const k = save.outfitKey && save.outfits?.[save.outfitKey] && save.outfitKey.split(':')[0] === oid ? save.outfitKey : `${oid}:${look}`;   // bản đang mặc (src/game/inst.js)
+  return (oid && save.outfitLine?.[k]) || null;
 }
 
 // Cộng vào chỉ số nhân vật (src/game/stats.js): dòng thú cưỡi đang chọn + dòng bộ thời trang đang mặc
 export function wornExtra(save, data) {
   const out = {}, add = l => { if (l && data.items.stats[l.s]) out[l.s] = (out[l.s] || 0) + l.v; };
-  if (save.mount) add(save.mountLine?.[save.mount]);
+  if (save.mount) add(save.mountLine?.[mountKeyOf(save)]);   // bản đang chọn (src/game/inst.js)
   add(outfitLineOf(save, data));
   return out;
 }
@@ -131,7 +135,8 @@ export function beastPower(game) {
 export function ensureWornLines(game) {
   const s = game.save;
   if (!s) return;
-  if (s.mount) mountLine(game, s.mount);
+  const mk = mountKeyOf(s); if (mk) mountLine(game, mk);
   const id = curOutfit(game), look = game.data.heroes.list[s.look] ? s.look : game.data.heroes.default;
-  if (s.outfit && owned(game, id, look)) outfitLine(game, `${id}:${look}`, game.data.fashion.list[id]);
+  const ok = s.outfitKey && s.outfits?.[s.outfitKey] && s.outfitKey.split(':')[0] === id ? s.outfitKey : `${id}:${look}`;   // bản đang mặc (src/game/inst.js)
+  if (s.outfit && owned(game, id, look)) outfitLine(game, ok, game.data.fashion.list[id]);
 }

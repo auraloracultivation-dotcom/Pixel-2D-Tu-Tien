@@ -5,6 +5,7 @@ import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
 import { quality } from '../game/tiers.js';
 import { spriteIcon } from './sprite-icon.js';
+import { mountKeyOf } from '../game/inst.js';
 
 
 // Mã phẩm cho khung ảnh [data-o] (style-ui-hoa-dao.css: ui-pc-luc / lam / tim / cam / vang / do / den), như Túi đồ
@@ -75,7 +76,7 @@ export function buffCell(game, kind, onOpen) {
   b.setAttribute('aria-label', nm);
   if (spr) {
     const st = kind === 'pet' ? save.pets?.[id] : kind === 'mount' ? null : save.comps?.[id];
-    const lines = kind === 'mount' ? [save.mountLine?.[id]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
+    const lines = kind === 'mount' ? [save.mountLine?.[mountKeyOf(save)]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
     b.dataset.o = q?.id || 'pham'; b.style.setProperty('--q', q ? (q.edge || q.color) : '#9a7ad8');
     b.append(el('i', 'sv-bfr'), spriteIcon(game, spr, 0, 32, 'sv-spr'));   // vừa theo cạnh dài: linh thú, thú cưỡi ngang không bị bóp méo (12/11/2026 03:17)
     if (st?.lv) b.append(el('b', 'sv-plus', 'c' + st.lv));

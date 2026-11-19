@@ -15,8 +15,8 @@ export async function talkFashionShop(game, npc) {
     if (!f.from?.shop) continue;
     for (const g of versions(game, id)) {
       if (g !== look && !f.look) continue;   // bộ chia nam / nữ: chỉ bán bản đúng giới mình
-      const own = owned(game, id, g), key = f.look?.sprite || `hero.y-${id}-${g}`;
-      list.push({ id: `${id}:${g}`, label: f.name, spr: sp[key] ? key : undefined, price: vn(f.from.shop), cur: 'ui.ic-linh-thach', tag: own ? (T.owned || 'Đã có') : '', dim: own, desc: '', color: f.robe });
+      const own = owned(game, id, g), key = f.look?.sprite || `hero.y-${id}-${g}`;   // đã có vẫn mua thêm được: mỗi bản phẩm ngẫu nhiên (chủ dự án 19/11/2026 13:02)
+      list.push({ id: `${id}:${g}`, label: f.name, spr: sp[key] ? key : undefined, price: vn(f.from.shop), cur: 'ui.ic-linh-thach', tag: own ? (T.owned || 'Đã có') : '', desc: '', color: f.robe });
     }
   }
   list.push({ id: 'talk', label: T.talk || 'Trò chuyện', desc: '' }, { id: 'thoi', label: T.no || 'Thôi', desc: (T.have || 'Đang có {n} Linh Thạch').replace('{n}', vn(coins(s))) });
@@ -24,10 +24,10 @@ export async function talkFashionShop(game, npc) {
   if (!pick || pick === 'thoi') return;
   if (pick === 'talk') { await game.dialog.say([[name, npc.def.lines[Math.floor(Math.random() * npc.def.lines.length)]]]); return; }
   const [id, g] = pick.split(':'), f = F[id];
-  if (owned(game, id, g)) { game.toast((T.already || 'Đã có {name}.').replace('{name}', f.name), 2.2); return; }
   if (coins(s) < f.from.shop) { game.toast((T.poor || 'Chưa đủ Linh Thạch ({n}).').replace('{n}', vn(f.from.shop)), 2.4); return; }
-  if (!buyOutfit(game, id, g)) return;
-  if (g === look || f.look) wear(game, id);
+  const had = owned(game, id, g), k = buyOutfit(game, id, g);
+  if (!k) return;
+  if (!had && (g === look || f.look)) wear(game, id, k);   // bộ mới lần đầu: mặc luôn; bản thêm thì để vào bảng Thời trang
   game.sfx('pickup');
-  game.toast((T.done || 'Đã mua và mặc {name}.').replace('{name}', f.name), 2.6);
+  game.toast((had ? T.more || 'Đã mua thêm {name}, xem phẩm ở bảng Thời trang.' : T.done || 'Đã mua và mặc {name}.').replace('{name}', f.name), 2.6);
 }

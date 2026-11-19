@@ -1,6 +1,7 @@
 // Hồ sơ người chơi khác (chạm tên ở bảng xếp hạng): tải từ máy chủ (net/rank.js → fetchPlayer), nhớ tạm 60 giây mỗi người.
 // Bản lưu trả về chỉ gồm những gì cần để xem và dựng bản sao so tài (cảnh giới, đồ đang mặc, công pháp, chiêu, linh thú,
 // đồng hành, hình dáng). Đó là dữ liệu người khác: lọc lại theo data/ của bản game này trước khi dùng (món lạ, chỉ số lạ bỏ đi).
+import { mountKeyOf } from './inst.js';
 const cache = new Map(), inflight = new Map();
 const num = (v, d = 0) => (Number.isFinite(+v) ? +v : d);
 const obj = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
@@ -54,7 +55,7 @@ export function cleanSave(data, s) {
   const beast = b => ({ lv: Math.max(1, num(obj(b).lv, 1)), exp: 0, star: num(obj(b).star), evo: !!obj(b).evo, lines: lines(obj(b).lines) });
   const comps = {};
   for (const id of [comp, comp2]) if (id) comps[id] = beast(obj(s.comps)[id]);
-  const ml = mount && obj(obj(s.mountLine)[mount]);
+  const ml = mount && obj(obj(s.mountLine)[mountKeyOf(s) || mount]);   // bản đang chọn (src/game/inst.js)
   const techs = {};
   for (const [id, t] of Object.entries(obj(s.techs))) if (data.techniques.list[id]) techs[id] = { lv: num(obj(t).lv) };
   const skillLv = {};

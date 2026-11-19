@@ -3,12 +3,13 @@ import { petNeed, setPet, setMount, mergeCost, canMerge, mergePet } from '../gam
 import { petDef, petMax, canEvolve, evolvePet } from '../game/evolve.js';
 import { costText } from '../game/cave.js';
 import { renderComps } from './comp-tab.js';
-import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
+import { petPrice, sellPet } from '../game/home-pets.js';
 import { beastStats, statLine, linesText, rerollCost, costLine, mountLine } from '../game/beast.js';
 import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 import { buyBlock } from './buy-mats.js';
-import { quality } from '../game/tiers.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
+import { quality } from '../game/tiers.js';
+import { baseOf, mountKeys, mountKeyOf, sellTier, sellMountKey } from '../game/inst.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -37,10 +38,10 @@ export function createPetsPanel(game) {
 
   // Nút Bán trong tấm chi tiết (src/ui/grid-cards.js bấm hộ): bấm lần đầu hỏi lại, lần hai mới bán (src/game/home-pets.js)
   let sure = null;
-  function sellRow(id, mount) {
-    const row = el('div', 'card-acts skill-up'), price = (mount ? mountPrice : petPrice)(game, id).toLocaleString('vi-VN'), key = (mount ? 'm:' : '') + id;
+  function sellRow(id) {
+    const row = el('div', 'card-acts skill-up'), price = petPrice(game, id).toLocaleString('vi-VN'), key = id;
     const b = el('button', 'mini', sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
-    b.onclick = () => { if (sure !== key) { sure = key; render(); return; } sure = null; game.toast((mount ? sellMount : sellPet)(game, id), 2.4); render(); };
+    b.onclick = () => { if (sure !== key) { sure = key; render(); return; } sure = null; game.toast(sellPet(game, id), 2.4); render(); };
     row.append(b);
     return row;
   }
@@ -97,15 +98,27 @@ export function createPetsPanel(game) {
 
   function renderMounts(s, list) {
     $('pets-sub').textContent = `Chọn thú rồi bấm nút Cưỡi / Xuống. Cưỡi thì thú công kích, người đả tọa. Thú mới đổi bằng ${P.thu_lenh.per_mount} ${P.thu_lenh.name} ở Ngự Thú Sư (làm đủ việc ngày được 1 ${P.thu_lenh.name}).`;
-    for (const [id, m] of Object.entries(P.mounts)) {
-      const got = s.mounts[id];
-      if (!got) continue;   // chưa có thì không hiện (chủ dự án 19/11/2026 12:47); đổi thêm ở Ngự Thú Sư
-      const ml = got && mountLine(game, id);
-      const c = card(m.color, m.name + (s.mount === id ? ' ' + t('· đang dùng') : got ? '' : ' ' + t('· chưa có')), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Chọn', 'Đang chọn');
+    // Mỗi bản một ô (chủ dự án 19/11/2026 12:58–13:02: cùng loại có nhiều con, phẩm khác nhau, bán theo phẩm; src/game/inst.js). Chưa có thì không hiện
+    const order = Object.keys(P.mounts), cur = mountKeyOf(s);
+    const keys = mountKeys(s).filter(k => P.mounts[baseOf(k)]).sort((x, y) => (x !== cur) - (y !== cur) || order.indexOf(baseOf(x)) - order.indexOf(baseOf(y)));
+    for (const k of keys) {
+      const id = baseOf(k), m = P.mounts[id], ml = mountLine(game, k), on = k === cur;
+      const c = card(m.color, m.name + (on ? ' ' + t('· đang dùng') : ''), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], on, () => setMount(game, k), 'mount.' + id, 'Chọn', 'Đang chọn');
+      c.dataset.key = k;
       list.append(eq(c, ml ? [ml] : []));
-      if (got) list.append(rerollRow(id, true));
-      if (got) buyRow(list, id, true);   // bán thú cưỡi ngay trong thẻ
+      list.append(rerollRow(k, true));
+      if (!on) list.append(sellKeyRow(k, ml));
+      buyRow(list, k, true);
     }
+  }
+
+  // Nút Bán thú cưỡi theo phẩm (bấm hai lần), src/game/inst.js
+  function sellKeyRow(k, ml) {
+    const row = el('div', 'card-acts skill-up'), price = sellTier(game, ml).toLocaleString('vi-VN'), key = 'mk:' + k;
+    const b = el('button', 'mini', sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
+    b.onclick = () => { if (sure !== key) { sure = key; render(); return; } sure = null; game.toast(sellMountKey(game, k), 2.4); render(); };
+    row.append(b);
+    return row;
   }
 
   function render() {

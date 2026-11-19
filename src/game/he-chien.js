@@ -3,6 +3,7 @@
 // 14 món: 6 trang bị theo ô, linh thú, thú cưỡi, 4 pháp bảo, 2 khôi lỗi. Chỉ 6 trang bị mang cảnh giới lúc nhặt
 // (it.lvl = tầng tu lúc rơi); pháp bảo, linh thú, thú cưỡi, khôi lỗi lớn theo cảnh giới của chủ.
 // Chỉ số trả về (sumStats): hp, atk, def phẳng; crit, cd (ST bạo thêm), cdr, ls, thorns tính bằng %; spd: đòn mỗi giây đã tính chiêu.
+import { mountKeyOf } from './inst.js';
 
 export const HC = data => data?.['he-chien'];
 // Bật cho tài khoản này chưa: on (mọi người) hoặc tài khoản chơi thử (test_uid, như phap-bao.json)
@@ -92,7 +93,7 @@ export function loadout(save, data) {
   if (save?.pet) beast('linh-thu', save.pets?.[save.pet]);
   for (const id of [save?.companion, save?.companion2]) if (id) beast('khoi-loi', save.comps?.[id]);
   if (save?.mount) {   // thú cưỡi không có cấp: lớn theo chủ (chạm trần), phẩm theo màu dòng của nó
-    const l = save.mountLine?.[save.mount];
+    const l = save.mountLine?.[mountKeyOf(save)];   // bản đang chọn (src/game/inst.js)
     out.push({ slot: 'thu-cuoi', kind: 'thu-cuoi', pham: Number.isInteger(l?.t) ? l.t : 0, ir: own, plus: cap, lines: l?.s ? [l] : [] });
   }
   return out;

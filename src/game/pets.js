@@ -3,6 +3,7 @@
 import { talkBeastShop } from './beast-shop.js';
 import { hitMob, shoot, addFx, dist } from './combat.js';
 import { petDef, petMax } from './evolve.js';
+import { hasMount, pickMount } from './inst.js';
 
 export function ensurePets(save) { save.pets ??= {}; save.mounts ??= {}; }
 
@@ -61,7 +62,7 @@ export function gainPetExp(game, amount, only) {
 }
 
 export function setPet(game, id) { game.save.pet = id; spawnPet(game); game.refreshStats(); game.persist(); }   // thưởng bộ Đạo Vận tính linh thú cùng hệ
-export function setMount(game, id) { game.save.mount = id; game.refreshStats(); game.persist(); }   // dòng % của thú cưỡi cộng vào chỉ số (src/game/beast.js)
+export function setMount(game, key) { pickMount(game, key); }   // dòng % của thú cưỡi cộng vào chỉ số (src/game/beast.js)
 
 export function spawnPet(game) {
   const id = game.save.pet, p = game.player;
@@ -162,7 +163,7 @@ export function mergePet(game, id) {
 // Thú cưỡi (chủ dự án 16/11/2026 21:57): lên / xuống bằng nút Cưỡi / Xuống (src/ui/ride-btn.js), nhớ trong bản lưu (save.ride).
 // Cưỡi thì thú công kích (src/game/player.js mountSwing), người ngồi đả tọa, vũ khí vẫn hiện nhưng không dùng, pháp bảo dùng bình thường.
 // Không cưỡi được trong nhà và ngoài không gian (ngự kiếm, thien-mang.js)
-export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && game.save.mounts?.[id] && P(game).mounts[id] && !d.indoor && !d.space); };
+export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && hasMount(game.save, id) && P(game).mounts[id] && !d.indoor && !d.space); };
 export function updateRide(game, dt) {
   const p = game.player;
   p.sword = !!game.map.def.space || !!p.flying;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)
@@ -181,7 +182,7 @@ export function toggleRide(game) {
   return true;
 }
 
-toggleRide.no = game => { game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6); return false; };
+toggleRide.no = game => { game.toast(game.save.mount && hasMount(game.save, game.save.mount) ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6); return false; };
 
 export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + (P(game).mounts[game.save.mount]?.speed || 0) : 1;   // vùng không gian: ngự kiếm bay nhanh
 
