@@ -91,7 +91,7 @@ export function outfitLine(game, key, f) {
   // bộ bán bằng Linh Thạch: phẩm theo giá (pets.json → beast.fashion.price_tier); khác thì theo nguồn
   const src = Object.keys(f.from).find(k => F.tier[k] != null), pt = (f.from.shop && F.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && F.tn_tier?.find(([lim]) => f.from.tn < lim));   // Tiên Ngọc: bảng riêng
   const t = pt ? pt[1] : F.tier[src] ?? 0;
-  const many = key.includes('#');   // bản mua thêm (src/game/inst.js): phẩm ngẫu nhiên Phàm → Tiên, máy chủ bốc, không bốc lại theo giá
+  const many = key.includes('#') || !!f.from?.shop;   // bộ bán ở tiệm (chủ dự án 19/11/2026 13:51: mọi bộ 50 000, phẩm ngẫu nhiên) và bản mua thêm   // bản mua thêm (src/game/inst.js): phẩm ngẫu nhiên Phàm → Tiên, máy chủ bốc, không bốc lại theo giá
   if (!many && s.outfitLine[key] && pt && s.outfitLine[key].t !== t) delete s.outfitLine[key];   // đổi giá → phẩm mới, bốc lại
   if (!s.outfitLine[key] && srvLines(game)) { s.outfitLine[key] = many ? { wait: 1 } : { t, wait: 1 }; game.persist(); }   // máy chủ bốc (migration 20261105120000_p2d_ky_thu)
   if (!s.outfitLine[key]) {

@@ -5,7 +5,8 @@
 -- 2) p2d_thu_cuoi (kiểm thú cưỡi lúc lưu): thú đang chọn (mount = mã loại) hợp lệ khi còn ít nhất một bản cùng loại; dòng của bản đã bán
 --    (khoá không còn trong mounts) bỏ đi, không giữ lại (trước đây máy chủ giữ dòng cũ khi máy khách bỏ).
 -- 3) p2d_thu_thoi (kiểm thời trang): khoá '<bộ>:<giới>#xxxx' tính giới theo phần trước '#', trả tiền như mua bộ; dòng của bản thêm bốc phẩm
---    ngẫu nhiên (không theo giá), giữ nguyên khi lưu lại; dòng của bản đã bán bỏ đi.
+--    ngẫu nhiên (không theo giá), giữ nguyên khi lưu lại; dòng của bản đã bán bỏ đi. Chủ dự án 13:51: mọi bộ ở tiệm 50 000 Linh Thạch,
+--    phẩm ngẫu nhiên: bộ bán ở tiệm (kể cả khoá gốc mua từ trước) không bốc lại dòng khi giá đổi.
 -- Mua thú vẫn chỉ qua máy chủ (gia rỗng); bản thêm do máy khách tự đặt khoá thú vẫn bị gỡ như cũ (thu_sua).
 
 create or replace function public.p2d_doi_thu_cuoi(p_id text)
@@ -158,7 +159,7 @@ begin
         v_sl := v_sl || jsonb_build_object(v_id, v_rl -> v_id);
         continue;
       end if;
-      v_te := case when v_ban then null else (v_bo ->> 0)::integer end;   -- bản thêm: phẩm ngẫu nhiên
+      v_te := case when v_ban or jsonb_typeof(v_bo -> 2) = 'number' then null else (v_bo ->> 0)::integer end;   -- bộ bán ở tiệm (mọi bản): phẩm ngẫu nhiên, giữ dòng đang có khi đổi giá (13:51); bộ có sẵn / thưởng: phẩm cố định
       v_co := (jsonb_typeof(v_bo -> 2) <> 'number' and not (v_bo ->> 3)::boolean) or v_rm ? v_id or (v_rm -> v_b = 'true'::jsonb and v_gi = v_look)
               or (jsonb_typeof(v_bo -> 4) = 'array' and (v_bo -> 4) ? p_uid::text);
       if v_rl ? v_id and (v_te is null or public.p2d_ky_so(v_rl -> v_id -> 't') = v_te or not v_co) then
