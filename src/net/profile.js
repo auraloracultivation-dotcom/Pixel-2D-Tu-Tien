@@ -49,7 +49,7 @@ function shape(d) {
     size: JSON.stringify(d).length };
 }
 
-export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
+export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }) {
   let version = 0, timer = null, pending = null, stopped = false, sending = null, busy = 0;
   let fn = 'p2d_luu2', fails = 0, told = false, fixedTold = false, lastFixed = [];
   let viOff = false, lastFull = -1e9, lastCall = -1e9;   // viOff: máy chủ chưa có p2d_luu_vi
@@ -83,6 +83,7 @@ export function createCloudSave({ onConflict, onError, onFix, retry = {} }) {
     if (res.error && fn === 'p2d_luu2' && missing(res.error, 'p2d_luu2')) { fn = 'p2d_luu'; res = await call(body); }   // máy chủ chưa có hàm mới
     const { data, error } = res;
     if (!error) {
+      if (fails) onOk?.();   // lưu lại được sau lần hỏng: gỡ băng báo (src/game/cloud-guard.js)
       fails = 0; lastCall = now;
       if (!vi) lastFull = now;
       if (fn === 'p2d_luu2') { version = data.pb; diff.ack(p, data.sua); if (data.sua) onFix?.(body, data.sua); } else version = data;
