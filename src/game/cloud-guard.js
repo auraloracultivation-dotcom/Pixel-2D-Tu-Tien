@@ -88,14 +88,29 @@ export function cloudHooks(game) {
   return {
     onConflict: () => game.toast(T.conflict, 4),
     onError: (e, bad) => {
+      if (bad) stuck(game, true);   // máy chủ chê bản lưu: băng đỏ đứng yên tới khi lưu được (19/11/2026: 8 tiếng lưu hỏng mà người chơi chỉ thấy toast chớp)
       const now = performance.now();
       if (now - lastErr < 60000) return;
       lastErr = now;
       game.toast(bad ? T.bad : T.net, 2);
     },
     onFix: (sent, sua) => applyFix(game, sent, sua),
+    onOk: () => stuck(game, false),
     retry: { ms: G.retry_ms, max: G.retry_max_ms },
   };
+}
+
+// Băng "chưa lưu được" (data/config.json → guard.texts.stuck): hiện khi máy chủ từ chối bản lưu, gỡ khi lưu lại được.
+// Đang hiện mà người chơi tắt / tải lại trang thì trình duyệt hỏi lại (máy tính; điện thoại có thể bỏ qua).
+let bar = null;
+const warnLeave = ev => { ev.preventDefault(); ev.returnValue = ''; };
+function stuck(game, on) {
+  if (typeof document === 'undefined') return;
+  const T = game.data.config.guard?.texts || {};
+  if (on && !bar) {
+    bar = document.createElement('div'); bar.className = 'luu-bao'; bar.textContent = T.stuck || T.bad || '';
+    document.body.append(bar); addEventListener('beforeunload', warnLeave);
+  } else if (!on && bar) { bar.remove(); bar = null; removeEventListener('beforeunload', warnLeave); game.toast(T.ok_again || '', 2); }
 }
 
 let timer = null;

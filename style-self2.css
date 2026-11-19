@@ -75,3 +75,8 @@ body .sv .sv-hosted .gc-tile.gc-eq.locked { filter: grayscale(.55) brightness(.7
 body .sv .sv-hosted .gc-tile.gc-eq.using { filter: drop-shadow(0 0 3px #ffc94a); }
 .gc-eq .gc-badge { position: absolute; top: 2px; right: 4px; font: 900 9px var(--f-body); color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
 .gc-eq .gc-star { position: absolute; bottom: 3px; left: 4px; font: 900 9px/1 var(--f-body); font-style: normal; color: #ffd24a; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000; }
+
+/* Băng "chưa lưu được" (src/game/cloud-guard.js stuck): đứng yên trên cùng tới khi lưu lại được */
+.luu-bao { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 4px); transform: translateX(-50%); z-index: 9999; max-width: 92vw;
+  padding: 6px 12px; border-radius: 8px; background: #8e1f22; color: #fff; font: 600 12px/1.35 system-ui, sans-serif; text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.45); pointer-events: none; }
