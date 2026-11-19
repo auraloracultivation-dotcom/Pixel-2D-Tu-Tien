@@ -7,7 +7,8 @@ import { petPrice, sellPet, mountPrice, sellMount } from '../game/home-pets.js';
 import { beastStats, statLine, linesText, rerollCost, costLine, mountLine } from '../game/beast.js';
 import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
-import { buyBlock } from './buy-mats.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
+import { buyBlock } from './buy-mats.js';
+import { quality } from '../game/tiers.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -55,6 +56,10 @@ export function createPetsPanel(game) {
     return row;
   }
   const s0 = () => game.save;
+  // Ô lưới kiểu trang bị (chủ dự án 19/11/2026 12:47): khung theo phẩm dòng chỉ số (data-o), cấp góc trên, sao góc dưới (src/ui/grid-cards.js)
+  const eq = (c, lines, badge, star) => { c.dataset.o = quality(data, { lines: lines || [] })?.id || 'pham'; if (badge) c.dataset.badge = badge; if (star) c.dataset.star = star; return c; };
+  // Nút thêm trong tấm chi tiết (Gộp, Tiến hóa): dòng .skill-up sau thẻ, grid-cards gom vào
+  const actRow = (text, fn, off) => { const r = el('div', 'card-acts skill-up'), b = el('button', 'mini', text); b.disabled = !!off; b.onclick = () => { fn(); game.sfx('pickup'); render(); }; r.append(b); return r; };
   // Ô mua nguyên liệu tẩy luyện: cuối tấm chi tiết (sau Tẩy luyện, Bán), mua theo số lượng (src/ui/buy-mats.js)
   function buyRow(list, id, mount) {
     const b0 = !mount && s0().pets[id], full = b0 && Number.isInteger(b0.cap) && (b0.lines || []).length >= b0.cap;
@@ -66,7 +71,7 @@ export function createPetsPanel(game) {
   function renderPets(s, list) {
     $('pets-sub').textContent = 'Chạm để mang theo. Linh thú hưởng nửa linh khí bạn thu được.';
     const ids = Object.keys(s.pets);
-    if (!ids.length) list.append(el('p', 'muted', 'Chưa có linh thú. Gặp Ngự Thú Sư ở Thiên Kiếm Phong, hoặc hạ quái dị chủng (có ánh vàng).'));
+    if (!ids.length) list.append(el('p', 'muted', 'Chưa có linh thú. Hạ quái dị chủng (có ánh vàng) để thu phục.'));
     for (const id of ids) {
       const d = petDef(data, s, id), st = s.pets[id], max = st.lv >= petMax(data, s, id), M = P.merge.texts;
       const c = card(d.color, `${st.evo ? '✦ ' : ''}${d.name} · cấp ${st.lv}${st.star ? ` · ★${st.star}` : ''}${s.pet === id ? ' · đang mang' : ''}`, [
@@ -77,40 +82,27 @@ export function createPetsPanel(game) {
         `Chỉ số (cộng lực chiến khi mang): ${statLine(data, beastStats(data, s, 'pet', id))}`,
         ...linesText(data, st.lines),
       ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang');
-      list.append(c);
+      list.append(eq(c, st.lines, 'c' + st.lv, st.star));
+      if (canMerge(game, id)) list.append(actRow(M.card.replace('{name}', d.name).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1).replace(/^Gộp .*?:/, 'Gộp') + ` (${mergeCost(st)} bản sao)`, () => mergePet(game, id)));
+      const ev = canEvolve(game, id);
+      if (ev && ev !== 'level') {   // đủ cấp tiến hóa: nút ngay trong tấm chi tiết của con đó, thiếu nguyên liệu thì mờ + ô mua
+        list.append(actRow(`Tiến hóa thành ${P.evolve && P.pets[id]?.evo || ''} (${costText(data, P.evolve.cost)}, ${P.evolve.coins} ${data.shop.name})`, () => evolvePet(game, id), ev !== 'ok'));
+        const bm = ev !== 'ok' && buyBlock(game, Object.entries(P.evolve.cost), 'tienhoa:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up'); if (bm) list.append(bm);
+      }
       if (P.pets[id]) list.append(rerollRow(id));
       if (s.pet !== id && P.pets[id]) list.append(sellRow(id));
       if (P.pets[id]) buyRow(list, id);   // bán linh thú ngay trong thẻ (thay ô Bán linh thú ở Động phủ); grid-cards gom dòng .skill-up vào tấm chi tiết
     }
-    for (const id of ids.filter(i => canMerge(game, i))) {   // gộp: đủ bản sao thì hiện thẻ riêng
-      const st = s.pets[id], M = P.merge.texts, nm = P.pets[id].name;
-      list.append(card('#ffd27a', M.card.replace('{name}', nm).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1), [M.card_line.replace('{cost}', mergeCost(st)).replace('{pct}', Math.round(P.merge.bonus * 100))], false, () => mergePet(game, id), 'pet.' + id, 'Gộp'));
-    }
-    // Tiến hóa: con nào đủ cấp thì hiện thẻ riêng
-    const E = P.evolve;
-    for (const id of ids.filter(i => canEvolve(game, i) && canEvolve(game, i) !== 'level')) {
-      const d = P.pets[id], ok = canEvolve(game, id) === 'ok';
-      const c = card(ok ? '#ffb03a' : '#c8c4d0', `Tiến hóa ${d.name} thành ${d.evo}`, [
-        `Sát thương x${E.mult}, chiêu hồi nhanh hơn, mở tới cấp ${E.max_level}.`,
-        `Cần: ${costText(data, E.cost)}, ${E.coins} ${data.shop.name}${ok ? '' : ' (chưa đủ)'}`,
-      ], false, () => evolvePet(game, id), 'pet.' + id, 'Tiến hóa');
-      c.disabled = !ok; list.append(c);
-      const bm = buyBlock(game, Object.entries(E.cost), 'tienhoa:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up'); if (bm) list.append(bm);
-    }
-    const missing = Object.entries(P.pets).filter(([id]) => !s.pets[id]).map(([id]) => P.rare.prefix + data.mobs[id].name);
-    if (missing.length) list.append(el('p', 'muted', t('Chưa thu phục: {list}.', { list: missing.join(', ') })));
-    list.append(el('p', 'muted', `Linh thú cấp ${E.level} có thể tiến hóa.`));
   }
 
   function renderMounts(s, list) {
     $('pets-sub').textContent = `Chọn thú rồi bấm nút Cưỡi / Xuống. Cưỡi thì thú công kích, người đả tọa. Thú mới đổi bằng ${P.thu_lenh.per_mount} ${P.thu_lenh.name} ở Ngự Thú Sư (làm đủ việc ngày được 1 ${P.thu_lenh.name}).`;
     for (const [id, m] of Object.entries(P.mounts)) {
       const got = s.mounts[id];
+      if (!got) continue;   // chưa có thì không hiện (chủ dự án 19/11/2026 12:47); đổi thêm ở Ngự Thú Sư
       const ml = got && mountLine(game, id);
       const c = card(m.color, m.name + (s.mount === id ? ' ' + t('· đang dùng') : got ? '' : ' ' + t('· chưa có')), [m.desc, `Tốc chạy +${Math.round(m.speed * 100)}%`, ...(ml ? linesText(data, [ml]).map(t => `Cộng cho bạn khi chọn: ${t}`) : [])], s.mount === id, () => setMount(game, id), 'mount.' + id, 'Chọn', 'Đang chọn');
-      c.disabled = !got;
-      if (!got) c.classList.add('locked');
-      list.append(c);
+      list.append(eq(c, ml ? [ml] : []));
       if (got) list.append(rerollRow(id, true));
       if (got) buyRow(list, id, true);   // bán thú cưỡi ngay trong thẻ
     }
