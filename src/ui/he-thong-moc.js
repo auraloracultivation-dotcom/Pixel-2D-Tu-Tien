@@ -49,6 +49,7 @@ export function renderMoc(game, body, api) {
     box.append(spriteIcon(game, 'ui.ic-qua', 0, 34));
     const cur = G.v == null ? '…' : G.k === 'realm' ? R[G.v] : `${num(G.v)} ${G.unit}`;
     txt.append(el('b', null, G.name), el('small', null, cur));
+    if (G.k === 'kills' && G.raw > G.v && M.kill_cap) txt.append(el('small', 'moc-cap', fill(M.kill_cap, { a: num(G.raw) })));   // đã hạ nhiều hơn số được tính
     head.append(box, txt);
     if (next && G.v != null) {   // thanh tới mốc kế (tính từ mốc trước cho thanh nhích thấy rõ)
       const a = prev?.n || 0, f = Math.max(0, Math.min(1, (G.v - a) / (next.n - a)));
