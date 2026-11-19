@@ -10,8 +10,8 @@ export function updateTaps(game, dt) {
       const d = Math.min(Math.hypot(e.x - w.x, e.y - 4 - w.y), O.includes(e) ? Math.hypot(e.x - w.x, e.y - (e.top || 24) - (e.lift || 0) - 6 - w.y) : 1e9);
       if (d < bd) { bd = d; best = e; }
     }
-    if (best) game.peek = { e: best, t: 3 };
-    if (best && O.includes(best)) game.tapOther?.(best); else game.closeOtherMenu?.();
+    if (best && O.includes(best)) game.tapOther?.(best);   // người chơi khác: tên đã hiện sẵn trên đầu, không vẽ thêm tên trắng (chủ dự án 11:06)
+    else { if (best) game.peek = { e: best, t: 3 }; game.closeOtherMenu?.(); }
   }
   game.input.taps.length = 0;
   if (game.peek && (game.peek.t -= dt) <= 0) game.peek = null;
