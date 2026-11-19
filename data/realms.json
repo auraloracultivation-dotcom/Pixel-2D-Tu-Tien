@@ -55,7 +55,7 @@
   },
   "by_realm": [
    {"kind": "set"},
-   {"kind": "ket-dan", "waves": 5},
+   {"kind": "ket-dan", "waves": 12},
    {"kind": "tam-ma", "waves": 6},
    {"kind": "hoa", "waves": 10, "extra": 2, "grow": 0.05},
    {"kind": "mix", "waves": 10, "extra": 2, "grow": 0.06},

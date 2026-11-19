@@ -2,10 +2,11 @@
 // bản đồ, docs/02-CHUAN-PIXEL.md) đặt đúng lưới; chỉ quầng sáng nền và vành sóng là mịn. Hai lớp:
 //   drawKdBack  vẽ ngay trước thân người (draw.js drawPlayer / drawOther): bóng trên đất lúc lơ lửng, quầng tụ khí dưới chân, nửa SAU các vòng khói;
 //   drawKdFront lớp trên cùng (sau lớp ngày đêm, như mọi hiệu ứng chiêu): hạt linh khí xoáy vào, nửa TRƯỚC các vòng khói, viên đan ở đan điền,
-//               tia điện bám người sau mỗi đạo sét, sóng linh lực, cột sáng (người được vẽ lại bên trên cột sáng cho khỏi bị nuốt mất).
+//               thiên lôi và dòng điện cuốn quanh thân (draw-kd-set.js), sóng linh lực, cột sáng (người được vẽ lại bên trên cột sáng cho khỏi bị nuốt mất).
 // Mọi thứ tính từ đồng hồ st.t nên máy người xem vẽ y hệt. Màu: pal_khi (linh khí), pal_dan (kim đan) ở data/config.json → ket_dan.
 import { glow } from './vfx/glow.js';
 import { drawHero } from './draw-hero.js';
+import { drawKdBolts, drawKdWrap } from './draw-kd-set.js';   // thiên lôi nhiều màu, dòng điện cuốn quanh thân
 
 const TAU = Math.PI * 2;
 const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
@@ -68,13 +69,15 @@ export function drawKdBack(ctx, game, w, t) {
   if (e >= T.d && e < T.g) soft(ctx, w.x, w.y, 30, K.pal_dan[2], 0.3 * Math.min(1, (T.g - e) / 0.6), 0.42);   // kết đan xong: đất dưới chân ánh vàng
   ctx.globalAlpha = 1;
   rings(ctx, st, false);
+  drawKdWrap(ctx, st, false);   // nửa sau lưng của dòng điện cuốn quanh thân
   ctx.restore();
 }
 
 function parts(ctx, st) {
-  const P = st.K.pal_khi;
-  for (const q of st.parts) {   // hạt linh khí: đầu trắng, đuôi xanh kéo ngược hướng bay; sát đan điền thì mờ dần (khỏi che người)
-    const dx = q.x - (q.ox ?? q.x), dy = q.y - (q.oy ?? q.y), len = Math.hypot(dx, dy) || 1, ux = -dx / len, uy = -dy / len, a = Math.min(1, q.life / 0.35) * Math.min(1, Math.max(0, (q.d - 4) / 16)), big = q.s > 0.72;
+  const P = st.K.pal_khi, near = st.t >= st.T.in ? 13 : 4;   // lúc đã bay lên khí đổ vào rất dày: tan sớm hơn quanh người cho thấy rõ thân và dòng điện
+  for (const q of st.parts) {
+    if (q.d <= near) continue;   // hạt linh khí: đầu trắng, đuôi xanh kéo ngược hướng bay; sát đan điền thì mờ dần (khỏi che người)
+    const dx = q.x - (q.ox ?? q.x), dy = q.y - (q.oy ?? q.y), len = Math.hypot(dx, dy) || 1, ux = -dx / len, uy = -dy / len, a = Math.min(1, q.life / 0.35) * Math.min(1, Math.max(0, (q.d - near) / (near * 2.2))), big = q.s > 0.72;
     const n = len > 1.6 ? 9 : 6;
     for (let k = n; k >= 1; k--) { ctx.fillStyle = k > 4 ? P[3] : P[2]; ctx.globalAlpha = a * (0.7 - k * 0.07); px(ctx, q.x + ux * k * 0.6, q.y + uy * k * 0.6, big && k < 3 ? 2 : 1, big && k < 3 ? 2 : 1); }
     ctx.fillStyle = P[q.s > 0.4 ? 0 : 1]; ctx.globalAlpha = a; px(ctx, q.x, q.y, big ? 3 : 2, big ? 3 : 2);
@@ -102,21 +105,6 @@ function dan(ctx, st, x, y) {
   const ray = 3 + Math.round(5 * g) + (done ? 4 : 0);   // tia lấp lánh bốn hướng, đổi chéo / thẳng
   ctx.fillStyle = c1;
   for (let m = R + 2; m <= R + ray; m++) for (const [ax, ay] of tw ? [[1, 0], [-1, 0], [0, 1], [0, -1]] : [[1, 1], [-1, 1], [1, -1], [-1, -1]]) { ctx.globalAlpha = 0.85 * (1 - (m - R - 2) / ray); px(ctx, x + ax * m / 2, y + ay * m / 2); }
-}
-
-// Tia điện bám quanh người sau mỗi đạo sét
-function crackle(ctx, st, x, y) {
-  const dt = st.t - st.hitT;
-  if (dt < 0 || dt > 0.6) return;
-  const tick = Math.floor(st.t * 14), a = 1 - dt / 0.6;
-  ctx.globalCompositeOperation = 'lighter';
-  for (let k = 0; k < 9; k++) {
-    if (hash(tick * 3.3 + k) < 0.3) continue;
-    const ang = hash(tick + k * 9.1) * TAU, r0 = 5 + hash(tick * 2 + k) * 6;
-    let cx = x + Math.cos(ang) * r0, cy = y - 3 + Math.sin(ang) * r0 * 1.3;
-    ctx.fillStyle = hash(tick + k) < 0.5 ? '#ffffff' : '#9ad8ff'; ctx.globalAlpha = a;
-    for (let i = 0; i < 11; i++) { px(ctx, cx, cy); cx += hash(tick + i * 5 + k * 13) < 0.5 ? -0.5 : 0.5; cy += hash(tick * 7 + i + k) < 0.35 ? -0.5 : 0.5; }
-  }
 }
 
 // Sóng linh lực: vành bầu dục nở rất nhanh nối nhau, lõi trắng viền vàng, kèm vệt sáng phóng ra bốn phía
@@ -198,7 +186,8 @@ export function drawKdFront(ctx, game, t) {
     if (e >= T.d && e < T.e) soft(ctx, x, y - 3, 20 + 3 * Math.sin(e * 10), K.pal_dan[2], 0.5 * Math.min(1, (T.e - e) / 0.5));   // người rực vàng lúc phát sóng
     waves(ctx, st, x, y - 2);
     dan(ctx, st, x, y);
-    crackle(ctx, st, x, y);
+    drawKdWrap(ctx, st, true);
+    drawKdBolts(ctx, game, st);
     ctx.restore();
   }
 }

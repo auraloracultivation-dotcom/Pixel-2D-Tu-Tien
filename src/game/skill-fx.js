@@ -7,7 +7,7 @@ export function boltFx(game, x, y, sky = false, seed = Math.floor(Math.random() 
   const C = game.data.config.bolt;
   if (!C) { addFx(game, { type: 'sprite', id: 'fx.bolt', x, y, life: 0.5 }); return; }
   addFx(game, { type: 'bolt', x, y, h: o.h || (sky ? C.h_sky : C.h_skill), seed, life: (o.life || 1) * (C.strike + C.fade), pal: o.pal, w: o.w });
-  addFx(game, { type: 'sprite', id: 'fx.bolt', frames: [4, 5, 6], x, y, life: 0.6, fade: true });
+  if (!o.pal) addFx(game, { type: 'sprite', id: 'fx.bolt', frames: [4, 5, 6], x, y, life: 0.6, fade: true });   // sét thiên kiếp (có dải màu riêng): bỏ hình lửa sét cũ (chủ dự án 20/11/2026 02:17), vết cháy đã vẽ bằng code (draw-trib.js)
 }
 
 // Nổ một lần tại (x, y), r: bán kính vùng trúng; ang: hướng chém (slash)

@@ -3,7 +3,7 @@
 // Nhân vật chơi thử được đặt Trúc Cơ tầng 9 đầy linh khí, gọi thẳng game.trib.start() (lời thoại mở đầu bỏ qua), rồi bước từng khung 1/60 giây.
 // KHUNG="1,3.5,8": chỉ chụp ảnh ở các giây đó (soát từng nhịp); bỏ trống: quay cả đoạn, FPS (mặc định 30) ảnh mỗi giây.
 // MAU=<phần máu lúc bắt đầu, mặc định 1> (0.3: xem cảnh thất bại) · PT=<mã pháp tượng đeo sẵn, vd pt-hoa-long> · BO=<mã trang phục, vd tp-06> ·
-// XEM=1: quay ở máy NGƯỜI XEM (dựng một người chơi khác đứng cạnh làm nghi lễ, nhận qua đúng đường tin chiêu) · MAN=<rộng>x<cao> (mặc định 390x844) ·
+// DX, DY=<dời nhân vật bao nhiêu đơn vị bản đồ trước khi quay, tới ô trống gần đó> · XEM=1: quay ở máy NGƯỜI XEM (dựng một người chơi khác đứng cạnh làm nghi lễ, nhận qua đúng đường tin chiêu) · MAN=<rộng>x<cao> (mặc định 390x844) ·
 // DONG_LUC=<giây bấm nút Tiếp tục của bảng chúc mừng>. Ra: f-0001.jpg… + sfx.json (ghép tiếng: ghep-tieng.py).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { serve } from './may-chu.mjs';
@@ -11,7 +11,7 @@ const PORT = +(process.env.CONG_MAY || 8797);
 const { chromium } = await import('playwright'); const stop = serve(PORT);
 const [out, name, secs = '30', dpr = '2'] = process.argv.slice(2), E = process.env, FPS = +(E.FPS || 30), dir = `${out}/${name}`;
 const stills = E.KHUNG ? E.KHUNG.split(',').map(Number) : null, closeAt = E.DONG_LUC ? +E.DONG_LUC : null;
-const O = { hp: +(E.MAU ?? 1), pt: E.PT || '', bo: E.BO || '', xem: E.XEM === '1' };
+const O = { hp: +(E.MAU ?? 1), pt: E.PT || '', bo: E.BO || '', xem: E.XEM === '1', dx: +(E.DX || 0), dy: +(E.DY || 0) };
 mkdirSync(dir, { recursive: true });
 const b = await chromium.launch();
 const [MW, MH] = (E.MAN || '390x844').split('x').map(Number);
@@ -36,6 +36,7 @@ const info = await p.evaluate(async O => {
   if (O.pt) { const M = await import('/src/game/items.js'), it = M.rollItem(g.data, s, { base: O.pt, rarity: 'thien', lvl: 10 }); M.addItem(g.data, s, it); M.equip(s, g.data, it.uid); }
   g.refreshStats(); g.checkUnlocks(); g.powerSeen = null;
   g.noDeath = false;   // truyện đầu game đang giữ nhân vật không gục: bỏ để thử được cảnh thất bại
+  if (O.dx || O.dy) { const pl = g.player, T = g.map.T, to = g.map.freeNear(Math.floor((pl.x + O.dx) / T), Math.floor((pl.y + O.dy) / T), 0, pl.r); pl.x = to.x; pl.y = to.y; }   // dời tới chỗ trống cho cảnh quay
   s.qi = ST.qiNeed(s, R); g.player.hp = Math.max(1, Math.round(g.player.maxHp * O.hp));
   g.toast = toast; await wait(1500); document.getElementById('toast').hidden = true;
   g.__log = []; g.__sim = 0;
