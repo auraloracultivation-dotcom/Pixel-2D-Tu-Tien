@@ -40,7 +40,7 @@ export function createOtherMenu(game) {
   game.closeOtherMenu = close;
 
   function place() {
-    const o = who, s = game.screen.toScreen(o.x, o.y - (o.top || 24) - (o.riding ? o.lift || 0 : 0) - 22);
+    const o = who, s = game.screen.toScreen(o.x, o.y - (o.top || 24) - (o.riding ? o.lift || 0 : 0) - 16);
     const half = card.offsetWidth / 2, x = Math.min(innerWidth - half - 6, Math.max(half + 6, s.x)), y = Math.max(card.offsetHeight + 6, s.y);   // không tràn mép màn
     card.style.setProperty('--ax', `${Math.round(s.x - x)}px`);   // mũi nhọn vẫn chỉ đúng người
     card.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px) translate(-50%, -100%)`;
