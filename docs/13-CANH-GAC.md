@@ -45,3 +45,8 @@ Máy chủ chê bản lưu thì máy khách hiện băng đỏ đứng yên "Ch�
 ## 5. Số "người vào" đọc từ `luu_luc`
 
 `updated_at` đổi cả khi máy chủ sửa hàng loạt (migration), nên mọi bảng đếm người chơi đọc `luu_luc` (lần máy người chơi tự lưu).
+
+## 6. Giờ chơi
+
+Từ 20/11/2026 (`20261120011000_p2d_gio_choi.sql`): giờ chơi = `p2d_nhan_vat.choi_giay` (mốc nền, đã bù số quái ÷ 6 cho tài khoản không cờ đỏ)
++ `p2d_nhip.tong` (giây còn liên lạc theo nhịp sống). Mọi chỗ đọc gọi `p2d_choi_giay(uid)`; trigger `p2d_dem_choi` không cộng nữa.
