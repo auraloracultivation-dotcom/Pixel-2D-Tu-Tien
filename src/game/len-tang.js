@@ -24,6 +24,10 @@ const cfg = game => game.data.juice.mung;
 // Màu của cảnh giới: hào quang quanh người ở cảnh giới ấy (data/status.json → auras); Luyện Khí chưa có hào quang thì màu linh khí.
 // Hào quang gần như trắng (Trúc Cơ, Đại Thừa) thì màn mừng dùng màu đậm hơn cùng sắc (mung.canh.colors) cho vầng sáng, thẻ ra màu
 const hue = (game, realm, base) => cfg(game).canh.colors?.[realm] || game.data.status.auras?.[realm]?.color || base;
+// Màu của BẢNG chúc mừng đột phá (thẻ lên tầng, nghi lễ đột phá cảnh giới): màu bảng nhận đồ Tiên phẩm (chủ dự án 20/11/2026 01:35: "mọi bảng chúc mừng
+// đột phá đều giống màu của bảng nhận đồ tiên phẩm, vì đột phá là việc lớn"). mung.pham: mã màu trong items.line_tiers.list; hiệu ứng trên nhân vật ngoài
+// bản đồ (juiceUp) vẫn theo màu cảnh giới
+const bang = (game, base) => { const q = game.data.items.line_tiers.list.find(x => x.id === cfg(game).pham); return q ? q.edge || q.color : base; };
 
 // Chỉ số ngay trước lúc lên, để màn mừng so trước → sau
 export const upSnap = game => ({ hp: game.player.maxHp, atk: game.player.atk, pow: power(game), realm: game.save.realm });
@@ -59,7 +63,7 @@ export function layerUp(game, broke) {
   if (s.layer >= R.layers && s.realm < R.names.length - 1) lines.push({ text: C.text.peak, soft: true, wrap: true });   // đủ chín tầng: nhắc bậc kế tiếp là thiên kiếp
   else if (s.layer < R.layers) { const nx = pbNext(game); if (nx.length) lines.push({ text: fill(C.text.next, { name: t('{x} tầng {layer}', { x: R.names[s.realm], layer: s.layer + 1 }), list: list(nx) }), soft: true, wrap: true }); }   // tầng kế sẽ mở gì: có cái để mong (tên tầng dịch ngay ở đây: câu ghép lẫn hai thứ tiếng thì bộ dịch khuôn "… tầng …" nuốt cả câu)
   juiceUp(game, false, color);
-  game.mungTang({ color, title: C.text.tang, name: realmLabel(s, R), cells: { n: R.layers, from: Math.max(0, s.layer - broke), to: s.layer }, lines, gain: powGain(game, a), done: later(game, hold) });
+  game.mungTang({ color: bang(game, color), title: C.text.tang, name: realmLabel(s, R), cells: { n: R.layers, from: Math.max(0, s.layer - broke), to: s.layer }, lines, gain: powGain(game, a), done: later(game, hold) });
 }
 
 // a: upSnap lấy trước khi sang cảnh giới mới. Trả false khi màn mừng tắt (nơi gọi tự báo như cũ)
@@ -69,7 +73,7 @@ export function realmUp(game, a) {
   const lines = statLines(game, a), flush = later(game, hold, C.world.rune_life * C.world.big), buff = buffBits(game, s.realm);
   if (buff.length) lines.push({ text: fill(X.buff, { realm: R.names[s.realm], list: list(buff) }), soft: true, wrap: true });
   if (gift) lines.push({ text: fill(X.gift_realm, { list: gift }), gift: true, wrap: true });
-  game.mungCanh({ color, title: X.canh, name: R.names[s.realm], sub: fill(X.from, { a: R.names[a.realm], b: R.names[s.realm] }), lines, gain: powGain(game, a),
+  game.mungCanh({ color: bang(game, color), title: X.canh, name: R.names[s.realm], sub: fill(X.from, { a: R.names[a.realm], b: R.names[s.realm] }), lines, gain: powGain(game, a),
     done: () => { juiceUp(game, true, color); flush(); } });   // ra khỏi nghi lễ: nhân vật còn toả sáng ngoài bản đồ
   return true;
 }

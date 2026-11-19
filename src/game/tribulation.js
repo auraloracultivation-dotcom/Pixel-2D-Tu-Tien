@@ -1,12 +1,14 @@
 // Thiên kiếp: ở tầng 9 đầy linh khí, người chơi gọi kiếp. Mỗi cảnh giới một kiểu (data/realms.json → tribulation.by_realm):
 // sét, sét thành hàng, tâm ma (bóng của chính mình, máu theo cả máu lẫn công của người chơi), lửa trời, hoặc trộn. Trụ hết các đợt (và hạ tâm ma nếu có) thì lên
-// cảnh giới mới; gục thì thất bại và mất một phần linh khí.
+// cảnh giới mới; gục thì thất bại và mất một phần linh khí. Kiểu ket-dan (lên Kim Đan) không có đợt né sét: cả kiếp là một nghi lễ
+// (src/game/ket-dan.js), sét giáng thẳng vào người đang lơ lửng, chịu đủ thì thành.
 import { qiNeed, realmLabel } from './stats.js';
 import { addStrike } from './strikes.js';
 import { addFx } from './combat.js';
 import { upSnap, realmUp } from './len-tang.js';
 import { tribSkyTick, tribSkyEnd, scorchTick, tribPal } from './trib-sky.js';   // mưa sét theo cảnh giới, vết cháy (17/11/2026)
 import { startCele, celeTick } from './trib-cele.js';   // lễ ăn mừng độ kiếp thành công
+import { startKetDan, kdTick, kdStop } from './ket-dan.js';   // nghi lễ kết đan lên Kim Đan (chủ dự án 20/11/2026 01:35)
 
 export function atPeak(game) {
   const s = game.save, r = game.data.realms;
@@ -22,12 +24,13 @@ export function tribOf(game) {
 export function createTribulation(game) {
   let run = null;
 
-  function strike(x, y, k, kind = 'set') {
+  // follow: sét chính bám theo người tới lúc giáng, không né được (chủ dự án 20/11/2026 01:4x: "khó một chút, ăn hết đan, gần chết mới hợp lý")
+  function strike(x, y, k, kind = 'set', follow = false) {
     const c = run.cfg, hoa = kind === 'hoa';
     addStrike(game, {
       x, y, r: c.r * (hoa ? 1.35 : 1) * (1 + (game.save.realm || 0) * (game.data.config.trib_fx?.sky?.r_realm || 0)), delay: c.delay * (hoa ? 1.15 : 1), trib: !hoa, pal: hoa ? null : tribPal(game),
-      dmg: game.player.maxHp * c.dmg_pct * k * (1 - (game.save.flags.thanhTam || 0)),
-      kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color,
+      dmg: game.player.maxHp * c.dmg_pct * (c.dmg_mul || 1) * k * (1 - (game.save.flags.thanhTam || 0)),
+      kind: hoa ? 'meteor' : 'thunder', color: hoa ? '#ff9a3a' : run.cfg.info.color, follow: follow && c.follow ? game.player : null,
     });
   }
 
@@ -72,11 +75,12 @@ export function createTribulation(game) {
       game.player.meditating = false; game.auto = false;
       game.darkTarget = 0.55;
       game.sfx('roar');
+      if (cfg.kind === 'ket-dan') { run.le = true; startKetDan(game, cfg, () => { run = null; tribSkyEnd(game); this.ascend(); }); }
       if (cfg.kind === 'tam-ma' || cfg.kind === 'mix') spawnShadow();
     },
     update(dt) {
-      scorchTick(game, dt); celeTick(game, dt);
-      if (!run) return;
+      scorchTick(game, dt); celeTick(game, dt); kdTick(game, dt);
+      if (!run || run.le) return;
       tribSkyTick(game, dt);
       if (run.shadow && !run.shadow.dead && !game.mobs.includes(run.shadow)) spawnShadow();   // đổi bản đồ giữa kiếp: tâm ma cũ mất theo bản đồ, cho hiện lại (trước đây kiếp kẹt mãi)
       keepShadowNear(dt);
@@ -92,7 +96,7 @@ export function createTribulation(game) {
       const kind = c.kind === 'mix' ? ['set', 'loi', 'hoa'][Math.floor(Math.random() * 3)] : c.kind;
       const light = kind === 'tam-ma';          // tâm ma: sét nhẹ và thưa
       const extra = light ? 0 : c.extra + Math.floor(run.wave / 3) + (kind === 'hoa' ? 1 : 0);
-      strike(p.x, p.y, light ? k * 0.5 : k, kind);
+      strike(p.x, p.y, light ? k * 0.5 : k, kind, true);
       if (kind === 'loi' && run.wave % 2 === 0) line(p, k);
       for (let i = 0; i < extra; i++) {
         const a = Math.random() * Math.PI * 2, d = 18 + Math.random() * (kind === 'hoa' ? 60 : 40);
@@ -122,7 +126,7 @@ export function createTribulation(game) {
       if (!run) return;
       const c = run.cfg;
       if (run.shadow) run.shadow.dead = true;
-      run = null; game.strikes = []; tribSkyEnd(game);
+      run = null; game.strikes = []; tribSkyEnd(game); kdStop(game);
       game.save.qi = Math.floor(game.save.qi * (1 - c.fail_qi));
       game.darkTarget = game.map.def.dark || 0;
       game.toast(`Độ kiếp thất bại... mất ${Math.round(c.fail_qi * 100)}% linh khí. Tu luyện thêm rồi thử lại.`, 3);
