@@ -1,7 +1,8 @@
 // Bảng Thành tựu: phần Thành tựu (tiến độ, nhận thưởng), Danh hiệu (chọn danh hiệu hiện trên đầu), Thời trang, Nhật ký.
 // Thanh tab ẩn (src/ui/side-nav.css): mỗi mục Menu / Túi đồ mở đúng một phần, tên bảng đổi theo phần đó.
 import { claimAchv, titles, setTitle, achvText, power } from '../game/achieve.js';
-import { owned, buyOutfit, wear, howToGet, curOutfit, versions } from '../game/fashion.js';
+import { owned, wear, curOutfit, versions } from '../game/fashion.js';
+import { outfitKeys, sellTier, sellOutfitKey } from '../game/inst.js';
 import { journal } from '../game/journal.js';
 import { outfitLine, linesText } from '../game/beast.js';
 import { tierOf } from '../game/tiers.js';
@@ -27,7 +28,7 @@ export function createAchvPanel(game) {
     const c = el('div', 'skill-card');
     c.style.borderLeftColor = color;
     c.append(el('b', null, title), ...lines.map(l => el('small', null, l)));
-    if (btn) { const row = el('div', 'card-acts'); row.append(btn); c.append(row); }
+    if (btn) { const row = el('div', 'card-acts'); row.append(...[].concat(btn)); c.append(row); }   // một nút hoặc mảng nút
     return c;
   }
 
@@ -65,17 +66,25 @@ export function createAchvPanel(game) {
   function renderFashion(list) {
     const s = game.save, F = data.fashion.list, H = data.heroes, look = H.list[s.look] ? s.look : H.default, cur = curOutfit(game);
     const gName = g => H.list[g].name.split(' ·')[0].toLowerCase();
+    // Mỗi bản một ô (chủ dự án 19/11/2026 12:58–13:02: cùng bộ có nhiều bản, phẩm khác nhau, bán được như trang bị, src/game/inst.js).
+    // Chưa có thì không hiện, mua ở tiệm thời trang (12:57). Bộ có sẵn / thành tựu / lễ (không có khoá trong outfits): một ô theo khoá gốc.
+    const curKey = s.outfitKey && s.outfits?.[s.outfitKey] && s.outfitKey.split(':')[0] === cur ? s.outfitKey : `${cur}:${look}`;
     const rows = [];
-    for (const [id, f] of Object.entries(F)) for (const g of versions(game, id)) rows.push([id, f, g]);
-    rows.sort((x, y) => (x[2] !== look) - (y[2] !== look));
-    $('achv-sub').textContent = `${rows.filter(([id, , g]) => owned(game, id, g)).length}/${rows.length} bộ`;
-    for (const [id, f, g] of rows) {
-      const own = owned(game, id, g), on = cur === id && g === look, mine = g === look, two = versions(game, id).length > 1;
-      const btn = on ? mini('Đang mặc', () => {}, true) : own && !mine ? mini(`Chỉ ${gName(g)}`, () => {}, true) : own ? mini('Mặc', () => { wear(game, id); msg = `Đã mặc ${f.name}.`; })
-        : f.from.shop ? mini(`Mua ${f.from.shop}`, () => { if (buyOutfit(game, id, g)) { if (mine) wear(game, id); msg = `Đã mua ${f.name} (${gName(g)}).`; game.sfx('pickup'); } }, (s.lingshi || 0) < f.from.shop) : null;
-      const FB = data.pets.beast.fashion, T = FB.tier, pt = (f.from.shop && FB.price_tier?.find(([lim]) => f.from.shop < lim)) || (f.from.tn && FB.tn_tier?.find(([lim]) => f.from.tn < lim)), t = pt ? pt[1] : T[Object.keys(f.from).find(k => T[k] != null)] ?? 0;   // phẩm theo giá
-      const bonus = own ? `Cộng khi mặc: ${linesText(data, [outfitLine(game, `${id}:${g}`, f)])[0] || '…'}` : `Có bộ thì bốc 1 dòng chỉ số màu ${tierOf(data, t).name}, cố định mãi`;
-      const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : own ? (mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`) : howToGet(game, f), bonus], btn);
+    for (const [id, f] of Object.entries(F)) for (const g of versions(game, id)) {
+      if (!owned(game, id, g)) continue;
+      const keys = outfitKeys(s, id, g);
+      for (const k of keys.length ? keys : [`${id}:${g}`]) rows.push([id, f, g, k]);
+    }
+    rows.sort((x, y) => (x[3] !== curKey) - (y[3] !== curKey) || (x[2] !== look) - (y[2] !== look));   // đang mặc lên đầu
+    $('achv-sub').textContent = `${rows.length} bộ`;
+    for (const [id, f, g, k] of rows) {
+      const on = cur === id && g === look && k === curKey, mine = g === look, two = versions(game, id).length > 1, sold = !!s.outfits?.[k];
+      const ol = outfitLine(game, k, f), btns = [];
+      btns.push(on ? mini('Đang mặc', () => {}, true) : !mine ? mini(`Chỉ ${gName(g)}`, () => {}, true) : mini('Mặc', () => { wear(game, id, k); msg = `Đã mặc ${f.name}.`; }));
+      if (sold && !on) btns.push(mini(`Bán ${sellTier(game, ol).toLocaleString('vi-VN')} Linh Thạch`, () => { msg = sellOutfitKey(game, k); }));
+      const c = card(f.robe, two ? `${f.name} (${gName(g)})` : f.name, [on ? 'Đang mặc' : mine ? 'Đã có' : `Đã có · chỉ ${gName(g)} mặc được`, `Cộng khi mặc: ${linesText(data, [ol])[0] || '…'}`], btns);
+      c.dataset.key = k; c.dataset.o = tierOf(data, Number.isInteger(ol?.t) ? ol.t : 0).id;   // ô kiểu trang bị: khung theo phẩm dòng của bản đó
+      if (on) c.classList.add('using');
       const sw = document.createElement('i'); sw.className = 'swatch'; sw.style.background = `linear-gradient(90deg, ${f.robe} 60%, ${f.hair} 60%)`;
       c.prepend(sw); icon(c, f.look?.sprite || `hero.y-${id}-${g}`, f.sprite === 'goc' && H.list[g]?.sprite); list.append(c);   // bộ có hình riêng (look): hiện hình bộ
     }

@@ -77,6 +77,13 @@ export function gridCards(game) {
       if (big) t.classList.add('gc-big');
       if (card.dataset.icon) t.append(ring(spriteIcon(game, card.dataset.icon, 0, big || 28, 'gc-ico', !!big), card));
       const [name, ...rest] = titleOf(card).split(' · '), first = card.querySelector('small');   // dòng 2: cấp, sao, đang mang; không có thì dòng mô tả đầu
+      if (card.dataset.o) {   // ô kiểu trang bị (chủ dự án 19/11/2026 12:47: linh thú, thú cưỡi, khôi lỗi, thời trang giống phần trang bị): khung phẩm, không tên, cấp / sao ở góc
+        t.classList.add('gc-eq'); t.dataset.o = card.dataset.o; t.title = name; t.setAttribute('aria-label', name);
+        if (card.dataset.badge) t.append(el('b', 'gc-badge', card.dataset.badge));
+        if (+card.dataset.star) t.append(el('i', 'gc-star', '★' + card.dataset.star));
+        t.onclick = () => (openKey === keyOf(card) && sheet ? closeSheet() : show(card));
+        return t;
+      }
       t.append(el('b', null, name));
       if (rest.length || first) t.append(el('small', null, rest.length ? rest.join(' · ') : first.textContent));
       t.onclick = () => (openKey === keyOf(card) && sheet ? closeSheet() : show(card));

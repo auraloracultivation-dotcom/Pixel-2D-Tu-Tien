@@ -5,7 +5,8 @@ import { compLevel, compNeed, togglePuppet } from '../game/companion.js';
 import { isPuppet, puppetName, puppetPrice, sellPuppet } from '../game/beast-shop.js';
 import { beastStats, statLine, linesText, rerollCost, costLine } from '../game/beast.js';
 import { kyRerollBeast } from '../game/ky-thu.js';
-import { buyBlock } from './buy-mats.js';   // mua nguyên liệu tẩy luyện ở cuối tấm chi tiết
+import { buyBlock } from './buy-mats.js';
+import { quality } from '../game/tiers.js';   // mua nguyên liệu tẩy luyện ở cuối tấm chi tiết
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -28,6 +29,7 @@ export function renderComps(game, list, { render, sub }) {
     c.style.borderLeftColor = d.color;
     c.dataset.icon = data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id; c.dataset.iconSize = 46;
     c.dataset.act = on.length >= max ? 'Mang theo (thay con thứ 2)' : 'Mang theo'; c.dataset.used = 'Cất đi';
+    c.dataset.o = quality(data, { lines: st.lines || [] })?.id || 'pham'; c.dataset.badge = 'c' + lv;   // ô kiểu trang bị (chủ dự án 19/11/2026 12:47)
     c.append(el('b', null, `${puppetName(game, id)} · cấp ${lv}${using ? ' · đang mang' : ''}`),
       el('small', null, d.desc || ''),
       el('small', null, lv >= data.companions.max_level ? 'Đã tối đa cấp.' : `Kinh nghiệm ${Math.floor(st.exp || 0)}/${compNeed(data, lv)} (nhận một phần linh khí bạn thu khi mang theo)`),

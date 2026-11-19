@@ -33,7 +33,7 @@ const cut = s => s.replace(/\s*\(.*$/, '');
 const ICO = [[/^Luyện lên cấp/, 'cuong-hoa', s => s.replace(/^Luyện lên cấp (\d+).*/, 'Cấp $1')], [/^Mua nhanh/, 'lich-su', () => 'Mua'],
   [/^Mang vào ô/, 'mac-tot', s => cut(s).replace('Mang vào ô ', 'Mang ô')], [/^(Mang|Mặc|Thay|Đeo|Cưỡi|Dùng)/, 'mac-tot', cut], [/^(Mua|Đổi)/, 'ban', cut], [/^(Tháo|Bỏ)/, 'tab-trang-bi', s => s],
   // linh thú, thú cưỡi, khôi lỗi (src/ui/pets-panel.js): "Bán 4.000 Linh Thạch" tách giá xuống dòng nhỏ, hỏi lại thì "Bán thật?"
-  [/^Tẩy luyện|^Đã đủ dòng/, 'tu-luyen', cut], [/^Cất đi/, 'tab-trang-bi', s => s], [/^Tiến hóa/, 'cuong-hoa', () => 'Tiến hóa'], [/^Bấm lần nữa để bán/, 'ban', () => 'Bán thật?'], [/^Bán/, 'ban', () => 'Bán']];
+  [/^Tẩy luyện|^Đã đủ dòng/, 'tu-luyen', cut], [/^Cất đi/, 'tab-trang-bi', s => s], [/^Tiến hóa/, 'cuong-hoa', () => 'Tiến hóa'], [/^Gộp/, 'cuong-hoa', s => cut(s)], [/^Bấm lần nữa để bán/, 'ban', () => 'Bán thật?'], [/^Bán/, 'ban', () => 'Bán']];
 function tidy(game, sheet) {
   if (sheet.dataset.svTidy) return;
   sheet.dataset.svTidy = 1;

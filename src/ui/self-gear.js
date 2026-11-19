@@ -3,17 +3,18 @@
 // khảm xếp dọc (chủ dự án 11/11/2026 01:57, theo mẫu): mỗi lỗ một viên đá, có ngọc thì viên đá màu của ngọc (ui-pc-da-*), trống thì đá tối.
 import { el, icon } from './bag-detail.js';
 import { rarityOf, gemInfo } from '../game/items.js';
-import { quality } from '../game/tiers.js';
+import { quality, itemTier } from '../game/tiers.js';
 import { spriteIcon } from './sprite-icon.js';
+import { mountKeyOf } from '../game/inst.js';
 
 
 // Mã phẩm cho khung ảnh [data-o] (style-ui-hoa-dao.css: ui-pc-luc / lam / tim / cam / vang / do / den), như Túi đồ
-export const gradeId = (data, it) => quality(data, it)?.id || rarityOf(data.items, it.rarity).id;
+export const gradeId = (data, it) => itemTier(data, it).id;   // phẩm = chỉ số cơ bản theo rarity (19/11/2026 13:33)
 
-// Màu khung theo phẩm: phẩm dòng tẩy luyện nếu có, không thì phẩm hiếm của món
+// Màu khung theo phẩm của món (rarity), không theo dòng tẩy luyện (chủ dự án 19/11/2026 13:18)
 export function gradeColor(data, it) {
-  const q = quality(data, it);
-  return q ? (q.edge || q.color) : rarityOf(data.items, it.rarity).color;
+  const q = itemTier(data, it);
+  return q.edge || q.color;
 }
 
 // Viên đá theo loại ngọc (assets/art/ui-pc-da-<màu>.png); lỗ trống dùng viên đá tối
@@ -75,7 +76,7 @@ export function buffCell(game, kind, onOpen) {
   b.setAttribute('aria-label', nm);
   if (spr) {
     const st = kind === 'pet' ? save.pets?.[id] : kind === 'mount' ? null : save.comps?.[id];
-    const lines = kind === 'mount' ? [save.mountLine?.[id]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
+    const lines = kind === 'mount' ? [save.mountLine?.[mountKeyOf(save)]].filter(l => l?.s) : st?.lines || [], q = quality(data, { lines });
     b.dataset.o = q?.id || 'pham'; b.style.setProperty('--q', q ? (q.edge || q.color) : '#9a7ad8');
     b.append(el('i', 'sv-bfr'), spriteIcon(game, spr, 0, 32, 'sv-spr'));   // vừa theo cạnh dài: linh thú, thú cưỡi ngang không bị bóp méo (12/11/2026 03:17)
     if (st?.lv) b.append(el('b', 'sv-plus', 'c' + st.lv));

@@ -373,6 +373,13 @@
    ]
   },
   {
+   "id": "tiem-thoi-trang",
+   "at": [
+    101.5,
+    95.0
+   ]
+  },
+  {
    "id": "van-bao",
    "at": [
     85.5,
@@ -4622,7 +4629,8 @@
    [
     "tk.sap-vai-sc",
     101.5,
-    93.8
+    93.8,
+    "Thời Trang"
    ],
    [
     "tk.thung-go-sc",

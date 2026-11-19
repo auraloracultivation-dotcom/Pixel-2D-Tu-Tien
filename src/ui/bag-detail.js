@@ -14,7 +14,7 @@ import { enhanceCost, setStats } from '../game/enhance.js';
 import { isArt, refineCost, salvageArt } from '../game/refine.js';
 import { kyUnsocket, kyRefine } from '../game/ky-ngoc.js';   // khảm / gỡ ngọc, luyện pháp bảo: máy chủ quyết khi đã đăng nhập
 import { kyReroll, kyEnhance, kyRerollEl } from '../game/ky-mon.js';   // đã đăng nhập: máy chủ quyết (chống sửa món)
-import { quality, tierOf, linesFull } from '../game/tiers.js';
+import { tierOf, linesFull, itemTier } from '../game/tiers.js';
 import { playerStats } from '../game/stats.js';
 import { power } from '../game/achieve.js';
 import { buyBlock } from './buy-mats.js';   // ô mua nguyên liệu nâng cấp ở cuối tấm chi tiết, mua theo số lượng
@@ -71,7 +71,7 @@ export function renderDetail(game, st, box, changed, close) {
   box.innerHTML = '';
   const it = save.bag.find(i => i.uid === st.sel);
   if (!it) return false;
-  const r0 = rarityOf(data.items, it.rarity), q = quality(data, it), r = q ? { ...r0, name: `Phẩm ${q.name}`, color: q.edge || q.color } : r0, base = data.items.bases[it.base], slot = base.slot;
+  const r0 = rarityOf(data.items, it.rarity), q = itemTier(data, it), r = q ? { ...r0, name: `Phẩm ${q.name}`, color: q.edge || q.color } : r0, base = data.items.bases[it.base], slot = base.slot;
   const worn = save.equip[slot] === it.uid, cur = !worn && save.bag.find(i => i.uid === save.equip[slot]);
 
   // đầu tấm: biểu tượng, tên, ô, nút đóng
@@ -170,11 +170,11 @@ export function renderDetail(game, st, box, changed, close) {
   const stones = save.mats['tay-luyen-thach'] || 0, cost = data.items.reroll_cost, fee = rerollFee(data, save, it), free = (it.free || 0) > 0;
   const full = linesFull(data, it);
   btn(full ? `Tẩy luyện: đã đủ ${it.lines.length} dòng` : free ? `Tẩy luyện: mở dòng ${it.lines.length + 1} (miễn phí ×${it.free})` : `Tẩy luyện: mở dòng ${it.lines.length + 1} (${cost} thạch + ${fee.toLocaleString('vi-VN')} ${data.shop.name})`, wait(async () => {
-    const p0 = power(game, playerStats(save, data)), q0 = quality(data, it);
+    const p0 = power(game, playerStats(save, data)), q0 = null;   // phẩm món theo rarity, tẩy không đổi
     const res = await kyReroll(game, it.uid);
     if (!res || res.full) { changed(); return; }
     const t = tierOf(data, res.line.t), gain = Math.round(power(game, playerStats(save, data)) - p0);   // góp ý #77: hiện rõ món mạnh lên bao nhiêu (phẩm có thể tụt khi dòng mới màu thấp)
-    st.msg = `Dòng ${it.lines.length}: ${lineText(data, res.line)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''} Phẩm: ${quality(data, it)?.name || ''}.`;
+    st.msg = `Dòng ${it.lines.length}: ${lineText(data, res.line)} (${t.name}).${worn ? ` Lực chiến +${gain.toLocaleString('vi-VN')}.` : ''}${res.last ? ' Đây là dòng cuối của món!' : ''}`;   // phẩm món không đổi theo dòng nữa (19/11/2026 13:18)
     if (game.mung) game.mung(mungReroll(game, it, res, q0, worn ? gain : 0)); else game.sfx(res.line.t >= 4 || res.last ? 'levelup' : 'heal');
     changed();
   }), full || (!free && (stones < cost || (save.lingshi || 0) < fee)));

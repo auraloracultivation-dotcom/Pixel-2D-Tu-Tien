@@ -66,3 +66,12 @@ html body #toast::before { display: none !important; }
    Ô pháp bảo (.pbs) lấy khung theo màu phẩm pháp bảo: Phàm khung cơ bản, Linh lục, Huyền lam, Địa tím, Thiên vàng. */
 body .pbs[data-o="pham"] { --o: url("assets/art/ui-nv-o.png") !important; }
 body .pbs[data-o="thien"] { --o: url("assets/art/ui-pc-vang.png") !important; }
+/* Ô kiểu trang bị cho lưới linh thú, thú cưỡi, khôi lỗi, thời trang (chủ dự án 19/11/2026 12:47; src/ui/grid-cards.js .gc-eq): khung theo phẩm, không tên, cấp / sao ở góc */
+body .sv .sv-hosted .gc-on:has(> .gc-eq), body .sv .sv-hosted #pets-list.gc-on:has(> .gc-eq) { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 4px !important; width: 100%; }
+body .sv .sv-hosted .gc-tile.gc-eq { position: relative; width: 100% !important; height: auto !important; min-height: 0 !important; aspect-ratio: 1 !important; padding: 0 !important;
+  justify-content: center !important; align-items: center !important; background: var(--o, url("assets/art/ui-nv-o.png")) center / 100% 100% no-repeat !important; }
+body .sv .sv-hosted .gc-tile.gc-eq canvas.gc-ico { width: 72% !important; height: 72% !important; max-width: 72% !important; max-height: 72% !important; object-fit: contain; }
+body .sv .sv-hosted .gc-tile.gc-eq.locked { filter: grayscale(.55) brightness(.75); }
+body .sv .sv-hosted .gc-tile.gc-eq.using { filter: drop-shadow(0 0 3px #ffc94a); }
+.gc-eq .gc-badge { position: absolute; top: 2px; right: 4px; font: 900 9px var(--f-body); color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
+.gc-eq .gc-star { position: absolute; bottom: 3px; left: 4px; font: 900 9px/1 var(--f-body); font-style: normal; color: #ffd24a; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000; }

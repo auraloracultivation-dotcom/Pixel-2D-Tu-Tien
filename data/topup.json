@@ -65,11 +65,11 @@
    "label": "Rương trang bị Tiên phẩm",
    "tn": 180,
    "give": {
-    "item": "thien",
-    "tier": 5
+    "item": "tien"
    }
   }
  ],
+ "_shop_19_11": "Chủ dự án 19/11/2026 13:33: rương Tiên phẩm ra món phẩm Tiên thật (rarity tien, chỉ số cơ bản Tiên), dòng màu ngẫu nhiên như đồ rơi (trước: món Thiên + dòng màu Tiên).",
  "_shop_17_11": "Chủ dự án 17/11/2026 03:51: bỏ 10 Tẩy Luyện Thạch (da-tay) và 3 viên ngọc khảm (ngoc-3) khỏi quầy; Rương trang bị Địa phẩm thành Tiên phẩm, giá giữ 180 (mã ruong-dia giữ nguyên để khớp bảng giá máy chủ p2d_tn_gia): món phẩm Thiên, dòng chỉ số màu Tiên (đỏ, line_tiers bậc 5).",
  "wrong_look": "Bộ này khác giới tính nhân vật",
  "title": "Quầy Tiên Ngọc",

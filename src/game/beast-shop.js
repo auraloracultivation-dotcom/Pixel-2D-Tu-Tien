@@ -2,6 +2,7 @@
 // src/game/home-pets.js (sellMount), khôi lỗi ở đây (sellPuppet), bấm ngay trong thẻ ở Túi đồ → Thú cưỡi / Khôi lỗi.
 import { coins, addCoins } from './shop.js';
 import { mountLine } from './beast.js';
+import { hasMount } from './inst.js';
 
 const S = game => game.data.pets.shop;
 const vn = n => n.toLocaleString('vi-VN');
@@ -17,12 +18,12 @@ export const puppetPrice = (game, id) => {   // đúng resell_max × giá mua (c
 export async function buyMount(game, id) {
   const s = game.save, m = game.data.pets.mounts[id], L = game.data.pets.thu_lenh;
   if (!m) return 'Không có con này.';
-  if (s.mounts?.[id]) return `Đã có ${m.name}.`;
   if (!game.cloud) return 'Đăng nhập tài khoản để đổi thú cưỡi.';
   try {
     const M = await import('../net/he-thong.js');   // máy chủ sửa bản lưu, trả phien_ban: chạy qua game.cloud.run cho khỏi lệch phiên bản
-    await game.cloud.run(() => M.htDoiThu(id), r => { s.mounts[id] = true; if (!s.mount || !s.mounts[s.mount]) s.mount = id; game.thuLenh = r?.thu_lenh ?? game.thuLenh; });
-    mountLine(game, id); game.persist(); game.sfx('levelup');
+    let key = id;   // đã có loại này: máy chủ đặt khoá bản thêm 'thú#xxxx' (chủ dự án 19/11/2026 13:02, src/game/inst.js)
+    await game.cloud.run(() => M.htDoiThu(id), r => { key = r?.key || id; s.mounts[key] = true; if (!s.mount || !hasMount(s, s.mount)) { s.mount = id; s.mountKey = key; } game.thuLenh = r?.thu_lenh ?? game.thuLenh; });
+    mountLine(game, key); game.persist(); game.sfx('levelup');
     return `Đổi được ${m.name}! Bấm nút Cưỡi để lên thú.`;
   } catch (e) {
     const c = String(e?.message || e);
@@ -66,7 +67,7 @@ export async function talkBeastShop(game, npc, only) {
   }
   const L = game.data.pets.thu_lenh;
   const list = pick === 'mount'
-    ? Object.entries(game.data.pets.mounts).map(([id, m]) => ({ id, label: m.name, spr: 'mount.' + id, price: `${L.per_mount} ${L.name}`, tag: s.mounts?.[id] ? 'Đã có' : '', dim: !!s.mounts?.[id], desc: `Tốc chạy +${Math.round(m.speed * 100)}%`, color: m.color }))
+    ? Object.entries(game.data.pets.mounts).map(([id, m]) => ({ id, label: m.name, spr: 'mount.' + id, price: `${L.per_mount} ${L.name}`, tag: hasMount(s, id) ? 'Đã có' : '', desc: `Tốc chạy +${Math.round(m.speed * 100)}%`, color: m.color }))
     : pick === 'puppet' ? Object.entries(S(game).puppets).map(([id, p]) => ({ id, label: game.data.npcs[id]?.name || id, spr: game.data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id, price: vn(p), cur: 'ui.ic-linh-thach', tag: s.comps?.[id] ? 'Đã có' : '', dim: !!s.comps?.[id], desc: game.data.companions.list[id]?.desc || '', color: game.data.companions.list[id]?.color })) : null;   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
   if (!list) return;
   list.push({ id: 'thoi', label: 'Thôi', desc: pick === 'mount' ? (game.thuLenh == null ? 'Cần mạng để đổi thú' : `Đang có ${game.thuLenh} ${L.name}`) : `Đang có ${vn(coins(s))} Linh Thạch` });

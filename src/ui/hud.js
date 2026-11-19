@@ -16,6 +16,7 @@ import { pbOn } from '../game/phap-bao.js';
 import { pbHud } from './phap-bao-hud.js';
 import { pxOn } from '../game/pfx.js';
 import { hudHurt } from './hud-hurt.js';
+import { hasMount } from '../game/inst.js';
 
 const $ = id => document.getElementById(id);
 // Ghi kiểu CSS chỉ khi giá trị đổi: ui.update chạy 15 lần mỗi giây, ghi lại giá trị cũ vẫn bắt trình duyệt tính lại kiểu (nóng máy)
@@ -157,7 +158,7 @@ export function createHud(audio, dlgCfg) {
     }
     css($('btn-dash'), '--cd', (Math.max(0, p.dashCd || 0) / d.config.dash.cd).toFixed(3));
     const rb = $('btn-ride'), rl = p.riding ? 'Xuống' : 'Cưỡi';   // nút Cưỡi / Xuống: hiện khi đã có thú cưỡi (src/game/pets.js toggleRide)
-    rb.hidden = !(s.mount && s.mounts?.[s.mount] && d.pets.mounts[s.mount]);
+    rb.hidden = !(s.mount && hasMount(s, s.mount) && d.pets.mounts[s.mount]);
     if (rb.firstChild.textContent !== rl) rb.firstChild.textContent = rl;
     const fb = $('btn-fly'), fl = p.flying ? 'Đáp' : 'Bay', md = game.map?.def || {};   // nút Bay / Đáp (src/game/fly.js): ẩn trong nhà, vùng không gian
     fb.hidden = !d.config.fly?.on || !!(md.indoor || md.space);

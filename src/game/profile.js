@@ -1,6 +1,7 @@
 // Hồ sơ người chơi khác (chạm tên ở bảng xếp hạng): tải từ máy chủ (net/rank.js → fetchPlayer), nhớ tạm 60 giây mỗi người.
 // Bản lưu trả về chỉ gồm những gì cần để xem và dựng bản sao so tài (cảnh giới, đồ đang mặc, công pháp, chiêu, linh thú,
 // đồng hành, hình dáng). Đó là dữ liệu người khác: lọc lại theo data/ của bản game này trước khi dùng (món lạ, chỉ số lạ bỏ đi).
+import { mountKeyOf } from './inst.js';
 const cache = new Map(), inflight = new Map();
 const num = (v, d = 0) => (Number.isFinite(+v) ? +v : d);
 const obj = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
@@ -29,7 +30,7 @@ function cleanItem(data, it) {
   };
   return {
     uid: it.uid, base: it.base, rarity: I.rarities.some(r => r.id === it.rarity) ? it.rarity : I.rarities[0].id,
-    lvl: num(it.lvl), plus: num(it.plus), pb: num(it.pb), el: data.elements[it.el] ? it.el : undefined,
+    lvl: num(it.lvl), plus: num(it.plus), pb: num(it.pb), el: data.elements[it.el] ? it.el : undefined, sp: Number.isInteger(it.sp) ? Math.max(0, Math.min(6, it.sp)) : undefined,   // phẩm tính chỉ số của đồ cũ (he-chien.js itemPham)
     wt: data.weapons[it.wt] ? it.wt : undefined, main,
     lines: (Array.isArray(it.lines) ? it.lines : []).filter(l => I.stats[l?.s] && Number.isFinite(l.v)).map(l => (Number.isInteger(l.t) ? { s: l.s, v: l.v, t: l.t } : { s: l.s, v: l.v })),
     sockets: (Array.isArray(it.sockets) ? it.sockets : []).map(gem),
@@ -54,7 +55,7 @@ export function cleanSave(data, s) {
   const beast = b => ({ lv: Math.max(1, num(obj(b).lv, 1)), exp: 0, star: num(obj(b).star), evo: !!obj(b).evo, lines: lines(obj(b).lines) });
   const comps = {};
   for (const id of [comp, comp2]) if (id) comps[id] = beast(obj(s.comps)[id]);
-  const ml = mount && obj(obj(s.mountLine)[mount]);
+  const ml = mount && obj(obj(s.mountLine)[mountKeyOf(s) || mount]);   // bản đang chọn (src/game/inst.js)
   const techs = {};
   for (const [id, t] of Object.entries(obj(s.techs))) if (data.techniques.list[id]) techs[id] = { lv: num(obj(t).lv) };
   const skillLv = {};

@@ -6,7 +6,7 @@ import { spriteIcon } from './sprite-icon.js';
 import { gemIcon } from './gem-icon.js';
 import { itemName, statText, gemInfo, rarityOf } from '../game/items.js';
 import { gemText } from './hc-text.js';
-import { quality } from '../game/tiers.js';
+import { itemTier } from '../game/tiers.js';
 import { weaponId, artSkill } from '../game/stats.js';
 import { skillSlots } from '../game/skills.js';
 import { petDef } from '../game/evolve.js';
@@ -26,7 +26,7 @@ function head(ico, name, color, sub, close) {
 export function itemSheet(game, save, slot, T, close) {
   const { data } = game, it = save.bag.find(i => i.uid === save.equip[slot]);
   if (!it) return null;
-  const r0 = rarityOf(data.items, it.rarity), q = quality(data, it), color = q ? q.edge || q.color : r0.color, ico = icon(data, it);
+  const r0 = rarityOf(data.items, it.rarity), q = itemTier(data, it), color = q ? q.edge || q.color : r0.color, ico = icon(data, it);
   ico.style.borderColor = color;
   const box = el('div', 'pf-sheet'), st = el('div', 'd-stats');
   box.append(head(ico, itemName(data, it), color, `${q ? 'Phẩm ' + q.name : r0.name} · ${data.items.slots[slot]} · ${fill(T.item_lv, { lvl: it.lvl })}`, close));

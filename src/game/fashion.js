@@ -3,6 +3,7 @@
 // không đổi (s.look, chọn lúc vào game; đổi bằng Đan đổi giới tính ở Lò đan). Chỉ mặc được bản đúng giới tính mình.
 // Bộ có được nhờ thành tựu, lễ, ma khí, có sẵn: có cả hai bản. Bản lưu cũ outfits[<bộ>] = true: tính là bản theo giới tính hiện tại.
 import { coins, addCoins } from './shop.js';
+import { newKey } from './inst.js';
 
 const F = game => game.data.fashion.list;
 const lookOf = game => (game.data.heroes.list[game.save?.look] ? game.save.look : game.data.heroes.default);
@@ -39,22 +40,24 @@ export function owned(game, id, g = lookOf(game)) {
   const f = F(game)[id]?.from, s = game.save;
   if (!f || (F(game)[id].only && F(game)[id].only !== g)) return false;
   const any = F(game)[id].look && Object.keys(game.data.heroes.list).some(k => s.outfits?.[`${id}:${k}`]);   // bộ có hình riêng: mua bản giới nào cũng mặc được (đổi giới không mất)
-  return !!(f.start || any || s.outfits?.[`${id}:${g}`] || (s.outfits?.[id] === true && g === lookOf(game)) || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n) || (f.uid && f.uid.includes(game.owner)));
+  return !!(f.start || any || Object.keys(s.outfits || {}).some(k => s.outfits[k] && k.split('#')[0] === `${id}:${g}`) || (s.outfits?.[id] === true && g === lookOf(game)) || (f.achv && s.achv?.[f.achv]) || (f.fest && s.fest?.[f.fest]) || (f.elite && (s.elite?.[f.elite.map] || 0) >= f.elite.n) || (f.uid && f.uid.includes(game.owner)));
 }
 
 export function grantOutfit(game, id, g = lookOf(game)) { (game.save.outfits ??= {})[`${id}:${g}`] = true; }
 
+// Mua thêm được cả bộ đã có (chủ dự án 19/11/2026 13:02): mỗi lần mua là một bản riêng 'bộ:giới#xxxx', phẩm ngẫu nhiên (src/game/inst.js). Trả khoá bản
 export function buyOutfit(game, id, g = lookOf(game)) {
   const f = F(game)[id], s = game.save;
-  if (!f?.from.shop || owned(game, id, g) || coins(s) < f.from.shop) return false;
+  if (!f?.from.shop || coins(s) < f.from.shop) return false;
   addCoins(game, -f.from.shop, 'thoi-trang');
-  grantOutfit(game, id, g);
+  const key = newKey(`${id}:${g}`);
+  (s.outfits ??= {})[key] = true;
   game.persist();
-  return true;
+  return key;
 }
 
 // Chỉ mặc được bản đúng giới tính của mình
-export function wear(game, id) { if (owned(game, id, lookOf(game))) { game.save.outfit = id; game.refreshStats?.(); game.persist(); } }   // dòng chỉ số của bộ (src/game/beast.js)
+export function wear(game, id, key) { if (owned(game, id, lookOf(game))) { game.save.outfit = id; game.save.outfitKey = key && game.save.outfits?.[key] ? key : null; game.refreshStats?.(); game.persist(); } }   // key: bản đang mặc (src/game/inst.js)   // dòng chỉ số của bộ (src/game/beast.js)
 
 // Màu đang mặc: { robe, hair, sash } (sash null thì dùng màu hệ)
 export function outfit(game) {

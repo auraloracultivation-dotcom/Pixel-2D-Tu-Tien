@@ -21,6 +21,7 @@ import { talkDecor } from './decor.js';
 import { talkParty } from './party.js';
 import { goodsOf, talkGoods } from './npc-goods.js';
 import { nearBeCa, talkBeCa } from './be-ca.js';
+import { talkFashionShop } from './fashion-shop.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -53,6 +54,7 @@ export function talkTo(game, npc) {
   if (npc.id === ARMORY_NPC) { talkArmory(game, npc); return; }
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
   if (npc.id === game.data.pets.puppet_npc) { talkPuppetShop(game, npc); return; }
+  if (npc.id === game.data.fashion.shop_npc) { talkFashionShop(game, npc); return; }   // tiệm thời trang (src/game/fashion-shop.js)
   if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
