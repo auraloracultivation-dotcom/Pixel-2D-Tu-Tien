@@ -94,7 +94,7 @@ function dan(ctx, st, x, y) {
     ctx.fillStyle = Q[0]; px(ctx, x - 0.5, y - 0.5, 2, 2);
     return;
   }
-  const done = e >= T.d, g = done ? 1 : st.hit / st.n, burst = Math.max(0, 1 - (e - T.in) / 0.4), tw = Math.floor(e * 8) % 2, c1 = g > 0.15 ? D[1] : Q[1];
+  const done = e >= T.x, g = done ? 1 : st.hit / st.n, burst = Math.max(0, 1 - (e - T.in) / 0.4), tw = Math.floor(e * 8) % 2, c1 = g > 0.15 ? D[1] : Q[1];
   soft(ctx, x, y, 6 + 4 * g + 13 * burst + (done ? 3 + 1.5 * Math.sin(e * 9) : 0), g > 0.15 ? D[2] : Q[2], 0.42 + 0.3 * g + 0.4 * burst);
   ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 1;
   const R = 1 + Math.round(g * 2);   // viên đan: đĩa nhỏ lớn dần theo số đạo sét đã chịu
@@ -105,6 +105,22 @@ function dan(ctx, st, x, y) {
   const ray = 3 + Math.round(5 * g) + (done ? 4 : 0);   // tia lấp lánh bốn hướng, đổi chéo / thẳng
   ctx.fillStyle = c1;
   for (let m = R + 2; m <= R + ray; m++) for (const [ax, ay] of tw ? [[1, 0], [-1, 0], [0, 1], [0, -1]] : [[1, 1], [-1, 1], [1, -1], [-1, -1]]) { ctx.globalAlpha = 0.85 * (1 - (m - R - 2) / ray); px(ctx, x + ax * m / 2, y + ay * m / 2); }
+}
+
+// Đợt tụ khí cuối trước khi phóng sóng: các vành sáng co nhanh về người nối nhau, càng sát càng sáng, đổi dần từ màu linh khí sang vàng kim
+function gather2(ctx, st, x, y) {
+  const K = st.K, T = st.T, e = st.t;
+  if (e < T.x || e >= T.d) return;
+  const k = (e - T.x) / K.t.tu2, life = 0.55, gap = 0.22;
+  ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0, n = Math.floor((T.d - 0.3 - T.x) / gap); i <= n; i++) {
+    const u = (e - T.x - i * gap) / life;
+    if (u < 0 || u >= 1) continue;
+    const r = 150 * (1 - u) ** 1.7 + 4;
+    ctx.globalAlpha = 0.25 + 0.6 * u; ctx.strokeStyle = k > 0.55 ? K.pal_dan[1] : K.pal_khi[1]; ctx.lineWidth = 1 + 1.6 * u;
+    ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.62, 0, 0, TAU); ctx.stroke();
+  }
+  soft(ctx, x, y - 2, 10 + 16 * k + 2 * Math.sin(e * 24), k > 0.55 ? K.pal_dan[2] : K.pal_khi[2], 0.3 + 0.5 * k);   // người sáng dần lên
 }
 
 // Sóng linh lực: vành bầu dục nở rất nhanh nối nhau, lõi trắng viền vàng, kèm vệt sáng phóng ra bốn phía
@@ -184,6 +200,7 @@ export function drawKdFront(ctx, game, t) {
     ctx.globalAlpha = 1;
     rings(ctx, st, true);
     if (e >= T.d && e < T.e) soft(ctx, x, y - 3, 20 + 3 * Math.sin(e * 10), K.pal_dan[2], 0.5 * Math.min(1, (T.e - e) / 0.5));   // người rực vàng lúc phát sóng
+    gather2(ctx, st, x, y);
     waves(ctx, st, x, y - 2);
     dan(ctx, st, x, y);
     drawKdWrap(ctx, st, true);

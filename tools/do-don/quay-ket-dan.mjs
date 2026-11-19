@@ -51,9 +51,9 @@ const info = await p.evaluate(async O => {
     const pl = g.player, id = 'nguoi-thu';
     g.others.presence([{ id, name: 'Đạo hữu', element: s.element, realm: 'Trúc Cơ tầng 9', look: s.look, outfit: O.bo || s.outfit || null, mount: null, pt: null }]);
     g.others.move({ id, x: pl.x + 44, y: pl.y - 6, fx: 0, fy: 1 });
-    g.__bd = () => g.others.cast({ id, k: 'kd-bd', x: pl.x + 44, y: pl.y - 6, fx: 0.5, fy: 0 });
+    g.__bd = () => g.others.cast({ id, k: 'kd-bd', x: pl.x + 44, y: pl.y - 6, fx: 0.6, fy: 0 });
     g.__ok = () => g.others.cast({ id, k: 'kd-ok', x: pl.x + 44, y: pl.y - 6, fx: 0, fy: 0 });
-    g.__T = (await import('/src/game/ket-dan.js')).kdTimes(g.data.config.ket_dan, 5);
+    g.__T = (await import('/src/game/ket-dan.js')).kdTimes(g.data.config.ket_dan, 12);
   }
   return { tu: `${s.realm}/${s.layer}`, look: s.look, bo: s.outfit, map: g.map.id, hp: `${g.player.hp}/${g.player.maxHp}`, others: g.others.count() };
 }, O);
@@ -61,7 +61,7 @@ console.log(JSON.stringify(info));
 await p.evaluate(O => { const g = window.__game; if (O.xem) g.__bd(); else g.trib.start(); }, O);
 const NMAX = Math.round(+secs * FPS), per = Math.round(60 / FPS);
 let n = 0, closed = false, sentOk = false;
-const ok = async t => { if (O.xem && !sentOk && await p.evaluate(t => t >= window.__game.__T.d - 0.25, t)) { sentOk = true; await p.evaluate(() => window.__game.__ok()); } };   // máy người xem: tin 'kd-ok' tới ngay trước lúc phát sóng
+const ok = async t => { if (O.xem && !sentOk && await p.evaluate(t => t >= window.__game.__T.x - 0.05, t)) { sentOk = true; await p.evaluate(() => window.__game.__ok()); } };   // máy người xem: tin 'kd-ok' tới ngay trước lúc phát sóng
 const shot = async file => p.screenshot({ path: file, type: 'jpeg', quality: 93 });
 if (stills) {
   for (const at of stills) {
