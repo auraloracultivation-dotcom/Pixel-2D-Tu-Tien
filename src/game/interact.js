@@ -4,7 +4,7 @@ import { dist } from './combat.js';
 import { dailyEvent } from './daily.js';
 import { ARMORY_NPC, talkArmory } from './armory.js';
 import { harvestAll, gotText } from './garden.js';
-import { meditateMul } from './evolve.js';
+import { medBlocked, medPct } from './da-toa.js';
 import { pickMode } from './dun-mode.js';
 import { waterDir, fishAct, fishLabel } from './fishing.js';
 
@@ -80,10 +80,11 @@ export function updateInteract(game) {
   const npc = nearestNpc(game, cfg.interact_range);
   const trib = !npc && game.trib.canStart();
   const st = !npc && !trib && nearStation(game);
-  const med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
+  let med = !npc && !trib && !st && nearTile(game, 'M', cfg.meditate.range);
   const fish = !npc && !trib && !st && !med && (game.fish ? game.fish.dir : waterDir(game));
   const beca = !npc && !trib && !st && !med && !fish && nearBeCa(game);
   const pat = !npc && !trib && !st && !med && !fish && !beca && showPat(game);
+  if (!npc && !trib && !st && !med && !fish && !beca && !pat && !medBlocked(game) && (p.meditating || !p.moving)) med = true;   // không có việc gì khác: đả tọa ngay tại chỗ (src/game/da-toa.js)
   game.actLabel = npc ? 'Nói chuyện' : trib ? 'Độ thiên kiếp' : st ? st[0] : med ? (p.meditating ? 'Dừng đả tọa' : 'Đả tọa') : fish ? fishLabel(game) : beca ? game.data.home.be_ca.name : pat ? 'Vuốt ve' : null;
   if (!game.input.consume('act')) return;
   if (npc) {
@@ -104,7 +105,7 @@ export function updateInteract(game) {
     patPet(game);
   } else if (med) {
     p.meditating = !p.meditating;
-    if (p.meditating) game.toast(meditateMul(game) > 1 ? `Bồ đoàn động phủ: tu nhanh gấp ${meditateMul(game)}` : 'Đả tọa... linh khí chảy vào người', 1.4);
+    if (p.meditating) game.toast(cfg.meditate.texts.sit.replace('{pct}', medPct(game)), 1.8);
   }
 }
 

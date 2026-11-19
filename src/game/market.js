@@ -103,6 +103,9 @@ export async function claimMail(game) {
       if (d.gem && /^[a-z-]+:\d+$/.test(d.gem.key) && game.data.items.gems.types[d.gem.key.split(':')[0]]) {   // ngọc thưởng sự kiện, góp ý (máy chủ đã cộng vào bản lưu)
         s.gems ??= {}; s.gems[d.gem.key] = (s.gems[d.gem.key] || 0) + d.gem.n; gift.push({ kind: 'gem', id: d.gem.key, n: d.gem.n }); lines.push(`${gemInfo(game.data, d.gem.key).name} ×${d.gem.n}${d.tu ? ` (${d.tu})` : d.tieu_de ? ` (${d.tieu_de})` : ''}`);
       }
+      // Thú Lệnh, điểm Quản trị viên từ mã quà: máy chủ đã cộng lúc nhập mã, thư này để hiện trong Hòm thư và bảng tổng kết (chủ dự án 19/11/2026 12:22)
+      if (d.thu_lenh > 0) { const nm = D.pets.thu_lenh?.name || 'Thú Lệnh'; lines.push(`${nm} ×${d.thu_lenh}`); gift.push({ kind: 'name', name: nm, n: d.thu_lenh, color: '#ffb35a', spr: 'ui.ic-thu-lenh' }); }
+      if (d.qtv > 0) { const nm = game.data.community?.qtv?.name || 'Điểm Quản trị viên'; lines.push(`${nm} ×${d.qtv}`); gift.push({ kind: 'name', name: nm, n: d.qtv, color: '#7fe0ff', spr: 'ui.ic-qtv' }); }
       for (const l of lines) got.push(head ? `${head}: ${l}` : l);
       // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư. Thư nào cũng tới dạng chưa đọc (phong bì niêm), chạm thì
       // thành đã đọc, không kéo sang chợ (chủ dự án 07/11/2026 10:52: chạm thư bị kéo ra chợ; mua lần hai thư đã mở sẵn)
