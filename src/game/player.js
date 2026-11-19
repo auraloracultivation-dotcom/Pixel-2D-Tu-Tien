@@ -1,4 +1,5 @@
 // Người chơi: đi lại, đánh thường theo cung, chiêu, đả tọa.
+import { kdHold } from './ket-dan.js';
 import { hit2On } from './hit-feel.js';
 import { manaTick, spendMana } from './mana.js';
 import { ensureWornLines } from './beast.js';
@@ -166,7 +167,8 @@ export function updatePlayer(game, dt) {
     if (Math.abs(p.kx) + Math.abs(p.ky) < 2) { p.kx = 0; p.ky = 0; }
   }
 
-  const drift = updateFly(game, dt);   // nút Bay (src/game/fly.js): trừ linh lực, tự đáp; đang trôi vào bờ để đáp thì bỏ đi lại
+  if (p.kd) kdHold(game, inp);   // nghi lễ kết đan (ket-dan.js): ngồi yên, chỉ nút Đan còn dùng được
+  const drift = updateFly(game, dt) || !!p.kd;   // nút Bay (src/game/fly.js): trừ linh lực, tự đáp; đang trôi vào bờ để đáp thì bỏ đi lại
   const mv = p.flying ? (dx, dy) => flyMove(game, dx, dy) : (dx, dy) => game.map.move(p, dx, dy);
   const auto = game.pilot ? pilotStep(game, inp.axis(), dt) : autoStep(game, inp.axis(), dt), ax = drift ? { x: 0, y: 0 } : auto.ax;
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;

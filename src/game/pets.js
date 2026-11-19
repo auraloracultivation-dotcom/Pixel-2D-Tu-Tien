@@ -163,7 +163,7 @@ export function mergePet(game, id) {
 // Thú cưỡi (chủ dự án 16/11/2026 21:57): lên / xuống bằng nút Cưỡi / Xuống (src/ui/ride-btn.js), nhớ trong bản lưu (save.ride).
 // Cưỡi thì thú công kích (src/game/player.js mountSwing), người ngồi đả tọa, vũ khí vẫn hiện nhưng không dùng, pháp bảo dùng bình thường.
 // Không cưỡi được trong nhà và ngoài không gian (ngự kiếm, thien-mang.js)
-export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && hasMount(game.save, id) && P(game).mounts[id] && !d.indoor && !d.space); };
+export const canRide = game => { const id = game.save.mount, d = game.map?.def || {}; return !!(id && hasMount(game.save, id) && P(game).mounts[id] && !d.indoor && !d.space && !game.player?.kd); };   // đang làm nghi lễ kết đan (ket-dan.js): không cưỡi
 export function updateRide(game, dt) {
   const p = game.player;
   p.sword = !!game.map.def.space || !!p.flying;   // ngự kiếm ngoài không gian: đứng yên trên kiếm như cưỡi thú (chủ dự án 06/11/2026 15:50)

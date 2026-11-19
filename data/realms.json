@@ -46,9 +46,10 @@
   "fail_qi": 0.3,
   "follow": true,
   "_note_kho": "Chủ dự án 20/11/2026 01:4x (\"khó một chút, đừng dễ quá; ăn hết đan được trong thời gian có thể hồi, mặc hết đan chống thiên kiếp mà gần chết mới hợp lý\"): follow = sét chính bám theo người tới lúc giáng (không né được, sét phụ vẫn né được); dmg_mul từng cảnh giới đo bằng chơi thử đứng yên có Tĩnh Liên Đan và tự uống Hồi Xuân Đan (hồi 8 giây): máu thấp nhất còn khoảng 3–35% (đo 20/11: Luyện Khí 11%, Trúc Cơ 3%, Kim Đan 11–18%, Nguyên Anh 6%, Hóa Thần 12–31%, Luyện Hư 2–34%, Hợp Thể 4–20%, Đại Thừa 0–17% trước khi hạ 1,2 → 1,05).",
-  "_note_kinds": "by_realm[cảnh giới hiện tại] = kiểu kiếp để lên cảnh giới kế. set: sét giáng vào chỗ đứng. loi: sét kèm hàng sét quét ngang/dọc. hoa: lửa trời, vòng to hơn, nhiều hơn. tam-ma: đánh bóng của chính mình (máu = lớn hơn của máu tối đa × hp và công × hp_atk, công = công × atk), sét nhẹ vẫn giáng. mix: mỗi đợt ngẫu nhiên set/loi/hoa và có tâm ma. waves, extra, grow ghi đè số chung.",
+  "_note_kinds": "by_realm[cảnh giới hiện tại] = kiểu kiếp để lên cảnh giới kế. ket-dan: nghi lễ kết đan lên Kim Đan (chủ dự án 20/11/2026 01:35): linh khí tụ, vòng khói, hút vào đan điền, bay lên, chịu waves tia sét không né được, sóng linh lực, cột sáng, hạ xuống (số ở data/config.json → ket_dan). set: sét giáng vào chỗ đứng. loi: sét kèm hàng sét quét ngang/dọc. hoa: lửa trời, vòng to hơn, nhiều hơn. tam-ma: đánh bóng của chính mình (máu = lớn hơn của máu tối đa × hp và công × hp_atk, công = công × atk), sét nhẹ vẫn giáng. mix: mỗi đợt ngẫu nhiên set/loi/hoa và có tâm ma. waves, extra, grow ghi đè số chung.",
   "kinds": {
    "set": {"name": "Lôi kiếp", "color": "#bff4ff", "intro": "Mây đen tụ lại trên đầu... Lôi kiếp sắp giáng xuống!", "tip": "Sét chính bám theo người, không né được. Uống Thanh Tâm / Tĩnh Liên Đan trước, mang đủ Hồi Xuân Đan. Trụ hết các đạo sét để đột phá."},
+   "ket-dan": {"name": "Kết Đan Lôi Kiếp", "color": "#ffd98a", "intro": "Linh khí bốn phương ùn ùn kéo về đan điền... Thiên lôi sắp giáng xuống thử viên đan đang kết!", "tip": "Ngồi vững giữa không trung, chịu đủ các đạo thiên lôi là kết đan. Sinh lực thấp thì uống đan."},
    "loi": {"name": "Cửu Tiêu Lôi Kiếp", "color": "#9ad8ff", "intro": "Sấm rền chín tầng trời. Kim Đan phải chịu sét thành hàng!", "tip": "Sét chính bám theo người; hàng sét ngang dọc nhìn vạch báo mà né. Uống đan chống kiếp trước, mang đủ Hồi Xuân Đan."},
    "tam-ma": {"name": "Tâm Ma Kiếp", "color": "#b08ad0", "intro": "Trời không đổ sét. Trong lòng bạn, một bóng đen đứng dậy... là chính bạn.", "tip": "Hạ tâm ma (bóng của chính mình) để đột phá. Sét nhẹ vẫn giáng.", "hp": 2.2, "hp_atk": 25, "atk": 0.45},
    "hoa": {"name": "Thiên Hỏa Kiếp", "color": "#ff9a3a", "intro": "Bầu trời đỏ rực. Lửa trời trút xuống như mưa!", "tip": "Lửa chính bám theo người, vòng lửa phụ thì chạy né. Uống đan chống kiếp trước, mang đủ Hồi Xuân Đan."},
@@ -56,7 +57,7 @@
   },
   "by_realm": [
    {"kind": "set", "dmg_mul": 1.9},
-   {"kind": "loi", "waves": 10, "grow": 0.05, "dmg_mul": 1.75},
+   {"kind": "ket-dan", "waves": 12},
    {"kind": "tam-ma", "waves": 6, "dmg_mul": 7},
    {"kind": "hoa", "waves": 10, "extra": 2, "grow": 0.05, "dmg_mul": 1.7},
    {"kind": "mix", "waves": 10, "extra": 2, "grow": 0.06, "dmg_mul": 1.9},
