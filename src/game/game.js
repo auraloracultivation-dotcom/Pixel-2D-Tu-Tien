@@ -18,7 +18,7 @@ import { createOthers, onlineLook } from './others.js';
 import { caveRoom } from './friends.js';
 import { updateParty } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
-import { ensureInv, rollItem, addItem, equip, fixGearPct } from './items.js';
+import { ensureInv, rollItem, addItem, equip, fixGearPct, bagCap } from './items.js';
 import { startTrip, updateTrip } from './travel.js';
 import { updateBossMusic } from './boss-music.js';
 import { updatePowerPop } from './power-pop.js';
@@ -92,7 +92,7 @@ export function createGame(data, screen, input, ui, audio) {
   createPvp(game);   // PvP Ngoại Vực (data/pvp.json)
   game.persist = () => {
     if (!game.save || !game.map) return;
-    stamp(game.save); if (game.save.bag?.length > data.items.bag_size) fitBag(game);   // túi lố thì máy chủ từ chối cả bản lưu
+    stamp(game.save); if (game.save.bag?.length > bagCap(data, game.save)) fitBag(game);   // túi lố thì máy chủ từ chối cả bản lưu
     if (game.player) game.save.power = power(game);   // máy chủ đọc để xếp hạng lực chiến
     game.cloud?.mark(game.save);   // dấu phiên cho pickSave (src/game/cloud-guard.js)
     writeSave(game.owner, game.save);

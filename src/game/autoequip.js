@@ -4,7 +4,7 @@
 // Túi đầy khi đang tự hành: phân giải món Phàm, Linh cũ nhất không mặc để nhặt món mới, thay vì để mất.
 import { playerStats } from './stats.js';
 import { power } from './achieve.js';
-import { equip, itemName, rarityOf, salvage, isEquipped, equipped } from './items.js';
+import { equip, itemName, rarityOf, salvage, isEquipped, equipped, bagCap } from './items.js';
 import { enhance, enhanceCost } from './enhance.js';
 import { salvageIron } from './cave.js';
 import { dailyEvent } from './daily.js';
@@ -72,7 +72,7 @@ export function autoEnhance(game) {
 export function fitBag(game, room = 0) {   // room: chừa sẵn chừng ấy ô trống (nhận thưởng Đạo Vận khi túi đầy)
   const s = game.save, d = game.data, R = d.items.rarities.map(r => r.id);
   let n = 0;
-  while (s.bag.length > d.items.bag_size - room) {
+  while (s.bag.length > bagCap(d, s) - room) {
     // Bỏ qua đồ đã khoá: salvage() không phân giải món khoá, chọn trúng món khoá thì vòng lặp chạy mãi (treo game) và cộng tinh thiết mỗi vòng
     const it = s.bag.filter(i => !i.lock && !isEquipped(s, i.uid)).sort((a, b) => R.indexOf(a.rarity) - R.indexOf(b.rarity) || a.uid - b.uid)[0];
     if (!it || !salvage(d, s, it.uid)) break;

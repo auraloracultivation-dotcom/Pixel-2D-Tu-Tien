@@ -1,7 +1,7 @@
 // Chợ trao đổi giữa người chơi (data/market.json). Máy chủ giữ hàng đang rao, hòm thư và tự trừ đồ khi rao,
 // trừ Linh Thạch khi mua, cộng thư (hàng mua, tiền bán, hàng trả về) vào bản lưu trên máy chủ; máy này làm theo.
 import { coins, addCoins } from './shop.js';
-import { addItem, isEquipped, itemName, gemInfo } from './items.js';
+import { addItem, isEquipped, itemName, gemInfo, bagCap } from './items.js';
 import { grade } from './tiers.js';
 import { applyDoi } from './ky-ngoc.js';
 import { addMat, matInfo } from './cave.js';
@@ -83,7 +83,7 @@ export async function claimMail(game) {
   if (!canTrade(game)) return [];
   const { peekMail, takeMail } = await net();
   const mail = await peekMail(), s = game.save;
-  let free = game.data.items.bag_size - s.bag.length;
+  let free = bagCap(game.data, s) - s.bag.length;
   const ids = mail.filter(m => !m.noi_dung.item || free-- > 0).map(m => m.id);
   const got = []; got.full = mail.length - ids.length;   // thư có đồ mà túi đầy: để lại, báo người chơi dọn túi (chủ dự án 10/11/2026: "2 thư ẩn không đọc được")
   if (!ids.length) return got;

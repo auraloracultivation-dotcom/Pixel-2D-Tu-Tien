@@ -1,6 +1,7 @@
 {
  "_note": "Trang bị chỉ số ngẫu nhiên (ý chủ dự án: đa số đồ random, cày ngọc để khảm, tẩy luyện lại dòng). Giá trị dòng = ngẫu nhiên(min,max) × (1 + cấp × line_per_lvl) × hệ số độ hiếm. Cấp đồ = tổng tầng cảnh giới lúc rơi.",
  "bag_size": 40,
+ "bag_extra": {"_note": "Mở thêm ô túi bằng Linh Thạch (chủ dự án 20/11/2026 00:43): ô thứ 41 giá base, mỗi ô sau × mul, tối đa max ô thêm (tổng 80). Máy chủ p2d_mo_tui trừ Linh Thạch và giữ số ô (p2d_nhan_vat.tui_mo); máy khách chỉ hiện (src/ui/bag-mo.js, items.js bagCap).", "max": 40, "base": 10000, "mul": 2, "ask": "Mở ô túi thứ {n}/{max} giá {gia} Linh Thạch: chạm lần nữa để mở", "ok": "Mở", "poor": "Chưa đủ {gia} Linh Thạch để mở ô.", "done": "Đã mở thêm 1 ô túi đồ ({n} ô).", "full": "Túi đã mở tối đa {n} ô."},
  "line_per_lvl": 0.08,
  "main_per_lvl": 0.12,
  "slots": {
