@@ -55,9 +55,14 @@ export function rollItem(data, save, { base: baseId, lvl = 0, minRarity, rarity,
   return { uid: save.nextUid++, base: id, rarity: rar.id, lvl, main, lines, cap: Math.max(lines.length, rollCap(data, rnd)), sockets: Array(rar.sockets).fill(null), el: el || els[Math.floor(rnd() * els.length)] };
 }
 
+// Sức chứa túi: bag_size + số ô đã mở thêm bằng Linh Thạch (máy chủ giữ ở p2d_nhan_vat.tui_mo, chép vào save.tuiMo; data/items.json → bag_extra)
+export const bagCap = (data, save) => data.items.bag_size + Math.max(0, Math.min(data.items.bag_extra?.max || 0, Math.floor(save?.tuiMo || 0)));
+// Giá mở ô kế tiếp (ô thứ bag_size + n + 1)
+export const bagNextPrice = (data, save) => { const E = data.items.bag_extra || {}; return Math.round((E.base || 0) * (E.mul || 1) ** Math.floor(save?.tuiMo || 0)); };
+
 export function addItem(data, save, item) {
   ensureInv(save);
-  if (save.bag.length >= data.items.bag_size) return false;
+  if (save.bag.length >= bagCap(data, save)) return false;
   save.bag.push(item);
   return true;
 }

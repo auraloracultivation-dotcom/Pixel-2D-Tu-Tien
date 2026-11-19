@@ -5,6 +5,7 @@ import { coins } from '../game/shop.js';
 import { khState, khErr, khGive, khOpen, khEnter, khQuit, khFly, myShards } from '../game/khai-hoang.js';
 import { khChallenge } from '../game/kh-act.js';
 import { renderKhMore } from './kh-view2.js';
+import { inKhTeam, khTeamJoin, khTeamLeave } from '../game/kh-doi.js';
 
 const fmt = n => Number(n || 0).toLocaleString('vi-VN');
 const fill = (s, o) => Object.entries(o).reduce((t, [k, v]) => t.split(`{${k}}`).join(v), s);
@@ -66,6 +67,14 @@ export function renderKh(ctx, redraw) {
     }
     if (row.children.length) box.append(row);
     list.append(box);
+  }
+
+  // tổ đội Khai Tinh (src/game/kh-doi.js): đồng môn vào đội, tông chủ mở trận thì cả đội cùng bay vào
+  if (next && game.online) {
+    const on = inKhTeam(game), names = on ? game.party.roster.map(r => r.name).join(', ') || '...' : '';
+    list.append(card('#5a8fd8', T.team, [fill(T.team_note, { max: game.data.party.max }), on ? fill(T.team_list, { names }) : ''].filter(Boolean),
+      on ? mini(T.team_leave, async () => { await khTeamLeave(game); redraw(); })
+         : mini(T.team_join, async () => { await khTeamJoin(game).catch(() => game.toast(K.err.other, 2)); setTimeout(redraw, 800); })));
   }
 
   // người góp nhiều

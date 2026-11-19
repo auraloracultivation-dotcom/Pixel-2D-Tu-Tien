@@ -3,7 +3,8 @@
 // Hạ quái, mở cửa, hạ boss: đội trưởng báo, máy nào cũng tự nhận thưởng của mình.
 import { killMob, hitMob, hitPlayer, dist } from './combat.js';
 import { dungeonDone } from './dun-mode.js';
-import { isHost, inPartyRun, beginRun } from './party.js';
+import { isHost, inPartyRun, beginRun, hostId } from './party.js';
+import { khTeamStart } from './kh-doi.js';
 
 const P = game => game.data.party;
 export function resetSync(game) { game.psync = { t: 0, hits: {}, shots: [] }; }
@@ -72,7 +73,8 @@ const HURT_MAX = 0.8, HURT_GAP = 0.15;
 export function onPartyMsg(game, msg) {
   const p = game.party;
   if (!p || !msg || typeof msg !== 'object') return;
-  const fromHost = msg.from === p.roster[0]?.id && msg.from !== p.me;
+  const fromHost = msg.from === hostId(p) && msg.from !== p.me;
+  if (msg.t === 'start' && msg.kh && msg.from !== p.me) { khTeamStart(game, msg.kh, msg.from); return; }   // tổ đội Khai Tinh: tông chủ (ai trong đội cũng được) mở trận, cả đội vào (src/game/kh-doi.js)
   if (msg.t === 'start' && fromHost) { beginRun(game, { map: msg.map, mode: msg.mode, n: msg.n }); return; }
   if (!inPartyRun(game)) return;
   if (msg.pos && msg.from !== p.me) game.others.move({ ...msg.pos, id: msg.from });

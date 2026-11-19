@@ -2,7 +2,7 @@
 // Đạo Vận mới: không còn đồ Đạo Vận riêng. Mọi trang bị có một hệ (it.el); bộ = trang bị đang mặc (tối đa 7) + 2 chiêu hệ
 // đang mang + công pháp đang mang (tối đa 3) + linh thú, tính "hợp hệ" khi cùng hệ linh căn. Đổi hệ bằng Đạo Vận Thạch.
 // Đồ Đạo Vận cũ thành trang bị thường, giữ chỉ số và hệ.
-import { rollItem, addItem, equipped, itemName, baseForSlot } from './items.js';
+import { rollItem, addItem, equipped, itemName, baseForSlot, bagCap } from './items.js';
 import { progress } from './achieve.js';
 import { totalLayer, weaponId } from './stats.js';
 import { addMat } from './cave.js';
@@ -71,8 +71,8 @@ export function claimStep(game) {
   if (!k?.ready) return null;
   const g = k.step.give, s = game.save, d = game.data, got = [];
   if (g.slot) {
-    if ((s.bag?.length || 0) >= d.items.bag_size) fitBag(game, 1);   // báo lỗi #22: túi đầy thì tự phân giải món thấp nhất chưa mặc, như lúc túi lố
-    if ((s.bag?.length || 0) >= d.items.bag_size) return { full: true };
+    if ((s.bag?.length || 0) >= bagCap(d, s)) fitBag(game, 1);   // báo lỗi #22: túi đầy thì tự phân giải món thấp nhất chưa mặc, như lúc túi lố
+    if ((s.bag?.length || 0) >= bagCap(d, s)) return { full: true };
     const it = makeDv(game, g.slot);
     addItem(d, s, it); got.push(itemName(d, it));
   }

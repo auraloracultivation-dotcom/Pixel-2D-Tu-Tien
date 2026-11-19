@@ -8,12 +8,14 @@ const P = game => game.data.party;
 const DUNS = game => Object.keys(game.data.maps).filter(id => (game.data.maps[id].rooms || []).length);
 
 // Đội trưởng là người vào kênh sớm nhất
-export const isHost = game => !!game.party && game.party.roster[0]?.id === game.party.me;
+// (trận Khai Tinh tổ đội: đội trưởng của lượt là tông chủ mở trận, run.host; src/game/kh-doi.js)
+export const hostId = p => p?.run?.host || p?.roster[0]?.id;
+export const isHost = game => !!game.party && hostId(game.party) === game.party.me;
 export const inPartyRun = game => !!game.party?.run && game.map?.id === game.party.run.map;
 
 function makeCode(n) { const a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s = ''; for (let i = 0; i < n; i++) s += a[Math.floor(Math.random() * a.length)]; return s; }
 
-async function open(game, code) {
+export async function openParty(game, code) {
   const R = game.data.config.realtime || {}, cf = R.backend === 'cf' && R.cf_url;   // tổ đội qua máy chủ phòng Cloudflare (cloud/) hay kênh Realtime cũ
   const { joinParty } = await import(cf ? '../net/party-cf.js' : '../net/party.js');
   const me = { id: game.online.me.id, name: game.online.me.name, realm: realmLabel(game.save, game.data.realms) };
@@ -68,10 +70,10 @@ export async function talkParty(game, npc) {
       { id: 'join', label: C.join, desc: C.join_desc },
       { id: 'back', label: C.back, desc: '' },
     ]);
-    if (ch === 'make') { const code = makeCode(C.code_len); await open(game, code); await game.dialog.say([[who, C.made.replace('{code}', code)]]); }
+    if (ch === 'make') { const code = makeCode(C.code_len); await openParty(game, code); await game.dialog.say([[who, C.made.replace('{code}', code)]]); }
     if (ch === 'join') {
       const code = (await game.dialog.ask(C.code_ask, C.code_ph, C.code_len, C.ok, C.back) || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (code.length === C.code_len) { await open(game, code); await game.dialog.say([[who, C.joined.replace('{code}', code)]]); }
+      if (code.length === C.code_len) { await openParty(game, code); await game.dialog.say([[who, C.joined.replace('{code}', code)]]); }
     }
     return;
   }

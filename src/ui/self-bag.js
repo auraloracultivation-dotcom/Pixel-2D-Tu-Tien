@@ -10,7 +10,8 @@ import { gradeColor, gradeId, uiIco, socketCol } from './self-gear.js';
 import { kySocket } from '../game/ky-ngoc.js';
 import { bestGems } from '../game/autogem.js';
 import { bestGear } from '../game/autogear.js';
-import { itemName } from '../game/items.js';
+import { itemName, bagCap } from '../game/items.js';
+import { moTile } from './bag-mo.js';
 import { grade } from '../game/tiers.js';
 import { renderQuick } from './bag-quick.js';
 import { coins } from '../game/shop.js';
@@ -54,8 +55,9 @@ function gearGrid(game, st, box, refresh) {
     b.onclick = () => { st.sel = it.uid; st.stock = null; refresh(); };
     box.append(b);
   }
-  const free = Math.max(0, data.items.bag_size - save.bag.length);
+  const free = Math.max(0, bagCap(data, save) - save.bag.length);
   for (let i = 0; i < free; i++) box.append(el('i', 'sv-empty'));   // ô trống như mẫu: thấy túi còn bao nhiêu chỗ
+  const mo = moTile(game, refresh); if (mo) box.append(mo);   // ô khoá "+": mở thêm ô bằng Linh Thạch (src/ui/bag-mo.js)
 }
 
 // Phần giữa (lưới) và thanh dưới cho trang Trang bị / Kho. changed(): lưu + vẽ lại; refresh(): chỉ vẽ lại
@@ -68,7 +70,7 @@ export function renderStore(game, st, changed, refresh) {
       st.quick.open = true; renderQuick(game, wrap, st, full => (full ? changed() : refresh()));
     }
     else { gearGrid(game, st, grid, refresh); wrap.append(grid); }
-    const n = el('span', 'sv-cnt', `${save.bag.length}/${data.items.bag_size}`);
+    const n = el('span', 'sv-cnt', `${save.bag.length}/${bagCap(data, save)}`);
     const sort = btn('', 'sv-bbtn ico', () => {   // nút xếp chỉ có hình cho gọn, bấm thì báo đang xếp theo gì
       st.sort = SORTS[(SORTS.findIndex(x => x[0] === st.sort) + 1) % SORTS.length][0];
       game.toast?.(`Xếp: ${SORTS.find(x => x[0] === st.sort)[2]}`, 1.2); refresh();
