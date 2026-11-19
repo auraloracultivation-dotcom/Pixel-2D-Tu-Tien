@@ -57,7 +57,7 @@
   },
   "by_realm": [
    {"kind": "set", "dmg_mul": 1.9},
-   {"kind": "ket-dan", "waves": 12},
+   {"kind": "ket-dan", "waves": 12, "dmg_mul": 4.4},
    {"kind": "tam-ma", "waves": 6, "dmg_mul": 7},
    {"kind": "hoa", "waves": 10, "extra": 2, "grow": 0.05, "dmg_mul": 1.7},
    {"kind": "mix", "waves": 10, "extra": 2, "grow": 0.06, "dmg_mul": 1.9},
