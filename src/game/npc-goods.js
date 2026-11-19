@@ -40,7 +40,7 @@ export async function talkGoods(game, npc) {
   const d = game.data, g = goodsOf(d, npc.id), name = goodsName(d, g);
   const left = onlyFor(game, g) ? `chỉ dành cho ${onlyFor(game, g)}` : g.kind === 'outfit' ? (hasOutfit(game, g.id) ? 'đã có' : 'mua một lần') : `còn ${Math.max(0, g.per_day - boughtToday(game, npc.id))}/${g.per_day} lần hôm nay`;
   const pick = await game.dialog.choose(`${npc.def.name}: ${g.line}`, [
-    { id: 'buy', label: `Mua ${name} (${(g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price).toLocaleString('vi-VN')} ${d.shop.name})`, desc: `${left} · có ${coins(game.save).toLocaleString('vi-VN')}`, color: '#f2c94c' },
+    { id: 'buy', label: name, spr: g.kind === 'outfit' ? (d.art.sprites['hero.' + g.id] ? 'hero.' + g.id : 'ui.ic-qua') : 'ui.vk-' + g.id, price: (g.kind === 'pill' ? pillPrice(game, g.id, g.price) : g.price).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', tag: g.kind === 'outfit' ? (hasOutfit(game, g.id) ? 'Đã có' : '') : `${Math.max(0, g.per_day - boughtToday(game, npc.id))}/${g.per_day}`, desc: left, color: '#f2c94c' },   // ô lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
     { id: 'talk', label: 'Trò chuyện', desc: '' },
   ]);
   if (pick === 'buy') { const msg = buyGoods(game, npc.id); if (msg) game.toast(msg, 2.2); }

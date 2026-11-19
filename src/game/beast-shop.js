@@ -66,8 +66,8 @@ export async function talkBeastShop(game, npc, only) {
   }
   const L = game.data.pets.thu_lenh;
   const list = pick === 'mount'
-    ? Object.entries(game.data.pets.mounts).map(([id, m]) => ({ id, label: `${m.name} · ${L.per_mount} ${L.name}`, desc: s.mounts?.[id] ? 'Đã có' : `Tốc chạy +${Math.round(m.speed * 100)}%`, color: m.color }))
-    : pick === 'puppet' ? Object.entries(S(game).puppets).map(([id, p]) => ({ id, label: `${puppetName(game, id)} · ${vn(p)} LT`, desc: s.comps?.[id] ? 'Đã có' : game.data.companions.list[id]?.desc || '', color: game.data.companions.list[id]?.color })) : null;
+    ? Object.entries(game.data.pets.mounts).map(([id, m]) => ({ id, label: m.name, spr: 'mount.' + id, price: `${L.per_mount} ${L.name}`, tag: s.mounts?.[id] ? 'Đã có' : '', dim: !!s.mounts?.[id], desc: `Tốc chạy +${Math.round(m.speed * 100)}%`, color: m.color }))
+    : pick === 'puppet' ? Object.entries(S(game).puppets).map(([id, p]) => ({ id, label: game.data.npcs[id]?.name || id, spr: game.data.art.sprites['comp.' + id] ? 'comp.' + id : 'npc.' + id, price: vn(p), cur: 'ui.ic-linh-thach', tag: s.comps?.[id] ? 'Đã có' : '', dim: !!s.comps?.[id], desc: game.data.companions.list[id]?.desc || '', color: game.data.companions.list[id]?.color })) : null;   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
   if (!list) return;
   list.push({ id: 'thoi', label: 'Thôi', desc: pick === 'mount' ? (game.thuLenh == null ? 'Cần mạng để đổi thú' : `Đang có ${game.thuLenh} ${L.name}`) : `Đang có ${vn(coins(s))} Linh Thạch` });
   const id = await game.dialog.choose(`${name}: Chọn đi.`, list);

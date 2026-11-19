@@ -80,6 +80,8 @@ import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createOtherMenu } from './ui/other-menu.js';
+import { gemIcon } from './ui/gem-icon.js';
+import { spriteIcon } from './ui/sprite-icon.js';
 import { createMangLeave } from './ui/mang-leave.js';
 import { startAnalyticsHook } from './game/analytics-hook.js';
 import { hcData } from './game/he-chien.js';
@@ -133,6 +135,7 @@ async function boot() {
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
   createMangLeave(game);   // nút Rời đi vùng Thôn Thiên Mãng
   createOtherMenu(game);   // chạm người chơi khác: Trò chuyện / Xem thông tin / Kết bạn
+  game.dialog.iconOf = (k, size) => (k.startsWith('gem:') ? gemIcon(game, k.slice(4), size) : spriteIcon(game, k, 0, size, 'mt-ico', true));   // hình món ở lưới quầy bán (ui/dialog.js)
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
   createPhapBaoPanel(game);   // Hệ Pháp Bảo Luyện Chế: game.openPhapBao mở Trang bị → Pháp bảo (src/ui/self-pb-page.js)
