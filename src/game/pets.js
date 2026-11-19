@@ -183,7 +183,7 @@ export function toggleRide(game) {
 
 toggleRide.no = game => { game.toast(game.save.mount && game.save.mounts?.[game.save.mount] ? 'Ở đây không cưỡi thú được.' : `Chưa có thú cưỡi. Làm nhiệm vụ ngày lấy ${P(game).thu_lenh.name}, đổi thú ở Ngự Thú Sư.`, 2.6); return false; };
 
-export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + P(game).mounts[game.save.mount].speed : 1;   // vùng không gian: ngự kiếm bay nhanh
+export const rideSpeed = game => game.map?.def?.space ? game.data['thien-mang']?.arena?.speed || 1.5 : game.player.riding ? 1 + (P(game).mounts[game.save.mount]?.speed || 0) : 1;   // vùng không gian: ngự kiếm bay nhanh
 
 // Ngự Thú Sư: tặng linh thú và thú cưỡi đầu tiên, sau đó chỉ cách săn dị chủng
 export async function talkBeast(game, npc) {
