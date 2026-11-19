@@ -80,6 +80,7 @@ import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
 import { createOtherMenu } from './ui/other-menu.js';
+import { createDuelBtn } from './ui/duel-btn.js';
 import { createSapXep } from './ui/sap-xep.js';
 import { gemIcon } from './ui/gem-icon.js';
 import { spriteIcon } from './ui/sprite-icon.js';
@@ -135,6 +136,7 @@ async function boot() {
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
   createMangLeave(game);   // nút Rời đi vùng Thôn Thiên Mãng
+  createDuelBtn(game);   // nút Rời đài lúc so tài
   createOtherMenu(game);   // chạm người chơi khác: Trò chuyện / Xem thông tin / Kết bạn
   game.dialog.iconOf = (k, size) => (k.startsWith('gem:') ? gemIcon(game, k.slice(4), size) : spriteIcon(game, k, 0, size, 'mt-ico', true));   // hình món ở lưới quầy bán (ui/dialog.js)
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
