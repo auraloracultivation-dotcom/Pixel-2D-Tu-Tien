@@ -15,7 +15,7 @@ export function renderCodePane(game, body) {
     go.disabled = true; msg.textContent = T.wait;
     try {
       const r = await (await net()).redeemCode(ma);
-      msg.textContent = r?.ok ? (r.loai === 'chung' ? T.ok_chung.replace('{n}', r.thu) : (r.loai === 'ht' && T.ok_ht ? T.ok_ht : T.ok).replace('{n}', r.diem)) : T[r?.ly_do] || T.sai_ma;
+      msg.textContent = r?.ok ? (r.loai === 'chung' ? T.ok_chung.replace('{n}', r.thu) + (r.thu_lenh && T.ok_tl ? T.ok_tl.replace('{n}', r.thu_lenh) : '') + (r.qtv && T.ok_qtv ? T.ok_qtv.replace('{n}', r.qtv) : '') : (r.loai === 'ht' && T.ok_ht ? T.ok_ht : T.ok).replace('{n}', r.diem)) : T[r?.ly_do] || T.sai_ma;
       if (r?.ok && r.loai === 'chung') import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});   // mã dùng chung (18/11/2026): quà vào Hòm thư, nhận luôn
       if (r?.ok) { inp.value = ''; game.sfx?.('levelup'); game.toast(msg.textContent, 2.5); }
     } catch (e) { msg.textContent = e.message === 'chua_dang_nhap' ? T.login : T.net; }
