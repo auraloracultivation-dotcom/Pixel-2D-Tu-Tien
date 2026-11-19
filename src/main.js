@@ -79,6 +79,7 @@ import { createFarmTeamPanel } from './ui/farm-team-panel.js';
 import { createPhapBaoPanel } from './ui/phap-bao-panel.js';
 import { createMangPanel } from './ui/mang-panel.js';
 import { createPvpBtn } from './ui/pvp-btn.js';
+import { createOtherMenu } from './ui/other-menu.js';
 import { createMangLeave } from './ui/mang-leave.js';
 import { startAnalyticsHook } from './game/analytics-hook.js';
 import { hcData } from './game/he-chien.js';
@@ -131,6 +132,7 @@ async function boot() {
   createSelfPanel(game); createRetreatPanel(game); createFriendsPanel(game); hookVisit(game);   // bạn bè, thăm nhà bạn   // bảng thưởng bế quan tích luỹ (Nhiệm vụ)   // chạm tên / cảnh giới: bảng nhân vật (nhóm D)
   startDaoLu(game);   // đạo lữ giữa hai người chơi: đọc trạng thái định kỳ, thưởng +5%
   createMangLeave(game);   // nút Rời đi vùng Thôn Thiên Mãng
+  createOtherMenu(game);   // chạm người chơi khác: Trò chuyện / Xem thông tin / Kết bạn
   createPvpBtn(game);   // nút Bảo vệ PvP ở Ngoại Vực Vết Nứt (data/pvp.json)
   createMangPanel(game);   // bảng boss thế giới Cửu Đầu Thôn Thiên Mãng bên phải (data/thien-mang.json)
   createPhapBaoPanel(game);   // Hệ Pháp Bảo Luyện Chế: game.openPhapBao mở Trang bị → Pháp bảo (src/ui/self-pb-page.js)

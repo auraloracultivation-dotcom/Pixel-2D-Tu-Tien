@@ -11,6 +11,7 @@ import { startGhost, ghostTick, afterGhost } from './ghost.js';
 import { updateBullets, updateFx, addNumber, dist } from './combat.js';
 import { addQi, totalLayer, rollRoot } from './stats.js';
 import { mocTang } from './moc-tang.js';
+import { updateTaps } from './taps.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
 import { createOthers, onlineLook } from './others.js';
@@ -324,17 +325,6 @@ export function createGame(data, screen, input, ui, audio) {
     }
   }
 
-  function updateTaps(dt) {
-    for (const tap of game.input.taps) {
-      const w = screen.toWorld(tap.x, tap.y);
-      let best = null, bd = cfg.tap_range;
-      for (const e of [...game.npcs, ...game.mobs, ...game.others.visible()]) { const d = Math.hypot(e.x - w.x, e.y - 4 - w.y); if (d < bd) { bd = d; best = e; } }
-      if (best) game.peek = { e: best, t: 3 };
-    }
-    game.input.taps.length = 0;
-    if (game.peek && (game.peek.t -= dt) <= 0) game.peek = null;
-  }
-
   game.update = dt => {
     game.time += dt;
     updateFx(game, dt);
@@ -349,7 +339,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (blocked || keep) game.input.clear();
     if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
-    updateTaps(dt);
+    updateTaps(game, dt);
     if (!game.ghost) updatePlayer(game, dt);   // gục: bong bóng linh hồn đứng yên chờ hồi sinh (ghost.js)
     updateRide(game, dt);
     updatePet(game, dt);

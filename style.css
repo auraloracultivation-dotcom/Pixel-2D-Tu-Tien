@@ -624,3 +624,4 @@ body:has(#dialog:not([hidden])) :is(#btn-atk, #btn-dash, #btn-act, #btn-s0, #btn
 
 /* Màn ngang: 16/11/2026 23:37 chủ dự án khoá màn dọc; 19/11/2026 01:02 mở lại, chơi được cả dọc lẫn ngang (bố cục ngang: src/ui/hud-ngang.css). */
 .dr-gem canvas.dr-ico { max-width: 40px; max-height: 40px; object-fit: contain; }
+.wh-me b { color: var(--torch); }
