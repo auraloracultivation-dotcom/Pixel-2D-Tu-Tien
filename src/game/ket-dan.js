@@ -198,12 +198,20 @@ function skyRain(game, st, dt) {
   }
 }
 
-// Máy người đứng gần người đang kết đan (chủ dự án 20/11/2026 04:4x): ai trong tầm sét (ket_dan.gan.r tính từ chân người độ kiếp) cũng bị đánh
+// Máy người đứng gần người đang kết đan (chủ dự án 20/11/2026 04:4x): ai trong tầm sét, trừ đồng đội và người cùng tông môn, (ket_dan.gan.r tính từ chân người độ kiếp) cũng bị đánh
 // cùng, đau gấp gan.k lần người độ kiếp (theo máu tối đa của chính mình, không có Tĩnh Liên / Thanh Tâm vì đan đó chỉ cho kiếp của mình)
+// Cùng tổ đội hoặc cùng tông môn thì sét không đánh (chủ dự án 20/11/2026 04:5x: "muốn cùng bạn bè cùng đột phá"). Tổ đội so theo mã người
+// chơi; tông môn so theo tên trong danh sách thành viên (người lạ trùng tên được tha: chỉ là đỡ một đòn của chính máy mình, không lợi gì)
+function ban(game, w) {
+  if (game.party?.roster?.some(r => r.id === w.id)) return true;
+  const ten = String(w.def?.name || '').trim().toLowerCase();
+  return !!ten && !!game.guild?.mine?.tv?.some(x => String(x.ten || '').trim().toLowerCase() === ten);
+}
+
 function hitNear(game, st, i, big, pal) {
   const G = st.K.gan, p = game.player, w = st.who;
-  if (!G || game.ghost || game.duel || game.kd || !(p.hp > 0) || Math.hypot(p.x - w.x, p.y - w.y) > G.r) return;
-  const kd = game.data.realms?.tribulation?.by_realm?.find(r => r?.kind === 'ket-dan');
+  if (!G || game.ghost || game.duel || game.kd || !(p.hp > 0) || ban(game, w) || Math.hypot(p.x - w.x, p.y - w.y) > G.r) return;
+  const kd = game.data.realms?.tribulation?.by_realm?.find(r => r?.kind === 'ket-dan');   // mọi kiếp kiểu ket-dan cùng dmg_mul (data/realms.json)
   addFx(game, { type: 'ring', x: p.x, y: p.y - 12, r: big ? 22 : 15, color: pal[1], life: 0.3, fill: true });
   for (let k = 0; k < 8; k++) {   // tia lửa điện trên người mình
     const a = Math.random() * Math.PI * 2, sp = 50 + Math.random() * 90;
