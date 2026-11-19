@@ -10,7 +10,7 @@ ghi một dòng vào `p2d_bao_dong` (`loai`, `so`, `chi_tiet`, `xem_luc` để t
 
 | loai | Ngưỡng |
 |---|---|
-| `luu_hong` | ≥ 3 người gặp lỗi "luu: ..." (máy chủ chê bản lưu; máy khách tự gửi vào `p2d_loi`) trong 30 phút |
+| `luu_hong` | ≥ 2 người gặp lỗi "luu: ..." (máy chủ chê bản lưu; máy khách gửi vào `p2d_loi` một lần mỗi phiên) trong 3 giờ (thử lại số 19/11: báo lúc ~07:25 UTC, 17 phút sau lỗi đầu, thay vì 8 tiếng; các ngày trước 0 lần) |
 | `js_loi` | cùng một lỗi JavaScript ở ≥ 5 người trong 30 phút |
 | `khong_ai_luu` | ≥ 5 người online (`p2d_nhip` 5 phút) mà không ai lưu được (`luu_luc`) trong 15 phút |
 

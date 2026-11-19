@@ -2,7 +2,7 @@
 -- Máy chủ tự canh mỗi 5 phút bằng pg_cron, không dùng Claude: chỉ khi vượt ngưỡng mới ghi một dòng vào p2d_bao_dong.
 -- Một việc theo lịch (phiên Claude riêng, mỗi 30 phút) đọc p2d_bao_dong chưa xem: có thì báo chủ dự án và tìm nguyên nhân.
 -- Ba luật (ngưỡng ở p2d_canh_gac):
---   luu_hong      ≥ 3 người gặp lỗi "luu: ..." (máy chủ chê bản lưu, máy khách tự gửi p2d_loi) trong 30 phút
+--   luu_hong      ≥ 2 người gặp lỗi "luu: ..." (máy chủ chê bản lưu; máy khách gửi p2d_loi một lần mỗi phiên) trong 3 giờ
 --   js_loi        cùng một lỗi JavaScript ở ≥ 5 người trong 30 phút
 --   khong_ai_luu  ≥ 5 người đang online (p2d_nhip trong 5 phút) mà không ai lưu được trong 15 phút
 -- Cùng một loại chưa xem thì 60 phút mới ghi lại một lần (khỏi dồn).
@@ -29,8 +29,8 @@ declare v_n integer; v_ra integer := 0; v_ct jsonb; v_on integer;
 begin
   -- luu_hong
   select count(distinct user_id), jsonb_agg(distinct left(tin, 80)) into v_n, v_ct
-    from public.p2d_loi where tin like 'luu:%' and cuoi > now() - interval '30 minutes';
-  if v_n >= 3 and not exists (select 1 from public.p2d_bao_dong where loai = 'luu_hong' and xem_luc is null and luc > now() - interval '60 minutes') then
+    from public.p2d_loi where tin like 'luu:%' and luc > now() - interval '3 hours';
+  if v_n >= 2 and not exists (select 1 from public.p2d_bao_dong where loai = 'luu_hong' and xem_luc is null and luc > now() - interval '60 minutes') then
     insert into public.p2d_bao_dong (loai, so, chi_tiet) values ('luu_hong', v_n, jsonb_build_object('tin', v_ct)); v_ra := v_ra + 1;
   end if;
   -- js_loi
