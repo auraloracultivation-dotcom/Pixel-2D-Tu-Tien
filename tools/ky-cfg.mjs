@@ -10,7 +10,7 @@ export function kyCfg(read) {
   const S = read('story.json'), C = read('community.json'), R = read('realms.json'), gs = I.gems.server, rf = G.refine, rb = I.drop_budget;
   const f = I.reroll_fee, lt = I.line_tiers, e = G.enhance;
   return {
-    tay: { base: f.base, realm_mul: f.realm_mul, r: f.r, decay: f.decay, line_mul: f.line_mul || 1, cost: I.reroll_cost, free: lt.free },
+    tay: { base: f.base, realm_mul: f.realm_mul, r: f.r, decay: f.decay, line_mul: f.line_mul || 1, cost: I.reroll_cost, free: lt.free, pham_k: lt.pham_k || 0 },   // pham_k: phẩm món cao thì màu dòng cao dễ ra hơn một chút (19/11/2026)
     mau: lt.list.map(t => [t.mult, t.w]),
     tu_pham: lt.from_rarity,   // đồ cũ gắn màu dòng: màu cao nhất = from_rarity + 1
     cap_w: lt.cap_w,

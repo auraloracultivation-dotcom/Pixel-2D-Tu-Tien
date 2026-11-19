@@ -3,7 +3,7 @@ import { rollGem, gemInfo, isEquipped, salvage } from './items.js';
 import { salvageIron } from './cave.js';
 import { salvageArt } from './refine.js';
 import { dailyEvent } from './daily.js';
-import { quality } from './tiers.js';
+import { itemTier } from './tiers.js';
 import { noteCoins } from './coin-log.js';
 import { checkUnlocks } from './skills.js';
 import { buyMats } from './quick-buy.js';   // nguyên liệu mua ở máy chủ
@@ -41,7 +41,7 @@ export function sell(game, uid) {
 // Phẩm đang hiện của món (màu trên ô túi): màu trung bình các dòng; đồ chưa có dòng màu thì đổi phẩm cũ qua line_tiers.from_rarity
 export function shownTier(game, it) {
   const T = game.data.items.line_tiers;
-  return quality(game.data, it)?.id || T.list[T.from_rarity[it.rarity] ?? 0].id;
+  return itemTier(game.data, it).id;   // phẩm theo rarity (chủ dự án 19/11/2026 13:33)
 }
 // Bán nhanh (data/shop.json → quick): các món có phẩm (màu đang hiện) đã chọn, trừ đồ đang mặc, đồ Đạo Vận, đồ đã cường hoá.
 // Báo lỗi 02/11 18:56: bản cũ lọc theo phẩm chất cũ (Phàm, Linh…) nên món màu Đỏ mà phẩm cũ là Phàm vẫn bị bán.

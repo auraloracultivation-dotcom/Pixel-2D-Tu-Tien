@@ -1,15 +1,16 @@
 // Màu dòng phụ trang bị (tẩy luyện mới, chủ dự án chốt 02/11/2026; số liệu data/items.json → line_tiers).
-// Dòng { s, v, t }: t là bậc màu 0 lục … 6 đen. Phẩm món = trung bình màu các dòng.
+// Dòng { s, v, t }: t là bậc màu 0 lục … 6 đen. Phẩm món = chỉ số cơ bản, lấy theo rarity (chủ dự án 19/11/2026 13:18–13:33,
+// itemTier): dòng tẩy luyện chỉ là phần thêm, không kéo phẩm. quality() (trung bình màu dòng) giờ chỉ dùng cho thú, khôi lỗi, thời trang.
 
 const T = data => data.items.line_tiers;
 const grow = (items, s, lvl) => items.stats[s]?.pct ? 1 : 1 + lvl * items.line_per_lvl;
 
 export const tierOf = (data, t) => T(data).list[Math.max(0, Math.min(T(data).list.length - 1, t | 0))];
 
-export function pickTier(data, rnd = Math.random, max = Infinity) {   // max: màu cao nhất được ra (đồ rơi ngoài bí cảnh, line_tiers.world_max)
-  const L = T(data).list.slice(0, Math.min(T(data).list.length, max + 1)), total = L.reduce((a, x) => a + x.w, 0);
+export function pickTier(data, rnd = Math.random, max = Infinity, pham = 0) {   // max: màu cao nhất được ra (đồ rơi ngoài bí cảnh, line_tiers.world_max); pham: phẩm món, cao thì màu cao dễ ra hơn một chút (pham_k)
+  const k = (T(data).pham_k || 0) * pham, L = T(data).list.slice(0, Math.min(T(data).list.length, max + 1)), w = L.map((x, i) => x.w * (1 + k * i)), total = w.reduce((a, x) => a + x, 0);
   let r = rnd() * total;
-  for (let i = 0; i < L.length; i++) { r -= L[i].w; if (r <= 0) return i; }
+  for (let i = 0; i < L.length; i++) { r -= w[i]; if (r <= 0) return i; }
   return L.length - 1;
 }
 
@@ -34,11 +35,13 @@ export function quality(data, it) {
 // Phẩm hiển thị của món (túi, chợ, đạo lữ, hồ sơ; góp ý #138): theo màu dòng, chưa có dòng màu thì theo độ hiếm cũ.
 // Trả { id, name ("Phẩm …" hoặc tên độ hiếm), color (viền), idx (để xếp, cao hơn là tốt hơn) }
 export function grade(data, it) {
-  const q = quality(data, it);
-  if (q) return { id: q.id, name: `Phẩm ${q.name}`, color: q.edge || q.color, idx: T(data).list.indexOf(q) };
-  const rs = data.items.rarities, i = Math.max(0, rs.findIndex(r => r.id === it?.rarity)), r = rs[i];
-  return { id: r.id, name: r.name, color: r.color, idx: T(data).from_rarity[r.id] ?? i };
+  const q = itemTier(data, it);
+  return { id: q.id, name: `Phẩm ${q.name}`, color: q.edge || q.color, idx: q.idx };
 }
+
+// Phẩm của trang bị theo rarity: thứ tự trong items.rarities = bậc màu (Phàm lục … Thượng Cổ đen). Trả mục line_tiers kèm idx
+export function itemTierIdx(data, it) { return Math.max(0, data.items.rarities.findIndex(r => r.id === it?.rarity)); }
+export function itemTier(data, it) { const i = Math.min(T(data).list.length - 1, itemTierIdx(data, it)); return { ...T(data).list[i], idx: i }; }
 
 // Đồ cũ: gắn màu cho dòng chưa có màu, giữ giá trị không thấp hơn cũ, tặng lượt tẩy miễn phí (chạy lại không đổi gì)
 export function convertLines(data, it, rar) {
@@ -75,7 +78,7 @@ export const linesFull = (data, it) => (it.lines || []).length >= ensureCap(data
 // Tới trần dòng của món thì hết. Trả về { line, last } hoặc null khi đã đủ dòng.
 export function addLine(data, it, pool, rnd = Math.random) {
   if (linesFull(data, it)) return null;
-  const line = newLine(data, pool, it.lvl || 0, rnd);
+  const line = newLine(data, pool, it.lvl || 0, rnd, pickTier(data, rnd, Infinity, itemTierIdx(data, it)));   // phẩm cao: dòng đẹp hơn một chút
   (it.lines ??= []).push(line);
   return { line, last: it.lines.length >= it.cap };
 }

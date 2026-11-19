@@ -43,10 +43,11 @@ export const keptLines = (H, lines, pham) =>
   (lines || []).map(l => mapLine(H, l)).filter(Boolean).sort((a, b) => b.t - a.t || b.v - a.v).slice(0, H.lines_all ? H.lines_max ?? 10 : linesOf(H, pham));
 
 // Phẩm 0..6 của trang bị: theo màu dòng trung bình (như tiers.js quality), chưa có dòng màu thì theo độ hiếm cũ
+// Phẩm tính chỉ số của món (chủ dự án 19/11/2026 13:33): theo rarity (0 Phàm … 6 Thượng Cổ), dòng tẩy luyện không kéo lên nữa.
+// Đồ có từ trước giữ nguyên chỉ số: máy chủ ghi sp = phẩm cũ (trung bình màu dòng) và ký vào món (migration 20261119150000_p2d_pham_moi.sql)
 export function itemPham(data, it) {
-  const ls = (it?.lines || []).filter(l => Number.isInteger(l.t));
-  if (ls.length) return clamp(Math.round(ls.reduce((a, l) => a + l.t, 0) / ls.length), 0, 6);
-  return Math.max(0, (data?.items?.rarities || []).findIndex(r => r.id === it?.rarity));
+  if (Number.isInteger(it?.sp)) return clamp(it.sp, 0, 6);
+  return clamp(Math.max(0, (data?.items?.rarities || []).findIndex(r => r.id === it?.rarity)), 0, 6);
 }
 
 // Cộng chỉ số chính của một món vào out. kind: khoá trong H.pieces; ir: cảnh giới của món (số thực); plus: cấp đã kẹp trần.

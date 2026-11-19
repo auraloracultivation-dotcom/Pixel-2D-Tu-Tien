@@ -9,7 +9,7 @@ import { renderQuick } from './bag-quick.js';
 import { el, icon, renderDetail, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid, renderStockSheet } from './bag-stock.js';
 import { bestGems } from '../game/autogem.js';
-import { quality, grade } from '../game/tiers.js';
+import { grade, itemTier } from '../game/tiers.js';
 import { startCoinLog } from '../game/coin-log.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { playerStats } from '../game/stats.js';
@@ -31,7 +31,7 @@ export function createBag(game) {
   const pick = uid => { st.sel = st.sel === uid ? null : uid; st.pickSocket = null; st.coinLog = false; render(); };
 
   function itemCard(it, gain) {
-    const r = rarityOf(data.items, it.rarity), q = quality(data, it);   // tẩy luyện mới: màu theo phẩm trung bình các dòng
+    const r = rarityOf(data.items, it.rarity), q = itemTier(data, it);   // phẩm theo rarity (19/11/2026 13:33)
     const b = el('button', 'item' + (st.sel === it.uid ? ' sel' : ''));
     b.style.setProperty('--rar', q ? q.edge || q.color : r.color);
     b.dataset.o = q ? q.id : r.id;   // ô đồ theo độ hiếm (style-ui-kit2.css)
@@ -47,7 +47,7 @@ export function createBag(game) {
       const it = save().bag.find(i => i.uid === save().equip[slot]);
       const cell = el('button', 'slot' + (it ? '' : ' empty') + (it && st.sel === it.uid ? ' sel' : ''));
       if (it) {
-        const r = rarityOf(data.items, it.rarity), q = quality(data, it);
+        const r = rarityOf(data.items, it.rarity), q = itemTier(data, it);
         cell.style.setProperty('--rar', q ? q.edge || q.color : r.color);
         cell.dataset.o = q ? q.id : r.id;
         cell.append(icon(data, it), el('small', null, name));

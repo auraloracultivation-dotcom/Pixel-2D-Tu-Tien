@@ -10,7 +10,7 @@ cfg = {
   'stats': {k: {'min': v.get('min', 1), 'max': v.get('max', 1), 'pct': bool(v.get('pct'))} for k, v in I['stats'].items() if not k.startswith('_') and isinstance(v, dict)},
   'rar': {r['id']: {'mult': r['mult'], 'sockets': r.get('sockets', 0)} for r in I['rarities']},
   'tiers': [t['mult'] for t in I['line_tiers']['list']],
-  'tier_rar': ['pham', 'linh', 'huyen', 'dia', 'thien', 'thien', 'thien'],
+  'tier_rar': ['pham', 'linh', 'huyen', 'dia', 'thien', 'tien', 'thuong-co'],   # bậc t = phẩm món thật (chủ dự án 19/11/2026 13:33)
   'cap_w': I['line_tiers']['cap_w'], 'main_per_lvl': I['main_per_lvl'], 'line_per_lvl': I['line_per_lvl'],
   'els': [k for k in E if not k.startswith('_')], 'gems': list(I['gems']['types'].keys()),
   'pool': H['pool'], 'cost': H['cost'], 'points': H['points'], 'mail': H['text']['mail'], 'quest_mail': H['text']['quest_mail'],

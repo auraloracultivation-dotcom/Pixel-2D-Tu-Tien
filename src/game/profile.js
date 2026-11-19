@@ -30,7 +30,7 @@ function cleanItem(data, it) {
   };
   return {
     uid: it.uid, base: it.base, rarity: I.rarities.some(r => r.id === it.rarity) ? it.rarity : I.rarities[0].id,
-    lvl: num(it.lvl), plus: num(it.plus), pb: num(it.pb), el: data.elements[it.el] ? it.el : undefined,
+    lvl: num(it.lvl), plus: num(it.plus), pb: num(it.pb), el: data.elements[it.el] ? it.el : undefined, sp: Number.isInteger(it.sp) ? Math.max(0, Math.min(6, it.sp)) : undefined,   // phẩm tính chỉ số của đồ cũ (he-chien.js itemPham)
     wt: data.weapons[it.wt] ? it.wt : undefined, main,
     lines: (Array.isArray(it.lines) ? it.lines : []).filter(l => I.stats[l?.s] && Number.isFinite(l.v)).map(l => (Number.isInteger(l.t) ? { s: l.s, v: l.v, t: l.t } : { s: l.s, v: l.v })),
     sockets: (Array.isArray(it.sockets) ? it.sockets : []).map(gem),

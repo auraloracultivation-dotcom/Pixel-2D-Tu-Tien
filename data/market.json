@@ -4,7 +4,7 @@
  "tax": 0.1,
  "max_list": 10,
  "hours": 48,
- "price": {"item": {"pham": 40, "linh": 120, "huyen": 400, "dia": 1500, "thien": 6000}, "mat": 30},
+ "price": {"item": {"pham": 40, "linh": 120, "huyen": 400, "dia": 1500, "thien": 6000, "tien": 15000, "thuong-co": 40000}, "mat": 30},
  "stats": {"gain": "Lực chiến nếu mặc: {v}", "gem_empty": "Ô khảm trống", "_note": "Chỉ số món hiện ngay trên chợ (src/ui/item-stats.js), chủ dự án 06/11/2026 18:52"},
  "mo_khoa": {"_note": "Chủ dự án 06/11/2026 23:12: tài khoản mới cần lập đủ ngay ngày và chơi đủ gio giờ mới mở chợ (chặn tài khoản phụ). Máy chủ p2d_cho_mo (supabase/migrations/20261106170000_p2d_cho_mo_khoa.sql) dùng cùng số.", "ngay": 1, "gio": 4, "title": "Chợ chưa mở cho đạo hữu mới", "desc": "Tài khoản cần lập đủ {ngay} ngày và chơi đủ {gio} tiếng thì mở chợ.", "wait_day": "Còn khoảng {h} tiếng nữa là đủ ngày.", "ok_day": "Đã đủ ngày.", "played": "Đã chơi {a} / {b} tiếng."},
  "title": "Chợ Phiên",

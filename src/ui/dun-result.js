@@ -5,7 +5,7 @@ import { el, icon } from './bag-detail.js';
 import { gemIcon } from './gem-icon.js';
 import { spriteIcon } from './sprite-icon.js';
 import { gemInfo, rarityOf, itemName } from '../game/items.js';
-import { quality } from '../game/tiers.js';
+import { itemTier } from '../game/tiers.js';
 import { matInfo } from '../game/cave.js';
 import { levelName, cleared } from '../game/dun-mode.js';
 import { runsLeft, sweep, enterLevel, leaveRun } from '../game/dun-run.js';
@@ -15,7 +15,7 @@ export function lootCell(game, x) {
   const data = game.data, T = data.dungeon.texts, c = el('div', 'dr-cell');
   let name = '', color = '#c8c4d0';
   if (x.kind === 'item') {
-    const q = quality(data, x.it) || rarityOf(data.items, x.it.rarity);
+    const q = itemTier(data, x.it);   // phẩm theo rarity
     c.append(icon(data, x.it)); name = itemName(data, x.it); color = q?.color || color;
   } else if (x.kind === 'gem') { const g = gemInfo(data, x.id); const box = el('div', 'dr-gem'); box.append(gemIcon(game, x.id, g.lv < 6 ? 84 : 56)); c.append(box); name = g.name; color = g.color || color; }   // ngọc cấp thấp hình nhỏ giữa khung: phóng to, cắt viền trống
   else {
