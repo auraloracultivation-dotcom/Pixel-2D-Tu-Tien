@@ -9,7 +9,7 @@ import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 import { buyBlock } from './buy-mats.js';
 import { quality } from '../game/tiers.js';
-import { baseOf, mountKeys, mountKeyOf, sellTier, sellMountKey } from '../game/inst.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
+import { baseOf, mountKeys, mountKeyOf } from '../game/inst.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -98,7 +98,8 @@ export function createPetsPanel(game) {
 
   function renderMounts(s, list) {
     $('pets-sub').textContent = `Chọn thú rồi bấm nút Cưỡi / Xuống. Cưỡi thì thú công kích, người đả tọa. Thú mới đổi bằng ${P.thu_lenh.per_mount} ${P.thu_lenh.name} ở Ngự Thú Sư (làm đủ việc ngày được 1 ${P.thu_lenh.name}).`;
-    // Mỗi bản một ô (chủ dự án 19/11/2026 12:58–13:02: cùng loại có nhiều con, phẩm khác nhau, bán theo phẩm; src/game/inst.js). Chưa có thì không hiện
+    // Mỗi bản một ô (chủ dự án 19/11/2026 12:58–13:02: cùng loại có nhiều con, phẩm khác nhau; src/game/inst.js). Chưa có thì không hiện.
+    // Thú cưỡi không bán được, chỉ đổi bằng Thú Lệnh (13:50)
     const order = Object.keys(P.mounts), cur = mountKeyOf(s);
     const keys = mountKeys(s).filter(k => P.mounts[baseOf(k)]).sort((x, y) => (x !== cur) - (y !== cur) || order.indexOf(baseOf(x)) - order.indexOf(baseOf(y)));
     for (const k of keys) {
@@ -107,18 +108,8 @@ export function createPetsPanel(game) {
       c.dataset.key = k;
       list.append(eq(c, ml ? [ml] : []));
       list.append(rerollRow(k, true));
-      if (!on) list.append(sellKeyRow(k, ml));
       buyRow(list, k, true);
     }
-  }
-
-  // Nút Bán thú cưỡi theo phẩm (bấm hai lần), src/game/inst.js
-  function sellKeyRow(k, ml) {
-    const row = el('div', 'card-acts skill-up'), price = sellTier(game, ml).toLocaleString('vi-VN'), key = 'mk:' + k;
-    const b = el('button', 'mini', sure === key ? `Bấm lần nữa để bán (${price} Linh Thạch)` : `Bán ${price} Linh Thạch`);
-    b.onclick = () => { if (sure !== key) { sure = key; render(); return; } sure = null; game.toast(sellMountKey(game, k), 2.4); render(); };
-    row.append(b);
-    return row;
   }
 
   function render() {

@@ -491,7 +491,7 @@
   "roam": 0.6
  },
  "beast": {
-  "_sell_tier": "Giá bán một con thú cưỡi / một bộ thời trang theo màu dòng chỉ số (chủ dự án 19/11/2026 13:02: bán theo phẩm như trang bị; src/game/inst.js): Phàm, Linh, Huyền, Địa, Thiên, Tiên, Thượng Cổ. Đề xuất của AI, đều thấp hơn giá bộ rẻ nhất ở tiệm (30.000) để không mua đi bán lại kiếm lời.",
+  "_sell_tier": "Giá bán một bộ thời trang theo màu dòng chỉ số (thú cưỡi không bán, chỉ đổi bằng Thú Lệnh: chủ dự án 19/11/2026 13:50) (chủ dự án 19/11/2026 13:02: bán theo phẩm như trang bị; src/game/inst.js): Phàm, Linh, Huyền, Địa, Thiên, Tiên, Thượng Cổ. Đề xuất của AI, đều thấp hơn giá bộ rẻ nhất ở tiệm (30.000) để không mua đi bán lại kiếm lời.",
   "sell_tier": [500, 1000, 2000, 4000, 8000, 15000, 25000],
   "_note": "Chỉ số linh thú / khôi lỗi / thú cưỡi / thời trang (chủ dự án chốt 02/11/2026 14:39, src/game/beast.js). base: khoảng chỉ số gốc cấp 1 của mỗi loài, mỗi loài bốc cố định một lần theo tên (ai cũng như ai); lv: mỗi cấp thêm bấy nhiêu lần gốc, star: mỗi sao, evo: tiến hoá. Cộng vào lực chiến (con đang mang), không cộng chỉ số cơ bản. pool: chỉ số dòng tẩy luyện (mỗi lần mở 1 dòng như trang bị, trần 1–10 dòng); reroll: phí = coins × mul^(số dòng) + mats. mount: thú cưỡi có 1 dòng % chỉ số (pool), tẩy là bốc lại dòng, phí reroll; cộng thẳng vào chỉ số nhân vật khi đang chọn con đó. fashion: bộ thời trang 1 dòng bốc lúc có bộ, màu theo nguồn (tier: start, shop, achv, fest, elite, tn, uid → bậc màu 0 lục … 6 đen), cố định; cộng khi đang mặc.",
   "base": {

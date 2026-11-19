@@ -1,5 +1,5 @@
 // Thú cưỡi, thời trang nhiều bản (chủ dự án 19/11/2026 12:58–13:02): mỗi con / mỗi bộ là một món riêng, cùng loại được có nhiều bản,
-// phẩm (màu dòng chỉ số) ngẫu nhiên Phàm → Tiên, bán theo phẩm như trang bị, Ngự Thú Sư và tiệm thời trang bán lại loại đã có.
+// phẩm (màu dòng chỉ số) ngẫu nhiên Phàm → Tiên, thời trang bán theo phẩm như trang bị (thú cưỡi không bán, chỉ đổi bằng Thú Lệnh: 13:50), Ngự Thú Sư và tiệm thời trang bán lại loại đã có.
 // Khoá bản: bản đầu giữ khoá cũ ("<thú>" / "<bộ>:<giới>"), bản thêm có đuôi "#xxxxxx" (máy chủ đặt cho thú đổi bằng Thú Lệnh,
 // máy khách đặt khi mua thời trang; máy chủ kiểm ở p2d_thu_thoi). save.mount / save.outfit vẫn là MÃ LOẠI (vẽ hình, gửi người khác);
 // save.mountKey / save.outfitKey là bản đang dùng (dòng chỉ số lấy theo bản này). Giá bán: data/pets.json → beast.sell_tier (theo màu dòng).
@@ -38,6 +38,7 @@ export function sellTier(game, line) {
 
 export function sellMountKey(game, key) {
   const s = game.save, m = game.data.pets.mounts[baseOf(key)];
+  if (!game.data.pets.beast.mount_sell) return 'Thú cưỡi không bán được, chỉ đổi bằng Thú Lệnh.';   // chủ dự án 19/11/2026 13:50
   if (!m || !s.mounts?.[key]) return 'Không có thú cưỡi này.';
   if (key === mountKeyOf(s)) return 'Đang dùng con này, chọn con khác rồi mới bán.';
   const price = sellTier(game, s.mountLine?.[key]);
