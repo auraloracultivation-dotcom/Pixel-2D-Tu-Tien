@@ -76,8 +76,8 @@ export function drawKdBack(ctx, game, w, t) {
 function parts(ctx, st) {
   const P = st.K.pal_khi, near = st.t >= st.T.in ? 13 : 4;   // lúc đã bay lên khí đổ vào rất dày: tan sớm hơn quanh người cho thấy rõ thân và dòng điện
   for (const q of st.parts) {
-    if (q.d <= near) continue;   // hạt linh khí: đầu trắng, đuôi xanh kéo ngược hướng bay; sát đan điền thì mờ dần (khỏi che người)
-    const dx = q.x - (q.ox ?? q.x), dy = q.y - (q.oy ?? q.y), len = Math.hypot(dx, dy) || 1, ux = -dx / len, uy = -dy / len, a = Math.min(1, q.life / 0.35) * Math.min(1, Math.max(0, (q.d - near) / (near * 2.2))), big = q.s > 0.72;
+    if (q.d <= near && !q.tan) continue;   // hạt linh khí: đầu trắng, đuôi xanh kéo ngược hướng bay; sát đan điền thì mờ dần (khỏi che người)
+    const dx = q.x - (q.ox ?? q.x), dy = q.y - (q.oy ?? q.y), len = Math.hypot(dx, dy) || 1, ux = -dx / len, uy = -dy / len, a = (q.tan ? 1 - q.life / q.max : Math.min(1, q.life / 0.35) * Math.min(1, Math.max(0, (q.d - near) / (near * 2.2)))), big = q.s > 0.72;
     const n = len > 1.6 ? 9 : 6;
     for (let k = n; k >= 1; k--) { ctx.fillStyle = k > 4 ? P[3] : P[2]; ctx.globalAlpha = a * (0.7 - k * 0.07); px(ctx, q.x + ux * k * 0.6, q.y + uy * k * 0.6, big && k < 3 ? 2 : 1, big && k < 3 ? 2 : 1); }
     ctx.fillStyle = P[q.s > 0.4 ? 0 : 1]; ctx.globalAlpha = a; px(ctx, q.x, q.y, big ? 3 : 2, big ? 3 : 2);
@@ -184,6 +184,35 @@ function beam(ctx, game, st, front) {
   }
 }
 
+// Khí thế bốc quanh người: các lưỡi sáng mọc từ viền thân, vươn lên và ra ngoài, dài ngắn theo nhiễu trôi lên. Lúc hấp thu đợt cuối: nhỏ rồi lớn dần,
+// đổi từ màu linh khí sang vàng; lúc bung sóng: lớn hẳn, phập phồng theo từng vành sóng. Quãng lặng thì không có
+function aura(ctx, st, x, yc) {
+  const K = st.K, T = st.T, e = st.t;
+  const k2 = e >= T.x && e < T.y ? (e - T.x) / K.t.tu2 : 0, kw = e >= T.d && e < T.w ? Math.min(1, (T.w - e) / 0.35) : 0, I = kw || k2 * 0.8;
+  if (I <= 0.02) return;
+  const P = kw || k2 > 0.55 ? K.pal_dan : K.pal_khi, flare = kw ? 0.75 + 0.25 * Math.sin((e - T.d) / K.wave_gap * TAU) : 1, N = 46;
+  ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < N; i++) {
+    const s = i / (N - 1), th = Math.PI * (1.14 - 1.28 * s), bx = x + Math.cos(th) * 8.5, by = yc - Math.sin(th) * 13, dx = Math.cos(th) * 0.55, dy = -Math.sin(th) * 0.55 - 0.85, dn = Math.hypot(dx, dy);
+    const len = I * flare * (5 + 21 * noise(i * 0.42, e * 2.8 + i * 0.07, 9999)), sway = hash(i * 3.3) * 6;
+    for (let m = 0; m < len; m++) {
+      const u = m / len, wob = Math.sin(e * 8 + sway + m * 0.35) * 0.05 * m;
+      ctx.fillStyle = u < 0.25 ? P[0] : u < 0.5 ? P[1] : u < 0.78 ? P[2] : P[3]; ctx.globalAlpha = I * (1 - u) * 0.72;
+      px(ctx, bx + dx / dn * m / 2 + wob, by + dy / dn * m / 2, u < 0.55 ? 2 : 1, u < 0.55 ? 2 : 1);
+    }
+  }
+}
+
+// Sét giáng: cả vùng loé sáng theo màu tia (loé, sụp, loé lại rồi tắt trong 0,2 giây), theo mức chớp dễ chịu của máy (config.comfort.flash_max)
+function lit(ctx, game, st) {
+  const L = st.lit, hd = L ? st.t - L.t : 9;
+  if (hd < 0 || hd > 0.2) return;
+  const k = hd < 0.045 ? 1 : hd < 0.085 ? 0.35 : 0.8 * (1 - (hd - 0.085) / 0.115), cv = ctx.canvas;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter';
+  ctx.globalAlpha = L.a * k * (game.data.config.comfort?.flash_max ?? 1); ctx.fillStyle = L.c; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.restore();
+}
+
 export function drawKdFront(ctx, game, t) {
   const L = game.kdSee?.length ? (game.kd ? [game.kd, ...game.kdSee] : game.kdSee) : game.kd ? [game.kd] : null;
   if (!L) return;
@@ -196,12 +225,14 @@ export function drawKdFront(ctx, game, t) {
       ctx.save(); ctx.translate(0, -lift); drawHero(ctx, game, w, t, false, w === game.player ? game.save : { look: w.look, outfit: w.outfit, pt: w.pt || null }); ctx.restore();
       beam(ctx, game, st, true);
     }
+    lit(ctx, game, st);
     ctx.globalCompositeOperation = 'lighter';
     parts(ctx, st);
     ctx.globalAlpha = 1;
     rings(ctx, st, true);
     if (e >= T.d && e < T.w) soft(ctx, x, y - 3, 20 + 3 * Math.sin(e * 10), K.pal_dan[2], 0.5 * Math.min(1, (T.w - e) / 0.5));   // người rực vàng lúc phát sóng
     gather2(ctx, st, x, y);
+    aura(ctx, st, x, y - 4);
     waves(ctx, st, x, y - 2);
     dan(ctx, st, x, y);
     drawKdWrap(ctx, st, true);
