@@ -19,7 +19,8 @@ export function updateStrikes(game, dt) {
     if (s.trib) tribBolt(game, s.x, s.y, { pal: s.pal, fade: s.see ? 3 : undefined });   // sét thiên kiếp: to, màu theo cảnh giới, vùng nổ, vết cháy (trib-sky.js)
     else if (s.kind === 'thunder') boltFx(game, s.x, s.y, true, s.seed);   // sét từ trời: cùng hình với vệt tiên dẫn (src/render/draw-bolt.js)
     else burstFx(game, 'fire', s.x, s.y, s.r);   // lửa bằng hình pixel tại chỗ giáng
-    if (!s.see && dist(s, p) < s.r + p.r) {   // see: sét kiếp của người khác (kiep-see.js), chỉ để nhìn
+    if (s.see) s.hitSee?.(s);   // sét kiếp của người khác (kiep-see.js): đứng gần thì bị đánh cùng
+    else if (dist(s, p) < s.r + p.r) {
       const hp = p.hp; hitPlayer(game, s.dmg, s); if (p.hp < hp) s.onHit?.(); }
   }
   game.strikes = game.strikes.filter(s => s.t < s.delay + 0.3);

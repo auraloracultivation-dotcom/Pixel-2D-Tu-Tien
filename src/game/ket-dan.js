@@ -214,7 +214,7 @@ function skyRain(game, st, dt) {
 // cùng, đau gấp gan.k lần người độ kiếp (theo máu tối đa của chính mình, không có Tĩnh Liên / Thanh Tâm vì đan đó chỉ cho kiếp của mình)
 // Cùng tổ đội hoặc cùng tông môn thì sét không đánh (chủ dự án 20/11/2026 04:5x: "muốn cùng bạn bè cùng đột phá"). Tổ đội so theo mã người
 // chơi; tông môn so theo tên trong danh sách thành viên (người lạ trùng tên được tha: chỉ là đỡ một đòn của chính máy mình, không lợi gì)
-function ban(game, w) {
+export function ban(game, w) {
   if (game.party?.roster?.some(r => r.id === w.id)) return true;
   const ten = String(w.def?.name || '').trim().toLowerCase();
   return !!ten && !!game.guild?.mine?.tv?.some(x => String(x.ten || '').trim().toLowerCase() === ten);
