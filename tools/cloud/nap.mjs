@@ -5,7 +5,8 @@ import { readFileSync, writeFileSync, readdirSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-export const GOC_CLOUD = resolve(import.meta.dirname, '../../cloud/src');
+// P2D_CLOUD_SRC: thư mục mã máy chủ phòng khác (ví dụ bản đang chạy thật, lấy từ nhánh main) để thử máy khách mới với máy chủ phòng cũ
+export const GOC_CLOUD = process.env.P2D_CLOUD_SRC ? resolve(process.env.P2D_CLOUD_SRC) : resolve(import.meta.dirname, '../../cloud/src');
 const DO_GIA = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
 
 export function chepCloud(tien = 'phong-') {
