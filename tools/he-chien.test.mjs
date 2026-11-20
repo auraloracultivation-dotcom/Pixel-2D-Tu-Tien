@@ -14,8 +14,8 @@ const LC = [...Array(9).keys()].map(r => powerOf(H, stdPlayer(H, mid(r)), r));
 // Luyện Khí cân theo người chơi thật mới vào (4 món Phàm, 16/11 17:30) nên Luyện Khí → Trúc Cơ nhảy tới 8 lần (đủ 12 món, phẩm Huyền +5)
 for (let r = 1; r < 9; r++) { const k = powerOf(H, stdPlayer(H, mid(r)), r - 1) / powerOf(H, stdPlayer(H, mid(r - 1)), r - 1); assert.ok(k > 1.4 && k < (r === 1 ? 8 : r <= 3 ? 3.3 : 2.5), `lên cảnh giới ${r}: × ${k.toFixed(2)}`); }
 
-// 1b. Đột phá giữ nguyên đồ thì lực chiến không tụt (chủ dự án 20/11/2026 18:05: người chơi báo 40k xuống 25k khi lên Trúc Cơ);
-//     tăng một chỉ số thì lực chiến không giảm quá 0,1% (so với người chuẩn ngang sức, he-chien.js matchTang)
+// 1b. Lực chiến thật (chủ dự án 20/11/2026: "có bao nhiêu hiện bấy nhiêu"): chỉ tính từ chỉ số, không theo cảnh giới. Đột phá giữ nguyên đồ
+//     thì không tụt (người chơi báo 40k xuống 25k khi lên Trúc Cơ); tăng chỉ số nào lực chiến cũng không giảm; cùng chỉ số thì cùng lực chiến
 for (let r = 0; r < 8; r++) {
   const list = stdList(H, (r * 9 + 8) / 9), a = sumStats(H, r, list, true), b = sumStats(H, r + 1, list, true);
   assert.ok(powerOf(H, b) >= powerOf(H, a), `đột phá ${r} → ${r + 1} giữ đồ: ${powerOf(H, a)} → ${powerOf(H, b)}`);
@@ -26,9 +26,10 @@ for (let r = 0; r < 8; r++) {
     const b = stdPlayer(H, Math.floor(rnd() * 80) / 9), s = { crit: rnd() * 60, cd: rnd() * 60, ls: rnd() * 40, thorns: rnd() * 40, spd: 1.2 * (1 + rnd() * 0.4) };
     for (const k of ['hp', 'atk', 'def']) s[k] = b[k] * Math.exp((rnd() - 0.5) * 2.2);
     const p0 = powerOf(H, s);
+    assert.equal(powerOf(H, { ...s, realm: 0 }), powerOf(H, { ...s, realm: 8 }), 'lực chiến không theo cảnh giới');
     for (const k of ['hp', 'atk', 'def', 'crit', 'cd', 'ls', 'thorns', 'spd']) {
       const t = { ...s, [k]: ['hp', 'atk', 'def', 'spd'].includes(k) ? s[k] * 1.01 : s[k] + 1 };
-      assert.ok(powerOf(H, t) >= p0 * 0.999, `tăng ${k} mà lực chiến giảm: ${p0} → ${powerOf(H, t)}`);
+      assert.ok(powerOf(H, t) >= p0, `tăng ${k} mà lực chiến giảm: ${p0} → ${powerOf(H, t)}`);
     }
   }
 }
