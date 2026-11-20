@@ -580,3 +580,5 @@ tiên; thân xác người chơi từng là của một đứa trẻ Thanh Khê;
 4. **Hình minh hoạ cho các cảnh lớn** (đứa trẻ trong đan điền, bàn tay xé trời, mộ kiếm): cần SpriteCook, tốn credit, phải hỏi trước.
 5. **"Có 2 tông môn"**: bản thiết lập và game mới có Thiên Kiếm Tông. Tông thứ hai tên gì thì thêm vào quyển bảy.
 6. **Tên game**: sổ và truyện mang tên Trấn Ma Kỷ; tên game trên màn đăng nhập, cửa hàng vẫn là Pixel 2D Tu Tiên.
+7. **Bản dịch có từ trước đợt này còn thiếu**: tên tám pháp bảo (Phi Kiếm, Linh Châu…) và vài dòng báo cũ chưa có bản tiếng Anh, tiếng Trung, nên trong mục Khẩu quyết của sổ
+   tên pháp bảo vẫn hiện tiếng Việt khi chọn ngôn ngữ khác. Dịch thì tên dài ra ("Flying Sword") và nằm cả trên bốn ô pháp bảo nhỏ ở màn chơi, nên để chủ dự án quyết.
