@@ -18,10 +18,10 @@ export const loDung = save => { const o = loOf(save); return o.ds.find(x => x.id
 export const loSpr = (game, lo) => 'lo.' + (L(game).kieu[lo?.k | 0] || L(game).kieu[0]);
 export const loTen = (game, lo) => L(game).kieu_ten[lo?.k | 0] || '';
 
-// Tỉ lệ thành với tổng k bộ đan phương (mọi loại đan trong mẻ), theo phẩm lò đang đặt
-export function loRate(game, sets) {
-  const c = L(game), lo = loDung(game.save);
-  return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo?.ph | 0] || 0) - c.per_set * (sets - 1)));
+// Tỉ lệ thành của đan dan khi mẻ có tổng k bộ đan phương, theo phẩm lò đang đặt; phẩm đan càng cao càng thấp (16:1x, pills.*.pham × phat_dan)
+export function loRate(game, sets, dan) {
+  const c = L(game), lo = loDung(game.save), pd = game.data.cave.pills[dan]?.pham || 0;
+  return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo?.ph | 0] || 0) - c.per_set * (sets - 1) - (c.phat_dan || 0) * pd));
 }
 
 // Ghép đan phương như máy chủ (chủ dự án 20/11/2026: một mẻ ra được nhiều loại đan; nguyên liệu chồng nhiều đan phương thì
@@ -57,8 +57,8 @@ function mirror(game, put, r) {   // chép kết quả máy chủ (hoặc tính 
   game.persist();
 }
 
-// Luyện: trả { ds: [{ dan, bo, vien, thanh }], thanh (có loại nào thành), vien (tổng), ti_le } hoặc { err: 'thieu_nl' | 'net' | 'busy' }
-// Một tỉ lệ chung theo tổng số bộ, mỗi loại đan tung riêng (14:3x "Mỗi loại đan tung riêng")
+// Luyện: trả { ds: [{ dan, bo, vien, thanh }], thanh (có loại nào thành), vien (tổng) } hoặc { err: 'thieu_nl' | 'net' | 'busy' }
+// Một tỉ lệ chung theo tổng số bộ, mỗi loại đan tung riêng (14:3x), trừ thêm theo phẩm đan (16:1x)
 export async function luyen(game, put) {
   const clean = Object.fromEntries(Object.entries(put).filter(([, n]) => Number.isInteger(n) && n > 0));
   if (!Object.keys(clean).length || Object.keys(clean).length > L(game).slots) return { err: 'du_lieu_sai' };
@@ -77,9 +77,9 @@ export async function luyen(game, put) {
       noFn = true;
     } finally { game.kyBusy = false; }
   }
-  const g = ghep(game, clean), bo = g.reduce((t, x) => t + x.sets, 0), rate = bo ? loRate(game, bo) : 0;
-  const ds = g.map(x => { const ok = Math.random() < rate; return { dan: x.id, bo: x.sets, vien: ok ? x.make * x.sets : 0, thanh: ok }; });
-  const r = { ds, thanh: ds.some(d => d.thanh), vien: ds.reduce((t, d) => t + d.vien, 0), bo, ti_le: rate };
+  const g = ghep(game, clean), bo = g.reduce((t, x) => t + x.sets, 0);
+  const ds = g.map(x => { const ok = Math.random() < loRate(game, bo, x.id); return { dan: x.id, bo: x.sets, vien: ok ? x.make * x.sets : 0, thanh: ok }; });
+  const r = { ds, thanh: ds.some(d => d.thanh), vien: ds.reduce((t, d) => t + d.vien, 0), bo };
   mirror(game, clean, r);
   return r;
 }
