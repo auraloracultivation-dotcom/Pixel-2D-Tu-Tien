@@ -38,7 +38,7 @@ export async function taoPhongGia() {
     }
     return phong.get(ten);
   };
-  const dem = { vao: 0, len: {}, xuong: {} };   // đếm tin theo loại: bài thử soi được máy nào gửi gì
+  const dem = { vao: 0, len: {}, xuong: {}, cuoi: {} };   // đếm tin theo loại: bài thử soi được máy nào gửi gì; cuoi: tin gửi lên gần nhất của mỗi loại
 
   // Nối một kết nối trình duyệt (WebSocketRoute của Playwright) vào phòng nó xin (địa chỉ ...?r=<phòng>&l=<tuyến>) với mã người chơi uid.
   // Nghe tin ngay từ đầu (tin tới trước lúc vào phòng xong thì xếp hàng), kẻo rơi mất tin đầu của máy khách.
@@ -48,7 +48,7 @@ export async function taoPhongGia() {
     const { room, ctx } = lay(r.name), cho = [];
     let may = null, dong = false;
     const xuLy = m => {
-      try { const t = JSON.parse(m).t; dem.len[t] = (dem.len[t] || 0) + 1; } catch { /* tin rác: phòng tự bỏ */ }
+      try { const o = JSON.parse(m), t = o.t; dem.len[t] = (dem.len[t] || 0) + 1; dem.cuoi[t] = { ...o, tu: uid }; } catch { /* tin rác: phòng tự bỏ */ }
       room.webSocketMessage(may, m).catch(e => console.error('phòng giả: lỗi xử lý tin', e));
     };
     route.onMessage(m => {
