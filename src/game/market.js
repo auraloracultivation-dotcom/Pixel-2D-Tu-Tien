@@ -105,6 +105,7 @@ export async function claimMail(game) {
       }
       // Thú Lệnh, điểm Quản trị viên từ mã quà: máy chủ đã cộng lúc nhập mã, thư này để hiện trong Hòm thư và bảng tổng kết (chủ dự án 19/11/2026 12:22)
       if (d.thu_lenh > 0) { const nm = D.pets.thu_lenh?.name || 'Thú Lệnh'; lines.push(`${nm} ×${d.thu_lenh}`); gift.push({ kind: 'name', name: nm, n: d.thu_lenh, color: '#ffb35a', spr: 'ui.ic-thu-lenh' }); }
+      if (d.qi > 0) { s.qi = (s.qi || 0) + d.qi; const nm = game.data['he-thong']?.moc?.qi_name || 'Linh khí'; lines.push(`+${Math.round(d.qi).toLocaleString('vi-VN')} ${nm}`); gift.push({ kind: 'name', name: nm, n: Math.round(d.qi), color: '#9fe8ff', spr: 'ui.ic-tu-luyen' }); }   // linh khí đền bù: máy chủ đã cộng vào bản lưu kèm hạn mức qi_thuong (migration 20261120030000)
       if (d.qtv > 0) { const nm = game.data.community?.qtv?.name || 'Điểm Quản trị viên'; lines.push(`${nm} ×${d.qtv}`); gift.push({ kind: 'name', name: nm, n: d.qtv, color: '#7fe0ff', spr: 'ui.ic-qtv' }); }
       for (const l of lines) got.push(head ? `${head}: ${l}` : l);
       // Hòm thư: hàng chợ vào mục Chợ, thư khác (quà, hệ thống) vào mục Thư. Thư nào cũng tới dạng chưa đọc (phong bì niêm), chạm thì
