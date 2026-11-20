@@ -1,8 +1,8 @@
 -- Lò luyện đan do máy chủ quyết (chủ dự án 20/11/2026 13:3x–13:4x; "số lượng và loại sẽ do máy chủ tính, tỷ lệ thành công cũng vậy").
 -- Túi đồ → Luyện đan: 1 ô lò + 9 ô nguyên liệu. Người chơi gửi {mã nguyên liệu: số} (1–9 loại); máy chủ kiểm có đủ trong bản lưu,
 -- dò đan phương khớp (đủ mọi nguyên liệu của đan phương). Nhiều đan phương cùng khớp (vd Hồi Xuân và Hồi Linh đều chỉ cần Linh Thảo):
--- người chơi chọn đan muốn luyện (p_dan) trong số đan khớp; không chọn thì lấy cái dùng nhiều loại nhất, rồi nhiều cái nhất. Chọn đan
--- mà nguyên liệu không đủ đan phương đó thì hỏng như bỏ thiếu.
+-- lấy đan phương để thừa ít nguyên liệu nhất, rồi dùng nhiều loại nhất, rồi nhiều cái nhất (14:1x: không báo trước đan gì, tỉ lệ bao nhiêu;
+-- đan phương xem ở Tàng Thư). p_dan (tuỳ chọn) chỉ xét đúng đan đó; nguyên liệu không đủ đan phương đó thì hỏng như bỏ thiếu.
 -- số bộ = số lần đủ đan phương; tỉ lệ = base + pham[phẩm lò] + per_cap × cấp lò − per_set × (bộ − 1), kẹp [floor, max].
 -- Mọi nguyên liệu bỏ vào đều mất (phần thừa mất dù thành hay hỏng); thành thì cộng make × bộ viên đan.
 -- Số chép từ data/cave.json → lo, pills.*.recipe / make (sinh lúc viết migration); sửa số ở data/ thì thêm migration thay v_cfg.
@@ -21,9 +21,9 @@ create or replace function public.p2d_luyen_dan(p_o jsonb, p_dan text default nu
 returns jsonb language plpgsql security definer set search_path = '' as $$
 declare
   v_me uuid := public.p2d_uid();
-  v_cfg jsonb := '{"base":0.4,"per_set":0.05,"floor":0.1,"max":0.95,"pham":[0,0.05,0.1,0.15,0.2,0.25,0.3],"per_cap":0.03,"cap_max":10,"cost":[{"lt":5000,"tt":5},{"lt":20000,"tt":10},{"lt":45000,"tt":15},{"lt":80000,"tt":20},{"lt":125000,"tt":25},{"lt":180000,"tt":30},{"lt":245000,"tt":35},{"lt":320000,"tt":40},{"lt":405000,"tt":45},{"lt":500000,"tt":50}],"dan":{"hoi-xuan-dan":{"r":{"linh-thao":2},"m":2},"hoi-linh-dan":{"r":{"linh-thao":3},"m":2},"thang-linh-dan":{"r":{"linh-thao":6,"hoa-linh-chi":2,"yeu-huyet":2},"m":1},"tu-khi-dan":{"r":{"linh-thao":3,"yeu-huyet":1},"m":1},"boi-nguyen-dan":{"r":{"linh-thao":4,"yeu-huyet":2,"hoa-linh-chi":1},"m":1},"thanh-tam-dan":{"r":{"linh-thao":3,"hoa-linh-chi":2},"m":1},"linh-ngu-thang":{"r":{"linh-ngu":2,"linh-thao":1},"m":2},"van-ngu-thang":{"r":{"van-ngu":2,"hoa-ly":1,"bang-ngu":1},"m":2},"tay-tuy-dan":{"r":{"yeu-vuong-dan":1,"linh-thao":6,"hoa-linh-chi":3},"m":1},"tu-van-dan":{"r":{"tu-van-sam":2,"linh-thao":2},"m":1},"tinh-lien-dan":{"r":{"thai-hu-lien":2,"ngoc-lo-hoa":1},"m":1},"nguyet-ngu-thang":{"r":{"nguyet-ngu":2,"linh-thao":2},"m":2}}}'::jsonb;
+  v_cfg jsonb := '{"base":0.4,"per_set":0.05,"floor":0.1,"max":0.95,"pham":[0,0.05,0.1,0.15,0.2,0.25,0.3],"per_cap":0.03,"cap_max":10,"cost":[{"lt":50000,"tt":50},{"lt":200000,"tt":100},{"lt":450000,"tt":150},{"lt":800000,"tt":200},{"lt":1250000,"tt":250},{"lt":1800000,"tt":300},{"lt":2450000,"tt":350},{"lt":3200000,"tt":400},{"lt":4050000,"tt":450},{"lt":5000000,"tt":500}],"dan":{"hoi-xuan-dan":{"r":{"linh-thao":2},"m":2},"hoi-linh-dan":{"r":{"linh-thao":3},"m":2},"thang-linh-dan":{"r":{"linh-thao":6,"hoa-linh-chi":2,"yeu-huyet":2},"m":1},"tu-khi-dan":{"r":{"linh-thao":3,"yeu-huyet":1},"m":1},"boi-nguyen-dan":{"r":{"linh-thao":4,"yeu-huyet":2,"hoa-linh-chi":1},"m":1},"thanh-tam-dan":{"r":{"linh-thao":3,"hoa-linh-chi":2},"m":1},"linh-ngu-thang":{"r":{"linh-ngu":2,"linh-thao":1},"m":2},"van-ngu-thang":{"r":{"van-ngu":2,"hoa-ly":1,"bang-ngu":1},"m":2},"tay-tuy-dan":{"r":{"yeu-vuong-dan":1,"linh-thao":6,"hoa-linh-chi":3},"m":1},"tu-van-dan":{"r":{"tu-van-sam":2,"linh-thao":2},"m":1},"tinh-lien-dan":{"r":{"thai-hu-lien":2,"ngoc-lo-hoa":1},"m":1},"nguyet-ngu-thang":{"r":{"nguyet-ngu":2,"linh-thao":2},"m":2}}}'::jsonb;
   v_nv public.p2d_nhan_vat%rowtype; v_k text; v_n jsonb; v_p record; v_r record;
-  v_dan text; v_bo integer := 0; v_loai integer := -1; v_tong numeric := -1; v_make integer := 0;
+  v_dan text; v_bo integer := 0; v_loai integer := -1; v_tong numeric := -1; v_make integer := 0; v_tat numeric; v_du numeric := null; v_thua numeric;
   v_b integer; v_cnt integer; v_sum numeric; v_rate numeric := 0; v_ok boolean := false; v_vien integer := 0; v_pb integer;
 begin
   if v_me is null then raise exception 'chua_dang_nhap' using errcode = '28000'; end if;
@@ -42,6 +42,7 @@ begin
     if coalesce(public.p2d_ky_so(v_nv.data -> 'mats' -> v_k), 0) < (v_n #>> '{}')::numeric then raise exception 'thieu_nl' using errcode = '22023'; end if;
   end loop;
   -- dò đan phương
+  select sum((value #>> '{}')::numeric) into v_tat from jsonb_each(p_o);
   for v_p in select key, value from jsonb_each(v_cfg -> 'dan') where p_dan is null or key = p_dan order by key loop
     v_b := null; v_cnt := 0; v_sum := 0;
     for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
@@ -49,8 +50,9 @@ begin
       if not p_o ? v_r.key then v_b := 0; exit; end if;
       v_b := least(coalesce(v_b, 2147483647), floor((p_o ->> v_r.key)::numeric / (v_r.value #>> '{}')::numeric)::integer);
     end loop;
-    if coalesce(v_b, 0) >= 1 and (v_cnt > v_loai or (v_cnt = v_loai and v_sum > v_tong)) then
-      v_dan := v_p.key; v_bo := v_b; v_loai := v_cnt; v_tong := v_sum; v_make := (v_p.value ->> 'm')::integer;
+    v_thua := v_tat - v_sum * coalesce(v_b, 0);   -- nguyên liệu thừa nếu luyện đan này
+    if coalesce(v_b, 0) >= 1 and (v_du is null or v_thua < v_du or (v_thua = v_du and (v_cnt > v_loai or (v_cnt = v_loai and v_sum > v_tong)))) then
+      v_dan := v_p.key; v_bo := v_b; v_loai := v_cnt; v_tong := v_sum; v_du := v_thua; v_make := (v_p.value ->> 'm')::integer;
     end if;
   end loop;
   if v_dan is not null then
@@ -81,7 +83,7 @@ create or replace function public.p2d_nang_lo()
 returns jsonb language plpgsql security definer set search_path = '' as $$
 declare
   v_me uuid := public.p2d_uid();
-  v_cfg jsonb := '{"base":0.4,"per_set":0.05,"floor":0.1,"max":0.95,"pham":[0,0.05,0.1,0.15,0.2,0.25,0.3],"per_cap":0.03,"cap_max":10,"cost":[{"lt":5000,"tt":5},{"lt":20000,"tt":10},{"lt":45000,"tt":15},{"lt":80000,"tt":20},{"lt":125000,"tt":25},{"lt":180000,"tt":30},{"lt":245000,"tt":35},{"lt":320000,"tt":40},{"lt":405000,"tt":45},{"lt":500000,"tt":50}],"dan":{"hoi-xuan-dan":{"r":{"linh-thao":2},"m":2},"hoi-linh-dan":{"r":{"linh-thao":3},"m":2},"thang-linh-dan":{"r":{"linh-thao":6,"hoa-linh-chi":2,"yeu-huyet":2},"m":1},"tu-khi-dan":{"r":{"linh-thao":3,"yeu-huyet":1},"m":1},"boi-nguyen-dan":{"r":{"linh-thao":4,"yeu-huyet":2,"hoa-linh-chi":1},"m":1},"thanh-tam-dan":{"r":{"linh-thao":3,"hoa-linh-chi":2},"m":1},"linh-ngu-thang":{"r":{"linh-ngu":2,"linh-thao":1},"m":2},"van-ngu-thang":{"r":{"van-ngu":2,"hoa-ly":1,"bang-ngu":1},"m":2},"tay-tuy-dan":{"r":{"yeu-vuong-dan":1,"linh-thao":6,"hoa-linh-chi":3},"m":1},"tu-van-dan":{"r":{"tu-van-sam":2,"linh-thao":2},"m":1},"tinh-lien-dan":{"r":{"thai-hu-lien":2,"ngoc-lo-hoa":1},"m":1},"nguyet-ngu-thang":{"r":{"nguyet-ngu":2,"linh-thao":2},"m":2}}}'::jsonb;
+  v_cfg jsonb := '{"base":0.4,"per_set":0.05,"floor":0.1,"max":0.95,"pham":[0,0.05,0.1,0.15,0.2,0.25,0.3],"per_cap":0.03,"cap_max":10,"cost":[{"lt":50000,"tt":50},{"lt":200000,"tt":100},{"lt":450000,"tt":150},{"lt":800000,"tt":200},{"lt":1250000,"tt":250},{"lt":1800000,"tt":300},{"lt":2450000,"tt":350},{"lt":3200000,"tt":400},{"lt":4050000,"tt":450},{"lt":5000000,"tt":500}],"dan":{"hoi-xuan-dan":{"r":{"linh-thao":2},"m":2},"hoi-linh-dan":{"r":{"linh-thao":3},"m":2},"thang-linh-dan":{"r":{"linh-thao":6,"hoa-linh-chi":2,"yeu-huyet":2},"m":1},"tu-khi-dan":{"r":{"linh-thao":3,"yeu-huyet":1},"m":1},"boi-nguyen-dan":{"r":{"linh-thao":4,"yeu-huyet":2,"hoa-linh-chi":1},"m":1},"thanh-tam-dan":{"r":{"linh-thao":3,"hoa-linh-chi":2},"m":1},"linh-ngu-thang":{"r":{"linh-ngu":2,"linh-thao":1},"m":2},"van-ngu-thang":{"r":{"van-ngu":2,"hoa-ly":1,"bang-ngu":1},"m":2},"tay-tuy-dan":{"r":{"yeu-vuong-dan":1,"linh-thao":6,"hoa-linh-chi":3},"m":1},"tu-van-dan":{"r":{"tu-van-sam":2,"linh-thao":2},"m":1},"tinh-lien-dan":{"r":{"thai-hu-lien":2,"ngoc-lo-hoa":1},"m":1},"nguyet-ngu-thang":{"r":{"nguyet-ngu":2,"linh-thao":2},"m":2}}}'::jsonb;
   v_nv public.p2d_nhan_vat%rowtype; v_gia jsonb; v_lt numeric; v_tt numeric; v_pb integer;
 begin
   if v_me is null then raise exception 'chua_dang_nhap' using errcode = '28000'; end if;
@@ -94,7 +96,7 @@ begin
   if v_lt < (v_gia ->> 'lt')::numeric or v_tt < (v_gia ->> 'tt')::numeric then raise exception 'thieu' using errcode = '22023'; end if;
   v_nv.data := jsonb_set(v_nv.data, '{lingshi}', to_jsonb(v_lt - (v_gia ->> 'lt')::numeric));
   v_nv.data := jsonb_set(v_nv.data, '{mats,tinh-thiet}', to_jsonb(v_tt - (v_gia ->> 'tt')::numeric));
-  v_nv.data := jsonb_set(v_nv.data, '{lo}', jsonb_build_object('ph', v_nv.lo_pham, 'cap', v_nv.lo_cap + 1));
+  v_nv.data := jsonb_set(v_nv.data, '{lo}', (case when jsonb_typeof(v_nv.data -> 'lo') = 'object' then v_nv.data -> 'lo' else '{}'::jsonb end) || jsonb_build_object('ph', v_nv.lo_pham, 'cap', v_nv.lo_cap + 1));   -- giữ hình lò người chơi chọn (lo.hinh)
   perform set_config('p2d.ly_do', 'nang_lo', true);
   update public.p2d_nhan_vat set data = v_nv.data, lo_cap = v_nv.lo_cap + 1, phien_ban = phien_ban + 1, updated_at = now()
    where user_id = v_me returning phien_ban into v_pb;

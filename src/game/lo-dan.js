@@ -10,7 +10,10 @@ const net = async () => (await import('../net/ky-mon.js')).kyCalls;
 let noFn = false;
 
 // Lò đang có: { ph: phẩm 0–6, cap: cấp 0–10 } (máy chủ ghi data.lo, chưa có thì lò Phàm cấp 0)
-export const loOf = save => ({ ph: Math.max(0, Math.min(6, save?.lo?.ph | 0)), cap: Math.max(0, Math.min(10, save?.lo?.cap | 0)) });
+export const loOf = save => ({ ph: Math.max(0, Math.min(6, save?.lo?.ph | 0)), cap: Math.max(0, Math.min(10, save?.lo?.cap | 0)), hinh: Math.max(0, Math.min(3, save?.lo?.hinh | 0)) });
+
+// Chọn hình lò (4 loại lò, chủ dự án 20/11/2026 14:10): chỉ là hình, lưu trong bản lưu, máy chủ giữ nguyên khi nâng lò
+export function setHinh(game, i) { game.save.lo = { ...loOf(game.save), hinh: i }; game.persist(); }
 
 // Tỉ lệ thành với k bộ đan phương
 export function loRate(game, sets) {
@@ -19,16 +22,17 @@ export function loRate(game, sets) {
 }
 
 // Đan phương khớp với nguyên liệu đang bỏ vào put ({ mã: số }): mọi đan đủ ít nhất 1 bộ, xếp như máy chủ chọn mặc định
-// (nhiều loại nguyên liệu nhất, rồi nhiều cái nhất, rồi theo mã). Mỗi dòng { id, sets, make, kinds, sum }
+// (ít nguyên liệu thừa nhất, rồi nhiều loại nguyên liệu nhất, rồi nhiều cái nhất, rồi theo mã). Mỗi dòng { id, sets, make, kinds, sum, left }
 export function matches(game, put) {
   const out = [];
   for (const [id, p] of Object.entries(game.data.cave.pills)) {
     const r = Object.entries(p.recipe || {});
     if (!r.length || r.some(([k]) => !(put[k] > 0))) continue;
     const sets = Math.min(...r.map(([k, n]) => Math.floor(put[k] / n)));
-    if (sets >= 1) out.push({ id, sets, make: p.make || 1, kinds: r.length, sum: r.reduce((s, [, n]) => s + n, 0) });
+    const sum = r.reduce((s, [, n]) => s + n, 0), all = Object.values(put).reduce((s, n) => s + n, 0);
+    if (sets >= 1) out.push({ id, sets, make: p.make || 1, kinds: r.length, sum, left: all - sum * sets });
   }
-  return out.sort((a, b) => b.kinds - a.kinds || b.sum - a.sum || (a.id < b.id ? -1 : 1));
+  return out.sort((a, b) => a.left - b.left || b.kinds - a.kinds || b.sum - a.sum || (a.id < b.id ? -1 : 1));
 }
 
 // Dự kiến khi luyện put, chọn đan want (không chọn: mặc định): { m (dòng khớp hoặc null), rate, extra: { mã: số thừa } }
@@ -86,7 +90,7 @@ export async function nangLo(game) {
   const apply = r => {
     addCoins(game, -(r.lt ?? g.lt), 'nang-lo');
     s.mats['tinh-thiet'] = Math.max(0, (s.mats['tinh-thiet'] || 0) - (r.tt ?? g.tt));
-    s.lo = { ph: r.ph ?? loOf(s).ph, cap: r.cap ?? loOf(s).cap + 1 };
+    s.lo = { ...loOf(s), ph: r.ph ?? loOf(s).ph, cap: r.cap ?? loOf(s).cap + 1 };
     game.persist();
   };
   if (game.cloud && !noFn) {
@@ -111,6 +115,6 @@ export async function syncLo(game) {
   if (!game.cloud || noFn) return;
   try {
     const r = await (await net()).loCuaToi();
-    if (r && Number.isInteger(r.ph) && Number.isInteger(r.cap)) game.save.lo = { ph: r.ph, cap: r.cap };
+    if (r && Number.isInteger(r.ph) && Number.isInteger(r.cap)) game.save.lo = { ...loOf(game.save), ph: r.ph, cap: r.cap };
   } catch { /* máy chủ chưa có hàm hoặc mạng chập chờn: giữ lò trong bản lưu */ }
 }

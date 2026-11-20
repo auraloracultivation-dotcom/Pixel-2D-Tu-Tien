@@ -4,7 +4,7 @@
 // st.ld = { put: { mã: số }, want: mã đan đã chọn | null, last: chữ kết quả lần trước }
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
-import { loOf, plan, luyen, nangLo, upCost, syncLo } from '../game/lo-dan.js';
+import { loOf, luyen, nangLo, upCost, syncLo, setHinh } from '../game/lo-dan.js';
 import { coins } from '../game/shop.js';
 import { brewFx, resultFx } from './lo-dan-fx.js';
 
@@ -48,7 +48,12 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   box.style.setProperty('--q', R.color);
   const lop = el('div', 'ld-lo-img'), spr = D.art.sprites[(C.hinh || [])[lo.hinh | 0] || C.spr];   // hình lò (4 mẫu ảnh GPT 20/11/2026 14:10)
   if (spr) lop.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
-  box.append(lop, el('b', 'ld-lo-ten', `Lò ${R.name}`), el('small', null, T.lv.replace('{c}', lo.cap)));
+  box.append(lop, el('b', 'ld-lo-ten', `${(C.hinh_ten || [])[lo.hinh | 0] || 'Lò'} · ${R.name}`), el('small', null, T.lv.replace('{c}', lo.cap)));
+  lop.onclick = () => {   // 4 loại lò (chủ dự án 14:10): chạm hình lò đổi sang loại kế tiếp, không đổi phẩm, cấp
+    if (ld.busy) return;
+    const n = (C.hinh || []).length, k = ((lo.hinh | 0) + 1) % Math.max(1, n);
+    if (D.art.sprites[C.hinh?.[k]]) { setHinh(game, k); game.toast(T.chon_hinh.replace('{name}', C.hinh_ten?.[k] || ''), 1.2); refresh(); }
+  };
   // Nâng lò (chủ dự án 14:10): nút chỉ ghi "Nâng lò", đặt cạnh nút Luyện; chạm mới hiện giá rồi hỏi lại
   const g = upCost(game), up = el('button', 'sv-bbtn ld-up', g ? T.up : T.maxed);
   up.disabled = !g;
@@ -76,29 +81,19 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   }
   top.append(box, slots);
   colL.append(top);
-  // Dự kiến
-  const P = plan(game, ld.put, ld.want), info = el('div', 'ld-info');
-  if (ld.want && !P.m) ld.want = null;
-  if (!keys.length) info.append(el('p', 'muted', ld.last || T.none));
-  else {
-    if (P.m) {
-      const p = D.cave.pills[P.m.id], line = el('div', 'ld-kq');
-      line.append(ico(D, P.m.id, 'ld-cico'), el('b', null, T.match.replace('{name}', p.name).replace('{sets}', P.m.sets).replace('{n}', P.m.make * P.m.sets)));
-      info.append(line);
-      if (P.all.length > 1) {   // nhiều đan cùng khớp (vd Hồi Xuân, Hồi Linh đều chỉ cần Linh Thảo): bấm đổi đan muốn luyện
-        const i = P.all.findIndex(x => x.id === P.m.id), c = el('button', 'ld-chip', `${T.doi} (${i + 1}/${P.all.length})`);
-        c.onclick = () => { ld.want = P.all[(i + 1) % P.all.length].id; refresh(); };
-        info.append(c);
-      }
-      info.append(el('div', 'ld-rate', T.rate.replace('{p}', Math.round(P.rate * 100))));
-    } else info.append(el('div', 'ld-bad', T.nomatch));
-    const ex = Object.entries(P.extra);
-    if (ex.length && P.m) info.append(el('small', 'ld-thua', T.extra.replace('{list}', ex.map(([k, n]) => `${matName(D, k)} ×${vn(n)}`).join(', '))));
-    if (ld.last) info.append(el('small', 'muted', ld.last));
-  }
+  // Không báo trước đan gì, tỉ lệ bao nhiêu (chủ dự án 14:10): chỉ hiện kết quả lần luyện trước; đan phương xem ở Tàng Thư (nút ! góc kho)
+  const info = el('div', 'ld-info');
+  info.append(el('p', ld.last ? 'ld-kq' : 'muted', ld.last || (keys.length ? T.ready : T.none)));
   colR.append(info);   // dự kiến nằm đầu cột phải cho khỏi phải cuộn
   // Kho nguyên liệu: món đang có, trừ phần đã bỏ vào lò
-  colR.append(el('div', 'ld-h', T.kho));
+  const head = el('div', 'ld-h'), bang = el('button', 'ld-hoi', '!');   // chấm than: đan phương tham khảo ở Tàng Thư Hệ Thống
+  bang.title = T.book;
+  bang.onclick = async () => {
+    const pick = await game.dialog.choose(T.book_tip, [{ id: 'mo', label: T.book_open, desc: '' }, { id: 'thoi', label: 'Đóng', desc: '' }]);
+    if (pick === 'mo') game.openTangThu?.('pill:' + Object.keys(D.cave.pills)[0]);
+  };
+  head.append(el('span', null, T.kho), bang);
+  colR.append(head);
   const grid = el('div', 'ld-kho'), M = D.cave.materials;
   const ids = Object.keys(M).filter(k => (s.mats?.[k] || 0) > 0).sort((a, b) => M[a].name.localeCompare(M[b].name, 'vi'));
   for (const k of ids) {
@@ -125,7 +120,7 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   go.disabled = !keys.length;
   go.onclick = async () => {
     go.disabled = true; clear.disabled = true; up.disabled = true; go.textContent = T.busy; ld.busy = true;
-    const put = { ...ld.put }, want = P.m ? ld.want || P.m.id : null;
+    const put = { ...ld.put }, want = null;   // máy chủ tự dò đan phương khớp
     const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put, want));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
     ld.busy = false;
     if (r.err) { game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : T.net, 2); refresh(); return; }

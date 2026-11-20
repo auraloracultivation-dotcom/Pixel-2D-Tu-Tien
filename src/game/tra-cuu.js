@@ -52,7 +52,7 @@ export function traIndex(game) {
   for (const [k, m] of own(D.items?.materials)) add('mat', k, m.name, { color: m.color, desc: m.desc });
   for (const [mob, list] of own(C?.mat_drops)) for (const [mat, p] of list) { rel(mobId(mob), `mat:${mat}`); const e = E.get(`mat:${mat}`); if (e) (e.drop ||= []).push([mob, p]); }
   for (const [k, p] of own(C?.pills)) {
-    const e = add('pill', k, p.name, { color: p.color, desc: p.desc, rows: [[L.cd, p.cd ? `${p.cd} giây` : null], [L.rate, p.rate ? pct(p.rate) : null], [L.make, p.make]] });
+    const e = add('pill', k, p.name, { color: p.color, desc: p.desc, rows: [[L.cd, p.cd ? `${p.cd} giây` : null], [L.make, p.make]] });
     for (const [mat, n] of own(p.recipe)) { rel(`pill:${k}`, `mat:${mat}`); (e.recipe ||= []).push([mat, n]); }
   }
   for (const [mob, p] of own(D.techniques?.drops)) { const e = E.get(mobId(mob)); if (e) e.rows.push([L.tech_drop, pct(p)]); }
