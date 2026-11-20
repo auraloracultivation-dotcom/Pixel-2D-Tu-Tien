@@ -71,6 +71,15 @@ export function brew(game, id, rnd = Math.random) {
   return n;
 }
 
+// Đan độc của đan chống thiên kiếp (chủ dự án 20/11/2026 21:0x: "mỗi lần trong ngày giảm 50% tác dụng"): viên thứ n cùng loại trong
+// ngày còn base × k^(n-1) (data/cave.json → trib_doc.k). Qua 0 giờ đếm lại. Trả tác dụng của viên sắp uống.
+const pct = v => `${Math.round(v * 100)}%`;
+export function tribDoc(game, id, base) {
+  const s = game.save, day = new Date().toDateString(), k = game.data.cave.trib_doc?.k ?? 0.5;
+  if (s.tribDoc?.day !== day) s.tribDoc = { day, n: {} };
+  return base * Math.pow(k, s.tribDoc.n[id] || 0);
+}
+
 // Dùng một viên; trả về chữ báo hoặc null nếu không dùng được
 export function usePill(game, id) {
   const { data, save, player: p } = game, pill = data.cave.pills[id], u = pill?.use;
@@ -98,15 +107,17 @@ export function usePill(game, id) {
     if (save.flags.boiNguyen >= u.cap) return null;
     save.flags.boiNguyen++;
     msg = `Sinh lực tối đa +${u.hp} (${save.flags.boiNguyen}/${u.cap})`;
-  } else if (u.root) {
+  } else if (u.root) {   // Tẩy Tủy Đan: không giới hạn mua, mỗi viên có tỉ lệ u.rate nâng một bậc (chủ dự án 20/11/2026 21:0x: 25%)
     const list = data.realms.roots.list, i = list.findIndex(r => r.id === save.root);
     if (i < 0 || i >= list.length - 1) return null;
+    if (Math.random() >= (u.rate ?? 1)) { save.pills[id]--; game.persist(); return `Dược lực tan hết, linh căn chưa đổi (tỉ lệ ${Math.round((u.rate ?? 1) * 100)}%)`; }
     save.root = list[Math.min(list.length - 1, i + u.root)].id;
     msg = `Linh căn lên phẩm ${list.find(r => r.id === save.root).name}! Tu luyện nhanh hơn`;
-  } else if (u.trib) {
-    if (save.flags.thanhTam) return null;
-    save.flags.thanhTam = u.trib;
-    msg = 'Tâm tĩnh như nước. Thiên kiếp tới sẽ nhẹ hơn';
+  } else if (u.trib) {   // đan chống kiếp uống chồng được, mỗi viên cùng loại trong ngày giảm tác dụng (đan độc, tribDoc)
+    const e = tribDoc(game, id, u.trib), cur = save.flags.thanhTam || 0;
+    save.flags.thanhTam = 1 - (1 - cur) * (1 - e);   // nhân dồn: sét còn lại = tích phần còn lại của từng viên
+    save.tribDoc.n[id] = (save.tribDoc.n[id] || 0) + 1;
+    msg = `Sét kiếp nhẹ thêm ${pct(e)}, tổng nhẹ ${pct(save.flags.thanhTam)}`;
   }
   save.pills[id]--;
   game.refreshStats(); game.persist();

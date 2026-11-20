@@ -14,7 +14,7 @@ export function autoPills(game) {
       if (s.layer >= d.realms.layers && s.qi + u.qi > need) continue;   // sắp đầy tới đỉnh: để dành
       if (qiPillLeft(game) <= 0) continue;   // đan độc: tự hành chỉ uống viên còn đủ hiệu quả, viên giảm dần để người chơi tự chọn
     }
-    if (u.trib && !atPeak(game)) continue;
+    if (u.trib && (!atPeak(game) || s.flags.thanhTam)) continue;   // tự hành chỉ uống một viên chống kiếp; uống chồng (đan độc) để người chơi tự chọn
     const msg = usePill(game, id);
     if (msg) { game.autoNote(`Tự dùng ${P[id].name}: ${msg}`, 2.2); return; }
   }
