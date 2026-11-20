@@ -18,7 +18,7 @@ import { renderLoDan } from './lo-dan-view.js';
 import { patch, patchList } from './morph.js';
 
 const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['ld', 'ui.k-i-lo-dan', 'Luyện đan']];   // biểu tượng mục; Luyện đan: lò luyện đan (chủ dự án 20/11/2026 13:3x, src/ui/lo-dan-view.js) (ảnh GPT 03:03)
-const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang', ld: 'lo' };
+const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang', ld: 'nl' };
 // Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
 const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Tháo/, 'tab-trang-bi'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'],
   [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau'], [/^Mua nhanh/, 'lich-su'], [/^Đổi hệ/, 'tho'], [/^Phân giải/, 'st-bao'], [/^Luyện/, 'tab-phap-bao']];

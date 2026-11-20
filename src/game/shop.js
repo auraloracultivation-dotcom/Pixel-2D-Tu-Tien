@@ -119,17 +119,20 @@ async function buyN(game, x, q) {
   return x.kind === 'gem' ? (k > 1 ? `${k} ngọc ngẫu nhiên` : last) : x.kind === 'skill' ? last : `${x.n * k} ${label(game, x)}`;
 }
 
-// Vạn Bảo Lâu: chọn món, chọn số lượng, tới khi bấm Thôi
-export async function talkShop(game, npc) {
-  let msg = 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
+// Vạn Bảo Lâu: chọn món, chọn số lượng, tới khi bấm Thôi. o (NPC bán đan / nguyên liệu, src/game/npc-dan.js): items danh sách món,
+// msg lời chào, topup false thì không có ô Thẻ tháng, extra thêm lựa chọn { id, label, desc, color, run } (đan đặc biệt)
+export async function talkShop(game, npc, o = {}) {
+  let msg = o.msg || 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
-    const list = C(game).items.filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && (game.save.boughtSkills?.includes(x.ref) || game.data['phap-bao']?.all)));   // chiêu đã học thì thôi bán; hệ pháp bảo mới (12/11/2026): chiêu cũ thôi bán (báo lỗi #155: danh sách dài, khó vuốt)
+    const list = (o.items || C(game).items).filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && (game.save.boughtSkills?.includes(x.ref) || game.data['phap-bao']?.all)));   // chiêu đã học thì thôi bán; hệ pháp bảo mới (12/11/2026): chiêu cũ thôi bán (báo lỗi #155: danh sách dài, khó vuốt)
     const opts = list.map((x, i) => ({ id: String(i), label: label(game, x), spr: sprOf(x), tag: x.n > 1 ? '×' + x.n : '', price: priceOf(game, x).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', desc: x.kind === 'skill' ? game.data.skills[x.ref].desc : '', dim: coins(game.save) < priceOf(game, x), color: '#f2c94c' }));   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
-    opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
+    for (const e of o.extra || []) opts.push({ id: 'x:' + e.id, label: e.label, desc: e.desc || '', color: e.color });
+    if (o.topup !== false) opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
-    const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save)} ${C(game).name})`, opts);
+    const pick = await game.dialog.choose(`${npc.def.name}: ${msg} (Bạn có ${coins(game.save).toLocaleString('vi-VN')} ${C(game).name})`, opts);
     if (!pick || pick === 'out') return;
     if (pick === 'tn') { game.openTopup?.(); return; }
+    if (pick.startsWith('x:')) { await o.extra.find(e => 'x:' + e.id === pick)?.run(); return; }
     const x = list[+pick], unit = priceOf(game, x);
     // số lượng (góp ý 19/11/2026: bấm từng cái mỏi tay): nguyên liệu một lần gọi máy chủ (trần 999 mỗi lần), đan / ngọc mua liền tay
     const max = x.kind === 'skill' ? 1 : Math.min(Math.floor(coins(game.save) / Math.max(1, unit)), x.kind === 'mat' ? Math.floor(999 / Math.max(1, x.n)) : 999);

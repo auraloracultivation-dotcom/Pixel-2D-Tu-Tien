@@ -1,7 +1,7 @@
-// Lò luyện đan (chủ dự án 20/11/2026 13:3x–13:4x, số ở data/cave.json → lo). Túi đồ → Luyện đan: 1 ô lò + 9 ô nguyên liệu.
-// Máy chủ quyết (migration 20261120140000_p2d_lo_dan.sql: p2d_luyen_dan, p2d_nang_lo, p2d_lo_cua_toi): kiểm nguyên liệu trong bản lưu
-// máy chủ, dò đan phương, tung tỉ lệ, trừ nguyên liệu, cộng đan; máy khách chỉ chép lại kết quả (game.cloud.run).
-// Chơi thử không đăng nhập, hoặc máy chủ chưa có hàm: tính ở máy theo đúng luật đó (plan() dưới đây giống hệt hàm máy chủ).
+// Lò luyện đan (chủ dự án 20/11/2026 13:3x–14:5x, số ở data/cave.json → lo). Lò là món đồ: mua ở NPC bán lò (đều phẩm Phàm), mỗi lò phẩm
+// riêng, chỉ nâng phẩm; phải đặt một lò mới luyện được. Máy chủ quyết (migration 20261120140000_p2d_lo_dan.sql, sinh bằng tools/lo-dan-sql.py):
+// mua / đặt / nâng lò, kiểm nguyên liệu, ghép đan phương, tung tỉ lệ, trừ nguyên liệu, cộng đan; máy khách chỉ chép lại kết quả.
+// Chơi thử không đăng nhập, hoặc máy chủ chưa có hàm: tính ở máy theo đúng luật đó.
 import { coins, addCoins } from './shop.js';
 import { dailyEvent } from './daily.js';
 
@@ -9,16 +9,19 @@ const L = game => game.data.cave.lo;
 const net = async () => (await import('../net/ky-mon.js')).kyCalls;
 let noFn = false;
 
-// Lò đang có: { ph: phẩm 0–6, cap: cấp 0–10 } (máy chủ ghi data.lo, chưa có thì lò Phàm cấp 0)
-export const loOf = save => ({ ph: Math.max(0, Math.min(6, save?.lo?.ph | 0)), cap: Math.max(0, Math.min(10, save?.lo?.cap | 0)), hinh: Math.max(0, Math.min(3, save?.lo?.hinh | 0)) });
+// Lò đang có: { ds: [{ id, k: kiểu 0–3, ph: phẩm 0–6 }], dung: mã lò đang đặt | null } (máy chủ ghi data.lo)
+export function loOf(save) {
+  const r = save?.lo, ds = Array.isArray(r?.ds) ? r.ds.filter(x => x && typeof x.id === 'string').map(x => ({ id: x.id, k: Math.max(0, Math.min(3, x.k | 0)), ph: Math.max(0, Math.min(6, x.ph | 0)) })) : [];
+  return { ds, dung: ds.some(x => x.id === r?.dung) ? r.dung : null };
+}
+export const loDung = save => { const o = loOf(save); return o.ds.find(x => x.id === o.dung) || null; };
+export const loSpr = (game, lo) => 'lo.' + (L(game).kieu[lo?.k | 0] || L(game).kieu[0]);
+export const loTen = (game, lo) => L(game).kieu_ten[lo?.k | 0] || '';
 
-// Chọn hình lò (4 loại lò, chủ dự án 20/11/2026 14:10): chỉ là hình, lưu trong bản lưu, máy chủ giữ nguyên khi nâng lò
-export function setHinh(game, i) { game.save.lo = { ...loOf(game.save), hinh: i }; game.persist(); }
-
-// Tỉ lệ thành với tổng k bộ đan phương (mọi loại đan trong mẻ)
+// Tỉ lệ thành với tổng k bộ đan phương (mọi loại đan trong mẻ), theo phẩm lò đang đặt
 export function loRate(game, sets) {
-  const c = L(game), lo = loOf(game.save);
-  return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo.ph] || 0) + c.per_cap * lo.cap - c.per_set * (sets - 1)));
+  const c = L(game), lo = loDung(game.save);
+  return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo?.ph | 0] || 0) - c.per_set * (sets - 1)));
 }
 
 // Ghép đan phương như máy chủ (chủ dự án 20/11/2026: một mẻ ra được nhiều loại đan; nguyên liệu chồng nhiều đan phương thì
@@ -60,6 +63,7 @@ export async function luyen(game, put) {
   const clean = Object.fromEntries(Object.entries(put).filter(([, n]) => Number.isInteger(n) && n > 0));
   if (!Object.keys(clean).length || Object.keys(clean).length > L(game).slots) return { err: 'du_lieu_sai' };
   if (Object.entries(clean).some(([k, n]) => (game.save.mats?.[k] || 0) < n)) return { err: 'thieu_nl' };
+  if (!loDung(game.save)) return { err: 'chua_co_lo' };
   if (game.cloud && !noFn) {
     if (game.kyBusy) return { err: 'busy' };
     game.kyBusy = true;
@@ -69,7 +73,7 @@ export async function luyen(game, put) {
       return res || { err: 'net' };
     } catch (e) {
       const m = String(e?.message || '');
-      if (!m.includes('chua_co_ham')) return { err: m.includes('thieu_nl') ? 'thieu_nl' : 'net' };
+      if (!m.includes('chua_co_ham')) return { err: m.includes('thieu_nl') ? 'thieu_nl' : m.includes('chua_co_lo') ? 'chua_co_lo' : 'net' };
       noFn = true;
     } finally { game.kyBusy = false; }
   }
@@ -80,45 +84,66 @@ export async function luyen(game, put) {
   return r;
 }
 
-// Giá nâng lên cấp kế: { lt, tt } hoặc null khi tối đa
-export function upCost(game) {
-  const c = L(game), lo = loOf(game.save);
-  return lo.cap >= c.cap_max ? null : c.cost[lo.cap];
-}
+// Giá nâng lò lên phẩm kế: { lt, tt } hoặc null khi đã Thượng Cổ
+export const upCost = (game, lo) => (lo ? L(game).nang[lo.ph] || null : null);
 
-// Nâng lò một cấp: trả { cap } hoặc { err: 'max' | 'poor' | 'net' | 'busy' }
-export async function nangLo(game) {
-  const g = upCost(game), s = game.save;
-  if (!g) return { err: 'max' };
-  if (coins(s) < g.lt || (s.mats?.['tinh-thiet'] || 0) < g.tt) return { err: 'poor' };
-  const apply = r => {
-    addCoins(game, -(r.lt ?? g.lt), 'nang-lo');
-    s.mats['tinh-thiet'] = Math.max(0, (s.mats['tinh-thiet'] || 0) - (r.tt ?? g.tt));
-    s.lo = { ...loOf(s), ph: r.ph ?? loOf(s).ph, cap: r.cap ?? loOf(s).cap + 1 };
-    game.persist();
-  };
+const setLo = (game, r) => { if (r && Array.isArray(r.ds)) { game.save.lo = { ds: r.ds, dung: r.dung ?? null }; game.persist(); } };
+const errOf = m => (m.includes('thieu') ? 'poor' : m.includes('lo_toi_da') ? 'max' : m.includes('lo_day') ? 'full' : m.includes('khong_co_lo') ? 'none' : 'net');
+
+// Gọi máy chủ (fn) rồi chép; máy chủ chưa có hàm hoặc chơi thử: local() tính ở máy. Trả kết quả hoặc { err }
+async function serverOr(game, fn, apply, local) {
   if (game.cloud && !noFn) {
     if (game.kyBusy) return { err: 'busy' };
     game.kyBusy = true;
     try {
       let res = null;
-      await game.cloud.run(async () => (await net()).nangLo(), r => { apply(r); res = { cap: r.cap }; });
+      await game.cloud.run(async () => fn(await net()), r => { apply(r); res = r; });
       return res || { err: 'net' };
     } catch (e) {
       const m = String(e?.message || '');
-      if (!m.includes('chua_co_ham')) return { err: m.includes('thieu') ? 'poor' : m.includes('lo_toi_da') ? 'max' : 'net' };
+      if (!m.includes('chua_co_ham')) return { err: errOf(m) };
       noFn = true;
     } finally { game.kyBusy = false; }
   }
-  apply({});
-  return { cap: s.lo.cap };
+  return local();
 }
 
-// Lúc mở bảng: hỏi máy chủ lò thật (chủ dự án phát lò phẩm cao bằng cột lo_pham thì máy khách thấy ngay)
+// Mua lò kiểu k (NPC bán lò): { lo } hoặc { err: 'poor' | 'full' | 'net' | 'busy' }
+export function muaLo(game, k) {
+  const c = L(game), s = game.save, o = loOf(s);
+  if (o.ds.length >= c.max_lo) return Promise.resolve({ err: 'full' });
+  if (coins(s) < c.gia_mua) return Promise.resolve({ err: 'poor' });
+  return serverOr(game, n => n.muaLo(k), r => { addCoins(game, -(r.lt ?? c.gia_mua), 'mua-lo'); setLo(game, r); }, () => {
+    const lo = { id: 'l' + Math.random().toString(16).slice(2, 10), k, ph: 0 };
+    addCoins(game, -c.gia_mua, 'mua-lo');
+    setLo(game, { ds: [...o.ds, lo], dung: o.dung || lo.id });
+    return { lo };
+  });
+}
+
+// Đặt lò đang có làm lò luyện
+export function datLo(game, id) {
+  const o = loOf(game.save);
+  if (!o.ds.some(x => x.id === id)) return Promise.resolve({ err: 'none' });
+  return serverOr(game, n => n.datLo(id), r => setLo(game, r), () => { setLo(game, { ds: o.ds, dung: id }); return { dung: id }; });
+}
+
+// Nâng lò id lên phẩm kế: { lo } hoặc { err: 'max' | 'poor' | 'net' | 'busy' }
+export function nangLo(game, id) {
+  const s = game.save, o = loOf(s), lo = o.ds.find(x => x.id === id), g = upCost(game, lo);
+  if (!lo) return Promise.resolve({ err: 'none' });
+  if (!g) return Promise.resolve({ err: 'max' });
+  if (coins(s) < g.lt || (s.mats?.['tinh-thiet'] || 0) < g.tt) return Promise.resolve({ err: 'poor' });
+  const pay = r => { addCoins(game, -(r.lt ?? g.lt), 'nang-lo'); s.mats['tinh-thiet'] = Math.max(0, (s.mats['tinh-thiet'] || 0) - (r.tt ?? g.tt)); };
+  return serverOr(game, n => n.nangLo(id), r => { pay(r); setLo(game, r); }, () => {
+    pay({}); const ds = o.ds.map(x => (x.id === id ? { ...x, ph: x.ph + 1 } : x));
+    setLo(game, { ds, dung: o.dung }); return { lo: ds.find(x => x.id === id) };
+  });
+}
+
+// Lúc mở bảng: hỏi máy chủ lò thật
 export async function syncLo(game) {
   if (!game.cloud || noFn) return;
-  try {
-    const r = await (await net()).loCuaToi();
-    if (r && Number.isInteger(r.ph) && Number.isInteger(r.cap)) game.save.lo = { ...loOf(game.save), ph: r.ph, cap: r.cap };
-  } catch { /* máy chủ chưa có hàm hoặc mạng chập chờn: giữ lò trong bản lưu */ }
+  try { const r = await (await net()).loCuaToi(); if (r && Array.isArray(r.ds)) game.save.lo = { ds: r.ds, dung: r.dung ?? null }; }
+  catch { /* máy chủ chưa có hàm hoặc mạng chập chờn: giữ lò trong bản lưu */ }
 }

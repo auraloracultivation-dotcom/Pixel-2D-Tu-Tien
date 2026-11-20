@@ -1,9 +1,8 @@
 // Bảng động phủ: tab Lò đan (luyện và dùng đan), Lò rèn (chọn ô, rèn đồ mới), Động phủ (nâng cấp). Mở khi đứng cạnh lò.
-import { usePill, forge, costText, canPay, matInfo, qiPillLeft, qiPillUsed, qiPillRate } from '../game/cave.js';
+import { forge, costText, canPay, matInfo } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
-import { specialPills } from '../game/special-pills.js';
 import { quickBuyBtn } from './quick-buy-btn.js';
 
 const $ = id => document.getElementById(id);
@@ -17,7 +16,7 @@ function el(tag, cls, text) {
 
 export function createCavePanel(game) {
   const { data } = game;
-  let tab = 'dan', slot = 'vu-khi', last = '';
+  let tab = 'ren', slot = 'vu-khi', last = '';
 
   const mini = (text, fn, off) => { const b = el('button', 'mini', text); b.disabled = !!off; b.onclick = fn; return b; };
 
@@ -32,34 +31,7 @@ export function createCavePanel(game) {
     top.hidden = tab !== 'ren';
     if (tab === 'phu') { renderCave(list); return; }
     if (tab === 'vuon') { renderGarden(game, list, m => { last = m; game.sfx('pickup'); }, render); return; }
-    if (tab === 'dan') {
-      for (const sp of specialPills(game)) {   // Đan tẩy linh căn, Đan đổi giới tính (src/game/special-pills.js): đóng bảng, hỏi lại rồi làm
-        const c = el('div', 'skill-card'); c.style.borderLeftColor = sp.color;
-        c.append(el('b', null, sp.name), el('small', null, sp.desc));
-        const row = el('div', 'card-acts');
-        row.append(mini(sp.lock || 'Luyện và dùng', () => { game.closeAll?.(); close(); sp.run(); }, !!sp.lock));
-        c.append(row); list.append(c);
-      }
-      for (const [id, p] of Object.entries(data.cave.pills)) {
-        const c = el('div', 'skill-card');
-        c.style.borderLeftColor = p.color;
-        const have = s.pills[id] || 0;
-        c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Đan phương: ${costText(data, p.recipe)} → ${p.make} viên mỗi bộ`));
-        const row = el('div', 'card-acts');
-        row.append(
-          mini('Lò đan', () => { close(); game.openSelf?.('ld'); }),   // luyện ở lò mới trong Túi đồ → Luyện đan, máy chủ quyết (chủ dự án 20/11/2026)
-          ...[quickBuyBtn(game, p.recipe, m => { last = m; render(); })].filter(Boolean),   // thiếu nguyên liệu: mua nhanh phần thiếu
-          mini('Dùng', () => {
-            const L = game.data.cave.qi_pill_day, isQi = !!p.use?.qi, m = usePill(game, id);   // đan linh khí: báo đan độc, số viên còn dùng hôm nay
-            if (m) { last = `${p.name}: ${m}` + (isQi && L && qiPillLeft(game) > 0 ? ' ' + L.left.replace('{n}', qiPillLeft(game)) : isQi && L ? ' ' + L.full.replace('{n}', qiPillUsed(game)).replace('{pct}', Math.round(qiPillRate(game) * 100)) : ''); game.sfx('levelup'); }
-            else last = 'Lúc này dùng không có tác dụng.';
-            render();
-          }, !have),
-        );
-        c.append(row); list.append(c);
-      }
-      return;
-    }
+    // tab Lò đan (luyện đan ở Động phủ) bỏ 20/11/2026 14:5x: luyện ở Túi đồ → Luyện đan; đan đặc biệt ở Đan Dược Sư (src/game/npc-dan.js)
     for (const [id, name] of Object.entries(data.items.slots)) {
       const b = el('button', id === slot ? 'on' : '', name);
       b.onclick = () => { slot = id; render(); };

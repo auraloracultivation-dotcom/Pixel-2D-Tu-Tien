@@ -8,7 +8,7 @@
 import { ensureDaily, taskDef, dailyEvent } from './daily.js';
 import { wantJob } from './chores.js';
 import { forge, canPay } from './cave.js';
-import { luyen } from './lo-dan.js';   // luyện đan qua lò mới, máy chủ quyết (chủ dự án 20/11/2026)
+import { luyen, loDung } from './lo-dan.js';   // luyện đan qua lò mới, máy chủ quyết (chủ dự án 20/11/2026)
 import { harvestAll, nextRipe } from './garden.js';
 import { salvage, isEquipped, rarityOf } from './items.js';
 
@@ -22,7 +22,7 @@ function doNow(game, d) {
   const s = game.save, D = game.data;
   if (d.type === 'brew') {
     const id = D.cave.pill_button, p = D.cave.pills[id];
-    if (!s.flags['dong-phu'] || !canPay(game, p.recipe)) return false;
+    if (!s.flags['dong-phu'] || !canPay(game, p.recipe) || !loDung(s)) return false;   // chưa mua lò thì không luyện được (20/11/2026 14:5x)
     if (game.kyBusy) return false;
     luyen(game, { ...p.recipe }).then(r => {
       const d = r.ds?.find(x => x.thanh), n = d && D.cave.pills[d.dan]?.name;

@@ -10,7 +10,7 @@
  "grid": [
   "########################################",
   "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
-  "#qqKqqqqqqqqqqqqAqqqqqqqqqqqqqqqqqqqqqq#",
+  "#qqqqqqqqqqqqqqqAqqqqqqqqqqqqqqqqqqqqqq#",
   "#qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
   "#qqqqqqqq_qqqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
   "#qqqqqqq_M_qqqqqqqqqqqqqqqqqqqqqqqqqqqq#",
@@ -64,14 +64,9 @@
  ],
  "spawners": [],
  "prop_hide": "KAM",
- "_prop_hide": "Lò đan K, lò rèn A, bồ đoàn M giữ ô (bấm vào vẫn dùng được) nhưng vẽ bằng đồ mới ở khoá hoi (chủ dự án 09/11/2026: bỏ hình bộ cũ viền đậm).",
+ "_prop_hide": "Lò đan K (bỏ 20/11/2026 14:5x: luyện ở Túi đồ → Luyện đan), lò rèn A, bồ đoàn M giữ ô (bấm vào vẫn dùng được) nhưng vẽ bằng đồ mới ở khoá hoi (chủ dự án 09/11/2026: bỏ hình bộ cũ viền đậm).",
  "hoi": {
   "do": [
-   [
-    "dp.lo-dan-m",
-    3.7,
-    1.5
-   ],
    [
     "dp.lo-luyen-m",
     2,

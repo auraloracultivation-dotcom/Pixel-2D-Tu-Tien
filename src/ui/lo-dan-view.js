@@ -4,8 +4,8 @@
 // st.ld = { put: { mã: số }, last: chữ kết quả lần trước }
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
-import { loOf, luyen, nangLo, upCost, syncLo, setHinh } from '../game/lo-dan.js';
-import { coins } from '../game/shop.js';
+import { loOf, loDung, loSpr, loTen, luyen, syncLo } from '../game/lo-dan.js';
+import { renderLoList, askNang } from './lo-dan-lo.js';
 import { brewFx, resultFx } from './lo-dan-fx.js';
 
 const vn = n => Math.floor(n || 0).toLocaleString('vi-VN');
@@ -47,38 +47,25 @@ function askQty(game, k, have) {
 
 export function renderLoDan(game, st, mid, bar, refresh) {
   css();
-  const D = game.data, s = game.save, C = D.cave.lo, T = C.text, lo = loOf(s);
+  const D = game.data, s = game.save, C = D.cave.lo, T = C.text;
   const ld = (st.ld ||= { put: {}, last: '' });
   if (!st.ldSync) { st.ldSync = true; syncLo(game).then(() => refresh()); }   // mở bảng lần đầu: hỏi máy chủ lò thật
+  if (st.sub === 'lo') { renderLoList(game, st, mid, bar, refresh); return; }   // mục Lò đan: lưới lò đang có (src/ui/lo-dan-lo.js)
+  const lo = loDung(s);
   for (const [k, n] of Object.entries(ld.put)) if (!((s.mats?.[k] || 0) >= n)) { if (s.mats?.[k] > 0) ld.put[k] = s.mats[k]; else delete ld.put[k]; }   // kho đổi (vừa luyện, vừa dùng): kẹp lại
-  const wrap = el('div', 'ld'), top = el('div', 'ld-top'), colL = el('div', 'ld-l'), colR = el('div', 'ld-r');   // trái: lò, 9 ô, dự kiến; phải: kho
-  // Ô lò: hình lò viền màu phẩm (chỉ viền hình, khung không màu), tên phẩm + cấp
-  const R = D.items.rarities[lo.ph] || D.items.rarities[0], box = el('div', 'ld-lo');
+  const wrap = el('div', 'ld'), top = el('div', 'ld-top'), colL = el('div', 'ld-l'), colR = el('div', 'ld-r');   // trái: lò, 9 ô; phải: kho
+  // Ô lò: lò đang đặt, viền màu phẩm (chỉ viền hình, khung không màu); chưa có lò thì ô trống, chạm sang mục Lò đan
+  const R = D.items.rarities[lo?.ph | 0] || D.items.rarities[0], box = el('div', 'ld-lo' + (lo ? '' : ' trong'));
   box.style.setProperty('--q', R.color);
-  const sid = (C.hinh || [])[lo.hinh | 0] || C.spr, lop = el('div', 'ld-lo-img'), spr = D.art.sprites[sid];   // hình lò (4 mẫu ảnh GPT 20/11/2026 14:10)
+  const lop = el('div', 'ld-lo-img'), sid = loSpr(game, lo), spr = lo && D.art.sprites[sid];
   if (spr) lop.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
   box.dataset.spr = sid;   // lo-dan-fx.js tìm chuyển động <sid>.chay, <sid>.thanh (SpriteCook)
-  box.append(lop, el('b', 'ld-lo-ten', `${(C.hinh_ten || [])[lo.hinh | 0] || 'Lò'} · ${R.name}`), el('small', null, T.lv.replace('{c}', lo.cap)));
-  lop.onclick = () => {   // 4 loại lò (chủ dự án 14:10): chạm hình lò đổi sang loại kế tiếp, không đổi phẩm, cấp
-    if (ld.busy) return;
-    const n = (C.hinh || []).length, k = ((lo.hinh | 0) + 1) % Math.max(1, n);
-    if (D.art.sprites[C.hinh?.[k]]) { setHinh(game, k); game.toast(T.chon_hinh.replace('{name}', C.hinh_ten?.[k] || ''), 1.2); refresh(); }
-  };
-  // Nâng lò (chủ dự án 14:10): nút chỉ ghi "Nâng lò", đặt cạnh nút Luyện; chạm mới hiện giá rồi hỏi lại
-  const g = upCost(game), up = el('button', 'sv-bbtn ld-up', g ? T.up : T.maxed);
-  up.disabled = !g;
-  up.onclick = async () => {
-    if (ld.busy || !g) return;
-    const ok = await game.dialog.choose(T.upto.replace('{c}', loOf(s).cap + 1).replace('{lt}', vn(g.lt)).replace('{tt}', g.tt), [
-      { id: 'ok', label: T.up, desc: `${vn(g.lt)} Linh Thạch · ${g.tt} Tinh Thiết (đang có ${vn(coins(s))} · ${vn(s.mats?.['tinh-thiet'])})`, color: '#f2c94c' },
-      { id: 'thoi', label: 'Thôi', desc: '' }]);
-    if (ok !== 'ok') return;
-    up.disabled = true;
-    const r = await nangLo(game);
-    if (r.cap) { game.sfx?.('levelup'); game.toast(T.upok.replace('{c}', r.cap), 2); }
-    else game.toast(r.err === 'poor' ? T.poor : r.err === 'max' ? T.maxed : T.net, 2);
-    refresh();
-  };
+  if (lo) box.append(lop, el('b', 'ld-lo-ten', `${T.ten_lo.replace('{name}', loTen(game, lo))} · ${R.name}`));
+  else { box.append(lop, el('small', 'ld-lo-chua', loOf(s).ds.length ? T.chua_dat : T.chua_co.replace('{npc}', D.npcs[C.npc]?.name || ''))); }
+  lop.onclick = () => { if (!ld.busy) { st.sub = 'lo'; refresh(); } };   // chạm lò: sang mục Lò đan đổi lò
+  const up = el('button', 'sv-bbtn ld-up', T.up);   // Nâng phẩm lò đang đặt (chạm mới hiện giá rồi hỏi lại)
+  up.disabled = !lo || lo.ph >= C.nang.length;
+  up.onclick = () => { if (!ld.busy && lo) askNang(game, lo, refresh); };
   // 9 ô nguyên liệu trong lò: chạm để lấy ra
   const slots = el('div', 'ld-o'), keys = Object.keys(ld.put);
   for (let i = 0; i < C.slots; i++) {
@@ -127,12 +114,12 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   clear.disabled = !keys.length;
   clear.onclick = () => { ld.put = {}; ld.last = ''; refresh(); };
   const go = el('button', 'sv-bbtn gold ld-go', T.go);
-  go.disabled = !keys.length;
+  go.disabled = !keys.length || !lo;
   go.onclick = async () => {
     go.disabled = true; clear.disabled = true; up.disabled = true; go.textContent = T.busy; ld.busy = true;
     const put = { ...ld.put };   // máy chủ tự ghép đan phương (một mẻ ra được nhiều loại đan)
     const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
-    if (r.err) { ld.busy = false; game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : T.net, 2); refresh(); return; }
+    if (r.err) { ld.busy = false; game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : r.err === 'chua_co_lo' ? T.chua_dat : T.net, 2); refresh(); return; }
     const ten = d => D.cave.pills[d.dan]?.name || d.dan, ok = (r.ds || []).filter(d => d.thanh);
     ld.put = {}; ld.last = '';
     refresh();   // dựng lại bảng (kho đã trừ), chữ kết quả chỉ hiện sau khi lò diễn xong
@@ -141,10 +128,10 @@ export function renderLoDan(game, st, mid, bar, refresh) {
     if (nb) await resultFx(game, nb, r);   // bung nắp, viên đan chui ra từ miệng lò
     ld.busy = false; ld.last = kq; refresh();
     // Bảng nhận thưởng như nhận đồ (14:3x): người chơi bấm Tiếp tục mới đóng
-    const lo2 = loOf(s), first = D.art.sprites['ui.vk-' + ok[0].dan];
+    const first = D.art.sprites['ui.vk-' + ok[0].dan];
     await game.rewardGive?.({ qua: { ray: '#ffd75a', ink: '#ffe7a6', lvl: 1,
       name: ok.length > 1 ? T.kq_ten.replace('{k}', ok.length) : `${ten(ok[0])} ×${ok[0].vien}`, tag: T.kq_tag,
-      sub: T.kq_sub.replace('{name}', (C.hinh_ten || [])[lo2.hinh] || '').replace('{c}', lo2.cap), ico: first ? `url("${first.file}?v=${first.v}")` : '',
+      sub: T.kq_sub.replace('{name}', loTen(game, lo)).replace('{ph}', R.name), ico: first ? `url("${first.file}?v=${first.v}")` : '',
       lines: (r.ds || []).map(d => d.thanh ? { text: `${ten(d)} ×${d.vien}`, color: '#ffe7a6' } : { text: T.kq_hong.replace('{name}', ten(d)), color: '#ff8a7a' }), gain: null } });
   };
   bar.replaceChildren(clear, up, go);

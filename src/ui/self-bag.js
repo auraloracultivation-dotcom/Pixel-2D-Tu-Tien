@@ -24,7 +24,7 @@ export const SUBS = {   // biểu tượng mục con (ảnh GPT 11/11/2026 03:03
   cp: [['chieu', 'ui.nv-tab-chieu', 'Chiêu'], ['cong-phap', 'ui.nv-tab-bi-kip', 'Công pháp']],
   lt: [['linh-thu', 'ui.ic-linh-thu', 'Linh thú'], ['thu-cuoi', 'ui.ic-thu-cuoi', 'Thú cưỡi'], ['dong-hanh', 'ui.nv-khoi-loi', 'Khôi lỗi']],
   tt: [['thoi-trang', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['danh-hieu', 'ui.nv-tab-danh-hieu', 'Danh hiệu']],
-  ld: [['lo', 'ui.k-i-lo-dan', 'Lò đan']],
+  ld: [['lo', 'ui.k-i-lo-dan', 'Lò đan'], ['nl', 'ui.nv-tab-nguyen-lieu', 'Nguyên liệu']],   // chủ dự án 20/11/2026 14:5x: hai mục ngang như Vũ khí / Pháp bảo
 };
 // Mục con hiện được: hệ Pháp Bảo Luyện Chế (src/game/phap-bao.js pbOn) ẩn mục Chiêu cũ (chủ dự án 12/11/2026 03:35; 04:07 trả lại mục P.bảo cho hệ mới)
 export const subsOf = (game, page) => (pbOn(game) ? SUBS[page].filter(([id]) => !(page === 'cp' && id === 'chieu')) : SUBS[page]);   // mục P.bảo giữ: hiện hệ mới (self-pb-page.js)

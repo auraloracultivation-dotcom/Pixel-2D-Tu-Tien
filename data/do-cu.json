@@ -802,224 +802,154 @@
    "hinh": "hero.y-dong-phuc-nu",
    "color": "#e6ebf7",
    "hair": "#3a2e5c",
-   "map": "thien-kiem-phong",
-   "at": [
-    58.0,
-    93.9
-   ],
-   "ban": "hoa-su",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "thanh-sam-nam": {
    "name": "Thư sinh áo xanh",
    "hinh": "hero.y-thanh-sam-nam",
    "color": "#bfe0d8",
    "hair": "#2a2a3a",
-   "map": "thien-kiem-phong",
-   "at": [
-    82.9,
-    79.1
-   ],
-   "ban": "ong-do",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "hac-y-nu": {
    "name": "Nữ hiệp dạ hành",
    "hinh": "hero.y-hac-y-nu",
    "color": "#3a3446",
    "hair": "#c8c0e0",
-   "map": "hac-phong-dao",
-   "at": [
-    19,
-    21
-   ],
-   "ban": "ba-do-den",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "hong-y-nam": {
    "name": "Công tử áo hồng",
    "hinh": "hero.y-hong-y-nam",
    "color": "#ffc2d6",
    "hair": "#5a2a3a",
-   "map": "thanh-khe",
-   "at": [
-    18,
-    19
-   ],
-   "ban": "hoa-su",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "huyet-giap-nu": {
    "name": "Nữ thợ săn yêu",
    "hinh": "hero.y-huyet-giap-nu",
    "color": "#c0505a",
    "hair": "#1a1a1a",
-   "map": "dao-xich-dien",
-   "at": [
-    38,
-    45
-   ],
-   "ban": "thuong-nhan",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "bi-ngo-nu": {
    "name": "Cô bé Bí Ngô",
    "hinh": "hero.y-bi-ngo-nu",
    "color": "#ff8a2a",
    "hair": "#2a1a2a",
-   "map": "lang-tinh-linh",
-   "at": [
-    18,
-    18
-   ],
-   "ban": "tieu-moc-linh",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "tuyet-lanh-nam": {
    "name": "Chàng trai Tuyết Lành",
    "hinh": "hero.y-tuyet-lanh-nam",
    "color": "#d84a4a",
    "hair": "#f4f4fa",
-   "map": "dao-han-bang",
-   "at": [
-    36,
-    45
-   ],
-   "ban": "tuyet-nhi",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "tien-nhan-nam": {
    "name": "Bạch y tiên khách",
    "hinh": "hero.y-tien-nhan-nam",
    "color": "#fbfbff",
    "hair": "#c8d8f0",
-   "map": "thien-kiem-phong",
-   "at": [
-    73.7,
-    43.9
-   ],
-   "ban": "lao-than",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "hoang-kim-nu": {
    "name": "Kim y quý nữ",
    "hinh": "hero.y-hoang-kim-nu",
    "color": "#ffd24a",
    "hair": "#2a1a0a",
-   "map": "thien-kiem-phong",
-   "at": [
-    111.5,
-    73.8
-   ],
-   "ban": "co-ban-nuoc",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "tet-do-nu": {
    "name": "Cô nương áo Tết",
    "hinh": "hero.y-tet-do-nu",
    "color": "#ff4a4a",
    "hair": "#2a1a1a",
-   "map": "thanh-khe",
-   "at": [
-    14,
-    19
-   ],
-   "ban": "ong-do",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "thien-mach-bao-nam": {
    "name": "Thiên Mạch đạo nhân",
    "hinh": "hero.y-thien-mach-bao-nam",
    "color": "#f4f0ff",
    "hair": "#e8e0f8",
-   "map": "dao-thien-kim",
-   "at": [
-    16,
-    29
-   ],
-   "ban": "lao-nong",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "bang-y-han-bang-nam": {
    "name": "Hàn Băng kiếm khách",
    "hinh": "hero.y-bang-y-han-bang-nam",
    "color": "#cfe8f8",
    "hair": "#f4f6fa",
-   "map": "dao-han-bang",
-   "at": [
-    32,
-    48
-   ],
-   "ban": "tuyet-nhi",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "luc-bao-thanh-moc-nu": {
    "name": "Thanh Mộc dược nữ",
    "hinh": "hero.y-luc-bao-thanh-moc-nu",
    "color": "#6ab060",
    "hair": "#3a2a1a",
-   "map": "dao-moc",
-   "at": [
-    23,
-    47
-   ],
-   "ban": "tieu-phu",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "tho-bao-hau-tho-nu": {
    "name": "Hậu Thổ nữ thương",
    "hinh": "hero.y-tho-bao-hau-tho-nu",
    "color": "#b08a5a",
    "hair": "#2a1a0a",
-   "map": "dao-hau-tho",
-   "at": [
-    17,
-    30
-   ],
-   "ban": "chi-ganh-da",
    "lines": [
     "Ghé xem hàng đi đạo hữu.",
     "Hàng tốt giá phải chăng."
-   ]
+   ],
+   "_thay": "Chủ dự án 20/11/2026 14:5x: NPC bán trùng đồ thay bằng 3 NPC mới (lò, đan, nguyên liệu); không còn đứng trên bản đồ, chỉ giữ hình."
   },
   "hoa-bao-xich-diem-nam": {
    "name": "Lữ khách Hỏa bào Xích Diễm",
