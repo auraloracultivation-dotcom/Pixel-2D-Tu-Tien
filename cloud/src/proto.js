@@ -30,8 +30,8 @@ const num = (v, lo, hi) => (typeof v === 'number' && Number.isFinite(v) ? Math.m
 export function cleanProf(p) {
   if (!p || typeof p !== 'object') return {};
   const o = { name: cleanStr(p.name, 24) || 'Đạo hữu', realm: cleanStr(p.realm, 24) };
-  // pt: pháp tượng đang đeo, vk: món vũ khí đang mặc (20/11/2026: trước bị bỏ ở đây nên người khác không thấy)
-  for (const k of ['element', 'look', 'outfit', 'mount', 'pet', 'comp', 'title', 'pt', 'vk']) { const w = word(p[k]); if (w) o[k] = w; }
+  // pt: pháp tượng đang đeo, vk: món vũ khí đang mặc, comp2: khôi lỗi thứ hai (20/11/2026: trước bị bỏ ở đây nên người khác không thấy)
+  for (const k of ['element', 'look', 'outfit', 'mount', 'pet', 'comp', 'title', 'pt', 'vk', 'comp2']) { const w = word(p[k]); if (w) o[k] = w; }
   return o;
 }
 

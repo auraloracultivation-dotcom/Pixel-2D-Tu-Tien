@@ -10,6 +10,8 @@ import { addFx } from './combat.js';
 import { realmLabel } from './stats.js';
 import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
+import { stepTheo } from './others-theo.js';
+import { pbSee } from './pb-see.js';   // đòn pháp bảo của người khác
 import { chargeHold } from './skill-charge.js';
 import { castFx } from './others-cast.js';
 import { nlSeen } from './nl-roi.js';
@@ -21,8 +23,8 @@ const MIN_SPEED = 30;
 // Pháp tượng đang đeo (ô ngoc-boi, data/items.json → bases.*.pt): người khác thấy sau lưng mình (src/render/draw-phap-tuong.js)
 const ptId = game => { const u = game.save.equip?.['ngoc-boi'], it = u != null && game.save.bag?.find(i => i.uid === u); return (it && game.data.items.bases[it.base]?.pt) || null; };
 const vkId = game => { const u = game.save.equip?.['vu-khi'], it = u != null && game.save.bag?.find(i => i.uid === u); return it?.base || null; };   // vũ khí đang mặc: người khác thấy treo sau lưng (draw-flyweapon.js drawOtherWeapon)
-export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game) });
-const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}`;   // đổi pháp tượng, vũ khí cũng báo lại
+export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game), pet: game.save.pet || null, comp: game.save.companion || null, comp2: game.save.companion2 || null });   // linh thú, khôi lỗi đang mang: người khác thấy đi theo (others-theo.js)
+const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}|${p.pet}|${p.comp}|${p.comp2}`;   // đổi pháp tượng, vũ khí cũng báo lại
 const perfLevel = () => +(document.body?.dataset?.perf || 0) || 0;
 
 export function createOthers(game) {
@@ -44,7 +46,7 @@ export function createOthers(game) {
     list,
     clear() { list.clear(); shown = []; },
     presence(entries) {
-      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases };
+      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases, pets: game.data.pets.pets, comps: game.data.companions.list };
       for (const raw of entries.slice(0, R().max_list || 120)) {
         const e = cleanPresence(raw, known, R().name_max);
         if (!e) continue;
@@ -52,14 +54,14 @@ export function createOthers(game) {
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
         const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
         o.def = { name: cleanText(game, e.name) };
-        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk;
+        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk; o.pet = e.pet; o.comp = e.comp; o.comp2 = e.comp2;
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
       refresh();
     },
     // Chiêu người khác vừa dùng: chỉ vẽ hiệu ứng ở chỗ họ (không sát thương, không trúng ai) — game/others-cast.js
-    cast(raw) { if (!nlSeen(game, raw) && !kdSeen(game, list.get(raw?.id), raw)) castFx(game, list.get(raw?.id), raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
+    cast(raw) { if (!nlSeen(game, raw) && !kdSeen(game, list.get(raw?.id), raw) && !pbSee(game, list.get(raw?.id), raw)) castFx(game, list.get(raw?.id), raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
     move(raw) {
       const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;
@@ -83,6 +85,7 @@ export function createOthers(game) {
         o.moving = o.moveT > 0;
         if (o.moving) o.walkT += dt;
         if (o.swingT > 0) o.swingT -= dt;
+        stepTheo(game, o, dt);   // linh thú, khôi lỗi của họ đi theo (others-theo.js)
         if (o.charge) chargeHold(game, o, dt);   // đang tụ lực Phá Thiên (skill-charge.js): tới giờ thì vệt chém hiện ra (chỉ hình)
       }
       if ((pick -= dt) <= 0) { pick = 0.25; refresh(); }   // chọn lại người gần nhất 4 lần mỗi giây
