@@ -355,17 +355,25 @@ errors.push(...(await import('./dong-bo.mjs')).soat());
 {
   const r = spawnSync(process.execPath, [join('tools', 'cloud', 'phong.test.mjs')], { encoding: 'utf8' });
   if (r.status !== 0) { const out = (r.stderr || r.stdout).trim().split('\n'); errors.push(`cloud: bài thử máy chủ phòng trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
+  const pv = spawnSync(process.execPath, [join('tools', 'cloud', 'pvp.test.mjs')], { encoding: 'utf8' });   // trọng tài PvP (cloud/src/pvp.js)
+  if (pv.status !== 0) { const out = (pv.stderr || pv.stdout).trim().split('\n'); errors.push(`cloud: bài thử trọng tài PvP trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const n = spawnSync(process.execPath, [join('tools', 'cloud', 'nhip.test.mjs')], { encoding: 'utf8' });   // nhịp sống qua phòng (cloud/src/nhip.js)
   if (n.status !== 0) errors.push(`cloud: bài thử nhịp sống trượt — ${(n.stderr || n.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
-  // Trận 10 vs 10 + 20 người đi dạo trên đúng mã máy chủ phòng, nhịp gửi vị trí lúc giao chiến lấy từ data/config.json (realtime.pvp_ms):
-  // máy chủ phòng không được bỏ tin vì luật tốc độ và phải tính gần hết đòn hợp lệ. Ai nới nhịp gửi hay siết luật tốc độ (cloud/src/proto.js
-  // RATE) làm PvP đông người tính sai là bài này báo (20/11/2026: trước khi sửa chỉ 55–75% đòn được tính, có lúc 17% tin bị bỏ).
+  // Ba trận giả trên ĐÚNG mã máy chủ phòng (tools/cloud/tai-chien.mjs), có mạng giả (trễ, chập chờn) và mắt máy khách giả (hình người khác đi
+  // sau vị trí thật như trong game), nhịp gửi vị trí lúc giao chiến lấy từ data/config.json (realtime.pvp_ms), số ngẫu nhiên cố định (--hat)
+  // nên lần nào cũng ra y một kết quả: (1) 10 vs 10 + 20 người đi dạo, mạng thường; (2) lao ra lao vào quanh mép tầm (bài thử thật trên game
+  // 20/11/2026 chỉ được 56%); (3) đuổi đánh người bỏ chạy ở mép tầm nhìn thấy, mạng yếu. Phòng không được bỏ tin vì luật tốc độ và phải tính
+  // gần hết đòn hợp lệ trên màn hình người đánh. Mã máy chủ phòng bản 32e571ff (trước đợt sửa đêm 20/11/2026) ra 92% / 55% / 0%. Ai nới nhịp gửi, siết luật tốc độ
+  // (cloud/src/proto.js RATE), bỏ vị trí kèm đòn, bỏ bù trễ hay siết nhịp đòn (cloud/src/pvp.js, data/pvp.json → server) là bài này báo.
   const pvpMs = read('config.json').realtime?.pvp_ms;
-  const c = spawnSync(process.execPath, [join('tools', 'cloud', 'tai-chien.mjs'), '--nguoi', '40', '--danh', '20', '--doi', '2', '--giay', '20', '--vt', String(pvpMs)], { encoding: 'utf8' });
-  let kq = null;
-  try { kq = JSON.parse(c.stdout.trim().split('\n').pop()); } catch { /* không ra kết quả */ }
-  if (!(pvpMs > 0) || !kq) errors.push(`cloud: bài thử trận đông người không chạy được (pvp_ms ${pvpMs}) — ${(c.stderr || c.stdout || '').trim().split('\n').slice(-2).join(' | ')}`);
-  else if (kq.bi_bo_vi_qua_nhanh_pct > 0 || kq.bi_da > 0 || !(kq.don_duoc_tinh_pct >= 90)) errors.push(`cloud: trận 10 vs 10 tính sai đòn — ${kq.don_duoc_tinh_pct}% đòn được tính (cần ≥ 90), ${kq.bi_bo_vi_qua_nhanh_pct}% tin bị bỏ (cần 0), ${kq.bi_da} người bị đá (cần 0)`);
+  for (const [ten, can, ts] of [['10 vs 10', 94, ['--nguoi', '40', '--danh', '20', '--doi', '2']], ['ra vào quanh mép tầm', 97, ['--nguoi', '20', '--danh', '20', '--kieu', 'ravao']],
+    ['đuổi người bỏ chạy, mạng yếu', 95, ['--nguoi', '20', '--danh', '20', '--kieu', 'duoi', '--toc', '190', '--cach', '300', '--len', '250', '--rung', '120']]]) {
+    const c = spawnSync(process.execPath, [join('tools', 'cloud', 'tai-chien.mjs'), ...ts, '--giay', '20', '--vt', String(pvpMs), '--hat', '20261121'], { encoding: 'utf8' });
+    let kq = null;
+    try { kq = JSON.parse(c.stdout.trim().split('\n').pop()); } catch { /* không ra kết quả */ }
+    if (!(pvpMs > 0) || !kq) errors.push(`cloud: trận giả "${ten}" không chạy được (pvp_ms ${pvpMs}) — ${(c.stderr || c.stdout || '').trim().split('\n').slice(-2).join(' | ')}`);
+    else if (kq.bi_bo_vi_qua_nhanh_pct > 0 || kq.bi_da > 0 || !(kq.don_duoc_tinh_pct >= can)) errors.push(`cloud: trận giả "${ten}" tính sai đòn — ${kq.don_duoc_tinh_pct}% đòn được tính (cần ≥ ${can}), ${kq.bi_bo_vi_qua_nhanh_pct}% tin bị bỏ (cần 0), ${kq.bi_da} người bị đá (cần 0)`);
+  }
 }
 
 // Luật chiến đấu mới (src/game/he-chien.js, data/he-chien.json): bài thử thuần Node

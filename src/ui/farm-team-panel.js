@@ -23,7 +23,7 @@ export function createFarmTeamPanel(game) {
   css.rel = 'stylesheet'; css.href = goc('src/ui/farm-team.css');
   document.head.append(css);
   const box = el('div', 'ft-panel'); box.id = 'farm-team'; box.hidden = true;
-  box.addEventListener('pointerdown', e => { if (e.target.closest('.tap')) e.stopPropagation(); });   // chạm chữ không thành cần gạt
+  box.addEventListener('pointerdown', e => { if (e.target.closest('.tap')) e.stopPropagation(); game.farmTeam?.fresh?.(); });   // chạm chữ không thành cần gạt; chưa có tổ đội thì danh sách đọc thưa (idle_s), chạm vào là đọc lại ngay
   document.body.append(box);
   let more = false, gon = false, key = '';
   try { gon = localStorage.getItem(KEY) === '1'; } catch { /* chế độ riêng tư */ }

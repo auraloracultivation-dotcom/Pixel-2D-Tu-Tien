@@ -1,8 +1,9 @@
 {
- "_note": "Tổ đội farm ngoài thế giới mở (chủ dự án chốt 04/11/2026). Khác tổ đội bí cảnh (data/party.json). Máy chủ: supabase/migrations/20261104090000_p2d_doi_farm.sql (max phải khớp số 5 trong migration, tools/check.mjs so). Mỗi thành viên KHÁC mình đang online và cùng tinh cầu thêm pct_each Linh Thạch rơi từ quái và linh khí hạ quái, tính tối đa max - 1 người (đủ 5 người cùng chỗ: +40%). poll_s: giây giữa hai lần gửi nhịp tổ đội (cũng là lần đọc danh sách); stale_s: dữ liệu cũ hơn số này thì thôi cộng thưởng. show: số tổ đội hiện trước khi bấm Xem thêm. name_min / name_max: độ dài tên tổ đội (khớp migration).",
+ "_note": "Tổ đội farm ngoài thế giới mở (chủ dự án chốt 04/11/2026). Khác tổ đội bí cảnh (data/party.json). Máy chủ: supabase/migrations/20261104090000_p2d_doi_farm.sql (max phải khớp số 5 trong migration, tools/check.mjs so). Mỗi thành viên KHÁC mình đang online và cùng tinh cầu thêm pct_each Linh Thạch rơi từ quái và linh khí hạ quái, tính tối đa max - 1 người (đủ 5 người cùng chỗ: +40%). poll_s: giây giữa hai lần gửi nhịp tổ đội (cũng là lần đọc danh sách) khi đang trong tổ đội hoặc đang chờ duyệt đơn xin vào; idle_s: nhịp đọc danh sách khi chưa có tổ đội (20/11/2026: trước đây ai cũng gọi poll_s, chạm khung tổ đội thì đọc lại ngay); stale_s: dữ liệu cũ hơn số này thì thôi cộng thưởng. show: số tổ đội hiện trước khi bấm Xem thêm. name_min / name_max: độ dài tên tổ đội (khớp migration).",
  "max": 5,
  "pct_each": 0.1,
  "poll_s": 12,
+ "idle_s": 90,
  "stale_s": 40,
  "show": 3,
  "name_min": 2,

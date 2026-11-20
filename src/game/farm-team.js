@@ -28,9 +28,14 @@ export function startFarmTeam(game, onChange) {
     const map = game.map.id;
     try { Object.assign(view, { st: await (await net()).teamBeat(map), at: Date.now(), map }); }
     catch { /* mất mạng: giữ dữ liệu cũ, cũ quá stale_s thì thôi cộng thưởng */ }
-    busy = false; next = Date.now() + c.poll_s * 1000;
+    busy = false; next = Date.now() + gap() * 1000;
     onChange?.();
   }
+  // Nhịp nhanh poll_s chỉ khi cần: đang trong tổ đội (60 giây không nhịp là máy chủ cho rời đội, thưởng tổ đội cần số mới), hoặc đang chờ
+  // duyệt đơn xin vào. Còn lại idle_s giây một lần cho danh sách tổ đội trên tinh cầu này (chạm vào khung tổ đội thì đọc lại ngay: fresh).
+  // Trước 20/11/2026 ai đã đăng nhập cũng gọi máy chủ poll_s = 12 giây một lần: 4,4 lệnh gọi máy chủ dữ liệu mỗi phút mỗi người online, mà hàm
+  // p2d_doi_nhip lại giữ một khoá chung của cả máy chủ (thiết kế máy chủ 1 000 người: 1 000 người là khoá bận 70%).
+  const gap = () => (view.st?.toi || view.st?.ds?.some(d => d.xin) ? c.poll_s : c.idle_s || c.poll_s);
   every(() => {
     if (!teamOn(game)) { if (view.st) { view.st = null; onChange?.(); } return; }
     const id = game.map?.id;
@@ -38,6 +43,7 @@ export function startFarmTeam(game, onChange) {
     if (Date.now() >= next) beat();
   }, 1000);
   view.refresh = () => { next = 0; return beat(); };
+  view.fresh = (s = 10) => { if (Date.now() - view.at > s * 1000) view.refresh(); };   // người chơi vừa chạm khung tổ đội: số cũ quá s giây thì đọc lại
   return view;
 }
 

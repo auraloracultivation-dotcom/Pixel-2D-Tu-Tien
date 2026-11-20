@@ -4,7 +4,7 @@
 // Mọi thứ ở đây chỉ để hiển thị (vị trí, hồ sơ, chào hỏi, hiệu ứng chiêu); đồ, Linh Thạch, sát thương vẫn do Supabase kiểm.
 import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
-import { pvpToggle, pvpHit, pvpLoad } from './pvp.js';
+import { pvpToggle, pvpHit, pvpLoad, pvpTrack } from './pvp.js';
 import { nhipVao, nhipGom } from './nhip.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
@@ -64,12 +64,18 @@ export class Phong extends DurableObject {
         this.others(ws, { t: 'j', u: { id: a.id, joined: a.at, ...a.p } });
         break;
       }
-      case 'm': { const mv = cleanMove(msg); if (mv) { this.pos.set(a.id, mv); this.moves.set(a.id, mv); this.later(); } break; }
+      case 'm': { const mv = cleanMove(msg); if (mv) this.place(ws, a, mv, now); break; }
       case 's': { const s = cleanSay(msg); if (s) { this.says.push([a.id, s]); this.later(); } break; }
       case 'k': { const c = cleanCast(msg); if (c) { this.casts.push([a.id, c]); this.later(); } break; }
       case 'n': { if (a.kind === 'dao') await nhipVao(this, ws, a, msg.ph); break; }   // nhịp sống (src/nhip.js)
-      case 'bv': { if (a.kind === 'dao') await pvpToggle(this, ws, a, !!msg.off); break; }   // PvP Ngoại Vực: tắt / bật bảo vệ (src/pvp.js)
-      case 'h': { if (a.kind === 'dao') await pvpHit(this, ws, a, msg.to); break; }
+      case 'bv': { if (a.kind === 'dao') await pvpToggle(this, ws, a, !!msg.off, msg.off ? this.kem(a, msg) : null); break; }   // PvP: tắt / bật bảo vệ (src/pvp.js); tắt thì kèm chỗ đang đứng
+      case 'h': {   // đòn PvP. Máy khách từ đợt sửa đêm 20/11/2026 gửi kèm vị trí mình lúc ra đòn (x, y): phòng xét tầm theo đó, khỏi dùng vị trí cũ
+        if (a.kind !== 'dao') break;
+        const mv = this.kem(a, msg);
+        if (mv) this.place(ws, a, mv, now);
+        await pvpHit(this, ws, a, msg.to);
+        break;
+      }
       case 'd': { if (a.kind === 'dao') this.bossHit(ws, a, msg.n); break; }   // sát thương lên Cửu Đầu Thôn Thiên Mãng (src/mang.js)
       case 'r': {   // tổ đội: chuyển tiếp ngay nguyên gói cho người khác trong đội
         if (a.kind === 'to' && msg.d && typeof msg.d === 'object') this.others(ws, { t: 'r', from: a.id, d: msg.d });
@@ -90,7 +96,7 @@ export class Phong extends DurableObject {
     if (!a) return;
     // còn kết nối khác của cùng tài khoản (vừa vào lại) thì không báo rời
     if (this.ctx.getWebSockets(a.id).some(w => w !== ws && w.readyState === 1)) return;
-    this.pos.delete(a.id); this.moves.delete(a.id);
+    this.pos.delete(a.id); this.moves.delete(a.id); this.vet?.delete(a.id);
     this.others(ws, { t: 'l', id: a.id });
   }
 
@@ -102,6 +108,23 @@ export class Phong extends DurableObject {
   others(from, obj) {
     const s = JSON.stringify(obj);
     for (const ws of this.ctx.getWebSockets()) if (ws !== from && ws.readyState === 1) { try { ws.send(s); } catch { /* đang đóng */ } }
+  }
+
+  // Vị trí mới của một người: giữ để xét tầm (boss, PvP), vào lô gửi xuống. Người đang tắt khiên thì ghi thêm vào vết vị trí (pvp.js: bù trễ
+  // mạng) và vào phần đính kèm kết nối (a.xy). Lý do có a.xy: phòng ngủ sau khoảng 10 giây không ai gửi gì là quên sạch this.pos (thử thật
+  // 20/11/2026: im 8 giây còn, im 12 giây mất), mà người đứng yên 30 giây mới gửi lại vị trí; không ghi bền thì người tắt khiên đứng yên
+  // trong phòng vắng là không ai đánh trúng được, dù ngay trước mặt.
+  place(ws, a, mv, now) {
+    this.pos.set(a.id, mv); this.moves.set(a.id, mv);
+    if (a.pk) { pvpTrack(this, a.id, mv, now); a.xy = [mv[0], mv[1]]; ws.serializeAttachment(a); }
+    this.later();
+  }
+
+  // Vị trí gửi kèm trong tin khác (đòn 'h', tắt khiên 'bv'; máy khách từ đợt sửa đêm 20/11/2026): tin chỉ mang x, y nên giữ hướng nhìn cũ; cờ vung đòn
+  // chỉ giữ nếu đang chờ trong lô này (kẻo đè mất hình vung đòn, mà cũng không tự vẽ thêm). null: tin không kèm vị trí (máy khách cũ) hoặc rác.
+  kem(a, msg) {
+    const mv = cleanMove(msg), old = mv && this.pos.get(a.id);
+    return old ? [mv[0], mv[1], old[2], old[3], this.moves.get(a.id)?.[4] || 0, old[5]] : mv;
   }
 
   // Gom lô: vị trí, chào hỏi, hiệu ứng chiêu trong BATCH_MS gửi thành một gói cho mọi người
