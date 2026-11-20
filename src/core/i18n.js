@@ -7,6 +7,7 @@
 //  3. Chữ vẽ lên canvas (fillText, strokeText, measureText) và alert / confirm / prompt đi qua cùng bộ dịch.
 //  4. Chỗ nào ghép chữ kiểu khác (cộng chuỗi): gọi t('câu {n}', { n }) ngay tại chỗ.
 // Đổi ngôn ngữ: setLang() ghi máy rồi tải lại trang. Ngôn ngữ chưa dịch câu nào thì giữ tiếng Việt.
+import { BUILD } from './build.js';
 export const LANGS = [{ id: 'vi', name: 'Tiếng Việt' }, { id: 'en', name: 'English' }, { id: 'zh-Hant', name: '繁體中文' }];
 const KEY = 'p2d_lang';
 const VI = /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i;
@@ -40,7 +41,7 @@ function compile(k, v) {
 
 async function load() {
   try {
-    const v = new URL(import.meta.url).searchParams.get('v') || 'dev';   // số phiên bản do quy trình đưa lên mạng gắn vào
+    const v = BUILD;   // số phiên bản do quy trình đưa lên mạng gắn vào
     const r = await fetch(`data/i18n/${lang}.json?v=${v}`, { cache: 'no-cache' });
     const d = await r.json();
     for (const [k, v] of Object.entries(d)) {

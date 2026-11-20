@@ -2,11 +2,11 @@
 // suốt, hiện vài tin mới nhất của kênh Thế giới (và tin trên tinh cầu), kèm một ô "nhập tin". Chạm khung thì mở rộng thành
 // bảng Trò chuyện đầy đủ (src/ui/social-panel.js, tab Thế giới, con trỏ vào ô gõ); chạm bất kỳ chỗ nào ngoài bảng là thu nhỏ.
 // Bỏ mục Trò chuyện khỏi Menu. Đọc kênh Thế giới mỗi POLL giây khi đã đăng nhập.
+import { goc } from '../core/build.js';
 import { worldState, pullWorld, isBlocked } from '../game/world-chat.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
 const SHOW = 3, POLL = 20;
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -17,7 +17,7 @@ function el(tag, cls, text) {
 export function createChatDock(game) {
   const S = game.data.social, names = game.data.realms.names;
   const css = document.createElement('link');   // kiểu của khung trò chuyện và cột nhiệm vụ (src/ui/docks.css)
-  css.rel = 'stylesheet'; css.href = new URL(`./docks.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/docks.css');
   document.head.append(css);
   const dock = el('div', 'chat-dock'); dock.id = 'chat-dock'; dock.hidden = true;
   const log = el('div', 'cd-log'), fake = el('div', 'cd-input', S.world.placeholder);

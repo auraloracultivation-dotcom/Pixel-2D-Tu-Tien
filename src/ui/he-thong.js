@@ -6,6 +6,7 @@
 // một bảng khác hiện lên (bấm Đi làm, mở Bí cảnh…) thì tự thu nhỏ cho bảng đó khỏi bị che.
 // Hệ thống tự lên tiếng (game/he-thong.js htTick): biểu tượng rung, hiện một dòng nhắc cạnh biểu tượng. Kiểu ở he-thong.css.
 // Biểu tượng là khối tinh thể vẽ bằng canvas (không dùng hình ngoài). Chữ người chơi chỉ gán textContent.
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';
 import { needIntro, doneIntro, htTick, missionList, dailyList } from '../game/he-thong.js';
 import { renderTasks } from './he-thong-nv.js';
@@ -22,7 +23,6 @@ import { renderTra } from './he-thong-tra.js';
 import { renderHoi, hoiState } from './he-thong-hoi.js';
 import { renderGop, gopState, gopShot } from './he-thong-gop.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 // Khối tinh thể sáng xanh có chữ Hệ (vẽ lại mỗi khung để lấp lánh)
@@ -49,7 +49,7 @@ export function createHeThong(game) {
   const C = game.data['he-thong'];
   if (!C) return;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./he-thong.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/he-thong.css');
   document.head.append(css);
   setupMocChip(game);   // thẻ quà mốc 10% tầng
 

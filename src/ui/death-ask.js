@@ -1,9 +1,10 @@
 // Bảng hỏi khi gục (chủ dự án 09/11/2026 16:19): "Hồi sinh tại đây" hay "Về động phủ", đếm ngược; không chọn thì về động phủ.
 // Chỉ hiện khi src/game/ghost.js bật hỏi (game.ghost.ask). Không chặn vòng game (bong bóng linh hồn vẫn chờ phía sau).
+import { goc } from '../core/build.js';
 import { ghostChoose } from '../game/ghost.js';
 
 export function startDeathAsk(game) {
-  const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = new URL('./death-ask.css', import.meta.url).href; document.head.append(css);
+  const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/death-ask.css'); document.head.append(css);
   let box = null, home = null;
   const close = () => { box?.remove(); box = null; };
   const choose = c => { ghostChoose(game, c); close(); };

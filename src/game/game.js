@@ -243,7 +243,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (session) {
       try {
         const R = data.config.realtime || {}, cf = R.backend === 'cf' && R.cf_url;   // máy chủ phòng Cloudflare (cloud/) hay kênh Realtime cũ
-        const { createOnline } = await import(cf ? '../net/online-cf.js' : '../net/online.js');
+        const { createOnline } = await (cf ? import('../net/online-cf.js') : import('../net/online.js'));
         const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),

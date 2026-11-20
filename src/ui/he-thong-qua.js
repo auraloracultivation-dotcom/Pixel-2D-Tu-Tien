@@ -1,6 +1,7 @@
 // Mục Triệu hồi của Hệ Thống (data/he-thong.json → pool, cost, text): điểm đang có, nút Triệu hồi, bảng tỉ lệ. Máy chủ quay quà
 // (net/he-thong.js htSummon → p2d_ht_trieu), quà vào Hòm thư rồi nhận luôn.
 // Món trúng phát sáng theo màu phẩm (trang bị: màu dòng; ngọc: màu ngọc; Linh Thạch: vàng; thú, khôi lỗi, áo: tím).
+import { goc } from '../core/build.js';
 import { itemName, gemInfo } from '../game/items.js';
 import { matInfo } from '../game/cave.js';
 import { grade } from '../game/tiers.js';
@@ -80,7 +81,7 @@ function look0(game, p, nd) {
 const wait = ms => new Promise(r => setTimeout(r, ms));
 function chestImg(game, open) {
   const R = game.data['he-thong'].mat?.ruong;
-  return R ? new URL(`../../${open ? R.mo : R.dong}`, import.meta.url).href : '';
+  return R ? goc(open ? R.mo : R.dong, false) : '';
 }
 
 // Món từ bậc bac.le trở lên: nghi lễ nhận thưởng cả màn (ui/reward-show.js), vầng sáng màu của bậc, bậc càng cao diễn càng lớn

@@ -1,6 +1,7 @@
 // Quà hiện bằng hình và số lượng, không viết chữ "nhận được gì" (chủ dự án 19/11/2026 03:26 "đặt icon và số lượng là được, tối kị chỉ
 // viết nhận được gì"). Một ô: hình món + "×n" ở góc. Trang bị bốc ngẫu nhiên là hộp bí ẩn (rương có dấu ?, viền màu phẩm). Chạm ô thì
 // hiện tên món một lúc. Dùng cho Mốc quà, nhiệm vụ hệ thống, nhiệm vụ ngày (src/ui/he-thong-*.js). Kiểu ở he-thong.css (.qt-*).
+import { goc } from '../core/build.js';
 import { spriteIcon } from './sprite-icon.js';
 import { gemIcon } from './gem-icon.js';
 import { gemInfo } from '../game/items.js';
@@ -18,7 +19,7 @@ function face(game, S) {
   if (!M) return cv;
   cv.width = M.w; cv.height = M.h; cv.style.width = S + 'px'; cv.style.height = Math.round(S * M.h / M.w) + 'px';
   const im = new Image(); im.onload = () => cv.getContext('2d').drawImage(im, 0, 0, M.w, M.h, 0, 0, M.w, M.h);
-  im.src = new URL(`../../${M.src}`, import.meta.url).href;
+  im.src = goc(M.src, false);
   return cv;
 }
 

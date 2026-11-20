@@ -2,8 +2,8 @@
 // đang chạy (đợi xong hội thoại, đoạn truyện, đường bay). Thông báo nổi bật (top) có khung vàng; nút trong thông báo mở đúng chỗ
 // (sự kiện giới thiệu, bảng vinh danh góp ý, bảng xếp hạng, bảng báo lỗi). Thêm nút sự kiện "🎁 Ngọc cấp 8" trên bảng điều khiển
 // khi sự kiện giới thiệu đang chạy. Nạp kiểu ở src/ui/event.css (dùng chung cho bảng sự kiện, vinh danh).
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const KEY = 'p2d.notice.v1';
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -19,7 +19,7 @@ export function createNotice(game) {
   const N = game.data.notice, world = document.getElementById('btn-world');
   if (!N || !world) return;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./event.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/event.css');
   document.head.append(css);
 
   const btn = el('button', 'ib-btn', N.btn), badge = el('i', 'ib-badge');

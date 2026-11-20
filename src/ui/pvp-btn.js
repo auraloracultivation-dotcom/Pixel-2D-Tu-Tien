@@ -2,16 +2,16 @@
 // "tên ⚔" (đã tắt khiên); người khác cũng thấy biểu tượng sau tên mình (render/draw.js drawOther). Chạm biểu tượng của mình → bảng
 // xác nhận "Bạn có muốn tắt khiên không?". Khiên chỉ bật lại khi chết hồi sinh (máy chủ phòng cloud/src/pvp.js giữ). Chữ ở
 // data/pvp.json → text, kiểu ở pvp.css. Nhãn là chữ HTML bám theo đầu nhân vật mỗi khung hình (chạm được, không vẽ lên khung game).
+import { goc } from '../core/build.js';
 import { togglePvp, pvpLeft } from '../game/pvp.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
 export function createPvpBtn(game) {
   const C = game.data.pvp;
   if (!C) return;
   const T = C.text;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./pvp.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/pvp.css');
   document.head.append(css);
   const tag = document.createElement('button');
   tag.className = 'pvp-tag'; tag.id = 'pvp-tag'; tag.type = 'button'; tag.hidden = true;

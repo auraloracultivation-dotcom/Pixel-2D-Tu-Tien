@@ -2,6 +2,8 @@
 // giả ngày đang có lễ (mặc định Lễ Bí Ngô 30/10) để bắt lỗi kiểu "lễ làm kẹt truyện". Báo lỗi nếu trang có lỗi
 // JavaScript hoặc truyện không đi tiếp đủ số bước trong thời gian chơi. Không gọi máy chủ thật (chặn thư viện Supabase).
 // Chạy tay: npm i --no-save playwright && npx playwright install chromium && node tools/playtest.mjs
+// Phục vụ game từ thư mục đang đứng: đứng ở gốc kho là chơi mã nguồn rời; đứng trong bản đã gói (node tools/goi.mjs _site; cd _site;
+// node ../tools/playtest.mjs) là chơi đúng bản sẽ đưa lên (CI chạy cách này từ 20/11/2026).
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
@@ -41,7 +43,7 @@ await p.waitForFunction(() => window.__game?.save, null, { timeout: 30000 });
 await p.evaluate(([k, r]) => { const R = window.__game.data.realms; R.qi_rate = r; if (k !== 1) R.need_mul = Array(R.names.length).fill(k); }, [+(process.env.PLAY_NEED || 0.1), +(process.env.PLAY_RATE || 1)]);
 const step0 = await p.evaluate(() => window.__game.save.step);
 // Không còn nút Tự hành (02/11/2026): bật tự hành như chạm khung nhiệm vụ
-const pilotOn = () => p.evaluate(async () => { const P = await import('/src/game/pilot.js'); if (!window.__game.pilot) P.togglePilot(window.__game); });
+const pilotOn = () => p.evaluate(() => { if (!window.__game.pilot) window.__thu.togglePilot(window.__game); });   // window.__thu: src/game/thu-moc.js (bản gói không gọi được từng tệp code)
 await pilotOn();
 const end = Date.now() + SEC * 1000;
 while (Date.now() < end) {
@@ -55,7 +57,7 @@ const r = await p.evaluate(() => { const g = window.__game; return { step: g.sav
 // Đồ rơi chỗ chạy tới được (17/11/2026: đồ rơi xuống ao không nhặt được): quái chết giữa ô chắn (nước, vách, cây) gần người chơi
 // thì không món nào được nằm trên ô chắn
 const loot = await p.evaluate(async () => {
-  const g = window.__game, L = await import('/src/game/loot.js'), m = g.map, T = m.T, px = Math.floor(g.player.x / T), py = Math.floor(g.player.y / T);
+  const g = window.__game, L = window.__thu, m = g.map, T = m.T, px = Math.floor(g.player.x / T), py = Math.floor(g.player.y / T);
   let w = null;
   for (let d = 2; d < 14 && !w; d++) for (let dy = -d; dy <= d && !w; dy++) for (let dx = -d; dx <= d && !w; dx++) if (m.solidTile(px + dx, py + dy) && !m.edge(px + dx, py + dy)) w = [px + dx, py + dy];
   if (!w) return { bad: 0, n: 0 };

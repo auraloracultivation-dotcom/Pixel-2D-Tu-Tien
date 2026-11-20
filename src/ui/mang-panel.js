@@ -1,9 +1,9 @@
 // Bảng boss thế giới Cửu Đầu Thôn Thiên Mãng (chủ dự án 06/11/2026: "bxh ngay màn hình bên phải ghi bxh sát thương của người chơi,
 // boss k chết, cứ điền là 99% hp"). Hiện khi tinh cầu đang đứng có một cái đầu (game/thien-mang.js). Chữ trơn viền mực như bảng
 // tổ đội, không chặn chạm; dưới hạng là Linh Thạch thưởng (gấp lt_mult lần farm, chờ vào Hòm thư); chạm dòng tên boss để thu gọn (nhớ trong máy). Chữ ở data/thien-mang.json → text, kiểu ở mang.css.
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const KEY = 'p2d-mang-gon';
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 const fmt = n => Number(n || 0).toLocaleString('vi-VN');
@@ -19,7 +19,7 @@ export function createMangPanel(game) {
   if (!C) return;
   const T = C.text;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./mang.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/mang.css');
   document.head.append(css);
   const box = el('div', 'mang-panel'); box.id = 'mang-panel'; box.hidden = true;
   document.body.append(box);

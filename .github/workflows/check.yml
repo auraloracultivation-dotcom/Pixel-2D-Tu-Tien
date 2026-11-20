@@ -23,4 +23,8 @@ jobs:
           node-version: 22
       - run: npm i --no-save playwright@1.63.0
       - run: npx playwright install --with-deps chromium
-      - run: node tools/playtest.mjs
+      # Chơi thử trên đúng bản sẽ đưa lên (đã gói bằng tools/goi.mjs như .github/workflows/pages.yml), không phải mã nguồn rời
+      - run: npm i --no-save esbuild@0.28.2 || echo "không cài được esbuild: chơi thử bản chưa gói"
+      - run: node tools/goi.mjs _site
+      - run: node ../tools/playtest.mjs
+        working-directory: _site

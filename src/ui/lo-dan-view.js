@@ -2,6 +2,7 @@
 // bên phải / bên dưới kho nguyên liệu dạng lưới; chạm nguyên liệu thì chọn số lượng bỏ vào, chạm ô trong lò thì lấy ra.
 // Không báo trước đan gì, tỉ lệ bao nhiêu; một mẻ ra được nhiều loại đan; thành thì bảng nhận thưởng. Luật ở src/game/lo-dan.js.
 // st.ld = { put: { mã: số }, last: chữ kết quả lần trước }
+import { goc } from '../core/build.js';
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { loOf, loDung, loSpr, loTen, luyen, syncLo } from '../game/lo-dan.js';
@@ -12,7 +13,7 @@ const vn = n => Math.floor(n || 0).toLocaleString('vi-VN');
 let cssOn = false;
 function css() {
   if (cssOn) return; cssOn = true;
-  const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = new URL('./lo-dan.css', import.meta.url).href; document.head.append(l);
+  const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = goc('src/ui/lo-dan.css'); document.head.append(l);
 }
 const matName = (D, k) => D.cave.materials[k]?.name || D.cave.pills[k]?.name || k;
 function ico(D, k, cls) {   // hình nguyên liệu / đan (ảnh GPT ui.vk-<mã>), chưa có hình thì ô màu

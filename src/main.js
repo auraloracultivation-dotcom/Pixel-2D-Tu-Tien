@@ -87,6 +87,7 @@ import { spriteIcon } from './ui/sprite-icon.js';
 import { createMangLeave } from './ui/mang-leave.js';
 import { startAnalyticsHook } from './game/analytics-hook.js';
 import { hcData } from './game/he-chien.js';
+import { mocThu } from './game/thu-moc.js';   // móc cho bài thử tự động (chỉ khi ?thu=1)
 
 async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
@@ -119,6 +120,7 @@ async function boot() {
   gridCards(game);   // thẻ trong các bảng hiện thành lưới ô như túi đồ, chạm ô xem chi tiết
   clickSounds(game);
   window.__game = game; // để kiểm thử tự động đọc trạng thái
+  mocThu();
   createRecord(game, audio).catch(() => {});   // nút quay clip cạnh nút tiếng (data/record.json); lỗi thì game vẫn chạy
   createPortraits(game).catch(() => {});   // chân dung NPC trên hộp thoại (data/portraits.json)
   createZalo(game);   // nút nhóm Zalo cạnh nút quay clip (data/community.json)

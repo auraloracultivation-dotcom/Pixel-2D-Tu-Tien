@@ -3,10 +3,10 @@
 // "Xem thêm" mở hết, rồi "Lập tổ đội". Có đội: tên đội, thành viên (sáng: cùng tinh cầu; xám: tinh cầu khác), đội trưởng chạm tên
 // để mời ra, đổi chế độ mở / duyệt, nhận / từ chối lời xin; "Thoát tổ đội". Dòng thưởng "Tổ đội +x%..." đứng đầu khi có thưởng.
 // Chạm dòng "Tổ đội" để thu gọn (nhớ trong máy). Chữ ở data/doi-farm.json, kiểu ở src/ui/farm-team.css.
+import { goc } from '../core/build.js';
 import { startFarmTeam, FT, isOpenWorld, teamOn, createTeam, joinTeam, leaveTeam, kickMember, decideJoin, toggleMode } from '../game/farm-team.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const KEY = 'p2d-doi-farm-gon';
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 function el(tag, cls, text, onTap) {
@@ -20,7 +20,7 @@ function el(tag, cls, text, onTap) {
 export function createFarmTeamPanel(game) {
   const c = FT(game), T = c.text;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./farm-team.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/farm-team.css');
   document.head.append(css);
   const box = el('div', 'ft-panel'); box.id = 'farm-team'; box.hidden = true;
   box.addEventListener('pointerdown', e => { if (e.target.closest('.tap')) e.stopPropagation(); });   // chạm chữ không thành cần gạt

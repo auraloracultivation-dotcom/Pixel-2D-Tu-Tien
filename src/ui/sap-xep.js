@@ -2,16 +2,16 @@
 // hiện viền nét đứt kèm tên; kéo để dời, chụm / mở hai ngón trên khung (hoặc thanh trượt khi đã chọn khung) để thu nhỏ / phóng to.
 // Khung không ra khỏi màn; hai khung đè nhau thì viền đỏ. Lưu: cách xếp giữ trong máy, màn dọc và ngang riêng (src/ui/sap-ap.js).
 // Mặc định: về cách xếp gốc. Huỷ: bỏ thay đổi vừa làm. Kiểu ở src/ui/sap-xep.css.
+import { goc } from '../core/build.js';
 import { sapApply, sapLoad, sapStore, sapMode, groupBox } from './sap-ap.js';
 import { every } from '../core/ticker.js';
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
 export function createSapXep(game) {
   const S = game.data.menu?.hud?.sap;
   if (!S || !game.data.menu.hud.bang) return;
-  const css = el('link'); css.rel = 'stylesheet'; css.href = new URL(`./sap-xep.css?v=${ver()}`, import.meta.url).href; document.head.append(css);
+  const css = el('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/sap-xep.css'); document.head.append(css);
   const T = S.text, [KMIN, KMAX] = S.k;
 
   // Áp cách đã lưu: lúc vào game, xoay màn, đổi cỡ; định kỳ cho các nút mới hiện (Bay, Cưỡi mở sau)

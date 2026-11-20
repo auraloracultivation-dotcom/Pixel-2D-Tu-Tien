@@ -1,6 +1,14 @@
 # 03. Cấu trúc code
 
-HTML Canvas + JavaScript ES module, không cần build. Chạy thử: `python3 -m http.server` rồi mở `index.html`.
+HTML Canvas + JavaScript ES module. Làm việc ở máy không cần build: `python3 -m http.server` rồi mở `index.html`.
+
+**Bản đưa lên mạng được gói lại** (đợt làm nhẹ 20/11/2026, `tools/goi.mjs`, dùng chung cho GitHub Pages, Vercel và bài chơi thử trong CI): gần 500 tệp JS nhập thành một tệp vào game cùng vài khúc chung và khúc nạp sau (esbuild, giữ tên hàm, kèm bản đồ nguồn `.map`), mọi tệp `data/` nạp lúc đầu gộp thành `data/_all.json`, `style.css` nuốt các tệp `@import`. Đo trên mạng 4G giả lập (`node tools/do-tai.mjs <thư mục bản>`): tới lúc bấm chơi được 16,1 giây / 581 tệp → 2,2 giây / 33 tệp. Mã nguồn trong kho vẫn là từng tệp nhỏ dưới 400 dòng. Hệ quả phải nhớ khi viết code:
+
+- Không tệp nào tự suy đường dẫn hay số phiên bản từ vị trí của nó (`import.meta.url`): dùng `goc('src/ui/x.css')`, `BUILD` ở `src/core/build.js` (đường dẫn tính từ gốc trang). `tools/check.mjs` chặn `import.meta.url`.
+- `import()` phải ghi thẳng tên tệp (chuỗi cố định), không ghép chuỗi.
+- Bài thử tự động không gọi được từng tệp code theo đường dẫn: hàm bài thử cần thì treo ở `window.__thu` (`src/game/thu-moc.js`, chỉ khi `?thu=1`).
+- Tệp tĩnh ở gốc kho muốn lên trang game phải có trong danh sách `TINH` của `tools/goi.mjs`.
+- Đường lùi: đặt `GOI: 0` ở bước gói trong `.github/workflows/pages.yml` thì chép từng tệp như trước.
 
 | Thư mục | Việc |
 |---|---|

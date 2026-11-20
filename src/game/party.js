@@ -17,7 +17,7 @@ function makeCode(n) { const a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s = '';
 
 export async function openParty(game, code) {
   const R = game.data.config.realtime || {}, cf = R.backend === 'cf' && R.cf_url;   // tổ đội qua máy chủ phòng Cloudflare (cloud/) hay kênh Realtime cũ
-  const { joinParty } = await import(cf ? '../net/party-cf.js' : '../net/party.js');
+  const { joinParty } = await (cf ? import('../net/party-cf.js') : import('../net/party.js'));
   const me = { id: game.online.me.id, name: game.online.me.name, realm: realmLabel(game.save, game.data.realms) };
   const party = { code, me: me.id, roster: [], run: null };
   game.party = party;   // đặt trước khi chờ vào kênh để bấm hai lần không mở hai đội

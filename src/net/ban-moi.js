@@ -3,14 +3,16 @@
 // nghi vấn liên tục (namtran92 để một thẻ mở 50 giờ, từ trước khi có giai đoạn 2–4 chữ ký món).
 // Cứ check_s giây đọc lại index.html (không qua bộ nhớ đệm). Mã phiên bản ở đó khác bản đang chạy thì báo, đẩy bản lưu lên
 // máy chủ rồi tải lại trang. Mỗi mã chỉ tải lại một lần mỗi thẻ (khỏi tải lại mãi nếu máy vẫn nhận file cũ).
-// Mã phiên bản: .github/workflows/pages.yml gắn ?v=<8 ký tự> vào mọi import; chạy ở máy (không có ?v) thì không làm gì.
+// Mã phiên bản: quy trình đưa lên (tools/goi.mjs) ghi vào src/core/build.js và gắn ?v=<8 ký tự> sau src/main.js trong index.html;
+// chạy ở máy (bản 'dev') thì không làm gì.
 // Số và chữ: data/config.json → guard.ban_moi. Không gọi Supabase.
-const CUR = new URL(import.meta.url).searchParams.get('v');
+import { BUILD } from '../core/build.js';
+const CUR = BUILD === 'dev' ? null : BUILD;
 const KEY = 'p2d_ban_moi';
 let started = false;
 
 async function latest() {
-  const u = new URL('../../index.html', import.meta.url);
+  const u = new URL('index.html', document.baseURI);
   u.searchParams.set('t', Date.now());
   const r = await fetch(u, { cache: 'no-store' });
   if (!r.ok) return null;

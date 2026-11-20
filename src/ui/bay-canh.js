@@ -3,6 +3,7 @@
 // Bật nút Bày: chạm món để chọn, kéo để dời; kéo chỗ trống để trôi máy quay; hai ngón để phóng to thu nhỏ máy quay.
 // Món đang chọn: To, Nhỏ, Lật, Nhân bản, Xoá. Kho: mọi món đồ bộ mới, chọn là đặt giữa màn. Lưu: ghi lên máy chủ (src/net/bay-dao.js),
 // mọi người chơi vào bản đồ đó thấy bố cục mới. Hoàn tác (50 bước), Bản cũ (30 lần lưu gần nhất).
+import { goc } from '../core/build.js';
 import { saveLayout, layoutHistory, layoutRestore, layoutOne } from '../net/bay-dao.js';
 import { bayCu } from './bay-canh-start.js';
 import { SPOTS, spotBox, applySpots } from '../game/home-spot.js';
@@ -15,7 +16,7 @@ const r1 = v => Math.round(v * 10) / 10;
 
 export function createBayCanh(game) {
   if (document.getElementById('bay-btn')) return;
-  const css = el('link'); css.rel = 'stylesheet'; css.href = new URL('./bay-canh.css', import.meta.url).href; document.head.append(css);
+  const css = el('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/bay-canh.css'); document.head.append(css);
   game.bayVer ??= {};
   const B = game.bay = { on: false, sel: null, selIdx: -1, list: null, undo: [], dirty: false };
   const btn = el('button', 'bay-btn', 'Bày'); btn.id = 'bay-btn'; btn.type = 'button';
