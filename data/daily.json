@@ -42,8 +42,7 @@
  "chest": {
   "stones": 3,
   "item": "linh",
-  "gem": 1,
-  "mats": {"bi-kip-chieu": 2}
+  "gem": 1
  },
  "retreat": {
   "_note": "Thưởng bế quan tích luỹ (chủ dự án 02/11/2026: tính theo mốc lớn 100, 1000 giờ, không theo thời gian ngắn). Giờ = phút đả tọa trong game (stats.sit) + thời gian bế quan khi vắng mặt (retreat.off, đã chặn theo offline.max_hours). Mỗi mốc nhận một lần (save.retreat.got). reward như việc ngày (grant ở daily.js): item là độ hiếm thấp nhất, gem số viên ngọc cấp 1, stones Tẩy Luyện Thạch.",

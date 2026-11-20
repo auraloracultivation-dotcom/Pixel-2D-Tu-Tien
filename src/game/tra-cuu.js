@@ -1,5 +1,5 @@
 // Tàng Thư của Hệ Thống (chủ dự án 10/11/2026 09:16: "nâng cấp hệ thống cho thông minh hơn, nhiều thông tin hữu dụng hơn", mẫu: wiki
-// cotienlo.com). Không chép tay: đọc thẳng data/ (chiêu, công pháp, quái, bản đồ, đan, nguyên liệu, linh thú, thú cưỡi, cảnh giới, linh căn,
+// cotienlo.com). Không chép tay: đọc thẳng data/ (pháp bảo, chiêu khảm, công pháp, quái, bản đồ, đan, nguyên liệu, linh thú, thú cưỡi, cảnh giới, linh căn,
 // NPC, thời trang) thành mục tra cứu, nối chéo hai chiều (quái ↔ bản đồ ↔ vật rơi ↔ đan dùng nó…). Sửa chỉ số ở data/ là Tàng Thư đổi theo.
 // Nhãn chữ ở data/he-thong.json → tra. Dùng: traIndex(game) (dựng một lần), traSearch, traLink (chữ trùng tên mục thành nút bấm được).
 const norm = t => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
@@ -22,10 +22,14 @@ export function traIndex(game) {
   const R = D.realms;
   R?.names?.forEach((n, i) => add('realm', i, n, { desc: (L.realm_desc || '').replace('{n}', i + 1).replace('{l}', R.layers), rows: [[L.layers, R.layers], [L.next, R.names[i + 1] || '—']] }));
   for (const r of R?.roots?.list || []) add('root', r.id, `${r.name} linh căn`, { color: r.color, rows: [[L.qi, `×${r.qi}`], [L.chance, `${r.weight}%`]] });
-  // Chiêu
-  for (const [k, s] of own(D.skills)) {
-    add('skill', k, s.name, { color: s.color, desc: s.desc, rows: [[L.cd, `${s.cd} giây`], [L.mp, s.mp], [L.mult, s.mult != null ? `×${s.mult}` : null], [L.range, s.range]] });
+  // Pháp bảo và chiêu khảm (hệ Pháp Bảo Luyện Chế, data/phap-bao.json). Trước 21/11/2026 chỗ này liệt kê 48 chiêu của hệ chiêu cũ (ẩn từ Mùa 2,
+  // 12/11/2026): người chơi tra ra thứ game không còn (chủ dự án 21/11/2026 00:10). Mốc mở tính như phap-bao.js totalLayer.
+  const PB = D['phap-bao'], tang = at => (at == null || !R?.names ? null : `${R.names[Math.floor(at / R.layers)] || ''} tầng ${at % R.layers + 1}`);
+  for (const [k, t] of own(PB?.types)) {
+    const g = (PB.grants || []).find(x => x.type === k || x.pick?.includes(k));
+    add('pb', k, t.name, { desc: t.desc, rows: [[L.group, PB.groups?.[t.group]], [L.cd, `${t.cd} giây`], [L.mp, t.mp], [L.get_at, tang(g?.at)]] });
   }
+  for (const [k, m] of own(PB?.mods)) add('ck', k, m.name, { color: m.color, desc: [m.gain, m.lose].filter(Boolean).join('. ') + '.', rows: [[L.group, PB.mod_groups?.[m.group]], [L.learn_at, tang(m.at)]] });
   // Công pháp
   for (const [k, t] of own(D.techniques?.list)) {
     add('tech', k, t.name, { color: t.color, desc: t.desc, rows: own(t.per_level).map(([s, v]) => [`${stat(s)} / ${L.level}`, `+${v}${D.items?.stats?.[s]?.pct || /pct|gain|regen/.test(s) ? '%' : ''}`]) });
@@ -104,12 +108,13 @@ export function traLink(idx, text) {
   return out;
 }
 
-// Gợi ý theo người chơi: quái ở bản đồ đang đứng, cảnh giới đang tu, chiêu đang mang
+// Gợi ý theo người chơi: quái ở bản đồ đang đứng, cảnh giới đang tu, pháp bảo đang mặc
 export function traSuggest(game, idx) {
   const out = [], push = id => { const e = idx.get(id); if (e && !out.includes(e)) out.push(e); };
   push(`map:${game.map?.id}`);
   for (const id of idx.get(`map:${game.map?.id}`)?.rel || []) push(id);
   const r = game.save?.realm; if (r != null) { push(`realm:${r}`); push(`realm:${r + 1}`); }
-  for (const k of game.save?.loadout || []) if (k) push(`skill:${k}`);
+  const pb = game.save?.phapBao;
+  for (const uid of pb?.wear || []) { const it = uid != null && pb.items?.find(i => i.uid === uid); if (it) push(`pb:${it.type}`); }
   return out.slice(0, 12);
 }

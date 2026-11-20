@@ -1,5 +1,5 @@
 // Khung phải của Hồ sơ đạo hữu (src/ui/profile-panel.js; chủ dự án 11/11/2026 21:04: bảng xếp hạng chưa dùng bảng trang bị mới).
-// Mặc định: linh căn, binh khí, nút So tài / Truyền âm / Kết bạn, chiêu, công pháp. Chạm ô đồ hay ô thú trên thẻ nhân vật: tấm chi tiết
+// Mặc định: linh căn, binh khí, nút So tài / Truyền âm / Kết bạn, công pháp. Chạm ô đồ hay ô thú trên thẻ nhân vật: tấm chi tiết
 // chỉ xem (không nút rèn, mặc, gỡ ngọc), ✕ về mặc định. Chữ ở data/duel.json → profile. Dữ liệu người khác chỉ gán textContent.
 import { el, icon, mainStats, tierLine } from './bag-detail.js';
 import { spriteIcon } from './sprite-icon.js';
@@ -7,8 +7,7 @@ import { gemIcon } from './gem-icon.js';
 import { itemName, statText, gemInfo, rarityOf } from '../game/items.js';
 import { gemText } from './hc-text.js';
 import { itemTier } from '../game/tiers.js';
-import { weaponId, artSkill } from '../game/stats.js';
-import { skillSlots } from '../game/skills.js';
+import { weaponId } from '../game/stats.js';
 import { petDef } from '../game/evolve.js';
 import { beastStats } from '../game/beast.js';
 
@@ -78,7 +77,8 @@ function chips(list) {
   return d;
 }
 
-// Phần mặc định: linh căn, binh khí, nút (acts, do profile-panel.js dựng), chiêu đang mang, công pháp
+// Phần mặc định: linh căn, binh khí, nút (acts, do profile-panel.js dựng), công pháp. Mục "Chiêu đang mang" đã bỏ (chủ dự án 21/11/2026
+// 00:10: "game mình làm gì còn cái này"): đó là 3 chiêu của hệ chiêu cũ, ẩn từ Mùa 2 (12/11/2026); pháp bảo đang mặc hiện ở hàng ô dưới thẻ nhân vật (self-pb.js).
 export function infoSheet(game, prof, T, acts) {
   const { data } = game, s = prof.save, box = el('div', 'pf-info'), elm = s.element && data.elements[s.element];
   const line = el('div', 'pf-line', `${elm ? fill(T.element, { name: elm.name }) : T.element_none} · ${fill(T.weapon, { name: data.weapons[weaponId(s, data)].name })}`);
@@ -86,12 +86,8 @@ export function infoSheet(game, prof, T, acts) {
   box.append(line);
   if (prof.co) box.append(el('div', 'pf-flag', '⚑ ' + T.flag));
   box.append(acts, el('div', 'pf-hint', T.tap));
-  const lvMax = data.config.skill_lv.max, lv = id => Math.max(1, Math.min(lvMax, s.skillLv[id] || 1));
-  const sk = skillSlots({ data, save: s }).filter(Boolean).map(id => [`${data.skills[id].name} · ${fill(T.skill_lv, { lv: lv(id) })}`, data.skills[id].color]);
-  const art = artSkill(s, data);
-  if (art) sk.push([fill(T.art, { name: `${data.skills[art].name} · ${fill(T.skill_lv, { lv: lv(art) })}` }), data.skills[art].color]);
   const tech = s.techSlots.map(id => [`${data.techniques.list[id].name} · ${fill(T.skill_lv, { lv: s.techs[id]?.lv || 0 })}`, data.techniques.list[id].color]);
-  for (const [title, list] of [[T.skills, sk], [T.techs, tech]]) box.append(el('div', 'pf-label', title), list.length ? chips(list) : el('span', 'pf-none', T.none));
+  box.append(el('div', 'pf-label', T.techs), tech.length ? chips(tech) : el('span', 'pf-none', T.none));
   box.append(el('div', 'pf-note', T.note));
   return box;
 }

@@ -66,10 +66,7 @@
    "reward": {
     "item": "dia",
     "stones": 2,
-    "coins": 400,
-    "mats": {
-     "bi-kip-chieu": 1
-    }
+    "coins": 400
    }
   },
   {
@@ -79,10 +76,7 @@
     "item": "thien",
     "gem": 1,
     "stones": 3,
-    "coins": 1000,
-    "mats": {
-     "bi-kip-chieu": 2
-    }
+    "coins": 1000
    }
   },
   {
@@ -92,10 +86,7 @@
     "item": "thien",
     "gem": 2,
     "stones": 4,
-    "coins": 2500,
-    "mats": {
-     "bi-kip-chieu": 3
-    }
+    "coins": 2500
    }
   },
   {
@@ -105,10 +96,7 @@
     "item": "thien",
     "gem": 3,
     "stones": 6,
-    "coins": 6000,
-    "mats": {
-     "bi-kip-chieu": 4
-    }
+    "coins": 6000
    }
   },
   {
@@ -118,10 +106,7 @@
     "item": "thien",
     "gem": 4,
     "stones": 8,
-    "coins": 15000,
-    "mats": {
-     "bi-kip-chieu": 5
-    }
+    "coins": 15000
    }
   },
   {
@@ -131,10 +116,7 @@
     "item": "thien",
     "gem": 5,
     "stones": 10,
-    "coins": 40000,
-    "mats": {
-     "bi-kip-chieu": 6
-    }
+    "coins": 40000
    }
   }
  ],

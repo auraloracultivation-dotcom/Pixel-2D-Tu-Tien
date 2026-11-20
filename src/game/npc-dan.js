@@ -2,7 +2,7 @@
 //   Lò Đan Sư (data/cave.json → lo.npc): bán 4 kiểu lò luyện đan, đều phẩm Phàm, mua xong vào Túi đồ → Luyện đan → Lò đan (máy chủ p2d_mua_lo).
 //   Đan Dược Sư (data/shop.json → dan_npc): bán đan (dan_ban) và luyện đan đặc biệt (tẩy linh căn, đổi giới tính; trước ở lò Động phủ).
 //   Dược Thảo Thương (nl_npc): bán nguyên liệu luyện đan (nl_ban, máy chủ p2d_nl_mua cùng giá data/market.json → quick.price).
-//   Luyện Khí Sư (lks_npc, 16:1x): bán đồ nâng cấp trang bị (lks_ban: Tẩy Luyện Thạch, Mảnh Pháp Bảo, ngọc, Bí Kíp Chiêu, Đạo Vận Thạch 1/ngày).
+//   Luyện Khí Sư (lks_npc, 16:1x): bán đồ nâng cấp trang bị (lks_ban: Tẩy Luyện Thạch, Mảnh Pháp Bảo, ngọc, Đạo Vận Thạch 1/ngày; Bí Kíp Chiêu thôi bán 21/11/2026 vì là đồ của hệ chiêu cũ).
 // Đặt bằng tools/the-gioi/tk_moi.py; lưới ô có hình + tên, giá dưới ô như mọi quầy (src/ui/dialog.js). Gọi từ src/game/interact.js.
 import { coins, talkShop } from './shop.js';
 import { loOf, muaLo } from './lo-dan.js';
