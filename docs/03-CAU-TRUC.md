@@ -327,6 +327,37 @@ Mỗi đảo một kênh Realtime `p2d:<đảo>` (`src/net/online.js`, không gh
 
 Chat và truyền âm máy chủ đẩy (05/11/2026, `supabase/migrations/20261105110000_p2d_realtime.sql`, `src/net/push.js`, `src/game/chat-push.js`): ghi `p2d_chat` thì trigger gửi event `tin` lên kênh riêng tư `p2dc:<kênh>` (`the-gioi` mọi người đã đăng nhập, `bang:<id>` chỉ thành viên); ghi `p2d_truyen_am` thì gửi event `ta` (chỉ id) lên `p2dw:<mã tài khoản người nhận>`, máy khách đọc lại bằng `p2d_doc_truyen_am`. Máy khách chỉ có quyền nghe các chủ đề đó, ghi vẫn qua RPC. Đang nghe được thì các vòng đọc cũ (khung chat nhỏ, bảng Đạo hữu, tông môn, Hòm thư) chỉ đọc bù mỗi `fallback_s` giây (truyền âm `whisper_fallback_s`), vào lại kênh thì đọc bù ngay, mất kết nối thì về nhịp đọc cũ. Nhịp sống: socket Realtime trả nhịp ok thì `p2d_nhip_song` giãn từ 5 lên `net_watch.beat_rt_s` giây (vẫn trong cửa sổ 15 giây máy chủ cộng giờ online cho hạn mức Linh Thạch / ngọc), nhịp socket 5 giây cũng tính là còn liên lạc nên vẫn đứng hình sau 10 giây mất mạng.
 
+## Quái chung (`data/config.json` → `quai_chung`, chủ dự án 21/11/2026 02:02–02:07; đang TẮT, chưa đưa lên)
+
+Chủ dự án: "thiết kế quái vật ở trạng thái mà nếu người này farm thì người kia cũng thấy và có thể tranh nhau farm"; công "chia theo sát thương". Trước đó quái sống riêng trên từng máy: hai người đứng cạnh nhau đánh hai bầy quái khác nhau.
+
+| Việc | Nơi |
+|---|---|
+| Bãi nào thành quái chung, mã ô, chữ ký bảng, hạt chỗ mọc | `src/game/quai-chung-bang.js` (thuần; máy khách, công cụ và bài thử cùng đọc) |
+| Trọng tài: máu, lúc chết, giờ hồi sinh, dị chủng, ai được công | `cloud/src/quai.js` (trong phòng bản đồ `Phong`, tin `q`) |
+| Bảng bãi cho máy chủ phòng | `cloud/src/quai-cfg.js`, tệp SINH RA bằng `node tools/quai-chung.mjs --ghi` (`tools/check.mjs` so khớp) |
+| Máy khách: dựng quái theo phòng, gửi đòn, nhận máu / chết / công | `src/game/quai-chung.js` (`qcTin`, `qcHit`, `qcTick`); tin đi qua `src/net/online-cf.js` (`quai`, `onQuai`) |
+| Chia thưởng | `combat.js` killMob và `shop.js` coinDrop nhân `m.cong.k`; `game.js` onKill đọc `m.cong.top`, `m.cong.bo` |
+
+Cách chạy:
+
+- **Một con quái chung = một ô của một bãi**: mã ô = số thứ tự bãi trong `data/maps/<bản đồ>.json` × 64 + số thứ tự con. Chỉ bản đồ khai trong `quai_chung.maps`. Vẫn là quái riêng: bãi mở theo cờ truyện (`need` / `unless`), bãi có `cp` / `kt`, trùm, Mộc Nhân, bản sao so tài, bản đồ Khai Hoang, bí cảnh, quái vùng ma khí (`makhi.js`), quái lễ hội.
+- **Máy chủ phòng không chạy AI quái.** Máy của người đang bị con quái nhắm chạy AI con đó như thường và báo vị trí 4 lần mỗi giây (`gui_ms`); phòng ghi ai đang giữ con nào rồi phát trong gói lô 200 ms; máy khác thấy con đó là `m.remote`, trượt theo vị trí được báo (cùng nhánh với quái của đội trưởng tổ đội trong `mobs.js`). Quá `own_ms` không có tin thì con quái tự do, ai bị nó nhắm kế tiếp thì giữ. Con quái chưa ai giữ thì mỗi máy tự cho nó lang thang quanh chỗ mọc (lệch nhau tối đa vài chục đơn vị, tới khi có người giữ).
+- **Máu**: đòn của mình (`hitMob` → `qcHit`) gom `gui_ms` một lần gửi phòng kèm chỗ mình đứng và số thứ tự tin; đòn kết liễu gửi ngay. Máu hiện trên đầu quái = máu phòng báo (`m.srv`) trừ đòn mình chưa được đáp (`m.cho`): chém là thấy tụt ngay, số thật vẫn của phòng. Phòng đáp từng tin đòn (`qa`, kèm số thứ tự), phát máu mới cho cả tuyến trong gói lô (`qh`).
+- **Chết và công** (tin `qk` cho cả tuyến): phần công = sát thương mình góp / tổng. Linh khí, Linh Thạch nhân theo phần; đồ, ngọc, Tẩy Luyện Thạch, nguyên liệu, công pháp, linh thú dị chủng về người góp nhiều nhất; góp từ `min_cong` trở lên mới tính hạ quái (đếm quái, việc ngày, truyện, sự kiện, Linh Thạch), dưới mức đó chỉ nhận linh khí theo phần; không góp đòn nào thì chỉ thấy nó chết.
+- **Hồi sinh**: phòng báo số mili giây, con kế có phải dị chủng không, và hạt chỗ mọc; máy nào cũng tự cho mọc đúng lúc, đúng chỗ (`hatRnd`). Tuyến càng đông quái hồi càng nhanh (`dong`: giờ hồi chia cho số người / `ref`, nhanh nhất `max` lần).
+- **Chống gian lận ở phòng**: sát thương mỗi người kẹp theo lực chiến (`dps_k` × lực chiến mỗi giây, dồn `bud_s` giây, như boss thế giới), không vượt máu còn lại, phải đứng trong `tam` của con quái. Linh khí, Linh Thạch, đồ vẫn do Supabase kẹp như cũ.
+- **Tự về quái riêng, không hỏi ai**: công tắc tắt, chơi không tài khoản, máy chủ phòng bản cũ hoặc khác bản `data/` (chữ ký bảng lệch), rớt mạng (quái đang có thành quái riêng, nối lại thì dựng lại theo phòng). Phòng ngủ rồi thức là quên máu đang giữ: máy khách khớp lại theo số phòng báo.
+- **Tương thích**: máy khách cũ bỏ qua các tin mới; máy khách mới gặp phòng cũ (tin chào không có `q`) thì chơi quái riêng. Nên phòng và trang game lên trước sau đều được.
+
+**Sửa bãi quái, máu quái, số con bãi treo máy, tỉ lệ dị chủng, hay `quai_chung`** của bản đồ đang bật: chạy `node tools/quai-chung.mjs --ghi` rồi đưa phòng và trang game lên cùng đợt (lệch bản thì chỉ là về quái riêng tới khi cả hai cùng bản).
+
+Bài thử: `node tools/cloud/quai.test.mjs` (trọng tài, chạy trong `tools/check.mjs`); `node tools/quai-chung.thu.mjs` (hai trình duyệt + phòng giả chạy đúng mã phòng, 29 mục: mọc cùng chỗ, máu chung, chia công, đồ về người góp nhiều nhất, giữ quái, tranh đánh, hai máy Tự đánh cùng bãi, phòng quên máu, rớt mạng rồi nối lại, công tắc tắt thì như cũ). Bài thử hai trình duyệt chưa nằm trong CI.
+
+Số đo (bài thử hai máy Tự đánh cùng một bãi, 21/11/2026): mỗi người đang farm gửi phòng khoảng 3–4 tin `q` mỗi giây (Cloudflare tính 20 tin gửi lên = 1 yêu cầu); muốn bớt thì nới `gui_ms` (máu trên máy người khác chậm theo). Chưa đo băng thông tải xuống của một tuyến đủ 40 người cùng farm: đo bằng trận giả trước khi bật cho bản đồ đông.
+
+Chưa làm ở bản đầu: con quái chỉ đánh người đang giữ nó (người tranh đánh không bị nó quay sang cho tới khi người giữ bỏ đi); làm chậm, choáng của người không giữ chưa tới máy người giữ; đòn của quái không hiện hiệu ứng trên máy người đứng xem; trùm đảo vẫn riêng; chưa thử với nhiều hơn hai máy thật và chưa thử trên máy chủ phòng thật. Số kẹp sát thương (`dps_k`, `bud_s`) đang lấy theo boss thế giới, rộng hơn sức đánh thật nhiều lần: cần đo lại trước khi coi là chống được cướp quái bằng máy khách sửa đổi.
+
 ## Hồ sơ người chơi, So tài (`data/duel.json`)
 
 Chủ dự án xin 29/10/2026. Bảng xếp hạng → chạm tên: bảng Hồ sơ đạo hữu (`src/ui/profile-panel.js`, kiểu ở `src/ui/profile.css`) hiện cảnh giới, lực chiến, chỉ số tính lại từ bản lưu, linh căn, binh khí, đồ từng ô (phẩm, cấp, cường hoá, chỉ số chính, dòng phụ, ngọc đang khảm), 3 chiêu kèm cấp và chiêu pháp bảo, công pháp, linh thú (cấp, sao), đồng hành; nút So tài và Truyền âm. Mở hồ sơ thì bảng Đạo hữu ẩn tạm, đóng thì hiện lại.

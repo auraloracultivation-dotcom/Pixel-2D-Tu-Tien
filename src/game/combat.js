@@ -12,6 +12,7 @@ import { juiceHit, juiceKill, juiceHurt, rageMul, comboSwing } from './juice.js'
 import { hit2On, hitFeel, numUp } from './hit-feel.js';   // cảm giác ra đòn kiểu mới (docs/10-CAI-HON.md việc 2)
 import { hurt2On, hurtFeel, hurtUp } from './hurt-feel.js';   // cảm giác bị đánh kiểu mới (việc 3)
 import { takeK, hitAtk, mobTake } from './he-chien.js';   // luật chiến đấu mới: Công đọ Thủ
+import { qcHit } from './quai-chung.js';   // quái chung: máu thật do máy chủ phòng giữ
 export function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
 export function addFx(game, fx) { game.fx.push({ t: 0, life: 0.3, ...fx }); }
@@ -54,9 +55,11 @@ export function hitMob(game, m, dmg, opt = {}) {
   dmg = Math.max(1, Math.round(dmg * (own ? 0.9 + Math.random() * 0.2 : 1)));
   if (opt.normal && p.comboBuff?.end > (game.time || 0)) dmg = Math.round(dmg * p.comboBuff.mul);   // mốc Liên Kích tăng sát thương đánh thường (combo-moc.js)
   if (m.take && (dmg = m.take(dmg, opt)) <= 0) return;   // bản sao so tài: lướt né, phòng ngự, khiên, phản đòn như người chơi (game/duel-cast.js)
-  if (m.remote) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
-  m.hp -= dmg; m.flash = feel.flash; m.aggro = true; m.hurtT = game.time;   // hurtT: vừa bị đánh thì đánh trả cả trong vùng an toàn quanh NPC
-  if (m.remote) m.hp = Math.max(1, m.hp);
+  const qc = qcHit(game, m, dmg);   // quái chung: ghi đòn gửi máy chủ phòng, máu hiện = máu phòng báo trừ đòn mình chưa được đáp (quai-chung.js)
+  if (m.remote && !qc) partyHit(game, m, dmg, opt);   // quái của đội trưởng: gửi đòn, máu thật do máy đội trưởng trừ
+  if (!qc) m.hp -= dmg;
+  m.flash = feel.flash; m.aggro = true; m.hurtT = game.time;   // hurtT: vừa bị đánh thì đánh trả cả trong vùng an toàn quanh NPC
+  if (m.remote && !qc) m.hp = Math.max(1, m.hp);
   if (m.dummy) { m.hp = m.maxHp; dummyHit(game, m, dmg); }   // Mộc Nhân trong động phủ: không chết, đếm sát thương/giây (game/dummy.js)
   if (m.wboss) { m.hp = m.maxHp; mangHit(game, m, dmg); }   // đầu Cửu Đầu Thôn Thiên Mãng: không chết, đếm sát thương (game/thien-mang.js)
   if (own && p.st.lifesteal && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + dmg * p.st.lifesteal); // công pháp hút máu
@@ -98,7 +101,7 @@ export function killMob(game, m) {
   game.sfx('die');
   juiceKill(game, m, h2);   // vòng sóng, vụn, đốm linh khí bay về người
   if (!h2) addFx(game, { type: 'puff', x: m.x, y: m.y, life: 0.45, r: m.r * 1.6, color: m.def.color });
-  if (!m.noQi) game.gainQi(Math.round(mobLk(game.data.mobs, m) * game.eventMul('qi') * (game.farmTeamMul?.() || 1) * 10) / 10, m.x, m.y, false, false, true);   // tổ đội farm (src/game/farm-team.js)
+  if (!m.noQi) game.gainQi(Math.round(mobLk(game.data.mobs, m) * game.eventMul('qi') * (game.farmTeamMul?.() || 1) * (m.cong?.k ?? 1) * 10) / 10, m.x, m.y, false, false, true);   // tổ đội farm (src/game/farm-team.js); quái chung: nhân phần sát thương của mình (quai-chung.js)
   game.onKill(m);
 }
 

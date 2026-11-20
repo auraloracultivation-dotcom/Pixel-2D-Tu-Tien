@@ -21,6 +21,7 @@ export function createOnline(me, handlers, opts = {}) {
     conn.send({ t: 'p', p: { name: me.name, ...prof } });
     push();
     for (const u of w.l || []) if (u.x !== undefined) handlers.onMove({ id: u.id, x: u.x, y: u.y, fx: u.fx, fy: u.fy });
+    handlers.onQuai?.({ t: 'w', q: w.q, me: w.me || me.id, map: mapId });   // quái chung của bản đồ (cloud/src/quai.js, src/game/quai-chung.js)
   }
 
   function onMsg(m) {
@@ -30,7 +31,9 @@ export function createOnline(me, handlers, opts = {}) {
       for (const [id, x, y, fx, fy, sw, act] of m.m || []) if (id !== me.id) handlers.onMove({ id, x, y, fx, fy, sw, ...(act ? { act } : {}) });
       for (const [id, s] of m.s || []) if (id !== me.id) handlers.onSay?.({ id, ...s });
       for (const [id, c] of m.k || []) if (id !== me.id) handlers.onCast?.({ id, ...c });
-    } else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, m.u); push(); }   // tin 'j' mang TRỌN hồ sơ mới: thay hẳn, không trộn với bản cũ.
+      if (m.q || m.qh) handlers.onQuai?.(m);   // quái chung: vị trí quái người khác đang giữ, máu vừa đổi
+    } else if (m.t === 'qa' || m.t === 'qk') handlers.onQuai?.(m);   // quái chung: lời đáp đòn của mình, tin hạ quái kèm phần công
+    else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, m.u); push(); }   // tin 'j' mang TRỌN hồ sơ mới: thay hẳn, không trộn với bản cũ.
     // (Trước 20/11/2026 trộn { ...cũ, ...mới }: trường vừa về trống (xuống thú, hạ cánh, thôi đả tọa, hồi sinh) bị máy chủ phòng lược khỏi tin
     //  nên máy người xem giữ mãi giá trị cũ: thấy người kia cưỡi thú / bay / ngồi / mờ mãi tới khi vào lại tinh cầu. Bài thử hai máy bắt được.)
     else if (m.t === 'l' && people.delete(m.id)) push();
@@ -44,7 +47,7 @@ export function createOnline(me, handlers, opts = {}) {
   async function leave() {
     if (conn) { if (nowConn === conn) nowConn = null; conn.close(); conn = null; }
     people.clear();
-    handlers.onClear();
+    handlers.onClear(); handlers.onQuai?.({ t: 'x' });
   }
 
   async function join(id, profile) {
@@ -54,7 +57,7 @@ export function createOnline(me, handlers, opts = {}) {
     mapId = id;
     if (!id) return;
     const room = `dao:${id}`;
-    conn = openPhong({ url: opts.url, room, line: lines.get(id) || 1, onOpen, onMsg, onDown: () => { people.clear(); handlers.onClear(); }, onLine: l => lines.set(id, l), ve: opts.ve });
+    conn = openPhong({ url: opts.url, room, line: lines.get(id) || 1, onOpen, onMsg, onDown: () => { people.clear(); handlers.onClear(); handlers.onQuai?.({ t: 'x' }); }, onLine: l => lines.set(id, l), ve: opts.ve });
     nowConn = conn;
   }
 
@@ -76,9 +79,11 @@ export function createOnline(me, handlers, opts = {}) {
   // Đòn PvP kèm vị trí mình lúc ra đòn (20/11/2026): máy chủ phòng xét tầm theo đó. Trước đây nó xét theo lần gửi vị trí gần nhất, cũ tới
   // 0,2 giây + trễ mạng: vừa lao vào tầm mà đánh là bị bỏ oan (thử thật hai tài khoản: 9/16 đòn được tính).
   function pvpHit(to, p) { conn?.send({ t: 'h', to, ...(p ? { x: Math.round(p.x), y: Math.round(p.y) } : {}) }); }
+  // Quái chung: quái mình đang giữ (m) và đòn mình đánh (h), kèm số thứ tự tin n và chỗ mình đứng (phòng xét tầm theo đó). false: chưa nối được
+  function quai(body, p) { return !!(conn?.ready() && conn.send({ t: 'q', x: Math.round(p.x), y: Math.round(p.y), ...body })); }
   function rename(name) { me.name = name; conn?.send({ t: 'p', p: { name, ...prof } }); }
   function setProfile(p) { prof = { ...prof, ...p }; conn?.send({ t: 'p', p: { name: me.name, ...prof } }); }
   const line = () => conn?.line() || 0;
 
-  return { me, join, leave, send, say, cast, bossDmg, pvpOff, pvpHit, rename, setProfile, line };
+  return { me, join, leave, send, say, cast, bossDmg, pvpOff, pvpHit, quai, rename, setProfile, line };
 }

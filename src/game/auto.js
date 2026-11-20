@@ -38,7 +38,7 @@ export function autoStep(game, ax, dt = 0) {
   if (lootDir) return { ax: lootDir, atk: false };
   const dun = (game.map.def.rooms || []).length > 0;   // góp ý #110: trong bí cảnh đánh mọi quái kể cả boss, không giới hạn vùng săn (phòng nối nhau)
   let R = cfg.radius;
-  const ok = m => m && !m.dead && m.hp > 0 && !m.story && !m.remote && (dun || game.autoBoss || !isBoss(m)) && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? R : R));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
+  const ok = m => m && !m.dead && m.hp > 0 && !m.story && (!m.remote || m.qc != null) && (dun || game.autoBoss || !isBoss(m)) && game.mobs.includes(m) && !((m.skipUntil || 0) > Date.now()) && (dun || m.dummy || Math.hypot(m.x - home.x, m.y - home.y) <= ((m.def.ai === 'boss' || m.wboss) ? cfg.boss_radius ?? R : R));   // Mộc Nhân: đánh ở đâu trong động phủ cũng được
   let tgt = null, bd = Infinity, boss = null;
   const pick = () => { for (const m of game.mobs) {
     if (!ok(m)) continue;
