@@ -36,9 +36,9 @@ def vn(x, y, s, o=900):
     return (jh(gx + o, gy + o) * (1 - a) + jh(gx + 1 + o, gy + o) * a) * (1 - b) + (jh(gx + o, gy + 1 + o) * (1 - a) + jh(gx + 1 + o, gy + 1 + o) * a) * b
 
 
-def hoa_o(at, tx, ty):
+def hoa_o(at, tx, ty, nen='.'):
     """Ô cỏ này in cụm hoa cỏ nào (−1: không). Y như hoaO() của draw-nen.js."""
-    if any(at(tx + dx, ty + dy) != '.' for dx, dy in ((0, 0), (-1, 0), (1, 0), (0, -1), (0, 1))):
+    if any(at(tx + dx, ty + dy) not in nen for dx, dy in ((0, 0), (-1, 0), (1, 0), (0, -1), (0, 1))):
         return -1
     n = vn(tx, ty, 7)
     p = 0.26 if n > 0.66 else 0.07 if n > 0.52 else 0.018
@@ -78,6 +78,8 @@ def ground(m):
     at = lambda x, y: g[y][x] if 0 <= x < D and 0 <= y < D else '~'
     out = Image.new('RGBA', (D * P, D * P + 4 * P), (0, 0, 0, 0))
     nen = m.get('nen') or {}
+    ky = {'nen': '.', 'nuoc': '=', 'dat': ',', 'san': '12', 'gach': '1', 'nui': '^', 'them': [], **(nen.get('ky') or {})}   # như kyOf() của draw-nen.js
+    lot = bool(nen.get('ky'))
     nuoc, _ = sheet(nen.get('nuoc', 'nen.tk-nuoc'))
     co = tile(nuoc, 6)
     lat = bool(nen.get('san'))   # có bộ nền lát (sân đá, phố gạch) thì vẽ lưới đôi như game; không thì khối màu
@@ -88,7 +90,7 @@ def ground(m):
             ch = under(x, y)
             if ch == '~':
                 continue
-            if ch in COL and not (lat and ch in '12'):
+            if not lot and ch in COL and not (lat and ch in '12'):
                 c = COL[ch]
                 k = 0.95 + jh(x + 9, y) * 0.1
                 d.rectangle([x * P, y * P, x * P + P - 1, y * P + P - 1], fill=tuple(int(v * k) for v in c) + (255,))
@@ -103,19 +105,22 @@ def ground(m):
         hoa, hs = sheet(nen['hoa'])
         for y in range(D):
             for x in range(D):
-                k = hoa_o(at, x, y)
+                k = hoa_o(at, x, y, ky['nen'])
                 if k >= 0:
                     px = round((x + 0.5) * P + round((jh(x + 31, y + 17) - 0.5) * 16) - hs['w'] / 2)
                     py = (y + 1) * P - round(jh(x + 5, y + 71) * 10) - hs['h']
                     out.alpha_composite(hoa.crop((k * hs['w'], 0, (k + 1) * hs['w'], hs['h'])), (max(0, px), max(0, py)))
     if nen.get('nui'):
-        dual(out, sheet(nen['nui'])[0], lambda x, y: at(x, y) == '^', D)
-    dual(out, nuoc, lambda x, y: at(x, y) != '=', D, zero=12, skip15=True)
+        dual(out, sheet(nen['nui'])[0], lambda x, y: at(x, y) in ky['nui'], D)
+    dual(out, nuoc, lambda x, y: at(x, y) not in ky['nuoc'], D, zero=12, skip15=True)
     if lat:
-        dual(out, sheet(nen['san'])[0], lambda x, y: under(x, y) in '12', D)
+        dual(out, sheet(nen['san'])[0], lambda x, y: under(x, y) in ky['san'], D)
         if nen.get('gach'):
-            dual(out, sheet(nen['gach'])[0], lambda x, y: under(x, y) == '1', D)
-    dual(out, sheet(nen.get('dat', 'nen.tk-dat'))[0], lambda x, y: at(x, y) == ',', D)
+            dual(out, sheet(nen['gach'])[0], lambda x, y: under(x, y) in ky['gach'], D)
+    for sid, chs in ky['them']:
+        dual(out, sheet(sid)[0], lambda x, y, chs=chs: under(x, y) in chs, D)
+    if nen.get('dat') or not lot:
+        dual(out, sheet(nen.get('dat', 'nen.tk-dat'))[0], lambda x, y: at(x, y) in ky['dat'], D)
     if nen.get('mep'):
         dual(out, sheet(nen['mep'])[0], lambda x, y: at(x, y) != '~', D, skip15=True, clear=True)
     return out

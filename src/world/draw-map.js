@@ -111,6 +111,7 @@ export function drawMap(ctx, map, tiles, view, t, game) {
       if (fx) drawLavaBubble(ctx, game, px, py, hash(tx, ty), t, fx);
       continue;
     }   // đã có hình pixel trong tấm đệm
+    if (map.def.nen?.ky && groundPainted(ch)) continue;   // tinh cầu nền bộ 15 mảnh: ô nền không vẽ thêm hình khối cũ (gợn cát, vết nứt, phù văn)
     if (ch === 'F') {
       for (let i = 0; i < 3; i++) {
         ctx.fillStyle = ['#fff', '#ffe27a', '#ffb0d0'][Math.floor(hash(tx + i, ty) * 3)];

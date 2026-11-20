@@ -11,12 +11,20 @@
 // Sức máy: không dựng một tấm cả bản đồ (128 ô = 4 096² điểm ≈ 67 MB) mà dựng từng mảng 8×8 ô (256² điểm) khi máy quay tới,
 // giữ tối đa KEEP mảng gần nhất. Bản đồ không khai san / gach thì ô sân, phố dán hình ô cũ phóng 2 lần.
 // tools/the-gioi/toan_canh.py vẽ lại đúng các bước này (cùng hàm băm) để ảnh toàn cảnh giống trong game: sửa ở đây thì sửa cả ở đó.
+// Tinh cầu khác (chủ dự án 21/11/2026 "nền và cây, hoa cỏ" cho mọi tinh cầu): "nen" khai thêm "ky" = ô nào thuộc lớp nào, vì mỗi tinh cầu
+// dùng ký tự ô riêng (đất tro 'a', dung nham 'L', tuyết 'w', hồ băng 'O'…): { nen: ô nền (khung 6 của bộ nuoc), nuoc: ô mặt thứ hai (nước,
+// dung nham, hồ băng, khe hư không), dat, san, gach, nui, them: [[mã hình, các ô], …] lớp phủ thêm (mặt băng, ruộng bậc thang, sàn gỗ) }.
+// Có "ky" thì mọi ô không phải tinh không đều lót nền trước (cây, đá, nhà đứng trên nền), chuyện vẽ ô theo hình cũ không còn.
 import { spriteImage } from '../render/sprites.js';
 import { discOf } from './map.js';
 
 const FRAME = [-1, 15, 8, 9, 0, 11, 14, 7, 13, 4, 1, 10, 3, 2, 5, 6];
 const N = 8, K = 2, P = 32, KEEP = 48;   // ô mỗi cạnh mảng, điểm mỗi đơn vị, điểm mỗi ô, số mảng giữ
 const LAYERS = ['nuoc', 'dat', 'san', 'gach', 'nui', 'mep', 'vach', 'hoa'];
+const KY = { nen: '.', nuoc: '=', dat: ',', san: '12', gach: '1', nui: '^' };   // Thiên Kiếm Tinh (bản đồ không khai ky)
+export const kyOf = n => ({ ...KY, ...(n.ky || {}), them: n.ky?.them || [] });
+// Ô nền của bản đồ này đã vẽ bằng bộ 15 mảnh (draw-map.js không vẽ hình khối cũ đè lên)
+export const kyPainted = n => { const k = kyOf(n); return new Set((k.nen + k.nuoc + k.dat + k.san + k.gach + k.them.map(t => t[1]).join('')).split('')); };
 let cache = { map: null, hoi: null, chunks: new Map() };
 
 const img = (game, id) => { const s = game.data.art.sprites[id]; return s ? spriteImage(s) : null; };
@@ -24,7 +32,7 @@ const img = (game, id) => { const s = game.data.art.sprites[id]; return s ? spri
 // Hình nền của bản đồ này đã tải đủ chưa (màn che lúc tải, src/render/world-veil.js)
 export function nenReady(game, map) {
   const n = map.def.nen;
-  return !!n && LAYERS.every(k => !n[k] || img(game, n[k])) && (map.hoi || []).every(it => !it.foot.bake || spriteImage(it.spr));
+  return !!n && LAYERS.every(k => !n[k] || img(game, n[k])) && kyOf(n).them.every(t => img(game, t[0])) && (map.hoi || []).every(it => !it.foot.bake || spriteImage(it.spr));
 }
 
 function piece(g, im, f, x, y) {
@@ -33,8 +41,8 @@ function piece(g, im, f, x, y) {
 
 // Ô cỏ (tx, ty) in cụm hoa cỏ nào (−1: không): bãi hoa mọc thành vùng theo nhiễu mượt, mỗi vùng 11 ô một màu hoa chủ đạo,
 // lác đác nấm và sỏi; chỉ in ở ô cỏ mà bốn ô kề cũng là cỏ (không lấn đường, bờ nước, mép).
-function hoaO(at, hash, tx, ty) {
-  for (const [dx, dy] of [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]) if (at(tx + dx, ty + dy) !== '.') return -1;
+function hoaO(at, hash, tx, ty, nen = '.') {
+  for (const [dx, dy] of [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]) if (!nen.includes(at(tx + dx, ty + dy))) return -1;
   const gx = Math.floor(tx / 7), gy = Math.floor(ty / 7), u = tx / 7 - gx, v = ty / 7 - gy, a = u * u * (3 - 2 * u), b = v * v * (3 - 2 * v);
   const n = (hash(gx + 900, gy + 900) * (1 - a) + hash(gx + 901, gy + 900) * a) * (1 - b) + (hash(gx + 900, gy + 901) * (1 - a) + hash(gx + 901, gy + 901) * a) * b;
   if (hash(tx + 101, ty + 59) >= (n > 0.66 ? 0.26 : n > 0.52 ? 0.07 : 0.018)) return -1;
@@ -46,6 +54,7 @@ function hoaO(at, hash, tx, ty) {
 function build(game, map, tiles, hash, cx, cy) {
   const n = map.def.nen, T = map.T, I = k => n[k] && img(game, n[k]);
   const nuoc = I('nuoc'), dat = I('dat'), san = I('san'), gach = I('gach'), nui = I('nui'), mep = I('mep'), vach = I('vach'), hoa = I('hoa');
+  const ky = kyOf(n), lot = !!n.ky;   // lot: mọi ô lót nền (tinh cầu khai ky)
   const cv = document.createElement('canvas'); cv.width = cv.height = N * P;
   const g = cv.getContext('2d'); g.imageSmoothingEnabled = false;
   const x0 = cx * N, y0 = cy * N, at = (x, y) => map.at(x, y);
@@ -54,8 +63,8 @@ function build(game, map, tiles, hash, cx, cy) {
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
     const tx = x0 + i, ty = y0 + j, ch = under(tx, ty), k = tiles.types[ch] || {}, h = hash(tx, ty);
     if (k.void) continue;
-    if (k.tex && !(san && '12'.includes(ch)) && img(game, 'ground.' + ch)) { g.drawImage(img(game, 'ground.' + ch), Math.floor(h * 4) * T, 0, T, T, i * P, j * P, P, P); continue; }
-    if ('.,=^'.includes(ch) || !k.color || (san && '12'.includes(ch))) {   // cỏ đặc (khung 6), lật ngẫu nhiên cho đỡ lặp; sân, phố lát phủ lên sau
+    if (!lot && k.tex && !(san && '12'.includes(ch)) && img(game, 'ground.' + ch)) { g.drawImage(img(game, 'ground.' + ch), Math.floor(h * 4) * T, 0, T, T, i * P, j * P, P, P); continue; }
+    if (lot || '.,=^'.includes(ch) || !k.color || (san && '12'.includes(ch))) {   // cỏ đặc (khung 6), lật ngẫu nhiên cho đỡ lặp; sân, phố lát phủ lên sau
       const fx = h < 0.5 ? 1 : -1, fy = (h * 2) % 1 < 0.5 ? 1 : -1;
       g.save(); g.translate(i * P + (fx < 0 ? P : 0), j * P + (fy < 0 ? P : 0)); g.scale(fx, fy); piece(g, nuoc, 6, 0, 0); g.restore();
     } else { g.fillStyle = k.color; g.fillRect(i * P, j * P, P, P); }
@@ -63,7 +72,7 @@ function build(game, map, tiles, hash, cx, cy) {
   if (hoa) {   // hoa cỏ in nền; cụm ở ô sát ngoài mảng cũng vẽ (phần lọt vào mảng), hai mảng kề nhau ghép khít
     const s = game.data.art.sprites[n.hoa];
     for (let j = -1; j <= N; j++) for (let i = -1; i <= N; i++) {
-      const tx = x0 + i, ty = y0 + j, k = hoaO(at, hash, tx, ty);
+      const tx = x0 + i, ty = y0 + j, k = hoaO(at, hash, tx, ty, ky.nen);
       if (k >= 0) g.drawImage(hoa, k * s.w, 0, s.w, s.h, Math.round((i + 0.5) * P + Math.round((hash(tx + 31, ty + 17) - 0.5) * 16) - s.w / 2), (j + 1) * P - Math.round(hash(tx + 5, ty + 71) * 10) - s.h, s.w, s.h);
     }
   }
@@ -78,11 +87,12 @@ function build(game, map, tiles, hash, cx, cy) {
       piece(g, im, f, i * P - P / 2, j * P - P / 2);
     }
   };
-  if (nui) layer(nui, (x, y) => at(x, y) === '^', -1, false);   // nền đá chân núi (núi là đồ đứng tk.nui-*)
-  layer(nuoc, (x, y) => at(x, y) !== '=', 12, true);   // nước và bờ cát (ô toàn đất: giữ nền cỏ, sân đã vẽ)
-  if (san) layer(san, (x, y) => '12'.includes(under(x, y)), -1, false);   // sân lát đá, viền cỏ bo tròn
-  if (gach) layer(gach, (x, y) => under(x, y) === '1', -1, false);   // phố gạch lọt trong sân đá
-  layer(dat, (x, y) => at(x, y) === ',', -1, false);   // đường đất phủ lên cỏ
+  if (nui) layer(nui, (x, y) => ky.nui.includes(at(x, y)), -1, false);   // nền đá chân núi (núi là đồ đứng tk.nui-*)
+  layer(nuoc, (x, y) => !ky.nuoc.includes(at(x, y)), 12, true);   // nước và bờ cát (ô toàn đất: giữ nền cỏ, sân đã vẽ)
+  if (san) layer(san, (x, y) => ky.san.includes(under(x, y)), -1, false);   // sân lát đá, viền cỏ bo tròn
+  if (gach) layer(gach, (x, y) => ky.gach.includes(under(x, y)), -1, false);   // phố gạch lọt trong sân đá
+  for (const [id, chs] of ky.them) layer(img(game, id), (x, y) => chs.includes(under(x, y)), -1, false);   // mặt băng, ruộng, sàn gỗ…
+  if (dat) layer(dat, (x, y) => ky.dat.includes(at(x, y)), -1, false);   // đường đất phủ lên cỏ
   const d = discOf(map.def, T);
   if (mep) {
     layer(mep, (x, y) => at(x, y) !== '~', -1, true, true);

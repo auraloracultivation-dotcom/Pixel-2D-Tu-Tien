@@ -1,0 +1,277 @@
+{
+ "_note": "Sổ việc SpriteCook đợt nền + cây các tinh cầu (chủ dự án 21/11/2026 02:3x \"Làm toàn bộ nha, nền và cây, hoa cỏ\"; dự tính 450–850 credit, trần 850). Giá: bộ nền 15 mảnh 12 credit mỗi bản; tấm 2K 18 credit. Số dư trước đợt: 1 243.",
+ "jobs": [
+  {
+   "job_id": "51acbd78-8515-4084-a8da-f039c71145a2",
+   "kind": "tileset",
+   "for": "xd-nuoc",
+   "what": "Xích Diễm: đất tro ↔ dung nham, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "32cc35e5-740a-4d41-a811-6c634d4d27ec",
+   "kind": "tileset",
+   "for": "hb-nuoc",
+   "what": "Hàn Băng: tuyết ↔ hồ băng, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "92186435-f92a-4641-b555-4c7733dfc882",
+   "kind": "tileset",
+   "for": "hp-nuoc",
+   "what": "Hắc Phong: đá đen ↔ nước, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "d8db9fa7-309c-4bfe-ade1-eb7b4e66e495",
+   "kind": "tileset",
+   "for": "tm-nuoc",
+   "what": "Thanh Mộc: rêu rừng ↔ ao rừng, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "be70a70b-2c73-4eaa-ac69-eb1c3c281d31",
+   "kind": "tileset",
+   "for": "tkim-nuoc",
+   "what": "Thiên Kim: cát vàng ↔ ốc đảo, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "f7ce7c78-2b74-472f-b595-b25988a638e9",
+   "kind": "tileset",
+   "for": "ht-nuoc",
+   "what": "Hậu Thổ: đất đỏ nâu ↔ sông, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "ff9306a0-386a-49db-b321-be30c40c8487",
+   "kind": "tileset",
+   "for": "nv-nuoc",
+   "what": "Ngoại Vực: đá hư không ↔ khe hư không, 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "52674345-d32f-429d-970f-400a6ba8e7e0",
+   "kind": "tileset",
+   "for": "xd-dat",
+   "what": "Xích Diễm: đường sỏi tro",
+   "cost": 12
+  },
+  {
+   "job_id": "689f3e0b-9503-4ea4-be26-1ce4e8440694",
+   "kind": "tileset",
+   "for": "hb-dat",
+   "what": "Hàn Băng: đường tuyết nén",
+   "cost": 12
+  },
+  {
+   "job_id": "743783d3-5ec5-4563-8134-c942abc23b5c",
+   "kind": "tileset",
+   "for": "hp-dat",
+   "what": "Hắc Phong: đường sỏi xám",
+   "cost": 12
+  },
+  {
+   "job_id": "950ba41b-847d-4bed-9b90-17aca3721f97",
+   "kind": "tileset",
+   "for": "tkim-dat",
+   "what": "Thiên Kim: đường sỏi sa thạch",
+   "cost": 12
+  },
+  {
+   "job_id": "41eadc51-c51e-4802-bec3-72c59ece8d18",
+   "kind": "tileset",
+   "for": "hb-bang",
+   "what": "Hàn Băng: mặt băng (ô i)",
+   "cost": 12
+  },
+  {
+   "job_id": "27629a1e-4e42-4754-b8ee-617bdfa8f1c2",
+   "kind": "tileset",
+   "for": "ht-ruong",
+   "what": "Hậu Thổ: ruộng bậc thang (ô y)",
+   "cost": 12
+  },
+  {
+   "job_id": "c392bb27-6d1f-40e6-893b-2f9213ba41e7",
+   "kind": "tileset",
+   "for": "ltl-go",
+   "what": "Làng Tinh Linh: sàn gỗ (ô l), 2 bản",
+   "cost": 24
+  },
+  {
+   "job_id": "2360d7c7-7f0a-4389-9b0d-14768f57f196",
+   "kind": "tileset",
+   "for": "xd-mep",
+   "what": "Xích Diễm: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "f11091b0-22ce-4ea0-8833-797861afda66",
+   "kind": "tileset",
+   "for": "hb-mep",
+   "what": "Hàn Băng: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "d716f2a7-87b3-4a14-97b2-6388e9caedc3",
+   "kind": "tileset",
+   "for": "hp-mep",
+   "what": "Hắc Phong: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "3a4a282e-2654-4cf9-b267-1face4815ceb",
+   "kind": "tileset",
+   "for": "tm-mep",
+   "what": "Thanh Mộc: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "6a449bf1-5e4c-4e48-bc7e-f5d2c0578773",
+   "kind": "tileset",
+   "for": "tkim-mep",
+   "what": "Thiên Kim: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "d2de8819-2d57-4121-b5c7-cf3dd5768571",
+   "kind": "tileset",
+   "for": "ht-mep",
+   "what": "Hậu Thổ: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "199c361e-b982-4415-bf6d-41276477609b",
+   "kind": "tileset",
+   "for": "nv-mep",
+   "what": "Ngoại Vực: mép tinh cầu",
+   "cost": 12
+  },
+  {
+   "job_id": "e8504a21-4608-4a43-80ef-e469fecad467",
+   "kind": "art 2K",
+   "for": "xd-do",
+   "what": "Xích Diễm: cây cháy, đá núi lửa, bụi tro, đồ nhỏ in nền",
+   "cost": 18
+  },
+  {
+   "job_id": "da1d6d91-cacf-46ba-b962-2e61275a87c0",
+   "kind": "art 2K",
+   "for": "hb-do",
+   "what": "Hàn Băng: tùng tuyết, cây băng, bụi tuyết, đá tuyết, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "ea8a25b7-201e-41f3-b149-e53c6782bf5e",
+   "kind": "art 2K",
+   "for": "hp-do",
+   "what": "Hắc Phong: cây khô gió, trụ đá đen, bụi gai, cỏ khô, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "5334d5a1-7cd1-450b-85f2-ebc7333dbbe1",
+   "kind": "art 2K",
+   "for": "tm-do",
+   "what": "Thanh Mộc: nấm khổng lồ phát sáng, dương xỉ, cây rừng dây leo, đá rêu, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "ed965c1b-20a4-4434-a4a6-72c3da88cf9d",
+   "kind": "art 2K",
+   "for": "tkim-do",
+   "what": "Thiên Kim: hồ dương, bụi sa mạc, đá quặng vàng, kiếm cổ cắm cát, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "9b32c32b-6a20-451b-acd5-155cbc7e2b04",
+   "kind": "art 2K",
+   "for": "ht-do",
+   "what": "Hậu Thổ: cột đất, cây thu đỏ, bụi thu, đá đất sét, bó lúa, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "fed8520a-fe5b-43cb-8990-55962aae027c",
+   "kind": "art 2K",
+   "for": "nv-do",
+   "what": "Ngoại Vực: cây chết hư không, trụ pha lê tím, đá nổi, hoa hư không, đồ nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "554db157-970a-4832-b688-82ff5500b125",
+   "kind": "art 2K",
+   "for": "ltl-hoa",
+   "what": "Làng Tinh Linh: sáu bụi hoa, năm khóm hoa nhỏ",
+   "cost": 18
+  },
+  {
+   "job_id": "292c8eb0-71b6-4ffa-8001-3cb3f9f65fb6",
+   "kind": "art 2K",
+   "for": "ltl-cay",
+   "what": "Làng Tinh Linh: tử đằng, mộc lan, đào, quế hoa",
+   "cost": 18
+  }
+ ],
+ "chon": {
+  "xd-nuoc": "b",
+  "hb-nuoc": "b",
+  "hp-nuoc": "a",
+  "tm-nuoc": "a",
+  "tkim-nuoc": "b",
+  "ht-nuoc": "a (khung 12 trống, ghép lại từ 4 góc nước của 4 khung lân cận)",
+  "nv-nuoc": "a",
+  "ltl-go": "b",
+  "hp-dat": "hỏng (sỏi nhạt bị coi là nền trắng, lòng đường trong suốt) → dùng đường đất Thiên Kiếm Tinh ngả tông xám",
+  "tkim-dat": "hỏng như hp-dat → đường đất Thiên Kiếm Tinh ngả tông cát"
+ },
+ "assets": {
+  "xd-nuoc-a": "250ef568-5625-449a-984a-308cd87c5a22",
+  "xd-nuoc-b": "c0192ee7-8e77-4c96-a5ca-8dab8bf6948c",
+  "hb-nuoc-a": "16deb994-e409-4a59-abe2-4bce67b43b86",
+  "hb-nuoc-b": "b6a80e0c-cda1-41c6-ae51-55459afc05b1",
+  "hp-nuoc-a": "c8792922-5f5a-47f5-8cd3-46d7dd5b2313",
+  "hp-nuoc-b": "80f9d7e2-5cb1-465d-bed5-cbe0580f2845",
+  "tm-nuoc-a": "860a6e81-6e4c-486f-9b8c-d3fb1f5dcb89",
+  "tm-nuoc-b": "df190f4a-53d4-4342-9534-5f96fd0ad97c",
+  "tkim-nuoc-a": "cfbb86f3-f720-4f0f-adce-ccff2b41ab1e",
+  "tkim-nuoc-b": "c47f92b1-6f10-4456-8acf-58c843780c90",
+  "ht-nuoc-a": "1cf7a967-cfab-44ae-be72-0841c37ec7a0",
+  "ht-nuoc-b": "af81a52a-2f3c-4555-a642-9d490257f074",
+  "nv-nuoc-a": "3bd685c7-a806-47bd-a748-b3649ca506f4",
+  "nv-nuoc-b": "61d7f76a-f8f5-4c52-9eff-849f38d48a57",
+  "xd-dat": "168f1e37-2664-4931-87de-0b893a4ab653",
+  "hb-dat": "ff5c3b54-728c-452a-af13-d7e5262cd819",
+  "hp-dat": "001b7645-6d11-4009-8eec-468c0fe2bae9",
+  "tkim-dat": "1f51a017-8aa9-43c8-b6b9-ca3ca5430e23",
+  "hb-bang": "93a9f3d0-cfec-4b3d-b2ab-48d4c669132f",
+  "ht-ruong": "feeea380-267b-4ad1-a0dd-557ba0dd52c4",
+  "ltl-go-a": "f8b6545e-160c-468c-a9c5-15531d38a3e8",
+  "ltl-go-b": "ecfeb095-7acb-4d05-be2f-8d77ffbfe3b5",
+  "xd-mep": "057b25f2-a0b5-4a0c-88a5-e1f08d1861ba",
+  "hb-mep": "2c0897b2-c80c-4aee-97bd-4de8357faabc",
+  "hp-mep": "8f867a3a-8e7f-4ae9-8878-62ed77588906",
+  "tm-mep": "1be82579-cadc-4161-82a1-b367eca0b02e",
+  "tkim-mep": "68ae7ca8-f83e-4279-ab10-b278710deb2c",
+  "ht-mep": "ce1fac0a-1ec4-49d0-bfb6-c668ad6f3c08",
+  "nv-mep": "c03c4336-9e98-45d2-b53d-44dd24f61d47",
+  "xd-do": "b9fe6035-2581-44f1-b301-44f646bad37d",
+  "hb-do": "2115d103-448c-4ce4-942e-b52576dcf224",
+  "hp-do": "3d47517b-a865-4159-8f46-728a98a6a8a7",
+  "tm-do": "cc086f0c-fc6d-4c61-987e-6b857e2459f6",
+  "tkim-do": "8089bca9-9816-4008-bf12-23298d414953",
+  "ht-do": "73eb1b8e-c587-4043-b462-144b7f8c0390",
+  "nv-do": "517a042a-b808-4568-9d5d-1dea4a1e0377",
+  "ltl-hoa": "27f8be54-87be-4857-a98e-45bb9a723056",
+  "ltl-cay": "bd0d5c8b-2b88-4831-a457-e01601e0c4a2"
+ },
+ "ghep": {
+  "tm-do": "bộ dò lưới hỏng (ra 32×32): ảnh thô 2048 qua sc_luoi.py → lưới 288",
+  "ltl-hoa": "bộ dò lưới hỏng (ra 32×32): ảnh thô 2048 qua sc_luoi.py → lưới 336"
+ },
+ "spent": 510,
+ "balance": {
+  "truoc": 1243,
+  "sau": 733
+ },
+ "_ket_qua": "21 bộ nền (348 credit) + 9 tấm 2K (162) = 510 credit, không làm lại tấm nào; dùng: nuoc xd-b hb-b hp-a tm-a tkim-b ht-a (ghép khung 12) nv-a; đường xd, hb; mặt băng, ruộng, sàn gỗ b; 7 bộ mép; 52 hình cây/bụi/đá/hoa + 40 đồ nhỏ. Hỏng không dùng: hp-dat, tkim-dat (lòng đường trong suốt), xd-a, hb-a, tkim-a, ht-b, nv-b, tm-b, ltl-go-a (bản phụ)."
+}
