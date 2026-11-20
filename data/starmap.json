@@ -50,7 +50,7 @@
     {"map": "bi-canh", "kind": "dungeon", "dist": 3.2, "angle": 210, "spin": 60, "size": 2.4, "color": "#a0423a", "realm": 0}
    ]},
   {"map": "thanh-khe", "name": "Mảnh Vỡ Thanh Khê", "kind": "fragment", "orbit": 1, "angle": 25, "size": 4, "color": "#7cc46a", "realm": 0,
-   "desc": "Làng quê của bạn. Ngày ma tộc tràn tới, tinh cầu cũ vỡ, chỉ còn mảnh này trôi gần Linh Nhật."},
+   "desc": "Làng quê của bạn ở thế giới này. Ngày ma tộc tràn tới, tinh cầu cũ vỡ, chỉ còn mảnh này trôi gần Linh Nhật. Vẫn có người thắp đèn."},
   {"map": "dao-xich-dien", "name": "Xích Diễm Tinh", "kind": "planet", "orbit": 2, "angle": 300, "size": 8, "color": "#c0704a", "realm": 0,
    "desc": "Tinh cầu lửa đá đỏ, hỏa lang và viêm linh. Nơi bạn học ngự kiếm.",
    "moons": [{"map": "hoa-quat", "kind": "dungeon", "dist": 2.2, "angle": 120, "spin": 50, "size": 2.6, "color": "#e0603a", "realm": 0}]},

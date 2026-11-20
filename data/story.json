@@ -21,7 +21,7 @@
        "say": [
         [
          "he-thong",
-         "Đinh! Linh hồn ký chủ đã ổn định ở Tinh cầu Thanh Khê. Bổn hệ thống đang liên kết, chờ một lát.",
+         "Đinh! Linh hồn ký chủ đã ghép xong vào thân xác mới ở làng Thanh Khê. Bổn hệ thống đang nối rễ, chờ một lát.",
          {
           "tap": true
          }
@@ -190,7 +190,7 @@
        "say": [
         [
          "van-hac",
-         "Đệ tử mới à. Cầm lấy {thanh kiếm|cây liềm} này."
+         "Đệ tử mới à. Ta chỉ hỏi một câu: ngươi đứng đây vì ai? ...Chưa cần trả lời. Cầm lấy {thanh kiếm|cây liềm} này."
         ],
         [
          "he-thong",
@@ -287,7 +287,7 @@
       ],
       [
        "truong-thon",
-       "Giỏi lắm! Hôm nay là lễ thức tỉnh linh căn, mau tới đá linh căn giữa làng, cả làng đang chờ."
+       "Giỏi lắm! Hôm nay là lễ thức tỉnh linh căn, mau tới đá linh căn giữa làng, thằng Tiểu Hỏa giữ chỗ cho con từ sáng rồi."
       ]
      ]
     }
@@ -350,10 +350,28 @@
      }
     },
     {
+     "npc_remove": "tieu-hoa"
+    },
+    {
+     "flag": "mat-tieu-hoa"
+    },
+    {
+     "say": [
+      [
+       "",
+       "Ma khí rút đi. Chỗ Tiểu Hỏa vừa đứng chỉ còn một chiếc giày nhỏ."
+      ],
+      [
+       "truong-thon",
+       "Chúng bắt thằng bé rồi... Con đi đi. Ở lại đây con không cứu được ai đâu."
+      ]
+     ]
+    },
+    {
      "say": [
       [
        "{lac-tuyet|tieu-dao}",
-       "Theo ta lên Thiên Kiếm Phong. Ở đó mới tu luyện được."
+       "Theo ta lên Thiên Kiếm Phong. Muốn đòi người về thì phải mạnh lên đã."
       ]
      ]
     },
@@ -468,7 +486,7 @@
      "say": [
       [
        "",
-       "Huyết Nha tan thành khói đen."
+       "Huyết Nha tan thành khói đen. Trong khói có tiếng cười: thứ vừa gục chỉ là một phân thân."
       ],
       [
        "he-thong",
@@ -504,7 +522,7 @@
      "say": [
       [
        "he-thong",
-       "Đinh! Linh hồn ký chủ đã ổn định. Bổn hệ thống chào mừng ngươi tới Tinh cầu Thanh Khê, hôm nay là lễ thức tỉnh linh căn.",
+       "Đinh! Linh hồn ký chủ đã ghép xong vào thân xác mới. Đây là làng Thanh Khê, hôm nay là lễ thức tỉnh linh căn.",
        {
         "tap": true
        }
@@ -515,7 +533,7 @@
       ],
       [
        "truong-thon",
-       "Con tới rồi à? Mau tới đá linh căn giữa làng, cả làng đang chờ đó."
+       "Con tới rồi à? Mau tới đá linh căn giữa làng, thằng Tiểu Hỏa giữ chỗ cho con từ sáng rồi."
       ]
      ]
     }
@@ -552,7 +570,7 @@
      "say": [
       [
        "truong-thon",
-       "Linh căn hệ {element}, phẩm {root}! Trời cho con một con đường rồi.",
+       "Linh căn hệ {element}, phẩm {root}! Rễ đã nối với Cây rồi, con ạ. Trời cho con một con đường.",
        {
         "tap": true
        }
@@ -562,9 +580,6 @@
        "Hệ {element}, phẩm {root}. Hừm... cũng tạm. Có bổn hệ thống ở đây, phế vật cũng thành thiên tài."
       ]
      ]
-    },
-    {
-     "flag": "mat-tieu-hoa"
     },
     {
      "npc_add": "{lac-tuyet|tieu-dao}",
@@ -578,7 +593,7 @@
       ],
       [
        "he-thong",
-       "Đinh! Phát hiện đệ tử Thiên Kiếm Tông. Cơ hội vào tông môn đây, ký chủ đừng làm bổn hệ thống mất mặt."
+       "Đinh! Phát hiện đệ tử Thiên Kiếm Tông, tông môn giữ Linh Nhật. Cơ hội vào tông môn đây, ký chủ đừng làm bổn hệ thống mất mặt."
       ],
       [
        "{lac-tuyet|tieu-dao}",
@@ -731,10 +746,28 @@
      }
     },
     {
+     "npc_remove": "tieu-hoa"
+    },
+    {
+     "flag": "mat-tieu-hoa"
+    },
+    {
+     "say": [
+      [
+       "",
+       "Ma khí rút đi. Chỗ Tiểu Hỏa vừa đứng chỉ còn một chiếc giày nhỏ."
+      ],
+      [
+       "truong-thon",
+       "Chúng bắt thằng bé rồi... Con đi đi. Ở lại đây con không cứu được ai đâu."
+      ]
+     ]
+    },
+    {
      "say": [
       [
        "{lac-tuyet|tieu-dao}",
-       "Theo ta lên Thiên Kiếm Phong. Ở đó mới tu luyện được."
+       "Theo ta lên Thiên Kiếm Phong. Muốn đòi người về thì phải mạnh lên đã."
       ]
      ]
     },
@@ -761,7 +794,7 @@
      "say": [
       [
        "van-hac",
-       "Đệ tử mới à. Cầm lấy {thanh kiếm|cây liềm} này."
+       "Đệ tử mới à. Ta chỉ hỏi một câu: ngươi đứng đây vì ai? ...Chưa cần trả lời. Cầm lấy {thanh kiếm|cây liềm} này."
       ],
       [
        "he-thong",
@@ -850,7 +883,7 @@
      "say": [
       [
        "",
-       "Huyết Nha tan thành khói đen."
+       "Huyết Nha tan thành khói đen. Trong khói có tiếng cười: thứ vừa gục chỉ là một phân thân."
       ],
       [
        "he-thong",
@@ -944,7 +977,7 @@
      "say": [
       [
        "",
-       "Một bàn tay hắc ám vươn ra từ Ma Vân, kéo {Lạc Tuyết|Tiêu Dao} đi mất.",
+       "Một bàn tay hắc ám vươn ra từ Ma Vân, nắm lấy {Lạc Tuyết|Tiêu Dao}. Một giọng nói chỉ có hai chữ: “Ở lại.”",
        {
         "tap": true
        }
@@ -976,7 +1009,7 @@
       ],
       [
        "he-thong",
-       "Khi ngươi đủ mạnh, sẽ có ngày đối đầu Đại Ma Thần. Bổn hệ thống tin ngươi. Đừng làm bổn hệ thống thất vọng.",
+       "Khi ngươi đủ mạnh, sẽ có ngày đối đầu Đại Ma Thần. Bổn hệ thống tin ngươi. Tên ngươi, bổn hệ thống đã chép vào sổ Trấn Ma Kỷ rồi, đừng để nó thành trang cuối.",
        {
         "tap": true
        }

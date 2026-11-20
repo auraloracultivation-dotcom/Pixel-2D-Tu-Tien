@@ -3,7 +3,7 @@
  "on": true,
  "name": "Trấn Ma Kỷ",
  "so": ["một", "hai", "ba", "bốn", "năm", "sáu", "bảy"],
- "auto": {"_note": "Tự phát một cảnh vừa mở khi người chơi đang tự tay chơi và rảnh: không Tự đánh, không Tự hành, vừa chạm màn trong present_s giây, không có trùm, không ai lạ đứng trong near đơn vị; hai lần tự phát cách nhau gap_s giây. Không đủ thì Hệ Thống chỉ nhắc một dòng, đọc trong sổ lúc nào cũng được.", "present_s": 25, "gap_s": 40, "near": 120, "wait_s": 1.2},
+ "auto": {"_note": "Tự phát một cảnh vừa mở khi người chơi đang tự tay chơi và rảnh: không Tự đánh, không Tự hành, vừa chạm màn trong present_s giây, không có trùm, không ai lạ đứng trong near đơn vị; đã rảnh được wait_s giây (vừa đóng bảng, vừa xong hội thoại thì chờ một nhịp); hai lần tự phát cách nhau gap_s giây. Không đủ thì Hệ Thống chỉ nhắc một dòng (người đang tự tay chơi mà nudge_s giây vẫn chưa rảnh, hoặc đang Tự đánh / Tự hành), đọc trong sổ lúc nào cũng được.", "present_s": 25, "gap_s": 40, "near": 120, "wait_s": 2.5, "nudge_s": 12},
  "card": {"_note": "Thẻ mở / khép quyển (src/ui/the-quyen.js), cùng ngôn ngữ hình với nghi lễ đột phá (src/ui/mung-canh.js): nền tối, vầng sáng, dải chữ, tên quyển đập xuống. Giây tính từ lúc hiện. auto: đang Tự đánh / Tự hành thì tự đóng sau chừng ấy giây.", "color": "#ffd98a", "color_khep": "#bff4ff", "size": 264, "lvl": 2, "y": 0.34, "dim": 0.82, "flash": 0.22, "t": {"dim": 0.25, "ray": 0.1, "title": 0.25, "name": 0.55, "sub": 0.85, "line": 1.15, "gap": 0.22, "end": 0.5, "out": 0.25, "auto": 3}, "sfx": {"open": "qua-mo", "name": "qua-no-lon", "name_khep": "qua-no", "line": [["qua-d2", 0.8], ["qua-d3", 0.8], ["qua-d4", 0.8], ["qua-d5", 0.8]], "ok": "click"}},
  "kq_bubble": {"_note": "Khẩu quyết hiện thành bong bóng trên đầu lúc tụ linh tung pháp bảo, mình và người cùng tinh cầu đều thấy (đi chung tin tụ linh, không thêm tin mạng; src/game/khau-quyet.js). sec: giây hiện; rate: phần lần tung có hô (1 = lần nào cũng hô); gap: một người hô hai câu cách nhau ít nhất chừng ấy giây (tung liền mấy món thì chỉ hô câu đầu). Bong bóng trò chuyện của người chơi không bị đè.", "on": true, "sec": 1.6, "rate": 1, "gap": 2.5},
  "text": {
@@ -24,7 +24,7 @@
   "sec_kq": "Khẩu quyết",
   "sec_cam": "Cấm Kỵ Các",
   "have": "{a}/{b}",
-  "quy_lock": "Lĩnh ngộ khi đọc tới {x}",
+  "quy_lock": "Lĩnh ngộ khi đọc {q}, trang {n}",
   "kq_doan": "Đoản quyết của pháp bảo",
   "kq_truong": "Trường quyết",
   "kq_lock": "Chưa thuộc",
@@ -41,12 +41,13 @@
   "busy": "Đang có việc khác. Xong rồi hẵng đọc.",
   "nudge_new": "Đinh! Sổ Trấn Ma Kỷ có trang mới: {ten}. Rảnh tay thì chạm vào đây mà đọc.",
   "nudge_old": "Đinh! Bổn hệ thống vừa chép lại sổ Trấn Ma Kỷ. Ký chủ có {n} trang chưa đọc. Chạm vào đây.",
+  "nudge_khep": "Đinh! Sổ Trấn Ma Kỷ vừa chép xong quyển {n}: {ten}. Quyển kế mở khi: {x}. Chạm vào đây để xem sổ.",
   "card_title": "Trấn Ma Kỷ",
   "law_got": "Lĩnh ngộ thiên quy: {ten}",
   "cam_got": "Cấm Kỵ Các đã mở trong sổ",
   "page_of": "Quyển {n}: {a}/{b} trang",
   "all": "Đã chép {a}/{b} trang vào sổ",
-  "next_q": "Quyển kế: {x}",
+  "next_q": "Quyển kế mở khi: {x}",
   "end": "Sổ chưa có trang cuối. Tên ký chủ vẫn đang được chép tiếp.",
   "ok": "Tiếp tục",
   "skip": "Chạm để xem nhanh",
@@ -174,7 +175,7 @@
     ["truong-lao-moc", "Rễ của Thế Giới Thụ trồi lên ở đây. Linh Nhật các ngươi thấy trên trời là đoá hoa duy nhất của Cây."],
     {"dan": {"fx": "la", "tieng": ["chime", 0.6], "cho": 0.8}},
     ["", "Vậy ra cả tinh hệ là một cái cây. Chín vòng quỹ đạo là chín vòng năm."],
-    ["he-thong", "Giờ thì ký chủ hiểu vì sao trời luôn là đêm. Hoa dồn hết ánh sáng ra rìa để dệt kết giới. Phần rơi xuống đây chỉ còn sáng như trăng."]
+    ["he-thong", "Giờ thì ký chủ hiểu vì sao ở đây ban ngày cũng chỉ sáng như trăng. Hoa dồn gần hết ánh sáng ra rìa để dệt kết giới, phần rơi xuống tinh cầu chỉ còn chừng ấy."]
    ], "ghi": "Thanh Mộc Tinh. Cả tinh hệ là một cái cây, Linh Nhật là hoa của nó."},
    {"id": "q3-3", "ten": "Mùi nắng", "khi": {"den": "lang-tinh-linh"}, "goi": "Vào Làng Tinh Linh", "quy": "ghep", "canh": [
     ["thanh-diep", "Cây mẹ nói ngươi có mùi nắng. Ta cũng thấy vậy."],

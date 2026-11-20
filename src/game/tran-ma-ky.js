@@ -13,7 +13,7 @@ import { dan, hetCanh } from './tmk-canh.js';
 
 const D = game => game.data['tran-ma-ky'];
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
-const st = { input: 0, last: 0, playing: false, queue: [], nudged: {}, told: false, boot: 0 };
+const st = { input: 0, last: 0, playing: false, queue: [], nudged: {}, since: {}, told: false, boot: 0, calm: 0, nhac: [] };
 
 let ON = null;
 export function tmkOn(game) {
@@ -143,6 +143,10 @@ function docXong(game, p, im = false) {
   const f = game.save.flags, C = D(game), X = C.text, truoc = p.q.trang.filter(x => daDoc(game, x.id)).length;
   f['tmkd-' + p.id] = true; f['tmkm-' + p.id] = true;
   if (p.bo && f[p.bo]) delete f[p.bo];
+  if (im && p.q.trang.every(x => f['tmkd-' + x.id])) {   // quyển khép lặng lẽ theo truyện chính (quyển một của người mới): không dựng thêm một màn sau phần mở đầu, Hệ Thống chỉ nhắc một dòng
+    const ke = C.quyen[p.qi + 1];
+    f['tmkk-' + p.q.id] = true; st.nhac.push(fill(X.nudge_khep, { n: C.so[p.qi], ten: p.q.ten, x: ke ? ke.goi : '' }));
+  }
   game.persist?.();
   if (im) return;
   const lines = [];
@@ -185,16 +189,25 @@ function nhip(game) {
     if (x.im) docXong(game, x, true); else st.queue.push(x.id);
   }
   if (doi) game.persist?.();
+  const r = ranh(game); if (!r) st.calm = 0; else if (!st.calm) st.calm = now;
+  const yen = r && now - st.calm >= C.auto.wait_s * 1000;   // rảnh được một lúc rồi mới diễn: vừa đóng bảng, vừa xong hội thoại thì cho thở một nhịp, không dồn hai màn liền nhau
   if (st.playing || now - st.boot < 6000) return;
   // quyển vừa đọc hết mà chưa khép: diễn thẻ khép quyển khi rảnh và có mặt
   const qi = C.quyen.findIndex(q => !f['tmkk-' + q.id] && q.trang.every(x => f['tmkd-' + x.id]));
-  if (qi >= 0 && ranh(game) && (game.auto || game.pilot || coMat(game)) && now - st.last > C.auto.wait_s * 1000) { khepQuyen(game, C.quyen[qi], qi); return; }   // đang Tự đánh / Tự hành: thẻ tự đóng, game vẫn chạy
+  if (qi >= 0 && yen && (game.auto || game.pilot || coMat(game)) && now - st.last > C.auto.wait_s * 1000) {   // đang Tự đánh / Tự hành: thẻ tự đóng, game vẫn chạy
+    if (tuKe(game)) khepQuyen(game, C.quyen[qi], qi);
+    else { f['tmkk-' + C.quyen[qi].id] = true; game.persist?.(); game.toast(`${C.text.close} ${C.so[qi]}: ${C.quyen[qi].ten}`, 2.6); }   // đã tắt tự kể: chỉ một dòng báo
+    return;
+  }
+  if (st.nhac.length && yen) { game.htNudge?.(st.nhac.shift(), 'tmk'); st.last = now; return; }   // lời nhắc đang chờ (quyển vừa khép lặng lẽ)
   // trang vừa mở: tự phát khi rảnh và có mặt, không thì Hệ Thống nhắc một dòng (mỗi trang một lần)
   st.queue = st.queue.filter(id => !daDoc(game, id));
   const id = st.queue[0];
   if (id) {
-    if (tuKe(game) && ranh(game) && coMat(game) && now - st.last > C.auto.gap_s * 1000) { st.queue.shift(); phatTrang(game, id); }
-    else if (!st.nudged[id] && !game.dialog?.open && !game.uiOpen) { st.nudged[id] = 1; game.htNudge?.(fill(C.text.nudge_new, { ten: trang(game, id).ten }), 'tmk'); }
+    if (tuKe(game) && yen && coMat(game) && now - st.last > C.auto.gap_s * 1000) { st.queue.shift(); phatTrang(game, id); }
+    else if (!st.nudged[id] && !game.dialog?.open && !game.uiOpen && (game.auto || game.pilot || !tuKe(game) || now - (st.since[id] ||= now) > C.auto.nudge_s * 1000)) {   // người đang tự tay chơi: chờ nudge_s giây xem có rảnh để kể không, kẻo vừa nhắc xong lại kể luôn
+      st.nudged[id] = 1; game.htNudge?.(fill(C.text.nudge_new, { ten: trang(game, id).ten }), 'tmk');
+    }
     return;
   }
   // người chơi cũ: báo một lần mỗi buổi số trang đang chờ trong sổ

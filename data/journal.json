@@ -12,7 +12,7 @@
  "lantern_with": "Lần đầu thả hoa đăng cùng {name}. Người ấy ước gì, ta không hỏi.", "anniv": "Tròn {days} ngày kết đạo lữ với {name}.", "star": "Lần đầu thấy sao băng. Kịp ước một điều, giữ trong lòng.", "star_with": "Lần đầu ngắm sao băng cùng {name}. Hai người ước cùng lúc, không ai nói ra.", "zither": "Đêm đầu tiên {name} gảy đàn tranh cho ta nghe. Tiếng đàn theo linh khí chảy vào người.", "cook": "Hôm nay cùng {name} nấu {dish}. Khói bếp bay lên, động phủ thơm cả buổi.",
  "rare_fish": ["kim-ly", "nguyet-ngu"],
  "flags": {
-  "mat-tieu-hoa": "Làng Thanh Khê cháy. Tiểu Hỏa bị bắt đi. Kiếm tông cứu ta.",
+  "mat-tieu-hoa": "Ma tộc tràn vào Thanh Khê. Tiểu Hỏa bị bắt đi. Kiếm tông đưa ta lên núi.",
   "ngu-kiem": "Lần đầu bay truyền tống qua trời sao.",
   "ha-huyet-nha": "Hạ Huyết Nha trong Hỏa Quật.",
   "dong-phu": "Được ban động phủ. Có một chỗ để gọi là nhà.",

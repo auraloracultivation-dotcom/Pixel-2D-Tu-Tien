@@ -63,7 +63,7 @@ for (const [id, q] of Object.entries(C.kq.doan)) assert.ok(q.ho && q.loi && q.ho
 for (const q of C.kq.truong) { assert.ok(q.id && q.ten && q.dung && q.loi?.length, `trường quyết ${q.id}: thiếu mục`); khiOk(q.khi, `trường quyết ${q.id}`); }
 for (const c of [...C.cam.list, C.cam.trang]) for (const k of ['ten', 'gia', 'loi', 'chieu', 'tra', 'nguoi']) assert.ok(c[k], `cấm kỵ ${c.id || c.ten}: thiếu ${k}`);
 for (const k of ['cover_sub', 'progress', 'quyen', 'open', 'close', 'ask', 'new', 'read', 'again', 'how', 'sec_quyen', 'sec_quy', 'sec_kq', 'sec_cam', 'have', 'quy_lock', 'kq_doan', 'kq_truong', 'kq_lock', 'kq_pb', 'kq_dung',
-  'cam_lock', 'cam_intro', 'cam_gia', 'cam_chieu', 'cam_tra', 'cam_nguoi', 'cam_trang', 'busy', 'nudge_new', 'nudge_old', 'card_title', 'law_got', 'cam_got', 'all', 'next_q', 'end', 'ok', 'skip', 'auto_on', 'auto_off']) assert.ok(C.text[k], `text.${k}: thiếu chữ`);
+  'cam_lock', 'cam_intro', 'cam_gia', 'cam_chieu', 'cam_tra', 'cam_nguoi', 'cam_trang', 'busy', 'nudge_new', 'nudge_old', 'nudge_khep', 'card_title', 'law_got', 'cam_got', 'all', 'next_q', 'end', 'ok', 'skip', 'auto_on', 'auto_off']) assert.ok(C.text[k], `text.${k}: thiếu chữ`);
 
 // ---- 2. luật ----
 const fake = (save = {}, map = 'thanh-khe') => ({ data: { 'tran-ma-ky': C, realms, 'phap-bao': PB, journal: { flags: {} } }, map: { id: map }, persist() {},

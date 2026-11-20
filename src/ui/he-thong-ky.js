@@ -81,7 +81,7 @@ export function renderKy(game, body, st, rerender, O = {}) {
     for (const l of tmkQuy(game)) {
       const d = el('div', 'ky-quy' + (l.co ? '' : ' kin'));
       if (l.co) d.append(el('b', null, l.ten), el('span', null, l.cau), el('p', null, l.y));
-      else d.append(el('b', null, '???'), el('i', null, fill(X.quy_lock, { x: l.tu ? `${fill(X.quyen, { n: C.so[l.tu.qi] })}, ${l.tu.i + 1}` : '' })));
+      else d.append(el('b', null, '???'), el('i', null, l.tu ? fill(X.quy_lock, { q: fill(X.quyen, { n: C.so[l.tu.qi] }), n: l.tu.i + 1 }) : ''));
       body.append(d);
     }
     return;
