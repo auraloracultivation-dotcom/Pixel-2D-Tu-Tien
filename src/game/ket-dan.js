@@ -9,7 +9,7 @@
 //   song  rồi sóng linh lực phát ra liên tục, nhanh, trong vài giây (quái quanh đó bị hất, khựng);
 //   cot   cột sáng từ trời chiếu xuống;  ha: hạ xuống đất → lên cảnh giới, mở bảng chúc mừng (tribulation.js ascend).
 // Mọi nhịp tính theo một đồng hồ st.t nên máy người xem diễn lại y hệt từ một tin bắt đầu: tin đi đường tin chiêu sẵn có
-// (k: 'kd-bd' bắt đầu, fx = số tia / 20; 'kd-ok' chịu xong; 'kd-hong' thất bại), không thêm gì ở máy chủ phòng.
+// (k: 'kd-bd' bắt đầu, fx = số đạo / 20, fy = hạt lịch liên hoàn / 100; 'kd-ok' chịu xong; 'kd-hong' thất bại), không thêm gì ở máy chủ phòng.
 // Số ở data/config.json → ket_dan. Hình: src/render/draw-ket-dan.js.
 import { addFx, hitPlayer } from './combat.js';
 import { tribBolt, tribSkyEnd } from './trib-sky.js';
@@ -18,13 +18,25 @@ import { land } from './fly.js';
 const cfgOf = game => game.data.config.ket_dan;
 const smooth = x => { const k = Math.max(0, Math.min(1, x)); return k * k * (3 - 2 * k); };
 
-// Mốc giờ các nhịp (giây từ lúc bắt đầu) cho n tia sét
-export function kdTimes(K, n) {
-  const t = K.t, a = t.tu, b = a + t.vong, c = b + t.hut, bt = [];
-  for (let i = 0, x = c + t.set_dau; i < n; i++) { bt.push(x); x += t.set_gap0 + (t.set_gap1 - t.set_gap0) * (n > 1 ? i / (n - 1) : 0); }   // tia sau dồn hơn tia trước
-  const z = bt[n - 1], q = z + t.set_cuoi, x = q + t.lang1, y = x + t.tu2, d = y + t.lang2, w = d + t.song, e = w + t.lang3, f = e + t.cot;
+// Lịch sét: n đạo, mỗi đạo cách nhau một nhịp tim (t.set_nhip); sau một đạo có thể giáng liên hoàn thêm vài tia (lien.p, chủ dự án 20/11/2026 10:28).
+// Ngẫu nhiên theo hạt seed (0–99) gửi kèm tin 'kd-bd' nên máy người xem thấy đúng lịch liên hoàn như máy người độ kiếp
+export function kdPlan(K, n, seed) {
+  let r = (seed * 7919 + n * 104729 + 1) >>> 0;
+  const rnd = () => (r = (r * 1664525 + 1013904223) >>> 0) / 4294967296, L = K.lien, hits = [];
+  for (let i = 0, x = K.t.tu + K.t.vong + K.t.hut + K.t.set_dau; i < n; i++, x += K.t.set_nhip) {
+    hits.push({ t: x, dao: i, chain: 0 });
+    if (i === n - 1 || rnd() >= L.p) continue;
+    for (let c = 1, m = L.n[0] + Math.floor(rnd() * (L.n[1] - L.n[0] + 1)); c <= m; c++) hits.push({ t: x + c * L.gap, dao: i, chain: c });   // liên hoàn: dồn sát nhau, xong trước nhịp kế
+  }
+  return hits;
+}
+
+// Mốc giờ các nhịp (giây từ lúc bắt đầu) cho lịch sét hits (kdPlan)
+export function kdTimes(K, hits) {
+  const t = K.t, a = t.tu, b = a + t.vong, c = b + t.hut;
+  const z = hits[hits.length - 1].t, q = z + t.set_cuoi, x = q + t.lang1, y = x + t.tu2, d = y + t.lang2, w = d + t.song, e = w + t.lang3, f = e + t.cot;
   // z: tia cuối giáng; q → x: lặng; x → y: đợt tụ khí cuối; y → d: lặng; d → w: phóng sóng; w → e: lặng; e: cột sáng
-  return { a, b, c, z, q, x, y, d, w, e, f, g: f + t.ha, in: b + t.hut_in, bolt: i => bt[i] };
+  return { a, b, c, z, q, x, y, d, w, e, f, g: f + t.ha, in: b + t.hut_in, hits, bolt: i => hits[i].t };
 }
 
 // Đang cao bao nhiêu so với mặt đất ở giây t
@@ -36,10 +48,10 @@ export function kdLiftAt(K, T, t) {
   return K.lift * (1 - smooth((t - T.f) / K.t.ha));
 }
 
-const make = (game, who, n, mine) => { const K = cfgOf(game); return { t: 0, n, who, mine, K, T: kdTimes(K, n), hit: 0, lead: 0, hitT: -9, hitPal: null, bolts: [], sparks: [], parts: [], acc: 0, sky: 0, ok: false, wait: 0, seed: Math.random() * 1000 }; };
+const make = (game, who, dao, mine, seed) => { const K = cfgOf(game), H = kdPlan(K, dao, seed); return { t: 0, n: H.length, dao, sd: seed, who, mine, K, T: kdTimes(K, H), hit: 0, lead: 0, hitT: -9, hitPal: null, bolts: [], sparks: [], parts: [], acc: 0, sky: 0, ok: false, wait: 0, seed: Math.random() * 1000 }; };
 
 export function startKetDan(game, cfg, done) {
-  const p = game.player, st = make(game, p, cfg.waves, true);
+  const p = game.player, st = make(game, p, cfg.waves, true, Math.floor(Math.random() * 100));
   st.done = done; st.dmg = cfg.dmg_mul ?? 1;   // hệ số sát thương kiếp từng cảnh giới (data/realms.json → tribulation.by_realm[i].dmg_mul, tab Đại Quản Sự 20/11): chưa có thì 1
   p.kd = game.kd = st; p.kdLift = 0;
   p.meditating = false; p.riding = false; p.moving = false; p.kx = p.ky = 0;
@@ -47,8 +59,8 @@ export function startKetDan(game, cfg, done) {
   game.strikes = [];
   game.darkTarget = Math.max(game.darkTarget || 0, st.K.dark);
   game.screen?.zoomTo?.(st.K.zoom.tu);   // máy quay tiến lại gần người đang kết đan
-  game.online?.cast?.({ k: 'kd-bd', x: Math.round(p.x), y: Math.round(p.y), fx: st.n / 20, fy: 0 });
-  game.sfxWarm?.(['kd-tu', 'kd-vong', 'kd-hut', 'kd-roet', 'kd-set', 'kd-set-cuoi', 'kd-dien', 'kd-bung', 'kd-song', 'kd-cot']);   // dựng sẵn tiếng của nghi lễ ngay lúc bắt đầu, khỏi khựng giữa chừng
+  game.online?.cast?.({ k: 'kd-bd', x: Math.round(p.x), y: Math.round(p.y), fx: st.dao / 20, fy: st.sd / 100 });   // fx: số đạo; fy: hạt lịch liên hoàn
+  game.sfxWarm?.(['kd-tu', 'kd-vong', 'kd-hut', 'kd-roet', 'kd-set', 'kd-set-lien', 'kd-sam', 'kd-set-cuoi', 'kd-dien', 'kd-bung', 'kd-song', 'kd-cot']);   // dựng sẵn tiếng của nghi lễ ngay lúc bắt đầu, khỏi khựng giữa chừng
   game.sfx?.('roar', 0.5); game.sfx?.('kd-tu', 0.7);
 }
 
@@ -60,12 +72,12 @@ export function kdHold(game, inp) {
 
 const pick = L => L[Math.floor(Math.random() * L.length)];
 
-// Tia thứ i ló ra (tia tiên dẫn rơi xuống trong set_lead giây rồi mới giáng). Cứ tia thứ tư và tia cuối là một chùm 2–3 tia khác màu
+// Tia thứ i ló ra (tia tiên dẫn rơi xuống trong set_lead giây rồi mới giáng). Đạo cuối là một chùm 3 tia khác màu; tia liên hoàn nhỏ, tiên dẫn ngắn
 function spawnBolts(st, i) {
-  const K = st.K, last = i === st.n - 1, big = last || i % 4 === 3, n = last ? 3 : big ? 2 : 1, first = Math.floor(Math.random() * K.set_pals.length);
+  const K = st.K, h = st.T.hits[i], last = i === st.n - 1, big = last, n = last ? 3 : 1, first = Math.floor(Math.random() * K.set_pals.length);
   for (let c = 0; c < n; c++) {
     const side = n > 1 ? (c - (n - 1) / 2) * 2 / (n - 1) : Math.random() * 2 - 1;
-    st.bolts.push({ i, t0: st.T.bolt(i), seed: Math.floor(Math.random() * 1e6), pal: K.set_pals[(first + c * 2) % K.set_pals.length], sx: side * (38 + Math.random() * 46), big, lead: c === 0,
+    st.bolts.push({ i, t0: st.T.bolt(i), seed: Math.floor(Math.random() * 1e6), pal: K.set_pals[(first + c * 2) % K.set_pals.length], sx: side * (38 + Math.random() * 46) * (h.chain ? 0.5 : 1), big, lead: c === 0, chain: h.chain,
       gx: (Math.random() - 0.5) * 44, gy: (Math.random() - 0.5) * 12 });
   }
 }
@@ -73,7 +85,7 @@ function spawnBolts(st, i) {
 // Tia thứ i giáng trúng người: loé, tia lửa điện văng ra, điện rẽ xuống đất để lại vết cháy, dòng điện bắt đầu cuốn quanh thân; máy mình thì trừ máu
 function hitBolt(game, st, i) {
   const w = st.who, K = st.K, x = w.x, y = w.y - (w.kdLift || 0) - K.dan_y - 3, mine = st.bolts.filter(b => b.i === i), b0 = mine[0], big = !!b0?.big;
-  const pal = b0?.pal || K.set_pals[0];
+  const pal = b0?.pal || K.set_pals[0], h = st.T.hits[i], ch = h.chain ? K.lien.k : 1;
   addFx(game, { type: 'ring', x, y, r: big ? 26 : 17, color: pal[1], life: 0.3, fill: true });
   addFx(game, { type: 'ring', x, y, r: big ? 48 : 32, color: '#ffffff', life: 0.28 });
   for (const b of mine) {
@@ -98,16 +110,16 @@ function hitBolt(game, st, i) {
   }
   st.hitT = st.t; st.hitPal = pal; st.hitBig = big; w.flash = 0.14;
   st.lit = { t: st.t, c: pal[1], a: K.loe[big ? 1 : 0] * (st.mine ? 1 : 0.5) };   // cả vùng loé sáng theo màu tia (draw-ket-dan.js)
-  game.sfx?.(last ? 'kd-set-cuoi' : 'kd-set', big ? 1 : 0.85);   // "đoàng đoàng"; chùm tia cuối: nổ dày, đuôi ngắn cho kịp quãng lặng
-  if (big && !last) game.sfx?.('thunder', 0.8);
-  if (!last) game.sfx?.('kd-dien', 0.6);
+  game.sfx?.(last ? 'kd-set-cuoi' : h.chain ? 'kd-set-lien' : 'kd-set', big ? 1 : h.chain ? 0.8 : 0.9);   // "đoàng"; liên hoàn: nổ giòn ngắn; chùm cuối: nổ dày, đuôi ngắn cho kịp quãng lặng
+  if (!last && !h.chain) game.sfx?.('kd-sam', 0.85);   // sấm rền vọng lại sau mỗi đạo chính
+  if (!last) game.sfx?.('kd-dien', 0.5);
   game.screen?.shake?.((st.mine ? K.shake.set : K.shake.xem * 2) * (big ? 1.3 : 0.8), 0.22);
   if (st.mine) game.screen?.kick?.(0, K.kick[big ? 1 : 0], 0.12);
-  if (!st.mine) return hitNear(game, st, i, big, pal);
+  if (!st.mine) return hitNear(game, st, h, big, pal, ch);
   const p = game.player;
   p.invT = 0;   // chỉ thiên lôi của nghi lễ trúng được; đòn của quái bị chặn suốt nghi lễ
   const lift = p.kdLift || 0; p.y -= lift;   // số máu, vết đau hiện ở thân người đang lơ lửng chứ không phải dưới đất
-  hitPlayer(game, p.maxHp * K.hit_pct * (1 + i * K.hit_grow) * (st.dmg || 1) * (1 - (game.save.flags.thanhTam || 0)), { x: p.x, y: p.y - 80, soft: true });
+  hitPlayer(game, p.maxHp * K.hit_pct * (1 + h.dao * K.hit_grow) * ch * (st.dmg || 1) * (1 - (game.save.flags.thanhTam || 0)), { x: p.x, y: p.y - 80, soft: true });
   p.y += lift;
   p.invT = 2;
 }
@@ -157,7 +169,7 @@ function step(game, st, dt) {
     addFx(game, { type: 'ring', x: cx, y: cy, r: 22, color: K.pal_khi[1], life: 0.4, fill: true });
     game.sfx?.('buff'); if (st.mine) game.flashT = Math.max(game.flashT || 0, 0.12);
   }
-  while (st.lead < st.n && t >= T.bolt(st.lead) - K.set_lead) { spawnBolts(st, st.lead++); game.sfx?.('kd-roet', 0.9); }   // "roẹt": tia xé trời lao xuống, dứt đúng lúc trúng
+  while (st.lead < st.n && t >= T.bolt(st.lead) - K.set_lead) { const h = T.hits[st.lead]; spawnBolts(st, st.lead++); if (!h.chain) game.sfx?.('kd-roet', 0.9); }   // "roẹt": tia xé trời lao xuống, dứt đúng lúc trúng
   while (st.hit < st.n && t >= T.bolt(st.hit)) hitBolt(game, st, st.hit++);
   if (st.bolts.length && t - st.bolts[0].t0 > K.set_strike + K.set_fade) st.bolts = st.bolts.filter(b => t - b.t0 <= K.set_strike + K.set_fade);
   if (st.mine && at(T.in)) game.screen?.zoomTo?.(K.zoom.set);   // bay lên: lùi máy quay cho thấy trời
@@ -208,7 +220,7 @@ function ban(game, w) {
   return !!ten && !!game.guild?.mine?.tv?.some(x => String(x.ten || '').trim().toLowerCase() === ten);
 }
 
-function hitNear(game, st, i, big, pal) {
+function hitNear(game, st, h, big, pal, ch) {
   const G = st.K.gan, p = game.player, w = st.who;
   if (!G || game.ghost || game.duel || game.kd || !(p.hp > 0) || ban(game, w) || Math.hypot(p.x - w.x, p.y - w.y) > G.r) return;
   const kd = game.data.realms?.tribulation?.by_realm?.find(r => r?.kind === 'ket-dan');   // mọi kiếp kiểu ket-dan cùng dmg_mul (data/realms.json)
@@ -218,7 +230,7 @@ function hitNear(game, st, i, big, pal) {
     st.sparks.push({ x: p.x, y: p.y - 12, ox: p.x, oy: p.y - 12, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * 0.7 - 40, life: 0, max: 0.3 + Math.random() * 0.35, c: pal[k % 2 ? 0 : 3] });
   }
   game.screen?.kick?.(0, st.K.kick[big ? 1 : 0], 0.12);
-  hitPlayer(game, p.maxHp * st.K.hit_pct * (1 + i * st.K.hit_grow) * (kd?.dmg_mul || 1) * G.k, { x: w.x, y: w.y - 80, soft: true });
+  hitPlayer(game, p.maxHp * st.K.hit_pct * (1 + h.dao * st.K.hit_grow) * ch * (kd?.dmg_mul || 1) * G.k, { x: w.x, y: w.y - 80, soft: true });
 }
 
 // Mỗi khung (tribulation.js update): nghi lễ của mình và các nghi lễ đang xem của người cùng hành tinh
@@ -256,8 +268,8 @@ export function kdSeen(game, o, raw) {
   if (!o || o.x === null || !cfgOf(game)) return true;
   const L = (game.kdSee ||= []), i = L.findIndex(s => s.who === o);
   if (k === 'kd-bd' && i < 0 && game.time - (o.kdAt ?? -999) > 60) {
-    const n = Math.max(1, Math.min(20, Math.round((typeof raw.fx === 'number' ? raw.fx : 0.6) * 20) || 12));
-    o.kdAt = game.time; o.kd = make(game, o, n, false); L.push(o.kd);
+    const n = Math.max(1, Math.min(20, Math.round((typeof raw.fx === 'number' ? raw.fx : 0.45) * 20) || 9)), sd = Math.max(0, Math.min(99, Math.round((typeof raw.fy === 'number' ? raw.fy : 0) * 100) || 0));
+    o.kdAt = game.time; o.kd = make(game, o, n, false, sd); L.push(o.kd);
   } else if (k === 'kd-ok' && i >= 0) L[i].ok = true;
   else if (k === 'kd-hong' && i >= 0) { o.kd = null; o.kdLift = 0; L.splice(i, 1); }
   return true;
