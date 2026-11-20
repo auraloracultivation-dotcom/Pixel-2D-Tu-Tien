@@ -45,6 +45,9 @@ async function local() {
   globalThis.Response = class { constructor(body, init) { this.status = init?.status; this.webSocket = init?.webSocket; } };
   const timers = [];
   globalThis.setTimeout = f => { timers.push(f); return timers.length; };
+  // Đồng hồ giả đi cùng bước thời gian giả (sửa 20/11/2026): luật chặn tốc độ của phòng đọc Date.now; để đồng hồ thật thì 60 giây giả trôi
+  // trong chưa tới một giây thật, gần như mọi tin bị coi là gửi dồn dập và bị bỏ (bản 18/11 vì thế đo ra số thấp giả, bot nào cũng bị đá).
+  let gio = Date.now(); Date.now = () => gio;
   const P = await import(join(dir, 'proto.js'));
   const { Phong } = await import(join(dir, 'phong.js'));
   if (ROOM_CAP) P.CAP.dao = ROOM_CAP;
@@ -70,6 +73,7 @@ async function local() {
   // thời gian giả: bước 100 ms; mỗi 200 ms xả gói lô (BATCH_MS)
   const fl = Phong.prototype.flush;
   for (let t = 0; t < SECS * 1000; t += 100) {
+    gio += 100;
     for (const r of rooms) {
       const t0 = performance.now();
       for (const b of r.bots) botStep(b, t, m => { r.up++; r.ph.webSocketMessage(b.ws, JSON.stringify(m)); });

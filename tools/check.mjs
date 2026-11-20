@@ -357,6 +357,15 @@ errors.push(...(await import('./dong-bo.mjs')).soat());
   if (r.status !== 0) { const out = (r.stderr || r.stdout).trim().split('\n'); errors.push(`cloud: bài thử máy chủ phòng trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const n = spawnSync(process.execPath, [join('tools', 'cloud', 'nhip.test.mjs')], { encoding: 'utf8' });   // nhịp sống qua phòng (cloud/src/nhip.js)
   if (n.status !== 0) errors.push(`cloud: bài thử nhịp sống trượt — ${(n.stderr || n.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
+  // Trận 10 vs 10 + 20 người đi dạo trên đúng mã máy chủ phòng, nhịp gửi vị trí lúc giao chiến lấy từ data/config.json (realtime.pvp_ms):
+  // máy chủ phòng không được bỏ tin vì luật tốc độ và phải tính gần hết đòn hợp lệ. Ai nới nhịp gửi hay siết luật tốc độ (cloud/src/proto.js
+  // RATE) làm PvP đông người tính sai là bài này báo (20/11/2026: trước khi sửa chỉ 55–75% đòn được tính, có lúc 17% tin bị bỏ).
+  const pvpMs = read('config.json').realtime?.pvp_ms;
+  const c = spawnSync(process.execPath, [join('tools', 'cloud', 'tai-chien.mjs'), '--nguoi', '40', '--danh', '20', '--doi', '2', '--giay', '20', '--vt', String(pvpMs)], { encoding: 'utf8' });
+  let kq = null;
+  try { kq = JSON.parse(c.stdout.trim().split('\n').pop()); } catch { /* không ra kết quả */ }
+  if (!(pvpMs > 0) || !kq) errors.push(`cloud: bài thử trận đông người không chạy được (pvp_ms ${pvpMs}) — ${(c.stderr || c.stdout || '').trim().split('\n').slice(-2).join(' | ')}`);
+  else if (kq.bi_bo_vi_qua_nhanh_pct > 0 || kq.bi_da > 0 || !(kq.don_duoc_tinh_pct >= 90)) errors.push(`cloud: trận 10 vs 10 tính sai đòn — ${kq.don_duoc_tinh_pct}% đòn được tính (cần ≥ 90), ${kq.bi_bo_vi_qua_nhanh_pct}% tin bị bỏ (cần 0), ${kq.bi_da} người bị đá (cần 0)`);
 }
 
 // Luật chiến đấu mới (src/game/he-chien.js, data/he-chien.json): bài thử thuần Node
