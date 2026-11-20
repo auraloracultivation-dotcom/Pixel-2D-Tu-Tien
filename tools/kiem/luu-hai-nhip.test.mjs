@@ -62,6 +62,37 @@ const NHIP = JSON.parse(readFileSync(join(GOC, 'data/config.json'), 'utf8')).luu
   thu(b => { b.diemMoi = 3; }, true, 'khoá số mới ở cấp đầu: chậm');
   thu(b => { b.thuMoi = { a: 1 }; }, false, 'khoá lạ không phải số: nhanh');
   const p0 = d.plan(sao(goc)); assert.equal(p0.changed, false); assert.equal(p0.cham, false);
+
+  // Máy chủ sửa số (sua) thì khoá bị sửa phải gửi lại, nhưng gửi lại không phải việc gấp: chỉ nhanh khi khoá ấy đổi thứ không phải số
+  const d2 = SD.createSaveDiff(NHIP), g2 = { ...sao(goc), mats: { 'linh-thao': 3000 } };
+  d2.ack(d2.plan(g2));
+  const b1 = sao(g2); b1.mats['linh-thao'] = 3010; b1.lingshi = 9;
+  d2.ack(d2.plan(b1), { tran: true, mats: { 'linh-thao': 3002 }, lingshi: 7 });   // chạm trần nhận mỗi ngày: máy chủ cắt phần lố
+  const sau = (goc2, sua2) => { const x = sao(goc2); sua2(x); return d2.plan(x); };
+  let q = sau(b1, x => { x.mats['linh-thao'] = 3005; x.lingshi = 8; });   // máy đã trừ phần lố, farm thêm chút
+  assert.equal(q.changed, true); assert.equal(q.cham, true, 'sau sua.tran: nguyên liệu, Linh Thạch chỉ lệch số thì đi nhịp chậm');
+  assert.ok('mats' in q.vi && 'lingshi' in q.vi, 'khoá máy chủ vừa sửa vẫn phải gửi lại');
+  q = sau(b1, () => {});
+  assert.equal(q.changed, true, 'chưa đổi gì thêm vẫn phải gửi lại khoá bị sửa'); assert.equal(q.cham, true, 'và gửi lại y nguyên thì không gấp');
+  assert.equal(sau(b1, x => { x.mats.la = 'x'; }).cham, false, 'khoá bị sửa mà đổi thứ không phải số: nhanh');
+  assert.equal(sau(b1, x => { x.flags.gap = true; }).cham, false, 'đang chờ gửi lại mà có cờ truyện: vẫn nhanh');
+  const b2 = sao(b1); b2.mats['linh-thao'] = 3002; b2.lingshi = 7;
+  d2.ack(d2.plan(b2));   // gửi lại xong, máy chủ không sửa nữa
+  assert.equal(d2.plan(sao(b2)).changed, false, 'gửi lại xong thì hết nợ');
+  const b3 = sao(b2); b3.qi = 500;
+  d2.ack(d2.plan(b3), { realm: 0, layer: 1, qi: 120 });   // bộ hãm linh khí: trả cảnh giới, tầng, linh khí của máy chủ
+  q = sau(b3, x => { x.qi = 125; });
+  assert.equal(q.cham, true, 'sau khi bị hãm linh khí: cảnh giới, tầng y nguyên, linh khí lệch số thì đi nhịp chậm (realm, layer nằm trong danh sách nhanh)');
+  assert.ok('realm' in q.vi && 'layer' in q.vi && 'qi' in q.vi);
+  assert.equal(sau(b3, x => { x.qi = 0; x.layer = 2; }).cham, false, 'lên tầng thật thì vẫn nhanh');
+  const b4 = sao(b3); b4.qi = 125; b4.bag.push(mon(9, 'pham'));
+  d2.ack(d2.plan(b4), { mon: [{ ...mon(9, 'pham'), sig: 'k' }] });   // máy chủ trả món đã sửa
+  assert.equal(sau(b4, x => { x.bag[2].sig = 'k'; }).cham, false, 'món trong túi đổi chữ theo bản máy chủ: gửi lại nhanh như cũ');
+  assert.equal(sau(b4, () => {}).cham, true);
+  d2.ack(d2.plan(b4), { la: 1 });
+  assert.equal(d2.plan(sao(b4)).full, true, 'trường sửa lạ: quên hết, lần sau gửi cả bản');
+  d2.ack(d2.plan(b4), { tran: true, mats: {}, lingshi: 1 }); d2.reset();
+  assert.equal(d2.plan(sao(b4)).full, true, 'reset: lần sau gửi cả bản');
   const cu = SD.createSaveDiff(); cu.ack(cu.plan(goc));
   const b = sao(goc); b.qi = 99;
   assert.equal(cu.plan(b).cham, false, 'không đưa cấu hình: một nhịp như cũ, không gì là chậm');
@@ -90,7 +121,7 @@ globalThis.addEventListener = (ten, f) => { (nghe[ten] ??= []).push(f); };
 globalThis.document = { visibilityState: 'visible', addEventListener: (ten, f) => { (nghe[ten] ??= []).push(f); } };
 
 function mayChu() {
-  const m = { pb: 3, data: null, goi: [], loi: null, cham: null, fetch: [], uid: 'u1' };
+  const m = { pb: 3, data: null, goi: [], loi: null, cham: null, fetch: [], uid: 'u1', tran: 0, qiCho: 0 };   // tran: trần Linh Thảo trong ngày; qiCho: linh khí máy chủ cho tới
   const xuLy = async (fn, a) => {
     m.goi.push({ fn, at: T, a: JSON.parse(JSON.stringify(a)) });
     if (m.cham) await m.cham;   // lần gọi treo tới khi bài thử thả
@@ -100,8 +131,11 @@ function mayChu() {
     if (fn === 'p2d_luu2') m.data = a.p_data;
     else if (fn === 'p2d_luu_vi') { const d = { ...m.data }; for (const k of a.p_xoa || []) delete d[k]; m.data = { ...d, ...a.p_vi }; }
     else return { data: null, error: { message: 'la', code: 'PGRST202' } };
+    let sua = null;   // như p2d_luu: cắt phần lố rồi trả số của máy chủ
+    if (m.tran && m.data.mats?.['linh-thao'] > m.tran) { m.data = { ...m.data, mats: { ...m.data.mats, 'linh-thao': m.tran } }; sua = { ...sua, tran: true, mats: m.data.mats, lingshi: m.data.lingshi }; }
+    if (m.qiCho && m.data.qi > m.qiCho) { m.data = { ...m.data, qi: m.qiCho }; sua = { ...sua, realm: m.data.realm, layer: m.data.layer, qi: m.qiCho }; }
     m.pb++;
-    return { data: { pb: m.pb }, error: null };
+    return { data: sua ? { pb: m.pb, sua: JSON.parse(JSON.stringify(sua)) } : { pb: m.pb }, error: null };
   };
   m.supabase = { rpc: (fn, a = {}) => xuLy(fn, a), auth: { getSession: async () => ({ data: { session: { user: { id: m.uid }, access_token: 've-' + m.uid } } }) } };
   m.fetch = [];
@@ -127,8 +161,14 @@ const { createCloudSave } = await import(pathToFileURL(join(dir, 'profile.mjs'))
 const banLuu = () => ({ realm: 0, layer: 1, qi: 0, step: 0, lingshi: 0, stats: { kills: 0 }, mats: {}, flags: {}, bag: [], map: 'a', lastSeen: 0 });
 async function dung(nhip = NHIP) {
   hen.length = 0; for (const k of Object.keys(nghe)) delete nghe[k];
-  const m = globalThis.__mc = mayChu(), su = { xungDot: 0, loi: 0 };
-  const c = createCloudSave({ onConflict: () => su.xungDot++, onError: () => su.loi++, nhip });
+  const m = globalThis.__mc = mayChu(), su = { xungDot: 0, loi: 0, sua: 0 };
+  const onFix = (sent, sua) => {   // như src/game/cloud-guard.js applyFix: linh khí lấy số máy chủ, Linh Thạch và nguyên liệu trừ phần lố
+    su.sua++;
+    if (Number.isFinite(sua.qi)) { s.realm = sua.realm; s.layer = sua.layer; s.qi = sua.qi; }
+    if (Number.isFinite(sua.lingshi) && sent.lingshi > sua.lingshi) s.lingshi = Math.max(0, s.lingshi - (sent.lingshi - sua.lingshi));
+    for (const [k, v] of Object.entries(sua.mats ? sent.mats || {} : {})) { const lo = v - (sua.mats[k] ?? 0); if (lo > 0) s.mats[k] = Math.max(0, (s.mats[k] || 0) - lo); }
+  };
+  const c = createCloudSave({ onConflict: () => su.xungDot++, onError: () => su.loi++, onFix, nhip });
   await c.load();
   assert.equal(c.version, m.pb, 'cloud.version phải đọc được phiên bản thật sau khi tải (pickSave lúc vào game dựa vào nó)');
   const s = banLuu();
@@ -300,6 +340,49 @@ const khopMayChu = (m, s) => { const a = { ...m.data }, b = JSON.parse(JSON.stri
   assert.equal(su.xungDot + su.loi, 0);
   const n = goiLuu().length;
   assert.ok(n < 75, `10 phút: ${n} lần gọi (một nhịp như cũ là khoảng 150)`);
+}
+
+// 10. Máy chủ cắt số ở MỌI lần lưu (người chạm trần nhận mỗi ngày; người bị bộ hãm linh khí): vẫn chỉ lưu theo nhịp chậm.
+//     Trước 21/11/2026 mỗi lần bị cắt là một lần gửi nhanh kế tiếp, lần ấy lại bị cắt: vòng 4 giây không dứt (soát bản thật thấy).
+{
+  const { m, s, su, luu, goiLuu } = await dung();
+  s.mats['linh-thao'] = 2990; luu(); await troi(5000);
+  m.tran = 3000;
+  const farmNl = async giay => { for (let i = 0; i < giay; i++) { s.qi += 5; s.stats.kills++; s.lingshi += 2; s.mats['linh-thao'] += 1; luu(); await troi(1000); } };
+  await farmNl(45);   // vượt trần, máy chủ bắt đầu cắt
+  const n0 = goiLuu().length, s0 = su.sua;
+  await farmNl(120);
+  const g = goiLuu().slice(n0), lan = g.map(x => x.at);
+  assert.ok(su.sua - s0 >= 3, `máy chủ giả phải cắt mỗi lần lưu (${su.sua - s0} lần)`);
+  assert.ok(g.length >= 3 && g.length <= 6, `chạm trần ngày, farm 2 phút: ${g.length} lần gọi máy chủ (mong 4–5; vòng cũ là khoảng 30)`);
+  for (let i = 1; i < lan.length; i++) assert.ok(lan[i] - lan[i - 1] <= NHIP.cham_ms + 4100, `chạm trần: khoảng giữa hai lần lưu ${lan[i] - lan[i - 1]} ms vượt nhịp chậm`);
+  assert.ok(g.every(x => x.fn !== 'p2d_luu_vi' || 'mats' in x.a.p_vi), 'khoá máy chủ vừa sửa được gửi lại ở lần kế');
+  s.flags.gap = true; luu();
+  const t0 = T; await troi(4100);
+  assert.ok(goiLuu().some(x => x.at > t0 && x.a.p_vi?.flags?.gap), 'đang trong vòng bị cắt mà có cờ truyện: vẫn tới máy chủ trong 4 giây');
+  await troi(80000);
+  assert.equal(m.data.mats['linh-thao'], 3000, 'máy chủ giữ đúng trần');
+  khopMayChu(m, s);
+  assert.equal(su.xungDot + su.loi, 0);
+}
+{
+  const { m, s, su, luu, goiLuu } = await dung();
+  s.qi = 100; luu(); await troi(5000);
+  m.qiCho = 150;
+  const tu = async giay => { for (let i = 0; i < giay; i++) { s.qi += 5; s.stats.kills++; luu(); await troi(1000); } };
+  await tu(45);
+  const n0 = goiLuu().length, s0 = su.sua;
+  await tu(120);
+  const g = goiLuu().slice(n0);
+  assert.ok(su.sua - s0 >= 3, `bộ hãm linh khí giả phải cắt mỗi lần lưu (${su.sua - s0} lần)`);
+  assert.ok(g.length >= 3 && g.length <= 6, `bị hãm linh khí, tu 2 phút: ${g.length} lần gọi máy chủ (mong 4–5; vòng cũ là khoảng 30)`);
+  s.layer = 2; s.qi = 0; luu();
+  const t0 = T; await troi(4100);
+  assert.ok(goiLuu().some(x => x.at > t0 && x.a.p_vi?.layer === 2), 'lên tầng thật thì vẫn tới máy chủ trong 4 giây');
+  m.qiCho = 0;
+  await troi(80000);
+  khopMayChu(m, s);
+  assert.equal(su.xungDot + su.loi, 0);
 }
 
 console.log('luu-hai-nhip.test: ok');
