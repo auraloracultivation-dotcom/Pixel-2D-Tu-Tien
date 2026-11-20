@@ -59,6 +59,16 @@ export function soat() {
     if (d.lay && !/^(save|player)\.[\w.]+$/.test(d.lay)) loi.push(`data/dong-bo.json: trường "${k}" lay = "${d.lay}" phải bắt đầu bằng save. hoặc player.`);
   }
   for (const k of lay) if (!H[k]) loi.push(`src/game/ho-so-phong.js: LAY có "${k}" nhưng data/dong-bo.json không còn trường này`);
+  // Nhóm tin hiệu ứng: mỗi nhóm trong bảng một bộ xem cùng tên ở XEM (src/game/others-nhan.js) và ngược lại; mẫu mã phải là biểu thức hợp lệ
+  const U = Object.entries(bang.hieu_ung || {}).filter(([k]) => k[0] !== '_');
+  const xem = new Set([...(readFileSync(resolve(ROOT, 'src/game/others-nhan.js'), 'utf8').match(/export const XEM = \{([\s\S]*?)\n\};/)?.[1] || '').matchAll(/^ {2}([a-z][a-z0-9]*):/gm)].map(m => m[1]));
+  for (const [k, d] of U) {
+    if (!xem.has(k)) loi.push(`nhóm tin "${k}" trong data/dong-bo.json chưa có bộ xem ở XEM (src/game/others-nhan.js)`);
+    if (d.mau) { try { new RegExp(d.mau); } catch { loi.push(`data/dong-bo.json: nhóm "${k}" mẫu "${d.mau}" không phải biểu thức hợp lệ`); } }
+    else if (d.bang) { let b; try { const [tep, ...duong] = d.bang.split('.'); b = duong.reduce((a, x) => a?.[x], doc(tep)); } catch { b = null; } if (!b) loi.push(`data/dong-bo.json: nhóm "${k}" tra bảng "${d.bang}" không có trong data/`); }
+    else loi.push(`data/dong-bo.json: nhóm "${k}" phải có mau hoặc bang`);
+  }
+  for (const k of xem) if (!U.some(([u]) => u === k)) loi.push(`src/game/others-nhan.js: XEM có "${k}" nhưng data/dong-bo.json → hieu_ung không có nhóm này`);
   if (!/'dong-bo'/.test(readFileSync(resolve(ROOT, 'src/core/data.js'), 'utf8'))) loi.push('src/core/data.js: FILES thiếu dong-bo');
   return loi;
 }

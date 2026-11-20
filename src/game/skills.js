@@ -17,6 +17,7 @@ import { castDomain, domainReady } from './skill-domain.js';
 import { castCharge } from './skill-charge.js';
 import { castThunder, thunderReady } from './skill-thunder.js';
 import { castKiemVu } from './skill-kiem-vu.js';
+import { phat } from './phat.js';
 
 export function castSkill(game, id) {
   const s = game.data.skills[id];
@@ -24,7 +25,7 @@ export function castSkill(game, id) {
   const K = game.data.config.combat, lv = skillMul(game, id);   // chiêu mạnh hơn đánh thường (config.combat), mạnh thêm theo cấp chiêu
   const atk = p.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;
   const fx = p.face.x, fy = p.face.y, V = vfxOf(game, id);   // V: chiêu có hiệu ứng mới (data/vfx.json): bỏ hiệu ứng cũ
-  game.online?.cast?.({ k: id, x: Math.round(p.x), y: Math.round(p.y), fx: +fx.toFixed(2), fy: +fy.toFixed(2) });   // người cùng đảo thấy hiệu ứng (game/others-cast.js)
+  phat(game, id, fx, fy);   // người cùng đảo thấy hiệu ứng (game/others-cast.js)
   pvpTryHit(game);   // PvP Ngoại Vực: đang tắt bảo vệ thì chiêu cũng tính trúng người gần (game/pvp.js)
   // Dùng chiêu không ra động tác đánh, chỉ chém thường mới ra (chủ dự án 05/11/2026 02:31)
   castSfx(game, s, 1, id);   // tiếng riêng của chiêu, không có thì tiếng theo hệ (src/game/skill-sfx.js)

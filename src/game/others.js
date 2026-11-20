@@ -11,7 +11,6 @@ import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
 import { chuKy, apHoSo, bangHoSo } from './ho-so-phong.js';   // một nguồn cho hồ sơ gửi / nhận (data/dong-bo.json)
 import { stepTheo } from './others-theo.js';
-import { pbSee } from './pb-see.js';   // đòn pháp bảo của người khác
 import { drawKiemKhi } from '../render/draw-kiem-khi.js';
 // Người khác chém thường: lưỡi kiếm khí bay ra theo hướng nhìn như của mình (player.js strike, data/config.json → kiem_khi)
 function kiemKhiOf(game, o) {
@@ -20,10 +19,8 @@ function kiemKhiOf(game, o) {
   addFx(game, { draw: drawKiemKhi, x: o.x, y: o.y - 8, ang: Math.atan2(o.face?.y || 0, o.face?.x || 1), from: 20 * KK.from, len: KK.len, r: KK.r, half: KK.half, life: KK.life, color: (o.element && game.data.elements[o.element]?.color) || '#9ad8ff' });
 }
 import { chargeHold } from './skill-charge.js';
-import { castFx } from './others-cast.js';
-import { nlSeen } from './nl-roi.js';
-import { kdSeen } from './ket-dan.js';
-import { kiepSeen, kiepTick } from './kiep-see.js';   // kiếp Luyện Khí → Trúc Cơ, lên tầng, tụ linh của người khác
+import { kiepTick } from './kiep-see.js';   // người đang độ kiếp: trời quanh họ mưa sét
+import { nhanHieuUng } from './others-nhan.js';   // một cửa nhận tin chiêu, pháp bảo, kiếp, kết đan, nhặt nguyên liệu, hiệu ứng viết một lần
 import { celeSeeTick } from './trib-cele.js';
 
 const MIN_SPEED = 30;
@@ -69,8 +66,9 @@ export function createOthers(game) {
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
       refresh();
     },
-    // Chiêu người khác vừa dùng: chỉ vẽ hiệu ứng ở chỗ họ (không sát thương, không trúng ai) — game/others-cast.js
-    cast(raw) { const o = list.get(raw?.id); placeFrom(o, raw); if (!nlSeen(game, raw) && !kdSeen(game, o, raw) && !kiepSeen(game, o, raw) && !pbSee(game, o, raw)) castFx(game, o, raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
+    // Tin "vừa xảy ra" của người khác (chiêu, đòn pháp bảo, kiếp, kết đan, lên tầng, nhặt nguyên liệu…): chia theo nhóm ở others-nhan.js.
+    // Chỉ vẽ hiệu ứng ở chỗ họ; người chưa có toạ độ thì lấy chỗ ghi trong tin (placeFrom).
+    cast(raw) { const o = list.get(raw?.id); placeFrom(o, raw); nhanHieuUng(game, o, raw, bounds()); },
     move(raw) {
       const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;

@@ -14,6 +14,7 @@
 import { addFx, hitPlayer } from './combat.js';
 import { tribBolt, tribSkyEnd } from './trib-sky.js';
 import { land } from './fly.js';
+import { phat } from './phat.js';
 
 const cfgOf = game => game.data.config.ket_dan;
 const smooth = x => { const k = Math.max(0, Math.min(1, x)); return k * k * (3 - 2 * k); };
@@ -59,7 +60,7 @@ export function startKetDan(game, cfg, done) {
   game.strikes = [];
   game.darkTarget = Math.max(game.darkTarget || 0, st.K.dark);
   game.screen?.zoomTo?.(st.K.zoom.tu);   // máy quay tiến lại gần người đang kết đan
-  game.online?.cast?.({ k: 'kd-bd', x: Math.round(p.x), y: Math.round(p.y), fx: st.dao / 20, fy: st.sd / 100 });   // fx: số đạo; fy: hạt lịch liên hoàn
+  phat(game, 'kd-bd', st.dao / 20, st.sd / 100);   // fx: số đạo; fy: hạt lịch liên hoàn
   game.sfxWarm?.(['kd-tu', 'kd-vong', 'kd-hut', 'kd-roet', 'kd-set', 'kd-set-lien', 'kd-sam', 'kd-set-cuoi', 'kd-dien', 'kd-bung', 'kd-song', 'kd-cot']);   // dựng sẵn tiếng của nghi lễ ngay lúc bắt đầu, khỏi khựng giữa chừng
   game.sfx?.('roar', 0.5); game.sfx?.('kd-tu', 0.7);
 }
@@ -175,7 +176,7 @@ function step(game, st, dt) {
   if (st.mine && at(T.in)) game.screen?.zoomTo?.(K.zoom.set);   // bay lên: lùi máy quay cho thấy trời
   if (st.mine && at(T.q)) tribSkyEnd(game);   // sét xong, vào quãng lặng: vết cháy trên đất thôi lách tách, nhạt dần
   if (at(T.x)) { game.sfx?.('kd-hut', 1); if (st.mine) game.screen?.zoomTo?.(K.zoom.tu2); }   // chỉ tiếng hút vút lên (dứt bằng một tiếng nện đúng lúc hấp thu xong); tiếng gió dài 3 giây bỏ vì ngân lấn sang quãng lặng
-  if (st.mine && at(T.q)) { st.ok = true; game.online?.cast?.({ k: 'kd-ok', x: Math.round(w.x), y: Math.round(w.y), fx: 0, fy: 0 }); }   // chịu đủ sét: báo ngay đầu quãng lặng, máy người xem có cả giây để nhận trước đợt tụ khí cuối
+  if (st.mine && at(T.q)) { st.ok = true; phat(game, 'kd-ok', 0, 0, w.x, w.y); }   // chịu đủ sét: báo ngay đầu quãng lặng, máy người xem có cả giây để nhận trước đợt tụ khí cuối
   if (at(T.d)) {
     game.sfx?.('kd-bung', 1);   // bung: nổ ngay từ khung đầu, khớp vành sóng thứ nhất
     if (st.mine) { game.flashT = Math.max(game.flashT || 0, 0.3); pushMobs(game, K, w); game.screen?.zoomTo?.(K.zoom.song); }   // lùi máy quay cho thấy sóng lan xa
@@ -257,7 +258,7 @@ export function kdStop(game) {
   const st = game.kd, p = game.player;
   if (!st) return;
   game.kd = null; p.kd = null; p.kdLift = 0; p.kdDx = 0; game.screen?.zoomTo?.(1);
-  game.online?.cast?.({ k: 'kd-hong', x: Math.round(p.x), y: Math.round(p.y), fx: 0, fy: 0 });
+  phat(game, 'kd-hong');
 }
 
 // Tin nghi lễ của người khác (others.js cast). Trả true nếu là tin kết đan (kể cả khi bỏ qua). Tin là dữ liệu lạ: số tia kẹp 1–20,

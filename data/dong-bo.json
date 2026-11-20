@@ -1,7 +1,7 @@
 {
- "_": "MỘT NGUỒN cho mọi thứ người khác thấy ở nhân vật của mình (chủ dự án 20/11/2026: \"người chơi mặc gì, trạng thái gì thì mọi người đều thấy\"). Trước đợt dọn 20/11 mỗi trường phải khai tay ở 5 nơi (gom hồ sơ gửi đi, chữ ký đổi hồ sơ, bộ lọc máy chủ phòng, bộ lọc máy người xem, đoạn vẽ người khác); quên một nơi là người khác không thấy. Giờ máy gửi và máy người xem (src/game/ho-so-phong.js), máy chủ phòng (cloud/src/proto.js qua bản sao sinh tự động cloud/src/ho-so-truong.js) và hàm vẽ nhân vật (src/render/draw-nguoi.js) đều đọc bảng này. Cách thêm một thứ mới: docs/03-CAU-TRUC.md mục \"Thêm một thứ người khác phải thấy\".",
+ "_": "MỘT NGUỒN cho mọi thứ người khác thấy ở nhân vật của mình (chủ dự án 20/11/2026: \"người chơi mặc gì, trạng thái gì thì mọi người đều thấy\"). Hai đường: ho_so = thứ ĐANG mặc, đang ở trạng thái gì (gửi lại mỗi khi đổi); hieu_ung = thứ VỪA xảy ra (chiêu, kiếp, lên tầng…). Trước đợt dọn 20/11 mỗi trường hồ sơ phải khai tay ở 5 nơi (gom hồ sơ gửi đi, chữ ký đổi hồ sơ, bộ lọc máy chủ phòng, bộ lọc máy người xem, đoạn vẽ người khác); quên một nơi là người khác không thấy. Giờ máy gửi (src/game/ho-so-phong.js), máy người xem (src/game/others-net.js), máy chủ phòng (cloud/src/proto.js qua bản sao sinh tự động cloud/src/ho-so-truong.js) và hàm vẽ nhân vật (src/render/draw-nguoi.js) đều đọc bảng này. Cách thêm một thứ mới: docs/03-CAU-TRUC.md mục \"Thêm một thứ người khác phải thấy\".",
  "_kieu": "ten: chữ tự do, bỏ ký tự lạ, cắt dai ký tự, rỗng thì lấy trong | ma: mã phải có trong bảng data/ ghi ở bang (đường dẫn chấm), có la thì bản ghi phải khớp các thuộc tính đó | chu: chữ, số, gạch, không tra bảng | so: toàn chữ số, tối đa dai chữ số (du: đúng dai chữ số) | chon: một trong gia_tri | co: 0 hoặc 1.",
- "_lay": "lay: đường dẫn chấm tính từ game (ví dụ save.pet). Không ghi lay thì giá trị do hàm cùng tên trong LAY của src/game/ho-so-phong.js tính. ai: ket-noi = tầng kết nối tự gửi (tên); may-chu = máy chủ phòng tự gắn, máy khách gửi lên cũng bị bỏ.",
+ "_lay": "lay: đường dẫn chấm tính từ game (ví dụ save.pet). Không ghi lay thì giá trị do hàm cùng tên trong LAY của src/game/ho-so-phong.js tính. ai: ket-noi = tầng kết nối tự gửi (tên); may-chu = máy chủ phòng tự gắn, máy khách gửi lên cũng bị bỏ. Sửa ho_so xong chạy: node tools/dong-bo.mjs --ghi",
  "ho_so": {
   "name": {"kieu": "ten", "dai": 24, "trong": "Đạo hữu", "ai": "ket-noi", "_": "tên hiển thị; máy chủ phòng thay bằng tên thật khi có (không cho giả tên)"},
   "realm": {"kieu": "ten", "dai": 24, "_": "chữ cảnh giới (bảng chạm người, Hồ sơ)"},
@@ -19,5 +19,14 @@
   "ri": {"kieu": "so", "dai": 2, "_": "cảnh giới (hào quang)"},
   "title": {"kieu": "ma", "bang": "status.titles", "_": "danh hiệu đang đeo"},
   "pk": {"kieu": "co", "ai": "may-chu", "_": "đang tắt khiên PvP; máy chủ phòng giữ"}
+ },
+ "hieu_ung": {
+  "_": "Tin 'vừa xảy ra' người cùng tinh cầu phải thấy (gửi: src/game/phat.js; nhận: src/game/others-nhan.js chia theo bảng này, đúng thứ tự). mau: biểu thức khớp mã tin; bang: mã tin là một khoá của bảng data/ đó. Mỗi nhóm một bộ xem cùng tên ở XEM (others-nhan.js) và một tin mẫu trong tools/hai-may.mjs. Hiệu ứng mới chỉ để nhìn thì không cần nhóm mới: khai bằng hieuUng trong src/game/dien.js (nhóm hu).",
+  "nl": {"mau": "^nl-\\d+-\\d+$", "_": "nhặt nguyên liệu rơi bên đường: mọi máy cùng tuyến xoá món đó (nl-roi.js); x, y là chỗ món nằm"},
+  "kd": {"mau": "^kd-(bd|ok|hong)$", "_": "nghi lễ kết đan từ Kết Đan trở lên (ket-dan.js): bd bắt đầu (fx số đạo / 20, fy hạt lịch liên hoàn / 100), ok chịu đủ sét, hong huỷ"},
+  "ks": {"mau": "^ks-(bd|w|ok|hong|up)$", "_": "kiếp Luyện Khí → Trúc Cơ và cột sáng lên tầng / lên cảnh giới (kiep-see.js): bd bắt đầu, w một đợt sét (fx số tia / 20, fy hạt / 100), ok lễ tụ linh rồi bùm, hong gục, up lên tầng (fx 0) hoặc lên cảnh giới (fx 1)"},
+  "pb": {"mau": "^pb_\\d{1,2}_\\d{1,2}_\\d{1,3}_[0-9a-z]{0,8}$", "_": "đòn pháp bảo (pb-see.js): pb_<loại>_<phẩm>_<cấp>_<chiêu khảm>; fx, fy hướng bắn"},
+  "hu": {"mau": "^hu-[a-z0-9-]{1,40}$", "_": "hiệu ứng chỉ để nhìn viết một lần cho mình và người khác (dien.js hieuUng / dien): hu-<tên>; fx, fy là hai tham số của hiệu ứng"},
+  "chieu": {"bang": "skills", "_": "chiêu (others-cast.js): mã chiêu trong data/skills.json; fx, fy hướng ra chiêu"}
  }
 }

@@ -4,6 +4,7 @@
 // nhỏ lúc bắn. Hướng bắn chốt lúc buông: không tự ngắm thì quay về con quái gần nhất lúc đó. Số ở data/phap-bao.json → tu_linh.
 import { addFx } from './combat.js';
 import { pbx } from './phap-bao-hit.js';
+import { hieuUng, dien } from './dien.js';
 
 // Chỗ người đang ở trên màn: đang cưỡi / bay thì nhấc theo lưng thú, phi kiếm (p.lift, p.seatX do src/render/draw.js đặt mỗi khung).
 // Chủ dự án 18/11/2026 10:19: lúc cưỡi phải tụ lực ở giữa nhân vật, không ở bụng con thú. Pháp bảo cũng bắn ra từ chỗ này (phap-bao-run.js).
@@ -11,24 +12,24 @@ export const heroAt = (p, dy = 0) => ({ x: p.x + (p.riding ? p.seatX || 0 : 0), 
 
 export const tuLinhCfg = game => game.data['phap-bao'].tu_linh || {};
 
-// Bắt đầu tụ; fire(ang) chạy khi tụ xong
-export function startTuLinh(game, color, aimFn, fire) {
-  const C = tuLinhCfg(game), p = game.player, s = C.on === false ? 0 : C.s ?? 0.22;
+// Hình tụ linh quanh một người, viết MỘT lần cho mình và người khác (dien.js): a = thứ tự loại pháp bảo / 20 (màu theo loại)
+hieuUng('tu-linh', { gap: 0.15, ve(game, e, h, a) {
+  const C = tuLinhCfg(game), s = C.on === false ? 0 : C.s ?? 0.22, seed = Math.random() * 1000;
+  const color = Object.values(game.data['phap-bao'].types)[Math.round(a * 20)]?.color || '#bff4ff';
+  if (s > 0) addFx(game, { type: 'tu-linh', x: e.x, y: e.y, life: s, color, on: e, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
+} });
+
+// Bắt đầu tụ (type: mã loại pháp bảo); fire(ang) chạy khi tụ xong. Phần luật (đứng khựng, chờ, bắn) chỉ ở máy mình; phần hình đi qua dien
+export function startTuLinh(game, type, aimFn, fire) {
+  const C = tuLinhCfg(game), p = game.player, s = C.on === false ? 0 : C.s ?? 0.22, T = game.data['phap-bao'].types, color = T[type].color;
   if (s <= 0) { fire(aimFn()); return; }
   p.tuLinhT = Math.max(p.tuLinhT || 0, s);
-  const seed = Math.random() * 1000;
-  addFx(game, { type: 'tu-linh', x: p.x, y: p.y, life: s, color, on: p, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
+  dien(game, 'tu-linh', Object.keys(T).indexOf(type) / 20);
   game.sfx?.(C.sfx || 'chime', 0.35);
   pbx(game).list.push({ kind: 'wait', t: 0, life: s, then: () => {
     const o = heroAt(p); addFx(game, { type: 'ring', x: o.x, y: o.y - 2, r: C.burst_r || 16, color, life: 0.18, fill: true });   // chớp nhỏ lúc bắn
     fire(aimFn());
   } });
-}
-
-// Người khác tụ linh (tin ks-tl, kiep-see.js): cùng hình, không bắn gì (đòn của họ tới sau qua pb-see.js)
-export function tuLinhSee(game, o, color) {
-  const C = tuLinhCfg(game), s = C.on === false ? 0 : C.s ?? 0.22, seed = Math.random() * 1000;
-  if (s > 0) addFx(game, { type: 'tu-linh', x: o.x, y: o.y, life: s, color, on: o, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
 }
 
 function drawTuLinh(ctx, game, f, k, C, seed) {

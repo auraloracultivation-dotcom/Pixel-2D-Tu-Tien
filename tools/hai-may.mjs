@@ -114,6 +114,31 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   await A.p.evaluate(() => window.__thu.epHoSo(null));
 }
 
+// 4b. Hiệu ứng "vừa xảy ra": mỗi nhóm tin trong data/dong-bo.json → hieu_ung, A phát một tin mẫu thì bộ xem nhóm đó ở máy B phải chạy
+{
+  const nhom = Object.keys(BANG.hieu_ung).filter(k => k[0] !== '_');
+  const chieu = await A.p.evaluate(() => { const S = window.__game.data.skills; return Object.keys(S).find(k => S[k].type === 'projectile') || Object.keys(S)[0]; });
+  const MAU = { nl: ['nl-0-0'], kd: ['kd-hong'], ks: ['ks-up', 0], pb: ['pb_0_0_1_', 1, 0], chieu: [chieu, 1, 0] };   // hu: thử riêng bằng dien() bên dưới
+  ok('Nhóm tin nào trong bảng cũng có tin mẫu trong bài thử', nhom.every(k => k === 'hu' || MAU[k]), nhom.filter(k => k !== 'hu' && !MAU[k]).join(', '));
+  const dem = () => B.p.evaluate(() => ({ ...window.__thu.demXem }));
+  for (const k of nhom.filter(k => MAU[k])) {
+    const truoc = (await dem())[k] || 0;
+    await A.p.evaluate(m => window.__thu.phat(window.__game, ...m), MAU[k]);
+    ok(`Tin nhóm ${k} (${MAU[k][0]}) của A tới bộ xem ở máy B`, !!(await cho(async () => ((await dem())[k] || 0) > truoc, 3000)));
+  }
+  // Hiệu ứng viết một lần (dien.js): A gọi dien một lần → máy A diễn, máy B cũng diễn đúng hiệu ứng đó quanh A
+  const ds = await A.p.evaluate(() => window.__thu.cacHieuUng());
+  ok('Có hiệu ứng viết một lần đã khai (dien.js)', ds.includes('tu-linh'), ds.join(', '));
+  const soFx = X => X.p.evaluate(() => (window.__game.fx || []).filter(f => f.type === 'tu-linh').length);
+  let cuaA = 0, cuaB = 0;
+  for (let i = 0; i < 4 && !(cuaA && cuaB); i++) {   // hiệu ứng sống 0,22 giây: gọi vài lần, soi nhanh
+    await A.p.evaluate(() => window.__thu.dien(window.__game, 'tu-linh', 0));
+    for (let j = 0; j < 12 && !(cuaA && cuaB); j++) { cuaA ||= await soFx(A); cuaB ||= await soFx(B); await new Promise(r => setTimeout(r, 25)); }
+    await new Promise(r => setTimeout(r, 300));
+  }
+  ok('dien("tu-linh") gọi một lần: máy A diễn, máy B cũng thấy', !!cuaA && !!cuaB, `máy A ${cuaA ? 'có' : 'không'}, máy B ${cuaB ? 'có' : 'không'}`);
+}
+
 // 5. Nhịp mạng không bị bảng chặn: A mở bảng, đứng yên; máy C vào SAU vẫn phải thấy A có toạ độ và nhận hồ sơ A đổi lúc đang mở bảng
 await A.p.evaluate(() => { const g = window.__game; g.uiOpen = 'thu-bang'; });
 const C = await moMay('may-c');

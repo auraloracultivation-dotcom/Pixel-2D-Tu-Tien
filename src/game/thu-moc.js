@@ -4,13 +4,16 @@
 // Bài thử cần thêm hàm nào thì thêm vào đây, không gọi thẳng tệp code.
 import { togglePilot } from './pilot.js';
 import { dropLoot, updateLoot } from './loot.js';
-import { kiepSend, kiepWave } from './kiep-see.js';
+import { kiepWave } from './kiep-see.js';
+import { phat } from './phat.js';
+import { dien, cacHieuUng } from './dien.js';
+import { demXem } from './others-nhan.js';
 import { hoSoCuaToi, epHoSo } from './ho-so-phong.js';
 
 export function mocThu() {
   const q = new URLSearchParams(location.search);
   if (!q.has('thu')) return;
-  window.__thu = { togglePilot, dropLoot, updateLoot, kiepSend, kiepWave, hoSoCuaToi, epHoSo };
+  window.__thu = { togglePilot, dropLoot, updateLoot, phat, kiepWave, dien, cacHieuUng, demXem, hoSoCuaToi, epHoSo };
   // ?thu=1&phong=<mã>: khách này vào phòng người chơi như người đã đăng nhập, mang mã và tên thử (bài thử hai máy tools/hai-may.mjs dựng
   // phòng giả trong máy bằng đúng mã cloud/src/phong.js). Vé gửi đi là chính mã thử nên máy chủ phòng thật từ chối: không thêm quyền gì.
   const id = q.get('phong');

@@ -32,6 +32,7 @@ for (const file of walk('.')) {
     if (r.status !== 0) errors.push(`${file}: lỗi cú pháp — ${(r.stderr.match(/SyntaxError[^\n]*/) || [r.stderr.trim().split('\n').pop()])[0]}`);
     if (text.split('\n').length > 400) errors.push(`${file}: quá 400 dòng, hãy tách module`);
     if (/supabase/i.test(text) && !file.startsWith(join('src', 'net'))) errors.push(`${file}: chỉ src/net/ được gọi Supabase`);
+    if (/online\??\.cast\b/.test(text) && !file.startsWith(join('src', 'net')) && file !== join('src', 'game', 'phat.js')) errors.push(`${file}: gửi tin hiệu ứng cho người khác chỉ qua phat() ở src/game/phat.js (một cửa), không gọi thẳng online.cast`);
   }
   if (file === 'index.html' && /<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?\S[\s\S]*?<\/script>/i.test(text)) {
     errors.push('index.html: không được chứa logic inline, chỉ nạp src/main.js');

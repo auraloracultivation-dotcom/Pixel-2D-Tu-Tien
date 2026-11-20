@@ -16,7 +16,7 @@ import { juiceUp } from './juice.js';
 import { buffBits } from './realm-gift.js';
 import { pbNext } from './phap-bao-grant.js';
 import { t } from '../core/i18n.js';
-import { kiepSend } from './kiep-see.js';   // người cùng tinh cầu thấy mình lên tầng   // chữ ghép: dịch theo khuôn
+import { phat } from './phat.js';   // người cùng tinh cầu thấy mình lên tầng   // chữ ghép: dịch theo khuôn
 
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
 const list = parts => parts.map(p => [...p.replace(/ /g, '\u00a0')].join('\u2060')).join('\u00a0· ');   // nhiều ý nối bằng dấu ·: câu dài chỉ xuống dòng sau dấu · giữa hai ý, không ngắt giữa "Linh Thạch" (dấu nối chữ U+2060 giữa mọi ký tự: chữ Hán cũng không bị ngắt giữa "法寶")
@@ -58,7 +58,7 @@ export function layerUp(game, broke) {
   const gift = show ? unlocks(game, hold) : (game.checkUnlocks(), '');
   addFx(game, { type: 'ring', x: p.x, y: p.y, r: 40, color: '#bff4ff', life: 0.8, fill: true });
   game.sfx('layer_up'); game.screen.shake(3, 0.3);
-  if (!game.mungMute) kiepSend(game, 'ks-up', 0);   // bế quan lúc vắng (đang im) thì thôi: lúc ấy chưa vào tinh cầu
+  if (!game.mungMute) phat(game, 'ks-up', 0);   // bế quan lúc vắng (đang im) thì thôi: lúc ấy chưa vào tinh cầu
   if (!show) { game.toast(`Đột phá! ${realmLabel(s, R)}`, 2.2); return; }
   const color = hue(game, s.realm, C.tang.color), pairs = statLines(game, a), lines = pairs.length ? [{ pairs }] : [];   // thẻ nhỏ: sinh lực và công chung một dòng
   if (gift) lines.push({ text: fill(C.text.gift, { list: gift }), gift: true, wrap: true });
