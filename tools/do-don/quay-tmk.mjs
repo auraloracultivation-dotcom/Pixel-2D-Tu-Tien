@@ -35,6 +35,7 @@ await ev(async () => {
 await cho(400); await p.reload(); await vao(); await cho(2500); await qua(); await cho(1500);
 await ev(() => { window.__game.data['tran-ma-ky'].auto.gap_s = 3; });
 
+for (let i = 0, im = 0; i < 60 && im < 4; i++) { im = (await ev(() => document.getElementById('toast')?.hidden !== false)) ? im + 1 : 0; await cho(250); }   // chờ các dòng báo lúc vào game tắt hết
 await ev(() => window.__game.openKy()); await cho(700); await shot('01-bia-so');
 await ev(() => [...document.querySelectorAll('.ky-q')][0].click()); await cho(400); await shot('02-quyen-mot');
 await p.mouse.click(8, 420); await cho(900);
