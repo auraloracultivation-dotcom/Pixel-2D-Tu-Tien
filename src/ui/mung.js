@@ -7,10 +7,10 @@
 // Việc càng khó (cấp cường hoá cao, dòng màu cao) diễn càng lớn: lvl 0..3 (vầng sáng to hơn, nhiều hạt hơn, chớp sáng, tiếng dày hơn, giữ lâu hơn).
 // Mọi chuyển động tính theo giờ game từng khung (phòng đo tools/do-don/quay-mung.mjs quay lại được); hạt bay theo công thức, không nhớ gì giữa hai khung.
 // Số, chữ, tiếng: data/juice.json → mung (mung.on tắt: chỉ máy mở địa chỉ có ?mung=1 thấy). Kiểu: mung.css. Chữ chỉ gán textContent.
+import { goc } from '../core/build.js';
 import { createRays } from './reward-rays.js';
 import { spriteIcon } from './sprite-icon.js';
 
-export const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 export const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 export const cl = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 export const back = k => 1 + 2.70158 * (k - 1) ** 3 + 1.70158 * (k - 1) ** 2;   // vọt quá đà một chút rồi về 1
@@ -35,7 +35,7 @@ export function createMung(game) {
   if (!C || !mungOn(game)) return;
   const T = C.t, X = C.text;
   let root = null, S = null, raf = 0;
-  { const l = el('link'); l.rel = 'stylesheet'; l.href = new URL(`./mung.css?v=${ver()}`, import.meta.url).href; document.head.append(l); }   // tải kiểu ngay lúc vào game: lần mừng đầu tiên không bị vỡ hình vì chờ kiểu
+  { const l = el('link'); l.rel = 'stylesheet'; l.href = goc('src/ui/mung.css'); document.head.append(l); }   // tải kiểu ngay lúc vào game: lần mừng đầu tiên không bị vỡ hình vì chờ kiểu
   const loop = () => { raf = 0; if (S) paint(); if (S) raf = requestAnimationFrame(loop); };
   // khung vầng sáng và hạt: mỗi điểm ảnh phủ một số nguyên điểm thật của màn hình (như reward-show.js)
   const grid = size => { const dpr = window.devicePixelRatio || 1, m = Math.max(1, Math.round(C.px * dpr)), n = Math.round(size * dpr / m); return { n, css: n * m / dpr }; };

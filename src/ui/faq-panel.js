@@ -1,7 +1,7 @@
 // Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68; nội dung ở data/faq.json): nút ! tròn nhỏ ở góc trên phải màn hình,
 // cột nhiệm vụ truyện và cột nhiệm vụ hằng ngày lùi sang trái nhường chỗ (src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời
 // (mở câu này thì gập câu khác). Đóng bằng ✕ hoặc khi bấm nút khác trên màn hình (game.closeAll đóng mọi .panel đang mở).
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
+import { goc } from '../core/build.js';
 function el(tag, cls, text) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -13,7 +13,7 @@ export function createFaq(game) {
   const F = game.data.faq;
   if (!F) return;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./faq.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/faq.css');
   document.head.append(css);
 
   const btn = el('button', 'faq-btn', F.btn);

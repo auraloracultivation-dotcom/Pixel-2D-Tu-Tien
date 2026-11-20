@@ -3,15 +3,15 @@
 // và map sửa thành khung vuông"). Ở đây chỉ gắn body.hud-bang và dựng hai tấm nền #bang-tren, #bang-duoi; mọi vị trí ở src/ui/hud-bang.css,
 // các nút vẫn nằm chỗ cũ trong DOM (hud-order.js, hud-gon.js, hud-ava.js, mini-map.js, chat-dock.js giữ nguyên việc của mình).
 // Bật / tắt: data/menu.json → hud.bang. Khung tạm bằng code; đồ hoạ khung chủ dự án làm sau.
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 
 export function createHudBang(game) {
   if (!game.data.menu?.hud?.bang) return;
   for (const f of ['hud-bang', 'hud-khung', 'hud-ngang']) {   // vị trí (hud-bang.css) rồi hình khung (hud-khung.css), rồi bố cục cầm ngang (hud-ngang.css); nạp sau style.css nên thắng các bộ khung cũ
     const css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = new URL(`./${f}.css?v=${ver()}`, import.meta.url).href;
+    css.rel = 'stylesheet'; css.href = goc(`src/ui/${f}.css`);
     document.head.append(css);
   }
   document.body.classList.add('hud-bang', 'ngang-' + (game.data.menu.hud.ngang || 'a'));   // kiểu bố cục lúc cầm ngang (src/ui/hud-ngang.css)

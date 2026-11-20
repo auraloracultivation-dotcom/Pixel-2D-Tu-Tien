@@ -2,6 +2,7 @@
 // cạnh. Túi đồ cũng vậy… mỗi mục 1 tính năng"). Nút Túi đồ, Menu, Động phủ mở cột mục bên trái (data/menu.json → nav); chạm
 // một mục thì bảng của mục đó mở ngay bên phải, khoá đúng phần đó (thanh tab của bảng cũ đã ẩn, không nhảy sang bảng khác).
 // Mục không có bảng riêng (Tự động, Âm thanh, Ngôn ngữ, Đăng xuất) hiện trong khung #nav-pane. Đóng bảng bên phải là đóng hết.
+import { goc } from '../core/build.js';
 import { boDauChoi } from './tu-vao.js';
 import { itemLock, busyWhy, talkMenu } from '../game/menu-acts.js';
 import { homeAct } from '../game/home-acts.js';
@@ -10,7 +11,6 @@ import { renderCodePane } from './ma-qua.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 import { renderLang } from './lang-pick.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 function el(tag, cls, text) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -23,7 +23,7 @@ export function createSideNav(game) {
   const N = game.data.menu?.nav;
   if (!N) return;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./side-nav.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/side-nav.css');
   document.head.append(css);
 
   const nav = el('div', 'side-nav'); nav.id = 'side-nav'; nav.hidden = true;

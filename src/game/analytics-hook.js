@@ -1,13 +1,14 @@
 // Đo người chơi bằng PostHog (gửi: src/net/analytics.js; cấu hình: data/config.json → analytics). Không sửa luồng game: bọc game.begin để biết
 // lúc vào game, rồi mỗi poll_s giây so trạng thái bản lưu để ghi đổi bản đồ, lên cảnh giới, mua chiêu Vạn Bảo Lâu, bước nhiệm vụ người mới.
 // Tên sự kiện tiếng Việt không dấu cho dễ đọc trên bảng PostHog.
+import { BUILD } from '../core/build.js';
 import { startAnalytics, identify, track, flush } from '../net/analytics.js';
 import { rtTake } from '../net/rt-dem.js';
 
 export function startAnalyticsHook(game) {
   const cfg = game.data.config.analytics, q = new URLSearchParams(location.search);
   if ((/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || q.has('thu')) && !q.has('ph')) return;   // máy kiểm thử, chơi thử tự động: không gửi (?ph=1 để thử)
-  if (!startAnalytics({ ...cfg, build: new URL(import.meta.url).searchParams.get('v') || 'dev' })) return;
+  if (!startAnalytics({ ...cfg, build: BUILD })) return;
   track('$pageview');
   const t0 = performance.now();
   let last = null;

@@ -5,6 +5,7 @@
 // Thẻ nhỏ: món phẩm vừa vừa, hoặc lúc đang bận (đánh nhau, Tự hành): hiện vài giây giữa màn, không dừng game, chạm thẻ để xem bản đầy đủ.
 // Mọi chuyển động tính theo giờ game từng khung (không dùng hiệu ứng CSS chạy theo giờ thật) để phòng đo tools/do-don/ bước từng khung quay lại đúng.
 // Giờ từng nhịp, cỡ, chữ: data/juice.json → reward. Kiểu: reward-show.css. Chữ chỉ gán textContent.
+import { goc } from '../core/build.js';
 import { createRays } from './reward-rays.js';
 import { grade } from '../game/tiers.js';
 import { equip, itemName, statText } from '../game/items.js';
@@ -13,7 +14,6 @@ import { lineText } from './hc-text.js';
 import { rewardOn, rewardSettled } from '../game/reward.js';
 import { spriteIcon } from './sprite-icon.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const cl = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const back = k => 1 + 2.70158 * (k - 1) ** 3 + 1.70158 * (k - 1) ** 2;   // vọt quá đà một chút rồi về 1
@@ -27,7 +27,7 @@ export function createRewardShow(game) {
   if (!C) return;
   const T = C.t, X = C.text, queue = [], waits = new Map();   // waits: món đang diễn theo lời hứa của game.rewardGive → hàm báo xong
   let css = false, root = null, mini = null, S = null, M = null, raf = 0;
-  const style = () => { if (css) return; css = true; const l = el('link'); l.rel = 'stylesheet'; l.href = new URL(`./reward-show.css?v=${ver()}`, import.meta.url).href; document.head.append(l); };
+  const style = () => { if (css) return; css = true; const l = el('link'); l.rel = 'stylesheet'; l.href = goc('src/ui/reward-show.css'); document.head.append(l); };
   const loop = () => { raf = 0; if (S) paint(); if (M) paintMini(); if (S || M) raf = requestAnimationFrame(loop); };
   const run = () => { if (!raf) raf = requestAnimationFrame(loop); };
   const tierOf = it => { const g = grade(data, it), t = data.items.line_tiers.list[g.idx] || {}; return { g, ray: t.color || g.color, ink: t.edge ? '#ffd6d6' : g.color, lvl: C.lvl[cl(g.idx, 0, C.lvl.length - 1)] }; };

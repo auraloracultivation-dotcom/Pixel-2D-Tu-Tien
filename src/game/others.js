@@ -1,18 +1,16 @@
 // Người chơi khác trên cùng đảo (net/online.js). Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc độ để tới chỗ mới đúng lúc
 // gói kế tiếp tới (giới hạn speed), nên thấy bước đi đều chứ không giật cục; xa quá hop (ngự kiếm bay, qua cổng) thì hiện vòng
 // sáng ở chỗ cũ và chỗ mới rồi đặt thẳng. Vẽ bằng hình nhân vật theo hình dáng, thời trang người đó báo qua presence
-// (render/draw.js drawOther), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng
+// (render/draw-nguoi.js, cùng một hàm với nhân vật của mình), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng
 // vẽ bằng khối, nhảy từ chỗ này sang chỗ khác như hack tốc độ.
 // Realtime 05/11/2026 (data/config.json → realtime): tin từ máy người khác lọc ở game/others-net.js (tên bỏ ký tự lạ, lọc từ bậy,
 // toạ độ kẹp trong bản đồ, mã hình dáng / hệ phải có trong data/); chỉ vẽ shown[mức nhẹ máy] người gần nhất; khoảng gửi vị trí
 // của mình giãn theo số người cùng kênh, không ai gần thì gửi thưa, một mình thì không gửi (sendGap).
 import { addFx } from './combat.js';
-import { realmLabel } from './stats.js';
 import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
+import { chuKy, apHoSo, bangHoSo } from './ho-so-phong.js';   // một nguồn cho hồ sơ gửi / nhận (data/dong-bo.json)
 import { stepTheo } from './others-theo.js';
-import { pbSee } from './pb-see.js';   // đòn pháp bảo của người khác
-import { titleOf } from './achieve.js';
 import { drawKiemKhi } from '../render/draw-kiem-khi.js';
 // Người khác chém thường: lưỡi kiếm khí bay ra theo hướng nhìn như của mình (player.js strike, data/config.json → kiem_khi)
 function kiemKhiOf(game, o) {
@@ -21,28 +19,22 @@ function kiemKhiOf(game, o) {
   addFx(game, { draw: drawKiemKhi, x: o.x, y: o.y - 8, ang: Math.atan2(o.face?.y || 0, o.face?.x || 1), from: 20 * KK.from, len: KK.len, r: KK.r, half: KK.half, life: KK.life, color: (o.element && game.data.elements[o.element]?.color) || '#9ad8ff' });
 }
 import { chargeHold } from './skill-charge.js';
-import { castFx } from './others-cast.js';
-import { nlSeen } from './nl-roi.js';
-import { kdSeen } from './ket-dan.js';
-import { kiepSeen, kiepTick } from './kiep-see.js';   // kiếp Luyện Khí → Trúc Cơ, lên tầng, tụ linh của người khác
+import { kiepTick } from './kiep-see.js';   // người đang độ kiếp: trời quanh họ mưa sét
+import { nhanHieuUng } from './others-nhan.js';   // một cửa nhận tin chiêu, pháp bảo, kiếp, kết đan, nhặt nguyên liệu, hiệu ứng viết một lần
 import { celeSeeTick } from './trib-cele.js';
 
 const MIN_SPEED = 30;
 
-// Hồ sơ gửi kèm khi vào kênh đảo: hệ, cảnh giới, hình dáng, thời trang (người khác vẽ đúng hình mình)
-// Pháp tượng đang đeo (ô ngoc-boi, data/items.json → bases.*.pt): người khác thấy sau lưng mình (src/render/draw-phap-tuong.js)
-const ptId = game => { const u = game.save.equip?.['ngoc-boi'], it = u != null && game.save.bag?.find(i => i.uid === u); return (it && game.data.items.bases[it.base]?.pt) || null; };
-const vkId = game => { const u = game.save.equip?.['vu-khi'], it = u != null && game.save.bag?.find(i => i.uid === u); return it?.base || null; };   // vũ khí đang mặc: người khác thấy treo sau lưng (draw-flyweapon.js drawOtherWeapon)
-const stOf = game => (game.ghost ? 'guc' : game.player?.flying ? 'bay' : game.player?.meditating ? 'toa' : null);   // đang bay / đả tọa / gục: người khác thấy (render/draw-other-extra.js)
-export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game), pet: game.save.pet || null, comp: game.save.companion || null, comp2: game.save.companion2 || null, st: stOf(game), ri: String(game.save.realm ?? 0), title: titleOf(game) ? game.save.title : null });   // linh thú, khôi lỗi đang mang: người khác thấy đi theo (others-theo.js)
-const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}|${p.pet}|${p.comp}|${p.comp2}|${p.st}|${p.ri}|${p.title}`;   // đổi pháp tượng, vũ khí cũng báo lại
 const perfLevel = () => +(document.body?.dataset?.perf || 0) || 0;
 
 export function createOthers(game) {
   const list = new Map();
   const R = () => game.data.config.realtime || {};
-  let chk = 3, sig = '', shown = [], pick = 0, sendNow = false;
+  let chk = 1, sig = null, shown = [], pick = 0, sendNow = false;   // sig: chữ ký hồ sơ đã báo cho phòng (null: chưa báo lần nào)
 
+  // Bài thử hai máy (tools/hai-may.mjs đặt game.thuDoc = new Set()): ghi lại trường nào của người khác được mã phía người xem ĐỌC tới,
+  // để bắt trường khai trong data/dong-bo.json, gửi đi đàng hoàng mà không nơi nào vẽ / dùng. Người chơi thật: không bọc gì.
+  const soi = o => (game.thuDoc ? new Proxy(o, { get(t, k, r) { if (typeof k === 'string') game.thuDoc?.add(k); return Reflect.get(t, k, r); } }) : o);
   function puff(o, x, y) {
     const col = o.element ? game.data.elements[o.element]?.color : null;
     addFx(game, { type: 'ring', x, y, r: 14, color: col || '#bff4ff', life: 0.45 });
@@ -63,22 +55,24 @@ export function createOthers(game) {
     list,
     clear() { list.clear(); shown = []; },
     presence(entries) {
-      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases, titles: game.data.status.titles, pets: game.data.pets.pets, comps: game.data.companions.list };
+      const seen = new Set(), bang = bangHoSo(game);
       for (const raw of entries.slice(0, R().max_list || 120)) {
-        const e = cleanPresence(raw, known, R().name_max);
+        const e = cleanPresence(raw, bang, game.data, R().name_max);   // dữ liệu lạ: lọc theo bảng data/dong-bo.json và data/ (others-net.js)
         if (!e) continue;
         seen.add(e.id);
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
-        const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
+        const o = list.get(e.id) || soi({ id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 });
         o.def = { name: cleanText(game, e.name) };
-        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk; o.pet = e.pet; o.comp = e.comp; o.comp2 = e.comp2; o.st = e.st; o.ri = e.ri; o.title = e.title;
+        apHoSo(game, o, e);   // mọi trường trong bảng (hệ, hình dáng, thời trang, thú cưỡi, pháp tượng, vũ khí, kẻ đi theo, trạng thái…)
+        o.riding = !!(o.mount && game.data.pets.mounts[o.mount]); o.flying = o.st === 'bay'; o.meditating = o.st === 'toa';   // trạng thái theo hồ sơ họ báo (vẽ: render/draw-nguoi.js)
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
       refresh();
     },
-    // Chiêu người khác vừa dùng: chỉ vẽ hiệu ứng ở chỗ họ (không sát thương, không trúng ai) — game/others-cast.js
-    cast(raw) { const o = list.get(raw?.id); placeFrom(o, raw); if (!nlSeen(game, raw) && !kdSeen(game, o, raw) && !kiepSeen(game, o, raw) && !pbSee(game, o, raw)) castFx(game, o, raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
+    // Tin "vừa xảy ra" của người khác (chiêu, đòn pháp bảo, kiếp, kết đan, lên tầng, nhặt nguyên liệu…): chia theo nhóm ở others-nhan.js.
+    // Chỉ vẽ hiệu ứng ở chỗ họ; người chưa có toạ độ thì lấy chỗ ghi trong tin (placeFrom).
+    cast(raw) { const o = list.get(raw?.id); placeFrom(o, raw); nhanHieuUng(game, o, raw, bounds()); },
     move(raw) {
       const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;
@@ -102,6 +96,7 @@ export function createOthers(game) {
         o.moving = o.moveT > 0;
         if (o.moving) o.walkT += dt;
         if (o.swingT > 0) o.swingT -= dt;
+        o.flyT = o.flying ? (o.flyT || 0) + dt : 0;   // vừa cất cánh: nhấc dần khỏi đất như máy họ (draw-fly.js)
         stepTheo(game, o, dt);   // linh thú, khôi lỗi của họ đi theo (others-theo.js)
         if (o.charge) chargeHold(game, o, dt);   // đang tụ lực Phá Thiên (skill-charge.js): tới giờ thì vệt chém hiện ra (chỉ hình)
         kiepTick(game, o, dt);   // đang độ kiếp: trời quanh họ mưa sét (kiep-see.js)
@@ -110,12 +105,15 @@ export function createOthers(game) {
       if ((pick -= dt) <= 0) { pick = 0.25; refresh(); }   // chọn lại người gần nhất 4 lần mỗi giây
       if ((chk -= dt) <= 0 && game.save && game.online?.setProfile) {   // đổi thời trang, hình dáng, lên cảnh giới: báo lại cho người cùng đảo
         chk = 1;   // lên / xuống thú cưỡi cũng báo lại (máy chủ phòng Cloudflare: tin rẻ)
-        const p = onlineLook(game), s = sigOf(p);
-        if (sig && s !== sig) game.online.setProfile(p);
-        sig = s;
+        const s = chuKy(game, game.hoSo);   // game.hoSo: hồ sơ của mình, làm mới mỗi khung ở nhip-mang.js
+        if (sig !== null && s !== sig) { game.online.setProfile(game.hoSo); sig = s; }
       }
     },
     // Người được vẽ (tối đa shown theo mức nhẹ máy, gần nhất trước)
+    // Hồ sơ gửi lúc vào tinh cầu lần đầu (game.js joinOnline) là mốc so sánh: từ đó đổi gì là báo lại trong 1 giây. Các lần vào sau giữ
+    // mốc cũ (lệch thì chỉ báo thừa một lần). Trước 20/11/2026 mốc chỉ ghi ở lần soát đầu, 3 giây sau khi vào game: đổi gì trong 3 giây đó
+    // (vừa vào đã cưỡi thú chẳng hạn) là không bao giờ được báo.
+    daBao(h) { sig ??= chuKy(game, h); },
     visible() { return shown; },
     count() { return list.size; },
     // Khoảng gửi vị trí của mình lúc này (mili giây; 0 = gửi ngay; Infinity = không gửi)

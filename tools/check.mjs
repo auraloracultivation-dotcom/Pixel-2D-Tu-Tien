@@ -1,6 +1,6 @@
 // Kiểm tra tự động: JSON hợp lệ, không lộ khoá bí mật, file ngắn, index.html không chứa logic,
 // chỉ src/net được gọi Supabase, bản đồ và kịch bản tham chiếu đúng ID trong data/.
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { kyCfg, bcCfg, sameJson } from './ky-cfg.mjs';
@@ -32,6 +32,8 @@ for (const file of walk('.')) {
     if (r.status !== 0) errors.push(`${file}: lỗi cú pháp — ${(r.stderr.match(/SyntaxError[^\n]*/) || [r.stderr.trim().split('\n').pop()])[0]}`);
     if (text.split('\n').length > 400) errors.push(`${file}: quá 400 dòng, hãy tách module`);
     if (/supabase/i.test(text) && !file.startsWith(join('src', 'net'))) errors.push(`${file}: chỉ src/net/ được gọi Supabase`);
+    if (file === join('src', 'render', 'draw-nguoi.js') && /\bgame\.save\b|\bsave\.[a-z]/.test(text.replace(/\/\/.*$/gm, ''))) errors.push(`${file}: hàm vẽ nhân vật dùng chung cho mình và người khác không được đọc bản lưu (game.save); ngoại hình lấy từ hồ sơ h (data/dong-bo.json), thiếu thì thêm trường vào bảng`);
+    if (/online\??\.cast\b/.test(text) && !file.startsWith(join('src', 'net')) && file !== join('src', 'game', 'phat.js')) errors.push(`${file}: gửi tin hiệu ứng cho người khác chỉ qua phat() ở src/game/phat.js (một cửa), không gọi thẳng online.cast`);
   }
   if (file === 'index.html' && /<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?\S[\s\S]*?<\/script>/i.test(text)) {
     errors.push('index.html: không được chứa logic inline, chỉ nạp src/main.js');
@@ -300,28 +302,26 @@ try {
   errors.push(`Kiểm tra tham chiếu lỗi — ${e.message}`);
 }
 
-// Trang, file tĩnh mà các trang HTML trỏ tới phải được chép lên GitHub Pages (.github/workflows/pages.yml)
+// Trang, file tĩnh mà các trang HTML trỏ tới phải nằm trong danh sách chép lên trang game (tools/goi.mjs → TINH; script này dùng chung
+// cho GitHub Pages và Vercel từ 20/11/2026, trước đó hai nơi mỗi nơi một danh sách và từng lệch nhau: 02/11, 11/11/2026)
 {
-  const deploy = readFileSync('.github/workflows/pages.yml', 'utf8').match(/cp -r ([^\n]*) _site\//)?.[1].split(/\s+/) || [];
+  const deploy = JSON.parse((readFileSync('tools/goi.mjs', 'utf8').match(/export const TINH = (\[[^\]]*\])/)?.[1] || '[]').replace(/'/g, '"'));
+  if (!deploy.length) errors.push('tools/goi.mjs: không đọc được danh sách TINH (tệp tĩnh chép lên trang game)');
+  for (const f of deploy) if (!existsSync(f)) errors.push(`tools/goi.mjs chép ${f} nhưng kho không có tệp này`);
   for (const page of ['index.html', ...deploy.filter(f => f.endsWith('.html'))]) {
     for (const [, f] of readFileSync(page, 'utf8').matchAll(/(?:href|src)="([\w-]+\.(?:html|css))"/g)) {
-      if (!deploy.includes(f)) errors.push(`${page} trỏ tới ${f} nhưng .github/workflows/pages.yml không chép file này lên trang game`);
+      if (!deploy.includes(f)) errors.push(`${page} trỏ tới ${f} nhưng tools/goi.mjs không chép file này lên trang game`);
     }
   }
   for (const css of deploy.filter(f => f.endsWith('.css'))) {   // tệp @import trong tệp kiểu ở gốc (02/11/2026: style-ui-kit*.css bị sót, trên mạng không thấy khung mới)
     for (const [, f] of readFileSync(css, 'utf8').matchAll(/@import url\("([\w-]+\.css)"\)/g)) {
-      if (!deploy.includes(f)) errors.push(`${css} @import ${f} nhưng .github/workflows/pages.yml không chép file này lên trang game`);
+      if (!deploy.includes(f)) errors.push(`${css} @import ${f} nhưng tools/goi.mjs không chép file này lên trang game`);
     }
   }
-}
-
-// tools/build-site.sh (đưa lên Vercel) chép cùng danh sách tệp với pages.yml (11/11/2026: style-self.css có trong pages.yml mà
-// thiếu ở build-site.sh nên trên game thật bảng Nhân vật mất kiểu)
-{
-  const list = f => readFileSync(f, 'utf8').match(/cp -r ([^\n]*?) (?:_site|"\$OUT")\//)?.[1].split(/\s+/) || [];
-  const gh = list('.github/workflows/pages.yml'), vc = list('tools/build-site.sh');
-  for (const f of gh) if (!vc.includes(f)) errors.push(`.github/workflows/pages.yml chép ${f} nhưng tools/build-site.sh (đưa lên Vercel) không chép`);
-  for (const f of vc) if (!gh.includes(f)) errors.push(`tools/build-site.sh chép ${f} nhưng .github/workflows/pages.yml không chép`);
+  // Hai nơi đưa lên đều phải gọi script gói chung, không tự chép tay
+  for (const f of ['.github/workflows/pages.yml', 'tools/build-site.sh']) if (!/node tools\/goi\.mjs/.test(readFileSync(f, 'utf8'))) errors.push(`${f} phải gọi node tools/goi.mjs để gói bản đưa lên`);
+  // Code không tự suy đường dẫn, số phiên bản từ vị trí tệp (bản gói nhập nhiều tệp làm một): dùng src/core/build.js
+  for (const f of walk('src').filter(f => f.endsWith('.js') && !f.includes('vendor') && !f.endsWith('core/build.js'))) if (/import\.meta\.url/.test(readFileSync(f, 'utf8'))) errors.push(`${f} dùng import.meta.url: bản đưa lên được gói lại nên phải dùng goc() / BUILD ở src/core/build.js`);
 }
 
 // Đa ngôn ngữ (data/i18n/<ngôn ngữ>.json, src/core/i18n.js): bản dịch phải giữ đủ chỗ trống {n}; in tỉ lệ đã dịch.
@@ -336,6 +336,20 @@ try {
   }
   console.log(`Đa ngôn ngữ: ${keys.length} câu, đã dịch ${cov.join(', ')}`);
 }
+
+// Tệp quy trình GitHub (.github/workflows/*.yml): lệnh `run:` viết một dòng mà có dấu hai chấm + cách (ví dụ trong chuỗi echo) là YAML hỏng,
+// GitHub bỏ cả tệp, không chạy kiểm tra nào mà Pull Request vẫn hiện gộp được (20/11/2026: lỗi này lọt vì ở máy không có gì đọc thử YAML).
+for (const f of existsSync(join('.github', 'workflows')) ? readdirSync(join('.github', 'workflows')).filter(f => /\.ya?ml$/.test(f)) : []) {
+  const yml = readFileSync(join('.github', 'workflows', f), 'utf8');
+  for (const job of yml.replace(/^\s*#.*$/gm, '').split(/\n {2}(?=[\w-]+:\n)/).slice(1)) if ((job.match(/npm (i|install) --no-save/g) || []).length > 1) errors.push(`.github/workflows/${f}: một việc có hai lệnh npm i --no-save; lệnh sau gỡ gói của lệnh trước, hãy cài chung một lệnh`);
+  readFileSync(join('.github', 'workflows', f), 'utf8').split('\n').forEach((l, i) => {
+    const m = /^\s*(?:-\s+)?(run|name):\s+(.*)$/.exec(l), v = m?.[2] || '';
+    if (m && !/^[|>'"]/.test(v) && /:\s|:$|\s#/.test(v)) errors.push(`.github/workflows/${f} dòng ${i + 1}: giá trị ${m[1]} có dấu hai chấm (hoặc dấu # sau khoảng trắng) mà không nằm trong nháy / khối |: YAML hỏng, GitHub sẽ bỏ cả tệp`);
+  });
+}
+
+// Một nguồn cho "người khác thấy gì" (data/dong-bo.json): bản sao của máy chủ phòng khớp bảng, trường nào cũng có nơi lấy giá trị
+errors.push(...(await import('./dong-bo.mjs')).soat());
 
 // Máy chủ phòng Cloudflare (cloud/): bài thử thuần Node
 {

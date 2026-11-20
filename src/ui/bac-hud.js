@@ -2,18 +2,18 @@
 // dòng trên "Bậc 1/2" và món sẽ nhận khi xong bậc, dòng dưới việc phải làm kèm số đếm "Hạ Mộc linh 0/1". Mỗi con hạ được thì số đếm nảy lên một nhịp kèm
 // một tiếng gõ. Chỉ hiện lúc đang leo bậc.
 // Chuyển động tính theo giờ game từng khung (phòng đo tools/do-don/ quay lại được), chỉ xin khung hình trong lúc thẻ đang hiện. Kiểu: bac-hud.css.
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';
 import { bacOn } from '../game/story.js';
 import { spriteIcon } from './sprite-icon.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const set = (e, p, v) => { if (e['_' + p] !== v) { e['_' + p] = v; e.style[p] = v; } };
 
 export function createBacHud(game) {
   const B = game.data.story.bac;
   if (!B || !bacOn(game)) return;
-  const css = el('link'); css.rel = 'stylesheet'; css.href = new URL(`./bac-hud.css?v=${ver()}`, import.meta.url).href; document.head.append(css);
+  const css = el('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/bac-hud.css'); document.head.append(css);
   const box = el('div'); box.id = 'bac-hud'; box.hidden = true;
   const tag = el('b', 'bh-tag'), goal = el('span', 'bh-goal'), cnt = el('em', 'bh-cnt'), gift = el('i', 'bh-gift'), lab = el('small', null, B.text.reward);
   const top = el('div', 'bh-row'), bot = el('div', 'bh-row'), right = el('span', 'bh-right'); right.append(lab, gift);

@@ -1,5 +1,5 @@
 // Linh thú, khôi lỗi của người chơi khác (chủ dự án 20/11/2026 11:09: "còn thú cưỡi và linh thú, khôi lỗi nữa"): người đó báo mã qua
-// hồ sơ phòng (others.js onlineLook → pet, comp, comp2), máy mình dựng một bản chỉ để nhìn đi theo sau họ như kẻ đi theo của mình
+// hồ sơ phòng (data/dong-bo.json → pet, comp, comp2), máy mình dựng một bản chỉ để nhìn đi theo sau họ như kẻ đi theo của mình
 // (pets.js updateFollower) nhưng không đánh quái; họ vung đòn thì linh thú, khôi lỗi cùng chạy động tác đánh. Vẽ bằng drawPet / drawComp.
 
 const SLOTS = [['pet', 'pet', 0], ['comp', 'comp', 10], ['comp2', 'comp', -10]];

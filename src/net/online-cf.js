@@ -30,7 +30,9 @@ export function createOnline(me, handlers, opts = {}) {
       for (const [id, x, y, fx, fy, sw, act] of m.m || []) if (id !== me.id) handlers.onMove({ id, x, y, fx, fy, sw, ...(act ? { act } : {}) });
       for (const [id, s] of m.s || []) if (id !== me.id) handlers.onSay?.({ id, ...s });
       for (const [id, c] of m.k || []) if (id !== me.id) handlers.onCast?.({ id, ...c });
-    } else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, { ...people.get(m.u.id), ...m.u }); push(); }
+    } else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, m.u); push(); }   // tin 'j' mang TRỌN hồ sơ mới: thay hẳn, không trộn với bản cũ.
+    // (Trước 20/11/2026 trộn { ...cũ, ...mới }: trường vừa về trống (xuống thú, hạ cánh, thôi đả tọa, hồi sinh) bị máy chủ phòng lược khỏi tin
+    //  nên máy người xem giữ mãi giá trị cũ: thấy người kia cưỡi thú / bay / ngồi / mờ mãi tới khi vào lại tinh cầu. Bài thử hai máy bắt được.)
     else if (m.t === 'l' && people.delete(m.id)) push();
     else if (m.t === 'bx') handlers.onBoss?.(m);   // bảng sát thương boss thế giới (cloud/src/mang.js)
     else if (m.t === 'pk' || m.t === 'ph' || m.t === 'pd' || m.t === 'pe') {   // PvP Ngoại Vực (cloud/src/pvp.js)
@@ -52,7 +54,7 @@ export function createOnline(me, handlers, opts = {}) {
     mapId = id;
     if (!id) return;
     const room = `dao:${id}`;
-    conn = openPhong({ url: opts.url, room, line: lines.get(id) || 1, onOpen, onMsg, onDown: () => { people.clear(); handlers.onClear(); }, onLine: l => lines.set(id, l) });
+    conn = openPhong({ url: opts.url, room, line: lines.get(id) || 1, onOpen, onMsg, onDown: () => { people.clear(); handlers.onClear(); }, onLine: l => lines.set(id, l), ve: opts.ve });
     nowConn = conn;
   }
 

@@ -1,6 +1,6 @@
 // Hình nghi lễ kết đan (src/game/ket-dan.js; chủ dự án 20/11/2026 01:35), vẽ bằng code, điểm ảnh cỡ điểm của nhân vật (1 điểm = 0,5 đơn vị
 // bản đồ, docs/02-CHUAN-PIXEL.md) đặt đúng lưới; chỉ quầng sáng nền và vành sóng là mịn. Hai lớp:
-//   drawKdBack  vẽ ngay trước thân người (draw.js drawPlayer / drawOther): bóng trên đất lúc lơ lửng, quầng tụ khí dưới chân, nửa SAU các vòng khói;
+//   drawKdBack  vẽ ngay trước thân người (draw-nguoi.js, mình lẫn người khác): bóng trên đất lúc lơ lửng, quầng tụ khí dưới chân, nửa SAU các vòng khói;
 //   drawKdFront lớp trên cùng (sau lớp ngày đêm, như mọi hiệu ứng chiêu): hạt linh khí xoáy vào, nửa TRƯỚC các vòng khói, viên đan ở đan điền,
 //               thiên lôi và dòng điện cuốn quanh thân (draw-kd-set.js), sóng linh lực, cột sáng (người được vẽ lại bên trên cột sáng cho khỏi bị nuốt mất).
 // Mọi thứ tính từ đồng hồ st.t nên máy người xem vẽ y hệt. Màu: pal_khi (linh khí), pal_dan (kim đan) ở data/config.json → ket_dan.

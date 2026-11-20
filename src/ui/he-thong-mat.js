@@ -3,12 +3,13 @@
 // face(k): tạo một ô biểu cảm phóng k lần. show(tên): đứng yên một biểu cảm. play(tên chuỗi): chạy chuỗi khung rồi về biểu cảm sau.
 // react(sự việc): chọn biểu cảm theo data mat.ev (một tên, hoặc danh sách để bốc ngẫu nhiên; tên chuỗi khung thì chạy chuỗi).
 
+import { goc } from '../core/build.js';
 export function createFace(game, k = 1) {
   const M = game.data['he-thong']?.mat;
   const node = document.createElement('i');
   node.className = 'ht-face';
   if (!M) { node.hidden = true; return { node, show() {}, play() {}, react() {} }; }
-  const url = new URL(`../../${M.src}`, import.meta.url).href, n = M.frames.length;
+  const url = goc(M.src, false), n = M.frames.length;
   Object.assign(node.style, { width: `${M.w * k}px`, height: `${M.h * k}px`, backgroundImage: `url("${url}")`, backgroundSize: `${M.w * n * k}px ${M.h * k}px` });
   let timer = null, cur = 'thuong';
   const at = name => { const i = M.frames.indexOf(name); node.style.backgroundPosition = `${-Math.max(0, i) * M.w * k}px 0`; };

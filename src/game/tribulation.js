@@ -9,7 +9,7 @@ import { upSnap, realmUp } from './len-tang.js';
 import { tribSkyTick, tribSkyEnd, scorchTick, tribPal } from './trib-sky.js';   // mưa sét theo cảnh giới, vết cháy (17/11/2026)
 import { startCele, celeTick } from './trib-cele.js';   // lễ ăn mừng độ kiếp thành công
 import { startKetDan, kdTick, kdStop } from './ket-dan.js';   // nghi lễ kết đan lên Kim Đan (chủ dự án 20/11/2026 01:35)
-import { kiepSend, kiepWave } from './kiep-see.js';   // người cùng tinh cầu thấy kiếp, lễ bùm, cột sáng lên cảnh giới (20/11/2026 17:12)
+import { kiepWave } from './kiep-see.js'; import { phat } from './phat.js';   // người cùng tinh cầu thấy kiếp, lễ bùm, cột sáng lên cảnh giới (20/11/2026 17:12)
 
 export function atPeak(game) {
   const s = game.save, r = game.data.realms;
@@ -77,7 +77,7 @@ export function createTribulation(game) {
       game.darkTarget = 0.55;
       game.sfx('roar');
       if (cfg.kind === 'ket-dan') { run.le = true; startKetDan(game, cfg, () => { run = null; tribSkyEnd(game); this.ascend(); }); }
-      else kiepSend(game, 'ks-bd');   // kết đan tự báo bằng tin kd-* (ket-dan.js)
+      else phat(game, 'ks-bd');   // kết đan tự báo bằng tin kd-* (ket-dan.js)
       if (cfg.kind === 'tam-ma' || cfg.kind === 'mix') spawnShadow();
     },
     update(dt) {
@@ -109,7 +109,7 @@ export function createTribulation(game) {
     finish() {
       const color = run?.cfg?.info?.color || '#fff7d6';
       run = null; tribSkyEnd(game);
-      kiepSend(game, 'ks-ok');
+      phat(game, 'ks-ok');
       startCele(game, color, () => this.ascend());   // tụ linh khí rồi bùm (trib-cele.js), lúc bùm mới lên cảnh giới
     },
     ascend() {
@@ -121,7 +121,7 @@ export function createTribulation(game) {
       game.flashT = 0.35;
       addFx(game, { type: 'ring', x: game.player.x, y: game.player.y, r: 70, color: '#fff7d6', life: 1.2, fill: true });
       game.sfx('breakthrough'); game.screen.shake(6, 0.6);
-      if (le) kiepSend(game, 'ks-up', 1);   // kết đan: người khác thấy cột sáng lên cảnh giới (kiếp sét thì lễ bùm ks-ok đã có cột sáng)
+      if (le) phat(game, 'ks-up', 1);   // kết đan: người khác thấy cột sáng lên cảnh giới (kiếp sét thì lễ bùm ks-ok đã có cột sáng)
       if (!realmUp(game, before)) { game.toast(`Độ kiếp thành công! ${realmLabel(s, game.data.realms)}`, 3); game.checkUnlocks(); }   // nghi lễ đột phá cả màn; công tắc mung tắt thì dòng báo như cũ
       game.story.notify('realm');
       game.persist();
@@ -131,7 +131,7 @@ export function createTribulation(game) {
       if (!run) return;
       const c = run.cfg;
       if (run.shadow) run.shadow.dead = true;
-      if (!run.le) kiepSend(game, 'ks-hong');
+      if (!run.le) phat(game, 'ks-hong');
       run = null; game.strikes = []; tribSkyEnd(game); kdStop(game);
       game.save.qi = Math.floor(game.save.qi * (1 - c.fail_qi));
       game.darkTarget = game.map.def.dark || 0;

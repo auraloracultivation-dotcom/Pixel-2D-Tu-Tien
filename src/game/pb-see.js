@@ -9,15 +9,15 @@ import { pbSfx } from './skill-sfx.js';
 import { pbPx, pbRamp } from './pb-px.js';
 import { pxAdd } from './pfx.js';
 import { addFx } from './combat.js';
+import { phat } from './phat.js';
 
 const D = game => game.data['phap-bao'];
 
 export function pbSend(game, cast, ang) {
   const P = D(game), it = cast.it, ti = Object.keys(P.types).indexOf(it.type), gi = Math.max(0, P.grades.findIndex(g => g.id === it.grade));
-  if (ti < 0 || !game.online?.cast) return;
+  if (ti < 0) return;
   const keys = Object.keys(P.mods), mods = pbMods(game, it).map(id => keys.indexOf(id)).filter(i => i >= 0 && i < 36).map(i => i.toString(36)).join('');
-  const p = game.player;
-  game.online.cast({ k: `pb_${ti}_${gi}_${Math.min(999, it.lv || 0)}_${mods}`.slice(0, 48), x: Math.round(p.x), y: Math.round(p.y), fx: +Math.cos(ang).toFixed(2), fy: +Math.sin(ang).toFixed(2) });
+  phat(game, `pb_${ti}_${gi}_${Math.min(999, it.lv || 0)}_${mods}`, Math.cos(ang), Math.sin(ang));
 }
 
 // true: tin này là đòn pháp bảo (đã xử lý hoặc bỏ); false: tin khác, để others-cast.js lo

@@ -7,12 +7,13 @@
 //  - lớp đen nuốt mọi cú chạm (không lỡ tay điều khiển nhân vật); chạm hai lần liền trong tap_ms mới bật lại;
 //  - nhân vật gục, game hỏi hồi sinh ở đâu: tự bật lại cho người chơi chọn.
 // Nút "Tắt màn" nằm ngay trên nút Tự đánh, chỉ hiện khi đang Tự đánh, Tự hành hoặc đả tọa. Chữ và số ở data/config.json → man_toi.
+import { goc } from '../core/build.js';
 import { every } from '../core/ticker.js';
 
 export function createManToi(game) {
   const C = game.data.config.man_toi;
   if (!C?.on) return;
-  const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = new URL('./man-toi.css', import.meta.url).href; document.head.append(css);
+  const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/man-toi.css'); document.head.append(css);
   const el = (tag, cls) => { const e = document.createElement(tag); if (cls) e.className = cls; return e; };
   const btn = el('button'); btn.id = 'btn-man-toi'; btn.type = 'button'; btn.textContent = C.btn; btn.hidden = true;
   btn.addEventListener('pointerdown', e => e.stopPropagation());   // không tính là chạm để di chuyển

@@ -9,31 +9,29 @@ export function cleanName(v, max = 24) {
   return Array.from(s).slice(0, max).join('');
 }
 const ID = /^[\w-]{1,48}$/;
-const word = v => (typeof v === 'string' && ID.test(v) ? v : null);
-const has = (o, k) => typeof k === 'string' && !!o && Object.hasOwn(o, k);   // không nhận "__proto__", "constructor"
+export const word = v => (typeof v === 'string' && ID.test(v) ? v : null);
+export const has = (o, k) => typeof k === 'string' && !!o && Object.hasOwn(o, k);   // không nhận "__proto__", "constructor"
 const num = (v, lo, hi) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : null);
 
-// Một mục presence → hồ sơ hiển thị. known: { elements, looks } để chỉ nhận mã có trong data/
-export function cleanPresence(e, known, max) {
+// Một mục hồ sơ máy khác gửi → bản đã lọc. Mọi trường khai ở data/dong-bo.json → ho_so (bang), mỗi trường lọc theo kiểu của nó;
+// mã phải có thật trong data/ (data = game.data). Thêm trường mới chỉ thêm dòng vào bảng, không sửa ở đây.
+const di = (o, path) => path.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+function loc(d, v, data, max) {
+  switch (d.kieu) {
+    case 'ten': return cleanName(v, Math.min(d.dai, max || d.dai)) || d.trong || '';
+    case 'ma': { const b = di(data, d.bang); return has(b, v) && v[0] !== '_' && (!d.la || Object.entries(d.la).every(([k, x]) => b[v]?.[k] === x)) ? v : null; }
+    case 'chu': return word(v);
+    case 'so': return typeof v === 'string' && /^\d+$/.test(v) && v.length <= d.dai && (!d.du || v.length === d.dai) ? v : null;
+    case 'chon': return typeof v === 'string' && d.gia_tri.includes(v) ? v : null;
+    case 'co': return v ? 1 : 0;
+    default: return null;
+  }
+}
+export function cleanPresence(e, bang, data, max) {
   if (!e || !word(e.id)) return null;
-  return {
-    id: e.id,
-    name: cleanName(e.name, max) || 'Đạo hữu',
-    element: has(known.elements, e.element) ? e.element : null,
-    realm: cleanName(e.realm, 24),
-    look: has(known.looks, e.look) ? e.look : null,
-    outfit: word(e.outfit),
-    pt: typeof e.pt === 'string' && /^\d{2}$/.test(e.pt) ? e.pt : null,   // pháp tượng đang đeo (mã hình pt.NN)
-    mount: known.mounts && has(known.mounts, e.mount) ? e.mount : null,
-    vk: known.bases && known.bases[e.vk]?.slot === 'vu-khi' ? e.vk : null,   // món vũ khí đang mặc (chỉ nhận món có thật trong data/items.json)
-    pet: known.pets && has(known.pets, e.pet) ? e.pet : null,   // linh thú, khôi lỗi đang mang (others-theo.js)
-    comp: known.comps && has(known.comps, e.comp) ? e.comp : null,
-    comp2: known.comps && has(known.comps, e.comp2) ? e.comp2 : null,
-    st: ['bay', 'toa', 'guc'].includes(e.st) ? e.st : null,   // đang bay / đả tọa / gục
-    ri: typeof e.ri === 'string' && /^\d{1,2}$/.test(e.ri) ? e.ri : null,   // cảnh giới (hào quang)
-    title: known.titles && has(known.titles, e.title) ? e.title : null,   // danh hiệu đang đeo
-    pk: e.pk ? 1 : 0,   // đang tắt bảo vệ (PvP Ngoại Vực, máy chủ phòng giữ)   // đang cưỡi thú gì (06/11/2026: người khác thấy thú cưỡi)
-  };
+  const out = { id: e.id };
+  for (const k of Object.keys(bang)) out[k] = loc(bang[k], e[k], data, k === 'name' ? max : 0);
+  return out;
 }
 
 // Một gói vị trí → { id, x, y, fx, fy, sw } đã kẹp trong bản đồ (bounds: { w, h } điểm ảnh), sai thì null

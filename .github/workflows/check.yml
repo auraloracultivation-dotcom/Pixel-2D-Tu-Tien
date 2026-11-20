@@ -13,14 +13,22 @@ jobs:
           node-version: 22
       - run: node tools/check.mjs
   choi-thu:
-    # Người mới chơi thử 150 giây với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs)
+    # Người mới chơi thử với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs); rồi bài thử hai máy
+    # bắt lỗi đồng bộ giữa người chơi (tools/hai-may.mjs)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm i --no-save playwright@1.63.0
+      # Cài hai gói trong MỘT lệnh: lệnh npm i --no-save thứ hai sẽ gỡ gói của lệnh trước (20/11/2026: cài esbuild sau làm mất playwright)
+      - run: npm i --no-save playwright@1.63.0 esbuild@0.28.2
       - run: npx playwright install --with-deps chromium
-      - run: node tools/playtest.mjs
+      # Chơi thử trên đúng bản sẽ đưa lên (đã gói bằng tools/goi.mjs như .github/workflows/pages.yml), không phải mã nguồn rời
+      - run: node tools/goi.mjs _site
+      - run: node ../tools/playtest.mjs
+        working-directory: _site
+      # Hai máy khách cùng tinh cầu qua phòng giả chạy đúng mã cloud/src/phong.js: mỗi trường hồ sơ, mỗi nhóm hiệu ứng phải tới máy bên kia
+      - run: node ../tools/hai-may.mjs
+        working-directory: _site

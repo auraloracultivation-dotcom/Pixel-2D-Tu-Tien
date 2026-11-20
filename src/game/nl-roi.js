@@ -2,10 +2,12 @@
 // đánh quái, lâu lâu gặp thì đi nhặt"; "tâm lý chung thích đồ free nên cứ để rơi, ai lấy thì lấy").
 // Không cần máy chủ mới: mọi máy cùng bản đồ tính ra cùng món, cùng chỗ, cùng lúc (hạt giống = bản đồ + khung giờ slot_s giây),
 // nên ai đứng cùng bản đồ cũng thấy y nhau, chơi một mình vẫn có. Ai nhặt trước thì báo cả tuyến qua phòng Cloudflare bằng tin
-// chiêu { k: 'nl-<khung>-<số>' } (cloud/src/proto.js cleanCast đã cho qua), máy khác xoá món đó (nlSeen, gọi ở src/game/others.js).
+// chiêu { k: 'nl-<khung>-<số>' } (cloud/src/proto.js cleanCast đã cho qua), máy khác xoá món đó (nlSeen, gọi qua src/game/others-nhan.js).
 // Món đã nhặt ghi vào save.nlGot [mã, lúc] (giữ 1 giờ): đổi tuyến, tải lại không nhặt lại được; mỗi giờ nhặt tối đa cap_h món.
 // Món nằm chung danh sách đồ rơi game.loot (kind 'mat', có l.nl) nên vẽ icon, cột sáng, Tự đánh đi nhặt như đồ rơi của quái;
 // rời bản đồ thì món chưa nhặt KHÔNG tự vào túi (collectAll bỏ qua). Số ở data/nl-roi.json.
+import { phat } from './phat.js';
+
 const N = game => game.data['nl-roi'] || {};
 const HOUR = 3600e3;
 
@@ -77,7 +79,7 @@ export function nlOk(game) {
 export function nlTaken(game, l) {
   got(game.save).push([l.nl, Date.now()]);
   (game.nlGone ||= new Set()).add(l.nl);
-  game.online?.cast?.({ k: l.nl, x: Math.round(l.x), y: Math.round(l.y), fx: 0, fy: 0 });
+  phat(game, l.nl, 0, 0, l.x, l.y);
 }
 
 // Tin chiêu từ người khác (src/game/others.js): là tin nhặt đồ rơi thì xoá món đó, trả true

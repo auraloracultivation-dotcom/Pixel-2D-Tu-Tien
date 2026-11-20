@@ -3,6 +3,7 @@
 // ô đồ khung phẩm, ngọc khảm, linh thú / khôi lỗi / thú cưỡi, Lực Chiến, chỉ số), chỉ xem; bên phải (src/ui/profile-side.js) linh căn,
 // binh khí, nút So tài (game/duel.js), Truyền âm, Kết bạn, chiêu, công pháp; chạm ô thì tấm chi tiết món / con thú.
 // Dữ liệu từ game/profile.js (đã lọc), chữ chỉ gán textContent.
+import { goc } from '../core/build.js';
 import { loadPlayer } from '../game/profile.js';
 import { startDuel } from '../game/duel.js';
 import { playerStats } from '../game/stats.js';
@@ -12,7 +13,6 @@ import { leftCard, statsSheet } from './self-left.js';
 import { uiIco } from './self-gear.js';
 import { itemSheet, beastSheet, infoSheet } from './profile-side.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const BUFFS = ['pet', 'comp', 'comp2', 'mount'];   // thứ tự ô thú dưới nhân vật (self-left.js)
 
 function el(tag, cls, text) {
@@ -26,7 +26,7 @@ export function createProfile(game) {
   const P = game.data.duel?.profile;
   if (!P) return;
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = new URL(`./profile.css?v=${ver()}`, import.meta.url).href;
+  css.rel = 'stylesheet'; css.href = goc('src/ui/profile.css');
   document.head.append(css);
   const root = el('div', 'panel pf-panel sv'); root.hidden = true;
   const x = el('button', 'sv-x', '✕'), frame = el('div', 'sv-frame pf-frame'), left = el('div', 'sv-left'), right = el('div', 'sv-right'), mid = el('div', 'sv-mid');

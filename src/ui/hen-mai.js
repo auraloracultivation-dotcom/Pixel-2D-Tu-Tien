@@ -8,9 +8,9 @@
 // nhận, quà linh thú và bạn đồng hành mang về lúc vắng, quà điểm danh hôm nay chưa nhận. Trả lời hứa, xong khi người chơi bấm nút.
 // Cuối thẻ là một câu của Hệ Thống và một nút. Chạm sớm thì hiện hết luôn. Mọi chuyển động tính theo giờ game từng khung (phòng đo quay lại được),
 // chỉ xin khung hình trong lúc thẻ đang hiện. Kiểu: hen-mai.css. Giờ từng nhịp, chữ: data/juice.json → mai. Chữ chỉ gán textContent.
+import { goc } from '../core/build.js';
 import { maiOn, restForecast, nextStep, giftTomorrow } from '../game/hen-mai.js';
 
-const ver = () => new URL(import.meta.url).searchParams.get('v') || 'dev';
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const cl = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const set = (e, p, v) => { if (e['_' + p] !== v) { e['_' + p] = v; e.style[p] = v; } };
@@ -27,7 +27,7 @@ export function createHenMai(game) {
   // V: kết quả bế quan lúc quay lại (thẻ Xuất quan); không có: thẻ Hẹn ngày mai
   function open(V) {
     if (S || !game.save) return Promise.resolve();
-    if (!css) { css = true; const l = el('link'); l.rel = 'stylesheet'; l.href = new URL(`./hen-mai.css?v=${ver()}`, import.meta.url).href; document.head.append(l); }
+    if (!css) { css = true; const l = el('link'); l.rel = 'stylesheet'; l.href = goc('src/ui/hen-mai.css'); document.head.append(l); }
     const F = V || restForecast(game), N = V ? null : nextStep(game), G = giftTomorrow(game), R = game.data.realms;
     root ??= document.body.appendChild(el('div')); root.id = 'hen-mai'; root.textContent = ''; root.hidden = false;
     const dim = root.appendChild(el('div', 'm-dim')), card = root.appendChild(el('div', 'm-card')), rows = [];
