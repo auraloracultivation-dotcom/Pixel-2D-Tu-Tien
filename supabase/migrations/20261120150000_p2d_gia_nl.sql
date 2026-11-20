@@ -1,11 +1,11 @@
--- Giá nguyên liệu luyện đan mới (chủ dự án 20/11/2026 14:5x: "ban đầu bán hàng rẻ quá"; đề xuất của AI × 20 cho Linh Thảo, Yêu Huyết Tinh,
--- Tinh Thiết, Hỏa Linh Chi, Ngọc Lộ Hoa, Tử Vân Sâm, Thái Hư Liên, chờ chủ dự án duyệt). Chỉ đổi bảng giá của p2d_nl_mua, phần còn lại giữ
+-- Giá nguyên liệu luyện đan mới (chủ dự án 20/11/2026 14:5x: "ban đầu bán hàng rẻ quá"; chủ dự án 15:4x chọn "đắt gấp đôi" bản đề xuất × 20, thành × 40 cho Linh Thảo, Yêu Huyết Tinh,
+-- Tinh Thiết, Hỏa Linh Chi, Ngọc Lộ Hoa, Tử Vân Sâm, Thái Hư Liên ). Chỉ đổi bảng giá của p2d_nl_mua, phần còn lại giữ
 -- nguyên như 20261111170000_p2d_nl_mua.sql. Bảng giá chép từ data/market.json → quick.price (NPC Dược Thảo Thương bán cùng giá, data/shop.json → nl_ban).
 
 create or replace function public.p2d_nl_mua(p_mua jsonb, p_nhanh boolean default true)
 returns jsonb language plpgsql security definer set search_path = '' as $$
 declare
-  v_me uuid := public.p2d_uid(); v_cfg jsonb := '{"nhan": 1.1, "gia": {"linh-thao": 100, "yeu-huyet": 250, "tinh-thiet": 350, "hoa-linh-chi": 900, "tay-luyen-thach": 40, "khoa-linh-thach": 400, "bi-kip-chieu": 60, "manh-phap-bao": 30, "linh-mach": 20, "linh-dau": 20, "hong-qua": 30, "kim-tieu": 45, "ngoc-lo-hoa": 1200, "tu-van-sam": 2400, "thai-hu-lien": 4000, "linh-ngu": 15, "van-ngu": 30, "hoa-ly": 30, "bang-ngu": 30, "nguyet-ngu": 60, "kim-tu-ngu": 60, "nham-ngu": 60}}'::jsonb;
+  v_me uuid := public.p2d_uid(); v_cfg jsonb := '{"nhan": 1.1, "gia": {"linh-thao": 200, "yeu-huyet": 500, "tinh-thiet": 700, "hoa-linh-chi": 1800, "tay-luyen-thach": 40, "khoa-linh-thach": 400, "bi-kip-chieu": 60, "manh-phap-bao": 30, "linh-mach": 20, "linh-dau": 20, "hong-qua": 30, "kim-tieu": 45, "ngoc-lo-hoa": 2400, "tu-van-sam": 4800, "thai-hu-lien": 8000, "linh-ngu": 15, "van-ngu": 30, "hoa-ly": 30, "bang-ngu": 30, "nguyet-ngu": 60, "kim-tu-ngu": 60, "nham-ngu": 60}}'::jsonb;
   v_nv public.p2d_nhan_vat%rowtype; v_k text; v_n jsonb; v_gia numeric := 0; v_lt numeric; v_pb integer; v_them jsonb := '{}'::jsonb;
 begin
   if v_cfg is null then raise exception 'chua_cau_hinh' using errcode = '22023'; end if;
