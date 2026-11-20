@@ -56,7 +56,7 @@
    "mix": {"name": "Hỗn Nguyên Kiếp", "color": "#f2c94c", "intro": "Sét, lửa và tâm ma cùng kéo tới. Đây là kiếp của bậc đại năng!", "tip": "Sét lửa chính bám theo người, né đòn phụ, hạ tâm ma, trụ hết các đợt. Uống đan chống kiếp trước.", "hp": 2.6, "hp_atk": 20, "atk": 0.4}
   },
   "_note_ket_dan_moi": "20/11/2026 10:28: lên Kim Đan 9 đạo, đạo cách nhau một nhịp tim, có liên hoàn ngẫu nhiên (config ket_dan.lien); dmg_mul chỉnh lại theo số tia tính cả liên hoàn. chủ dự án 20/11/2026 04:5x: từ Kết Đan trở đi mọi kiếp dùng nghi lễ kết đan (cả tinh cầu thấy, nghe; người gần bị đánh cùng), tầng khác làm tỉ mỉ sau. Cũ (2→7): tam-ma 6 đợt ×7; hoa 10 ×1.7; mix 10 ×1.9, 11 ×1.7, 12 ×1.6, 14 ×1.05.", "by_realm": [
-   {"kind": "set", "dmg_mul": 1.9, "waves": 5, "interval": 3},
+   {"kind": "set", "dmg_mul": 1.45, "waves": 5, "interval": 3},
    {"kind": "ket-dan", "waves": 9, "dmg_mul": 7},
    {"kind": "ket-dan", "waves": 12, "dmg_mul": 5.5},
    {"kind": "ket-dan", "waves": 12, "dmg_mul": 5.5},
