@@ -2,7 +2,7 @@
  "_note": "Gợi ý lần đầu: nút sáng lên khi hệ đã mở (after: đã qua bước truyện đó, hoặc flag) mà người chơi chưa bấm lần nào. Bấm lần đầu hiện tip. Nút Menu sáng khi có nút con đang sáng.",
  "buttons": {
   "btn-bag": {"after": "nv-1", "tip": "Túi: mặc trang bị, cường hóa, tẩy luyện, khảm ngọc, bán đồ."},
-  "btn-skills": {"after": "chon-he", "tip": "Chiêu: chọn 3 chiêu mang theo và công pháp."},
+  "btn-skills": {"after": "chon-he", "tip": "Công pháp: chọn công pháp mang theo, tối đa 3 cuốn."},
   "btn-daily": {"after": "nv-1", "tip": "Việc: 5 việc mỗi ngày, cống hiến tông môn, sự kiện tuần."},
   "btn-achv": {"after": "nv-1", "tip": "Thành tựu: nhận thưởng, mang danh hiệu, đổi thời trang."},
   "btn-pets": {"flag": "nguThu", "tip": "Thú: linh thú đánh cùng, thú cưỡi, bạn đồng hành và tặng quà."},

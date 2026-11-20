@@ -13,7 +13,6 @@ import { talkBeast } from './pets.js';
 import { talkPuppetShop } from './beast-shop.js';
 import { talkShop } from './shop.js';
 import { canInvite, talkCompanion } from './companion.js';
-import { challenge as challengeTm } from './thienma.js';
 import { talkHome } from './home.js';
 import { showPat, patPet } from './pat.js';
 import { rerootNpc, talkReroot } from './reroot.js';
@@ -57,7 +56,6 @@ export function talkTo(game, npc) {
   if (npc.id === game.data.pets.puppet_npc) { talkPuppetShop(game, npc); return; }
   if (npc.id === game.data.fashion.shop_npc) { talkFashionShop(game, npc); return; }   // tiệm thời trang (src/game/fashion-shop.js)
   if (talkAlchemyNpc(game, npc)) return;   // Lò Đan Sư, Đan Dược Sư, Dược Thảo Thương (src/game/npc-dan.js)
-  if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }
   if (npc.id === game.data.party.npc) { talkParty(game, npc); return; }

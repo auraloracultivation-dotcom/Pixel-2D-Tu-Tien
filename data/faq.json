@@ -1,5 +1,5 @@
 {
- "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social). 06/11/2026 17:10: viết lại đầy đủ mọi hạng mục (bản nháp tools/faq-draft.json), bỏ nhóm Mỗi ngày (điểm danh, nhiệm vụ hằng ngày đã bỏ), thêm Hệ Thống, boss Thôn Thiên Mãng, PvP, Hòm thư.",
+ "_note": "Bảng Câu hỏi thường gặp cho người mới (chủ dự án 04/11/2026, góp ý #68): nút ! nhỏ ở góc trên phải màn hình (src/ui/faq-panel.js, kiểu ở src/ui/faq.css). Chạm câu hỏi để mở / gập câu trả lời. Mỗi nhóm có title và list; mỗi câu có q (câu hỏi) và a (các dòng trả lời). Số trong câu trả lời đổi thì sửa theo data gốc (checkin, dungeon, demon, community, referral, gear, daovan, social). 06/11/2026 17:10: viết lại đầy đủ mọi hạng mục (bản nháp tools/faq-draft.json), bỏ nhóm Mỗi ngày (điểm danh, nhiệm vụ hằng ngày đã bỏ), thêm Hệ Thống, boss Thôn Thiên Mãng, PvP, Hòm thư. 21/11/2026: gỡ mọi câu về hệ chiêu cũ (ẩn từ Mùa 2) và Đài Ma Thần, viết nhóm Pháp bảo theo data/phap-bao.json, luật PvP theo data/pvp.json (đánh được ở mọi tinh cầu từ 19/11).",
  "show_btn": false, "_show_btn": "Chủ dự án 09/11/2026 09:14: bỏ nút ! góc trên phải (Hỏi đáp vẫn ở Hệ Thống → Hỏi đáp).", "btn": "!",
  "label": "Câu hỏi thường gặp",
  "title": "Câu hỏi thường gặp",
@@ -12,7 +12,7 @@
      "q": "Điều khiển nhân vật thế nào?",
      "a": [
       "Kéo cần điều khiển bên trái màn hình để chạy.",
-      "Cụm nút bên phải: nút Đánh to ở giữa, ba nút chiêu, nút chiêu pháp bảo, nút Lướt và nút Đan (uống Hồi Xuân Đan).",
+      "Cụm nút bên phải: nút Đánh to ở giữa, ba nút pháp bảo (nút thứ tư mở ở Nguyên Anh), nút Lướt và nút Đan (uống Hồi Xuân Đan).",
       "Nút tương tác hiện khi đứng gần thứ gì đó: Nói chuyện, Đả tọa, Độ thiên kiếp, Câu cá, Vuốt ve linh thú."
      ]
     },
@@ -20,7 +20,7 @@
      "q": "Lướt dùng để làm gì?",
      "a": [
       "Bấm Lướt để vọt nhanh một đoạn theo hướng đang chạy, hồi lại sau 2 giây.",
-      "Dùng để né vòng đỏ báo trước của boss, né sét khi độ kiếp và né chiêu khi PvP."
+      "Dùng để né vòng đỏ báo trước của boss, né sét khi độ kiếp và né đòn khi PvP."
      ]
     },
     {
@@ -62,7 +62,7 @@
     {
      "q": "Linh lực và linh khí khác nhau thế nào?",
      "a": [
-      "Linh lực (thanh cạnh chân dung) là năng lượng ra chiêu, tự hồi 5% mỗi giây, đả tọa hồi nhanh gấp 3. Thiếu linh lực thì không ra chiêu được.",
+      "Linh lực (thanh cạnh chân dung) là năng lượng tung pháp bảo, tự hồi 5% mỗi giây, đả tọa hồi nhanh gấp 3. Thiếu linh lực thì không tung pháp bảo được.",
       "Linh khí là tu vi để lên tầng, đột phá cảnh giới.",
       "Hồi Linh Đan hồi ngay 50% linh lực."
      ]
@@ -71,7 +71,7 @@
      "q": "Gục thì sao?",
      "a": [
       "Gục thì về điểm hồi sinh, không mất đồ (trừ khi bị người khác hạ trong PvP).",
-      "Gục nhiều lần liền thì Hệ Thống sẽ nhắc: mặc trang bị tốt nhất, học chiêu mới, hoặc săn quái yếu hơn."
+      "Gục nhiều lần liền thì Hệ Thống sẽ nhắc: mặc trang bị tốt nhất, nâng cấp pháp bảo, hoặc săn quái yếu hơn."
      ]
     }
    ]
@@ -195,8 +195,9 @@
     {
      "q": "Linh căn có mấy hệ? Hệ ảnh hưởng gì?",
      "a": [
-      "5 hệ: Mộc (trói buộc, hồi máu), Hỏa (sát thương lớn diện rộng), Thủy (làm chậm, che chắn), Kim (lao tới chém xuyên), Thổ (choáng diện rộng, giáp đá).",
-      "Mỗi hệ 6 chiêu, mở dần theo tu vi."
+      "5 hệ: Mộc, Hỏa, Thủy, Kim, Thổ.",
+      "Hệ linh căn quyết định món nào hợp hệ với bạn: trang bị, công pháp, linh thú cùng hệ cộng thành bộ Đạo Vận, mỗi hệ thưởng một kiểu (Mộc máu và hồi máu, Hỏa công và bạo kích, Thủy thủ và hồi chiêu, Kim bạo kích, Thổ máu, thủ và phản đòn).",
+      "Pháp bảo không kén hệ: chiêu khảm Ngũ Hành hệ nào cũng khảm được."
      ]
     },
     {
@@ -209,15 +210,15 @@
     {
      "q": "Đổi hệ linh căn bằng gì?",
      "a": [
-      "Luyện Đan tẩy linh căn ở Lò đan, từ Kim Đan trở lên: tốn 3.000 Linh Thạch, 5 Ngọc Lộ Hoa, 5 Hỏa Linh Chi.",
-      "Giữ nguyên phẩm linh căn. Chiêu hệ cũ mất, ô chiêu về mặc định, chiêu hệ mới mở theo tu vi."
+      "Nhờ Đan Dược Sư ở chợ Thiên Kiếm Tinh luyện Đan tẩy linh căn, từ Kim Đan trở lên: tốn 3.000 Linh Thạch, 5 Ngọc Lộ Hoa, 5 Hỏa Linh Chi.",
+      "Giữ nguyên phẩm linh căn. Đồ hợp hệ và bộ Đạo Vận tính lại theo hệ mới."
      ]
     },
     {
      "q": "Hợp hệ, bộ Đạo Vận là gì?",
      "a": [
       "Mỗi trang bị có một hệ. Món cùng hệ linh căn của bạn được chỉ số chính +30%.",
-      "Đồ đang mặc, chiêu hệ, công pháp, linh thú cùng hệ cộng lại thành bộ Đạo Vận: đủ 3, 5, 7, 10 món hợp hệ thì mở thưởng bộ theo hệ."
+      "Đồ đang mặc, công pháp, linh thú cùng hệ cộng lại thành bộ Đạo Vận: đủ 3, 5, 7, 10 món hợp hệ thì mở thưởng bộ theo hệ."
      ]
     },
     {
@@ -243,8 +244,9 @@
     {
      "q": "Trang bị có mấy ô?",
      "a": [
-      "7 ô: Bản mệnh pháp bảo (trước gọi là Vũ khí), Mũ, Giáp, Ngọc bội, Giày, Nhẫn, Pháp bảo. Nút đánh thường mang hình bản mệnh pháp bảo đang dùng.",
-      "Loại vũ khí (kiếm, thương, quạt, đàn, liềm, cung...) quyết định cách đánh thường và chiêu vũ khí. Quản Binh Khố ở Thiên Kiếm Tinh cho lĩnh miễn phí mỗi loại một món để thử."
+      "6 ô trang bị: Bản mệnh pháp bảo (trước gọi là Vũ khí), Mũ, Giáp, Pháp tượng, Giày, Nhẫn. Nút đánh thường mang hình bản mệnh pháp bảo đang dùng.",
+      "Loại vũ khí (kiếm, thương, quạt, đàn, liềm, cung...) quyết định cách đánh thường. Quản Binh Khố ở Thiên Kiếm Tinh cho lĩnh miễn phí mỗi loại một món để thử.",
+      "Pháp bảo (Phi Kiếm, Hộ Thuẫn...) mặc ở hàng ô riêng, xem nhóm Pháp bảo, công pháp."
      ]
     },
     {
@@ -337,7 +339,7 @@
      "a": [
       "Bán: ra Linh Thạch (món phẩm cao giá cao hơn).",
       "Phân giải: ra Tinh Thiết để cường hoá. Phân giải món đã cường hoá trả lại 40% Tinh Thiết và Tẩy Luyện Thạch đã tốn (không trả Linh Thạch).",
-      "Phân giải pháp bảo ra Mảnh Pháp Bảo."
+      "Pháp bảo thừa: bán lấy Linh Thạch, hoặc rã món phẩm Huyền trở lên lấy Đá Khai Khiếu (Túi đồ → Trang bị → Pháp bảo → Bán / Rã nhanh)."
      ]
     },
     {
@@ -350,21 +352,33 @@
    ]
   },
   {
-   "title": "Chiêu thức, công pháp, pháp bảo",
+   "title": "Pháp bảo, công pháp",
    "list": [
     {
-     "q": "Mang chiêu thế nào? Chiêu mở khi nào?",
+     "q": "Pháp bảo dùng thế nào? Nhận ở đâu?",
      "a": [
-      "Mỗi hệ 6 chiêu, mở dần theo tu vi (Trúc Cơ, Kim Đan mở thêm chiêu mới). Vũ khí cũng có chiêu riêng.",
-      "Chọn 3 chiêu mang theo ở bảng Chiêu (trong Túi đồ → Công pháp, tab Chiêu)."
+      "Pháp bảo là đòn lớn của bạn: mặc tối đa 4 món (ô thứ tư mở ở Nguyên Anh), mỗi món là một nút cạnh nút Đánh. Bấm là tung, tốn linh lực, hồi chiêu 60 tới 150 giây.",
+      "Có 8 loại. Công: Phi Kiếm, Linh Châu, Bảo Phiến, Đại Ấn. Thủ: Hộ Thuẫn, Đồng Chung, Trận Kỳ, Hồ Lô.",
+      "Lên Luyện Khí tầng 1 là có Phi Kiếm, tu vi tăng thì Hệ Thống tặng dần các món khác. Quái thường và mỗi lần phá bí cảnh (càn quét cũng tính) có thể rơi pháp bảo, nhặt được nhiều món cùng loại.",
+      "Mặc, đổi món ở Túi đồ → Trang bị → Pháp bảo. Mặc món nào thì nhận chỉ số gốc món đó."
      ]
     },
     {
-     "q": "Nâng cấp chiêu bằng gì?",
+     "q": "Khảm chiêu vào pháp bảo thế nào?",
      "a": [
-      "Mỗi chiêu nâng riêng, tối đa cấp 30, tốn Bí Kíp Chiêu và Linh Thạch, cấp sau đắt hơn cấp trước.",
-      "Mỗi cấp chiêu đánh mạnh thêm 4%; chiêu hồi máu, khiên, tăng lực thêm 2%.",
-      "Bí Kíp Chiêu rơi từ boss bí cảnh (từ cấp Trung) và Ma Vương."
+      "Mỗi pháp bảo có 1 tới 4 ô khảm. Vào Túi đồ → Trang bị → Pháp bảo, chạm ô rồi chạm chiêu để khảm, chạm chiêu đang khảm để tháo.",
+      "Chiêu khảm làm đòn của pháp bảo biến hoá: tách nhánh, nổ lan, xuyên thấu, thêm hệ Ngũ Hành, hút máu... Mỗi chiêu được một thứ và mất một thứ, ghi ngay trên chiêu.",
+      "Ô chạy theo thứ tự ô 1 → ô 4, đổi thứ tự là đòn đổi theo. Chiêu khảm mở dần theo tu vi, có chiêu mới thì Hệ Thống báo.",
+      "Thiếu ô thì đục thêm bằng Đá Khai Khiếu: tỉ lệ thành 50%, 25%, 10% cho ô thứ 2, 3, 4; hụt đủ 10 lần thì lần sau chắc chắn thành."
+     ]
+    },
+    {
+     "q": "Nâng cấp pháp bảo bằng gì? Đá Khai Khiếu kiếm ở đâu?",
+     "a": [
+      "Nâng cấp chỉ tốn Linh Thạch, không bao giờ thất bại: mỗi cấp thêm 5% chỉ số gốc và sát thương đòn gốc. Cấp tối đa theo cảnh giới: Luyện Khí 5, mỗi cảnh giới sau thêm 5, Độ Kiếp 45.",
+      "Hạ một món về cấp 0 thì hoàn 80% Linh Thạch đã nâng (cần đăng nhập).",
+      "Pháp bảo có 5 phẩm: Phàm, Linh, Huyền, Địa, Thiên. Phẩm càng cao chỉ số gốc càng lớn và càng dễ có nhiều ô khảm.",
+      "Đá Khai Khiếu: rã pháp bảo thừa phẩm Huyền trở lên (Huyền 1, Địa 2, Thiên 5 viên) và quà tu vi của Hệ Thống."
      ]
     },
     {
@@ -372,14 +386,6 @@
      "a": [
       "Công pháp học từ bí kíp quái và boss rơi, mang tối đa 3 cuốn, mỗi cuốn tối đa cấp 10.",
       "Công pháp đang mang tự lên cấp bằng linh khí bạn thu được. Cùng hệ linh căn thì tính vào bộ Đạo Vận."
-     ]
-    },
-    {
-     "q": "Pháp bảo dùng thế nào? Luyện pháp bảo ra sao?",
-     "a": [
-      "Mặc pháp bảo vào ô Pháp bảo thì có thêm một nút chiêu pháp bảo.",
-      "Phân giải pháp bảo thừa ra Mảnh Pháp Bảo, dùng mảnh để Luyện pháp bảo lên bậc (tối đa 20): mỗi bậc chỉ số chính và chiêu pháp bảo mạnh thêm.",
-      "Ma Vương cũng thưởng Mảnh Pháp Bảo."
      ]
     },
     {
@@ -452,7 +458,7 @@
     {
      "q": "Bí cảnh nào rơi đồ gì?",
      "a": [
-      "Kiếm Trủng: vũ khí. Địa Cung: giáp. Băng Quật: mũ. Hắc Phong Động: giày. Hỏa Quật: nhẫn. Cổ Thụ Tâm: ngọc bội.",
+      "Kiếm Trủng: vũ khí. Địa Cung: giáp. Băng Quật: mũ. Hắc Phong Động: giày. Hỏa Quật: nhẫn. Cổ Thụ Tâm: pháp tượng.",
       "Rễ Mẫu Thụ là bí cảnh Linh Thạch: thưởng chỉ có Linh Thạch nhưng gấp nhiều lần."
      ]
     },
@@ -461,7 +467,7 @@
      "a": [
       "Mỗi bí cảnh là thang bậc không đáy, mỗi bậc quái mạnh gấp đôi. Cứ 10 bậc lên một cấp: Dễ, Trung, Khó, Cực khó, Ác mộng, Địa ngục, Vô Gian, rồi Vô Gian 2, 3...",
       "Màu gợi ý: xanh là dễ với bạn, vàng là vừa sức, đỏ là nên mạnh thêm.",
-      "Cấp cao thưởng phẩm cao hơn, có ngọc, Bí Kíp Chiêu. Lần đầu qua mỗi bậc được thêm quà."
+      "Cấp cao thưởng phẩm cao hơn, có ngọc. Lần đầu qua mỗi bậc được thêm quà."
      ]
     },
     {
@@ -475,7 +481,7 @@
      "q": "Ma Vương tuần là gì?",
      "a": [
       "Mỗi tuần một Ma Vương trấn Phương Thiên Địa, mở từ Đại Thừa. Cấp Ma Vương ngẫu nhiên 1 tới 6 mỗi tuần, ai cũng gặp cùng cấp.",
-      "Mỗi tuần mỗi người hạ được 1 lần. Thưởng: trang bị Thiên, ngọc, Tẩy Luyện Thạch, Khóa Linh Thạch, Mảnh Pháp Bảo, Bí Kíp Chiêu, Linh Thạch."
+      "Mỗi tuần mỗi người hạ được 1 lần. Thưởng: trang bị Thiên, ngọc, Tẩy Luyện Thạch, Khóa Linh Thạch, Mảnh Pháp Bảo, Linh Thạch."
      ]
     },
     {
@@ -489,7 +495,7 @@
      "q": "Ngoại Vực Vết Nứt có gì đặc biệt?",
      "a": [
       "Vùng ma khí: mỗi lần vào, các bầy quái mọc chỗ ngẫu nhiên với bậc ma khí ngẫu nhiên, từ con Tàn yếu xìu tới con không ai đánh nổi.",
-      "Ở đây có Yêu Vương, Đài Ma Thần và là nơi duy nhất đánh PvP được."
+      "Ở đây có Yêu Vương. PvP ở đây nặng hơn nơi khác: bị hạ thì rơi 1 món trong túi và 10% Linh Thạch, khiên chỉ bật lại khi chết và hồi sinh."
      ]
     }
    ]
@@ -531,36 +537,29 @@
    ]
   },
   {
-   "title": "PvP, Ma Thần, so tài",
+   "title": "PvP, so tài, Đại Ma Thần",
    "list": [
     {
      "q": "PvP ở đâu? Khiên là gì?",
      "a": [
       "Sau tên trên đầu nhân vật có biểu tượng: 🛡 là còn khiên (không ai đánh được), ⚔ là đã tắt khiên.",
-      "Chỉ đánh nhau được ở Ngoại Vực Vết Nứt, khi cả hai đều tắt khiên. Tinh cầu khác không đánh nhau được."
+      "Đánh nhau được ở mọi tinh cầu khi cả hai đều tắt khiên. Chỉ vòng pháp trận Thiên Kiếm Tinh là an toàn: đứng trong vòng thì không ai đánh được."
      ]
     },
     {
      "q": "Tắt khiên thế nào? Bật lại được không?",
      "a": [
       "Chạm biểu tượng 🛡 sau tên mình, xác nhận Tắt khiên. Tắt ở đâu cũng được.",
-      "Khiên chỉ bật lại khi bạn chết và hồi sinh. Đổi tuyến, ra vào bản đồ không bật lại được.",
+      "Ở Ngoại Vực Vết Nứt khiên chỉ bật lại khi bạn chết và hồi sinh. Ở nơi khác, 10 phút không giao chiến thì khiên tự bật lại. Đổi tuyến, ra vào bản đồ không bật lại được.",
       "Vừa hồi sinh phải chờ 10 giây mới tắt khiên lại được."
      ]
     },
     {
      "q": "Bị hạ trong PvP mất gì?",
      "a": [
-      "Mất 10% Linh Thạch và 1 món ngẫu nhiên trong túi (hoặc một phần nguyên liệu), gửi vào Hòm thư người hạ bạn.",
+      "Ở Ngoại Vực Vết Nứt: mất 10% Linh Thạch và 1 món ngẫu nhiên trong túi (hoặc một phần nguyên liệu), gửi vào Hòm thư người hạ bạn. Ở nơi khác: mất 5% Linh Thạch, không mất món nào.",
       "Đồ đang mặc không mất.",
       "Cùng một người hạ cùng một người chỉ tính 1 lần mỗi giờ."
-     ]
-    },
-    {
-     "q": "Đại Ma Thần là gì?",
-     "a": [
-      "Khi Đại Ma Thần xuất thế, Đài Ma Thần hiện ở góc trên bên phải Ngoại Vực Vết Nứt. Từ Kim Đan chạm đài để khiêu chiến.",
-      "Thắng: nhận một món Đạo Vận vàng. Thua: mất 10% tổng tu vi, nhận 1 viên ngọc cấp 4 an ủi. Thưởng vào Hòm thư."
      ]
     },
     {
@@ -568,6 +567,13 @@
      "a": [
       "Ở bảng xếp hạng, chạm tên ai đó để xem hồ sơ, bấm So tài để đấu với bản sao của họ trên Luận Võ Đài.",
       "Gục trên đài không chết thật, hết giờ thì hoà. So tài để thử sức, không có thưởng."
+     ]
+    },
+    {
+     "q": "Đại Ma Thần là ai?",
+     "a": [
+      "Phản diện của cốt truyện: bàn tay hắc ám của Đại Ma Thần bắt sư tỷ Lạc Tuyết (hoặc sư huynh Tiêu Dao) đi, ma khí của hắn vây kín tinh hà.",
+      "Hiện chưa khiêu chiến được Đại Ma Thần. Làm nhiệm vụ hệ thống, mạnh lên để có ngày đối đầu."
      ]
     }
    ]
@@ -743,7 +749,7 @@
      "a": [
       "Nút Xếp hạng: Sức mạnh, Cảnh giới, Quản trị viên, Bí cảnh, Sát thương/giây.",
       "Cuối mỗi tuần, top 10 mỗi bảng nhận danh hiệu trong tuần sau (chỉ để trưng).",
-      "Chạm tên để xem hồ sơ, trang bị, ngọc, chiêu của người đó."
+      "Chạm tên để xem hồ sơ, trang bị, ngọc, pháp bảo của người đó."
      ]
     },
     {

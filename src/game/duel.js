@@ -1,8 +1,9 @@
 // So tài (data/duel.json): đấu trên Luận Võ Đài với bản sao dựng từ hồ sơ người chơi khác (game/profile.js). Bản sao có đúng
-// chỉ số người kia (playerStats), vũ khí, 3 chiêu và chiêu pháp bảo theo cấp, linh thú và đồng hành; tự đánh (game/duel-ai.js).
+// chỉ số người kia (playerStats), vũ khí, linh thú và khôi lỗi; tự đánh (game/duel-ai.js). Chủ dự án 21/11/2026 00:2x: gỡ chiêu cũ, bản sao
+// thôi tung 3 chiêu và chiêu pháp bảo của hệ chiêu trước Mùa 2 (chỉ đánh thường); đợt sau bản sao tung pháp bảo đang mặc của người đó.
 // Hết giờ thì hoà, gục trên đài không chết thật. Không thưởng gì: trận đánh ở máy mình nên không lấy làm thưởng được.
 // Xong trận về đúng chỗ đang đứng lúc bấm So tài. Luận Võ Đài (game/arena.js) chuyển việc sang đây khi đang so tài.
-import { playerStats, weaponId, artSkill } from './stats.js';
+import { playerStats, weaponId } from './stats.js';
 import { skillSlots } from './skills.js';
 import { petDef } from './evolve.js';
 import { duelTake } from './duel-cast.js';
@@ -11,7 +12,7 @@ import { dailyEvent } from './daily.js';
 import { curOutfit } from './fashion.js';
 
 const D = game => game.data.duel;
-// Hệ số đánh thường theo số chiêu tấn công đang mang (như player.js basicMul)
+// Hệ số đánh thường theo số chiêu tấn công trong ô chiêu của bản lưu, y như đòn thường của chính người đó đang tính (player.js basicMul)
 const basicOf = (game, slots) => { const C = game.data.config.combat, n = slots.filter(id => id && game.data.skills[id]?.mult).length; return 1 - (1 - C.basic) * Math.min(1, n / C.basic_full); };
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
 
@@ -68,7 +69,7 @@ function spawnClone(game, f) {
   const pos = game.map.freeNear(Math.floor(p.x / T), 2, 1, 6);
   const m = f.mob = game.spawn(D(game).base, pos.x, pos.y, {
     def, hp: def.hp, maxHp: def.hp, r: def.radius, noQi: true, tower: true, aggro: true, summoned: 2, duel: true, dmgMul: D(game).dmg,
-    save: s, st: f.st, atk: f.st.atk, wid: weaponId(s, data), basic: basicOf(game, slots), slots, art: artSkill(s, data),
+    save: s, st: f.st, atk: f.st.atk, wid: weaponId(s, data), basic: basicOf(game, slots), slots: [null, null, null], art: null,   // không tung chiêu cũ
     face: { x: 0, y: 1 }, atkCd: 0.5, skillCd: [0, 0, 0], artCd: 0, gcd: 0, shield: 0, buffT: 0, dashT: 0, swingT: 0,
   });
   m.take = (dmg, opt) => duelTake(game, m, dmg, opt);
@@ -95,7 +96,7 @@ function finish(game, res) {
   if (f.mob) f.mob.hitQ = null;
   game.bullets = game.bullets.filter(b => b.src !== f.mob); game.zones = game.zones.filter(z => !z.foe);   // dừng tay: đòn đang bay của bản sao tan
   game.sfx(res === 'win' ? 'levelup' : res === 'draw' ? 'warn' : 'hurt');
-  game.toast(f.tmText || fill(D(game).text[res], { name: f.prof.ten }), f.tmText ? 4 : 2.4);   // khiêu chiến Đại Ma Thần: kết quả máy chủ (game/thienma.js)
+  game.toast(f.tmText || fill(D(game).text[res], { name: f.prof.ten }), f.tmText ? 4 : 2.4);   // tmText: kết quả do máy chủ quyết (giành tinh cầu Khai Hoang, game/kh-act.js)
 }
 
 // Gọi mỗi khung từ updateArena khi đang so tài

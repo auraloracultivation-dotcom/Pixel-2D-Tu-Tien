@@ -22,7 +22,7 @@ export async function khSendImage(game, file, tenCt, loai, tenNpc) {
   return id;
 }
 
-// Khiêu chiến tông chủ cũ của tinh cầu bỏ trống: máy chủ quyết; trận so tài với bản sao tông chủ cũ để xem (như khiêu chiến Đại Ma Thần)
+// Khiêu chiến tông chủ cũ của tinh cầu bỏ trống: máy chủ quyết; trận so tài với bản sao tông chủ cũ để xem
 export async function khChallenge(game, p) {
   const T = K(game).text;
   let r;

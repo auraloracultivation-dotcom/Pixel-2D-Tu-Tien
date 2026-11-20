@@ -1,5 +1,5 @@
-// Bản sao so tài tự đánh như người chơi bật Tự đánh (game/auto.js fightStep): áp sát tới tầm vũ khí, đánh thường, chiêu nào
-// hồi xong thì dùng khi đối thủ trong tầm (chiêu hồi máu chỉ dùng khi máu dưới duel.heal_below), chiêu pháp bảo cũng vậy.
+// Bản sao so tài tự đánh như người chơi bật Tự đánh (game/auto.js fightStep): áp sát tới tầm vũ khí, đánh thường. Từ 21/11/2026 bản sao
+// không còn ô chiêu nào (duel.js spawnClone: gỡ chiêu cũ), nên useSkills không tung gì; phần tung chiêu cũ sẽ dọn khi bản sao dùng pháp bảo.
 // Linh thú, đồng hành của bản sao đi theo nó, đánh người chơi như linh thú của mình đánh quái (game/pets.js updateFollower).
 import { addFx, dist, shoot } from './combat.js';
 import { clearShot } from './auto.js';

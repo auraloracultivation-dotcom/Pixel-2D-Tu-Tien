@@ -24,7 +24,7 @@
  },
  "tra": {
   "_note": "Tàng Thư (chủ dự án 10/11/2026 09:16: nâng cấp Hệ Thống thông minh hơn, mọi thông tin game, từ khoá nào cũng bấm xem được; mẫu wiki cotienlo.com). Tự dựng từ data/ (src/game/tra-cuu.js), giao diện src/ui/he-thong-tra.js. kinds: tên loại mục; row: nhãn dòng chỉ số.",
-  "find": "Tìm chiêu, quái, đan, bản đồ… (không dấu cũng được)",
+  "find": "Tìm pháp bảo, quái, đan, bản đồ… (không dấu cũng được)",
   "all": "Tất cả",
   "suggest": "Bổn hệ thống gợi ý cho ký chủ",
   "count": "Tàng Thư đang chép {n} mục. Gõ tên bất kỳ, hoặc chạm chữ màu ở khắp Hệ Thống để xem.",
@@ -32,8 +32,8 @@
   "related": "Liên quan",
   "ask_quick": "Bổn hệ thống biết ngay",
   "ask_quick_none": "Chưa tìm thấy trong Tàng Thư, ký chủ gửi đi để người thật trả lời.",
-  "kinds": {"realm": "Cảnh giới", "root": "Linh căn", "skill": "Chiêu", "tech": "Công pháp", "map": "Bản đồ", "mob": "Quái", "boss": "Boss", "npc": "NPC", "pill": "Đan", "mat": "Nguyên liệu", "pet": "Linh thú", "mount": "Thú cưỡi", "outfit": "Thời trang"},
-  "row": {"layers": "Số tầng", "next": "Cảnh giới kế", "realm_desc": "Cảnh giới thứ {n}, mỗi cảnh giới {l} tầng; đủ tầng thì độ thiên kiếp để đột phá.", "qi": "Linh khí", "chance": "Tỉ lệ thức tỉnh", "cd": "Hồi chiêu", "mp": "Linh lực", "mult": "Sát thương", "range": "Tầm", "level": "cấp", "hp": "Sinh lực", "atk": "Công", "rate": "Tỉ lệ thành", "make": "Mỗi lò ra", "tech_drop": "Rơi bí kíp công pháp", "shop": "Bán ở tiệm", "coin": "Linh Thạch", "gem": "Tiên Ngọc", "evo": "Tiến hoá thành", "speed": "Tốc chạy", "price": "Giá", "drop_from": "Rơi từ", "recipe": "Công thức"}
+  "kinds": {"realm": "Cảnh giới", "root": "Linh căn", "pb": "Pháp bảo", "ck": "Chiêu khảm", "tech": "Công pháp", "map": "Bản đồ", "mob": "Quái", "boss": "Boss", "npc": "NPC", "pill": "Đan", "mat": "Nguyên liệu", "pet": "Linh thú", "mount": "Thú cưỡi", "outfit": "Thời trang"},
+  "row": {"layers": "Số tầng", "next": "Cảnh giới kế", "realm_desc": "Cảnh giới thứ {n}, mỗi cảnh giới {l} tầng; đủ tầng thì độ thiên kiếp để đột phá.", "qi": "Linh khí", "chance": "Tỉ lệ thức tỉnh", "cd": "Hồi chiêu", "mp": "Linh lực", "group": "Nhóm", "get_at": "Nhận ở", "learn_at": "Lĩnh ngộ ở", "level": "cấp", "hp": "Sinh lực", "atk": "Công", "rate": "Tỉ lệ thành", "make": "Mỗi lò ra", "tech_drop": "Rơi bí kíp công pháp", "shop": "Bán ở tiệm", "coin": "Linh Thạch", "gem": "Tiên Ngọc", "evo": "Tiến hoá thành", "speed": "Tốc chạy", "price": "Giá", "drop_from": "Rơi từ", "recipe": "Công thức"}
  },
  "task_head": "Nhiệm vụ hệ thống",
  "task_none": "Ký chủ đã làm hết nhiệm vụ bổn hệ thống giao lúc này. Đi bí cảnh, săn boss, luyện cảnh giới đi, nhiệm vụ mới sẽ tới.",
@@ -58,7 +58,7 @@
  "deaths_s": 240,
  "nudge": {
   "idle": "Ký chủ đứng ngẩn ra đó làm gì? Chạm Dẫn đường, bổn hệ thống dắt đi làm nhiệm vụ.",
-  "death": "Lại gục? Ký chủ ơi... Mặc trang bị tốt nhất, học chiêu mới, hoặc đi đánh quái yếu hơn mà lên cấp đi.",
+  "death": "Lại gục? Ký chủ ơi... Mặc trang bị tốt nhất, nâng cấp pháp bảo, hoặc đi đánh quái yếu hơn mà lên cấp đi.",
   "step": "Có nhiệm vụ mới. Chạm vào đây.",
   "kiep": "Đinh! Linh khí ký chủ đã đầy, đủ sức phá cảnh giới! Bấm nút Độ thiên kiếp trên màn hình rồi né sét cho khéo. Tự hành không độ hộ đâu.",
   "claim": "Đinh! Ký chủ có nhiệm vụ đã xong mà chưa nhận điểm. Chạm vào đây nhận đi, đủ điểm là triệu hồi quà được rồi."
@@ -123,7 +123,7 @@
    "goal": "Linh căn ảnh hưởng tới điều gì?",
    "hoi": {
     "opts": [
-     "Hệ chiêu thức và trang bị hợp hệ",
+     "Trang bị nào hợp hệ với ký chủ",
      "Màu tóc của ký chủ",
      "Số bạn bè trong game"
     ],
@@ -225,7 +225,7 @@
      "coins": 2000
     }
    ],
-   "xong": "Đinh! Linh thảo là gốc của đan dược. Tặng Hồi Linh Đan: hết linh lực thì uống, chiêu lớn ra liên tục."
+   "xong": "Đinh! Linh thảo là gốc của đan dược. Tặng Hồi Linh Đan: hết linh lực thì uống, pháp bảo tung được tiếp."
   },
   {
    "id": "hoi-tu-danh",
@@ -256,7 +256,7 @@
      "n": 5
     }
    ],
-   "xong": "Đinh! Bật Tự đánh là nhân vật tự tìm quái, tự ra chiêu. Bổn hệ thống khuyên: tự đánh nhưng vẫn phải nhìn máu."
+   "xong": "Đinh! Bật Tự đánh là nhân vật tự tìm quái, tự tung pháp bảo. Bổn hệ thống khuyên: tự đánh nhưng vẫn phải nhìn máu."
   },
   {
    "id": "pb-kham-1",
@@ -1445,7 +1445,7 @@
     }
    ],
    "xong": "Đinh! Bốn pháp bảo bốn nút. Công thủ toàn diện, ký chủ giờ là một cỗ máy.",
-   "tip": "Nguyên Anh mở ô pháp bảo thứ 4 (nút pháp bảo cạnh ba nút chiêu).",
+   "tip": "Nguyên Anh mở ô pháp bảo thứ 4 (thêm nút pháp bảo thứ tư trên màn hình).",
    "go": "btn-bag"
   },
   {
