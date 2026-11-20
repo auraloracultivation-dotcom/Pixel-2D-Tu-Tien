@@ -46,8 +46,9 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   // Ô lò: hình lò viền màu phẩm (chỉ viền hình, khung không màu), tên phẩm + cấp
   const R = D.items.rarities[lo.ph] || D.items.rarities[0], box = el('div', 'ld-lo');
   box.style.setProperty('--q', R.color);
-  const lop = el('div', 'ld-lo-img'), spr = D.art.sprites[(C.hinh || [])[lo.hinh | 0] || C.spr];   // hình lò (4 mẫu ảnh GPT 20/11/2026 14:10)
+  const sid = (C.hinh || [])[lo.hinh | 0] || C.spr, lop = el('div', 'ld-lo-img'), spr = D.art.sprites[sid];   // hình lò (4 mẫu ảnh GPT 20/11/2026 14:10)
   if (spr) lop.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
+  box.dataset.spr = sid;   // lo-dan-fx.js tìm chuyển động <sid>.chay, <sid>.thanh (SpriteCook)
   box.append(lop, el('b', 'ld-lo-ten', `${(C.hinh_ten || [])[lo.hinh | 0] || 'Lò'} · ${R.name}`), el('small', null, T.lv.replace('{c}', lo.cap)));
   lop.onclick = () => {   // 4 loại lò (chủ dự án 14:10): chạm hình lò đổi sang loại kế tiếp, không đổi phẩm, cấp
     if (ld.busy) return;

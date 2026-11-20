@@ -71,3 +71,8 @@
 .ld-h { display: flex; align-items: center; justify-content: space-between; }
 .ld-hoi { width: 18px; height: 18px; padding: 0; border: 1.5px solid #ffcf5a; border-radius: 50%; background: #5a3a10; color: #ffe27a; font: 900 11px/1 var(--f-body, sans-serif); cursor: pointer; }
 .ld-lo-img { cursor: pointer; }
+/* Chuyển động lò SpriteCook (lo-dan-fx.js play): đè đúng chỗ ảnh tĩnh, cùng viền màu phẩm */
+.ld-anim { position: fixed; display: block; pointer-events: none; z-index: 2; background-repeat: no-repeat; background-position-y: 0; image-rendering: pixelated;
+  filter: drop-shadow(1px 0 0 var(--q)) drop-shadow(-1px 0 0 var(--q)) drop-shadow(0 1px 0 var(--q)) drop-shadow(0 -1px 0 var(--q)) drop-shadow(0 0 5px var(--q)); }
+.ld-anim-chay { filter: drop-shadow(1px 0 0 var(--q)) drop-shadow(-1px 0 0 var(--q)) drop-shadow(0 6px 6px #ff6a1a) drop-shadow(0 0 8px #ff9a3a); }
+.ldx-hao.nhe { z-index: 1; }   /* nằm dưới lò đang bung nắp (.ld-anim z 2) */

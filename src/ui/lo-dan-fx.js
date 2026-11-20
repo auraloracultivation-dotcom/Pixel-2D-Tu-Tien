@@ -17,6 +17,27 @@ function bit(cls, x, y, html) {   // một thẻ nổi đặt theo toạ độ m
   return d;
 }
 
+// Chuyển động lò (SpriteCook 20/11/2026, data/art.json → lo.<mã>.chay | .thanh): tấm khung đè đúng chỗ ảnh tĩnh, cùng cỡ điểm ảnh,
+// đáy giữa trùng đáy giữa ảnh tĩnh. loop: chạy vòng tới khi gọi stop(); không loop: chạy một lượt rồi tự tắt. Trả { stop, done } hoặc null.
+function play(game, box, kind, loop) {
+  const D = game.data, a = D.art.sprites[`${box.dataset.spr}.${kind}`], base = D.art.sprites[box.dataset.spr], img = box.querySelector('.ld-lo-img');
+  if (!a || !base || !img) return null;
+  const r = img.getBoundingClientRect(), s = r.height / base.h, d = el('i', 'ld-anim ld-anim-' + kind), fps = 8;   // nổi trên màn (lớp #ld-fx) để nắp bay lên không bị khung bảng cắt
+  Object.assign(d.style, { width: a.w * s + 'px', height: a.h * s + 'px', left: r.left + r.width / 2 - a.anchor[0] * s + 'px',
+    top: r.bottom - (a.anchor[1] + 1) * s + 'px', backgroundImage: `url("${a.file}?v=${a.v}")`, backgroundSize: `${a.frames * 100}% 100%` });
+  d.style.setProperty('--q', getComputedStyle(box).getPropertyValue('--q'));
+  layer().append(d); img.style.visibility = 'hidden';
+  let i = 0, end, t = null;
+  const done = new Promise(r => { end = r; });
+  const stop = () => { clearInterval(t); d.remove(); img.style.visibility = ''; end(); };
+  const step = () => {
+    if (i >= a.frames) { if (!loop) return stop(); i = 0; }
+    d.style.backgroundPositionX = (a.frames > 1 ? (i / (a.frames - 1)) * 100 : 0) + '%'; i++;
+  };
+  step(); t = setInterval(step, 1000 / fps);
+  return { stop, done };
+}
+
 // Nhịp 1 + 2: chạy tới khi job() xong (ít nhất F.burn ms), trả kết quả của job()
 export async function brewFx(game, box, slotEls, job) {
   const F = game.data.cave.lo.fx, img = box.querySelector('.ld-lo-img'), m = center(img), mouth = { x: m.x, y: m.y - m.h * 0.28 };
@@ -30,7 +51,8 @@ export async function brewFx(game, box, slotEls, job) {
   }
   game.sfx?.('pickup');
   await wait(F.fly + Math.max(0, slotEls.length - 1) * F.gap);
-  box.classList.add('ld-chay');   // lò rung, đáy lò đỏ rực (lo-dan.css)
+  const anim = play(game, box, 'chay', true);   // lửa đáy lò, lửa trong lòng lò, khói, rung nhẹ; chưa có chuyển động thì rung bằng CSS
+  box.classList.add(anim ? 'ld-chay-sc' : 'ld-chay');
   game.sfx?.('brew');
   const t0 = performance.now(), sparks = setInterval(() => {   // tia lửa, đốm lửa bay lên từ đáy lò
     for (let k = 0; k < 3; k++) {
@@ -44,7 +66,8 @@ export async function brewFx(game, box, slotEls, job) {
   try { res = await job(); } finally {
     await wait(Math.max(0, F.burn - (performance.now() - t0)));
     clearInterval(sparks);
-    box.classList.remove('ld-chay');
+    anim?.stop();
+    box.classList.remove('ld-chay', 'ld-chay-sc');
   }
   return res;
 }
@@ -52,19 +75,8 @@ export async function brewFx(game, box, slotEls, job) {
 // Nhịp 3: kết quả
 export function resultFx(game, box, ok, dan, n) {
   const D = game.data, img = box.querySelector('.ld-lo-img'), m = center(img), lid = { x: m.x, y: m.y - m.h * 0.42 };
-  if (ok) {
-    const glow = bit('ldx-hao', m.x, m.y); setTimeout(() => glow.remove(), 1400);
-    for (let k = 0; k < 14; k++) {   // tia vàng toả ra
-      const s = bit('ldx-sao', lid.x, lid.y), a = (k / 14) * Math.PI * 2;
-      s.style.setProperty('--dx', Math.cos(a) * 60 + 'px'); s.style.setProperty('--dy', Math.sin(a) * 45 + 'px');
-      setTimeout(() => s.remove(), 900);
-    }
-    const spr = D.art.sprites['ui.vk-' + dan], p = el('i', 'ldx-ico');
-    if (spr) p.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`; else p.style.background = D.cave.pills[dan]?.color || '#ffe27a';
-    const pill = bit('ldx-dan', lid.x, lid.y, p);
-    pill.append(el('b', null, '×' + n));
-    setTimeout(() => pill.remove(), 1900);
-    game.sfx?.('levelup');
+  if (ok) {   // bung nắp (SpriteCook .thanh: nắp bật ở khung 3–5), hào quang, viên đan bay ra, rồi lò tắt lửa về hình tĩnh
+    if (play(game, box, 'thanh', false)) setTimeout(() => pop(game, D, m, lid, dan, n, true), 450); else pop(game, D, m, lid, dan, n);
   } else {
     box.classList.add('ld-no'); setTimeout(() => box.classList.remove('ld-no'), 700);
     for (let k = 0; k < 9; k++) {   // khói đen cuộn lên
@@ -75,4 +87,19 @@ export function resultFx(game, box, ok, dan, n) {
     }
     game.sfx?.('hurt');
   }
+}
+
+function pop(game, D, m, lid, dan, n, nhe) {   // hào quang (nhe: nhạt bớt cho thấy lò bung nắp), tia vàng toả ra, viên đan bật ra khỏi nắp kèm số viên
+  const glow = bit('ldx-hao' + (nhe ? ' nhe' : ''), m.x, m.y); setTimeout(() => glow.remove(), 1400);
+  for (let k = 0; k < 14; k++) {
+    const s = bit('ldx-sao', lid.x, lid.y), a = (k / 14) * Math.PI * 2;
+    s.style.setProperty('--dx', Math.cos(a) * 60 + 'px'); s.style.setProperty('--dy', Math.sin(a) * 45 + 'px');
+    setTimeout(() => s.remove(), 900);
+  }
+  const spr = D.art.sprites['ui.vk-' + dan], p = el('i', 'ldx-ico');
+  if (spr) p.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`; else p.style.background = D.cave.pills[dan]?.color || '#ffe27a';
+  const pill = bit('ldx-dan', lid.x, lid.y, p);
+  pill.append(el('b', null, '×' + n));
+  setTimeout(() => pill.remove(), 1900);
+  game.sfx?.('levelup');
 }
