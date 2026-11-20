@@ -1271,7 +1271,17 @@
   "tk.hoa-lam-sc": "nho",
   "tk.hoa-vang-sc": "nho",
   "tk.cong-bi-canh-sc": "nha",
-  "tk.cong-dong-phu-sc": "nha"
+  "tk.cong-dong-phu-sc": "nha",
+  "tc.nam-lam-to": "tru",
+  "tc.nam-tim-to": "tru",
+  "tc.soi-nui-lua": "nho",
+  "tc.soi-vang": "nho",
+  "tc.da-nui-1-": "nho",
+  "tc.da-nui-2-": "nho",
+  "tc.da-nui-3-": "nho",
+  "tc.da-nui-4-": "nho",
+  "tc.nui-doi-1-": "nho",
+  "tc.nui-doi-2-": "nho"
  },
  "glow": {
   "warm": {

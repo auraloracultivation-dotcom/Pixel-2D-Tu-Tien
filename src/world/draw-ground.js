@@ -4,7 +4,7 @@ import { spriteImage } from '../render/sprites.js';
 import { roundRim } from './draw-rim.js';
 import { bakeDat } from './draw-dat.js';
 import { paintNature } from './draw-nature.js';
-import { drawNen, nenReady } from './draw-nen.js';
+import { drawNen, nenReady, kyPainted } from './draw-nen.js';
 
 const GRASSY = '.FTRH';   // ô đứng trên nền cỏ
 const EDGES = [[0, -1], [1, 0], [0, 1], [-1, 0]];   // thứ tự khung tile.edge: cỏ ở trên, phải, dưới, trái
@@ -211,7 +211,7 @@ export const propBaked = (map, tx, ty) => cache.map === map && cache.baked?.[ty 
 // Lớp nền từ tấm đệm, chỉ phần đang thấy. baseTile: cách vẽ hình khối một ô (draw-map.js) cho ô chưa có hình.
 export function drawGround(ctx, game, map, tiles, view, hash, baseTile) {
   if (map.def.nen) {   // nền bộ 15 mảnh SpriteCook, vẽ theo mảng (draw-nen.js)
-    if (cache.nen !== map) cache = { map: null, nen: map, cv: null, painted: new Set(['=']), baked: null };   // nước đã vẽ ở nền: draw-map.js chỉ thêm ánh nước
+    if (cache.nen !== map) cache = { map: null, nen: map, cv: null, painted: kyPainted(map.def.nen), baked: null };   // ô đã vẽ ở nền: draw-map.js chỉ thêm ánh nước, bọt dung nham
     return drawNen(ctx, game, map, tiles, view, hash);
   }
   if (cache.map !== map) { const cv = build(game, map, tiles, hash, baseTile); if (!cv) { cache.painted = new Set(); cache.baked = null; return false; } cache = { map, cv, painted: cache.painted, baked: cache.baked }; }
