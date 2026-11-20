@@ -51,9 +51,9 @@ const info = await p.evaluate(async O => {
     const pl = g.player, id = 'nguoi-thu';
     g.others.presence([{ id, name: 'Đạo hữu', element: s.element, realm: 'Trúc Cơ tầng 9', look: s.look, outfit: O.bo || s.outfit || null, mount: null, pt: null }]);
     g.others.move({ id, x: pl.x + 44, y: pl.y - 6, fx: 0, fy: 1 });
-    g.__bd = () => g.others.cast({ id, k: 'kd-bd', x: pl.x + 44, y: pl.y - 6, fx: 0.6, fy: 0 });
+    g.__bd = () => g.others.cast({ id, k: 'kd-bd', x: pl.x + 44, y: pl.y - 6, fx: 0.45, fy: 0 });
     g.__ok = () => g.others.cast({ id, k: 'kd-ok', x: pl.x + 44, y: pl.y - 6, fx: 0, fy: 0 });
-    g.__T = (await import('/src/game/ket-dan.js')).kdTimes(g.data.config.ket_dan, 12);
+    g.__T = (m => m.kdTimes(g.data.config.ket_dan, m.kdPlan(g.data.config.ket_dan, 9, 0)))(await import('/src/game/ket-dan.js'));
   }
   return { tu: `${s.realm}/${s.layer}`, look: s.look, bo: s.outfit, map: g.map.id, hp: `${g.player.hp}/${g.player.maxHp}`, others: g.others.count() };
 }, O);
