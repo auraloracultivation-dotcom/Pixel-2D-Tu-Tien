@@ -6,27 +6,9 @@
  "dark": 0.05,
  "ground": "#e4eef6",
  "tint_mul": 1.45,
- "island": {
-  "top": "#d8e6f0",
-  "under": "#8aa8c0",
-  "trees": "#4a6a80"
- },
+ "island": {"top": "#d8e6f0", "under": "#8aa8c0", "trees": "#4a6a80"},
  "world": true,
- "planet": {
-  "d": 92,
-  "origin": [
-   6,
-   12
-  ],
-  "terrain": 1,
-  "settle": 1,
-  "open": 1,
-  "grown": {
-   "s": 1.5,
-   "from": 48,
-   "note": "tools/mo-rong-dao.py 09/11/2026"
-  }
- },
+ "planet": {"d": 92, "origin": [6, 12], "terrain": 1, "settle": 1, "open": 1, "grown": {"s": 1.5, "from": 48, "note": "tools/mo-rong-dao.py 09/11/2026"}},
  "grid": [
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
@@ -121,871 +103,215 @@
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwww~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
  ],
- "spawns": {
-  "vao": [
-   27,
-   46
-  ],
-  "tu-bang-quat": [
-   46,
-   34
-  ]
- },
- "portals": [
-  {
-   "at": [
-    24,
-    46
-   ],
-   "to": "thien-kiem-phong",
-   "spawn": "tu-han-bang",
-   "label": "Truyền tống về Thiên Kiếm Tinh",
-   "fly": true
-  },
-  {
-   "at": [
-    46,
-    31
-   ],
-   "to": "han-bang-quat",
-   "spawn": "vao",
-   "need": "mo-bang-quat",
-   "label": "Băng Quật"
-  }
- ],
- "npcs": [
-  {
-   "id": "lao-ngu",
-   "at": [
-    34,
-    43
-   ]
-  },
-  {
-   "id": "lac-tuyet",
-   "at": [
-    31,
-    46
-   ],
-   "need": "han-bang",
-   "unless": "lac-tuyet-vang"
-  },
-  {
-   "id": "tuyet-nhi",
-   "at": [
-    33,
-    72
-   ]
-  }
- ],
- "spawners": [
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    86,
-    39
-   ],
-   "n": 4,
-   "spread": 4,
-   "respawn": 5
-  },
-  {
-   "mob": "bang-tinh",
-   "at": [
-    80,
-    67
-   ],
-   "n": 3,
-   "spread": 4,
-   "respawn": 7
-  },
-  {
-   "mob": "ma-bang-tien",
-   "at": [
-    81,
-    24
-   ],
-   "n": 2,
-   "spread": 3,
-   "respawn": 8,
-   "need": "han-bang"
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    51,
-    5
-   ],
-   "farm": true
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    86,
-    51
-   ],
-   "farm": true
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    29,
-    8
-   ],
-   "farm": true
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    84,
-    58
-   ],
-   "farm": true
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    86,
-    40
-   ],
-   "farm": true,
-   "mul": 2
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    54,
-    78
-   ],
-   "farm": true,
-   "mul": 2
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    16,
-    61
-   ],
-   "farm": true,
-   "mul": 2
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    17,
-    16
-   ],
-   "farm": true,
-   "mul": 2
-  },
-  {
-   "mob": "tuyet-lang",
-   "at": [
-    52,
-    5
-   ],
-   "farm": true,
-   "mul": 2
-  }
- ],
+ "spawns": {"vao": [27, 46], "tu-bang-quat": [46, 34]},
+ "portals": [{"at": [24, 46], "to": "thien-kiem-phong", "spawn": "tu-han-bang", "label": "Truyền tống về Thiên Kiếm Tinh", "fly": true}, {"at": [46, 31], "to": "han-bang-quat", "spawn": "vao", "need": "mo-bang-quat", "label": "Băng Quật"}],
+ "npcs": [{"id": "lao-ngu", "at": [34, 43]}, {"id": "lac-tuyet", "at": [31, 46], "need": "han-bang", "unless": "lac-tuyet-vang"}, {"id": "tuyet-nhi", "at": [33, 72]}],
+ "spawners": [{"mob": "tuyet-lang", "at": [86, 39], "n": 4, "spread": 4, "respawn": 5}, {"mob": "bang-tinh", "at": [80, 67], "n": 3, "spread": 4, "respawn": 7}, {"mob": "ma-bang-tien", "at": [81, 24], "n": 2, "spread": 3, "respawn": 8, "need": "han-bang"}, {"mob": "tuyet-lang", "at": [51, 5], "farm": true}, {"mob": "tuyet-lang", "at": [86, 51], "farm": true}, {"mob": "tuyet-lang", "at": [29, 8], "farm": true}, {"mob": "tuyet-lang", "at": [84, 58], "farm": true}, {"mob": "tuyet-lang", "at": [86, 40], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [54, 78], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [16, 61], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [17, 16], "farm": true, "mul": 2}, {"mob": "tuyet-lang", "at": [52, 5], "farm": true, "mul": 2}],
  "rooms": [],
- "hoi": {
-  "le": "han-nguyet-long-dang",
-  "do": [
-   [
-    "hb.cong-bang-m",
-    46.8,
-    37.0
-   ],
-   [
-    "hb.dien-bang-m",
-    31.9,
-    34.9
-   ],
-   [
-    "hb.thap-tuyet-m",
-    56.5,
-    34.6
-   ],
-   [
-    "hb.vac-bang-m",
-    39.4,
-    38.8
-   ],
-   [
-    "hb.vac-bang-m",
-    54.1,
-    38.8
-   ],
-   [
-    "hb.nguoi-tuyet-m",
-    52.6,
-    44.2
-   ],
-   [
-    "hb.sap-lau-m",
-    18.1,
-    44.5
-   ],
-   [
-    "hb.sap-tra-m",
-    24.1,
-    44.5
-   ],
-   [
-    "hb.sap-thit-m",
-    18.1,
-    51.5
-   ],
-   [
-    "hb.sap-long-m",
-    24.1,
-    51.5
-   ],
-   [
-    "hb.sap-tra-m",
-    39.4,
-    51.5
-   ],
-   [
-    "hb.sap-thuoc-m",
-    51.4,
-    51.5
-   ],
-   [
-    "hb.cay-tung-nho-m",
-    15.4,
-    40.9
-   ],
-   [
-    "hb.cong-trang-m",
-    33.2,
-    55.3
-   ],
-   [
-    "hb.dien-tuyet-m",
-    46.9,
-    64.6
-   ],
-   [
-    "hb.bui-mai-m",
-    68.5,
-    57.7
-   ],
-   [
-    "hb.cong-tron-m",
-    58.8,
-    56.8
-   ],
-   [
-    "hb.sap-thuoc-m",
-    55.9,
-    59.5
-   ],
-   [
-    "hb.vac-bang-m",
-    61.0,
-    63.4
-   ],
-   [
-    "hb.sap-long-m",
-    56.5,
-    69.4
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    62.5,
-    46.9
-   ],
-   [
-    "hb.lieu-bang-m",
-    65.2,
-    43.0
-   ],
-   [
-    "hb.cay-bang-m",
-    16.3,
-    66.1
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    40.3,
-    28.9
-   ],
-   [
-    "hb.cay-kho-m",
-    63.4,
-    28.6
-   ],
-   [
-    "hb.pha-le-lon-m",
-    67.9,
-    31.9
-   ],
-   [
-    "hb.tru-pha-le-m",
-    70.6,
-    37.9
-   ],
-   [
-    "hb.cay-mai-m",
-    22.3,
-    30.4
-   ],
-   [
-    "hb.cay-mai-m",
-    67.3,
-    67.0
-   ],
-   [
-    "hb.dien-tuyet-m",
-    59.5,
-    22.0
-   ],
-   [
-    "hb.nha-tuyet-m",
-    29.5,
-    25.0
-   ],
-   [
-    "hb.nha-pha-le-m",
-    73.0,
-    46.8
-   ],
-   [
-    "hb.dien-nho-m",
-    45.2,
-    72.2
-   ],
-   [
-    "hb.thac-bang-m",
-    55.0,
-    16.8
-   ],
-   [
-    "hb.gieng-bang-m",
-    45.2,
-    28.0
-   ],
-   [
-    "hb.nha-ca-m",
-    22.8,
-    66.2
-   ],
-   [
-    "hb.lua-trai-m",
-    52.0,
-    73.0
-   ],
-   [
-    "hb.cui-m",
-    56.5,
-    74.5
-   ],
-   [
-    "hb.xe-truot-m",
-    48.2,
-    74.5
-   ],
-   [
-    "hb.ro-ca-m",
-    25.0,
-    68.5
-   ],
-   [
-    "hb.thung-tuyet-m",
-    67.0,
-    55.0
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    74.5,
-    35.5
-   ],
-   [
-    "hb.cay-tung-nho-m",
-    63.2,
-    74.5
-   ],
-   [
-    "hb.cay-mai-m",
-    51.2,
-    27.2
-   ],
-   [
-    "hb.pha-le-tim-m",
-    77.5,
-    46.8
-   ],
-   [
-    "hb.manh-bang-m",
-    40.0,
-    22.0
-   ],
-   [
-    "hb.pha-le-dai-m",
-    28.8,
-    73.0
-   ],
-   [
-    "hb.qua-cau-bang-m",
-    67.0,
-    36.2
-   ],
-   [
-    "hb.da-bang-m",
-    77.5,
-    49.8
-   ],
-   [
-    "hb.bia-van-m",
-    46.0,
-    24.2
-   ],
-   [
-    "hb.soi-tuyet-m",
-    28.0,
-    37.0
-   ],
-   [
-    "hb.bia-cua-m",
-    35.5,
-    73.0
-   ],
-   [
-    "hb.da-vach-m",
-    69.2,
-    23.5
-   ],
-   [
-    "hb.da-khoi-bang-m",
-    76.8,
-    58.0
-   ],
-   [
-    "hb.bui-tuyet-m",
-    31.0,
-    37.0
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    41.5,
-    31.0
-   ],
-   [
-    "hb.bui-co-trang-m",
-    66.2,
-    46.0
-   ],
-   [
-    "hb.bui-mai-m",
-    70.0,
-    61.0
-   ],
-   [
-    "hb.bui-tuyet-m",
-    52.0,
-    70.0
-   ],
-   [
-    "hb.lu-huong-m",
-    52.0,
-    34.0
-   ],
-   [
-    "hb.lan-can-tuyet-m",
-    70.0,
-    25.8
-   ],
-   [
-    "hb.thac-bang-lon-m",
-    81.8,
-    64.4
-   ],
-   [
-    "hb.pha-le-to-m",
-    32.6,
-    83.0
-   ],
-   [
-    "hb.bang-tam-chau-m",
-    7.9,
-    31.8
-   ],
-   [
-    "hb.nhu-bang-lon-m",
-    59.3,
-    8.8
-   ],
-   [
-    "hb.han-ngoc-tru-m",
-    32.3,
-    8.8
-   ],
-   [
-    "chung.bien-go",
-    55.6,
-    70.8,
-    "→ Bãi Tuyết lang"
-   ],
-   [
-    "chung.bien-go",
-    50.8,
-    31.5,
-    "→ Vách Nhũ Băng"
-   ],
-   [
-    "chung.bien-go",
-    12.4,
-    43.8,
-    "→ Băng Tâm Châu"
-   ],
-   [
-    "hb.den-da-tuyet-m",
-    9.9,
-    42.9
-   ],
-   [
-    "chung.bien-go",
-    70.1,
-    57.6,
-    "→ Bãi Tuyết lang"
-   ],
-   [
-    "chung.bien-go",
-    82.5,
-    66.2,
-    "Thác Băng"
-   ],
-   [
-    "chung.bien-go",
-    37.1,
-    85.2,
-    "Mỏ Pha Lê"
-   ],
-   [
-    "hb.den-da-tuyet-m",
-    28.8,
-    84.4
-   ],
-   [
-    "chung.bien-go",
-    9.3,
-    34.3,
-    "Băng Tâm Châu"
-   ],
-   [
-    "hb.den-da-tuyet-m",
-    6.2,
-    34.6
-   ],
-   [
-    "chung.bien-go",
-    62.4,
-    10.0,
-    "Vách Nhũ Băng"
-   ],
-   [
-    "chung.bien-go",
-    35.4,
-    9.0,
-    "Trụ Hàn Ngọc"
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    84.6,
-    29.5
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    84.9,
-    33.3
-   ],
-   [
-    "hb.cay-kho-m",
-    19.4,
-    70.2
-   ],
-   [
-    "hb.lieu-bang-m",
-    16.4,
-    74.0
-   ],
-   [
-    "hb.bui-co-trang-m",
-    15.7,
-    69.7
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    23.1,
-    72.6
-   ],
-   [
-    "hb.bui-mai-m",
-    25.8,
-    13.6
-   ],
-   [
-    "hb.da-bang-m",
-    28.7,
-    15.5
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    9.9,
-    38.3
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    39.2,
-    77.6
-   ],
-   [
-    "hb.bui-co-trang-m",
-    37.9,
-    82.6
-   ],
-   [
-    "hb.da-tuyet-m",
-    29.9,
-    78.3
-   ],
-   [
-    "hb.cay-mai-m",
-    15.0,
-    30.5
-   ],
-   [
-    "hb.bui-co-trang-m",
-    11.2,
-    34.8
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    11.5,
-    60.4
-   ],
-   [
-    "hb.bui-co-trang-m",
-    10.6,
-    63.5
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    12.7,
-    57.2
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    6.1,
-    58.9
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    8.7,
-    54.2
-   ],
-   [
-    "hb.soi-tuyet-m",
-    7.2,
-    61.0
-   ],
-   [
-    "hb.cay-mai-m",
-    23.1,
-    78.6
-   ],
-   [
-    "hb.bui-mai-m",
-    26.8,
-    76.5
-   ],
-   [
-    "hb.bui-mai-m",
-    23.8,
-    75.5
-   ],
-   [
-    "hb.soi-tuyet-m",
-    47.8,
-    7.9
-   ],
-   [
-    "hb.cay-bang-m",
-    45.3,
-    83.5
-   ],
-   [
-    "hb.cay-kho-m",
-    45.4,
-    87.4
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    40.3,
-    86.4
-   ],
-   [
-    "hb.bui-tuyet-m",
-    40.6,
-    80.9
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    40.2,
-    83.7
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    57.0,
-    84.6
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    58.5,
-    80.5
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    51.0,
-    80.8
-   ],
-   [
-    "hb.bui-co-trang-m",
-    53.3,
-    85.1
-   ],
-   [
-    "hb.bui-co-trang-m",
-    51.4,
-    77.7
-   ],
-   [
-    "hb.soi-tuyet-m",
-    54.9,
-    81.8
-   ],
-   [
-    "hb.cay-mai-m",
-    40.4,
-    8.2
-   ],
-   [
-    "hb.bui-mai-m",
-    37.9,
-    14.0
-   ],
-   [
-    "hb.da-bang-m",
-    36.6,
-    6.8
-   ],
-   [
-    "hb.bui-mai-m",
-    84.2,
-    36.1
-   ],
-   [
-    "hb.bui-co-trang-m",
-    12.5,
-    41.5
-   ],
-   [
-    "hb.bui-tuyet-m",
-    4.7,
-    39.7
-   ],
-   [
-    "hb.da-bang-m",
-    12.6,
-    38.0
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    21.7,
-    20.2
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    22.5,
-    24.0
-   ],
-   [
-    "hb.bui-co-trang-m",
-    17.6,
-    23.7
-   ],
-   [
-    "hb.da-bang-m",
-    16.6,
-    21.2
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    67.6,
-    11.7
-   ],
-   [
-    "hb.bui-tuyet-m",
-    64.9,
-    8.6
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    62.7,
-    13.0
-   ],
-   [
-    "hb.da-bang-m",
-    71.4,
-    13.5
-   ],
-   [
-    "hb.cay-tung-tuyet-m",
-    7.5,
-    49.6
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    9.8,
-    56.4
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    4.6,
-    52.5
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    22.2,
-    16.3
-   ],
-   [
-    "hb.da-bang-m",
-    25.9,
-    82.6
-   ],
-   [
-    "hb.bui-hoa-bang-m",
-    50.0,
-    83.9
-   ],
-   [
-    "hb.soi-tuyet-m",
-    79.2,
-    38.6
-   ],
-   [
-    "hb.manh-bang-m",
-    21.1,
-    27.0
-   ],
-   [
-    "hb.bui-tuyet-m",
-    81.5,
-    42.2
-   ]
-  ]
- }
+ "hoi": {"le": "han-nguyet-long-dang", "bay_tu": 1, "do": [
+  ["hb.cong-bang-m", 46.8, 37.0],
+  ["hb.dien-bang-m", 31.9, 34.9],
+  ["hb.thap-tuyet-m", 56.5, 34.6],
+  ["hb.vac-bang-m", 39.4, 38.8],
+  ["hb.vac-bang-m", 54.1, 38.8],
+  ["hb.nguoi-tuyet-m", 52.6, 44.2],
+  ["hb.sap-lau-m", 18.1, 44.5],
+  ["hb.sap-tra-m", 24.1, 44.5],
+  ["hb.sap-thit-m", 18.1, 51.5],
+  ["hb.sap-long-m", 24.1, 51.5],
+  ["hb.sap-tra-m", 39.4, 51.5],
+  ["hb.sap-thuoc-m", 51.4, 51.5],
+  ["tc.tung-tuyet-non-sc", 15.4, 40.9, null, {"s": 1.16}],
+  ["hb.cong-trang-m", 33.2, 55.3],
+  ["hb.dien-tuyet-m", 46.9, 64.6],
+  ["tc.bui-tuyet-sc", 68.5, 57.7, null, {"s": 0.49}],
+  ["hb.cong-tron-m", 58.8, 56.8],
+  ["hb.sap-thuoc-m", 55.9, 59.5],
+  ["hb.vac-bang-m", 61.0, 63.4],
+  ["hb.sap-long-m", 56.5, 69.4],
+  ["tc.tung-tuyet-sc", 62.5, 46.9, null, {"s": 0.9}],
+  ["tc.cay-bang-sc", 65.2, 43.0, null, {"s": 0.95}],
+  ["tc.cay-bang-sc", 16.3, 66.1, null, {"s": 0.98}],
+  ["tc.tung-tuyet-vua-sc", 40.3, 28.9, null, {"s": 0.97}],
+  ["tc.cay-bang-sc", 63.4, 28.6, null, {"s": 0.96}],
+  ["hb.pha-le-lon-m", 67.9, 31.9],
+  ["hb.tru-pha-le-m", 70.6, 37.9],
+  ["tk.cay-anh-dao-sc", 22.3, 30.4, null, {"s": 0.87}],
+  ["tk.cay-anh-dao-sc", 67.3, 67.0, null, {"s": 0.94}],
+  ["hb.dien-tuyet-m", 59.5, 22.0],
+  ["hb.nha-tuyet-m", 29.5, 25.0],
+  ["hb.nha-pha-le-m", 73.0, 46.8],
+  ["hb.dien-nho-m", 45.2, 72.2],
+  ["hb.thac-bang-m", 55.0, 16.8],
+  ["hb.gieng-bang-m", 45.2, 28.0],
+  ["hb.nha-ca-m", 22.8, 66.2],
+  ["hb.lua-trai-m", 52.0, 73.0],
+  ["hb.cui-m", 56.5, 74.5],
+  ["hb.xe-truot-m", 48.2, 74.5],
+  ["hb.ro-ca-m", 25.0, 68.5],
+  ["hb.thung-tuyet-m", 67.0, 55.0],
+  ["tc.tung-tuyet-vua-sc", 74.5, 35.5, null, {"s": 0.94}],
+  ["tc.tung-tuyet-non-sc", 63.2, 74.5, null, {"s": 1.17}],
+  ["tk.cay-anh-dao-sc", 51.2, 27.2, null, {"s": 0.86}],
+  ["hb.pha-le-tim-m", 77.5, 46.8],
+  ["tc.nho-hb-4-sc", 40.0, 22.0, null, {"s": 1.0}],
+  ["hb.pha-le-dai-m", 28.8, 73.0],
+  ["hb.qua-cau-bang-m", 67.0, 36.2],
+  ["tc.da-tuyet-sc", 77.5, 49.8, null, {"s": 0.65}],
+  ["hb.bia-van-m", 46.0, 24.2],
+  ["tc.nho-hb-2-sc", 28.0, 37.0, null, {"s": 0.93}],
+  ["hb.bia-cua-m", 35.5, 73.0],
+  ["hb.da-vach-m", 69.2, 23.5],
+  ["hb.da-khoi-bang-m", 76.8, 58.0],
+  ["tc.bui-tuyet-sc", 31.0, 37.0, null, {"s": 0.57}],
+  ["tc.nho-hb-0-sc", 41.5, 31.0, null, {"s": 0.96}],
+  ["tc.nho-hb-3-sc", 66.2, 46.0, null, {"s": 1.0}],
+  ["tc.bui-tuyet-sc", 70.0, 61.0, null, {"s": 0.5}],
+  ["tc.bui-tuyet-sc", 52.0, 70.0, null, {"s": 0.64}],
+  ["hb.lu-huong-m", 52.0, 34.0],
+  ["hb.lan-can-tuyet-m", 70.0, 25.8],
+  ["hb.thac-bang-lon-m", 81.8, 64.4],
+  ["hb.pha-le-to-m", 32.6, 83.0],
+  ["hb.bang-tam-chau-m", 7.9, 31.8],
+  ["hb.nhu-bang-lon-m", 59.3, 8.8],
+  ["hb.han-ngoc-tru-m", 32.3, 8.8],
+  ["chung.bien-go", 55.6, 70.8, "→ Bãi Tuyết lang"],
+  ["chung.bien-go", 50.8, 31.5, "→ Vách Nhũ Băng"],
+  ["chung.bien-go", 12.4, 43.8, "→ Băng Tâm Châu"],
+  ["hb.den-da-tuyet-m", 9.9, 42.9],
+  ["chung.bien-go", 70.1, 57.6, "→ Bãi Tuyết lang"],
+  ["chung.bien-go", 82.5, 66.2, "Thác Băng"],
+  ["chung.bien-go", 37.1, 85.2, "Mỏ Pha Lê"],
+  ["hb.den-da-tuyet-m", 28.8, 84.4],
+  ["chung.bien-go", 9.3, 34.3, "Băng Tâm Châu"],
+  ["hb.den-da-tuyet-m", 6.2, 34.6],
+  ["chung.bien-go", 62.4, 10.0, "Vách Nhũ Băng"],
+  ["chung.bien-go", 35.4, 9.0, "Trụ Hàn Ngọc"],
+  ["tc.nho-hb-0-sc", 84.6, 29.5, null, {"s": 1.0}],
+  ["tc.nho-hb-0-sc", 84.9, 33.3, null, {"s": 0.99}],
+  ["tc.cay-bang-sc", 19.4, 70.2, null, {"s": 0.9}],
+  ["tc.cay-bang-sc", 16.4, 74.0, null, {"s": 1.0}],
+  ["tc.nho-hb-3-sc", 15.7, 69.7, null, {"s": 0.94}],
+  ["tc.nho-hb-0-sc", 23.1, 72.6, null, {"s": 1.03}],
+  ["tc.bui-tuyet-sc", 25.8, 13.6, null, {"s": 0.54}],
+  ["tc.da-tuyet-sc", 28.7, 15.5, null, {"s": 0.68}],
+  ["tc.nho-hb-0-sc", 9.9, 38.3, null, {"s": 0.97}],
+  ["tc.tung-tuyet-vua-sc", 39.2, 77.6, null, {"s": 1.05}],
+  ["tc.nho-hb-3-sc", 37.9, 82.6, null, {"s": 1.05}],
+  ["tc.da-tuyet-sc", 29.9, 78.3, null, {"s": 0.85}],
+  ["tk.cay-anh-dao-sc", 15.0, 30.5, null, {"s": 0.96}],
+  ["tc.nho-hb-3-sc", 11.2, 34.8, null, {"s": 1.02}],
+  ["tc.tung-tuyet-sc", 11.5, 60.4, null, {"s": 0.84}],
+  ["tc.nho-hb-3-sc", 10.6, 63.5, null, {"s": 1.05}],
+  ["tc.nho-hb-0-sc", 12.7, 57.2, null, {"s": 0.94}],
+  ["tc.tung-tuyet-sc", 6.1, 58.9, null, {"s": 0.83}],
+  ["tc.tung-tuyet-vua-sc", 8.7, 54.2, null, {"s": 1.04}],
+  ["tc.nho-hb-2-sc", 7.2, 61.0, null, {"s": 0.92}],
+  ["tk.cay-anh-dao-sc", 23.1, 78.6, null, {"s": 0.92}],
+  ["tc.bui-tuyet-sc", 26.8, 76.5, null, {"s": 0.54}],
+  ["tc.bui-tuyet-sc", 23.8, 75.5, null, {"s": 0.54}],
+  ["tc.nho-hb-2-sc", 47.8, 7.9, null, {"s": 0.96}],
+  ["tc.cay-bang-sc", 45.3, 83.5, null, {"s": 1.06}],
+  ["tc.cay-bang-sc", 45.4, 87.4, null, {"s": 0.92}],
+  ["tc.nho-hb-0-sc", 40.3, 86.4, null, {"s": 0.99}],
+  ["tc.bui-tuyet-sc", 40.6, 80.9, null, {"s": 0.55}],
+  ["tc.nho-hb-0-sc", 40.2, 83.7, null, {"s": 0.96}],
+  ["tc.tung-tuyet-vua-sc", 57.0, 84.6, null, {"s": 1.04}],
+  ["tc.tung-tuyet-vua-sc", 58.5, 80.5, null, {"s": 0.98}],
+  ["tc.nho-hb-0-sc", 51.0, 80.8, null, {"s": 0.96}],
+  ["tc.nho-hb-3-sc", 53.3, 85.1, null, {"s": 1.0}],
+  ["tc.nho-hb-3-sc", 51.4, 77.7, null, {"s": 0.93}],
+  ["tc.nho-hb-2-sc", 54.9, 81.8, null, {"s": 1.07}],
+  ["tk.cay-anh-dao-sc", 40.4, 8.2, null, {"s": 0.9}],
+  ["tc.bui-tuyet-sc", 37.9, 14.0, null, {"s": 0.49}],
+  ["tc.da-tuyet-sc", 36.6, 6.8, null, {"s": 0.73}],
+  ["tc.bui-tuyet-sc", 84.2, 36.1, null, {"s": 0.5}],
+  ["tc.nho-hb-3-sc", 12.5, 41.5, null, {"s": 1.01}],
+  ["tc.bui-tuyet-sc", 4.7, 39.7, null, {"s": 0.6}],
+  ["tc.da-tuyet-sc", 12.6, 38.0, null, {"s": 0.65}],
+  ["tc.tung-tuyet-sc", 21.7, 20.2, null, {"s": 0.97}],
+  ["tc.tung-tuyet-sc", 22.5, 24.0, null, {"s": 0.92}],
+  ["tc.nho-hb-3-sc", 17.6, 23.7, null, {"s": 1.06}],
+  ["tc.da-tuyet-sc", 16.6, 21.2, null, {"s": 0.65}],
+  ["tc.tung-tuyet-vua-sc", 67.6, 11.7, null, {"s": 1.07}],
+  ["tc.bui-tuyet-sc", 64.9, 8.6, null, {"s": 0.63}],
+  ["tc.nho-hb-0-sc", 62.7, 13.0, null, {"s": 0.98}],
+  ["tc.da-tuyet-sc", 71.4, 13.5, null, {"s": 0.71}],
+  ["tc.tung-tuyet-vua-sc", 7.5, 49.6, null, {"s": 0.92}],
+  ["tc.nho-hb-0-sc", 9.8, 56.4, null, {"s": 0.96}],
+  ["tc.nho-hb-0-sc", 4.6, 52.5, null, {"s": 1.0}],
+  ["tc.nho-hb-0-sc", 22.2, 16.3, null, {"s": 0.98}],
+  ["tc.da-tuyet-sc", 25.9, 82.6, null, {"s": 0.66}],
+  ["tc.nho-hb-0-sc", 50.0, 83.9, null, {"s": 1.07}],
+  ["tc.nho-hb-2-sc", 79.2, 38.6, null, {"s": 1.07}],
+  ["tc.nho-hb-4-sc", 21.1, 27.0, null, {"s": 1.05}],
+  ["tc.bui-tuyet-sc", 81.5, 42.2, null, {"s": 0.6}],
+  ["tc.nho-hb-3-sc", 44.38, 7.63, null, {"s": 0.94, "f": 1}],
+  ["tc.bui-tuyet-sc", 36.3, 8.64, null, {"s": 0.49}],
+  ["tc.nho-hb-4-sc", 52.55, 14.67, null, {"s": 1.05, "f": 1}],
+  ["tc.nho-hb-0-sc", 23.53, 16.62, null, {"s": 1.03}],
+  ["tc.nho-hb-4-sc", 36.76, 17.62, null, {"s": 0.95, "f": 1}],
+  ["tc.nho-hb-4-sc", 74.77, 18.95, null, {"s": 1.03}],
+  ["tc.bui-tuyet-sc", 39.3, 20.79, null, {"s": 0.59, "f": 1}],
+  ["tc.bui-tuyet-sc", 36.29, 21.69, null, {"s": 0.49, "f": 1}],
+  ["tc.nho-hb-1-sc", 46.43, 21.73, null, {"s": 1.09}],
+  ["tc.nho-hb-1-sc", 65.23, 21.72, null, {"s": 1.04, "f": 1}],
+  ["tc.nho-hb-1-sc", 40.73, 23.88, null, {"s": 0.98, "f": 1}],
+  ["tc.bui-tuyet-sc", 64.57, 23.9, null, {"s": 0.47}],
+  ["tc.bui-tuyet-sc", 26.39, 25.76, null, {"s": 0.52}],
+  ["tc.nho-hb-2-sc", 10.58, 26.72, null, {"s": 0.94}],
+  ["tc.bui-tuyet-sc", 56.44, 26.61, null, {"s": 0.59, "f": 1}],
+  ["tc.bui-tuyet-sc", 36.5, 28.86, null, {"s": 0.58}],
+  ["tc.nho-hb-2-sc", 46.31, 28.75, null, {"s": 1.1}],
+  ["tc.nho-hb-4-sc", 25.75, 29.75, null, {"s": 1.05}],
+  ["tc.nho-hb-1-sc", 71.47, 29.66, null, {"s": 0.96, "f": 1}],
+  ["tc.nho-hb-4-sc", 77.32, 29.84, null, {"s": 1.0, "f": 1}],
+  ["tc.nho-hb-2-sc", 72.44, 30.7, null, {"s": 1.09}],
+  ["tc.nho-hb-2-sc", 79.38, 31.75, null, {"s": 1.06, "f": 1}],
+  ["tc.nho-hb-3-sc", 12.68, 32.64, null, {"s": 0.92, "f": 1}],
+  ["tc.nho-hb-2-sc", 36.65, 32.82, null, {"s": 0.91, "f": 1}],
+  ["tc.nho-hb-0-sc", 69.67, 34.69, null, {"s": 0.98}],
+  ["tc.bui-tuyet-sc", 4.69, 35.74, null, {"s": 0.52, "f": 1}],
+  ["tc.nho-hb-1-sc", 67.27, 35.74, null, {"s": 1.01, "f": 1}],
+  ["tc.bui-tuyet-sc", 9.37, 38.61, null, {"s": 0.58, "f": 1}],
+  ["tc.nho-hb-4-sc", 57.66, 39.77, null, {"s": 1.0}],
+  ["tc.bui-tuyet-sc", 74.22, 39.67, null, {"s": 0.53}],
+  ["tc.bui-tuyet-sc", 11.53, 41.93, null, {"s": 0.52}],
+  ["tc.nho-hb-3-sc", 63.69, 41.94, null, {"s": 1.03, "f": 1}],
+  ["tc.nho-hb-2-sc", 69.77, 42.7, null, {"s": 0.92, "f": 1}],
+  ["tc.nho-hb-3-sc", 70.71, 42.82, null, {"s": 1.09, "f": 1}],
+  ["tc.bui-tuyet-sc", 80.53, 42.76, null, {"s": 0.46}],
+  ["tc.nho-hb-0-sc", 70.41, 43.77, null, {"s": 1.09, "f": 1}],
+  ["tc.nho-hb-3-sc", 68.74, 47.9, null, {"s": 0.99}],
+  ["tc.nho-hb-2-sc", 6.4, 49.69, null, {"s": 0.91}],
+  ["tc.bui-tuyet-sc", 73.44, 50.8, null, {"s": 0.6, "f": 1}],
+  ["tc.bui-tuyet-sc", 4.59, 51.66, null, {"s": 0.51, "f": 1}],
+  ["tc.nho-hb-2-sc", 12.58, 55.79, null, {"s": 1.04}],
+  ["tc.nho-hb-3-sc", 74.43, 55.77, null, {"s": 0.9}],
+  ["tc.nho-hb-1-sc", 68.42, 56.66, null, {"s": 1.09}],
+  ["tc.nho-hb-3-sc", 10.44, 60.79, null, {"s": 0.94, "f": 1}],
+  ["tc.nho-hb-4-sc", 11.62, 62.62, null, {"s": 0.96}],
+  ["tc.nho-hb-0-sc", 69.38, 63.72, null, {"s": 0.98}],
+  ["tc.nho-hb-2-sc", 9.79, 64.85, null, {"s": 1.01}],
+  ["tc.nho-hb-2-sc", 9.48, 67.74, null, {"s": 0.99}],
+  ["tc.nho-hb-1-sc", 21.5, 67.73, null, {"s": 0.92, "f": 1}],
+  ["tc.nho-hb-4-sc", 12.59, 68.94, null, {"s": 0.94}],
+  ["tc.nho-hb-3-sc", 37.34, 73.88, null, {"s": 1.0, "f": 1}],
+  ["tc.nho-hb-0-sc", 64.6, 76.64, null, {"s": 1.06}],
+  ["tc.nho-hb-0-sc", 72.23, 76.65, null, {"s": 1.01}],
+  ["tc.nho-hb-0-sc", 63.63, 77.67, null, {"s": 0.96, "f": 1}],
+  ["tc.nho-hb-2-sc", 25.79, 78.86, null, {"s": 0.98, "f": 1}],
+  ["tc.bui-tuyet-sc", 26.61, 78.76, null, {"s": 0.49}],
+  ["tc.nho-hb-4-sc", 37.77, 80.79, null, {"s": 0.99, "f": 1}],
+  ["tc.nho-hb-0-sc", 41.6, 81.86, null, {"s": 1.07}],
+  ["tc.nho-hb-0-sc", 68.77, 82.62, null, {"s": 1.03, "f": 1}],
+  ["tc.bui-tuyet-sc", 43.54, 83.67, null, {"s": 0.5, "f": 1}],
+  ["tc.nho-hb-3-sc", 61.2, 84.68, null, {"s": 1.07}],
+  ["tc.nho-hb-1-sc", 29.3, 85.93, null, {"s": 1.03}],
+  ["tc.nho-hb-3-sc", 53.6, 86.79, null, {"s": 0.93, "f": 1}],
+  ["tc.bui-tuyet-sc", 49.8, 89.8, null, {"s": 0.48}],
+  ["tc.bui-tuyet-sc", 54.44, 89.61, null, {"s": 0.57, "f": 1}]
+ ]},
+ "nen": {"nuoc": "nen.tc-hb-nuoc", "mep": "nen.tc-hb-mep", "vach": "nen.tc-hb-vach", "nui": "nen.tc-hb-nui", "hoa": "nen.tc-hb-hoa", "dat": "nen.tc-hb-dat", "san": "nen.tc-hb-san", "gach": "nen.tc-hb-gach", "ky": {"nen": "w", "nuoc": "O", "them": [["nen.tc-hb-bang", "i"]]}},
+ "prop_hide": ""
 }

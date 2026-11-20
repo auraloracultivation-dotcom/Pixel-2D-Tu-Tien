@@ -48097,6 +48097,2396 @@
     131
    ],
    "note": "lò Tử Nguyệt luyện thành: bung nắp, tắt lửa, về cơ bản (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "tc.cay-chay-sc": {
+   "file": "assets/art/tc-cay-chay-sc.png",
+   "v": "49f25f86",
+   "w": 131,
+   "h": 180,
+   "frames": 1,
+   "anchor": [
+    65,
+    178
+   ],
+   "note": "SpriteCook: cây cháy thân đen nứt than hồng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-chay-la-sc": {
+   "file": "assets/art/tc-cay-chay-la-sc.png",
+   "v": "17437331",
+   "w": 119,
+   "h": 154,
+   "frames": 1,
+   "anchor": [
+    59,
+    152
+   ],
+   "note": "SpriteCook: cây cháy còn vài lá đỏ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-chay-mai-sc": {
+   "file": "assets/art/tc-cay-chay-mai-sc.png",
+   "v": "d8667c24",
+   "w": 57,
+   "h": 167,
+   "frames": 1,
+   "anchor": [
+    28,
+    165
+   ],
+   "note": "SpriteCook: cây khô cháy mảnh, khói (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-nui-lua-sc": {
+   "file": "assets/art/tc-da-nui-lua-sc.png",
+   "v": "95977d7d",
+   "w": 119,
+   "h": 105,
+   "frames": 1,
+   "anchor": [
+    59,
+    103
+   ],
+   "note": "SpriteCook: tảng đá núi lửa nứt dung nham (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.soi-nui-lua-sc": {
+   "file": "assets/art/tc-soi-nui-lua-sc.png",
+   "v": "246a7624",
+   "w": 103,
+   "h": 59,
+   "frames": 1,
+   "anchor": [
+    51,
+    57
+   ],
+   "note": "SpriteCook: đống đá núi lửa nhỏ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-tro-sc": {
+   "file": "assets/art/tc-bui-tro-sc.png",
+   "v": "ad57547e",
+   "w": 103,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    51,
+    81
+   ],
+   "note": "SpriteCook: bụi khô màu tro, tàn lửa (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tung-tuyet-sc": {
+   "file": "assets/art/tc-tung-tuyet-sc.png",
+   "v": "9dbbe634",
+   "w": 111,
+   "h": 176,
+   "frames": 1,
+   "anchor": [
+    55,
+    174
+   ],
+   "note": "SpriteCook: tùng phủ tuyết lớn (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tung-tuyet-vua-sc": {
+   "file": "assets/art/tc-tung-tuyet-vua-sc.png",
+   "v": "8029e05a",
+   "w": 108,
+   "h": 149,
+   "frames": 1,
+   "anchor": [
+    54,
+    147
+   ],
+   "note": "SpriteCook: tùng phủ tuyết vừa (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tung-tuyet-non-sc": {
+   "file": "assets/art/tc-tung-tuyet-non-sc.png",
+   "v": "f59e5802",
+   "w": 56,
+   "h": 83,
+   "frames": 1,
+   "anchor": [
+    28,
+    81
+   ],
+   "note": "SpriteCook: tùng tuyết non (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-bang-sc": {
+   "file": "assets/art/tc-cay-bang-sc.png",
+   "v": "33ebb94a",
+   "w": 117,
+   "h": 127,
+   "frames": 1,
+   "anchor": [
+    58,
+    125
+   ],
+   "note": "SpriteCook: cây trơ cành phủ sương, băng rủ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-tuyet-sc": {
+   "file": "assets/art/tc-bui-tuyet-sc.png",
+   "v": "b57144c6",
+   "w": 101,
+   "h": 84,
+   "frames": 1,
+   "anchor": [
+    50,
+    82
+   ],
+   "note": "SpriteCook: bụi phủ tuyết (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-tuyet-sc": {
+   "file": "assets/art/tc-da-tuyet-sc.png",
+   "v": "6d2733c7",
+   "w": 114,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    57,
+    96
+   ],
+   "note": "SpriteCook: tảng đá đội tuyết (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-kho-gio-sc": {
+   "file": "assets/art/tc-cay-kho-gio-sc.png",
+   "v": "89996c41",
+   "w": 186,
+   "h": 173,
+   "frames": 1,
+   "anchor": [
+    93,
+    171
+   ],
+   "note": "SpriteCook: cây khô cong theo gió (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tru-da-den-sc": {
+   "file": "assets/art/tc-tru-da-den-sc.png",
+   "v": "965f2f68",
+   "w": 63,
+   "h": 172,
+   "frames": 1,
+   "anchor": [
+    31,
+    170
+   ],
+   "note": "SpriteCook: trụ đá đen rêu tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tru-da-gay-sc": {
+   "file": "assets/art/tc-tru-da-gay-sc.png",
+   "v": "b8abae1e",
+   "w": 61,
+   "h": 112,
+   "frames": 1,
+   "anchor": [
+    30,
+    110
+   ],
+   "note": "SpriteCook: trụ đá đen gãy (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-gai-sc": {
+   "file": "assets/art/tc-bui-gai-sc.png",
+   "v": "b018c6b0",
+   "w": 109,
+   "h": 91,
+   "frames": 1,
+   "anchor": [
+    54,
+    89
+   ],
+   "note": "SpriteCook: bụi gai khô (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-den-sc": {
+   "file": "assets/art/tc-da-den-sc.png",
+   "v": "a036a041",
+   "w": 122,
+   "h": 102,
+   "frames": 1,
+   "anchor": [
+    61,
+    100
+   ],
+   "note": "SpriteCook: cụm đá đen tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-co-kho-sc": {
+   "file": "assets/art/tc-bui-co-kho-sc.png",
+   "v": "2eddaf28",
+   "w": 93,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    46,
+    83
+   ],
+   "note": "SpriteCook: khóm cỏ khô vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nam-lam-to-sc": {
+   "file": "assets/art/tc-nam-lam-to-sc.png",
+   "v": "b6b967ea",
+   "w": 73,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    36,
+    59
+   ],
+   "note": "SpriteCook: nấm lam phát sáng khổng lồ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nam-tim-to-sc": {
+   "file": "assets/art/tc-nam-tim-to-sc.png",
+   "v": "591d75a7",
+   "w": 66,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    33,
+    56
+   ],
+   "note": "SpriteCook: đôi nấm tím phát sáng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-duong-xi-lon-sc": {
+   "file": "assets/art/tc-bui-duong-xi-lon-sc.png",
+   "v": "4c3dca5e",
+   "w": 114,
+   "h": 79,
+   "frames": 1,
+   "anchor": [
+    57,
+    77
+   ],
+   "note": "SpriteCook: dương xỉ lớn (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-rung-sc": {
+   "file": "assets/art/tc-cay-rung-sc.png",
+   "v": "1d17da36",
+   "w": 119,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    59,
+    99
+   ],
+   "note": "SpriteCook: cây rừng dây leo (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-reu-xanh-sc": {
+   "file": "assets/art/tc-da-reu-xanh-sc.png",
+   "v": "7a5f7454",
+   "w": 91,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    45,
+    59
+   ],
+   "note": "SpriteCook: tảng đá phủ rêu (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nam-cum-sc": {
+   "file": "assets/art/tc-nam-cum-sc.png",
+   "v": "e3991f84",
+   "w": 50,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    25,
+    40
+   ],
+   "note": "SpriteCook: cụm nấm lam nhỏ phát sáng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-ho-duong-sc": {
+   "file": "assets/art/tc-cay-ho-duong-sc.png",
+   "v": "be1d22e3",
+   "w": 207,
+   "h": 172,
+   "frames": 1,
+   "anchor": [
+    103,
+    170
+   ],
+   "note": "SpriteCook: hồ dương lá vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-ho-duong-nho-sc": {
+   "file": "assets/art/tc-cay-ho-duong-nho-sc.png",
+   "v": "58a5747e",
+   "w": 104,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    52,
+    102
+   ],
+   "note": "SpriteCook: hồ dương nhỏ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-sa-mac-sc": {
+   "file": "assets/art/tc-bui-sa-mac-sc.png",
+   "v": "e797cddd",
+   "w": 149,
+   "h": 92,
+   "frames": 1,
+   "anchor": [
+    74,
+    90
+   ],
+   "note": "SpriteCook: bụi sa mạc (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-quang-vang-sc": {
+   "file": "assets/art/tc-da-quang-vang-sc.png",
+   "v": "5490badb",
+   "w": 145,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    72,
+    102
+   ],
+   "note": "SpriteCook: tảng đá quặng vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.soi-vang-sc": {
+   "file": "assets/art/tc-soi-vang-sc.png",
+   "v": "c41e8cd7",
+   "w": 114,
+   "h": 63,
+   "frames": 1,
+   "anchor": [
+    57,
+    61
+   ],
+   "note": "SpriteCook: cụm đá vân vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.kiem-co-cat-sc": {
+   "file": "assets/art/tc-kiem-co-cat-sc.png",
+   "v": "81562dcc",
+   "w": 122,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    61,
+    117
+   ],
+   "note": "SpriteCook: kiếm cổ gỉ cắm cát (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tru-dat-cao-sc": {
+   "file": "assets/art/tc-tru-dat-cao-sc.png",
+   "v": "b23c3747",
+   "w": 88,
+   "h": 164,
+   "frames": 1,
+   "anchor": [
+    44,
+    162
+   ],
+   "note": "SpriteCook: cột đất đỏ cao (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tru-dat-sc": {
+   "file": "assets/art/tc-tru-dat-sc.png",
+   "v": "eeeefde0",
+   "w": 95,
+   "h": 109,
+   "frames": 1,
+   "anchor": [
+    47,
+    107
+   ],
+   "note": "SpriteCook: cột đất thấp (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-thu-sc": {
+   "file": "assets/art/tc-cay-thu-sc.png",
+   "v": "2b2601c9",
+   "w": 127,
+   "h": 162,
+   "frames": 1,
+   "anchor": [
+    63,
+    160
+   ],
+   "note": "SpriteCook: cây lá đỏ mùa thu (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-thu-sc": {
+   "file": "assets/art/tc-bui-thu-sc.png",
+   "v": "42f7a839",
+   "w": 106,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    53,
+    88
+   ],
+   "note": "SpriteCook: bụi cam mùa thu (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-dat-set-sc": {
+   "file": "assets/art/tc-da-dat-set-sc.png",
+   "v": "90d08573",
+   "w": 93,
+   "h": 77,
+   "frames": 1,
+   "anchor": [
+    46,
+    75
+   ],
+   "note": "SpriteCook: tảng đá đất sét (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bo-lua-chin-sc": {
+   "file": "assets/art/tc-bo-lua-chin-sc.png",
+   "v": "2d48b9f9",
+   "w": 86,
+   "h": 111,
+   "frames": 1,
+   "anchor": [
+    43,
+    109
+   ],
+   "note": "SpriteCook: bó lúa chín (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-hu-khong-sc": {
+   "file": "assets/art/tc-cay-hu-khong-sc.png",
+   "v": "fa80d499",
+   "w": 129,
+   "h": 164,
+   "frames": 1,
+   "anchor": [
+    64,
+    162
+   ],
+   "note": "SpriteCook: cây chết hư không nứt tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.pha-le-cao-sc": {
+   "file": "assets/art/tc-pha-le-cao-sc.png",
+   "v": "55a677c6",
+   "w": 68,
+   "h": 140,
+   "frames": 1,
+   "anchor": [
+    34,
+    138
+   ],
+   "note": "SpriteCook: trụ pha lê tím cao (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-noi-hk-sc": {
+   "file": "assets/art/tc-da-noi-hk-sc.png",
+   "v": "4f538bdd",
+   "w": 68,
+   "h": 129,
+   "frames": 1,
+   "anchor": [
+    34,
+    127
+   ],
+   "note": "SpriteCook: đá vụn lơ lửng sáng tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.pha-le-cum-sc": {
+   "file": "assets/art/tc-pha-le-cum-sc.png",
+   "v": "a2fce1bd",
+   "w": 59,
+   "h": 74,
+   "frames": 1,
+   "anchor": [
+    29,
+    72
+   ],
+   "note": "SpriteCook: cụm pha lê tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-hac-dieu-sc": {
+   "file": "assets/art/tc-da-hac-dieu-sc.png",
+   "v": "1b134784",
+   "w": 66,
+   "h": 61,
+   "frames": 1,
+   "anchor": [
+    33,
+    59
+   ],
+   "note": "SpriteCook: tảng hắc diệu thạch (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-hoa-hk-sc": {
+   "file": "assets/art/tc-bui-hoa-hk-sc.png",
+   "v": "545ea812",
+   "w": 75,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    37,
+    64
+   ],
+   "note": "SpriteCook: bụi hoa hư không tím (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-oai-huong-sc": {
+   "file": "assets/art/tc-bui-oai-huong-sc.png",
+   "v": "228b5ed6",
+   "w": 97,
+   "h": 135,
+   "frames": 1,
+   "anchor": [
+    48,
+    133
+   ],
+   "note": "SpriteCook: bụi oải hương (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-mau-don-hong-sc": {
+   "file": "assets/art/tc-bui-mau-don-hong-sc.png",
+   "v": "e072ff68",
+   "w": 105,
+   "h": 125,
+   "frames": 1,
+   "anchor": [
+    52,
+    123
+   ],
+   "note": "SpriteCook: bụi mẫu đơn hồng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-hue-trang-sc": {
+   "file": "assets/art/tc-bui-hue-trang-sc.png",
+   "v": "a45119dd",
+   "w": 96,
+   "h": 138,
+   "frames": 1,
+   "anchor": [
+    48,
+    136
+   ],
+   "note": "SpriteCook: khóm huệ trắng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-tu-cau-sc": {
+   "file": "assets/art/tc-bui-tu-cau-sc.png",
+   "v": "0b88106c",
+   "w": 97,
+   "h": 104,
+   "frames": 1,
+   "anchor": [
+    48,
+    102
+   ],
+   "note": "SpriteCook: bụi tú cầu lam (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-cuc-vang-lon-sc": {
+   "file": "assets/art/tc-bui-cuc-vang-lon-sc.png",
+   "v": "f66b4f1c",
+   "w": 103,
+   "h": 108,
+   "frames": 1,
+   "anchor": [
+    51,
+    106
+   ],
+   "note": "SpriteCook: bụi cúc vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.bui-tra-do-sc": {
+   "file": "assets/art/tc-bui-tra-do-sc.png",
+   "v": "d65595e5",
+   "w": 101,
+   "h": 101,
+   "frames": 1,
+   "anchor": [
+    50,
+    99
+   ],
+   "note": "SpriteCook: bụi trà đỏ (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.tu-dang-sc": {
+   "file": "assets/art/tc-tu-dang-sc.png",
+   "v": "a7dbb231",
+   "w": 202,
+   "h": 169,
+   "frames": 1,
+   "anchor": [
+    101,
+    167
+   ],
+   "note": "SpriteCook: cây tử đằng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-moc-lan-sc": {
+   "file": "assets/art/tc-cay-moc-lan-sc.png",
+   "v": "e2e06e80",
+   "w": 209,
+   "h": 164,
+   "frames": 1,
+   "anchor": [
+    104,
+    162
+   ],
+   "note": "SpriteCook: cây mộc lan trắng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.dao-hoa-sc": {
+   "file": "assets/art/tc-dao-hoa-sc.png",
+   "v": "73cf2d6e",
+   "w": 215,
+   "h": 169,
+   "frames": 1,
+   "anchor": [
+    107,
+    167
+   ],
+   "note": "SpriteCook: cây đào hoa hồng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.cay-que-hoa-sc": {
+   "file": "assets/art/tc-cay-que-hoa-sc.png",
+   "v": "48e55d4a",
+   "w": 195,
+   "h": 171,
+   "frames": 1,
+   "anchor": [
+    97,
+    169
+   ],
+   "note": "SpriteCook: cây quế hoa vàng (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "nen.tc-xd-nuoc": {
+   "file": "assets/art/nen-tc-xd-nuoc.png",
+   "v": "7aaaed0f",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-dat": {
+   "file": "assets/art/nen-tc-xd-dat.png",
+   "v": "6ef3f5ae",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: đường mòn (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-mep": {
+   "file": "assets/art/nen-tc-xd-mep.png",
+   "v": "71059919",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-vach": {
+   "file": "assets/art/nen-tc-xd-vach.png",
+   "v": "b974ef23",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-nui": {
+   "file": "assets/art/nen-tc-xd-nui.png",
+   "v": "7490ef93",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-hoa": {
+   "file": "assets/art/nen-tc-xd-hoa.png",
+   "v": "da375fb6",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-nuoc": {
+   "file": "assets/art/nen-tc-hb-nuoc.png",
+   "v": "e42240db",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-dat": {
+   "file": "assets/art/nen-tc-hb-dat.png",
+   "v": "b670dbb2",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: đường mòn (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-mep": {
+   "file": "assets/art/nen-tc-hb-mep.png",
+   "v": "43c52442",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-vach": {
+   "file": "assets/art/nen-tc-hb-vach.png",
+   "v": "756ae6cb",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-nui": {
+   "file": "assets/art/nen-tc-hb-nui.png",
+   "v": "90c08dad",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-bang": {
+   "file": "assets/art/nen-tc-hb-bang.png",
+   "v": "7ee93866",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mặt băng (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-hoa": {
+   "file": "assets/art/nen-tc-hb-hoa.png",
+   "v": "07b9ea8b",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-nuoc": {
+   "file": "assets/art/nen-tc-hp-nuoc.png",
+   "v": "691a632c",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-dat": {
+   "file": "assets/art/nen-tc-hp-dat.png",
+   "v": "3ea548e8",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: đường mòn (đường đất Thiên Kiếm Tinh ngả theo nền) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-mep": {
+   "file": "assets/art/nen-tc-hp-mep.png",
+   "v": "bd9421b0",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-vach": {
+   "file": "assets/art/nen-tc-hp-vach.png",
+   "v": "96b8c2e2",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-nui": {
+   "file": "assets/art/nen-tc-hp-nui.png",
+   "v": "4c608d71",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hp-hoa": {
+   "file": "assets/art/nen-tc-hp-hoa.png",
+   "v": "222cdd1f",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tm-nuoc": {
+   "file": "assets/art/nen-tc-tm-nuoc.png",
+   "v": "2bdce245",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tm-mep": {
+   "file": "assets/art/nen-tc-tm-mep.png",
+   "v": "9b2cbde1",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tm-vach": {
+   "file": "assets/art/nen-tc-tm-vach.png",
+   "v": "89a86597",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tm-nui": {
+   "file": "assets/art/nen-tc-tm-nui.png",
+   "v": "d8477de7",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tm-hoa": {
+   "file": "assets/art/nen-tc-tm-hoa.png",
+   "v": "9375890e",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-nuoc": {
+   "file": "assets/art/nen-tc-tkim-nuoc.png",
+   "v": "5be4a29d",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-dat": {
+   "file": "assets/art/nen-tc-tkim-dat.png",
+   "v": "2d857051",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: đường mòn (đường đất Thiên Kiếm Tinh ngả theo nền) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-mep": {
+   "file": "assets/art/nen-tc-tkim-mep.png",
+   "v": "c3b2a78c",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-vach": {
+   "file": "assets/art/nen-tc-tkim-vach.png",
+   "v": "54ad0dfb",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-nui": {
+   "file": "assets/art/nen-tc-tkim-nui.png",
+   "v": "7ed8a023",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-hoa": {
+   "file": "assets/art/nen-tc-tkim-hoa.png",
+   "v": "e8937c4d",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-nuoc": {
+   "file": "assets/art/nen-tc-ht-nuoc.png",
+   "v": "c2a7f03a",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-mep": {
+   "file": "assets/art/nen-tc-ht-mep.png",
+   "v": "e5f14316",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-vach": {
+   "file": "assets/art/nen-tc-ht-vach.png",
+   "v": "954a6d87",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-nui": {
+   "file": "assets/art/nen-tc-ht-nui.png",
+   "v": "2d4c94b9",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-ruong": {
+   "file": "assets/art/nen-tc-ht-ruong.png",
+   "v": "64bbc941",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: ruộng bậc thang (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-hoa": {
+   "file": "assets/art/nen-tc-ht-hoa.png",
+   "v": "e8e24a2b",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-nv-nuoc": {
+   "file": "assets/art/nen-tc-nv-nuoc.png",
+   "v": "b56d0607",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền ↔ mặt hai (nước, dung nham, hồ băng, khe hư không) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-nv-mep": {
+   "file": "assets/art/nen-tc-nv-mep.png",
+   "v": "296540dc",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: mép tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-nv-vach": {
+   "file": "assets/art/nen-tc-nv-vach.png",
+   "v": "0300ac64",
+   "w": 472,
+   "h": 98,
+   "frames": 1,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "dải vách đá dưới đáy tinh cầu: hình Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-nv-nui": {
+   "file": "assets/art/nen-tc-nv-nui.png",
+   "v": "af9ee4d3",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: nền đá chân núi (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-nv-hoa": {
+   "file": "assets/art/nen-tc-nv-hoa.png",
+   "v": "5572c523",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ltl-go": {
+   "file": "assets/art/nen-tc-ltl-go.png",
+   "v": "53a3db72",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sàn gỗ (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ltl-hoa": {
+   "file": "assets/art/nen-tc-ltl-hoa.png",
+   "v": "518935ea",
+   "w": 72,
+   "h": 44,
+   "frames": 5,
+   "anchor": [
+    36,
+    44
+   ],
+   "note": "SpriteCook: 5 đồ nhỏ in vào nền (tools/art/sc_tc.py)"
+  },
+  "tc.nho-xd-0-sc": {
+   "file": "assets/art/tc-nho-xd-0-sc.png",
+   "v": "f143e0d5",
+   "w": 34,
+   "h": 25,
+   "frames": 1,
+   "anchor": [
+    17,
+    23
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-xd-1-sc": {
+   "file": "assets/art/tc-nho-xd-1-sc.png",
+   "v": "c27d43dc",
+   "w": 41,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    20,
+    21
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-xd-2-sc": {
+   "file": "assets/art/tc-nho-xd-2-sc.png",
+   "v": "ae427929",
+   "w": 30,
+   "h": 36,
+   "frames": 1,
+   "anchor": [
+    15,
+    34
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-xd-3-sc": {
+   "file": "assets/art/tc-nho-xd-3-sc.png",
+   "v": "a44c8cbc",
+   "w": 51,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    25,
+    18
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-xd-4-sc": {
+   "file": "assets/art/tc-nho-xd-4-sc.png",
+   "v": "aaf02944",
+   "w": 39,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    19,
+    32
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hb-0-sc": {
+   "file": "assets/art/tc-nho-hb-0-sc.png",
+   "v": "44bc1b8b",
+   "w": 30,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    15,
+    32
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hb-1-sc": {
+   "file": "assets/art/tc-nho-hb-1-sc.png",
+   "v": "fb3c31b1",
+   "w": 40,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    20,
+    43
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hb-2-sc": {
+   "file": "assets/art/tc-nho-hb-2-sc.png",
+   "v": "4f9e2ca4",
+   "w": 58,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    29,
+    32
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hb-3-sc": {
+   "file": "assets/art/tc-nho-hb-3-sc.png",
+   "v": "17b5aa72",
+   "w": 54,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    27,
+    44
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hb-4-sc": {
+   "file": "assets/art/tc-nho-hb-4-sc.png",
+   "v": "356ddfe2",
+   "w": 32,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hp-0-sc": {
+   "file": "assets/art/tc-nho-hp-0-sc.png",
+   "v": "b65f904a",
+   "w": 50,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    25,
+    42
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hp-1-sc": {
+   "file": "assets/art/tc-nho-hp-1-sc.png",
+   "v": "3c11f824",
+   "w": 65,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    32,
+    35
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hp-2-sc": {
+   "file": "assets/art/tc-nho-hp-2-sc.png",
+   "v": "9ac5eede",
+   "w": 44,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    22,
+    40
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hp-3-sc": {
+   "file": "assets/art/tc-nho-hp-3-sc.png",
+   "v": "889bd2f1",
+   "w": 72,
+   "h": 49,
+   "frames": 1,
+   "anchor": [
+    36,
+    47
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-hp-4-sc": {
+   "file": "assets/art/tc-nho-hp-4-sc.png",
+   "v": "4538e252",
+   "w": 34,
+   "h": 25,
+   "frames": 1,
+   "anchor": [
+    17,
+    23
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tm-0-sc": {
+   "file": "assets/art/tc-nho-tm-0-sc.png",
+   "v": "9960e207",
+   "w": 27,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    13,
+    18
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tm-1-sc": {
+   "file": "assets/art/tc-nho-tm-1-sc.png",
+   "v": "e4ad82bf",
+   "w": 33,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    16,
+    20
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tm-2-sc": {
+   "file": "assets/art/tc-nho-tm-2-sc.png",
+   "v": "5f818c6c",
+   "w": 39,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    19,
+    15
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tm-3-sc": {
+   "file": "assets/art/tc-nho-tm-3-sc.png",
+   "v": "e705247d",
+   "w": 31,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    15,
+    17
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tm-4-sc": {
+   "file": "assets/art/tc-nho-tm-4-sc.png",
+   "v": "d8ea2c48",
+   "w": 28,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    14,
+    17
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tkim-0-sc": {
+   "file": "assets/art/tc-nho-tkim-0-sc.png",
+   "v": "178820dd",
+   "w": 86,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    43,
+    39
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tkim-1-sc": {
+   "file": "assets/art/tc-nho-tkim-1-sc.png",
+   "v": "daf3a86c",
+   "w": 57,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    28,
+    42
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tkim-2-sc": {
+   "file": "assets/art/tc-nho-tkim-2-sc.png",
+   "v": "d1efc82a",
+   "w": 67,
+   "h": 44,
+   "frames": 1,
+   "anchor": [
+    33,
+    42
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tkim-3-sc": {
+   "file": "assets/art/tc-nho-tkim-3-sc.png",
+   "v": "d9f39389",
+   "w": 72,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    36,
+    55
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-tkim-4-sc": {
+   "file": "assets/art/tc-nho-tkim-4-sc.png",
+   "v": "36198e11",
+   "w": 55,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    27,
+    38
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ht-0-sc": {
+   "file": "assets/art/tc-nho-ht-0-sc.png",
+   "v": "763bf728",
+   "w": 53,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    26,
+    31
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ht-1-sc": {
+   "file": "assets/art/tc-nho-ht-1-sc.png",
+   "v": "3c177046",
+   "w": 50,
+   "h": 34,
+   "frames": 1,
+   "anchor": [
+    25,
+    32
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ht-2-sc": {
+   "file": "assets/art/tc-nho-ht-2-sc.png",
+   "v": "92a0b37f",
+   "w": 48,
+   "h": 40,
+   "frames": 1,
+   "anchor": [
+    24,
+    38
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ht-3-sc": {
+   "file": "assets/art/tc-nho-ht-3-sc.png",
+   "v": "99b11db6",
+   "w": 42,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    21,
+    36
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ht-4-sc": {
+   "file": "assets/art/tc-nho-ht-4-sc.png",
+   "v": "114a359a",
+   "w": 52,
+   "h": 33,
+   "frames": 1,
+   "anchor": [
+    26,
+    31
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-nv-0-sc": {
+   "file": "assets/art/tc-nho-nv-0-sc.png",
+   "v": "fb5ffe65",
+   "w": 35,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    17,
+    33
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-nv-1-sc": {
+   "file": "assets/art/tc-nho-nv-1-sc.png",
+   "v": "c4668bc1",
+   "w": 37,
+   "h": 32,
+   "frames": 1,
+   "anchor": [
+    18,
+    30
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-nv-2-sc": {
+   "file": "assets/art/tc-nho-nv-2-sc.png",
+   "v": "e8370540",
+   "w": 49,
+   "h": 28,
+   "frames": 1,
+   "anchor": [
+    24,
+    26
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-nv-3-sc": {
+   "file": "assets/art/tc-nho-nv-3-sc.png",
+   "v": "e6c7bf1e",
+   "w": 45,
+   "h": 42,
+   "frames": 1,
+   "anchor": [
+    22,
+    40
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-nv-4-sc": {
+   "file": "assets/art/tc-nho-nv-4-sc.png",
+   "v": "c85bdd68",
+   "w": 21,
+   "h": 20,
+   "frames": 1,
+   "anchor": [
+    10,
+    18
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ltl-0-sc": {
+   "file": "assets/art/tc-nho-ltl-0-sc.png",
+   "v": "315163af",
+   "w": 57,
+   "h": 60,
+   "frames": 1,
+   "anchor": [
+    28,
+    58
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ltl-1-sc": {
+   "file": "assets/art/tc-nho-ltl-1-sc.png",
+   "v": "52e6e4b5",
+   "w": 52,
+   "h": 57,
+   "frames": 1,
+   "anchor": [
+    26,
+    55
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ltl-2-sc": {
+   "file": "assets/art/tc-nho-ltl-2-sc.png",
+   "v": "e0b23e42",
+   "w": 61,
+   "h": 59,
+   "frames": 1,
+   "anchor": [
+    30,
+    57
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ltl-3-sc": {
+   "file": "assets/art/tc-nho-ltl-3-sc.png",
+   "v": "a6489509",
+   "w": 54,
+   "h": 56,
+   "frames": 1,
+   "anchor": [
+    27,
+    54
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.nho-ltl-4-sc": {
+   "file": "assets/art/tc-nho-ltl-4-sc.png",
+   "v": "4ed1e0fc",
+   "w": 52,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    26,
+    51
+   ],
+   "note": "SpriteCook: đồ nhỏ in nền (tools/art/sc_tc_do.py)",
+   "scale": 0.5
+  },
+  "tc.da-nui-1-hb-sc": {
+   "file": "assets/art/tc-da-nui-1-hb-sc.png",
+   "v": "8d5f4a18",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-hb-sc": {
+   "file": "assets/art/tc-da-nui-2-hb-sc.png",
+   "v": "f701de29",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-hb-sc": {
+   "file": "assets/art/tc-da-nui-3-hb-sc.png",
+   "v": "30558c99",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-hb-sc": {
+   "file": "assets/art/tc-da-nui-4-hb-sc.png",
+   "v": "3e8761ed",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-hb-sc": {
+   "file": "assets/art/tc-nui-doi-1-hb-sc.png",
+   "v": "83f06a6b",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-hb-sc": {
+   "file": "assets/art/tc-nui-doi-2-hb-sc.png",
+   "v": "857d3a78",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-ht-sc": {
+   "file": "assets/art/tc-da-nui-1-ht-sc.png",
+   "v": "1c60f5a9",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-ht-sc": {
+   "file": "assets/art/tc-da-nui-2-ht-sc.png",
+   "v": "c2765756",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-ht-sc": {
+   "file": "assets/art/tc-da-nui-3-ht-sc.png",
+   "v": "c9704f79",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-ht-sc": {
+   "file": "assets/art/tc-da-nui-4-ht-sc.png",
+   "v": "5d242bfb",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-ht-sc": {
+   "file": "assets/art/tc-nui-doi-1-ht-sc.png",
+   "v": "56b0b164",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-ht-sc": {
+   "file": "assets/art/tc-nui-doi-2-ht-sc.png",
+   "v": "3a8333bc",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-xd-sc": {
+   "file": "assets/art/tc-da-nui-1-xd-sc.png",
+   "v": "3da31a64",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-xd-sc": {
+   "file": "assets/art/tc-da-nui-2-xd-sc.png",
+   "v": "35e916a1",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-xd-sc": {
+   "file": "assets/art/tc-da-nui-3-xd-sc.png",
+   "v": "f9150937",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-xd-sc": {
+   "file": "assets/art/tc-da-nui-4-xd-sc.png",
+   "v": "7ec6810d",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-xd-sc": {
+   "file": "assets/art/tc-nui-doi-1-xd-sc.png",
+   "v": "3184ca36",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-xd-sc": {
+   "file": "assets/art/tc-nui-doi-2-xd-sc.png",
+   "v": "a283114d",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-hp-sc": {
+   "file": "assets/art/tc-da-nui-1-hp-sc.png",
+   "v": "ec7be212",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-hp-sc": {
+   "file": "assets/art/tc-da-nui-2-hp-sc.png",
+   "v": "f69bfba6",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-hp-sc": {
+   "file": "assets/art/tc-da-nui-3-hp-sc.png",
+   "v": "3b81ae80",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-hp-sc": {
+   "file": "assets/art/tc-da-nui-4-hp-sc.png",
+   "v": "affc14cf",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-hp-sc": {
+   "file": "assets/art/tc-nui-doi-1-hp-sc.png",
+   "v": "a142189a",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-hp-sc": {
+   "file": "assets/art/tc-nui-doi-2-hp-sc.png",
+   "v": "b1c5313c",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-tm-sc": {
+   "file": "assets/art/tc-da-nui-1-tm-sc.png",
+   "v": "cfb84aff",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-tm-sc": {
+   "file": "assets/art/tc-da-nui-2-tm-sc.png",
+   "v": "80ae33e6",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-tm-sc": {
+   "file": "assets/art/tc-da-nui-3-tm-sc.png",
+   "v": "1b682ecd",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-tm-sc": {
+   "file": "assets/art/tc-da-nui-4-tm-sc.png",
+   "v": "3364e415",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-tm-sc": {
+   "file": "assets/art/tc-nui-doi-1-tm-sc.png",
+   "v": "22864a00",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-tm-sc": {
+   "file": "assets/art/tc-nui-doi-2-tm-sc.png",
+   "v": "ff32b470",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-tkim-sc": {
+   "file": "assets/art/tc-da-nui-1-tkim-sc.png",
+   "v": "fd3fc6ae",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-tkim-sc": {
+   "file": "assets/art/tc-da-nui-2-tkim-sc.png",
+   "v": "35c70c6c",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-tkim-sc": {
+   "file": "assets/art/tc-da-nui-3-tkim-sc.png",
+   "v": "3029fdb0",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-tkim-sc": {
+   "file": "assets/art/tc-da-nui-4-tkim-sc.png",
+   "v": "37402947",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-tkim-sc": {
+   "file": "assets/art/tc-nui-doi-1-tkim-sc.png",
+   "v": "943f3572",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-tkim-sc": {
+   "file": "assets/art/tc-nui-doi-2-tkim-sc.png",
+   "v": "d57e1504",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-1-nv-sc": {
+   "file": "assets/art/tc-da-nui-1-nv-sc.png",
+   "v": "73199821",
+   "w": 56,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    28,
+    29
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-2-nv-sc": {
+   "file": "assets/art/tc-da-nui-2-nv-sc.png",
+   "v": "264622db",
+   "w": 72,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    36,
+    48
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-3-nv-sc": {
+   "file": "assets/art/tc-da-nui-3-nv-sc.png",
+   "v": "c487cfad",
+   "w": 60,
+   "h": 58,
+   "frames": 1,
+   "anchor": [
+    30,
+    56
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.da-nui-4-nv-sc": {
+   "file": "assets/art/tc-da-nui-4-nv-sc.png",
+   "v": "1f359eea",
+   "w": 42,
+   "h": 69,
+   "frames": 1,
+   "anchor": [
+    21,
+    67
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-1-nv-sc": {
+   "file": "assets/art/tc-nui-doi-1-nv-sc.png",
+   "v": "a57709a1",
+   "w": 107,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    53,
+    41
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "tc.nui-doi-2-nv-sc": {
+   "file": "assets/art/tc-nui-doi-2-nv-sc.png",
+   "v": "22d81f45",
+   "w": 101,
+   "h": 66,
+   "frames": 1,
+   "anchor": [
+    50,
+    64
+   ],
+   "scale": 0.5,
+   "note": "đá chân núi Thiên Kiếm Tinh ngả tông đá của tinh cầu (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-san": {
+   "file": "assets/art/nen-tc-xd-san.png",
+   "v": "688b77af",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-xd-gach": {
+   "file": "assets/art/nen-tc-xd-gach.png",
+   "v": "9290d4c5",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-san": {
+   "file": "assets/art/nen-tc-hb-san.png",
+   "v": "d7f4f72a",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-hb-gach": {
+   "file": "assets/art/nen-tc-hb-gach.png",
+   "v": "f5329c77",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-san": {
+   "file": "assets/art/nen-tc-tkim-san.png",
+   "v": "25df5772",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-tkim-gach": {
+   "file": "assets/art/nen-tc-tkim-gach.png",
+   "v": "8917a619",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-san": {
+   "file": "assets/art/nen-tc-ht-san.png",
+   "v": "93afb5a3",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: sân lát đá (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
+  },
+  "nen.tc-ht-gach": {
+   "file": "assets/art/nen-tc-ht-gach.png",
+   "v": "efeee60b",
+   "w": 32,
+   "h": 32,
+   "frames": 4,
+   "rows": 4,
+   "anchor": [
+    0,
+    0
+   ],
+   "note": "SpriteCook bộ nền 15 mảnh lưới đôi, ô 32 điểm: phố gạch (Thiên Kiếm Tinh ngả tông) (tools/art/sc_tc.py)"
   }
  }
 }
