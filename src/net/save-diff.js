@@ -2,7 +2,8 @@
 // cấp đầu (chuỗi JSON của giá trị), mỗi lần lưu chỉ gửi khoá đổi + khoá đã xoá. Không đụng mạng: src/net/profile.js gọi.
 // - VOLATILE: khoá lần nào cũng khác (mã phiên, đồng hồ, mốc giờ, phiên bản) — không tính là "đổi", nhưng có gửi thì gửi kèm.
 // - Máy chủ trả "sua" (src/game/cloud-guard.js applyFix sửa lại số trong máy): quên các khoá bị sửa để lần sau gửi lại cả khoá đó,
-//   y như bản gửi cả; trường lạ trong sua thì quên hết (lần sau gửi cả bản).
+//   y như bản gửi cả; trường lạ trong sua thì quên hết (lần sau gửi cả bản). Khoá bị quên vẫn nhớ chuỗi ĐÃ GỬI lần đó (quen) để
+//   xếp nhịp: gửi lại tự nó không gấp (máy chủ đang giữ số của chính nó), chỉ gấp khi khoá ấy đổi thứ không phải số.
 
 export const VOLATILE = new Set(['ss', 'clk', 'lastSeen', 'pb']);
 const FIX_KEYS = {
@@ -53,12 +54,19 @@ export function tuiDoiThuong(cu, moi, thuong) {
 // nhip: { nhanh: [khoá luôn gửi nhanh], do_thuong: [phẩm món nhặt thêm vẫn tính là chậm] }; không đưa thì plan().cham luôn false (một nhịp như cũ)
 export function createSaveDiff(nhip) {
   let snap = null;   // Map khoá → chuỗi JSON, bản máy chủ đã nhận
+  // Khoá máy chủ vừa sửa ở lần lưu gần nhất → chuỗi đã gửi lần đó. 21/11/2026, soát bản thật: người chạm trần nhận mỗi ngày (máy chủ
+  // cắt phần lố, trả sua.tran kèm cả túi nguyên liệu) bị quên khoá mats, lần sau mats thành "khoá mới không phải số" = nhanh, lần lưu
+  // nhanh ấy lại bị cắt, lại quên: một vòng 4 giây không dứt, đúng nhóm treo máy lâu nhất. Bộ hãm linh khí (sua realm / layer / qi)
+  // cũng vậy vì realm, layer nằm trong danh sách nhanh. Giờ so với chuỗi đã gửi: y nguyên hoặc chỉ lệch số thì đi nhịp chậm.
+  let quen = new Map();
   const nhanh = new Set(nhip?.nhanh || []), thuong = new Set(nhip?.do_thuong || []);
   const khoaCham = (k, s) => {   // khoá k đổi từ bản máy chủ đã nhận sang chuỗi s: có phải chỉ là số nhảy không
+    const goc = snap.has(k) ? snap.get(k) : quen.get(k);
+    if (goc === s) return true;   // chỉ là gửi lại khoá máy chủ vừa sửa, giá trị y lần gửi trước (cả khoá trong danh sách nhanh)
     if (nhanh.has(k)) return false;
     let moi; try { moi = JSON.parse(s); } catch { return false; }
-    if (!snap.has(k)) return typeof moi === 'number';
-    let cu; try { cu = JSON.parse(snap.get(k)); } catch { return false; }
+    if (goc === undefined) return typeof moi === 'number';
+    let cu; try { cu = JSON.parse(goc); } catch { return false; }
     return chiSoNhay(cu, moi) || (k === 'bag' && tuiDoiThuong(cu, moi, thuong));
   };
 
@@ -80,13 +88,13 @@ export function createSaveDiff(nhip) {
 
   // Máy chủ đã nhận bản p.cur (gửi cả hay gửi phần đổi đều vậy: khoá không gửi vốn y bản cũ)
   function ack(p, sua) {
-    snap = new Map(p.cur);
+    snap = new Map(p.cur); quen = new Map();
     if (!sua || typeof sua !== 'object') return;
     for (const k of Object.keys(sua)) {
-      if (!FIX_KEYS[k]) { snap = null; return; }
-      for (const key of FIX_KEYS[k]) snap.delete(key);
+      if (!FIX_KEYS[k]) { snap = null; quen = new Map(); return; }
+      for (const key of FIX_KEYS[k]) { if (snap.has(key)) quen.set(key, snap.get(key)); snap.delete(key); }
     }
   }
 
-  return { plan, ack, reset: () => { snap = null; }, get ready() { return !!snap; } };
+  return { plan, ack, reset: () => { snap = null; quen = new Map(); }, get ready() { return !!snap; } };
 }
