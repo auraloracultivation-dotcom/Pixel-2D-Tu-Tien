@@ -15,8 +15,8 @@ const FIX_KEYS = {
 // lưu là gói dưới 2 KB chỉ có mấy con số nhảy liên tục lúc farm (linh khí, Linh Thạch, đếm quái, việc ngày); mỗi người gọi máy chủ lưu
 // 4–6 giây một lần, 1 000 người là quá sức cơ sở dữ liệu. Nên chia thay đổi làm hai loại:
 //   - CHẬM (plan().cham = true): mọi khoá đổi chỉ là SỐ NHẢY: cùng hình dạng, chỉ số khác số; khoá đếm thêm / bớt cũng tính là số
-//     (nguyên liệu mới có lần đầu, đan uống hết); túi đồ chỉ thêm món phẩm thường ở cuối. Loại này src/net/profile.js gom cham_ms gửi một lần.
-//   - NHANH: mọi thứ còn lại (chữ, cờ, món mới phẩm cao, bỏ món, khoá bị xoá, khoá trong danh sách nhanh như cảnh giới, tầng, bước truyện).
+//     (nguyên liệu mới có lần đầu, đan uống hết); túi đồ chỉ thêm / mất món phẩm thường (tuiDoiThuong). Loại này src/net/profile.js gom cham_ms gửi một lần.
+//   - NHANH: mọi thứ còn lại (chữ, cờ, thêm / mất món phẩm cao, khoá bị xoá, khoá trong danh sách nhanh như cảnh giới, tầng, bước truyện).
 //     Loại này gửi theo nhịp cũ. Khoá lạ, hình dạng lạ đều rơi vào NHANH: quên khai thì chỉ là lưu dày như cũ, không bao giờ chậm oan.
 export function chiSoNhay(a, b) {
   if (typeof a === 'number' && typeof b === 'number') return true;
@@ -30,11 +30,23 @@ export function chiSoNhay(a, b) {
   }
   return true;
 }
-// Túi đồ: món cũ giữ nguyên chỗ (chỉ số nhảy), chỉ thêm món phẩm thường ở cuối. Món phẩm cao, bớt món, xếp lại túi: không phải
-export function tuiThemThuong(cu, moi, thuong) {
-  if (!Array.isArray(cu) || !Array.isArray(moi) || moi.length <= cu.length) return false;
-  for (let i = 0; i < cu.length; i++) if (!chiSoNhay(cu[i], moi[i])) return false;
-  for (let i = cu.length; i < moi.length; i++) if (!moi[i] || !thuong.has(moi[i].rarity)) return false;
+// Túi đồ chỉ đổi ở món phẩm thường: nhặt thêm món phẩm thường, mất món phẩm thường (túi đầy thì Tự đánh tự bán / phân giải món rẻ sau
+// mỗi lần nhặt), còn mọi món khác giữ nguyên (so theo uid, chỉ số nhảy; thứ tự trong túi không tính). Thêm hay mất món phẩm cao, món
+// đổi chữ / cờ (khoá, phẩm, dòng): không phải.
+// 21/11/2026: bản đầu chỉ coi "thêm món ở cuối" là chậm, nên túi đầy thì mỗi lần nhặt (phân giải một món rẻ, nhét món mới) là một
+// lần gửi nhanh kèm cả túi. Đo bằng tools/kiem/do-nhip.mjs: ở đảo đầu game chỉ bớt được 0–1 lần gửi mỗi 3 phút (đồ rơi thưa), nơi
+// đồ rơi dày thì bớt nhiều hơn; treo máy lâu thì ai cũng đầy túi.
+export function tuiDoiThuong(cu, moi, thuong) {
+  if (!Array.isArray(cu) || !Array.isArray(moi)) return false;
+  const con = new Map();
+  for (const it of cu) { if (!it || typeof it.uid !== 'number' || con.has(it.uid)) return false; con.set(it.uid, it); }
+  for (const it of moi) {
+    if (!it || typeof it.uid !== 'number') return false;
+    const c = con.get(it.uid);
+    if (c) { if (!chiSoNhay(c, it)) return false; con.delete(it.uid); }
+    else if (!thuong.has(it.rarity)) return false;   // món mới phẩm cao
+  }
+  for (const it of con.values()) if (!thuong.has(it.rarity)) return false;   // mất món phẩm cao
   return true;
 }
 
@@ -47,7 +59,7 @@ export function createSaveDiff(nhip) {
     let moi; try { moi = JSON.parse(s); } catch { return false; }
     if (!snap.has(k)) return typeof moi === 'number';
     let cu; try { cu = JSON.parse(snap.get(k)); } catch { return false; }
-    return chiSoNhay(cu, moi) || (k === 'bag' && tuiThemThuong(cu, moi, thuong));
+    return chiSoNhay(cu, moi) || (k === 'bag' && tuiDoiThuong(cu, moi, thuong));
   };
 
   // So bản sắp gửi với bản đã nhận: { cur, full (chưa có gốc), changed, cham (mọi thay đổi chỉ là số nhảy: gom gửi thưa được),
