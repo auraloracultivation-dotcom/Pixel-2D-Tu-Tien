@@ -8,7 +8,7 @@ const C = game => game.data.status;
 export function power(game, st = game.player?.st) {
   const w = C(game).power;
   if (!st) return 0;
-  if (st.hc) return powerOf(game.data['he-chien'], st.hc, st.hc.realm);   // luật mới: linh thú, khôi lỗi, pháp bảo đã nằm trong 14 món (he-chien.js)
+  if (st.hc) return powerOf(game.data['he-chien'], st.hc);   // luật mới: linh thú, khôi lỗi, pháp bảo đã nằm trong 14 món (he-chien.js)
   let n = 0;
   for (const [k, v] of Object.entries(w)) n += (k === 'critMult' || k === 'speedMul' ? (st[k] || 1) - 1 : st[k] || 0) * v;
   if (st === game.player?.st) n += beastPower(game);   // linh thú, khôi lỗi đang mang cộng lực chiến (src/game/beast.js)

@@ -158,12 +158,37 @@ export function stdPlayer(H, realm, extra = 0) {
   return m[key] = { hp: geo('hp'), atk: geo('atk'), def: geo('def'), crit: lin('crit'), cd: lin('cd'), cdr: lin('cdr'), ls: lin('ls'), thorns: lin('thorns'), spd: lin('spd') };
 }
 
-// Lực chiến: căn của (máu hiệu dụng trước đòn tu sĩ chuẩn × sát thương mỗi giây) × power_k. Người chơi thật mang s.realm
-// (so với người chuẩn của chính cảnh giới đó, xem hồ sơ người khác vẫn đúng số). power_k = 40: số lực chiến cỡ như luật cũ
-// (người Trúc Cơ giữa ~26 nghìn), các mốc đang dùng số lực chiến (thành tựu, Khai Hoang 10% lực chiến trùm) vẫn hợp.
-export function powerOf(H, s, realm) {
-  const r = s.realm ?? realm;
-  const ref = stdPlayer(H, clamp(r | 0, 0, H.std_pham.length - 1) + 4 / LAYERS), a0 = Math.max(1, ref.atk), d0 = ref.def;   // tu sĩ chuẩn giữa cảnh giới (tầng 5)
+// Lực chiến: căn của (máu hiệu dụng trước đòn tu sĩ chuẩn × sát thương mỗi giây) × power_k. power_k = 40: số lực chiến cỡ như luật cũ
+// (người Trúc Cơ giữa ~21 nghìn), các mốc đang dùng số lực chiến (thành tựu, Khai Hoang 10% lực chiến trùm) vẫn hợp.
+// Người chuẩn để so là người NGANG SỨC với chính chỉ số s (matchTang), không theo nhãn cảnh giới (chủ dự án 20/11/2026 18:05, người
+// chơi báo "sao đột phá lại giảm lực chiến, 40k xuống 25k": trước đây so với người chuẩn giữa cảnh giới của mình, vừa đột phá thì mốc
+// so nhảy lên một cảnh giới mà chỉ số mình gần như không đổi, lực chiến tụt 20–35%). Giờ: chỉ số như nhau thì lực chiến như nhau ở mọi
+// cảnh giới, đột phá giữ nguyên đồ thì lực chiến hơi tăng (gốc lớn theo cảnh giới); người chuẩn giữa cảnh giới vẫn đúng số cũ.
+// Tăng một chỉ số thì lực chiến không giảm (thử 32 000 lần, lệch tệ nhất −0,04% ở vài bộ dồn Thủ; tools/he-chien.test.mjs).
+const tabMemo = new WeakMap();
+const stdTab = H => { let t = tabMemo.get(H); if (!t) tabMemo.set(H, t = Array.from({ length: H.std_pham.length * LAYERS }, (_, i) => stdPlayer(H, i / LAYERS))); return t; };
+// Tầng (số thực 0…80) của người chuẩn ngang sức: máu, công, thủ mỗi thứ dò ra một tầng trên bảng người chuẩn (nội suy theo log),
+// trộn 5 : 5 : 2 (Thủ ít hơn: dồn Thủ mà kéo mốc so lên nhiều thì lực chiến lại tụt)
+export function matchTang(H, s) {
+  const T = stdTab(H), top = T.length - 1;
+  const one = k => {
+    const v = Math.max(1e-9, Number(s?.[k]) || 0);
+    if (v <= T[0][k]) return 0;
+    if (v >= T[top][k]) return top;
+    let lo = 0, hi = top;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (T[m][k] < v) lo = m; else hi = m; }
+    return T[hi][k] > T[lo][k] ? lo + Math.log(v / T[lo][k]) / Math.log(T[hi][k] / T[lo][k]) : hi;
+  };
+  return (5 * one('hp') + 5 * one('atk') + 2 * one('def')) / 12;
+}
+// Người chuẩn ở tầng t (số thực): công, thủ nối theo cấp số nhân giữa hai tầng nguyên
+function stdAt(H, t) {
+  const T = stdTab(H), i = clamp(Math.floor(t), 0, T.length - 2), f = clamp(t - i, 0, 1), a = T[i], b = T[i + 1];
+  const g = k => (a[k] > 0 && b[k] > 0 ? a[k] * (b[k] / a[k]) ** f : a[k] + (b[k] - a[k]) * f);
+  return { atk: g('atk'), def: g('def') };
+}
+export function powerOf(H, s) {
+  const ref = stdAt(H, matchTang(H, s)), a0 = Math.max(1, ref.atk), d0 = ref.def;   // người chuẩn ngang sức
   const ehp = s.hp / takeK(a0, s.def) * (1 + ((s.ls || 0) + (s.thorns || 0)) / 100);   // máu chịu được trước đòn của người chuẩn
   const dps = s.atk * takeK(s.atk, d0) * (s.spd || H.base.spd) * (1 + (s.crit || 0) / 100 * ((H.base.crit_mult + (s.cd || 0)) / 100 - 1));   // sát thương mỗi giây vào người chuẩn
   return Math.round(Math.sqrt(ehp * dps) * (H.power_k ?? 10));

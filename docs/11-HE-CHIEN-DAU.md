@@ -52,6 +52,8 @@ Kết quả (Kim Đan, người chuẩn):
 - **Cấp (cường hoá):** +3% chỉ số phẳng mỗi cấp, trần theo cảnh giới người mặc: Luyện Khí +5, mỗi cảnh giới thêm 5, Độ Kiếp +45. Nâng rẻ nên coi như ai cũng chạm trần; trần là thứ giữ người cùng cảnh giới ngang nhau. Không thất bại, không rớt cấp.
 - **Pháp bảo, linh thú, thú cưỡi, khôi lỗi** lớn theo cảnh giới của chủ (cùng tu luyện), lên cảnh giới không phải thay; sức của chúng theo phẩm (sao, tiến hoá) và cấp.
 
+**Lực chiến so với ai (sửa 20/11/2026 18:05):** trước đây lực chiến so với tu sĩ chuẩn giữa cảnh giới của chính mình, nên vừa đột phá (mốc so nhảy lên một cảnh giới, chỉ số mình gần như giữ nguyên) là lực chiến tụt 18–35% (người chơi báo 40k xuống 25k khi lên Trúc Cơ). Giờ so với tu sĩ chuẩn **ngang sức** với chính chỉ số của mình (`he-chien.js` `matchTang`: máu, công, thủ dò ra tầng trên bảng người chuẩn, trộn 5 : 5 : 2), không theo nhãn cảnh giới: chỉ số như nhau thì lực chiến như nhau ở mọi cảnh giới, đột phá giữ đồ thì lực chiến hơi tăng; người chuẩn giữa mỗi cảnh giới vẫn đúng số cũ (bảng dưới). Quái cũng tính cùng cách.
+
 | Cảnh giới | Đồ thường gặp | Lực chiến tu sĩ chuẩn | Giữ trang bị cảnh giới trước | Lên cảnh giới, đổi đồ mới |
 |---|---|---|---|---|
 | Luyện Khí | Địa +5 | 3 500 | | × 1,64 |

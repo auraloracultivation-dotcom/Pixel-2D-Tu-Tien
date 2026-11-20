@@ -15,7 +15,7 @@ export function mobPower(game, m) {
   const W = game.data.status.power, h = m.def.hc;
   if (h) {   // luật mới (he-chien.js): cùng công thức lực chiến với người chơi; máu, công đã nhân hệ số bí cảnh, ma khí, dị chủng
     const H = game.data['he-chien'], k = m.def.atk / (h.hit || m.def.atk || 1);
-    return powerOf(H, { hp: m.maxHp ?? m.def.hp, atk: h.atk * k, def: h.def, spd: h.hit / Math.max(0.1, h.atk) / Math.max(0.5, (m.def.windup || 0) + (m.def.cd || 1)), realm: game.save?.realm || 0 }, 0);   // so cùng người chuẩn với lực chiến của mình
+    return powerOf(H, { hp: m.maxHp ?? m.def.hp, atk: h.atk * k, def: h.def, spd: h.hit / Math.max(0.1, h.atk) / Math.max(0.5, (m.def.windup || 0) + (m.def.cd || 1)) });   // cùng cách tính với lực chiến của mình (so với người chuẩn ngang sức, không theo cảnh giới ai)
   }
   return Math.round((m.maxHp ?? m.def.hp) * (W.maxHp || 1) + (m.def.atk || 0) * (W.atk || 9));
 }
@@ -40,8 +40,12 @@ function zoneMul(game) {
 // sp.cp (bãi có lực chiến định sẵn, như trùm trận Khai Tinh src/game/kh-gen.js): kéo thẳng về số đó
 export function zonePower(game, m, sp) {
   if (sp?.cp && !m.remote) {   // luật mới: mobPower đã theo powerOf (power_k 40, số cỡ như luật cũ) nên kéo về đúng số lực chiến đã đặt như trước
-    const k = sp.cp / Math.max(1, mobPower(game, m));
-    m.def = { ...m.def, hp: Math.round(m.def.hp * k), atk: Math.round(m.def.atk * k * 10) / 10 }; m.hp = m.maxHp = m.def.hp; return;
+    for (let i = 0; i < 5; i++) {   // lực chiến không tỉ lệ thẳng với máu, công (so với người chuẩn ngang sức): nhân vài lượt cho sát số
+      const k = sp.cp / Math.max(1, mobPower(game, m));
+      if (Math.abs(k - 1) < 0.005) break;
+      m.def = { ...m.def, hp: Math.round(m.def.hp * k), atk: Math.round(m.def.atk * k * 10) / 10 }; m.maxHp = m.def.hp;
+    }
+    m.hp = m.maxHp = m.def.hp; return;
   }
   const s = zoneMul(game);
   if (s === 1 || m.remote || m.duel || m.def.ai === 'dummy') return;
