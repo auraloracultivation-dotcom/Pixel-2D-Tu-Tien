@@ -9,6 +9,9 @@ export function doiMoi(game) {
   for (const k of Object.keys(s.mounts || {})) if (!D.pets.mounts[baseOf(k)]) delete s.mounts[k];   // bản thêm 'thú#xxxx' (src/game/inst.js)
   for (const k of Object.keys(s.mountLine || {})) if (!D.pets.mounts[baseOf(k)]) delete s.mountLine[k];
   if (s.mount && !D.pets.mounts[s.mount]) { const k = Object.keys(s.mounts || {})[0]; s.mount = k ? baseOf(k) : null; s.mountKey = k || null; s.ride = false; }
+  // Đồ hệ cũ hết chỗ dùng (chủ dự án 21/11/2026 01:3x: đổi ra Linh Thạch nửa giá): máy chủ đổi một lần và gửi Hòm thư (migration
+  // 20261121013000_p2d_doi_do_cu.sql). Ở đây chỉ bỏ khỏi bản lưu trong máy, kẻo máy đang mở bản cũ lưu đè số cũ lên.
+  for (const k of ['bi-kip-chieu', 'manh-phap-bao']) if (s.mats && k in s.mats) delete s.mats[k];
   if (Array.isArray(s.denBu16) && s.denBu16.length) {
     const names = s.denBu16.map(id => D.pets.mounts[id]?.name).filter(Boolean).join(', ');
     setTimeout(() => game.toast(`Đền bù đồ cũ: nhận ${s.denBu16.length} thú cưỡi mới (${names}). Bấm nút Cưỡi để lên thú.`, 6), 2500);

@@ -15,7 +15,7 @@
   {"mob": "van-kiem-ma-tuong", "name": "Vạn Kiếm Ma Vương"},
   {"mob": "toai-son-ma-tuong", "name": "Toái Sơn Ma Vương"}
  ],
- "reward": {"item": "thien", "gem": 2, "stones": 5, "coins": 8000, "mats": {"khoa-linh-thach": 2, "manh-phap-bao": 12}},
+ "reward": {"item": "thien", "gem": 2, "stones": 5, "coins": 8000, "mats": {"khoa-linh-thach": 2}},
  "texts": {
   "locked": "Lên {realm} mới đủ sức vào Phương Thiên Địa.",
   "done": "Đã hạ {name} tuần này. Phương thiên địa được tịnh hoá, tuần sau Ma Tổ sinh Ma Vương mới.",
