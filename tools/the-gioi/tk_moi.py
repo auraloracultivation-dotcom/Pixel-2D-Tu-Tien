@@ -35,7 +35,7 @@ NPCS = [
     ('van-hac', 64, 37.6), ('lac-tuyet', 70.5, 82.6, {'unless': 'lac-tuyet-vang'}), ('tieu-dao', 57.5, 82.6, {'unless': 'tieu-dao-vang'}),
     ('chap-su', 52, 68.3), ('ho-linh', 45.4, 64.6), ('quan-binh-kho', 105.5, 74.3), ('ngu-thu-su', 87.5, 95.5), ('khoi-loi-su', 95, 95.5), ('tiem-thoi-trang', 102, 95.5),
     ('van-bao', 86, 74.2), ('chu-cho', 96, 74.2), ('to-doi', 69.5, 85, {'need': 'mo-bi-canh'}), ('tieu-phu', 96, 44.6),
-    ('dc-dong-phuc-nu', 58.5, 94.4), ('dc-thanh-sam-nam', 83.4, 79.6), ('dc-tien-nhan-nam', 74.2, 44.4), ('dc-hoang-kim-nu', 112, 74.3),
+    ('lo-dan-su', 80.5, 79.6), ('dan-duoc-su', 86.5, 79.6), ('duoc-thuong', 92.5, 79.6),   # 20/11/2026 14:5x: thay 4 NPC đồ cũ bán trùng đồ
     ('dc-kim-bao-nam', 84.4, 86.3), ('dc-kim-bao-nu', 90.9, 86.3), ('dc-thien-kiem-bao-nam', 57, 45.6), ('dc-thien-kiem-bao-nu', 70, 106),
 ]
 GATES = {'bi-canh': (92, 108), 'dong-phu': (20, 76)}   # ô P: cổng riêng ngoài phố (luật pháp trận); công trình cổng đứng ngay trên ô P, mặt quay xuống nam

@@ -94,7 +94,7 @@ def main():
         npcs.append((nid, {'name': n['name'], 'color': n['color'], 'hair': n.get('hair', '#2a2a3a'), 'lines': n['lines']}))
         art['npc.' + nid] = {**art[n['hinh']], 'note': f'NPC {n["name"]}: dùng chung {n["hinh"]} (đồ cũ, tools/do_cu.py)'}
         if n.get('ban'): g = S['npc_goods'][n['ban']]; goods.append((nid, {**g, 'line': n.get('ban_line', g['line'])}))
-        maps.setdefault(n['map'], []).append((nid, {'id': nid, 'at': n['at']}))
+        if n.get('map'): maps.setdefault(n['map'], []).append((nid, {'id': nid, 'at': n['at']}))   # NPC bán trùng đồ đã thay (20/11/2026): không đặt lên bản đồ
     edit('data/companions.json', lambda t: insert(t, 'list', comps))
     edit('data/npcs.json', lambda t: t[:t.rstrip().rindex('}')].rstrip() + ''.join(',\n ' + json.dumps(k, ensure_ascii=False) + ': ' + json.dumps(v, ensure_ascii=False) for k, v in npcs if json.dumps(k, ensure_ascii=False) + ':' not in t) + '\n}\n')
     edit('data/pets.json', lambda t: insert(t, 'puppets', gia))

@@ -14,10 +14,11 @@ import { renderStockSheet } from './bag-stock.js';
 import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS, routeOld } from './self-host.js';
 import { snap, react } from './self-fx.js';
+import { renderLoDan } from './lo-dan-view.js';
 import { patch, patchList } from './morph.js';
 
-const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang']];   // biểu tượng mục (ảnh GPT 03:03)
-const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang' };
+const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['ld', 'ui.k-i-lo-dan', 'Luyện đan']];   // biểu tượng mục; Luyện đan: lò luyện đan (chủ dự án 20/11/2026 13:3x, src/ui/lo-dan-view.js) (ảnh GPT 03:03)
+const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang', ld: 'nl' };
 // Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
 const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Tháo/, 'tab-trang-bi'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'],
   [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau'], [/^Mua nhanh/, 'lich-su'], [/^Đổi hệ/, 'tho'], [/^Phân giải/, 'st-bao'], [/^Luyện/, 'tab-phap-bao']];
@@ -90,6 +91,7 @@ export function createSelfPanel(game) {
   function render() {
     const s = game.save, d = game.data, stt = playerStats(s, d);
     before = snap(game);
+    root.classList.toggle('ld-on', st.page === 'ld');   // Luyện đan: ẩn thẻ nhân vật, lò + kho chiếm cả khung (src/ui/lo-dan.css)
     patchList(rail, PAGES.map(([id, ico, name]) => tabBtn('sv-pg', st.page === id, ico, name, () => go(id))));
     patch(left, leftCard(game, stt, h));   // vá thẻ cũ, không thay cả thẻ (src/ui/morph.js)
     const SB = subsOf(game, st.page);   // hệ pháp bảo mới: ẩn mục Chiêu, P.bảo cũ (self-bag.js)
@@ -104,6 +106,7 @@ export function createSelfPanel(game) {
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
     if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
     unhost();
+    if (st.page === 'ld') { mid.classList.remove('sheet'); bar.hidden = false; renderLoDan(game, st, mid, bar, () => { if (!root.hidden && st.page === 'ld') render(); }); return; }
     const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
     lastSel = st.sel;
     if (game.pbPick != null) { st.pbSel = game.pbPick; game.pbPick = null; }   // chạm ô pháp bảo dưới thẻ nhân vật

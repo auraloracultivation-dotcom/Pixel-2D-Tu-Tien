@@ -7,7 +7,8 @@
 // - Luyện đan, rèn, thu hoạch, phân giải: làm luôn từ xa (như mở Lò đan / Lò rèn ở Menu), đủ nguyên liệu mới làm.
 import { ensureDaily, taskDef, dailyEvent } from './daily.js';
 import { wantJob } from './chores.js';
-import { brew, forge, canPay } from './cave.js';
+import { forge, canPay } from './cave.js';
+import { luyen, loDung } from './lo-dan.js';   // luyện đan qua lò mới, máy chủ quyết (chủ dự án 20/11/2026)
 import { harvestAll, nextRipe } from './garden.js';
 import { salvage, isEquipped, rarityOf } from './items.js';
 
@@ -21,9 +22,12 @@ function doNow(game, d) {
   const s = game.save, D = game.data;
   if (d.type === 'brew') {
     const id = D.cave.pill_button, p = D.cave.pills[id];
-    if (!s.flags['dong-phu'] || !canPay(game, p.recipe)) return false;
-    const r = brew(game, id);
-    game.toast(r === 'fail' ? `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).` : `Tự hành luyện được ${r} ${p.name}.`, 1.6);
+    if (!s.flags['dong-phu'] || !canPay(game, p.recipe) || !loDung(s)) return false;   // chưa mua lò thì không luyện được (20/11/2026 14:5x)
+    if (game.kyBusy) return false;
+    luyen(game, { ...p.recipe }).then(r => {
+      const d = r.ds?.find(x => x.thanh), n = d && D.cave.pills[d.dan]?.name;
+      if (!r.err) game.toast(d ? `Tự hành luyện được ${d.vien} ${n}.` : `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).`, 1.6);
+    });
     return true;
   }
   if (d.type === 'forge') {

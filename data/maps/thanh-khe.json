@@ -80,9 +80,7 @@
     20
    ],
    "unless": "mat-tieu-hoa"
-  },
-  {"id": "dc-hong-y-nam", "at": [18, 19]},
-  {"id": "dc-tet-do-nu", "at": [14, 19]}
+  }
  ],
  "spawners": [],
  "rooms": [],

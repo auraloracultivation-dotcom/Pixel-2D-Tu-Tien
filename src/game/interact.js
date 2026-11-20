@@ -22,6 +22,7 @@ import { talkParty } from './party.js';
 import { goodsOf, talkGoods } from './npc-goods.js';
 import { nearBeCa, talkBeCa } from './be-ca.js';
 import { talkFashionShop } from './fashion-shop.js';
+import { talkAlchemyNpc } from './npc-dan.js';
 
 function nearestNpc(game, range) {
   let best = null, bd = range;
@@ -40,7 +41,7 @@ function nearTile(game, ch, range) {
   return false;
 }
 
-const STATIONS = { K: ['Lò đan', 'dan'], A: ['Lò rèn', 'ren'], G: ['Dược viên', 'dien'] };
+const STATIONS = { A: ['Lò rèn', 'ren'], G: ['Dược viên', 'dien'] };   // lò đan Động phủ bỏ (chủ dự án 20/11/2026 14:5x): luyện ở Túi đồ → Luyện đan
 function nearStation(game) {
   for (const [ch, s] of Object.entries(STATIONS)) if (nearTile(game, ch, game.data.config.tile * 1.4)) return s;
   return null;
@@ -55,6 +56,7 @@ export function talkTo(game, npc) {
   if (npc.id === game.data.pets.npc) { talkBeast(game, npc); return; }
   if (npc.id === game.data.pets.puppet_npc) { talkPuppetShop(game, npc); return; }
   if (npc.id === game.data.fashion.shop_npc) { talkFashionShop(game, npc); return; }   // tiệm thời trang (src/game/fashion-shop.js)
+  if (talkAlchemyNpc(game, npc)) return;   // Lò Đan Sư, Đan Dược Sư, Dược Thảo Thương (src/game/npc-dan.js)
   if (npc.id === game.data.duel.thien_ma?.npc) { challengeTm(game); return; }   // Đài Ma Thần (src/game/thienma.js)
   if (npc.id === game.data.shop.npc) { talkShop(game, npc); return; }
   if (rerootNpc(game, npc.id)) { talkReroot(game, npc); return; }

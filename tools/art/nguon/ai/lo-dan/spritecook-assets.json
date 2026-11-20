@@ -1,0 +1,38 @@
+{
+ "_note": "Lò luyện đan (chủ dự án 20/11/2026 14:10: 4 mẫu ảnh GPT, duyệt làm 4 lò trên SpriteCook). Ảnh tĩnh ai_import --h 96 --colors 24 (tinh/). Mỗi lò 2 chuyển động pixel-engine-v1.1 16 khung, 20 credit mỗi cái: chay (đang luyện, chạy vòng), thanh (bung nắp, tắt lửa, về trạng thái cơ bản). Trần duyệt 210 credit.",
+ "lo": {
+  "hong-sen": {
+   "asset_id": "c949e12b-1cc9-470e-abb5-cbc0ad9b4db0",
+   "chay": "51034802-61ec-4839-ae4e-0ffeb19eb2d5",
+   "thanh": "4585b078-cc26-4895-a143-8b53228decb0",
+   "chay_asset": "24ecf551-d412-4daf-a2f4-16a8c3e8cbdb",
+   "thanh_asset": "6ac64d87-1d53-4db0-9c8e-a67ce8823e88"
+  },
+  "bang-ngoc": {
+   "asset_id": "6e9b9629-5255-44c0-9dee-fef739aefd79",
+   "chay": "7801393b-736c-4d14-8747-ef748ee79f11",
+   "thanh": "5df461e6-a559-4929-905c-4ff09ddfe922",
+   "chay_asset": "a2cd8f51-9c66-4ffb-b8ef-aa2e4adf7d5f",
+   "thanh_asset": "8ef73676-78e5-46ed-a64b-f4dc2dbdb4c9"
+  },
+  "huyen-quy": {
+   "asset_id": "dcd76e38-d27a-48b8-ae86-595331534203",
+   "chay": "4ec518d8-7305-4f4f-a03b-db4682cde083",
+   "thanh": "a910eb5b-1eb2-4b2a-b6c4-541d23659702",
+   "chay_asset": "a12ef7c4-f2b5-4a32-a886-bd5b0e9b0770",
+   "thanh_asset": "eba642f6-6750-4433-a99c-bc4165666317"
+  },
+  "tu-nguyet": {
+   "asset_id": "417daacc-c7b1-4c8e-8f26-667b54050106",
+   "chay": "92cd1eeb-505d-4f69-8db6-a86e5c152b6d",
+   "thanh": "7b131773-1a2f-40e4-954d-f866e465d4f3",
+   "chay_asset": "f466afee-a07c-49e9-b7ae-7e6c293b633c",
+   "thanh_asset": "b916ac63-1f60-46f9-95dd-86e185b35966"
+  }
+ },
+ "credit": {
+  "da_tieu": 160,
+  "con": 1243
+ },
+ "_ket_qua": "20/11/2026 14:2x: 8 chuyển động xong, tấm khung 132×132 ×16 ở dong/<mã>-<chay|thanh>.png, dựng bằng tools/art/lo_dan_game.py"
+}

@@ -47953,6 +47953,150 @@
     180
    ],
    "note": "biển ma vân màn ngang (vân của video tinh-do-ngang), 640×360 lặp ngang"
+  },
+  "lo.hong-sen": {
+   "file": "assets/art/lo-hong-sen.png",
+   "v": "142ec7a9",
+   "w": 81,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    40,
+    95
+   ],
+   "note": "lò Hồng Sen (ảnh GPT chủ dự án 20/11/2026 14:10, ai_import --h 96 --colors 24)"
+  },
+  "lo.hong-sen.chay": {
+   "file": "assets/art/lo-hong-sen-chay.png",
+   "v": "19739844",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Hồng Sen đang luyện, chạy vòng (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.hong-sen.thanh": {
+   "file": "assets/art/lo-hong-sen-thanh.png",
+   "v": "920fc9cb",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Hồng Sen luyện thành: bung nắp, tắt lửa, về cơ bản (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.bang-ngoc": {
+   "file": "assets/art/lo-bang-ngoc.png",
+   "v": "381975a0",
+   "w": 83,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    41,
+    95
+   ],
+   "note": "lò Băng Ngọc (ảnh GPT chủ dự án 20/11/2026 14:10, ai_import --h 96 --colors 24)"
+  },
+  "lo.bang-ngoc.chay": {
+   "file": "assets/art/lo-bang-ngoc-chay.png",
+   "v": "21900643",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Băng Ngọc đang luyện, chạy vòng (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.bang-ngoc.thanh": {
+   "file": "assets/art/lo-bang-ngoc-thanh.png",
+   "v": "58f77c0a",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Băng Ngọc luyện thành: bung nắp, tắt lửa, về cơ bản (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.huyen-quy": {
+   "file": "assets/art/lo-huyen-quy.png",
+   "v": "efdb3b97",
+   "w": 83,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    41,
+    95
+   ],
+   "note": "lò Huyền Quy (ảnh GPT chủ dự án 20/11/2026 14:10, ai_import --h 96 --colors 24)"
+  },
+  "lo.huyen-quy.chay": {
+   "file": "assets/art/lo-huyen-quy-chay.png",
+   "v": "07f102ef",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Huyền Quy đang luyện, chạy vòng (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.huyen-quy.thanh": {
+   "file": "assets/art/lo-huyen-quy-thanh.png",
+   "v": "ae3c1935",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Huyền Quy luyện thành: bung nắp, tắt lửa, về cơ bản (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.tu-nguyet": {
+   "file": "assets/art/lo-tu-nguyet.png",
+   "v": "86a80cfa",
+   "w": 84,
+   "h": 96,
+   "frames": 1,
+   "anchor": [
+    42,
+    95
+   ],
+   "note": "lò Tử Nguyệt (ảnh GPT chủ dự án 20/11/2026 14:10, ai_import --h 96 --colors 24)"
+  },
+  "lo.tu-nguyet.chay": {
+   "file": "assets/art/lo-tu-nguyet-chay.png",
+   "v": "0c28d304",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Tử Nguyệt đang luyện, chạy vòng (SpriteCook 20/11/2026), 8 khung/giây"
+  },
+  "lo.tu-nguyet.thanh": {
+   "file": "assets/art/lo-tu-nguyet-thanh.png",
+   "v": "e3342e06",
+   "w": 96,
+   "h": 132,
+   "frames": 16,
+   "anchor": [
+    48,
+    131
+   ],
+   "note": "lò Tử Nguyệt luyện thành: bung nắp, tắt lửa, về cơ bản (SpriteCook 20/11/2026), 8 khung/giây"
   }
  }
 }
