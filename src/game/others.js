@@ -20,8 +20,9 @@ const MIN_SPEED = 30;
 // Hồ sơ gửi kèm khi vào kênh đảo: hệ, cảnh giới, hình dáng, thời trang (người khác vẽ đúng hình mình)
 // Pháp tượng đang đeo (ô ngoc-boi, data/items.json → bases.*.pt): người khác thấy sau lưng mình (src/render/draw-phap-tuong.js)
 const ptId = game => { const u = game.save.equip?.['ngoc-boi'], it = u != null && game.save.bag?.find(i => i.uid === u); return (it && game.data.items.bases[it.base]?.pt) || null; };
-export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game) });
-const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}`;
+const vkId = game => { const u = game.save.equip?.['vu-khi'], it = u != null && game.save.bag?.find(i => i.uid === u); return it?.base || null; };   // vũ khí đang mặc: người khác thấy treo sau lưng (draw-flyweapon.js drawOtherWeapon)
+export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game) });
+const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}`;   // đổi pháp tượng, vũ khí cũng báo lại
 const perfLevel = () => +(document.body?.dataset?.perf || 0) || 0;
 
 export function createOthers(game) {
@@ -43,7 +44,7 @@ export function createOthers(game) {
     list,
     clear() { list.clear(); shown = []; },
     presence(entries) {
-      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts };
+      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases };
       for (const raw of entries.slice(0, R().max_list || 120)) {
         const e = cleanPresence(raw, known, R().name_max);
         if (!e) continue;
@@ -51,7 +52,7 @@ export function createOthers(game) {
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
         const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
         o.def = { name: cleanText(game, e.name) };
-        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt;
+        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk;
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
