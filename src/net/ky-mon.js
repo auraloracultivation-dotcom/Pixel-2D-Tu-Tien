@@ -23,6 +23,9 @@ export const kyCalls = {
   refine: uid => call('p2d_luyen_phap_bao', { p_uid: uid }),
   rerollThu: (loai, id) => call('p2d_tay_thu', { p_loai: loai, p_id: id }),   // linh thú / khôi lỗi / thú cưỡi (20261105120000_p2d_ky_thu.sql)
   buyMats: (mua, nhanh) => call('p2d_nl_mua', { p_mua: mua, p_nhanh: nhanh }),   // mua nguyên liệu bằng Linh Thạch (20261111170000_p2d_nl_mua.sql)
+  luyenDan: (o, dan) => call('p2d_luyen_dan', { p_o: o, p_dan: dan }),   // lò luyện đan (20261120140000_p2d_lo_dan.sql)
+  nangLo: () => call('p2d_nang_lo', {}),
+  loCuaToi: () => call('p2d_lo_cua_toi', {}),
 };
 export const pbCalls = {   // pháp bảo: nâng cấp ghi sổ, hạ cấp hoàn Linh Thạch (20261115100000_p2d_pb_ha_cap.sql)
   up: uid => call('p2d_pb_nang_cap', { p_uid: uid }),

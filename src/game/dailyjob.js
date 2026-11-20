@@ -7,7 +7,8 @@
 // - Luyện đan, rèn, thu hoạch, phân giải: làm luôn từ xa (như mở Lò đan / Lò rèn ở Menu), đủ nguyên liệu mới làm.
 import { ensureDaily, taskDef, dailyEvent } from './daily.js';
 import { wantJob } from './chores.js';
-import { brew, forge, canPay } from './cave.js';
+import { forge, canPay } from './cave.js';
+import { luyen } from './lo-dan.js';   // luyện đan qua lò mới, máy chủ quyết (chủ dự án 20/11/2026)
 import { harvestAll, nextRipe } from './garden.js';
 import { salvage, isEquipped, rarityOf } from './items.js';
 
@@ -22,8 +23,10 @@ function doNow(game, d) {
   if (d.type === 'brew') {
     const id = D.cave.pill_button, p = D.cave.pills[id];
     if (!s.flags['dong-phu'] || !canPay(game, p.recipe)) return false;
-    const r = brew(game, id);
-    game.toast(r === 'fail' ? `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).` : `Tự hành luyện được ${r} ${p.name}.`, 1.6);
+    if (game.kyBusy) return false;
+    luyen(game, { ...p.recipe }, id).then(r => {
+      if (!r.err) game.toast(r.thanh ? `Tự hành luyện được ${r.vien} ${p.name}.` : `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).`, 1.6);
+    });
     return true;
   }
   if (d.type === 'forge') {

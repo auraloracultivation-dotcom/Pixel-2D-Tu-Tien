@@ -1,5 +1,5 @@
 // Bảng động phủ: tab Lò đan (luyện và dùng đan), Lò rèn (chọn ô, rèn đồ mới), Động phủ (nâng cấp). Mở khi đứng cạnh lò.
-import { brew, brewRate, usePill, forge, costText, canPay, matInfo, qiPillLeft, qiPillUsed, qiPillRate } from '../game/cave.js';
+import { usePill, forge, costText, canPay, matInfo, qiPillLeft, qiPillUsed, qiPillRate } from '../game/cave.js';
 import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
@@ -44,15 +44,10 @@ export function createCavePanel(game) {
         const c = el('div', 'skill-card');
         c.style.borderLeftColor = p.color;
         const have = s.pills[id] || 0;
-        c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Cần: ${costText(data, p.recipe)} → ${p.make} viên · thành ${Math.round(brewRate(game, id) * 100)}%`));
+        c.append(el('b', null, `${p.name} · có ${have}`), el('small', null, p.desc), el('small', null, `Đan phương: ${costText(data, p.recipe)} → ${p.make} viên mỗi bộ`));
         const row = el('div', 'card-acts');
         row.append(
-          mini('Luyện', () => {
-            const n = brew(game, id);
-            if (n === 'fail') { game.sfx('hurt'); last = `Lò nổ! Luyện ${p.name} thất bại, mất nguyên liệu.`; }
-            else if (n) { game.sfx('brew'); last = `Luyện thành ${n} ${p.name}!`; }
-            render();
-          }, !canPay(game, p.recipe)),
+          mini('Lò đan', () => { close(); game.openSelf?.('ld'); }),   // luyện ở lò mới trong Túi đồ → Luyện đan, máy chủ quyết (chủ dự án 20/11/2026)
           ...[quickBuyBtn(game, p.recipe, m => { last = m; render(); })].filter(Boolean),   // thiếu nguyên liệu: mua nhanh phần thiếu
           mini('Dùng', () => {
             const L = game.data.cave.qi_pill_day, isQi = !!p.use?.qi, m = usePill(game, id);   // đan linh khí: báo đan độc, số viên còn dùng hôm nay
@@ -89,7 +84,7 @@ export function createCavePanel(game) {
   // Nâng cấp động phủ: cấp hiện tại và cấp tới
   function renderCave(list) {
     const L = data.cave.levels, cur = caveLevel(game), n = caveNext(game);
-    const info = l => [`Đả tọa x${l.meditate_mul}`, `Linh thảo chín sau ${l.grow_min} phút, mỗi luống ${l.yield}`, l.brew_bonus ? `Luyện đan +${Math.round(l.brew_bonus * 100)}%` : ''].filter(Boolean);
+    const info = l => [`Đả tọa x${l.meditate_mul}`, `Linh thảo chín sau ${l.grow_min} phút, mỗi luống ${l.yield}`].filter(Boolean);
     const c = el('div', 'skill-card'); c.style.borderLeftColor = '#5fd07a';
     c.append(el('b', null, `${cur.name} · cấp ${caveLv(game.save) + 1}/${L.length}`), ...info(cur).map(t => el('small', null, t)));
     list.append(c);

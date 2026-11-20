@@ -1,0 +1,49 @@
+/* Túi đồ → Luyện đan (src/ui/lo-dan-view.js). Ô lò viền màu phẩm lò (--q), 9 ô nguyên liệu, kho nguyên liệu dạng lưới */
+.sv.ld-on .sv-frame { grid-template-columns: 38px minmax(0, 1fr); }
+.sv.ld-on .sv-left, .sv.ld-on .sv-subs { display: none; }
+.ld { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 6px; padding: 2px 2px 6px; color: #f3ead2; font: 600 11px var(--f-body, sans-serif); align-items: start; }
+.ld-l, .ld-r { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.ld-top { display: flex; flex-direction: column; gap: 5px; }
+.ld-lo { position: relative; display: grid; grid-template-columns: 42% minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 5px; row-gap: 2px; align-items: center; padding: 5px; border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--q) 30%, transparent), rgba(10, 6, 20, .55) 70%);
+  box-shadow: inset 0 0 0 2px var(--q), 0 0 8px color-mix(in srgb, var(--q) 60%, transparent); }
+.ld-lo-img { grid-row: 1 / 4; width: 100%; aspect-ratio: 47 / 60; background: center bottom / contain no-repeat; image-rendering: pixelated;
+  filter: drop-shadow(1px 0 0 var(--q)) drop-shadow(-1px 0 0 var(--q)) drop-shadow(0 1px 0 var(--q)) drop-shadow(0 -1px 0 var(--q)) drop-shadow(0 0 5px var(--q)); }
+.ld-lo-ten { color: var(--q); text-shadow: 1px 1px 0 #000; font-size: 12px; }
+.ld-lo small { color: #d8cfb8; }
+.ld-up { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 3px 2px; border: 2px solid #b8913c; border-radius: 6px;
+  background: linear-gradient(#4a3418, #2a1c0c); color: #ffe7a6; cursor: pointer; line-height: 1.1; }
+.ld-up small { font-size: 8.5px; color: #e8d7a8; }
+.ld-up:disabled { opacity: .5; cursor: default; }
+.ld-o { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
+.ld-o > * { aspect-ratio: 1; min-width: 0; }
+.ld-trong { display: block; border: 1.5px dashed rgba(255, 230, 170, .35); border-radius: 6px; background: rgba(0, 0, 0, .25); }
+.ld-co, .ld-mat { position: relative; display: grid; place-items: center; padding: 0; border: 0; cursor: pointer;
+  background: url("../../assets/art/ui-nv-o.png") center / 100% 100% no-repeat; }
+.ld-co { box-shadow: 0 0 0 1.5px #ffcf5a, 0 0 6px rgba(255, 200, 90, .6); border-radius: 4px; }
+.ld-ico { display: block; width: 62%; height: 62%; background: center / contain no-repeat; image-rendering: pixelated; border-radius: 2px; }
+.ld-co small, .ld-mat small { position: absolute; right: 3px; bottom: 1px; font: 800 8px var(--f-body, sans-serif); color: #fff;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
+.ld-mat.het { opacity: .3; filter: grayscale(.8); cursor: default; }
+.ld-co:active, .ld-mat:active { transform: scale(.94); }
+.ld-info { display: flex; flex-direction: column; gap: 3px; padding: 5px 6px; border-radius: 6px; background: rgba(0, 0, 0, .35); min-height: 34px; }
+.ld-info p { margin: 0; }
+.ld-kq { display: flex; align-items: center; gap: 4px; color: #ffe7a6; }
+.ld-cico { display: inline-block; width: 18px; height: 18px; flex: none; background: center / contain no-repeat; image-rendering: pixelated; border-radius: 2px; }
+.ld-rate { color: #9ff0b0; font-weight: 800; }
+.ld-bad { color: #ff8a7a; }
+.ld-thua { color: #f0b070; }
+.ld-chon { display: flex; flex-wrap: wrap; gap: 3px; }
+.ld-chip { align-self: flex-start; display: flex; align-items: center; gap: 2px; padding: 1px 5px 1px 2px; border: 1.5px solid rgba(255, 230, 170, .4); border-radius: 12px;
+  background: rgba(0, 0, 0, .35); color: #f3ead2; font: 700 9px var(--f-body, sans-serif); cursor: pointer; }
+.ld-chip.on { border-color: #ffcf5a; background: rgba(120, 80, 20, .55); color: #ffe7a6; }
+.ld-h { color: #e8d7a8; font-weight: 800; margin-top: 2px; }
+.ld-kho { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; }
+.ld-kho > .ld-mat { aspect-ratio: 1; min-width: 0; }
+/* Vừa luyện: thành thì lò bừng sáng vàng, hỏng thì lò nổ khói đen */
+.ld-lo.thanh .ld-lo-img { animation: ld-thanh 1.4s ease-out; }
+.ld-lo.hong .ld-lo-img { animation: ld-hong 1.4s ease-out; }
+@keyframes ld-thanh { 0% { filter: brightness(2.2) drop-shadow(0 0 14px #ffe27a); transform: scale(1.08); } 100% { transform: none; } }
+@keyframes ld-hong { 0% { filter: brightness(.3) drop-shadow(0 -6px 10px #222); transform: translateX(-3px); } 20% { transform: translateX(3px); }
+  40% { transform: translateX(-2px); } 100% { transform: none; } }
+.sv.ld-on .sv-barbox .ld-go { min-width: 92px; font-size: 13px; padding: 5px 16px; }
