@@ -10,7 +10,10 @@
 // (p2d_luu2); còn lại chỉ gửi khoá đổi qua p2d_luu_vi. Không khoá nào đổi (chỉ mốc giờ, đồng hồ) thì không gọi máy chủ,
 // trừ khi đã KEEP_MS chưa gọi (gửi mốc giờ cho máy chủ biết lần chơi cuối). Nhịp sống, một máy một tài khoản chạy riêng
 // (src/net/heartbeat.js), không dựa vào lần lưu.
-import { supabase } from './client.js';
+// Hai nhịp lưu (chủ dự án 21/11/2026 chọn "Cách A"; data/config.json → luu_hai_nhip, luật phân loại ở src/net/save-diff.js): thay đổi chỉ là
+// số nhảy lúc farm thì gom cham_ms (30 giây) gửi một lần; thứ quan trọng vẫn đi nhịp WAIT_MS như cũ; lệnh máy chủ (run), flush() và lúc
+// trang bị ẩn / đóng (khan) thì gửi ngay bất kể nhịp. Không bao giờ để quá cham_ms mà chưa gửi thứ đang chờ.
+import { supabase, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './client.js';
 import { sendError } from './errlog.js';
 import { createSaveDiff } from './save-diff.js';
 
@@ -49,12 +52,27 @@ function shape(d) {
     size: JSON.stringify(d).length };
 }
 
-export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }) {
+// Gọi hàm máy chủ bằng fetch có keepalive (trang đóng giữa chừng trình duyệt vẫn gửi nốt; thân tin phải dưới ~64 KB), trả { data, error }
+// cùng dạng supabase.rpc. Chỉ dùng cho lần lưu gấp lúc trang bị ẩn / đóng.
+const GIU_MAX = 60000;
+async function rpcGiu(fn, args, token) {
+  try {
+    const body = JSON.stringify(args);
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, { method: 'POST', keepalive: body.length < GIU_MAX, body,
+      headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${token}`, 'content-type': 'application/json' } });
+    const j = await r.json().catch(() => null);
+    return r.ok ? { data: j, error: null } : { data: null, error: { message: j?.message || `http_${r.status}`, code: j?.code || String(r.status) } };
+  } catch (e) { return { data: null, error: { message: String(e?.message || e), code: 'mang' } }; }
+}
+
+export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {}, nhip = null }) {
   let version = 0, timer = null, pending = null, stopped = false, sending = null, busy = 0;
+  const CHAM = nhip?.on ? Math.max(0, +nhip.cham_ms || 0) : 0;   // 0: một nhịp như cũ
+  let ve = null;   // { token, uid } của lần gửi gần nhất: lần lưu gấp lúc trang đóng không kịp hỏi lại phiên đăng nhập
   let fn = 'p2d_luu2', fails = 0, told = false, fixedTold = false, lastFixed = [];
   let viOff = false, lastFull = -1e9, lastCall = -1e9;   // viOff: máy chủ chưa có p2d_luu_vi
   let chu = null;   // mã tài khoản lúc tải bản lưu: bản lưu này chỉ được ghi vào đúng tài khoản đó (21/11/2026, xem send)
-  const diff = createSaveDiff();
+  const diff = createSaveDiff(CHAM ? nhip : null);
   const api = { name: '' };
 
   async function load() {
@@ -66,22 +84,30 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
     return data?.data || null;
   }
 
-  const call = body => supabase.rpc(fn, { p_data: body, p_phien_ban: version });
-  const callVi = p => supabase.rpc('p2d_luu_vi', { p_vi: p.vi, p_xoa: p.xoa, p_phien_ban: version });
+  let giu = null;   // mã đăng nhập cho lần gửi đang chạy nếu là lần lưu gấp (đi bằng rpcGiu), không thì null
+  const rpc = (f, a) => (giu ? rpcGiu(f, a, giu) : supabase.rpc(f, a));
+  const call = body => rpc(fn, { p_data: body, p_phien_ban: version });
+  const callVi = p => rpc('p2d_luu_vi', { p_vi: p.vi, p_xoa: p.xoa, p_phien_ban: version });
   const missing = (e, name) => e.code === 'PGRST202' || new RegExp(name).test(e.message || '');
 
-  async function send() {
+  // ep: gửi ngay bất kể nhịp chậm (lệnh máy chủ, flush, trang ẩn). san: { token, uid } đã có sẵn (lần lưu gấp, không chờ hỏi phiên).
+  // Trả true (xong / không có gì phải gửi), false (lỗi), 'cho' (chỉ có số nhảy, chưa tới nhịp chậm: bản lưu vẫn nằm chờ).
+  async function send(ep = true, san = null) {
     // Đổi tài khoản trên cùng một máy mà trang không tải lại (đăng xuất ở màn đầu rồi tạo / vào tài khoản khác): bản lưu cũ còn
     // trong bộ nhớ từng bị gửi lên tài khoản mới, rồi bản đã bị máy chủ lột đồ ấy lại bị gửi đè lên tài khoản cũ (21/11/2026,
     // một người chơi mất 17 món). Phiên đã đổi người thì thôi hẳn, không gửi gì nữa.
-    const ai = (await supabase.auth.getSession()).data?.session?.user?.id || null;
+    const phien = san ? null : (await supabase.auth.getSession()).data?.session, ai = san ? san.uid : phien?.user?.id || null;
     if (!chu || ai !== chu) { stop(); return false; }
+    if (phien?.access_token) ve = { token: phien.access_token, uid: ai };
+    if (!pending) return true;   // lần gửi khác vừa lấy mất trong lúc chờ hỏi phiên
+    giu = san ? san.token : null;
     const body = pending; pending = null;
     const now = performance.now();
     body.ss = SS; body.clk = Math.round(now);   // lấy lúc gửi, khỏi lệch khi phải chờ thử lại
     const p = diff.plan(body);
     let vi = !p.full && !viOff && fn === 'p2d_luu2' && now - lastFull < FULL_MS;
     if (vi && !p.changed && now - lastCall < KEEP_MS) return true;   // không khoá nào đổi: khỏi gọi máy chủ
+    if (vi && !ep && CHAM && p.cham && now - lastCall < CHAM) { pending = pending || body; return 'cho'; }   // chỉ số nhảy: gom tới nhịp chậm
     let res = vi ? await callVi(p) : await call(body);
     if (vi && res.error && (missing(res.error, 'p2d_luu_vi') || /chua_co_ban_luu/.test(res.error.message || ''))) {   // máy chủ chưa có hàm mới / chưa có bản lưu
       if (missing(res.error, 'p2d_luu_vi')) viOff = true;
@@ -106,17 +132,32 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
     return false;
   }
 
-  async function flush() {
-    timer = null;
+  // Gọi từ ngoài (trước khi nhận mốc quà, đổi bản game…): gửi ngay bất kể nhịp. Đồng hồ gom (tick) thì theo nhịp.
+  async function flush(ep = true) {
+    clearTimeout(timer); timer = null;
     if (stopped || sending || busy || !pending) return;
-    sending = send();
+    sending = send(ep);
     await sending; sending = null;
     if (pending && !busy) schedule();
+  }
+  const tick = () => flush(false);
+  // Trang bị ẩn (chuyển ứng dụng, tắt màn) hoặc sắp đóng: gửi ngay thứ đang chờ bằng fetch keepalive, không chờ gì trước khi gửi.
+  // Đang có lần gửi dở thì thôi (hai lần gửi cùng một phiên bản thì lần sau bị máy chủ coi là bản cũ). Trang còn sống thì kết quả
+  // vẫn được nhận như mọi lần lưu (phiên bản mới, số máy chủ sửa).
+  function khan() {
+    if (stopped || sending || busy || !pending || !ve || ve.uid !== chu) return;
+    clearTimeout(timer); timer = null;
+    const p = sending = send(true, ve);
+    p.finally(() => { if (sending === p) sending = null; if (pending && !busy) schedule(); });
+  }
+  if (typeof addEventListener === 'function' && typeof document !== 'undefined') {
+    addEventListener('pagehide', khan);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') khan(); });
   }
 
   // Lỗi liên tiếp thì chờ lâu dần (đỡ gửi mỗi 4 giây mãi khi máy chủ chê)
   function delay() { return fails ? Math.min(retry.max || 60000, (retry.ms || WAIT_MS) * 2 ** (fails - 1)) : WAIT_MS; }
-  function schedule() { if (!timer && !stopped) timer = setTimeout(flush, delay()); }
+  function schedule() { if (!timer && !stopped) timer = setTimeout(tick, delay()); }
 
   // Lưu bản sao để thay đổi sau đó không lẫn vào lần gửi đang chờ
   function save(s) {
@@ -169,7 +210,11 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
   // Thôi hẳn: bỏ bản đang chờ, không gửi gì nữa (đổi tài khoản, game/game.js beginGame)
   function stop() { stopped = true; pending = null; clearTimeout(timer); timer = null; }
 
-  return Object.assign(api, { load, save, flush, run, mark, stop, get version() { return version; } });
+  // version phải là thuộc tính ĐỌC SỐNG. Trước 21/11/2026 viết { get version() {…} } bên trong Object.assign: Object.assign đọc giá trị
+  // một lần lúc tạo (0) rồi chép thành số chết, nên game.cloud.version luôn là 0 và pickSave (src/game/cloud-guard.js) không bao giờ
+  // nhận ra "bản trong máy dựa đúng phiên bản máy chủ hiện tại": người chơi lúc máy chủ chậm (phiên đó chưa lưu lên được lần nào) vào lại
+  // là mất phần vừa chơi. Bài thử tools/kiem/luu-hai-nhip.test.mjs giữ chỗ này.
+  return Object.defineProperty(Object.assign(api, { load, save, flush, run, mark, stop }), 'version', { get: () => version, enumerable: true });
 }
 
 // Đặt tên hiển thị (khác tên đăng nhập): 2–16 ký tự, mỗi ngày đổi một lần

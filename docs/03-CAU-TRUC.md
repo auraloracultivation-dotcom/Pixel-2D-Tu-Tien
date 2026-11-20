@@ -259,6 +259,20 @@ Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi 
 
 Còn tin máy khách: chỉ số dòng đầu của món mới (trong luật `p2d_mon_hop_le` và thùng `p2d_kiem_roi`), trần dòng `cap` và hệ `el` của món mới, nguyên liệu, Linh Thạch, linh khí (giới hạn bằng thùng hạn mức và trần ngày của `p2d_luu`), ngọc cấp 1..4 trong giới hạn thùng ngọc rơi; linh thú / khôi lỗi / công pháp lớn, bản sao, loài mới, thú cưỡi rơi trong giới hạn các thùng `kyThu` (máy chủ không thấy quái bị hạ); thảo dược, vườn, bế quan, thành tựu, danh hiệu, sát thương bia (`dpsBest`), đếm quái ma khí (`elite`), bí cảnh (`dunLv`).
 
+### Hai nhịp lưu (`data/config.json` → `luu_hai_nhip`, chủ dự án 21/11/2026 chọn "Cách A: lưu hai nhịp")
+
+Đo 20–21/11/2026: mỗi người đang chơi gọi máy chủ lưu 4–6 giây một lần; 75% là gói dưới 2 KB chỉ có mấy con số nhảy lúc farm; hàm lưu trung bình 39 ms, chiếm phần lớn thời gian cơ sở dữ liệu, ước nghẽn quanh 150–200 người cùng lúc. Thay cho trạm lưu Cloudflare (bàn 20/11, chưa làm): chia thay đổi làm hai loại ngay trên máy người chơi, không thêm máy chủ, không đổi cơ sở dữ liệu.
+
+- **Chậm** (gom `cham_ms` = 30 giây gửi một lần): mọi khoá đổi chỉ là số nhảy, tức cùng hình dạng, chỉ số khác số; khoá đếm thêm / bớt cũng tính (nguyên liệu mới có lần đầu, đan uống hết); túi đồ chỉ thêm món phẩm trong `do_thuong` ở cuối. Luật ở `src/net/save-diff.js` (`chiSoNhay`, `tuiThemThuong`, `plan().cham`).
+- **Nhanh** (nhịp cũ 4 giây): mọi thứ còn lại: chữ, cờ, món phẩm cao, bỏ món, khoá bị xoá, khoá trong `nhanh` (cảnh giới, tầng, bước truyện, Tiên Ngọc, tháp). Khoá lạ, hình dạng lạ tự rơi vào nhịp nhanh: quên khai chỉ là lưu dày như cũ.
+- **Gửi ngay bất kể nhịp**: lệnh máy chủ qua `game.cloud.run` (mua bán, cường hoá, nhận thư…), `game.cloud.flush()`, và lúc trang bị ẩn / sắp đóng (`visibilitychange`, `pagehide`: `khan` trong `src/net/profile.js`, gửi bằng fetch `keepalive` kèm mã đăng nhập của lần gửi trước, không chờ gì; đang có lần gửi dở thì thôi, kẻo hai bản cùng phiên bản).
+- Lần đầu sau một quãng im (quá `cham_ms` chưa gọi máy chủ) vẫn đi trong 4 giây; nhịp chậm chỉ giãn các lần sau một lần vừa gửi. Không thứ gì chờ quá `cham_ms` + một nhịp gom. Gửi cả bản mỗi 5 phút và sau lỗi vẫn như cũ.
+- Tắt: `on: false` là một nhịp như cũ.
+
+Đo bằng Tự đánh thật 3 phút ở bãi (nhân vật mới): 37 lần gọi lưu theo nhịp cũ còn 6 theo hai nhịp. Bài thử `node tools/kiem/luu-hai-nhip.test.mjs` (trong `tools/check.mjs`; chạy đúng `src/net/profile.js` với đồng hồ giả và máy chủ giả giữ phiên bản): nhịp, không tự gây `phien_ban_cu`, trang ẩn, đổi tài khoản, lỗi máy chủ, chạy dài 10 phút. **Chưa thử với máy chủ thật**: sau khi đưa lên phải soát log (số lần `p2d_luu_vi` mỗi người mỗi giờ giảm, không tăng `phien_ban_cu`, `p2d_loi` không có `luu:` mới).
+
+Sửa kèm (lỗi có sẵn, lộ ra lúc viết bài thử): `game.cloud.version` luôn là 0 vì khai `get version()` bên trong `Object.assign` (chép thành số chết lúc tạo), nên `pickSave` lúc vào game không bao giờ nhận ra "bản trong máy dựa đúng phiên bản máy chủ hiện tại"; ai chơi lúc máy chủ chậm mà phiên đó chưa lưu lên được lần nào thì vào lại bị lấy bản máy chủ, mất phần vừa chơi. Giờ là thuộc tính đọc sống.
+
 ## Tông môn người chơi
 
 `supabase/migrations/20261028010000_p2d_tong_mon.sql` (bảng `p2d_bang`, `p2d_bang_tv`, `p2d_bang_xin`, số ở `p2d_bang_cfg` khớp `data/guild.json`). Hàm `p2d_bang_*`: lập (Kim Đan + 20.000 Linh Thạch, trừ trên máy chủ), tìm, xin vào (tông môn mở thì vào thẳng), duyệt, đổi chức (Tông chủ, Phó tông chủ, Trưởng lão, Đệ tử), mời ra, nhường chức, rời, giải tán, điểm danh, góp Linh Thạch, nhận thưởng mốc tuần (mỗi người mỗi mốc một lần mỗi tuần, ghi ở `p2d_nhan_vat.bang_thuong`). Đồng môn được gọi bằng mã băm 12 ký tự, không lộ mã tài khoản. Chat tông môn là kênh `bang:<id>` của `p2d_chat`. Máy khách: `src/net/guild.js`, `src/game/guild.js` (lệnh đụng Linh Thạch chạy qua `cloud.run`), `src/ui/guild-panel.js`, `src/ui/guild-view.js`; chat theo kênh ở `src/game/world-chat.js`.

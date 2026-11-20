@@ -353,6 +353,13 @@ errors.push(...(await import('./dong-bo.mjs')).soat());
 // Quái chung (data/config.json → quai_chung): bản sao bảng bãi của máy chủ phòng (cloud/src/quai-cfg.js) khớp data/, số luật hợp lệ
 errors.push(...(await import('./quai-chung.mjs')).soat());
 
+// Hai nhịp lưu (data/config.json → luu_hai_nhip; src/net/save-diff.js, src/net/profile.js): số nhảy gom gửi thưa, thứ quan trọng vẫn nhanh,
+// không tự gây xung đột phiên bản, trang ẩn thì gửi ngay
+{
+  const r = spawnSync(process.execPath, [join('tools', 'kiem', 'luu-hai-nhip.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) { const out = (r.stderr || r.stdout).trim().split('\n'); errors.push(`lưu: bài thử hai nhịp lưu trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
+}
+
 // Máy chủ phòng Cloudflare (cloud/): bài thử thuần Node
 {
   const r = spawnSync(process.execPath, [join('tools', 'cloud', 'phong.test.mjs')], { encoding: 'utf8' });
