@@ -13,6 +13,8 @@ const net = () => import('../net/market.js');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 export const canTrade = game => !!(game.online && game.cloud && game.save);
+// Hòm thư chỉ cần bản lưu máy chủ, không cần phòng chơi chung (20/11/2026: một người chơi cả phiên không hỏi thư lần nào, quà boss nằm chờ)
+export const canMail = game => !!(game.cloud && game.save);
 
 export function errText(game, e) {
   const msg = String(e?.message || ''), E = M(game).err;
@@ -80,7 +82,7 @@ export async function cancel(game, id) {
 // Nhận thư còn chỗ trong túi (trang bị cần ô trống); máy chủ cộng vào bản lưu, máy này cộng y như vậy
 // (món nhận được mang mã số máy chủ cấp, bắt đầu từ chỗ máy này giữ sẵn). Trả về các dòng chữ đã nhận.
 export async function claimMail(game) {
-  if (!canTrade(game)) return [];
+  if (!canMail(game)) return [];
   const { peekMail, takeMail } = await net();
   const mail = await peekMail(), s = game.save;
   let free = bagCap(game.data, s) - s.bag.length;
@@ -122,7 +124,7 @@ export async function claimMail(game) {
 // Thỉnh thoảng tự nhận thư (tiền bán hàng) khi đang chơi
 export function startMailCheck(game) {
   every(async () => {
-    if (!canTrade(game) || game.uiOpen) return;
+    if (!canMail(game) || (game.uiOpen && document.getElementById('social')?.hidden !== false)) return;   // đang mở khung chat vẫn tự nhận (20/11/2026: người ngồi chat tưởng mất quà boss)
     try { const got = await claimMail(game); if (got.length) game.toast(got.join(' · '), 3); } catch { /* mạng lỗi: lần sau */ }
   }, 90000);
 }
