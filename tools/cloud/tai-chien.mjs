@@ -15,6 +15,9 @@
 //     --toc    tốc độ chạy, đơn vị bản đồ mỗi giây (game: đi bộ 72–94, cưỡi thú 108–140, ngự kiếm bay 144–187)
 //     --len 80 --rung 40   trễ mạng mỗi chiều (ms) và độ chập chờn ±; tin của một máy vẫn tới đúng thứ tự như TCP (--len 0 = mạng lý tưởng)
 //     --kem 0  máy khách cũ: tin đòn đánh KHÔNG kèm vị trí người đánh (mặc định 1 = kèm, máy khách từ đợt sửa đêm 20/11/2026)
+//     --muot 2 hệ số đi mượt của máy khách: hình người khác tới chỗ mới sau bao nhiêu nhịp gói tin (game: 2; nhỏ hơn thì hình bám sát hơn
+//              nhưng dễ khựng khi gói tới trễ). Kết quả có thêm hinh_tre_ms (hình cũ hơn vị trí thật bao lâu) và hinh_khung_pct (phần
+//              thời gian hình đứng khựng trong lúc người thật vẫn chạy), đo ở kiểu duoi
 //     --hat 7  hạt giống số ngẫu nhiên: cùng hạt thì kết quả y hệt (tools/check.mjs dùng); bỏ trống = ngẫu nhiên thật
 //     --rate   nới luật tốc độ (tin/giây) để thử     --cap trần người một phòng      --uuid 0 dùng mã người ngắn
 //     --gop 1  thử bản vá "đòn PvP đi chung gói lô" (vá trên bản sao tạm của cloud/src, không sửa kho)
@@ -29,12 +32,13 @@ const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ?
 const N = +arg('nguoi', 40), TEAMS = +arg('doi', 2), FIGHT = +arg('danh', 20), SECS = +arg('giay', 60);
 const VT = +arg('vt', 2000), VT_DAO = +arg('vtdao', 2000), GOP = arg('gop', '0') === '1', CAP = +arg('cap', Math.max(40, N));
 const HIT_S = +arg('don', 2), CAST_S = +arg('chieu', 1), TOC = +arg('toc', 190), CACH = +arg('cach', 190), STEP = 20, BK = 400;
-const LEN = +arg('len', 80), RUNG = +arg('rung', 40), KIEU = arg('kieu', 'bam'), KEM = arg('kem', '1') === '1', HAT = +arg('hat', 0);
+const LEN = +arg('len', 80), RUNG = +arg('rung', 40), KIEU = arg('kieu', 'bam'), KEM = arg('kem', '1') === '1', HAT = +arg('hat', 0), MUOT = +arg('muot', 2);
 const RT = JSON.parse(readFileSync(join(import.meta.dirname, '../../data/config.json'), 'utf8')).realtime;   // hop, speed, gap_max: như máy khách thật
 if (HAT) { let a = HAT | 0; Math.random = () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, a | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 const maNguoi = i => (arg('uuid', '1') !== '1' ? 'b' + i : HAT ? 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => (Math.random() * 16 | 0).toString(16)) : crypto.randomUUID());
 
 let NOW = 1_800_000_000_000;
+const DAU = NOW;
 Date.now = () => NOW;
 const timers = [];
 globalThis.setTimeout = (f, ms = 0) => { timers.push({ at: NOW + ms, f }); return timers.length; };
@@ -111,10 +115,12 @@ const nhan = (b, raw) => {
     let o = b.thay.get(id); if (!o) b.thay.set(id, o = { x: null, y: null, tx: 0, ty: 0, spd: 0, at: 0 });
     if (o.x === null || Math.hypot(x - o.x, y - o.y) > (RT.hop || 140)) { o.x = x; o.y = y; }
     const gap = Math.min(RT.gap_max || 0.5, Math.max(0.1, (NOW - (o.at || NOW - 125)) / 1000));
-    o.at = NOW; o.tx = x; o.ty = y; o.spd = Math.min(RT.speed || 260, Math.hypot(x - o.x, y - o.y) / (gap * 2));
+    o.at = NOW; o.tx = x; o.ty = y; o.spd = Math.min(RT.speed || 260, Math.hypot(x - o.x, y - o.y) / (gap * MUOT));
   }
 };
-const nhin = b => { for (const o of b.thay.values()) { if (o.x === null) continue; const dx = o.tx - o.x, dy = o.ty - o.y, d = Math.hypot(dx, dy), s = Math.max(o.spd, 30) * STEP / 1000; if (d <= s) { o.x = o.tx; o.y = o.ty; } else { o.x += dx / d * s; o.y += dy / d * s; } } };
+const hinh = { lech: 0, n: 0, khung: 0 };   // đo hình so với thật (kiểu duoi: người đuổi nhìn mồi đang chạy đều)
+const nhin = b => { for (const [id, o] of b.thay) { if (o.x === null) continue; const dx = o.tx - o.x, dy = o.ty - o.y, d = Math.hypot(dx, dy), s = Math.max(o.spd, 30) * STEP / 1000; if (d <= s) { o.x = o.tx; o.y = o.ty; } else { o.x += dx / d * s; o.y += dy / d * s; }
+  if (KIEU === 'duoi' && id === b.cap?.id && NOW > DAU + 3000) { hinh.n++; hinh.lech += Math.hypot(o.x - b.cap.x, o.y - b.cap.y); if (d <= s) hinh.khung++; } } };
 
 for (let i = 0; i < N; i++) {
   const id = maNguoi(i), fight = i < FIGHT, team = fight ? i % TEAMS : -1;
@@ -197,6 +203,7 @@ const out = {
   lan_gui_xuong_s: Math.round(st.sends / SECS),
   kb_xuong_moi_nguoi_s: r1(st.bytes / N / SECS / 1024),
   kb_xuong_nguoi_danh_s: r1(fb.reduce((a, b) => a + b.ws.bytes, 0) / Math.max(1, fb.length) / SECS / 1024),
+  ...(hinh.n ? { he_so_muot: MUOT, hinh_tre_ms: Math.round(hinh.lech / hinh.n / TOC * 1000), hinh_khung_pct: r1(100 * hinh.khung / hinh.n) } : {}),
   don_gui: st.hitTry, don_duoc_tinh: st.ph + st.pd, don_duoc_tinh_pct: st.hitTry ? r1(100 * (st.ph + st.pd) / st.hitTry) : null, ha_guc: st.pd,
 };
 console.log(JSON.stringify(out));
