@@ -1,7 +1,7 @@
 -- Lò luyện đan do máy chủ quyết (chủ dự án 20/11/2026 13:3x–13:4x; "số lượng và loại sẽ do máy chủ tính, tỷ lệ thành công cũng vậy").
 -- Túi đồ → Luyện đan: 1 ô lò + 9 ô nguyên liệu. Người chơi gửi {mã nguyên liệu: số} (1–9 loại); máy chủ kiểm có đủ trong bản lưu,
--- ghép đan phương: một mẻ ra được NHIỀU loại đan (14:3x). Đi qua các đan phương theo thứ tự ngẫu nhiên, mỗi đan lấy hết số bộ còn ghép
--- được từ phần nguyên liệu còn lại (chủ dự án chọn "Random" khi nguyên liệu chồng nhiều đan phương). Không báo trước đan gì, tỉ lệ bao nhiêu
+-- ghép đan phương: một mẻ ra được NHIỀU loại đan (14:3x). Nguyên liệu chồng nhiều đan phương thì "ngẫu nhiên chia trung bình số lượng ra"
+-- (14:4x): các đan ghép được chia đều theo vòng, vòng lẻ cuối theo thứ tự ngẫu nhiên. Không báo trước đan gì, tỉ lệ bao nhiêu
 -- (14:1x; đan phương xem ở Tàng Thư). Tỉ lệ chung = base + pham[phẩm lò] + per_cap × cấp lò − per_set × (tổng số bộ − 1), kẹp [floor, max];
 -- mỗi loại đan tung riêng. Mọi nguyên liệu bỏ vào đều mất (phần không ghép được mất dù thành hay hỏng); loại nào thành thì cộng make × bộ viên.
 -- Số chép từ data/cave.json → lo, pills.*.recipe / make (sinh lúc viết migration); sửa số ở data/ thì thêm migration thay v_cfg.
@@ -24,6 +24,7 @@ declare
   v_nv public.p2d_nhan_vat%rowtype; v_k text; v_n jsonb; v_p record; v_r record; v_con jsonb := p_o;
   v_b integer; v_tong integer := 0; v_ds jsonb := '[]'::jsonb; v_d jsonb; v_rate numeric := 0; v_ok boolean; v_vien integer;
   v_thanh boolean := false; v_tvien integer := 0; v_out jsonb := '[]'::jsonb; v_pb integer;
+  v_i integer; v_f jsonb; v_need jsonb; v_sets jsonb := '{}'::jsonb;
 begin
   if v_me is null then raise exception 'chua_dang_nhap' using errcode = '28000'; end if;
   if p_o is null or jsonb_typeof(p_o) <> 'object' or (select count(*) from jsonb_object_keys(p_o)) not between 1 and 9 then
@@ -40,19 +41,41 @@ begin
   for v_k, v_n in select key, value from jsonb_each(p_o) loop
     if coalesce(public.p2d_ky_so(v_nv.data -> 'mats' -> v_k), 0) < (v_n #>> '{}')::numeric then raise exception 'thieu_nl' using errcode = '22023'; end if;
   end loop;
-  -- ghép đan phương theo thứ tự ngẫu nhiên: mỗi đan lấy hết số bộ còn ghép được, trừ vào phần còn lại (14:3x "Random")
-  for v_p in select key, value from jsonb_each(v_cfg -> 'dan') order by random() loop
-    v_b := null;
-    for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
-      v_b := least(coalesce(v_b, 2147483647), floor(coalesce((v_con ->> v_r.key)::numeric, 0) / (v_r.value #>> '{}')::numeric)::integer);
+  -- ghép đan phương, "ngẫu nhiên chia trung bình số lượng ra" (14:4x): mọi đan đang ghép được chia đều theo vòng, mỗi vòng mỗi đan một bộ
+  -- (gộp k vòng trọn một lần); không đủ một vòng trọn thì đi một vòng lẻ theo thứ tự ngẫu nhiên, đan nào còn ghép được lấy một bộ
+  for v_i in 1..500 loop
+    v_f := '[]'::jsonb; v_need := '{}'::jsonb;
+    for v_p in select key, value from jsonb_each(v_cfg -> 'dan') loop
+      if not exists (select 1 from jsonb_each(v_p.value -> 'r') r where coalesce((v_con ->> r.key)::numeric, 0) < (r.value #>> '{}')::numeric) then
+        v_f := v_f || jsonb_build_array(v_p.key);
+        for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
+          v_need := jsonb_set(v_need, array[v_r.key], to_jsonb(coalesce((v_need ->> v_r.key)::numeric, 0) + (v_r.value #>> '{}')::numeric));
+        end loop;
+      end if;
     end loop;
-    if coalesce(v_b, 0) >= 1 then
-      for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
+    exit when jsonb_array_length(v_f) = 0;
+    select min(floor((v_con ->> key)::numeric / (value #>> '{}')::numeric))::integer into v_b from jsonb_each(v_need);
+    if v_b >= 1 then
+      for v_r in select key, value from jsonb_each(v_need) loop
         v_con := jsonb_set(v_con, array[v_r.key], to_jsonb((v_con ->> v_r.key)::numeric - v_b * (v_r.value #>> '{}')::numeric));
       end loop;
-      v_ds := v_ds || jsonb_build_array(jsonb_build_object('dan', v_p.key, 'bo', v_b, 'm', (v_p.value ->> 'm')::integer));
-      v_tong := v_tong + v_b;
+      for v_k in select jsonb_array_elements_text(v_f) loop
+        v_sets := jsonb_set(v_sets, array[v_k], to_jsonb(coalesce((v_sets ->> v_k)::integer, 0) + v_b));
+      end loop;
+    else
+      for v_k in select x from jsonb_array_elements_text(v_f) x order by random() loop
+        if not exists (select 1 from jsonb_each(v_cfg -> 'dan' -> v_k -> 'r') r where coalesce((v_con ->> r.key)::numeric, 0) < (r.value #>> '{}')::numeric) then
+          for v_r in select key, value from jsonb_each(v_cfg -> 'dan' -> v_k -> 'r') loop
+            v_con := jsonb_set(v_con, array[v_r.key], to_jsonb((v_con ->> v_r.key)::numeric - (v_r.value #>> '{}')::numeric));
+          end loop;
+          v_sets := jsonb_set(v_sets, array[v_k], to_jsonb(coalesce((v_sets ->> v_k)::integer, 0) + 1));
+        end if;
+      end loop;
     end if;
+  end loop;
+  for v_k, v_n in select key, value from jsonb_each(v_sets) loop
+    v_ds := v_ds || jsonb_build_array(jsonb_build_object('dan', v_k, 'bo', (v_n #>> '{}')::integer, 'm', (v_cfg -> 'dan' -> v_k ->> 'm')::integer));
+    v_tong := v_tong + (v_n #>> '{}')::integer;
   end loop;
   -- một tỉ lệ chung theo tổng số bộ; mỗi loại đan tung riêng (14:3x "Mỗi loại đan tung riêng")
   if v_tong > 0 then

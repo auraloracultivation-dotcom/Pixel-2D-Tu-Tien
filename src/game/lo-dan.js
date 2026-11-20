@@ -21,18 +21,28 @@ export function loRate(game, sets) {
   return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo.ph] || 0) + c.per_cap * lo.cap - c.per_set * (sets - 1)));
 }
 
-// Ghép đan phương như máy chủ (chủ dự án 20/11/2026 14:3x: một mẻ ra được nhiều loại đan, nguyên liệu chồng nhiều đan phương thì "Random"):
-// đi qua các đan phương theo thứ tự ngẫu nhiên, mỗi đan lấy hết số bộ còn ghép được từ phần còn lại. Trả [{ id, sets, make }]
+// Ghép đan phương như máy chủ (chủ dự án 20/11/2026: một mẻ ra được nhiều loại đan; nguyên liệu chồng nhiều đan phương thì
+// "ngẫu nhiên chia trung bình số lượng ra"): mọi đan đang ghép được chia đều theo vòng, mỗi vòng mỗi đan một bộ; vòng nào không đủ cho
+// tất cả thì đi một vòng lẻ theo thứ tự ngẫu nhiên, đan nào còn ghép được thì lấy một bộ. Gộp nhiều vòng đủ thành một bước cho nhanh.
+// Trả [{ id, sets, make }]
 export function ghep(game, put) {
-  const con = { ...put }, out = [], P = Object.entries(game.data.cave.pills).filter(([, p]) => Object.keys(p.recipe || {}).length);
-  for (let i = P.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [P[i], P[j]] = [P[j], P[i]]; }
-  for (const [id, p] of P) {
-    const r = Object.entries(p.recipe), sets = Math.min(...r.map(([k, n]) => Math.floor((con[k] || 0) / n)));
-    if (!(sets >= 1)) continue;
-    for (const [k, n] of r) con[k] -= n * sets;
-    out.push({ id, sets, make: p.make || 1 });
+  const con = { ...put }, sets = {}, P = Object.entries(game.data.cave.pills).filter(([, p]) => Object.keys(p.recipe || {}).length);
+  const ok = r => Object.entries(r).every(([k, n]) => (con[k] || 0) >= n);
+  for (let guard = 0; guard < 500; guard++) {
+    const F = P.filter(([, p]) => ok(p.recipe));
+    if (!F.length) break;
+    const need = {};
+    for (const [, p] of F) for (const [k, n] of Object.entries(p.recipe)) need[k] = (need[k] || 0) + n;
+    const k = Math.min(...Object.entries(need).map(([g, n]) => Math.floor((con[g] || 0) / n)));
+    if (k >= 1) {   // đủ k vòng trọn
+      for (const [g, n] of Object.entries(need)) con[g] -= n * k;
+      for (const [id] of F) sets[id] = (sets[id] || 0) + k;
+      continue;
+    }
+    for (let i = F.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [F[i], F[j]] = [F[j], F[i]]; }
+    for (const [id, p] of F) if (ok(p.recipe)) { for (const [g, n] of Object.entries(p.recipe)) con[g] -= n; sets[id] = (sets[id] || 0) + 1; }
   }
-  return out;
+  return Object.entries(sets).map(([id, n]) => ({ id, sets: n, make: game.data.cave.pills[id].make || 1 }));
 }
 
 function mirror(game, put, r) {   // chép kết quả máy chủ (hoặc tính ở máy) vào bản lưu trong máy
