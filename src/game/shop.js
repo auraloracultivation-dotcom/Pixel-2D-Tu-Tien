@@ -86,11 +86,21 @@ function label(game, x) {
   return d.cave.materials[x.ref]?.name || d.items.materials[x.ref]?.name || x.ref;
 }
 
+// Món giới hạn mỗi ngày (per_day: Tẩy Tủy Đan, Đạo Vận Thạch, chủ dự án 20/11/2026 16:1x): đếm trong save.npcBuy như dân làng cũ
+const today = () => new Date().toDateString();
+const leftToday = (game, x) => (x.per_day ? Math.max(0, x.per_day - (game.save.npcBuy?.day === today() ? game.save.npcBuy['shop:' + x.ref] || 0 : 0)) : Infinity);
+function countToday(game, x) {
+  const s = game.save; if (!x.per_day) return;
+  if (s.npcBuy?.day !== today()) s.npcBuy = { day: today() };
+  s.npcBuy['shop:' + x.ref] = (s.npcBuy['shop:' + x.ref] || 0) + 1;
+}
+
 async function buy(game, x) {
   const s = game.save;
   const price = priceOf(game, x);
-  if (coins(s) < price) return null;
-  if (x.kind === 'mat') {   // nguyên liệu: máy chủ mua giá gốc (src/game/quick-buy.js, không bị trần nhận mỗi ngày cắt mất)
+  if (coins(s) < price || leftToday(game, x) < 1) return null;
+  countToday(game, x);
+  if (x.kind === 'mat' && game.data.market.quick.price[x.ref]) {   // nguyên liệu máy chủ bán (bảng giá p2d_nl_mua); món không có trong bảng (Đạo Vận Thạch) mua ở máy như dân làng cũ   // nguyên liệu: máy chủ mua giá gốc (src/game/quick-buy.js, không bị trần nhận mỗi ngày cắt mất)
     const r = await buyMats(game, { [x.ref]: x.n }, false);
     if (!r.ok) return null;
     dailyEvent(game, 'buy');
@@ -112,7 +122,7 @@ async function buy(game, x) {
 
 // Mua q phần một món: nguyên liệu gộp một lần gọi máy chủ; còn lại mua lần lượt tới khi hết tiền
 async function buyN(game, x, q) {
-  if (x.kind === 'mat') return buy(game, { ...x, n: x.n * q });
+  if (x.kind === 'mat' && game.data.market.quick.price[x.ref]) return buy(game, { ...x, n: x.n * q });   // máy chủ mua một lần; món mua ở máy thì mua lần lượt
   let k = 0, last = null;
   for (; k < q; k++) { const g = await buy(game, x); if (!g) break; last = g; }
   if (!k) return null;
@@ -125,7 +135,7 @@ export async function talkShop(game, npc, o = {}) {
   let msg = o.msg || 'Có Linh Thạch là có tất cả. Mua gì cứ nói.';
   for (;;) {
     const list = (o.items || C(game).items).filter(x => (!x.need || game.save.flags[x.need]) && !(x.kind === 'skill' && (game.save.boughtSkills?.includes(x.ref) || game.data['phap-bao']?.all)));   // chiêu đã học thì thôi bán; hệ pháp bảo mới (12/11/2026): chiêu cũ thôi bán (báo lỗi #155: danh sách dài, khó vuốt)
-    const opts = list.map((x, i) => ({ id: String(i), label: label(game, x), spr: sprOf(x), tag: x.n > 1 ? '×' + x.n : '', price: priceOf(game, x).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', desc: x.kind === 'skill' ? game.data.skills[x.ref].desc : '', dim: coins(game.save) < priceOf(game, x), color: '#f2c94c' }));   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
+    const opts = list.map((x, i) => ({ id: String(i), label: label(game, x), spr: sprOf(x), tag: x.per_day ? `${leftToday(game, x)}/${x.per_day} hôm nay` : x.n > 1 ? '×' + x.n : '', price: priceOf(game, x).toLocaleString('vi-VN'), cur: 'ui.ic-linh-thach', desc: x.kind === 'skill' ? game.data.skills[x.ref].desc : '', dim: coins(game.save) < priceOf(game, x), color: '#f2c94c' }));   // lưới có hình, giá dưới ô (chủ dự án 19/11/2026 10:24)
     for (const e of o.extra || []) opts.push({ id: 'x:' + e.id, label: e.label, desc: e.desc || '', color: e.color });
     if (o.topup !== false) opts.push({ id: 'tn', label: game.data.topup.title, desc: `Thẻ tháng, đổi ${game.data.topup.name}`, color: game.data.topup.color });
     opts.push({ id: 'out', label: 'Thôi', desc: '' });
@@ -135,7 +145,8 @@ export async function talkShop(game, npc, o = {}) {
     if (pick.startsWith('x:')) { await o.extra.find(e => 'x:' + e.id === pick)?.run(); return; }
     const x = list[+pick], unit = priceOf(game, x);
     // số lượng (góp ý 19/11/2026: bấm từng cái mỏi tay): nguyên liệu một lần gọi máy chủ (trần 999 mỗi lần), đan / ngọc mua liền tay
-    const max = x.kind === 'skill' ? 1 : Math.min(Math.floor(coins(game.save) / Math.max(1, unit)), x.kind === 'mat' ? Math.floor(999 / Math.max(1, x.n)) : 999);
+    if (leftToday(game, x) < 1) { msg = 'Món này hôm nay đã bán hết phần của đạo hữu, mai quay lại.'; game.sfx('hurt'); continue; }
+    const max = x.kind === 'skill' ? 1 : Math.min(Math.floor(coins(game.save) / Math.max(1, unit)), x.kind === 'mat' ? Math.floor(999 / Math.max(1, x.n)) : 999, leftToday(game, x));
     const q = max < 1 ? 1 : await pickQty(game, `${label(game, x)}${x.n > 1 ? ' ×' + x.n : ''}: ${unit.toLocaleString('vi-VN')} mỗi phần`, unit, max);
     if (!q) continue;
     const got = await buyN(game, x, q);

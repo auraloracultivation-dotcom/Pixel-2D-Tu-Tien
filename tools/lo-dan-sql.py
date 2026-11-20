@@ -3,18 +3,19 @@
 # phẩm; phải có lò mới luyện; một mẻ ra nhiều loại đan, nguyên liệu chồng nhiều đan phương thì chia đều theo vòng (vòng lẻ ngẫu nhiên);
 # một tỉ lệ chung theo tổng số bộ, mỗi loại đan tung riêng; không báo trước đan gì, tỉ lệ bao nhiêu.
 # Đổi số ở data/ sau khi đã áp thì chạy lại thành migration MỚI (không sửa file đã áp).
-import json
+import json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 C = json.loads((ROOT / 'data/cave.json').read_text(encoding='utf-8'))
 L = C['lo']
-cfg = {k: L[k] for k in ('base', 'per_set', 'floor', 'max', 'pham', 'gia_mua', 'max_lo', 'nang')}
+cfg = {k: L[k] for k in ('base', 'per_set', 'phat_dan', 'floor', 'max', 'pham', 'gia_mua', 'max_lo', 'nang')}
 cfg['so_kieu'] = len(L['kieu'])
-cfg['dan'] = {k: {'r': p['recipe'], 'm': p.get('make', 1)} for k, p in C['pills'].items() if p.get('recipe')}
+cfg['dan'] = {k: {'r': p['recipe'], 'm': p.get('make', 1), 'p': p.get('pham', 0)} for k, p in C['pills'].items() if p.get('recipe')}
 CFG = json.dumps(cfg, ensure_ascii=False, separators=(',', ':'))
 
-print(f"""-- Lò luyện đan (chủ dự án 20/11/2026 13:3x–14:5x). SINH BẰNG tools/lo-dan-sql.py từ data/cave.json, không sửa tay.
+NOTE = sys.argv[1] if len(sys.argv) > 1 else ""   # dòng ghi chú thêm cho migration mới (vd lý do chạy lại)
+print(f"""-- Lò luyện đan (chủ dự án 20/11/2026 13:3x–16:1x). SINH BẰNG tools/lo-dan-sql.py từ data/cave.json, không sửa tay.{NOTE}
 -- Lò là món đồ: cột lo_ds = mảng {{id, k (kiểu 0–{cfg['so_kieu'] - 1}), ph (phẩm 0 Phàm … 6 Thượng Cổ)}}, lo_dung = mã lò đang đặt. Bản lưu có
 -- data.lo = {{ds, dung}} chỉ để máy khách hiện; mọi hàm chỉ đọc cột nên máy khách sửa data.lo không có tác dụng.
 --   p2d_mua_lo(kiểu): trừ gia_mua Linh Thạch, thêm một lò phẩm Phàm (tối đa max_lo lò); chưa đặt lò nào thì đặt luôn lò này.
@@ -22,7 +23,8 @@ print(f"""-- Lò luyện đan (chủ dự án 20/11/2026 13:3x–14:5x). SINH B�
 --   p2d_lo_cua_toi(): {{ds, dung}}.
 --   p2d_luyen_dan({{mã: số}}): cần lò đang đặt. Kiểm nguyên liệu trong bản lưu máy chủ, ghép đan phương: các đan ghép được chia đều theo vòng,
 --     mỗi vòng mỗi đan một bộ (gộp k vòng trọn một lần), vòng lẻ cuối theo thứ tự ngẫu nhiên; phần không ghép được mất. Tỉ lệ chung
---     = base + pham[phẩm lò] − per_set × (tổng số bộ − 1), kẹp [floor, max]; mỗi loại đan tung riêng, thành thì cộng make × bộ viên.
+--     = base + pham[phẩm lò] − per_set × (tổng số bộ − 1); mỗi loại đan tung riêng với tỉ lệ chung − phat_dan × phẩm đan (16:1x: phẩm đan
+--     càng cao tỉ lệ càng thấp), kẹp [floor, max]; thành thì cộng make × bộ viên.
 
 alter table public.p2d_nhan_vat add column if not exists lo_ds jsonb not null default '[]'::jsonb;
 alter table public.p2d_nhan_vat add column if not exists lo_dung text;
@@ -185,15 +187,16 @@ begin
     v_ds := v_ds || jsonb_build_array(jsonb_build_object('dan', v_k, 'bo', (v_n #>> '{{}}')::integer, 'm', (v_cfg -> 'dan' -> v_k ->> 'm')::integer));
     v_tong := v_tong + (v_n #>> '{{}}')::integer;
   end loop;
-  if v_tong > 0 then   -- một tỉ lệ chung theo tổng số bộ; mỗi loại đan tung riêng
-    v_rate := greatest((v_cfg ->> 'floor')::numeric, least((v_cfg ->> 'max')::numeric,
-      (v_cfg ->> 'base')::numeric + coalesce((v_cfg -> 'pham' ->> v_ph)::numeric, 0) - (v_cfg ->> 'per_set')::numeric * (v_tong - 1)));
+  if v_tong > 0 then   -- một tỉ lệ chung theo tổng số bộ (chưa kẹp); mỗi loại đan trừ thêm theo phẩm đan rồi mới kẹp, tung riêng
+    v_rate := (v_cfg ->> 'base')::numeric + coalesce((v_cfg -> 'pham' ->> v_ph)::numeric, 0) - (v_cfg ->> 'per_set')::numeric * (v_tong - 1);
   end if;
   for v_k, v_n in select key, value from jsonb_each(p_o) loop   -- mọi nguyên liệu bỏ vào đều mất
     v_nv.data := jsonb_set(v_nv.data, array['mats', v_k], to_jsonb(public.p2d_ky_so(v_nv.data -> 'mats' -> v_k) - (v_n #>> '{{}}')::numeric));
   end loop;
   for v_d in select value from jsonb_array_elements(v_ds) loop
-    v_ok := random() < v_rate; v_vien := case when v_ok then (v_d ->> 'm')::integer * (v_d ->> 'bo')::integer else 0 end;
+    v_ok := random() < greatest((v_cfg ->> 'floor')::numeric, least((v_cfg ->> 'max')::numeric,
+      v_rate - (v_cfg ->> 'phat_dan')::numeric * coalesce((v_cfg -> 'dan' -> (v_d ->> 'dan') ->> 'p')::numeric, 0)));
+    v_vien := case when v_ok then (v_d ->> 'm')::integer * (v_d ->> 'bo')::integer else 0 end;
     if v_ok then
       if jsonb_typeof(v_nv.data -> 'pills') is distinct from 'object' then v_nv.data := jsonb_set(v_nv.data, '{{pills}}', '{{}}'::jsonb); end if;
       v_nv.data := jsonb_set(v_nv.data, array['pills', v_d ->> 'dan'], to_jsonb(coalesce(public.p2d_ky_so(v_nv.data -> 'pills' -> (v_d ->> 'dan')), 0) + v_vien));
