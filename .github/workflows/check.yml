@@ -22,11 +22,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm i --no-save playwright@1.63.0
+      # Cài hai gói trong MỘT lệnh: lệnh npm i --no-save thứ hai sẽ gỡ gói của lệnh trước (20/11/2026: cài esbuild sau làm mất playwright)
+      - run: npm i --no-save playwright@1.63.0 esbuild@0.28.2
       - run: npx playwright install --with-deps chromium
       # Chơi thử trên đúng bản sẽ đưa lên (đã gói bằng tools/goi.mjs như .github/workflows/pages.yml), không phải mã nguồn rời
-      - run: |
-          npm i --no-save esbuild@0.28.2 || echo "không cài được esbuild, chơi thử bản chưa gói"
       - run: node tools/goi.mjs _site
       - run: node ../tools/playtest.mjs
         working-directory: _site

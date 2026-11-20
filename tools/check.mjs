@@ -340,6 +340,8 @@ try {
 // Tệp quy trình GitHub (.github/workflows/*.yml): lệnh `run:` viết một dòng mà có dấu hai chấm + cách (ví dụ trong chuỗi echo) là YAML hỏng,
 // GitHub bỏ cả tệp, không chạy kiểm tra nào mà Pull Request vẫn hiện gộp được (20/11/2026: lỗi này lọt vì ở máy không có gì đọc thử YAML).
 for (const f of existsSync(join('.github', 'workflows')) ? readdirSync(join('.github', 'workflows')).filter(f => /\.ya?ml$/.test(f)) : []) {
+  const yml = readFileSync(join('.github', 'workflows', f), 'utf8');
+  for (const job of yml.replace(/^\s*#.*$/gm, '').split(/\n {2}(?=[\w-]+:\n)/).slice(1)) if ((job.match(/npm (i|install) --no-save/g) || []).length > 1) errors.push(`.github/workflows/${f}: một việc có hai lệnh npm i --no-save; lệnh sau gỡ gói của lệnh trước, hãy cài chung một lệnh`);
   readFileSync(join('.github', 'workflows', f), 'utf8').split('\n').forEach((l, i) => {
     const m = /^\s*(?:-\s+)?(run|name):\s+(.*)$/.exec(l), v = m?.[2] || '';
     if (m && !/^[|>'"]/.test(v) && /:\s|:$|\s#/.test(v)) errors.push(`.github/workflows/${f} dòng ${i + 1}: giá trị ${m[1]} có dấu hai chấm (hoặc dấu # sau khoảng trắng) mà không nằm trong nháy / khối |: YAML hỏng, GitHub sẽ bỏ cả tệp`);
