@@ -20,6 +20,7 @@ import { createGreeter } from './he-thong-chao.js';
 import { makeDraggable } from './he-thong-keo.js';
 import { addLock } from './he-thong-khoa.js';
 import { renderTra } from './he-thong-tra.js';
+import { kyMoi } from './he-thong-ky.js';
 import { renderHoi, hoiState } from './he-thong-hoi.js';
 import { renderGop, gopState, gopShot } from './he-thong-gop.js';
 
@@ -95,14 +96,14 @@ export function createHeThong(game) {
   box.addEventListener('click', stop);
   back.addEventListener('click', () => minimize());
   ic.addEventListener('click', () => { if (ic.dataset.keo) { delete ic.dataset.keo; return; } open ? minimize() : show(); });   // vừa kéo xong thì không mở bảng
-  tip.addEventListener('click', () => { tip.hidden = true; show(); });
+  tip.addEventListener('click', () => { const go = tip.dataset.go; tip.hidden = true; tip.dataset.go = ''; if (go === 'tmk') game.openKy(); else show(); });   // dòng nhắc có trang truyện mới: chạm là mở thẳng sổ Trấn Ma Kỷ
 
   function tabBar() {
     tabs.textContent = '';
     for (const [id, name] of Object.entries(C.tabs)) {
       if ((id === 'gop' && !game.data.community?.feedback?.on)) continue;
       const b = el('button', `ht-tab${id === tab ? ' on' : ''}`, name); b.type = 'button';
-      if (id === 'moc' && mocReady(game, ht)) b.classList.add('co');   // chấm đỏ: có mốc nhận được
+      if ((id === 'moc' && mocReady(game, ht)) || (id === 'tra' && kyMoi(game))) b.classList.add('co');   // chấm đỏ: có mốc nhận được; sổ Trấn Ma Kỷ có trang chưa đọc (he-thong-ky.js)
       b.onclick = () => { if (id === 'gop' && tab !== 'gop' && !gopSt.busy) gopShot(game, gopSt); tab = id; render(); body.scrollTop = 0; };
       tabs.append(b);
     }
@@ -114,7 +115,7 @@ export function createHeThong(game) {
     else if (tab === 'gacha') {
       renderGacha(game, body, ht, r => { ht = { ...ht, diem: r.diem }; });   // không vẽ lại: món vừa trúng nằm trên rương tới khi người chơi chạm
     } else if (tab === 'tra') {
-      renderTra(game, body, traSt, () => { render(); body.scrollTop = 0; });
+      renderTra(game, body, traSt, () => { render(); body.scrollTop = 0; }, { minimize });
     } else if (tab === 'gop') {
       renderGop(game, body, gopSt, { render: () => { if (open && tab === 'gop') render(); }, minimize });
     } else {   // Hỏi đáp, gồm cả Hỏi thêm (he-thong-hoi.js)
@@ -155,8 +156,8 @@ export function createHeThong(game) {
       if (ci >= lines[li].length) { li++; ci = 0; p = null; }
     }, 30);
   }
-  function nudge(text, kind) {
-    tip.textContent = text; tip.hidden = false; ic.classList.add('wake'); game.sfx?.('pickup');
+  function nudge(text, kind, go) {
+    tip.textContent = text; tip.dataset.go = go || ''; tip.hidden = false; ic.classList.add('wake'); game.sfx?.('pickup');
     icFace.react('nudge_' + (kind || 'step'));
     clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; ic.classList.remove('wake'); icFace.show('thuong'); }, 7000);
   }
@@ -181,7 +182,7 @@ export function createHeThong(game) {
     if (!wander && !userPos && !ic.classList.contains('keo')) place();
     const quiet = !!game.story?.rung?.();   // đang leo bậc đầu game: Hệ Thống im lặng đứng xem, không lẩm bẩm, không nhắc việc (dòng nhắc từng che mất thẻ bậc giữa trận)
     const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
-    if (mum && !open && tip.hidden && !quiet) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
+    if (mum && !open && tip.hidden && !quiet) { tip.textContent = mum; tip.dataset.go = ''; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);
@@ -227,4 +228,7 @@ export function createHeThong(game) {
     if (ms.some(m => m.target !== back && !m.target.hidden && m.target.matches?.('.panel, #bag, #dialog, .death-ask, .pvp-ask, .bay-kho'))) minimize();
   }).observe(document.body, { attributes: true, attributeFilter: ['hidden'], subtree: true });
   game.openTangThu = id => { show(); pick(id); };   // bảng khác mở thẳng một mục Tàng Thư: game.openTangThu('mob:hoa-lang')
+  // Sổ Trấn Ma Kỷ (he-thong-ky.js, src/game/tran-ma-ky.js): mở thẳng sổ; Hệ Thống báo một dòng có trang mới (chạm dòng nhắc là mở sổ). Đang leo bậc đầu game thì im như mọi lời nhắc khác
+  game.openKy = id => { show(); traSt.back = []; traSt.cur = id || 'tmk'; tab = 'tra'; render(); body.scrollTop = 0; };
+  game.htNudge = (text, go) => { if (!open && !ic.hidden && !game.story?.rung?.()) nudge(text, 'step', go); };
 }

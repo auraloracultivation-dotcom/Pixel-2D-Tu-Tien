@@ -16,6 +16,7 @@ import { juiceUp } from './juice.js';
 import { buffBits } from './realm-gift.js';
 import { pbNext } from './phap-bao-grant.js';
 import { t } from '../core/i18n.js';
+import { canhGioiY } from './tran-ma-ky.js';   // ý nghĩa của cảnh giới trong truyện Trấn Ma Kỷ (data/tran-ma-ky.json → canh_gioi)
 import { phat } from './phat.js';   // người cùng tinh cầu thấy mình lên tầng   // chữ ghép: dịch theo khuôn
 
 const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
@@ -73,6 +74,7 @@ export function realmUp(game, a) {
   if (!game.mungCanh) return false;
   const s = game.save, R = game.data.realms, C = cfg(game), X = C.text, hold = [], gift = unlocks(game, hold), color = hue(game, s.realm, C.canh.color);
   const lines = statLines(game, a), flush = later(game, hold, C.world.rune_life * C.world.big), buff = buffBits(game, s.realm);
+  const y = canhGioiY(game, s.realm); if (y) lines.unshift({ text: y, soft: true, wrap: true });   // dòng đầu ngay dưới tên: cảnh giới này nghĩa là gì ("Trúc Cơ là cắm rễ…"), rồi mới tới con số
   if (buff.length) lines.push({ text: fill(X.buff, { realm: R.names[s.realm], list: list(buff) }), soft: true, wrap: true });
   if (gift) lines.push({ text: fill(X.gift_realm, { list: gift }), gift: true, wrap: true });
   game.mungCanh({ color: bang(game, color), title: X.canh, name: R.names[s.realm], sub: fill(X.from, { a: R.names[a.realm], b: R.names[s.realm] }), lines, gain: powGain(game, a),

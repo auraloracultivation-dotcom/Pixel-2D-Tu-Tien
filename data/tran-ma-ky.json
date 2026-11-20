@@ -1,0 +1,375 @@
+{
+ "_note": "Trấn Ma Kỷ: cốt truyện viết lại và cuốn sổ truyện trong game (chủ dự án 21/11/2026 03:16 'thiết kế lại từ đầu, giữ tên gọi, vật phẩm, hành tinh, cả hệ thống'; 03:47 'uỷ quyền sửa toàn bộ nội dung truyện… quan trọng nhất là cảm xúc người chơi khi vừa chơi vừa hiểu truyện'). Bản thiết lập đầy đủ: docs/14-TRAN-MA-KY.md. Sổ nằm trong Hệ Thống → Tàng Thư (src/ui/he-thong-ky.js), luật mở trang và phát cảnh ở src/game/tran-ma-ky.js, thẻ mở / khép quyển ở src/ui/the-quyen.js, khẩu quyết lúc tung pháp bảo ở src/game/khau-quyet.js. on: false thì cả phần này tắt (riêng một máy: địa chỉ có ?tmk=0 / ?tmk=1). quyen[].trang[]: mỗi trang một cảnh ngắn. khi: điều kiện mở trang, đủ MỌI khoá mới mở: step (đã tới bước truyện số này của data/story.json), xong (bước đó đã chạy xong phần lời), realm (cảnh giới từ số này), total (tổng tầng tu từ số này), den (đã từng tới bản đồ), boss + tai (đã hạ trùm này ở bản đồ này sau ngày có sổ: src/game/tran-ma-ky.js ghi cờ tmkb-<mã quái>), hoac (điều kiện thay thế cho người hạ trùm từ trước khi có sổ), doc (đã đọc trang kia, hoặc mảng nhiều trang), o (đang đứng ở bản đồ này). goi: lời gợi ý hiện ở trang chưa mở. im: trang do truyện chính (story.json) vừa kể rồi, mở là coi như đã đọc, không tự phát. canh: các câu [người nói, câu, { tap }] như story.json (người nói: mã NPC, 'he-thong' hoặc '' là lời dẫn), hoặc { hoi: { q, opts: [{ label, reply, lai }] } } (lai: chọn câu này thì chưa tính là đã đọc). Xen giữa các câu có thể đặt { dan: { toi, rung, chop, tieng, fx, mau, cho } }: dàn cảnh (tối màn, rung, chớp, tiếng, hiệu ứng quanh nhân vật, lặng một nhịp; src/game/tmk-canh.js). ghi: dòng ghi vào Nhật ký tu tiên khi đọc xong. quy: thiên quy lĩnh ngộ khi đọc xong. mo: 'cam' mở Cấm Kỵ Các, 'trang' mở quyển trắng. bo: gỡ cờ này khi đọc xong (người bị bắt trở về). Cờ trong bản lưu: tmk-co (đã dựng sổ cho bản lưu này), tmkm-<trang> (đã báo trang mở), tmkd-<trang> (đã đọc), tmkq-<quyển> / tmkk-<quyển> (đã diễn thẻ mở / khép quyển), tmkb-<quái>, tmk-im (người chơi tắt tự kể trang mới ở bìa sổ: chỉ còn lời nhắc). Không phát thưởng gì: sổ chỉ là truyện, tiến độ và lời mừng.",
+ "on": true,
+ "name": "Trấn Ma Kỷ",
+ "so": ["một", "hai", "ba", "bốn", "năm", "sáu", "bảy"],
+ "auto": {"_note": "Tự phát một cảnh vừa mở khi người chơi đang tự tay chơi và rảnh: không Tự đánh, không Tự hành, vừa chạm màn trong present_s giây, không có trùm, không ai lạ đứng trong near đơn vị; hai lần tự phát cách nhau gap_s giây. Không đủ thì Hệ Thống chỉ nhắc một dòng, đọc trong sổ lúc nào cũng được.", "present_s": 25, "gap_s": 40, "near": 120, "wait_s": 1.2},
+ "card": {"_note": "Thẻ mở / khép quyển (src/ui/the-quyen.js), cùng ngôn ngữ hình với nghi lễ đột phá (src/ui/mung-canh.js): nền tối, vầng sáng, dải chữ, tên quyển đập xuống. Giây tính từ lúc hiện. auto: đang Tự đánh / Tự hành thì tự đóng sau chừng ấy giây.", "color": "#ffd98a", "color_khep": "#bff4ff", "size": 264, "lvl": 2, "y": 0.34, "dim": 0.82, "flash": 0.22, "t": {"dim": 0.25, "ray": 0.1, "title": 0.25, "name": 0.55, "sub": 0.85, "line": 1.15, "gap": 0.22, "end": 0.5, "out": 0.25, "auto": 3}, "sfx": {"open": "qua-mo", "name": "qua-no-lon", "name_khep": "qua-no", "line": [["qua-d2", 0.8], ["qua-d3", 0.8], ["qua-d4", 0.8], ["qua-d5", 0.8]], "ok": "click"}},
+ "kq_bubble": {"_note": "Khẩu quyết hiện thành bong bóng trên đầu lúc tụ linh tung pháp bảo, mình và người cùng tinh cầu đều thấy (đi chung tin tụ linh, không thêm tin mạng; src/game/khau-quyet.js). sec: giây hiện; rate: phần lần tung có hô (1 = lần nào cũng hô); gap: một người hô hai câu cách nhau ít nhất chừng ấy giây (tung liền mấy món thì chỉ hô câu đầu). Bong bóng trò chuyện của người chơi không bị đè.", "on": true, "sec": 1.6, "rate": 1, "gap": 2.5},
+ "text": {
+  "cover_sub": "Cuốn sổ Hệ Thống ghi tên những người từng đứng giữ.",
+  "progress": "Đã đọc {a}/{b} trang",
+  "quyen": "Quyển {n}",
+  "open": "Mở quyển",
+  "close": "Khép quyển",
+  "ask": "Ngươi đứng đây vì ai?",
+  "pages": "{a}/{b} trang",
+  "new": "Mới",
+  "read": "Đọc",
+  "again": "Xem lại",
+  "locked": "Chưa mở",
+  "how": "Mở khi: {x}",
+  "sec_quyen": "Bảy quyển",
+  "sec_quy": "Chín thiên quy",
+  "sec_kq": "Khẩu quyết",
+  "sec_cam": "Cấm Kỵ Các",
+  "have": "{a}/{b}",
+  "quy_lock": "Lĩnh ngộ khi đọc tới {x}",
+  "kq_doan": "Đoản quyết của pháp bảo",
+  "kq_truong": "Trường quyết",
+  "kq_lock": "Chưa thuộc",
+  "kq_pb": "Thuộc khi có pháp bảo này",
+  "kq_dung": "Dùng khi: {x}",
+  "cam_lock": "Cấm Kỵ Các ở tầng trên cùng của Tàng Kinh Các. Trưởng lão chưa cho lên.",
+  "cam_intro": "Một nghìn quyển tuyệt học cấm kỵ. Mỗi quyển chỉ một dòng là chiêu thức, còn lại là tên người đã dùng và cái giá họ đã trả.",
+  "cam_gia": "Giá {x}",
+  "cam_loi": "Lời",
+  "cam_chieu": "Chiêu",
+  "cam_tra": "Giá",
+  "cam_nguoi": "Người viết quyển",
+  "cam_trang": "Quyển thứ một nghìn để trắng. Môn quy ghi: quyển này dành cho người viết nó.",
+  "busy": "Đang có việc khác. Xong rồi hẵng đọc.",
+  "nudge_new": "Đinh! Sổ Trấn Ma Kỷ có trang mới: {ten}. Rảnh tay thì chạm vào đây mà đọc.",
+  "nudge_old": "Đinh! Bổn hệ thống vừa chép lại sổ Trấn Ma Kỷ. Ký chủ có {n} trang chưa đọc. Chạm vào đây.",
+  "card_title": "Trấn Ma Kỷ",
+  "law_got": "Lĩnh ngộ thiên quy: {ten}",
+  "cam_got": "Cấm Kỵ Các đã mở trong sổ",
+  "page_of": "Quyển {n}: {a}/{b} trang",
+  "all": "Đã chép {a}/{b} trang vào sổ",
+  "next_q": "Quyển kế: {x}",
+  "end": "Sổ chưa có trang cuối. Tên ký chủ vẫn đang được chép tiếp.",
+  "ok": "Tiếp tục",
+  "skip": "Chạm để xem nhanh",
+  "auto_on": "Trang mới tự kể khi rảnh tay: Bật",
+  "auto_off": "Trang mới tự kể khi rảnh tay: Tắt",
+  "back": "Về bìa sổ"
+ },
+ "canh_gioi": [
+  "Luyện Khí là học thở cùng Cây.",
+  "Trúc Cơ là cắm rễ: từ đây thọ nguyên dài thêm.",
+  "Kim Đan là kết hạt: hạt giống của riêng ngươi.",
+  "Nguyên Anh là hạt nảy mầm.",
+  "Hóa Thần là mầm biết nghe: nghe được tiếng Cây mẹ.",
+  "Luyện Hư là rễ vươn vào hư không.",
+  "Hợp Thể là thân với đất làm một: đủ sức trấn một tinh cầu.",
+  "Đại Thừa là thành tán: che được cả một tông môn.",
+  "Độ Kiếp là Cây thử cành lần cuối trước khi cho ra hoa."
+ ],
+ "quyen": [
+  {"id": "q1", "ten": "Mùi nắng", "noi": "Mảnh Vỡ Thanh Khê · Thiên Kiếm Tinh", "mo": "Một linh hồn lạ rơi xuống ngôi làng nhỏ nhất tinh hệ.", "vi_ai": "Vì ta không muốn chết.", "goi": "Bắt đầu ở làng Thanh Khê", "trang": [
+   {"id": "q1-1", "ten": "Vé một chiều", "khi": {"step": 1}, "goi": "Tới đá linh căn giữa làng", "im": true, "canh": [
+    ["", "Bạn mở mắt trong một thân xác không phải của mình. Trên trời không có mặt trời, chỉ có một vầng sáng dịu như trăng."],
+    ["he-thong", "Đinh! Ghép xong. Bổn hệ thống là Hệ Thống Bạo Kích Tài Nguyên Vô Hạn. Còn ký chủ là... ừm, ký chủ."],
+    ["truong-thon", "Con dậy rồi à? Hôm nay lễ thức tỉnh linh căn đó, đừng để cả làng chờ."],
+    ["", "Trưởng thôn gọi bạn bằng một cái tên lạ, rồi chỉnh lại cổ áo cho bạn như đã làm cả trăm lần."],
+    ["he-thong", "Đừng hỏi thân xác này từng là của ai. Chưa tới lúc. Cũng đừng hỏi đường về: vé một chiều thôi."]
+   ], "ghi": "Mở mắt ở làng Thanh Khê, trong một thân xác không phải của mình."},
+   {"id": "q1-2", "ten": "Rễ nối với Cây", "khi": {"step": 2}, "goi": "Thức tỉnh linh căn", "im": true, "quy": "can", "canh": [
+    {"dan": {"fx": "vong", "tieng": "chime"}},
+    ["", "Đá linh căn sáng lên dưới tay bạn. Dân làng reo: rễ đã nối với Cây."],
+    ["he-thong", "Họ gọi linh căn là cái rễ nối mỗi người với Thế Giới Thụ. Ký chủ không sinh ra ở đây nên không có rễ. Cái vừa sáng lên là rễ ghép: chính là bổn hệ thống."],
+    ["tieu-hoa", "Cậu lạ lắm, như người vừa đi rất xa về. Nhưng không sao, tớ vẫn chơi với cậu!"],
+    ["{lac-tuyet|tieu-dao}", "Thiên Kiếm Tông giữ Linh Nhật đã vạn năm. Muốn theo ta lên núi thì phải làm được việc đã."]
+   ], "ghi": "Đá linh căn sáng. Người ta bảo rễ của ta đã nối với Cây."},
+   {"id": "q1-3", "ten": "Chiếc giày nhỏ", "khi": {"step": 5}, "goi": "Đánh lui ma tộc ở Thanh Khê", "im": true, "canh": [
+    {"dan": {"toi": 0.4, "fx": "khoi", "tieng": ["warn", 0.6]}},
+    ["", "Ma khí bò lên từ mép tinh cầu. Khi nó rút đi, chỗ Tiểu Hỏa đứng chỉ còn một chiếc giày nhỏ."],
+    ["truong-thon", "Con đi đi. Làng Thanh Khê nhỏ, nhưng lòng người không nhỏ. Bọn ta giữ được đèn."],
+    ["he-thong", "Ma tộc không giết thằng bé đâu. Ma không giết. Ma giữ. ...Sau này ký chủ sẽ hiểu câu đó đáng sợ chỗ nào."]
+   ]},
+   {"id": "q1-4", "ten": "Ngươi đứng đây vì ai", "khi": {"step": 6}, "goi": "Nhận binh khí ở Thiên Kiếm Phong", "im": true, "canh": [
+    ["van-hac", "Đệ tử mới nào ta cũng hỏi một câu: ngươi đứng đây vì ai?"],
+    ["", "Bạn chưa kịp nghĩ. Câu trả lời thật lúc này là: vì ta không muốn chết."],
+    ["van-hac", "Chưa cần đáp. Mỗi lần lên một cảnh giới, hãy tự hỏi lại. Câu trả lời sẽ đổi."],
+    ["ho-linh", "Lão hỏi ai cũng thế đấy. Lại đây, bồ đoàn bên cạnh ta là chỗ đả tọa tốt nhất tinh cầu!"]
+   ], "ghi": "Trưởng lão Vân Hạc hỏi: ngươi đứng đây vì ai. Ta chưa trả lời được."},
+   {"id": "q1-5", "ten": "Phân thân", "khi": {"step": 8}, "goi": "Hạ Huyết Nha trong bí cảnh", "im": true, "canh": [
+    ["", "Huyết Nha tan thành khói đen. Trong khói có tiếng cười: thứ bạn vừa hạ chỉ là một cái bóng."],
+    ["he-thong", "Phân thân thôi. Bản thật nằm trong Hỏa Quật ở Xích Diễm Tinh. Ghi nợ đó, sau này đòi."],
+    ["he-thong", "Mà này. Ký chủ đánh không tệ. Bổn hệ thống nói một lần thôi, đừng bắt nhắc lại."]
+   ]},
+   {"id": "q1-6", "ten": "Bàn tay xé trời", "khi": {"step": 10, "xong": true}, "goi": "Gặp lại người dẫn đường ở Thiên Kiếm Phong", "im": true, "canh": [
+    {"dan": {"toi": 0.5, "rung": 6, "chop": 1, "tieng": "thunder"}},
+    ["", "Trời Thiên Kiếm Phong nứt toác. Một bàn tay hắc ám vươn xuống, nắm lấy {Lạc Tuyết|Tiêu Dao}."],
+    {"dan": {"fx": "khoi", "tieng": ["roar", 0.6], "cho": 0.7}},
+    ["", "Giọng nói từ trong Ma Vân chỉ có hai chữ: “Ở lại.”", {"tap": true}],
+    ["he-thong", "...Bổn hệ thống không cản được. Lần đầu tiên bổn hệ thống thấy mình nhỏ bé."],
+    {"dan": {"toi": 0.15}},
+    ["", "Viên Lục Ngọc {nàng|chàng} vừa trao vẫn còn ấm trong tay bạn."],
+    ["he-thong", "Tên ký chủ, bổn hệ thống đã chép vào sổ Trấn Ma Kỷ. Muốn biết sổ ấy là gì thì sống cho đủ lâu."]
+   ], "ghi": "{Lạc Tuyết|Tiêu Dao} bị bàn tay của Đại Ma Thần bắt đi. Ta sẽ mạnh lên."}
+  ]},
+  {"id": "q2", "ten": "Người đứng gác", "noi": "Xích Diễm Tinh · Hàn Băng Tinh · Hắc Phong Tinh", "mo": "Ai cũng từng là người. Kể cả thứ đang đứng chắn đường ngươi.", "vi_ai": "Vì một người bạn tóc đỏ.", "goi": "Bay tới Xích Diễm Tinh", "trang": [
+   {"id": "q2-1", "ten": "Lò rèn đã cháy", "khi": {"den": "dao-xich-dien"}, "goi": "Bay tới Xích Diễm Tinh", "canh": [
+    {"dan": {"tieng": ["anvil", 0.7]}},
+    ["lao-thiet", "Lò rèn cháy rồi, nhưng tay lão vẫn còn. Ma tộc đốt được lò, không đốt được nghề."],
+    ["a-moc", "{Anh|Chị} từ Thiên Kiếm tới ạ? Em không sợ ma đâu... chỉ hơi run thôi."],
+    ["he-thong", "Nhìn kìa ký chủ. Nhà cháy mà họ vẫn nhóm lửa rèn. Người ở tinh hệ này lì lắm. Bổn hệ thống thích."],
+    ["lao-thiet", "Muốn đi xa thì tập ngự kiếm cho vững. Đất giữ chân người, kiếm giữ lòng người."]
+   ], "ghi": "Xích Diễm Tinh. Lò rèn cháy, lão thợ rèn vẫn rèn."},
+   {"id": "q2-2", "ten": "Món nợ Huyết Nha", "khi": {"boss": "huyet-nha-that", "tai": "hoa-quat", "hoac": {"total": 9}}, "goi": "Hạ Huyết Nha thật trong Hỏa Quật", "quy": "ma", "canh": [
+    {"dan": {"fx": "khoi", "tieng": ["die", 0.5], "cho": 0.6}},
+    ["", "Huyết Nha thật ngã xuống. Lần này không có tiếng cười nào trong khói."],
+    ["", "Dưới lớp vảy ma, bạn thấy một tấm thẻ gỗ khắc chữ: thợ săn của Xích Diễm Tinh."],
+    ["he-thong", "Thấy rồi hả. Ma không sinh ra được gì. Con nào cũng từng là một ai đó: người, thú, có khi là cái cây."],
+    ["he-thong", "Đừng nghĩ nhiều. Ký chủ không giết hắn. Ký chủ vừa mở cửa cho hắn về."],
+    {"dan": {"fx": "dom", "tieng": ["sparkle", 0.7], "cho": 1.1}}
+   ], "ghi": "Hạ Huyết Nha thật. Hắn từng là thợ săn của Xích Diễm Tinh."},
+   {"id": "q2-3", "ten": "Cắm rễ", "khi": {"realm": 1}, "goi": "Đột phá Trúc Cơ", "quy": "bac", "canh": [
+    {"dan": {"toi": 0.45, "chop": 1, "rung": 4, "tieng": "thunder", "cho": 0.5}},
+    ["", "Trúc Cơ: người tu gọi là cắm rễ. Từ đây thọ nguyên dài thêm, vì rễ đã bám vào Cây."],
+    ["", "Nhưng lôi kiếp của bạn giáng lệch một nhịp, như thể trời phải nhìn lại xem đang đánh ai."],
+    ["he-thong", "Đinh! Trúc Cơ thành công. Sét lệch à? Ờ... trời hôm nay mỏi tay. Chuyện thường."],
+    ["he-thong", "...Thôi được. Rễ của ký chủ là rễ ghép, Cây chưa quen. Hỏi thêm là bổn hệ thống giả vờ mất tín hiệu."],
+    {"dan": {"toi": 0, "fx": "vong", "tieng": "chime", "cho": 0.5}},
+    ["he-thong", "Mà nhìn lên đi. Trời vừa rộng thêm một vòng. Đỉnh núi này là chân núi kia, ký chủ ạ."]
+   ], "ghi": "Trúc Cơ. Cắm rễ. Lôi kiếp của ta lệch một nhịp."},
+   {"id": "q2-4", "ten": "Tuyết lang từng hiền", "khi": {"den": "dao-han-bang"}, "goi": "Bay tới Hàn Băng Tinh", "canh": [
+    ["lao-ngu", "Tuyết lang trước kia hiền lắm, trẻ con còn cưỡi được. Từ khi Băng Quật có ma khí, chúng mới dữ lên."],
+    ["lao-ngu", "Trong quật có người của Kiếm tông các ngươi. Ông ấy vào gác từ hồi ta còn để chỏm, chưa thấy ra."],
+    ["he-thong", "Người gác mấy chục năm không ra. Ký chủ đoán xem trong đó còn là người không."]
+   ], "ghi": "Hàn Băng Tinh. Trong Băng Quật có một người gác chưa từng trở ra."},
+   {"id": "q2-5", "ten": "Mũi kiếm chỉ ra ngoài", "khi": {"boss": "han-hon-ma-tuong", "tai": "han-bang-quat", "hoac": {"total": 13}}, "goi": "Hạ Hàn Hồn Ma Tướng trong Băng Quật", "quy": "quy-can", "canh": [
+    ["", "Hàn Hồn Ma Tướng gục xuống. Băng tan, lộ ra tấm áo đồng phục Kiếm tông đã bạc màu."],
+    {"dan": {"toi": 0.35, "cho": 0.6}},
+    ["", "Thanh kiếm của ông vẫn chỉ ra phía ma khí. Ông hoá ma rồi, mà vẫn đứng gác.", {"tap": true}],
+    ["lao-ngu", "Đường về hơi xa, ta tiễn một đoạn. Tên ngươi, ta nhớ thay. Về đi."],
+    {"dan": {"fx": "dom", "tieng": ["sparkle", 0.7], "cho": 1.2}},
+    ["", "Lão chỉ là dân chài. Hoá ra ở tinh hệ này, ai cũng thuộc Quy Căn Quyết."],
+    ["he-thong", "Người chết trong vùng sáng thì về cội, thành mầm mới. Chết trong ma khí thì bị giữ lại. Giờ ông ấy về được rồi."]
+   ], "ghi": "Hàn Hồn Ma Tướng từng là người gác của Kiếm tông. Lão Ngư tiễn ông về cội."},
+   {"id": "q2-6", "ten": "Bát canh cá", "khi": {"den": "hac-phong-dao"}, "goi": "Bay tới Hắc Phong Tinh", "quy": "tran", "canh": [
+    ["trai-truong", "Gió đen thổi suốt ngày đêm. Trại này dựng ba lần, đổ ba lần. Mai dựng lần thứ tư."],
+    ["mac-anh", "Đừng nhìn ta như vậy. Không phải ma tộc nào cũng muốn đánh nhau."],
+    ["mac-anh", "Có một cậu bé tóc đỏ bị xích cạnh ta. Cậu ấy chia cho ta nửa bát canh cá. Ta không nhớ mình từng là ai, nhưng ta nhớ bát canh đó."],
+    ["he-thong", "Ghi lại, ký chủ: ma vẫn có thể nhớ. Vậy là người bị bắt đi vẫn còn đường về."]
+   ], "ghi": "Gặp Mặc Ảnh, một ma tộc còn nhớ một bát canh cá."},
+   {"id": "q2-7", "ten": "Lần này giữ được", "khi": {"boss": "hac-phong-ma-quan", "tai": "hac-phong-dong", "hoac": {"total": 18}}, "goi": "Hạ Hắc Phong Ma Quân trong Hắc Phong Động", "canh": [
+    {"dan": {"fx": "vong", "mau": "#ffb07a", "tieng": ["heal", 0.7]}},
+    ["tieu-hoa", "Cậu tới thật à! Tớ biết mà! ...Khoan, sao cậu mạnh thế này?"],
+    ["tieu-hoa", "Mai mốt tớ cũng sẽ bay bằng kiếm cho mà xem. Lần này tớ không để ai bắt nữa đâu."],
+    ["he-thong", "Đinh! Cứu được một người. Sổ Trấn Ma Kỷ hôm nay khỏi phải gạch tên ai. Bổn hệ thống... ừm, bụi bay vào mắt."],
+    ["", "Ngươi đứng đây vì ai? Lần này bạn trả lời được: vì một người bạn tóc đỏ."]
+   ], "ghi": "Cứu được Tiểu Hỏa ở Hắc Phong Động. Lần này giữ được rồi."}
+  ]},
+  {"id": "q3", "ten": "Cây mẹ", "noi": "Thanh Mộc Tinh · Làng Tinh Linh", "mo": "Có một cái cây đã chọn ngươi, từ trước khi ngươi tới.", "vi_ai": "Vì cái cây đã chọn ta.", "goi": "Kết Kim Đan", "trang": [
+   {"id": "q3-1", "ten": "Kết hạt", "khi": {"realm": 2}, "goi": "Kết Kim Đan", "canh": [
+    {"dan": {"fx": "vong", "mau": "#ffe08a", "tieng": "chime"}},
+    ["", "Kim đan thành hình trong đan điền. Người tu gọi đây là kết hạt: từ nay bạn mang một hạt giống của riêng mình."],
+    ["he-thong", "Đinh! Kim Đan. Cả tinh cầu vừa thấy ký chủ phát sáng đấy. Ở chỗ không có mặt trời, một người sáng lên là chuyện lớn."],
+    ["he-thong", "Thanh Mộc Tinh mở rồi. Tới đó đi. Có... người quen cũ của bổn hệ thống muốn gặp ký chủ."]
+   ], "ghi": "Kết đan. Kết hạt."},
+   {"id": "q3-2", "ten": "Ba nghìn năm, ba ngày", "khi": {"den": "dao-moc"}, "goi": "Bay tới Thanh Mộc Tinh", "quy": "dem", "canh": [
+    ["truong-lao-moc", "Cổ thụ sống ba nghìn năm. Ma tộc thì muốn nó chết trong ba ngày."],
+    ["truong-lao-moc", "Rễ của Thế Giới Thụ trồi lên ở đây. Linh Nhật các ngươi thấy trên trời là đoá hoa duy nhất của Cây."],
+    {"dan": {"fx": "la", "tieng": ["chime", 0.6], "cho": 0.8}},
+    ["", "Vậy ra cả tinh hệ là một cái cây. Chín vòng quỹ đạo là chín vòng năm."],
+    ["he-thong", "Giờ thì ký chủ hiểu vì sao trời luôn là đêm. Hoa dồn hết ánh sáng ra rìa để dệt kết giới. Phần rơi xuống đây chỉ còn sáng như trăng."]
+   ], "ghi": "Thanh Mộc Tinh. Cả tinh hệ là một cái cây, Linh Nhật là hoa của nó."},
+   {"id": "q3-3", "ten": "Mùi nắng", "khi": {"den": "lang-tinh-linh"}, "goi": "Vào Làng Tinh Linh", "quy": "ghep", "canh": [
+    ["thanh-diep", "Cây mẹ nói ngươi có mùi nắng. Ta cũng thấy vậy."],
+    ["linh-nhi", "Nắng là gì ạ?"],
+    {"dan": {"cho": 0.9}},
+    ["", "Ở tinh hệ này, nắng là chữ người ta còn nói mà không ai còn thấy. Bạn là người duy nhất trả lời được, và không tìm ra chữ.", {"tap": true}],
+    {"dan": {"fx": "dom", "mau": "#fff0b0", "tieng": ["sparkle", 0.6], "cho": 0.6}},
+    ["he-thong", "...Được rồi, bổn hệ thống khai. Bổn hệ thống là một cái mầm của Cây mẹ. Lá trong vườn đã đếm hết, Cây mất nhiều hơn mọc, nên Cây gọi người từ nơi có nắng tới."],
+    ["he-thong", "Ký chủ là cành ghép. Bổn hệ thống là mắt ghép. Đừng nhìn bổn hệ thống kiểu đó, bổn hệ thống vẫn là hệ thống xịn."]
+   ], "ghi": "Thanh Diệp nói ta có mùi nắng. Hệ Thống là một cái mầm của Cây mẹ."},
+   {"id": "q3-4", "ten": "Kẻ gặm rễ", "khi": {"boss": "thuc-moc-ma-hau", "tai": "co-thu-tam", "hoac": {"total": 21}}, "goi": "Hạ Thực Mộc Ma Hậu trong Cổ Thụ Tâm", "quy": "gia", "canh": [
+    ["", "Thực Mộc Ma Hậu ngã bên một đoạn rễ bị gặm dở. Trên tay bà còn đeo vòng cỏ của Linh tộc."],
+    ["truong-lao-moc", "Bà ấy từng là người giữ rễ. Năm đói, bà xin Cây một nhánh cho dân làng. Xin một lần, rồi không dừng lại được."],
+    ["thanh-diep", "Cây mẹ không giận. Cây mẹ chỉ bảo: mượn thì phải trả."],
+    {"dan": {"fx": "la", "cho": 0.6}},
+    ["he-thong", "Luật Giá đó ký chủ. Mượn của Cây thì trả cho Cây. Mượn quá phần mình thì trả bằng chính mình. Còn ma thì bắt kẻ khác trả thay."]
+   ], "ghi": "Thực Mộc Ma Hậu từng là người giữ rễ. Mượn thì phải trả."},
+   {"id": "q3-5", "ten": "Ma cũng biết ghép", "khi": {"boss": "hac-cuc-ma-chung", "tai": "re-mau-thu", "hoac": {"total": 24}}, "goi": "Hạ Hắc Cức Ma Chủng trong Rễ Mẫu Thụ", "canh": [
+    ["", "Hắc Cức Ma Chủng không phải quái vật. Nó là một hạt giống đen, cấy thẳng vào rễ Cây mẹ."],
+    {"dan": {"toi": 0.55, "fx": "khoi", "rung": 3, "tieng": ["warn", 0.7], "cho": 0.6}},
+    ["anh-ma-ton", "Ngươi tưởng chỉ Cây mới biết ghép cành sao?"],
+    ["anh-ma-ton", "Ta không giết Cây. Ta ghép đêm vào năm rễ cái. Rồi đoá hoa trên trời kia sẽ nở ra đêm, và không ai phải rời đi nữa.", {"tap": true}],
+    {"dan": {"toi": 0.1, "fx": "la", "tieng": ["chime", 0.5], "cho": 0.9}},
+    ["", "Cái bóng tan. Dưới gốc Cây mẹ, một chiếc lá rơi xuống vai bạn."],
+    ["he-thong", "Ma Tôn. Tay sai của Đại Ma Thần trong kết giới. Hắn cần năm chìa khoá sống cho năm rễ cái. Ký chủ đoán xem chìa thứ năm là ai."]
+   ], "ghi": "Bóng Ma Tôn hiện ra dưới gốc Cây mẹ. Hắn muốn ghép đêm vào năm rễ cái."}
+  ]},
+  {"id": "q4", "ten": "Vạn kiếm còn hồn", "noi": "Thiên Kim Tinh · Kiếm Trủng", "mo": "Thứ gì còn được gọi tên thì chưa mất.", "vi_ai": "Vì những cái tên trên kiếm.", "goi": "Bay tới Thiên Kim Tinh", "trang": [
+   {"id": "q4-1", "ten": "Mỗi thanh kiếm một đời người", "khi": {"den": "dao-thien-kim"}, "goi": "Bay tới Thiên Kim Tinh", "quy": "ten", "canh": [
+    ["kiem-lao", "Mỗi thanh kiếm trong bãi mộ là một đời người. Ta giữ chúng đã sáu mươi năm."],
+    ["tieu-dong", "Sư tỷ Lan vào Kiếm Trủng tìm thép rèn kiếm mới, ba hôm rồi chưa về!"],
+    ["kiem-lao", "Ma khí xoá tên trước, xoá người sau. Nên tông môn khắc tên lên kiếm. Còn tên thì còn người."],
+    ["he-thong", "Hỏi ông ấy tên gì đi ký chủ. ...Thôi đừng. Bổn hệ thống tra sổ rồi. Không có."]
+   ], "ghi": "Thiên Kim Tinh. Kiếm Lão giữ mộ kiếm sáu mươi năm, không ai biết tên thật của ông."},
+   {"id": "q4-2", "ten": "Năm chìa khoá", "khi": {"den": "kiem-trung"}, "goi": "Vào Kiếm Trủng", "canh": [
+    ["he-thong", "Nghe cho kỹ. Năm rễ cái của Cây trồi lên ở năm tinh cầu: Hỏa, Thủy, Mộc, Kim, Thổ. Mỗi rễ có một người giữ, mang linh căn thuần."],
+    ["he-thong", "Tiểu Hỏa giữ rễ Hỏa. Thanh Diệp giữ rễ Mộc. Thiết Lan giữ rễ Kim, đang kẹt trong này. Rễ Thổ là một người tên Thạch Sinh."],
+    ["he-thong", "Người giữ rễ Thủy thì ký chủ gặp rồi: ông lão đứng gác trong Băng Quật. Ông ấy ngã từ lâu."],
+    ["he-thong", "Thiếu một chìa thì Ma Tôn phải tìm thứ nối được vào mọi rễ. Một cành ghép. Là ký chủ đó. Vui không?"]
+   ], "ghi": "Ma Tôn cần năm chìa khoá sống. Chìa thứ năm là ta."},
+   {"id": "q4-3", "ten": "Kiếm biết nằm yên", "khi": {"boss": "van-kiem-ma-tuong", "tai": "kiem-trung", "hoac": {"total": 27}}, "goi": "Hạ Vạn Kiếm Ma Tướng trong Kiếm Trủng", "canh": [
+    ["", "Vạn Kiếm Ma Tướng từng là người giữ mộ đời trước. Ông sợ người chết bị quên, nên đánh thức cả vạn thanh kiếm."],
+    ["kiem-lao", "Kiếm tốt không cần sắc nhất. Kiếm tốt là kiếm biết lúc nào nên nằm yên."],
+    {"dan": {"fx": "tia", "mau": "#cfe4ff", "tieng": ["swing", 0.7], "cho": 0.9}},
+    ["", "Vạn kiếm tự bay về chỗ cũ. Còn một thanh không khắc gì bay về tay Kiếm Lão. Ông nhìn nó rất lâu mà không nhận ra, rồi cắm xuống như mọi thanh khác.", {"tap": true}],
+    ["thiet-lan", "Kiếm của ta gãy rồi. Không sao, ta rèn thanh mới, tốt hơn. ...Cảm ơn ngươi đã tới."]
+   ], "ghi": "Cứu Thiết Lan khỏi Kiếm Trủng. Có một thanh kiếm không khắc tên."},
+   {"id": "q4-4", "ten": "Quyển thứ một nghìn", "khi": {"doc": "q4-3", "o": "thien-kiem-phong"}, "goi": "Về Thiên Kiếm Tinh sau khi cứu Thiết Lan", "mo": "cam", "canh": [
+    ["van-hac", "Theo ta lên tầng trên cùng của Tàng Kinh Các. Ngươi đủ tư cách biết rồi."],
+    ["van-hac", "Một nghìn quyển tuyệt học cấm kỵ. Mỗi quyển chỉ một dòng là chiêu thức. Còn lại là tên người đã dùng, và cái giá họ đã trả."],
+    ["van-hac", "Tông môn cấm không phải vì chúng tà. Cấm vì không nỡ mất người."],
+    {"dan": {"toi": 0.35, "cho": 0.5}},
+    ["", "Chín trăm chín mươi chín quyển có chữ. Quyển cuối để trắng. Môn quy ghi: quyển này dành cho người viết nó.", {"tap": true}],
+    ["he-thong", "...Bổn hệ thống không thích cái quyển trắng đó. Đi thôi ký chủ."]
+   ], "ghi": "Trưởng lão Vân Hạc dẫn ta lên Cấm Kỵ Các. Quyển thứ một nghìn để trắng."}
+  ]},
+  {"id": "q5", "ten": "Đất biết khóc", "noi": "Hậu Thổ Tinh · Địa Cung", "mo": "Có những trận phải thua mới hiểu mình giữ cái gì.", "vi_ai": "Vì người ta chưa cứu được.", "goi": "Kết Nguyên Anh", "trang": [
+   {"id": "q5-1", "ten": "Làng còn không", "khi": {"realm": 3}, "goi": "Kết Nguyên Anh", "canh": [
+    {"dan": {"toi": 0.5, "fx": "vong", "mau": "#ffe9a8", "tieng": ["buff", 0.6]}},
+    ["", "Nguyên anh thành hình: một đứa trẻ nhỏ ngồi trong đan điền. Nó ngẩng lên, và bạn nhận ra gương mặt ấy."],
+    ["", "Đó là chủ cũ của thân xác này. Đứa trẻ làng Thanh Khê."],
+    {"dan": {"cho": 0.7}},
+    ["", "Nó chỉ hỏi một câu: “Làng còn không?”", {"tap": true}],
+    ["", "Bạn đáp: “Còn một mảnh. Vẫn có người thắp đèn.”"],
+    ["", "Đứa trẻ gật đầu rồi tan thành những đốm sáng, bay về phía Thanh Mộc Tinh. Bạn đọc khẽ: Đường về hơi xa, ta tiễn một đoạn."],
+    {"dan": {"toi": 0.2, "fx": "dom", "mau": "#fff0b0", "tieng": ["sparkle", 0.8], "cho": 1.5}},
+    ["he-thong", "...Bổn hệ thống giấu ký chủ chuyện này từ ngày đầu. Xin lỗi. Từ giờ thân này thật sự là của ký chủ."]
+   ], "ghi": "Kết anh. Tiễn đứa trẻ làng Thanh Khê về cội. Từ nay thân này là của ta."},
+   {"id": "q5-2", "ten": "Khoai nướng", "khi": {"den": "dao-hau-tho"}, "goi": "Bay tới Hậu Thổ Tinh", "canh": [
+    ["thach-ba", "Đất này nuôi người ba nghìn năm. Ma tộc tới, đất cũng biết khóc. Ăn củ khoai nướng không?"],
+    ["a-nham", "Ta trốn trong hang ba tháng. Thằng Thạch Sinh thì không trốn. Nó bị lôi xuống Địa Cung rồi."],
+    ["he-thong", "Thạch Sinh giữ rễ Thổ. Chìa thứ tư. Ăn khoai nhanh lên ký chủ."]
+   ], "ghi": "Hậu Thổ Tinh. Thạch Bà mời khoai nướng. Thạch Sinh bị giam dưới Địa Cung."},
+   {"id": "q5-3", "ten": "Mồi", "khi": {"boss": "toai-son-ma-tuong", "tai": "dia-cung", "hoac": {"total": 30}}, "goi": "Hạ Toái Sơn Ma Tướng trong Địa Cung", "canh": [
+    ["thach-sinh", "...Ta không giỏi nói. Nhưng ta nhớ ơn."],
+    {"dan": {"toi": 0.5, "chop": 1, "rung": 5, "tieng": "thunder", "cho": 0.5}},
+    ["", "Trời phía Ngoại Vực loé lên một vệt đen. Trong lúc bạn ở dưới Địa Cung, Ma Tôn đã đưa {Lạc Tuyết|Tiêu Dao} vào Vết Nứt."],
+    ["he-thong", "Mồi. Thạch Sinh là mồi. Hắn muốn chìa thứ năm tự đi tới. Bổn hệ thống lẽ ra phải thấy trước."],
+    {"dan": {"toi": 0.2, "fx": "dom", "mau": "#bff4ff", "tieng": ["heal", 0.7], "cho": 0.7}},
+    ["", "Một đệ tử gục bên cửa Địa Cung. Trưởng lão Vân Hạc đặt tay lên ngực người ấy. Một sợi sáng nối hai người, và một lọn tóc ông bạc đi.", {"tap": true}],
+    ["van-hac", "Nhượng Thọ thôi, không có gì. Kiếm nhanh không bằng tâm vững. Đi cứu người của ngươi đi."]
+   ], "ghi": "Cứu Thạch Sinh, nhưng {Lạc Tuyết|Tiêu Dao} đã bị đưa vào Vết Nứt. Vân Hạc bạc thêm một lọn tóc."}
+  ]},
+  {"id": "q6", "ten": "Hư Không Lao", "noi": "Ngoại Vực Vết Nứt · Hư Không Lao · Lòng Vết Nứt", "mo": "Ở lại. Hai chữ, ba nghĩa.", "vi_ai": "Vì những người sẽ không nhớ ta.", "goi": "Bay tới Ngoại Vực Vết Nứt", "trang": [
+   {"id": "q6-1", "ten": "Cửa ngõ", "khi": {"den": "vet-nut-ngoai"}, "goi": "Bay tới Ngoại Vực Vết Nứt", "canh": [
+    ["tieu-hoa", "Lần này tớ không để ai bắt nữa đâu. Cho tớ đi cùng đi!"],
+    ["mac-anh", "Ta dẫn đường. Hư Không Lao giam những hồn không được về cội. Ta từng ở đó. Có cá nướng là được."],
+    ["he-thong", "Tinh cầu này nằm ngay trên vết cắt của Thiên Mạch. Ma khí rỉ vào từ đây. Ký chủ đứng cho vững."]
+   ], "ghi": "Ngoại Vực Vết Nứt. Tiểu Hỏa và Mặc Ảnh đi cùng ta."},
+   {"id": "q6-2", "ten": "Người lạ", "khi": {"boss": "hu-khong-nguc-chu", "tai": "hu-khong-lao", "hoac": {"total": 36}}, "goi": "Hạ Hư Không Ngục Chủ trong Hư Không Lao", "bo": "{lac-tuyet-vang|tieu-dao-vang}", "canh": [
+    {"dan": {"toi": 0.4, "tieng": ["door", 0.8]}},
+    ["", "Cửa ngục mở. {Lạc Tuyết|Tiêu Dao} đứng đó, vẫn còn là người. Tay {nàng|chàng} đặt lên chuôi kiếm."],
+    ["{lac-tuyet|tieu-dao}", "Ngươi là đệ tử tông nào?", {"tap": true}],
+    {"dan": {"cho": 1.0}},
+    ["mac-anh", "Ma khí chui vào qua điều mình thương nhất. Muốn giữ mình trong ngục này, phải tự cắt điều đó đi. Người ấy đã dùng cấm kỵ. Người ấy quên ngươi rồi."],
+    ["he-thong", "...Ký chủ. Người ta còn sống. Còn là người. Hôm nay thế là thắng. Phần còn lại, mình dựng lại sau."]
+   ], "ghi": "Phá Hư Không Lao. {Lạc Tuyết|Tiêu Dao} còn sống, nhưng không còn nhớ ta."},
+   {"id": "q6-3", "ten": "Ta ở lại", "khi": {"boss": "ma-ton", "tai": "vet-nut"}, "goi": "Hạ Ma Tôn ở Lòng Vết Nứt", "mo": "trang", "canh": [
+    {"dan": {"toi": 0.55, "rung": 6, "tieng": ["boss_down", 0.8]}},
+    ["", "Ma Tôn ngã. Nhưng vết cắt trên Thiên Mạch vẫn hở, và đêm vẫn rỉ vào."],
+    ["he-thong", "Mạch cây đã đứt thì chỉ cành ghép nối lại được. Quyển thứ một nghìn, tên là Tiếp Mạch. Giá của nó: người dùng bỏ đường về nhà."],
+    ["he-thong", "Bổn hệ thống từng nói vé một chiều. Nói dối đấy. Bổn hệ thống đưa ký chủ về được. Ngay bây giờ."],
+    {"hoi": {"q": "Hệ Thống hỏi: ký chủ muốn về nơi có nắng không?", "opts": [
+     {"label": "Ta ở lại.", "reply": "...Đinh. Bổn hệ thống ghi nhận. Ký chủ là đồ ngốc. Bổn hệ thống rất tự hào về đồ ngốc này."},
+     {"label": "Cho ta nghĩ đã.", "reply": "Được. Bổn hệ thống đợi. Bao lâu cũng đợi.", "lai": true}
+    ]}},
+    {"dan": {"fx": "tia", "tieng": ["portal", 0.7], "cho": 1.4}},
+    ["", "Từ khắp tinh hệ, hàng nghìn sợi sáng bay về vết cắt trên trời. Ký chủ nào cũng chọn như bạn. Vết cắt khép lại một đoạn."],
+    ["", "Bạn đọc ba dòng của quyển trắng: Ta từ nơi có nắng mà tới. Nắng ấy, ta để lại đây. Ta ở lại.", {"tap": true}],
+    {"dan": {"toi": 0, "chop": 1, "tieng": ["breakthrough", 0.7], "cho": 0.9}},
+    ["", "Trời sao im lặng. Hệ Thống cũng im lặng."]
+   ], "ghi": "Hạ Ma Tôn. Ta chọn ở lại. Thiên Mạch liền một đoạn."},
+   {"id": "q6-4", "ten": "Đi luyện kiếm đi", "khi": {"doc": ["q6-2", "q6-3"], "o": "thien-kiem-phong"}, "goi": "Về Thiên Kiếm Tinh sau khi hạ Ma Tôn", "canh": [
+    ["{lac-tuyet|tieu-dao}", "{Đừng nhìn ta. Đi luyện kiếm đi.|Huynh nghe nói tông môn mới có sư muội giỏi lắm. Là muội đúng không?}"],
+    {"dan": {"cho": 0.9}},
+    ["", "{Nàng|Chàng} nói với bạn như nói với một người lạ. Bạn đứng yên một lúc, rồi đi luyện kiếm thật."],
+    ["he-thong", "Đinh. ...Hôm qua bổn hệ thống ngủ quên. Không phải khóc. Ngủ quên."],
+    ["he-thong", "Ký ức mất rồi thì dựng lại. Mỗi ngày một câu chào, một chén trà. Ký chủ có cả đời ở đây mà. Vẫn còn nhiệm vụ ngày, mai gặp lại."]
+   ], "ghi": "{Lạc Tuyết|Tiêu Dao} về tông môn, nhìn ta như người lạ. Ta sẽ bắt đầu lại từ câu chào đầu tiên."}
+  ]},
+  {"id": "q7", "ten": "Vành Khai Hoang", "noi": "Ngoài Vết Nứt · Phương Thiên Địa", "mo": "Trấn Ma Kỷ không có trang cuối.", "vi_ai": "Vì người đứng sau lưng ta, dù ta không biết tên.", "goi": "Khép quyển sáu", "trang": [
+   {"id": "q7-1", "ten": "Có đất để trồng hạt", "khi": {"doc": "q6-4"}, "goi": "Đọc hết quyển sáu", "canh": [
+    {"dan": {"fx": "la", "tieng": ["chime", 0.5]}},
+    ["thanh-diep", "Đi đâu cũng được, miễn là có đất cho ta trồng hạt. Giờ thì có rồi: Thiên Mạch liền tới đâu, ta trồng tới đó."],
+    ["", "Các tông môn gom Mảnh Vỡ Tinh Cầu, ghép lại những tinh cầu đã vỡ. Tinh cầu nào bỏ hoang, đêm lại lấy về."],
+    ["he-thong", "Luật Trấn đó ký chủ: đất chỉ sáng khi có người đứng giữ. Biên giới của vùng sáng là một hàng người, không phải một bức tường."]
+   ], "ghi": "Thanh Diệp trồng một nhánh Cây mẹ lên tinh cầu mới."},
+   {"id": "q7-2", "ten": "Quả của Ma Tổ", "khi": {"den": "phuong-thien-dia"}, "goi": "Tới Phương Thiên Địa", "canh": [
+    ["he-thong", "Ma Tổ không phải một con ma. Nó là cái rễ chết của chính Cây mẹ. Rễ chết vẫn ra quả theo thói quen, mỗi tuần một quả. Quả của nó là Ma Vương."],
+    ["he-thong", "Hạ tuần này thì tuần sau có quả mới. Không bao giờ hết. Nhưng mỗi quả rụng là một phương thiên địa sáng thêm bảy ngày."],
+    ["", "Ngươi đứng đây vì ai? Vì người đứng sau lưng ta, dù ta không biết tên."]
+   ], "ghi": "Phương Thiên Địa. Ma Vương là quả của Ma Tổ, mỗi tuần một quả."},
+   {"id": "q7-3", "ten": "Ký chủ đầu tiên", "khi": {"doc": "q7-2", "total": 45}, "goi": "Lên Luyện Hư", "canh": [
+    ["he-thong", "Ký chủ còn nhớ bàn tay xé trời không. Hôm đó bổn hệ thống nói lần đầu thấy mình nhỏ bé. Nói dối. Bổn hệ thống đã thấy bàn tay ấy rồi."],
+    {"dan": {"toi": 0.45, "tieng": ["warn", 0.5], "cho": 0.6}},
+    ["he-thong", "Đại Ma Thần là ký chủ đầu tiên của bổn hệ thống. Hồi đó bổn hệ thống cho không tính giá. Hắn mạnh tới mức không ai sánh được.", {"tap": true}],
+    ["he-thong", "Rồi hắn mất cả tông môn trong một trận, và không chịu để họ về cội. Hắn giữ hồn họ lại. Hồn bị giữ thối thành ma. Ma khí đầu tiên sinh ra như thế."],
+    ["he-thong", "Hắn giữ vì thương. Người trấn ma cũng giữ vì thương. Khác nhau một chỗ: mình giữ một chỗ để người khác được đi tiếp. Hắn giữ người khác để không ai được đi."],
+    ["he-thong", "Vì thế bổn hệ thống bắt ký chủ làm nhiệm vụ lấy điểm. Cái tên Bạo Kích Tài Nguyên Vô Hạn, bổn hệ thống giữ lại để tự nhắc."]
+   ], "ghi": "Đại Ma Thần từng là ký chủ đầu tiên của Hệ Thống."}
+  ]}
+ ],
+ "quy": [
+  {"id": "can", "ten": "Luật Căn", "cau": "Vạn vật là lá của một Cây.", "y": "Ai sinh ra dưới ánh Linh Nhật đều có một cái rễ con nối với Cây, gọi là linh căn. Tu luyện là nuôi cái rễ ấy lớn lên."},
+  {"id": "ma", "ten": "Luật Ma", "cau": "Ma không sinh ra được gì, ma chỉ giữ.", "y": "Một sinh mệnh chết trong ma khí thì không về được cội: nó bị giữ lại và thối thành ma. Mỗi con ma từng là một người, một con thú, một cái cây."},
+  {"id": "bac", "ten": "Luật Bậc", "cau": "Đỉnh núi này là chân núi kia.", "y": "Mỗi cảnh giới mở ra một vòng trời rộng hơn và một tầng đêm sâu hơn. Không có đỉnh cuối cùng, chỉ có hướng đi."},
+  {"id": "quy-can", "ten": "Luật Quy Căn", "cau": "Lá rụng về cội.", "y": "Người chết trong vùng sáng thì linh khí và thọ nguyên trở về Cây, rồi thành sự sống mới. Cái chết ở đây buồn, nhưng không phải là hết."},
+  {"id": "tran", "ten": "Luật Trấn", "cau": "Đất chỉ sáng khi có người đứng giữ.", "y": "Một tinh cầu thuộc về người sống khi có người canh nó. Bỏ đi thì ma khí chiếm lại. Biên giới của vùng sáng là một hàng người, không phải một bức tường."},
+  {"id": "dem", "ten": "Luật Đêm", "cau": "Ánh sáng đang được tiêu vào việc giữ tường.", "y": "Linh Nhật từng sáng như mặt trời. Từ ngày ma khí vây kín, nó dồn gần hết ánh sáng ra rìa để dệt kết giới. Phần rơi xuống tinh cầu chỉ còn sáng như trăng."},
+  {"id": "ghep", "ten": "Luật Ghép", "cau": "Hồn ngoại lai không có rễ, Hệ Thống là rễ ghép.", "y": "Lá trong vườn Cây đã đếm hết, và Cây đang mất nhiều hơn mọc. Nên Cây gọi linh hồn từ nơi có nắng tới, ghép lên một thân xác, và cho một cái mầm đi theo."},
+  {"id": "gia", "ten": "Luật Giá", "cau": "Mượn của Cây thì trả cho Cây.", "y": "Chiêu thường mượn linh khí rồi trả lại. Mượn quá phần mình thì trả bằng chính mình: thọ nguyên, tu vi, ký ức, tên, mạng. Chính đạo tự trả. Ma đạo bắt kẻ khác trả thay."},
+  {"id": "ten", "ten": "Luật Tên", "cau": "Thứ gì còn được gọi tên thì chưa mất.", "y": "Ma khí xoá tên trước, xoá người sau. Vì thế tông môn khắc tên lên kiếm, và Hệ Thống ghi tên từng ký chủ vào một cuốn sổ. Cuốn sổ ấy tên là Trấn Ma Kỷ."}
+ ],
+ "kq": {
+  "_note": "Khẩu quyết. doan: đoản quyết của từng loại pháp bảo (mã loại ở data/phap-bao.json → types): ho là câu hô hiện trên đầu lúc tung, loi là câu đủ trong sổ. truong: trường quyết, khi: điều kiện thuộc (như khi của trang, thêm co: bản lưu có ít nhất một món trong mục này).",
+  "doan": {
+   "phi-kiem": {"ho": "Kiếm tới. Trảm!", "loi": "Tâm tới, kiếm tới. Trảm!"},
+   "linh-chau": {"ho": "Một hạt sáng. Khởi!", "loi": "Một hạt sáng, vạn dặm đêm. Khởi!"},
+   "bao-phien": {"ho": "Mượn gió. Khai!", "loi": "Mượn trời một làn gió. Khai!"},
+   "dai-an": {"ho": "Trời làm chứng. Lâm!", "loi": "Trời cao làm chứng. Lâm!"},
+   "ho-thuan": {"ho": "Sau ta còn người. Hộ!", "loi": "Sau lưng ta còn người. Hộ!"},
+   "dong-chung": {"ho": "Vạn ma lùi. Tán!", "loi": "Một tiếng chuông, vạn ma lùi. Tán!"},
+   "tran-ky": {"ho": "Đất về chỗ ấy. Trấn!", "loi": "Cờ cắm chỗ nào, đất về chỗ ấy. Trấn!"},
+   "ho-lo": {"ho": "Nuốt đêm. Thu!", "loi": "Nuốt đêm vào bụng, nhả ra thành sóng. Thu!"}
+  },
+  "truong": [
+   {"id": "thinh-kiem", "ten": "Thỉnh Kiếm Quyết", "dung": "quyết nhập môn của Thiên Kiếm Tông", "khi": {"step": 6}, "loi": ["Trời đất có đêm, tay ta có kiếm.", "Kiếm không hỏi địch đông hay ít,", "chỉ hỏi sau lưng còn ai.", "Thiên Kiếm, khởi!"]},
+   {"id": "ngu-kiem", "ten": "Ngự Kiếm Quyết", "dung": "đạp kiếm bay", "khi": {"doc": "q2-1"}, "loi": ["Đất giữ chân người, kiếm giữ lòng người.", "Một bước rời đất, vạn dặm dưới chân.", "Khởi!"]},
+   {"id": "hoan-linh", "ten": "Hoán Linh Quyết", "dung": "gọi linh thú, thú cưỡi", "khi": {"co": "pets"}, "loi": ["Rừng cũ còn tiếng, núi xưa còn hơi.", "Bạn ta chưa ngủ, nghe ta gọi tên.", "Lai!"]},
+   {"id": "khoi-loi", "ten": "Khôi Lỗi Quyết", "dung": "gọi khôi lỗi", "khi": {"co": "comps"}, "loi": ["Gỗ không hồn, ta cho mượn ý.", "Đứng dậy, đi thay ta một đoạn.", "Khởi!"]},
+   {"id": "dan-loi", "ten": "Dẫn Lôi Quyết", "dung": "lời mở đầu khi độ kiếp", "khi": {"realm": 1}, "loi": ["Cây muốn thử cành, xin cứ thử.", "Cành này gãy thì thôi, không cong.", "Cửu thiên lôi, lâm!"]},
+   {"id": "quy-can", "ten": "Quy Căn Quyết", "dung": "tiễn hồn một ma tướng vừa hạ, đọc khẽ, không hô", "khi": {"doc": "q2-5"}, "loi": ["Đường về hơi xa, ta tiễn một đoạn.", "Tên ngươi, ta nhớ thay.", "Về đi. Quy."]},
+   {"id": "thinh-tuong", "ten": "Thỉnh Tượng Quyết", "dung": "hiện pháp tượng sau lưng", "khi": {"realm": 2}, "loi": ["Đạo trong lòng vốn không có hình.", "Nay mượn một dáng, đứng sau lưng ta.", "Pháp tượng, lâm!"]},
+   {"id": "truyen-tong", "ten": "Truyền Tống Quyết", "dung": "bước vào Pháp Trận Truyền Tống", "khi": {"doc": "q3-2"}, "loi": ["Thiên Mạch nối sao với sao.", "Cho ta mượn một nhịp nhựa chảy.", "Khai!"]},
+   {"id": "lap-gioi", "ten": "Lập Giới Quyết", "dung": "cắm Trận Kỳ, giữ cổng, dựng kết giới", "khi": {"doc": "q2-6"}, "loi": ["Một bước sau lưng ta là nhà.", "Bước ấy, ma không được qua.", "Trấn!"]},
+   {"id": "hoi-xuan", "ten": "Hồi Xuân Quyết", "dung": "chữa thương, cứu người vừa gục", "khi": {"doc": "q5-3"}, "loi": ["Lá chưa vàng thì chưa được rụng.", "Cây chưa gọi, ngươi chưa được đi.", "Ở lại!"]},
+   {"id": "hop-quyet", "ten": "Hợp quyết", "dung": "đội trưởng xướng, cả đội đáp, khi vào trận lớn", "khi": {"total": 9}, "loi": ["Xướng: Sau lưng ta? Đáp: Còn người!", "Xướng: Trước mặt ta? Đáp: Không ma nào qua!", "Cùng hô: Trấn!"]}
+  ]
+ },
+ "cam": {
+  "_note": "Cấm Kỵ Các (docs/14-TRAN-MA-KY.md phần 3): mười hai quyển tiêu biểu trong một nghìn quyển, mở khi đọc trang có mo 'cam'; trang: quyển trắng, mở khi đọc trang có mo 'trang'. Chỉ là truyện để đọc, chưa phải chiêu chơi được.",
+  "list": [
+   {"id": "pha-thien", "ten": "Phá Thiên Tuyệt Trảm", "gia": "Thọ", "loi": "Mười năm của ta, đổi ba hơi thở ban ngày. Trảm!", "chieu": "Tụ lực, binh khí đỏ rực lớn dần rồi chém một vệt sáng tới chân trời. Màn ma khí rách ra, ánh Linh Nhật thật đổ xuống trong ba hơi thở.", "tra": "Mười năm thọ nguyên cho một nhát.", "nguoi": "Một đệ tử ngoại môn muốn mẹ mình một lần thấy ban ngày."},
+   {"id": "bach-phat", "ten": "Bạch Phát Kiếm Vũ", "gia": "Thọ", "loi": "Tóc ta còn đen bao nhiêu sợi, trời còn bấy nhiêu kiếm. Khởi!", "chieu": "Mỗi sợi tóc bạc đi hoá một thanh kiếm sáng. Đánh càng lâu, tóc càng trắng, mưa kiếm càng dày.", "tra": "Mỗi nhịp đánh mất thêm thọ nguyên. Dừng lúc nào cũng được, nhưng tóc không đen lại.", "nguoi": "Một nữ trưởng lão giữ cổng tông môn trọn một đêm, sáng ra tóc trắng như tuyết."},
+   {"id": "nhuong-tho", "ten": "Nhượng Thọ", "gia": "Thọ", "loi": "Phần của ta, chia cho ngươi. Ở lại.", "chieu": "Kéo một người vừa gục trở về. Không sát thương, không ánh sáng lớn, chỉ một sợi sáng nối hai lồng ngực.", "tra": "Cho đi bao nhiêu năm thì mình mất bấy nhiêu.", "nguoi": "Nhiều không đếm xuể. Trưởng lão Vân Hạc già trước tuổi vì đã nhượng thọ cho ba lứa đệ tử."},
+   {"id": "dan-kiep", "ten": "Dẫn Kiếp", "gia": "Tu", "loi": "Kiếp của ta, mời các ngươi cùng chịu. Lâm!", "chieu": "Gọi thiên kiếp của chính mình xuống sớm ngay giữa trận. Sét đánh mọi thứ đứng gần.", "tra": "Kiếp non nên chắc chắn thất bại, mất linh khí và rớt tầng.", "nguoi": "Một Kim Đan bị vây ở Hắc Phong Tinh, kéo cả bầy ma vào lôi kiếp của mình."},
+   {"id": "toai-dan", "ten": "Toái Đan Chiếu Dạ", "gia": "Tu", "loi": "Hạt này ta kết ba mươi năm. Hôm nay cho nó nở. Khai!", "chieu": "Tự làm vỡ kim đan. Ánh đan soi sáng cả một tinh cầu trọn một đêm, ma khí phải lùi.", "tra": "Rớt về phàm nhân, tu lại từ Luyện Khí.", "nguoi": "Một chấp sự không ai nhớ mặt. Tinh cầu ông cứu nay vẫn còn người ở."},
+   {"id": "cot-kiem", "ten": "Cốt Kiếm", "gia": "Tu", "loi": "Kiếm gãy thì lấy xương. Khởi!", "chieu": "Rút một đoạn xương luyện thành kiếm. Kiếm này không gãy chừng nào người còn đứng.", "tra": "Gốc rễ hao vĩnh viễn, cảnh giới dừng ở đó.", "nguoi": "Một thợ rèn Xích Diễm Tinh, tổ tiên của Thiết Lan."},
+   {"id": "nghich-mach", "ten": "Nghịch Mạch Phong Ma", "gia": "Tu", "loi": "Thân ta làm ngục. Mời vào. Phong!", "chieu": "Đảo kinh mạch, nhốt một ma tướng vào chính cơ thể mình.", "tra": "Từ đó không được ngủ. Ngủ là ma thoát.", "nguoi": "Một người gác đêm của tông môn, chưa ai thấy ông nhắm mắt."},
+   {"id": "vong-nhan", "ten": "Vong Nhân Nhất Kiếm", "gia": "Ức", "loi": "Ta quên ngươi, để kiếm này nhớ. Trảm!", "chieu": "Một kiếm không né được. Nó nặng bằng mọi ký ức về người mình thương nhất, thương càng sâu kiếm càng nặng.", "tra": "Quên hẳn người đó.", "nguoi": "Nhiều tên, và cạnh mỗi tên là một cái tên khác do người thân viết thêm vào."},
+   {"id": "thinh-tien-nhan", "ten": "Thỉnh Tiền Nhân Kiếm", "gia": "Danh", "loi": "Các vị đã nằm yên, xin dậy thêm một lần. Con đổi bằng tên mình. Khởi!", "chieu": "Vạn thanh kiếm ở Kiếm Trủng bay lên theo một nhát chém, rồi tự về chỗ cũ.", "tra": "Tên người gọi bị xoá, để tên trên những thanh kiếm kia được giữ.", "nguoi": "Không ai nhớ, đúng như cái giá. Trong Kiếm Trủng có một thanh kiếm không khắc tên, và một ông lão giữ mộ không nhớ tên thật của mình."},
+   {"id": "vo-danh", "ten": "Vô Danh Trấn", "gia": "Danh", "loi": "Từ nay không ai gọi ta nữa. Vậy ma cũng không tìm được ta. Trấn!", "chieu": "Xoá tên mình khỏi thiên địa. Ma tộc không còn thấy người này, nên chỗ người ấy đứng thành một điểm trấn không bao giờ bị tìm ra.", "tra": "Không ai còn nhớ người ấy từng tồn tại.", "nguoi": "Dòng tên để trống. Ngoài rìa kết giới có những tấm bia không chữ."},
+   {"id": "du-chi", "ten": "Dự Chi Lai Sinh", "gia": "Mệnh", "loi": "Kiếp này không đủ, ta mượn kiếp sau. Phá!", "chieu": "Một đòn mang sức của cả cảnh giới kế tiếp.", "tra": "Kiếp sau sinh ra với linh căn Phàm.", "nguoi": "Rất nhiều. Tông môn dạy: đừng coi thường linh căn Phàm, biết đâu kiếp trước họ đã tiêu trước phần mình để cứu ông bà ngươi."},
+   {"id": "hoa-than", "ten": "Hoá Thân Trấn Thụ", "gia": "Mệnh", "loi": "Ta không đi nữa. Ta ở lại đây làm bóng mát. Trấn.", "chieu": "Thân hoá thành một cây cổ thụ, rễ nối vào Thiên Mạch, giữ sáng một tinh cầu cả nghìn năm.", "tra": "Không chết, không sống. Nghe được, không nói được.", "nguoi": "Cổ Thụ Ngàn Năm cuối phố chợ Thiên Kiếm Tinh từng là một vị trưởng lão."}
+  ],
+  "trang": {"ten": "Tiếp Mạch", "gia": "Đường về", "loi": "Ta từ nơi có nắng mà tới. Nắng ấy, ta để lại đây. Ta ở lại.", "chieu": "Lấy thân làm cành ghép, nối lại Thiên Mạch đã đứt. Chỉ hồn ngoại lai dùng được, vì chỉ thứ không phải lá của Cây mới bắc qua được vết cắt của Cây.", "tra": "Người dùng bỏ đường về thế giới cũ của mình.", "nguoi": "Tên ký chủ."}
+ }
+}

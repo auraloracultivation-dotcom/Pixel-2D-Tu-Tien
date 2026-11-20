@@ -5,6 +5,7 @@
 import { addFx } from './combat.js';
 import { pbx } from './phap-bao-hit.js';
 import { hieuUng, dien } from './dien.js';
+import { hoQuyet } from './khau-quyet.js';
 
 // Chỗ người đang ở trên màn: đang cưỡi / bay thì nhấc theo lưng thú, phi kiếm (p.lift, p.seatX do src/render/draw.js đặt mỗi khung).
 // Chủ dự án 18/11/2026 10:19: lúc cưỡi phải tụ lực ở giữa nhân vật, không ở bụng con thú. Pháp bảo cũng bắn ra từ chỗ này (phap-bao-run.js).
@@ -17,6 +18,7 @@ hieuUng('tu-linh', { gap: 0.15, ve(game, e, h, a) {
   const C = tuLinhCfg(game), s = C.on === false ? 0 : C.s ?? 0.22, seed = Math.random() * 1000;
   const color = Object.values(game.data['phap-bao'].types)[Math.round(a * 20)]?.color || '#bff4ff';
   if (s > 0) addFx(game, { type: 'tu-linh', x: e.x, y: e.y, life: s, color, on: e, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
+  hoQuyet(game, e, Object.keys(game.data['phap-bao'].types)[Math.round(a * 20)]);   // hô khẩu quyết của món pháp bảo (src/game/khau-quyet.js): bong bóng trên đầu, người cùng tinh cầu cũng thấy
 } });
 
 // Bắt đầu tụ (type: mã loại pháp bảo); fire(ang) chạy khi tụ xong. Phần luật (đứng khựng, chờ, bắn) chỉ ở máy mình; phần hình đi qua dien
