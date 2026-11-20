@@ -337,6 +337,10 @@ export function createGame(data, screen, input, ui, audio) {
     const keep = game.uiOpen && !game.dialog.open && (game.pilot || game.auto);   // tự hành, tự đánh chạy tiếp khi mở bảng (báo lỗi #6)
     const blocked = (game.dialog.open || game.uiOpen) && !keep;
     game.paused = blocked;
+    // Người khác và vị trí của mình chạy cả lúc đang mở bảng / hội thoại (20/11/2026 17:12: trước đây mở Túi đồ, đọc thoại kiếp là ngừng
+    // gửi vị trí, người vừa vào tinh cầu không có toạ độ của mình nên không vẽ, bỏ luôn tin kết đan / độ kiếp của mình)
+    game.others.update(dt);
+    if (game.online && (game.data.config.realtime?.backend === 'cf' || game.data.config.realtime?.map_send !== false)) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
     if (blocked || keep) game.input.clear();
     if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }
@@ -345,8 +349,6 @@ export function createGame(data, screen, input, ui, audio) {
     updateRide(game, dt);
     updatePet(game, dt);
     updateCompanion(game, dt); updateCombo(game, dt);
-    game.others.update(dt);
-    if (game.online && (game.data.config.realtime?.backend === 'cf' || game.data.config.realtime?.map_send !== false)) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
     updateMobs(game, dt);
     updateBullets(game, dt);
     updateStrikes(game, dt);

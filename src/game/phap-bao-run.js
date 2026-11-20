@@ -8,7 +8,7 @@ import { juiceCast } from './juice.js';
 import { pbOn, pbWorn, PB } from './phap-bao.js';
 import { buildCast } from './phap-bao-build.js';
 import { pbHit, pbx, nearest, pbStatusTick } from './phap-bao-hit.js';
-import { pbPxCast, updatePbPx } from './pb-px.js'; import { pbSend } from './pb-see.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
+import { pbPxCast, updatePbPx } from './pb-px.js'; import { pbSend } from './pb-see.js'; import { kiepSend } from './kiep-see.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
 import { pbSfx } from './skill-sfx.js';
 import { startTuLinh, heroAt } from './tu-linh.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
 
@@ -36,6 +36,7 @@ export function pbInput(game, inp) {
       if (dir) p.face = dir;
       return Math.atan2(p.face.y, p.face.x);
     };
+    kiepSend(game, 'ks-tl', Object.keys(game.data['phap-bao'].types).indexOf(it.type) / 20);   // người khác thấy mình tụ linh (kiep-see.js)
     startTuLinh(game, T.color, aimFn, ang => pbCast(game, cast, ang));   // khựng một nhịp tụ linh rồi mới bắn
     p.skillCd[i] = T.cd * cast.cdMul * (1 - (p.st.cdr || 0));
     (p.pbCdMax ||= [])[i] = p.skillCd[i];   // vòng hồi chiêu trên nút (src/ui/phap-bao-hud.js)
