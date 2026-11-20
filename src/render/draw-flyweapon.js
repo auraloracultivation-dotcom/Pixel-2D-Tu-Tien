@@ -21,16 +21,26 @@ function spriteOf(game, base, wid) {
   return spr ? { spr, im: spriteImage(spr), dirs: 0 } : null;
 }
 
+// Vẽ món base (mã data/items.json) tại (x, y) góc a cỡ k lần vũ khí bay thường: người khác đứng trên vũ khí lúc bay (draw-other-extra.js)
+export function drawWeaponOf(ctx, game, base, x, y, a, k) {
+  const ws = base && spriteOf(game, base, game.data.items.bases[base]?.weapon);
+  if (!ws?.im) return false;
+  ctx.save(); ctx.imageSmoothingEnabled = false; blit(ctx, ws, ws.im, x, y, a, k * game.data.heroes.fly.scale); ctx.restore();
+  return true;
+}
+
 // Vũ khí người chơi khác (o.vk do họ báo qua hồ sơ phòng, src/game/others.js): treo sau vai như của mình (flyweapon.js rest),
 // cưỡi thú thì treo xa vai, vẽ trên người; vừa vung đòn (o.swingT) thì lao ra trước mặt theo hướng nhìn. front: lớp trước thân người
 export function drawOtherWeapon(ctx, game, o, t, front, fit) {
   const base = o.vk, ws = base && spriteOf(game, base, game.data.items.bases[base]?.weapon);
-  if (!ws?.im) return;
+  if (!ws?.im || o.flying) return;   // đang bay: vũ khí nằm dưới chân (draw-other-extra.js)
   const c = game.data.heroes.fly, k = heroLook(game, fit).fw_scale || c.scale, side = (o.face?.x ?? 0) < 0 ? -1 : 1;
   const sw = o.swingT > 0 ? Math.sin(Math.PI * Math.min(1, 1 - o.swingT / 0.18)) : 0;   // 0 → 1 → 0 trong một nhát
-  if (front !== (o.riding || sw > 0)) return;
+  const q = t * Math.PI * 2 * (c.orbit?.speed || 0.5), med = o.meditating && !sw && c.orbit;   // đả tọa: vũ khí lượn vòng quanh người như của mình (flyweapon.js rest)
+  if (front !== (med ? Math.sin(q) > 0 : o.riding || sw > 0)) return;
   const dir = Math.atan2(o.face?.y || 0, o.face?.x || 1), bob = Math.sin(t * 2.2 + (o.x % 7)) * c.bob;
   let x = o.x + side * (c.back[0] - (o.riding ? 5 : 0)), y = o.y + c.back[1] + bob, a = -Math.PI / 2 + side * (c.tilt ?? 0.35);
+  if (med) { x = o.x + Math.cos(q) * c.orbit.r; y = o.y - 8 + Math.sin(q) * c.orbit.r * 0.45; a = q + Math.PI / 2; }
   if (sw > 0) { const R = 18 * sw; x = x + (o.x + Math.cos(dir) * R - x) * sw; y = y + (o.y - 6 + Math.sin(dir) * R - y) * sw; a = a + (dir - a) * sw; }
   const el = (o.element && game.data.elements[o.element]?.color) || '#bff4ff', glow = tintedImage(ws.spr, ws.im, el);
   ctx.save(); ctx.imageSmoothingEnabled = false;

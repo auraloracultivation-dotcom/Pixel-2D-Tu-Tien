@@ -12,6 +12,14 @@ import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
 import { stepTheo } from './others-theo.js';
 import { pbSee } from './pb-see.js';   // đòn pháp bảo của người khác
+import { titleOf } from './achieve.js';
+import { drawKiemKhi } from '../render/draw-kiem-khi.js';
+// Người khác chém thường: lưỡi kiếm khí bay ra theo hướng nhìn như của mình (player.js strike, data/config.json → kiem_khi)
+function kiemKhiOf(game, o) {
+  const KK = game.data.config.kiem_khi;
+  if (!KK?.on || o.x === null || o.riding) return;
+  addFx(game, { draw: drawKiemKhi, x: o.x, y: o.y - 8, ang: Math.atan2(o.face?.y || 0, o.face?.x || 1), from: 20 * KK.from, len: KK.len, r: KK.r, half: KK.half, life: KK.life, color: (o.element && game.data.elements[o.element]?.color) || '#9ad8ff' });
+}
 import { chargeHold } from './skill-charge.js';
 import { castFx } from './others-cast.js';
 import { nlSeen } from './nl-roi.js';
@@ -23,8 +31,9 @@ const MIN_SPEED = 30;
 // Pháp tượng đang đeo (ô ngoc-boi, data/items.json → bases.*.pt): người khác thấy sau lưng mình (src/render/draw-phap-tuong.js)
 const ptId = game => { const u = game.save.equip?.['ngoc-boi'], it = u != null && game.save.bag?.find(i => i.uid === u); return (it && game.data.items.bases[it.base]?.pt) || null; };
 const vkId = game => { const u = game.save.equip?.['vu-khi'], it = u != null && game.save.bag?.find(i => i.uid === u); return it?.base || null; };   // vũ khí đang mặc: người khác thấy treo sau lưng (draw-flyweapon.js drawOtherWeapon)
-export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game), pet: game.save.pet || null, comp: game.save.companion || null, comp2: game.save.companion2 || null });   // linh thú, khôi lỗi đang mang: người khác thấy đi theo (others-theo.js)
-const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}|${p.pet}|${p.comp}|${p.comp2}`;   // đổi pháp tượng, vũ khí cũng báo lại
+const stOf = game => (game.ghost ? 'guc' : game.player?.flying ? 'bay' : game.player?.meditating ? 'toa' : null);   // đang bay / đả tọa / gục: người khác thấy (render/draw-other-extra.js)
+export const onlineLook = game => ({ element: game.save.element, realm: realmLabel(game.save, game.data.realms), look: game.save.look, outfit: game.save.outfit || null, mount: game.player?.riding ? game.save.mount || null : null, pt: ptId(game), vk: vkId(game), pet: game.save.pet || null, comp: game.save.companion || null, comp2: game.save.companion2 || null, st: stOf(game), ri: String(game.save.realm ?? 0), title: titleOf(game) ? game.save.title : null });   // linh thú, khôi lỗi đang mang: người khác thấy đi theo (others-theo.js)
+const sigOf = p => `${p.element}|${p.realm}|${p.look}|${p.outfit}|${p.mount}|${p.pt}|${p.vk}|${p.pet}|${p.comp}|${p.comp2}|${p.st}|${p.ri}|${p.title}`;   // đổi pháp tượng, vũ khí cũng báo lại
 const perfLevel = () => +(document.body?.dataset?.perf || 0) || 0;
 
 export function createOthers(game) {
@@ -46,7 +55,7 @@ export function createOthers(game) {
     list,
     clear() { list.clear(); shown = []; },
     presence(entries) {
-      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases, pets: game.data.pets.pets, comps: game.data.companions.list };
+      const seen = new Set(), known = { elements: game.data.elements, looks: game.data.heroes.list, mounts: game.data.pets.mounts, bases: game.data.items.bases, titles: game.data.status.titles, pets: game.data.pets.pets, comps: game.data.companions.list };
       for (const raw of entries.slice(0, R().max_list || 120)) {
         const e = cleanPresence(raw, known, R().name_max);
         if (!e) continue;
@@ -54,7 +63,7 @@ export function createOthers(game) {
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
         const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
         o.def = { name: cleanText(game, e.name) };
-        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk; o.pet = e.pet; o.comp = e.comp; o.comp2 = e.comp2;
+        o.element = e.element; o.realm = e.realm; o.look = e.look; o.outfit = e.outfit; o.mount = e.mount; o.pk = e.pk; o.pt = e.pt; o.vk = e.vk; o.pet = e.pet; o.comp = e.comp; o.comp2 = e.comp2; o.st = e.st; o.ri = e.ri; o.title = e.title;
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
@@ -73,7 +82,7 @@ export function createOthers(game) {
       o.at = now; o.tx = p.x; o.ty = p.y;
       o.spd = Math.min(R().speed || 260, Math.hypot(o.tx - o.x, o.ty - o.y) / (gap * 2));   // đi sau khoảng hai nhịp gói tin: liền mạch, rớt một gói vẫn không đứng khựng
       if (Math.abs(p.fx) + Math.abs(p.fy) > 0.1) o.face = { x: p.fx, y: p.fy };
-      if (p.sw) { o.swingT = 0.18; o.swingNew = true; }   // vung đòn: lúc vẽ chọn động tác đánh kế tiếp của nhân vật (render/draw.js)
+      if (p.sw) { o.swingT = 0.18; o.swingNew = true; kiemKhiOf(game, o); }   // vung đòn: lúc vẽ chọn động tác đánh kế tiếp của nhân vật (render/draw.js)
       if (first) refresh();
     },
     update(dt) {
