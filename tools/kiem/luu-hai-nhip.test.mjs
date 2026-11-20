@@ -28,14 +28,22 @@ const NHIP = JSON.parse(readFileSync(join(GOC, 'data/config.json'), 'utf8')).luu
   assert.equal(c({ a: null }, { a: 1 }), false);
   assert.equal(c({ a: { b: 1 } }, { a: { b: 1, c: { d: 1 } } }), false, 'khoá mới không phải số: nhanh');
   const th = new Set(NHIP.do_thuong), mon = (uid, rarity) => ({ uid, base: 'kiem-go', rarity, lines: [], sockets: [] });
-  assert.equal(SD.tuiThemThuong([mon(1, 'pham')], [mon(1, 'pham'), mon(2, 'linh')], th), true);
-  assert.equal(SD.tuiThemThuong([mon(1, 'pham')], [mon(1, 'pham'), mon(2, 'thien')], th), false, 'nhặt món phẩm cao: nhanh');
-  assert.equal(SD.tuiThemThuong([mon(1, 'pham'), mon(2, 'pham')], [mon(2, 'pham'), mon(3, 'pham')], th), false, 'mất món cũ: nhanh');
-  assert.equal(SD.tuiThemThuong([mon(1, 'pham'), mon(2, 'pham')], [mon(1, 'pham')], th), false, 'bớt món: nhanh');
-  assert.equal(SD.tuiThemThuong([mon(1, 'pham')], [mon(1, 'pham'), null], th), false);
+  const t = SD.tuiDoiThuong;
+  assert.equal(t([mon(1, 'pham')], [mon(1, 'pham'), mon(2, 'linh')], th), true, 'nhặt món phẩm thường: chậm');
+  assert.equal(t([mon(1, 'pham')], [mon(1, 'pham'), mon(2, 'thien')], th), false, 'nhặt món phẩm cao: nhanh');
+  assert.equal(t([mon(1, 'pham'), mon(2, 'pham')], [mon(2, 'pham'), mon(3, 'pham')], th), true, 'túi đầy: tự bán món rẻ rồi nhặt món rẻ khác vẫn là chậm');
+  assert.equal(t([mon(1, 'pham'), mon(2, 'huyen')], [mon(1, 'pham')], th), true, 'bán / phân giải món phẩm thường: chậm');
+  assert.equal(t([mon(1, 'thien'), mon(2, 'pham')], [mon(2, 'pham')], th), false, 'mất món phẩm cao: nhanh');
+  assert.equal(t([mon(1, 'pham'), mon(2, 'thien')], [mon(2, 'thien'), mon(1, 'pham')], th), true, 'xếp lại túi: không tính');
+  assert.equal(t([mon(1, 'pham')], [{ ...mon(1, 'pham'), lock: true }], th), false, 'món đổi cờ khoá: nhanh');
+  assert.equal(t([mon(1, 'pham')], [mon(1, 'linh')], th), false, 'món đổi phẩm: nhanh');
+  assert.equal(t([{ ...mon(1, 'pham'), plus: 1 }], [{ ...mon(1, 'pham'), plus: 2 }], th), true, 'số trên món nhảy: chậm');
+  assert.equal(t([mon(1, 'pham')], [mon(1, 'pham'), null], th), false);
+  assert.equal(t([mon(1, 'pham')], [mon(1, 'pham'), { rarity: 'pham' }], th), false, 'món không có uid: nhanh');
+  assert.equal(t([mon(1, 'pham'), mon(1, 'pham')], [mon(1, 'pham')], th), false, 'trùng uid trong bản cũ: không đoán, nhanh');
   for (const k of ['tien', 'thuong-co', 'thien', 'dia']) assert.equal(th.has(k), false, `phẩm ${k} không được nằm trong do_thuong`);
 
-  const goc = { realm: 0, layer: 1, qi: 10, lingshi: 5, stats: { kills: 1 }, mats: {}, flags: {}, bag: [mon(1, 'pham')], map: 'a', ss: 'x', clk: 1, lastSeen: 1 };
+  const goc = { realm: 0, layer: 1, qi: 10, lingshi: 5, stats: { kills: 1 }, mats: {}, flags: {}, bag: [mon(1, 'pham'), mon(5, 'thien')], map: 'a', ss: 'x', clk: 1, lastSeen: 1 };
   const d = SD.createSaveDiff(NHIP), sao = o => JSON.parse(JSON.stringify(o));
   assert.equal(d.plan(goc).full, true);
   d.ack(d.plan(goc));
@@ -47,7 +55,8 @@ const NHIP = JSON.parse(readFileSync(join(GOC, 'data/config.json'), 'utf8')).luu
   thu(b => { b.map = 'b'; }, false, 'đổi bản đồ: nhanh');
   thu(b => { b.bag.push(mon(2, 'linh')); }, true, 'nhặt món phẩm thường: chậm');
   thu(b => { b.bag.push(mon(2, 'thien')); }, false, 'nhặt món phẩm cao: nhanh');
-  thu(b => { b.bag.pop(); }, false, 'mất món: nhanh');
+  thu(b => { b.bag.pop(); }, false, 'mất món phẩm cao: nhanh');
+  thu(b => { b.bag.shift(); b.bag.push(mon(3, 'pham')); b.lingshi += 3; }, true, 'túi đầy, tự bán món rẻ rồi nhặt món rẻ: chậm');
   thu(b => { delete b.mats; }, false, 'khoá bị xoá: nhanh');
   thu(b => { b.tn = 5; }, false, 'Tiên Ngọc: nhanh');
   thu(b => { b.diemMoi = 3; }, true, 'khoá số mới ở cấp đầu: chậm');
