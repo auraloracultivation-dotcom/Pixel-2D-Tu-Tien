@@ -94,7 +94,7 @@ export function createGame(data, screen, input, ui, audio) {
   game.others = createOthers(game);
   createPvp(game);   // PvP Ngoại Vực (data/pvp.json)
   game.persist = () => {
-    if (!game.save || !game.map) return;
+    if (!game.save || !game.map || game.dangVao) return;   // đang vào game (có thể là tài khoản khác): bản trong bộ nhớ là của lần trước, không ghi
     stamp(game.save); if (game.save.bag?.length > bagCap(data, game.save)) fitBag(game);   // túi lố thì máy chủ từ chối cả bản lưu
     if (game.player) game.save.power = power(game);   // máy chủ đọc để xếp hạng lực chiến
     game.cloud?.mark(game.save);   // dấu phiên cho pickSave (src/game/cloud-guard.js)
@@ -244,6 +244,7 @@ export function createGame(data, screen, input, ui, audio) {
   };
 
   async function beginGame({ fresh, session, owner }) {
+    game.dangVao = true; game.cloud?.stop?.(); game.cloud = null;   // bản lưu lần trước (có khi của tài khoản khác) không được ghi đi đâu nữa
     game.owner = owner;
     const thu = session ? null : phongThu();   // bài thử hai máy tự động: khách vào phòng giả trong máy (src/game/thu-moc.js)
     if (session || thu) {
@@ -271,6 +272,7 @@ export function createGame(data, screen, input, ui, audio) {
     if (remote && !local) fresh = false; // máy mới chưa có bản lưu: menu chỉ có nút Bắt đầu, vẫn chơi tiếp bản trên máy chủ
     const saved = pickSave(local, remote, game.cloud?.version);   // máy khác đã ghi sau bản trong máy thì lấy bản máy chủ (src/game/cloud-guard.js)
     game.save = fresh || !saved ? newSave(cfg) : saved;
+    game.dangVao = false;
     startGuard(game);   // giấu số, bẫy sửa bộ nhớ
     const lastSeen = game.save.lastSeen; // đọc trước khi nạp bản đồ ghi đè
     seasonReset(game);   // mùa mới: reset cảnh giới, truyện (src/game/season.js; máy chủ đã reset thì bỏ qua)

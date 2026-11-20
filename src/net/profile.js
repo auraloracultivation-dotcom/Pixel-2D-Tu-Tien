@@ -53,10 +53,12 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
   let version = 0, timer = null, pending = null, stopped = false, sending = null, busy = 0;
   let fn = 'p2d_luu2', fails = 0, told = false, fixedTold = false, lastFixed = [];
   let viOff = false, lastFull = -1e9, lastCall = -1e9;   // viOff: máy chủ chưa có p2d_luu_vi
+  let chu = null;   // mã tài khoản lúc tải bản lưu: bản lưu này chỉ được ghi vào đúng tài khoản đó (21/11/2026, xem send)
   const diff = createSaveDiff();
   const api = { name: '' };
 
   async function load() {
+    chu = (await supabase.auth.getSession()).data?.session?.user?.id || null;
     const { data, error } = await supabase.rpc('p2d_tai');
     if (error) throw error;
     version = data?.phien_ban || 0;
@@ -69,6 +71,11 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
   const missing = (e, name) => e.code === 'PGRST202' || new RegExp(name).test(e.message || '');
 
   async function send() {
+    // Đổi tài khoản trên cùng một máy mà trang không tải lại (đăng xuất ở màn đầu rồi tạo / vào tài khoản khác): bản lưu cũ còn
+    // trong bộ nhớ từng bị gửi lên tài khoản mới, rồi bản đã bị máy chủ lột đồ ấy lại bị gửi đè lên tài khoản cũ (21/11/2026,
+    // một người chơi mất 17 món). Phiên đã đổi người thì thôi hẳn, không gửi gì nữa.
+    const ai = (await supabase.auth.getSession()).data?.session?.user?.id || null;
+    if (!chu || ai !== chu) { stop(); return false; }
     const body = pending; pending = null;
     const now = performance.now();
     body.ss = SS; body.clk = Math.round(now);   // lấy lúc gửi, khỏi lệch khi phải chờ thử lại
@@ -159,8 +166,10 @@ export function createCloudSave({ onConflict, onError, onFix, onOk, retry = {} }
   // Lúc vào game, pickSave (src/game/cloud-guard.js) dùng dấu này biết máy khác đã ghi lên sau bản trong máy hay chưa.
   // Đã bị máy khác chặn (stopped) thì thôi đóng dấu: bản trong máy giữ dấu cũ, lần sau vào game nhường bản máy chủ.
   function mark(s) { if (!stopped) { s.ss = SS; s.pb = version; } }
+  // Thôi hẳn: bỏ bản đang chờ, không gửi gì nữa (đổi tài khoản, game/game.js beginGame)
+  function stop() { stopped = true; pending = null; clearTimeout(timer); timer = null; }
 
-  return Object.assign(api, { load, save, flush, run, mark, get version() { return version; } });
+  return Object.assign(api, { load, save, flush, run, mark, stop, get version() { return version; } });
 }
 
 // Đặt tên hiển thị (khác tên đăng nhập): 2–16 ký tự, mỗi ngày đổi một lần
