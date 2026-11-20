@@ -57,7 +57,7 @@ export function gainPetExp(game, amount, only) {
   st.exp += only ? amount : amount * 0.5;
   while (st.lv < max && st.exp >= petNeed(game.data, st.lv)) {
     st.exp -= petNeed(game.data, st.lv); st.lv++;
-    game.toast(`${petDef(game.data, s, id).name} lên cấp ${st.lv}!`, 1.6);
+    if (!game.mungLen?.('pet', id, st.lv)) game.toast(`${petDef(game.data, s, id).name} lên cấp ${st.lv}!`, 1.6);   // mốc 5 cấp: thẻ mừng (src/ui/mung-them.js); cấp thường: dòng báo cũ + vòng sáng
   }
 }
 

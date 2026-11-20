@@ -4,6 +4,7 @@ import { rarityOf, itemName } from '../game/items.js';
 import { caveLv, caveLevel, caveNext, upgradeCave } from '../game/evolve.js';
 import { renderGarden } from './garden-tab.js';
 import { quickBuyBtn } from './quick-buy-btn.js';
+import { mungCave } from './mung-them.js';   // màn mừng động phủ lên cấp (docs/10-CAI-HON.md việc 4b)
 
 const $ = id => document.getElementById(id);
 
@@ -65,7 +66,7 @@ export function createCavePanel(game) {
     d.append(el('b', null, `Lên ${n.name}`), ...info(n).map(t => el('small', null, t)),
       el('small', null, `Cần: ${costText(data, n.cost)}, ${n.coins} ${data.shop.name}, cảnh giới ${game.data.realms.names[n.realm]}`));
     const row = el('div', 'card-acts');
-    row.append(mini('Nâng cấp', () => { if (upgradeCave(game)) last = `Động phủ thành ${caveLevel(game).name}!`; render(); }, !n.ok));
+    row.append(mini('Nâng cấp', () => { if (upgradeCave(game)) { last = `Động phủ thành ${caveLevel(game).name}!`; game.mung?.(mungCave(game)); } render(); }, !n.ok));
     const qb = quickBuyBtn(game, n.cost, m => { last = m; render(); }); if (qb) row.append(qb);
     d.append(row); list.append(d);
   }

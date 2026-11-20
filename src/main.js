@@ -15,6 +15,7 @@ import { createBacHud } from './ui/bac-hud.js';
 import { createHenMai } from './ui/hen-mai.js';
 import { createMung } from './ui/mung.js';
 import { createMungCanh } from './ui/mung-canh.js';
+import { createMungThem } from './ui/mung-them.js';
 import { createTheQuyen } from './ui/the-quyen.js';
 import { createTranMaKy } from './game/tran-ma-ky.js';
 import { startHenMai } from './game/hen-mai.js';
@@ -160,7 +161,7 @@ async function boot() {
   createHenMai(game); startHenMai(game);   // thẻ "Hẹn ngày mai": bế quan được gì, quà ngày mai, bậc kế tiếp (docs/10-CAI-HON.md việc 5b)
   createRewardShow(game);   // nghi lễ nhận thưởng: nền tối, vầng sáng xoay sau món đồ (src/ui/reward-show.js, docs/10-CAI-HON.md việc 4)
   createTheQuyen(game); createTranMaKy(game);   // Trấn Ma Kỷ: thẻ mở / khép quyển (src/ui/the-quyen.js), sổ truyện mở trang theo việc người chơi làm được (src/game/tran-ma-ky.js, data/tran-ma-ky.json)
-  createMung(game); createMungCanh(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); docs/10-CAI-HON.md việc 4b
+  createMung(game); createMungCanh(game); createMungThem(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); linh thú, động phủ, ngọc, công pháp (src/ui/mung-them.js); docs/10-CAI-HON.md việc 4b
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập

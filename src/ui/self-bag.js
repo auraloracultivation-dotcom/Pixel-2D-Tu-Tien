@@ -8,6 +8,8 @@ import { el, icon, powerGain } from './bag-detail.js';
 import { renderGemGrid, renderMatGrid, renderPillGrid } from './bag-stock.js';
 import { gradeColor, gradeId, uiIco, socketCol } from './self-gear.js';
 import { kySocket } from '../game/ky-ngoc.js';
+import { mungSocket } from './mung-them.js';   // màn mừng khảm ngọc (docs/10-CAI-HON.md việc 4b)
+import { power } from '../game/achieve.js';
 import { bestGems } from '../game/autogem.js';
 import { bestGear } from '../game/autogear.js';
 import { itemName, bagCap } from '../game/items.js';
@@ -95,7 +97,8 @@ export function renderStore(game, st, changed, refresh) {
   if (st.sub === 'ngoc') {
     if (!renderGemGrid(game, grid, st, pickStock, async k => {
       const p = st.pickSocket; if (!p) return;
-      await kySocket(game, p.uid, p.idx, k);
+      const p0 = power(game);
+      if (await kySocket(game, p.uid, p.idx, k)) game.mung?.(mungSocket(game, k, p0));
       st.sel = p.uid; st.pickSocket = null; st.page = 'do'; changed();
     })) wrap.append(el('p', 'muted sv-none', 'Chưa có ngọc. Quái và boss có thể rơi ngọc.'));
   } else if (st.sub === 'nl' || st.sub === 'ca') renderMatGrid(game, grid, st, pickStock, st.sub === 'ca');
