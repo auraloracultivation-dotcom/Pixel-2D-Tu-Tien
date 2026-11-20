@@ -41,7 +41,7 @@ import { drawMobBar, rankOf } from './draw-mob-bar.js';
 import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
-import { drawFlyWeapon, drawOtherWeapon } from './draw-flyweapon.js'; import { theoEnts } from '../game/others-theo.js';
+import { drawFlyWeapon, drawOtherWeapon } from './draw-flyweapon.js'; import { theoEnts } from '../game/others-theo.js'; import { otherPre, otherPost } from './draw-other-extra.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
@@ -195,7 +195,7 @@ function drawMob(ctx, m, t, game) {
 function drawOther(ctx, o, game, t) {
   const el = o.element ? game.data.elements[o.element]?.color : null;
   const fit = { look: o.look, outfit: o.outfit, pt: o.pt || null }, md = o.mount && game.data.pets.mounts[o.mount];
-  o.riding = !!md; if (o.kd) { drawKdBack(ctx, game, o, t); ctx.save(); ctx.translate(o.kdDx || 0, -(o.kdLift || 0)); }   // trang phục mới ngồi xếp bằng trên thú; người đang kết đan lơ lửng
+  const fl = otherPre(ctx, game, o, t); o.riding = !!md; if (o.kd) { drawKdBack(ctx, game, o, t); ctx.save(); ctx.translate(o.kdDx || 0, -(o.kdLift || 0)); }   // trang phục mới ngồi xếp bằng trên thú; người đang kết đan lơ lửng
   if (md && o.look) { const lk = heroLook(game, fit); drawPhapTuong(ctx, game, o, t, fit, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', o.x + (o.seatX || 0), o.y - (o.lift || 0)); }
   if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); o.lift = lift; ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
   if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
@@ -210,7 +210,7 @@ function drawOther(ctx, o, game, t) {
     const a = Math.atan2(o.face.y, o.face.x);
     ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
   }
-  if (md) ctx.restore(); if (o.kd) ctx.restore();
+  if (md) ctx.restore(); if (o.kd) ctx.restore(); otherPost(ctx, game, o, fl);   // bay, đả tọa, hào quang, danh hiệu, gục (draw-other-extra.js)
 }
 
 function drawNpc(ctx, n, game, t) {
