@@ -5,8 +5,17 @@
 import { togglePilot } from './pilot.js';
 import { dropLoot, updateLoot } from './loot.js';
 import { kiepSend, kiepWave } from './kiep-see.js';
+import { hoSoCuaToi, epHoSo } from './ho-so-phong.js';
 
 export function mocThu() {
-  if (!new URLSearchParams(location.search).has('thu')) return;
-  window.__thu = { togglePilot, dropLoot, updateLoot, kiepSend, kiepWave };
+  const q = new URLSearchParams(location.search);
+  if (!q.has('thu')) return;
+  window.__thu = { togglePilot, dropLoot, updateLoot, kiepSend, kiepWave, hoSoCuaToi, epHoSo };
+  // ?thu=1&phong=<mã>: khách này vào phòng người chơi như người đã đăng nhập, mang mã và tên thử (bài thử hai máy tools/hai-may.mjs dựng
+  // phòng giả trong máy bằng đúng mã cloud/src/phong.js). Vé gửi đi là chính mã thử nên máy chủ phòng thật từ chối: không thêm quyền gì.
+  const id = q.get('phong');
+  if (id && /^[\w-]{1,36}$/.test(id)) window.__thu.phong = { id, ten: 'Thử ' + id };
 }
+
+// Khách đang chạy bài thử hai máy thì trả { id, ten }; người chơi thật luôn là null
+export const phongThu = () => window.__thu?.phong || null;

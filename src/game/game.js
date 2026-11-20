@@ -14,7 +14,10 @@ import { mocTang } from './moc-tang.js';
 import { updateTaps } from './taps.js';
 import { createStory } from './story.js';
 import { createDungeon } from './dungeon.js';
-import { createOthers, onlineLook } from './others.js';
+import { createOthers } from './others.js';
+import { hoSoCuaToi } from './ho-so-phong.js';
+import { nhipMang } from './nhip-mang.js';
+import { phongThu } from './thu-moc.js';
 import { caveRoom } from './friends.js';
 import { updateParty, partyGuest } from './party-sync.js';
 import { dropLoot, updateLoot, collectAll } from './loot.js';
@@ -80,7 +83,7 @@ export function createGame(data, screen, input, ui, audio) {
     spawners: [], dungeon: null, story: null,
     hitstop: 0, flashT: 0, dark: 0, darkTarget: 0, noDeath: false,
     trip: null, traveling: false, paused: false, portalLock: 0, peek: null, time: 0,
-    owner: 'guest', online: null, others: null,
+    owner: 'guest', online: null, others: null, hoSo: {},   // hoSo: hồ sơ của mình (ho-so-phong.js), vừa gửi cho phòng vừa dùng để vẽ mình
   };
   game.sfx = (name, vol) => audio?.play(name, vol); game.sfxWarm = names => audio?.warm?.(names);   // sfxWarm: dựng sẵn tiếng chiêu đang mang (skill-sfx.js)
   game.note = (step, vol) => audio?.note?.(step, vol);
@@ -217,7 +220,9 @@ export function createGame(data, screen, input, ui, audio) {
   function joinOnline() {
     if (!game.online) return;
     const solo = (game.map.def.rooms || []).length > 0, home = game.map.id === data.home.map;
-    game.online.join(solo ? null : home ? caveRoom(game, game.online.me.id) : game.map.id, onlineLook(game))
+    const h = { ...hoSoCuaToi(game, game.hoSo) };   // bản gửi lúc vào: others.js nhớ chữ ký của nó, sau đó đổi gì thì báo lại
+    game.others.daBao(h);
+    game.online.join(solo ? null : home ? caveRoom(game, game.online.me.id) : game.map.id, h)
       .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
   }
 
@@ -240,15 +245,16 @@ export function createGame(data, screen, input, ui, audio) {
 
   async function beginGame({ fresh, session, owner }) {
     game.owner = owner;
-    if (session) {
+    const thu = session ? null : phongThu();   // bài thử hai máy tự động: khách vào phòng giả trong máy (src/game/thu-moc.js)
+    if (session || thu) {
       try {
         const R = data.config.realtime || {}, cf = R.backend === 'cf' && R.cf_url;   // máy chủ phòng Cloudflare (cloud/) hay kênh Realtime cũ
         const { createOnline } = await (cf ? import('../net/online-cf.js') : import('../net/online.js'));
-        const me = { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
+        const me = thu ? { id: thu.id, name: thu.ten } : { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
           onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx), onPvp: m => onPvp(game, m),
-        }, { url: R.cf_url });
+        }, { url: R.cf_url, ve: thu ? async () => thu.id : undefined });
       } catch { game.online = null; }
     }
     const msg = document.getElementById('login-msg');
@@ -337,10 +343,7 @@ export function createGame(data, screen, input, ui, audio) {
     const keep = game.uiOpen && !game.dialog.open && (game.pilot || game.auto);   // tự hành, tự đánh chạy tiếp khi mở bảng (báo lỗi #6)
     const blocked = (game.dialog.open || game.uiOpen) && !keep;
     game.paused = blocked;
-    // Người khác và vị trí của mình chạy cả lúc đang mở bảng / hội thoại (20/11/2026 17:12: trước đây mở Túi đồ, đọc thoại kiếp là ngừng
-    // gửi vị trí, người vừa vào tinh cầu không có toạ độ của mình nên không vẽ, bỏ luôn tin kết đan / độ kiếp của mình)
-    game.others.update(dt);
-    if (game.online && (game.data.config.realtime?.backend === 'cf' || game.data.config.realtime?.map_send !== false)) game.online.send(game.player, game.player.swingT > 0.15 ? { sw: 1 } : {}, game.others.sendGap(), game.data.config.realtime?.idle_ms);   // khoảng gửi theo số người cùng kênh (game/others.js)
+    nhipMang(game, dt);   // người khác, hồ sơ và vị trí của mình: chạy cả lúc mở bảng / hội thoại (src/game/nhip-mang.js)
     if (blocked || keep) game.input.clear();
     if (blocked) { if (game.uiOpen) camFollow(game, screen, dt); return; }
     if (game.hitstop > 0) { game.hitstop -= dt; return; }

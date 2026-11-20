@@ -7,9 +7,8 @@
 //       node tools/cloud/tai-thu.mjs --url ws://127.0.0.1:8787 --bot 100 --giay 30
 //     Đo: thời gian vào phòng, độ trễ từ lúc gửi vị trí tới lúc nhận gói có vị trí đó, số kết nối rớt, số lần phòng đầy (4009).
 //     Không dùng với địa chỉ máy chủ thật (công cụ từ chối địa chỉ không phải máy mình).
-import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
+import { chepCloud } from './nap.mjs';
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const BOTS = +arg('bot', 300), SECS = +arg('giay', 60), URL_ = arg('url', ''), MAP = arg('map', 'thanh-khe');
@@ -32,10 +31,7 @@ function botStep(b, t, send) {
 
 // ---------- 1) Trong máy ----------
 async function local() {
-  const root = resolve(import.meta.dirname, '../../cloud/src'), dir = mkdtempSync(join(tmpdir(), 'tai-'));
-  const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
-  for (const f of ['proto.js', 'mang-cfg.js', 'pvp.js', 'nhip.js']) writeFileSync(join(dir, f), readFileSync(join(root, f), 'utf8'));
-  for (const f of ['phong.js', 'mang.js']) writeFileSync(join(dir, f), readFileSync(join(root, f), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
+  const dir = chepCloud('tai-');   // tools/cloud/nap.mjs
   globalThis.WebSocketRequestResponsePair = class { constructor(a, b) { this.a = a; this.b = b; } };
   class FakeWS {
     constructor() { this.readyState = 1; this.bytes = 0; this.n = 0; this.att = null; }

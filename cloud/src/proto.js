@@ -1,5 +1,6 @@
 // Phần thuần của máy chủ phòng (không gọi mạng, không dùng API Cloudflare): kiểm tên phòng, làm sạch tin, giới hạn tốc độ, gói lô.
 // Dùng chung cho src/phong.js và bài thử tools/cloud/phong.test.mjs (chạy trong Node).
+import { TEN, CHU } from './ho-so-truong.js';
 
 // Hai loại phòng:
 //  - "dao:<bản đồ>" : người cùng bản đồ thấy nhau. Tối đa CAP.dao người mỗi tuyến; vị trí gom lô 200 ms rồi phát một gói cho mọi người.
@@ -26,12 +27,14 @@ const WORD = /^[\w-]{1,48}$/;
 const word = v => (typeof v === 'string' && WORD.test(v) ? v : undefined);
 const num = (v, lo, hi) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : null);
 
-// Hồ sơ hiển thị (máy người xem vẫn tự lọc lại theo data/ ở game/others-net.js)
+// Hồ sơ hiển thị: chỉ giữ các trường khai ở data/dong-bo.json → ho_so (bản sao sinh tự động ./ho-so-truong.js; 20/11/2026: trước đây
+// danh sách viết tay ở đây, thiếu pt, vk, st, ri nên người khác không thấy pháp tượng, vũ khí). Máy người xem vẫn tự lọc lại theo data/
+// (game/others-net.js). pk, id, toạ độ do phòng tự gắn: không nhận từ máy khách.
 export function cleanProf(p) {
   if (!p || typeof p !== 'object') return {};
-  const o = { name: cleanStr(p.name, 24) || 'Đạo hữu', realm: cleanStr(p.realm, 24) };
-  // pt: pháp tượng đang đeo, vk: món vũ khí đang mặc, comp2: khôi lỗi thứ hai, st: bay / đả tọa / gục, ri: cảnh giới (20/11/2026: trước bị bỏ ở đây nên người khác không thấy)
-  for (const k of ['element', 'look', 'outfit', 'mount', 'pet', 'comp', 'title', 'pt', 'vk', 'comp2', 'st', 'ri']) { const w = word(p[k]); if (w) o[k] = w; }
+  const o = {};
+  for (const k in TEN) o[k] = cleanStr(p[k], TEN[k][0]) || TEN[k][1];
+  for (const k in CHU) { const w = word(p[k]); if (w && w.length <= CHU[k]) o[k] = w; }
   return o;
 }
 

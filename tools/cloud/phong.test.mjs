@@ -1,19 +1,12 @@
 // Bài thử máy chủ phòng Cloudflare (cloud/src) chạy trong Node, không cần wrangler: giả lập tối thiểu WebSocket Hibernation API.
 // Chạy: node tools/cloud/phong.test.mjs
-import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import v8 from 'node:v8';
 import assert from 'node:assert/strict';
+import { chepCloud, GOC_CLOUD as root } from './nap.mjs';
 
-const root = resolve(import.meta.dirname, '../../cloud/src');
-const dir = mkdtempSync(join(tmpdir(), 'phong-'));
-writeFileSync(join(dir, 'proto.js'), readFileSync(join(root, 'proto.js'), 'utf8'));
-writeFileSync(join(dir, 'mang-cfg.js'), readFileSync(join(root, 'mang-cfg.js'), 'utf8'));
-writeFileSync(join(dir, 'pvp.js'), readFileSync(join(root, 'pvp.js'), 'utf8'));
-writeFileSync(join(dir, 'nhip.js'), readFileSync(join(root, 'nhip.js'), 'utf8'));
-const stubDO = 'class DurableObject { constructor(ctx, env) { this.ctx = ctx; this.env = env; } }';
-writeFileSync(join(dir, 'phong.js'), readFileSync(join(root, 'phong.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
-writeFileSync(join(dir, 'mang.js'), readFileSync(join(root, 'mang.js'), 'utf8').replace("import { DurableObject } from 'cloudflare:workers';", stubDO));
+const dir = chepCloud();   // mọi tệp cloud/src, 'cloudflare:workers' thay bằng lớp giả
 
 // Giả lập
 globalThis.WebSocketRequestResponsePair = class { constructor(a, b) { this.a = a; this.b = b; } };
@@ -46,6 +39,28 @@ assert.deepEqual(P.cleanMove({ x: 10.4, y: 20.6, fx: 2, fy: -0.333, sw: 1 }), [1
 assert.equal(P.cleanMove({ x: 'a', y: 1 }), null);
 assert.equal(P.cleanProf({ name: '‮abc<b>' + 'x'.repeat(40), look: 'nam-1', outfit: '../../x' }).name.length, 24);
 assert.equal(P.cleanProf({ outfit: '../../x' }).outfit, undefined);
+// Hồ sơ theo bảng data/dong-bo.json → ho_so: trường nào khai trong bảng cũng phải qua được máy chủ phòng (20/11/2026: pt, vk, st, ri
+// từng bị bỏ ở đây nên người khác không thấy pháp tượng, vũ khí); thứ phòng tự gắn thì máy khách gửi lên cũng bỏ
+{
+  const { docBang, daiCua, sinh, TEP } = await import('../dong-bo.mjs');
+  const H = docBang().ho_so;
+  assert.equal(readFileSync(resolve(root, '../..', TEP), 'utf8'), sinh(), `${TEP} lệch data/dong-bo.json: chạy node tools/dong-bo.mjs --ghi`);
+  const mau = d => (d.kieu === 'ten' ? 'Lạc Tuyết' : d.kieu === 'so' ? '1'.repeat(d.dai) : d.kieu === 'chon' ? d.gia_tri[0] : d.kieu === 'co' ? 1 : 'ma-thu_1');
+  const gui = Object.fromEntries(Object.entries(H).map(([k, d]) => [k, mau(d)])), ra = P.cleanProf(gui);
+  for (const [k, d] of Object.entries(H)) {
+    if (d.ai === 'may-chu') assert.equal(ra[k], undefined, `máy chủ phòng tự gắn "${k}", không nhận từ máy khách`);
+    else assert.equal(ra[k], gui[k], `trường "${k}" trong bảng bị máy chủ phòng bỏ`);
+  }
+  const la = P.cleanProf({ ...gui, id: 'ke-khac', x: 1, y: 2, joined: 5, la: 'x', constructor: 'x', __proto__: { look: 'y' } });
+  for (const k of ['id', 'x', 'y', 'joined', 'la', 'pk']) assert.equal(Object.hasOwn(la, k), false, `khoá lạ "${k}" lọt qua hồ sơ`);
+  assert.equal(Object.hasOwn(la, 'constructor'), false);
+  assert.equal(P.cleanProf({ st: 'bay-len-troi' }).st, undefined);   // dài quá mức của trường
+  // Hồ sơ nằm trong phần đính kèm kết nối (serializeAttachment, Cloudflare giới hạn 2 048 byte): trường nào cũng dài tối đa vẫn phải vừa
+  const dayDu = Object.fromEntries(Object.entries(H).filter(([, d]) => d.ai !== 'may-chu').map(([k, d]) => [k, d.kieu === 'ten' ? 'Ạ'.repeat(d.dai) : 'w'.repeat(daiCua(d))]));
+  const att = { id: 'a'.repeat(36), kind: 'dao', at: Date.now(), ip: 'f'.repeat(45), nm: 'Ạ'.repeat(24), pw: 123456789, co: false, map: 'm'.repeat(80), pk: true, immune: Date.now(), pvpAt: Date.now(), g: 12.5, nt: Date.now(), ph: 'p'.repeat(64), p: { ...P.cleanProf(dayDu), pk: 1 } };
+  const cỡ = v8.serialize(att).length;
+  assert.ok(cỡ < 1900, `hồ sơ đầy đủ làm phần đính kèm kết nối nặng ${cỡ} byte (giới hạn Cloudflare 2 048): bớt trường hoặc rút "dai" trong data/dong-bo.json`);
+}
 assert.deepEqual(P.cleanSay({ m: '  chào   bạn ' }), { m: 'chào bạn' });
 { const c = { rate: 2, burst: 2 }, b = P.bucket(c, 0); assert.ok(P.take(b, c, 0)); assert.ok(P.take(b, c, 0)); assert.ok(!P.take(b, c, 0)); assert.ok(P.take(b, c, 600)); }
 
@@ -103,7 +118,6 @@ console.log('phong.test: ok');
 
 // vé đăng nhập ES256
 {
-  writeFileSync(join(dir, 'auth.js'), readFileSync(join(root, 'auth.js'), 'utf8'));
   const kp = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
   const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
   const URL0 = 'https://x.supabase.co';

@@ -335,6 +335,9 @@ try {
   console.log(`Đa ngôn ngữ: ${keys.length} câu, đã dịch ${cov.join(', ')}`);
 }
 
+// Một nguồn cho "người khác thấy gì" (data/dong-bo.json): bản sao của máy chủ phòng khớp bảng, trường nào cũng có nơi lấy giá trị
+errors.push(...(await import('./dong-bo.mjs')).soat());
+
 // Máy chủ phòng Cloudflare (cloud/): bài thử thuần Node
 {
   const r = spawnSync(process.execPath, [join('tools', 'cloud', 'phong.test.mjs')], { encoding: 'utf8' });
