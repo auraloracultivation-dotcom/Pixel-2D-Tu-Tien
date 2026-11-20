@@ -11,7 +11,7 @@ Supabase vẫn giữ tài khoản, lưu game, chống hack, chat, truyền âm.
   kiểm chữ ký ES256 bằng khoá công khai JWKS của Supabase (`src/auth.js`), không gọi về Supabase mỗi lần.
 - `src/phong.js`: Durable Object `Phong`, một phòng = một tuyến bản đồ `dao:<map>#<tuyến>` (tối đa 40 người) hoặc một tổ đội `to:<mã>` (6).
   Phòng đầy đóng mã 4009, máy khách tự sang tuyến kế (tối đa 60 tuyến = 2.400 người một bản đồ).
-  Vị trí, chào hỏi, chiêu gom 200 ms một gói. Tổ đội chuyển tiếp ngay. Giới hạn tốc độ mỗi kết nối, gửi dồn dập bị đóng 4008.
+  Vị trí, chào hỏi, chiêu gom 200 ms một gói. Tổ đội chuyển tiếp ngay. Giới hạn tốc độ mỗi kết nối (phòng bản đồ 15 tin mỗi giây: đủ cho người đang giao chiến gửi vị trí 5 lần mỗi giây cùng đòn và chiêu), vượt thì bỏ tin, gửi dồn dập kéo dài bị đóng 4008. Thử tải trận đông người: `node tools/cloud/tai-chien.mjs` (đồng hồ giả, có đòn PvP).
   WebSocket Hibernation: không ai gửi gì thì phòng ngủ, không tính thời gian chạy; "ping" → "pong" Cloudflare tự trả.
 - `src/proto.js`: phần thuần (kiểm phòng, làm sạch tin, thùng token, gói lô). Bài thử: `node tools/cloud/phong.test.mjs`.
 - `src/ho-so-truong.js`: TỆP SINH RA từ `data/dong-bo.json` → `ho_so` (bảng "người khác thấy gì"), không sửa tay. `proto.js` `cleanProf` chỉ giữ các trường trong đó. Sửa bảng xong chạy `node tools/dong-bo.mjs --ghi`; `tools/check.mjs` báo đỏ nếu bản sao lệch bảng. Cloudflare đóng gói riêng thư mục `cloud/` nên máy chủ phòng không đọc thẳng `data/` (cùng cách `mang-cfg.js` là bản sao của `data/thien-mang.json`).

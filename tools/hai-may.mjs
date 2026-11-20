@@ -152,6 +152,22 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   ok('dien("tu-linh") gọi một lần: máy A diễn, máy B cũng thấy', !!cuaA && !!cuaB, `máy A ${cuaA ? 'có' : 'không'}, máy B ${cuaB ? 'có' : 'không'}`);
 }
 
+// 4b. PvP qua phòng (cloud/src/pvp.js chạy thật, lõi Mang giả): cả hai tắt khiên thì nhịp gửi vị trí của A phải chuyển sang nhịp giao chiến
+// (data/config.json → realtime.pvp_ms; gửi thưa thì máy chủ phòng bỏ oan đòn, 20/11/2026), rồi A đánh B: phòng tính đòn, B nhận tin trúng.
+{
+  const nhip = X => X.p.evaluate(() => { const O = window.__game.others; O.sendGap(); return O.sendGap(); });   // lần gọi đầu xả cờ "gửi ngay"
+  const pvpMs = await A.p.evaluate(() => window.__game.data.config.realtime.pvp_ms), truoc = await nhip(A);
+  await Promise.all([A, B].map(X => X.p.evaluate(() => window.__game.online.pvpOff(true))));
+  const tat = await cho(async () => (await A.p.evaluate(() => window.__game.pvp?.off === true)) && (await thay(A, 'may-b'))?.pk === 1 && (await thay(B, 'may-a'))?.pk === 1, 4000);
+  const sau = await nhip(A);
+  ok('Cả hai tắt khiên: A gửi vị trí theo nhịp giao chiến', !!tat && sau === pvpMs && truoc > pvpMs, `trước ${truoc} ms, sau ${sau} ms (pvp_ms ${pvpMs})`);
+  const noi = await A.p.evaluate(() => { const g = window.__game, z = g.data.pvp.server.safe; return { map: g.map.id, trongVong: g.map.id === z.map && Math.hypot(g.player.x - z.x, g.player.y - z.y) <= z.r }; });
+  const ph0 = phong.dem.xuong.ph || 0;
+  await A.p.evaluate(() => window.__game.online.pvpHit('may-b'));
+  const trung = await cho(async () => (phong.dem.xuong.ph || 0) > ph0 && B.p.evaluate(() => Date.now() - (window.__game.pvp.at || 0) < 5000), 3000);
+  ok('A đánh B qua phòng: máy chủ phòng tính đòn, báo cho cả phòng', noi.trongVong ? !trung : !!trung, noi.trongVong ? `đứng trong vòng pháp trận ${noi.map}: phòng phải bỏ đòn` : `tin trúng đòn: ${(phong.dem.xuong.ph || 0) - ph0}`);
+}
+
 // 5. Nhịp mạng không bị bảng chặn: A mở bảng, đứng yên; máy C vào SAU vẫn phải thấy A có toạ độ và nhận hồ sơ A đổi lúc đang mở bảng
 await A.p.evaluate(() => { const g = window.__game; g.uiOpen = 'thu-bang'; });
 const C = await moMay('may-c');

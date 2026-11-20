@@ -1,8 +1,9 @@
 // Phòng giả cho bài thử hai máy tự động (tools/hai-may.mjs): chạy ĐÚNG mã máy chủ phòng cloud/src/phong.js trong Node (nap.mjs), nối với
 // trình duyệt qua WebSocket do Playwright chặn lại (context.routeWebSocket), nên tin đi đủ đường thật: máy gửi → bộ lọc máy chủ phòng
 // (proto.js cleanProf, cleanMove, cleanCast, gom lô 200 ms) → máy người xem. Không ra mạng, không chạm máy chủ thật.
-// Mỗi phòng ("dao:<bản đồ>#<tuyến>") một lớp Phong riêng như trên Cloudflare. Phần boss, PvP, nhịp sống cần lõi Mang nên ở đây im lặng
-// (env rỗng: các lời gọi đó tự bắt lỗi), bài thử này không đụng tới.
+// Mỗi phòng ("dao:<bản đồ>#<tuyến>") một lớp Phong riêng như trên Cloudflare. Lõi Mang ở đây là bản giả tối thiểu (MANG_GIA): giữ khiên
+// PvP theo tài khoản trong bộ nhớ, không ghi hạ gục, không gom nhịp, không tính boss; nên PvP qua phòng (tắt khiên, đòn, máu) chạy đúng
+// mã cloud/src/pvp.js, còn boss thế giới và nhịp sống thì im lặng.
 import { join } from 'node:path';
 import { chepCloud } from './nap.mjs';
 
@@ -24,12 +25,16 @@ export async function taoPhongGia() {
   const P = await import(join(dir, 'proto.js'));
   const { Phong } = await import(join(dir, 'phong.js'));
   const phong = new Map();   // tên phòng → { room, ctx }
+  const khien = new Map();   // uid → { off, immune, at }: như mang.js pk
+  const mang = { pkGet: async u => khien.get(u) || { off: false, immune: 0, at: 0 }, pkSet: async (u, off, immune, at) => { khien.set(u, { off: !!off, immune: immune || 0, at: at || 0 }); },
+    pvp: async () => false, nhipGop: async () => null, add: async () => ({ top: [], n: 0, total: 0, ranks: {}, lt: {}, mo: 0 }) };
+  const MANG_GIA = { MANG: { idFromName: () => 'cuu-dau', get: () => mang } };
   const lay = ten => {
     if (!phong.has(ten)) {
       const ctx = { list: [], storage: { getAlarm: async () => 1, setAlarm: async () => {} }, setWebSocketAutoResponse() {},
         acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
         getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
-      phong.set(ten, { room: new Phong(ctx, {}), ctx });
+      phong.set(ten, { room: new Phong(ctx, MANG_GIA), ctx });
     }
     return phong.get(ten);
   };

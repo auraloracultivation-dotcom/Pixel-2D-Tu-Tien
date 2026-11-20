@@ -10,7 +10,9 @@ export const LINES_MAX = 60;            // tối đa 60 tuyến mỗi bản đ�
 export const BATCH_MS = 200;
 export const MSG_MAX = 8192;            // byte mỗi tin gửi lên (tin đội có danh sách quái)
 // Giới hạn tốc độ mỗi kết nối (thùng token): rate tin/giây, tối đa burst. Vượt kéo dài thì đóng kết nối.
-export const RATE = { dao: { rate: 6, burst: 20 }, to: { rate: 14, burst: 40 } };
+// dao 15 tin/giây (20/11/2026, trước là 6): người đang giao chiến gửi vị trí 5 lần/giây (data/config.json → realtime.pvp_ms) + 2 đòn + chiêu
+// + nhịp ≈ 8 tin/giây; ở mức 6 phòng âm thầm bỏ 17% tin (cả đòn lẫn vị trí) và chỉ tính 52–67% đòn. Đo: tools/cloud/tai-chien.mjs.
+export const RATE = { dao: { rate: 15, burst: 30 }, to: { rate: 14, burst: 40 } };
 export const KICK_DROPS = 200;          // bị bỏ quá 200 tin liên tiếp vì quá nhanh → đóng (máy khách sửa đổi gửi dồn dập)
 
 const ROOM = /^(dao|to):[A-Za-z0-9_:-]{1,80}$/;
