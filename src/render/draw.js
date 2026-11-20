@@ -41,7 +41,7 @@ import { drawMobBar, rankOf } from './draw-mob-bar.js';
 import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
-import { drawFlyWeapon } from './draw-flyweapon.js';
+import { drawFlyWeapon, drawOtherWeapon } from './draw-flyweapon.js'; import { theoEnts } from '../game/others-theo.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
@@ -199,7 +199,7 @@ function drawOther(ctx, o, game, t) {
   if (md && o.look) { const lk = heroLook(game, fit); drawPhapTuong(ctx, game, o, t, fit, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', o.x + (o.seatX || 0), o.y - (o.lift || 0)); }
   if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); o.lift = lift; ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
   if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
-  const hero = o.look && drawHero(ctx, game, o, t, false, fit);
+  drawOtherWeapon(ctx, game, o, t, false, fit); const hero = o.look && drawHero(ctx, game, o, t, false, fit); drawOtherWeapon(ctx, game, o, t, true, fit);   // vũ khí người khác: sau lưng / trước người (draw-flyweapon.js)
   if (!hero) drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
   if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
   const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
@@ -316,7 +316,7 @@ export function drawWorld(game, screen, t) {
   drawSongTu(ctx, game, t);
   if (game.corpses?.length) game.corpses = game.corpses.filter(c => game.time - c.t0 - (c.wait || 0) <= corpseLife(game));
   drawDen(ctx, game, t);   // đèn trang trí trên đất: đuốc, đèn đá, đá tím, bí ngô (draw-den.js)
-  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].filter(e => !game.bay?.on || (e[0] === 'h' && !e[1].khach) || (e[0] === 'm' && e[1].dummy)).sort((a, b) => a[1].y - b[1].y);   // bày cảnh: chỉ vẽ đồ (và Mộc Nhân để kéo), ẩn người, quái
+  const ents = [...game.npcs.map(n => ['n', n]), ...game.mobs.map(m => ['m', m]), ...(game.corpses || []).map(c => ['c', c]), ...game.others.visible().map(o => ['o', o]), ['p', game.player], ...(game.pet ? [['pet', game.pet]] : []), ...(game.homePets || []).map(h => ['pet', h]), ...(game.comp ? [['comp', game.comp]] : []), ...(game.comp2 ? [['comp', game.comp2]] : []), ...theoEnts(game), ...duelFoes(game), ...hoiEnts(game, screen.viewRect())].filter(e => !game.bay?.on || (e[0] === 'h' && !e[1].khach) || (e[0] === 'm' && e[1].dummy)).sort((a, b) => a[1].y - b[1].y);   // bày cảnh: chỉ vẽ đồ (và Mộc Nhân để kéo), ẩn người, quái
   for (const [k, e] of ents) {
     if (k === 'h') drawHoiItem(ctx, game, e, t);   // đồ lễ hội đứng (draw-hoi.js)
     else if (k === 'n') drawNpc(ctx, e, game, t);

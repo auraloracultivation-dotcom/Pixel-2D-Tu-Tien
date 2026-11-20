@@ -25,6 +25,10 @@ export function cleanPresence(e, known, max) {
     outfit: word(e.outfit),
     pt: typeof e.pt === 'string' && /^\d{2}$/.test(e.pt) ? e.pt : null,   // pháp tượng đang đeo (mã hình pt.NN)
     mount: known.mounts && has(known.mounts, e.mount) ? e.mount : null,
+    vk: known.bases && known.bases[e.vk]?.slot === 'vu-khi' ? e.vk : null,   // món vũ khí đang mặc (chỉ nhận món có thật trong data/items.json)
+    pet: known.pets && has(known.pets, e.pet) ? e.pet : null,   // linh thú, khôi lỗi đang mang (others-theo.js)
+    comp: known.comps && has(known.comps, e.comp) ? e.comp : null,
+    comp2: known.comps && has(known.comps, e.comp2) ? e.comp2 : null,
     pk: e.pk ? 1 : 0,   // đang tắt bảo vệ (PvP Ngoại Vực, máy chủ phòng giữ)   // đang cưỡi thú gì (06/11/2026: người khác thấy thú cưỡi)
   };
 }
