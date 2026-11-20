@@ -15,6 +15,13 @@ function el(tag, cls, text) {
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
 const press = id => document.getElementById(id)?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
 
+// Lỗi hỏi / nhận thư báo về p2d_loi mỗi loại một lần mỗi phiên (20/11/2026: một người chơi cả phiên không nhận được thư, máy không báo gì)
+const daBao = new Set();
+function baoLoi(loai, e) {
+  if (daBao.has(loai)) return; daBao.add(loai);
+  import('../net/errlog.js').then(M => M.sendError(`thu: ${loai}: ${e?.message || e}`, String(e?.stack || '').slice(0, 800), loai)).catch(() => {});
+}
+
 export function createInbox(game) {
   const I = game.data.inbox, T = I.text, menu = document.getElementById('btn-menu');
   if (!I || !menu) return;
@@ -33,8 +40,8 @@ export function createInbox(game) {
 
   // Chủ dự án 06/11/2026 16:33: thư gửi phải vào Hòm thư có dấu đỏ ngay, không vòng qua Chợ. Hỏi máy chủ mỗi phút (kể cả đang mở bảng khác)
   async function peek() {
-    if (!game.cloud || !game.online) { wait = 0; return; }
-    try { const { peekMail } = await import('../net/market.js'); wait = (await peekMail()).length; } catch { /* mạng lỗi: lần sau */ }
+    if (!game.cloud) { wait = 0; return; }   // Hòm thư không cần phòng chơi chung
+    try { const { peekMail } = await import('../net/market.js'); wait = (await peekMail()).length; } catch (e) { baoLoi('xem_thu', e); }   // mạng lỗi: lần sau
     paint(); if (!root.hidden) render();
   }
   async function claim() {
@@ -43,7 +50,7 @@ export function createInbox(game) {
       const got = await claimMail(game);
       if (got.length) game.toast(got.join(' · '), 3);
       if (got.full) game.toast(fill(T.full, { n: got.full }), 4);
-    } catch { /* thư còn đó */ }
+    } catch (e) { baoLoi('nhan_thu', e); }   // thư còn đó
     await peek();
   }
 
