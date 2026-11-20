@@ -350,6 +350,15 @@ for (const f of existsSync(join('.github', 'workflows')) ? readdirSync(join('.gi
 
 // Một nguồn cho "người khác thấy gì" (data/dong-bo.json): bản sao của máy chủ phòng khớp bảng, trường nào cũng có nơi lấy giá trị
 errors.push(...(await import('./dong-bo.mjs')).soat());
+// Quái chung (data/config.json → quai_chung): bản sao bảng bãi của máy chủ phòng (cloud/src/quai-cfg.js) khớp data/, số luật hợp lệ
+errors.push(...(await import('./quai-chung.mjs')).soat());
+
+// Hai nhịp lưu (data/config.json → luu_hai_nhip; src/net/save-diff.js, src/net/profile.js): số nhảy gom gửi thưa, thứ quan trọng vẫn nhanh,
+// không tự gây xung đột phiên bản, trang ẩn thì gửi ngay
+{
+  const r = spawnSync(process.execPath, [join('tools', 'kiem', 'luu-hai-nhip.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) { const out = (r.stderr || r.stdout).trim().split('\n'); errors.push(`lưu: bài thử hai nhịp lưu trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
+}
 
 // Máy chủ phòng Cloudflare (cloud/): bài thử thuần Node
 {
@@ -357,6 +366,8 @@ errors.push(...(await import('./dong-bo.mjs')).soat());
   if (r.status !== 0) { const out = (r.stderr || r.stdout).trim().split('\n'); errors.push(`cloud: bài thử máy chủ phòng trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const pv = spawnSync(process.execPath, [join('tools', 'cloud', 'pvp.test.mjs')], { encoding: 'utf8' });   // trọng tài PvP (cloud/src/pvp.js)
   if (pv.status !== 0) { const out = (pv.stderr || pv.stdout).trim().split('\n'); errors.push(`cloud: bài thử trọng tài PvP trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
+  const qc = spawnSync(process.execPath, [join('tools', 'cloud', 'quai.test.mjs')], { encoding: 'utf8' });   // trọng tài quái chung (cloud/src/quai.js)
+  if (qc.status !== 0) { const out = (qc.stderr || qc.stdout).trim().split('\n'); errors.push(`cloud: bài thử trọng tài quái chung trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const n = spawnSync(process.execPath, [join('tools', 'cloud', 'nhip.test.mjs')], { encoding: 'utf8' });   // nhịp sống qua phòng (cloud/src/nhip.js)
   if (n.status !== 0) errors.push(`cloud: bài thử nhịp sống trượt — ${(n.stderr || n.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
   // Ba trận giả trên ĐÚNG mã máy chủ phòng (tools/cloud/tai-chien.mjs), có mạng giả (trễ, chập chờn) và mắt máy khách giả (hình người khác đi

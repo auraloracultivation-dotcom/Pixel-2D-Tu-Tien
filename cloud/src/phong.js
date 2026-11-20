@@ -6,6 +6,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
 import { pvpToggle, pvpHit, pvpLoad, pvpTrack } from './pvp.js';
 import { nhipVao, nhipGom } from './nhip.js';
+import { quaiChao, quaiTin, quaiLo, quaiRoi } from './quai.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -42,7 +43,8 @@ export class Phong extends DurableObject {
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
     server.serializeAttachment({ id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, pvpAt: pk?.at || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
     if (pk?.off) server.send(JSON.stringify({ t: 'pk', id: uid, on: 1 }));   // máy mình biết đang tắt khiên
-    server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })) }));
+    const q = kind === 'dao' ? quaiChao(this, map, at) : undefined;   // quái chung của bản đồ (src/quai.js): chữ ký bảng + ô nào đang chết, mất máu
+    server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })), q }));
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
   }
 
@@ -77,6 +79,13 @@ export class Phong extends DurableObject {
         break;
       }
       case 'd': { if (a.kind === 'dao') this.bossHit(ws, a, msg.n); break; }   // sát thương lên Cửu Đầu Thôn Thiên Mãng (src/mang.js)
+      case 'q': {   // quái chung (src/quai.js): quái mình đang giữ và đòn mình đánh, kèm chỗ mình đứng (phòng xét tầm theo đó, như đòn PvP)
+        if (a.kind !== 'dao') break;
+        const mv = this.kem(a, msg);
+        if (mv) this.place(ws, a, mv, now);
+        quaiTin(this, ws, a, msg, now);
+        break;
+      }
       case 'r': {   // tổ đội: chuyển tiếp ngay nguyên gói cho người khác trong đội
         if (a.kind === 'to' && msg.d && typeof msg.d === 'object') this.others(ws, { t: 'r', from: a.id, d: msg.d });
         break;
@@ -96,7 +105,7 @@ export class Phong extends DurableObject {
     if (!a) return;
     // còn kết nối khác của cùng tài khoản (vừa vào lại) thì không báo rời
     if (this.ctx.getWebSockets(a.id).some(w => w !== ws && w.readyState === 1)) return;
-    this.pos.delete(a.id); this.moves.delete(a.id); this.vet?.delete(a.id);
+    this.pos.delete(a.id); this.moves.delete(a.id); this.vet?.delete(a.id); quaiRoi(this, a.id);
     this.others(ws, { t: 'l', id: a.id });
   }
 
@@ -135,8 +144,9 @@ export class Phong extends DurableObject {
 
   flush() {
     this.timer = null;
-    if (!this.moves.size && !this.says.length && !this.casts.length) return;
-    const s = JSON.stringify(makeBatch(this.moves, this.says, this.casts));
+    const quai = quaiLo(this);   // quái chung: vị trí quái đang có người giữ, máu vừa đổi (src/quai.js)
+    if (!this.moves.size && !this.says.length && !this.casts.length && !quai) return;
+    const s = JSON.stringify(makeBatch(this.moves, this.says, this.casts, quai));
     this.moves = new Map(); this.says = []; this.casts = [];
     for (const ws of this.ctx.getWebSockets()) if (ws.readyState === 1) { try { ws.send(s); } catch { /* đang đóng */ } }
   }

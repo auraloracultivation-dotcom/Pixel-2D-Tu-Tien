@@ -69,6 +69,7 @@ import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
 import { spawnMang, updateMang, onMangBoard, arenaGuard } from './thien-mang.js';
 import { createPvp, updatePvp, onPvp } from './pvp.js';
+import { qcTin, qcTick } from './quai-chung.js';   // quái chung: máu, chết, hồi sinh, công do máy chủ phòng giữ
 import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
@@ -153,14 +154,13 @@ export function createGame(data, screen, input, ui, audio) {
     game.persist(); return got;
   };
   game.onKill = m => {
-    if (m.tower) return; // quái dàn cảnh (tâm ma thiên kiếp, bản sao so tài): không tính
+    if (m.tower || m.cong?.bo) return; // quái dàn cảnh (tâm ma thiên kiếp, bản sao so tài): không tính; quái chung mình góp dưới mức tính công
+    const top = !m.cong || m.cong.top;   // quái chung: đồ, nguyên liệu, linh thú dị chủng về người góp nhiều sát thương nhất (quai-chung.js)
     countKill(game, m);
     if (m.def.ai === 'boss') praise(game, 'boss', { boss: m.def.name });
-    dropLoot(game, m);
+    if (top) dropLoot(game, m);
     coinDrop(game, m); eliteKill(game, m); cheerKill(game, m);
-    techDrop(game, m);
-    matDrop(game, m);
-    petKill(game, m);
+    if (top) { techDrop(game, m); matDrop(game, m); petKill(game, m); }
     eventKill(game, m);
     dailyKill(game, m);
     if (m.rare) dailyEvent(game, 'rare', m.id);
@@ -255,7 +255,7 @@ export function createGame(data, screen, input, ui, audio) {
         const me = thu ? { id: thu.id, name: thu.ten } : { id: session.user.id, name: 'Đạo hữu' };   // tên hiển thị lấy từ máy chủ ngay dưới (không dùng tên đăng nhập)
         game.online = createOnline(me, {
           onPresence: l => game.others.presence(l), onMove: p => game.others.move(p), onClear: () => game.others.clear(), onSay: p => onSay(game, p),
-          onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx), onPvp: m => onPvp(game, m),
+          onCast: c => game.others.cast(c), onBoss: bx => onMangBoard(game, bx), onPvp: m => onPvp(game, m), onQuai: m => qcTin(game, m),
         }, { url: R.cf_url, ve: thu ? async () => thu.id : undefined });
       } catch { game.online = null; }
     }
@@ -320,7 +320,7 @@ export function createGame(data, screen, input, ui, audio) {
   function updateSpawners(dt) {
     if (partyGuest(game)) return;   // tổ đội: quái trên bản đồ chung do máy đội trưởng sinh (trận Khai Tinh tổ đội, src/game/kh-doi.js)
     for (const s of game.spawners) {
-      if ((s.need && !game.save.flags[s.need]) || (s.unless && game.save.flags[s.unless])) continue;
+      if (s.qc || (s.need && !game.save.flags[s.need]) || (s.unless && game.save.flags[s.unless])) continue;   // s.qc: bãi quái chung, máy chủ phòng lo (quai-chung.js)
       s.alive = s.alive.filter(m => !m.dead);
       if (s.alive.length >= s.n) continue;
       s.timer -= dt;
@@ -363,7 +363,7 @@ export function createGame(data, screen, input, ui, audio) {
     game.trib.update(dt);
     updateLoot(game, dt);
     updatePickups(game);
-    updateSpawners(dt);
+    updateSpawners(dt); qcTick(game, dt);
     game.dungeon?.update();
     updateParty(game, dt);
     if (game.duel) updateDuel(game, dt);
