@@ -77,14 +77,14 @@ export function juiceCast(game, s, id) {
 
 // Tu vi vừa lên (src/game/len-tang.js): trận đồ nở dưới chân, cột sáng vọt lên từ chỗ đứng (bám theo người), tia toả quanh thân, vòng sóng, rồi đốm sáng
 // bay lên quanh người thêm một lúc. big: đột phá cảnh giới (mọi thứ lớn hơn mung.world.big lần). color: màu cảnh giới.
-export function juiceUp(game, big, color) {
+export function juiceUp(game, big, color, who = null) {   // who: người khác vừa lên tầng (kiep-see.js), không có đốm sáng bay theo
   const C = J(game)?.mung?.world; if (!C) return;
-  const p = game.player, k = big ? C.big : 1;
+  const p = who || game.player, k = big ? C.big : 1;
   push(game, { k: 'rune', x: p.x, y: p.y, r: C.rune * k, life: C.rune_life * k, color, rot: Math.random() * TAU });
   push(game, { k: 'pillar', on: p, w: C.pillar_w * k, h: C.pillar_h * k, life: C.pillar_life * k, color });
   push(game, { k: 'burst', x: p.x, y: p.y - 9, n: big ? 12 : 8, rot: Math.random() * TAU, len: C.burst * k, core: 6 * k, life: 0.32, color, crit: big });
   push(game, { k: 'ring', x: p.x, y: p.y - 8, r: C.ring * k, life: 0.5, color });
-  juice(game).up = { t: C.ember_t * k, n: C.ember_n * k, color };
+  if (!who) juice(game).up = { t: C.ember_t * k, n: C.ember_n * k, color };
 }
 
 // Một nhát đánh thường / đòn thú cưỡi có trúng quái (src/game/player.js strike, đạn đánh thường ở combat.js): Liên Kích +1,

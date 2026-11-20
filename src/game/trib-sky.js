@@ -27,7 +27,7 @@ export function tribBolt(game, x, y, opt = {}) {
   }
   const sc = (game.scorch ||= []);
   if (sc.length >= (C.scorch_max || 40)) sc.shift();
-  sc.push({ x, y, r: (C.scorch_r || 9) * (0.8 + Math.random() * 0.5) * (0.85 + w * 0.15), pal: pal || game.data.config.bolt?.colors, t: 0, seed: Math.random() * 1000 });
+  sc.push({ x, y, r: (C.scorch_r || 9) * (0.8 + Math.random() * 0.5) * (0.85 + w * 0.15), pal: pal || game.data.config.bolt?.colors, t: 0, seed: Math.random() * 1000, ...(opt.fade ? { fade: opt.fade + 4, fade0: opt.fade } : {}) });   // opt.fade: vết của kiếp người khác (kiep-see.js) tự nhạt, không chờ hết kiếp của mình
 }
 
 // Mỗi khung khi đang độ kiếp: mưa sét quanh màn (chỉ hình), không rơi sát người chơi

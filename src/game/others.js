@@ -24,6 +24,8 @@ import { chargeHold } from './skill-charge.js';
 import { castFx } from './others-cast.js';
 import { nlSeen } from './nl-roi.js';
 import { kdSeen } from './ket-dan.js';
+import { kiepSeen, kiepTick } from './kiep-see.js';   // kiếp Luyện Khí → Trúc Cơ, lên tầng, tụ linh của người khác
+import { celeSeeTick } from './trib-cele.js';
 
 const MIN_SPEED = 30;
 
@@ -44,6 +46,12 @@ export function createOthers(game) {
   function puff(o, x, y) {
     const col = o.element ? game.data.elements[o.element]?.color : null;
     addFx(game, { type: 'ring', x, y, r: 14, color: col || '#bff4ff', life: 0.45 });
+  }
+  // Chưa có toạ độ của người đó (họ đứng yên từ lúc mình vào): lấy toạ độ ghi trong tin chiêu / kiếp, kẻo bỏ mất tin (20/11/2026 17:12)
+  function placeFrom(o, raw) {
+    if (!o || o.x !== null) return;
+    const p = cleanMove({ id: o.id, x: raw?.x, y: raw?.y, fx: 0, fy: 0 }, bounds());
+    if (p) { o.x = o.tx = p.x; o.y = o.ty = p.y; refresh(); }
   }
   const bounds = () => (game.map ? { w: game.map.w * game.map.T, h: game.map.h * game.map.T } : null);
   function refresh() {
@@ -70,7 +78,7 @@ export function createOthers(game) {
       refresh();
     },
     // Chiêu người khác vừa dùng: chỉ vẽ hiệu ứng ở chỗ họ (không sát thương, không trúng ai) — game/others-cast.js
-    cast(raw) { if (!nlSeen(game, raw) && !kdSeen(game, list.get(raw?.id), raw) && !pbSee(game, list.get(raw?.id), raw)) castFx(game, list.get(raw?.id), raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
+    cast(raw) { const o = list.get(raw?.id); placeFrom(o, raw); if (!nlSeen(game, raw) && !kdSeen(game, o, raw) && !kiepSeen(game, o, raw) && !pbSee(game, o, raw)) castFx(game, o, raw, bounds()); },   // tin nhặt nguyên liệu bên đường (nl-roi.js); tin nghi lễ kết đan (ket-dan.js)
     move(raw) {
       const p = cleanMove(raw, bounds()), o = p && list.get(p.id);
       if (!o) return;
@@ -96,7 +104,9 @@ export function createOthers(game) {
         if (o.swingT > 0) o.swingT -= dt;
         stepTheo(game, o, dt);   // linh thú, khôi lỗi của họ đi theo (others-theo.js)
         if (o.charge) chargeHold(game, o, dt);   // đang tụ lực Phá Thiên (skill-charge.js): tới giờ thì vệt chém hiện ra (chỉ hình)
+        kiepTick(game, o, dt);   // đang độ kiếp: trời quanh họ mưa sét (kiep-see.js)
       }
+      celeSeeTick(game, dt);
       if ((pick -= dt) <= 0) { pick = 0.25; refresh(); }   // chọn lại người gần nhất 4 lần mỗi giây
       if ((chk -= dt) <= 0 && game.save && game.online?.setProfile) {   // đổi thời trang, hình dáng, lên cảnh giới: báo lại cho người cùng đảo
         chk = 1;   // lên / xuống thú cưỡi cũng báo lại (máy chủ phòng Cloudflare: tin rẻ)
