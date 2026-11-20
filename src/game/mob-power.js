@@ -9,18 +9,26 @@
 //   quái tính bằng powerOf như người chơi.
 // - Giãn đội hình (space): quái cận chiến đứng cách người chơi thêm reach_add đơn vị để vồ, không chồng lên nhau (đẩy nhau ra khi
 //   gần hơn sep × tổng bán kính) cho người chơi còn nhìn thấy mình.
-import { powerOf } from './he-chien.js';
+import { powerOf, powerRef } from './he-chien.js';
 
-export function mobPower(game, m) {
-  const W = game.data.status.power, h = m.def.hc;
-  if (h) {   // luật mới (he-chien.js): cùng công thức lực chiến với người chơi; máu, công đã nhân hệ số bí cảnh, ma khí, dị chủng
-    const H = game.data['he-chien'], k = m.def.atk / (h.hit || m.def.atk || 1);
-    return powerOf(H, { hp: m.maxHp ?? m.def.hp, atk: h.atk * k, def: h.def, spd: h.hit / Math.max(0.1, h.atk) / Math.max(0.5, (m.def.windup || 0) + (m.def.cd || 1)), realm: game.save?.realm || 0 }, 0);   // so cùng người chuẩn với lực chiến của mình
-  }
-  return Math.round((m.maxHp ?? m.def.hp) * (W.maxHp || 1) + (m.def.atk || 0) * (W.atk || 9));
+// Chỉ số của con quái theo dạng he-chien.js (máu, công mỗi giây, thủ, số đòn mỗi giây); máu, công đã nhân hệ số bí cảnh, ma khí, dị chủng
+function hcOf(m) {
+  const h = m.def.hc, k = m.def.atk / (h.hit || m.def.atk || 1);
+  return { hp: m.maxHp ?? m.def.hp, atk: h.atk * k, def: h.def, spd: h.hit / Math.max(0.1, h.atk) / Math.max(0.5, (m.def.windup || 0) + (m.def.cd || 1)) };
 }
 
-const base = (game, id) => { const d = game.data.mobs[id]; return !d ? 0 : d.hc ? mobPower(game, { def: d, maxHp: d.hp }) : d.hp * (game.data.status.power.maxHp || 1) + d.atk * (game.data.status.power.atk || 9); };
+// Lực chiến hiện trên đầu quái: cùng công thức với người chơi (he-chien.js powerOf: tính thẳng từ chỉ số, không so với ai), nên con quái nào
+// cũng một số cho mọi người xem (trước 20/11/2026 mỗi người thấy một số khác nhau theo cảnh giới của mình)
+export function mobPower(game, m) {
+  const W = game.data.status.power;
+  if (m.def.hc) return powerOf(game.data['he-chien'], hcOf(m));
+  return Math.round((m.maxHp ?? m.def.hp) * (W.maxHp || 1) + (m.def.atk || 0) * (W.atk || 9));
+}
+// Mức lực chiến đặt sẵn của Khai Hoang (boss_cp, mức quái tinh cầu) vẫn đo bằng cách tính cũ, theo cảnh giới người đang đứng trên tinh cầu
+// (he-chien.js powerRef), để trùm Khai Tinh và quái tinh cầu giữ đúng máu, công như trước khi đổi cách hiện lực chiến
+const cpRef = (game, m) => (m.def.hc ? powerRef(game.data['he-chien'], hcOf(m), game.save?.realm || 0) : mobPower(game, m));
+
+const base = (game, id) => { const d = game.data.mobs[id]; return !d ? 0 : d.hc ? cpRef(game, { def: d, maxHp: d.hp }) : d.hp * (game.data.status.power.maxHp || 1) + d.atk * (game.data.status.power.atk || 9); };
 
 // Hệ số của đảo đang đứng (nhớ theo bản đồ)
 function zoneMul(game) {
@@ -39,8 +47,8 @@ function zoneMul(game) {
 // Gọi khi quái mọc từ bãi (game.js updateSpawners), trước nhân vòng ngoài / ma khí
 // sp.cp (bãi có lực chiến định sẵn, như trùm trận Khai Tinh src/game/kh-gen.js): kéo thẳng về số đó
 export function zonePower(game, m, sp) {
-  if (sp?.cp && !m.remote) {   // luật mới: mobPower đã theo powerOf (power_k 40, số cỡ như luật cũ) nên kéo về đúng số lực chiến đã đặt như trước
-    const k = sp.cp / Math.max(1, mobPower(game, m));
+  if (sp?.cp && !m.remote) {   // kéo về mức đặt sẵn, đo bằng cách tính cũ (cpRef) để trùm giữ đúng máu, công đang chạy
+    const k = sp.cp / Math.max(1, cpRef(game, m));
     m.def = { ...m.def, hp: Math.round(m.def.hp * k), atk: Math.round(m.def.atk * k * 10) / 10 }; m.hp = m.maxHp = m.def.hp; return;
   }
   const s = zoneMul(game);
