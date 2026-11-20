@@ -52,7 +52,7 @@ export function createLogin(onPlay0, opts = {}) {   // opts.google: hiện nút 
   $('btn-google').hidden = !opts.google;
   $('btn-google').onclick = () => act(async () => { msg('Đang mở trang Google...'); await withTimeout(auth.signInGoogle(), NET_TIMEOUT); });   // trang chuyển sang Google, quay về là có phiên
   $('btn-signup').onclick = () => act(async () => { session = await withTimeout(auth.signUp($('acc').value, $('pwd').value), NET_TIMEOUT); });
-  $('btn-logout').onclick = () => act(async () => { boDauChoi(); await auth.signOut(); session = null; });
+  $('btn-logout').onclick = () => act(async () => { boDauChoi(); await auth.signOut(); session = null; location.reload(); });   // tải lại trang: không để bản lưu của tài khoản vừa thoát còn trong bộ nhớ (21/11/2026)
   // Xoá tài khoản: bấm hai lần (lần đầu chỉ báo hậu quả), gửi yêu cầu rồi đăng xuất
   let armT = 0;
   $('btn-delete').onclick = () => {
