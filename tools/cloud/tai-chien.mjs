@@ -2,9 +2,9 @@
 // 20/11/2026; Project: claude/thiet-ke-may-chu-1000-nguoi-20-11.md). Khác tai-thu.mjs: có người tắt khiên đánh nhau (tin 'bv', 'h'),
 // ĐỒNG HỒ GIẢ điều khiển được (Date.now giả) nên luật chặn tốc độ, nhịp đánh PvP, hồi máu chạy đúng như thật.
 // (tai-thu.mjs bản 18/11 bước thời gian giả nhưng luật tốc độ đọc đồng hồ thật: gần như mọi tin bị bỏ, số đo thấp giả.)
-// Từ 21/11/2026 có MẠNG GIẢ và MẮT MÁY KHÁCH GIẢ: tin lên / xuống tới trễ, chập chờn; mỗi người đánh thấy người khác qua ĐÚNG công thức đi
+// Từ đêm 20/11/2026 có MẠNG GIẢ và MẮT MÁY KHÁCH GIẢ: tin lên / xuống tới trễ, chập chờn; mỗi người đánh thấy người khác qua ĐÚNG công thức đi
 // mượt của game (src/game/others.js: hình đi sau khoảng hai nhịp gói tin), nên hình người đang chạy cũ hơn vị trí thật 0,5–0,8 giây, và
-// chọn mục tiêu theo hình đó như người chơi thật. Bản 20/11 không có hai thứ này: báo 97% đòn được tính, thử thật trên game chỉ 56%.
+// chọn mục tiêu theo hình đó như người chơi thật. Bản đầu (tối 20/11) không có hai thứ này: báo 97% đòn được tính, thử thật trên game chỉ 56%.
 //   node tools/cloud/tai-chien.mjs --nguoi 40 --danh 20 --doi 2 --giay 60 --vt 200
 //     --nguoi  số người trong phòng        --danh số người tắt khiên đánh nhau (chia đều --doi phe); còn lại đi dạo
 //     --vt     mili giây giữa hai lần gửi vị trí của người đang đánh (data/config.json → realtime.pvp_ms; trước 20/11: 2000 khi đông)
@@ -14,7 +14,7 @@
 //              duoi  : từng cặp, mồi chạy vòng tròn với tốc độ --toc, người đánh đuổi theo sau --cach đơn vị (đuổi đánh người bỏ chạy)
 //     --toc    tốc độ chạy, đơn vị bản đồ mỗi giây (game: đi bộ 72–94, cưỡi thú 108–140, ngự kiếm bay 144–187)
 //     --len 80 --rung 40   trễ mạng mỗi chiều (ms) và độ chập chờn ±; tin của một máy vẫn tới đúng thứ tự như TCP (--len 0 = mạng lý tưởng)
-//     --kem 0  máy khách cũ: tin đòn đánh KHÔNG kèm vị trí người đánh (mặc định 1 = kèm, máy khách từ 21/11/2026)
+//     --kem 0  máy khách cũ: tin đòn đánh KHÔNG kèm vị trí người đánh (mặc định 1 = kèm, máy khách từ đợt sửa đêm 20/11/2026)
 //     --hat 7  hạt giống số ngẫu nhiên: cùng hạt thì kết quả y hệt (tools/check.mjs dùng); bỏ trống = ngẫu nhiên thật
 //     --rate   nới luật tốc độ (tin/giây) để thử     --cap trần người một phòng      --uuid 0 dùng mã người ngắn
 //     --gop 1  thử bản vá "đòn PvP đi chung gói lô" (vá trên bản sao tạm của cloud/src, không sửa kho)

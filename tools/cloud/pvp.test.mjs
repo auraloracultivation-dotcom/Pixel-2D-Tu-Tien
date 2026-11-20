@@ -1,5 +1,5 @@
 // Bài thử trọng tài PvP của máy chủ phòng (cloud/src/pvp.js và tin 'bv', 'h' ở phong.js) chạy trong Node, đồng hồ giả, không cần wrangler.
-// Tách khỏi phong.test.mjs ngày 21/11/2026 khi thêm ba luật mới: đòn kèm vị trí người đánh, bù trễ mạng cho mục tiêu, nới nhịp đòn.
+// Tách khỏi phong.test.mjs đêm 20/11/2026 khi thêm ba luật mới: đòn kèm vị trí người đánh, bù trễ mạng cho mục tiêu, nới nhịp đòn.
 // Chạy: node tools/cloud/pvp.test.mjs
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -113,7 +113,7 @@ const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kế
   assert.equal(r3.vet.has('s2'), false, 'gục rồi mà vết vị trí còn');
 }
 
-// 2. Đòn kèm vị trí người đánh (21/11/2026): phòng xét tầm theo vị trí lúc ra đòn, không theo lần gửi vị trí gần nhất (đã cũ)
+// 2. Đòn kèm vị trí người đánh (20/11/2026): phòng xét tầm theo vị trí lúc ra đòn, không theo lần gửi vị trí gần nhất (đã cũ)
 {
   const { r, vao, gui } = phongMoi();
   const a = await vao('a1', 1000, 'thanh-khe'), b = await vao('b1', 1e6, 'thanh-khe');   // b máu rất dày: không gục giữa bài
@@ -144,7 +144,7 @@ const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kế
   assert.equal(r.pos.has('a1'), false);
 }
 
-// 3. Bù trễ mạng cho mục tiêu (21/11/2026): trong lag_s giây vừa qua người kia TỪNG ở trong tầm là tính; quá lag_s thì thôi;
+// 3. Bù trễ mạng cho mục tiêu (20/11/2026): trong lag_s giây vừa qua người kia TỪNG ở trong tầm là tính; quá lag_s thì thôi;
 //    đã bước vào vòng pháp trận là an toàn ngay (không bù trễ); quãng đường dài giữa hai lần báo chỉ lấy phần trong lag_s giây
 {
   const { r, vao, gui } = phongMoi(), L = C.PVP.lag_s * 1000, R = C.PVP.range + C.PVP.range_tol;
@@ -191,7 +191,7 @@ const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kế
   assert.equal(s.r.vet.has('e'), false);
 }
 
-// 4. Nhịp đòn nới cho mạng chập chờn (21/11/2026): hai đòn gửi cách 0,5 giây tới phòng cách nhau 0,35 giây vẫn tính; gửi dồn dập thì
+// 4. Nhịp đòn nới cho mạng chập chờn (20/11/2026): hai đòn gửi cách 0,5 giây tới phòng cách nhau 0,35 giây vẫn tính; gửi dồn dập thì
 //    không lợi gì vì sát thương mỗi đòn tỉ lệ với số giây từ đòn được tính trước
 {
   const { vao, gui } = phongMoi(), G = C.PVP.gap_s * 1000, TOL = C.PVP.gap_tol_s * 1000, PW = 20000;
@@ -219,7 +219,7 @@ const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kế
   const dung = PW * C.PVP.dps_k * 30;   // 30 giây đánh đều: tổng sát thương như nhau dù gửi nhịp nào
   for (const [ten, k] of [['nhịp chuẩn', chuan], ['gửi dồn dập', don], ['gửi thưa', cham]]) assert.ok(Math.abs(k.tong - dung) <= dung * 0.001, `${ten}: tổng sát thương ${k.tong}, phải là ${dung}`);
 }
-// 5. Phòng ngủ là quên vị trí (thử thật 21/11/2026: im 12 giây là mất): người tắt khiên đứng yên vẫn phải bị đánh trúng được, nhờ chỗ đứng
+// 5. Phòng ngủ là quên vị trí (thử thật 20/11/2026: im 12 giây là mất): người tắt khiên đứng yên vẫn phải bị đánh trúng được, nhờ chỗ đứng
 //    ghi trong phần đính kèm kết nối (a.xy). Bật lại khiên / gục thì xoá, kẻo lần tắt khiên sau xét nhầm chỗ cũ.
 {
   const p = phongMoi(), { vao, gui } = p;

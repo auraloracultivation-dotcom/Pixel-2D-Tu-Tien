@@ -160,7 +160,7 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   await B.p.evaluate(() => window.__game.online.pvpOff(true));
   await A.p.evaluate(() => window.__thu.togglePvp(window.__game, true));   // A tắt khiên bằng đúng hàm của nút trên màn hình (src/game/pvp.js)
   const tat = await cho(async () => (await A.p.evaluate(() => window.__game.pvp?.off === true)) && (await thay(A, 'may-b'))?.pk === 1 && (await thay(B, 'may-a'))?.pk === 1, 4000);
-  // Tắt khiên phải kèm chỗ đang đứng (21/11/2026): máy chủ phòng quên vị trí khi phòng ngủ, người tắt khiên đứng yên vẫn phải bị đánh trúng được
+  // Tắt khiên phải kèm chỗ đang đứng (20/11/2026): máy chủ phòng quên vị trí khi phòng ngủ, người tắt khiên đứng yên vẫn phải bị đánh trúng được
   const bv = phong.dem.cuoi.bv?.tu === 'may-a' ? phong.dem.cuoi.bv : null, dungBv = await A.p.evaluate(() => ({ x: Math.round(window.__game.player.x), y: Math.round(window.__game.player.y) }));
   ok('Tắt khiên: tin gửi phòng kèm chỗ đang đứng', !!bv && bv.off === true && Math.abs(bv.x - dungBv.x) <= 2 && Math.abs(bv.y - dungBv.y) <= 2, `tin: ${JSON.stringify(bv)}`);
   const sau = await nhip(A);
@@ -170,7 +170,7 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   await A.p.evaluate(() => window.__game.online.pvpHit('may-b'));
   const trung = await cho(async () => (phong.dem.xuong.ph || 0) > ph0 && B.p.evaluate(() => Date.now() - (window.__game.pvp.at || 0) < 5000), 3000);
   ok('A đánh B qua phòng: máy chủ phòng tính đòn, báo cho cả phòng', noi.trongVong ? !trung : !!trung, noi.trongVong ? `đứng trong vòng pháp trận ${noi.map}: phòng phải bỏ đòn` : `tin trúng đòn: ${(phong.dem.xuong.ph || 0) - ph0}`);
-  // Đòn do chính game ra (vung đòn → src/game/pvp.js pvpTryHit) phải kèm vị trí người đánh lúc ra đòn (21/11/2026): máy chủ phòng xét tầm
+  // Đòn do chính game ra (vung đòn → src/game/pvp.js pvpTryHit) phải kèm vị trí người đánh lúc ra đòn (20/11/2026): máy chủ phòng xét tầm
   // theo vị trí đó, không theo lần gửi vị trí gần nhất. Đứng trong vòng pháp trận thì game không gửi đòn nào.
   const h0 = phong.dem.len.h || 0;
   await A.p.evaluate(() => { const g = window.__game; g.pvp.cd = 0; g.pvp.wasSwing = false; g.player.swingT = 0.3; });
@@ -178,7 +178,7 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   const dungA = await A.p.evaluate(() => ({ x: Math.round(window.__game.player.x), y: Math.round(window.__game.player.y) }));
   ok('Vung đòn lúc tắt khiên: tin đòn đánh kèm vị trí người đánh', noi.trongVong ? !tinH : !!tinH && tinH.tu === 'may-a' && tinH.to === 'may-b' && Math.abs(tinH.x - dungA.x) <= 2 && Math.abs(tinH.y - dungA.y) <= 2,
     noi.trongVong ? 'trong vòng pháp trận: không gửi đòn' : `tin: ${JSON.stringify(tinH)}, A đứng ở (${dungA.x}, ${dungA.y})`);
-  // Cưỡi thú đánh thường cũng phải gửi đòn PvP (21/11/2026: đòn của thú, player.js mountSwing, không đặt swingT nên trước đó người cưỡi thú
+  // Cưỡi thú đánh thường cũng phải gửi đòn PvP (20/11/2026: đòn của thú, player.js mountSwing, không đặt swingT nên trước đó người cưỡi thú
   // đánh thường vào người khác thì game không gửi đòn nào)
   const h1 = phong.dem.len.h || 0;
   await A.p.evaluate(() => { const g = window.__game, s = g.save; s.mounts ??= {}; s.mounts['cuu-vi-ho'] = true; s.mount = 'cuu-vi-ho'; s.mountKey = 'cuu-vi-ho'; s.ride = true; g.pvp.cd = 0; g.player.atkCd = 0; g.input.held.add('atk'); });

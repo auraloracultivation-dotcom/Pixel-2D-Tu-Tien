@@ -363,7 +363,7 @@ errors.push(...(await import('./dong-bo.mjs')).soat());
   // sau vị trí thật như trong game), nhịp gửi vị trí lúc giao chiến lấy từ data/config.json (realtime.pvp_ms), số ngẫu nhiên cố định (--hat)
   // nên lần nào cũng ra y một kết quả: (1) 10 vs 10 + 20 người đi dạo, mạng thường; (2) lao ra lao vào quanh mép tầm (bài thử thật trên game
   // 20/11/2026 chỉ được 56%); (3) đuổi đánh người bỏ chạy ở mép tầm nhìn thấy, mạng yếu. Phòng không được bỏ tin vì luật tốc độ và phải tính
-  // gần hết đòn hợp lệ trên màn hình người đánh. Mã máy chủ phòng trước 21/11/2026 ra 92% / 55% / 0%. Ai nới nhịp gửi, siết luật tốc độ
+  // gần hết đòn hợp lệ trên màn hình người đánh. Mã máy chủ phòng bản 32e571ff (trước đợt sửa đêm 20/11/2026) ra 92% / 55% / 0%. Ai nới nhịp gửi, siết luật tốc độ
   // (cloud/src/proto.js RATE), bỏ vị trí kèm đòn, bỏ bù trễ hay siết nhịp đòn (cloud/src/pvp.js, data/pvp.json → server) là bài này báo.
   const pvpMs = read('config.json').realtime?.pvp_ms;
   for (const [ten, can, ts] of [['10 vs 10', 94, ['--nguoi', '40', '--danh', '20', '--doi', '2']], ['ra vào quanh mép tầm', 97, ['--nguoi', '20', '--danh', '20', '--kieu', 'ravao']],

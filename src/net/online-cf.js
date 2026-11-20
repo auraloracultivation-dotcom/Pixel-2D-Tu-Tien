@@ -71,9 +71,9 @@ export function createOnline(me, handlers, opts = {}) {
   function say(body) { conn?.send({ t: 's', ...body }); }
   function cast(c) { conn?.send({ t: 'k', ...c }); }
   function bossDmg(n) { conn?.send({ t: 'd', n }); }
-  // Tắt khiên thì kèm chỗ đang đứng (21/11/2026): tắt xong đứng yên, máy chủ phòng vẫn biết chỗ để xét tầm (nó quên vị trí khi phòng ngủ)
+  // Tắt khiên thì kèm chỗ đang đứng (20/11/2026): tắt xong đứng yên, máy chủ phòng vẫn biết chỗ để xét tầm (nó quên vị trí khi phòng ngủ)
   function pvpOff(off, p) { if (!conn?.ready()) return false; conn.send({ t: 'bv', off: !!off, ...(off && p ? { x: Math.round(p.x), y: Math.round(p.y) } : {}) }); return true; }
-  // Đòn PvP kèm vị trí mình lúc ra đòn (21/11/2026): máy chủ phòng xét tầm theo đó. Trước đây nó xét theo lần gửi vị trí gần nhất, cũ tới
+  // Đòn PvP kèm vị trí mình lúc ra đòn (20/11/2026): máy chủ phòng xét tầm theo đó. Trước đây nó xét theo lần gửi vị trí gần nhất, cũ tới
   // 0,2 giây + trễ mạng: vừa lao vào tầm mà đánh là bị bỏ oan (thử thật hai tài khoản: 9/16 đòn được tính).
   function pvpHit(to, p) { conn?.send({ t: 'h', to, ...(p ? { x: Math.round(p.x), y: Math.round(p.y) } : {}) }); }
   function rename(name) { me.name = name; conn?.send({ t: 'p', p: { name, ...prof } }); }

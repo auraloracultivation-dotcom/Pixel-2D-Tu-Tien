@@ -4,7 +4,7 @@
 // Máy chủ phòng là trọng tài: máu PvP, tầm đánh (theo vị trí phòng giữ), nhịp đánh, sát thương theo lực chiến Supabase báo
 // (máy khách chỉ nói "tôi đánh người X"). Gục thì lõi Mang ký gửi Supabase (p2d_pvp_ghi), máy người gục tự trả nợ (p2d_pvp_tra).
 // Số ở data/pvp.json → server (bản sao trong mang-cfg.js PVP, bài thử so khớp).
-// 21/11/2026, sau bài thử đánh thật trên game chỉ được 56% đòn: trọng tài phải xét theo thứ NGƯỜI ĐÁNH THẤY trên màn hình, không phải theo
+// 20/11/2026, sau bài thử đánh thật trên game chỉ được 56% đòn: trọng tài phải xét theo thứ NGƯỜI ĐÁNH THẤY trên màn hình, không phải theo
 // vị trí mới nhất phòng đang giữ. Ba chỗ: (1) tin đòn đánh kèm vị trí người đánh lúc ra đòn (phong.js 'h'), khỏi dùng vị trí cũ tới 0,2 giây;
 // (2) bù trễ cho mục tiêu: trong lag_s giây vừa qua người kia TỪNG ở trong tầm là tính (inRange); (3) nhịp đòn nới gap_tol_s cho mạng chập chờn.
 import { PVP } from './mang-cfg.js';
@@ -14,7 +14,7 @@ const pool = pw => Math.max(pw || 0, PVP.pw_min) * PVP.hp_k;
 // Tắt khiên ở đâu cũng được (chủ dự án 06/11/2026 10:56). Bật lại: ở Ngoại Vực chỉ khi chết hồi sinh (06/11 10:49); nơi khác khi đã
 // reshield_s giây không giao chiến (19/11 16:25), tính từ lúc tắt khiên hoặc đòn PvP cuối (a.pvpAt, giữ ở Mang cùng khiên).
 // Trạng thái khiên giữ ở lõi Mang theo tài khoản (mang.js pk), nên đổi tuyến, ra vào bản đồ, mất mạng vào lại vẫn y như cũ.
-// mv: chỗ đang đứng lúc tắt khiên (máy khách từ 21/11/2026 gửi kèm; không có thì lấy vị trí phòng đang giữ), ghi ngay vào phần đính kèm
+// mv: chỗ đang đứng lúc tắt khiên (máy khách từ đợt sửa đêm 20/11/2026 gửi kèm; không có thì lấy vị trí phòng đang giữ), ghi ngay vào phần đính kèm
 // kết nối (a.xy, phong.js place): tắt khiên rồi đứng yên thì phòng vẫn biết chỗ để xét tầm, kể cả sau khi phòng ngủ. Bật lại khiên hay
 // gục thì xoá a.xy, kẻo lần tắt khiên sau xét nhầm theo chỗ đứng cũ.
 export async function pvpToggle(room, ws, a, off, mv) {
@@ -69,7 +69,7 @@ function segDist(px, py, x0, y0, x1, y1) {
 // Trong tầm? pa: vị trí người đánh, pb: vị trí mới nhất của mục tiêu. Người đánh chọn mục tiêu theo HÌNH người kia trên máy mình, mà hình
 // đó cũ khoảng 0,5–0,8 giây: đường lên của người kia + gom lô 200 ms + đường xuống + máy khách cho hình đi sau hai nhịp gói tin cho mượt
 // (src/game/others.js). Xét theo vị trí mới nhất thì đuổi đánh người đang chạy là trượt gần hết dù trên màn hình rõ ràng trong tầm (đo
-// 21/11/2026, tools/cloud/tai-chien.mjs --kieu duoi: 0% đòn được tính). Nên: trong lag_s giây vừa qua mục tiêu TỪNG ở trong tầm là tính,
+// 20/11/2026, tools/cloud/tai-chien.mjs --kieu duoi: 0% đòn được tính). Nên: trong lag_s giây vừa qua mục tiêu TỪNG ở trong tầm là tính,
 // xét cả quãng đường nối các lần báo vị trí, cắt đúng lag_s giây. range_tol: phần dư cho hình đi mượt cắt góc cua và làm tròn toạ độ.
 function inRange(room, id, pa, pb, now) {
   const R = PVP.range + PVP.range_tol;

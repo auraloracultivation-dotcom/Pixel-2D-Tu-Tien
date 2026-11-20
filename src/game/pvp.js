@@ -1,7 +1,7 @@
 // PvP (data/pvp.json; chủ dự án 06/11/2026, 19/11/2026 16:25: mọi tinh cầu, trừ vòng pháp trận Thiên Kiếm Tinh server.safe). Tắt bảo vệ thì
 // mỗi lần vung đòn hoặc tung chiêu, máy này báo máy chủ phòng "đánh người tắt bảo vệ gần nhất trong tầm" (net/online-cf.js pvpHit);
 // máy chủ phòng (cloud/src/pvp.js) tự kiểm tầm, nhịp, lực chiến, giữ máu PvP và báo lại cho cả phòng (ph: trúng, pd: gục).
-// 21/11/2026: tin đòn đánh kèm vị trí mình lúc ra đòn; máy chủ phòng xét tầm theo vị trí đó và theo chỗ người kia TỪNG đứng trong
+// 20/11/2026: tin đòn đánh kèm vị trí mình lúc ra đòn; máy chủ phòng xét tầm theo vị trí đó và theo chỗ người kia TỪNG đứng trong
 // server.lag_s giây vừa qua (hình người kia trên máy mình cũ 0,5–0,8 giây), nên thấy trong tầm trên màn hình mà đánh là được tính.
 // Mình gục: hồi sinh như thường, bảo vệ bật lại, rồi trả nợ (net/pvp.js → máy chủ p2d_pvp_tra trừ 10% Linh Thạch + 1 món trong túi
 // không đang mặc, gửi người hạ) và sửa bản lưu trong máy y như máy chủ. Vào game cũng trả nợ cũ (ai thoát game để né).
@@ -52,7 +52,7 @@ export function updatePvp(game, dt) {
   if (!s || !p) return;
   if (s.map !== game.map?.id) s.map = game.map?.id;   // đổi bản đồ: máy chủ phòng báo lại khiên (pk) lúc vào phòng mới
   s.cd = Math.max(0, s.cd - dt);
-  // Ra đòn thường: vung đòn (swingT), hoặc đòn của thú cưỡi. Đòn của thú (player.js mountSwing) không đặt swingT, nên trước 21/11/2026 người
+  // Ra đòn thường: vung đòn (swingT), hoặc đòn của thú cưỡi. Đòn của thú (player.js mountSwing) không đặt swingT, nên trước đợt sửa đêm 20/11/2026 người
   // đang cưỡi thú đánh thường vào người khác thì máy không gửi đòn PvP nào (chỉ chiêu mới gửi); nhận ra nó bằng đòn chờ mới p.hitQ kiểu 'thu'.
   const sw = p.swingT > 0.15, q = p.hitQ?.move === 'thu' ? p.hitQ : null;
   if ((sw && !s.wasSwing) || (q && q !== s.thuQ)) pvpTryHit(game);
