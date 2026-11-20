@@ -23,7 +23,8 @@ jobs:
           node-version: 22
       - run: node tools/check.mjs
       - name: Cài công cụ gói (esbuild, ghim phiên bản)
-        run: npm i --no-save esbuild@0.28.2 || echo "không cài được esbuild: tools/goi.mjs sẽ đưa bản chưa gói"
+        run: |
+          npm i --no-save esbuild@0.28.2 || echo "không cài được esbuild, tools/goi.mjs sẽ đưa bản chưa gói"
       - name: Gói bản đưa lên (JS vài tệp, dữ liệu một tệp, CSS gộp, gắn số phiên bản)
         # tools/goi.mjs dùng chung cho GitHub Pages, Vercel và bài chơi thử. Bản gói có chuyện thì thêm "GOI: 0" vào env của bước này:
         # chép từng tệp như trước 20/11/2026.
