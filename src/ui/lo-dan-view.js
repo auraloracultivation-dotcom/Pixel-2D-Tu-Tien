@@ -6,6 +6,7 @@ import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { loOf, plan, luyen, nangLo, upCost, syncLo } from '../game/lo-dan.js';
 import { coins } from '../game/shop.js';
+import { brewFx, resultFx } from './lo-dan-fx.js';
 
 const vn = n => Math.floor(n || 0).toLocaleString('vi-VN');
 let cssOn = false;
@@ -69,7 +70,7 @@ export function renderLoDan(game, st, mid, bar, refresh) {
     if (!k) { slots.append(el('i', 'ld-trong')); continue; }
     const b = el('button', 'ld-co'); b.title = matName(D, k);
     b.append(ico(D, k, 'ld-ico'), el('small', null, '×' + vn(ld.put[k])));
-    b.onclick = () => { delete ld.put[k]; ld.last = ''; refresh(); };
+    b.onclick = () => { if (ld.busy) return; delete ld.put[k]; ld.last = ''; refresh(); };
     slots.append(b);
   }
   top.append(box, slots);
@@ -104,7 +105,7 @@ export function renderLoDan(game, st, mid, bar, refresh) {
     b.title = M[k].name;
     b.append(ico(D, k, 'ld-ico'), el('small', null, vn(left)));
     b.onclick = async () => {
-      if (left <= 0) return;
+      if (left <= 0 || ld.busy) return;
       if (!ld.put[k] && Object.keys(ld.put).length >= C.slots) { game.toast(T.full, 1.8); return; }
       const n = await askQty(game, k, left);
       if (n > 0) { ld.put[k] = (ld.put[k] || 0) + n; ld.last = ''; refresh(); }
@@ -122,16 +123,17 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   const go = el('button', 'sv-bbtn gold ld-go', T.go);
   go.disabled = !keys.length;
   go.onclick = async () => {
-    go.disabled = true; go.textContent = T.busy;
-    const put = { ...ld.put }, r = await luyen(game, put, P.m ? ld.want || P.m.id : null);
+    go.disabled = true; clear.disabled = true; go.textContent = T.busy; ld.busy = true;
+    const put = { ...ld.put }, want = P.m ? ld.want || P.m.id : null;
+    const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put, want));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
+    ld.busy = false;
     if (r.err) { game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : T.net, 2); refresh(); return; }
     ld.put = {}; ld.want = null;
     ld.last = r.thanh ? T.ok.replace('{n}', r.vien).replace('{name}', D.cave.pills[r.dan]?.name || '') : T.fail;
-    game.sfx?.(r.thanh ? 'brew' : 'hurt');
     game.toast(ld.last, 2.4);
-    st.ldFx = { ok: !!r.thanh, dan: r.dan, t: performance.now() };   // hiệu ứng lò (lo-dan.css: .ld-lo.thanh / .hong)
     refresh();
+    const nb = mid.querySelector('.ld-lo');
+    if (nb) resultFx(game, nb, !!r.thanh, r.dan, r.vien);
   };
   bar.replaceChildren(clear, go);
-  if (st.ldFx && performance.now() - st.ldFx.t < 1600) box.classList.add(st.ldFx.ok ? 'thanh' : 'hong');
 }

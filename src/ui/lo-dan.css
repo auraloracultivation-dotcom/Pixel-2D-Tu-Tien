@@ -47,3 +47,27 @@
 @keyframes ld-hong { 0% { filter: brightness(.3) drop-shadow(0 -6px 10px #222); transform: translateX(-3px); } 20% { transform: translateX(3px); }
   40% { transform: translateX(-2px); } 100% { transform: none; } }
 .sv.ld-on .sv-barbox .ld-go { min-width: 92px; font-size: 13px; padding: 5px 16px; }
+/* Hiệu ứng luyện (src/ui/lo-dan-fx.js): thẻ nổi trên màn, toạ độ màn hình */
+#ld-fx { position: fixed; inset: 0; pointer-events: none; z-index: 9000; }
+.ldx { position: fixed; transform: translate(-50%, -50%); }
+.ldx.ldx-bay { transform: none; }
+.ldx-bay { display: grid; place-items: center; transition: transform .5s cubic-bezier(.5, -0.3, .7, 1), opacity .5s; transform-origin: center; margin: 0; translate: -50% -50%; }
+.ldx-bay .ld-ico { width: 100%; height: 100%; }
+.ld-co.ld-tat { opacity: .15; }
+.ldx-lua { width: 3px; height: 3px; border-radius: 1px; box-shadow: 0 0 4px currentColor; animation: ldx-bay-len .9s ease-out forwards; }
+@keyframes ldx-bay-len { to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))); opacity: 0; } }
+.ld-lo.ld-chay .ld-lo-img { animation: ld-rung .12s linear infinite; filter: drop-shadow(0 6px 6px #ff6a1a) drop-shadow(0 0 10px #ff9a3a) brightness(1.15); }
+@keyframes ld-rung { 0% { transform: translate(0, 0); } 25% { transform: translate(-1px, 1px); } 50% { transform: translate(1px, 0); } 75% { transform: translate(0, -1px); } 100% { transform: translate(0, 0); } }
+.ld-lo.ld-no .ld-lo-img { animation: ld-hong .7s ease-out; }
+.ldx-hao { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 240, 160, .95), rgba(255, 200, 80, .5) 35%, transparent 70%);
+  animation: ldx-hao 1.4s ease-out forwards; }
+@keyframes ldx-hao { 0% { transform: translate(-50%, -50%) scale(.2); opacity: 1; } 60% { opacity: .8; } 100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; } }
+.ldx-sao { width: 4px; height: 4px; background: #fff4c0; box-shadow: 0 0 6px #ffd84a; border-radius: 50%; animation: ldx-bay-len .9s ease-out forwards; }
+.ldx-dan { display: flex; flex-direction: column; align-items: center; animation: ldx-dan 1.9s cubic-bezier(.2, 1.4, .4, 1) forwards; }
+.ldx-dan b { font: 900 14px var(--f-body, sans-serif); color: #ffe7a6; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 0 0 6px #ffb020; }
+.ldx-ico { display: block; width: 34px; height: 34px; background: center / contain no-repeat; image-rendering: pixelated; filter: drop-shadow(0 0 6px #ffe27a); }
+@keyframes ldx-dan { 0% { transform: translate(-50%, -20%) scale(.3); opacity: 0; } 25% { transform: translate(-50%, -110%) scale(1.25); opacity: 1; }
+  70% { transform: translate(-50%, -100%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -140%) scale(1); opacity: 0; } }
+.ldx-khoi { width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle, rgba(30, 26, 34, .95), rgba(20, 18, 24, .6) 60%, transparent 70%);
+  animation: ldx-khoi 1.4s ease-out forwards; opacity: 0; }
+@keyframes ldx-khoi { 0% { transform: translate(-50%, -50%) scale(.4); opacity: .9; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(2.6); opacity: 0; } }
