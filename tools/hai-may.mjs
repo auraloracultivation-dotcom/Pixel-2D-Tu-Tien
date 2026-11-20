@@ -178,6 +178,13 @@ for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[
   const dungA = await A.p.evaluate(() => ({ x: Math.round(window.__game.player.x), y: Math.round(window.__game.player.y) }));
   ok('Vung đòn lúc tắt khiên: tin đòn đánh kèm vị trí người đánh', noi.trongVong ? !tinH : !!tinH && tinH.tu === 'may-a' && tinH.to === 'may-b' && Math.abs(tinH.x - dungA.x) <= 2 && Math.abs(tinH.y - dungA.y) <= 2,
     noi.trongVong ? 'trong vòng pháp trận: không gửi đòn' : `tin: ${JSON.stringify(tinH)}, A đứng ở (${dungA.x}, ${dungA.y})`);
+  // Cưỡi thú đánh thường cũng phải gửi đòn PvP (21/11/2026: đòn của thú, player.js mountSwing, không đặt swingT nên trước đó người cưỡi thú
+  // đánh thường vào người khác thì game không gửi đòn nào)
+  const h1 = phong.dem.len.h || 0;
+  await A.p.evaluate(() => { const g = window.__game, s = g.save; s.mounts ??= {}; s.mounts['cuu-vi-ho'] = true; s.mount = 'cuu-vi-ho'; s.mountKey = 'cuu-vi-ho'; s.ride = true; g.pvp.cd = 0; g.player.atkCd = 0; g.input.held.add('atk'); });
+  const thuDanh = await cho(async () => (phong.dem.len.h || 0) > h1, 3000);
+  const cuoi = await A.p.evaluate(() => { const g = window.__game, r = g.player.riding; g.input.held.delete('atk'); g.save.ride = false; return r; });
+  ok('Cưỡi thú đánh thường lúc tắt khiên: cũng gửi đòn PvP', noi.trongVong ? !thuDanh : !!thuDanh && cuoi === true, `đang cưỡi: ${cuoi}, tin đòn gửi thêm: ${(phong.dem.len.h || 0) - h1}`);
 }
 
 // 5. Nhịp mạng không bị bảng chặn: A mở bảng, đứng yên; máy C vào SAU vẫn phải thấy A có toạ độ và nhận hồ sơ A đổi lúc đang mở bảng

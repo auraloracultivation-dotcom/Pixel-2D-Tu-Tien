@@ -52,9 +52,11 @@ export function updatePvp(game, dt) {
   if (!s || !p) return;
   if (s.map !== game.map?.id) s.map = game.map?.id;   // đổi bản đồ: máy chủ phòng báo lại khiên (pk) lúc vào phòng mới
   s.cd = Math.max(0, s.cd - dt);
-  const sw = p.swingT > 0.15;
-  if (sw && !s.wasSwing) pvpTryHit(game);
-  s.wasSwing = sw;
+  // Ra đòn thường: vung đòn (swingT), hoặc đòn của thú cưỡi. Đòn của thú (player.js mountSwing) không đặt swingT, nên trước 21/11/2026 người
+  // đang cưỡi thú đánh thường vào người khác thì máy không gửi đòn PvP nào (chỉ chiêu mới gửi); nhận ra nó bằng đòn chờ mới p.hitQ kiểu 'thu'.
+  const sw = p.swingT > 0.15, q = p.hitQ?.move === 'thu' ? p.hitQ : null;
+  if ((sw && !s.wasSwing) || (q && q !== s.thuQ)) pvpTryHit(game);
+  s.wasSwing = sw; s.thuQ = q;
   if (!s.off) { s.safe = null; return; }
   const T = P(game).text, safe = pvpSafe(game, p.x, p.y);
   if (s.safe !== null && safe !== s.safe) game.toast(safe ? T.safe : T.zone_pk, 2);   // bước vào / ra vòng pháp trận
