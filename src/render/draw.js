@@ -4,11 +4,7 @@ import { drawLanterns, drawMeteors } from './draw-lantern.js';
 import { guideTarget } from '../game/guide.js';
 import { drawSky, drawMap, circle } from '../world/draw-map.js';
 import { skillSlots } from '../game/skills.js';
-import { weaponId } from '../game/stats.js';
-import { drawWeapon } from './weapon.js';
 import { drawPet, drawMount, drawRareGlow } from './draw-pet.js';
-import { drawAura, drawTitle } from './draw-aura.js';
-import { outfit } from '../game/fashion.js';
 import { drawDayNight } from './draw-sky.js';
 import { drawClouds } from './draw-clouds.js';
 import { drawLamps, drawGlow } from './draw-glow.js';
@@ -24,24 +20,21 @@ import { drawDecor } from './draw-decor.js';
 import { drawWild } from './draw-critter.js';
 import { drawFishing } from './draw-fish.js';
 import { drawBubbles } from './draw-bubble.js';
-import { drawHero, heroLook } from './draw-hero.js';
-import { drawFlySword } from './draw-fly.js';
-import { drawCele } from './draw-trib.js'; import { drawKdBack, drawKdFront } from './draw-ket-dan.js';   // nghi lễ kết đan (src/game/ket-dan.js)
-import { drawPhapTuong } from './draw-phap-tuong.js';
+import { drawNguoi } from './draw-nguoi.js';   // nhân vật người chơi: một hàm cho mình và người khác
+import { drawPerson, shadow, body, INK } from './draw-person.js';
+import { drawCele } from './draw-trib.js'; import { drawKdFront } from './draw-ket-dan.js';   // nghi lễ kết đan (src/game/ket-dan.js)
 import { drawSpriteFx } from './draw-sprite-fx.js';
 import { drawSlashes } from './draw-slash.js';
 import { drawBolt, drawBoltLead } from './draw-bolt.js';
 import { drawFocus, textQ } from './draw-focus.js';
 import { drawNumbers } from './draw-numbers.js';
-import { drawNameShield } from './draw-pvp-tag.js';
 import { drawBullets, drawMeteor } from './draw-bullets.js';
 import { drawUltFx } from './draw-ult.js';
 import { drawMobSprite, drawRivalSprite, drawCorpse, corpseLife } from './draw-mob-sprite.js';
 import { drawMobBar, rankOf } from './draw-mob-bar.js';
-import { drawGhost } from './draw-ghost.js';
 import { drawLoot, drawQuestPickups } from './draw-loot.js';
 import { ring, disc } from './pixel-shapes.js';
-import { drawFlyWeapon, drawOtherWeapon } from './draw-flyweapon.js'; import { theoEnts } from '../game/others-theo.js'; import { otherPre, otherPost } from './draw-other-extra.js';
+import { drawFlyWeapon } from './draw-flyweapon.js'; import { theoEnts } from '../game/others-theo.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawTorches, drawDarkness } from './draw-light.js';
 import { gatherLights, drawBloom } from './draw-lights.js';
@@ -55,61 +48,8 @@ import { drawDummy } from './draw-dummy.js';
 import { drawMang } from './draw-mang.js';
 import { duelFoes } from '../game/duel.js';
 import { drawVfx } from './vfx/draw-vfx.js'; import { drawPxGround } from './vfx/draw-pfx.js';
-import { vfxOf } from '../game/vfx.js'; import { domainVis } from './draw-domain.js';
+import { vfxOf } from '../game/vfx.js';
 import { drawTele, drawStrikeMarks } from './draw-tele.js'; import { drawMobFx } from './draw-mob-fx.js';   // khung đỏ báo đòn boss; đòn quái, dấu chấm than
-
-const INK = '#1b1830';
-
-function shadow(ctx, x, y, r) {
-  ctx.fillStyle = 'rgba(27,24,48,0.25)';
-  ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.45, 0, 0, Math.PI * 2); ctx.fill();
-}
-
-function body(ctx, x, y, r, color, flash) {
-  ctx.fillStyle = INK; circle(ctx, x, y, r + 1);
-  ctx.fillStyle = flash ? '#fff' : color; circle(ctx, x, y, r);
-}
-
-export function drawPerson(ctx, e, color, hair, t, flash, face) {
-  const bob = e.moving ? Math.abs(Math.sin(e.walkT * 12)) * 1.5 : Math.sin(t * 2.5 + (e.bob || 0)) * 0.5;
-  const y = e.y - bob;
-  shadow(ctx, e.x, e.y + 1, 5);
-  body(ctx, e.x, y - 4, 4.5, color, flash);            // thân
-  body(ctx, e.x, y - 11, 4.2, '#fbe3d2', flash);       // đầu
-  ctx.fillStyle = hair; ctx.beginPath(); ctx.arc(e.x, y - 12, 4.2, Math.PI, 0); ctx.fill();
-  if (!flash && face) {                                  // mắt nhìn theo hướng
-    ctx.fillStyle = INK;
-    const fx = face.x * 1.6, fy = Math.max(-0.5, face.y) * 1.2;
-    if (face.y > -0.7) { ctx.fillRect(e.x - 1.8 + fx, y - 11 + fy, 1, 1.6); ctx.fillRect(e.x + 0.8 + fx, y - 11 + fy, 1, 1.6); }
-  }
-}
-
-function drawPlayer(ctx, game, t) {
-  if (game.ghost) return drawGhost(ctx, game, t); if (game.player.domain && domainVis(game, game.player) <= 0.01) return;   // gục chờ hồi sinh: bong bóng linh hồn (draw-ghost.js); ẩn trong lĩnh vực Vô Ảnh: cả vũ khí, danh hiệu (draw-domain.js)
-  const p = game.player, el = game.save.element ? game.data.elements[game.save.element].color : '#e6ebf7';
-  const w = game.data.weapons[weaponId(game.save, game.data)];
-  if (p.invT > 0 && Math.floor(t * 20) % 2 && p.flash <= 0 && !p.kd) ctx.globalAlpha = 0.5;
-  if (p.riding) { const lk = heroLook(game); drawPhapTuong(ctx, game, p, t, game.save, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', p.x + (p.seatX || 0), p.y - (p.lift || 0)); }   // pháp tượng sau lưng người cưỡi, sau cả thú (chỗ ngồi của khung trước)
-  if (p.riding) { const lift = drawMount(ctx, p, game.data.pets.mounts[game.save.mount], t, game.data.art, game.save.mount); p.lift = lift; ctx.save(); ctx.translate(p.seatX || 0, -lift - (!p.seatSync && p.moving && Math.floor(p.walkT * 7) % 2 ? 1 : 0)); }   // người cưỡi nhún theo nhịp phi (thú cưỡi có chỗ đứng theo khung thì đã nhấp nhô theo lưng, không nhún thêm)
-  if (p.flying) { p.lift = drawFlySword(ctx, game, p, t); ctx.save(); ctx.translate(0, -p.lift); } if (p.kd) { drawKdBack(ctx, game, p, t); ctx.save(); ctx.translate(p.kdDx || 0, -(p.kdLift || 0)); }   // nút Bay: đứng trên kiếm (draw-fly.js); kết đan: lơ lửng, nửa sau vòng khói vẽ trước thân
-  if (p.meditating) {
-    ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 3); ring(ctx, p.x, p.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = 1;
-  }
-  drawAura(ctx, game, p, t);
-  drawFlyWeapon(ctx, game, 'back');   // ngự kiếm: vũ khí treo sau lưng vẽ trước thân người
-  if (!drawHero(ctx, game, p, t, p.flash > 0)) {   // chưa có hình thì vẽ hình khối, màu theo thời trang
-    const fit = outfit(game);
-    drawPerson(ctx, p, fit.robe, fit.hair, t, p.flash > 0, p.face);
-    ctx.fillStyle = fit.sash || el; ctx.fillRect(p.x - 4, p.y - 6, 8, 1.5);   // đai lưng màu hệ
-    drawWeapon(ctx, p, w);
-  }
-  drawFlyWeapon(ctx, game, 'front');
-  if (p.shield > 0 && !vfxOf(game, p.shieldSk)) { ctx.globalAlpha = 0.7; ring(ctx, p.x, p.y - 6, 10, p.shieldColor); }   // khiên có hiệu ứng mới: vẽ ở lớp trên (src/render/vfx/)
-  if (p.buffT > 0 && !vfxOf(game, p.buffSk)) { ctx.fillStyle = p.buffColor; ctx.globalAlpha = 0.25; circle(ctx, p.x, p.y - 6, 10); }
-  ctx.globalAlpha = 1;
-  drawTitle(ctx, game, p);
-  if (p.riding || p.flying) ctx.restore(); if (p.kd) ctx.restore();
-}
 
 // Bạn đồng hành: chủ đả tọa thì ngồi cạnh nhắm mắt, quầng sáng nhạt thở theo
 function drawComp(ctx, e, t, art) {
@@ -189,28 +129,6 @@ function drawMob(ctx, m, t, game) {
   if (m.stunT > 0) { ctx.fillStyle = '#ffe27a'; for (let i = 0; i < 3; i++) circle(ctx, m.x + Math.cos(t * 6 + i * 2) * 5, m.y - (m.top || r * 2) - 3 + Math.sin(t * 6 + i * 2), 1); }
   if (m.slowT > 0 && !game.topPass) { ctx.fillStyle = 'rgba(90,184,240,0.35)'; circle(ctx, m.x, m.y - r, r + 1.5); }
   drawMobBar(ctx, game, m);   // thanh máu, lực chiến (draw-mob-bar.js)
-}
-
-// Người chơi khác (game/others.js): hình nhân vật theo hình dáng, thời trang họ báo (bản game cũ chưa báo thì vẽ hình khối), tên trên đầu
-function drawOther(ctx, o, game, t) {
-  const el = o.element ? game.data.elements[o.element]?.color : null;
-  const fit = { look: o.look, outfit: o.outfit, pt: o.pt || null }, md = o.mount && game.data.pets.mounts[o.mount];
-  const fl = otherPre(ctx, game, o, t); o.riding = !!md; if (o.kd) { drawKdBack(ctx, game, o, t); ctx.save(); ctx.translate(o.kdDx || 0, -(o.kdLift || 0)); }   // trang phục mới ngồi xếp bằng trên thú; người đang kết đan lơ lửng
-  if (md && o.look) { const lk = heroLook(game, fit); drawPhapTuong(ctx, game, o, t, fit, lk, lk.anims?.ngoi ? 'ngoi' : 'idle', o.x + (o.seatX || 0), o.y - (o.lift || 0)); }
-  if (md) { const lift = drawMount(ctx, o, md, t, game.data.art, o.mount); o.lift = lift; ctx.save(); ctx.translate(o.seatX || 0, -lift - (!o.seatSync && o.moving && Math.floor(o.walkT * 7) % 2 ? 1 : 0)); }   // đang cưỡi: vẽ thú dưới người như drawPlayer
-  if (o.swingNew && o.look) { const A = heroLook(game, fit).attacks || []; if (A.length) o.heroAnim = { name: A[o.atkN++ % A.length], t0: game.time }; o.swingNew = false; }
-  drawOtherWeapon(ctx, game, o, t, false, fit); const hero = o.look && drawHero(ctx, game, o, t, false, fit); drawOtherWeapon(ctx, game, o, t, true, fit);   // vũ khí người khác: sau lưng / trước người (draw-flyweapon.js)
-  if (!hero) drawPerson(ctx, o, '#c8d0e8', '#3a3a4a', t, false, o.face);
-  if (el && !hero) { ctx.fillStyle = el; ctx.fillRect(o.x - 4, o.y - 6, 8, 1.5); }
-  const q = textQ(game, 6), ny = o.y - (o.top || 22) - 3;
-  ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
-  drawNameShield(ctx, game, o, ny, q, INK, o.pk ? '#ff5a5a' : el || '#e6ebf7');   // tên + hình khiên PvP (draw-pvp-tag.js); tắt khiên thì tên đỏ, kèm thanh máu PvP khi vừa trúng đòn
-  if (o.pk && o.pvpR < 1 && game.time - (o.pvpAt || 0) < 10) { ctx.fillStyle = INK; ctx.fillRect(o.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = '#ff5a5a'; ctx.fillRect(o.x - 10, ny + 1.5, 20 * Math.max(0, o.pvpR), 2.5); }
-  if (o.swingT > 0 && !hero) {
-    const a = Math.atan2(o.face.y, o.face.x);
-    ctx.globalAlpha = o.swingT / 0.18; ring(ctx, o.x, o.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = 1;
-  }
-  if (md) ctx.restore(); if (o.kd) ctx.restore(); otherPost(ctx, game, o, fl);   // bay, đả tọa, hào quang, danh hiệu, gục (draw-other-extra.js)
 }
 
 function drawNpc(ctx, n, game, t) {
@@ -322,11 +240,11 @@ export function drawWorld(game, screen, t) {
     else if (k === 'n') drawNpc(ctx, e, game, t);
     else if (k === 'm') drawMob(ctx, e, t, game);
     else if (k === 'c') drawCorpse(ctx, game, e);
-    else if (k === 'o') drawOther(ctx, e, game, t);
+    else if (k === 'o') drawNguoi(ctx, game, e, e, t);   // người chơi khác: thân và hồ sơ là cùng một bản (game/others.js)
     else if ((k === 'pet' || k === 'comp') && game.player.meditating && !e.target) continue;   // đả tọa: ẩn linh thú, đồng hành đang rảnh (đề xuất #24: run run nhức mắt)
     else if (k === 'pet') drawPet(ctx, e, t, game.data.art);
     else if (k === 'comp') drawComp(ctx, e, t, game.data.art);
-    else drawPlayer(ctx, game, t);
+    else drawNguoi(ctx, game, game.player, game.hoSo, t);   // mình: vẽ theo đúng hồ sơ gửi cho phòng (một hàm cho mình và người khác: draw-nguoi.js)
   }
   drawStoryFx(ctx, game);   // dàn cảnh truyện: bàn tay ma khí (draw-story-fx.js)
   drawDowns(ctx, game);   // lượt gục: khung ngã nhạt dần, hồn bay lên (draw-act-fx.js)

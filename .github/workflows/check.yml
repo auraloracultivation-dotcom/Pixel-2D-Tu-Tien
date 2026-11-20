@@ -13,9 +13,10 @@ jobs:
           node-version: 22
       - run: node tools/check.mjs
   choi-thu:
-    # Người mới chơi thử 150 giây với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs)
+    # Người mới chơi thử với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs); rồi bài thử hai máy
+    # bắt lỗi đồng bộ giữa người chơi (tools/hai-may.mjs)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,4 +28,7 @@ jobs:
       - run: npm i --no-save esbuild@0.28.2 || echo "không cài được esbuild: chơi thử bản chưa gói"
       - run: node tools/goi.mjs _site
       - run: node ../tools/playtest.mjs
+        working-directory: _site
+      # Hai máy khách cùng tinh cầu qua phòng giả chạy đúng mã cloud/src/phong.js: mỗi trường hồ sơ, mỗi nhóm hiệu ứng phải tới máy bên kia
+      - run: node ../tools/hai-may.mjs
         working-directory: _site

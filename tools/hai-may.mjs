@@ -49,7 +49,12 @@ async function moMay(id) {
   });
   return { id, ctx, p, dong: () => ctx.close() };
 }
-const thay = (X, id) => X.p.evaluate(i => { const o = window.__game.others.list.get(i); return o ? { ...Object.fromEntries(Object.entries(o).filter(([, v]) => v === null || ['string', 'number', 'boolean'].includes(typeof v))), ten: o.def?.name } : null; }, id);
+// Máy X đang thấy người `id` thế nào (các trường đơn). Tạm gỡ sổ theo dõi đọc (game.thuDoc) để việc soi của bài thử không tính là "có nơi đọc".
+const thay = (X, id) => X.p.evaluate(i => {
+  const g = window.__game, S = g.thuDoc; g.thuDoc = null;
+  try { const o = g.others.list.get(i); return o ? { ...Object.fromEntries(Object.entries(o).filter(([, v]) => v === null || ['string', 'number', 'boolean'].includes(typeof v))), ten: o.def?.name } : null; }
+  finally { g.thuDoc = S; }
+}, id);
 
 const A = await moMay('may-a'), B = await moMay('may-b');
 const [mapA, mapB] = await Promise.all([A, B].map(X => X.p.evaluate(() => window.__game.map.id)));
@@ -88,6 +93,14 @@ await A.p.evaluate(m => window.__thu.epHoSo(m), mau);
   const o = await cho(async () => { const v = await thay(B, 'may-a'); return v && truongGui.every(k => v[k] === mau[k]) ? v : null; }, 5000);
   const v = o || await thay(B, 'may-a') || {};
   ok(`Cả ${truongGui.length} trường hồ sơ A đổi là B nhận đúng`, !!o, o ? truongGui.join(' ') : 'chưa tới: ' + truongGui.filter(k => v[k] !== mau[k]).map(k => `${k} (gửi ${mau[k]}, nhận ${v[k]})`).join(', '));
+}
+// 3a. Trường nào tới nơi cũng phải có chỗ ở máy người xem ĐỌC tới (vẽ nhân vật, kẻ đi theo…): bắt trường gửi đi mà không ai vẽ
+{
+  await B.p.evaluate(() => window.__game.thuDoc.clear());   // chỉ tính những lần đọc trong lúc máy B chạy và vẽ bình thường (không có hồ sơ mới tới)
+  await new Promise(r => setTimeout(r, 1200));   // cho máy B vẽ A vài chục khung với đủ các trường
+  const doc = new Set(await B.p.evaluate(() => [...(window.__game.thuDoc || [])]));
+  const can = Object.keys(H).filter(k => H[k].ai !== 'ket-noi' && H[k].xem !== false), thieu = can.filter(k => !doc.has(k));
+  ok(`Cả ${can.length} trường tới máy B đều được vẽ / dùng tới`, !thieu.length, thieu.length ? 'không nơi nào đọc: ' + thieu.join(', ') : '');
 }
 for (const k of truongGui.filter(k => H[k].kieu === 'chon')) for (const gt of H[k].gia_tri.slice(1)) {   // trường chọn: thử hết từng giá trị
   await A.p.evaluate(m => window.__thu.epHoSo(m), { ...mau, [k]: gt });

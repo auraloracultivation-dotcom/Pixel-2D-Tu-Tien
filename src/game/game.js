@@ -218,10 +218,10 @@ export function createGame(data, screen, input, ui, audio) {
 
   // Bí cảnh là phòng riêng, chưa đồng bộ quái nên không hiện người khác. Động phủ: phòng riêng của chủ nhà (game/friends.js caveRoom)
   function joinOnline() {
+    const h = { ...hoSoCuaToi(game, game.hoSo) };   // hồ sơ của mình: có ngay từ lúc vào bản đồ (hàm vẽ nhân vật dùng nó kể cả khi chơi một mình)
     if (!game.online) return;
     const solo = (game.map.def.rooms || []).length > 0, home = game.map.id === data.home.map;
-    const h = { ...hoSoCuaToi(game, game.hoSo) };   // bản gửi lúc vào: others.js nhớ chữ ký của nó, sau đó đổi gì thì báo lại
-    game.others.daBao(h);
+    game.others.daBao(h);   // bản gửi lúc vào: others.js nhớ chữ ký của nó, sau đó đổi gì thì báo lại
     game.online.join(solo ? null : home ? caveRoom(game, game.online.me.id) : game.map.id, h)
       .catch(() => game.toast('Mất kết nối, đang chơi một mình.'));
   }

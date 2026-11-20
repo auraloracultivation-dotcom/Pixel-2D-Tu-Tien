@@ -21,19 +21,15 @@ function spriteOf(game, base, wid) {
   return spr ? { spr, im: spriteImage(spr), dirs: 0 } : null;
 }
 
-// Vẽ món base (mã data/items.json) tại (x, y) góc a cỡ k lần vũ khí bay thường: người khác đứng trên vũ khí lúc bay (draw-other-extra.js)
-export function drawWeaponOf(ctx, game, base, x, y, a, k) {
-  const ws = base && spriteOf(game, base, game.data.items.bases[base]?.weapon);
-  if (!ws?.im) return false;
-  ctx.save(); ctx.imageSmoothingEnabled = false; blit(ctx, ws, ws.im, x, y, a, k * game.data.heroes.fly.scale); ctx.restore();
-  return true;
-}
+// Hình vũ khí của một người theo hồ sơ của họ (data/dong-bo.json: vk = món đang mặc, vkl = loại vũ khí; mình: game.hoSo). Chưa mặc món nào
+// vẫn có vũ khí bay theo loại (fw.<loại>), như mình thấy trên máy mình. Bản game cũ chưa báo vkl: suy từ món.
+export const hoSoSprite = (game, h) => spriteOf(game, h?.vk, h?.vkl || game.data.items.bases[h?.vk]?.weapon);
 
-// Vũ khí người chơi khác (o.vk do họ báo qua hồ sơ phòng, src/game/others.js): treo sau vai như của mình (flyweapon.js rest),
+// Vũ khí người chơi khác (fit: hồ sơ họ báo qua phòng, vk / vkl): treo sau vai như của mình (flyweapon.js rest),
 // cưỡi thú thì treo xa vai, vẽ trên người; vừa vung đòn (o.swingT) thì lao ra trước mặt theo hướng nhìn. front: lớp trước thân người
 export function drawOtherWeapon(ctx, game, o, t, front, fit) {
-  const base = o.vk, ws = base && spriteOf(game, base, game.data.items.bases[base]?.weapon);
-  if (!ws?.im || o.flying) return;   // đang bay: vũ khí nằm dưới chân (draw-other-extra.js)
+  const ws = hoSoSprite(game, fit);
+  if (!ws?.im || o.flying) return;   // đang bay: vũ khí nằm dưới chân làm phi kiếm (draw-fly.js)
   const c = game.data.heroes.fly, k = heroLook(game, fit).fw_scale || c.scale, side = (o.face?.x ?? 0) < 0 ? -1 : 1;
   const sw = o.swingT > 0 ? Math.sin(Math.PI * Math.min(1, 1 - o.swingT / 0.18)) : 0;   // 0 → 1 → 0 trong một nhát
   const q = t * Math.PI * 2 * (c.orbit?.speed || 0.5), med = o.meditating && !sw && c.orbit;   // đả tọa: vũ khí lượn vòng quanh người như của mình (flyweapon.js rest)
@@ -67,11 +63,12 @@ function blit(ctx, ws, im, x, y, a, k) {
   ctx.restore();
 }
 
-// Vũ khí của mình vẽ tại (x, y) góc a, cỡ k, phủ đỏ red (0–1): Phá Thiên Tuyệt Trảm tụ lực (render/draw-charge.js). false: chưa có hình
-export function drawWeaponAt(ctx, game, x, y, a, k, red, tint) {
-  const ws = weaponSprite(game);
+// Vũ khí vẽ tại (x, y) góc a, cỡ k, phủ đỏ red (0–1): Phá Thiên Tuyệt Trảm tụ lực (render/draw-charge.js). false: chưa có hình.
+// h: hồ sơ của người cầm (draw-fly.js: phi kiếm dưới chân mình lẫn người khác); không đưa h thì là vũ khí của mình đọc từ bản lưu.
+export function drawWeaponAt(ctx, game, x, y, a, k, red, tint, h) {
+  const ws = h ? hoSoSprite(game, h) : weaponSprite(game);
   if (!ws?.im) return false;
-  k *= heroLook(game).fw_scale || game.data.heroes.fly.scale;   // k: lần so với cỡ vũ khí bay thường
+  k *= heroLook(game, h || undefined).fw_scale || game.data.heroes.fly.scale;   // k: lần so với cỡ vũ khí bay thường
   ctx.save(); ctx.imageSmoothingEnabled = k > 2.5;   // phóng to nhiều lần: làm mịn, khỏi thành khối vuông
   const sm = ws.smooth; ws.smooth = ws.smooth || k > 2.5;
   blit(ctx, ws, ws.im, x, y, a, k);

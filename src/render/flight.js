@@ -1,6 +1,6 @@
 // Cảnh đi đường (vẽ theo toạ độ màn hình): bay truyền tống qua không gian sao giữa các tinh cầu,
 // hoặc xoáy truyền tống khi ra vào bí cảnh. Trạng thái nằm ở game.trip (src/game/travel.js).
-import { drawPerson } from './draw.js';
+import { drawPerson } from './draw-person.js';
 import { drawHero } from './draw-hero.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { drawMount } from './draw-pet.js';

@@ -1,7 +1,7 @@
 // Người chơi khác trên cùng đảo (net/online.js). Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc độ để tới chỗ mới đúng lúc
 // gói kế tiếp tới (giới hạn speed), nên thấy bước đi đều chứ không giật cục; xa quá hop (ngự kiếm bay, qua cổng) thì hiện vòng
 // sáng ở chỗ cũ và chỗ mới rồi đặt thẳng. Vẽ bằng hình nhân vật theo hình dáng, thời trang người đó báo qua presence
-// (render/draw.js drawOther), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng
+// (render/draw-nguoi.js, cùng một hàm với nhân vật của mình), vung đòn thì chạy động tác đánh của nhân vật. Chủ dự án báo 29/10/2026: trước đây chỉ thấy cái bóng
 // vẽ bằng khối, nhảy từ chỗ này sang chỗ khác như hack tốc độ.
 // Realtime 05/11/2026 (data/config.json → realtime): tin từ máy người khác lọc ở game/others-net.js (tên bỏ ký tự lạ, lọc từ bậy,
 // toạ độ kẹp trong bản đồ, mã hình dáng / hệ phải có trong data/); chỉ vẽ shown[mức nhẹ máy] người gần nhất; khoảng gửi vị trí
@@ -32,6 +32,9 @@ export function createOthers(game) {
   const R = () => game.data.config.realtime || {};
   let chk = 1, sig = null, shown = [], pick = 0, sendNow = false;   // sig: chữ ký hồ sơ đã báo cho phòng (null: chưa báo lần nào)
 
+  // Bài thử hai máy (tools/hai-may.mjs đặt game.thuDoc = new Set()): ghi lại trường nào của người khác được mã phía người xem ĐỌC tới,
+  // để bắt trường khai trong data/dong-bo.json, gửi đi đàng hoàng mà không nơi nào vẽ / dùng. Người chơi thật: không bọc gì.
+  const soi = o => (game.thuDoc ? new Proxy(o, { get(t, k, r) { if (typeof k === 'string') game.thuDoc?.add(k); return Reflect.get(t, k, r); } }) : o);
   function puff(o, x, y) {
     const col = o.element ? game.data.elements[o.element]?.color : null;
     addFx(game, { type: 'ring', x, y, r: 14, color: col || '#bff4ff', life: 0.45 });
@@ -58,9 +61,10 @@ export function createOthers(game) {
         if (!e) continue;
         seen.add(e.id);
         if (!list.has(e.id)) sendNow = true;   // người mới vào: gửi vị trí mình ngay để họ thấy cả người đang đứng yên
-        const o = list.get(e.id) || { id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 };
+        const o = list.get(e.id) || soi({ id: e.id, x: null, y: null, tx: 0, ty: 0, spd: 0, face: { x: 0, y: 1 }, walkT: 0, moving: false, r: 5, atkN: 0 });
         o.def = { name: cleanText(game, e.name) };
         apHoSo(game, o, e);   // mọi trường trong bảng (hệ, hình dáng, thời trang, thú cưỡi, pháp tượng, vũ khí, kẻ đi theo, trạng thái…)
+        o.riding = !!(o.mount && game.data.pets.mounts[o.mount]); o.flying = o.st === 'bay'; o.meditating = o.st === 'toa';   // trạng thái theo hồ sơ họ báo (vẽ: render/draw-nguoi.js)
         list.set(e.id, o);
       }
       for (const id of [...list.keys()]) if (!seen.has(id)) list.delete(id);
@@ -92,6 +96,7 @@ export function createOthers(game) {
         o.moving = o.moveT > 0;
         if (o.moving) o.walkT += dt;
         if (o.swingT > 0) o.swingT -= dt;
+        o.flyT = o.flying ? (o.flyT || 0) + dt : 0;   // vừa cất cánh: nhấc dần khỏi đất như máy họ (draw-fly.js)
         stepTheo(game, o, dt);   // linh thú, khôi lỗi của họ đi theo (others-theo.js)
         if (o.charge) chargeHold(game, o, dt);   // đang tụ lực Phá Thiên (skill-charge.js): tới giờ thì vệt chém hiện ra (chỉ hình)
         kiepTick(game, o, dt);   // đang độ kiếp: trời quanh họ mưa sét (kiep-see.js)

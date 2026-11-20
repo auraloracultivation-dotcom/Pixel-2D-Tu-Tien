@@ -5,7 +5,8 @@
 import { spriteImage } from './sprites.js';
 import { heroScale } from './draw-hero.js';
 
-// Hình pháp tượng của bản lưu: người khác gửi sẵn mã (others.js onlineLook → pt), mình thì đọc món đang đeo ở ô ngoc-boi
+// Hình pháp tượng: hồ sơ phòng mang sẵn mã (trường pt ở data/dong-bo.json; draw-nguoi.js đưa hồ sơ của mình lẫn người khác); đưa vào một
+// bản lưu thật (bong bóng lúc gục, bản sao so tài) thì đọc món đang đeo ở ô ngoc-boi
 export function ptSprite(game, save = game.save) {
   if (typeof save?.pt === 'string') return game.data.art.sprites['pt.' + save.pt] ? 'pt.' + save.pt : null;
   const uid = save?.equip?.['ngoc-boi'], it = uid != null && save.bag?.find(i => i.uid === uid), b = it && game.data.items.bases[it.base];

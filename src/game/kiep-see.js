@@ -1,7 +1,7 @@
-// Người khác thấy mình độ kiếp, lên tầng, tụ linh (chủ dự án 20/11/2026 17:12: "lúc người ta đột phá lại không xem được… người chơi
+// Người khác thấy mình độ kiếp, lên tầng (chủ dự án 20/11/2026 17:12: "lúc người ta đột phá lại không xem được… người chơi
 // mặc gì, trạng thái gì thì mọi người đều thấy"). Trước đây chỉ nghi lễ kết đan (ket-dan.js, Trúc Cơ trở lên) báo cả tinh cầu; kiếp
 // Luyện Khí → Trúc Cơ, cột sáng lên tầng, nhịp tụ linh trước pháp bảo chỉ máy mình thấy.
-// Đi đường tin chiêu sẵn có (máy chủ phòng cloud/src/proto.js cleanCast: k chữ, x y toạ độ, fx fy số -1…1), không đổi máy chủ phòng:
+// Tin gửi qua một cửa phat.js, nhận qua others-nhan.js (nhóm ks trong data/dong-bo.json → hieu_ung), không đổi máy chủ phòng:
 //   ks-bd  kiếp bắt đầu                ks-w   một đợt sét: fx = số tia / 20, fy = hạt / 100 (máy người xem rải tia theo hạt quanh họ)
 //   ks-ok  chịu đủ sét: tụ linh rồi bùm  ks-hong gục giữa kiếp
 //   ks-up  vừa lên tầng (fx 0) hoặc vừa lên cảnh giới (fx 1)          (tụ linh trước pháp bảo: hiệu ứng viết một lần hu-tu-linh, tu-linh.js)

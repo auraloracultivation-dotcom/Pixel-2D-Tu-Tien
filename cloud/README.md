@@ -14,6 +14,8 @@ Supabase vẫn giữ tài khoản, lưu game, chống hack, chat, truyền âm.
   Vị trí, chào hỏi, chiêu gom 200 ms một gói. Tổ đội chuyển tiếp ngay. Giới hạn tốc độ mỗi kết nối, gửi dồn dập bị đóng 4008.
   WebSocket Hibernation: không ai gửi gì thì phòng ngủ, không tính thời gian chạy; "ping" → "pong" Cloudflare tự trả.
 - `src/proto.js`: phần thuần (kiểm phòng, làm sạch tin, thùng token, gói lô). Bài thử: `node tools/cloud/phong.test.mjs`.
+- `src/ho-so-truong.js`: TỆP SINH RA từ `data/dong-bo.json` → `ho_so` (bảng "người khác thấy gì"), không sửa tay. `proto.js` `cleanProf` chỉ giữ các trường trong đó. Sửa bảng xong chạy `node tools/dong-bo.mjs --ghi`; `tools/check.mjs` báo đỏ nếu bản sao lệch bảng. Cloudflare đóng gói riêng thư mục `cloud/` nên máy chủ phòng không đọc thẳng `data/` (cùng cách `mang-cfg.js` là bản sao của `data/thien-mang.json`).
+- Bài thử hai máy `node tools/hai-may.mjs` chạy đúng `src/phong.js` trong Node (`tools/cloud/phong-gia.mjs`) nối với hai trình duyệt thật: mỗi trường hồ sơ, mỗi nhóm tin hiệu ứng phải tới máy bên kia.
 
 Máy khách: `src/net/phong-ws.js`, `online-cf.js`, `party-cf.js`; bật bằng `data/config.json` → `realtime.backend = "cf"` và `cf_url`.
 

@@ -1,5 +1,5 @@
 // Khiên PvP ngay sau tên (chủ dự án 06/11/2026 10:49; 10:56: hiện ở mọi nơi, tắt ở đâu cũng được; 19/11/2026: đánh nhau ở mọi nơi trừ vòng pháp trận): trên đầu nhân vật mình hiện "tên 🛡" (còn khiên) hoặc
-// "tên ⚔" (đã tắt khiên); người khác cũng thấy biểu tượng sau tên mình (render/draw.js drawOther). Chạm biểu tượng của mình → bảng
+// "tên ⚔" (đã tắt khiên); người khác cũng thấy biểu tượng sau tên mình (render/draw-nguoi.js). Chạm biểu tượng của mình → bảng
 // xác nhận "Bạn có muốn tắt khiên không?". Khiên chỉ bật lại khi chết hồi sinh (máy chủ phòng cloud/src/pvp.js giữ). Chữ ở
 // data/pvp.json → text, kiểu ở pvp.css. Nhãn là chữ HTML bám theo đầu nhân vật mỗi khung hình (chạm được, không vẽ lên khung game).
 import { goc } from '../core/build.js';

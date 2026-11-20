@@ -17,7 +17,7 @@ export function mocThu() {
   // ?thu=1&phong=<mã>: khách này vào phòng người chơi như người đã đăng nhập, mang mã và tên thử (bài thử hai máy tools/hai-may.mjs dựng
   // phòng giả trong máy bằng đúng mã cloud/src/phong.js). Vé gửi đi là chính mã thử nên máy chủ phòng thật từ chối: không thêm quyền gì.
   const id = q.get('phong');
-  if (id && /^[\w-]{1,36}$/.test(id)) window.__thu.phong = { id, ten: 'Thử ' + id };
+  if (id && /^[\w-]{1,36}$/.test(id)) { window.__thu.phong = { id, ten: 'Thử ' + id }; window.__game.thuDoc = new Set(); }   // thuDoc: others.js ghi trường hồ sơ nào được đọc tới
 }
 
 // Khách đang chạy bài thử hai máy thì trả { id, ten }; người chơi thật luôn là null

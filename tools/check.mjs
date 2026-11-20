@@ -32,6 +32,7 @@ for (const file of walk('.')) {
     if (r.status !== 0) errors.push(`${file}: lỗi cú pháp — ${(r.stderr.match(/SyntaxError[^\n]*/) || [r.stderr.trim().split('\n').pop()])[0]}`);
     if (text.split('\n').length > 400) errors.push(`${file}: quá 400 dòng, hãy tách module`);
     if (/supabase/i.test(text) && !file.startsWith(join('src', 'net'))) errors.push(`${file}: chỉ src/net/ được gọi Supabase`);
+    if (file === join('src', 'render', 'draw-nguoi.js') && /\bgame\.save\b|\bsave\.[a-z]/.test(text.replace(/\/\/.*$/gm, ''))) errors.push(`${file}: hàm vẽ nhân vật dùng chung cho mình và người khác không được đọc bản lưu (game.save); ngoại hình lấy từ hồ sơ h (data/dong-bo.json), thiếu thì thêm trường vào bảng`);
     if (/online\??\.cast\b/.test(text) && !file.startsWith(join('src', 'net')) && file !== join('src', 'game', 'phat.js')) errors.push(`${file}: gửi tin hiệu ứng cho người khác chỉ qua phat() ở src/game/phat.js (một cửa), không gọi thẳng online.cast`);
   }
   if (file === 'index.html' && /<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?\S[\s\S]*?<\/script>/i.test(text)) {
