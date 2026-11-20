@@ -145,7 +145,7 @@ function docXong(game, p, im = false) {
   if (p.bo && f[p.bo]) delete f[p.bo];
   if (im && p.q.trang.every(x => f['tmkd-' + x.id])) {   // quyển khép lặng lẽ theo truyện chính (quyển một của người mới): không dựng thêm một màn sau phần mở đầu, Hệ Thống chỉ nhắc một dòng
     const ke = C.quyen[p.qi + 1];
-    f['tmkk-' + p.q.id] = true; st.nhac.push(fill(X.nudge_khep, { n: C.so[p.qi], ten: p.q.ten, x: ke ? ke.goi : '' }));
+    f['tmkk-' + p.q.id] = true; st.nhac.push(fill(X.nudge_khep, { q: C.so[p.qi], ten: p.q.ten, x: ke ? ke.goi : '' }));
   }
   game.persist?.();
   if (im) return;
@@ -167,7 +167,7 @@ async function khepQuyen(game, q, qi) {
   st.playing = true;
   try {
     const lines = [X.ask, q.vi_ai, fill(X.all, { a: so.doc, b: so.tong })];
-    lines.push(ke ? fill(X.next_q, { x: ke.goi }) : X.end);   // quyển cuối: sổ không có trang cuối
+    lines.push(!ke ? X.end : ke.trang.some(x => daMo(game, x)) ? fill(X.next_open, { ten: ke.ten }) : fill(X.next_q, { x: ke.goi }));   // quyển cuối: sổ không có trang cuối
     await game.theQuyen?.({ kind: 'khep', so: C.so[qi], ten: q.ten, noi: q.noi, lines });
   } catch (e) { console.error('tmk', e); }
   finally { st.playing = false; st.last = performance.now(); }
@@ -196,7 +196,7 @@ function nhip(game) {
   const qi = C.quyen.findIndex(q => !f['tmkk-' + q.id] && q.trang.every(x => f['tmkd-' + x.id]));
   if (qi >= 0 && yen && (game.auto || game.pilot || coMat(game)) && now - st.last > C.auto.wait_s * 1000) {   // đang Tự đánh / Tự hành: thẻ tự đóng, game vẫn chạy
     if (tuKe(game)) khepQuyen(game, C.quyen[qi], qi);
-    else { f['tmkk-' + C.quyen[qi].id] = true; game.persist?.(); game.toast(`${C.text.close} ${C.so[qi]}: ${C.quyen[qi].ten}`, 2.6); }   // đã tắt tự kể: chỉ một dòng báo
+    else { f['tmkk-' + C.quyen[qi].id] = true; game.persist?.(); game.toast(`${fill(C.text.close, { q: C.so[qi] })}: ${C.quyen[qi].ten}`, 2.6); }   // đã tắt tự kể: chỉ một dòng báo
     return;
   }
   if (st.nhac.length && yen) { game.htNudge?.(st.nhac.shift(), 'tmk'); st.last = now; return; }   // lời nhắc đang chờ (quyển vừa khép lặng lẽ)
@@ -211,7 +211,7 @@ function nhip(game) {
     return;
   }
   // người chơi cũ: báo một lần mỗi buổi số trang đang chờ trong sổ
-  if (!st.told && now - st.boot > 20000 && !game.dialog?.open && !game.uiOpen && !game.story?.rung?.() && (s.step || 0) >= 10) {
+  if (!st.told && now - st.boot > 20000 && now - st.last > 6000 && !game.dialog?.open && !game.uiOpen && !game.story?.rung?.() && (s.step || 0) >= 10) {   // 6 giây: không chen vào thẻ mừng của trang vừa đọc xong
     st.told = true;
     const n = tmkSo(game).moi;
     if (n > 0) game.htNudge?.(fill(C.text.nudge_old, { n }), 'tmk');

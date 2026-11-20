@@ -31,7 +31,7 @@ export function createTheQuyen(game) {
     const rays = createRays(color, K.lvl, n), fx = el('canvas', 'm-fx'), title = el('div', 'm-title');
     stage.style.width = stage.style.height = css + 'px'; rays.canvas.className = 'm-rays'; fx.width = fx.height = n;
     title.append(el('span', null, X.card_title)); title.style.top = Math.round(css / 2 - 74) + 'px';
-    const plate = el('div', 'q-plate'), kind = el('div', 'q-kind', `${khep ? X.close : X.open} ${Q.so || ''}`.trim()), name = el('div', 'q-name', Q.ten), sub = el('div', 'q-sub', Q.noi || '');
+    const plate = el('div', 'q-plate'), kind = el('div', 'q-kind', String(khep ? X.close : X.open).replace('{q}', Q.so || '').trim()), name = el('div', 'q-name', Q.ten), sub = el('div', 'q-sub', Q.noi || '');
     plate.append(kind, name, sub); plate.style.marginTop = -Math.round(css / 2 + 30) + 'px';
     stage.append(rays.canvas, fx, title);
     const box = el('div', 'm-lines'), lines = [];

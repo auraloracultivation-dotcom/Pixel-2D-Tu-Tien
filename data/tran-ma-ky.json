@@ -2,22 +2,20 @@
  "_note": "Trấn Ma Kỷ: cốt truyện viết lại và cuốn sổ truyện trong game (chủ dự án 21/11/2026 03:16 'thiết kế lại từ đầu, giữ tên gọi, vật phẩm, hành tinh, cả hệ thống'; 03:47 'uỷ quyền sửa toàn bộ nội dung truyện… quan trọng nhất là cảm xúc người chơi khi vừa chơi vừa hiểu truyện'). Bản thiết lập đầy đủ: docs/14-TRAN-MA-KY.md. Sổ nằm trong Hệ Thống → Tàng Thư (src/ui/he-thong-ky.js), luật mở trang và phát cảnh ở src/game/tran-ma-ky.js, thẻ mở / khép quyển ở src/ui/the-quyen.js, khẩu quyết lúc tung pháp bảo ở src/game/khau-quyet.js. on: false thì cả phần này tắt (riêng một máy: địa chỉ có ?tmk=0 / ?tmk=1). quyen[].trang[]: mỗi trang một cảnh ngắn. khi: điều kiện mở trang, đủ MỌI khoá mới mở: step (đã tới bước truyện số này của data/story.json), xong (bước đó đã chạy xong phần lời), realm (cảnh giới từ số này), total (tổng tầng tu từ số này), den (đã từng tới bản đồ), boss + tai (đã hạ trùm này ở bản đồ này sau ngày có sổ: src/game/tran-ma-ky.js ghi cờ tmkb-<mã quái>), hoac (điều kiện thay thế cho người hạ trùm từ trước khi có sổ), doc (đã đọc trang kia, hoặc mảng nhiều trang), o (đang đứng ở bản đồ này). goi: lời gợi ý hiện ở trang chưa mở. im: trang do truyện chính (story.json) vừa kể rồi, mở là coi như đã đọc, không tự phát. canh: các câu [người nói, câu, { tap }] như story.json (người nói: mã NPC, 'he-thong' hoặc '' là lời dẫn), hoặc { hoi: { q, opts: [{ label, reply, lai }] } } (lai: chọn câu này thì chưa tính là đã đọc). Xen giữa các câu có thể đặt { dan: { toi, rung, chop, tieng, fx, mau, cho } }: dàn cảnh (tối màn, rung, chớp, tiếng, hiệu ứng quanh nhân vật, lặng một nhịp; src/game/tmk-canh.js). ghi: dòng ghi vào Nhật ký tu tiên khi đọc xong. quy: thiên quy lĩnh ngộ khi đọc xong. mo: 'cam' mở Cấm Kỵ Các, 'trang' mở quyển trắng. bo: gỡ cờ này khi đọc xong (người bị bắt trở về). Cờ trong bản lưu: tmk-co (đã dựng sổ cho bản lưu này), tmkm-<trang> (đã báo trang mở), tmkd-<trang> (đã đọc), tmkq-<quyển> / tmkk-<quyển> (đã diễn thẻ mở / khép quyển), tmkb-<quái>, tmk-im (người chơi tắt tự kể trang mới ở bìa sổ: chỉ còn lời nhắc). Không phát thưởng gì: sổ chỉ là truyện, tiến độ và lời mừng.",
  "on": true,
  "name": "Trấn Ma Kỷ",
- "so": ["một", "hai", "ba", "bốn", "năm", "sáu", "bảy"],
+ "_so": "Tên gọi từng quyển theo thứ tự (viết cả chữ \"quyển\" để bản dịch là một cụm trọn nghĩa: Volume One, 第一卷). Dùng ở thẻ mở / khép quyển (text.open, text.close), danh sách quyển trong sổ, lời nhắc của Hệ Thống.",
+ "so": ["quyển một", "quyển hai", "quyển ba", "quyển bốn", "quyển năm", "quyển sáu", "quyển bảy"],
  "auto": {"_note": "Tự phát một cảnh vừa mở khi người chơi đang tự tay chơi và rảnh: không Tự đánh, không Tự hành, vừa chạm màn trong present_s giây, không có trùm, không ai lạ đứng trong near đơn vị; đã rảnh được wait_s giây (vừa đóng bảng, vừa xong hội thoại thì chờ một nhịp); hai lần tự phát cách nhau gap_s giây. Không đủ thì Hệ Thống chỉ nhắc một dòng (người đang tự tay chơi mà nudge_s giây vẫn chưa rảnh, hoặc đang Tự đánh / Tự hành), đọc trong sổ lúc nào cũng được.", "present_s": 25, "gap_s": 40, "near": 120, "wait_s": 2.5, "nudge_s": 12},
  "card": {"_note": "Thẻ mở / khép quyển (src/ui/the-quyen.js), cùng ngôn ngữ hình với nghi lễ đột phá (src/ui/mung-canh.js): nền tối, vầng sáng, dải chữ, tên quyển đập xuống. Giây tính từ lúc hiện. auto: đang Tự đánh / Tự hành thì tự đóng sau chừng ấy giây.", "color": "#ffd98a", "color_khep": "#bff4ff", "size": 264, "lvl": 2, "y": 0.34, "dim": 0.82, "flash": 0.22, "t": {"dim": 0.25, "ray": 0.1, "title": 0.25, "name": 0.55, "sub": 0.85, "line": 1.15, "gap": 0.22, "end": 0.5, "out": 0.25, "auto": 3}, "sfx": {"open": "qua-mo", "name": "qua-no-lon", "name_khep": "qua-no", "line": [["qua-d2", 0.8], ["qua-d3", 0.8], ["qua-d4", 0.8], ["qua-d5", 0.8]], "ok": "click"}},
  "kq_bubble": {"_note": "Khẩu quyết hiện thành bong bóng trên đầu lúc tụ linh tung pháp bảo, mình và người cùng tinh cầu đều thấy (đi chung tin tụ linh, không thêm tin mạng; src/game/khau-quyet.js). sec: giây hiện; rate: phần lần tung có hô (1 = lần nào cũng hô); gap: một người hô hai câu cách nhau ít nhất chừng ấy giây (tung liền mấy món thì chỉ hô câu đầu). Bong bóng trò chuyện của người chơi không bị đè.", "on": true, "sec": 1.6, "rate": 1, "gap": 2.5},
  "text": {
   "cover_sub": "Cuốn sổ Hệ Thống ghi tên những người từng đứng giữ.",
   "progress": "Đã đọc {a}/{b} trang",
-  "quyen": "Quyển {n}",
-  "open": "Mở quyển",
-  "close": "Khép quyển",
+  "open": "Mở {q}",
+  "close": "Khép {q}",
   "ask": "Ngươi đứng đây vì ai?",
-  "pages": "{a}/{b} trang",
   "new": "Mới",
   "read": "Đọc",
   "again": "Xem lại",
-  "locked": "Chưa mở",
   "how": "Mở khi: {x}",
   "sec_quyen": "Bảy quyển",
   "sec_quy": "Chín thiên quy",
@@ -33,27 +31,25 @@
   "cam_lock": "Cấm Kỵ Các ở tầng trên cùng của Tàng Kinh Các. Trưởng lão chưa cho lên.",
   "cam_intro": "Một nghìn quyển tuyệt học cấm kỵ. Mỗi quyển chỉ một dòng là chiêu thức, còn lại là tên người đã dùng và cái giá họ đã trả.",
   "cam_gia": "Giá {x}",
-  "cam_loi": "Lời",
-  "cam_chieu": "Chiêu",
-  "cam_tra": "Giá",
+  "cam_chieu": "Thi triển",
+  "cam_tra": "Cái giá",
   "cam_nguoi": "Người viết quyển",
   "cam_trang": "Quyển thứ một nghìn để trắng. Môn quy ghi: quyển này dành cho người viết nó.",
   "busy": "Đang có việc khác. Xong rồi hẵng đọc.",
   "nudge_new": "Đinh! Sổ Trấn Ma Kỷ có trang mới: {ten}. Rảnh tay thì chạm vào đây mà đọc.",
   "nudge_old": "Đinh! Bổn hệ thống vừa chép lại sổ Trấn Ma Kỷ. Ký chủ có {n} trang chưa đọc. Chạm vào đây.",
-  "nudge_khep": "Đinh! Sổ Trấn Ma Kỷ vừa chép xong quyển {n}: {ten}. Quyển kế mở khi: {x}. Chạm vào đây để xem sổ.",
+  "nudge_khep": "Đinh! Sổ Trấn Ma Kỷ vừa chép xong {q}: {ten}. Quyển kế mở khi: {x}. Chạm vào đây để xem sổ.",
   "card_title": "Trấn Ma Kỷ",
   "law_got": "Lĩnh ngộ thiên quy: {ten}",
   "cam_got": "Cấm Kỵ Các đã mở trong sổ",
-  "page_of": "Quyển {n}: {a}/{b} trang",
   "all": "Đã chép {a}/{b} trang vào sổ",
   "next_q": "Quyển kế mở khi: {x}",
+  "next_open": "Quyển kế đã mở: {ten}",
   "end": "Sổ chưa có trang cuối. Tên ký chủ vẫn đang được chép tiếp.",
   "ok": "Tiếp tục",
   "skip": "Chạm để xem nhanh",
   "auto_on": "Trang mới tự kể khi rảnh tay: Bật",
-  "auto_off": "Trang mới tự kể khi rảnh tay: Tắt",
-  "back": "Về bìa sổ"
+  "auto_off": "Trang mới tự kể khi rảnh tay: Tắt"
  },
  "canh_gioi": [
   "Luyện Khí là học thở cùng Cây.",
@@ -211,9 +207,9 @@
     ["he-thong", "Hỏi ông ấy tên gì đi ký chủ. ...Thôi đừng. Bổn hệ thống tra sổ rồi. Không có."]
    ], "ghi": "Thiên Kim Tinh. Kiếm Lão giữ mộ kiếm sáu mươi năm, không ai biết tên thật của ông."},
    {"id": "q4-2", "ten": "Năm chìa khoá", "khi": {"den": "kiem-trung"}, "goi": "Vào Kiếm Trủng", "canh": [
-    ["he-thong", "Nghe cho kỹ. Năm rễ cái của Cây trồi lên ở năm tinh cầu: Hỏa, Thủy, Mộc, Kim, Thổ. Mỗi rễ có một người giữ, mang linh căn thuần."],
-    ["he-thong", "Tiểu Hỏa giữ rễ Hỏa. Thanh Diệp giữ rễ Mộc. Thiết Lan giữ rễ Kim, đang kẹt trong này. Rễ Thổ là một người tên Thạch Sinh."],
-    ["he-thong", "Người giữ rễ Thủy thì ký chủ gặp rồi: ông lão đứng gác trong Băng Quật. Ông ấy ngã từ lâu."],
+    ["he-thong", "Nghe cho kỹ. Năm rễ cái của Cây trồi lên ở năm tinh cầu: Hỏa, Thủy, Mộc, Kim, Thổ. Mỗi rễ chỉ mở cho một người mang linh căn thuần đúng hệ: một chìa khoá sống."],
+    ["he-thong", "Tiểu Hỏa là chìa Hỏa, nên ma tộc mới bắt nó đầu tiên. Thanh Diệp là chìa Mộc. Thiết Lan là chìa Kim, đang kẹt trong này. Chìa Thổ là một người tên Thạch Sinh."],
+    ["he-thong", "Chìa Thủy thì ký chủ gặp rồi: ông lão đứng gác trong Băng Quật. Ông ấy ngã từ lâu."],
     ["he-thong", "Thiếu một chìa thì Ma Tôn phải tìm thứ nối được vào mọi rễ. Một cành ghép. Là ký chủ đó. Vui không?"]
    ], "ghi": "Ma Tôn cần năm chìa khoá sống. Chìa thứ năm là ta."},
    {"id": "q4-3", "ten": "Kiếm biết nằm yên", "khi": {"boss": "van-kiem-ma-tuong", "tai": "kiem-trung", "hoac": {"total": 27}}, "goi": "Hạ Vạn Kiếm Ma Tướng trong Kiếm Trủng", "canh": [
@@ -247,7 +243,7 @@
    {"id": "q5-2", "ten": "Khoai nướng", "khi": {"den": "dao-hau-tho"}, "goi": "Bay tới Hậu Thổ Tinh", "canh": [
     ["thach-ba", "Đất này nuôi người ba nghìn năm. Ma tộc tới, đất cũng biết khóc. Ăn củ khoai nướng không?"],
     ["a-nham", "Ta trốn trong hang ba tháng. Thằng Thạch Sinh thì không trốn. Nó bị lôi xuống Địa Cung rồi."],
-    ["he-thong", "Thạch Sinh giữ rễ Thổ. Chìa thứ tư. Ăn khoai nhanh lên ký chủ."]
+    ["he-thong", "Thạch Sinh là chìa Thổ. Chìa thứ tư. Ăn khoai nhanh lên ký chủ."]
    ], "ghi": "Hậu Thổ Tinh. Thạch Bà mời khoai nướng. Thạch Sinh bị giam dưới Địa Cung."},
    {"id": "q5-3", "ten": "Mồi", "khi": {"boss": "toai-son-ma-tuong", "tai": "dia-cung", "hoac": {"total": 30}}, "goi": "Hạ Toái Sơn Ma Tướng trong Địa Cung", "canh": [
     ["thach-sinh", "...Ta không giỏi nói. Nhưng ta nhớ ơn."],
@@ -283,7 +279,7 @@
      {"label": "Cho ta nghĩ đã.", "reply": "Được. Bổn hệ thống đợi. Bao lâu cũng đợi.", "lai": true}
     ]}},
     {"dan": {"fx": "tia", "tieng": ["portal", 0.7], "cho": 1.4}},
-    ["", "Từ khắp tinh hệ, hàng nghìn sợi sáng bay về vết cắt trên trời. Ký chủ nào cũng chọn như bạn. Vết cắt khép lại một đoạn."],
+    ["", "Từ khắp tinh hệ, hàng nghìn sợi sáng bay về vết cắt trên trời: những ký chủ khác cũng đã chọn ở lại. Vết cắt khép thêm một đoạn."],
     ["", "Bạn đọc ba dòng của quyển trắng: Ta từ nơi có nắng mà tới. Nắng ấy, ta để lại đây. Ta ở lại.", {"tap": true}],
     {"dan": {"toi": 0, "chop": 1, "tieng": ["breakthrough", 0.7], "cho": 0.9}},
     ["", "Trời sao im lặng. Hệ Thống cũng im lặng."]

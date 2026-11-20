@@ -181,8 +181,8 @@ export function createHeThong(game) {
     ic.hidden = !live; if (!live) { tip.hidden = true; return; }
     if (!wander && !userPos && !ic.classList.contains('keo')) place();
     const quiet = !!game.story?.rung?.();   // đang leo bậc đầu game: Hệ Thống im lặng đứng xem, không lẩm bẩm, không nhắc việc (dòng nhắc từng che mất thẻ bậc giữa trận)
-    const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
-    if (mum && !open && tip.hidden && !quiet) { tip.textContent = mum; tip.dataset.go = ''; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
+    const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng (đang có hội thoại thì thôi: Hệ Thống đang nói trong truyện mà biểu tượng lại lẩm bẩm câu khác là lạc nhịp)
+    if (mum && !open && tip.hidden && !quiet && !game.dialog?.open) { tip.textContent = mum; tip.dataset.go = ''; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);

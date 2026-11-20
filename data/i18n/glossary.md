@@ -140,3 +140,31 @@ Nguyên tắc:
 Tên ma tướng, boss dịch nghĩa: Hàn Hồn Ma Tướng → Frost Soul Demon General / 寒魂魔將; Hắc Phong Ma Quân → Black Wind Demon Lord / 黑風魔君;
 Thực Mộc Ma Hậu → Wood-Devouring Demon Queen / 噬木魔后; Vạn Kiếm Ma Tướng → Myriad Sword Demon General / 萬劍魔將;
 Toái Sơn Ma Tướng → Mountain-Shatter Demon General / 碎山魔將; Hư Không Ngục Chủ → Void Prison Warden / 虛空獄主.
+
+## Trấn Ma Kỷ (sổ truyện, `data/tran-ma-ky.json`, 21/11/2026)
+
+| Tiếng Việt | English | 繁體中文 |
+|---|---|---|
+| Trấn Ma Kỷ (cuốn sổ) | Demon Ward Chronicle (the Chronicle, the ledger) | 鎮魔紀（冊子） |
+| quyển một … quyển bảy / trang | Volume One … Volume Seven / page | 第一卷 … 第七卷 / 頁 |
+| Mở quyển / Khép quyển | {q} opens / {q} closes | 開卷 / 闔卷 |
+| Đinh! / bổn hệ thống / ký chủ | Ding! / this System / the Host | 叮！ / 本系統 / 宿主 |
+| Cây (Thế Giới Thụ) / Cây mẹ | the Tree (World Tree) / Mother Tree | 大樹（世界樹） / 母樹 |
+| rễ / rễ cái / rễ ghép / cành ghép / mắt ghép | root / main root / grafted root / grafted branch / graft bud | 根 / 主根 / 嫁接的根 / 接穗 / 接芽 |
+| về cội / tiễn về cội | return to the root / see off to the root | 歸根 / 送…歸根 |
+| nắng / mùi nắng | sunlight / the smell of sunlight | 陽光 / 陽光的味道 |
+| thiên quy / Luật Căn, Ma, Bậc, Quy Căn, Trấn, Đêm, Ghép, Giá, Tên | Heavenly Law / Law of the Root, Demons, Steps, Return, the Ward, Night, Grafting, Price, Names | 天規 / 根、魔、階、歸根、鎮、夜、嫁接、代價、名之規 |
+| khẩu quyết / đoản quyết / trường quyết / hợp quyết | incantation / short chant / long chant / chorus chant | 口訣 / 短訣 / 長訣 / 合訣 |
+| chữ lệnh: Trảm, Khởi, Khai, Lâm, Hộ, Tán, Trấn, Thu, Lai, Quy, Phong, Phá | Cleave, Rise, Open, Descend, Guard, Scatter, Hold, Gather, Come, Return, Seal, Break | 斬、起、開、臨、護、散、鎮、收、來、歸、封、破 |
+| Cấm Kỵ Các / tuyệt học cấm kỵ / quyển (cấm kỵ) | Forbidden Pavilion / forbidden arts / scroll | 禁忌閣 / 禁忌絕學 / 卷 |
+| cái giá: Thọ, Tu, Ức, Danh, Mệnh, Đường về | price: Lifespan, Cultivation, Memory, Name, Life, The way home | 代價：壽、修、憶、名、命、歸途 |
+| thọ nguyên / Nhượng Thọ / Tiếp Mạch | lifespan / Yielding Years / Grafting the Vein | 壽元 / 讓壽 / 接脈 |
+| chìa khoá sống / linh căn thuần | living key / pure spirit root | 活鑰匙 / 純靈根 |
+| cắm rễ / kết hạt (Trúc Cơ, Kim Đan) | taking root / setting seed | 扎根 / 結籽 |
+| Ma Tổ / Ma Vương / Đại Ma Thần / Ma Tôn | Demon Ancestor / Demon King / Great Demon God / Demon Lord | 魔祖 / 魔王 / 大魔神 / 魔尊 |
+| người gác / người giữ rễ / người giữ mộ | guard / root keeper / tomb keeper | 守衛 / 守根人 / 守墓人 |
+| Vành Khai Hoang / Mảnh Vỡ Tinh Cầu | Reclamation Rim / Planet Shard | 拓荒之環 / 星球碎片 |
+| "Ngươi đứng đây vì ai?" / "Ở lại." | "For whom do you stand here?" / "Stay." | 「你站在這裡，是為了誰？」 / 「留下。」 |
+
+Tên người mới gặp trong sổ: Lão Ngư → Old Yu / 老漁; Kiếm Lão → Sword Elder / 劍老; Thạch Bà → Granny Shi / 石婆; Sư tỷ Lan → Senior Sister Lan / 蘭師姐.
+Lời Hệ Thống giữ giọng tự xưng ngôi ba ("this System…", 「本系統…」), gọi người chơi là "the Host" / 「宿主」, không đổi thành "I / you".

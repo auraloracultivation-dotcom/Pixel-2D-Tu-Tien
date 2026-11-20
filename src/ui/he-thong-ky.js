@@ -41,7 +41,7 @@ export function renderKy(game, body, st, rerender, O = {}) {
     for (const q of so.quyen) {
       const kin = !q.trang.some(p => p.mo);   // quyển chưa mở trang nào: chỉ hiện gợi ý
       const b = btn('ky-q' + (kin ? ' kin' : ''), null, () => { if (!kin) go('tmk:q:' + q.id); });
-      const l = el('span', 'ky-q-l'); l.append(el('small', null, fill(X.quyen, { n: q.so })), el('b', null, kin ? '???' : q.ten), el('i', null, kin ? fill(X.how, { x: q.goi }) : q.noi));
+      const l = el('span', 'ky-q-l'); l.append(el('small', null, q.so), el('b', null, kin ? '???' : q.ten), el('i', null, kin ? fill(X.how, { x: q.goi }) : q.noi));
       const r = el('span', 'ky-q-r', fill(X.have, { a: q.doc, b: q.trang.length }));
       if (q.moi) r.append(el('em', 'ky-moi', X.new));
       b.append(l, r); body.append(b);
@@ -60,7 +60,7 @@ export function renderKy(game, body, st, rerender, O = {}) {
     const q = so.quyen.find(x => x.id === cur.slice(6));
     if (!q) { st.cur = 'tmk'; rerender(); return; }
     const head = el('div', 'ky-dau');
-    head.append(el('small', null, fill(X.quyen, { n: q.so })), el('b', null, q.ten), el('i', null, q.noi), el('p', 'ht-line', q.mo), bar(q.doc, q.trang.length));
+    head.append(el('small', null, q.so), el('b', null, q.ten), el('i', null, q.noi), el('p', 'ht-line', q.mo), bar(q.doc, q.trang.length));
     body.append(head);
     const xem = (p, again) => { O.minimize?.(); setTimeout(() => phatTrang(game, p.id, again), 420); };   // chờ bảng thu nhỏ xong rồi cảnh mới diễn
     q.trang.forEach((p, i) => {
@@ -81,7 +81,7 @@ export function renderKy(game, body, st, rerender, O = {}) {
     for (const l of tmkQuy(game)) {
       const d = el('div', 'ky-quy' + (l.co ? '' : ' kin'));
       if (l.co) d.append(el('b', null, l.ten), el('span', null, l.cau), el('p', null, l.y));
-      else d.append(el('b', null, '???'), el('i', null, l.tu ? fill(X.quy_lock, { q: fill(X.quyen, { n: C.so[l.tu.qi] }), n: l.tu.i + 1 }) : ''));
+      else d.append(el('b', null, '???'), el('i', null, l.tu ? fill(X.quy_lock, { q: C.so[l.tu.qi], n: l.tu.i + 1 }) : ''));
       body.append(d);
     }
     return;

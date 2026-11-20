@@ -50,6 +50,11 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
   mừng. Rồi làm tiếp đi nè" (AI hiểu là: clip 1: nhịp đánh thường của người chơi chậm lại, làm cho mọi vũ khí theo nhịp mẫu My Heroes (kiếm 1,6 đòn / giây), đo lại quái
   đầu game theo nhịp mới rồi gửi clip mới; clip 2: món có nghi lễ thì chỉ còn tiếng mừng của nghi lễ, trên rương không kêu tiếng mừng nữa. Đây chưa phải lời "đưa lên" /
   "áp lên": sửa xong gửi clip lại rồi hỏi tiếp).
+- 21/11 03:47 (sau khi đọc bản thiết lập thế giới Trấn Ma Kỷ): "nội dung này b viết hay đến mức từng chữ từng dòng tôi đều k muốn bỏ lỡ… uỷ quyền cho b tự ý sửa toàn bộ
+  nội dung truyện trong game… B xây game cho tôi nhé, quan trọng nhất vẫn là cảm xúc người chơi khi vừa chơi vừa hiểu truyện, đồ hoạ phải nhiều hiệu ứng chúc mừng, lễ
+  thăng cấp, nói chung là đánh thẳng vào tâm lý người chơi làm họ cảm thấy vui, thấy tiến bộ, thấy yêu mến k nỡ rời và thấy được ý nghĩa game. Tỉ mỉ 1 chút" (AI hiểu
+  là: truyện phải tới với người chơi ngay trong lúc chơi, từng mẩu ngắn có hiệu ứng và có mừng, không thành phim dài chặn tay; mỗi lần mạnh lên, mỗi trang đọc xong đều
+  thấy mình tiến một bước; câu hỏi "Ngươi đứng đây vì ai?" cho việc cày cuốc một cái nghĩa. Làm thành sổ Trấn Ma Kỷ và phần còn lại của việc 4b: `docs/14-TRAN-MA-KY.md`).
 
 ## Câu cái hồn
 
@@ -246,8 +251,13 @@ hiệu ứng trên nhân vật: `src/game/juice.js juiceUp` + cột sáng trong 
 Công tắc `mung.on` **bật cho mọi người từ 14/11/2026 23:38** (bản `6d1d959a`; chủ dự án 23:25 "những gì đã làm, giúp tôi đưa lên"; riêng một máy tắt bằng `?mung=0`; tắt thì mọi thứ y như cũ). Trước khi đưa: `tools/check.mjs` đạt, bài tự hành và bài người mới tự tay đi đều đạt với công tắc bật (0 lỗi JS); sau khi đưa: bản đã nén chạy thử lên một tầng có thẻ mừng, 0 lỗi JS; 3 người chơi lưu bình thường, bảng lỗi máy khách `p2d_loi` 6 giờ không có dòng nào. Quay cảnh: `tools/do-don/quay-mung.mjs`
 (`VIEC=cuong | tay | luyen | pbup | pbduc | tang | canh`, thử máy thấp `MAN=360x640`, thử bản dịch `NGON=en`).
 
-Chưa làm trong việc 4b (cùng một câu "mạnh lên là phải chúc mừng", làm tiếp khi chủ dự án ưng kiểu này): nâng cấp động phủ, linh thú lên cấp / tiến hoá / ghép sao,
-công pháp lên tầng, khảm và ghép ngọc, mặc món mạnh hơn từ túi. Cảnh quay lên tầng đang là nhân vật đứng yên; chưa quay cảnh lên tầng giữa trận đánh thật.
+**Làm tiếp 21/11/2026** (chủ dự án 03:47: "đồ hoạ phải nhiều hiệu ứng chúc mừng, lễ thăng cấp… làm họ cảm thấy vui, thấy tiến bộ"; nhánh `tran-ma-ky`, chưa đưa lên):
+nâng cấp động phủ, linh thú tiến hoá / ghép sao (màn mừng trong bảng), khảm và ghép ngọc (màn mừng trong bảng), công pháp lên tầng (thẻ trên đầu nhân vật, không
+dừng tay), linh thú lên cấp (vòng sáng mỗi cấp, thẻ ở mốc 5 cấp và lúc chạm cấp tối đa). Lễ đột phá thêm một dòng nói cảnh giới mới nghĩa là gì ("Trúc Cơ là
+cắm rễ…"). Bảng từng màn ở `docs/14-TRAN-MA-KY.md` mục "Mừng mạnh lên"; code `src/ui/mung-them.js`, số chữ `data/juice.json → mung.them`.
+
+Chưa làm trong việc 4b: mặc món mạnh hơn từ túi (chữ "Lực chiến ▲" nổ giữa màn vẫn báo). Cảnh quay lên tầng đang là nhân vật đứng yên; chưa quay cảnh lên tầng
+giữa trận đánh thật.
 
 ## Việc 5: mười lăm phút đầu kiểu leo bậc (bản dựng thử hai bậc đầu + đề xuất, 14/11/2026)
 
@@ -626,3 +636,4 @@ Cùng lúc (câu 15, chủ dự án "Gỡ"): gỡ cờ đỏ tự động của 
 | 15/11/2026 | 6 dòng 18a (triệu hồi chia năm bậc + bảo hiểm) + 18b (quà gặp mặt 300 điểm): chuẩn bị xong sau công tắc `bac.on` (tắt) + migration chưa áp; thử 200.000 lượt trên máy chủ thử; mục Triệu hồi thêm số đếm bảo hiểm, tên bậc, nghi lễ từ bậc Hiếm, bảng tỉ lệ theo bậc; sửa kèm nút Triệu hồi khuất dưới khung ở máy màn thấp, món lướt qua thiếu hình | Đã gửi clip, chờ chủ dự án nhắn "áp lên" + "đưa lên" (bảng câu hỏi câu 22) |
 | 15/11/2026 | Chủ dự án xem hai clip (04:39: "tốc đánh có vẻ cần chậm hơn", "bị lồng 2 âm thanh chúc mừng"): nhịp đánh thường mọi vũ khí chậm lại 1,64 lần (kiếm 2,6 → 1,6 đòn / giây), đo lại cả chặng, sàn trùm đầu 1,4 → 1,3, bãi đảo tông môn 360 → 240; sửa lỡ chân giẫm cổng ra bí cảnh giữa trận và bậc 5 đếm cả quái ngoài bãi; triệu hồi: món có nghi lễ chỉ còn một tiếng mừng | Đã gửi hai clip mới, chờ "đưa lên" (câu 21), "áp lên + đưa lên" (câu 22) |
 | 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
+| 21/11/2026 | Truyện chạm được tới người chơi (chủ dự án 03:16, 03:47; lời 14/11: "cốt truyện bằng chữ mà không có ảnh hay hiệu ứng hoặc âm thanh thì chả bao giờ động vào trái tim mọi người"): sổ **Trấn Ma Kỷ** bảy quyển 32 trang trong Hệ Thống → Tàng Thư, trang mở đúng lúc người chơi vừa làm được việc ấy, tự kể khi rảnh tay (đang Tự đánh / Tự hành chỉ nhắc một dòng), có dàn cảnh tối / rung / chớp / tiếng / hiệu ứng điểm ảnh và nhịp lặng, đọc xong có thẻ mừng, hết quyển có thẻ khép quyển trả lời câu "Ngươi đứng đây vì ai?"; thẻ mở quyển cả màn; khẩu quyết hiện trên đầu lúc tung pháp bảo; lời mở đầu viết lại; 4b làm nốt phần còn lại (dòng trên). Kịch bản từng nhịp và ảnh chụp 390×844: `docs/14-TRAN-MA-KY.md`, `tools/do-don/quay-tmk.mjs`. Kiểm tra, bài chơi thử Tự hành, bài hai máy đều đạt trên máy tạm | Nhánh `tran-ma-ky` chỉ commit trong máy tạm, chờ chủ dự án xem rồi cho đẩy lên GitHub |

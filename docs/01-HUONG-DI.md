@@ -4,6 +4,11 @@ Game 2D pixel thế giới mở MMORPG tu tiên cho Google Play, cảm giác đ�
 
 Bản cốt truyện đầy đủ (Claude Docs): https://claude.ai/artifact/NsmdqZZLEhUn1rfkXXTN9K
 
+**Từ 21/11/2026 thế giới và cốt truyện theo bản thiết lập "Trấn Ma Kỷ"** (chủ dự án nhờ thiết kế lại từ đầu, đọc xong giao dựng vào game): `docs/14-TRAN-MA-KY.md`
+(phần A: quy tắc thế giới, khẩu quyết, cấm kỵ, bảy quyển truyện, nhịp truyện; phần B: đã dựng gì vào game). Mục "Cốt truyện" bên dưới là quyết định gốc 26/10,
+vẫn đúng về không khí, nhân vật, chín cảnh giới; chỗ nào lệch với `docs/14` thì `docs/14` thắng. Chủ dự án gọi game là **Trấn Ma Kỷ** (tên hiện trong game và trên
+cửa hàng chưa đổi, chờ chốt).
+
 ## Cốt truyện (chủ dự án chọn, 26/10/2026)
 
 1. Không khí: tươi sáng, có lúc sâu lắng.
@@ -108,7 +113,7 @@ Chủ dự án giao Claude tự chốt theo các đề xuất. Bản đầy đ�
 
 ## Lộ trình
 
-1. Cốt truyện và nội dung: xong.
+1. Cốt truyện và nội dung: xong. 21/11/2026 viết lại theo bản thiết lập Trấn Ma Kỷ và dựng thành sổ truyện bảy quyển trong game (`docs/14-TRAN-MA-KY.md`).
 2. Bản chơi tạm hình khối đơn giản: xong phần lớn (làng, Thiên Kiếm Phong, bí cảnh, đả tọa, online, chợ, tổ đội, tông môn).
 3. Trọng điểm bồi dưỡng và cấp khó: xong (chiêu mạnh hơn, cấp chiêu, cường hoá +20, ngọc cấp 10, tẩy luyện tăng giá, ô Mũ, luyện pháp bảo, cấp khó ×2 cho tháp và phó bản, bộ Đạo Vận và Con Đường Đạo Vận).
 4. Vĩ mô đến vi mô (sáng 28/10): đã đi đủ một lượt khung thô: tinh hệ, bay truyền tống, tinh cầu tròn, địa hình, nhà cây, người và thú, quần áo và công cụ, truyền âm, thời trang, linh thực. Nhiệm vụ đủ bốn loại: chính tuyến (truyện + Đạo Vận song hành), ngày, tuần, sự kiện.
