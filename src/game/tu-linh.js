@@ -17,7 +17,7 @@ export function startTuLinh(game, color, aimFn, fire) {
   if (s <= 0) { fire(aimFn()); return; }
   p.tuLinhT = Math.max(p.tuLinhT || 0, s);
   const seed = Math.random() * 1000;
-  addFx(game, { type: 'tu-linh', x: p.x, y: p.y, life: s, color, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
+  addFx(game, { type: 'tu-linh', x: p.x, y: p.y, life: s, color, on: p, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
   game.sfx?.(C.sfx || 'chime', 0.35);
   pbx(game).list.push({ kind: 'wait', t: 0, life: s, then: () => {
     const o = heroAt(p); addFx(game, { type: 'ring', x: o.x, y: o.y - 2, r: C.burst_r || 16, color, life: 0.18, fill: true });   // chớp nhỏ lúc bắn
@@ -25,8 +25,14 @@ export function startTuLinh(game, color, aimFn, fire) {
   } });
 }
 
+// Người khác tụ linh (tin ks-tl, kiep-see.js): cùng hình, không bắn gì (đòn của họ tới sau qua pb-see.js)
+export function tuLinhSee(game, o, color) {
+  const C = tuLinhCfg(game), s = C.on === false ? 0 : C.s ?? 0.22, seed = Math.random() * 1000;
+  if (s > 0) addFx(game, { type: 'tu-linh', x: o.x, y: o.y, life: s, color, on: o, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
+}
+
 function drawTuLinh(ctx, game, f, k, C, seed) {
-  const p = game.player, o = heroAt(p), x = Math.round(o.x), y = Math.round(o.y - 4), R0 = C.r || 26, n = C.motes || 12;
+  const p = f.on || game.player, o = heroAt(p), x = Math.round(o.x), y = Math.round(o.y - 4), R0 = C.r || 26, n = C.motes || 12;
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   ctx.globalAlpha = 0.25 + 0.5 * k; ctx.strokeStyle = f.color; ctx.lineWidth = 2;   // vòng tụ co dần về người
   ctx.beginPath(); ctx.ellipse(x, y + 6, R0 * (1 - 0.7 * k), R0 * 0.45 * (1 - 0.7 * k), 0, 0, Math.PI * 2); ctx.stroke();

@@ -8,7 +8,7 @@ export function drawScorch(ctx, game, t) {
   const L = game.scorch;
   if (!L?.length) return;
   for (const s of L) {
-    const fade = s.fade != null ? Math.max(0, s.fade / (s.fade0 || 3)) : 1, born = Math.min(1, s.t / 0.15);
+    const fade = s.fade != null ? Math.min(1, Math.max(0, s.fade / (s.fade0 || 3))) : 1, born = Math.min(1, s.t / 0.15);
     const a = fade * born, rx = Math.round(s.r), ry = Math.max(2, Math.round(s.r * 0.42)), cx = Math.round(s.x), cy = Math.round(s.y);
     if (a <= 0.02) continue;
     const cut = Math.floor((1 - a) * 16);
@@ -39,15 +39,18 @@ export function drawScorch(ctx, game, t) {
 }
 
 export function drawCele(ctx, game, t) {
-  const c = game.cele;
-  if (!c) return;
-  const K = game.data.config.trib_fx?.cele || {}, p = game.player, G = K.gather || 2.6, k = Math.min(1, c.t / G);
+  if (game.cele) drawOne(ctx, game, game.cele, game.player, true);
+  for (const c of game.celeSee || []) drawOne(ctx, game, c, c.who, false);   // lễ của người khác (trib-cele.js celeSeeStart)
+}
+
+function drawOne(ctx, game, c, p, mine) {
+  const K = game.data.config.trib_fx?.cele || {}, G = K.gather || 2.6, k = Math.min(1, c.t / G);
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   if (!c.boomed) {   // quầng sáng quanh người to dần, cột sáng mảnh vọt lên
     ctx.globalAlpha = 0.25 + 0.35 * k; ctx.fillStyle = c.color;
     ctx.beginPath(); ctx.ellipse(p.x, p.y - 8, 10 + 22 * k, 8 + 16 * k, 0, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 0.5 * k; ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(p.x) - 1, Math.round(p.y - 8 - 220 * k), 3, Math.round(220 * k));
-  } else {   // sau bùm: cả vùng ánh màu cảnh giới rồi nhạt (after giây)
+  } else if (mine) {   // sau bùm: cả vùng ánh màu cảnh giới rồi nhạt (after giây)
     const v = game.screen?.viewRect?.(), a = Math.max(0, 1 - (c.t - G) / (K.after || 1.6)) * (K.tint || 0.22);
     if (v && a > 0) { ctx.globalAlpha = a; ctx.fillStyle = c.color; ctx.fillRect(v.x0, v.y0, v.x1 - v.x0, v.y1 - v.y0); }
   }
