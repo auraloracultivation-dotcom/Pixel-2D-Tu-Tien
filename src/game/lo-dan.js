@@ -15,45 +15,38 @@ export const loOf = save => ({ ph: Math.max(0, Math.min(6, save?.lo?.ph | 0)), c
 // Chọn hình lò (4 loại lò, chủ dự án 20/11/2026 14:10): chỉ là hình, lưu trong bản lưu, máy chủ giữ nguyên khi nâng lò
 export function setHinh(game, i) { game.save.lo = { ...loOf(game.save), hinh: i }; game.persist(); }
 
-// Tỉ lệ thành với k bộ đan phương
+// Tỉ lệ thành với tổng k bộ đan phương (mọi loại đan trong mẻ)
 export function loRate(game, sets) {
   const c = L(game), lo = loOf(game.save);
   return Math.max(c.floor, Math.min(c.max, c.base + (c.pham[lo.ph] || 0) + c.per_cap * lo.cap - c.per_set * (sets - 1)));
 }
 
-// Đan phương khớp với nguyên liệu đang bỏ vào put ({ mã: số }): mọi đan đủ ít nhất 1 bộ, xếp như máy chủ chọn mặc định
-// (ít nguyên liệu thừa nhất, rồi nhiều loại nguyên liệu nhất, rồi nhiều cái nhất, rồi theo mã). Mỗi dòng { id, sets, make, kinds, sum, left }
-export function matches(game, put) {
-  const out = [];
-  for (const [id, p] of Object.entries(game.data.cave.pills)) {
-    const r = Object.entries(p.recipe || {});
-    if (!r.length || r.some(([k]) => !(put[k] > 0))) continue;
-    const sets = Math.min(...r.map(([k, n]) => Math.floor(put[k] / n)));
-    const sum = r.reduce((s, [, n]) => s + n, 0), all = Object.values(put).reduce((s, n) => s + n, 0);
-    if (sets >= 1) out.push({ id, sets, make: p.make || 1, kinds: r.length, sum, left: all - sum * sets });
+// Ghép đan phương như máy chủ (chủ dự án 20/11/2026 14:3x: một mẻ ra được nhiều loại đan, nguyên liệu chồng nhiều đan phương thì "Random"):
+// đi qua các đan phương theo thứ tự ngẫu nhiên, mỗi đan lấy hết số bộ còn ghép được từ phần còn lại. Trả [{ id, sets, make }]
+export function ghep(game, put) {
+  const con = { ...put }, out = [], P = Object.entries(game.data.cave.pills).filter(([, p]) => Object.keys(p.recipe || {}).length);
+  for (let i = P.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [P[i], P[j]] = [P[j], P[i]]; }
+  for (const [id, p] of P) {
+    const r = Object.entries(p.recipe), sets = Math.min(...r.map(([k, n]) => Math.floor((con[k] || 0) / n)));
+    if (!(sets >= 1)) continue;
+    for (const [k, n] of r) con[k] -= n * sets;
+    out.push({ id, sets, make: p.make || 1 });
   }
-  return out.sort((a, b) => a.left - b.left || b.kinds - a.kinds || b.sum - a.sum || (a.id < b.id ? -1 : 1));
-}
-
-// Dự kiến khi luyện put, chọn đan want (không chọn: mặc định): { m (dòng khớp hoặc null), rate, extra: { mã: số thừa } }
-export function plan(game, put, want) {
-  const all = matches(game, put), m = (want ? all.find(x => x.id === want) : all[0]) || null;
-  const extra = {}, r = m ? game.data.cave.pills[m.id].recipe : {};
-  for (const [k, n] of Object.entries(put)) { const left = n - (r[k] || 0) * (m?.sets || 0); if (left > 0) extra[k] = left; }
-  return { m, all, rate: m ? loRate(game, m.sets) : 0, extra };
+  return out;
 }
 
 function mirror(game, put, r) {   // chép kết quả máy chủ (hoặc tính ở máy) vào bản lưu trong máy
   const s = game.save;
   s.mats ??= {}; s.pills ??= {};
   for (const [k, n] of Object.entries(put)) s.mats[k] = Math.max(0, (s.mats[k] || 0) - n);
-  if (r.thanh && r.dan) s.pills[r.dan] = (s.pills[r.dan] || 0) + r.vien;
+  for (const d of r.ds || []) if (d.thanh && d.dan) s.pills[d.dan] = (s.pills[d.dan] || 0) + d.vien;
   dailyEvent(game, 'brew');
   game.persist();
 }
 
-// Luyện: trả { thanh, dan, vien, ti_le } hoặc { err: 'thieu_nl' | 'net' | 'busy' }
-export async function luyen(game, put, want) {
+// Luyện: trả { ds: [{ dan, bo, vien, thanh }], thanh (có loại nào thành), vien (tổng), ti_le } hoặc { err: 'thieu_nl' | 'net' | 'busy' }
+// Một tỉ lệ chung theo tổng số bộ, mỗi loại đan tung riêng (14:3x "Mỗi loại đan tung riêng")
+export async function luyen(game, put) {
   const clean = Object.fromEntries(Object.entries(put).filter(([, n]) => Number.isInteger(n) && n > 0));
   if (!Object.keys(clean).length || Object.keys(clean).length > L(game).slots) return { err: 'du_lieu_sai' };
   if (Object.entries(clean).some(([k, n]) => (game.save.mats?.[k] || 0) < n)) return { err: 'thieu_nl' };
@@ -62,7 +55,7 @@ export async function luyen(game, put, want) {
     game.kyBusy = true;
     try {
       let res = null;
-      await game.cloud.run(async () => (await net()).luyenDan(clean, want || null), r => { mirror(game, clean, r); res = r; });
+      await game.cloud.run(async () => (await net()).luyenDan(clean), r => { mirror(game, clean, r); res = r; });
       return res || { err: 'net' };
     } catch (e) {
       const m = String(e?.message || '');
@@ -70,8 +63,9 @@ export async function luyen(game, put, want) {
       noFn = true;
     } finally { game.kyBusy = false; }
   }
-  const p = plan(game, clean, want), ok = !!p.m && Math.random() < p.rate;
-  const r = { thanh: ok, dan: p.m?.id || null, bo: p.m?.sets || 0, vien: ok ? p.m.make * p.m.sets : 0, ti_le: p.rate };
+  const g = ghep(game, clean), bo = g.reduce((t, x) => t + x.sets, 0), rate = bo ? loRate(game, bo) : 0;
+  const ds = g.map(x => { const ok = Math.random() < rate; return { dan: x.id, bo: x.sets, vien: ok ? x.make * x.sets : 0, thanh: ok }; });
+  const r = { ds, thanh: ds.some(d => d.thanh), vien: ds.reduce((t, d) => t + d.vien, 0), bo, ti_le: rate };
   mirror(game, clean, r);
   return r;
 }

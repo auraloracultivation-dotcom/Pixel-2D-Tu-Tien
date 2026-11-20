@@ -76,3 +76,29 @@
   filter: drop-shadow(1px 0 0 var(--q)) drop-shadow(-1px 0 0 var(--q)) drop-shadow(0 1px 0 var(--q)) drop-shadow(0 -1px 0 var(--q)) drop-shadow(0 0 5px var(--q)); }
 .ld-anim-chay { filter: drop-shadow(1px 0 0 var(--q)) drop-shadow(-1px 0 0 var(--q)) drop-shadow(0 6px 6px #ff6a1a) drop-shadow(0 0 8px #ff9a3a); }
 .ldx-hao.nhe { z-index: 1; }   /* nằm dưới lò đang bung nắp (.ld-anim z 2) */
+/* Bảng nhỏ chọn số lượng bỏ vào lò (lo-dan-view.js askQty; chủ dự án 14:3x "bảng nhập số to quá") */
+.ld-sl-nen { position: fixed; inset: 0; z-index: 9500; display: grid; place-items: center; background: rgba(0, 0, 0, .35); }
+.ld-sl { display: flex; flex-direction: column; gap: 6px; width: min(210px, 70vw); padding: 8px; border: 1.5px solid #c9a75a; border-radius: 8px;
+  background: #22183a; color: #f3ead2; font: 600 11px var(--f-body, sans-serif); box-shadow: 0 4px 16px rgba(0, 0, 0, .6); }
+.ld-sl-h { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.ld-sl-h b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #ffe7a6; }
+.ld-sl-h small { color: #d8cfb8; }
+.ld-sl-r { display: grid; grid-template-columns: 30px minmax(0, 1fr) 30px; gap: 4px; }
+.ld-sl-pm { height: 28px; padding: 0; border: 1.5px solid rgba(255, 230, 170, .5); border-radius: 6px; background: rgba(0, 0, 0, .35); color: #ffe7a6; font: 900 15px/1 var(--f-body, sans-serif); cursor: pointer; }
+.ld-sl-i { min-width: 0; height: 28px; padding: 0 4px; border: 1.5px solid rgba(255, 230, 170, .5); border-radius: 6px; background: #120c20; color: #fff; text-align: center; font: 800 14px var(--f-body, sans-serif); }
+.ld-sl-c { display: flex; gap: 3px; }
+.ld-sl-ch { flex: 1; padding: 3px 0; border: 1.5px solid rgba(255, 230, 170, .4); border-radius: 10px; background: rgba(0, 0, 0, .35); color: #f3ead2; font: 700 10px var(--f-body, sans-serif); cursor: pointer; }
+.ld-sl-b { display: flex; justify-content: flex-end; gap: 6px; }
+.ld-sl-b .sv-bbtn { font-size: 12px; padding: 4px 12px; }
+/* Viên đan chui ra từ miệng lò lúc nắp bung (14:3x), bay lên đứng trên lò tới khi bảng nhận thưởng mở */
+.ldx-dan.ldx-chui { animation: ldx-chui 2.1s cubic-bezier(.2, 1.3, .4, 1) forwards; z-index: 3; }
+@keyframes ldx-chui { 0% { transform: translate(-50%, -50%) scale(.3); opacity: 1; } 30% { transform: translate(-50%, calc(-50% - var(--len) * 1.1)) scale(1.2); }
+  55% { transform: translate(-50%, calc(-50% - var(--len))) scale(1); } 90% { transform: translate(-50%, calc(-50% - var(--len) * 1.05)) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, calc(-50% - var(--len) * 1.1)) scale(1); opacity: 0; } }
+/* Máy để chế độ êm (body.perf-calm tắt mọi chuyển động CSS, style-khung.css): hiệu ứng lò chỉ chạy lúc người chơi bấm Luyện, giữ lại */
+body.perf-calm #ld-fx .ldx-lua, body.perf-calm #ld-fx .ldx-sao { animation: ldx-bay-len .9s ease-out forwards !important; }
+body.perf-calm #ld-fx .ldx-hao { animation: ldx-hao 1.4s ease-out forwards !important; }
+body.perf-calm #ld-fx .ldx-khoi { animation: ldx-khoi 1.4s ease-out forwards !important; }
+body.perf-calm #ld-fx .ldx-dan.ldx-chui { animation: ldx-chui 2.1s cubic-bezier(.2, 1.3, .4, 1) forwards !important; }
+body.perf-calm .sv .ld-lo.ld-no .ld-lo-img { animation: ld-hong .7s ease-out !important; }
+body.perf-calm .sv .ld-lo.ld-chay .ld-lo-img { animation: ld-rung .12s linear infinite !important; }

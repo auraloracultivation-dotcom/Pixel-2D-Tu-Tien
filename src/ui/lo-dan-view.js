@@ -1,7 +1,7 @@
 // Túi đồ → Luyện đan (chủ dự án 20/11/2026 13:3x–13:4x): bên trái ô lò (viền màu theo phẩm lò, cấp, nút Nâng lò) và 9 ô nguyên liệu,
 // bên phải / bên dưới kho nguyên liệu dạng lưới; chạm nguyên liệu thì chọn số lượng bỏ vào, chạm ô trong lò thì lấy ra.
-// Dưới cùng: đan phương khớp (nhiều đan cùng khớp thì chọn), tỉ lệ thành, phần thừa sẽ mất, nút Luyện. Luật ở src/game/lo-dan.js.
-// st.ld = { put: { mã: số }, want: mã đan đã chọn | null, last: chữ kết quả lần trước }
+// Không báo trước đan gì, tỉ lệ bao nhiêu; một mẻ ra được nhiều loại đan; thành thì bảng nhận thưởng. Luật ở src/game/lo-dan.js.
+// st.ld = { put: { mã: số }, last: chữ kết quả lần trước }
 import { el } from './bag-detail.js';
 import { uiIco } from './self-gear.js';
 import { loOf, luyen, nangLo, upCost, syncLo, setHinh } from '../game/lo-dan.js';
@@ -21,25 +21,34 @@ function ico(D, k, cls) {   // hình nguyên liệu / đan (ảnh GPT ui.vk-<mã
   return i;
 }
 
-// Hỏi số lượng bỏ vào (còn trong kho: have)
-async function askQty(game, k, have) {
-  const T = game.data.cave.lo.text, Q = game.data.shop.qty || {}, opts = [];
-  for (const n of [1, 5, 10, 50]) if (n < have) opts.push({ id: String(n), label: `×${n}`, desc: '' });
-  opts.push({ id: String(have), label: `${Q.max || 'Tối đa'} ×${vn(have)}`, desc: '', color: '#f2c94c' });
-  opts.push({ id: 'nhap', label: Q.type || 'Nhập số', desc: '' }, { id: 'thoi', label: Q.no || 'Thôi', desc: '' });
-  const title = T.put.replace('{name}', matName(game.data, k)).replace('{n}', vn(have));
-  const pick = have <= 1 ? '1' : await game.dialog.choose(title, opts);
-  if (!pick || pick === 'thoi') return 0;
-  if (pick !== 'nhap') return Math.min(have, +pick || 0);
-  const raw = await game.dialog.ask(title, '1', 5, 'Bỏ vào', Q.no || 'Thôi');
-  const n = Math.floor(Number(String(raw || '').replace(/\D/g, '')));
-  return Number.isFinite(n) && n > 0 ? Math.min(have, n) : 0;
+// Hỏi số lượng bỏ vào (còn trong kho: have): bảng nhỏ nổi giữa màn (chủ dự án 14:3x "bảng nhập số to quá"), −/+, ô số, 1 · 5 · 10 · Tối đa
+function askQty(game, k, have) {
+  const D = game.data, T = D.cave.lo.text;
+  if (have <= 1) return Promise.resolve(have);
+  return new Promise(done => {
+    const nen = el('div', 'ld-sl-nen'), box = el('div', 'ld-sl'), head = el('div', 'ld-sl-h'), row = el('div', 'ld-sl-r'), chips = el('div', 'ld-sl-c'), bar = el('div', 'ld-sl-b');
+    head.append(ico(D, k, 'ld-cico'), el('b', null, matName(D, k)), el('small', null, T.sl_co.replace('{n}', vn(have))));
+    const inp = el('input', 'ld-sl-i'); inp.type = 'number'; inp.inputMode = 'numeric'; inp.min = '1'; inp.max = String(have); inp.value = '1';
+    const val = () => Math.max(1, Math.min(have, Math.floor(Number(inp.value) || 0)));
+    const set = n => { inp.value = String(Math.max(1, Math.min(have, n))); };
+    const minus = el('button', 'ld-sl-pm', '−'), plus = el('button', 'ld-sl-pm', '+');
+    minus.onclick = () => set(val() - 1); plus.onclick = () => set(val() + 1);
+    row.append(minus, inp, plus);
+    for (const n of [1, 5, 10]) if (n < have) { const c = el('button', 'ld-sl-ch', '×' + n); c.onclick = () => set(n); chips.append(c); }
+    const mx = el('button', 'ld-sl-ch', T.sl_max); mx.onclick = () => set(have); chips.append(mx);
+    const end = n => { nen.remove(); done(n); };
+    const no = el('button', 'sv-bbtn', T.sl_no), ok = el('button', 'sv-bbtn gold', T.sl_ok);
+    no.onclick = () => end(0); ok.onclick = () => end(val());
+    inp.onkeydown = e => { if (e.key === 'Enter') end(val()); };
+    nen.onclick = e => { if (e.target === nen) end(0); };
+    bar.append(no, ok); box.append(head, row, chips, bar); nen.append(box); document.body.append(nen);
+  });
 }
 
 export function renderLoDan(game, st, mid, bar, refresh) {
   css();
   const D = game.data, s = game.save, C = D.cave.lo, T = C.text, lo = loOf(s);
-  const ld = (st.ld ||= { put: {}, want: null, last: '' });
+  const ld = (st.ld ||= { put: {}, last: '' });
   if (!st.ldSync) { st.ldSync = true; syncLo(game).then(() => refresh()); }   // mở bảng lần đầu: hỏi máy chủ lò thật
   for (const [k, n] of Object.entries(ld.put)) if (!((s.mats?.[k] || 0) >= n)) { if (s.mats?.[k] > 0) ld.put[k] = s.mats[k]; else delete ld.put[k]; }   // kho đổi (vừa luyện, vừa dùng): kẹp lại
   const wrap = el('div', 'ld'), top = el('div', 'ld-top'), colL = el('div', 'ld-l'), colR = el('div', 'ld-r');   // trái: lò, 9 ô, dự kiến; phải: kho
@@ -116,21 +125,27 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   // Thanh dưới: Bỏ ra hết, Luyện
   const clear = el('button', 'sv-bbtn', T.clear);
   clear.disabled = !keys.length;
-  clear.onclick = () => { ld.put = {}; ld.want = null; ld.last = ''; refresh(); };
+  clear.onclick = () => { ld.put = {}; ld.last = ''; refresh(); };
   const go = el('button', 'sv-bbtn gold ld-go', T.go);
   go.disabled = !keys.length;
   go.onclick = async () => {
     go.disabled = true; clear.disabled = true; up.disabled = true; go.textContent = T.busy; ld.busy = true;
-    const put = { ...ld.put }, want = null;   // máy chủ tự dò đan phương khớp
-    const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put, want));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
-    ld.busy = false;
-    if (r.err) { game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : T.net, 2); refresh(); return; }
-    ld.put = {}; ld.want = null;
-    ld.last = r.thanh ? T.ok.replace('{n}', r.vien).replace('{name}', D.cave.pills[r.dan]?.name || '') : T.fail;
-    game.toast(ld.last, 2.4);
-    refresh();
-    const nb = mid.querySelector('.ld-lo');
-    if (nb) resultFx(game, nb, !!r.thanh, r.dan, r.vien);
+    const put = { ...ld.put };   // máy chủ tự ghép đan phương (một mẻ ra được nhiều loại đan)
+    const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
+    if (r.err) { ld.busy = false; game.toast(r.err === 'thieu_nl' ? 'Kho không còn đủ nguyên liệu.' : T.net, 2); refresh(); return; }
+    const ten = d => D.cave.pills[d.dan]?.name || d.dan, ok = (r.ds || []).filter(d => d.thanh);
+    ld.put = {}; ld.last = '';
+    refresh();   // dựng lại bảng (kho đã trừ), chữ kết quả chỉ hiện sau khi lò diễn xong
+    const nb = mid.querySelector('.ld-lo'), kq = ok.length ? T.ok_nhieu.replace('{list}', ok.map(d => `${ten(d)} ×${d.vien}`).join(', ')) : T.fail;
+    if (!ok.length) { if (nb) await resultFx(game, nb, r); game.toast(T.fail, 2.4); ld.busy = false; ld.last = kq; refresh(); return; }
+    if (nb) await resultFx(game, nb, r);   // bung nắp, viên đan chui ra từ miệng lò
+    ld.busy = false; ld.last = kq; refresh();
+    // Bảng nhận thưởng như nhận đồ (14:3x): người chơi bấm Tiếp tục mới đóng
+    const lo2 = loOf(s), first = D.art.sprites['ui.vk-' + ok[0].dan];
+    await game.rewardGive?.({ qua: { ray: '#ffd75a', ink: '#ffe7a6', lvl: 1,
+      name: ok.length > 1 ? T.kq_ten.replace('{k}', ok.length) : `${ten(ok[0])} ×${ok[0].vien}`, tag: T.kq_tag,
+      sub: T.kq_sub.replace('{name}', (C.hinh_ten || [])[lo2.hinh] || '').replace('{c}', lo2.cap), ico: first ? `url("${first.file}?v=${first.v}")` : '',
+      lines: (r.ds || []).map(d => d.thanh ? { text: `${ten(d)} ×${d.vien}`, color: '#ffe7a6' } : { text: T.kq_hong.replace('{name}', ten(d)), color: '#ff8a7a' }), gain: null } });
   };
   bar.replaceChildren(clear, up, go);
 }

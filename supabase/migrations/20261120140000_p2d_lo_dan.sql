@@ -1,10 +1,9 @@
 -- Lò luyện đan do máy chủ quyết (chủ dự án 20/11/2026 13:3x–13:4x; "số lượng và loại sẽ do máy chủ tính, tỷ lệ thành công cũng vậy").
 -- Túi đồ → Luyện đan: 1 ô lò + 9 ô nguyên liệu. Người chơi gửi {mã nguyên liệu: số} (1–9 loại); máy chủ kiểm có đủ trong bản lưu,
--- dò đan phương khớp (đủ mọi nguyên liệu của đan phương). Nhiều đan phương cùng khớp (vd Hồi Xuân và Hồi Linh đều chỉ cần Linh Thảo):
--- lấy đan phương để thừa ít nguyên liệu nhất, rồi dùng nhiều loại nhất, rồi nhiều cái nhất (14:1x: không báo trước đan gì, tỉ lệ bao nhiêu;
--- đan phương xem ở Tàng Thư). p_dan (tuỳ chọn) chỉ xét đúng đan đó; nguyên liệu không đủ đan phương đó thì hỏng như bỏ thiếu.
--- số bộ = số lần đủ đan phương; tỉ lệ = base + pham[phẩm lò] + per_cap × cấp lò − per_set × (bộ − 1), kẹp [floor, max].
--- Mọi nguyên liệu bỏ vào đều mất (phần thừa mất dù thành hay hỏng); thành thì cộng make × bộ viên đan.
+-- ghép đan phương: một mẻ ra được NHIỀU loại đan (14:3x). Đi qua các đan phương theo thứ tự ngẫu nhiên, mỗi đan lấy hết số bộ còn ghép
+-- được từ phần nguyên liệu còn lại (chủ dự án chọn "Random" khi nguyên liệu chồng nhiều đan phương). Không báo trước đan gì, tỉ lệ bao nhiêu
+-- (14:1x; đan phương xem ở Tàng Thư). Tỉ lệ chung = base + pham[phẩm lò] + per_cap × cấp lò − per_set × (tổng số bộ − 1), kẹp [floor, max];
+-- mỗi loại đan tung riêng. Mọi nguyên liệu bỏ vào đều mất (phần không ghép được mất dù thành hay hỏng); loại nào thành thì cộng make × bộ viên.
 -- Số chép từ data/cave.json → lo, pills.*.recipe / make (sinh lúc viết migration); sửa số ở data/ thì thêm migration thay v_cfg.
 -- Lò: cột lo_pham (0 Phàm … 6 Thượng Cổ), lo_cap (0–10) trên p2d_nhan_vat; bản lưu có data.lo = {ph, cap} chỉ để máy khách hiện,
 -- hàm chỉ đọc cột nên máy khách sửa data.lo không có tác dụng. Phẩm lò cao hơn: chưa có cách kiếm (chờ chủ dự án), mọi người lò Phàm.
@@ -17,14 +16,14 @@ do $$ begin
   end if;
 end $$;
 
-create or replace function public.p2d_luyen_dan(p_o jsonb, p_dan text default null)
+create or replace function public.p2d_luyen_dan(p_o jsonb)
 returns jsonb language plpgsql security definer set search_path = '' as $$
 declare
   v_me uuid := public.p2d_uid();
   v_cfg jsonb := '{"base":0.4,"per_set":0.05,"floor":0.1,"max":0.95,"pham":[0,0.05,0.1,0.15,0.2,0.25,0.3],"per_cap":0.03,"cap_max":10,"cost":[{"lt":50000,"tt":50},{"lt":200000,"tt":100},{"lt":450000,"tt":150},{"lt":800000,"tt":200},{"lt":1250000,"tt":250},{"lt":1800000,"tt":300},{"lt":2450000,"tt":350},{"lt":3200000,"tt":400},{"lt":4050000,"tt":450},{"lt":5000000,"tt":500}],"dan":{"hoi-xuan-dan":{"r":{"linh-thao":2},"m":2},"hoi-linh-dan":{"r":{"linh-thao":3},"m":2},"thang-linh-dan":{"r":{"linh-thao":6,"hoa-linh-chi":2,"yeu-huyet":2},"m":1},"tu-khi-dan":{"r":{"linh-thao":3,"yeu-huyet":1},"m":1},"boi-nguyen-dan":{"r":{"linh-thao":4,"yeu-huyet":2,"hoa-linh-chi":1},"m":1},"thanh-tam-dan":{"r":{"linh-thao":3,"hoa-linh-chi":2},"m":1},"linh-ngu-thang":{"r":{"linh-ngu":2,"linh-thao":1},"m":2},"van-ngu-thang":{"r":{"van-ngu":2,"hoa-ly":1,"bang-ngu":1},"m":2},"tay-tuy-dan":{"r":{"yeu-vuong-dan":1,"linh-thao":6,"hoa-linh-chi":3},"m":1},"tu-van-dan":{"r":{"tu-van-sam":2,"linh-thao":2},"m":1},"tinh-lien-dan":{"r":{"thai-hu-lien":2,"ngoc-lo-hoa":1},"m":1},"nguyet-ngu-thang":{"r":{"nguyet-ngu":2,"linh-thao":2},"m":2}}}'::jsonb;
-  v_nv public.p2d_nhan_vat%rowtype; v_k text; v_n jsonb; v_p record; v_r record;
-  v_dan text; v_bo integer := 0; v_loai integer := -1; v_tong numeric := -1; v_make integer := 0; v_tat numeric; v_du numeric := null; v_thua numeric;
-  v_b integer; v_cnt integer; v_sum numeric; v_rate numeric := 0; v_ok boolean := false; v_vien integer := 0; v_pb integer;
+  v_nv public.p2d_nhan_vat%rowtype; v_k text; v_n jsonb; v_p record; v_r record; v_con jsonb := p_o;
+  v_b integer; v_tong integer := 0; v_ds jsonb := '[]'::jsonb; v_d jsonb; v_rate numeric := 0; v_ok boolean; v_vien integer;
+  v_thanh boolean := false; v_tvien integer := 0; v_out jsonb := '[]'::jsonb; v_pb integer;
 begin
   if v_me is null then raise exception 'chua_dang_nhap' using errcode = '28000'; end if;
   if p_o is null or jsonb_typeof(p_o) <> 'object' or (select count(*) from jsonb_object_keys(p_o)) not between 1 and 9 then
@@ -41,42 +40,45 @@ begin
   for v_k, v_n in select key, value from jsonb_each(p_o) loop
     if coalesce(public.p2d_ky_so(v_nv.data -> 'mats' -> v_k), 0) < (v_n #>> '{}')::numeric then raise exception 'thieu_nl' using errcode = '22023'; end if;
   end loop;
-  -- dò đan phương
-  select sum((value #>> '{}')::numeric) into v_tat from jsonb_each(p_o);
-  for v_p in select key, value from jsonb_each(v_cfg -> 'dan') where p_dan is null or key = p_dan order by key loop
-    v_b := null; v_cnt := 0; v_sum := 0;
+  -- ghép đan phương theo thứ tự ngẫu nhiên: mỗi đan lấy hết số bộ còn ghép được, trừ vào phần còn lại (14:3x "Random")
+  for v_p in select key, value from jsonb_each(v_cfg -> 'dan') order by random() loop
+    v_b := null;
     for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
-      v_cnt := v_cnt + 1; v_sum := v_sum + (v_r.value #>> '{}')::numeric;
-      if not p_o ? v_r.key then v_b := 0; exit; end if;
-      v_b := least(coalesce(v_b, 2147483647), floor((p_o ->> v_r.key)::numeric / (v_r.value #>> '{}')::numeric)::integer);
+      v_b := least(coalesce(v_b, 2147483647), floor(coalesce((v_con ->> v_r.key)::numeric, 0) / (v_r.value #>> '{}')::numeric)::integer);
     end loop;
-    v_thua := v_tat - v_sum * coalesce(v_b, 0);   -- nguyên liệu thừa nếu luyện đan này
-    if coalesce(v_b, 0) >= 1 and (v_du is null or v_thua < v_du or (v_thua = v_du and (v_cnt > v_loai or (v_cnt = v_loai and v_sum > v_tong)))) then
-      v_dan := v_p.key; v_bo := v_b; v_loai := v_cnt; v_tong := v_sum; v_du := v_thua; v_make := (v_p.value ->> 'm')::integer;
+    if coalesce(v_b, 0) >= 1 then
+      for v_r in select key, value from jsonb_each(v_p.value -> 'r') loop
+        v_con := jsonb_set(v_con, array[v_r.key], to_jsonb((v_con ->> v_r.key)::numeric - v_b * (v_r.value #>> '{}')::numeric));
+      end loop;
+      v_ds := v_ds || jsonb_build_array(jsonb_build_object('dan', v_p.key, 'bo', v_b, 'm', (v_p.value ->> 'm')::integer));
+      v_tong := v_tong + v_b;
     end if;
   end loop;
-  if v_dan is not null then
+  -- một tỉ lệ chung theo tổng số bộ; mỗi loại đan tung riêng (14:3x "Mỗi loại đan tung riêng")
+  if v_tong > 0 then
     v_rate := greatest((v_cfg ->> 'floor')::numeric, least((v_cfg ->> 'max')::numeric,
       (v_cfg ->> 'base')::numeric + coalesce((v_cfg -> 'pham' ->> v_nv.lo_pham::integer)::numeric, 0) + (v_cfg ->> 'per_cap')::numeric * v_nv.lo_cap
-      - (v_cfg ->> 'per_set')::numeric * (v_bo - 1)));
-    v_ok := random() < v_rate;
+      - (v_cfg ->> 'per_set')::numeric * (v_tong - 1)));
   end if;
-  -- trừ hết nguyên liệu đã bỏ vào
-  for v_k, v_n in select key, value from jsonb_each(p_o) loop
+  for v_k, v_n in select key, value from jsonb_each(p_o) loop   -- mọi nguyên liệu bỏ vào đều mất
     v_nv.data := jsonb_set(v_nv.data, array['mats', v_k], to_jsonb(public.p2d_ky_so(v_nv.data -> 'mats' -> v_k) - (v_n #>> '{}')::numeric));
   end loop;
-  if v_ok then
-    v_vien := v_make * v_bo;
-    if jsonb_typeof(v_nv.data -> 'pills') is distinct from 'object' then v_nv.data := jsonb_set(v_nv.data, '{pills}', '{}'::jsonb); end if;
-    v_nv.data := jsonb_set(v_nv.data, array['pills', v_dan], to_jsonb(coalesce(public.p2d_ky_so(v_nv.data -> 'pills' -> v_dan), 0) + v_vien));
-  end if;
+  for v_d in select value from jsonb_array_elements(v_ds) loop
+    v_ok := random() < v_rate; v_vien := case when v_ok then (v_d ->> 'm')::integer * (v_d ->> 'bo')::integer else 0 end;
+    if v_ok then
+      if jsonb_typeof(v_nv.data -> 'pills') is distinct from 'object' then v_nv.data := jsonb_set(v_nv.data, '{pills}', '{}'::jsonb); end if;
+      v_nv.data := jsonb_set(v_nv.data, array['pills', v_d ->> 'dan'], to_jsonb(coalesce(public.p2d_ky_so(v_nv.data -> 'pills' -> (v_d ->> 'dan')), 0) + v_vien));
+      v_thanh := true; v_tvien := v_tvien + v_vien;
+    end if;
+    v_out := v_out || jsonb_build_array(jsonb_build_object('dan', v_d ->> 'dan', 'bo', (v_d ->> 'bo')::integer, 'vien', v_vien, 'thanh', v_ok));
+  end loop;
   perform set_config('p2d.ly_do', 'luyen_dan', true);
   update public.p2d_nhan_vat set data = v_nv.data, phien_ban = phien_ban + 1, updated_at = now() where user_id = v_me returning phien_ban into v_pb;
-  return jsonb_build_object('thanh', v_ok, 'dan', v_dan, 'bo', v_bo, 'vien', v_vien, 'ti_le', round(v_rate, 4), 'tru', p_o, 'phien_ban', v_pb);
+  return jsonb_build_object('ds', v_out, 'thanh', v_thanh, 'vien', v_tvien, 'bo', v_tong, 'ti_le', round(v_rate, 4), 'tru', p_o, 'phien_ban', v_pb);
 end;
 $$;
-revoke all on function public.p2d_luyen_dan(jsonb, text) from public, anon;
-grant execute on function public.p2d_luyen_dan(jsonb, text) to authenticated;
+revoke all on function public.p2d_luyen_dan(jsonb) from public, anon;
+grant execute on function public.p2d_luyen_dan(jsonb) to authenticated;
 
 -- Nâng lò lên một cấp: trừ Linh Thạch + Tinh Thiết theo bảng cost (cấp hiện tại c → giá cost[c])
 create or replace function public.p2d_nang_lo()

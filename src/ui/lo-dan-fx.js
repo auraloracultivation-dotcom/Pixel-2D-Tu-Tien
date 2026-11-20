@@ -72,34 +72,40 @@ export async function brewFx(game, box, slotEls, job) {
   return res;
 }
 
-// Nhịp 3: kết quả
-export function resultFx(game, box, ok, dan, n) {
-  const D = game.data, img = box.querySelector('.ld-lo-img'), m = center(img), lid = { x: m.x, y: m.y - m.h * 0.42 };
-  if (ok) {   // bung nắp (SpriteCook .thanh: nắp bật ở khung 3–5), hào quang, viên đan bay ra, rồi lò tắt lửa về hình tĩnh
-    if (play(game, box, 'thanh', false)) setTimeout(() => pop(game, D, m, lid, dan, n, true), 450); else pop(game, D, m, lid, dan, n);
-  } else {
-    box.classList.add('ld-no'); setTimeout(() => box.classList.remove('ld-no'), 700);
-    for (let k = 0; k < 9; k++) {   // khói đen cuộn lên
-      const s = bit('ldx-khoi', lid.x + (Math.random() - 0.5) * 30, lid.y + 6);
-      s.style.setProperty('--dx', (Math.random() - 0.5) * 70 + 'px'); s.style.setProperty('--dy', -(50 + Math.random() * 50) + 'px');
-      s.style.animationDelay = k * 40 + 'ms';
-      setTimeout(() => s.remove(), 1500);
-    }
-    game.sfx?.('hurt');
+// Nhịp 3: kết quả r ({ ds: [{ dan, vien, thanh }], thanh }). Thành: lò bung nắp (SpriteCook .thanh: nắp bật ở khung 3–5), từng viên đan
+// chui ra từ miệng lò bay lên (14:3x), hào quang nằm sau lò; xong lượt chuyển động mới trả (rồi bảng nhận thưởng mở). Hỏng: khói đen, lò giật.
+export function resultFx(game, box, r) {
+  const D = game.data, img = box.querySelector('.ld-lo-img'), m = center(img), lid = { x: m.x, y: m.y - m.h * 0.42 }, mouth = { x: m.x, y: m.y - m.h * 0.22 };
+  if (r.thanh) {
+    const ok = r.ds.filter(d => d.thanh), a = play(game, box, 'thanh', false);
+    setTimeout(() => {
+      const glow = bit('ldx-hao' + (a ? ' nhe' : ''), m.x, m.y); setTimeout(() => glow.remove(), 1400);
+      ok.forEach((d, i) => setTimeout(() => pop(game, D, { x: mouth.x + (i - (ok.length - 1) / 2) * 30, y: mouth.y, len: m.h * 0.62 }, d.dan, d.vien), i * 260));
+      game.sfx?.('levelup');
+    }, a ? 300 : 0);   // nắp vừa nhấc (khung 3) thì đan chui ra
+    return a ? a.done : wait(1500);
   }
+  box.classList.add('ld-no'); setTimeout(() => box.classList.remove('ld-no'), 700);
+  for (let k = 0; k < 9; k++) {   // khói đen cuộn lên
+    const s = bit('ldx-khoi', lid.x + (Math.random() - 0.5) * 30, lid.y + 6);
+    s.style.setProperty('--dx', (Math.random() - 0.5) * 70 + 'px'); s.style.setProperty('--dy', -(50 + Math.random() * 50) + 'px');
+    s.style.animationDelay = k * 40 + 'ms';
+    setTimeout(() => s.remove(), 1500);
+  }
+  game.sfx?.('hurt');
+  return wait(700);
 }
 
-function pop(game, D, m, lid, dan, n, nhe) {   // hào quang (nhe: nhạt bớt cho thấy lò bung nắp), tia vàng toả ra, viên đan bật ra khỏi nắp kèm số viên
-  const glow = bit('ldx-hao' + (nhe ? ' nhe' : ''), m.x, m.y); setTimeout(() => glow.remove(), 1400);
-  for (let k = 0; k < 14; k++) {
-    const s = bit('ldx-sao', lid.x, lid.y), a = (k / 14) * Math.PI * 2;
-    s.style.setProperty('--dx', Math.cos(a) * 60 + 'px'); s.style.setProperty('--dy', Math.sin(a) * 45 + 'px');
-    setTimeout(() => s.remove(), 900);
+function pop(game, D, at, dan, n) {   // một viên đan chui ra từ miệng lò, tia vàng toả quanh, kèm số viên
+  for (let k = 0; k < 10; k++) {
+    const t = bit('ldx-sao', at.x, at.y), g = (k / 10) * Math.PI * 2;
+    t.style.setProperty('--dx', Math.cos(g) * 46 + 'px'); t.style.setProperty('--dy', Math.sin(g) * 34 + 'px');
+    setTimeout(() => t.remove(), 900);
   }
   const spr = D.art.sprites['ui.vk-' + dan], p = el('i', 'ldx-ico');
   if (spr) p.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`; else p.style.background = D.cave.pills[dan]?.color || '#ffe27a';
-  const pill = bit('ldx-dan', lid.x, lid.y, p);
+  const pill = bit('ldx-dan ldx-chui', at.x, at.y, p);
+  pill.style.setProperty('--len', (at.len || 60) + 'px');   // bay lên khỏi nắp lò
   pill.append(el('b', null, '×' + n));
-  setTimeout(() => pill.remove(), 1900);
-  game.sfx?.('levelup');
+  setTimeout(() => pill.remove(), 2100);
 }

@@ -24,8 +24,9 @@ function doNow(game, d) {
     const id = D.cave.pill_button, p = D.cave.pills[id];
     if (!s.flags['dong-phu'] || !canPay(game, p.recipe)) return false;
     if (game.kyBusy) return false;
-    luyen(game, { ...p.recipe }, id).then(r => {
-      if (!r.err) game.toast(r.thanh ? `Tự hành luyện được ${r.vien} ${p.name}.` : `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).`, 1.6);
+    luyen(game, { ...p.recipe }).then(r => {
+      const d = r.ds?.find(x => x.thanh), n = d && D.cave.pills[d.dan]?.name;
+      if (!r.err) game.toast(d ? `Tự hành luyện được ${d.vien} ${n}.` : `Tự hành luyện ${p.name}: lò hỏng (vẫn tính 1 lần).`, 1.6);
     });
     return true;
   }
