@@ -18,7 +18,7 @@ export function nearest(game, x, y, r, skip) {
 
 // Một đòn của nút node trúng quái m. from: chỗ phát ra (hướng đẩy lùi); e: thực thể phát ra (đếm số lần sinh con)
 export function pbHit(game, cast, node, m, from, e, opt = {}) {
-  if (!m || m.dead) return;
+  if (!m || m.dead || cast.see) return;   // đòn của người chơi khác chỉ để nhìn (pb-see.js)
   const now = game.time || 0, M = PB(game).mods, em = elementMul(game, node.els);
   let dmg = cast.atk * node.mul * cast.dmgMul * cast.lvMul * (opt.mul || 1) + (opt.flat || 0);
   if ((m.pb?.brkT || 0) > now) dmg *= 1 + M.kim.brk * (m.pb.brkMul || 1);

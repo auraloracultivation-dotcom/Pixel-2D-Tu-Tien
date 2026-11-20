@@ -8,7 +8,7 @@ import { juiceCast } from './juice.js';
 import { pbOn, pbWorn, PB } from './phap-bao.js';
 import { buildCast } from './phap-bao-build.js';
 import { pbHit, pbx, nearest, pbStatusTick } from './phap-bao-hit.js';
-import { pbPxCast, updatePbPx } from './pb-px.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
+import { pbPxCast, updatePbPx } from './pb-px.js'; import { pbSend } from './pb-see.js';   // phần hình điểm ảnh của đòn (chỉ chạy khi px bật)
 import { pbSfx } from './skill-sfx.js';
 import { startTuLinh, heroAt } from './tu-linh.js';   // px bật: tiếng riêng từng món (data/tieng-chieu.json → by_pb); px tắt: tiếng cũ
 
@@ -51,6 +51,7 @@ export function pbCast(game, cast, ang) {
   if (cast.procs['phan-chan']) (pbx(game).thorn ||= []).push(cast);
   pbSfx(game, cast.it.type, 'c', SFX[cast.it.type] || 'shoot');
   pbPxCast(game, cast);
+  pbSend(game, cast, ang);   // người cùng tinh cầu thấy đúng đòn này (pb-see.js)
   juiceCast(game, { grade: 'huyen', color: T.color, type: ['seal', 'zone'].includes(T.emit.kind) ? 'aoe' : 'projectile' });   // chỉ Đại Ấn, Trận Kỳ chớp màn + rung
   pvpTryHit(game);
   if (T.pre?.kind === 'shield') {
