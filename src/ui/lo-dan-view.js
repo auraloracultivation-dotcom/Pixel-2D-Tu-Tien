@@ -43,26 +43,27 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   if (!st.ldSync) { st.ldSync = true; syncLo(game).then(() => refresh()); }   // mở bảng lần đầu: hỏi máy chủ lò thật
   for (const [k, n] of Object.entries(ld.put)) if (!((s.mats?.[k] || 0) >= n)) { if (s.mats?.[k] > 0) ld.put[k] = s.mats[k]; else delete ld.put[k]; }   // kho đổi (vừa luyện, vừa dùng): kẹp lại
   const wrap = el('div', 'ld'), top = el('div', 'ld-top'), colL = el('div', 'ld-l'), colR = el('div', 'ld-r');   // trái: lò, 9 ô, dự kiến; phải: kho
-  // Ô lò: viền màu phẩm, tên phẩm + cấp, nút Nâng lò kèm giá
+  // Ô lò: hình lò viền màu phẩm (chỉ viền hình, khung không màu), tên phẩm + cấp
   const R = D.items.rarities[lo.ph] || D.items.rarities[0], box = el('div', 'ld-lo');
   box.style.setProperty('--q', R.color);
-  const lop = el('div', 'ld-lo-img'), spr = D.art.sprites[C.spr];
+  const lop = el('div', 'ld-lo-img'), spr = D.art.sprites[(C.hinh || [])[lo.hinh | 0] || C.spr];   // hình lò (4 mẫu ảnh GPT 20/11/2026 14:10)
   if (spr) lop.style.backgroundImage = `url("${spr.file}?v=${spr.v}")`;
   box.append(lop, el('b', 'ld-lo-ten', `Lò ${R.name}`), el('small', null, T.lv.replace('{c}', lo.cap)));
-  const g = upCost(game), up = el('button', 'ld-up');
-  if (!g) { up.textContent = T.maxed; up.disabled = true; }
-  else {
-    up.append(el('b', null, T.up), el('small', null, `${vn(g.lt)} LT · ${g.tt} T.Thiết`));
-    up.disabled = coins(s) < g.lt || (s.mats?.['tinh-thiet'] || 0) < g.tt;
-    up.onclick = async () => {
-      up.disabled = true;
-      const r = await nangLo(game);
-      if (r.cap) { game.sfx?.('levelup'); game.toast(T.upok.replace('{c}', r.cap), 2); }
-      else game.toast(r.err === 'poor' ? T.poor : r.err === 'max' ? T.maxed : T.net, 2);
-      refresh();
-    };
-  }
-  box.append(up);
+  // Nâng lò (chủ dự án 14:10): nút chỉ ghi "Nâng lò", đặt cạnh nút Luyện; chạm mới hiện giá rồi hỏi lại
+  const g = upCost(game), up = el('button', 'sv-bbtn ld-up', g ? T.up : T.maxed);
+  up.disabled = !g;
+  up.onclick = async () => {
+    if (ld.busy || !g) return;
+    const ok = await game.dialog.choose(T.upto.replace('{c}', loOf(s).cap + 1).replace('{lt}', vn(g.lt)).replace('{tt}', g.tt), [
+      { id: 'ok', label: T.up, desc: `${vn(g.lt)} Linh Thạch · ${g.tt} Tinh Thiết (đang có ${vn(coins(s))} · ${vn(s.mats?.['tinh-thiet'])})`, color: '#f2c94c' },
+      { id: 'thoi', label: 'Thôi', desc: '' }]);
+    if (ok !== 'ok') return;
+    up.disabled = true;
+    const r = await nangLo(game);
+    if (r.cap) { game.sfx?.('levelup'); game.toast(T.upok.replace('{c}', r.cap), 2); }
+    else game.toast(r.err === 'poor' ? T.poor : r.err === 'max' ? T.maxed : T.net, 2);
+    refresh();
+  };
   // 9 ô nguyên liệu trong lò: chạm để lấy ra
   const slots = el('div', 'ld-o'), keys = Object.keys(ld.put);
   for (let i = 0; i < C.slots; i++) {
@@ -123,7 +124,7 @@ export function renderLoDan(game, st, mid, bar, refresh) {
   const go = el('button', 'sv-bbtn gold ld-go', T.go);
   go.disabled = !keys.length;
   go.onclick = async () => {
-    go.disabled = true; clear.disabled = true; go.textContent = T.busy; ld.busy = true;
+    go.disabled = true; clear.disabled = true; up.disabled = true; go.textContent = T.busy; ld.busy = true;
     const put = { ...ld.put }, want = P.m ? ld.want || P.m.id : null;
     const r = await brewFx(game, box, [...slots.querySelectorAll('.ld-co')], () => luyen(game, put, want));   // nguyên liệu bay vào lò, lửa bùng (src/ui/lo-dan-fx.js)
     ld.busy = false;
@@ -135,5 +136,5 @@ export function renderLoDan(game, st, mid, bar, refresh) {
     const nb = mid.querySelector('.ld-lo');
     if (nb) resultFx(game, nb, !!r.thanh, r.dan, r.vien);
   };
-  bar.replaceChildren(clear, go);
+  bar.replaceChildren(clear, up, go);
 }

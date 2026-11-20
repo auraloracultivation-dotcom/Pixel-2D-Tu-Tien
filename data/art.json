@@ -1141,6 +1141,10 @@
     0
    ]
   },
+  "lo.hong-sen": {"file": "assets/art/lo-hong-sen.png", "v": "f8361555", "w": 81, "h": 96, "frames": 1, "anchor": [40, 95], "note": "lò luyện đan (ảnh GPT chủ dự án 20/11/2026 14:10, tools/art/nguon/ai/lo-dan, ai_import --h 96 --colors 24)"},
+  "lo.bang-ngoc": {"file": "assets/art/lo-bang-ngoc.png", "v": "0de5f366", "w": 83, "h": 96, "frames": 1, "anchor": [41, 95], "note": "lò luyện đan (ảnh GPT chủ dự án 20/11/2026 14:10, tools/art/nguon/ai/lo-dan, ai_import --h 96 --colors 24)"},
+  "lo.huyen-quy": {"file": "assets/art/lo-huyen-quy.png", "v": "a5142ff5", "w": 83, "h": 96, "frames": 1, "anchor": [41, 95], "note": "lò luyện đan (ảnh GPT chủ dự án 20/11/2026 14:10, tools/art/nguon/ai/lo-dan, ai_import --h 96 --colors 24)"},
+  "lo.tu-nguyet": {"file": "assets/art/lo-tu-nguyet.png", "v": "ee80ea09", "w": 84, "h": 96, "frames": 1, "anchor": [42, 95], "note": "lò luyện đan (ảnh GPT chủ dự án 20/11/2026 14:10, tools/art/nguon/ai/lo-dan, ai_import --h 96 --colors 24)"},
   "dp.lo-luyen-m": {
    "file": "assets/art/dp-lo-luyen-m.png",
    "v": "4dbbb992",
