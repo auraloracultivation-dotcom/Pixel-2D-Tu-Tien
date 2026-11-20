@@ -11,22 +11,59 @@ const FIX_KEYS = {
   thu: ['pets', 'comps', 'mounts', 'mountLine', 'outfits', 'outfitLine', 'techs', 'techSlots', 'skillLv', 'caveLv', 'pet', 'mount', 'companion', 'companion2'],
 };
 
-export function createSaveDiff() {
-  let snap = null;   // Map khoá → chuỗi JSON, bản máy chủ đã nhận
+// HAI NHỊP LƯU (chủ dự án 21/11/2026 chọn "Cách A: lưu hai nhịp"; số ở data/config.json → luu_hai_nhip). Đo 24 giờ 20–21/11: 75% lần
+// lưu là gói dưới 2 KB chỉ có mấy con số nhảy liên tục lúc farm (linh khí, Linh Thạch, đếm quái, việc ngày); mỗi người gọi máy chủ lưu
+// 4–6 giây một lần, 1 000 người là quá sức cơ sở dữ liệu. Nên chia thay đổi làm hai loại:
+//   - CHẬM (plan().cham = true): mọi khoá đổi chỉ là SỐ NHẢY: cùng hình dạng, chỉ số khác số; khoá đếm thêm / bớt cũng tính là số
+//     (nguyên liệu mới có lần đầu, đan uống hết); túi đồ chỉ thêm món phẩm thường ở cuối. Loại này src/net/profile.js gom cham_ms gửi một lần.
+//   - NHANH: mọi thứ còn lại (chữ, cờ, món mới phẩm cao, bỏ món, khoá bị xoá, khoá trong danh sách nhanh như cảnh giới, tầng, bước truyện).
+//     Loại này gửi theo nhịp cũ. Khoá lạ, hình dạng lạ đều rơi vào NHANH: quên khai thì chỉ là lưu dày như cũ, không bao giờ chậm oan.
+export function chiSoNhay(a, b) {
+  if (typeof a === 'number' && typeof b === 'number') return true;
+  if (a === b) return true;
+  if (a === null || b === null || typeof a !== 'object' || typeof b !== 'object' || Array.isArray(a) !== Array.isArray(b)) return false;
+  if (Array.isArray(a)) return a.length === b.length && a.every((v, i) => chiSoNhay(v, b[i]));
+  for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
+    const x = a[k], y = b[k];
+    if (x === undefined || y === undefined) { if (typeof (x ?? y) !== 'number') return false; }   // khoá đếm thêm / bớt: chỉ khi giá trị là số
+    else if (!chiSoNhay(x, y)) return false;
+  }
+  return true;
+}
+// Túi đồ: món cũ giữ nguyên chỗ (chỉ số nhảy), chỉ thêm món phẩm thường ở cuối. Món phẩm cao, bớt món, xếp lại túi: không phải
+export function tuiThemThuong(cu, moi, thuong) {
+  if (!Array.isArray(cu) || !Array.isArray(moi) || moi.length <= cu.length) return false;
+  for (let i = 0; i < cu.length; i++) if (!chiSoNhay(cu[i], moi[i])) return false;
+  for (let i = cu.length; i < moi.length; i++) if (!moi[i] || !thuong.has(moi[i].rarity)) return false;
+  return true;
+}
 
-  // So bản sắp gửi với bản đã nhận: { cur, full (chưa có gốc), changed, vi (khoá đổi + khoá VOLATILE), xoa (khoá đã xoá) }
+// nhip: { nhanh: [khoá luôn gửi nhanh], do_thuong: [phẩm món nhặt thêm vẫn tính là chậm] }; không đưa thì plan().cham luôn false (một nhịp như cũ)
+export function createSaveDiff(nhip) {
+  let snap = null;   // Map khoá → chuỗi JSON, bản máy chủ đã nhận
+  const nhanh = new Set(nhip?.nhanh || []), thuong = new Set(nhip?.do_thuong || []);
+  const khoaCham = (k, s) => {   // khoá k đổi từ bản máy chủ đã nhận sang chuỗi s: có phải chỉ là số nhảy không
+    if (nhanh.has(k)) return false;
+    let moi; try { moi = JSON.parse(s); } catch { return false; }
+    if (!snap.has(k)) return typeof moi === 'number';
+    let cu; try { cu = JSON.parse(snap.get(k)); } catch { return false; }
+    return chiSoNhay(cu, moi) || (k === 'bag' && tuiThemThuong(cu, moi, thuong));
+  };
+
+  // So bản sắp gửi với bản đã nhận: { cur, full (chưa có gốc), changed, cham (mọi thay đổi chỉ là số nhảy: gom gửi thưa được),
+  // vi (khoá đổi + khoá VOLATILE), xoa (khoá đã xoá) }
   function plan(body) {
     const cur = new Map();
     for (const [k, v] of Object.entries(body)) { const s = JSON.stringify(v); if (s !== undefined) cur.set(k, s); }
-    if (!snap) return { cur, full: true, changed: true, vi: null, xoa: [] };
+    if (!snap) return { cur, full: true, changed: true, cham: false, vi: null, xoa: [] };
     const vi = {}, xoa = [];
-    let changed = false;
+    let changed = false, cham = !!nhip;
     for (const [k, s] of cur) {
       if (VOLATILE.has(k)) vi[k] = body[k];
-      else if (snap.get(k) !== s) { vi[k] = body[k]; changed = true; }
+      else if (snap.get(k) !== s) { vi[k] = body[k]; changed = true; if (cham && !khoaCham(k, s)) cham = false; }
     }
-    for (const k of snap.keys()) if (!cur.has(k) && !VOLATILE.has(k)) { xoa.push(k); changed = true; }
-    return { cur, full: false, changed, vi, xoa };
+    for (const k of snap.keys()) if (!cur.has(k) && !VOLATILE.has(k)) { xoa.push(k); changed = true; cham = false; }
+    return { cur, full: false, changed, cham: changed && cham, vi, xoa };
   }
 
   // Máy chủ đã nhận bản p.cur (gửi cả hay gửi phần đổi đều vậy: khoá không gửi vốn y bản cũ)

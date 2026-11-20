@@ -95,6 +95,7 @@ export function cloudHooks(game) {
       game.toast(bad ? T.bad : T.net, 2);
     },
     onFix: (sent, sua) => applyFix(game, sent, sua),
+    nhip: game.data.config.luu_hai_nhip,   // hai nhịp lưu (src/net/save-diff.js, src/net/profile.js)
     onOk: () => stuck(game, false),
     retry: { ms: G.retry_ms, max: G.retry_max_ms },
   };

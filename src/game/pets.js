@@ -14,8 +14,11 @@ export const petLevel = (game, id) => game.save.pets[id]?.lv || 0;
 // Quái mọc từ bãi có thể thành dị chủng: mạnh hơn, linh khí nhiều hơn, hạ được thì thu phục
 export function maybeRare(game, m) {
   const cfg = P(game);
-  if (!cfg.pets[m.id] || Math.random() >= cfg.rare_chance) return;
-  const r = cfg.rare, d = m.def;
+  if (cfg.pets[m.id] && Math.random() < cfg.rare_chance) lamHiem(game, m);
+}
+// Biến con quái thành dị chủng. Quái chung: máy chủ phòng quyết con nào là dị chủng (quai-chung.js), máy nào cũng gọi hàm này cho con đó
+export function lamHiem(game, m) {
+  const r = P(game).rare, d = m.def;
   m.def = { ...d, name: r.prefix + d.name, hp: d.hp * r.hp, atk: d.atk * r.atk, qi: d.qi * r.qi };
   m.hp = m.maxHp = m.def.hp; m.rare = true;
 }

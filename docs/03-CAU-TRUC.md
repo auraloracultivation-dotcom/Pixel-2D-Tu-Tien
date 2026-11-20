@@ -259,6 +259,20 @@ Lưu máy chủ đang bật (`"server_save": true`): `src/net/profile.js` gọi 
 
 Còn tin máy khách: chỉ số dòng đầu của món mới (trong luật `p2d_mon_hop_le` và thùng `p2d_kiem_roi`), trần dòng `cap` và hệ `el` của món mới, nguyên liệu, Linh Thạch, linh khí (giới hạn bằng thùng hạn mức và trần ngày của `p2d_luu`), ngọc cấp 1..4 trong giới hạn thùng ngọc rơi; linh thú / khôi lỗi / công pháp lớn, bản sao, loài mới, thú cưỡi rơi trong giới hạn các thùng `kyThu` (máy chủ không thấy quái bị hạ); thảo dược, vườn, bế quan, thành tựu, danh hiệu, sát thương bia (`dpsBest`), đếm quái ma khí (`elite`), bí cảnh (`dunLv`).
 
+### Hai nhịp lưu (`data/config.json` → `luu_hai_nhip`, chủ dự án 21/11/2026 chọn "Cách A: lưu hai nhịp")
+
+Đo 20–21/11/2026: mỗi người đang chơi gọi máy chủ lưu 4–6 giây một lần; 75% là gói dưới 2 KB chỉ có mấy con số nhảy lúc farm; hàm lưu trung bình 39 ms, chiếm phần lớn thời gian cơ sở dữ liệu, ước nghẽn quanh 150–200 người cùng lúc. Thay cho trạm lưu Cloudflare (bàn 20/11, chưa làm): chia thay đổi làm hai loại ngay trên máy người chơi, không thêm máy chủ, không đổi cơ sở dữ liệu.
+
+- **Chậm** (gom `cham_ms` = 30 giây gửi một lần): mọi khoá đổi chỉ là số nhảy, tức cùng hình dạng, chỉ số khác số; khoá đếm thêm / bớt cũng tính (nguyên liệu mới có lần đầu, đan uống hết); túi đồ chỉ thêm món phẩm trong `do_thuong` ở cuối. Luật ở `src/net/save-diff.js` (`chiSoNhay`, `tuiThemThuong`, `plan().cham`).
+- **Nhanh** (nhịp cũ 4 giây): mọi thứ còn lại: chữ, cờ, món phẩm cao, bỏ món, khoá bị xoá, khoá trong `nhanh` (cảnh giới, tầng, bước truyện, Tiên Ngọc, tháp). Khoá lạ, hình dạng lạ tự rơi vào nhịp nhanh: quên khai chỉ là lưu dày như cũ.
+- **Gửi ngay bất kể nhịp**: lệnh máy chủ qua `game.cloud.run` (mua bán, cường hoá, nhận thư…), `game.cloud.flush()`, và lúc trang bị ẩn / sắp đóng (`visibilitychange`, `pagehide`: `khan` trong `src/net/profile.js`, gửi bằng fetch `keepalive` kèm mã đăng nhập của lần gửi trước, không chờ gì; đang có lần gửi dở thì thôi, kẻo hai bản cùng phiên bản).
+- Lần đầu sau một quãng im (quá `cham_ms` chưa gọi máy chủ) vẫn đi trong 4 giây; nhịp chậm chỉ giãn các lần sau một lần vừa gửi. Không thứ gì chờ quá `cham_ms` + một nhịp gom. Gửi cả bản mỗi 5 phút và sau lỗi vẫn như cũ.
+- Tắt: `on: false` là một nhịp như cũ.
+
+Đo bằng Tự đánh thật 3 phút ở bãi (nhân vật mới): 37 lần gọi lưu theo nhịp cũ còn 6 theo hai nhịp. Bài thử `node tools/kiem/luu-hai-nhip.test.mjs` (trong `tools/check.mjs`; chạy đúng `src/net/profile.js` với đồng hồ giả và máy chủ giả giữ phiên bản): nhịp, không tự gây `phien_ban_cu`, trang ẩn, đổi tài khoản, lỗi máy chủ, chạy dài 10 phút. **Chưa thử với máy chủ thật**: sau khi đưa lên phải soát log (số lần `p2d_luu_vi` mỗi người mỗi giờ giảm, không tăng `phien_ban_cu`, `p2d_loi` không có `luu:` mới).
+
+Sửa kèm (lỗi có sẵn, lộ ra lúc viết bài thử): `game.cloud.version` luôn là 0 vì khai `get version()` bên trong `Object.assign` (chép thành số chết lúc tạo), nên `pickSave` lúc vào game không bao giờ nhận ra "bản trong máy dựa đúng phiên bản máy chủ hiện tại"; ai chơi lúc máy chủ chậm mà phiên đó chưa lưu lên được lần nào thì vào lại bị lấy bản máy chủ, mất phần vừa chơi. Giờ là thuộc tính đọc sống.
+
 ## Tông môn người chơi
 
 `supabase/migrations/20261028010000_p2d_tong_mon.sql` (bảng `p2d_bang`, `p2d_bang_tv`, `p2d_bang_xin`, số ở `p2d_bang_cfg` khớp `data/guild.json`). Hàm `p2d_bang_*`: lập (Kim Đan + 20.000 Linh Thạch, trừ trên máy chủ), tìm, xin vào (tông môn mở thì vào thẳng), duyệt, đổi chức (Tông chủ, Phó tông chủ, Trưởng lão, Đệ tử), mời ra, nhường chức, rời, giải tán, điểm danh, góp Linh Thạch, nhận thưởng mốc tuần (mỗi người mỗi mốc một lần mỗi tuần, ghi ở `p2d_nhan_vat.bang_thuong`). Đồng môn được gọi bằng mã băm 12 ký tự, không lộ mã tài khoản. Chat tông môn là kênh `bang:<id>` của `p2d_chat`. Máy khách: `src/net/guild.js`, `src/game/guild.js` (lệnh đụng Linh Thạch chạy qua `cloud.run`), `src/ui/guild-panel.js`, `src/ui/guild-view.js`; chat theo kênh ở `src/game/world-chat.js`.
@@ -326,6 +340,37 @@ Mỗi đảo một kênh Realtime `p2d:<đảo>` (`src/net/online.js`, không gh
 - Đi mượt bằng vận tốc: mỗi gói tin mới thì tính tốc độ để tới chỗ mới sau khoảng hai nhịp gói tin (trễ chừng 0,25 giây), nên bước đi liền mạch, rớt một gói vẫn không khựng (tối đa 260 đơn vị mỗi giây). Xa quá 140 (ngự kiếm bay trên tinh cầu, qua cổng) thì hiện vòng sáng ở chỗ cũ và chỗ mới rồi đặt thẳng.
 
 Chat và truyền âm máy chủ đẩy (05/11/2026, `supabase/migrations/20261105110000_p2d_realtime.sql`, `src/net/push.js`, `src/game/chat-push.js`): ghi `p2d_chat` thì trigger gửi event `tin` lên kênh riêng tư `p2dc:<kênh>` (`the-gioi` mọi người đã đăng nhập, `bang:<id>` chỉ thành viên); ghi `p2d_truyen_am` thì gửi event `ta` (chỉ id) lên `p2dw:<mã tài khoản người nhận>`, máy khách đọc lại bằng `p2d_doc_truyen_am`. Máy khách chỉ có quyền nghe các chủ đề đó, ghi vẫn qua RPC. Đang nghe được thì các vòng đọc cũ (khung chat nhỏ, bảng Đạo hữu, tông môn, Hòm thư) chỉ đọc bù mỗi `fallback_s` giây (truyền âm `whisper_fallback_s`), vào lại kênh thì đọc bù ngay, mất kết nối thì về nhịp đọc cũ. Nhịp sống: socket Realtime trả nhịp ok thì `p2d_nhip_song` giãn từ 5 lên `net_watch.beat_rt_s` giây (vẫn trong cửa sổ 15 giây máy chủ cộng giờ online cho hạn mức Linh Thạch / ngọc), nhịp socket 5 giây cũng tính là còn liên lạc nên vẫn đứng hình sau 10 giây mất mạng.
+
+## Quái chung (`data/config.json` → `quai_chung`, chủ dự án 21/11/2026 02:02–02:07; đang TẮT, chưa đưa lên)
+
+Chủ dự án: "thiết kế quái vật ở trạng thái mà nếu người này farm thì người kia cũng thấy và có thể tranh nhau farm"; công "chia theo sát thương". Trước đó quái sống riêng trên từng máy: hai người đứng cạnh nhau đánh hai bầy quái khác nhau.
+
+| Việc | Nơi |
+|---|---|
+| Bãi nào thành quái chung, mã ô, chữ ký bảng, hạt chỗ mọc | `src/game/quai-chung-bang.js` (thuần; máy khách, công cụ và bài thử cùng đọc) |
+| Trọng tài: máu, lúc chết, giờ hồi sinh, dị chủng, ai được công | `cloud/src/quai.js` (trong phòng bản đồ `Phong`, tin `q`) |
+| Bảng bãi cho máy chủ phòng | `cloud/src/quai-cfg.js`, tệp SINH RA bằng `node tools/quai-chung.mjs --ghi` (`tools/check.mjs` so khớp) |
+| Máy khách: dựng quái theo phòng, gửi đòn, nhận máu / chết / công | `src/game/quai-chung.js` (`qcTin`, `qcHit`, `qcTick`); tin đi qua `src/net/online-cf.js` (`quai`, `onQuai`) |
+| Chia thưởng | `combat.js` killMob và `shop.js` coinDrop nhân `m.cong.k`; `game.js` onKill đọc `m.cong.top`, `m.cong.bo` |
+
+Cách chạy:
+
+- **Một con quái chung = một ô của một bãi**: mã ô = số thứ tự bãi trong `data/maps/<bản đồ>.json` × 64 + số thứ tự con. Chỉ bản đồ khai trong `quai_chung.maps`. Vẫn là quái riêng: bãi mở theo cờ truyện (`need` / `unless`), bãi có `cp` / `kt`, trùm, Mộc Nhân, bản sao so tài, bản đồ Khai Hoang, bí cảnh, quái vùng ma khí (`makhi.js`), quái lễ hội.
+- **Máy chủ phòng không chạy AI quái.** Máy của người đang bị con quái nhắm chạy AI con đó như thường và báo vị trí 4 lần mỗi giây (`gui_ms`); phòng ghi ai đang giữ con nào rồi phát trong gói lô 200 ms; máy khác thấy con đó là `m.remote`, trượt theo vị trí được báo (cùng nhánh với quái của đội trưởng tổ đội trong `mobs.js`). Quá `own_ms` không có tin thì con quái tự do, ai bị nó nhắm kế tiếp thì giữ. Con quái chưa ai giữ thì mỗi máy tự cho nó lang thang quanh chỗ mọc (lệch nhau tối đa vài chục đơn vị, tới khi có người giữ).
+- **Máu**: đòn của mình (`hitMob` → `qcHit`) gom `gui_ms` một lần gửi phòng kèm chỗ mình đứng và số thứ tự tin; đòn kết liễu gửi ngay. Máu hiện trên đầu quái = máu phòng báo (`m.srv`) trừ đòn mình chưa được đáp (`m.cho`): chém là thấy tụt ngay, số thật vẫn của phòng. Phòng đáp từng tin đòn (`qa`, kèm số thứ tự), phát máu mới cho cả tuyến trong gói lô (`qh`).
+- **Chết và công** (tin `qk` cho cả tuyến): phần công = sát thương mình góp / tổng. Linh khí, Linh Thạch nhân theo phần; đồ, ngọc, Tẩy Luyện Thạch, nguyên liệu, công pháp, linh thú dị chủng về người góp nhiều nhất; góp từ `min_cong` trở lên mới tính hạ quái (đếm quái, việc ngày, truyện, sự kiện, Linh Thạch), dưới mức đó chỉ nhận linh khí theo phần; không góp đòn nào thì chỉ thấy nó chết.
+- **Hồi sinh**: phòng báo số mili giây, con kế có phải dị chủng không, và hạt chỗ mọc; máy nào cũng tự cho mọc đúng lúc, đúng chỗ (`hatRnd`). Tuyến càng đông quái hồi càng nhanh (`dong`: giờ hồi chia cho số người / `ref`, nhanh nhất `max` lần).
+- **Chống gian lận ở phòng**: sát thương mỗi người kẹp theo lực chiến (`dps_k` × lực chiến mỗi giây, dồn `bud_s` giây, như boss thế giới), không vượt máu còn lại, phải đứng trong `tam` của con quái. Linh khí, Linh Thạch, đồ vẫn do Supabase kẹp như cũ.
+- **Tự về quái riêng, không hỏi ai**: công tắc tắt, chơi không tài khoản, máy chủ phòng bản cũ hoặc khác bản `data/` (chữ ký bảng lệch), rớt mạng (quái đang có thành quái riêng, nối lại thì dựng lại theo phòng). Phòng ngủ rồi thức là quên máu đang giữ: máy khách khớp lại theo số phòng báo.
+- **Tương thích**: máy khách cũ bỏ qua các tin mới; máy khách mới gặp phòng cũ (tin chào không có `q`) thì chơi quái riêng. Nên phòng và trang game lên trước sau đều được.
+
+**Sửa bãi quái, máu quái, số con bãi treo máy, tỉ lệ dị chủng, hay `quai_chung`** của bản đồ đang bật: chạy `node tools/quai-chung.mjs --ghi` rồi đưa phòng và trang game lên cùng đợt (lệch bản thì chỉ là về quái riêng tới khi cả hai cùng bản).
+
+Bài thử: `node tools/cloud/quai.test.mjs` (trọng tài, chạy trong `tools/check.mjs`); `node tools/quai-chung.thu.mjs` (hai trình duyệt + phòng giả chạy đúng mã phòng, 29 mục: mọc cùng chỗ, máu chung, chia công, đồ về người góp nhiều nhất, giữ quái, tranh đánh, hai máy Tự đánh cùng bãi, phòng quên máu, rớt mạng rồi nối lại, công tắc tắt thì như cũ). Bài thử hai trình duyệt chưa nằm trong CI.
+
+Số đo (bài thử hai máy Tự đánh cùng một bãi, 21/11/2026): mỗi người đang farm gửi phòng khoảng 3–4 tin `q` mỗi giây (Cloudflare tính 20 tin gửi lên = 1 yêu cầu); muốn bớt thì nới `gui_ms` (máu trên máy người khác chậm theo). Chưa đo băng thông tải xuống của một tuyến đủ 40 người cùng farm: đo bằng trận giả trước khi bật cho bản đồ đông.
+
+Chưa làm ở bản đầu: con quái chỉ đánh người đang giữ nó (người tranh đánh không bị nó quay sang cho tới khi người giữ bỏ đi); làm chậm, choáng của người không giữ chưa tới máy người giữ; đòn của quái không hiện hiệu ứng trên máy người đứng xem; trùm đảo vẫn riêng; chưa thử với nhiều hơn hai máy thật và chưa thử trên máy chủ phòng thật. Số kẹp sát thương (`dps_k`, `bud_s`) đang lấy theo boss thế giới, rộng hơn sức đánh thật nhiều lần: cần đo lại trước khi coi là chống được cướp quái bằng máy khách sửa đổi.
 
 ## Hồ sơ người chơi, So tài (`data/duel.json`)
 

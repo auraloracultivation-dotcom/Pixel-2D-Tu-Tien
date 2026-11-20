@@ -71,10 +71,13 @@ export function take(b, cfg, now) {
 }
 
 // Gói lô gửi xuống: { t: 'b', m: [[id, x, y, fx, fy, sw, act], ...], s: [[id, say]], k: [[id, cast]] } (chỉ vị trí mới nhất mỗi người)
-export function makeBatch(moves, says, casts) {
+// quai (quai.js quaiLo): quái chung đang có người giữ q: [[id người giữ, [ô, x, y, đang ra đòn], …]] và máu vừa đổi qh: [[ô, máu]]
+export function makeBatch(moves, says, casts, quai) {
   const out = { t: 'b' };
   if (moves.size) out.m = [...moves].map(([id, mv]) => [id, ...mv]);
   if (says.length) out.s = says;
   if (casts.length) out.k = casts;
+  if (quai?.q.length) out.q = quai.q;
+  if (quai?.h.length) out.qh = quai.h;
   return out;
 }
