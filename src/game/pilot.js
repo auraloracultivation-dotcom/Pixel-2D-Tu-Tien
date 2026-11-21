@@ -238,6 +238,7 @@ function pilotMove(game, ax, dt) {
   const pick = lootStep(game);   // đồ rơi chạy qua mới nhặt (src/game/loot.js)
   if (pick) return { ax: pick, atk: false };
   const job = game.pilot.job = plan(game);
+  if (!game.pilot) return none;   // plan có thể tắt tự hành (stopPilot đặt game.pilot = null): 22/11/2026 lỗi "Cannot set properties of null (setting 'tayT')"
   if (!job?.tay) game.pilot.tayT = 0;
   if (!job) return none;
   if (job.tay) { p.meditating = false; if ((game.pilot.tayT += dt) > TAY_S) { game.pilot.tayT = 0; game.story.notify('lam'); } return none; }   // việc tay của nhiệm vụ chính: đứng TAY_S giây cho người xem kịp thấy nút đổi tên rồi mới làm
