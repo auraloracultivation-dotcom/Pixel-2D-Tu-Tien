@@ -33,14 +33,26 @@ let T = 1e12; Date.now = () => T;
 function phongMoi() {
   const ctx = { list: [], setWebSocketAutoResponse() {}, acceptWebSocket(ws, tags) { ws.tags = tags; this.list.push(ws); },
     getWebSockets(tag) { return this.list.filter(w => w.readyState === 1 && (!tag || w.tags?.includes(tag))); } };
-  const kills = [], pks = new Map();
+  const kills = [], pks = new Map(), maDb = new Map(), cd = new Map(), maEv = [], st = { maLoi: false };
+  const giu = (u, ma) => pks.set(u, { ...(pks.get(u) || { immune: 0, at: 0 }), off: ma > 0 || (pks.get(u)?.off && ma === undefined) || false, ma: ma || 0 });
   const env = { MANG: { idFromName: () => 'id', get: () => ({ pvp: async (k, v, n) => { kills.push([k, v, n]); return true; },
-    pkGet: async u => pks.get(u) || { off: false, immune: 0, at: 0 }, pkSet: async (u, off, immune, at) => { pks.set(u, { off, immune, at }); } }) } };
+    pkGet: async u => pks.get(u) || { off: false, immune: 0, at: 0, ma: 0 },
+    pkSet: async (u, off, immune, at, ma) => { pks.set(u, { off, immune, at, ma: typeof ma === 'number' ? ma : pks.get(u)?.ma || 0 }); },
+    // Supabase giả (p2d_ma_ghi): giữ điểm ma, công đức; lõi Mang thật cũng chép điểm mới vào bản giữ khiên (mang.js ma)
+    ma: async (e, ke, nan, noi) => {
+      maEv.push([e, ke, nan, noi]);
+      if (st.maLoi) return null;
+      if (e === 'hoa') { const m = Math.max(maDb.get(ke) || 0, 1); maDb.set(ke, m); giu(ke, m); return { ma: m }; }
+      if (e === 'giet') { const m = (maDb.get(ke) || 0) + 3; maDb.set(ke, m); giu(ke, m); return { ma: m, no: true }; }
+      const m = Math.max(0, (maDb.get(nan) || 0) - 1); maDb.set(nan, m); cd.set(ke, (cd.get(ke) || 0) + 1); giu(nan, m);
+      return { ma: m, cd: cd.get(ke), no: true };
+    } }) } };
   let r = new Phong(ctx, env);
-  const hh = (uid, pw, map) => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', map], ['x-name', encodeURIComponent('N' + uid)], ['x-power', String(pw)], ['x-co', '0']]);
-  const vao = async (uid, pw, map = C.PVP.map) => { await r.fetch({ headers: hh(uid, pw, map) }); return ctx.list.at(-1); };
+  // tl: tổng tầng tu (Supabase gắn x-tl; 4 = Luyện Khí tầng 5). Mặc định đủ tầng; null: không gắn (Supabase lỗi) → coi như người mới
+  const hh = (uid, pw, map, tl = 30) => new Map([['x-uid', uid], ['x-kind', 'dao'], ['x-cap', '40'], ['x-map', map], ['x-name', encodeURIComponent('N' + uid)], ['x-power', String(pw)], ['x-co', '0'], ...(tl === null ? [] : [['x-tl', String(tl)]])]);
+  const vao = async (uid, pw, map = C.PVP.map, tl) => { await r.fetch({ headers: hh(uid, pw, map, tl) }); return ctx.list.at(-1); };
   const gui = (w, o) => r.webSocketMessage(w, JSON.stringify(o));
-  return { get r() { return r; }, ctx, kills, pks, vao, gui, ngu() { timers.length = 0; r = new Phong(ctx, env); } };
+  return { get r() { return r; }, ctx, kills, pks, maDb, cd, maEv, st, vao, gui, ngu() { timers.length = 0; r = new Phong(ctx, env); } };
 }
 const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kết nối này đã nhận
 
@@ -259,5 +271,99 @@ const trung = w => w.out.filter(o => o.t === 'ph');   // tin "trúng đòn" kế
   await gui(k, { t: 'h', to: 'v5', x: 100, y: 100 });
   assert.ok(v.out.some(o => o.t === 'pd' && o.to === 'v5'));
   assert.equal(v.deserializeAttachment().xy, undefined, 'gục rồi mà chỗ đứng cũ còn ghi');
+}
+// 6. Hóa ma (chủ dự án 22/11/2026 01:54, bảng câu hỏi 02:0x; cloud/src/ma.js): điểm ma = số lần phải chết; ma đánh mọi người không phải ma, kể cả
+//    người còn khiên; người thường (còn khiên hay không) diệt được ma; hai ma không đánh nhau; người Luyện Khí 1–4 không dính dáng; vừa hồi sinh thì miễn
+{
+  const p = phongMoi(), { vao, gui, maDb, maEv, kills } = p, MAP = 'thanh-khe';
+  const den = (w, id) => w.out.filter(o => o.t === 'ph' && o.to === id).length;   // số đòn trúng người id mà kết nối w thấy
+  const A = await vao('ma1', 5000, MAP), B = await vao('ng1', 100, MAP), N = await vao('moi1', 100, MAP, 3), D = await vao('ng2', 1e6, MAP);
+  const U = await vao('khong-ro', 100, MAP, null);   // Supabase không báo tầng: coi như người mới, cho chắc
+  await gui(A, { t: 'm', x: 100, y: 100 }); await gui(B, { t: 'm', x: 150, y: 100 }); await gui(N, { t: 'm', x: 120, y: 120 });
+  await gui(D, { t: 'm', x: 130, y: 90 }); await gui(U, { t: 'm', x: 90, y: 110 });
+  assert.equal(N.deserializeAttachment().p.bm, 1); assert.equal(U.deserializeAttachment().p.bm, 1); assert.equal(B.deserializeAttachment().p.bm, undefined);
+  // người mới không hóa ma được (máy chủ phòng chặn trước, không hỏi Supabase)
+  await gui(N, { t: 'mh' });
+  assert.deepEqual(N.out.at(-1), { t: 'pe', e: 'ma_moi' }); assert.equal(N.deserializeAttachment().ma, 0); assert.equal(maEv.length, 0);
+  // Supabase lỗi: báo ma_loi, không thành ma
+  p.st.maLoi = true; await gui(A, { t: 'mh' }); p.st.maLoi = false;
+  assert.deepEqual(A.out.at(-1), { t: 'pe', e: 'ma_loi' }); assert.equal(A.deserializeAttachment().ma, 0);
+  // hóa ma: 1 điểm, tắt khiên luôn, cả phòng biết; hồ sơ phát cho người khác có điểm ma
+  await gui(A, { t: 'mh', x: 101, y: 100 });
+  assert.deepEqual(B.out.at(-1), { t: 'pk', id: 'ma1', on: 1, ma: 1 });
+  let at = A.deserializeAttachment();
+  assert.equal(at.ma, 1); assert.equal(at.pk, true); assert.equal(at.p.ma, '1'); assert.equal(at.p.pk, 1); assert.deepEqual(at.xy, [101, 100]);
+  assert.deepEqual(maEv.at(-1).slice(0, 2), ['hoa', 'ma1']);
+  await gui(A, { t: 'mh' });   // đang là ma: bấm nữa không gì đổi, không hỏi Supabase
+  assert.equal(maEv.length, 2); assert.equal(A.deserializeAttachment().ma, 1);
+  await gui(A, { t: 'bv', off: false });   // ma không bật lại khiên được
+  assert.deepEqual(A.out.at(-1), { t: 'pe', e: 'ma_khong_bat', n: 1 });
+  // có ma trong phòng: người còn khiên đi lại cũng được ghi vết (bù trễ mạng cho đòn của ma), không ghi phần đính kèm
+  const ghiB = B.ghi; await gui(B, { t: 'm', x: 150, y: 100 });
+  assert.equal(p.r.vet.has('ng1'), true); assert.equal(B.ghi, ghiB);
+  // ma đánh người mới / người không rõ tầng: không trúng
+  T += 1000; await gui(A, { t: 'h', to: 'moi1', x: 100, y: 100 }); T += 1000; await gui(A, { t: 'h', to: 'khong-ro', x: 100, y: 100 });
+  assert.equal(den(N, 'moi1') + den(U, 'khong-ro'), 0, 'ma đánh được người mới');
+  // ma đồ sát người CÒN KHIÊN: 5000 × 0,1 × 0,5 giây = 250 ≥ máu 100 × 2 → gục; điểm ma 1 + 3 = 4; không đi đường rơi đồ PvP thường
+  T += 1000; await gui(A, { t: 'h', to: 'ng1', x: 100, y: 100 });
+  const pd = B.out.find(o => o.t === 'pd' && o.to === 'ng1');
+  assert.ok(pd && pd.from === 'ma1' && pd.k === 'giet' && pd.ma === 4 && pd.loot === 1, JSON.stringify(pd));
+  assert.deepEqual(maEv.at(-1), ['giet', 'ma1', 'ng1', 'thuong']); assert.deepEqual(kills, []);
+  at = A.deserializeAttachment(); assert.equal(at.ma, 4); assert.equal(at.p.ma, '4');
+  assert.ok(B.out.some(o => o.t === 'pk' && o.id === 'ma1' && o.ma === 4));
+  let bt = B.deserializeAttachment(); assert.equal(bt.pk, false); assert.ok(bt.immune > T);
+  // vừa hồi sinh: ma không đánh được nữa
+  await gui(B, { t: 'm', x: 150, y: 100 }); T += 1000; await gui(A, { t: 'h', to: 'ng1', x: 100, y: 100 });
+  assert.equal(den(B, 'ng1'), 0, 'người vừa hồi sinh vẫn bị ma đánh');
+  // hai ma không đánh nhau
+  const M2 = await vao('ma2', 5000, MAP); await gui(M2, { t: 'm', x: 110, y: 100 }); await gui(M2, { t: 'mh' });
+  assert.equal(M2.deserializeAttachment().ma, 1);
+  T += 1000; await gui(A, { t: 'h', to: 'ma2', x: 100, y: 100 }); T += 1000; await gui(M2, { t: 'h', to: 'ma1', x: 110, y: 100 });
+  assert.equal(den(A, 'ma2') + den(A, 'ma1'), 0, 'hai ma đánh nhau');
+  // người mới không đánh được ma (khỏi kiếm công đức không mất gì)
+  T += 1000; await gui(N, { t: 'h', to: 'ma1', x: 120, y: 120 });
+  assert.equal(den(A, 'ma1'), 0, 'người mới đánh được ma');
+  // người thường CÒN KHIÊN diệt ma: ma còn điểm thì vẫn là ma (khiên vẫn tắt), miễn đòn immune_s giây; công đức +1
+  T += 1000; await gui(D, { t: 'h', to: 'ma1', x: 130, y: 90 });
+  const pd2 = A.out.find(o => o.t === 'pd' && o.to === 'ma1');
+  assert.ok(pd2 && pd2.from === 'ng2' && pd2.k === 'diet' && pd2.ma === 3 && pd2.cd === 1 && pd2.loot === 1, JSON.stringify(pd2));
+  assert.deepEqual(maEv.at(-1), ['diet', 'ng2', 'ma1', 'thuong']);
+  at = A.deserializeAttachment(); assert.equal(at.ma, 3); assert.equal(at.pk, true); assert.ok(at.immune > T); assert.equal(at.xy, undefined);
+  assert.deepEqual(A.out.filter(o => o.t === 'pk' && o.id === 'ma1').at(-1), { t: 'pk', id: 'ma1', on: 1, ma: 3 });
+  assert.equal(D.deserializeAttachment().pk, false, 'diệt ma xong người diệt bị tắt khiên');
+  // ma vừa hồi sinh: không ra đòn được, cũng không ai đánh được
+  await gui(A, { t: 'm', x: 100, y: 100 }); T += 1000; await gui(A, { t: 'h', to: 'ng2', x: 100, y: 100 }); T += 1000; await gui(D, { t: 'h', to: 'ma1', x: 130, y: 90 });
+  assert.equal(den(D, 'ng2') + den(A, 'ma1'), 0, 'đang miễn đòn mà vẫn đánh / bị đánh');
+  // phòng ngủ dậy, vào lại (đổi tuyến): vẫn là ma đúng số điểm (lõi Mang giữ)
+  T += C.PVP.immune_s * 1000; p.ngu();
+  const A2 = await vao('ma1', 5000, MAP);
+  at = A2.deserializeAttachment(); assert.equal(at.ma, 3); assert.equal(at.pk, true); assert.equal(at.p.ma, '3');
+  assert.deepEqual(A2.out.find(o => o.t === 'pk'), { t: 'pk', id: 'ma1', on: 1, ma: 3 });
+  assert.ok(A2.out.find(o => o.t === 'w').l.some(u => u.id === 'ng1' && !u.ma), 'danh sách chào thiếu / sai');
+  // diệt thêm 3 lần: ma tan, khiên bật lại, điểm về 0 (Supabase), hồ sơ hết điểm ma
+  for (let i = 0; i < 3; i++) {
+    T += C.PVP.immune_s * 1000 + 1000; await gui(A2, { t: 'm', x: 100, y: 100 }); await gui(D, { t: 'h', to: 'ma1', x: 130, y: 90 });
+  }
+  at = A2.deserializeAttachment(); assert.equal(at.ma, 0); assert.equal(at.pk, false); assert.equal(at.p.ma, undefined); assert.equal(at.p.pk, 0);
+  assert.deepEqual(A2.out.filter(o => o.t === 'pk' && o.id === 'ma1').at(-1), { t: 'pk', id: 'ma1', on: 0, ma: 0 });
+  assert.equal(maDb.get('ma1'), 0); assert.equal(p.cd.get('ng2'), 4); assert.equal(p.pks.get('ma1').off, false); assert.equal(p.pks.get('ma1').ma, 0);
+  // về làm người: bật / tắt khiên như thường; hai người thường còn khiên không đánh nhau được
+  T += C.PVP.immune_s * 1000 + 1000; await gui(D, { t: 'h', to: 'ma1', x: 130, y: 90 });
+  assert.equal(A2.out.filter(o => o.t === 'ph' && o.to === 'ma1').length, 0, 'người thường còn khiên bị đánh');
+  // vòng pháp trận an toàn với cả ma
+  const S = C.PVP.safe, q = phongMoi();
+  const qm = await q.vao('qm', 1e6, S.map), qn = await q.vao('qn', 100, S.map);
+  await q.gui(qm, { t: 'm', x: S.x + S.r + 30, y: S.y }); await q.gui(qn, { t: 'm', x: S.x + S.r - 10, y: S.y }); await q.gui(qm, { t: 'mh' }); T += 1000;
+  await q.gui(qm, { t: 'h', to: 'qn', x: S.x + S.r + 30, y: S.y });
+  assert.equal(den(qn, 'qn'), 0, 'ma đánh được người trong vòng pháp trận');
+  await q.gui(qn, { t: 'm', x: S.x + S.r + 40, y: S.y }); T += 1000; await q.gui(qm, { t: 'h', to: 'qn', x: S.x + S.r + 30, y: S.y });
+  assert.ok(qn.out.some(o => o.t === 'pd' && o.to === 'qn' && o.k === 'giet'), 'ra khỏi vòng mà ma không đánh được');
+  // Supabase lỗi lúc gục: không đổi điểm ai, người gục vẫn gục (không rơi đồ)
+  const w = phongMoi(), wm = await w.vao('wm', 1e6, MAP), wn = await w.vao('wn', 100, MAP);
+  await w.gui(wm, { t: 'm', x: 10, y: 10 }); await w.gui(wn, { t: 'm', x: 20, y: 10 }); await w.gui(wm, { t: 'mh' });
+  w.st.maLoi = true; T += 1000; await w.gui(wm, { t: 'h', to: 'wn', x: 10, y: 10 }); w.st.maLoi = false;
+  const pd3 = wn.out.find(o => o.t === 'pd');
+  assert.ok(pd3 && pd3.k === 'giet' && pd3.loot === 0 && pd3.ma === 1, JSON.stringify(pd3));
+  assert.equal(wm.deserializeAttachment().ma, 1);
 }
 console.log('pvp.test: ok');

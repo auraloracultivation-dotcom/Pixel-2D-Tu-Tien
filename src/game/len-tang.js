@@ -78,7 +78,7 @@ export function realmUp(game, a) {
   const y = canhGioiY(game, s.realm); if (y) lines.unshift({ text: y, soft: true, wrap: true });   // dòng đầu ngay dưới tên: cảnh giới này nghĩa là gì ("Trúc Cơ là cắm rễ…"), rồi mới tới con số
   if (buff.length) lines.push({ text: fill(X.buff, { realm: R.names[s.realm], list: list(buff) }), soft: true, wrap: true });
   if (gift) lines.push({ text: fill(X.gift_realm, { list: gift }), gift: true, wrap: true });
-  const tn = tnOn(game.data) && s.tiem?.toc ? TN(game.data) : null;   // Tiềm năng (chủ dự án 21/11/2026 17:23): đột phá đại cảnh giới có thêm điểm
+  const tn = tnOn(game.data) && s.tiem?.toc && s.realm > (s.tiem.max | 0) ? TN(game.data) : null;   // Tiềm năng (chủ dự án 21/11/2026 17:23): đột phá đại cảnh giới có thêm điểm; lên lại cảnh giới đã từng đạt (tụt vì hóa ma) thì không
   if (tn) lines.push({ text: fill(tn.text.len, { n: tn.diem.moi }), gift: true });
   game.mungCanh({ color: bang(game, color), title: X.canh, name: R.names[s.realm], sub: fill(X.from, { a: R.names[a.realm], b: R.names[s.realm] }), lines, gain: powGain(game, a),
     done: () => { juiceUp(game, true, color); flush(); if (tn && diemCon(s, game.data) > 0) game.toast(fill(tn.text.moi, { n: diemCon(s, game.data) }), 4); } });   // ra khỏi nghi lễ: nhân vật còn toả sáng ngoài bản đồ

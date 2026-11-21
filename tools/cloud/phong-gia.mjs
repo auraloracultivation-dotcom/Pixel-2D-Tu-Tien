@@ -31,8 +31,18 @@ export async function taoPhongGia({ khDs } = {}) {
   const P = await import(join(dir, 'proto.js'));
   const { Phong } = await import(join(dir, 'phong.js'));
   const phong = new Map();   // tên phòng → { room, ctx }
-  const khien = new Map();   // uid → { off, immune, at }: như mang.js pk
-  const mang = { pkGet: async u => khien.get(u) || { off: false, immune: 0, at: 0 }, pkSet: async (u, off, immune, at) => { khien.set(u, { off: !!off, immune: immune || 0, at: at || 0 }); },
+  const khien = new Map();   // uid → { off, immune, at, ma }: như mang.js pk
+  // Hóa ma (cloud/src/ma.js): Supabase giả giữ điểm ma, công đức như p2d_ma_ghi; không ghi nợ (no: false) vì không có Supabase để trả nợ
+  const maDb = new Map(), cdDb = new Map();
+  const giuMa = (u, m) => khien.set(u, { ...(khien.get(u) || { immune: 0, at: 0 }), off: m > 0 || (m === undefined && !!khien.get(u)?.off), ma: m || 0 });
+  const mang = { pkGet: async u => khien.get(u) || { off: false, immune: 0, at: 0, ma: 0 },
+    pkSet: async (u, off, immune, at, ma) => { khien.set(u, { off: !!off, immune: immune || 0, at: at || 0, ma: typeof ma === 'number' ? ma : khien.get(u)?.ma || 0 }); },
+    ma: async (e, ke, nan) => {
+      if (e === 'hoa') { const m = Math.max(maDb.get(ke) || 0, 1); maDb.set(ke, m); giuMa(ke, m); return { ma: m }; }
+      if (e === 'giet') { const m = (maDb.get(ke) || 0) + 3; maDb.set(ke, m); giuMa(ke, m); return { ma: m, no: false }; }
+      const m = Math.max(0, (maDb.get(nan) || 0) - 1); maDb.set(nan, m); giuMa(nan, m); cdDb.set(ke, (cdDb.get(ke) || 0) + 1);
+      return { ma: m, cd: cdDb.get(ke), no: false };
+    },
     pvp: async () => false, nhipGop: async () => null, add: async () => ({ top: [], n: 0, total: 0, ranks: {}, lt: {}, mo: 0 }) };
   const MANG_GIA = { MANG: { idFromName: () => 'cuu-dau', get: () => mang }, ...(khDs ? { SUPABASE_URL: 'https://gia.invalid', SUPABASE_KEY: 'gia' } : {}) };
   const lay = ten => {
@@ -64,7 +74,8 @@ export async function taoPhongGia({ khDs } = {}) {
     });
     route.onClose(code => { dong = true; if (may?.readyState === 1) { may.readyState = 3; room.webSocketClose(may, code || 1000).catch(() => {}); } });
     const cua = day = { send: s => { const t = s[0] === '{' ? JSON.parse(s).t : s; dem.xuong[t] = (dem.xuong[t] || 0) + 1; if (!dong) route.send(s); }, close: (code, reason) => { try { route.close({ code, reason }); } catch { /* đã đóng */ } } };
-    const h = new Map([['x-uid', uid], ['x-kind', r.kind], ['x-cap', String(r.cap)], ['x-map', r.kind === 'dao' ? r.room.slice(4) : ''], ['x-name', ten ? encodeURIComponent(ten) : '']]);
+    const h = new Map([['x-uid', uid], ['x-kind', r.kind], ['x-cap', String(r.cap)], ['x-map', r.kind === 'dao' ? r.room.slice(4) : ''], ['x-name', ten ? encodeURIComponent(ten) : ''],
+      ['x-tl', '30']]);   // tổng tầng tu: máy thử coi như đã qua Luyện Khí tầng 5 (hóa ma được, ma đánh được)
     return room.fetch({ headers: { get: k => h.get(k) || null } }).then(() => {
       may = ctx.list.find(w => w.day === cua) || null;   // đúng đầu máy chủ của kết nối này; phòng đầy thì không có (phòng đã đóng mã 4009)
       if (!may) return;

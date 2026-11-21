@@ -351,5 +351,7 @@ import tinh_vuc_game  # noqa: E402
 print('Tinh Vực mới (SpriteCook 19/11/2026):', tinh_vuc_game.build_into(MANIFEST))
 import lo_dan_game  # noqa: E402
 print('Lò luyện đan (ảnh GPT + SpriteCook 20/11/2026):', lo_dan_game.build_into(MANIFEST))
+import dau_lau  # noqa: E402
+print('Đầu lâu hóa ma (code 22/11/2026):', dau_lau.build_into(MANIFEST))
 write_manifest()
 print('ok', len(list((Path(__file__).resolve().parents[2] / 'assets' / 'art').glob('*.png'))), 'hình')

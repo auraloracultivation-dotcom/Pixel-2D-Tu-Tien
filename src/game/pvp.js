@@ -10,6 +10,7 @@ import { addCoins } from './shop.js';
 import { itemName } from './items.js';
 import { matInfo } from './cave.js';
 import { canTrade } from './market.js';
+import { danhDuoc, toiMa, maPkToi, maPkNguoi, maPd, maTra } from './pvp-ma.js';   // hóa ma (22/11/2026)
 
 const P = game => game.data.pvp;
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
@@ -20,7 +21,7 @@ export const pvpSafe = (game, x, y) => { const z = P(game)?.server.safe; return 
 export const pvpMap = game => !!P(game) && !game.trip;   // đánh nhau được ở mọi bản đồ có phòng mạng
 
 export function createPvp(game) {
-  game.pvp = { off: false, cd: 0, wasSwing: false, map: null, at: 0, ask: 0, safe: null };   // at: lúc tắt khiên / giao chiến cuối (ms)
+  game.pvp = { off: false, cd: 0, wasSwing: false, map: null, at: 0, ask: 0, safe: null, ma: 0 };   // at: lúc tắt khiên / giao chiến cuối (ms); ma: điểm ma của mình (pvp-ma.js)
   setTimeout(() => settle(game), 20000);   // nợ cũ (gục rồi thoát game)
 }
 
@@ -31,14 +32,15 @@ export function togglePvp(game, off = true) {
   if (!game.online?.pvpOff || !game.online.pvpOff(true, game.player)) game.toast(T.offline, 2);
 }
 
-// Đánh người tắt bảo vệ gần nhất trong tầm, tính theo hình người đó trên máy mình (máy chủ phòng kiểm lại: vị trí mình gửi kèm, vết vị trí người kia)
+// Đánh người gần nhất trong tầm mà mình đánh được (pvp-ma.js danhDuoc: hai người cùng tắt khiên; ma với người không phải ma), tính theo hình người
+// đó trên máy mình (máy chủ phòng kiểm lại: vị trí mình gửi kèm, vết vị trí người kia). Còn khiên vẫn đánh được ma (hóa ma 22/11/2026).
 export function pvpTryHit(game) {
   const s = game.pvp, p = game.player;
-  if (!s?.off || s.cd > 0 || !p || !pvpMap(game) || !game.online?.pvpHit || pvpSafe(game, p.x, p.y)) return;
+  if (!s || s.cd > 0 || !p || !pvpMap(game) || !game.online?.pvpHit || pvpSafe(game, p.x, p.y)) return;
   const R = P(game).server.range * 0.95;
   let best = null, bd = R;
   for (const o of game.others.list.values()) {
-    if (!o.pk || o.x === null || pvpSafe(game, o.x, o.y)) continue;
+    if (o.x === null || !danhDuoc(game, o) || pvpSafe(game, o.x, o.y)) continue;
     const d = Math.hypot(o.x - p.x, o.y - p.y);
     if (d < bd) { bd = d; best = o; }
   }
@@ -63,17 +65,25 @@ export function updatePvp(game, dt) {
   s.safe = safe;
   // ngoài Ngoại Vực: đủ reshield_s giây không giao chiến thì xin máy chủ bật lại khiên (máy chủ kiểm lại giờ), 30 giây hỏi một lần
   const now = Date.now();
-  if (!pvpNgoai(game) && s.at && now - s.at >= S(game).reshield_s * 1000 && now - s.ask > 30000 && game.online?.pvpOff) { s.ask = now; game.online.pvpOff(false); }
+  if (!toiMa(game) && !pvpNgoai(game) && s.at && now - s.at >= S(game).reshield_s * 1000 && now - s.ask > 30000 && game.online?.pvpOff) { s.ask = now; game.online.pvpOff(false); }   // ma không tự bật khiên
 }
 // Giây còn lại tới lúc khiên tự bật (ước ở máy này; null: ở Ngoại Vực hoặc đang có khiên)
-export const pvpLeft = game => (!game.pvp?.off || pvpNgoai(game)) ? null : Math.max(0, Math.ceil(((game.pvp.at || 0) + S(game).reshield_s * 1000 - Date.now()) / 1000));
+export const pvpLeft = game => (!game.pvp?.off || pvpNgoai(game) || toiMa(game)) ? null : Math.max(0, Math.ceil(((game.pvp.at || 0) + S(game).reshield_s * 1000 - Date.now()) / 1000));
 
 // Tin PvP từ máy chủ phòng
 export function onPvp(game, m) {
   const T = P(game)?.text, me = game.online?.me?.id, p = game.player;
   if (!T || !p) return;
-  if (m.t === 'pe') { if (m.e === 'wait_on' && game.pvp.ask) { game.pvp.at = Date.now() - S(game).reshield_s * 1000 + m.s * 1000; return; } game.toast(fill(T[m.e] || T.offline, { s: m.s }), 2); return; }
-  if (m.t === 'pk') { if (m.id === me) { const was = game.pvp.off; game.pvp.off = !!m.on; if (m.on && !was) game.pvp.at = Date.now(); if (was !== !!m.on) game.toast(m.on ? T.turned_off : T.turned_on, m.on ? 3.5 : 1.6); } return; }
+  if (m.t === 'pe') { if (m.e === 'wait_on' && game.pvp.ask) { game.pvp.at = Date.now() - S(game).reshield_s * 1000 + m.s * 1000; return; } game.toast(fill(T[m.e] || T.offline, { s: m.s, n: m.n }), 2.4); return; }
+  if (m.t === 'pk') {
+    if (m.id !== me) { maPkNguoi(game, game.others.list.get(m.id), m); return; }
+    const was = game.pvp.off, maCu = toiMa(game);
+    game.pvp.off = !!m.on;
+    if ('ma' in m) maPkToi(game, m);
+    if (m.on && !was) game.pvp.at = Date.now();
+    if (was !== !!m.on && !maCu && !toiMa(game)) game.toast(m.on ? T.turned_off : T.turned_on, m.on ? 3.5 : 1.6);   // hóa ma / hết ma có chữ riêng (pvp-ma.js)
+    return;
+  }
   if ((m.t === 'ph' || m.t === 'pd') && (m.to === me || m.from === me)) game.pvp.at = Date.now();   // giao chiến: hẹn bật khiên tính lại
   const o = game.others.list.get(m.to);
   if (m.t === 'ph') {
@@ -85,6 +95,7 @@ export function onPvp(game, m) {
     return;
   }
   if (m.t === 'pd') {
+    if (maPd(game, m, me, o)) { if (m.to === me && m.loot) setTimeout(() => settle(game), 800); return; }   // trận có ma (pvp-ma.js)
     if (m.to === me) {
       game.pvp.off = false;
       game.toast(fill(T.killed, { name: m.by }), 3);
@@ -106,6 +117,7 @@ export async function settle(game) {
     const T = P(game).text, s = game.save, lines = [];
     await game.cloud.run(() => settlePvp(), r => {
       for (const x of r?.mat || []) {
+        if (x.noi === 'ma_giet' || x.noi === 'ma_diet') { if (x.lt > 0) addCoins(game, -x.lt, 'pvp'); lines.push(maTra(game, x)); continue; }   // hóa ma: Linh Thạch, tu vi
         let item = '';
         if (x.lt > 0) addCoins(game, -x.lt, 'pvp');
         if (x.item_uid != null) {

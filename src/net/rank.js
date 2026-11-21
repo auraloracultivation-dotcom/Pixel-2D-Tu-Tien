@@ -9,7 +9,7 @@ export async function fetchRank(kind) {
     return data;
   }
   if (kind === 'dps') return fetchDps();
-  const fn = kind === 'gop_y' || kind === 'dmt' || kind.startsWith('bc:') ? 'p2d_bxh2_het' : 'p2d_bxh_het';   // bản _het: tất cả người chơi, không chỉ top 50 (20261103040000_p2d_bxh_het.sql)
+  const fn = kind === 'gop_y' || kind === 'dmt' || kind === 'ma' || kind === 'cong_duc' || kind.startsWith('bc:') ? 'p2d_bxh2_het' : 'p2d_bxh_het';   // ma, cong_duc: hóa ma 22/11/2026 (20261122040000_p2d_hoa_ma.sql)   // bản _het: tất cả người chơi, không chỉ top 50 (20261103040000_p2d_bxh_het.sql)
   const { data, error } = await supabase.rpc(fn, { p_loai: kind });
   if (error) throw error;
   return data;

@@ -23,6 +23,20 @@
 .pvp-ask-row button { font: 700 13px/1 var(--f-body); padding: 9px 14px; border-radius: 7px; border: 1px solid #000; cursor: pointer; }
 .pvp-no { background: #4a3c5c; color: #f1e8ff; }
 .pvp-yes { background: #b0222c; color: #fff; }
+/* Hóa ma (chủ dự án 22/11/2026 01:54; 02:21 khiên đổi thành đầu lâu, thanh máu đen): src/ui/pvp-btn.js, src/game/pvp-ma.js. Đầu lâu vẽ bằng code
+   (tools/art/dau_lau.py), số cạnh đầu lâu là điểm ma (số lần còn phải chết). Nút Hóa ma đỏ sẫm; bảng luật hóa ma viền đỏ. */
+.pvp-tag em { font: 800 7px/1 var(--f-body); font-style: normal; color: #ff6a7a; }
+.pvp-tag em:empty { display: none; }
+.pvp-tag.ma { color: #ff3344; }
+.pvp-tag.ma b { background-image: url("../../assets/art/ui-k-dau-lau.png"); image-rendering: pixelated; filter: drop-shadow(0 0 2px rgba(255, 40, 60, .85)); }
+.pvp-tag.ma .pvp-hp { background: #6a1e2a; }
+.pvp-ma { background: linear-gradient(#5a1020, #2a0610); color: #ffd0d6; border-color: #ff3344 !important; }
+.pvp-ask-card.ma { background: #1c0a12; box-shadow: 0 0 0 2px #ff3344 inset, 0 0 24px rgba(255, 40, 60, .35); }
+.pvp-ask-card.ma .pvp-ask-q { color: #ff6a7a; }
+.pvp-ask-card .pvp-ma-yes { background: #8a0f20; }
+/* thanh máu của mình trên giao diện khi đang là ma: ruột đen trên rãnh đỏ sẫm */
+html body.la-ma #hud .bars .bar.hp { background: #5a0e1a !important; box-shadow: inset 0 0 0 1px #000, 0 0 6px rgba(255, 40, 60, .55) !important; }
+html body.la-ma #hud .bars .bar.hp i#hp-fill { background: linear-gradient(#3a3440, #0a0a0e 45%, #000) !important; }
 
 /* Thẻ chạm người chơi khác (src/ui/other-menu.js; chủ dự án 19/11/2026 10:21) */
 .om-card { position: fixed; left: 0; top: 0; z-index: 40; display: flex; pointer-events: auto; }

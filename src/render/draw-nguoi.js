@@ -32,6 +32,8 @@ import { domainVis } from './draw-domain.js';
 import { ring } from './pixel-shapes.js';
 import { drawFlyWeapon, drawOtherWeapon } from './draw-flyweapon.js';
 import { drawPerson, INK } from './draw-person.js';
+import { drawMaKhi } from './draw-ma.js';
+import { maCua, toiMa } from '../game/pvp-ma.js';   // hóa ma: điểm ma của mình ở game.pvp (không phải bản lưu), của người khác ở hồ sơ phòng
 
 export function drawNguoi(ctx, game, e, h, t) {
   const toi = e === game.player, D = game.data;
@@ -54,6 +56,8 @@ export function drawNguoi(ctx, game, e, h, t) {
   if (e.flying) { e.lift = drawFlySword(ctx, game, e, h, t, A); ctx.save(); luu++; ctx.translate(0, -e.lift); }   // nút Bay: đứng trên vũ khí đang mặc (draw-fly.js)
   if (e.kd) { drawKdBack(ctx, game, e, t); ctx.save(); luu++; ctx.translate(e.kdDx || 0, -(e.kdLift || 0)); }   // kết đan: lơ lửng, nửa sau vòng khói vẽ trước thân
   if (e.meditating) { ctx.globalAlpha = A * (0.5 + 0.3 * Math.sin(t * 3)); ring(ctx, e.x, e.y - 6, 12 + Math.sin(t * 2) * 2, el); ctx.globalAlpha = A; }   // đả tọa: vòng linh khí màu hệ
+  const ma = toi ? game.pvp?.ma || 0 : maCua(e);
+  if (ma > 0) drawMaKhi(ctx, game, e, t, A);   // đang hóa ma: vũng ma khí, đốm đỏ bốc lên (draw-ma.js)
   drawAura(ctx, game, e, t, +h.ri || 0, A);   // hào quang cảnh giới
   if (toi) drawFlyWeapon(ctx, game, 'back'); else drawOtherWeapon(ctx, game, e, t, false, h);   // vũ khí treo sau lưng vẽ trước thân người
   const hero = drawHero(ctx, game, e, t, e.flash > 0, h);
@@ -71,8 +75,10 @@ export function drawNguoi(ctx, game, e, h, t) {
   if (!toi) {   // tên + hình khiên PvP (draw-pvp-tag.js); tắt khiên thì tên đỏ, kèm thanh máu PvP khi vừa trúng đòn; danh hiệu nằm TRÊN tên (18/11/2026 09:49)
     const q = textQ(game, 6), ny = e.y - (e.top || 22) - 3;
     ctx.font = `bold ${6 * q}px system-ui`; ctx.textAlign = 'center'; ctx.lineWidth = 2 * q; ctx.strokeStyle = INK;
-    drawNameShield(ctx, game, e, ny, q, INK, e.pk ? '#ff5a5a' : el);
-    if (e.pk && e.pvpR < 1 && game.time - (e.pvpAt || 0) < 10) { ctx.fillStyle = INK; ctx.fillRect(e.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = '#ff5a5a'; ctx.fillRect(e.x - 10, ny + 1.5, 20 * Math.max(0, e.pvpR), 2.5); }
+    drawNameShield(ctx, game, e, ny, q, INK, ma ? '#ff3344' : e.bm && toiMa(game) ? '#8c8c9a' : e.pk ? '#ff5a5a' : el);   // mình là ma: người mới được che hiện tên xám (không đánh được)
+    if (e.pvpR < 1 && game.time - (e.pvpAt || 0) < 10) {   // vừa trúng đòn PvP (cả người còn khiên bị ma đánh): thanh máu; ma: ruột đen trên rãnh đỏ sẫm (chủ dự án 02:20)
+      ctx.fillStyle = ma ? '#6a1e2a' : INK; ctx.fillRect(e.x - 10, ny + 1.5, 20, 2.5); ctx.fillStyle = ma ? '#050507' : '#ff5a5a'; ctx.fillRect(e.x - 10, ny + 1.5, 20 * Math.max(0, e.pvpR), 2.5);
+    }
     if (e.swingT > 0 && !hero) { const a = Math.atan2(e.face.y, e.face.x); ctx.globalAlpha = A * e.swingT / 0.18; ring(ctx, e.x, e.y - 3, 22, '#c8f6ff', a - 1.1, a + 1.1, 2); ctx.globalAlpha = A; }   // chưa có hình: vệt vung đòn
     ty = ny - 8 * q;
   }

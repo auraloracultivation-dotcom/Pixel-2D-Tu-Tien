@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { kyCfg, bcCfg, tnCfg, sameJson } from './ky-cfg.mjs';
+import { kyCfg, bcCfg, tnCfg, maCfg, sameJson } from './ky-cfg.mjs';
 
 const errors = [];
 const SKIP = new Set(['.git', 'node_modules']);
@@ -203,6 +203,10 @@ try {
   // Tiềm năng, sách Kỹ năng: máy chủ quay huyết mạch và kiểm sách theo bảng p2d_ky_cfg dòng 'tn' (tools/ky-cfg.mjs tn dựng); đổi tộc, điểm, kỹ năng, mốc, bước truyện thì thêm migration mới
   { const m = lastWith(/insert into public\.p2d_ky_cfg[^;]*values \('tn'/).match(/values \('tn', '(\{[^']*\})'::jsonb\)/);
     need(m && sameJson(JSON.parse(m[1]), tnCfg(read)), 'tiem-nang / ky-nang / story: số khác bảng p2d_ky_cfg dòng tn trên máy chủ; chạy node tools/ky-cfg.mjs tn rồi thêm migration mới'); }
+  // Hóa ma: máy chủ tính điểm ma, công đức, trần Linh Thạch mỗi ngày, mức mất (Linh Thạch, tu vi theo thanh linh khí máy khách) theo dòng 'ma'
+  // (tools/ky-cfg.mjs ma dựng từ data/pvp.json → ma, server.ma và data/realms.json); đổi số thì thêm migration mới
+  { const m = lastWith(/insert into public\.p2d_ky_cfg[^;]*values \('ma'/).match(/values \('ma', '(\{[^']*\})'::jsonb\)/);
+    need(m && sameJson(JSON.parse(m[1]), maCfg(read)), "pvp.ma / realms: số khác bảng p2d_ky_cfg dòng 'ma' trên máy chủ; chạy node tools/ky-cfg.mjs ma rồi thêm migration mới"); }
   // Chữ ký món: máy chủ tự tẩy luyện, cường hoá, đổi hệ theo bảng p2d_ky_cfg; số phải khớp data/ (tools/ky-cfg.mjs dựng)
   { const km = lastWith(/insert into public\.p2d_ky_cfg[^;]*values \('cfg'/).match(/values \('cfg', '(\{[^']*\})'::jsonb\)/), want = kyCfg(read);
     need(km && sameJson(JSON.parse(km[1]), want), 'items / gear / elements / daovan: số tẩy luyện, cường hoá, đổi hệ khác bảng p2d_ky_cfg trên máy chủ; chạy node tools/ky-cfg.mjs rồi thêm migration mới');

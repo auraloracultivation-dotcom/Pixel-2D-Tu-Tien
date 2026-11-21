@@ -37,7 +37,7 @@ export class Mang extends DurableObject {
     this.bud = new Map();      // uid → { b: sát thương còn được tính, at } (trần theo lực chiến)
     this.sum = 0; this.payAt = 0; this.changed = false;
     this.moTo = 0;             // boss mở tới lúc này (ms); hết giờ thì không nhận sát thương, không trả Linh Thạch (lệnh 'mo' / 'tat')
-    this.pk = new Map();       // uid → { off, immune, at } khiên PvP (src/pvp.js; at: lúc tắt khiên / giao chiến cuối)
+    this.pk = new Map();       // uid → { off, immune, at, ma } khiên PvP (src/pvp.js; at: lúc tắt khiên / giao chiến cuối; ma: điểm ma khi đang hóa ma, src/ma.js)
     ctx.blockConcurrencyWhile(async () => {
       const q = ctx.storage.sql;
       q.exec('CREATE TABLE IF NOT EXISTS anh (k TEXT PRIMARY KEY, j TEXT)');
@@ -47,7 +47,7 @@ export class Mang extends DurableObject {
         for (const [uid, name, v] of b.d || []) { this.tot.set(uid, { name, v }); this.sum += v; }
         for (const [uid, lt] of b.p || []) this.pend.set(uid, lt);
         this.payAt = b.at || 0; this.moTo = b.mo || 0;
-        for (const [uid, off, immune, at] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0, at: at || 0 });
+        for (const [uid, off, immune, at, ma] of b.k || []) this.pk.set(uid, { off: !!off, immune: immune || 0, at: at || 0, ma: ma || 0 });
       } else {   // bản cũ lưu mỗi người một dòng (bảng dmg, pay): đọc một lần rồi chuyển sang một dòng
         q.exec('CREATE TABLE IF NOT EXISTS dmg (uid TEXT PRIMARY KEY, name TEXT, v REAL)');
         q.exec('CREATE TABLE IF NOT EXISTS pay (uid TEXT PRIMARY KEY, lt REAL)');
@@ -89,7 +89,7 @@ export class Mang extends DurableObject {
   save() {
     this.changed = false;
     const d = [...this.tot].filter(([, x]) => x.v > 0).map(([uid, x]) => [uid, x.name, x.v]);
-    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, mo: this.moTo, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now()).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune, x.at || 0]) }));
+    this.ctx.storage.sql.exec("INSERT INTO anh (k, j) VALUES ('bang', ?) ON CONFLICT(k) DO UPDATE SET j = excluded.j", JSON.stringify({ d, p: [...this.pend], at: this.payAt, mo: this.moTo, k: [...this.pk].filter(([, x]) => x.off || x.immune > Date.now() || x.ma > 0).map(([uid, x]) => [uid, x.off ? 1 : 0, x.immune, x.at || 0, x.ma || 0]) }));
   }
 
   async alarm() {
@@ -197,6 +197,26 @@ export class Mang extends DurableObject {
     return (await r.json().catch(() => false)) === true;
   }
 
+  // Hóa ma (src/ma.js): báo Supabase một sự kiện, ký bằng cùng khoá; Supabase là nơi giữ điểm ma, công đức (bảng p2d_ma_hoa) và trả lại
+  // điểm mới: e 'hoa' (ke hóa ma) → { ma } hoặc { ma: 0, loi }; 'giet' (ma ke đồ sát người nan) → { ma: điểm ma của ke, no: có ghi nợ Linh Thạch };
+  // 'diet' (người ke diệt ma nan) → { ma: điểm ma còn lại của nan, cd: công đức của ke, no }. Lỗi mạng: null (phòng không đổi điểm ai).
+  async ma(e, ke, nan, noi = 'thuong') {
+    if (!this.env.SUPABASE_URL || !['hoa', 'giet', 'diet'].includes(e) || typeof ke !== 'string' || (e !== 'hoa' && typeof nan !== 'string')) return null;
+    const khoa = await this.khoa();
+    if (!khoa) return null;
+    const ts = Date.now(), ds = JSON.stringify(e === 'hoa' ? { e, u: ke } : { e, k: ke, v: nan, n: noi === 'ngoai' ? 'ngoai' : 'thuong' });
+    const r = await this.rpc('p2d_ma_ghi', { p_ts: ts, p_ds: ds, p_ky: await sign(khoa, `${ts}.${ds}`) });
+    if (!r.ok) { console.log('ma_ghi', r.status, (await r.text().catch(() => '')).slice(0, 200)); return null; }
+    const j = await r.json().catch(() => null);
+    if (!j || typeof j.ma !== 'number') return null;
+    const id = e === 'diet' ? nan : ke, x = this.pk.get(id);   // giữ điểm mới ngay ở đây: người đó đổi phòng là phòng mới biết liền
+    this.pk.set(id, { off: j.ma > 0 || (e !== 'diet' && !!x?.off), immune: x?.immune || 0, at: x?.at || 0, ma: Math.max(0, j.ma) });   // ma tan hết: khiên bật lại
+    this.changed = true;
+    const now = Date.now(), at = await this.ctx.storage.getAlarm();   // hẹn lưu như pkSet (khỏi mất điểm ma nếu lõi khởi động lại)
+    if (!at || at > now + SAVE_MS) await this.ctx.storage.setAlarm(now + SAVE_MS);
+    return j;
+  }
+
   // Nhịp sống gom của một phòng (src/nhip.js): ký cùng khoá, gửi Supabase p2d_nhip_gop; trả { khac: [uid] } hoặc null khi lỗi
   async nhipGop(rows) {
     if (!this.env.SUPABASE_URL || !Array.isArray(rows) || !rows.length) return null;
@@ -208,11 +228,11 @@ export class Mang extends DurableObject {
     return await r.json().catch(() => null);
   }
 
-  // Khiên PvP theo tài khoản: phòng hỏi lúc vào, báo lúc tắt khiên / chết
-  pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0, at: 0 }; }
-  async pkSet(uid, off, immune, lastAt = 0) {
+  // Khiên PvP theo tài khoản: phòng hỏi lúc vào, báo lúc tắt khiên / chết. ma: điểm ma (src/ma.js); không truyền thì giữ điểm cũ
+  pkGet(uid) { return this.pk.get(uid) || { off: false, immune: 0, at: 0, ma: 0 }; }
+  async pkSet(uid, off, immune, lastAt = 0, ma) {
     if (typeof uid !== 'string') return;
-    this.pk.set(uid, { off: !!off, immune: immune || 0, at: lastAt || 0 });
+    this.pk.set(uid, { off: !!off, immune: immune || 0, at: lastAt || 0, ma: typeof ma === 'number' ? Math.max(0, ma) : this.pk.get(uid)?.ma || 0 });
     this.changed = true;
     const now = Date.now(), at = await this.ctx.storage.getAlarm();
     if (!at || at > now + SAVE_MS) await this.ctx.storage.setAlarm(now + SAVE_MS);

@@ -196,6 +196,32 @@ await A.p.evaluate(m => window.__thu.epHoSo(m), { st: 'toa' });
 ok('A đổi trạng thái lúc đang mở bảng, C vẫn nhận', !!(await cho(async () => (await thay(C, 'may-a'))?.st === 'toa', 4000)));
 await A.p.evaluate(() => { window.__thu.epHoSo(null); window.__game.uiOpen = null; });
 
+// 5b. Hóa ma qua phòng (cloud/src/ma.js chạy thật; phòng giả giữ điểm ma như Supabase, tools/cloud/phong-gia.mjs): B bấm Hóa ma bằng đúng hàm
+// của nút (src/game/pvp-ma.js hoaMa) thì thành ma (thân ma, đầu lâu ở nhãn tên), A và C thấy điểm ma của B. C còn khiên mà ma ở gần thì C cũng gửi
+// vị trí theo nhịp giao chiến (ma đánh được cả người còn khiên), và B đánh C được: máy chủ phòng tính đòn.
+{
+  const nhip = X => X.p.evaluate(() => { const O = window.__game.others; O.sendGap(); return O.sendGap(); });
+  const pvpMs = await B.p.evaluate(() => window.__game.data.config.realtime.pvp_ms);
+  for (const X of [B, C]) await X.p.evaluate(() => { const s = window.__game.save; s.realm = 0; s.layer = 6; });   // máy thử mới vào game ở Luyện Khí tầng 1 (người mới): lên tầng 6 cho khớp phòng giả (x-tl 30)
+  await B.p.evaluate(() => window.__thu.hoaMa(window.__game));
+  const thanh = await cho(async () => (await B.p.evaluate(() => window.__game.pvp?.ma === 1 && document.body.classList.contains('la-ma')))
+    && (await thay(A, 'may-b'))?.ma === '1' && (await thay(C, 'may-b'))?.ma === '1', 5000);
+  ok('B bấm Hóa ma: B thành ma, A và C thấy điểm ma của B', !!thanh, `B: ${JSON.stringify(await B.p.evaluate(() => window.__game.pvp))}`);
+  const veNhan = () => A.p.evaluate(() => { const g = window.__game, o = g.others.list.get('may-b'), c = document.createElement('canvas').getContext('2d'); let id = '';
+    const goc = c.drawImage.bind(c); c.drawImage = (im, ...r) => { id ||= Object.entries(g.data.art.sprites).find(([, s]) => im?.src?.includes(s.file))?.[0] || ''; return goc(im, ...r); };
+    return o ? (window.__thu.veNhan(c, g, o), id) : 'không thấy B'; });
+  const nhan = (await cho(async () => ((await veNhan()) === 'ui.k-dau-lau' ? 'ui.k-dau-lau' : null), 4000)) || await veNhan();   // hình tải lần đầu thì chờ
+  ok('Nhãn tên B trên máy A là đầu lâu', nhan === 'ui.k-dau-lau', nhan || '(chưa vẽ hình nào)');
+  const nc = await nhip(C);
+  ok('C còn khiên, có ma ở gần: gửi vị trí theo nhịp giao chiến', nc === pvpMs, `${nc} ms (pvp_ms ${pvpMs})`);
+  const noi = await B.p.evaluate(() => { const g = window.__game, z = g.data.pvp.server.safe; return g.map.id === z.map && Math.hypot(g.player.x - z.x, g.player.y - z.y) <= z.r; });
+  const ph0 = phong.dem.xuong.ph || 0;
+  await new Promise(r => setTimeout(r, 600));
+  await B.p.evaluate(() => window.__game.online.pvpHit('may-c', window.__game.player));
+  const trung = await cho(async () => (phong.dem.xuong.ph || 0) > ph0, 3000);
+  ok('Ma đánh người còn khiên: máy chủ phòng tính đòn', noi ? !trung : !!trung, noi ? 'trong vòng pháp trận: phòng phải bỏ đòn' : `tin trúng đòn: ${(phong.dem.xuong.ph || 0) - ph0}`);
+}
+
 // 6. Rời tinh cầu: C đóng thì A, B không còn thấy C
 await C.dong();
 ok('C rời thì A không còn thấy C', !!(await cho(async () => !(await thay(A, 'may-c')), 4000)));

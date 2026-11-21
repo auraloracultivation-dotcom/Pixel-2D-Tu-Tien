@@ -32,7 +32,9 @@ export function gocCua(save, data) {
 }
 
 // Điểm tiềm năng: có bao nhiêu (theo cảnh giới), đã cộng bao nhiêu, mỗi chỉ số cộng được tới đâu
-export const diemCo = (save, data) => (tnOn(data) && save?.tiem?.toc ? TN(data).diem.moi * Math.max(0, save.realm | 0) : 0);
+// Điểm có theo cảnh giới cao nhất từng đạt (save.tiem.max; hóa ma 22/11/2026: ma bị diệt có thể tụt cảnh giới, điểm đã có không mất, lên lại không thêm;
+// máy chủ giữ p2d_nhan_vat.canh_max, trả về data.tiem.max)
+export const diemCo = (save, data) => (tnOn(data) && save?.tiem?.toc ? TN(data).diem.moi * Math.max(0, save.realm | 0, save.tiem.max | 0) : 0);
 export const tranCua = (data, k) => TN(data).diem.tran_rieng?.[k] ?? TN(data).diem.tran;
 export function congCua(save, data) {
   const D = TN(data)?.diem, c = save?.tiem?.cong, out = {};
@@ -62,6 +64,8 @@ export const luotNhanh = (save, data) => thienPhu(save, data)?.luot || 0;   // L
 
 // Thiên phú hồi sinh (Thần Huyết): máu tụt dưới ngưỡng thì hồi ngay một phần, cd giây một lần. Gọi mỗi khung hình (src/game/player.js).
 export function tiemTick(game, dt) {
+  const s = game.save;
+  if (s?.tiem?.toc && (s.realm | 0) > (s.tiem.max | 0)) s.tiem.max = s.realm | 0;   // cảnh giới cao nhất từng đạt (diemCo)
   const h = thienPhu(game.save, game.data)?.hoi_sinh, p = game.player;
   if (!h || !p) return;
   p.tnCd = Math.max(0, (p.tnCd || 0) - dt);
