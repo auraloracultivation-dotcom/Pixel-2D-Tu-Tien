@@ -19,8 +19,8 @@ import { castThunder, thunderReady } from './skill-thunder.js';
 import { castKiemVu } from './skill-kiem-vu.js';
 import { phat } from './phat.js';
 
-export function castSkill(game, id) {
-  const s = game.data.skills[id];
+export function castSkill(game, id, def) {   // def: số liệu chiêu khi dùng làm Kỹ năng (src/game/ky-nang.js knDef); bỏ trống thì theo data/skills.json
+  const s = def || game.data.skills[id];
   const p = game.player;
   const K = game.data.config.combat, lv = skillMul(game, id);   // chiêu mạnh hơn đánh thường (config.combat), mạnh thêm theo cấp chiêu
   const atk = p.atk * (s.type === 'multi' ? K.multi : K.skill) * lv, amount = (s.amount || 0) * lv;

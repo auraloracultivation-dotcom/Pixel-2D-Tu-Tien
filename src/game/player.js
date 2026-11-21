@@ -30,6 +30,7 @@ import { bump } from './achieve.js';
 import { startStrike, updateFlyWeapon, weaponPoint } from './flyweapon.js';
 import { mobTake } from './he-chien.js';
 import { luotNhanh, tiemTick } from './tiem-nang.js';
+import { knOn, knO, knDef } from './ky-nang.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -213,6 +214,19 @@ export function updatePlayer(game, dt) {
       if (dir) p.face = dir;
       p.castAim = inp.aim['s' + i] || null;   // hướng vuốt tay (null: chạm, tự ngắm), chiêu tụ lực dùng lúc chém (skill-charge.js)
       p.skillCd[i] = castSkill(game, slots[i]) * (1 - p.st.cdr);
+    }
+  }
+
+  if (knOn(game)) {   // Kỹ năng (chủ dự án 21/11/2026 17:23): ba ô sk0–sk2 ở mép phải, hồi chiêu riêng p.knCd (src/game/ky-nang.js)
+    const kn = knO(game); p.knCd = (p.knCd || [0, 0, 0]).map(c => c - dt);
+    for (let i = 0; i < 3; i++) {
+      const id = kn[i], d = id && knDef(game, id);
+      if (!inp.consume('sk' + i) || !d || p.knCd[i] > 0 || p.flying || !ready(game, id) || !spendMana(game, id, d)) continue;
+      p.meditating = false; p.calmT = 0;
+      const dir = inp.aim['sk' + i] || autoAim(game, id);
+      if (dir) p.face = dir;
+      p.castAim = inp.aim['sk' + i] || null;
+      p.knCd[i] = castSkill(game, id, d) * (1 - p.st.cdr); (p.knCdMax ||= [])[i] = Math.max(p.knCd[i], 0.01);
     }
   }
 

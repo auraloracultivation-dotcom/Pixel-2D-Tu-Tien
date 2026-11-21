@@ -1274,6 +1274,34 @@
      "say": [
       [
        "van-hac",
+       "Tông môn không truyền chiêu cho kẻ chưa từng tự hỏi mình đứng vì ai. Ngươi nghe câu hỏi rồi. Nhìn cho kỹ, lão chỉ làm một lần."
+      ]
+     ]
+    },
+    {
+     "canh": {
+      "tieng": "metal_cast",
+      "chop": 1,
+      "fx": "vong",
+      "mau": "#c8f6ff",
+      "cho": 0.7
+     }
+    },
+    {
+     "ky_nang": "pha-van"
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đinh! Chép xong chiêu đầu của ký chủ. Nút mới nằm ở mép phải màn hình. Linh lực có hạn, đừng vung bừa."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "van-hac",
        "Con ma ngươi hạ trong Bí cảnh Huyết Nha chỉ là cái bóng. Thân thật của nó nằm trong Hỏa Quật, ở Xích Diễm Tinh."
       ]
      ]
@@ -1422,6 +1450,25 @@
        "Lão Thiết vùi lưỡi {kiếm|liềm} vào lửa, gõ ba nhát. Lưỡi thép đỏ lên, rồi sẫm lại."
       ]
      ]
+    },
+    {
+     "say": [
+      [
+       "",
+       "Lúc lưỡi thép còn đỏ, linh căn hệ {element} của bạn tự tìm đường chảy vào nó."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Thấy chưa? Lửa lò chỉ mở đường. Thứ vừa chạy vào lưỡi thép là của ngươi. Nhớ lấy cảm giác ấy mà dùng."
+      ]
+     ]
+    },
+    {
+     "ky_nang": "linh-nhan"
     },
     {
      "say": [
@@ -1601,6 +1648,33 @@
       [
        "lao-thiet",
        "Dấu búa này của lão. Lão rèn con dao cho A Lực năm nó mười sáu."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Thằng bé có một bước chân, lửa trong quật cũng không bén kịp. Lão dạy nó rèn, nó đem ra săn. Cầm dao của nó, bước thử một bước xem."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "",
+       "Bạn bước một bước. Lưỡi dao kéo cả người đi theo, nhẹ như không."
+      ]
+     ]
+    },
+    {
+     "ky_nang": "liep-phong"
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Đúng nó rồi. Dao phải về với cha nó, còn bước chân thì ngươi giữ. Có người còn bước như thế, là nó chưa mất hẳn."
       ]
      ]
     },

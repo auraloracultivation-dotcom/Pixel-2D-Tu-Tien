@@ -67,6 +67,8 @@ export function createWander(game, ic, face, D) {
       const lim = dlgTop() - SH - 10;   // có khung thoại: lướt lên trên mép khung (kể cả khi đang đứng nhắc việc)
       const chip = document.getElementById('nv-hud');   // thẻ nhiệm vụ chính (góc trái dưới khung nhân vật): không đậu đè lên. Thẻ rộng 204–224, cao thêm khi việc dài hai dòng
       if (chip && !chip.hidden) { const cr = chip.offsetLeft + chip.offsetWidth + 4, cb = chip.offsetTop + chip.offsetHeight + 6, ct = chip.offsetTop - SH; if (pos.x < cr && pos.y > ct && pos.y < cb) { pos.y += (cb - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < cr && st.tgt.y > ct && st.tgt.y < cb) st.tgt.y = cb; } }
+      const cl = !game.chepO && document.getElementById('chu-lon');   // hàng chữ lớn đang hiện (khẩu quyết, kỹ năng vừa học) mà không phải dòng chép sổ: dạt sang phải, không che chữ
+      if (cl && !cl.hidden) { const r = cl.getBoundingClientRect(); if (r.width && pos.x < r.right + 4 && pos.x + S > r.left && pos.y + SH > r.top && pos.y < r.bottom) { pos.x += (r.right + 6 - pos.x) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < r.right + 6) st.tgt.x = r.right + 6; } }
       if (pos.y > lim) { pos.y += (lim - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.y > lim) st.tgt.y = lim; }
       pos.x = Math.max(4, Math.min(innerWidth - S - 4, pos.x)); const Z = band(); pos.y = Math.max(Z.t, Math.min(Z.b - SH, pos.y));
       const bob = Math.sin(performance.now() / (st.mode === 'move' ? 160 : 420)) * (st.mode === 'move' ? 3 : 1.5);

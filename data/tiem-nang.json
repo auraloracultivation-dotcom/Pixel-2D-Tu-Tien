@@ -182,8 +182,8 @@
   "dong_s": 0.45,
   "tu_dong_s": 2.2,
   "sfx": {
-   "mo": "gong",
-   "nhip": "tick",
+   "mo": "chuong",
+   "nhip": "pluck",
    "dung": "breakthrough",
    "dong": "chime",
    "nhan": "sparkle"

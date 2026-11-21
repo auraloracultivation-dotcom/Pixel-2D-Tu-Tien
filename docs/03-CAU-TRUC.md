@@ -577,3 +577,14 @@ Thế giới, cốt truyện, bảng 27 nhiệm vụ và lý do bỏ cách làm 
 - **Công tắc**: `data/tran-ma-ky.json → on` (tắt: không khẩu quyết, không dòng nghĩa cảnh giới ở lễ đột phá), `chu.on` (tắt mọi hàng chữ lớn), `chu.lenh_on` (ẩn chữ lệnh của khẩu quyết). Chuỗi nhiệm vụ không có công tắc riêng: muốn dừng ở cuối phần mở đầu thì cắt các bước sau `mo_dau` (giữ một bước cuối `until.never`).
 - **Mừng mạnh lên, phần còn lại của việc 4b** (`docs/10-CAI-HON.md`): `src/ui/mung-them.js` (linh thú tiến hoá / ghép sao, động phủ lên cấp, khảm / ghép ngọc; `game.mungLen` cho công pháp lên tầng và linh thú lên cấp), số chữ `data/juice.json → mung.them`; nơi gọi: `src/ui/pets-panel.js`, `cave-panel.js`, `bag-stock.js`, `bag.js`, `self-bag.js`, `src/game/techniques.js`, `pets.js`.
 - Công cụ (cần Playwright): `node tools/do-don/thu-nv.mjs <thư mục ra>` chạy cả chuỗi 15 → 27 bằng Tự hành và chụp từng mốc (`CU=1`, `KQ=thoat|dong`, `CHON=n`, `THAT=1`); `node tools/do-don/quay-nv.mjs <tệp .mp4>` quay clip cỡ điện thoại (cần ffmpeg); `node tools/do-don/o-chan.mjs <bản đồ> x0 y0 x1 y1` in lưới ô chắn THẬT (kể cả vùng chắn của nhà, lò mà lưới ô trong tệp bản đồ không thấy).
+
+## Tiềm năng và Kỹ năng (`data/tiem-nang.json`, `data/ky-nang.json`, chủ dự án 21/11/2026 17:23)
+
+Thiết kế, số và việc còn chờ ở `docs/15-TIEM-NANG-KY-NANG.md`. Luật phải giữ khi sửa:
+
+- Tiềm năng cộng vào chỉ số qua `ext.tiem` của `playerStatsHC` (trần `extra_cap.tiem`), không cộng thẳng vào gốc. Đổi công thức lực chiến thì đo lại tỷ giá `quy`; `tools/tiem-nang.test.mjs` chặn khi các tộc lệch nhau quá 5%.
+- Kết quả quay ghi vào `save.tiem` trước khi mở màn lễ. Không thêm lượt quay lại: chủ dự án chọn một lượt.
+- Kỹ năng không ghi vào `data/skills.json`: khai ở `data/ky-nang.json → chieu`, `knNap` đưa vào bảng chiêu lúc nạp (`src/main.js`). Xoá 48 chiêu cũ thì giữ các chiêu mà `hinh` của kỹ năng còn mượn, hoặc đổi `hinh`.
+- Hồi chiêu kỹ năng ở `player.knCd`, lệnh `sk0–sk2`; không dùng chung `player.skillCd` của pháp bảo.
+- Sách kỹ năng do máy khách giữ (`save.knSach`): chưa có kiểm ở máy chủ, không đưa lên game thật trước khi có.
+

@@ -8,7 +8,7 @@ const M = game => game.data.config.mana;
 const manaBase = game => M(game).base + M(game).per_layer * totalLayer(game.save, game.data.realms);
 export const manaMax = game => Math.round(manaBase(game) * (1 + (game.player?.st?.mpPct || 0)));
 // Chiêu tốn số linh lực cố định (data/skills.json → mp, chủ dự án 05/11/2026 09:45), cấp chiêu cao tốn thêm mp_lv mỗi cấp
-export const manaCost = (game, id) => { const s = game.data.skills[id]; return Math.round((s?.mp ?? 10) * (1 + (M(game).mp_lv || 0) * (skillLv(game, id) - 1))); };
+export const manaCost = (game, id, def) => { const s = def || game.data.skills[id]; return Math.round((s?.mp ?? 10) * (1 + (M(game).mp_lv || 0) * (skillLv(game, id) - 1))); };
 
 export function manaTick(game, dt) {
   const p = game.player, mx = manaMax(game);
@@ -17,8 +17,8 @@ export function manaTick(game, dt) {
 }
 
 // Đủ linh lực thì trừ và trả true; thiếu thì báo (cách nhau 1,5 giây) và trả false
-export function spendMana(game, id) {
-  const p = game.player, cost = manaCost(game, id);
+export function spendMana(game, id, def) {   // def: số liệu chiêu khi dùng làm Kỹ năng (tính chất Tiết Linh giảm linh lực)
+  const p = game.player, cost = manaCost(game, id, def);
   if ((p.mp ?? 0) >= cost) { p.mp -= cost; return true; }
   if ((game.time || 0) - (p.mpWarn || -9) > 1.5) { p.mpWarn = game.time || 0; game.number?.(p.x, p.y - 22, 'Thiếu linh lực', '#7ab8ff'); }
   return false;

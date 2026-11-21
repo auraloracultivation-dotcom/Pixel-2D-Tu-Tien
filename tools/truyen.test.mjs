@@ -9,6 +9,7 @@ import { CANH_FX } from '../src/game/dan-canh.js';
 
 const read = f => JSON.parse(readFileSync(new URL(`../data/${f}.json`, import.meta.url), 'utf8'));
 const S = read('story'), T = read('tran-ma-ky'), npcs = read('npcs'), mobs = read('mobs'), items = read('items'), realms = read('realms'), PB = read('phap-bao'), tiles = read('tiles').types, cfg = read('config');
+const KN = read('ky-nang'), skills = read('skills'), elements = read('elements');
 const sounds = read('sounds').sfx, maps = Object.fromEntries(cfg.maps.map(id => [id, read('maps/' + id)]));
 const both = v => String(v).match(/^\{([^|{}]*)\|([^|{}]*)\}$/)?.slice(1) || [v];   // chữ theo giới {nam|nữ}: soát cả hai vế
 const mob = id => (mobs.list || mobs)[id];
@@ -26,6 +27,8 @@ function soat(u, at, noiMap) {
   const map = u.target_map || u.map || noiMap, tu = new Set();   // tu: cờ chính bước này bật
   for (const a of u.do || []) {
     if (a.neu) for (const f of both(a.neu.replace(/^!/, ''))) { neu.add(f); assert.ok(!tu.has(f), `${at}: điều kiện neu đặt vào cờ "${f}" do chính bước này bật (mở lại game giữa bước sẽ lệch câu)`); }
+    if (a.ky_nang) assert.ok(KN.hoc[a.ky_nang], `${at}: lệnh ky_nang "${a.ky_nang}" không có trong data/ky-nang.json → hoc`);
+    if (a.le_toc) assert.ok(a.le_toc === 'he-thong' || npcs[a.le_toc], `${at}: lệnh le_toc cần người đứng lễ có thật ("${a.le_toc}")`);
     if (a.hoi) {
       assert.ok(a.hoi.q && npcs[a.hoi.ai] && a.hoi.opts?.length >= 2 && a.hoi.im, `${at}: câu hỏi thiếu q, người hỏi (ai), lời đáp khi im lặng (im) hoặc dưới hai lựa chọn`);
       for (const o of a.hoi.opts) { assert.ok(o.label && o.reply && o.flag, `${at}: lựa chọn "${o.label}" thiếu label / reply / flag`); co.add(o.flag); }
@@ -88,4 +91,26 @@ for (const f of neu) assert.ok(moDau.has(f), `điều kiện neu dùng cờ "${f
 assert.equal(T.canh_gioi.length, realms.names.length, 'canh_gioi: mỗi cảnh giới một câu');
 for (const t of Object.keys(PB.types)) assert.ok(T.kq[t]?.cau && T.kq[t].lenh && T.kq[t].han && [].concat(T.kq[t].cau).every(s => s.length <= 27), `khẩu quyết của pháp bảo "${t}" thiếu cau / lenh / han, hoặc một dòng dài quá 27 chữ`);
 for (const t of Object.keys(T.kq)) assert.ok(PB.types[t], `khẩu quyết cho loại pháp bảo không có: "${t}"`);
+// Kỹ năng (data/ky-nang.json): bộ kỹ năng theo truyện đủ số liệu cho bộ máy ra chiêu, mượn hiệu ứng của chiêu có thật, không trùng mã với 48 chiêu cũ; khoá học
+// nào cũng được một nhiệm vụ dạy, kỹ năng theo hệ đủ năm hệ; ghép sách và khảm tính chất đúng khuôn; tiếng của màn lễ huyết mạch có trong sounds.json
+{
+  const daDay = new Set(S.steps.flatMap(st => (st.do || []).map(a => a.ky_nang).filter(Boolean))), cos = new Set(), C = KN.chieu, he = Object.keys(elements).filter(k => !k.startsWith('_'));
+  const CAN = { projectile: ['speed', 'range', 'radius'], multi: ['speed', 'range', 'radius', 'count', 'spread'], aoe: ['radius'], dash: ['dist'] };
+  for (const [id, c] of Object.entries(C)) {
+    assert.ok(!skills[id], `kỹ năng ${id} trùng mã với một chiêu cũ trong data/skills.json`);
+    assert.ok(c.name && c.desc && c.day && CAN[c.type] && c.cd >= 6 && c.mp > 0 && c.mult > 0 && c.mult <= 1 && /^#[0-9a-f]{6}$/i.test(c.color), `kỹ năng ${id}: thiếu tên, mô tả, người dạy, kiểu, hồi chiêu ≥ 6 giây, linh lực, sát thương ≤ 1 hoặc màu`);
+    for (const f of CAN[c.type]) assert.ok(c[f] > 0, `kỹ năng ${id} (${c.type}) thiếu ${f}`);
+    if (c.hinh) assert.ok(skills[c.hinh], `kỹ năng ${id} mượn hiệu ứng của chiêu ${c.hinh} không có`);
+  }
+  for (const [k, h] of Object.entries(KN.hoc)) {
+    assert.ok(h.co && !cos.has(h.co), `ky-nang.hoc.${k}: thiếu cờ hoặc trùng cờ`); cos.add(h.co);
+    if (h.he) for (const e of he) assert.ok(C[h.he[e]], `ky-nang.hoc.${k}: thiếu kỹ năng cho hệ ${e}`); else assert.ok(C[h.id], `ky-nang.hoc.${k}: kỹ năng ${h.id} không có`);
+    assert.ok(daDay.has(k), `ky-nang.hoc.${k}: chưa nhiệm vụ nào dạy (lệnh ky_nang trong data/story.json)`);
+  }
+  assert.ok(KN.sach.ghep === 2 && KN.sach.max >= 2 && KN.sach.per > 0, 'ky-nang.sach: ghép 2 cuốn thành 1 cuốn cấp trên (chủ dự án), có cấp tối đa và thưởng mỗi cấp');
+  assert.deepEqual([...KN.kham.o].sort((a, b) => a - b), KN.kham.o, 'ky-nang.kham.o: cấp mở ô phải tăng dần'); assert.ok(KN.kham.o.every(x => x <= KN.sach.max));
+  for (const [m, T] of Object.entries(KN.kham.tinh)) { assert.ok(T.ten && T.mo_ta && T.at >= 0, `tính chất ${m}: thiếu tên, mô tả hoặc mốc at`); for (const h of T.hop || []) assert.ok(CAN[h], `tính chất ${m}: kiểu chiêu "${h}" bộ kỹ năng chưa dùng`); }
+  const TNle = read('tiem-nang').le;
+  for (const v of Object.values(TNle.sfx)) assert.ok(sounds[v], `tiem-nang.le.sfx: tiếng "${v}" không có trong sounds.json`);
+}
 console.log(`✅ Truyện: ${n} nhiệm vụ chính (${steps.length} bước), ${(S.dau || []).length} dấu truyện, ${Object.keys(T.kq).length} khẩu quyết`);

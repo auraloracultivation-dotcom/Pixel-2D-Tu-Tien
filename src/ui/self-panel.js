@@ -4,6 +4,7 @@
 // phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về lưới (dùng chung src/ui/bag-detail.js, bag-stock.js với
 // Túi đồ). Công pháp, Thời trang: gắn chính bảng có sẵn của game vào khung phải (src/ui/self-host.js). Kiểu ở style-self.css.
 import { pbOn } from '../game/phap-bao.js';
+import { knOn } from '../game/ky-nang.js';
 import { pbGrid, pbSheet } from './self-pb-page.js';
 import { playerStats } from '../game/stats.js';
 import { el, renderDetail } from './bag-detail.js';
@@ -16,6 +17,7 @@ import { host, unhost, HOSTS, routeOld } from './self-host.js';
 import { snap, react } from './self-fx.js';
 import { renderLoDan } from './lo-dan-view.js';
 import { renderTiem } from './tiem-nang-view.js';
+import { renderKyNang } from './ky-nang-view.js';
 import { patch, patchList } from './morph.js';
 
 const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['tiem', 'ui.nv-tu-luyen', 'Tiềm năng'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['ld', 'ui.k-i-lo-dan', 'Luyện đan']];   // biểu tượng mục; Luyện đan: lò luyện đan (chủ dự án 20/11/2026 13:3x, src/ui/lo-dan-view.js) (ảnh GPT 03:03)
@@ -45,7 +47,7 @@ export function createSelfPanel(game) {
   root.append(frame, x);
   document.body.append(root);
   const st = { page: 'do', sub: 'all', sel: null, stock: null, coinLog: false, more: false, pickSocket: null, sort: 'moi', qs: false };
-  const sub0 = page => (page === 'cp' && pbOn(game) ? 'cong-phap' : SUB0[page]);   // hệ pháp bảo mới: mục Chiêu cũ đã ẩn
+  const sub0 = page => (page === 'cp' && pbOn(game) && !knOn(game) ? 'cong-phap' : SUB0[page]);   // hệ pháp bảo mới: mục Chiêu cũ đã ẩn
   const reset = () => { st.sel = null; st.stock = null; st.coinLog = false; st.more = false; st.pbSel = null; };
   function close() { unhost(); root.hidden = true; game.uiOpen = false; reset(); st.pickSocket = null; st.qs = false; }
   x.onclick = close;
@@ -100,13 +102,15 @@ export function createSelfPanel(game) {
     subs.classList.toggle('many', SB.length > 3);   // nhiều mục con: chỉ hiện hình cho khỏi cắt chữ
     patchList(subs, SB.map(([id, ico, name]) => tabBtn('sv-sb', st.sub === id, ico, name, () => {
       st.sub = id; reset(); st.qs = false;
-      if (HOSTS[st.page]) document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
+      if (HOSTS[st.page] && id !== 'chieu') document.querySelector(`#${HOSTS[st.page][2]} [data-tab="${id}"]`)?.click();   // tab của bảng đang gắn
       render();
     })));
-    const hosted = !!HOSTS[st.page];
+    const knTab = st.page === 'cp' && st.sub === 'chieu';   // Kỹ năng (chủ dự án 21/11/2026 17:23): mục riêng tự vẽ (src/ui/ky-nang-view.js), không gắn bảng Chiêu cũ
+    const hosted = !!HOSTS[st.page] && !knTab;
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
     if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
     unhost();
+    if (knTab) { renderKyNang(game, st, mid, bar, changed); return; }
     if (st.page === 'tiem') { renderTiem(game, st, mid, bar, changed); return; }   // Tiềm năng: huyết mạch và điểm tiềm năng (chủ dự án 21/11/2026 17:23, src/ui/tiem-nang-view.js)
     if (st.page === 'ld') { mid.classList.remove('sheet'); bar.hidden = false; renderLoDan(game, st, mid, bar, () => { if (!root.hidden && st.page === 'ld') render(); }); return; }
     const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn

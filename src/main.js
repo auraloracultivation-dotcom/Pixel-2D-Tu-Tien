@@ -19,6 +19,7 @@ import { createMungThem } from './ui/mung-them.js';
 import { createChuLon } from './ui/chu-lon.js';
 import { createDauTruyen } from './game/dau-truyen.js';
 import { createLeToc } from './game/le-toc.js';
+import { knNap } from './game/ky-nang.js';   // Kỹ năng: bộ kỹ năng theo truyện vào bảng chiêu của bộ máy lúc nạp (data/ky-nang.json → chieu)
 import { createLeTocUI } from './ui/le-toc.js';
 import { startHenMai } from './game/hen-mai.js';
 import { watchTuVao, tuVao } from './ui/tu-vao.js';
@@ -97,7 +98,7 @@ async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
   initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
-  const data = hcData(await loadData());   // luật chiến đấu mới (data/he-chien.json on): đổi bảng quái một lần lúc nạp (src/game/he-chien.js)
+  const data = knNap(hcData(await loadData()));   // luật chiến đấu mới (data/he-chien.json on): đổi bảng quái một lần lúc nạp (src/game/he-chien.js)
   let screen = null;
   const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
   screen = createScreen(canvas, data.config, perf.dpr);

@@ -6,6 +6,7 @@ import { dist } from './combat.js';
 import { reachOf as mobReach } from './mob-power.js';
 import { skillSlots } from './skills.js';
 import { pbOn, pbWorn } from './phap-bao.js';
+import { knOn, knO } from './ky-nang.js';
 import { weaponId } from './stats.js';
 import { unstuck } from './unstuck.js';
 import { findPath, leoBac } from './pilot.js';
@@ -94,6 +95,9 @@ export function fightStep(game, tgt, ax = { x: 0, y: 0 }) {
   if (bd < reach + 30 && see) {
     for (let i = 0; i < 3; i++) if (slots[i] && p.skillCd[i] <= 0) game.input.pressed.add('s' + i);
     if ((p.artCd || 0) <= 0) game.input.pressed.add('art');   // góp ý #111: chiêu pháp bảo đã hồi thì tự dùng (không có pháp bảo thì nút không làm gì)
+    if (knOn(game)) knO(game).forEach((id, i) => {   // Kỹ năng đã hồi thì tự dùng; chiêu hồi máu chờ lúc máu dưới 70%
+      if (id && (p.knCd?.[i] ?? 0) <= 0 && !(game.data.skills[id].type === 'heal' && p.hp > p.maxHp * 0.7)) game.input.pressed.add('sk' + i);
+    });
   }
   if (bd > reach || !see) { p.keepOut = null; return { ax: toward(p, tgt.x, tgt.y), atk: false }; }
   return keepStep(game, tgt, bd, reach, ax);
