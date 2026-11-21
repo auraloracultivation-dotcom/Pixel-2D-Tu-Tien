@@ -185,7 +185,8 @@ export function createBayCanh(game) {
   const canvas = game.screen.ctx.canvas, ptrs = new Map();
   let drag = null, pinch = null;
   const world = e => { const r = canvas.getBoundingClientRect(); return game.screen.toWorld(e.clientX - r.left, e.clientY - r.top); };
-  const pick = w => { const hs = [...game.map.hoi].sort((a, b) => b.y - a.y); return hs.find(h => w.x >= h.x - h.w / 2 && w.x <= h.x + h.w / 2 && w.y >= h.y - h.h && w.y <= h.y + 2) || pickSpot(w); };
+  const pick = w => { const hs = game.map.hoi.filter(h => h.idx >= 0).sort((a, b) => b.y - a.y);   // món sinh sẵn (idx âm, tinh cầu tông môn) không chọn được
+    return hs.find(h => w.x >= h.x - h.w / 2 && w.x <= h.x + h.w / 2 && w.y >= h.y - h.h && w.y <= h.y + 2) || pickSpot(w); };
   // Mộc Nhân, bể cá: chạm trúng khung thì thêm món đánh dấu vào bố cục (chưa có) rồi chọn như đồ thường
   function pickSpot(w) {
     if (game.map.id !== game.data.home?.map) return null;

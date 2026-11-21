@@ -72,7 +72,7 @@
    3
   ]
  },
- "grounds": {
+ "_nen": "Nền, cây, hoa cỏ SpriteCook cho tinh cầu tông môn (chủ dự án 21/11/2026 11:33: \"đồng bộ nền và cây cối nhà cửa tại mấy tinh cầu tông môn\"): mỗi mặt đất dùng bộ nền của tinh cầu cùng loại (tc: rừng rêu = Mộc Linh, đồng cỏ = Thanh Khê, tuyết = Hàn Băng, tro = Xích Diễm, cát = Thiên Kim, đá đen = Hắc Phong, hậu thổ = Hậu Thổ). bo: lớp nền, ky: ký tự ô của từng lớp (src/world/draw-nen.js), cay: ô cây / đá / hoa → hình SpriteCook [mã, trọng số, cỡ nhỏ nhất, lớn nhất] (ô vẫn chắn như cũ, hình ô cũ ẩn), thua: món nhỏ khi sát cây khác, rai: [món, tỉ lệ ô trống được rải]. Dựng ở src/game/kh-gen.js, cùng hạt giống ra cùng chỗ trên mọi máy. Không tốn credit (dùng lại hình đã có).", "grounds": {
   "rung": {
    "name": "Rừng rêu",
    "base": "m",
@@ -93,7 +93,7 @@
     "doc-dang"
    ],
    "boss": "thuc-moc-ma-hau"
-  },
+  , "nen": {"tc": "dao-moc", "bo": {"nuoc": "nen.tc-tm-nuoc", "mep": "nen.tc-tm-mep", "vach": "nen.tc-tm-vach", "nui": "nen.tc-tm-nui", "hoa": "nen.tc-tm-hoa", "san": "nen.tk-san"}, "ky": {"nen": "mn", "san": "o"}, "cay": {"Z": [["tk.cay-co-thu-sc", 3, 0.9, 1.1], ["tc.cay-rung-sc", 2, 0.95, 1.15]], "n": [["tc.nam-cum-sc", 3, 0.8, 1], ["tk.nam-nau-sc", 2, 0.9, 1.1], ["tc.nho-tm-0-sc", 2, 1, 1.2]]}, "thua": [["tc.bui-duong-xi-lon-sc", 2, 0.55, 0.7], ["tk.bui-duong-xi-sc", 2, 0.8, 1], ["tc.da-reu-xanh-sc", 1, 0.6, 0.75], ["tc.nam-lam-to-sc", 1, 0.8, 1]], "rai": [[["tc.nho-tm-0-sc", 1, 0.9, 1.1], ["tc.nho-tm-1-sc", 1, 0.9, 1.1], ["tc.nho-tm-2-sc", 1, 0.9, 1.1], ["tc.nho-tm-3-sc", 1, 0.9, 1.1], ["tc.nho-tm-4-sc", 1, 0.9, 1.1], ["tk.bui-duong-xi-sc", 2, 0.7, 0.9], ["tc.nam-cum-sc", 1, 0.7, 0.9]], 0.025]}},
   "co": {
    "name": "Đồng cỏ",
    "base": ".",
@@ -115,7 +115,7 @@
     "hac-cuc-mam"
    ],
    "boss": "co-thu-yeu-vuong"
-  },
+  , "nen": {"tc": "thanh-khe", "bo": {"nuoc": "nen.tk-nuoc", "dat": "nen.tk-dat", "mep": "nen.tk-mep", "vach": "nen.tk-vach", "nui": "nen.tk-nui", "hoa": "nen.tk-hoa", "san": "nen.tk-san"}, "ky": {"san": "o"}, "cay": {"T": [["tk.cay-anh-dao-sc", 1, 0.8, 1], ["tk.cay-ngan-hanh-sc", 2, 0.8, 1], ["tk.cay-phong-sc", 1, 0.75, 0.95], ["tk.cay-thong-sc", 2, 0.75, 0.95]], "R": [["tk.da-cum-sc", 2, 0.9, 1.1], ["tk.da-vua-sc", 2, 0.9, 1.1], ["tk.da-reu-lon-sc", 1, 0.7, 0.85]], "F": [["tk.bui-cuc-vang-sc", 1, 0.8, 1], ["tk.bui-do-quyen-sc", 1, 0.8, 1], ["tk.bui-hoa-trang-sc", 1, 0.8, 1], ["tk.bui-mau-don-sc", 1, 0.8, 1], ["tk.hoa-do-sc", 1, 0.9, 1.1], ["tk.hoa-lam-sc", 1, 0.9, 1.1], ["tk.hoa-vang-sc", 1, 0.9, 1.1]]}, "thua": [["tk.bui-xanh-lon-sc", 2, 0.9, 1.1], ["tk.bui-xanh-nho-sc", 2, 0.9, 1.1], ["tk.goc-cay-sc", 1, 0.9, 1]], "rai": [[["tk.bui-cuc-vang-sc", 1, 0.8, 1], ["tk.bui-do-quyen-sc", 1, 0.8, 1], ["tk.bui-hoa-trang-sc", 1, 0.8, 1], ["tk.bui-mau-don-sc", 1, 0.8, 1], ["tk.bui-xanh-nho-sc", 2, 0.8, 1], ["tk.bui-co-cao-sc", 2, 0.7, 0.9]], 0.02]}},
   "tuyet": {
    "name": "Tuyết",
    "base": "w",
@@ -136,7 +136,7 @@
     "bang-tinh"
    ],
    "boss": "han-hon-ma-tuong"
-  },
+  , "nen": {"tc": "dao-han-bang", "bo": {"nuoc": "nen.tc-hb-nuoc", "mep": "nen.tc-hb-mep", "vach": "nen.tc-hb-vach", "nui": "nen.tc-hb-nui", "hoa": "nen.tc-hb-hoa", "dat": "nen.tc-hb-dat", "san": "nen.tc-hb-san", "gach": "nen.tc-hb-gach"}, "ky": {"nen": "w", "nuoc": "O", "san": "o", "them": [["nen.tc-hb-bang", "i"]]}, "cay": {"Y": [["tc.tung-tuyet-sc", 3, 0.8, 0.95], ["tc.tung-tuyet-vua-sc", 2, 0.9, 1.05], ["tc.cay-bang-sc", 2, 0.85, 1], ["tc.da-tuyet-sc", 1, 0.65, 0.8]]}, "thua": [["tc.bui-tuyet-sc", 2, 0.5, 0.6], ["tc.da-tuyet-sc", 1, 0.55, 0.7]], "rai": [[["tc.nho-hb-0-sc", 1, 0.9, 1.1], ["tc.nho-hb-1-sc", 1, 0.9, 1.1], ["tc.nho-hb-2-sc", 1, 0.9, 1.1], ["tc.nho-hb-3-sc", 1, 0.9, 1.1], ["tc.nho-hb-4-sc", 1, 0.9, 1.1], ["tc.bui-tuyet-sc", 2, 0.45, 0.6]], 0.02]}},
   "tro": {
    "name": "Đất tro núi lửa",
    "base": "a",
@@ -157,7 +157,7 @@
     "viem-linh"
    ],
    "boss": "hoa-lang-vuong"
-  },
+  , "nen": {"tc": "dao-xich-dien", "bo": {"nuoc": "nen.tc-xd-nuoc", "mep": "nen.tc-xd-mep", "vach": "nen.tc-xd-vach", "nui": "nen.tc-xd-nui", "hoa": "nen.tc-xd-hoa", "dat": "nen.tc-xd-dat", "san": "nen.tc-xd-san", "gach": "nen.tc-xd-gach"}, "ky": {"nen": "a", "nuoc": "L", "san": "o"}, "cay": {"R": [["tc.da-nui-lua-sc", 2, 0.6, 0.75], ["tc.cay-chay-sc", 2, 0.8, 0.95], ["tc.cay-chay-mai-sc", 1, 0.85, 1], ["tc.cay-chay-la-sc", 1, 0.8, 0.95]]}, "thua": [["tc.bui-tro-sc", 2, 0.5, 0.6], ["tc.soi-nui-lua-sc", 1, 0.55, 0.7]], "rai": [[["tc.nho-xd-0-sc", 1, 0.9, 1.1], ["tc.nho-xd-1-sc", 1, 0.9, 1.1], ["tc.nho-xd-2-sc", 1, 0.9, 1.1], ["tc.nho-xd-3-sc", 1, 0.9, 1.1], ["tc.nho-xd-4-sc", 1, 0.9, 1.1], ["tc.bui-tro-sc", 2, 0.45, 0.6], ["tc.soi-nui-lua-sc", 2, 0.5, 0.65]], 0.02]}},
   "cat": {
    "name": "Cát vàng",
    "base": "s",
@@ -178,7 +178,7 @@
     "kim-giap-trung"
    ],
    "boss": "kim-giap-vuong"
-  },
+  , "nen": {"tc": "dao-thien-kim", "bo": {"nuoc": "nen.tc-tkim-nuoc", "mep": "nen.tc-tkim-mep", "vach": "nen.tc-tkim-vach", "nui": "nen.tc-tkim-nui", "hoa": "nen.tc-tkim-hoa", "dat": "nen.tc-tkim-dat", "san": "nen.tc-tkim-san"}, "ky": {"nen": "s", "san": "o"}, "cay": {"b": [["tc.da-quang-vang-sc", 2, 0.5, 0.65], ["tc.soi-vang-sc", 1, 0.6, 0.75], ["tc.cay-ho-duong-nho-sc", 2, 0.9, 1.1], ["tc.kiem-co-cat-sc", 1, 0.55, 0.7]], "h": [["tc.nho-tkim-3-sc", 1, 1, 1.2]]}, "thua": [["tc.soi-vang-sc", 1, 0.55, 0.7], ["tc.da-quang-vang-sc", 1, 0.45, 0.55]], "rai": [[["tc.nho-tkim-0-sc", 1, 0.9, 1.1], ["tc.nho-tkim-1-sc", 1, 0.9, 1.1], ["tc.nho-tkim-2-sc", 1, 0.9, 1.1], ["tc.nho-tkim-3-sc", 1, 0.9, 1.1], ["tc.nho-tkim-4-sc", 1, 0.9, 1.1], ["tc.bui-sa-mac-sc", 2, 0.4, 0.5]], 0.02]}},
   "da-den": {
    "name": "Đá đen",
    "base": "d",
@@ -200,7 +200,7 @@
     "hac-diep"
    ],
    "boss": "hac-phong-ma-quan"
-  },
+  , "nen": {"tc": "hac-phong-dao", "bo": {"nuoc": "nen.tc-hp-nuoc", "mep": "nen.tc-hp-mep", "vach": "nen.tc-hp-vach", "nui": "nen.tc-hp-nui", "hoa": "nen.tc-hp-hoa", "dat": "nen.tc-hp-dat"}, "ky": {"nen": "d", "dat": "o"}, "cay": {"V": [["tc.cay-kho-gio-sc", 2, 0.7, 0.85], ["tc.cay-chay-mai-sc", 1, 0.75, 0.9]], "U": [["tc.tru-da-den-sc", 2, 0.8, 1], ["tc.tru-da-gay-sc", 2, 0.85, 1], ["tc.da-den-sc", 1, 0.55, 0.7]]}, "thua": [["tc.bui-gai-sc", 1, 0.5, 0.6], ["tc.da-den-sc", 1, 0.45, 0.55]], "rai": [[["tc.nho-hp-0-sc", 1, 0.9, 1.1], ["tc.nho-hp-1-sc", 1, 0.9, 1.1], ["tc.nho-hp-2-sc", 1, 0.9, 1.1], ["tc.nho-hp-3-sc", 1, 0.9, 1.1], ["tc.nho-hp-4-sc", 1, 0.9, 1.1], ["tc.bui-co-kho-sc", 2, 0.45, 0.6], ["tc.bui-gai-sc", 1, 0.45, 0.55]], 0.02]}},
   "hau-tho": {
    "name": "Đất hậu thổ",
    "base": "t",
@@ -222,7 +222,7 @@
     "nham-xa"
    ],
    "boss": "nham-giap-thu"
-  }
+  , "nen": {"tc": "dao-hau-tho", "bo": {"nuoc": "nen.tc-ht-nuoc", "mep": "nen.tc-ht-mep", "vach": "nen.tc-ht-vach", "nui": "nen.tc-ht-nui", "hoa": "nen.tc-ht-hoa", "san": "nen.tc-ht-san"}, "ky": {"nen": "t", "san": "o", "them": [["nen.tc-ht-ruong", "y"]]}, "cay": {"I": [["tc.tru-dat-cao-sc", 1, 0.6, 0.75], ["tc.tru-dat-sc", 2, 0.6, 0.75], ["tc.cay-thu-sc", 2, 0.8, 1]], "^": [["tc.da-nui-1-ht-sc", 1, 0.9, 1.15], ["tc.da-nui-2-ht-sc", 1, 0.9, 1.15], ["tc.da-nui-3-ht-sc", 1, 0.9, 1.15], ["tc.da-nui-4-ht-sc", 1, 0.9, 1.15], ["tc.nui-doi-1-ht-sc", 1, 0.8, 1], ["tc.nui-doi-2-ht-sc", 1, 0.8, 1]]}, "thua": [["tc.bui-thu-sc", 2, 0.5, 0.6], ["tc.da-dat-set-sc", 1, 0.55, 0.7]], "rai": [[["tc.nho-ht-0-sc", 1, 0.9, 1.1], ["tc.nho-ht-1-sc", 1, 0.9, 1.1], ["tc.nho-ht-2-sc", 1, 0.9, 1.1], ["tc.nho-ht-3-sc", 1, 0.9, 1.1], ["tc.nho-ht-4-sc", 1, 0.9, 1.1], ["tc.bui-thu-sc", 2, 0.45, 0.55], ["tc.bo-lua-chin-sc", 1, 0.45, 0.55]], 0.02]}}
  },
  "gen": {
   "_note": "Dựng bản đồ (kh-gen.js): plaza bán kính ô lát đá giữa đĩa (cổng về Thiên Kiếm Tinh, chỗ ra), roads số đường lát toả ra mép, blobs / lakes số cụm vật cản / hồ trên mỗi 100 ô đất, safe phần bán kính không có bãi quái, rings bãi quái treo máy (r phần bán kính, n bãi, out: vòng ngoài).",
@@ -593,5 +593,7 @@
   "min_trong": 0.2
  },
  "kc_wait": 600,
- "_note_kc": "Khiêu chiến tinh cầu bỏ trống (chủ dự án 12/11/2026: tông môn giải tán thì tông chủ khác khiêu chiến tông chủ cũ để chiếm; mỗi tông chủ một tinh cầu): máy chủ so lực chiến hai bên (mỗi bên nhân ngẫu nhiên 0,8–1,2 như khiêu chiến Đại Ma Thần), trận so tài với bản sao tông chủ cũ chỉ để xem. Thua chờ kc_wait giây. Thắng thì tinh cầu về tông môn mình, công trình đang đặt thành của tông môn mình."
+ "_note_kc": "Khiêu chiến tinh cầu bỏ trống (chủ dự án 12/11/2026: tông môn giải tán thì tông chủ khác khiêu chiến tông chủ cũ để chiếm; mỗi tông chủ một tinh cầu): máy chủ so lực chiến hai bên (mỗi bên nhân ngẫu nhiên 0,8–1,2 như khiêu chiến Đại Ma Thần), trận so tài với bản sao tông chủ cũ chỉ để xem. Thua chờ kc_wait giây. Thắng thì tinh cầu về tông môn mình, công trình đang đặt thành của tông môn mình.",
+ "_doi_sc": "Công trình, đồ trang trí tông môn bày (bay trên máy chủ giữ mã hình cũ -m) vẽ bằng hình SpriteCook cùng loại của Thiên Kiếm Tinh / các tinh cầu khác: mã cũ → [mã mới, cỡ]. Mã trên máy chủ không đổi (NPC, vùng che chở, giá vẫn theo mã cũ). Món chưa có bản SpriteCook vẫn vẽ hình cũ.",
+ "doi_sc": {"tk.lau-van-bao-m": ["tk.lau-van-bao-sc", 1], "tk.nha-ren-m": ["tk.nha-ren-sc", 1], "tk.dien-phu-m": ["tk.dien-phu-sc", 1], "tk.dien-nho-m": ["tk.dien-nho-sc", 1], "tk.lau-cho-m": ["tk.lau-cho-sc", 1], "tk.nha-dan-m": ["tk.nha-thuoc-sc", 0.85], "tk.dien-chinh-m": ["tk.dien-chinh-sc", 0.9], "tk.tien-dai-m": ["tk.tien-dai-sc", 1], "tk.lau-sach-m": ["tk.lau-sach-sc", 1], "tk.thap-canh-m": ["tk.thap-canh-sc", 1], "tk.cay-anh-dao-m": ["tk.cay-anh-dao-sc", 0.92], "tk.cay-thong-m": ["tk.cay-thong-sc", 0.77], "tk.cay-phong-m": ["tk.cay-phong-sc", 0.8], "tk.cay-ngan-hanh-m": ["tk.cay-ngan-hanh-sc", 0.88], "hb.cay-tung-tuyet-m": ["tc.tung-tuyet-sc", 0.85], "hb.cay-mai-m": ["tk.cay-anh-dao-sc", 0.9], "xd.cay-hoa-lua-m": ["tc.cay-chay-la-sc", 0.9], "xd.cay-phong-m": ["tc.cay-chay-mai-sc", 0.9], "tk.bui-hong-m": ["tk.bui-do-quyen-sc", 0.8], "tk.bui-xanh-m": ["tk.bui-xanh-nho-sc", 1], "hb.bui-tuyet-m": ["tc.bui-tuyet-sc", 0.5], "xd.bui-chay-m": ["tc.bui-tro-sc", 0.5], "tk.den-da-m": ["tk.den-da-sc", 1], "tk.da-reu-m": ["tk.da-reu-lon-sc", 0.75], "hb.da-tuyet-m": ["tc.da-tuyet-sc", 0.6], "xd.da-bazan-m": ["tc.da-nui-lua-sc", 0.55], "tk.tuong-hac-m": ["tk.tuong-hac-sc", 1], "tk.tuong-rong-m": ["tk.tuong-rong-sc", 1], "tk.gieng-m": ["tk.gieng-sc", 1], "tk.lu-huong-m": ["tk.lu-huong-sc", 1], "tk.thac-m": ["tk.thac-nho-sc", 1.1], "tk.voi-nuoc-m": ["tk.voi-nuoc-sc", 1], "tk.chuong-m": ["tk.chuong-sc", 1], "tk.quan-tra-m": ["tk.quan-tra-sc", 1], "tk.cong-kiem-m": ["tk.cong-kiem-sc", 0.6]}
 }

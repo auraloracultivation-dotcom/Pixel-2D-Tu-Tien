@@ -5,6 +5,7 @@
 // fight: bản đồ trận Khai Tinh (ma khí tối, trùm giữa sân, kéo về lực chiến boss_cp của cấp đánh).
 
 import { ctBuild, paintRoads, inZone } from './kh-road.js';
+import { khNen } from './kh-nen.js';
 
 function rng(seed) {   // mulberry32
   let a = seed >>> 0;
@@ -78,5 +79,9 @@ export function genPlanet(K, p, opts = {}) {
     rooms: [], hoi: { do: opts.fight ? [] : (p.bay || []) },
   };
   if (opts.fight) def.spawners.unshift({ mob: Gd.boss, at: [cx, cy - Math.round(rad * 0.4)], n: 1, spread: 1, respawn: 1e9, cp: L.boss_cp, kt: true });
+  // nền, cây, hoa cỏ SpriteCook (kh-nen.js, 21/11/2026); công trình, đồ tông môn bày vẽ bằng hình SpriteCook cùng loại (hoi.doi)
+  def.hoi.doi = K.doi_sc || {};
+  const cam = (x, y) => r0(x - c, y - c) <= G.plaza + 2 || inZone(B.zones, x, y, 2) || spawners.some(s => Math.abs(s.at[0] - x) <= 3 && Math.abs(s.at[1] - y) <= 3);
+  khNen(def, Gd.nen, g, R, cam);
   return { def, mobCp: Math.round(L.boss_cp * K.mob_in) };
 }
