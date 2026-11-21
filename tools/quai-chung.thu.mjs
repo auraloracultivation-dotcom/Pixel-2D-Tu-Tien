@@ -32,7 +32,8 @@ async function moMay(id, bat = true) {
   await ctx.route(/supabase-js/, r => r.abort());
   await ctx.route(/posthog/, r => r.abort());
   // mã nguồn rời nạp data/config.json; bản đã gói (tools/goi.mjs) nạp mọi dữ liệu trong data/_all.json
-  if (bat) await ctx.route(/data\/(config|_all)\.json/, async r => { const j = await (await r.fetch()).json(); (j.config || j).quai_chung.on = true; await r.fulfill({ contentType: 'application/json', body: JSON.stringify(j) }); });
+  // công tắc của máy này đặt thẳng (bật / tắt), không dựa vào số trong data/config.json (21/11/2026 công tắc thật đã bật)
+  await ctx.route(/data\/(config|_all)\.json/, async r => { const j = await (await r.fetch()).json(); (j.config || j).quai_chung.on = bat; await r.fulfill({ contentType: 'application/json', body: JSON.stringify(j) }); });
   const X = { id, ctx, ws: null, dong: () => ctx.close() };
   await ctx.routeWebSocket(u => u.pathname.endsWith('/ws'), ws => { X.ws = ws; phong.noi(ws, id, 'Thử ' + id); });
   const p = X.p = await ctx.newPage();
@@ -50,6 +51,19 @@ async function moMay(id, bat = true) {
     window.__ha = [];   // mỗi lần hạ quái: ô, phần công máy này nhận
     const goc = g.onKill; g.onKill = m => { window.__ha.push({ o: m.qc ?? null, cong: m.cong ? { ...m.cong } : null }); return goc(m); };
     await g.travel(map, 'vao', false, { force: true });
+    // Khách chơi thử là người mới Luyện Khí: ở tinh cầu cao đánh không nổi (Thủ của quái, áp chế lực chiến), con 484 máu đánh 40 đòn
+    // còn chưa chết. Bài này thử đồng bộ chứ không thử cân bằng, nên cho máy thử mạnh vừa tầm tinh cầu: tắt áp chế lực chiến, mỗi đòn
+    // thường của Tự đánh cỡ 1/6 máu quái ở đây (đủ để hai máy cùng có phần), giữ lại mỗi 250 ms vì bảng chỉ số hay tính lại.
+    g.data.config.cp_press.on = false;
+    // Linh khí đo bằng số trước / sau: quái tinh cầu cao cho nhiều linh khí, người mới lên tầng giữa chừng là linh khí tụt về phần dư
+    // (21/11/2026 Thiên Kim Tinh: A "+-27"). Cho linh khí cần mỗi tầng thật lớn để không lên tầng trong bài thử.
+    const R = g.data.realms; R.need_mul = Array(R.names.length).fill(1e9);
+    setInterval(() => {
+      const m = g.mobs.find(x => x.qc != null) || g.mobs[0];
+      if (!m) return;
+      const T = m.maxHp / 6, D = Math.max(0, m.def?.hc?.def || 0), A = (T + Math.sqrt(T * T + 4 * T * D)) / 2;   // A × A / (A + D) = T
+      g.player.atk = A; g.player.st.atk = A;
+    }, 250);
   }, MAP);
   return X;
 }
@@ -58,17 +72,19 @@ const soQuai = X => X.p.evaluate(() => {
   const g = window.__game, q = g.qc;
   if (!q) return null;
   return { me: q.me, song: Object.fromEntries([...q.o].map(([s, m]) => [s, [Math.round(m.hx), Math.round(m.hy), m.hp, m.maxHp, m.rare ? 1 : 0, m.remote ? 1 : 0, Math.round(m.x), Math.round(m.y), m.cho]])),
-    cho: [...q.cho.keys()], rieng: g.spawners.filter(s => s.qc).reduce((a, s) => a + s.alive.length, 0), baiChung: g.spawners.filter(s => s.qc).length, ke: g.save.stats.kills, qi: g.save.qi };
+    cho: [...q.cho.keys()], rieng: g.spawners.filter(s => s.qc).reduce((a, s) => a + s.alive.length, 0), baiChung: g.spawners.filter(s => s.qc).length, ke: g.save.stats.kills, qi: g.save.qi, tang: g.save.realm * 100 + g.save.layer };
 });
 // Đứng cạnh con quái ở ô `o` rồi đánh một đòn; trả về sát thương thật của đòn đó (hitMob còn nhân Công đọ Thủ, ngẫu nhiên ±10%)
+// Số đòn ghi trong bài là cho quái 60 máu (Xích Diễm Tinh); tinh cầu máu quái cao hơn thì nhân theo U, và bỏ qua Thủ của quái (reflect)
+let U = 1;
 const danh = (X, o, dmg, dung = true) => X.p.evaluate(([o, dmg, dung]) => {
   const g = window.__game, m = g.qc?.o.get(o);
   if (!m) return null;
   if (dung) { g.player.x = m.x + 14; g.player.y = m.y; }
   const t = m.cho;
-  window.__thu.hitMob(g, m, dmg, { canCrit: false, soft: true });
+  window.__thu.hitMob(g, m, dmg, { canCrit: false, soft: true, reflect: true });
   return m.cho - t;
-}, [o, dmg, dung]);
+}, [o, dmg * U, dung]);
 const dat = (X, x, y) => X.p.evaluate(([x, y]) => { const p = window.__game.player; p.x = x; p.y = y; }, [x, y]);
 
 // 0. Công tắc tắt (mặc định): máy thứ ba vào cùng tinh cầu vẫn là quái riêng như cũ
@@ -99,6 +115,7 @@ ok('Không còn quái riêng ở bãi chung', a.rieng === 0 && b.rieng === 0);
 
 // 3. A đánh: máu tụt ngay trên máy A, máy chủ phòng trừ máu chung, máy B thấy đúng máu đó
 const bai1 = B0.s.find(r => r[1] >= 4), O1 = bai1[0] * 64, MAX = bai1[3];   // bãi đủ 4 con: mỗi mục dưới đây một con riêng
+U = Math.max(1, Math.round(MAX / 60));
 const dA = await danh(A, O1, 10);
 {
   const ngay = (await soQuai(A)).song[O1];
