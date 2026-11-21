@@ -5,6 +5,7 @@
 import { inboxState, unreadCount, markRead, readAll } from '../game/inbox.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 import { createMailSum, sumGifts } from './mail-sum.js';
+import { khucHong } from '../core/catch-errors.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -18,6 +19,7 @@ const press = id => document.getElementById(id)?.dispatchEvent(new PointerEvent(
 // Lỗi hỏi / nhận thư báo về p2d_loi mỗi loại một lần mỗi phiên (20/11/2026: một người chơi cả phiên không nhận được thư, máy không báo gì)
 const daBao = new Set();
 function baoLoi(loai, e) {
+  khucHong(e);   // khúc code thư của bản cũ đã mất: đọc bản mới, tải lại
   if (daBao.has(loai)) return; daBao.add(loai);
   import('../net/errlog.js').then(M => M.sendError(`thu: ${loai}: ${e?.message || e}`, String(e?.stack || '').slice(0, 800), loai)).catch(() => {});
 }
