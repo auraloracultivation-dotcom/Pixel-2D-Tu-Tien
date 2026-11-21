@@ -9,6 +9,8 @@ HTML Canvas + JavaScript ES module. Làm việc ở máy không cần build: `py
 - Bài thử tự động không gọi được từng tệp code theo đường dẫn: hàm bài thử cần thì treo ở `window.__thu` (`src/game/thu-moc.js`, chỉ khi `?thu=1`).
 - Tệp tĩnh ở gốc kho muốn lên trang game phải có trong danh sách `TINH` của `tools/goi.mjs`.
 - Đường lùi: đặt `GOI: 0` ở bước gói trong `.github/workflows/pages.yml` thì chép từng tệp như trước.
+- **Bước đưa lên GitHub Pages hỏng thì KHÔNG bấm chạy lại (re-run)**: mỗi lần chạy lại tải thêm một gói `github-pages` vào cùng lần chạy, `deploy-pages` gặp hai gói trùng tên là hỏng tiếp ("Multiple artifacts named github-pages"). Chạy một lần mới trên `main`: `gh api -X POST repos/<chủ>/<kho>/actions/workflows/pages.yml/dispatches -f ref=main` (vẫn phải hỏi chủ dự án trước, như mọi lần chạy Actions). Gặp 21/11/2026 với PR #747: lần đầu hỏng phía GitHub (gói vừa tải lên xong, bước sau báo không thấy), chạy lại hỏng vì trùng gói, lần chạy mới đưa lên được.
+- Khúc nạp sau mang tên có mã băm (`c/<tên>-<mã>.js`), bản mới lên là khúc cũ mất: thẻ còn chạy bản cũ mà mở tính năng chưa nạp (ví dụ nhận thư) sẽ gặp "Failed to fetch dynamically imported module" cho tới khi `src/net/ban-moi.js` tự tải lại trang. Không mất gì (thư còn trên máy chủ), `p2d_loi` ghi 2 lần trong 21/11. Chưa sửa.
 
 | Thư mục | Việc |
 |---|---|
