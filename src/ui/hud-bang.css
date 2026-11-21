@@ -1,6 +1,6 @@
 /* Bố cục hai bảng (chủ dự án 17/11/2026 00:11, ảnh mẫu GPT): giữa màn hình để trống cho dễ quay video. Khung, nền tạm bằng code
-   (đồ hoạ khung chủ dự án làm sau trên SpriteCook). Bật / tắt: data/menu.json → hud.bang (src/ui/hud-bang.js gắn body.hud-bang, dựng
-   #bang-tren, #bang-duoi, nạp tệp này sau style.css); luật "html body.hud-bang" + !important thắng các bộ khung cũ.
+   (đồ hoạ khung chủ dự án làm sau trên SpriteCook). Từ 21/11/2026 là bố cục duy nhất: index.html nạp tệp này sau style.css,
+   src/ui/hud-bang.js gắn body.hud-bang, dựng #bang-tren, #bang-duoi; luật "html body.hud-bang" + !important thắng các bộ khung cũ.
    00:40: bảng trên một hàng thẳng: ảnh đại diện, thanh máu, ô chức năng (2 hàng × 4), bản đồ (ảnh đại diện và bản đồ cùng cỡ, cùng mép); mùa ghi nhỏ ngay dưới bản đồ.
    Bảng dưới: trái là vài dòng chat mới nhất (không khung) trên, Túi đồ, Đan, Cưỡi dưới; phải là khay 2 × 2 ô pháp bảo nhỏ rồi nút Đánh.
    Lướt, Tự đánh: nút tròn nhỏ ngoài bảng, ngay trên nút Đánh. Tắt màn hình chỉ hiện khi đang Tự đánh / Tự hành (src/ui/man-toi.js).
@@ -114,3 +114,6 @@ html body.hud-bang #btn-man-toi { position: fixed !important; left: calc(var(--s
 html body.hud-bang #btn-man-toi::before { left: 7px !important; }
 /* đang có khung thoại: bảng dưới ẩn (như các nút đánh) thì Túi đồ, Tự đánh cũng ẩn, không lơ lửng một mình */
 body.hud-bang:has(#dialog:not([hidden])) :is(#hud .hud-btns > button.tron#btn-bag, #btn-auto) { visibility: hidden; }
+
+/* Mốc kiểm tệp đã nạp (src/ui/hud-bang.js, 21/11/2026) */
+html body.hud-bang { --nap-bang: 1; }

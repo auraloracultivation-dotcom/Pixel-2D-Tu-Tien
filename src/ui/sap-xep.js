@@ -10,7 +10,7 @@ const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls)
 
 export function createSapXep(game) {
   const S = game.data.menu?.hud?.sap;
-  if (!S || !game.data.menu.hud.bang) return;
+  if (!S) return;
   const css = el('link'); css.rel = 'stylesheet'; css.href = goc('src/ui/sap-xep.css'); document.head.append(css);
   const T = S.text, [KMIN, KMAX] = S.k;
 

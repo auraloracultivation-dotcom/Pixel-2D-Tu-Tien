@@ -9,6 +9,8 @@ HTML Canvas + JavaScript ES module. Làm việc ở máy không cần build: `py
 - Bài thử tự động không gọi được từng tệp code theo đường dẫn: hàm bài thử cần thì treo ở `window.__thu` (`src/game/thu-moc.js`, chỉ khi `?thu=1`).
 - Tệp tĩnh ở gốc kho muốn lên trang game phải có trong danh sách `TINH` của `tools/goi.mjs`.
 - Đường lùi: đặt `GOI: 0` ở bước gói trong `.github/workflows/pages.yml` thì chép từng tệp như trước.
+- **Bước đưa lên GitHub Pages hỏng thì KHÔNG bấm chạy lại (re-run)**: mỗi lần chạy lại tải thêm một gói `github-pages` vào cùng lần chạy, `deploy-pages` gặp hai gói trùng tên là hỏng tiếp ("Multiple artifacts named github-pages"). Chạy một lần mới trên `main`: `gh api -X POST repos/<chủ>/<kho>/actions/workflows/pages.yml/dispatches -f ref=main` (vẫn phải hỏi chủ dự án trước, như mọi lần chạy Actions). Gặp 21/11/2026 với PR #747: lần đầu hỏng phía GitHub (gói vừa tải lên xong, bước sau báo không thấy), chạy lại hỏng vì trùng gói, lần chạy mới đưa lên được.
+- Khúc nạp sau mang tên có mã băm (`c/<tên>-<mã>.js`), bản mới lên là khúc cũ mất: thẻ còn chạy bản cũ mà mở tính năng chưa nạp (ví dụ nhận thư) sẽ gặp "Failed to fetch dynamically imported module" cho tới khi `src/net/ban-moi.js` tự tải lại trang. Không mất gì (thư còn trên máy chủ), `p2d_loi` ghi 2 lần trong 21/11. Chưa sửa.
 
 | Thư mục | Việc |
 |---|---|
@@ -344,7 +346,7 @@ Mỗi đảo một kênh Realtime `p2d:<đảo>` (`src/net/online.js`, không gh
 
 Chat và truyền âm máy chủ đẩy (05/11/2026, `supabase/migrations/20261105110000_p2d_realtime.sql`, `src/net/push.js`, `src/game/chat-push.js`): ghi `p2d_chat` thì trigger gửi event `tin` lên kênh riêng tư `p2dc:<kênh>` (`the-gioi` mọi người đã đăng nhập, `bang:<id>` chỉ thành viên); ghi `p2d_truyen_am` thì gửi event `ta` (chỉ id) lên `p2dw:<mã tài khoản người nhận>`, máy khách đọc lại bằng `p2d_doc_truyen_am`. Máy khách chỉ có quyền nghe các chủ đề đó, ghi vẫn qua RPC. Đang nghe được thì các vòng đọc cũ (khung chat nhỏ, bảng Đạo hữu, tông môn, Hòm thư) chỉ đọc bù mỗi `fallback_s` giây (truyền âm `whisper_fallback_s`), vào lại kênh thì đọc bù ngay, mất kết nối thì về nhịp đọc cũ. Nhịp sống: socket Realtime trả nhịp ok thì `p2d_nhip_song` giãn từ 5 lên `net_watch.beat_rt_s` giây (vẫn trong cửa sổ 15 giây máy chủ cộng giờ online cho hạn mức Linh Thạch / ngọc), nhịp socket 5 giây cũng tính là còn liên lạc nên vẫn đứng hình sau 10 giây mất mạng.
 
-## Quái chung (`data/config.json` → `quai_chung`, chủ dự án 21/11/2026 02:02–02:07; đang TẮT, chưa đưa lên)
+## Quái chung (`data/config.json` → `quai_chung`, chủ dự án 21/11/2026 02:02–02:07; BẬT 21/11/2026 cho sáu tinh cầu hệ và Ngoại Vực Vết Nứt)
 
 Chủ dự án: "thiết kế quái vật ở trạng thái mà nếu người này farm thì người kia cũng thấy và có thể tranh nhau farm"; công "chia theo sát thương". Trước đó quái sống riêng trên từng máy: hai người đứng cạnh nhau đánh hai bầy quái khác nhau.
 
@@ -370,6 +372,8 @@ Cách chạy:
 **Sửa bãi quái, máu quái, số con bãi treo máy, tỉ lệ dị chủng, hay `quai_chung`** của bản đồ đang bật: chạy `node tools/quai-chung.mjs --ghi` rồi đưa phòng và trang game lên cùng đợt (lệch bản thì chỉ là về quái riêng tới khi cả hai cùng bản).
 
 Bài thử: `node tools/cloud/quai.test.mjs` (trọng tài, chạy trong `tools/check.mjs`); `node tools/quai-chung.thu.mjs` (hai trình duyệt + phòng giả chạy đúng mã phòng, 29 mục: mọc cùng chỗ, máu chung, chia công, đồ về người góp nhiều nhất, giữ quái, tranh đánh, hai máy Tự đánh cùng bãi, phòng quên máu, rớt mạng rồi nối lại, công tắc tắt thì như cũ). Bài thử hai trình duyệt chưa nằm trong CI.
+
+**Bật 21/11/2026** (chủ dự án chọn "Bật luôn mọi tinh cầu farm"): Xích Diễm, Hắc Phong, Thanh Mộc, Hàn Băng, Hậu Thổ, Thiên Kim Tinh và Ngoại Vực Vết Nứt. Thiên Kiếm Tinh để quái riêng: người mới đi truyện ở đó và đông nhất (người mới đánh yếu tranh không lại người mạnh). Không bước truyện nào cần hạ quái trên bảy tinh cầu này (bước duy nhất `kill_all` ở Thanh Khê). Bài thử hai trình duyệt chạy được cho từng tinh cầu (`MAP=<bản đồ>`; máy thử được cho mạnh vừa tầm tinh cầu, không lên tầng giữa chừng): 30/30 cả bảy. **Thử trên máy chủ phòng thật**: `TK1=… MK1=… TK2=… MK2=… node tools/cloud/quai-that.mjs` (hai tài khoản thử, tuyến vắng 58, nói thẳng giao thức của phòng, không ghi gì vào Supabase; mật khẩu chỉ qua biến môi trường): chữ ký bảng, máu chung, đòn quá tầm, chia công, đánh con đã chết, hồi sinh. Lúc bật, phòng thật mới có bảng của Xích Diễm Tinh: đạt 12/12; sáu tinh cầu kia chạy lại sau khi phòng lên bản mới.
 
 Số đo (bài thử hai máy Tự đánh cùng một bãi, 21/11/2026): mỗi người đang farm gửi phòng khoảng 3–4 tin `q` mỗi giây (Cloudflare tính 20 tin gửi lên = 1 yêu cầu); muốn bớt thì nới `gui_ms` (máu trên máy người khác chậm theo). Chưa đo băng thông tải xuống của một tuyến đủ 40 người cùng farm: đo bằng trận giả trước khi bật cho bản đồ đông.
 

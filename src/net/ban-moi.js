@@ -6,6 +6,11 @@
 // Mã phiên bản: quy trình đưa lên (tools/goi.mjs) ghi vào src/core/build.js và gắn ?v=<8 ký tự> sau src/main.js trong index.html;
 // chạy ở máy (bản 'dev') thì không làm gì.
 // Số và chữ: data/config.json → guard.ban_moi. Không gọi Supabase.
+// 21/11/2026 (chủ dự án: "hỏng hết bảng chức năng"): từ khi gói bản (20/11) code các bảng nằm ở khúc nạp sau src/c/<tên>-<mã>.js, mỗi
+// lần đưa lên đổi mã; máy mở game từ trước lần đưa lên (điện thoại để nền rồi mở lại) bấm bảng nào là đòi khúc cũ, khúc đó đã mất (404)
+// nên bảng không mở, tới 5 phút sau lần đọc kế mới tự tải lại. Nay đọc ngay khi quay lại game (resume_s giây một lần là cùng) và ngay
+// khi một khúc nạp sau hỏng (sự kiện 'p2d-kiem-ban' do src/core/catch-errors.js phát); quy trình đưa lên cũng giữ khúc cũ vài ngày
+// (tools/goi.mjs GIU_CU) nên bảng vẫn mở được trong lúc chờ tải lại.
 import { BUILD } from '../core/build.js';
 const CUR = BUILD === 'dev' ? null : BUILD;
 const KEY = 'p2d_ban_moi';
@@ -47,4 +52,9 @@ export function watchBuild(c, { toast, flush }) {
     finally { busy = false; }
   };
   timer = setInterval(tick, c.check_s * 1000);
+  let last = Date.now();
+  const now = () => { if (Date.now() - last < (c.resume_s ?? 20) * 1000) return; last = Date.now(); tick(); };
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) now(); });
+  addEventListener('pageshow', now);
+  addEventListener('p2d-kiem-ban', () => { last = 0; now(); });
 }

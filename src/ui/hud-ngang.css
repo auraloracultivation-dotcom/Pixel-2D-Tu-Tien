@@ -106,3 +106,6 @@
 
 /* Sắp xếp giao diện (src/ui/sap-ap.js): khung trên phải / dưới phải là ::after của khung bên trái, dời theo nhóm của nó */
 html body.hud-bang :is(#bang-tren, #bang-duoi)::after { translate: var(--sap-pt, 0 0); scale: var(--sap-pk, 1); transform-origin: 0 0; }
+
+/* Mốc kiểm tệp đã nạp (src/ui/hud-bang.js, 21/11/2026) */
+html body.hud-bang { --nap-ngang: 1; }
