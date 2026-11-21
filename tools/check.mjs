@@ -414,6 +414,12 @@ errors.push(...(await import('./quai-chung.mjs')).soat());
   if (r.status !== 0) errors.push(`tiem-nang: bài thử trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
 }
 
+// Chỗ hồi sinh của ma (src/game/ma-hoi-sinh.js, ghost.js maHoiSinh; data/pvp.json → ma.hoi_sinh): mọi tinh cầu, xa làng, đi tới được, nhiều chỗ, không hỏi Về động phủ
+{
+  const r = spawnSync(process.execPath, [join('tools', 'ma-hoi-sinh.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`ma-hoi-sinh: bài thử trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);

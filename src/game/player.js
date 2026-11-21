@@ -259,8 +259,9 @@ export function updatePlayer(game, dt) {
   }
 
   manaTick(game, dt);   // linh lực hồi dần, đả tọa hồi nhanh
-  // Hồi máu chậm khi không bị đánh
-  if (p.invT < -3 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
+  // Hồi máu chậm khi không bị đánh. Máu 0 là đã gục, không hồi (22/11/2026: tin gục PvP từ máy chủ phòng đặt máu 0, mà đòn PvP không đặt invT nên
+  // dòng này hồi lại 0,025 máu trước lúc game.js xét gục: người thua PvP đứng yên với máu gần 0, không gục, không về điểm hồi sinh)
+  if (p.invT < -3 && p.hp > 0 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + cfg.player.regen * dt * (p.meditating ? 6 : 1));
   if (p.st.regen && p.hp < p.maxHp && p.hp > 0) p.hp = Math.min(p.maxHp, p.hp + p.st.regen * dt);
 
   if (p.meditating) {

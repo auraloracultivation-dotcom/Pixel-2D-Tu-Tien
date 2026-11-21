@@ -220,6 +220,25 @@ await A.p.evaluate(() => { window.__thu.epHoSo(null); window.__game.uiOpen = nul
   await B.p.evaluate(() => window.__game.online.pvpHit('may-c', window.__game.player));
   const trung = await cho(async () => (phong.dem.xuong.ph || 0) > ph0, 3000);
   ok('Ma đánh người còn khiên: máy chủ phòng tính đòn', noi ? !trung : !!trung, noi ? 'trong vòng pháp trận: phòng phải bỏ đòn' : `tin trúng đòn: ${(phong.dem.xuong.ph || 0) - ph0}`);
+  // Ma gục (22/11/2026 03:2x: "Chỗ ngẫu nhiên xa làng", "ma phải hồi sinh ở chỗ của ma"): có động phủ cũng không hỏi Về động phủ, hồi sinh xa điểm vào,
+  // mỗi lần một chỗ khác, vẫn là ma; A thấy B ở chỗ mới (src/game/ghost.js maHoiSinh, src/game/ma-hoi-sinh.js). Bắt luôn lỗi có sẵn: tin gục PvP đặt máu 0
+  // mà người đó lâu không bị quái đánh thì máu tự hồi trước lúc xét gục, không gục (src/game/player.js, sửa 22/11/2026)
+  const gucMa = () => B.p.evaluate(async () => {
+    const g = window.__game, cho = ms => new Promise(r => setTimeout(r, ms));
+    g.save.flags['dong-phu'] = true; g.player.hp = 0;   // như tin gục từ máy chủ phòng (pvp-ma.js maPd); đứng lâu không bị quái đánh nên máu tự hồi nếu không chặn
+    for (let i = 0; i < 40 && !g.ghost; i++) await cho(50);
+    const hoi = g.ghost?.ask;
+    for (let i = 0; i < 160 && g.ghost; i++) await cho(50);
+    const sp = g.map.def.spawns.vao, v = g.map.center(sp[0], sp[1]), T = g.map.T, H = g.data.pvp.ma.hoi_sinh;
+    return { hoi, xong: !g.ghost && g.player.hp > 0, map: g.map.id, x: Math.round(g.player.x), y: Math.round(g.player.y), cach: Math.hypot(g.player.x - v.x, g.player.y - v.y) / T,
+      chan: g.map.blocked(g.player.x, g.player.y, g.player.r), xa: H.xa, ma: g.pvp.ma, tg: g.map.def.planet && g.map.def.world };
+  });
+  const h1 = await gucMa(), h0 = await gucMa(), h2 = h0.x !== h1.x || h0.y !== h1.y ? h0 : await gucMa();   // trùng đúng ô (khoảng 1/370) thì gục thêm lần nữa, khỏi trượt oan
+  ok('Ma gục: không hỏi Về động phủ, hồi sinh xa điểm vào, vẫn là ma', h1.hoi === false && h1.xong && !h1.chan && h1.ma === 1 && (!h1.tg || h1.cach >= Math.min(h1.xa, 10)),
+    `${h1.map}: hỏi ${h1.hoi}, xong ${h1.xong}, cách điểm vào ${h1.cach.toFixed(1)} ô, chạm vách ${h1.chan}, điểm ma ${h1.ma}`);
+  ok('Ma gục lần hai: hồi sinh ở chỗ khác', h2.xong && (h2.x !== h1.x || h2.y !== h1.y), `lần 1 (${h1.x}, ${h1.y}), lần 2 (${h2.x}, ${h2.y})`);
+  const thayMoi = await cho(async () => { const o = await thay(A, 'may-b'); return o && Math.hypot(o.x - h2.x, o.y - h2.y) < 48 ? o : null; }, 5000);
+  ok('A thấy B ở chỗ hồi sinh mới', !!thayMoi, thayMoi ? `A thấy B ở (${Math.round(thayMoi.x)}, ${Math.round(thayMoi.y)})` : `A vẫn thấy B ở ${JSON.stringify(await thay(A, 'may-b'))}`);
 }
 
 // 6. Rời tinh cầu: C đóng thì A, B không còn thấy C

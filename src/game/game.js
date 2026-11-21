@@ -7,7 +7,7 @@ import { loadSave, newSave, writeSave } from '../core/save.js';
 import { createPlayer, updatePlayer, refreshStats } from './player.js';
 import { spawnMob, updateMobs, scaleMobBy } from './mobs.js';
 import { zonePower } from './mob-power.js';
-import { startGhost, ghostTick, afterGhost } from './ghost.js';
+import { startGhost, ghostTick, afterGhost, maHoiSinh } from './ghost.js';
 import { updateBullets, updateFx, addNumber, dist } from './combat.js';
 import { addQi, totalLayer, rollRoot } from './stats.js';
 import { mocTang } from './moc-tang.js';
@@ -308,10 +308,11 @@ export function createGame(data, screen, input, ui, audio) {
   function respawn() {
     game.cheer = null;   // gục thì chuỗi hạ quái tính lại
     if (!game.duel) pilotDied(game);   // gục trên đài so tài thì chỉ là thua; việc vặt ngoài trời thì tự hành đi tiếp
+    const ma = maHoiSinh(game);   // đang là ma, gục trên tinh cầu ngoài trời: chỗ ngẫu nhiên xa làng (ghost.js); null: điểm vào như cũ
     if (game.trib.active) game.trib.fail();
-    else if (!(game.duel && duelFail(game))) game.toast('Bạn đã gục... hồi phục ở điểm hồi sinh.', 2);
+    else if (!(game.duel && duelFail(game))) game.toast(ma ? game.data.pvp.text.ma_hoi_sinh : 'Bạn đã gục... hồi phục ở điểm hồi sinh.', ma ? 3 : 2);
     downFx(game);   // hiệu ứng gục tại chỗ: hồn người chơi bay lên, bạn đồng hành ngã theo (render/draw-act-fx.js)
-    const p = game.player, sp = game.map.def.spawns.vao, c = game.map.center(sp[0], sp[1]);
+    const p = game.player, sp = game.map.def.spawns.vao, c = ma || game.map.center(sp[0], sp[1]);
     p.x = c.x; p.y = c.y; p.hp = p.maxHp; p.shield = 0; p.kx = p.ky = 0; p.invT = 1.5;
     game.bullets = [];
     for (const m of game.mobs) { m.x = m.hx; m.y = m.hy; m.state = 'idle'; m.tele = null; }

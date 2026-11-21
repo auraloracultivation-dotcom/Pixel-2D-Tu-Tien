@@ -1,4 +1,4 @@
-# Hóa ma (chủ dự án 22/11/2026 01:54 – 02:21)
+# Hóa ma (chủ dự án 22/11/2026 01:54 – 03:2x)
 
 ## Lời chủ dự án
 
@@ -10,6 +10,7 @@
   - "Ma nhân 1 ngày giới hạn số lượt đồ sát người, khoảng 10 người".
 - 02:04: "người số 11 thì sẽ không còn nhận được linh thạch nữa".
 - 02:20 – 02:21: "cái khiên sẽ đổi thành hình dạng đầu lâu", "thanh máu sẽ thành màu đen".
+- 03:17: "quên mất chưa làm điểm hồi sinh cho ngừoi hoá ma". Bảng câu hỏi 03:2x: hồi sinh ở "Chỗ ngẫu nhiên xa làng" (mỗi lần một chỗ khác trên tinh cầu đó, không ai canh được); đang là ma mà gục thì "Không, ma phải hồi sinh ở chỗ của ma" (không được chọn Về động phủ).
 
 ## Luật (số ở `data/pvp.json` → `ma`, `server.ma`; ghi chú `_ma`)
 
@@ -20,6 +21,7 @@
 | Người mới | Tổng tầng tu dưới `server.ma.min_tl` (4 = Luyện Khí tầng 5): ma không đánh được, không đánh được ma, không hóa ma được. Máy chủ phòng đọc tầng từ Supabase (không tin máy khách); chưa đọc được thì coi như người mới. |
 | Chỗ an toàn | Vòng pháp trận Thiên Kiếm Tinh như PvP cũ. Vừa hồi sinh `immune_s` giây không ai đánh được và không ra đòn được, kể cả ma. |
 | Khiên | Hóa ma là tắt khiên luôn; đang là ma không bật lại được, Tự hồi khiên sau 10 phút không áp dụng. |
+| Hồi sinh | Ma gục (bị diệt, bị quái hạ, cách nào cũng vậy) trên tinh cầu ngoài trời: không hỏi Về động phủ, hồi sinh ở một chỗ ngẫu nhiên xa làng, mỗi lần một chỗ khác (`ma.hoi_sinh`). Chỗ chọn: ô đi tới được từ điểm vào, cách mốc làng gần nhất (điểm vào, mọi điểm tới từ nơi khác, mốc có tên như pháp trận, cổng, NPC, vòng pháp trận an toàn) ít nhất `xa` (24) ô; tinh cầu nhỏ không đủ xa thì lấy phần xa nhất (`ti_le` 0,6 × khoảng cách xa nhất có được); tránh bãi quái (bán kính bãi + `quai` 4 ô) nếu còn ít nhất `it` (40) ô như vậy. Lần gục làm điểm ma về 0 thì đã là người, hồi sinh như cũ. Bí cảnh, tháp, trong nhà, động phủ, đài so tài, độ kiếp, trận trùm Khai Tinh: như cũ. |
 | Mất khi ma bị diệt | `mat.ma_lt` (1%) Linh Thạch về Hòm thư người diệt (lý do `ma_diet`) và `mat.ma_tu_vi` (1%) tu vi = phần đó của thanh linh khí tầng đang ở (đúng thanh máy khách thấy, `qiNeed`). Linh khí không đủ thì tụt một tầng (có thể tụt cảnh giới), linh khí = thanh tầng dưới trừ phần còn thiếu. Luyện Khí tầng 1 thì về 0, không tụt. |
 | Mất khi ma hạ người | Người đó mất `mat.nguoi_lt` (2%) Linh Thạch về Hòm thư ma (lý do `ma_ha`), không mất tu vi, không mất món. Mỗi ngày (giờ Việt Nam) chỉ `lt_ngay` (10) lượt đồ sát đầu có nợ; từ lượt 11 không ai mất gì, ma vẫn +3 điểm. |
 | Công đức | Mỗi lần diệt một ma +1. |
@@ -50,6 +52,8 @@ Cách hiểu AI tự chọn, đã báo chủ dự án lúc bắt đầu (02:0x),
   - `src/ui/pvp-btn.js`, `pvp.css`: nút Hóa ma cạnh Tắt khiên, bảng luật, đầu lâu + số điểm ma, thanh máu đen, `body.la-ma`.
   - `src/render/draw-pvp-tag.js`, `draw-ma.js`, `draw-nguoi.js`: người khác thấy đầu lâu, ma khí, thanh máu đen; mình là ma thì người mới tên xám.
   - Đầu lâu vẽ bằng code: `tools/art/dau_lau.py` (`ui.k-dau-lau`). Chủ dự án gửi ảnh GPT thì thay.
+  - Hồi sinh của ma: `src/game/ghost.js` (`maHoiSinh`; bảng hỏi lúc gục bỏ qua khi đang là ma), `src/game/ma-hoi-sinh.js` (chọn ô, thuần, chỉ đọc bản đồ), `src/game/game.js` respawn. Chọn ở máy người chơi như điểm hồi sinh cũ; máy chủ phòng không cần biết (vừa hồi sinh `immune_s` giây không ai đánh được, vệt vị trí bù trễ chỉ giữ 1 giây nên lần nhảy chỗ không thành đường quét qua bản đồ).
+  - Sửa kèm lỗi có sẵn (`src/game/player.js`): tin gục PvP từ phòng đặt máu 0, nhưng đòn PvP không đặt `invT` nên người lâu không bị quái đánh tự hồi 0,025 máu trước lúc `game.js` xét gục: thua PvP mà không gục, không về điểm hồi sinh. Nay máu 0 không tự hồi.
 
 ## Thứ tự đưa lên
 
@@ -59,7 +63,8 @@ Cách hiểu AI tự chọn, đã báo chủ dự án lúc bắt đầu (02:0x),
 
 - `node tools/cloud/pvp.test.mjs`: phần 6 hóa ma (12 kiểu sửa hỏng luật đều bị bắt).
 - `node tools/cloud/phong.test.mjs`: lõi Mang ký `p2d_ma_ghi`, giữ, lưu, đọc lại điểm ma.
-- `tools/hai-may.mjs` mục 5b: hai trình duyệt qua phòng giả. B bấm Hóa ma thật; A, C thấy điểm ma và đầu lâu; C còn khiên gửi vị trí theo nhịp giao chiến; ma đánh người còn khiên được.
+- `tools/hai-may.mjs` mục 5b: hai trình duyệt qua phòng giả. B bấm Hóa ma thật; A, C thấy điểm ma và đầu lâu; C còn khiên gửi vị trí theo nhịp giao chiến; ma đánh người còn khiên được; B (có động phủ) gục hai lần: không hỏi Về động phủ, hồi sinh xa điểm vào, hai chỗ khác nhau, vẫn là ma, A thấy B ở chỗ mới (mục này cũng bắt lỗi máu 0 tự hồi).
+- `node tools/ma-hoi-sinh.test.mjs` (`tools/check.mjs` gọi): mọi tinh cầu, 120 lần chọn mỗi tinh cầu: không chạm vách, đi tới được từ điểm vào, đủ xa làng, ngoài vòng pháp trận, tránh bãi quái khi còn chỗ, nhiều chỗ khác nhau; `ghost.js` không hỏi khi là ma, người thường như cũ, bí cảnh / tháp / trong nhà / động phủ / đài / độ kiếp / trận trùm như cũ. 15 kiểu sửa hỏng đều bị bắt.
 - Migration có tự kiểm tra (15 nhóm, hoàn tác sau khi chạy). Đã chạy tại chỗ trên PGlite với bản đang chạy của các hàm liên quan: đạt. Sáu kiểu sửa hỏng (bỏ trần mỗi ngày, bỏ `p2d.lk_tru`, bỏ `canh_max`, bỏ bảng Ma hóa, cho người mới diệt ma, tụt tầng về 0) đều bị bắt.
 
 ## Còn chờ
