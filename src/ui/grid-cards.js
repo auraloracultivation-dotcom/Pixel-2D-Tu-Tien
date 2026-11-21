@@ -31,6 +31,19 @@ export function gridCards(game) {
     function wire(clone, orig) {
       const a = [...clone.querySelectorAll('button')], b = [...orig.querySelectorAll('button')];
       a.forEach((btn, i) => { btn.onclick = () => { b[i]?.click(); resync(); }; });
+      // Ô gõ: bản sao không mang hàm oninput của ô gốc. Trước 21/11/2026 gõ vào tấm chi tiết thì ô gốc vẫn trống, bấm nút là gửi chữ rỗng
+      // (một người chơi gõ tên "Lập tông môn" 6 lần, máy chủ lần nào cũng nhận tên rỗng; cả máy chủ không có tông môn mới từ 12/11).
+      // Giờ mỗi lần gõ chép chữ sang ô gốc và gọi đúng sự kiện của ô gốc; chữ đang ghép của bàn phím điện thoại cũng đi theo.
+      // Bài thử: tools/kiem/o-go-luoi.thu.mjs.
+      const ia = [...clone.querySelectorAll('input, textarea, select')], ib = [...orig.querySelectorAll('input, textarea, select')];
+      ia.forEach((inp, i) => {
+        const o = ib[i];
+        if (!o) return;
+        inp.value = o.value; if ('checked' in o) inp.checked = o.checked;
+        const chep = ev => { o.value = inp.value; if ('checked' in o) o.checked = inp.checked; o.dispatchEvent(new Event(ev.type, { bubbles: true })); };
+        inp.addEventListener('input', chep); inp.addEventListener('change', chep);
+        inp.addEventListener('keydown', ev => { ev.stopPropagation(); if (ev.key === 'Enter') o.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); });   // gõ chữ không điều khiển nhân vật
+      });
     }
 
     function resync() {
@@ -38,7 +51,12 @@ export function gridCards(game) {
         if (!sheet) return;
         if (panel.hidden) { closeSheet(); return; }
         const c = [...list.querySelectorAll(':scope > .skill-card')].find(x => keyOf(x) === openKey);
-        if (c) show(c); else closeSheet();
+        if (!c) { closeSheet(); return; }
+        // Đang gõ trong tấm chi tiết mà bảng dựng lại (tải danh sách xong…): mở lại rồi đặt con trỏ về đúng ô, khỏi mất bàn phím
+        const go = sheet.querySelectorAll('input, textarea'), dang = [...go].indexOf(document.activeElement);
+        const vt = dang >= 0 ? [go[dang].selectionStart, go[dang].selectionEnd] : null;
+        show(c);
+        if (dang >= 0) { const o = sheet?.querySelectorAll('input, textarea')[dang]; if (o) { o.focus(); try { o.setSelectionRange(...vt); } catch { /* ô số */ } } }
       }, 40);
     }
 
