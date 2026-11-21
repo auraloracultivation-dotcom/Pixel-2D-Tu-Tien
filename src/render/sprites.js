@@ -1,5 +1,6 @@
 // Tải tấm hình trong data/art.json một lần. file?v=<mã nội dung>: đổi hình là đổi đường dẫn, máy không dùng lại tấm cũ còn lưu tạm.
 // Tấm tải về không đúng cỡ data/art.json thì coi như chưa có. Tấm lưới nhiều hàng (hình hiệu ứng pfx.*: rows hàng) thì cao h × rows.
+import { khoCanvas, traCanvas, canvasNhap, coHinh } from './canvas-kho.js';
 const imgs = {};
 
 export function spriteImage(spr) {
@@ -10,40 +11,55 @@ export function spriteImage(spr) {
 }
 
 // Bóng một màu của cả tấm hình (chớp trắng, ám đỏ khi trúng đòn). Không dùng ctx.filter vì Safari iPhone cũ không có.
-const tints = {};
+// Bản sao giữ trong kho có hạn mức (src/render/canvas-kho.js, data/config.json → perf.canvas_mb), trước giữ mãi nên Safari hết bộ nhớ canvas.
+// Máy không tạo được canvas (hết bộ nhớ) thì trả null: chỗ gọi bỏ lớp phủ, không làm hỏng khung hình.
+const kho = khoCanvas();
+export const setCanvasMb = mb => kho.han(mb);
+export const canvasKho = () => ({ mb: Math.round(kho.bytes / 1048576), so: kho.size });   // bài thử, đo
+
+const hong = new Map();   // khoá → lúc tạo hỏng (máy hết bộ nhớ canvas): đợi một lúc mới thử lại, không tạo canvas mỗi khung
+function banSao(im, spr, key) {
+  if (performance.now() - (hong.get(key) ?? -1e9) < 2000) return [null, null];
+  const c = document.createElement('canvas');
+  c.width = im.naturalWidth; c.height = im.naturalHeight;
+  const g = c.getContext('2d');
+  if (g) g.drawImage(im, 0, 0);
+  if (!g || (!coHinh(g, 0, 0, Math.min(spr.w, c.width), Math.min(spr.h, c.height)) && !coHinh(g, 0, 0, c.width, c.height))) {   // vẽ không ăn (Safari hết bộ nhớ canvas cho tấm trắng): không giữ
+    traCanvas(c); hong.set(key, performance.now()); return [null, null];
+  }
+  hong.delete(key);
+  return [c, g];
+}
 
 export function tintedImage(spr, im, color) {
   const key = `${spr.file}?${spr.v}|${color}`;
-  if (!tints[key]) {
-    const c = document.createElement('canvas');
-    c.width = im.naturalWidth; c.height = im.naturalHeight;
-    const g = c.getContext('2d');
-    g.drawImage(im, 0, 0);
+  let c = kho.get(key);
+  if (!c) {
+    const [b, g] = banSao(im, spr, key);
+    if (!b) return null;
     g.globalCompositeOperation = 'source-in';
-    g.fillStyle = color; g.fillRect(0, 0, c.width, c.height);
-    tints[key] = c;
+    g.fillStyle = color; g.fillRect(0, 0, b.width, b.height);
+    c = kho.set(key, b);
   }
-  return tints[key];
+  return c;
 }
 
 // Hình loé trắng giữ viền mực (src/game/hit-feel.js: quái vừa trúng đòn của mình): điểm tối (viền, nét trong, bóng sẫm nhất) giữ nguyên,
 // mọi điểm còn lại trắng hẳn → con quái sáng bừng mà vẫn rõ dáng trên nền sáng (trắng đặc cả khối thì lẫn vào vệt chém trắng).
-const flashes = {};
 export function flashImage(spr, im) {
-  const key = `${spr.file}?${spr.v}`;
-  if (!flashes[key]) {
-    const c = document.createElement('canvas');
-    c.width = im.naturalWidth; c.height = im.naturalHeight;
-    const g = c.getContext('2d');
-    g.drawImage(im, 0, 0);
+  const key = `${spr.file}?${spr.v}|loe`;
+  let c = kho.get(key);
+  if (!c) {
+    const [b, g] = banSao(im, spr, key);
+    if (!b) return null;
     try {
-      const d = g.getImageData(0, 0, c.width, c.height), a = d.data;
+      const d = g.getImageData(0, 0, b.width, b.height), a = d.data;
       for (let i = 0; i < a.length; i += 4) if (a[i + 3] && a[i] * 0.3 + a[i + 1] * 0.59 + a[i + 2] * 0.11 > 40) a[i] = a[i + 1] = a[i + 2] = 255;
       g.putImageData(d, 0, 0);
-    } catch { return tintedImage(spr, im, '#ffffff'); }   // máy không cho đọc điểm ảnh: trắng cả khối như cũ
-    flashes[key] = c;
+    } catch { traCanvas(b); return tintedImage(spr, im, '#ffffff'); }   // máy không cho đọc điểm ảnh: trắng cả khối như cũ
+    c = kho.set(key, b);
   }
-  return flashes[key];
+  return c;
 }
 
 // Màu chính của một hình (khung đầu): màu không phải mực tối có nhiều điểm nhất. Vụn văng lúc quái chết lấy màu này cho đúng con quái đang thấy
@@ -54,8 +70,7 @@ export function spriteTone(spr, im) {
   if (tones[key] === undefined) {
     tones[key] = null;
     try {
-      const c = document.createElement('canvas'); c.width = spr.w; c.height = spr.h;
-      const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+      const [, g] = canvasNhap(spr.w, spr.h); g.drawImage(im, 0, 0);   // canvas nháp dùng chung, không tạo mới mỗi hình
       const a = g.getImageData(0, 0, spr.w, spr.h).data, n = {};
       let best = 0;
       for (let i = 0; i < a.length; i += 4) {
@@ -80,7 +95,8 @@ export function drawShadowFrame(ctx, spr, im, f) {
   ctx.save();
   ctx.transform(1, 0, SH.skew * Math.abs(m.d) / m.a, -SH.squash, 0, 0);
   ctx.globalAlpha *= SH.alpha; ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(tintedImage(spr, im, SH.color), (f || 0) * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
+  const t = tintedImage(spr, im, SH.color);
+  if (t) ctx.drawImage(t, (f || 0) * spr.w, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1], spr.w, spr.h);
   ctx.restore();
 }
 
@@ -88,17 +104,13 @@ export function drawShadowFrame(ctx, spr, im, f) {
 // hit: 0 là không trúng, 1 là vừa trúng.
 export function drawHitFrame(ctx, spr, im, f, hit, solid) {
   const sx = f * spr.w, ax = -spr.anchor[0], ay = -spr.anchor[1];
-  if (hit > 0.5 && solid) { ctx.drawImage(flashImage(spr, im), sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h); return; }   // đòn của mình (bản ra đòn mới): loé trắng hẳn, còn viền mực
-  if (hit > 0.5) {   // vừa trúng: hình thật phủ trắng 70% (trắng đặc cả bầy quái cộng quầng chiêu thành mảng chói, chơi thử 28/10)
-    ctx.drawImage(im, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
-    const a = ctx.globalAlpha; ctx.globalAlpha = a * 0.7;
-    ctx.drawImage(tintedImage(spr, im, '#ffffff'), sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
-    ctx.globalAlpha = a; return;
-  }
+  const lo = hit > 0.5 && solid && flashImage(spr, im);
+  if (lo) { ctx.drawImage(lo, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h); return; }   // đòn của mình (bản ra đòn mới): loé trắng hẳn, còn viền mực
   ctx.drawImage(im, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
-  if (hit > 0) {
-    ctx.globalAlpha = hit * 1.1;
-    ctx.drawImage(tintedImage(spr, im, '#ff3a3a'), sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
-    ctx.globalAlpha = 1;
-  }
+  const t = hit > 0 && tintedImage(spr, im, hit > 0.5 ? '#ffffff' : '#ff3a3a');
+  if (!t) return;
+  const a = ctx.globalAlpha;
+  ctx.globalAlpha = hit > 0.5 ? a * 0.7 : hit * 1.1;   // vừa trúng: hình thật phủ trắng 70% (trắng đặc cả bầy quái cộng quầng chiêu thành mảng chói, chơi thử 28/10); sau đó ám đỏ mờ dần
+  ctx.drawImage(t, sx, 0, spr.w, spr.h, ax, ay, spr.w, spr.h);
+  ctx.globalAlpha = hit > 0.5 ? a : 1;
 }

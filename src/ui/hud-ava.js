@@ -5,6 +5,7 @@ import { spriteImage } from '../render/sprites.js';
 import { heroLook } from '../render/draw-hero.js';
 import { every } from '../core/ticker.js';   // trang ẩn thì bỏ lượt
 import { faceCrop } from './ava-crop.js';
+import { canvasNhap, boNhap } from '../render/canvas-kho.js';
 
 // Khung bộ hoa đào (chủ dự án 04/11/2026 10:19, tools/art/ui_hoa_dao.py): mộc hoa đào, kim vàng kim cương, thủy sóng, hỏa lửa, thổ mây vàng.
 // Lòng vòng từng khung đọc ở data/art.json → sprites['ui.hd-ava-<hệ>'].hole = [tâm x / rộng, tâm y / cao, bán kính / rộng, cao / rộng].
@@ -45,14 +46,18 @@ export function createHudAva(game) {
     const im = spr && spriteImage(spr), N = V ? 96 : 40;   // khung mới: vẽ 96 điểm cho hạt nhỏ, nét (trước 40 điểm phóng to nên mờ)
     if (cv.width !== N) cv.width = cv.height = N;
     const c = cv.getContext('2d');
+    if (!c) { key = ''; return; }   // máy chưa cấp được canvas (hết bộ nhớ canvas): lượt sau vẽ lại
     c.clearRect(0, 0, N, N);
     if (!V) { c.fillStyle = '#2a1838'; c.fillRect(0, 0, N, N); }
     if (!im) return;
-    // khung đứng (khung 0): cắt vuông quanh mặt (src/ui/ava-crop.js), phần ngoài hình để trống
-    const t = document.createElement('canvas'); t.width = spr.w; t.height = spr.h;
-    const tc = t.getContext('2d'); tc.drawImage(im, 0, 0, spr.w, spr.h, 0, 0, spr.w, spr.h);
-    const f = faceCrop(tc.getImageData(0, 0, spr.w, spr.h).data, spr.w, spr.h);
-    if (!f) return;
+    // khung đứng (khung 0): cắt vuông quanh mặt (src/ui/ava-crop.js), phần ngoài hình để trống. Canvas nháp dùng chung (src/render/canvas-kho.js):
+    // trước mỗi lần vẽ lại tạo một canvas mới, máy hết bộ nhớ canvas thì canvas mới trắng, mặt trống mãi (người chơi báo 22/11/2026)
+    const [t, tc] = canvasNhap(spr.w, spr.h);
+    if (!tc) { key = ''; return; }
+    tc.drawImage(im, 0, 0, spr.w, spr.h, 0, 0, spr.w, spr.h);
+    let f = null;
+    try { f = faceCrop(tc.getImageData(0, 0, spr.w, spr.h).data, spr.w, spr.h); } catch { /* không đọc được điểm ảnh */ }
+    if (!f) { key = ''; boNhap(); return; }   // không thấy mặt (canvas nháp vẽ không ăn): lượt sau thử lại bằng canvas mới, không giữ ô trống
     const z = N / f.S, sx = Math.max(0, f.x), sy = Math.max(0, f.y), ex = Math.min(spr.w, f.x + f.S), ey = Math.min(spr.h, f.y + f.S);
     c.imageSmoothingEnabled = false;
     if (ex > sx && ey > sy) c.drawImage(t, sx, sy, ex - sx, ey - sy, (sx - f.x) * z, (sy - f.y) * z, (ex - sx) * z, (ey - sy) * z);

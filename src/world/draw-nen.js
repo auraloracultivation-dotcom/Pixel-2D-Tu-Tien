@@ -16,6 +16,7 @@
 // dung nham, hồ băng, khe hư không), dat, san, gach, nui, them: [[mã hình, các ô], …] lớp phủ thêm (mặt băng, ruộng bậc thang, sàn gỗ) }.
 // Có "ky" thì mọi ô không phải tinh không đều lót nền trước (cây, đá, nhà đứng trên nền), chuyện vẽ ô theo hình cũ không còn.
 import { spriteImage } from '../render/sprites.js';
+import { traCanvas, coHinh } from '../render/canvas-kho.js';
 import { discOf } from './map.js';
 
 const FRAME = [-1, 15, 8, 9, 0, 11, 14, 7, 13, 4, 1, 10, 3, 2, 5, 6];
@@ -25,7 +26,7 @@ const KY = { nen: '.', nuoc: '=', dat: ',', san: '12', gach: '1', nui: '^' };   
 export const kyOf = n => ({ ...KY, ...(n.ky || {}), them: n.ky?.them || [] });
 // Ô nền của bản đồ này đã vẽ bằng bộ 15 mảnh (draw-map.js không vẽ hình khối cũ đè lên)
 export const kyPainted = n => { const k = kyOf(n); return new Set((k.nen + k.nuoc + k.dat + k.san + k.gach + k.them.map(t => t[1]).join('')).split('')); };
-let cache = { map: null, hoi: null, chunks: new Map() };
+let cache = { map: null, hoi: null, chunks: new Map(), hong: new Map() };
 
 const img = (game, id) => { const s = game.data.art.sprites[id]; return s ? spriteImage(s) : null; };
 
@@ -56,13 +57,17 @@ function build(game, map, tiles, hash, cx, cy) {
   const nuoc = I('nuoc'), dat = I('dat'), san = I('san'), gach = I('gach'), nui = I('nui'), mep = I('mep'), vach = I('vach'), hoa = I('hoa');
   const ky = kyOf(n), lot = !!n.ky;   // lot: mọi ô lót nền (tinh cầu khai ky)
   const cv = document.createElement('canvas'); cv.width = cv.height = N * P;
-  const g = cv.getContext('2d'); g.imageSmoothingEnabled = false;
+  const g = cv.getContext('2d');
+  if (!g) { traCanvas(cv); return null; }
+  g.imageSmoothingEnabled = false;
   const x0 = cx * N, y0 = cy * N, at = (x, y) => map.at(x, y);
+  let mau = null;   // ô đất đầu tiên vẽ vào mảng: soát vẽ có ăn không
   // cổng, bồ đoàn, đá linh căn đứng trên nền của ô đi được bên cạnh (sân lát, cỏ…), như draw-ground.js
   const under = (tx, ty) => { const ch = at(tx, ty); return 'PMS'.includes(ch) ? [[0, 1], [1, 0], [-1, 0], [0, -1]].map(([dx, dy]) => at(tx + dx, ty + dy)).find(c => !'PMS'.includes(c) && !tiles.types[c]?.solid) || '.' : ch; };
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
     const tx = x0 + i, ty = y0 + j, ch = under(tx, ty), k = tiles.types[ch] || {}, h = hash(tx, ty);
     if (k.void) continue;
+    mau ??= [i * P, j * P];
     if (!lot && k.tex && !(san && '12'.includes(ch)) && img(game, 'ground.' + ch)) { g.drawImage(img(game, 'ground.' + ch), Math.floor(h * 4) * T, 0, T, T, i * P, j * P, P, P); continue; }
     if (lot || '.,=^'.includes(ch) || !k.color || (san && '12'.includes(ch))) {   // cỏ đặc (khung 6), lật ngẫu nhiên cho đỡ lặp; sân, phố lát phủ lên sau
       const fx = h < 0.5 ? 1 : -1, fy = (h * 2) % 1 < 0.5 ? 1 : -1;
@@ -130,25 +135,33 @@ function build(game, map, tiles, hash, cx, cy) {
     if (!im) continue;
     if (it.flip) { g.save(); g.translate(px + w, py); g.scale(-1, 1); g.drawImage(im, 0, 0, sp.w, sp.h, 0, 0, w, h); g.restore(); } else g.drawImage(im, 0, 0, sp.w, sp.h, px, py, w, h);
   }
+  // Safari hết bộ nhớ canvas: mảng mới vẽ không ăn, giữ lại là cả vùng đất tối om tới lúc rời tinh cầu (người chơi báo 22/11/2026). Không giữ, lượt sau dựng lại.
+  if (mau && !coHinh(g, mau[0], mau[1], P, P) && !coHinh(g, 0, 0, N * P, N * P)) { traCanvas(cv); return null; }
   return cv;
 }
 
 // Vẽ phần nền đang thấy. Trả false khi hình chưa tải (draw-map.js vẽ hình khối tạm).
 export function drawNen(ctx, game, map, tiles, view, hash) {
   if (!nenReady(game, map)) return false;
-  if (cache.map !== map || cache.hoi !== map.hoi) cache = { map, hoi: map.hoi, chunks: new Map() };   // bày lại đồ (map.setHoi) thì in lại núi
+  if (cache.map !== map || cache.hoi !== map.hoi) {   // bày lại đồ (map.setHoi) thì in lại núi; tấm cũ trả bộ nhớ ngay (src/render/canvas-kho.js)
+    for (const cv of cache.chunks.values()) traCanvas(cv);
+    cache = { map, hoi: map.hoi, chunks: new Map(), hong: new Map() };
+  }
   const T = map.T, S = N * T, rows = Math.ceil((map.h + 4) / N), cols = Math.ceil(map.w / N);
   const c0 = Math.max(0, Math.floor(view.x0 / S)), c1 = Math.min(cols - 1, Math.floor(view.x1 / S));
   const r0 = Math.max(0, Math.floor(view.y0 / S)), r1 = Math.min(rows - 1, Math.floor(view.y1 / S));
+  const now = performance.now();
   ctx.save(); ctx.imageSmoothingEnabled = false;
   for (let cy = r0; cy <= r1; cy++) for (let cx = c0; cx <= c1; cx++) {
     const key = cy * cols + cx;
     let cv = cache.chunks.get(key);
-    if (cv) cache.chunks.delete(key); else cv = build(game, map, tiles, hash, cx, cy);
+    if (cv) cache.chunks.delete(key);
+    else if (now - (cache.hong.get(key) ?? -1e9) < 1000) continue;   // vừa dựng hỏng: đợi một giây mới thử lại
+    else if (!(cv = build(game, map, tiles, hash, cx, cy))) { cache.hong.set(key, now); continue; }
     cache.chunks.set(key, cv);   // vừa dùng: đưa về cuối hàng
     ctx.drawImage(cv, cx * S, cy * S, S, S);
   }
   ctx.restore();
-  for (const key of cache.chunks.keys()) { if (cache.chunks.size <= KEEP) break; cache.chunks.delete(key); }
+  for (const [key, cv] of cache.chunks) { if (cache.chunks.size <= KEEP) break; cache.chunks.delete(key); traCanvas(cv); }
   return true;
 }
