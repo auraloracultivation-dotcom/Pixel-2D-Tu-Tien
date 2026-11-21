@@ -9,10 +9,11 @@
 //   - CSS: style.css nuốt các tệp @import thành một tệp; CSS nạp sau của từng bảng (src/ui/*.css) giữ riêng, chỉ nén.
 //   - Số phiên bản V (8 ký tự mã commit): ghi vào src/core/build.js, sw.js và sau tên tệp trong index.html để máy không dùng tệp cũ.
 // Biến môi trường: V (mã bản), ESBUILD (đường dẫn esbuild; không có thì thử npx), GOI=0 (không gói: chép từng tệp và gắn ?v= như
-// trước 20/11/2026: đường lùi khi bản gói có chuyện, cũng là cách chạy khi máy không có esbuild).
+// trước 20/11/2026: đường lùi khi bản gói có chuyện, cũng là cách chạy khi máy không có esbuild), GIU_CU (địa chỉ trang game đang
+// chạy, chỉ quy trình GitHub Pages đặt: giữ khúc nạp sau của các bản trước, xem giuKhucCu).
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -87,6 +88,43 @@ rmSync(TAM, { recursive: true, force: true });
   if (!t.includes("const V = 'dev'")) throw new Error("sw.js: không thấy dòng const V = 'dev'");
   wr(w, t.replace("const V = 'dev'", `const V = '${V}'`));
 }
+
+// Giữ khúc nạp sau của bản trước (21/11/2026, chủ dự án: "hỏng hết bảng chức năng"): khúc tên theo mã nội dung (c/<tên>-<mã>.js), mỗi
+// lần đưa lên GitHub Pages thay cả trang nên khúc cũ mất; máy còn chạy bản cũ (điện thoại để nền rồi mở lại) bấm bảng nào cũng hỏng tới
+// khi tự tải lại. Nay chép thêm mọi khúc bản đang chạy trên mạng đang dùng, cộng các khúc cũ ghi trong src/c/_giu.json chưa quá GIU_NGAY
+// ngày. Tên khúc theo mã nội dung nên không đè khúc mới. Mạng hỏng thì bỏ qua, không chặn việc đưa lên.
+const GIU_NGAY = 3;
+async function giuKhucCu(base) {
+  const C = join(OUT, 'src/c'), now = Date.now(), ds = {};
+  if (!existsSync(C)) return;
+  const get = async (f, json) => { try { const r = await fetch(base + f, { signal: AbortSignal.timeout(20000) }); return r.ok ? (json ? r.json() : r.text()) : null; } catch { return null; } };
+  const cu = (await get('src/c/_giu.json', true)) || {};
+  const hang = [], thay = new Set(), chep = {};
+  const idx = await get('index.html');
+  for (const m of (idx || '').matchAll(/src\/((?:main|ui\/man-dau)\.js)\?v=/g)) hang.push('src/' + m[1]);
+  while (hang.length) {   // bản đang chạy: tệp vào game → mọi khúc nó gọi, lần lượt
+    const f = hang.shift(), t = await get(f);
+    if (t == null) continue;
+    if (f.startsWith('src/c/')) chep[f.slice(6)] = t;
+    for (const m of t.matchAll(/["'](\.{1,2}\/(?:c\/)?[\w.-]+-[A-Z0-9]{8}\.js)["']/g)) {
+      const p = posix.normalize(posix.join(posix.dirname(f), m[1]));
+      if (p.startsWith('src/c/') && !thay.has(p)) { thay.add(p); hang.push(p); }
+    }
+  }
+  for (const [ten, luc] of Object.entries(cu)) {   // khúc của các bản trước nữa, còn trong hạn
+    if (chep[ten] != null || now - luc > GIU_NGAY * 864e5 || !/^[\w.-]+-[A-Z0-9]{8}\.js$/.test(ten)) continue;
+    const t = await get('src/c/' + ten); if (t != null) chep[ten] = t;
+  }
+  let them = 0;
+  for (const [ten, t] of Object.entries(chep)) {
+    ds[ten] = cu[ten] ?? now;
+    if (!existsSync(join(C, ten))) { wr(join(C, ten), t); them++; }
+  }
+  for (const f of readdirSync(C).filter(f => f.endsWith('.js'))) ds[f] ??= now;
+  wr(join(C, '_giu.json'), JSON.stringify(ds));
+  console.log(`giữ khúc bản trước: ${them} tệp (bản đang chạy dùng ${thay.size} khúc, sổ cũ ${Object.keys(cu).length})`);
+}
+if (ES && process.env.GIU_CU) await giuKhucCu(process.env.GIU_CU.replace(/\/?$/, '/'));
 
 const js = walk(join(OUT, 'src')).filter(f => f.endsWith('.js'));
 console.log(`${ES ? 'đã gói' : 'KHÔNG gói (chép từng tệp)'} bản ${V} vào ${OUT}: ${js.length} tệp JS ${js.reduce((a, f) => a + kb(f), 0)} KB (tệp vào game ${kb(join(OUT, 'src/main.js'))} KB), dữ liệu gộp ${kb(join(OUT, 'data/_all.json'))} KB, style.css ${kb(join(OUT, 'style.css'))} KB`);

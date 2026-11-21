@@ -6,9 +6,18 @@ const seen = new Set();
 const recent = [];   // lỗi gần nhất (kể cả khi chưa đăng nhập), gắn vào báo lỗi của người chơi (src/ui/feedback-shot.js)
 export const recentErrors = () => recent.slice();
 
+// Khúc code nạp sau không tải được (thường là máy chạy bản cũ, khúc đó đã thay sau lần đưa lên): báo src/net/ban-moi.js đọc bản mới ngay
+const KHUC = /dynamically imported module|Importing a module script failed|error loading dynamically imported module|Failed to load module script/i;
+export function khucHong(e) {
+  if (!KHUC.test(String(e?.message || e || ''))) return false;
+  dispatchEvent(new Event('p2d-kiem-ban'));
+  return true;
+}
+
 export function catchErrors() {
   const send = (msg, stack) => {
     const tin = String(msg || '').slice(0, 300);
+    khucHong(tin);
     if (tin) { recent.push(`${new Date().toISOString().slice(11, 19)} ${tin} @ ${String(stack || '').split('\n').slice(0, 2).join(' | ').slice(0, 200)}`); if (recent.length > 8) recent.shift(); }
     if (!tin || seen.has(tin) || seen.size >= 10 || SKIP.some(s => tin.includes(s))) return;
     seen.add(tin);
