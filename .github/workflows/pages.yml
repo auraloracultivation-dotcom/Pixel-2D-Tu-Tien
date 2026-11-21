@@ -28,9 +28,11 @@ jobs:
       - name: Gói bản đưa lên (JS vài tệp, dữ liệu một tệp, CSS gộp, gắn số phiên bản)
         # tools/goi.mjs dùng chung cho GitHub Pages, Vercel và bài chơi thử. Bản gói có chuyện thì thêm "GOI: 0" vào env của bước này:
         # chép từng tệp như trước 20/11/2026.
+        # GIU_CU: chép thêm khúc code nạp sau của bản đang chạy (máy còn mở bản cũ bấm bảng vẫn chạy tới khi tự tải lại, 21/11/2026)
         run: node tools/goi.mjs _site
         env:
           V: ${{ github.sha }}
+          GIU_CU: https://auraloracultivation-dotcom.github.io/Pixel-2D-Tu-Tien/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

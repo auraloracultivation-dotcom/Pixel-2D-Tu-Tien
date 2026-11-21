@@ -142,3 +142,6 @@ html body.hud-bang #hud .hud-btns > button.tron > i { top: 0 !important; right: 
   border-radius: 50% !important; background: #e0484a !important; border: 1.5px solid #1b1830 !important; box-shadow: none !important; }
 html body.hud-bang #hud .hud-btns > button.tron#hud-thu.co { background: none !important; }   /* chấm vẽ bằng nền cũ nằm dưới biểu tượng: thay bằng chấm <i> (src/ui/hop-thu.js) */
 html body.hud-bang #hud .hud-btns > button.tron > i[hidden] { display: none !important; }
+
+/* Mốc kiểm tệp đã nạp (src/ui/hud-bang.js, 21/11/2026) */
+html body.hud-bang { --nap-khung: 1; }
