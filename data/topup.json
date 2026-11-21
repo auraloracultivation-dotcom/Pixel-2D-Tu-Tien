@@ -48,7 +48,7 @@
   "claim": "Nhận quà hôm nay",
   "claimed": "Hôm nay đã nhận."
  },
- "shop": [
+ "shop": [{"id": "thu-lenh", "label": "1 Thú Lệnh (7 lệnh đổi 1 thú cưỡi ở Ngự Thú Sư)", "tn": 9, "per_day": 7, "give": {"thu_lenh": 1}}, 
   {
    "id": "dao-van-thach",
    "label": "1 Đạo Vận Thạch (đổi hệ trang bị)",
