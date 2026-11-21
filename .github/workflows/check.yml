@@ -16,7 +16,7 @@ jobs:
     # Người mới chơi thử với Tự hành, giả ngày Lễ Bí Ngô: bắt lỗi JavaScript và truyện bị kẹt (tools/playtest.mjs); rồi bài thử hai máy
     # bắt lỗi đồng bộ giữa người chơi (tools/hai-may.mjs), rồi ô gõ trong thẻ lưới (tools/kiem/o-go-luoi.thu.mjs)
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,3 +35,8 @@ jobs:
       # Ô gõ trong thẻ lưới (tông môn…): chữ gõ trong tấm chi tiết phải tới máy chủ (21/11/2026: lập tông môn gửi tên rỗng)
       - run: node ../tools/kiem/o-go-luoi.thu.mjs
         working-directory: _site
+      # Quái chung (đã bật 21/11/2026): hai máy cùng tinh cầu qua phòng giả chạy đúng mã cloud/src/quai.js: máu chung, chia công, hồi sinh
+      - run: node ../tools/quai-chung.thu.mjs
+        working-directory: _site
+        env:
+          GIAY: 20
