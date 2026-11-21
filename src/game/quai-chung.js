@@ -44,8 +44,14 @@ function vao(game, w) {
   const C = QC(game.data), q = w.q;
   if (!C?.on || !q || !game.map || game.map.id !== w.map || !game.online?.quai) return;
   const B = bangQuai(game.data, game.map.id);
-  if (!B || q.v !== B.v) return;   // máy chủ phòng và máy mình khác bản data/: không đoán, về quái riêng
-  const qc = game.qc = { B, me: w.me, bai: new Map(), o: new Map(), cho: new Map(), don: new Map(), gui: [], n: 0, t: 0, luc: -1 };
+  if (!B || q.v !== B.v) {   // máy chủ phòng và máy mình khác bản data/: không đoán, về quái riêng
+    // tinh cầu tông môn: bảng phòng có thể cũ hơn bố cục mình vừa tải (tông chủ vừa bày lại công trình): xin phòng đọc lại dòng tinh cầu
+    // một lần cho mỗi bảng của mình; phòng đổi bảng thì phát 'qv' cho cả tuyến (online-cf.js chuyển thành tin vào phòng mới)
+    const hoi = B && game.map.def?.kh && `${w.map}:${B.v}`;
+    if (hoi && game.qcHoi !== hoi) { game.qcHoi = hoi; game.online.quai({ n: 0, qr: 1 }, game.player); }
+    return;
+  }
+  const qc = game.qc = { B, map: w.map, me: w.me, bai: new Map(), o: new Map(), cho: new Map(), don: new Map(), gui: [], n: 0, t: 0, luc: -1 };
   const d = new Map((Array.isArray(q.d) ? q.d : []).filter(Array.isArray).map(r => [r[0], r]));
   for (const [i, n] of B.s) {
     const sp = game.spawners[i];
@@ -59,6 +65,15 @@ function vao(game, w) {
     }
   }
   game.mobs = game.mobs.filter(m => !m.dead);
+}
+
+// Bản đồ vừa nạp lại tại chỗ (game.js loadMap cùng bản đồ: tông chủ bày lại công trình, bay tới đúng tinh cầu đang đứng): máy vẫn ở phòng
+// cũ nên không có tin chào mới, mà bãi và quái chung cũ đã bị dọn cùng bản đồ. Bỏ sổ cũ, xin phòng gửi lại trạng thái (phòng đáp 'qv',
+// online-cf.js chuyển thành tin vào phòng); chưa có lời đáp thì các bãi tạm là quái riêng như lúc chưa vào phòng.
+export function qcNapLai(game, cu) {
+  if (!cu || game.qc !== cu || cu.map !== game.map?.id) return;
+  game.qc = null; game.qcHoi = null;
+  game.online?.quai?.({ n: 0, qr: 1 }, game.player);
 }
 
 // Rời phòng / rớt mạng: quái chung còn sống thành quái riêng, bãi của máy mình lo tiếp (hạ thì nhận trọn như chơi một mình)

@@ -7,8 +7,14 @@
 import { join } from 'node:path';
 import { chepCloud } from './nap.mjs';
 
-export async function taoPhongGia() {
+// khDs: danh sách tinh cầu tông môn giả (dạng p2d_kh_ds) cho bài thử quái chung trên tinh cầu tông môn (cloud/src/quai-kh.js đọc qua fetch);
+// không truyền thì phòng không có địa chỉ Supabase, tinh cầu tông môn không có quái chung, không gọi mạng
+export async function taoPhongGia({ khDs } = {}) {
   const dir = chepCloud('phong-gia-');
+  if (khDs) {
+    const goc = globalThis.fetch;
+    globalThis.fetch = async (url, init) => (String(url).endsWith('/rest/v1/rpc/p2d_kh_ds') ? { ok: true, json: async () => structuredClone(khDs) } : goc(url, init));
+  }
   globalThis.WebSocketRequestResponsePair ??= class { constructor(a, b) { this.a = a; this.b = b; } };
   globalThis.Response = class { constructor(body, init) { this.status = init?.status; this.webSocket = init?.webSocket; } };   // Response của Node không nhận mã 101
   // Đầu máy chủ của một kết nối: phòng gọi send / close / (de)serializeAttachment như WebSocket của Cloudflare; `day` là hàm đẩy xuống trình duyệt
@@ -28,7 +34,7 @@ export async function taoPhongGia() {
   const khien = new Map();   // uid → { off, immune, at }: như mang.js pk
   const mang = { pkGet: async u => khien.get(u) || { off: false, immune: 0, at: 0 }, pkSet: async (u, off, immune, at) => { khien.set(u, { off: !!off, immune: immune || 0, at: at || 0 }); },
     pvp: async () => false, nhipGop: async () => null, add: async () => ({ top: [], n: 0, total: 0, ranks: {}, lt: {}, mo: 0 }) };
-  const MANG_GIA = { MANG: { idFromName: () => 'cuu-dau', get: () => mang } };
+  const MANG_GIA = { MANG: { idFromName: () => 'cuu-dau', get: () => mang }, ...(khDs ? { SUPABASE_URL: 'https://gia.invalid', SUPABASE_KEY: 'gia' } : {}) };
   const lay = ten => {
     if (!phong.has(ten)) {
       const ctx = { list: [], storage: { getAlarm: async () => 1, setAlarm: async () => {} }, setWebSocketAutoResponse() {},

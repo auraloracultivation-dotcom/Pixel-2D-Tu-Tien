@@ -368,6 +368,8 @@ errors.push(...(await import('./quai-chung.mjs')).soat());
   if (pv.status !== 0) { const out = (pv.stderr || pv.stdout).trim().split('\n'); errors.push(`cloud: bài thử trọng tài PvP trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const qc = spawnSync(process.execPath, [join('tools', 'cloud', 'quai.test.mjs')], { encoding: 'utf8' });   // trọng tài quái chung (cloud/src/quai.js)
   if (qc.status !== 0) { const out = (qc.stderr || qc.stdout).trim().split('\n'); errors.push(`cloud: bài thử trọng tài quái chung trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
+  const qk = spawnSync(process.execPath, [join('tools', 'cloud', 'quai-kh.test.mjs')], { encoding: 'utf8' });   // quái chung tinh cầu tông môn (cloud/src/quai-kh.js, src/game/kh-bai.js)
+  if (qk.status !== 0) { const out = (qk.stderr || qk.stdout).trim().split('\n'); errors.push(`cloud: bài thử quái chung tinh cầu tông môn trượt — ${(out.filter(l => /Error|at file/.test(l)).slice(0, 3).join(' | ') || out.slice(0, 3).join(' | '))}`); }
   const n = spawnSync(process.execPath, [join('tools', 'cloud', 'nhip.test.mjs')], { encoding: 'utf8' });   // nhịp sống qua phòng (cloud/src/nhip.js)
   if (n.status !== 0) errors.push(`cloud: bài thử nhịp sống trượt — ${(n.stderr || n.stdout).trim().split('\n').slice(0, 3).join(' | ')}`);
   // Ba trận giả trên ĐÚNG mã máy chủ phòng (tools/cloud/tai-chien.mjs), có mạng giả (trễ, chập chờn) và mắt máy khách giả (hình người khác đi

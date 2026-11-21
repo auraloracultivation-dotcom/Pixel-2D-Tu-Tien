@@ -3,6 +3,7 @@
 // Phòng KHÔNG chạy AI quái: máy của người đang bị con quái đuổi chạy AI con đó và báo vị trí (tin 'q' → m), phòng chỉ ghi ai đang giữ
 // con nào rồi phát cho cả tuyến; quá own_ms không có tin thì con quái tự do, ai bị nó nhắm kế tiếp thì giữ.
 // Bảng bãi (số con, giờ hồi, máu, chỗ) là bản sao sinh tự động ./quai-cfg.js (tools/quai-chung.mjs); máy khách: src/game/quai-chung.js.
+// Tinh cầu tông môn: bảng dựng từ dòng tinh cầu trên Supabase (./quai-kh.js, cùng mã dựng bãi với máy khách ./kh-bai.js).
 //
 // Tin máy khách gửi lên: { t: 'q', n: số thứ tự, x, y, m: [[ô, x, y, đang ra đòn]], h: [[ô, sát thương]] }   (x, y: chỗ người gửi đứng)
 // Tin phòng phát xuống:
@@ -22,11 +23,13 @@ const O = 64, TIN_MAX = 24, CONG_MAX = 12, HOI_MIN = 500;
 const so = v => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 const gon = v => Math.round(v * 10) / 10;
 
-// Sổ quái chung của phòng (null: bản đồ này không có quái chung)
+// Sổ quái chung mới cho một bảng bãi (null: không có quái chung)
+export const soMoi = B => (B ? { B, bai: new Map(B.s.map(r => [r[0], r])), o: new Map(), bud: new Map(), mv: new Map(), hp: new Map() } : null);
+
+// Sổ quái chung của phòng (null: bản đồ này không có quái chung). Tinh cầu tông môn không có bảng sẵn: quai-kh.js đọc dòng tinh cầu
+// trên Supabase rồi đặt room.q trước khi gọi tới đây
 export function quaiOf(room, map) {
-  if (room.q !== undefined) return room.q;
-  const B = QUAI.maps[map];
-  room.q = B ? { B, bai: new Map(B.s.map(r => [r[0], r])), o: new Map(), bud: new Map(), mv: new Map(), hp: new Map() } : null;
+  if (room.q === undefined) room.q = soMoi(QUAI.maps[map]);
   return room.q;
 }
 

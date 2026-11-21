@@ -7,6 +7,7 @@ import { HEAD, NEAR } from './mang-cfg.js';
 import { pvpToggle, pvpHit, pvpLoad, pvpTrack } from './pvp.js';
 import { nhipVao, nhipGom } from './nhip.js';
 import { quaiChao, quaiTin, quaiLo, quaiRoi } from './quai.js';
+import { laKh, khNap } from './quai-kh.js';
 import { BATCH_MS, MSG_MAX, RATE, KICK_DROPS, cleanProf, cleanMove, cleanSay, cleanCast, bucket, take, makeBatch } from './proto.js';
 
 export class Phong extends DurableObject {
@@ -39,6 +40,7 @@ export class Phong extends DurableObject {
       return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
     }
     const pk = kind === 'dao' ? await pvpLoad(this.env, uid) : null;   // khiên PvP giữ theo tài khoản (src/pvp.js)
+    if (kind === 'dao') await khNap(this, map, Date.now());   // tinh cầu tông môn: đọc bảng quái chung trước khi chào (src/quai-kh.js)
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
     server.serializeAttachment({ id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, pvpAt: pk?.at || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
@@ -81,9 +83,11 @@ export class Phong extends DurableObject {
       case 'd': { if (a.kind === 'dao') this.bossHit(ws, a, msg.n); break; }   // sát thương lên Cửu Đầu Thôn Thiên Mãng (src/mang.js)
       case 'q': {   // quái chung (src/quai.js): quái mình đang giữ và đòn mình đánh, kèm chỗ mình đứng (phòng xét tầm theo đó, như đòn PvP)
         if (a.kind !== 'dao') break;
+        const phat = laKh(a.map) && (msg.qr || this.q === undefined) ? await khNap(this, a.map, now, !!msg.qr) : false;   // tinh cầu tông môn: phòng vừa ngủ dậy, hay máy khách xin đọc lại bảng
         const mv = this.kem(a, msg);
         if (mv) this.place(ws, a, mv, now);
         quaiTin(this, ws, a, msg, now);
+        if (msg.qr && !phat) { try { ws.send(JSON.stringify({ t: 'qv', q: quaiChao(this, a.map, now) })); } catch { /* đã đóng */ } }   // máy khách nạp lại bản đồ tại chỗ: gửi lại trạng thái quái chung như tin chào
         break;
       }
       case 'r': {   // tổ đội: chuyển tiếp ngay nguyên gói cho người khác trong đội

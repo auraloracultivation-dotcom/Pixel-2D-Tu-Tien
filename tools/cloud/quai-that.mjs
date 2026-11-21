@@ -3,19 +3,23 @@
 // Soát: chữ ký bảng phòng thật khớp bảng máy khách tự tính từ data/; người giữ quái báo vị trí thì người kia nhận; máu chung; đòn đứng
 // xa quá tầm không tính; hạ quái thì cả hai nhận tin, công chia đúng theo sát thương; đánh con đã chết thì phòng bảo dọn; hồi sinh.
 // Không ghi gì vào Supabase (phòng không lưu quái chung), chỉ đăng nhập lấy vé.
-//   TK1=… MK1=… TK2=… MK2=… node tools/cloud/quai-that.mjs        MAP=bản đồ (mặc định bản đồ đầu trong quai_chung.maps)  L=tuyến
+//   TK1=… MK1=… TK2=… MK2=… node tools/cloud/quai-that.mjs        MAP=bản đồ (mặc định bản đồ đầu trong quai_chung.maps; mã tinh cầu
+//   tông môn cũng được: bảng dựng từ dòng tinh cầu thật)  L=tuyến
 // Mật khẩu chỉ đưa qua biến môi trường, không bao giờ ghi vào kho.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { napData } from '../quai-chung.mjs';
 import { cauHinhMayChu, O } from '../../src/game/quai-chung-bang.js';
+import { khBangQuai } from '../../src/game/kh-bai.js';
 
 const GOC = resolve(import.meta.dirname, '../..');
 const client = readFileSync(resolve(GOC, 'src/net/client.js'), 'utf8');
 const SB = client.match(/SUPABASE_URL = '([^']+)'/)[1], KEY = client.match(/SUPABASE_PUBLISHABLE_KEY = '([^']+)'/)[1];
 const CF = JSON.parse(readFileSync(resolve(GOC, 'data/config.json'), 'utf8')).realtime.cf_url;
 const data = napData(), CH = cauHinhMayChu(data), MAP = process.env.MAP || data.config.quai_chung.maps[0], L = +(process.env.L || 58);
-const B = CH.maps[MAP];
+// MAP=<mã tinh cầu tông môn>: bảng dựng từ dòng tinh cầu thật (p2d_kh_ds) bằng đúng mã máy chủ phòng dùng (kh-bai.js khBangQuai)
+const khDong = /^[0-9a-f-]{36}$/i.test(MAP) ? (await (await fetch(`${SB}/rest/v1/rpc/p2d_kh_ds`, { method: 'POST', headers: { apikey: KEY, 'content-type': 'application/json' }, body: '{}' })).json()).find(x => x.id === MAP) : null;
+const B = khDong ? khBangQuai(CH.kh, khDong) : CH.maps[MAP];
 if (!B) { console.error(`bản đồ ${MAP} không có bãi quái chung`); process.exit(1); }
 
 let hong = 0;
