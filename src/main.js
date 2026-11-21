@@ -11,10 +11,16 @@ import { startDeathAsk } from './ui/death-ask.js';
 import { createFrameDim } from './ui/frame-dim.js';
 import { createManToi } from './ui/man-toi.js';
 import { createRewardShow } from './ui/reward-show.js';
-import { createBacHud } from './ui/bac-hud.js';
+import { createNvHud } from './ui/nv-hud.js';
 import { createHenMai } from './ui/hen-mai.js';
 import { createMung } from './ui/mung.js';
 import { createMungCanh } from './ui/mung-canh.js';
+import { createMungThem } from './ui/mung-them.js';
+import { createChuLon } from './ui/chu-lon.js';
+import { createDauTruyen } from './game/dau-truyen.js';
+import { createLeToc } from './game/le-toc.js';
+import { knNap } from './game/ky-nang.js';   // Kỹ năng: bộ kỹ năng theo truyện vào bảng chiêu của bộ máy lúc nạp (data/ky-nang.json → chieu)
+import { createLeTocUI } from './ui/le-toc.js';
 import { startHenMai } from './game/hen-mai.js';
 import { watchTuVao, tuVao } from './ui/tu-vao.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
@@ -92,7 +98,7 @@ async function boot() {
   catchErrors();   // lỗi trên máy người chơi gửi về máy chủ (khi đã đăng nhập)
   initPwa(document.getElementById('btn-install'));
   const canvas = document.getElementById('game');
-  const data = hcData(await loadData());   // luật chiến đấu mới (data/he-chien.json on): đổi bảng quái một lần lúc nạp (src/game/he-chien.js)
+  const data = knNap(hcData(await loadData()));   // luật chiến đấu mới (data/he-chien.json on): đổi bảng quái một lần lúc nạp (src/game/he-chien.js)
   let screen = null;
   const perf = createPerf(data.config, () => screen.resize());   // nhẹ máy: giới hạn khung hình, tự hạ độ phân giải khi chậm
   screen = createScreen(canvas, data.config, perf.dpr);
@@ -154,10 +160,12 @@ async function boot() {
 
   createFrameDim(game);   // dải trên, dải dưới tối đi, phần giữa là khung chơi và khung quay video (src/ui/frame-dim.js)
   createManToi(game);   // nút Tắt màn khi treo game: lớp đen kín màn hình, game vẫn chạy nhưng thôi vẽ (src/ui/man-toi.js)
-  createBacHud(game);   // thẻ bậc của chặng leo bậc đầu game (src/ui/bac-hud.js, docs/10-CAI-HON.md việc 5)
+  createNvHud(game);   // thẻ nhiệm vụ chính 1 → N, kể cả các bậc của chặng leo bậc đầu game (src/ui/nv-hud.js)
   createHenMai(game); startHenMai(game);   // thẻ "Hẹn ngày mai": bế quan được gì, quà ngày mai, bậc kế tiếp (docs/10-CAI-HON.md việc 5b)
   createRewardShow(game);   // nghi lễ nhận thưởng: nền tối, vầng sáng xoay sau món đồ (src/ui/reward-show.js, docs/10-CAI-HON.md việc 4)
-  createMung(game); createMungCanh(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); docs/10-CAI-HON.md việc 4b
+  createChuLon(game); createDauTruyen(game);   // Trấn Ma Kỷ đi theo nhiệm vụ chính: hàng chữ lớn bên trái màn cho khẩu quyết và khoảnh khắc truyện (src/ui/chu-lon.js), dấu việc đã làm để lại trên bản đồ (src/game/dau-truyen.js)
+  createLeTocUI(game); createLeToc(game);   // Tiềm năng: lễ Cây Thế Giới gọi tên huyết mạch, một đời một lượt (src/game/le-toc.js, màn lễ src/ui/le-toc.js)
+  createMung(game); createMungCanh(game); createMungThem(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); linh thú, động phủ, ngọc, công pháp (src/ui/mung-them.js); docs/10-CAI-HON.md việc 4b
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)
   startAnalyticsHook(game);   // đo người chơi bằng PostHog (data/config.json → analytics), bọc game.begin nên đặt trước màn đăng nhập

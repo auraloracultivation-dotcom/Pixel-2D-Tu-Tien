@@ -44,7 +44,7 @@ export function gainTechExp(game, amount, only) {
     s.exp += amount;
     while (s.lv < max && s.exp >= techNeed(data, s.lv)) {
       s.exp -= techNeed(data, s.lv); s.lv++; up = true;
-      game.toast(`${data.techniques.list[id].name} lên tầng ${s.lv}!`, 1.8);
+      if (!game.mungLen?.('tech', id, s.lv)) game.toast(`${data.techniques.list[id].name} lên tầng ${s.lv}!`, 1.8);   // mungLen: thẻ mừng trên đầu nhân vật (src/ui/mung-them.js); không có thì dòng báo cũ
     }
     if (s.lv >= max) s.exp = 0;
   }

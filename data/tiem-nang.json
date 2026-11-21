@@ -1,0 +1,240 @@
+{
+ "_note": "Tiềm năng (chủ dự án 21/11/2026 17:23 và bảng câu hỏi 17:4x; docs/15-TIEM-NANG-KY-NANG.md). Lúc Cây Thế Giới nhận linh căn, Cây gọi luôn tên HUYẾT MẠCH: quay đúng MỘT lượt, ra tộc (toc.*.w là tỉ lệ) và vài chỉ số gốc theo hướng của tộc đó; quay rồi khoá, đổi tộc phải qua nghi lễ (chưa mở). Các tộc khác hướng nhưng ngang sức: mọi tộc quay chung một khoảng tổng điểm quay.tong, chỉ khác chia vào chỉ số nào (toc.*.huong: phần của từng chỉ số, mỗi phần lệch ngẫu nhiên ± quay.lech rồi chia lại cho đủ tổng). Tộc hiếm có thêm một thiên phú (thien_phu). ĐIỂM ở đây là Công % tương đương: đổi ra % của chỉ số bằng tỷ giá quy bên dưới (1 điểm = Công 1% = Sinh lực 1,9% = Phòng ngự 3,6% = Sát thương bạo 5,5%...), 1 điểm vào chỉ số nào cũng tăng lực chiến như nhau. Lực chiến tăng chừng 0,45% mỗi điểm, nên người hên nhất hơn người xui nhất chừng 2% lực chiến. Mỗi lần đột phá đại cảnh giới nhận diem.moi điểm tiềm năng (tính thẳng từ cảnh giới đang ở, người chơi cũ tự có đủ); mỗi điểm cộng diem.k điểm vào một chỉ số trong diem.chi_so, mỗi chỉ số tối đa diem.tran lần cộng (riêng: diem.tran_rieng). Tẩy điểm: diem.tay.free lần đầu miễn phí, sau đó gia × grow^cảnh giới Linh Thạch. Lưu ở save.tiem { toc, goc: { chỉ số: điểm }, cong: { chỉ số: số lần cộng }, tay: số lần đã tẩy } (khoá tn là Tiên Ngọc, máy chủ tự ghi đè, không dùng được). Code: src/game/tiem-nang.js (tính), src/game/le-toc.js (lễ), src/ui/le-toc.js (màn lễ), src/ui/tiem-nang-view.js (mục Tiềm năng trong bảng Nhân vật, ngay dưới Trang bị). CHƯA CÓ: máy chủ quay và khoá kết quả (đang quay trên máy người chơi như linh căn; cần migration, chờ chủ dự án), nghi lễ đổi tộc, hình nhân vật riêng từng tộc.",
+ "on": true,
+ "quy": {
+  "atk_pct": 1,
+  "hp_pct": 1.9,
+  "def_pct": 3.6,
+  "crit": 0.6,
+  "crit_dmg": 5.5,
+  "cdr": 1.25,
+  "lifesteal": 1.25,
+  "thorns": 1.3
+ },
+ "_quy": "Tỷ giá riêng của Tiềm năng: 1 điểm = bấy nhiêu % của chỉ số, chọn sao cho 1 điểm vào chỉ số nào cũng tăng lực chiến như nhau trên tu sĩ chuẩn (đo 21/11/2026 bằng công thức lực chiến thật của 20/11, mốc Kim Đan: 1 điểm ≈ 0,43–0,45% lực chiến). Không dùng thẳng tỷ giá dòng line_f của data/he-chien.json vì theo công thức lực chiến mới line_f không còn ngang nhau (1 điểm Sát thương bạo đáng gấp đôi 1 điểm Công), tộc thiên về bạo kích sẽ hơn hẳn tộc khác. Đổi công thức lực chiến thì đo lại; tools/tiem-nang.test.mjs chặn nếu các tộc lệch nhau quá 5%.",
+ "quay": {
+  "tong": [
+   6,
+   10
+  ],
+  "lech": 0.25
+ },
+ "diem": {
+  "moi": 5,
+  "k": 0.6,
+  "tran": 20,
+  "tran_rieng": {
+   "cdr": 10
+  },
+  "chi_so": [
+   "atk_pct",
+   "hp_pct",
+   "def_pct",
+   "crit",
+   "crit_dmg",
+   "cdr"
+  ],
+  "tay": {
+   "free": 1,
+   "gia": 3000,
+   "grow": 1.6
+  }
+ },
+ "hiem": {
+  "thuong": {
+   "ten": "Thường gặp",
+   "mau": "#d8d2c0"
+  },
+  "hiem": {
+   "ten": "Hiếm",
+   "mau": "#8fd0ff"
+  },
+  "tuyet": {
+   "ten": "Vạn người có một",
+   "mau": "#ffd25a"
+  }
+ },
+ "toc": {
+  "nhan": {
+   "ten": "Nhân tộc",
+   "han": "人",
+   "w": 34,
+   "hiem": "thuong",
+   "mau": "#e9d8ae",
+   "huong": {
+    "atk_pct": 0.34,
+    "hp_pct": 0.33,
+    "def_pct": 0.33
+   },
+   "loi": "Tộc đông nhất dưới tán Cây. Không được trời cho riêng thứ gì, nên tự tay giành lấy tất cả."
+  },
+  "linh": {
+   "ten": "Linh tộc",
+   "han": "靈",
+   "w": 22,
+   "hiem": "thuong",
+   "mau": "#8ff0d0",
+   "huong": {
+    "cdr": 0.5,
+    "atk_pct": 0.3,
+    "crit": 0.2
+   },
+   "loi": "Sinh ra từ giọt sương đọng trên lá Cây Thế Giới. Linh khí với họ như hơi thở."
+  },
+  "yeu": {
+   "ten": "Yêu tộc",
+   "han": "妖",
+   "w": 20,
+   "hiem": "thuong",
+   "mau": "#ff9a6a",
+   "huong": {
+    "lifesteal": 0.4,
+    "crit": 0.3,
+    "atk_pct": 0.3
+   },
+   "loi": "Muông thú hóa hình, chạy ma khí về nương dưới rễ Cây. Máu nóng, đòn hiểm, nhớ ơn rất lâu."
+  },
+  "co": {
+   "ten": "Cổ tộc",
+   "han": "古",
+   "w": 12,
+   "hiem": "hiem",
+   "mau": "#c9a46a",
+   "huong": {
+    "hp_pct": 0.45,
+    "def_pct": 0.35,
+    "thorns": 0.2
+   },
+   "loi": "Con cháu những người vun gốc Cây từ thuở khai thiên. Thân như đá núi, đứng đâu là vững đó.",
+   "thien_phu": {
+    "ten": "Thân Thượng Cổ",
+    "mo_ta": "Tự hồi 0,25% Sinh lực mỗi giây.",
+    "them": {
+     "regen_pct": 0.25
+    }
+   }
+  },
+  "hu": {
+   "ten": "Hư tộc",
+   "han": "虛",
+   "w": 8,
+   "hiem": "hiem",
+   "mau": "#b89af0",
+   "huong": {
+    "crit_dmg": 0.45,
+    "crit": 0.35,
+    "cdr": 0.2
+   },
+   "loi": "Tộc mất quê trong Vết Nứt, sống giữa có và không. Bước đi không để lại bóng.",
+   "thien_phu": {
+    "ten": "Hư Bộ",
+    "mo_ta": "Lướt hồi nhanh hơn 20%.",
+    "luot": 0.2
+   }
+  },
+  "than": {
+   "ten": "Thần tộc",
+   "han": "神",
+   "w": 3,
+   "hiem": "tuyet",
+   "mau": "#ffd25a",
+   "huong": {
+    "atk_pct": 0.5,
+    "crit_dmg": 0.25,
+    "hp_pct": 0.25
+   },
+   "loi": "Dòng máu những vị từng đứng chắn trước ma triều đầu tiên. Còn lại rất ít.",
+   "thien_phu": {
+    "ten": "Thần Huyết",
+    "mo_ta": "Sinh lực tụt dưới 30% thì hồi ngay 20%, 120 giây một lần.",
+    "hoi_sinh": {
+     "duoi": 0.3,
+     "hoi": 0.2,
+     "cd": 120
+    }
+   }
+  },
+  "tien": {
+   "ten": "Tiên tộc",
+   "han": "仙",
+   "w": 1,
+   "hiem": "tuyet",
+   "mau": "#f4f0ff",
+   "huong": {
+    "cdr": 0.4,
+    "hp_pct": 0.3,
+    "atk_pct": 0.3
+   },
+   "loi": "Ở gần Cây nhất, nghe được tiếng lá. Vạn người mới có một.",
+   "thien_phu": {
+    "ten": "Tiên Cốt",
+    "mo_ta": "Tốc độ tu luyện +6%, Linh lực tối đa +10%.",
+    "them": {
+     "qi_gain": 6,
+     "mp_pct": 10
+    }
+   }
+  }
+ },
+ "le": {
+  "_note": "Màn lễ (src/ui/le-toc.js): quay_s giây các ấn tộc chạy vòng rồi chậm dần, dừng ở tộc quay được; dong_s giây giữa hai dòng chỉ số; tu_dong_s: đang Tự hành / Tự đánh thì tự nhận sau ngần này giây. Tiếng: sfx.*.",
+  "quay_s": 3.2,
+  "dong_s": 0.45,
+  "tu_dong_s": 2.2,
+  "sfx": {
+   "mo": "chuong",
+   "nhip": "pluck",
+   "dung": "breakthrough",
+   "dong": "chime",
+   "nhan": "sparkle"
+  },
+  "goi": "Cây Thế Giới đang gọi tên huyết mạch của ngươi",
+  "ten": "Huyết mạch",
+  "goc": "Trời cho",
+  "nhan": "Nhận huyết mạch",
+  "mot_luot": "Một đời chỉ một lần gọi tên. Trời cho gì, nhận nấy.",
+  "truong_thon": {
+   "truoc": "Khoan đã, con. Rễ còn rung. Cây chưa gọi xong đâu, còn một cái tên nữa.",
+   "thuong": "{toc}. Gốc có vững thì cành mới vươn xa, con ạ. Đừng coi nhẹ máu mình.",
+   "hiem": "{toc}... Hiếm đấy. Cả vùng Thanh Khê mấy chục năm mới có một đứa.",
+   "tuyet": "{toc}... Lão sống từng này tuổi, mới thấy Cây gọi cái tên ấy một lần. Con giữ lấy, đừng khoe."
+  },
+  "he_thong": {
+   "truoc": "Đinh! Cây Thế Giới vừa gọi tên huyết mạch của ký chủ. Đứng yên nào, bổn hệ thống chép lại.",
+   "thuong": "{toc}. Chép rồi. Trấn Ma Kỷ không xếp hạng huyết mạch, ký chủ, nó chỉ chép ai đã đứng chắn.",
+   "hiem": "{toc}? Ký chủ giấu kỹ thật. Bổn hệ thống chép thêm một dấu sao bên lề.",
+   "tuyet": "...{toc}. Bổn hệ thống xin phép chép dòng này bằng mực đỏ."
+  }
+ },
+ "text": {
+  "title": "Tiềm năng",
+  "chua": "Cây Thế Giới chưa gọi tên huyết mạch của bạn. Hãy thức tỉnh linh căn trước.",
+  "goc": "Trời cho",
+  "thien_phu": "Thiên phú",
+  "khoa": "Huyết mạch đã định. Muốn đổi tộc phải qua nghi lễ, hiện chưa mở.",
+  "diem": "Điểm tiềm năng",
+  "con": "Còn {a} / {b} điểm",
+  "nguon": "Mỗi lần đột phá một đại cảnh giới nhận {n} điểm.",
+  "chua_diem": "Đột phá Trúc Cơ sẽ có {n} điểm đầu tiên.",
+  "cong": "Cộng",
+  "day": "Đã đầy",
+  "tay": "Tẩy điểm",
+  "tay_free": "Tẩy điểm (lần đầu miễn phí)",
+  "tay_gia": "Tẩy điểm ({gia} Linh Thạch)",
+  "tay_hoi": "Thu hết điểm đã cộng về để chia lại?",
+  "tay_ok": "Đã thu điểm về. Chia lại nhé.",
+  "thieu_ls": "Không đủ Linh Thạch",
+  "moi": "Có {n} điểm tiềm năng chưa dùng. Mở Túi đồ → Tiềm năng để cộng.",
+  "len": "Điểm tiềm năng +{n}",
+  "ngan": {
+   "atk_pct": "Công",
+   "hp_pct": "Sinh lực",
+   "def_pct": "Thủ",
+   "crit": "Bạo kích",
+   "crit_dmg": "ST bạo",
+   "cdr": "Hồi chiêu",
+   "lifesteal": "Hút máu",
+   "thorns": "Phản đòn"
+  }
+ }
+}

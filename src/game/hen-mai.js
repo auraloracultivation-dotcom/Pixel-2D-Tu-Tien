@@ -5,6 +5,7 @@
 // Thẻ tự hiện một lần mỗi ngày trên mỗi máy, lúc yên (không thoại, không bảng, không quái đang đánh): người mới thì ngay khi đi hết truyện mở đầu
 // (lúc 36 / 62 người chỉ chơi một ngày đã rời đi; đang đi truyện thì không chen ngang), người đã qua truyện thì sau after_min phút chơi.
 import { every } from '../core/ticker.js';
+import { hetMoDau } from './story.js';
 import { qiNeed, realmBuff, realmLabel, totalLayer } from './stats.js';
 import { checkinOn, checkinCached, loadCheckin } from './checkin.js';
 import { PB, pbOn, pbState, pbType } from './phap-bao.js';
@@ -65,17 +66,21 @@ export function giftTomorrow(game) {
 const dayKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 export function startHenMai(game) {
   if (!maiOn(game)) return;
-  const C = M(game), t0 = performance.now(), last = game.data.story.steps.length - 1;
-  let step0 = null;
+  const C = M(game), t0 = performance.now();
+  let xong0 = null;   // lúc vào game đã đi hết phần mở đầu chưa (truyện còn chạy tiếp bằng nhiệm vụ chính: src/game/story.js hetMoDau)
   every(() => {
     const s = game.save, p = game.player;
     if (!s || !p || !game.henMaiShow) return;
-    step0 ??= s.step || 0;
+    xong0 ??= hetMoDau(game);
     let seen = null; try { seen = localStorage.getItem('p2d-mai-d'); } catch { /* không có kho nhớ: mỗi buổi chơi hiện một lần */ }
     if (seen === dayKey() || game.maiSeen || totalLayer(s, game.data.realms) >= C.until_total) return;   // người đã tu cao: thẻ không tự hiện (một đêm bế quan chỉ nhích vài phần trăm, lời hứa nhạt)
-    if (s.step < last || !s.stepDone) return;   // còn đang đi truyện mở đầu: không chen ngang, chờ đi hết truyện
-    if (step0 >= last && (performance.now() - t0) / 60000 < C.after_min) return;   // đã qua truyện từ buổi trước: chờ đủ after_min phút chơi
-    if (game.dialog?.open || game.uiOpen || game.traveling || game.trip || game.story?.busy || game.story?.rung?.() || game.dungeon) return;
+    if (!hetMoDau(game)) return;   // còn đang đi truyện mở đầu: không chen ngang, chờ đi hết truyện
+    const phut = (performance.now() - t0) / 60000;
+    if (xong0 && phut < C.after_min) return;   // đã qua truyện từ buổi trước: chờ đủ after_min phút chơi
+    // Sau phần mở đầu truyện đi tiếp bằng chuỗi nhiệm vụ chính (21/11/2026): đang dở một nhiệm vụ (gặp người, tới nơi, hạ trùm) thì cũng không chen ngang, chờ tới chỗ
+    // truyện nghỉ (nhiệm vụ "Tu luyện tới…": đúng lúc lời hứa bế quan một đêm có nghĩa nhất). Dở mãi quá 2 × after_min phút chơi thì thôi không chờ nữa.
+    if (game.story?.nghi === false && phut < C.after_min * 2) return;
+    if (game.dialog?.open || game.uiOpen || game.traveling || game.trip || game.story?.busy || game.story?.xong || game.story?.rung?.() || game.dungeon) return;
     if (game.mobs.some(m => !m.dead && m.aggro && !m.dummy && (m.x - p.x) ** 2 + (m.y - p.y) ** 2 < C.calm_r * C.calm_r)) return;
     game.maiSeen = true; try { localStorage.setItem('p2d-mai-d', dayKey()); } catch { /* bỏ qua */ }
     const show = () => { try { game.henMaiShow(); } catch (e) { console.error('hen mai', e); } };

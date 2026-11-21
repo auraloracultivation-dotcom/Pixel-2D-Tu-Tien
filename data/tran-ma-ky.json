@@ -1,0 +1,77 @@
+{
+ "_note": "Trấn Ma Kỷ: truyện của game đi theo chuỗi nhiệm vụ chính 1 → N (data/story.json, src/game/story.js), không nằm trong một cuốn sổ riêng (chủ dự án 21/11/2026 08:46–08:51; thế giới và cốt truyện: docs/14-TRAN-MA-KY.md). Tệp này chỉ giữ chữ và số của ba thứ nhỏ đi kèm: câu nghĩa của cảnh giới ở lễ đột phá, khẩu quyết của pháp bảo, hàng chữ lớn bên trái màn (src/game/tran-ma-ky.js, src/ui/chu-lon.js). on false: tắt cả ba, chuỗi nhiệm vụ vẫn chạy.",
+ "on": true,
+ "chu": {
+  "_note": "Hàng chữ lớn bên trái màn hình (src/ui/chu-lon.js). step_s: mỗi dòng quét ra cách nhau bấy nhiêu giây · giu_s: đứng yên bao lâu rồi tan · gap_s: hai lần hô khẩu quyết pháp bảo cách nhau ít nhất bấy nhiêu giây (lời hô không dồn dập khi tung liền mấy món) · lenh_on: hiện chữ lệnh lớn (Trảm, Chiếu…) sau câu khẩu quyết; false thì chỉ còn câu và chữ Hán mờ phía sau · ky: nhãn nhỏ phía trên một dòng Hệ Thống chép vào sổ Trấn Ma Kỷ (lệnh chu có ky: true trong data/story.json)",
+  "on": true,
+  "step_s": 0.16,
+  "giu_s": 1.0,
+  "gap_s": 2.5,
+  "ky": "Trấn Ma Kỷ chép",
+  "lenh_on": true
+ },
+ "_canh_gioi": "Câu nghĩa của từng cảnh giới, hiện ngay dưới tên cảnh giới ở lễ đột phá (src/game/len-tang.js). Thứ tự theo data/realms.json → names",
+ "canh_gioi": [
+  "Luyện Khí là học thở cùng Cây.",
+  "Trúc Cơ là cắm rễ: từ đây thọ nguyên dài thêm.",
+  "Kim Đan là kết hạt: hạt giống của riêng ngươi.",
+  "Nguyên Anh là hạt nảy mầm.",
+  "Hóa Thần là mầm biết nghe: nghe được tiếng Cây mẹ.",
+  "Luyện Hư là rễ vươn vào hư không.",
+  "Hợp Thể là thân với đất làm một: đủ sức trấn một tinh cầu.",
+  "Đại Thừa là thành tán: che được cả một tông môn.",
+  "Độ Kiếp là Cây thử cành lần cuối trước khi cho ra hoa."
+ ],
+ "_kq": "Khẩu quyết của tám loại pháp bảo (mã loại ở data/phap-bao.json → types): cau là câu thơ, lenh là chữ lệnh đập xuống sau cùng, han là chữ Hán của chữ lệnh hiện mờ phía sau",
+ "kq": {
+  "phi-kiem": {
+   "cau": "Tâm tới, kiếm tới.",
+   "lenh": "Trảm",
+   "han": "斬"
+  },
+  "linh-chau": {
+   "cau": "Một hạt sáng, vạn dặm đêm.",
+   "lenh": "Chiếu",
+   "han": "照"
+  },
+  "bao-phien": {
+   "cau": "Mượn trời một làn gió.",
+   "lenh": "Khai",
+   "han": "開"
+  },
+  "dai-an": {
+   "cau": "Trời cao làm chứng.",
+   "lenh": "Giáng",
+   "han": "降"
+  },
+  "ho-thuan": {
+   "cau": "Sau lưng ta còn người.",
+   "lenh": "Hộ",
+   "han": "護"
+  },
+  "dong-chung": {
+   "cau": [
+    "Một tiếng chuông,",
+    "vạn ma lùi."
+   ],
+   "lenh": "Tán",
+   "han": "散"
+  },
+  "tran-ky": {
+   "cau": [
+    "Cờ cắm chỗ nào,",
+    "đất về chỗ ấy."
+   ],
+   "lenh": "Trấn",
+   "han": "鎮"
+  },
+  "ho-lo": {
+   "cau": [
+    "Nuốt đêm vào bụng,",
+    "nhả ra thành sóng."
+   ],
+   "lenh": "Thôn",
+   "han": "吞"
+  }
+ }
+}

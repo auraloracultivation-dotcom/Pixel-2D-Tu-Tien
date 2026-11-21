@@ -21,6 +21,7 @@ export function quaText(game, qua = []) {
     : q.gear != null ? fill(X.pool_gear, { t: T[q.gear]?.name || '' }) : '').filter(Boolean).join(', ');
 }
 
+const nvLog = { mo: false };   // danh sách Hành trình đang mở hay gọn (giữ qua lần vẽ lại)
 const openQ = { id: null, bad: new Set() };   // câu hỏi đang mở và đáp án đã chọn sai (giữ qua lần vẽ lại)
 const takeMail = game => import('../game/market.js').then(M => M.claimMail(game)).catch(() => {});
 
@@ -29,6 +30,31 @@ export function renderTasks(game, body, api) {
   const H = game.data['he-thong'], X = H.text, ht = api.ht;
   if (api.say) { const s = el('div', 'ht-say'), t = el('div'); t.append(el('b', null, H.name), el('p', null, api.say)); if (api.face) s.append(api.face.node); s.append(t); body.append(s); }
   body.append(el('div', 'ht-pts', fill(X.points, { p: ht.diem })));
+  // Nhiệm vụ chính của truyện (src/game/story.js goal / list; thẻ trên màn chơi src/ui/nv-hud.js): số, tên, việc đang làm, nút Dẫn đường (Tự hành đi làm);
+  // "Hành trình" mở danh sách các nhiệm vụ đã qua theo số thứ tự. Truyện đi theo nhiệm vụ 1 → N, không chia chương (chủ dự án 21/11/2026).
+  const nv = game.story?.goal?.(), ds = game.story?.list?.() || [];
+  if (nv?.so || ds.some(u => u.xong)) {
+    const card = el('div', 'ht-nv');
+    if (nv?.so) {
+      card.append(el('small', null, fill(X.nv_head, { so: nv.so })), el('b', null, nv.ten || nv.text), el('p', 'ht-line', nv.of ? `${(nv.goc || nv.text).replace(/\s*\(\{n\}\/\d+\)\s*$/, '')}  ${nv.n}/${nv.of}` : nv.text));
+    } else card.append(el('p', 'ht-line ht-muted', X.nv_het));
+    const row = el('div', 'ht-nv-row');
+    if (nv?.so) {
+      const g = el('button', 'ht-btn', game.pilot ? H.guide_on : H.guide); g.type = 'button'; g.disabled = !!game.pilot;
+      g.onclick = async () => { const P = await import('../game/pilot.js'); if (!game.pilot) P.togglePilot(game); api.minimize(); };
+      row.append(g);
+    }
+    const lg = el('button', 'ht-btn sm ht-nv-log', nvLog.mo ? X.nv_log_dong : X.nv_log); lg.type = 'button';
+    lg.onclick = () => { nvLog.mo = !nvLog.mo; api.render(); };
+    row.append(lg); card.append(row);
+    if (nvLog.mo) {
+      const ol = el('div', 'ht-nv-ds');
+      for (const u of ds) { if (!u.xong && !u.dang) continue; const d = el('div', 'ht-nv-d' + (u.dang ? ' dang' : '')); d.append(el('i', null, String(u.so)), el('span', null, u.ten || u.goal)); ol.append(d); }
+      card.append(ol);
+      requestAnimationFrame(() => { ol.scrollTop = ol.scrollHeight; ol.scrollIntoView({ block: 'nearest' }); });   // danh sách dài hơn khung: mở ra ở cuối (nhiệm vụ đang làm và các việc vừa qua) và kéo bảng vừa đủ để thấy dòng cuối; kéo lên để xem lại từ đầu
+    }
+    body.append(card);
+  }
   const t = htTask(game);
   if (t && H.story_ui !== false && !game.story?.current?.()?.until?.never) {   // story_ui false: bỏ khung việc truyện (data/he-thong.json)   // hết truyện: Tự hành không còn việc truyện, khỏi Dẫn đường (chủ dự án 06/11 17:51)
     body.append(el('div', 'ht-sub', X.story_hint), el('p', 'ht-line ht-goal', t));

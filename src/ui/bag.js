@@ -3,6 +3,8 @@
 // kèm lực chiến tăng giảm và so sánh với món đang mặc, không phải cuộn xuống cuối túi như trước.
 import { ensureInv, rarityOf, itemName, statText, gearStats } from '../game/items.js';
 import { kySocket } from '../game/ky-ngoc.js';   // đã đăng nhập: máy chủ khảm ngọc
+import { mungSocket } from './mung-them.js';   // màn mừng khảm ngọc (docs/10-CAI-HON.md việc 4b)
+import { power } from '../game/achieve.js';
 import { matInfo } from '../game/cave.js';
 import { coins } from '../game/shop.js';
 import { renderQuick } from './bag-quick.js';
@@ -115,7 +117,8 @@ export function createBag(game) {
     }
     renderGemGrid(game, box, st, pickStock, async k => {
       const p = st.pickSocket; if (!p) return;
-      await kySocket(game, p.uid, p.idx, k);
+      const p0 = power(game);
+      if (await kySocket(game, p.uid, p.idx, k)) game.mung?.(mungSocket(game, k, p0));
       st.sel = p.uid; st.pickSocket = null; st.tab = 'do'; changed();
     });
   }

@@ -21,6 +21,7 @@ import { unstuck } from './unstuck.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 
 const C = game => game.data.config.pilot;
+const TAY_S = 0.9;   // giây Tự hành đứng lại trước khi tự làm một việc tay của nhiệm vụ chính
 
 // Đang ở chặng leo bậc đầu game (src/game/story.js rung, docs/10-CAI-HON.md việc 5): báo một dòng rồi trả true, nơi gọi thôi không bật Tự hành / Tự đánh
 export function leoBac(game, kind = 'hanh') {   // kind: 'hanh' Tự hành, 'danh' Tự đánh (mỗi thứ mở ở một bậc: story.js khoa)
@@ -51,8 +52,9 @@ export function stopPilot(game, text) {
   if (text) game.toast(text, 2.6);
 }
 
-// Đang chờ tu luyện (truyện cần lên tầng, cảnh giới): tự hành làm việc vặt
-const waiting = game => { const u = game.story.current()?.until; return !u || u.never || u.realm || u.total || u.layer; };
+// Đang chờ tu luyện (truyện cần lên tầng, cảnh giới): tự hành làm việc vặt. Màn tối (nút Tắt màn: treo máy, src/ui/man-toi.js) thì cũng coi như đang chờ:
+// không đi việc của nhiệm vụ chính sau phần mở đầu, cảnh truyện không diễn lúc không ai xem (bật màn lại thì đi tiếp).
+const waiting = game => { const u = game.story.current()?.until; return !u || u.never || u.realm || u.total || u.layer || !!(game.manToi && game.story.sauMoDau); };
 
 // Gục khi đang tự hành (game.js gọi lúc hồi sinh): đang làm việc vặt ở đảo ngoài trời thì tạm tránh loài vừa hạ mình rồi làm tiếp;
 // gục trong truyện (boss truyện), bí cảnh, thiên kiếp, hoặc gục nhiều lần liền thì dừng (data/config.json → pilot.death)
@@ -74,6 +76,7 @@ export function pilotDied(game) {
 export function pilotLabel(game) {
   if (game.pilot && game.trib.canStart()) return t('Tự hành: {x}', { x: C(game).peak.label });
   const j = game.pilot?.job, L = C(game).labels;
+  if (j?.tay) return t('Tự hành: {x}', { x: j.tay });
   const k = j && Object.keys(L).find(k => j[k]);
   if (!k) return '';
   const o = j[k], name = o?.def?.name || '', to = j.to && game.data.maps[j.to]?.name;
@@ -162,6 +165,7 @@ function plan(game) {
   const errand = !waiting(game) && p.hp > p.maxHp * 0.5;
   const foe = nearest(game, alive(game).filter(m => !skipped(m) && m.aggro && !(errand && m.farm) && dist(m, p) < C(game).guard && clearShot(game, p, m)));
   if (foe) return { fight: foe };
+  if (game.story.busy || (game.story.xong && !game.manToi)) return null;   // nhiệm vụ đang diễn cảnh (dàn cảnh, hàng chữ lớn giữa các câu thoại), hoặc vừa xong việc và đang chờ màn lặng: đứng yên, không tranh thủ đi đả tọa hay làm việc ngày
   if (game.pilot.daily) {   // chạm dòng nhiệm vụ ngày (src/ui/quest-dock.js): chỉ làm việc ngày chưa xong (src/game/dailyjob.js)
     const j = dailyJob(game, routeTo);
     if (j?.meditate) return sit(game);
@@ -190,7 +194,7 @@ function plan(game) {
   }
   if (u.map) { const pt = routeTo(game, u.map); return pt ? { go: tileOf(game, pt.at), to: u.map } : null; }
   if (u.talk) { const n = game.npcs.find(n => n.id === u.talk); return n ? { talk: n } : s.target ? { go: tileOf(game, s.target) } : null; }
-  if (u.reach) return { go: tileOf(game, u.reach) };
+  if (u.reach) { const v = u.nut && game.story.viec(); return v ? { tay: v } : { go: tileOf(game, u.reach) }; }   // nut: tới nơi thì đứng lại một nhịp (nút hành động hiện tên việc: Gióng chuông, Đặt thẻ) rồi tự tay làm như người chơi bấm (pilotMove)
   if (u.collect) { const k = nearest(game, game.pickups.filter(k => k.item === u.collect)); if (k) return { go: k }; }
   if (u.kill) { const m = nearest(game, alive(game).filter(m => u.kill === '*' || m.id === u.kill)); if (m) return { fight: m }; }
   if (u.boss_dead || u.kill_all || u.any || u.kill) {
@@ -234,7 +238,9 @@ function pilotMove(game, ax, dt) {
   const pick = lootStep(game);   // đồ rơi chạy qua mới nhặt (src/game/loot.js)
   if (pick) return { ax: pick, atk: false };
   const job = game.pilot.job = plan(game);
+  if (!job?.tay) game.pilot.tayT = 0;
   if (!job) return none;
+  if (job.tay) { p.meditating = false; if ((game.pilot.tayT += dt) > TAY_S) { game.pilot.tayT = 0; game.story.notify('lam'); } return none; }   // việc tay của nhiệm vụ chính: đứng TAY_S giây cho người xem kịp thấy nút đổi tên rồi mới làm
   if (job.fight) { p.meditating = false; const r = engage(game, job.fight, dt); stuckCheck(game, job.fight, r, dt); return r; }
   if (job.talk) {
     if (dist(job.talk, p) < game.data.config.interact_range * 0.8) { if ((game.pilot.talkT = (game.pilot.talkT || 0) - dt) <= 0) { game.pilot.talkT = 0.8; talkTo(game, job.talk); } return none; }   // nói thẳng với đúng người, không qua nút

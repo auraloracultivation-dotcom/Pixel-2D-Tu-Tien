@@ -1,0 +1,261 @@
+{
+ "_note": "Kỹ năng (chủ dự án 21/11/2026 17:23, bảng câu hỏi 17:4x và 22/11 rạng sáng; docs/15-TIEM-NANG-KY-NANG.md): lớp chiêu hồi ngắn nằm giữa đánh thường và pháp bảo (pháp bảo hồi 60–150 giây là đòn lớn). Ba ô kỹ năng xếp HÀNG DỌC SÁT MÉP PHẢI, ngay trên khung dưới (lời chủ dự án); quản lý ở bảng Nhân vật → Công pháp → Kỹ năng. BỘ KỸ NĂNG MỚI THEO TRUYỆN (chủ dự án chọn 'Bộ mới theo truyện': giữ bộ máy và hiệu ứng, 48 chiêu cũ của data/skills.json vẫn xoá như đã bảo 13/11 và 21/11): mỗi kỹ năng do một người trong truyện dạy, khai ở chieu (cùng khuôn với data/skills.json: type, cd, mp, mult...; hinh: mượn hiệu ứng, biểu tượng, tiếng của một chiêu cũ; day: ai dạy). Lúc nạp game các kỹ năng này được đưa vào bảng chiêu của bộ máy (src/game/ky-nang.js knNap), KHÔNG ghi vào data/skills.json nên bảng cấu hình máy chủ không đổi. MỞ THEO TRUYỆN (hoc): lệnh truyện { ky_nang: 'khoá' } trong data/story.json phát cuốn đầu tiên: id = một kỹ năng; he = kỹ năng theo hệ linh căn của người chơi. NÂNG CẤP BẰNG GHÉP SÁCH (chủ dự án: 'Merger 2 cuốn thành 1 cuốn cấp 2, cứ gấp đôi lên'): mỗi kỹ năng là những cuốn sách có cấp; sach.ghep cuốn cùng cấp ghép thành 1 cuốn cấp trên, tới sach.max; cấp kỹ năng = cấp cuốn cao nhất đang có; mỗi cấp trên 1 cộng sach.per sát thương (kỹ năng hồi máu, khiên: sach.per_ho_tro). Lưu ở save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }. NGUỒN SÁCH THÊM (chủ dự án 22/11 rạng sáng: \"Chỉ làm nhiệm vụ tiến độ để nhận, sẽ nhận theo mốc chẵn 5 10 15\"): xong mỗi moc.moi nhiệm vụ chính (5, 10, 15...) nhận moc.sach SÁCH TRỐNG (save.knTrong; save.knMoc: số mốc đã nhận), chép vào kỹ năng nào đã học cũng được (thành một cuốn cấp 1). Người chơi cũ đã qua mốc nhận bù ngay. Máy chủ kiểm (migration 20261122030000_p2d_tiem_ky_nang.sql, bảng p2d_ky_cfg dòng 'tn' do tools/ky-cfg.mjs tn dựng): tổng sách quy ra cấp 1 cộng sách trống không vượt số khoá học đã mở cộng số mốc theo bước truyện. CÂN BẰNG: mỗi phát bằng khoảng 2–3 nhát chém, hồi 9–14 giây; ba kỹ năng đầu dùng đều tay thêm khoảng 40% sát thương so với chỉ đánh thường. Quái CHƯA đo lại theo mức này. KHẢM TÍNH CHẤT (kham): mỗi kỹ năng tối đa 3 ô, ô thứ i mở khi sách đạt cấp kham.o[i]; tính chất (tinh) mở theo tổng tầng tu at, khảm và tháo tự do, không khảm trùng; hop: kiểu chiêu khảm được (bỏ trống = mọi kiểu). Lưu ở save.knKham { mã: [tính chất, ...] }. Code: src/game/ky-nang.js, nút src/ui/ky-nang-hud.js, bảng src/ui/ky-nang-view.js. Hồi chiêu ba ô ở player.knCd (riêng, không chung với pháp bảo).",
+ "on": true,
+ "hoc": {
+  "pha-van": {
+   "co": "kn-pha-van",
+   "id": "pha-van-thuc"
+  },
+  "linh-nhan": {
+   "co": "kn-linh-nhan",
+   "he": {
+    "hoa": "viem-nhan",
+    "thuy": "han-nhan",
+    "moc": "dang-nhan",
+    "kim": "kim-nhan",
+    "tho": "thach-nhan"
+   }
+  },
+  "liep-phong": {
+   "co": "kn-liep-phong",
+   "id": "liep-phong-bo"
+  }
+ },
+ "kham": {
+  "o": [
+   2,
+   4,
+   6
+  ],
+  "tinh": {
+   "toc": {
+    "ten": "Tốc Kích",
+    "mo_ta": "Hồi chiêu nhanh hơn 12%",
+    "at": 0,
+    "cd": -0.12
+   },
+   "tiet": {
+    "ten": "Tiết Linh",
+    "mo_ta": "Tốn ít linh lực hơn 30%",
+    "at": 0,
+    "mp": -0.3
+   },
+   "trong": {
+    "ten": "Trọng Kích",
+    "mo_ta": "Sát thương +15%, hồi chiêu chậm hơn 10%",
+    "at": 9,
+    "mult": 0.15,
+    "cd": 0.1,
+    "hop": [
+     "projectile",
+     "multi",
+     "aoe",
+     "dash"
+    ]
+   },
+   "khoang": {
+    "ten": "Khoáng Vực",
+    "mo_ta": "Vùng trúng rộng thêm 20%",
+    "at": 9,
+    "rong": 0.2,
+    "hop": [
+     "aoe",
+     "dash",
+     "projectile",
+     "multi"
+    ]
+   },
+   "han": {
+    "ten": "Hàn Ý",
+    "mo_ta": "Trúng thì làm chậm 1,5 giây",
+    "at": 13,
+    "slow": 1.5,
+    "hop": [
+     "projectile",
+     "multi",
+     "aoe"
+    ]
+   },
+   "xuyen": {
+    "ten": "Xuyên Thấu",
+    "mo_ta": "Đạn xuyên qua quái, sát thương còn 85%",
+    "at": 13,
+    "pierce": true,
+    "mult": -0.15,
+    "hop": [
+     "projectile",
+     "multi"
+    ]
+   },
+   "toa": {
+    "ten": "Tỏa Nhánh",
+    "mo_ta": "Tách thành 3 hướng, mỗi nhánh 55% sát thương",
+    "at": 18,
+    "toa": 3,
+    "spread": 26,
+    "mult_k": 0.55,
+    "hop": [
+     "projectile"
+    ]
+   },
+   "chan": {
+    "ten": "Chấn Ý",
+    "mo_ta": "Trúng thì choáng 0,4 giây, hồi chiêu chậm hơn 15%",
+    "at": 22,
+    "stun": 0.4,
+    "cd": 0.15,
+    "hop": [
+     "projectile",
+     "aoe"
+    ]
+   }
+  }
+ },
+ "text": {
+  "tab": "Kỹ năng",
+  "sub": "Chọn ô rồi chạm kỹ năng để mang",
+  "chua": "Chưa học kỹ năng nào. Kỹ năng mở dần theo nhiệm vụ chính.",
+  "khoa_truyen": "mở theo nhiệm vụ chính",
+  "hoc_nhan": "Lĩnh ngộ kỹ năng",
+  "hoc_toast": "Kỹ năng mới: {ten}. Nút kỹ năng ở mép phải màn hình, ngay trên khung dưới.",
+  "kham_khoa": "mở ở {moc}",
+  "kham_dem": "Khảm tính chất: {a}/{b} ô",
+  "thao": "chạm để tháo",
+  "day": "{ai} truyền",
+  "cap": "Cấp {lv}",
+  "dem": "Sách: {ds}",
+  "cuon": "{n} cuốn cấp {lv}",
+  "ghep": "Ghép {n} cuốn cấp {a} thành cấp {b}",
+  "ghep_thieu": "Cần {n} cuốn cùng cấp để ghép lên cấp {b}",
+  "ghep_ok": "{ten} lên cấp {lv}!",
+  "toi_da": "Sách đã ở cấp cao nhất",
+  "o_ke": "ô kế mở khi sách đạt cấp {lv}",
+  "sat_thuong": "sát thương +{x}%",
+  "hoi": "hồi {x} giây",
+  "ton": "tốn {x} linh lực",
+  "chua_mang": "Ô {i}",
+  "trong": "Sách trống: {n} cuốn (chép vào kỹ năng nào cũng được)",
+  "chep": "Chép sách trống vào {ten}",
+  "moc_toast": "Xong nhiệm vụ chính {nv}: nhận {n} sách kỹ năng trống. Mở Túi đồ → Công pháp → Kỹ năng để chép."
+ },
+ "sach": {
+  "ghep": 2,
+  "max": 10,
+  "per": 0.08,
+  "per_ho_tro": 0.04
+ },
+ "moc": {
+  "moi": 5,
+  "sach": 1
+ },
+ "chieu": {
+  "pha-van-thuc": {
+   "name": "Phá Vân Thức",
+   "day": "Trưởng lão Vân Hạc",
+   "hinh": "kiem-khi",
+   "fx": "slash",
+   "type": "projectile",
+   "cd": 9,
+   "mp": 14,
+   "mult": 0.8,
+   "speed": 120,
+   "range": 160,
+   "radius": 6,
+   "pierce": true,
+   "color": "#c8f6ff",
+   "desc": "Thức nhập môn của Thiên Kiếm Tông: một luồng kiếm khí xé thẳng, xuyên mọi quái trên đường."
+  },
+  "viem-nhan": {
+   "name": "Viêm Nhận",
+   "day": "Lão Thiết",
+   "hinh": "hoa-cau",
+   "fx": "fire",
+   "type": "projectile",
+   "cd": 12,
+   "mp": 18,
+   "mult": 0.85,
+   "speed": 90,
+   "range": 140,
+   "radius": 5,
+   "explode": 24,
+   "color": "#ff7a3a",
+   "desc": "Linh căn Hỏa theo lửa lò vào lưỡi thép: chém ra một lưỡi lửa, nổ lan khi trúng."
+  },
+  "han-nhan": {
+   "name": "Hàn Nhận",
+   "day": "Lão Thiết",
+   "hinh": "bang-truy",
+   "fx": "ice",
+   "type": "projectile",
+   "cd": 10,
+   "mp": 16,
+   "mult": 0.7,
+   "speed": 110,
+   "range": 150,
+   "radius": 5,
+   "slow": 2.5,
+   "color": "#5ab8f0",
+   "desc": "Linh căn Thủy theo lửa lò vào lưỡi thép: phóng một mũi băng, kẻ trúng bị chậm."
+  },
+  "dang-nhan": {
+   "name": "Đằng Nhận",
+   "day": "Lão Thiết",
+   "hinh": "dang-phuoc",
+   "fx": "vine",
+   "type": "aoe",
+   "cd": 12,
+   "mp": 18,
+   "mult": 0.55,
+   "radius": 36,
+   "offset": 22,
+   "slow": 3,
+   "color": "#5fd07a",
+   "desc": "Linh căn Mộc theo lửa lò vào lưỡi thép: dây leo bật lên trói chân quái phía trước."
+  },
+  "kim-nhan": {
+   "name": "Kim Nhận",
+   "day": "Lão Thiết",
+   "hinh": "van-kiem",
+   "fx": "slash",
+   "type": "multi",
+   "cd": 11,
+   "mp": 16,
+   "mult": 0.4,
+   "count": 3,
+   "spread": 30,
+   "speed": 125,
+   "range": 150,
+   "radius": 4,
+   "pierce": true,
+   "color": "#f2e27a",
+   "desc": "Linh căn Kim theo lửa lò vào lưỡi thép: ba lưỡi kim quang tỏa hình quạt, xuyên qua quái."
+  },
+  "thach-nhan": {
+   "name": "Thạch Nhận",
+   "day": "Lão Thiết",
+   "hinh": "dia-chan",
+   "fx": "rock",
+   "type": "aoe",
+   "cd": 13,
+   "mp": 20,
+   "mult": 0.6,
+   "radius": 40,
+   "offset": 0,
+   "stun": 1,
+   "color": "#c08850",
+   "desc": "Linh căn Thổ theo lửa lò vào lưỡi thép: cắm lưỡi xuống đất, quái quanh mình choáng."
+  },
+  "liep-phong-bo": {
+   "name": "Liệp Phong Bộ",
+   "day": "A Lực",
+   "fx": "wind",
+   "type": "dash",
+   "cd": 14,
+   "mp": 18,
+   "mult": 0.7,
+   "dist": 72,
+   "color": "#ffb060",
+   "desc": "Bước chân của A Lực, thợ săn Xích Diễm: lao tới, chém xuyên mọi quái trên đường."
+  }
+ }
+}

@@ -97,11 +97,25 @@ export function bcLuot(c, id, L, tuan = 1) {
     + len(b[1] * c.cap ** cap * (1 + c.nhich * buoc) * tuan) + 2 * b[2];
 }
 
+// Tiềm năng và Kỹ năng (migration 20261122030000_p2d_tiem_ky_nang.sql, bảng p2d_ky_cfg dòng 'tn'): máy chủ quay huyết mạch đúng như máy khách
+// (src/game/tiem-nang.js quay), kẹp điểm tiềm năng, kiểm tổng sách kỹ năng. kn.nv[k]: số của nhiệm vụ chính ở bước truyện k (đếm như src/game/story.js:
+// các bậc trước bước rồi tới bước), để máy chủ biết người chơi đã qua mấy mốc nhận sách trống.
+export function tnCfg(read) {
+  const T = read('tiem-nang.json'), K = read('ky-nang.json'), S = read('story.json'), B = S.bac || {};
+  const nv = []; let n = 0;
+  for (const s of S.steps) { for (const u of B.truoc?.[s.id] || []) if (u.goal) n++; if (s.goal || B.buoc?.[s.id]?.goal) n++; nv.push(n); }
+  return {
+    toc: Object.fromEntries(Object.entries(T.toc).map(([id, t]) => [id, { w: t.w, huong: t.huong }])), tong: T.quay.tong, lech: T.quay.lech,
+    diem: { moi: T.diem.moi, tran: T.diem.tran, tran_rieng: T.diem.tran_rieng || {}, chi_so: T.diem.chi_so },
+    kn: { nv, moc: K.moc.moi, sach_moc: K.moc.sach, co: Object.values(K.hoc).map(h => h.co), ids: Object.keys(K.chieu), ghep: K.sach.ghep, max: K.sach.max },
+  };
+}
+
 // So hai giá trị JSON không kể thứ tự khoá
 export const sameJson = (a, b) => {
   const norm = v => Array.isArray(v) ? v.map(norm) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, norm(v[k])])) : v;
   return JSON.stringify(norm(a)) === JSON.stringify(norm(b));
 };
 
-// node tools/ky-cfg.mjs: chuỗi JSON dòng 'cfg' · node tools/ky-cfg.mjs bi_canh: chuỗi JSON dòng 'bi_canh'
-if (process.argv[1]?.endsWith('ky-cfg.mjs')) { const read = f => JSON.parse(readFileSync(join('data', f), 'utf8')); console.log(JSON.stringify(process.argv[2] === 'bi_canh' ? bcCfg(read) : kyCfg(read))); }
+// node tools/ky-cfg.mjs: chuỗi JSON dòng 'cfg' · node tools/ky-cfg.mjs bi_canh: dòng 'bi_canh' · node tools/ky-cfg.mjs tn: dòng 'tn'
+if (process.argv[1]?.endsWith('ky-cfg.mjs')) { const read = f => JSON.parse(readFileSync(join('data', f), 'utf8')); console.log(JSON.stringify(process.argv[2] === 'bi_canh' ? bcCfg(read) : process.argv[2] === 'tn' ? tnCfg(read) : kyCfg(read))); }

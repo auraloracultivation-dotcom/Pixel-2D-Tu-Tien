@@ -24,7 +24,7 @@
  "thiet-lan": {"art": {"style": "long"}, "name": "Thiết Lan", "color": "#e8d8a0", "hair": "#2a2a30", "lines": ["Ông nội ở Xích Diễm dạy ta cầm búa trước khi cầm đũa.", "Kiếm của ta gãy rồi. Không sao, ta rèn thanh mới, tốt hơn."]},
  "van-kiem-ma-tuong": {"art": {"acc": ["horns"]}, "name": "Vạn Kiếm Ma Tướng", "color": "#3a2e1a", "hair": "#0a0806", "lines": ["..."]},
  "thach-ba": {"name": "Thạch Bà", "color": "#8a6a4a", "hair": "#d8d0c0", "lines": ["Đất này nuôi người ba nghìn năm. Ma tộc tới, đất cũng biết khóc.", "Ăn củ khoai nướng không? Khoai ruộng bậc thang ngọt lắm."]},
- "a-nham": {"art": {"style": "spiky"}, "stroll": 2, "name": "A Nham", "color": "#a86a3a", "hair": "#2a1a0a", "lines": ["Ta trốn trong hang ba tháng. Giờ mới dám ra phơi nắng.", "Đá ở đây biết nói. Chỉ là nói chậm thôi."]},
+ "a-nham": {"art": {"style": "spiky"}, "stroll": 2, "name": "A Nham", "color": "#a86a3a", "hair": "#2a1a0a", "lines": ["Ta trốn trong hang ba tháng. Giờ mới dám ra ngồi dưới ánh Linh Nhật.", "Đá ở đây biết nói. Chỉ là nói chậm thôi."]},
  "thach-sinh": {"name": "Thạch Sinh", "color": "#c8a070", "hair": "#4a3020", "lines": ["...", "Ta không giỏi nói. Nhưng ta nhớ ơn."]},
  "toai-son-ma-tuong": {"art": {"acc": ["horns"]}, "name": "Toái Sơn Ma Tướng", "color": "#4a2a14", "hair": "#120a04", "lines": ["..."]},
  "hu-khong-nguc-chu": {"art": {"acc": ["horns"]}, "name": "Hư Không Ngục Chủ", "color": "#3a1a5a", "hair": "#0a0414", "lines": ["..."]},

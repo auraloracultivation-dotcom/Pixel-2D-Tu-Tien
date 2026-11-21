@@ -179,9 +179,9 @@ export function createHeThong(game) {
     const hud = document.getElementById('hud'), live = !!game.save && hud && !hud.hidden && !game.trip;
     ic.hidden = !live; if (!live) { tip.hidden = true; return; }
     if (!wander && !userPos && !ic.classList.contains('keo')) place();
-    const quiet = !!game.story?.rung?.();   // đang leo bậc đầu game: Hệ Thống im lặng đứng xem, không lẩm bẩm, không nhắc việc (dòng nhắc từng che mất thẻ bậc giữa trận)
-    const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng
-    if (mum && !open && tip.hidden && !quiet) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
+    const quiet = !!game.story?.rung?.() || !!game.story?.busy;   // đang leo bậc đầu game, hoặc nhiệm vụ chính đang diễn cảnh: Hệ Thống im lặng đứng xem, không lẩm bẩm, không nhắc việc (dòng nhắc từng che mất thẻ bậc giữa trận, chen vào giữa cảnh)
+    const mum = wander?.say;   // lẩm bẩm khi đang đi ngó nghiêng (đang có hội thoại hoặc thẻ mừng trên đầu nhân vật thì thôi: Hệ Thống đang nói trong truyện mà biểu tượng lẩm bẩm câu khác là lạc nhịp)
+    if (mum && !open && tip.hidden && !quiet && !game.dialog?.open && document.getElementById('mung-tang')?.hidden !== false) { tip.textContent = mum; tip.hidden = false; clearTimeout(nudge.t); nudge.t = setTimeout(() => { tip.hidden = true; }, 3200); }
     const k = needIntro(game);
     if (k && !open && !game.dialog?.open && !game.uiOpen) { show(k); return; }
     const say = htTick(game, dt);

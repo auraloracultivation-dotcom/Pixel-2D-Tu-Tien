@@ -7,6 +7,7 @@ import { kyMerge } from '../game/ky-ngoc.js';   // đã đăng nhập: máy ch�
 import { el } from './bag-detail.js';
 import { gemText } from './hc-text.js';
 import { gemIcon } from './gem-icon.js';
+import { mungGemMerge } from './mung-them.js';   // màn mừng ghép ngọc (docs/10-CAI-HON.md việc 4b)
 import { usePill, qiPillLeft, qiPillRate } from '../game/cave.js';
 
 const vn = n => Math.floor(n || 0).toLocaleString('vi-VN');
@@ -107,7 +108,7 @@ export function renderStockSheet(game, st, box, changed, close) {
   const fee = gemMergeFee(data, gi.lv), row = el('div', 'd-primary');
   const one = el('button', 'act-btn', `Ghép ${G.merge}→1 (${vn(fee)} ${data.shop.name})`);
   one.disabled = s.gems[k] < G.merge || (s.lingshi || 0) < fee;
-  one.onclick = async () => { one.disabled = true; if (await kyMerge(game, k)) game.sfx('levelup'); changed(); };
+  one.onclick = async () => { one.disabled = true; if (await kyMerge(game, k)) { game.sfx('levelup'); game.mung?.(mungGemMerge(game, k, 1)); } changed(); };
   row.append(one);
   const can = Math.min(Math.floor(s.gems[k] / G.merge), Math.floor((s.lingshi || 0) / fee));
   if (can >= 2) {   // báo lỗi #35: ghép số lượng lớn một lần bấm, phí như ghép từng lần
@@ -115,7 +116,7 @@ export function renderStockSheet(game, st, box, changed, close) {
     all.onclick = async () => {
       all.disabled = true;
       const n = await kyMerge(game, k, 0, can);
-      if (n) { game.sfx('levelup'); game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); }
+      if (n) { game.sfx('levelup'); if (game.mung) game.mung(mungGemMerge(game, k, n)); else game.toast(`Đã ghép ${n} lần: +${n} ${gemInfo(data, `${gi.type}:${gi.lv + 1}`).name}`, 2); }
       changed();
     };
     row.append(all);

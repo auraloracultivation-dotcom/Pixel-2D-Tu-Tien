@@ -23,6 +23,7 @@ export function gatherLights(game, t) {
     out.push({ x: b.x, y: b.y, r: G.bullet.r + (b.r || 3) * G.bullet.per_size, c, a: b.from === 'mob' ? 0.6 : 1 });
   }
   for (const f of game.fx) {
+    if (f.dau) { if (f.sang) out.push({ x: f.x, y: f.y - 4, r: 30, c: rgbOf(f.color) || '255,190,110', a: 0.8 + 0.15 * Math.sin(t * 6 + (f.seed || 0)), soft: true }); continue; }   // dấu truyện (src/game/dau-truyen.js): ngọn nến người chơi để lại
     const k = f.t / f.life, fade = 1 - k * k;
     if (f.type === 'sprite') {
       const c = G.sprite[f.id];

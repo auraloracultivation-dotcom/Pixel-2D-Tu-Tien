@@ -32,6 +32,15 @@
      ]
     },
     {
+     "q": "Thẻ Nhiệm vụ ở góc trái màn hình là gì?",
+     "a": [
+      "Đó là nhiệm vụ chính của truyện, đánh số từ 1. Dòng trên là số và tên nhiệm vụ, dòng dưới là việc phải làm.",
+      "Chạm vào thẻ: Tự hành dẫn nhân vật đi làm việc ấy. Chạm lần nữa (hoặc kéo cần điều khiển) để dừng.",
+      "Tới nơi mà có việc phải tự tay làm thì nút hành động đổi tên, ví dụ Gióng chuông: bấm vào đó.",
+      "Xem lại các nhiệm vụ đã qua: chạm biểu tượng Hệ Thống → Nhiệm vụ → Hành trình."
+     ]
+    },
+    {
      "q": "Tắt bớt việc Tự hành tự làm ở đâu?",
      "a": [
       "Menu → Tự động: bật tắt từng việc tự hành làm tại chỗ: tự mặc đồ tốt hơn, cường hoá an toàn, khảm ghép ngọc, tự uống đan, túi đầy tự phân giải đồ rẻ, gục thì hồi sinh tại chỗ."

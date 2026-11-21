@@ -1,5 +1,7 @@
 __pycache__/
 _site/
+# ảnh chụp của công cụ chạy thử chuỗi nhiệm vụ (tools/do-don/thu-nv.mjs, thư mục ra mặc định): chỉ để xem ở máy làm việc
+thu-nv/
 undefined/
 node_modules/
 tools/art/nguon/ai/ui/khung-dang-nhap-goc.png

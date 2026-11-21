@@ -13,6 +13,7 @@ import { teaLeft } from '../game/home.js';
 import { phase } from '../game/daynight.js';
 import { season } from '../game/weather.js';
 import { pbOn } from '../game/phap-bao.js';
+import { knHud } from './ky-nang-hud.js';
 import { pbHud } from './phap-bao-hud.js';
 import { pxOn } from '../game/pfx.js';
 import { hudHurt } from './hud-hurt.js';
@@ -129,6 +130,7 @@ export function createHud(audio, dlgCfg) {
       const cd = id ? Math.max(0, p.skillCd[i]) / (d.skills[id].cd * (1 - p.st.cdr)) : 0;
       css(b, '--cd', cd.toFixed(3));
     }
+    knHud(game, skillIcon);   // ba ô Kỹ năng ở mép phải (src/ui/ky-nang-hud.js)
     $('bag-badge').hidden = !game.newItems;
     $('skills-badge').hidden = !game.newSkills;
     $('pets-badge').hidden = !game.newPets;

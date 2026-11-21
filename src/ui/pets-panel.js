@@ -9,7 +9,8 @@ import { kyRerollBeast, kyRerollMount } from '../game/ky-thu.js';
 import { t } from '../core/i18n.js';   // chữ ghép: dịch theo khuôn
 import { buyBlock } from './buy-mats.js';
 import { quality } from '../game/tiers.js';
-import { baseOf, mountKeys, mountKeyOf } from '../game/inst.js';   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
+import { baseOf, mountKeys, mountKeyOf } from '../game/inst.js';
+import { petSnap, mungEvolve, mungMerge } from './mung-them.js';   // màn mừng ghép sao, tiến hoá (docs/10-CAI-HON.md việc 4b)   // mua nguyên liệu tiến hoá, tẩy luyện: ô cuối tấm chi tiết, mua theo số lượng
 
 const $ = id => document.getElementById(id);
 
@@ -84,10 +85,10 @@ export function createPetsPanel(game) {
         ...linesText(data, st.lines),
       ], s.pet === id, () => setPet(game, id), 'pet.' + id, 'Mang theo', 'Đang mang');
       list.append(eq(c, st.lines, 'c' + st.lv, st.star));
-      if (canMerge(game, id)) list.append(actRow(M.card.replace('{name}', d.name).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1).replace(/^Gộp .*?:/, 'Gộp') + ` (${mergeCost(st)} bản sao)`, () => mergePet(game, id)));
+      if (canMerge(game, id)) list.append(actRow(M.card.replace('{name}', d.name).replace('{star}', st.star || 0).replace('{next}', (st.star || 0) + 1).replace(/^Gộp .*?:/, 'Gộp') + ` (${mergeCost(st)} bản sao)`, () => { const a = petSnap(game, id); if (mergePet(game, id)) game.mung?.(mungMerge(game, id, a)); }));
       const ev = canEvolve(game, id);
       if (ev && ev !== 'level') {   // đủ cấp tiến hóa: nút ngay trong tấm chi tiết của con đó, thiếu nguyên liệu thì mờ + ô mua
-        list.append(actRow(`Tiến hóa thành ${P.evolve && P.pets[id]?.evo || ''} (${costText(data, P.evolve.cost)}, ${P.evolve.coins} ${data.shop.name})`, () => evolvePet(game, id), ev !== 'ok'));
+        list.append(actRow(`Tiến hóa thành ${P.evolve && P.pets[id]?.evo || ''} (${costText(data, P.evolve.cost)}, ${P.evolve.coins} ${data.shop.name})`, () => { const a = petSnap(game, id); if (evolvePet(game, id)) game.mung?.(mungEvolve(game, id, a)); }, ev !== 'ok'));
         const bm = ev !== 'ok' && buyBlock(game, Object.entries(P.evolve.cost), 'tienhoa:' + id, render, m => { game.toast(m, 2.4); render(); }, 'skill-up'); if (bm) list.append(bm);
       }
       if (P.pets[id]) list.append(rerollRow(id));

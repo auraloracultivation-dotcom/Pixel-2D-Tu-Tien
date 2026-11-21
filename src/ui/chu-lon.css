@@ -1,0 +1,20 @@
+/* Hàng chữ lớn bên trái màn hình (src/ui/chu-lon.js): khẩu quyết lúc thi triển, vài khoảnh khắc của nhiệm vụ chính. Không nhận chạm.
+   --mau: màu của món pháp bảo / khoảnh khắc · --ra: giây bắt đầu tan (JS đặt theo số dòng). */
+#chu-lon { position: fixed; left: calc(env(safe-area-inset-left) + 10px); top: 31%; z-index: 7; max-width: 88vw; padding: 6px 22px 6px 12px; pointer-events: none;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px; border-left: 3px solid var(--mau); font-family: var(--f-body);
+  background: linear-gradient(90deg, rgba(14, 8, 26, .62), rgba(14, 8, 26, .38) 62%, rgba(14, 8, 26, 0)); }   /* nền tối loang dần về phải: chữ đọc được trên cảnh rối, không thành một cái hộp */
+#chu-lon[hidden] { display: none; }
+#chu-lon.chay { animation: cl-ra .4s ease-in var(--ra) both; }
+#chu-lon .cl-nhan { font: 800 11px/1 var(--f-body); letter-spacing: 2.5px; text-transform: uppercase; color: var(--mau); margin-bottom: 2px;
+  text-shadow: 1px 0 #170d28, -1px 0 #170d28, 0 1px #170d28, 0 -1px #170d28; animation: cl-vao .3s ease-out both; }
+#chu-lon .cl-cau { font: 800 21px/1.22 var(--f-body); color: #fff8e6; letter-spacing: .2px; white-space: normal;   /* dòng tiếng Việt viết ngắn (≤ 27 chữ, tools/truyen.test.mjs) nên không xuống dòng; bản dịch dài hơn thì được xuống */
+  text-shadow: 2px 0 #170d28, -2px 0 #170d28, 0 2px #170d28, 0 -2px #170d28, 0 0 14px var(--mau); animation: cl-vao .26s cubic-bezier(.2, .8, .2, 1) both; }
+#chu-lon .cl-lenh { font: 900 46px/1 var(--f-body); color: var(--mau); letter-spacing: 3px; text-transform: uppercase; margin-top: 2px;
+  text-shadow: 3px 0 #170d28, -3px 0 #170d28, 0 3px #170d28, 0 -3px #170d28, 0 0 22px var(--mau); animation: cl-dap .3s cubic-bezier(.2, 1.5, .4, 1) both; }
+#chu-lon .cl-han { position: absolute; left: 4px; top: -34px; z-index: -1; font: 400 128px/1 "Noto Serif CJK TC", "Songti TC", "PingFang TC", "Noto Sans CJK TC", serif; font-style: normal;
+  color: var(--mau); opacity: 0; animation: cl-han .5s ease-out .05s both; }
+@keyframes cl-vao { from { clip-path: inset(0 100% 0 0); transform: translateX(-14px); } to { clip-path: inset(-20% -10% -20% -10%); transform: none; } }
+@keyframes cl-dap { from { opacity: 0; transform: scale(1.9); } to { opacity: 1; transform: none; } }
+@keyframes cl-han { from { opacity: 0; transform: scale(1.25); } to { opacity: .2; transform: none; } }
+@keyframes cl-ra { to { opacity: 0; transform: translateX(-12px); } }
+body:has(.panel:not([hidden])) #chu-lon, body:has(#bag:not([hidden])) #chu-lon, body:has(#qua:not([hidden])) #chu-lon { display: none; }

@@ -223,6 +223,7 @@ export function playerStatsHC(save, data, old = {}, ext = {}) {
   put(extraPct(H, ext.tech, base, E.tech ?? 10));
   put(extraPct(H, ext.set, base, E.set ?? 6));
   put(extraPct(H, ext.dao, base, E.dao ?? 6));
+  for (const [k, v] of Object.entries(ext.tiem || {})) if (PCT.includes(k) && v > 0) pct[k] = (pct[k] || 0) + Math.min(v, (E.tiem ?? 24) * (H.line_f[k] ?? 1));   // Tiềm năng: gốc huyết mạch + điểm đã cộng, đã là % của luật mới (src/game/tiem-nang.js tiemPct)
   if (ext.pill > 0 && base.hp > 0) put({ hp_pct: Math.min(ext.pill / base.hp * 100, (E.pill ?? 5) * (H.line_f.hp_pct ?? 1)) });
   const ol = ext.outfit && mapLine(H, ext.outfit), realm = save?.realm || 0;   // thời trang: một dòng như dòng tẩy luyện cùng màu (16:20)
   const s = sumStats(H, realm, loadout(save, data), false, { lines: ol ? [ol] : [], pct });

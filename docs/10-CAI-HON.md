@@ -50,6 +50,23 @@ phần thưởng, nhịp đầu game, tỉ lệ rơi / triệu hồi, bảng x�
   mừng. Rồi làm tiếp đi nè" (AI hiểu là: clip 1: nhịp đánh thường của người chơi chậm lại, làm cho mọi vũ khí theo nhịp mẫu My Heroes (kiếm 1,6 đòn / giây), đo lại quái
   đầu game theo nhịp mới rồi gửi clip mới; clip 2: món có nghi lễ thì chỉ còn tiếng mừng của nghi lễ, trên rương không kêu tiếng mừng nữa. Đây chưa phải lời "đưa lên" /
   "áp lên": sửa xong gửi clip lại rồi hỏi tiếp).
+- 21/11 03:47 (sau khi đọc bản thiết lập thế giới Trấn Ma Kỷ): "nội dung này b viết hay đến mức từng chữ từng dòng tôi đều k muốn bỏ lỡ… uỷ quyền cho b tự ý sửa toàn bộ
+  nội dung truyện trong game… B xây game cho tôi nhé, quan trọng nhất vẫn là cảm xúc người chơi khi vừa chơi vừa hiểu truyện, đồ hoạ phải nhiều hiệu ứng chúc mừng, lễ
+  thăng cấp, nói chung là đánh thẳng vào tâm lý người chơi làm họ cảm thấy vui, thấy tiến bộ, thấy yêu mến k nỡ rời và thấy được ý nghĩa game. Tỉ mỉ 1 chút" (AI hiểu
+  là: truyện phải tới với người chơi ngay trong lúc chơi, từng mẩu ngắn có hiệu ứng và có mừng, không thành phim dài chặn tay; mỗi lần mạnh lên, mỗi trang đọc xong đều
+  thấy mình tiến một bước; câu hỏi "Ngươi đứng đây vì ai?" cho việc cày cuốc một cái nghĩa. Làm thành sổ Trấn Ma Kỷ và phần còn lại của việc 4b: `docs/14-TRAN-MA-KY.md`).
+  **AI hiểu SAI một nửa**: "từng mẩu ngắn" đã thành một cuốn sổ 32 trang đặt trong Tàng Thư, tức truyện đứng cạnh game chứ không ở trong game. Xem dòng kế.
+- 21/11 08:46–08:51 (xem clip cuốn sổ, BÁC): "giống như lắp thêm 1 cái ghế và gương bằng mô hình logo lên chiếc xe ô tô vậy, chả khớp và liên quan gì cả? B có thực sự
+  đang viết truyện k? Hay là đang phân tích sau đó bê cả mảng vào? Sao lại dùng những quy tắc ngốc nghếch lối mòn nào đó để làm game vậy?" · "B có từng nghĩ người chơi sẽ
+  cảm thấy thế nào khi đọc đc mấy cái khẩu quyết một cách lô thiển như vậy, lại còn lâm, khởi. Có thể tạo hiệu ứng thành hàng chữ to bên trái màn hình mà, chat thế có ng
+  đọc đc k. Và mục tàng thư, cậu nghĩ là nên để toàn bộ viết vào đó k?" · "Tôi chưa ưng, tôi muốn sự kết hợp hài hoà, k phải phân theo từng chương, nhưng có thể phân theo
+  nhiệm vụ từ 1 đến N." · "Và nó phải thật sự hài hoà, từ từ hoà vào game, nhẹ nhàng, từ từ tiếp cận và truyền đạt một cách rõ ràng, có thể tự thiết kế bảng mới, hiệu ứng
+  mới. Vận dụng tư duy lên" (AI hiểu là: truyện phải LÀ việc người chơi làm, không phải thứ để mở ra đọc. Một chuỗi nhiệm vụ chính đánh số, mỗi nhiệm vụ một việc trong
+  thế giới và một ý của truyện; lời ngắn, không ai giảng; chỗ nào được thì người chơi tự tay làm; chữ quan trọng thì hiện to bên trái màn chơi, không nhét vào bong bóng
+  hay bảng. Không chia chương, không thẻ mở / khép. Gỡ cuốn sổ. Đây là chỉ đạo về cách làm, không phải lời "đưa lên". `docs/14-TRAN-MA-KY.md` phần B).
+  **Bài học cho mọi việc về sau**: trước khi dựng một thứ "cho người chơi cảm", hỏi: người chơi LÀM gì ở đây? Nếu câu trả lời là "mở một bảng ra đọc" thì đang lắp ghế
+  lên nóc xe. Và đừng lấy khuôn có sẵn của thể loại (sổ tay, chương, bộ sưu tập trang) úp vào; nhìn game đang có gì (quả chuông ở góc sân, bàn lễ trước cửa quật, ông già
+  nói "ta không đi đâu cả") rồi viết từ đó.
 
 ## Câu cái hồn
 
@@ -246,8 +263,14 @@ hiệu ứng trên nhân vật: `src/game/juice.js juiceUp` + cột sáng trong 
 Công tắc `mung.on` **bật cho mọi người từ 14/11/2026 23:38** (bản `6d1d959a`; chủ dự án 23:25 "những gì đã làm, giúp tôi đưa lên"; riêng một máy tắt bằng `?mung=0`; tắt thì mọi thứ y như cũ). Trước khi đưa: `tools/check.mjs` đạt, bài tự hành và bài người mới tự tay đi đều đạt với công tắc bật (0 lỗi JS); sau khi đưa: bản đã nén chạy thử lên một tầng có thẻ mừng, 0 lỗi JS; 3 người chơi lưu bình thường, bảng lỗi máy khách `p2d_loi` 6 giờ không có dòng nào. Quay cảnh: `tools/do-don/quay-mung.mjs`
 (`VIEC=cuong | tay | luyen | pbup | pbduc | tang | canh`, thử máy thấp `MAN=360x640`, thử bản dịch `NGON=en`).
 
-Chưa làm trong việc 4b (cùng một câu "mạnh lên là phải chúc mừng", làm tiếp khi chủ dự án ưng kiểu này): nâng cấp động phủ, linh thú lên cấp / tiến hoá / ghép sao,
-công pháp lên tầng, khảm và ghép ngọc, mặc món mạnh hơn từ túi. Cảnh quay lên tầng đang là nhân vật đứng yên; chưa quay cảnh lên tầng giữa trận đánh thật.
+**Làm tiếp 21/11/2026** (chủ dự án 03:47: "đồ hoạ phải nhiều hiệu ứng chúc mừng, lễ thăng cấp… làm họ cảm thấy vui, thấy tiến bộ"; nhánh `tran-ma-ky`, chưa đưa lên):
+nâng cấp động phủ, linh thú tiến hoá / ghép sao (màn mừng trong bảng), khảm và ghép ngọc (màn mừng trong bảng), công pháp lên tầng (thẻ trên đầu nhân vật, không
+dừng tay), linh thú lên cấp (vòng sáng mỗi cấp, thẻ ở mốc 5 cấp và lúc chạm cấp tối đa). Lễ đột phá thêm một dòng nói cảnh giới mới nghĩa là gì ("Trúc Cơ là
+cắm rễ…"). Bảng từng màn ở `docs/14-TRAN-MA-KY.md` mục "Giữ lại từ bản thứ nhất"; code `src/ui/mung-them.js`, số chữ `data/juice.json → mung.them`.
+Cùng ngày, thấy mình tiến bộ còn nằm ở **thẻ nhiệm vụ chính**: con số lăn từ 16 lên 17 mỗi lần xong một việc, dấu ✓ viền vàng lúc việc vừa xong (`src/ui/nv-hud.js`).
+
+Chưa làm trong việc 4b: mặc món mạnh hơn từ túi (chữ "Lực chiến ▲" nổ giữa màn vẫn báo). Cảnh quay lên tầng đang là nhân vật đứng yên; chưa quay cảnh lên tầng
+giữa trận đánh thật.
 
 ## Việc 5: mười lăm phút đầu kiểu leo bậc (bản dựng thử hai bậc đầu + đề xuất, 14/11/2026)
 
@@ -301,8 +324,8 @@ Sửa kèm, có ích cả khi công tắc tắt: linh vật Hệ Thống không 
 Kích và chữ "Bạo Nộ!" không treo cạnh khung thoại suốt lúc nói chuyện; bảng chào của Hệ Thống không chen vào giữa một chuỗi lệnh truyện (khe hở giữa câu thoại và
 nghi lễ); câu mô tả dài trong nghi lễ (pháp bảo) tự xuống dòng.
 
-Code: `src/game/story.js` (`bacOn`, bậc `rung()`, `pbHold()`, lệnh `spawn` có `near` / `loot` / `mul` + `tag`, lệnh `phap_bao`, `nodeath`), `src/ui/bac-hud.js` + `.css`
-(thẻ bậc), `src/game/phap-bao-grant.js` (`pbGive`: trao pháp bảo có nghi lễ), `src/game/pilot.js` `leoBac` + `auto.js` (khoá Tự hành, Tự đánh), `src/game/guide.js` (mũi
+Code: `src/game/story.js` (`bacOn`, bậc `rung()`, `pbHold()`, lệnh `spawn` có `near` / `loot` / `mul` + `tag`, lệnh `phap_bao`, `nodeath`), `src/ui/nv-hud.js` + `.css`
+(thẻ nhiệm vụ chính; trước 21/11/2026 là thẻ bậc `bac-hud.js`: cùng chỗ, cùng khung, nay hiện cả số và tên nhiệm vụ), `src/game/phap-bao-grant.js` (`pbGive`: trao pháp bảo có nghi lễ), `src/game/pilot.js` `leoBac` + `auto.js` (khoá Tự hành, Tự đánh), `src/game/guide.js` (mũi
 tên chỉ con quái gần nhất), `src/game/he-thong.js` `needIntro`. Quay cảnh bằng đồng hồ ảo: `tools/do-don/quay-bac.mjs` (`KHONG_CHUP=1` chỉ đo mốc, `HAT=<số>` đổi số ngẫu nhiên).
 
 Còn phải làm trước khi bật cho mọi người: dịch chữ của chặng (en, zh-Hant); người chơi thử tự động (`tools/playtest.mjs`) biết tự tay đánh trong chặng; nhiệm vụ Hệ
@@ -626,3 +649,5 @@ Cùng lúc (câu 15, chủ dự án "Gỡ"): gỡ cờ đỏ tự động của 
 | 15/11/2026 | 6 dòng 18a (triệu hồi chia năm bậc + bảo hiểm) + 18b (quà gặp mặt 300 điểm): chuẩn bị xong sau công tắc `bac.on` (tắt) + migration chưa áp; thử 200.000 lượt trên máy chủ thử; mục Triệu hồi thêm số đếm bảo hiểm, tên bậc, nghi lễ từ bậc Hiếm, bảng tỉ lệ theo bậc; sửa kèm nút Triệu hồi khuất dưới khung ở máy màn thấp, món lướt qua thiếu hình | Đã gửi clip, chờ chủ dự án nhắn "áp lên" + "đưa lên" (bảng câu hỏi câu 22) |
 | 15/11/2026 | Chủ dự án xem hai clip (04:39: "tốc đánh có vẻ cần chậm hơn", "bị lồng 2 âm thanh chúc mừng"): nhịp đánh thường mọi vũ khí chậm lại 1,64 lần (kiếm 2,6 → 1,6 đòn / giây), đo lại cả chặng, sàn trùm đầu 1,4 → 1,3, bãi đảo tông môn 360 → 240; sửa lỡ chân giẫm cổng ra bí cảnh giữa trận và bậc 5 đếm cả quái ngoài bãi; triệu hồi: món có nghi lễ chỉ còn một tiếng mừng | Đã gửi hai clip mới, chờ "đưa lên" (câu 21), "áp lên + đưa lên" (câu 22) |
 | 14/11/2026 | 4b Mừng mạnh lên (chủ dự án 17:25, 17:38): dựng xong sau công tắc `mung.on` (tắt): màn mừng trong bảng cho cường hoá, tẩy luyện, luyện ★, nâng cấp và đục ô pháp bảo (không dừng tay, việc càng khó diễn càng lớn); thẻ lên tầng trên đầu nhân vật (thang chín ô, chỉ số trước → sau, quà tu vi, lực chiến) kèm trận đồ và cột sáng trên nhân vật; nghi lễ đột phá cảnh giới cả màn (nhân vật giữa vầng sáng màu cảnh giới mới, tên cảnh giới đập xuống, gia trì, quà, nút Tiếp tục); đã thử máy thấp 360 × 640, chữ Anh / Trung; kiểm tra và chơi thử tự động đạt | Chủ dự án xem clip, nhắn 14/11 23:25 "những gì đã làm, giúp tôi đưa lên" → bật `mung.on`, đưa lên |
+| 21/11/2026 | Truyện là chuỗi **nhiệm vụ chính 1 → N** (chủ dự án 08:46–08:51): thẻ nhiệm vụ trên màn chơi (số, tên, việc, số đếm; con số lăn, dấu ✓; chạm là Tự hành), 13 nhiệm vụ viết mới 15 → 27 (gióng chuông ở tông môn, Lão Thiết và lệ làng, thẻ tên trên bàn lễ, Huyết Nha từng là thợ săn A Lực, con dao về tay Lão Than), việc tay trên nút hành động, câu hỏi "Ngươi đứng đây vì ai?", dòng "Trấn Ma Kỷ chép" và khẩu quyết thành hàng chữ lớn bên trái (Hệ Thống bay tới cầm bút), dấu truyện để lại trên bản đồ, hai bản lời cho người mới và người chơi cũ, truyện chờ màn lặng (không chen vào bảng kết quả, tắt màn, thẻ Hẹn ngày mai). Người mới thật chạy Tự hành: thêm chừng tám phút sau phần mở đầu, qua Hỏa Quật không gục. `docs/14-TRAN-MA-KY.md` phần B, `tools/do-don/thu-nv.mjs`, `tools/do-don/quay-nv.mjs` | Đã gửi clip; nhánh `tran-ma-ky` chỉ commit trong máy tạm, chờ chủ dự án xem rồi cho đẩy lên GitHub |
+| 21/11/2026 | Truyện chạm được tới người chơi (chủ dự án 03:16, 03:47; lời 14/11: "cốt truyện bằng chữ mà không có ảnh hay hiệu ứng hoặc âm thanh thì chả bao giờ động vào trái tim mọi người"): sổ **Trấn Ma Kỷ** bảy quyển 32 trang trong Hệ Thống → Tàng Thư, trang mở đúng lúc người chơi vừa làm được việc ấy, tự kể khi rảnh tay (đang Tự đánh / Tự hành chỉ nhắc một dòng), có dàn cảnh tối / rung / chớp / tiếng / hiệu ứng điểm ảnh và nhịp lặng, đọc xong có thẻ mừng, hết quyển có thẻ khép quyển trả lời câu "Ngươi đứng đây vì ai?"; thẻ mở quyển cả màn; khẩu quyết hiện trên đầu lúc tung pháp bảo; lời mở đầu viết lại; 4b làm nốt phần còn lại (dòng trên). Kịch bản từng nhịp và ảnh chụp 390×844: `docs/14-TRAN-MA-KY.md`, `tools/do-don/quay-tmk.mjs`. Kiểm tra, bài chơi thử Tự hành, bài hai máy đều đạt trên máy tạm | **Chủ dự án bác 21/11 08:46–08:51** ("lắp ghế lên nóc xe… tôi muốn sự kết hợp hài hoà, không phải phân theo từng chương, nhưng có thể phân theo nhiệm vụ từ 1 đến N"). Cuốn sổ, thẻ quyển, bong bóng khẩu quyết đã gỡ; giữ lời mở đầu viết lại, dòng nghĩa cảnh giới, 4b |

@@ -33,7 +33,7 @@
   "dong": {"lac-tuyet": ["Tuyết. Giống Tuyết Sơn quê ta."], "mac-anh": ["Lạnh. Bên kia còn lạnh hơn."], "tieu-dao": ["Lạnh quá, đi nhanh cho ấm."], "ho-linh": ["Lạnh! Cho ta chui vào tay áo với."], "default": ["Lạnh quá, đi nhanh thôi.", "Tuyết rơi kìa."]}
  },
  "comp": {
-  "tieu-hoa": ["Đi đâu tiếp đây?", "Ta đi trước nhé!", "Đánh nhau vui ghê."],
+  "tieu-hoa": ["Đi đâu tiếp đây?", "Tớ đi trước nhé!", "Đánh nhau vui ghê."],
   "lac-tuyet": ["...Đi chậm thôi.", "Ta ở đây.", "Gió hôm nay dễ chịu."],
   "mac-anh": ["Trời này hợp đi dạo.", "Đừng nhìn ta.", "Có mùi ma khí. Ta canh rồi.", "Đi trước đi. Bóng ta theo sau.", "Nắng ở đây ấm thật.", "Lát nướng cá nhé.", "Ta chưa quen được ai tin."],
   "tieu-dao": ["Đi đâu cũng được, có bạn là vui!", "Quạt mát chưa? Huynh quạt thêm nè.", "Đằng kia có hoa đẹp ghê.", "Hôm nay chém đẹp lắm đó.", "Huynh kể chuyện cười nhé?", "Đi chậm thôi, ngắm cảnh chút."],
@@ -44,7 +44,7 @@
  },
  "lines": {
   "truong-thon": ["Trời hôm nay trong quá.", "Lúa năm nay chắc được mùa.", "Đi đường cẩn thận nhé."],
-  "tieu-hoa": ["Đánh một trận không?", "Ta đói rồi...", "Ngươi lại mạnh hơn rồi đó!"],
+  "tieu-hoa": ["Tớ giữ chỗ cho cậu nè!", "Tớ đói rồi...", "Cậu lại mạnh hơn rồi đó!"],
   "van-hac": ["Gió núi hôm nay êm.", "Tâm tĩnh thì kiếm tĩnh.", "Hừm, khá lắm."],
   "lac-tuyet": ["...Ngươi đến rồi à.", "Đừng lười đả tọa.", "Hôm nay trời đẹp nhỉ."],
   "ho-linh": ["Hôm nay có gì vui không?", "Bồ đoàn này êm lắm đó!", "Hì hì."],
@@ -61,8 +61,11 @@
   "tieu-dong": ["Sư tỷ đập búa kêu to lắm.", "Em sắp được cầm búa!"],
   "thiet-lan": ["Lửa lò hôm nay đẹp.", "Đừng chạm vào phôi nóng."],
   "thach-ba": ["Đất ấm lên rồi.", "Ăn gì chưa con?"],
-  "a-nham": ["Nắng ấm thật.", "Không phải trốn nữa rồi."],
+  "a-nham": ["Linh Nhật ấm thật.", "Không phải trốn nữa rồi."],
   "trai-truong": ["Gió đã bớt đen.", "Khụ... vẫn sống."],
+  "mac-anh": ["Có cá nướng không?", "Ở đây gió nhẹ hơn trong ngục."],
+  "truong-lao-moc": ["Rễ vẫn còn thở.", "Cây mẹ nghe thấy đấy."],
+  "thach-sinh": ["...Ừ.", "Đất ở đây lành."],
   "van-bao": ["Hàng mới về đây!", "Mua một tặng... không."],
   "quan-bi-canh": ["Đừng tham, đừng tham.", "Bí cảnh hôm nay yên."],
   "luan-vo-su": ["Thắng thua là chuyện nhỏ.", "Thử một trận chứ?"],

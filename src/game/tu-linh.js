@@ -3,6 +3,7 @@
 // hồi chiêu ngay (không bấm đúp được), người đứng khựng s giây; linh khí màu pháp bảo xoáy từ vòng ngoài vào tay, vòng sáng co lại, chớp
 // nhỏ lúc bắn. Hướng bắn chốt lúc buông: không tự ngắm thì quay về con quái gần nhất lúc đó. Số ở data/phap-bao.json → tu_linh.
 import { addFx } from './combat.js';
+import { khauQuyet } from './tran-ma-ky.js';
 import { pbx } from './phap-bao-hit.js';
 import { hieuUng, dien } from './dien.js';
 
@@ -22,6 +23,7 @@ hieuUng('tu-linh', { gap: 0.15, ve(game, e, h, a) {
 // Bắt đầu tụ (type: mã loại pháp bảo); fire(ang) chạy khi tụ xong. Phần luật (đứng khựng, chờ, bắn) chỉ ở máy mình; phần hình đi qua dien
 export function startTuLinh(game, type, aimFn, fire) {
   const C = tuLinhCfg(game), p = game.player, s = C.on === false ? 0 : C.s ?? 0.22, T = game.data['phap-bao'].types, color = T[type].color;
+  const kq = khauQuyet(game, type); if (kq) game.chuLon?.({ ...kq, thua: true });   // khẩu quyết của món: hàng chữ lớn bên trái màn (src/ui/chu-lon.js), chỉ ở máy người đang thi triển
   if (s <= 0) { fire(aimFn()); return; }
   p.tuLinhT = Math.max(p.tuLinhT || 0, s);
   dien(game, 'tu-linh', Object.keys(T).indexOf(type) / 20);

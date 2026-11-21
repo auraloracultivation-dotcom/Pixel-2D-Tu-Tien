@@ -41,6 +41,10 @@ export function htTick(game, dt) {
     s.step = st;
     if (C.steps[st]) return C.steps[st];
   }
+  // Vào game mà đang đứng ở nhiệm vụ chính đầu tiên sau phần mở đầu, chưa đi (người chơi cũ thấy thẻ nhiệm vụ lần đầu; người mới thoát ngay sau cảnh bàn tay):
+  // nhắc một lần mỗi lần vào game rằng chạm thẻ là được dẫn đường. Người vừa tự chơi tới đó trong lần chơi này thì không nhắc (vừa xem cảnh xong).
+  if (s.nvMoi == null) { const S = game.data.story, md = S.steps.findIndex(x => x.id === S.mo_dau); s.nvMoi = C.nudge.nv_moi && st === md && game.save.stepDone ? now + 6000 : 0; s.nvBuoc = st; }
+  if (s.nvMoi && now > s.nvMoi) { s.nvMoi = 0; if (st === s.nvBuoc && !game.pilot && game.story?.goal?.()) return C.nudge.nv_moi; }
   // đầy linh khí chờ độ kiếp: tự hành không tự độ (pilot.peak), người mới không biết phải bấm (test 10/11/2026: kẹt Luyện Khí 9)
   if (C.nudge.kiep && game.trib?.canStart?.() && !game.trib.active && ok('kiep')) { s.last.kiep = now; return C.nudge.kiep; }
   // đứng yên không làm gì
