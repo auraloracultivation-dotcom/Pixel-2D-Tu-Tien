@@ -399,6 +399,12 @@ errors.push(...(await import('./quai-chung.mjs')).soat());
   if (r.status !== 0) errors.push(`truyen: bài thử chuỗi nhiệm vụ trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
 }
 
+// Tiềm năng (data/tiem-nang.json, src/game/tiem-nang.js): tỉ lệ tộc, khoảng quay, các tộc ngang sức, bản lưu sửa tay không vượt luật (bài thử thuần Node)
+{
+  const r = spawnSync(process.execPath, [join('tools', 'tiem-nang.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`tiem-nang: bài thử trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
+}
+
 if (errors.length) {
   console.error('❌ Kiểm tra thất bại:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);

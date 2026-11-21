@@ -29,6 +29,7 @@ import { medPerSec } from './da-toa.js';
 import { bump } from './achieve.js';
 import { startStrike, updateFlyWeapon, weaponPoint } from './flyweapon.js';
 import { mobTake } from './he-chien.js';
+import { luotNhanh, tiemTick } from './tiem-nang.js';
 
 export function createPlayer(game, x, y) {
   const cfg = game.data.config.player;
@@ -174,11 +175,12 @@ export function updatePlayer(game, dt) {
   p.moving = Math.hypot(ax.x, ax.y) > 0.1;
   // Lướt né: nút riêng, bất tử trong lúc lướt
   p.dashCd = (p.dashCd || 0) - dt;
+  tiemTick(game, dt);   // thiên phú của tộc (src/game/tiem-nang.js)
   if (inp.consume('ride')) toggleRide(game);   // nút Cưỡi / Xuống (chủ dự án 16/11/2026)
   if (inp.consume('fly')) toggleFly(game);   // nút Bay / Đáp (chủ dự án 17/11/2026 12:41)
   if (inp.consume('dash') && p.dashCd <= 0) {
     const dc = cfg.dash, d = p.moving ? Math.hypot(ax.x, ax.y) : 1, dir = p.moving ? { x: ax.x / d, y: ax.y / d } : p.face;
-    p.dashCd = dc.cd; p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
+    p.dashCd = dc.cd * (1 - luotNhanh(game.save, game.data)); p.dashT = dc.time; p.dashV = { x: dir.x * dc.dist / dc.time, y: dir.y * dc.dist / dc.time };
     p.meditating = false; p.calmT = 0; p.face = dir;
     addFx(game, { type: 'ring', x: p.x, y: p.y, r: 8, color: '#e6ebf7', life: 0.25 });
     game.sfx('dash');

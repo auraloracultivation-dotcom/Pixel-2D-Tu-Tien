@@ -1,0 +1,30 @@
+/* Mục Tiềm năng trong bảng Nhân vật (src/ui/tiem-nang-view.js). Màu chủ theo tộc: --mau. */
+.tn { display: flex; flex-direction: column; gap: 5px; padding: 6px 7px 8px; color: #efe9dc; font-size: 11px; line-height: 1.35; }
+.tn-chua { padding: 24px 10px; text-align: center; color: #b9b0c8; }
+.tn-dau { display: flex; align-items: center; gap: 8px; }
+.tn-an { flex: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: normal 26px/1 "Noto Serif CJK TC", "Songti TC", "PMingLiU", serif; color: var(--mau);
+  border: 2px double var(--mau); background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--mau) 24%, #120d18), #0c0812 78%); box-shadow: 0 0 9px color-mix(in srgb, var(--mau) 45%, transparent); }
+.tn-chu { min-width: 0; }
+.tn-ten { font-size: 15px; font-weight: 800; color: var(--mau); text-shadow: 0 1px 0 #000; line-height: 1.15; }
+.tn-hiem { display: inline-block; margin-top: 2px; font-size: 8.5px; font-weight: 600; color: var(--h); border: 1px solid var(--h); border-radius: 8px; padding: 0 5px; white-space: nowrap; }
+.tn-loi { font-size: 10px; color: #bdb5c9; }
+.tn-nhan { margin-top: 3px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #9a90ad; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(255, 255, 255, .08); padding-bottom: 2px; }
+.tn-con { font-size: 12px; font-weight: 700; color: #b9b0c8; }
+.tn-con.co { color: #ffd76a; }
+.tn-goc { display: flex; flex-direction: column; gap: 3px; }
+.tn-chip { display: flex; justify-content: space-between; gap: 6px; padding: 2px 7px; border-radius: 4px; background: color-mix(in srgb, var(--mau) 14%, rgba(0, 0, 0, .45)); border: 1px solid color-mix(in srgb, var(--mau) 45%, transparent); white-space: nowrap; }
+.tn-chip b { color: var(--mau); font-variant-numeric: tabular-nums; }
+.tn-tp { display: flex; flex-direction: column; gap: 1px; padding: 4px 7px; border-left: 2px solid var(--mau); background: rgba(0, 0, 0, .3); font-size: 10.5px; }
+.tn-tp b { color: var(--mau); }
+.tn-ds { display: flex; flex-direction: column; gap: 3px; }
+.tn-row { display: grid; grid-template-columns: minmax(0, 1fr) 30px; align-items: center; gap: 6px; padding: 2px 2px 2px 6px; background: rgba(0, 0, 0, .28); border-radius: 4px; min-height: 28px; }
+.tn-k { font-weight: 600; min-width: 0; display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
+.tn-k small { font-weight: 400; font-size: 9px; color: #8d8599; font-variant-numeric: tabular-nums; }
+.tn-k small.co { color: #9af0a8; font-weight: 700; }
+.tn-k small i { font-style: normal; font-weight: 400; color: #8d8599; }
+.tn-cong { width: 30px; height: 24px; border-radius: 4px; border: 1px solid #ffe6a0; background: linear-gradient(#f3c860, #c8902a); color: #2a1a05; font: 800 14px/1 inherit; padding: 0; }
+.tn-cong:disabled { border-color: #4a4356; background: #2a2433; color: #6f6880; font-size: 9px; }
+.tn-ghi { font-size: 9.5px; color: #8d8599; }
+.tn-tay { width: 100%; min-height: 30px; border-radius: 5px; border: 1px solid #6d6480; background: #2c2538; color: #e7e0f2; font: 600 11px/1.2 inherit; padding: 4px 8px; }
+.tn-tay.hoi { border-color: #ff9a7a; color: #ffd0c0; }
+.tn-tay:disabled { opacity: .45; }

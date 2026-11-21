@@ -1,5 +1,5 @@
 // Bảng Nhân vật (chủ dự án 11/11/2026 01:47: khuôn bảng ngang thấp như mẫu gửi, nằm giữa màn hình dọc; game nhiều chức năng hơn mẫu).
-// Cột trái: 5 mục lớn Trang bị, Kho, Linh thú (cả thú cưỡi, khôi lỗi), Công pháp, Thời trang. Giữa: thẻ nhân vật (src/ui/self-left.js). Khung phải: hàng mục con
+// Cột trái: các mục lớn Trang bị, Tiềm năng (ngay dưới Trang bị), Kho, Linh thú (cả thú cưỡi, khôi lỗi), Công pháp, Thời trang. Giữa: thẻ nhân vật (src/ui/self-left.js). Khung phải: hàng mục con
 // trên đầu (đổi theo mục lớn, src/ui/self-bag.js → SUBS), lưới ô ở giữa, thanh dưới cùng. Chạm món (đang mặc hoặc trong kho):
 // phần mặc / cường hoá / tẩy luyện / khảm hiện ngay ở khung phải, ✕ về lưới (dùng chung src/ui/bag-detail.js, bag-stock.js với
 // Túi đồ). Công pháp, Thời trang: gắn chính bảng có sẵn của game vào khung phải (src/ui/self-host.js). Kiểu ở style-self.css.
@@ -15,10 +15,11 @@ import { renderCoinLog } from './coin-log-sheet.js';
 import { host, unhost, HOSTS, routeOld } from './self-host.js';
 import { snap, react } from './self-fx.js';
 import { renderLoDan } from './lo-dan-view.js';
+import { renderTiem } from './tiem-nang-view.js';
 import { patch, patchList } from './morph.js';
 
-const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['ld', 'ui.k-i-lo-dan', 'Luyện đan']];   // biểu tượng mục; Luyện đan: lò luyện đan (chủ dự án 20/11/2026 13:3x, src/ui/lo-dan-view.js) (ảnh GPT 03:03)
-const SUB0 = { do: 'all', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang', ld: 'nl' };
+const PAGES = [['do', 'ui.nv-tab-trang-bi', 'Trang bị'], ['tiem', 'ui.nv-tu-luyen', 'Tiềm năng'], ['kho', 'ui.nv-tab-kho', 'Kho'], ['lt', 'ui.ic-linh-thu', 'Linh thú'], ['cp', 'ui.nv-tab-cong-phap', 'Công pháp'], ['tt', 'ui.nv-tab-thoi-trang', 'Thời trang'], ['ld', 'ui.k-i-lo-dan', 'Luyện đan']];   // biểu tượng mục; Luyện đan: lò luyện đan (chủ dự án 20/11/2026 13:3x, src/ui/lo-dan-view.js) (ảnh GPT 03:03)
+const SUB0 = { do: 'all', tiem: 'tiem', kho: 'ngoc', lt: 'linh-thu', cp: 'chieu', tt: 'thoi-trang', ld: 'nl' };
 // Biểu tượng trước nút trong phần chi tiết (bag-detail.js, bag-stock.js viết chữ; ở đây gắn hình theo chữ đầu nút)
 const ACT_ICO = [[/^(Mặc vào|Thay vào)/, 'mac-tot'], [/^Tháo/, 'tab-trang-bi'], [/^Cường hóa/, 'cuong-hoa'], [/^(Khoá|🔒)/, 'khoa'], [/^Bán/, 'ban'], [/^Ghép/, 'ghep'],
   [/^\+ Khảm/, 'kham'], [/^Tẩy luyện/, 'tu-luyen'], [/^Dùng/, 'hoi-mau'], [/^Mua nhanh/, 'lich-su'], [/^Đổi hệ/, 'tho'], [/^Phân giải/, 'st-bao'], [/^Luyện/, 'tab-phap-bao']];
@@ -106,6 +107,7 @@ export function createSelfPanel(game) {
     hostBox.hidden = !hosted; mid.hidden = hosted; bar.hidden = hosted;
     if (hosted) { host(hostBox, st.page, st.sub, game, hostedChanged); return; }
     unhost();
+    if (st.page === 'tiem') { renderTiem(game, st, mid, bar, changed); return; }   // Tiềm năng: huyết mạch và điểm tiềm năng (chủ dự án 21/11/2026 17:23, src/ui/tiem-nang-view.js)
     if (st.page === 'ld') { mid.classList.remove('sheet'); bar.hidden = false; renderLoDan(game, st, mid, bar, () => { if (!root.hidden && st.page === 'ld') render(); }); return; }
     const keep = mid.scrollTop, same = mid.classList.contains('sheet') && st.sel != null && st.sel === lastSel;   // vẽ lại cùng món (bấm −/+ ô mua): giữ chỗ đang cuộn
     lastSel = st.sel;

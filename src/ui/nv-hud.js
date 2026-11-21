@@ -16,7 +16,7 @@ import { spriteIcon } from './sprite-icon.js';
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const set = (e, p, v) => { if (e['_' + p] !== v) { e['_' + p] = v; e.style[p] = v; } };
-const BAN = '.panel:not([hidden]), #bag:not([hidden]), .ht-back:not([hidden]), #qua:not([hidden]), #mung:not([hidden]), #mung-tang:not([hidden]), #mung-canh:not([hidden]), #hen-mai:not([hidden])';
+const BAN = '.panel:not([hidden]), #bag:not([hidden]), .ht-back:not([hidden]), #qua:not([hidden]), #mung:not([hidden]), #mung-tang:not([hidden]), #mung-canh:not([hidden]), #hen-mai:not([hidden]), #le-toc:not([hidden])';
 
 export function createNvHud(game) {
   const S = game.data.story, X = S.nv_text || {};

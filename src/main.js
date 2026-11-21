@@ -18,6 +18,8 @@ import { createMungCanh } from './ui/mung-canh.js';
 import { createMungThem } from './ui/mung-them.js';
 import { createChuLon } from './ui/chu-lon.js';
 import { createDauTruyen } from './game/dau-truyen.js';
+import { createLeToc } from './game/le-toc.js';
+import { createLeTocUI } from './ui/le-toc.js';
 import { startHenMai } from './game/hen-mai.js';
 import { watchTuVao, tuVao } from './ui/tu-vao.js';
 import { drawWorld, drawOverlay } from './render/draw.js';
@@ -161,6 +163,7 @@ async function boot() {
   createHenMai(game); startHenMai(game);   // thẻ "Hẹn ngày mai": bế quan được gì, quà ngày mai, bậc kế tiếp (docs/10-CAI-HON.md việc 5b)
   createRewardShow(game);   // nghi lễ nhận thưởng: nền tối, vầng sáng xoay sau món đồ (src/ui/reward-show.js, docs/10-CAI-HON.md việc 4)
   createChuLon(game); createDauTruyen(game);   // Trấn Ma Kỷ đi theo nhiệm vụ chính: hàng chữ lớn bên trái màn cho khẩu quyết và khoảnh khắc truyện (src/ui/chu-lon.js), dấu việc đã làm để lại trên bản đồ (src/game/dau-truyen.js)
+  createLeTocUI(game); createLeToc(game);   // Tiềm năng: lễ Cây Thế Giới gọi tên huyết mạch, một đời một lượt (src/game/le-toc.js, màn lễ src/ui/le-toc.js)
   createMung(game); createMungCanh(game); createMungThem(game);   // màn mừng mạnh lên: cường hoá, tẩy luyện… (src/ui/mung.js); lên tầng, đột phá cảnh giới (src/ui/mung-canh.js); linh thú, động phủ, ngọc, công pháp (src/ui/mung-them.js); docs/10-CAI-HON.md việc 4b
   startDeathAsk(game);   // gục ngoài trời: hỏi hồi sinh tại đây hay về động phủ (src/ui/death-ask.js)
   startBayCanh(game);   // bố cục đồ chủ dự án tự bày (máy chủ), nút Bày cho người có quyền (src/ui/bay-canh*.js)

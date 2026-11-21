@@ -587,6 +587,9 @@
      ]
     },
     {
+     "le_toc": "truong-thon"
+    },
+    {
      "npc_add": "{lac-tuyet|tieu-dao}",
      "near_player": true
     },

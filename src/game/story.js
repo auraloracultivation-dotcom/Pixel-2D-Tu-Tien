@@ -1,5 +1,6 @@
 // Chạy kịch bản data/story.json (cốt truyện mới, cốt truyện cũ đã xoá): mỗi bước làm các việc trong "do" rồi chờ điều kiện "until".
 import { rollRoot, rootOf, totalLayer } from './stats.js';
+import { leToc } from './le-toc.js';
 import { pbGive } from './phap-bao-grant.js';
 import { scaleMobBy } from './mobs.js';
 import { dan, hetCanh } from './dan-canh.js';
@@ -132,6 +133,7 @@ export function createStory(game) {
       if (dap) await g.dialog.say([[g.data.npcs[a.hoi.ai]?.name || '', fill(dap)]]);
     }
     else if (a.choose_element) await chooseElement(g);
+    else if (a.le_toc) await leToc(g, a.le_toc);   // Cây Thế Giới gọi tên huyết mạch (Tiềm năng, src/game/le-toc.js); giá trị là người đứng lễ
     else if (a.pickups) for (const [x, y] of dsNhat(a)) g.addPickup(a.pickups, x, y);
     else if (a.canh) { seen.canh = 1; await dan(g, a.canh); }   // dàn cảnh giữa các câu: tối, rung, chớp, tiếng, hiệu ứng, nhịp lặng (src/game/dan-canh.js)
     else if (a.chu) { g.chuLon?.(a.chu); if (a.chu.cho) await new Promise(r => setTimeout(r, a.chu.cho * 1000)); }   // hàng chữ lớn bên trái màn (src/ui/chu-lon.js); cho: chờ bấy nhiêu giây rồi mới làm lệnh kế
