@@ -166,7 +166,7 @@ try {
   need(maps[dm.map]?.demon && maps[dm.map].rooms?.some(r => r.boss) && dm.bosses.every(x => mobs[x.mob]?.ai === 'boss' && x.name) && /^\d{4}-\d\d-\d\d$/.test(dm.epoch) && new Date(dm.epoch + 'T00:00:00Z').getUTCDay() === 1 && dm.need_realm < nRealm && sm.bodies.some(b => b.map === dm.map), 'demon: bản đồ, boss, ngày bắt đầu (thứ Hai) hoặc tinh đồ sai');
   const wl = read('wildlife.json');
   for (const [mp, list] of Object.entries(wl.maps)) for (const [k, n] of list) need(maps[mp] && wl.kinds[k] && n > 0, `wildlife/${mp}: bản đồ hoặc kiểu thú "${k}" sai`);
-  const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && (g.tier == null || (g.item && items.line_tiers.list[g.tier])) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'tier', 'qi', 'contrib', 'mats', 'pills'].includes(k));   // tier: màu dòng định sẵn (rương Tiên phẩm, 17/11/2026)
+  const ev =read('events.json'), giftOk = g => (!g.item || items.rarities.some(r => r.id === g.item)) && (g.tier == null || (g.item && items.line_tiers.list[g.tier])) && Object.keys(g).every(k => ['coins', 'stones', 'gem', 'item', 'tier', 'qi', 'contrib', 'mats', 'pills', 'thu_lenh'].includes(k));   // thu_lenh: Thú Lệnh quầy Tiên Ngọc, máy chủ cộng (22/11/2026)   // tier: màu dòng định sẵn (rương Tiên phẩm, 17/11/2026)
   for (const w of ev.weekly) need((w.mul || w.points) && (w.milestones || []).every(m => giftOk(m.give)), `events/${w.id}: thiếu mul/points hoặc thưởng mốc sai`);
   const tp = read('topup.json'), fl = read('fashion.json').list;
   for (const x of tp.shop) need(x.tn > 0 && (x.outfit ? fl[x.outfit]?.from.tn === x.tn : giftOk(x.give)), `topup/${x.id}: giá, thời trang hoặc quà sai`);

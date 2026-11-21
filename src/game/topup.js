@@ -69,7 +69,9 @@ export async function buyTn(game, id) {
   const x = T(game).shop.find(i => i.id === id), s = game.save;
   if (!x || shopOwned(game, x) || shopWrongLook(game, x) || tnLeft(game, x) <= 0) return null;
   if (tn(game) < x.tn) return false;
+  if (x.give?.thu_lenh && !game.cloud) return false;   // Thú Lệnh máy chủ giữ (p2d_ht_diem), không mua khi chưa có mạng
   const give = () => {
+    if (x.give?.thu_lenh) { useTnDay(game, x); game.persist(); return [`${x.give.thu_lenh} ${game.data.pets.thu_lenh?.name || 'Thú Lệnh'}` + (game.thuLenh != null ? ` (đang có ${game.thuLenh})` : '')]; }
     if (x.outfit) { grantOutfit(game, x.outfit); game.persist(); return [game.data.fashion.list[x.outfit].name]; }
     useTnDay(game, x);
     return grant(game, x.give);
@@ -80,7 +82,7 @@ export async function buyTn(game, id) {
     try {
       const k = await calls(), khoa = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
       let got = null;
-      await game.cloud.run(() => k.buy(id, khoa), r => { s.tn = r.tn; got = give(); game.persist(); });
+      await game.cloud.run(() => k.buy(id, khoa), r => { s.tn = r.tn; if (r.thu_lenh != null) game.thuLenh = r.thu_lenh; got = give(); game.persist(); });
       return got;
     } finally { dangDoi = false; }
   }
