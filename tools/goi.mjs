@@ -79,7 +79,7 @@ rmSync(TAM, { recursive: true, force: true });
 // index.html, sw.js: số phiên bản
 {
   const f = join(OUT, 'index.html'); let s = rd(f);
-  for (const [a, b] of [['src/main.js', `src/main.js?v=${V}`], ['style.css', `style.css?v=${V}`], ['style-man-dau.css', `style-man-dau.css?v=${V}`], ['src/ui/man-dau.js', `src/ui/man-dau.js?v=${V}`]]) {
+  for (const [a, b] of [['src/main.js', `src/main.js?v=${V}`], ['style.css', `style.css?v=${V}`], ['style-man-dau.css', `style-man-dau.css?v=${V}`], ['src/ui/man-dau.js', `src/ui/man-dau.js?v=${V}`], ...['hud-bang', 'hud-khung', 'hud-ngang'].map(f => [`src/ui/${f}.css"`, `src/ui/${f}.css?v=${V}"`])]) {
     if (!s.includes(a)) throw new Error(`index.html: không thấy ${a}`);
     s = s.replace(a, b);
   }
