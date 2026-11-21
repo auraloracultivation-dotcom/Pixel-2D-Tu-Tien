@@ -4,6 +4,7 @@
 // `node tools/ky-cfg.mjs` lấy chuỗi JSON mới, thêm migration mới: insert into public.p2d_ky_cfg ... on conflict do update.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { qiNeed } from '../src/game/stats.js';
 
 export function kyCfg(read) {
   const I = read('items.json'), G = read('gear.json'), E = read('elements.json'), D = read('daovan.json');
@@ -111,11 +112,20 @@ export function tnCfg(read) {
   };
 }
 
+// Hóa ma (migration 20261122040000_p2d_hoa_ma.sql, bảng p2d_ky_cfg dòng 'ma'; data/pvp.json → ma, server.ma): máy chủ tính điểm ma, công đức, trần
+// Linh Thạch mỗi ngày (p2d_ma_ghi) và mức mất khi trả nợ (p2d_pvp_tra). can[t]: linh khí cần của tầng tổng t (0 = Luyện Khí tầng 1) đúng như máy khách
+// (src/game/stats.js qiNeed, đã nhân need_mul), vì "1% tu vi" là 1% thanh linh khí người chơi thấy; công thức gốc p2d_lk_can của máy chủ nhỏ hơn nhiều.
+export function maCfg(read) {
+  const P = read('pvp.json'), R = read('realms.json'), can = [];
+  for (let r = 0; r < R.names.length; r++) for (let l = 1; l <= R.layers; l++) can.push(qiNeed({ realm: r, layer: l }, R));
+  return { diem: P.ma.diem, mat: P.ma.mat, lt_ngay: P.ma.lt_ngay, nghi_cap: P.ma.nghi_cap, min_tl: P.server.ma.min_tl, tang: R.layers, can };
+}
+
 // So hai giá trị JSON không kể thứ tự khoá
 export const sameJson = (a, b) => {
   const norm = v => Array.isArray(v) ? v.map(norm) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, norm(v[k])])) : v;
   return JSON.stringify(norm(a)) === JSON.stringify(norm(b));
 };
 
-// node tools/ky-cfg.mjs: chuỗi JSON dòng 'cfg' · node tools/ky-cfg.mjs bi_canh: dòng 'bi_canh' · node tools/ky-cfg.mjs tn: dòng 'tn'
-if (process.argv[1]?.endsWith('ky-cfg.mjs')) { const read = f => JSON.parse(readFileSync(join('data', f), 'utf8')); console.log(JSON.stringify(process.argv[2] === 'bi_canh' ? bcCfg(read) : process.argv[2] === 'tn' ? tnCfg(read) : kyCfg(read))); }
+// node tools/ky-cfg.mjs: chuỗi JSON dòng 'cfg' · node tools/ky-cfg.mjs bi_canh: dòng 'bi_canh' · node tools/ky-cfg.mjs tn: dòng 'tn' · node tools/ky-cfg.mjs ma: dòng 'ma'
+if (process.argv[1]?.endsWith('ky-cfg.mjs')) { const read = f => JSON.parse(readFileSync(join('data', f), 'utf8')); console.log(JSON.stringify(process.argv[2] === 'bi_canh' ? bcCfg(read) : process.argv[2] === 'tn' ? tnCfg(read) : process.argv[2] === 'ma' ? maCfg(read) : kyCfg(read))); }

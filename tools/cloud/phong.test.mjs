@@ -286,6 +286,34 @@ console.log('phong.test: ok');
     assert.deepEqual(await mang.tongKet(), { ok: true, n: 0 });   // bảng trống: không gửi
     globalThis.fetch = F0;
   }
+  { // hóa ma (cloud/src/ma.js, 22/11/2026): lõi Mang ký sự kiện gửi p2d_ma_ghi, giữ điểm ma mới theo tài khoản, lưu và đọc lại được; Supabase lỗi thì null
+    const F0 = globalThis.fetch, sent = [], { createHmac } = await import('node:crypto');
+    let tra = { ma: 1 };
+    globalThis.fetch = async (url, init) => { sent.push({ url, body: JSON.parse(init.body) }); return tra ? { ok: true, status: 200, json: async () => tra, text: async () => JSON.stringify(tra) } : { ok: false, status: 500, text: async () => 'loi' }; };
+    mang.env = { ...(mang.env || {}), SUPABASE_URL: 'https://x', SUPABASE_KEY: 'k' };
+    const khoa = kv.get('khoa');
+    assert.deepEqual(await mang.ma('hoa', 'ma-u'), { ma: 1 });
+    const h = sent.find(c => c.url.endsWith('/p2d_ma_ghi'));
+    assert.deepEqual(JSON.parse(h.body.p_ds), { e: 'hoa', u: 'ma-u' });
+    assert.equal(h.body.p_ky, createHmac('sha256', khoa).update(`${h.body.p_ts}.${h.body.p_ds}`).digest('hex'));
+    assert.deepEqual([mang.pkGet('ma-u').off, mang.pkGet('ma-u').ma], [true, 1]);
+    tra = { ma: 4, no: true };
+    assert.deepEqual(await mang.ma('giet', 'ma-u', 'nguoi', 'thuong'), { ma: 4, no: true });
+    assert.deepEqual(JSON.parse(sent.at(-1).body.p_ds), { e: 'giet', k: 'ma-u', v: 'nguoi', n: 'thuong' });
+    assert.equal(mang.pkGet('ma-u').ma, 4);
+    await mang.pkSet('ma-u', true, 0, 0);   // phòng đặt khiên không kèm điểm: giữ điểm ma cũ
+    assert.equal(mang.pkGet('ma-u').ma, 4);
+    mang.save();
+    const m3 = new Mang({ storage: { sql: { exec: q => (q.includes("FROM anh") ? [{ j: rows.at(-1)[0] }] : []) }, getAlarm: async () => 1, setAlarm: async () => {}, get: async () => undefined }, blockConcurrencyWhile: f => f() }, {});
+    assert.equal(m3.pkGet('ma-u').ma, 4, 'khởi động lại mất điểm ma');
+    tra = { ma: 0, cd: 1, no: true };
+    await mang.ma('diet', 'nguoi', 'ma-u');
+    assert.deepEqual([mang.pkGet('ma-u').off, mang.pkGet('ma-u').ma], [false, 0], 'ma tan hết mà khiên vẫn tắt');
+    tra = null;
+    assert.equal(await mang.ma('hoa', 'ma-v'), null);
+    assert.equal(await mang.ma('la', 'ma-v'), null);
+    globalThis.fetch = F0;
+  }
   console.log('mang.test: ok');
 }
 

@@ -18,7 +18,9 @@
   "st": {"kieu": "chon", "gia_tri": ["bay", "toa", "guc"], "_": "đang bay / đả tọa / gục chờ hồi sinh"},
   "ri": {"kieu": "so", "dai": 2, "_": "cảnh giới (hào quang)"},
   "title": {"kieu": "ma", "bang": "status.titles", "_": "danh hiệu đang đeo"},
-  "pk": {"kieu": "co", "ai": "may-chu", "_": "đang tắt khiên PvP; máy chủ phòng giữ"}
+  "pk": {"kieu": "co", "ai": "may-chu", "_": "đang tắt khiên PvP; máy chủ phòng giữ"},
+  "ma": {"kieu": "so", "dai": 6, "ai": "may-chu", "_": "điểm ma khi đang hóa ma (data/pvp.json → ma; chữ số, không có là người thường); máy chủ phòng giữ (cloud/src/ma.js)"},
+  "bm": {"kieu": "co", "ai": "may-chu", "_": "người mới được che khỏi ma (tổng tầng tu dưới data/pvp.json → server.ma.min_tl, máy chủ phòng đọc từ Supabase); ma thấy tên người này mờ, không đánh được"}
  },
  "hieu_ung": {
   "_": "Tin 'vừa xảy ra' người cùng tinh cầu phải thấy (gửi: src/game/phat.js; nhận: src/game/others-nhan.js chia theo bảng này, đúng thứ tự). mau: biểu thức khớp mã tin; bang: mã tin là một khoá của bảng data/ đó. Mỗi nhóm một bộ xem cùng tên ở XEM (others-nhan.js) và một tin mẫu trong tools/hai-may.mjs. Hiệu ứng mới chỉ để nhìn thì không cần nhóm mới: khai bằng hieuUng trong src/game/dien.js (nhóm hu).",

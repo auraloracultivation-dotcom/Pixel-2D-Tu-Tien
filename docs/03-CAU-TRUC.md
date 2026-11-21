@@ -610,5 +610,16 @@ Thiết kế, số và việc còn chờ ở `docs/15-TIEM-NANG-KY-NANG.md`. Lu�
 - Kết quả quay ghi vào `save.tiem` trước khi mở màn lễ. Không thêm lượt quay lại: chủ dự án chọn một lượt.
 - Kỹ năng không ghi vào `data/skills.json`: khai ở `data/ky-nang.json → chieu`, `knNap` đưa vào bảng chiêu lúc nạp (`src/main.js`). Xoá 48 chiêu cũ thì giữ các chiêu mà `hinh` của kỹ năng còn mượn, hoặc đổi `hinh`.
 - Hồi chiêu kỹ năng ở `player.knCd`, lệnh `sk0–sk2`; không dùng chung `player.skillCd` của pháp bảo.
-- Sách kỹ năng do máy khách giữ (`save.knSach`): chưa có kiểm ở máy chủ, không đưa lên game thật trước khi có.
+- Sách kỹ năng do máy khách giữ (`save.knSach`), máy chủ kiểm tổng sách khi lưu (trigger `p2d_kiem_tiem_kn`, migration `20261122030000_p2d_tiem_ky_nang.sql`).
+- Điểm tiềm năng tính theo cảnh giới cao nhất từng đạt (`save.tiem.max`, máy chủ `p2d_nhan_vat.canh_max`; hóa ma 22/11/2026): ma bị diệt có thể tụt cảnh giới mà không mất điểm.
+
+## Hóa ma (`data/pvp.json` → `ma`, `server.ma`, chủ dự án 22/11/2026 01:54)
+
+Luật, số, ai làm gì, thứ tự đưa lên, bài thử ở `docs/16-HOA-MA.md`. Luật phải giữ khi sửa:
+
+- Ai đánh được ai viết ở hai nơi phải giống hệt: trọng tài `cloud/src/ma.js quyen` và máy khách `src/game/pvp-ma.js danhDuoc` (máy khách chỉ để khỏi gửi đòn vô ích). Đổi luật thì sửa cả hai, chạy `tools/cloud/pvp.test.mjs` và bài thử hai máy.
+- Điểm ma thật ở Supabase (`p2d_ma_hoa`); lõi Mang (`mang.js pk`) và phần đính kèm kết nối (`a.ma`) chỉ là bản sao để phòng xét nhanh. Máy khách không bao giờ tự đặt điểm ma: `ma`, `bm` trong hồ sơ do phòng gắn (`data/dong-bo.json`, `ai: may-chu`).
+- Trừ tu vi chỉ ở Supabase (`p2d_pvp_tra`, nơi `ma_diet`), máy khách sửa bản lưu y như kết quả trả về (`maTra`), không tự tính. Lần trừ đó đặt `p2d.lk_tru` để bộ hãm linh khí bỏ qua; sửa `p2d_kiem_linh_khi` thì giữ dòng này.
+- Thêm tầng / cảnh giới, đổi `need_mul`, `need_layer` (`data/realms.json`) thì thêm migration mới cho dòng `ma` của `p2d_ky_cfg` (bảng `can` là thanh linh khí máy khách; `tools/check.mjs` báo nếu lệch).
+- Ma gục thì hồi sinh ở chỗ ngẫu nhiên xa làng (`src/game/ghost.js maHoiSinh` → `src/game/ma-hoi-sinh.js`, số ở `ma.hoi_sinh`), không hỏi Về động phủ. Thêm tinh cầu, dời làng, NPC, cổng thì chạy `node tools/ma-hoi-sinh.test.mjs` (mốc làng đọc từ `spawns`, `moc`, `portals`, `npcs` của bản đồ). Đặt máu người chơi về 0 từ ngoài vòng đánh (tin gục PvP) chỉ thành gục nhờ `game.js` xét `hp <= 0` cuối khung: đừng để thứ gì hồi máu khi máu đã 0 (`player.js`).
 

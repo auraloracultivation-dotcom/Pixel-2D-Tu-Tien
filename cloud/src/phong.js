@@ -5,6 +5,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import { HEAD, NEAR } from './mang-cfg.js';
 import { pvpToggle, pvpHit, pvpLoad, pvpTrack } from './pvp.js';
+import { ganHoSo, pvpMa } from './ma.js';
 import { nhipVao, nhipGom } from './nhip.js';
 import { quaiChao, quaiTin, quaiLo, quaiRoi } from './quai.js';
 import { laKh, khNap } from './quai-kh.js';
@@ -28,6 +29,7 @@ export class Phong extends DurableObject {
     const uid = req.headers.get('x-uid'), kind = req.headers.get('x-kind'), cap = Number(req.headers.get('x-cap')) || 40;
     const map = req.headers.get('x-map') || '';
     const nm = req.headers.get('x-name') ? decodeURIComponent(req.headers.get('x-name')) : '', pw = Number(req.headers.get('x-power')) || 0, co = req.headers.get('x-co') === '1';
+    const tlh = req.headers.get('x-tl'), tl = tlh != null && tlh !== '' && Number.isFinite(+tlh) ? +tlh : undefined;   // tổng tầng tu (Supabase), che người mới khỏi ma (src/ma.js)
     if (!uid || !kind) return new Response('thiếu', { status: 400 });
     // cùng tài khoản vào lại (mở hai thẻ, mạng chập chờn): đóng kết nối cũ
     for (const old of this.ctx.getWebSockets(uid)) { try { old.close(4000, 'vao_lai'); } catch { /* đã đóng */ } }
@@ -43,8 +45,11 @@ export class Phong extends DurableObject {
     if (kind === 'dao') await khNap(this, map, Date.now());   // tinh cầu tông môn: đọc bảng quái chung trước khi chào (src/quai-kh.js)
     this.ctx.acceptWebSocket(server, [uid]);
     const at = Date.now();   // giờ vào phòng: tổ đội lấy người vào sớm nhất làm đội trưởng
-    server.serializeAttachment({ id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, pk: !!pk?.off, immune: pk?.immune || 0, pvpAt: pk?.at || 0, p: { name: nm || 'Đạo hữu', pk: pk?.off ? 1 : 0 } });
-    if (pk?.off) server.send(JSON.stringify({ t: 'pk', id: uid, on: 1 }));   // máy mình biết đang tắt khiên
+    const att = { id: uid, kind, at, ip: req.headers.get('cf-connecting-ip') || '', nm, pw, co, map, tl, ma: pk?.ma || 0, pk: !!pk?.off || (pk?.ma || 0) > 0, immune: pk?.immune || 0, pvpAt: pk?.at || 0, p: { name: nm || 'Đạo hữu' } };
+    ganHoSo(att);   // khiên, điểm ma, người mới vào hồ sơ phát cho người khác
+    server.serializeAttachment(att);
+    if (att.ma > 0) this.maAt = at;
+    if (att.pk) server.send(JSON.stringify({ t: 'pk', id: uid, on: 1, ma: att.ma || 0 }));   // máy mình biết đang tắt khiên / đang là ma
     const q = kind === 'dao' ? quaiChao(this, map, at) : undefined;   // quái chung của bản đồ (src/quai.js): chữ ký bảng + ô nào đang chết, mất máu
     server.send(JSON.stringify({ t: 'w', me: uid, at, l: here.map(m => ({ id: m.a.id, joined: m.a.at, ...m.a.p, ...(this.pos.has(m.a.id) ? xy(this.pos.get(m.a.id)) : {}) })), q }));
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': 'p2d' } });
@@ -55,6 +60,7 @@ export class Phong extends DurableObject {
     const a = ws.deserializeAttachment();
     if (!a) return;
     const cfg = RATE[a.kind] || RATE.dao, now = Date.now();
+    if ((a.ma || 0) > 0) this.maAt = now;   // có ma đang hoạt động trong phòng: ghi vết vị trí cả người còn khiên (place)
     let b = this.rate.get(ws);
     if (!b) { b = bucket(cfg, now); this.rate.set(ws, b); }
     if (!take(b, cfg, now)) { if (b.drop > KICK_DROPS) ws.close(4008, 'qua_nhanh'); return; }
@@ -63,7 +69,7 @@ export class Phong extends DurableObject {
     if (!msg || typeof msg !== 'object') return;
     switch (msg.t) {
       case 'p': {   // hồ sơ hiển thị (tên, cảnh giới, hình dáng, thời trang, thú cưỡi, linh thú)
-        a.p = cleanProf(msg.p); if (a.nm) a.p.name = a.nm; a.p.pk = a.pk ? 1 : 0;   // trạng thái bảo vệ do phòng giữ (src/pvp.js)   // tên thật từ Supabase khi có (không cho giả tên người khác)
+        a.p = cleanProf(msg.p); if (a.nm) a.p.name = a.nm; ganHoSo(a);   // tên thật từ Supabase khi có (không cho giả tên người khác); khiên, điểm ma, người mới do phòng giữ (src/pvp.js, src/ma.js)
         ws.serializeAttachment(a);
         this.others(ws, { t: 'j', u: { id: a.id, joined: a.at, ...a.p } });
         break;
@@ -73,6 +79,7 @@ export class Phong extends DurableObject {
       case 'k': { const c = cleanCast(msg); if (c) { this.casts.push([a.id, c]); this.later(); } break; }
       case 'n': { if (a.kind === 'dao') await nhipVao(this, ws, a, msg.ph); break; }   // nhịp sống (src/nhip.js)
       case 'bv': { if (a.kind === 'dao') await pvpToggle(this, ws, a, !!msg.off, msg.off ? this.kem(a, msg) : null); break; }   // PvP: tắt / bật bảo vệ (src/pvp.js); tắt thì kèm chỗ đang đứng
+      case 'mh': { if (a.kind === 'dao') await pvpMa(this, ws, a, this.kem(a, msg)); break; }   // hóa ma (src/ma.js), kèm chỗ đang đứng như lúc tắt khiên
       case 'h': {   // đòn PvP. Máy khách từ đợt sửa đêm 20/11/2026 gửi kèm vị trí mình lúc ra đòn (x, y): phòng xét tầm theo đó, khỏi dùng vị trí cũ
         if (a.kind !== 'dao') break;
         const mv = this.kem(a, msg);
@@ -123,13 +130,15 @@ export class Phong extends DurableObject {
     for (const ws of this.ctx.getWebSockets()) if (ws !== from && ws.readyState === 1) { try { ws.send(s); } catch { /* đang đóng */ } }
   }
 
-  // Vị trí mới của một người: giữ để xét tầm (boss, PvP), vào lô gửi xuống. Người đang tắt khiên thì ghi thêm vào vết vị trí (pvp.js: bù trễ
-  // mạng) và vào phần đính kèm kết nối (a.xy). Lý do có a.xy: phòng ngủ sau khoảng 10 giây không ai gửi gì là quên sạch this.pos (thử thật
+  // Vị trí mới của một người: giữ để xét tầm (boss, PvP), vào lô gửi xuống. Người đang tắt khiên (cả ma) thì ghi vào vết vị trí (pvp.js: bù
+  // trễ mạng) và vào phần đính kèm kết nối (a.xy); người còn khiên chỉ ghi vết khi trong phòng có ma hoạt động trong MA_VET_MS vừa qua (ma đánh
+  // được cả người còn khiên, 22/11/2026), phòng không có ma thì đỡ việc cho đám đông đi dạo như cũ. Lý do có a.xy: phòng ngủ sau khoảng 10 giây không ai gửi gì là quên sạch this.pos (thử thật
   // 20/11/2026: im 8 giây còn, im 12 giây mất), mà người đứng yên 30 giây mới gửi lại vị trí; không ghi bền thì người tắt khiên đứng yên
   // trong phòng vắng là không ai đánh trúng được, dù ngay trước mặt.
   place(ws, a, mv, now) {
     this.pos.set(a.id, mv); this.moves.set(a.id, mv);
-    if (a.pk) { pvpTrack(this, a.id, mv, now); a.xy = [mv[0], mv[1]]; ws.serializeAttachment(a); }
+    if (a.pk || (a.kind === 'dao' && now - (this.maAt || 0) < MA_VET_MS)) pvpTrack(this, a.id, mv, now);
+    if (a.pk) { a.xy = [mv[0], mv[1]]; ws.serializeAttachment(a); }
     this.later();
   }
 
@@ -184,3 +193,4 @@ Phong.prototype.bossFlush = async function () {
 
 const nearHead = (map, mv) => { const h = HEAD[map]; return !!(h && mv && (Array.isArray(h[0]) ? h : [h]).some(q => Math.hypot(mv[0] - q[0], mv[1] - q[1]) <= NEAR)); };   // vùng không gian: chín đầu
 const xy = mv => ({ x: mv[0], y: mv[1], fx: mv[2], fy: mv[3] });
+const MA_VET_MS = 30000;

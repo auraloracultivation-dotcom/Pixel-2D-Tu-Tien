@@ -37660,6 +37660,18 @@
    ],
    "note": "ô nhập trò chuyện (đã xoá chữ mẫu) (ảnh GPT nguon/ai/ui/ui-kit-1.png)"
   },
+  "ui.k-dau-lau": {
+   "file": "assets/art/ui-k-dau-lau.png",
+   "v": "5eaa86b8",
+   "w": 100,
+   "h": 100,
+   "frames": 1,
+   "anchor": [
+    50,
+    50
+   ],
+   "note": "đầu lâu thay khiên khi đang hóa ma (vẽ bằng code tools/art/dau_lau.py, 22/11/2026)"
+  },
   "ui.k-den": {
    "file": "assets/art/ui-k-den.png",
    "v": "a2ac802e",

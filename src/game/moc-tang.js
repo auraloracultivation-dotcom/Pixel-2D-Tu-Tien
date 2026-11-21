@@ -12,8 +12,8 @@ export function mocTang(game) {
   if (!need) return;
   const k = Math.min(T.list.length, Math.floor((s.qi || 0) / need * 10));
   const st = s.mocT;
-  if (!st || L < st.l) { s.mocT = { l: L, k }; return; }   // bản lưu cũ chưa có / mùa mới: ghi mốc hiện tại, không tặng bù
-  if (L > st.l) { st.l = L; st.k = 0; }
+  if (!st || L < st.l) { s.mocT = { l: L, k, ...(st?.m ? { m: st.m } : {}) }; return; }   // bản lưu cũ chưa có / mùa mới / bị diệt lúc hóa ma tụt tầng: ghi mốc hiện tại, không tặng bù
+  if (L > st.l) { st.l = L; st.k = L <= (st.m || -1) ? T.list.length : 0; }   // m: tầng cao nhất đã tặng trước khi tụt (pvp-ma.js maTra): lên lại tầng đó không tặng lần nữa
   if (k <= st.k) return;
   const qua = [];
   for (let i = st.k + 1; i <= k; i++) {

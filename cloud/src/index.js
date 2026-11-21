@@ -34,12 +34,14 @@ export default {
     if (!uid) return text('chưa đăng nhập', 401);
     const stub = env.PHONG.get(env.PHONG.idFromName(room.name));
     const headers = new Headers(req.headers);
+    for (const k of ['x-name', 'x-power', 'x-co', 'x-tl', 'x-map']) headers.delete(k);   // chỉ máy chủ gắn: máy khách tự gửi kèm không lọt qua (kể cả khi Supabase lỗi)
     headers.set('x-uid', uid);
     headers.set('x-kind', room.kind);
     if (room.kind === 'dao' && env.DEV_NO_AUTH !== '1') {   // tên, lực chiến, cờ đỏ thật từ Supabase (không tin máy khách tự khai)
       const pf = await profileOf(uid, protos[1], env);
-      if (pf) { headers.set('x-name', encodeURIComponent(pf.name)); headers.set('x-power', String(pf.power)); headers.set('x-co', pf.co ? '1' : '0'); }
+      if (pf) { headers.set('x-name', encodeURIComponent(pf.name)); headers.set('x-power', String(pf.power)); headers.set('x-co', pf.co ? '1' : '0'); headers.set('x-tl', String(pf.tl)); }
     }
+    if (env.DEV_NO_AUTH === '1') headers.set('x-tl', url.searchParams.get('dev_tl') || '99');   // chạy thử trên máy: coi như đủ tầng để thử hóa ma
     if (room.kind === 'dao') headers.set('x-map', room.room.slice(4));
     headers.set('x-cap', String(room.cap));
     return stub.fetch(new Request(req, { headers }));

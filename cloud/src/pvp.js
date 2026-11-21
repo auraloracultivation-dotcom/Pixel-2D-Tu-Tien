@@ -8,6 +8,7 @@
 // vị trí mới nhất phòng đang giữ. Ba chỗ: (1) tin đòn đánh kèm vị trí người đánh lúc ra đòn (phong.js 'h'), khỏi dùng vị trí cũ tới 0,2 giây;
 // (2) bù trễ cho mục tiêu: trong lag_s giây vừa qua người kia TỪNG ở trong tầm là tính (inRange); (3) nhịp đòn nới gap_tol_s cho mạng chập chờn.
 import { PVP } from './mang-cfg.js';
+import { quyen, laMa, ganHoSo, maGuc } from './ma.js';   // hóa ma (22/11/2026): ai đánh được ai, gục thì tính điểm ma / công đức
 
 const pool = pw => Math.max(pw || 0, PVP.pw_min) * PVP.hp_k;
 
@@ -21,10 +22,11 @@ export async function pvpToggle(room, ws, a, off, mv) {
   const now = Date.now();
   if (!off) {
     if (!a.pk) return;
+    if (laMa(a)) return send(ws, { t: 'pe', e: 'ma_khong_bat', n: a.ma });   // ma không bật lại khiên được: bị hạ tới hết điểm ma mới thành người
     if (a.map === PVP.map) return send(ws, { t: 'pe', e: 'only_death' });
     const left = (a.pvpAt || 0) + PVP.reshield_s * 1000 - now;
     if (left > 0) return send(ws, { t: 'pe', e: 'wait_on', s: Math.ceil(left / 1000) });
-    a.pk = false; a.p.pk = 0; delete a.xy; room.vet?.delete(a.id);
+    a.pk = false; ganHoSo(a); delete a.xy; room.vet?.delete(a.id);
     ws.serializeAttachment(a);
     room.all({ t: 'pk', id: a.id, on: 0 });
     try { await mang(room).pkSet(a.id, false, 0, 0); } catch { /* lõi Mang lỗi */ }
@@ -32,7 +34,7 @@ export async function pvpToggle(room, ws, a, off, mv) {
   }
   if (now < (a.immune || 0)) return send(ws, { t: 'pe', e: 'immune', s: Math.ceil((a.immune - now) / 1000) });
   if (a.pk) return;
-  a.pk = true; a.p.pk = 1; a.pvpAt = now;
+  a.pk = true; ganHoSo(a); a.pvpAt = now;
   const q = mv || room.pos.get(a.id);
   if (q) room.place(ws, a, q, now); else ws.serializeAttachment(a);   // place ghi a.xy và ghi phần đính kèm (làm xong trước mọi lệnh chờ bên dưới)
   room.all({ t: 'pk', id: a.id, on: 1 });
@@ -85,12 +87,14 @@ function inRange(room, id, pa, pb, now) {
   return false;
 }
 
-// a đánh người id. Hợp lệ khi: cùng phòng, cả hai tắt bảo vệ, cả hai có vị trí, không ai đứng trong vòng pháp trận (xét theo vị trí MỚI
-// NHẤT: đã bước vào vòng là an toàn, không bù trễ), trong tầm (inRange), đủ nhịp.
+// a đánh người id. Hợp lệ khi: cùng phòng, được phép đánh nhau (ma.js quyen: hai người thường cùng tắt khiên; ma với người không phải ma,
+// trừ người mới), không ai vừa hồi sinh (immune), cả hai có vị trí, không ai đứng trong vòng pháp trận (xét theo vị trí MỚI NHẤT: đã bước
+// vào vòng là an toàn, không bù trễ), trong tầm (inRange), đủ nhịp.
 export async function pvpHit(room, ws, a, id) {
-  if (!a.pk || typeof id !== 'string' || id === a.id) return;
+  if (typeof id !== 'string' || id === a.id) return;
   const tw = room.ctx.getWebSockets(id).find(w => w.readyState === 1), b = tw?.deserializeAttachment();
-  if (!b?.pk) return;
+  const kieu = b && quyen(a, b);
+  if (!kieu || Date.now() < (a.immune || 0) || Date.now() < (b.immune || 0)) return;
   const pa = room.pos.get(a.id) || a.xy, pb = room.pos.get(id) || b.xy;   // phòng vừa ngủ dậy thì quên this.pos: lấy chỗ ghi trong phần đính kèm
   if (!pa || !pb || inSafe(a.map, pa) || inSafe(a.map, pb)) return;
   const now = Date.now(), hp = (room.php ??= new Map());
@@ -106,12 +110,14 @@ export async function pvpHit(room, ws, a, id) {
   const n = Math.max(1, Math.round(Math.max(a.pw || 0, PVP.pw_min) * PVP.dps_k * dt));
   left -= n;
   a.pvpAt = now; b.pvpAt = now;
-  for (const x of [a, b]) if (now - (x.pkSaved || 0) > 30000) { x.pkSaved = now; mang(room).pkSet(x.id, true, x.immune || 0, now).catch(() => {}); }   // giữ lúc giao chiến ở Mang (vào lại không né được hẹn bật khiên), 30 giây một lần
+  for (const x of [a, b]) if (now - (x.pkSaved || 0) > 30000) { x.pkSaved = now; mang(room).pkSet(x.id, !!x.pk, x.immune || 0, now, x.ma || 0).catch(() => {}); }   // giữ lúc giao chiến ở Mang (vào lại không né được hẹn bật khiên), 30 giây một lần
   ws.serializeAttachment(a); tw.serializeAttachment(b);
   if (left > 0) { hp.set(id, { hp: left, at: now }); room.all({ t: 'ph', from: a.id, to: id, n, r: +(left / max).toFixed(3) }); return; }
-  // gục: về điểm hồi sinh (máy người đó), bật lại bảo vệ, miễn PvP immune_s giây
+  // gục: về điểm hồi sinh (máy người đó), miễn PvP immune_s giây (đặt ngay: đòn tới trong lúc chờ lõi Mang / Supabase bị bỏ)
   hp.delete(id); room.vet?.delete(id);
-  b.pk = false; b.p.pk = 0; delete b.xy; b.immune = now + PVP.immune_s * 1000; b.pvpAt = 0;
+  b.immune = now + PVP.immune_s * 1000;
+  if (kieu !== 'pvp') { tw.serializeAttachment(b); return maGuc(room, ws, a, tw, b, kieu, n, now); }   // trận có ma: điểm ma, công đức, nợ riêng (ma.js)
+  b.pk = false; ganHoSo(b); delete b.xy; b.pvpAt = 0;   // hai người thường: bật lại bảo vệ như cũ
   tw.serializeAttachment(b);
   try { await mang(room).pkSet(id, false, b.immune, 0); } catch { /* lõi Mang lỗi */ }
   try { await mang(room).pkSet(a.id, true, a.immune || 0, now); } catch { /* lõi Mang lỗi */ }

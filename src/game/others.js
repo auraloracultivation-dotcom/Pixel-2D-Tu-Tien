@@ -9,6 +9,7 @@
 import { addFx } from './combat.js';
 import { cleanText } from './social.js';
 import { cleanPresence, cleanMove, sendGap, nearestN } from './others-net.js';
+import { giaoChien } from './pvp-ma.js';
 import { chuKy, apHoSo, bangHoSo } from './ho-so-phong.js';   // một nguồn cho hồ sơ gửi / nhận (data/dong-bo.json)
 import { stepTheo } from './others-theo.js';
 import { pvpSafe } from './pvp.js';   // vòng pháp trận an toàn: trong đó không ai đánh được ai
@@ -121,14 +122,14 @@ export function createOthers(game) {
     sendGap() {
       if (sendNow && list.size) { sendNow = false; return 0; }
       const p = game.player, T = game.data.config.tile || 16;
-      let near = Infinity, pk = Infinity;   // pk: người đang tắt khiên gần nhất
-      if (p) for (const o of list.values()) if (o.x !== null) { const d = Math.hypot(o.x - p.x, o.y - p.y); near = Math.min(near, d); if (o.pk) pk = Math.min(pk, d); }
+      let near = Infinity, pk = Infinity;   // pk: người gần nhất có thể giao chiến với mình (cùng tắt khiên; hóa ma: ma với người, pvp-ma.js giaoChien)
+      if (p) for (const o of list.values()) if (o.x !== null) { const d = Math.hypot(o.x - p.x, o.y - p.y); near = Math.min(near, d); if (giaoChien(game, o)) pk = Math.min(pk, d); }
       let g = sendGap(R(), list.size, near === Infinity && list.size ? 0 : near, T);
       // Đang tắt khiên và có người tắt khiên trong pvp_tiles ô: gửi vị trí pvp_ms một lần. Máy chủ phòng là trọng tài PvP, nó kiểm tầm đánh
       // theo vị trí nó đang giữ (cloud/src/pvp.js); gửi thưa như lúc đi dạo (2 giây khi đông, 15 giây khi không ai sát bên) thì nó bỏ oan
       // khoảng một phần ba số đòn hợp lệ trong trận 10 vs 10 (đo 20/11/2026, tools/cloud/tai-chien.mjs: 65% → 98% đòn được tính).
       // Đứng trong vòng pháp trận an toàn thì không đánh, không bị đánh: giữ nhịp thưa (chỗ đó đông người tắt khiên đứng chờ).
-      if (game.pvp?.off && R().pvp_ms > 0 && pk <= (R().pvp_tiles || 40) * T && !pvpSafe(game, p.x, p.y)) g = Math.min(g, R().pvp_ms);
+      if (R().pvp_ms > 0 && pk <= (R().pvp_tiles || 40) * T && !pvpSafe(game, p.x, p.y)) g = Math.min(g, R().pvp_ms);   // ma đánh được cả người còn khiên: không cần mình tắt khiên
       // Đứng gần đầu Thôn Thiên Mãng: máy chủ phòng cần vị trí để tính Linh Thạch chém boss (cloud/src/phong.js nearHead), nên kể cả
       // một mình trên tinh cầu cũng gửi, tối đa boss_ms một lần (06/11/2026: trước đây một mình thì không gửi → không được thưởng)
       const h = game.mang?.m, bm = R().boss_ms || 3000;

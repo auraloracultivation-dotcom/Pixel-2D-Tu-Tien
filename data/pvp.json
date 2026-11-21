@@ -19,10 +19,15 @@
    "y": 1224,
    "r": 100
   },
-  "reshield_s": 600
+  "reshield_s": 600,
+  "ma": {
+   "min_tl": 4
+  }
  },
  "mail": {
-  "pvp_ha": "Chiến lợi phẩm PvP"
+  "pvp_ha": "Chiến lợi phẩm PvP",
+  "ma_ha": "Linh Thạch đồ sát (Hóa ma)",
+  "ma_diet": "Chiến lợi phẩm diệt ma"
  },
  "text": {
   "on": "Còn khiên: không ai đánh được bạn",
@@ -44,7 +49,34 @@
   "only_death": "Ở Ngoại Vực Vết Nứt khiên chỉ bật lại khi bạn chết và hồi sinh.",
   "wait_on": "Còn {s} giây không giao chiến thì khiên tự bật lại.",
   "safe": "Vòng pháp trận: an toàn, không ai đánh được.",
-  "zone_pk": "Ra khỏi vòng pháp trận: đã tắt khiên, có thể bị đánh."
+  "zone_pk": "Ra khỏi vòng pháp trận: đã tắt khiên, có thể bị đánh.",
+  "ma_btn": "Hóa ma",
+  "ma_ask": "Hóa ma?",
+  "ma_note": "Ma khí nhập thể: bạn đánh được mọi người không phải ma, kể cả người còn khiên (trừ người Luyện Khí tầng 1–4 và trong vòng pháp trận Thiên Kiếm Tinh). Ai cũng đánh được bạn. Hóa ma được 1 điểm ma, mỗi người bạn hạ +3, mỗi lần bị hạ −1, về 0 mới thành người thường. Bị diệt: mất 1% Linh Thạch về tay người diệt và 1% tu vi, tu vi không đủ thì tụt một tầng. Hạ người: họ mất 2% Linh Thạch về tay bạn, tối đa 10 người mỗi ngày.",
+  "ma_yes": "Hóa ma!",
+  "ma_moi": "Luyện Khí tầng 5 trở lên mới hóa ma được.",
+  "ma_khong_bat": "Đang là ma: bị hạ đủ {n} lần nữa mới trở lại làm người.",
+  "ma_loi": "Ma khí chưa nhập được (mạng chập chờn). Thử lại sau.",
+  "turned_ma": "Đã hóa ma! Điểm ma: {n}.",
+  "ma_tag": "Ma · {n}",
+  "ma_kill": "Đồ sát {name}! Điểm ma {n}.",
+  "ma_killed": "Bạn bị ma {name} đồ sát!",
+  "ma_diet": "Diệt ma {name}! Công đức +1.",
+  "ma_bi_diet": "Bạn bị {name} diệt ma. Điểm ma còn {n}.",
+  "ma_het": "Ma khí tan hết. Bạn đã trở lại làm người.",
+  "ma_lost": "Mất {lt} Linh Thạch",
+  "ma_lost_tv": " và 1% tu vi",
+  "ma_tut": ", tụt xuống {canh}",
+  "moi_bao_ve": "Người mới (Luyện Khí 1–4): ma không đánh được bạn.",
+  "ma_chu": [
+   "Ma khí nhập thể,",
+   "đạo tâm hóa đen."
+  ],
+  "ma_chu_lenh": "Ma",
+  "diet_chu": "Diệt ma: {name}.",
+  "diet_chu2": "Công đức +1.",
+  "ve_nguoi_chu": "Ma khí tan. Trở lại làm người.",
+  "ma_hoi_sinh": "Ma khí kéo hồn bạn tới một nơi hoang vắng xa làng."
  },
  "drop": {
   "ngoai": {
@@ -54,6 +86,30 @@
   "thuong": {
    "lt": 0.05,
    "item": false
+  }
+ },
+ "_ma": "Hóa ma (chủ dự án 22/11/2026 01:54: \"Tắt khiên thêm 1 nút bên cạnh nữa, hoá ma! Lúc này có thể đồ sát mọi người, 2 người hoá ma thì sẽ k đồ sát nhau vì cùng loại. Mỗi lần hoá ma sẽ tích 1 điểm, khi bị giết sẽ trở thành người thường. Khi hoá ma giết 1 người thì sẽ tích 3 điểm ma hoá... Có thể giết cả người đang bật hoặc tắt khiên trừ người bật ma hoá. Và sẽ có thêm bảng xếp hạng ma hoá và công đức. Mỗi người giết 1 người bị ma hoá sẽ tích 1 điểm công đức... nếu họ có 189 điểm, họ chết 1 lần, bxh sẽ trừ 1 còn 188\"; bảng câu hỏi 02:0x). Luật: điểm ma = số lần phải chết (ma.diem: hóa ma hoa, mỗi người giết giet, mỗi lần chết chet; về 0 là người thường). Ma đánh được mọi người không phải ma, kể cả người còn khiên; người thường (còn khiên hay không) đánh được ma; hai ma không đánh nhau; người tổng tầng tu dưới server.ma.min_tl (4 = Luyện Khí tầng 5) không bị ma đánh, không đánh ma, chưa hóa ma được; vòng pháp trận Thiên Kiếm Tinh an toàn với tất cả; vừa hồi sinh immune_s giây không ai đánh được (kể cả ma). Ma không bật lại khiên được. Ma gục (bị người diệt, quái hạ hay tự ngã) trên tinh cầu ngoài trời thì hồi sinh ở chỗ ngẫu nhiên xa làng, mỗi lần một chỗ khác, không hỏi Về động phủ (chủ dự án 22/11/2026 03:17 \"quên mất chưa làm điểm hồi sinh cho người hoá ma\", bảng câu hỏi 03:2x: \"Chỗ ngẫu nhiên xa làng\", \"ma phải hồi sinh ở chỗ của ma\"; ma.hoi_sinh); bí cảnh, tháp, trong nhà, động phủ, đài so tài, độ kiếp hồi sinh như cũ. Mất (Supabase p2d_pvp_tra): ma bị diệt mất ma.mat.ma_lt Linh Thạch (gửi Hòm thư người diệt) và ma.mat.ma_tu_vi tu vi = phần trăm thanh linh khí của tầng đang ở (qiNeed), không đủ thì tụt một tầng; người bị ma đồ sát mất ma.mat.nguoi_lt Linh Thạch về tay ma, không mất tu vi; mỗi ngày (giờ Việt Nam) ma chỉ nhận Linh Thạch từ lt_ngay người đầu, từ người kế tiếp không ai mất gì (chủ dự án 02:04: \"người số 11 thì sẽ không còn nhận được linh thạch nữa\"). Công đức: mỗi lần diệt ma +1. Cùng một cặp ma hạ một người quá nghi_cap lần trong ngày thì ghi nghi vấn ma_cap để soát (không chặn). Máy chủ phòng: cloud/src/ma.js; Supabase: migration 20261122040000_p2d_hoa_ma.sql (bảng p2d_ma_hoa, hàm ký p2d_ma_ghi, dòng cấu hình 'ma' của p2d_ky_cfg do tools/ky-cfg.mjs ma dựng); máy người chơi: src/game/pvp.js, src/game/pvp-ma.js, src/ui/pvp-btn.js.",
+ "ma": {
+  "diem": {
+   "hoa": 1,
+   "giet": 3,
+   "chet": 1
+  },
+  "mat": {
+   "ma_lt": 0.01,
+   "ma_tu_vi": 0.01,
+   "nguoi_lt": 0.02
+  },
+  "lt_ngay": 10,
+  "nghi_cap": 5,
+  "mau": "#ff4040",
+  "mau_dam": "#5a0a14",
+  "hoi_sinh": {
+   "_note": "Ma gục trên tinh cầu ngoài trời thì hồi sinh ở chỗ ngẫu nhiên xa làng (src/game/ma-hoi-sinh.js, gọi từ src/game/ghost.js maHoiSinh). Chọn trong các ô đi tới được từ điểm vào, cách mốc làng gần nhất (điểm vào, mọi điểm tới từ nơi khác, mốc có tên, cổng, NPC, vòng pháp trận server.safe) ít nhất min(xa, ti_le × khoảng cách xa nhất có được) ô; ưu tiên ô cách bãi quái quá bán kính bãi + quai ô nếu còn ít nhất it ô như vậy.",
+   "xa": 24,
+   "ti_le": 0.6,
+   "quai": 4,
+   "it": 40
   }
  }
 }

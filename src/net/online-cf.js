@@ -40,8 +40,9 @@ export function createOnline(me, handlers, opts = {}) {
     else if (m.t === 'l' && people.delete(m.id)) push();
     else if (m.t === 'bx') handlers.onBoss?.(m);   // bảng sát thương boss thế giới (cloud/src/mang.js)
     else if (m.t === 'pk' || m.t === 'ph' || m.t === 'pd' || m.t === 'pe') {   // PvP Ngoại Vực (cloud/src/pvp.js)
-      if (m.t === 'pk' && people.has(m.id)) { people.get(m.id).pk = m.on; push(); }
-      handlers.onPvp?.(m);
+      let cu = 0;   // hóa ma (cloud/src/ma.js): tin pk mang điểm ma; hồ sơ giữ dạng chuỗi số như máy chủ phòng gắn (data/dong-bo.json ma)
+      if (m.t === 'pk' && people.has(m.id)) { const u = people.get(m.id); cu = +u.ma || 0; u.pk = m.on; if ('ma' in m) u.ma = m.ma > 0 ? String(m.ma) : null; push(); }
+      handlers.onPvp?.(m.t === 'pk' ? { ...m, cu } : m);
     }
   }
 
@@ -80,11 +81,13 @@ export function createOnline(me, handlers, opts = {}) {
   // Đòn PvP kèm vị trí mình lúc ra đòn (20/11/2026): máy chủ phòng xét tầm theo đó. Trước đây nó xét theo lần gửi vị trí gần nhất, cũ tới
   // 0,2 giây + trễ mạng: vừa lao vào tầm mà đánh là bị bỏ oan (thử thật hai tài khoản: 9/16 đòn được tính).
   function pvpHit(to, p) { conn?.send({ t: 'h', to, ...(p ? { x: Math.round(p.x), y: Math.round(p.y) } : {}) }); }
+  // Hóa ma (22/11/2026, cloud/src/ma.js): kèm chỗ đang đứng như lúc tắt khiên. false: chưa nối được phòng
+  function pvpMa(p) { if (!conn?.ready()) return false; conn.send({ t: 'mh', ...(p ? { x: Math.round(p.x), y: Math.round(p.y) } : {}) }); return true; }
   // Quái chung: quái mình đang giữ (m) và đòn mình đánh (h), kèm số thứ tự tin n và chỗ mình đứng (phòng xét tầm theo đó). false: chưa nối được
   function quai(body, p) { return !!(conn?.ready() && conn.send({ t: 'q', x: Math.round(p.x), y: Math.round(p.y), ...body })); }
   function rename(name) { me.name = name; conn?.send({ t: 'p', p: { name, ...prof } }); }
   function setProfile(p) { prof = { ...prof, ...p }; conn?.send({ t: 'p', p: { name: me.name, ...prof } }); }
   const line = () => conn?.line() || 0;
 
-  return { me, join, leave, send, say, cast, bossDmg, pvpOff, pvpHit, quai, rename, setProfile, line };
+  return { me, join, leave, send, say, cast, bossDmg, pvpOff, pvpHit, pvpMa, quai, rename, setProfile, line };
 }

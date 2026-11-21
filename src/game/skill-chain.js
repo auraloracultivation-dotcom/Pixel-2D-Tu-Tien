@@ -9,16 +9,17 @@
 import { hitMob, dist, impactShake } from './combat.js';
 import { slashLine, outfitColor } from './slash-fx.js';
 import { pvpTryHit, pvpMap, pvpSafe } from './pvp.js';
+import { danhDuoc } from './pvp-ma.js';
 import { heroLook } from '../render/draw-hero.js';
 import { weaponId } from './stats.js';
 import { skillSfx } from './skill-sfx.js';
 
 const alive = t => t && !t.dead && t.hp !== 0;
 
-// Mục tiêu của người chơi: quái còn sống; đang tắt bảo vệ (mọi nơi trừ vòng pháp trận, 19/11/2026) thì cả người khác cũng tắt bảo vệ (o.pk)
+// Mục tiêu của người chơi: quái còn sống, cùng người khác mình đánh được (mọi nơi trừ vòng pháp trận, 19/11/2026; hóa ma 22/11/2026: pvp-ma.js danhDuoc)
 function playerFoes(game) {
   const out = game.mobs.filter(m => !m.dead);
-  if (game.pvp?.off && pvpMap(game) && game.player && !pvpSafe(game, game.player.x, game.player.y)) for (const o of game.others.list.values()) if (o.pk && o.x !== null && !pvpSafe(game, o.x, o.y)) out.push({ x: o.x, y: o.y, r: 5, pvp: o.id });
+  if (game.pvp && pvpMap(game) && game.player && !pvpSafe(game, game.player.x, game.player.y)) for (const o of game.others.list.values()) if (o.x !== null && danhDuoc(game, o) && !pvpSafe(game, o.x, o.y)) out.push({ x: o.x, y: o.y, r: 5, pvp: o.id });
   return out;
 }
 
