@@ -2,7 +2,7 @@
 // (tools/art/le_hoi.py, data/art.json hb.*), toạ độ, kiểu chân ở src/world/hoi-foot.js. Hiệu ứng vẽ bằng code để điều khiển được:
 // đèn lồng, pha lê hắt quầng sáng lập loè (hoiLights → draw-glow.js), mặt hồ lấp lánh (glints), lò lửa có lưỡi lửa nhảy và tàn bay
 // (flame). Đồ phẳng (sân lát, gợn nước) vẽ sát đất dưới người; đồ đứng xếp theo chân cùng người, quái (draw.js).
-import { spriteImage, setShadow, drawShadowFrame } from './sprites.js';
+import { spriteImage, setShadow, setCanvasMb, drawShadowFrame } from './sprites.js';
 import { drawNpcSprite } from './draw-npc-sprite.js';
 import { hoiAnim, drawAnimated, drawTro } from './draw-hoi-tro.js';
 import { hoiFade } from './hoi-fade.js';
@@ -39,6 +39,7 @@ function drawSpots(ctx, game) {
 // Đồ đứng trong khung nhìn (chừa lề cho hình cao), để draw.js xếp theo chân cùng người, quái
 export function hoiEnts(game, view) {
   setShadow(game.data.config.shadow);   // bóng đổ theo dáng cho cả người, quái, đồ vẽ sau (sprites.js); hàm này chạy mỗi khung trước khi vẽ
+  setCanvasMb(game.data.config.perf.canvas_mb);   // hạn mức bản sao phủ màu (src/render/canvas-kho.js)
   const items = game.map?.hoi || [];
   if (!items.length && !game.khach) return [];
   const out = [];

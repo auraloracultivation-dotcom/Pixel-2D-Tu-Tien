@@ -119,7 +119,7 @@ export function drawCorpse(ctx, game, c) {
     drawDissolved(ctx, src, 0, 0, spr.w, spr.h, -spr.anchor[0], -spr.anchor[1] - (spr.h / 2 - spr.anchor[1]), spr.w, spr.h, k, white); ctx.restore(); };
   if (hold) {   // đang khựng hình: con quái còn nguyên, loé trắng giữ viền mực, rung tại chỗ theo hướng đòn (src/game/hit-feel.js)
     const o = joltOff(game, m.jolt);
-    ctx.save(); ctx.translate(Math.round(cx) + (o ? m.jolt.x * o : 0), Math.round(cy) + (o ? m.jolt.y * o : 0)); draw(0, false, flashImage(spr, im)); ctx.restore(); return;
+    ctx.save(); ctx.translate(Math.round(cx) + (o ? m.jolt.x * o : 0), Math.round(cy) + (o ? m.jolt.y * o : 0)); draw(0, false, flashImage(spr, im) || im); ctx.restore(); return;
   }
   if (t < L.flash) { ctx.save(); ctx.translate(Math.round(cx), Math.round(cy)); draw(0, true); ctx.restore(); return; }
   const u = t - L.flash, s = 1 - (1 - Math.min(1, u / L.slide)) ** 3, k = Math.max(0, (u - L.hold) / L.fade);

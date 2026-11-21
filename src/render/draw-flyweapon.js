@@ -48,6 +48,7 @@ export function drawOtherWeapon(ctx, game, o, t, front, fit) {
 
 // Vẽ một bản tại (x, y) góc a: hình xoay sẵn thì chọn khung gần góc nhất, không thì xoay biểu tượng (mũi gốc chĩa lên phải)
 function blit(ctx, ws, im, x, y, a, k) {
+  if (!im) return;   // bản phủ màu chưa tạo được (máy hết bộ nhớ canvas, src/render/canvas-kho.js): bỏ lớp phủ
   const { spr, dirs } = ws;
   ctx.save();
   if (ws.smooth) ctx.imageSmoothingEnabled = true;   // ảnh to thu nhỏ: làm mịn kẻo vỡ

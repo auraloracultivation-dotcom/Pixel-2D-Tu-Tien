@@ -1,6 +1,8 @@
 // Bản đồ tinh cầu đang đứng (tab "Tinh cầu này" trong nút Bản đồ, chủ dự án xin 28/10/2026): tinh cầu tròn vẽ mỗi ô một
 // điểm ảnh rồi phóng lên không làm mịn; đánh dấu bãi quái, cổng bí cảnh, việc truyện, NPC, người chơi. Chạm chỗ nào là
 // ngự kiếm bay tới đó (src/game/hop.js). Vẽ lên cùng canvas với tinh đồ (src/ui/world-map.js gọi drawPlanet, tapPlanet).
+import { traCanvas } from '../render/canvas-kho.js';
+
 const SOLID = {
   T: '#2e6a3a', Z: '#24502c', Y: '#3e6e5a', V: '#5a4a40', '^': '#a89c86', '=': '#3a7ac0', L: '#e0502a', O: '#7ab8e0', f: '#120820',
   R: '#6e6a78', H: '#a0423a', B: '#5a4a44', W: '#6a8a40', N: '#8a6a3a', z: '#9a6a4a', '#': '#1f1830', U: '#3a3446', k: '#5a7a98',
@@ -12,14 +14,24 @@ const cache = { id: null, cv: null };
 export function mini(game) {
   const map = game.map;
   if (cache.id === map.id && cache.cv) return cache.cv;
+  traCanvas(cache.cv); cache.id = null; cache.cv = null;   // trả bộ nhớ tấm của tinh cầu trước ngay (Safari tính tổng bộ nhớ canvas, src/render/canvas-kho.js)
   const cv = document.createElement('canvas'); cv.width = map.w; cv.height = map.h;
   const c = cv.getContext('2d'), types = game.data.tiles.types;
+  if (!c) { traCanvas(cv); return null; }   // máy chưa cấp được canvas: lượt sau thử lại, không giữ tấm trắng
   for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
     if (map.edge(x, y)) continue;   // ngoài mép đĩa
     const ch = map.at(x, y), k = types[ch] || {};
     c.fillStyle = SOLID[ch] || (k.solid ? shade(k.color || '#7cc46a', 0.6) : k.color || '#7cc46a');
     c.fillRect(x, y, 1, 1);
   }
+  // Safari hết bộ nhớ canvas thì vẽ vào canvas mới không ăn (tấm trắng): không giữ tấm trắng, lượt sau dựng lại (người chơi báo 22/11/2026:
+  // bản đồ nhỏ tối om cả tinh cầu)
+  try {
+    const d = c.getImageData(0, 0, map.w, map.h).data;
+    let co = false;
+    for (let i = 3; i < d.length && !co; i += 4) co = d[i] > 0;
+    if (!co) { traCanvas(cv); return null; }
+  } catch { /* không đọc được điểm ảnh: dùng luôn */ }
   cache.id = map.id; cache.cv = cv;
   return cv;
 }
@@ -50,7 +62,7 @@ export function drawPlanet(ctx, w, h, t, game) {
   glow.addColorStop(0, 'rgba(255,220,140,.18)'); glow.addColorStop(1, 'rgba(255,220,140,0)');
   ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
   ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(cv, ox, oy, map.w * s, map.h * s);
+  if (cv) ctx.drawImage(cv, ox, oy, map.w * s, map.h * s);
   const at = ([x, y]) => ({ x: ox + (x + 0.5) * s, y: oy + (y + 0.5) * s });
   const ms = marks(game), r = Math.max(3, s * 0.7);
   for (const m of ms) {

@@ -68,7 +68,7 @@ import { initRank } from './rank.js';
 import { updateWorldBoss } from './worldboss.js';
 import { spawnMang, updateMang, onMangBoard, arenaGuard } from './thien-mang.js';
 import { createPvp, updatePvp, onPvp } from './pvp.js';
-import { qcTin, qcTick } from './quai-chung.js';   // quái chung: máu, chết, hồi sinh, công do máy chủ phòng giữ
+import { qcTin, qcTick, qcNapLai } from './quai-chung.js';   // quái chung: máu, chết, hồi sinh, công do máy chủ phòng giữ
 import { stamp, offlineGains } from './offline.js';
 import { spawnHome } from './home.js';
 import { spawnCompanion, updateCompanion, gainCompExp, downFx } from './companion.js';
@@ -169,6 +169,7 @@ export function createGame(data, screen, input, ui, audio) {
 
   function loadMap(id, spawnName) {
     id = arenaGuard(game, id);   // vùng Thôn Thiên Mãng lúc boss ngủ: về tinh cầu cũ
+    const qcCu = game.qc;   // quái chung đang có: nạp lại tại chỗ (cùng bản đồ, cùng phòng) thì xin phòng gửi lại (quai-chung.js qcNapLai)
     if (game.loot.length && game.save) collectAll(game);
     const def = data.maps[id];
     game.map = buildMap(def, data.tiles, cfg.tile, data);
@@ -186,6 +187,7 @@ export function createGame(data, screen, input, ui, audio) {
     }
     spawnPet(game); spawnCompanion(game); spawnHome(game); spawnWild(game); spawnMang(game); game.onMapLoad?.(game);   // onMapLoad: NPC công trình tinh cầu khai hoang (khai-hoang.js)
     game.spawners = def.spawners.map(s => ({ ...(s.farm ? data.planets.farm : {}), ...s, alive: [], timer: 0 }));   // bãi treo máy: số con, tốc hồi ở planets.json
+    qcNapLai(game, qcCu);
     festSpawn(game, def);
     game.dungeon = createDungeon(game);
     game.darkTarget = def.dark || 0; game.dark = game.darkTarget;

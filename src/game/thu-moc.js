@@ -11,11 +11,12 @@ import { demXem } from './others-nhan.js';
 import { hoSoCuaToi, epHoSo } from './ho-so-phong.js';
 import { togglePvp } from './pvp.js';
 import { hitMob } from './combat.js';   // bài thử quái chung (tools/quai-chung.thu.mjs) cho hai máy đánh cùng một con
+import { khState, khRebuild } from './khai-hoang.js';   // bài thử quái chung trên tinh cầu tông môn: đưa một tinh cầu giả vào game
 
 export function mocThu() {
   const q = new URLSearchParams(location.search);
   if (!q.has('thu')) return;
-  window.__thu = { togglePilot, dropLoot, updateLoot, phat, kiepWave, dien, cacHieuUng, demXem, hoSoCuaToi, epHoSo, togglePvp, hitMob };
+  window.__thu = { togglePilot, dropLoot, updateLoot, phat, kiepWave, dien, cacHieuUng, demXem, hoSoCuaToi, epHoSo, togglePvp, hitMob, khState, khRebuild };
   // ?thu=1&phong=<mã>: khách này vào phòng người chơi như người đã đăng nhập, mang mã và tên thử (bài thử hai máy tools/hai-may.mjs dựng
   // phòng giả trong máy bằng đúng mã cloud/src/phong.js). Vé gửi đi là chính mã thử nên máy chủ phòng thật từ chối: không thêm quyền gì.
   const id = q.get('phong');

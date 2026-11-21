@@ -12,12 +12,15 @@ import { cauHinhMayChu, QC } from '../src/game/quai-chung-bang.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const TEP = 'cloud/src/quai-cfg.js';
+// Mã dựng bãi tinh cầu tông môn: máy chủ phòng chạy đúng đoạn mã của máy khách (bản chép nguyên văn, có dòng đầu báo nguồn)
+export const CHEP = [['src/game/kh-bai.js', 'cloud/src/kh-bai.js'], ['src/game/kh-road.js', 'cloud/src/kh-road.js'], ['src/game/quai-ky.js', 'cloud/src/quai-ky.js']];
+const banChep = goc => `// TỆP CHÉP TỰ ĐỘNG từ ${goc}, KHÔNG SỬA TAY. Chép lại: node tools/quai-chung.mjs --ghi (tools/check.mjs so khớp).\n` + readFileSync(resolve(ROOT, goc), 'utf8');
 const doc = f => JSON.parse(readFileSync(resolve(ROOT, 'data', f + '.json'), 'utf8'));
 
 // data/ như game nạp, đủ phần bảng quái chung cần; máu quái đã qua luật chiến đấu mới (hcData) như trong game (src/main.js)
 export function napData() {
   const data = { maps: {} };
-  for (const f of ['config', 'mobs', 'pets', 'planets', 'he-chien', 'demon', 'dungeon']) data[f] = doc(f);
+  for (const f of ['config', 'mobs', 'pets', 'planets', 'he-chien', 'demon', 'dungeon', 'khai-hoang', 'status']) data[f] = doc(f);
   for (const id of QC(data)?.maps || []) if (existsSync(resolve(ROOT, 'data/maps', id + '.json'))) data.maps[id] = doc('maps/' + id);
   return hcData(data);
 }
@@ -26,6 +29,7 @@ export function sinh(data = napData()) {
   return `// TỆP SINH RA, KHÔNG SỬA TAY. Nguồn: data/config.json → quai_chung, bãi quái trong data/maps/, máu quái, data/planets.json → farm,
 // data/pets.json (dị chủng). Sinh lại: node tools/quai-chung.mjs --ghi (tools/check.mjs so khớp).
 // maps.<bản đồ>.s: [[bãi, số con, giờ hồi (ms), máu, x, y, có thể dị chủng]]; v: chữ ký bảng, máy khách so với bảng nó tự tính.
+// kh: số để dựng bảng tinh cầu tông môn (kh-bai.js khBangQuai; data/khai-hoang.json, máu và lực chiến gốc của loài).
 export const QUAI = ${JSON.stringify(cauHinhMayChu(data))};
 `;
 }
@@ -38,6 +42,7 @@ export function soat() {
   const C = QC(data), p = resolve(ROOT, TEP);
   if (!C) return ['data/config.json thiếu quai_chung'];
   if (!existsSync(p) || readFileSync(p, 'utf8') !== moi) loi.push(`${TEP} lệch data/: chạy node tools/quai-chung.mjs --ghi`);
+  for (const [goc, den] of CHEP) { const q = resolve(ROOT, den); if (!existsSync(q) || readFileSync(q, 'utf8') !== banChep(goc)) loi.push(`${den} lệch ${goc}: chạy node tools/quai-chung.mjs --ghi`); }
   const co = cauHinhMayChu(data).maps;
   for (const id of C.maps || []) {
     if (!data.maps[id]) loi.push(`data/config.json quai_chung.maps: không có bản đồ "${id}"`);
@@ -51,7 +56,7 @@ export function soat() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  if (process.argv.includes('--ghi')) { writeFileSync(resolve(ROOT, TEP), sinh()); console.log(`Đã ghi ${TEP}`); }
+  if (process.argv.includes('--ghi')) { writeFileSync(resolve(ROOT, TEP), sinh()); for (const [goc, den] of CHEP) writeFileSync(resolve(ROOT, den), banChep(goc)); console.log(`Đã ghi ${TEP}, ${CHEP.map(c => c[1]).join(', ')}`); }
   const data = napData(), loi = soat();
   for (const [id, b] of Object.entries(cauHinhMayChu(data).maps)) {
     console.log(`${id} (chữ ký ${b.v}): ${b.s.length} bãi, ${b.s.reduce((a, r) => a + r[1], 0)} con`);

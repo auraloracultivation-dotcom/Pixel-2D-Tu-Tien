@@ -40,3 +40,9 @@ jobs:
         working-directory: _site
         env:
           GIAY: 20
+      # Quái chung trên tinh cầu tông môn (22/11/2026): tinh cầu giả, phòng giả đọc dòng tinh cầu qua p2d_kh_ds giả (cloud/src/quai-kh.js)
+      - run: node ../tools/quai-chung.thu.mjs
+        working-directory: _site
+        env:
+          MAP: kh
+          GIAY: 15
