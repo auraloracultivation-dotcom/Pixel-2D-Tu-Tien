@@ -33,6 +33,7 @@ export function createOnline(me, handlers, opts = {}) {
       for (const [id, c] of m.k || []) if (id !== me.id) handlers.onCast?.({ id, ...c });
       if (m.q || m.qh) handlers.onQuai?.(m);   // quái chung: vị trí quái người khác đang giữ, máu vừa đổi
     } else if (m.t === 'qa' || m.t === 'qk') handlers.onQuai?.(m);   // quái chung: lời đáp đòn của mình, tin hạ quái kèm phần công
+    else if (m.t === 'qv') handlers.onQuai?.({ t: 'w', q: m.q, me: me.id, map: mapId });   // phòng vừa đổi bảng quái chung (tinh cầu tông môn bày lại): như vào phòng mới
     else if (m.t === 'j' && m.u?.id && m.u.id !== me.id) { people.set(m.u.id, m.u); push(); }   // tin 'j' mang TRỌN hồ sơ mới: thay hẳn, không trộn với bản cũ.
     // (Trước 20/11/2026 trộn { ...cũ, ...mới }: trường vừa về trống (xuống thú, hạ cánh, thôi đả tọa, hồi sinh) bị máy chủ phòng lược khỏi tin
     //  nên máy người xem giữ mãi giá trị cũ: thấy người kia cưỡi thú / bay / ngồi / mờ mãi tới khi vào lại tinh cầu. Bài thử hai máy bắt được.)

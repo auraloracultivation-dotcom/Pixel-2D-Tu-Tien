@@ -12,7 +12,11 @@ import { createRequire } from 'node:module';
 import { taoPhongGia } from './cloud/phong-gia.mjs';
 
 const PORT = +(process.env.PORT || 8795), GOC = resolve(import.meta.dirname, '..');
-const CFG = JSON.parse(readFileSync(join(GOC, 'data/config.json'), 'utf8')), MAP = process.env.MAP || CFG.quai_chung.maps[0];
+const CFG = JSON.parse(readFileSync(join(GOC, 'data/config.json'), 'utf8'));
+// MAP=kh: một tinh cầu tông môn giả (cấp 3, có công trình che bớt bãi); phòng giả đọc nó qua p2d_kh_ds giả (cloud/src/quai-kh.js)
+const KH = process.env.MAP === 'kh' ? { id: '00000000-0000-4000-8000-00000000c0de', ten: 'Tinh Cầu Thử', mat_dat: 'co', hat: 4242, cap: 3, vong: 1, goc: 0, trong: false, bang: 'Thử',
+  bay: [[Object.keys(JSON.parse(readFileSync(join(GOC, 'data/khai-hoang.json'), 'utf8')).ct)[0], 24, 20, 0]], rieng: {} } : null;
+const MAP = KH ? KH.id : process.env.MAP || CFG.quai_chung.maps[0];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 const server = createServer(async (req, res) => {
   const file = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^([/\\])+/, '') || 'index.html';
@@ -21,7 +25,7 @@ const server = createServer(async (req, res) => {
 }).listen(PORT);
 
 const { chromium } = await import('playwright').catch(() => createRequire(join(GOC, 'tools/x.mjs'))('playwright'));
-const phong = await taoPhongGia(), trinh = await chromium.launch();
+const phong = await taoPhongGia({ khDs: KH ? [KH] : null }), trinh = await chromium.launch();
 const kq = [], loi = [];
 const ok = (ten, dat, them = '') => { kq.push(dat); console.log(`${dat ? '✅' : '❌'} ${ten}${them ? ' — ' + them : ''}`); };
 const cho = async (f, ms = 8000, nhip = 100) => { const het = Date.now() + ms; let v; while (Date.now() < het) { v = await f(); if (v) return v; await new Promise(r => setTimeout(r, nhip)); } return v; };
@@ -43,13 +47,14 @@ async function moMay(id, bat = true) {
   await p.waitForTimeout(600);
   await p.tap('#btn-guest');
   await p.waitForFunction(() => window.__game?.save && window.__game.player, null, { timeout: 30000 });
-  await p.evaluate(async map => {
+  await p.evaluate(async ([map, kh]) => {
     const g = window.__game, d = g.dialog;
     for (const k of Object.keys(d)) if (typeof d[k] === 'function' && k !== 'close') d[k] = async () => null;
     d.open = false; const box = document.getElementById('dialog'); if (box) box.hidden = true;
     g.closeAll?.(); g.auto = false; g.khoaBo = true; g.noDeath = true;
     window.__ha = [];   // mỗi lần hạ quái: ô, phần công máy này nhận
     const goc = g.onKill; g.onKill = m => { window.__ha.push({ o: m.qc ?? null, cong: m.cong ? { ...m.cong } : null }); return goc(m); };
+    if (kh) { window.__thu.khState(g).list.push(kh); window.__thu.khRebuild(g, kh.id, kh.bay); }   // tinh cầu tông môn giả: dựng như khai-hoang.js khLoad
     await g.travel(map, 'vao', false, { force: true });
     // Khách chơi thử là người mới Luyện Khí: ở tinh cầu cao đánh không nổi (Thủ của quái, áp chế lực chiến), con 484 máu đánh 40 đòn
     // còn chưa chết. Bài này thử đồng bộ chứ không thử cân bằng, nên cho máy thử mạnh vừa tầm tinh cầu: tắt áp chế lực chiến, mỗi đòn
@@ -64,7 +69,7 @@ async function moMay(id, bat = true) {
       const T = m.maxHp / 6, D = Math.max(0, m.def?.hc?.def || 0), A = (T + Math.sqrt(T * T + 4 * T * D)) / 2;   // A × A / (A + D) = T
       g.player.atk = A; g.player.st.atk = A;
     }, 250);
-  }, MAP);
+  }, [MAP, KH]);
   return X;
 }
 // Trạng thái quái chung trên một máy: ô → [x gốc, y gốc, máu, máu tối đa, dị chủng, do máy khác giữ, x, y]
@@ -96,7 +101,8 @@ const Z = await moMay('may-z', false);
 }
 
 const A = await moMay('may-a'), B = await moMay('may-b');
-const B0 = JSON.parse(readFileSync(join(GOC, 'cloud/src/quai-cfg.js'), 'utf8').match(/export const QUAI = (.*);/)[1]).maps[MAP];
+const QCFG = JSON.parse(readFileSync(join(GOC, 'cloud/src/quai-cfg.js'), 'utf8').match(/export const QUAI = (.*);/)[1]);
+const B0 = KH ? (await import('../src/game/kh-bai.js')).khBangQuai(QCFG.kh, KH) : QCFG.maps[MAP];   // bảng như máy chủ phòng dựng
 const tong = B0.s.reduce((a, r) => a + r[1], 0);
 
 // 1. Hai máy đều chuyển sang quái chung, đủ số con, không còn quái riêng ở các bãi chung
@@ -223,6 +229,19 @@ const dB = await danh(B, O1, 6);
   ok('Dừng tay: máu mọi con quái trên hai máy khớp nhau', khop > 0, `${khop} con`);
   const cuoi = [await soQuai(A), await soQuai(B)];
   ok('Suốt buổi không có quái riêng mọc chen vào bãi chung', cuoi.every(x => x.rieng === 0 && Object.keys(x.song).length + x.cho.length === tong), cuoi.map(x => `${Object.keys(x.song).length} sống + ${x.cho.length} chờ, riêng ${x.rieng}`).join(' | '));
+}
+
+// 8b. Nạp lại bản đồ tại chỗ (bay tới đúng tinh cầu đang đứng; tông chủ bày lại công trình): vẫn ở phòng cũ, không có tin chào mới;
+// máy A phải xin phòng gửi lại trạng thái rồi về quái chung, không mọc quái riêng chen vào bãi chung
+{
+  await A.p.evaluate(async map => { const g = window.__game; if (g.map.def.kh) { const p = window.__thu.khState(g).list.find(x => x.id === map); window.__thu.khRebuild(g, map, p.bay); } else await g.travel(map, 'vao', false, { force: true }); }, MAP);
+  const lai = await cho(async () => { const s = await soQuai(A); return s && Object.keys(s.song).length + s.cho.length === tong && s.rieng === 0 ? s : null; }, 10000);
+  // so với sổ của phòng (sự thật): máy B có thể còn giữ số cũ của lúc phòng ngủ dậy quên máu (mục 7) tới khi có người đánh con đó
+  const soPhong = () => [...phong.phong.entries()].find(([ten, v]) => ten.startsWith(`dao:${MAP}`) && v.room.q)?.[1].room.q;
+  const lechPhong = x => Object.keys(x.song).filter(o => { const s = soPhong()?.o.get(+o), mau = s && !s.het ? Math.round(s.hp * 10) / 10 : x.song[o][3]; return x.song[o][8] === 0 && Math.abs(x.song[o][2] - mau) > 0.5; });
+  const khop = lai && await cho(async () => lechPhong(await soQuai(A)).length === 0, 6000);
+  const lech = khop ? '' : (await (async () => { const x = await soQuai(A); return lechPhong(x).slice(0, 4).map(o => `${o}: A ${x.song[o][2]} phòng ${soPhong()?.o.get(+o)?.hp}`).join('; '); })());
+  ok('A nạp lại bản đồ tại chỗ: xin phòng gửi lại, về quái chung đủ số con, máu theo phòng', !!lai && khop, lai ? `${Object.keys(lai.song).length} sống + ${lai.cho.length} chờ ${lech}` : JSON.stringify(await A.p.evaluate(() => ({ qc: !!window.__game.qc, rieng: window.__game.spawners.reduce((a, s) => a + s.alive.length, 0) }))));
 }
 
 // 9. Rớt mạng: quái chung thành quái riêng, chơi tiếp một mình; nối lại thì về quái chung theo trạng thái của phòng

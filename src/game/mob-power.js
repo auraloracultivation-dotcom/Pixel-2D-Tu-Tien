@@ -10,6 +10,7 @@
 // - Giãn đội hình (space): quái cận chiến đứng cách người chơi thêm reach_add đơn vị để vồ, không chồng lên nhau (đẩy nhau ra khi
 //   gần hơn sep × tổng bán kính) cho người chơi còn nhìn thấy mình.
 import { powerOf, powerRef } from './he-chien.js';
+import { heSoQuai, levelOf } from './kh-bai.js';
 
 // Chỉ số của con quái theo dạng he-chien.js (máu, công mỗi giây, thủ, số đòn mỗi giây); máu, công đã nhân hệ số bí cảnh, ma khí, dị chủng
 function hcOf(m) {
@@ -28,7 +29,21 @@ export function mobPower(game, m) {
 // (he-chien.js powerRef), để trùm Khai Tinh và quái tinh cầu giữ đúng máu, công như trước khi đổi cách hiện lực chiến
 const cpRef = (game, m) => (m.def.hc ? powerRef(game.data['he-chien'], hcOf(m), game.save?.realm || 0) : mobPower(game, m));
 
-const base = (game, id) => { const d = game.data.mobs[id]; return !d ? 0 : d.hc ? cpRef(game, { def: d, maxHp: d.hp }) : d.hp * (game.data.status.power.maxHp || 1) + d.atk * (game.data.status.power.atk || 9); };
+// Lực chiến gốc (đo kiểu cũ) của một loài khi đứng ở cảnh giới realm. Thuần: tools/quai-chung.mjs tính sẵn cho máy chủ phòng (bảng quái
+// chung tinh cầu tông môn, kh-bai.js khBangQuai), nên hai bên ra cùng máu
+export function gocMob(data, id, realm) {
+  const d = data.mobs[id];
+  if (!d) return 0;
+  return d.hc ? powerRef(data['he-chien'], hcOf({ def: d, maxHp: d.hp }), realm) : d.hp * (data.status.power.maxHp || 1) + d.atk * (data.status.power.atk || 9);
+}
+
+// Cảnh giới để đo mức quái của bản đồ: tinh cầu tông môn có quái chung (quai_chung.kh) đo ở cảnh giới của cấp tinh cầu, ai nhìn cũng một
+// mức máu, công (chủ dự án 22/11/2026 00:1x "Máu theo cấp tinh cầu"); trận Khai Tinh và nơi khác theo cảnh giới người đang đứng như cũ
+export function realmDo(game, def) {
+  const kh = def?.kh, C = game.data.config.quai_chung;
+  if (kh && !kh.fight && C?.on && C.kh) return levelOf(game.data['khai-hoang'], kh.cap).realm;
+  return game.save?.realm || 0;
+}
 
 // Hệ số của đảo đang đứng (nhớ theo bản đồ)
 function zoneMul(game) {
@@ -36,10 +51,8 @@ function zoneMul(game) {
   if (!C?.on || !T || (C.kh_only && !game.map.def?.kh)) return 1;   // luật mới (he-chien.js): quái đảo thường đã theo cảnh giới, chỉ tinh cầu Khai Hoang còn kéo theo mức lực chiến của cấp
   game.mobCpCache ??= {};
   if (game.mobCpCache[id] == null) {
-    const ids = [...new Set((game.map.def.spawners || []).filter(s => !s.mul || s.mul === 1).map(s => s.mob))]
-      .filter(x => { const d = game.data.mobs[x]; return d && d.ai !== 'boss' && d.ai !== 'dummy'; });
-    const avg = ids.length ? ids.reduce((a, x) => a + base(game, x), 0) / ids.length : 0;
-    game.mobCpCache[id] = avg > 0 ? Math.max(1, T / avg) : 1;
+    const D = game.data, realm = realmDo(game, game.map.def);
+    game.mobCpCache[id] = heSoQuai(game.map.def.spawners, x => { const d = D.mobs[x]; return !!d && d.ai !== 'boss' && d.ai !== 'dummy'; }, x => gocMob(D, x, realm), T);
   }
   return game.mobCpCache[id];
 }
