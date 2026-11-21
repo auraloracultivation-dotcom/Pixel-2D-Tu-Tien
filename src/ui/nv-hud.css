@@ -1,0 +1,28 @@
+/* Thẻ nhiệm vụ chính (src/ui/nv-hud.js): góc trái, ngay dưới khung nhân vật. Chuyển động do JS đặt theo giờ game, ở đây chỉ có bố cục.
+   Dòng trên "Nhiệm vụ 17 · tên nhiệm vụ · Thưởng [món]", dưới là việc phải làm (tới hai dòng) và số đếm. Chạm thẻ là Tự hành đi làm.
+   .xong: việc vừa xong (viền vàng, dấu ✓) · .dang: đang Tự hành (viền lục) · .bh-so: con số lăn từ số cũ lên số mới. */
+#nv-hud { position: fixed; left: calc(env(safe-area-inset-left) + 6px); top: calc(env(safe-area-inset-top) + 113px); z-index: 6; display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  box-sizing: border-box; width: 224px; min-height: 58px; padding: 3px 4px; border: 8px solid transparent; border-image: url("../../assets/art/ui-k-btn.png") 12 fill / 8px / 0 stretch; cursor: pointer; touch-action: manipulation;
+  transform-origin: left center; font: 700 12px/1 var(--f-body); color: #f3e8cf; text-shadow: 1px 0 #1b1030, -1px 0 #1b1030, 0 1px #1b1030, 0 -1px #1b1030; white-space: nowrap; }
+#nv-hud[hidden] { display: none; }
+#nv-hud.dang { box-shadow: 0 0 0 1px rgba(125, 255, 138, .55), 0 0 10px rgba(125, 255, 138, .35); }
+#nv-hud.xong { box-shadow: 0 0 0 1px rgba(255, 217, 138, .9), 0 0 14px rgba(255, 217, 138, .55); }
+#nv-hud.xong .bh-goal { color: #ffe9b0; }
+#nv-hud.xong .bh-goal::before { content: "✓ "; color: #7dff8a; }
+#nv-hud .bh-so { display: inline-block; height: 1em; overflow: hidden; vertical-align: bottom; }
+#nv-hud .bh-so i { display: block; height: 1em; line-height: 1; font-style: normal; }
+#nv-hud .bh-so i[hidden] { display: none; }
+#nv-hud .bh-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+#nv-hud .bh-tag { flex: none; color: #ffd98a; font: 800 12px/1 var(--f-body); }
+#nv-hud .bh-name { flex: 1 1 auto; min-width: 0; font: 800 13px/1 var(--f-body); color: #fff6e0; overflow: hidden; text-overflow: ellipsis; }
+#nv-hud .bh-name[hidden] { display: none; }
+#nv-hud .bh-goal { flex: 1 1 auto; min-width: 0; font: 700 13px/1.2 var(--f-body); color: #e6dcf6; white-space: normal; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }   /* việc dài: xuống dòng thứ hai, quá hai dòng mới cắt */
+#nv-hud .bh-goal.nho { font-size: 11px; }
+#nv-hud .bh-cnt { flex: none; display: inline-block; min-width: 28px; font: 800 17px/1 var(--f-body); font-style: normal; color: #7dff8a; text-align: right; transform-origin: right center; }
+#nv-hud .bh-cnt:empty { display: none; }
+#nv-hud .bh-right { flex: none; margin-left: auto; display: flex; align-items: center; gap: 4px; }
+#nv-hud .bh-right[hidden] { display: none; }
+#nv-hud small { font: 600 10px/1 var(--f-body); color: #d9cfee; }
+#nv-hud .bh-gift { position: relative; display: block; width: 22px; height: 22px; background: center / contain no-repeat; }
+#nv-hud .bh-gift canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); image-rendering: pixelated; }
+body:has(.panel:not([hidden])) #nv-hud, body:has(#bag:not([hidden])) #nv-hud, body:has(#dialog:not([hidden])) #nv-hud, body:has(#qua:not([hidden])) #nv-hud { display: none; }

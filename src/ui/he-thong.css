@@ -286,50 +286,16 @@ body #toast { z-index: 85; }
 /* nhãn số nằm dưới hình, không đè ô bên cạnh (chủ dự án 19/11/2026 04:24) */
 .qt { flex-direction: column; height: auto; min-height: 40px; padding: 3px 5px 2px; gap: 1px; }
 .qt-n { position: static; background: none; padding: 0; font-size: 10px; }
-/* Sổ Trấn Ma Kỷ trong Tàng Thư (src/ui/he-thong-ky.js): cuốn sổ của Hệ Thống nên vẫn nền xanh của bảng, chữ tên và thanh tiến độ màu vàng ấm của giấy cũ */
-.ky-bia { display: flex; flex-direction: column; gap: 3px; text-align: left; font: inherit; color: #dff6ff; padding: 9px 11px 8px; border-radius: 8px; border: 1px solid #0a1830;
-  background: linear-gradient(180deg, rgba(64, 44, 20, .92), rgba(30, 22, 30, .92)); box-shadow: 0 0 0 1px #d9a94a inset, 0 0 10px rgba(255, 200, 110, .28); }
-button.ky-bia:active { filter: brightness(1.25); }
-.ky-bia b { font-size: 17px; letter-spacing: .05em; color: #ffd98a; text-shadow: 0 0 8px rgba(255, 200, 110, .5); }
-.ky-bia span { font-size: 12px; color: #e9d9b8; }
-.ky-bia small { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #cdb98f; }
-.ky-bar { height: 6px; border-radius: 3px; background: rgba(8, 14, 30, .8); border: 1px solid #0a1830; overflow: hidden; margin: 3px 0 1px; }
-.ky-bar i { display: block; height: 100%; background: linear-gradient(90deg, #c98a2a, #ffe08a); }
-.ky-moi { font-style: normal; font-weight: 700; font-size: 10.5px; line-height: 1; color: #2a0c0c; background: #ff9a6a; border: 1px solid #0a1830; border-radius: 8px; padding: 2px 6px; white-space: nowrap; }
-.ky-q { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; font: inherit; color: #dff6ff; padding: 7px 9px; border-radius: 6px; border: 1px solid rgba(217, 169, 74, .45); background: rgba(10, 36, 64, .7); }
-.ky-q:active { filter: brightness(1.3); }
-.ky-q.kin { border-color: rgba(62, 200, 240, .2); opacity: .72; }
-.ky-q-l { display: flex; flex-direction: column; min-width: 0; }
-.ky-q-l small { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #cdb98f; }
-.ky-q-l b { font-size: 14px; color: #ffe2a6; }
-.ky-q-l i, .ky-tr > i, .ky-quy i { font-style: normal; font-size: 11.5px; color: #8fb4c4; }
-.ky-q-r { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 12px; color: #9fd8ee; white-space: nowrap; }
-.ky-dau { display: flex; flex-direction: column; gap: 2px; padding-bottom: 4px; border-bottom: 1px solid rgba(217, 169, 74, .35); }
-.ky-dau small { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #cdb98f; }
-.ky-dau b, .ky-ten { font-size: 18px; color: #ffd98a; text-shadow: 0 0 8px rgba(255, 200, 110, .45); }
-.ky-dau i { font-style: normal; font-size: 11.5px; color: #8fb4c4; }
-.ky-dau .ht-line { margin-top: 3px; color: #f1e6cf; font-style: italic; }
-.ky-tr { display: flex; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(62, 200, 240, .25); background: rgba(10, 36, 64, .7); }
-.ky-tr.moi { border-color: #ff9a6a; box-shadow: 0 0 8px rgba(255, 154, 106, .3); }
-.ky-tr.kin { flex-direction: column; align-items: flex-start; gap: 1px; opacity: .7; }
-.ky-tr-l { flex: 1 1 0; min-width: 0; display: flex; align-items: baseline; gap: 7px; }
-.ky-tr-l small { flex: none; width: 14px; text-align: right; font-size: 11px; color: #8ab8cc; }
-.ky-tr-l b { font-size: 13.5px; color: #eafaff; }
-.ky-tr.doc .ky-tr-l b { color: #ffe2a6; }
-.ky-nut { flex: none; font: 700 12px/1 var(--f-body); color: #9fd8ee; background: rgba(20, 70, 110, .6); border: 1px solid #0a1830; border-radius: 6px; padding: 7px 10px; }
-.ky-nut.on { color: #2a1404; background: #ffd98a; }
-.ky-nut:active { filter: brightness(1.3); }
-.ky-dap { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px; padding: 8px; border-top: 1px solid rgba(217, 169, 74, .35); text-align: center; }
-.ky-dap span { font-size: 12px; color: #cdb98f; }
-.ky-dap b { font-size: 14.5px; color: #ffe08a; }
-.ky-quy { display: flex; flex-direction: column; gap: 2px; padding: 7px 9px; border-radius: 6px; border: 1px solid rgba(217, 169, 74, .4); background: rgba(10, 36, 64, .7); }
-.ky-quy.kin { border-color: rgba(62, 200, 240, .2); opacity: .7; }
-.ky-quy > b { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-size: 13.5px; color: #ffe2a6; }
-.ky-quy > b em { flex: none; font-style: normal; font-size: 11px; font-weight: 700; color: #ffb38a; }
-.ky-quy > span { color: #eafaff; }
-.ky-quy .ky-loi { color: #bff4ff; font-style: italic; }
-.ky-quy p { margin: 0; font-size: 12px; color: #a9cddc; }
-.ky-quy p small { font-size: 11px; color: #cdb98f; }
-.ht-tip[data-go="tmk"] { box-shadow: 0 0 0 1px #d9a94a inset, 0 0 10px rgba(255, 200, 110, .5); cursor: pointer; }
-.ky-tu { align-self: center; margin-top: 4px; font: 600 11.5px/1 var(--f-body); color: #8fb4c4; background: rgba(8, 22, 44, .7); border: 1px solid rgba(62, 200, 240, .3); border-radius: 10px; padding: 6px 10px; }
-.ky-tu.on { color: #ffe2a6; border-color: rgba(217, 169, 74, .6); }
+/* Thẻ nhiệm vụ chính trong tab Nhiệm vụ (src/ui/he-thong-nv.js): số, tên, việc đang làm, Dẫn đường, danh sách Hành trình */
+.ht-nv { display: flex; flex-direction: column; gap: 5px; padding: 9px 11px; border-radius: 9px; background: linear-gradient(180deg, rgba(58, 42, 22, .9), rgba(26, 22, 34, .9)); box-shadow: 0 0 0 1px #d9a94a inset; }
+.ht-nv > small { font: 800 11px/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: #ffd98a; }
+.ht-nv > b { font: 800 17px/1.15 var(--f-body); color: #fff3d6; }
+.ht-nv > .ht-line { color: #eadfc6; font-size: 13px; }
+.ht-nv-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+.ht-nv-row .ht-nv-log { margin-left: auto; background: transparent; color: #ffd98a; border-color: #d9a94a; }
+.ht-nv-ds { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; padding-top: 7px; border-top: 1px solid rgba(217, 169, 74, .35); max-height: 38vh; overflow-y: auto; }
+.ht-nv-d { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: #cfc3a8; }
+.ht-nv-d i { flex: none; min-width: 20px; font-style: normal; font-weight: 800; color: #a8946a; text-align: right; }
+.ht-nv-d.dang { color: #fff3d6; font-weight: 700; }
+.ht-nv-d.dang i { color: #ffd98a; }
+

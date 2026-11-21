@@ -1770,6 +1770,7 @@
     }
    ]
   },
+  "chuong": {"_note": "Chuông đồng ở sân tông môn (nhiệm vụ Tiếng chuông, data/story.json): tiếng gõ, thân chuông ngân dài, tiếng ù trầm", "v": 0.5, "rev": 0.6, "L": [{"k": "noise", "hp": 2500, "d": 0.03, "v": 0.35}, {"k": "fm", "f": 196, "r": 2.76, "i": 2.2, "d": 3.2, "v": 0.9, "a": 0.002}, {"k": "fm", "f": 392, "r": 3.5, "i": 1.2, "d": 2.2, "v": 0.35}, {"k": "osc", "f": 98, "d": 2.6, "v": 0.45}]},
   "anvil": {
    "v": 0.5,
    "jit": 1,

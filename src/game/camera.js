@@ -3,6 +3,6 @@
 
 export function camFollow(game, screen, dt) {
   if (game.bay?.on && game.bay.cam) { screen.follow(game.bay.cam.x, game.bay.cam.y, dt * 4, game.map); return; }   // bày cảnh: máy quay trôi theo tay kéo, người chơi đứng yên (src/ui/bay-canh.js)
-  const ui = game.uiOpen && game.uiOpen !== 'qua' && game.uiOpen !== 'the-quyen' ? screen.h / screen.zoom / 4 : 0;   // nghi lễ nhận thưởng (ui/reward-show.js), thẻ mở / khép quyển Trấn Ma Kỷ (ui/the-quyen.js) phủ cả màn: không dời khung nhìn
+  const ui = game.uiOpen && game.uiOpen !== 'qua' ? screen.h / screen.zoom / 4 : 0;   // nghi lễ nhận thưởng phủ cả màn (ui/reward-show.js): không dời khung nhìn
   screen.follow(game.player.x, game.player.y - 4 + ui, dt, game.map);
 }

@@ -32,6 +32,15 @@
      ]
     },
     {
+     "q": "Thẻ Nhiệm vụ ở góc trái màn hình là gì?",
+     "a": [
+      "Đó là nhiệm vụ chính của truyện, đánh số từ 1. Dòng trên là số và tên nhiệm vụ, dòng dưới là việc phải làm.",
+      "Chạm vào thẻ: Tự hành dẫn nhân vật đi làm việc ấy. Chạm lần nữa (hoặc kéo cần điều khiển) để dừng.",
+      "Tới nơi mà có việc phải tự tay làm thì nút hành động đổi tên, ví dụ Gióng chuông: bấm vào đó.",
+      "Xem lại các nhiệm vụ đã qua: chạm biểu tượng Hệ Thống → Nhiệm vụ → Hành trình."
+     ]
+    },
+    {
      "q": "Tắt bớt việc Tự hành tự làm ở đâu?",
      "a": [
       "Menu → Tự động: bật tắt từng việc tự hành làm tại chỗ: tự mặc đồ tốt hơn, cường hoá an toàn, khảm ghép ngọc, tự uống đan, túi đầy tự phân giải đồ rẻ, gục thì hồi sinh tại chỗ."
@@ -121,15 +130,6 @@
      "a": [
       "Hệ Thống tự nhắc khi ký chủ đứng yên lâu không làm gì, gục nhiều lần liền, hoặc có nhiệm vụ mới.",
       "Mỗi loại nhắc cách nhau ít nhất 3 phút. Chạm biểu tượng để xem."
-     ]
-    },
-    {
-     "q": "Sổ Trấn Ma Kỷ là gì? Đọc truyện ở đâu?",
-     "a": [
-      "Trấn Ma Kỷ là cuốn sổ Hệ Thống chép tên từng ký chủ, cũng là cốt truyện của game: bảy quyển, mỗi quyển vài trang ngắn.",
-      "Mở bảng Hệ Thống → Tàng Thư → Trấn Ma Kỷ. Trang mở dần khi bạn tới tinh cầu mới, hạ trùm, lên cảnh giới; trang chưa mở có ghi cách mở.",
-      "Đang rảnh tay thì trang mới tự kể. Đang Tự đánh, Tự hành thì Hệ Thống chỉ nhắc một dòng: đọc lúc nào cũng được, đọc lại được. Muốn tắt tự kể thì bấm nút ở cuối bìa sổ.",
-      "Đọc xong trang nào, Nhật ký tu tiên chép một dòng. Có trang còn mở thiên quy, khẩu quyết và Cấm Kỵ Các để xem trong sổ. Sổ không phát thưởng."
      ]
     }
    ]

@@ -59,14 +59,14 @@
  "nudge": {
   "idle": "Ký chủ đứng ngẩn ra đó làm gì? Chạm Dẫn đường, bổn hệ thống dắt đi làm nhiệm vụ.",
   "death": "Lại gục? Ký chủ ơi... Mặc trang bị tốt nhất, nâng cấp pháp bảo, hoặc đi đánh quái yếu hơn mà lên cấp đi.",
+  "nv_moi": "Đinh! Trấn Ma Kỷ còn trang trống, ký chủ. Trưởng lão Vân Hạc đang đợi. Chạm thẻ nhiệm vụ ở góc trái, bổn hệ thống dẫn đường.",
   "step": "Có nhiệm vụ mới. Chạm vào đây.",
   "kiep": "Đinh! Linh khí ký chủ đã đầy, đủ sức phá cảnh giới! Bấm nút Độ thiên kiếp trên màn hình rồi né sét cho khéo. Tự hành không độ hộ đâu.",
   "claim": "Đinh! Ký chủ có nhiệm vụ đã xong mà chưa nhận điểm. Chạm vào đây nhận đi, đủ điểm là triệu hồi quà được rồi."
  },
  "steps": {
   "5": "Biết đánh nhau rồi đấy. Mở Túi mặc đồ vừa nhặt vào đi, bổn hệ thống không muốn thấy ký chủ gục vì lười thay đồ.",
-  "10": "Đinh! Ký chủ đã vượt chặng đầu. Phần khó nhất là bắt đầu, ký chủ làm được rồi. Quà lớn đang ở phía trước, đừng bỏ cuộc.",
-  "20": "Bí cảnh mở rồi. Mỗi ngày có lượt, vào vét trang bị và đan dược."
+  "10": "Đinh! Ký chủ đã vượt chặng đầu. Phần khó nhất là bắt đầu, ký chủ làm được rồi. Quà lớn đang ở phía trước, đừng bỏ cuộc."
  },
  "_persona": "Giọng hệ thống (chủ dự án 06/11/2026 16:49 'nói chuyện phải như người có hồn'): xưng 'bổn hệ thống', gọi 'ký chủ', hơi kiêu, hay trêu nhưng thật lòng muốn ký chủ mạnh lên; mở đầu thông báo bằng 'Đinh!'. Lời dẫn cốt truyện (data/story.json, người nói 'he-thong') theo cùng giọng.",
  "missions": [
@@ -2598,6 +2598,10 @@
   "claimed": "Đinh! +{p} điểm hệ thống.",
   "todo": "Chưa xong",
   "story_hint": "Việc đang làm:",
+  "nv_head": "Nhiệm vụ chính {so}",
+  "nv_log": "Hành trình",
+  "nv_log_dong": "Thu gọn",
+  "nv_het": "Bổn hệ thống đang chép tiếp phần sau. Lo tu luyện đi, ký chủ.",
   "summon": "Triệu hồi ({c} điểm)",
   "summon_need": "Cần {c} điểm (đang có {p})",
   "summon_title": "Triệu hồi quà hệ thống",

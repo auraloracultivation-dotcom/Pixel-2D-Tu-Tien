@@ -52,16 +52,21 @@ export function createWander(game, ic, face, D) {
     step(dt, hold) {
       const S = ic.offsetWidth || 56, SH = ic.offsetHeight || 50;
       if (!hold) {
+        // Hệ Thống đang CHÉP một dòng vào sổ Trấn Ma Kỷ (hàng chữ lớn có nhãn "Trấn Ma Kỷ chép", src/ui/chu-lon.js đặt game.chepO = chỗ cuối nhãn): bay nhanh
+        // tới đậu ngay cuối nhãn như người cầm bút, nhún nhanh như đang viết; hết dòng thì đi ngó nghiêng tiếp. Người chơi đã khoá biểu tượng (hold) thì thôi.
+        const C = game.chepO;
+        if (C) { st.tgt = { x: C.x, y: C.yb - SH, name: '' }; st.mode = 'move'; }
+        else if (st.chep) { st.chep = 0; st.mode = 'look'; st.t = 1.2; }
         if (st.mode === 'look') { st.t -= dt; if (st.t <= 0) { st.tgt = pick(); st.mode = 'move'; } }
         else {
-          const dx = st.tgt.x - pos.x, dy = st.tgt.y - pos.y, d = Math.hypot(dx, dy), v = (D.speed || 60) * dt;
+          const dx = st.tgt.x - pos.x, dy = st.tgt.y - pos.y, d = Math.hypot(dx, dy), v = (C ? Math.max(D.speed || 60, d / 0.22) : D.speed || 60) * dt;
           if (Math.abs(dx) > 2) st.flip = dx < 0 ? -1 : 1;
-          if (d <= v) { pos.x = st.tgt.x; pos.y = st.tgt.y; arrive(); } else { pos.x += dx / d * v; pos.y += dy / d * v; }
+          if (d <= v) { pos.x = st.tgt.x; pos.y = st.tgt.y; if (!C) arrive(); else if (!st.chep) { st.chep = 1; face.react('tim'); } } else { pos.x += dx / d * v; pos.y += dy / d * v; }
         }
       }
       const lim = dlgTop() - SH - 10;   // có khung thoại: lướt lên trên mép khung (kể cả khi đang đứng nhắc việc)
-      const chip = document.getElementById('bac-hud');   // thẻ bậc của chặng leo bậc (góc trái dưới khung nhân vật): không đậu đè lên
-      if (chip && !chip.hidden && pos.x < 200 && pos.y > 62 && pos.y < 172) { pos.y += (172 - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < 200 && st.tgt.y > 62 && st.tgt.y < 172) st.tgt.y = 172; }
+      const chip = document.getElementById('nv-hud');   // thẻ nhiệm vụ chính (góc trái dưới khung nhân vật): không đậu đè lên. Thẻ rộng 204–224, cao thêm khi việc dài hai dòng
+      if (chip && !chip.hidden) { const cr = chip.offsetLeft + chip.offsetWidth + 4, cb = chip.offsetTop + chip.offsetHeight + 6, ct = chip.offsetTop - SH; if (pos.x < cr && pos.y > ct && pos.y < cb) { pos.y += (cb - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.x < cr && st.tgt.y > ct && st.tgt.y < cb) st.tgt.y = cb; } }
       if (pos.y > lim) { pos.y += (lim - pos.y) * Math.min(1, dt * 8); if (st.tgt && st.tgt.y > lim) st.tgt.y = lim; }
       pos.x = Math.max(4, Math.min(innerWidth - S - 4, pos.x)); const Z = band(); pos.y = Math.max(Z.t, Math.min(Z.b - SH, pos.y));
       const bob = Math.sin(performance.now() / (st.mode === 'move' ? 160 : 420)) * (st.mode === 'move' ? 3 : 1.5);

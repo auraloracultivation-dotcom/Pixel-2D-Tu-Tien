@@ -393,10 +393,10 @@ errors.push(...(await import('./quai-chung.mjs')).soat());
   if (r.status !== 0) errors.push(`he-chien: bài thử luật chiến đấu mới trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
 }
 
-// Sổ Trấn Ma Kỷ (src/game/tran-ma-ky.js, data/tran-ma-ky.json): dữ liệu trỏ đúng, luật mở trang (bài thử thuần Node)
+// Chuỗi nhiệm vụ chính của truyện (data/story.json, data/tran-ma-ky.json): dữ liệu trỏ đúng người, bản đồ, ô đi được, quái, vật nhặt, tiếng (bài thử thuần Node)
 {
-  const r = spawnSync(process.execPath, [join('tools', 'tran-ma-ky.test.mjs')], { encoding: 'utf8' });
-  if (r.status !== 0) errors.push(`tran-ma-ky: bài thử sổ truyện trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
+  const r = spawnSync(process.execPath, [join('tools', 'truyen.test.mjs')], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`truyen: bài thử chuỗi nhiệm vụ trượt — ${(r.stderr || r.stdout).trim().split('\n').filter(l => /Assertion|Error|message/.test(l)).slice(0, 3).join(' | ')}`);
 }
 
 if (errors.length) {

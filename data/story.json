@@ -1,11 +1,9 @@
 {
- "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đối đầu Đại Ma Thần (chủ dự án 21/11/2026 00:1x: bỏ Đài Ma Thần, không còn khiêu chiến; Đại Ma Thần vẫn là phản diện, câu đích ghi \"mạnh lên để có ngày đối đầu Đại Ma Thần\"). Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply). Bước có quà trang bị (14/11/2026, docs/10-CAI-HON.md việc 4): câu báo quà nói trước, rồi ngọc và món đồ (lệnh reward: nghi lễ nhận thưởng, lời thoại chờ người chơi đóng nghi lễ), sau đó mới tới các câu còn lại.",
+ "_note": "Cốt truyện người mới (chủ dự án chốt 02/11/2026; chỉ người bắt đầu từ bước 0 sau ngày này, save.storyV = 2, src/game/story.js): kiểm tra linh căn → gặp người khác giới (người chơi nam gặp sư tỷ Lạc Tuyết, nữ gặp sư huynh Tiêu Dao; chữ {nam|nữ} đổi theo giới) → 5 việc, mỗi việc 1 ngọc cấp 5 + 1 trang bị → người ấy bị bàn tay hắc ám của Đại Ma Thần bắt đi → mở các tinh cầu, bí cảnh, động phủ; từ đó chỉ cày bí cảnh + nhiệm vụ, đích là đối đầu Đại Ma Thần (chủ dự án 21/11/2026 00:1x: bỏ Đài Ma Thần, không còn khiêu chiến; Đại Ma Thần vẫn là phản diện, câu đích ghi \"mạnh lên để có ngày đối đầu Đại Ma Thần\"). Bước 'bi-canh' giữ đúng id để dungeon.story_step nhận ra. Người chơi cũ giữ data/story.json. Chủ dự án 06/11/2026 16:49: hệ thống thay cốt truyện — lời dẫn chuyển sang giọng Hệ Thống Bạo Kích Tài Nguyên Vô Hạn (người nói 'he-thong' lấy tên ở data/he-thong.json), thêm câu hỏi lựa chọn sys_ask (q, opts: label + reply). Bước có quà trang bị (14/11/2026, docs/10-CAI-HON.md việc 4): câu báo quà nói trước, rồi ngọc và món đồ (lệnh reward: nghi lễ nhận thưởng, lời thoại chờ người chơi đóng nghi lễ), sau đó mới tới các câu còn lại. CHUỖI NHIỆM VỤ CHÍNH 1 → N (chủ dự án 21/11/2026 08:46–08:51: truyện \"không phải phân theo từng chương, nhưng có thể phân theo nhiệm vụ từ 1 đến N… từ từ hoà vào game, nhẹ nhàng, truyền đạt một cách rõ ràng\"; docs/14-TRAN-MA-KY.md phần B): mọi việc có dòng goal (các bậc lẫn các bước) được đánh số theo thứ tự người chơi gặp, hiện trên thẻ nhiệm vụ (src/ui/nv-hud.js: \"Nhiệm vụ 17 · ten · goal\"). Phần mở đầu hết ở bước mo_dau (từ đó người chơi đi tự do, cờ mở tinh cầu đã đặt); các bước SAU mo_dau là nhiệm vụ viết tiếp: phải có once, ten, dùng target_map (không dùng map: map tự kéo người chơi sang bản đồ đó), không phát thưởng (thưởng do máy chủ quản). mo_dau_co: cờ cho biết người chơi đã thấy cảnh mở đầu; người chơi cũ được chuyển thẳng tới cuối phần mở đầu thì chưa có, nên câu nào nhắc tới người thân bị giữ phải viết hai bản bằng \"neu\". Lệnh thêm cho các nhiệm vụ này: canh (dàn cảnh giữa các câu: toi, rung, chop, tieng, fx, mau, tai, cho; src/game/dan-canh.js) · chu (hàng chữ lớn bên trái màn; ky: true là một dòng Hệ Thống chép vào sổ Trấn Ma Kỷ) · hoi (một nhân vật hỏi người chơi: q, ai, opts: label + reply + flag, im: lời đáp khi không chọn) · neu: \"cờ\" | \"!cờ\" trên một lệnh bất kỳ (chỉ làm khi có / chưa có cờ) · ten_neu: [\"!cờ\", tên khác] · pickups có near · unflag. until.nut: việc tay (tới ô reach rồi còn phải bấm nút hành động mang tên ấy: \"Gióng chuông\"; Tự hành tự bấm). Xong một nhiệm vụ thì truyện chờ màn lặng (không bảng, không thẻ mừng, không tắt màn) rồi mới diễn cảnh của nhiệm vụ kế. dau: việc đã làm để lại dấu trên bản đồ của riêng người chơi (cờ, bản đồ, ô, kiểu nen | the; src/game/dau-truyen.js). nv_text: chữ của thẻ nhiệm vụ. Viết nhiệm vụ mới xong chạy node tools/truyen.test.mjs.",
  "bac": {
-  "_note": "Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; src/game/story.js, thẻ bậc src/ui/bac-hud.js). Bật cho người mới từ 14/11/2026 (chủ dự án 11:05 \"Đưa lên… rất thích cách thiết kế\", 11:27 \"bạn xem hợp lý thì làm, vài tiếng tới tự do quyết định\"). on: bật cho người mới (riêng một máy tắt bằng địa chỉ có ?bac=0, bật lại ?bac=1). truoc: các bậc chạy lần lượt TRƯỚC một bước truyện, số bước truyện đứng yên (mỗi bậc: id, do, goal, until như một bước; thuong: món sẽ nhận khi xong bậc, hiện trên thẻ bậc). thay: phần mở đầu (do) thay cho bước truyện khi người chơi đã leo bậc: lời thoại khớp với việc vừa đánh xong, quà không trùng quà của các bậc. Đang leo bậc thì chưa dùng Tự hành, Tự đánh (text.lock) và bảng chào của Hệ Thống chờ leo xong mới hiện. Quái các bậc dùng chỉ số sẵn có, không rơi đồ (loot 0): món đồ duy nhất là phần thưởng của bậc. Bậc 1: một Mộc linh thường (40 máu, đánh thường 7–8 mỗi nhát: khoảng 6 nhát, không tự đánh người). Bậc 2: ba con nhiễm ma khí như vòng ngoài tinh cầu (mul 1,5 + tag Ma nhiễm: 60 máu, công 7,5, quầng tím dưới chân), mạnh hơn bậc 1 một chút; vẫn là quái hiền (bị đánh mới cắn lại): thử cho chúng tự lao vào người (14/11/2026) thì người mới đứng đọc màn hình 20 giây là gục ngay phút đầu. Trong chặng leo bậc người chơi không gục được (nodeath: máu dừng ở 1; từ 15/11/2026 giữ tới hết trận Huyết Nha vì quái từ bậc 4 đã trâu hơn), hết chặng (bước nv-5-ve) trả lại như thường. Pháp bảo Phi Kiếm (trước tự có từ giây đầu) thành phần thưởng của bậc 2 (lệnh phap_bao), nên hai bậc đầu chỉ có đánh thường. Quà của bậc có màu dòng định sẵn (reward.tier: 0 lục Phàm → 6 đen Thượng Cổ), bậc sau cao hơn bậc trước để nghi lễ lớn dần; quà truyện thường (không có tier) vẫn bốc màu ngẫu nhiên như cũ. Sáu bậc (so: số bậc chung cả chặng, tong: tổng): 1–2 ở làng Thanh Khê; 3 đánh lui ma tộc (truoc nv-3-bay: bốn Tiểu ma rồi một con đầu đàn nhiễm ma khí 120 máu, công 8 (thử 150 máu, công 10: người chơi kịch bản không dùng Phi Kiếm còn 23% máu)) → mũ + Lam Ngọc; 4 nhận binh khí rồi thử trên năm Tiểu ma nhiễm ma khí bám theo lên núi (truoc nv-3; từ 15/11/2026 mỗi con 84 máu, công 6: tay không (mỗi nhát 8–9) phải chín mười nhát, có kiếm (mỗi nhát 15–26 tuỳ dòng chỉ số của món vừa nhận) còn bốn năm nhát, vừa thấy binh khí mạnh vừa vẫn phải đánh; trước đó 30 máu, một hai nhát là tan, cả năm con hết trong 2,4 giây; thử 120 máu thì bảy tới chín nhát một con, năm con mất 20 giây, dài quá. Chủ dự án 14/11/2026 23:25 duyệt việc 6 dòng 18e) → giày, mở Tự đánh (cờ bac-mo-danh); 5 dọn hai phòng đầu bí cảnh (truoc bi-canh, until kill '*': con nào cũng tính) → nhẫn + Hoàng Ngọc; 6 hạ Phân thân Huyết Nha (buoc bi-canh: bước truyện tự là một bậc) → pháp bảo Linh Châu, mở Tự hành (cờ bac-mo-hanh), hết chặng (cờ bac-xong: các mốc pháp bảo đã qua được nhận bù). Quà các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ: không phát thêm món nào. text.lock_danh / lock_hanh: lời nhắc khi bấm Tự đánh / Tự hành lúc chưa mở.",
+  "_note": "Chặng leo bậc đầu game (docs/10-CAI-HON.md việc 5; src/game/story.js, thẻ nhiệm vụ src/ui/nv-hud.js (trước 21/11/2026 là thẻ bậc bac-hud.js)). Bật cho người mới từ 14/11/2026 (chủ dự án 11:05 \"Đưa lên… rất thích cách thiết kế\", 11:27 \"bạn xem hợp lý thì làm, vài tiếng tới tự do quyết định\"). on: bật cho người mới (riêng một máy tắt bằng địa chỉ có ?bac=0, bật lại ?bac=1). truoc: các bậc chạy lần lượt TRƯỚC một bước truyện, số bước truyện đứng yên (mỗi bậc: id, do, goal, until như một bước; thuong: món sẽ nhận khi xong bậc, hiện trên thẻ bậc). thay: phần mở đầu (do) thay cho bước truyện khi người chơi đã leo bậc: lời thoại khớp với việc vừa đánh xong, quà không trùng quà của các bậc. Đang leo bậc thì chưa dùng Tự hành, Tự đánh (text.lock) và bảng chào của Hệ Thống chờ leo xong mới hiện. Quái các bậc dùng chỉ số sẵn có, không rơi đồ (loot 0): món đồ duy nhất là phần thưởng của bậc. Bậc 1: một Mộc linh thường (40 máu, đánh thường 7–8 mỗi nhát: khoảng 6 nhát, không tự đánh người). Bậc 2: ba con nhiễm ma khí như vòng ngoài tinh cầu (mul 1,5 + tag Ma nhiễm: 60 máu, công 7,5, quầng tím dưới chân), mạnh hơn bậc 1 một chút; vẫn là quái hiền (bị đánh mới cắn lại): thử cho chúng tự lao vào người (14/11/2026) thì người mới đứng đọc màn hình 20 giây là gục ngay phút đầu. Trong chặng leo bậc người chơi không gục được (nodeath: máu dừng ở 1; từ 15/11/2026 giữ tới hết trận Huyết Nha vì quái từ bậc 4 đã trâu hơn), hết chặng (bước nv-5-ve) trả lại như thường. Pháp bảo Phi Kiếm (trước tự có từ giây đầu) thành phần thưởng của bậc 2 (lệnh phap_bao), nên hai bậc đầu chỉ có đánh thường. Quà của bậc có màu dòng định sẵn (reward.tier: 0 lục Phàm → 6 đen Thượng Cổ), bậc sau cao hơn bậc trước để nghi lễ lớn dần; quà truyện thường (không có tier) vẫn bốc màu ngẫu nhiên như cũ. Sáu bậc (so: số bậc chung cả chặng, tong: tổng): 1–2 ở làng Thanh Khê; 3 đánh lui ma tộc (truoc nv-3-bay: bốn Tiểu ma rồi một con đầu đàn nhiễm ma khí 120 máu, công 8 (thử 150 máu, công 10: người chơi kịch bản không dùng Phi Kiếm còn 23% máu)) → mũ + Lam Ngọc; 4 nhận binh khí rồi thử trên năm Tiểu ma nhiễm ma khí bám theo lên núi (truoc nv-3; từ 15/11/2026 mỗi con 84 máu, công 6: tay không (mỗi nhát 8–9) phải chín mười nhát, có kiếm (mỗi nhát 15–26 tuỳ dòng chỉ số của món vừa nhận) còn bốn năm nhát, vừa thấy binh khí mạnh vừa vẫn phải đánh; trước đó 30 máu, một hai nhát là tan, cả năm con hết trong 2,4 giây; thử 120 máu thì bảy tới chín nhát một con, năm con mất 20 giây, dài quá. Chủ dự án 14/11/2026 23:25 duyệt việc 6 dòng 18e) → giày, mở Tự đánh (cờ bac-mo-danh); 5 dọn hai phòng đầu bí cảnh (truoc bi-canh, until kill '*': con nào cũng tính) → nhẫn + Hoàng Ngọc; 6 hạ Phân thân Huyết Nha (buoc bi-canh: bước truyện tự là một bậc) → pháp bảo Linh Châu, mở Tự hành (cờ bac-mo-hanh), hết chặng (cờ bac-xong: các mốc pháp bảo đã qua được nhận bù). Quà các bậc là đúng những món truyện cũ vẫn phát (đạo bào, mũ, giày, nhẫn, ngọc, Phi Kiếm, Linh Châu), chỉ dời sang sau trận đánh và thêm nghi lễ: không phát thêm món nào. text.lock_danh / lock_hanh: lời nhắc khi bấm Tự đánh / Tự hành lúc chưa mở.",
   "on": true,
   "text": {
-   "chip": "Bậc {i}/{n}",
-   "reward": "Thưởng",
    "lock_danh": "Chặng mở đầu: tự tay đánh đã. Lên tông môn nhận binh khí, thử xong là có Tự đánh.",
    "lock_hanh": "Chặng mở đầu: tự tay đi và đánh đã. Hạ Huyết Nha xong, Hệ Thống mở Tự hành."
   },
@@ -52,7 +50,8 @@
       "n": 1
      },
      "thuong": "bo-y",
-     "so": 1
+     "so": 1,
+     "ten": "Con Mộc linh đầu tiên"
     },
     {
      "id": "bac-2",
@@ -108,7 +107,8 @@
      "thuong": {
       "pb": "phi-kiem"
      },
-     "so": 2
+     "so": 2,
+     "ten": "Ma khí"
     }
    ],
    "nv-3-bay": [
@@ -135,7 +135,8 @@
       "kill": "ma-tieu",
       "n": 4
      },
-     "thuong": "bo-can"
+     "thuong": "bo-can",
+     "ten": "Giữ làng"
     },
     {
      "id": "bac-3b",
@@ -172,7 +173,8 @@
       "kill": "ma-tieu",
       "n": 1
      },
-     "thuong": "bo-can"
+     "thuong": "bo-can",
+     "ten": "Con đầu đàn"
     }
    ],
    "nv-3": [
@@ -238,7 +240,8 @@
       "kill": "ma-tieu",
       "n": 5
      },
-     "thuong": "bo-hai"
+     "thuong": "bo-hai",
+     "ten": "Thử binh khí"
     }
    ],
    "bi-canh": [
@@ -256,7 +259,8 @@
       "n": 9,
       "in": "bi-canh"
      },
-     "thuong": "thiet-gioi"
+     "thuong": "thiet-gioi",
+     "ten": "Hai phòng quái"
     }
    ]
   },
@@ -549,7 +553,8 @@
      18
     ],
     "r": 2
-   }
+   },
+   "ten": "Lễ thức tỉnh"
   },
   {
    "id": "chon-he",
@@ -620,7 +625,8 @@
    "goal": "Nói chuyện với {sư tỷ Lạc Tuyết|sư huynh Tiêu Dao}",
    "until": {
     "talk": "{lac-tuyet|tieu-dao}"
-   }
+   },
+   "ten": "Người dẫn đường"
   },
   {
    "id": "nv-1",
@@ -656,11 +662,12 @@
      ]
     }
    ],
-   "goal": "Việc 1/5: Hái linh thảo cho {Lạc Tuyết|Tiêu Dao} ({n}/3)",
+   "goal": "Hái linh thảo cho {Lạc Tuyết|Tiêu Dao} ({n}/3)",
    "until": {
     "collect": "linh-thao",
     "n": 3
-   }
+   },
+   "ten": "Ba nhánh linh thảo"
   },
   {
    "id": "nv-2",
@@ -716,10 +723,11 @@
      "spread": 2
     }
    ],
-   "goal": "Việc 2/5: Đánh lui ma tộc",
+   "goal": "Đánh lui ma tộc",
    "until": {
     "kill_all": true
-   }
+   },
+   "ten": "Ma tộc tới làng"
   },
   {
    "id": "nv-3-bay",
@@ -820,11 +828,12 @@
      ]
     }
    ],
-   "goal": "Việc 3/5: Đả tọa tới Luyện Khí tầng 2",
+   "goal": "Đả tọa tới Luyện Khí tầng 2",
    "target": "da-toa",
    "until": {
     "layer": 2
-   }
+   },
+   "ten": "Hơi thở đầu tiên"
   },
   {
    "id": "nv-4",
@@ -859,20 +868,22 @@
      "flag": "mo-bi-canh"
     }
    ],
-   "goal": "Việc 4/5: Vào Bí cảnh Huyết Nha (cổng đông nam, sau chợ)",
+   "goal": "Vào Bí cảnh Huyết Nha (cổng đông nam, sau chợ)",
    "target": "bi-canh",
    "until": {
     "map": "bi-canh"
-   }
+   },
+   "ten": "Bí cảnh Huyết Nha"
   },
   {
    "id": "bi-canh",
    "map": "bi-canh",
    "do": [],
-   "goal": "Việc 4/5: Dọn từng phòng, hạ Huyết Nha",
+   "goal": "Dọn từng phòng, hạ Huyết Nha",
    "until": {
     "boss_dead": true
-   }
+   },
+   "ten": "Huyết Nha"
   },
   {
    "id": "nv-5-ve",
@@ -916,10 +927,11 @@
      ]
     }
    ],
-   "goal": "Việc 5/5: Gặp {sư tỷ Lạc Tuyết|sư huynh Tiêu Dao}",
+   "goal": "Gặp {sư tỷ Lạc Tuyết|sư huynh Tiêu Dao}",
    "until": {
     "talk": "{lac-tuyet|tieu-dao}"
-   }
+   },
+   "ten": "Trở về"
   },
   {
    "id": "bi-bat",
@@ -1074,10 +1086,650 @@
      "dark": 0
     }
    ],
-   "goal": "Làm nhiệm vụ hệ thống (biểu tượng Hệ), mạnh lên để có ngày đối đầu Đại Ma Thần",
+   "goal": "Gặp trưởng lão Vân Hạc trước Thiên Kiếm Điện",
+   "until": {
+    "talk": "van-hac"
+   },
+   "ten": "Ở lại",
+   "once": true,
+   "target_map": "thien-kiem-phong",
+   "ten_neu": [
+    "!{lac-tuyet-vang|tieu-dao-vang}",
+    "Trưởng lão gọi"
+   ]
+  },
+  {
+   "id": "nv-chuong",
+   "once": true,
+   "ten": "Tiếng chuông",
+   "do": [
+    {
+     "neu": "{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "van-hac",
+       "Bàn tay ấy không giết ai. Nó giữ. Người bị giữ vẫn còn đó, chỉ là chưa về được."
+      ]
+     ]
+    },
+    {
+     "neu": "{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "van-hac",
+       "Ở tông môn ta, ai có người bị giữ thì gióng một tiếng chuông. Người ở xa nghe thấy, sẽ biết lối về. Chuông ở góc sân kia."
+      ]
+     ]
+    },
+    {
+     "neu": "!{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "van-hac",
+       "Ngươi tới đúng lúc. Ma tộc không giết người chúng bắt. Chúng giữ. Người bị giữ vẫn còn đó, chỉ là chưa về được."
+      ]
+     ]
+    },
+    {
+     "neu": "!{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "van-hac",
+       "Lão cần một người đi tìm họ. Tông môn ta có lệ: ai lên đường tìm người thì gióng một tiếng chuông trước. Chuông ở góc sân kia."
+      ]
+     ]
+    }
+   ],
+   "goal": "Gióng chuông ở góc sân tông môn",
+   "target_map": "thien-kiem-phong",
+   "target": [
+    58,
+    49
+   ],
+   "until": {
+    "reach": [
+     58,
+     49
+    ],
+    "r": 2,
+    "nut": "Gióng chuông"
+   }
+  },
+  {
+   "id": "nv-hoi-duong",
+   "once": true,
+   "ten": "Hỏi đường",
+   "do": [
+    {
+     "canh": {
+      "tieng": "chuong",
+      "rung": 2,
+      "fx": "chuong",
+      "tai": [
+       56,
+       47.3
+      ],
+      "mau": "#ffd98a",
+      "cho": 0.9
+     }
+    },
+    {
+     "chu": {
+      "ky": true,
+      "cau": [
+       "Chuông ngân một tiếng,",
+       "người đi xa biết lối về."
+      ],
+      "mau": "#ffd98a",
+      "giu": 2.4,
+      "cho": 3.3
+     }
+    },
+    {
+     "flag": "da-giong-chuong"
+    },
+    {
+     "say": [
+      [
+       "",
+       "Tiếng chuông lan qua sân, qua cổng, ra tận mép tinh cầu."
+      ]
+     ]
+    },
+    {
+     "neu": "{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "he-thong",
+       "Bổn hệ thống ghi rồi: một tiếng chuông, gửi {Lạc Tuyết|Tiêu Dao}."
+      ]
+     ]
+    },
+    {
+     "neu": "mat-tieu-hoa",
+     "say": [
+      [
+       "he-thong",
+       "...Gửi cả thằng bé tóc đỏ nữa."
+      ]
+     ]
+    },
+    {
+     "neu": "!{lac-tuyet-vang|tieu-dao-vang}",
+     "say": [
+      [
+       "he-thong",
+       "Bổn hệ thống ghi rồi: một tiếng chuông, gửi những người chưa về."
+      ]
+     ]
+    }
+   ],
+   "goal": "Hỏi trưởng lão Vân Hạc phải tìm ở đâu",
+   "target_map": "thien-kiem-phong",
+   "until": {
+    "talk": "van-hac"
+   }
+  },
+  {
+   "id": "nv-dau-vet",
+   "once": true,
+   "ten": "Dấu vết",
+   "do": [
+    {
+     "say": [
+      [
+       "van-hac",
+       "Trước khi chỉ đường, lão hỏi một câu."
+      ]
+     ]
+    },
+    {
+     "hoi": {
+      "q": "“Ngươi đứng đây vì ai?”",
+      "ai": "van-hac",
+      "opts": [
+       {
+        "label": "Vì người đang bị giữ",
+        "flag": "vi-ai-nguoi",
+        "reply": "Tốt. Có người để tìm thì khó gục."
+       },
+       {
+        "label": "Vì những người ở sau lưng ta",
+        "flag": "vi-ai-sau-lung",
+        "reply": "Câu ấy ai cũng nói được. Tới lúc phải đứng chắn thật, mới biết có giữ nổi không."
+       },
+       {
+        "label": "Vì chính ta",
+        "flag": "vi-ai-minh",
+        "reply": "Thật thà. Sợ chết cũng là một lý do. Rồi ngươi sẽ có lý do khác."
+       }
+      ],
+      "im": "Chưa đáp được cũng không sao. Đi rồi sẽ biết."
+     }
+    },
+    {
+     "say": [
+      [
+       "van-hac",
+       "Con ma ngươi hạ trong Bí cảnh Huyết Nha chỉ là cái bóng. Thân thật của nó nằm trong Hỏa Quật, ở Xích Diễm Tinh."
+      ]
+     ]
+    },
+    {
+     "neu": "mat-tieu-hoa",
+     "say": [
+      [
+       "van-hac",
+       "Chính nó dẫn bầy ma tới làng ngươi. Người bị giữ được đưa đi đâu, nó biết."
+      ]
+     ]
+    },
+    {
+     "neu": "!mat-tieu-hoa",
+     "say": [
+      [
+       "van-hac",
+       "Nó là kẻ đi bắt người cho Ma tộc. Người bị giữ được đưa đi đâu, nó biết."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Pháp trận giữa quảng trường đưa ký chủ tới Xích Diễm Tinh được. Đi thôi, tiếng chuông còn chưa tan."
+      ]
+     ]
+    }
+   ],
+   "goal": "Qua pháp trận, bay tới Xích Diễm Tinh",
+   "target_map": "thien-kiem-phong",
+   "target": "phap-tran",
+   "until": {
+    "map": "dao-xich-dien"
+   }
+  },
+  {
+   "id": "nv-lao-thiet",
+   "once": true,
+   "ten": "Người thợ rèn",
+   "do": [
+    {
+     "say": [
+      [
+       "",
+       "Đất ở đây nóng dưới chân. Xa xa, dung nham sáng như than hồng."
+      ]
+     ]
+    }
+   ],
+   "goal": "Tìm Lão Thiết, người thợ rèn bên trống lửa",
+   "target_map": "dao-xich-dien",
+   "until": {
+    "talk": "lao-thiet"
+   }
+  },
+  {
+   "id": "nv-hoa-thach",
+   "once": true,
+   "ten": "Hỏa tinh thạch",
+   "do": [
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Tìm Huyết Nha à? Thợ săn làng ta vào Hỏa Quật mười một người, chưa ai về."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Làng có lệ: ai vào quật, lưỡi {kiếm|liềm} phải qua lửa làng trước. Nhặt về đây ba viên hỏa tinh thạch, lão nhóm lò cho."
+      ]
+     ]
+    },
+    {
+     "pickups": "hoa-tinh-thach",
+     "at": [
+      [
+       27,
+       41
+      ],
+      [
+       39,
+       34
+      ],
+      [
+       52,
+       37
+      ]
+     ]
+    }
+   ],
+   "goal": "Nhặt hỏa tinh thạch bên bờ dung nham ({n}/3)",
+   "target_map": "dao-xich-dien",
+   "until": {
+    "collect": "hoa-tinh-thach",
+    "n": 3
+   }
+  },
+  {
+   "id": "nv-toi-luoi",
+   "once": true,
+   "ten": "Qua lửa",
+   "do": [],
+   "goal": "Mang hỏa tinh thạch về cho Lão Thiết",
+   "target_map": "dao-xich-dien",
+   "until": {
+    "talk": "lao-thiet"
+   }
+  },
+  {
+   "id": "nv-the-ten",
+   "once": true,
+   "ten": "Thẻ tên",
+   "do": [
+    {
+     "canh": {
+      "tieng": "anvil",
+      "fx": "vong",
+      "mau": "#ff9a3a",
+      "cho": 0.5
+     }
+    },
+    {
+     "canh": {
+      "tieng": "anvil",
+      "cho": 0.45
+     }
+    },
+    {
+     "canh": {
+      "tieng": "anvil",
+      "chop": 1,
+      "cho": 0.6
+     }
+    },
+    {
+     "say": [
+      [
+       "",
+       "Lão Thiết vùi lưỡi {kiếm|liềm} vào lửa, gõ ba nhát. Lưỡi thép đỏ lên, rồi sẫm lại."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Xong. Còn một lệ nữa. Cầm tấm thẻ gỗ này, lão khắc tên ngươi rồi. Vào quật thì đặt lên bàn lễ ở cửa, ra thì lấy lại."
+      ]
+     ]
+    }
+   ],
+   "goal": "Đặt thẻ tên lên bàn lễ trước cửa Hỏa Quật",
+   "target_map": "dao-xich-dien",
+   "target": [
+    48,
+    33
+   ],
+   "until": {
+    "reach": [
+     48,
+     33
+    ],
+    "r": 2,
+    "nut": "Đặt thẻ"
+   }
+  },
+  {
+   "id": "nv-hoa-quat",
+   "once": true,
+   "ten": "Món nợ Huyết Nha",
+   "do": [
+    {
+     "flag": "dat-the-ten"
+    },
+    {
+     "canh": {
+      "tieng": "click",
+      "cho": 0.5
+     }
+    },
+    {
+     "say": [
+      [
+       "",
+       "Trên bàn lễ có một hàng nến đỏ. Dưới chân nến là mười một tấm thẻ gỗ, chưa ai tới lấy lại."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "Mười một cái tên. Bổn hệ thống chép cả rồi. ...Tấm của ký chủ, lát nhớ ra mà lấy."
+      ]
+     ]
+    }
+   ],
+   "goal": "Vào Hỏa Quật, hạ Huyết Nha",
+   "target_map": "dao-xich-dien",
+   "target": [
+    46,
+    31
+   ],
+   "until": {
+    "kill": "huyet-nha-that",
+    "n": 1,
+    "in": "hoa-quat"
+   }
+  },
+  {
+   "id": "nv-vat-roi",
+   "once": true,
+   "ten": "Vật rơi lại",
+   "do": [
+    {
+     "canh": {
+      "toi": 0.45,
+      "cho": 0.8
+     }
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "...Ký chủ. Lúc nó gục, có vật này rơi ra."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "",
+       "Một con dao săn mòn vẹt. Trên sống dao khắc một cái tên: A Lực."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "A Lực. Bổn hệ thống vừa chép cái tên ấy xong. Nó nằm trên bàn lễ ngoài kia."
+      ]
+     ]
+    }
+   ],
+   "goal": "Ra bàn lễ, lấy lại thẻ tên của mình",
+   "target_map": "dao-xich-dien",
+   "target": [
+    48,
+    33
+   ],
+   "until": {
+    "reach": [
+     48,
+     33
+    ],
+    "r": 2,
+    "nut": "Lấy lại thẻ"
+   }
+  },
+  {
+   "id": "nv-dau-bua",
+   "once": true,
+   "ten": "Dấu búa",
+   "do": [
+    {
+     "unflag": "dat-the-ten"
+    },
+    {
+     "canh": {
+      "toi": 0.5,
+      "fx": "dom",
+      "tai": [
+       47.8,
+       30.6
+      ],
+      "tieng": "sparkle",
+      "cho": 1.3
+     }
+    },
+    {
+     "flag": "a-luc-ve"
+    },
+    {
+     "say": [
+      [
+       "",
+       "Bạn lấy lại tấm thẻ của mình. Trên bàn còn mười một tấm. Cây nến trước tấm khắc tên A Lực tự sáng lên."
+      ]
+     ]
+    },
+    {
+     "chu": {
+      "ky": true,
+      "cau": [
+       "A Lực, thợ săn Xích Diễm.",
+       "Đã về."
+      ],
+      "mau": "#ffb060",
+      "giu": 2.6,
+      "cho": 3.6
+     }
+    }
+   ],
+   "goal": "Đưa con dao cho Lão Thiết xem",
+   "target_map": "dao-xich-dien",
+   "until": {
+    "talk": "lao-thiet"
+   }
+  },
+  {
+   "id": "nv-nguoi-o-lai",
+   "once": true,
+   "ten": "Người ở lại",
+   "do": [
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Dấu búa này của lão. Lão rèn con dao cho A Lực năm nó mười sáu."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Ma tộc không giết thợ săn làng ta. Chúng giữ lại, rồi dùng."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-thiet",
+       "Chuôi dao có chữ, không phải lão khắc: “Hắc Phong”. ...Mang dao về cho cha nó đi. Lão Than, ở cuối làng."
+      ]
+     ]
+    }
+   ],
+   "goal": "Mang con dao tới cho Lão Than ở cuối làng",
+   "target_map": "dao-xich-dien",
+   "until": {
+    "talk": "lao-than"
+   }
+  },
+  {
+   "id": "nv-tang-chin",
+   "once": true,
+   "ten": "Đường tới Hắc Phong",
+   "do": [
+    {
+     "canh": {
+      "toi": 0.35,
+      "cho": 0.9
+     }
+    },
+    {
+     "say": [
+      [
+       "",
+       "Lão Than cầm con dao rất lâu, không nói gì."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-than",
+       "Nhà cháy rồi ta vẫn không đi. Sợ nó về, không thấy ai."
+      ]
+     ]
+    },
+    {
+     "say": [
+      [
+       "lao-than",
+       "Giờ nó về rồi. ...Đêm nay ta ngủ được."
+      ]
+     ]
+    },
+    {
+     "flag": "dao-ve-cha"
+    },
+    {
+     "canh": {
+      "toi": 0,
+      "cho": 0.8
+     }
+    },
+    {
+     "say": [
+      [
+       "he-thong",
+       "...Hắc Phong Tinh, ký chủ. Người bị giữ được đưa tới đó."
+      ],
+      [
+       "he-thong",
+       "Mạch dẫn tới đấy chạy qua Hàn Băng Tinh. Cái lạnh ở đó, Luyện Khí tầng chín mới chịu nổi."
+      ]
+     ]
+    }
+   ],
+   "goal": "Tu luyện tới Luyện Khí tầng 9",
+   "until": {
+    "layer": 9
+   }
+  },
+  {
+   "id": "con-tiep",
+   "once": true,
+   "do": [
+    {
+     "say": [
+      [
+       "he-thong",
+       "Đủ sức chịu lạnh rồi. ...Hàn Băng Tinh chờ ký chủ đấy. Bổn hệ thống đang chép tiếp, đừng đi đâu xa."
+      ]
+     ]
+    }
+   ],
    "until": {
     "never": true
    }
+  }
+ ],
+ "nv_text": {
+  "chip": "Nhiệm vụ {so}",
+  "reward": "Thưởng"
+ },
+ "mo_dau": "bi-bat",
+ "mo_dau_co": "{lac-tuyet-vang|tieu-dao-vang}",
+ "dau": [
+  {
+   "co": "dat-the-ten",
+   "map": "dao-xich-dien",
+   "at": [
+    48.95,
+    31.05
+   ],
+   "kieu": "the",
+   "mau": "#e8c890"
+  },
+  {
+   "co": "a-luc-ve",
+   "map": "dao-xich-dien",
+   "at": [
+    47.78,
+    30.2
+   ],
+   "kieu": "nen",
+   "mau": "#ffb060"
   }
  ]
 }

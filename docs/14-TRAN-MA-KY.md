@@ -6,8 +6,8 @@ sửa toàn bộ nội dung truyện trong game… quan trọng nhất vẫn là
 cấp, nói chung là đánh thẳng vào tâm lý người chơi làm họ cảm thấy vui, thấy tiến bộ, thấy yêu mến k nỡ rời và thấy được ý nghĩa game."
 
 Tệp này có hai phần. **Phần A** là bản thiết lập (thế giới, khẩu quyết, cấm kỵ, cốt truyện, nhịp truyện), chép từ trang chủ dự án đã đọc:
-https://claude.ai/artifact/UnQieV9DfQx1o45xYrhTAg. **Phần B** là những gì đã dựng vào game ngày 21/11/2026, nó chạy thế nào, và việc còn chờ chủ dự án chốt.
-Sửa lời truyện thì sửa ở `data/tran-ma-ky.json` (các trang) và `data/story.json` (phần mở đầu), rồi cập nhật lại tệp này.
+https://claude.ai/artifact/UnQieV9DfQx1o45xYrhTAg. **Phần B** là cách truyện đang nằm trong game: một chuỗi nhiệm vụ chính 1 → N, viết lại lần hai sau khi chủ
+dự án bác cách làm đầu tiên (cuốn sổ bảy quyển) lúc 08:46–08:51 cùng ngày. Sửa lời truyện, viết nhiệm vụ mới: `data/story.json`, rồi cập nhật lại tệp này.
 
 # Phần A. Bản thiết lập
 
@@ -333,10 +333,13 @@ Từ đó Hệ Thống đổi luật: không cho không nữa. Ký chủ phải 
    - Ma Tổ vẫn ra quả mỗi tuần, mỗi quả là một Ma Vương trấn Phương Thiên Địa. Cửu Đầu Thôn Thiên Mãng vẫn thức mỗi tối. Và ở rất xa, Đại Ma Thần, ký chủ đầu tiên, vẫn giữ những người hắn không nỡ buông.
    - Lời hứa của truyện: một ngày kết giới không cần dệt nữa, ánh sáng của Linh Nhật được về nhà, và tinh hệ có bình minh đầu tiên. Lời hứa này không cần trả sớm. Nó là hướng đi.
 
-**Trong game (phần B) hai nhịp đổi chỗ so với bản trên.** Kim Đan là điều kiện vào Thanh Mộc Tinh và Nguyên Anh là điều kiện vào Hậu Thổ Tinh
-(`data/realms.json` → `map_open`), nên trang "Kết hạt" MỞ ĐẦU quyển ba và trang "Làng còn không" (kết anh) MỞ ĐẦU quyển năm, không phải kết quyển. Khai
-Hoang trong game mở từ Trúc Cơ (tông chủ), truyện chỉ cho nó thêm nghĩa ở quyển bảy. Năm người mang linh căn thuần gọi là năm "chìa khoá sống" (Tiểu Hỏa là
-chìa Hỏa nên bị bắt đầu tiên); "người giữ rễ" chỉ còn dùng cho người canh rễ như Thực Mộc Ma Hậu thuở trước.
+**Trong game (phần B) bảy quyển này KHÔNG hiện thành chương.** Chủ dự án 21/11/2026 08:49: "không phải phân theo từng chương, nhưng có thể phân theo nhiệm vụ từ 1
+đến N". Bảy quyển chỉ là bản đồ để người viết biết truyện đang ở đâu; người chơi chỉ thấy nhiệm vụ nối nhiệm vụ. Thứ tự các nhịp đi theo cổng thật của game
+(`data/realms.json` → `map_open`, tính bằng tổng số tầng): Xích Diễm mở ngay sau phần mở đầu, Hàn Băng ở Luyện Khí tầng 9, Hắc Phong ở Trúc Cơ tầng 4, Thanh Mộc ở Trúc
+Cơ tầng 9, Thiên Kim ở Kim Đan tầng 6, Hậu Thổ ở Kim Đan tầng 9, Ngoại Vực Vết Nứt ở Nguyên Anh tầng 3. Vì thế lễ Trúc Cơ rơi vào GIỮA quyển hai (sau Hàn Băng, trước Hắc
+Phong) chứ không kết quyển; "Kết hạt" và "Làng còn không" cũng đứng ở cửa tinh cầu mà cảnh giới ấy mở ra. Khai Hoang trong game mở từ Trúc Cơ (tông chủ), truyện chỉ
+cho nó thêm nghĩa ở quyển bảy. Năm người mang linh căn thuần gọi là năm "chìa khoá sống" (Tiểu Hỏa là chìa Hỏa nên bị bắt đầu tiên); "người giữ rễ" chỉ còn dùng cho
+người canh rễ như Thực Mộc Ma Hậu thuở trước.
 
 ### Hệ Thống là một nhân vật
 
@@ -429,119 +432,162 @@ Nếu muốn cấm kỵ thành chiêu chơi được, chỗ hợp nhất là m�
 
 Lời hứa bình minh ở quyển 7 chỉ nằm trong truyện. Nó không đổi quy định hình ảnh “không có ánh mặt trời” bạn đã chốt.
 
-# Phần B. Đã dựng vào game (21/11/2026)
+# Phần B. Đã dựng vào game (21/11/2026, bản thứ hai: truyện là chuỗi nhiệm vụ chính)
 
-Chủ dự án (docs/10-CAI-HON.md): "cốt truyện chạy quá nhanh, chữ tự động lướt qua căn bản không ai đọc được", "cốt truyện bằng chữ mà không có ảnh hay hiệu ứng
-hoặc âm thanh thì chả bao giờ động vào trái tim mọi người", "quan trọng là cảm xúc và đồ hoạ bắt mắt, dễ kiểm soát và nắm tiến độ". Nên truyện không dựng thành
-phim dài. Nó chia thành **32 trang ngắn** (mỗi trang 3 tới 6 câu, có tiếng, có hiệu ứng, có nhịp lặng), trang nào cũng mở ra **đúng lúc người chơi vừa làm được
-việc ấy**, đọc xong thì **được mừng**, và mọi thứ nằm trong **một cuốn sổ có thanh tiến độ**. Không trang nào phát thưởng, không trang nào chặn đường chơi.
+## Vì sao có bản thứ hai
 
-## Người chơi gặp truyện ở năm chỗ
+Bản thứ nhất (đêm 21/11, 03:47 → 08:46) dựng truyện thành **một cuốn sổ** trong Hệ Thống → Tàng Thư: bảy quyển, 32 trang, thẻ mở / khép quyển, trang tự kể, khẩu
+quyết hiện trong bong bóng trên đầu nhân vật. Chủ dự án xem clip và bác (08:46–08:51):
+
+- "giống như lắp thêm 1 cái ghế và gương bằng mô hình logo lên chiếc xe ô tô vậy, chả khớp và liên quan gì cả? B có thực sự đang viết truyện k? Hay là đang phân tích
+  sau đó bê cả mảng vào? Sao lại dùng những quy tắc ngốc nghếch lối mòn nào đó để làm game vậy?"
+- "B có từng nghĩ người chơi sẽ cảm thấy thế nào khi đọc đc mấy cái khẩu quyết một cách lô thiển như vậy, lại còn lâm, khởi. Có thể tạo hiệu ứng thành hàng chữ to
+  bên trái màn hình mà, chat thế có ng đọc đc k. Và mục tàng thư, cậu nghĩ là nên để toàn bộ viết vào đó k?"
+- "Tôi chưa ưng, tôi muốn sự kết hợp hài hoà, k phải phân theo từng chương, nhưng có thể phân theo nhiệm vụ từ 1 đến N."
+- "Và nó phải thật sự hài hoà, từ từ hoà vào game, nhẹ nhàng, từ từ tiếp cận và truyền đạt một cách rõ ràng, có thể tự thiết kế bảng mới, hiệu ứng mới."
+
+Bài học ghi lại cho lần sau: **truyện không phải thứ để đọc trong một bảng. Truyện là việc người chơi làm.** Cuốn sổ, bảy quyển, thẻ quyển đã gỡ hết khỏi game
+(các tệp `he-thong-ky.js`, `the-quyen.js`, `khau-quyet.js` đã xoá). Phần A (bản thiết lập) giữ nguyên: nó là xương sống để viết nhiệm vụ.
+
+## Năm điều bản này theo
+
+1. **Truyện là nhiệm vụ 1 → N.** Mỗi nhiệm vụ là MỘT việc làm trong thế giới (gặp một người, gióng một quả chuông, nhặt ba viên đá, hạ một con trùm) và chỉ mang MỘT ý
+   của truyện. Không chia chương, không có màn mở / khép.
+2. **Không ai đứng giảng.** Cảnh sau mỗi việc nhiều nhất ba, bốn câu ngắn. Điều quan trọng để người chơi tự ghép: mười một tấm thẻ gỗ không ai lấy lại, con dao có
+   dấu búa của chính người thợ rèn, một ông già không chịu rời cái nhà đã cháy.
+3. **Việc tay.** Chỗ nào được thì người chơi tự tay làm: tới nơi rồi nút hành động đổi thành "Gióng chuông", "Đặt thẻ", "Lấy lại thẻ". Bấm là có tiếng, có hình ngay.
+4. **Trấn Ma Kỷ hiện ra đúng lúc việc xảy ra.** Cuốn sổ của Hệ Thống không nằm trong bảng nào. Khi một việc đáng chép xảy ra, một hàng chữ lớn hiện bên trái màn
+   chơi, trên có nhãn nhỏ "Trấn Ma Kỷ chép", và biểu tượng Hệ Thống bay tới đậu cạnh dòng ấy như người cầm bút. Khẩu quyết pháp bảo dùng chung kiểu chữ này.
+5. **Truyện chờ người chơi.** Việc vừa xong thì thẻ nhiệm vụ đánh dấu ✓, rồi truyện đợi tới khi màn chơi lặng (không bảng nào mở, không thẻ mừng, không đang tải,
+   không tắt màn treo máy) mới diễn cảnh kế. Hạ trùm xong người chơi cứ xem đồ rơi cho đã; đóng bảng rồi Hệ Thống mới lên tiếng.
+
+## Người chơi gặp truyện ở những chỗ nào
 
 | Chỗ | Người chơi thấy gì | Tệp |
 |---|---|---|
-| Lời mở đầu (11 bước truyện cũ) | Lời thoại viết lại theo thế giới mới: "ghép xong vào thân xác mới", "Rễ đã nối với Cây", Tiểu Hỏa giữ chỗ ở đá linh căn rồi chỉ còn "một chiếc giày nhỏ", Vân Hạc hỏi "ngươi đứng đây vì ai?", bàn tay Đại Ma Thần nói hai chữ "Ở lại", Hệ Thống chép tên ký chủ vào sổ Trấn Ma Kỷ. Số câu ở ba bước đầu giữ nguyên (20/62 người mới từng bỏ ở ba bước đầu) | `data/story.json` |
-| Sổ Trấn Ma Kỷ | Hệ Thống → Tàng Thư → tấm bìa vàng đầu trang: bảy quyển, mỗi quyển đếm trang đã đọc, trang chưa mở ghi rõ "Mở khi: …"; ba mục Chín thiên quy, Khẩu quyết, Cấm Kỵ Các; cuối bìa có nút bật / tắt "trang mới tự kể khi rảnh tay" | `src/ui/he-thong-ky.js` |
-| Trang tự kể | Vừa tới tinh cầu mới, vừa hạ trùm, vừa lên cảnh giới: nếu đang tự tay chơi và rảnh thì cảnh của trang ấy diễn ngay tại chỗ (trang đầu của một quyển có thẻ MỞ QUYỂN cả màn); đọc xong có thẻ mừng trên đầu nhân vật; đọc hết quyển có thẻ KHÉP QUYỂN trả lời câu "Ngươi đứng đây vì ai?" | `src/game/tran-ma-ky.js`, `src/game/tmk-canh.js`, `src/ui/the-quyen.js` |
-| Khẩu quyết | Mỗi lần tụ linh tung pháp bảo, nhân vật hô đoản quyết của món ấy thành bong bóng trên đầu ("Kiếm tới. Trảm!"). Người cùng tinh cầu cũng thấy | `src/game/khau-quyet.js` |
-| Nghi lễ đột phá | Ngay dưới tên cảnh giới có một dòng nói cảnh giới ấy nghĩa là gì ("Trúc Cơ là cắm rễ: từ đây thọ nguyên dài thêm.") rồi mới tới con số | `src/game/len-tang.js` |
+| **Thẻ nhiệm vụ chính** (góc trái, dưới khung nhân vật) | "Nhiệm vụ 17 · Hỏi đường" và việc phải làm, số đếm 1/3. Sang nhiệm vụ mới thẻ trượt vào, con số LĂN từ 16 lên 17. Việc xong: viền vàng, dấu ✓. Chạm thẻ: Tự hành đi làm việc ấy | `src/ui/nv-hud.js`, `.css` |
+| **Nút việc tay** | Đứng đúng chỗ thì nút hành động (chỗ nút Đả tọa / Nói chuyện) đổi thành tên việc. Tự hành tới nơi thì đứng lại 0,9 giây cho người xem thấy nút rồi tự bấm | `src/game/story.js` (`until.nut`, `viec()`), `src/game/interact.js`, `src/game/pilot.js` |
+| **Cảnh sau mỗi việc** | Vài câu thoại, xen giữa là tối màn, rung, tiếng chuông, tiếng búa, đốm sáng, nhịp lặng | lệnh `canh` trong `data/story.json`, `src/game/dan-canh.js` |
+| **Hàng chữ lớn bên trái** | (a) Dòng Trấn Ma Kỷ chép: "Chuông ngân một tiếng, / người đi xa biết lối về.", "A Lực, thợ săn Xích Diễm. / Đã về." (b) Khẩu quyết lúc tung pháp bảo: một câu, chữ lệnh lớn, chữ Hán mờ phía sau | `src/ui/chu-lon.js`, `.css`, `src/ui/he-thong-dao.js` (Hệ Thống bay tới cầm bút) |
+| **Câu hỏi** | Vân Hạc hỏi "Ngươi đứng đây vì ai?", ba cách đáp (hoặc im lặng), ông đáp lại một câu. Lựa chọn ghi thành cờ `vi-ai-*` để truyện về sau nhắc lại; không đổi luật chơi | lệnh `hoi` |
+| **Dấu truyện** | Việc đã làm để lại dấu trên bản đồ của riêng người chơi: tấm thẻ tên nằm trên bàn lễ lúc đang ở trong quật, ngọn nến trước tên A Lực sáng mãi về sau | `data/story.json` → `dau`, `src/game/dau-truyen.js` |
+| **Bảng Hệ Thống → Nhiệm vụ** | Trên cùng là thẻ "Nhiệm vụ chính 17" có nút Dẫn đường và nút Hành trình (danh sách các nhiệm vụ đã qua) | `src/ui/he-thong-nv.js` |
+| **Hệ Thống nhắc** | Người chơi cũ vào game lần đầu thấy thẻ: "Đinh! Trấn Ma Kỷ còn trang trống, ký chủ… Chạm thẻ nhiệm vụ ở góc trái, bổn hệ thống dẫn đường." | `data/he-thong.json` → `nudge.nv_moi`, `src/game/he-thong.js` |
+| **Nhật ký tu tiên** | Ba dòng tự chép: gióng chuông, A Lực đã về, con dao về tay Lão Than | `data/journal.json` → `flags` |
+| **Hỏi đáp** | Câu "Thẻ Nhiệm vụ ở góc trái màn hình là gì?" (nhóm Bắt đầu, điều khiển) | `data/faq.json` |
+| Nghi lễ đột phá, mừng mạnh lên | Giữ từ bản thứ nhất (xem cuối phần này) | `src/game/len-tang.js`, `src/ui/mung-them.js` |
 
-Hỏi đáp có thêm câu "Sổ Trấn Ma Kỷ là gì? Đọc truyện ở đâu?" (`data/faq.json`). Nhật ký tu tiên tự chép một dòng mỗi khi đọc xong một trang (dòng `ghi` của trang).
+## 27 nhiệm vụ đang có
 
-## 32 trang, mở khi nào
+Nhiệm vụ 1 → 14 là phần mở đầu sẵn có (chặng leo bậc và năm việc của người dẫn đường), nay có số và tên trên thẻ; lời thoại đã viết lại theo bản thiết lập từ
+bản thứ nhất, nhịp và phần thưởng không đổi. Nhiệm vụ 15 → 27 là phần viết mới, **không phát thưởng** (thưởng do máy chủ quản, chờ chủ dự án).
 
-| Quyển | Mã | Trang | Mở khi | Kèm theo |
-|---|---|---|---|---|
-| 1 | `q1-1` | Vé một chiều | truyện mở đầu tới bước 1 | truyện chính kể, chép lặng |
-| 1 | `q1-2` | Rễ nối với Cây | truyện mở đầu tới bước 2 | thiên quy Luật Căn, truyện chính kể, chép lặng |
-| 1 | `q1-3` | Chiếc giày nhỏ | truyện mở đầu tới bước 5 | truyện chính kể, chép lặng |
-| 1 | `q1-4` | Ngươi đứng đây vì ai | truyện mở đầu tới bước 6 | truyện chính kể, chép lặng |
-| 1 | `q1-5` | Phân thân | truyện mở đầu tới bước 8 | truyện chính kể, chép lặng |
-| 1 | `q1-6` | Bàn tay xé trời | truyện mở đầu tới bước 10 (xong lời) | truyện chính kể, chép lặng |
-| 2 | `q2-1` | Lò rèn đã cháy | đã tới `dao-xich-dien` |  |
-| 2 | `q2-2` | Món nợ Huyết Nha | hạ `huyet-nha-that` ở `hoa-quat` (người hạ từ trước: tổng tầng tu ≥ 9) | thiên quy Luật Ma |
-| 2 | `q2-3` | Cắm rễ | lên Trúc Cơ | thiên quy Luật Bậc |
-| 2 | `q2-4` | Tuyết lang từng hiền | đã tới `dao-han-bang` |  |
-| 2 | `q2-5` | Mũi kiếm chỉ ra ngoài | hạ `han-hon-ma-tuong` ở `han-bang-quat` (người hạ từ trước: tổng tầng tu ≥ 13) | thiên quy Luật Quy Căn |
-| 2 | `q2-6` | Bát canh cá | đã tới `hac-phong-dao` | thiên quy Luật Trấn |
-| 2 | `q2-7` | Lần này giữ được | hạ `hac-phong-ma-quan` ở `hac-phong-dong` (người hạ từ trước: tổng tầng tu ≥ 18) |  |
-| 3 | `q3-1` | Kết hạt | lên Kim Đan |  |
-| 3 | `q3-2` | Ba nghìn năm, ba ngày | đã tới `dao-moc` | thiên quy Luật Đêm |
-| 3 | `q3-3` | Mùi nắng | đã tới `lang-tinh-linh` | thiên quy Luật Ghép |
-| 3 | `q3-4` | Kẻ gặm rễ | hạ `thuc-moc-ma-hau` ở `co-thu-tam` (người hạ từ trước: tổng tầng tu ≥ 21) | thiên quy Luật Giá |
-| 3 | `q3-5` | Ma cũng biết ghép | hạ `hac-cuc-ma-chung` ở `re-mau-thu` (người hạ từ trước: tổng tầng tu ≥ 24) |  |
-| 4 | `q4-1` | Mỗi thanh kiếm một đời người | đã tới `dao-thien-kim` | thiên quy Luật Tên |
-| 4 | `q4-2` | Năm chìa khoá | đã tới `kiem-trung` |  |
-| 4 | `q4-3` | Kiếm biết nằm yên | hạ `van-kiem-ma-tuong` ở `kiem-trung` (người hạ từ trước: tổng tầng tu ≥ 27) |  |
-| 4 | `q4-4` | Quyển thứ một nghìn | đã đọc q4-3; đang ở `thien-kiem-phong` | mở Cấm Kỵ Các |
-| 5 | `q5-1` | Làng còn không | lên Nguyên Anh |  |
-| 5 | `q5-2` | Khoai nướng | đã tới `dao-hau-tho` |  |
-| 5 | `q5-3` | Mồi | hạ `toai-son-ma-tuong` ở `dia-cung` (người hạ từ trước: tổng tầng tu ≥ 30) |  |
-| 6 | `q6-1` | Cửa ngõ | đã tới `vet-nut-ngoai` |  |
-| 6 | `q6-2` | Người lạ | hạ `hu-khong-nguc-chu` ở `hu-khong-lao` (người hạ từ trước: tổng tầng tu ≥ 36) | người bị bắt trở về |
-| 6 | `q6-3` | Ta ở lại | hạ `ma-ton` ở `vet-nut` (không có lối tắt) | quyển trắng có chữ, có lựa chọn |
-| 6 | `q6-4` | Đi luyện kiếm đi | đã đọc q6-2, q6-3; đang ở `thien-kiem-phong` |  |
-| 7 | `q7-1` | Có đất để trồng hạt | đã đọc q6-4 |  |
-| 7 | `q7-2` | Quả của Ma Tổ | đã tới `phuong-thien-dia` |  |
-| 7 | `q7-3` | Ký chủ đầu tiên | tổng tầng tu 45; đã đọc q7-2 |  |
+| Số | Tên | Việc | Điều xảy ra khi xong |
+|---|---|---|---|
+| 1–2 | Con Mộc linh đầu tiên · Ma khí | Hạ Mộc linh, hạ ba con nhiễm ma khí | (chặng leo bậc sẵn có) |
+| 3–6 | Lễ thức tỉnh · Người dẫn đường · Ba nhánh linh thảo · Ma tộc tới làng | Đá linh căn, gặp người dẫn đường, hái linh thảo, đánh lui ma tộc | Tiểu Hỏa bị bắt, chỉ còn một chiếc giày nhỏ |
+| 7–9 | Giữ làng · Con đầu đàn · Thử binh khí | Ba bậc đánh | Lên Thiên Kiếm Phong, nhận binh khí |
+| 10–14 | Hơi thở đầu tiên · Bí cảnh Huyết Nha · Hai phòng quái · Huyết Nha · Trở về | Đả tọa, vào bí cảnh, hạ cái bóng của Huyết Nha, về gặp người dẫn đường | Bàn tay Đại Ma Thần bắt người ấy đi: "Ở lại." |
+| 15 | Ở lại | Gặp trưởng lão Vân Hạc | "Bàn tay ấy không giết ai. Nó giữ." Tông môn có lệ gióng chuông cho người bị giữ |
+| 16 | Tiếng chuông | Gióng chuông ở góc sân (việc tay) | Chuông ngân, ba vòng sóng lan ra. **Trấn Ma Kỷ chép:** "Chuông ngân một tiếng, người đi xa biết lối về." |
+| 17 | Hỏi đường | Hỏi Vân Hạc phải tìm ở đâu | Ông hỏi lại: "Ngươi đứng đây vì ai?" rồi chỉ tới Hỏa Quật |
+| 18 | Dấu vết | Qua pháp trận, bay tới Xích Diễm Tinh | "Đất ở đây nóng dưới chân." |
+| 19 | Người thợ rèn | Tìm Lão Thiết | "Thợ săn làng ta vào Hỏa Quật mười một người, chưa ai về." Lệ làng: lưỡi phải qua lửa làng |
+| 20 | Hỏa tinh thạch | Nhặt ba viên bên bờ dung nham | |
+| 21 | Qua lửa | Mang về cho Lão Thiết | Ba tiếng búa. Lệ thứ hai: tấm thẻ gỗ khắc tên, vào quật thì đặt lên bàn lễ, ra thì lấy lại |
+| 22 | Thẻ tên | Đặt thẻ tên lên bàn lễ (việc tay) | Trên bàn có mười một tấm thẻ chưa ai tới lấy lại. Hệ Thống: "…Tấm của ký chủ, lát nhớ ra mà lấy." |
+| 23 | Món nợ Huyết Nha | Vào Hỏa Quật, hạ Huyết Nha | (chờ người chơi xem xong đồ rơi) Hệ Thống: "…Lúc nó gục, có vật này rơi ra." Một con dao săn khắc tên A Lực |
+| 24 | Vật rơi lại | Ra bàn lễ, lấy lại thẻ tên (việc tay) | Cây nến trước tấm khắc tên A Lực tự sáng. **Trấn Ma Kỷ chép:** "A Lực, thợ săn Xích Diễm. Đã về." |
+| 25 | Dấu búa | Đưa con dao cho Lão Thiết xem | "Dấu búa này của lão." "Ma tộc không giết thợ săn làng ta. Chúng giữ lại, rồi dùng." Chuôi dao có hai chữ: Hắc Phong |
+| 26 | Người ở lại | Mang con dao tới cho Lão Than | "Nhà cháy rồi ta vẫn không đi. Sợ nó về, không thấy ai." "Giờ nó về rồi. …Đêm nay ta ngủ được." |
+| 27 | Đường tới Hắc Phong | Tu luyện tới Luyện Khí tầng 9 | "Đủ sức chịu lạnh rồi. …Hàn Băng Tinh chờ ký chủ đấy. Bổn hệ thống đang chép tiếp, đừng đi đâu xa." |
 
-Bản đồ viết bằng mã trong `data/maps/`. "Tổng tầng tu" = cảnh giới × 9 + tầng − 1 (Trúc Cơ tầng 1 là 9).
+Đoạn 15 → 27 khớp bản thiết lập thế nào: luật nhịp 3 "thắng không trọn" (Huyết Nha từng là một thợ săn bị giữ), luật 5 "vật nhỏ giữ chuyện lớn" (con dao đi qua bốn
+tay: Hệ Thống, bàn lễ, Lão Thiết, Lão Than; tấm thẻ đặt xuống rồi lấy lại), luật 6 "nói ít hơn một câu" (Lão Than). Mô-típ Tên (thẻ tên, dòng chép), ánh sáng do
+người thắp (ngọn nến), hai chữ "Ở lại" (tên nhiệm vụ 15 là lời của bàn tay, nhiệm vụ 26 là người cha ở lại chờ). Câu thoại sẵn có của Lão Than "đất ở đây ấm, ta
+không đi đâu cả" nay có nghĩa. Ý nghĩa tồn tại "có nơi để về và có người đợi mình về" nằm ngay trong tiếng chuông đầu tiên.
 
-## Luật mở trang và tự kể
+**Lệch so với phần A, theo cổng thật của game:** Hàn Băng Tinh mở ở Luyện Khí tầng 9 và Hắc Phong Tinh mở ở Trúc Cơ tầng 4 (`data/realms.json` → `map_open`), nên đoạn
+này kết ở "tu tới tầng 9 để chịu được cái lạnh Hàn Băng", chưa phải lễ Trúc Cơ. Chặng kế (Hàn Băng: Lão Ngư, Hàn Hồn Ma Tướng đứng gác) nối vào đây.
 
-- **Mở theo việc làm được.** Mỗi giây `src/game/tran-ma-ky.js` xét điều kiện `khi` của từng trang chưa mở. Trùm phải hạ ở đúng bản đồ trang ấy kể (cờ `tmkb-<mã quái>`
-  ghi trong `game.onKill`), vì Ma Vương tuần mượn hình các trùm này ở Phương Thiên Địa. Người đã hạ trùm từ trước ngày có sổ được tính theo tu vi (`hoac`: đã qua
-  mốc mở tinh cầu kế tiếp). Riêng trang "Ta ở lại" không có lối tắt: phải hạ Ma Tôn thật.
-- **Tự kể chỉ khi người chơi rảnh và có mặt.** Rảnh: không hội thoại, không bảng, không bay, không thiên kiếp, không gục, không so tài, truyện chính không chạy,
-  không ở chặng leo bậc, không có trùm còn sống, và đã yên được `auto.wait_s` giây. Có mặt: không Tự đánh, không Tự hành, vừa chạm màn trong `auto.present_s` giây,
-  không đứng cạnh người chơi khác. Hai lần tự kể cách nhau `auto.gap_s` giây. Hội thoại làm thế giới đứng yên nên người đang treo máy không bao giờ bị mở hội
-  thoại: họ chỉ nhận một dòng nhắc của Hệ Thống ("Đinh! Sổ Trấn Ma Kỷ có trang mới: …"), chạm dòng ấy là mở thẳng sổ.
-- **Người chơi cũ.** Lần đầu bản lưu có sổ, mọi trang đã đủ điều kiện được mở sẵn ở dạng chưa đọc, không tự kể dồn dập; sau 20 giây Hệ Thống báo một lần
-  "Ký chủ có N trang chưa đọc". Đọc trong sổ lúc nào cũng được, đọc lại được ("Xem lại" không mừng, không ghi lần nữa).
-- **Quyển một của người mới.** Sáu trang quyển một do truyện mở đầu vừa kể tận nơi nên chép lặng lẽ (`im`), không phát lại. Hết phần mở đầu đã có ba màn nối nhau
-  (bảng chào của Hệ Thống, kết quả bí cảnh, thẻ Hẹn ngày mai), nên quyển một không dựng thêm thẻ khép: Hệ Thống chỉ nhắc một dòng "vừa chép xong quyển một…
-  Quyển kế mở khi: Bay tới Xích Diễm Tinh".
-- **Người chơi tự quyết.** Nút cuối bìa sổ tắt tự kể (cờ `tmk-im`): từ đó chỉ còn dòng nhắc. Riêng một máy tắt cả phần này bằng địa chỉ có `?tmk=0`
-  (bật lại `?tmk=1`); tắt cho mọi người: `data/tran-ma-ky.json` → `on: false`.
-- **Người được cứu trở về.** Đọc xong trang "Người lạ" thì cờ "người ấy vắng" (`lac-tuyet-vang` / `tieu-dao-vang`, do bước cuối truyện mở đầu đặt) được gỡ:
-  Lạc Tuyết / Tiêu Dao đứng lại ở Thiên Kiếm Tinh, thân mật và đạo lữ với người ấy dùng lại được. Trước bản này cờ ấy không có đường gỡ.
+## Hai bản lời: người đã thấy cảnh mở đầu và người chơi cũ
 
-Cờ trong bản lưu (đều nằm trong `save.flags` như cờ truyện cũ, máy chủ không soát, không thêm bảng hay cột nào): `tmk-co` đã dựng sổ cho bản lưu, `tmkm-<trang>`
-đã mở, `tmkd-<trang>` đã đọc, `tmkq-<quyển>` / `tmkk-<quyển>` đã diễn thẻ mở / khép quyển, `tmkb-<quái>` trùm đã hạ đúng chỗ, `tmk-im` tắt tự kể.
+Người chơi từ trước 02/11/2026 được chuyển thẳng tới cuối phần mở đầu (`pickStory`): họ chưa thấy làng cháy, chưa thấy bàn tay, **Lạc Tuyết / Tiêu Dao của họ vẫn đứng
+ở tông môn** (hai người này còn gắn với thân mật, đạo lữ, động phủ nên truyện không tự ý bắt đi). Với họ:
 
-## Kịch bản từng nhịp
+- Tên nhiệm vụ 15 là "Trưởng lão gọi" (`ten_neu`), Vân Hạc mở lời bằng "Ngươi tới đúng lúc. Ma tộc không giết người chúng bắt. Chúng giữ…", và tiếng chuông gửi
+  "những người chưa về". Người đã thấy cảnh mở đầu thì nghe "Bàn tay ấy không giết ai", chuông gửi đúng tên người bị bắt và "cả thằng bé tóc đỏ".
+- Danh sách Hành trình bắt đầu từ nhiệm vụ 15 (họ không làm 1 → 14).
+- Cờ phân biệt: `data/story.json` → `mo_dau_co` (cờ "người ấy đã bị bắt"). Câu hai bản viết bằng `neu: "cờ"` / `neu: "!cờ"`; bài thử bắt buộc có đủ cả hai bản.
+- Người chơi đã ở cảnh giới cao: nhiệm vụ 27 xong ngay, mọi lời thoại viết sao cho không lệch với người mạnh (Lão Thiết nói "lệ làng", không nói "ngươi còn yếu").
 
-**Thẻ mở quyển** (`src/ui/the-quyen.js`, số ở `data/tran-ma-ky.json` → `card.t`; giây tính từ lúc hiện, cỡ điện thoại 390×844):
+## Truyện chờ người chơi (luật màn lặng)
 
-| Mốc | Người chơi phải thấy |
-|---|---|
-| 0,00 | Nền tối dần tới 82%, chớp nhẹ, tiếng `qua-mo` |
-| 0,10 | Vầng sáng điểm ảnh màu vàng nở giữa màn |
-| 0,25 | Dải chữ "Trấn Ma Kỷ" (khung ảnh GPT `ui-k-bang`) thả xuống |
-| 0,55 | Dòng "MỞ QUYỂN HAI" (`text.open` + tên gọi quyển ở `so`), TÊN QUYỂN từ to gấp 2,4 đập xuống, hạt toé, tiếng `qua-no-lon` |
-| 0,85 | Dòng nơi chốn ("Xích Diễm Tinh · Hàn Băng Tinh · Hắc Phong Tinh") |
-| 1,15 | Câu đề của quyển, tiếng đàn `qua-d2` |
-| 1,87 | Nút Tiếp tục sáng theo nhịp. Chạm sớm: hiện hết luôn, không đóng |
+`src/game/story.js` → `update()`, chỉ áp cho nhiệm vụ từ 15 trở đi (phần mở đầu giữ nhịp cũ):
 
-Thẻ khép quyển cùng khung, màu lam nhạt, bốn dòng cách nhau 0,22 giây: "Ngươi đứng đây vì ai?", câu trả lời của quyển (vàng, to hơn), "Đã chép a/32 trang vào sổ",
-"Quyển kế mở khi: …" (quyển cuối: "Sổ chưa có trang cuối. Tên ký chủ vẫn đang được chép tiếp."). Đang Tự đánh / Tự hành thì game vẫn chạy, thẻ tự đóng sau 3 giây.
-Thẻ phủ cả màn nên máy quay không dời (`src/game/camera.js`).
+- Việc xong thì chốt lại (bước ra khỏi chỗ vừa tới không làm "chưa xong" lại; ghi cờ tạm `xong-<mã bước>` nên thoát game lúc bảng kết quả bí cảnh còn mở thì vào lại không phải hạ trùm lần nữa), thẻ nhiệm vụ hiện ✓.
+- Rồi chờ `game.manLang()` (`src/ui/nv-hud.js`): không hội thoại, không đang bay / tải bản đồ (`game.cheMan`, `src/render/world-veil.js`), không tắt màn treo máy
+  (`game.manToi`), không bảng nào mở (`.panel`, túi, bảng Hệ Thống), không nghi lễ nhận thưởng, không thẻ mừng, không thẻ Hẹn ngày mai.
+- Màn lặng đủ một nhịp mới diễn cảnh kế: 0,75 giây với việc xong bị động (nhặt đủ, hạ trùm), 1,6 giây khi vừa tới bản đồ mới, 0 giây khi người chơi tự bấm (nói
+  chuyện, việc tay: bấm là đáp ngay).
+- Tự hành mà bảng cứ mở mãi (bảng kết quả bí cảnh không ai đóng): sau 14 giây tự dọn bảng đi tiếp. Tắt màn treo máy thì không dọn, không diễn: Tự hành coi như truyện
+  đang chờ tu luyện (đánh quái, đả tọa), bật màn lại mới đi việc nhiệm vụ (`pilot.js` → `waiting`).
+- Trong lúc diễn cảnh Hệ Thống không lẩm bẩm, không nhắc việc; Tự hành đứng yên xem.
+- Thẻ "Hẹn ngày mai" (việc 5b) không chen vào giữa chuỗi: nó chờ tới chỗ truyện nghỉ (nhiệm vụ "Tu luyện tới…"), đúng lúc lời hứa bế quan một đêm có nghĩa nhất;
+  dở nhiệm vụ quá 20 phút chơi thì thôi không chờ (`src/game/hen-mai.js`, `game.story.nghi`).
+- Cổng bí cảnh: nhiệm vụ đang cần hạ trùm ở chính bí cảnh ấy thì người chơi giẫm cổng là vào thẳng bậc 1 như Tự hành vẫn vào (không hỏi vượt bậc / càn quét, không bị
+  chặn khi hết lượt ngày). Thưởng lượt vẫn theo luật cũ: còn lượt mới có (`src/game/interact.js`).
 
-**Thẻ mừng đọc xong trang**: thẻ lên tầng sẵn có (`game.mungTang`), không dừng game: dải "Trấn Ma Kỷ", tên trang, thang ô là số trang của quyển (ô vừa đọc sáng lên),
-"Lĩnh ngộ thiên quy: …" kèm câu của luật nếu trang mở luật, "Đã chép a/32 trang vào sổ".
+## Khẩu quyết (viết lại)
 
-**Dàn cảnh giữa các câu** (`src/game/tmk-canh.js`; mục `{ dan: … }` trong `canh`): `toi` độ tối màn, `rung`, `chop`, `tieng`, `fx`, `mau`, `cho` (lặng: hộp thoại
-tắt, thế giới đứng yên bằng `game.hitstop`, chỉ hiệu ứng chạy). Năm hiệu ứng vẽ bằng điểm ảnh vuông quanh nhân vật: `dom` cột sáng mảnh rồi đốm sáng bay lên, dạt
-đi (hồn về cội), `tia` những sợi sáng bay thẳng lên trời (vạn kiếm về chỗ, nghìn sợi sáng vá Thiên Mạch), `khoi` khói tím đen cuộn quanh trên vũng tối (ma tộc,
-bóng Ma Tôn), `la` lá rơi lắc lư (Cây mẹ), `vong` hai vòng sáng nở dưới chân. 35 chỗ dàn cảnh đang đặt, ví dụ trang "Làng còn không": tối 0,5 + vòng sáng + tiếng
-`buff` → hai câu → lặng 0,7 giây → câu hỏi của đứa trẻ → câu đáp → đứa trẻ tan → màn sáng lại 0,2 + đốm sáng + tiếng `sparkle`, lặng 1,5 giây → lời xin lỗi của Hệ Thống.
+Tám pháp bảo, mỗi món một câu hình ảnh và một chữ lệnh, hiện thành hàng chữ lớn bên trái lúc thi triển (hai lần cách nhau ít nhất 2,5 giây):
 
-**Khẩu quyết**: gọi trong phần hình dùng chung của tụ linh (`dien.js`), nên không thêm tin mạng nào và người khác thấy đúng như mình. Một người hô hai câu cách nhau
-ít nhất `kq_bubble.gap` giây; bong bóng trò chuyện của người chơi không bị đè.
+| Pháp bảo | Câu | Chữ lệnh |
+|---|---|---|
+| Phi Kiếm | Tâm tới, kiếm tới. | Trảm 斬 |
+| Linh Châu | Một hạt sáng, vạn dặm đêm. | Chiếu 照 |
+| Bảo Phiến | Mượn trời một làn gió. | Khai 開 |
+| Đại Ấn | Trời cao làm chứng. | Giáng 降 |
+| Hộ Thuẫn | Sau lưng ta còn người. | Hộ 護 |
+| Đồng Chung | Một tiếng chuông, / vạn ma lùi. | Tán 散 |
+| Trận Kỳ | Cờ cắm chỗ nào, / đất về chỗ ấy. | Trấn 鎮 |
+| Hồ Lô | Nuốt đêm vào bụng, / nhả ra thành sóng. | Thôn 吞 |
 
-## Mừng mạnh lên: phần còn lại của việc 4b
+Hai chữ chủ dự án chê ("lại còn lâm, khởi") đã đổi thành Giáng, Chiếu. Muốn bỏ hẳn chữ lệnh, chỉ giữ câu và chữ Hán mờ: `data/tran-ma-ky.json` → `chu.lenh_on: false`.
+Mười hai chữ lệnh, trường quyết, hợp quyết ở phần A chưa dùng trong game.
 
-Cùng đợt, các việc mạnh lên docs/10-CAI-HON.md ghi "chưa làm" nay có màn mừng (`src/ui/mung-them.js`, số chữ ở `data/juice.json` → `mung.them`):
+## Viết một nhiệm vụ mới
+
+Thêm một bước vào cuối `data/story.json` → `steps` (trước bước `con-tiep`), số thứ tự tự nối. Mỗi bước: `id`, `once: true`, `ten`, `do` (cảnh diễn ra NGAY SAU KHI
+nhiệm vụ trước xong), `goal` (việc của nhiệm vụ này), `target_map` (+ `target`), `until`. Lệnh trong `do`: `say`, `canh` (`toi`, `rung`, `chop`, `tieng`, `fx`: dom / tia /
+khoi / la / vong / chuong, `mau`, `tai`, `cho`), `chu` (`cau` mỗi dòng ≤ 27 chữ, `ky: true` cho dòng chép sổ, `giu`, `cho`), `hoi`, `flag` / `unflag`, `pickups`
+(`at` hoặc `near`), và `neu` trên bất kỳ lệnh nào. `until`: `talk`, `reach` (+ `r`, `nut`), `collect`, `kill` (+ `in`), `map`, `layer` / `realm` / `total`.
+Ô rải vật nhặt và ô đích phải đi được trên bản đồ THẬT (nhà, lò có vùng chắn mà lưới ô không thấy): xem bằng `node tools/do-don/o-chan.mjs <bản đồ> x0 y0 x1 y1`.
+Viết xong: `node tools/truyen.test.mjs`, rồi chạy cả chuỗi bằng Tự hành: `node tools/do-don/thu-nv.mjs <thư mục ra>`.
+
+Luật giữ khi viết: không phát thưởng trong `do`; không dùng `map` (nó kéo người chơi sang bản đồ khác); câu nào dựa vào cảnh mở đầu thì có bản cho người chơi cũ;
+cảnh sau một trận trùm phải đúng dù người chơi đang ở trong hay đã ra ngoài bí cảnh (họ có thể bấm Thoát ở bảng kết quả); mỗi cảnh nhiều nhất bốn câu.
+
+## Nhịp đo được (21/11/2026, người mới thật, Tự hành, không sửa máu, không tua)
+
+| Mốc | Giây thứ | Ghi chú |
+|---|---|---|
+| Xong phần mở đầu, thẻ "Nhiệm vụ 15" hiện | 208 | Luyện Khí tầng 6, lực chiến 9,8 nghìn |
+| Gióng chuông | 247 → 264 | |
+| Tới Xích Diễm Tinh | 349 | |
+| Đặt thẻ tên, vào Hỏa Quật | 474 | |
+| Hạ Huyết Nha, ra ngoài | 601 | hai phút cho ba phòng, không gục lần nào |
+| Lão Than | 678 | |
+
+Tức đoạn viết mới thêm chừng tám phút chơi ngay sau phần mở đầu, rồi để lại một đích dài hơi (tầng 9). Bài chơi thử của CI (tua nhanh tu luyện) qua 11 bước trong 220
+giây, bài hai máy 27/27.
+
+## Giữ lại từ bản thứ nhất
+
+- Lời phần mở đầu viết lại theo bản thiết lập ("ghép xong vào thân xác mới", "Rễ đã nối với Cây", chiếc giày nhỏ của Tiểu Hỏa, hai chữ "Ở lại", Hệ Thống chép tên ký
+  chủ vào sổ Trấn Ma Kỷ). Số câu ở ba bước đầu giữ nguyên (20/62 người mới từng bỏ ở ba bước đầu).
+- Nghi lễ đột phá: dưới tên cảnh giới có một dòng nói cảnh giới ấy nghĩa là gì (`data/tran-ma-ky.json` → `canh_gioi`, `src/game/len-tang.js`).
+- Mừng mạnh lên, phần còn lại của việc 4b (`src/ui/mung-them.js`, số chữ ở `data/juice.json` → `mung.them`):
 
 | Việc | Màn mừng |
 |---|---|
@@ -553,32 +599,27 @@ Cùng đợt, các việc mạnh lên docs/10-CAI-HON.md ghi "chưa làm" nay c�
 | Công pháp lên tầng | Thẻ trên đầu nhân vật (đang đánh vẫn đánh): tên công pháp, thang ô theo số tầng, từng chỉ số trước → sau |
 | Linh thú lên cấp | Lần nào cũng có vòng sáng dưới chân con thú; mốc 5 cấp có thẻ trên đầu nhân vật, chạm cấp tối đa thì nhắc "tiến hóa được rồi" |
 
-Chưa làm: mặc món mạnh hơn từ túi (chữ "Lực chiến ▲" nổ giữa màn vẫn báo).
-
 ## Tệp
 
-- `data/tran-ma-ky.json`: 7 quyển, 32 trang, 9 thiên quy, 8 đoản quyết + 11 trường quyết, 12 quyển cấm kỵ + quyển trắng, câu nghĩa của 9 cảnh giới, chữ của sổ, số của thẻ.
-- `src/game/tran-ma-ky.js` (luật), `src/game/tmk-canh.js` (dàn cảnh), `src/game/khau-quyet.js` (hô quyết), `src/ui/the-quyen.js` + `.css` (thẻ quyển),
-  `src/ui/he-thong-ky.js` (sổ; kiểu ở cuối `src/ui/he-thong.css`), `src/ui/mung-them.js` (mừng mạnh lên).
-- Móc nhỏ: `src/game/game.js` (onKill gọi `tmkKill`), `src/game/tu-linh.js` (hô quyết), `src/game/len-tang.js` (dòng nghĩa cảnh giới), `src/game/camera.js`,
-  `src/ui/he-thong.js` (`game.openKy`, `game.htNudge`, chấm đỏ ở Tàng Thư), `src/ui/he-thong-tra.js` (bìa sổ đầu Tàng Thư), `src/main.js`, `src/core/data.js`.
-- Bài thử: `node tools/tran-ma-ky.test.mjs` (dữ liệu trỏ đúng NPC, bản đồ, trùm, tiếng, hiệu ứng; luật mở trang), `tools/check.mjs` gọi kèm.
-  Chụp cảnh ở cỡ điện thoại: `node tools/do-don/quay-tmk.mjs <thư mục ra>`.
-- Bản dịch: cả 521 câu mới của đợt này đã có trong `data/i18n/en.json` và `data/i18n/zh-Hant.json` (không còn câu nào của sổ hiện tiếng Việt khi chọn English
-  hay 繁體中文); thuật ngữ của sổ ghi ở `data/i18n/glossary.md` mục "Trấn Ma Kỷ". Sửa một câu tiếng Việt trong sổ là đổi khoá từ điển: chạy lại
-  `node tools/i18n-extract.mjs --missing en` rồi dịch câu mới. Tên gọi quyển (`so`) viết đủ chữ "quyển một"… vì chữ số một tiếng ("hai", "ba") không thành khoá dịch.
+- Dữ liệu: `data/story.json` (các bước, `mo_dau`, `mo_dau_co`, `nv_text`, `dau`; lời chú đầu tệp tả mọi lệnh), `data/tran-ma-ky.json` (chữ lớn, câu nghĩa cảnh giới,
+  khẩu quyết), `data/he-thong.json` (`nudge.nv_moi`, chữ thẻ Nhiệm vụ chính), `data/journal.json`, `data/sounds.json` (tiếng `chuong`).
+- Luật: `src/game/story.js` (đánh số nhiệm vụ, `neu`, `hoi`, `nut`, chờ màn lặng, `list()`), `src/game/dan-canh.js`, `src/game/dau-truyen.js`,
+  `src/game/tran-ma-ky.js` (câu nghĩa cảnh giới, khẩu quyết), `src/game/interact.js`, `src/game/pilot.js`, `src/game/hen-mai.js`, `src/game/he-thong.js`.
+- Giao diện: `src/ui/nv-hud.js` + `.css` (thẻ; cỡ trong bố cục hai bảng ở `src/ui/hud-khung.css`), `src/ui/chu-lon.js` + `.css`, `src/ui/he-thong-nv.js`,
+  `src/ui/he-thong-dao.js`, `src/render/draw-lights.js` (quầng sáng ngọn nến), `src/render/world-veil.js` (`game.cheMan`).
+- Bài thử và công cụ: `tools/truyen.test.mjs` (`tools/check.mjs` gọi kèm), `tools/do-don/thu-nv.mjs` (chạy cả chuỗi bằng Tự hành; `CU=1` người chơi cũ, `KQ=thoat`
+  bấm Thoát ở bảng kết quả, `THAT=1` người mới thật không sửa máu), `tools/do-don/quay-nv.mjs` (quay clip), `tools/do-don/o-chan.mjs` (ô chắn thật của bản đồ).
+- Bản dịch: mọi câu mới đã có trong `data/i18n/en.json`, `zh-Hant.json`; thuật ngữ ở `data/i18n/glossary.md` mục "Trấn Ma Kỷ".
 
-## Còn chờ chủ dự án chốt
+## Còn chờ chủ dự án
 
-Bảy điểm của bản thiết lập được coi là "giữ như đã viết" (chủ dự án 03:47 khen bản ấy và giao dựng tiếp), nên game đang chạy theo: Đại Ma Thần là ký chủ đầu
-tiên; thân xác người chơi từng là của một đứa trẻ Thanh Khê; người được cứu về nhưng quên người chơi. Những việc chưa làm vì đụng máy chủ, phần thưởng hoặc tiền:
-
-1. **Thọ nguyên là chỉ số thật, cấm kỵ thành chiêu chơi được** (nhóm chiêu khảm thứ năm "Cấm Kỵ"): đụng luật chiến đấu và máy chủ. Hiện Cấm Kỵ Các chỉ để đọc.
-2. **Sự kiện cả máy chủ "vá Thiên Mạch"** (mỗi ký chủ góp một sợi, đếm chung): cần bảng trên máy chủ.
-3. **Thành tựu "Vá Thiên Mạch"** (`data/status.json`, cần cờ `het-game`, thưởng 3 ngọc + danh hiệu Hộ Giới) đang không ai đạt được vì truyện cũ đã gỡ. Bật lại bằng
-   cách cho trang "Ta ở lại" đặt cờ ấy là một dòng, nhưng có phát thưởng nên chờ chủ dự án gật.
-4. **Hình minh hoạ cho các cảnh lớn** (đứa trẻ trong đan điền, bàn tay xé trời, mộ kiếm): cần SpriteCook, tốn credit, phải hỏi trước.
-5. **"Có 2 tông môn"**: bản thiết lập và game mới có Thiên Kiếm Tông. Tông thứ hai tên gì thì thêm vào quyển bảy.
-6. **Tên game**: sổ và truyện mang tên Trấn Ma Kỷ; tên game trên màn đăng nhập, cửa hàng vẫn là Pixel 2D Tu Tiên.
-7. **Bản dịch có từ trước đợt này còn thiếu**: tên tám pháp bảo (Phi Kiếm, Linh Châu…) và vài dòng báo cũ chưa có bản tiếng Anh, tiếng Trung, nên trong mục Khẩu quyết của sổ
-   tên pháp bảo vẫn hiện tiếng Việt khi chọn ngôn ngữ khác. Dịch thì tên dài ra ("Flying Sword") và nằm cả trên bốn ô pháp bảo nhỏ ở màn chơi, nên để chủ dự án quyết.
+1. **Xem clip và chốt hướng** của bản thứ hai (thẻ nhiệm vụ, việc tay, dòng "Trấn Ma Kỷ chép", khẩu quyết chữ lớn). Chưa đẩy lên GitHub.
+2. **Cỡ thẻ nhiệm vụ.** 17/11 chủ dự án bảo thẻ bậc "giảm xuống nhỏ bằng 1/4" (98 × 30). Thẻ nhiệm vụ giờ 204 × 44–56 để đọc được tên và việc. Chờ xem clip chốt.
+3. **Thẻ nhiệm vụ đảo một phần quyết định 12/11 11:05** (bỏ khung "Việc đang làm" và nút Dẫn đường của truyện cũ vì trùng nhiệm vụ Hệ Thống; `story_ui: false` vẫn giữ,
+   khung `#goal` cũ vẫn tắt). Thẻ mới chỉ hiện nhiệm vụ chính của truyện, không trùng 110 nhiệm vụ Hệ Thống.
+4. **Thưởng cho nhiệm vụ chính 15+** (và nhiệm vụ Hệ Thống mới gắn theo truyện): cần bảng trên máy chủ, chưa làm.
+5. **Viết tiếp tới N**: Hàn Băng (Lão Ngư, Hàn Hồn Ma Tướng đứng gác), Hắc Phong (Mặc Ảnh và bát canh cá, cứu Tiểu Hỏa), Thanh Mộc, Thiên Kim, Hậu Thổ, Vết Nứt. NPC
+   Tiểu Hỏa đang đứng sẵn ở Ngoại Vực Vết Nứt (dấu của truyện cũ): viết tới Hắc Phong thì phải dời.
+6. Các việc đụng máy chủ, phần thưởng hoặc tiền từ bản thứ nhất vẫn chờ: thọ nguyên là chỉ số thật và cấm kỵ thành chiêu chơi được; sự kiện cả máy chủ "vá Thiên
+   Mạch"; thành tựu "Vá Thiên Mạch" (cờ `het-game`, có thưởng); hình minh hoạ SpriteCook cho cảnh lớn; tên tông môn thứ hai; tên game trên màn đăng nhập và cửa hàng;
+   dịch tên tám pháp bảo.

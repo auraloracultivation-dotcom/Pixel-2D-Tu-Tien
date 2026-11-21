@@ -38,7 +38,6 @@ import { ensureDaily, dailyEvent, dailyKill } from './daily.js';
 import { updateDuel, duelFail, duelGoal } from './duel.js';
 import { pilotDialog, pilotDied } from './pilot.js';
 import { praise, updatePraise } from './praise.js';
-import { tmkKill } from './tran-ma-ky.js';
 import { updateGarden } from './garden.js';
 import { updateDayNight } from './daynight.js';
 import { syncClock, setFloor } from './clock-sync.js';
@@ -164,7 +163,7 @@ export function createGame(data, screen, input, ui, audio) {
     eventKill(game, m);
     dailyKill(game, m);
     if (m.rare) dailyEvent(game, 'rare', m.id);
-    game.story.notify('kill', m.id); tmkKill(game, m);   // tmkKill: trùm của truyện gục thì sổ Trấn Ma Kỷ mở trang (src/game/tran-ma-ky.js)
+    game.story.notify('kill', m.id);
     if (m.def.ai === 'boss') { if (!m.wb) game.story.notify('boss'); game.toast(`Hạ ${m.def.name}!`, 2); }
   };
 

@@ -3,7 +3,6 @@
 // thẻ chi tiết (mô tả, chỉ số, rơi từ đâu, công thức) + "Liên quan" nối chéo; chữ trùng tên mục khác thành nút bấm (traLink).
 // Nút ‹ quay lại mục trước. linkText() dùng chung cho Hỏi đáp, Hỏi thêm. Chữ người chơi chỉ gán textContent.
 import { traIndex, traSearch, traLink, traSuggest } from '../game/tra-cuu.js';
-import { kyCo, kyBia, renderKy } from './he-thong-ky.js';   // sổ Trấn Ma Kỷ: cuốn truyện của game nằm đầu Tàng Thư
 
 // Màu tên theo mục, sáng lên nếu tối quá (chữ trên nền xanh đậm phải đọc được)
 const bright = hex => { const n = parseInt(String(hex).slice(1), 16); if (!(n >= 0)) return ''; const r = n >> 16, g = (n >> 8) & 255, b = n & 255, l = (0.3 * r + 0.59 * g + 0.11 * b) / 255;
@@ -23,8 +22,7 @@ export function linkText(game, parent, text, pick) {
   return parent;
 }
 
-export function renderTra(game, body, st, rerender, O) {
-  if (String(st.cur || '').startsWith('tmk') && kyCo(game) && game.save) { renderKy(game, body, st, rerender, O); return; }
+export function renderTra(game, body, st, rerender) {
   const T = game.data['he-thong'].tra, idx = traIndex(game);
   const go = id => { if (st.cur) st.back.push(st.cur); st.cur = id; rerender(); };
   if (st.cur) {   // thẻ chi tiết
@@ -60,7 +58,6 @@ export function renderTra(game, body, st, rerender, O) {
     b.onclick = () => { st.kind = k; rerender(); };
     kinds.append(b);
   }
-  if (kyCo(game) && game.save) body.append(kyBia(game, go));
   body.append(find, kinds, list);
   const draw = () => {
     list.textContent = '';

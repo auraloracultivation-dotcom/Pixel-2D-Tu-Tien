@@ -39,9 +39,9 @@ html body.hud-bang #btn-faq { right: calc(var(--sr) + 8px) !important; top: calc
 /* ẩn giao diện: chỉ còn nút mắt ở góc */
 html body.hud-bang.ui-an .uk-tog#uk-an { left: auto !important; right: calc(var(--sr) + 10px) !important; top: calc(var(--st) + 8px) !important; width: 26px !important; height: 26px !important; }
 /* ---- dưới bảng trên: việc truyện, thẻ bậc góc trái ---- */
-html body.hud-bang #bac-hud { top: calc(var(--st) + var(--tren-h) + 8px) !important; }
+html body.hud-bang #nv-hud { top: calc(var(--st) + var(--tren-h) + 8px) !important; }
 html body.hud-bang #goal { left: calc(var(--sl) + 6px) !important; right: auto !important; top: calc(var(--st) + var(--tren-h) + 8px) !important; max-width: calc(100vw - 80px) !important; }
-body.hud-bang:has(#bac-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 68px) !important; }
+body.hud-bang:has(#nv-hud:not([hidden])) #goal { top: calc(var(--st) + var(--tren-h) + 68px) !important; }
 html body.hud-bang .quest-dock { top: calc(var(--st) + var(--tren-h) + 70px) !important; }
 
 /* ---- bảng dưới: ô vuông chung (Túi đồ, Đan, Cưỡi, 4 pháp bảo) ---- */

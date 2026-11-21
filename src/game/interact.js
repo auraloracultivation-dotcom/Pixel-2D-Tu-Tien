@@ -79,6 +79,8 @@ function talkStall(game, npc) {
 // Nút tương tác theo ngữ cảnh: nói chuyện / độ kiếp (khi đầy tầng 9) / đả tọa / ngắm cảnh / câu cá / vuốt ve linh thú
 export function updateInteract(game) {
   const cfg = game.data.config, p = game.player;
+  const viec = game.story.viec?.();   // việc tay của nhiệm vụ chính đang làm (Gióng chuông, Đặt thẻ…): đứng đúng chỗ thì nút hành động là việc ấy, trước mọi việc khác
+  if (viec) { game.actLabel = viec; if (game.input.consume('act')) { p.meditating = false; game.story.notify('lam'); } return; }
   const npc = nearestNpc(game, cfg.interact_range);
   const trib = !npc && game.trib.canStart();
   const st = !npc && !trib && nearStation(game);
@@ -124,7 +126,9 @@ export function updatePortals(game, dt) {
     const gate = mapGate(game, pt.to); if (gate) { game.toast(gate, 2); game.portalLock = 2; return; }   // mở theo tu vi (src/game/map-gate.js)
     if ((game.data.dungeon.closed || []).includes(pt.to)) { game.toast(game.data.menu.dungeon.closed + '.', 1.2); game.portalLock = 1.5; return; }
     const go = () => game.travel(pt.to, pt.spawn, true, { text: pt.label, kind: pt.kind });
-    if (!isDungeon(game, pt.to) || game.story.busy || game.pilot) { game.dunMode = 0; go(); return; }
+    // Nhiệm vụ chính đang cần hạ trùm ở chính bí cảnh này (until.in): vào thẳng bậc 1 như Tự hành vẫn vào, không hỏi vượt bậc / càn quét (càn quét không tính là hạ trùm,
+    // bậc kế có thể quá sức, hết lượt ngày thì bảng chọn không cho vào). Thưởng lượt vẫn theo luật cũ ở dungeonDone: còn lượt mới có.
+    if (!isDungeon(game, pt.to) || game.story.busy || game.pilot || game.story.current()?.until?.in === pt.to) { game.dunMode = 0; go(); return; }
     game.portalLock = 99;  // đợi chọn độ khó
     pickMode(game, pt.to).then(ok => { if (ok) go(); else game.portalLock = 2; });
     return;

@@ -1,15 +1,16 @@
-// Dàn cảnh cho một trang Trấn Ma Kỷ (src/game/tran-ma-ky.js phatTrang; data/tran-ma-ky.json → canh có mục { dan: … }). Chủ dự án (docs/10-CAI-HON.md):
-// "cốt truyện bằng chữ mà không có ảnh hay hiệu ứng hoặc âm thanh thì chả bao giờ động vào trái tim mọi người". Nên giữa các câu thoại, trang truyện được
-// phép: tối màn, rung, chớp, phát một tiếng, thả một hiệu ứng quanh nhân vật, và LẶNG một nhịp (hộp thoại tắt, thế giới đứng yên, chỉ hiệu ứng chạy).
-//   dan: { toi: 0…1 độ tối của màn (giữ tới khi đổi, hết cảnh tự về như cũ) · rung: độ rung · chop: 1 chớp sáng · tieng: 'tên' hoặc ['tên', độ to]
-//          (data/sounds.json) · fx: tên hiệu ứng bên dưới · mau: màu hiệu ứng · cho: lặng bấy nhiêu giây }
+// Dàn cảnh cho một nhiệm vụ chính (data/story.json: lệnh { canh: … } trong "do" của một bước; src/game/story.js). Chủ dự án (docs/10-CAI-HON.md):
+// "cốt truyện bằng chữ mà không có ảnh hay hiệu ứng hoặc âm thanh thì chả bao giờ động vào trái tim mọi người". Nên giữa các câu thoại, nhiệm vụ được phép:
+// tối màn, rung, chớp, phát một tiếng, thả một hiệu ứng, và LẶNG một nhịp (hộp thoại tắt, thế giới đứng yên, chỉ hiệu ứng chạy)
+//   canh: { toi: 0…1 độ tối của màn (giữ tới khi đổi; hết bước tự về như bản đồ) · rung: độ rung · chop: 1 chớp sáng · tieng: 'tên' hoặc ['tên', độ to]
+//           (data/sounds.json) · fx: tên hiệu ứng bên dưới · mau: màu hiệu ứng · tai: [ô x, ô y] chỗ đặt hiệu ứng (bỏ trống: quanh nhân vật) · cho: lặng bấy nhiêu giây }
 // Hiệu ứng (vẽ điểm ảnh vuông, vị trí tính thẳng từ thời gian nên khung nào cũng ra đúng hình đó):
 //   dom   đốm sáng quanh người bay lên rồi dạt về một phía và tan (hồn về cội, người được tiễn)
 //   tia   những sợi sáng mảnh từ khắp màn bay thẳng lên trời (vạn kiếm về chỗ, nghìn sợi sáng vá Thiên Mạch)
 //   khoi  khói ma khí tím đen cuộn quanh rồi tan (ma tộc, bóng Ma Tôn)
 //   la    vài chiếc lá rơi lắc lư xuống vai (Cây mẹ)
 //   vong  vòng sáng nở dưới chân (đá linh căn, đột phá)
-// Chỉ là hình và tiếng ở máy đang đọc truyện, không đổi luật chơi. Lặng một nhịp dùng game.hitstop: quái đứng yên nên người đang đọc không bị đánh lén.
+//   chuong ba vòng sóng lan xa dần từ một chỗ (gióng chuông, đánh trống)
+// Chỉ là hình và tiếng ở máy đang làm nhiệm vụ, không đổi luật chơi. Lặng một nhịp dùng game.hitstop: quái đứng yên nên người đang đọc không bị đánh lén.
 import { addFx } from './combat.js';
 
 const TAU = Math.PI * 2;
@@ -78,17 +79,18 @@ const VE = {
   },
 };
 const DOI = { dom: { life: 3.4, color: '#ffe9a8' }, tia: { life: 3.8, color: '#bfe4ff' }, khoi: { life: 3.2, color: '#c05af0' }, la: { life: 4.2, color: '#8cf09a' } };
-export const CANH_FX = [...Object.keys(VE), 'vong'];
+export const CANH_FX = [...Object.keys(VE), 'vong', 'chuong'];
 
 export async function dan(game, d) {
-  const p = game.player;
+  const p0 = game.player, c = d.tai && game.map?.center(d.tai[0], d.tai[1]), p = c ? { x: c.x, y: c.y } : p0;   // tai: hiệu ứng đặt tại một ô của bản đồ (quả chuông, bàn lễ…)
   if (d.toi != null) game.darkTarget = d.toi;
   if (d.rung) game.screen?.shake?.(d.rung, 0.6);
   if (d.chop) game.flashT = Math.max(game.flashT || 0, 0.35);
   if (d.tieng) game.sfx?.(...[].concat(d.tieng));
   if (d.fx && p) {
     if (d.fx === 'vong') for (const [r, life] of [[44, 0.9], [70, 1.3]]) addFx(game, { type: 'ring', x: p.x, y: p.y, r, color: d.mau || '#bff4ff', life, fill: r < 50 });   // hai vòng: vòng trong đặc nở nhanh, vòng ngoài mảnh lan chậm
-    else if (VE[d.fx]) { const o = DOI[d.fx]; addFx(game, { type: 'tmk-' + d.fx, x: p.x, y: p.y, life: o.life, color: d.mau || o.color, seed: Math.random() * 1000, draw: VE[d.fx] }); game.fpsHi = Math.max(game.fpsHi || 0, performance.now() + o.life * 1000); }
+    else if (d.fx === 'chuong') [[36, 1.0, 0], [72, 1.5, 180], [118, 2.1, 420]].forEach(([r, life, ms]) => setTimeout(() => addFx(game, { type: 'ring', x: p.x, y: p.y, r, color: d.mau || '#ffd98a', life }), ms));   // tiếng chuông, tiếng trống: ba vòng sóng lan xa dần
+    else if (VE[d.fx]) { const o = DOI[d.fx]; addFx(game, { type: 'canh-' + d.fx, x: p.x, y: p.y, life: o.life, color: d.mau || o.color, seed: Math.random() * 1000, draw: VE[d.fx] }); game.fpsHi = Math.max(game.fpsHi || 0, performance.now() + o.life * 1000); }
   }
   if (d.cho > 0) { game.hitstop = Math.max(game.hitstop || 0, d.cho); await new Promise(r => setTimeout(r, d.cho * 1000)); }
 }

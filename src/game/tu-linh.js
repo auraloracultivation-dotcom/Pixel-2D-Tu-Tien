@@ -3,9 +3,9 @@
 // hồi chiêu ngay (không bấm đúp được), người đứng khựng s giây; linh khí màu pháp bảo xoáy từ vòng ngoài vào tay, vòng sáng co lại, chớp
 // nhỏ lúc bắn. Hướng bắn chốt lúc buông: không tự ngắm thì quay về con quái gần nhất lúc đó. Số ở data/phap-bao.json → tu_linh.
 import { addFx } from './combat.js';
+import { khauQuyet } from './tran-ma-ky.js';
 import { pbx } from './phap-bao-hit.js';
 import { hieuUng, dien } from './dien.js';
-import { hoQuyet } from './khau-quyet.js';
 
 // Chỗ người đang ở trên màn: đang cưỡi / bay thì nhấc theo lưng thú, phi kiếm (p.lift, p.seatX do src/render/draw.js đặt mỗi khung).
 // Chủ dự án 18/11/2026 10:19: lúc cưỡi phải tụ lực ở giữa nhân vật, không ở bụng con thú. Pháp bảo cũng bắn ra từ chỗ này (phap-bao-run.js).
@@ -18,12 +18,12 @@ hieuUng('tu-linh', { gap: 0.15, ve(game, e, h, a) {
   const C = tuLinhCfg(game), s = C.on === false ? 0 : C.s ?? 0.22, seed = Math.random() * 1000;
   const color = Object.values(game.data['phap-bao'].types)[Math.round(a * 20)]?.color || '#bff4ff';
   if (s > 0) addFx(game, { type: 'tu-linh', x: e.x, y: e.y, life: s, color, on: e, draw: (ctx, f, k) => drawTuLinh(ctx, game, f, k, C, seed) });
-  hoQuyet(game, e, Object.keys(game.data['phap-bao'].types)[Math.round(a * 20)]);   // hô khẩu quyết của món pháp bảo (src/game/khau-quyet.js): bong bóng trên đầu, người cùng tinh cầu cũng thấy
 } });
 
 // Bắt đầu tụ (type: mã loại pháp bảo); fire(ang) chạy khi tụ xong. Phần luật (đứng khựng, chờ, bắn) chỉ ở máy mình; phần hình đi qua dien
 export function startTuLinh(game, type, aimFn, fire) {
   const C = tuLinhCfg(game), p = game.player, s = C.on === false ? 0 : C.s ?? 0.22, T = game.data['phap-bao'].types, color = T[type].color;
+  const kq = khauQuyet(game, type); if (kq) game.chuLon?.({ ...kq, thua: true });   // khẩu quyết của món: hàng chữ lớn bên trái màn (src/ui/chu-lon.js), chỉ ở máy người đang thi triển
   if (s <= 0) { fire(aimFn()); return; }
   p.tuLinhT = Math.max(p.tuLinhT || 0, s);
   dien(game, 'tu-linh', Object.keys(T).indexOf(type) / 20);
