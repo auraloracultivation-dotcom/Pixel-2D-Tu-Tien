@@ -2,7 +2,7 @@
 // Trên: ba ô đang mang (chạm để chọn ô). Dưới: các kỹ năng của người chơi theo truyện, cái chưa học hiện mờ kèm "mở theo nhiệm vụ chính". Chạm một kỹ năng
 // đã học để mở phần chi tiết: mang vào ô đang chọn, SÁCH (ghép hai cuốn cùng cấp thành một cuốn cấp trên, lời chủ dự án), KHẢM TÍNH CHẤT (ô mở theo cấp
 // sách). Logic ở src/game/ky-nang.js, số và chữ ở data/ky-nang.json. Kiểu: ky-nang-hud.css.
-import { KN, knOn, knCua, knO, knDat, knDef, knCap, knDem, knThuong, ghepDuoc, ghepSach, knSoO, knKham, khamVao, thaoRa, tinhHop } from '../game/ky-nang.js';
+import { KN, knOn, knCua, knO, knDat, knDef, knCap, knDem, knThuong, ghepDuoc, ghepSach, knSoO, knKham, khamVao, thaoRa, tinhHop, chepSach } from '../game/ky-nang.js';
 import { manaCost } from '../game/mana.js';
 import { totalLayer } from '../game/stats.js';
 
@@ -22,6 +22,8 @@ export function renderKyNang(game, st, mid, bar, changed) {
   const o = el('div', 'knv-o');
   lo.forEach((id, i) => { const b = el('button', i === st.knSlot ? 'on' : '', id ? D.skills[id].name : X.trong); b.append(el('small', null, fill(X.chua_mang, { i: i + 1 }))); b.onclick = () => { st.knSlot = i; veLai(false); }; o.append(b); });
   wrap.append(o, el('div', 'knv-ghi', ds.some(id => knCap(game, id)) ? X.sub : X.chua));
+  const trong = game.save.knTrong | 0;   // sách trống từ mốc nhiệm vụ chính 5, 10, 15...
+  if (trong > 0) wrap.append(el('div', 'knv-trong', fill(X.trong, { n: trong })));
   for (const id of ds) {
     const s = knDef(game, id), lv = knCap(game, id), the = el('div', 'knv-the' + (lv ? '' : ' khoa') + (lo.includes(id) ? ' mang' : '')), dau = el('div', 'knv-dau'), ten = el('div', 'knv-ten'), h = el('i', 'knv-hinh');
     the.style.setProperty('--mau', s.color); h.style.backgroundImage = hinh(D, id);
@@ -35,6 +37,7 @@ export function renderKyNang(game, st, mid, bar, changed) {
     // Sách: đang có những cuốn nào, ghép hai cuốn cùng cấp
     const dem = knDem(game, id), cao = dem.find(([l]) => ghepDuoc(game, id, l));
     the.append(el('div', 'knv-muc', fill(X.dem, { ds: dem.map(([l, c]) => fill(X.cuon, { n: c, lv: l })).join(', ') })));
+    if (trong > 0) { const b = el('button', 'knv-nut phu', fill(X.chep, { ten: s.name })); b.onclick = () => { if (chepSach(game, id)) { game.sfx('pickup'); veLai(); } }; the.append(b); }
     if (cao) { const b = el('button', 'knv-nut', fill(X.ghep, { n: K.sach.ghep, a: cao[0], b: cao[0] + 1 })); b.onclick = () => { if (ghepSach(game, id, cao[0])) { game.sfx('levelup'); if (knCap(game, id) > lv) game.toast(fill(X.ghep_ok, { ten: s.name, lv: knCap(game, id) }), 3); veLai(); } }; the.append(b); }
     else the.append(el('div', 'knv-ghi', lv >= K.sach.max ? X.toi_da : fill(X.ghep_thieu, { n: K.sach.ghep, b: lv + 1 })));
     // Khảm tính chất

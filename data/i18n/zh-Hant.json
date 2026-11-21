@@ -4843,5 +4843,8 @@
 "Linh căn Kim theo lửa lò vào lưỡi thép: ba lưỡi kim quang tỏa hình quạt, xuyên qua quái.": "金靈根隨爐火進入鋼刃：三道金光刃扇形散開，穿透怪物。",
 "Thạch Nhận": "石刃",
 "Linh căn Thổ theo lửa lò vào lưỡi thép: cắm lưỡi xuống đất, quái quanh mình choáng.": "土靈根隨爐火進入鋼刃：把刀刃插入地面，周圍怪物暈眩。",
-"A Lực": "阿力"
+"A Lực": "阿力",
+"Sách trống: {n} cuốn (chép vào kỹ năng nào cũng được)": "空白書冊：{n}本（可抄進任何已學技能）",
+"Chép sách trống vào {ten}": "把空白書冊抄進{ten}",
+"Xong nhiệm vụ chính {nv}: nhận {n} sách kỹ năng trống. Mở Túi đồ → Công pháp → Kỹ năng để chép.": "完成主線任務{nv}：獲得{n}本空白技能書。打開背包→功法→技能即可抄寫。"
 }

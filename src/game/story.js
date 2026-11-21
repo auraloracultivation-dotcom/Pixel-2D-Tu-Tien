@@ -275,6 +275,8 @@ export function createStory(game) {
     },
     // Bước đang chạy và đã tới phần chờ điều kiện chưa (cho tự hành)
     current() { return game.save.stepDone ? unit() : null; },
+    // Số nhiệm vụ chính đã xong (mốc nhận sách kỹ năng 5, 10, 15: src/game/ky-nang.js knMocTick). 0 khi đang ở bước không có số (chỉ dùng để tăng, không để trừ)
+    nvXong() { const so = unit()?.nv || (game.save.step >= steps.length - 1 ? nvN + 1 : 0); return so ? so - 1 : 0; },
     // NPC này đang được nhiệm vụ chờ nói chuyện?
     wants(npcId) { const s = unit(); return !!(s && s.until.talk === npcId && game.save.stepDone); },
     // Việc tay của nhiệm vụ đang làm (until.nut: "Gióng chuông", "Đặt thẻ"…): đứng đúng chỗ thì trả tên việc, nút hành động trên màn chơi đổi thành tên ấy

@@ -3,13 +3,14 @@
 // lùi sang trái nhường mép phải (ky-nang-hud.css). Ô trống hiện mờ. Đang hồi: quạt tối + số giây; thiếu linh lực: xám; vừa học: nháy sáng kèm tên chiêu.
 // src/ui/hud.js gọi knHud mỗi lần vẽ lại màn chơi. Logic: src/game/ky-nang.js.
 import { goc } from '../core/build.js';
-import { knOn, knO, knMo, knDef } from '../game/ky-nang.js';
+import { knOn, knO, knMo, knDef, knMocTick } from '../game/ky-nang.js';
 import { skillGrade } from '../game/skill-grade.js';
 import { manaCost } from '../game/mana.js';
 
 let cssOn = false;
 export function knHud(game, skillIcon) {
   if (!cssOn) { cssOn = true; const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = goc('src/ui/ky-nang-hud.css'); document.head.append(l); }
+  const t = performance.now(); if (t - (game.knSoatT || 0) > 1000) { game.knSoatT = t; knMocTick(game); }   // mốc 5, 10, 15 nhiệm vụ chính: nhận sách trống
   const on = knOn(game), lo = on ? knO(game) : [], co = on && knMo(game).length > 0, p = game.player, d = game.data;
   if (document.body.classList.contains('co-kn') !== co) document.body.classList.toggle('co-kn', co);
   const moi = co && (game.time || 0) < (game.knMoi || 0);

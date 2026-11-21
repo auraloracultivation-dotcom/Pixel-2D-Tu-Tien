@@ -10,6 +10,7 @@ Phần này nói thiết kế đã chốt, số đang dùng, chỗ code, việc 
 - 17:23: "Tiềm năng cùng hàng với kho, trang bị, linh thú.. nằm ngay dưới ô trang bị. Còn kỹ năng thì nằm trong phần công pháp."
 - Bảng câu hỏi 21/11 tối: nút kỹ năng "3 ô hàng dọc sát mép phải phía dưới bên trên khung dưới"; các tộc "khác hướng, ngang sức"; quay "1 lượt duy nhất"; truyện "chờ xong cả ba" rồi đẩy một lần.
 - Bảng câu hỏi 22/11 rạng sáng: kỹ năng là "bộ mới theo truyện" (48 chiêu cũ vẫn xoá như đã bảo 13/11 và 21/11 00:10); nâng cấp: "Merger 2 cuốn thành 1 cuốn cấp 2, cứ gấp đôi lên".
+- Bảng câu hỏi kế: nguồn sách "Chỉ làm nhiệm vụ tiến độ để nhận, sẽ nhận theo mốc chẵn 5 10 15"; máy chủ "Viết, chạy thử, chờ anh duyệt"; đẩy "Chờ xong phần máy chủ".
 
 ## 2. Tiềm năng
 
@@ -46,7 +47,7 @@ Người mới: lệnh truyện `{ "le_toc": "truong-thon" }` ngay sau lễ linh
 | 22 Thẻ tên (cảnh tôi lưỡi) | Lão Thiết: linh căn theo lửa lò vào lưỡi thép | theo hệ: Viêm Nhận (lửa nổ lan), Hàn Nhận (băng làm chậm), Đằng Nhận (dây trói), Kim Nhận (ba lưỡi quạt), Thạch Nhận (choáng quanh mình) |
 | 26 Người ở lại | Lão Thiết chỉ bước chân của A Lực | Liệp Phong Bộ: lao tới chém xuyên |
 
-**Sách, ghép sách.** Mỗi kỹ năng là những cuốn sách có cấp (`save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }`). Truyện phát cuốn đầu. Hai cuốn cùng cấp ghép thành một cuốn cấp trên ("cứ gấp đôi lên": cấp n cần 2^(n−1) cuốn cấp 1), tối đa cấp 10. Mỗi cấp trên 1: sát thương +8%.
+**Sách, ghép sách.** Mỗi kỹ năng là những cuốn sách có cấp (`save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }`). Truyện phát cuốn đầu. Xong mỗi 5 nhiệm vụ chính (5, 10, 15...) nhận 1 **sách trống** (`save.knTrong`, `save.knMoc` số mốc đã nhận), chép vào kỹ năng nào đã học cũng được; người đã qua mốc nhận bù ngay khi vào game (người đang ở nhiệm vụ 23 nhận 4 cuốn). Hai cuốn cùng cấp ghép thành một cuốn cấp trên ("cứ gấp đôi lên": cấp n cần 2^(n−1) cuốn cấp 1), tối đa cấp 10. Mỗi cấp trên 1: sát thương +8%.
 
 **Khảm tính chất** (như khảm chiêu vào pháp bảo). Ô thứ 1, 2, 3 mở khi sách đạt cấp 2, 4, 6. Khảm, tháo tự do; không khảm trùng; mỗi tính chất hợp vài kiểu kỹ năng:
 
@@ -71,7 +72,7 @@ Người mới: lệnh truyện `{ "le_toc": "truong-thon" }` ngay sau lễ linh
 
 ## 5. Còn chờ chủ dự án
 
-1. **Máy chủ** (cần migration, chủ dự án duyệt): quay huyết mạch trên máy chủ và khoá kết quả (hiện quay trên máy người chơi như linh căn; game đã chừa `game.quayTocMayChu`); kiểm số sách kỹ năng và điểm tiềm năng khi lưu. Chưa có thì người sửa bản lưu tự cho mình sách cấp cao được: không đưa Kỹ năng lên game thật trước khi có phần này.
-2. **Nguồn sách thêm**: truyện mới phát cuốn đầu; sách rơi ở đâu, bao nhiêu thì chủ dự án chọn.
+1. **Máy chủ: đã viết, đã chạy thử, CHƯA ÁP** (`supabase/migrations/20261122030000_p2d_tiem_ky_nang.sql`): bảng `p2d_tiem_nang` giữ huyết mạch, hàm `p2d_quay_toc()` (máy khách gọi lúc làm lễ, `src/net/tiem-nang.js`), trigger `p2d_kiem_tiem_kn` kẹp điểm tiềm năng và kiểm tổng sách kỹ năng (sách quy cấp 1 + sách trống ≤ khoá học đã mở + mốc nhiệm vụ theo bước truyện), sai thì giữ bản cũ, trả về máy khách (`p2d.sua` → `tiem`, `kn`; `src/game/cloud-guard.js`), nghi vấn `tiem` / `kn_sach`. Chạy thử 22/11 trên máy chủ thật trong giao dịch huỷ ngược: tự kiểm tra đạt hết (3 000 lượt quay, sửa tộc, điểm lố, sách lố, mã lạ, sách trống lố, mốc lố); 396 nhân vật đã thức tỉnh sẽ được làm lễ; 0 bản lưu đang mang dữ liệu này; soát lại sau đó không còn gì sót. **Thứ tự đưa lên: áp migration trước rồi mới gộp PR**; gộp trước thì lễ quay tại máy và chưa có kiểm.
+2. **Nguồn sách thêm**: đã làm theo lời chủ dự án (mốc 5, 10, 15 nhiệm vụ chính).
 3. **Đo lại quái**: ba kỹ năng dùng đều tay thêm khoảng 40% sát thương so với chỉ đánh thường; đo bằng Tự đánh thật như đợt 16/11 rồi trình số.
 4. **Nghi lễ đổi tộc**, hình nhân vật riêng từng tộc: để sau.

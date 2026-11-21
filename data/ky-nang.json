@@ -1,5 +1,5 @@
 {
- "_note": "Kỹ năng (chủ dự án 21/11/2026 17:23, bảng câu hỏi 17:4x và 22/11 rạng sáng; docs/15-TIEM-NANG-KY-NANG.md): lớp chiêu hồi ngắn nằm giữa đánh thường và pháp bảo (pháp bảo hồi 60–150 giây là đòn lớn). Ba ô kỹ năng xếp HÀNG DỌC SÁT MÉP PHẢI, ngay trên khung dưới (lời chủ dự án); quản lý ở bảng Nhân vật → Công pháp → Kỹ năng. BỘ KỸ NĂNG MỚI THEO TRUYỆN (chủ dự án chọn 'Bộ mới theo truyện': giữ bộ máy và hiệu ứng, 48 chiêu cũ của data/skills.json vẫn xoá như đã bảo 13/11 và 21/11): mỗi kỹ năng do một người trong truyện dạy, khai ở chieu (cùng khuôn với data/skills.json: type, cd, mp, mult...; hinh: mượn hiệu ứng, biểu tượng, tiếng của một chiêu cũ; day: ai dạy). Lúc nạp game các kỹ năng này được đưa vào bảng chiêu của bộ máy (src/game/ky-nang.js knNap), KHÔNG ghi vào data/skills.json nên bảng cấu hình máy chủ không đổi. MỞ THEO TRUYỆN (hoc): lệnh truyện { ky_nang: 'khoá' } trong data/story.json phát cuốn đầu tiên: id = một kỹ năng; he = kỹ năng theo hệ linh căn của người chơi. NÂNG CẤP BẰNG GHÉP SÁCH (chủ dự án: 'Merger 2 cuốn thành 1 cuốn cấp 2, cứ gấp đôi lên'): mỗi kỹ năng là những cuốn sách có cấp; sach.ghep cuốn cùng cấp ghép thành 1 cuốn cấp trên, tới sach.max; cấp kỹ năng = cấp cuốn cao nhất đang có; mỗi cấp trên 1 cộng sach.per sát thương (kỹ năng hồi máu, khiên: sach.per_ho_tro). Lưu ở save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }. NGUỒN SÁCH THÊM (rơi ở đâu, bao nhiêu) CHƯA CÓ: chờ chủ dự án chọn, và máy chủ phải kiểm số sách trước khi mở. CÂN BẰNG: mỗi phát bằng khoảng 2–3 nhát chém, hồi 9–14 giây; ba kỹ năng đầu dùng đều tay thêm khoảng 40% sát thương so với chỉ đánh thường. Quái CHƯA đo lại theo mức này. KHẢM TÍNH CHẤT (kham): mỗi kỹ năng tối đa 3 ô, ô thứ i mở khi sách đạt cấp kham.o[i]; tính chất (tinh) mở theo tổng tầng tu at, khảm và tháo tự do, không khảm trùng; hop: kiểu chiêu khảm được (bỏ trống = mọi kiểu). Lưu ở save.knKham { mã: [tính chất, ...] }. Code: src/game/ky-nang.js, nút src/ui/ky-nang-hud.js, bảng src/ui/ky-nang-view.js. Hồi chiêu ba ô ở player.knCd (riêng, không chung với pháp bảo).",
+ "_note": "Kỹ năng (chủ dự án 21/11/2026 17:23, bảng câu hỏi 17:4x và 22/11 rạng sáng; docs/15-TIEM-NANG-KY-NANG.md): lớp chiêu hồi ngắn nằm giữa đánh thường và pháp bảo (pháp bảo hồi 60–150 giây là đòn lớn). Ba ô kỹ năng xếp HÀNG DỌC SÁT MÉP PHẢI, ngay trên khung dưới (lời chủ dự án); quản lý ở bảng Nhân vật → Công pháp → Kỹ năng. BỘ KỸ NĂNG MỚI THEO TRUYỆN (chủ dự án chọn 'Bộ mới theo truyện': giữ bộ máy và hiệu ứng, 48 chiêu cũ của data/skills.json vẫn xoá như đã bảo 13/11 và 21/11): mỗi kỹ năng do một người trong truyện dạy, khai ở chieu (cùng khuôn với data/skills.json: type, cd, mp, mult...; hinh: mượn hiệu ứng, biểu tượng, tiếng của một chiêu cũ; day: ai dạy). Lúc nạp game các kỹ năng này được đưa vào bảng chiêu của bộ máy (src/game/ky-nang.js knNap), KHÔNG ghi vào data/skills.json nên bảng cấu hình máy chủ không đổi. MỞ THEO TRUYỆN (hoc): lệnh truyện { ky_nang: 'khoá' } trong data/story.json phát cuốn đầu tiên: id = một kỹ năng; he = kỹ năng theo hệ linh căn của người chơi. NÂNG CẤP BẰNG GHÉP SÁCH (chủ dự án: 'Merger 2 cuốn thành 1 cuốn cấp 2, cứ gấp đôi lên'): mỗi kỹ năng là những cuốn sách có cấp; sach.ghep cuốn cùng cấp ghép thành 1 cuốn cấp trên, tới sach.max; cấp kỹ năng = cấp cuốn cao nhất đang có; mỗi cấp trên 1 cộng sach.per sát thương (kỹ năng hồi máu, khiên: sach.per_ho_tro). Lưu ở save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }. NGUỒN SÁCH THÊM (chủ dự án 22/11 rạng sáng: \"Chỉ làm nhiệm vụ tiến độ để nhận, sẽ nhận theo mốc chẵn 5 10 15\"): xong mỗi moc.moi nhiệm vụ chính (5, 10, 15...) nhận moc.sach SÁCH TRỐNG (save.knTrong; save.knMoc: số mốc đã nhận), chép vào kỹ năng nào đã học cũng được (thành một cuốn cấp 1). Người chơi cũ đã qua mốc nhận bù ngay. Máy chủ kiểm (migration 20261122030000_p2d_tiem_ky_nang.sql, bảng p2d_ky_cfg dòng 'tn' do tools/ky-cfg.mjs tn dựng): tổng sách quy ra cấp 1 cộng sách trống không vượt số khoá học đã mở cộng số mốc theo bước truyện. CÂN BẰNG: mỗi phát bằng khoảng 2–3 nhát chém, hồi 9–14 giây; ba kỹ năng đầu dùng đều tay thêm khoảng 40% sát thương so với chỉ đánh thường. Quái CHƯA đo lại theo mức này. KHẢM TÍNH CHẤT (kham): mỗi kỹ năng tối đa 3 ô, ô thứ i mở khi sách đạt cấp kham.o[i]; tính chất (tinh) mở theo tổng tầng tu at, khảm và tháo tự do, không khảm trùng; hop: kiểu chiêu khảm được (bỏ trống = mọi kiểu). Lưu ở save.knKham { mã: [tính chất, ...] }. Code: src/game/ky-nang.js, nút src/ui/ky-nang-hud.js, bảng src/ui/ky-nang-view.js. Hồi chiêu ba ô ở player.knCd (riêng, không chung với pháp bảo).",
  "on": true,
  "hoc": {
   "pha-van": {
@@ -134,13 +134,19 @@
   "hoi": "hồi {x} giây",
   "ton": "tốn {x} linh lực",
   "chua_mang": "Ô {i}",
-  "trong": "Trống"
+  "trong": "Sách trống: {n} cuốn (chép vào kỹ năng nào cũng được)",
+  "chep": "Chép sách trống vào {ten}",
+  "moc_toast": "Xong nhiệm vụ chính {nv}: nhận {n} sách kỹ năng trống. Mở Túi đồ → Công pháp → Kỹ năng để chép."
  },
  "sach": {
   "ghep": 2,
   "max": 10,
   "per": 0.08,
   "per_ho_tro": 0.04
+ },
+ "moc": {
+  "moi": 5,
+  "sach": 1
  },
  "chieu": {
   "pha-van-thuc": {

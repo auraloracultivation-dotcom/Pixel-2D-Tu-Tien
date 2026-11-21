@@ -72,6 +72,9 @@ export function applyFix(game, sent, sua) {
   // Linh thú, khôi lỗi, thú cưỡi, công pháp, thời trang, cấp chiêu, động phủ (migration 20261105120000_p2d_ky_thu, p2d_kiem_thu):
   // mã nào máy chủ trả thì lấy bản máy chủ; dòng thú cưỡi / thời trang mới máy chủ bốc cũng về đây (im: không có gì sai, khỏi báo)
   if (sua.thu) applyThu(game, sua.thu);
+  // Huyết mạch, điểm tiềm năng, sách Kỹ năng (migration 20261122030000_p2d_tiem_ky_nang.sql): lấy bản máy chủ
+  if (sua.tiem && typeof sua.tiem === 'object') s.tiem = sua.tiem;
+  if (sua.kn && typeof sua.kn === 'object') { for (const k of ['knSach', 'knTrong', 'knMoc']) { if (sua.kn[k] == null) delete s[k]; else s[k] = sua.kn[k]; } }
   game.refreshStats?.();
   if (game.player) game.player.hp = Math.min(game.player.hp, game.player.maxHp);
   const T = game.data.config.guard?.texts || {};

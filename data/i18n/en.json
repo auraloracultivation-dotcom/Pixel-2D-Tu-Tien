@@ -4844,5 +4844,8 @@
 "Linh căn Kim theo lửa lò vào lưỡi thép: ba lưỡi kim quang tỏa hình quạt, xuyên qua quái.": "Your Metal root followed the forge fire into the steel: three golden blades fan out and pierce through enemies.",
 "Thạch Nhận": "Stone Edge",
 "Linh căn Thổ theo lửa lò vào lưỡi thép: cắm lưỡi xuống đất, quái quanh mình choáng.": "Your Earth root followed the forge fire into the steel: drive the blade into the ground and stun enemies around you.",
-"A Lực": "A Li"
+"A Lực": "A Li",
+"Sách trống: {n} cuốn (chép vào kỹ năng nào cũng được)": "Blank books: {n} (copy into any skill you know)",
+"Chép sách trống vào {ten}": "Copy a blank book into {ten}",
+"Xong nhiệm vụ chính {nv}: nhận {n} sách kỹ năng trống. Mở Túi đồ → Công pháp → Kỹ năng để chép.": "Main quest {nv} done: received {n} blank skill book(s). Open Bag → Techniques → Skills to copy it."
 }

@@ -9,6 +9,7 @@ export const VOLATILE = new Set(['ss', 'clk', 'lastSeen', 'pb']);
 const FIX_KEYS = {
   realm: ['realm', 'layer', 'qi'], layer: ['realm', 'layer', 'qi'], qi: ['realm', 'layer', 'qi'],
   lingshi: ['lingshi'], mats: ['mats'], tran: ['lingshi', 'mats'], best: ['tower'], gems: ['gems'], mon: ['bag'], roi: ['bag', 'equip'],
+  tiem: ['tiem'], kn: ['knSach', 'knTrong', 'knMoc'],   // Tiềm năng, sách Kỹ năng (migration 20261122030000_p2d_tiem_ky_nang.sql)
   thu: ['pets', 'comps', 'mounts', 'mountLine', 'outfits', 'outfitLine', 'techs', 'techSlots', 'skillLv', 'caveLv', 'pet', 'mount', 'companion', 'companion2'],
 };
 

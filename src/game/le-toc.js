@@ -2,7 +2,8 @@
 // - Người mới: lệnh truyện { le_toc: 'truong-thon' } ngay sau lễ thức tỉnh linh căn ở Thanh Khê (data/story.json), trưởng thôn đứng lễ.
 // - Người đã thức tỉnh từ trước khi có Tiềm năng: lúc màn hình đang yên (không thoại, không bảng, không đang đánh) Hệ Thống báo và lễ tự mở, đúng một lần.
 // Kết quả quay ghi vào save.tiem rồi mới mở màn lễ (src/ui/le-toc.js): thoát game giữa lễ cũng không quay lại được lượt khác.
-// Hiện quay tại máy như linh căn. Khi máy chủ có hàm quay và khoá kết quả (cần migration, chờ chủ dự án) thì game.quayTocMayChu trả kết quả, dùng kết quả ấy.
+// Có tài khoản: máy chủ quay và giữ kết quả (src/net/tiem-nang.js, migration 20261122030000_p2d_tiem_ky_nang.sql). Chơi thử không tài khoản, hoặc máy chủ chưa trả
+// lời: quay tại máy; lúc lưu máy chủ quyết lại theo bảng của nó (cloud-guard.js nhận phần sửa).
 import { TN, tnOn, quay } from './tiem-nang.js';
 
 const tenAi = (game, ai) => (ai === 'truong-thon' ? game.data.npcs['truong-thon']?.name || '' : game.data['he-thong']?.short || game.data['he-thong']?.name || 'Hệ Thống');
@@ -31,6 +32,7 @@ export async function leToc(game, ai = 'he-thong') {
 
 export function createLeToc(game) {
   let yen = 0;
+  game.quayTocMayChu ??= async () => (game.cloud ? (await import('../net/tiem-nang.js')).quayToc() : null);
   setInterval(() => {
     const s = game.save;
     if (!tnOn(game.data) || !s?.element || s.tiem?.toc || game.leDang) { yen = 0; return; }

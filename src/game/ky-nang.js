@@ -5,7 +5,8 @@
 //   - SÁCH: mỗi kỹ năng là những cuốn sách có cấp (save.knSach { mã: [số cuốn cấp 1, cấp 2, ...] }). Truyện phát cuốn đầu (lệnh { ky_nang: 'khoá' } →
 //     hocKyNang). Hai cuốn cùng cấp ghép thành một cuốn cấp trên (ghepSach); cấp kỹ năng = cấp cuốn cao nhất đang có.
 //   - knDef: số liệu khi ra chiêu = kỹ năng gốc + thưởng theo cấp sách + các tính chất đang khảm (save.knKham). Ô khảm mở theo cấp sách.
-// Hồi chiêu ba ô nằm ở player.knCd (src/game/player.js), không chung với pháp bảo (player.skillCd).
+//   - MỐC: xong mỗi 5 nhiệm vụ chính nhận sách trống (save.knTrong), chép vào kỹ năng nào đã học cũng được (chepSach). knMocTick soát.
+// Hồi chiêu ba ô nằm ở player.knCd (src/game/player.js), không chung với pháp bảo (player.skillCd). Máy chủ kiểm tổng số sách (cloud-guard.js nhận phần sửa).
 import { pbOn } from './phap-bao.js';
 import { totalLayer } from './stats.js';
 
@@ -43,6 +44,22 @@ export function ghepSach(game, id, lv) {   // ghep cuốn cấp lv thành 1 cu�
   const a = game.save.knSach[id];
   a[lv - 1] -= KN(game.data).sach.ghep; while (a.length < lv + 1) a.push(0); a[lv] = (a[lv] | 0) + 1; cache.clear();
   return true;
+}
+
+// Mốc nhiệm vụ chính: đủ mỗi moc.moi nhiệm vụ nhận moc.sach sách trống. Chỉ tăng (save.knMoc: số mốc đã nhận). Gọi đều tay (src/ui/ky-nang-hud.js).
+export function knMocTick(game) {
+  const s = game.save, M = KN(game.data)?.moc;
+  if (!M || !knOn(game) || !s.element || !game.story?.nvXong) return;
+  const nv = game.story.nvXong(), co = Math.floor(nv / M.moi), da = s.knMoc | 0;
+  if (co <= da) return;
+  const n = (co - da) * M.sach;
+  s.knMoc = co; s.knTrong = (s.knTrong | 0) + n;
+  game.toast?.(KN(game.data).text.moc_toast.replace('{nv}', co * M.moi).replace('{n}', n), 5);
+  game.newSkills = true; game.persist?.();
+}
+export function chepSach(game, id) {   // một sách trống thành một cuốn cấp 1 của kỹ năng đã học
+  if ((game.save.knTrong | 0) < 1 || !knCap(game, id)) return false;
+  game.save.knTrong -= 1; return nhanSach(game, id);
 }
 
 // Kỹ năng đã học (có ít nhất một cuốn), theo thứ tự khai trong data; kỹ năng của người chơi này (đã học + sẽ học theo hệ linh căn) để bảng hiện cả ô khoá
