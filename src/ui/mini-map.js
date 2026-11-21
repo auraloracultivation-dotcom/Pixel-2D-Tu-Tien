@@ -44,7 +44,7 @@ export function createMiniMap(game) {
     const s = N / (R * 2), px = p.x / map.T, py = p.y / map.T;
     c.fillStyle = '#1a1028'; c.fillRect(0, 0, N, N);
     c.imageSmoothingEnabled = false;
-    c.drawImage(mini(game), (px - R) , (py - R), R * 2, R * 2, 0, 0, N, N);
+    const nen = mini(game); if (nen) c.drawImage(nen, (px - R) , (py - R), R * 2, R * 2, 0, 0, N, N);
     for (const m of marks(game)) {
       const x = (m.at[0] + 0.5 - px + R) * s, y = (m.at[1] + 0.5 - py + R) * s;
       if (x < 2 || y < 2 || x > N - 2 || y > N - 2) continue;
